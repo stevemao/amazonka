@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationAutoScaling.RegisterScalableTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,10 +58,10 @@ module Amazonka.ApplicationAutoScaling.RegisterScalableTarget
     newRegisterScalableTarget,
 
     -- * Request Lenses
-    registerScalableTarget_suspendedState,
     registerScalableTarget_maxCapacity,
     registerScalableTarget_minCapacity,
     registerScalableTarget_roleARN,
+    registerScalableTarget_suspendedState,
     registerScalableTarget_serviceNamespace,
     registerScalableTarget_resourceId,
     registerScalableTarget_scalableDimension,
@@ -77,37 +77,15 @@ where
 
 import Amazonka.ApplicationAutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newRegisterScalableTarget' smart constructor.
 data RegisterScalableTarget = RegisterScalableTarget'
-  { -- | An embedded object that contains attributes and attribute values that
-    -- are used to suspend and resume automatic scaling. Setting the value of
-    -- an attribute to @true@ suspends the specified scaling activities.
-    -- Setting it to @false@ (default) resumes the specified scaling
-    -- activities.
-    --
-    -- __Suspension Outcomes__
-    --
-    -- -   For @DynamicScalingInSuspended@, while a suspension is in effect,
-    --     all scale-in activities that are triggered by a scaling policy are
-    --     suspended.
-    --
-    -- -   For @DynamicScalingOutSuspended@, while a suspension is in effect,
-    --     all scale-out activities that are triggered by a scaling policy are
-    --     suspended.
-    --
-    -- -   For @ScheduledScalingSuspended@, while a suspension is in effect,
-    --     all scaling activities that involve scheduled actions are suspended.
-    --
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-suspend-resume-scaling.html Suspending and resuming scaling>
-    -- in the /Application Auto Scaling User Guide/.
-    suspendedState :: Prelude.Maybe SuspendedState,
-    -- | The maximum value that you plan to scale out to. When a scaling policy
+  { -- | The maximum value that you plan to scale out to. When a scaling policy
     -- is in effect, Application Auto Scaling can scale out (expand) as needed
     -- to the maximum capacity limit in response to changing demand. This
     -- property is required when registering a new scalable target.
@@ -141,6 +119,29 @@ data RegisterScalableTarget = RegisterScalableTarget'
     -- For more information, see
     -- <https://docs.aws.amazon.com/autoscaling/application/userguide/security_iam_service-with-iam.html#security_iam_service-with-iam-roles Application Auto Scaling IAM roles>.
     roleARN :: Prelude.Maybe Prelude.Text,
+    -- | An embedded object that contains attributes and attribute values that
+    -- are used to suspend and resume automatic scaling. Setting the value of
+    -- an attribute to @true@ suspends the specified scaling activities.
+    -- Setting it to @false@ (default) resumes the specified scaling
+    -- activities.
+    --
+    -- __Suspension Outcomes__
+    --
+    -- -   For @DynamicScalingInSuspended@, while a suspension is in effect,
+    --     all scale-in activities that are triggered by a scaling policy are
+    --     suspended.
+    --
+    -- -   For @DynamicScalingOutSuspended@, while a suspension is in effect,
+    --     all scale-out activities that are triggered by a scaling policy are
+    --     suspended.
+    --
+    -- -   For @ScheduledScalingSuspended@, while a suspension is in effect,
+    --     all scaling activities that involve scheduled actions are suspended.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-suspend-resume-scaling.html Suspending and resuming scaling>
+    -- in the /Application Auto Scaling User Guide/.
+    suspendedState :: Prelude.Maybe SuspendedState,
     -- | The namespace of the Amazon Web Services service that provides the
     -- resource. For a resource provided by your own application or service,
     -- use @custom-resource@ instead.
@@ -290,29 +291,6 @@ data RegisterScalableTarget = RegisterScalableTarget'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'suspendedState', 'registerScalableTarget_suspendedState' - An embedded object that contains attributes and attribute values that
--- are used to suspend and resume automatic scaling. Setting the value of
--- an attribute to @true@ suspends the specified scaling activities.
--- Setting it to @false@ (default) resumes the specified scaling
--- activities.
---
--- __Suspension Outcomes__
---
--- -   For @DynamicScalingInSuspended@, while a suspension is in effect,
---     all scale-in activities that are triggered by a scaling policy are
---     suspended.
---
--- -   For @DynamicScalingOutSuspended@, while a suspension is in effect,
---     all scale-out activities that are triggered by a scaling policy are
---     suspended.
---
--- -   For @ScheduledScalingSuspended@, while a suspension is in effect,
---     all scaling activities that involve scheduled actions are suspended.
---
--- For more information, see
--- <https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-suspend-resume-scaling.html Suspending and resuming scaling>
--- in the /Application Auto Scaling User Guide/.
---
 -- 'maxCapacity', 'registerScalableTarget_maxCapacity' - The maximum value that you plan to scale out to. When a scaling policy
 -- is in effect, Application Auto Scaling can scale out (expand) as needed
 -- to the maximum capacity limit in response to changing demand. This
@@ -346,6 +324,29 @@ data RegisterScalableTarget = RegisterScalableTarget'
 -- uses a service-linked role, which it creates if it does not yet exist.
 -- For more information, see
 -- <https://docs.aws.amazon.com/autoscaling/application/userguide/security_iam_service-with-iam.html#security_iam_service-with-iam-roles Application Auto Scaling IAM roles>.
+--
+-- 'suspendedState', 'registerScalableTarget_suspendedState' - An embedded object that contains attributes and attribute values that
+-- are used to suspend and resume automatic scaling. Setting the value of
+-- an attribute to @true@ suspends the specified scaling activities.
+-- Setting it to @false@ (default) resumes the specified scaling
+-- activities.
+--
+-- __Suspension Outcomes__
+--
+-- -   For @DynamicScalingInSuspended@, while a suspension is in effect,
+--     all scale-in activities that are triggered by a scaling policy are
+--     suspended.
+--
+-- -   For @DynamicScalingOutSuspended@, while a suspension is in effect,
+--     all scale-out activities that are triggered by a scaling policy are
+--     suspended.
+--
+-- -   For @ScheduledScalingSuspended@, while a suspension is in effect,
+--     all scaling activities that involve scheduled actions are suspended.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-suspend-resume-scaling.html Suspending and resuming scaling>
+-- in the /Application Auto Scaling User Guide/.
 --
 -- 'serviceNamespace', 'registerScalableTarget_serviceNamespace' - The namespace of the Amazon Web Services service that provides the
 -- resource. For a resource provided by your own application or service,
@@ -497,40 +498,15 @@ newRegisterScalableTarget
   pResourceId_
   pScalableDimension_ =
     RegisterScalableTarget'
-      { suspendedState =
+      { maxCapacity =
           Prelude.Nothing,
-        maxCapacity = Prelude.Nothing,
         minCapacity = Prelude.Nothing,
         roleARN = Prelude.Nothing,
+        suspendedState = Prelude.Nothing,
         serviceNamespace = pServiceNamespace_,
         resourceId = pResourceId_,
         scalableDimension = pScalableDimension_
       }
-
--- | An embedded object that contains attributes and attribute values that
--- are used to suspend and resume automatic scaling. Setting the value of
--- an attribute to @true@ suspends the specified scaling activities.
--- Setting it to @false@ (default) resumes the specified scaling
--- activities.
---
--- __Suspension Outcomes__
---
--- -   For @DynamicScalingInSuspended@, while a suspension is in effect,
---     all scale-in activities that are triggered by a scaling policy are
---     suspended.
---
--- -   For @DynamicScalingOutSuspended@, while a suspension is in effect,
---     all scale-out activities that are triggered by a scaling policy are
---     suspended.
---
--- -   For @ScheduledScalingSuspended@, while a suspension is in effect,
---     all scaling activities that involve scheduled actions are suspended.
---
--- For more information, see
--- <https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-suspend-resume-scaling.html Suspending and resuming scaling>
--- in the /Application Auto Scaling User Guide/.
-registerScalableTarget_suspendedState :: Lens.Lens' RegisterScalableTarget (Prelude.Maybe SuspendedState)
-registerScalableTarget_suspendedState = Lens.lens (\RegisterScalableTarget' {suspendedState} -> suspendedState) (\s@RegisterScalableTarget' {} a -> s {suspendedState = a} :: RegisterScalableTarget)
 
 -- | The maximum value that you plan to scale out to. When a scaling policy
 -- is in effect, Application Auto Scaling can scale out (expand) as needed
@@ -571,6 +547,31 @@ registerScalableTarget_minCapacity = Lens.lens (\RegisterScalableTarget' {minCap
 -- <https://docs.aws.amazon.com/autoscaling/application/userguide/security_iam_service-with-iam.html#security_iam_service-with-iam-roles Application Auto Scaling IAM roles>.
 registerScalableTarget_roleARN :: Lens.Lens' RegisterScalableTarget (Prelude.Maybe Prelude.Text)
 registerScalableTarget_roleARN = Lens.lens (\RegisterScalableTarget' {roleARN} -> roleARN) (\s@RegisterScalableTarget' {} a -> s {roleARN = a} :: RegisterScalableTarget)
+
+-- | An embedded object that contains attributes and attribute values that
+-- are used to suspend and resume automatic scaling. Setting the value of
+-- an attribute to @true@ suspends the specified scaling activities.
+-- Setting it to @false@ (default) resumes the specified scaling
+-- activities.
+--
+-- __Suspension Outcomes__
+--
+-- -   For @DynamicScalingInSuspended@, while a suspension is in effect,
+--     all scale-in activities that are triggered by a scaling policy are
+--     suspended.
+--
+-- -   For @DynamicScalingOutSuspended@, while a suspension is in effect,
+--     all scale-out activities that are triggered by a scaling policy are
+--     suspended.
+--
+-- -   For @ScheduledScalingSuspended@, while a suspension is in effect,
+--     all scaling activities that involve scheduled actions are suspended.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-suspend-resume-scaling.html Suspending and resuming scaling>
+-- in the /Application Auto Scaling User Guide/.
+registerScalableTarget_suspendedState :: Lens.Lens' RegisterScalableTarget (Prelude.Maybe SuspendedState)
+registerScalableTarget_suspendedState = Lens.lens (\RegisterScalableTarget' {suspendedState} -> suspendedState) (\s@RegisterScalableTarget' {} a -> s {suspendedState = a} :: RegisterScalableTarget)
 
 -- | The namespace of the Amazon Web Services service that provides the
 -- resource. For a resource provided by your own application or service,
@@ -720,7 +721,8 @@ instance Core.AWSRequest RegisterScalableTarget where
   type
     AWSResponse RegisterScalableTarget =
       RegisterScalableTargetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -730,60 +732,60 @@ instance Core.AWSRequest RegisterScalableTarget where
 
 instance Prelude.Hashable RegisterScalableTarget where
   hashWithSalt _salt RegisterScalableTarget' {..} =
-    _salt `Prelude.hashWithSalt` suspendedState
-      `Prelude.hashWithSalt` maxCapacity
+    _salt `Prelude.hashWithSalt` maxCapacity
       `Prelude.hashWithSalt` minCapacity
       `Prelude.hashWithSalt` roleARN
+      `Prelude.hashWithSalt` suspendedState
       `Prelude.hashWithSalt` serviceNamespace
       `Prelude.hashWithSalt` resourceId
       `Prelude.hashWithSalt` scalableDimension
 
 instance Prelude.NFData RegisterScalableTarget where
   rnf RegisterScalableTarget' {..} =
-    Prelude.rnf suspendedState
-      `Prelude.seq` Prelude.rnf maxCapacity
+    Prelude.rnf maxCapacity
       `Prelude.seq` Prelude.rnf minCapacity
       `Prelude.seq` Prelude.rnf roleARN
+      `Prelude.seq` Prelude.rnf suspendedState
       `Prelude.seq` Prelude.rnf serviceNamespace
       `Prelude.seq` Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf scalableDimension
 
-instance Core.ToHeaders RegisterScalableTarget where
+instance Data.ToHeaders RegisterScalableTarget where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AnyScaleFrontendService.RegisterScalableTarget" ::
+              Data.=# ( "AnyScaleFrontendService.RegisterScalableTarget" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterScalableTarget where
+instance Data.ToJSON RegisterScalableTarget where
   toJSON RegisterScalableTarget' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SuspendedState" Core..=)
+          [ ("MaxCapacity" Data..=) Prelude.<$> maxCapacity,
+            ("MinCapacity" Data..=) Prelude.<$> minCapacity,
+            ("RoleARN" Data..=) Prelude.<$> roleARN,
+            ("SuspendedState" Data..=)
               Prelude.<$> suspendedState,
-            ("MaxCapacity" Core..=) Prelude.<$> maxCapacity,
-            ("MinCapacity" Core..=) Prelude.<$> minCapacity,
-            ("RoleARN" Core..=) Prelude.<$> roleARN,
             Prelude.Just
-              ("ServiceNamespace" Core..= serviceNamespace),
-            Prelude.Just ("ResourceId" Core..= resourceId),
+              ("ServiceNamespace" Data..= serviceNamespace),
+            Prelude.Just ("ResourceId" Data..= resourceId),
             Prelude.Just
-              ("ScalableDimension" Core..= scalableDimension)
+              ("ScalableDimension" Data..= scalableDimension)
           ]
       )
 
-instance Core.ToPath RegisterScalableTarget where
+instance Data.ToPath RegisterScalableTarget where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterScalableTarget where
+instance Data.ToQuery RegisterScalableTarget where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRegisterScalableTargetResponse' smart constructor.

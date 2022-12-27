@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.AudioMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.AudioMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Metadata information about an audio stream. An array of @AudioMetadata@
@@ -31,12 +32,12 @@ import qualified Amazonka.Prelude as Prelude
 data AudioMetadata = AudioMetadata'
   { -- | The audio codec used to encode or decode the audio stream.
     codec :: Prelude.Maybe Prelude.Text,
-    -- | The sample rate for the audio stream.
-    sampleRate :: Prelude.Maybe Prelude.Natural,
+    -- | The duration of the audio stream in milliseconds.
+    durationMillis :: Prelude.Maybe Prelude.Natural,
     -- | The number of audio channels in the segment.
     numberOfChannels :: Prelude.Maybe Prelude.Natural,
-    -- | The duration of the audio stream in milliseconds.
-    durationMillis :: Prelude.Maybe Prelude.Natural
+    -- | The sample rate for the audio stream.
+    sampleRate :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,59 +51,59 @@ data AudioMetadata = AudioMetadata'
 --
 -- 'codec', 'audioMetadata_codec' - The audio codec used to encode or decode the audio stream.
 --
--- 'sampleRate', 'audioMetadata_sampleRate' - The sample rate for the audio stream.
+-- 'durationMillis', 'audioMetadata_durationMillis' - The duration of the audio stream in milliseconds.
 --
 -- 'numberOfChannels', 'audioMetadata_numberOfChannels' - The number of audio channels in the segment.
 --
--- 'durationMillis', 'audioMetadata_durationMillis' - The duration of the audio stream in milliseconds.
+-- 'sampleRate', 'audioMetadata_sampleRate' - The sample rate for the audio stream.
 newAudioMetadata ::
   AudioMetadata
 newAudioMetadata =
   AudioMetadata'
     { codec = Prelude.Nothing,
-      sampleRate = Prelude.Nothing,
+      durationMillis = Prelude.Nothing,
       numberOfChannels = Prelude.Nothing,
-      durationMillis = Prelude.Nothing
+      sampleRate = Prelude.Nothing
     }
 
 -- | The audio codec used to encode or decode the audio stream.
 audioMetadata_codec :: Lens.Lens' AudioMetadata (Prelude.Maybe Prelude.Text)
 audioMetadata_codec = Lens.lens (\AudioMetadata' {codec} -> codec) (\s@AudioMetadata' {} a -> s {codec = a} :: AudioMetadata)
 
--- | The sample rate for the audio stream.
-audioMetadata_sampleRate :: Lens.Lens' AudioMetadata (Prelude.Maybe Prelude.Natural)
-audioMetadata_sampleRate = Lens.lens (\AudioMetadata' {sampleRate} -> sampleRate) (\s@AudioMetadata' {} a -> s {sampleRate = a} :: AudioMetadata)
+-- | The duration of the audio stream in milliseconds.
+audioMetadata_durationMillis :: Lens.Lens' AudioMetadata (Prelude.Maybe Prelude.Natural)
+audioMetadata_durationMillis = Lens.lens (\AudioMetadata' {durationMillis} -> durationMillis) (\s@AudioMetadata' {} a -> s {durationMillis = a} :: AudioMetadata)
 
 -- | The number of audio channels in the segment.
 audioMetadata_numberOfChannels :: Lens.Lens' AudioMetadata (Prelude.Maybe Prelude.Natural)
 audioMetadata_numberOfChannels = Lens.lens (\AudioMetadata' {numberOfChannels} -> numberOfChannels) (\s@AudioMetadata' {} a -> s {numberOfChannels = a} :: AudioMetadata)
 
--- | The duration of the audio stream in milliseconds.
-audioMetadata_durationMillis :: Lens.Lens' AudioMetadata (Prelude.Maybe Prelude.Natural)
-audioMetadata_durationMillis = Lens.lens (\AudioMetadata' {durationMillis} -> durationMillis) (\s@AudioMetadata' {} a -> s {durationMillis = a} :: AudioMetadata)
+-- | The sample rate for the audio stream.
+audioMetadata_sampleRate :: Lens.Lens' AudioMetadata (Prelude.Maybe Prelude.Natural)
+audioMetadata_sampleRate = Lens.lens (\AudioMetadata' {sampleRate} -> sampleRate) (\s@AudioMetadata' {} a -> s {sampleRate = a} :: AudioMetadata)
 
-instance Core.FromJSON AudioMetadata where
+instance Data.FromJSON AudioMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AudioMetadata"
       ( \x ->
           AudioMetadata'
-            Prelude.<$> (x Core..:? "Codec")
-            Prelude.<*> (x Core..:? "SampleRate")
-            Prelude.<*> (x Core..:? "NumberOfChannels")
-            Prelude.<*> (x Core..:? "DurationMillis")
+            Prelude.<$> (x Data..:? "Codec")
+            Prelude.<*> (x Data..:? "DurationMillis")
+            Prelude.<*> (x Data..:? "NumberOfChannels")
+            Prelude.<*> (x Data..:? "SampleRate")
       )
 
 instance Prelude.Hashable AudioMetadata where
   hashWithSalt _salt AudioMetadata' {..} =
     _salt `Prelude.hashWithSalt` codec
-      `Prelude.hashWithSalt` sampleRate
-      `Prelude.hashWithSalt` numberOfChannels
       `Prelude.hashWithSalt` durationMillis
+      `Prelude.hashWithSalt` numberOfChannels
+      `Prelude.hashWithSalt` sampleRate
 
 instance Prelude.NFData AudioMetadata where
   rnf AudioMetadata' {..} =
     Prelude.rnf codec
-      `Prelude.seq` Prelude.rnf sampleRate
-      `Prelude.seq` Prelude.rnf numberOfChannels
       `Prelude.seq` Prelude.rnf durationMillis
+      `Prelude.seq` Prelude.rnf numberOfChannels
+      `Prelude.seq` Prelude.rnf sampleRate

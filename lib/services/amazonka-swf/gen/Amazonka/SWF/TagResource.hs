@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.TagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.SWF.TagResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,7 +95,8 @@ tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} 
 
 instance Core.AWSRequest TagResource where
   type AWSResponse TagResource = TagResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull TagResourceResponse'
 
 instance Prelude.Hashable TagResource where
@@ -107,34 +109,34 @@ instance Prelude.NFData TagResource where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagResource where
+instance Data.ToHeaders TagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SimpleWorkflowService.TagResource" ::
+              Data.=# ( "SimpleWorkflowService.TagResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TagResource where
+instance Data.ToJSON TagResource where
   toJSON TagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("resourceArn" Core..= resourceArn),
-            Prelude.Just ("tags" Core..= tags)
+          [ Prelude.Just ("resourceArn" Data..= resourceArn),
+            Prelude.Just ("tags" Data..= tags)
           ]
       )
 
-instance Core.ToPath TagResource where
+instance Data.ToPath TagResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TagResource where
+instance Data.ToQuery TagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTagResourceResponse' smart constructor.

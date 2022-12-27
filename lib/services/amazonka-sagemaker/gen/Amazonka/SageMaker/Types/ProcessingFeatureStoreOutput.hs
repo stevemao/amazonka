@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ProcessingFeatureStoreOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ProcessingFeatureStoreOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration for processing job outputs in Amazon SageMaker Feature
@@ -62,13 +63,13 @@ newProcessingFeatureStoreOutput pFeatureGroupName_ =
 processingFeatureStoreOutput_featureGroupName :: Lens.Lens' ProcessingFeatureStoreOutput Prelude.Text
 processingFeatureStoreOutput_featureGroupName = Lens.lens (\ProcessingFeatureStoreOutput' {featureGroupName} -> featureGroupName) (\s@ProcessingFeatureStoreOutput' {} a -> s {featureGroupName = a} :: ProcessingFeatureStoreOutput)
 
-instance Core.FromJSON ProcessingFeatureStoreOutput where
+instance Data.FromJSON ProcessingFeatureStoreOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProcessingFeatureStoreOutput"
       ( \x ->
           ProcessingFeatureStoreOutput'
-            Prelude.<$> (x Core..: "FeatureGroupName")
+            Prelude.<$> (x Data..: "FeatureGroupName")
       )
 
 instance
@@ -82,11 +83,11 @@ instance Prelude.NFData ProcessingFeatureStoreOutput where
   rnf ProcessingFeatureStoreOutput' {..} =
     Prelude.rnf featureGroupName
 
-instance Core.ToJSON ProcessingFeatureStoreOutput where
+instance Data.ToJSON ProcessingFeatureStoreOutput where
   toJSON ProcessingFeatureStoreOutput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("FeatureGroupName" Core..= featureGroupName)
+              ("FeatureGroupName" Data..= featureGroupName)
           ]
       )

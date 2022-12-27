@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceQuotas.ListRequestedServiceQuotaChangeHistory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.ServiceQuotas.ListRequestedServiceQuotaChangeHistory
     newListRequestedServiceQuotaChangeHistory,
 
     -- * Request Lenses
-    listRequestedServiceQuotaChangeHistory_status,
+    listRequestedServiceQuotaChangeHistory_maxResults,
     listRequestedServiceQuotaChangeHistory_nextToken,
     listRequestedServiceQuotaChangeHistory_serviceCode,
-    listRequestedServiceQuotaChangeHistory_maxResults,
+    listRequestedServiceQuotaChangeHistory_status,
 
     -- * Destructuring the Response
     ListRequestedServiceQuotaChangeHistoryResponse (..),
@@ -46,7 +46,8 @@ module Amazonka.ServiceQuotas.ListRequestedServiceQuotaChangeHistory
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,16 +55,16 @@ import Amazonka.ServiceQuotas.Types
 
 -- | /See:/ 'newListRequestedServiceQuotaChangeHistory' smart constructor.
 data ListRequestedServiceQuotaChangeHistory = ListRequestedServiceQuotaChangeHistory'
-  { -- | The status of the quota increase request.
-    status :: Prelude.Maybe RequestStatus,
+  { -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, if any, make another call with the token returned
+    -- from this call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The token for the next page of results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The service identifier.
     serviceCode :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return with a single call. To retrieve
-    -- the remaining results, if any, make another call with the token returned
-    -- from this call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | The status of the quota increase request.
+    status :: Prelude.Maybe RequestStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,29 +76,31 @@ data ListRequestedServiceQuotaChangeHistory = ListRequestedServiceQuotaChangeHis
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'listRequestedServiceQuotaChangeHistory_status' - The status of the quota increase request.
+-- 'maxResults', 'listRequestedServiceQuotaChangeHistory_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, if any, make another call with the token returned
+-- from this call.
 --
 -- 'nextToken', 'listRequestedServiceQuotaChangeHistory_nextToken' - The token for the next page of results.
 --
 -- 'serviceCode', 'listRequestedServiceQuotaChangeHistory_serviceCode' - The service identifier.
 --
--- 'maxResults', 'listRequestedServiceQuotaChangeHistory_maxResults' - The maximum number of results to return with a single call. To retrieve
--- the remaining results, if any, make another call with the token returned
--- from this call.
+-- 'status', 'listRequestedServiceQuotaChangeHistory_status' - The status of the quota increase request.
 newListRequestedServiceQuotaChangeHistory ::
   ListRequestedServiceQuotaChangeHistory
 newListRequestedServiceQuotaChangeHistory =
   ListRequestedServiceQuotaChangeHistory'
-    { status =
+    { maxResults =
         Prelude.Nothing,
       nextToken = Prelude.Nothing,
       serviceCode = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      status = Prelude.Nothing
     }
 
--- | The status of the quota increase request.
-listRequestedServiceQuotaChangeHistory_status :: Lens.Lens' ListRequestedServiceQuotaChangeHistory (Prelude.Maybe RequestStatus)
-listRequestedServiceQuotaChangeHistory_status = Lens.lens (\ListRequestedServiceQuotaChangeHistory' {status} -> status) (\s@ListRequestedServiceQuotaChangeHistory' {} a -> s {status = a} :: ListRequestedServiceQuotaChangeHistory)
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, if any, make another call with the token returned
+-- from this call.
+listRequestedServiceQuotaChangeHistory_maxResults :: Lens.Lens' ListRequestedServiceQuotaChangeHistory (Prelude.Maybe Prelude.Natural)
+listRequestedServiceQuotaChangeHistory_maxResults = Lens.lens (\ListRequestedServiceQuotaChangeHistory' {maxResults} -> maxResults) (\s@ListRequestedServiceQuotaChangeHistory' {} a -> s {maxResults = a} :: ListRequestedServiceQuotaChangeHistory)
 
 -- | The token for the next page of results.
 listRequestedServiceQuotaChangeHistory_nextToken :: Lens.Lens' ListRequestedServiceQuotaChangeHistory (Prelude.Maybe Prelude.Text)
@@ -107,11 +110,9 @@ listRequestedServiceQuotaChangeHistory_nextToken = Lens.lens (\ListRequestedServ
 listRequestedServiceQuotaChangeHistory_serviceCode :: Lens.Lens' ListRequestedServiceQuotaChangeHistory (Prelude.Maybe Prelude.Text)
 listRequestedServiceQuotaChangeHistory_serviceCode = Lens.lens (\ListRequestedServiceQuotaChangeHistory' {serviceCode} -> serviceCode) (\s@ListRequestedServiceQuotaChangeHistory' {} a -> s {serviceCode = a} :: ListRequestedServiceQuotaChangeHistory)
 
--- | The maximum number of results to return with a single call. To retrieve
--- the remaining results, if any, make another call with the token returned
--- from this call.
-listRequestedServiceQuotaChangeHistory_maxResults :: Lens.Lens' ListRequestedServiceQuotaChangeHistory (Prelude.Maybe Prelude.Natural)
-listRequestedServiceQuotaChangeHistory_maxResults = Lens.lens (\ListRequestedServiceQuotaChangeHistory' {maxResults} -> maxResults) (\s@ListRequestedServiceQuotaChangeHistory' {} a -> s {maxResults = a} :: ListRequestedServiceQuotaChangeHistory)
+-- | The status of the quota increase request.
+listRequestedServiceQuotaChangeHistory_status :: Lens.Lens' ListRequestedServiceQuotaChangeHistory (Prelude.Maybe RequestStatus)
+listRequestedServiceQuotaChangeHistory_status = Lens.lens (\ListRequestedServiceQuotaChangeHistory' {status} -> status) (\s@ListRequestedServiceQuotaChangeHistory' {} a -> s {status = a} :: ListRequestedServiceQuotaChangeHistory)
 
 instance
   Core.AWSPager
@@ -146,13 +147,14 @@ instance
     AWSResponse
       ListRequestedServiceQuotaChangeHistory =
       ListRequestedServiceQuotaChangeHistoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRequestedServiceQuotaChangeHistoryResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-              Prelude.<*> ( x Core..?> "RequestedQuotas"
+            Prelude.<$> (x Data..?> "NextToken")
+              Prelude.<*> ( x Data..?> "RequestedQuotas"
                               Core..!@ Prelude.mempty
                           )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -165,61 +167,61 @@ instance
   hashWithSalt
     _salt
     ListRequestedServiceQuotaChangeHistory' {..} =
-      _salt `Prelude.hashWithSalt` status
+      _salt `Prelude.hashWithSalt` maxResults
         `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` serviceCode
-        `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` status
 
 instance
   Prelude.NFData
     ListRequestedServiceQuotaChangeHistory
   where
   rnf ListRequestedServiceQuotaChangeHistory' {..} =
-    Prelude.rnf status
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf serviceCode
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf status
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListRequestedServiceQuotaChangeHistory
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ServiceQuotasV20190624.ListRequestedServiceQuotaChangeHistory" ::
+              Data.=# ( "ServiceQuotasV20190624.ListRequestedServiceQuotaChangeHistory" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ListRequestedServiceQuotaChangeHistory
   where
   toJSON ListRequestedServiceQuotaChangeHistory' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Status" Core..=) Prelude.<$> status,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("ServiceCode" Core..=) Prelude.<$> serviceCode,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("ServiceCode" Data..=) Prelude.<$> serviceCode,
+            ("Status" Data..=) Prelude.<$> status
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListRequestedServiceQuotaChangeHistory
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListRequestedServiceQuotaChangeHistory
   where
   toQuery = Prelude.const Prelude.mempty

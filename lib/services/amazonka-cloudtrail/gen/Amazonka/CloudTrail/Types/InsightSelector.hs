@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudTrail.Types.InsightSelector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudTrail.Types.InsightSelector where
 
 import Amazonka.CloudTrail.Types.InsightType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A JSON string that contains a list of insight types that are logged on a
@@ -29,8 +30,8 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newInsightSelector' smart constructor.
 data InsightSelector = InsightSelector'
-  { -- | The type of Insights events to log on a trail. The valid Insights type
-    -- in this release is @ApiCallRateInsight@.
+  { -- | The type of insights to log on a trail. @ApiCallRateInsight@ and
+    -- @ApiErrorRateInsight@ are valid insight types.
     insightType :: Prelude.Maybe InsightType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -43,25 +44,25 @@ data InsightSelector = InsightSelector'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'insightType', 'insightSelector_insightType' - The type of Insights events to log on a trail. The valid Insights type
--- in this release is @ApiCallRateInsight@.
+-- 'insightType', 'insightSelector_insightType' - The type of insights to log on a trail. @ApiCallRateInsight@ and
+-- @ApiErrorRateInsight@ are valid insight types.
 newInsightSelector ::
   InsightSelector
 newInsightSelector =
   InsightSelector' {insightType = Prelude.Nothing}
 
--- | The type of Insights events to log on a trail. The valid Insights type
--- in this release is @ApiCallRateInsight@.
+-- | The type of insights to log on a trail. @ApiCallRateInsight@ and
+-- @ApiErrorRateInsight@ are valid insight types.
 insightSelector_insightType :: Lens.Lens' InsightSelector (Prelude.Maybe InsightType)
 insightSelector_insightType = Lens.lens (\InsightSelector' {insightType} -> insightType) (\s@InsightSelector' {} a -> s {insightType = a} :: InsightSelector)
 
-instance Core.FromJSON InsightSelector where
+instance Data.FromJSON InsightSelector where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InsightSelector"
       ( \x ->
           InsightSelector'
-            Prelude.<$> (x Core..:? "InsightType")
+            Prelude.<$> (x Data..:? "InsightType")
       )
 
 instance Prelude.Hashable InsightSelector where
@@ -71,9 +72,9 @@ instance Prelude.Hashable InsightSelector where
 instance Prelude.NFData InsightSelector where
   rnf InsightSelector' {..} = Prelude.rnf insightType
 
-instance Core.ToJSON InsightSelector where
+instance Data.ToJSON InsightSelector where
   toJSON InsightSelector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("InsightType" Core..=) Prelude.<$> insightType]
+          [("InsightType" Data..=) Prelude.<$> insightType]
       )

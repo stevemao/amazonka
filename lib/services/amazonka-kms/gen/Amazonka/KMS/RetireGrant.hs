@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.RetireGrant
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,14 +28,14 @@
 --
 -- This operation can be called by the /retiring principal/ for a grant, by
 -- the /grantee principal/ if the grant allows the @RetireGrant@ operation,
--- and by the Amazon Web Services account (root user) in which the grant is
--- created. It can also be called by principals to whom permission for
--- retiring a grant is delegated. For details, see
+-- and by the Amazon Web Services account in which the grant is created. It
+-- can also be called by principals to whom permission for retiring a grant
+-- is delegated. For details, see
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/grant-manage.html#grant-delete Retiring and revoking grants>
 -- in the /Key Management Service Developer Guide/.
 --
 -- For detailed information about grants, including grant terminology, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/grants.html Using grants>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/grants.html Grants in KMS>
 -- in the //Key Management Service Developer Guide// . For examples of
 -- working with grants in several programming languages, see
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/programming-grants.html Programming grants>.
@@ -63,9 +63,9 @@ module Amazonka.KMS.RetireGrant
     newRetireGrant,
 
     -- * Request Lenses
-    retireGrant_keyId,
     retireGrant_grantId,
     retireGrant_grantToken,
+    retireGrant_keyId,
 
     -- * Destructuring the Response
     RetireGrantResponse (..),
@@ -74,21 +74,16 @@ module Amazonka.KMS.RetireGrant
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newRetireGrant' smart constructor.
 data RetireGrant = RetireGrant'
-  { -- | The key ARN KMS key associated with the grant. To find the key ARN, use
-    -- the ListKeys operation.
-    --
-    -- For example:
-    -- @arn:aws:kms:us-east-2:444455556666:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
-    keyId :: Prelude.Maybe Prelude.Text,
-    -- | Identifies the grant to retire. To get the grant ID, use CreateGrant,
+  { -- | Identifies the grant to retire. To get the grant ID, use CreateGrant,
     -- ListGrants, or ListRetirableGrants.
     --
     -- -   Grant ID Example -
@@ -102,7 +97,13 @@ data RetireGrant = RetireGrant'
     -- and
     -- <https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-eventual-consistency Eventual consistency>
     -- in the /Key Management Service Developer Guide/.
-    grantToken :: Prelude.Maybe Prelude.Text
+    grantToken :: Prelude.Maybe Prelude.Text,
+    -- | The key ARN KMS key associated with the grant. To find the key ARN, use
+    -- the ListKeys operation.
+    --
+    -- For example:
+    -- @arn:aws:kms:us-east-2:444455556666:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+    keyId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -113,12 +114,6 @@ data RetireGrant = RetireGrant'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'keyId', 'retireGrant_keyId' - The key ARN KMS key associated with the grant. To find the key ARN, use
--- the ListKeys operation.
---
--- For example:
--- @arn:aws:kms:us-east-2:444455556666:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
 --
 -- 'grantId', 'retireGrant_grantId' - Identifies the grant to retire. To get the grant ID, use CreateGrant,
 -- ListGrants, or ListRetirableGrants.
@@ -134,22 +129,20 @@ data RetireGrant = RetireGrant'
 -- and
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/grants.html#terms-eventual-consistency Eventual consistency>
 -- in the /Key Management Service Developer Guide/.
-newRetireGrant ::
-  RetireGrant
-newRetireGrant =
-  RetireGrant'
-    { keyId = Prelude.Nothing,
-      grantId = Prelude.Nothing,
-      grantToken = Prelude.Nothing
-    }
-
--- | The key ARN KMS key associated with the grant. To find the key ARN, use
+--
+-- 'keyId', 'retireGrant_keyId' - The key ARN KMS key associated with the grant. To find the key ARN, use
 -- the ListKeys operation.
 --
 -- For example:
 -- @arn:aws:kms:us-east-2:444455556666:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
-retireGrant_keyId :: Lens.Lens' RetireGrant (Prelude.Maybe Prelude.Text)
-retireGrant_keyId = Lens.lens (\RetireGrant' {keyId} -> keyId) (\s@RetireGrant' {} a -> s {keyId = a} :: RetireGrant)
+newRetireGrant ::
+  RetireGrant
+newRetireGrant =
+  RetireGrant'
+    { grantId = Prelude.Nothing,
+      grantToken = Prelude.Nothing,
+      keyId = Prelude.Nothing
+    }
 
 -- | Identifies the grant to retire. To get the grant ID, use CreateGrant,
 -- ListGrants, or ListRetirableGrants.
@@ -170,50 +163,59 @@ retireGrant_grantId = Lens.lens (\RetireGrant' {grantId} -> grantId) (\s@RetireG
 retireGrant_grantToken :: Lens.Lens' RetireGrant (Prelude.Maybe Prelude.Text)
 retireGrant_grantToken = Lens.lens (\RetireGrant' {grantToken} -> grantToken) (\s@RetireGrant' {} a -> s {grantToken = a} :: RetireGrant)
 
+-- | The key ARN KMS key associated with the grant. To find the key ARN, use
+-- the ListKeys operation.
+--
+-- For example:
+-- @arn:aws:kms:us-east-2:444455556666:key\/1234abcd-12ab-34cd-56ef-1234567890ab@
+retireGrant_keyId :: Lens.Lens' RetireGrant (Prelude.Maybe Prelude.Text)
+retireGrant_keyId = Lens.lens (\RetireGrant' {keyId} -> keyId) (\s@RetireGrant' {} a -> s {keyId = a} :: RetireGrant)
+
 instance Core.AWSRequest RetireGrant where
   type AWSResponse RetireGrant = RetireGrantResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull RetireGrantResponse'
 
 instance Prelude.Hashable RetireGrant where
   hashWithSalt _salt RetireGrant' {..} =
-    _salt `Prelude.hashWithSalt` keyId
-      `Prelude.hashWithSalt` grantId
+    _salt `Prelude.hashWithSalt` grantId
       `Prelude.hashWithSalt` grantToken
+      `Prelude.hashWithSalt` keyId
 
 instance Prelude.NFData RetireGrant where
   rnf RetireGrant' {..} =
-    Prelude.rnf keyId
-      `Prelude.seq` Prelude.rnf grantId
+    Prelude.rnf grantId
       `Prelude.seq` Prelude.rnf grantToken
+      `Prelude.seq` Prelude.rnf keyId
 
-instance Core.ToHeaders RetireGrant where
+instance Data.ToHeaders RetireGrant where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("TrentService.RetireGrant" :: Prelude.ByteString),
+              Data.=# ("TrentService.RetireGrant" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RetireGrant where
+instance Data.ToJSON RetireGrant where
   toJSON RetireGrant' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KeyId" Core..=) Prelude.<$> keyId,
-            ("GrantId" Core..=) Prelude.<$> grantId,
-            ("GrantToken" Core..=) Prelude.<$> grantToken
+          [ ("GrantId" Data..=) Prelude.<$> grantId,
+            ("GrantToken" Data..=) Prelude.<$> grantToken,
+            ("KeyId" Data..=) Prelude.<$> keyId
           ]
       )
 
-instance Core.ToPath RetireGrant where
+instance Data.ToPath RetireGrant where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RetireGrant where
+instance Data.ToQuery RetireGrant where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRetireGrantResponse' smart constructor.

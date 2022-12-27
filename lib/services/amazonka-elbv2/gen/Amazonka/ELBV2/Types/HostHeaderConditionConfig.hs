@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.Types.HostHeaderConditionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,17 @@
 module Amazonka.ELBV2.Types.HostHeaderConditionConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a host header condition.
 --
 -- /See:/ 'newHostHeaderConditionConfig' smart constructor.
 data HostHeaderConditionConfig = HostHeaderConditionConfig'
-  { -- | One or more host names. The maximum size of each name is 128 characters.
-    -- The comparison is case insensitive. The following wildcard characters
-    -- are supported: * (matches 0 or more characters) and ? (matches exactly 1
+  { -- | The host names. The maximum size of each name is 128 characters. The
+    -- comparison is case insensitive. The following wildcard characters are
+    -- supported: * (matches 0 or more characters) and ? (matches exactly 1
     -- character).
     --
     -- If you specify multiple strings, the condition is satisfied if one of
@@ -46,9 +47,9 @@ data HostHeaderConditionConfig = HostHeaderConditionConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'values', 'hostHeaderConditionConfig_values' - One or more host names. The maximum size of each name is 128 characters.
--- The comparison is case insensitive. The following wildcard characters
--- are supported: * (matches 0 or more characters) and ? (matches exactly 1
+-- 'values', 'hostHeaderConditionConfig_values' - The host names. The maximum size of each name is 128 characters. The
+-- comparison is case insensitive. The following wildcard characters are
+-- supported: * (matches 0 or more characters) and ? (matches exactly 1
 -- character).
 --
 -- If you specify multiple strings, the condition is satisfied if one of
@@ -61,9 +62,9 @@ newHostHeaderConditionConfig =
         Prelude.Nothing
     }
 
--- | One or more host names. The maximum size of each name is 128 characters.
--- The comparison is case insensitive. The following wildcard characters
--- are supported: * (matches 0 or more characters) and ? (matches exactly 1
+-- | The host names. The maximum size of each name is 128 characters. The
+-- comparison is case insensitive. The following wildcard characters are
+-- supported: * (matches 0 or more characters) and ? (matches exactly 1
 -- character).
 --
 -- If you specify multiple strings, the condition is satisfied if one of
@@ -71,11 +72,11 @@ newHostHeaderConditionConfig =
 hostHeaderConditionConfig_values :: Lens.Lens' HostHeaderConditionConfig (Prelude.Maybe [Prelude.Text])
 hostHeaderConditionConfig_values = Lens.lens (\HostHeaderConditionConfig' {values} -> values) (\s@HostHeaderConditionConfig' {} a -> s {values = a} :: HostHeaderConditionConfig) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML HostHeaderConditionConfig where
+instance Data.FromXML HostHeaderConditionConfig where
   parseXML x =
     HostHeaderConditionConfig'
-      Prelude.<$> ( x Core..@? "Values" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+      Prelude.<$> ( x Data..@? "Values" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
 
 instance Prelude.Hashable HostHeaderConditionConfig where
@@ -86,10 +87,10 @@ instance Prelude.NFData HostHeaderConditionConfig where
   rnf HostHeaderConditionConfig' {..} =
     Prelude.rnf values
 
-instance Core.ToQuery HostHeaderConditionConfig where
+instance Data.ToQuery HostHeaderConditionConfig where
   toQuery HostHeaderConditionConfig' {..} =
     Prelude.mconcat
       [ "Values"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> values)
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> values)
       ]

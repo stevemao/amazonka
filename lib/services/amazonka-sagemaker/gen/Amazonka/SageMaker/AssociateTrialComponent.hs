@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.AssociateTrialComponent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.SageMaker.AssociateTrialComponent
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,13 +98,14 @@ instance Core.AWSRequest AssociateTrialComponent where
   type
     AWSResponse AssociateTrialComponent =
       AssociateTrialComponentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AssociateTrialComponentResponse'
-            Prelude.<$> (x Core..?> "TrialArn")
-            Prelude.<*> (x Core..?> "TrialComponentArn")
+            Prelude.<$> (x Data..?> "TrialArn")
+            Prelude.<*> (x Data..?> "TrialComponentArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,42 +119,42 @@ instance Prelude.NFData AssociateTrialComponent where
     Prelude.rnf trialComponentName
       `Prelude.seq` Prelude.rnf trialName
 
-instance Core.ToHeaders AssociateTrialComponent where
+instance Data.ToHeaders AssociateTrialComponent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.AssociateTrialComponent" ::
+              Data.=# ( "SageMaker.AssociateTrialComponent" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateTrialComponent where
+instance Data.ToJSON AssociateTrialComponent where
   toJSON AssociateTrialComponent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("TrialComponentName" Core..= trialComponentName),
-            Prelude.Just ("TrialName" Core..= trialName)
+              ("TrialComponentName" Data..= trialComponentName),
+            Prelude.Just ("TrialName" Data..= trialName)
           ]
       )
 
-instance Core.ToPath AssociateTrialComponent where
+instance Data.ToPath AssociateTrialComponent where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateTrialComponent where
+instance Data.ToQuery AssociateTrialComponent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateTrialComponentResponse' smart constructor.
 data AssociateTrialComponentResponse = AssociateTrialComponentResponse'
   { -- | The Amazon Resource Name (ARN) of the trial.
     trialArn :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the trial component.
+    -- | The Amazon Resource Name (ARN) of the trial component.
     trialComponentArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -169,7 +171,7 @@ data AssociateTrialComponentResponse = AssociateTrialComponentResponse'
 --
 -- 'trialArn', 'associateTrialComponentResponse_trialArn' - The Amazon Resource Name (ARN) of the trial.
 --
--- 'trialComponentArn', 'associateTrialComponentResponse_trialComponentArn' - The ARN of the trial component.
+-- 'trialComponentArn', 'associateTrialComponentResponse_trialComponentArn' - The Amazon Resource Name (ARN) of the trial component.
 --
 -- 'httpStatus', 'associateTrialComponentResponse_httpStatus' - The response's http status code.
 newAssociateTrialComponentResponse ::
@@ -188,7 +190,7 @@ newAssociateTrialComponentResponse pHttpStatus_ =
 associateTrialComponentResponse_trialArn :: Lens.Lens' AssociateTrialComponentResponse (Prelude.Maybe Prelude.Text)
 associateTrialComponentResponse_trialArn = Lens.lens (\AssociateTrialComponentResponse' {trialArn} -> trialArn) (\s@AssociateTrialComponentResponse' {} a -> s {trialArn = a} :: AssociateTrialComponentResponse)
 
--- | The ARN of the trial component.
+-- | The Amazon Resource Name (ARN) of the trial component.
 associateTrialComponentResponse_trialComponentArn :: Lens.Lens' AssociateTrialComponentResponse (Prelude.Maybe Prelude.Text)
 associateTrialComponentResponse_trialComponentArn = Lens.lens (\AssociateTrialComponentResponse' {trialComponentArn} -> trialComponentArn) (\s@AssociateTrialComponentResponse' {} a -> s {trialComponentArn = a} :: AssociateTrialComponentResponse)
 

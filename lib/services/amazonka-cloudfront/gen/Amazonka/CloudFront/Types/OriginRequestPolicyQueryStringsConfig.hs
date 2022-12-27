@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.OriginRequestPolicyQueryStringsConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudFront.Types.OriginRequestPolicyQueryStringsConfig where
 import Amazonka.CloudFront.Types.OriginRequestPolicyQueryStringBehavior
 import Amazonka.CloudFront.Types.QueryStringNames
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that determines whether any URL query strings in viewer
@@ -113,13 +114,13 @@ originRequestPolicyQueryStringsConfig_queryStringBehavior :: Lens.Lens' OriginRe
 originRequestPolicyQueryStringsConfig_queryStringBehavior = Lens.lens (\OriginRequestPolicyQueryStringsConfig' {queryStringBehavior} -> queryStringBehavior) (\s@OriginRequestPolicyQueryStringsConfig' {} a -> s {queryStringBehavior = a} :: OriginRequestPolicyQueryStringsConfig)
 
 instance
-  Core.FromXML
+  Data.FromXML
     OriginRequestPolicyQueryStringsConfig
   where
   parseXML x =
     OriginRequestPolicyQueryStringsConfig'
-      Prelude.<$> (x Core..@? "QueryStrings")
-      Prelude.<*> (x Core..@ "QueryStringBehavior")
+      Prelude.<$> (x Data..@? "QueryStrings")
+      Prelude.<*> (x Data..@ "QueryStringBehavior")
 
 instance
   Prelude.Hashable
@@ -140,11 +141,11 @@ instance
       `Prelude.seq` Prelude.rnf queryStringBehavior
 
 instance
-  Core.ToXML
+  Data.ToXML
     OriginRequestPolicyQueryStringsConfig
   where
   toXML OriginRequestPolicyQueryStringsConfig' {..} =
     Prelude.mconcat
-      [ "QueryStrings" Core.@= queryStrings,
-        "QueryStringBehavior" Core.@= queryStringBehavior
+      [ "QueryStrings" Data.@= queryStrings,
+        "QueryStringBehavior" Data.@= queryStringBehavior
       ]

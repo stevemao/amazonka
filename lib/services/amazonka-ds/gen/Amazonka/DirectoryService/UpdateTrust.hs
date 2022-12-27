@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.UpdateTrust
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.DirectoryService.UpdateTrust
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,13 +90,14 @@ updateTrust_trustId = Lens.lens (\UpdateTrust' {trustId} -> trustId) (\s@UpdateT
 
 instance Core.AWSRequest UpdateTrust where
   type AWSResponse UpdateTrust = UpdateTrustResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateTrustResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "TrustId")
+            Prelude.<$> (x Data..?> "RequestId")
+            Prelude.<*> (x Data..?> "TrustId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,34 +111,34 @@ instance Prelude.NFData UpdateTrust where
     Prelude.rnf selectiveAuth
       `Prelude.seq` Prelude.rnf trustId
 
-instance Core.ToHeaders UpdateTrust where
+instance Data.ToHeaders UpdateTrust where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.UpdateTrust" ::
+              Data.=# ( "DirectoryService_20150416.UpdateTrust" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateTrust where
+instance Data.ToJSON UpdateTrust where
   toJSON UpdateTrust' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SelectiveAuth" Core..=) Prelude.<$> selectiveAuth,
-            Prelude.Just ("TrustId" Core..= trustId)
+          [ ("SelectiveAuth" Data..=) Prelude.<$> selectiveAuth,
+            Prelude.Just ("TrustId" Data..= trustId)
           ]
       )
 
-instance Core.ToPath UpdateTrust where
+instance Data.ToPath UpdateTrust where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateTrust where
+instance Data.ToQuery UpdateTrust where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateTrustResponse' smart constructor.

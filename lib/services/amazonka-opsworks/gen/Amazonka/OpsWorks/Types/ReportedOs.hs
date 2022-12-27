@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.Types.ReportedOs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.OpsWorks.Types.ReportedOs where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A registered instance\'s reported operating system.
@@ -70,15 +71,15 @@ reportedOs_name = Lens.lens (\ReportedOs' {name} -> name) (\s@ReportedOs' {} a -
 reportedOs_version :: Lens.Lens' ReportedOs (Prelude.Maybe Prelude.Text)
 reportedOs_version = Lens.lens (\ReportedOs' {version} -> version) (\s@ReportedOs' {} a -> s {version = a} :: ReportedOs)
 
-instance Core.FromJSON ReportedOs where
+instance Data.FromJSON ReportedOs where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReportedOs"
       ( \x ->
           ReportedOs'
-            Prelude.<$> (x Core..:? "Family")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Version")
+            Prelude.<$> (x Data..:? "Family")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "Version")
       )
 
 instance Prelude.Hashable ReportedOs where

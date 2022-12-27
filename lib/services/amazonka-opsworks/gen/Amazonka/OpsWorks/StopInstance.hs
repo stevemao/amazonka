@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.StopInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.OpsWorks.StopInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -111,7 +112,8 @@ stopInstance_instanceId = Lens.lens (\StopInstance' {instanceId} -> instanceId) 
 
 instance Core.AWSRequest StopInstance where
   type AWSResponse StopInstance = StopInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull StopInstanceResponse'
 
 instance Prelude.Hashable StopInstance where
@@ -124,34 +126,34 @@ instance Prelude.NFData StopInstance where
     Prelude.rnf force
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders StopInstance where
+instance Data.ToHeaders StopInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.StopInstance" ::
+              Data.=# ( "OpsWorks_20130218.StopInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopInstance where
+instance Data.ToJSON StopInstance where
   toJSON StopInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Force" Core..=) Prelude.<$> force,
-            Prelude.Just ("InstanceId" Core..= instanceId)
+          [ ("Force" Data..=) Prelude.<$> force,
+            Prelude.Just ("InstanceId" Data..= instanceId)
           ]
       )
 
-instance Core.ToPath StopInstance where
+instance Data.ToPath StopInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopInstance where
+instance Data.ToQuery StopInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopInstanceResponse' smart constructor.

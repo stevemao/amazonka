@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateExperiment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,8 +52,8 @@ module Amazonka.SageMaker.CreateExperiment
     newCreateExperiment,
 
     -- * Request Lenses
-    createExperiment_displayName,
     createExperiment_description,
+    createExperiment_displayName,
     createExperiment_tags,
     createExperiment_experimentName,
 
@@ -68,7 +68,8 @@ module Amazonka.SageMaker.CreateExperiment
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,12 +77,12 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newCreateExperiment' smart constructor.
 data CreateExperiment = CreateExperiment'
-  { -- | The name of the experiment as displayed. The name doesn\'t need to be
+  { -- | The description of the experiment.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the experiment as displayed. The name doesn\'t need to be
     -- unique. If you don\'t specify @DisplayName@, the value in
     -- @ExperimentName@ is displayed.
     displayName :: Prelude.Maybe Prelude.Text,
-    -- | The description of the experiment.
-    description :: Prelude.Maybe Prelude.Text,
     -- | A list of tags to associate with the experiment. You can use Search API
     -- to search on the tags.
     tags :: Prelude.Maybe [Tag],
@@ -99,11 +100,11 @@ data CreateExperiment = CreateExperiment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createExperiment_description' - The description of the experiment.
+--
 -- 'displayName', 'createExperiment_displayName' - The name of the experiment as displayed. The name doesn\'t need to be
 -- unique. If you don\'t specify @DisplayName@, the value in
 -- @ExperimentName@ is displayed.
---
--- 'description', 'createExperiment_description' - The description of the experiment.
 --
 -- 'tags', 'createExperiment_tags' - A list of tags to associate with the experiment. You can use Search API
 -- to search on the tags.
@@ -116,21 +117,21 @@ newCreateExperiment ::
   CreateExperiment
 newCreateExperiment pExperimentName_ =
   CreateExperiment'
-    { displayName = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      displayName = Prelude.Nothing,
       tags = Prelude.Nothing,
       experimentName = pExperimentName_
     }
+
+-- | The description of the experiment.
+createExperiment_description :: Lens.Lens' CreateExperiment (Prelude.Maybe Prelude.Text)
+createExperiment_description = Lens.lens (\CreateExperiment' {description} -> description) (\s@CreateExperiment' {} a -> s {description = a} :: CreateExperiment)
 
 -- | The name of the experiment as displayed. The name doesn\'t need to be
 -- unique. If you don\'t specify @DisplayName@, the value in
 -- @ExperimentName@ is displayed.
 createExperiment_displayName :: Lens.Lens' CreateExperiment (Prelude.Maybe Prelude.Text)
 createExperiment_displayName = Lens.lens (\CreateExperiment' {displayName} -> displayName) (\s@CreateExperiment' {} a -> s {displayName = a} :: CreateExperiment)
-
--- | The description of the experiment.
-createExperiment_description :: Lens.Lens' CreateExperiment (Prelude.Maybe Prelude.Text)
-createExperiment_description = Lens.lens (\CreateExperiment' {description} -> description) (\s@CreateExperiment' {} a -> s {description = a} :: CreateExperiment)
 
 -- | A list of tags to associate with the experiment. You can use Search API
 -- to search on the tags.
@@ -146,58 +147,59 @@ instance Core.AWSRequest CreateExperiment where
   type
     AWSResponse CreateExperiment =
       CreateExperimentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateExperimentResponse'
-            Prelude.<$> (x Core..?> "ExperimentArn")
+            Prelude.<$> (x Data..?> "ExperimentArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateExperiment where
   hashWithSalt _salt CreateExperiment' {..} =
-    _salt `Prelude.hashWithSalt` displayName
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` displayName
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` experimentName
 
 instance Prelude.NFData CreateExperiment where
   rnf CreateExperiment' {..} =
-    Prelude.rnf displayName
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf displayName
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf experimentName
 
-instance Core.ToHeaders CreateExperiment where
+instance Data.ToHeaders CreateExperiment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.CreateExperiment" :: Prelude.ByteString),
+              Data.=# ("SageMaker.CreateExperiment" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateExperiment where
+instance Data.ToJSON CreateExperiment where
   toJSON CreateExperiment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DisplayName" Core..=) Prelude.<$> displayName,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("DisplayName" Data..=) Prelude.<$> displayName,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("ExperimentName" Core..= experimentName)
+              ("ExperimentName" Data..= experimentName)
           ]
       )
 
-instance Core.ToPath CreateExperiment where
+instance Data.ToPath CreateExperiment where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateExperiment where
+instance Data.ToQuery CreateExperiment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateExperimentResponse' smart constructor.

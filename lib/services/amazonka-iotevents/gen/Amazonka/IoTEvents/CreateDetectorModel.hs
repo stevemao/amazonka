@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.CreateDetectorModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.IoTEvents.CreateDetectorModel
 
     -- * Request Lenses
     createDetectorModel_detectorModelDescription,
-    createDetectorModel_key,
     createDetectorModel_evaluationMethod,
+    createDetectorModel_key,
     createDetectorModel_tags,
     createDetectorModel_detectorModelName,
     createDetectorModel_detectorModelDefinition,
@@ -46,8 +46,9 @@ module Amazonka.IoTEvents.CreateDetectorModel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,6 +57,9 @@ import qualified Amazonka.Response as Response
 data CreateDetectorModel = CreateDetectorModel'
   { -- | A brief description of the detector model.
     detectorModelDescription :: Prelude.Maybe Prelude.Text,
+    -- | Information about the order in which events are evaluated and how
+    -- actions are executed.
+    evaluationMethod :: Prelude.Maybe EvaluationMethod,
     -- | The input attribute key used to identify a device or system to create a
     -- detector (an instance of the detector model) and then to route each
     -- input received to the appropriate detector (instance). This parameter
@@ -63,9 +67,6 @@ data CreateDetectorModel = CreateDetectorModel'
     -- specify the attribute-value pair that is used to identify the device
     -- associated with the input.
     key :: Prelude.Maybe Prelude.Text,
-    -- | Information about the order in which events are evaluated and how
-    -- actions are executed.
-    evaluationMethod :: Prelude.Maybe EvaluationMethod,
     -- | Metadata that can be used to manage the detector model.
     tags :: Prelude.Maybe [Tag],
     -- | The name of the detector model.
@@ -88,15 +89,15 @@ data CreateDetectorModel = CreateDetectorModel'
 --
 -- 'detectorModelDescription', 'createDetectorModel_detectorModelDescription' - A brief description of the detector model.
 --
+-- 'evaluationMethod', 'createDetectorModel_evaluationMethod' - Information about the order in which events are evaluated and how
+-- actions are executed.
+--
 -- 'key', 'createDetectorModel_key' - The input attribute key used to identify a device or system to create a
 -- detector (an instance of the detector model) and then to route each
 -- input received to the appropriate detector (instance). This parameter
 -- uses a JSON-path expression in the message payload of each input to
 -- specify the attribute-value pair that is used to identify the device
 -- associated with the input.
---
--- 'evaluationMethod', 'createDetectorModel_evaluationMethod' - Information about the order in which events are evaluated and how
--- actions are executed.
 --
 -- 'tags', 'createDetectorModel_tags' - Metadata that can be used to manage the detector model.
 --
@@ -121,8 +122,8 @@ newCreateDetectorModel
     CreateDetectorModel'
       { detectorModelDescription =
           Prelude.Nothing,
-        key = Prelude.Nothing,
         evaluationMethod = Prelude.Nothing,
+        key = Prelude.Nothing,
         tags = Prelude.Nothing,
         detectorModelName = pDetectorModelName_,
         detectorModelDefinition = pDetectorModelDefinition_,
@@ -133,6 +134,11 @@ newCreateDetectorModel
 createDetectorModel_detectorModelDescription :: Lens.Lens' CreateDetectorModel (Prelude.Maybe Prelude.Text)
 createDetectorModel_detectorModelDescription = Lens.lens (\CreateDetectorModel' {detectorModelDescription} -> detectorModelDescription) (\s@CreateDetectorModel' {} a -> s {detectorModelDescription = a} :: CreateDetectorModel)
 
+-- | Information about the order in which events are evaluated and how
+-- actions are executed.
+createDetectorModel_evaluationMethod :: Lens.Lens' CreateDetectorModel (Prelude.Maybe EvaluationMethod)
+createDetectorModel_evaluationMethod = Lens.lens (\CreateDetectorModel' {evaluationMethod} -> evaluationMethod) (\s@CreateDetectorModel' {} a -> s {evaluationMethod = a} :: CreateDetectorModel)
+
 -- | The input attribute key used to identify a device or system to create a
 -- detector (an instance of the detector model) and then to route each
 -- input received to the appropriate detector (instance). This parameter
@@ -141,11 +147,6 @@ createDetectorModel_detectorModelDescription = Lens.lens (\CreateDetectorModel' 
 -- associated with the input.
 createDetectorModel_key :: Lens.Lens' CreateDetectorModel (Prelude.Maybe Prelude.Text)
 createDetectorModel_key = Lens.lens (\CreateDetectorModel' {key} -> key) (\s@CreateDetectorModel' {} a -> s {key = a} :: CreateDetectorModel)
-
--- | Information about the order in which events are evaluated and how
--- actions are executed.
-createDetectorModel_evaluationMethod :: Lens.Lens' CreateDetectorModel (Prelude.Maybe EvaluationMethod)
-createDetectorModel_evaluationMethod = Lens.lens (\CreateDetectorModel' {evaluationMethod} -> evaluationMethod) (\s@CreateDetectorModel' {} a -> s {evaluationMethod = a} :: CreateDetectorModel)
 
 -- | Metadata that can be used to manage the detector model.
 createDetectorModel_tags :: Lens.Lens' CreateDetectorModel (Prelude.Maybe [Tag])
@@ -168,12 +169,13 @@ instance Core.AWSRequest CreateDetectorModel where
   type
     AWSResponse CreateDetectorModel =
       CreateDetectorModelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDetectorModelResponse'
-            Prelude.<$> (x Core..?> "detectorModelConfiguration")
+            Prelude.<$> (x Data..?> "detectorModelConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -181,8 +183,8 @@ instance Prelude.Hashable CreateDetectorModel where
   hashWithSalt _salt CreateDetectorModel' {..} =
     _salt
       `Prelude.hashWithSalt` detectorModelDescription
-      `Prelude.hashWithSalt` key
       `Prelude.hashWithSalt` evaluationMethod
+      `Prelude.hashWithSalt` key
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` detectorModelName
       `Prelude.hashWithSalt` detectorModelDefinition
@@ -191,40 +193,40 @@ instance Prelude.Hashable CreateDetectorModel where
 instance Prelude.NFData CreateDetectorModel where
   rnf CreateDetectorModel' {..} =
     Prelude.rnf detectorModelDescription
-      `Prelude.seq` Prelude.rnf key
       `Prelude.seq` Prelude.rnf evaluationMethod
+      `Prelude.seq` Prelude.rnf key
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf detectorModelName
       `Prelude.seq` Prelude.rnf detectorModelDefinition
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders CreateDetectorModel where
+instance Data.ToHeaders CreateDetectorModel where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateDetectorModel where
+instance Data.ToJSON CreateDetectorModel where
   toJSON CreateDetectorModel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("detectorModelDescription" Core..=)
+          [ ("detectorModelDescription" Data..=)
               Prelude.<$> detectorModelDescription,
-            ("key" Core..=) Prelude.<$> key,
-            ("evaluationMethod" Core..=)
+            ("evaluationMethod" Data..=)
               Prelude.<$> evaluationMethod,
-            ("tags" Core..=) Prelude.<$> tags,
+            ("key" Data..=) Prelude.<$> key,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("detectorModelName" Core..= detectorModelName),
+              ("detectorModelName" Data..= detectorModelName),
             Prelude.Just
               ( "detectorModelDefinition"
-                  Core..= detectorModelDefinition
+                  Data..= detectorModelDefinition
               ),
-            Prelude.Just ("roleArn" Core..= roleArn)
+            Prelude.Just ("roleArn" Data..= roleArn)
           ]
       )
 
-instance Core.ToPath CreateDetectorModel where
+instance Data.ToPath CreateDetectorModel where
   toPath = Prelude.const "/detector-models"
 
-instance Core.ToQuery CreateDetectorModel where
+instance Data.ToQuery CreateDetectorModel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDetectorModelResponse' smart constructor.

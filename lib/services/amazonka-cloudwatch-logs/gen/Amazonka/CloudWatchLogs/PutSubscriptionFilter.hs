@@ -14,30 +14,30 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.PutSubscriptionFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates or updates a subscription filter and associates it with the
--- specified log group. Subscription filters allow you to subscribe to a
+-- specified log group. With subscription filters, you can subscribe to a
 -- real-time stream of log events ingested through
 -- <https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutLogEvents.html PutLogEvents>
 -- and have them delivered to a specific destination. When log events are
 -- sent to the receiving service, they are Base64 encoded and compressed
--- with the gzip format.
+-- with the GZIP format.
 --
 -- The following destinations are supported for subscription filters:
 --
--- -   An Amazon Kinesis stream belonging to the same account as the
+-- -   An Amazon Kinesis data stream belonging to the same account as the
 --     subscription filter, for same-account delivery.
 --
 -- -   A logical destination that belongs to a different account, for
 --     cross-account delivery.
 --
--- -   An Amazon Kinesis Firehose delivery stream that belongs to the same
---     account as the subscription filter, for same-account delivery.
+-- -   An Amazon Kinesis Data Firehose delivery stream that belongs to the
+--     same account as the subscription filter, for same-account delivery.
 --
 -- -   An Lambda function that belongs to the same account as the
 --     subscription filter, for same-account delivery.
@@ -69,7 +69,8 @@ where
 
 import Amazonka.CloudWatchLogs.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +80,7 @@ data PutSubscriptionFilter = PutSubscriptionFilter'
   { -- | The method used to distribute log data to the destination. By default,
     -- log data is grouped by log stream, but the grouping can be set to random
     -- for a more even distribution. This property is only applicable when the
-    -- destination is an Amazon Kinesis stream.
+    -- destination is an Amazon Kinesis data stream.
     distribution :: Prelude.Maybe Distribution,
     -- | The ARN of an IAM role that grants CloudWatch Logs permissions to
     -- deliver ingested log events to the destination stream. You don\'t need
@@ -104,12 +105,13 @@ data PutSubscriptionFilter = PutSubscriptionFilter'
     -- -   A logical destination (specified using an ARN) belonging to a
     --     different account, for cross-account delivery.
     --
-    --     If you are setting up a cross-account subscription, the destination
-    --     must have an IAM policy associated with it that allows the sender to
-    --     send logs to the destination. For more information, see
+    --     If you\'re setting up a cross-account subscription, the destination
+    --     must have an IAM policy associated with it. The IAM policy must
+    --     allow the sender to send logs to the destination. For more
+    --     information, see
     --     <https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutDestinationPolicy.html PutDestinationPolicy>.
     --
-    -- -   An Amazon Kinesis Firehose delivery stream belonging to the same
+    -- -   A Kinesis Data Firehose delivery stream belonging to the same
     --     account as the subscription filter, for same-account delivery.
     --
     -- -   A Lambda function belonging to the same account as the subscription
@@ -129,7 +131,7 @@ data PutSubscriptionFilter = PutSubscriptionFilter'
 -- 'distribution', 'putSubscriptionFilter_distribution' - The method used to distribute log data to the destination. By default,
 -- log data is grouped by log stream, but the grouping can be set to random
 -- for a more even distribution. This property is only applicable when the
--- destination is an Amazon Kinesis stream.
+-- destination is an Amazon Kinesis data stream.
 --
 -- 'roleArn', 'putSubscriptionFilter_roleArn' - The ARN of an IAM role that grants CloudWatch Logs permissions to
 -- deliver ingested log events to the destination stream. You don\'t need
@@ -154,12 +156,13 @@ data PutSubscriptionFilter = PutSubscriptionFilter'
 -- -   A logical destination (specified using an ARN) belonging to a
 --     different account, for cross-account delivery.
 --
---     If you are setting up a cross-account subscription, the destination
---     must have an IAM policy associated with it that allows the sender to
---     send logs to the destination. For more information, see
+--     If you\'re setting up a cross-account subscription, the destination
+--     must have an IAM policy associated with it. The IAM policy must
+--     allow the sender to send logs to the destination. For more
+--     information, see
 --     <https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutDestinationPolicy.html PutDestinationPolicy>.
 --
--- -   An Amazon Kinesis Firehose delivery stream belonging to the same
+-- -   A Kinesis Data Firehose delivery stream belonging to the same
 --     account as the subscription filter, for same-account delivery.
 --
 -- -   A Lambda function belonging to the same account as the subscription
@@ -192,7 +195,7 @@ newPutSubscriptionFilter
 -- | The method used to distribute log data to the destination. By default,
 -- log data is grouped by log stream, but the grouping can be set to random
 -- for a more even distribution. This property is only applicable when the
--- destination is an Amazon Kinesis stream.
+-- destination is an Amazon Kinesis data stream.
 putSubscriptionFilter_distribution :: Lens.Lens' PutSubscriptionFilter (Prelude.Maybe Distribution)
 putSubscriptionFilter_distribution = Lens.lens (\PutSubscriptionFilter' {distribution} -> distribution) (\s@PutSubscriptionFilter' {} a -> s {distribution = a} :: PutSubscriptionFilter)
 
@@ -227,12 +230,13 @@ putSubscriptionFilter_filterPattern = Lens.lens (\PutSubscriptionFilter' {filter
 -- -   A logical destination (specified using an ARN) belonging to a
 --     different account, for cross-account delivery.
 --
---     If you are setting up a cross-account subscription, the destination
---     must have an IAM policy associated with it that allows the sender to
---     send logs to the destination. For more information, see
+--     If you\'re setting up a cross-account subscription, the destination
+--     must have an IAM policy associated with it. The IAM policy must
+--     allow the sender to send logs to the destination. For more
+--     information, see
 --     <https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutDestinationPolicy.html PutDestinationPolicy>.
 --
--- -   An Amazon Kinesis Firehose delivery stream belonging to the same
+-- -   A Kinesis Data Firehose delivery stream belonging to the same
 --     account as the subscription filter, for same-account delivery.
 --
 -- -   A Lambda function belonging to the same account as the subscription
@@ -244,7 +248,8 @@ instance Core.AWSRequest PutSubscriptionFilter where
   type
     AWSResponse PutSubscriptionFilter =
       PutSubscriptionFilterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull PutSubscriptionFilterResponse'
 
@@ -266,39 +271,39 @@ instance Prelude.NFData PutSubscriptionFilter where
       `Prelude.seq` Prelude.rnf filterPattern
       `Prelude.seq` Prelude.rnf destinationArn
 
-instance Core.ToHeaders PutSubscriptionFilter where
+instance Data.ToHeaders PutSubscriptionFilter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Logs_20140328.PutSubscriptionFilter" ::
+              Data.=# ( "Logs_20140328.PutSubscriptionFilter" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutSubscriptionFilter where
+instance Data.ToJSON PutSubscriptionFilter where
   toJSON PutSubscriptionFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("distribution" Core..=) Prelude.<$> distribution,
-            ("roleArn" Core..=) Prelude.<$> roleArn,
-            Prelude.Just ("logGroupName" Core..= logGroupName),
-            Prelude.Just ("filterName" Core..= filterName),
-            Prelude.Just ("filterPattern" Core..= filterPattern),
+          [ ("distribution" Data..=) Prelude.<$> distribution,
+            ("roleArn" Data..=) Prelude.<$> roleArn,
+            Prelude.Just ("logGroupName" Data..= logGroupName),
+            Prelude.Just ("filterName" Data..= filterName),
+            Prelude.Just ("filterPattern" Data..= filterPattern),
             Prelude.Just
-              ("destinationArn" Core..= destinationArn)
+              ("destinationArn" Data..= destinationArn)
           ]
       )
 
-instance Core.ToPath PutSubscriptionFilter where
+instance Data.ToPath PutSubscriptionFilter where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutSubscriptionFilter where
+instance Data.ToQuery PutSubscriptionFilter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutSubscriptionFilterResponse' smart constructor.

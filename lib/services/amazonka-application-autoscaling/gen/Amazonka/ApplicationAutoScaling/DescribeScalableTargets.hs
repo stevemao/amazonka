@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationAutoScaling.DescribeScalableTargets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,10 +31,10 @@ module Amazonka.ApplicationAutoScaling.DescribeScalableTargets
     newDescribeScalableTargets,
 
     -- * Request Lenses
+    describeScalableTargets_maxResults,
+    describeScalableTargets_nextToken,
     describeScalableTargets_resourceIds,
     describeScalableTargets_scalableDimension,
-    describeScalableTargets_nextToken,
-    describeScalableTargets_maxResults,
     describeScalableTargets_serviceNamespace,
 
     -- * Destructuring the Response
@@ -50,14 +50,26 @@ where
 
 import Amazonka.ApplicationAutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeScalableTargets' smart constructor.
 data DescribeScalableTargets = DescribeScalableTargets'
-  { -- | The identifier of the resource associated with the scalable target. This
+  { -- | The maximum number of scalable targets. This value can be between 1 and
+    -- 50. The default value is 50.
+    --
+    -- If this parameter is used, the operation returns up to @MaxResults@
+    -- results at a time, along with a @NextToken@ value. To get the next set
+    -- of results, include the @NextToken@ value in a subsequent call. If this
+    -- parameter is not used, the operation returns up to 50 results and a
+    -- @NextToken@ value, if applicable.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the resource associated with the scalable target. This
     -- string consists of the resource type and unique identifier.
     --
     -- -   ECS service - The resource type is @service@ and the unique
@@ -193,17 +205,6 @@ data DescribeScalableTargets = DescribeScalableTargets'
     -- -   @neptune:cluster:ReadReplicaCount@ - The count of read replicas in
     --     an Amazon Neptune DB cluster.
     scalableDimension :: Prelude.Maybe ScalableDimension,
-    -- | The token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of scalable targets. This value can be between 1 and
-    -- 50. The default value is 50.
-    --
-    -- If this parameter is used, the operation returns up to @MaxResults@
-    -- results at a time, along with a @NextToken@ value. To get the next set
-    -- of results, include the @NextToken@ value in a subsequent call. If this
-    -- parameter is not used, the operation returns up to 50 results and a
-    -- @NextToken@ value, if applicable.
-    maxResults :: Prelude.Maybe Prelude.Int,
     -- | The namespace of the Amazon Web Services service that provides the
     -- resource. For a resource provided by your own application or service,
     -- use @custom-resource@ instead.
@@ -218,6 +219,17 @@ data DescribeScalableTargets = DescribeScalableTargets'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'maxResults', 'describeScalableTargets_maxResults' - The maximum number of scalable targets. This value can be between 1 and
+-- 50. The default value is 50.
+--
+-- If this parameter is used, the operation returns up to @MaxResults@
+-- results at a time, along with a @NextToken@ value. To get the next set
+-- of results, include the @NextToken@ value in a subsequent call. If this
+-- parameter is not used, the operation returns up to 50 results and a
+-- @NextToken@ value, if applicable.
+--
+-- 'nextToken', 'describeScalableTargets_nextToken' - The token for the next set of results.
 --
 -- 'resourceIds', 'describeScalableTargets_resourceIds' - The identifier of the resource associated with the scalable target. This
 -- string consists of the resource type and unique identifier.
@@ -355,17 +367,6 @@ data DescribeScalableTargets = DescribeScalableTargets'
 -- -   @neptune:cluster:ReadReplicaCount@ - The count of read replicas in
 --     an Amazon Neptune DB cluster.
 --
--- 'nextToken', 'describeScalableTargets_nextToken' - The token for the next set of results.
---
--- 'maxResults', 'describeScalableTargets_maxResults' - The maximum number of scalable targets. This value can be between 1 and
--- 50. The default value is 50.
---
--- If this parameter is used, the operation returns up to @MaxResults@
--- results at a time, along with a @NextToken@ value. To get the next set
--- of results, include the @NextToken@ value in a subsequent call. If this
--- parameter is not used, the operation returns up to 50 results and a
--- @NextToken@ value, if applicable.
---
 -- 'serviceNamespace', 'describeScalableTargets_serviceNamespace' - The namespace of the Amazon Web Services service that provides the
 -- resource. For a resource provided by your own application or service,
 -- use @custom-resource@ instead.
@@ -375,13 +376,28 @@ newDescribeScalableTargets ::
   DescribeScalableTargets
 newDescribeScalableTargets pServiceNamespace_ =
   DescribeScalableTargets'
-    { resourceIds =
+    { maxResults =
         Prelude.Nothing,
-      scalableDimension = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      resourceIds = Prelude.Nothing,
+      scalableDimension = Prelude.Nothing,
       serviceNamespace = pServiceNamespace_
     }
+
+-- | The maximum number of scalable targets. This value can be between 1 and
+-- 50. The default value is 50.
+--
+-- If this parameter is used, the operation returns up to @MaxResults@
+-- results at a time, along with a @NextToken@ value. To get the next set
+-- of results, include the @NextToken@ value in a subsequent call. If this
+-- parameter is not used, the operation returns up to 50 results and a
+-- @NextToken@ value, if applicable.
+describeScalableTargets_maxResults :: Lens.Lens' DescribeScalableTargets (Prelude.Maybe Prelude.Int)
+describeScalableTargets_maxResults = Lens.lens (\DescribeScalableTargets' {maxResults} -> maxResults) (\s@DescribeScalableTargets' {} a -> s {maxResults = a} :: DescribeScalableTargets)
+
+-- | The token for the next set of results.
+describeScalableTargets_nextToken :: Lens.Lens' DescribeScalableTargets (Prelude.Maybe Prelude.Text)
+describeScalableTargets_nextToken = Lens.lens (\DescribeScalableTargets' {nextToken} -> nextToken) (\s@DescribeScalableTargets' {} a -> s {nextToken = a} :: DescribeScalableTargets)
 
 -- | The identifier of the resource associated with the scalable target. This
 -- string consists of the resource type and unique identifier.
@@ -523,21 +539,6 @@ describeScalableTargets_resourceIds = Lens.lens (\DescribeScalableTargets' {reso
 describeScalableTargets_scalableDimension :: Lens.Lens' DescribeScalableTargets (Prelude.Maybe ScalableDimension)
 describeScalableTargets_scalableDimension = Lens.lens (\DescribeScalableTargets' {scalableDimension} -> scalableDimension) (\s@DescribeScalableTargets' {} a -> s {scalableDimension = a} :: DescribeScalableTargets)
 
--- | The token for the next set of results.
-describeScalableTargets_nextToken :: Lens.Lens' DescribeScalableTargets (Prelude.Maybe Prelude.Text)
-describeScalableTargets_nextToken = Lens.lens (\DescribeScalableTargets' {nextToken} -> nextToken) (\s@DescribeScalableTargets' {} a -> s {nextToken = a} :: DescribeScalableTargets)
-
--- | The maximum number of scalable targets. This value can be between 1 and
--- 50. The default value is 50.
---
--- If this parameter is used, the operation returns up to @MaxResults@
--- results at a time, along with a @NextToken@ value. To get the next set
--- of results, include the @NextToken@ value in a subsequent call. If this
--- parameter is not used, the operation returns up to 50 results and a
--- @NextToken@ value, if applicable.
-describeScalableTargets_maxResults :: Lens.Lens' DescribeScalableTargets (Prelude.Maybe Prelude.Int)
-describeScalableTargets_maxResults = Lens.lens (\DescribeScalableTargets' {maxResults} -> maxResults) (\s@DescribeScalableTargets' {} a -> s {maxResults = a} :: DescribeScalableTargets)
-
 -- | The namespace of the Amazon Web Services service that provides the
 -- resource. For a resource provided by your own application or service,
 -- use @custom-resource@ instead.
@@ -570,13 +571,14 @@ instance Core.AWSRequest DescribeScalableTargets where
   type
     AWSResponse DescribeScalableTargets =
       DescribeScalableTargetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeScalableTargetsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "ScalableTargets"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "ScalableTargets"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -584,53 +586,53 @@ instance Core.AWSRequest DescribeScalableTargets where
 
 instance Prelude.Hashable DescribeScalableTargets where
   hashWithSalt _salt DescribeScalableTargets' {..} =
-    _salt `Prelude.hashWithSalt` resourceIds
-      `Prelude.hashWithSalt` scalableDimension
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` resourceIds
+      `Prelude.hashWithSalt` scalableDimension
       `Prelude.hashWithSalt` serviceNamespace
 
 instance Prelude.NFData DescribeScalableTargets where
   rnf DescribeScalableTargets' {..} =
-    Prelude.rnf resourceIds
-      `Prelude.seq` Prelude.rnf scalableDimension
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf resourceIds
+      `Prelude.seq` Prelude.rnf scalableDimension
       `Prelude.seq` Prelude.rnf serviceNamespace
 
-instance Core.ToHeaders DescribeScalableTargets where
+instance Data.ToHeaders DescribeScalableTargets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AnyScaleFrontendService.DescribeScalableTargets" ::
+              Data.=# ( "AnyScaleFrontendService.DescribeScalableTargets" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeScalableTargets where
+instance Data.ToJSON DescribeScalableTargets where
   toJSON DescribeScalableTargets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ResourceIds" Core..=) Prelude.<$> resourceIds,
-            ("ScalableDimension" Core..=)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("ResourceIds" Data..=) Prelude.<$> resourceIds,
+            ("ScalableDimension" Data..=)
               Prelude.<$> scalableDimension,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
             Prelude.Just
-              ("ServiceNamespace" Core..= serviceNamespace)
+              ("ServiceNamespace" Data..= serviceNamespace)
           ]
       )
 
-instance Core.ToPath DescribeScalableTargets where
+instance Data.ToPath DescribeScalableTargets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeScalableTargets where
+instance Data.ToQuery DescribeScalableTargets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeScalableTargetsResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Types.NotificationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElastiCache.Types.NotificationConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a notification topic and its status. Notification topics are
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newNotificationConfiguration' smart constructor.
 data NotificationConfiguration = NotificationConfiguration'
-  { -- | The current state of the topic.
-    topicStatus :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) that identifies the topic.
-    topicArn :: Prelude.Maybe Prelude.Text
+  { -- | The Amazon Resource Name (ARN) that identifies the topic.
+    topicArn :: Prelude.Maybe Prelude.Text,
+    -- | The current state of the topic.
+    topicStatus :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,38 +45,38 @@ data NotificationConfiguration = NotificationConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'topicStatus', 'notificationConfiguration_topicStatus' - The current state of the topic.
---
 -- 'topicArn', 'notificationConfiguration_topicArn' - The Amazon Resource Name (ARN) that identifies the topic.
+--
+-- 'topicStatus', 'notificationConfiguration_topicStatus' - The current state of the topic.
 newNotificationConfiguration ::
   NotificationConfiguration
 newNotificationConfiguration =
   NotificationConfiguration'
-    { topicStatus =
+    { topicArn =
         Prelude.Nothing,
-      topicArn = Prelude.Nothing
+      topicStatus = Prelude.Nothing
     }
-
--- | The current state of the topic.
-notificationConfiguration_topicStatus :: Lens.Lens' NotificationConfiguration (Prelude.Maybe Prelude.Text)
-notificationConfiguration_topicStatus = Lens.lens (\NotificationConfiguration' {topicStatus} -> topicStatus) (\s@NotificationConfiguration' {} a -> s {topicStatus = a} :: NotificationConfiguration)
 
 -- | The Amazon Resource Name (ARN) that identifies the topic.
 notificationConfiguration_topicArn :: Lens.Lens' NotificationConfiguration (Prelude.Maybe Prelude.Text)
 notificationConfiguration_topicArn = Lens.lens (\NotificationConfiguration' {topicArn} -> topicArn) (\s@NotificationConfiguration' {} a -> s {topicArn = a} :: NotificationConfiguration)
 
-instance Core.FromXML NotificationConfiguration where
+-- | The current state of the topic.
+notificationConfiguration_topicStatus :: Lens.Lens' NotificationConfiguration (Prelude.Maybe Prelude.Text)
+notificationConfiguration_topicStatus = Lens.lens (\NotificationConfiguration' {topicStatus} -> topicStatus) (\s@NotificationConfiguration' {} a -> s {topicStatus = a} :: NotificationConfiguration)
+
+instance Data.FromXML NotificationConfiguration where
   parseXML x =
     NotificationConfiguration'
-      Prelude.<$> (x Core..@? "TopicStatus")
-      Prelude.<*> (x Core..@? "TopicArn")
+      Prelude.<$> (x Data..@? "TopicArn")
+      Prelude.<*> (x Data..@? "TopicStatus")
 
 instance Prelude.Hashable NotificationConfiguration where
   hashWithSalt _salt NotificationConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` topicStatus
-      `Prelude.hashWithSalt` topicArn
+    _salt `Prelude.hashWithSalt` topicArn
+      `Prelude.hashWithSalt` topicStatus
 
 instance Prelude.NFData NotificationConfiguration where
   rnf NotificationConfiguration' {..} =
-    Prelude.rnf topicStatus
-      `Prelude.seq` Prelude.rnf topicArn
+    Prelude.rnf topicArn
+      `Prelude.seq` Prelude.rnf topicStatus

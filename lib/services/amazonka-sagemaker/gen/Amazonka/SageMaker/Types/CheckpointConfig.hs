@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.CheckpointConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.CheckpointConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the output location for managed spot training
@@ -31,8 +32,8 @@ data CheckpointConfig = CheckpointConfig'
   { -- | (Optional) The local directory where checkpoints are written. The
     -- default directory is @\/opt\/ml\/checkpoints\/@.
     localPath :: Prelude.Maybe Prelude.Text,
-    -- | Identifies the S3 path where you want Amazon SageMaker to store
-    -- checkpoints. For example, @s3:\/\/bucket-name\/key-name-prefix@.
+    -- | Identifies the S3 path where you want SageMaker to store checkpoints.
+    -- For example, @s3:\/\/bucket-name\/key-name-prefix@.
     s3Uri :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -48,8 +49,8 @@ data CheckpointConfig = CheckpointConfig'
 -- 'localPath', 'checkpointConfig_localPath' - (Optional) The local directory where checkpoints are written. The
 -- default directory is @\/opt\/ml\/checkpoints\/@.
 --
--- 's3Uri', 'checkpointConfig_s3Uri' - Identifies the S3 path where you want Amazon SageMaker to store
--- checkpoints. For example, @s3:\/\/bucket-name\/key-name-prefix@.
+-- 's3Uri', 'checkpointConfig_s3Uri' - Identifies the S3 path where you want SageMaker to store checkpoints.
+-- For example, @s3:\/\/bucket-name\/key-name-prefix@.
 newCheckpointConfig ::
   -- | 's3Uri'
   Prelude.Text ->
@@ -65,19 +66,19 @@ newCheckpointConfig pS3Uri_ =
 checkpointConfig_localPath :: Lens.Lens' CheckpointConfig (Prelude.Maybe Prelude.Text)
 checkpointConfig_localPath = Lens.lens (\CheckpointConfig' {localPath} -> localPath) (\s@CheckpointConfig' {} a -> s {localPath = a} :: CheckpointConfig)
 
--- | Identifies the S3 path where you want Amazon SageMaker to store
--- checkpoints. For example, @s3:\/\/bucket-name\/key-name-prefix@.
+-- | Identifies the S3 path where you want SageMaker to store checkpoints.
+-- For example, @s3:\/\/bucket-name\/key-name-prefix@.
 checkpointConfig_s3Uri :: Lens.Lens' CheckpointConfig Prelude.Text
 checkpointConfig_s3Uri = Lens.lens (\CheckpointConfig' {s3Uri} -> s3Uri) (\s@CheckpointConfig' {} a -> s {s3Uri = a} :: CheckpointConfig)
 
-instance Core.FromJSON CheckpointConfig where
+instance Data.FromJSON CheckpointConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CheckpointConfig"
       ( \x ->
           CheckpointConfig'
-            Prelude.<$> (x Core..:? "LocalPath")
-            Prelude.<*> (x Core..: "S3Uri")
+            Prelude.<$> (x Data..:? "LocalPath")
+            Prelude.<*> (x Data..: "S3Uri")
       )
 
 instance Prelude.Hashable CheckpointConfig where
@@ -90,11 +91,11 @@ instance Prelude.NFData CheckpointConfig where
     Prelude.rnf localPath
       `Prelude.seq` Prelude.rnf s3Uri
 
-instance Core.ToJSON CheckpointConfig where
+instance Data.ToJSON CheckpointConfig where
   toJSON CheckpointConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LocalPath" Core..=) Prelude.<$> localPath,
-            Prelude.Just ("S3Uri" Core..= s3Uri)
+          [ ("LocalPath" Data..=) Prelude.<$> localPath,
+            Prelude.Just ("S3Uri" Data..= s3Uri)
           ]
       )

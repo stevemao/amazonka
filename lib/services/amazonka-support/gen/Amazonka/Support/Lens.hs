@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.Support.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,75 +14,78 @@
 module Amazonka.Support.Lens
   ( -- * Operations
 
-    -- ** RefreshTrustedAdvisorCheck
-    refreshTrustedAdvisorCheck_checkId,
-    refreshTrustedAdvisorCheckResponse_httpStatus,
-    refreshTrustedAdvisorCheckResponse_status,
+    -- ** AddAttachmentsToSet
+    addAttachmentsToSet_attachmentSetId,
+    addAttachmentsToSet_attachments,
+    addAttachmentsToSetResponse_attachmentSetId,
+    addAttachmentsToSetResponse_expiryTime,
+    addAttachmentsToSetResponse_httpStatus,
 
-    -- ** DescribeCases
-    describeCases_includeResolvedCases,
-    describeCases_caseIdList,
-    describeCases_afterTime,
-    describeCases_beforeTime,
-    describeCases_nextToken,
-    describeCases_includeCommunications,
-    describeCases_displayId,
-    describeCases_language,
-    describeCases_maxResults,
-    describeCasesResponse_cases,
-    describeCasesResponse_nextToken,
-    describeCasesResponse_httpStatus,
-
-    -- ** DescribeTrustedAdvisorCheckRefreshStatuses
-    describeTrustedAdvisorCheckRefreshStatuses_checkIds,
-    describeTrustedAdvisorCheckRefreshStatusesResponse_httpStatus,
-    describeTrustedAdvisorCheckRefreshStatusesResponse_statuses,
-
-    -- ** DescribeTrustedAdvisorCheckSummaries
-    describeTrustedAdvisorCheckSummaries_checkIds,
-    describeTrustedAdvisorCheckSummariesResponse_httpStatus,
-    describeTrustedAdvisorCheckSummariesResponse_summaries,
+    -- ** AddCommunicationToCase
+    addCommunicationToCase_attachmentSetId,
+    addCommunicationToCase_caseId,
+    addCommunicationToCase_ccEmailAddresses,
+    addCommunicationToCase_communicationBody,
+    addCommunicationToCaseResponse_result,
+    addCommunicationToCaseResponse_httpStatus,
 
     -- ** CreateCase
-    createCase_severityCode,
-    createCase_issueType,
-    createCase_ccEmailAddresses,
-    createCase_language,
-    createCase_categoryCode,
-    createCase_serviceCode,
     createCase_attachmentSetId,
+    createCase_categoryCode,
+    createCase_ccEmailAddresses,
+    createCase_issueType,
+    createCase_language,
+    createCase_serviceCode,
+    createCase_severityCode,
     createCase_subject,
     createCase_communicationBody,
     createCaseResponse_caseId,
     createCaseResponse_httpStatus,
-
-    -- ** ResolveCase
-    resolveCase_caseId,
-    resolveCaseResponse_initialCaseStatus,
-    resolveCaseResponse_finalCaseStatus,
-    resolveCaseResponse_httpStatus,
-
-    -- ** DescribeSeverityLevels
-    describeSeverityLevels_language,
-    describeSeverityLevelsResponse_severityLevels,
-    describeSeverityLevelsResponse_httpStatus,
-
-    -- ** DescribeTrustedAdvisorChecks
-    describeTrustedAdvisorChecks_language,
-    describeTrustedAdvisorChecksResponse_httpStatus,
-    describeTrustedAdvisorChecksResponse_checks,
 
     -- ** DescribeAttachment
     describeAttachment_attachmentId,
     describeAttachmentResponse_attachment,
     describeAttachmentResponse_httpStatus,
 
-    -- ** AddAttachmentsToSet
-    addAttachmentsToSet_attachmentSetId,
-    addAttachmentsToSet_attachments,
-    addAttachmentsToSetResponse_expiryTime,
-    addAttachmentsToSetResponse_attachmentSetId,
-    addAttachmentsToSetResponse_httpStatus,
+    -- ** DescribeCases
+    describeCases_afterTime,
+    describeCases_beforeTime,
+    describeCases_caseIdList,
+    describeCases_displayId,
+    describeCases_includeCommunications,
+    describeCases_includeResolvedCases,
+    describeCases_language,
+    describeCases_maxResults,
+    describeCases_nextToken,
+    describeCasesResponse_cases,
+    describeCasesResponse_nextToken,
+    describeCasesResponse_httpStatus,
+
+    -- ** DescribeCommunications
+    describeCommunications_afterTime,
+    describeCommunications_beforeTime,
+    describeCommunications_maxResults,
+    describeCommunications_nextToken,
+    describeCommunications_caseId,
+    describeCommunicationsResponse_communications,
+    describeCommunicationsResponse_nextToken,
+    describeCommunicationsResponse_httpStatus,
+
+    -- ** DescribeServices
+    describeServices_language,
+    describeServices_serviceCodeList,
+    describeServicesResponse_services,
+    describeServicesResponse_httpStatus,
+
+    -- ** DescribeSeverityLevels
+    describeSeverityLevels_language,
+    describeSeverityLevelsResponse_severityLevels,
+    describeSeverityLevelsResponse_httpStatus,
+
+    -- ** DescribeTrustedAdvisorCheckRefreshStatuses
+    describeTrustedAdvisorCheckRefreshStatuses_checkIds,
+    describeTrustedAdvisorCheckRefreshStatusesResponse_httpStatus,
+    describeTrustedAdvisorCheckRefreshStatusesResponse_statuses,
 
     -- ** DescribeTrustedAdvisorCheckResult
     describeTrustedAdvisorCheckResult_language,
@@ -90,29 +93,26 @@ module Amazonka.Support.Lens
     describeTrustedAdvisorCheckResultResponse_result,
     describeTrustedAdvisorCheckResultResponse_httpStatus,
 
-    -- ** DescribeServices
-    describeServices_serviceCodeList,
-    describeServices_language,
-    describeServicesResponse_services,
-    describeServicesResponse_httpStatus,
+    -- ** DescribeTrustedAdvisorCheckSummaries
+    describeTrustedAdvisorCheckSummaries_checkIds,
+    describeTrustedAdvisorCheckSummariesResponse_httpStatus,
+    describeTrustedAdvisorCheckSummariesResponse_summaries,
 
-    -- ** DescribeCommunications
-    describeCommunications_afterTime,
-    describeCommunications_beforeTime,
-    describeCommunications_nextToken,
-    describeCommunications_maxResults,
-    describeCommunications_caseId,
-    describeCommunicationsResponse_nextToken,
-    describeCommunicationsResponse_communications,
-    describeCommunicationsResponse_httpStatus,
+    -- ** DescribeTrustedAdvisorChecks
+    describeTrustedAdvisorChecks_language,
+    describeTrustedAdvisorChecksResponse_httpStatus,
+    describeTrustedAdvisorChecksResponse_checks,
 
-    -- ** AddCommunicationToCase
-    addCommunicationToCase_caseId,
-    addCommunicationToCase_ccEmailAddresses,
-    addCommunicationToCase_attachmentSetId,
-    addCommunicationToCase_communicationBody,
-    addCommunicationToCaseResponse_result,
-    addCommunicationToCaseResponse_httpStatus,
+    -- ** RefreshTrustedAdvisorCheck
+    refreshTrustedAdvisorCheck_checkId,
+    refreshTrustedAdvisorCheckResponse_httpStatus,
+    refreshTrustedAdvisorCheckResponse_status,
+
+    -- ** ResolveCase
+    resolveCase_caseId,
+    resolveCaseResponse_finalCaseStatus,
+    resolveCaseResponse_initialCaseStatus,
+    resolveCaseResponse_httpStatus,
 
     -- * Types
 
@@ -125,42 +125,42 @@ module Amazonka.Support.Lens
     attachmentDetails_fileName,
 
     -- ** CaseDetails
-    caseDetails_subject,
-    caseDetails_status,
-    caseDetails_recentCommunications,
-    caseDetails_severityCode,
     caseDetails_caseId,
+    caseDetails_categoryCode,
     caseDetails_ccEmailAddresses,
     caseDetails_displayId,
-    caseDetails_submittedBy,
     caseDetails_language,
-    caseDetails_timeCreated,
-    caseDetails_categoryCode,
+    caseDetails_recentCommunications,
     caseDetails_serviceCode,
+    caseDetails_severityCode,
+    caseDetails_status,
+    caseDetails_subject,
+    caseDetails_submittedBy,
+    caseDetails_timeCreated,
 
     -- ** Category
-    category_name,
     category_code,
+    category_name,
 
     -- ** Communication
+    communication_attachmentSet,
     communication_body,
     communication_caseId,
     communication_submittedBy,
     communication_timeCreated,
-    communication_attachmentSet,
 
     -- ** RecentCaseCommunications
-    recentCaseCommunications_nextToken,
     recentCaseCommunications_communications,
+    recentCaseCommunications_nextToken,
 
     -- ** SeverityLevel
-    severityLevel_name,
     severityLevel_code,
+    severityLevel_name,
 
     -- ** SupportService
     supportService_categories,
-    supportService_name,
     supportService_code,
+    supportService_name,
 
     -- ** TrustedAdvisorCategorySpecificSummary
     trustedAdvisorCategorySpecificSummary_costOptimizing,

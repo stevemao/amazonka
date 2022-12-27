@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.ListBusinessReportSchedules
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.AlexaBusiness.ListBusinessReportSchedules
     newListBusinessReportSchedules,
 
     -- * Request Lenses
-    listBusinessReportSchedules_nextToken,
     listBusinessReportSchedules_maxResults,
+    listBusinessReportSchedules_nextToken,
 
     -- * Destructuring the Response
     ListBusinessReportSchedulesResponse (..),
@@ -48,18 +48,19 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListBusinessReportSchedules' smart constructor.
 data ListBusinessReportSchedules = ListBusinessReportSchedules'
-  { -- | The token used to list the remaining schedules from the previous API
+  { -- | The maximum number of schedules listed in the call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token used to list the remaining schedules from the previous API
     -- call.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of schedules listed in the call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,27 +72,27 @@ data ListBusinessReportSchedules = ListBusinessReportSchedules'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listBusinessReportSchedules_maxResults' - The maximum number of schedules listed in the call.
+--
 -- 'nextToken', 'listBusinessReportSchedules_nextToken' - The token used to list the remaining schedules from the previous API
 -- call.
---
--- 'maxResults', 'listBusinessReportSchedules_maxResults' - The maximum number of schedules listed in the call.
 newListBusinessReportSchedules ::
   ListBusinessReportSchedules
 newListBusinessReportSchedules =
   ListBusinessReportSchedules'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of schedules listed in the call.
+listBusinessReportSchedules_maxResults :: Lens.Lens' ListBusinessReportSchedules (Prelude.Maybe Prelude.Natural)
+listBusinessReportSchedules_maxResults = Lens.lens (\ListBusinessReportSchedules' {maxResults} -> maxResults) (\s@ListBusinessReportSchedules' {} a -> s {maxResults = a} :: ListBusinessReportSchedules)
 
 -- | The token used to list the remaining schedules from the previous API
 -- call.
 listBusinessReportSchedules_nextToken :: Lens.Lens' ListBusinessReportSchedules (Prelude.Maybe Prelude.Text)
 listBusinessReportSchedules_nextToken = Lens.lens (\ListBusinessReportSchedules' {nextToken} -> nextToken) (\s@ListBusinessReportSchedules' {} a -> s {nextToken = a} :: ListBusinessReportSchedules)
-
--- | The maximum number of schedules listed in the call.
-listBusinessReportSchedules_maxResults :: Lens.Lens' ListBusinessReportSchedules (Prelude.Maybe Prelude.Natural)
-listBusinessReportSchedules_maxResults = Lens.lens (\ListBusinessReportSchedules' {maxResults} -> maxResults) (\s@ListBusinessReportSchedules' {} a -> s {maxResults = a} :: ListBusinessReportSchedules)
 
 instance Core.AWSPager ListBusinessReportSchedules where
   page rq rs
@@ -119,56 +120,57 @@ instance Core.AWSRequest ListBusinessReportSchedules where
   type
     AWSResponse ListBusinessReportSchedules =
       ListBusinessReportSchedulesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListBusinessReportSchedulesResponse'
-            Prelude.<$> ( x Core..?> "BusinessReportSchedules"
+            Prelude.<$> ( x Data..?> "BusinessReportSchedules"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListBusinessReportSchedules where
   hashWithSalt _salt ListBusinessReportSchedules' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListBusinessReportSchedules where
   rnf ListBusinessReportSchedules' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListBusinessReportSchedules where
+instance Data.ToHeaders ListBusinessReportSchedules where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.ListBusinessReportSchedules" ::
+              Data.=# ( "AlexaForBusiness.ListBusinessReportSchedules" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListBusinessReportSchedules where
+instance Data.ToJSON ListBusinessReportSchedules where
   toJSON ListBusinessReportSchedules' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListBusinessReportSchedules where
+instance Data.ToPath ListBusinessReportSchedules where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListBusinessReportSchedules where
+instance Data.ToQuery ListBusinessReportSchedules where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListBusinessReportSchedulesResponse' smart constructor.

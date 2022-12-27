@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.DisableKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,12 +26,12 @@
 --
 -- For more information about how key state affects the use of a KMS key,
 -- see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key state: Effect on your KMS key>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key states of KMS keys>
 -- in the //Key Management Service Developer Guide// .
 --
 -- The KMS key that you use for this operation must be in a compatible key
 -- state. For details, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key state: Effect on your KMS key>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key states of KMS keys>
 -- in the /Key Management Service Developer Guide/.
 --
 -- __Cross-account use__: No. You cannot perform this operation on a KMS
@@ -57,8 +57,9 @@ module Amazonka.KMS.DisableKey
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -127,7 +128,8 @@ disableKey_keyId = Lens.lens (\DisableKey' {keyId} -> keyId) (\s@DisableKey' {} 
 
 instance Core.AWSRequest DisableKey where
   type AWSResponse DisableKey = DisableKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DisableKeyResponse'
 
 instance Prelude.Hashable DisableKey where
@@ -137,30 +139,30 @@ instance Prelude.Hashable DisableKey where
 instance Prelude.NFData DisableKey where
   rnf DisableKey' {..} = Prelude.rnf keyId
 
-instance Core.ToHeaders DisableKey where
+instance Data.ToHeaders DisableKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("TrentService.DisableKey" :: Prelude.ByteString),
+              Data.=# ("TrentService.DisableKey" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisableKey where
+instance Data.ToJSON DisableKey where
   toJSON DisableKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("KeyId" Core..= keyId)]
+          [Prelude.Just ("KeyId" Data..= keyId)]
       )
 
-instance Core.ToPath DisableKey where
+instance Data.ToPath DisableKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisableKey where
+instance Data.ToQuery DisableKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisableKeyResponse' smart constructor.

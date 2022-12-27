@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.SetSMBGuestPassword
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.StorageGateway.SetSMBGuestPassword
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,7 +58,7 @@ data SetSMBGuestPassword = SetSMBGuestPassword'
     -- is associated with.
     gatewayARN :: Prelude.Text,
     -- | The password that you want to set for your SMB server.
-    password :: Core.Sensitive Prelude.Text
+    password :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -82,7 +83,7 @@ newSetSMBGuestPassword ::
 newSetSMBGuestPassword pGatewayARN_ pPassword_ =
   SetSMBGuestPassword'
     { gatewayARN = pGatewayARN_,
-      password = Core._Sensitive Lens.# pPassword_
+      password = Data._Sensitive Lens.# pPassword_
     }
 
 -- | The Amazon Resource Name (ARN) of the S3 File Gateway the SMB file share
@@ -92,18 +93,19 @@ setSMBGuestPassword_gatewayARN = Lens.lens (\SetSMBGuestPassword' {gatewayARN} -
 
 -- | The password that you want to set for your SMB server.
 setSMBGuestPassword_password :: Lens.Lens' SetSMBGuestPassword Prelude.Text
-setSMBGuestPassword_password = Lens.lens (\SetSMBGuestPassword' {password} -> password) (\s@SetSMBGuestPassword' {} a -> s {password = a} :: SetSMBGuestPassword) Prelude.. Core._Sensitive
+setSMBGuestPassword_password = Lens.lens (\SetSMBGuestPassword' {password} -> password) (\s@SetSMBGuestPassword' {} a -> s {password = a} :: SetSMBGuestPassword) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest SetSMBGuestPassword where
   type
     AWSResponse SetSMBGuestPassword =
       SetSMBGuestPasswordResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SetSMBGuestPasswordResponse'
-            Prelude.<$> (x Core..?> "GatewayARN")
+            Prelude.<$> (x Data..?> "GatewayARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,34 +119,34 @@ instance Prelude.NFData SetSMBGuestPassword where
     Prelude.rnf gatewayARN
       `Prelude.seq` Prelude.rnf password
 
-instance Core.ToHeaders SetSMBGuestPassword where
+instance Data.ToHeaders SetSMBGuestPassword where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.SetSMBGuestPassword" ::
+              Data.=# ( "StorageGateway_20130630.SetSMBGuestPassword" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SetSMBGuestPassword where
+instance Data.ToJSON SetSMBGuestPassword where
   toJSON SetSMBGuestPassword' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("GatewayARN" Core..= gatewayARN),
-            Prelude.Just ("Password" Core..= password)
+          [ Prelude.Just ("GatewayARN" Data..= gatewayARN),
+            Prelude.Just ("Password" Data..= password)
           ]
       )
 
-instance Core.ToPath SetSMBGuestPassword where
+instance Data.ToPath SetSMBGuestPassword where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetSMBGuestPassword where
+instance Data.ToQuery SetSMBGuestPassword where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSetSMBGuestPasswordResponse' smart constructor.

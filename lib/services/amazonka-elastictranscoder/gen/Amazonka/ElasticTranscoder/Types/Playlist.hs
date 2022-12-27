@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticTranscoder.Types.Playlist
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.ElasticTranscoder.Types.Playlist where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticTranscoder.Types.HlsContentProtection
 import Amazonka.ElasticTranscoder.Types.PlayReadyDrm
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Use Only for Fragmented MP4 or MPEG-TS Outputs. If you specify a preset
@@ -34,14 +35,23 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPlaylist' smart constructor.
 data Playlist = Playlist'
-  { -- | The status of the job with which the playlist is associated.
-    status :: Prelude.Maybe Prelude.Text,
-    -- | The DRM settings, if any, that you want Elastic Transcoder to apply to
-    -- the output files associated with this playlist.
-    playReadyDrm :: Prelude.Maybe PlayReadyDrm,
-    -- | The format of the output playlist. Valid formats include @HLSv3@,
+  { -- | The format of the output playlist. Valid formats include @HLSv3@,
     -- @HLSv4@, and @Smooth@.
     format :: Prelude.Maybe Prelude.Text,
+    -- | The HLS content protection settings, if any, that you want Elastic
+    -- Transcoder to apply to the output files associated with this playlist.
+    hlsContentProtection :: Prelude.Maybe HlsContentProtection,
+    -- | The name that you want Elastic Transcoder to assign to the master
+    -- playlist, for example, nyc-vacation.m3u8. If the name includes a @\/@
+    -- character, the section of the name before the last @\/@ must be
+    -- identical for all @Name@ objects. If you create more than one master
+    -- playlist, the values of all @Name@ objects must be unique.
+    --
+    -- Elastic Transcoder automatically appends the relevant file extension to
+    -- the file name (@.m3u8@ for @HLSv3@ and @HLSv4@ playlists, and @.ism@ and
+    -- @.ismc@ for @Smooth@ playlists). If you include a file extension in
+    -- @Name@, the file name will have two extensions.
+    name :: Prelude.Maybe Prelude.Text,
     -- | For each output in this job that you want to include in a master
     -- playlist, the value of the Outputs:Key object.
     --
@@ -83,22 +93,13 @@ data Playlist = Playlist'
     -- @Video:Profile@, and @Video:FrameRate@ to @Video:KeyframesMaxDist@ ratio
     -- must be the same for all outputs.
     outputKeys :: Prelude.Maybe [Prelude.Text],
-    -- | The name that you want Elastic Transcoder to assign to the master
-    -- playlist, for example, nyc-vacation.m3u8. If the name includes a @\/@
-    -- character, the section of the name before the last @\/@ must be
-    -- identical for all @Name@ objects. If you create more than one master
-    -- playlist, the values of all @Name@ objects must be unique.
-    --
-    -- Elastic Transcoder automatically appends the relevant file extension to
-    -- the file name (@.m3u8@ for @HLSv3@ and @HLSv4@ playlists, and @.ism@ and
-    -- @.ismc@ for @Smooth@ playlists). If you include a file extension in
-    -- @Name@, the file name will have two extensions.
-    name :: Prelude.Maybe Prelude.Text,
+    -- | The DRM settings, if any, that you want Elastic Transcoder to apply to
+    -- the output files associated with this playlist.
+    playReadyDrm :: Prelude.Maybe PlayReadyDrm,
+    -- | The status of the job with which the playlist is associated.
+    status :: Prelude.Maybe Prelude.Text,
     -- | Information that further explains the status.
-    statusDetail :: Prelude.Maybe Prelude.Text,
-    -- | The HLS content protection settings, if any, that you want Elastic
-    -- Transcoder to apply to the output files associated with this playlist.
-    hlsContentProtection :: Prelude.Maybe HlsContentProtection
+    statusDetail :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -110,13 +111,22 @@ data Playlist = Playlist'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'playlist_status' - The status of the job with which the playlist is associated.
---
--- 'playReadyDrm', 'playlist_playReadyDrm' - The DRM settings, if any, that you want Elastic Transcoder to apply to
--- the output files associated with this playlist.
---
 -- 'format', 'playlist_format' - The format of the output playlist. Valid formats include @HLSv3@,
 -- @HLSv4@, and @Smooth@.
+--
+-- 'hlsContentProtection', 'playlist_hlsContentProtection' - The HLS content protection settings, if any, that you want Elastic
+-- Transcoder to apply to the output files associated with this playlist.
+--
+-- 'name', 'playlist_name' - The name that you want Elastic Transcoder to assign to the master
+-- playlist, for example, nyc-vacation.m3u8. If the name includes a @\/@
+-- character, the section of the name before the last @\/@ must be
+-- identical for all @Name@ objects. If you create more than one master
+-- playlist, the values of all @Name@ objects must be unique.
+--
+-- Elastic Transcoder automatically appends the relevant file extension to
+-- the file name (@.m3u8@ for @HLSv3@ and @HLSv4@ playlists, and @.ism@ and
+-- @.ismc@ for @Smooth@ playlists). If you include a file extension in
+-- @Name@, the file name will have two extensions.
 --
 -- 'outputKeys', 'playlist_outputKeys' - For each output in this job that you want to include in a master
 -- playlist, the value of the Outputs:Key object.
@@ -159,7 +169,36 @@ data Playlist = Playlist'
 -- @Video:Profile@, and @Video:FrameRate@ to @Video:KeyframesMaxDist@ ratio
 -- must be the same for all outputs.
 --
--- 'name', 'playlist_name' - The name that you want Elastic Transcoder to assign to the master
+-- 'playReadyDrm', 'playlist_playReadyDrm' - The DRM settings, if any, that you want Elastic Transcoder to apply to
+-- the output files associated with this playlist.
+--
+-- 'status', 'playlist_status' - The status of the job with which the playlist is associated.
+--
+-- 'statusDetail', 'playlist_statusDetail' - Information that further explains the status.
+newPlaylist ::
+  Playlist
+newPlaylist =
+  Playlist'
+    { format = Prelude.Nothing,
+      hlsContentProtection = Prelude.Nothing,
+      name = Prelude.Nothing,
+      outputKeys = Prelude.Nothing,
+      playReadyDrm = Prelude.Nothing,
+      status = Prelude.Nothing,
+      statusDetail = Prelude.Nothing
+    }
+
+-- | The format of the output playlist. Valid formats include @HLSv3@,
+-- @HLSv4@, and @Smooth@.
+playlist_format :: Lens.Lens' Playlist (Prelude.Maybe Prelude.Text)
+playlist_format = Lens.lens (\Playlist' {format} -> format) (\s@Playlist' {} a -> s {format = a} :: Playlist)
+
+-- | The HLS content protection settings, if any, that you want Elastic
+-- Transcoder to apply to the output files associated with this playlist.
+playlist_hlsContentProtection :: Lens.Lens' Playlist (Prelude.Maybe HlsContentProtection)
+playlist_hlsContentProtection = Lens.lens (\Playlist' {hlsContentProtection} -> hlsContentProtection) (\s@Playlist' {} a -> s {hlsContentProtection = a} :: Playlist)
+
+-- | The name that you want Elastic Transcoder to assign to the master
 -- playlist, for example, nyc-vacation.m3u8. If the name includes a @\/@
 -- character, the section of the name before the last @\/@ must be
 -- identical for all @Name@ objects. If you create more than one master
@@ -169,37 +208,8 @@ data Playlist = Playlist'
 -- the file name (@.m3u8@ for @HLSv3@ and @HLSv4@ playlists, and @.ism@ and
 -- @.ismc@ for @Smooth@ playlists). If you include a file extension in
 -- @Name@, the file name will have two extensions.
---
--- 'statusDetail', 'playlist_statusDetail' - Information that further explains the status.
---
--- 'hlsContentProtection', 'playlist_hlsContentProtection' - The HLS content protection settings, if any, that you want Elastic
--- Transcoder to apply to the output files associated with this playlist.
-newPlaylist ::
-  Playlist
-newPlaylist =
-  Playlist'
-    { status = Prelude.Nothing,
-      playReadyDrm = Prelude.Nothing,
-      format = Prelude.Nothing,
-      outputKeys = Prelude.Nothing,
-      name = Prelude.Nothing,
-      statusDetail = Prelude.Nothing,
-      hlsContentProtection = Prelude.Nothing
-    }
-
--- | The status of the job with which the playlist is associated.
-playlist_status :: Lens.Lens' Playlist (Prelude.Maybe Prelude.Text)
-playlist_status = Lens.lens (\Playlist' {status} -> status) (\s@Playlist' {} a -> s {status = a} :: Playlist)
-
--- | The DRM settings, if any, that you want Elastic Transcoder to apply to
--- the output files associated with this playlist.
-playlist_playReadyDrm :: Lens.Lens' Playlist (Prelude.Maybe PlayReadyDrm)
-playlist_playReadyDrm = Lens.lens (\Playlist' {playReadyDrm} -> playReadyDrm) (\s@Playlist' {} a -> s {playReadyDrm = a} :: Playlist)
-
--- | The format of the output playlist. Valid formats include @HLSv3@,
--- @HLSv4@, and @Smooth@.
-playlist_format :: Lens.Lens' Playlist (Prelude.Maybe Prelude.Text)
-playlist_format = Lens.lens (\Playlist' {format} -> format) (\s@Playlist' {} a -> s {format = a} :: Playlist)
+playlist_name :: Lens.Lens' Playlist (Prelude.Maybe Prelude.Text)
+playlist_name = Lens.lens (\Playlist' {name} -> name) (\s@Playlist' {} a -> s {name = a} :: Playlist)
 
 -- | For each output in this job that you want to include in a master
 -- playlist, the value of the Outputs:Key object.
@@ -244,59 +254,50 @@ playlist_format = Lens.lens (\Playlist' {format} -> format) (\s@Playlist' {} a -
 playlist_outputKeys :: Lens.Lens' Playlist (Prelude.Maybe [Prelude.Text])
 playlist_outputKeys = Lens.lens (\Playlist' {outputKeys} -> outputKeys) (\s@Playlist' {} a -> s {outputKeys = a} :: Playlist) Prelude.. Lens.mapping Lens.coerced
 
--- | The name that you want Elastic Transcoder to assign to the master
--- playlist, for example, nyc-vacation.m3u8. If the name includes a @\/@
--- character, the section of the name before the last @\/@ must be
--- identical for all @Name@ objects. If you create more than one master
--- playlist, the values of all @Name@ objects must be unique.
---
--- Elastic Transcoder automatically appends the relevant file extension to
--- the file name (@.m3u8@ for @HLSv3@ and @HLSv4@ playlists, and @.ism@ and
--- @.ismc@ for @Smooth@ playlists). If you include a file extension in
--- @Name@, the file name will have two extensions.
-playlist_name :: Lens.Lens' Playlist (Prelude.Maybe Prelude.Text)
-playlist_name = Lens.lens (\Playlist' {name} -> name) (\s@Playlist' {} a -> s {name = a} :: Playlist)
+-- | The DRM settings, if any, that you want Elastic Transcoder to apply to
+-- the output files associated with this playlist.
+playlist_playReadyDrm :: Lens.Lens' Playlist (Prelude.Maybe PlayReadyDrm)
+playlist_playReadyDrm = Lens.lens (\Playlist' {playReadyDrm} -> playReadyDrm) (\s@Playlist' {} a -> s {playReadyDrm = a} :: Playlist)
+
+-- | The status of the job with which the playlist is associated.
+playlist_status :: Lens.Lens' Playlist (Prelude.Maybe Prelude.Text)
+playlist_status = Lens.lens (\Playlist' {status} -> status) (\s@Playlist' {} a -> s {status = a} :: Playlist)
 
 -- | Information that further explains the status.
 playlist_statusDetail :: Lens.Lens' Playlist (Prelude.Maybe Prelude.Text)
 playlist_statusDetail = Lens.lens (\Playlist' {statusDetail} -> statusDetail) (\s@Playlist' {} a -> s {statusDetail = a} :: Playlist)
 
--- | The HLS content protection settings, if any, that you want Elastic
--- Transcoder to apply to the output files associated with this playlist.
-playlist_hlsContentProtection :: Lens.Lens' Playlist (Prelude.Maybe HlsContentProtection)
-playlist_hlsContentProtection = Lens.lens (\Playlist' {hlsContentProtection} -> hlsContentProtection) (\s@Playlist' {} a -> s {hlsContentProtection = a} :: Playlist)
-
-instance Core.FromJSON Playlist where
+instance Data.FromJSON Playlist where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Playlist"
       ( \x ->
           Playlist'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "PlayReadyDrm")
-            Prelude.<*> (x Core..:? "Format")
-            Prelude.<*> (x Core..:? "OutputKeys" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "StatusDetail")
-            Prelude.<*> (x Core..:? "HlsContentProtection")
+            Prelude.<$> (x Data..:? "Format")
+            Prelude.<*> (x Data..:? "HlsContentProtection")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "OutputKeys" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "PlayReadyDrm")
+            Prelude.<*> (x Data..:? "Status")
+            Prelude.<*> (x Data..:? "StatusDetail")
       )
 
 instance Prelude.Hashable Playlist where
   hashWithSalt _salt Playlist' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` playReadyDrm
-      `Prelude.hashWithSalt` format
-      `Prelude.hashWithSalt` outputKeys
-      `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` statusDetail
+    _salt `Prelude.hashWithSalt` format
       `Prelude.hashWithSalt` hlsContentProtection
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` outputKeys
+      `Prelude.hashWithSalt` playReadyDrm
+      `Prelude.hashWithSalt` status
+      `Prelude.hashWithSalt` statusDetail
 
 instance Prelude.NFData Playlist where
   rnf Playlist' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf playReadyDrm
-      `Prelude.seq` Prelude.rnf format
-      `Prelude.seq` Prelude.rnf outputKeys
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf statusDetail
+    Prelude.rnf format
       `Prelude.seq` Prelude.rnf hlsContentProtection
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf outputKeys
+      `Prelude.seq` Prelude.rnf playReadyDrm
+      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf statusDetail

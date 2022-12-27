@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.SchemaChangePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Glue.Types.SchemaChangePolicy where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.DeleteBehavior
 import Amazonka.Glue.Types.UpdateBehavior
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A policy that specifies update and deletion behaviors for the crawler.
@@ -64,14 +65,14 @@ schemaChangePolicy_deleteBehavior = Lens.lens (\SchemaChangePolicy' {deleteBehav
 schemaChangePolicy_updateBehavior :: Lens.Lens' SchemaChangePolicy (Prelude.Maybe UpdateBehavior)
 schemaChangePolicy_updateBehavior = Lens.lens (\SchemaChangePolicy' {updateBehavior} -> updateBehavior) (\s@SchemaChangePolicy' {} a -> s {updateBehavior = a} :: SchemaChangePolicy)
 
-instance Core.FromJSON SchemaChangePolicy where
+instance Data.FromJSON SchemaChangePolicy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SchemaChangePolicy"
       ( \x ->
           SchemaChangePolicy'
-            Prelude.<$> (x Core..:? "DeleteBehavior")
-            Prelude.<*> (x Core..:? "UpdateBehavior")
+            Prelude.<$> (x Data..:? "DeleteBehavior")
+            Prelude.<*> (x Data..:? "UpdateBehavior")
       )
 
 instance Prelude.Hashable SchemaChangePolicy where
@@ -84,13 +85,13 @@ instance Prelude.NFData SchemaChangePolicy where
     Prelude.rnf deleteBehavior
       `Prelude.seq` Prelude.rnf updateBehavior
 
-instance Core.ToJSON SchemaChangePolicy where
+instance Data.ToJSON SchemaChangePolicy where
   toJSON SchemaChangePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DeleteBehavior" Core..=)
+          [ ("DeleteBehavior" Data..=)
               Prelude.<$> deleteBehavior,
-            ("UpdateBehavior" Core..=)
+            ("UpdateBehavior" Data..=)
               Prelude.<$> updateBehavior
           ]
       )

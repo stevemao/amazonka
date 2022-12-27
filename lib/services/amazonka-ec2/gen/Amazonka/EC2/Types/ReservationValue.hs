@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ReservationValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.ReservationValue where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The cost associated with the Reserved Instance.
@@ -74,12 +75,12 @@ reservationValue_remainingTotalValue = Lens.lens (\ReservationValue' {remainingT
 reservationValue_remainingUpfrontValue :: Lens.Lens' ReservationValue (Prelude.Maybe Prelude.Text)
 reservationValue_remainingUpfrontValue = Lens.lens (\ReservationValue' {remainingUpfrontValue} -> remainingUpfrontValue) (\s@ReservationValue' {} a -> s {remainingUpfrontValue = a} :: ReservationValue)
 
-instance Core.FromXML ReservationValue where
+instance Data.FromXML ReservationValue where
   parseXML x =
     ReservationValue'
-      Prelude.<$> (x Core..@? "hourlyPrice")
-      Prelude.<*> (x Core..@? "remainingTotalValue")
-      Prelude.<*> (x Core..@? "remainingUpfrontValue")
+      Prelude.<$> (x Data..@? "hourlyPrice")
+      Prelude.<*> (x Data..@? "remainingTotalValue")
+      Prelude.<*> (x Data..@? "remainingUpfrontValue")
 
 instance Prelude.Hashable ReservationValue where
   hashWithSalt _salt ReservationValue' {..} =

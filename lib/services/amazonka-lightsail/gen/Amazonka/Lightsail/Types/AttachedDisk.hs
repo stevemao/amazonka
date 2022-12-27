@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.AttachedDisk
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.AttachedDisk where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a block storage disk that is attached to an instance, and is
@@ -62,14 +63,14 @@ attachedDisk_path = Lens.lens (\AttachedDisk' {path} -> path) (\s@AttachedDisk' 
 attachedDisk_sizeInGb :: Lens.Lens' AttachedDisk (Prelude.Maybe Prelude.Int)
 attachedDisk_sizeInGb = Lens.lens (\AttachedDisk' {sizeInGb} -> sizeInGb) (\s@AttachedDisk' {} a -> s {sizeInGb = a} :: AttachedDisk)
 
-instance Core.FromJSON AttachedDisk where
+instance Data.FromJSON AttachedDisk where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AttachedDisk"
       ( \x ->
           AttachedDisk'
-            Prelude.<$> (x Core..:? "path")
-            Prelude.<*> (x Core..:? "sizeInGb")
+            Prelude.<$> (x Data..:? "path")
+            Prelude.<*> (x Data..:? "sizeInGb")
       )
 
 instance Prelude.Hashable AttachedDisk where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.UpdateAssessmentTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.Inspector.UpdateAssessmentTarget
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,7 +108,8 @@ instance Core.AWSRequest UpdateAssessmentTarget where
   type
     AWSResponse UpdateAssessmentTarget =
       UpdateAssessmentTargetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       UpdateAssessmentTargetResponse'
@@ -124,40 +126,40 @@ instance Prelude.NFData UpdateAssessmentTarget where
       `Prelude.seq` Prelude.rnf assessmentTargetArn
       `Prelude.seq` Prelude.rnf assessmentTargetName
 
-instance Core.ToHeaders UpdateAssessmentTarget where
+instance Data.ToHeaders UpdateAssessmentTarget where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.UpdateAssessmentTarget" ::
+              Data.=# ( "InspectorService.UpdateAssessmentTarget" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAssessmentTarget where
+instance Data.ToJSON UpdateAssessmentTarget where
   toJSON UpdateAssessmentTarget' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("resourceGroupArn" Core..=)
+          [ ("resourceGroupArn" Data..=)
               Prelude.<$> resourceGroupArn,
             Prelude.Just
-              ("assessmentTargetArn" Core..= assessmentTargetArn),
+              ("assessmentTargetArn" Data..= assessmentTargetArn),
             Prelude.Just
               ( "assessmentTargetName"
-                  Core..= assessmentTargetName
+                  Data..= assessmentTargetName
               )
           ]
       )
 
-instance Core.ToPath UpdateAssessmentTarget where
+instance Data.ToPath UpdateAssessmentTarget where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateAssessmentTarget where
+instance Data.ToQuery UpdateAssessmentTarget where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAssessmentTargetResponse' smart constructor.

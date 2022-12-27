@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.GetTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.SES.GetTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,13 +79,14 @@ getTemplate_templateName = Lens.lens (\GetTemplate' {templateName} -> templateNa
 
 instance Core.AWSRequest GetTemplate where
   type AWSResponse GetTemplate = GetTemplateResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetTemplateResult"
       ( \s h x ->
           GetTemplateResponse'
-            Prelude.<$> (x Core..@? "Template")
+            Prelude.<$> (x Data..@? "Template")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,20 +97,20 @@ instance Prelude.Hashable GetTemplate where
 instance Prelude.NFData GetTemplate where
   rnf GetTemplate' {..} = Prelude.rnf templateName
 
-instance Core.ToHeaders GetTemplate where
+instance Data.ToHeaders GetTemplate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetTemplate where
+instance Data.ToPath GetTemplate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetTemplate where
+instance Data.ToQuery GetTemplate where
   toQuery GetTemplate' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetTemplate" :: Prelude.ByteString),
+          Data.=: ("GetTemplate" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "TemplateName" Core.=: templateName
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "TemplateName" Data.=: templateName
       ]
 
 -- | /See:/ 'newGetTemplateResponse' smart constructor.

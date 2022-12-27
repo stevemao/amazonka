@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.CreateApplicationInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,14 +27,14 @@ module Amazonka.Panorama.CreateApplicationInstance
     newCreateApplicationInstance,
 
     -- * Request Lenses
+    createApplicationInstance_applicationInstanceIdToReplace,
+    createApplicationInstance_description,
     createApplicationInstance_manifestOverridesPayload,
     createApplicationInstance_name,
     createApplicationInstance_runtimeRoleArn,
-    createApplicationInstance_description,
     createApplicationInstance_tags,
-    createApplicationInstance_applicationInstanceIdToReplace,
-    createApplicationInstance_manifestPayload,
     createApplicationInstance_defaultRuntimeContextDevice,
+    createApplicationInstance_manifestPayload,
 
     -- * Destructuring the Response
     CreateApplicationInstanceResponse (..),
@@ -47,7 +47,8 @@ module Amazonka.Panorama.CreateApplicationInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Panorama.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,22 +56,22 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateApplicationInstance' smart constructor.
 data CreateApplicationInstance = CreateApplicationInstance'
-  { -- | Setting overrides for the application manifest.
+  { -- | The ID of an application instance to replace with the new instance.
+    applicationInstanceIdToReplace :: Prelude.Maybe Prelude.Text,
+    -- | A description for the application instance.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Setting overrides for the application manifest.
     manifestOverridesPayload :: Prelude.Maybe ManifestOverridesPayload,
     -- | A name for the application instance.
     name :: Prelude.Maybe Prelude.Text,
     -- | The ARN of a runtime role for the application instance.
     runtimeRoleArn :: Prelude.Maybe Prelude.Text,
-    -- | A description for the application instance.
-    description :: Prelude.Maybe Prelude.Text,
     -- | Tags for the application instance.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The ID of an application instance to replace with the new instance.
-    applicationInstanceIdToReplace :: Prelude.Maybe Prelude.Text,
-    -- | The application\'s manifest document.
-    manifestPayload :: ManifestPayload,
     -- | A device\'s ID.
-    defaultRuntimeContextDevice :: Prelude.Text
+    defaultRuntimeContextDevice :: Prelude.Text,
+    -- | The application\'s manifest document.
+    manifestPayload :: ManifestPayload
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -82,42 +83,50 @@ data CreateApplicationInstance = CreateApplicationInstance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'applicationInstanceIdToReplace', 'createApplicationInstance_applicationInstanceIdToReplace' - The ID of an application instance to replace with the new instance.
+--
+-- 'description', 'createApplicationInstance_description' - A description for the application instance.
+--
 -- 'manifestOverridesPayload', 'createApplicationInstance_manifestOverridesPayload' - Setting overrides for the application manifest.
 --
 -- 'name', 'createApplicationInstance_name' - A name for the application instance.
 --
 -- 'runtimeRoleArn', 'createApplicationInstance_runtimeRoleArn' - The ARN of a runtime role for the application instance.
 --
--- 'description', 'createApplicationInstance_description' - A description for the application instance.
---
 -- 'tags', 'createApplicationInstance_tags' - Tags for the application instance.
 --
--- 'applicationInstanceIdToReplace', 'createApplicationInstance_applicationInstanceIdToReplace' - The ID of an application instance to replace with the new instance.
+-- 'defaultRuntimeContextDevice', 'createApplicationInstance_defaultRuntimeContextDevice' - A device\'s ID.
 --
 -- 'manifestPayload', 'createApplicationInstance_manifestPayload' - The application\'s manifest document.
---
--- 'defaultRuntimeContextDevice', 'createApplicationInstance_defaultRuntimeContextDevice' - A device\'s ID.
 newCreateApplicationInstance ::
-  -- | 'manifestPayload'
-  ManifestPayload ->
   -- | 'defaultRuntimeContextDevice'
   Prelude.Text ->
+  -- | 'manifestPayload'
+  ManifestPayload ->
   CreateApplicationInstance
 newCreateApplicationInstance
-  pManifestPayload_
-  pDefaultRuntimeContextDevice_ =
+  pDefaultRuntimeContextDevice_
+  pManifestPayload_ =
     CreateApplicationInstance'
-      { manifestOverridesPayload =
+      { applicationInstanceIdToReplace =
           Prelude.Nothing,
+        description = Prelude.Nothing,
+        manifestOverridesPayload = Prelude.Nothing,
         name = Prelude.Nothing,
         runtimeRoleArn = Prelude.Nothing,
-        description = Prelude.Nothing,
         tags = Prelude.Nothing,
-        applicationInstanceIdToReplace = Prelude.Nothing,
-        manifestPayload = pManifestPayload_,
         defaultRuntimeContextDevice =
-          pDefaultRuntimeContextDevice_
+          pDefaultRuntimeContextDevice_,
+        manifestPayload = pManifestPayload_
       }
+
+-- | The ID of an application instance to replace with the new instance.
+createApplicationInstance_applicationInstanceIdToReplace :: Lens.Lens' CreateApplicationInstance (Prelude.Maybe Prelude.Text)
+createApplicationInstance_applicationInstanceIdToReplace = Lens.lens (\CreateApplicationInstance' {applicationInstanceIdToReplace} -> applicationInstanceIdToReplace) (\s@CreateApplicationInstance' {} a -> s {applicationInstanceIdToReplace = a} :: CreateApplicationInstance)
+
+-- | A description for the application instance.
+createApplicationInstance_description :: Lens.Lens' CreateApplicationInstance (Prelude.Maybe Prelude.Text)
+createApplicationInstance_description = Lens.lens (\CreateApplicationInstance' {description} -> description) (\s@CreateApplicationInstance' {} a -> s {description = a} :: CreateApplicationInstance)
 
 -- | Setting overrides for the application manifest.
 createApplicationInstance_manifestOverridesPayload :: Lens.Lens' CreateApplicationInstance (Prelude.Maybe ManifestOverridesPayload)
@@ -131,99 +140,92 @@ createApplicationInstance_name = Lens.lens (\CreateApplicationInstance' {name} -
 createApplicationInstance_runtimeRoleArn :: Lens.Lens' CreateApplicationInstance (Prelude.Maybe Prelude.Text)
 createApplicationInstance_runtimeRoleArn = Lens.lens (\CreateApplicationInstance' {runtimeRoleArn} -> runtimeRoleArn) (\s@CreateApplicationInstance' {} a -> s {runtimeRoleArn = a} :: CreateApplicationInstance)
 
--- | A description for the application instance.
-createApplicationInstance_description :: Lens.Lens' CreateApplicationInstance (Prelude.Maybe Prelude.Text)
-createApplicationInstance_description = Lens.lens (\CreateApplicationInstance' {description} -> description) (\s@CreateApplicationInstance' {} a -> s {description = a} :: CreateApplicationInstance)
-
 -- | Tags for the application instance.
 createApplicationInstance_tags :: Lens.Lens' CreateApplicationInstance (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createApplicationInstance_tags = Lens.lens (\CreateApplicationInstance' {tags} -> tags) (\s@CreateApplicationInstance' {} a -> s {tags = a} :: CreateApplicationInstance) Prelude.. Lens.mapping Lens.coerced
-
--- | The ID of an application instance to replace with the new instance.
-createApplicationInstance_applicationInstanceIdToReplace :: Lens.Lens' CreateApplicationInstance (Prelude.Maybe Prelude.Text)
-createApplicationInstance_applicationInstanceIdToReplace = Lens.lens (\CreateApplicationInstance' {applicationInstanceIdToReplace} -> applicationInstanceIdToReplace) (\s@CreateApplicationInstance' {} a -> s {applicationInstanceIdToReplace = a} :: CreateApplicationInstance)
-
--- | The application\'s manifest document.
-createApplicationInstance_manifestPayload :: Lens.Lens' CreateApplicationInstance ManifestPayload
-createApplicationInstance_manifestPayload = Lens.lens (\CreateApplicationInstance' {manifestPayload} -> manifestPayload) (\s@CreateApplicationInstance' {} a -> s {manifestPayload = a} :: CreateApplicationInstance)
 
 -- | A device\'s ID.
 createApplicationInstance_defaultRuntimeContextDevice :: Lens.Lens' CreateApplicationInstance Prelude.Text
 createApplicationInstance_defaultRuntimeContextDevice = Lens.lens (\CreateApplicationInstance' {defaultRuntimeContextDevice} -> defaultRuntimeContextDevice) (\s@CreateApplicationInstance' {} a -> s {defaultRuntimeContextDevice = a} :: CreateApplicationInstance)
 
+-- | The application\'s manifest document.
+createApplicationInstance_manifestPayload :: Lens.Lens' CreateApplicationInstance ManifestPayload
+createApplicationInstance_manifestPayload = Lens.lens (\CreateApplicationInstance' {manifestPayload} -> manifestPayload) (\s@CreateApplicationInstance' {} a -> s {manifestPayload = a} :: CreateApplicationInstance)
+
 instance Core.AWSRequest CreateApplicationInstance where
   type
     AWSResponse CreateApplicationInstance =
       CreateApplicationInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateApplicationInstanceResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ApplicationInstanceId")
+            Prelude.<*> (x Data..:> "ApplicationInstanceId")
       )
 
 instance Prelude.Hashable CreateApplicationInstance where
   hashWithSalt _salt CreateApplicationInstance' {..} =
     _salt
+      `Prelude.hashWithSalt` applicationInstanceIdToReplace
+      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` manifestOverridesPayload
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` runtimeRoleArn
-      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` tags
-      `Prelude.hashWithSalt` applicationInstanceIdToReplace
-      `Prelude.hashWithSalt` manifestPayload
       `Prelude.hashWithSalt` defaultRuntimeContextDevice
+      `Prelude.hashWithSalt` manifestPayload
 
 instance Prelude.NFData CreateApplicationInstance where
   rnf CreateApplicationInstance' {..} =
-    Prelude.rnf manifestOverridesPayload
+    Prelude.rnf applicationInstanceIdToReplace
+      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf manifestOverridesPayload
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf runtimeRoleArn
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf tags
-      `Prelude.seq` Prelude.rnf applicationInstanceIdToReplace
-      `Prelude.seq` Prelude.rnf manifestPayload
       `Prelude.seq` Prelude.rnf defaultRuntimeContextDevice
+      `Prelude.seq` Prelude.rnf manifestPayload
 
-instance Core.ToHeaders CreateApplicationInstance where
+instance Data.ToHeaders CreateApplicationInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateApplicationInstance where
+instance Data.ToJSON CreateApplicationInstance where
   toJSON CreateApplicationInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ManifestOverridesPayload" Core..=)
-              Prelude.<$> manifestOverridesPayload,
-            ("Name" Core..=) Prelude.<$> name,
-            ("RuntimeRoleArn" Core..=)
-              Prelude.<$> runtimeRoleArn,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            ("ApplicationInstanceIdToReplace" Core..=)
+          [ ("ApplicationInstanceIdToReplace" Data..=)
               Prelude.<$> applicationInstanceIdToReplace,
-            Prelude.Just
-              ("ManifestPayload" Core..= manifestPayload),
+            ("Description" Data..=) Prelude.<$> description,
+            ("ManifestOverridesPayload" Data..=)
+              Prelude.<$> manifestOverridesPayload,
+            ("Name" Data..=) Prelude.<$> name,
+            ("RuntimeRoleArn" Data..=)
+              Prelude.<$> runtimeRoleArn,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
               ( "DefaultRuntimeContextDevice"
-                  Core..= defaultRuntimeContextDevice
-              )
+                  Data..= defaultRuntimeContextDevice
+              ),
+            Prelude.Just
+              ("ManifestPayload" Data..= manifestPayload)
           ]
       )
 
-instance Core.ToPath CreateApplicationInstance where
+instance Data.ToPath CreateApplicationInstance where
   toPath = Prelude.const "/application-instances"
 
-instance Core.ToQuery CreateApplicationInstance where
+instance Data.ToQuery CreateApplicationInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateApplicationInstanceResponse' smart constructor.

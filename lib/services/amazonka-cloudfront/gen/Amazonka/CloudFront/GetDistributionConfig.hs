@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.GetDistributionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,15 +34,16 @@ module Amazonka.CloudFront.GetDistributionConfig
     newGetDistributionConfigResponse,
 
     -- * Response Lenses
-    getDistributionConfigResponse_eTag,
     getDistributionConfigResponse_distributionConfig,
+    getDistributionConfigResponse_eTag,
     getDistributionConfigResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,13 +84,14 @@ instance Core.AWSRequest GetDistributionConfig where
   type
     AWSResponse GetDistributionConfig =
       GetDistributionConfigResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetDistributionConfigResponse'
-            Prelude.<$> (h Core..#? "ETag")
-            Prelude.<*> (Core.parseXML x)
+            Prelude.<$> (Data.parseXML x)
+            Prelude.<*> (h Data..#? "ETag")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,28 +102,28 @@ instance Prelude.Hashable GetDistributionConfig where
 instance Prelude.NFData GetDistributionConfig where
   rnf GetDistributionConfig' {..} = Prelude.rnf id
 
-instance Core.ToHeaders GetDistributionConfig where
+instance Data.ToHeaders GetDistributionConfig where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetDistributionConfig where
+instance Data.ToPath GetDistributionConfig where
   toPath GetDistributionConfig' {..} =
     Prelude.mconcat
       [ "/2020-05-31/distribution/",
-        Core.toBS id,
+        Data.toBS id,
         "/config"
       ]
 
-instance Core.ToQuery GetDistributionConfig where
+instance Data.ToQuery GetDistributionConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The returned result of the corresponding request.
 --
 -- /See:/ 'newGetDistributionConfigResponse' smart constructor.
 data GetDistributionConfigResponse = GetDistributionConfigResponse'
-  { -- | The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
-    eTag :: Prelude.Maybe Prelude.Text,
-    -- | The distribution\'s configuration information.
+  { -- | The distribution\'s configuration information.
     distributionConfig :: Prelude.Maybe DistributionConfig,
+    -- | The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
+    eTag :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -135,9 +137,9 @@ data GetDistributionConfigResponse = GetDistributionConfigResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'eTag', 'getDistributionConfigResponse_eTag' - The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
---
 -- 'distributionConfig', 'getDistributionConfigResponse_distributionConfig' - The distribution\'s configuration information.
+--
+-- 'eTag', 'getDistributionConfigResponse_eTag' - The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
 --
 -- 'httpStatus', 'getDistributionConfigResponse_httpStatus' - The response's http status code.
 newGetDistributionConfigResponse ::
@@ -146,19 +148,19 @@ newGetDistributionConfigResponse ::
   GetDistributionConfigResponse
 newGetDistributionConfigResponse pHttpStatus_ =
   GetDistributionConfigResponse'
-    { eTag =
+    { distributionConfig =
         Prelude.Nothing,
-      distributionConfig = Prelude.Nothing,
+      eTag = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
-getDistributionConfigResponse_eTag :: Lens.Lens' GetDistributionConfigResponse (Prelude.Maybe Prelude.Text)
-getDistributionConfigResponse_eTag = Lens.lens (\GetDistributionConfigResponse' {eTag} -> eTag) (\s@GetDistributionConfigResponse' {} a -> s {eTag = a} :: GetDistributionConfigResponse)
 
 -- | The distribution\'s configuration information.
 getDistributionConfigResponse_distributionConfig :: Lens.Lens' GetDistributionConfigResponse (Prelude.Maybe DistributionConfig)
 getDistributionConfigResponse_distributionConfig = Lens.lens (\GetDistributionConfigResponse' {distributionConfig} -> distributionConfig) (\s@GetDistributionConfigResponse' {} a -> s {distributionConfig = a} :: GetDistributionConfigResponse)
+
+-- | The current version of the configuration. For example: @E2QWRUHAPOMQZL@.
+getDistributionConfigResponse_eTag :: Lens.Lens' GetDistributionConfigResponse (Prelude.Maybe Prelude.Text)
+getDistributionConfigResponse_eTag = Lens.lens (\GetDistributionConfigResponse' {eTag} -> eTag) (\s@GetDistributionConfigResponse' {} a -> s {eTag = a} :: GetDistributionConfigResponse)
 
 -- | The response's http status code.
 getDistributionConfigResponse_httpStatus :: Lens.Lens' GetDistributionConfigResponse Prelude.Int
@@ -166,6 +168,6 @@ getDistributionConfigResponse_httpStatus = Lens.lens (\GetDistributionConfigResp
 
 instance Prelude.NFData GetDistributionConfigResponse where
   rnf GetDistributionConfigResponse' {..} =
-    Prelude.rnf eTag
-      `Prelude.seq` Prelude.rnf distributionConfig
+    Prelude.rnf distributionConfig
+      `Prelude.seq` Prelude.rnf eTag
       `Prelude.seq` Prelude.rnf httpStatus

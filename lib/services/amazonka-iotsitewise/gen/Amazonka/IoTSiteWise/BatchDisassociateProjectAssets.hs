@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.BatchDisassociateProjectAssets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IoTSiteWise.BatchDisassociateProjectAssets
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,12 +115,13 @@ instance
   type
     AWSResponse BatchDisassociateProjectAssets =
       BatchDisassociateProjectAssetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDisassociateProjectAssetsResponse'
-            Prelude.<$> (x Core..?> "errors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "errors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -144,37 +146,37 @@ instance
       `Prelude.seq` Prelude.rnf assetIds
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     BatchDisassociateProjectAssets
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchDisassociateProjectAssets where
+instance Data.ToJSON BatchDisassociateProjectAssets where
   toJSON BatchDisassociateProjectAssets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            Prelude.Just ("assetIds" Core..= assetIds)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            Prelude.Just ("assetIds" Data..= assetIds)
           ]
       )
 
-instance Core.ToPath BatchDisassociateProjectAssets where
+instance Data.ToPath BatchDisassociateProjectAssets where
   toPath BatchDisassociateProjectAssets' {..} =
     Prelude.mconcat
       [ "/projects/",
-        Core.toBS projectId,
+        Data.toBS projectId,
         "/assets/disassociate"
       ]
 
-instance Core.ToQuery BatchDisassociateProjectAssets where
+instance Data.ToQuery BatchDisassociateProjectAssets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchDisassociateProjectAssetsResponse' smart constructor.

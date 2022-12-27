@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.UpdateDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,7 +27,9 @@ module Amazonka.SageMaker.UpdateDomain
     newUpdateDomain,
 
     -- * Request Lenses
+    updateDomain_defaultSpaceSettings,
     updateDomain_defaultUserSettings,
+    updateDomain_domainSettingsForUpdate,
     updateDomain_domainId,
 
     -- * Destructuring the Response
@@ -41,7 +43,8 @@ module Amazonka.SageMaker.UpdateDomain
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,8 +52,12 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newUpdateDomain' smart constructor.
 data UpdateDomain = UpdateDomain'
-  { -- | A collection of settings.
+  { -- | The default settings used to create a space within the Domain.
+    defaultSpaceSettings :: Prelude.Maybe DefaultSpaceSettings,
+    -- | A collection of settings.
     defaultUserSettings :: Prelude.Maybe UserSettings,
+    -- | A collection of @DomainSettings@ configuration values to update.
+    domainSettingsForUpdate :: Prelude.Maybe DomainSettingsForUpdate,
     -- | The ID of the domain to be updated.
     domainId :: Prelude.Text
   }
@@ -64,7 +71,11 @@ data UpdateDomain = UpdateDomain'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'defaultSpaceSettings', 'updateDomain_defaultSpaceSettings' - The default settings used to create a space within the Domain.
+--
 -- 'defaultUserSettings', 'updateDomain_defaultUserSettings' - A collection of settings.
+--
+-- 'domainSettingsForUpdate', 'updateDomain_domainSettingsForUpdate' - A collection of @DomainSettings@ configuration values to update.
 --
 -- 'domainId', 'updateDomain_domainId' - The ID of the domain to be updated.
 newUpdateDomain ::
@@ -73,14 +84,24 @@ newUpdateDomain ::
   UpdateDomain
 newUpdateDomain pDomainId_ =
   UpdateDomain'
-    { defaultUserSettings =
+    { defaultSpaceSettings =
         Prelude.Nothing,
+      defaultUserSettings = Prelude.Nothing,
+      domainSettingsForUpdate = Prelude.Nothing,
       domainId = pDomainId_
     }
+
+-- | The default settings used to create a space within the Domain.
+updateDomain_defaultSpaceSettings :: Lens.Lens' UpdateDomain (Prelude.Maybe DefaultSpaceSettings)
+updateDomain_defaultSpaceSettings = Lens.lens (\UpdateDomain' {defaultSpaceSettings} -> defaultSpaceSettings) (\s@UpdateDomain' {} a -> s {defaultSpaceSettings = a} :: UpdateDomain)
 
 -- | A collection of settings.
 updateDomain_defaultUserSettings :: Lens.Lens' UpdateDomain (Prelude.Maybe UserSettings)
 updateDomain_defaultUserSettings = Lens.lens (\UpdateDomain' {defaultUserSettings} -> defaultUserSettings) (\s@UpdateDomain' {} a -> s {defaultUserSettings = a} :: UpdateDomain)
+
+-- | A collection of @DomainSettings@ configuration values to update.
+updateDomain_domainSettingsForUpdate :: Lens.Lens' UpdateDomain (Prelude.Maybe DomainSettingsForUpdate)
+updateDomain_domainSettingsForUpdate = Lens.lens (\UpdateDomain' {domainSettingsForUpdate} -> domainSettingsForUpdate) (\s@UpdateDomain' {} a -> s {domainSettingsForUpdate = a} :: UpdateDomain)
 
 -- | The ID of the domain to be updated.
 updateDomain_domainId :: Lens.Lens' UpdateDomain Prelude.Text
@@ -88,52 +109,61 @@ updateDomain_domainId = Lens.lens (\UpdateDomain' {domainId} -> domainId) (\s@Up
 
 instance Core.AWSRequest UpdateDomain where
   type AWSResponse UpdateDomain = UpdateDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDomainResponse'
-            Prelude.<$> (x Core..?> "DomainArn")
+            Prelude.<$> (x Data..?> "DomainArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateDomain where
   hashWithSalt _salt UpdateDomain' {..} =
-    _salt `Prelude.hashWithSalt` defaultUserSettings
+    _salt `Prelude.hashWithSalt` defaultSpaceSettings
+      `Prelude.hashWithSalt` defaultUserSettings
+      `Prelude.hashWithSalt` domainSettingsForUpdate
       `Prelude.hashWithSalt` domainId
 
 instance Prelude.NFData UpdateDomain where
   rnf UpdateDomain' {..} =
-    Prelude.rnf defaultUserSettings
+    Prelude.rnf defaultSpaceSettings
+      `Prelude.seq` Prelude.rnf defaultUserSettings
+      `Prelude.seq` Prelude.rnf domainSettingsForUpdate
       `Prelude.seq` Prelude.rnf domainId
 
-instance Core.ToHeaders UpdateDomain where
+instance Data.ToHeaders UpdateDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.UpdateDomain" :: Prelude.ByteString),
+              Data.=# ("SageMaker.UpdateDomain" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDomain where
+instance Data.ToJSON UpdateDomain where
   toJSON UpdateDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DefaultUserSettings" Core..=)
+          [ ("DefaultSpaceSettings" Data..=)
+              Prelude.<$> defaultSpaceSettings,
+            ("DefaultUserSettings" Data..=)
               Prelude.<$> defaultUserSettings,
-            Prelude.Just ("DomainId" Core..= domainId)
+            ("DomainSettingsForUpdate" Data..=)
+              Prelude.<$> domainSettingsForUpdate,
+            Prelude.Just ("DomainId" Data..= domainId)
           ]
       )
 
-instance Core.ToPath UpdateDomain where
+instance Data.ToPath UpdateDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateDomain where
+instance Data.ToQuery UpdateDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDomainResponse' smart constructor.

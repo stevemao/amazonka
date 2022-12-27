@@ -14,45 +14,40 @@
 
 -- |
 -- Module      : Amazonka.DataSync.CreateTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a task.
+-- Configures a task, which defines where and how DataSync transfers your
+-- data.
 --
--- A task includes a source location and a destination location, and a
--- configuration that specifies how data is transferred. A task always
--- transfers data from the source location to the destination location. The
--- configuration specifies options such as task scheduling, bandwidth
--- limits, etc. A task is the complete definition of a data transfer.
+-- A task includes a source location, a destination location, and the
+-- preferences for how and when you want to transfer your data (such as
+-- bandwidth limits, scheduling, among other options).
 --
 -- When you create a task that transfers data between Amazon Web Services
--- services in different Amazon Web Services Regions, one of the two
--- locations that you specify must reside in the Region where DataSync is
--- being used. The other location must be specified in a different Region.
+-- services in different Amazon Web Services Regions, one of your locations
+-- must reside in the Region where you\'re using DataSync.
 --
--- You can transfer data between commercial Amazon Web Services Regions
--- except for China, or between Amazon Web Services GovCloud (US) Regions.
+-- For more information, see the following topics:
 --
--- When you use DataSync to copy files or objects between Amazon Web
--- Services Regions, you pay for data transfer between Regions. This is
--- billed as data transfer OUT from your source Region to your destination
--- Region. For more information, see
--- <http://aws.amazon.com/ec2/pricing/on-demand/#Data_Transfer Data Transfer pricing>.
+-- -   <https://docs.aws.amazon.com/datasync/latest/userguide/working-with-locations.html Working with DataSync locations>
+--
+-- -   <https://docs.aws.amazon.com/datasync/latest/userguide/create-task.html Configure DataSync task settings>
 module Amazonka.DataSync.CreateTask
   ( -- * Creating a Request
     CreateTask (..),
     newCreateTask,
 
     -- * Request Lenses
-    createTask_schedule,
+    createTask_cloudWatchLogGroupArn,
+    createTask_excludes,
     createTask_includes,
     createTask_name,
-    createTask_excludes,
     createTask_options,
-    createTask_cloudWatchLogGroupArn,
+    createTask_schedule,
     createTask_tags,
     createTask_sourceLocationArn,
     createTask_destinationLocationArn,
@@ -68,8 +63,9 @@ module Amazonka.DataSync.CreateTask
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,24 +74,22 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateTask' smart constructor.
 data CreateTask = CreateTask'
-  { -- | Specifies a schedule used to periodically transfer files from a source
-    -- to a destination location. The schedule should be specified in UTC time.
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html Scheduling your task>.
-    schedule :: Prelude.Maybe TaskSchedule,
-    -- | A list of filter rules that determines which files to include when
-    -- running a task. The pattern should contain a single filter string that
-    -- consists of the patterns to include. The patterns are delimited by \"|\"
-    -- (that is, a pipe). For example: @\"\/folder1|\/folder2@\"
-    includes :: Prelude.Maybe [FilterRule],
-    -- | The name of a task. This value is a text reference that is used to
-    -- identify the task in the console.
-    name :: Prelude.Maybe Prelude.Text,
+  { -- | The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that
+    -- is used to monitor and log events in the task.
+    cloudWatchLogGroupArn :: Prelude.Maybe Prelude.Text,
     -- | A list of filter rules that determines which files to exclude from a
     -- task. The list should contain a single filter string that consists of
     -- the patterns to exclude. The patterns are delimited by \"|\" (that is, a
     -- pipe), for example, @\"\/folder1|\/folder2\"@.
     excludes :: Prelude.Maybe [FilterRule],
+    -- | A list of filter rules that determines which files to include when
+    -- running a task. The pattern contains a single filter string that
+    -- consists of the patterns to include. The patterns are delimited by \"|\"
+    -- (that is, a pipe), for example, @\"\/folder1|\/folder2\"@.
+    includes :: Prelude.Maybe [FilterRule],
+    -- | The name of a task. This value is a text reference that is used to
+    -- identify the task in the console.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The set of configuration options that control the behavior of a single
     -- execution of the task that occurs when you call @StartTaskExecution@.
     -- You can configure these options to preserve metadata such as user ID
@@ -108,9 +102,11 @@ data CreateTask = CreateTask'
     -- <https://docs.aws.amazon.com/datasync/latest/userguide/API_StartTaskExecution.html StartTaskExecution>
     -- operation.
     options :: Prelude.Maybe Options,
-    -- | The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that
-    -- is used to monitor and log events in the task.
-    cloudWatchLogGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | Specifies a schedule used to periodically transfer files from a source
+    -- to a destination location. The schedule should be specified in UTC time.
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html Scheduling your task>.
+    schedule :: Prelude.Maybe TaskSchedule,
     -- | The key-value pair that represents the tag that you want to add to the
     -- resource. The value can be an empty string.
     tags :: Prelude.Maybe [TagListEntry],
@@ -130,23 +126,21 @@ data CreateTask = CreateTask'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'schedule', 'createTask_schedule' - Specifies a schedule used to periodically transfer files from a source
--- to a destination location. The schedule should be specified in UTC time.
--- For more information, see
--- <https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html Scheduling your task>.
---
--- 'includes', 'createTask_includes' - A list of filter rules that determines which files to include when
--- running a task. The pattern should contain a single filter string that
--- consists of the patterns to include. The patterns are delimited by \"|\"
--- (that is, a pipe). For example: @\"\/folder1|\/folder2@\"
---
--- 'name', 'createTask_name' - The name of a task. This value is a text reference that is used to
--- identify the task in the console.
+-- 'cloudWatchLogGroupArn', 'createTask_cloudWatchLogGroupArn' - The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that
+-- is used to monitor and log events in the task.
 --
 -- 'excludes', 'createTask_excludes' - A list of filter rules that determines which files to exclude from a
 -- task. The list should contain a single filter string that consists of
 -- the patterns to exclude. The patterns are delimited by \"|\" (that is, a
 -- pipe), for example, @\"\/folder1|\/folder2\"@.
+--
+-- 'includes', 'createTask_includes' - A list of filter rules that determines which files to include when
+-- running a task. The pattern contains a single filter string that
+-- consists of the patterns to include. The patterns are delimited by \"|\"
+-- (that is, a pipe), for example, @\"\/folder1|\/folder2\"@.
+--
+-- 'name', 'createTask_name' - The name of a task. This value is a text reference that is used to
+-- identify the task in the console.
 --
 -- 'options', 'createTask_options' - The set of configuration options that control the behavior of a single
 -- execution of the task that occurs when you call @StartTaskExecution@.
@@ -160,8 +154,10 @@ data CreateTask = CreateTask'
 -- <https://docs.aws.amazon.com/datasync/latest/userguide/API_StartTaskExecution.html StartTaskExecution>
 -- operation.
 --
--- 'cloudWatchLogGroupArn', 'createTask_cloudWatchLogGroupArn' - The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that
--- is used to monitor and log events in the task.
+-- 'schedule', 'createTask_schedule' - Specifies a schedule used to periodically transfer files from a source
+-- to a destination location. The schedule should be specified in UTC time.
+-- For more information, see
+-- <https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html Scheduling your task>.
 --
 -- 'tags', 'createTask_tags' - The key-value pair that represents the tag that you want to add to the
 -- resource. The value can be an empty string.
@@ -180,35 +176,22 @@ newCreateTask
   pSourceLocationArn_
   pDestinationLocationArn_ =
     CreateTask'
-      { schedule = Prelude.Nothing,
+      { cloudWatchLogGroupArn =
+          Prelude.Nothing,
+        excludes = Prelude.Nothing,
         includes = Prelude.Nothing,
         name = Prelude.Nothing,
-        excludes = Prelude.Nothing,
         options = Prelude.Nothing,
-        cloudWatchLogGroupArn = Prelude.Nothing,
+        schedule = Prelude.Nothing,
         tags = Prelude.Nothing,
         sourceLocationArn = pSourceLocationArn_,
         destinationLocationArn = pDestinationLocationArn_
       }
 
--- | Specifies a schedule used to periodically transfer files from a source
--- to a destination location. The schedule should be specified in UTC time.
--- For more information, see
--- <https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html Scheduling your task>.
-createTask_schedule :: Lens.Lens' CreateTask (Prelude.Maybe TaskSchedule)
-createTask_schedule = Lens.lens (\CreateTask' {schedule} -> schedule) (\s@CreateTask' {} a -> s {schedule = a} :: CreateTask)
-
--- | A list of filter rules that determines which files to include when
--- running a task. The pattern should contain a single filter string that
--- consists of the patterns to include. The patterns are delimited by \"|\"
--- (that is, a pipe). For example: @\"\/folder1|\/folder2@\"
-createTask_includes :: Lens.Lens' CreateTask (Prelude.Maybe [FilterRule])
-createTask_includes = Lens.lens (\CreateTask' {includes} -> includes) (\s@CreateTask' {} a -> s {includes = a} :: CreateTask) Prelude.. Lens.mapping Lens.coerced
-
--- | The name of a task. This value is a text reference that is used to
--- identify the task in the console.
-createTask_name :: Lens.Lens' CreateTask (Prelude.Maybe Prelude.Text)
-createTask_name = Lens.lens (\CreateTask' {name} -> name) (\s@CreateTask' {} a -> s {name = a} :: CreateTask)
+-- | The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that
+-- is used to monitor and log events in the task.
+createTask_cloudWatchLogGroupArn :: Lens.Lens' CreateTask (Prelude.Maybe Prelude.Text)
+createTask_cloudWatchLogGroupArn = Lens.lens (\CreateTask' {cloudWatchLogGroupArn} -> cloudWatchLogGroupArn) (\s@CreateTask' {} a -> s {cloudWatchLogGroupArn = a} :: CreateTask)
 
 -- | A list of filter rules that determines which files to exclude from a
 -- task. The list should contain a single filter string that consists of
@@ -216,6 +199,18 @@ createTask_name = Lens.lens (\CreateTask' {name} -> name) (\s@CreateTask' {} a -
 -- pipe), for example, @\"\/folder1|\/folder2\"@.
 createTask_excludes :: Lens.Lens' CreateTask (Prelude.Maybe [FilterRule])
 createTask_excludes = Lens.lens (\CreateTask' {excludes} -> excludes) (\s@CreateTask' {} a -> s {excludes = a} :: CreateTask) Prelude.. Lens.mapping Lens.coerced
+
+-- | A list of filter rules that determines which files to include when
+-- running a task. The pattern contains a single filter string that
+-- consists of the patterns to include. The patterns are delimited by \"|\"
+-- (that is, a pipe), for example, @\"\/folder1|\/folder2\"@.
+createTask_includes :: Lens.Lens' CreateTask (Prelude.Maybe [FilterRule])
+createTask_includes = Lens.lens (\CreateTask' {includes} -> includes) (\s@CreateTask' {} a -> s {includes = a} :: CreateTask) Prelude.. Lens.mapping Lens.coerced
+
+-- | The name of a task. This value is a text reference that is used to
+-- identify the task in the console.
+createTask_name :: Lens.Lens' CreateTask (Prelude.Maybe Prelude.Text)
+createTask_name = Lens.lens (\CreateTask' {name} -> name) (\s@CreateTask' {} a -> s {name = a} :: CreateTask)
 
 -- | The set of configuration options that control the behavior of a single
 -- execution of the task that occurs when you call @StartTaskExecution@.
@@ -231,10 +226,12 @@ createTask_excludes = Lens.lens (\CreateTask' {excludes} -> excludes) (\s@Create
 createTask_options :: Lens.Lens' CreateTask (Prelude.Maybe Options)
 createTask_options = Lens.lens (\CreateTask' {options} -> options) (\s@CreateTask' {} a -> s {options = a} :: CreateTask)
 
--- | The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that
--- is used to monitor and log events in the task.
-createTask_cloudWatchLogGroupArn :: Lens.Lens' CreateTask (Prelude.Maybe Prelude.Text)
-createTask_cloudWatchLogGroupArn = Lens.lens (\CreateTask' {cloudWatchLogGroupArn} -> cloudWatchLogGroupArn) (\s@CreateTask' {} a -> s {cloudWatchLogGroupArn = a} :: CreateTask)
+-- | Specifies a schedule used to periodically transfer files from a source
+-- to a destination location. The schedule should be specified in UTC time.
+-- For more information, see
+-- <https://docs.aws.amazon.com/datasync/latest/userguide/task-scheduling.html Scheduling your task>.
+createTask_schedule :: Lens.Lens' CreateTask (Prelude.Maybe TaskSchedule)
+createTask_schedule = Lens.lens (\CreateTask' {schedule} -> schedule) (\s@CreateTask' {} a -> s {schedule = a} :: CreateTask)
 
 -- | The key-value pair that represents the tag that you want to add to the
 -- resource. The value can be an empty string.
@@ -252,77 +249,78 @@ createTask_destinationLocationArn = Lens.lens (\CreateTask' {destinationLocation
 
 instance Core.AWSRequest CreateTask where
   type AWSResponse CreateTask = CreateTaskResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateTaskResponse'
-            Prelude.<$> (x Core..?> "TaskArn")
+            Prelude.<$> (x Data..?> "TaskArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateTask where
   hashWithSalt _salt CreateTask' {..} =
-    _salt `Prelude.hashWithSalt` schedule
+    _salt `Prelude.hashWithSalt` cloudWatchLogGroupArn
+      `Prelude.hashWithSalt` excludes
       `Prelude.hashWithSalt` includes
       `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` excludes
       `Prelude.hashWithSalt` options
-      `Prelude.hashWithSalt` cloudWatchLogGroupArn
+      `Prelude.hashWithSalt` schedule
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` sourceLocationArn
       `Prelude.hashWithSalt` destinationLocationArn
 
 instance Prelude.NFData CreateTask where
   rnf CreateTask' {..} =
-    Prelude.rnf schedule
+    Prelude.rnf cloudWatchLogGroupArn
+      `Prelude.seq` Prelude.rnf excludes
       `Prelude.seq` Prelude.rnf includes
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf excludes
       `Prelude.seq` Prelude.rnf options
-      `Prelude.seq` Prelude.rnf cloudWatchLogGroupArn
+      `Prelude.seq` Prelude.rnf schedule
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf sourceLocationArn
       `Prelude.seq` Prelude.rnf destinationLocationArn
 
-instance Core.ToHeaders CreateTask where
+instance Data.ToHeaders CreateTask where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("FmrsService.CreateTask" :: Prelude.ByteString),
+              Data.=# ("FmrsService.CreateTask" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateTask where
+instance Data.ToJSON CreateTask where
   toJSON CreateTask' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Schedule" Core..=) Prelude.<$> schedule,
-            ("Includes" Core..=) Prelude.<$> includes,
-            ("Name" Core..=) Prelude.<$> name,
-            ("Excludes" Core..=) Prelude.<$> excludes,
-            ("Options" Core..=) Prelude.<$> options,
-            ("CloudWatchLogGroupArn" Core..=)
+          [ ("CloudWatchLogGroupArn" Data..=)
               Prelude.<$> cloudWatchLogGroupArn,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("Excludes" Data..=) Prelude.<$> excludes,
+            ("Includes" Data..=) Prelude.<$> includes,
+            ("Name" Data..=) Prelude.<$> name,
+            ("Options" Data..=) Prelude.<$> options,
+            ("Schedule" Data..=) Prelude.<$> schedule,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("SourceLocationArn" Core..= sourceLocationArn),
+              ("SourceLocationArn" Data..= sourceLocationArn),
             Prelude.Just
               ( "DestinationLocationArn"
-                  Core..= destinationLocationArn
+                  Data..= destinationLocationArn
               )
           ]
       )
 
-instance Core.ToPath CreateTask where
+instance Data.ToPath CreateTask where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateTask where
+instance Data.ToQuery CreateTask where
   toQuery = Prelude.const Prelude.mempty
 
 -- | CreateTaskResponse

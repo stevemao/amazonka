@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.DescribeCacheClusters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,10 +51,10 @@ module Amazonka.ElastiCache.DescribeCacheClusters
     newDescribeCacheClusters,
 
     -- * Request Lenses
-    describeCacheClusters_showCacheClustersNotInReplicationGroups,
     describeCacheClusters_cacheClusterId,
     describeCacheClusters_marker,
     describeCacheClusters_maxRecords,
+    describeCacheClusters_showCacheClustersNotInReplicationGroups,
     describeCacheClusters_showCacheNodeInfo,
 
     -- * Destructuring the Response
@@ -69,8 +69,9 @@ module Amazonka.ElastiCache.DescribeCacheClusters
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,12 +80,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeCacheClusters' smart constructor.
 data DescribeCacheClusters = DescribeCacheClusters'
-  { -- | An optional flag that can be included in the @DescribeCacheCluster@
-    -- request to show only nodes (API\/CLI: clusters) that are not members of
-    -- a replication group. In practice, this mean Memcached and single node
-    -- Redis clusters.
-    showCacheClustersNotInReplicationGroups :: Prelude.Maybe Prelude.Bool,
-    -- | The user-supplied cluster identifier. If this parameter is specified,
+  { -- | The user-supplied cluster identifier. If this parameter is specified,
     -- only information about that specific cluster is returned. This parameter
     -- isn\'t case sensitive.
     cacheClusterId :: Prelude.Maybe Prelude.Text,
@@ -102,6 +98,11 @@ data DescribeCacheClusters = DescribeCacheClusters'
     -- Constraints: minimum 20; maximum 100.
     maxRecords :: Prelude.Maybe Prelude.Int,
     -- | An optional flag that can be included in the @DescribeCacheCluster@
+    -- request to show only nodes (API\/CLI: clusters) that are not members of
+    -- a replication group. In practice, this mean Memcached and single node
+    -- Redis clusters.
+    showCacheClustersNotInReplicationGroups :: Prelude.Maybe Prelude.Bool,
+    -- | An optional flag that can be included in the @DescribeCacheCluster@
     -- request to retrieve information about the individual cache nodes.
     showCacheNodeInfo :: Prelude.Maybe Prelude.Bool
   }
@@ -114,11 +115,6 @@ data DescribeCacheClusters = DescribeCacheClusters'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'showCacheClustersNotInReplicationGroups', 'describeCacheClusters_showCacheClustersNotInReplicationGroups' - An optional flag that can be included in the @DescribeCacheCluster@
--- request to show only nodes (API\/CLI: clusters) that are not members of
--- a replication group. In practice, this mean Memcached and single node
--- Redis clusters.
 --
 -- 'cacheClusterId', 'describeCacheClusters_cacheClusterId' - The user-supplied cluster identifier. If this parameter is specified,
 -- only information about that specific cluster is returned. This parameter
@@ -137,26 +133,25 @@ data DescribeCacheClusters = DescribeCacheClusters'
 --
 -- Constraints: minimum 20; maximum 100.
 --
+-- 'showCacheClustersNotInReplicationGroups', 'describeCacheClusters_showCacheClustersNotInReplicationGroups' - An optional flag that can be included in the @DescribeCacheCluster@
+-- request to show only nodes (API\/CLI: clusters) that are not members of
+-- a replication group. In practice, this mean Memcached and single node
+-- Redis clusters.
+--
 -- 'showCacheNodeInfo', 'describeCacheClusters_showCacheNodeInfo' - An optional flag that can be included in the @DescribeCacheCluster@
 -- request to retrieve information about the individual cache nodes.
 newDescribeCacheClusters ::
   DescribeCacheClusters
 newDescribeCacheClusters =
   DescribeCacheClusters'
-    { showCacheClustersNotInReplicationGroups =
+    { cacheClusterId =
         Prelude.Nothing,
-      cacheClusterId = Prelude.Nothing,
       marker = Prelude.Nothing,
       maxRecords = Prelude.Nothing,
+      showCacheClustersNotInReplicationGroups =
+        Prelude.Nothing,
       showCacheNodeInfo = Prelude.Nothing
     }
-
--- | An optional flag that can be included in the @DescribeCacheCluster@
--- request to show only nodes (API\/CLI: clusters) that are not members of
--- a replication group. In practice, this mean Memcached and single node
--- Redis clusters.
-describeCacheClusters_showCacheClustersNotInReplicationGroups :: Lens.Lens' DescribeCacheClusters (Prelude.Maybe Prelude.Bool)
-describeCacheClusters_showCacheClustersNotInReplicationGroups = Lens.lens (\DescribeCacheClusters' {showCacheClustersNotInReplicationGroups} -> showCacheClustersNotInReplicationGroups) (\s@DescribeCacheClusters' {} a -> s {showCacheClustersNotInReplicationGroups = a} :: DescribeCacheClusters)
 
 -- | The user-supplied cluster identifier. If this parameter is specified,
 -- only information about that specific cluster is returned. This parameter
@@ -180,6 +175,13 @@ describeCacheClusters_marker = Lens.lens (\DescribeCacheClusters' {marker} -> ma
 -- Constraints: minimum 20; maximum 100.
 describeCacheClusters_maxRecords :: Lens.Lens' DescribeCacheClusters (Prelude.Maybe Prelude.Int)
 describeCacheClusters_maxRecords = Lens.lens (\DescribeCacheClusters' {maxRecords} -> maxRecords) (\s@DescribeCacheClusters' {} a -> s {maxRecords = a} :: DescribeCacheClusters)
+
+-- | An optional flag that can be included in the @DescribeCacheCluster@
+-- request to show only nodes (API\/CLI: clusters) that are not members of
+-- a replication group. In practice, this mean Memcached and single node
+-- Redis clusters.
+describeCacheClusters_showCacheClustersNotInReplicationGroups :: Lens.Lens' DescribeCacheClusters (Prelude.Maybe Prelude.Bool)
+describeCacheClusters_showCacheClustersNotInReplicationGroups = Lens.lens (\DescribeCacheClusters' {showCacheClustersNotInReplicationGroups} -> showCacheClustersNotInReplicationGroups) (\s@DescribeCacheClusters' {} a -> s {showCacheClustersNotInReplicationGroups = a} :: DescribeCacheClusters)
 
 -- | An optional flag that can be included in the @DescribeCacheCluster@
 -- request to retrieve information about the individual cache nodes.
@@ -212,55 +214,55 @@ instance Core.AWSRequest DescribeCacheClusters where
   type
     AWSResponse DescribeCacheClusters =
       DescribeCacheClustersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeCacheClustersResult"
       ( \s h x ->
           DescribeCacheClustersResponse'
-            Prelude.<$> ( x Core..@? "CacheClusters" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "CacheCluster")
+            Prelude.<$> ( x Data..@? "CacheClusters" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "CacheCluster")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeCacheClusters where
   hashWithSalt _salt DescribeCacheClusters' {..} =
-    _salt
-      `Prelude.hashWithSalt` showCacheClustersNotInReplicationGroups
-      `Prelude.hashWithSalt` cacheClusterId
+    _salt `Prelude.hashWithSalt` cacheClusterId
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` showCacheClustersNotInReplicationGroups
       `Prelude.hashWithSalt` showCacheNodeInfo
 
 instance Prelude.NFData DescribeCacheClusters where
   rnf DescribeCacheClusters' {..} =
-    Prelude.rnf showCacheClustersNotInReplicationGroups
-      `Prelude.seq` Prelude.rnf cacheClusterId
+    Prelude.rnf cacheClusterId
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf showCacheClustersNotInReplicationGroups
       `Prelude.seq` Prelude.rnf showCacheNodeInfo
 
-instance Core.ToHeaders DescribeCacheClusters where
+instance Data.ToHeaders DescribeCacheClusters where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeCacheClusters where
+instance Data.ToPath DescribeCacheClusters where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeCacheClusters where
+instance Data.ToQuery DescribeCacheClusters where
   toQuery DescribeCacheClusters' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeCacheClusters" :: Prelude.ByteString),
+          Data.=: ("DescribeCacheClusters" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "CacheClusterId" Data.=: cacheClusterId,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
         "ShowCacheClustersNotInReplicationGroups"
-          Core.=: showCacheClustersNotInReplicationGroups,
-        "CacheClusterId" Core.=: cacheClusterId,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "ShowCacheNodeInfo" Core.=: showCacheNodeInfo
+          Data.=: showCacheClustersNotInReplicationGroups,
+        "ShowCacheNodeInfo" Data.=: showCacheNodeInfo
       ]
 
 -- | Represents the output of a @DescribeCacheClusters@ operation.

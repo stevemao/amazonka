@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaStore.PutCorsPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -55,7 +55,8 @@ module Amazonka.MediaStore.PutCorsPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaStore.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -105,7 +106,8 @@ instance Core.AWSRequest PutCorsPolicy where
   type
     AWSResponse PutCorsPolicy =
       PutCorsPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -123,35 +125,35 @@ instance Prelude.NFData PutCorsPolicy where
     Prelude.rnf containerName
       `Prelude.seq` Prelude.rnf corsPolicy
 
-instance Core.ToHeaders PutCorsPolicy where
+instance Data.ToHeaders PutCorsPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MediaStore_20170901.PutCorsPolicy" ::
+              Data.=# ( "MediaStore_20170901.PutCorsPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutCorsPolicy where
+instance Data.ToJSON PutCorsPolicy where
   toJSON PutCorsPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ContainerName" Core..= containerName),
-            Prelude.Just ("CorsPolicy" Core..= corsPolicy)
+              ("ContainerName" Data..= containerName),
+            Prelude.Just ("CorsPolicy" Data..= corsPolicy)
           ]
       )
 
-instance Core.ToPath PutCorsPolicy where
+instance Data.ToPath PutCorsPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutCorsPolicy where
+instance Data.ToQuery PutCorsPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutCorsPolicyResponse' smart constructor.

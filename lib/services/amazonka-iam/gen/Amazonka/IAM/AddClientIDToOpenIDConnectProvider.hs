@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.AddClientIDToOpenIDConnectProvider
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.IAM.AddClientIDToOpenIDConnectProvider
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,7 +108,8 @@ instance
   type
     AWSResponse AddClientIDToOpenIDConnectProvider =
       AddClientIDToOpenIDConnectProviderResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       AddClientIDToOpenIDConnectProviderResponse'
@@ -132,32 +134,32 @@ instance
       `Prelude.seq` Prelude.rnf clientID
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AddClientIDToOpenIDConnectProvider
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     AddClientIDToOpenIDConnectProvider
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     AddClientIDToOpenIDConnectProvider
   where
   toQuery AddClientIDToOpenIDConnectProvider' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "AddClientIDToOpenIDConnectProvider" ::
+          Data.=: ( "AddClientIDToOpenIDConnectProvider" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
         "OpenIDConnectProviderArn"
-          Core.=: openIDConnectProviderArn,
-        "ClientID" Core.=: clientID
+          Data.=: openIDConnectProviderArn,
+        "ClientID" Data.=: clientID
       ]
 
 -- | /See:/ 'newAddClientIDToOpenIDConnectProviderResponse' smart constructor.

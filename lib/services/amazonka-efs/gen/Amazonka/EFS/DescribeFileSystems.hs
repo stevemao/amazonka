@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.DescribeFileSystems
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,8 +54,8 @@ module Amazonka.EFS.DescribeFileSystems
     newDescribeFileSystems,
 
     -- * Request Lenses
-    describeFileSystems_fileSystemId,
     describeFileSystems_creationToken,
+    describeFileSystems_fileSystemId,
     describeFileSystems_marker,
     describeFileSystems_maxItems,
 
@@ -72,8 +72,9 @@ module Amazonka.EFS.DescribeFileSystems
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EFS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,13 +83,13 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeFileSystems' smart constructor.
 data DescribeFileSystems = DescribeFileSystems'
-  { -- | (Optional) ID of the file system whose description you want to retrieve
-    -- (String).
-    fileSystemId :: Prelude.Maybe Prelude.Text,
-    -- | (Optional) Restricts the list to the file system with this creation
+  { -- | (Optional) Restricts the list to the file system with this creation
     -- token (String). You specify a creation token when you create an Amazon
     -- EFS file system.
     creationToken :: Prelude.Maybe Prelude.Text,
+    -- | (Optional) ID of the file system whose description you want to retrieve
+    -- (String).
+    fileSystemId :: Prelude.Maybe Prelude.Text,
     -- | (Optional) Opaque pagination token returned from a previous
     -- @DescribeFileSystems@ operation (String). If present, specifies to
     -- continue the list from where the returning call had left off.
@@ -109,12 +110,12 @@ data DescribeFileSystems = DescribeFileSystems'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'fileSystemId', 'describeFileSystems_fileSystemId' - (Optional) ID of the file system whose description you want to retrieve
--- (String).
---
 -- 'creationToken', 'describeFileSystems_creationToken' - (Optional) Restricts the list to the file system with this creation
 -- token (String). You specify a creation token when you create an Amazon
 -- EFS file system.
+--
+-- 'fileSystemId', 'describeFileSystems_fileSystemId' - (Optional) ID of the file system whose description you want to retrieve
+-- (String).
 --
 -- 'marker', 'describeFileSystems_marker' - (Optional) Opaque pagination token returned from a previous
 -- @DescribeFileSystems@ operation (String). If present, specifies to
@@ -128,23 +129,23 @@ newDescribeFileSystems ::
   DescribeFileSystems
 newDescribeFileSystems =
   DescribeFileSystems'
-    { fileSystemId =
+    { creationToken =
         Prelude.Nothing,
-      creationToken = Prelude.Nothing,
+      fileSystemId = Prelude.Nothing,
       marker = Prelude.Nothing,
       maxItems = Prelude.Nothing
     }
-
--- | (Optional) ID of the file system whose description you want to retrieve
--- (String).
-describeFileSystems_fileSystemId :: Lens.Lens' DescribeFileSystems (Prelude.Maybe Prelude.Text)
-describeFileSystems_fileSystemId = Lens.lens (\DescribeFileSystems' {fileSystemId} -> fileSystemId) (\s@DescribeFileSystems' {} a -> s {fileSystemId = a} :: DescribeFileSystems)
 
 -- | (Optional) Restricts the list to the file system with this creation
 -- token (String). You specify a creation token when you create an Amazon
 -- EFS file system.
 describeFileSystems_creationToken :: Lens.Lens' DescribeFileSystems (Prelude.Maybe Prelude.Text)
 describeFileSystems_creationToken = Lens.lens (\DescribeFileSystems' {creationToken} -> creationToken) (\s@DescribeFileSystems' {} a -> s {creationToken = a} :: DescribeFileSystems)
+
+-- | (Optional) ID of the file system whose description you want to retrieve
+-- (String).
+describeFileSystems_fileSystemId :: Lens.Lens' DescribeFileSystems (Prelude.Maybe Prelude.Text)
+describeFileSystems_fileSystemId = Lens.lens (\DescribeFileSystems' {fileSystemId} -> fileSystemId) (\s@DescribeFileSystems' {} a -> s {fileSystemId = a} :: DescribeFileSystems)
 
 -- | (Optional) Opaque pagination token returned from a previous
 -- @DescribeFileSystems@ operation (String). If present, specifies to
@@ -185,44 +186,45 @@ instance Core.AWSRequest DescribeFileSystems where
   type
     AWSResponse DescribeFileSystems =
       DescribeFileSystemsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeFileSystemsResponse'
-            Prelude.<$> (x Core..?> "FileSystems" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Marker")
-            Prelude.<*> (x Core..?> "NextMarker")
+            Prelude.<$> (x Data..?> "FileSystems" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Marker")
+            Prelude.<*> (x Data..?> "NextMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeFileSystems where
   hashWithSalt _salt DescribeFileSystems' {..} =
-    _salt `Prelude.hashWithSalt` fileSystemId
-      `Prelude.hashWithSalt` creationToken
+    _salt `Prelude.hashWithSalt` creationToken
+      `Prelude.hashWithSalt` fileSystemId
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxItems
 
 instance Prelude.NFData DescribeFileSystems where
   rnf DescribeFileSystems' {..} =
-    Prelude.rnf fileSystemId
-      `Prelude.seq` Prelude.rnf creationToken
+    Prelude.rnf creationToken
+      `Prelude.seq` Prelude.rnf fileSystemId
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxItems
 
-instance Core.ToHeaders DescribeFileSystems where
+instance Data.ToHeaders DescribeFileSystems where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeFileSystems where
+instance Data.ToPath DescribeFileSystems where
   toPath = Prelude.const "/2015-02-01/file-systems"
 
-instance Core.ToQuery DescribeFileSystems where
+instance Data.ToQuery DescribeFileSystems where
   toQuery DescribeFileSystems' {..} =
     Prelude.mconcat
-      [ "FileSystemId" Core.=: fileSystemId,
-        "CreationToken" Core.=: creationToken,
-        "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems
+      [ "CreationToken" Data.=: creationToken,
+        "FileSystemId" Data.=: fileSystemId,
+        "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems
       ]
 
 -- | /See:/ 'newDescribeFileSystemsResponse' smart constructor.

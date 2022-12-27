@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.BatchGetReports
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,13 +82,14 @@ instance Core.AWSRequest BatchGetReports where
   type
     AWSResponse BatchGetReports =
       BatchGetReportsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchGetReportsResponse'
-            Prelude.<$> (x Core..?> "reports")
-            Prelude.<*> (x Core..?> "reportsNotFound")
+            Prelude.<$> (x Data..?> "reports")
+            Prelude.<*> (x Data..?> "reportsNotFound")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,32 +100,32 @@ instance Prelude.Hashable BatchGetReports where
 instance Prelude.NFData BatchGetReports where
   rnf BatchGetReports' {..} = Prelude.rnf reportArns
 
-instance Core.ToHeaders BatchGetReports where
+instance Data.ToHeaders BatchGetReports where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.BatchGetReports" ::
+              Data.=# ( "CodeBuild_20161006.BatchGetReports" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchGetReports where
+instance Data.ToJSON BatchGetReports where
   toJSON BatchGetReports' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("reportArns" Core..= reportArns)]
+          [Prelude.Just ("reportArns" Data..= reportArns)]
       )
 
-instance Core.ToPath BatchGetReports where
+instance Data.ToPath BatchGetReports where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchGetReports where
+instance Data.ToQuery BatchGetReports where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchGetReportsResponse' smart constructor.

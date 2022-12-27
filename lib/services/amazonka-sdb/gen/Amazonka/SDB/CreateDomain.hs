@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SDB.CreateDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.SDB.CreateDomain
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,7 +86,8 @@ createDomain_domainName = Lens.lens (\CreateDomain' {domainName} -> domainName) 
 
 instance Core.AWSRequest CreateDomain where
   type AWSResponse CreateDomain = CreateDomainResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull CreateDomainResponse'
 
 instance Prelude.Hashable CreateDomain where
@@ -95,20 +97,20 @@ instance Prelude.Hashable CreateDomain where
 instance Prelude.NFData CreateDomain where
   rnf CreateDomain' {..} = Prelude.rnf domainName
 
-instance Core.ToHeaders CreateDomain where
+instance Data.ToHeaders CreateDomain where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateDomain where
+instance Data.ToPath CreateDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDomain where
+instance Data.ToQuery CreateDomain where
   toQuery CreateDomain' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateDomain" :: Prelude.ByteString),
+          Data.=: ("CreateDomain" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2009-04-15" :: Prelude.ByteString),
-        "DomainName" Core.=: domainName
+          Data.=: ("2009-04-15" :: Prelude.ByteString),
+        "DomainName" Data.=: domainName
       ]
 
 -- | /See:/ 'newCreateDomainResponse' smart constructor.

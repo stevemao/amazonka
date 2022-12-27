@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.CreateTopic
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,6 +34,7 @@ module Amazonka.SNS.CreateTopic
 
     -- * Request Lenses
     createTopic_attributes,
+    createTopic_dataProtectionPolicy,
     createTopic_tags,
     createTopic_name,
 
@@ -48,7 +49,8 @@ module Amazonka.SNS.CreateTopic
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,6 +75,19 @@ data CreateTopic = CreateTopic'
     --
     -- -   @Policy@ – The policy that defines who can access your topic. By
     --     default, only the topic owner can publish or subscribe to the topic.
+    --
+    -- -   @SignatureVersion@ – The signature version corresponds to the
+    --     hashing algorithm used while creating the signature of the
+    --     notifications, subscription confirmations, or unsubscribe
+    --     confirmation messages sent by Amazon SNS. By default,
+    --     @SignatureVersion@ is set to 1.
+    --
+    -- -   @TracingConfig@ – Tracing mode of an Amazon SNS topic. By default
+    --     @TracingConfig@ is set to @PassThrough@, and the topic passes
+    --     through the tracing header it receives from an Amazon SNS publisher
+    --     to its subscriptions. If set to Active, Amazon SNS will vend X-Ray
+    --     segment data to topic owner account if the sampled flag in the
+    --     tracing header is true. This is only supported on standard topics.
     --
     -- The following attribute applies only to
     -- <https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html server-side encryption>:
@@ -109,6 +124,14 @@ data CreateTopic = CreateTopic'
     --         value for the @MessageDeduplicationId@ parameter for the
     --         @Publish@ action.
     attributes :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The body of the policy document you want to use for this topic.
+    --
+    -- You can only add one policy per topic.
+    --
+    -- The policy must be in JSON string format.
+    --
+    -- Length Constraints: Maximum length of 30,720.
+    dataProtectionPolicy :: Prelude.Maybe Prelude.Text,
     -- | The list of tags to add to a new topic.
     --
     -- To be able to tag a topic on creation, you must have the
@@ -150,6 +173,19 @@ data CreateTopic = CreateTopic'
 -- -   @Policy@ – The policy that defines who can access your topic. By
 --     default, only the topic owner can publish or subscribe to the topic.
 --
+-- -   @SignatureVersion@ – The signature version corresponds to the
+--     hashing algorithm used while creating the signature of the
+--     notifications, subscription confirmations, or unsubscribe
+--     confirmation messages sent by Amazon SNS. By default,
+--     @SignatureVersion@ is set to 1.
+--
+-- -   @TracingConfig@ – Tracing mode of an Amazon SNS topic. By default
+--     @TracingConfig@ is set to @PassThrough@, and the topic passes
+--     through the tracing header it receives from an Amazon SNS publisher
+--     to its subscriptions. If set to Active, Amazon SNS will vend X-Ray
+--     segment data to topic owner account if the sampled flag in the
+--     tracing header is true. This is only supported on standard topics.
+--
 -- The following attribute applies only to
 -- <https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html server-side encryption>:
 --
@@ -185,6 +221,14 @@ data CreateTopic = CreateTopic'
 --         value for the @MessageDeduplicationId@ parameter for the
 --         @Publish@ action.
 --
+-- 'dataProtectionPolicy', 'createTopic_dataProtectionPolicy' - The body of the policy document you want to use for this topic.
+--
+-- You can only add one policy per topic.
+--
+-- The policy must be in JSON string format.
+--
+-- Length Constraints: Maximum length of 30,720.
+--
 -- 'tags', 'createTopic_tags' - The list of tags to add to a new topic.
 --
 -- To be able to tag a topic on creation, you must have the
@@ -205,6 +249,7 @@ newCreateTopic ::
 newCreateTopic pName_ =
   CreateTopic'
     { attributes = Prelude.Nothing,
+      dataProtectionPolicy = Prelude.Nothing,
       tags = Prelude.Nothing,
       name = pName_
     }
@@ -224,6 +269,19 @@ newCreateTopic pName_ =
 --
 -- -   @Policy@ – The policy that defines who can access your topic. By
 --     default, only the topic owner can publish or subscribe to the topic.
+--
+-- -   @SignatureVersion@ – The signature version corresponds to the
+--     hashing algorithm used while creating the signature of the
+--     notifications, subscription confirmations, or unsubscribe
+--     confirmation messages sent by Amazon SNS. By default,
+--     @SignatureVersion@ is set to 1.
+--
+-- -   @TracingConfig@ – Tracing mode of an Amazon SNS topic. By default
+--     @TracingConfig@ is set to @PassThrough@, and the topic passes
+--     through the tracing header it receives from an Amazon SNS publisher
+--     to its subscriptions. If set to Active, Amazon SNS will vend X-Ray
+--     segment data to topic owner account if the sampled flag in the
+--     tracing header is true. This is only supported on standard topics.
 --
 -- The following attribute applies only to
 -- <https://docs.aws.amazon.com/sns/latest/dg/sns-server-side-encryption.html server-side encryption>:
@@ -262,6 +320,16 @@ newCreateTopic pName_ =
 createTopic_attributes :: Lens.Lens' CreateTopic (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createTopic_attributes = Lens.lens (\CreateTopic' {attributes} -> attributes) (\s@CreateTopic' {} a -> s {attributes = a} :: CreateTopic) Prelude.. Lens.mapping Lens.coerced
 
+-- | The body of the policy document you want to use for this topic.
+--
+-- You can only add one policy per topic.
+--
+-- The policy must be in JSON string format.
+--
+-- Length Constraints: Maximum length of 30,720.
+createTopic_dataProtectionPolicy :: Lens.Lens' CreateTopic (Prelude.Maybe Prelude.Text)
+createTopic_dataProtectionPolicy = Lens.lens (\CreateTopic' {dataProtectionPolicy} -> dataProtectionPolicy) (\s@CreateTopic' {} a -> s {dataProtectionPolicy = a} :: CreateTopic)
+
 -- | The list of tags to add to a new topic.
 --
 -- To be able to tag a topic on creation, you must have the
@@ -282,50 +350,54 @@ createTopic_name = Lens.lens (\CreateTopic' {name} -> name) (\s@CreateTopic' {} 
 
 instance Core.AWSRequest CreateTopic where
   type AWSResponse CreateTopic = CreateTopicResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateTopicResult"
       ( \s h x ->
           CreateTopicResponse'
-            Prelude.<$> (x Core..@? "TopicArn")
+            Prelude.<$> (x Data..@? "TopicArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateTopic where
   hashWithSalt _salt CreateTopic' {..} =
     _salt `Prelude.hashWithSalt` attributes
+      `Prelude.hashWithSalt` dataProtectionPolicy
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData CreateTopic where
   rnf CreateTopic' {..} =
     Prelude.rnf attributes
+      `Prelude.seq` Prelude.rnf dataProtectionPolicy
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateTopic where
+instance Data.ToHeaders CreateTopic where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateTopic where
+instance Data.ToPath CreateTopic where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateTopic where
+instance Data.ToQuery CreateTopic where
   toQuery CreateTopic' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateTopic" :: Prelude.ByteString),
+          Data.=: ("CreateTopic" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
         "Attributes"
-          Core.=: Core.toQuery
-            ( Core.toQueryMap "entry" "key" "value"
+          Data.=: Data.toQuery
+            ( Data.toQueryMap "entry" "key" "value"
                 Prelude.<$> attributes
             ),
+        "DataProtectionPolicy" Data.=: dataProtectionPolicy,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tags),
-        "Name" Core.=: name
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tags),
+        "Name" Data.=: name
       ]
 
 -- | Response from CreateTopic action.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.CsvClassifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,34 +20,41 @@
 module Amazonka.Glue.Types.CsvClassifier where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.CsvHeaderOption
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A classifier for custom @CSV@ content.
 --
 -- /See:/ 'newCsvClassifier' smart constructor.
 data CsvClassifier = CsvClassifier'
-  { -- | The time that this classifier was registered.
-    creationTime :: Prelude.Maybe Core.POSIX,
-    -- | A custom symbol to denote what combines content into a single column
-    -- value. It must be different from the column delimiter.
-    quoteSymbol :: Prelude.Maybe Prelude.Text,
+  { -- | Enables the processing of files that contain only one column.
+    allowSingleColumn :: Prelude.Maybe Prelude.Bool,
     -- | Indicates whether the CSV file contains a header.
     containsHeader :: Prelude.Maybe CsvHeaderOption,
-    -- | The time that this classifier was last updated.
-    lastUpdated :: Prelude.Maybe Core.POSIX,
+    -- | The time that this classifier was registered.
+    creationTime :: Prelude.Maybe Data.POSIX,
+    -- | Enables the custom datatype to be configured.
+    customDatatypeConfigured :: Prelude.Maybe Prelude.Bool,
+    -- | A list of custom datatypes including \"BINARY\", \"BOOLEAN\", \"DATE\",
+    -- \"DECIMAL\", \"DOUBLE\", \"FLOAT\", \"INT\", \"LONG\", \"SHORT\",
+    -- \"STRING\", \"TIMESTAMP\".
+    customDatatypes :: Prelude.Maybe [Prelude.Text],
+    -- | A custom symbol to denote what separates each column entry in the row.
+    delimiter :: Prelude.Maybe Prelude.Text,
     -- | Specifies not to trim values before identifying the type of column
     -- values. The default value is @true@.
     disableValueTrimming :: Prelude.Maybe Prelude.Bool,
     -- | A list of strings representing column names.
     header :: Prelude.Maybe [Prelude.Text],
+    -- | The time that this classifier was last updated.
+    lastUpdated :: Prelude.Maybe Data.POSIX,
+    -- | A custom symbol to denote what combines content into a single column
+    -- value. It must be different from the column delimiter.
+    quoteSymbol :: Prelude.Maybe Prelude.Text,
     -- | The version of this classifier.
     version :: Prelude.Maybe Prelude.Integer,
-    -- | Enables the processing of files that contain only one column.
-    allowSingleColumn :: Prelude.Maybe Prelude.Bool,
-    -- | A custom symbol to denote what separates each column entry in the row.
-    delimiter :: Prelude.Maybe Prelude.Text,
     -- | The name of the classifier.
     name :: Prelude.Text
   }
@@ -61,25 +68,31 @@ data CsvClassifier = CsvClassifier'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'creationTime', 'csvClassifier_creationTime' - The time that this classifier was registered.
---
--- 'quoteSymbol', 'csvClassifier_quoteSymbol' - A custom symbol to denote what combines content into a single column
--- value. It must be different from the column delimiter.
+-- 'allowSingleColumn', 'csvClassifier_allowSingleColumn' - Enables the processing of files that contain only one column.
 --
 -- 'containsHeader', 'csvClassifier_containsHeader' - Indicates whether the CSV file contains a header.
 --
--- 'lastUpdated', 'csvClassifier_lastUpdated' - The time that this classifier was last updated.
+-- 'creationTime', 'csvClassifier_creationTime' - The time that this classifier was registered.
+--
+-- 'customDatatypeConfigured', 'csvClassifier_customDatatypeConfigured' - Enables the custom datatype to be configured.
+--
+-- 'customDatatypes', 'csvClassifier_customDatatypes' - A list of custom datatypes including \"BINARY\", \"BOOLEAN\", \"DATE\",
+-- \"DECIMAL\", \"DOUBLE\", \"FLOAT\", \"INT\", \"LONG\", \"SHORT\",
+-- \"STRING\", \"TIMESTAMP\".
+--
+-- 'delimiter', 'csvClassifier_delimiter' - A custom symbol to denote what separates each column entry in the row.
 --
 -- 'disableValueTrimming', 'csvClassifier_disableValueTrimming' - Specifies not to trim values before identifying the type of column
 -- values. The default value is @true@.
 --
 -- 'header', 'csvClassifier_header' - A list of strings representing column names.
 --
+-- 'lastUpdated', 'csvClassifier_lastUpdated' - The time that this classifier was last updated.
+--
+-- 'quoteSymbol', 'csvClassifier_quoteSymbol' - A custom symbol to denote what combines content into a single column
+-- value. It must be different from the column delimiter.
+--
 -- 'version', 'csvClassifier_version' - The version of this classifier.
---
--- 'allowSingleColumn', 'csvClassifier_allowSingleColumn' - Enables the processing of files that contain only one column.
---
--- 'delimiter', 'csvClassifier_delimiter' - A custom symbol to denote what separates each column entry in the row.
 --
 -- 'name', 'csvClassifier_name' - The name of the classifier.
 newCsvClassifier ::
@@ -88,34 +101,45 @@ newCsvClassifier ::
   CsvClassifier
 newCsvClassifier pName_ =
   CsvClassifier'
-    { creationTime = Prelude.Nothing,
-      quoteSymbol = Prelude.Nothing,
+    { allowSingleColumn = Prelude.Nothing,
       containsHeader = Prelude.Nothing,
-      lastUpdated = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      customDatatypeConfigured = Prelude.Nothing,
+      customDatatypes = Prelude.Nothing,
+      delimiter = Prelude.Nothing,
       disableValueTrimming = Prelude.Nothing,
       header = Prelude.Nothing,
+      lastUpdated = Prelude.Nothing,
+      quoteSymbol = Prelude.Nothing,
       version = Prelude.Nothing,
-      allowSingleColumn = Prelude.Nothing,
-      delimiter = Prelude.Nothing,
       name = pName_
     }
 
--- | The time that this classifier was registered.
-csvClassifier_creationTime :: Lens.Lens' CsvClassifier (Prelude.Maybe Prelude.UTCTime)
-csvClassifier_creationTime = Lens.lens (\CsvClassifier' {creationTime} -> creationTime) (\s@CsvClassifier' {} a -> s {creationTime = a} :: CsvClassifier) Prelude.. Lens.mapping Core._Time
-
--- | A custom symbol to denote what combines content into a single column
--- value. It must be different from the column delimiter.
-csvClassifier_quoteSymbol :: Lens.Lens' CsvClassifier (Prelude.Maybe Prelude.Text)
-csvClassifier_quoteSymbol = Lens.lens (\CsvClassifier' {quoteSymbol} -> quoteSymbol) (\s@CsvClassifier' {} a -> s {quoteSymbol = a} :: CsvClassifier)
+-- | Enables the processing of files that contain only one column.
+csvClassifier_allowSingleColumn :: Lens.Lens' CsvClassifier (Prelude.Maybe Prelude.Bool)
+csvClassifier_allowSingleColumn = Lens.lens (\CsvClassifier' {allowSingleColumn} -> allowSingleColumn) (\s@CsvClassifier' {} a -> s {allowSingleColumn = a} :: CsvClassifier)
 
 -- | Indicates whether the CSV file contains a header.
 csvClassifier_containsHeader :: Lens.Lens' CsvClassifier (Prelude.Maybe CsvHeaderOption)
 csvClassifier_containsHeader = Lens.lens (\CsvClassifier' {containsHeader} -> containsHeader) (\s@CsvClassifier' {} a -> s {containsHeader = a} :: CsvClassifier)
 
--- | The time that this classifier was last updated.
-csvClassifier_lastUpdated :: Lens.Lens' CsvClassifier (Prelude.Maybe Prelude.UTCTime)
-csvClassifier_lastUpdated = Lens.lens (\CsvClassifier' {lastUpdated} -> lastUpdated) (\s@CsvClassifier' {} a -> s {lastUpdated = a} :: CsvClassifier) Prelude.. Lens.mapping Core._Time
+-- | The time that this classifier was registered.
+csvClassifier_creationTime :: Lens.Lens' CsvClassifier (Prelude.Maybe Prelude.UTCTime)
+csvClassifier_creationTime = Lens.lens (\CsvClassifier' {creationTime} -> creationTime) (\s@CsvClassifier' {} a -> s {creationTime = a} :: CsvClassifier) Prelude.. Lens.mapping Data._Time
+
+-- | Enables the custom datatype to be configured.
+csvClassifier_customDatatypeConfigured :: Lens.Lens' CsvClassifier (Prelude.Maybe Prelude.Bool)
+csvClassifier_customDatatypeConfigured = Lens.lens (\CsvClassifier' {customDatatypeConfigured} -> customDatatypeConfigured) (\s@CsvClassifier' {} a -> s {customDatatypeConfigured = a} :: CsvClassifier)
+
+-- | A list of custom datatypes including \"BINARY\", \"BOOLEAN\", \"DATE\",
+-- \"DECIMAL\", \"DOUBLE\", \"FLOAT\", \"INT\", \"LONG\", \"SHORT\",
+-- \"STRING\", \"TIMESTAMP\".
+csvClassifier_customDatatypes :: Lens.Lens' CsvClassifier (Prelude.Maybe [Prelude.Text])
+csvClassifier_customDatatypes = Lens.lens (\CsvClassifier' {customDatatypes} -> customDatatypes) (\s@CsvClassifier' {} a -> s {customDatatypes = a} :: CsvClassifier) Prelude.. Lens.mapping Lens.coerced
+
+-- | A custom symbol to denote what separates each column entry in the row.
+csvClassifier_delimiter :: Lens.Lens' CsvClassifier (Prelude.Maybe Prelude.Text)
+csvClassifier_delimiter = Lens.lens (\CsvClassifier' {delimiter} -> delimiter) (\s@CsvClassifier' {} a -> s {delimiter = a} :: CsvClassifier)
 
 -- | Specifies not to trim values before identifying the type of column
 -- values. The default value is @true@.
@@ -126,62 +150,71 @@ csvClassifier_disableValueTrimming = Lens.lens (\CsvClassifier' {disableValueTri
 csvClassifier_header :: Lens.Lens' CsvClassifier (Prelude.Maybe [Prelude.Text])
 csvClassifier_header = Lens.lens (\CsvClassifier' {header} -> header) (\s@CsvClassifier' {} a -> s {header = a} :: CsvClassifier) Prelude.. Lens.mapping Lens.coerced
 
+-- | The time that this classifier was last updated.
+csvClassifier_lastUpdated :: Lens.Lens' CsvClassifier (Prelude.Maybe Prelude.UTCTime)
+csvClassifier_lastUpdated = Lens.lens (\CsvClassifier' {lastUpdated} -> lastUpdated) (\s@CsvClassifier' {} a -> s {lastUpdated = a} :: CsvClassifier) Prelude.. Lens.mapping Data._Time
+
+-- | A custom symbol to denote what combines content into a single column
+-- value. It must be different from the column delimiter.
+csvClassifier_quoteSymbol :: Lens.Lens' CsvClassifier (Prelude.Maybe Prelude.Text)
+csvClassifier_quoteSymbol = Lens.lens (\CsvClassifier' {quoteSymbol} -> quoteSymbol) (\s@CsvClassifier' {} a -> s {quoteSymbol = a} :: CsvClassifier)
+
 -- | The version of this classifier.
 csvClassifier_version :: Lens.Lens' CsvClassifier (Prelude.Maybe Prelude.Integer)
 csvClassifier_version = Lens.lens (\CsvClassifier' {version} -> version) (\s@CsvClassifier' {} a -> s {version = a} :: CsvClassifier)
-
--- | Enables the processing of files that contain only one column.
-csvClassifier_allowSingleColumn :: Lens.Lens' CsvClassifier (Prelude.Maybe Prelude.Bool)
-csvClassifier_allowSingleColumn = Lens.lens (\CsvClassifier' {allowSingleColumn} -> allowSingleColumn) (\s@CsvClassifier' {} a -> s {allowSingleColumn = a} :: CsvClassifier)
-
--- | A custom symbol to denote what separates each column entry in the row.
-csvClassifier_delimiter :: Lens.Lens' CsvClassifier (Prelude.Maybe Prelude.Text)
-csvClassifier_delimiter = Lens.lens (\CsvClassifier' {delimiter} -> delimiter) (\s@CsvClassifier' {} a -> s {delimiter = a} :: CsvClassifier)
 
 -- | The name of the classifier.
 csvClassifier_name :: Lens.Lens' CsvClassifier Prelude.Text
 csvClassifier_name = Lens.lens (\CsvClassifier' {name} -> name) (\s@CsvClassifier' {} a -> s {name = a} :: CsvClassifier)
 
-instance Core.FromJSON CsvClassifier where
+instance Data.FromJSON CsvClassifier where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CsvClassifier"
       ( \x ->
           CsvClassifier'
-            Prelude.<$> (x Core..:? "CreationTime")
-            Prelude.<*> (x Core..:? "QuoteSymbol")
-            Prelude.<*> (x Core..:? "ContainsHeader")
-            Prelude.<*> (x Core..:? "LastUpdated")
-            Prelude.<*> (x Core..:? "DisableValueTrimming")
-            Prelude.<*> (x Core..:? "Header" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Version")
-            Prelude.<*> (x Core..:? "AllowSingleColumn")
-            Prelude.<*> (x Core..:? "Delimiter")
-            Prelude.<*> (x Core..: "Name")
+            Prelude.<$> (x Data..:? "AllowSingleColumn")
+            Prelude.<*> (x Data..:? "ContainsHeader")
+            Prelude.<*> (x Data..:? "CreationTime")
+            Prelude.<*> (x Data..:? "CustomDatatypeConfigured")
+            Prelude.<*> ( x Data..:? "CustomDatatypes"
+                            Data..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Data..:? "Delimiter")
+            Prelude.<*> (x Data..:? "DisableValueTrimming")
+            Prelude.<*> (x Data..:? "Header" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "LastUpdated")
+            Prelude.<*> (x Data..:? "QuoteSymbol")
+            Prelude.<*> (x Data..:? "Version")
+            Prelude.<*> (x Data..: "Name")
       )
 
 instance Prelude.Hashable CsvClassifier where
   hashWithSalt _salt CsvClassifier' {..} =
-    _salt `Prelude.hashWithSalt` creationTime
-      `Prelude.hashWithSalt` quoteSymbol
+    _salt `Prelude.hashWithSalt` allowSingleColumn
       `Prelude.hashWithSalt` containsHeader
-      `Prelude.hashWithSalt` lastUpdated
+      `Prelude.hashWithSalt` creationTime
+      `Prelude.hashWithSalt` customDatatypeConfigured
+      `Prelude.hashWithSalt` customDatatypes
+      `Prelude.hashWithSalt` delimiter
       `Prelude.hashWithSalt` disableValueTrimming
       `Prelude.hashWithSalt` header
+      `Prelude.hashWithSalt` lastUpdated
+      `Prelude.hashWithSalt` quoteSymbol
       `Prelude.hashWithSalt` version
-      `Prelude.hashWithSalt` allowSingleColumn
-      `Prelude.hashWithSalt` delimiter
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData CsvClassifier where
   rnf CsvClassifier' {..} =
-    Prelude.rnf creationTime
-      `Prelude.seq` Prelude.rnf quoteSymbol
+    Prelude.rnf allowSingleColumn
       `Prelude.seq` Prelude.rnf containsHeader
-      `Prelude.seq` Prelude.rnf lastUpdated
+      `Prelude.seq` Prelude.rnf creationTime
+      `Prelude.seq` Prelude.rnf customDatatypeConfigured
+      `Prelude.seq` Prelude.rnf customDatatypes
+      `Prelude.seq` Prelude.rnf delimiter
       `Prelude.seq` Prelude.rnf disableValueTrimming
       `Prelude.seq` Prelude.rnf header
+      `Prelude.seq` Prelude.rnf lastUpdated
+      `Prelude.seq` Prelude.rnf quoteSymbol
       `Prelude.seq` Prelude.rnf version
-      `Prelude.seq` Prelude.rnf allowSingleColumn
-      `Prelude.seq` Prelude.rnf delimiter
       `Prelude.seq` Prelude.rnf name

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMRContainers.Types.ContainerProvider
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EMRContainers.Types.ContainerProvider where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMRContainers.Types.ContainerInfo
 import Amazonka.EMRContainers.Types.ContainerProviderType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The information about the container provider.
@@ -79,15 +80,15 @@ containerProvider_type = Lens.lens (\ContainerProvider' {type'} -> type') (\s@Co
 containerProvider_id :: Lens.Lens' ContainerProvider Prelude.Text
 containerProvider_id = Lens.lens (\ContainerProvider' {id} -> id) (\s@ContainerProvider' {} a -> s {id = a} :: ContainerProvider)
 
-instance Core.FromJSON ContainerProvider where
+instance Data.FromJSON ContainerProvider where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContainerProvider"
       ( \x ->
           ContainerProvider'
-            Prelude.<$> (x Core..:? "info")
-            Prelude.<*> (x Core..: "type")
-            Prelude.<*> (x Core..: "id")
+            Prelude.<$> (x Data..:? "info")
+            Prelude.<*> (x Data..: "type")
+            Prelude.<*> (x Data..: "id")
       )
 
 instance Prelude.Hashable ContainerProvider where
@@ -102,12 +103,12 @@ instance Prelude.NFData ContainerProvider where
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToJSON ContainerProvider where
+instance Data.ToJSON ContainerProvider where
   toJSON ContainerProvider' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("info" Core..=) Prelude.<$> info,
-            Prelude.Just ("type" Core..= type'),
-            Prelude.Just ("id" Core..= id)
+          [ ("info" Data..=) Prelude.<$> info,
+            Prelude.Just ("type" Data..= type'),
+            Prelude.Just ("id" Data..= id)
           ]
       )

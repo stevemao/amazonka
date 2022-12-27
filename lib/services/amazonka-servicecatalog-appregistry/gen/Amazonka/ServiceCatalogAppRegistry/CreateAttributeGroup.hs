@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalogAppRegistry.CreateAttributeGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.ServiceCatalogAppRegistry.CreateAttributeGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -145,12 +146,13 @@ instance Core.AWSRequest CreateAttributeGroup where
   type
     AWSResponse CreateAttributeGroup =
       CreateAttributeGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAttributeGroupResponse'
-            Prelude.<$> (x Core..?> "attributeGroup")
+            Prelude.<$> (x Data..?> "attributeGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -170,33 +172,33 @@ instance Prelude.NFData CreateAttributeGroup where
       `Prelude.seq` Prelude.rnf attributes
       `Prelude.seq` Prelude.rnf clientToken
 
-instance Core.ToHeaders CreateAttributeGroup where
+instance Data.ToHeaders CreateAttributeGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAttributeGroup where
+instance Data.ToJSON CreateAttributeGroup where
   toJSON CreateAttributeGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("attributes" Core..= attributes),
-            Prelude.Just ("clientToken" Core..= clientToken)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("attributes" Data..= attributes),
+            Prelude.Just ("clientToken" Data..= clientToken)
           ]
       )
 
-instance Core.ToPath CreateAttributeGroup where
+instance Data.ToPath CreateAttributeGroup where
   toPath = Prelude.const "/attribute-groups"
 
-instance Core.ToQuery CreateAttributeGroup where
+instance Data.ToQuery CreateAttributeGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAttributeGroupResponse' smart constructor.

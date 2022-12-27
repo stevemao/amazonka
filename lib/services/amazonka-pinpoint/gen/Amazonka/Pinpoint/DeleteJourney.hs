@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.DeleteJourney
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Pinpoint.DeleteJourney
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -94,13 +95,14 @@ instance Core.AWSRequest DeleteJourney where
   type
     AWSResponse DeleteJourney =
       DeleteJourneyResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteJourneyResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable DeleteJourney where
@@ -113,27 +115,27 @@ instance Prelude.NFData DeleteJourney where
     Prelude.rnf journeyId
       `Prelude.seq` Prelude.rnf applicationId
 
-instance Core.ToHeaders DeleteJourney where
+instance Data.ToHeaders DeleteJourney where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteJourney where
+instance Data.ToPath DeleteJourney where
   toPath DeleteJourney' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/journeys/",
-        Core.toBS journeyId
+        Data.toBS journeyId
       ]
 
-instance Core.ToQuery DeleteJourney where
+instance Data.ToQuery DeleteJourney where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteJourneyResponse' smart constructor.

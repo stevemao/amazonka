@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.StopConfigurationRecorder
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,7 +84,8 @@ instance Core.AWSRequest StopConfigurationRecorder where
   type
     AWSResponse StopConfigurationRecorder =
       StopConfigurationRecorderResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       StopConfigurationRecorderResponse'
@@ -97,36 +99,36 @@ instance Prelude.NFData StopConfigurationRecorder where
   rnf StopConfigurationRecorder' {..} =
     Prelude.rnf configurationRecorderName
 
-instance Core.ToHeaders StopConfigurationRecorder where
+instance Data.ToHeaders StopConfigurationRecorder where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.StopConfigurationRecorder" ::
+              Data.=# ( "StarlingDoveService.StopConfigurationRecorder" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopConfigurationRecorder where
+instance Data.ToJSON StopConfigurationRecorder where
   toJSON StopConfigurationRecorder' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "ConfigurationRecorderName"
-                  Core..= configurationRecorderName
+                  Data..= configurationRecorderName
               )
           ]
       )
 
-instance Core.ToPath StopConfigurationRecorder where
+instance Data.ToPath StopConfigurationRecorder where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopConfigurationRecorder where
+instance Data.ToQuery StopConfigurationRecorder where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopConfigurationRecorderResponse' smart constructor.

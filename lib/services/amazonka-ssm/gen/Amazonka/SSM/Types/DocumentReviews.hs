@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.DocumentReviews
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.DocumentReviews where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.DocumentReviewAction
 import Amazonka.SSM.Types.DocumentReviewCommentSource
@@ -78,11 +79,11 @@ instance Prelude.NFData DocumentReviews where
     Prelude.rnf comment
       `Prelude.seq` Prelude.rnf action
 
-instance Core.ToJSON DocumentReviews where
+instance Data.ToJSON DocumentReviews where
   toJSON DocumentReviews' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Comment" Core..=) Prelude.<$> comment,
-            Prelude.Just ("Action" Core..= action)
+          [ ("Comment" Data..=) Prelude.<$> comment,
+            Prelude.Just ("Action" Data..= action)
           ]
       )

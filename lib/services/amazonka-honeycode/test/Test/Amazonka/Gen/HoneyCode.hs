@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.HoneyCode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,85 +27,109 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestBatchDeleteTableRows $
+--         [ requestBatchCreateTableRows $
+--             newBatchCreateTableRows
+--
+--         , requestBatchDeleteTableRows $
 --             newBatchDeleteTableRows
 --
 --         , requestBatchUpdateTableRows $
 --             newBatchUpdateTableRows
 --
---         , requestListTableRows $
---             newListTableRows
---
---         , requestInvokeScreenAutomation $
---             newInvokeScreenAutomation
+--         , requestBatchUpsertTableRows $
+--             newBatchUpsertTableRows
 --
 --         , requestDescribeTableDataImportJob $
 --             newDescribeTableDataImportJob
 --
---         , requestStartTableDataImportJob $
---             newStartTableDataImportJob
---
---         , requestBatchCreateTableRows $
---             newBatchCreateTableRows
---
---         , requestListTables $
---             newListTables
---
 --         , requestGetScreenData $
 --             newGetScreenData
 --
---         , requestQueryTableRows $
---             newQueryTableRows
---
---         , requestBatchUpsertTableRows $
---             newBatchUpsertTableRows
+--         , requestInvokeScreenAutomation $
+--             newInvokeScreenAutomation
 --
 --         , requestListTableColumns $
 --             newListTableColumns
 --
+--         , requestListTableRows $
+--             newListTableRows
+--
+--         , requestListTables $
+--             newListTables
+--
+--         , requestListTagsForResource $
+--             newListTagsForResource
+--
+--         , requestQueryTableRows $
+--             newQueryTableRows
+--
+--         , requestStartTableDataImportJob $
+--             newStartTableDataImportJob
+--
+--         , requestTagResource $
+--             newTagResource
+--
+--         , requestUntagResource $
+--             newUntagResource
+--
 --           ]
 
 --     , testGroup "response"
---         [ responseBatchDeleteTableRows $
+--         [ responseBatchCreateTableRows $
+--             newBatchCreateTableRowsResponse
+--
+--         , responseBatchDeleteTableRows $
 --             newBatchDeleteTableRowsResponse
 --
 --         , responseBatchUpdateTableRows $
 --             newBatchUpdateTableRowsResponse
 --
---         , responseListTableRows $
---             newListTableRowsResponse
---
---         , responseInvokeScreenAutomation $
---             newInvokeScreenAutomationResponse
+--         , responseBatchUpsertTableRows $
+--             newBatchUpsertTableRowsResponse
 --
 --         , responseDescribeTableDataImportJob $
 --             newDescribeTableDataImportJobResponse
 --
---         , responseStartTableDataImportJob $
---             newStartTableDataImportJobResponse
+--         , responseGetScreenData $
+--             newGetScreenDataResponse
 --
---         , responseBatchCreateTableRows $
---             newBatchCreateTableRowsResponse
+--         , responseInvokeScreenAutomation $
+--             newInvokeScreenAutomationResponse
+--
+--         , responseListTableColumns $
+--             newListTableColumnsResponse
+--
+--         , responseListTableRows $
+--             newListTableRowsResponse
 --
 --         , responseListTables $
 --             newListTablesResponse
 --
---         , responseGetScreenData $
---             newGetScreenDataResponse
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
 --
 --         , responseQueryTableRows $
 --             newQueryTableRowsResponse
 --
---         , responseBatchUpsertTableRows $
---             newBatchUpsertTableRowsResponse
+--         , responseStartTableDataImportJob $
+--             newStartTableDataImportJobResponse
 --
---         , responseListTableColumns $
---             newListTableColumnsResponse
+--         , responseTagResource $
+--             newTagResourceResponse
+--
+--         , responseUntagResource $
+--             newUntagResourceResponse
 --
 --           ]
 --     ]
 
 -- Requests
+
+requestBatchCreateTableRows :: BatchCreateTableRows -> TestTree
+requestBatchCreateTableRows =
+  req
+    "BatchCreateTableRows"
+    "fixture/BatchCreateTableRows.yaml"
 
 requestBatchDeleteTableRows :: BatchDeleteTableRows -> TestTree
 requestBatchDeleteTableRows =
@@ -119,17 +143,11 @@ requestBatchUpdateTableRows =
     "BatchUpdateTableRows"
     "fixture/BatchUpdateTableRows.yaml"
 
-requestListTableRows :: ListTableRows -> TestTree
-requestListTableRows =
+requestBatchUpsertTableRows :: BatchUpsertTableRows -> TestTree
+requestBatchUpsertTableRows =
   req
-    "ListTableRows"
-    "fixture/ListTableRows.yaml"
-
-requestInvokeScreenAutomation :: InvokeScreenAutomation -> TestTree
-requestInvokeScreenAutomation =
-  req
-    "InvokeScreenAutomation"
-    "fixture/InvokeScreenAutomation.yaml"
+    "BatchUpsertTableRows"
+    "fixture/BatchUpsertTableRows.yaml"
 
 requestDescribeTableDataImportJob :: DescribeTableDataImportJob -> TestTree
 requestDescribeTableDataImportJob =
@@ -137,41 +155,17 @@ requestDescribeTableDataImportJob =
     "DescribeTableDataImportJob"
     "fixture/DescribeTableDataImportJob.yaml"
 
-requestStartTableDataImportJob :: StartTableDataImportJob -> TestTree
-requestStartTableDataImportJob =
-  req
-    "StartTableDataImportJob"
-    "fixture/StartTableDataImportJob.yaml"
-
-requestBatchCreateTableRows :: BatchCreateTableRows -> TestTree
-requestBatchCreateTableRows =
-  req
-    "BatchCreateTableRows"
-    "fixture/BatchCreateTableRows.yaml"
-
-requestListTables :: ListTables -> TestTree
-requestListTables =
-  req
-    "ListTables"
-    "fixture/ListTables.yaml"
-
 requestGetScreenData :: GetScreenData -> TestTree
 requestGetScreenData =
   req
     "GetScreenData"
     "fixture/GetScreenData.yaml"
 
-requestQueryTableRows :: QueryTableRows -> TestTree
-requestQueryTableRows =
+requestInvokeScreenAutomation :: InvokeScreenAutomation -> TestTree
+requestInvokeScreenAutomation =
   req
-    "QueryTableRows"
-    "fixture/QueryTableRows.yaml"
-
-requestBatchUpsertTableRows :: BatchUpsertTableRows -> TestTree
-requestBatchUpsertTableRows =
-  req
-    "BatchUpsertTableRows"
-    "fixture/BatchUpsertTableRows.yaml"
+    "InvokeScreenAutomation"
+    "fixture/InvokeScreenAutomation.yaml"
 
 requestListTableColumns :: ListTableColumns -> TestTree
 requestListTableColumns =
@@ -179,7 +173,57 @@ requestListTableColumns =
     "ListTableColumns"
     "fixture/ListTableColumns.yaml"
 
+requestListTableRows :: ListTableRows -> TestTree
+requestListTableRows =
+  req
+    "ListTableRows"
+    "fixture/ListTableRows.yaml"
+
+requestListTables :: ListTables -> TestTree
+requestListTables =
+  req
+    "ListTables"
+    "fixture/ListTables.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
+requestQueryTableRows :: QueryTableRows -> TestTree
+requestQueryTableRows =
+  req
+    "QueryTableRows"
+    "fixture/QueryTableRows.yaml"
+
+requestStartTableDataImportJob :: StartTableDataImportJob -> TestTree
+requestStartTableDataImportJob =
+  req
+    "StartTableDataImportJob"
+    "fixture/StartTableDataImportJob.yaml"
+
+requestTagResource :: TagResource -> TestTree
+requestTagResource =
+  req
+    "TagResource"
+    "fixture/TagResource.yaml"
+
+requestUntagResource :: UntagResource -> TestTree
+requestUntagResource =
+  req
+    "UntagResource"
+    "fixture/UntagResource.yaml"
+
 -- Responses
+
+responseBatchCreateTableRows :: BatchCreateTableRowsResponse -> TestTree
+responseBatchCreateTableRows =
+  res
+    "BatchCreateTableRowsResponse"
+    "fixture/BatchCreateTableRowsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy BatchCreateTableRows)
 
 responseBatchDeleteTableRows :: BatchDeleteTableRowsResponse -> TestTree
 responseBatchDeleteTableRows =
@@ -197,21 +241,13 @@ responseBatchUpdateTableRows =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy BatchUpdateTableRows)
 
-responseListTableRows :: ListTableRowsResponse -> TestTree
-responseListTableRows =
+responseBatchUpsertTableRows :: BatchUpsertTableRowsResponse -> TestTree
+responseBatchUpsertTableRows =
   res
-    "ListTableRowsResponse"
-    "fixture/ListTableRowsResponse.proto"
+    "BatchUpsertTableRowsResponse"
+    "fixture/BatchUpsertTableRowsResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTableRows)
-
-responseInvokeScreenAutomation :: InvokeScreenAutomationResponse -> TestTree
-responseInvokeScreenAutomation =
-  res
-    "InvokeScreenAutomationResponse"
-    "fixture/InvokeScreenAutomationResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy InvokeScreenAutomation)
+    (Proxy.Proxy :: Proxy.Proxy BatchUpsertTableRows)
 
 responseDescribeTableDataImportJob :: DescribeTableDataImportJobResponse -> TestTree
 responseDescribeTableDataImportJob =
@@ -221,21 +257,37 @@ responseDescribeTableDataImportJob =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DescribeTableDataImportJob)
 
-responseStartTableDataImportJob :: StartTableDataImportJobResponse -> TestTree
-responseStartTableDataImportJob =
+responseGetScreenData :: GetScreenDataResponse -> TestTree
+responseGetScreenData =
   res
-    "StartTableDataImportJobResponse"
-    "fixture/StartTableDataImportJobResponse.proto"
+    "GetScreenDataResponse"
+    "fixture/GetScreenDataResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy StartTableDataImportJob)
+    (Proxy.Proxy :: Proxy.Proxy GetScreenData)
 
-responseBatchCreateTableRows :: BatchCreateTableRowsResponse -> TestTree
-responseBatchCreateTableRows =
+responseInvokeScreenAutomation :: InvokeScreenAutomationResponse -> TestTree
+responseInvokeScreenAutomation =
   res
-    "BatchCreateTableRowsResponse"
-    "fixture/BatchCreateTableRowsResponse.proto"
+    "InvokeScreenAutomationResponse"
+    "fixture/InvokeScreenAutomationResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy BatchCreateTableRows)
+    (Proxy.Proxy :: Proxy.Proxy InvokeScreenAutomation)
+
+responseListTableColumns :: ListTableColumnsResponse -> TestTree
+responseListTableColumns =
+  res
+    "ListTableColumnsResponse"
+    "fixture/ListTableColumnsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTableColumns)
+
+responseListTableRows :: ListTableRowsResponse -> TestTree
+responseListTableRows =
+  res
+    "ListTableRowsResponse"
+    "fixture/ListTableRowsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTableRows)
 
 responseListTables :: ListTablesResponse -> TestTree
 responseListTables =
@@ -245,13 +297,13 @@ responseListTables =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy ListTables)
 
-responseGetScreenData :: GetScreenDataResponse -> TestTree
-responseGetScreenData =
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
   res
-    "GetScreenDataResponse"
-    "fixture/GetScreenDataResponse.proto"
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetScreenData)
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
 
 responseQueryTableRows :: QueryTableRowsResponse -> TestTree
 responseQueryTableRows =
@@ -261,18 +313,26 @@ responseQueryTableRows =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy QueryTableRows)
 
-responseBatchUpsertTableRows :: BatchUpsertTableRowsResponse -> TestTree
-responseBatchUpsertTableRows =
+responseStartTableDataImportJob :: StartTableDataImportJobResponse -> TestTree
+responseStartTableDataImportJob =
   res
-    "BatchUpsertTableRowsResponse"
-    "fixture/BatchUpsertTableRowsResponse.proto"
+    "StartTableDataImportJobResponse"
+    "fixture/StartTableDataImportJobResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy BatchUpsertTableRows)
+    (Proxy.Proxy :: Proxy.Proxy StartTableDataImportJob)
 
-responseListTableColumns :: ListTableColumnsResponse -> TestTree
-responseListTableColumns =
+responseTagResource :: TagResourceResponse -> TestTree
+responseTagResource =
   res
-    "ListTableColumnsResponse"
-    "fixture/ListTableColumnsResponse.proto"
+    "TagResourceResponse"
+    "fixture/TagResourceResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTableColumns)
+    (Proxy.Proxy :: Proxy.Proxy TagResource)
+
+responseUntagResource :: UntagResourceResponse -> TestTree
+responseUntagResource =
+  res
+    "UntagResourceResponse"
+    "fixture/UntagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UntagResource)

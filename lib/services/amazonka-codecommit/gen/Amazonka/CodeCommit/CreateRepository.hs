@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.CreateRepository
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -144,12 +145,13 @@ instance Core.AWSRequest CreateRepository where
   type
     AWSResponse CreateRepository =
       CreateRepositoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateRepositoryResponse'
-            Prelude.<$> (x Core..?> "repositoryMetadata")
+            Prelude.<$> (x Data..?> "repositoryMetadata")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -165,37 +167,37 @@ instance Prelude.NFData CreateRepository where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf repositoryName
 
-instance Core.ToHeaders CreateRepository where
+instance Data.ToHeaders CreateRepository where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.CreateRepository" ::
+              Data.=# ( "CodeCommit_20150413.CreateRepository" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateRepository where
+instance Data.ToJSON CreateRepository where
   toJSON CreateRepository' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("repositoryDescription" Core..=)
+          [ ("repositoryDescription" Data..=)
               Prelude.<$> repositoryDescription,
-            ("tags" Core..=) Prelude.<$> tags,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName)
+              ("repositoryName" Data..= repositoryName)
           ]
       )
 
-instance Core.ToPath CreateRepository where
+instance Data.ToPath CreateRepository where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateRepository where
+instance Data.ToQuery CreateRepository where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a create repository operation.

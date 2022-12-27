@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.CreateInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IoTEvents.CreateInput
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,12 +110,13 @@ createInput_inputDefinition = Lens.lens (\CreateInput' {inputDefinition} -> inpu
 
 instance Core.AWSRequest CreateInput where
   type AWSResponse CreateInput = CreateInputResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateInputResponse'
-            Prelude.<$> (x Core..?> "inputConfiguration")
+            Prelude.<$> (x Data..?> "inputConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -132,26 +134,26 @@ instance Prelude.NFData CreateInput where
       `Prelude.seq` Prelude.rnf inputName
       `Prelude.seq` Prelude.rnf inputDefinition
 
-instance Core.ToHeaders CreateInput where
+instance Data.ToHeaders CreateInput where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateInput where
+instance Data.ToJSON CreateInput where
   toJSON CreateInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("inputDescription" Core..=)
+          [ ("inputDescription" Data..=)
               Prelude.<$> inputDescription,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("inputName" Core..= inputName),
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("inputName" Data..= inputName),
             Prelude.Just
-              ("inputDefinition" Core..= inputDefinition)
+              ("inputDefinition" Data..= inputDefinition)
           ]
       )
 
-instance Core.ToPath CreateInput where
+instance Data.ToPath CreateInput where
   toPath = Prelude.const "/inputs"
 
-instance Core.ToQuery CreateInput where
+instance Data.ToQuery CreateInput where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateInputResponse' smart constructor.

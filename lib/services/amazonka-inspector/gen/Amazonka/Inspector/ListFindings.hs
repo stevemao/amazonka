@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.ListFindings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.Inspector.ListFindings
 
     -- * Request Lenses
     listFindings_assessmentRunArns,
-    listFindings_nextToken,
     listFindings_filter,
     listFindings_maxResults,
+    listFindings_nextToken,
 
     -- * Destructuring the Response
     ListFindingsResponse (..),
@@ -47,8 +47,9 @@ module Amazonka.Inspector.ListFindings
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,12 +59,6 @@ data ListFindings = ListFindings'
   { -- | The ARNs of the assessment runs that generate the findings that you want
     -- to list.
     assessmentRunArns :: Prelude.Maybe [Prelude.Text],
-    -- | You can use this parameter when paginating results. Set the value of
-    -- this parameter to null on your first call to the __ListFindings__
-    -- action. Subsequent calls to the action fill __nextToken__ in the request
-    -- with the value of __NextToken__ from the previous response to continue
-    -- listing data.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | You can use this parameter to specify a subset of data to be included in
     -- the action\'s response.
     --
@@ -73,7 +68,13 @@ data ListFindings = ListFindings'
     filter' :: Prelude.Maybe FindingFilter,
     -- | You can use this parameter to indicate the maximum number of items you
     -- want in the response. The default value is 10. The maximum value is 500.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | You can use this parameter when paginating results. Set the value of
+    -- this parameter to null on your first call to the __ListFindings__
+    -- action. Subsequent calls to the action fill __nextToken__ in the request
+    -- with the value of __NextToken__ from the previous response to continue
+    -- listing data.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -88,12 +89,6 @@ data ListFindings = ListFindings'
 -- 'assessmentRunArns', 'listFindings_assessmentRunArns' - The ARNs of the assessment runs that generate the findings that you want
 -- to list.
 --
--- 'nextToken', 'listFindings_nextToken' - You can use this parameter when paginating results. Set the value of
--- this parameter to null on your first call to the __ListFindings__
--- action. Subsequent calls to the action fill __nextToken__ in the request
--- with the value of __NextToken__ from the previous response to continue
--- listing data.
---
 -- 'filter'', 'listFindings_filter' - You can use this parameter to specify a subset of data to be included in
 -- the action\'s response.
 --
@@ -103,28 +98,26 @@ data ListFindings = ListFindings'
 --
 -- 'maxResults', 'listFindings_maxResults' - You can use this parameter to indicate the maximum number of items you
 -- want in the response. The default value is 10. The maximum value is 500.
+--
+-- 'nextToken', 'listFindings_nextToken' - You can use this parameter when paginating results. Set the value of
+-- this parameter to null on your first call to the __ListFindings__
+-- action. Subsequent calls to the action fill __nextToken__ in the request
+-- with the value of __NextToken__ from the previous response to continue
+-- listing data.
 newListFindings ::
   ListFindings
 newListFindings =
   ListFindings'
     { assessmentRunArns = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       filter' = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | The ARNs of the assessment runs that generate the findings that you want
 -- to list.
 listFindings_assessmentRunArns :: Lens.Lens' ListFindings (Prelude.Maybe [Prelude.Text])
 listFindings_assessmentRunArns = Lens.lens (\ListFindings' {assessmentRunArns} -> assessmentRunArns) (\s@ListFindings' {} a -> s {assessmentRunArns = a} :: ListFindings) Prelude.. Lens.mapping Lens.coerced
-
--- | You can use this parameter when paginating results. Set the value of
--- this parameter to null on your first call to the __ListFindings__
--- action. Subsequent calls to the action fill __nextToken__ in the request
--- with the value of __NextToken__ from the previous response to continue
--- listing data.
-listFindings_nextToken :: Lens.Lens' ListFindings (Prelude.Maybe Prelude.Text)
-listFindings_nextToken = Lens.lens (\ListFindings' {nextToken} -> nextToken) (\s@ListFindings' {} a -> s {nextToken = a} :: ListFindings)
 
 -- | You can use this parameter to specify a subset of data to be included in
 -- the action\'s response.
@@ -139,6 +132,14 @@ listFindings_filter = Lens.lens (\ListFindings' {filter'} -> filter') (\s@ListFi
 -- want in the response. The default value is 10. The maximum value is 500.
 listFindings_maxResults :: Lens.Lens' ListFindings (Prelude.Maybe Prelude.Int)
 listFindings_maxResults = Lens.lens (\ListFindings' {maxResults} -> maxResults) (\s@ListFindings' {} a -> s {maxResults = a} :: ListFindings)
+
+-- | You can use this parameter when paginating results. Set the value of
+-- this parameter to null on your first call to the __ListFindings__
+-- action. Subsequent calls to the action fill __nextToken__ in the request
+-- with the value of __NextToken__ from the previous response to continue
+-- listing data.
+listFindings_nextToken :: Lens.Lens' ListFindings (Prelude.Maybe Prelude.Text)
+listFindings_nextToken = Lens.lens (\ListFindings' {nextToken} -> nextToken) (\s@ListFindings' {} a -> s {nextToken = a} :: ListFindings)
 
 instance Core.AWSPager ListFindings where
   page rq rs
@@ -159,61 +160,62 @@ instance Core.AWSPager ListFindings where
 
 instance Core.AWSRequest ListFindings where
   type AWSResponse ListFindings = ListFindingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListFindingsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "findingArns" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "findingArns" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListFindings where
   hashWithSalt _salt ListFindings' {..} =
     _salt `Prelude.hashWithSalt` assessmentRunArns
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListFindings where
   rnf ListFindings' {..} =
     Prelude.rnf assessmentRunArns
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListFindings where
+instance Data.ToHeaders ListFindings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.ListFindings" ::
+              Data.=# ( "InspectorService.ListFindings" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListFindings where
+instance Data.ToJSON ListFindings where
   toJSON ListFindings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("assessmentRunArns" Core..=)
+          [ ("assessmentRunArns" Data..=)
               Prelude.<$> assessmentRunArns,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("filter" Core..=) Prelude.<$> filter',
-            ("maxResults" Core..=) Prelude.<$> maxResults
+            ("filter" Data..=) Prelude.<$> filter',
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListFindings where
+instance Data.ToPath ListFindings where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListFindings where
+instance Data.ToQuery ListFindings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListFindingsResponse' smart constructor.

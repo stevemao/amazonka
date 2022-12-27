@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMakerA2IRuntime.Types.HumanLoopOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMakerA2IRuntime.Types.HumanLoopOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about where the human output will be stored.
@@ -55,13 +56,13 @@ newHumanLoopOutput pOutputS3Uri_ =
 humanLoopOutput_outputS3Uri :: Lens.Lens' HumanLoopOutput Prelude.Text
 humanLoopOutput_outputS3Uri = Lens.lens (\HumanLoopOutput' {outputS3Uri} -> outputS3Uri) (\s@HumanLoopOutput' {} a -> s {outputS3Uri = a} :: HumanLoopOutput)
 
-instance Core.FromJSON HumanLoopOutput where
+instance Data.FromJSON HumanLoopOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HumanLoopOutput"
       ( \x ->
           HumanLoopOutput'
-            Prelude.<$> (x Core..: "OutputS3Uri")
+            Prelude.<$> (x Data..: "OutputS3Uri")
       )
 
 instance Prelude.Hashable HumanLoopOutput where

@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,15 +18,18 @@ module Amazonka.ChimeSDKMessaging.Types
     defaultService,
 
     -- * Errors
-    _ThrottledClientException,
-    _ResourceLimitExceededException,
+    _BadRequestException,
     _ConflictException,
     _ForbiddenException,
     _NotFoundException,
+    _ResourceLimitExceededException,
     _ServiceFailureException,
-    _UnauthorizedClientException,
     _ServiceUnavailableException,
-    _BadRequestException,
+    _ThrottledClientException,
+    _UnauthorizedClientException,
+
+    -- * AllowNotifications
+    AllowNotifications (..),
 
     -- * ChannelMembershipType
     ChannelMembershipType (..),
@@ -54,6 +58,15 @@ module Amazonka.ChimeSDKMessaging.Types
     -- * InvocationType
     InvocationType (..),
 
+    -- * PushNotificationType
+    PushNotificationType (..),
+
+    -- * SearchFieldKey
+    SearchFieldKey (..),
+
+    -- * SearchFieldOperator
+    SearchFieldOperator (..),
+
     -- * SortOrder
     SortOrder (..),
 
@@ -61,53 +74,56 @@ module Amazonka.ChimeSDKMessaging.Types
     AppInstanceUserMembershipSummary (..),
     newAppInstanceUserMembershipSummary,
     appInstanceUserMembershipSummary_readMarkerTimestamp,
+    appInstanceUserMembershipSummary_subChannelId,
     appInstanceUserMembershipSummary_type,
 
     -- * BatchChannelMemberships
     BatchChannelMemberships (..),
     newBatchChannelMemberships,
-    batchChannelMemberships_members,
     batchChannelMemberships_channelArn,
-    batchChannelMemberships_type,
     batchChannelMemberships_invitedBy,
+    batchChannelMemberships_members,
+    batchChannelMemberships_subChannelId,
+    batchChannelMemberships_type,
 
     -- * BatchCreateChannelMembershipError
     BatchCreateChannelMembershipError (..),
     newBatchCreateChannelMembershipError,
     batchCreateChannelMembershipError_errorCode,
-    batchCreateChannelMembershipError_memberArn,
     batchCreateChannelMembershipError_errorMessage,
+    batchCreateChannelMembershipError_memberArn,
 
     -- * Channel
     Channel (..),
     newChannel,
-    channel_mode,
-    channel_createdBy,
     channel_channelArn,
-    channel_privacy,
     channel_channelFlowArn,
-    channel_lastMessageTimestamp,
-    channel_name,
-    channel_metadata,
+    channel_createdBy,
     channel_createdTimestamp,
+    channel_elasticChannelConfiguration,
+    channel_lastMessageTimestamp,
     channel_lastUpdatedTimestamp,
+    channel_metadata,
+    channel_mode,
+    channel_name,
+    channel_privacy,
 
     -- * ChannelAssociatedWithFlowSummary
     ChannelAssociatedWithFlowSummary (..),
     newChannelAssociatedWithFlowSummary,
-    channelAssociatedWithFlowSummary_mode,
     channelAssociatedWithFlowSummary_channelArn,
-    channelAssociatedWithFlowSummary_privacy,
-    channelAssociatedWithFlowSummary_name,
     channelAssociatedWithFlowSummary_metadata,
+    channelAssociatedWithFlowSummary_mode,
+    channelAssociatedWithFlowSummary_name,
+    channelAssociatedWithFlowSummary_privacy,
 
     -- * ChannelBan
     ChannelBan (..),
     newChannelBan,
-    channelBan_createdBy,
     channelBan_channelArn,
-    channelBan_member,
+    channelBan_createdBy,
     channelBan_createdTimestamp,
+    channelBan_member,
 
     -- * ChannelBanSummary
     ChannelBanSummary (..),
@@ -117,34 +133,40 @@ module Amazonka.ChimeSDKMessaging.Types
     -- * ChannelFlow
     ChannelFlow (..),
     newChannelFlow,
-    channelFlow_processors,
     channelFlow_channelFlowArn,
-    channelFlow_name,
     channelFlow_createdTimestamp,
     channelFlow_lastUpdatedTimestamp,
+    channelFlow_name,
+    channelFlow_processors,
 
     -- * ChannelFlowSummary
     ChannelFlowSummary (..),
     newChannelFlowSummary,
-    channelFlowSummary_processors,
     channelFlowSummary_channelFlowArn,
     channelFlowSummary_name,
+    channelFlowSummary_processors,
 
     -- * ChannelMembership
     ChannelMembership (..),
     newChannelMembership,
     channelMembership_channelArn,
-    channelMembership_member,
-    channelMembership_type,
-    channelMembership_invitedBy,
     channelMembership_createdTimestamp,
+    channelMembership_invitedBy,
     channelMembership_lastUpdatedTimestamp,
+    channelMembership_member,
+    channelMembership_subChannelId,
+    channelMembership_type,
 
     -- * ChannelMembershipForAppInstanceUserSummary
     ChannelMembershipForAppInstanceUserSummary (..),
     newChannelMembershipForAppInstanceUserSummary,
     channelMembershipForAppInstanceUserSummary_appInstanceUserMembershipSummary,
     channelMembershipForAppInstanceUserSummary_channelSummary,
+
+    -- * ChannelMembershipPreferences
+    ChannelMembershipPreferences (..),
+    newChannelMembershipPreferences,
+    channelMembershipPreferences_pushNotifications,
 
     -- * ChannelMembershipSummary
     ChannelMembershipSummary (..),
@@ -154,45 +176,51 @@ module Amazonka.ChimeSDKMessaging.Types
     -- * ChannelMessage
     ChannelMessage (..),
     newChannelMessage,
-    channelMessage_status,
-    channelMessage_sender,
     channelMessage_channelArn,
     channelMessage_content,
-    channelMessage_redacted,
-    channelMessage_persistence,
-    channelMessage_metadata,
-    channelMessage_type,
     channelMessage_createdTimestamp,
-    channelMessage_messageId,
-    channelMessage_lastUpdatedTimestamp,
     channelMessage_lastEditedTimestamp,
+    channelMessage_lastUpdatedTimestamp,
+    channelMessage_messageAttributes,
+    channelMessage_messageId,
+    channelMessage_metadata,
+    channelMessage_persistence,
+    channelMessage_redacted,
+    channelMessage_sender,
+    channelMessage_status,
+    channelMessage_subChannelId,
+    channelMessage_type,
 
     -- * ChannelMessageCallback
     ChannelMessageCallback (..),
     newChannelMessageCallback,
     channelMessageCallback_content,
+    channelMessageCallback_messageAttributes,
     channelMessageCallback_metadata,
+    channelMessageCallback_pushNotification,
+    channelMessageCallback_subChannelId,
     channelMessageCallback_messageId,
 
     -- * ChannelMessageStatusStructure
     ChannelMessageStatusStructure (..),
     newChannelMessageStatusStructure,
-    channelMessageStatusStructure_value,
     channelMessageStatusStructure_detail,
+    channelMessageStatusStructure_value,
 
     -- * ChannelMessageSummary
     ChannelMessageSummary (..),
     newChannelMessageSummary,
-    channelMessageSummary_status,
-    channelMessageSummary_sender,
     channelMessageSummary_content,
-    channelMessageSummary_redacted,
-    channelMessageSummary_metadata,
-    channelMessageSummary_type,
     channelMessageSummary_createdTimestamp,
-    channelMessageSummary_messageId,
-    channelMessageSummary_lastUpdatedTimestamp,
     channelMessageSummary_lastEditedTimestamp,
+    channelMessageSummary_lastUpdatedTimestamp,
+    channelMessageSummary_messageAttributes,
+    channelMessageSummary_messageId,
+    channelMessageSummary_metadata,
+    channelMessageSummary_redacted,
+    channelMessageSummary_sender,
+    channelMessageSummary_status,
+    channelMessageSummary_type,
 
     -- * ChannelModeratedByAppInstanceUserSummary
     ChannelModeratedByAppInstanceUserSummary (..),
@@ -202,8 +230,8 @@ module Amazonka.ChimeSDKMessaging.Types
     -- * ChannelModerator
     ChannelModerator (..),
     newChannelModerator,
-    channelModerator_createdBy,
     channelModerator_channelArn,
+    channelModerator_createdBy,
     channelModerator_createdTimestamp,
     channelModerator_moderator,
 
@@ -215,12 +243,19 @@ module Amazonka.ChimeSDKMessaging.Types
     -- * ChannelSummary
     ChannelSummary (..),
     newChannelSummary,
-    channelSummary_mode,
     channelSummary_channelArn,
-    channelSummary_privacy,
     channelSummary_lastMessageTimestamp,
-    channelSummary_name,
     channelSummary_metadata,
+    channelSummary_mode,
+    channelSummary_name,
+    channelSummary_privacy,
+
+    -- * ElasticChannelConfiguration
+    ElasticChannelConfiguration (..),
+    newElasticChannelConfiguration,
+    elasticChannelConfiguration_maximumSubChannels,
+    elasticChannelConfiguration_targetMembershipsPerSubChannel,
+    elasticChannelConfiguration_minimumMembershipPercentage,
 
     -- * Identity
     Identity (..),
@@ -233,6 +268,11 @@ module Amazonka.ChimeSDKMessaging.Types
     newLambdaConfiguration,
     lambdaConfiguration_resourceArn,
     lambdaConfiguration_invocationType,
+
+    -- * MessageAttributeValue
+    MessageAttributeValue (..),
+    newMessageAttributeValue,
+    messageAttributeValue_stringValues,
 
     -- * MessagingSessionEndpoint
     MessagingSessionEndpoint (..),
@@ -252,6 +292,32 @@ module Amazonka.ChimeSDKMessaging.Types
     newProcessorConfiguration,
     processorConfiguration_lambda,
 
+    -- * PushNotificationConfiguration
+    PushNotificationConfiguration (..),
+    newPushNotificationConfiguration,
+    pushNotificationConfiguration_body,
+    pushNotificationConfiguration_title,
+    pushNotificationConfiguration_type,
+
+    -- * PushNotificationPreferences
+    PushNotificationPreferences (..),
+    newPushNotificationPreferences,
+    pushNotificationPreferences_filterRule,
+    pushNotificationPreferences_allowNotifications,
+
+    -- * SearchField
+    SearchField (..),
+    newSearchField,
+    searchField_key,
+    searchField_values,
+    searchField_operator,
+
+    -- * SubChannelSummary
+    SubChannelSummary (..),
+    newSubChannelSummary,
+    subChannelSummary_membershipCount,
+    subChannelSummary_subChannelId,
+
     -- * Tag
     Tag (..),
     newTag,
@@ -260,6 +326,7 @@ module Amazonka.ChimeSDKMessaging.Types
   )
 where
 
+import Amazonka.ChimeSDKMessaging.Types.AllowNotifications
 import Amazonka.ChimeSDKMessaging.Types.AppInstanceUserMembershipSummary
 import Amazonka.ChimeSDKMessaging.Types.BatchChannelMemberships
 import Amazonka.ChimeSDKMessaging.Types.BatchCreateChannelMembershipError
@@ -271,6 +338,7 @@ import Amazonka.ChimeSDKMessaging.Types.ChannelFlow
 import Amazonka.ChimeSDKMessaging.Types.ChannelFlowSummary
 import Amazonka.ChimeSDKMessaging.Types.ChannelMembership
 import Amazonka.ChimeSDKMessaging.Types.ChannelMembershipForAppInstanceUserSummary
+import Amazonka.ChimeSDKMessaging.Types.ChannelMembershipPreferences
 import Amazonka.ChimeSDKMessaging.Types.ChannelMembershipSummary
 import Amazonka.ChimeSDKMessaging.Types.ChannelMembershipType
 import Amazonka.ChimeSDKMessaging.Types.ChannelMessage
@@ -286,18 +354,27 @@ import Amazonka.ChimeSDKMessaging.Types.ChannelModerator
 import Amazonka.ChimeSDKMessaging.Types.ChannelModeratorSummary
 import Amazonka.ChimeSDKMessaging.Types.ChannelPrivacy
 import Amazonka.ChimeSDKMessaging.Types.ChannelSummary
+import Amazonka.ChimeSDKMessaging.Types.ElasticChannelConfiguration
 import Amazonka.ChimeSDKMessaging.Types.ErrorCode
 import Amazonka.ChimeSDKMessaging.Types.FallbackAction
 import Amazonka.ChimeSDKMessaging.Types.Identity
 import Amazonka.ChimeSDKMessaging.Types.InvocationType
 import Amazonka.ChimeSDKMessaging.Types.LambdaConfiguration
+import Amazonka.ChimeSDKMessaging.Types.MessageAttributeValue
 import Amazonka.ChimeSDKMessaging.Types.MessagingSessionEndpoint
 import Amazonka.ChimeSDKMessaging.Types.Processor
 import Amazonka.ChimeSDKMessaging.Types.ProcessorConfiguration
+import Amazonka.ChimeSDKMessaging.Types.PushNotificationConfiguration
+import Amazonka.ChimeSDKMessaging.Types.PushNotificationPreferences
+import Amazonka.ChimeSDKMessaging.Types.PushNotificationType
+import Amazonka.ChimeSDKMessaging.Types.SearchField
+import Amazonka.ChimeSDKMessaging.Types.SearchFieldKey
+import Amazonka.ChimeSDKMessaging.Types.SearchFieldOperator
 import Amazonka.ChimeSDKMessaging.Types.SortOrder
+import Amazonka.ChimeSDKMessaging.Types.SubChannelSummary
 import Amazonka.ChimeSDKMessaging.Types.Tag
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -305,43 +382,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev =
-        "ChimeSDKMessaging",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "messaging-chime",
-      Core._serviceSigningName = "chime",
-      Core._serviceVersion = "2021-05-15",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "ChimeSDKMessaging",
-      Core._serviceRetry = retry
+    { Core.abbrev = "ChimeSDKMessaging",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "messaging-chime",
+      Core.signingName = "chime",
+      Core.version = "2021-05-15",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "ChimeSDKMessaging",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -349,44 +432,28 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
--- | The client exceeded its request rate limit.
-_ThrottledClientException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ThrottledClientException =
+-- | The input parameters don\'t match the service\'s restrictions.
+_BadRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_BadRequestException =
   Core._MatchServiceError
     defaultService
-    "ThrottledClientException"
-    Prelude.. Core.hasStatus 429
-
--- | The request exceeds the resource limit.
-_ResourceLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceLimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "ResourceLimitExceededException"
+    "BadRequestException"
     Prelude.. Core.hasStatus 400
 
 -- | The request could not be processed because of conflict in the current
@@ -415,6 +482,14 @@ _NotFoundException =
     "NotFoundException"
     Prelude.. Core.hasStatus 404
 
+-- | The request exceeds the resource limit.
+_ResourceLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceLimitExceededException =
+  Core._MatchServiceError
+    defaultService
+    "ResourceLimitExceededException"
+    Prelude.. Core.hasStatus 400
+
 -- | The service encountered an unexpected error.
 _ServiceFailureException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _ServiceFailureException =
@@ -422,14 +497,6 @@ _ServiceFailureException =
     defaultService
     "ServiceFailureException"
     Prelude.. Core.hasStatus 500
-
--- | The client is not currently authorized to make the request.
-_UnauthorizedClientException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_UnauthorizedClientException =
-  Core._MatchServiceError
-    defaultService
-    "UnauthorizedClientException"
-    Prelude.. Core.hasStatus 401
 
 -- | The service is currently unavailable.
 _ServiceUnavailableException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -439,10 +506,18 @@ _ServiceUnavailableException =
     "ServiceUnavailableException"
     Prelude.. Core.hasStatus 503
 
--- | The input parameters don\'t match the service\'s restrictions.
-_BadRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_BadRequestException =
+-- | The client exceeded its request rate limit.
+_ThrottledClientException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ThrottledClientException =
   Core._MatchServiceError
     defaultService
-    "BadRequestException"
-    Prelude.. Core.hasStatus 400
+    "ThrottledClientException"
+    Prelude.. Core.hasStatus 429
+
+-- | The client is not currently authorized to make the request.
+_UnauthorizedClientException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_UnauthorizedClientException =
+  Core._MatchServiceError
+    defaultService
+    "UnauthorizedClientException"
+    Prelude.. Core.hasStatus 401

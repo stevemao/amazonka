@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,20 +35,11 @@ module Amazonka.AccessAnalyzer
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
 
     -- ** ConflictException
     _ConflictException,
-
-    -- ** ServiceQuotaExceededException
-    _ServiceQuotaExceededException,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
 
     -- ** InternalServerException
     _InternalServerException,
@@ -56,149 +47,20 @@ module Amazonka.AccessAnalyzer
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
+    -- ** ServiceQuotaExceededException
+    _ServiceQuotaExceededException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** ValidationException
+    _ValidationException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** ListFindings (Paginated)
-    ListFindings (ListFindings'),
-    newListFindings,
-    ListFindingsResponse (ListFindingsResponse'),
-    newListFindingsResponse,
-
-    -- ** GetAnalyzedResource
-    GetAnalyzedResource (GetAnalyzedResource'),
-    newGetAnalyzedResource,
-    GetAnalyzedResourceResponse (GetAnalyzedResourceResponse'),
-    newGetAnalyzedResourceResponse,
-
-    -- ** ListPolicyGenerations (Paginated)
-    ListPolicyGenerations (ListPolicyGenerations'),
-    newListPolicyGenerations,
-    ListPolicyGenerationsResponse (ListPolicyGenerationsResponse'),
-    newListPolicyGenerationsResponse,
-
-    -- ** ListAccessPreviews (Paginated)
-    ListAccessPreviews (ListAccessPreviews'),
-    newListAccessPreviews,
-    ListAccessPreviewsResponse (ListAccessPreviewsResponse'),
-    newListAccessPreviewsResponse,
-
-    -- ** CreateAccessPreview
-    CreateAccessPreview (CreateAccessPreview'),
-    newCreateAccessPreview,
-    CreateAccessPreviewResponse (CreateAccessPreviewResponse'),
-    newCreateAccessPreviewResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** StartResourceScan
-    StartResourceScan (StartResourceScan'),
-    newStartResourceScan,
-    StartResourceScanResponse (StartResourceScanResponse'),
-    newStartResourceScanResponse,
-
-    -- ** DeleteArchiveRule
-    DeleteArchiveRule (DeleteArchiveRule'),
-    newDeleteArchiveRule,
-    DeleteArchiveRuleResponse (DeleteArchiveRuleResponse'),
-    newDeleteArchiveRuleResponse,
-
-    -- ** UpdateArchiveRule
-    UpdateArchiveRule (UpdateArchiveRule'),
-    newUpdateArchiveRule,
-    UpdateArchiveRuleResponse (UpdateArchiveRuleResponse'),
-    newUpdateArchiveRuleResponse,
-
-    -- ** GetAccessPreview
-    GetAccessPreview (GetAccessPreview'),
-    newGetAccessPreview,
-    GetAccessPreviewResponse (GetAccessPreviewResponse'),
-    newGetAccessPreviewResponse,
-
-    -- ** ListAnalyzedResources (Paginated)
-    ListAnalyzedResources (ListAnalyzedResources'),
-    newListAnalyzedResources,
-    ListAnalyzedResourcesResponse (ListAnalyzedResourcesResponse'),
-    newListAnalyzedResourcesResponse,
-
-    -- ** StartPolicyGeneration
-    StartPolicyGeneration (StartPolicyGeneration'),
-    newStartPolicyGeneration,
-    StartPolicyGenerationResponse (StartPolicyGenerationResponse'),
-    newStartPolicyGenerationResponse,
-
-    -- ** ValidatePolicy (Paginated)
-    ValidatePolicy (ValidatePolicy'),
-    newValidatePolicy,
-    ValidatePolicyResponse (ValidatePolicyResponse'),
-    newValidatePolicyResponse,
-
-    -- ** DeleteAnalyzer
-    DeleteAnalyzer (DeleteAnalyzer'),
-    newDeleteAnalyzer,
-    DeleteAnalyzerResponse (DeleteAnalyzerResponse'),
-    newDeleteAnalyzerResponse,
-
-    -- ** UpdateFindings
-    UpdateFindings (UpdateFindings'),
-    newUpdateFindings,
-    UpdateFindingsResponse (UpdateFindingsResponse'),
-    newUpdateFindingsResponse,
-
-    -- ** ListAnalyzers (Paginated)
-    ListAnalyzers (ListAnalyzers'),
-    newListAnalyzers,
-    ListAnalyzersResponse (ListAnalyzersResponse'),
-    newListAnalyzersResponse,
-
-    -- ** ListAccessPreviewFindings (Paginated)
-    ListAccessPreviewFindings (ListAccessPreviewFindings'),
-    newListAccessPreviewFindings,
-    ListAccessPreviewFindingsResponse (ListAccessPreviewFindingsResponse'),
-    newListAccessPreviewFindingsResponse,
-
-    -- ** GetArchiveRule
-    GetArchiveRule (GetArchiveRule'),
-    newGetArchiveRule,
-    GetArchiveRuleResponse (GetArchiveRuleResponse'),
-    newGetArchiveRuleResponse,
-
-    -- ** CreateAnalyzer
-    CreateAnalyzer (CreateAnalyzer'),
-    newCreateAnalyzer,
-    CreateAnalyzerResponse (CreateAnalyzerResponse'),
-    newCreateAnalyzerResponse,
-
-    -- ** ListArchiveRules (Paginated)
-    ListArchiveRules (ListArchiveRules'),
-    newListArchiveRules,
-    ListArchiveRulesResponse (ListArchiveRulesResponse'),
-    newListArchiveRulesResponse,
-
-    -- ** CreateArchiveRule
-    CreateArchiveRule (CreateArchiveRule'),
-    newCreateArchiveRule,
-    CreateArchiveRuleResponse (CreateArchiveRuleResponse'),
-    newCreateArchiveRuleResponse,
-
-    -- ** CancelPolicyGeneration
-    CancelPolicyGeneration (CancelPolicyGeneration'),
-    newCancelPolicyGeneration,
-    CancelPolicyGenerationResponse (CancelPolicyGenerationResponse'),
-    newCancelPolicyGenerationResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
 
     -- ** ApplyArchiveRule
     ApplyArchiveRule (ApplyArchiveRule'),
@@ -206,17 +68,65 @@ module Amazonka.AccessAnalyzer
     ApplyArchiveRuleResponse (ApplyArchiveRuleResponse'),
     newApplyArchiveRuleResponse,
 
+    -- ** CancelPolicyGeneration
+    CancelPolicyGeneration (CancelPolicyGeneration'),
+    newCancelPolicyGeneration,
+    CancelPolicyGenerationResponse (CancelPolicyGenerationResponse'),
+    newCancelPolicyGenerationResponse,
+
+    -- ** CreateAccessPreview
+    CreateAccessPreview (CreateAccessPreview'),
+    newCreateAccessPreview,
+    CreateAccessPreviewResponse (CreateAccessPreviewResponse'),
+    newCreateAccessPreviewResponse,
+
+    -- ** CreateAnalyzer
+    CreateAnalyzer (CreateAnalyzer'),
+    newCreateAnalyzer,
+    CreateAnalyzerResponse (CreateAnalyzerResponse'),
+    newCreateAnalyzerResponse,
+
+    -- ** CreateArchiveRule
+    CreateArchiveRule (CreateArchiveRule'),
+    newCreateArchiveRule,
+    CreateArchiveRuleResponse (CreateArchiveRuleResponse'),
+    newCreateArchiveRuleResponse,
+
+    -- ** DeleteAnalyzer
+    DeleteAnalyzer (DeleteAnalyzer'),
+    newDeleteAnalyzer,
+    DeleteAnalyzerResponse (DeleteAnalyzerResponse'),
+    newDeleteAnalyzerResponse,
+
+    -- ** DeleteArchiveRule
+    DeleteArchiveRule (DeleteArchiveRule'),
+    newDeleteArchiveRule,
+    DeleteArchiveRuleResponse (DeleteArchiveRuleResponse'),
+    newDeleteArchiveRuleResponse,
+
+    -- ** GetAccessPreview
+    GetAccessPreview (GetAccessPreview'),
+    newGetAccessPreview,
+    GetAccessPreviewResponse (GetAccessPreviewResponse'),
+    newGetAccessPreviewResponse,
+
+    -- ** GetAnalyzedResource
+    GetAnalyzedResource (GetAnalyzedResource'),
+    newGetAnalyzedResource,
+    GetAnalyzedResourceResponse (GetAnalyzedResourceResponse'),
+    newGetAnalyzedResourceResponse,
+
     -- ** GetAnalyzer
     GetAnalyzer (GetAnalyzer'),
     newGetAnalyzer,
     GetAnalyzerResponse (GetAnalyzerResponse'),
     newGetAnalyzerResponse,
 
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** GetArchiveRule
+    GetArchiveRule (GetArchiveRule'),
+    newGetArchiveRule,
+    GetArchiveRuleResponse (GetArchiveRuleResponse'),
+    newGetArchiveRuleResponse,
 
     -- ** GetFinding
     GetFinding (GetFinding'),
@@ -229,6 +139,96 @@ module Amazonka.AccessAnalyzer
     newGetGeneratedPolicy,
     GetGeneratedPolicyResponse (GetGeneratedPolicyResponse'),
     newGetGeneratedPolicyResponse,
+
+    -- ** ListAccessPreviewFindings (Paginated)
+    ListAccessPreviewFindings (ListAccessPreviewFindings'),
+    newListAccessPreviewFindings,
+    ListAccessPreviewFindingsResponse (ListAccessPreviewFindingsResponse'),
+    newListAccessPreviewFindingsResponse,
+
+    -- ** ListAccessPreviews (Paginated)
+    ListAccessPreviews (ListAccessPreviews'),
+    newListAccessPreviews,
+    ListAccessPreviewsResponse (ListAccessPreviewsResponse'),
+    newListAccessPreviewsResponse,
+
+    -- ** ListAnalyzedResources (Paginated)
+    ListAnalyzedResources (ListAnalyzedResources'),
+    newListAnalyzedResources,
+    ListAnalyzedResourcesResponse (ListAnalyzedResourcesResponse'),
+    newListAnalyzedResourcesResponse,
+
+    -- ** ListAnalyzers (Paginated)
+    ListAnalyzers (ListAnalyzers'),
+    newListAnalyzers,
+    ListAnalyzersResponse (ListAnalyzersResponse'),
+    newListAnalyzersResponse,
+
+    -- ** ListArchiveRules (Paginated)
+    ListArchiveRules (ListArchiveRules'),
+    newListArchiveRules,
+    ListArchiveRulesResponse (ListArchiveRulesResponse'),
+    newListArchiveRulesResponse,
+
+    -- ** ListFindings (Paginated)
+    ListFindings (ListFindings'),
+    newListFindings,
+    ListFindingsResponse (ListFindingsResponse'),
+    newListFindingsResponse,
+
+    -- ** ListPolicyGenerations (Paginated)
+    ListPolicyGenerations (ListPolicyGenerations'),
+    newListPolicyGenerations,
+    ListPolicyGenerationsResponse (ListPolicyGenerationsResponse'),
+    newListPolicyGenerationsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** StartPolicyGeneration
+    StartPolicyGeneration (StartPolicyGeneration'),
+    newStartPolicyGeneration,
+    StartPolicyGenerationResponse (StartPolicyGenerationResponse'),
+    newStartPolicyGenerationResponse,
+
+    -- ** StartResourceScan
+    StartResourceScan (StartResourceScan'),
+    newStartResourceScan,
+    StartResourceScanResponse (StartResourceScanResponse'),
+    newStartResourceScanResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateArchiveRule
+    UpdateArchiveRule (UpdateArchiveRule'),
+    newUpdateArchiveRule,
+    UpdateArchiveRuleResponse (UpdateArchiveRuleResponse'),
+    newUpdateArchiveRuleResponse,
+
+    -- ** UpdateFindings
+    UpdateFindings (UpdateFindings'),
+    newUpdateFindings,
+    UpdateFindingsResponse (UpdateFindingsResponse'),
+    newUpdateFindingsResponse,
+
+    -- ** ValidatePolicy (Paginated)
+    ValidatePolicy (ValidatePolicy'),
+    newValidatePolicy,
+    ValidatePolicyResponse (ValidatePolicyResponse'),
+    newValidatePolicyResponse,
 
     -- * Types
 
@@ -286,6 +286,9 @@ module Amazonka.AccessAnalyzer
     -- ** ValidatePolicyFindingType
     ValidatePolicyFindingType (..),
 
+    -- ** ValidatePolicyResourceType
+    ValidatePolicyResourceType (..),
+
     -- ** AccessPreview
     AccessPreview (AccessPreview'),
     newAccessPreview,
@@ -337,6 +340,18 @@ module Amazonka.AccessAnalyzer
     -- ** Criterion
     Criterion (Criterion'),
     newCriterion,
+
+    -- ** EbsSnapshotConfiguration
+    EbsSnapshotConfiguration (EbsSnapshotConfiguration'),
+    newEbsSnapshotConfiguration,
+
+    -- ** EcrRepositoryConfiguration
+    EcrRepositoryConfiguration (EcrRepositoryConfiguration'),
+    newEcrRepositoryConfiguration,
+
+    -- ** EfsFileSystemConfiguration
+    EfsFileSystemConfiguration (EfsFileSystemConfiguration'),
+    newEfsFileSystemConfiguration,
 
     -- ** Finding
     Finding (Finding'),
@@ -422,6 +437,22 @@ module Amazonka.AccessAnalyzer
     Position (Position'),
     newPosition,
 
+    -- ** RdsDbClusterSnapshotAttributeValue
+    RdsDbClusterSnapshotAttributeValue (RdsDbClusterSnapshotAttributeValue'),
+    newRdsDbClusterSnapshotAttributeValue,
+
+    -- ** RdsDbClusterSnapshotConfiguration
+    RdsDbClusterSnapshotConfiguration (RdsDbClusterSnapshotConfiguration'),
+    newRdsDbClusterSnapshotConfiguration,
+
+    -- ** RdsDbSnapshotAttributeValue
+    RdsDbSnapshotAttributeValue (RdsDbSnapshotAttributeValue'),
+    newRdsDbSnapshotAttributeValue,
+
+    -- ** RdsDbSnapshotConfiguration
+    RdsDbSnapshotConfiguration (RdsDbSnapshotConfiguration'),
+    newRdsDbSnapshotConfiguration,
+
     -- ** S3AccessPointConfiguration
     S3AccessPointConfiguration (S3AccessPointConfiguration'),
     newS3AccessPointConfiguration,
@@ -441,6 +472,10 @@ module Amazonka.AccessAnalyzer
     -- ** SecretsManagerSecretConfiguration
     SecretsManagerSecretConfiguration (SecretsManagerSecretConfiguration'),
     newSecretsManagerSecretConfiguration,
+
+    -- ** SnsTopicConfiguration
+    SnsTopicConfiguration (SnsTopicConfiguration'),
+    newSnsTopicConfiguration,
 
     -- ** SortCriteria
     SortCriteria (SortCriteria'),

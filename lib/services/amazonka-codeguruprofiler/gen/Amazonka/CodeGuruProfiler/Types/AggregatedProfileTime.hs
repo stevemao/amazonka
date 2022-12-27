@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruProfiler.Types.AggregatedProfileTime
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodeGuruProfiler.Types.AggregatedProfileTime where
 
 import Amazonka.CodeGuruProfiler.Types.AggregationPeriod
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the aggregation period and aggregation start time for an
@@ -50,7 +51,7 @@ data AggregatedProfileTime = AggregatedProfileTime'
     -- Specify @start@ using the ISO 8601 format. For example,
     -- 2020-06-01T13:15:02.001Z represents 1 millisecond past June 1, 2020
     -- 1:15:02 PM UTC.
-    start :: Prelude.Maybe Core.POSIX
+    start :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -111,16 +112,16 @@ aggregatedProfileTime_period = Lens.lens (\AggregatedProfileTime' {period} -> pe
 -- 2020-06-01T13:15:02.001Z represents 1 millisecond past June 1, 2020
 -- 1:15:02 PM UTC.
 aggregatedProfileTime_start :: Lens.Lens' AggregatedProfileTime (Prelude.Maybe Prelude.UTCTime)
-aggregatedProfileTime_start = Lens.lens (\AggregatedProfileTime' {start} -> start) (\s@AggregatedProfileTime' {} a -> s {start = a} :: AggregatedProfileTime) Prelude.. Lens.mapping Core._Time
+aggregatedProfileTime_start = Lens.lens (\AggregatedProfileTime' {start} -> start) (\s@AggregatedProfileTime' {} a -> s {start = a} :: AggregatedProfileTime) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON AggregatedProfileTime where
+instance Data.FromJSON AggregatedProfileTime where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AggregatedProfileTime"
       ( \x ->
           AggregatedProfileTime'
-            Prelude.<$> (x Core..:? "period")
-            Prelude.<*> (x Core..:? "start")
+            Prelude.<$> (x Data..:? "period")
+            Prelude.<*> (x Data..:? "start")
       )
 
 instance Prelude.Hashable AggregatedProfileTime where

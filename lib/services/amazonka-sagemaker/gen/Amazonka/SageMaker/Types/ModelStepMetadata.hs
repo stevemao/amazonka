@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ModelStepMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ModelStepMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Metadata for Model steps.
@@ -50,12 +51,12 @@ newModelStepMetadata =
 modelStepMetadata_arn :: Lens.Lens' ModelStepMetadata (Prelude.Maybe Prelude.Text)
 modelStepMetadata_arn = Lens.lens (\ModelStepMetadata' {arn} -> arn) (\s@ModelStepMetadata' {} a -> s {arn = a} :: ModelStepMetadata)
 
-instance Core.FromJSON ModelStepMetadata where
+instance Data.FromJSON ModelStepMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ModelStepMetadata"
       ( \x ->
-          ModelStepMetadata' Prelude.<$> (x Core..:? "Arn")
+          ModelStepMetadata' Prelude.<$> (x Data..:? "Arn")
       )
 
 instance Prelude.Hashable ModelStepMetadata where

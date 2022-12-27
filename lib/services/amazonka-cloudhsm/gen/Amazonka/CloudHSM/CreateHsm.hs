@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudHSM.CreateHsm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,9 +53,9 @@ module Amazonka.CloudHSM.CreateHsm
 
     -- * Request Lenses
     createHsm_clientToken,
-    createHsm_syslogIp,
-    createHsm_externalId,
     createHsm_eniIp,
+    createHsm_externalId,
+    createHsm_syslogIp,
     createHsm_subnetId,
     createHsm_sshKey,
     createHsm_iamRoleArn,
@@ -73,7 +73,8 @@ where
 
 import Amazonka.CloudHSM.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,16 +86,16 @@ data CreateHsm = CreateHsm'
   { -- | A user-defined token to ensure idempotence. Subsequent calls to this
     -- operation with the same token will be ignored.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The IP address for the syslog monitoring server. The AWS CloudHSM
-    -- service only supports one syslog monitoring server.
-    syslogIp :: Prelude.Maybe Prelude.Text,
-    -- | The external ID from @IamRoleArn@, if present.
-    externalId :: Prelude.Maybe Prelude.Text,
     -- | The IP address to assign to the HSM\'s ENI.
     --
     -- If an IP address is not specified, an IP address will be randomly chosen
     -- from the CIDR range of the subnet.
     eniIp :: Prelude.Maybe Prelude.Text,
+    -- | The external ID from @IamRoleArn@, if present.
+    externalId :: Prelude.Maybe Prelude.Text,
+    -- | The IP address for the syslog monitoring server. The AWS CloudHSM
+    -- service only supports one syslog monitoring server.
+    syslogIp :: Prelude.Maybe Prelude.Text,
     -- | The identifier of the subnet in your VPC in which to place the HSM.
     subnetId :: Prelude.Text,
     -- | The SSH public key to install on the HSM.
@@ -117,15 +118,15 @@ data CreateHsm = CreateHsm'
 -- 'clientToken', 'createHsm_clientToken' - A user-defined token to ensure idempotence. Subsequent calls to this
 -- operation with the same token will be ignored.
 --
--- 'syslogIp', 'createHsm_syslogIp' - The IP address for the syslog monitoring server. The AWS CloudHSM
--- service only supports one syslog monitoring server.
---
--- 'externalId', 'createHsm_externalId' - The external ID from @IamRoleArn@, if present.
---
 -- 'eniIp', 'createHsm_eniIp' - The IP address to assign to the HSM\'s ENI.
 --
 -- If an IP address is not specified, an IP address will be randomly chosen
 -- from the CIDR range of the subnet.
+--
+-- 'externalId', 'createHsm_externalId' - The external ID from @IamRoleArn@, if present.
+--
+-- 'syslogIp', 'createHsm_syslogIp' - The IP address for the syslog monitoring server. The AWS CloudHSM
+-- service only supports one syslog monitoring server.
 --
 -- 'subnetId', 'createHsm_subnetId' - The identifier of the subnet in your VPC in which to place the HSM.
 --
@@ -152,9 +153,9 @@ newCreateHsm
   pSubscriptionType_ =
     CreateHsm'
       { clientToken = Prelude.Nothing,
-        syslogIp = Prelude.Nothing,
-        externalId = Prelude.Nothing,
         eniIp = Prelude.Nothing,
+        externalId = Prelude.Nothing,
+        syslogIp = Prelude.Nothing,
         subnetId = pSubnetId_,
         sshKey = pSshKey_,
         iamRoleArn = pIamRoleArn_,
@@ -166,21 +167,21 @@ newCreateHsm
 createHsm_clientToken :: Lens.Lens' CreateHsm (Prelude.Maybe Prelude.Text)
 createHsm_clientToken = Lens.lens (\CreateHsm' {clientToken} -> clientToken) (\s@CreateHsm' {} a -> s {clientToken = a} :: CreateHsm)
 
--- | The IP address for the syslog monitoring server. The AWS CloudHSM
--- service only supports one syslog monitoring server.
-createHsm_syslogIp :: Lens.Lens' CreateHsm (Prelude.Maybe Prelude.Text)
-createHsm_syslogIp = Lens.lens (\CreateHsm' {syslogIp} -> syslogIp) (\s@CreateHsm' {} a -> s {syslogIp = a} :: CreateHsm)
-
--- | The external ID from @IamRoleArn@, if present.
-createHsm_externalId :: Lens.Lens' CreateHsm (Prelude.Maybe Prelude.Text)
-createHsm_externalId = Lens.lens (\CreateHsm' {externalId} -> externalId) (\s@CreateHsm' {} a -> s {externalId = a} :: CreateHsm)
-
 -- | The IP address to assign to the HSM\'s ENI.
 --
 -- If an IP address is not specified, an IP address will be randomly chosen
 -- from the CIDR range of the subnet.
 createHsm_eniIp :: Lens.Lens' CreateHsm (Prelude.Maybe Prelude.Text)
 createHsm_eniIp = Lens.lens (\CreateHsm' {eniIp} -> eniIp) (\s@CreateHsm' {} a -> s {eniIp = a} :: CreateHsm)
+
+-- | The external ID from @IamRoleArn@, if present.
+createHsm_externalId :: Lens.Lens' CreateHsm (Prelude.Maybe Prelude.Text)
+createHsm_externalId = Lens.lens (\CreateHsm' {externalId} -> externalId) (\s@CreateHsm' {} a -> s {externalId = a} :: CreateHsm)
+
+-- | The IP address for the syslog monitoring server. The AWS CloudHSM
+-- service only supports one syslog monitoring server.
+createHsm_syslogIp :: Lens.Lens' CreateHsm (Prelude.Maybe Prelude.Text)
+createHsm_syslogIp = Lens.lens (\CreateHsm' {syslogIp} -> syslogIp) (\s@CreateHsm' {} a -> s {syslogIp = a} :: CreateHsm)
 
 -- | The identifier of the subnet in your VPC in which to place the HSM.
 createHsm_subnetId :: Lens.Lens' CreateHsm Prelude.Text
@@ -201,21 +202,22 @@ createHsm_subscriptionType = Lens.lens (\CreateHsm' {subscriptionType} -> subscr
 
 instance Core.AWSRequest CreateHsm where
   type AWSResponse CreateHsm = CreateHsmResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateHsmResponse'
-            Prelude.<$> (x Core..?> "HsmArn")
+            Prelude.<$> (x Data..?> "HsmArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateHsm where
   hashWithSalt _salt CreateHsm' {..} =
     _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` syslogIp
-      `Prelude.hashWithSalt` externalId
       `Prelude.hashWithSalt` eniIp
+      `Prelude.hashWithSalt` externalId
+      `Prelude.hashWithSalt` syslogIp
       `Prelude.hashWithSalt` subnetId
       `Prelude.hashWithSalt` sshKey
       `Prelude.hashWithSalt` iamRoleArn
@@ -224,49 +226,49 @@ instance Prelude.Hashable CreateHsm where
 instance Prelude.NFData CreateHsm where
   rnf CreateHsm' {..} =
     Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf syslogIp
-      `Prelude.seq` Prelude.rnf externalId
       `Prelude.seq` Prelude.rnf eniIp
+      `Prelude.seq` Prelude.rnf externalId
+      `Prelude.seq` Prelude.rnf syslogIp
       `Prelude.seq` Prelude.rnf subnetId
       `Prelude.seq` Prelude.rnf sshKey
       `Prelude.seq` Prelude.rnf iamRoleArn
       `Prelude.seq` Prelude.rnf subscriptionType
 
-instance Core.ToHeaders CreateHsm where
+instance Data.ToHeaders CreateHsm where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CloudHsmFrontendService.CreateHsm" ::
+              Data.=# ( "CloudHsmFrontendService.CreateHsm" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateHsm where
+instance Data.ToJSON CreateHsm where
   toJSON CreateHsm' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientToken" Core..=) Prelude.<$> clientToken,
-            ("SyslogIp" Core..=) Prelude.<$> syslogIp,
-            ("ExternalId" Core..=) Prelude.<$> externalId,
-            ("EniIp" Core..=) Prelude.<$> eniIp,
-            Prelude.Just ("SubnetId" Core..= subnetId),
-            Prelude.Just ("SshKey" Core..= sshKey),
-            Prelude.Just ("IamRoleArn" Core..= iamRoleArn),
+          [ ("ClientToken" Data..=) Prelude.<$> clientToken,
+            ("EniIp" Data..=) Prelude.<$> eniIp,
+            ("ExternalId" Data..=) Prelude.<$> externalId,
+            ("SyslogIp" Data..=) Prelude.<$> syslogIp,
+            Prelude.Just ("SubnetId" Data..= subnetId),
+            Prelude.Just ("SshKey" Data..= sshKey),
+            Prelude.Just ("IamRoleArn" Data..= iamRoleArn),
             Prelude.Just
-              ("SubscriptionType" Core..= subscriptionType)
+              ("SubscriptionType" Data..= subscriptionType)
           ]
       )
 
-instance Core.ToPath CreateHsm where
+instance Data.ToPath CreateHsm where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateHsm where
+instance Data.ToQuery CreateHsm where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of the @CreateHsm@ operation.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.TeradataParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.TeradataParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The parameters for Teradata.
@@ -76,15 +77,15 @@ teradataParameters_port = Lens.lens (\TeradataParameters' {port} -> port) (\s@Te
 teradataParameters_database :: Lens.Lens' TeradataParameters Prelude.Text
 teradataParameters_database = Lens.lens (\TeradataParameters' {database} -> database) (\s@TeradataParameters' {} a -> s {database = a} :: TeradataParameters)
 
-instance Core.FromJSON TeradataParameters where
+instance Data.FromJSON TeradataParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TeradataParameters"
       ( \x ->
           TeradataParameters'
-            Prelude.<$> (x Core..: "Host")
-            Prelude.<*> (x Core..: "Port")
-            Prelude.<*> (x Core..: "Database")
+            Prelude.<$> (x Data..: "Host")
+            Prelude.<*> (x Data..: "Port")
+            Prelude.<*> (x Data..: "Database")
       )
 
 instance Prelude.Hashable TeradataParameters where
@@ -99,12 +100,12 @@ instance Prelude.NFData TeradataParameters where
       `Prelude.seq` Prelude.rnf port
       `Prelude.seq` Prelude.rnf database
 
-instance Core.ToJSON TeradataParameters where
+instance Data.ToJSON TeradataParameters where
   toJSON TeradataParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Host" Core..= host),
-            Prelude.Just ("Port" Core..= port),
-            Prelude.Just ("Database" Core..= database)
+          [ Prelude.Just ("Host" Data..= host),
+            Prelude.Just ("Port" Data..= port),
+            Prelude.Just ("Database" Data..= database)
           ]
       )

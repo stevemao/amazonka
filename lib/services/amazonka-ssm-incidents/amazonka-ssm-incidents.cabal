@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -75,7 +75,9 @@ library
     Amazonka.SSMIncidents.Types.ChatChannel
     Amazonka.SSMIncidents.Types.Condition
     Amazonka.SSMIncidents.Types.DeleteRegionAction
+    Amazonka.SSMIncidents.Types.DynamicSsmParameterValue
     Amazonka.SSMIncidents.Types.EmptyChatChannel
+    Amazonka.SSMIncidents.Types.EventReference
     Amazonka.SSMIncidents.Types.EventSummary
     Amazonka.SSMIncidents.Types.Filter
     Amazonka.SSMIncidents.Types.IncidentRecord
@@ -83,10 +85,14 @@ library
     Amazonka.SSMIncidents.Types.IncidentRecordStatus
     Amazonka.SSMIncidents.Types.IncidentRecordSummary
     Amazonka.SSMIncidents.Types.IncidentTemplate
+    Amazonka.SSMIncidents.Types.Integration
     Amazonka.SSMIncidents.Types.ItemIdentifier
     Amazonka.SSMIncidents.Types.ItemType
     Amazonka.SSMIncidents.Types.ItemValue
     Amazonka.SSMIncidents.Types.NotificationTargetItem
+    Amazonka.SSMIncidents.Types.PagerDutyConfiguration
+    Amazonka.SSMIncidents.Types.PagerDutyIncidentConfiguration
+    Amazonka.SSMIncidents.Types.PagerDutyIncidentDetail
     Amazonka.SSMIncidents.Types.RegionInfo
     Amazonka.SSMIncidents.Types.RegionMapInputValue
     Amazonka.SSMIncidents.Types.RegionStatus
@@ -103,6 +109,7 @@ library
     Amazonka.SSMIncidents.Types.TimelineEventSort
     Amazonka.SSMIncidents.Types.TriggerDetails
     Amazonka.SSMIncidents.Types.UpdateReplicationSetAction
+    Amazonka.SSMIncidents.Types.VariableType
     Amazonka.SSMIncidents.UntagResource
     Amazonka.SSMIncidents.UpdateDeletionProtection
     Amazonka.SSMIncidents.UpdateIncidentRecord
@@ -113,7 +120,7 @@ library
     Amazonka.SSMIncidents.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-ssm-incidents-test
@@ -132,9 +139,9 @@ test-suite amazonka-ssm-incidents-test
     Test.Amazonka.SSMIncidents.Internal
 
   build-depends:
-    , amazonka-core           ^>=2.0
+    , amazonka-core           >=2.0 && <2.1
     , amazonka-ssm-incidents
-    , amazonka-test           ^>=2.0
+    , amazonka-test           >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

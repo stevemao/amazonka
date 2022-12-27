@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.OutputChannelMapping
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.MediaConvert.Types.OutputChannelMapping where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | OutputChannel mapping settings.
 --
 -- /See:/ 'newOutputChannelMapping' smart constructor.
 data OutputChannelMapping = OutputChannelMapping'
-  { -- | Use this setting to specify your remix values when they have a decimal
+  { -- | Use this setting to specify your remix values when they are integers,
+    -- such as -10, 0, or 4.
+    inputChannels :: Prelude.Maybe [Prelude.Int],
+    -- | Use this setting to specify your remix values when they have a decimal
     -- component, such as -10.312, 0.08, or 4.9. MediaConvert rounds your
     -- remixing values to the nearest thousandth.
-    inputChannelsFineTune :: Prelude.Maybe [Prelude.Double],
-    -- | Use this setting to specify your remix values when they are integers,
-    -- such as -10, 0, or 4.
-    inputChannels :: Prelude.Maybe [Prelude.Int]
+    inputChannelsFineTune :: Prelude.Maybe [Prelude.Double]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,20 +46,25 @@ data OutputChannelMapping = OutputChannelMapping'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'inputChannels', 'outputChannelMapping_inputChannels' - Use this setting to specify your remix values when they are integers,
+-- such as -10, 0, or 4.
+--
 -- 'inputChannelsFineTune', 'outputChannelMapping_inputChannelsFineTune' - Use this setting to specify your remix values when they have a decimal
 -- component, such as -10.312, 0.08, or 4.9. MediaConvert rounds your
 -- remixing values to the nearest thousandth.
---
--- 'inputChannels', 'outputChannelMapping_inputChannels' - Use this setting to specify your remix values when they are integers,
--- such as -10, 0, or 4.
 newOutputChannelMapping ::
   OutputChannelMapping
 newOutputChannelMapping =
   OutputChannelMapping'
-    { inputChannelsFineTune =
+    { inputChannels =
         Prelude.Nothing,
-      inputChannels = Prelude.Nothing
+      inputChannelsFineTune = Prelude.Nothing
     }
+
+-- | Use this setting to specify your remix values when they are integers,
+-- such as -10, 0, or 4.
+outputChannelMapping_inputChannels :: Lens.Lens' OutputChannelMapping (Prelude.Maybe [Prelude.Int])
+outputChannelMapping_inputChannels = Lens.lens (\OutputChannelMapping' {inputChannels} -> inputChannels) (\s@OutputChannelMapping' {} a -> s {inputChannels = a} :: OutputChannelMapping) Prelude.. Lens.mapping Lens.coerced
 
 -- | Use this setting to specify your remix values when they have a decimal
 -- component, such as -10.312, 0.08, or 4.9. MediaConvert rounds your
@@ -66,39 +72,34 @@ newOutputChannelMapping =
 outputChannelMapping_inputChannelsFineTune :: Lens.Lens' OutputChannelMapping (Prelude.Maybe [Prelude.Double])
 outputChannelMapping_inputChannelsFineTune = Lens.lens (\OutputChannelMapping' {inputChannelsFineTune} -> inputChannelsFineTune) (\s@OutputChannelMapping' {} a -> s {inputChannelsFineTune = a} :: OutputChannelMapping) Prelude.. Lens.mapping Lens.coerced
 
--- | Use this setting to specify your remix values when they are integers,
--- such as -10, 0, or 4.
-outputChannelMapping_inputChannels :: Lens.Lens' OutputChannelMapping (Prelude.Maybe [Prelude.Int])
-outputChannelMapping_inputChannels = Lens.lens (\OutputChannelMapping' {inputChannels} -> inputChannels) (\s@OutputChannelMapping' {} a -> s {inputChannels = a} :: OutputChannelMapping) Prelude.. Lens.mapping Lens.coerced
-
-instance Core.FromJSON OutputChannelMapping where
+instance Data.FromJSON OutputChannelMapping where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OutputChannelMapping"
       ( \x ->
           OutputChannelMapping'
-            Prelude.<$> ( x Core..:? "inputChannelsFineTune"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "inputChannels" Data..!= Prelude.mempty)
+            Prelude.<*> ( x Data..:? "inputChannelsFineTune"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "inputChannels" Core..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable OutputChannelMapping where
   hashWithSalt _salt OutputChannelMapping' {..} =
-    _salt `Prelude.hashWithSalt` inputChannelsFineTune
-      `Prelude.hashWithSalt` inputChannels
+    _salt `Prelude.hashWithSalt` inputChannels
+      `Prelude.hashWithSalt` inputChannelsFineTune
 
 instance Prelude.NFData OutputChannelMapping where
   rnf OutputChannelMapping' {..} =
-    Prelude.rnf inputChannelsFineTune
-      `Prelude.seq` Prelude.rnf inputChannels
+    Prelude.rnf inputChannels
+      `Prelude.seq` Prelude.rnf inputChannelsFineTune
 
-instance Core.ToJSON OutputChannelMapping where
+instance Data.ToJSON OutputChannelMapping where
   toJSON OutputChannelMapping' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("inputChannelsFineTune" Core..=)
-              Prelude.<$> inputChannelsFineTune,
-            ("inputChannels" Core..=) Prelude.<$> inputChannels
+          [ ("inputChannels" Data..=) Prelude.<$> inputChannels,
+            ("inputChannelsFineTune" Data..=)
+              Prelude.<$> inputChannelsFineTune
           ]
       )

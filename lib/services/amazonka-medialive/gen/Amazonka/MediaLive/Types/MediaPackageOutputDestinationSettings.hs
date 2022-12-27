@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.MediaPackageOutputDestinationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.MediaPackageOutputDestinationSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | MediaPackage Output Destination Settings
@@ -66,15 +67,15 @@ mediaPackageOutputDestinationSettings_channelId :: Lens.Lens' MediaPackageOutput
 mediaPackageOutputDestinationSettings_channelId = Lens.lens (\MediaPackageOutputDestinationSettings' {channelId} -> channelId) (\s@MediaPackageOutputDestinationSettings' {} a -> s {channelId = a} :: MediaPackageOutputDestinationSettings)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     MediaPackageOutputDestinationSettings
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MediaPackageOutputDestinationSettings"
       ( \x ->
           MediaPackageOutputDestinationSettings'
-            Prelude.<$> (x Core..:? "channelId")
+            Prelude.<$> (x Data..:? "channelId")
       )
 
 instance
@@ -94,11 +95,11 @@ instance
     Prelude.rnf channelId
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     MediaPackageOutputDestinationSettings
   where
   toJSON MediaPackageOutputDestinationSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("channelId" Core..=) Prelude.<$> channelId]
+          [("channelId" Data..=) Prelude.<$> channelId]
       )

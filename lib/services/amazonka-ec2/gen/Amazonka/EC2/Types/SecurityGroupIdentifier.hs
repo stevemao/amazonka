@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.SecurityGroupIdentifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.SecurityGroupIdentifier where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a security group.
@@ -62,11 +63,11 @@ securityGroupIdentifier_groupId = Lens.lens (\SecurityGroupIdentifier' {groupId}
 securityGroupIdentifier_groupName :: Lens.Lens' SecurityGroupIdentifier (Prelude.Maybe Prelude.Text)
 securityGroupIdentifier_groupName = Lens.lens (\SecurityGroupIdentifier' {groupName} -> groupName) (\s@SecurityGroupIdentifier' {} a -> s {groupName = a} :: SecurityGroupIdentifier)
 
-instance Core.FromXML SecurityGroupIdentifier where
+instance Data.FromXML SecurityGroupIdentifier where
   parseXML x =
     SecurityGroupIdentifier'
-      Prelude.<$> (x Core..@? "groupId")
-      Prelude.<*> (x Core..@? "groupName")
+      Prelude.<$> (x Data..@? "groupId")
+      Prelude.<*> (x Data..@? "groupName")
 
 instance Prelude.Hashable SecurityGroupIdentifier where
   hashWithSalt _salt SecurityGroupIdentifier' {..} =

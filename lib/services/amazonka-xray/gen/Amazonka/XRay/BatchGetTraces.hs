@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.BatchGetTraces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.XRay.BatchGetTraces
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,14 +114,15 @@ instance Core.AWSRequest BatchGetTraces where
   type
     AWSResponse BatchGetTraces =
       BatchGetTracesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchGetTracesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Traces" Core..!@ Prelude.mempty)
-            Prelude.<*> ( x Core..?> "UnprocessedTraceIds"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Traces" Core..!@ Prelude.mempty)
+            Prelude.<*> ( x Data..?> "UnprocessedTraceIds"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -136,22 +138,22 @@ instance Prelude.NFData BatchGetTraces where
     Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf traceIds
 
-instance Core.ToHeaders BatchGetTraces where
+instance Data.ToHeaders BatchGetTraces where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON BatchGetTraces where
+instance Data.ToJSON BatchGetTraces where
   toJSON BatchGetTraces' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            Prelude.Just ("TraceIds" Core..= traceIds)
+          [ ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("TraceIds" Data..= traceIds)
           ]
       )
 
-instance Core.ToPath BatchGetTraces where
+instance Data.ToPath BatchGetTraces where
   toPath = Prelude.const "/Traces"
 
-instance Core.ToQuery BatchGetTraces where
+instance Data.ToQuery BatchGetTraces where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchGetTracesResponse' smart constructor.

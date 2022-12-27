@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.DetachLoadBalancerTargetGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,15 @@
 --
 -- Detaches one or more target groups from the specified Auto Scaling
 -- group.
+--
+-- When you detach a target group, it enters the @Removing@ state while
+-- deregistering the instances in the group. When all instances are
+-- deregistered, then you can no longer describe the target group using the
+-- DescribeLoadBalancerTargetGroups API call. The instances remain running.
+--
+-- You can use this operation to detach target groups that were attached by
+-- using AttachLoadBalancerTargetGroups, but not for target groups that
+-- were attached by using AttachTrafficSources.
 module Amazonka.AutoScaling.DetachLoadBalancerTargetGroups
   ( -- * Creating a Request
     DetachLoadBalancerTargetGroups (..),
@@ -42,7 +51,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +107,8 @@ instance
   type
     AWSResponse DetachLoadBalancerTargetGroups =
       DetachLoadBalancerTargetGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DetachLoadBalancerTargetGroupsResult"
@@ -125,26 +136,26 @@ instance
       `Prelude.seq` Prelude.rnf targetGroupARNs
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DetachLoadBalancerTargetGroups
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DetachLoadBalancerTargetGroups where
+instance Data.ToPath DetachLoadBalancerTargetGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetachLoadBalancerTargetGroups where
+instance Data.ToQuery DetachLoadBalancerTargetGroups where
   toQuery DetachLoadBalancerTargetGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DetachLoadBalancerTargetGroups" ::
+          Data.=: ( "DetachLoadBalancerTargetGroups" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "AutoScalingGroupName" Core.=: autoScalingGroupName,
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "AutoScalingGroupName" Data.=: autoScalingGroupName,
         "TargetGroupARNs"
-          Core.=: Core.toQueryList "member" targetGroupARNs
+          Data.=: Data.toQueryList "member" targetGroupARNs
       ]
 
 -- | /See:/ 'newDetachLoadBalancerTargetGroupsResponse' smart constructor.

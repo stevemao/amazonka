@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.InputDecryptionSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.InputDecryptionSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.DecryptionMode
 import qualified Amazonka.Prelude as Prelude
 
@@ -31,24 +32,24 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newInputDecryptionSettings' smart constructor.
 data InputDecryptionSettings = InputDecryptionSettings'
-  { -- | Warning! Don\'t provide your encryption key in plaintext. Your job
+  { -- | Specify the encryption mode that you used to encrypt your input files.
+    decryptionMode :: Prelude.Maybe DecryptionMode,
+    -- | Warning! Don\'t provide your encryption key in plaintext. Your job
     -- settings could be intercepted, making your encrypted content vulnerable.
     -- Specify the encrypted version of the data key that you used to encrypt
     -- your content. The data key must be encrypted by AWS Key Management
     -- Service (KMS). The key can be 128, 192, or 256 bits.
     encryptedDecryptionKey :: Prelude.Maybe Prelude.Text,
-    -- | Specify the AWS Region for AWS Key Management Service (KMS) that you
-    -- used to encrypt your data key, if that Region is different from the one
-    -- you are using for AWS Elemental MediaConvert.
-    kmsKeyRegion :: Prelude.Maybe Prelude.Text,
-    -- | Specify the encryption mode that you used to encrypt your input files.
-    decryptionMode :: Prelude.Maybe DecryptionMode,
     -- | Specify the initialization vector that you used when you encrypted your
     -- content before uploading it to Amazon S3. You can use a 16-byte
     -- initialization vector with any encryption mode. Or, you can use a
     -- 12-byte initialization vector with GCM or CTR. MediaConvert accepts only
     -- initialization vectors that are base64-encoded.
-    initializationVector :: Prelude.Maybe Prelude.Text
+    initializationVector :: Prelude.Maybe Prelude.Text,
+    -- | Specify the AWS Region for AWS Key Management Service (KMS) that you
+    -- used to encrypt your data key, if that Region is different from the one
+    -- you are using for AWS Elemental MediaConvert.
+    kmsKeyRegion :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -60,33 +61,37 @@ data InputDecryptionSettings = InputDecryptionSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'decryptionMode', 'inputDecryptionSettings_decryptionMode' - Specify the encryption mode that you used to encrypt your input files.
+--
 -- 'encryptedDecryptionKey', 'inputDecryptionSettings_encryptedDecryptionKey' - Warning! Don\'t provide your encryption key in plaintext. Your job
 -- settings could be intercepted, making your encrypted content vulnerable.
 -- Specify the encrypted version of the data key that you used to encrypt
 -- your content. The data key must be encrypted by AWS Key Management
 -- Service (KMS). The key can be 128, 192, or 256 bits.
 --
--- 'kmsKeyRegion', 'inputDecryptionSettings_kmsKeyRegion' - Specify the AWS Region for AWS Key Management Service (KMS) that you
--- used to encrypt your data key, if that Region is different from the one
--- you are using for AWS Elemental MediaConvert.
---
--- 'decryptionMode', 'inputDecryptionSettings_decryptionMode' - Specify the encryption mode that you used to encrypt your input files.
---
 -- 'initializationVector', 'inputDecryptionSettings_initializationVector' - Specify the initialization vector that you used when you encrypted your
 -- content before uploading it to Amazon S3. You can use a 16-byte
 -- initialization vector with any encryption mode. Or, you can use a
 -- 12-byte initialization vector with GCM or CTR. MediaConvert accepts only
 -- initialization vectors that are base64-encoded.
+--
+-- 'kmsKeyRegion', 'inputDecryptionSettings_kmsKeyRegion' - Specify the AWS Region for AWS Key Management Service (KMS) that you
+-- used to encrypt your data key, if that Region is different from the one
+-- you are using for AWS Elemental MediaConvert.
 newInputDecryptionSettings ::
   InputDecryptionSettings
 newInputDecryptionSettings =
   InputDecryptionSettings'
-    { encryptedDecryptionKey =
+    { decryptionMode =
         Prelude.Nothing,
-      kmsKeyRegion = Prelude.Nothing,
-      decryptionMode = Prelude.Nothing,
-      initializationVector = Prelude.Nothing
+      encryptedDecryptionKey = Prelude.Nothing,
+      initializationVector = Prelude.Nothing,
+      kmsKeyRegion = Prelude.Nothing
     }
+
+-- | Specify the encryption mode that you used to encrypt your input files.
+inputDecryptionSettings_decryptionMode :: Lens.Lens' InputDecryptionSettings (Prelude.Maybe DecryptionMode)
+inputDecryptionSettings_decryptionMode = Lens.lens (\InputDecryptionSettings' {decryptionMode} -> decryptionMode) (\s@InputDecryptionSettings' {} a -> s {decryptionMode = a} :: InputDecryptionSettings)
 
 -- | Warning! Don\'t provide your encryption key in plaintext. Your job
 -- settings could be intercepted, making your encrypted content vulnerable.
@@ -96,16 +101,6 @@ newInputDecryptionSettings =
 inputDecryptionSettings_encryptedDecryptionKey :: Lens.Lens' InputDecryptionSettings (Prelude.Maybe Prelude.Text)
 inputDecryptionSettings_encryptedDecryptionKey = Lens.lens (\InputDecryptionSettings' {encryptedDecryptionKey} -> encryptedDecryptionKey) (\s@InputDecryptionSettings' {} a -> s {encryptedDecryptionKey = a} :: InputDecryptionSettings)
 
--- | Specify the AWS Region for AWS Key Management Service (KMS) that you
--- used to encrypt your data key, if that Region is different from the one
--- you are using for AWS Elemental MediaConvert.
-inputDecryptionSettings_kmsKeyRegion :: Lens.Lens' InputDecryptionSettings (Prelude.Maybe Prelude.Text)
-inputDecryptionSettings_kmsKeyRegion = Lens.lens (\InputDecryptionSettings' {kmsKeyRegion} -> kmsKeyRegion) (\s@InputDecryptionSettings' {} a -> s {kmsKeyRegion = a} :: InputDecryptionSettings)
-
--- | Specify the encryption mode that you used to encrypt your input files.
-inputDecryptionSettings_decryptionMode :: Lens.Lens' InputDecryptionSettings (Prelude.Maybe DecryptionMode)
-inputDecryptionSettings_decryptionMode = Lens.lens (\InputDecryptionSettings' {decryptionMode} -> decryptionMode) (\s@InputDecryptionSettings' {} a -> s {decryptionMode = a} :: InputDecryptionSettings)
-
 -- | Specify the initialization vector that you used when you encrypted your
 -- content before uploading it to Amazon S3. You can use a 16-byte
 -- initialization vector with any encryption mode. Or, you can use a
@@ -114,42 +109,48 @@ inputDecryptionSettings_decryptionMode = Lens.lens (\InputDecryptionSettings' {d
 inputDecryptionSettings_initializationVector :: Lens.Lens' InputDecryptionSettings (Prelude.Maybe Prelude.Text)
 inputDecryptionSettings_initializationVector = Lens.lens (\InputDecryptionSettings' {initializationVector} -> initializationVector) (\s@InputDecryptionSettings' {} a -> s {initializationVector = a} :: InputDecryptionSettings)
 
-instance Core.FromJSON InputDecryptionSettings where
+-- | Specify the AWS Region for AWS Key Management Service (KMS) that you
+-- used to encrypt your data key, if that Region is different from the one
+-- you are using for AWS Elemental MediaConvert.
+inputDecryptionSettings_kmsKeyRegion :: Lens.Lens' InputDecryptionSettings (Prelude.Maybe Prelude.Text)
+inputDecryptionSettings_kmsKeyRegion = Lens.lens (\InputDecryptionSettings' {kmsKeyRegion} -> kmsKeyRegion) (\s@InputDecryptionSettings' {} a -> s {kmsKeyRegion = a} :: InputDecryptionSettings)
+
+instance Data.FromJSON InputDecryptionSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InputDecryptionSettings"
       ( \x ->
           InputDecryptionSettings'
-            Prelude.<$> (x Core..:? "encryptedDecryptionKey")
-            Prelude.<*> (x Core..:? "kmsKeyRegion")
-            Prelude.<*> (x Core..:? "decryptionMode")
-            Prelude.<*> (x Core..:? "initializationVector")
+            Prelude.<$> (x Data..:? "decryptionMode")
+            Prelude.<*> (x Data..:? "encryptedDecryptionKey")
+            Prelude.<*> (x Data..:? "initializationVector")
+            Prelude.<*> (x Data..:? "kmsKeyRegion")
       )
 
 instance Prelude.Hashable InputDecryptionSettings where
   hashWithSalt _salt InputDecryptionSettings' {..} =
-    _salt `Prelude.hashWithSalt` encryptedDecryptionKey
-      `Prelude.hashWithSalt` kmsKeyRegion
-      `Prelude.hashWithSalt` decryptionMode
+    _salt `Prelude.hashWithSalt` decryptionMode
+      `Prelude.hashWithSalt` encryptedDecryptionKey
       `Prelude.hashWithSalt` initializationVector
+      `Prelude.hashWithSalt` kmsKeyRegion
 
 instance Prelude.NFData InputDecryptionSettings where
   rnf InputDecryptionSettings' {..} =
-    Prelude.rnf encryptedDecryptionKey
-      `Prelude.seq` Prelude.rnf kmsKeyRegion
-      `Prelude.seq` Prelude.rnf decryptionMode
+    Prelude.rnf decryptionMode
+      `Prelude.seq` Prelude.rnf encryptedDecryptionKey
       `Prelude.seq` Prelude.rnf initializationVector
+      `Prelude.seq` Prelude.rnf kmsKeyRegion
 
-instance Core.ToJSON InputDecryptionSettings where
+instance Data.ToJSON InputDecryptionSettings where
   toJSON InputDecryptionSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("encryptedDecryptionKey" Core..=)
-              Prelude.<$> encryptedDecryptionKey,
-            ("kmsKeyRegion" Core..=) Prelude.<$> kmsKeyRegion,
-            ("decryptionMode" Core..=)
+          [ ("decryptionMode" Data..=)
               Prelude.<$> decryptionMode,
-            ("initializationVector" Core..=)
-              Prelude.<$> initializationVector
+            ("encryptedDecryptionKey" Data..=)
+              Prelude.<$> encryptedDecryptionKey,
+            ("initializationVector" Data..=)
+              Prelude.<$> initializationVector,
+            ("kmsKeyRegion" Data..=) Prelude.<$> kmsKeyRegion
           ]
       )

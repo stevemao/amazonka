@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Support.DescribeAttachment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,14 +27,14 @@
 -- are returned in the AttachmentDetails objects that are returned by the
 -- DescribeCommunications operation.
 --
--- -   You must have a Business or Enterprise Support plan to use the AWS
---     Support API.
+-- -   You must have a Business, Enterprise On-Ramp, or Enterprise Support
+--     plan to use the Amazon Web Services Support API.
 --
--- -   If you call the AWS Support API from an account that does not have a
---     Business or Enterprise Support plan, the
---     @SubscriptionRequiredException@ error message appears. For
+-- -   If you call the Amazon Web Services Support API from an account that
+--     does not have a Business, Enterprise On-Ramp, or Enterprise Support
+--     plan, the @SubscriptionRequiredException@ error message appears. For
 --     information about changing your support plan, see
---     <http://aws.amazon.com/premiumsupport/ AWS Support>.
+--     <http://aws.amazon.com/premiumsupport/ Amazon Web Services Support>.
 module Amazonka.Support.DescribeAttachment
   ( -- * Creating a Request
     DescribeAttachment (..),
@@ -54,7 +54,8 @@ module Amazonka.Support.DescribeAttachment
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,12 +95,13 @@ instance Core.AWSRequest DescribeAttachment where
   type
     AWSResponse DescribeAttachment =
       DescribeAttachmentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAttachmentResponse'
-            Prelude.<$> (x Core..?> "attachment")
+            Prelude.<$> (x Data..?> "attachment")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,32 +113,32 @@ instance Prelude.NFData DescribeAttachment where
   rnf DescribeAttachment' {..} =
     Prelude.rnf attachmentId
 
-instance Core.ToHeaders DescribeAttachment where
+instance Data.ToHeaders DescribeAttachment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSSupport_20130415.DescribeAttachment" ::
+              Data.=# ( "AWSSupport_20130415.DescribeAttachment" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAttachment where
+instance Data.ToJSON DescribeAttachment where
   toJSON DescribeAttachment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("attachmentId" Core..= attachmentId)]
+          [Prelude.Just ("attachmentId" Data..= attachmentId)]
       )
 
-instance Core.ToPath DescribeAttachment where
+instance Data.ToPath DescribeAttachment where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAttachment where
+instance Data.ToQuery DescribeAttachment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The content and file name of the attachment returned by the

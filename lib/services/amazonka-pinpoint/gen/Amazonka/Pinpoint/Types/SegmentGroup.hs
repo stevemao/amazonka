@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.SegmentGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.SegmentGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.SegmentDimensions
 import Amazonka.Pinpoint.Types.SegmentReference
 import Amazonka.Pinpoint.Types.SourceType
@@ -32,7 +33,9 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSegmentGroup' smart constructor.
 data SegmentGroup = SegmentGroup'
-  { -- | The base segment to build the segment on. A base segment, also referred
+  { -- | An array that defines the dimensions for the segment.
+    dimensions :: Prelude.Maybe [SegmentDimensions],
+    -- | The base segment to build the segment on. A base segment, also referred
     -- to as a /source segment/, defines the initial population of endpoints
     -- for a segment. When you add dimensions to a segment, Amazon Pinpoint
     -- filters the base segment by using the dimensions that you specify.
@@ -50,9 +53,7 @@ data SegmentGroup = SegmentGroup'
     -- example, if you specify three dimensions for the segment, whether the
     -- resulting segment includes endpoints that match all, any, or none of the
     -- dimensions.
-    type' :: Prelude.Maybe Type,
-    -- | An array that defines the dimensions for the segment.
-    dimensions :: Prelude.Maybe [SegmentDimensions]
+    type' :: Prelude.Maybe Type
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -63,6 +64,8 @@ data SegmentGroup = SegmentGroup'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dimensions', 'segmentGroup_dimensions' - An array that defines the dimensions for the segment.
 --
 -- 'sourceSegments', 'segmentGroup_sourceSegments' - The base segment to build the segment on. A base segment, also referred
 -- to as a /source segment/, defines the initial population of endpoints
@@ -82,17 +85,19 @@ data SegmentGroup = SegmentGroup'
 -- example, if you specify three dimensions for the segment, whether the
 -- resulting segment includes endpoints that match all, any, or none of the
 -- dimensions.
---
--- 'dimensions', 'segmentGroup_dimensions' - An array that defines the dimensions for the segment.
 newSegmentGroup ::
   SegmentGroup
 newSegmentGroup =
   SegmentGroup'
-    { sourceSegments = Prelude.Nothing,
+    { dimensions = Prelude.Nothing,
+      sourceSegments = Prelude.Nothing,
       sourceType = Prelude.Nothing,
-      type' = Prelude.Nothing,
-      dimensions = Prelude.Nothing
+      type' = Prelude.Nothing
     }
+
+-- | An array that defines the dimensions for the segment.
+segmentGroup_dimensions :: Lens.Lens' SegmentGroup (Prelude.Maybe [SegmentDimensions])
+segmentGroup_dimensions = Lens.lens (\SegmentGroup' {dimensions} -> dimensions) (\s@SegmentGroup' {} a -> s {dimensions = a} :: SegmentGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | The base segment to build the segment on. A base segment, also referred
 -- to as a /source segment/, defines the initial population of endpoints
@@ -119,44 +124,40 @@ segmentGroup_sourceType = Lens.lens (\SegmentGroup' {sourceType} -> sourceType) 
 segmentGroup_type :: Lens.Lens' SegmentGroup (Prelude.Maybe Type)
 segmentGroup_type = Lens.lens (\SegmentGroup' {type'} -> type') (\s@SegmentGroup' {} a -> s {type' = a} :: SegmentGroup)
 
--- | An array that defines the dimensions for the segment.
-segmentGroup_dimensions :: Lens.Lens' SegmentGroup (Prelude.Maybe [SegmentDimensions])
-segmentGroup_dimensions = Lens.lens (\SegmentGroup' {dimensions} -> dimensions) (\s@SegmentGroup' {} a -> s {dimensions = a} :: SegmentGroup) Prelude.. Lens.mapping Lens.coerced
-
-instance Core.FromJSON SegmentGroup where
+instance Data.FromJSON SegmentGroup where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SegmentGroup"
       ( \x ->
           SegmentGroup'
-            Prelude.<$> (x Core..:? "SourceSegments" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "SourceType")
-            Prelude.<*> (x Core..:? "Type")
-            Prelude.<*> (x Core..:? "Dimensions" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Dimensions" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "SourceSegments" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "SourceType")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable SegmentGroup where
   hashWithSalt _salt SegmentGroup' {..} =
-    _salt `Prelude.hashWithSalt` sourceSegments
+    _salt `Prelude.hashWithSalt` dimensions
+      `Prelude.hashWithSalt` sourceSegments
       `Prelude.hashWithSalt` sourceType
       `Prelude.hashWithSalt` type'
-      `Prelude.hashWithSalt` dimensions
 
 instance Prelude.NFData SegmentGroup where
   rnf SegmentGroup' {..} =
-    Prelude.rnf sourceSegments
+    Prelude.rnf dimensions
+      `Prelude.seq` Prelude.rnf sourceSegments
       `Prelude.seq` Prelude.rnf sourceType
       `Prelude.seq` Prelude.rnf type'
-      `Prelude.seq` Prelude.rnf dimensions
 
-instance Core.ToJSON SegmentGroup where
+instance Data.ToJSON SegmentGroup where
   toJSON SegmentGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SourceSegments" Core..=)
+          [ ("Dimensions" Data..=) Prelude.<$> dimensions,
+            ("SourceSegments" Data..=)
               Prelude.<$> sourceSegments,
-            ("SourceType" Core..=) Prelude.<$> sourceType,
-            ("Type" Core..=) Prelude.<$> type',
-            ("Dimensions" Core..=) Prelude.<$> dimensions
+            ("SourceType" Data..=) Prelude.<$> sourceType,
+            ("Type" Data..=) Prelude.<$> type'
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.SortCriterion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.SortCriterion where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.SortOrder
 
@@ -72,11 +73,11 @@ instance Prelude.NFData SortCriterion where
     Prelude.rnf field
       `Prelude.seq` Prelude.rnf sortOrder
 
-instance Core.ToJSON SortCriterion where
+instance Data.ToJSON SortCriterion where
   toJSON SortCriterion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Field" Core..=) Prelude.<$> field,
-            ("SortOrder" Core..=) Prelude.<$> sortOrder
+          [ ("Field" Data..=) Prelude.<$> field,
+            ("SortOrder" Data..=) Prelude.<$> sortOrder
           ]
       )

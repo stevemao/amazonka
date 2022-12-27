@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.UpdateMethodResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,14 +39,15 @@ module Amazonka.APIGateway.UpdateMethodResponse
 
     -- * Response Lenses
     methodResponse_responseModels,
-    methodResponse_statusCode,
     methodResponse_responseParameters,
+    methodResponse_statusCode,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,16 +56,16 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateMethodResponse' smart constructor.
 data UpdateMethodResponse = UpdateMethodResponse'
-  { -- | A list of update operations to be applied to the specified resource and
-    -- in the order specified in this list.
+  { -- | For more information about supported patch operations, see
+    -- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
     patchOperations :: Prelude.Maybe [PatchOperation],
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The Resource identifier for the MethodResponse resource.
+    -- | The Resource identifier for the MethodResponse resource.
     resourceId :: Prelude.Text,
-    -- | [Required] The HTTP verb of the Method resource.
+    -- | The HTTP verb of the Method resource.
     httpMethod :: Prelude.Text,
-    -- | [Required] The status code for the MethodResponse resource.
+    -- | The status code for the MethodResponse resource.
     statusCode :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -77,16 +78,16 @@ data UpdateMethodResponse = UpdateMethodResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'patchOperations', 'updateMethodResponse_patchOperations' - A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- 'patchOperations', 'updateMethodResponse_patchOperations' - For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 --
--- 'restApiId', 'updateMethodResponse_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'updateMethodResponse_restApiId' - The string identifier of the associated RestApi.
 --
--- 'resourceId', 'updateMethodResponse_resourceId' - [Required] The Resource identifier for the MethodResponse resource.
+-- 'resourceId', 'updateMethodResponse_resourceId' - The Resource identifier for the MethodResponse resource.
 --
--- 'httpMethod', 'updateMethodResponse_httpMethod' - [Required] The HTTP verb of the Method resource.
+-- 'httpMethod', 'updateMethodResponse_httpMethod' - The HTTP verb of the Method resource.
 --
--- 'statusCode', 'updateMethodResponse_statusCode' - [Required] The status code for the MethodResponse resource.
+-- 'statusCode', 'updateMethodResponse_statusCode' - The status code for the MethodResponse resource.
 newUpdateMethodResponse ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -111,24 +112,24 @@ newUpdateMethodResponse
         statusCode = pStatusCode_
       }
 
--- | A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- | For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 updateMethodResponse_patchOperations :: Lens.Lens' UpdateMethodResponse (Prelude.Maybe [PatchOperation])
 updateMethodResponse_patchOperations = Lens.lens (\UpdateMethodResponse' {patchOperations} -> patchOperations) (\s@UpdateMethodResponse' {} a -> s {patchOperations = a} :: UpdateMethodResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 updateMethodResponse_restApiId :: Lens.Lens' UpdateMethodResponse Prelude.Text
 updateMethodResponse_restApiId = Lens.lens (\UpdateMethodResponse' {restApiId} -> restApiId) (\s@UpdateMethodResponse' {} a -> s {restApiId = a} :: UpdateMethodResponse)
 
--- | [Required] The Resource identifier for the MethodResponse resource.
+-- | The Resource identifier for the MethodResponse resource.
 updateMethodResponse_resourceId :: Lens.Lens' UpdateMethodResponse Prelude.Text
 updateMethodResponse_resourceId = Lens.lens (\UpdateMethodResponse' {resourceId} -> resourceId) (\s@UpdateMethodResponse' {} a -> s {resourceId = a} :: UpdateMethodResponse)
 
--- | [Required] The HTTP verb of the Method resource.
+-- | The HTTP verb of the Method resource.
 updateMethodResponse_httpMethod :: Lens.Lens' UpdateMethodResponse Prelude.Text
 updateMethodResponse_httpMethod = Lens.lens (\UpdateMethodResponse' {httpMethod} -> httpMethod) (\s@UpdateMethodResponse' {} a -> s {httpMethod = a} :: UpdateMethodResponse)
 
--- | [Required] The status code for the MethodResponse resource.
+-- | The status code for the MethodResponse resource.
 updateMethodResponse_statusCode :: Lens.Lens' UpdateMethodResponse Prelude.Text
 updateMethodResponse_statusCode = Lens.lens (\UpdateMethodResponse' {statusCode} -> statusCode) (\s@UpdateMethodResponse' {} a -> s {statusCode = a} :: UpdateMethodResponse)
 
@@ -136,10 +137,11 @@ instance Core.AWSRequest UpdateMethodResponse where
   type
     AWSResponse UpdateMethodResponse =
       MethodResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable UpdateMethodResponse where
   hashWithSalt _salt UpdateMethodResponse' {..} =
@@ -157,36 +159,36 @@ instance Prelude.NFData UpdateMethodResponse where
       `Prelude.seq` Prelude.rnf httpMethod
       `Prelude.seq` Prelude.rnf statusCode
 
-instance Core.ToHeaders UpdateMethodResponse where
+instance Data.ToHeaders UpdateMethodResponse where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON UpdateMethodResponse where
+instance Data.ToJSON UpdateMethodResponse where
   toJSON UpdateMethodResponse' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("patchOperations" Core..=)
+          [ ("patchOperations" Data..=)
               Prelude.<$> patchOperations
           ]
       )
 
-instance Core.ToPath UpdateMethodResponse where
+instance Data.ToPath UpdateMethodResponse where
   toPath UpdateMethodResponse' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/resources/",
-        Core.toBS resourceId,
+        Data.toBS resourceId,
         "/methods/",
-        Core.toBS httpMethod,
+        Data.toBS httpMethod,
         "/responses/",
-        Core.toBS statusCode
+        Data.toBS statusCode
       ]
 
-instance Core.ToQuery UpdateMethodResponse where
+instance Data.ToQuery UpdateMethodResponse where
   toQuery = Prelude.const Prelude.mempty

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.ManagedScalingPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EMR.Types.ManagedScalingPolicy where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types.ComputeLimits
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Managed scaling policy for an Amazon EMR cluster. The policy specifies
@@ -66,13 +67,13 @@ newManagedScalingPolicy =
 managedScalingPolicy_computeLimits :: Lens.Lens' ManagedScalingPolicy (Prelude.Maybe ComputeLimits)
 managedScalingPolicy_computeLimits = Lens.lens (\ManagedScalingPolicy' {computeLimits} -> computeLimits) (\s@ManagedScalingPolicy' {} a -> s {computeLimits = a} :: ManagedScalingPolicy)
 
-instance Core.FromJSON ManagedScalingPolicy where
+instance Data.FromJSON ManagedScalingPolicy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ManagedScalingPolicy"
       ( \x ->
           ManagedScalingPolicy'
-            Prelude.<$> (x Core..:? "ComputeLimits")
+            Prelude.<$> (x Data..:? "ComputeLimits")
       )
 
 instance Prelude.Hashable ManagedScalingPolicy where
@@ -83,11 +84,11 @@ instance Prelude.NFData ManagedScalingPolicy where
   rnf ManagedScalingPolicy' {..} =
     Prelude.rnf computeLimits
 
-instance Core.ToJSON ManagedScalingPolicy where
+instance Data.ToJSON ManagedScalingPolicy where
   toJSON ManagedScalingPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ComputeLimits" Core..=)
+          [ ("ComputeLimits" Data..=)
               Prelude.<$> computeLimits
           ]
       )

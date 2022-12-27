@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.DynamicPartitioningConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,15 @@
 module Amazonka.Firehose.Types.DynamicPartitioningConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Firehose.Types.RetryOptions
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration of the dynamic partitioning mechanism that creates
 -- smaller data sets from the streaming data by partitioning it based on
 -- partition keys. Currently, dynamic partitioning is only supported for
--- Amazon S3 destinations. For more information, see
--- <https://docs.aws.amazon.com/firehose/latest/dev/dynamic-partitioning.html>
+-- Amazon S3 destinations.
 --
 -- /See:/ 'newDynamicPartitioningConfiguration' smart constructor.
 data DynamicPartitioningConfiguration = DynamicPartitioningConfiguration'
@@ -74,16 +74,16 @@ dynamicPartitioningConfiguration_retryOptions :: Lens.Lens' DynamicPartitioningC
 dynamicPartitioningConfiguration_retryOptions = Lens.lens (\DynamicPartitioningConfiguration' {retryOptions} -> retryOptions) (\s@DynamicPartitioningConfiguration' {} a -> s {retryOptions = a} :: DynamicPartitioningConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     DynamicPartitioningConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DynamicPartitioningConfiguration"
       ( \x ->
           DynamicPartitioningConfiguration'
-            Prelude.<$> (x Core..:? "Enabled")
-            Prelude.<*> (x Core..:? "RetryOptions")
+            Prelude.<$> (x Data..:? "Enabled")
+            Prelude.<*> (x Data..:? "RetryOptions")
       )
 
 instance
@@ -104,11 +104,11 @@ instance
     Prelude.rnf enabled
       `Prelude.seq` Prelude.rnf retryOptions
 
-instance Core.ToJSON DynamicPartitioningConfiguration where
+instance Data.ToJSON DynamicPartitioningConfiguration where
   toJSON DynamicPartitioningConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Enabled" Core..=) Prelude.<$> enabled,
-            ("RetryOptions" Core..=) Prelude.<$> retryOptions
+          [ ("Enabled" Data..=) Prelude.<$> enabled,
+            ("RetryOptions" Data..=) Prelude.<$> retryOptions
           ]
       )

@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.SSM.DeleteResourceDataSync
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Deletes a resource data sync configuration. After the configuration is
--- deleted, changes to data on managed instances are no longer synced to or
+-- deleted, changes to data on managed nodes are no longer synced to or
 -- from the target. Deleting a sync configuration doesn\'t delete data.
 module Amazonka.SSM.DeleteResourceDataSync
   ( -- * Creating a Request
@@ -42,7 +42,8 @@ module Amazonka.SSM.DeleteResourceDataSync
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +91,8 @@ instance Core.AWSRequest DeleteResourceDataSync where
   type
     AWSResponse DeleteResourceDataSync =
       DeleteResourceDataSyncResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -108,34 +110,34 @@ instance Prelude.NFData DeleteResourceDataSync where
     Prelude.rnf syncType
       `Prelude.seq` Prelude.rnf syncName
 
-instance Core.ToHeaders DeleteResourceDataSync where
+instance Data.ToHeaders DeleteResourceDataSync where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.DeleteResourceDataSync" ::
+              Data.=# ( "AmazonSSM.DeleteResourceDataSync" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteResourceDataSync where
+instance Data.ToJSON DeleteResourceDataSync where
   toJSON DeleteResourceDataSync' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SyncType" Core..=) Prelude.<$> syncType,
-            Prelude.Just ("SyncName" Core..= syncName)
+          [ ("SyncType" Data..=) Prelude.<$> syncType,
+            Prelude.Just ("SyncName" Data..= syncName)
           ]
       )
 
-instance Core.ToPath DeleteResourceDataSync where
+instance Data.ToPath DeleteResourceDataSync where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteResourceDataSync where
+instance Data.ToQuery DeleteResourceDataSync where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteResourceDataSyncResponse' smart constructor.

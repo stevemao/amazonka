@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.CancelBatchPredictionJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.FraudDetector.CancelBatchPredictionJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest CancelBatchPredictionJob where
   type
     AWSResponse CancelBatchPredictionJob =
       CancelBatchPredictionJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,32 +93,32 @@ instance Prelude.Hashable CancelBatchPredictionJob where
 instance Prelude.NFData CancelBatchPredictionJob where
   rnf CancelBatchPredictionJob' {..} = Prelude.rnf jobId
 
-instance Core.ToHeaders CancelBatchPredictionJob where
+instance Data.ToHeaders CancelBatchPredictionJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.CancelBatchPredictionJob" ::
+              Data.=# ( "AWSHawksNestServiceFacade.CancelBatchPredictionJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CancelBatchPredictionJob where
+instance Data.ToJSON CancelBatchPredictionJob where
   toJSON CancelBatchPredictionJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("jobId" Core..= jobId)]
+          [Prelude.Just ("jobId" Data..= jobId)]
       )
 
-instance Core.ToPath CancelBatchPredictionJob where
+instance Data.ToPath CancelBatchPredictionJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelBatchPredictionJob where
+instance Data.ToQuery CancelBatchPredictionJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCancelBatchPredictionJobResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationAutoScaling.DeregisterScalableTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ where
 
 import Amazonka.ApplicationAutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -507,7 +508,8 @@ instance Core.AWSRequest DeregisterScalableTarget where
   type
     AWSResponse DeregisterScalableTarget =
       DeregisterScalableTargetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -527,37 +529,37 @@ instance Prelude.NFData DeregisterScalableTarget where
       `Prelude.seq` Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf scalableDimension
 
-instance Core.ToHeaders DeregisterScalableTarget where
+instance Data.ToHeaders DeregisterScalableTarget where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AnyScaleFrontendService.DeregisterScalableTarget" ::
+              Data.=# ( "AnyScaleFrontendService.DeregisterScalableTarget" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeregisterScalableTarget where
+instance Data.ToJSON DeregisterScalableTarget where
   toJSON DeregisterScalableTarget' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ServiceNamespace" Core..= serviceNamespace),
-            Prelude.Just ("ResourceId" Core..= resourceId),
+              ("ServiceNamespace" Data..= serviceNamespace),
+            Prelude.Just ("ResourceId" Data..= resourceId),
             Prelude.Just
-              ("ScalableDimension" Core..= scalableDimension)
+              ("ScalableDimension" Data..= scalableDimension)
           ]
       )
 
-instance Core.ToPath DeregisterScalableTarget where
+instance Data.ToPath DeregisterScalableTarget where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeregisterScalableTarget where
+instance Data.ToQuery DeregisterScalableTarget where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeregisterScalableTargetResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.FailoverGlobalCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,7 +33,7 @@
 -- For more information about failing over an Amazon Aurora global
 -- database, see
 -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-global-database-disaster-recovery.html#aurora-global-database-disaster-recovery.managed-failover Managed planned failover for Amazon Aurora global databases>
--- in the /Amazon Aurora User Guide./
+-- in the /Amazon Aurora User Guide/.
 --
 -- This action applies to GlobalCluster (Aurora global databases) only. Use
 -- this action only on healthy Aurora global databases with running Aurora
@@ -59,7 +59,8 @@ module Amazonka.RDS.FailoverGlobalCluster
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -146,13 +147,14 @@ instance Core.AWSRequest FailoverGlobalCluster where
   type
     AWSResponse FailoverGlobalCluster =
       FailoverGlobalClusterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "FailoverGlobalClusterResult"
       ( \s h x ->
           FailoverGlobalClusterResponse'
-            Prelude.<$> (x Core..@? "GlobalCluster")
+            Prelude.<$> (x Data..@? "GlobalCluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -167,23 +169,23 @@ instance Prelude.NFData FailoverGlobalCluster where
     Prelude.rnf globalClusterIdentifier
       `Prelude.seq` Prelude.rnf targetDbClusterIdentifier
 
-instance Core.ToHeaders FailoverGlobalCluster where
+instance Data.ToHeaders FailoverGlobalCluster where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath FailoverGlobalCluster where
+instance Data.ToPath FailoverGlobalCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery FailoverGlobalCluster where
+instance Data.ToQuery FailoverGlobalCluster where
   toQuery FailoverGlobalCluster' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("FailoverGlobalCluster" :: Prelude.ByteString),
+          Data.=: ("FailoverGlobalCluster" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "GlobalClusterIdentifier"
-          Core.=: globalClusterIdentifier,
+          Data.=: globalClusterIdentifier,
         "TargetDbClusterIdentifier"
-          Core.=: targetDbClusterIdentifier
+          Data.=: targetDbClusterIdentifier
       ]
 
 -- | /See:/ 'newFailoverGlobalClusterResponse' smart constructor.

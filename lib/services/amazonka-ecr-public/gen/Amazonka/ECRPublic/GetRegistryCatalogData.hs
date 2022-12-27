@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECRPublic.GetRegistryCatalogData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,9 @@ module Amazonka.ECRPublic.GetRegistryCatalogData
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECRPublic.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,13 +62,14 @@ instance Core.AWSRequest GetRegistryCatalogData where
   type
     AWSResponse GetRegistryCatalogData =
       GetRegistryCatalogDataResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRegistryCatalogDataResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "registryCatalogData")
+            Prelude.<*> (x Data..:> "registryCatalogData")
       )
 
 instance Prelude.Hashable GetRegistryCatalogData where
@@ -77,28 +79,28 @@ instance Prelude.Hashable GetRegistryCatalogData where
 instance Prelude.NFData GetRegistryCatalogData where
   rnf _ = ()
 
-instance Core.ToHeaders GetRegistryCatalogData where
+instance Data.ToHeaders GetRegistryCatalogData where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SpencerFrontendService.GetRegistryCatalogData" ::
+              Data.=# ( "SpencerFrontendService.GetRegistryCatalogData" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetRegistryCatalogData where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON GetRegistryCatalogData where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath GetRegistryCatalogData where
+instance Data.ToPath GetRegistryCatalogData where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetRegistryCatalogData where
+instance Data.ToQuery GetRegistryCatalogData where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetRegistryCatalogDataResponse' smart constructor.

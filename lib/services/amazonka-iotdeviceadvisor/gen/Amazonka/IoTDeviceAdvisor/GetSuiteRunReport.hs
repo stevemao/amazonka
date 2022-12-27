@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTDeviceAdvisor.GetSuiteRunReport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,10 @@
 --
 -- Gets a report download link for a successful Device Advisor qualifying
 -- test suite run.
+--
+-- Requires permission to access the
+-- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions GetSuiteRunReport>
+-- action.
 module Amazonka.IoTDeviceAdvisor.GetSuiteRunReport
   ( -- * Creating a Request
     GetSuiteRunReport (..),
@@ -42,17 +46,18 @@ module Amazonka.IoTDeviceAdvisor.GetSuiteRunReport
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTDeviceAdvisor.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetSuiteRunReport' smart constructor.
 data GetSuiteRunReport = GetSuiteRunReport'
-  { -- | Suite definition Id of the test suite.
+  { -- | Suite definition ID of the test suite.
     suiteDefinitionId :: Prelude.Text,
-    -- | Suite run Id of the test suite run.
+    -- | Suite run ID of the test suite run.
     suiteRunId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -65,9 +70,9 @@ data GetSuiteRunReport = GetSuiteRunReport'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'suiteDefinitionId', 'getSuiteRunReport_suiteDefinitionId' - Suite definition Id of the test suite.
+-- 'suiteDefinitionId', 'getSuiteRunReport_suiteDefinitionId' - Suite definition ID of the test suite.
 --
--- 'suiteRunId', 'getSuiteRunReport_suiteRunId' - Suite run Id of the test suite run.
+-- 'suiteRunId', 'getSuiteRunReport_suiteRunId' - Suite run ID of the test suite run.
 newGetSuiteRunReport ::
   -- | 'suiteDefinitionId'
   Prelude.Text ->
@@ -81,11 +86,11 @@ newGetSuiteRunReport pSuiteDefinitionId_ pSuiteRunId_ =
       suiteRunId = pSuiteRunId_
     }
 
--- | Suite definition Id of the test suite.
+-- | Suite definition ID of the test suite.
 getSuiteRunReport_suiteDefinitionId :: Lens.Lens' GetSuiteRunReport Prelude.Text
 getSuiteRunReport_suiteDefinitionId = Lens.lens (\GetSuiteRunReport' {suiteDefinitionId} -> suiteDefinitionId) (\s@GetSuiteRunReport' {} a -> s {suiteDefinitionId = a} :: GetSuiteRunReport)
 
--- | Suite run Id of the test suite run.
+-- | Suite run ID of the test suite run.
 getSuiteRunReport_suiteRunId :: Lens.Lens' GetSuiteRunReport Prelude.Text
 getSuiteRunReport_suiteRunId = Lens.lens (\GetSuiteRunReport' {suiteRunId} -> suiteRunId) (\s@GetSuiteRunReport' {} a -> s {suiteRunId = a} :: GetSuiteRunReport)
 
@@ -93,12 +98,13 @@ instance Core.AWSRequest GetSuiteRunReport where
   type
     AWSResponse GetSuiteRunReport =
       GetSuiteRunReportResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSuiteRunReportResponse'
-            Prelude.<$> (x Core..?> "qualificationReportDownloadUrl")
+            Prelude.<$> (x Data..?> "qualificationReportDownloadUrl")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,28 +118,28 @@ instance Prelude.NFData GetSuiteRunReport where
     Prelude.rnf suiteDefinitionId
       `Prelude.seq` Prelude.rnf suiteRunId
 
-instance Core.ToHeaders GetSuiteRunReport where
+instance Data.ToHeaders GetSuiteRunReport where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetSuiteRunReport where
+instance Data.ToPath GetSuiteRunReport where
   toPath GetSuiteRunReport' {..} =
     Prelude.mconcat
       [ "/suiteDefinitions/",
-        Core.toBS suiteDefinitionId,
+        Data.toBS suiteDefinitionId,
         "/suiteRuns/",
-        Core.toBS suiteRunId,
+        Data.toBS suiteRunId,
         "/report"
       ]
 
-instance Core.ToQuery GetSuiteRunReport where
+instance Data.ToQuery GetSuiteRunReport where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSuiteRunReportResponse' smart constructor.

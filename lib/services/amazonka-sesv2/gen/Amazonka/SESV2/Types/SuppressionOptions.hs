@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.SuppressionOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SESV2.Types.SuppressionOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SESV2.Types.SuppressionListReason
 
@@ -85,14 +86,14 @@ newSuppressionOptions =
 suppressionOptions_suppressedReasons :: Lens.Lens' SuppressionOptions (Prelude.Maybe [SuppressionListReason])
 suppressionOptions_suppressedReasons = Lens.lens (\SuppressionOptions' {suppressedReasons} -> suppressedReasons) (\s@SuppressionOptions' {} a -> s {suppressedReasons = a} :: SuppressionOptions) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON SuppressionOptions where
+instance Data.FromJSON SuppressionOptions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SuppressionOptions"
       ( \x ->
           SuppressionOptions'
-            Prelude.<$> ( x Core..:? "SuppressedReasons"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "SuppressedReasons"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -104,11 +105,11 @@ instance Prelude.NFData SuppressionOptions where
   rnf SuppressionOptions' {..} =
     Prelude.rnf suppressedReasons
 
-instance Core.ToJSON SuppressionOptions where
+instance Data.ToJSON SuppressionOptions where
   toJSON SuppressionOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SuppressedReasons" Core..=)
+          [ ("SuppressedReasons" Data..=)
               Prelude.<$> suppressedReasons
           ]
       )

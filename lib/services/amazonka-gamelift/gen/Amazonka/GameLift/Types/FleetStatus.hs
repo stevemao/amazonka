@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.FleetStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,6 +27,7 @@ module Amazonka.GameLift.Types.FleetStatus
         FleetStatus_DOWNLOADING,
         FleetStatus_ERROR,
         FleetStatus_NEW,
+        FleetStatus_NOT_FOUND,
         FleetStatus_TERMINATED,
         FleetStatus_VALIDATING
       ),
@@ -34,11 +35,12 @@ module Amazonka.GameLift.Types.FleetStatus
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype FleetStatus = FleetStatus'
   { fromFleetStatus ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -50,18 +52,18 @@ newtype FleetStatus = FleetStatus'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern FleetStatus_ACTIVATING :: FleetStatus
@@ -85,6 +87,9 @@ pattern FleetStatus_ERROR = FleetStatus' "ERROR"
 pattern FleetStatus_NEW :: FleetStatus
 pattern FleetStatus_NEW = FleetStatus' "NEW"
 
+pattern FleetStatus_NOT_FOUND :: FleetStatus
+pattern FleetStatus_NOT_FOUND = FleetStatus' "NOT_FOUND"
+
 pattern FleetStatus_TERMINATED :: FleetStatus
 pattern FleetStatus_TERMINATED = FleetStatus' "TERMINATED"
 
@@ -99,6 +104,7 @@ pattern FleetStatus_VALIDATING = FleetStatus' "VALIDATING"
   FleetStatus_DOWNLOADING,
   FleetStatus_ERROR,
   FleetStatus_NEW,
+  FleetStatus_NOT_FOUND,
   FleetStatus_TERMINATED,
   FleetStatus_VALIDATING,
   FleetStatus'

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pricing.Types.PricingService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pricing.Types.PricingService where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The metadata for a service, such as the service code and available
@@ -31,7 +32,7 @@ data PricingService = PricingService'
   { -- | The attributes that are available for this service.
     attributeNames :: Prelude.Maybe [Prelude.Text],
     -- | The code for the Amazon Web Services service.
-    serviceCode :: Prelude.Maybe Prelude.Text
+    serviceCode :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,11 +48,13 @@ data PricingService = PricingService'
 --
 -- 'serviceCode', 'pricingService_serviceCode' - The code for the Amazon Web Services service.
 newPricingService ::
+  -- | 'serviceCode'
+  Prelude.Text ->
   PricingService
-newPricingService =
+newPricingService pServiceCode_ =
   PricingService'
     { attributeNames = Prelude.Nothing,
-      serviceCode = Prelude.Nothing
+      serviceCode = pServiceCode_
     }
 
 -- | The attributes that are available for this service.
@@ -59,17 +62,17 @@ pricingService_attributeNames :: Lens.Lens' PricingService (Prelude.Maybe [Prelu
 pricingService_attributeNames = Lens.lens (\PricingService' {attributeNames} -> attributeNames) (\s@PricingService' {} a -> s {attributeNames = a} :: PricingService) Prelude.. Lens.mapping Lens.coerced
 
 -- | The code for the Amazon Web Services service.
-pricingService_serviceCode :: Lens.Lens' PricingService (Prelude.Maybe Prelude.Text)
+pricingService_serviceCode :: Lens.Lens' PricingService Prelude.Text
 pricingService_serviceCode = Lens.lens (\PricingService' {serviceCode} -> serviceCode) (\s@PricingService' {} a -> s {serviceCode = a} :: PricingService)
 
-instance Core.FromJSON PricingService where
+instance Data.FromJSON PricingService where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PricingService"
       ( \x ->
           PricingService'
-            Prelude.<$> (x Core..:? "AttributeNames" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "ServiceCode")
+            Prelude.<$> (x Data..:? "AttributeNames" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "ServiceCode")
       )
 
 instance Prelude.Hashable PricingService where

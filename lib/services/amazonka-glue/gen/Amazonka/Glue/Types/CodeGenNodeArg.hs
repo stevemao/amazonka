@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.CodeGenNodeArg
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.CodeGenNodeArg where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An argument or property of a node.
@@ -74,15 +75,15 @@ codeGenNodeArg_name = Lens.lens (\CodeGenNodeArg' {name} -> name) (\s@CodeGenNod
 codeGenNodeArg_value :: Lens.Lens' CodeGenNodeArg Prelude.Text
 codeGenNodeArg_value = Lens.lens (\CodeGenNodeArg' {value} -> value) (\s@CodeGenNodeArg' {} a -> s {value = a} :: CodeGenNodeArg)
 
-instance Core.FromJSON CodeGenNodeArg where
+instance Data.FromJSON CodeGenNodeArg where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CodeGenNodeArg"
       ( \x ->
           CodeGenNodeArg'
-            Prelude.<$> (x Core..:? "Param")
-            Prelude.<*> (x Core..: "Name")
-            Prelude.<*> (x Core..: "Value")
+            Prelude.<$> (x Data..:? "Param")
+            Prelude.<*> (x Data..: "Name")
+            Prelude.<*> (x Data..: "Value")
       )
 
 instance Prelude.Hashable CodeGenNodeArg where
@@ -97,12 +98,12 @@ instance Prelude.NFData CodeGenNodeArg where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON CodeGenNodeArg where
+instance Data.ToJSON CodeGenNodeArg where
   toJSON CodeGenNodeArg' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Param" Core..=) Prelude.<$> param,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Value" Core..= value)
+          [ ("Param" Data..=) Prelude.<$> param,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Value" Data..= value)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.CreateVolumePermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.CreateVolumePermission where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.PermissionGroup
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the user or group to be added or removed from the list of
@@ -64,11 +65,11 @@ createVolumePermission_group = Lens.lens (\CreateVolumePermission' {group'} -> g
 createVolumePermission_userId :: Lens.Lens' CreateVolumePermission (Prelude.Maybe Prelude.Text)
 createVolumePermission_userId = Lens.lens (\CreateVolumePermission' {userId} -> userId) (\s@CreateVolumePermission' {} a -> s {userId = a} :: CreateVolumePermission)
 
-instance Core.FromXML CreateVolumePermission where
+instance Data.FromXML CreateVolumePermission where
   parseXML x =
     CreateVolumePermission'
-      Prelude.<$> (x Core..@? "group")
-      Prelude.<*> (x Core..@? "userId")
+      Prelude.<$> (x Data..@? "group")
+      Prelude.<*> (x Data..@? "userId")
 
 instance Prelude.Hashable CreateVolumePermission where
   hashWithSalt _salt CreateVolumePermission' {..} =
@@ -79,7 +80,7 @@ instance Prelude.NFData CreateVolumePermission where
   rnf CreateVolumePermission' {..} =
     Prelude.rnf group' `Prelude.seq` Prelude.rnf userId
 
-instance Core.ToQuery CreateVolumePermission where
+instance Data.ToQuery CreateVolumePermission where
   toQuery CreateVolumePermission' {..} =
     Prelude.mconcat
-      ["Group" Core.=: group', "UserId" Core.=: userId]
+      ["Group" Data.=: group', "UserId" Data.=: userId]

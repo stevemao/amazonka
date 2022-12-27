@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.Types.LivePreRollConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaTailor.Types.LivePreRollConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration for pre-roll ad insertion.
@@ -83,14 +84,14 @@ livePreRollConfiguration_adDecisionServerUrl = Lens.lens (\LivePreRollConfigurat
 livePreRollConfiguration_maxDurationSeconds :: Lens.Lens' LivePreRollConfiguration (Prelude.Maybe Prelude.Int)
 livePreRollConfiguration_maxDurationSeconds = Lens.lens (\LivePreRollConfiguration' {maxDurationSeconds} -> maxDurationSeconds) (\s@LivePreRollConfiguration' {} a -> s {maxDurationSeconds = a} :: LivePreRollConfiguration)
 
-instance Core.FromJSON LivePreRollConfiguration where
+instance Data.FromJSON LivePreRollConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LivePreRollConfiguration"
       ( \x ->
           LivePreRollConfiguration'
-            Prelude.<$> (x Core..:? "AdDecisionServerUrl")
-            Prelude.<*> (x Core..:? "MaxDurationSeconds")
+            Prelude.<$> (x Data..:? "AdDecisionServerUrl")
+            Prelude.<*> (x Data..:? "MaxDurationSeconds")
       )
 
 instance Prelude.Hashable LivePreRollConfiguration where
@@ -103,13 +104,13 @@ instance Prelude.NFData LivePreRollConfiguration where
     Prelude.rnf adDecisionServerUrl
       `Prelude.seq` Prelude.rnf maxDurationSeconds
 
-instance Core.ToJSON LivePreRollConfiguration where
+instance Data.ToJSON LivePreRollConfiguration where
   toJSON LivePreRollConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AdDecisionServerUrl" Core..=)
+          [ ("AdDecisionServerUrl" Data..=)
               Prelude.<$> adDecisionServerUrl,
-            ("MaxDurationSeconds" Core..=)
+            ("MaxDurationSeconds" Data..=)
               Prelude.<$> maxDurationSeconds
           ]
       )

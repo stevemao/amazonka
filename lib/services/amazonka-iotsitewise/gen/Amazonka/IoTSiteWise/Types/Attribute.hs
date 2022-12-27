@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.Attribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTSiteWise.Types.Attribute where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains an asset attribute property. For more information, see
@@ -67,12 +68,12 @@ newAttribute =
 attribute_defaultValue :: Lens.Lens' Attribute (Prelude.Maybe Prelude.Text)
 attribute_defaultValue = Lens.lens (\Attribute' {defaultValue} -> defaultValue) (\s@Attribute' {} a -> s {defaultValue = a} :: Attribute)
 
-instance Core.FromJSON Attribute where
+instance Data.FromJSON Attribute where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Attribute"
       ( \x ->
-          Attribute' Prelude.<$> (x Core..:? "defaultValue")
+          Attribute' Prelude.<$> (x Data..:? "defaultValue")
       )
 
 instance Prelude.Hashable Attribute where
@@ -82,9 +83,9 @@ instance Prelude.Hashable Attribute where
 instance Prelude.NFData Attribute where
   rnf Attribute' {..} = Prelude.rnf defaultValue
 
-instance Core.ToJSON Attribute where
+instance Data.ToJSON Attribute where
   toJSON Attribute' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("defaultValue" Core..=) Prelude.<$> defaultValue]
+          [("defaultValue" Data..=) Prelude.<$> defaultValue]
       )

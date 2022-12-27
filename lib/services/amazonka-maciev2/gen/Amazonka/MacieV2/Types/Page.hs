@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.Page
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.Page where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.Range
 import qualified Amazonka.Prelude as Prelude
 
@@ -30,9 +31,9 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newPage' smart constructor.
 data Page = Page'
   { -- | Reserved for future use.
-    offsetRange :: Prelude.Maybe Range,
-    -- | Reserved for future use.
     lineRange :: Prelude.Maybe Range,
+    -- | Reserved for future use.
+    offsetRange :: Prelude.Maybe Range,
     -- | The page number of the page that contains the sensitive data.
     pageNumber :: Prelude.Maybe Prelude.Integer
   }
@@ -46,51 +47,51 @@ data Page = Page'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'offsetRange', 'page_offsetRange' - Reserved for future use.
---
 -- 'lineRange', 'page_lineRange' - Reserved for future use.
+--
+-- 'offsetRange', 'page_offsetRange' - Reserved for future use.
 --
 -- 'pageNumber', 'page_pageNumber' - The page number of the page that contains the sensitive data.
 newPage ::
   Page
 newPage =
   Page'
-    { offsetRange = Prelude.Nothing,
-      lineRange = Prelude.Nothing,
+    { lineRange = Prelude.Nothing,
+      offsetRange = Prelude.Nothing,
       pageNumber = Prelude.Nothing
     }
-
--- | Reserved for future use.
-page_offsetRange :: Lens.Lens' Page (Prelude.Maybe Range)
-page_offsetRange = Lens.lens (\Page' {offsetRange} -> offsetRange) (\s@Page' {} a -> s {offsetRange = a} :: Page)
 
 -- | Reserved for future use.
 page_lineRange :: Lens.Lens' Page (Prelude.Maybe Range)
 page_lineRange = Lens.lens (\Page' {lineRange} -> lineRange) (\s@Page' {} a -> s {lineRange = a} :: Page)
 
+-- | Reserved for future use.
+page_offsetRange :: Lens.Lens' Page (Prelude.Maybe Range)
+page_offsetRange = Lens.lens (\Page' {offsetRange} -> offsetRange) (\s@Page' {} a -> s {offsetRange = a} :: Page)
+
 -- | The page number of the page that contains the sensitive data.
 page_pageNumber :: Lens.Lens' Page (Prelude.Maybe Prelude.Integer)
 page_pageNumber = Lens.lens (\Page' {pageNumber} -> pageNumber) (\s@Page' {} a -> s {pageNumber = a} :: Page)
 
-instance Core.FromJSON Page where
+instance Data.FromJSON Page where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Page"
       ( \x ->
           Page'
-            Prelude.<$> (x Core..:? "offsetRange")
-            Prelude.<*> (x Core..:? "lineRange")
-            Prelude.<*> (x Core..:? "pageNumber")
+            Prelude.<$> (x Data..:? "lineRange")
+            Prelude.<*> (x Data..:? "offsetRange")
+            Prelude.<*> (x Data..:? "pageNumber")
       )
 
 instance Prelude.Hashable Page where
   hashWithSalt _salt Page' {..} =
-    _salt `Prelude.hashWithSalt` offsetRange
-      `Prelude.hashWithSalt` lineRange
+    _salt `Prelude.hashWithSalt` lineRange
+      `Prelude.hashWithSalt` offsetRange
       `Prelude.hashWithSalt` pageNumber
 
 instance Prelude.NFData Page where
   rnf Page' {..} =
-    Prelude.rnf offsetRange
-      `Prelude.seq` Prelude.rnf lineRange
+    Prelude.rnf lineRange
+      `Prelude.seq` Prelude.rnf offsetRange
       `Prelude.seq` Prelude.rnf pageNumber

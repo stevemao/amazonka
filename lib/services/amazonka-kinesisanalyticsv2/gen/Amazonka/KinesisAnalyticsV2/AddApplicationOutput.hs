@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.AddApplicationOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,15 +54,16 @@ module Amazonka.KinesisAnalyticsV2.AddApplicationOutput
 
     -- * Response Lenses
     addApplicationOutputResponse_applicationARN,
-    addApplicationOutputResponse_outputDescriptions,
     addApplicationOutputResponse_applicationVersionId,
+    addApplicationOutputResponse_outputDescriptions,
     addApplicationOutputResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -151,16 +152,17 @@ instance Core.AWSRequest AddApplicationOutput where
   type
     AWSResponse AddApplicationOutput =
       AddApplicationOutputResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddApplicationOutputResponse'
-            Prelude.<$> (x Core..?> "ApplicationARN")
-            Prelude.<*> ( x Core..?> "OutputDescriptions"
+            Prelude.<$> (x Data..?> "ApplicationARN")
+            Prelude.<*> (x Data..?> "ApplicationVersionId")
+            Prelude.<*> ( x Data..?> "OutputDescriptions"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "ApplicationVersionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -176,52 +178,52 @@ instance Prelude.NFData AddApplicationOutput where
       `Prelude.seq` Prelude.rnf currentApplicationVersionId
       `Prelude.seq` Prelude.rnf output
 
-instance Core.ToHeaders AddApplicationOutput where
+instance Data.ToHeaders AddApplicationOutput where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "KinesisAnalytics_20180523.AddApplicationOutput" ::
+              Data.=# ( "KinesisAnalytics_20180523.AddApplicationOutput" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddApplicationOutput where
+instance Data.ToJSON AddApplicationOutput where
   toJSON AddApplicationOutput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ApplicationName" Core..= applicationName),
+              ("ApplicationName" Data..= applicationName),
             Prelude.Just
               ( "CurrentApplicationVersionId"
-                  Core..= currentApplicationVersionId
+                  Data..= currentApplicationVersionId
               ),
-            Prelude.Just ("Output" Core..= output)
+            Prelude.Just ("Output" Data..= output)
           ]
       )
 
-instance Core.ToPath AddApplicationOutput where
+instance Data.ToPath AddApplicationOutput where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddApplicationOutput where
+instance Data.ToQuery AddApplicationOutput where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddApplicationOutputResponse' smart constructor.
 data AddApplicationOutputResponse = AddApplicationOutputResponse'
   { -- | The application Amazon Resource Name (ARN).
     applicationARN :: Prelude.Maybe Prelude.Text,
+    -- | The updated application version ID. Kinesis Data Analytics increments
+    -- this ID when the application is updated.
+    applicationVersionId :: Prelude.Maybe Prelude.Natural,
     -- | Describes the application output configuration. For more information,
     -- see
     -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html Configuring Application Output>.
     outputDescriptions :: Prelude.Maybe [OutputDescription],
-    -- | The updated application version ID. Kinesis Data Analytics increments
-    -- this ID when the application is updated.
-    applicationVersionId :: Prelude.Maybe Prelude.Natural,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -237,12 +239,12 @@ data AddApplicationOutputResponse = AddApplicationOutputResponse'
 --
 -- 'applicationARN', 'addApplicationOutputResponse_applicationARN' - The application Amazon Resource Name (ARN).
 --
+-- 'applicationVersionId', 'addApplicationOutputResponse_applicationVersionId' - The updated application version ID. Kinesis Data Analytics increments
+-- this ID when the application is updated.
+--
 -- 'outputDescriptions', 'addApplicationOutputResponse_outputDescriptions' - Describes the application output configuration. For more information,
 -- see
 -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html Configuring Application Output>.
---
--- 'applicationVersionId', 'addApplicationOutputResponse_applicationVersionId' - The updated application version ID. Kinesis Data Analytics increments
--- this ID when the application is updated.
 --
 -- 'httpStatus', 'addApplicationOutputResponse_httpStatus' - The response's http status code.
 newAddApplicationOutputResponse ::
@@ -253,8 +255,8 @@ newAddApplicationOutputResponse pHttpStatus_ =
   AddApplicationOutputResponse'
     { applicationARN =
         Prelude.Nothing,
-      outputDescriptions = Prelude.Nothing,
       applicationVersionId = Prelude.Nothing,
+      outputDescriptions = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -262,16 +264,16 @@ newAddApplicationOutputResponse pHttpStatus_ =
 addApplicationOutputResponse_applicationARN :: Lens.Lens' AddApplicationOutputResponse (Prelude.Maybe Prelude.Text)
 addApplicationOutputResponse_applicationARN = Lens.lens (\AddApplicationOutputResponse' {applicationARN} -> applicationARN) (\s@AddApplicationOutputResponse' {} a -> s {applicationARN = a} :: AddApplicationOutputResponse)
 
+-- | The updated application version ID. Kinesis Data Analytics increments
+-- this ID when the application is updated.
+addApplicationOutputResponse_applicationVersionId :: Lens.Lens' AddApplicationOutputResponse (Prelude.Maybe Prelude.Natural)
+addApplicationOutputResponse_applicationVersionId = Lens.lens (\AddApplicationOutputResponse' {applicationVersionId} -> applicationVersionId) (\s@AddApplicationOutputResponse' {} a -> s {applicationVersionId = a} :: AddApplicationOutputResponse)
+
 -- | Describes the application output configuration. For more information,
 -- see
 -- <https://docs.aws.amazon.com/kinesisanalytics/latest/dev/how-it-works-output.html Configuring Application Output>.
 addApplicationOutputResponse_outputDescriptions :: Lens.Lens' AddApplicationOutputResponse (Prelude.Maybe [OutputDescription])
 addApplicationOutputResponse_outputDescriptions = Lens.lens (\AddApplicationOutputResponse' {outputDescriptions} -> outputDescriptions) (\s@AddApplicationOutputResponse' {} a -> s {outputDescriptions = a} :: AddApplicationOutputResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The updated application version ID. Kinesis Data Analytics increments
--- this ID when the application is updated.
-addApplicationOutputResponse_applicationVersionId :: Lens.Lens' AddApplicationOutputResponse (Prelude.Maybe Prelude.Natural)
-addApplicationOutputResponse_applicationVersionId = Lens.lens (\AddApplicationOutputResponse' {applicationVersionId} -> applicationVersionId) (\s@AddApplicationOutputResponse' {} a -> s {applicationVersionId = a} :: AddApplicationOutputResponse)
 
 -- | The response's http status code.
 addApplicationOutputResponse_httpStatus :: Lens.Lens' AddApplicationOutputResponse Prelude.Int
@@ -280,6 +282,6 @@ addApplicationOutputResponse_httpStatus = Lens.lens (\AddApplicationOutputRespon
 instance Prelude.NFData AddApplicationOutputResponse where
   rnf AddApplicationOutputResponse' {..} =
     Prelude.rnf applicationARN
-      `Prelude.seq` Prelude.rnf outputDescriptions
       `Prelude.seq` Prelude.rnf applicationVersionId
+      `Prelude.seq` Prelude.rnf outputDescriptions
       `Prelude.seq` Prelude.rnf httpStatus

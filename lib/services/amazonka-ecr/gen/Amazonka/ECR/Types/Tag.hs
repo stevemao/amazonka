@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.Types.Tag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,22 +20,22 @@
 module Amazonka.ECR.Types.Tag where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The metadata that you apply to a resource to help you categorize and
--- organize them. Each tag consists of a key and an optional value, both of
--- which you define. Tag keys can have a maximum character length of 128
--- characters, and tag values can have a maximum length of 256 characters.
+-- | The metadata to apply to a resource to help you categorize and organize
+-- them. Each tag consists of a key and a value, both of which you define.
+-- Tag keys can have a maximum character length of 128 characters, and tag
+-- values can have a maximum length of 256 characters.
 --
 -- /See:/ 'newTag' smart constructor.
 data Tag = Tag'
-  { -- | The optional part of a key-value pair that make up a tag. A @value@ acts
-    -- as a descriptor within a tag category (key).
-    value :: Prelude.Maybe Prelude.Text,
-    -- | One part of a key-value pair that make up a tag. A @key@ is a general
+  { -- | One part of a key-value pair that make up a tag. A @key@ is a general
     -- label that acts like a category for more specific tag values.
-    key :: Prelude.Maybe Prelude.Text
+    key :: Prelude.Maybe Prelude.Text,
+    -- | A @value@ acts as a descriptor within a tag category (key).
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,52 +47,50 @@ data Tag = Tag'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'tag_value' - The optional part of a key-value pair that make up a tag. A @value@ acts
--- as a descriptor within a tag category (key).
---
 -- 'key', 'tag_key' - One part of a key-value pair that make up a tag. A @key@ is a general
 -- label that acts like a category for more specific tag values.
+--
+-- 'value', 'tag_value' - A @value@ acts as a descriptor within a tag category (key).
 newTag ::
   Tag
 newTag =
   Tag'
-    { value = Prelude.Nothing,
-      key = Prelude.Nothing
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The optional part of a key-value pair that make up a tag. A @value@ acts
--- as a descriptor within a tag category (key).
-tag_value :: Lens.Lens' Tag (Prelude.Maybe Prelude.Text)
-tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
 
 -- | One part of a key-value pair that make up a tag. A @key@ is a general
 -- label that acts like a category for more specific tag values.
 tag_key :: Lens.Lens' Tag (Prelude.Maybe Prelude.Text)
 tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 
-instance Core.FromJSON Tag where
+-- | A @value@ acts as a descriptor within a tag category (key).
+tag_value :: Lens.Lens' Tag (Prelude.Maybe Prelude.Text)
+tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
+
+instance Data.FromJSON Tag where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Tag"
       ( \x ->
           Tag'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Key")
+            Prelude.<$> (x Data..:? "Key") Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable Tag where
   hashWithSalt _salt Tag' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` key
+    _salt `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData Tag where
   rnf Tag' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON Tag where
+instance Data.ToJSON Tag where
   toJSON Tag' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Key" Core..=) Prelude.<$> key
+          [ ("Key" Data..=) Prelude.<$> key,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

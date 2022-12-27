@@ -14,24 +14,23 @@
 
 -- |
 -- Module      : Amazonka.AWSHealth.DescribeAffectedEntitiesForOrganization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Returns a list of entities that have been affected by one or more events
--- for one or more accounts in your organization in AWS Organizations,
--- based on the filter criteria. Entities can refer to individual customer
+-- for one or more accounts in your organization in Organizations, based on
+-- the filter criteria. Entities can refer to individual customer
 -- resources, groups of customer resources, or any other construct,
--- depending on the AWS service.
+-- depending on the Amazon Web Services service.
 --
 -- At least one event Amazon Resource Name (ARN) and account ID are
--- required. Results are sorted by the @lastUpdatedTime@ of the entity,
--- starting with the most recent.
+-- required.
 --
--- Before you can call this operation, you must first enable AWS Health to
--- work with AWS Organizations. To do this, call the
+-- Before you can call this operation, you must first enable Health to work
+-- with Organizations. To do this, call the
 -- <https://docs.aws.amazon.com/health/latest/APIReference/API_EnableHealthServiceAccessForOrganization.html EnableHealthServiceAccessForOrganization>
 -- operation from your organization\'s management account.
 --
@@ -39,10 +38,10 @@
 --     parameter in the next request to return more results.
 --
 -- -   This operation doesn\'t support resource-level permissions. You
---     can\'t use this operation to allow or deny access to specific AWS
---     Health events. For more information, see
+--     can\'t use this operation to allow or deny access to specific Health
+--     events. For more information, see
 --     <https://docs.aws.amazon.com/health/latest/ug/security_iam_id-based-policy-examples.html#resource-action-based-conditions Resource- and action-based conditions>
---     in the /AWS Health User Guide/.
+--     in the /Health User Guide/.
 --
 -- This operation returns paginated results.
 module Amazonka.AWSHealth.DescribeAffectedEntitiesForOrganization
@@ -52,8 +51,8 @@ module Amazonka.AWSHealth.DescribeAffectedEntitiesForOrganization
 
     -- * Request Lenses
     describeAffectedEntitiesForOrganization_locale,
-    describeAffectedEntitiesForOrganization_nextToken,
     describeAffectedEntitiesForOrganization_maxResults,
+    describeAffectedEntitiesForOrganization_nextToken,
     describeAffectedEntitiesForOrganization_organizationEntityFilters,
 
     -- * Destructuring the Response
@@ -70,7 +69,8 @@ where
 
 import Amazonka.AWSHealth.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,15 +80,15 @@ data DescribeAffectedEntitiesForOrganization = DescribeAffectedEntitiesForOrgani
   { -- | The locale (language) to return information in. English (en) is the
     -- default and the only supported value at this time.
     locale :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return in one batch, between 10 and 100,
+    -- inclusive.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | If the results of a search are large, only a portion of the results are
     -- returned, and a @nextToken@ pagination token is returned in the
     -- response. To retrieve the next batch of results, reissue the search
     -- request and include the returned token. When all results have been
     -- returned, the response does not contain a pagination token value.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return in one batch, between 10 and 100,
-    -- inclusive.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | A JSON set of elements including the @awsAccountId@ and the @eventArn@.
     organizationEntityFilters :: Prelude.NonEmpty EventAccountFilter
   }
@@ -105,14 +105,14 @@ data DescribeAffectedEntitiesForOrganization = DescribeAffectedEntitiesForOrgani
 -- 'locale', 'describeAffectedEntitiesForOrganization_locale' - The locale (language) to return information in. English (en) is the
 -- default and the only supported value at this time.
 --
+-- 'maxResults', 'describeAffectedEntitiesForOrganization_maxResults' - The maximum number of items to return in one batch, between 10 and 100,
+-- inclusive.
+--
 -- 'nextToken', 'describeAffectedEntitiesForOrganization_nextToken' - If the results of a search are large, only a portion of the results are
 -- returned, and a @nextToken@ pagination token is returned in the
 -- response. To retrieve the next batch of results, reissue the search
 -- request and include the returned token. When all results have been
 -- returned, the response does not contain a pagination token value.
---
--- 'maxResults', 'describeAffectedEntitiesForOrganization_maxResults' - The maximum number of items to return in one batch, between 10 and 100,
--- inclusive.
 --
 -- 'organizationEntityFilters', 'describeAffectedEntitiesForOrganization_organizationEntityFilters' - A JSON set of elements including the @awsAccountId@ and the @eventArn@.
 newDescribeAffectedEntitiesForOrganization ::
@@ -124,8 +124,8 @@ newDescribeAffectedEntitiesForOrganization
     DescribeAffectedEntitiesForOrganization'
       { locale =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
         maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         organizationEntityFilters =
           Lens.coerced
             Lens.# pOrganizationEntityFilters_
@@ -136,6 +136,11 @@ newDescribeAffectedEntitiesForOrganization
 describeAffectedEntitiesForOrganization_locale :: Lens.Lens' DescribeAffectedEntitiesForOrganization (Prelude.Maybe Prelude.Text)
 describeAffectedEntitiesForOrganization_locale = Lens.lens (\DescribeAffectedEntitiesForOrganization' {locale} -> locale) (\s@DescribeAffectedEntitiesForOrganization' {} a -> s {locale = a} :: DescribeAffectedEntitiesForOrganization)
 
+-- | The maximum number of items to return in one batch, between 10 and 100,
+-- inclusive.
+describeAffectedEntitiesForOrganization_maxResults :: Lens.Lens' DescribeAffectedEntitiesForOrganization (Prelude.Maybe Prelude.Natural)
+describeAffectedEntitiesForOrganization_maxResults = Lens.lens (\DescribeAffectedEntitiesForOrganization' {maxResults} -> maxResults) (\s@DescribeAffectedEntitiesForOrganization' {} a -> s {maxResults = a} :: DescribeAffectedEntitiesForOrganization)
+
 -- | If the results of a search are large, only a portion of the results are
 -- returned, and a @nextToken@ pagination token is returned in the
 -- response. To retrieve the next batch of results, reissue the search
@@ -143,11 +148,6 @@ describeAffectedEntitiesForOrganization_locale = Lens.lens (\DescribeAffectedEnt
 -- returned, the response does not contain a pagination token value.
 describeAffectedEntitiesForOrganization_nextToken :: Lens.Lens' DescribeAffectedEntitiesForOrganization (Prelude.Maybe Prelude.Text)
 describeAffectedEntitiesForOrganization_nextToken = Lens.lens (\DescribeAffectedEntitiesForOrganization' {nextToken} -> nextToken) (\s@DescribeAffectedEntitiesForOrganization' {} a -> s {nextToken = a} :: DescribeAffectedEntitiesForOrganization)
-
--- | The maximum number of items to return in one batch, between 10 and 100,
--- inclusive.
-describeAffectedEntitiesForOrganization_maxResults :: Lens.Lens' DescribeAffectedEntitiesForOrganization (Prelude.Maybe Prelude.Natural)
-describeAffectedEntitiesForOrganization_maxResults = Lens.lens (\DescribeAffectedEntitiesForOrganization' {maxResults} -> maxResults) (\s@DescribeAffectedEntitiesForOrganization' {} a -> s {maxResults = a} :: DescribeAffectedEntitiesForOrganization)
 
 -- | A JSON set of elements including the @awsAccountId@ and the @eventArn@.
 describeAffectedEntitiesForOrganization_organizationEntityFilters :: Lens.Lens' DescribeAffectedEntitiesForOrganization (Prelude.NonEmpty EventAccountFilter)
@@ -186,14 +186,15 @@ instance
     AWSResponse
       DescribeAffectedEntitiesForOrganization =
       DescribeAffectedEntitiesForOrganizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAffectedEntitiesForOrganizationResponse'
-            Prelude.<$> (x Core..?> "entities" Core..!@ Prelude.mempty)
-              Prelude.<*> (x Core..?> "failedSet" Core..!@ Prelude.mempty)
-              Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "entities" Core..!@ Prelude.mempty)
+              Prelude.<*> (x Data..?> "failedSet" Core..!@ Prelude.mempty)
+              Prelude.<*> (x Data..?> "nextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -205,8 +206,8 @@ instance
     _salt
     DescribeAffectedEntitiesForOrganization' {..} =
       _salt `Prelude.hashWithSalt` locale
-        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` organizationEntityFilters
 
 instance
@@ -215,53 +216,53 @@ instance
   where
   rnf DescribeAffectedEntitiesForOrganization' {..} =
     Prelude.rnf locale
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf organizationEntityFilters
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeAffectedEntitiesForOrganization
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHealth_20160804.DescribeAffectedEntitiesForOrganization" ::
+              Data.=# ( "AWSHealth_20160804.DescribeAffectedEntitiesForOrganization" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeAffectedEntitiesForOrganization
   where
   toJSON DescribeAffectedEntitiesForOrganization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("locale" Core..=) Prelude.<$> locale,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
+          [ ("locale" Data..=) Prelude.<$> locale,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
               ( "organizationEntityFilters"
-                  Core..= organizationEntityFilters
+                  Data..= organizationEntityFilters
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeAffectedEntitiesForOrganization
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeAffectedEntitiesForOrganization
   where
   toQuery = Prelude.const Prelude.mempty

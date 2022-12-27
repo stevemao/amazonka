@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.Types.ValidationWarning
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DataPipeline.Types.ValidationWarning where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Defines a validation warning. Validation warnings do not prevent
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newValidationWarning' smart constructor.
 data ValidationWarning = ValidationWarning'
-  { -- | A description of the validation warning.
-    warnings :: Prelude.Maybe [Prelude.Text],
-    -- | The identifier of the object that contains the validation warning.
-    id :: Prelude.Maybe Prelude.Text
+  { -- | The identifier of the object that contains the validation warning.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | A description of the validation warning.
+    warnings :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,40 +45,40 @@ data ValidationWarning = ValidationWarning'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'warnings', 'validationWarning_warnings' - A description of the validation warning.
---
 -- 'id', 'validationWarning_id' - The identifier of the object that contains the validation warning.
+--
+-- 'warnings', 'validationWarning_warnings' - A description of the validation warning.
 newValidationWarning ::
   ValidationWarning
 newValidationWarning =
   ValidationWarning'
-    { warnings = Prelude.Nothing,
-      id = Prelude.Nothing
+    { id = Prelude.Nothing,
+      warnings = Prelude.Nothing
     }
-
--- | A description of the validation warning.
-validationWarning_warnings :: Lens.Lens' ValidationWarning (Prelude.Maybe [Prelude.Text])
-validationWarning_warnings = Lens.lens (\ValidationWarning' {warnings} -> warnings) (\s@ValidationWarning' {} a -> s {warnings = a} :: ValidationWarning) Prelude.. Lens.mapping Lens.coerced
 
 -- | The identifier of the object that contains the validation warning.
 validationWarning_id :: Lens.Lens' ValidationWarning (Prelude.Maybe Prelude.Text)
 validationWarning_id = Lens.lens (\ValidationWarning' {id} -> id) (\s@ValidationWarning' {} a -> s {id = a} :: ValidationWarning)
 
-instance Core.FromJSON ValidationWarning where
+-- | A description of the validation warning.
+validationWarning_warnings :: Lens.Lens' ValidationWarning (Prelude.Maybe [Prelude.Text])
+validationWarning_warnings = Lens.lens (\ValidationWarning' {warnings} -> warnings) (\s@ValidationWarning' {} a -> s {warnings = a} :: ValidationWarning) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON ValidationWarning where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ValidationWarning"
       ( \x ->
           ValidationWarning'
-            Prelude.<$> (x Core..:? "warnings" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "id")
+            Prelude.<$> (x Data..:? "id")
+            Prelude.<*> (x Data..:? "warnings" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ValidationWarning where
   hashWithSalt _salt ValidationWarning' {..} =
-    _salt `Prelude.hashWithSalt` warnings
-      `Prelude.hashWithSalt` id
+    _salt `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` warnings
 
 instance Prelude.NFData ValidationWarning where
   rnf ValidationWarning' {..} =
-    Prelude.rnf warnings `Prelude.seq` Prelude.rnf id
+    Prelude.rnf id `Prelude.seq` Prelude.rnf warnings

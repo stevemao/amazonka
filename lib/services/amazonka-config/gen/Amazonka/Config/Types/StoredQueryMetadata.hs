@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.StoredQueryMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Config.Types.StoredQueryMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Returns details of a specific query.
@@ -91,16 +92,16 @@ storedQueryMetadata_queryArn = Lens.lens (\StoredQueryMetadata' {queryArn} -> qu
 storedQueryMetadata_queryName :: Lens.Lens' StoredQueryMetadata Prelude.Text
 storedQueryMetadata_queryName = Lens.lens (\StoredQueryMetadata' {queryName} -> queryName) (\s@StoredQueryMetadata' {} a -> s {queryName = a} :: StoredQueryMetadata)
 
-instance Core.FromJSON StoredQueryMetadata where
+instance Data.FromJSON StoredQueryMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StoredQueryMetadata"
       ( \x ->
           StoredQueryMetadata'
-            Prelude.<$> (x Core..:? "Description")
-            Prelude.<*> (x Core..: "QueryId")
-            Prelude.<*> (x Core..: "QueryArn")
-            Prelude.<*> (x Core..: "QueryName")
+            Prelude.<$> (x Data..:? "Description")
+            Prelude.<*> (x Data..: "QueryId")
+            Prelude.<*> (x Data..: "QueryArn")
+            Prelude.<*> (x Data..: "QueryName")
       )
 
 instance Prelude.Hashable StoredQueryMetadata where

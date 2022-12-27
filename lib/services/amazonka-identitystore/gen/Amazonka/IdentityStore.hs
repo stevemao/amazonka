@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.IdentityStore
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -11,10 +11,12 @@
 --
 -- Derived from API version @2020-06-15@ of the AWS service descriptions, licensed under Apache 2.0.
 --
--- The AWS Single Sign-On (SSO) Identity Store service provides a single
--- place to retrieve all of your identities (users and groups). For more
--- information about AWS, see the
--- <https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html AWS Single Sign-On User Guide>.
+-- The Identity Store service used by AWS IAM Identity Center (successor to
+-- AWS Single Sign-On) provides a single place to retrieve all of your
+-- identities (users and groups). For more information, see the
+-- <https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html IAM Identity Center User Guide>.
+--
+-- >  <note> <p>Although AWS Single Sign-On was renamed, the <code>sso</code> and <code>identitystore</code> API namespaces will continue to retain their original name for backward compatibility purposes. For more information, see <a href="https://docs.aws.amazon.com/singlesignon/latest/userguide/what-is.html#renamed">IAM Identity Center rename</a>.</p> </note> <p>This reference guide describes the identity store operations that you can call programatically and includes detailed information on data types and errors.</p>
 module Amazonka.IdentityStore
   ( -- * Service Configuration
     defaultService,
@@ -22,14 +24,11 @@ module Amazonka.IdentityStore
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
 
-    -- ** ThrottlingException
-    _ThrottlingException,
+    -- ** ConflictException
+    _ConflictException,
 
     -- ** InternalServerException
     _InternalServerException,
@@ -37,11 +36,56 @@ module Amazonka.IdentityStore
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
+    -- ** ServiceQuotaExceededException
+    _ServiceQuotaExceededException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** ValidationException
+    _ValidationException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
+
+    -- ** CreateGroup
+    CreateGroup (CreateGroup'),
+    newCreateGroup,
+    CreateGroupResponse (CreateGroupResponse'),
+    newCreateGroupResponse,
+
+    -- ** CreateGroupMembership
+    CreateGroupMembership (CreateGroupMembership'),
+    newCreateGroupMembership,
+    CreateGroupMembershipResponse (CreateGroupMembershipResponse'),
+    newCreateGroupMembershipResponse,
+
+    -- ** CreateUser
+    CreateUser (CreateUser'),
+    newCreateUser,
+    CreateUserResponse (CreateUserResponse'),
+    newCreateUserResponse,
+
+    -- ** DeleteGroup
+    DeleteGroup (DeleteGroup'),
+    newDeleteGroup,
+    DeleteGroupResponse (DeleteGroupResponse'),
+    newDeleteGroupResponse,
+
+    -- ** DeleteGroupMembership
+    DeleteGroupMembership (DeleteGroupMembership'),
+    newDeleteGroupMembership,
+    DeleteGroupMembershipResponse (DeleteGroupMembershipResponse'),
+    newDeleteGroupMembershipResponse,
+
+    -- ** DeleteUser
+    DeleteUser (DeleteUser'),
+    newDeleteUser,
+    DeleteUserResponse (DeleteUserResponse'),
+    newDeleteUserResponse,
 
     -- ** DescribeGroup
     DescribeGroup (DescribeGroup'),
@@ -49,11 +93,11 @@ module Amazonka.IdentityStore
     DescribeGroupResponse (DescribeGroupResponse'),
     newDescribeGroupResponse,
 
-    -- ** ListUsers
-    ListUsers (ListUsers'),
-    newListUsers,
-    ListUsersResponse (ListUsersResponse'),
-    newListUsersResponse,
+    -- ** DescribeGroupMembership
+    DescribeGroupMembership (DescribeGroupMembership'),
+    newDescribeGroupMembership,
+    DescribeGroupMembershipResponse (DescribeGroupMembershipResponse'),
+    newDescribeGroupMembershipResponse,
 
     -- ** DescribeUser
     DescribeUser (DescribeUser'),
@@ -61,13 +105,91 @@ module Amazonka.IdentityStore
     DescribeUserResponse (DescribeUserResponse'),
     newDescribeUserResponse,
 
-    -- ** ListGroups
+    -- ** GetGroupId
+    GetGroupId (GetGroupId'),
+    newGetGroupId,
+    GetGroupIdResponse (GetGroupIdResponse'),
+    newGetGroupIdResponse,
+
+    -- ** GetGroupMembershipId
+    GetGroupMembershipId (GetGroupMembershipId'),
+    newGetGroupMembershipId,
+    GetGroupMembershipIdResponse (GetGroupMembershipIdResponse'),
+    newGetGroupMembershipIdResponse,
+
+    -- ** GetUserId
+    GetUserId (GetUserId'),
+    newGetUserId,
+    GetUserIdResponse (GetUserIdResponse'),
+    newGetUserIdResponse,
+
+    -- ** IsMemberInGroups
+    IsMemberInGroups (IsMemberInGroups'),
+    newIsMemberInGroups,
+    IsMemberInGroupsResponse (IsMemberInGroupsResponse'),
+    newIsMemberInGroupsResponse,
+
+    -- ** ListGroupMemberships (Paginated)
+    ListGroupMemberships (ListGroupMemberships'),
+    newListGroupMemberships,
+    ListGroupMembershipsResponse (ListGroupMembershipsResponse'),
+    newListGroupMembershipsResponse,
+
+    -- ** ListGroupMembershipsForMember (Paginated)
+    ListGroupMembershipsForMember (ListGroupMembershipsForMember'),
+    newListGroupMembershipsForMember,
+    ListGroupMembershipsForMemberResponse (ListGroupMembershipsForMemberResponse'),
+    newListGroupMembershipsForMemberResponse,
+
+    -- ** ListGroups (Paginated)
     ListGroups (ListGroups'),
     newListGroups,
     ListGroupsResponse (ListGroupsResponse'),
     newListGroupsResponse,
 
+    -- ** ListUsers (Paginated)
+    ListUsers (ListUsers'),
+    newListUsers,
+    ListUsersResponse (ListUsersResponse'),
+    newListUsersResponse,
+
+    -- ** UpdateGroup
+    UpdateGroup (UpdateGroup'),
+    newUpdateGroup,
+    UpdateGroupResponse (UpdateGroupResponse'),
+    newUpdateGroupResponse,
+
+    -- ** UpdateUser
+    UpdateUser (UpdateUser'),
+    newUpdateUser,
+    UpdateUserResponse (UpdateUserResponse'),
+    newUpdateUserResponse,
+
     -- * Types
+
+    -- ** Address
+    Address (Address'),
+    newAddress,
+
+    -- ** AlternateIdentifier
+    AlternateIdentifier (AlternateIdentifier'),
+    newAlternateIdentifier,
+
+    -- ** AttributeOperation
+    AttributeOperation (AttributeOperation'),
+    newAttributeOperation,
+
+    -- ** AttributeValue
+    AttributeValue (AttributeValue'),
+    newAttributeValue,
+
+    -- ** Email
+    Email (Email'),
+    newEmail,
+
+    -- ** ExternalId
+    ExternalId (ExternalId'),
+    newExternalId,
 
     -- ** Filter
     Filter (Filter'),
@@ -77,18 +199,57 @@ module Amazonka.IdentityStore
     Group (Group'),
     newGroup,
 
+    -- ** GroupMembership
+    GroupMembership (GroupMembership'),
+    newGroupMembership,
+
+    -- ** GroupMembershipExistenceResult
+    GroupMembershipExistenceResult (GroupMembershipExistenceResult'),
+    newGroupMembershipExistenceResult,
+
+    -- ** MemberId
+    MemberId (MemberId'),
+    newMemberId,
+
+    -- ** Name
+    Name (Name'),
+    newName,
+
+    -- ** PhoneNumber
+    PhoneNumber (PhoneNumber'),
+    newPhoneNumber,
+
+    -- ** UniqueAttribute
+    UniqueAttribute (UniqueAttribute'),
+    newUniqueAttribute,
+
     -- ** User
     User (User'),
     newUser,
   )
 where
 
+import Amazonka.IdentityStore.CreateGroup
+import Amazonka.IdentityStore.CreateGroupMembership
+import Amazonka.IdentityStore.CreateUser
+import Amazonka.IdentityStore.DeleteGroup
+import Amazonka.IdentityStore.DeleteGroupMembership
+import Amazonka.IdentityStore.DeleteUser
 import Amazonka.IdentityStore.DescribeGroup
+import Amazonka.IdentityStore.DescribeGroupMembership
 import Amazonka.IdentityStore.DescribeUser
+import Amazonka.IdentityStore.GetGroupId
+import Amazonka.IdentityStore.GetGroupMembershipId
+import Amazonka.IdentityStore.GetUserId
+import Amazonka.IdentityStore.IsMemberInGroups
 import Amazonka.IdentityStore.Lens
+import Amazonka.IdentityStore.ListGroupMemberships
+import Amazonka.IdentityStore.ListGroupMembershipsForMember
 import Amazonka.IdentityStore.ListGroups
 import Amazonka.IdentityStore.ListUsers
 import Amazonka.IdentityStore.Types
+import Amazonka.IdentityStore.UpdateGroup
+import Amazonka.IdentityStore.UpdateUser
 import Amazonka.IdentityStore.Waiters
 
 -- $errors

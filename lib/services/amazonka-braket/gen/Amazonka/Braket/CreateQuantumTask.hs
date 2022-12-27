@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Braket.CreateQuantumTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,6 +28,7 @@ module Amazonka.Braket.CreateQuantumTask
 
     -- * Request Lenses
     createQuantumTask_deviceParameters,
+    createQuantumTask_jobToken,
     createQuantumTask_tags,
     createQuantumTask_action,
     createQuantumTask_clientToken,
@@ -48,7 +49,8 @@ where
 
 import Amazonka.Braket.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,6 +59,9 @@ import qualified Amazonka.Response as Response
 data CreateQuantumTask = CreateQuantumTask'
   { -- | The parameters for the device to run the task on.
     deviceParameters :: Prelude.Maybe Prelude.Text,
+    -- | The token for an Amazon Braket job that associates it with the quantum
+    -- task.
+    jobToken :: Prelude.Maybe Prelude.Text,
     -- | Tags to be added to the quantum task you\'re creating.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The action associated with the task.
@@ -84,6 +89,9 @@ data CreateQuantumTask = CreateQuantumTask'
 -- for backwards compatibility:
 --
 -- 'deviceParameters', 'createQuantumTask_deviceParameters' - The parameters for the device to run the task on.
+--
+-- 'jobToken', 'createQuantumTask_jobToken' - The token for an Amazon Braket job that associates it with the quantum
+-- task.
 --
 -- 'tags', 'createQuantumTask_tags' - Tags to be added to the quantum task you\'re creating.
 --
@@ -123,6 +131,7 @@ newCreateQuantumTask
     CreateQuantumTask'
       { deviceParameters =
           Prelude.Nothing,
+        jobToken = Prelude.Nothing,
         tags = Prelude.Nothing,
         action = pAction_,
         clientToken = pClientToken_,
@@ -135,6 +144,11 @@ newCreateQuantumTask
 -- | The parameters for the device to run the task on.
 createQuantumTask_deviceParameters :: Lens.Lens' CreateQuantumTask (Prelude.Maybe Prelude.Text)
 createQuantumTask_deviceParameters = Lens.lens (\CreateQuantumTask' {deviceParameters} -> deviceParameters) (\s@CreateQuantumTask' {} a -> s {deviceParameters = a} :: CreateQuantumTask)
+
+-- | The token for an Amazon Braket job that associates it with the quantum
+-- task.
+createQuantumTask_jobToken :: Lens.Lens' CreateQuantumTask (Prelude.Maybe Prelude.Text)
+createQuantumTask_jobToken = Lens.lens (\CreateQuantumTask' {jobToken} -> jobToken) (\s@CreateQuantumTask' {} a -> s {jobToken = a} :: CreateQuantumTask)
 
 -- | Tags to be added to the quantum task you\'re creating.
 createQuantumTask_tags :: Lens.Lens' CreateQuantumTask (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -169,18 +183,20 @@ instance Core.AWSRequest CreateQuantumTask where
   type
     AWSResponse CreateQuantumTask =
       CreateQuantumTaskResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateQuantumTaskResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "quantumTaskArn")
+            Prelude.<*> (x Data..:> "quantumTaskArn")
       )
 
 instance Prelude.Hashable CreateQuantumTask where
   hashWithSalt _salt CreateQuantumTask' {..} =
     _salt `Prelude.hashWithSalt` deviceParameters
+      `Prelude.hashWithSalt` jobToken
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` action
       `Prelude.hashWithSalt` clientToken
@@ -192,6 +208,7 @@ instance Prelude.Hashable CreateQuantumTask where
 instance Prelude.NFData CreateQuantumTask where
   rnf CreateQuantumTask' {..} =
     Prelude.rnf deviceParameters
+      `Prelude.seq` Prelude.rnf jobToken
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf action
       `Prelude.seq` Prelude.rnf clientToken
@@ -200,39 +217,40 @@ instance Prelude.NFData CreateQuantumTask where
       `Prelude.seq` Prelude.rnf outputS3KeyPrefix
       `Prelude.seq` Prelude.rnf shots
 
-instance Core.ToHeaders CreateQuantumTask where
+instance Data.ToHeaders CreateQuantumTask where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateQuantumTask where
+instance Data.ToJSON CreateQuantumTask where
   toJSON CreateQuantumTask' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("deviceParameters" Core..=)
+          [ ("deviceParameters" Data..=)
               Prelude.<$> deviceParameters,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("action" Core..= action),
-            Prelude.Just ("clientToken" Core..= clientToken),
-            Prelude.Just ("deviceArn" Core..= deviceArn),
+            ("jobToken" Data..=) Prelude.<$> jobToken,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("action" Data..= action),
+            Prelude.Just ("clientToken" Data..= clientToken),
+            Prelude.Just ("deviceArn" Data..= deviceArn),
             Prelude.Just
-              ("outputS3Bucket" Core..= outputS3Bucket),
+              ("outputS3Bucket" Data..= outputS3Bucket),
             Prelude.Just
-              ("outputS3KeyPrefix" Core..= outputS3KeyPrefix),
-            Prelude.Just ("shots" Core..= shots)
+              ("outputS3KeyPrefix" Data..= outputS3KeyPrefix),
+            Prelude.Just ("shots" Data..= shots)
           ]
       )
 
-instance Core.ToPath CreateQuantumTask where
+instance Data.ToPath CreateQuantumTask where
   toPath = Prelude.const "/quantum-task"
 
-instance Core.ToQuery CreateQuantumTask where
+instance Data.ToQuery CreateQuantumTask where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateQuantumTaskResponse' smart constructor.

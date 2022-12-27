@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.Types.DestinationConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Lambda.Types.DestinationConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types.OnFailure
 import Amazonka.Lambda.Types.OnSuccess
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A configuration object that specifies the destination of an event after
@@ -30,10 +31,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDestinationConfig' smart constructor.
 data DestinationConfig = DestinationConfig'
-  { -- | The destination configuration for successful invocations.
-    onSuccess :: Prelude.Maybe OnSuccess,
-    -- | The destination configuration for failed invocations.
-    onFailure :: Prelude.Maybe OnFailure
+  { -- | The destination configuration for failed invocations.
+    onFailure :: Prelude.Maybe OnFailure,
+    -- | The destination configuration for successful invocations.
+    onSuccess :: Prelude.Maybe OnSuccess
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,50 +46,50 @@ data DestinationConfig = DestinationConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'onSuccess', 'destinationConfig_onSuccess' - The destination configuration for successful invocations.
---
 -- 'onFailure', 'destinationConfig_onFailure' - The destination configuration for failed invocations.
+--
+-- 'onSuccess', 'destinationConfig_onSuccess' - The destination configuration for successful invocations.
 newDestinationConfig ::
   DestinationConfig
 newDestinationConfig =
   DestinationConfig'
-    { onSuccess = Prelude.Nothing,
-      onFailure = Prelude.Nothing
+    { onFailure = Prelude.Nothing,
+      onSuccess = Prelude.Nothing
     }
-
--- | The destination configuration for successful invocations.
-destinationConfig_onSuccess :: Lens.Lens' DestinationConfig (Prelude.Maybe OnSuccess)
-destinationConfig_onSuccess = Lens.lens (\DestinationConfig' {onSuccess} -> onSuccess) (\s@DestinationConfig' {} a -> s {onSuccess = a} :: DestinationConfig)
 
 -- | The destination configuration for failed invocations.
 destinationConfig_onFailure :: Lens.Lens' DestinationConfig (Prelude.Maybe OnFailure)
 destinationConfig_onFailure = Lens.lens (\DestinationConfig' {onFailure} -> onFailure) (\s@DestinationConfig' {} a -> s {onFailure = a} :: DestinationConfig)
 
-instance Core.FromJSON DestinationConfig where
+-- | The destination configuration for successful invocations.
+destinationConfig_onSuccess :: Lens.Lens' DestinationConfig (Prelude.Maybe OnSuccess)
+destinationConfig_onSuccess = Lens.lens (\DestinationConfig' {onSuccess} -> onSuccess) (\s@DestinationConfig' {} a -> s {onSuccess = a} :: DestinationConfig)
+
+instance Data.FromJSON DestinationConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DestinationConfig"
       ( \x ->
           DestinationConfig'
-            Prelude.<$> (x Core..:? "OnSuccess")
-            Prelude.<*> (x Core..:? "OnFailure")
+            Prelude.<$> (x Data..:? "OnFailure")
+            Prelude.<*> (x Data..:? "OnSuccess")
       )
 
 instance Prelude.Hashable DestinationConfig where
   hashWithSalt _salt DestinationConfig' {..} =
-    _salt `Prelude.hashWithSalt` onSuccess
-      `Prelude.hashWithSalt` onFailure
+    _salt `Prelude.hashWithSalt` onFailure
+      `Prelude.hashWithSalt` onSuccess
 
 instance Prelude.NFData DestinationConfig where
   rnf DestinationConfig' {..} =
-    Prelude.rnf onSuccess
-      `Prelude.seq` Prelude.rnf onFailure
+    Prelude.rnf onFailure
+      `Prelude.seq` Prelude.rnf onSuccess
 
-instance Core.ToJSON DestinationConfig where
+instance Data.ToJSON DestinationConfig where
   toJSON DestinationConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OnSuccess" Core..=) Prelude.<$> onSuccess,
-            ("OnFailure" Core..=) Prelude.<$> onFailure
+          [ ("OnFailure" Data..=) Prelude.<$> onFailure,
+            ("OnSuccess" Data..=) Prelude.<$> onSuccess
           ]
       )

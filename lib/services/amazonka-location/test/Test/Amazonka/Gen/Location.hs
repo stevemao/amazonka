@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.Location
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,53 +27,95 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestBatchUpdateDevicePosition $
+--         [ requestAssociateTrackerConsumer $
+--             newAssociateTrackerConsumer
+--
+--         , requestBatchDeleteDevicePositionHistory $
+--             newBatchDeleteDevicePositionHistory
+--
+--         , requestBatchDeleteGeofence $
+--             newBatchDeleteGeofence
+--
+--         , requestBatchEvaluateGeofences $
+--             newBatchEvaluateGeofences
+--
+--         , requestBatchGetDevicePosition $
+--             newBatchGetDevicePosition
+--
+--         , requestBatchPutGeofence $
+--             newBatchPutGeofence
+--
+--         , requestBatchUpdateDevicePosition $
 --             newBatchUpdateDevicePosition
 --
---         , requestDeleteRouteCalculator $
---             newDeleteRouteCalculator
+--         , requestCalculateRoute $
+--             newCalculateRoute
 --
---         , requestUpdateRouteCalculator $
---             newUpdateRouteCalculator
+--         , requestCalculateRouteMatrix $
+--             newCalculateRouteMatrix
 --
 --         , requestCreateGeofenceCollection $
 --             newCreateGeofenceCollection
 --
---         , requestListRouteCalculators $
---             newListRouteCalculators
+--         , requestCreateMap $
+--             newCreateMap
+--
+--         , requestCreatePlaceIndex $
+--             newCreatePlaceIndex
+--
+--         , requestCreateRouteCalculator $
+--             newCreateRouteCalculator
 --
 --         , requestCreateTracker $
 --             newCreateTracker
 --
---         , requestListTrackerConsumers $
---             newListTrackerConsumers
+--         , requestDeleteGeofenceCollection $
+--             newDeleteGeofenceCollection
 --
---         , requestGetDevicePosition $
---             newGetDevicePosition
+--         , requestDeleteMap $
+--             newDeleteMap
 --
---         , requestListTagsForResource $
---             newListTagsForResource
+--         , requestDeletePlaceIndex $
+--             newDeletePlaceIndex
 --
---         , requestSearchPlaceIndexForText $
---             newSearchPlaceIndexForText
+--         , requestDeleteRouteCalculator $
+--             newDeleteRouteCalculator
+--
+--         , requestDeleteTracker $
+--             newDeleteTracker
 --
 --         , requestDescribeGeofenceCollection $
 --             newDescribeGeofenceCollection
 --
---         , requestListMaps $
---             newListMaps
+--         , requestDescribeMap $
+--             newDescribeMap
 --
---         , requestGetMapSprites $
---             newGetMapSprites
---
---         , requestCreateMap $
---             newCreateMap
+--         , requestDescribePlaceIndex $
+--             newDescribePlaceIndex
 --
 --         , requestDescribeRouteCalculator $
 --             newDescribeRouteCalculator
 --
---         , requestBatchGetDevicePosition $
---             newBatchGetDevicePosition
+--         , requestDescribeTracker $
+--             newDescribeTracker
+--
+--         , requestDisassociateTrackerConsumer $
+--             newDisassociateTrackerConsumer
+--
+--         , requestGetDevicePosition $
+--             newGetDevicePosition
+--
+--         , requestGetDevicePositionHistory $
+--             newGetDevicePositionHistory
+--
+--         , requestGetGeofence $
+--             newGetGeofence
+--
+--         , requestGetMapGlyphs $
+--             newGetMapGlyphs
+--
+--         , requestGetMapSprites $
+--             newGetMapSprites
 --
 --         , requestGetMapStyleDescriptor $
 --             newGetMapStyleDescriptor
@@ -81,152 +123,161 @@ import Test.Tasty
 --         , requestGetMapTile $
 --             newGetMapTile
 --
---         , requestListGeofenceCollections $
---             newListGeofenceCollections
---
---         , requestDeleteGeofenceCollection $
---             newDeleteGeofenceCollection
---
---         , requestUpdateGeofenceCollection $
---             newUpdateGeofenceCollection
---
---         , requestListTrackers $
---             newListTrackers
---
---         , requestDeletePlaceIndex $
---             newDeletePlaceIndex
---
---         , requestUpdatePlaceIndex $
---             newUpdatePlaceIndex
---
---         , requestDisassociateTrackerConsumer $
---             newDisassociateTrackerConsumer
---
---         , requestPutGeofence $
---             newPutGeofence
---
---         , requestListGeofences $
---             newListGeofences
---
---         , requestAssociateTrackerConsumer $
---             newAssociateTrackerConsumer
---
---         , requestBatchEvaluateGeofences $
---             newBatchEvaluateGeofences
---
---         , requestCalculateRoute $
---             newCalculateRoute
---
---         , requestDeleteMap $
---             newDeleteMap
---
---         , requestUpdateMap $
---             newUpdateMap
---
---         , requestGetDevicePositionHistory $
---             newGetDevicePositionHistory
---
---         , requestDescribeTracker $
---             newDescribeTracker
---
---         , requestDescribePlaceIndex $
---             newDescribePlaceIndex
---
---         , requestGetGeofence $
---             newGetGeofence
+--         , requestGetPlace $
+--             newGetPlace
 --
 --         , requestListDevicePositions $
 --             newListDevicePositions
 --
---         , requestTagResource $
---             newTagResource
+--         , requestListGeofenceCollections $
+--             newListGeofenceCollections
 --
---         , requestGetMapGlyphs $
---             newGetMapGlyphs
+--         , requestListGeofences $
+--             newListGeofences
 --
---         , requestBatchPutGeofence $
---             newBatchPutGeofence
---
---         , requestBatchDeleteGeofence $
---             newBatchDeleteGeofence
---
---         , requestUntagResource $
---             newUntagResource
---
---         , requestBatchDeleteDevicePositionHistory $
---             newBatchDeleteDevicePositionHistory
+--         , requestListMaps $
+--             newListMaps
 --
 --         , requestListPlaceIndexes $
 --             newListPlaceIndexes
 --
+--         , requestListRouteCalculators $
+--             newListRouteCalculators
+--
+--         , requestListTagsForResource $
+--             newListTagsForResource
+--
+--         , requestListTrackerConsumers $
+--             newListTrackerConsumers
+--
+--         , requestListTrackers $
+--             newListTrackers
+--
+--         , requestPutGeofence $
+--             newPutGeofence
+--
 --         , requestSearchPlaceIndexForPosition $
 --             newSearchPlaceIndexForPosition
 --
---         , requestDeleteTracker $
---             newDeleteTracker
+--         , requestSearchPlaceIndexForSuggestions $
+--             newSearchPlaceIndexForSuggestions
 --
---         , requestCreatePlaceIndex $
---             newCreatePlaceIndex
+--         , requestSearchPlaceIndexForText $
+--             newSearchPlaceIndexForText
+--
+--         , requestTagResource $
+--             newTagResource
+--
+--         , requestUntagResource $
+--             newUntagResource
+--
+--         , requestUpdateGeofenceCollection $
+--             newUpdateGeofenceCollection
+--
+--         , requestUpdateMap $
+--             newUpdateMap
+--
+--         , requestUpdatePlaceIndex $
+--             newUpdatePlaceIndex
+--
+--         , requestUpdateRouteCalculator $
+--             newUpdateRouteCalculator
 --
 --         , requestUpdateTracker $
 --             newUpdateTracker
 --
---         , requestCreateRouteCalculator $
---             newCreateRouteCalculator
---
---         , requestDescribeMap $
---             newDescribeMap
---
 --           ]
 
 --     , testGroup "response"
---         [ responseBatchUpdateDevicePosition $
+--         [ responseAssociateTrackerConsumer $
+--             newAssociateTrackerConsumerResponse
+--
+--         , responseBatchDeleteDevicePositionHistory $
+--             newBatchDeleteDevicePositionHistoryResponse
+--
+--         , responseBatchDeleteGeofence $
+--             newBatchDeleteGeofenceResponse
+--
+--         , responseBatchEvaluateGeofences $
+--             newBatchEvaluateGeofencesResponse
+--
+--         , responseBatchGetDevicePosition $
+--             newBatchGetDevicePositionResponse
+--
+--         , responseBatchPutGeofence $
+--             newBatchPutGeofenceResponse
+--
+--         , responseBatchUpdateDevicePosition $
 --             newBatchUpdateDevicePositionResponse
 --
---         , responseDeleteRouteCalculator $
---             newDeleteRouteCalculatorResponse
+--         , responseCalculateRoute $
+--             newCalculateRouteResponse
 --
---         , responseUpdateRouteCalculator $
---             newUpdateRouteCalculatorResponse
+--         , responseCalculateRouteMatrix $
+--             newCalculateRouteMatrixResponse
 --
 --         , responseCreateGeofenceCollection $
 --             newCreateGeofenceCollectionResponse
 --
---         , responseListRouteCalculators $
---             newListRouteCalculatorsResponse
+--         , responseCreateMap $
+--             newCreateMapResponse
+--
+--         , responseCreatePlaceIndex $
+--             newCreatePlaceIndexResponse
+--
+--         , responseCreateRouteCalculator $
+--             newCreateRouteCalculatorResponse
 --
 --         , responseCreateTracker $
 --             newCreateTrackerResponse
 --
---         , responseListTrackerConsumers $
---             newListTrackerConsumersResponse
+--         , responseDeleteGeofenceCollection $
+--             newDeleteGeofenceCollectionResponse
 --
---         , responseGetDevicePosition $
---             newGetDevicePositionResponse
+--         , responseDeleteMap $
+--             newDeleteMapResponse
 --
---         , responseListTagsForResource $
---             newListTagsForResourceResponse
+--         , responseDeletePlaceIndex $
+--             newDeletePlaceIndexResponse
 --
---         , responseSearchPlaceIndexForText $
---             newSearchPlaceIndexForTextResponse
+--         , responseDeleteRouteCalculator $
+--             newDeleteRouteCalculatorResponse
+--
+--         , responseDeleteTracker $
+--             newDeleteTrackerResponse
 --
 --         , responseDescribeGeofenceCollection $
 --             newDescribeGeofenceCollectionResponse
 --
---         , responseListMaps $
---             newListMapsResponse
+--         , responseDescribeMap $
+--             newDescribeMapResponse
 --
---         , responseGetMapSprites $
---             newGetMapSpritesResponse
---
---         , responseCreateMap $
---             newCreateMapResponse
+--         , responseDescribePlaceIndex $
+--             newDescribePlaceIndexResponse
 --
 --         , responseDescribeRouteCalculator $
 --             newDescribeRouteCalculatorResponse
 --
---         , responseBatchGetDevicePosition $
---             newBatchGetDevicePositionResponse
+--         , responseDescribeTracker $
+--             newDescribeTrackerResponse
+--
+--         , responseDisassociateTrackerConsumer $
+--             newDisassociateTrackerConsumerResponse
+--
+--         , responseGetDevicePosition $
+--             newGetDevicePositionResponse
+--
+--         , responseGetDevicePositionHistory $
+--             newGetDevicePositionHistoryResponse
+--
+--         , responseGetGeofence $
+--             newGetGeofenceResponse
+--
+--         , responseGetMapGlyphs $
+--             newGetMapGlyphsResponse
+--
+--         , responseGetMapSprites $
+--             newGetMapSpritesResponse
 --
 --         , responseGetMapStyleDescriptor $
 --             newGetMapStyleDescriptorResponse
@@ -234,106 +285,109 @@ import Test.Tasty
 --         , responseGetMapTile $
 --             newGetMapTileResponse
 --
---         , responseListGeofenceCollections $
---             newListGeofenceCollectionsResponse
---
---         , responseDeleteGeofenceCollection $
---             newDeleteGeofenceCollectionResponse
---
---         , responseUpdateGeofenceCollection $
---             newUpdateGeofenceCollectionResponse
---
---         , responseListTrackers $
---             newListTrackersResponse
---
---         , responseDeletePlaceIndex $
---             newDeletePlaceIndexResponse
---
---         , responseUpdatePlaceIndex $
---             newUpdatePlaceIndexResponse
---
---         , responseDisassociateTrackerConsumer $
---             newDisassociateTrackerConsumerResponse
---
---         , responsePutGeofence $
---             newPutGeofenceResponse
---
---         , responseListGeofences $
---             newListGeofencesResponse
---
---         , responseAssociateTrackerConsumer $
---             newAssociateTrackerConsumerResponse
---
---         , responseBatchEvaluateGeofences $
---             newBatchEvaluateGeofencesResponse
---
---         , responseCalculateRoute $
---             newCalculateRouteResponse
---
---         , responseDeleteMap $
---             newDeleteMapResponse
---
---         , responseUpdateMap $
---             newUpdateMapResponse
---
---         , responseGetDevicePositionHistory $
---             newGetDevicePositionHistoryResponse
---
---         , responseDescribeTracker $
---             newDescribeTrackerResponse
---
---         , responseDescribePlaceIndex $
---             newDescribePlaceIndexResponse
---
---         , responseGetGeofence $
---             newGetGeofenceResponse
+--         , responseGetPlace $
+--             newGetPlaceResponse
 --
 --         , responseListDevicePositions $
 --             newListDevicePositionsResponse
 --
---         , responseTagResource $
---             newTagResourceResponse
+--         , responseListGeofenceCollections $
+--             newListGeofenceCollectionsResponse
 --
---         , responseGetMapGlyphs $
---             newGetMapGlyphsResponse
+--         , responseListGeofences $
+--             newListGeofencesResponse
 --
---         , responseBatchPutGeofence $
---             newBatchPutGeofenceResponse
---
---         , responseBatchDeleteGeofence $
---             newBatchDeleteGeofenceResponse
---
---         , responseUntagResource $
---             newUntagResourceResponse
---
---         , responseBatchDeleteDevicePositionHistory $
---             newBatchDeleteDevicePositionHistoryResponse
+--         , responseListMaps $
+--             newListMapsResponse
 --
 --         , responseListPlaceIndexes $
 --             newListPlaceIndexesResponse
 --
+--         , responseListRouteCalculators $
+--             newListRouteCalculatorsResponse
+--
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
+--
+--         , responseListTrackerConsumers $
+--             newListTrackerConsumersResponse
+--
+--         , responseListTrackers $
+--             newListTrackersResponse
+--
+--         , responsePutGeofence $
+--             newPutGeofenceResponse
+--
 --         , responseSearchPlaceIndexForPosition $
 --             newSearchPlaceIndexForPositionResponse
 --
---         , responseDeleteTracker $
---             newDeleteTrackerResponse
+--         , responseSearchPlaceIndexForSuggestions $
+--             newSearchPlaceIndexForSuggestionsResponse
 --
---         , responseCreatePlaceIndex $
---             newCreatePlaceIndexResponse
+--         , responseSearchPlaceIndexForText $
+--             newSearchPlaceIndexForTextResponse
+--
+--         , responseTagResource $
+--             newTagResourceResponse
+--
+--         , responseUntagResource $
+--             newUntagResourceResponse
+--
+--         , responseUpdateGeofenceCollection $
+--             newUpdateGeofenceCollectionResponse
+--
+--         , responseUpdateMap $
+--             newUpdateMapResponse
+--
+--         , responseUpdatePlaceIndex $
+--             newUpdatePlaceIndexResponse
+--
+--         , responseUpdateRouteCalculator $
+--             newUpdateRouteCalculatorResponse
 --
 --         , responseUpdateTracker $
 --             newUpdateTrackerResponse
---
---         , responseCreateRouteCalculator $
---             newCreateRouteCalculatorResponse
---
---         , responseDescribeMap $
---             newDescribeMapResponse
 --
 --           ]
 --     ]
 
 -- Requests
+
+requestAssociateTrackerConsumer :: AssociateTrackerConsumer -> TestTree
+requestAssociateTrackerConsumer =
+  req
+    "AssociateTrackerConsumer"
+    "fixture/AssociateTrackerConsumer.yaml"
+
+requestBatchDeleteDevicePositionHistory :: BatchDeleteDevicePositionHistory -> TestTree
+requestBatchDeleteDevicePositionHistory =
+  req
+    "BatchDeleteDevicePositionHistory"
+    "fixture/BatchDeleteDevicePositionHistory.yaml"
+
+requestBatchDeleteGeofence :: BatchDeleteGeofence -> TestTree
+requestBatchDeleteGeofence =
+  req
+    "BatchDeleteGeofence"
+    "fixture/BatchDeleteGeofence.yaml"
+
+requestBatchEvaluateGeofences :: BatchEvaluateGeofences -> TestTree
+requestBatchEvaluateGeofences =
+  req
+    "BatchEvaluateGeofences"
+    "fixture/BatchEvaluateGeofences.yaml"
+
+requestBatchGetDevicePosition :: BatchGetDevicePosition -> TestTree
+requestBatchGetDevicePosition =
+  req
+    "BatchGetDevicePosition"
+    "fixture/BatchGetDevicePosition.yaml"
+
+requestBatchPutGeofence :: BatchPutGeofence -> TestTree
+requestBatchPutGeofence =
+  req
+    "BatchPutGeofence"
+    "fixture/BatchPutGeofence.yaml"
 
 requestBatchUpdateDevicePosition :: BatchUpdateDevicePosition -> TestTree
 requestBatchUpdateDevicePosition =
@@ -341,17 +395,17 @@ requestBatchUpdateDevicePosition =
     "BatchUpdateDevicePosition"
     "fixture/BatchUpdateDevicePosition.yaml"
 
-requestDeleteRouteCalculator :: DeleteRouteCalculator -> TestTree
-requestDeleteRouteCalculator =
+requestCalculateRoute :: CalculateRoute -> TestTree
+requestCalculateRoute =
   req
-    "DeleteRouteCalculator"
-    "fixture/DeleteRouteCalculator.yaml"
+    "CalculateRoute"
+    "fixture/CalculateRoute.yaml"
 
-requestUpdateRouteCalculator :: UpdateRouteCalculator -> TestTree
-requestUpdateRouteCalculator =
+requestCalculateRouteMatrix :: CalculateRouteMatrix -> TestTree
+requestCalculateRouteMatrix =
   req
-    "UpdateRouteCalculator"
-    "fixture/UpdateRouteCalculator.yaml"
+    "CalculateRouteMatrix"
+    "fixture/CalculateRouteMatrix.yaml"
 
 requestCreateGeofenceCollection :: CreateGeofenceCollection -> TestTree
 requestCreateGeofenceCollection =
@@ -359,11 +413,23 @@ requestCreateGeofenceCollection =
     "CreateGeofenceCollection"
     "fixture/CreateGeofenceCollection.yaml"
 
-requestListRouteCalculators :: ListRouteCalculators -> TestTree
-requestListRouteCalculators =
+requestCreateMap :: CreateMap -> TestTree
+requestCreateMap =
   req
-    "ListRouteCalculators"
-    "fixture/ListRouteCalculators.yaml"
+    "CreateMap"
+    "fixture/CreateMap.yaml"
+
+requestCreatePlaceIndex :: CreatePlaceIndex -> TestTree
+requestCreatePlaceIndex =
+  req
+    "CreatePlaceIndex"
+    "fixture/CreatePlaceIndex.yaml"
+
+requestCreateRouteCalculator :: CreateRouteCalculator -> TestTree
+requestCreateRouteCalculator =
+  req
+    "CreateRouteCalculator"
+    "fixture/CreateRouteCalculator.yaml"
 
 requestCreateTracker :: CreateTracker -> TestTree
 requestCreateTracker =
@@ -371,29 +437,35 @@ requestCreateTracker =
     "CreateTracker"
     "fixture/CreateTracker.yaml"
 
-requestListTrackerConsumers :: ListTrackerConsumers -> TestTree
-requestListTrackerConsumers =
+requestDeleteGeofenceCollection :: DeleteGeofenceCollection -> TestTree
+requestDeleteGeofenceCollection =
   req
-    "ListTrackerConsumers"
-    "fixture/ListTrackerConsumers.yaml"
+    "DeleteGeofenceCollection"
+    "fixture/DeleteGeofenceCollection.yaml"
 
-requestGetDevicePosition :: GetDevicePosition -> TestTree
-requestGetDevicePosition =
+requestDeleteMap :: DeleteMap -> TestTree
+requestDeleteMap =
   req
-    "GetDevicePosition"
-    "fixture/GetDevicePosition.yaml"
+    "DeleteMap"
+    "fixture/DeleteMap.yaml"
 
-requestListTagsForResource :: ListTagsForResource -> TestTree
-requestListTagsForResource =
+requestDeletePlaceIndex :: DeletePlaceIndex -> TestTree
+requestDeletePlaceIndex =
   req
-    "ListTagsForResource"
-    "fixture/ListTagsForResource.yaml"
+    "DeletePlaceIndex"
+    "fixture/DeletePlaceIndex.yaml"
 
-requestSearchPlaceIndexForText :: SearchPlaceIndexForText -> TestTree
-requestSearchPlaceIndexForText =
+requestDeleteRouteCalculator :: DeleteRouteCalculator -> TestTree
+requestDeleteRouteCalculator =
   req
-    "SearchPlaceIndexForText"
-    "fixture/SearchPlaceIndexForText.yaml"
+    "DeleteRouteCalculator"
+    "fixture/DeleteRouteCalculator.yaml"
+
+requestDeleteTracker :: DeleteTracker -> TestTree
+requestDeleteTracker =
+  req
+    "DeleteTracker"
+    "fixture/DeleteTracker.yaml"
 
 requestDescribeGeofenceCollection :: DescribeGeofenceCollection -> TestTree
 requestDescribeGeofenceCollection =
@@ -401,23 +473,17 @@ requestDescribeGeofenceCollection =
     "DescribeGeofenceCollection"
     "fixture/DescribeGeofenceCollection.yaml"
 
-requestListMaps :: ListMaps -> TestTree
-requestListMaps =
+requestDescribeMap :: DescribeMap -> TestTree
+requestDescribeMap =
   req
-    "ListMaps"
-    "fixture/ListMaps.yaml"
+    "DescribeMap"
+    "fixture/DescribeMap.yaml"
 
-requestGetMapSprites :: GetMapSprites -> TestTree
-requestGetMapSprites =
+requestDescribePlaceIndex :: DescribePlaceIndex -> TestTree
+requestDescribePlaceIndex =
   req
-    "GetMapSprites"
-    "fixture/GetMapSprites.yaml"
-
-requestCreateMap :: CreateMap -> TestTree
-requestCreateMap =
-  req
-    "CreateMap"
-    "fixture/CreateMap.yaml"
+    "DescribePlaceIndex"
+    "fixture/DescribePlaceIndex.yaml"
 
 requestDescribeRouteCalculator :: DescribeRouteCalculator -> TestTree
 requestDescribeRouteCalculator =
@@ -425,11 +491,47 @@ requestDescribeRouteCalculator =
     "DescribeRouteCalculator"
     "fixture/DescribeRouteCalculator.yaml"
 
-requestBatchGetDevicePosition :: BatchGetDevicePosition -> TestTree
-requestBatchGetDevicePosition =
+requestDescribeTracker :: DescribeTracker -> TestTree
+requestDescribeTracker =
   req
-    "BatchGetDevicePosition"
-    "fixture/BatchGetDevicePosition.yaml"
+    "DescribeTracker"
+    "fixture/DescribeTracker.yaml"
+
+requestDisassociateTrackerConsumer :: DisassociateTrackerConsumer -> TestTree
+requestDisassociateTrackerConsumer =
+  req
+    "DisassociateTrackerConsumer"
+    "fixture/DisassociateTrackerConsumer.yaml"
+
+requestGetDevicePosition :: GetDevicePosition -> TestTree
+requestGetDevicePosition =
+  req
+    "GetDevicePosition"
+    "fixture/GetDevicePosition.yaml"
+
+requestGetDevicePositionHistory :: GetDevicePositionHistory -> TestTree
+requestGetDevicePositionHistory =
+  req
+    "GetDevicePositionHistory"
+    "fixture/GetDevicePositionHistory.yaml"
+
+requestGetGeofence :: GetGeofence -> TestTree
+requestGetGeofence =
+  req
+    "GetGeofence"
+    "fixture/GetGeofence.yaml"
+
+requestGetMapGlyphs :: GetMapGlyphs -> TestTree
+requestGetMapGlyphs =
+  req
+    "GetMapGlyphs"
+    "fixture/GetMapGlyphs.yaml"
+
+requestGetMapSprites :: GetMapSprites -> TestTree
+requestGetMapSprites =
+  req
+    "GetMapSprites"
+    "fixture/GetMapSprites.yaml"
 
 requestGetMapStyleDescriptor :: GetMapStyleDescriptor -> TestTree
 requestGetMapStyleDescriptor =
@@ -443,113 +545,11 @@ requestGetMapTile =
     "GetMapTile"
     "fixture/GetMapTile.yaml"
 
-requestListGeofenceCollections :: ListGeofenceCollections -> TestTree
-requestListGeofenceCollections =
+requestGetPlace :: GetPlace -> TestTree
+requestGetPlace =
   req
-    "ListGeofenceCollections"
-    "fixture/ListGeofenceCollections.yaml"
-
-requestDeleteGeofenceCollection :: DeleteGeofenceCollection -> TestTree
-requestDeleteGeofenceCollection =
-  req
-    "DeleteGeofenceCollection"
-    "fixture/DeleteGeofenceCollection.yaml"
-
-requestUpdateGeofenceCollection :: UpdateGeofenceCollection -> TestTree
-requestUpdateGeofenceCollection =
-  req
-    "UpdateGeofenceCollection"
-    "fixture/UpdateGeofenceCollection.yaml"
-
-requestListTrackers :: ListTrackers -> TestTree
-requestListTrackers =
-  req
-    "ListTrackers"
-    "fixture/ListTrackers.yaml"
-
-requestDeletePlaceIndex :: DeletePlaceIndex -> TestTree
-requestDeletePlaceIndex =
-  req
-    "DeletePlaceIndex"
-    "fixture/DeletePlaceIndex.yaml"
-
-requestUpdatePlaceIndex :: UpdatePlaceIndex -> TestTree
-requestUpdatePlaceIndex =
-  req
-    "UpdatePlaceIndex"
-    "fixture/UpdatePlaceIndex.yaml"
-
-requestDisassociateTrackerConsumer :: DisassociateTrackerConsumer -> TestTree
-requestDisassociateTrackerConsumer =
-  req
-    "DisassociateTrackerConsumer"
-    "fixture/DisassociateTrackerConsumer.yaml"
-
-requestPutGeofence :: PutGeofence -> TestTree
-requestPutGeofence =
-  req
-    "PutGeofence"
-    "fixture/PutGeofence.yaml"
-
-requestListGeofences :: ListGeofences -> TestTree
-requestListGeofences =
-  req
-    "ListGeofences"
-    "fixture/ListGeofences.yaml"
-
-requestAssociateTrackerConsumer :: AssociateTrackerConsumer -> TestTree
-requestAssociateTrackerConsumer =
-  req
-    "AssociateTrackerConsumer"
-    "fixture/AssociateTrackerConsumer.yaml"
-
-requestBatchEvaluateGeofences :: BatchEvaluateGeofences -> TestTree
-requestBatchEvaluateGeofences =
-  req
-    "BatchEvaluateGeofences"
-    "fixture/BatchEvaluateGeofences.yaml"
-
-requestCalculateRoute :: CalculateRoute -> TestTree
-requestCalculateRoute =
-  req
-    "CalculateRoute"
-    "fixture/CalculateRoute.yaml"
-
-requestDeleteMap :: DeleteMap -> TestTree
-requestDeleteMap =
-  req
-    "DeleteMap"
-    "fixture/DeleteMap.yaml"
-
-requestUpdateMap :: UpdateMap -> TestTree
-requestUpdateMap =
-  req
-    "UpdateMap"
-    "fixture/UpdateMap.yaml"
-
-requestGetDevicePositionHistory :: GetDevicePositionHistory -> TestTree
-requestGetDevicePositionHistory =
-  req
-    "GetDevicePositionHistory"
-    "fixture/GetDevicePositionHistory.yaml"
-
-requestDescribeTracker :: DescribeTracker -> TestTree
-requestDescribeTracker =
-  req
-    "DescribeTracker"
-    "fixture/DescribeTracker.yaml"
-
-requestDescribePlaceIndex :: DescribePlaceIndex -> TestTree
-requestDescribePlaceIndex =
-  req
-    "DescribePlaceIndex"
-    "fixture/DescribePlaceIndex.yaml"
-
-requestGetGeofence :: GetGeofence -> TestTree
-requestGetGeofence =
-  req
-    "GetGeofence"
-    "fixture/GetGeofence.yaml"
+    "GetPlace"
+    "fixture/GetPlace.yaml"
 
 requestListDevicePositions :: ListDevicePositions -> TestTree
 requestListDevicePositions =
@@ -557,41 +557,23 @@ requestListDevicePositions =
     "ListDevicePositions"
     "fixture/ListDevicePositions.yaml"
 
-requestTagResource :: TagResource -> TestTree
-requestTagResource =
+requestListGeofenceCollections :: ListGeofenceCollections -> TestTree
+requestListGeofenceCollections =
   req
-    "TagResource"
-    "fixture/TagResource.yaml"
+    "ListGeofenceCollections"
+    "fixture/ListGeofenceCollections.yaml"
 
-requestGetMapGlyphs :: GetMapGlyphs -> TestTree
-requestGetMapGlyphs =
+requestListGeofences :: ListGeofences -> TestTree
+requestListGeofences =
   req
-    "GetMapGlyphs"
-    "fixture/GetMapGlyphs.yaml"
+    "ListGeofences"
+    "fixture/ListGeofences.yaml"
 
-requestBatchPutGeofence :: BatchPutGeofence -> TestTree
-requestBatchPutGeofence =
+requestListMaps :: ListMaps -> TestTree
+requestListMaps =
   req
-    "BatchPutGeofence"
-    "fixture/BatchPutGeofence.yaml"
-
-requestBatchDeleteGeofence :: BatchDeleteGeofence -> TestTree
-requestBatchDeleteGeofence =
-  req
-    "BatchDeleteGeofence"
-    "fixture/BatchDeleteGeofence.yaml"
-
-requestUntagResource :: UntagResource -> TestTree
-requestUntagResource =
-  req
-    "UntagResource"
-    "fixture/UntagResource.yaml"
-
-requestBatchDeleteDevicePositionHistory :: BatchDeleteDevicePositionHistory -> TestTree
-requestBatchDeleteDevicePositionHistory =
-  req
-    "BatchDeleteDevicePositionHistory"
-    "fixture/BatchDeleteDevicePositionHistory.yaml"
+    "ListMaps"
+    "fixture/ListMaps.yaml"
 
 requestListPlaceIndexes :: ListPlaceIndexes -> TestTree
 requestListPlaceIndexes =
@@ -599,23 +581,89 @@ requestListPlaceIndexes =
     "ListPlaceIndexes"
     "fixture/ListPlaceIndexes.yaml"
 
+requestListRouteCalculators :: ListRouteCalculators -> TestTree
+requestListRouteCalculators =
+  req
+    "ListRouteCalculators"
+    "fixture/ListRouteCalculators.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
+requestListTrackerConsumers :: ListTrackerConsumers -> TestTree
+requestListTrackerConsumers =
+  req
+    "ListTrackerConsumers"
+    "fixture/ListTrackerConsumers.yaml"
+
+requestListTrackers :: ListTrackers -> TestTree
+requestListTrackers =
+  req
+    "ListTrackers"
+    "fixture/ListTrackers.yaml"
+
+requestPutGeofence :: PutGeofence -> TestTree
+requestPutGeofence =
+  req
+    "PutGeofence"
+    "fixture/PutGeofence.yaml"
+
 requestSearchPlaceIndexForPosition :: SearchPlaceIndexForPosition -> TestTree
 requestSearchPlaceIndexForPosition =
   req
     "SearchPlaceIndexForPosition"
     "fixture/SearchPlaceIndexForPosition.yaml"
 
-requestDeleteTracker :: DeleteTracker -> TestTree
-requestDeleteTracker =
+requestSearchPlaceIndexForSuggestions :: SearchPlaceIndexForSuggestions -> TestTree
+requestSearchPlaceIndexForSuggestions =
   req
-    "DeleteTracker"
-    "fixture/DeleteTracker.yaml"
+    "SearchPlaceIndexForSuggestions"
+    "fixture/SearchPlaceIndexForSuggestions.yaml"
 
-requestCreatePlaceIndex :: CreatePlaceIndex -> TestTree
-requestCreatePlaceIndex =
+requestSearchPlaceIndexForText :: SearchPlaceIndexForText -> TestTree
+requestSearchPlaceIndexForText =
   req
-    "CreatePlaceIndex"
-    "fixture/CreatePlaceIndex.yaml"
+    "SearchPlaceIndexForText"
+    "fixture/SearchPlaceIndexForText.yaml"
+
+requestTagResource :: TagResource -> TestTree
+requestTagResource =
+  req
+    "TagResource"
+    "fixture/TagResource.yaml"
+
+requestUntagResource :: UntagResource -> TestTree
+requestUntagResource =
+  req
+    "UntagResource"
+    "fixture/UntagResource.yaml"
+
+requestUpdateGeofenceCollection :: UpdateGeofenceCollection -> TestTree
+requestUpdateGeofenceCollection =
+  req
+    "UpdateGeofenceCollection"
+    "fixture/UpdateGeofenceCollection.yaml"
+
+requestUpdateMap :: UpdateMap -> TestTree
+requestUpdateMap =
+  req
+    "UpdateMap"
+    "fixture/UpdateMap.yaml"
+
+requestUpdatePlaceIndex :: UpdatePlaceIndex -> TestTree
+requestUpdatePlaceIndex =
+  req
+    "UpdatePlaceIndex"
+    "fixture/UpdatePlaceIndex.yaml"
+
+requestUpdateRouteCalculator :: UpdateRouteCalculator -> TestTree
+requestUpdateRouteCalculator =
+  req
+    "UpdateRouteCalculator"
+    "fixture/UpdateRouteCalculator.yaml"
 
 requestUpdateTracker :: UpdateTracker -> TestTree
 requestUpdateTracker =
@@ -623,19 +671,55 @@ requestUpdateTracker =
     "UpdateTracker"
     "fixture/UpdateTracker.yaml"
 
-requestCreateRouteCalculator :: CreateRouteCalculator -> TestTree
-requestCreateRouteCalculator =
-  req
-    "CreateRouteCalculator"
-    "fixture/CreateRouteCalculator.yaml"
-
-requestDescribeMap :: DescribeMap -> TestTree
-requestDescribeMap =
-  req
-    "DescribeMap"
-    "fixture/DescribeMap.yaml"
-
 -- Responses
+
+responseAssociateTrackerConsumer :: AssociateTrackerConsumerResponse -> TestTree
+responseAssociateTrackerConsumer =
+  res
+    "AssociateTrackerConsumerResponse"
+    "fixture/AssociateTrackerConsumerResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy AssociateTrackerConsumer)
+
+responseBatchDeleteDevicePositionHistory :: BatchDeleteDevicePositionHistoryResponse -> TestTree
+responseBatchDeleteDevicePositionHistory =
+  res
+    "BatchDeleteDevicePositionHistoryResponse"
+    "fixture/BatchDeleteDevicePositionHistoryResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy BatchDeleteDevicePositionHistory)
+
+responseBatchDeleteGeofence :: BatchDeleteGeofenceResponse -> TestTree
+responseBatchDeleteGeofence =
+  res
+    "BatchDeleteGeofenceResponse"
+    "fixture/BatchDeleteGeofenceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy BatchDeleteGeofence)
+
+responseBatchEvaluateGeofences :: BatchEvaluateGeofencesResponse -> TestTree
+responseBatchEvaluateGeofences =
+  res
+    "BatchEvaluateGeofencesResponse"
+    "fixture/BatchEvaluateGeofencesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy BatchEvaluateGeofences)
+
+responseBatchGetDevicePosition :: BatchGetDevicePositionResponse -> TestTree
+responseBatchGetDevicePosition =
+  res
+    "BatchGetDevicePositionResponse"
+    "fixture/BatchGetDevicePositionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy BatchGetDevicePosition)
+
+responseBatchPutGeofence :: BatchPutGeofenceResponse -> TestTree
+responseBatchPutGeofence =
+  res
+    "BatchPutGeofenceResponse"
+    "fixture/BatchPutGeofenceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy BatchPutGeofence)
 
 responseBatchUpdateDevicePosition :: BatchUpdateDevicePositionResponse -> TestTree
 responseBatchUpdateDevicePosition =
@@ -645,21 +729,21 @@ responseBatchUpdateDevicePosition =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy BatchUpdateDevicePosition)
 
-responseDeleteRouteCalculator :: DeleteRouteCalculatorResponse -> TestTree
-responseDeleteRouteCalculator =
+responseCalculateRoute :: CalculateRouteResponse -> TestTree
+responseCalculateRoute =
   res
-    "DeleteRouteCalculatorResponse"
-    "fixture/DeleteRouteCalculatorResponse.proto"
+    "CalculateRouteResponse"
+    "fixture/CalculateRouteResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteRouteCalculator)
+    (Proxy.Proxy :: Proxy.Proxy CalculateRoute)
 
-responseUpdateRouteCalculator :: UpdateRouteCalculatorResponse -> TestTree
-responseUpdateRouteCalculator =
+responseCalculateRouteMatrix :: CalculateRouteMatrixResponse -> TestTree
+responseCalculateRouteMatrix =
   res
-    "UpdateRouteCalculatorResponse"
-    "fixture/UpdateRouteCalculatorResponse.proto"
+    "CalculateRouteMatrixResponse"
+    "fixture/CalculateRouteMatrixResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateRouteCalculator)
+    (Proxy.Proxy :: Proxy.Proxy CalculateRouteMatrix)
 
 responseCreateGeofenceCollection :: CreateGeofenceCollectionResponse -> TestTree
 responseCreateGeofenceCollection =
@@ -669,13 +753,29 @@ responseCreateGeofenceCollection =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateGeofenceCollection)
 
-responseListRouteCalculators :: ListRouteCalculatorsResponse -> TestTree
-responseListRouteCalculators =
+responseCreateMap :: CreateMapResponse -> TestTree
+responseCreateMap =
   res
-    "ListRouteCalculatorsResponse"
-    "fixture/ListRouteCalculatorsResponse.proto"
+    "CreateMapResponse"
+    "fixture/CreateMapResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListRouteCalculators)
+    (Proxy.Proxy :: Proxy.Proxy CreateMap)
+
+responseCreatePlaceIndex :: CreatePlaceIndexResponse -> TestTree
+responseCreatePlaceIndex =
+  res
+    "CreatePlaceIndexResponse"
+    "fixture/CreatePlaceIndexResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy CreatePlaceIndex)
+
+responseCreateRouteCalculator :: CreateRouteCalculatorResponse -> TestTree
+responseCreateRouteCalculator =
+  res
+    "CreateRouteCalculatorResponse"
+    "fixture/CreateRouteCalculatorResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy CreateRouteCalculator)
 
 responseCreateTracker :: CreateTrackerResponse -> TestTree
 responseCreateTracker =
@@ -685,37 +785,45 @@ responseCreateTracker =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateTracker)
 
-responseListTrackerConsumers :: ListTrackerConsumersResponse -> TestTree
-responseListTrackerConsumers =
+responseDeleteGeofenceCollection :: DeleteGeofenceCollectionResponse -> TestTree
+responseDeleteGeofenceCollection =
   res
-    "ListTrackerConsumersResponse"
-    "fixture/ListTrackerConsumersResponse.proto"
+    "DeleteGeofenceCollectionResponse"
+    "fixture/DeleteGeofenceCollectionResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTrackerConsumers)
+    (Proxy.Proxy :: Proxy.Proxy DeleteGeofenceCollection)
 
-responseGetDevicePosition :: GetDevicePositionResponse -> TestTree
-responseGetDevicePosition =
+responseDeleteMap :: DeleteMapResponse -> TestTree
+responseDeleteMap =
   res
-    "GetDevicePositionResponse"
-    "fixture/GetDevicePositionResponse.proto"
+    "DeleteMapResponse"
+    "fixture/DeleteMapResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetDevicePosition)
+    (Proxy.Proxy :: Proxy.Proxy DeleteMap)
 
-responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
-responseListTagsForResource =
+responseDeletePlaceIndex :: DeletePlaceIndexResponse -> TestTree
+responseDeletePlaceIndex =
   res
-    "ListTagsForResourceResponse"
-    "fixture/ListTagsForResourceResponse.proto"
+    "DeletePlaceIndexResponse"
+    "fixture/DeletePlaceIndexResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+    (Proxy.Proxy :: Proxy.Proxy DeletePlaceIndex)
 
-responseSearchPlaceIndexForText :: SearchPlaceIndexForTextResponse -> TestTree
-responseSearchPlaceIndexForText =
+responseDeleteRouteCalculator :: DeleteRouteCalculatorResponse -> TestTree
+responseDeleteRouteCalculator =
   res
-    "SearchPlaceIndexForTextResponse"
-    "fixture/SearchPlaceIndexForTextResponse.proto"
+    "DeleteRouteCalculatorResponse"
+    "fixture/DeleteRouteCalculatorResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy SearchPlaceIndexForText)
+    (Proxy.Proxy :: Proxy.Proxy DeleteRouteCalculator)
+
+responseDeleteTracker :: DeleteTrackerResponse -> TestTree
+responseDeleteTracker =
+  res
+    "DeleteTrackerResponse"
+    "fixture/DeleteTrackerResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteTracker)
 
 responseDescribeGeofenceCollection :: DescribeGeofenceCollectionResponse -> TestTree
 responseDescribeGeofenceCollection =
@@ -725,29 +833,21 @@ responseDescribeGeofenceCollection =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DescribeGeofenceCollection)
 
-responseListMaps :: ListMapsResponse -> TestTree
-responseListMaps =
+responseDescribeMap :: DescribeMapResponse -> TestTree
+responseDescribeMap =
   res
-    "ListMapsResponse"
-    "fixture/ListMapsResponse.proto"
+    "DescribeMapResponse"
+    "fixture/DescribeMapResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListMaps)
+    (Proxy.Proxy :: Proxy.Proxy DescribeMap)
 
-responseGetMapSprites :: GetMapSpritesResponse -> TestTree
-responseGetMapSprites =
+responseDescribePlaceIndex :: DescribePlaceIndexResponse -> TestTree
+responseDescribePlaceIndex =
   res
-    "GetMapSpritesResponse"
-    "fixture/GetMapSpritesResponse.proto"
+    "DescribePlaceIndexResponse"
+    "fixture/DescribePlaceIndexResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetMapSprites)
-
-responseCreateMap :: CreateMapResponse -> TestTree
-responseCreateMap =
-  res
-    "CreateMapResponse"
-    "fixture/CreateMapResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateMap)
+    (Proxy.Proxy :: Proxy.Proxy DescribePlaceIndex)
 
 responseDescribeRouteCalculator :: DescribeRouteCalculatorResponse -> TestTree
 responseDescribeRouteCalculator =
@@ -757,13 +857,61 @@ responseDescribeRouteCalculator =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DescribeRouteCalculator)
 
-responseBatchGetDevicePosition :: BatchGetDevicePositionResponse -> TestTree
-responseBatchGetDevicePosition =
+responseDescribeTracker :: DescribeTrackerResponse -> TestTree
+responseDescribeTracker =
   res
-    "BatchGetDevicePositionResponse"
-    "fixture/BatchGetDevicePositionResponse.proto"
+    "DescribeTrackerResponse"
+    "fixture/DescribeTrackerResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy BatchGetDevicePosition)
+    (Proxy.Proxy :: Proxy.Proxy DescribeTracker)
+
+responseDisassociateTrackerConsumer :: DisassociateTrackerConsumerResponse -> TestTree
+responseDisassociateTrackerConsumer =
+  res
+    "DisassociateTrackerConsumerResponse"
+    "fixture/DisassociateTrackerConsumerResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DisassociateTrackerConsumer)
+
+responseGetDevicePosition :: GetDevicePositionResponse -> TestTree
+responseGetDevicePosition =
+  res
+    "GetDevicePositionResponse"
+    "fixture/GetDevicePositionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetDevicePosition)
+
+responseGetDevicePositionHistory :: GetDevicePositionHistoryResponse -> TestTree
+responseGetDevicePositionHistory =
+  res
+    "GetDevicePositionHistoryResponse"
+    "fixture/GetDevicePositionHistoryResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetDevicePositionHistory)
+
+responseGetGeofence :: GetGeofenceResponse -> TestTree
+responseGetGeofence =
+  res
+    "GetGeofenceResponse"
+    "fixture/GetGeofenceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetGeofence)
+
+responseGetMapGlyphs :: GetMapGlyphsResponse -> TestTree
+responseGetMapGlyphs =
+  res
+    "GetMapGlyphsResponse"
+    "fixture/GetMapGlyphsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetMapGlyphs)
+
+responseGetMapSprites :: GetMapSpritesResponse -> TestTree
+responseGetMapSprites =
+  res
+    "GetMapSpritesResponse"
+    "fixture/GetMapSpritesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetMapSprites)
 
 responseGetMapStyleDescriptor :: GetMapStyleDescriptorResponse -> TestTree
 responseGetMapStyleDescriptor =
@@ -781,149 +929,13 @@ responseGetMapTile =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetMapTile)
 
-responseListGeofenceCollections :: ListGeofenceCollectionsResponse -> TestTree
-responseListGeofenceCollections =
+responseGetPlace :: GetPlaceResponse -> TestTree
+responseGetPlace =
   res
-    "ListGeofenceCollectionsResponse"
-    "fixture/ListGeofenceCollectionsResponse.proto"
+    "GetPlaceResponse"
+    "fixture/GetPlaceResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListGeofenceCollections)
-
-responseDeleteGeofenceCollection :: DeleteGeofenceCollectionResponse -> TestTree
-responseDeleteGeofenceCollection =
-  res
-    "DeleteGeofenceCollectionResponse"
-    "fixture/DeleteGeofenceCollectionResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteGeofenceCollection)
-
-responseUpdateGeofenceCollection :: UpdateGeofenceCollectionResponse -> TestTree
-responseUpdateGeofenceCollection =
-  res
-    "UpdateGeofenceCollectionResponse"
-    "fixture/UpdateGeofenceCollectionResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateGeofenceCollection)
-
-responseListTrackers :: ListTrackersResponse -> TestTree
-responseListTrackers =
-  res
-    "ListTrackersResponse"
-    "fixture/ListTrackersResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTrackers)
-
-responseDeletePlaceIndex :: DeletePlaceIndexResponse -> TestTree
-responseDeletePlaceIndex =
-  res
-    "DeletePlaceIndexResponse"
-    "fixture/DeletePlaceIndexResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeletePlaceIndex)
-
-responseUpdatePlaceIndex :: UpdatePlaceIndexResponse -> TestTree
-responseUpdatePlaceIndex =
-  res
-    "UpdatePlaceIndexResponse"
-    "fixture/UpdatePlaceIndexResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdatePlaceIndex)
-
-responseDisassociateTrackerConsumer :: DisassociateTrackerConsumerResponse -> TestTree
-responseDisassociateTrackerConsumer =
-  res
-    "DisassociateTrackerConsumerResponse"
-    "fixture/DisassociateTrackerConsumerResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DisassociateTrackerConsumer)
-
-responsePutGeofence :: PutGeofenceResponse -> TestTree
-responsePutGeofence =
-  res
-    "PutGeofenceResponse"
-    "fixture/PutGeofenceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy PutGeofence)
-
-responseListGeofences :: ListGeofencesResponse -> TestTree
-responseListGeofences =
-  res
-    "ListGeofencesResponse"
-    "fixture/ListGeofencesResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListGeofences)
-
-responseAssociateTrackerConsumer :: AssociateTrackerConsumerResponse -> TestTree
-responseAssociateTrackerConsumer =
-  res
-    "AssociateTrackerConsumerResponse"
-    "fixture/AssociateTrackerConsumerResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy AssociateTrackerConsumer)
-
-responseBatchEvaluateGeofences :: BatchEvaluateGeofencesResponse -> TestTree
-responseBatchEvaluateGeofences =
-  res
-    "BatchEvaluateGeofencesResponse"
-    "fixture/BatchEvaluateGeofencesResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy BatchEvaluateGeofences)
-
-responseCalculateRoute :: CalculateRouteResponse -> TestTree
-responseCalculateRoute =
-  res
-    "CalculateRouteResponse"
-    "fixture/CalculateRouteResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CalculateRoute)
-
-responseDeleteMap :: DeleteMapResponse -> TestTree
-responseDeleteMap =
-  res
-    "DeleteMapResponse"
-    "fixture/DeleteMapResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteMap)
-
-responseUpdateMap :: UpdateMapResponse -> TestTree
-responseUpdateMap =
-  res
-    "UpdateMapResponse"
-    "fixture/UpdateMapResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateMap)
-
-responseGetDevicePositionHistory :: GetDevicePositionHistoryResponse -> TestTree
-responseGetDevicePositionHistory =
-  res
-    "GetDevicePositionHistoryResponse"
-    "fixture/GetDevicePositionHistoryResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetDevicePositionHistory)
-
-responseDescribeTracker :: DescribeTrackerResponse -> TestTree
-responseDescribeTracker =
-  res
-    "DescribeTrackerResponse"
-    "fixture/DescribeTrackerResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeTracker)
-
-responseDescribePlaceIndex :: DescribePlaceIndexResponse -> TestTree
-responseDescribePlaceIndex =
-  res
-    "DescribePlaceIndexResponse"
-    "fixture/DescribePlaceIndexResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribePlaceIndex)
-
-responseGetGeofence :: GetGeofenceResponse -> TestTree
-responseGetGeofence =
-  res
-    "GetGeofenceResponse"
-    "fixture/GetGeofenceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetGeofence)
+    (Proxy.Proxy :: Proxy.Proxy GetPlace)
 
 responseListDevicePositions :: ListDevicePositionsResponse -> TestTree
 responseListDevicePositions =
@@ -933,53 +945,29 @@ responseListDevicePositions =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy ListDevicePositions)
 
-responseTagResource :: TagResourceResponse -> TestTree
-responseTagResource =
+responseListGeofenceCollections :: ListGeofenceCollectionsResponse -> TestTree
+responseListGeofenceCollections =
   res
-    "TagResourceResponse"
-    "fixture/TagResourceResponse.proto"
+    "ListGeofenceCollectionsResponse"
+    "fixture/ListGeofenceCollectionsResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy TagResource)
+    (Proxy.Proxy :: Proxy.Proxy ListGeofenceCollections)
 
-responseGetMapGlyphs :: GetMapGlyphsResponse -> TestTree
-responseGetMapGlyphs =
+responseListGeofences :: ListGeofencesResponse -> TestTree
+responseListGeofences =
   res
-    "GetMapGlyphsResponse"
-    "fixture/GetMapGlyphsResponse.proto"
+    "ListGeofencesResponse"
+    "fixture/ListGeofencesResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetMapGlyphs)
+    (Proxy.Proxy :: Proxy.Proxy ListGeofences)
 
-responseBatchPutGeofence :: BatchPutGeofenceResponse -> TestTree
-responseBatchPutGeofence =
+responseListMaps :: ListMapsResponse -> TestTree
+responseListMaps =
   res
-    "BatchPutGeofenceResponse"
-    "fixture/BatchPutGeofenceResponse.proto"
+    "ListMapsResponse"
+    "fixture/ListMapsResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy BatchPutGeofence)
-
-responseBatchDeleteGeofence :: BatchDeleteGeofenceResponse -> TestTree
-responseBatchDeleteGeofence =
-  res
-    "BatchDeleteGeofenceResponse"
-    "fixture/BatchDeleteGeofenceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy BatchDeleteGeofence)
-
-responseUntagResource :: UntagResourceResponse -> TestTree
-responseUntagResource =
-  res
-    "UntagResourceResponse"
-    "fixture/UntagResourceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UntagResource)
-
-responseBatchDeleteDevicePositionHistory :: BatchDeleteDevicePositionHistoryResponse -> TestTree
-responseBatchDeleteDevicePositionHistory =
-  res
-    "BatchDeleteDevicePositionHistoryResponse"
-    "fixture/BatchDeleteDevicePositionHistoryResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy BatchDeleteDevicePositionHistory)
+    (Proxy.Proxy :: Proxy.Proxy ListMaps)
 
 responseListPlaceIndexes :: ListPlaceIndexesResponse -> TestTree
 responseListPlaceIndexes =
@@ -989,6 +977,46 @@ responseListPlaceIndexes =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy ListPlaceIndexes)
 
+responseListRouteCalculators :: ListRouteCalculatorsResponse -> TestTree
+responseListRouteCalculators =
+  res
+    "ListRouteCalculatorsResponse"
+    "fixture/ListRouteCalculatorsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListRouteCalculators)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+
+responseListTrackerConsumers :: ListTrackerConsumersResponse -> TestTree
+responseListTrackerConsumers =
+  res
+    "ListTrackerConsumersResponse"
+    "fixture/ListTrackerConsumersResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTrackerConsumers)
+
+responseListTrackers :: ListTrackersResponse -> TestTree
+responseListTrackers =
+  res
+    "ListTrackersResponse"
+    "fixture/ListTrackersResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTrackers)
+
+responsePutGeofence :: PutGeofenceResponse -> TestTree
+responsePutGeofence =
+  res
+    "PutGeofenceResponse"
+    "fixture/PutGeofenceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy PutGeofence)
+
 responseSearchPlaceIndexForPosition :: SearchPlaceIndexForPositionResponse -> TestTree
 responseSearchPlaceIndexForPosition =
   res
@@ -997,21 +1025,69 @@ responseSearchPlaceIndexForPosition =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy SearchPlaceIndexForPosition)
 
-responseDeleteTracker :: DeleteTrackerResponse -> TestTree
-responseDeleteTracker =
+responseSearchPlaceIndexForSuggestions :: SearchPlaceIndexForSuggestionsResponse -> TestTree
+responseSearchPlaceIndexForSuggestions =
   res
-    "DeleteTrackerResponse"
-    "fixture/DeleteTrackerResponse.proto"
+    "SearchPlaceIndexForSuggestionsResponse"
+    "fixture/SearchPlaceIndexForSuggestionsResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteTracker)
+    (Proxy.Proxy :: Proxy.Proxy SearchPlaceIndexForSuggestions)
 
-responseCreatePlaceIndex :: CreatePlaceIndexResponse -> TestTree
-responseCreatePlaceIndex =
+responseSearchPlaceIndexForText :: SearchPlaceIndexForTextResponse -> TestTree
+responseSearchPlaceIndexForText =
   res
-    "CreatePlaceIndexResponse"
-    "fixture/CreatePlaceIndexResponse.proto"
+    "SearchPlaceIndexForTextResponse"
+    "fixture/SearchPlaceIndexForTextResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreatePlaceIndex)
+    (Proxy.Proxy :: Proxy.Proxy SearchPlaceIndexForText)
+
+responseTagResource :: TagResourceResponse -> TestTree
+responseTagResource =
+  res
+    "TagResourceResponse"
+    "fixture/TagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy TagResource)
+
+responseUntagResource :: UntagResourceResponse -> TestTree
+responseUntagResource =
+  res
+    "UntagResourceResponse"
+    "fixture/UntagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UntagResource)
+
+responseUpdateGeofenceCollection :: UpdateGeofenceCollectionResponse -> TestTree
+responseUpdateGeofenceCollection =
+  res
+    "UpdateGeofenceCollectionResponse"
+    "fixture/UpdateGeofenceCollectionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateGeofenceCollection)
+
+responseUpdateMap :: UpdateMapResponse -> TestTree
+responseUpdateMap =
+  res
+    "UpdateMapResponse"
+    "fixture/UpdateMapResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateMap)
+
+responseUpdatePlaceIndex :: UpdatePlaceIndexResponse -> TestTree
+responseUpdatePlaceIndex =
+  res
+    "UpdatePlaceIndexResponse"
+    "fixture/UpdatePlaceIndexResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdatePlaceIndex)
+
+responseUpdateRouteCalculator :: UpdateRouteCalculatorResponse -> TestTree
+responseUpdateRouteCalculator =
+  res
+    "UpdateRouteCalculatorResponse"
+    "fixture/UpdateRouteCalculatorResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateRouteCalculator)
 
 responseUpdateTracker :: UpdateTrackerResponse -> TestTree
 responseUpdateTracker =
@@ -1020,19 +1096,3 @@ responseUpdateTracker =
     "fixture/UpdateTrackerResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy UpdateTracker)
-
-responseCreateRouteCalculator :: CreateRouteCalculatorResponse -> TestTree
-responseCreateRouteCalculator =
-  res
-    "CreateRouteCalculatorResponse"
-    "fixture/CreateRouteCalculatorResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateRouteCalculator)
-
-responseDescribeMap :: DescribeMapResponse -> TestTree
-responseDescribeMap =
-  res
-    "DescribeMapResponse"
-    "fixture/DescribeMapResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeMap)

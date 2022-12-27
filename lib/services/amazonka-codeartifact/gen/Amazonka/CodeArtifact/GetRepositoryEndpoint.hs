@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.GetRepositoryEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,11 +23,13 @@
 -- Returns the endpoint of a repository for a specific package format. A
 -- repository has one endpoint for each package format:
 --
+-- -   @maven@
+--
 -- -   @npm@
 --
--- -   @pypi@
+-- -   @nuget@
 --
--- -   @maven@
+-- -   @pypi@
 module Amazonka.CodeArtifact.GetRepositoryEndpoint
   ( -- * Creating a Request
     GetRepositoryEndpoint (..),
@@ -51,28 +53,24 @@ where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetRepositoryEndpoint' smart constructor.
 data GetRepositoryEndpoint = GetRepositoryEndpoint'
-  { -- | The 12-digit account number of the AWS account that owns the domain that
-    -- contains the repository. It does not include dashes or spaces.
+  { -- | The 12-digit account number of the Amazon Web Services account that owns
+    -- the domain that contains the repository. It does not include dashes or
+    -- spaces.
     domainOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the domain that contains the repository.
     domain :: Prelude.Text,
     -- | The name of the repository.
     repository :: Prelude.Text,
     -- | Returns which endpoint of a repository to return. A repository has one
-    -- endpoint for each package format:
-    --
-    -- -   @npm@
-    --
-    -- -   @pypi@
-    --
-    -- -   @maven@
+    -- endpoint for each package format.
     format :: PackageFormat
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -85,21 +83,16 @@ data GetRepositoryEndpoint = GetRepositoryEndpoint'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainOwner', 'getRepositoryEndpoint_domainOwner' - The 12-digit account number of the AWS account that owns the domain that
--- contains the repository. It does not include dashes or spaces.
+-- 'domainOwner', 'getRepositoryEndpoint_domainOwner' - The 12-digit account number of the Amazon Web Services account that owns
+-- the domain that contains the repository. It does not include dashes or
+-- spaces.
 --
 -- 'domain', 'getRepositoryEndpoint_domain' - The name of the domain that contains the repository.
 --
 -- 'repository', 'getRepositoryEndpoint_repository' - The name of the repository.
 --
 -- 'format', 'getRepositoryEndpoint_format' - Returns which endpoint of a repository to return. A repository has one
--- endpoint for each package format:
---
--- -   @npm@
---
--- -   @pypi@
---
--- -   @maven@
+-- endpoint for each package format.
 newGetRepositoryEndpoint ::
   -- | 'domain'
   Prelude.Text ->
@@ -120,8 +113,9 @@ newGetRepositoryEndpoint
         format = pFormat_
       }
 
--- | The 12-digit account number of the AWS account that owns the domain that
--- contains the repository. It does not include dashes or spaces.
+-- | The 12-digit account number of the Amazon Web Services account that owns
+-- the domain that contains the repository. It does not include dashes or
+-- spaces.
 getRepositoryEndpoint_domainOwner :: Lens.Lens' GetRepositoryEndpoint (Prelude.Maybe Prelude.Text)
 getRepositoryEndpoint_domainOwner = Lens.lens (\GetRepositoryEndpoint' {domainOwner} -> domainOwner) (\s@GetRepositoryEndpoint' {} a -> s {domainOwner = a} :: GetRepositoryEndpoint)
 
@@ -134,13 +128,7 @@ getRepositoryEndpoint_repository :: Lens.Lens' GetRepositoryEndpoint Prelude.Tex
 getRepositoryEndpoint_repository = Lens.lens (\GetRepositoryEndpoint' {repository} -> repository) (\s@GetRepositoryEndpoint' {} a -> s {repository = a} :: GetRepositoryEndpoint)
 
 -- | Returns which endpoint of a repository to return. A repository has one
--- endpoint for each package format:
---
--- -   @npm@
---
--- -   @pypi@
---
--- -   @maven@
+-- endpoint for each package format.
 getRepositoryEndpoint_format :: Lens.Lens' GetRepositoryEndpoint PackageFormat
 getRepositoryEndpoint_format = Lens.lens (\GetRepositoryEndpoint' {format} -> format) (\s@GetRepositoryEndpoint' {} a -> s {format = a} :: GetRepositoryEndpoint)
 
@@ -148,12 +136,13 @@ instance Core.AWSRequest GetRepositoryEndpoint where
   type
     AWSResponse GetRepositoryEndpoint =
       GetRepositoryEndpointResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRepositoryEndpointResponse'
-            Prelude.<$> (x Core..?> "repositoryEndpoint")
+            Prelude.<$> (x Data..?> "repositoryEndpoint")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -171,27 +160,27 @@ instance Prelude.NFData GetRepositoryEndpoint where
       `Prelude.seq` Prelude.rnf repository
       `Prelude.seq` Prelude.rnf format
 
-instance Core.ToHeaders GetRepositoryEndpoint where
+instance Data.ToHeaders GetRepositoryEndpoint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetRepositoryEndpoint where
+instance Data.ToPath GetRepositoryEndpoint where
   toPath = Prelude.const "/v1/repository/endpoint"
 
-instance Core.ToQuery GetRepositoryEndpoint where
+instance Data.ToQuery GetRepositoryEndpoint where
   toQuery GetRepositoryEndpoint' {..} =
     Prelude.mconcat
-      [ "domain-owner" Core.=: domainOwner,
-        "domain" Core.=: domain,
-        "repository" Core.=: repository,
-        "format" Core.=: format
+      [ "domain-owner" Data.=: domainOwner,
+        "domain" Data.=: domain,
+        "repository" Data.=: repository,
+        "format" Data.=: format
       ]
 
 -- | /See:/ 'newGetRepositoryEndpointResponse' smart constructor.

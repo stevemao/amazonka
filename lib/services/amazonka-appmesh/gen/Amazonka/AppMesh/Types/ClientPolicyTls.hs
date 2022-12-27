@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.ClientPolicyTls
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AppMesh.Types.ClientPolicyTls where
 import Amazonka.AppMesh.Types.ClientTlsCertificate
 import Amazonka.AppMesh.Types.TlsValidationContext
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A reference to an object that represents a Transport Layer Security
@@ -30,13 +31,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newClientPolicyTls' smart constructor.
 data ClientPolicyTls = ClientPolicyTls'
-  { -- | One or more ports that the policy is enforced for.
-    ports :: Prelude.Maybe [Prelude.Natural],
-    -- | A reference to an object that represents a client\'s TLS certificate.
+  { -- | A reference to an object that represents a client\'s TLS certificate.
     certificate :: Prelude.Maybe ClientTlsCertificate,
     -- | Whether the policy is enforced. The default is @True@, if a value isn\'t
     -- specified.
     enforce :: Prelude.Maybe Prelude.Bool,
+    -- | One or more ports that the policy is enforced for.
+    ports :: Prelude.Maybe [Prelude.Natural],
     -- | A reference to an object that represents a TLS validation context.
     validation :: TlsValidationContext
   }
@@ -50,12 +51,12 @@ data ClientPolicyTls = ClientPolicyTls'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ports', 'clientPolicyTls_ports' - One or more ports that the policy is enforced for.
---
 -- 'certificate', 'clientPolicyTls_certificate' - A reference to an object that represents a client\'s TLS certificate.
 --
 -- 'enforce', 'clientPolicyTls_enforce' - Whether the policy is enforced. The default is @True@, if a value isn\'t
 -- specified.
+--
+-- 'ports', 'clientPolicyTls_ports' - One or more ports that the policy is enforced for.
 --
 -- 'validation', 'clientPolicyTls_validation' - A reference to an object that represents a TLS validation context.
 newClientPolicyTls ::
@@ -64,15 +65,11 @@ newClientPolicyTls ::
   ClientPolicyTls
 newClientPolicyTls pValidation_ =
   ClientPolicyTls'
-    { ports = Prelude.Nothing,
-      certificate = Prelude.Nothing,
+    { certificate = Prelude.Nothing,
       enforce = Prelude.Nothing,
+      ports = Prelude.Nothing,
       validation = pValidation_
     }
-
--- | One or more ports that the policy is enforced for.
-clientPolicyTls_ports :: Lens.Lens' ClientPolicyTls (Prelude.Maybe [Prelude.Natural])
-clientPolicyTls_ports = Lens.lens (\ClientPolicyTls' {ports} -> ports) (\s@ClientPolicyTls' {} a -> s {ports = a} :: ClientPolicyTls) Prelude.. Lens.mapping Lens.coerced
 
 -- | A reference to an object that represents a client\'s TLS certificate.
 clientPolicyTls_certificate :: Lens.Lens' ClientPolicyTls (Prelude.Maybe ClientTlsCertificate)
@@ -83,43 +80,47 @@ clientPolicyTls_certificate = Lens.lens (\ClientPolicyTls' {certificate} -> cert
 clientPolicyTls_enforce :: Lens.Lens' ClientPolicyTls (Prelude.Maybe Prelude.Bool)
 clientPolicyTls_enforce = Lens.lens (\ClientPolicyTls' {enforce} -> enforce) (\s@ClientPolicyTls' {} a -> s {enforce = a} :: ClientPolicyTls)
 
+-- | One or more ports that the policy is enforced for.
+clientPolicyTls_ports :: Lens.Lens' ClientPolicyTls (Prelude.Maybe [Prelude.Natural])
+clientPolicyTls_ports = Lens.lens (\ClientPolicyTls' {ports} -> ports) (\s@ClientPolicyTls' {} a -> s {ports = a} :: ClientPolicyTls) Prelude.. Lens.mapping Lens.coerced
+
 -- | A reference to an object that represents a TLS validation context.
 clientPolicyTls_validation :: Lens.Lens' ClientPolicyTls TlsValidationContext
 clientPolicyTls_validation = Lens.lens (\ClientPolicyTls' {validation} -> validation) (\s@ClientPolicyTls' {} a -> s {validation = a} :: ClientPolicyTls)
 
-instance Core.FromJSON ClientPolicyTls where
+instance Data.FromJSON ClientPolicyTls where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ClientPolicyTls"
       ( \x ->
           ClientPolicyTls'
-            Prelude.<$> (x Core..:? "ports" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "certificate")
-            Prelude.<*> (x Core..:? "enforce")
-            Prelude.<*> (x Core..: "validation")
+            Prelude.<$> (x Data..:? "certificate")
+            Prelude.<*> (x Data..:? "enforce")
+            Prelude.<*> (x Data..:? "ports" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "validation")
       )
 
 instance Prelude.Hashable ClientPolicyTls where
   hashWithSalt _salt ClientPolicyTls' {..} =
-    _salt `Prelude.hashWithSalt` ports
-      `Prelude.hashWithSalt` certificate
+    _salt `Prelude.hashWithSalt` certificate
       `Prelude.hashWithSalt` enforce
+      `Prelude.hashWithSalt` ports
       `Prelude.hashWithSalt` validation
 
 instance Prelude.NFData ClientPolicyTls where
   rnf ClientPolicyTls' {..} =
-    Prelude.rnf ports
-      `Prelude.seq` Prelude.rnf certificate
+    Prelude.rnf certificate
       `Prelude.seq` Prelude.rnf enforce
+      `Prelude.seq` Prelude.rnf ports
       `Prelude.seq` Prelude.rnf validation
 
-instance Core.ToJSON ClientPolicyTls where
+instance Data.ToJSON ClientPolicyTls where
   toJSON ClientPolicyTls' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ports" Core..=) Prelude.<$> ports,
-            ("certificate" Core..=) Prelude.<$> certificate,
-            ("enforce" Core..=) Prelude.<$> enforce,
-            Prelude.Just ("validation" Core..= validation)
+          [ ("certificate" Data..=) Prelude.<$> certificate,
+            ("enforce" Data..=) Prelude.<$> enforce,
+            ("ports" Data..=) Prelude.<$> ports,
+            Prelude.Just ("validation" Data..= validation)
           ]
       )

@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -48,6 +48,7 @@ library
     Amazonka.KafkaConnect.CreateCustomPlugin
     Amazonka.KafkaConnect.CreateWorkerConfiguration
     Amazonka.KafkaConnect.DeleteConnector
+    Amazonka.KafkaConnect.DeleteCustomPlugin
     Amazonka.KafkaConnect.DescribeConnector
     Amazonka.KafkaConnect.DescribeCustomPlugin
     Amazonka.KafkaConnect.DescribeWorkerConfiguration
@@ -104,6 +105,7 @@ library
     Amazonka.KafkaConnect.Types.ScaleOutPolicy
     Amazonka.KafkaConnect.Types.ScaleOutPolicyDescription
     Amazonka.KafkaConnect.Types.ScaleOutPolicyUpdate
+    Amazonka.KafkaConnect.Types.StateDescription
     Amazonka.KafkaConnect.Types.Vpc
     Amazonka.KafkaConnect.Types.VpcDescription
     Amazonka.KafkaConnect.Types.WorkerConfiguration
@@ -117,7 +119,7 @@ library
     Amazonka.KafkaConnect.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-kafkaconnect-test
@@ -136,9 +138,9 @@ test-suite amazonka-kafkaconnect-test
     Test.Amazonka.KafkaConnect.Internal
 
   build-depends:
-    , amazonka-core          ^>=2.0
+    , amazonka-core          >=2.0 && <2.1
     , amazonka-kafkaconnect
-    , amazonka-test          ^>=2.0
+    , amazonka-test          >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.Target
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.SSM.Types.Target where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | An array of search criteria that targets instances using a key-value
+-- | An array of search criteria that targets managed nodes using a key-value
 -- pair that you specify.
 --
 -- One or more targets must be specified for maintenance window Run
@@ -36,20 +37,20 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- Supported formats include the following.
 --
--- -   @Key=InstanceIds,Values=instance-id-1,instance-id-2,instance-id-3 @
+-- -   @Key=InstanceIds,Values=\<instance-id-1>,\<instance-id-2>,\<instance-id-3>@
 --
--- -   @Key=tag:my-tag-key,Values=my-tag-value-1,my-tag-value-2 @
+-- -   @Key=tag:\<my-tag-key>,Values=\<my-tag-value-1>,\<my-tag-value-2>@
 --
--- -   @Key=tag-key,Values=my-tag-key-1,my-tag-key-2 @
+-- -   @Key=tag-key,Values=\<my-tag-key-1>,\<my-tag-key-2>@
 --
 -- -   __Run Command and Maintenance window targets only__:
---     @Key=resource-groups:Name,Values=resource-group-name @
+--     @Key=resource-groups:Name,Values=\<resource-group-name>@
 --
 -- -   __Maintenance window targets only__:
---     @Key=resource-groups:ResourceTypeFilters,Values=resource-type-1,resource-type-2 @
+--     @Key=resource-groups:ResourceTypeFilters,Values=\<resource-type-1>,\<resource-type-2>@
 --
 -- -   __Automation targets only__:
---     @Key=ResourceGroup;Values=resource-group-name @
+--     @Key=ResourceGroup;Values=\<resource-group-name>@
 --
 -- For example:
 --
@@ -67,7 +68,7 @@ import qualified Amazonka.Prelude as Prelude
 --     window.
 --
 -- -   __Maintenance window targets only__:
---     @Key=resource-groups:ResourceTypeFilters,Values=AWS::EC2::INSTANCE,AWS::EC2::VPC @
+--     @Key=resource-groups:ResourceTypeFilters,Values=AWS::EC2::INSTANCE,AWS::EC2::VPC@
 --
 --     This example demonstrates how to target only Amazon Elastic Compute
 --     Cloud (Amazon EC2) instances and VPCs in your maintenance window.
@@ -76,28 +77,28 @@ import qualified Amazonka.Prelude as Prelude
 --     @Key=ResourceGroup,Values=MyResourceGroup@
 --
 -- -   __State Manager association targets only__:
---     @Key=InstanceIds,Values=* @
+--     @Key=InstanceIds,Values=*@
 --
 --     This example demonstrates how to target all managed instances in the
 --     Amazon Web Services Region where the association was created.
 --
--- For more information about how to send commands that target instances
--- using @Key,Value@ parameters, see
+-- For more information about how to send commands that target managed
+-- nodes using @Key,Value@ parameters, see
 -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/send-commands-multiple.html#send-commands-targeting Targeting multiple instances>
 -- in the /Amazon Web Services Systems Manager User Guide/.
 --
 -- /See:/ 'newTarget' smart constructor.
 data Target = Target'
-  { -- | User-defined criteria that maps to @Key@. For example, if you specified
+  { -- | User-defined criteria for sending commands that target managed nodes
+    -- that meet the criteria.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | User-defined criteria that maps to @Key@. For example, if you specified
     -- @tag:ServerRole@, you could specify @value:WebServer@ to run a command
     -- on instances that include EC2 tags of @ServerRole,WebServer@.
     --
     -- Depending on the type of target, the maximum number of values for a key
     -- might be lower than the global maximum of 50.
-    values :: Prelude.Maybe [Prelude.Text],
-    -- | User-defined criteria for sending commands that target instances that
-    -- meet the criteria.
-    key :: Prelude.Maybe Prelude.Text
+    values :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -109,22 +110,27 @@ data Target = Target'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'key', 'target_key' - User-defined criteria for sending commands that target managed nodes
+-- that meet the criteria.
+--
 -- 'values', 'target_values' - User-defined criteria that maps to @Key@. For example, if you specified
 -- @tag:ServerRole@, you could specify @value:WebServer@ to run a command
 -- on instances that include EC2 tags of @ServerRole,WebServer@.
 --
 -- Depending on the type of target, the maximum number of values for a key
 -- might be lower than the global maximum of 50.
---
--- 'key', 'target_key' - User-defined criteria for sending commands that target instances that
--- meet the criteria.
 newTarget ::
   Target
 newTarget =
   Target'
-    { values = Prelude.Nothing,
-      key = Prelude.Nothing
+    { key = Prelude.Nothing,
+      values = Prelude.Nothing
     }
+
+-- | User-defined criteria for sending commands that target managed nodes
+-- that meet the criteria.
+target_key :: Lens.Lens' Target (Prelude.Maybe Prelude.Text)
+target_key = Lens.lens (\Target' {key} -> key) (\s@Target' {} a -> s {key = a} :: Target)
 
 -- | User-defined criteria that maps to @Key@. For example, if you specified
 -- @tag:ServerRole@, you could specify @value:WebServer@ to run a command
@@ -135,35 +141,30 @@ newTarget =
 target_values :: Lens.Lens' Target (Prelude.Maybe [Prelude.Text])
 target_values = Lens.lens (\Target' {values} -> values) (\s@Target' {} a -> s {values = a} :: Target) Prelude.. Lens.mapping Lens.coerced
 
--- | User-defined criteria for sending commands that target instances that
--- meet the criteria.
-target_key :: Lens.Lens' Target (Prelude.Maybe Prelude.Text)
-target_key = Lens.lens (\Target' {key} -> key) (\s@Target' {} a -> s {key = a} :: Target)
-
-instance Core.FromJSON Target where
+instance Data.FromJSON Target where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Target"
       ( \x ->
           Target'
-            Prelude.<$> (x Core..:? "Values" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Key")
+            Prelude.<$> (x Data..:? "Key")
+            Prelude.<*> (x Data..:? "Values" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Target where
   hashWithSalt _salt Target' {..} =
-    _salt `Prelude.hashWithSalt` values
-      `Prelude.hashWithSalt` key
+    _salt `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` values
 
 instance Prelude.NFData Target where
   rnf Target' {..} =
-    Prelude.rnf values `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON Target where
+instance Data.ToJSON Target where
   toJSON Target' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Values" Core..=) Prelude.<$> values,
-            ("Key" Core..=) Prelude.<$> key
+          [ ("Key" Data..=) Prelude.<$> key,
+            ("Values" Data..=) Prelude.<$> values
           ]
       )

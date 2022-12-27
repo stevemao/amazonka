@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.StopMetricStreams
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.CloudWatch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,7 +87,8 @@ instance Core.AWSRequest StopMetricStreams where
   type
     AWSResponse StopMetricStreams =
       StopMetricStreamsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "StopMetricStreamsResult"
@@ -102,20 +104,20 @@ instance Prelude.Hashable StopMetricStreams where
 instance Prelude.NFData StopMetricStreams where
   rnf StopMetricStreams' {..} = Prelude.rnf names
 
-instance Core.ToHeaders StopMetricStreams where
+instance Data.ToHeaders StopMetricStreams where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath StopMetricStreams where
+instance Data.ToPath StopMetricStreams where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopMetricStreams where
+instance Data.ToQuery StopMetricStreams where
   toQuery StopMetricStreams' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("StopMetricStreams" :: Prelude.ByteString),
+          Data.=: ("StopMetricStreams" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-08-01" :: Prelude.ByteString),
-        "Names" Core.=: Core.toQueryList "member" names
+          Data.=: ("2010-08-01" :: Prelude.ByteString),
+        "Names" Data.=: Data.toQueryList "member" names
       ]
 
 -- | /See:/ 'newStopMetricStreamsResponse' smart constructor.

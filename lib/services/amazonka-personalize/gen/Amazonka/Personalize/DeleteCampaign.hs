@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.DeleteCampaign
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,8 @@
 -- that the campaign is based on is not deleted and can be redeployed when
 -- needed. A deleted campaign can no longer be specified in a
 -- <https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html GetRecommendations>
--- request. For more information on campaigns, see CreateCampaign.
+-- request. For information on creating campaigns, see
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateCampaign.html CreateCampaign>.
 module Amazonka.Personalize.DeleteCampaign
   ( -- * Creating a Request
     DeleteCampaign (..),
@@ -40,7 +41,8 @@ module Amazonka.Personalize.DeleteCampaign
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -77,7 +79,8 @@ instance Core.AWSRequest DeleteCampaign where
   type
     AWSResponse DeleteCampaign =
       DeleteCampaignResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteCampaignResponse'
 
@@ -88,32 +91,32 @@ instance Prelude.Hashable DeleteCampaign where
 instance Prelude.NFData DeleteCampaign where
   rnf DeleteCampaign' {..} = Prelude.rnf campaignArn
 
-instance Core.ToHeaders DeleteCampaign where
+instance Data.ToHeaders DeleteCampaign where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.DeleteCampaign" ::
+              Data.=# ( "AmazonPersonalize.DeleteCampaign" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteCampaign where
+instance Data.ToJSON DeleteCampaign where
   toJSON DeleteCampaign' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("campaignArn" Core..= campaignArn)]
+          [Prelude.Just ("campaignArn" Data..= campaignArn)]
       )
 
-instance Core.ToPath DeleteCampaign where
+instance Data.ToPath DeleteCampaign where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCampaign where
+instance Data.ToQuery DeleteCampaign where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCampaignResponse' smart constructor.

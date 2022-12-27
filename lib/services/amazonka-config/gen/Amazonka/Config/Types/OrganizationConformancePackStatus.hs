@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.OrganizationConformancePackStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Config.Types.OrganizationConformancePackStatus where
 
 import Amazonka.Config.Types.OrganizationResourceStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Returns the status for an organization conformance pack in an
@@ -36,19 +37,19 @@ data OrganizationConformancePackStatus = OrganizationConformancePackStatus'
     -- or deletion failed due to an error.
     errorMessage :: Prelude.Maybe Prelude.Text,
     -- | The timestamp of the last update.
-    lastUpdateTime :: Prelude.Maybe Core.POSIX,
+    lastUpdateTime :: Prelude.Maybe Data.POSIX,
     -- | The name that you assign to organization conformance pack.
     organizationConformancePackName :: Prelude.Text,
     -- | Indicates deployment status of an organization conformance pack. When
-    -- master account calls PutOrganizationConformancePack for the first time,
-    -- conformance pack status is created in all the member accounts. When
-    -- master account calls PutOrganizationConformancePack for the second time,
-    -- conformance pack status is updated in all the member accounts.
-    -- Additionally, conformance pack status is updated when one or more member
-    -- accounts join or leave an organization. Conformance pack status is
-    -- deleted when the master account deletes OrganizationConformancePack in
-    -- all the member accounts and disables service access for
-    -- @config-multiaccountsetup.amazonaws.com@.
+    -- management account calls PutOrganizationConformancePack for the first
+    -- time, conformance pack status is created in all the member accounts.
+    -- When management account calls PutOrganizationConformancePack for the
+    -- second time, conformance pack status is updated in all the member
+    -- accounts. Additionally, conformance pack status is updated when one or
+    -- more member accounts join or leave an organization. Conformance pack
+    -- status is deleted when the management account deletes
+    -- OrganizationConformancePack in all the member accounts and disables
+    -- service access for @config-multiaccountsetup.amazonaws.com@.
     --
     -- Config sets the state of the conformance pack to:
     --
@@ -101,15 +102,15 @@ data OrganizationConformancePackStatus = OrganizationConformancePackStatus'
 -- 'organizationConformancePackName', 'organizationConformancePackStatus_organizationConformancePackName' - The name that you assign to organization conformance pack.
 --
 -- 'status', 'organizationConformancePackStatus_status' - Indicates deployment status of an organization conformance pack. When
--- master account calls PutOrganizationConformancePack for the first time,
--- conformance pack status is created in all the member accounts. When
--- master account calls PutOrganizationConformancePack for the second time,
--- conformance pack status is updated in all the member accounts.
--- Additionally, conformance pack status is updated when one or more member
--- accounts join or leave an organization. Conformance pack status is
--- deleted when the master account deletes OrganizationConformancePack in
--- all the member accounts and disables service access for
--- @config-multiaccountsetup.amazonaws.com@.
+-- management account calls PutOrganizationConformancePack for the first
+-- time, conformance pack status is created in all the member accounts.
+-- When management account calls PutOrganizationConformancePack for the
+-- second time, conformance pack status is updated in all the member
+-- accounts. Additionally, conformance pack status is updated when one or
+-- more member accounts join or leave an organization. Conformance pack
+-- status is deleted when the management account deletes
+-- OrganizationConformancePack in all the member accounts and disables
+-- service access for @config-multiaccountsetup.amazonaws.com@.
 --
 -- Config sets the state of the conformance pack to:
 --
@@ -170,22 +171,22 @@ organizationConformancePackStatus_errorMessage = Lens.lens (\OrganizationConform
 
 -- | The timestamp of the last update.
 organizationConformancePackStatus_lastUpdateTime :: Lens.Lens' OrganizationConformancePackStatus (Prelude.Maybe Prelude.UTCTime)
-organizationConformancePackStatus_lastUpdateTime = Lens.lens (\OrganizationConformancePackStatus' {lastUpdateTime} -> lastUpdateTime) (\s@OrganizationConformancePackStatus' {} a -> s {lastUpdateTime = a} :: OrganizationConformancePackStatus) Prelude.. Lens.mapping Core._Time
+organizationConformancePackStatus_lastUpdateTime = Lens.lens (\OrganizationConformancePackStatus' {lastUpdateTime} -> lastUpdateTime) (\s@OrganizationConformancePackStatus' {} a -> s {lastUpdateTime = a} :: OrganizationConformancePackStatus) Prelude.. Lens.mapping Data._Time
 
 -- | The name that you assign to organization conformance pack.
 organizationConformancePackStatus_organizationConformancePackName :: Lens.Lens' OrganizationConformancePackStatus Prelude.Text
 organizationConformancePackStatus_organizationConformancePackName = Lens.lens (\OrganizationConformancePackStatus' {organizationConformancePackName} -> organizationConformancePackName) (\s@OrganizationConformancePackStatus' {} a -> s {organizationConformancePackName = a} :: OrganizationConformancePackStatus)
 
 -- | Indicates deployment status of an organization conformance pack. When
--- master account calls PutOrganizationConformancePack for the first time,
--- conformance pack status is created in all the member accounts. When
--- master account calls PutOrganizationConformancePack for the second time,
--- conformance pack status is updated in all the member accounts.
--- Additionally, conformance pack status is updated when one or more member
--- accounts join or leave an organization. Conformance pack status is
--- deleted when the master account deletes OrganizationConformancePack in
--- all the member accounts and disables service access for
--- @config-multiaccountsetup.amazonaws.com@.
+-- management account calls PutOrganizationConformancePack for the first
+-- time, conformance pack status is created in all the member accounts.
+-- When management account calls PutOrganizationConformancePack for the
+-- second time, conformance pack status is updated in all the member
+-- accounts. Additionally, conformance pack status is updated when one or
+-- more member accounts join or leave an organization. Conformance pack
+-- status is deleted when the management account deletes
+-- OrganizationConformancePack in all the member accounts and disables
+-- service access for @config-multiaccountsetup.amazonaws.com@.
 --
 -- Config sets the state of the conformance pack to:
 --
@@ -219,19 +220,19 @@ organizationConformancePackStatus_status :: Lens.Lens' OrganizationConformancePa
 organizationConformancePackStatus_status = Lens.lens (\OrganizationConformancePackStatus' {status} -> status) (\s@OrganizationConformancePackStatus' {} a -> s {status = a} :: OrganizationConformancePackStatus)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     OrganizationConformancePackStatus
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OrganizationConformancePackStatus"
       ( \x ->
           OrganizationConformancePackStatus'
-            Prelude.<$> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "ErrorMessage")
-            Prelude.<*> (x Core..:? "LastUpdateTime")
-            Prelude.<*> (x Core..: "OrganizationConformancePackName")
-            Prelude.<*> (x Core..: "Status")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "ErrorMessage")
+            Prelude.<*> (x Data..:? "LastUpdateTime")
+            Prelude.<*> (x Data..: "OrganizationConformancePackName")
+            Prelude.<*> (x Data..: "Status")
       )
 
 instance

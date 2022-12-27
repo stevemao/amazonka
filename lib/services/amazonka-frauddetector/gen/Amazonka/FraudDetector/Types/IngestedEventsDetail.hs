@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.IngestedEventsDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.FraudDetector.Types.IngestedEventsDetail where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types.IngestedEventsTimeWindow
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of the ingested event.
@@ -56,13 +57,13 @@ newIngestedEventsDetail pIngestedEventsTimeWindow_ =
 ingestedEventsDetail_ingestedEventsTimeWindow :: Lens.Lens' IngestedEventsDetail IngestedEventsTimeWindow
 ingestedEventsDetail_ingestedEventsTimeWindow = Lens.lens (\IngestedEventsDetail' {ingestedEventsTimeWindow} -> ingestedEventsTimeWindow) (\s@IngestedEventsDetail' {} a -> s {ingestedEventsTimeWindow = a} :: IngestedEventsDetail)
 
-instance Core.FromJSON IngestedEventsDetail where
+instance Data.FromJSON IngestedEventsDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IngestedEventsDetail"
       ( \x ->
           IngestedEventsDetail'
-            Prelude.<$> (x Core..: "ingestedEventsTimeWindow")
+            Prelude.<$> (x Data..: "ingestedEventsTimeWindow")
       )
 
 instance Prelude.Hashable IngestedEventsDetail where
@@ -74,13 +75,13 @@ instance Prelude.NFData IngestedEventsDetail where
   rnf IngestedEventsDetail' {..} =
     Prelude.rnf ingestedEventsTimeWindow
 
-instance Core.ToJSON IngestedEventsDetail where
+instance Data.ToJSON IngestedEventsDetail where
   toJSON IngestedEventsDetail' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "ingestedEventsTimeWindow"
-                  Core..= ingestedEventsTimeWindow
+                  Data..= ingestedEventsTimeWindow
               )
           ]
       )

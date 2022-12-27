@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.OutputSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.OutputSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the source where the association execution details are
@@ -65,14 +66,14 @@ outputSource_outputSourceId = Lens.lens (\OutputSource' {outputSourceId} -> outp
 outputSource_outputSourceType :: Lens.Lens' OutputSource (Prelude.Maybe Prelude.Text)
 outputSource_outputSourceType = Lens.lens (\OutputSource' {outputSourceType} -> outputSourceType) (\s@OutputSource' {} a -> s {outputSourceType = a} :: OutputSource)
 
-instance Core.FromJSON OutputSource where
+instance Data.FromJSON OutputSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OutputSource"
       ( \x ->
           OutputSource'
-            Prelude.<$> (x Core..:? "OutputSourceId")
-            Prelude.<*> (x Core..:? "OutputSourceType")
+            Prelude.<$> (x Data..:? "OutputSourceId")
+            Prelude.<*> (x Data..:? "OutputSourceType")
       )
 
 instance Prelude.Hashable OutputSource where

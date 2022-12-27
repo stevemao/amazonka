@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.CreateImageBuilderStreamingURL
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,15 +35,16 @@ module Amazonka.AppStream.CreateImageBuilderStreamingURL
     newCreateImageBuilderStreamingURLResponse,
 
     -- * Response Lenses
-    createImageBuilderStreamingURLResponse_streamingURL,
     createImageBuilderStreamingURLResponse_expires,
+    createImageBuilderStreamingURLResponse_streamingURL,
     createImageBuilderStreamingURLResponse_httpStatus,
   )
 where
 
 import Amazonka.AppStream.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,13 +98,14 @@ instance
   type
     AWSResponse CreateImageBuilderStreamingURL =
       CreateImageBuilderStreamingURLResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateImageBuilderStreamingURLResponse'
-            Prelude.<$> (x Core..?> "StreamingURL")
-            Prelude.<*> (x Core..?> "Expires")
+            Prelude.<$> (x Data..?> "Expires")
+            Prelude.<*> (x Data..?> "StreamingURL")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,45 +127,45 @@ instance
     Prelude.rnf validity `Prelude.seq` Prelude.rnf name
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateImageBuilderStreamingURL
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "PhotonAdminProxyService.CreateImageBuilderStreamingURL" ::
+              Data.=# ( "PhotonAdminProxyService.CreateImageBuilderStreamingURL" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateImageBuilderStreamingURL where
+instance Data.ToJSON CreateImageBuilderStreamingURL where
   toJSON CreateImageBuilderStreamingURL' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Validity" Core..=) Prelude.<$> validity,
-            Prelude.Just ("Name" Core..= name)
+          [ ("Validity" Data..=) Prelude.<$> validity,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateImageBuilderStreamingURL where
+instance Data.ToPath CreateImageBuilderStreamingURL where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateImageBuilderStreamingURL where
+instance Data.ToQuery CreateImageBuilderStreamingURL where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateImageBuilderStreamingURLResponse' smart constructor.
 data CreateImageBuilderStreamingURLResponse = CreateImageBuilderStreamingURLResponse'
-  { -- | The URL to start the AppStream 2.0 streaming session.
-    streamingURL :: Prelude.Maybe Prelude.Text,
-    -- | The elapsed time, in seconds after the Unix epoch, when this URL
+  { -- | The elapsed time, in seconds after the Unix epoch, when this URL
     -- expires.
-    expires :: Prelude.Maybe Core.POSIX,
+    expires :: Prelude.Maybe Data.POSIX,
+    -- | The URL to start the AppStream 2.0 streaming session.
+    streamingURL :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -177,10 +179,10 @@ data CreateImageBuilderStreamingURLResponse = CreateImageBuilderStreamingURLResp
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'streamingURL', 'createImageBuilderStreamingURLResponse_streamingURL' - The URL to start the AppStream 2.0 streaming session.
---
 -- 'expires', 'createImageBuilderStreamingURLResponse_expires' - The elapsed time, in seconds after the Unix epoch, when this URL
 -- expires.
+--
+-- 'streamingURL', 'createImageBuilderStreamingURLResponse_streamingURL' - The URL to start the AppStream 2.0 streaming session.
 --
 -- 'httpStatus', 'createImageBuilderStreamingURLResponse_httpStatus' - The response's http status code.
 newCreateImageBuilderStreamingURLResponse ::
@@ -190,20 +192,20 @@ newCreateImageBuilderStreamingURLResponse ::
 newCreateImageBuilderStreamingURLResponse
   pHttpStatus_ =
     CreateImageBuilderStreamingURLResponse'
-      { streamingURL =
+      { expires =
           Prelude.Nothing,
-        expires = Prelude.Nothing,
+        streamingURL = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | The URL to start the AppStream 2.0 streaming session.
-createImageBuilderStreamingURLResponse_streamingURL :: Lens.Lens' CreateImageBuilderStreamingURLResponse (Prelude.Maybe Prelude.Text)
-createImageBuilderStreamingURLResponse_streamingURL = Lens.lens (\CreateImageBuilderStreamingURLResponse' {streamingURL} -> streamingURL) (\s@CreateImageBuilderStreamingURLResponse' {} a -> s {streamingURL = a} :: CreateImageBuilderStreamingURLResponse)
 
 -- | The elapsed time, in seconds after the Unix epoch, when this URL
 -- expires.
 createImageBuilderStreamingURLResponse_expires :: Lens.Lens' CreateImageBuilderStreamingURLResponse (Prelude.Maybe Prelude.UTCTime)
-createImageBuilderStreamingURLResponse_expires = Lens.lens (\CreateImageBuilderStreamingURLResponse' {expires} -> expires) (\s@CreateImageBuilderStreamingURLResponse' {} a -> s {expires = a} :: CreateImageBuilderStreamingURLResponse) Prelude.. Lens.mapping Core._Time
+createImageBuilderStreamingURLResponse_expires = Lens.lens (\CreateImageBuilderStreamingURLResponse' {expires} -> expires) (\s@CreateImageBuilderStreamingURLResponse' {} a -> s {expires = a} :: CreateImageBuilderStreamingURLResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The URL to start the AppStream 2.0 streaming session.
+createImageBuilderStreamingURLResponse_streamingURL :: Lens.Lens' CreateImageBuilderStreamingURLResponse (Prelude.Maybe Prelude.Text)
+createImageBuilderStreamingURLResponse_streamingURL = Lens.lens (\CreateImageBuilderStreamingURLResponse' {streamingURL} -> streamingURL) (\s@CreateImageBuilderStreamingURLResponse' {} a -> s {streamingURL = a} :: CreateImageBuilderStreamingURLResponse)
 
 -- | The response's http status code.
 createImageBuilderStreamingURLResponse_httpStatus :: Lens.Lens' CreateImageBuilderStreamingURLResponse Prelude.Int
@@ -214,6 +216,6 @@ instance
     CreateImageBuilderStreamingURLResponse
   where
   rnf CreateImageBuilderStreamingURLResponse' {..} =
-    Prelude.rnf streamingURL
-      `Prelude.seq` Prelude.rnf expires
+    Prelude.rnf expires
+      `Prelude.seq` Prelude.rnf streamingURL
       `Prelude.seq` Prelude.rnf httpStatus

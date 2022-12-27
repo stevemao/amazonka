@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.Types.LoggingConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.CloudFormation.Types.LoggingConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains logging configuration information for an extension.
 --
 -- /See:/ 'newLoggingConfig' smart constructor.
 data LoggingConfig = LoggingConfig'
-  { -- | The ARN of the role that CloudFormation should assume when sending log
-    -- entries to CloudWatch logs.
+  { -- | The Amazon Resource Name (ARN) of the role that CloudFormation should
+    -- assume when sending log entries to CloudWatch Logs.
     logRoleArn :: Prelude.Text,
-    -- | The Amazon CloudWatch log group to which CloudFormation sends error
+    -- | The Amazon CloudWatch Logs group to which CloudFormation sends error
     -- logging information when invoking the extension\'s handlers.
     logGroupName :: Prelude.Text
   }
@@ -44,10 +45,10 @@ data LoggingConfig = LoggingConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'logRoleArn', 'loggingConfig_logRoleArn' - The ARN of the role that CloudFormation should assume when sending log
--- entries to CloudWatch logs.
+-- 'logRoleArn', 'loggingConfig_logRoleArn' - The Amazon Resource Name (ARN) of the role that CloudFormation should
+-- assume when sending log entries to CloudWatch Logs.
 --
--- 'logGroupName', 'loggingConfig_logGroupName' - The Amazon CloudWatch log group to which CloudFormation sends error
+-- 'logGroupName', 'loggingConfig_logGroupName' - The Amazon CloudWatch Logs group to which CloudFormation sends error
 -- logging information when invoking the extension\'s handlers.
 newLoggingConfig ::
   -- | 'logRoleArn'
@@ -61,21 +62,21 @@ newLoggingConfig pLogRoleArn_ pLogGroupName_ =
       logGroupName = pLogGroupName_
     }
 
--- | The ARN of the role that CloudFormation should assume when sending log
--- entries to CloudWatch logs.
+-- | The Amazon Resource Name (ARN) of the role that CloudFormation should
+-- assume when sending log entries to CloudWatch Logs.
 loggingConfig_logRoleArn :: Lens.Lens' LoggingConfig Prelude.Text
 loggingConfig_logRoleArn = Lens.lens (\LoggingConfig' {logRoleArn} -> logRoleArn) (\s@LoggingConfig' {} a -> s {logRoleArn = a} :: LoggingConfig)
 
--- | The Amazon CloudWatch log group to which CloudFormation sends error
+-- | The Amazon CloudWatch Logs group to which CloudFormation sends error
 -- logging information when invoking the extension\'s handlers.
 loggingConfig_logGroupName :: Lens.Lens' LoggingConfig Prelude.Text
 loggingConfig_logGroupName = Lens.lens (\LoggingConfig' {logGroupName} -> logGroupName) (\s@LoggingConfig' {} a -> s {logGroupName = a} :: LoggingConfig)
 
-instance Core.FromXML LoggingConfig where
+instance Data.FromXML LoggingConfig where
   parseXML x =
     LoggingConfig'
-      Prelude.<$> (x Core..@ "LogRoleArn")
-      Prelude.<*> (x Core..@ "LogGroupName")
+      Prelude.<$> (x Data..@ "LogRoleArn")
+      Prelude.<*> (x Data..@ "LogGroupName")
 
 instance Prelude.Hashable LoggingConfig where
   hashWithSalt _salt LoggingConfig' {..} =
@@ -87,9 +88,9 @@ instance Prelude.NFData LoggingConfig where
     Prelude.rnf logRoleArn
       `Prelude.seq` Prelude.rnf logGroupName
 
-instance Core.ToQuery LoggingConfig where
+instance Data.ToQuery LoggingConfig where
   toQuery LoggingConfig' {..} =
     Prelude.mconcat
-      [ "LogRoleArn" Core.=: logRoleArn,
-        "LogGroupName" Core.=: logGroupName
+      [ "LogRoleArn" Data.=: logRoleArn,
+        "LogGroupName" Data.=: logGroupName
       ]

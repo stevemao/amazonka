@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.PortRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EMR.Types.PortRange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of port ranges that are permitted to allow inbound traffic from
@@ -65,14 +66,14 @@ portRange_maxRange = Lens.lens (\PortRange' {maxRange} -> maxRange) (\s@PortRang
 portRange_minRange :: Lens.Lens' PortRange Prelude.Int
 portRange_minRange = Lens.lens (\PortRange' {minRange} -> minRange) (\s@PortRange' {} a -> s {minRange = a} :: PortRange)
 
-instance Core.FromJSON PortRange where
+instance Data.FromJSON PortRange where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PortRange"
       ( \x ->
           PortRange'
-            Prelude.<$> (x Core..:? "MaxRange")
-            Prelude.<*> (x Core..: "MinRange")
+            Prelude.<$> (x Data..:? "MaxRange")
+            Prelude.<*> (x Data..: "MinRange")
       )
 
 instance Prelude.Hashable PortRange where
@@ -85,11 +86,11 @@ instance Prelude.NFData PortRange where
     Prelude.rnf maxRange
       `Prelude.seq` Prelude.rnf minRange
 
-instance Core.ToJSON PortRange where
+instance Data.ToJSON PortRange where
   toJSON PortRange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MaxRange" Core..=) Prelude.<$> maxRange,
-            Prelude.Just ("MinRange" Core..= minRange)
+          [ ("MaxRange" Data..=) Prelude.<$> maxRange,
+            Prelude.Just ("MinRange" Data..= minRange)
           ]
       )

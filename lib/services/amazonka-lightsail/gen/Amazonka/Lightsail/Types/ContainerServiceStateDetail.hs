@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.ContainerServiceStateDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.ContainerServiceStateDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.ContainerServiceStateDetailCode
 import qualified Amazonka.Prelude as Prelude
 
@@ -177,14 +178,14 @@ containerServiceStateDetail_code = Lens.lens (\ContainerServiceStateDetail' {cod
 containerServiceStateDetail_message :: Lens.Lens' ContainerServiceStateDetail (Prelude.Maybe Prelude.Text)
 containerServiceStateDetail_message = Lens.lens (\ContainerServiceStateDetail' {message} -> message) (\s@ContainerServiceStateDetail' {} a -> s {message = a} :: ContainerServiceStateDetail)
 
-instance Core.FromJSON ContainerServiceStateDetail where
+instance Data.FromJSON ContainerServiceStateDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContainerServiceStateDetail"
       ( \x ->
           ContainerServiceStateDetail'
-            Prelude.<$> (x Core..:? "code")
-            Prelude.<*> (x Core..:? "message")
+            Prelude.<$> (x Data..:? "code")
+            Prelude.<*> (x Data..:? "message")
       )
 
 instance Prelude.Hashable ContainerServiceStateDetail where

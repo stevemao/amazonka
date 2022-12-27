@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppIntegrationS.UpdateDataIntegration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.AppIntegrationS.UpdateDataIntegration
     newUpdateDataIntegration,
 
     -- * Request Lenses
-    updateDataIntegration_name,
     updateDataIntegration_description,
+    updateDataIntegration_name,
     updateDataIntegration_identifier,
 
     -- * Destructuring the Response
@@ -48,17 +48,18 @@ where
 
 import Amazonka.AppIntegrationS.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateDataIntegration' smart constructor.
 data UpdateDataIntegration = UpdateDataIntegration'
-  { -- | The name of the DataIntegration.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | A description of the DataIntegration.
+  { -- | A description of the DataIntegration.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the DataIntegration.
+    name :: Prelude.Maybe Prelude.Text,
     -- | A unique identifier for the DataIntegration.
     identifier :: Prelude.Text
   }
@@ -72,9 +73,9 @@ data UpdateDataIntegration = UpdateDataIntegration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'updateDataIntegration_name' - The name of the DataIntegration.
---
 -- 'description', 'updateDataIntegration_description' - A description of the DataIntegration.
+--
+-- 'name', 'updateDataIntegration_name' - The name of the DataIntegration.
 --
 -- 'identifier', 'updateDataIntegration_identifier' - A unique identifier for the DataIntegration.
 newUpdateDataIntegration ::
@@ -83,18 +84,19 @@ newUpdateDataIntegration ::
   UpdateDataIntegration
 newUpdateDataIntegration pIdentifier_ =
   UpdateDataIntegration'
-    { name = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description =
+        Prelude.Nothing,
+      name = Prelude.Nothing,
       identifier = pIdentifier_
     }
-
--- | The name of the DataIntegration.
-updateDataIntegration_name :: Lens.Lens' UpdateDataIntegration (Prelude.Maybe Prelude.Text)
-updateDataIntegration_name = Lens.lens (\UpdateDataIntegration' {name} -> name) (\s@UpdateDataIntegration' {} a -> s {name = a} :: UpdateDataIntegration)
 
 -- | A description of the DataIntegration.
 updateDataIntegration_description :: Lens.Lens' UpdateDataIntegration (Prelude.Maybe Prelude.Text)
 updateDataIntegration_description = Lens.lens (\UpdateDataIntegration' {description} -> description) (\s@UpdateDataIntegration' {} a -> s {description = a} :: UpdateDataIntegration)
+
+-- | The name of the DataIntegration.
+updateDataIntegration_name :: Lens.Lens' UpdateDataIntegration (Prelude.Maybe Prelude.Text)
+updateDataIntegration_name = Lens.lens (\UpdateDataIntegration' {name} -> name) (\s@UpdateDataIntegration' {} a -> s {name = a} :: UpdateDataIntegration)
 
 -- | A unique identifier for the DataIntegration.
 updateDataIntegration_identifier :: Lens.Lens' UpdateDataIntegration Prelude.Text
@@ -104,7 +106,8 @@ instance Core.AWSRequest UpdateDataIntegration where
   type
     AWSResponse UpdateDataIntegration =
       UpdateDataIntegrationResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,42 +117,42 @@ instance Core.AWSRequest UpdateDataIntegration where
 
 instance Prelude.Hashable UpdateDataIntegration where
   hashWithSalt _salt UpdateDataIntegration' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` identifier
 
 instance Prelude.NFData UpdateDataIntegration where
   rnf UpdateDataIntegration' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf identifier
 
-instance Core.ToHeaders UpdateDataIntegration where
+instance Data.ToHeaders UpdateDataIntegration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDataIntegration where
+instance Data.ToJSON UpdateDataIntegration where
   toJSON UpdateDataIntegration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Name" Core..=) Prelude.<$> name,
-            ("Description" Core..=) Prelude.<$> description
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Name" Data..=) Prelude.<$> name
           ]
       )
 
-instance Core.ToPath UpdateDataIntegration where
+instance Data.ToPath UpdateDataIntegration where
   toPath UpdateDataIntegration' {..} =
     Prelude.mconcat
-      ["/dataIntegrations/", Core.toBS identifier]
+      ["/dataIntegrations/", Data.toBS identifier]
 
-instance Core.ToQuery UpdateDataIntegration where
+instance Data.ToQuery UpdateDataIntegration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDataIntegrationResponse' smart constructor.

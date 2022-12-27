@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.CompatibleVersionsMap
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,18 @@
 module Amazonka.OpenSearch.Types.CompatibleVersionsMap where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | A map from an @ EngineVersion @ to a list of compatible
--- @ EngineVersion @ s to which the domain can be upgraded.
+-- | A map of OpenSearch or Elasticsearch versions and the versions you can
+-- upgrade them to.
 --
 -- /See:/ 'newCompatibleVersionsMap' smart constructor.
 data CompatibleVersionsMap = CompatibleVersionsMap'
-  { -- | The current version of OpenSearch a domain is on.
+  { -- | The current version that the OpenSearch Service domain is running.
     sourceVersion :: Prelude.Maybe Prelude.Text,
+    -- | The possible versions that you can upgrade the domain to.
     targetVersions :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -42,9 +44,9 @@ data CompatibleVersionsMap = CompatibleVersionsMap'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sourceVersion', 'compatibleVersionsMap_sourceVersion' - The current version of OpenSearch a domain is on.
+-- 'sourceVersion', 'compatibleVersionsMap_sourceVersion' - The current version that the OpenSearch Service domain is running.
 --
--- 'targetVersions', 'compatibleVersionsMap_targetVersions' - Undocumented member.
+-- 'targetVersions', 'compatibleVersionsMap_targetVersions' - The possible versions that you can upgrade the domain to.
 newCompatibleVersionsMap ::
   CompatibleVersionsMap
 newCompatibleVersionsMap =
@@ -54,23 +56,23 @@ newCompatibleVersionsMap =
       targetVersions = Prelude.Nothing
     }
 
--- | The current version of OpenSearch a domain is on.
+-- | The current version that the OpenSearch Service domain is running.
 compatibleVersionsMap_sourceVersion :: Lens.Lens' CompatibleVersionsMap (Prelude.Maybe Prelude.Text)
 compatibleVersionsMap_sourceVersion = Lens.lens (\CompatibleVersionsMap' {sourceVersion} -> sourceVersion) (\s@CompatibleVersionsMap' {} a -> s {sourceVersion = a} :: CompatibleVersionsMap)
 
--- | Undocumented member.
+-- | The possible versions that you can upgrade the domain to.
 compatibleVersionsMap_targetVersions :: Lens.Lens' CompatibleVersionsMap (Prelude.Maybe [Prelude.Text])
 compatibleVersionsMap_targetVersions = Lens.lens (\CompatibleVersionsMap' {targetVersions} -> targetVersions) (\s@CompatibleVersionsMap' {} a -> s {targetVersions = a} :: CompatibleVersionsMap) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON CompatibleVersionsMap where
+instance Data.FromJSON CompatibleVersionsMap where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CompatibleVersionsMap"
       ( \x ->
           CompatibleVersionsMap'
-            Prelude.<$> (x Core..:? "SourceVersion")
-            Prelude.<*> ( x Core..:? "TargetVersions"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "SourceVersion")
+            Prelude.<*> ( x Data..:? "TargetVersions"
+                            Data..!= Prelude.mempty
                         )
       )
 

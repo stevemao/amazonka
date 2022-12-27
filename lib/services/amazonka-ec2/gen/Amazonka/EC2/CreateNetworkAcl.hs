@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateNetworkAcl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.EC2.CreateNetworkAcl
     newCreateNetworkAcl,
 
     -- * Request Lenses
-    createNetworkAcl_tagSpecifications,
     createNetworkAcl_dryRun,
+    createNetworkAcl_tagSpecifications,
     createNetworkAcl_vpcId,
 
     -- * Destructuring the Response
@@ -48,21 +48,22 @@ module Amazonka.EC2.CreateNetworkAcl
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateNetworkAcl' smart constructor.
 data CreateNetworkAcl = CreateNetworkAcl'
-  { -- | The tags to assign to the network ACL.
-    tagSpecifications :: Prelude.Maybe [TagSpecification],
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The tags to assign to the network ACL.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
     -- | The ID of the VPC.
     vpcId :: Prelude.Text
   }
@@ -76,12 +77,12 @@ data CreateNetworkAcl = CreateNetworkAcl'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tagSpecifications', 'createNetworkAcl_tagSpecifications' - The tags to assign to the network ACL.
---
 -- 'dryRun', 'createNetworkAcl_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'tagSpecifications', 'createNetworkAcl_tagSpecifications' - The tags to assign to the network ACL.
 --
 -- 'vpcId', 'createNetworkAcl_vpcId' - The ID of the VPC.
 newCreateNetworkAcl ::
@@ -90,15 +91,10 @@ newCreateNetworkAcl ::
   CreateNetworkAcl
 newCreateNetworkAcl pVpcId_ =
   CreateNetworkAcl'
-    { tagSpecifications =
-        Prelude.Nothing,
-      dryRun = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
+      tagSpecifications = Prelude.Nothing,
       vpcId = pVpcId_
     }
-
--- | The tags to assign to the network ACL.
-createNetworkAcl_tagSpecifications :: Lens.Lens' CreateNetworkAcl (Prelude.Maybe [TagSpecification])
-createNetworkAcl_tagSpecifications = Lens.lens (\CreateNetworkAcl' {tagSpecifications} -> tagSpecifications) (\s@CreateNetworkAcl' {} a -> s {tagSpecifications = a} :: CreateNetworkAcl) Prelude.. Lens.mapping Lens.coerced
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -106,6 +102,10 @@ createNetworkAcl_tagSpecifications = Lens.lens (\CreateNetworkAcl' {tagSpecifica
 -- Otherwise, it is @UnauthorizedOperation@.
 createNetworkAcl_dryRun :: Lens.Lens' CreateNetworkAcl (Prelude.Maybe Prelude.Bool)
 createNetworkAcl_dryRun = Lens.lens (\CreateNetworkAcl' {dryRun} -> dryRun) (\s@CreateNetworkAcl' {} a -> s {dryRun = a} :: CreateNetworkAcl)
+
+-- | The tags to assign to the network ACL.
+createNetworkAcl_tagSpecifications :: Lens.Lens' CreateNetworkAcl (Prelude.Maybe [TagSpecification])
+createNetworkAcl_tagSpecifications = Lens.lens (\CreateNetworkAcl' {tagSpecifications} -> tagSpecifications) (\s@CreateNetworkAcl' {} a -> s {tagSpecifications = a} :: CreateNetworkAcl) Prelude.. Lens.mapping Lens.coerced
 
 -- | The ID of the VPC.
 createNetworkAcl_vpcId :: Lens.Lens' CreateNetworkAcl Prelude.Text
@@ -115,46 +115,47 @@ instance Core.AWSRequest CreateNetworkAcl where
   type
     AWSResponse CreateNetworkAcl =
       CreateNetworkAclResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateNetworkAclResponse'
-            Prelude.<$> (x Core..@? "networkAcl")
+            Prelude.<$> (x Data..@? "networkAcl")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateNetworkAcl where
   hashWithSalt _salt CreateNetworkAcl' {..} =
-    _salt `Prelude.hashWithSalt` tagSpecifications
-      `Prelude.hashWithSalt` dryRun
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` tagSpecifications
       `Prelude.hashWithSalt` vpcId
 
 instance Prelude.NFData CreateNetworkAcl where
   rnf CreateNetworkAcl' {..} =
-    Prelude.rnf tagSpecifications
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf tagSpecifications
       `Prelude.seq` Prelude.rnf vpcId
 
-instance Core.ToHeaders CreateNetworkAcl where
+instance Data.ToHeaders CreateNetworkAcl where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateNetworkAcl where
+instance Data.ToPath CreateNetworkAcl where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateNetworkAcl where
+instance Data.ToQuery CreateNetworkAcl where
   toQuery CreateNetworkAcl' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateNetworkAcl" :: Prelude.ByteString),
+          Data.=: ("CreateNetworkAcl" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          ( Core.toQueryList "TagSpecification"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          ( Data.toQueryList "TagSpecification"
               Prelude.<$> tagSpecifications
           ),
-        "DryRun" Core.=: dryRun,
-        "VpcId" Core.=: vpcId
+        "VpcId" Data.=: vpcId
       ]
 
 -- | /See:/ 'newCreateNetworkAclResponse' smart constructor.

@@ -14,16 +14,17 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.ListBackups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- List backups associated with an AWS account. To list backups for a given
--- table, specify @TableName@. @ListBackups@ returns a paginated list of
--- results with at most 1 MB worth of items in a page. You can also specify
--- a maximum number of entries to be returned in a page.
+-- List backups associated with an Amazon Web Services account. To list
+-- backups for a given table, specify @TableName@. @ListBackups@ returns a
+-- paginated list of results with at most 1 MB worth of items in a page.
+-- You can also specify a maximum number of entries to be returned in a
+-- page.
 --
 -- In the request, start time is inclusive, but end time is exclusive. Note
 -- that these boundaries are for the time at which the original backup was
@@ -38,12 +39,12 @@ module Amazonka.DynamoDB.ListBackups
     newListBackups,
 
     -- * Request Lenses
-    listBackups_timeRangeUpperBound,
-    listBackups_timeRangeLowerBound,
-    listBackups_limit,
-    listBackups_exclusiveStartBackupArn,
     listBackups_backupType,
+    listBackups_exclusiveStartBackupArn,
+    listBackups_limit,
     listBackups_tableName,
+    listBackups_timeRangeLowerBound,
+    listBackups_timeRangeUpperBound,
 
     -- * Destructuring the Response
     ListBackupsResponse (..),
@@ -57,40 +58,42 @@ module Amazonka.DynamoDB.ListBackups
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListBackups' smart constructor.
 data ListBackups = ListBackups'
-  { -- | Only backups created before this time are listed. @TimeRangeUpperBound@
-    -- is exclusive.
-    timeRangeUpperBound :: Prelude.Maybe Core.POSIX,
-    -- | Only backups created after this time are listed. @TimeRangeLowerBound@
-    -- is inclusive.
-    timeRangeLowerBound :: Prelude.Maybe Core.POSIX,
-    -- | Maximum number of backups to return at once.
-    limit :: Prelude.Maybe Prelude.Natural,
+  { -- | The backups from the table specified by @BackupType@ are listed.
+    --
+    -- Where @BackupType@ can be:
+    --
+    -- -   @USER@ - On-demand backup created by you. (The default setting if no
+    --     other backup types are specified.)
+    --
+    -- -   @SYSTEM@ - On-demand backup automatically created by DynamoDB.
+    --
+    -- -   @ALL@ - All types of on-demand backups (USER and SYSTEM).
+    backupType :: Prelude.Maybe BackupTypeFilter,
     -- | @LastEvaluatedBackupArn@ is the Amazon Resource Name (ARN) of the backup
     -- last evaluated when the current page of results was returned, inclusive
     -- of the current page of results. This value may be specified as the
     -- @ExclusiveStartBackupArn@ of a new @ListBackups@ operation in order to
     -- fetch the next page of results.
     exclusiveStartBackupArn :: Prelude.Maybe Prelude.Text,
-    -- | The backups from the table specified by @BackupType@ are listed.
-    --
-    -- Where @BackupType@ can be:
-    --
-    -- -   @USER@ - On-demand backup created by you.
-    --
-    -- -   @SYSTEM@ - On-demand backup automatically created by DynamoDB.
-    --
-    -- -   @ALL@ - All types of on-demand backups (USER and SYSTEM).
-    backupType :: Prelude.Maybe BackupTypeFilter,
+    -- | Maximum number of backups to return at once.
+    limit :: Prelude.Maybe Prelude.Natural,
     -- | The backups from the table specified by @TableName@ are listed.
-    tableName :: Prelude.Maybe Prelude.Text
+    tableName :: Prelude.Maybe Prelude.Text,
+    -- | Only backups created after this time are listed. @TimeRangeLowerBound@
+    -- is inclusive.
+    timeRangeLowerBound :: Prelude.Maybe Data.POSIX,
+    -- | Only backups created before this time are listed. @TimeRangeUpperBound@
+    -- is exclusive.
+    timeRangeUpperBound :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -102,13 +105,16 @@ data ListBackups = ListBackups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'timeRangeUpperBound', 'listBackups_timeRangeUpperBound' - Only backups created before this time are listed. @TimeRangeUpperBound@
--- is exclusive.
+-- 'backupType', 'listBackups_backupType' - The backups from the table specified by @BackupType@ are listed.
 --
--- 'timeRangeLowerBound', 'listBackups_timeRangeLowerBound' - Only backups created after this time are listed. @TimeRangeLowerBound@
--- is inclusive.
+-- Where @BackupType@ can be:
 --
--- 'limit', 'listBackups_limit' - Maximum number of backups to return at once.
+-- -   @USER@ - On-demand backup created by you. (The default setting if no
+--     other backup types are specified.)
+--
+-- -   @SYSTEM@ - On-demand backup automatically created by DynamoDB.
+--
+-- -   @ALL@ - All types of on-demand backups (USER and SYSTEM).
 --
 -- 'exclusiveStartBackupArn', 'listBackups_exclusiveStartBackupArn' - @LastEvaluatedBackupArn@ is the Amazon Resource Name (ARN) of the backup
 -- last evaluated when the current page of results was returned, inclusive
@@ -116,42 +122,39 @@ data ListBackups = ListBackups'
 -- @ExclusiveStartBackupArn@ of a new @ListBackups@ operation in order to
 -- fetch the next page of results.
 --
--- 'backupType', 'listBackups_backupType' - The backups from the table specified by @BackupType@ are listed.
---
--- Where @BackupType@ can be:
---
--- -   @USER@ - On-demand backup created by you.
---
--- -   @SYSTEM@ - On-demand backup automatically created by DynamoDB.
---
--- -   @ALL@ - All types of on-demand backups (USER and SYSTEM).
+-- 'limit', 'listBackups_limit' - Maximum number of backups to return at once.
 --
 -- 'tableName', 'listBackups_tableName' - The backups from the table specified by @TableName@ are listed.
+--
+-- 'timeRangeLowerBound', 'listBackups_timeRangeLowerBound' - Only backups created after this time are listed. @TimeRangeLowerBound@
+-- is inclusive.
+--
+-- 'timeRangeUpperBound', 'listBackups_timeRangeUpperBound' - Only backups created before this time are listed. @TimeRangeUpperBound@
+-- is exclusive.
 newListBackups ::
   ListBackups
 newListBackups =
   ListBackups'
-    { timeRangeUpperBound = Prelude.Nothing,
-      timeRangeLowerBound = Prelude.Nothing,
-      limit = Prelude.Nothing,
+    { backupType = Prelude.Nothing,
       exclusiveStartBackupArn = Prelude.Nothing,
-      backupType = Prelude.Nothing,
-      tableName = Prelude.Nothing
+      limit = Prelude.Nothing,
+      tableName = Prelude.Nothing,
+      timeRangeLowerBound = Prelude.Nothing,
+      timeRangeUpperBound = Prelude.Nothing
     }
 
--- | Only backups created before this time are listed. @TimeRangeUpperBound@
--- is exclusive.
-listBackups_timeRangeUpperBound :: Lens.Lens' ListBackups (Prelude.Maybe Prelude.UTCTime)
-listBackups_timeRangeUpperBound = Lens.lens (\ListBackups' {timeRangeUpperBound} -> timeRangeUpperBound) (\s@ListBackups' {} a -> s {timeRangeUpperBound = a} :: ListBackups) Prelude.. Lens.mapping Core._Time
-
--- | Only backups created after this time are listed. @TimeRangeLowerBound@
--- is inclusive.
-listBackups_timeRangeLowerBound :: Lens.Lens' ListBackups (Prelude.Maybe Prelude.UTCTime)
-listBackups_timeRangeLowerBound = Lens.lens (\ListBackups' {timeRangeLowerBound} -> timeRangeLowerBound) (\s@ListBackups' {} a -> s {timeRangeLowerBound = a} :: ListBackups) Prelude.. Lens.mapping Core._Time
-
--- | Maximum number of backups to return at once.
-listBackups_limit :: Lens.Lens' ListBackups (Prelude.Maybe Prelude.Natural)
-listBackups_limit = Lens.lens (\ListBackups' {limit} -> limit) (\s@ListBackups' {} a -> s {limit = a} :: ListBackups)
+-- | The backups from the table specified by @BackupType@ are listed.
+--
+-- Where @BackupType@ can be:
+--
+-- -   @USER@ - On-demand backup created by you. (The default setting if no
+--     other backup types are specified.)
+--
+-- -   @SYSTEM@ - On-demand backup automatically created by DynamoDB.
+--
+-- -   @ALL@ - All types of on-demand backups (USER and SYSTEM).
+listBackups_backupType :: Lens.Lens' ListBackups (Prelude.Maybe BackupTypeFilter)
+listBackups_backupType = Lens.lens (\ListBackups' {backupType} -> backupType) (\s@ListBackups' {} a -> s {backupType = a} :: ListBackups)
 
 -- | @LastEvaluatedBackupArn@ is the Amazon Resource Name (ARN) of the backup
 -- last evaluated when the current page of results was returned, inclusive
@@ -161,21 +164,23 @@ listBackups_limit = Lens.lens (\ListBackups' {limit} -> limit) (\s@ListBackups' 
 listBackups_exclusiveStartBackupArn :: Lens.Lens' ListBackups (Prelude.Maybe Prelude.Text)
 listBackups_exclusiveStartBackupArn = Lens.lens (\ListBackups' {exclusiveStartBackupArn} -> exclusiveStartBackupArn) (\s@ListBackups' {} a -> s {exclusiveStartBackupArn = a} :: ListBackups)
 
--- | The backups from the table specified by @BackupType@ are listed.
---
--- Where @BackupType@ can be:
---
--- -   @USER@ - On-demand backup created by you.
---
--- -   @SYSTEM@ - On-demand backup automatically created by DynamoDB.
---
--- -   @ALL@ - All types of on-demand backups (USER and SYSTEM).
-listBackups_backupType :: Lens.Lens' ListBackups (Prelude.Maybe BackupTypeFilter)
-listBackups_backupType = Lens.lens (\ListBackups' {backupType} -> backupType) (\s@ListBackups' {} a -> s {backupType = a} :: ListBackups)
+-- | Maximum number of backups to return at once.
+listBackups_limit :: Lens.Lens' ListBackups (Prelude.Maybe Prelude.Natural)
+listBackups_limit = Lens.lens (\ListBackups' {limit} -> limit) (\s@ListBackups' {} a -> s {limit = a} :: ListBackups)
 
 -- | The backups from the table specified by @TableName@ are listed.
 listBackups_tableName :: Lens.Lens' ListBackups (Prelude.Maybe Prelude.Text)
 listBackups_tableName = Lens.lens (\ListBackups' {tableName} -> tableName) (\s@ListBackups' {} a -> s {tableName = a} :: ListBackups)
+
+-- | Only backups created after this time are listed. @TimeRangeLowerBound@
+-- is inclusive.
+listBackups_timeRangeLowerBound :: Lens.Lens' ListBackups (Prelude.Maybe Prelude.UTCTime)
+listBackups_timeRangeLowerBound = Lens.lens (\ListBackups' {timeRangeLowerBound} -> timeRangeLowerBound) (\s@ListBackups' {} a -> s {timeRangeLowerBound = a} :: ListBackups) Prelude.. Lens.mapping Data._Time
+
+-- | Only backups created before this time are listed. @TimeRangeUpperBound@
+-- is exclusive.
+listBackups_timeRangeUpperBound :: Lens.Lens' ListBackups (Prelude.Maybe Prelude.UTCTime)
+listBackups_timeRangeUpperBound = Lens.lens (\ListBackups' {timeRangeUpperBound} -> timeRangeUpperBound) (\s@ListBackups' {} a -> s {timeRangeUpperBound = a} :: ListBackups) Prelude.. Lens.mapping Data._Time
 
 instance Core.AWSPager ListBackups where
   page rq rs
@@ -201,71 +206,72 @@ instance Core.AWSPager ListBackups where
 
 instance Core.AWSRequest ListBackups where
   type AWSResponse ListBackups = ListBackupsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListBackupsResponse'
-            Prelude.<$> ( x Core..?> "BackupSummaries"
+            Prelude.<$> ( x Data..?> "BackupSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "LastEvaluatedBackupArn")
+            Prelude.<*> (x Data..?> "LastEvaluatedBackupArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListBackups where
   hashWithSalt _salt ListBackups' {..} =
-    _salt `Prelude.hashWithSalt` timeRangeUpperBound
-      `Prelude.hashWithSalt` timeRangeLowerBound
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` backupType
       `Prelude.hashWithSalt` exclusiveStartBackupArn
-      `Prelude.hashWithSalt` backupType
+      `Prelude.hashWithSalt` limit
       `Prelude.hashWithSalt` tableName
+      `Prelude.hashWithSalt` timeRangeLowerBound
+      `Prelude.hashWithSalt` timeRangeUpperBound
 
 instance Prelude.NFData ListBackups where
   rnf ListBackups' {..} =
-    Prelude.rnf timeRangeUpperBound
-      `Prelude.seq` Prelude.rnf timeRangeLowerBound
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf backupType
       `Prelude.seq` Prelude.rnf exclusiveStartBackupArn
-      `Prelude.seq` Prelude.rnf backupType
+      `Prelude.seq` Prelude.rnf limit
       `Prelude.seq` Prelude.rnf tableName
+      `Prelude.seq` Prelude.rnf timeRangeLowerBound
+      `Prelude.seq` Prelude.rnf timeRangeUpperBound
 
-instance Core.ToHeaders ListBackups where
+instance Data.ToHeaders ListBackups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.ListBackups" ::
+              Data.=# ( "DynamoDB_20120810.ListBackups" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListBackups where
+instance Data.ToJSON ListBackups where
   toJSON ListBackups' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TimeRangeUpperBound" Core..=)
-              Prelude.<$> timeRangeUpperBound,
-            ("TimeRangeLowerBound" Core..=)
-              Prelude.<$> timeRangeLowerBound,
-            ("Limit" Core..=) Prelude.<$> limit,
-            ("ExclusiveStartBackupArn" Core..=)
+          [ ("BackupType" Data..=) Prelude.<$> backupType,
+            ("ExclusiveStartBackupArn" Data..=)
               Prelude.<$> exclusiveStartBackupArn,
-            ("BackupType" Core..=) Prelude.<$> backupType,
-            ("TableName" Core..=) Prelude.<$> tableName
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("TableName" Data..=) Prelude.<$> tableName,
+            ("TimeRangeLowerBound" Data..=)
+              Prelude.<$> timeRangeLowerBound,
+            ("TimeRangeUpperBound" Data..=)
+              Prelude.<$> timeRangeUpperBound
           ]
       )
 
-instance Core.ToPath ListBackups where
+instance Data.ToPath ListBackups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListBackups where
+instance Data.ToQuery ListBackups where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListBackupsResponse' smart constructor.

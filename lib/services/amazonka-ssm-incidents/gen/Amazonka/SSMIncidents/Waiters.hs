@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,7 +17,8 @@
 module Amazonka.SSMIncidents.Waiters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSMIncidents.GetReplicationSet
 import Amazonka.SSMIncidents.Lens
@@ -26,38 +28,38 @@ import Amazonka.SSMIncidents.Types
 newWaitForReplicationSetActive :: Core.Wait GetReplicationSet
 newWaitForReplicationSetActive =
   Core.Wait
-    { Core._waitName =
+    { Core.name =
         "WaitForReplicationSetActive",
-      Core._waitAttempts = 5,
-      Core._waitDelay = 30,
-      Core._waitAcceptors =
+      Core.attempts = 5,
+      Core.delay = 30,
+      Core.acceptors =
         [ Core.matchAll
             "ACTIVE"
             Core.AcceptSuccess
             ( getReplicationSetResponse_replicationSet
                 Prelude.. replicationSet_status
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "CREATING"
             Core.AcceptRetry
             ( getReplicationSetResponse_replicationSet
                 Prelude.. replicationSet_status
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "UPDATING"
             Core.AcceptRetry
             ( getReplicationSetResponse_replicationSet
                 Prelude.. replicationSet_status
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "FAILED"
             Core.AcceptFailure
             ( getReplicationSetResponse_replicationSet
                 Prelude.. replicationSet_status
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
@@ -66,11 +68,11 @@ newWaitForReplicationSetActive =
 newWaitForReplicationSetDeleted :: Core.Wait GetReplicationSet
 newWaitForReplicationSetDeleted =
   Core.Wait
-    { Core._waitName =
+    { Core.name =
         "WaitForReplicationSetDeleted",
-      Core._waitAttempts = 5,
-      Core._waitDelay = 30,
-      Core._waitAcceptors =
+      Core.attempts = 5,
+      Core.delay = 30,
+      Core.acceptors =
         [ Core.matchError
             "ResourceNotFoundException"
             Core.AcceptSuccess,
@@ -79,14 +81,14 @@ newWaitForReplicationSetDeleted =
             Core.AcceptRetry
             ( getReplicationSetResponse_replicationSet
                 Prelude.. replicationSet_status
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "FAILED"
             Core.AcceptFailure
             ( getReplicationSetResponse_replicationSet
                 Prelude.. replicationSet_status
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }

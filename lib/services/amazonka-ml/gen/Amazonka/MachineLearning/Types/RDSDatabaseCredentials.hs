@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MachineLearning.Types.RDSDatabaseCredentials
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MachineLearning.Types.RDSDatabaseCredentials where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The database credentials to connect to a database on an RDS DB instance.
@@ -73,11 +74,11 @@ instance Prelude.NFData RDSDatabaseCredentials where
     Prelude.rnf username
       `Prelude.seq` Prelude.rnf password
 
-instance Core.ToJSON RDSDatabaseCredentials where
+instance Data.ToJSON RDSDatabaseCredentials where
   toJSON RDSDatabaseCredentials' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Username" Core..= username),
-            Prelude.Just ("Password" Core..= password)
+          [ Prelude.Just ("Username" Data..= username),
+            Prelude.Just ("Password" Data..= password)
           ]
       )

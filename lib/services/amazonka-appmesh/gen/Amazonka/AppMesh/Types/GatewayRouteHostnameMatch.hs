@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.GatewayRouteHostnameMatch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.AppMesh.Types.GatewayRouteHostnameMatch where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing the gateway route host name to match.
 --
 -- /See:/ 'newGatewayRouteHostnameMatch' smart constructor.
 data GatewayRouteHostnameMatch = GatewayRouteHostnameMatch'
-  { -- | The specified ending characters of the host name to match on.
-    suffix :: Prelude.Maybe Prelude.Text,
-    -- | The exact host name to match on.
-    exact :: Prelude.Maybe Prelude.Text
+  { -- | The exact host name to match on.
+    exact :: Prelude.Maybe Prelude.Text,
+    -- | The specified ending characters of the host name to match on.
+    suffix :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,50 +43,49 @@ data GatewayRouteHostnameMatch = GatewayRouteHostnameMatch'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'suffix', 'gatewayRouteHostnameMatch_suffix' - The specified ending characters of the host name to match on.
---
 -- 'exact', 'gatewayRouteHostnameMatch_exact' - The exact host name to match on.
+--
+-- 'suffix', 'gatewayRouteHostnameMatch_suffix' - The specified ending characters of the host name to match on.
 newGatewayRouteHostnameMatch ::
   GatewayRouteHostnameMatch
 newGatewayRouteHostnameMatch =
   GatewayRouteHostnameMatch'
-    { suffix =
-        Prelude.Nothing,
-      exact = Prelude.Nothing
+    { exact = Prelude.Nothing,
+      suffix = Prelude.Nothing
     }
-
--- | The specified ending characters of the host name to match on.
-gatewayRouteHostnameMatch_suffix :: Lens.Lens' GatewayRouteHostnameMatch (Prelude.Maybe Prelude.Text)
-gatewayRouteHostnameMatch_suffix = Lens.lens (\GatewayRouteHostnameMatch' {suffix} -> suffix) (\s@GatewayRouteHostnameMatch' {} a -> s {suffix = a} :: GatewayRouteHostnameMatch)
 
 -- | The exact host name to match on.
 gatewayRouteHostnameMatch_exact :: Lens.Lens' GatewayRouteHostnameMatch (Prelude.Maybe Prelude.Text)
 gatewayRouteHostnameMatch_exact = Lens.lens (\GatewayRouteHostnameMatch' {exact} -> exact) (\s@GatewayRouteHostnameMatch' {} a -> s {exact = a} :: GatewayRouteHostnameMatch)
 
-instance Core.FromJSON GatewayRouteHostnameMatch where
+-- | The specified ending characters of the host name to match on.
+gatewayRouteHostnameMatch_suffix :: Lens.Lens' GatewayRouteHostnameMatch (Prelude.Maybe Prelude.Text)
+gatewayRouteHostnameMatch_suffix = Lens.lens (\GatewayRouteHostnameMatch' {suffix} -> suffix) (\s@GatewayRouteHostnameMatch' {} a -> s {suffix = a} :: GatewayRouteHostnameMatch)
+
+instance Data.FromJSON GatewayRouteHostnameMatch where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GatewayRouteHostnameMatch"
       ( \x ->
           GatewayRouteHostnameMatch'
-            Prelude.<$> (x Core..:? "suffix")
-            Prelude.<*> (x Core..:? "exact")
+            Prelude.<$> (x Data..:? "exact")
+            Prelude.<*> (x Data..:? "suffix")
       )
 
 instance Prelude.Hashable GatewayRouteHostnameMatch where
   hashWithSalt _salt GatewayRouteHostnameMatch' {..} =
-    _salt `Prelude.hashWithSalt` suffix
-      `Prelude.hashWithSalt` exact
+    _salt `Prelude.hashWithSalt` exact
+      `Prelude.hashWithSalt` suffix
 
 instance Prelude.NFData GatewayRouteHostnameMatch where
   rnf GatewayRouteHostnameMatch' {..} =
-    Prelude.rnf suffix `Prelude.seq` Prelude.rnf exact
+    Prelude.rnf exact `Prelude.seq` Prelude.rnf suffix
 
-instance Core.ToJSON GatewayRouteHostnameMatch where
+instance Data.ToJSON GatewayRouteHostnameMatch where
   toJSON GatewayRouteHostnameMatch' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("suffix" Core..=) Prelude.<$> suffix,
-            ("exact" Core..=) Prelude.<$> exact
+          [ ("exact" Data..=) Prelude.<$> exact,
+            ("suffix" Data..=) Prelude.<$> suffix
           ]
       )

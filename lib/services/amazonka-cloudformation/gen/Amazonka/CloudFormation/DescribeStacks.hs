@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.DescribeStacks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,7 @@
 -- Returns the description for the specified stack; if no stack name was
 -- specified, then it returns the description for all the stacks created.
 --
--- If the stack does not exist, an @ValidationError@ is returned.
+-- If the stack doesn\'t exist, an @ValidationError@ is returned.
 --
 -- This operation returns paginated results.
 module Amazonka.CloudFormation.DescribeStacks
@@ -48,7 +48,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,8 +61,8 @@ data DescribeStacks = DescribeStacks'
   { -- | A string that identifies the next page of stacks that you want to
     -- retrieve.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The name or the unique stack ID that is associated with the stack, which
-    -- are not always interchangeable:
+    -- | The name or the unique stack ID that\'s associated with the stack, which
+    -- aren\'t always interchangeable:
     --
     -- -   Running stacks: You can specify either the stack\'s name or its
     --     unique stack ID.
@@ -84,8 +85,8 @@ data DescribeStacks = DescribeStacks'
 -- 'nextToken', 'describeStacks_nextToken' - A string that identifies the next page of stacks that you want to
 -- retrieve.
 --
--- 'stackName', 'describeStacks_stackName' - The name or the unique stack ID that is associated with the stack, which
--- are not always interchangeable:
+-- 'stackName', 'describeStacks_stackName' - The name or the unique stack ID that\'s associated with the stack, which
+-- aren\'t always interchangeable:
 --
 -- -   Running stacks: You can specify either the stack\'s name or its
 --     unique stack ID.
@@ -106,8 +107,8 @@ newDescribeStacks =
 describeStacks_nextToken :: Lens.Lens' DescribeStacks (Prelude.Maybe Prelude.Text)
 describeStacks_nextToken = Lens.lens (\DescribeStacks' {nextToken} -> nextToken) (\s@DescribeStacks' {} a -> s {nextToken = a} :: DescribeStacks)
 
--- | The name or the unique stack ID that is associated with the stack, which
--- are not always interchangeable:
+-- | The name or the unique stack ID that\'s associated with the stack, which
+-- aren\'t always interchangeable:
 --
 -- -   Running stacks: You can specify either the stack\'s name or its
 --     unique stack ID.
@@ -142,15 +143,16 @@ instance Core.AWSRequest DescribeStacks where
   type
     AWSResponse DescribeStacks =
       DescribeStacksResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeStacksResult"
       ( \s h x ->
           DescribeStacksResponse'
-            Prelude.<$> (x Core..@? "NextToken")
-            Prelude.<*> ( x Core..@? "Stacks" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "NextToken")
+            Prelude.<*> ( x Data..@? "Stacks" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -165,21 +167,21 @@ instance Prelude.NFData DescribeStacks where
     Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf stackName
 
-instance Core.ToHeaders DescribeStacks where
+instance Data.ToHeaders DescribeStacks where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeStacks where
+instance Data.ToPath DescribeStacks where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeStacks where
+instance Data.ToQuery DescribeStacks where
   toQuery DescribeStacks' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeStacks" :: Prelude.ByteString),
+          Data.=: ("DescribeStacks" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "StackName" Core.=: stackName
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "NextToken" Data.=: nextToken,
+        "StackName" Data.=: stackName
       ]
 
 -- | The output for a DescribeStacks action.

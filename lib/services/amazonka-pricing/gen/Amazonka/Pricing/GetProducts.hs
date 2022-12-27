@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pricing.GetProducts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.Pricing.GetProducts
     -- * Request Lenses
     getProducts_filters,
     getProducts_formatVersion,
+    getProducts_maxResults,
     getProducts_nextToken,
     getProducts_serviceCode,
-    getProducts_maxResults,
 
     -- * Destructuring the Response
     GetProductsResponse (..),
@@ -48,7 +48,8 @@ module Amazonka.Pricing.GetProducts
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Pricing.Types
 import qualified Amazonka.Request as Request
@@ -63,13 +64,13 @@ data GetProducts = GetProducts'
     --
     -- Valid values are: @aws_v1@
     formatVersion :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The pagination token that indicates the next set of results that you
     -- want to retrieve.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The code for the service whose products you want to retrieve.
-    serviceCode :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in the response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    serviceCode :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -88,21 +89,23 @@ data GetProducts = GetProducts'
 --
 -- Valid values are: @aws_v1@
 --
+-- 'maxResults', 'getProducts_maxResults' - The maximum number of results to return in the response.
+--
 -- 'nextToken', 'getProducts_nextToken' - The pagination token that indicates the next set of results that you
 -- want to retrieve.
 --
 -- 'serviceCode', 'getProducts_serviceCode' - The code for the service whose products you want to retrieve.
---
--- 'maxResults', 'getProducts_maxResults' - The maximum number of results to return in the response.
 newGetProducts ::
+  -- | 'serviceCode'
+  Prelude.Text ->
   GetProducts
-newGetProducts =
+newGetProducts pServiceCode_ =
   GetProducts'
     { filters = Prelude.Nothing,
       formatVersion = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      serviceCode = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      serviceCode = pServiceCode_
     }
 
 -- | The list of filters that limit the returned products. only products that
@@ -116,18 +119,18 @@ getProducts_filters = Lens.lens (\GetProducts' {filters} -> filters) (\s@GetProd
 getProducts_formatVersion :: Lens.Lens' GetProducts (Prelude.Maybe Prelude.Text)
 getProducts_formatVersion = Lens.lens (\GetProducts' {formatVersion} -> formatVersion) (\s@GetProducts' {} a -> s {formatVersion = a} :: GetProducts)
 
+-- | The maximum number of results to return in the response.
+getProducts_maxResults :: Lens.Lens' GetProducts (Prelude.Maybe Prelude.Natural)
+getProducts_maxResults = Lens.lens (\GetProducts' {maxResults} -> maxResults) (\s@GetProducts' {} a -> s {maxResults = a} :: GetProducts)
+
 -- | The pagination token that indicates the next set of results that you
 -- want to retrieve.
 getProducts_nextToken :: Lens.Lens' GetProducts (Prelude.Maybe Prelude.Text)
 getProducts_nextToken = Lens.lens (\GetProducts' {nextToken} -> nextToken) (\s@GetProducts' {} a -> s {nextToken = a} :: GetProducts)
 
 -- | The code for the service whose products you want to retrieve.
-getProducts_serviceCode :: Lens.Lens' GetProducts (Prelude.Maybe Prelude.Text)
+getProducts_serviceCode :: Lens.Lens' GetProducts Prelude.Text
 getProducts_serviceCode = Lens.lens (\GetProducts' {serviceCode} -> serviceCode) (\s@GetProducts' {} a -> s {serviceCode = a} :: GetProducts)
-
--- | The maximum number of results to return in the response.
-getProducts_maxResults :: Lens.Lens' GetProducts (Prelude.Maybe Prelude.Natural)
-getProducts_maxResults = Lens.lens (\GetProducts' {maxResults} -> maxResults) (\s@GetProducts' {} a -> s {maxResults = a} :: GetProducts)
 
 instance Core.AWSPager GetProducts where
   page rq rs
@@ -150,14 +153,15 @@ instance Core.AWSPager GetProducts where
 
 instance Core.AWSRequest GetProducts where
   type AWSResponse GetProducts = GetProductsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetProductsResponse'
-            Prelude.<$> (x Core..?> "FormatVersion")
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "PriceList" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "FormatVersion")
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "PriceList" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -165,49 +169,49 @@ instance Prelude.Hashable GetProducts where
   hashWithSalt _salt GetProducts' {..} =
     _salt `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` formatVersion
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` serviceCode
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData GetProducts where
   rnf GetProducts' {..} =
     Prelude.rnf filters
       `Prelude.seq` Prelude.rnf formatVersion
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf serviceCode
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders GetProducts where
+instance Data.ToHeaders GetProducts where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSPriceListService.GetProducts" ::
+              Data.=# ( "AWSPriceListService.GetProducts" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetProducts where
+instance Data.ToJSON GetProducts where
   toJSON GetProducts' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("FormatVersion" Core..=) Prelude.<$> formatVersion,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("ServiceCode" Core..=) Prelude.<$> serviceCode,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("FormatVersion" Data..=) Prelude.<$> formatVersion,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ServiceCode" Data..= serviceCode)
           ]
       )
 
-instance Core.ToPath GetProducts where
+instance Data.ToPath GetProducts where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetProducts where
+instance Data.ToQuery GetProducts where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetProductsResponse' smart constructor.

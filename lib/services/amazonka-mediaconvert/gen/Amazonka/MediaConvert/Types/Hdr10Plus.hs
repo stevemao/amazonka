@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.Hdr10Plus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.Hdr10Plus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Setting for HDR10+ metadata insertion
@@ -73,14 +74,14 @@ hdr10Plus_masteringMonitorNits = Lens.lens (\Hdr10Plus' {masteringMonitorNits} -
 hdr10Plus_targetMonitorNits :: Lens.Lens' Hdr10Plus (Prelude.Maybe Prelude.Natural)
 hdr10Plus_targetMonitorNits = Lens.lens (\Hdr10Plus' {targetMonitorNits} -> targetMonitorNits) (\s@Hdr10Plus' {} a -> s {targetMonitorNits = a} :: Hdr10Plus)
 
-instance Core.FromJSON Hdr10Plus where
+instance Data.FromJSON Hdr10Plus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Hdr10Plus"
       ( \x ->
           Hdr10Plus'
-            Prelude.<$> (x Core..:? "masteringMonitorNits")
-            Prelude.<*> (x Core..:? "targetMonitorNits")
+            Prelude.<$> (x Data..:? "masteringMonitorNits")
+            Prelude.<*> (x Data..:? "targetMonitorNits")
       )
 
 instance Prelude.Hashable Hdr10Plus where
@@ -93,13 +94,13 @@ instance Prelude.NFData Hdr10Plus where
     Prelude.rnf masteringMonitorNits
       `Prelude.seq` Prelude.rnf targetMonitorNits
 
-instance Core.ToJSON Hdr10Plus where
+instance Data.ToJSON Hdr10Plus where
   toJSON Hdr10Plus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("masteringMonitorNits" Core..=)
+          [ ("masteringMonitorNits" Data..=)
               Prelude.<$> masteringMonitorNits,
-            ("targetMonitorNits" Core..=)
+            ("targetMonitorNits" Data..=)
               Prelude.<$> targetMonitorNits
           ]
       )

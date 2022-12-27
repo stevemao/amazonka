@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.DeleteStreamKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,9 @@ module Amazonka.IVS.DeleteStreamKey
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,7 +75,8 @@ instance Core.AWSRequest DeleteStreamKey where
   type
     AWSResponse DeleteStreamKey =
       DeleteStreamKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteStreamKeyResponse'
 
@@ -85,28 +87,28 @@ instance Prelude.Hashable DeleteStreamKey where
 instance Prelude.NFData DeleteStreamKey where
   rnf DeleteStreamKey' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders DeleteStreamKey where
+instance Data.ToHeaders DeleteStreamKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteStreamKey where
+instance Data.ToJSON DeleteStreamKey where
   toJSON DeleteStreamKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arn" Core..= arn)]
+          [Prelude.Just ("arn" Data..= arn)]
       )
 
-instance Core.ToPath DeleteStreamKey where
+instance Data.ToPath DeleteStreamKey where
   toPath = Prelude.const "/DeleteStreamKey"
 
-instance Core.ToQuery DeleteStreamKey where
+instance Data.ToQuery DeleteStreamKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteStreamKeyResponse' smart constructor.

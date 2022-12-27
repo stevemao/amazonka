@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.ListAlarmModelVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.IoTEvents.ListAlarmModelVersions
     newListAlarmModelVersions,
 
     -- * Request Lenses
-    listAlarmModelVersions_nextToken,
     listAlarmModelVersions_maxResults,
+    listAlarmModelVersions_nextToken,
     listAlarmModelVersions_alarmModelName,
 
     -- * Destructuring the Response
@@ -44,18 +44,19 @@ module Amazonka.IoTEvents.ListAlarmModelVersions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListAlarmModelVersions' smart constructor.
 data ListAlarmModelVersions = ListAlarmModelVersions'
-  { -- | The token that you can use to return the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
+  { -- | The maximum number of results to be returned per request.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that you can use to return the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the alarm model.
     alarmModelName :: Prelude.Text
   }
@@ -69,9 +70,9 @@ data ListAlarmModelVersions = ListAlarmModelVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listAlarmModelVersions_nextToken' - The token that you can use to return the next set of results.
---
 -- 'maxResults', 'listAlarmModelVersions_maxResults' - The maximum number of results to be returned per request.
+--
+-- 'nextToken', 'listAlarmModelVersions_nextToken' - The token that you can use to return the next set of results.
 --
 -- 'alarmModelName', 'listAlarmModelVersions_alarmModelName' - The name of the alarm model.
 newListAlarmModelVersions ::
@@ -80,19 +81,19 @@ newListAlarmModelVersions ::
   ListAlarmModelVersions
 newListAlarmModelVersions pAlarmModelName_ =
   ListAlarmModelVersions'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       alarmModelName = pAlarmModelName_
     }
-
--- | The token that you can use to return the next set of results.
-listAlarmModelVersions_nextToken :: Lens.Lens' ListAlarmModelVersions (Prelude.Maybe Prelude.Text)
-listAlarmModelVersions_nextToken = Lens.lens (\ListAlarmModelVersions' {nextToken} -> nextToken) (\s@ListAlarmModelVersions' {} a -> s {nextToken = a} :: ListAlarmModelVersions)
 
 -- | The maximum number of results to be returned per request.
 listAlarmModelVersions_maxResults :: Lens.Lens' ListAlarmModelVersions (Prelude.Maybe Prelude.Natural)
 listAlarmModelVersions_maxResults = Lens.lens (\ListAlarmModelVersions' {maxResults} -> maxResults) (\s@ListAlarmModelVersions' {} a -> s {maxResults = a} :: ListAlarmModelVersions)
+
+-- | The token that you can use to return the next set of results.
+listAlarmModelVersions_nextToken :: Lens.Lens' ListAlarmModelVersions (Prelude.Maybe Prelude.Text)
+listAlarmModelVersions_nextToken = Lens.lens (\ListAlarmModelVersions' {nextToken} -> nextToken) (\s@ListAlarmModelVersions' {} a -> s {nextToken = a} :: ListAlarmModelVersions)
 
 -- | The name of the alarm model.
 listAlarmModelVersions_alarmModelName :: Lens.Lens' ListAlarmModelVersions Prelude.Text
@@ -102,46 +103,47 @@ instance Core.AWSRequest ListAlarmModelVersions where
   type
     AWSResponse ListAlarmModelVersions =
       ListAlarmModelVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAlarmModelVersionsResponse'
-            Prelude.<$> ( x Core..?> "alarmModelVersionSummaries"
+            Prelude.<$> ( x Data..?> "alarmModelVersionSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAlarmModelVersions where
   hashWithSalt _salt ListAlarmModelVersions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` alarmModelName
 
 instance Prelude.NFData ListAlarmModelVersions where
   rnf ListAlarmModelVersions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf alarmModelName
 
-instance Core.ToHeaders ListAlarmModelVersions where
+instance Data.ToHeaders ListAlarmModelVersions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListAlarmModelVersions where
+instance Data.ToPath ListAlarmModelVersions where
   toPath ListAlarmModelVersions' {..} =
     Prelude.mconcat
       [ "/alarm-models/",
-        Core.toBS alarmModelName,
+        Data.toBS alarmModelName,
         "/versions"
       ]
 
-instance Core.ToQuery ListAlarmModelVersions where
+instance Data.ToQuery ListAlarmModelVersions where
   toQuery ListAlarmModelVersions' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListAlarmModelVersionsResponse' smart constructor.

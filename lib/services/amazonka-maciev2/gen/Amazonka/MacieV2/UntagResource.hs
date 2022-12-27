@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.UntagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes one or more tags (keys and values) from a classification job,
--- custom data identifier, findings filter, or member account.
+-- Removes one or more tags (keys and values) from an Amazon Macie
+-- resource.
 module Amazonka.MacieV2.UntagResource
   ( -- * Creating a Request
     UntagResource (..),
@@ -41,7 +41,8 @@ module Amazonka.MacieV2.UntagResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -49,12 +50,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUntagResource' smart constructor.
 data UntagResource = UntagResource'
-  { -- | The key of the tag to remove from the resource. To remove multiple tags,
-    -- append the tagKeys parameter and argument for each additional tag to
-    -- remove, separated by an ampersand (&).
+  { -- | One or more tags (keys) to remove from the resource. In an HTTP request
+    -- to remove multiple tags, append the tagKeys parameter and argument for
+    -- each tag to remove, separated by an ampersand (&).
     tagKeys :: [Prelude.Text],
-    -- | The Amazon Resource Name (ARN) of the classification job, custom data
-    -- identifier, findings filter, or member account.
+    -- | The Amazon Resource Name (ARN) of the resource.
     resourceArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -67,12 +67,11 @@ data UntagResource = UntagResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tagKeys', 'untagResource_tagKeys' - The key of the tag to remove from the resource. To remove multiple tags,
--- append the tagKeys parameter and argument for each additional tag to
--- remove, separated by an ampersand (&).
+-- 'tagKeys', 'untagResource_tagKeys' - One or more tags (keys) to remove from the resource. In an HTTP request
+-- to remove multiple tags, append the tagKeys parameter and argument for
+-- each tag to remove, separated by an ampersand (&).
 --
--- 'resourceArn', 'untagResource_resourceArn' - The Amazon Resource Name (ARN) of the classification job, custom data
--- identifier, findings filter, or member account.
+-- 'resourceArn', 'untagResource_resourceArn' - The Amazon Resource Name (ARN) of the resource.
 newUntagResource ::
   -- | 'resourceArn'
   Prelude.Text ->
@@ -83,14 +82,13 @@ newUntagResource pResourceArn_ =
       resourceArn = pResourceArn_
     }
 
--- | The key of the tag to remove from the resource. To remove multiple tags,
--- append the tagKeys parameter and argument for each additional tag to
--- remove, separated by an ampersand (&).
+-- | One or more tags (keys) to remove from the resource. In an HTTP request
+-- to remove multiple tags, append the tagKeys parameter and argument for
+-- each tag to remove, separated by an ampersand (&).
 untagResource_tagKeys :: Lens.Lens' UntagResource [Prelude.Text]
 untagResource_tagKeys = Lens.lens (\UntagResource' {tagKeys} -> tagKeys) (\s@UntagResource' {} a -> s {tagKeys = a} :: UntagResource) Prelude.. Lens.coerced
 
--- | The Amazon Resource Name (ARN) of the classification job, custom data
--- identifier, findings filter, or member account.
+-- | The Amazon Resource Name (ARN) of the resource.
 untagResource_resourceArn :: Lens.Lens' UntagResource Prelude.Text
 untagResource_resourceArn = Lens.lens (\UntagResource' {resourceArn} -> resourceArn) (\s@UntagResource' {} a -> s {resourceArn = a} :: UntagResource)
 
@@ -98,7 +96,8 @@ instance Core.AWSRequest UntagResource where
   type
     AWSResponse UntagResource =
       UntagResourceResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -116,25 +115,25 @@ instance Prelude.NFData UntagResource where
     Prelude.rnf tagKeys
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders UntagResource where
+instance Data.ToHeaders UntagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath UntagResource where
+instance Data.ToPath UntagResource where
   toPath UntagResource' {..} =
-    Prelude.mconcat ["/tags/", Core.toBS resourceArn]
+    Prelude.mconcat ["/tags/", Data.toBS resourceArn]
 
-instance Core.ToQuery UntagResource where
+instance Data.ToQuery UntagResource where
   toQuery UntagResource' {..} =
     Prelude.mconcat
-      ["tagKeys" Core.=: Core.toQueryList "member" tagKeys]
+      ["tagKeys" Data.=: Data.toQueryList "member" tagKeys]
 
 -- | /See:/ 'newUntagResourceResponse' smart constructor.
 data UntagResourceResponse = UntagResourceResponse'

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeReservedInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,11 +31,11 @@ module Amazonka.EC2.DescribeReservedInstances
     newDescribeReservedInstances,
 
     -- * Request Lenses
-    describeReservedInstances_filters,
-    describeReservedInstances_reservedInstancesIds,
-    describeReservedInstances_offeringType,
-    describeReservedInstances_offeringClass,
     describeReservedInstances_dryRun,
+    describeReservedInstances_filters,
+    describeReservedInstances_offeringClass,
+    describeReservedInstances_offeringType,
+    describeReservedInstances_reservedInstancesIds,
 
     -- * Destructuring the Response
     DescribeReservedInstancesResponse (..),
@@ -48,8 +48,9 @@ module Amazonka.EC2.DescribeReservedInstances
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,7 +59,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeReservedInstances' smart constructor.
 data DescribeReservedInstances = DescribeReservedInstances'
-  { -- | One or more filters.
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters.
     --
     -- -   @availability-zone@ - The Availability Zone where the Reserved
     --     Instance can be used.
@@ -114,22 +120,17 @@ data DescribeReservedInstances = DescribeReservedInstances'
     -- -   @usage-price@ - The usage price of the Reserved Instance, per hour
     --     (for example, 0.84).
     filters :: Prelude.Maybe [Filter],
-    -- | One or more Reserved Instance IDs.
-    --
-    -- Default: Describes all your Reserved Instances, or only those otherwise
-    -- specified.
-    reservedInstancesIds :: Prelude.Maybe [Prelude.Text],
+    -- | Describes whether the Reserved Instance is Standard or Convertible.
+    offeringClass :: Prelude.Maybe OfferingClassType,
     -- | The Reserved Instance offering type. If you are using tools that predate
     -- the 2011-11-01 API version, you only have access to the
     -- @Medium Utilization@ Reserved Instance offering type.
     offeringType :: Prelude.Maybe OfferingTypeValues,
-    -- | Describes whether the Reserved Instance is Standard or Convertible.
-    offeringClass :: Prelude.Maybe OfferingClassType,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool
+    -- | One or more Reserved Instance IDs.
+    --
+    -- Default: Describes all your Reserved Instances, or only those otherwise
+    -- specified.
+    reservedInstancesIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -140,6 +141,11 @@ data DescribeReservedInstances = DescribeReservedInstances'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dryRun', 'describeReservedInstances_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeReservedInstances_filters' - One or more filters.
 --
@@ -197,32 +203,34 @@ data DescribeReservedInstances = DescribeReservedInstances'
 -- -   @usage-price@ - The usage price of the Reserved Instance, per hour
 --     (for example, 0.84).
 --
--- 'reservedInstancesIds', 'describeReservedInstances_reservedInstancesIds' - One or more Reserved Instance IDs.
---
--- Default: Describes all your Reserved Instances, or only those otherwise
--- specified.
+-- 'offeringClass', 'describeReservedInstances_offeringClass' - Describes whether the Reserved Instance is Standard or Convertible.
 --
 -- 'offeringType', 'describeReservedInstances_offeringType' - The Reserved Instance offering type. If you are using tools that predate
 -- the 2011-11-01 API version, you only have access to the
 -- @Medium Utilization@ Reserved Instance offering type.
 --
--- 'offeringClass', 'describeReservedInstances_offeringClass' - Describes whether the Reserved Instance is Standard or Convertible.
+-- 'reservedInstancesIds', 'describeReservedInstances_reservedInstancesIds' - One or more Reserved Instance IDs.
 --
--- 'dryRun', 'describeReservedInstances_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
+-- Default: Describes all your Reserved Instances, or only those otherwise
+-- specified.
 newDescribeReservedInstances ::
   DescribeReservedInstances
 newDescribeReservedInstances =
   DescribeReservedInstances'
-    { filters =
+    { dryRun =
         Prelude.Nothing,
-      reservedInstancesIds = Prelude.Nothing,
-      offeringType = Prelude.Nothing,
+      filters = Prelude.Nothing,
       offeringClass = Prelude.Nothing,
-      dryRun = Prelude.Nothing
+      offeringType = Prelude.Nothing,
+      reservedInstancesIds = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeReservedInstances_dryRun :: Lens.Lens' DescribeReservedInstances (Prelude.Maybe Prelude.Bool)
+describeReservedInstances_dryRun = Lens.lens (\DescribeReservedInstances' {dryRun} -> dryRun) (\s@DescribeReservedInstances' {} a -> s {dryRun = a} :: DescribeReservedInstances)
 
 -- | One or more filters.
 --
@@ -282,12 +290,9 @@ newDescribeReservedInstances =
 describeReservedInstances_filters :: Lens.Lens' DescribeReservedInstances (Prelude.Maybe [Filter])
 describeReservedInstances_filters = Lens.lens (\DescribeReservedInstances' {filters} -> filters) (\s@DescribeReservedInstances' {} a -> s {filters = a} :: DescribeReservedInstances) Prelude.. Lens.mapping Lens.coerced
 
--- | One or more Reserved Instance IDs.
---
--- Default: Describes all your Reserved Instances, or only those otherwise
--- specified.
-describeReservedInstances_reservedInstancesIds :: Lens.Lens' DescribeReservedInstances (Prelude.Maybe [Prelude.Text])
-describeReservedInstances_reservedInstancesIds = Lens.lens (\DescribeReservedInstances' {reservedInstancesIds} -> reservedInstancesIds) (\s@DescribeReservedInstances' {} a -> s {reservedInstancesIds = a} :: DescribeReservedInstances) Prelude.. Lens.mapping Lens.coerced
+-- | Describes whether the Reserved Instance is Standard or Convertible.
+describeReservedInstances_offeringClass :: Lens.Lens' DescribeReservedInstances (Prelude.Maybe OfferingClassType)
+describeReservedInstances_offeringClass = Lens.lens (\DescribeReservedInstances' {offeringClass} -> offeringClass) (\s@DescribeReservedInstances' {} a -> s {offeringClass = a} :: DescribeReservedInstances)
 
 -- | The Reserved Instance offering type. If you are using tools that predate
 -- the 2011-11-01 API version, you only have access to the
@@ -295,71 +300,68 @@ describeReservedInstances_reservedInstancesIds = Lens.lens (\DescribeReservedIns
 describeReservedInstances_offeringType :: Lens.Lens' DescribeReservedInstances (Prelude.Maybe OfferingTypeValues)
 describeReservedInstances_offeringType = Lens.lens (\DescribeReservedInstances' {offeringType} -> offeringType) (\s@DescribeReservedInstances' {} a -> s {offeringType = a} :: DescribeReservedInstances)
 
--- | Describes whether the Reserved Instance is Standard or Convertible.
-describeReservedInstances_offeringClass :: Lens.Lens' DescribeReservedInstances (Prelude.Maybe OfferingClassType)
-describeReservedInstances_offeringClass = Lens.lens (\DescribeReservedInstances' {offeringClass} -> offeringClass) (\s@DescribeReservedInstances' {} a -> s {offeringClass = a} :: DescribeReservedInstances)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeReservedInstances_dryRun :: Lens.Lens' DescribeReservedInstances (Prelude.Maybe Prelude.Bool)
-describeReservedInstances_dryRun = Lens.lens (\DescribeReservedInstances' {dryRun} -> dryRun) (\s@DescribeReservedInstances' {} a -> s {dryRun = a} :: DescribeReservedInstances)
+-- | One or more Reserved Instance IDs.
+--
+-- Default: Describes all your Reserved Instances, or only those otherwise
+-- specified.
+describeReservedInstances_reservedInstancesIds :: Lens.Lens' DescribeReservedInstances (Prelude.Maybe [Prelude.Text])
+describeReservedInstances_reservedInstancesIds = Lens.lens (\DescribeReservedInstances' {reservedInstancesIds} -> reservedInstancesIds) (\s@DescribeReservedInstances' {} a -> s {reservedInstancesIds = a} :: DescribeReservedInstances) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSRequest DescribeReservedInstances where
   type
     AWSResponse DescribeReservedInstances =
       DescribeReservedInstancesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeReservedInstancesResponse'
-            Prelude.<$> ( x Core..@? "reservedInstancesSet"
+            Prelude.<$> ( x Data..@? "reservedInstancesSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeReservedInstances where
   hashWithSalt _salt DescribeReservedInstances' {..} =
-    _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` reservedInstancesIds
-      `Prelude.hashWithSalt` offeringType
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` offeringClass
-      `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` offeringType
+      `Prelude.hashWithSalt` reservedInstancesIds
 
 instance Prelude.NFData DescribeReservedInstances where
   rnf DescribeReservedInstances' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf reservedInstancesIds
-      `Prelude.seq` Prelude.rnf offeringType
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf offeringClass
-      `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf offeringType
+      `Prelude.seq` Prelude.rnf reservedInstancesIds
 
-instance Core.ToHeaders DescribeReservedInstances where
+instance Data.ToHeaders DescribeReservedInstances where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeReservedInstances where
+instance Data.ToPath DescribeReservedInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeReservedInstances where
+instance Data.ToQuery DescribeReservedInstances where
   toQuery DescribeReservedInstances' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeReservedInstances" :: Prelude.ByteString),
+          Data.=: ("DescribeReservedInstances" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        Core.toQuery
-          ( Core.toQueryList "ReservedInstancesId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "OfferingClass" Data.=: offeringClass,
+        "OfferingType" Data.=: offeringType,
+        Data.toQuery
+          ( Data.toQueryList "ReservedInstancesId"
               Prelude.<$> reservedInstancesIds
-          ),
-        "OfferingType" Core.=: offeringType,
-        "OfferingClass" Core.=: offeringClass,
-        "DryRun" Core.=: dryRun
+          )
       ]
 
 -- | Contains the output for DescribeReservedInstances.

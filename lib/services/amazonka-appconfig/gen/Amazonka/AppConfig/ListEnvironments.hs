@@ -14,21 +14,21 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.ListEnvironments
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- List the environments for an application.
+-- Lists the environments for an application.
 module Amazonka.AppConfig.ListEnvironments
   ( -- * Creating a Request
     ListEnvironments (..),
     newListEnvironments,
 
     -- * Request Lenses
-    listEnvironments_nextToken,
     listEnvironments_maxResults,
+    listEnvironments_nextToken,
     listEnvironments_applicationId,
 
     -- * Destructuring the Response
@@ -44,20 +44,21 @@ where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListEnvironments' smart constructor.
 data ListEnvironments = ListEnvironments'
-  { -- | A token to start the list. Use this token to get the next set of
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return for this call. The call also
+  { -- | The maximum number of items to return for this call. The call also
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token to start the list. Use this token to get the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The application ID.
     applicationId :: Prelude.Text
   }
@@ -71,12 +72,12 @@ data ListEnvironments = ListEnvironments'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listEnvironments_nextToken' - A token to start the list. Use this token to get the next set of
--- results.
---
 -- 'maxResults', 'listEnvironments_maxResults' - The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
+--
+-- 'nextToken', 'listEnvironments_nextToken' - A token to start the list. Use this token to get the next set of
+-- results.
 --
 -- 'applicationId', 'listEnvironments_applicationId' - The application ID.
 newListEnvironments ::
@@ -85,21 +86,21 @@ newListEnvironments ::
   ListEnvironments
 newListEnvironments pApplicationId_ =
   ListEnvironments'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       applicationId = pApplicationId_
     }
-
--- | A token to start the list. Use this token to get the next set of
--- results.
-listEnvironments_nextToken :: Lens.Lens' ListEnvironments (Prelude.Maybe Prelude.Text)
-listEnvironments_nextToken = Lens.lens (\ListEnvironments' {nextToken} -> nextToken) (\s@ListEnvironments' {} a -> s {nextToken = a} :: ListEnvironments)
 
 -- | The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
 listEnvironments_maxResults :: Lens.Lens' ListEnvironments (Prelude.Maybe Prelude.Natural)
 listEnvironments_maxResults = Lens.lens (\ListEnvironments' {maxResults} -> maxResults) (\s@ListEnvironments' {} a -> s {maxResults = a} :: ListEnvironments)
+
+-- | A token to start the list. Use this token to get the next set of
+-- results.
+listEnvironments_nextToken :: Lens.Lens' ListEnvironments (Prelude.Maybe Prelude.Text)
+listEnvironments_nextToken = Lens.lens (\ListEnvironments' {nextToken} -> nextToken) (\s@ListEnvironments' {} a -> s {nextToken = a} :: ListEnvironments)
 
 -- | The application ID.
 listEnvironments_applicationId :: Lens.Lens' ListEnvironments Prelude.Text
@@ -109,52 +110,53 @@ instance Core.AWSRequest ListEnvironments where
   type
     AWSResponse ListEnvironments =
       ListEnvironmentsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEnvironmentsResponse'
-            Prelude.<$> (x Core..?> "Items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListEnvironments where
   hashWithSalt _salt ListEnvironments' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` applicationId
 
 instance Prelude.NFData ListEnvironments where
   rnf ListEnvironments' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf applicationId
 
-instance Core.ToHeaders ListEnvironments where
+instance Data.ToHeaders ListEnvironments where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListEnvironments where
+instance Data.ToPath ListEnvironments where
   toPath ListEnvironments' {..} =
     Prelude.mconcat
       [ "/applications/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/environments"
       ]
 
-instance Core.ToQuery ListEnvironments where
+instance Data.ToQuery ListEnvironments where
   toQuery ListEnvironments' {..} =
     Prelude.mconcat
-      [ "next_token" Core.=: nextToken,
-        "max_results" Core.=: maxResults
+      [ "max_results" Data.=: maxResults,
+        "next_token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListEnvironmentsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyIdentityIdFormat
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -64,8 +64,9 @@ module Amazonka.EC2.ModifyIdentityIdFormat
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -168,7 +169,8 @@ instance Core.AWSRequest ModifyIdentityIdFormat where
   type
     AWSResponse ModifyIdentityIdFormat =
       ModifyIdentityIdFormatResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       ModifyIdentityIdFormatResponse'
@@ -185,22 +187,22 @@ instance Prelude.NFData ModifyIdentityIdFormat where
       `Prelude.seq` Prelude.rnf resource
       `Prelude.seq` Prelude.rnf useLongIds
 
-instance Core.ToHeaders ModifyIdentityIdFormat where
+instance Data.ToHeaders ModifyIdentityIdFormat where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyIdentityIdFormat where
+instance Data.ToPath ModifyIdentityIdFormat where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyIdentityIdFormat where
+instance Data.ToQuery ModifyIdentityIdFormat where
   toQuery ModifyIdentityIdFormat' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyIdentityIdFormat" :: Prelude.ByteString),
+          Data.=: ("ModifyIdentityIdFormat" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "PrincipalArn" Core.=: principalArn,
-        "Resource" Core.=: resource,
-        "UseLongIds" Core.=: useLongIds
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "PrincipalArn" Data.=: principalArn,
+        "Resource" Data.=: resource,
+        "UseLongIds" Data.=: useLongIds
       ]
 
 -- | /See:/ 'newModifyIdentityIdFormatResponse' smart constructor.

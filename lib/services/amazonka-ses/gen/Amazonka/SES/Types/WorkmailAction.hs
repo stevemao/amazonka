@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SES.Types.WorkmailAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SES.Types.WorkmailAction where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | When included in a receipt rule, this action calls Amazon WorkMail and,
@@ -94,11 +95,11 @@ workmailAction_topicArn = Lens.lens (\WorkmailAction' {topicArn} -> topicArn) (\
 workmailAction_organizationArn :: Lens.Lens' WorkmailAction Prelude.Text
 workmailAction_organizationArn = Lens.lens (\WorkmailAction' {organizationArn} -> organizationArn) (\s@WorkmailAction' {} a -> s {organizationArn = a} :: WorkmailAction)
 
-instance Core.FromXML WorkmailAction where
+instance Data.FromXML WorkmailAction where
   parseXML x =
     WorkmailAction'
-      Prelude.<$> (x Core..@? "TopicArn")
-      Prelude.<*> (x Core..@ "OrganizationArn")
+      Prelude.<$> (x Data..@? "TopicArn")
+      Prelude.<*> (x Data..@ "OrganizationArn")
 
 instance Prelude.Hashable WorkmailAction where
   hashWithSalt _salt WorkmailAction' {..} =
@@ -110,9 +111,9 @@ instance Prelude.NFData WorkmailAction where
     Prelude.rnf topicArn
       `Prelude.seq` Prelude.rnf organizationArn
 
-instance Core.ToQuery WorkmailAction where
+instance Data.ToQuery WorkmailAction where
   toQuery WorkmailAction' {..} =
     Prelude.mconcat
-      [ "TopicArn" Core.=: topicArn,
-        "OrganizationArn" Core.=: organizationArn
+      [ "TopicArn" Data.=: topicArn,
+        "OrganizationArn" Data.=: organizationArn
       ]

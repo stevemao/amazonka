@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.DeleteFleetError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.DeleteFleetError where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.DeleteFleetErrorCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an EC2 Fleet error.
@@ -63,11 +64,11 @@ deleteFleetError_code = Lens.lens (\DeleteFleetError' {code} -> code) (\s@Delete
 deleteFleetError_message :: Lens.Lens' DeleteFleetError (Prelude.Maybe Prelude.Text)
 deleteFleetError_message = Lens.lens (\DeleteFleetError' {message} -> message) (\s@DeleteFleetError' {} a -> s {message = a} :: DeleteFleetError)
 
-instance Core.FromXML DeleteFleetError where
+instance Data.FromXML DeleteFleetError where
   parseXML x =
     DeleteFleetError'
-      Prelude.<$> (x Core..@? "code")
-      Prelude.<*> (x Core..@? "message")
+      Prelude.<$> (x Data..@? "code")
+      Prelude.<*> (x Data..@? "message")
 
 instance Prelude.Hashable DeleteFleetError where
   hashWithSalt _salt DeleteFleetError' {..} =

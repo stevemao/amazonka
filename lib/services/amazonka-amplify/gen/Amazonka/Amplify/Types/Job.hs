@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Amplify.Types.Job
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.Amplify.Types.Job where
 import Amazonka.Amplify.Types.JobSummary
 import Amazonka.Amplify.Types.Step
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an execution job for an Amplify app.
@@ -62,14 +63,14 @@ job_summary = Lens.lens (\Job' {summary} -> summary) (\s@Job' {} a -> s {summary
 job_steps :: Lens.Lens' Job [Step]
 job_steps = Lens.lens (\Job' {steps} -> steps) (\s@Job' {} a -> s {steps = a} :: Job) Prelude.. Lens.coerced
 
-instance Core.FromJSON Job where
+instance Data.FromJSON Job where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Job"
       ( \x ->
           Job'
-            Prelude.<$> (x Core..: "summary")
-            Prelude.<*> (x Core..:? "steps" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..: "summary")
+            Prelude.<*> (x Data..:? "steps" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Job where

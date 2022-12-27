@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.Types.ScpActionDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Budgets.Types.ScpActionDefinition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The service control policies (SCP) action definition details.
@@ -65,14 +66,14 @@ scpActionDefinition_policyId = Lens.lens (\ScpActionDefinition' {policyId} -> po
 scpActionDefinition_targetIds :: Lens.Lens' ScpActionDefinition (Prelude.NonEmpty Prelude.Text)
 scpActionDefinition_targetIds = Lens.lens (\ScpActionDefinition' {targetIds} -> targetIds) (\s@ScpActionDefinition' {} a -> s {targetIds = a} :: ScpActionDefinition) Prelude.. Lens.coerced
 
-instance Core.FromJSON ScpActionDefinition where
+instance Data.FromJSON ScpActionDefinition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ScpActionDefinition"
       ( \x ->
           ScpActionDefinition'
-            Prelude.<$> (x Core..: "PolicyId")
-            Prelude.<*> (x Core..: "TargetIds")
+            Prelude.<$> (x Data..: "PolicyId")
+            Prelude.<*> (x Data..: "TargetIds")
       )
 
 instance Prelude.Hashable ScpActionDefinition where
@@ -85,11 +86,11 @@ instance Prelude.NFData ScpActionDefinition where
     Prelude.rnf policyId
       `Prelude.seq` Prelude.rnf targetIds
 
-instance Core.ToJSON ScpActionDefinition where
+instance Data.ToJSON ScpActionDefinition where
   toJSON ScpActionDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("PolicyId" Core..= policyId),
-            Prelude.Just ("TargetIds" Core..= targetIds)
+          [ Prelude.Just ("PolicyId" Data..= policyId),
+            Prelude.Just ("TargetIds" Data..= targetIds)
           ]
       )

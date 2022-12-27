@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.MetricDimension
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EMR.Types.MetricDimension where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A CloudWatch dimension, which is specified using a @Key@ (known as a
@@ -31,10 +32,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMetricDimension' smart constructor.
 data MetricDimension = MetricDimension'
-  { -- | The dimension value.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The dimension name.
-    key :: Prelude.Maybe Prelude.Text
+  { -- | The dimension name.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The dimension value.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,48 +47,48 @@ data MetricDimension = MetricDimension'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'metricDimension_value' - The dimension value.
---
 -- 'key', 'metricDimension_key' - The dimension name.
+--
+-- 'value', 'metricDimension_value' - The dimension value.
 newMetricDimension ::
   MetricDimension
 newMetricDimension =
   MetricDimension'
-    { value = Prelude.Nothing,
-      key = Prelude.Nothing
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The dimension value.
-metricDimension_value :: Lens.Lens' MetricDimension (Prelude.Maybe Prelude.Text)
-metricDimension_value = Lens.lens (\MetricDimension' {value} -> value) (\s@MetricDimension' {} a -> s {value = a} :: MetricDimension)
 
 -- | The dimension name.
 metricDimension_key :: Lens.Lens' MetricDimension (Prelude.Maybe Prelude.Text)
 metricDimension_key = Lens.lens (\MetricDimension' {key} -> key) (\s@MetricDimension' {} a -> s {key = a} :: MetricDimension)
 
-instance Core.FromJSON MetricDimension where
+-- | The dimension value.
+metricDimension_value :: Lens.Lens' MetricDimension (Prelude.Maybe Prelude.Text)
+metricDimension_value = Lens.lens (\MetricDimension' {value} -> value) (\s@MetricDimension' {} a -> s {value = a} :: MetricDimension)
+
+instance Data.FromJSON MetricDimension where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MetricDimension"
       ( \x ->
           MetricDimension'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Key")
+            Prelude.<$> (x Data..:? "Key") Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable MetricDimension where
   hashWithSalt _salt MetricDimension' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` key
+    _salt `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData MetricDimension where
   rnf MetricDimension' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON MetricDimension where
+instance Data.ToJSON MetricDimension where
   toJSON MetricDimension' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Key" Core..=) Prelude.<$> key
+          [ ("Key" Data..=) Prelude.<$> key,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

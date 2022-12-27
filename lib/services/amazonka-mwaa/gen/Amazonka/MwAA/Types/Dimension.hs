@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MwAA.Types.Dimension
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,19 @@
 module Amazonka.MwAA.Types.Dimension where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Internal only API.
+-- | __Internal only__. Represents the dimensions of a metric. To learn more
+-- about the metrics published to Amazon CloudWatch, see
+-- <https://docs.aws.amazon.com/mwaa/latest/userguide/cw-metrics.html Amazon MWAA performance metrics in Amazon CloudWatch>.
 --
 -- /See:/ 'newDimension' smart constructor.
 data Dimension = Dimension'
-  { -- | Internal only API.
+  { -- | __Internal only__. The name of the dimension.
     name :: Prelude.Text,
-    -- | Internal only API.
+    -- | __Internal only__. The value of the dimension.
     value :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -42,9 +45,9 @@ data Dimension = Dimension'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'dimension_name' - Internal only API.
+-- 'name', 'dimension_name' - __Internal only__. The name of the dimension.
 --
--- 'value', 'dimension_value' - Internal only API.
+-- 'value', 'dimension_value' - __Internal only__. The value of the dimension.
 newDimension ::
   -- | 'name'
   Prelude.Text ->
@@ -54,11 +57,11 @@ newDimension ::
 newDimension pName_ pValue_ =
   Dimension' {name = pName_, value = pValue_}
 
--- | Internal only API.
+-- | __Internal only__. The name of the dimension.
 dimension_name :: Lens.Lens' Dimension Prelude.Text
 dimension_name = Lens.lens (\Dimension' {name} -> name) (\s@Dimension' {} a -> s {name = a} :: Dimension)
 
--- | Internal only API.
+-- | __Internal only__. The value of the dimension.
 dimension_value :: Lens.Lens' Dimension Prelude.Text
 dimension_value = Lens.lens (\Dimension' {value} -> value) (\s@Dimension' {} a -> s {value = a} :: Dimension)
 
@@ -71,11 +74,11 @@ instance Prelude.NFData Dimension where
   rnf Dimension' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON Dimension where
+instance Data.ToJSON Dimension where
   toJSON Dimension' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Value" Core..= value)
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Value" Data..= value)
           ]
       )

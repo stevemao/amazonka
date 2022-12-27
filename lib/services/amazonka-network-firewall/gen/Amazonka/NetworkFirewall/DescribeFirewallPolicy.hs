@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.DescribeFirewallPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.NetworkFirewall.DescribeFirewallPolicy
     newDescribeFirewallPolicy,
 
     -- * Request Lenses
-    describeFirewallPolicy_firewallPolicyName,
     describeFirewallPolicy_firewallPolicyArn,
+    describeFirewallPolicy_firewallPolicyName,
 
     -- * Destructuring the Response
     DescribeFirewallPolicyResponse (..),
@@ -43,7 +43,8 @@ module Amazonka.NetworkFirewall.DescribeFirewallPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -51,15 +52,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeFirewallPolicy' smart constructor.
 data DescribeFirewallPolicy = DescribeFirewallPolicy'
-  { -- | The descriptive name of the firewall policy. You can\'t change the name
+  { -- | The Amazon Resource Name (ARN) of the firewall policy.
+    --
+    -- You must specify the ARN or the name, and you can specify both.
+    firewallPolicyArn :: Prelude.Maybe Prelude.Text,
+    -- | The descriptive name of the firewall policy. You can\'t change the name
     -- of a firewall policy after you create it.
     --
     -- You must specify the ARN or the name, and you can specify both.
-    firewallPolicyName :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the firewall policy.
-    --
-    -- You must specify the ARN or the name, and you can specify both.
-    firewallPolicyArn :: Prelude.Maybe Prelude.Text
+    firewallPolicyName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,22 +72,28 @@ data DescribeFirewallPolicy = DescribeFirewallPolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'firewallPolicyName', 'describeFirewallPolicy_firewallPolicyName' - The descriptive name of the firewall policy. You can\'t change the name
--- of a firewall policy after you create it.
+-- 'firewallPolicyArn', 'describeFirewallPolicy_firewallPolicyArn' - The Amazon Resource Name (ARN) of the firewall policy.
 --
 -- You must specify the ARN or the name, and you can specify both.
 --
--- 'firewallPolicyArn', 'describeFirewallPolicy_firewallPolicyArn' - The Amazon Resource Name (ARN) of the firewall policy.
+-- 'firewallPolicyName', 'describeFirewallPolicy_firewallPolicyName' - The descriptive name of the firewall policy. You can\'t change the name
+-- of a firewall policy after you create it.
 --
 -- You must specify the ARN or the name, and you can specify both.
 newDescribeFirewallPolicy ::
   DescribeFirewallPolicy
 newDescribeFirewallPolicy =
   DescribeFirewallPolicy'
-    { firewallPolicyName =
+    { firewallPolicyArn =
         Prelude.Nothing,
-      firewallPolicyArn = Prelude.Nothing
+      firewallPolicyName = Prelude.Nothing
     }
+
+-- | The Amazon Resource Name (ARN) of the firewall policy.
+--
+-- You must specify the ARN or the name, and you can specify both.
+describeFirewallPolicy_firewallPolicyArn :: Lens.Lens' DescribeFirewallPolicy (Prelude.Maybe Prelude.Text)
+describeFirewallPolicy_firewallPolicyArn = Lens.lens (\DescribeFirewallPolicy' {firewallPolicyArn} -> firewallPolicyArn) (\s@DescribeFirewallPolicy' {} a -> s {firewallPolicyArn = a} :: DescribeFirewallPolicy)
 
 -- | The descriptive name of the firewall policy. You can\'t change the name
 -- of a firewall policy after you create it.
@@ -95,67 +102,62 @@ newDescribeFirewallPolicy =
 describeFirewallPolicy_firewallPolicyName :: Lens.Lens' DescribeFirewallPolicy (Prelude.Maybe Prelude.Text)
 describeFirewallPolicy_firewallPolicyName = Lens.lens (\DescribeFirewallPolicy' {firewallPolicyName} -> firewallPolicyName) (\s@DescribeFirewallPolicy' {} a -> s {firewallPolicyName = a} :: DescribeFirewallPolicy)
 
--- | The Amazon Resource Name (ARN) of the firewall policy.
---
--- You must specify the ARN or the name, and you can specify both.
-describeFirewallPolicy_firewallPolicyArn :: Lens.Lens' DescribeFirewallPolicy (Prelude.Maybe Prelude.Text)
-describeFirewallPolicy_firewallPolicyArn = Lens.lens (\DescribeFirewallPolicy' {firewallPolicyArn} -> firewallPolicyArn) (\s@DescribeFirewallPolicy' {} a -> s {firewallPolicyArn = a} :: DescribeFirewallPolicy)
-
 instance Core.AWSRequest DescribeFirewallPolicy where
   type
     AWSResponse DescribeFirewallPolicy =
       DescribeFirewallPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeFirewallPolicyResponse'
-            Prelude.<$> (x Core..?> "FirewallPolicy")
+            Prelude.<$> (x Data..?> "FirewallPolicy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "UpdateToken")
-            Prelude.<*> (x Core..:> "FirewallPolicyResponse")
+            Prelude.<*> (x Data..:> "UpdateToken")
+            Prelude.<*> (x Data..:> "FirewallPolicyResponse")
       )
 
 instance Prelude.Hashable DescribeFirewallPolicy where
   hashWithSalt _salt DescribeFirewallPolicy' {..} =
-    _salt `Prelude.hashWithSalt` firewallPolicyName
-      `Prelude.hashWithSalt` firewallPolicyArn
+    _salt `Prelude.hashWithSalt` firewallPolicyArn
+      `Prelude.hashWithSalt` firewallPolicyName
 
 instance Prelude.NFData DescribeFirewallPolicy where
   rnf DescribeFirewallPolicy' {..} =
-    Prelude.rnf firewallPolicyName
-      `Prelude.seq` Prelude.rnf firewallPolicyArn
+    Prelude.rnf firewallPolicyArn
+      `Prelude.seq` Prelude.rnf firewallPolicyName
 
-instance Core.ToHeaders DescribeFirewallPolicy where
+instance Data.ToHeaders DescribeFirewallPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "NetworkFirewall_20201112.DescribeFirewallPolicy" ::
+              Data.=# ( "NetworkFirewall_20201112.DescribeFirewallPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeFirewallPolicy where
+instance Data.ToJSON DescribeFirewallPolicy where
   toJSON DescribeFirewallPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FirewallPolicyName" Core..=)
-              Prelude.<$> firewallPolicyName,
-            ("FirewallPolicyArn" Core..=)
-              Prelude.<$> firewallPolicyArn
+          [ ("FirewallPolicyArn" Data..=)
+              Prelude.<$> firewallPolicyArn,
+            ("FirewallPolicyName" Data..=)
+              Prelude.<$> firewallPolicyName
           ]
       )
 
-instance Core.ToPath DescribeFirewallPolicy where
+instance Data.ToPath DescribeFirewallPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeFirewallPolicy where
+instance Data.ToQuery DescribeFirewallPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeFirewallPolicyResponse' smart constructor.

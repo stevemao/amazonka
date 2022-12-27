@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.ItemCollectionMetrics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,10 @@
 module Amazonka.DynamoDB.Types.ItemCollectionMetrics where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about item collections, if any, that were affected by the
@@ -93,17 +95,17 @@ itemCollectionMetrics_itemCollectionKey = Lens.lens (\ItemCollectionMetrics' {it
 itemCollectionMetrics_sizeEstimateRangeGB :: Lens.Lens' ItemCollectionMetrics (Prelude.Maybe [Prelude.Double])
 itemCollectionMetrics_sizeEstimateRangeGB = Lens.lens (\ItemCollectionMetrics' {sizeEstimateRangeGB} -> sizeEstimateRangeGB) (\s@ItemCollectionMetrics' {} a -> s {sizeEstimateRangeGB = a} :: ItemCollectionMetrics) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ItemCollectionMetrics where
+instance Data.FromJSON ItemCollectionMetrics where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ItemCollectionMetrics"
       ( \x ->
           ItemCollectionMetrics'
-            Prelude.<$> ( x Core..:? "ItemCollectionKey"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "ItemCollectionKey"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> ( x Core..:? "SizeEstimateRangeGB"
-                            Core..!= Prelude.mempty
+            Prelude.<*> ( x Data..:? "SizeEstimateRangeGB"
+                            Data..!= Prelude.mempty
                         )
       )
 

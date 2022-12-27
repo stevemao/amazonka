@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.ModifyCacheSubnetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.ElastiCache.ModifyCacheSubnetGroup
     newModifyCacheSubnetGroup,
 
     -- * Request Lenses
-    modifyCacheSubnetGroup_subnetIds,
     modifyCacheSubnetGroup_cacheSubnetGroupDescription,
+    modifyCacheSubnetGroup_subnetIds,
     modifyCacheSubnetGroup_cacheSubnetGroupName,
 
     -- * Destructuring the Response
@@ -42,8 +42,9 @@ module Amazonka.ElastiCache.ModifyCacheSubnetGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,10 +53,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newModifyCacheSubnetGroup' smart constructor.
 data ModifyCacheSubnetGroup = ModifyCacheSubnetGroup'
-  { -- | The EC2 subnet IDs for the cache subnet group.
-    subnetIds :: Prelude.Maybe [Prelude.Text],
-    -- | A description of the cache subnet group.
+  { -- | A description of the cache subnet group.
     cacheSubnetGroupDescription :: Prelude.Maybe Prelude.Text,
+    -- | The EC2 subnet IDs for the cache subnet group.
+    subnetIds :: Prelude.Maybe [Prelude.Text],
     -- | The name for the cache subnet group. This value is stored as a lowercase
     -- string.
     --
@@ -75,9 +76,9 @@ data ModifyCacheSubnetGroup = ModifyCacheSubnetGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subnetIds', 'modifyCacheSubnetGroup_subnetIds' - The EC2 subnet IDs for the cache subnet group.
---
 -- 'cacheSubnetGroupDescription', 'modifyCacheSubnetGroup_cacheSubnetGroupDescription' - A description of the cache subnet group.
+--
+-- 'subnetIds', 'modifyCacheSubnetGroup_subnetIds' - The EC2 subnet IDs for the cache subnet group.
 --
 -- 'cacheSubnetGroupName', 'modifyCacheSubnetGroup_cacheSubnetGroupName' - The name for the cache subnet group. This value is stored as a lowercase
 -- string.
@@ -92,19 +93,19 @@ newModifyCacheSubnetGroup ::
   ModifyCacheSubnetGroup
 newModifyCacheSubnetGroup pCacheSubnetGroupName_ =
   ModifyCacheSubnetGroup'
-    { subnetIds =
+    { cacheSubnetGroupDescription =
         Prelude.Nothing,
-      cacheSubnetGroupDescription = Prelude.Nothing,
+      subnetIds = Prelude.Nothing,
       cacheSubnetGroupName = pCacheSubnetGroupName_
     }
-
--- | The EC2 subnet IDs for the cache subnet group.
-modifyCacheSubnetGroup_subnetIds :: Lens.Lens' ModifyCacheSubnetGroup (Prelude.Maybe [Prelude.Text])
-modifyCacheSubnetGroup_subnetIds = Lens.lens (\ModifyCacheSubnetGroup' {subnetIds} -> subnetIds) (\s@ModifyCacheSubnetGroup' {} a -> s {subnetIds = a} :: ModifyCacheSubnetGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | A description of the cache subnet group.
 modifyCacheSubnetGroup_cacheSubnetGroupDescription :: Lens.Lens' ModifyCacheSubnetGroup (Prelude.Maybe Prelude.Text)
 modifyCacheSubnetGroup_cacheSubnetGroupDescription = Lens.lens (\ModifyCacheSubnetGroup' {cacheSubnetGroupDescription} -> cacheSubnetGroupDescription) (\s@ModifyCacheSubnetGroup' {} a -> s {cacheSubnetGroupDescription = a} :: ModifyCacheSubnetGroup)
+
+-- | The EC2 subnet IDs for the cache subnet group.
+modifyCacheSubnetGroup_subnetIds :: Lens.Lens' ModifyCacheSubnetGroup (Prelude.Maybe [Prelude.Text])
+modifyCacheSubnetGroup_subnetIds = Lens.lens (\ModifyCacheSubnetGroup' {subnetIds} -> subnetIds) (\s@ModifyCacheSubnetGroup' {} a -> s {subnetIds = a} :: ModifyCacheSubnetGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name for the cache subnet group. This value is stored as a lowercase
 -- string.
@@ -120,49 +121,51 @@ instance Core.AWSRequest ModifyCacheSubnetGroup where
   type
     AWSResponse ModifyCacheSubnetGroup =
       ModifyCacheSubnetGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyCacheSubnetGroupResult"
       ( \s h x ->
           ModifyCacheSubnetGroupResponse'
-            Prelude.<$> (x Core..@? "CacheSubnetGroup")
+            Prelude.<$> (x Data..@? "CacheSubnetGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ModifyCacheSubnetGroup where
   hashWithSalt _salt ModifyCacheSubnetGroup' {..} =
-    _salt `Prelude.hashWithSalt` subnetIds
+    _salt
       `Prelude.hashWithSalt` cacheSubnetGroupDescription
+      `Prelude.hashWithSalt` subnetIds
       `Prelude.hashWithSalt` cacheSubnetGroupName
 
 instance Prelude.NFData ModifyCacheSubnetGroup where
   rnf ModifyCacheSubnetGroup' {..} =
-    Prelude.rnf subnetIds
-      `Prelude.seq` Prelude.rnf cacheSubnetGroupDescription
+    Prelude.rnf cacheSubnetGroupDescription
+      `Prelude.seq` Prelude.rnf subnetIds
       `Prelude.seq` Prelude.rnf cacheSubnetGroupName
 
-instance Core.ToHeaders ModifyCacheSubnetGroup where
+instance Data.ToHeaders ModifyCacheSubnetGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyCacheSubnetGroup where
+instance Data.ToPath ModifyCacheSubnetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyCacheSubnetGroup where
+instance Data.ToQuery ModifyCacheSubnetGroup where
   toQuery ModifyCacheSubnetGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyCacheSubnetGroup" :: Prelude.ByteString),
+          Data.=: ("ModifyCacheSubnetGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "CacheSubnetGroupDescription"
+          Data.=: cacheSubnetGroupDescription,
         "SubnetIds"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "SubnetIdentifier"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "SubnetIdentifier"
                 Prelude.<$> subnetIds
             ),
-        "CacheSubnetGroupDescription"
-          Core.=: cacheSubnetGroupDescription,
-        "CacheSubnetGroupName" Core.=: cacheSubnetGroupName
+        "CacheSubnetGroupName" Data.=: cacheSubnetGroupName
       ]
 
 -- | /See:/ 'newModifyCacheSubnetGroupResponse' smart constructor.

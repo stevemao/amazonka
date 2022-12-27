@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AmplifyBackend.CreateBackendConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,17 +35,18 @@ module Amazonka.AmplifyBackend.CreateBackendConfig
     newCreateBackendConfigResponse,
 
     -- * Response Lenses
-    createBackendConfigResponse_status,
-    createBackendConfigResponse_jobId,
     createBackendConfigResponse_appId,
     createBackendConfigResponse_backendEnvironmentName,
+    createBackendConfigResponse_jobId,
+    createBackendConfigResponse_status,
     createBackendConfigResponse_httpStatus,
   )
 where
 
 import Amazonka.AmplifyBackend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,15 +96,16 @@ instance Core.AWSRequest CreateBackendConfig where
   type
     AWSResponse CreateBackendConfig =
       CreateBackendConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateBackendConfigResponse'
-            Prelude.<$> (x Core..?> "status")
-            Prelude.<*> (x Core..?> "jobId")
-            Prelude.<*> (x Core..?> "appId")
-            Prelude.<*> (x Core..?> "backendEnvironmentName")
+            Prelude.<$> (x Data..?> "appId")
+            Prelude.<*> (x Data..?> "backendEnvironmentName")
+            Prelude.<*> (x Data..?> "jobId")
+            Prelude.<*> (x Data..?> "status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,44 +119,44 @@ instance Prelude.NFData CreateBackendConfig where
     Prelude.rnf backendManagerAppId
       `Prelude.seq` Prelude.rnf appId
 
-instance Core.ToHeaders CreateBackendConfig where
+instance Data.ToHeaders CreateBackendConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateBackendConfig where
+instance Data.ToJSON CreateBackendConfig where
   toJSON CreateBackendConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("backendManagerAppId" Core..=)
+          [ ("backendManagerAppId" Data..=)
               Prelude.<$> backendManagerAppId
           ]
       )
 
-instance Core.ToPath CreateBackendConfig where
+instance Data.ToPath CreateBackendConfig where
   toPath CreateBackendConfig' {..} =
     Prelude.mconcat
-      ["/backend/", Core.toBS appId, "/config"]
+      ["/backend/", Data.toBS appId, "/config"]
 
-instance Core.ToQuery CreateBackendConfig where
+instance Data.ToQuery CreateBackendConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateBackendConfigResponse' smart constructor.
 data CreateBackendConfigResponse = CreateBackendConfigResponse'
-  { -- | The current status of the request.
-    status :: Prelude.Maybe Prelude.Text,
-    -- | The ID for the job.
-    jobId :: Prelude.Maybe Prelude.Text,
-    -- | The app ID.
+  { -- | The app ID.
     appId :: Prelude.Maybe Prelude.Text,
     -- | The name of the backend environment.
     backendEnvironmentName :: Prelude.Maybe Prelude.Text,
+    -- | The ID for the job.
+    jobId :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the request.
+    status :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -168,13 +170,13 @@ data CreateBackendConfigResponse = CreateBackendConfigResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'createBackendConfigResponse_status' - The current status of the request.
---
--- 'jobId', 'createBackendConfigResponse_jobId' - The ID for the job.
---
 -- 'appId', 'createBackendConfigResponse_appId' - The app ID.
 --
 -- 'backendEnvironmentName', 'createBackendConfigResponse_backendEnvironmentName' - The name of the backend environment.
+--
+-- 'jobId', 'createBackendConfigResponse_jobId' - The ID for the job.
+--
+-- 'status', 'createBackendConfigResponse_status' - The current status of the request.
 --
 -- 'httpStatus', 'createBackendConfigResponse_httpStatus' - The response's http status code.
 newCreateBackendConfigResponse ::
@@ -183,21 +185,13 @@ newCreateBackendConfigResponse ::
   CreateBackendConfigResponse
 newCreateBackendConfigResponse pHttpStatus_ =
   CreateBackendConfigResponse'
-    { status =
+    { appId =
         Prelude.Nothing,
-      jobId = Prelude.Nothing,
-      appId = Prelude.Nothing,
       backendEnvironmentName = Prelude.Nothing,
+      jobId = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The current status of the request.
-createBackendConfigResponse_status :: Lens.Lens' CreateBackendConfigResponse (Prelude.Maybe Prelude.Text)
-createBackendConfigResponse_status = Lens.lens (\CreateBackendConfigResponse' {status} -> status) (\s@CreateBackendConfigResponse' {} a -> s {status = a} :: CreateBackendConfigResponse)
-
--- | The ID for the job.
-createBackendConfigResponse_jobId :: Lens.Lens' CreateBackendConfigResponse (Prelude.Maybe Prelude.Text)
-createBackendConfigResponse_jobId = Lens.lens (\CreateBackendConfigResponse' {jobId} -> jobId) (\s@CreateBackendConfigResponse' {} a -> s {jobId = a} :: CreateBackendConfigResponse)
 
 -- | The app ID.
 createBackendConfigResponse_appId :: Lens.Lens' CreateBackendConfigResponse (Prelude.Maybe Prelude.Text)
@@ -207,14 +201,22 @@ createBackendConfigResponse_appId = Lens.lens (\CreateBackendConfigResponse' {ap
 createBackendConfigResponse_backendEnvironmentName :: Lens.Lens' CreateBackendConfigResponse (Prelude.Maybe Prelude.Text)
 createBackendConfigResponse_backendEnvironmentName = Lens.lens (\CreateBackendConfigResponse' {backendEnvironmentName} -> backendEnvironmentName) (\s@CreateBackendConfigResponse' {} a -> s {backendEnvironmentName = a} :: CreateBackendConfigResponse)
 
+-- | The ID for the job.
+createBackendConfigResponse_jobId :: Lens.Lens' CreateBackendConfigResponse (Prelude.Maybe Prelude.Text)
+createBackendConfigResponse_jobId = Lens.lens (\CreateBackendConfigResponse' {jobId} -> jobId) (\s@CreateBackendConfigResponse' {} a -> s {jobId = a} :: CreateBackendConfigResponse)
+
+-- | The current status of the request.
+createBackendConfigResponse_status :: Lens.Lens' CreateBackendConfigResponse (Prelude.Maybe Prelude.Text)
+createBackendConfigResponse_status = Lens.lens (\CreateBackendConfigResponse' {status} -> status) (\s@CreateBackendConfigResponse' {} a -> s {status = a} :: CreateBackendConfigResponse)
+
 -- | The response's http status code.
 createBackendConfigResponse_httpStatus :: Lens.Lens' CreateBackendConfigResponse Prelude.Int
 createBackendConfigResponse_httpStatus = Lens.lens (\CreateBackendConfigResponse' {httpStatus} -> httpStatus) (\s@CreateBackendConfigResponse' {} a -> s {httpStatus = a} :: CreateBackendConfigResponse)
 
 instance Prelude.NFData CreateBackendConfigResponse where
   rnf CreateBackendConfigResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf jobId
-      `Prelude.seq` Prelude.rnf appId
+    Prelude.rnf appId
       `Prelude.seq` Prelude.rnf backendEnvironmentName
+      `Prelude.seq` Prelude.rnf jobId
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.ActivitiesResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.ActivitiesResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.ActivityResponse
 import qualified Amazonka.Prelude as Prelude
 
@@ -72,14 +73,14 @@ activitiesResponse_nextToken = Lens.lens (\ActivitiesResponse' {nextToken} -> ne
 activitiesResponse_item :: Lens.Lens' ActivitiesResponse [ActivityResponse]
 activitiesResponse_item = Lens.lens (\ActivitiesResponse' {item} -> item) (\s@ActivitiesResponse' {} a -> s {item = a} :: ActivitiesResponse) Prelude.. Lens.coerced
 
-instance Core.FromJSON ActivitiesResponse where
+instance Data.FromJSON ActivitiesResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActivitiesResponse"
       ( \x ->
           ActivitiesResponse'
-            Prelude.<$> (x Core..:? "NextToken")
-            Prelude.<*> (x Core..:? "Item" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "NextToken")
+            Prelude.<*> (x Data..:? "Item" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ActivitiesResponse where

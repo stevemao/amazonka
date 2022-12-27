@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.GetAggregateConformancePackComplianceSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,9 +34,9 @@ module Amazonka.Config.GetAggregateConformancePackComplianceSummary
 
     -- * Request Lenses
     getAggregateConformancePackComplianceSummary_filters,
-    getAggregateConformancePackComplianceSummary_nextToken,
-    getAggregateConformancePackComplianceSummary_limit,
     getAggregateConformancePackComplianceSummary_groupByKey,
+    getAggregateConformancePackComplianceSummary_limit,
+    getAggregateConformancePackComplianceSummary_nextToken,
     getAggregateConformancePackComplianceSummary_configurationAggregatorName,
 
     -- * Destructuring the Response
@@ -44,16 +44,17 @@ module Amazonka.Config.GetAggregateConformancePackComplianceSummary
     newGetAggregateConformancePackComplianceSummaryResponse,
 
     -- * Response Lenses
-    getAggregateConformancePackComplianceSummaryResponse_nextToken,
     getAggregateConformancePackComplianceSummaryResponse_aggregateConformancePackComplianceSummaries,
     getAggregateConformancePackComplianceSummaryResponse_groupByKey,
+    getAggregateConformancePackComplianceSummaryResponse_nextToken,
     getAggregateConformancePackComplianceSummaryResponse_httpStatus,
   )
 where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,15 +64,15 @@ data GetAggregateConformancePackComplianceSummary = GetAggregateConformancePackC
   { -- | Filters the results based on the
     -- @AggregateConformancePackComplianceSummaryFilters@ object.
     filters :: Prelude.Maybe AggregateConformancePackComplianceSummaryFilters,
-    -- | The @nextToken@ string returned on a previous page that you use to get
-    -- the next page of results in a paginated response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results returned on each page. The default is
-    -- maximum. If you specify 0, Config uses the default.
-    limit :: Prelude.Maybe Prelude.Natural,
     -- | Groups the result based on Amazon Web Services account ID or Amazon Web
     -- Services Region.
     groupByKey :: Prelude.Maybe AggregateConformancePackComplianceSummaryGroupKey,
+    -- | The maximum number of results returned on each page. The default is
+    -- maximum. If you specify 0, Config uses the default.
+    limit :: Prelude.Maybe Prelude.Natural,
+    -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the configuration aggregator.
     configurationAggregatorName :: Prelude.Text
   }
@@ -88,14 +89,14 @@ data GetAggregateConformancePackComplianceSummary = GetAggregateConformancePackC
 -- 'filters', 'getAggregateConformancePackComplianceSummary_filters' - Filters the results based on the
 -- @AggregateConformancePackComplianceSummaryFilters@ object.
 --
--- 'nextToken', 'getAggregateConformancePackComplianceSummary_nextToken' - The @nextToken@ string returned on a previous page that you use to get
--- the next page of results in a paginated response.
+-- 'groupByKey', 'getAggregateConformancePackComplianceSummary_groupByKey' - Groups the result based on Amazon Web Services account ID or Amazon Web
+-- Services Region.
 --
 -- 'limit', 'getAggregateConformancePackComplianceSummary_limit' - The maximum number of results returned on each page. The default is
 -- maximum. If you specify 0, Config uses the default.
 --
--- 'groupByKey', 'getAggregateConformancePackComplianceSummary_groupByKey' - Groups the result based on Amazon Web Services account ID or Amazon Web
--- Services Region.
+-- 'nextToken', 'getAggregateConformancePackComplianceSummary_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
 --
 -- 'configurationAggregatorName', 'getAggregateConformancePackComplianceSummary_configurationAggregatorName' - The name of the configuration aggregator.
 newGetAggregateConformancePackComplianceSummary ::
@@ -107,9 +108,9 @@ newGetAggregateConformancePackComplianceSummary
     GetAggregateConformancePackComplianceSummary'
       { filters =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
-        limit = Prelude.Nothing,
         groupByKey = Prelude.Nothing,
+        limit = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         configurationAggregatorName =
           pConfigurationAggregatorName_
       }
@@ -119,20 +120,20 @@ newGetAggregateConformancePackComplianceSummary
 getAggregateConformancePackComplianceSummary_filters :: Lens.Lens' GetAggregateConformancePackComplianceSummary (Prelude.Maybe AggregateConformancePackComplianceSummaryFilters)
 getAggregateConformancePackComplianceSummary_filters = Lens.lens (\GetAggregateConformancePackComplianceSummary' {filters} -> filters) (\s@GetAggregateConformancePackComplianceSummary' {} a -> s {filters = a} :: GetAggregateConformancePackComplianceSummary)
 
--- | The @nextToken@ string returned on a previous page that you use to get
--- the next page of results in a paginated response.
-getAggregateConformancePackComplianceSummary_nextToken :: Lens.Lens' GetAggregateConformancePackComplianceSummary (Prelude.Maybe Prelude.Text)
-getAggregateConformancePackComplianceSummary_nextToken = Lens.lens (\GetAggregateConformancePackComplianceSummary' {nextToken} -> nextToken) (\s@GetAggregateConformancePackComplianceSummary' {} a -> s {nextToken = a} :: GetAggregateConformancePackComplianceSummary)
+-- | Groups the result based on Amazon Web Services account ID or Amazon Web
+-- Services Region.
+getAggregateConformancePackComplianceSummary_groupByKey :: Lens.Lens' GetAggregateConformancePackComplianceSummary (Prelude.Maybe AggregateConformancePackComplianceSummaryGroupKey)
+getAggregateConformancePackComplianceSummary_groupByKey = Lens.lens (\GetAggregateConformancePackComplianceSummary' {groupByKey} -> groupByKey) (\s@GetAggregateConformancePackComplianceSummary' {} a -> s {groupByKey = a} :: GetAggregateConformancePackComplianceSummary)
 
 -- | The maximum number of results returned on each page. The default is
 -- maximum. If you specify 0, Config uses the default.
 getAggregateConformancePackComplianceSummary_limit :: Lens.Lens' GetAggregateConformancePackComplianceSummary (Prelude.Maybe Prelude.Natural)
 getAggregateConformancePackComplianceSummary_limit = Lens.lens (\GetAggregateConformancePackComplianceSummary' {limit} -> limit) (\s@GetAggregateConformancePackComplianceSummary' {} a -> s {limit = a} :: GetAggregateConformancePackComplianceSummary)
 
--- | Groups the result based on Amazon Web Services account ID or Amazon Web
--- Services Region.
-getAggregateConformancePackComplianceSummary_groupByKey :: Lens.Lens' GetAggregateConformancePackComplianceSummary (Prelude.Maybe AggregateConformancePackComplianceSummaryGroupKey)
-getAggregateConformancePackComplianceSummary_groupByKey = Lens.lens (\GetAggregateConformancePackComplianceSummary' {groupByKey} -> groupByKey) (\s@GetAggregateConformancePackComplianceSummary' {} a -> s {groupByKey = a} :: GetAggregateConformancePackComplianceSummary)
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+getAggregateConformancePackComplianceSummary_nextToken :: Lens.Lens' GetAggregateConformancePackComplianceSummary (Prelude.Maybe Prelude.Text)
+getAggregateConformancePackComplianceSummary_nextToken = Lens.lens (\GetAggregateConformancePackComplianceSummary' {nextToken} -> nextToken) (\s@GetAggregateConformancePackComplianceSummary' {} a -> s {nextToken = a} :: GetAggregateConformancePackComplianceSummary)
 
 -- | The name of the configuration aggregator.
 getAggregateConformancePackComplianceSummary_configurationAggregatorName :: Lens.Lens' GetAggregateConformancePackComplianceSummary Prelude.Text
@@ -146,17 +147,18 @@ instance
     AWSResponse
       GetAggregateConformancePackComplianceSummary =
       GetAggregateConformancePackComplianceSummaryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAggregateConformancePackComplianceSummaryResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-              Prelude.<*> ( x
-                              Core..?> "AggregateConformancePackComplianceSummaries"
-                              Core..!@ Prelude.mempty
-                          )
-              Prelude.<*> (x Core..?> "GroupByKey")
+            Prelude.<$> ( x
+                            Data..?> "AggregateConformancePackComplianceSummaries"
+                            Core..!@ Prelude.mempty
+                        )
+              Prelude.<*> (x Data..?> "GroupByKey")
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -168,9 +170,9 @@ instance
     _salt
     GetAggregateConformancePackComplianceSummary' {..} =
       _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` limit
         `Prelude.hashWithSalt` groupByKey
+        `Prelude.hashWithSalt` limit
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` configurationAggregatorName
 
 instance
@@ -179,70 +181,70 @@ instance
   where
   rnf GetAggregateConformancePackComplianceSummary' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
       `Prelude.seq` Prelude.rnf groupByKey
+      `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf configurationAggregatorName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetAggregateConformancePackComplianceSummary
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.GetAggregateConformancePackComplianceSummary" ::
+              Data.=# ( "StarlingDoveService.GetAggregateConformancePackComplianceSummary" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     GetAggregateConformancePackComplianceSummary
   where
   toJSON
     GetAggregateConformancePackComplianceSummary' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Filters" Core..=) Prelude.<$> filters,
-              ("NextToken" Core..=) Prelude.<$> nextToken,
-              ("Limit" Core..=) Prelude.<$> limit,
-              ("GroupByKey" Core..=) Prelude.<$> groupByKey,
+            [ ("Filters" Data..=) Prelude.<$> filters,
+              ("GroupByKey" Data..=) Prelude.<$> groupByKey,
+              ("Limit" Data..=) Prelude.<$> limit,
+              ("NextToken" Data..=) Prelude.<$> nextToken,
               Prelude.Just
                 ( "ConfigurationAggregatorName"
-                    Core..= configurationAggregatorName
+                    Data..= configurationAggregatorName
                 )
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetAggregateConformancePackComplianceSummary
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetAggregateConformancePackComplianceSummary
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAggregateConformancePackComplianceSummaryResponse' smart constructor.
 data GetAggregateConformancePackComplianceSummaryResponse = GetAggregateConformancePackComplianceSummaryResponse'
-  { -- | The @nextToken@ string returned on a previous page that you use to get
-    -- the next page of results in a paginated response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Returns a list of @AggregateConformancePackComplianceSummary@ object.
+  { -- | Returns a list of @AggregateConformancePackComplianceSummary@ object.
     aggregateConformancePackComplianceSummaries :: Prelude.Maybe [AggregateConformancePackComplianceSummary],
     -- | Groups the result based on Amazon Web Services account ID or Amazon Web
     -- Services Region.
     groupByKey :: Prelude.Maybe Prelude.Text,
+    -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -256,13 +258,13 @@ data GetAggregateConformancePackComplianceSummaryResponse = GetAggregateConforma
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getAggregateConformancePackComplianceSummaryResponse_nextToken' - The @nextToken@ string returned on a previous page that you use to get
--- the next page of results in a paginated response.
---
 -- 'aggregateConformancePackComplianceSummaries', 'getAggregateConformancePackComplianceSummaryResponse_aggregateConformancePackComplianceSummaries' - Returns a list of @AggregateConformancePackComplianceSummary@ object.
 --
 -- 'groupByKey', 'getAggregateConformancePackComplianceSummaryResponse_groupByKey' - Groups the result based on Amazon Web Services account ID or Amazon Web
 -- Services Region.
+--
+-- 'nextToken', 'getAggregateConformancePackComplianceSummaryResponse_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
 --
 -- 'httpStatus', 'getAggregateConformancePackComplianceSummaryResponse_httpStatus' - The response's http status code.
 newGetAggregateConformancePackComplianceSummaryResponse ::
@@ -272,20 +274,15 @@ newGetAggregateConformancePackComplianceSummaryResponse ::
 newGetAggregateConformancePackComplianceSummaryResponse
   pHttpStatus_ =
     GetAggregateConformancePackComplianceSummaryResponse'
-      { nextToken =
-          Prelude.Nothing,
-        aggregateConformancePackComplianceSummaries =
+      { aggregateConformancePackComplianceSummaries =
           Prelude.Nothing,
         groupByKey =
+          Prelude.Nothing,
+        nextToken =
           Prelude.Nothing,
         httpStatus =
           pHttpStatus_
       }
-
--- | The @nextToken@ string returned on a previous page that you use to get
--- the next page of results in a paginated response.
-getAggregateConformancePackComplianceSummaryResponse_nextToken :: Lens.Lens' GetAggregateConformancePackComplianceSummaryResponse (Prelude.Maybe Prelude.Text)
-getAggregateConformancePackComplianceSummaryResponse_nextToken = Lens.lens (\GetAggregateConformancePackComplianceSummaryResponse' {nextToken} -> nextToken) (\s@GetAggregateConformancePackComplianceSummaryResponse' {} a -> s {nextToken = a} :: GetAggregateConformancePackComplianceSummaryResponse)
 
 -- | Returns a list of @AggregateConformancePackComplianceSummary@ object.
 getAggregateConformancePackComplianceSummaryResponse_aggregateConformancePackComplianceSummaries :: Lens.Lens' GetAggregateConformancePackComplianceSummaryResponse (Prelude.Maybe [AggregateConformancePackComplianceSummary])
@@ -295,6 +292,11 @@ getAggregateConformancePackComplianceSummaryResponse_aggregateConformancePackCom
 -- Services Region.
 getAggregateConformancePackComplianceSummaryResponse_groupByKey :: Lens.Lens' GetAggregateConformancePackComplianceSummaryResponse (Prelude.Maybe Prelude.Text)
 getAggregateConformancePackComplianceSummaryResponse_groupByKey = Lens.lens (\GetAggregateConformancePackComplianceSummaryResponse' {groupByKey} -> groupByKey) (\s@GetAggregateConformancePackComplianceSummaryResponse' {} a -> s {groupByKey = a} :: GetAggregateConformancePackComplianceSummaryResponse)
+
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+getAggregateConformancePackComplianceSummaryResponse_nextToken :: Lens.Lens' GetAggregateConformancePackComplianceSummaryResponse (Prelude.Maybe Prelude.Text)
+getAggregateConformancePackComplianceSummaryResponse_nextToken = Lens.lens (\GetAggregateConformancePackComplianceSummaryResponse' {nextToken} -> nextToken) (\s@GetAggregateConformancePackComplianceSummaryResponse' {} a -> s {nextToken = a} :: GetAggregateConformancePackComplianceSummaryResponse)
 
 -- | The response's http status code.
 getAggregateConformancePackComplianceSummaryResponse_httpStatus :: Lens.Lens' GetAggregateConformancePackComplianceSummaryResponse Prelude.Int
@@ -306,8 +308,8 @@ instance
   where
   rnf
     GetAggregateConformancePackComplianceSummaryResponse' {..} =
-      Prelude.rnf nextToken
-        `Prelude.seq` Prelude.rnf
-          aggregateConformancePackComplianceSummaries
+      Prelude.rnf
+        aggregateConformancePackComplianceSummaries
         `Prelude.seq` Prelude.rnf groupByKey
+        `Prelude.seq` Prelude.rnf nextToken
         `Prelude.seq` Prelude.rnf httpStatus

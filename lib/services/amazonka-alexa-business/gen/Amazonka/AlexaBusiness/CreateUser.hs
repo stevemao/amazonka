@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.CreateUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,10 +27,10 @@ module Amazonka.AlexaBusiness.CreateUser
     newCreateUser,
 
     -- * Request Lenses
-    createUser_email,
-    createUser_lastName,
-    createUser_firstName,
     createUser_clientRequestToken,
+    createUser_email,
+    createUser_firstName,
+    createUser_lastName,
     createUser_tags,
     createUser_userId,
 
@@ -46,22 +46,23 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateUser' smart constructor.
 data CreateUser = CreateUser'
-  { -- | The email address for the user.
-    email :: Prelude.Maybe Prelude.Text,
-    -- | The last name for the user.
-    lastName :: Prelude.Maybe Prelude.Text,
-    -- | The first name for the user.
-    firstName :: Prelude.Maybe Prelude.Text,
-    -- | A unique, user-specified identifier for this request that ensures
+  { -- | A unique, user-specified identifier for this request that ensures
     -- idempotency.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The email address for the user.
+    email :: Prelude.Maybe Prelude.Text,
+    -- | The first name for the user.
+    firstName :: Prelude.Maybe Prelude.Text,
+    -- | The last name for the user.
+    lastName :: Prelude.Maybe Prelude.Text,
     -- | The tags for the user.
     tags :: Prelude.Maybe [Tag],
     -- | The ARN for the user.
@@ -77,14 +78,14 @@ data CreateUser = CreateUser'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'email', 'createUser_email' - The email address for the user.
+-- 'clientRequestToken', 'createUser_clientRequestToken' - A unique, user-specified identifier for this request that ensures
+-- idempotency.
 --
--- 'lastName', 'createUser_lastName' - The last name for the user.
+-- 'email', 'createUser_email' - The email address for the user.
 --
 -- 'firstName', 'createUser_firstName' - The first name for the user.
 --
--- 'clientRequestToken', 'createUser_clientRequestToken' - A unique, user-specified identifier for this request that ensures
--- idempotency.
+-- 'lastName', 'createUser_lastName' - The last name for the user.
 --
 -- 'tags', 'createUser_tags' - The tags for the user.
 --
@@ -95,30 +96,30 @@ newCreateUser ::
   CreateUser
 newCreateUser pUserId_ =
   CreateUser'
-    { email = Prelude.Nothing,
-      lastName = Prelude.Nothing,
+    { clientRequestToken = Prelude.Nothing,
+      email = Prelude.Nothing,
       firstName = Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
+      lastName = Prelude.Nothing,
       tags = Prelude.Nothing,
       userId = pUserId_
     }
-
--- | The email address for the user.
-createUser_email :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
-createUser_email = Lens.lens (\CreateUser' {email} -> email) (\s@CreateUser' {} a -> s {email = a} :: CreateUser)
-
--- | The last name for the user.
-createUser_lastName :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
-createUser_lastName = Lens.lens (\CreateUser' {lastName} -> lastName) (\s@CreateUser' {} a -> s {lastName = a} :: CreateUser)
-
--- | The first name for the user.
-createUser_firstName :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
-createUser_firstName = Lens.lens (\CreateUser' {firstName} -> firstName) (\s@CreateUser' {} a -> s {firstName = a} :: CreateUser)
 
 -- | A unique, user-specified identifier for this request that ensures
 -- idempotency.
 createUser_clientRequestToken :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
 createUser_clientRequestToken = Lens.lens (\CreateUser' {clientRequestToken} -> clientRequestToken) (\s@CreateUser' {} a -> s {clientRequestToken = a} :: CreateUser)
+
+-- | The email address for the user.
+createUser_email :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
+createUser_email = Lens.lens (\CreateUser' {email} -> email) (\s@CreateUser' {} a -> s {email = a} :: CreateUser)
+
+-- | The first name for the user.
+createUser_firstName :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
+createUser_firstName = Lens.lens (\CreateUser' {firstName} -> firstName) (\s@CreateUser' {} a -> s {firstName = a} :: CreateUser)
+
+-- | The last name for the user.
+createUser_lastName :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Text)
+createUser_lastName = Lens.lens (\CreateUser' {lastName} -> lastName) (\s@CreateUser' {} a -> s {lastName = a} :: CreateUser)
 
 -- | The tags for the user.
 createUser_tags :: Lens.Lens' CreateUser (Prelude.Maybe [Tag])
@@ -130,66 +131,67 @@ createUser_userId = Lens.lens (\CreateUser' {userId} -> userId) (\s@CreateUser' 
 
 instance Core.AWSRequest CreateUser where
   type AWSResponse CreateUser = CreateUserResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateUserResponse'
-            Prelude.<$> (x Core..?> "UserArn")
+            Prelude.<$> (x Data..?> "UserArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateUser where
   hashWithSalt _salt CreateUser' {..} =
-    _salt `Prelude.hashWithSalt` email
-      `Prelude.hashWithSalt` lastName
+    _salt `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` email
       `Prelude.hashWithSalt` firstName
-      `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` lastName
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` userId
 
 instance Prelude.NFData CreateUser where
   rnf CreateUser' {..} =
-    Prelude.rnf email
-      `Prelude.seq` Prelude.rnf lastName
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf email
       `Prelude.seq` Prelude.rnf firstName
-      `Prelude.seq` Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf lastName
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf userId
 
-instance Core.ToHeaders CreateUser where
+instance Data.ToHeaders CreateUser where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.CreateUser" ::
+              Data.=# ( "AlexaForBusiness.CreateUser" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateUser where
+instance Data.ToJSON CreateUser where
   toJSON CreateUser' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Email" Core..=) Prelude.<$> email,
-            ("LastName" Core..=) Prelude.<$> lastName,
-            ("FirstName" Core..=) Prelude.<$> firstName,
-            ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("UserId" Core..= userId)
+            ("Email" Data..=) Prelude.<$> email,
+            ("FirstName" Data..=) Prelude.<$> firstName,
+            ("LastName" Data..=) Prelude.<$> lastName,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("UserId" Data..= userId)
           ]
       )
 
-instance Core.ToPath CreateUser where
+instance Data.ToPath CreateUser where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateUser where
+instance Data.ToQuery CreateUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateUserResponse' smart constructor.

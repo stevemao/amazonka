@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.GetQueueUrl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.SQS.GetQueueUrl
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,7 +60,8 @@ import Amazonka.SQS.Types
 --
 -- /See:/ 'newGetQueueUrl' smart constructor.
 data GetQueueUrl = GetQueueUrl'
-  { -- | The account ID of the account that created the queue.
+  { -- | The Amazon Web Services account ID of the account that created the
+    -- queue.
     queueOwnerAWSAccountId :: Prelude.Maybe Prelude.Text,
     -- | The name of the queue whose URL must be fetched. Maximum 80 characters.
     -- Valid values: alphanumeric characters, hyphens (@-@), and underscores
@@ -78,7 +80,8 @@ data GetQueueUrl = GetQueueUrl'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'queueOwnerAWSAccountId', 'getQueueUrl_queueOwnerAWSAccountId' - The account ID of the account that created the queue.
+-- 'queueOwnerAWSAccountId', 'getQueueUrl_queueOwnerAWSAccountId' - The Amazon Web Services account ID of the account that created the
+-- queue.
 --
 -- 'queueName', 'getQueueUrl_queueName' - The name of the queue whose URL must be fetched. Maximum 80 characters.
 -- Valid values: alphanumeric characters, hyphens (@-@), and underscores
@@ -96,7 +99,8 @@ newGetQueueUrl pQueueName_ =
       queueName = pQueueName_
     }
 
--- | The account ID of the account that created the queue.
+-- | The Amazon Web Services account ID of the account that created the
+-- queue.
 getQueueUrl_queueOwnerAWSAccountId :: Lens.Lens' GetQueueUrl (Prelude.Maybe Prelude.Text)
 getQueueUrl_queueOwnerAWSAccountId = Lens.lens (\GetQueueUrl' {queueOwnerAWSAccountId} -> queueOwnerAWSAccountId) (\s@GetQueueUrl' {} a -> s {queueOwnerAWSAccountId = a} :: GetQueueUrl)
 
@@ -110,14 +114,15 @@ getQueueUrl_queueName = Lens.lens (\GetQueueUrl' {queueName} -> queueName) (\s@G
 
 instance Core.AWSRequest GetQueueUrl where
   type AWSResponse GetQueueUrl = GetQueueUrlResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetQueueUrlResult"
       ( \s h x ->
           GetQueueUrlResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "QueueUrl")
+            Prelude.<*> (x Data..@ "QueueUrl")
       )
 
 instance Prelude.Hashable GetQueueUrl where
@@ -130,22 +135,22 @@ instance Prelude.NFData GetQueueUrl where
     Prelude.rnf queueOwnerAWSAccountId
       `Prelude.seq` Prelude.rnf queueName
 
-instance Core.ToHeaders GetQueueUrl where
+instance Data.ToHeaders GetQueueUrl where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetQueueUrl where
+instance Data.ToPath GetQueueUrl where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetQueueUrl where
+instance Data.ToQuery GetQueueUrl where
   toQuery GetQueueUrl' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetQueueUrl" :: Prelude.ByteString),
+          Data.=: ("GetQueueUrl" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-11-05" :: Prelude.ByteString),
+          Data.=: ("2012-11-05" :: Prelude.ByteString),
         "QueueOwnerAWSAccountId"
-          Core.=: queueOwnerAWSAccountId,
-        "QueueName" Core.=: queueName
+          Data.=: queueOwnerAWSAccountId,
+        "QueueName" Data.=: queueName
       ]
 
 -- | For more information, see

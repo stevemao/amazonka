@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.InternetGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.EC2.Types.InternetGateway where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.InternetGatewayAttachment
 import Amazonka.EC2.Types.Tag
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an internet gateway.
@@ -87,17 +88,17 @@ internetGateway_tags = Lens.lens (\InternetGateway' {tags} -> tags) (\s@Internet
 internetGateway_internetGatewayId :: Lens.Lens' InternetGateway Prelude.Text
 internetGateway_internetGatewayId = Lens.lens (\InternetGateway' {internetGatewayId} -> internetGatewayId) (\s@InternetGateway' {} a -> s {internetGatewayId = a} :: InternetGateway)
 
-instance Core.FromXML InternetGateway where
+instance Data.FromXML InternetGateway where
   parseXML x =
     InternetGateway'
-      Prelude.<$> ( x Core..@? "attachmentSet" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<$> ( x Data..@? "attachmentSet" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@? "ownerId")
-      Prelude.<*> ( x Core..@? "tagSet" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<*> (x Data..@? "ownerId")
+      Prelude.<*> ( x Data..@? "tagSet" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@ "internetGatewayId")
+      Prelude.<*> (x Data..@ "internetGatewayId")
 
 instance Prelude.Hashable InternetGateway where
   hashWithSalt _salt InternetGateway' {..} =

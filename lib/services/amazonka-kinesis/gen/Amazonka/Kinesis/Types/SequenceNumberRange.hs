@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.Types.SequenceNumberRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Kinesis.Types.SequenceNumberRange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The range of possible sequence numbers for the shard.
@@ -67,14 +68,14 @@ sequenceNumberRange_endingSequenceNumber = Lens.lens (\SequenceNumberRange' {end
 sequenceNumberRange_startingSequenceNumber :: Lens.Lens' SequenceNumberRange Prelude.Text
 sequenceNumberRange_startingSequenceNumber = Lens.lens (\SequenceNumberRange' {startingSequenceNumber} -> startingSequenceNumber) (\s@SequenceNumberRange' {} a -> s {startingSequenceNumber = a} :: SequenceNumberRange)
 
-instance Core.FromJSON SequenceNumberRange where
+instance Data.FromJSON SequenceNumberRange where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SequenceNumberRange"
       ( \x ->
           SequenceNumberRange'
-            Prelude.<$> (x Core..:? "EndingSequenceNumber")
-            Prelude.<*> (x Core..: "StartingSequenceNumber")
+            Prelude.<$> (x Data..:? "EndingSequenceNumber")
+            Prelude.<*> (x Data..: "StartingSequenceNumber")
       )
 
 instance Prelude.Hashable SequenceNumberRange where

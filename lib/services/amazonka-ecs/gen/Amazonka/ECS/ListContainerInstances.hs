@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.ListContainerInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,11 +34,11 @@ module Amazonka.ECS.ListContainerInstances
     newListContainerInstances,
 
     -- * Request Lenses
-    listContainerInstances_status,
     listContainerInstances_cluster,
-    listContainerInstances_nextToken,
     listContainerInstances_filter,
     listContainerInstances_maxResults,
+    listContainerInstances_nextToken,
+    listContainerInstances_status,
 
     -- * Destructuring the Response
     ListContainerInstancesResponse (..),
@@ -52,48 +52,49 @@ module Amazonka.ECS.ListContainerInstances
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListContainerInstances' smart constructor.
 data ListContainerInstances = ListContainerInstances'
-  { -- | Filters the container instances by status. For example, if you specify
-    -- the @DRAINING@ status, the results include only container instances that
-    -- have been set to @DRAINING@ using UpdateContainerInstancesState. If you
-    -- do not specify this parameter, the default is to include container
-    -- instances set to all states other than @INACTIVE@.
-    status :: Prelude.Maybe ContainerInstanceStatus,
-    -- | The short name or full Amazon Resource Name (ARN) of the cluster that
+  { -- | The short name or full Amazon Resource Name (ARN) of the cluster that
     -- hosts the container instances to list. If you do not specify a cluster,
     -- the default cluster is assumed.
     cluster :: Prelude.Maybe Prelude.Text,
-    -- | The @nextToken@ value returned from a @ListContainerInstances@ request
-    -- indicating that more results are available to fulfill the request and
-    -- further calls will be needed. If @maxResults@ was provided, it is
-    -- possible the number of results to be fewer than @maxResults@.
-    --
-    -- This token should be treated as an opaque identifier that is only used
-    -- to retrieve the next items in a list and not for other programmatic
-    -- purposes.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | You can filter the results of a @ListContainerInstances@ operation with
     -- cluster query language statements. For more information, see
     -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html Cluster Query Language>
     -- in the /Amazon Elastic Container Service Developer Guide/.
     filter' :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of container instance results returned by
-    -- @ListContainerInstances@ in paginated output. When this parameter is
-    -- used, @ListContainerInstances@ only returns @maxResults@ results in a
-    -- single page along with a @nextToken@ response element. The remaining
-    -- results of the initial request can be seen by sending another
+    -- | The maximum number of container instance results that
+    -- @ListContainerInstances@ returned in paginated output. When this
+    -- parameter is used, @ListContainerInstances@ only returns @maxResults@
+    -- results in a single page along with a @nextToken@ response element. The
+    -- remaining results of the initial request can be seen by sending another
     -- @ListContainerInstances@ request with the returned @nextToken@ value.
-    -- This value can be between 1 and 100. If this parameter is not used, then
+    -- This value can be between 1 and 100. If this parameter isn\'t used, then
     -- @ListContainerInstances@ returns up to 100 results and a @nextToken@
     -- value if applicable.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The @nextToken@ value returned from a @ListContainerInstances@ request
+    -- indicating that more results are available to fulfill the request and
+    -- further calls are needed. If @maxResults@ was provided, it\'s possible
+    -- the number of results to be fewer than @maxResults@.
+    --
+    -- This token should be treated as an opaque identifier that is only used
+    -- to retrieve the next items in a list and not for other programmatic
+    -- purposes.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Filters the container instances by status. For example, if you specify
+    -- the @DRAINING@ status, the results include only container instances that
+    -- have been set to @DRAINING@ using UpdateContainerInstancesState. If you
+    -- don\'t specify this parameter, the default is to include container
+    -- instances set to all states other than @INACTIVE@.
+    status :: Prelude.Maybe ContainerInstanceStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -105,74 +106,55 @@ data ListContainerInstances = ListContainerInstances'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'listContainerInstances_status' - Filters the container instances by status. For example, if you specify
--- the @DRAINING@ status, the results include only container instances that
--- have been set to @DRAINING@ using UpdateContainerInstancesState. If you
--- do not specify this parameter, the default is to include container
--- instances set to all states other than @INACTIVE@.
---
 -- 'cluster', 'listContainerInstances_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster that
 -- hosts the container instances to list. If you do not specify a cluster,
 -- the default cluster is assumed.
---
--- 'nextToken', 'listContainerInstances_nextToken' - The @nextToken@ value returned from a @ListContainerInstances@ request
--- indicating that more results are available to fulfill the request and
--- further calls will be needed. If @maxResults@ was provided, it is
--- possible the number of results to be fewer than @maxResults@.
---
--- This token should be treated as an opaque identifier that is only used
--- to retrieve the next items in a list and not for other programmatic
--- purposes.
 --
 -- 'filter'', 'listContainerInstances_filter' - You can filter the results of a @ListContainerInstances@ operation with
 -- cluster query language statements. For more information, see
 -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/cluster-query-language.html Cluster Query Language>
 -- in the /Amazon Elastic Container Service Developer Guide/.
 --
--- 'maxResults', 'listContainerInstances_maxResults' - The maximum number of container instance results returned by
--- @ListContainerInstances@ in paginated output. When this parameter is
--- used, @ListContainerInstances@ only returns @maxResults@ results in a
--- single page along with a @nextToken@ response element. The remaining
--- results of the initial request can be seen by sending another
+-- 'maxResults', 'listContainerInstances_maxResults' - The maximum number of container instance results that
+-- @ListContainerInstances@ returned in paginated output. When this
+-- parameter is used, @ListContainerInstances@ only returns @maxResults@
+-- results in a single page along with a @nextToken@ response element. The
+-- remaining results of the initial request can be seen by sending another
 -- @ListContainerInstances@ request with the returned @nextToken@ value.
--- This value can be between 1 and 100. If this parameter is not used, then
+-- This value can be between 1 and 100. If this parameter isn\'t used, then
 -- @ListContainerInstances@ returns up to 100 results and a @nextToken@
 -- value if applicable.
+--
+-- 'nextToken', 'listContainerInstances_nextToken' - The @nextToken@ value returned from a @ListContainerInstances@ request
+-- indicating that more results are available to fulfill the request and
+-- further calls are needed. If @maxResults@ was provided, it\'s possible
+-- the number of results to be fewer than @maxResults@.
+--
+-- This token should be treated as an opaque identifier that is only used
+-- to retrieve the next items in a list and not for other programmatic
+-- purposes.
+--
+-- 'status', 'listContainerInstances_status' - Filters the container instances by status. For example, if you specify
+-- the @DRAINING@ status, the results include only container instances that
+-- have been set to @DRAINING@ using UpdateContainerInstancesState. If you
+-- don\'t specify this parameter, the default is to include container
+-- instances set to all states other than @INACTIVE@.
 newListContainerInstances ::
   ListContainerInstances
 newListContainerInstances =
   ListContainerInstances'
-    { status = Prelude.Nothing,
-      cluster = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { cluster = Prelude.Nothing,
       filter' = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      status = Prelude.Nothing
     }
-
--- | Filters the container instances by status. For example, if you specify
--- the @DRAINING@ status, the results include only container instances that
--- have been set to @DRAINING@ using UpdateContainerInstancesState. If you
--- do not specify this parameter, the default is to include container
--- instances set to all states other than @INACTIVE@.
-listContainerInstances_status :: Lens.Lens' ListContainerInstances (Prelude.Maybe ContainerInstanceStatus)
-listContainerInstances_status = Lens.lens (\ListContainerInstances' {status} -> status) (\s@ListContainerInstances' {} a -> s {status = a} :: ListContainerInstances)
 
 -- | The short name or full Amazon Resource Name (ARN) of the cluster that
 -- hosts the container instances to list. If you do not specify a cluster,
 -- the default cluster is assumed.
 listContainerInstances_cluster :: Lens.Lens' ListContainerInstances (Prelude.Maybe Prelude.Text)
 listContainerInstances_cluster = Lens.lens (\ListContainerInstances' {cluster} -> cluster) (\s@ListContainerInstances' {} a -> s {cluster = a} :: ListContainerInstances)
-
--- | The @nextToken@ value returned from a @ListContainerInstances@ request
--- indicating that more results are available to fulfill the request and
--- further calls will be needed. If @maxResults@ was provided, it is
--- possible the number of results to be fewer than @maxResults@.
---
--- This token should be treated as an opaque identifier that is only used
--- to retrieve the next items in a list and not for other programmatic
--- purposes.
-listContainerInstances_nextToken :: Lens.Lens' ListContainerInstances (Prelude.Maybe Prelude.Text)
-listContainerInstances_nextToken = Lens.lens (\ListContainerInstances' {nextToken} -> nextToken) (\s@ListContainerInstances' {} a -> s {nextToken = a} :: ListContainerInstances)
 
 -- | You can filter the results of a @ListContainerInstances@ operation with
 -- cluster query language statements. For more information, see
@@ -181,17 +163,36 @@ listContainerInstances_nextToken = Lens.lens (\ListContainerInstances' {nextToke
 listContainerInstances_filter :: Lens.Lens' ListContainerInstances (Prelude.Maybe Prelude.Text)
 listContainerInstances_filter = Lens.lens (\ListContainerInstances' {filter'} -> filter') (\s@ListContainerInstances' {} a -> s {filter' = a} :: ListContainerInstances)
 
--- | The maximum number of container instance results returned by
--- @ListContainerInstances@ in paginated output. When this parameter is
--- used, @ListContainerInstances@ only returns @maxResults@ results in a
--- single page along with a @nextToken@ response element. The remaining
--- results of the initial request can be seen by sending another
+-- | The maximum number of container instance results that
+-- @ListContainerInstances@ returned in paginated output. When this
+-- parameter is used, @ListContainerInstances@ only returns @maxResults@
+-- results in a single page along with a @nextToken@ response element. The
+-- remaining results of the initial request can be seen by sending another
 -- @ListContainerInstances@ request with the returned @nextToken@ value.
--- This value can be between 1 and 100. If this parameter is not used, then
+-- This value can be between 1 and 100. If this parameter isn\'t used, then
 -- @ListContainerInstances@ returns up to 100 results and a @nextToken@
 -- value if applicable.
 listContainerInstances_maxResults :: Lens.Lens' ListContainerInstances (Prelude.Maybe Prelude.Int)
 listContainerInstances_maxResults = Lens.lens (\ListContainerInstances' {maxResults} -> maxResults) (\s@ListContainerInstances' {} a -> s {maxResults = a} :: ListContainerInstances)
+
+-- | The @nextToken@ value returned from a @ListContainerInstances@ request
+-- indicating that more results are available to fulfill the request and
+-- further calls are needed. If @maxResults@ was provided, it\'s possible
+-- the number of results to be fewer than @maxResults@.
+--
+-- This token should be treated as an opaque identifier that is only used
+-- to retrieve the next items in a list and not for other programmatic
+-- purposes.
+listContainerInstances_nextToken :: Lens.Lens' ListContainerInstances (Prelude.Maybe Prelude.Text)
+listContainerInstances_nextToken = Lens.lens (\ListContainerInstances' {nextToken} -> nextToken) (\s@ListContainerInstances' {} a -> s {nextToken = a} :: ListContainerInstances)
+
+-- | Filters the container instances by status. For example, if you specify
+-- the @DRAINING@ status, the results include only container instances that
+-- have been set to @DRAINING@ using UpdateContainerInstancesState. If you
+-- don\'t specify this parameter, the default is to include container
+-- instances set to all states other than @INACTIVE@.
+listContainerInstances_status :: Lens.Lens' ListContainerInstances (Prelude.Maybe ContainerInstanceStatus)
+listContainerInstances_status = Lens.lens (\ListContainerInstances' {status} -> status) (\s@ListContainerInstances' {} a -> s {status = a} :: ListContainerInstances)
 
 instance Core.AWSPager ListContainerInstances where
   page rq rs
@@ -219,65 +220,66 @@ instance Core.AWSRequest ListContainerInstances where
   type
     AWSResponse ListContainerInstances =
       ListContainerInstancesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListContainerInstancesResponse'
-            Prelude.<$> ( x Core..?> "containerInstanceArns"
+            Prelude.<$> ( x Data..?> "containerInstanceArns"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListContainerInstances where
   hashWithSalt _salt ListContainerInstances' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` cluster
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` cluster
       `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData ListContainerInstances where
   rnf ListContainerInstances' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf cluster
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf cluster
       `Prelude.seq` Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders ListContainerInstances where
+instance Data.ToHeaders ListContainerInstances where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.ListContainerInstances" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.ListContainerInstances" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListContainerInstances where
+instance Data.ToJSON ListContainerInstances where
   toJSON ListContainerInstances' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("status" Core..=) Prelude.<$> status,
-            ("cluster" Core..=) Prelude.<$> cluster,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("filter" Core..=) Prelude.<$> filter',
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("cluster" Data..=) Prelude.<$> cluster,
+            ("filter" Data..=) Prelude.<$> filter',
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("status" Data..=) Prelude.<$> status
           ]
       )
 
-instance Core.ToPath ListContainerInstances where
+instance Data.ToPath ListContainerInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListContainerInstances where
+instance Data.ToQuery ListContainerInstances where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListContainerInstancesResponse' smart constructor.

@@ -14,17 +14,18 @@
 
 -- |
 -- Module      : Amazonka.Proton.TagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Tag a resource. For more information, see /AWS Proton resources and
--- tagging/ in the
--- <https://docs.aws.amazon.com/proton/latest/adminguide/resources.html AWS Proton Administrator Guide>
--- or
--- <https://docs.aws.amazon.com/proton/latest/userguide/resources.html AWS Proton User Guide>.
+-- Tag a resource. A tag is a key-value pair of metadata that you associate
+-- with an Proton resource.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/proton/latest/userguide/resources.html Proton resources and tagging>
+-- in the /Proton User Guide/.
 module Amazonka.Proton.TagResource
   ( -- * Creating a Request
     TagResource (..),
@@ -44,7 +45,8 @@ module Amazonka.Proton.TagResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -52,10 +54,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newTagResource' smart constructor.
 data TagResource = TagResource'
-  { -- | The Amazon Resource Name (ARN) of the resource that the resource tag is
-    -- applied to.
+  { -- | The Amazon Resource Name (ARN) of the Proton resource to apply customer
+    -- tags to.
     resourceArn :: Prelude.Text,
-    -- | An array of resource tags to apply to a resource.
+    -- | A list of customer tags to apply to the Proton resource.
     tags :: [Tag]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -68,10 +70,10 @@ data TagResource = TagResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceArn', 'tagResource_resourceArn' - The Amazon Resource Name (ARN) of the resource that the resource tag is
--- applied to.
+-- 'resourceArn', 'tagResource_resourceArn' - The Amazon Resource Name (ARN) of the Proton resource to apply customer
+-- tags to.
 --
--- 'tags', 'tagResource_tags' - An array of resource tags to apply to a resource.
+-- 'tags', 'tagResource_tags' - A list of customer tags to apply to the Proton resource.
 newTagResource ::
   -- | 'resourceArn'
   Prelude.Text ->
@@ -82,18 +84,19 @@ newTagResource pResourceArn_ =
       tags = Prelude.mempty
     }
 
--- | The Amazon Resource Name (ARN) of the resource that the resource tag is
--- applied to.
+-- | The Amazon Resource Name (ARN) of the Proton resource to apply customer
+-- tags to.
 tagResource_resourceArn :: Lens.Lens' TagResource Prelude.Text
 tagResource_resourceArn = Lens.lens (\TagResource' {resourceArn} -> resourceArn) (\s@TagResource' {} a -> s {resourceArn = a} :: TagResource)
 
--- | An array of resource tags to apply to a resource.
+-- | A list of customer tags to apply to the Proton resource.
 tagResource_tags :: Lens.Lens' TagResource [Tag]
 tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} a -> s {tags = a} :: TagResource) Prelude.. Lens.coerced
 
 instance Core.AWSRequest TagResource where
   type AWSResponse TagResource = TagResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -111,34 +114,34 @@ instance Prelude.NFData TagResource where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagResource where
+instance Data.ToHeaders TagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.TagResource" ::
+              Data.=# ( "AwsProton20200720.TagResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TagResource where
+instance Data.ToJSON TagResource where
   toJSON TagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("resourceArn" Core..= resourceArn),
-            Prelude.Just ("tags" Core..= tags)
+          [ Prelude.Just ("resourceArn" Data..= resourceArn),
+            Prelude.Just ("tags" Data..= tags)
           ]
       )
 
-instance Core.ToPath TagResource where
+instance Data.ToPath TagResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TagResource where
+instance Data.ToQuery TagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTagResourceResponse' smart constructor.

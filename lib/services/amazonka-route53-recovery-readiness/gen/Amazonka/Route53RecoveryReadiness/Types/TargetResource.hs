@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.Types.TargetResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,20 @@
 module Amazonka.Route53RecoveryReadiness.Types.TargetResource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53RecoveryReadiness.Types.NLBResource
 import Amazonka.Route53RecoveryReadiness.Types.R53ResourceRecord
 
--- | The target resource the R53 record points to
+-- | The target resource that the Route 53 record points to.
 --
 -- /See:/ 'newTargetResource' smart constructor.
 data TargetResource = TargetResource'
-  { r53Resource :: Prelude.Maybe R53ResourceRecord,
-    nLBResource :: Prelude.Maybe NLBResource
+  { -- | The Network Load Balancer Resource.
+    nLBResource :: Prelude.Maybe NLBResource,
+    -- | The Route 53 resource.
+    r53Resource :: Prelude.Maybe R53ResourceRecord
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,50 +45,50 @@ data TargetResource = TargetResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'r53Resource', 'targetResource_r53Resource' - Undocumented member.
+-- 'nLBResource', 'targetResource_nLBResource' - The Network Load Balancer Resource.
 --
--- 'nLBResource', 'targetResource_nLBResource' - Undocumented member.
+-- 'r53Resource', 'targetResource_r53Resource' - The Route 53 resource.
 newTargetResource ::
   TargetResource
 newTargetResource =
   TargetResource'
-    { r53Resource = Prelude.Nothing,
-      nLBResource = Prelude.Nothing
+    { nLBResource = Prelude.Nothing,
+      r53Resource = Prelude.Nothing
     }
 
--- | Undocumented member.
-targetResource_r53Resource :: Lens.Lens' TargetResource (Prelude.Maybe R53ResourceRecord)
-targetResource_r53Resource = Lens.lens (\TargetResource' {r53Resource} -> r53Resource) (\s@TargetResource' {} a -> s {r53Resource = a} :: TargetResource)
-
--- | Undocumented member.
+-- | The Network Load Balancer Resource.
 targetResource_nLBResource :: Lens.Lens' TargetResource (Prelude.Maybe NLBResource)
 targetResource_nLBResource = Lens.lens (\TargetResource' {nLBResource} -> nLBResource) (\s@TargetResource' {} a -> s {nLBResource = a} :: TargetResource)
 
-instance Core.FromJSON TargetResource where
+-- | The Route 53 resource.
+targetResource_r53Resource :: Lens.Lens' TargetResource (Prelude.Maybe R53ResourceRecord)
+targetResource_r53Resource = Lens.lens (\TargetResource' {r53Resource} -> r53Resource) (\s@TargetResource' {} a -> s {r53Resource = a} :: TargetResource)
+
+instance Data.FromJSON TargetResource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TargetResource"
       ( \x ->
           TargetResource'
-            Prelude.<$> (x Core..:? "r53Resource")
-            Prelude.<*> (x Core..:? "nLBResource")
+            Prelude.<$> (x Data..:? "nLBResource")
+            Prelude.<*> (x Data..:? "r53Resource")
       )
 
 instance Prelude.Hashable TargetResource where
   hashWithSalt _salt TargetResource' {..} =
-    _salt `Prelude.hashWithSalt` r53Resource
-      `Prelude.hashWithSalt` nLBResource
+    _salt `Prelude.hashWithSalt` nLBResource
+      `Prelude.hashWithSalt` r53Resource
 
 instance Prelude.NFData TargetResource where
   rnf TargetResource' {..} =
-    Prelude.rnf r53Resource
-      `Prelude.seq` Prelude.rnf nLBResource
+    Prelude.rnf nLBResource
+      `Prelude.seq` Prelude.rnf r53Resource
 
-instance Core.ToJSON TargetResource where
+instance Data.ToJSON TargetResource where
   toJSON TargetResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("r53Resource" Core..=) Prelude.<$> r53Resource,
-            ("nLBResource" Core..=) Prelude.<$> nLBResource
+          [ ("nLBResource" Data..=) Prelude.<$> nLBResource,
+            ("r53Resource" Data..=) Prelude.<$> r53Resource
           ]
       )

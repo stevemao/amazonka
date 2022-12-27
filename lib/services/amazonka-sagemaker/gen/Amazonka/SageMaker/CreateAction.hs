@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,11 +31,11 @@ module Amazonka.SageMaker.CreateAction
     newCreateAction,
 
     -- * Request Lenses
-    createAction_metadataProperties,
-    createAction_status,
     createAction_description,
-    createAction_tags,
+    createAction_metadataProperties,
     createAction_properties,
+    createAction_status,
+    createAction_tags,
     createAction_actionName,
     createAction_source,
     createAction_actionType,
@@ -51,7 +51,8 @@ module Amazonka.SageMaker.CreateAction
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,15 +60,15 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newCreateAction' smart constructor.
 data CreateAction = CreateAction'
-  { metadataProperties :: Prelude.Maybe MetadataProperties,
-    -- | The status of the action.
-    status :: Prelude.Maybe ActionStatus,
-    -- | The description of the action.
+  { -- | The description of the action.
     description :: Prelude.Maybe Prelude.Text,
-    -- | A list of tags to apply to the action.
-    tags :: Prelude.Maybe [Tag],
+    metadataProperties :: Prelude.Maybe MetadataProperties,
     -- | A list of properties to add to the action.
     properties :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The status of the action.
+    status :: Prelude.Maybe ActionStatus,
+    -- | A list of tags to apply to the action.
+    tags :: Prelude.Maybe [Tag],
     -- | The name of the action. Must be unique to your account in an Amazon Web
     -- Services Region.
     actionName :: Prelude.Text,
@@ -86,15 +87,15 @@ data CreateAction = CreateAction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createAction_description' - The description of the action.
+--
 -- 'metadataProperties', 'createAction_metadataProperties' - Undocumented member.
+--
+-- 'properties', 'createAction_properties' - A list of properties to add to the action.
 --
 -- 'status', 'createAction_status' - The status of the action.
 --
--- 'description', 'createAction_description' - The description of the action.
---
 -- 'tags', 'createAction_tags' - A list of tags to apply to the action.
---
--- 'properties', 'createAction_properties' - A list of properties to add to the action.
 --
 -- 'actionName', 'createAction_actionName' - The name of the action. Must be unique to your account in an Amazon Web
 -- Services Region.
@@ -112,35 +113,35 @@ newCreateAction ::
   CreateAction
 newCreateAction pActionName_ pSource_ pActionType_ =
   CreateAction'
-    { metadataProperties = Prelude.Nothing,
-      status = Prelude.Nothing,
-      description = Prelude.Nothing,
-      tags = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      metadataProperties = Prelude.Nothing,
       properties = Prelude.Nothing,
+      status = Prelude.Nothing,
+      tags = Prelude.Nothing,
       actionName = pActionName_,
       source = pSource_,
       actionType = pActionType_
     }
 
+-- | The description of the action.
+createAction_description :: Lens.Lens' CreateAction (Prelude.Maybe Prelude.Text)
+createAction_description = Lens.lens (\CreateAction' {description} -> description) (\s@CreateAction' {} a -> s {description = a} :: CreateAction)
+
 -- | Undocumented member.
 createAction_metadataProperties :: Lens.Lens' CreateAction (Prelude.Maybe MetadataProperties)
 createAction_metadataProperties = Lens.lens (\CreateAction' {metadataProperties} -> metadataProperties) (\s@CreateAction' {} a -> s {metadataProperties = a} :: CreateAction)
+
+-- | A list of properties to add to the action.
+createAction_properties :: Lens.Lens' CreateAction (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createAction_properties = Lens.lens (\CreateAction' {properties} -> properties) (\s@CreateAction' {} a -> s {properties = a} :: CreateAction) Prelude.. Lens.mapping Lens.coerced
 
 -- | The status of the action.
 createAction_status :: Lens.Lens' CreateAction (Prelude.Maybe ActionStatus)
 createAction_status = Lens.lens (\CreateAction' {status} -> status) (\s@CreateAction' {} a -> s {status = a} :: CreateAction)
 
--- | The description of the action.
-createAction_description :: Lens.Lens' CreateAction (Prelude.Maybe Prelude.Text)
-createAction_description = Lens.lens (\CreateAction' {description} -> description) (\s@CreateAction' {} a -> s {description = a} :: CreateAction)
-
 -- | A list of tags to apply to the action.
 createAction_tags :: Lens.Lens' CreateAction (Prelude.Maybe [Tag])
 createAction_tags = Lens.lens (\CreateAction' {tags} -> tags) (\s@CreateAction' {} a -> s {tags = a} :: CreateAction) Prelude.. Lens.mapping Lens.coerced
-
--- | A list of properties to add to the action.
-createAction_properties :: Lens.Lens' CreateAction (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-createAction_properties = Lens.lens (\CreateAction' {properties} -> properties) (\s@CreateAction' {} a -> s {properties = a} :: CreateAction) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the action. Must be unique to your account in an Amazon Web
 -- Services Region.
@@ -157,70 +158,71 @@ createAction_actionType = Lens.lens (\CreateAction' {actionType} -> actionType) 
 
 instance Core.AWSRequest CreateAction where
   type AWSResponse CreateAction = CreateActionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateActionResponse'
-            Prelude.<$> (x Core..?> "ActionArn")
+            Prelude.<$> (x Data..?> "ActionArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateAction where
   hashWithSalt _salt CreateAction' {..} =
-    _salt `Prelude.hashWithSalt` metadataProperties
-      `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` description
-      `Prelude.hashWithSalt` tags
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` metadataProperties
       `Prelude.hashWithSalt` properties
+      `Prelude.hashWithSalt` status
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` actionName
       `Prelude.hashWithSalt` source
       `Prelude.hashWithSalt` actionType
 
 instance Prelude.NFData CreateAction where
   rnf CreateAction' {..} =
-    Prelude.rnf metadataProperties
-      `Prelude.seq` Prelude.rnf status
-      `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf tags
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf metadataProperties
       `Prelude.seq` Prelude.rnf properties
+      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf actionName
       `Prelude.seq` Prelude.rnf source
       `Prelude.seq` Prelude.rnf actionType
 
-instance Core.ToHeaders CreateAction where
+instance Data.ToHeaders CreateAction where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.CreateAction" :: Prelude.ByteString),
+              Data.=# ("SageMaker.CreateAction" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAction where
+instance Data.ToJSON CreateAction where
   toJSON CreateAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MetadataProperties" Core..=)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("MetadataProperties" Data..=)
               Prelude.<$> metadataProperties,
-            ("Status" Core..=) Prelude.<$> status,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            ("Properties" Core..=) Prelude.<$> properties,
-            Prelude.Just ("ActionName" Core..= actionName),
-            Prelude.Just ("Source" Core..= source),
-            Prelude.Just ("ActionType" Core..= actionType)
+            ("Properties" Data..=) Prelude.<$> properties,
+            ("Status" Data..=) Prelude.<$> status,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("ActionName" Data..= actionName),
+            Prelude.Just ("Source" Data..= source),
+            Prelude.Just ("ActionType" Data..= actionType)
           ]
       )
 
-instance Core.ToPath CreateAction where
+instance Data.ToPath CreateAction where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAction where
+instance Data.ToQuery CreateAction where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateActionResponse' smart constructor.

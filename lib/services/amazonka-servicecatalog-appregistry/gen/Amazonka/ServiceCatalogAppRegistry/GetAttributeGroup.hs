@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalogAppRegistry.GetAttributeGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,20 +35,21 @@ module Amazonka.ServiceCatalogAppRegistry.GetAttributeGroup
     newGetAttributeGroupResponse,
 
     -- * Response Lenses
-    getAttributeGroupResponse_creationTime,
     getAttributeGroupResponse_arn,
-    getAttributeGroupResponse_name,
     getAttributeGroupResponse_attributes,
+    getAttributeGroupResponse_creationTime,
+    getAttributeGroupResponse_description,
     getAttributeGroupResponse_id,
     getAttributeGroupResponse_lastUpdateTime,
-    getAttributeGroupResponse_description,
+    getAttributeGroupResponse_name,
     getAttributeGroupResponse_tags,
     getAttributeGroupResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,19 +92,20 @@ instance Core.AWSRequest GetAttributeGroup where
   type
     AWSResponse GetAttributeGroup =
       GetAttributeGroupResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAttributeGroupResponse'
-            Prelude.<$> (x Core..?> "creationTime")
-            Prelude.<*> (x Core..?> "arn")
-            Prelude.<*> (x Core..?> "name")
-            Prelude.<*> (x Core..?> "attributes")
-            Prelude.<*> (x Core..?> "id")
-            Prelude.<*> (x Core..?> "lastUpdateTime")
-            Prelude.<*> (x Core..?> "description")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "arn")
+            Prelude.<*> (x Data..?> "attributes")
+            Prelude.<*> (x Data..?> "creationTime")
+            Prelude.<*> (x Data..?> "description")
+            Prelude.<*> (x Data..?> "id")
+            Prelude.<*> (x Data..?> "lastUpdateTime")
+            Prelude.<*> (x Data..?> "name")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,46 +117,46 @@ instance Prelude.NFData GetAttributeGroup where
   rnf GetAttributeGroup' {..} =
     Prelude.rnf attributeGroup
 
-instance Core.ToHeaders GetAttributeGroup where
+instance Data.ToHeaders GetAttributeGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetAttributeGroup where
+instance Data.ToPath GetAttributeGroup where
   toPath GetAttributeGroup' {..} =
     Prelude.mconcat
-      ["/attribute-groups/", Core.toBS attributeGroup]
+      ["/attribute-groups/", Data.toBS attributeGroup]
 
-instance Core.ToQuery GetAttributeGroup where
+instance Data.ToQuery GetAttributeGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAttributeGroupResponse' smart constructor.
 data GetAttributeGroupResponse = GetAttributeGroupResponse'
-  { -- | The ISO-8601 formatted timestamp of the moment the attribute group was
-    -- created.
-    creationTime :: Prelude.Maybe Core.POSIX,
-    -- | The Amazon resource name (ARN) that specifies the attribute group across
+  { -- | The Amazon resource name (ARN) that specifies the attribute group across
     -- services.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the attribute group.
-    name :: Prelude.Maybe Prelude.Text,
     -- | A JSON string in the form of nested key-value pairs that represent the
     -- attributes in the group and describes an application and its components.
     attributes :: Prelude.Maybe Prelude.Text,
+    -- | The ISO-8601 formatted timestamp of the moment the attribute group was
+    -- created.
+    creationTime :: Prelude.Maybe Data.POSIX,
+    -- | The description of the attribute group that the user provides.
+    description :: Prelude.Maybe Prelude.Text,
     -- | The identifier of the attribute group.
     id :: Prelude.Maybe Prelude.Text,
     -- | The ISO-8601 formatted timestamp of the moment the attribute group was
     -- last updated. This time is the same as the creationTime for a newly
     -- created attribute group.
-    lastUpdateTime :: Prelude.Maybe Core.POSIX,
-    -- | The description of the attribute group that the user provides.
-    description :: Prelude.Maybe Prelude.Text,
+    lastUpdateTime :: Prelude.Maybe Data.POSIX,
+    -- | The name of the attribute group.
+    name :: Prelude.Maybe Prelude.Text,
     -- | Key-value pairs associated with the attribute group.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
@@ -170,16 +172,16 @@ data GetAttributeGroupResponse = GetAttributeGroupResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'creationTime', 'getAttributeGroupResponse_creationTime' - The ISO-8601 formatted timestamp of the moment the attribute group was
--- created.
---
 -- 'arn', 'getAttributeGroupResponse_arn' - The Amazon resource name (ARN) that specifies the attribute group across
 -- services.
 --
--- 'name', 'getAttributeGroupResponse_name' - The name of the attribute group.
---
 -- 'attributes', 'getAttributeGroupResponse_attributes' - A JSON string in the form of nested key-value pairs that represent the
 -- attributes in the group and describes an application and its components.
+--
+-- 'creationTime', 'getAttributeGroupResponse_creationTime' - The ISO-8601 formatted timestamp of the moment the attribute group was
+-- created.
+--
+-- 'description', 'getAttributeGroupResponse_description' - The description of the attribute group that the user provides.
 --
 -- 'id', 'getAttributeGroupResponse_id' - The identifier of the attribute group.
 --
@@ -187,7 +189,7 @@ data GetAttributeGroupResponse = GetAttributeGroupResponse'
 -- last updated. This time is the same as the creationTime for a newly
 -- created attribute group.
 --
--- 'description', 'getAttributeGroupResponse_description' - The description of the attribute group that the user provides.
+-- 'name', 'getAttributeGroupResponse_name' - The name of the attribute group.
 --
 -- 'tags', 'getAttributeGroupResponse_tags' - Key-value pairs associated with the attribute group.
 --
@@ -198,36 +200,35 @@ newGetAttributeGroupResponse ::
   GetAttributeGroupResponse
 newGetAttributeGroupResponse pHttpStatus_ =
   GetAttributeGroupResponse'
-    { creationTime =
-        Prelude.Nothing,
-      arn = Prelude.Nothing,
-      name = Prelude.Nothing,
+    { arn = Prelude.Nothing,
       attributes = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      description = Prelude.Nothing,
       id = Prelude.Nothing,
       lastUpdateTime = Prelude.Nothing,
-      description = Prelude.Nothing,
+      name = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The ISO-8601 formatted timestamp of the moment the attribute group was
--- created.
-getAttributeGroupResponse_creationTime :: Lens.Lens' GetAttributeGroupResponse (Prelude.Maybe Prelude.UTCTime)
-getAttributeGroupResponse_creationTime = Lens.lens (\GetAttributeGroupResponse' {creationTime} -> creationTime) (\s@GetAttributeGroupResponse' {} a -> s {creationTime = a} :: GetAttributeGroupResponse) Prelude.. Lens.mapping Core._Time
 
 -- | The Amazon resource name (ARN) that specifies the attribute group across
 -- services.
 getAttributeGroupResponse_arn :: Lens.Lens' GetAttributeGroupResponse (Prelude.Maybe Prelude.Text)
 getAttributeGroupResponse_arn = Lens.lens (\GetAttributeGroupResponse' {arn} -> arn) (\s@GetAttributeGroupResponse' {} a -> s {arn = a} :: GetAttributeGroupResponse)
 
--- | The name of the attribute group.
-getAttributeGroupResponse_name :: Lens.Lens' GetAttributeGroupResponse (Prelude.Maybe Prelude.Text)
-getAttributeGroupResponse_name = Lens.lens (\GetAttributeGroupResponse' {name} -> name) (\s@GetAttributeGroupResponse' {} a -> s {name = a} :: GetAttributeGroupResponse)
-
 -- | A JSON string in the form of nested key-value pairs that represent the
 -- attributes in the group and describes an application and its components.
 getAttributeGroupResponse_attributes :: Lens.Lens' GetAttributeGroupResponse (Prelude.Maybe Prelude.Text)
 getAttributeGroupResponse_attributes = Lens.lens (\GetAttributeGroupResponse' {attributes} -> attributes) (\s@GetAttributeGroupResponse' {} a -> s {attributes = a} :: GetAttributeGroupResponse)
+
+-- | The ISO-8601 formatted timestamp of the moment the attribute group was
+-- created.
+getAttributeGroupResponse_creationTime :: Lens.Lens' GetAttributeGroupResponse (Prelude.Maybe Prelude.UTCTime)
+getAttributeGroupResponse_creationTime = Lens.lens (\GetAttributeGroupResponse' {creationTime} -> creationTime) (\s@GetAttributeGroupResponse' {} a -> s {creationTime = a} :: GetAttributeGroupResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The description of the attribute group that the user provides.
+getAttributeGroupResponse_description :: Lens.Lens' GetAttributeGroupResponse (Prelude.Maybe Prelude.Text)
+getAttributeGroupResponse_description = Lens.lens (\GetAttributeGroupResponse' {description} -> description) (\s@GetAttributeGroupResponse' {} a -> s {description = a} :: GetAttributeGroupResponse)
 
 -- | The identifier of the attribute group.
 getAttributeGroupResponse_id :: Lens.Lens' GetAttributeGroupResponse (Prelude.Maybe Prelude.Text)
@@ -237,11 +238,11 @@ getAttributeGroupResponse_id = Lens.lens (\GetAttributeGroupResponse' {id} -> id
 -- last updated. This time is the same as the creationTime for a newly
 -- created attribute group.
 getAttributeGroupResponse_lastUpdateTime :: Lens.Lens' GetAttributeGroupResponse (Prelude.Maybe Prelude.UTCTime)
-getAttributeGroupResponse_lastUpdateTime = Lens.lens (\GetAttributeGroupResponse' {lastUpdateTime} -> lastUpdateTime) (\s@GetAttributeGroupResponse' {} a -> s {lastUpdateTime = a} :: GetAttributeGroupResponse) Prelude.. Lens.mapping Core._Time
+getAttributeGroupResponse_lastUpdateTime = Lens.lens (\GetAttributeGroupResponse' {lastUpdateTime} -> lastUpdateTime) (\s@GetAttributeGroupResponse' {} a -> s {lastUpdateTime = a} :: GetAttributeGroupResponse) Prelude.. Lens.mapping Data._Time
 
--- | The description of the attribute group that the user provides.
-getAttributeGroupResponse_description :: Lens.Lens' GetAttributeGroupResponse (Prelude.Maybe Prelude.Text)
-getAttributeGroupResponse_description = Lens.lens (\GetAttributeGroupResponse' {description} -> description) (\s@GetAttributeGroupResponse' {} a -> s {description = a} :: GetAttributeGroupResponse)
+-- | The name of the attribute group.
+getAttributeGroupResponse_name :: Lens.Lens' GetAttributeGroupResponse (Prelude.Maybe Prelude.Text)
+getAttributeGroupResponse_name = Lens.lens (\GetAttributeGroupResponse' {name} -> name) (\s@GetAttributeGroupResponse' {} a -> s {name = a} :: GetAttributeGroupResponse)
 
 -- | Key-value pairs associated with the attribute group.
 getAttributeGroupResponse_tags :: Lens.Lens' GetAttributeGroupResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -253,12 +254,12 @@ getAttributeGroupResponse_httpStatus = Lens.lens (\GetAttributeGroupResponse' {h
 
 instance Prelude.NFData GetAttributeGroupResponse where
   rnf GetAttributeGroupResponse' {..} =
-    Prelude.rnf creationTime
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf attributes
+      `Prelude.seq` Prelude.rnf creationTime
+      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf lastUpdateTime
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

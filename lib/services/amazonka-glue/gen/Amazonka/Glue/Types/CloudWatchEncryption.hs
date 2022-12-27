@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.CloudWatchEncryption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Glue.Types.CloudWatchEncryption where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.CloudWatchEncryptionMode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies how Amazon CloudWatch data should be encrypted.
@@ -66,14 +67,14 @@ cloudWatchEncryption_cloudWatchEncryptionMode = Lens.lens (\CloudWatchEncryption
 cloudWatchEncryption_kmsKeyArn :: Lens.Lens' CloudWatchEncryption (Prelude.Maybe Prelude.Text)
 cloudWatchEncryption_kmsKeyArn = Lens.lens (\CloudWatchEncryption' {kmsKeyArn} -> kmsKeyArn) (\s@CloudWatchEncryption' {} a -> s {kmsKeyArn = a} :: CloudWatchEncryption)
 
-instance Core.FromJSON CloudWatchEncryption where
+instance Data.FromJSON CloudWatchEncryption where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CloudWatchEncryption"
       ( \x ->
           CloudWatchEncryption'
-            Prelude.<$> (x Core..:? "CloudWatchEncryptionMode")
-            Prelude.<*> (x Core..:? "KmsKeyArn")
+            Prelude.<$> (x Data..:? "CloudWatchEncryptionMode")
+            Prelude.<*> (x Data..:? "KmsKeyArn")
       )
 
 instance Prelude.Hashable CloudWatchEncryption where
@@ -87,12 +88,12 @@ instance Prelude.NFData CloudWatchEncryption where
     Prelude.rnf cloudWatchEncryptionMode
       `Prelude.seq` Prelude.rnf kmsKeyArn
 
-instance Core.ToJSON CloudWatchEncryption where
+instance Data.ToJSON CloudWatchEncryption where
   toJSON CloudWatchEncryption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CloudWatchEncryptionMode" Core..=)
+          [ ("CloudWatchEncryptionMode" Data..=)
               Prelude.<$> cloudWatchEncryptionMode,
-            ("KmsKeyArn" Core..=) Prelude.<$> kmsKeyArn
+            ("KmsKeyArn" Data..=) Prelude.<$> kmsKeyArn
           ]
       )

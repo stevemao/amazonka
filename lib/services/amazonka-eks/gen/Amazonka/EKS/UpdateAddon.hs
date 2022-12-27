@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.UpdateAddon
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,10 @@ module Amazonka.EKS.UpdateAddon
 
     -- * Request Lenses
     updateAddon_addonVersion,
-    updateAddon_serviceAccountRoleArn,
-    updateAddon_resolveConflicts,
     updateAddon_clientRequestToken,
+    updateAddon_configurationValues,
+    updateAddon_resolveConflicts,
+    updateAddon_serviceAccountRoleArn,
     updateAddon_clusterName,
     updateAddon_addonName,
 
@@ -45,8 +46,9 @@ module Amazonka.EKS.UpdateAddon
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,6 +60,28 @@ data UpdateAddon = UpdateAddon'
     -- <https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonVersions.html DescribeAddonVersions>
     -- .
     addonVersion :: Prelude.Maybe Prelude.Text,
+    -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The set of configuration values for the add-on being created. Whatever
+    -- values provided here are validated against the schema from
+    -- <https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonConfiguration.html DescribeAddonConfiguration>
+    configurationValues :: Prelude.Maybe Prelude.Text,
+    -- | How to resolve field value conflicts for an Amazon EKS add-on if you\'ve
+    -- changed a value from the Amazon EKS default value. Conflicts are handled
+    -- based on the option you choose:
+    --
+    -- -   __None__ – Amazon EKS doesn\'t change the value. The update might
+    --     fail.
+    --
+    -- -   __Overwrite__ – Amazon EKS overwrites the changed value back to the
+    --     Amazon EKS default value.
+    --
+    -- -   __Preserve__ – Amazon EKS preserves the value. If you choose this
+    --     option, we recommend that you test any field and value changes on a
+    --     non-production cluster before updating the add-on on your production
+    --     cluster.
+    resolveConflicts :: Prelude.Maybe ResolveConflicts,
     -- | The Amazon Resource Name (ARN) of an existing IAM role to bind to the
     -- add-on\'s service account. The role must be assigned the IAM permissions
     -- required by the add-on. If you don\'t specify an existing IAM role, then
@@ -71,12 +95,6 @@ data UpdateAddon = UpdateAddon'
     -- <https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html Enabling IAM roles for service accounts on your cluster>
     -- in the /Amazon EKS User Guide/.
     serviceAccountRoleArn :: Prelude.Maybe Prelude.Text,
-    -- | How to resolve parameter value conflicts when applying the new version
-    -- of the add-on to the cluster.
-    resolveConflicts :: Prelude.Maybe ResolveConflicts,
-    -- | Unique, case-sensitive identifier that you provide to ensure the
-    -- idempotency of the request.
-    clientRequestToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the cluster.
     clusterName :: Prelude.Text,
     -- | The name of the add-on. The name must match one of the names returned by
@@ -99,6 +117,28 @@ data UpdateAddon = UpdateAddon'
 -- <https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonVersions.html DescribeAddonVersions>
 -- .
 --
+-- 'clientRequestToken', 'updateAddon_clientRequestToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request.
+--
+-- 'configurationValues', 'updateAddon_configurationValues' - The set of configuration values for the add-on being created. Whatever
+-- values provided here are validated against the schema from
+-- <https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonConfiguration.html DescribeAddonConfiguration>
+--
+-- 'resolveConflicts', 'updateAddon_resolveConflicts' - How to resolve field value conflicts for an Amazon EKS add-on if you\'ve
+-- changed a value from the Amazon EKS default value. Conflicts are handled
+-- based on the option you choose:
+--
+-- -   __None__ – Amazon EKS doesn\'t change the value. The update might
+--     fail.
+--
+-- -   __Overwrite__ – Amazon EKS overwrites the changed value back to the
+--     Amazon EKS default value.
+--
+-- -   __Preserve__ – Amazon EKS preserves the value. If you choose this
+--     option, we recommend that you test any field and value changes on a
+--     non-production cluster before updating the add-on on your production
+--     cluster.
+--
 -- 'serviceAccountRoleArn', 'updateAddon_serviceAccountRoleArn' - The Amazon Resource Name (ARN) of an existing IAM role to bind to the
 -- add-on\'s service account. The role must be assigned the IAM permissions
 -- required by the add-on. If you don\'t specify an existing IAM role, then
@@ -111,12 +151,6 @@ data UpdateAddon = UpdateAddon'
 -- (OIDC) provider created for your cluster. For more information, see
 -- <https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html Enabling IAM roles for service accounts on your cluster>
 -- in the /Amazon EKS User Guide/.
---
--- 'resolveConflicts', 'updateAddon_resolveConflicts' - How to resolve parameter value conflicts when applying the new version
--- of the add-on to the cluster.
---
--- 'clientRequestToken', 'updateAddon_clientRequestToken' - Unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
 --
 -- 'clusterName', 'updateAddon_clusterName' - The name of the cluster.
 --
@@ -132,9 +166,10 @@ newUpdateAddon ::
 newUpdateAddon pClusterName_ pAddonName_ =
   UpdateAddon'
     { addonVersion = Prelude.Nothing,
-      serviceAccountRoleArn = Prelude.Nothing,
-      resolveConflicts = Prelude.Nothing,
       clientRequestToken = Prelude.Nothing,
+      configurationValues = Prelude.Nothing,
+      resolveConflicts = Prelude.Nothing,
+      serviceAccountRoleArn = Prelude.Nothing,
       clusterName = pClusterName_,
       addonName = pAddonName_
     }
@@ -145,6 +180,34 @@ newUpdateAddon pClusterName_ pAddonName_ =
 -- .
 updateAddon_addonVersion :: Lens.Lens' UpdateAddon (Prelude.Maybe Prelude.Text)
 updateAddon_addonVersion = Lens.lens (\UpdateAddon' {addonVersion} -> addonVersion) (\s@UpdateAddon' {} a -> s {addonVersion = a} :: UpdateAddon)
+
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request.
+updateAddon_clientRequestToken :: Lens.Lens' UpdateAddon (Prelude.Maybe Prelude.Text)
+updateAddon_clientRequestToken = Lens.lens (\UpdateAddon' {clientRequestToken} -> clientRequestToken) (\s@UpdateAddon' {} a -> s {clientRequestToken = a} :: UpdateAddon)
+
+-- | The set of configuration values for the add-on being created. Whatever
+-- values provided here are validated against the schema from
+-- <https://docs.aws.amazon.com/eks/latest/APIReference/API_DescribeAddonConfiguration.html DescribeAddonConfiguration>
+updateAddon_configurationValues :: Lens.Lens' UpdateAddon (Prelude.Maybe Prelude.Text)
+updateAddon_configurationValues = Lens.lens (\UpdateAddon' {configurationValues} -> configurationValues) (\s@UpdateAddon' {} a -> s {configurationValues = a} :: UpdateAddon)
+
+-- | How to resolve field value conflicts for an Amazon EKS add-on if you\'ve
+-- changed a value from the Amazon EKS default value. Conflicts are handled
+-- based on the option you choose:
+--
+-- -   __None__ – Amazon EKS doesn\'t change the value. The update might
+--     fail.
+--
+-- -   __Overwrite__ – Amazon EKS overwrites the changed value back to the
+--     Amazon EKS default value.
+--
+-- -   __Preserve__ – Amazon EKS preserves the value. If you choose this
+--     option, we recommend that you test any field and value changes on a
+--     non-production cluster before updating the add-on on your production
+--     cluster.
+updateAddon_resolveConflicts :: Lens.Lens' UpdateAddon (Prelude.Maybe ResolveConflicts)
+updateAddon_resolveConflicts = Lens.lens (\UpdateAddon' {resolveConflicts} -> resolveConflicts) (\s@UpdateAddon' {} a -> s {resolveConflicts = a} :: UpdateAddon)
 
 -- | The Amazon Resource Name (ARN) of an existing IAM role to bind to the
 -- add-on\'s service account. The role must be assigned the IAM permissions
@@ -161,16 +224,6 @@ updateAddon_addonVersion = Lens.lens (\UpdateAddon' {addonVersion} -> addonVersi
 updateAddon_serviceAccountRoleArn :: Lens.Lens' UpdateAddon (Prelude.Maybe Prelude.Text)
 updateAddon_serviceAccountRoleArn = Lens.lens (\UpdateAddon' {serviceAccountRoleArn} -> serviceAccountRoleArn) (\s@UpdateAddon' {} a -> s {serviceAccountRoleArn = a} :: UpdateAddon)
 
--- | How to resolve parameter value conflicts when applying the new version
--- of the add-on to the cluster.
-updateAddon_resolveConflicts :: Lens.Lens' UpdateAddon (Prelude.Maybe ResolveConflicts)
-updateAddon_resolveConflicts = Lens.lens (\UpdateAddon' {resolveConflicts} -> resolveConflicts) (\s@UpdateAddon' {} a -> s {resolveConflicts = a} :: UpdateAddon)
-
--- | Unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
-updateAddon_clientRequestToken :: Lens.Lens' UpdateAddon (Prelude.Maybe Prelude.Text)
-updateAddon_clientRequestToken = Lens.lens (\UpdateAddon' {clientRequestToken} -> clientRequestToken) (\s@UpdateAddon' {} a -> s {clientRequestToken = a} :: UpdateAddon)
-
 -- | The name of the cluster.
 updateAddon_clusterName :: Lens.Lens' UpdateAddon Prelude.Text
 updateAddon_clusterName = Lens.lens (\UpdateAddon' {clusterName} -> clusterName) (\s@UpdateAddon' {} a -> s {clusterName = a} :: UpdateAddon)
@@ -183,69 +236,74 @@ updateAddon_addonName = Lens.lens (\UpdateAddon' {addonName} -> addonName) (\s@U
 
 instance Core.AWSRequest UpdateAddon where
   type AWSResponse UpdateAddon = UpdateAddonResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateAddonResponse'
-            Prelude.<$> (x Core..?> "update")
+            Prelude.<$> (x Data..?> "update")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateAddon where
   hashWithSalt _salt UpdateAddon' {..} =
     _salt `Prelude.hashWithSalt` addonVersion
-      `Prelude.hashWithSalt` serviceAccountRoleArn
-      `Prelude.hashWithSalt` resolveConflicts
       `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` configurationValues
+      `Prelude.hashWithSalt` resolveConflicts
+      `Prelude.hashWithSalt` serviceAccountRoleArn
       `Prelude.hashWithSalt` clusterName
       `Prelude.hashWithSalt` addonName
 
 instance Prelude.NFData UpdateAddon where
   rnf UpdateAddon' {..} =
     Prelude.rnf addonVersion
-      `Prelude.seq` Prelude.rnf serviceAccountRoleArn
-      `Prelude.seq` Prelude.rnf resolveConflicts
       `Prelude.seq` Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf configurationValues
+      `Prelude.seq` Prelude.rnf resolveConflicts
+      `Prelude.seq` Prelude.rnf serviceAccountRoleArn
       `Prelude.seq` Prelude.rnf clusterName
       `Prelude.seq` Prelude.rnf addonName
 
-instance Core.ToHeaders UpdateAddon where
+instance Data.ToHeaders UpdateAddon where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAddon where
+instance Data.ToJSON UpdateAddon where
   toJSON UpdateAddon' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("addonVersion" Core..=) Prelude.<$> addonVersion,
-            ("serviceAccountRoleArn" Core..=)
-              Prelude.<$> serviceAccountRoleArn,
-            ("resolveConflicts" Core..=)
+          [ ("addonVersion" Data..=) Prelude.<$> addonVersion,
+            ("clientRequestToken" Data..=)
+              Prelude.<$> clientRequestToken,
+            ("configurationValues" Data..=)
+              Prelude.<$> configurationValues,
+            ("resolveConflicts" Data..=)
               Prelude.<$> resolveConflicts,
-            ("clientRequestToken" Core..=)
-              Prelude.<$> clientRequestToken
+            ("serviceAccountRoleArn" Data..=)
+              Prelude.<$> serviceAccountRoleArn
           ]
       )
 
-instance Core.ToPath UpdateAddon where
+instance Data.ToPath UpdateAddon where
   toPath UpdateAddon' {..} =
     Prelude.mconcat
       [ "/clusters/",
-        Core.toBS clusterName,
+        Data.toBS clusterName,
         "/addons/",
-        Core.toBS addonName,
+        Data.toBS addonName,
         "/update"
       ]
 
-instance Core.ToQuery UpdateAddon where
+instance Data.ToQuery UpdateAddon where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAddonResponse' smart constructor.

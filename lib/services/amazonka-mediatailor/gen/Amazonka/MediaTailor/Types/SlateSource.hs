@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.Types.SlateSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaTailor.Types.SlateSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Slate VOD source configuration.
@@ -64,14 +65,14 @@ slateSource_sourceLocationName = Lens.lens (\SlateSource' {sourceLocationName} -
 slateSource_vodSourceName :: Lens.Lens' SlateSource (Prelude.Maybe Prelude.Text)
 slateSource_vodSourceName = Lens.lens (\SlateSource' {vodSourceName} -> vodSourceName) (\s@SlateSource' {} a -> s {vodSourceName = a} :: SlateSource)
 
-instance Core.FromJSON SlateSource where
+instance Data.FromJSON SlateSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SlateSource"
       ( \x ->
           SlateSource'
-            Prelude.<$> (x Core..:? "SourceLocationName")
-            Prelude.<*> (x Core..:? "VodSourceName")
+            Prelude.<$> (x Data..:? "SourceLocationName")
+            Prelude.<*> (x Data..:? "VodSourceName")
       )
 
 instance Prelude.Hashable SlateSource where
@@ -84,12 +85,12 @@ instance Prelude.NFData SlateSource where
     Prelude.rnf sourceLocationName
       `Prelude.seq` Prelude.rnf vodSourceName
 
-instance Core.ToJSON SlateSource where
+instance Data.ToJSON SlateSource where
   toJSON SlateSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SourceLocationName" Core..=)
+          [ ("SourceLocationName" Data..=)
               Prelude.<$> sourceLocationName,
-            ("VodSourceName" Core..=) Prelude.<$> vodSourceName
+            ("VodSourceName" Data..=) Prelude.<$> vodSourceName
           ]
       )

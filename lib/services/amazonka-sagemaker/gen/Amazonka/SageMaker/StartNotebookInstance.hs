@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.StartNotebookInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,9 +22,9 @@
 --
 -- Launches an ML compute instance with the latest version of the libraries
 -- and attaches your ML storage volume. After configuring the notebook
--- instance, Amazon SageMaker sets the notebook instance status to
--- @InService@. A notebook instance\'s status must be @InService@ before
--- you can connect to your Jupyter notebook.
+-- instance, SageMaker sets the notebook instance status to @InService@. A
+-- notebook instance\'s status must be @InService@ before you can connect
+-- to your Jupyter notebook.
 module Amazonka.SageMaker.StartNotebookInstance
   ( -- * Creating a Request
     StartNotebookInstance (..),
@@ -40,7 +40,8 @@ module Amazonka.SageMaker.StartNotebookInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +81,8 @@ instance Core.AWSRequest StartNotebookInstance where
   type
     AWSResponse StartNotebookInstance =
       StartNotebookInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull StartNotebookInstanceResponse'
 
@@ -92,36 +94,36 @@ instance Prelude.NFData StartNotebookInstance where
   rnf StartNotebookInstance' {..} =
     Prelude.rnf notebookInstanceName
 
-instance Core.ToHeaders StartNotebookInstance where
+instance Data.ToHeaders StartNotebookInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.StartNotebookInstance" ::
+              Data.=# ( "SageMaker.StartNotebookInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartNotebookInstance where
+instance Data.ToJSON StartNotebookInstance where
   toJSON StartNotebookInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "NotebookInstanceName"
-                  Core..= notebookInstanceName
+                  Data..= notebookInstanceName
               )
           ]
       )
 
-instance Core.ToPath StartNotebookInstance where
+instance Data.ToPath StartNotebookInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartNotebookInstance where
+instance Data.ToQuery StartNotebookInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartNotebookInstanceResponse' smart constructor.

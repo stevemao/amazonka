@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.ApplicationSnapshotConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalyticsV2.Types.ApplicationSnapshotConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes whether snapshots are enabled for a Flink-based Kinesis Data
@@ -76,11 +77,11 @@ instance
   rnf ApplicationSnapshotConfiguration' {..} =
     Prelude.rnf snapshotsEnabled
 
-instance Core.ToJSON ApplicationSnapshotConfiguration where
+instance Data.ToJSON ApplicationSnapshotConfiguration where
   toJSON ApplicationSnapshotConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("SnapshotsEnabled" Core..= snapshotsEnabled)
+              ("SnapshotsEnabled" Data..= snapshotsEnabled)
           ]
       )

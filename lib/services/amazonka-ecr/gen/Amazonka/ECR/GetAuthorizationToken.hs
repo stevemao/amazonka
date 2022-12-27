@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.GetAuthorizationToken
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,8 +50,9 @@ module Amazonka.ECR.GetAuthorizationToken
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,12 +95,13 @@ instance Core.AWSRequest GetAuthorizationToken where
   type
     AWSResponse GetAuthorizationToken =
       GetAuthorizationTokenResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAuthorizationTokenResponse'
-            Prelude.<$> ( x Core..?> "authorizationData"
+            Prelude.<$> ( x Data..?> "authorizationData"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -113,32 +115,32 @@ instance Prelude.NFData GetAuthorizationToken where
   rnf GetAuthorizationToken' {..} =
     Prelude.rnf registryIds
 
-instance Core.ToHeaders GetAuthorizationToken where
+instance Data.ToHeaders GetAuthorizationToken where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerRegistry_V20150921.GetAuthorizationToken" ::
+              Data.=# ( "AmazonEC2ContainerRegistry_V20150921.GetAuthorizationToken" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetAuthorizationToken where
+instance Data.ToJSON GetAuthorizationToken where
   toJSON GetAuthorizationToken' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("registryIds" Core..=) Prelude.<$> registryIds]
+          [("registryIds" Data..=) Prelude.<$> registryIds]
       )
 
-instance Core.ToPath GetAuthorizationToken where
+instance Data.ToPath GetAuthorizationToken where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetAuthorizationToken where
+instance Data.ToQuery GetAuthorizationToken where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAuthorizationTokenResponse' smart constructor.

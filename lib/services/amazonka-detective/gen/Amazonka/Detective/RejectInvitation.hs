@@ -14,15 +14,19 @@
 
 -- |
 -- Module      : Amazonka.Detective.RejectInvitation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Rejects an invitation to contribute the account data to a behavior
--- graph. This operation must be called by a member account that has the
--- @INVITED@ status.
+-- graph. This operation must be called by an invited member account that
+-- has the @INVITED@ status.
+--
+-- @RejectInvitation@ cannot be called by an organization account in the
+-- organization behavior graph. In the organization behavior graph,
+-- organization accounts do not receive an invitation.
 module Amazonka.Detective.RejectInvitation
   ( -- * Creating a Request
     RejectInvitation (..),
@@ -38,8 +42,9 @@ module Amazonka.Detective.RejectInvitation
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Detective.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,7 +89,8 @@ instance Core.AWSRequest RejectInvitation where
   type
     AWSResponse RejectInvitation =
       RejectInvitationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull RejectInvitationResponse'
 
@@ -95,28 +101,28 @@ instance Prelude.Hashable RejectInvitation where
 instance Prelude.NFData RejectInvitation where
   rnf RejectInvitation' {..} = Prelude.rnf graphArn
 
-instance Core.ToHeaders RejectInvitation where
+instance Data.ToHeaders RejectInvitation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RejectInvitation where
+instance Data.ToJSON RejectInvitation where
   toJSON RejectInvitation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("GraphArn" Core..= graphArn)]
+          [Prelude.Just ("GraphArn" Data..= graphArn)]
       )
 
-instance Core.ToPath RejectInvitation where
+instance Data.ToPath RejectInvitation where
   toPath = Prelude.const "/invitation/removal"
 
-instance Core.ToQuery RejectInvitation where
+instance Data.ToQuery RejectInvitation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRejectInvitationResponse' smart constructor.

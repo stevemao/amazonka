@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.StartOnDemandReplicationRun
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.SMS.StartOnDemandReplicationRun
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,12 +96,13 @@ instance Core.AWSRequest StartOnDemandReplicationRun where
   type
     AWSResponse StartOnDemandReplicationRun =
       StartOnDemandReplicationRunResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartOnDemandReplicationRunResponse'
-            Prelude.<$> (x Core..?> "replicationRunId")
+            Prelude.<$> (x Data..?> "replicationRunId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,35 +116,35 @@ instance Prelude.NFData StartOnDemandReplicationRun where
     Prelude.rnf description
       `Prelude.seq` Prelude.rnf replicationJobId
 
-instance Core.ToHeaders StartOnDemandReplicationRun where
+instance Data.ToHeaders StartOnDemandReplicationRun where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.StartOnDemandReplicationRun" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.StartOnDemandReplicationRun" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartOnDemandReplicationRun where
+instance Data.ToJSON StartOnDemandReplicationRun where
   toJSON StartOnDemandReplicationRun' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("description" Core..=) Prelude.<$> description,
+          [ ("description" Data..=) Prelude.<$> description,
             Prelude.Just
-              ("replicationJobId" Core..= replicationJobId)
+              ("replicationJobId" Data..= replicationJobId)
           ]
       )
 
-instance Core.ToPath StartOnDemandReplicationRun where
+instance Data.ToPath StartOnDemandReplicationRun where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartOnDemandReplicationRun where
+instance Data.ToQuery StartOnDemandReplicationRun where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartOnDemandReplicationRunResponse' smart constructor.

@@ -38,6 +38,20 @@ instToText = \case
   IsHashable {} -> "Hashable"
   IsNFData {} -> "NFData"
 
+instToQualifiedText :: Inst -> Text
+instToQualifiedText = \case
+  FromJSON {} -> "Data.FromJSON"
+  FromXML {} -> "Data.FromXML"
+  ToJSON {} -> "Data.ToJSON"
+  ToXML {} -> "Data.ToXML"
+  ToElement {} -> "Data.ToElement"
+  ToHeaders {} -> "Data.ToHeaders"
+  ToQuery {} -> "Data.ToQuery"
+  ToPath {} -> "Data.ToPath"
+  ToBody {} -> "Data.ToBody"
+  IsHashable {} -> "Prelude.Hashable"
+  IsNFData {} -> "Prelude.NFData"
+
 shapeInsts :: Protocol -> Mode -> [Field] -> [Inst]
 shapeInsts proto mode fields = instances
   where

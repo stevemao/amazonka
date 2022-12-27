@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.TargetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.TargetGroup where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a load balancer target group.
@@ -50,9 +51,9 @@ newTargetGroup = TargetGroup' {arn = Prelude.Nothing}
 targetGroup_arn :: Lens.Lens' TargetGroup (Prelude.Maybe Prelude.Text)
 targetGroup_arn = Lens.lens (\TargetGroup' {arn} -> arn) (\s@TargetGroup' {} a -> s {arn = a} :: TargetGroup)
 
-instance Core.FromXML TargetGroup where
+instance Data.FromXML TargetGroup where
   parseXML x =
-    TargetGroup' Prelude.<$> (x Core..@? "arn")
+    TargetGroup' Prelude.<$> (x Data..@? "arn")
 
 instance Prelude.Hashable TargetGroup where
   hashWithSalt _salt TargetGroup' {..} =
@@ -61,6 +62,6 @@ instance Prelude.Hashable TargetGroup where
 instance Prelude.NFData TargetGroup where
   rnf TargetGroup' {..} = Prelude.rnf arn
 
-instance Core.ToQuery TargetGroup where
+instance Data.ToQuery TargetGroup where
   toQuery TargetGroup' {..} =
-    Prelude.mconcat ["Arn" Core.=: arn]
+    Prelude.mconcat ["Arn" Data.=: arn]

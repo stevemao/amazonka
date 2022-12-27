@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.Types.EdiPartyName
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.CertificateManagerPCA.Types.EdiPartyName where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an Electronic Data Interchange (EDI) entity as described in as
 -- defined in
--- <https://tools.ietf.org/html/rfc5280 Subject Alternative Name> in RFC
--- 5280.
+-- <https://datatracker.ietf.org/doc/html/rfc5280 Subject Alternative Name>
+-- in RFC 5280.
 --
 -- /See:/ 'newEdiPartyName' smart constructor.
 data EdiPartyName = EdiPartyName'
@@ -66,14 +67,14 @@ ediPartyName_nameAssigner = Lens.lens (\EdiPartyName' {nameAssigner} -> nameAssi
 ediPartyName_partyName :: Lens.Lens' EdiPartyName Prelude.Text
 ediPartyName_partyName = Lens.lens (\EdiPartyName' {partyName} -> partyName) (\s@EdiPartyName' {} a -> s {partyName = a} :: EdiPartyName)
 
-instance Core.FromJSON EdiPartyName where
+instance Data.FromJSON EdiPartyName where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EdiPartyName"
       ( \x ->
           EdiPartyName'
-            Prelude.<$> (x Core..:? "NameAssigner")
-            Prelude.<*> (x Core..: "PartyName")
+            Prelude.<$> (x Data..:? "NameAssigner")
+            Prelude.<*> (x Data..: "PartyName")
       )
 
 instance Prelude.Hashable EdiPartyName where
@@ -86,11 +87,11 @@ instance Prelude.NFData EdiPartyName where
     Prelude.rnf nameAssigner
       `Prelude.seq` Prelude.rnf partyName
 
-instance Core.ToJSON EdiPartyName where
+instance Data.ToJSON EdiPartyName where
   toJSON EdiPartyName' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NameAssigner" Core..=) Prelude.<$> nameAssigner,
-            Prelude.Just ("PartyName" Core..= partyName)
+          [ ("NameAssigner" Data..=) Prelude.<$> nameAssigner,
+            Prelude.Just ("PartyName" Data..= partyName)
           ]
       )

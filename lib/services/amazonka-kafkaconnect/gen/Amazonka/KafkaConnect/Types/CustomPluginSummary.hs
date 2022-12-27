@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.CustomPluginSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.KafkaConnect.Types.CustomPluginSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types.CustomPluginRevisionSummary
 import Amazonka.KafkaConnect.Types.CustomPluginState
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A summary of the custom plugin.
@@ -30,17 +31,17 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newCustomPluginSummary' smart constructor.
 data CustomPluginSummary = CustomPluginSummary'
   { -- | The time that the custom plugin was created.
-    creationTime :: Prelude.Maybe Core.POSIX,
-    -- | The latest revision of the custom plugin.
-    latestRevision :: Prelude.Maybe CustomPluginRevisionSummary,
-    -- | The name of the custom plugin.
-    name :: Prelude.Maybe Prelude.Text,
+    creationTime :: Prelude.Maybe Data.POSIX,
     -- | The Amazon Resource Name (ARN) of the custom plugin.
     customPluginArn :: Prelude.Maybe Prelude.Text,
     -- | The state of the custom plugin.
     customPluginState :: Prelude.Maybe CustomPluginState,
     -- | A description of the custom plugin.
-    description :: Prelude.Maybe Prelude.Text
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The latest revision of the custom plugin.
+    latestRevision :: Prelude.Maybe CustomPluginRevisionSummary,
+    -- | The name of the custom plugin.
+    name :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -54,39 +55,31 @@ data CustomPluginSummary = CustomPluginSummary'
 --
 -- 'creationTime', 'customPluginSummary_creationTime' - The time that the custom plugin was created.
 --
--- 'latestRevision', 'customPluginSummary_latestRevision' - The latest revision of the custom plugin.
---
--- 'name', 'customPluginSummary_name' - The name of the custom plugin.
---
 -- 'customPluginArn', 'customPluginSummary_customPluginArn' - The Amazon Resource Name (ARN) of the custom plugin.
 --
 -- 'customPluginState', 'customPluginSummary_customPluginState' - The state of the custom plugin.
 --
 -- 'description', 'customPluginSummary_description' - A description of the custom plugin.
+--
+-- 'latestRevision', 'customPluginSummary_latestRevision' - The latest revision of the custom plugin.
+--
+-- 'name', 'customPluginSummary_name' - The name of the custom plugin.
 newCustomPluginSummary ::
   CustomPluginSummary
 newCustomPluginSummary =
   CustomPluginSummary'
     { creationTime =
         Prelude.Nothing,
-      latestRevision = Prelude.Nothing,
-      name = Prelude.Nothing,
       customPluginArn = Prelude.Nothing,
       customPluginState = Prelude.Nothing,
-      description = Prelude.Nothing
+      description = Prelude.Nothing,
+      latestRevision = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The time that the custom plugin was created.
 customPluginSummary_creationTime :: Lens.Lens' CustomPluginSummary (Prelude.Maybe Prelude.UTCTime)
-customPluginSummary_creationTime = Lens.lens (\CustomPluginSummary' {creationTime} -> creationTime) (\s@CustomPluginSummary' {} a -> s {creationTime = a} :: CustomPluginSummary) Prelude.. Lens.mapping Core._Time
-
--- | The latest revision of the custom plugin.
-customPluginSummary_latestRevision :: Lens.Lens' CustomPluginSummary (Prelude.Maybe CustomPluginRevisionSummary)
-customPluginSummary_latestRevision = Lens.lens (\CustomPluginSummary' {latestRevision} -> latestRevision) (\s@CustomPluginSummary' {} a -> s {latestRevision = a} :: CustomPluginSummary)
-
--- | The name of the custom plugin.
-customPluginSummary_name :: Lens.Lens' CustomPluginSummary (Prelude.Maybe Prelude.Text)
-customPluginSummary_name = Lens.lens (\CustomPluginSummary' {name} -> name) (\s@CustomPluginSummary' {} a -> s {name = a} :: CustomPluginSummary)
+customPluginSummary_creationTime = Lens.lens (\CustomPluginSummary' {creationTime} -> creationTime) (\s@CustomPluginSummary' {} a -> s {creationTime = a} :: CustomPluginSummary) Prelude.. Lens.mapping Data._Time
 
 -- | The Amazon Resource Name (ARN) of the custom plugin.
 customPluginSummary_customPluginArn :: Lens.Lens' CustomPluginSummary (Prelude.Maybe Prelude.Text)
@@ -100,34 +93,42 @@ customPluginSummary_customPluginState = Lens.lens (\CustomPluginSummary' {custom
 customPluginSummary_description :: Lens.Lens' CustomPluginSummary (Prelude.Maybe Prelude.Text)
 customPluginSummary_description = Lens.lens (\CustomPluginSummary' {description} -> description) (\s@CustomPluginSummary' {} a -> s {description = a} :: CustomPluginSummary)
 
-instance Core.FromJSON CustomPluginSummary where
+-- | The latest revision of the custom plugin.
+customPluginSummary_latestRevision :: Lens.Lens' CustomPluginSummary (Prelude.Maybe CustomPluginRevisionSummary)
+customPluginSummary_latestRevision = Lens.lens (\CustomPluginSummary' {latestRevision} -> latestRevision) (\s@CustomPluginSummary' {} a -> s {latestRevision = a} :: CustomPluginSummary)
+
+-- | The name of the custom plugin.
+customPluginSummary_name :: Lens.Lens' CustomPluginSummary (Prelude.Maybe Prelude.Text)
+customPluginSummary_name = Lens.lens (\CustomPluginSummary' {name} -> name) (\s@CustomPluginSummary' {} a -> s {name = a} :: CustomPluginSummary)
+
+instance Data.FromJSON CustomPluginSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CustomPluginSummary"
       ( \x ->
           CustomPluginSummary'
-            Prelude.<$> (x Core..:? "creationTime")
-            Prelude.<*> (x Core..:? "latestRevision")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "customPluginArn")
-            Prelude.<*> (x Core..:? "customPluginState")
-            Prelude.<*> (x Core..:? "description")
+            Prelude.<$> (x Data..:? "creationTime")
+            Prelude.<*> (x Data..:? "customPluginArn")
+            Prelude.<*> (x Data..:? "customPluginState")
+            Prelude.<*> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "latestRevision")
+            Prelude.<*> (x Data..:? "name")
       )
 
 instance Prelude.Hashable CustomPluginSummary where
   hashWithSalt _salt CustomPluginSummary' {..} =
     _salt `Prelude.hashWithSalt` creationTime
-      `Prelude.hashWithSalt` latestRevision
-      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` customPluginArn
       `Prelude.hashWithSalt` customPluginState
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` latestRevision
+      `Prelude.hashWithSalt` name
 
 instance Prelude.NFData CustomPluginSummary where
   rnf CustomPluginSummary' {..} =
     Prelude.rnf creationTime
-      `Prelude.seq` Prelude.rnf latestRevision
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf customPluginArn
       `Prelude.seq` Prelude.rnf customPluginState
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf latestRevision
+      `Prelude.seq` Prelude.rnf name

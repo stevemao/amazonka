@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.PlacementConstraint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.ECS.Types.PlacementConstraint where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types.PlacementConstraintType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing a constraint on task placement. For more
 -- information, see
--- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html Task Placement Constraints>
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html Task placement constraints>
 -- in the /Amazon Elastic Container Service Developer Guide/.
 --
--- If you are using the Fargate launch type, task placement constraints are
--- not supported.
+-- If you\'re using the Fargate launch type, task placement constraints
+-- aren\'t supported.
 --
 -- /See:/ 'newPlacementConstraint' smart constructor.
 data PlacementConstraint = PlacementConstraint'
@@ -89,14 +90,14 @@ placementConstraint_expression = Lens.lens (\PlacementConstraint' {expression} -
 placementConstraint_type :: Lens.Lens' PlacementConstraint (Prelude.Maybe PlacementConstraintType)
 placementConstraint_type = Lens.lens (\PlacementConstraint' {type'} -> type') (\s@PlacementConstraint' {} a -> s {type' = a} :: PlacementConstraint)
 
-instance Core.FromJSON PlacementConstraint where
+instance Data.FromJSON PlacementConstraint where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PlacementConstraint"
       ( \x ->
           PlacementConstraint'
-            Prelude.<$> (x Core..:? "expression")
-            Prelude.<*> (x Core..:? "type")
+            Prelude.<$> (x Data..:? "expression")
+            Prelude.<*> (x Data..:? "type")
       )
 
 instance Prelude.Hashable PlacementConstraint where
@@ -109,11 +110,11 @@ instance Prelude.NFData PlacementConstraint where
     Prelude.rnf expression
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON PlacementConstraint where
+instance Data.ToJSON PlacementConstraint where
   toJSON PlacementConstraint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("expression" Core..=) Prelude.<$> expression,
-            ("type" Core..=) Prelude.<$> type'
+          [ ("expression" Data..=) Prelude.<$> expression,
+            ("type" Data..=) Prelude.<$> type'
           ]
       )

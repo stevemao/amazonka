@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.TransitGatewayMulticastDomainOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.EC2.Types.TransitGatewayMulticastDomainOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.AutoAcceptSharedAssociationsValue
 import Amazonka.EC2.Types.Igmpv2SupportValue
 import Amazonka.EC2.Types.StaticSourcesSupportValue
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the options for a transit gateway multicast domain.
@@ -86,14 +87,14 @@ transitGatewayMulticastDomainOptions_staticSourcesSupport :: Lens.Lens' TransitG
 transitGatewayMulticastDomainOptions_staticSourcesSupport = Lens.lens (\TransitGatewayMulticastDomainOptions' {staticSourcesSupport} -> staticSourcesSupport) (\s@TransitGatewayMulticastDomainOptions' {} a -> s {staticSourcesSupport = a} :: TransitGatewayMulticastDomainOptions)
 
 instance
-  Core.FromXML
+  Data.FromXML
     TransitGatewayMulticastDomainOptions
   where
   parseXML x =
     TransitGatewayMulticastDomainOptions'
-      Prelude.<$> (x Core..@? "autoAcceptSharedAssociations")
-      Prelude.<*> (x Core..@? "igmpv2Support")
-      Prelude.<*> (x Core..@? "staticSourcesSupport")
+      Prelude.<$> (x Data..@? "autoAcceptSharedAssociations")
+      Prelude.<*> (x Data..@? "igmpv2Support")
+      Prelude.<*> (x Data..@? "staticSourcesSupport")
 
 instance
   Prelude.Hashable

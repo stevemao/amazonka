@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.PutMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IVS.PutMetadata
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,7 +56,7 @@ data PutMetadata = PutMetadata'
     -- have an active stream.
     channelArn :: Prelude.Text,
     -- | Metadata to insert into the stream. Maximum: 1 KB per request.
-    metadata :: Core.Sensitive Prelude.Text
+    metadata :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -80,7 +81,7 @@ newPutMetadata ::
 newPutMetadata pChannelArn_ pMetadata_ =
   PutMetadata'
     { channelArn = pChannelArn_,
-      metadata = Core._Sensitive Lens.# pMetadata_
+      metadata = Data._Sensitive Lens.# pMetadata_
     }
 
 -- | ARN of the channel into which metadata is inserted. This channel must
@@ -90,11 +91,12 @@ putMetadata_channelArn = Lens.lens (\PutMetadata' {channelArn} -> channelArn) (\
 
 -- | Metadata to insert into the stream. Maximum: 1 KB per request.
 putMetadata_metadata :: Lens.Lens' PutMetadata Prelude.Text
-putMetadata_metadata = Lens.lens (\PutMetadata' {metadata} -> metadata) (\s@PutMetadata' {} a -> s {metadata = a} :: PutMetadata) Prelude.. Core._Sensitive
+putMetadata_metadata = Lens.lens (\PutMetadata' {metadata} -> metadata) (\s@PutMetadata' {} a -> s {metadata = a} :: PutMetadata) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest PutMetadata where
   type AWSResponse PutMetadata = PutMetadataResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull PutMetadataResponse'
 
 instance Prelude.Hashable PutMetadata where
@@ -107,30 +109,30 @@ instance Prelude.NFData PutMetadata where
     Prelude.rnf channelArn
       `Prelude.seq` Prelude.rnf metadata
 
-instance Core.ToHeaders PutMetadata where
+instance Data.ToHeaders PutMetadata where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutMetadata where
+instance Data.ToJSON PutMetadata where
   toJSON PutMetadata' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("channelArn" Core..= channelArn),
-            Prelude.Just ("metadata" Core..= metadata)
+          [ Prelude.Just ("channelArn" Data..= channelArn),
+            Prelude.Just ("metadata" Data..= metadata)
           ]
       )
 
-instance Core.ToPath PutMetadata where
+instance Data.ToPath PutMetadata where
   toPath = Prelude.const "/PutMetadata"
 
-instance Core.ToQuery PutMetadata where
+instance Data.ToQuery PutMetadata where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutMetadataResponse' smart constructor.

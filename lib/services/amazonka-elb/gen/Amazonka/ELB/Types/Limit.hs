@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.Types.Limit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ELB.Types.Limit where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an Elastic Load Balancing resource limit for your AWS
@@ -81,10 +82,10 @@ limit_max = Lens.lens (\Limit' {max} -> max) (\s@Limit' {} a -> s {max = a} :: L
 limit_name :: Lens.Lens' Limit (Prelude.Maybe Prelude.Text)
 limit_name = Lens.lens (\Limit' {name} -> name) (\s@Limit' {} a -> s {name = a} :: Limit)
 
-instance Core.FromXML Limit where
+instance Data.FromXML Limit where
   parseXML x =
     Limit'
-      Prelude.<$> (x Core..@? "Max") Prelude.<*> (x Core..@? "Name")
+      Prelude.<$> (x Data..@? "Max") Prelude.<*> (x Data..@? "Name")
 
 instance Prelude.Hashable Limit where
   hashWithSalt _salt Limit' {..} =

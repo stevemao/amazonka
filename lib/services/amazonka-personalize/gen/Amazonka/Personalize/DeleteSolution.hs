@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.DeleteSolution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,10 +23,11 @@
 -- Deletes all versions of a solution and the @Solution@ object itself.
 -- Before deleting a solution, you must delete all campaigns based on the
 -- solution. To determine what campaigns are using the solution, call
--- ListCampaigns and supply the Amazon Resource Name (ARN) of the solution.
--- You can\'t delete a solution if an associated @SolutionVersion@ is in
--- the CREATE PENDING or IN PROGRESS state. For more information on
--- solutions, see CreateSolution.
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_ListCampaigns.html ListCampaigns>
+-- and supply the Amazon Resource Name (ARN) of the solution. You can\'t
+-- delete a solution if an associated @SolutionVersion@ is in the CREATE
+-- PENDING or IN PROGRESS state. For more information on solutions, see
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html CreateSolution>.
 module Amazonka.Personalize.DeleteSolution
   ( -- * Creating a Request
     DeleteSolution (..),
@@ -42,7 +43,8 @@ module Amazonka.Personalize.DeleteSolution
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -79,7 +81,8 @@ instance Core.AWSRequest DeleteSolution where
   type
     AWSResponse DeleteSolution =
       DeleteSolutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteSolutionResponse'
 
@@ -90,32 +93,32 @@ instance Prelude.Hashable DeleteSolution where
 instance Prelude.NFData DeleteSolution where
   rnf DeleteSolution' {..} = Prelude.rnf solutionArn
 
-instance Core.ToHeaders DeleteSolution where
+instance Data.ToHeaders DeleteSolution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.DeleteSolution" ::
+              Data.=# ( "AmazonPersonalize.DeleteSolution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteSolution where
+instance Data.ToJSON DeleteSolution where
   toJSON DeleteSolution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("solutionArn" Core..= solutionArn)]
+          [Prelude.Just ("solutionArn" Data..= solutionArn)]
       )
 
-instance Core.ToPath DeleteSolution where
+instance Data.ToPath DeleteSolution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteSolution where
+instance Data.ToQuery DeleteSolution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteSolutionResponse' smart constructor.

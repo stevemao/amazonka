@@ -14,16 +14,18 @@
 
 -- |
 -- Module      : Amazonka.GameLift.StartFleetActions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Resumes certain types of activity on fleet instances that were suspended
--- with StopFleetActions. For multi-location fleets, fleet actions are
--- managed separately for each location. Currently, this operation is used
--- to restart a fleet\'s auto-scaling activity.
+-- with
+-- <https://docs.aws.amazon.com/gamelift/latest/apireference/API_StopFleetActions.html StopFleetActions>.
+-- For multi-location fleets, fleet actions are managed separately for each
+-- location. Currently, this operation is used to restart a fleet\'s
+-- auto-scaling activity.
 --
 -- This operation can be used in the following ways:
 --
@@ -36,21 +38,11 @@
 --
 -- If successful, GameLift once again initiates scaling events as triggered
 -- by the fleet\'s scaling policies. If actions on the fleet location were
--- never stopped, this operation will have no effect. You can view a
--- fleet\'s stopped actions using DescribeFleetAttributes or
--- DescribeFleetLocationAttributes.
+-- never stopped, this operation will have no effect.
 --
 -- __Learn more__
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-intro.html Setting up GameLift fleets>
---
--- __Related actions__
---
--- CreateFleet | UpdateFleetCapacity | PutScalingPolicy |
--- DescribeEC2InstanceLimits | DescribeFleetAttributes |
--- DescribeFleetLocationAttributes | UpdateFleetAttributes |
--- StopFleetActions | DeleteFleet |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.StartFleetActions
   ( -- * Creating a Request
     StartFleetActions (..),
@@ -73,18 +65,17 @@ module Amazonka.GameLift.StartFleetActions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newStartFleetActions' smart constructor.
+-- | /See:/ 'newStartFleetActions' smart constructor.
 data StartFleetActions = StartFleetActions'
   { -- | The fleet location to restart fleet actions for. Specify a location in
-    -- the form of an AWS Region code, such as @us-west-2@.
+    -- the form of an Amazon Web Services Region code, such as @us-west-2@.
     location :: Prelude.Maybe Prelude.Text,
     -- | A unique identifier for the fleet to restart actions on. You can use
     -- either the fleet ID or ARN value.
@@ -103,7 +94,7 @@ data StartFleetActions = StartFleetActions'
 -- for backwards compatibility:
 --
 -- 'location', 'startFleetActions_location' - The fleet location to restart fleet actions for. Specify a location in
--- the form of an AWS Region code, such as @us-west-2@.
+-- the form of an Amazon Web Services Region code, such as @us-west-2@.
 --
 -- 'fleetId', 'startFleetActions_fleetId' - A unique identifier for the fleet to restart actions on. You can use
 -- either the fleet ID or ARN value.
@@ -123,7 +114,7 @@ newStartFleetActions pFleetId_ pActions_ =
     }
 
 -- | The fleet location to restart fleet actions for. Specify a location in
--- the form of an AWS Region code, such as @us-west-2@.
+-- the form of an Amazon Web Services Region code, such as @us-west-2@.
 startFleetActions_location :: Lens.Lens' StartFleetActions (Prelude.Maybe Prelude.Text)
 startFleetActions_location = Lens.lens (\StartFleetActions' {location} -> location) (\s@StartFleetActions' {} a -> s {location = a} :: StartFleetActions)
 
@@ -140,13 +131,14 @@ instance Core.AWSRequest StartFleetActions where
   type
     AWSResponse StartFleetActions =
       StartFleetActionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartFleetActionsResponse'
-            Prelude.<$> (x Core..?> "FleetArn")
-            Prelude.<*> (x Core..?> "FleetId")
+            Prelude.<$> (x Data..?> "FleetArn")
+            Prelude.<*> (x Data..?> "FleetId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -162,38 +154,36 @@ instance Prelude.NFData StartFleetActions where
       `Prelude.seq` Prelude.rnf fleetId
       `Prelude.seq` Prelude.rnf actions
 
-instance Core.ToHeaders StartFleetActions where
+instance Data.ToHeaders StartFleetActions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.StartFleetActions" :: Prelude.ByteString),
+              Data.=# ("GameLift.StartFleetActions" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartFleetActions where
+instance Data.ToJSON StartFleetActions where
   toJSON StartFleetActions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Location" Core..=) Prelude.<$> location,
-            Prelude.Just ("FleetId" Core..= fleetId),
-            Prelude.Just ("Actions" Core..= actions)
+          [ ("Location" Data..=) Prelude.<$> location,
+            Prelude.Just ("FleetId" Data..= fleetId),
+            Prelude.Just ("Actions" Data..= actions)
           ]
       )
 
-instance Core.ToPath StartFleetActions where
+instance Data.ToPath StartFleetActions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartFleetActions where
+instance Data.ToQuery StartFleetActions where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newStartFleetActionsResponse' smart constructor.
+-- | /See:/ 'newStartFleetActionsResponse' smart constructor.
 data StartFleetActionsResponse = StartFleetActionsResponse'
   { -- | The Amazon Resource Name
     -- (<https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html ARN>)

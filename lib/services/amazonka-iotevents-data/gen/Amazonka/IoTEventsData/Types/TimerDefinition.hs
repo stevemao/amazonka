@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types.TimerDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTEventsData.Types.TimerDefinition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The new setting of a timer.
@@ -77,11 +78,11 @@ instance Prelude.NFData TimerDefinition where
   rnf TimerDefinition' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf seconds
 
-instance Core.ToJSON TimerDefinition where
+instance Data.ToJSON TimerDefinition where
   toJSON TimerDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("name" Core..= name),
-            Prelude.Just ("seconds" Core..= seconds)
+          [ Prelude.Just ("name" Data..= name),
+            Prelude.Just ("seconds" Data..= seconds)
           ]
       )

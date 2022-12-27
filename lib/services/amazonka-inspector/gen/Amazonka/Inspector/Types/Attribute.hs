@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.Types.Attribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Inspector.Types.Attribute where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This data type is used as a request parameter in the
@@ -61,13 +62,13 @@ attribute_value = Lens.lens (\Attribute' {value} -> value) (\s@Attribute' {} a -
 attribute_key :: Lens.Lens' Attribute Prelude.Text
 attribute_key = Lens.lens (\Attribute' {key} -> key) (\s@Attribute' {} a -> s {key = a} :: Attribute)
 
-instance Core.FromJSON Attribute where
+instance Data.FromJSON Attribute where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Attribute"
       ( \x ->
           Attribute'
-            Prelude.<$> (x Core..:? "value") Prelude.<*> (x Core..: "key")
+            Prelude.<$> (x Data..:? "value") Prelude.<*> (x Data..: "key")
       )
 
 instance Prelude.Hashable Attribute where
@@ -79,11 +80,11 @@ instance Prelude.NFData Attribute where
   rnf Attribute' {..} =
     Prelude.rnf value `Prelude.seq` Prelude.rnf key
 
-instance Core.ToJSON Attribute where
+instance Data.ToJSON Attribute where
   toJSON Attribute' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("value" Core..=) Prelude.<$> value,
-            Prelude.Just ("key" Core..= key)
+          [ ("value" Data..=) Prelude.<$> value,
+            Prelude.Just ("key" Data..= key)
           ]
       )

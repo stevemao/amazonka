@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.Get
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,10 @@
 module Amazonka.DynamoDB.Types.Get where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies an item and related attribute values to retrieve in a
@@ -29,15 +31,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newGet' smart constructor.
 data Get = Get'
-  { -- | A string that identifies one or more attributes of the specified item to
+  { -- | One or more substitution tokens for attribute names in the
+    -- ProjectionExpression parameter.
+    expressionAttributeNames :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | A string that identifies one or more attributes of the specified item to
     -- retrieve from the table. The attributes in the expression must be
     -- separated by commas. If no attribute names are specified, then all
     -- attributes of the specified item are returned. If any of the requested
     -- attributes are not found, they do not appear in the result.
     projectionExpression :: Prelude.Maybe Prelude.Text,
-    -- | One or more substitution tokens for attribute names in the
-    -- ProjectionExpression parameter.
-    expressionAttributeNames :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | A map of attribute names to @AttributeValue@ objects that specifies the
     -- primary key of the item to retrieve.
     key :: Prelude.HashMap Prelude.Text AttributeValue,
@@ -54,14 +56,14 @@ data Get = Get'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'expressionAttributeNames', 'get_expressionAttributeNames' - One or more substitution tokens for attribute names in the
+-- ProjectionExpression parameter.
+--
 -- 'projectionExpression', 'get_projectionExpression' - A string that identifies one or more attributes of the specified item to
 -- retrieve from the table. The attributes in the expression must be
 -- separated by commas. If no attribute names are specified, then all
 -- attributes of the specified item are returned. If any of the requested
 -- attributes are not found, they do not appear in the result.
---
--- 'expressionAttributeNames', 'get_expressionAttributeNames' - One or more substitution tokens for attribute names in the
--- ProjectionExpression parameter.
 --
 -- 'key', 'get_key' - A map of attribute names to @AttributeValue@ objects that specifies the
 -- primary key of the item to retrieve.
@@ -73,11 +75,16 @@ newGet ::
   Get
 newGet pTableName_ =
   Get'
-    { projectionExpression = Prelude.Nothing,
-      expressionAttributeNames = Prelude.Nothing,
+    { expressionAttributeNames = Prelude.Nothing,
+      projectionExpression = Prelude.Nothing,
       key = Prelude.mempty,
       tableName = pTableName_
     }
+
+-- | One or more substitution tokens for attribute names in the
+-- ProjectionExpression parameter.
+get_expressionAttributeNames :: Lens.Lens' Get (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+get_expressionAttributeNames = Lens.lens (\Get' {expressionAttributeNames} -> expressionAttributeNames) (\s@Get' {} a -> s {expressionAttributeNames = a} :: Get) Prelude.. Lens.mapping Lens.coerced
 
 -- | A string that identifies one or more attributes of the specified item to
 -- retrieve from the table. The attributes in the expression must be
@@ -86,11 +93,6 @@ newGet pTableName_ =
 -- attributes are not found, they do not appear in the result.
 get_projectionExpression :: Lens.Lens' Get (Prelude.Maybe Prelude.Text)
 get_projectionExpression = Lens.lens (\Get' {projectionExpression} -> projectionExpression) (\s@Get' {} a -> s {projectionExpression = a} :: Get)
-
--- | One or more substitution tokens for attribute names in the
--- ProjectionExpression parameter.
-get_expressionAttributeNames :: Lens.Lens' Get (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-get_expressionAttributeNames = Lens.lens (\Get' {expressionAttributeNames} -> expressionAttributeNames) (\s@Get' {} a -> s {expressionAttributeNames = a} :: Get) Prelude.. Lens.mapping Lens.coerced
 
 -- | A map of attribute names to @AttributeValue@ objects that specifies the
 -- primary key of the item to retrieve.
@@ -103,27 +105,28 @@ get_tableName = Lens.lens (\Get' {tableName} -> tableName) (\s@Get' {} a -> s {t
 
 instance Prelude.Hashable Get where
   hashWithSalt _salt Get' {..} =
-    _salt `Prelude.hashWithSalt` projectionExpression
+    _salt
       `Prelude.hashWithSalt` expressionAttributeNames
+      `Prelude.hashWithSalt` projectionExpression
       `Prelude.hashWithSalt` key
       `Prelude.hashWithSalt` tableName
 
 instance Prelude.NFData Get where
   rnf Get' {..} =
-    Prelude.rnf projectionExpression
-      `Prelude.seq` Prelude.rnf expressionAttributeNames
+    Prelude.rnf expressionAttributeNames
+      `Prelude.seq` Prelude.rnf projectionExpression
       `Prelude.seq` Prelude.rnf key
       `Prelude.seq` Prelude.rnf tableName
 
-instance Core.ToJSON Get where
+instance Data.ToJSON Get where
   toJSON Get' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ProjectionExpression" Core..=)
-              Prelude.<$> projectionExpression,
-            ("ExpressionAttributeNames" Core..=)
+          [ ("ExpressionAttributeNames" Data..=)
               Prelude.<$> expressionAttributeNames,
-            Prelude.Just ("Key" Core..= key),
-            Prelude.Just ("TableName" Core..= tableName)
+            ("ProjectionExpression" Data..=)
+              Prelude.<$> projectionExpression,
+            Prelude.Just ("Key" Data..= key),
+            Prelude.Just ("TableName" Data..= tableName)
           ]
       )

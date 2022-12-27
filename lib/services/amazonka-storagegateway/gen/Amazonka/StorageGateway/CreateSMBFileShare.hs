@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.CreateSMBFileShare
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,25 +46,25 @@ module Amazonka.StorageGateway.CreateSMBFileShare
     createSMBFileShare_accessBasedEnumeration,
     createSMBFileShare_adminUserList,
     createSMBFileShare_auditDestinationARN,
-    createSMBFileShare_invalidUserList,
-    createSMBFileShare_kmsKey,
-    createSMBFileShare_validUserList,
-    createSMBFileShare_vPCEndpointDNSName,
     createSMBFileShare_authentication,
+    createSMBFileShare_bucketRegion,
     createSMBFileShare_cacheAttributes,
-    createSMBFileShare_objectACL,
-    createSMBFileShare_kmsEncrypted,
+    createSMBFileShare_caseSensitivity,
     createSMBFileShare_defaultStorageClass,
     createSMBFileShare_fileShareName,
-    createSMBFileShare_sMBACLEnabled,
-    createSMBFileShare_oplocksEnabled,
-    createSMBFileShare_notificationPolicy,
-    createSMBFileShare_requesterPays,
     createSMBFileShare_guessMIMETypeEnabled,
+    createSMBFileShare_invalidUserList,
+    createSMBFileShare_kmsEncrypted,
+    createSMBFileShare_kmsKey,
+    createSMBFileShare_notificationPolicy,
+    createSMBFileShare_objectACL,
+    createSMBFileShare_oplocksEnabled,
     createSMBFileShare_readOnly,
-    createSMBFileShare_bucketRegion,
-    createSMBFileShare_caseSensitivity,
+    createSMBFileShare_requesterPays,
+    createSMBFileShare_sMBACLEnabled,
     createSMBFileShare_tags,
+    createSMBFileShare_vPCEndpointDNSName,
+    createSMBFileShare_validUserList,
     createSMBFileShare_clientToken,
     createSMBFileShare_gatewayARN,
     createSMBFileShare_role,
@@ -81,7 +81,8 @@ module Amazonka.StorageGateway.CreateSMBFileShare
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,49 +105,27 @@ data CreateSMBFileShare = CreateSMBFileShare'
     adminUserList :: Prelude.Maybe [Prelude.Text],
     -- | The Amazon Resource Name (ARN) of the storage used for audit logs.
     auditDestinationARN :: Prelude.Maybe Prelude.Text,
-    -- | A list of users or groups in the Active Directory that are not allowed
-    -- to access the file share. A group must be prefixed with the \@
-    -- character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
-    -- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
-    -- set to @ActiveDirectory@.
-    invalidUserList :: Prelude.Maybe [Prelude.Text],
-    -- | The Amazon Resource Name (ARN) of a symmetric customer master key (CMK)
-    -- used for Amazon S3 server-side encryption. Storage Gateway does not
-    -- support asymmetric CMKs. This value can only be set when @KMSEncrypted@
-    -- is @true@. Optional.
-    kmsKey :: Prelude.Maybe Prelude.Text,
-    -- | A list of users or groups in the Active Directory that are allowed to
-    -- access the file < > share. A group must be prefixed with the \@
-    -- character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
-    -- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
-    -- set to @ActiveDirectory@.
-    validUserList :: Prelude.Maybe [Prelude.Text],
-    -- | Specifies the DNS name for the VPC endpoint that the SMB file share uses
-    -- to connect to Amazon S3.
-    --
-    -- This parameter is required for SMB file shares that connect to Amazon S3
-    -- through a VPC endpoint, a VPC access point, or an access point alias
-    -- that points to a VPC access point.
-    vPCEndpointDNSName :: Prelude.Maybe Prelude.Text,
     -- | The authentication method that users use to access the file share. The
     -- default is @ActiveDirectory@.
     --
     -- Valid Values: @ActiveDirectory@ | @GuestAccess@
     authentication :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the Region of the S3 bucket where the SMB file share stores
+    -- files.
+    --
+    -- This parameter is required for SMB file shares that connect to Amazon S3
+    -- through a VPC endpoint, a VPC access point, or an access point alias
+    -- that points to a VPC access point.
+    bucketRegion :: Prelude.Maybe Prelude.Text,
     -- | Specifies refresh cache information for the file share.
     cacheAttributes :: Prelude.Maybe CacheAttributes,
-    -- | A value that sets the access control list (ACL) permission for objects
-    -- in the S3 bucket that a S3 File Gateway puts objects into. The default
-    -- value is @private@.
-    objectACL :: Prelude.Maybe ObjectACL,
-    -- | Set to @true@ to use Amazon S3 server-side encryption with your own KMS
-    -- key, or @false@ to use a key managed by Amazon S3. Optional.
-    --
-    -- Valid Values: @true@ | @false@
-    kmsEncrypted :: Prelude.Maybe Prelude.Bool,
+    -- | The case of an object name in an Amazon S3 bucket. For
+    -- @ClientSpecified@, the client determines the case sensitivity. For
+    -- @CaseSensitive@, the gateway determines the case sensitivity. The
+    -- default value is @ClientSpecified@.
+    caseSensitivity :: Prelude.Maybe CaseSensitivity,
     -- | The default storage class for objects put into an Amazon S3 bucket by
-    -- the S3 File Gateway. The default value is @S3_INTELLIGENT_TIERING@.
-    -- Optional.
+    -- the S3 File Gateway. The default value is @S3_STANDARD@. Optional.
     --
     -- Valid Values: @S3_STANDARD@ | @S3_INTELLIGENT_TIERING@ |
     -- @S3_STANDARD_IA@ | @S3_ONEZONE_IA@
@@ -156,25 +135,28 @@ data CreateSMBFileShare = CreateSMBFileShare'
     -- @FileShareName@ must be set if an S3 prefix name is set in
     -- @LocationARN@, or if an access point or access point alias is used.
     fileShareName :: Prelude.Maybe Prelude.Text,
-    -- | Set this value to @true@ to enable access control list (ACL) on the SMB
-    -- file share. Set it to @false@ to map file and directory permissions to
-    -- the POSIX permissions.
-    --
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/storagegateway/latest/userguide/smb-acl.html Using Microsoft Windows ACLs to control access to an SMB file share>
-    -- in the /Storage Gateway User Guide/.
+    -- | A value that enables guessing of the MIME type for uploaded objects
+    -- based on file extensions. Set this value to @true@ to enable MIME type
+    -- guessing, otherwise set to @false@. The default value is @true@.
     --
     -- Valid Values: @true@ | @false@
-    sMBACLEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | Specifies whether opportunistic locking is enabled for the SMB file
-    -- share.
-    --
-    -- Enabling opportunistic locking on case-sensitive shares is not
-    -- recommended for workloads that involve access to files with the same
-    -- name in different case.
+    guessMIMETypeEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | A list of users or groups in the Active Directory that are not allowed
+    -- to access the file share. A group must be prefixed with the \@
+    -- character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
+    -- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
+    -- set to @ActiveDirectory@.
+    invalidUserList :: Prelude.Maybe [Prelude.Text],
+    -- | Set to @true@ to use Amazon S3 server-side encryption with your own KMS
+    -- key, or @false@ to use a key managed by Amazon S3. Optional.
     --
     -- Valid Values: @true@ | @false@
-    oplocksEnabled :: Prelude.Maybe Prelude.Bool,
+    kmsEncrypted :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) of a symmetric customer master key (CMK)
+    -- used for Amazon S3 server-side encryption. Storage Gateway does not
+    -- support asymmetric CMKs. This value can only be set when @KMSEncrypted@
+    -- is @true@. Optional.
+    kmsKey :: Prelude.Maybe Prelude.Text,
     -- | The notification policy of the file share. @SettlingTimeInSeconds@
     -- controls the number of seconds to wait after the last point in time a
     -- client wrote to a file before generating an @ObjectUploaded@
@@ -194,6 +176,24 @@ data CreateSMBFileShare = CreateSMBFileShare'
     --
     -- @{}@
     notificationPolicy :: Prelude.Maybe Prelude.Text,
+    -- | A value that sets the access control list (ACL) permission for objects
+    -- in the S3 bucket that a S3 File Gateway puts objects into. The default
+    -- value is @private@.
+    objectACL :: Prelude.Maybe ObjectACL,
+    -- | Specifies whether opportunistic locking is enabled for the SMB file
+    -- share.
+    --
+    -- Enabling opportunistic locking on case-sensitive shares is not
+    -- recommended for workloads that involve access to files with the same
+    -- name in different case.
+    --
+    -- Valid Values: @true@ | @false@
+    oplocksEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | A value that sets the write status of a file share. Set this value to
+    -- @true@ to set the write status to read-only, otherwise set to @false@.
+    --
+    -- Valid Values: @true@ | @false@
+    readOnly :: Prelude.Maybe Prelude.Bool,
     -- | A value that sets who pays the cost of the request and the cost
     -- associated with data download from the S3 bucket. If this value is set
     -- to @true@, the requester pays the costs; otherwise, the S3 bucket owner
@@ -205,29 +205,16 @@ data CreateSMBFileShare = CreateSMBFileShare'
     --
     -- Valid Values: @true@ | @false@
     requesterPays :: Prelude.Maybe Prelude.Bool,
-    -- | A value that enables guessing of the MIME type for uploaded objects
-    -- based on file extensions. Set this value to @true@ to enable MIME type
-    -- guessing, otherwise set to @false@. The default value is @true@.
+    -- | Set this value to @true@ to enable access control list (ACL) on the SMB
+    -- file share. Set it to @false@ to map file and directory permissions to
+    -- the POSIX permissions.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/storagegateway/latest/userguide/smb-acl.html Using Microsoft Windows ACLs to control access to an SMB file share>
+    -- in the /Storage Gateway User Guide/.
     --
     -- Valid Values: @true@ | @false@
-    guessMIMETypeEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | A value that sets the write status of a file share. Set this value to
-    -- @true@ to set the write status to read-only, otherwise set to @false@.
-    --
-    -- Valid Values: @true@ | @false@
-    readOnly :: Prelude.Maybe Prelude.Bool,
-    -- | Specifies the Region of the S3 bucket where the SMB file share stores
-    -- files.
-    --
-    -- This parameter is required for SMB file shares that connect to Amazon S3
-    -- through a VPC endpoint, a VPC access point, or an access point alias
-    -- that points to a VPC access point.
-    bucketRegion :: Prelude.Maybe Prelude.Text,
-    -- | The case of an object name in an Amazon S3 bucket. For
-    -- @ClientSpecified@, the client determines the case sensitivity. For
-    -- @CaseSensitive@, the gateway determines the case sensitivity. The
-    -- default value is @ClientSpecified@.
-    caseSensitivity :: Prelude.Maybe CaseSensitivity,
+    sMBACLEnabled :: Prelude.Maybe Prelude.Bool,
     -- | A list of up to 50 tags that can be assigned to the NFS file share. Each
     -- tag is a key-value pair.
     --
@@ -236,6 +223,19 @@ data CreateSMBFileShare = CreateSMBFileShare'
     -- = . _ : \/ \@. The maximum length of a tag\'s key is 128 characters, and
     -- the maximum length for a tag\'s value is 256.
     tags :: Prelude.Maybe [Tag],
+    -- | Specifies the DNS name for the VPC endpoint that the SMB file share uses
+    -- to connect to Amazon S3.
+    --
+    -- This parameter is required for SMB file shares that connect to Amazon S3
+    -- through a VPC endpoint, a VPC access point, or an access point alias
+    -- that points to a VPC access point.
+    vPCEndpointDNSName :: Prelude.Maybe Prelude.Text,
+    -- | A list of users or groups in the Active Directory that are allowed to
+    -- access the file < > share. A group must be prefixed with the \@
+    -- character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
+    -- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
+    -- set to @ActiveDirectory@.
+    validUserList :: Prelude.Maybe [Prelude.Text],
     -- | A unique string value that you supply that is used by S3 File Gateway to
     -- ensure idempotent file share creation.
     clientToken :: Prelude.Text,
@@ -292,49 +292,27 @@ data CreateSMBFileShare = CreateSMBFileShare'
 --
 -- 'auditDestinationARN', 'createSMBFileShare_auditDestinationARN' - The Amazon Resource Name (ARN) of the storage used for audit logs.
 --
--- 'invalidUserList', 'createSMBFileShare_invalidUserList' - A list of users or groups in the Active Directory that are not allowed
--- to access the file share. A group must be prefixed with the \@
--- character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
--- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
--- set to @ActiveDirectory@.
---
--- 'kmsKey', 'createSMBFileShare_kmsKey' - The Amazon Resource Name (ARN) of a symmetric customer master key (CMK)
--- used for Amazon S3 server-side encryption. Storage Gateway does not
--- support asymmetric CMKs. This value can only be set when @KMSEncrypted@
--- is @true@. Optional.
---
--- 'validUserList', 'createSMBFileShare_validUserList' - A list of users or groups in the Active Directory that are allowed to
--- access the file < > share. A group must be prefixed with the \@
--- character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
--- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
--- set to @ActiveDirectory@.
---
--- 'vPCEndpointDNSName', 'createSMBFileShare_vPCEndpointDNSName' - Specifies the DNS name for the VPC endpoint that the SMB file share uses
--- to connect to Amazon S3.
---
--- This parameter is required for SMB file shares that connect to Amazon S3
--- through a VPC endpoint, a VPC access point, or an access point alias
--- that points to a VPC access point.
---
 -- 'authentication', 'createSMBFileShare_authentication' - The authentication method that users use to access the file share. The
 -- default is @ActiveDirectory@.
 --
 -- Valid Values: @ActiveDirectory@ | @GuestAccess@
 --
+-- 'bucketRegion', 'createSMBFileShare_bucketRegion' - Specifies the Region of the S3 bucket where the SMB file share stores
+-- files.
+--
+-- This parameter is required for SMB file shares that connect to Amazon S3
+-- through a VPC endpoint, a VPC access point, or an access point alias
+-- that points to a VPC access point.
+--
 -- 'cacheAttributes', 'createSMBFileShare_cacheAttributes' - Specifies refresh cache information for the file share.
 --
--- 'objectACL', 'createSMBFileShare_objectACL' - A value that sets the access control list (ACL) permission for objects
--- in the S3 bucket that a S3 File Gateway puts objects into. The default
--- value is @private@.
---
--- 'kmsEncrypted', 'createSMBFileShare_kmsEncrypted' - Set to @true@ to use Amazon S3 server-side encryption with your own KMS
--- key, or @false@ to use a key managed by Amazon S3. Optional.
---
--- Valid Values: @true@ | @false@
+-- 'caseSensitivity', 'createSMBFileShare_caseSensitivity' - The case of an object name in an Amazon S3 bucket. For
+-- @ClientSpecified@, the client determines the case sensitivity. For
+-- @CaseSensitive@, the gateway determines the case sensitivity. The
+-- default value is @ClientSpecified@.
 --
 -- 'defaultStorageClass', 'createSMBFileShare_defaultStorageClass' - The default storage class for objects put into an Amazon S3 bucket by
--- the S3 File Gateway. The default value is @S3_INTELLIGENT_TIERING@.
--- Optional.
+-- the S3 File Gateway. The default value is @S3_STANDARD@. Optional.
 --
 -- Valid Values: @S3_STANDARD@ | @S3_INTELLIGENT_TIERING@ |
 -- @S3_STANDARD_IA@ | @S3_ONEZONE_IA@
@@ -344,24 +322,27 @@ data CreateSMBFileShare = CreateSMBFileShare'
 -- @FileShareName@ must be set if an S3 prefix name is set in
 -- @LocationARN@, or if an access point or access point alias is used.
 --
--- 'sMBACLEnabled', 'createSMBFileShare_sMBACLEnabled' - Set this value to @true@ to enable access control list (ACL) on the SMB
--- file share. Set it to @false@ to map file and directory permissions to
--- the POSIX permissions.
---
--- For more information, see
--- <https://docs.aws.amazon.com/storagegateway/latest/userguide/smb-acl.html Using Microsoft Windows ACLs to control access to an SMB file share>
--- in the /Storage Gateway User Guide/.
+-- 'guessMIMETypeEnabled', 'createSMBFileShare_guessMIMETypeEnabled' - A value that enables guessing of the MIME type for uploaded objects
+-- based on file extensions. Set this value to @true@ to enable MIME type
+-- guessing, otherwise set to @false@. The default value is @true@.
 --
 -- Valid Values: @true@ | @false@
 --
--- 'oplocksEnabled', 'createSMBFileShare_oplocksEnabled' - Specifies whether opportunistic locking is enabled for the SMB file
--- share.
+-- 'invalidUserList', 'createSMBFileShare_invalidUserList' - A list of users or groups in the Active Directory that are not allowed
+-- to access the file share. A group must be prefixed with the \@
+-- character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
+-- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
+-- set to @ActiveDirectory@.
 --
--- Enabling opportunistic locking on case-sensitive shares is not
--- recommended for workloads that involve access to files with the same
--- name in different case.
+-- 'kmsEncrypted', 'createSMBFileShare_kmsEncrypted' - Set to @true@ to use Amazon S3 server-side encryption with your own KMS
+-- key, or @false@ to use a key managed by Amazon S3. Optional.
 --
 -- Valid Values: @true@ | @false@
+--
+-- 'kmsKey', 'createSMBFileShare_kmsKey' - The Amazon Resource Name (ARN) of a symmetric customer master key (CMK)
+-- used for Amazon S3 server-side encryption. Storage Gateway does not
+-- support asymmetric CMKs. This value can only be set when @KMSEncrypted@
+-- is @true@. Optional.
 --
 -- 'notificationPolicy', 'createSMBFileShare_notificationPolicy' - The notification policy of the file share. @SettlingTimeInSeconds@
 -- controls the number of seconds to wait after the last point in time a
@@ -382,6 +363,24 @@ data CreateSMBFileShare = CreateSMBFileShare'
 --
 -- @{}@
 --
+-- 'objectACL', 'createSMBFileShare_objectACL' - A value that sets the access control list (ACL) permission for objects
+-- in the S3 bucket that a S3 File Gateway puts objects into. The default
+-- value is @private@.
+--
+-- 'oplocksEnabled', 'createSMBFileShare_oplocksEnabled' - Specifies whether opportunistic locking is enabled for the SMB file
+-- share.
+--
+-- Enabling opportunistic locking on case-sensitive shares is not
+-- recommended for workloads that involve access to files with the same
+-- name in different case.
+--
+-- Valid Values: @true@ | @false@
+--
+-- 'readOnly', 'createSMBFileShare_readOnly' - A value that sets the write status of a file share. Set this value to
+-- @true@ to set the write status to read-only, otherwise set to @false@.
+--
+-- Valid Values: @true@ | @false@
+--
 -- 'requesterPays', 'createSMBFileShare_requesterPays' - A value that sets who pays the cost of the request and the cost
 -- associated with data download from the S3 bucket. If this value is set
 -- to @true@, the requester pays the costs; otherwise, the S3 bucket owner
@@ -393,28 +392,15 @@ data CreateSMBFileShare = CreateSMBFileShare'
 --
 -- Valid Values: @true@ | @false@
 --
--- 'guessMIMETypeEnabled', 'createSMBFileShare_guessMIMETypeEnabled' - A value that enables guessing of the MIME type for uploaded objects
--- based on file extensions. Set this value to @true@ to enable MIME type
--- guessing, otherwise set to @false@. The default value is @true@.
+-- 'sMBACLEnabled', 'createSMBFileShare_sMBACLEnabled' - Set this value to @true@ to enable access control list (ACL) on the SMB
+-- file share. Set it to @false@ to map file and directory permissions to
+-- the POSIX permissions.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/storagegateway/latest/userguide/smb-acl.html Using Microsoft Windows ACLs to control access to an SMB file share>
+-- in the /Storage Gateway User Guide/.
 --
 -- Valid Values: @true@ | @false@
---
--- 'readOnly', 'createSMBFileShare_readOnly' - A value that sets the write status of a file share. Set this value to
--- @true@ to set the write status to read-only, otherwise set to @false@.
---
--- Valid Values: @true@ | @false@
---
--- 'bucketRegion', 'createSMBFileShare_bucketRegion' - Specifies the Region of the S3 bucket where the SMB file share stores
--- files.
---
--- This parameter is required for SMB file shares that connect to Amazon S3
--- through a VPC endpoint, a VPC access point, or an access point alias
--- that points to a VPC access point.
---
--- 'caseSensitivity', 'createSMBFileShare_caseSensitivity' - The case of an object name in an Amazon S3 bucket. For
--- @ClientSpecified@, the client determines the case sensitivity. For
--- @CaseSensitive@, the gateway determines the case sensitivity. The
--- default value is @ClientSpecified@.
 --
 -- 'tags', 'createSMBFileShare_tags' - A list of up to 50 tags that can be assigned to the NFS file share. Each
 -- tag is a key-value pair.
@@ -423,6 +409,19 @@ data CreateSMBFileShare = CreateSMBFileShare'
 -- representable in UTF-8 format, and the following special characters: + -
 -- = . _ : \/ \@. The maximum length of a tag\'s key is 128 characters, and
 -- the maximum length for a tag\'s value is 256.
+--
+-- 'vPCEndpointDNSName', 'createSMBFileShare_vPCEndpointDNSName' - Specifies the DNS name for the VPC endpoint that the SMB file share uses
+-- to connect to Amazon S3.
+--
+-- This parameter is required for SMB file shares that connect to Amazon S3
+-- through a VPC endpoint, a VPC access point, or an access point alias
+-- that points to a VPC access point.
+--
+-- 'validUserList', 'createSMBFileShare_validUserList' - A list of users or groups in the Active Directory that are allowed to
+-- access the file < > share. A group must be prefixed with the \@
+-- character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
+-- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
+-- set to @ActiveDirectory@.
 --
 -- 'clientToken', 'createSMBFileShare_clientToken' - A unique string value that you supply that is used by S3 File Gateway to
 -- ensure idempotent file share creation.
@@ -475,25 +474,25 @@ newCreateSMBFileShare
           Prelude.Nothing,
         adminUserList = Prelude.Nothing,
         auditDestinationARN = Prelude.Nothing,
-        invalidUserList = Prelude.Nothing,
-        kmsKey = Prelude.Nothing,
-        validUserList = Prelude.Nothing,
-        vPCEndpointDNSName = Prelude.Nothing,
         authentication = Prelude.Nothing,
+        bucketRegion = Prelude.Nothing,
         cacheAttributes = Prelude.Nothing,
-        objectACL = Prelude.Nothing,
-        kmsEncrypted = Prelude.Nothing,
+        caseSensitivity = Prelude.Nothing,
         defaultStorageClass = Prelude.Nothing,
         fileShareName = Prelude.Nothing,
-        sMBACLEnabled = Prelude.Nothing,
-        oplocksEnabled = Prelude.Nothing,
-        notificationPolicy = Prelude.Nothing,
-        requesterPays = Prelude.Nothing,
         guessMIMETypeEnabled = Prelude.Nothing,
+        invalidUserList = Prelude.Nothing,
+        kmsEncrypted = Prelude.Nothing,
+        kmsKey = Prelude.Nothing,
+        notificationPolicy = Prelude.Nothing,
+        objectACL = Prelude.Nothing,
+        oplocksEnabled = Prelude.Nothing,
         readOnly = Prelude.Nothing,
-        bucketRegion = Prelude.Nothing,
-        caseSensitivity = Prelude.Nothing,
+        requesterPays = Prelude.Nothing,
+        sMBACLEnabled = Prelude.Nothing,
         tags = Prelude.Nothing,
+        vPCEndpointDNSName = Prelude.Nothing,
+        validUserList = Prelude.Nothing,
         clientToken = pClientToken_,
         gatewayARN = pGatewayARN_,
         role' = pRole_,
@@ -519,38 +518,6 @@ createSMBFileShare_adminUserList = Lens.lens (\CreateSMBFileShare' {adminUserLis
 createSMBFileShare_auditDestinationARN :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Text)
 createSMBFileShare_auditDestinationARN = Lens.lens (\CreateSMBFileShare' {auditDestinationARN} -> auditDestinationARN) (\s@CreateSMBFileShare' {} a -> s {auditDestinationARN = a} :: CreateSMBFileShare)
 
--- | A list of users or groups in the Active Directory that are not allowed
--- to access the file share. A group must be prefixed with the \@
--- character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
--- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
--- set to @ActiveDirectory@.
-createSMBFileShare_invalidUserList :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe [Prelude.Text])
-createSMBFileShare_invalidUserList = Lens.lens (\CreateSMBFileShare' {invalidUserList} -> invalidUserList) (\s@CreateSMBFileShare' {} a -> s {invalidUserList = a} :: CreateSMBFileShare) Prelude.. Lens.mapping Lens.coerced
-
--- | The Amazon Resource Name (ARN) of a symmetric customer master key (CMK)
--- used for Amazon S3 server-side encryption. Storage Gateway does not
--- support asymmetric CMKs. This value can only be set when @KMSEncrypted@
--- is @true@. Optional.
-createSMBFileShare_kmsKey :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Text)
-createSMBFileShare_kmsKey = Lens.lens (\CreateSMBFileShare' {kmsKey} -> kmsKey) (\s@CreateSMBFileShare' {} a -> s {kmsKey = a} :: CreateSMBFileShare)
-
--- | A list of users or groups in the Active Directory that are allowed to
--- access the file < > share. A group must be prefixed with the \@
--- character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
--- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
--- set to @ActiveDirectory@.
-createSMBFileShare_validUserList :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe [Prelude.Text])
-createSMBFileShare_validUserList = Lens.lens (\CreateSMBFileShare' {validUserList} -> validUserList) (\s@CreateSMBFileShare' {} a -> s {validUserList = a} :: CreateSMBFileShare) Prelude.. Lens.mapping Lens.coerced
-
--- | Specifies the DNS name for the VPC endpoint that the SMB file share uses
--- to connect to Amazon S3.
---
--- This parameter is required for SMB file shares that connect to Amazon S3
--- through a VPC endpoint, a VPC access point, or an access point alias
--- that points to a VPC access point.
-createSMBFileShare_vPCEndpointDNSName :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Text)
-createSMBFileShare_vPCEndpointDNSName = Lens.lens (\CreateSMBFileShare' {vPCEndpointDNSName} -> vPCEndpointDNSName) (\s@CreateSMBFileShare' {} a -> s {vPCEndpointDNSName = a} :: CreateSMBFileShare)
-
 -- | The authentication method that users use to access the file share. The
 -- default is @ActiveDirectory@.
 --
@@ -558,26 +525,28 @@ createSMBFileShare_vPCEndpointDNSName = Lens.lens (\CreateSMBFileShare' {vPCEndp
 createSMBFileShare_authentication :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Text)
 createSMBFileShare_authentication = Lens.lens (\CreateSMBFileShare' {authentication} -> authentication) (\s@CreateSMBFileShare' {} a -> s {authentication = a} :: CreateSMBFileShare)
 
+-- | Specifies the Region of the S3 bucket where the SMB file share stores
+-- files.
+--
+-- This parameter is required for SMB file shares that connect to Amazon S3
+-- through a VPC endpoint, a VPC access point, or an access point alias
+-- that points to a VPC access point.
+createSMBFileShare_bucketRegion :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Text)
+createSMBFileShare_bucketRegion = Lens.lens (\CreateSMBFileShare' {bucketRegion} -> bucketRegion) (\s@CreateSMBFileShare' {} a -> s {bucketRegion = a} :: CreateSMBFileShare)
+
 -- | Specifies refresh cache information for the file share.
 createSMBFileShare_cacheAttributes :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe CacheAttributes)
 createSMBFileShare_cacheAttributes = Lens.lens (\CreateSMBFileShare' {cacheAttributes} -> cacheAttributes) (\s@CreateSMBFileShare' {} a -> s {cacheAttributes = a} :: CreateSMBFileShare)
 
--- | A value that sets the access control list (ACL) permission for objects
--- in the S3 bucket that a S3 File Gateway puts objects into. The default
--- value is @private@.
-createSMBFileShare_objectACL :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe ObjectACL)
-createSMBFileShare_objectACL = Lens.lens (\CreateSMBFileShare' {objectACL} -> objectACL) (\s@CreateSMBFileShare' {} a -> s {objectACL = a} :: CreateSMBFileShare)
-
--- | Set to @true@ to use Amazon S3 server-side encryption with your own KMS
--- key, or @false@ to use a key managed by Amazon S3. Optional.
---
--- Valid Values: @true@ | @false@
-createSMBFileShare_kmsEncrypted :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Bool)
-createSMBFileShare_kmsEncrypted = Lens.lens (\CreateSMBFileShare' {kmsEncrypted} -> kmsEncrypted) (\s@CreateSMBFileShare' {} a -> s {kmsEncrypted = a} :: CreateSMBFileShare)
+-- | The case of an object name in an Amazon S3 bucket. For
+-- @ClientSpecified@, the client determines the case sensitivity. For
+-- @CaseSensitive@, the gateway determines the case sensitivity. The
+-- default value is @ClientSpecified@.
+createSMBFileShare_caseSensitivity :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe CaseSensitivity)
+createSMBFileShare_caseSensitivity = Lens.lens (\CreateSMBFileShare' {caseSensitivity} -> caseSensitivity) (\s@CreateSMBFileShare' {} a -> s {caseSensitivity = a} :: CreateSMBFileShare)
 
 -- | The default storage class for objects put into an Amazon S3 bucket by
--- the S3 File Gateway. The default value is @S3_INTELLIGENT_TIERING@.
--- Optional.
+-- the S3 File Gateway. The default value is @S3_STANDARD@. Optional.
 --
 -- Valid Values: @S3_STANDARD@ | @S3_INTELLIGENT_TIERING@ |
 -- @S3_STANDARD_IA@ | @S3_ONEZONE_IA@
@@ -591,28 +560,35 @@ createSMBFileShare_defaultStorageClass = Lens.lens (\CreateSMBFileShare' {defaul
 createSMBFileShare_fileShareName :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Text)
 createSMBFileShare_fileShareName = Lens.lens (\CreateSMBFileShare' {fileShareName} -> fileShareName) (\s@CreateSMBFileShare' {} a -> s {fileShareName = a} :: CreateSMBFileShare)
 
--- | Set this value to @true@ to enable access control list (ACL) on the SMB
--- file share. Set it to @false@ to map file and directory permissions to
--- the POSIX permissions.
---
--- For more information, see
--- <https://docs.aws.amazon.com/storagegateway/latest/userguide/smb-acl.html Using Microsoft Windows ACLs to control access to an SMB file share>
--- in the /Storage Gateway User Guide/.
+-- | A value that enables guessing of the MIME type for uploaded objects
+-- based on file extensions. Set this value to @true@ to enable MIME type
+-- guessing, otherwise set to @false@. The default value is @true@.
 --
 -- Valid Values: @true@ | @false@
-createSMBFileShare_sMBACLEnabled :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Bool)
-createSMBFileShare_sMBACLEnabled = Lens.lens (\CreateSMBFileShare' {sMBACLEnabled} -> sMBACLEnabled) (\s@CreateSMBFileShare' {} a -> s {sMBACLEnabled = a} :: CreateSMBFileShare)
+createSMBFileShare_guessMIMETypeEnabled :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Bool)
+createSMBFileShare_guessMIMETypeEnabled = Lens.lens (\CreateSMBFileShare' {guessMIMETypeEnabled} -> guessMIMETypeEnabled) (\s@CreateSMBFileShare' {} a -> s {guessMIMETypeEnabled = a} :: CreateSMBFileShare)
 
--- | Specifies whether opportunistic locking is enabled for the SMB file
--- share.
---
--- Enabling opportunistic locking on case-sensitive shares is not
--- recommended for workloads that involve access to files with the same
--- name in different case.
+-- | A list of users or groups in the Active Directory that are not allowed
+-- to access the file share. A group must be prefixed with the \@
+-- character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
+-- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
+-- set to @ActiveDirectory@.
+createSMBFileShare_invalidUserList :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe [Prelude.Text])
+createSMBFileShare_invalidUserList = Lens.lens (\CreateSMBFileShare' {invalidUserList} -> invalidUserList) (\s@CreateSMBFileShare' {} a -> s {invalidUserList = a} :: CreateSMBFileShare) Prelude.. Lens.mapping Lens.coerced
+
+-- | Set to @true@ to use Amazon S3 server-side encryption with your own KMS
+-- key, or @false@ to use a key managed by Amazon S3. Optional.
 --
 -- Valid Values: @true@ | @false@
-createSMBFileShare_oplocksEnabled :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Bool)
-createSMBFileShare_oplocksEnabled = Lens.lens (\CreateSMBFileShare' {oplocksEnabled} -> oplocksEnabled) (\s@CreateSMBFileShare' {} a -> s {oplocksEnabled = a} :: CreateSMBFileShare)
+createSMBFileShare_kmsEncrypted :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Bool)
+createSMBFileShare_kmsEncrypted = Lens.lens (\CreateSMBFileShare' {kmsEncrypted} -> kmsEncrypted) (\s@CreateSMBFileShare' {} a -> s {kmsEncrypted = a} :: CreateSMBFileShare)
+
+-- | The Amazon Resource Name (ARN) of a symmetric customer master key (CMK)
+-- used for Amazon S3 server-side encryption. Storage Gateway does not
+-- support asymmetric CMKs. This value can only be set when @KMSEncrypted@
+-- is @true@. Optional.
+createSMBFileShare_kmsKey :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Text)
+createSMBFileShare_kmsKey = Lens.lens (\CreateSMBFileShare' {kmsKey} -> kmsKey) (\s@CreateSMBFileShare' {} a -> s {kmsKey = a} :: CreateSMBFileShare)
 
 -- | The notification policy of the file share. @SettlingTimeInSeconds@
 -- controls the number of seconds to wait after the last point in time a
@@ -635,6 +611,30 @@ createSMBFileShare_oplocksEnabled = Lens.lens (\CreateSMBFileShare' {oplocksEnab
 createSMBFileShare_notificationPolicy :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Text)
 createSMBFileShare_notificationPolicy = Lens.lens (\CreateSMBFileShare' {notificationPolicy} -> notificationPolicy) (\s@CreateSMBFileShare' {} a -> s {notificationPolicy = a} :: CreateSMBFileShare)
 
+-- | A value that sets the access control list (ACL) permission for objects
+-- in the S3 bucket that a S3 File Gateway puts objects into. The default
+-- value is @private@.
+createSMBFileShare_objectACL :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe ObjectACL)
+createSMBFileShare_objectACL = Lens.lens (\CreateSMBFileShare' {objectACL} -> objectACL) (\s@CreateSMBFileShare' {} a -> s {objectACL = a} :: CreateSMBFileShare)
+
+-- | Specifies whether opportunistic locking is enabled for the SMB file
+-- share.
+--
+-- Enabling opportunistic locking on case-sensitive shares is not
+-- recommended for workloads that involve access to files with the same
+-- name in different case.
+--
+-- Valid Values: @true@ | @false@
+createSMBFileShare_oplocksEnabled :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Bool)
+createSMBFileShare_oplocksEnabled = Lens.lens (\CreateSMBFileShare' {oplocksEnabled} -> oplocksEnabled) (\s@CreateSMBFileShare' {} a -> s {oplocksEnabled = a} :: CreateSMBFileShare)
+
+-- | A value that sets the write status of a file share. Set this value to
+-- @true@ to set the write status to read-only, otherwise set to @false@.
+--
+-- Valid Values: @true@ | @false@
+createSMBFileShare_readOnly :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Bool)
+createSMBFileShare_readOnly = Lens.lens (\CreateSMBFileShare' {readOnly} -> readOnly) (\s@CreateSMBFileShare' {} a -> s {readOnly = a} :: CreateSMBFileShare)
+
 -- | A value that sets who pays the cost of the request and the cost
 -- associated with data download from the S3 bucket. If this value is set
 -- to @true@, the requester pays the costs; otherwise, the S3 bucket owner
@@ -648,36 +648,17 @@ createSMBFileShare_notificationPolicy = Lens.lens (\CreateSMBFileShare' {notific
 createSMBFileShare_requesterPays :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Bool)
 createSMBFileShare_requesterPays = Lens.lens (\CreateSMBFileShare' {requesterPays} -> requesterPays) (\s@CreateSMBFileShare' {} a -> s {requesterPays = a} :: CreateSMBFileShare)
 
--- | A value that enables guessing of the MIME type for uploaded objects
--- based on file extensions. Set this value to @true@ to enable MIME type
--- guessing, otherwise set to @false@. The default value is @true@.
+-- | Set this value to @true@ to enable access control list (ACL) on the SMB
+-- file share. Set it to @false@ to map file and directory permissions to
+-- the POSIX permissions.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/storagegateway/latest/userguide/smb-acl.html Using Microsoft Windows ACLs to control access to an SMB file share>
+-- in the /Storage Gateway User Guide/.
 --
 -- Valid Values: @true@ | @false@
-createSMBFileShare_guessMIMETypeEnabled :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Bool)
-createSMBFileShare_guessMIMETypeEnabled = Lens.lens (\CreateSMBFileShare' {guessMIMETypeEnabled} -> guessMIMETypeEnabled) (\s@CreateSMBFileShare' {} a -> s {guessMIMETypeEnabled = a} :: CreateSMBFileShare)
-
--- | A value that sets the write status of a file share. Set this value to
--- @true@ to set the write status to read-only, otherwise set to @false@.
---
--- Valid Values: @true@ | @false@
-createSMBFileShare_readOnly :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Bool)
-createSMBFileShare_readOnly = Lens.lens (\CreateSMBFileShare' {readOnly} -> readOnly) (\s@CreateSMBFileShare' {} a -> s {readOnly = a} :: CreateSMBFileShare)
-
--- | Specifies the Region of the S3 bucket where the SMB file share stores
--- files.
---
--- This parameter is required for SMB file shares that connect to Amazon S3
--- through a VPC endpoint, a VPC access point, or an access point alias
--- that points to a VPC access point.
-createSMBFileShare_bucketRegion :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Text)
-createSMBFileShare_bucketRegion = Lens.lens (\CreateSMBFileShare' {bucketRegion} -> bucketRegion) (\s@CreateSMBFileShare' {} a -> s {bucketRegion = a} :: CreateSMBFileShare)
-
--- | The case of an object name in an Amazon S3 bucket. For
--- @ClientSpecified@, the client determines the case sensitivity. For
--- @CaseSensitive@, the gateway determines the case sensitivity. The
--- default value is @ClientSpecified@.
-createSMBFileShare_caseSensitivity :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe CaseSensitivity)
-createSMBFileShare_caseSensitivity = Lens.lens (\CreateSMBFileShare' {caseSensitivity} -> caseSensitivity) (\s@CreateSMBFileShare' {} a -> s {caseSensitivity = a} :: CreateSMBFileShare)
+createSMBFileShare_sMBACLEnabled :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Bool)
+createSMBFileShare_sMBACLEnabled = Lens.lens (\CreateSMBFileShare' {sMBACLEnabled} -> sMBACLEnabled) (\s@CreateSMBFileShare' {} a -> s {sMBACLEnabled = a} :: CreateSMBFileShare)
 
 -- | A list of up to 50 tags that can be assigned to the NFS file share. Each
 -- tag is a key-value pair.
@@ -688,6 +669,23 @@ createSMBFileShare_caseSensitivity = Lens.lens (\CreateSMBFileShare' {caseSensit
 -- the maximum length for a tag\'s value is 256.
 createSMBFileShare_tags :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe [Tag])
 createSMBFileShare_tags = Lens.lens (\CreateSMBFileShare' {tags} -> tags) (\s@CreateSMBFileShare' {} a -> s {tags = a} :: CreateSMBFileShare) Prelude.. Lens.mapping Lens.coerced
+
+-- | Specifies the DNS name for the VPC endpoint that the SMB file share uses
+-- to connect to Amazon S3.
+--
+-- This parameter is required for SMB file shares that connect to Amazon S3
+-- through a VPC endpoint, a VPC access point, or an access point alias
+-- that points to a VPC access point.
+createSMBFileShare_vPCEndpointDNSName :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe Prelude.Text)
+createSMBFileShare_vPCEndpointDNSName = Lens.lens (\CreateSMBFileShare' {vPCEndpointDNSName} -> vPCEndpointDNSName) (\s@CreateSMBFileShare' {} a -> s {vPCEndpointDNSName = a} :: CreateSMBFileShare)
+
+-- | A list of users or groups in the Active Directory that are allowed to
+-- access the file < > share. A group must be prefixed with the \@
+-- character. Acceptable formats include: @DOMAIN\\User1@, @user1@,
+-- @\@group1@, and @\@DOMAIN\\group1@. Can only be set if Authentication is
+-- set to @ActiveDirectory@.
+createSMBFileShare_validUserList :: Lens.Lens' CreateSMBFileShare (Prelude.Maybe [Prelude.Text])
+createSMBFileShare_validUserList = Lens.lens (\CreateSMBFileShare' {validUserList} -> validUserList) (\s@CreateSMBFileShare' {} a -> s {validUserList = a} :: CreateSMBFileShare) Prelude.. Lens.mapping Lens.coerced
 
 -- | A unique string value that you supply that is used by S3 File Gateway to
 -- ensure idempotent file share creation.
@@ -733,12 +731,13 @@ instance Core.AWSRequest CreateSMBFileShare where
   type
     AWSResponse CreateSMBFileShare =
       CreateSMBFileShareResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateSMBFileShareResponse'
-            Prelude.<$> (x Core..?> "FileShareARN")
+            Prelude.<$> (x Data..?> "FileShareARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -747,25 +746,25 @@ instance Prelude.Hashable CreateSMBFileShare where
     _salt `Prelude.hashWithSalt` accessBasedEnumeration
       `Prelude.hashWithSalt` adminUserList
       `Prelude.hashWithSalt` auditDestinationARN
-      `Prelude.hashWithSalt` invalidUserList
-      `Prelude.hashWithSalt` kmsKey
-      `Prelude.hashWithSalt` validUserList
-      `Prelude.hashWithSalt` vPCEndpointDNSName
       `Prelude.hashWithSalt` authentication
+      `Prelude.hashWithSalt` bucketRegion
       `Prelude.hashWithSalt` cacheAttributes
-      `Prelude.hashWithSalt` objectACL
-      `Prelude.hashWithSalt` kmsEncrypted
+      `Prelude.hashWithSalt` caseSensitivity
       `Prelude.hashWithSalt` defaultStorageClass
       `Prelude.hashWithSalt` fileShareName
-      `Prelude.hashWithSalt` sMBACLEnabled
-      `Prelude.hashWithSalt` oplocksEnabled
-      `Prelude.hashWithSalt` notificationPolicy
-      `Prelude.hashWithSalt` requesterPays
       `Prelude.hashWithSalt` guessMIMETypeEnabled
+      `Prelude.hashWithSalt` invalidUserList
+      `Prelude.hashWithSalt` kmsEncrypted
+      `Prelude.hashWithSalt` kmsKey
+      `Prelude.hashWithSalt` notificationPolicy
+      `Prelude.hashWithSalt` objectACL
+      `Prelude.hashWithSalt` oplocksEnabled
       `Prelude.hashWithSalt` readOnly
-      `Prelude.hashWithSalt` bucketRegion
-      `Prelude.hashWithSalt` caseSensitivity
+      `Prelude.hashWithSalt` requesterPays
+      `Prelude.hashWithSalt` sMBACLEnabled
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` vPCEndpointDNSName
+      `Prelude.hashWithSalt` validUserList
       `Prelude.hashWithSalt` clientToken
       `Prelude.hashWithSalt` gatewayARN
       `Prelude.hashWithSalt` role'
@@ -776,94 +775,95 @@ instance Prelude.NFData CreateSMBFileShare where
     Prelude.rnf accessBasedEnumeration
       `Prelude.seq` Prelude.rnf adminUserList
       `Prelude.seq` Prelude.rnf auditDestinationARN
-      `Prelude.seq` Prelude.rnf invalidUserList
-      `Prelude.seq` Prelude.rnf kmsKey
-      `Prelude.seq` Prelude.rnf validUserList
-      `Prelude.seq` Prelude.rnf vPCEndpointDNSName
       `Prelude.seq` Prelude.rnf authentication
+      `Prelude.seq` Prelude.rnf bucketRegion
       `Prelude.seq` Prelude.rnf cacheAttributes
-      `Prelude.seq` Prelude.rnf objectACL
-      `Prelude.seq` Prelude.rnf kmsEncrypted
+      `Prelude.seq` Prelude.rnf caseSensitivity
       `Prelude.seq` Prelude.rnf defaultStorageClass
       `Prelude.seq` Prelude.rnf fileShareName
-      `Prelude.seq` Prelude.rnf sMBACLEnabled
-      `Prelude.seq` Prelude.rnf oplocksEnabled
-      `Prelude.seq` Prelude.rnf notificationPolicy
-      `Prelude.seq` Prelude.rnf requesterPays
       `Prelude.seq` Prelude.rnf guessMIMETypeEnabled
+      `Prelude.seq` Prelude.rnf invalidUserList
+      `Prelude.seq` Prelude.rnf kmsEncrypted
+      `Prelude.seq` Prelude.rnf kmsKey
+      `Prelude.seq` Prelude.rnf notificationPolicy
+      `Prelude.seq` Prelude.rnf objectACL
+      `Prelude.seq` Prelude.rnf oplocksEnabled
       `Prelude.seq` Prelude.rnf readOnly
-      `Prelude.seq` Prelude.rnf bucketRegion
-      `Prelude.seq` Prelude.rnf caseSensitivity
+      `Prelude.seq` Prelude.rnf requesterPays
+      `Prelude.seq` Prelude.rnf sMBACLEnabled
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf
+        vPCEndpointDNSName
+      `Prelude.seq` Prelude.rnf validUserList
       `Prelude.seq` Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf gatewayARN
       `Prelude.seq` Prelude.rnf role'
       `Prelude.seq` Prelude.rnf
         locationARN
 
-instance Core.ToHeaders CreateSMBFileShare where
+instance Data.ToHeaders CreateSMBFileShare where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.CreateSMBFileShare" ::
+              Data.=# ( "StorageGateway_20130630.CreateSMBFileShare" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateSMBFileShare where
+instance Data.ToJSON CreateSMBFileShare where
   toJSON CreateSMBFileShare' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AccessBasedEnumeration" Core..=)
+          [ ("AccessBasedEnumeration" Data..=)
               Prelude.<$> accessBasedEnumeration,
-            ("AdminUserList" Core..=) Prelude.<$> adminUserList,
-            ("AuditDestinationARN" Core..=)
+            ("AdminUserList" Data..=) Prelude.<$> adminUserList,
+            ("AuditDestinationARN" Data..=)
               Prelude.<$> auditDestinationARN,
-            ("InvalidUserList" Core..=)
-              Prelude.<$> invalidUserList,
-            ("KMSKey" Core..=) Prelude.<$> kmsKey,
-            ("ValidUserList" Core..=) Prelude.<$> validUserList,
-            ("VPCEndpointDNSName" Core..=)
-              Prelude.<$> vPCEndpointDNSName,
-            ("Authentication" Core..=)
+            ("Authentication" Data..=)
               Prelude.<$> authentication,
-            ("CacheAttributes" Core..=)
+            ("BucketRegion" Data..=) Prelude.<$> bucketRegion,
+            ("CacheAttributes" Data..=)
               Prelude.<$> cacheAttributes,
-            ("ObjectACL" Core..=) Prelude.<$> objectACL,
-            ("KMSEncrypted" Core..=) Prelude.<$> kmsEncrypted,
-            ("DefaultStorageClass" Core..=)
-              Prelude.<$> defaultStorageClass,
-            ("FileShareName" Core..=) Prelude.<$> fileShareName,
-            ("SMBACLEnabled" Core..=) Prelude.<$> sMBACLEnabled,
-            ("OplocksEnabled" Core..=)
-              Prelude.<$> oplocksEnabled,
-            ("NotificationPolicy" Core..=)
-              Prelude.<$> notificationPolicy,
-            ("RequesterPays" Core..=) Prelude.<$> requesterPays,
-            ("GuessMIMETypeEnabled" Core..=)
-              Prelude.<$> guessMIMETypeEnabled,
-            ("ReadOnly" Core..=) Prelude.<$> readOnly,
-            ("BucketRegion" Core..=) Prelude.<$> bucketRegion,
-            ("CaseSensitivity" Core..=)
+            ("CaseSensitivity" Data..=)
               Prelude.<$> caseSensitivity,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("ClientToken" Core..= clientToken),
-            Prelude.Just ("GatewayARN" Core..= gatewayARN),
-            Prelude.Just ("Role" Core..= role'),
-            Prelude.Just ("LocationARN" Core..= locationARN)
+            ("DefaultStorageClass" Data..=)
+              Prelude.<$> defaultStorageClass,
+            ("FileShareName" Data..=) Prelude.<$> fileShareName,
+            ("GuessMIMETypeEnabled" Data..=)
+              Prelude.<$> guessMIMETypeEnabled,
+            ("InvalidUserList" Data..=)
+              Prelude.<$> invalidUserList,
+            ("KMSEncrypted" Data..=) Prelude.<$> kmsEncrypted,
+            ("KMSKey" Data..=) Prelude.<$> kmsKey,
+            ("NotificationPolicy" Data..=)
+              Prelude.<$> notificationPolicy,
+            ("ObjectACL" Data..=) Prelude.<$> objectACL,
+            ("OplocksEnabled" Data..=)
+              Prelude.<$> oplocksEnabled,
+            ("ReadOnly" Data..=) Prelude.<$> readOnly,
+            ("RequesterPays" Data..=) Prelude.<$> requesterPays,
+            ("SMBACLEnabled" Data..=) Prelude.<$> sMBACLEnabled,
+            ("Tags" Data..=) Prelude.<$> tags,
+            ("VPCEndpointDNSName" Data..=)
+              Prelude.<$> vPCEndpointDNSName,
+            ("ValidUserList" Data..=) Prelude.<$> validUserList,
+            Prelude.Just ("ClientToken" Data..= clientToken),
+            Prelude.Just ("GatewayARN" Data..= gatewayARN),
+            Prelude.Just ("Role" Data..= role'),
+            Prelude.Just ("LocationARN" Data..= locationARN)
           ]
       )
 
-instance Core.ToPath CreateSMBFileShare where
+instance Data.ToPath CreateSMBFileShare where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateSMBFileShare where
+instance Data.ToQuery CreateSMBFileShare where
   toQuery = Prelude.const Prelude.mempty
 
 -- | CreateSMBFileShareOutput

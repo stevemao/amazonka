@@ -6,24 +6,13 @@
 
 -- |
 -- Module      : Amazonka.MarketplaceAnalytics.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.MarketplaceAnalytics.Lens
   ( -- * Operations
-
-    -- ** StartSupportDataExport
-    startSupportDataExport_customerDefinedValues,
-    startSupportDataExport_destinationS3Prefix,
-    startSupportDataExport_dataSetType,
-    startSupportDataExport_fromDate,
-    startSupportDataExport_roleNameArn,
-    startSupportDataExport_destinationS3BucketName,
-    startSupportDataExport_snsTopicArn,
-    startSupportDataExportResponse_dataSetRequestId,
-    startSupportDataExportResponse_httpStatus,
 
     -- ** GenerateDataSet
     generateDataSet_customerDefinedValues,
@@ -35,6 +24,17 @@ module Amazonka.MarketplaceAnalytics.Lens
     generateDataSet_snsTopicArn,
     generateDataSetResponse_dataSetRequestId,
     generateDataSetResponse_httpStatus,
+
+    -- ** StartSupportDataExport
+    startSupportDataExport_customerDefinedValues,
+    startSupportDataExport_destinationS3Prefix,
+    startSupportDataExport_dataSetType,
+    startSupportDataExport_fromDate,
+    startSupportDataExport_roleNameArn,
+    startSupportDataExport_destinationS3BucketName,
+    startSupportDataExport_snsTopicArn,
+    startSupportDataExportResponse_dataSetRequestId,
+    startSupportDataExportResponse_httpStatus,
 
     -- * Types
   )

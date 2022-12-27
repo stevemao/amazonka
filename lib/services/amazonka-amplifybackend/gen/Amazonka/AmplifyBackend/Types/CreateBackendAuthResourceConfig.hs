@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AmplifyBackend.Types.CreateBackendAuthResourceConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,8 @@ import Amazonka.AmplifyBackend.Types.CreateBackendAuthIdentityPoolConfig
 import Amazonka.AmplifyBackend.Types.CreateBackendAuthUserPoolConfig
 import Amazonka.AmplifyBackend.Types.Service
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Defines the resource configuration when creating an auth resource in
@@ -110,18 +111,18 @@ createBackendAuthResourceConfig_service :: Lens.Lens' CreateBackendAuthResourceC
 createBackendAuthResourceConfig_service = Lens.lens (\CreateBackendAuthResourceConfig' {service} -> service) (\s@CreateBackendAuthResourceConfig' {} a -> s {service = a} :: CreateBackendAuthResourceConfig)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     CreateBackendAuthResourceConfig
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CreateBackendAuthResourceConfig"
       ( \x ->
           CreateBackendAuthResourceConfig'
-            Prelude.<$> (x Core..:? "identityPoolConfigs")
-            Prelude.<*> (x Core..: "authResources")
-            Prelude.<*> (x Core..: "userPoolConfigs")
-            Prelude.<*> (x Core..: "service")
+            Prelude.<$> (x Data..:? "identityPoolConfigs")
+            Prelude.<*> (x Data..: "authResources")
+            Prelude.<*> (x Data..: "userPoolConfigs")
+            Prelude.<*> (x Data..: "service")
       )
 
 instance
@@ -146,15 +147,15 @@ instance
       `Prelude.seq` Prelude.rnf userPoolConfigs
       `Prelude.seq` Prelude.rnf service
 
-instance Core.ToJSON CreateBackendAuthResourceConfig where
+instance Data.ToJSON CreateBackendAuthResourceConfig where
   toJSON CreateBackendAuthResourceConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("identityPoolConfigs" Core..=)
+          [ ("identityPoolConfigs" Data..=)
               Prelude.<$> identityPoolConfigs,
-            Prelude.Just ("authResources" Core..= authResources),
+            Prelude.Just ("authResources" Data..= authResources),
             Prelude.Just
-              ("userPoolConfigs" Core..= userPoolConfigs),
-            Prelude.Just ("service" Core..= service)
+              ("userPoolConfigs" Data..= userPoolConfigs),
+            Prelude.Just ("service" Data..= service)
           ]
       )

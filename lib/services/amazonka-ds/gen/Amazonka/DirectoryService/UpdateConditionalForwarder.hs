@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.UpdateConditionalForwarder
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.DirectoryService.UpdateConditionalForwarder
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,7 +116,8 @@ instance Core.AWSRequest UpdateConditionalForwarder where
   type
     AWSResponse UpdateConditionalForwarder =
       UpdateConditionalForwarderResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -135,36 +137,36 @@ instance Prelude.NFData UpdateConditionalForwarder where
       `Prelude.seq` Prelude.rnf remoteDomainName
       `Prelude.seq` Prelude.rnf dnsIpAddrs
 
-instance Core.ToHeaders UpdateConditionalForwarder where
+instance Data.ToHeaders UpdateConditionalForwarder where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.UpdateConditionalForwarder" ::
+              Data.=# ( "DirectoryService_20150416.UpdateConditionalForwarder" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateConditionalForwarder where
+instance Data.ToJSON UpdateConditionalForwarder where
   toJSON UpdateConditionalForwarder' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DirectoryId" Core..= directoryId),
+          [ Prelude.Just ("DirectoryId" Data..= directoryId),
             Prelude.Just
-              ("RemoteDomainName" Core..= remoteDomainName),
-            Prelude.Just ("DnsIpAddrs" Core..= dnsIpAddrs)
+              ("RemoteDomainName" Data..= remoteDomainName),
+            Prelude.Just ("DnsIpAddrs" Data..= dnsIpAddrs)
           ]
       )
 
-instance Core.ToPath UpdateConditionalForwarder where
+instance Data.ToPath UpdateConditionalForwarder where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateConditionalForwarder where
+instance Data.ToQuery UpdateConditionalForwarder where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The result of an UpdateConditionalForwarder request.

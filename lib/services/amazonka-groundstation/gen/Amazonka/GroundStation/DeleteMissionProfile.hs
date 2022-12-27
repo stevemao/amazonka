@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.DeleteMissionProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.GroundStation.DeleteMissionProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,10 +82,11 @@ instance Core.AWSRequest DeleteMissionProfile where
   type
     AWSResponse DeleteMissionProfile =
       MissionProfileIdResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable DeleteMissionProfile where
   hashWithSalt _salt DeleteMissionProfile' {..} =
@@ -94,21 +96,21 @@ instance Prelude.NFData DeleteMissionProfile where
   rnf DeleteMissionProfile' {..} =
     Prelude.rnf missionProfileId
 
-instance Core.ToHeaders DeleteMissionProfile where
+instance Data.ToHeaders DeleteMissionProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteMissionProfile where
+instance Data.ToPath DeleteMissionProfile where
   toPath DeleteMissionProfile' {..} =
     Prelude.mconcat
-      ["/missionprofile/", Core.toBS missionProfileId]
+      ["/missionprofile/", Data.toBS missionProfileId]
 
-instance Core.ToQuery DeleteMissionProfile where
+instance Data.ToQuery DeleteMissionProfile where
   toQuery = Prelude.const Prelude.mempty

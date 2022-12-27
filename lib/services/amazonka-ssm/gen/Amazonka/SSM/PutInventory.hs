@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.SSM.PutInventory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Bulk update custom inventory items on one more instance. The request
--- adds an inventory item, if it doesn\'t already exist, or updates an
--- inventory item, if it does exist.
+-- Bulk update custom inventory items on one or more managed nodes. The
+-- request adds an inventory item, if it doesn\'t already exist, or updates
+-- an inventory item, if it does exist.
 module Amazonka.SSM.PutInventory
   ( -- * Creating a Request
     PutInventory (..),
@@ -43,7 +43,8 @@ module Amazonka.SSM.PutInventory
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,9 +52,9 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newPutInventory' smart constructor.
 data PutInventory = PutInventory'
-  { -- | An instance ID where you want to add or update inventory items.
+  { -- | An managed node ID where you want to add or update inventory items.
     instanceId :: Prelude.Text,
-    -- | The inventory items that you want to add or update on instances.
+    -- | The inventory items that you want to add or update on managed nodes.
     items :: Prelude.NonEmpty InventoryItem
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -66,9 +67,9 @@ data PutInventory = PutInventory'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceId', 'putInventory_instanceId' - An instance ID where you want to add or update inventory items.
+-- 'instanceId', 'putInventory_instanceId' - An managed node ID where you want to add or update inventory items.
 --
--- 'items', 'putInventory_items' - The inventory items that you want to add or update on instances.
+-- 'items', 'putInventory_items' - The inventory items that you want to add or update on managed nodes.
 newPutInventory ::
   -- | 'instanceId'
   Prelude.Text ->
@@ -81,22 +82,23 @@ newPutInventory pInstanceId_ pItems_ =
       items = Lens.coerced Lens.# pItems_
     }
 
--- | An instance ID where you want to add or update inventory items.
+-- | An managed node ID where you want to add or update inventory items.
 putInventory_instanceId :: Lens.Lens' PutInventory Prelude.Text
 putInventory_instanceId = Lens.lens (\PutInventory' {instanceId} -> instanceId) (\s@PutInventory' {} a -> s {instanceId = a} :: PutInventory)
 
--- | The inventory items that you want to add or update on instances.
+-- | The inventory items that you want to add or update on managed nodes.
 putInventory_items :: Lens.Lens' PutInventory (Prelude.NonEmpty InventoryItem)
 putInventory_items = Lens.lens (\PutInventory' {items} -> items) (\s@PutInventory' {} a -> s {items = a} :: PutInventory) Prelude.. Lens.coerced
 
 instance Core.AWSRequest PutInventory where
   type AWSResponse PutInventory = PutInventoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutInventoryResponse'
-            Prelude.<$> (x Core..?> "Message")
+            Prelude.<$> (x Data..?> "Message")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,32 +112,32 @@ instance Prelude.NFData PutInventory where
     Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf items
 
-instance Core.ToHeaders PutInventory where
+instance Data.ToHeaders PutInventory where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonSSM.PutInventory" :: Prelude.ByteString),
+              Data.=# ("AmazonSSM.PutInventory" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutInventory where
+instance Data.ToJSON PutInventory where
   toJSON PutInventory' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("InstanceId" Core..= instanceId),
-            Prelude.Just ("Items" Core..= items)
+          [ Prelude.Just ("InstanceId" Data..= instanceId),
+            Prelude.Just ("Items" Data..= items)
           ]
       )
 
-instance Core.ToPath PutInventory where
+instance Data.ToPath PutInventory where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutInventory where
+instance Data.ToQuery PutInventory where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutInventoryResponse' smart constructor.

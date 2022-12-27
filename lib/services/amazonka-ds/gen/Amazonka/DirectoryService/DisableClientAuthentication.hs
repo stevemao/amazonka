@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.DisableClientAuthentication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.DirectoryService.DisableClientAuthentication
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,7 +96,8 @@ instance Core.AWSRequest DisableClientAuthentication where
   type
     AWSResponse DisableClientAuthentication =
       DisableClientAuthenticationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -113,34 +115,34 @@ instance Prelude.NFData DisableClientAuthentication where
     Prelude.rnf directoryId
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToHeaders DisableClientAuthentication where
+instance Data.ToHeaders DisableClientAuthentication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.DisableClientAuthentication" ::
+              Data.=# ( "DirectoryService_20150416.DisableClientAuthentication" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisableClientAuthentication where
+instance Data.ToJSON DisableClientAuthentication where
   toJSON DisableClientAuthentication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DirectoryId" Core..= directoryId),
-            Prelude.Just ("Type" Core..= type')
+          [ Prelude.Just ("DirectoryId" Data..= directoryId),
+            Prelude.Just ("Type" Data..= type')
           ]
       )
 
-instance Core.ToPath DisableClientAuthentication where
+instance Data.ToPath DisableClientAuthentication where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisableClientAuthentication where
+instance Data.ToQuery DisableClientAuthentication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisableClientAuthenticationResponse' smart constructor.

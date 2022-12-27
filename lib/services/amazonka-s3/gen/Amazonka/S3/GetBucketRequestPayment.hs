@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.GetBucketRequestPayment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.S3.GetBucketRequestPayment
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,8 +58,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newGetBucketRequestPayment' smart constructor.
 data GetBucketRequestPayment = GetBucketRequestPayment'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket for which to get the payment request
     -- configuration
@@ -75,8 +76,8 @@ data GetBucketRequestPayment = GetBucketRequestPayment'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'getBucketRequestPayment_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'getBucketRequestPayment_bucket' - The name of the bucket for which to get the payment request
 -- configuration
@@ -92,8 +93,8 @@ newGetBucketRequestPayment pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 getBucketRequestPayment_expectedBucketOwner :: Lens.Lens' GetBucketRequestPayment (Prelude.Maybe Prelude.Text)
 getBucketRequestPayment_expectedBucketOwner = Lens.lens (\GetBucketRequestPayment' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetBucketRequestPayment' {} a -> s {expectedBucketOwner = a} :: GetBucketRequestPayment)
 
@@ -106,14 +107,14 @@ instance Core.AWSRequest GetBucketRequestPayment where
   type
     AWSResponse GetBucketRequestPayment =
       GetBucketRequestPaymentResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetBucketRequestPaymentResponse'
-            Prelude.<$> (x Core..@? "Payer")
+            Prelude.<$> (x Data..@? "Payer")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -127,18 +128,18 @@ instance Prelude.NFData GetBucketRequestPayment where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders GetBucketRequestPayment where
+instance Data.ToHeaders GetBucketRequestPayment where
   toHeaders GetBucketRequestPayment' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath GetBucketRequestPayment where
+instance Data.ToPath GetBucketRequestPayment where
   toPath GetBucketRequestPayment' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery GetBucketRequestPayment where
+instance Data.ToQuery GetBucketRequestPayment where
   toQuery =
     Prelude.const (Prelude.mconcat ["requestPayment"])
 

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.TrialComponentStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.TrialComponentStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.TrialComponentPrimaryStatus
 
@@ -28,10 +29,10 @@ import Amazonka.SageMaker.Types.TrialComponentPrimaryStatus
 --
 -- /See:/ 'newTrialComponentStatus' smart constructor.
 data TrialComponentStatus = TrialComponentStatus'
-  { -- | The status of the trial component.
-    primaryStatus :: Prelude.Maybe TrialComponentPrimaryStatus,
-    -- | If the component failed, a message describing why.
-    message :: Prelude.Maybe Prelude.Text
+  { -- | If the component failed, a message describing why.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The status of the trial component.
+    primaryStatus :: Prelude.Maybe TrialComponentPrimaryStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,51 +44,50 @@ data TrialComponentStatus = TrialComponentStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'primaryStatus', 'trialComponentStatus_primaryStatus' - The status of the trial component.
---
 -- 'message', 'trialComponentStatus_message' - If the component failed, a message describing why.
+--
+-- 'primaryStatus', 'trialComponentStatus_primaryStatus' - The status of the trial component.
 newTrialComponentStatus ::
   TrialComponentStatus
 newTrialComponentStatus =
   TrialComponentStatus'
-    { primaryStatus =
-        Prelude.Nothing,
-      message = Prelude.Nothing
+    { message = Prelude.Nothing,
+      primaryStatus = Prelude.Nothing
     }
-
--- | The status of the trial component.
-trialComponentStatus_primaryStatus :: Lens.Lens' TrialComponentStatus (Prelude.Maybe TrialComponentPrimaryStatus)
-trialComponentStatus_primaryStatus = Lens.lens (\TrialComponentStatus' {primaryStatus} -> primaryStatus) (\s@TrialComponentStatus' {} a -> s {primaryStatus = a} :: TrialComponentStatus)
 
 -- | If the component failed, a message describing why.
 trialComponentStatus_message :: Lens.Lens' TrialComponentStatus (Prelude.Maybe Prelude.Text)
 trialComponentStatus_message = Lens.lens (\TrialComponentStatus' {message} -> message) (\s@TrialComponentStatus' {} a -> s {message = a} :: TrialComponentStatus)
 
-instance Core.FromJSON TrialComponentStatus where
+-- | The status of the trial component.
+trialComponentStatus_primaryStatus :: Lens.Lens' TrialComponentStatus (Prelude.Maybe TrialComponentPrimaryStatus)
+trialComponentStatus_primaryStatus = Lens.lens (\TrialComponentStatus' {primaryStatus} -> primaryStatus) (\s@TrialComponentStatus' {} a -> s {primaryStatus = a} :: TrialComponentStatus)
+
+instance Data.FromJSON TrialComponentStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrialComponentStatus"
       ( \x ->
           TrialComponentStatus'
-            Prelude.<$> (x Core..:? "PrimaryStatus")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Message")
+            Prelude.<*> (x Data..:? "PrimaryStatus")
       )
 
 instance Prelude.Hashable TrialComponentStatus where
   hashWithSalt _salt TrialComponentStatus' {..} =
-    _salt `Prelude.hashWithSalt` primaryStatus
-      `Prelude.hashWithSalt` message
+    _salt `Prelude.hashWithSalt` message
+      `Prelude.hashWithSalt` primaryStatus
 
 instance Prelude.NFData TrialComponentStatus where
   rnf TrialComponentStatus' {..} =
-    Prelude.rnf primaryStatus
-      `Prelude.seq` Prelude.rnf message
+    Prelude.rnf message
+      `Prelude.seq` Prelude.rnf primaryStatus
 
-instance Core.ToJSON TrialComponentStatus where
+instance Data.ToJSON TrialComponentStatus where
   toJSON TrialComponentStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PrimaryStatus" Core..=) Prelude.<$> primaryStatus,
-            ("Message" Core..=) Prelude.<$> message
+          [ ("Message" Data..=) Prelude.<$> message,
+            ("PrimaryStatus" Data..=) Prelude.<$> primaryStatus
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.BusinessCallingSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Chime.Types.BusinessCallingSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The Amazon Chime Business Calling settings for the administrator\'s AWS
@@ -55,13 +56,13 @@ newBusinessCallingSettings =
 businessCallingSettings_cdrBucket :: Lens.Lens' BusinessCallingSettings (Prelude.Maybe Prelude.Text)
 businessCallingSettings_cdrBucket = Lens.lens (\BusinessCallingSettings' {cdrBucket} -> cdrBucket) (\s@BusinessCallingSettings' {} a -> s {cdrBucket = a} :: BusinessCallingSettings)
 
-instance Core.FromJSON BusinessCallingSettings where
+instance Data.FromJSON BusinessCallingSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BusinessCallingSettings"
       ( \x ->
           BusinessCallingSettings'
-            Prelude.<$> (x Core..:? "CdrBucket")
+            Prelude.<$> (x Data..:? "CdrBucket")
       )
 
 instance Prelude.Hashable BusinessCallingSettings where
@@ -72,9 +73,9 @@ instance Prelude.NFData BusinessCallingSettings where
   rnf BusinessCallingSettings' {..} =
     Prelude.rnf cdrBucket
 
-instance Core.ToJSON BusinessCallingSettings where
+instance Data.ToJSON BusinessCallingSettings where
   toJSON BusinessCallingSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("CdrBucket" Core..=) Prelude.<$> cdrBucket]
+          [("CdrBucket" Data..=) Prelude.<$> cdrBucket]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.Types.NotificationWithSubscribers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.Budgets.Types.NotificationWithSubscribers where
 import Amazonka.Budgets.Types.Notification
 import Amazonka.Budgets.Types.Subscriber
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A notification with subscribers. A notification can have one SNS
@@ -31,7 +32,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newNotificationWithSubscribers' smart constructor.
 data NotificationWithSubscribers = NotificationWithSubscribers'
-  { -- | The notification that is associated with a budget.
+  { -- | The notification that\'s associated with a budget.
     notification :: Notification,
     -- | A list of subscribers who are subscribed to this notification.
     subscribers :: Prelude.NonEmpty Subscriber
@@ -46,7 +47,7 @@ data NotificationWithSubscribers = NotificationWithSubscribers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'notification', 'notificationWithSubscribers_notification' - The notification that is associated with a budget.
+-- 'notification', 'notificationWithSubscribers_notification' - The notification that\'s associated with a budget.
 --
 -- 'subscribers', 'notificationWithSubscribers_subscribers' - A list of subscribers who are subscribed to this notification.
 newNotificationWithSubscribers ::
@@ -65,7 +66,7 @@ newNotificationWithSubscribers
           Lens.coerced Lens.# pSubscribers_
       }
 
--- | The notification that is associated with a budget.
+-- | The notification that\'s associated with a budget.
 notificationWithSubscribers_notification :: Lens.Lens' NotificationWithSubscribers Notification
 notificationWithSubscribers_notification = Lens.lens (\NotificationWithSubscribers' {notification} -> notification) (\s@NotificationWithSubscribers' {} a -> s {notification = a} :: NotificationWithSubscribers)
 
@@ -83,11 +84,11 @@ instance Prelude.NFData NotificationWithSubscribers where
     Prelude.rnf notification
       `Prelude.seq` Prelude.rnf subscribers
 
-instance Core.ToJSON NotificationWithSubscribers where
+instance Data.ToJSON NotificationWithSubscribers where
   toJSON NotificationWithSubscribers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Notification" Core..= notification),
-            Prelude.Just ("Subscribers" Core..= subscribers)
+          [ Prelude.Just ("Notification" Data..= notification),
+            Prelude.Just ("Subscribers" Data..= subscribers)
           ]
       )

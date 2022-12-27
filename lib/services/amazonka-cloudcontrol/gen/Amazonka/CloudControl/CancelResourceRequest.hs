@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudControl.CancelResourceRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,7 +26,7 @@
 -- in the /Amazon Web Services Cloud Control API User Guide/.
 --
 -- Only resource operations requests with a status of @PENDING@ or
--- @IN_PROGRESS@ can be cancelled.
+-- @IN_PROGRESS@ can be canceled.
 module Amazonka.CloudControl.CancelResourceRequest
   ( -- * Creating a Request
     CancelResourceRequest (..),
@@ -47,7 +47,8 @@ where
 
 import Amazonka.CloudControl.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,12 +90,13 @@ instance Core.AWSRequest CancelResourceRequest where
   type
     AWSResponse CancelResourceRequest =
       CancelResourceRequestResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CancelResourceRequestResponse'
-            Prelude.<$> (x Core..?> "ProgressEvent")
+            Prelude.<$> (x Data..?> "ProgressEvent")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -106,32 +108,32 @@ instance Prelude.NFData CancelResourceRequest where
   rnf CancelResourceRequest' {..} =
     Prelude.rnf requestToken
 
-instance Core.ToHeaders CancelResourceRequest where
+instance Data.ToHeaders CancelResourceRequest where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CloudApiService.CancelResourceRequest" ::
+              Data.=# ( "CloudApiService.CancelResourceRequest" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CancelResourceRequest where
+instance Data.ToJSON CancelResourceRequest where
   toJSON CancelResourceRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("RequestToken" Core..= requestToken)]
+          [Prelude.Just ("RequestToken" Data..= requestToken)]
       )
 
-instance Core.ToPath CancelResourceRequest where
+instance Data.ToPath CancelResourceRequest where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelResourceRequest where
+instance Data.ToQuery CancelResourceRequest where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCancelResourceRequestResponse' smart constructor.

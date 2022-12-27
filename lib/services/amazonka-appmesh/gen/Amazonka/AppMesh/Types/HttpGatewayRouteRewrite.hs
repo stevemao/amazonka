@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.HttpGatewayRouteRewrite
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.AppMesh.Types.GatewayRouteHostnameRewrite
 import Amazonka.AppMesh.Types.HttpGatewayRoutePathRewrite
 import Amazonka.AppMesh.Types.HttpGatewayRoutePrefixRewrite
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing the gateway route to rewrite.
@@ -74,15 +75,15 @@ httpGatewayRouteRewrite_path = Lens.lens (\HttpGatewayRouteRewrite' {path} -> pa
 httpGatewayRouteRewrite_prefix :: Lens.Lens' HttpGatewayRouteRewrite (Prelude.Maybe HttpGatewayRoutePrefixRewrite)
 httpGatewayRouteRewrite_prefix = Lens.lens (\HttpGatewayRouteRewrite' {prefix} -> prefix) (\s@HttpGatewayRouteRewrite' {} a -> s {prefix = a} :: HttpGatewayRouteRewrite)
 
-instance Core.FromJSON HttpGatewayRouteRewrite where
+instance Data.FromJSON HttpGatewayRouteRewrite where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HttpGatewayRouteRewrite"
       ( \x ->
           HttpGatewayRouteRewrite'
-            Prelude.<$> (x Core..:? "hostname")
-            Prelude.<*> (x Core..:? "path")
-            Prelude.<*> (x Core..:? "prefix")
+            Prelude.<$> (x Data..:? "hostname")
+            Prelude.<*> (x Data..:? "path")
+            Prelude.<*> (x Data..:? "prefix")
       )
 
 instance Prelude.Hashable HttpGatewayRouteRewrite where
@@ -97,12 +98,12 @@ instance Prelude.NFData HttpGatewayRouteRewrite where
       `Prelude.seq` Prelude.rnf path
       `Prelude.seq` Prelude.rnf prefix
 
-instance Core.ToJSON HttpGatewayRouteRewrite where
+instance Data.ToJSON HttpGatewayRouteRewrite where
   toJSON HttpGatewayRouteRewrite' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("hostname" Core..=) Prelude.<$> hostname,
-            ("path" Core..=) Prelude.<$> path,
-            ("prefix" Core..=) Prelude.<$> prefix
+          [ ("hostname" Data..=) Prelude.<$> hostname,
+            ("path" Data..=) Prelude.<$> path,
+            ("prefix" Data..=) Prelude.<$> prefix
           ]
       )

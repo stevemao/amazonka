@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.GetWebACLForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ module Amazonka.WAFRegional.GetWebACLForResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,12 +116,13 @@ instance Core.AWSRequest GetWebACLForResource where
   type
     AWSResponse GetWebACLForResource =
       GetWebACLForResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetWebACLForResourceResponse'
-            Prelude.<$> (x Core..?> "WebACLSummary")
+            Prelude.<$> (x Data..?> "WebACLSummary")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -132,32 +134,32 @@ instance Prelude.NFData GetWebACLForResource where
   rnf GetWebACLForResource' {..} =
     Prelude.rnf resourceArn
 
-instance Core.ToHeaders GetWebACLForResource where
+instance Data.ToHeaders GetWebACLForResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.GetWebACLForResource" ::
+              Data.=# ( "AWSWAF_Regional_20161128.GetWebACLForResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetWebACLForResource where
+instance Data.ToJSON GetWebACLForResource where
   toJSON GetWebACLForResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ResourceArn" Core..= resourceArn)]
+          [Prelude.Just ("ResourceArn" Data..= resourceArn)]
       )
 
-instance Core.ToPath GetWebACLForResource where
+instance Data.ToPath GetWebACLForResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetWebACLForResource where
+instance Data.ToQuery GetWebACLForResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetWebACLForResourceResponse' smart constructor.

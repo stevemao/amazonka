@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.AttributeValueUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.DynamoDB.Types.AttributeValueUpdate where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types.AttributeAction
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.AttributeValue
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | For the @UpdateItem@ operation, represents the attributes to be
@@ -39,16 +41,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAttributeValueUpdate' smart constructor.
 data AttributeValueUpdate = AttributeValueUpdate'
-  { -- | Represents the data for an attribute.
-    --
-    -- Each attribute value is described as a name-value pair. The name is the
-    -- data type, and the value is the data itself.
-    --
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes Data Types>
-    -- in the /Amazon DynamoDB Developer Guide/.
-    value :: Prelude.Maybe AttributeValue,
-    -- | Specifies how to perform the update. Valid values are @PUT@ (default),
+  { -- | Specifies how to perform the update. Valid values are @PUT@ (default),
     -- @DELETE@, and @ADD@. The behavior depends on whether the specified
     -- primary key already exists in the table.
     --
@@ -115,11 +108,19 @@ data AttributeValueUpdate = AttributeValueUpdate'
     --
     -- -   @DELETE@ - Nothing happens; there is no attribute to delete.
     --
-    -- -   @ADD@ - DynamoDB creates an item with the supplied primary key and
-    --     number (or set of numbers) for the attribute value. The only data
-    --     types allowed are number and number set; no other data types can be
-    --     specified.
-    action :: Prelude.Maybe AttributeAction
+    -- -   @ADD@ - DynamoDB creates a new item with the supplied primary key
+    --     and number (or set) for the attribute value. The only data types
+    --     allowed are number, number set, string set or binary set.
+    action :: Prelude.Maybe AttributeAction,
+    -- | Represents the data for an attribute.
+    --
+    -- Each attribute value is described as a name-value pair. The name is the
+    -- data type, and the value is the data itself.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes Data Types>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    value :: Prelude.Maybe AttributeValue
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -130,15 +131,6 @@ data AttributeValueUpdate = AttributeValueUpdate'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'value', 'attributeValueUpdate_value' - Represents the data for an attribute.
---
--- Each attribute value is described as a name-value pair. The name is the
--- data type, and the value is the data itself.
---
--- For more information, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes Data Types>
--- in the /Amazon DynamoDB Developer Guide/.
 --
 -- 'action', 'attributeValueUpdate_action' - Specifies how to perform the update. Valid values are @PUT@ (default),
 -- @DELETE@, and @ADD@. The behavior depends on whether the specified
@@ -207,19 +199,11 @@ data AttributeValueUpdate = AttributeValueUpdate'
 --
 -- -   @DELETE@ - Nothing happens; there is no attribute to delete.
 --
--- -   @ADD@ - DynamoDB creates an item with the supplied primary key and
---     number (or set of numbers) for the attribute value. The only data
---     types allowed are number and number set; no other data types can be
---     specified.
-newAttributeValueUpdate ::
-  AttributeValueUpdate
-newAttributeValueUpdate =
-  AttributeValueUpdate'
-    { value = Prelude.Nothing,
-      action = Prelude.Nothing
-    }
-
--- | Represents the data for an attribute.
+-- -   @ADD@ - DynamoDB creates a new item with the supplied primary key
+--     and number (or set) for the attribute value. The only data types
+--     allowed are number, number set, string set or binary set.
+--
+-- 'value', 'attributeValueUpdate_value' - Represents the data for an attribute.
 --
 -- Each attribute value is described as a name-value pair. The name is the
 -- data type, and the value is the data itself.
@@ -227,8 +211,13 @@ newAttributeValueUpdate =
 -- For more information, see
 -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes Data Types>
 -- in the /Amazon DynamoDB Developer Guide/.
-attributeValueUpdate_value :: Lens.Lens' AttributeValueUpdate (Prelude.Maybe AttributeValue)
-attributeValueUpdate_value = Lens.lens (\AttributeValueUpdate' {value} -> value) (\s@AttributeValueUpdate' {} a -> s {value = a} :: AttributeValueUpdate)
+newAttributeValueUpdate ::
+  AttributeValueUpdate
+newAttributeValueUpdate =
+  AttributeValueUpdate'
+    { action = Prelude.Nothing,
+      value = Prelude.Nothing
+    }
 
 -- | Specifies how to perform the update. Valid values are @PUT@ (default),
 -- @DELETE@, and @ADD@. The behavior depends on whether the specified
@@ -297,27 +286,37 @@ attributeValueUpdate_value = Lens.lens (\AttributeValueUpdate' {value} -> value)
 --
 -- -   @DELETE@ - Nothing happens; there is no attribute to delete.
 --
--- -   @ADD@ - DynamoDB creates an item with the supplied primary key and
---     number (or set of numbers) for the attribute value. The only data
---     types allowed are number and number set; no other data types can be
---     specified.
+-- -   @ADD@ - DynamoDB creates a new item with the supplied primary key
+--     and number (or set) for the attribute value. The only data types
+--     allowed are number, number set, string set or binary set.
 attributeValueUpdate_action :: Lens.Lens' AttributeValueUpdate (Prelude.Maybe AttributeAction)
 attributeValueUpdate_action = Lens.lens (\AttributeValueUpdate' {action} -> action) (\s@AttributeValueUpdate' {} a -> s {action = a} :: AttributeValueUpdate)
 
+-- | Represents the data for an attribute.
+--
+-- Each attribute value is described as a name-value pair. The name is the
+-- data type, and the value is the data itself.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes Data Types>
+-- in the /Amazon DynamoDB Developer Guide/.
+attributeValueUpdate_value :: Lens.Lens' AttributeValueUpdate (Prelude.Maybe AttributeValue)
+attributeValueUpdate_value = Lens.lens (\AttributeValueUpdate' {value} -> value) (\s@AttributeValueUpdate' {} a -> s {value = a} :: AttributeValueUpdate)
+
 instance Prelude.Hashable AttributeValueUpdate where
   hashWithSalt _salt AttributeValueUpdate' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` action
+    _salt `Prelude.hashWithSalt` action
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData AttributeValueUpdate where
   rnf AttributeValueUpdate' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf action
+    Prelude.rnf action `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON AttributeValueUpdate where
+instance Data.ToJSON AttributeValueUpdate where
   toJSON AttributeValueUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Action" Core..=) Prelude.<$> action
+          [ ("Action" Data..=) Prelude.<$> action,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

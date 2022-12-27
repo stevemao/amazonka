@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.FindMatchesTaskRunProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.FindMatchesTaskRunProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies configuration properties for a Find Matches task run.
@@ -71,15 +72,15 @@ findMatchesTaskRunProperties_jobName = Lens.lens (\FindMatchesTaskRunProperties'
 findMatchesTaskRunProperties_jobRunId :: Lens.Lens' FindMatchesTaskRunProperties (Prelude.Maybe Prelude.Text)
 findMatchesTaskRunProperties_jobRunId = Lens.lens (\FindMatchesTaskRunProperties' {jobRunId} -> jobRunId) (\s@FindMatchesTaskRunProperties' {} a -> s {jobRunId = a} :: FindMatchesTaskRunProperties)
 
-instance Core.FromJSON FindMatchesTaskRunProperties where
+instance Data.FromJSON FindMatchesTaskRunProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FindMatchesTaskRunProperties"
       ( \x ->
           FindMatchesTaskRunProperties'
-            Prelude.<$> (x Core..:? "JobId")
-            Prelude.<*> (x Core..:? "JobName")
-            Prelude.<*> (x Core..:? "JobRunId")
+            Prelude.<$> (x Data..:? "JobId")
+            Prelude.<*> (x Data..:? "JobName")
+            Prelude.<*> (x Data..:? "JobRunId")
       )
 
 instance

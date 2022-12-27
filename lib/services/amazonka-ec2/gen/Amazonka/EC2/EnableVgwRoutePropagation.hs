@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.EnableVgwRoutePropagation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.EC2.EnableVgwRoutePropagation
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,7 +122,8 @@ instance Core.AWSRequest EnableVgwRoutePropagation where
   type
     AWSResponse EnableVgwRoutePropagation =
       EnableVgwRoutePropagationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       EnableVgwRoutePropagationResponse'
@@ -138,22 +140,22 @@ instance Prelude.NFData EnableVgwRoutePropagation where
       `Prelude.seq` Prelude.rnf gatewayId
       `Prelude.seq` Prelude.rnf routeTableId
 
-instance Core.ToHeaders EnableVgwRoutePropagation where
+instance Data.ToHeaders EnableVgwRoutePropagation where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath EnableVgwRoutePropagation where
+instance Data.ToPath EnableVgwRoutePropagation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableVgwRoutePropagation where
+instance Data.ToQuery EnableVgwRoutePropagation where
   toQuery EnableVgwRoutePropagation' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("EnableVgwRoutePropagation" :: Prelude.ByteString),
+          Data.=: ("EnableVgwRoutePropagation" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "GatewayId" Core.=: gatewayId,
-        "RouteTableId" Core.=: routeTableId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "GatewayId" Data.=: gatewayId,
+        "RouteTableId" Data.=: routeTableId
       ]
 
 -- | /See:/ 'newEnableVgwRoutePropagationResponse' smart constructor.

@@ -14,13 +14,19 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.GetSigningCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- This method takes a user pool ID, and returns the signing certificate.
+-- The issued certificate is valid for 10 years from the date of issue.
+--
+-- Amazon Cognito issues and assigns a new signing certificate annually.
+-- This process returns a new value in the response to
+-- @GetSigningCertificate@, but doesn\'t invalidate the original
+-- certificate.
 module Amazonka.CognitoIdentityProvider.GetSigningCertificate
   ( -- * Creating a Request
     GetSigningCertificate (..),
@@ -41,12 +47,13 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Request to get a signing certificate from Cognito.
+-- | Request to get a signing certificate from Amazon Cognito.
 --
 -- /See:/ 'newGetSigningCertificate' smart constructor.
 data GetSigningCertificate = GetSigningCertificate'
@@ -79,12 +86,13 @@ instance Core.AWSRequest GetSigningCertificate where
   type
     AWSResponse GetSigningCertificate =
       GetSigningCertificateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSigningCertificateResponse'
-            Prelude.<$> (x Core..?> "Certificate")
+            Prelude.<$> (x Data..?> "Certificate")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -96,35 +104,35 @@ instance Prelude.NFData GetSigningCertificate where
   rnf GetSigningCertificate' {..} =
     Prelude.rnf userPoolId
 
-instance Core.ToHeaders GetSigningCertificate where
+instance Data.ToHeaders GetSigningCertificate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.GetSigningCertificate" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.GetSigningCertificate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetSigningCertificate where
+instance Data.ToJSON GetSigningCertificate where
   toJSON GetSigningCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("UserPoolId" Core..= userPoolId)]
+          [Prelude.Just ("UserPoolId" Data..= userPoolId)]
       )
 
-instance Core.ToPath GetSigningCertificate where
+instance Data.ToPath GetSigningCertificate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetSigningCertificate where
+instance Data.ToQuery GetSigningCertificate where
   toQuery = Prelude.const Prelude.mempty
 
--- | Response from Cognito for a signing certificate request.
+-- | Response from Amazon Cognito for a signing certificate request.
 --
 -- /See:/ 'newGetSigningCertificateResponse' smart constructor.
 data GetSigningCertificateResponse = GetSigningCertificateResponse'

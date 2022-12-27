@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.Types.StartTimeRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DevOpsGuru.Types.StartTimeRange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A time range used to specify when the behavior of an insight or anomaly
@@ -29,9 +30,9 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newStartTimeRange' smart constructor.
 data StartTimeRange = StartTimeRange'
   { -- | The start time of the time range.
-    fromTime :: Prelude.Maybe Core.POSIX,
+    fromTime :: Prelude.Maybe Data.POSIX,
     -- | The end time of the time range.
-    toTime :: Prelude.Maybe Core.POSIX
+    toTime :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -56,11 +57,11 @@ newStartTimeRange =
 
 -- | The start time of the time range.
 startTimeRange_fromTime :: Lens.Lens' StartTimeRange (Prelude.Maybe Prelude.UTCTime)
-startTimeRange_fromTime = Lens.lens (\StartTimeRange' {fromTime} -> fromTime) (\s@StartTimeRange' {} a -> s {fromTime = a} :: StartTimeRange) Prelude.. Lens.mapping Core._Time
+startTimeRange_fromTime = Lens.lens (\StartTimeRange' {fromTime} -> fromTime) (\s@StartTimeRange' {} a -> s {fromTime = a} :: StartTimeRange) Prelude.. Lens.mapping Data._Time
 
 -- | The end time of the time range.
 startTimeRange_toTime :: Lens.Lens' StartTimeRange (Prelude.Maybe Prelude.UTCTime)
-startTimeRange_toTime = Lens.lens (\StartTimeRange' {toTime} -> toTime) (\s@StartTimeRange' {} a -> s {toTime = a} :: StartTimeRange) Prelude.. Lens.mapping Core._Time
+startTimeRange_toTime = Lens.lens (\StartTimeRange' {toTime} -> toTime) (\s@StartTimeRange' {} a -> s {toTime = a} :: StartTimeRange) Prelude.. Lens.mapping Data._Time
 
 instance Prelude.Hashable StartTimeRange where
   hashWithSalt _salt StartTimeRange' {..} =
@@ -72,11 +73,11 @@ instance Prelude.NFData StartTimeRange where
     Prelude.rnf fromTime
       `Prelude.seq` Prelude.rnf toTime
 
-instance Core.ToJSON StartTimeRange where
+instance Data.ToJSON StartTimeRange where
   toJSON StartTimeRange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FromTime" Core..=) Prelude.<$> fromTime,
-            ("ToTime" Core..=) Prelude.<$> toTime
+          [ ("FromTime" Data..=) Prelude.<$> fromTime,
+            ("ToTime" Data..=) Prelude.<$> toTime
           ]
       )

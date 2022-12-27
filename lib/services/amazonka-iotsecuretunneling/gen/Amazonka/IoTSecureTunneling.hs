@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSecureTunneling
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -11,13 +11,13 @@
 --
 -- Derived from API version @2018-10-05@ of the AWS service descriptions, licensed under Apache 2.0.
 --
--- AWS IoT Secure Tunneling
+-- IoT Secure Tunneling
 --
--- AWS IoT Secure Tunnling enables you to create remote connections to
--- devices deployed in the field.
+-- IoT Secure Tunneling creates remote connections to devices deployed in
+-- the field.
 --
--- For more information about how AWS IoT Secure Tunneling works, see
--- <https://docs.aws.amazon.com/iot/latest/developerguide/secure-tunneling.html AWS IoT Secure Tunneling>.
+-- For more information about how IoT Secure Tunneling works, see
+-- <https://docs.aws.amazon.com/iot/latest/developerguide/secure-tunneling.html IoT Secure Tunneling>.
 module Amazonka.IoTSecureTunneling
   ( -- * Service Configuration
     defaultService,
@@ -25,11 +25,11 @@ module Amazonka.IoTSecureTunneling
     -- * Errors
     -- $errors
 
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
-
     -- ** LimitExceededException
     _LimitExceededException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
 
     -- * Waiters
     -- $waiters
@@ -37,17 +37,29 @@ module Amazonka.IoTSecureTunneling
     -- * Operations
     -- $operations
 
+    -- ** CloseTunnel
+    CloseTunnel (CloseTunnel'),
+    newCloseTunnel,
+    CloseTunnelResponse (CloseTunnelResponse'),
+    newCloseTunnelResponse,
+
+    -- ** DescribeTunnel
+    DescribeTunnel (DescribeTunnel'),
+    newDescribeTunnel,
+    DescribeTunnelResponse (DescribeTunnelResponse'),
+    newDescribeTunnelResponse,
+
     -- ** ListTagsForResource
     ListTagsForResource (ListTagsForResource'),
     newListTagsForResource,
     ListTagsForResourceResponse (ListTagsForResourceResponse'),
     newListTagsForResourceResponse,
 
-    -- ** CloseTunnel
-    CloseTunnel (CloseTunnel'),
-    newCloseTunnel,
-    CloseTunnelResponse (CloseTunnelResponse'),
-    newCloseTunnelResponse,
+    -- ** ListTunnels
+    ListTunnels (ListTunnels'),
+    newListTunnels,
+    ListTunnelsResponse (ListTunnelsResponse'),
+    newListTunnelsResponse,
 
     -- ** OpenTunnel
     OpenTunnel (OpenTunnel'),
@@ -55,11 +67,11 @@ module Amazonka.IoTSecureTunneling
     OpenTunnelResponse (OpenTunnelResponse'),
     newOpenTunnelResponse,
 
-    -- ** DescribeTunnel
-    DescribeTunnel (DescribeTunnel'),
-    newDescribeTunnel,
-    DescribeTunnelResponse (DescribeTunnelResponse'),
-    newDescribeTunnelResponse,
+    -- ** RotateTunnelAccessToken
+    RotateTunnelAccessToken (RotateTunnelAccessToken'),
+    newRotateTunnelAccessToken,
+    RotateTunnelAccessTokenResponse (RotateTunnelAccessTokenResponse'),
+    newRotateTunnelAccessTokenResponse,
 
     -- ** TagResource
     TagResource (TagResource'),
@@ -73,13 +85,10 @@ module Amazonka.IoTSecureTunneling
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** ListTunnels
-    ListTunnels (ListTunnels'),
-    newListTunnels,
-    ListTunnelsResponse (ListTunnelsResponse'),
-    newListTunnelsResponse,
-
     -- * Types
+
+    -- ** ClientMode
+    ClientMode (..),
 
     -- ** ConnectionStatus
     ConnectionStatus (..),
@@ -119,6 +128,7 @@ import Amazonka.IoTSecureTunneling.Lens
 import Amazonka.IoTSecureTunneling.ListTagsForResource
 import Amazonka.IoTSecureTunneling.ListTunnels
 import Amazonka.IoTSecureTunneling.OpenTunnel
+import Amazonka.IoTSecureTunneling.RotateTunnelAccessToken
 import Amazonka.IoTSecureTunneling.TagResource
 import Amazonka.IoTSecureTunneling.Types
 import Amazonka.IoTSecureTunneling.UntagResource

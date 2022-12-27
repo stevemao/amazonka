@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Types.CacheCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,25 +20,58 @@
 module Amazonka.ElastiCache.Types.CacheCluster where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types.CacheNode
 import Amazonka.ElastiCache.Types.CacheParameterGroupStatus
 import Amazonka.ElastiCache.Types.CacheSecurityGroupMembership
 import Amazonka.ElastiCache.Types.Endpoint
+import Amazonka.ElastiCache.Types.IpDiscovery
 import Amazonka.ElastiCache.Types.LogDeliveryConfiguration
+import Amazonka.ElastiCache.Types.NetworkType
 import Amazonka.ElastiCache.Types.NotificationConfiguration
 import Amazonka.ElastiCache.Types.PendingModifiedValues
 import Amazonka.ElastiCache.Types.SecurityGroupMembership
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains all of the attributes of a specific cluster.
 --
 -- /See:/ 'newCacheCluster' smart constructor.
 data CacheCluster = CacheCluster'
-  { -- | The date the auth token was last modified
-    authTokenLastModifiedDate :: Prelude.Maybe Core.ISO8601,
-    -- | The version of the cache engine that is used in this cluster.
-    engineVersion :: Prelude.Maybe Prelude.Text,
+  { -- | The ARN (Amazon Resource Name) of the cache cluster.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | A flag that enables encryption at-rest when set to @true@.
+    --
+    -- You cannot modify the value of @AtRestEncryptionEnabled@ after the
+    -- cluster is created. To enable at-rest encryption on a cluster you must
+    -- set @AtRestEncryptionEnabled@ to @true@ when you create a cluster.
+    --
+    -- __Required:__ Only available when creating a replication group in an
+    -- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
+    --
+    -- Default: @false@
+    atRestEncryptionEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | A flag that enables using an @AuthToken@ (password) when issuing Redis
+    -- commands.
+    --
+    -- Default: @false@
+    authTokenEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The date the auth token was last modified
+    authTokenLastModifiedDate :: Prelude.Maybe Data.ISO8601,
+    -- | If you are running Redis engine version 6.0 or later, set this
+    -- parameter to yes if you want to opt-in to the next auto minor version
+    -- upgrade campaign. This parameter is disabled for previous versions.
+    autoMinorVersionUpgrade :: Prelude.Maybe Prelude.Bool,
+    -- | The date and time when the cluster was created.
+    cacheClusterCreateTime :: Prelude.Maybe Data.ISO8601,
+    -- | The user-supplied identifier of the cluster. This identifier is a unique
+    -- key that identifies a cluster.
+    cacheClusterId :: Prelude.Maybe Prelude.Text,
+    -- | The current state of this cluster, one of the following values:
+    -- @available@, @creating@, @deleted@, @deleting@, @incompatible-network@,
+    -- @modifying@, @rebooting cluster nodes@, @restore-failed@, or
+    -- @snapshotting@.
+    cacheClusterStatus :: Prelude.Maybe Prelude.Text,
     -- | The name of the compute and memory capacity node type for the cluster.
     --
     -- The following node types are supported by ElastiCache. Generally
@@ -51,8 +84,7 @@ data CacheCluster = CacheCluster'
     --     -   Current generation:
     --
     --         __M6g node types__ (available only for Redis engine version
-    --         5.0.6 onward and for Memcached engine version 1.5.16 onward).
-    --
+    --         5.0.6 onward and for Memcached engine version 1.5.16 onward):
     --         @cache.m6g.large@, @cache.m6g.xlarge@, @cache.m6g.2xlarge@,
     --         @cache.m6g.4xlarge@, @cache.m6g.8xlarge@, @cache.m6g.12xlarge@,
     --         @cache.m6g.16xlarge@
@@ -67,13 +99,19 @@ data CacheCluster = CacheCluster'
     --         __M4 node types:__ @cache.m4.large@, @cache.m4.xlarge@,
     --         @cache.m4.2xlarge@, @cache.m4.4xlarge@, @cache.m4.10xlarge@
     --
+    --         __T4g node types__ (available only for Redis engine version
+    --         5.0.6 onward and Memcached engine version 1.5.16 onward):
+    --         @cache.t4g.micro@, @cache.t4g.small@, @cache.t4g.medium@
+    --
     --         __T3 node types:__ @cache.t3.micro@, @cache.t3.small@,
     --         @cache.t3.medium@
     --
     --         __T2 node types:__ @cache.t2.micro@, @cache.t2.small@,
     --         @cache.t2.medium@
     --
-    --     -   Previous generation: (not recommended)
+    --     -   Previous generation: (not recommended. Existing clusters are
+    --         still supported but creation of new clusters is not supported
+    --         for these types.)
     --
     --         __T1 node types:__ @cache.t1.micro@
     --
@@ -85,7 +123,9 @@ data CacheCluster = CacheCluster'
     --
     -- -   Compute optimized:
     --
-    --     -   Previous generation: (not recommended)
+    --     -   Previous generation: (not recommended. Existing clusters are
+    --         still supported but creation of new clusters is not supported
+    --         for these types.)
     --
     --         __C1 node types:__ @cache.c1.xlarge@
     --
@@ -111,7 +151,9 @@ data CacheCluster = CacheCluster'
     --         @cache.r4.2xlarge@, @cache.r4.4xlarge@, @cache.r4.8xlarge@,
     --         @cache.r4.16xlarge@
     --
-    --     -   Previous generation: (not recommended)
+    --     -   Previous generation: (not recommended. Existing clusters are
+    --         still supported but creation of new clusters is not supported
+    --         for these types.)
     --
     --         __M2 node types:__ @cache.m2.xlarge@, @cache.m2.2xlarge@,
     --         @cache.m2.4xlarge@
@@ -135,50 +177,16 @@ data CacheCluster = CacheCluster'
     cacheNodeType :: Prelude.Maybe Prelude.Text,
     -- | A list of cache nodes that are members of the cluster.
     cacheNodes :: Prelude.Maybe [CacheNode],
-    -- | The date and time when the cluster was created.
-    cacheClusterCreateTime :: Prelude.Maybe Core.ISO8601,
-    -- | A flag that enables encryption at-rest when set to @true@.
-    --
-    -- You cannot modify the value of @AtRestEncryptionEnabled@ after the
-    -- cluster is created. To enable at-rest encryption on a cluster you must
-    -- set @AtRestEncryptionEnabled@ to @true@ when you create a cluster.
-    --
-    -- __Required:__ Only available when creating a replication group in an
-    -- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
-    --
-    -- Default: @false@
-    atRestEncryptionEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | This parameter is currently disabled.
-    autoMinorVersionUpgrade :: Prelude.Maybe Prelude.Bool,
-    -- | A list of VPC Security Groups associated with the cluster.
-    securityGroups :: Prelude.Maybe [SecurityGroupMembership],
-    -- | Describes a notification topic and its status. Notification topics are
-    -- used for publishing ElastiCache events to subscribers using Amazon
-    -- Simple Notification Service (SNS).
-    notificationConfiguration :: Prelude.Maybe NotificationConfiguration,
-    -- | The ARN (Amazon Resource Name) of the cache cluster.
-    arn :: Prelude.Maybe Prelude.Text,
-    -- | A flag that enables in-transit encryption when set to @true@.
-    --
-    -- You cannot modify the value of @TransitEncryptionEnabled@ after the
-    -- cluster is created. To enable in-transit encryption on a cluster you
-    -- must set @TransitEncryptionEnabled@ to @true@ when you create a cluster.
-    --
-    -- __Required:__ Only available when creating a replication group in an
-    -- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
-    --
-    -- Default: @false@
-    transitEncryptionEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | The daily time range (in UTC) during which ElastiCache begins taking a
-    -- daily snapshot of your cluster.
-    --
-    -- Example: @05:00-09:00@
-    snapshotWindow :: Prelude.Maybe Prelude.Text,
-    -- | The user-supplied identifier of the cluster. This identifier is a unique
-    -- key that identifies a cluster.
-    cacheClusterId :: Prelude.Maybe Prelude.Text,
-    -- | Returns the destination, format and type of the logs.
-    logDeliveryConfigurations :: Prelude.Maybe [LogDeliveryConfiguration],
+    -- | Status of the cache parameter group.
+    cacheParameterGroup :: Prelude.Maybe CacheParameterGroupStatus,
+    -- | A list of cache security group elements, composed of name and status
+    -- sub-elements.
+    cacheSecurityGroups :: Prelude.Maybe [CacheSecurityGroupMembership],
+    -- | The name of the cache subnet group associated with the cluster.
+    cacheSubnetGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The URL of the web page where you can download the latest ElastiCache
+    -- client library.
+    clientDownloadLandingPage :: Prelude.Maybe Prelude.Text,
     -- | Represents a Memcached cluster endpoint which can be used by an
     -- application to connect to any node in the cluster. The configuration
     -- endpoint will always have @.cfg@ in it.
@@ -188,20 +196,34 @@ data CacheCluster = CacheCluster'
     -- | The name of the cache engine (@memcached@ or @redis@) to be used for
     -- this cluster.
     engine :: Prelude.Maybe Prelude.Text,
-    -- | A list of cache security group elements, composed of name and status
-    -- sub-elements.
-    cacheSecurityGroups :: Prelude.Maybe [CacheSecurityGroupMembership],
-    -- | A boolean value indicating whether log delivery is enabled for the
-    -- replication group.
-    replicationGroupLogDeliveryEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | A flag that enables using an @AuthToken@ (password) when issuing Redis
-    -- commands.
+    -- | The version of the cache engine that is used in this cluster.
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | The network type associated with the cluster, either @ipv4@ | @ipv6@.
+    -- IPv6 is supported for workloads using Redis engine version 6.2 onward or
+    -- Memcached engine version 1.6.6 on all instances built on the
+    -- <https://aws.amazon.com/ec2/nitro/ Nitro system>.
+    ipDiscovery :: Prelude.Maybe IpDiscovery,
+    -- | Returns the destination, format and type of the logs.
+    logDeliveryConfigurations :: Prelude.Maybe [LogDeliveryConfiguration],
+    -- | Must be either @ipv4@ | @ipv6@ | @dual_stack@. IPv6 is supported for
+    -- workloads using Redis engine version 6.2 onward or Memcached engine
+    -- version 1.6.6 on all instances built on the
+    -- <https://aws.amazon.com/ec2/nitro/ Nitro system>.
+    networkType :: Prelude.Maybe NetworkType,
+    -- | Describes a notification topic and its status. Notification topics are
+    -- used for publishing ElastiCache events to subscribers using Amazon
+    -- Simple Notification Service (SNS).
+    notificationConfiguration :: Prelude.Maybe NotificationConfiguration,
+    -- | The number of cache nodes in the cluster.
     --
-    -- Default: @false@
-    authTokenEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | The URL of the web page where you can download the latest ElastiCache
-    -- client library.
-    clientDownloadLandingPage :: Prelude.Maybe Prelude.Text,
+    -- For clusters running Redis, this value must be 1. For clusters running
+    -- Memcached, this value must be between 1 and 40.
+    numCacheNodes :: Prelude.Maybe Prelude.Int,
+    pendingModifiedValues :: Prelude.Maybe PendingModifiedValues,
+    -- | The name of the Availability Zone in which the cluster is located or
+    -- \"Multiple\" if the cache nodes are located in different Availability
+    -- Zones.
+    preferredAvailabilityZone :: Prelude.Maybe Prelude.Text,
     -- | Specifies the weekly time range during which maintenance on the cluster
     -- is performed. It is specified as a range in the format
     -- ddd:hh24:mi-ddd:hh24:mi (24H Clock UTC). The minimum maintenance window
@@ -225,19 +247,16 @@ data CacheCluster = CacheCluster'
     --
     -- Example: @sun:23:00-mon:01:30@
     preferredMaintenanceWindow :: Prelude.Maybe Prelude.Text,
-    -- | The name of the cache subnet group associated with the cluster.
-    cacheSubnetGroupName :: Prelude.Maybe Prelude.Text,
-    -- | The name of the Availability Zone in which the cluster is located or
-    -- \"Multiple\" if the cache nodes are located in different Availability
-    -- Zones.
-    preferredAvailabilityZone :: Prelude.Maybe Prelude.Text,
-    -- | Status of the cache parameter group.
-    cacheParameterGroup :: Prelude.Maybe CacheParameterGroupStatus,
-    -- | The current state of this cluster, one of the following values:
-    -- @available@, @creating@, @deleted@, @deleting@, @incompatible-network@,
-    -- @modifying@, @rebooting cluster nodes@, @restore-failed@, or
-    -- @snapshotting@.
-    cacheClusterStatus :: Prelude.Maybe Prelude.Text,
+    -- | The outpost ARN in which the cache cluster is created.
+    preferredOutpostArn :: Prelude.Maybe Prelude.Text,
+    -- | The replication group to which this cluster belongs. If this field is
+    -- empty, the cluster is not associated with any replication group.
+    replicationGroupId :: Prelude.Maybe Prelude.Text,
+    -- | A boolean value indicating whether log delivery is enabled for the
+    -- replication group.
+    replicationGroupLogDeliveryEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | A list of VPC Security Groups associated with the cluster.
+    securityGroups :: Prelude.Maybe [SecurityGroupMembership],
     -- | The number of days for which ElastiCache retains automatic cluster
     -- snapshots before deleting them. For example, if you set
     -- @SnapshotRetentionLimit@ to 5, a snapshot that was taken today is
@@ -246,17 +265,22 @@ data CacheCluster = CacheCluster'
     -- If the value of SnapshotRetentionLimit is set to zero (0), backups are
     -- turned off.
     snapshotRetentionLimit :: Prelude.Maybe Prelude.Int,
-    -- | The outpost ARN in which the cache cluster is created.
-    preferredOutpostArn :: Prelude.Maybe Prelude.Text,
-    -- | The replication group to which this cluster belongs. If this field is
-    -- empty, the cluster is not associated with any replication group.
-    replicationGroupId :: Prelude.Maybe Prelude.Text,
-    pendingModifiedValues :: Prelude.Maybe PendingModifiedValues,
-    -- | The number of cache nodes in the cluster.
+    -- | The daily time range (in UTC) during which ElastiCache begins taking a
+    -- daily snapshot of your cluster.
     --
-    -- For clusters running Redis, this value must be 1. For clusters running
-    -- Memcached, this value must be between 1 and 40.
-    numCacheNodes :: Prelude.Maybe Prelude.Int
+    -- Example: @05:00-09:00@
+    snapshotWindow :: Prelude.Maybe Prelude.Text,
+    -- | A flag that enables in-transit encryption when set to @true@.
+    --
+    -- You cannot modify the value of @TransitEncryptionEnabled@ after the
+    -- cluster is created. To enable in-transit encryption on a cluster you
+    -- must set @TransitEncryptionEnabled@ to @true@ when you create a cluster.
+    --
+    -- __Required:__ Only available when creating a replication group in an
+    -- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
+    --
+    -- Default: @false@
+    transitEncryptionEnabled :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -268,9 +292,39 @@ data CacheCluster = CacheCluster'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'arn', 'cacheCluster_arn' - The ARN (Amazon Resource Name) of the cache cluster.
+--
+-- 'atRestEncryptionEnabled', 'cacheCluster_atRestEncryptionEnabled' - A flag that enables encryption at-rest when set to @true@.
+--
+-- You cannot modify the value of @AtRestEncryptionEnabled@ after the
+-- cluster is created. To enable at-rest encryption on a cluster you must
+-- set @AtRestEncryptionEnabled@ to @true@ when you create a cluster.
+--
+-- __Required:__ Only available when creating a replication group in an
+-- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
+--
+-- Default: @false@
+--
+-- 'authTokenEnabled', 'cacheCluster_authTokenEnabled' - A flag that enables using an @AuthToken@ (password) when issuing Redis
+-- commands.
+--
+-- Default: @false@
+--
 -- 'authTokenLastModifiedDate', 'cacheCluster_authTokenLastModifiedDate' - The date the auth token was last modified
 --
--- 'engineVersion', 'cacheCluster_engineVersion' - The version of the cache engine that is used in this cluster.
+-- 'autoMinorVersionUpgrade', 'cacheCluster_autoMinorVersionUpgrade' - If you are running Redis engine version 6.0 or later, set this
+-- parameter to yes if you want to opt-in to the next auto minor version
+-- upgrade campaign. This parameter is disabled for previous versions.
+--
+-- 'cacheClusterCreateTime', 'cacheCluster_cacheClusterCreateTime' - The date and time when the cluster was created.
+--
+-- 'cacheClusterId', 'cacheCluster_cacheClusterId' - The user-supplied identifier of the cluster. This identifier is a unique
+-- key that identifies a cluster.
+--
+-- 'cacheClusterStatus', 'cacheCluster_cacheClusterStatus' - The current state of this cluster, one of the following values:
+-- @available@, @creating@, @deleted@, @deleting@, @incompatible-network@,
+-- @modifying@, @rebooting cluster nodes@, @restore-failed@, or
+-- @snapshotting@.
 --
 -- 'cacheNodeType', 'cacheCluster_cacheNodeType' - The name of the compute and memory capacity node type for the cluster.
 --
@@ -284,8 +338,7 @@ data CacheCluster = CacheCluster'
 --     -   Current generation:
 --
 --         __M6g node types__ (available only for Redis engine version
---         5.0.6 onward and for Memcached engine version 1.5.16 onward).
---
+--         5.0.6 onward and for Memcached engine version 1.5.16 onward):
 --         @cache.m6g.large@, @cache.m6g.xlarge@, @cache.m6g.2xlarge@,
 --         @cache.m6g.4xlarge@, @cache.m6g.8xlarge@, @cache.m6g.12xlarge@,
 --         @cache.m6g.16xlarge@
@@ -300,13 +353,19 @@ data CacheCluster = CacheCluster'
 --         __M4 node types:__ @cache.m4.large@, @cache.m4.xlarge@,
 --         @cache.m4.2xlarge@, @cache.m4.4xlarge@, @cache.m4.10xlarge@
 --
+--         __T4g node types__ (available only for Redis engine version
+--         5.0.6 onward and Memcached engine version 1.5.16 onward):
+--         @cache.t4g.micro@, @cache.t4g.small@, @cache.t4g.medium@
+--
 --         __T3 node types:__ @cache.t3.micro@, @cache.t3.small@,
 --         @cache.t3.medium@
 --
 --         __T2 node types:__ @cache.t2.micro@, @cache.t2.small@,
 --         @cache.t2.medium@
 --
---     -   Previous generation: (not recommended)
+--     -   Previous generation: (not recommended. Existing clusters are
+--         still supported but creation of new clusters is not supported
+--         for these types.)
 --
 --         __T1 node types:__ @cache.t1.micro@
 --
@@ -318,7 +377,9 @@ data CacheCluster = CacheCluster'
 --
 -- -   Compute optimized:
 --
---     -   Previous generation: (not recommended)
+--     -   Previous generation: (not recommended. Existing clusters are
+--         still supported but creation of new clusters is not supported
+--         for these types.)
 --
 --         __C1 node types:__ @cache.c1.xlarge@
 --
@@ -344,7 +405,9 @@ data CacheCluster = CacheCluster'
 --         @cache.r4.2xlarge@, @cache.r4.4xlarge@, @cache.r4.8xlarge@,
 --         @cache.r4.16xlarge@
 --
---     -   Previous generation: (not recommended)
+--     -   Previous generation: (not recommended. Existing clusters are
+--         still supported but creation of new clusters is not supported
+--         for these types.)
 --
 --         __M2 node types:__ @cache.m2.xlarge@, @cache.m2.2xlarge@,
 --         @cache.m2.4xlarge@
@@ -368,49 +431,15 @@ data CacheCluster = CacheCluster'
 --
 -- 'cacheNodes', 'cacheCluster_cacheNodes' - A list of cache nodes that are members of the cluster.
 --
--- 'cacheClusterCreateTime', 'cacheCluster_cacheClusterCreateTime' - The date and time when the cluster was created.
+-- 'cacheParameterGroup', 'cacheCluster_cacheParameterGroup' - Status of the cache parameter group.
 --
--- 'atRestEncryptionEnabled', 'cacheCluster_atRestEncryptionEnabled' - A flag that enables encryption at-rest when set to @true@.
+-- 'cacheSecurityGroups', 'cacheCluster_cacheSecurityGroups' - A list of cache security group elements, composed of name and status
+-- sub-elements.
 --
--- You cannot modify the value of @AtRestEncryptionEnabled@ after the
--- cluster is created. To enable at-rest encryption on a cluster you must
--- set @AtRestEncryptionEnabled@ to @true@ when you create a cluster.
+-- 'cacheSubnetGroupName', 'cacheCluster_cacheSubnetGroupName' - The name of the cache subnet group associated with the cluster.
 --
--- __Required:__ Only available when creating a replication group in an
--- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
---
--- Default: @false@
---
--- 'autoMinorVersionUpgrade', 'cacheCluster_autoMinorVersionUpgrade' - This parameter is currently disabled.
---
--- 'securityGroups', 'cacheCluster_securityGroups' - A list of VPC Security Groups associated with the cluster.
---
--- 'notificationConfiguration', 'cacheCluster_notificationConfiguration' - Describes a notification topic and its status. Notification topics are
--- used for publishing ElastiCache events to subscribers using Amazon
--- Simple Notification Service (SNS).
---
--- 'arn', 'cacheCluster_arn' - The ARN (Amazon Resource Name) of the cache cluster.
---
--- 'transitEncryptionEnabled', 'cacheCluster_transitEncryptionEnabled' - A flag that enables in-transit encryption when set to @true@.
---
--- You cannot modify the value of @TransitEncryptionEnabled@ after the
--- cluster is created. To enable in-transit encryption on a cluster you
--- must set @TransitEncryptionEnabled@ to @true@ when you create a cluster.
---
--- __Required:__ Only available when creating a replication group in an
--- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
---
--- Default: @false@
---
--- 'snapshotWindow', 'cacheCluster_snapshotWindow' - The daily time range (in UTC) during which ElastiCache begins taking a
--- daily snapshot of your cluster.
---
--- Example: @05:00-09:00@
---
--- 'cacheClusterId', 'cacheCluster_cacheClusterId' - The user-supplied identifier of the cluster. This identifier is a unique
--- key that identifies a cluster.
---
--- 'logDeliveryConfigurations', 'cacheCluster_logDeliveryConfigurations' - Returns the destination, format and type of the logs.
+-- 'clientDownloadLandingPage', 'cacheCluster_clientDownloadLandingPage' - The URL of the web page where you can download the latest ElastiCache
+-- client library.
 --
 -- 'configurationEndpoint', 'cacheCluster_configurationEndpoint' - Represents a Memcached cluster endpoint which can be used by an
 -- application to connect to any node in the cluster. The configuration
@@ -421,19 +450,34 @@ data CacheCluster = CacheCluster'
 -- 'engine', 'cacheCluster_engine' - The name of the cache engine (@memcached@ or @redis@) to be used for
 -- this cluster.
 --
--- 'cacheSecurityGroups', 'cacheCluster_cacheSecurityGroups' - A list of cache security group elements, composed of name and status
--- sub-elements.
+-- 'engineVersion', 'cacheCluster_engineVersion' - The version of the cache engine that is used in this cluster.
 --
--- 'replicationGroupLogDeliveryEnabled', 'cacheCluster_replicationGroupLogDeliveryEnabled' - A boolean value indicating whether log delivery is enabled for the
--- replication group.
+-- 'ipDiscovery', 'cacheCluster_ipDiscovery' - The network type associated with the cluster, either @ipv4@ | @ipv6@.
+-- IPv6 is supported for workloads using Redis engine version 6.2 onward or
+-- Memcached engine version 1.6.6 on all instances built on the
+-- <https://aws.amazon.com/ec2/nitro/ Nitro system>.
 --
--- 'authTokenEnabled', 'cacheCluster_authTokenEnabled' - A flag that enables using an @AuthToken@ (password) when issuing Redis
--- commands.
+-- 'logDeliveryConfigurations', 'cacheCluster_logDeliveryConfigurations' - Returns the destination, format and type of the logs.
 --
--- Default: @false@
+-- 'networkType', 'cacheCluster_networkType' - Must be either @ipv4@ | @ipv6@ | @dual_stack@. IPv6 is supported for
+-- workloads using Redis engine version 6.2 onward or Memcached engine
+-- version 1.6.6 on all instances built on the
+-- <https://aws.amazon.com/ec2/nitro/ Nitro system>.
 --
--- 'clientDownloadLandingPage', 'cacheCluster_clientDownloadLandingPage' - The URL of the web page where you can download the latest ElastiCache
--- client library.
+-- 'notificationConfiguration', 'cacheCluster_notificationConfiguration' - Describes a notification topic and its status. Notification topics are
+-- used for publishing ElastiCache events to subscribers using Amazon
+-- Simple Notification Service (SNS).
+--
+-- 'numCacheNodes', 'cacheCluster_numCacheNodes' - The number of cache nodes in the cluster.
+--
+-- For clusters running Redis, this value must be 1. For clusters running
+-- Memcached, this value must be between 1 and 40.
+--
+-- 'pendingModifiedValues', 'cacheCluster_pendingModifiedValues' - Undocumented member.
+--
+-- 'preferredAvailabilityZone', 'cacheCluster_preferredAvailabilityZone' - The name of the Availability Zone in which the cluster is located or
+-- \"Multiple\" if the cache nodes are located in different Availability
+-- Zones.
 --
 -- 'preferredMaintenanceWindow', 'cacheCluster_preferredMaintenanceWindow' - Specifies the weekly time range during which maintenance on the cluster
 -- is performed. It is specified as a range in the format
@@ -458,18 +502,15 @@ data CacheCluster = CacheCluster'
 --
 -- Example: @sun:23:00-mon:01:30@
 --
--- 'cacheSubnetGroupName', 'cacheCluster_cacheSubnetGroupName' - The name of the cache subnet group associated with the cluster.
+-- 'preferredOutpostArn', 'cacheCluster_preferredOutpostArn' - The outpost ARN in which the cache cluster is created.
 --
--- 'preferredAvailabilityZone', 'cacheCluster_preferredAvailabilityZone' - The name of the Availability Zone in which the cluster is located or
--- \"Multiple\" if the cache nodes are located in different Availability
--- Zones.
+-- 'replicationGroupId', 'cacheCluster_replicationGroupId' - The replication group to which this cluster belongs. If this field is
+-- empty, the cluster is not associated with any replication group.
 --
--- 'cacheParameterGroup', 'cacheCluster_cacheParameterGroup' - Status of the cache parameter group.
+-- 'replicationGroupLogDeliveryEnabled', 'cacheCluster_replicationGroupLogDeliveryEnabled' - A boolean value indicating whether log delivery is enabled for the
+-- replication group.
 --
--- 'cacheClusterStatus', 'cacheCluster_cacheClusterStatus' - The current state of this cluster, one of the following values:
--- @available@, @creating@, @deleted@, @deleting@, @incompatible-network@,
--- @modifying@, @rebooting cluster nodes@, @restore-failed@, or
--- @snapshotting@.
+-- 'securityGroups', 'cacheCluster_securityGroups' - A list of VPC Security Groups associated with the cluster.
 --
 -- 'snapshotRetentionLimit', 'cacheCluster_snapshotRetentionLimit' - The number of days for which ElastiCache retains automatic cluster
 -- snapshots before deleting them. For example, if you set
@@ -479,61 +520,108 @@ data CacheCluster = CacheCluster'
 -- If the value of SnapshotRetentionLimit is set to zero (0), backups are
 -- turned off.
 --
--- 'preferredOutpostArn', 'cacheCluster_preferredOutpostArn' - The outpost ARN in which the cache cluster is created.
+-- 'snapshotWindow', 'cacheCluster_snapshotWindow' - The daily time range (in UTC) during which ElastiCache begins taking a
+-- daily snapshot of your cluster.
 --
--- 'replicationGroupId', 'cacheCluster_replicationGroupId' - The replication group to which this cluster belongs. If this field is
--- empty, the cluster is not associated with any replication group.
+-- Example: @05:00-09:00@
 --
--- 'pendingModifiedValues', 'cacheCluster_pendingModifiedValues' - Undocumented member.
+-- 'transitEncryptionEnabled', 'cacheCluster_transitEncryptionEnabled' - A flag that enables in-transit encryption when set to @true@.
 --
--- 'numCacheNodes', 'cacheCluster_numCacheNodes' - The number of cache nodes in the cluster.
+-- You cannot modify the value of @TransitEncryptionEnabled@ after the
+-- cluster is created. To enable in-transit encryption on a cluster you
+-- must set @TransitEncryptionEnabled@ to @true@ when you create a cluster.
 --
--- For clusters running Redis, this value must be 1. For clusters running
--- Memcached, this value must be between 1 and 40.
+-- __Required:__ Only available when creating a replication group in an
+-- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
+--
+-- Default: @false@
 newCacheCluster ::
   CacheCluster
 newCacheCluster =
   CacheCluster'
-    { authTokenLastModifiedDate =
-        Prelude.Nothing,
-      engineVersion = Prelude.Nothing,
+    { arn = Prelude.Nothing,
+      atRestEncryptionEnabled = Prelude.Nothing,
+      authTokenEnabled = Prelude.Nothing,
+      authTokenLastModifiedDate = Prelude.Nothing,
+      autoMinorVersionUpgrade = Prelude.Nothing,
+      cacheClusterCreateTime = Prelude.Nothing,
+      cacheClusterId = Prelude.Nothing,
+      cacheClusterStatus = Prelude.Nothing,
       cacheNodeType = Prelude.Nothing,
       cacheNodes = Prelude.Nothing,
-      cacheClusterCreateTime = Prelude.Nothing,
-      atRestEncryptionEnabled = Prelude.Nothing,
-      autoMinorVersionUpgrade = Prelude.Nothing,
-      securityGroups = Prelude.Nothing,
-      notificationConfiguration = Prelude.Nothing,
-      arn = Prelude.Nothing,
-      transitEncryptionEnabled = Prelude.Nothing,
-      snapshotWindow = Prelude.Nothing,
-      cacheClusterId = Prelude.Nothing,
-      logDeliveryConfigurations = Prelude.Nothing,
+      cacheParameterGroup = Prelude.Nothing,
+      cacheSecurityGroups = Prelude.Nothing,
+      cacheSubnetGroupName = Prelude.Nothing,
+      clientDownloadLandingPage = Prelude.Nothing,
       configurationEndpoint = Prelude.Nothing,
       engine = Prelude.Nothing,
-      cacheSecurityGroups = Prelude.Nothing,
-      replicationGroupLogDeliveryEnabled = Prelude.Nothing,
-      authTokenEnabled = Prelude.Nothing,
-      clientDownloadLandingPage = Prelude.Nothing,
-      preferredMaintenanceWindow = Prelude.Nothing,
-      cacheSubnetGroupName = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      ipDiscovery = Prelude.Nothing,
+      logDeliveryConfigurations = Prelude.Nothing,
+      networkType = Prelude.Nothing,
+      notificationConfiguration = Prelude.Nothing,
+      numCacheNodes = Prelude.Nothing,
+      pendingModifiedValues = Prelude.Nothing,
       preferredAvailabilityZone = Prelude.Nothing,
-      cacheParameterGroup = Prelude.Nothing,
-      cacheClusterStatus = Prelude.Nothing,
-      snapshotRetentionLimit = Prelude.Nothing,
+      preferredMaintenanceWindow = Prelude.Nothing,
       preferredOutpostArn = Prelude.Nothing,
       replicationGroupId = Prelude.Nothing,
-      pendingModifiedValues = Prelude.Nothing,
-      numCacheNodes = Prelude.Nothing
+      replicationGroupLogDeliveryEnabled = Prelude.Nothing,
+      securityGroups = Prelude.Nothing,
+      snapshotRetentionLimit = Prelude.Nothing,
+      snapshotWindow = Prelude.Nothing,
+      transitEncryptionEnabled = Prelude.Nothing
     }
+
+-- | The ARN (Amazon Resource Name) of the cache cluster.
+cacheCluster_arn :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
+cacheCluster_arn = Lens.lens (\CacheCluster' {arn} -> arn) (\s@CacheCluster' {} a -> s {arn = a} :: CacheCluster)
+
+-- | A flag that enables encryption at-rest when set to @true@.
+--
+-- You cannot modify the value of @AtRestEncryptionEnabled@ after the
+-- cluster is created. To enable at-rest encryption on a cluster you must
+-- set @AtRestEncryptionEnabled@ to @true@ when you create a cluster.
+--
+-- __Required:__ Only available when creating a replication group in an
+-- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
+--
+-- Default: @false@
+cacheCluster_atRestEncryptionEnabled :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Bool)
+cacheCluster_atRestEncryptionEnabled = Lens.lens (\CacheCluster' {atRestEncryptionEnabled} -> atRestEncryptionEnabled) (\s@CacheCluster' {} a -> s {atRestEncryptionEnabled = a} :: CacheCluster)
+
+-- | A flag that enables using an @AuthToken@ (password) when issuing Redis
+-- commands.
+--
+-- Default: @false@
+cacheCluster_authTokenEnabled :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Bool)
+cacheCluster_authTokenEnabled = Lens.lens (\CacheCluster' {authTokenEnabled} -> authTokenEnabled) (\s@CacheCluster' {} a -> s {authTokenEnabled = a} :: CacheCluster)
 
 -- | The date the auth token was last modified
 cacheCluster_authTokenLastModifiedDate :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.UTCTime)
-cacheCluster_authTokenLastModifiedDate = Lens.lens (\CacheCluster' {authTokenLastModifiedDate} -> authTokenLastModifiedDate) (\s@CacheCluster' {} a -> s {authTokenLastModifiedDate = a} :: CacheCluster) Prelude.. Lens.mapping Core._Time
+cacheCluster_authTokenLastModifiedDate = Lens.lens (\CacheCluster' {authTokenLastModifiedDate} -> authTokenLastModifiedDate) (\s@CacheCluster' {} a -> s {authTokenLastModifiedDate = a} :: CacheCluster) Prelude.. Lens.mapping Data._Time
 
--- | The version of the cache engine that is used in this cluster.
-cacheCluster_engineVersion :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
-cacheCluster_engineVersion = Lens.lens (\CacheCluster' {engineVersion} -> engineVersion) (\s@CacheCluster' {} a -> s {engineVersion = a} :: CacheCluster)
+-- | If you are running Redis engine version 6.0 or later, set this
+-- parameter to yes if you want to opt-in to the next auto minor version
+-- upgrade campaign. This parameter is disabled for previous versions.
+cacheCluster_autoMinorVersionUpgrade :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Bool)
+cacheCluster_autoMinorVersionUpgrade = Lens.lens (\CacheCluster' {autoMinorVersionUpgrade} -> autoMinorVersionUpgrade) (\s@CacheCluster' {} a -> s {autoMinorVersionUpgrade = a} :: CacheCluster)
+
+-- | The date and time when the cluster was created.
+cacheCluster_cacheClusterCreateTime :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.UTCTime)
+cacheCluster_cacheClusterCreateTime = Lens.lens (\CacheCluster' {cacheClusterCreateTime} -> cacheClusterCreateTime) (\s@CacheCluster' {} a -> s {cacheClusterCreateTime = a} :: CacheCluster) Prelude.. Lens.mapping Data._Time
+
+-- | The user-supplied identifier of the cluster. This identifier is a unique
+-- key that identifies a cluster.
+cacheCluster_cacheClusterId :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
+cacheCluster_cacheClusterId = Lens.lens (\CacheCluster' {cacheClusterId} -> cacheClusterId) (\s@CacheCluster' {} a -> s {cacheClusterId = a} :: CacheCluster)
+
+-- | The current state of this cluster, one of the following values:
+-- @available@, @creating@, @deleted@, @deleting@, @incompatible-network@,
+-- @modifying@, @rebooting cluster nodes@, @restore-failed@, or
+-- @snapshotting@.
+cacheCluster_cacheClusterStatus :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
+cacheCluster_cacheClusterStatus = Lens.lens (\CacheCluster' {cacheClusterStatus} -> cacheClusterStatus) (\s@CacheCluster' {} a -> s {cacheClusterStatus = a} :: CacheCluster)
 
 -- | The name of the compute and memory capacity node type for the cluster.
 --
@@ -547,8 +635,7 @@ cacheCluster_engineVersion = Lens.lens (\CacheCluster' {engineVersion} -> engine
 --     -   Current generation:
 --
 --         __M6g node types__ (available only for Redis engine version
---         5.0.6 onward and for Memcached engine version 1.5.16 onward).
---
+--         5.0.6 onward and for Memcached engine version 1.5.16 onward):
 --         @cache.m6g.large@, @cache.m6g.xlarge@, @cache.m6g.2xlarge@,
 --         @cache.m6g.4xlarge@, @cache.m6g.8xlarge@, @cache.m6g.12xlarge@,
 --         @cache.m6g.16xlarge@
@@ -563,13 +650,19 @@ cacheCluster_engineVersion = Lens.lens (\CacheCluster' {engineVersion} -> engine
 --         __M4 node types:__ @cache.m4.large@, @cache.m4.xlarge@,
 --         @cache.m4.2xlarge@, @cache.m4.4xlarge@, @cache.m4.10xlarge@
 --
+--         __T4g node types__ (available only for Redis engine version
+--         5.0.6 onward and Memcached engine version 1.5.16 onward):
+--         @cache.t4g.micro@, @cache.t4g.small@, @cache.t4g.medium@
+--
 --         __T3 node types:__ @cache.t3.micro@, @cache.t3.small@,
 --         @cache.t3.medium@
 --
 --         __T2 node types:__ @cache.t2.micro@, @cache.t2.small@,
 --         @cache.t2.medium@
 --
---     -   Previous generation: (not recommended)
+--     -   Previous generation: (not recommended. Existing clusters are
+--         still supported but creation of new clusters is not supported
+--         for these types.)
 --
 --         __T1 node types:__ @cache.t1.micro@
 --
@@ -581,7 +674,9 @@ cacheCluster_engineVersion = Lens.lens (\CacheCluster' {engineVersion} -> engine
 --
 -- -   Compute optimized:
 --
---     -   Previous generation: (not recommended)
+--     -   Previous generation: (not recommended. Existing clusters are
+--         still supported but creation of new clusters is not supported
+--         for these types.)
 --
 --         __C1 node types:__ @cache.c1.xlarge@
 --
@@ -607,7 +702,9 @@ cacheCluster_engineVersion = Lens.lens (\CacheCluster' {engineVersion} -> engine
 --         @cache.r4.2xlarge@, @cache.r4.4xlarge@, @cache.r4.8xlarge@,
 --         @cache.r4.16xlarge@
 --
---     -   Previous generation: (not recommended)
+--     -   Previous generation: (not recommended. Existing clusters are
+--         still supported but creation of new clusters is not supported
+--         for these types.)
 --
 --         __M2 node types:__ @cache.m2.xlarge@, @cache.m2.2xlarge@,
 --         @cache.m2.4xlarge@
@@ -635,69 +732,23 @@ cacheCluster_cacheNodeType = Lens.lens (\CacheCluster' {cacheNodeType} -> cacheN
 cacheCluster_cacheNodes :: Lens.Lens' CacheCluster (Prelude.Maybe [CacheNode])
 cacheCluster_cacheNodes = Lens.lens (\CacheCluster' {cacheNodes} -> cacheNodes) (\s@CacheCluster' {} a -> s {cacheNodes = a} :: CacheCluster) Prelude.. Lens.mapping Lens.coerced
 
--- | The date and time when the cluster was created.
-cacheCluster_cacheClusterCreateTime :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.UTCTime)
-cacheCluster_cacheClusterCreateTime = Lens.lens (\CacheCluster' {cacheClusterCreateTime} -> cacheClusterCreateTime) (\s@CacheCluster' {} a -> s {cacheClusterCreateTime = a} :: CacheCluster) Prelude.. Lens.mapping Core._Time
+-- | Status of the cache parameter group.
+cacheCluster_cacheParameterGroup :: Lens.Lens' CacheCluster (Prelude.Maybe CacheParameterGroupStatus)
+cacheCluster_cacheParameterGroup = Lens.lens (\CacheCluster' {cacheParameterGroup} -> cacheParameterGroup) (\s@CacheCluster' {} a -> s {cacheParameterGroup = a} :: CacheCluster)
 
--- | A flag that enables encryption at-rest when set to @true@.
---
--- You cannot modify the value of @AtRestEncryptionEnabled@ after the
--- cluster is created. To enable at-rest encryption on a cluster you must
--- set @AtRestEncryptionEnabled@ to @true@ when you create a cluster.
---
--- __Required:__ Only available when creating a replication group in an
--- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
---
--- Default: @false@
-cacheCluster_atRestEncryptionEnabled :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Bool)
-cacheCluster_atRestEncryptionEnabled = Lens.lens (\CacheCluster' {atRestEncryptionEnabled} -> atRestEncryptionEnabled) (\s@CacheCluster' {} a -> s {atRestEncryptionEnabled = a} :: CacheCluster)
+-- | A list of cache security group elements, composed of name and status
+-- sub-elements.
+cacheCluster_cacheSecurityGroups :: Lens.Lens' CacheCluster (Prelude.Maybe [CacheSecurityGroupMembership])
+cacheCluster_cacheSecurityGroups = Lens.lens (\CacheCluster' {cacheSecurityGroups} -> cacheSecurityGroups) (\s@CacheCluster' {} a -> s {cacheSecurityGroups = a} :: CacheCluster) Prelude.. Lens.mapping Lens.coerced
 
--- | This parameter is currently disabled.
-cacheCluster_autoMinorVersionUpgrade :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Bool)
-cacheCluster_autoMinorVersionUpgrade = Lens.lens (\CacheCluster' {autoMinorVersionUpgrade} -> autoMinorVersionUpgrade) (\s@CacheCluster' {} a -> s {autoMinorVersionUpgrade = a} :: CacheCluster)
+-- | The name of the cache subnet group associated with the cluster.
+cacheCluster_cacheSubnetGroupName :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
+cacheCluster_cacheSubnetGroupName = Lens.lens (\CacheCluster' {cacheSubnetGroupName} -> cacheSubnetGroupName) (\s@CacheCluster' {} a -> s {cacheSubnetGroupName = a} :: CacheCluster)
 
--- | A list of VPC Security Groups associated with the cluster.
-cacheCluster_securityGroups :: Lens.Lens' CacheCluster (Prelude.Maybe [SecurityGroupMembership])
-cacheCluster_securityGroups = Lens.lens (\CacheCluster' {securityGroups} -> securityGroups) (\s@CacheCluster' {} a -> s {securityGroups = a} :: CacheCluster) Prelude.. Lens.mapping Lens.coerced
-
--- | Describes a notification topic and its status. Notification topics are
--- used for publishing ElastiCache events to subscribers using Amazon
--- Simple Notification Service (SNS).
-cacheCluster_notificationConfiguration :: Lens.Lens' CacheCluster (Prelude.Maybe NotificationConfiguration)
-cacheCluster_notificationConfiguration = Lens.lens (\CacheCluster' {notificationConfiguration} -> notificationConfiguration) (\s@CacheCluster' {} a -> s {notificationConfiguration = a} :: CacheCluster)
-
--- | The ARN (Amazon Resource Name) of the cache cluster.
-cacheCluster_arn :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
-cacheCluster_arn = Lens.lens (\CacheCluster' {arn} -> arn) (\s@CacheCluster' {} a -> s {arn = a} :: CacheCluster)
-
--- | A flag that enables in-transit encryption when set to @true@.
---
--- You cannot modify the value of @TransitEncryptionEnabled@ after the
--- cluster is created. To enable in-transit encryption on a cluster you
--- must set @TransitEncryptionEnabled@ to @true@ when you create a cluster.
---
--- __Required:__ Only available when creating a replication group in an
--- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
---
--- Default: @false@
-cacheCluster_transitEncryptionEnabled :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Bool)
-cacheCluster_transitEncryptionEnabled = Lens.lens (\CacheCluster' {transitEncryptionEnabled} -> transitEncryptionEnabled) (\s@CacheCluster' {} a -> s {transitEncryptionEnabled = a} :: CacheCluster)
-
--- | The daily time range (in UTC) during which ElastiCache begins taking a
--- daily snapshot of your cluster.
---
--- Example: @05:00-09:00@
-cacheCluster_snapshotWindow :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
-cacheCluster_snapshotWindow = Lens.lens (\CacheCluster' {snapshotWindow} -> snapshotWindow) (\s@CacheCluster' {} a -> s {snapshotWindow = a} :: CacheCluster)
-
--- | The user-supplied identifier of the cluster. This identifier is a unique
--- key that identifies a cluster.
-cacheCluster_cacheClusterId :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
-cacheCluster_cacheClusterId = Lens.lens (\CacheCluster' {cacheClusterId} -> cacheClusterId) (\s@CacheCluster' {} a -> s {cacheClusterId = a} :: CacheCluster)
-
--- | Returns the destination, format and type of the logs.
-cacheCluster_logDeliveryConfigurations :: Lens.Lens' CacheCluster (Prelude.Maybe [LogDeliveryConfiguration])
-cacheCluster_logDeliveryConfigurations = Lens.lens (\CacheCluster' {logDeliveryConfigurations} -> logDeliveryConfigurations) (\s@CacheCluster' {} a -> s {logDeliveryConfigurations = a} :: CacheCluster) Prelude.. Lens.mapping Lens.coerced
+-- | The URL of the web page where you can download the latest ElastiCache
+-- client library.
+cacheCluster_clientDownloadLandingPage :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
+cacheCluster_clientDownloadLandingPage = Lens.lens (\CacheCluster' {clientDownloadLandingPage} -> clientDownloadLandingPage) (\s@CacheCluster' {} a -> s {clientDownloadLandingPage = a} :: CacheCluster)
 
 -- | Represents a Memcached cluster endpoint which can be used by an
 -- application to connect to any node in the cluster. The configuration
@@ -712,27 +763,50 @@ cacheCluster_configurationEndpoint = Lens.lens (\CacheCluster' {configurationEnd
 cacheCluster_engine :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
 cacheCluster_engine = Lens.lens (\CacheCluster' {engine} -> engine) (\s@CacheCluster' {} a -> s {engine = a} :: CacheCluster)
 
--- | A list of cache security group elements, composed of name and status
--- sub-elements.
-cacheCluster_cacheSecurityGroups :: Lens.Lens' CacheCluster (Prelude.Maybe [CacheSecurityGroupMembership])
-cacheCluster_cacheSecurityGroups = Lens.lens (\CacheCluster' {cacheSecurityGroups} -> cacheSecurityGroups) (\s@CacheCluster' {} a -> s {cacheSecurityGroups = a} :: CacheCluster) Prelude.. Lens.mapping Lens.coerced
+-- | The version of the cache engine that is used in this cluster.
+cacheCluster_engineVersion :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
+cacheCluster_engineVersion = Lens.lens (\CacheCluster' {engineVersion} -> engineVersion) (\s@CacheCluster' {} a -> s {engineVersion = a} :: CacheCluster)
 
--- | A boolean value indicating whether log delivery is enabled for the
--- replication group.
-cacheCluster_replicationGroupLogDeliveryEnabled :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Bool)
-cacheCluster_replicationGroupLogDeliveryEnabled = Lens.lens (\CacheCluster' {replicationGroupLogDeliveryEnabled} -> replicationGroupLogDeliveryEnabled) (\s@CacheCluster' {} a -> s {replicationGroupLogDeliveryEnabled = a} :: CacheCluster)
+-- | The network type associated with the cluster, either @ipv4@ | @ipv6@.
+-- IPv6 is supported for workloads using Redis engine version 6.2 onward or
+-- Memcached engine version 1.6.6 on all instances built on the
+-- <https://aws.amazon.com/ec2/nitro/ Nitro system>.
+cacheCluster_ipDiscovery :: Lens.Lens' CacheCluster (Prelude.Maybe IpDiscovery)
+cacheCluster_ipDiscovery = Lens.lens (\CacheCluster' {ipDiscovery} -> ipDiscovery) (\s@CacheCluster' {} a -> s {ipDiscovery = a} :: CacheCluster)
 
--- | A flag that enables using an @AuthToken@ (password) when issuing Redis
--- commands.
+-- | Returns the destination, format and type of the logs.
+cacheCluster_logDeliveryConfigurations :: Lens.Lens' CacheCluster (Prelude.Maybe [LogDeliveryConfiguration])
+cacheCluster_logDeliveryConfigurations = Lens.lens (\CacheCluster' {logDeliveryConfigurations} -> logDeliveryConfigurations) (\s@CacheCluster' {} a -> s {logDeliveryConfigurations = a} :: CacheCluster) Prelude.. Lens.mapping Lens.coerced
+
+-- | Must be either @ipv4@ | @ipv6@ | @dual_stack@. IPv6 is supported for
+-- workloads using Redis engine version 6.2 onward or Memcached engine
+-- version 1.6.6 on all instances built on the
+-- <https://aws.amazon.com/ec2/nitro/ Nitro system>.
+cacheCluster_networkType :: Lens.Lens' CacheCluster (Prelude.Maybe NetworkType)
+cacheCluster_networkType = Lens.lens (\CacheCluster' {networkType} -> networkType) (\s@CacheCluster' {} a -> s {networkType = a} :: CacheCluster)
+
+-- | Describes a notification topic and its status. Notification topics are
+-- used for publishing ElastiCache events to subscribers using Amazon
+-- Simple Notification Service (SNS).
+cacheCluster_notificationConfiguration :: Lens.Lens' CacheCluster (Prelude.Maybe NotificationConfiguration)
+cacheCluster_notificationConfiguration = Lens.lens (\CacheCluster' {notificationConfiguration} -> notificationConfiguration) (\s@CacheCluster' {} a -> s {notificationConfiguration = a} :: CacheCluster)
+
+-- | The number of cache nodes in the cluster.
 --
--- Default: @false@
-cacheCluster_authTokenEnabled :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Bool)
-cacheCluster_authTokenEnabled = Lens.lens (\CacheCluster' {authTokenEnabled} -> authTokenEnabled) (\s@CacheCluster' {} a -> s {authTokenEnabled = a} :: CacheCluster)
+-- For clusters running Redis, this value must be 1. For clusters running
+-- Memcached, this value must be between 1 and 40.
+cacheCluster_numCacheNodes :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Int)
+cacheCluster_numCacheNodes = Lens.lens (\CacheCluster' {numCacheNodes} -> numCacheNodes) (\s@CacheCluster' {} a -> s {numCacheNodes = a} :: CacheCluster)
 
--- | The URL of the web page where you can download the latest ElastiCache
--- client library.
-cacheCluster_clientDownloadLandingPage :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
-cacheCluster_clientDownloadLandingPage = Lens.lens (\CacheCluster' {clientDownloadLandingPage} -> clientDownloadLandingPage) (\s@CacheCluster' {} a -> s {clientDownloadLandingPage = a} :: CacheCluster)
+-- | Undocumented member.
+cacheCluster_pendingModifiedValues :: Lens.Lens' CacheCluster (Prelude.Maybe PendingModifiedValues)
+cacheCluster_pendingModifiedValues = Lens.lens (\CacheCluster' {pendingModifiedValues} -> pendingModifiedValues) (\s@CacheCluster' {} a -> s {pendingModifiedValues = a} :: CacheCluster)
+
+-- | The name of the Availability Zone in which the cluster is located or
+-- \"Multiple\" if the cache nodes are located in different Availability
+-- Zones.
+cacheCluster_preferredAvailabilityZone :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
+cacheCluster_preferredAvailabilityZone = Lens.lens (\CacheCluster' {preferredAvailabilityZone} -> preferredAvailabilityZone) (\s@CacheCluster' {} a -> s {preferredAvailabilityZone = a} :: CacheCluster)
 
 -- | Specifies the weekly time range during which maintenance on the cluster
 -- is performed. It is specified as a range in the format
@@ -759,26 +833,23 @@ cacheCluster_clientDownloadLandingPage = Lens.lens (\CacheCluster' {clientDownlo
 cacheCluster_preferredMaintenanceWindow :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
 cacheCluster_preferredMaintenanceWindow = Lens.lens (\CacheCluster' {preferredMaintenanceWindow} -> preferredMaintenanceWindow) (\s@CacheCluster' {} a -> s {preferredMaintenanceWindow = a} :: CacheCluster)
 
--- | The name of the cache subnet group associated with the cluster.
-cacheCluster_cacheSubnetGroupName :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
-cacheCluster_cacheSubnetGroupName = Lens.lens (\CacheCluster' {cacheSubnetGroupName} -> cacheSubnetGroupName) (\s@CacheCluster' {} a -> s {cacheSubnetGroupName = a} :: CacheCluster)
+-- | The outpost ARN in which the cache cluster is created.
+cacheCluster_preferredOutpostArn :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
+cacheCluster_preferredOutpostArn = Lens.lens (\CacheCluster' {preferredOutpostArn} -> preferredOutpostArn) (\s@CacheCluster' {} a -> s {preferredOutpostArn = a} :: CacheCluster)
 
--- | The name of the Availability Zone in which the cluster is located or
--- \"Multiple\" if the cache nodes are located in different Availability
--- Zones.
-cacheCluster_preferredAvailabilityZone :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
-cacheCluster_preferredAvailabilityZone = Lens.lens (\CacheCluster' {preferredAvailabilityZone} -> preferredAvailabilityZone) (\s@CacheCluster' {} a -> s {preferredAvailabilityZone = a} :: CacheCluster)
+-- | The replication group to which this cluster belongs. If this field is
+-- empty, the cluster is not associated with any replication group.
+cacheCluster_replicationGroupId :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
+cacheCluster_replicationGroupId = Lens.lens (\CacheCluster' {replicationGroupId} -> replicationGroupId) (\s@CacheCluster' {} a -> s {replicationGroupId = a} :: CacheCluster)
 
--- | Status of the cache parameter group.
-cacheCluster_cacheParameterGroup :: Lens.Lens' CacheCluster (Prelude.Maybe CacheParameterGroupStatus)
-cacheCluster_cacheParameterGroup = Lens.lens (\CacheCluster' {cacheParameterGroup} -> cacheParameterGroup) (\s@CacheCluster' {} a -> s {cacheParameterGroup = a} :: CacheCluster)
+-- | A boolean value indicating whether log delivery is enabled for the
+-- replication group.
+cacheCluster_replicationGroupLogDeliveryEnabled :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Bool)
+cacheCluster_replicationGroupLogDeliveryEnabled = Lens.lens (\CacheCluster' {replicationGroupLogDeliveryEnabled} -> replicationGroupLogDeliveryEnabled) (\s@CacheCluster' {} a -> s {replicationGroupLogDeliveryEnabled = a} :: CacheCluster)
 
--- | The current state of this cluster, one of the following values:
--- @available@, @creating@, @deleted@, @deleting@, @incompatible-network@,
--- @modifying@, @rebooting cluster nodes@, @restore-failed@, or
--- @snapshotting@.
-cacheCluster_cacheClusterStatus :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
-cacheCluster_cacheClusterStatus = Lens.lens (\CacheCluster' {cacheClusterStatus} -> cacheClusterStatus) (\s@CacheCluster' {} a -> s {cacheClusterStatus = a} :: CacheCluster)
+-- | A list of VPC Security Groups associated with the cluster.
+cacheCluster_securityGroups :: Lens.Lens' CacheCluster (Prelude.Maybe [SecurityGroupMembership])
+cacheCluster_securityGroups = Lens.lens (\CacheCluster' {securityGroups} -> securityGroups) (\s@CacheCluster' {} a -> s {securityGroups = a} :: CacheCluster) Prelude.. Lens.mapping Lens.coerced
 
 -- | The number of days for which ElastiCache retains automatic cluster
 -- snapshots before deleting them. For example, if you set
@@ -790,146 +861,151 @@ cacheCluster_cacheClusterStatus = Lens.lens (\CacheCluster' {cacheClusterStatus}
 cacheCluster_snapshotRetentionLimit :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Int)
 cacheCluster_snapshotRetentionLimit = Lens.lens (\CacheCluster' {snapshotRetentionLimit} -> snapshotRetentionLimit) (\s@CacheCluster' {} a -> s {snapshotRetentionLimit = a} :: CacheCluster)
 
--- | The outpost ARN in which the cache cluster is created.
-cacheCluster_preferredOutpostArn :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
-cacheCluster_preferredOutpostArn = Lens.lens (\CacheCluster' {preferredOutpostArn} -> preferredOutpostArn) (\s@CacheCluster' {} a -> s {preferredOutpostArn = a} :: CacheCluster)
-
--- | The replication group to which this cluster belongs. If this field is
--- empty, the cluster is not associated with any replication group.
-cacheCluster_replicationGroupId :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
-cacheCluster_replicationGroupId = Lens.lens (\CacheCluster' {replicationGroupId} -> replicationGroupId) (\s@CacheCluster' {} a -> s {replicationGroupId = a} :: CacheCluster)
-
--- | Undocumented member.
-cacheCluster_pendingModifiedValues :: Lens.Lens' CacheCluster (Prelude.Maybe PendingModifiedValues)
-cacheCluster_pendingModifiedValues = Lens.lens (\CacheCluster' {pendingModifiedValues} -> pendingModifiedValues) (\s@CacheCluster' {} a -> s {pendingModifiedValues = a} :: CacheCluster)
-
--- | The number of cache nodes in the cluster.
+-- | The daily time range (in UTC) during which ElastiCache begins taking a
+-- daily snapshot of your cluster.
 --
--- For clusters running Redis, this value must be 1. For clusters running
--- Memcached, this value must be between 1 and 40.
-cacheCluster_numCacheNodes :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Int)
-cacheCluster_numCacheNodes = Lens.lens (\CacheCluster' {numCacheNodes} -> numCacheNodes) (\s@CacheCluster' {} a -> s {numCacheNodes = a} :: CacheCluster)
+-- Example: @05:00-09:00@
+cacheCluster_snapshotWindow :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Text)
+cacheCluster_snapshotWindow = Lens.lens (\CacheCluster' {snapshotWindow} -> snapshotWindow) (\s@CacheCluster' {} a -> s {snapshotWindow = a} :: CacheCluster)
 
-instance Core.FromXML CacheCluster where
+-- | A flag that enables in-transit encryption when set to @true@.
+--
+-- You cannot modify the value of @TransitEncryptionEnabled@ after the
+-- cluster is created. To enable in-transit encryption on a cluster you
+-- must set @TransitEncryptionEnabled@ to @true@ when you create a cluster.
+--
+-- __Required:__ Only available when creating a replication group in an
+-- Amazon VPC using redis version @3.2.6@, @4.x@ or later.
+--
+-- Default: @false@
+cacheCluster_transitEncryptionEnabled :: Lens.Lens' CacheCluster (Prelude.Maybe Prelude.Bool)
+cacheCluster_transitEncryptionEnabled = Lens.lens (\CacheCluster' {transitEncryptionEnabled} -> transitEncryptionEnabled) (\s@CacheCluster' {} a -> s {transitEncryptionEnabled = a} :: CacheCluster)
+
+instance Data.FromXML CacheCluster where
   parseXML x =
     CacheCluster'
-      Prelude.<$> (x Core..@? "AuthTokenLastModifiedDate")
-      Prelude.<*> (x Core..@? "EngineVersion")
-      Prelude.<*> (x Core..@? "CacheNodeType")
-      Prelude.<*> ( x Core..@? "CacheNodes" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "CacheNode")
+      Prelude.<$> (x Data..@? "ARN")
+      Prelude.<*> (x Data..@? "AtRestEncryptionEnabled")
+      Prelude.<*> (x Data..@? "AuthTokenEnabled")
+      Prelude.<*> (x Data..@? "AuthTokenLastModifiedDate")
+      Prelude.<*> (x Data..@? "AutoMinorVersionUpgrade")
+      Prelude.<*> (x Data..@? "CacheClusterCreateTime")
+      Prelude.<*> (x Data..@? "CacheClusterId")
+      Prelude.<*> (x Data..@? "CacheClusterStatus")
+      Prelude.<*> (x Data..@? "CacheNodeType")
+      Prelude.<*> ( x Data..@? "CacheNodes" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "CacheNode")
                   )
-      Prelude.<*> (x Core..@? "CacheClusterCreateTime")
-      Prelude.<*> (x Core..@? "AtRestEncryptionEnabled")
-      Prelude.<*> (x Core..@? "AutoMinorVersionUpgrade")
-      Prelude.<*> ( x Core..@? "SecurityGroups" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+      Prelude.<*> (x Data..@? "CacheParameterGroup")
+      Prelude.<*> ( x Data..@? "CacheSecurityGroups"
+                      Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "CacheSecurityGroup")
                   )
-      Prelude.<*> (x Core..@? "NotificationConfiguration")
-      Prelude.<*> (x Core..@? "ARN")
-      Prelude.<*> (x Core..@? "TransitEncryptionEnabled")
-      Prelude.<*> (x Core..@? "SnapshotWindow")
-      Prelude.<*> (x Core..@? "CacheClusterId")
-      Prelude.<*> ( x Core..@? "LogDeliveryConfigurations"
+      Prelude.<*> (x Data..@? "CacheSubnetGroupName")
+      Prelude.<*> (x Data..@? "ClientDownloadLandingPage")
+      Prelude.<*> (x Data..@? "ConfigurationEndpoint")
+      Prelude.<*> (x Data..@? "Engine")
+      Prelude.<*> (x Data..@? "EngineVersion")
+      Prelude.<*> (x Data..@? "IpDiscovery")
+      Prelude.<*> ( x Data..@? "LogDeliveryConfigurations"
                       Core..!@ Prelude.mempty
                       Prelude.>>= Core.may
-                        (Core.parseXMLList "LogDeliveryConfiguration")
+                        (Data.parseXMLList "LogDeliveryConfiguration")
                   )
-      Prelude.<*> (x Core..@? "ConfigurationEndpoint")
-      Prelude.<*> (x Core..@? "Engine")
-      Prelude.<*> ( x Core..@? "CacheSecurityGroups"
-                      Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "CacheSecurityGroup")
+      Prelude.<*> (x Data..@? "NetworkType")
+      Prelude.<*> (x Data..@? "NotificationConfiguration")
+      Prelude.<*> (x Data..@? "NumCacheNodes")
+      Prelude.<*> (x Data..@? "PendingModifiedValues")
+      Prelude.<*> (x Data..@? "PreferredAvailabilityZone")
+      Prelude.<*> (x Data..@? "PreferredMaintenanceWindow")
+      Prelude.<*> (x Data..@? "PreferredOutpostArn")
+      Prelude.<*> (x Data..@? "ReplicationGroupId")
+      Prelude.<*> (x Data..@? "ReplicationGroupLogDeliveryEnabled")
+      Prelude.<*> ( x Data..@? "SecurityGroups" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
-      Prelude.<*> (x Core..@? "ReplicationGroupLogDeliveryEnabled")
-      Prelude.<*> (x Core..@? "AuthTokenEnabled")
-      Prelude.<*> (x Core..@? "ClientDownloadLandingPage")
-      Prelude.<*> (x Core..@? "PreferredMaintenanceWindow")
-      Prelude.<*> (x Core..@? "CacheSubnetGroupName")
-      Prelude.<*> (x Core..@? "PreferredAvailabilityZone")
-      Prelude.<*> (x Core..@? "CacheParameterGroup")
-      Prelude.<*> (x Core..@? "CacheClusterStatus")
-      Prelude.<*> (x Core..@? "SnapshotRetentionLimit")
-      Prelude.<*> (x Core..@? "PreferredOutpostArn")
-      Prelude.<*> (x Core..@? "ReplicationGroupId")
-      Prelude.<*> (x Core..@? "PendingModifiedValues")
-      Prelude.<*> (x Core..@? "NumCacheNodes")
+      Prelude.<*> (x Data..@? "SnapshotRetentionLimit")
+      Prelude.<*> (x Data..@? "SnapshotWindow")
+      Prelude.<*> (x Data..@? "TransitEncryptionEnabled")
 
 instance Prelude.Hashable CacheCluster where
   hashWithSalt _salt CacheCluster' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` arn
+      `Prelude.hashWithSalt` atRestEncryptionEnabled
+      `Prelude.hashWithSalt` authTokenEnabled
       `Prelude.hashWithSalt` authTokenLastModifiedDate
-      `Prelude.hashWithSalt` engineVersion
+      `Prelude.hashWithSalt` autoMinorVersionUpgrade
+      `Prelude.hashWithSalt` cacheClusterCreateTime
+      `Prelude.hashWithSalt` cacheClusterId
+      `Prelude.hashWithSalt` cacheClusterStatus
       `Prelude.hashWithSalt` cacheNodeType
       `Prelude.hashWithSalt` cacheNodes
-      `Prelude.hashWithSalt` cacheClusterCreateTime
-      `Prelude.hashWithSalt` atRestEncryptionEnabled
-      `Prelude.hashWithSalt` autoMinorVersionUpgrade
-      `Prelude.hashWithSalt` securityGroups
-      `Prelude.hashWithSalt` notificationConfiguration
-      `Prelude.hashWithSalt` arn
-      `Prelude.hashWithSalt` transitEncryptionEnabled
-      `Prelude.hashWithSalt` snapshotWindow
-      `Prelude.hashWithSalt` cacheClusterId
-      `Prelude.hashWithSalt` logDeliveryConfigurations
+      `Prelude.hashWithSalt` cacheParameterGroup
+      `Prelude.hashWithSalt` cacheSecurityGroups
+      `Prelude.hashWithSalt` cacheSubnetGroupName
+      `Prelude.hashWithSalt` clientDownloadLandingPage
       `Prelude.hashWithSalt` configurationEndpoint
       `Prelude.hashWithSalt` engine
-      `Prelude.hashWithSalt` cacheSecurityGroups
-      `Prelude.hashWithSalt` replicationGroupLogDeliveryEnabled
-      `Prelude.hashWithSalt` authTokenEnabled
-      `Prelude.hashWithSalt` clientDownloadLandingPage
-      `Prelude.hashWithSalt` preferredMaintenanceWindow
-      `Prelude.hashWithSalt` cacheSubnetGroupName
+      `Prelude.hashWithSalt` engineVersion
+      `Prelude.hashWithSalt` ipDiscovery
+      `Prelude.hashWithSalt` logDeliveryConfigurations
+      `Prelude.hashWithSalt` networkType
+      `Prelude.hashWithSalt` notificationConfiguration
+      `Prelude.hashWithSalt` numCacheNodes
+      `Prelude.hashWithSalt` pendingModifiedValues
       `Prelude.hashWithSalt` preferredAvailabilityZone
-      `Prelude.hashWithSalt` cacheParameterGroup
-      `Prelude.hashWithSalt` cacheClusterStatus
-      `Prelude.hashWithSalt` snapshotRetentionLimit
+      `Prelude.hashWithSalt` preferredMaintenanceWindow
       `Prelude.hashWithSalt` preferredOutpostArn
       `Prelude.hashWithSalt` replicationGroupId
-      `Prelude.hashWithSalt` pendingModifiedValues
-      `Prelude.hashWithSalt` numCacheNodes
+      `Prelude.hashWithSalt` replicationGroupLogDeliveryEnabled
+      `Prelude.hashWithSalt` securityGroups
+      `Prelude.hashWithSalt` snapshotRetentionLimit
+      `Prelude.hashWithSalt` snapshotWindow
+      `Prelude.hashWithSalt` transitEncryptionEnabled
 
 instance Prelude.NFData CacheCluster where
   rnf CacheCluster' {..} =
-    Prelude.rnf authTokenLastModifiedDate
-      `Prelude.seq` Prelude.rnf engineVersion
+    Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf atRestEncryptionEnabled
+      `Prelude.seq` Prelude.rnf authTokenEnabled
+      `Prelude.seq` Prelude.rnf authTokenLastModifiedDate
+      `Prelude.seq` Prelude.rnf autoMinorVersionUpgrade
+      `Prelude.seq` Prelude.rnf cacheClusterCreateTime
+      `Prelude.seq` Prelude.rnf cacheClusterId
+      `Prelude.seq` Prelude.rnf cacheClusterStatus
       `Prelude.seq` Prelude.rnf cacheNodeType
       `Prelude.seq` Prelude.rnf cacheNodes
-      `Prelude.seq` Prelude.rnf cacheClusterCreateTime
-      `Prelude.seq` Prelude.rnf atRestEncryptionEnabled
-      `Prelude.seq` Prelude.rnf autoMinorVersionUpgrade
-      `Prelude.seq` Prelude.rnf securityGroups
-      `Prelude.seq` Prelude.rnf notificationConfiguration
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf transitEncryptionEnabled
-      `Prelude.seq` Prelude.rnf snapshotWindow
-      `Prelude.seq` Prelude.rnf cacheClusterId
-      `Prelude.seq` Prelude.rnf logDeliveryConfigurations
+      `Prelude.seq` Prelude.rnf cacheParameterGroup
+      `Prelude.seq` Prelude.rnf cacheSecurityGroups
+      `Prelude.seq` Prelude.rnf cacheSubnetGroupName
+      `Prelude.seq` Prelude.rnf clientDownloadLandingPage
       `Prelude.seq` Prelude.rnf configurationEndpoint
       `Prelude.seq` Prelude.rnf engine
-      `Prelude.seq` Prelude.rnf cacheSecurityGroups
+      `Prelude.seq` Prelude.rnf engineVersion
+      `Prelude.seq` Prelude.rnf ipDiscovery
       `Prelude.seq` Prelude.rnf
-        replicationGroupLogDeliveryEnabled
-      `Prelude.seq` Prelude.rnf authTokenEnabled
+        logDeliveryConfigurations
+      `Prelude.seq` Prelude.rnf networkType
       `Prelude.seq` Prelude.rnf
-        clientDownloadLandingPage
+        notificationConfiguration
+      `Prelude.seq` Prelude.rnf numCacheNodes
       `Prelude.seq` Prelude.rnf
-        preferredMaintenanceWindow
-      `Prelude.seq` Prelude.rnf
-        cacheSubnetGroupName
+        pendingModifiedValues
       `Prelude.seq` Prelude.rnf
         preferredAvailabilityZone
       `Prelude.seq` Prelude.rnf
-        cacheParameterGroup
-      `Prelude.seq` Prelude.rnf
-        cacheClusterStatus
-      `Prelude.seq` Prelude.rnf
-        snapshotRetentionLimit
+        preferredMaintenanceWindow
       `Prelude.seq` Prelude.rnf
         preferredOutpostArn
       `Prelude.seq` Prelude.rnf
         replicationGroupId
       `Prelude.seq` Prelude.rnf
-        pendingModifiedValues
+        replicationGroupLogDeliveryEnabled
       `Prelude.seq` Prelude.rnf
-        numCacheNodes
+        securityGroups
+      `Prelude.seq` Prelude.rnf
+        snapshotRetentionLimit
+      `Prelude.seq` Prelude.rnf
+        snapshotWindow
+      `Prelude.seq` Prelude.rnf
+        transitEncryptionEnabled

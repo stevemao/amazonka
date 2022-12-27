@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.StopAssessmentRun
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,9 @@ module Amazonka.Inspector.StopAssessmentRun
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,7 +99,8 @@ instance Core.AWSRequest StopAssessmentRun where
   type
     AWSResponse StopAssessmentRun =
       StopAssessmentRunResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull StopAssessmentRunResponse'
 
@@ -112,35 +114,35 @@ instance Prelude.NFData StopAssessmentRun where
     Prelude.rnf stopAction
       `Prelude.seq` Prelude.rnf assessmentRunArn
 
-instance Core.ToHeaders StopAssessmentRun where
+instance Data.ToHeaders StopAssessmentRun where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.StopAssessmentRun" ::
+              Data.=# ( "InspectorService.StopAssessmentRun" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopAssessmentRun where
+instance Data.ToJSON StopAssessmentRun where
   toJSON StopAssessmentRun' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("stopAction" Core..=) Prelude.<$> stopAction,
+          [ ("stopAction" Data..=) Prelude.<$> stopAction,
             Prelude.Just
-              ("assessmentRunArn" Core..= assessmentRunArn)
+              ("assessmentRunArn" Data..= assessmentRunArn)
           ]
       )
 
-instance Core.ToPath StopAssessmentRun where
+instance Data.ToPath StopAssessmentRun where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopAssessmentRun where
+instance Data.ToQuery StopAssessmentRun where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopAssessmentRunResponse' smart constructor.

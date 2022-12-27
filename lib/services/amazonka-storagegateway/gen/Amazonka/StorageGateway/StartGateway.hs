@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.StartGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,7 +52,8 @@ module Amazonka.StorageGateway.StartGateway
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,12 +90,13 @@ startGateway_gatewayARN = Lens.lens (\StartGateway' {gatewayARN} -> gatewayARN) 
 
 instance Core.AWSRequest StartGateway where
   type AWSResponse StartGateway = StartGatewayResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartGatewayResponse'
-            Prelude.<$> (x Core..?> "GatewayARN")
+            Prelude.<$> (x Data..?> "GatewayARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -105,32 +107,32 @@ instance Prelude.Hashable StartGateway where
 instance Prelude.NFData StartGateway where
   rnf StartGateway' {..} = Prelude.rnf gatewayARN
 
-instance Core.ToHeaders StartGateway where
+instance Data.ToHeaders StartGateway where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.StartGateway" ::
+              Data.=# ( "StorageGateway_20130630.StartGateway" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartGateway where
+instance Data.ToJSON StartGateway where
   toJSON StartGateway' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("GatewayARN" Core..= gatewayARN)]
+          [Prelude.Just ("GatewayARN" Data..= gatewayARN)]
       )
 
-instance Core.ToPath StartGateway where
+instance Data.ToPath StartGateway where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartGateway where
+instance Data.ToQuery StartGateway where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A JSON object containing the Amazon Resource Name (ARN) of the gateway

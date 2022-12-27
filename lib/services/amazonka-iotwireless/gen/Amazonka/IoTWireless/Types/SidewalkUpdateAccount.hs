@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.Types.SidewalkUpdateAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTWireless.Types.SidewalkUpdateAccount where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Sidewalk update.
@@ -28,7 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newSidewalkUpdateAccount' smart constructor.
 data SidewalkUpdateAccount = SidewalkUpdateAccount'
   { -- | The new Sidewalk application server private key.
-    appServerPrivateKey :: Prelude.Maybe (Core.Sensitive Prelude.Text)
+    appServerPrivateKey :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -51,7 +52,7 @@ newSidewalkUpdateAccount =
 
 -- | The new Sidewalk application server private key.
 sidewalkUpdateAccount_appServerPrivateKey :: Lens.Lens' SidewalkUpdateAccount (Prelude.Maybe Prelude.Text)
-sidewalkUpdateAccount_appServerPrivateKey = Lens.lens (\SidewalkUpdateAccount' {appServerPrivateKey} -> appServerPrivateKey) (\s@SidewalkUpdateAccount' {} a -> s {appServerPrivateKey = a} :: SidewalkUpdateAccount) Prelude.. Lens.mapping Core._Sensitive
+sidewalkUpdateAccount_appServerPrivateKey = Lens.lens (\SidewalkUpdateAccount' {appServerPrivateKey} -> appServerPrivateKey) (\s@SidewalkUpdateAccount' {} a -> s {appServerPrivateKey = a} :: SidewalkUpdateAccount) Prelude.. Lens.mapping Data._Sensitive
 
 instance Prelude.Hashable SidewalkUpdateAccount where
   hashWithSalt _salt SidewalkUpdateAccount' {..} =
@@ -61,11 +62,11 @@ instance Prelude.NFData SidewalkUpdateAccount where
   rnf SidewalkUpdateAccount' {..} =
     Prelude.rnf appServerPrivateKey
 
-instance Core.ToJSON SidewalkUpdateAccount where
+instance Data.ToJSON SidewalkUpdateAccount where
   toJSON SidewalkUpdateAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AppServerPrivateKey" Core..=)
+          [ ("AppServerPrivateKey" Data..=)
               Prelude.<$> appServerPrivateKey
           ]
       )

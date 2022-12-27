@@ -7,13 +7,16 @@
 -- Portability : non-portable (GHC extensions)
 module Amazonka.Error where
 
+import Amazonka.Core.Lens.Internal (Choice, Getting, Optic', filtered)
 import Amazonka.Data
-import Amazonka.Lens (Choice, Getting, Optic', filtered)
 import Amazonka.Prelude
 import Amazonka.Types
+import qualified Amazonka.Types as ServiceError (ServiceError (..))
 import qualified Data.Aeson as Aeson
 import qualified Data.Aeson.Types as Aeson.Types
 import qualified Data.ByteString.Lazy as LBS
+import Data.Either (fromRight)
+import qualified Data.Text as Text
 import qualified Network.HTTP.Client as Client
 import Network.HTTP.Types.Status (Status (..))
 
@@ -44,7 +47,7 @@ _MatchServiceError ::
 _MatchServiceError s c = _ServiceError . hasService s . hasCode c
 
 statusSuccess :: Status -> Bool
-statusSuccess (statusCode -> n) = n >= 200 && n < 400
+statusSuccess (statusCode -> n) = n >= 200 && n < 300 || n == 304
 
 _HttpStatus :: AsError a => Getting (First Status) a Status
 _HttpStatus = _Error . f
@@ -60,27 +63,26 @@ _HttpStatus = _Error . f
       SerializeError (SerializeError' a s b e) ->
         (\x -> SerializeError (SerializeError' a x b e)) <$> g s
       --
-      ServiceError e ->
-        (\x -> ServiceError (e {_serviceErrorStatus = x}))
-          <$> g (_serviceErrorStatus e)
+      ServiceError e@ServiceError' {status} ->
+        (\x -> ServiceError (e {status = x})) <$> g status
 
 hasService ::
   (Applicative f, Choice p) =>
   Service ->
   Optic' p f ServiceError ServiceError
-hasService s = filtered ((_serviceAbbrev s ==) . _serviceErrorAbbrev)
+hasService Service {abbrev} = filtered ((abbrev ==) . ServiceError.abbrev)
 
 hasStatus ::
   (Applicative f, Choice p) =>
   Int ->
   Optic' p f ServiceError ServiceError
-hasStatus n = filtered ((n ==) . fromEnum . _serviceErrorStatus)
+hasStatus n = filtered ((n ==) . fromEnum . ServiceError.status)
 
 hasCode ::
   (Applicative f, Choice p) =>
   ErrorCode ->
   Optic' p f ServiceError ServiceError
-hasCode c = filtered ((c ==) . _serviceErrorCode)
+hasCode c = filtered ((c ==) . ServiceError.code)
 
 serviceError ::
   Abbrev ->
@@ -94,14 +96,21 @@ serviceError a s h c m r =
   ServiceError' a s h (fromMaybe (getErrorCode s h) c) m (r <|> getRequestId h)
 
 getRequestId :: [Header] -> Maybe RequestId
-getRequestId h =
-  either (const Nothing) Just (h .# hAMZRequestId <|> h .# hAMZNRequestId)
+getRequestId h
+  | Right hAMZ <- h .# hAMZRequestId = Just hAMZ
+  | Right hAMZN <- h .# hAMZNRequestId = Just hAMZN
+  | otherwise = Nothing
 
 getErrorCode :: Status -> [Header] -> ErrorCode
 getErrorCode s h =
   case h .# hAMZNErrorType of
     Left _ -> newErrorCode (toText (statusMessage s))
-    Right x -> newErrorCode x
+    Right x -> newErrorCode code
+      where
+        -- For headers only, botocore takes everything in the header
+        -- value before a colon:
+        -- https://github.com/boto/botocore/blob/fec0e5bd5e4a9d7dcadb36198423e61437294fe6/botocore/parsers.py#L1006-L1015
+        (code, _) = Text.break (== ':') x
 
 parseJSONError ::
   Abbrev ->
@@ -135,22 +144,22 @@ parseXMLError ::
   [Header] ->
   ByteStringLazy ->
   Error
-parseXMLError a s h bs = decodeError a s h bs (decodeXML bs >>= go)
+parseXMLError a s h bs = decodeError a s h bs (go <$> decodeXML bs)
   where
     go x =
-      serviceError a s h
-        <$> code x
-        <*> may' (firstElement "Message" x)
-        <*> may' (firstElement "RequestId" x <|> firstElement "RequestID" x)
+      serviceError
+        a
+        s
+        h
+        (code x)
+        (may' (firstElement "Message" x))
+        (may' (firstElement "RequestId" x) <|> may' (firstElement "RequestID" x))
 
-    code x =
-      Just <$> (firstElement "Code" x >>= parseXML)
-        <|> return root
+    code x = fromRight root $ parseXML =<< firstElement "Code" x
 
     root = newErrorCode <$> rootElementName bs
 
-    may' (Left _) = pure Nothing
-    may' (Right x) = Just <$> parseXML x
+    may' x = either (const Nothing) Just $ parseXML =<< x
 
 parseRESTError ::
   Abbrev ->

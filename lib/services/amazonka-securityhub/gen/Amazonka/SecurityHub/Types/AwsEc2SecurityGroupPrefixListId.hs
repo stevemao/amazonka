@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEc2SecurityGroupPrefixListId
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEc2SecurityGroupPrefixListId where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A prefix list ID.
@@ -54,15 +55,15 @@ awsEc2SecurityGroupPrefixListId_prefixListId :: Lens.Lens' AwsEc2SecurityGroupPr
 awsEc2SecurityGroupPrefixListId_prefixListId = Lens.lens (\AwsEc2SecurityGroupPrefixListId' {prefixListId} -> prefixListId) (\s@AwsEc2SecurityGroupPrefixListId' {} a -> s {prefixListId = a} :: AwsEc2SecurityGroupPrefixListId)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEc2SecurityGroupPrefixListId
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEc2SecurityGroupPrefixListId"
       ( \x ->
           AwsEc2SecurityGroupPrefixListId'
-            Prelude.<$> (x Core..:? "PrefixListId")
+            Prelude.<$> (x Data..:? "PrefixListId")
       )
 
 instance
@@ -81,9 +82,9 @@ instance
   rnf AwsEc2SecurityGroupPrefixListId' {..} =
     Prelude.rnf prefixListId
 
-instance Core.ToJSON AwsEc2SecurityGroupPrefixListId where
+instance Data.ToJSON AwsEc2SecurityGroupPrefixListId where
   toJSON AwsEc2SecurityGroupPrefixListId' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("PrefixListId" Core..=) Prelude.<$> prefixListId]
+          [("PrefixListId" Data..=) Prelude.<$> prefixListId]
       )

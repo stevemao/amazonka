@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.CreateDatastore
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,10 +27,10 @@ module Amazonka.IoTAnalytics.CreateDatastore
     newCreateDatastore,
 
     -- * Request Lenses
-    createDatastore_fileFormatConfiguration,
     createDatastore_datastorePartitions,
-    createDatastore_retentionPeriod,
     createDatastore_datastoreStorage,
+    createDatastore_fileFormatConfiguration,
+    createDatastore_retentionPeriod,
     createDatastore_tags,
     createDatastore_datastoreName,
 
@@ -47,31 +47,32 @@ module Amazonka.IoTAnalytics.CreateDatastore
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateDatastore' smart constructor.
 data CreateDatastore = CreateDatastore'
-  { -- | Contains the configuration information of file formats. IoT Analytics
+  { -- | Contains information about the partition dimensions in a data store.
+    datastorePartitions :: Prelude.Maybe DatastorePartitions,
+    -- | Where data in a data store is stored.. You can choose @serviceManagedS3@
+    -- storage, @customerManagedS3@ storage, or @iotSiteWiseMultiLayerStorage@
+    -- storage. The default is @serviceManagedS3@. You can\'t change the choice
+    -- of Amazon S3 storage after your data store is created.
+    datastoreStorage :: Prelude.Maybe DatastoreStorage,
+    -- | Contains the configuration information of file formats. IoT Analytics
     -- data stores support JSON and <https://parquet.apache.org/ Parquet>.
     --
     -- The default file format is JSON. You can specify only one format.
     --
     -- You can\'t change the file format after you create the data store.
     fileFormatConfiguration :: Prelude.Maybe FileFormatConfiguration,
-    -- | Contains information about the partition dimensions in a data store.
-    datastorePartitions :: Prelude.Maybe DatastorePartitions,
     -- | How long, in days, message data is kept for the data store. When
     -- @customerManagedS3@ storage is selected, this parameter is ignored.
     retentionPeriod :: Prelude.Maybe RetentionPeriod,
-    -- | Where data in a data store is stored.. You can choose @serviceManagedS3@
-    -- storage, @customerManagedS3@ storage, or @iotSiteWiseMultiLayerStorage@
-    -- storage. The default is @serviceManagedS3@. You can\'t change the choice
-    -- of Amazon S3 storage after your data store is created.
-    datastoreStorage :: Prelude.Maybe DatastoreStorage,
     -- | Metadata which can be used to manage the data store.
     tags :: Prelude.Maybe (Prelude.NonEmpty Tag),
     -- | The name of the data store.
@@ -87,6 +88,13 @@ data CreateDatastore = CreateDatastore'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'datastorePartitions', 'createDatastore_datastorePartitions' - Contains information about the partition dimensions in a data store.
+--
+-- 'datastoreStorage', 'createDatastore_datastoreStorage' - Where data in a data store is stored.. You can choose @serviceManagedS3@
+-- storage, @customerManagedS3@ storage, or @iotSiteWiseMultiLayerStorage@
+-- storage. The default is @serviceManagedS3@. You can\'t change the choice
+-- of Amazon S3 storage after your data store is created.
+--
 -- 'fileFormatConfiguration', 'createDatastore_fileFormatConfiguration' - Contains the configuration information of file formats. IoT Analytics
 -- data stores support JSON and <https://parquet.apache.org/ Parquet>.
 --
@@ -94,15 +102,8 @@ data CreateDatastore = CreateDatastore'
 --
 -- You can\'t change the file format after you create the data store.
 --
--- 'datastorePartitions', 'createDatastore_datastorePartitions' - Contains information about the partition dimensions in a data store.
---
 -- 'retentionPeriod', 'createDatastore_retentionPeriod' - How long, in days, message data is kept for the data store. When
 -- @customerManagedS3@ storage is selected, this parameter is ignored.
---
--- 'datastoreStorage', 'createDatastore_datastoreStorage' - Where data in a data store is stored.. You can choose @serviceManagedS3@
--- storage, @customerManagedS3@ storage, or @iotSiteWiseMultiLayerStorage@
--- storage. The default is @serviceManagedS3@. You can\'t change the choice
--- of Amazon S3 storage after your data store is created.
 --
 -- 'tags', 'createDatastore_tags' - Metadata which can be used to manage the data store.
 --
@@ -113,14 +114,25 @@ newCreateDatastore ::
   CreateDatastore
 newCreateDatastore pDatastoreName_ =
   CreateDatastore'
-    { fileFormatConfiguration =
+    { datastorePartitions =
         Prelude.Nothing,
-      datastorePartitions = Prelude.Nothing,
-      retentionPeriod = Prelude.Nothing,
       datastoreStorage = Prelude.Nothing,
+      fileFormatConfiguration = Prelude.Nothing,
+      retentionPeriod = Prelude.Nothing,
       tags = Prelude.Nothing,
       datastoreName = pDatastoreName_
     }
+
+-- | Contains information about the partition dimensions in a data store.
+createDatastore_datastorePartitions :: Lens.Lens' CreateDatastore (Prelude.Maybe DatastorePartitions)
+createDatastore_datastorePartitions = Lens.lens (\CreateDatastore' {datastorePartitions} -> datastorePartitions) (\s@CreateDatastore' {} a -> s {datastorePartitions = a} :: CreateDatastore)
+
+-- | Where data in a data store is stored.. You can choose @serviceManagedS3@
+-- storage, @customerManagedS3@ storage, or @iotSiteWiseMultiLayerStorage@
+-- storage. The default is @serviceManagedS3@. You can\'t change the choice
+-- of Amazon S3 storage after your data store is created.
+createDatastore_datastoreStorage :: Lens.Lens' CreateDatastore (Prelude.Maybe DatastoreStorage)
+createDatastore_datastoreStorage = Lens.lens (\CreateDatastore' {datastoreStorage} -> datastoreStorage) (\s@CreateDatastore' {} a -> s {datastoreStorage = a} :: CreateDatastore)
 
 -- | Contains the configuration information of file formats. IoT Analytics
 -- data stores support JSON and <https://parquet.apache.org/ Parquet>.
@@ -131,21 +143,10 @@ newCreateDatastore pDatastoreName_ =
 createDatastore_fileFormatConfiguration :: Lens.Lens' CreateDatastore (Prelude.Maybe FileFormatConfiguration)
 createDatastore_fileFormatConfiguration = Lens.lens (\CreateDatastore' {fileFormatConfiguration} -> fileFormatConfiguration) (\s@CreateDatastore' {} a -> s {fileFormatConfiguration = a} :: CreateDatastore)
 
--- | Contains information about the partition dimensions in a data store.
-createDatastore_datastorePartitions :: Lens.Lens' CreateDatastore (Prelude.Maybe DatastorePartitions)
-createDatastore_datastorePartitions = Lens.lens (\CreateDatastore' {datastorePartitions} -> datastorePartitions) (\s@CreateDatastore' {} a -> s {datastorePartitions = a} :: CreateDatastore)
-
 -- | How long, in days, message data is kept for the data store. When
 -- @customerManagedS3@ storage is selected, this parameter is ignored.
 createDatastore_retentionPeriod :: Lens.Lens' CreateDatastore (Prelude.Maybe RetentionPeriod)
 createDatastore_retentionPeriod = Lens.lens (\CreateDatastore' {retentionPeriod} -> retentionPeriod) (\s@CreateDatastore' {} a -> s {retentionPeriod = a} :: CreateDatastore)
-
--- | Where data in a data store is stored.. You can choose @serviceManagedS3@
--- storage, @customerManagedS3@ storage, or @iotSiteWiseMultiLayerStorage@
--- storage. The default is @serviceManagedS3@. You can\'t change the choice
--- of Amazon S3 storage after your data store is created.
-createDatastore_datastoreStorage :: Lens.Lens' CreateDatastore (Prelude.Maybe DatastoreStorage)
-createDatastore_datastoreStorage = Lens.lens (\CreateDatastore' {datastoreStorage} -> datastoreStorage) (\s@CreateDatastore' {} a -> s {datastoreStorage = a} :: CreateDatastore)
 
 -- | Metadata which can be used to manage the data store.
 createDatastore_tags :: Lens.Lens' CreateDatastore (Prelude.Maybe (Prelude.NonEmpty Tag))
@@ -159,61 +160,61 @@ instance Core.AWSRequest CreateDatastore where
   type
     AWSResponse CreateDatastore =
       CreateDatastoreResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDatastoreResponse'
-            Prelude.<$> (x Core..?> "datastoreArn")
-            Prelude.<*> (x Core..?> "datastoreName")
-            Prelude.<*> (x Core..?> "retentionPeriod")
+            Prelude.<$> (x Data..?> "datastoreArn")
+            Prelude.<*> (x Data..?> "datastoreName")
+            Prelude.<*> (x Data..?> "retentionPeriod")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateDatastore where
   hashWithSalt _salt CreateDatastore' {..} =
-    _salt
-      `Prelude.hashWithSalt` fileFormatConfiguration
-      `Prelude.hashWithSalt` datastorePartitions
-      `Prelude.hashWithSalt` retentionPeriod
+    _salt `Prelude.hashWithSalt` datastorePartitions
       `Prelude.hashWithSalt` datastoreStorage
+      `Prelude.hashWithSalt` fileFormatConfiguration
+      `Prelude.hashWithSalt` retentionPeriod
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` datastoreName
 
 instance Prelude.NFData CreateDatastore where
   rnf CreateDatastore' {..} =
-    Prelude.rnf fileFormatConfiguration
-      `Prelude.seq` Prelude.rnf datastorePartitions
-      `Prelude.seq` Prelude.rnf retentionPeriod
+    Prelude.rnf datastorePartitions
       `Prelude.seq` Prelude.rnf datastoreStorage
+      `Prelude.seq` Prelude.rnf fileFormatConfiguration
+      `Prelude.seq` Prelude.rnf retentionPeriod
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf datastoreName
 
-instance Core.ToHeaders CreateDatastore where
+instance Data.ToHeaders CreateDatastore where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateDatastore where
+instance Data.ToJSON CreateDatastore where
   toJSON CreateDatastore' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("fileFormatConfiguration" Core..=)
-              Prelude.<$> fileFormatConfiguration,
-            ("datastorePartitions" Core..=)
+          [ ("datastorePartitions" Data..=)
               Prelude.<$> datastorePartitions,
-            ("retentionPeriod" Core..=)
-              Prelude.<$> retentionPeriod,
-            ("datastoreStorage" Core..=)
+            ("datastoreStorage" Data..=)
               Prelude.<$> datastoreStorage,
-            ("tags" Core..=) Prelude.<$> tags,
+            ("fileFormatConfiguration" Data..=)
+              Prelude.<$> fileFormatConfiguration,
+            ("retentionPeriod" Data..=)
+              Prelude.<$> retentionPeriod,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("datastoreName" Core..= datastoreName)
+              ("datastoreName" Data..= datastoreName)
           ]
       )
 
-instance Core.ToPath CreateDatastore where
+instance Data.ToPath CreateDatastore where
   toPath = Prelude.const "/datastores"
 
-instance Core.ToQuery CreateDatastore where
+instance Data.ToQuery CreateDatastore where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDatastoreResponse' smart constructor.

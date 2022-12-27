@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.UpdateContact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.SESV2.UpdateContact
     newUpdateContact,
 
     -- * Request Lenses
-    updateContact_unsubscribeAll,
     updateContact_attributesData,
     updateContact_topicPreferences,
+    updateContact_unsubscribeAll,
     updateContact_contactListName,
     updateContact_emailAddress,
 
@@ -45,7 +45,8 @@ module Amazonka.SESV2.UpdateContact
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,13 +54,13 @@ import Amazonka.SESV2.Types
 
 -- | /See:/ 'newUpdateContact' smart constructor.
 data UpdateContact = UpdateContact'
-  { -- | A boolean value status noting if the contact is unsubscribed from all
-    -- contact list topics.
-    unsubscribeAll :: Prelude.Maybe Prelude.Bool,
-    -- | The attribute data attached to a contact.
+  { -- | The attribute data attached to a contact.
     attributesData :: Prelude.Maybe Prelude.Text,
     -- | The contact\'s preference for being opted-in to or opted-out of a topic.
     topicPreferences :: Prelude.Maybe [TopicPreference],
+    -- | A boolean value status noting if the contact is unsubscribed from all
+    -- contact list topics.
+    unsubscribeAll :: Prelude.Maybe Prelude.Bool,
     -- | The name of the contact list.
     contactListName :: Prelude.Text,
     -- | The contact\'s email addres.
@@ -75,12 +76,12 @@ data UpdateContact = UpdateContact'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'unsubscribeAll', 'updateContact_unsubscribeAll' - A boolean value status noting if the contact is unsubscribed from all
--- contact list topics.
---
 -- 'attributesData', 'updateContact_attributesData' - The attribute data attached to a contact.
 --
 -- 'topicPreferences', 'updateContact_topicPreferences' - The contact\'s preference for being opted-in to or opted-out of a topic.
+--
+-- 'unsubscribeAll', 'updateContact_unsubscribeAll' - A boolean value status noting if the contact is unsubscribed from all
+-- contact list topics.
 --
 -- 'contactListName', 'updateContact_contactListName' - The name of the contact list.
 --
@@ -93,17 +94,12 @@ newUpdateContact ::
   UpdateContact
 newUpdateContact pContactListName_ pEmailAddress_ =
   UpdateContact'
-    { unsubscribeAll = Prelude.Nothing,
-      attributesData = Prelude.Nothing,
+    { attributesData = Prelude.Nothing,
       topicPreferences = Prelude.Nothing,
+      unsubscribeAll = Prelude.Nothing,
       contactListName = pContactListName_,
       emailAddress = pEmailAddress_
     }
-
--- | A boolean value status noting if the contact is unsubscribed from all
--- contact list topics.
-updateContact_unsubscribeAll :: Lens.Lens' UpdateContact (Prelude.Maybe Prelude.Bool)
-updateContact_unsubscribeAll = Lens.lens (\UpdateContact' {unsubscribeAll} -> unsubscribeAll) (\s@UpdateContact' {} a -> s {unsubscribeAll = a} :: UpdateContact)
 
 -- | The attribute data attached to a contact.
 updateContact_attributesData :: Lens.Lens' UpdateContact (Prelude.Maybe Prelude.Text)
@@ -112,6 +108,11 @@ updateContact_attributesData = Lens.lens (\UpdateContact' {attributesData} -> at
 -- | The contact\'s preference for being opted-in to or opted-out of a topic.
 updateContact_topicPreferences :: Lens.Lens' UpdateContact (Prelude.Maybe [TopicPreference])
 updateContact_topicPreferences = Lens.lens (\UpdateContact' {topicPreferences} -> topicPreferences) (\s@UpdateContact' {} a -> s {topicPreferences = a} :: UpdateContact) Prelude.. Lens.mapping Lens.coerced
+
+-- | A boolean value status noting if the contact is unsubscribed from all
+-- contact list topics.
+updateContact_unsubscribeAll :: Lens.Lens' UpdateContact (Prelude.Maybe Prelude.Bool)
+updateContact_unsubscribeAll = Lens.lens (\UpdateContact' {unsubscribeAll} -> unsubscribeAll) (\s@UpdateContact' {} a -> s {unsubscribeAll = a} :: UpdateContact)
 
 -- | The name of the contact list.
 updateContact_contactListName :: Lens.Lens' UpdateContact Prelude.Text
@@ -125,7 +126,8 @@ instance Core.AWSRequest UpdateContact where
   type
     AWSResponse UpdateContact =
       UpdateContactResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -135,54 +137,54 @@ instance Core.AWSRequest UpdateContact where
 
 instance Prelude.Hashable UpdateContact where
   hashWithSalt _salt UpdateContact' {..} =
-    _salt `Prelude.hashWithSalt` unsubscribeAll
-      `Prelude.hashWithSalt` attributesData
+    _salt `Prelude.hashWithSalt` attributesData
       `Prelude.hashWithSalt` topicPreferences
+      `Prelude.hashWithSalt` unsubscribeAll
       `Prelude.hashWithSalt` contactListName
       `Prelude.hashWithSalt` emailAddress
 
 instance Prelude.NFData UpdateContact where
   rnf UpdateContact' {..} =
-    Prelude.rnf unsubscribeAll
-      `Prelude.seq` Prelude.rnf attributesData
+    Prelude.rnf attributesData
       `Prelude.seq` Prelude.rnf topicPreferences
+      `Prelude.seq` Prelude.rnf unsubscribeAll
       `Prelude.seq` Prelude.rnf contactListName
       `Prelude.seq` Prelude.rnf emailAddress
 
-instance Core.ToHeaders UpdateContact where
+instance Data.ToHeaders UpdateContact where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateContact where
+instance Data.ToJSON UpdateContact where
   toJSON UpdateContact' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("UnsubscribeAll" Core..=)
-              Prelude.<$> unsubscribeAll,
-            ("AttributesData" Core..=)
+          [ ("AttributesData" Data..=)
               Prelude.<$> attributesData,
-            ("TopicPreferences" Core..=)
-              Prelude.<$> topicPreferences
+            ("TopicPreferences" Data..=)
+              Prelude.<$> topicPreferences,
+            ("UnsubscribeAll" Data..=)
+              Prelude.<$> unsubscribeAll
           ]
       )
 
-instance Core.ToPath UpdateContact where
+instance Data.ToPath UpdateContact where
   toPath UpdateContact' {..} =
     Prelude.mconcat
       [ "/v2/email/contact-lists/",
-        Core.toBS contactListName,
+        Data.toBS contactListName,
         "/contacts/",
-        Core.toBS emailAddress
+        Data.toBS emailAddress
       ]
 
-instance Core.ToQuery UpdateContact where
+instance Data.ToQuery UpdateContact where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateContactResponse' smart constructor.

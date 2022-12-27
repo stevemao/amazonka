@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.PendingTaskCount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.PendingTaskCount where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the count of tasks in a task list.
@@ -69,14 +70,14 @@ pendingTaskCount_truncated = Lens.lens (\PendingTaskCount' {truncated} -> trunca
 pendingTaskCount_count :: Lens.Lens' PendingTaskCount Prelude.Natural
 pendingTaskCount_count = Lens.lens (\PendingTaskCount' {count} -> count) (\s@PendingTaskCount' {} a -> s {count = a} :: PendingTaskCount)
 
-instance Core.FromJSON PendingTaskCount where
+instance Data.FromJSON PendingTaskCount where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PendingTaskCount"
       ( \x ->
           PendingTaskCount'
-            Prelude.<$> (x Core..:? "truncated")
-            Prelude.<*> (x Core..: "count")
+            Prelude.<$> (x Data..:? "truncated")
+            Prelude.<*> (x Data..: "count")
       )
 
 instance Prelude.Hashable PendingTaskCount where

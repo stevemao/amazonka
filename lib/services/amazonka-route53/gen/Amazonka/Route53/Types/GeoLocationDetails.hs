@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.Types.GeoLocationDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53.Types.GeoLocationDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53.Internal
 
@@ -29,9 +30,14 @@ import Amazonka.Route53.Internal
 --
 -- /See:/ 'newGeoLocationDetails' smart constructor.
 data GeoLocationDetails = GeoLocationDetails'
-  { -- | The full name of the subdivision. Route 53 currently supports only
-    -- states in the United States.
-    subdivisionName :: Prelude.Maybe Prelude.Text,
+  { -- | The two-letter code for the continent.
+    continentCode :: Prelude.Maybe Prelude.Text,
+    -- | The full name of the continent.
+    continentName :: Prelude.Maybe Prelude.Text,
+    -- | The two-letter code for the country.
+    countryCode :: Prelude.Maybe Prelude.Text,
+    -- | The name of the country.
+    countryName :: Prelude.Maybe Prelude.Text,
     -- | The code for the subdivision, such as a particular state within the
     -- United States. For a list of US state abbreviations, see
     -- <https://pe.usps.com/text/pub28/28apb.htm Appendix B: Two–Letter State and Possession Abbreviations>
@@ -40,14 +46,9 @@ data GeoLocationDetails = GeoLocationDetails'
     -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html ListGeoLocations>
     -- API.
     subdivisionCode :: Prelude.Maybe Prelude.Text,
-    -- | The name of the country.
-    countryName :: Prelude.Maybe Prelude.Text,
-    -- | The two-letter code for the country.
-    countryCode :: Prelude.Maybe Prelude.Text,
-    -- | The two-letter code for the continent.
-    continentCode :: Prelude.Maybe Prelude.Text,
-    -- | The full name of the continent.
-    continentName :: Prelude.Maybe Prelude.Text
+    -- | The full name of the subdivision. Route 53 currently supports only
+    -- states in the United States.
+    subdivisionName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -59,8 +60,13 @@ data GeoLocationDetails = GeoLocationDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subdivisionName', 'geoLocationDetails_subdivisionName' - The full name of the subdivision. Route 53 currently supports only
--- states in the United States.
+-- 'continentCode', 'geoLocationDetails_continentCode' - The two-letter code for the continent.
+--
+-- 'continentName', 'geoLocationDetails_continentName' - The full name of the continent.
+--
+-- 'countryCode', 'geoLocationDetails_countryCode' - The two-letter code for the country.
+--
+-- 'countryName', 'geoLocationDetails_countryName' - The name of the country.
 --
 -- 'subdivisionCode', 'geoLocationDetails_subdivisionCode' - The code for the subdivision, such as a particular state within the
 -- United States. For a list of US state abbreviations, see
@@ -70,30 +76,36 @@ data GeoLocationDetails = GeoLocationDetails'
 -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_ListGeoLocations.html ListGeoLocations>
 -- API.
 --
--- 'countryName', 'geoLocationDetails_countryName' - The name of the country.
---
--- 'countryCode', 'geoLocationDetails_countryCode' - The two-letter code for the country.
---
--- 'continentCode', 'geoLocationDetails_continentCode' - The two-letter code for the continent.
---
--- 'continentName', 'geoLocationDetails_continentName' - The full name of the continent.
+-- 'subdivisionName', 'geoLocationDetails_subdivisionName' - The full name of the subdivision. Route 53 currently supports only
+-- states in the United States.
 newGeoLocationDetails ::
   GeoLocationDetails
 newGeoLocationDetails =
   GeoLocationDetails'
-    { subdivisionName =
+    { continentCode =
         Prelude.Nothing,
-      subdivisionCode = Prelude.Nothing,
-      countryName = Prelude.Nothing,
+      continentName = Prelude.Nothing,
       countryCode = Prelude.Nothing,
-      continentCode = Prelude.Nothing,
-      continentName = Prelude.Nothing
+      countryName = Prelude.Nothing,
+      subdivisionCode = Prelude.Nothing,
+      subdivisionName = Prelude.Nothing
     }
 
--- | The full name of the subdivision. Route 53 currently supports only
--- states in the United States.
-geoLocationDetails_subdivisionName :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
-geoLocationDetails_subdivisionName = Lens.lens (\GeoLocationDetails' {subdivisionName} -> subdivisionName) (\s@GeoLocationDetails' {} a -> s {subdivisionName = a} :: GeoLocationDetails)
+-- | The two-letter code for the continent.
+geoLocationDetails_continentCode :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
+geoLocationDetails_continentCode = Lens.lens (\GeoLocationDetails' {continentCode} -> continentCode) (\s@GeoLocationDetails' {} a -> s {continentCode = a} :: GeoLocationDetails)
+
+-- | The full name of the continent.
+geoLocationDetails_continentName :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
+geoLocationDetails_continentName = Lens.lens (\GeoLocationDetails' {continentName} -> continentName) (\s@GeoLocationDetails' {} a -> s {continentName = a} :: GeoLocationDetails)
+
+-- | The two-letter code for the country.
+geoLocationDetails_countryCode :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
+geoLocationDetails_countryCode = Lens.lens (\GeoLocationDetails' {countryCode} -> countryCode) (\s@GeoLocationDetails' {} a -> s {countryCode = a} :: GeoLocationDetails)
+
+-- | The name of the country.
+geoLocationDetails_countryName :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
+geoLocationDetails_countryName = Lens.lens (\GeoLocationDetails' {countryName} -> countryName) (\s@GeoLocationDetails' {} a -> s {countryName = a} :: GeoLocationDetails)
 
 -- | The code for the subdivision, such as a particular state within the
 -- United States. For a list of US state abbreviations, see
@@ -105,46 +117,35 @@ geoLocationDetails_subdivisionName = Lens.lens (\GeoLocationDetails' {subdivisio
 geoLocationDetails_subdivisionCode :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
 geoLocationDetails_subdivisionCode = Lens.lens (\GeoLocationDetails' {subdivisionCode} -> subdivisionCode) (\s@GeoLocationDetails' {} a -> s {subdivisionCode = a} :: GeoLocationDetails)
 
--- | The name of the country.
-geoLocationDetails_countryName :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
-geoLocationDetails_countryName = Lens.lens (\GeoLocationDetails' {countryName} -> countryName) (\s@GeoLocationDetails' {} a -> s {countryName = a} :: GeoLocationDetails)
+-- | The full name of the subdivision. Route 53 currently supports only
+-- states in the United States.
+geoLocationDetails_subdivisionName :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
+geoLocationDetails_subdivisionName = Lens.lens (\GeoLocationDetails' {subdivisionName} -> subdivisionName) (\s@GeoLocationDetails' {} a -> s {subdivisionName = a} :: GeoLocationDetails)
 
--- | The two-letter code for the country.
-geoLocationDetails_countryCode :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
-geoLocationDetails_countryCode = Lens.lens (\GeoLocationDetails' {countryCode} -> countryCode) (\s@GeoLocationDetails' {} a -> s {countryCode = a} :: GeoLocationDetails)
-
--- | The two-letter code for the continent.
-geoLocationDetails_continentCode :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
-geoLocationDetails_continentCode = Lens.lens (\GeoLocationDetails' {continentCode} -> continentCode) (\s@GeoLocationDetails' {} a -> s {continentCode = a} :: GeoLocationDetails)
-
--- | The full name of the continent.
-geoLocationDetails_continentName :: Lens.Lens' GeoLocationDetails (Prelude.Maybe Prelude.Text)
-geoLocationDetails_continentName = Lens.lens (\GeoLocationDetails' {continentName} -> continentName) (\s@GeoLocationDetails' {} a -> s {continentName = a} :: GeoLocationDetails)
-
-instance Core.FromXML GeoLocationDetails where
+instance Data.FromXML GeoLocationDetails where
   parseXML x =
     GeoLocationDetails'
-      Prelude.<$> (x Core..@? "SubdivisionName")
-      Prelude.<*> (x Core..@? "SubdivisionCode")
-      Prelude.<*> (x Core..@? "CountryName")
-      Prelude.<*> (x Core..@? "CountryCode")
-      Prelude.<*> (x Core..@? "ContinentCode")
-      Prelude.<*> (x Core..@? "ContinentName")
+      Prelude.<$> (x Data..@? "ContinentCode")
+      Prelude.<*> (x Data..@? "ContinentName")
+      Prelude.<*> (x Data..@? "CountryCode")
+      Prelude.<*> (x Data..@? "CountryName")
+      Prelude.<*> (x Data..@? "SubdivisionCode")
+      Prelude.<*> (x Data..@? "SubdivisionName")
 
 instance Prelude.Hashable GeoLocationDetails where
   hashWithSalt _salt GeoLocationDetails' {..} =
-    _salt `Prelude.hashWithSalt` subdivisionName
-      `Prelude.hashWithSalt` subdivisionCode
-      `Prelude.hashWithSalt` countryName
-      `Prelude.hashWithSalt` countryCode
-      `Prelude.hashWithSalt` continentCode
+    _salt `Prelude.hashWithSalt` continentCode
       `Prelude.hashWithSalt` continentName
+      `Prelude.hashWithSalt` countryCode
+      `Prelude.hashWithSalt` countryName
+      `Prelude.hashWithSalt` subdivisionCode
+      `Prelude.hashWithSalt` subdivisionName
 
 instance Prelude.NFData GeoLocationDetails where
   rnf GeoLocationDetails' {..} =
-    Prelude.rnf subdivisionName
-      `Prelude.seq` Prelude.rnf subdivisionCode
-      `Prelude.seq` Prelude.rnf countryName
-      `Prelude.seq` Prelude.rnf countryCode
-      `Prelude.seq` Prelude.rnf continentCode
+    Prelude.rnf continentCode
       `Prelude.seq` Prelude.rnf continentName
+      `Prelude.seq` Prelude.rnf countryCode
+      `Prelude.seq` Prelude.rnf countryName
+      `Prelude.seq` Prelude.rnf subdivisionCode
+      `Prelude.seq` Prelude.rnf subdivisionName

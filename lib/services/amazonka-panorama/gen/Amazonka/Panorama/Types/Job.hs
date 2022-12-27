@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.Types.Job
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.Panorama.Types.Job where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A job for a device.
 --
 -- /See:/ 'newJob' smart constructor.
 data Job = Job'
-  { -- | The job\'s ID.
-    jobId :: Prelude.Maybe Prelude.Text,
-    -- | The target device\'s ID.
-    deviceId :: Prelude.Maybe Prelude.Text
+  { -- | The target device\'s ID.
+    deviceId :: Prelude.Maybe Prelude.Text,
+    -- | The job\'s ID.
+    jobId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,41 +43,41 @@ data Job = Job'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'jobId', 'job_jobId' - The job\'s ID.
---
 -- 'deviceId', 'job_deviceId' - The target device\'s ID.
+--
+-- 'jobId', 'job_jobId' - The job\'s ID.
 newJob ::
   Job
 newJob =
   Job'
-    { jobId = Prelude.Nothing,
-      deviceId = Prelude.Nothing
+    { deviceId = Prelude.Nothing,
+      jobId = Prelude.Nothing
     }
-
--- | The job\'s ID.
-job_jobId :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
-job_jobId = Lens.lens (\Job' {jobId} -> jobId) (\s@Job' {} a -> s {jobId = a} :: Job)
 
 -- | The target device\'s ID.
 job_deviceId :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
 job_deviceId = Lens.lens (\Job' {deviceId} -> deviceId) (\s@Job' {} a -> s {deviceId = a} :: Job)
 
-instance Core.FromJSON Job where
+-- | The job\'s ID.
+job_jobId :: Lens.Lens' Job (Prelude.Maybe Prelude.Text)
+job_jobId = Lens.lens (\Job' {jobId} -> jobId) (\s@Job' {} a -> s {jobId = a} :: Job)
+
+instance Data.FromJSON Job where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Job"
       ( \x ->
           Job'
-            Prelude.<$> (x Core..:? "JobId")
-            Prelude.<*> (x Core..:? "DeviceId")
+            Prelude.<$> (x Data..:? "DeviceId")
+            Prelude.<*> (x Data..:? "JobId")
       )
 
 instance Prelude.Hashable Job where
   hashWithSalt _salt Job' {..} =
-    _salt `Prelude.hashWithSalt` jobId
-      `Prelude.hashWithSalt` deviceId
+    _salt `Prelude.hashWithSalt` deviceId
+      `Prelude.hashWithSalt` jobId
 
 instance Prelude.NFData Job where
   rnf Job' {..} =
-    Prelude.rnf jobId
-      `Prelude.seq` Prelude.rnf deviceId
+    Prelude.rnf deviceId
+      `Prelude.seq` Prelude.rnf jobId

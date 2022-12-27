@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.InAppMessageCampaign
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.InAppMessageCampaign where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.InAppCampaignSchedule
 import Amazonka.Pinpoint.Types.InAppMessage
 import qualified Amazonka.Prelude as Prelude
@@ -29,26 +30,26 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newInAppMessageCampaign' smart constructor.
 data InAppMessageCampaign = InAppMessageCampaign'
-  { -- | Session cap which controls the number of times an in-app message can be
-    -- shown to the endpoint during an application session.
-    sessionCap :: Prelude.Maybe Prelude.Int,
+  { -- | Campaign id of the corresponding campaign.
+    campaignId :: Prelude.Maybe Prelude.Text,
+    -- | Daily cap which controls the number of times any in-app messages can be
+    -- shown to the endpoint during a day.
+    dailyCap :: Prelude.Maybe Prelude.Int,
+    -- | In-app message content with all fields required for rendering an in-app
+    -- message.
+    inAppMessage :: Prelude.Maybe InAppMessage,
     -- | Priority of the in-app message.
     priority :: Prelude.Maybe Prelude.Int,
     -- | Schedule of the campaign.
     schedule :: Prelude.Maybe InAppCampaignSchedule,
-    -- | Campaign id of the corresponding campaign.
-    campaignId :: Prelude.Maybe Prelude.Text,
-    -- | Treatment id of the campaign.
-    treatmentId :: Prelude.Maybe Prelude.Text,
-    -- | In-app message content with all fields required for rendering an in-app
-    -- message.
-    inAppMessage :: Prelude.Maybe InAppMessage,
+    -- | Session cap which controls the number of times an in-app message can be
+    -- shown to the endpoint during an application session.
+    sessionCap :: Prelude.Maybe Prelude.Int,
     -- | Total cap which controls the number of times an in-app message can be
     -- shown to the endpoint.
     totalCap :: Prelude.Maybe Prelude.Int,
-    -- | Daily cap which controls the number of times any in-app messages can be
-    -- shown to the endpoint during a day.
-    dailyCap :: Prelude.Maybe Prelude.Int
+    -- | Treatment id of the campaign.
+    treatmentId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -60,43 +61,52 @@ data InAppMessageCampaign = InAppMessageCampaign'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sessionCap', 'inAppMessageCampaign_sessionCap' - Session cap which controls the number of times an in-app message can be
--- shown to the endpoint during an application session.
+-- 'campaignId', 'inAppMessageCampaign_campaignId' - Campaign id of the corresponding campaign.
+--
+-- 'dailyCap', 'inAppMessageCampaign_dailyCap' - Daily cap which controls the number of times any in-app messages can be
+-- shown to the endpoint during a day.
+--
+-- 'inAppMessage', 'inAppMessageCampaign_inAppMessage' - In-app message content with all fields required for rendering an in-app
+-- message.
 --
 -- 'priority', 'inAppMessageCampaign_priority' - Priority of the in-app message.
 --
 -- 'schedule', 'inAppMessageCampaign_schedule' - Schedule of the campaign.
 --
--- 'campaignId', 'inAppMessageCampaign_campaignId' - Campaign id of the corresponding campaign.
---
--- 'treatmentId', 'inAppMessageCampaign_treatmentId' - Treatment id of the campaign.
---
--- 'inAppMessage', 'inAppMessageCampaign_inAppMessage' - In-app message content with all fields required for rendering an in-app
--- message.
+-- 'sessionCap', 'inAppMessageCampaign_sessionCap' - Session cap which controls the number of times an in-app message can be
+-- shown to the endpoint during an application session.
 --
 -- 'totalCap', 'inAppMessageCampaign_totalCap' - Total cap which controls the number of times an in-app message can be
 -- shown to the endpoint.
 --
--- 'dailyCap', 'inAppMessageCampaign_dailyCap' - Daily cap which controls the number of times any in-app messages can be
--- shown to the endpoint during a day.
+-- 'treatmentId', 'inAppMessageCampaign_treatmentId' - Treatment id of the campaign.
 newInAppMessageCampaign ::
   InAppMessageCampaign
 newInAppMessageCampaign =
   InAppMessageCampaign'
-    { sessionCap = Prelude.Nothing,
+    { campaignId = Prelude.Nothing,
+      dailyCap = Prelude.Nothing,
+      inAppMessage = Prelude.Nothing,
       priority = Prelude.Nothing,
       schedule = Prelude.Nothing,
-      campaignId = Prelude.Nothing,
-      treatmentId = Prelude.Nothing,
-      inAppMessage = Prelude.Nothing,
+      sessionCap = Prelude.Nothing,
       totalCap = Prelude.Nothing,
-      dailyCap = Prelude.Nothing
+      treatmentId = Prelude.Nothing
     }
 
--- | Session cap which controls the number of times an in-app message can be
--- shown to the endpoint during an application session.
-inAppMessageCampaign_sessionCap :: Lens.Lens' InAppMessageCampaign (Prelude.Maybe Prelude.Int)
-inAppMessageCampaign_sessionCap = Lens.lens (\InAppMessageCampaign' {sessionCap} -> sessionCap) (\s@InAppMessageCampaign' {} a -> s {sessionCap = a} :: InAppMessageCampaign)
+-- | Campaign id of the corresponding campaign.
+inAppMessageCampaign_campaignId :: Lens.Lens' InAppMessageCampaign (Prelude.Maybe Prelude.Text)
+inAppMessageCampaign_campaignId = Lens.lens (\InAppMessageCampaign' {campaignId} -> campaignId) (\s@InAppMessageCampaign' {} a -> s {campaignId = a} :: InAppMessageCampaign)
+
+-- | Daily cap which controls the number of times any in-app messages can be
+-- shown to the endpoint during a day.
+inAppMessageCampaign_dailyCap :: Lens.Lens' InAppMessageCampaign (Prelude.Maybe Prelude.Int)
+inAppMessageCampaign_dailyCap = Lens.lens (\InAppMessageCampaign' {dailyCap} -> dailyCap) (\s@InAppMessageCampaign' {} a -> s {dailyCap = a} :: InAppMessageCampaign)
+
+-- | In-app message content with all fields required for rendering an in-app
+-- message.
+inAppMessageCampaign_inAppMessage :: Lens.Lens' InAppMessageCampaign (Prelude.Maybe InAppMessage)
+inAppMessageCampaign_inAppMessage = Lens.lens (\InAppMessageCampaign' {inAppMessage} -> inAppMessage) (\s@InAppMessageCampaign' {} a -> s {inAppMessage = a} :: InAppMessageCampaign)
 
 -- | Priority of the in-app message.
 inAppMessageCampaign_priority :: Lens.Lens' InAppMessageCampaign (Prelude.Maybe Prelude.Int)
@@ -106,63 +116,54 @@ inAppMessageCampaign_priority = Lens.lens (\InAppMessageCampaign' {priority} -> 
 inAppMessageCampaign_schedule :: Lens.Lens' InAppMessageCampaign (Prelude.Maybe InAppCampaignSchedule)
 inAppMessageCampaign_schedule = Lens.lens (\InAppMessageCampaign' {schedule} -> schedule) (\s@InAppMessageCampaign' {} a -> s {schedule = a} :: InAppMessageCampaign)
 
--- | Campaign id of the corresponding campaign.
-inAppMessageCampaign_campaignId :: Lens.Lens' InAppMessageCampaign (Prelude.Maybe Prelude.Text)
-inAppMessageCampaign_campaignId = Lens.lens (\InAppMessageCampaign' {campaignId} -> campaignId) (\s@InAppMessageCampaign' {} a -> s {campaignId = a} :: InAppMessageCampaign)
-
--- | Treatment id of the campaign.
-inAppMessageCampaign_treatmentId :: Lens.Lens' InAppMessageCampaign (Prelude.Maybe Prelude.Text)
-inAppMessageCampaign_treatmentId = Lens.lens (\InAppMessageCampaign' {treatmentId} -> treatmentId) (\s@InAppMessageCampaign' {} a -> s {treatmentId = a} :: InAppMessageCampaign)
-
--- | In-app message content with all fields required for rendering an in-app
--- message.
-inAppMessageCampaign_inAppMessage :: Lens.Lens' InAppMessageCampaign (Prelude.Maybe InAppMessage)
-inAppMessageCampaign_inAppMessage = Lens.lens (\InAppMessageCampaign' {inAppMessage} -> inAppMessage) (\s@InAppMessageCampaign' {} a -> s {inAppMessage = a} :: InAppMessageCampaign)
+-- | Session cap which controls the number of times an in-app message can be
+-- shown to the endpoint during an application session.
+inAppMessageCampaign_sessionCap :: Lens.Lens' InAppMessageCampaign (Prelude.Maybe Prelude.Int)
+inAppMessageCampaign_sessionCap = Lens.lens (\InAppMessageCampaign' {sessionCap} -> sessionCap) (\s@InAppMessageCampaign' {} a -> s {sessionCap = a} :: InAppMessageCampaign)
 
 -- | Total cap which controls the number of times an in-app message can be
 -- shown to the endpoint.
 inAppMessageCampaign_totalCap :: Lens.Lens' InAppMessageCampaign (Prelude.Maybe Prelude.Int)
 inAppMessageCampaign_totalCap = Lens.lens (\InAppMessageCampaign' {totalCap} -> totalCap) (\s@InAppMessageCampaign' {} a -> s {totalCap = a} :: InAppMessageCampaign)
 
--- | Daily cap which controls the number of times any in-app messages can be
--- shown to the endpoint during a day.
-inAppMessageCampaign_dailyCap :: Lens.Lens' InAppMessageCampaign (Prelude.Maybe Prelude.Int)
-inAppMessageCampaign_dailyCap = Lens.lens (\InAppMessageCampaign' {dailyCap} -> dailyCap) (\s@InAppMessageCampaign' {} a -> s {dailyCap = a} :: InAppMessageCampaign)
+-- | Treatment id of the campaign.
+inAppMessageCampaign_treatmentId :: Lens.Lens' InAppMessageCampaign (Prelude.Maybe Prelude.Text)
+inAppMessageCampaign_treatmentId = Lens.lens (\InAppMessageCampaign' {treatmentId} -> treatmentId) (\s@InAppMessageCampaign' {} a -> s {treatmentId = a} :: InAppMessageCampaign)
 
-instance Core.FromJSON InAppMessageCampaign where
+instance Data.FromJSON InAppMessageCampaign where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InAppMessageCampaign"
       ( \x ->
           InAppMessageCampaign'
-            Prelude.<$> (x Core..:? "SessionCap")
-            Prelude.<*> (x Core..:? "Priority")
-            Prelude.<*> (x Core..:? "Schedule")
-            Prelude.<*> (x Core..:? "CampaignId")
-            Prelude.<*> (x Core..:? "TreatmentId")
-            Prelude.<*> (x Core..:? "InAppMessage")
-            Prelude.<*> (x Core..:? "TotalCap")
-            Prelude.<*> (x Core..:? "DailyCap")
+            Prelude.<$> (x Data..:? "CampaignId")
+            Prelude.<*> (x Data..:? "DailyCap")
+            Prelude.<*> (x Data..:? "InAppMessage")
+            Prelude.<*> (x Data..:? "Priority")
+            Prelude.<*> (x Data..:? "Schedule")
+            Prelude.<*> (x Data..:? "SessionCap")
+            Prelude.<*> (x Data..:? "TotalCap")
+            Prelude.<*> (x Data..:? "TreatmentId")
       )
 
 instance Prelude.Hashable InAppMessageCampaign where
   hashWithSalt _salt InAppMessageCampaign' {..} =
-    _salt `Prelude.hashWithSalt` sessionCap
+    _salt `Prelude.hashWithSalt` campaignId
+      `Prelude.hashWithSalt` dailyCap
+      `Prelude.hashWithSalt` inAppMessage
       `Prelude.hashWithSalt` priority
       `Prelude.hashWithSalt` schedule
-      `Prelude.hashWithSalt` campaignId
-      `Prelude.hashWithSalt` treatmentId
-      `Prelude.hashWithSalt` inAppMessage
+      `Prelude.hashWithSalt` sessionCap
       `Prelude.hashWithSalt` totalCap
-      `Prelude.hashWithSalt` dailyCap
+      `Prelude.hashWithSalt` treatmentId
 
 instance Prelude.NFData InAppMessageCampaign where
   rnf InAppMessageCampaign' {..} =
-    Prelude.rnf sessionCap
+    Prelude.rnf campaignId
+      `Prelude.seq` Prelude.rnf dailyCap
+      `Prelude.seq` Prelude.rnf inAppMessage
       `Prelude.seq` Prelude.rnf priority
       `Prelude.seq` Prelude.rnf schedule
-      `Prelude.seq` Prelude.rnf campaignId
-      `Prelude.seq` Prelude.rnf treatmentId
-      `Prelude.seq` Prelude.rnf inAppMessage
+      `Prelude.seq` Prelude.rnf sessionCap
       `Prelude.seq` Prelude.rnf totalCap
-      `Prelude.seq` Prelude.rnf dailyCap
+      `Prelude.seq` Prelude.rnf treatmentId

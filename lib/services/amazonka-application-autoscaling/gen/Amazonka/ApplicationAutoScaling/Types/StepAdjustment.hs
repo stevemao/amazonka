@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationAutoScaling.Types.StepAdjustment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ApplicationAutoScaling.Types.StepAdjustment where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a step adjustment for a
@@ -148,15 +149,15 @@ stepAdjustment_metricIntervalUpperBound = Lens.lens (\StepAdjustment' {metricInt
 stepAdjustment_scalingAdjustment :: Lens.Lens' StepAdjustment Prelude.Int
 stepAdjustment_scalingAdjustment = Lens.lens (\StepAdjustment' {scalingAdjustment} -> scalingAdjustment) (\s@StepAdjustment' {} a -> s {scalingAdjustment = a} :: StepAdjustment)
 
-instance Core.FromJSON StepAdjustment where
+instance Data.FromJSON StepAdjustment where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StepAdjustment"
       ( \x ->
           StepAdjustment'
-            Prelude.<$> (x Core..:? "MetricIntervalLowerBound")
-            Prelude.<*> (x Core..:? "MetricIntervalUpperBound")
-            Prelude.<*> (x Core..: "ScalingAdjustment")
+            Prelude.<$> (x Data..:? "MetricIntervalLowerBound")
+            Prelude.<*> (x Data..:? "MetricIntervalUpperBound")
+            Prelude.<*> (x Data..: "ScalingAdjustment")
       )
 
 instance Prelude.Hashable StepAdjustment where
@@ -172,15 +173,15 @@ instance Prelude.NFData StepAdjustment where
       `Prelude.seq` Prelude.rnf metricIntervalUpperBound
       `Prelude.seq` Prelude.rnf scalingAdjustment
 
-instance Core.ToJSON StepAdjustment where
+instance Data.ToJSON StepAdjustment where
   toJSON StepAdjustment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MetricIntervalLowerBound" Core..=)
+          [ ("MetricIntervalLowerBound" Data..=)
               Prelude.<$> metricIntervalLowerBound,
-            ("MetricIntervalUpperBound" Core..=)
+            ("MetricIntervalUpperBound" Data..=)
               Prelude.<$> metricIntervalUpperBound,
             Prelude.Just
-              ("ScalingAdjustment" Core..= scalingAdjustment)
+              ("ScalingAdjustment" Data..= scalingAdjustment)
           ]
       )

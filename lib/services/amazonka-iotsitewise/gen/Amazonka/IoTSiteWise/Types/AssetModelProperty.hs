@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.AssetModelProperty
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTSiteWise.Types.AssetModelProperty where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.PropertyDataType
 import Amazonka.IoTSiteWise.Types.PropertyType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about an asset model property.
@@ -108,18 +109,18 @@ assetModelProperty_dataType = Lens.lens (\AssetModelProperty' {dataType} -> data
 assetModelProperty_type :: Lens.Lens' AssetModelProperty PropertyType
 assetModelProperty_type = Lens.lens (\AssetModelProperty' {type'} -> type') (\s@AssetModelProperty' {} a -> s {type' = a} :: AssetModelProperty)
 
-instance Core.FromJSON AssetModelProperty where
+instance Data.FromJSON AssetModelProperty where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssetModelProperty"
       ( \x ->
           AssetModelProperty'
-            Prelude.<$> (x Core..:? "dataTypeSpec")
-            Prelude.<*> (x Core..:? "id")
-            Prelude.<*> (x Core..:? "unit")
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "dataType")
-            Prelude.<*> (x Core..: "type")
+            Prelude.<$> (x Data..:? "dataTypeSpec")
+            Prelude.<*> (x Data..:? "id")
+            Prelude.<*> (x Data..:? "unit")
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "dataType")
+            Prelude.<*> (x Data..: "type")
       )
 
 instance Prelude.Hashable AssetModelProperty where
@@ -140,15 +141,15 @@ instance Prelude.NFData AssetModelProperty where
       `Prelude.seq` Prelude.rnf dataType
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON AssetModelProperty where
+instance Data.ToJSON AssetModelProperty where
   toJSON AssetModelProperty' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("dataTypeSpec" Core..=) Prelude.<$> dataTypeSpec,
-            ("id" Core..=) Prelude.<$> id,
-            ("unit" Core..=) Prelude.<$> unit,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("dataType" Core..= dataType),
-            Prelude.Just ("type" Core..= type')
+          [ ("dataTypeSpec" Data..=) Prelude.<$> dataTypeSpec,
+            ("id" Data..=) Prelude.<$> id,
+            ("unit" Data..=) Prelude.<$> unit,
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("dataType" Data..= dataType),
+            Prelude.Just ("type" Data..= type')
           ]
       )

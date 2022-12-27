@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.DeleteTopic
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.SNS.DeleteTopic
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,7 +75,8 @@ deleteTopic_topicArn = Lens.lens (\DeleteTopic' {topicArn} -> topicArn) (\s@Dele
 
 instance Core.AWSRequest DeleteTopic where
   type AWSResponse DeleteTopic = DeleteTopicResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull DeleteTopicResponse'
 
 instance Prelude.Hashable DeleteTopic where
@@ -84,20 +86,20 @@ instance Prelude.Hashable DeleteTopic where
 instance Prelude.NFData DeleteTopic where
   rnf DeleteTopic' {..} = Prelude.rnf topicArn
 
-instance Core.ToHeaders DeleteTopic where
+instance Data.ToHeaders DeleteTopic where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteTopic where
+instance Data.ToPath DeleteTopic where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteTopic where
+instance Data.ToQuery DeleteTopic where
   toQuery DeleteTopic' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteTopic" :: Prelude.ByteString),
+          Data.=: ("DeleteTopic" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "TopicArn" Core.=: topicArn
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "TopicArn" Data.=: topicArn
       ]
 
 -- | /See:/ 'newDeleteTopicResponse' smart constructor.

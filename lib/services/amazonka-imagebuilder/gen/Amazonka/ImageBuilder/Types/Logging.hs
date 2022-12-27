@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.Types.Logging
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ImageBuilder.Types.Logging where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types.S3Logs
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Logging configuration defines where Image Builder uploads your logs.
@@ -50,11 +51,11 @@ newLogging = Logging' {s3Logs = Prelude.Nothing}
 logging_s3Logs :: Lens.Lens' Logging (Prelude.Maybe S3Logs)
 logging_s3Logs = Lens.lens (\Logging' {s3Logs} -> s3Logs) (\s@Logging' {} a -> s {s3Logs = a} :: Logging)
 
-instance Core.FromJSON Logging where
+instance Data.FromJSON Logging where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Logging"
-      (\x -> Logging' Prelude.<$> (x Core..:? "s3Logs"))
+      (\x -> Logging' Prelude.<$> (x Data..:? "s3Logs"))
 
 instance Prelude.Hashable Logging where
   hashWithSalt _salt Logging' {..} =
@@ -63,9 +64,9 @@ instance Prelude.Hashable Logging where
 instance Prelude.NFData Logging where
   rnf Logging' {..} = Prelude.rnf s3Logs
 
-instance Core.ToJSON Logging where
+instance Data.ToJSON Logging where
   toJSON Logging' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("s3Logs" Core..=) Prelude.<$> s3Logs]
+          [("s3Logs" Data..=) Prelude.<$> s3Logs]
       )

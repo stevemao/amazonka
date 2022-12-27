@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.StartInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,7 @@
 -- its tenancy to @default@ or @dedicated@.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html Stopping instances>
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Stop_Start.html Stop and start your instance>
 -- in the /Amazon EC2 User Guide/.
 module Amazonka.EC2.StartInstances
   ( -- * Creating a Request
@@ -68,8 +68,9 @@ module Amazonka.EC2.StartInstances
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -132,13 +133,14 @@ instance Core.AWSRequest StartInstances where
   type
     AWSResponse StartInstances =
       StartInstancesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           StartInstancesResponse'
-            Prelude.<$> ( x Core..@? "instancesSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "instancesSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -155,22 +157,22 @@ instance Prelude.NFData StartInstances where
       `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf instanceIds
 
-instance Core.ToHeaders StartInstances where
+instance Data.ToHeaders StartInstances where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath StartInstances where
+instance Data.ToPath StartInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartInstances where
+instance Data.ToQuery StartInstances where
   toQuery StartInstances' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("StartInstances" :: Prelude.ByteString),
+          Data.=: ("StartInstances" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "AdditionalInfo" Core.=: additionalInfo,
-        "DryRun" Core.=: dryRun,
-        Core.toQueryList "InstanceId" instanceIds
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "AdditionalInfo" Data.=: additionalInfo,
+        "DryRun" Data.=: dryRun,
+        Data.toQueryList "InstanceId" instanceIds
       ]
 
 -- | /See:/ 'newStartInstancesResponse' smart constructor.

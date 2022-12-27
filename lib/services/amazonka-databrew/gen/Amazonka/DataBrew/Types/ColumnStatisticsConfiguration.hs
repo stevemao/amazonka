@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.Types.ColumnStatisticsConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.DataBrew.Types.ColumnStatisticsConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types.ColumnSelector
 import Amazonka.DataBrew.Types.StatisticsConfiguration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration for column evaluations for a profile job.
@@ -77,14 +78,14 @@ columnStatisticsConfiguration_selectors = Lens.lens (\ColumnStatisticsConfigurat
 columnStatisticsConfiguration_statistics :: Lens.Lens' ColumnStatisticsConfiguration StatisticsConfiguration
 columnStatisticsConfiguration_statistics = Lens.lens (\ColumnStatisticsConfiguration' {statistics} -> statistics) (\s@ColumnStatisticsConfiguration' {} a -> s {statistics = a} :: ColumnStatisticsConfiguration)
 
-instance Core.FromJSON ColumnStatisticsConfiguration where
+instance Data.FromJSON ColumnStatisticsConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ColumnStatisticsConfiguration"
       ( \x ->
           ColumnStatisticsConfiguration'
-            Prelude.<$> (x Core..:? "Selectors")
-            Prelude.<*> (x Core..: "Statistics")
+            Prelude.<$> (x Data..:? "Selectors")
+            Prelude.<*> (x Data..: "Statistics")
       )
 
 instance
@@ -100,11 +101,11 @@ instance Prelude.NFData ColumnStatisticsConfiguration where
     Prelude.rnf selectors
       `Prelude.seq` Prelude.rnf statistics
 
-instance Core.ToJSON ColumnStatisticsConfiguration where
+instance Data.ToJSON ColumnStatisticsConfiguration where
   toJSON ColumnStatisticsConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Selectors" Core..=) Prelude.<$> selectors,
-            Prelude.Just ("Statistics" Core..= statistics)
+          [ ("Selectors" Data..=) Prelude.<$> selectors,
+            Prelude.Just ("Statistics" Data..= statistics)
           ]
       )

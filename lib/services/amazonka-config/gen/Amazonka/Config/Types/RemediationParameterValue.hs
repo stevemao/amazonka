@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.RemediationParameterValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.Config.Types.RemediationParameterValue where
 import Amazonka.Config.Types.ResourceValue
 import Amazonka.Config.Types.StaticValue
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The value is either a dynamic (resource) value or a static value. You
@@ -30,10 +31,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newRemediationParameterValue' smart constructor.
 data RemediationParameterValue = RemediationParameterValue'
-  { -- | The value is static and does not change at run-time.
-    staticValue :: Prelude.Maybe StaticValue,
-    -- | The value is dynamic and changes at run-time.
-    resourceValue :: Prelude.Maybe ResourceValue
+  { -- | The value is dynamic and changes at run-time.
+    resourceValue :: Prelude.Maybe ResourceValue,
+    -- | The value is static and does not change at run-time.
+    staticValue :: Prelude.Maybe StaticValue
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,51 +46,51 @@ data RemediationParameterValue = RemediationParameterValue'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'staticValue', 'remediationParameterValue_staticValue' - The value is static and does not change at run-time.
---
 -- 'resourceValue', 'remediationParameterValue_resourceValue' - The value is dynamic and changes at run-time.
+--
+-- 'staticValue', 'remediationParameterValue_staticValue' - The value is static and does not change at run-time.
 newRemediationParameterValue ::
   RemediationParameterValue
 newRemediationParameterValue =
   RemediationParameterValue'
-    { staticValue =
+    { resourceValue =
         Prelude.Nothing,
-      resourceValue = Prelude.Nothing
+      staticValue = Prelude.Nothing
     }
-
--- | The value is static and does not change at run-time.
-remediationParameterValue_staticValue :: Lens.Lens' RemediationParameterValue (Prelude.Maybe StaticValue)
-remediationParameterValue_staticValue = Lens.lens (\RemediationParameterValue' {staticValue} -> staticValue) (\s@RemediationParameterValue' {} a -> s {staticValue = a} :: RemediationParameterValue)
 
 -- | The value is dynamic and changes at run-time.
 remediationParameterValue_resourceValue :: Lens.Lens' RemediationParameterValue (Prelude.Maybe ResourceValue)
 remediationParameterValue_resourceValue = Lens.lens (\RemediationParameterValue' {resourceValue} -> resourceValue) (\s@RemediationParameterValue' {} a -> s {resourceValue = a} :: RemediationParameterValue)
 
-instance Core.FromJSON RemediationParameterValue where
+-- | The value is static and does not change at run-time.
+remediationParameterValue_staticValue :: Lens.Lens' RemediationParameterValue (Prelude.Maybe StaticValue)
+remediationParameterValue_staticValue = Lens.lens (\RemediationParameterValue' {staticValue} -> staticValue) (\s@RemediationParameterValue' {} a -> s {staticValue = a} :: RemediationParameterValue)
+
+instance Data.FromJSON RemediationParameterValue where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RemediationParameterValue"
       ( \x ->
           RemediationParameterValue'
-            Prelude.<$> (x Core..:? "StaticValue")
-            Prelude.<*> (x Core..:? "ResourceValue")
+            Prelude.<$> (x Data..:? "ResourceValue")
+            Prelude.<*> (x Data..:? "StaticValue")
       )
 
 instance Prelude.Hashable RemediationParameterValue where
   hashWithSalt _salt RemediationParameterValue' {..} =
-    _salt `Prelude.hashWithSalt` staticValue
-      `Prelude.hashWithSalt` resourceValue
+    _salt `Prelude.hashWithSalt` resourceValue
+      `Prelude.hashWithSalt` staticValue
 
 instance Prelude.NFData RemediationParameterValue where
   rnf RemediationParameterValue' {..} =
-    Prelude.rnf staticValue
-      `Prelude.seq` Prelude.rnf resourceValue
+    Prelude.rnf resourceValue
+      `Prelude.seq` Prelude.rnf staticValue
 
-instance Core.ToJSON RemediationParameterValue where
+instance Data.ToJSON RemediationParameterValue where
   toJSON RemediationParameterValue' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StaticValue" Core..=) Prelude.<$> staticValue,
-            ("ResourceValue" Core..=) Prelude.<$> resourceValue
+          [ ("ResourceValue" Data..=) Prelude.<$> resourceValue,
+            ("StaticValue" Data..=) Prelude.<$> staticValue
           ]
       )

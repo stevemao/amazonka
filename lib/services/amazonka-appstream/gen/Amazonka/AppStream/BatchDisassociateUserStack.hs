@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.BatchDisassociateUserStack
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AppStream.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,12 +81,13 @@ instance Core.AWSRequest BatchDisassociateUserStack where
   type
     AWSResponse BatchDisassociateUserStack =
       BatchDisassociateUserStackResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDisassociateUserStackResponse'
-            Prelude.<$> (x Core..?> "errors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "errors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,36 +99,36 @@ instance Prelude.NFData BatchDisassociateUserStack where
   rnf BatchDisassociateUserStack' {..} =
     Prelude.rnf userStackAssociations
 
-instance Core.ToHeaders BatchDisassociateUserStack where
+instance Data.ToHeaders BatchDisassociateUserStack where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "PhotonAdminProxyService.BatchDisassociateUserStack" ::
+              Data.=# ( "PhotonAdminProxyService.BatchDisassociateUserStack" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchDisassociateUserStack where
+instance Data.ToJSON BatchDisassociateUserStack where
   toJSON BatchDisassociateUserStack' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "UserStackAssociations"
-                  Core..= userStackAssociations
+                  Data..= userStackAssociations
               )
           ]
       )
 
-instance Core.ToPath BatchDisassociateUserStack where
+instance Data.ToPath BatchDisassociateUserStack where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchDisassociateUserStack where
+instance Data.ToQuery BatchDisassociateUserStack where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchDisassociateUserStackResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkManager.UpdateConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.NetworkManager.UpdateConnection
 
     -- * Request Lenses
     updateConnection_connectedLinkId,
-    updateConnection_linkId,
     updateConnection_description,
+    updateConnection_linkId,
     updateConnection_globalNetworkId,
     updateConnection_connectionId,
 
@@ -45,7 +45,8 @@ module Amazonka.NetworkManager.UpdateConnection
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,12 +56,12 @@ import qualified Amazonka.Response as Response
 data UpdateConnection = UpdateConnection'
   { -- | The ID of the link for the second device in the connection.
     connectedLinkId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the link for the first device in the connection.
-    linkId :: Prelude.Maybe Prelude.Text,
     -- | A description of the connection.
     --
     -- Length Constraints: Maximum length of 256 characters.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the link for the first device in the connection.
+    linkId :: Prelude.Maybe Prelude.Text,
     -- | The ID of the global network.
     globalNetworkId :: Prelude.Text,
     -- | The ID of the connection.
@@ -78,11 +79,11 @@ data UpdateConnection = UpdateConnection'
 --
 -- 'connectedLinkId', 'updateConnection_connectedLinkId' - The ID of the link for the second device in the connection.
 --
--- 'linkId', 'updateConnection_linkId' - The ID of the link for the first device in the connection.
---
 -- 'description', 'updateConnection_description' - A description of the connection.
 --
 -- Length Constraints: Maximum length of 256 characters.
+--
+-- 'linkId', 'updateConnection_linkId' - The ID of the link for the first device in the connection.
 --
 -- 'globalNetworkId', 'updateConnection_globalNetworkId' - The ID of the global network.
 --
@@ -97,8 +98,8 @@ newUpdateConnection pGlobalNetworkId_ pConnectionId_ =
   UpdateConnection'
     { connectedLinkId =
         Prelude.Nothing,
-      linkId = Prelude.Nothing,
       description = Prelude.Nothing,
+      linkId = Prelude.Nothing,
       globalNetworkId = pGlobalNetworkId_,
       connectionId = pConnectionId_
     }
@@ -107,15 +108,15 @@ newUpdateConnection pGlobalNetworkId_ pConnectionId_ =
 updateConnection_connectedLinkId :: Lens.Lens' UpdateConnection (Prelude.Maybe Prelude.Text)
 updateConnection_connectedLinkId = Lens.lens (\UpdateConnection' {connectedLinkId} -> connectedLinkId) (\s@UpdateConnection' {} a -> s {connectedLinkId = a} :: UpdateConnection)
 
--- | The ID of the link for the first device in the connection.
-updateConnection_linkId :: Lens.Lens' UpdateConnection (Prelude.Maybe Prelude.Text)
-updateConnection_linkId = Lens.lens (\UpdateConnection' {linkId} -> linkId) (\s@UpdateConnection' {} a -> s {linkId = a} :: UpdateConnection)
-
 -- | A description of the connection.
 --
 -- Length Constraints: Maximum length of 256 characters.
 updateConnection_description :: Lens.Lens' UpdateConnection (Prelude.Maybe Prelude.Text)
 updateConnection_description = Lens.lens (\UpdateConnection' {description} -> description) (\s@UpdateConnection' {} a -> s {description = a} :: UpdateConnection)
+
+-- | The ID of the link for the first device in the connection.
+updateConnection_linkId :: Lens.Lens' UpdateConnection (Prelude.Maybe Prelude.Text)
+updateConnection_linkId = Lens.lens (\UpdateConnection' {linkId} -> linkId) (\s@UpdateConnection' {} a -> s {linkId = a} :: UpdateConnection)
 
 -- | The ID of the global network.
 updateConnection_globalNetworkId :: Lens.Lens' UpdateConnection Prelude.Text
@@ -129,63 +130,64 @@ instance Core.AWSRequest UpdateConnection where
   type
     AWSResponse UpdateConnection =
       UpdateConnectionResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateConnectionResponse'
-            Prelude.<$> (x Core..?> "Connection")
+            Prelude.<$> (x Data..?> "Connection")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateConnection where
   hashWithSalt _salt UpdateConnection' {..} =
     _salt `Prelude.hashWithSalt` connectedLinkId
-      `Prelude.hashWithSalt` linkId
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` linkId
       `Prelude.hashWithSalt` globalNetworkId
       `Prelude.hashWithSalt` connectionId
 
 instance Prelude.NFData UpdateConnection where
   rnf UpdateConnection' {..} =
     Prelude.rnf connectedLinkId
-      `Prelude.seq` Prelude.rnf linkId
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf linkId
       `Prelude.seq` Prelude.rnf globalNetworkId
       `Prelude.seq` Prelude.rnf connectionId
 
-instance Core.ToHeaders UpdateConnection where
+instance Data.ToHeaders UpdateConnection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateConnection where
+instance Data.ToJSON UpdateConnection where
   toJSON UpdateConnection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ConnectedLinkId" Core..=)
+          [ ("ConnectedLinkId" Data..=)
               Prelude.<$> connectedLinkId,
-            ("LinkId" Core..=) Prelude.<$> linkId,
-            ("Description" Core..=) Prelude.<$> description
+            ("Description" Data..=) Prelude.<$> description,
+            ("LinkId" Data..=) Prelude.<$> linkId
           ]
       )
 
-instance Core.ToPath UpdateConnection where
+instance Data.ToPath UpdateConnection where
   toPath UpdateConnection' {..} =
     Prelude.mconcat
       [ "/global-networks/",
-        Core.toBS globalNetworkId,
+        Data.toBS globalNetworkId,
         "/connections/",
-        Core.toBS connectionId
+        Data.toBS connectionId
       ]
 
-instance Core.ToQuery UpdateConnection where
+instance Data.ToQuery UpdateConnection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateConnectionResponse' smart constructor.

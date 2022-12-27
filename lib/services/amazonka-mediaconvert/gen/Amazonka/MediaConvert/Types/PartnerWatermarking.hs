@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.PartnerWatermarking
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.PartnerWatermarking where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.NexGuardFileMarkerSettings
 import qualified Amazonka.Prelude as Prelude
 
@@ -62,13 +63,13 @@ newPartnerWatermarking =
 partnerWatermarking_nexguardFileMarkerSettings :: Lens.Lens' PartnerWatermarking (Prelude.Maybe NexGuardFileMarkerSettings)
 partnerWatermarking_nexguardFileMarkerSettings = Lens.lens (\PartnerWatermarking' {nexguardFileMarkerSettings} -> nexguardFileMarkerSettings) (\s@PartnerWatermarking' {} a -> s {nexguardFileMarkerSettings = a} :: PartnerWatermarking)
 
-instance Core.FromJSON PartnerWatermarking where
+instance Data.FromJSON PartnerWatermarking where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PartnerWatermarking"
       ( \x ->
           PartnerWatermarking'
-            Prelude.<$> (x Core..:? "nexguardFileMarkerSettings")
+            Prelude.<$> (x Data..:? "nexguardFileMarkerSettings")
       )
 
 instance Prelude.Hashable PartnerWatermarking where
@@ -80,11 +81,11 @@ instance Prelude.NFData PartnerWatermarking where
   rnf PartnerWatermarking' {..} =
     Prelude.rnf nexguardFileMarkerSettings
 
-instance Core.ToJSON PartnerWatermarking where
+instance Data.ToJSON PartnerWatermarking where
   toJSON PartnerWatermarking' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nexguardFileMarkerSettings" Core..=)
+          [ ("nexguardFileMarkerSettings" Data..=)
               Prelude.<$> nexguardFileMarkerSettings
           ]
       )

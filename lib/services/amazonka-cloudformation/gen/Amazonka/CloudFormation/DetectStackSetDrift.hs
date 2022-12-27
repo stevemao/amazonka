@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.DetectStackSetDrift
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,14 +24,14 @@
 -- detection on a stack set, it performs drift detection on the stack
 -- associated with each stack instance in the stack set. For more
 -- information, see
--- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-drift.html How CloudFormation Performs Drift Detection on a Stack Set>.
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-drift.html How CloudFormation performs drift detection on a stack set>.
 --
 -- @DetectStackSetDrift@ returns the @OperationId@ of the stack set drift
 -- detection operation. Use this operation id with
 -- @ DescribeStackSetOperation @ to monitor the progress of the drift
 -- detection operation. The drift detection operation may take some time,
--- depending on the number of stack instances included in the stack set, as
--- well as the number of resources included in each stack.
+-- depending on the number of stack instances included in the stack set, in
+-- addition to the number of resources included in each stack.
 --
 -- Once the operation has completed, use the following actions to return
 -- drift information:
@@ -39,7 +39,7 @@
 -- -   Use @ DescribeStackSet @ to return detailed information about the
 --     stack set, including detailed information about the last /completed/
 --     drift operation performed on the stack set. (Information about drift
---     operations that are in progress is not included.)
+--     operations that are in progress isn\'t included.)
 --
 -- -   Use @ ListStackInstances @ to return a list of stack instances
 --     belonging to the stack set, including the drift status and last
@@ -49,9 +49,9 @@
 --     specific stack instance, including its drift status and last drift
 --     time checked.
 --
--- For more information on performing a drift detection operation on a
+-- For more information about performing a drift detection operation on a
 -- stack set, see
--- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-drift.html Detecting Unmanaged Changes in Stack Sets>.
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-drift.html Detecting unmanaged changes in stack sets>.
 --
 -- You can only run a single drift detection operation on a given stack set
 -- at one time.
@@ -65,8 +65,8 @@ module Amazonka.CloudFormation.DetectStackSetDrift
 
     -- * Request Lenses
     detectStackSetDrift_callAs,
-    detectStackSetDrift_operationPreferences,
     detectStackSetDrift_operationId,
+    detectStackSetDrift_operationPreferences,
     detectStackSetDrift_stackSetName,
 
     -- * Destructuring the Response
@@ -81,7 +81,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,9 +106,9 @@ data DetectStackSetDrift = DetectStackSetDrift'
     --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
     --     in the /CloudFormation User Guide/.
     callAs :: Prelude.Maybe CallAs,
-    operationPreferences :: Prelude.Maybe StackSetOperationPreferences,
     -- | /The ID of the stack set operation./
     operationId :: Prelude.Maybe Prelude.Text,
+    operationPreferences :: Prelude.Maybe StackSetOperationPreferences,
     -- | The name of the stack set on which to perform the drift detection
     -- operation.
     stackSetName :: Prelude.Text
@@ -139,9 +140,9 @@ data DetectStackSetDrift = DetectStackSetDrift'
 --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/stacksets-orgs-delegated-admin.html Register a delegated administrator>
 --     in the /CloudFormation User Guide/.
 --
--- 'operationPreferences', 'detectStackSetDrift_operationPreferences' - Undocumented member.
---
 -- 'operationId', 'detectStackSetDrift_operationId' - /The ID of the stack set operation./
+--
+-- 'operationPreferences', 'detectStackSetDrift_operationPreferences' - Undocumented member.
 --
 -- 'stackSetName', 'detectStackSetDrift_stackSetName' - The name of the stack set on which to perform the drift detection
 -- operation.
@@ -152,8 +153,8 @@ newDetectStackSetDrift ::
 newDetectStackSetDrift pStackSetName_ =
   DetectStackSetDrift'
     { callAs = Prelude.Nothing,
-      operationPreferences = Prelude.Nothing,
       operationId = Prelude.Nothing,
+      operationPreferences = Prelude.Nothing,
       stackSetName = pStackSetName_
     }
 
@@ -176,13 +177,13 @@ newDetectStackSetDrift pStackSetName_ =
 detectStackSetDrift_callAs :: Lens.Lens' DetectStackSetDrift (Prelude.Maybe CallAs)
 detectStackSetDrift_callAs = Lens.lens (\DetectStackSetDrift' {callAs} -> callAs) (\s@DetectStackSetDrift' {} a -> s {callAs = a} :: DetectStackSetDrift)
 
--- | Undocumented member.
-detectStackSetDrift_operationPreferences :: Lens.Lens' DetectStackSetDrift (Prelude.Maybe StackSetOperationPreferences)
-detectStackSetDrift_operationPreferences = Lens.lens (\DetectStackSetDrift' {operationPreferences} -> operationPreferences) (\s@DetectStackSetDrift' {} a -> s {operationPreferences = a} :: DetectStackSetDrift)
-
 -- | /The ID of the stack set operation./
 detectStackSetDrift_operationId :: Lens.Lens' DetectStackSetDrift (Prelude.Maybe Prelude.Text)
 detectStackSetDrift_operationId = Lens.lens (\DetectStackSetDrift' {operationId} -> operationId) (\s@DetectStackSetDrift' {} a -> s {operationId = a} :: DetectStackSetDrift)
+
+-- | Undocumented member.
+detectStackSetDrift_operationPreferences :: Lens.Lens' DetectStackSetDrift (Prelude.Maybe StackSetOperationPreferences)
+detectStackSetDrift_operationPreferences = Lens.lens (\DetectStackSetDrift' {operationPreferences} -> operationPreferences) (\s@DetectStackSetDrift' {} a -> s {operationPreferences = a} :: DetectStackSetDrift)
 
 -- | The name of the stack set on which to perform the drift detection
 -- operation.
@@ -193,54 +194,55 @@ instance Core.AWSRequest DetectStackSetDrift where
   type
     AWSResponse DetectStackSetDrift =
       DetectStackSetDriftResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DetectStackSetDriftResult"
       ( \s h x ->
           DetectStackSetDriftResponse'
-            Prelude.<$> (x Core..@? "OperationId")
+            Prelude.<$> (x Data..@? "OperationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DetectStackSetDrift where
   hashWithSalt _salt DetectStackSetDrift' {..} =
     _salt `Prelude.hashWithSalt` callAs
-      `Prelude.hashWithSalt` operationPreferences
       `Prelude.hashWithSalt` operationId
+      `Prelude.hashWithSalt` operationPreferences
       `Prelude.hashWithSalt` stackSetName
 
 instance Prelude.NFData DetectStackSetDrift where
   rnf DetectStackSetDrift' {..} =
     Prelude.rnf callAs
-      `Prelude.seq` Prelude.rnf operationPreferences
       `Prelude.seq` Prelude.rnf operationId
+      `Prelude.seq` Prelude.rnf operationPreferences
       `Prelude.seq` Prelude.rnf stackSetName
 
-instance Core.ToHeaders DetectStackSetDrift where
+instance Data.ToHeaders DetectStackSetDrift where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DetectStackSetDrift where
+instance Data.ToPath DetectStackSetDrift where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetectStackSetDrift where
+instance Data.ToQuery DetectStackSetDrift where
   toQuery DetectStackSetDrift' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DetectStackSetDrift" :: Prelude.ByteString),
+          Data.=: ("DetectStackSetDrift" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "CallAs" Core.=: callAs,
-        "OperationPreferences" Core.=: operationPreferences,
-        "OperationId" Core.=: operationId,
-        "StackSetName" Core.=: stackSetName
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "CallAs" Data.=: callAs,
+        "OperationId" Data.=: operationId,
+        "OperationPreferences" Data.=: operationPreferences,
+        "StackSetName" Data.=: stackSetName
       ]
 
 -- | /See:/ 'newDetectStackSetDriftResponse' smart constructor.
 data DetectStackSetDriftResponse = DetectStackSetDriftResponse'
   { -- | The ID of the drift detection stack set operation.
     --
-    -- you can use this operation id with @ DescribeStackSetOperation @ to
+    -- You can use this operation ID with @ DescribeStackSetOperation @ to
     -- monitor the progress of the drift detection operation.
     operationId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
@@ -258,7 +260,7 @@ data DetectStackSetDriftResponse = DetectStackSetDriftResponse'
 --
 -- 'operationId', 'detectStackSetDriftResponse_operationId' - The ID of the drift detection stack set operation.
 --
--- you can use this operation id with @ DescribeStackSetOperation @ to
+-- You can use this operation ID with @ DescribeStackSetOperation @ to
 -- monitor the progress of the drift detection operation.
 --
 -- 'httpStatus', 'detectStackSetDriftResponse_httpStatus' - The response's http status code.
@@ -275,7 +277,7 @@ newDetectStackSetDriftResponse pHttpStatus_ =
 
 -- | The ID of the drift detection stack set operation.
 --
--- you can use this operation id with @ DescribeStackSetOperation @ to
+-- You can use this operation ID with @ DescribeStackSetOperation @ to
 -- monitor the progress of the drift detection operation.
 detectStackSetDriftResponse_operationId :: Lens.Lens' DetectStackSetDriftResponse (Prelude.Maybe Prelude.Text)
 detectStackSetDriftResponse_operationId = Lens.lens (\DetectStackSetDriftResponse' {operationId} -> operationId) (\s@DetectStackSetDriftResponse' {} a -> s {operationId = a} :: DetectStackSetDriftResponse)

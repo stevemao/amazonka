@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.ListProvisionedProductPlans
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,11 +30,11 @@ module Amazonka.ServiceCatalog.ListProvisionedProductPlans
     newListProvisionedProductPlans,
 
     -- * Request Lenses
-    listProvisionedProductPlans_provisionProductId,
     listProvisionedProductPlans_acceptLanguage,
     listProvisionedProductPlans_accessLevelFilter,
-    listProvisionedProductPlans_pageToken,
     listProvisionedProductPlans_pageSize,
+    listProvisionedProductPlans_pageToken,
+    listProvisionedProductPlans_provisionProductId,
 
     -- * Destructuring the Response
     ListProvisionedProductPlansResponse (..),
@@ -48,7 +48,8 @@ module Amazonka.ServiceCatalog.ListProvisionedProductPlans
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,9 +57,7 @@ import Amazonka.ServiceCatalog.Types
 
 -- | /See:/ 'newListProvisionedProductPlans' smart constructor.
 data ListProvisionedProductPlans = ListProvisionedProductPlans'
-  { -- | The product identifier.
-    provisionProductId :: Prelude.Maybe Prelude.Text,
-    -- | The language code.
+  { -- | The language code.
     --
     -- -   @en@ - English (default)
     --
@@ -68,11 +67,13 @@ data ListProvisionedProductPlans = ListProvisionedProductPlans'
     acceptLanguage :: Prelude.Maybe Prelude.Text,
     -- | The access level to use to obtain results. The default is @User@.
     accessLevelFilter :: Prelude.Maybe AccessLevelFilter,
+    -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The page token for the next set of results. To retrieve the first set of
     -- results, use null.
     pageToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call.
-    pageSize :: Prelude.Maybe Prelude.Natural
+    -- | The product identifier.
+    provisionProductId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -84,8 +85,6 @@ data ListProvisionedProductPlans = ListProvisionedProductPlans'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'provisionProductId', 'listProvisionedProductPlans_provisionProductId' - The product identifier.
---
 -- 'acceptLanguage', 'listProvisionedProductPlans_acceptLanguage' - The language code.
 --
 -- -   @en@ - English (default)
@@ -96,25 +95,23 @@ data ListProvisionedProductPlans = ListProvisionedProductPlans'
 --
 -- 'accessLevelFilter', 'listProvisionedProductPlans_accessLevelFilter' - The access level to use to obtain results. The default is @User@.
 --
+-- 'pageSize', 'listProvisionedProductPlans_pageSize' - The maximum number of items to return with this call.
+--
 -- 'pageToken', 'listProvisionedProductPlans_pageToken' - The page token for the next set of results. To retrieve the first set of
 -- results, use null.
 --
--- 'pageSize', 'listProvisionedProductPlans_pageSize' - The maximum number of items to return with this call.
+-- 'provisionProductId', 'listProvisionedProductPlans_provisionProductId' - The product identifier.
 newListProvisionedProductPlans ::
   ListProvisionedProductPlans
 newListProvisionedProductPlans =
   ListProvisionedProductPlans'
-    { provisionProductId =
+    { acceptLanguage =
         Prelude.Nothing,
-      acceptLanguage = Prelude.Nothing,
       accessLevelFilter = Prelude.Nothing,
+      pageSize = Prelude.Nothing,
       pageToken = Prelude.Nothing,
-      pageSize = Prelude.Nothing
+      provisionProductId = Prelude.Nothing
     }
-
--- | The product identifier.
-listProvisionedProductPlans_provisionProductId :: Lens.Lens' ListProvisionedProductPlans (Prelude.Maybe Prelude.Text)
-listProvisionedProductPlans_provisionProductId = Lens.lens (\ListProvisionedProductPlans' {provisionProductId} -> provisionProductId) (\s@ListProvisionedProductPlans' {} a -> s {provisionProductId = a} :: ListProvisionedProductPlans)
 
 -- | The language code.
 --
@@ -130,14 +127,18 @@ listProvisionedProductPlans_acceptLanguage = Lens.lens (\ListProvisionedProductP
 listProvisionedProductPlans_accessLevelFilter :: Lens.Lens' ListProvisionedProductPlans (Prelude.Maybe AccessLevelFilter)
 listProvisionedProductPlans_accessLevelFilter = Lens.lens (\ListProvisionedProductPlans' {accessLevelFilter} -> accessLevelFilter) (\s@ListProvisionedProductPlans' {} a -> s {accessLevelFilter = a} :: ListProvisionedProductPlans)
 
+-- | The maximum number of items to return with this call.
+listProvisionedProductPlans_pageSize :: Lens.Lens' ListProvisionedProductPlans (Prelude.Maybe Prelude.Natural)
+listProvisionedProductPlans_pageSize = Lens.lens (\ListProvisionedProductPlans' {pageSize} -> pageSize) (\s@ListProvisionedProductPlans' {} a -> s {pageSize = a} :: ListProvisionedProductPlans)
+
 -- | The page token for the next set of results. To retrieve the first set of
 -- results, use null.
 listProvisionedProductPlans_pageToken :: Lens.Lens' ListProvisionedProductPlans (Prelude.Maybe Prelude.Text)
 listProvisionedProductPlans_pageToken = Lens.lens (\ListProvisionedProductPlans' {pageToken} -> pageToken) (\s@ListProvisionedProductPlans' {} a -> s {pageToken = a} :: ListProvisionedProductPlans)
 
--- | The maximum number of items to return with this call.
-listProvisionedProductPlans_pageSize :: Lens.Lens' ListProvisionedProductPlans (Prelude.Maybe Prelude.Natural)
-listProvisionedProductPlans_pageSize = Lens.lens (\ListProvisionedProductPlans' {pageSize} -> pageSize) (\s@ListProvisionedProductPlans' {} a -> s {pageSize = a} :: ListProvisionedProductPlans)
+-- | The product identifier.
+listProvisionedProductPlans_provisionProductId :: Lens.Lens' ListProvisionedProductPlans (Prelude.Maybe Prelude.Text)
+listProvisionedProductPlans_provisionProductId = Lens.lens (\ListProvisionedProductPlans' {provisionProductId} -> provisionProductId) (\s@ListProvisionedProductPlans' {} a -> s {provisionProductId = a} :: ListProvisionedProductPlans)
 
 instance Core.AWSPager ListProvisionedProductPlans where
   page rq rs
@@ -165,13 +166,14 @@ instance Core.AWSRequest ListProvisionedProductPlans where
   type
     AWSResponse ListProvisionedProductPlans =
       ListProvisionedProductPlansResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListProvisionedProductPlansResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-            Prelude.<*> ( x Core..?> "ProvisionedProductPlans"
+            Prelude.<$> (x Data..?> "NextPageToken")
+            Prelude.<*> ( x Data..?> "ProvisionedProductPlans"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -179,54 +181,54 @@ instance Core.AWSRequest ListProvisionedProductPlans where
 
 instance Prelude.Hashable ListProvisionedProductPlans where
   hashWithSalt _salt ListProvisionedProductPlans' {..} =
-    _salt `Prelude.hashWithSalt` provisionProductId
-      `Prelude.hashWithSalt` acceptLanguage
+    _salt `Prelude.hashWithSalt` acceptLanguage
       `Prelude.hashWithSalt` accessLevelFilter
-      `Prelude.hashWithSalt` pageToken
       `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` pageToken
+      `Prelude.hashWithSalt` provisionProductId
 
 instance Prelude.NFData ListProvisionedProductPlans where
   rnf ListProvisionedProductPlans' {..} =
-    Prelude.rnf provisionProductId
-      `Prelude.seq` Prelude.rnf acceptLanguage
+    Prelude.rnf acceptLanguage
       `Prelude.seq` Prelude.rnf accessLevelFilter
-      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf pageToken
+      `Prelude.seq` Prelude.rnf provisionProductId
 
-instance Core.ToHeaders ListProvisionedProductPlans where
+instance Data.ToHeaders ListProvisionedProductPlans where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.ListProvisionedProductPlans" ::
+              Data.=# ( "AWS242ServiceCatalogService.ListProvisionedProductPlans" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListProvisionedProductPlans where
+instance Data.ToJSON ListProvisionedProductPlans where
   toJSON ListProvisionedProductPlans' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ProvisionProductId" Core..=)
-              Prelude.<$> provisionProductId,
-            ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("AccessLevelFilter" Core..=)
+            ("AccessLevelFilter" Data..=)
               Prelude.<$> accessLevelFilter,
-            ("PageToken" Core..=) Prelude.<$> pageToken,
-            ("PageSize" Core..=) Prelude.<$> pageSize
+            ("PageSize" Data..=) Prelude.<$> pageSize,
+            ("PageToken" Data..=) Prelude.<$> pageToken,
+            ("ProvisionProductId" Data..=)
+              Prelude.<$> provisionProductId
           ]
       )
 
-instance Core.ToPath ListProvisionedProductPlans where
+instance Data.ToPath ListProvisionedProductPlans where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListProvisionedProductPlans where
+instance Data.ToQuery ListProvisionedProductPlans where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListProvisionedProductPlansResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.Types.HealthCheckConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppRunner.Types.HealthCheckConfiguration where
 
 import Amazonka.AppRunner.Types.HealthCheckProtocol
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the settings for the health check that App Runner performs to
@@ -34,6 +35,10 @@ data HealthCheckConfiguration = HealthCheckConfiguration'
     --
     -- Default: @1@
     healthyThreshold :: Prelude.Maybe Prelude.Natural,
+    -- | The time interval, in seconds, between health checks.
+    --
+    -- Default: @5@
+    interval :: Prelude.Maybe Prelude.Natural,
     -- | The URL that health check requests are sent to.
     --
     -- @Path@ is only applicable when you set @Protocol@ to @HTTP@.
@@ -48,10 +53,6 @@ data HealthCheckConfiguration = HealthCheckConfiguration'
     --
     -- Default: @TCP@
     protocol :: Prelude.Maybe HealthCheckProtocol,
-    -- | The time interval, in seconds, between health checks.
-    --
-    -- Default: @5@
-    interval :: Prelude.Maybe Prelude.Natural,
     -- | The time, in seconds, to wait for a health check response before
     -- deciding it failed.
     --
@@ -78,6 +79,10 @@ data HealthCheckConfiguration = HealthCheckConfiguration'
 --
 -- Default: @1@
 --
+-- 'interval', 'healthCheckConfiguration_interval' - The time interval, in seconds, between health checks.
+--
+-- Default: @5@
+--
 -- 'path', 'healthCheckConfiguration_path' - The URL that health check requests are sent to.
 --
 -- @Path@ is only applicable when you set @Protocol@ to @HTTP@.
@@ -91,10 +96,6 @@ data HealthCheckConfiguration = HealthCheckConfiguration'
 -- to the HTTP path specified by @Path@.
 --
 -- Default: @TCP@
---
--- 'interval', 'healthCheckConfiguration_interval' - The time interval, in seconds, between health checks.
---
--- Default: @5@
 --
 -- 'timeout', 'healthCheckConfiguration_timeout' - The time, in seconds, to wait for a health check response before
 -- deciding it failed.
@@ -111,9 +112,9 @@ newHealthCheckConfiguration =
   HealthCheckConfiguration'
     { healthyThreshold =
         Prelude.Nothing,
+      interval = Prelude.Nothing,
       path = Prelude.Nothing,
       protocol = Prelude.Nothing,
-      interval = Prelude.Nothing,
       timeout = Prelude.Nothing,
       unhealthyThreshold = Prelude.Nothing
     }
@@ -124,6 +125,12 @@ newHealthCheckConfiguration =
 -- Default: @1@
 healthCheckConfiguration_healthyThreshold :: Lens.Lens' HealthCheckConfiguration (Prelude.Maybe Prelude.Natural)
 healthCheckConfiguration_healthyThreshold = Lens.lens (\HealthCheckConfiguration' {healthyThreshold} -> healthyThreshold) (\s@HealthCheckConfiguration' {} a -> s {healthyThreshold = a} :: HealthCheckConfiguration)
+
+-- | The time interval, in seconds, between health checks.
+--
+-- Default: @5@
+healthCheckConfiguration_interval :: Lens.Lens' HealthCheckConfiguration (Prelude.Maybe Prelude.Natural)
+healthCheckConfiguration_interval = Lens.lens (\HealthCheckConfiguration' {interval} -> interval) (\s@HealthCheckConfiguration' {} a -> s {interval = a} :: HealthCheckConfiguration)
 
 -- | The URL that health check requests are sent to.
 --
@@ -143,12 +150,6 @@ healthCheckConfiguration_path = Lens.lens (\HealthCheckConfiguration' {path} -> 
 healthCheckConfiguration_protocol :: Lens.Lens' HealthCheckConfiguration (Prelude.Maybe HealthCheckProtocol)
 healthCheckConfiguration_protocol = Lens.lens (\HealthCheckConfiguration' {protocol} -> protocol) (\s@HealthCheckConfiguration' {} a -> s {protocol = a} :: HealthCheckConfiguration)
 
--- | The time interval, in seconds, between health checks.
---
--- Default: @5@
-healthCheckConfiguration_interval :: Lens.Lens' HealthCheckConfiguration (Prelude.Maybe Prelude.Natural)
-healthCheckConfiguration_interval = Lens.lens (\HealthCheckConfiguration' {interval} -> interval) (\s@HealthCheckConfiguration' {} a -> s {interval = a} :: HealthCheckConfiguration)
-
 -- | The time, in seconds, to wait for a health check response before
 -- deciding it failed.
 --
@@ -163,49 +164,49 @@ healthCheckConfiguration_timeout = Lens.lens (\HealthCheckConfiguration' {timeou
 healthCheckConfiguration_unhealthyThreshold :: Lens.Lens' HealthCheckConfiguration (Prelude.Maybe Prelude.Natural)
 healthCheckConfiguration_unhealthyThreshold = Lens.lens (\HealthCheckConfiguration' {unhealthyThreshold} -> unhealthyThreshold) (\s@HealthCheckConfiguration' {} a -> s {unhealthyThreshold = a} :: HealthCheckConfiguration)
 
-instance Core.FromJSON HealthCheckConfiguration where
+instance Data.FromJSON HealthCheckConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HealthCheckConfiguration"
       ( \x ->
           HealthCheckConfiguration'
-            Prelude.<$> (x Core..:? "HealthyThreshold")
-            Prelude.<*> (x Core..:? "Path")
-            Prelude.<*> (x Core..:? "Protocol")
-            Prelude.<*> (x Core..:? "Interval")
-            Prelude.<*> (x Core..:? "Timeout")
-            Prelude.<*> (x Core..:? "UnhealthyThreshold")
+            Prelude.<$> (x Data..:? "HealthyThreshold")
+            Prelude.<*> (x Data..:? "Interval")
+            Prelude.<*> (x Data..:? "Path")
+            Prelude.<*> (x Data..:? "Protocol")
+            Prelude.<*> (x Data..:? "Timeout")
+            Prelude.<*> (x Data..:? "UnhealthyThreshold")
       )
 
 instance Prelude.Hashable HealthCheckConfiguration where
   hashWithSalt _salt HealthCheckConfiguration' {..} =
     _salt `Prelude.hashWithSalt` healthyThreshold
+      `Prelude.hashWithSalt` interval
       `Prelude.hashWithSalt` path
       `Prelude.hashWithSalt` protocol
-      `Prelude.hashWithSalt` interval
       `Prelude.hashWithSalt` timeout
       `Prelude.hashWithSalt` unhealthyThreshold
 
 instance Prelude.NFData HealthCheckConfiguration where
   rnf HealthCheckConfiguration' {..} =
     Prelude.rnf healthyThreshold
+      `Prelude.seq` Prelude.rnf interval
       `Prelude.seq` Prelude.rnf path
       `Prelude.seq` Prelude.rnf protocol
-      `Prelude.seq` Prelude.rnf interval
       `Prelude.seq` Prelude.rnf timeout
       `Prelude.seq` Prelude.rnf unhealthyThreshold
 
-instance Core.ToJSON HealthCheckConfiguration where
+instance Data.ToJSON HealthCheckConfiguration where
   toJSON HealthCheckConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("HealthyThreshold" Core..=)
+          [ ("HealthyThreshold" Data..=)
               Prelude.<$> healthyThreshold,
-            ("Path" Core..=) Prelude.<$> path,
-            ("Protocol" Core..=) Prelude.<$> protocol,
-            ("Interval" Core..=) Prelude.<$> interval,
-            ("Timeout" Core..=) Prelude.<$> timeout,
-            ("UnhealthyThreshold" Core..=)
+            ("Interval" Data..=) Prelude.<$> interval,
+            ("Path" Data..=) Prelude.<$> path,
+            ("Protocol" Data..=) Prelude.<$> protocol,
+            ("Timeout" Data..=) Prelude.<$> timeout,
+            ("UnhealthyThreshold" Data..=)
               Prelude.<$> unhealthyThreshold
           ]
       )

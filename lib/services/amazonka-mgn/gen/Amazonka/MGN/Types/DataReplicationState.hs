@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.Types.DataReplicationState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,7 +27,9 @@ module Amazonka.MGN.Types.DataReplicationState
         DataReplicationState_INITIAL_SYNC,
         DataReplicationState_INITIATING,
         DataReplicationState_PAUSED,
+        DataReplicationState_PENDING_SNAPSHOT_SHIPPING,
         DataReplicationState_RESCAN,
+        DataReplicationState_SHIPPING_SNAPSHOT,
         DataReplicationState_STALLED,
         DataReplicationState_STOPPED
       ),
@@ -35,11 +37,12 @@ module Amazonka.MGN.Types.DataReplicationState
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype DataReplicationState = DataReplicationState'
   { fromDataReplicationState ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -51,18 +54,18 @@ newtype DataReplicationState = DataReplicationState'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern DataReplicationState_BACKLOG :: DataReplicationState
@@ -86,8 +89,14 @@ pattern DataReplicationState_INITIATING = DataReplicationState' "INITIATING"
 pattern DataReplicationState_PAUSED :: DataReplicationState
 pattern DataReplicationState_PAUSED = DataReplicationState' "PAUSED"
 
+pattern DataReplicationState_PENDING_SNAPSHOT_SHIPPING :: DataReplicationState
+pattern DataReplicationState_PENDING_SNAPSHOT_SHIPPING = DataReplicationState' "PENDING_SNAPSHOT_SHIPPING"
+
 pattern DataReplicationState_RESCAN :: DataReplicationState
 pattern DataReplicationState_RESCAN = DataReplicationState' "RESCAN"
+
+pattern DataReplicationState_SHIPPING_SNAPSHOT :: DataReplicationState
+pattern DataReplicationState_SHIPPING_SNAPSHOT = DataReplicationState' "SHIPPING_SNAPSHOT"
 
 pattern DataReplicationState_STALLED :: DataReplicationState
 pattern DataReplicationState_STALLED = DataReplicationState' "STALLED"
@@ -103,7 +112,9 @@ pattern DataReplicationState_STOPPED = DataReplicationState' "STOPPED"
   DataReplicationState_INITIAL_SYNC,
   DataReplicationState_INITIATING,
   DataReplicationState_PAUSED,
+  DataReplicationState_PENDING_SNAPSHOT_SHIPPING,
   DataReplicationState_RESCAN,
+  DataReplicationState_SHIPPING_SNAPSHOT,
   DataReplicationState_STALLED,
   DataReplicationState_STOPPED,
   DataReplicationState'

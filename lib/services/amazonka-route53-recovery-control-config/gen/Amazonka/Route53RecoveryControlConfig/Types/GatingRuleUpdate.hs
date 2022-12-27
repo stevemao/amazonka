@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryControlConfig.Types.GatingRuleUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53RecoveryControlConfig.Types.GatingRuleUpdate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Update to a gating rule. You can update the name or the evaluation
@@ -36,7 +37,8 @@ data GatingRuleUpdate = GatingRuleUpdate'
     -- \"flapping\" of state. The wait period is 5000 ms by default, but you
     -- can choose a custom value.
     waitPeriodMs :: Prelude.Int,
-    -- | The name for the gating rule.
+    -- | The name for the gating rule. You can use any non-white space character
+    -- in the name.
     name :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -56,7 +58,8 @@ data GatingRuleUpdate = GatingRuleUpdate'
 -- \"flapping\" of state. The wait period is 5000 ms by default, but you
 -- can choose a custom value.
 --
--- 'name', 'gatingRuleUpdate_name' - The name for the gating rule.
+-- 'name', 'gatingRuleUpdate_name' - The name for the gating rule. You can use any non-white space character
+-- in the name.
 newGatingRuleUpdate ::
   -- | 'safetyRuleArn'
   Prelude.Text ->
@@ -86,7 +89,8 @@ gatingRuleUpdate_safetyRuleArn = Lens.lens (\GatingRuleUpdate' {safetyRuleArn} -
 gatingRuleUpdate_waitPeriodMs :: Lens.Lens' GatingRuleUpdate Prelude.Int
 gatingRuleUpdate_waitPeriodMs = Lens.lens (\GatingRuleUpdate' {waitPeriodMs} -> waitPeriodMs) (\s@GatingRuleUpdate' {} a -> s {waitPeriodMs = a} :: GatingRuleUpdate)
 
--- | The name for the gating rule.
+-- | The name for the gating rule. You can use any non-white space character
+-- in the name.
 gatingRuleUpdate_name :: Lens.Lens' GatingRuleUpdate Prelude.Text
 gatingRuleUpdate_name = Lens.lens (\GatingRuleUpdate' {name} -> name) (\s@GatingRuleUpdate' {} a -> s {name = a} :: GatingRuleUpdate)
 
@@ -102,13 +106,13 @@ instance Prelude.NFData GatingRuleUpdate where
       `Prelude.seq` Prelude.rnf waitPeriodMs
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON GatingRuleUpdate where
+instance Data.ToJSON GatingRuleUpdate where
   toJSON GatingRuleUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("SafetyRuleArn" Core..= safetyRuleArn),
-            Prelude.Just ("WaitPeriodMs" Core..= waitPeriodMs),
-            Prelude.Just ("Name" Core..= name)
+              ("SafetyRuleArn" Data..= safetyRuleArn),
+            Prelude.Just ("WaitPeriodMs" Data..= waitPeriodMs),
+            Prelude.Just ("Name" Data..= name)
           ]
       )

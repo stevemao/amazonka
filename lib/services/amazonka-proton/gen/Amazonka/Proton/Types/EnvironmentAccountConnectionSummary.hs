@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.Types.EnvironmentAccountConnectionSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,29 @@
 module Amazonka.Proton.Types.EnvironmentAccountConnectionSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types.EnvironmentAccountConnectionStatus
 
--- | A summary of the environment account connection detail data.
+-- | Summary data of an Proton environment account connection resource.
 --
 -- /See:/ 'newEnvironmentAccountConnectionSummary' smart constructor.
 data EnvironmentAccountConnectionSummary = EnvironmentAccountConnectionSummary'
-  { -- | The Amazon Resource Name (ARN) of the environment account connection.
+  { -- | The Amazon Resource Name (ARN) of the IAM service role that Proton uses
+    -- when provisioning directly defined components in the associated
+    -- environment account. It determines the scope of infrastructure that a
+    -- component can provision in the account.
+    --
+    -- The environment account connection must have a @componentRoleArn@ to
+    -- allow directly defined components to be associated with any environments
+    -- running in the account.
+    --
+    -- For more information about components, see
+    -- <https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html Proton components>
+    -- in the /Proton User Guide/.
+    componentRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the environment account connection.
     arn :: Prelude.Text,
     -- | The ID of the environment account that\'s connected to the environment
     -- account connection.
@@ -39,12 +53,12 @@ data EnvironmentAccountConnectionSummary = EnvironmentAccountConnectionSummary'
     -- | The ID of the environment account connection.
     id :: Prelude.Text,
     -- | The time when the environment account connection was last modified.
-    lastModifiedAt :: Core.POSIX,
+    lastModifiedAt :: Data.POSIX,
     -- | The ID of the management account that\'s connected to the environment
     -- account connection.
     managementAccountId :: Prelude.Text,
     -- | The time when the environment account connection request was made.
-    requestedAt :: Core.POSIX,
+    requestedAt :: Data.POSIX,
     -- | The IAM service role that\'s associated with the environment account
     -- connection.
     roleArn :: Prelude.Text,
@@ -60,6 +74,19 @@ data EnvironmentAccountConnectionSummary = EnvironmentAccountConnectionSummary'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'componentRoleArn', 'environmentAccountConnectionSummary_componentRoleArn' - The Amazon Resource Name (ARN) of the IAM service role that Proton uses
+-- when provisioning directly defined components in the associated
+-- environment account. It determines the scope of infrastructure that a
+-- component can provision in the account.
+--
+-- The environment account connection must have a @componentRoleArn@ to
+-- allow directly defined components to be associated with any environments
+-- running in the account.
+--
+-- For more information about components, see
+-- <https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html Proton components>
+-- in the /Proton User Guide/.
 --
 -- 'arn', 'environmentAccountConnectionSummary_arn' - The Amazon Resource Name (ARN) of the environment account connection.
 --
@@ -113,20 +140,37 @@ newEnvironmentAccountConnectionSummary
   pRoleArn_
   pStatus_ =
     EnvironmentAccountConnectionSummary'
-      { arn = pArn_,
+      { componentRoleArn =
+          Prelude.Nothing,
+        arn = pArn_,
         environmentAccountId =
           pEnvironmentAccountId_,
         environmentName = pEnvironmentName_,
         id = pId_,
         lastModifiedAt =
-          Core._Time Lens.# pLastModifiedAt_,
+          Data._Time Lens.# pLastModifiedAt_,
         managementAccountId =
           pManagementAccountId_,
         requestedAt =
-          Core._Time Lens.# pRequestedAt_,
+          Data._Time Lens.# pRequestedAt_,
         roleArn = pRoleArn_,
         status = pStatus_
       }
+
+-- | The Amazon Resource Name (ARN) of the IAM service role that Proton uses
+-- when provisioning directly defined components in the associated
+-- environment account. It determines the scope of infrastructure that a
+-- component can provision in the account.
+--
+-- The environment account connection must have a @componentRoleArn@ to
+-- allow directly defined components to be associated with any environments
+-- running in the account.
+--
+-- For more information about components, see
+-- <https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html Proton components>
+-- in the /Proton User Guide/.
+environmentAccountConnectionSummary_componentRoleArn :: Lens.Lens' EnvironmentAccountConnectionSummary (Prelude.Maybe Prelude.Text)
+environmentAccountConnectionSummary_componentRoleArn = Lens.lens (\EnvironmentAccountConnectionSummary' {componentRoleArn} -> componentRoleArn) (\s@EnvironmentAccountConnectionSummary' {} a -> s {componentRoleArn = a} :: EnvironmentAccountConnectionSummary)
 
 -- | The Amazon Resource Name (ARN) of the environment account connection.
 environmentAccountConnectionSummary_arn :: Lens.Lens' EnvironmentAccountConnectionSummary Prelude.Text
@@ -148,7 +192,7 @@ environmentAccountConnectionSummary_id = Lens.lens (\EnvironmentAccountConnectio
 
 -- | The time when the environment account connection was last modified.
 environmentAccountConnectionSummary_lastModifiedAt :: Lens.Lens' EnvironmentAccountConnectionSummary Prelude.UTCTime
-environmentAccountConnectionSummary_lastModifiedAt = Lens.lens (\EnvironmentAccountConnectionSummary' {lastModifiedAt} -> lastModifiedAt) (\s@EnvironmentAccountConnectionSummary' {} a -> s {lastModifiedAt = a} :: EnvironmentAccountConnectionSummary) Prelude.. Core._Time
+environmentAccountConnectionSummary_lastModifiedAt = Lens.lens (\EnvironmentAccountConnectionSummary' {lastModifiedAt} -> lastModifiedAt) (\s@EnvironmentAccountConnectionSummary' {} a -> s {lastModifiedAt = a} :: EnvironmentAccountConnectionSummary) Prelude.. Data._Time
 
 -- | The ID of the management account that\'s connected to the environment
 -- account connection.
@@ -157,7 +201,7 @@ environmentAccountConnectionSummary_managementAccountId = Lens.lens (\Environmen
 
 -- | The time when the environment account connection request was made.
 environmentAccountConnectionSummary_requestedAt :: Lens.Lens' EnvironmentAccountConnectionSummary Prelude.UTCTime
-environmentAccountConnectionSummary_requestedAt = Lens.lens (\EnvironmentAccountConnectionSummary' {requestedAt} -> requestedAt) (\s@EnvironmentAccountConnectionSummary' {} a -> s {requestedAt = a} :: EnvironmentAccountConnectionSummary) Prelude.. Core._Time
+environmentAccountConnectionSummary_requestedAt = Lens.lens (\EnvironmentAccountConnectionSummary' {requestedAt} -> requestedAt) (\s@EnvironmentAccountConnectionSummary' {} a -> s {requestedAt = a} :: EnvironmentAccountConnectionSummary) Prelude.. Data._Time
 
 -- | The IAM service role that\'s associated with the environment account
 -- connection.
@@ -169,23 +213,24 @@ environmentAccountConnectionSummary_status :: Lens.Lens' EnvironmentAccountConne
 environmentAccountConnectionSummary_status = Lens.lens (\EnvironmentAccountConnectionSummary' {status} -> status) (\s@EnvironmentAccountConnectionSummary' {} a -> s {status = a} :: EnvironmentAccountConnectionSummary)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     EnvironmentAccountConnectionSummary
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EnvironmentAccountConnectionSummary"
       ( \x ->
           EnvironmentAccountConnectionSummary'
-            Prelude.<$> (x Core..: "arn")
-            Prelude.<*> (x Core..: "environmentAccountId")
-            Prelude.<*> (x Core..: "environmentName")
-            Prelude.<*> (x Core..: "id")
-            Prelude.<*> (x Core..: "lastModifiedAt")
-            Prelude.<*> (x Core..: "managementAccountId")
-            Prelude.<*> (x Core..: "requestedAt")
-            Prelude.<*> (x Core..: "roleArn")
-            Prelude.<*> (x Core..: "status")
+            Prelude.<$> (x Data..:? "componentRoleArn")
+            Prelude.<*> (x Data..: "arn")
+            Prelude.<*> (x Data..: "environmentAccountId")
+            Prelude.<*> (x Data..: "environmentName")
+            Prelude.<*> (x Data..: "id")
+            Prelude.<*> (x Data..: "lastModifiedAt")
+            Prelude.<*> (x Data..: "managementAccountId")
+            Prelude.<*> (x Data..: "requestedAt")
+            Prelude.<*> (x Data..: "roleArn")
+            Prelude.<*> (x Data..: "status")
       )
 
 instance
@@ -195,7 +240,8 @@ instance
   hashWithSalt
     _salt
     EnvironmentAccountConnectionSummary' {..} =
-      _salt `Prelude.hashWithSalt` arn
+      _salt `Prelude.hashWithSalt` componentRoleArn
+        `Prelude.hashWithSalt` arn
         `Prelude.hashWithSalt` environmentAccountId
         `Prelude.hashWithSalt` environmentName
         `Prelude.hashWithSalt` id
@@ -210,7 +256,8 @@ instance
     EnvironmentAccountConnectionSummary
   where
   rnf EnvironmentAccountConnectionSummary' {..} =
-    Prelude.rnf arn
+    Prelude.rnf componentRoleArn
+      `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf environmentAccountId
       `Prelude.seq` Prelude.rnf environmentName
       `Prelude.seq` Prelude.rnf id

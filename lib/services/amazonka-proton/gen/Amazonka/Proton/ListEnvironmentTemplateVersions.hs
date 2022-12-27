@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.ListEnvironmentTemplateVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.Proton.ListEnvironmentTemplateVersions
 
     -- * Request Lenses
     listEnvironmentTemplateVersions_majorVersion,
-    listEnvironmentTemplateVersions_nextToken,
     listEnvironmentTemplateVersions_maxResults,
+    listEnvironmentTemplateVersions_nextToken,
     listEnvironmentTemplateVersions_templateName,
 
     -- * Destructuring the Response
@@ -47,7 +47,8 @@ module Amazonka.Proton.ListEnvironmentTemplateVersions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -56,18 +57,18 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newListEnvironmentTemplateVersions' smart constructor.
 data ListEnvironmentTemplateVersions = ListEnvironmentTemplateVersions'
   { -- | To view a list of minor of versions under a major version of an
-    -- environment template, include @majorVersion@.
+    -- environment template, include @major Version@.
     --
     -- To view a list of major versions of an environment template, /exclude/
-    -- @majorVersion@.
+    -- @major Version@.
     majorVersion :: Prelude.Maybe Prelude.Text,
-    -- | A token to indicate the location of the next major or minor version in
-    -- the array of major or minor versions of an environment template, after
-    -- the list of major or minor versions that was previously requested.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of major or minor versions of an environment template
     -- to list.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token that indicates the location of the next major or minor version
+    -- in the array of major or minor versions of an environment template,
+    -- after the list of major or minor versions that was previously requested.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the environment template.
     templateName :: Prelude.Text
   }
@@ -82,17 +83,17 @@ data ListEnvironmentTemplateVersions = ListEnvironmentTemplateVersions'
 -- for backwards compatibility:
 --
 -- 'majorVersion', 'listEnvironmentTemplateVersions_majorVersion' - To view a list of minor of versions under a major version of an
--- environment template, include @majorVersion@.
+-- environment template, include @major Version@.
 --
 -- To view a list of major versions of an environment template, /exclude/
--- @majorVersion@.
---
--- 'nextToken', 'listEnvironmentTemplateVersions_nextToken' - A token to indicate the location of the next major or minor version in
--- the array of major or minor versions of an environment template, after
--- the list of major or minor versions that was previously requested.
+-- @major Version@.
 --
 -- 'maxResults', 'listEnvironmentTemplateVersions_maxResults' - The maximum number of major or minor versions of an environment template
 -- to list.
+--
+-- 'nextToken', 'listEnvironmentTemplateVersions_nextToken' - A token that indicates the location of the next major or minor version
+-- in the array of major or minor versions of an environment template,
+-- after the list of major or minor versions that was previously requested.
 --
 -- 'templateName', 'listEnvironmentTemplateVersions_templateName' - The name of the environment template.
 newListEnvironmentTemplateVersions ::
@@ -103,29 +104,29 @@ newListEnvironmentTemplateVersions pTemplateName_ =
   ListEnvironmentTemplateVersions'
     { majorVersion =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       templateName = pTemplateName_
     }
 
 -- | To view a list of minor of versions under a major version of an
--- environment template, include @majorVersion@.
+-- environment template, include @major Version@.
 --
 -- To view a list of major versions of an environment template, /exclude/
--- @majorVersion@.
+-- @major Version@.
 listEnvironmentTemplateVersions_majorVersion :: Lens.Lens' ListEnvironmentTemplateVersions (Prelude.Maybe Prelude.Text)
 listEnvironmentTemplateVersions_majorVersion = Lens.lens (\ListEnvironmentTemplateVersions' {majorVersion} -> majorVersion) (\s@ListEnvironmentTemplateVersions' {} a -> s {majorVersion = a} :: ListEnvironmentTemplateVersions)
-
--- | A token to indicate the location of the next major or minor version in
--- the array of major or minor versions of an environment template, after
--- the list of major or minor versions that was previously requested.
-listEnvironmentTemplateVersions_nextToken :: Lens.Lens' ListEnvironmentTemplateVersions (Prelude.Maybe Prelude.Text)
-listEnvironmentTemplateVersions_nextToken = Lens.lens (\ListEnvironmentTemplateVersions' {nextToken} -> nextToken) (\s@ListEnvironmentTemplateVersions' {} a -> s {nextToken = a} :: ListEnvironmentTemplateVersions)
 
 -- | The maximum number of major or minor versions of an environment template
 -- to list.
 listEnvironmentTemplateVersions_maxResults :: Lens.Lens' ListEnvironmentTemplateVersions (Prelude.Maybe Prelude.Natural)
 listEnvironmentTemplateVersions_maxResults = Lens.lens (\ListEnvironmentTemplateVersions' {maxResults} -> maxResults) (\s@ListEnvironmentTemplateVersions' {} a -> s {maxResults = a} :: ListEnvironmentTemplateVersions)
+
+-- | A token that indicates the location of the next major or minor version
+-- in the array of major or minor versions of an environment template,
+-- after the list of major or minor versions that was previously requested.
+listEnvironmentTemplateVersions_nextToken :: Lens.Lens' ListEnvironmentTemplateVersions (Prelude.Maybe Prelude.Text)
+listEnvironmentTemplateVersions_nextToken = Lens.lens (\ListEnvironmentTemplateVersions' {nextToken} -> nextToken) (\s@ListEnvironmentTemplateVersions' {} a -> s {nextToken = a} :: ListEnvironmentTemplateVersions)
 
 -- | The name of the environment template.
 listEnvironmentTemplateVersions_templateName :: Lens.Lens' ListEnvironmentTemplateVersions Prelude.Text
@@ -162,14 +163,15 @@ instance
   type
     AWSResponse ListEnvironmentTemplateVersions =
       ListEnvironmentTemplateVersionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEnvironmentTemplateVersionsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "templateVersions"
+            Prelude.<*> ( x Data..?> "templateVersions"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -182,8 +184,8 @@ instance
     _salt
     ListEnvironmentTemplateVersions' {..} =
       _salt `Prelude.hashWithSalt` majorVersion
-        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` templateName
 
 instance
@@ -192,50 +194,50 @@ instance
   where
   rnf ListEnvironmentTemplateVersions' {..} =
     Prelude.rnf majorVersion
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf templateName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListEnvironmentTemplateVersions
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.ListEnvironmentTemplateVersions" ::
+              Data.=# ( "AwsProton20200720.ListEnvironmentTemplateVersions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListEnvironmentTemplateVersions where
+instance Data.ToJSON ListEnvironmentTemplateVersions where
   toJSON ListEnvironmentTemplateVersions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("majorVersion" Core..=) Prelude.<$> majorVersion,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("templateName" Core..= templateName)
+          [ ("majorVersion" Data..=) Prelude.<$> majorVersion,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("templateName" Data..= templateName)
           ]
       )
 
-instance Core.ToPath ListEnvironmentTemplateVersions where
+instance Data.ToPath ListEnvironmentTemplateVersions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListEnvironmentTemplateVersions where
+instance Data.ToQuery ListEnvironmentTemplateVersions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListEnvironmentTemplateVersionsResponse' smart constructor.
 data ListEnvironmentTemplateVersionsResponse = ListEnvironmentTemplateVersionsResponse'
-  { -- | A token to indicate the location of the next major or minor version in
-    -- the array of major or minor versions of an environment template, after
-    -- the list of major or minor versions that was previously requested.
+  { -- | A token that indicates the location of the next major or minor version
+    -- in the array of major or minor versions of an environment template,
+    -- after the list of major or minor versions that was previously requested.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
@@ -253,9 +255,9 @@ data ListEnvironmentTemplateVersionsResponse = ListEnvironmentTemplateVersionsRe
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listEnvironmentTemplateVersionsResponse_nextToken' - A token to indicate the location of the next major or minor version in
--- the array of major or minor versions of an environment template, after
--- the list of major or minor versions that was previously requested.
+-- 'nextToken', 'listEnvironmentTemplateVersionsResponse_nextToken' - A token that indicates the location of the next major or minor version
+-- in the array of major or minor versions of an environment template,
+-- after the list of major or minor versions that was previously requested.
 --
 -- 'httpStatus', 'listEnvironmentTemplateVersionsResponse_httpStatus' - The response's http status code.
 --
@@ -274,9 +276,9 @@ newListEnvironmentTemplateVersionsResponse
         templateVersions = Prelude.mempty
       }
 
--- | A token to indicate the location of the next major or minor version in
--- the array of major or minor versions of an environment template, after
--- the list of major or minor versions that was previously requested.
+-- | A token that indicates the location of the next major or minor version
+-- in the array of major or minor versions of an environment template,
+-- after the list of major or minor versions that was previously requested.
 listEnvironmentTemplateVersionsResponse_nextToken :: Lens.Lens' ListEnvironmentTemplateVersionsResponse (Prelude.Maybe Prelude.Text)
 listEnvironmentTemplateVersionsResponse_nextToken = Lens.lens (\ListEnvironmentTemplateVersionsResponse' {nextToken} -> nextToken) (\s@ListEnvironmentTemplateVersionsResponse' {} a -> s {nextToken = a} :: ListEnvironmentTemplateVersionsResponse)
 

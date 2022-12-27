@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.GetPolicyVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -63,8 +63,9 @@ module Amazonka.IAM.GetPolicyVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -146,13 +147,14 @@ instance Core.AWSRequest GetPolicyVersion where
   type
     AWSResponse GetPolicyVersion =
       GetPolicyVersionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetPolicyVersionResult"
       ( \s h x ->
           GetPolicyVersionResponse'
-            Prelude.<$> (x Core..@? "PolicyVersion")
+            Prelude.<$> (x Data..@? "PolicyVersion")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -166,21 +168,21 @@ instance Prelude.NFData GetPolicyVersion where
     Prelude.rnf policyArn
       `Prelude.seq` Prelude.rnf versionId
 
-instance Core.ToHeaders GetPolicyVersion where
+instance Data.ToHeaders GetPolicyVersion where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetPolicyVersion where
+instance Data.ToPath GetPolicyVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetPolicyVersion where
+instance Data.ToQuery GetPolicyVersion where
   toQuery GetPolicyVersion' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetPolicyVersion" :: Prelude.ByteString),
+          Data.=: ("GetPolicyVersion" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "PolicyArn" Core.=: policyArn,
-        "VersionId" Core.=: versionId
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "PolicyArn" Data.=: policyArn,
+        "VersionId" Data.=: versionId
       ]
 
 -- | Contains the response to a successful GetPolicyVersion request.

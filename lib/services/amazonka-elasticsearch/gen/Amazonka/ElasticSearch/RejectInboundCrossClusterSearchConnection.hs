@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.RejectInboundCrossClusterSearchConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.ElasticSearch.RejectInboundCrossClusterSearchConnection
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,12 +90,13 @@ instance
     AWSResponse
       RejectInboundCrossClusterSearchConnection =
       RejectInboundCrossClusterSearchConnectionResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RejectInboundCrossClusterSearchConnectionResponse'
-            Prelude.<$> (x Core..?> "CrossClusterSearchConnection")
+            Prelude.<$> (x Data..?> "CrossClusterSearchConnection")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,30 +118,30 @@ instance
     Prelude.rnf crossClusterSearchConnectionId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     RejectInboundCrossClusterSearchConnection
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     RejectInboundCrossClusterSearchConnection
   where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
 instance
-  Core.ToPath
+  Data.ToPath
     RejectInboundCrossClusterSearchConnection
   where
   toPath RejectInboundCrossClusterSearchConnection' {..} =
     Prelude.mconcat
       [ "/2015-01-01/es/ccs/inboundConnection/",
-        Core.toBS crossClusterSearchConnectionId,
+        Data.toBS crossClusterSearchConnectionId,
         "/reject"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     RejectInboundCrossClusterSearchConnection
   where
   toQuery = Prelude.const Prelude.mempty

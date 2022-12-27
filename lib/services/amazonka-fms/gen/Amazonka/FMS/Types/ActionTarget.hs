@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.ActionTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.FMS.Types.ActionTarget where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a remediation action target.
 --
 -- /See:/ 'newActionTarget' smart constructor.
 data ActionTarget = ActionTarget'
-  { -- | The ID of the remediation target.
-    resourceId :: Prelude.Maybe Prelude.Text,
-    -- | A description of the remediation action target.
-    description :: Prelude.Maybe Prelude.Text
+  { -- | A description of the remediation action target.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the remediation target.
+    resourceId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,41 +43,41 @@ data ActionTarget = ActionTarget'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceId', 'actionTarget_resourceId' - The ID of the remediation target.
---
 -- 'description', 'actionTarget_description' - A description of the remediation action target.
+--
+-- 'resourceId', 'actionTarget_resourceId' - The ID of the remediation target.
 newActionTarget ::
   ActionTarget
 newActionTarget =
   ActionTarget'
-    { resourceId = Prelude.Nothing,
-      description = Prelude.Nothing
+    { description = Prelude.Nothing,
+      resourceId = Prelude.Nothing
     }
-
--- | The ID of the remediation target.
-actionTarget_resourceId :: Lens.Lens' ActionTarget (Prelude.Maybe Prelude.Text)
-actionTarget_resourceId = Lens.lens (\ActionTarget' {resourceId} -> resourceId) (\s@ActionTarget' {} a -> s {resourceId = a} :: ActionTarget)
 
 -- | A description of the remediation action target.
 actionTarget_description :: Lens.Lens' ActionTarget (Prelude.Maybe Prelude.Text)
 actionTarget_description = Lens.lens (\ActionTarget' {description} -> description) (\s@ActionTarget' {} a -> s {description = a} :: ActionTarget)
 
-instance Core.FromJSON ActionTarget where
+-- | The ID of the remediation target.
+actionTarget_resourceId :: Lens.Lens' ActionTarget (Prelude.Maybe Prelude.Text)
+actionTarget_resourceId = Lens.lens (\ActionTarget' {resourceId} -> resourceId) (\s@ActionTarget' {} a -> s {resourceId = a} :: ActionTarget)
+
+instance Data.FromJSON ActionTarget where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActionTarget"
       ( \x ->
           ActionTarget'
-            Prelude.<$> (x Core..:? "ResourceId")
-            Prelude.<*> (x Core..:? "Description")
+            Prelude.<$> (x Data..:? "Description")
+            Prelude.<*> (x Data..:? "ResourceId")
       )
 
 instance Prelude.Hashable ActionTarget where
   hashWithSalt _salt ActionTarget' {..} =
-    _salt `Prelude.hashWithSalt` resourceId
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` resourceId
 
 instance Prelude.NFData ActionTarget where
   rnf ActionTarget' {..} =
-    Prelude.rnf resourceId
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf resourceId

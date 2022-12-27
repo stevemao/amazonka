@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.GetVpcLinks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.ApiGatewayV2.GetVpcLinks
     newGetVpcLinks,
 
     -- * Request Lenses
-    getVpcLinks_nextToken,
     getVpcLinks_maxResults,
+    getVpcLinks_nextToken,
 
     -- * Destructuring the Response
     GetVpcLinksResponse (..),
@@ -43,18 +43,19 @@ where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetVpcLinks' smart constructor.
 data GetVpcLinks = GetVpcLinks'
-  { -- | The next page of elements from this collection. Not valid for the last
+  { -- | The maximum number of elements to be returned for this resource.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | The next page of elements from this collection. Not valid for the last
     -- element of the collection.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of elements to be returned for this resource.
-    maxResults :: Prelude.Maybe Prelude.Text
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -66,68 +67,69 @@ data GetVpcLinks = GetVpcLinks'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getVpcLinks_maxResults' - The maximum number of elements to be returned for this resource.
+--
 -- 'nextToken', 'getVpcLinks_nextToken' - The next page of elements from this collection. Not valid for the last
 -- element of the collection.
---
--- 'maxResults', 'getVpcLinks_maxResults' - The maximum number of elements to be returned for this resource.
 newGetVpcLinks ::
   GetVpcLinks
 newGetVpcLinks =
   GetVpcLinks'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of elements to be returned for this resource.
+getVpcLinks_maxResults :: Lens.Lens' GetVpcLinks (Prelude.Maybe Prelude.Text)
+getVpcLinks_maxResults = Lens.lens (\GetVpcLinks' {maxResults} -> maxResults) (\s@GetVpcLinks' {} a -> s {maxResults = a} :: GetVpcLinks)
 
 -- | The next page of elements from this collection. Not valid for the last
 -- element of the collection.
 getVpcLinks_nextToken :: Lens.Lens' GetVpcLinks (Prelude.Maybe Prelude.Text)
 getVpcLinks_nextToken = Lens.lens (\GetVpcLinks' {nextToken} -> nextToken) (\s@GetVpcLinks' {} a -> s {nextToken = a} :: GetVpcLinks)
 
--- | The maximum number of elements to be returned for this resource.
-getVpcLinks_maxResults :: Lens.Lens' GetVpcLinks (Prelude.Maybe Prelude.Text)
-getVpcLinks_maxResults = Lens.lens (\GetVpcLinks' {maxResults} -> maxResults) (\s@GetVpcLinks' {} a -> s {maxResults = a} :: GetVpcLinks)
-
 instance Core.AWSRequest GetVpcLinks where
   type AWSResponse GetVpcLinks = GetVpcLinksResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetVpcLinksResponse'
-            Prelude.<$> (x Core..?> "items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetVpcLinks where
   hashWithSalt _salt GetVpcLinks' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData GetVpcLinks where
   rnf GetVpcLinks' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders GetVpcLinks where
+instance Data.ToHeaders GetVpcLinks where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetVpcLinks where
+instance Data.ToPath GetVpcLinks where
   toPath = Prelude.const "/v2/vpclinks"
 
-instance Core.ToQuery GetVpcLinks where
+instance Data.ToQuery GetVpcLinks where
   toQuery GetVpcLinks' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetVpcLinksResponse' smart constructor.

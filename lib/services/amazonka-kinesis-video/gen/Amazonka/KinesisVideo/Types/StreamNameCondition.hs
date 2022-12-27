@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.Types.StreamNameCondition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisVideo.Types.StreamNameCondition where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideo.Types.ComparisonOperator
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the condition that streams must satisfy to be returned when
@@ -80,13 +81,13 @@ instance Prelude.NFData StreamNameCondition where
     Prelude.rnf comparisonOperator
       `Prelude.seq` Prelude.rnf comparisonValue
 
-instance Core.ToJSON StreamNameCondition where
+instance Data.ToJSON StreamNameCondition where
   toJSON StreamNameCondition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ComparisonOperator" Core..=)
+          [ ("ComparisonOperator" Data..=)
               Prelude.<$> comparisonOperator,
-            ("ComparisonValue" Core..=)
+            ("ComparisonValue" Data..=)
               Prelude.<$> comparisonValue
           ]
       )

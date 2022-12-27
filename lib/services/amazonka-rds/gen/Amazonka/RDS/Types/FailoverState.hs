@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.Types.FailoverState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RDS.Types.FailoverState where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types.FailoverStatus
 
@@ -31,7 +32,10 @@ import Amazonka.RDS.Types.FailoverStatus
 --
 -- /See:/ 'newFailoverState' smart constructor.
 data FailoverState = FailoverState'
-  { -- | The current status of the Aurora global database (GlobalCluster).
+  { -- | The Amazon Resource Name (ARN) of the Aurora DB cluster that is
+    -- currently being demoted, and which is associated with this state.
+    fromDbClusterArn :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the Aurora global database (GlobalCluster).
     -- Possible values are as follows:
     --
     -- -   pending – A request to fail over the Aurora global database
@@ -51,10 +55,7 @@ data FailoverState = FailoverState'
     status :: Prelude.Maybe FailoverStatus,
     -- | The Amazon Resource Name (ARN) of the Aurora DB cluster that is
     -- currently being promoted, and which is associated with this state.
-    toDbClusterArn :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the Aurora DB cluster that is
-    -- currently being demoted, and which is associated with this state.
-    fromDbClusterArn :: Prelude.Maybe Prelude.Text
+    toDbClusterArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -65,6 +66,9 @@ data FailoverState = FailoverState'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'fromDbClusterArn', 'failoverState_fromDbClusterArn' - The Amazon Resource Name (ARN) of the Aurora DB cluster that is
+-- currently being demoted, and which is associated with this state.
 --
 -- 'status', 'failoverState_status' - The current status of the Aurora global database (GlobalCluster).
 -- Possible values are as follows:
@@ -86,17 +90,19 @@ data FailoverState = FailoverState'
 --
 -- 'toDbClusterArn', 'failoverState_toDbClusterArn' - The Amazon Resource Name (ARN) of the Aurora DB cluster that is
 -- currently being promoted, and which is associated with this state.
---
--- 'fromDbClusterArn', 'failoverState_fromDbClusterArn' - The Amazon Resource Name (ARN) of the Aurora DB cluster that is
--- currently being demoted, and which is associated with this state.
 newFailoverState ::
   FailoverState
 newFailoverState =
   FailoverState'
-    { status = Prelude.Nothing,
-      toDbClusterArn = Prelude.Nothing,
-      fromDbClusterArn = Prelude.Nothing
+    { fromDbClusterArn = Prelude.Nothing,
+      status = Prelude.Nothing,
+      toDbClusterArn = Prelude.Nothing
     }
+
+-- | The Amazon Resource Name (ARN) of the Aurora DB cluster that is
+-- currently being demoted, and which is associated with this state.
+failoverState_fromDbClusterArn :: Lens.Lens' FailoverState (Prelude.Maybe Prelude.Text)
+failoverState_fromDbClusterArn = Lens.lens (\FailoverState' {fromDbClusterArn} -> fromDbClusterArn) (\s@FailoverState' {} a -> s {fromDbClusterArn = a} :: FailoverState)
 
 -- | The current status of the Aurora global database (GlobalCluster).
 -- Possible values are as follows:
@@ -123,26 +129,21 @@ failoverState_status = Lens.lens (\FailoverState' {status} -> status) (\s@Failov
 failoverState_toDbClusterArn :: Lens.Lens' FailoverState (Prelude.Maybe Prelude.Text)
 failoverState_toDbClusterArn = Lens.lens (\FailoverState' {toDbClusterArn} -> toDbClusterArn) (\s@FailoverState' {} a -> s {toDbClusterArn = a} :: FailoverState)
 
--- | The Amazon Resource Name (ARN) of the Aurora DB cluster that is
--- currently being demoted, and which is associated with this state.
-failoverState_fromDbClusterArn :: Lens.Lens' FailoverState (Prelude.Maybe Prelude.Text)
-failoverState_fromDbClusterArn = Lens.lens (\FailoverState' {fromDbClusterArn} -> fromDbClusterArn) (\s@FailoverState' {} a -> s {fromDbClusterArn = a} :: FailoverState)
-
-instance Core.FromXML FailoverState where
+instance Data.FromXML FailoverState where
   parseXML x =
     FailoverState'
-      Prelude.<$> (x Core..@? "Status")
-      Prelude.<*> (x Core..@? "ToDbClusterArn")
-      Prelude.<*> (x Core..@? "FromDbClusterArn")
+      Prelude.<$> (x Data..@? "FromDbClusterArn")
+      Prelude.<*> (x Data..@? "Status")
+      Prelude.<*> (x Data..@? "ToDbClusterArn")
 
 instance Prelude.Hashable FailoverState where
   hashWithSalt _salt FailoverState' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt `Prelude.hashWithSalt` fromDbClusterArn
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` toDbClusterArn
-      `Prelude.hashWithSalt` fromDbClusterArn
 
 instance Prelude.NFData FailoverState where
   rnf FailoverState' {..} =
-    Prelude.rnf status
+    Prelude.rnf fromDbClusterArn
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf toDbClusterArn
-      `Prelude.seq` Prelude.rnf fromDbClusterArn

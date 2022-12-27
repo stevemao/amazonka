@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.EC2ReplaceRouteTableAssociationAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.FMS.Types.EC2ReplaceRouteTableAssociationAction where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types.ActionTarget
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the ReplaceRouteTableAssociation action in Amazon EC2.
@@ -82,17 +83,17 @@ eC2ReplaceRouteTableAssociationAction_routeTableId :: Lens.Lens' EC2ReplaceRoute
 eC2ReplaceRouteTableAssociationAction_routeTableId = Lens.lens (\EC2ReplaceRouteTableAssociationAction' {routeTableId} -> routeTableId) (\s@EC2ReplaceRouteTableAssociationAction' {} a -> s {routeTableId = a} :: EC2ReplaceRouteTableAssociationAction)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     EC2ReplaceRouteTableAssociationAction
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EC2ReplaceRouteTableAssociationAction"
       ( \x ->
           EC2ReplaceRouteTableAssociationAction'
-            Prelude.<$> (x Core..:? "Description")
-            Prelude.<*> (x Core..: "AssociationId")
-            Prelude.<*> (x Core..: "RouteTableId")
+            Prelude.<$> (x Data..:? "Description")
+            Prelude.<*> (x Data..: "AssociationId")
+            Prelude.<*> (x Data..: "RouteTableId")
       )
 
 instance

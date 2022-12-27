@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.DescribeEnvironmentManagedActions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.ElasticBeanstalk.DescribeEnvironmentManagedActions
     newDescribeEnvironmentManagedActions,
 
     -- * Request Lenses
-    describeEnvironmentManagedActions_status,
-    describeEnvironmentManagedActions_environmentName,
     describeEnvironmentManagedActions_environmentId,
+    describeEnvironmentManagedActions_environmentName,
+    describeEnvironmentManagedActions_status,
 
     -- * Destructuring the Response
     DescribeEnvironmentManagedActionsResponse (..),
@@ -42,8 +42,9 @@ module Amazonka.ElasticBeanstalk.DescribeEnvironmentManagedActions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,12 +54,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeEnvironmentManagedActions' smart constructor.
 data DescribeEnvironmentManagedActions = DescribeEnvironmentManagedActions'
-  { -- | To show only actions with a particular status, specify a status.
-    status :: Prelude.Maybe ActionStatus,
+  { -- | The environment ID of the target environment.
+    environmentId :: Prelude.Maybe Prelude.Text,
     -- | The name of the target environment.
     environmentName :: Prelude.Maybe Prelude.Text,
-    -- | The environment ID of the target environment.
-    environmentId :: Prelude.Maybe Prelude.Text
+    -- | To show only actions with a particular status, specify a status.
+    status :: Prelude.Maybe ActionStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,32 +71,32 @@ data DescribeEnvironmentManagedActions = DescribeEnvironmentManagedActions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'describeEnvironmentManagedActions_status' - To show only actions with a particular status, specify a status.
+-- 'environmentId', 'describeEnvironmentManagedActions_environmentId' - The environment ID of the target environment.
 --
 -- 'environmentName', 'describeEnvironmentManagedActions_environmentName' - The name of the target environment.
 --
--- 'environmentId', 'describeEnvironmentManagedActions_environmentId' - The environment ID of the target environment.
+-- 'status', 'describeEnvironmentManagedActions_status' - To show only actions with a particular status, specify a status.
 newDescribeEnvironmentManagedActions ::
   DescribeEnvironmentManagedActions
 newDescribeEnvironmentManagedActions =
   DescribeEnvironmentManagedActions'
-    { status =
+    { environmentId =
         Prelude.Nothing,
       environmentName = Prelude.Nothing,
-      environmentId = Prelude.Nothing
+      status = Prelude.Nothing
     }
 
--- | To show only actions with a particular status, specify a status.
-describeEnvironmentManagedActions_status :: Lens.Lens' DescribeEnvironmentManagedActions (Prelude.Maybe ActionStatus)
-describeEnvironmentManagedActions_status = Lens.lens (\DescribeEnvironmentManagedActions' {status} -> status) (\s@DescribeEnvironmentManagedActions' {} a -> s {status = a} :: DescribeEnvironmentManagedActions)
+-- | The environment ID of the target environment.
+describeEnvironmentManagedActions_environmentId :: Lens.Lens' DescribeEnvironmentManagedActions (Prelude.Maybe Prelude.Text)
+describeEnvironmentManagedActions_environmentId = Lens.lens (\DescribeEnvironmentManagedActions' {environmentId} -> environmentId) (\s@DescribeEnvironmentManagedActions' {} a -> s {environmentId = a} :: DescribeEnvironmentManagedActions)
 
 -- | The name of the target environment.
 describeEnvironmentManagedActions_environmentName :: Lens.Lens' DescribeEnvironmentManagedActions (Prelude.Maybe Prelude.Text)
 describeEnvironmentManagedActions_environmentName = Lens.lens (\DescribeEnvironmentManagedActions' {environmentName} -> environmentName) (\s@DescribeEnvironmentManagedActions' {} a -> s {environmentName = a} :: DescribeEnvironmentManagedActions)
 
--- | The environment ID of the target environment.
-describeEnvironmentManagedActions_environmentId :: Lens.Lens' DescribeEnvironmentManagedActions (Prelude.Maybe Prelude.Text)
-describeEnvironmentManagedActions_environmentId = Lens.lens (\DescribeEnvironmentManagedActions' {environmentId} -> environmentId) (\s@DescribeEnvironmentManagedActions' {} a -> s {environmentId = a} :: DescribeEnvironmentManagedActions)
+-- | To show only actions with a particular status, specify a status.
+describeEnvironmentManagedActions_status :: Lens.Lens' DescribeEnvironmentManagedActions (Prelude.Maybe ActionStatus)
+describeEnvironmentManagedActions_status = Lens.lens (\DescribeEnvironmentManagedActions' {status} -> status) (\s@DescribeEnvironmentManagedActions' {} a -> s {status = a} :: DescribeEnvironmentManagedActions)
 
 instance
   Core.AWSRequest
@@ -104,14 +105,15 @@ instance
   type
     AWSResponse DescribeEnvironmentManagedActions =
       DescribeEnvironmentManagedActionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeEnvironmentManagedActionsResult"
       ( \s h x ->
           DescribeEnvironmentManagedActionsResponse'
-            Prelude.<$> ( x Core..@? "ManagedActions" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList1 "member")
+            Prelude.<$> ( x Data..@? "ManagedActions" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList1 "member")
                         )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -123,46 +125,46 @@ instance
   hashWithSalt
     _salt
     DescribeEnvironmentManagedActions' {..} =
-      _salt `Prelude.hashWithSalt` status
+      _salt `Prelude.hashWithSalt` environmentId
         `Prelude.hashWithSalt` environmentName
-        `Prelude.hashWithSalt` environmentId
+        `Prelude.hashWithSalt` status
 
 instance
   Prelude.NFData
     DescribeEnvironmentManagedActions
   where
   rnf DescribeEnvironmentManagedActions' {..} =
-    Prelude.rnf status
+    Prelude.rnf environmentId
       `Prelude.seq` Prelude.rnf environmentName
-      `Prelude.seq` Prelude.rnf environmentId
+      `Prelude.seq` Prelude.rnf status
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeEnvironmentManagedActions
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeEnvironmentManagedActions
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeEnvironmentManagedActions
   where
   toQuery DescribeEnvironmentManagedActions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeEnvironmentManagedActions" ::
+          Data.=: ( "DescribeEnvironmentManagedActions" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "Status" Core.=: status,
-        "EnvironmentName" Core.=: environmentName,
-        "EnvironmentId" Core.=: environmentId
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "EnvironmentId" Data.=: environmentId,
+        "EnvironmentName" Data.=: environmentName,
+        "Status" Data.=: status
       ]
 
 -- | The result message containing a list of managed actions.

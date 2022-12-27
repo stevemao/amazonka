@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.Types.SubscriptionDefinitionVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Greengrass.Types.SubscriptionDefinitionVersion where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types.Subscription
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a subscription definition version.
@@ -54,13 +55,13 @@ newSubscriptionDefinitionVersion =
 subscriptionDefinitionVersion_subscriptions :: Lens.Lens' SubscriptionDefinitionVersion (Prelude.Maybe [Subscription])
 subscriptionDefinitionVersion_subscriptions = Lens.lens (\SubscriptionDefinitionVersion' {subscriptions} -> subscriptions) (\s@SubscriptionDefinitionVersion' {} a -> s {subscriptions = a} :: SubscriptionDefinitionVersion) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON SubscriptionDefinitionVersion where
+instance Data.FromJSON SubscriptionDefinitionVersion where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SubscriptionDefinitionVersion"
       ( \x ->
           SubscriptionDefinitionVersion'
-            Prelude.<$> (x Core..:? "Subscriptions" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Subscriptions" Data..!= Prelude.mempty)
       )
 
 instance
@@ -74,11 +75,11 @@ instance Prelude.NFData SubscriptionDefinitionVersion where
   rnf SubscriptionDefinitionVersion' {..} =
     Prelude.rnf subscriptions
 
-instance Core.ToJSON SubscriptionDefinitionVersion where
+instance Data.ToJSON SubscriptionDefinitionVersion where
   toJSON SubscriptionDefinitionVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Subscriptions" Core..=)
+          [ ("Subscriptions" Data..=)
               Prelude.<$> subscriptions
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeAddressesAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,11 +31,11 @@ module Amazonka.EC2.DescribeAddressesAttribute
     newDescribeAddressesAttribute,
 
     -- * Request Lenses
-    describeAddressesAttribute_attribute,
-    describeAddressesAttribute_nextToken,
     describeAddressesAttribute_allocationIds,
+    describeAddressesAttribute_attribute,
     describeAddressesAttribute_dryRun,
     describeAddressesAttribute_maxResults,
+    describeAddressesAttribute_nextToken,
 
     -- * Destructuring the Response
     DescribeAddressesAttributeResponse (..),
@@ -49,20 +49,19 @@ module Amazonka.EC2.DescribeAddressesAttribute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeAddressesAttribute' smart constructor.
 data DescribeAddressesAttribute = DescribeAddressesAttribute'
-  { -- | The attribute of the IP address.
-    attribute :: Prelude.Maybe AddressAttributeName,
-    -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | [EC2-VPC] The allocation IDs.
+  { -- | [EC2-VPC] The allocation IDs.
     allocationIds :: Prelude.Maybe [Prelude.Text],
+    -- | The attribute of the IP address.
+    attribute :: Prelude.Maybe AddressAttributeName,
     -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
@@ -71,7 +70,9 @@ data DescribeAddressesAttribute = DescribeAddressesAttribute'
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -83,11 +84,9 @@ data DescribeAddressesAttribute = DescribeAddressesAttribute'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'attribute', 'describeAddressesAttribute_attribute' - The attribute of the IP address.
---
--- 'nextToken', 'describeAddressesAttribute_nextToken' - The token for the next page of results.
---
 -- 'allocationIds', 'describeAddressesAttribute_allocationIds' - [EC2-VPC] The allocation IDs.
+--
+-- 'attribute', 'describeAddressesAttribute_attribute' - The attribute of the IP address.
 --
 -- 'dryRun', 'describeAddressesAttribute_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -97,29 +96,27 @@ data DescribeAddressesAttribute = DescribeAddressesAttribute'
 -- 'maxResults', 'describeAddressesAttribute_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'describeAddressesAttribute_nextToken' - The token for the next page of results.
 newDescribeAddressesAttribute ::
   DescribeAddressesAttribute
 newDescribeAddressesAttribute =
   DescribeAddressesAttribute'
-    { attribute =
+    { allocationIds =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      allocationIds = Prelude.Nothing,
+      attribute = Prelude.Nothing,
       dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The attribute of the IP address.
-describeAddressesAttribute_attribute :: Lens.Lens' DescribeAddressesAttribute (Prelude.Maybe AddressAttributeName)
-describeAddressesAttribute_attribute = Lens.lens (\DescribeAddressesAttribute' {attribute} -> attribute) (\s@DescribeAddressesAttribute' {} a -> s {attribute = a} :: DescribeAddressesAttribute)
-
--- | The token for the next page of results.
-describeAddressesAttribute_nextToken :: Lens.Lens' DescribeAddressesAttribute (Prelude.Maybe Prelude.Text)
-describeAddressesAttribute_nextToken = Lens.lens (\DescribeAddressesAttribute' {nextToken} -> nextToken) (\s@DescribeAddressesAttribute' {} a -> s {nextToken = a} :: DescribeAddressesAttribute)
 
 -- | [EC2-VPC] The allocation IDs.
 describeAddressesAttribute_allocationIds :: Lens.Lens' DescribeAddressesAttribute (Prelude.Maybe [Prelude.Text])
 describeAddressesAttribute_allocationIds = Lens.lens (\DescribeAddressesAttribute' {allocationIds} -> allocationIds) (\s@DescribeAddressesAttribute' {} a -> s {allocationIds = a} :: DescribeAddressesAttribute) Prelude.. Lens.mapping Lens.coerced
+
+-- | The attribute of the IP address.
+describeAddressesAttribute_attribute :: Lens.Lens' DescribeAddressesAttribute (Prelude.Maybe AddressAttributeName)
+describeAddressesAttribute_attribute = Lens.lens (\DescribeAddressesAttribute' {attribute} -> attribute) (\s@DescribeAddressesAttribute' {} a -> s {attribute = a} :: DescribeAddressesAttribute)
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -133,6 +130,10 @@ describeAddressesAttribute_dryRun = Lens.lens (\DescribeAddressesAttribute' {dry
 -- value.
 describeAddressesAttribute_maxResults :: Lens.Lens' DescribeAddressesAttribute (Prelude.Maybe Prelude.Natural)
 describeAddressesAttribute_maxResults = Lens.lens (\DescribeAddressesAttribute' {maxResults} -> maxResults) (\s@DescribeAddressesAttribute' {} a -> s {maxResults = a} :: DescribeAddressesAttribute)
+
+-- | The token for the next page of results.
+describeAddressesAttribute_nextToken :: Lens.Lens' DescribeAddressesAttribute (Prelude.Maybe Prelude.Text)
+describeAddressesAttribute_nextToken = Lens.lens (\DescribeAddressesAttribute' {nextToken} -> nextToken) (\s@DescribeAddressesAttribute' {} a -> s {nextToken = a} :: DescribeAddressesAttribute)
 
 instance Core.AWSPager DescribeAddressesAttribute where
   page rq rs
@@ -160,55 +161,56 @@ instance Core.AWSRequest DescribeAddressesAttribute where
   type
     AWSResponse DescribeAddressesAttribute =
       DescribeAddressesAttributeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeAddressesAttributeResponse'
-            Prelude.<$> ( x Core..@? "addressSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "addressSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> (x Core..@? "nextToken")
+            Prelude.<*> (x Data..@? "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeAddressesAttribute where
   hashWithSalt _salt DescribeAddressesAttribute' {..} =
-    _salt `Prelude.hashWithSalt` attribute
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` allocationIds
+    _salt `Prelude.hashWithSalt` allocationIds
+      `Prelude.hashWithSalt` attribute
       `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeAddressesAttribute where
   rnf DescribeAddressesAttribute' {..} =
-    Prelude.rnf attribute
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf allocationIds
+    Prelude.rnf allocationIds
+      `Prelude.seq` Prelude.rnf attribute
       `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeAddressesAttribute where
+instance Data.ToHeaders DescribeAddressesAttribute where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeAddressesAttribute where
+instance Data.ToPath DescribeAddressesAttribute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAddressesAttribute where
+instance Data.ToQuery DescribeAddressesAttribute where
   toQuery DescribeAddressesAttribute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeAddressesAttribute" :: Prelude.ByteString),
+          Data.=: ("DescribeAddressesAttribute" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "Attribute" Core.=: attribute,
-        "NextToken" Core.=: nextToken,
-        Core.toQuery
-          ( Core.toQueryList "AllocationId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        Data.toQuery
+          ( Data.toQueryList "AllocationId"
               Prelude.<$> allocationIds
           ),
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+        "Attribute" Data.=: attribute,
+        "DryRun" Data.=: dryRun,
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeAddressesAttributeResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.CreateAnomalyMonitor
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,6 +28,7 @@ module Amazonka.CostExplorer.CreateAnomalyMonitor
     newCreateAnomalyMonitor,
 
     -- * Request Lenses
+    createAnomalyMonitor_resourceTags,
     createAnomalyMonitor_anomalyMonitor,
 
     -- * Destructuring the Response
@@ -41,15 +42,42 @@ module Amazonka.CostExplorer.CreateAnomalyMonitor
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateAnomalyMonitor' smart constructor.
 data CreateAnomalyMonitor = CreateAnomalyMonitor'
-  { -- | The cost anomaly detection monitor object that you want to create.
+  { -- | An optional list of tags to associate with the specified
+    -- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_AnomalyMonitor.html AnomalyMonitor>
+    -- . You can use resource tags to control access to your @monitor@ using
+    -- IAM policies.
+    --
+    -- Each tag consists of a key and a value, and each key must be unique for
+    -- the resource. The following restrictions apply to resource tags:
+    --
+    -- -   Although the maximum number of array members is 200, you can assign
+    --     a maximum of 50 user-tags to one resource. The remaining are
+    --     reserved for Amazon Web Services use
+    --
+    -- -   The maximum length of a key is 128 characters
+    --
+    -- -   The maximum length of a value is 256 characters
+    --
+    -- -   Keys and values can only contain alphanumeric characters, spaces,
+    --     and any of the following: @_.:\/=+\@-@
+    --
+    -- -   Keys and values are case sensitive
+    --
+    -- -   Keys and values are trimmed for any leading or trailing whitespaces
+    --
+    -- -   Don’t use @aws:@ as a prefix for your keys. This prefix is reserved
+    --     for Amazon Web Services use
+    resourceTags :: Prelude.Maybe [ResourceTag],
+    -- | The cost anomaly detection monitor object that you want to create.
     anomalyMonitor :: AnomalyMonitor
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,6 +90,32 @@ data CreateAnomalyMonitor = CreateAnomalyMonitor'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'resourceTags', 'createAnomalyMonitor_resourceTags' - An optional list of tags to associate with the specified
+-- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_AnomalyMonitor.html AnomalyMonitor>
+-- . You can use resource tags to control access to your @monitor@ using
+-- IAM policies.
+--
+-- Each tag consists of a key and a value, and each key must be unique for
+-- the resource. The following restrictions apply to resource tags:
+--
+-- -   Although the maximum number of array members is 200, you can assign
+--     a maximum of 50 user-tags to one resource. The remaining are
+--     reserved for Amazon Web Services use
+--
+-- -   The maximum length of a key is 128 characters
+--
+-- -   The maximum length of a value is 256 characters
+--
+-- -   Keys and values can only contain alphanumeric characters, spaces,
+--     and any of the following: @_.:\/=+\@-@
+--
+-- -   Keys and values are case sensitive
+--
+-- -   Keys and values are trimmed for any leading or trailing whitespaces
+--
+-- -   Don’t use @aws:@ as a prefix for your keys. This prefix is reserved
+--     for Amazon Web Services use
+--
 -- 'anomalyMonitor', 'createAnomalyMonitor_anomalyMonitor' - The cost anomaly detection monitor object that you want to create.
 newCreateAnomalyMonitor ::
   -- | 'anomalyMonitor'
@@ -69,9 +123,38 @@ newCreateAnomalyMonitor ::
   CreateAnomalyMonitor
 newCreateAnomalyMonitor pAnomalyMonitor_ =
   CreateAnomalyMonitor'
-    { anomalyMonitor =
-        pAnomalyMonitor_
+    { resourceTags =
+        Prelude.Nothing,
+      anomalyMonitor = pAnomalyMonitor_
     }
+
+-- | An optional list of tags to associate with the specified
+-- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_AnomalyMonitor.html AnomalyMonitor>
+-- . You can use resource tags to control access to your @monitor@ using
+-- IAM policies.
+--
+-- Each tag consists of a key and a value, and each key must be unique for
+-- the resource. The following restrictions apply to resource tags:
+--
+-- -   Although the maximum number of array members is 200, you can assign
+--     a maximum of 50 user-tags to one resource. The remaining are
+--     reserved for Amazon Web Services use
+--
+-- -   The maximum length of a key is 128 characters
+--
+-- -   The maximum length of a value is 256 characters
+--
+-- -   Keys and values can only contain alphanumeric characters, spaces,
+--     and any of the following: @_.:\/=+\@-@
+--
+-- -   Keys and values are case sensitive
+--
+-- -   Keys and values are trimmed for any leading or trailing whitespaces
+--
+-- -   Don’t use @aws:@ as a prefix for your keys. This prefix is reserved
+--     for Amazon Web Services use
+createAnomalyMonitor_resourceTags :: Lens.Lens' CreateAnomalyMonitor (Prelude.Maybe [ResourceTag])
+createAnomalyMonitor_resourceTags = Lens.lens (\CreateAnomalyMonitor' {resourceTags} -> resourceTags) (\s@CreateAnomalyMonitor' {} a -> s {resourceTags = a} :: CreateAnomalyMonitor) Prelude.. Lens.mapping Lens.coerced
 
 -- | The cost anomaly detection monitor object that you want to create.
 createAnomalyMonitor_anomalyMonitor :: Lens.Lens' CreateAnomalyMonitor AnomalyMonitor
@@ -81,51 +164,55 @@ instance Core.AWSRequest CreateAnomalyMonitor where
   type
     AWSResponse CreateAnomalyMonitor =
       CreateAnomalyMonitorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAnomalyMonitorResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "MonitorArn")
+            Prelude.<*> (x Data..:> "MonitorArn")
       )
 
 instance Prelude.Hashable CreateAnomalyMonitor where
   hashWithSalt _salt CreateAnomalyMonitor' {..} =
-    _salt `Prelude.hashWithSalt` anomalyMonitor
+    _salt `Prelude.hashWithSalt` resourceTags
+      `Prelude.hashWithSalt` anomalyMonitor
 
 instance Prelude.NFData CreateAnomalyMonitor where
   rnf CreateAnomalyMonitor' {..} =
-    Prelude.rnf anomalyMonitor
+    Prelude.rnf resourceTags
+      `Prelude.seq` Prelude.rnf anomalyMonitor
 
-instance Core.ToHeaders CreateAnomalyMonitor where
+instance Data.ToHeaders CreateAnomalyMonitor where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSInsightsIndexService.CreateAnomalyMonitor" ::
+              Data.=# ( "AWSInsightsIndexService.CreateAnomalyMonitor" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAnomalyMonitor where
+instance Data.ToJSON CreateAnomalyMonitor where
   toJSON CreateAnomalyMonitor' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just
-              ("AnomalyMonitor" Core..= anomalyMonitor)
+          [ ("ResourceTags" Data..=) Prelude.<$> resourceTags,
+            Prelude.Just
+              ("AnomalyMonitor" Data..= anomalyMonitor)
           ]
       )
 
-instance Core.ToPath CreateAnomalyMonitor where
+instance Data.ToPath CreateAnomalyMonitor where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAnomalyMonitor where
+instance Data.ToQuery CreateAnomalyMonitor where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAnomalyMonitorResponse' smart constructor.

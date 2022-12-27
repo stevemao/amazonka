@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.Types.FirewallDomainListMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53Resolver.Types.FirewallDomainListMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Minimal high-level information for a firewall domain list. The action
@@ -37,15 +38,15 @@ data FirewallDomainListMetadata = FirewallDomainListMetadata'
     -- to retry failed requests without the risk of running the operation
     -- twice. This can be any unique string, for example, a timestamp.
     creatorRequestId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the domain list.
+    id :: Prelude.Maybe Prelude.Text,
     -- | The owner of the list, used only for lists that are not managed by you.
     -- For example, the managed domain list
     -- @AWSManagedDomainsMalwareDomainList@ has the managed owner name
     -- @Route 53 Resolver DNS Firewall@.
     managedOwnerName :: Prelude.Maybe Prelude.Text,
     -- | The name of the domain list.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the domain list.
-    id :: Prelude.Maybe Prelude.Text
+    name :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -63,23 +64,23 @@ data FirewallDomainListMetadata = FirewallDomainListMetadata'
 -- to retry failed requests without the risk of running the operation
 -- twice. This can be any unique string, for example, a timestamp.
 --
+-- 'id', 'firewallDomainListMetadata_id' - The ID of the domain list.
+--
 -- 'managedOwnerName', 'firewallDomainListMetadata_managedOwnerName' - The owner of the list, used only for lists that are not managed by you.
 -- For example, the managed domain list
 -- @AWSManagedDomainsMalwareDomainList@ has the managed owner name
 -- @Route 53 Resolver DNS Firewall@.
 --
 -- 'name', 'firewallDomainListMetadata_name' - The name of the domain list.
---
--- 'id', 'firewallDomainListMetadata_id' - The ID of the domain list.
 newFirewallDomainListMetadata ::
   FirewallDomainListMetadata
 newFirewallDomainListMetadata =
   FirewallDomainListMetadata'
     { arn = Prelude.Nothing,
       creatorRequestId = Prelude.Nothing,
+      id = Prelude.Nothing,
       managedOwnerName = Prelude.Nothing,
-      name = Prelude.Nothing,
-      id = Prelude.Nothing
+      name = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the firewall domain list metadata.
@@ -92,6 +93,10 @@ firewallDomainListMetadata_arn = Lens.lens (\FirewallDomainListMetadata' {arn} -
 firewallDomainListMetadata_creatorRequestId :: Lens.Lens' FirewallDomainListMetadata (Prelude.Maybe Prelude.Text)
 firewallDomainListMetadata_creatorRequestId = Lens.lens (\FirewallDomainListMetadata' {creatorRequestId} -> creatorRequestId) (\s@FirewallDomainListMetadata' {} a -> s {creatorRequestId = a} :: FirewallDomainListMetadata)
 
+-- | The ID of the domain list.
+firewallDomainListMetadata_id :: Lens.Lens' FirewallDomainListMetadata (Prelude.Maybe Prelude.Text)
+firewallDomainListMetadata_id = Lens.lens (\FirewallDomainListMetadata' {id} -> id) (\s@FirewallDomainListMetadata' {} a -> s {id = a} :: FirewallDomainListMetadata)
+
 -- | The owner of the list, used only for lists that are not managed by you.
 -- For example, the managed domain list
 -- @AWSManagedDomainsMalwareDomainList@ has the managed owner name
@@ -103,35 +108,31 @@ firewallDomainListMetadata_managedOwnerName = Lens.lens (\FirewallDomainListMeta
 firewallDomainListMetadata_name :: Lens.Lens' FirewallDomainListMetadata (Prelude.Maybe Prelude.Text)
 firewallDomainListMetadata_name = Lens.lens (\FirewallDomainListMetadata' {name} -> name) (\s@FirewallDomainListMetadata' {} a -> s {name = a} :: FirewallDomainListMetadata)
 
--- | The ID of the domain list.
-firewallDomainListMetadata_id :: Lens.Lens' FirewallDomainListMetadata (Prelude.Maybe Prelude.Text)
-firewallDomainListMetadata_id = Lens.lens (\FirewallDomainListMetadata' {id} -> id) (\s@FirewallDomainListMetadata' {} a -> s {id = a} :: FirewallDomainListMetadata)
-
-instance Core.FromJSON FirewallDomainListMetadata where
+instance Data.FromJSON FirewallDomainListMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FirewallDomainListMetadata"
       ( \x ->
           FirewallDomainListMetadata'
-            Prelude.<$> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "CreatorRequestId")
-            Prelude.<*> (x Core..:? "ManagedOwnerName")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Id")
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "CreatorRequestId")
+            Prelude.<*> (x Data..:? "Id")
+            Prelude.<*> (x Data..:? "ManagedOwnerName")
+            Prelude.<*> (x Data..:? "Name")
       )
 
 instance Prelude.Hashable FirewallDomainListMetadata where
   hashWithSalt _salt FirewallDomainListMetadata' {..} =
     _salt `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` creatorRequestId
+      `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` managedOwnerName
       `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` id
 
 instance Prelude.NFData FirewallDomainListMetadata where
   rnf FirewallDomainListMetadata' {..} =
     Prelude.rnf arn
       `Prelude.seq` Prelude.rnf creatorRequestId
+      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf managedOwnerName
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf id

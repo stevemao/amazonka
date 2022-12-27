@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types.DisableActionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTEventsData.Types.DisableActionConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the configuration information of a disable action.
@@ -50,13 +51,13 @@ newDisableActionConfiguration =
 disableActionConfiguration_note :: Lens.Lens' DisableActionConfiguration (Prelude.Maybe Prelude.Text)
 disableActionConfiguration_note = Lens.lens (\DisableActionConfiguration' {note} -> note) (\s@DisableActionConfiguration' {} a -> s {note = a} :: DisableActionConfiguration)
 
-instance Core.FromJSON DisableActionConfiguration where
+instance Data.FromJSON DisableActionConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DisableActionConfiguration"
       ( \x ->
           DisableActionConfiguration'
-            Prelude.<$> (x Core..:? "note")
+            Prelude.<$> (x Data..:? "note")
       )
 
 instance Prelude.Hashable DisableActionConfiguration where

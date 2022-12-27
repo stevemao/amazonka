@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.GetCompatibleElasticsearchVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.ElasticSearch.GetCompatibleElasticsearchVersions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,12 +86,13 @@ instance
   type
     AWSResponse GetCompatibleElasticsearchVersions =
       GetCompatibleElasticsearchVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCompatibleElasticsearchVersionsResponse'
-            Prelude.<$> ( x Core..?> "CompatibleElasticsearchVersions"
+            Prelude.<$> ( x Data..?> "CompatibleElasticsearchVersions"
                             Core..!@ Prelude.mempty
                         )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -113,24 +115,24 @@ instance
     Prelude.rnf domainName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetCompatibleElasticsearchVersions
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetCompatibleElasticsearchVersions
   where
   toPath =
     Prelude.const "/2015-01-01/es/compatibleVersions"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetCompatibleElasticsearchVersions
   where
   toQuery GetCompatibleElasticsearchVersions' {..} =
-    Prelude.mconcat ["domainName" Core.=: domainName]
+    Prelude.mconcat ["domainName" Data.=: domainName]
 
 -- | Container for response returned by
 -- @ GetCompatibleElasticsearchVersions @ operation.

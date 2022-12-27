@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearch.UpdateServiceAccessPolicies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CloudSearch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,14 +103,15 @@ instance Core.AWSRequest UpdateServiceAccessPolicies where
   type
     AWSResponse UpdateServiceAccessPolicies =
       UpdateServiceAccessPoliciesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "UpdateServiceAccessPoliciesResult"
       ( \s h x ->
           UpdateServiceAccessPoliciesResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "AccessPolicies")
+            Prelude.<*> (x Data..@ "AccessPolicies")
       )
 
 instance Prelude.Hashable UpdateServiceAccessPolicies where
@@ -122,23 +124,23 @@ instance Prelude.NFData UpdateServiceAccessPolicies where
     Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf accessPolicies
 
-instance Core.ToHeaders UpdateServiceAccessPolicies where
+instance Data.ToHeaders UpdateServiceAccessPolicies where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UpdateServiceAccessPolicies where
+instance Data.ToPath UpdateServiceAccessPolicies where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateServiceAccessPolicies where
+instance Data.ToQuery UpdateServiceAccessPolicies where
   toQuery UpdateServiceAccessPolicies' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "UpdateServiceAccessPolicies" ::
+          Data.=: ( "UpdateServiceAccessPolicies" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2013-01-01" :: Prelude.ByteString),
-        "DomainName" Core.=: domainName,
-        "AccessPolicies" Core.=: accessPolicies
+          Data.=: ("2013-01-01" :: Prelude.ByteString),
+        "DomainName" Data.=: domainName,
+        "AccessPolicies" Data.=: accessPolicies
       ]
 
 -- | The result of an @UpdateServiceAccessPolicies@ request. Contains the new

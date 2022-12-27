@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.HealthLake.Types.PreloadDataConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.HealthLake.Types.PreloadDataConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HealthLake.Types.PreloadDataType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The input properties for the preloaded Data Store. Only data preloaded
@@ -57,13 +58,13 @@ newPreloadDataConfig pPreloadDataType_ =
 preloadDataConfig_preloadDataType :: Lens.Lens' PreloadDataConfig PreloadDataType
 preloadDataConfig_preloadDataType = Lens.lens (\PreloadDataConfig' {preloadDataType} -> preloadDataType) (\s@PreloadDataConfig' {} a -> s {preloadDataType = a} :: PreloadDataConfig)
 
-instance Core.FromJSON PreloadDataConfig where
+instance Data.FromJSON PreloadDataConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PreloadDataConfig"
       ( \x ->
           PreloadDataConfig'
-            Prelude.<$> (x Core..: "PreloadDataType")
+            Prelude.<$> (x Data..: "PreloadDataType")
       )
 
 instance Prelude.Hashable PreloadDataConfig where
@@ -74,11 +75,11 @@ instance Prelude.NFData PreloadDataConfig where
   rnf PreloadDataConfig' {..} =
     Prelude.rnf preloadDataType
 
-instance Core.ToJSON PreloadDataConfig where
+instance Data.ToJSON PreloadDataConfig where
   toJSON PreloadDataConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("PreloadDataType" Core..= preloadDataType)
+              ("PreloadDataType" Data..= preloadDataType)
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.DeleteVirtualRouter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,9 +56,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteVirtualRouter' smart constructor.
 data DeleteVirtualRouter = DeleteVirtualRouter'
-  { -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then it\'s the ID of the account that shared the mesh with
-    -- your account. For more information about mesh sharing, see
+  { -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then it\'s the ID of the account that shared
+    -- the mesh with your account. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the service mesh to delete the virtual router in.
@@ -75,9 +76,9 @@ data DeleteVirtualRouter = DeleteVirtualRouter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'meshOwner', 'deleteVirtualRouter_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- 'meshOwner', 'deleteVirtualRouter_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'meshName', 'deleteVirtualRouter_meshName' - The name of the service mesh to delete the virtual router in.
@@ -96,9 +97,9 @@ newDeleteVirtualRouter pMeshName_ pVirtualRouterName_ =
       virtualRouterName = pVirtualRouterName_
     }
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 deleteVirtualRouter_meshOwner :: Lens.Lens' DeleteVirtualRouter (Prelude.Maybe Prelude.Text)
 deleteVirtualRouter_meshOwner = Lens.lens (\DeleteVirtualRouter' {meshOwner} -> meshOwner) (\s@DeleteVirtualRouter' {} a -> s {meshOwner = a} :: DeleteVirtualRouter)
@@ -115,13 +116,14 @@ instance Core.AWSRequest DeleteVirtualRouter where
   type
     AWSResponse DeleteVirtualRouter =
       DeleteVirtualRouterResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteVirtualRouterResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable DeleteVirtualRouter where
@@ -136,29 +138,29 @@ instance Prelude.NFData DeleteVirtualRouter where
       `Prelude.seq` Prelude.rnf meshName
       `Prelude.seq` Prelude.rnf virtualRouterName
 
-instance Core.ToHeaders DeleteVirtualRouter where
+instance Data.ToHeaders DeleteVirtualRouter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteVirtualRouter where
+instance Data.ToPath DeleteVirtualRouter where
   toPath DeleteVirtualRouter' {..} =
     Prelude.mconcat
       [ "/v20190125/meshes/",
-        Core.toBS meshName,
+        Data.toBS meshName,
         "/virtualRouters/",
-        Core.toBS virtualRouterName
+        Data.toBS virtualRouterName
       ]
 
-instance Core.ToQuery DeleteVirtualRouter where
+instance Data.ToQuery DeleteVirtualRouter where
   toQuery DeleteVirtualRouter' {..} =
-    Prelude.mconcat ["meshOwner" Core.=: meshOwner]
+    Prelude.mconcat ["meshOwner" Data.=: meshOwner]
 
 -- |
 --

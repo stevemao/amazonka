@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.GetMailDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,17 +36,18 @@ module Amazonka.WorkMail.GetMailDomain
     newGetMailDomainResponse,
 
     -- * Response Lenses
-    getMailDomainResponse_isTestDomain,
-    getMailDomainResponse_records,
-    getMailDomainResponse_ownershipVerificationStatus,
     getMailDomainResponse_dkimVerificationStatus,
     getMailDomainResponse_isDefault,
+    getMailDomainResponse_isTestDomain,
+    getMailDomainResponse_ownershipVerificationStatus,
+    getMailDomainResponse_records,
     getMailDomainResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,7 +55,7 @@ import Amazonka.WorkMail.Types
 
 -- | /See:/ 'newGetMailDomain' smart constructor.
 data GetMailDomain = GetMailDomain'
-  { -- | The Amazon WorkMail organization for which the domain is retrieved.
+  { -- | The WorkMail organization for which the domain is retrieved.
     organizationId :: Prelude.Text,
     -- | The domain from which you want to retrieve details.
     domainName :: Prelude.Text
@@ -69,7 +70,7 @@ data GetMailDomain = GetMailDomain'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'organizationId', 'getMailDomain_organizationId' - The Amazon WorkMail organization for which the domain is retrieved.
+-- 'organizationId', 'getMailDomain_organizationId' - The WorkMail organization for which the domain is retrieved.
 --
 -- 'domainName', 'getMailDomain_domainName' - The domain from which you want to retrieve details.
 newGetMailDomain ::
@@ -84,7 +85,7 @@ newGetMailDomain pOrganizationId_ pDomainName_ =
       domainName = pDomainName_
     }
 
--- | The Amazon WorkMail organization for which the domain is retrieved.
+-- | The WorkMail organization for which the domain is retrieved.
 getMailDomain_organizationId :: Lens.Lens' GetMailDomain Prelude.Text
 getMailDomain_organizationId = Lens.lens (\GetMailDomain' {organizationId} -> organizationId) (\s@GetMailDomain' {} a -> s {organizationId = a} :: GetMailDomain)
 
@@ -96,16 +97,17 @@ instance Core.AWSRequest GetMailDomain where
   type
     AWSResponse GetMailDomain =
       GetMailDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetMailDomainResponse'
-            Prelude.<$> (x Core..?> "IsTestDomain")
-            Prelude.<*> (x Core..?> "Records" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "OwnershipVerificationStatus")
-            Prelude.<*> (x Core..?> "DkimVerificationStatus")
-            Prelude.<*> (x Core..?> "IsDefault")
+            Prelude.<$> (x Data..?> "DkimVerificationStatus")
+            Prelude.<*> (x Data..?> "IsDefault")
+            Prelude.<*> (x Data..?> "IsTestDomain")
+            Prelude.<*> (x Data..?> "OwnershipVerificationStatus")
+            Prelude.<*> (x Data..?> "Records" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -119,54 +121,54 @@ instance Prelude.NFData GetMailDomain where
     Prelude.rnf organizationId
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders GetMailDomain where
+instance Data.ToHeaders GetMailDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.GetMailDomain" ::
+              Data.=# ( "WorkMailService.GetMailDomain" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetMailDomain where
+instance Data.ToJSON GetMailDomain where
   toJSON GetMailDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("DomainName" Core..= domainName)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("DomainName" Data..= domainName)
           ]
       )
 
-instance Core.ToPath GetMailDomain where
+instance Data.ToPath GetMailDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetMailDomain where
+instance Data.ToQuery GetMailDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetMailDomainResponse' smart constructor.
 data GetMailDomainResponse = GetMailDomainResponse'
-  { -- | Specifies whether the domain is a test domain provided by WorkMail, or a
-    -- custom domain.
-    isTestDomain :: Prelude.Maybe Prelude.Bool,
-    -- | A list of the DNS records that Amazon WorkMail recommends adding in your
-    -- DNS provider for the best user experience. The records configure your
-    -- domain with DMARC, SPF, DKIM, and direct incoming email traffic to SES.
-    -- See admin guide for more details.
-    records :: Prelude.Maybe [DnsRecord],
-    -- | Indicates the status of the domain ownership verification.
-    ownershipVerificationStatus :: Prelude.Maybe DnsRecordVerificationStatus,
-    -- | Indicates the status of a DKIM verification.
+  { -- | Indicates the status of a DKIM verification.
     dkimVerificationStatus :: Prelude.Maybe DnsRecordVerificationStatus,
     -- | Specifies whether the domain is the default domain for your
     -- organization.
     isDefault :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether the domain is a test domain provided by WorkMail, or a
+    -- custom domain.
+    isTestDomain :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates the status of the domain ownership verification.
+    ownershipVerificationStatus :: Prelude.Maybe DnsRecordVerificationStatus,
+    -- | A list of the DNS records that WorkMail recommends adding in your DNS
+    -- provider for the best user experience. The records configure your domain
+    -- with DMARC, SPF, DKIM, and direct incoming email traffic to SES. See
+    -- admin guide for more details.
+    records :: Prelude.Maybe [DnsRecord],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -180,20 +182,20 @@ data GetMailDomainResponse = GetMailDomainResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'isTestDomain', 'getMailDomainResponse_isTestDomain' - Specifies whether the domain is a test domain provided by WorkMail, or a
--- custom domain.
---
--- 'records', 'getMailDomainResponse_records' - A list of the DNS records that Amazon WorkMail recommends adding in your
--- DNS provider for the best user experience. The records configure your
--- domain with DMARC, SPF, DKIM, and direct incoming email traffic to SES.
--- See admin guide for more details.
---
--- 'ownershipVerificationStatus', 'getMailDomainResponse_ownershipVerificationStatus' - Indicates the status of the domain ownership verification.
---
 -- 'dkimVerificationStatus', 'getMailDomainResponse_dkimVerificationStatus' - Indicates the status of a DKIM verification.
 --
 -- 'isDefault', 'getMailDomainResponse_isDefault' - Specifies whether the domain is the default domain for your
 -- organization.
+--
+-- 'isTestDomain', 'getMailDomainResponse_isTestDomain' - Specifies whether the domain is a test domain provided by WorkMail, or a
+-- custom domain.
+--
+-- 'ownershipVerificationStatus', 'getMailDomainResponse_ownershipVerificationStatus' - Indicates the status of the domain ownership verification.
+--
+-- 'records', 'getMailDomainResponse_records' - A list of the DNS records that WorkMail recommends adding in your DNS
+-- provider for the best user experience. The records configure your domain
+-- with DMARC, SPF, DKIM, and direct incoming email traffic to SES. See
+-- admin guide for more details.
 --
 -- 'httpStatus', 'getMailDomainResponse_httpStatus' - The response's http status code.
 newGetMailDomainResponse ::
@@ -202,30 +204,14 @@ newGetMailDomainResponse ::
   GetMailDomainResponse
 newGetMailDomainResponse pHttpStatus_ =
   GetMailDomainResponse'
-    { isTestDomain =
+    { dkimVerificationStatus =
         Prelude.Nothing,
-      records = Prelude.Nothing,
-      ownershipVerificationStatus = Prelude.Nothing,
-      dkimVerificationStatus = Prelude.Nothing,
       isDefault = Prelude.Nothing,
+      isTestDomain = Prelude.Nothing,
+      ownershipVerificationStatus = Prelude.Nothing,
+      records = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Specifies whether the domain is a test domain provided by WorkMail, or a
--- custom domain.
-getMailDomainResponse_isTestDomain :: Lens.Lens' GetMailDomainResponse (Prelude.Maybe Prelude.Bool)
-getMailDomainResponse_isTestDomain = Lens.lens (\GetMailDomainResponse' {isTestDomain} -> isTestDomain) (\s@GetMailDomainResponse' {} a -> s {isTestDomain = a} :: GetMailDomainResponse)
-
--- | A list of the DNS records that Amazon WorkMail recommends adding in your
--- DNS provider for the best user experience. The records configure your
--- domain with DMARC, SPF, DKIM, and direct incoming email traffic to SES.
--- See admin guide for more details.
-getMailDomainResponse_records :: Lens.Lens' GetMailDomainResponse (Prelude.Maybe [DnsRecord])
-getMailDomainResponse_records = Lens.lens (\GetMailDomainResponse' {records} -> records) (\s@GetMailDomainResponse' {} a -> s {records = a} :: GetMailDomainResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | Indicates the status of the domain ownership verification.
-getMailDomainResponse_ownershipVerificationStatus :: Lens.Lens' GetMailDomainResponse (Prelude.Maybe DnsRecordVerificationStatus)
-getMailDomainResponse_ownershipVerificationStatus = Lens.lens (\GetMailDomainResponse' {ownershipVerificationStatus} -> ownershipVerificationStatus) (\s@GetMailDomainResponse' {} a -> s {ownershipVerificationStatus = a} :: GetMailDomainResponse)
 
 -- | Indicates the status of a DKIM verification.
 getMailDomainResponse_dkimVerificationStatus :: Lens.Lens' GetMailDomainResponse (Prelude.Maybe DnsRecordVerificationStatus)
@@ -236,15 +222,31 @@ getMailDomainResponse_dkimVerificationStatus = Lens.lens (\GetMailDomainResponse
 getMailDomainResponse_isDefault :: Lens.Lens' GetMailDomainResponse (Prelude.Maybe Prelude.Bool)
 getMailDomainResponse_isDefault = Lens.lens (\GetMailDomainResponse' {isDefault} -> isDefault) (\s@GetMailDomainResponse' {} a -> s {isDefault = a} :: GetMailDomainResponse)
 
+-- | Specifies whether the domain is a test domain provided by WorkMail, or a
+-- custom domain.
+getMailDomainResponse_isTestDomain :: Lens.Lens' GetMailDomainResponse (Prelude.Maybe Prelude.Bool)
+getMailDomainResponse_isTestDomain = Lens.lens (\GetMailDomainResponse' {isTestDomain} -> isTestDomain) (\s@GetMailDomainResponse' {} a -> s {isTestDomain = a} :: GetMailDomainResponse)
+
+-- | Indicates the status of the domain ownership verification.
+getMailDomainResponse_ownershipVerificationStatus :: Lens.Lens' GetMailDomainResponse (Prelude.Maybe DnsRecordVerificationStatus)
+getMailDomainResponse_ownershipVerificationStatus = Lens.lens (\GetMailDomainResponse' {ownershipVerificationStatus} -> ownershipVerificationStatus) (\s@GetMailDomainResponse' {} a -> s {ownershipVerificationStatus = a} :: GetMailDomainResponse)
+
+-- | A list of the DNS records that WorkMail recommends adding in your DNS
+-- provider for the best user experience. The records configure your domain
+-- with DMARC, SPF, DKIM, and direct incoming email traffic to SES. See
+-- admin guide for more details.
+getMailDomainResponse_records :: Lens.Lens' GetMailDomainResponse (Prelude.Maybe [DnsRecord])
+getMailDomainResponse_records = Lens.lens (\GetMailDomainResponse' {records} -> records) (\s@GetMailDomainResponse' {} a -> s {records = a} :: GetMailDomainResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 getMailDomainResponse_httpStatus :: Lens.Lens' GetMailDomainResponse Prelude.Int
 getMailDomainResponse_httpStatus = Lens.lens (\GetMailDomainResponse' {httpStatus} -> httpStatus) (\s@GetMailDomainResponse' {} a -> s {httpStatus = a} :: GetMailDomainResponse)
 
 instance Prelude.NFData GetMailDomainResponse where
   rnf GetMailDomainResponse' {..} =
-    Prelude.rnf isTestDomain
-      `Prelude.seq` Prelude.rnf records
-      `Prelude.seq` Prelude.rnf ownershipVerificationStatus
-      `Prelude.seq` Prelude.rnf dkimVerificationStatus
+    Prelude.rnf dkimVerificationStatus
       `Prelude.seq` Prelude.rnf isDefault
+      `Prelude.seq` Prelude.rnf isTestDomain
+      `Prelude.seq` Prelude.rnf ownershipVerificationStatus
+      `Prelude.seq` Prelude.rnf records
       `Prelude.seq` Prelude.rnf httpStatus

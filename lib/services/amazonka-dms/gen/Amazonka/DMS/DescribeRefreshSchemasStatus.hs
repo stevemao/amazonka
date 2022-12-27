@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.DescribeRefreshSchemasStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DMS.DescribeRefreshSchemasStatus
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,12 +86,13 @@ instance Core.AWSRequest DescribeRefreshSchemasStatus where
   type
     AWSResponse DescribeRefreshSchemasStatus =
       DescribeRefreshSchemasStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRefreshSchemasStatusResponse'
-            Prelude.<$> (x Core..?> "RefreshSchemasStatus")
+            Prelude.<$> (x Data..?> "RefreshSchemasStatus")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -105,32 +107,32 @@ instance Prelude.NFData DescribeRefreshSchemasStatus where
   rnf DescribeRefreshSchemasStatus' {..} =
     Prelude.rnf endpointArn
 
-instance Core.ToHeaders DescribeRefreshSchemasStatus where
+instance Data.ToHeaders DescribeRefreshSchemasStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.DescribeRefreshSchemasStatus" ::
+              Data.=# ( "AmazonDMSv20160101.DescribeRefreshSchemasStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeRefreshSchemasStatus where
+instance Data.ToJSON DescribeRefreshSchemasStatus where
   toJSON DescribeRefreshSchemasStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("EndpointArn" Core..= endpointArn)]
+          [Prelude.Just ("EndpointArn" Data..= endpointArn)]
       )
 
-instance Core.ToPath DescribeRefreshSchemasStatus where
+instance Data.ToPath DescribeRefreshSchemasStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeRefreshSchemasStatus where
+instance Data.ToQuery DescribeRefreshSchemasStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- |

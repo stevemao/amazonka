@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Types.FirewallPolicyMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.NetworkFirewall.Types.FirewallPolicyMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | High-level information about a firewall policy, returned by operations
@@ -67,13 +68,13 @@ firewallPolicyMetadata_arn = Lens.lens (\FirewallPolicyMetadata' {arn} -> arn) (
 firewallPolicyMetadata_name :: Lens.Lens' FirewallPolicyMetadata (Prelude.Maybe Prelude.Text)
 firewallPolicyMetadata_name = Lens.lens (\FirewallPolicyMetadata' {name} -> name) (\s@FirewallPolicyMetadata' {} a -> s {name = a} :: FirewallPolicyMetadata)
 
-instance Core.FromJSON FirewallPolicyMetadata where
+instance Data.FromJSON FirewallPolicyMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FirewallPolicyMetadata"
       ( \x ->
           FirewallPolicyMetadata'
-            Prelude.<$> (x Core..:? "Arn") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Arn") Prelude.<*> (x Data..:? "Name")
       )
 
 instance Prelude.Hashable FirewallPolicyMetadata where

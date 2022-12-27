@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.SavingsPlansSavings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CostExplorer.Types.SavingsPlansSavings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The amount of savings that you\'re accumulating, against the public
@@ -71,14 +72,14 @@ savingsPlansSavings_netSavings = Lens.lens (\SavingsPlansSavings' {netSavings} -
 savingsPlansSavings_onDemandCostEquivalent :: Lens.Lens' SavingsPlansSavings (Prelude.Maybe Prelude.Text)
 savingsPlansSavings_onDemandCostEquivalent = Lens.lens (\SavingsPlansSavings' {onDemandCostEquivalent} -> onDemandCostEquivalent) (\s@SavingsPlansSavings' {} a -> s {onDemandCostEquivalent = a} :: SavingsPlansSavings)
 
-instance Core.FromJSON SavingsPlansSavings where
+instance Data.FromJSON SavingsPlansSavings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SavingsPlansSavings"
       ( \x ->
           SavingsPlansSavings'
-            Prelude.<$> (x Core..:? "NetSavings")
-            Prelude.<*> (x Core..:? "OnDemandCostEquivalent")
+            Prelude.<$> (x Data..:? "NetSavings")
+            Prelude.<*> (x Data..:? "OnDemandCostEquivalent")
       )
 
 instance Prelude.Hashable SavingsPlansSavings where

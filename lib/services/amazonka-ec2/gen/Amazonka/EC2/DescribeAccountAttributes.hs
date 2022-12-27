@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeAccountAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes attributes of your AWS account. The following are the
--- supported account attributes:
+-- Describes attributes of your Amazon Web Services account. The following
+-- are the supported account attributes:
 --
 -- -   @supported-platforms@: Indicates whether your account can launch
 --     instances into EC2-Classic and EC2-VPC, or only into EC2-VPC.
@@ -43,6 +43,11 @@
 --
 -- -   @vpc-max-elastic-ips@: The maximum number of Elastic IP addresses
 --     that you can allocate for use with EC2-VPC.
+--
+-- We are retiring EC2-Classic on August 15, 2022. We recommend that you
+-- migrate from EC2-Classic to a VPC. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html Migrate from EC2-Classic to a VPC>
+-- in the /Amazon EC2 User Guide/.
 module Amazonka.EC2.DescribeAccountAttributes
   ( -- * Creating a Request
     DescribeAccountAttributes (..),
@@ -63,8 +68,9 @@ module Amazonka.EC2.DescribeAccountAttributes
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -119,14 +125,15 @@ instance Core.AWSRequest DescribeAccountAttributes where
   type
     AWSResponse DescribeAccountAttributes =
       DescribeAccountAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeAccountAttributesResponse'
-            Prelude.<$> ( x Core..@? "accountAttributeSet"
+            Prelude.<$> ( x Data..@? "accountAttributeSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -141,24 +148,24 @@ instance Prelude.NFData DescribeAccountAttributes where
     Prelude.rnf attributeNames
       `Prelude.seq` Prelude.rnf dryRun
 
-instance Core.ToHeaders DescribeAccountAttributes where
+instance Data.ToHeaders DescribeAccountAttributes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeAccountAttributes where
+instance Data.ToPath DescribeAccountAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAccountAttributes where
+instance Data.ToQuery DescribeAccountAttributes where
   toQuery DescribeAccountAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeAccountAttributes" :: Prelude.ByteString),
+          Data.=: ("DescribeAccountAttributes" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          ( Core.toQueryList "AttributeName"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        Data.toQuery
+          ( Data.toQueryList "AttributeName"
               Prelude.<$> attributeNames
           ),
-        "DryRun" Core.=: dryRun
+        "DryRun" Data.=: dryRun
       ]
 
 -- | /See:/ 'newDescribeAccountAttributesResponse' smart constructor.

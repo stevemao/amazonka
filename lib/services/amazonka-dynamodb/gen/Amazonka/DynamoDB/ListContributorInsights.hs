@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.ListContributorInsights
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.DynamoDB.ListContributorInsights
     newListContributorInsights,
 
     -- * Request Lenses
-    listContributorInsights_nextToken,
     listContributorInsights_maxResults,
+    listContributorInsights_nextToken,
     listContributorInsights_tableName,
 
     -- * Destructuring the Response
@@ -44,18 +44,19 @@ module Amazonka.DynamoDB.ListContributorInsights
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListContributorInsights' smart constructor.
 data ListContributorInsights = ListContributorInsights'
-  { -- | A token to for the desired page, if there is one.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of results to return per page.
+  { -- | Maximum number of results to return per page.
     maxResults :: Prelude.Maybe Prelude.Int,
+    -- | A token to for the desired page, if there is one.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the table.
     tableName :: Prelude.Maybe Prelude.Text
   }
@@ -69,28 +70,28 @@ data ListContributorInsights = ListContributorInsights'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listContributorInsights_nextToken' - A token to for the desired page, if there is one.
---
 -- 'maxResults', 'listContributorInsights_maxResults' - Maximum number of results to return per page.
+--
+-- 'nextToken', 'listContributorInsights_nextToken' - A token to for the desired page, if there is one.
 --
 -- 'tableName', 'listContributorInsights_tableName' - The name of the table.
 newListContributorInsights ::
   ListContributorInsights
 newListContributorInsights =
   ListContributorInsights'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       tableName = Prelude.Nothing
     }
-
--- | A token to for the desired page, if there is one.
-listContributorInsights_nextToken :: Lens.Lens' ListContributorInsights (Prelude.Maybe Prelude.Text)
-listContributorInsights_nextToken = Lens.lens (\ListContributorInsights' {nextToken} -> nextToken) (\s@ListContributorInsights' {} a -> s {nextToken = a} :: ListContributorInsights)
 
 -- | Maximum number of results to return per page.
 listContributorInsights_maxResults :: Lens.Lens' ListContributorInsights (Prelude.Maybe Prelude.Int)
 listContributorInsights_maxResults = Lens.lens (\ListContributorInsights' {maxResults} -> maxResults) (\s@ListContributorInsights' {} a -> s {maxResults = a} :: ListContributorInsights)
+
+-- | A token to for the desired page, if there is one.
+listContributorInsights_nextToken :: Lens.Lens' ListContributorInsights (Prelude.Maybe Prelude.Text)
+listContributorInsights_nextToken = Lens.lens (\ListContributorInsights' {nextToken} -> nextToken) (\s@ListContributorInsights' {} a -> s {nextToken = a} :: ListContributorInsights)
 
 -- | The name of the table.
 listContributorInsights_tableName :: Lens.Lens' ListContributorInsights (Prelude.Maybe Prelude.Text)
@@ -100,59 +101,60 @@ instance Core.AWSRequest ListContributorInsights where
   type
     AWSResponse ListContributorInsights =
       ListContributorInsightsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListContributorInsightsResponse'
-            Prelude.<$> ( x Core..?> "ContributorInsightsSummaries"
+            Prelude.<$> ( x Data..?> "ContributorInsightsSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListContributorInsights where
   hashWithSalt _salt ListContributorInsights' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` tableName
 
 instance Prelude.NFData ListContributorInsights where
   rnf ListContributorInsights' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf tableName
 
-instance Core.ToHeaders ListContributorInsights where
+instance Data.ToHeaders ListContributorInsights where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.ListContributorInsights" ::
+              Data.=# ( "DynamoDB_20120810.ListContributorInsights" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListContributorInsights where
+instance Data.ToJSON ListContributorInsights where
   toJSON ListContributorInsights' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("TableName" Core..=) Prelude.<$> tableName
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("TableName" Data..=) Prelude.<$> tableName
           ]
       )
 
-instance Core.ToPath ListContributorInsights where
+instance Data.ToPath ListContributorInsights where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListContributorInsights where
+instance Data.ToQuery ListContributorInsights where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListContributorInsightsResponse' smart constructor.

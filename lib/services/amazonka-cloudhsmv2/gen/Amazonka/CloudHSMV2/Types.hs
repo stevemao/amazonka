@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.CloudHSMV2.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,11 +18,11 @@ module Amazonka.CloudHSMV2.Types
     defaultService,
 
     -- * Errors
-    _CloudHsmInternalFailureException,
-    _CloudHsmServiceException,
-    _CloudHsmInvalidRequestException,
     _CloudHsmAccessDeniedException,
+    _CloudHsmInternalFailureException,
+    _CloudHsmInvalidRequestException,
     _CloudHsmResourceNotFoundException,
+    _CloudHsmServiceException,
     _CloudHsmTagException,
 
     -- * BackupPolicy
@@ -42,70 +43,70 @@ module Amazonka.CloudHSMV2.Types
     -- * Backup
     Backup (..),
     newBackup,
+    backup_backupState,
+    backup_clusterId,
+    backup_copyTimestamp,
+    backup_createTimestamp,
     backup_deleteTimestamp,
-    backup_sourceCluster,
     backup_neverExpires,
+    backup_sourceBackup,
+    backup_sourceCluster,
     backup_sourceRegion,
     backup_tagList,
-    backup_sourceBackup,
-    backup_clusterId,
-    backup_createTimestamp,
-    backup_copyTimestamp,
-    backup_backupState,
     backup_backupId,
 
     -- * BackupRetentionPolicy
     BackupRetentionPolicy (..),
     newBackupRetentionPolicy,
-    backupRetentionPolicy_value,
     backupRetentionPolicy_type,
+    backupRetentionPolicy_value,
 
     -- * Certificates
     Certificates (..),
     newCertificates,
-    certificates_manufacturerHardwareCertificate,
+    certificates_awsHardwareCertificate,
+    certificates_clusterCertificate,
     certificates_clusterCsr,
     certificates_hsmCertificate,
-    certificates_clusterCertificate,
-    certificates_awsHardwareCertificate,
+    certificates_manufacturerHardwareCertificate,
 
     -- * Cluster
     Cluster (..),
     newCluster,
-    cluster_preCoPassword,
-    cluster_stateMessage,
-    cluster_state,
-    cluster_subnetMapping,
+    cluster_backupPolicy,
     cluster_backupRetentionPolicy,
-    cluster_hsms,
-    cluster_vpcId,
-    cluster_tagList,
-    cluster_sourceBackupId,
     cluster_certificates,
-    cluster_securityGroup,
     cluster_clusterId,
     cluster_createTimestamp,
-    cluster_backupPolicy,
     cluster_hsmType,
+    cluster_hsms,
+    cluster_preCoPassword,
+    cluster_securityGroup,
+    cluster_sourceBackupId,
+    cluster_state,
+    cluster_stateMessage,
+    cluster_subnetMapping,
+    cluster_tagList,
+    cluster_vpcId,
 
     -- * DestinationBackup
     DestinationBackup (..),
     newDestinationBackup,
+    destinationBackup_createTimestamp,
+    destinationBackup_sourceBackup,
     destinationBackup_sourceCluster,
     destinationBackup_sourceRegion,
-    destinationBackup_sourceBackup,
-    destinationBackup_createTimestamp,
 
     -- * Hsm
     Hsm (..),
     newHsm,
-    hsm_stateMessage,
-    hsm_state,
-    hsm_eniId,
-    hsm_subnetId,
     hsm_availabilityZone,
     hsm_clusterId,
+    hsm_eniId,
     hsm_eniIp,
+    hsm_state,
+    hsm_stateMessage,
+    hsm_subnetId,
     hsm_hsmId,
 
     -- * Tag
@@ -129,7 +130,7 @@ import Amazonka.CloudHSMV2.Types.Hsm
 import Amazonka.CloudHSMV2.Types.HsmState
 import Amazonka.CloudHSMV2.Types.Tag
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -137,42 +138,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "CloudHSMV2",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "cloudhsmv2",
-      Core._serviceSigningName = "cloudhsm",
-      Core._serviceVersion = "2017-04-28",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "CloudHSMV2",
-      Core._serviceRetry = retry
+    { Core.abbrev = "CloudHSMV2",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "cloudhsmv2",
+      Core.signingName = "cloudhsm",
+      Core.version = "2017-04-28",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "CloudHSMV2",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -180,51 +188,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | The request was rejected because of an AWS CloudHSM internal failure.
--- The request can be retried.
-_CloudHsmInternalFailureException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_CloudHsmInternalFailureException =
-  Core._MatchServiceError
-    defaultService
-    "CloudHsmInternalFailureException"
-
--- | The request was rejected because an error occurred.
-_CloudHsmServiceException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_CloudHsmServiceException =
-  Core._MatchServiceError
-    defaultService
-    "CloudHsmServiceException"
-
--- | The request was rejected because it is not a valid request.
-_CloudHsmInvalidRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_CloudHsmInvalidRequestException =
-  Core._MatchServiceError
-    defaultService
-    "CloudHsmInvalidRequestException"
 
 -- | The request was rejected because the requester does not have permission
 -- to perform the requested operation.
@@ -234,6 +212,21 @@ _CloudHsmAccessDeniedException =
     defaultService
     "CloudHsmAccessDeniedException"
 
+-- | The request was rejected because of an AWS CloudHSM internal failure.
+-- The request can be retried.
+_CloudHsmInternalFailureException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_CloudHsmInternalFailureException =
+  Core._MatchServiceError
+    defaultService
+    "CloudHsmInternalFailureException"
+
+-- | The request was rejected because it is not a valid request.
+_CloudHsmInvalidRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_CloudHsmInvalidRequestException =
+  Core._MatchServiceError
+    defaultService
+    "CloudHsmInvalidRequestException"
+
 -- | The request was rejected because it refers to a resource that cannot be
 -- found.
 _CloudHsmResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -241,6 +234,13 @@ _CloudHsmResourceNotFoundException =
   Core._MatchServiceError
     defaultService
     "CloudHsmResourceNotFoundException"
+
+-- | The request was rejected because an error occurred.
+_CloudHsmServiceException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_CloudHsmServiceException =
+  Core._MatchServiceError
+    defaultService
+    "CloudHsmServiceException"
 
 -- | The request was rejected because of a tagging failure. Verify the tag
 -- conditions in all applicable policies, and then retry the request.

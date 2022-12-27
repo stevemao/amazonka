@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.BatchRevokePermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.LakeFormation.BatchRevokePermissions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LakeFormation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,7 +53,7 @@ data BatchRevokePermissions = BatchRevokePermissions'
   { -- | The identifier for the Data Catalog. By default, the account ID. The
     -- Data Catalog is the persistent metadata store. It contains database
     -- definitions, table definitions, and other control information to manage
-    -- your AWS Lake Formation environment.
+    -- your Lake Formation environment.
     catalogId :: Prelude.Maybe Prelude.Text,
     -- | A list of up to 20 entries for resource permissions to be revoked by
     -- batch operation to the principal.
@@ -71,7 +72,7 @@ data BatchRevokePermissions = BatchRevokePermissions'
 -- 'catalogId', 'batchRevokePermissions_catalogId' - The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 --
 -- 'entries', 'batchRevokePermissions_entries' - A list of up to 20 entries for resource permissions to be revoked by
 -- batch operation to the principal.
@@ -87,7 +88,7 @@ newBatchRevokePermissions =
 -- | The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 batchRevokePermissions_catalogId :: Lens.Lens' BatchRevokePermissions (Prelude.Maybe Prelude.Text)
 batchRevokePermissions_catalogId = Lens.lens (\BatchRevokePermissions' {catalogId} -> catalogId) (\s@BatchRevokePermissions' {} a -> s {catalogId = a} :: BatchRevokePermissions)
 
@@ -100,12 +101,13 @@ instance Core.AWSRequest BatchRevokePermissions where
   type
     AWSResponse BatchRevokePermissions =
       BatchRevokePermissionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchRevokePermissionsResponse'
-            Prelude.<$> (x Core..?> "Failures" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Failures" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -119,34 +121,30 @@ instance Prelude.NFData BatchRevokePermissions where
     Prelude.rnf catalogId
       `Prelude.seq` Prelude.rnf entries
 
-instance Core.ToHeaders BatchRevokePermissions where
+instance Data.ToHeaders BatchRevokePermissions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
-          [ "X-Amz-Target"
-              Core.=# ( "AWSLakeFormation.BatchRevokePermissions" ::
-                          Prelude.ByteString
-                      ),
-            "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+          [ "Content-Type"
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchRevokePermissions where
+instance Data.ToJSON BatchRevokePermissions where
   toJSON BatchRevokePermissions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("Entries" Core..= entries)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            Prelude.Just ("Entries" Data..= entries)
           ]
       )
 
-instance Core.ToPath BatchRevokePermissions where
-  toPath = Prelude.const "/"
+instance Data.ToPath BatchRevokePermissions where
+  toPath = Prelude.const "/BatchRevokePermissions"
 
-instance Core.ToQuery BatchRevokePermissions where
+instance Data.ToQuery BatchRevokePermissions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchRevokePermissionsResponse' smart constructor.

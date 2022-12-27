@@ -14,13 +14,16 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.DeleteVocabularyFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes a vocabulary filter.
+-- Deletes a custom vocabulary filter. To use this operation, specify the
+-- name of the custom vocabulary filter you want to delete using
+-- @VocabularyFilterName@. Custom vocabulary filter names are case
+-- sensitive.
 module Amazonka.Transcribe.DeleteVocabularyFilter
   ( -- * Creating a Request
     DeleteVocabularyFilter (..),
@@ -36,7 +39,8 @@ module Amazonka.Transcribe.DeleteVocabularyFilter
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -44,7 +48,8 @@ import Amazonka.Transcribe.Types
 
 -- | /See:/ 'newDeleteVocabularyFilter' smart constructor.
 data DeleteVocabularyFilter = DeleteVocabularyFilter'
-  { -- | The name of the vocabulary filter to remove.
+  { -- | The name of the custom vocabulary filter you want to delete. Custom
+    -- vocabulary filter names are case sensitive.
     vocabularyFilterName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -57,7 +62,8 @@ data DeleteVocabularyFilter = DeleteVocabularyFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vocabularyFilterName', 'deleteVocabularyFilter_vocabularyFilterName' - The name of the vocabulary filter to remove.
+-- 'vocabularyFilterName', 'deleteVocabularyFilter_vocabularyFilterName' - The name of the custom vocabulary filter you want to delete. Custom
+-- vocabulary filter names are case sensitive.
 newDeleteVocabularyFilter ::
   -- | 'vocabularyFilterName'
   Prelude.Text ->
@@ -68,7 +74,8 @@ newDeleteVocabularyFilter pVocabularyFilterName_ =
         pVocabularyFilterName_
     }
 
--- | The name of the vocabulary filter to remove.
+-- | The name of the custom vocabulary filter you want to delete. Custom
+-- vocabulary filter names are case sensitive.
 deleteVocabularyFilter_vocabularyFilterName :: Lens.Lens' DeleteVocabularyFilter Prelude.Text
 deleteVocabularyFilter_vocabularyFilterName = Lens.lens (\DeleteVocabularyFilter' {vocabularyFilterName} -> vocabularyFilterName) (\s@DeleteVocabularyFilter' {} a -> s {vocabularyFilterName = a} :: DeleteVocabularyFilter)
 
@@ -76,7 +83,8 @@ instance Core.AWSRequest DeleteVocabularyFilter where
   type
     AWSResponse DeleteVocabularyFilter =
       DeleteVocabularyFilterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteVocabularyFilterResponse'
@@ -89,36 +97,36 @@ instance Prelude.NFData DeleteVocabularyFilter where
   rnf DeleteVocabularyFilter' {..} =
     Prelude.rnf vocabularyFilterName
 
-instance Core.ToHeaders DeleteVocabularyFilter where
+instance Data.ToHeaders DeleteVocabularyFilter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Transcribe.DeleteVocabularyFilter" ::
+              Data.=# ( "Transcribe.DeleteVocabularyFilter" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteVocabularyFilter where
+instance Data.ToJSON DeleteVocabularyFilter where
   toJSON DeleteVocabularyFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "VocabularyFilterName"
-                  Core..= vocabularyFilterName
+                  Data..= vocabularyFilterName
               )
           ]
       )
 
-instance Core.ToPath DeleteVocabularyFilter where
+instance Data.ToPath DeleteVocabularyFilter where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteVocabularyFilter where
+instance Data.ToQuery DeleteVocabularyFilter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteVocabularyFilterResponse' smart constructor.

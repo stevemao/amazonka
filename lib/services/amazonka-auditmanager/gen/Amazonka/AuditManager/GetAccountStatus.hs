@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.GetAccountStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,12 +62,13 @@ instance Core.AWSRequest GetAccountStatus where
   type
     AWSResponse GetAccountStatus =
       GetAccountStatusResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAccountStatusResponse'
-            Prelude.<$> (x Core..?> "status")
+            Prelude.<$> (x Data..?> "status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -77,26 +79,26 @@ instance Prelude.Hashable GetAccountStatus where
 instance Prelude.NFData GetAccountStatus where
   rnf _ = ()
 
-instance Core.ToHeaders GetAccountStatus where
+instance Data.ToHeaders GetAccountStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetAccountStatus where
+instance Data.ToPath GetAccountStatus where
   toPath = Prelude.const "/account/status"
 
-instance Core.ToQuery GetAccountStatus where
+instance Data.ToQuery GetAccountStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAccountStatusResponse' smart constructor.
 data GetAccountStatusResponse = GetAccountStatusResponse'
-  { -- | The status of the specified Amazon Web Services account.
+  { -- | The status of the Amazon Web Services account.
     status :: Prelude.Maybe AccountStatus,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -111,7 +113,7 @@ data GetAccountStatusResponse = GetAccountStatusResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'getAccountStatusResponse_status' - The status of the specified Amazon Web Services account.
+-- 'status', 'getAccountStatusResponse_status' - The status of the Amazon Web Services account.
 --
 -- 'httpStatus', 'getAccountStatusResponse_httpStatus' - The response's http status code.
 newGetAccountStatusResponse ::
@@ -124,7 +126,7 @@ newGetAccountStatusResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The status of the specified Amazon Web Services account.
+-- | The status of the Amazon Web Services account.
 getAccountStatusResponse_status :: Lens.Lens' GetAccountStatusResponse (Prelude.Maybe AccountStatus)
 getAccountStatusResponse_status = Lens.lens (\GetAccountStatusResponse' {status} -> status) (\s@GetAccountStatusResponse' {} a -> s {status = a} :: GetAccountStatusResponse)
 

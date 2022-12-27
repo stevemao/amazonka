@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.InstanceAggregatedAssociationOverview
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.InstanceAggregatedAssociationOverview where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Status information about the aggregated associations.
@@ -29,7 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 data InstanceAggregatedAssociationOverview = InstanceAggregatedAssociationOverview'
   { -- | Detailed status information about the aggregated associations.
     detailedStatus :: Prelude.Maybe Prelude.Text,
-    -- | The number of associations for the instance(s).
+    -- | The number of associations for the managed node(s).
     instanceAssociationStatusAggregatedCount :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Int)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,7 +45,7 @@ data InstanceAggregatedAssociationOverview = InstanceAggregatedAssociationOvervi
 --
 -- 'detailedStatus', 'instanceAggregatedAssociationOverview_detailedStatus' - Detailed status information about the aggregated associations.
 --
--- 'instanceAssociationStatusAggregatedCount', 'instanceAggregatedAssociationOverview_instanceAssociationStatusAggregatedCount' - The number of associations for the instance(s).
+-- 'instanceAssociationStatusAggregatedCount', 'instanceAggregatedAssociationOverview_instanceAssociationStatusAggregatedCount' - The number of associations for the managed node(s).
 newInstanceAggregatedAssociationOverview ::
   InstanceAggregatedAssociationOverview
 newInstanceAggregatedAssociationOverview =
@@ -59,23 +60,23 @@ newInstanceAggregatedAssociationOverview =
 instanceAggregatedAssociationOverview_detailedStatus :: Lens.Lens' InstanceAggregatedAssociationOverview (Prelude.Maybe Prelude.Text)
 instanceAggregatedAssociationOverview_detailedStatus = Lens.lens (\InstanceAggregatedAssociationOverview' {detailedStatus} -> detailedStatus) (\s@InstanceAggregatedAssociationOverview' {} a -> s {detailedStatus = a} :: InstanceAggregatedAssociationOverview)
 
--- | The number of associations for the instance(s).
+-- | The number of associations for the managed node(s).
 instanceAggregatedAssociationOverview_instanceAssociationStatusAggregatedCount :: Lens.Lens' InstanceAggregatedAssociationOverview (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Int))
 instanceAggregatedAssociationOverview_instanceAssociationStatusAggregatedCount = Lens.lens (\InstanceAggregatedAssociationOverview' {instanceAssociationStatusAggregatedCount} -> instanceAssociationStatusAggregatedCount) (\s@InstanceAggregatedAssociationOverview' {} a -> s {instanceAssociationStatusAggregatedCount = a} :: InstanceAggregatedAssociationOverview) Prelude.. Lens.mapping Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     InstanceAggregatedAssociationOverview
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstanceAggregatedAssociationOverview"
       ( \x ->
           InstanceAggregatedAssociationOverview'
-            Prelude.<$> (x Core..:? "DetailedStatus")
+            Prelude.<$> (x Data..:? "DetailedStatus")
             Prelude.<*> ( x
-                            Core..:? "InstanceAssociationStatusAggregatedCount"
-                            Core..!= Prelude.mempty
+                            Data..:? "InstanceAssociationStatusAggregatedCount"
+                            Data..!= Prelude.mempty
                         )
       )
 

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.UpdatePushTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Pinpoint.UpdatePushTemplate
     newUpdatePushTemplate,
 
     -- * Request Lenses
-    updatePushTemplate_version,
     updatePushTemplate_createNewVersion,
+    updatePushTemplate_version,
     updatePushTemplate_templateName,
     updatePushTemplate_pushNotificationTemplateRequest,
 
@@ -44,7 +44,8 @@ module Amazonka.Pinpoint.UpdatePushTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,7 +53,17 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdatePushTemplate' smart constructor.
 data UpdatePushTemplate = UpdatePushTemplate'
-  { -- | The unique identifier for the version of the message template to update,
+  { -- | Specifies whether to save the updates as a new version of the message
+    -- template. Valid values are: true, save the updates as a new version;
+    -- and, false, save the updates to (overwrite) the latest existing version
+    -- of the template.
+    --
+    -- If you don\'t specify a value for this parameter, Amazon Pinpoint saves
+    -- the updates to (overwrites) the latest existing version of the template.
+    -- If you specify a value of true for this parameter, don\'t specify a
+    -- value for the version parameter. Otherwise, an error will occur.
+    createNewVersion :: Prelude.Maybe Prelude.Bool,
+    -- | The unique identifier for the version of the message template to update,
     -- retrieve information about, or delete. To retrieve identifiers and other
     -- information for all the versions of a template, use the Template
     -- Versions resource.
@@ -75,16 +86,6 @@ data UpdatePushTemplate = UpdatePushTemplate'
     -- -   For a delete operation, deletes the template, including all versions
     --     of the template.
     version :: Prelude.Maybe Prelude.Text,
-    -- | Specifies whether to save the updates as a new version of the message
-    -- template. Valid values are: true, save the updates as a new version;
-    -- and, false, save the updates to (overwrite) the latest existing version
-    -- of the template.
-    --
-    -- If you don\'t specify a value for this parameter, Amazon Pinpoint saves
-    -- the updates to (overwrites) the latest existing version of the template.
-    -- If you specify a value of true for this parameter, don\'t specify a
-    -- value for the version parameter. Otherwise, an error will occur.
-    createNewVersion :: Prelude.Maybe Prelude.Bool,
     -- | The name of the message template. A template name must start with an
     -- alphanumeric character and can contain a maximum of 128 characters. The
     -- characters can be alphanumeric characters, underscores (_), or hyphens
@@ -101,6 +102,16 @@ data UpdatePushTemplate = UpdatePushTemplate'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'createNewVersion', 'updatePushTemplate_createNewVersion' - Specifies whether to save the updates as a new version of the message
+-- template. Valid values are: true, save the updates as a new version;
+-- and, false, save the updates to (overwrite) the latest existing version
+-- of the template.
+--
+-- If you don\'t specify a value for this parameter, Amazon Pinpoint saves
+-- the updates to (overwrites) the latest existing version of the template.
+-- If you specify a value of true for this parameter, don\'t specify a
+-- value for the version parameter. Otherwise, an error will occur.
 --
 -- 'version', 'updatePushTemplate_version' - The unique identifier for the version of the message template to update,
 -- retrieve information about, or delete. To retrieve identifiers and other
@@ -125,16 +136,6 @@ data UpdatePushTemplate = UpdatePushTemplate'
 -- -   For a delete operation, deletes the template, including all versions
 --     of the template.
 --
--- 'createNewVersion', 'updatePushTemplate_createNewVersion' - Specifies whether to save the updates as a new version of the message
--- template. Valid values are: true, save the updates as a new version;
--- and, false, save the updates to (overwrite) the latest existing version
--- of the template.
---
--- If you don\'t specify a value for this parameter, Amazon Pinpoint saves
--- the updates to (overwrites) the latest existing version of the template.
--- If you specify a value of true for this parameter, don\'t specify a
--- value for the version parameter. Otherwise, an error will occur.
---
 -- 'templateName', 'updatePushTemplate_templateName' - The name of the message template. A template name must start with an
 -- alphanumeric character and can contain a maximum of 128 characters. The
 -- characters can be alphanumeric characters, underscores (_), or hyphens
@@ -151,12 +152,25 @@ newUpdatePushTemplate
   pTemplateName_
   pPushNotificationTemplateRequest_ =
     UpdatePushTemplate'
-      { version = Prelude.Nothing,
-        createNewVersion = Prelude.Nothing,
+      { createNewVersion =
+          Prelude.Nothing,
+        version = Prelude.Nothing,
         templateName = pTemplateName_,
         pushNotificationTemplateRequest =
           pPushNotificationTemplateRequest_
       }
+
+-- | Specifies whether to save the updates as a new version of the message
+-- template. Valid values are: true, save the updates as a new version;
+-- and, false, save the updates to (overwrite) the latest existing version
+-- of the template.
+--
+-- If you don\'t specify a value for this parameter, Amazon Pinpoint saves
+-- the updates to (overwrites) the latest existing version of the template.
+-- If you specify a value of true for this parameter, don\'t specify a
+-- value for the version parameter. Otherwise, an error will occur.
+updatePushTemplate_createNewVersion :: Lens.Lens' UpdatePushTemplate (Prelude.Maybe Prelude.Bool)
+updatePushTemplate_createNewVersion = Lens.lens (\UpdatePushTemplate' {createNewVersion} -> createNewVersion) (\s@UpdatePushTemplate' {} a -> s {createNewVersion = a} :: UpdatePushTemplate)
 
 -- | The unique identifier for the version of the message template to update,
 -- retrieve information about, or delete. To retrieve identifiers and other
@@ -183,18 +197,6 @@ newUpdatePushTemplate
 updatePushTemplate_version :: Lens.Lens' UpdatePushTemplate (Prelude.Maybe Prelude.Text)
 updatePushTemplate_version = Lens.lens (\UpdatePushTemplate' {version} -> version) (\s@UpdatePushTemplate' {} a -> s {version = a} :: UpdatePushTemplate)
 
--- | Specifies whether to save the updates as a new version of the message
--- template. Valid values are: true, save the updates as a new version;
--- and, false, save the updates to (overwrite) the latest existing version
--- of the template.
---
--- If you don\'t specify a value for this parameter, Amazon Pinpoint saves
--- the updates to (overwrites) the latest existing version of the template.
--- If you specify a value of true for this parameter, don\'t specify a
--- value for the version parameter. Otherwise, an error will occur.
-updatePushTemplate_createNewVersion :: Lens.Lens' UpdatePushTemplate (Prelude.Maybe Prelude.Bool)
-updatePushTemplate_createNewVersion = Lens.lens (\UpdatePushTemplate' {createNewVersion} -> createNewVersion) (\s@UpdatePushTemplate' {} a -> s {createNewVersion = a} :: UpdatePushTemplate)
-
 -- | The name of the message template. A template name must start with an
 -- alphanumeric character and can contain a maximum of 128 characters. The
 -- characters can be alphanumeric characters, underscores (_), or hyphens
@@ -210,61 +212,55 @@ instance Core.AWSRequest UpdatePushTemplate where
   type
     AWSResponse UpdatePushTemplate =
       UpdatePushTemplateResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdatePushTemplateResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable UpdatePushTemplate where
   hashWithSalt _salt UpdatePushTemplate' {..} =
-    _salt `Prelude.hashWithSalt` version
-      `Prelude.hashWithSalt` createNewVersion
+    _salt `Prelude.hashWithSalt` createNewVersion
+      `Prelude.hashWithSalt` version
       `Prelude.hashWithSalt` templateName
       `Prelude.hashWithSalt` pushNotificationTemplateRequest
 
 instance Prelude.NFData UpdatePushTemplate where
   rnf UpdatePushTemplate' {..} =
-    Prelude.rnf version
-      `Prelude.seq` Prelude.rnf createNewVersion
+    Prelude.rnf createNewVersion
+      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf templateName
       `Prelude.seq` Prelude.rnf pushNotificationTemplateRequest
 
-instance Core.ToHeaders UpdatePushTemplate where
+instance Data.ToHeaders UpdatePushTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdatePushTemplate where
+instance Data.ToJSON UpdatePushTemplate where
   toJSON UpdatePushTemplate' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ Prelude.Just
-              ( "PushNotificationTemplateRequest"
-                  Core..= pushNotificationTemplateRequest
-              )
-          ]
-      )
+    Data.toJSON pushNotificationTemplateRequest
 
-instance Core.ToPath UpdatePushTemplate where
+instance Data.ToPath UpdatePushTemplate where
   toPath UpdatePushTemplate' {..} =
     Prelude.mconcat
-      ["/v1/templates/", Core.toBS templateName, "/push"]
+      ["/v1/templates/", Data.toBS templateName, "/push"]
 
-instance Core.ToQuery UpdatePushTemplate where
+instance Data.ToQuery UpdatePushTemplate where
   toQuery UpdatePushTemplate' {..} =
     Prelude.mconcat
-      [ "version" Core.=: version,
-        "create-new-version" Core.=: createNewVersion
+      [ "create-new-version" Data.=: createNewVersion,
+        "version" Data.=: version
       ]
 
 -- | /See:/ 'newUpdatePushTemplateResponse' smart constructor.

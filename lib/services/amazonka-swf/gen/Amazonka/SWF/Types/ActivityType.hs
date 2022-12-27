@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.ActivityType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.ActivityType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents an activity type.
@@ -80,13 +81,13 @@ activityType_name = Lens.lens (\ActivityType' {name} -> name) (\s@ActivityType' 
 activityType_version :: Lens.Lens' ActivityType Prelude.Text
 activityType_version = Lens.lens (\ActivityType' {version} -> version) (\s@ActivityType' {} a -> s {version = a} :: ActivityType)
 
-instance Core.FromJSON ActivityType where
+instance Data.FromJSON ActivityType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActivityType"
       ( \x ->
           ActivityType'
-            Prelude.<$> (x Core..: "name") Prelude.<*> (x Core..: "version")
+            Prelude.<$> (x Data..: "name") Prelude.<*> (x Data..: "version")
       )
 
 instance Prelude.Hashable ActivityType where
@@ -98,11 +99,11 @@ instance Prelude.NFData ActivityType where
   rnf ActivityType' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf version
 
-instance Core.ToJSON ActivityType where
+instance Data.ToJSON ActivityType where
   toJSON ActivityType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("name" Core..= name),
-            Prelude.Just ("version" Core..= version)
+          [ Prelude.Just ("name" Data..= name),
+            Prelude.Just ("version" Data..= version)
           ]
       )

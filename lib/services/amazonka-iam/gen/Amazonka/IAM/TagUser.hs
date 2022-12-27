@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.TagUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -74,8 +74,9 @@ module Amazonka.IAM.TagUser
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -138,7 +139,8 @@ tagUser_tags = Lens.lens (\TagUser' {tags} -> tags) (\s@TagUser' {} a -> s {tags
 
 instance Core.AWSRequest TagUser where
   type AWSResponse TagUser = TagUserResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull TagUserResponse'
 
 instance Prelude.Hashable TagUser where
@@ -150,20 +152,20 @@ instance Prelude.NFData TagUser where
   rnf TagUser' {..} =
     Prelude.rnf userName `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagUser where
+instance Data.ToHeaders TagUser where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath TagUser where
+instance Data.ToPath TagUser where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TagUser where
+instance Data.ToQuery TagUser where
   toQuery TagUser' {..} =
     Prelude.mconcat
-      [ "Action" Core.=: ("TagUser" :: Prelude.ByteString),
+      [ "Action" Data.=: ("TagUser" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "UserName" Core.=: userName,
-        "Tags" Core.=: Core.toQueryList "member" tags
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Data.=: userName,
+        "Tags" Data.=: Data.toQueryList "member" tags
       ]
 
 -- | /See:/ 'newTagUserResponse' smart constructor.

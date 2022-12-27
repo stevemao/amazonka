@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.InitiateMultipartUpload
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -80,8 +80,9 @@ module Amazonka.Glacier.InitiateMultipartUpload
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -187,16 +188,16 @@ instance Core.AWSRequest InitiateMultipartUpload where
   type
     AWSResponse InitiateMultipartUpload =
       InitiateMultipartUploadResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.postJSON defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
           InitiateMultipartUploadResponse'
-            Prelude.<$> (h Core..#? "Location")
+            Prelude.<$> (h Data..#? "Location")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (h Core..# "x-amz-multipart-upload-id")
+            Prelude.<*> (h Data..# "x-amz-multipart-upload-id")
       )
 
 instance Prelude.Hashable InitiateMultipartUpload where
@@ -213,28 +214,28 @@ instance Prelude.NFData InitiateMultipartUpload where
       `Prelude.seq` Prelude.rnf vaultName
       `Prelude.seq` Prelude.rnf partSize
 
-instance Core.ToHeaders InitiateMultipartUpload where
+instance Data.ToHeaders InitiateMultipartUpload where
   toHeaders InitiateMultipartUpload' {..} =
     Prelude.mconcat
       [ "x-amz-archive-description"
-          Core.=# archiveDescription,
-        "x-amz-part-size" Core.=# partSize
+          Data.=# archiveDescription,
+        "x-amz-part-size" Data.=# partSize
       ]
 
-instance Core.ToJSON InitiateMultipartUpload where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON InitiateMultipartUpload where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath InitiateMultipartUpload where
+instance Data.ToPath InitiateMultipartUpload where
   toPath InitiateMultipartUpload' {..} =
     Prelude.mconcat
       [ "/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/vaults/",
-        Core.toBS vaultName,
+        Data.toBS vaultName,
         "/multipart-uploads"
       ]
 
-instance Core.ToQuery InitiateMultipartUpload where
+instance Data.ToQuery InitiateMultipartUpload where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The Amazon S3 Glacier response to your request.

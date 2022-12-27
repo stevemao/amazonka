@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroupsTagging.GetTagKeys
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns all tag keys currently in use in the specified Region for the
--- calling AWS account.
+-- Returns all tag keys currently in use in the specified Amazon Web
+-- Services Region for the calling account.
 --
 -- This operation supports pagination, where the response can be sent in
 -- multiple pages. You should check the @PaginationToken@ response
@@ -52,7 +52,8 @@ module Amazonka.ResourceGroupsTagging.GetTagKeys
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import Amazonka.ResourceGroupsTagging.Types
@@ -112,13 +113,14 @@ instance Core.AWSPager GetTagKeys where
 
 instance Core.AWSRequest GetTagKeys where
   type AWSResponse GetTagKeys = GetTagKeysResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetTagKeysResponse'
-            Prelude.<$> (x Core..?> "PaginationToken")
-            Prelude.<*> (x Core..?> "TagKeys" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "PaginationToken")
+            Prelude.<*> (x Data..?> "TagKeys" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,34 +131,34 @@ instance Prelude.Hashable GetTagKeys where
 instance Prelude.NFData GetTagKeys where
   rnf GetTagKeys' {..} = Prelude.rnf paginationToken
 
-instance Core.ToHeaders GetTagKeys where
+instance Data.ToHeaders GetTagKeys where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ResourceGroupsTaggingAPI_20170126.GetTagKeys" ::
+              Data.=# ( "ResourceGroupsTaggingAPI_20170126.GetTagKeys" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetTagKeys where
+instance Data.ToJSON GetTagKeys where
   toJSON GetTagKeys' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PaginationToken" Core..=)
+          [ ("PaginationToken" Data..=)
               Prelude.<$> paginationToken
           ]
       )
 
-instance Core.ToPath GetTagKeys where
+instance Data.ToPath GetTagKeys where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetTagKeys where
+instance Data.ToQuery GetTagKeys where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetTagKeysResponse' smart constructor.
@@ -166,7 +168,7 @@ data GetTagKeysResponse = GetTagKeysResponse'
     -- this response value as the @PaginationToken@ value in the request for
     -- the next page.
     paginationToken :: Prelude.Maybe Prelude.Text,
-    -- | A list of all tag keys in the AWS account.
+    -- | A list of all tag keys in the Amazon Web Services account.
     tagKeys :: Prelude.Maybe [Prelude.Text],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -186,7 +188,7 @@ data GetTagKeysResponse = GetTagKeysResponse'
 -- this response value as the @PaginationToken@ value in the request for
 -- the next page.
 --
--- 'tagKeys', 'getTagKeysResponse_tagKeys' - A list of all tag keys in the AWS account.
+-- 'tagKeys', 'getTagKeysResponse_tagKeys' - A list of all tag keys in the Amazon Web Services account.
 --
 -- 'httpStatus', 'getTagKeysResponse_httpStatus' - The response's http status code.
 newGetTagKeysResponse ::
@@ -208,7 +210,7 @@ newGetTagKeysResponse pHttpStatus_ =
 getTagKeysResponse_paginationToken :: Lens.Lens' GetTagKeysResponse (Prelude.Maybe Prelude.Text)
 getTagKeysResponse_paginationToken = Lens.lens (\GetTagKeysResponse' {paginationToken} -> paginationToken) (\s@GetTagKeysResponse' {} a -> s {paginationToken = a} :: GetTagKeysResponse)
 
--- | A list of all tag keys in the AWS account.
+-- | A list of all tag keys in the Amazon Web Services account.
 getTagKeysResponse_tagKeys :: Lens.Lens' GetTagKeysResponse (Prelude.Maybe [Prelude.Text])
 getTagKeysResponse_tagKeys = Lens.lens (\GetTagKeysResponse' {tagKeys} -> tagKeys) (\s@GetTagKeysResponse' {} a -> s {tagKeys = a} :: GetTagKeysResponse) Prelude.. Lens.mapping Lens.coerced
 

@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.DeleteRecoveryGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an existing Recovery Group.
+-- Deletes a recovery group.
 module Amazonka.Route53RecoveryReadiness.DeleteRecoveryGroup
   ( -- * Creating a Request
     DeleteRecoveryGroup (..),
@@ -36,7 +36,8 @@ module Amazonka.Route53RecoveryReadiness.DeleteRecoveryGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -44,7 +45,7 @@ import Amazonka.Route53RecoveryReadiness.Types
 
 -- | /See:/ 'newDeleteRecoveryGroup' smart constructor.
 data DeleteRecoveryGroup = DeleteRecoveryGroup'
-  { -- | The RecoveryGroup to delete
+  { -- | The name of a recovery group.
     recoveryGroupName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -57,7 +58,7 @@ data DeleteRecoveryGroup = DeleteRecoveryGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'recoveryGroupName', 'deleteRecoveryGroup_recoveryGroupName' - The RecoveryGroup to delete
+-- 'recoveryGroupName', 'deleteRecoveryGroup_recoveryGroupName' - The name of a recovery group.
 newDeleteRecoveryGroup ::
   -- | 'recoveryGroupName'
   Prelude.Text ->
@@ -68,7 +69,7 @@ newDeleteRecoveryGroup pRecoveryGroupName_ =
         pRecoveryGroupName_
     }
 
--- | The RecoveryGroup to delete
+-- | The name of a recovery group.
 deleteRecoveryGroup_recoveryGroupName :: Lens.Lens' DeleteRecoveryGroup Prelude.Text
 deleteRecoveryGroup_recoveryGroupName = Lens.lens (\DeleteRecoveryGroup' {recoveryGroupName} -> recoveryGroupName) (\s@DeleteRecoveryGroup' {} a -> s {recoveryGroupName = a} :: DeleteRecoveryGroup)
 
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteRecoveryGroup where
   type
     AWSResponse DeleteRecoveryGroup =
       DeleteRecoveryGroupResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteRecoveryGroupResponse'
 
@@ -88,23 +90,23 @@ instance Prelude.NFData DeleteRecoveryGroup where
   rnf DeleteRecoveryGroup' {..} =
     Prelude.rnf recoveryGroupName
 
-instance Core.ToHeaders DeleteRecoveryGroup where
+instance Data.ToHeaders DeleteRecoveryGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteRecoveryGroup where
+instance Data.ToPath DeleteRecoveryGroup where
   toPath DeleteRecoveryGroup' {..} =
     Prelude.mconcat
-      ["/recoverygroups/", Core.toBS recoveryGroupName]
+      ["/recoverygroups/", Data.toBS recoveryGroupName]
 
-instance Core.ToQuery DeleteRecoveryGroup where
+instance Data.ToQuery DeleteRecoveryGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRecoveryGroupResponse' smart constructor.

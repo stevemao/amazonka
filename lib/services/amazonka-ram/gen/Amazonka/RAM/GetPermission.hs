@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RAM.GetPermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.RAM.GetPermission
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RAM.Types
 import qualified Amazonka.Request as Request
@@ -49,9 +50,17 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetPermission' smart constructor.
 data GetPermission = GetPermission'
-  { -- | The identifier for the version of the permission.
+  { -- | Specifies identifier for the version of the RAM permission to retrieve.
+    -- If you don\'t specify this parameter, the operation retrieves the
+    -- default version.
     permissionVersion :: Prelude.Maybe Prelude.Int,
-    -- | The Amazon Resource Name (ARN) of the permission.
+    -- | Specifies the
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resoure Name (ARN)>
+    -- of the permission whose contents you want to retrieve. To find the ARN
+    -- for a permission, use either the ListPermissions operation or go to the
+    -- <https://console.aws.amazon.com/ram/home#Permissions: Permissions library>
+    -- page in the RAM console and then choose the name of the permission. The
+    -- ARN is displayed on the detail page.
     permissionArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -64,9 +73,17 @@ data GetPermission = GetPermission'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'permissionVersion', 'getPermission_permissionVersion' - The identifier for the version of the permission.
+-- 'permissionVersion', 'getPermission_permissionVersion' - Specifies identifier for the version of the RAM permission to retrieve.
+-- If you don\'t specify this parameter, the operation retrieves the
+-- default version.
 --
--- 'permissionArn', 'getPermission_permissionArn' - The Amazon Resource Name (ARN) of the permission.
+-- 'permissionArn', 'getPermission_permissionArn' - Specifies the
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resoure Name (ARN)>
+-- of the permission whose contents you want to retrieve. To find the ARN
+-- for a permission, use either the ListPermissions operation or go to the
+-- <https://console.aws.amazon.com/ram/home#Permissions: Permissions library>
+-- page in the RAM console and then choose the name of the permission. The
+-- ARN is displayed on the detail page.
 newGetPermission ::
   -- | 'permissionArn'
   Prelude.Text ->
@@ -77,11 +94,19 @@ newGetPermission pPermissionArn_ =
       permissionArn = pPermissionArn_
     }
 
--- | The identifier for the version of the permission.
+-- | Specifies identifier for the version of the RAM permission to retrieve.
+-- If you don\'t specify this parameter, the operation retrieves the
+-- default version.
 getPermission_permissionVersion :: Lens.Lens' GetPermission (Prelude.Maybe Prelude.Int)
 getPermission_permissionVersion = Lens.lens (\GetPermission' {permissionVersion} -> permissionVersion) (\s@GetPermission' {} a -> s {permissionVersion = a} :: GetPermission)
 
--- | The Amazon Resource Name (ARN) of the permission.
+-- | Specifies the
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resoure Name (ARN)>
+-- of the permission whose contents you want to retrieve. To find the ARN
+-- for a permission, use either the ListPermissions operation or go to the
+-- <https://console.aws.amazon.com/ram/home#Permissions: Permissions library>
+-- page in the RAM console and then choose the name of the permission. The
+-- ARN is displayed on the detail page.
 getPermission_permissionArn :: Lens.Lens' GetPermission Prelude.Text
 getPermission_permissionArn = Lens.lens (\GetPermission' {permissionArn} -> permissionArn) (\s@GetPermission' {} a -> s {permissionArn = a} :: GetPermission)
 
@@ -89,12 +114,13 @@ instance Core.AWSRequest GetPermission where
   type
     AWSResponse GetPermission =
       GetPermissionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPermissionResponse'
-            Prelude.<$> (x Core..?> "permission")
+            Prelude.<$> (x Data..?> "permission")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,37 +134,37 @@ instance Prelude.NFData GetPermission where
     Prelude.rnf permissionVersion
       `Prelude.seq` Prelude.rnf permissionArn
 
-instance Core.ToHeaders GetPermission where
+instance Data.ToHeaders GetPermission where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetPermission where
+instance Data.ToJSON GetPermission where
   toJSON GetPermission' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("permissionVersion" Core..=)
+          [ ("permissionVersion" Data..=)
               Prelude.<$> permissionVersion,
             Prelude.Just
-              ("permissionArn" Core..= permissionArn)
+              ("permissionArn" Data..= permissionArn)
           ]
       )
 
-instance Core.ToPath GetPermission where
+instance Data.ToPath GetPermission where
   toPath = Prelude.const "/getpermission"
 
-instance Core.ToQuery GetPermission where
+instance Data.ToQuery GetPermission where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetPermissionResponse' smart constructor.
 data GetPermissionResponse = GetPermissionResponse'
-  { -- | Information about the permission.
+  { -- | An object that contains information about the permission.
     permission :: Prelude.Maybe ResourceSharePermissionDetail,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -153,7 +179,7 @@ data GetPermissionResponse = GetPermissionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'permission', 'getPermissionResponse_permission' - Information about the permission.
+-- 'permission', 'getPermissionResponse_permission' - An object that contains information about the permission.
 --
 -- 'httpStatus', 'getPermissionResponse_httpStatus' - The response's http status code.
 newGetPermissionResponse ::
@@ -167,7 +193,7 @@ newGetPermissionResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Information about the permission.
+-- | An object that contains information about the permission.
 getPermissionResponse_permission :: Lens.Lens' GetPermissionResponse (Prelude.Maybe ResourceSharePermissionDetail)
 getPermissionResponse_permission = Lens.lens (\GetPermissionResponse' {permission} -> permission) (\s@GetPermissionResponse' {} a -> s {permission = a} :: GetPermissionResponse)
 

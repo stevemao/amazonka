@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.ListTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,8 @@ module Amazonka.CertificateManagerPCA.ListTags
     newListTags,
 
     -- * Request Lenses
-    listTags_nextToken,
     listTags_maxResults,
+    listTags_nextToken,
     listTags_certificateAuthorityArn,
 
     -- * Destructuring the Response
@@ -53,23 +53,24 @@ where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTags' smart constructor.
 data ListTags = ListTags'
-  { -- | Use this parameter when paginating results in a subsequent request after
-    -- you receive a response with truncated results. Set it to the value of
-    -- __NextToken__ from the response you just received.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Use this parameter when paginating results to specify the maximum number
+  { -- | Use this parameter when paginating results to specify the maximum number
     -- of items to return in the response. If additional items exist beyond the
     -- number you specify, the __NextToken__ element is sent in the response.
     -- Use this __NextToken__ value in a subsequent request to retrieve
     -- additional items.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Use this parameter when paginating results in a subsequent request after
+    -- you receive a response with truncated results. Set it to the value of
+    -- __NextToken__ from the response you just received.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) that was returned when you called the
     -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthority.html CreateCertificateAuthority>
     -- action. This must be of the form:
@@ -87,15 +88,15 @@ data ListTags = ListTags'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listTags_nextToken' - Use this parameter when paginating results in a subsequent request after
--- you receive a response with truncated results. Set it to the value of
--- __NextToken__ from the response you just received.
---
 -- 'maxResults', 'listTags_maxResults' - Use this parameter when paginating results to specify the maximum number
 -- of items to return in the response. If additional items exist beyond the
 -- number you specify, the __NextToken__ element is sent in the response.
 -- Use this __NextToken__ value in a subsequent request to retrieve
 -- additional items.
+--
+-- 'nextToken', 'listTags_nextToken' - Use this parameter when paginating results in a subsequent request after
+-- you receive a response with truncated results. Set it to the value of
+-- __NextToken__ from the response you just received.
 --
 -- 'certificateAuthorityArn', 'listTags_certificateAuthorityArn' - The Amazon Resource Name (ARN) that was returned when you called the
 -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthority.html CreateCertificateAuthority>
@@ -108,16 +109,10 @@ newListTags ::
   ListTags
 newListTags pCertificateAuthorityArn_ =
   ListTags'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       certificateAuthorityArn = pCertificateAuthorityArn_
     }
-
--- | Use this parameter when paginating results in a subsequent request after
--- you receive a response with truncated results. Set it to the value of
--- __NextToken__ from the response you just received.
-listTags_nextToken :: Lens.Lens' ListTags (Prelude.Maybe Prelude.Text)
-listTags_nextToken = Lens.lens (\ListTags' {nextToken} -> nextToken) (\s@ListTags' {} a -> s {nextToken = a} :: ListTags)
 
 -- | Use this parameter when paginating results to specify the maximum number
 -- of items to return in the response. If additional items exist beyond the
@@ -126,6 +121,12 @@ listTags_nextToken = Lens.lens (\ListTags' {nextToken} -> nextToken) (\s@ListTag
 -- additional items.
 listTags_maxResults :: Lens.Lens' ListTags (Prelude.Maybe Prelude.Natural)
 listTags_maxResults = Lens.lens (\ListTags' {maxResults} -> maxResults) (\s@ListTags' {} a -> s {maxResults = a} :: ListTags)
+
+-- | Use this parameter when paginating results in a subsequent request after
+-- you receive a response with truncated results. Set it to the value of
+-- __NextToken__ from the response you just received.
+listTags_nextToken :: Lens.Lens' ListTags (Prelude.Maybe Prelude.Text)
+listTags_nextToken = Lens.lens (\ListTags' {nextToken} -> nextToken) (\s@ListTags' {} a -> s {nextToken = a} :: ListTags)
 
 -- | The Amazon Resource Name (ARN) that was returned when you called the
 -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreateCertificateAuthority.html CreateCertificateAuthority>
@@ -157,58 +158,59 @@ instance Core.AWSPager ListTags where
 
 instance Core.AWSRequest ListTags where
   type AWSResponse ListTags = ListTagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Tags")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Tags")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTags where
   hashWithSalt _salt ListTags' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` certificateAuthorityArn
 
 instance Prelude.NFData ListTags where
   rnf ListTags' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf certificateAuthorityArn
 
-instance Core.ToHeaders ListTags where
+instance Data.ToHeaders ListTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("ACMPrivateCA.ListTags" :: Prelude.ByteString),
+              Data.=# ("ACMPrivateCA.ListTags" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTags where
+instance Data.ToJSON ListTags where
   toJSON ListTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
               ( "CertificateAuthorityArn"
-                  Core..= certificateAuthorityArn
+                  Data..= certificateAuthorityArn
               )
           ]
       )
 
-instance Core.ToPath ListTags where
+instance Data.ToPath ListTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTags where
+instance Data.ToQuery ListTags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagsResponse' smart constructor.

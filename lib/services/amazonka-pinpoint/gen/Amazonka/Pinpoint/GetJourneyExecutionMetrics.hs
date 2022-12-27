@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetJourneyExecutionMetrics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.Pinpoint.GetJourneyExecutionMetrics
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -130,13 +131,14 @@ instance Core.AWSRequest GetJourneyExecutionMetrics where
   type
     AWSResponse GetJourneyExecutionMetrics =
       GetJourneyExecutionMetricsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetJourneyExecutionMetricsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetJourneyExecutionMetrics where
@@ -153,32 +155,32 @@ instance Prelude.NFData GetJourneyExecutionMetrics where
       `Prelude.seq` Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf journeyId
 
-instance Core.ToHeaders GetJourneyExecutionMetrics where
+instance Data.ToHeaders GetJourneyExecutionMetrics where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetJourneyExecutionMetrics where
+instance Data.ToPath GetJourneyExecutionMetrics where
   toPath GetJourneyExecutionMetrics' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/journeys/",
-        Core.toBS journeyId,
+        Data.toBS journeyId,
         "/execution-metrics"
       ]
 
-instance Core.ToQuery GetJourneyExecutionMetrics where
+instance Data.ToQuery GetJourneyExecutionMetrics where
   toQuery GetJourneyExecutionMetrics' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "page-size" Core.=: pageSize
+      [ "next-token" Data.=: nextToken,
+        "page-size" Data.=: pageSize
       ]
 
 -- | /See:/ 'newGetJourneyExecutionMetricsResponse' smart constructor.

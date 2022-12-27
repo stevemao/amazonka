@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.StageDeclaration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CodePipeline.Types.StageDeclaration where
 import Amazonka.CodePipeline.Types.ActionDeclaration
 import Amazonka.CodePipeline.Types.BlockerDeclaration
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents information about a stage and its definition.
@@ -74,15 +75,15 @@ stageDeclaration_name = Lens.lens (\StageDeclaration' {name} -> name) (\s@StageD
 stageDeclaration_actions :: Lens.Lens' StageDeclaration [ActionDeclaration]
 stageDeclaration_actions = Lens.lens (\StageDeclaration' {actions} -> actions) (\s@StageDeclaration' {} a -> s {actions = a} :: StageDeclaration) Prelude.. Lens.coerced
 
-instance Core.FromJSON StageDeclaration where
+instance Data.FromJSON StageDeclaration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StageDeclaration"
       ( \x ->
           StageDeclaration'
-            Prelude.<$> (x Core..:? "blockers" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..:? "actions" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "blockers" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..:? "actions" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable StageDeclaration where
@@ -97,12 +98,12 @@ instance Prelude.NFData StageDeclaration where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf actions
 
-instance Core.ToJSON StageDeclaration where
+instance Data.ToJSON StageDeclaration where
   toJSON StageDeclaration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("blockers" Core..=) Prelude.<$> blockers,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("actions" Core..= actions)
+          [ ("blockers" Data..=) Prelude.<$> blockers,
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("actions" Data..= actions)
           ]
       )

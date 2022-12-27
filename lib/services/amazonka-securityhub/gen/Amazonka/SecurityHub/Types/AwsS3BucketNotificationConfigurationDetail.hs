@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsS3BucketNotificationConfigurationDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsS3BucketNotificationConfigurationDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsS3BucketNotificationConfigurationFilter
 
@@ -33,11 +34,18 @@ data AwsS3BucketNotificationConfigurationDetail = AwsS3BucketNotificationConfigu
     destination :: Prelude.Maybe Prelude.Text,
     -- | The list of events that trigger a notification.
     events :: Prelude.Maybe [Prelude.Text],
-    -- | Indicates the type of notification. Notifications can be generated using
-    -- Lambda functions, Amazon SQS queues or Amazon SNS topics.
-    type' :: Prelude.Maybe Prelude.Text,
     -- | The filters that determine which S3 buckets generate notifications.
-    filter' :: Prelude.Maybe AwsS3BucketNotificationConfigurationFilter
+    filter' :: Prelude.Maybe AwsS3BucketNotificationConfigurationFilter,
+    -- | Indicates the type of notification. Notifications can be generated using
+    -- Lambda functions, Amazon SQS queues, or Amazon SNS topics, with
+    -- corresponding valid values as follows:
+    --
+    -- -   @LambdaConfiguration@
+    --
+    -- -   @QueueConfiguration@
+    --
+    -- -   @TopicConfiguration@
+    type' :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -54,10 +62,17 @@ data AwsS3BucketNotificationConfigurationDetail = AwsS3BucketNotificationConfigu
 --
 -- 'events', 'awsS3BucketNotificationConfigurationDetail_events' - The list of events that trigger a notification.
 --
--- 'type'', 'awsS3BucketNotificationConfigurationDetail_type' - Indicates the type of notification. Notifications can be generated using
--- Lambda functions, Amazon SQS queues or Amazon SNS topics.
---
 -- 'filter'', 'awsS3BucketNotificationConfigurationDetail_filter' - The filters that determine which S3 buckets generate notifications.
+--
+-- 'type'', 'awsS3BucketNotificationConfigurationDetail_type' - Indicates the type of notification. Notifications can be generated using
+-- Lambda functions, Amazon SQS queues, or Amazon SNS topics, with
+-- corresponding valid values as follows:
+--
+-- -   @LambdaConfiguration@
+--
+-- -   @QueueConfiguration@
+--
+-- -   @TopicConfiguration@
 newAwsS3BucketNotificationConfigurationDetail ::
   AwsS3BucketNotificationConfigurationDetail
 newAwsS3BucketNotificationConfigurationDetail =
@@ -65,8 +80,8 @@ newAwsS3BucketNotificationConfigurationDetail =
     { destination =
         Prelude.Nothing,
       events = Prelude.Nothing,
-      type' = Prelude.Nothing,
-      filter' = Prelude.Nothing
+      filter' = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The ARN of the Lambda function, Amazon SQS queue, or Amazon SNS topic
@@ -78,28 +93,35 @@ awsS3BucketNotificationConfigurationDetail_destination = Lens.lens (\AwsS3Bucket
 awsS3BucketNotificationConfigurationDetail_events :: Lens.Lens' AwsS3BucketNotificationConfigurationDetail (Prelude.Maybe [Prelude.Text])
 awsS3BucketNotificationConfigurationDetail_events = Lens.lens (\AwsS3BucketNotificationConfigurationDetail' {events} -> events) (\s@AwsS3BucketNotificationConfigurationDetail' {} a -> s {events = a} :: AwsS3BucketNotificationConfigurationDetail) Prelude.. Lens.mapping Lens.coerced
 
--- | Indicates the type of notification. Notifications can be generated using
--- Lambda functions, Amazon SQS queues or Amazon SNS topics.
-awsS3BucketNotificationConfigurationDetail_type :: Lens.Lens' AwsS3BucketNotificationConfigurationDetail (Prelude.Maybe Prelude.Text)
-awsS3BucketNotificationConfigurationDetail_type = Lens.lens (\AwsS3BucketNotificationConfigurationDetail' {type'} -> type') (\s@AwsS3BucketNotificationConfigurationDetail' {} a -> s {type' = a} :: AwsS3BucketNotificationConfigurationDetail)
-
 -- | The filters that determine which S3 buckets generate notifications.
 awsS3BucketNotificationConfigurationDetail_filter :: Lens.Lens' AwsS3BucketNotificationConfigurationDetail (Prelude.Maybe AwsS3BucketNotificationConfigurationFilter)
 awsS3BucketNotificationConfigurationDetail_filter = Lens.lens (\AwsS3BucketNotificationConfigurationDetail' {filter'} -> filter') (\s@AwsS3BucketNotificationConfigurationDetail' {} a -> s {filter' = a} :: AwsS3BucketNotificationConfigurationDetail)
 
+-- | Indicates the type of notification. Notifications can be generated using
+-- Lambda functions, Amazon SQS queues, or Amazon SNS topics, with
+-- corresponding valid values as follows:
+--
+-- -   @LambdaConfiguration@
+--
+-- -   @QueueConfiguration@
+--
+-- -   @TopicConfiguration@
+awsS3BucketNotificationConfigurationDetail_type :: Lens.Lens' AwsS3BucketNotificationConfigurationDetail (Prelude.Maybe Prelude.Text)
+awsS3BucketNotificationConfigurationDetail_type = Lens.lens (\AwsS3BucketNotificationConfigurationDetail' {type'} -> type') (\s@AwsS3BucketNotificationConfigurationDetail' {} a -> s {type' = a} :: AwsS3BucketNotificationConfigurationDetail)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsS3BucketNotificationConfigurationDetail
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsS3BucketNotificationConfigurationDetail"
       ( \x ->
           AwsS3BucketNotificationConfigurationDetail'
-            Prelude.<$> (x Core..:? "Destination")
-              Prelude.<*> (x Core..:? "Events" Core..!= Prelude.mempty)
-              Prelude.<*> (x Core..:? "Type")
-              Prelude.<*> (x Core..:? "Filter")
+            Prelude.<$> (x Data..:? "Destination")
+              Prelude.<*> (x Data..:? "Events" Data..!= Prelude.mempty)
+              Prelude.<*> (x Data..:? "Filter")
+              Prelude.<*> (x Data..:? "Type")
       )
 
 instance
@@ -111,8 +133,8 @@ instance
     AwsS3BucketNotificationConfigurationDetail' {..} =
       _salt `Prelude.hashWithSalt` destination
         `Prelude.hashWithSalt` events
-        `Prelude.hashWithSalt` type'
         `Prelude.hashWithSalt` filter'
+        `Prelude.hashWithSalt` type'
 
 instance
   Prelude.NFData
@@ -121,20 +143,20 @@ instance
   rnf AwsS3BucketNotificationConfigurationDetail' {..} =
     Prelude.rnf destination
       `Prelude.seq` Prelude.rnf events
-      `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf filter'
+      `Prelude.seq` Prelude.rnf type'
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsS3BucketNotificationConfigurationDetail
   where
   toJSON
     AwsS3BucketNotificationConfigurationDetail' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Destination" Core..=) Prelude.<$> destination,
-              ("Events" Core..=) Prelude.<$> events,
-              ("Type" Core..=) Prelude.<$> type',
-              ("Filter" Core..=) Prelude.<$> filter'
+            [ ("Destination" Data..=) Prelude.<$> destination,
+              ("Events" Data..=) Prelude.<$> events,
+              ("Filter" Data..=) Prelude.<$> filter',
+              ("Type" Data..=) Prelude.<$> type'
             ]
         )

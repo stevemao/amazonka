@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.TagPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -67,8 +67,9 @@ module Amazonka.IAM.TagPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -134,7 +135,8 @@ tagPolicy_tags = Lens.lens (\TagPolicy' {tags} -> tags) (\s@TagPolicy' {} a -> s
 
 instance Core.AWSRequest TagPolicy where
   type AWSResponse TagPolicy = TagPolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull TagPolicyResponse'
 
 instance Prelude.Hashable TagPolicy where
@@ -147,21 +149,21 @@ instance Prelude.NFData TagPolicy where
     Prelude.rnf policyArn
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagPolicy where
+instance Data.ToHeaders TagPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath TagPolicy where
+instance Data.ToPath TagPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TagPolicy where
+instance Data.ToQuery TagPolicy where
   toQuery TagPolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("TagPolicy" :: Prelude.ByteString),
+          Data.=: ("TagPolicy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "PolicyArn" Core.=: policyArn,
-        "Tags" Core.=: Core.toQueryList "member" tags
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "PolicyArn" Data.=: policyArn,
+        "Tags" Data.=: Data.toQueryList "member" tags
       ]
 
 -- | /See:/ 'newTagPolicyResponse' smart constructor.

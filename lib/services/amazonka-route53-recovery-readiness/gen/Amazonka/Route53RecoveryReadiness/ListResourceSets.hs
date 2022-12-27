@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.ListResourceSets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a collection of Resource Sets.
+-- Lists the resource sets in an account.
 --
 -- This operation returns paginated results.
 module Amazonka.Route53RecoveryReadiness.ListResourceSets
@@ -29,22 +29,23 @@ module Amazonka.Route53RecoveryReadiness.ListResourceSets
     newListResourceSets,
 
     -- * Request Lenses
-    listResourceSets_nextToken,
     listResourceSets_maxResults,
+    listResourceSets_nextToken,
 
     -- * Destructuring the Response
     ListResourceSetsResponse (..),
     newListResourceSetsResponse,
 
     -- * Response Lenses
-    listResourceSetsResponse_resourceSets,
     listResourceSetsResponse_nextToken,
+    listResourceSetsResponse_resourceSets,
     listResourceSetsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,10 +53,10 @@ import Amazonka.Route53RecoveryReadiness.Types
 
 -- | /See:/ 'newListResourceSets' smart constructor.
 data ListResourceSets = ListResourceSets'
-  { -- | A token used to resume pagination from the end of a previous request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Upper bound on number of records to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The number of objects that you want to return with this call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that identifies which batch of results you want to see.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,24 +68,24 @@ data ListResourceSets = ListResourceSets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listResourceSets_nextToken' - A token used to resume pagination from the end of a previous request.
+-- 'maxResults', 'listResourceSets_maxResults' - The number of objects that you want to return with this call.
 --
--- 'maxResults', 'listResourceSets_maxResults' - Upper bound on number of records to return.
+-- 'nextToken', 'listResourceSets_nextToken' - The token that identifies which batch of results you want to see.
 newListResourceSets ::
   ListResourceSets
 newListResourceSets =
   ListResourceSets'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
--- | A token used to resume pagination from the end of a previous request.
-listResourceSets_nextToken :: Lens.Lens' ListResourceSets (Prelude.Maybe Prelude.Text)
-listResourceSets_nextToken = Lens.lens (\ListResourceSets' {nextToken} -> nextToken) (\s@ListResourceSets' {} a -> s {nextToken = a} :: ListResourceSets)
-
--- | Upper bound on number of records to return.
+-- | The number of objects that you want to return with this call.
 listResourceSets_maxResults :: Lens.Lens' ListResourceSets (Prelude.Maybe Prelude.Natural)
 listResourceSets_maxResults = Lens.lens (\ListResourceSets' {maxResults} -> maxResults) (\s@ListResourceSets' {} a -> s {maxResults = a} :: ListResourceSets)
+
+-- | The token that identifies which batch of results you want to see.
+listResourceSets_nextToken :: Lens.Lens' ListResourceSets (Prelude.Maybe Prelude.Text)
+listResourceSets_nextToken = Lens.lens (\ListResourceSets' {nextToken} -> nextToken) (\s@ListResourceSets' {} a -> s {nextToken = a} :: ListResourceSets)
 
 instance Core.AWSPager ListResourceSets where
   page rq rs
@@ -112,54 +113,54 @@ instance Core.AWSRequest ListResourceSets where
   type
     AWSResponse ListResourceSets =
       ListResourceSetsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListResourceSetsResponse'
-            Prelude.<$> (x Core..?> "resourceSets" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "resourceSets" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListResourceSets where
   hashWithSalt _salt ListResourceSets' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListResourceSets where
   rnf ListResourceSets' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListResourceSets where
+instance Data.ToHeaders ListResourceSets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListResourceSets where
+instance Data.ToPath ListResourceSets where
   toPath = Prelude.const "/resourcesets"
 
-instance Core.ToQuery ListResourceSets where
+instance Data.ToQuery ListResourceSets where
   toQuery ListResourceSets' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListResourceSetsResponse' smart constructor.
 data ListResourceSetsResponse = ListResourceSetsResponse'
-  { -- | A list of ResourceSets associated with the account
-    resourceSets :: Prelude.Maybe [ResourceSetOutput],
-    -- | A token that can be used to resume pagination from the end of the
-    -- collection.
+  { -- | The token that identifies which batch of results you want to see.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of resource sets associated with the account.
+    resourceSets :: Prelude.Maybe [ResourceSetOutput],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -173,10 +174,9 @@ data ListResourceSetsResponse = ListResourceSetsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceSets', 'listResourceSetsResponse_resourceSets' - A list of ResourceSets associated with the account
+-- 'nextToken', 'listResourceSetsResponse_nextToken' - The token that identifies which batch of results you want to see.
 --
--- 'nextToken', 'listResourceSetsResponse_nextToken' - A token that can be used to resume pagination from the end of the
--- collection.
+-- 'resourceSets', 'listResourceSetsResponse_resourceSets' - A list of resource sets associated with the account.
 --
 -- 'httpStatus', 'listResourceSetsResponse_httpStatus' - The response's http status code.
 newListResourceSetsResponse ::
@@ -185,20 +185,19 @@ newListResourceSetsResponse ::
   ListResourceSetsResponse
 newListResourceSetsResponse pHttpStatus_ =
   ListResourceSetsResponse'
-    { resourceSets =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      resourceSets = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | A list of ResourceSets associated with the account
-listResourceSetsResponse_resourceSets :: Lens.Lens' ListResourceSetsResponse (Prelude.Maybe [ResourceSetOutput])
-listResourceSetsResponse_resourceSets = Lens.lens (\ListResourceSetsResponse' {resourceSets} -> resourceSets) (\s@ListResourceSetsResponse' {} a -> s {resourceSets = a} :: ListResourceSetsResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | A token that can be used to resume pagination from the end of the
--- collection.
+-- | The token that identifies which batch of results you want to see.
 listResourceSetsResponse_nextToken :: Lens.Lens' ListResourceSetsResponse (Prelude.Maybe Prelude.Text)
 listResourceSetsResponse_nextToken = Lens.lens (\ListResourceSetsResponse' {nextToken} -> nextToken) (\s@ListResourceSetsResponse' {} a -> s {nextToken = a} :: ListResourceSetsResponse)
+
+-- | A list of resource sets associated with the account.
+listResourceSetsResponse_resourceSets :: Lens.Lens' ListResourceSetsResponse (Prelude.Maybe [ResourceSetOutput])
+listResourceSetsResponse_resourceSets = Lens.lens (\ListResourceSetsResponse' {resourceSets} -> resourceSets) (\s@ListResourceSetsResponse' {} a -> s {resourceSets = a} :: ListResourceSetsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listResourceSetsResponse_httpStatus :: Lens.Lens' ListResourceSetsResponse Prelude.Int
@@ -206,6 +205,6 @@ listResourceSetsResponse_httpStatus = Lens.lens (\ListResourceSetsResponse' {htt
 
 instance Prelude.NFData ListResourceSetsResponse where
   rnf ListResourceSetsResponse' {..} =
-    Prelude.rnf resourceSets
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf resourceSets
       `Prelude.seq` Prelude.rnf httpStatus

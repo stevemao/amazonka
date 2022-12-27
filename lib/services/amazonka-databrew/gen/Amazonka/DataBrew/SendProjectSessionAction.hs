@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.SendProjectSessionAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,10 +28,10 @@ module Amazonka.DataBrew.SendProjectSessionAction
     newSendProjectSessionAction,
 
     -- * Request Lenses
-    sendProjectSessionAction_stepIndex,
-    sendProjectSessionAction_preview,
     sendProjectSessionAction_clientSessionId,
+    sendProjectSessionAction_preview,
     sendProjectSessionAction_recipeStep,
+    sendProjectSessionAction_stepIndex,
     sendProjectSessionAction_viewFrame,
     sendProjectSessionAction_name,
 
@@ -48,30 +48,31 @@ module Amazonka.DataBrew.SendProjectSessionAction
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newSendProjectSessionAction' smart constructor.
 data SendProjectSessionAction = SendProjectSessionAction'
-  { -- | The index from which to preview a step. This index is used to preview
-    -- the result of steps that have already been applied, so that the
-    -- resulting view frame is from earlier in the view frame stack.
-    stepIndex :: Prelude.Maybe Prelude.Natural,
+  { -- | A unique identifier for an interactive session that\'s currently open
+    -- and ready for work. The action will be performed on this session.
+    clientSessionId :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | If true, the result of the recipe step will be returned, but not
     -- applied.
     preview :: Prelude.Maybe Prelude.Bool,
-    -- | A unique identifier for an interactive session that\'s currently open
-    -- and ready for work. The action will be performed on this session.
-    clientSessionId :: Prelude.Maybe Prelude.Text,
     recipeStep :: Prelude.Maybe RecipeStep,
+    -- | The index from which to preview a step. This index is used to preview
+    -- the result of steps that have already been applied, so that the
+    -- resulting view frame is from earlier in the view frame stack.
+    stepIndex :: Prelude.Maybe Prelude.Natural,
     viewFrame :: Prelude.Maybe ViewFrame,
     -- | The name of the project to apply the action to.
     name :: Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'SendProjectSessionAction' with all optional fields omitted.
@@ -81,17 +82,17 @@ data SendProjectSessionAction = SendProjectSessionAction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'stepIndex', 'sendProjectSessionAction_stepIndex' - The index from which to preview a step. This index is used to preview
--- the result of steps that have already been applied, so that the
--- resulting view frame is from earlier in the view frame stack.
+-- 'clientSessionId', 'sendProjectSessionAction_clientSessionId' - A unique identifier for an interactive session that\'s currently open
+-- and ready for work. The action will be performed on this session.
 --
 -- 'preview', 'sendProjectSessionAction_preview' - If true, the result of the recipe step will be returned, but not
 -- applied.
 --
--- 'clientSessionId', 'sendProjectSessionAction_clientSessionId' - A unique identifier for an interactive session that\'s currently open
--- and ready for work. The action will be performed on this session.
---
 -- 'recipeStep', 'sendProjectSessionAction_recipeStep' - Undocumented member.
+--
+-- 'stepIndex', 'sendProjectSessionAction_stepIndex' - The index from which to preview a step. This index is used to preview
+-- the result of steps that have already been applied, so that the
+-- resulting view frame is from earlier in the view frame stack.
 --
 -- 'viewFrame', 'sendProjectSessionAction_viewFrame' - Undocumented member.
 --
@@ -102,34 +103,34 @@ newSendProjectSessionAction ::
   SendProjectSessionAction
 newSendProjectSessionAction pName_ =
   SendProjectSessionAction'
-    { stepIndex =
+    { clientSessionId =
         Prelude.Nothing,
       preview = Prelude.Nothing,
-      clientSessionId = Prelude.Nothing,
       recipeStep = Prelude.Nothing,
+      stepIndex = Prelude.Nothing,
       viewFrame = Prelude.Nothing,
       name = pName_
     }
 
--- | The index from which to preview a step. This index is used to preview
--- the result of steps that have already been applied, so that the
--- resulting view frame is from earlier in the view frame stack.
-sendProjectSessionAction_stepIndex :: Lens.Lens' SendProjectSessionAction (Prelude.Maybe Prelude.Natural)
-sendProjectSessionAction_stepIndex = Lens.lens (\SendProjectSessionAction' {stepIndex} -> stepIndex) (\s@SendProjectSessionAction' {} a -> s {stepIndex = a} :: SendProjectSessionAction)
+-- | A unique identifier for an interactive session that\'s currently open
+-- and ready for work. The action will be performed on this session.
+sendProjectSessionAction_clientSessionId :: Lens.Lens' SendProjectSessionAction (Prelude.Maybe Prelude.Text)
+sendProjectSessionAction_clientSessionId = Lens.lens (\SendProjectSessionAction' {clientSessionId} -> clientSessionId) (\s@SendProjectSessionAction' {} a -> s {clientSessionId = a} :: SendProjectSessionAction) Prelude.. Lens.mapping Data._Sensitive
 
 -- | If true, the result of the recipe step will be returned, but not
 -- applied.
 sendProjectSessionAction_preview :: Lens.Lens' SendProjectSessionAction (Prelude.Maybe Prelude.Bool)
 sendProjectSessionAction_preview = Lens.lens (\SendProjectSessionAction' {preview} -> preview) (\s@SendProjectSessionAction' {} a -> s {preview = a} :: SendProjectSessionAction)
 
--- | A unique identifier for an interactive session that\'s currently open
--- and ready for work. The action will be performed on this session.
-sendProjectSessionAction_clientSessionId :: Lens.Lens' SendProjectSessionAction (Prelude.Maybe Prelude.Text)
-sendProjectSessionAction_clientSessionId = Lens.lens (\SendProjectSessionAction' {clientSessionId} -> clientSessionId) (\s@SendProjectSessionAction' {} a -> s {clientSessionId = a} :: SendProjectSessionAction)
-
 -- | Undocumented member.
 sendProjectSessionAction_recipeStep :: Lens.Lens' SendProjectSessionAction (Prelude.Maybe RecipeStep)
 sendProjectSessionAction_recipeStep = Lens.lens (\SendProjectSessionAction' {recipeStep} -> recipeStep) (\s@SendProjectSessionAction' {} a -> s {recipeStep = a} :: SendProjectSessionAction)
+
+-- | The index from which to preview a step. This index is used to preview
+-- the result of steps that have already been applied, so that the
+-- resulting view frame is from earlier in the view frame stack.
+sendProjectSessionAction_stepIndex :: Lens.Lens' SendProjectSessionAction (Prelude.Maybe Prelude.Natural)
+sendProjectSessionAction_stepIndex = Lens.lens (\SendProjectSessionAction' {stepIndex} -> stepIndex) (\s@SendProjectSessionAction' {} a -> s {stepIndex = a} :: SendProjectSessionAction)
 
 -- | Undocumented member.
 sendProjectSessionAction_viewFrame :: Lens.Lens' SendProjectSessionAction (Prelude.Maybe ViewFrame)
@@ -143,68 +144,69 @@ instance Core.AWSRequest SendProjectSessionAction where
   type
     AWSResponse SendProjectSessionAction =
       SendProjectSessionActionResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SendProjectSessionActionResponse'
-            Prelude.<$> (x Core..?> "ActionId")
-            Prelude.<*> (x Core..?> "Result")
+            Prelude.<$> (x Data..?> "ActionId")
+            Prelude.<*> (x Data..?> "Result")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Name")
+            Prelude.<*> (x Data..:> "Name")
       )
 
 instance Prelude.Hashable SendProjectSessionAction where
   hashWithSalt _salt SendProjectSessionAction' {..} =
-    _salt `Prelude.hashWithSalt` stepIndex
+    _salt `Prelude.hashWithSalt` clientSessionId
       `Prelude.hashWithSalt` preview
-      `Prelude.hashWithSalt` clientSessionId
       `Prelude.hashWithSalt` recipeStep
+      `Prelude.hashWithSalt` stepIndex
       `Prelude.hashWithSalt` viewFrame
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData SendProjectSessionAction where
   rnf SendProjectSessionAction' {..} =
-    Prelude.rnf stepIndex
+    Prelude.rnf clientSessionId
       `Prelude.seq` Prelude.rnf preview
-      `Prelude.seq` Prelude.rnf clientSessionId
       `Prelude.seq` Prelude.rnf recipeStep
+      `Prelude.seq` Prelude.rnf stepIndex
       `Prelude.seq` Prelude.rnf viewFrame
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders SendProjectSessionAction where
+instance Data.ToHeaders SendProjectSessionAction where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SendProjectSessionAction where
+instance Data.ToJSON SendProjectSessionAction where
   toJSON SendProjectSessionAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StepIndex" Core..=) Prelude.<$> stepIndex,
-            ("Preview" Core..=) Prelude.<$> preview,
-            ("ClientSessionId" Core..=)
+          [ ("ClientSessionId" Data..=)
               Prelude.<$> clientSessionId,
-            ("RecipeStep" Core..=) Prelude.<$> recipeStep,
-            ("ViewFrame" Core..=) Prelude.<$> viewFrame
+            ("Preview" Data..=) Prelude.<$> preview,
+            ("RecipeStep" Data..=) Prelude.<$> recipeStep,
+            ("StepIndex" Data..=) Prelude.<$> stepIndex,
+            ("ViewFrame" Data..=) Prelude.<$> viewFrame
           ]
       )
 
-instance Core.ToPath SendProjectSessionAction where
+instance Data.ToPath SendProjectSessionAction where
   toPath SendProjectSessionAction' {..} =
     Prelude.mconcat
       [ "/projects/",
-        Core.toBS name,
+        Data.toBS name,
         "/sendProjectSessionAction"
       ]
 
-instance Core.ToQuery SendProjectSessionAction where
+instance Data.ToQuery SendProjectSessionAction where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSendProjectSessionActionResponse' smart constructor.

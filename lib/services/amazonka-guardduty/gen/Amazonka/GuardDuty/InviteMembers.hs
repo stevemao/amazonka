@@ -14,16 +14,17 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.InviteMembers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Invites other AWS accounts (created as members of the current AWS
--- account by CreateMembers) to enable GuardDuty, and allow the current AWS
--- account to view and manage these accounts\' findings on their behalf as
--- the GuardDuty administrator account.
+-- Invites other Amazon Web Services accounts (created as members of the
+-- current Amazon Web Services account by CreateMembers) to enable
+-- GuardDuty, and allow the current Amazon Web Services account to view and
+-- manage these accounts\' findings on their behalf as the GuardDuty
+-- administrator account.
 module Amazonka.GuardDuty.InviteMembers
   ( -- * Creating a Request
     InviteMembers (..),
@@ -46,8 +47,9 @@ module Amazonka.GuardDuty.InviteMembers
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -130,13 +132,14 @@ instance Core.AWSRequest InviteMembers where
   type
     AWSResponse InviteMembers =
       InviteMembersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           InviteMembersResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "unprocessedAccounts"
+            Prelude.<*> ( x Data..?> "unprocessedAccounts"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -156,37 +159,37 @@ instance Prelude.NFData InviteMembers where
       `Prelude.seq` Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf accountIds
 
-instance Core.ToHeaders InviteMembers where
+instance Data.ToHeaders InviteMembers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON InviteMembers where
+instance Data.ToJSON InviteMembers where
   toJSON InviteMembers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("disableEmailNotification" Core..=)
+          [ ("disableEmailNotification" Data..=)
               Prelude.<$> disableEmailNotification,
-            ("message" Core..=) Prelude.<$> message,
-            Prelude.Just ("accountIds" Core..= accountIds)
+            ("message" Data..=) Prelude.<$> message,
+            Prelude.Just ("accountIds" Data..= accountIds)
           ]
       )
 
-instance Core.ToPath InviteMembers where
+instance Data.ToPath InviteMembers where
   toPath InviteMembers' {..} =
     Prelude.mconcat
       [ "/detector/",
-        Core.toBS detectorId,
+        Data.toBS detectorId,
         "/member/invite"
       ]
 
-instance Core.ToQuery InviteMembers where
+instance Data.ToQuery InviteMembers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newInviteMembersResponse' smart constructor.

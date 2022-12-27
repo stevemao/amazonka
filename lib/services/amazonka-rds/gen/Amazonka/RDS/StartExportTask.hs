@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.StartExportTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,8 @@
 --
 -- Starts an export of a snapshot to Amazon S3. The provided IAM role must
 -- have access to the S3 bucket.
+--
+-- This command doesn\'t apply to RDS Custom.
 module Amazonka.RDS.StartExportTask
   ( -- * Creating a Request
     StartExportTask (..),
@@ -41,26 +43,28 @@ module Amazonka.RDS.StartExportTask
     newExportTask,
 
     -- * Response Lenses
-    exportTask_totalExtractedDataInGB,
-    exportTask_status,
-    exportTask_iamRoleArn,
-    exportTask_sourceArn,
     exportTask_exportOnly,
-    exportTask_taskStartTime,
-    exportTask_warningMessage,
-    exportTask_snapshotTime,
-    exportTask_kmsKeyId,
-    exportTask_taskEndTime,
     exportTask_exportTaskIdentifier,
-    exportTask_s3Prefix,
+    exportTask_failureCause,
+    exportTask_iamRoleArn,
+    exportTask_kmsKeyId,
     exportTask_percentProgress,
     exportTask_s3Bucket,
-    exportTask_failureCause,
+    exportTask_s3Prefix,
+    exportTask_snapshotTime,
+    exportTask_sourceArn,
+    exportTask_sourceType,
+    exportTask_status,
+    exportTask_taskEndTime,
+    exportTask_taskStartTime,
+    exportTask_totalExtractedDataInGB,
+    exportTask_warningMessage,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -100,10 +104,9 @@ data StartExportTask = StartExportTask'
     -- | The name of the IAM role to use for writing to the Amazon S3 bucket when
     -- exporting a snapshot.
     iamRoleArn :: Prelude.Text,
-    -- | The ID of the Amazon Web Services KMS customer master key (CMK) to use
-    -- to encrypt the snapshot exported to Amazon S3. The Amazon Web Services
-    -- KMS key identifier is the key ARN, key ID, alias ARN, or alias name for
-    -- the Amazon Web Services KMS customer master key (CMK). The caller of
+    -- | The ID of the Amazon Web Services KMS key to use to encrypt the snapshot
+    -- exported to Amazon S3. The Amazon Web Services KMS key identifier is the
+    -- key ARN, key ID, alias ARN, or alias name for the KMS key. The caller of
     -- this operation must be authorized to execute the following operations.
     -- These can be set in the Amazon Web Services KMS key policy:
     --
@@ -168,10 +171,9 @@ data StartExportTask = StartExportTask'
 -- 'iamRoleArn', 'startExportTask_iamRoleArn' - The name of the IAM role to use for writing to the Amazon S3 bucket when
 -- exporting a snapshot.
 --
--- 'kmsKeyId', 'startExportTask_kmsKeyId' - The ID of the Amazon Web Services KMS customer master key (CMK) to use
--- to encrypt the snapshot exported to Amazon S3. The Amazon Web Services
--- KMS key identifier is the key ARN, key ID, alias ARN, or alias name for
--- the Amazon Web Services KMS customer master key (CMK). The caller of
+-- 'kmsKeyId', 'startExportTask_kmsKeyId' - The ID of the Amazon Web Services KMS key to use to encrypt the snapshot
+-- exported to Amazon S3. The Amazon Web Services KMS key identifier is the
+-- key ARN, key ID, alias ARN, or alias name for the KMS key. The caller of
 -- this operation must be authorized to execute the following operations.
 -- These can be set in the Amazon Web Services KMS key policy:
 --
@@ -264,10 +266,9 @@ startExportTask_s3BucketName = Lens.lens (\StartExportTask' {s3BucketName} -> s3
 startExportTask_iamRoleArn :: Lens.Lens' StartExportTask Prelude.Text
 startExportTask_iamRoleArn = Lens.lens (\StartExportTask' {iamRoleArn} -> iamRoleArn) (\s@StartExportTask' {} a -> s {iamRoleArn = a} :: StartExportTask)
 
--- | The ID of the Amazon Web Services KMS customer master key (CMK) to use
--- to encrypt the snapshot exported to Amazon S3. The Amazon Web Services
--- KMS key identifier is the key ARN, key ID, alias ARN, or alias name for
--- the Amazon Web Services KMS customer master key (CMK). The caller of
+-- | The ID of the Amazon Web Services KMS key to use to encrypt the snapshot
+-- exported to Amazon S3. The Amazon Web Services KMS key identifier is the
+-- key ARN, key ID, alias ARN, or alias name for the KMS key. The caller of
 -- this operation must be authorized to execute the following operations.
 -- These can be set in the Amazon Web Services KMS key policy:
 --
@@ -293,11 +294,12 @@ startExportTask_kmsKeyId = Lens.lens (\StartExportTask' {kmsKeyId} -> kmsKeyId) 
 
 instance Core.AWSRequest StartExportTask where
   type AWSResponse StartExportTask = ExportTask
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "StartExportTaskResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable StartExportTask where
   hashWithSalt _salt StartExportTask' {..} =
@@ -319,26 +321,26 @@ instance Prelude.NFData StartExportTask where
       `Prelude.seq` Prelude.rnf iamRoleArn
       `Prelude.seq` Prelude.rnf kmsKeyId
 
-instance Core.ToHeaders StartExportTask where
+instance Data.ToHeaders StartExportTask where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath StartExportTask where
+instance Data.ToPath StartExportTask where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartExportTask where
+instance Data.ToQuery StartExportTask where
   toQuery StartExportTask' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("StartExportTask" :: Prelude.ByteString),
+          Data.=: ("StartExportTask" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "ExportOnly"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> exportOnly),
-        "S3Prefix" Core.=: s3Prefix,
-        "ExportTaskIdentifier" Core.=: exportTaskIdentifier,
-        "SourceArn" Core.=: sourceArn,
-        "S3BucketName" Core.=: s3BucketName,
-        "IamRoleArn" Core.=: iamRoleArn,
-        "KmsKeyId" Core.=: kmsKeyId
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> exportOnly),
+        "S3Prefix" Data.=: s3Prefix,
+        "ExportTaskIdentifier" Data.=: exportTaskIdentifier,
+        "SourceArn" Data.=: sourceArn,
+        "S3BucketName" Data.=: s3BucketName,
+        "IamRoleArn" Data.=: iamRoleArn,
+        "KmsKeyId" Data.=: kmsKeyId
       ]

@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.Route53RecoveryCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,11 +27,14 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestUpdateRoutingControlState $
---             newUpdateRoutingControlState
---
---         , requestGetRoutingControlState $
+--         [ requestGetRoutingControlState $
 --             newGetRoutingControlState
+--
+--         , requestListRoutingControls $
+--             newListRoutingControls
+--
+--         , requestUpdateRoutingControlState $
+--             newUpdateRoutingControlState
 --
 --         , requestUpdateRoutingControlStates $
 --             newUpdateRoutingControlStates
@@ -39,11 +42,14 @@ import Test.Tasty
 --           ]
 
 --     , testGroup "response"
---         [ responseUpdateRoutingControlState $
---             newUpdateRoutingControlStateResponse
---
---         , responseGetRoutingControlState $
+--         [ responseGetRoutingControlState $
 --             newGetRoutingControlStateResponse
+--
+--         , responseListRoutingControls $
+--             newListRoutingControlsResponse
+--
+--         , responseUpdateRoutingControlState $
+--             newUpdateRoutingControlStateResponse
 --
 --         , responseUpdateRoutingControlStates $
 --             newUpdateRoutingControlStatesResponse
@@ -53,17 +59,23 @@ import Test.Tasty
 
 -- Requests
 
-requestUpdateRoutingControlState :: UpdateRoutingControlState -> TestTree
-requestUpdateRoutingControlState =
-  req
-    "UpdateRoutingControlState"
-    "fixture/UpdateRoutingControlState.yaml"
-
 requestGetRoutingControlState :: GetRoutingControlState -> TestTree
 requestGetRoutingControlState =
   req
     "GetRoutingControlState"
     "fixture/GetRoutingControlState.yaml"
+
+requestListRoutingControls :: ListRoutingControls -> TestTree
+requestListRoutingControls =
+  req
+    "ListRoutingControls"
+    "fixture/ListRoutingControls.yaml"
+
+requestUpdateRoutingControlState :: UpdateRoutingControlState -> TestTree
+requestUpdateRoutingControlState =
+  req
+    "UpdateRoutingControlState"
+    "fixture/UpdateRoutingControlState.yaml"
 
 requestUpdateRoutingControlStates :: UpdateRoutingControlStates -> TestTree
 requestUpdateRoutingControlStates =
@@ -73,14 +85,6 @@ requestUpdateRoutingControlStates =
 
 -- Responses
 
-responseUpdateRoutingControlState :: UpdateRoutingControlStateResponse -> TestTree
-responseUpdateRoutingControlState =
-  res
-    "UpdateRoutingControlStateResponse"
-    "fixture/UpdateRoutingControlStateResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateRoutingControlState)
-
 responseGetRoutingControlState :: GetRoutingControlStateResponse -> TestTree
 responseGetRoutingControlState =
   res
@@ -88,6 +92,22 @@ responseGetRoutingControlState =
     "fixture/GetRoutingControlStateResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetRoutingControlState)
+
+responseListRoutingControls :: ListRoutingControlsResponse -> TestTree
+responseListRoutingControls =
+  res
+    "ListRoutingControlsResponse"
+    "fixture/ListRoutingControlsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListRoutingControls)
+
+responseUpdateRoutingControlState :: UpdateRoutingControlStateResponse -> TestTree
+responseUpdateRoutingControlState =
+  res
+    "UpdateRoutingControlStateResponse"
+    "fixture/UpdateRoutingControlStateResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateRoutingControlState)
 
 responseUpdateRoutingControlStates :: UpdateRoutingControlStatesResponse -> TestTree
 responseUpdateRoutingControlStates =

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.DeleteAssistantAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Wisdom.DeleteAssistantAssociation
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,7 +100,8 @@ instance Core.AWSRequest DeleteAssistantAssociation where
   type
     AWSResponse DeleteAssistantAssociation =
       DeleteAssistantAssociationResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -117,27 +119,27 @@ instance Prelude.NFData DeleteAssistantAssociation where
     Prelude.rnf assistantAssociationId
       `Prelude.seq` Prelude.rnf assistantId
 
-instance Core.ToHeaders DeleteAssistantAssociation where
+instance Data.ToHeaders DeleteAssistantAssociation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteAssistantAssociation where
+instance Data.ToPath DeleteAssistantAssociation where
   toPath DeleteAssistantAssociation' {..} =
     Prelude.mconcat
       [ "/assistants/",
-        Core.toBS assistantId,
+        Data.toBS assistantId,
         "/associations/",
-        Core.toBS assistantAssociationId
+        Data.toBS assistantAssociationId
       ]
 
-instance Core.ToQuery DeleteAssistantAssociation where
+instance Data.ToQuery DeleteAssistantAssociation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAssistantAssociationResponse' smart constructor.

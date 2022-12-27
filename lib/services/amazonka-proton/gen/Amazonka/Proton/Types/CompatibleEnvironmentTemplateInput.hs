@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.Types.CompatibleEnvironmentTemplateInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Proton.Types.CompatibleEnvironmentTemplateInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Compatible environment template data.
@@ -87,13 +88,13 @@ instance
       `Prelude.seq` Prelude.rnf templateName
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CompatibleEnvironmentTemplateInput
   where
   toJSON CompatibleEnvironmentTemplateInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("majorVersion" Core..= majorVersion),
-            Prelude.Just ("templateName" Core..= templateName)
+          [ Prelude.Just ("majorVersion" Data..= majorVersion),
+            Prelude.Just ("templateName" Data..= templateName)
           ]
       )

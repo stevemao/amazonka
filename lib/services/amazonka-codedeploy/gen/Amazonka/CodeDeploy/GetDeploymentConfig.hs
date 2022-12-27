@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.GetDeploymentConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.CodeDeploy.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,7 +52,7 @@ import qualified Amazonka.Response as Response
 -- /See:/ 'newGetDeploymentConfig' smart constructor.
 data GetDeploymentConfig = GetDeploymentConfig'
   { -- | The name of a deployment configuration associated with the IAM user or
-    -- AWS account.
+    -- Amazon Web Services account.
     deploymentConfigName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -65,7 +66,7 @@ data GetDeploymentConfig = GetDeploymentConfig'
 -- for backwards compatibility:
 --
 -- 'deploymentConfigName', 'getDeploymentConfig_deploymentConfigName' - The name of a deployment configuration associated with the IAM user or
--- AWS account.
+-- Amazon Web Services account.
 newGetDeploymentConfig ::
   -- | 'deploymentConfigName'
   Prelude.Text ->
@@ -77,7 +78,7 @@ newGetDeploymentConfig pDeploymentConfigName_ =
     }
 
 -- | The name of a deployment configuration associated with the IAM user or
--- AWS account.
+-- Amazon Web Services account.
 getDeploymentConfig_deploymentConfigName :: Lens.Lens' GetDeploymentConfig Prelude.Text
 getDeploymentConfig_deploymentConfigName = Lens.lens (\GetDeploymentConfig' {deploymentConfigName} -> deploymentConfigName) (\s@GetDeploymentConfig' {} a -> s {deploymentConfigName = a} :: GetDeploymentConfig)
 
@@ -85,12 +86,13 @@ instance Core.AWSRequest GetDeploymentConfig where
   type
     AWSResponse GetDeploymentConfig =
       GetDeploymentConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDeploymentConfigResponse'
-            Prelude.<$> (x Core..?> "deploymentConfigInfo")
+            Prelude.<$> (x Data..?> "deploymentConfigInfo")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -102,36 +104,36 @@ instance Prelude.NFData GetDeploymentConfig where
   rnf GetDeploymentConfig' {..} =
     Prelude.rnf deploymentConfigName
 
-instance Core.ToHeaders GetDeploymentConfig where
+instance Data.ToHeaders GetDeploymentConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeDeploy_20141006.GetDeploymentConfig" ::
+              Data.=# ( "CodeDeploy_20141006.GetDeploymentConfig" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetDeploymentConfig where
+instance Data.ToJSON GetDeploymentConfig where
   toJSON GetDeploymentConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "deploymentConfigName"
-                  Core..= deploymentConfigName
+                  Data..= deploymentConfigName
               )
           ]
       )
 
-instance Core.ToPath GetDeploymentConfig where
+instance Data.ToPath GetDeploymentConfig where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetDeploymentConfig where
+instance Data.ToQuery GetDeploymentConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @GetDeploymentConfig@ operation.

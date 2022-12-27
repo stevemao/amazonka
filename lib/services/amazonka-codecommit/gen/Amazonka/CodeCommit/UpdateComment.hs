@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.UpdateComment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,12 +95,13 @@ instance Core.AWSRequest UpdateComment where
   type
     AWSResponse UpdateComment =
       UpdateCommentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateCommentResponse'
-            Prelude.<$> (x Core..?> "comment")
+            Prelude.<$> (x Data..?> "comment")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,34 +115,34 @@ instance Prelude.NFData UpdateComment where
     Prelude.rnf commentId
       `Prelude.seq` Prelude.rnf content
 
-instance Core.ToHeaders UpdateComment where
+instance Data.ToHeaders UpdateComment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.UpdateComment" ::
+              Data.=# ( "CodeCommit_20150413.UpdateComment" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateComment where
+instance Data.ToJSON UpdateComment where
   toJSON UpdateComment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("commentId" Core..= commentId),
-            Prelude.Just ("content" Core..= content)
+          [ Prelude.Just ("commentId" Data..= commentId),
+            Prelude.Just ("content" Data..= content)
           ]
       )
 
-instance Core.ToPath UpdateComment where
+instance Data.ToPath UpdateComment where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateComment where
+instance Data.ToQuery UpdateComment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateCommentResponse' smart constructor.

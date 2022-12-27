@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.BorderStyle
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.BorderStyle where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The display options for tile borders for visuals.
@@ -49,11 +50,11 @@ newBorderStyle = BorderStyle' {show = Prelude.Nothing}
 borderStyle_show :: Lens.Lens' BorderStyle (Prelude.Maybe Prelude.Bool)
 borderStyle_show = Lens.lens (\BorderStyle' {show} -> show) (\s@BorderStyle' {} a -> s {show = a} :: BorderStyle)
 
-instance Core.FromJSON BorderStyle where
+instance Data.FromJSON BorderStyle where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BorderStyle"
-      (\x -> BorderStyle' Prelude.<$> (x Core..:? "Show"))
+      (\x -> BorderStyle' Prelude.<$> (x Data..:? "Show"))
 
 instance Prelude.Hashable BorderStyle where
   hashWithSalt _salt BorderStyle' {..} =
@@ -62,9 +63,9 @@ instance Prelude.Hashable BorderStyle where
 instance Prelude.NFData BorderStyle where
   rnf BorderStyle' {..} = Prelude.rnf show
 
-instance Core.ToJSON BorderStyle where
+instance Data.ToJSON BorderStyle where
   toJSON BorderStyle' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Show" Core..=) Prelude.<$> show]
+          [("Show" Data..=) Prelude.<$> show]
       )

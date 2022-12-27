@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.PutCommentReaction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,7 +103,8 @@ instance Core.AWSRequest PutCommentReaction where
   type
     AWSResponse PutCommentReaction =
       PutCommentReactionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull PutCommentReactionResponse'
 
@@ -116,35 +118,35 @@ instance Prelude.NFData PutCommentReaction where
     Prelude.rnf commentId
       `Prelude.seq` Prelude.rnf reactionValue
 
-instance Core.ToHeaders PutCommentReaction where
+instance Data.ToHeaders PutCommentReaction where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.PutCommentReaction" ::
+              Data.=# ( "CodeCommit_20150413.PutCommentReaction" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutCommentReaction where
+instance Data.ToJSON PutCommentReaction where
   toJSON PutCommentReaction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("commentId" Core..= commentId),
+          [ Prelude.Just ("commentId" Data..= commentId),
             Prelude.Just
-              ("reactionValue" Core..= reactionValue)
+              ("reactionValue" Data..= reactionValue)
           ]
       )
 
-instance Core.ToPath PutCommentReaction where
+instance Data.ToPath PutCommentReaction where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutCommentReaction where
+instance Data.ToQuery PutCommentReaction where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutCommentReactionResponse' smart constructor.

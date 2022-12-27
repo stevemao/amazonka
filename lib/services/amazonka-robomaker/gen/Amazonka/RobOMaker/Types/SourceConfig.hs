@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.Types.SourceConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RobOMaker.Types.SourceConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RobOMaker.Types.Architecture
 
@@ -28,12 +29,12 @@ import Amazonka.RobOMaker.Types.Architecture
 --
 -- /See:/ 'newSourceConfig' smart constructor.
 data SourceConfig = SourceConfig'
-  { -- | The s3 object key.
-    s3Key :: Prelude.Maybe Prelude.Text,
-    -- | The target processor architecture for the application.
+  { -- | The target processor architecture for the application.
     architecture :: Prelude.Maybe Architecture,
     -- | The Amazon S3 bucket name.
-    s3Bucket :: Prelude.Maybe Prelude.Text
+    s3Bucket :: Prelude.Maybe Prelude.Text,
+    -- | The s3 object key.
+    s3Key :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,23 +46,19 @@ data SourceConfig = SourceConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 's3Key', 'sourceConfig_s3Key' - The s3 object key.
---
 -- 'architecture', 'sourceConfig_architecture' - The target processor architecture for the application.
 --
 -- 's3Bucket', 'sourceConfig_s3Bucket' - The Amazon S3 bucket name.
+--
+-- 's3Key', 'sourceConfig_s3Key' - The s3 object key.
 newSourceConfig ::
   SourceConfig
 newSourceConfig =
   SourceConfig'
-    { s3Key = Prelude.Nothing,
-      architecture = Prelude.Nothing,
-      s3Bucket = Prelude.Nothing
+    { architecture = Prelude.Nothing,
+      s3Bucket = Prelude.Nothing,
+      s3Key = Prelude.Nothing
     }
-
--- | The s3 object key.
-sourceConfig_s3Key :: Lens.Lens' SourceConfig (Prelude.Maybe Prelude.Text)
-sourceConfig_s3Key = Lens.lens (\SourceConfig' {s3Key} -> s3Key) (\s@SourceConfig' {} a -> s {s3Key = a} :: SourceConfig)
 
 -- | The target processor architecture for the application.
 sourceConfig_architecture :: Lens.Lens' SourceConfig (Prelude.Maybe Architecture)
@@ -71,24 +68,28 @@ sourceConfig_architecture = Lens.lens (\SourceConfig' {architecture} -> architec
 sourceConfig_s3Bucket :: Lens.Lens' SourceConfig (Prelude.Maybe Prelude.Text)
 sourceConfig_s3Bucket = Lens.lens (\SourceConfig' {s3Bucket} -> s3Bucket) (\s@SourceConfig' {} a -> s {s3Bucket = a} :: SourceConfig)
 
+-- | The s3 object key.
+sourceConfig_s3Key :: Lens.Lens' SourceConfig (Prelude.Maybe Prelude.Text)
+sourceConfig_s3Key = Lens.lens (\SourceConfig' {s3Key} -> s3Key) (\s@SourceConfig' {} a -> s {s3Key = a} :: SourceConfig)
+
 instance Prelude.Hashable SourceConfig where
   hashWithSalt _salt SourceConfig' {..} =
-    _salt `Prelude.hashWithSalt` s3Key
-      `Prelude.hashWithSalt` architecture
+    _salt `Prelude.hashWithSalt` architecture
       `Prelude.hashWithSalt` s3Bucket
+      `Prelude.hashWithSalt` s3Key
 
 instance Prelude.NFData SourceConfig where
   rnf SourceConfig' {..} =
-    Prelude.rnf s3Key
-      `Prelude.seq` Prelude.rnf architecture
+    Prelude.rnf architecture
       `Prelude.seq` Prelude.rnf s3Bucket
+      `Prelude.seq` Prelude.rnf s3Key
 
-instance Core.ToJSON SourceConfig where
+instance Data.ToJSON SourceConfig where
   toJSON SourceConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("s3Key" Core..=) Prelude.<$> s3Key,
-            ("architecture" Core..=) Prelude.<$> architecture,
-            ("s3Bucket" Core..=) Prelude.<$> s3Bucket
+          [ ("architecture" Data..=) Prelude.<$> architecture,
+            ("s3Bucket" Data..=) Prelude.<$> s3Bucket,
+            ("s3Key" Data..=) Prelude.<$> s3Key
           ]
       )

@@ -6,13 +6,56 @@
 
 -- |
 -- Module      : Amazonka.ApplicationInsights.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.ApplicationInsights.Lens
   ( -- * Operations
+
+    -- ** CreateApplication
+    createApplication_autoConfigEnabled,
+    createApplication_autoCreate,
+    createApplication_cWEMonitorEnabled,
+    createApplication_groupingType,
+    createApplication_opsCenterEnabled,
+    createApplication_opsItemSNSTopicArn,
+    createApplication_resourceGroupName,
+    createApplication_tags,
+    createApplicationResponse_applicationInfo,
+    createApplicationResponse_httpStatus,
+
+    -- ** CreateComponent
+    createComponent_resourceGroupName,
+    createComponent_componentName,
+    createComponent_resourceList,
+    createComponentResponse_httpStatus,
+
+    -- ** CreateLogPattern
+    createLogPattern_resourceGroupName,
+    createLogPattern_patternSetName,
+    createLogPattern_patternName,
+    createLogPattern_pattern,
+    createLogPattern_rank,
+    createLogPatternResponse_logPattern,
+    createLogPatternResponse_resourceGroupName,
+    createLogPatternResponse_httpStatus,
+
+    -- ** DeleteApplication
+    deleteApplication_resourceGroupName,
+    deleteApplicationResponse_httpStatus,
+
+    -- ** DeleteComponent
+    deleteComponent_resourceGroupName,
+    deleteComponent_componentName,
+    deleteComponentResponse_httpStatus,
+
+    -- ** DeleteLogPattern
+    deleteLogPattern_resourceGroupName,
+    deleteLogPattern_patternSetName,
+    deleteLogPattern_patternName,
+    deleteLogPatternResponse_httpStatus,
 
     -- ** DescribeApplication
     describeApplication_resourceGroupName,
@@ -26,72 +69,6 @@ module Amazonka.ApplicationInsights.Lens
     describeComponentResponse_resourceList,
     describeComponentResponse_httpStatus,
 
-    -- ** ListTagsForResource
-    listTagsForResource_resourceARN,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** DeleteApplication
-    deleteApplication_resourceGroupName,
-    deleteApplicationResponse_httpStatus,
-
-    -- ** UpdateApplication
-    updateApplication_cWEMonitorEnabled,
-    updateApplication_opsItemSNSTopicArn,
-    updateApplication_removeSNSTopic,
-    updateApplication_opsCenterEnabled,
-    updateApplication_resourceGroupName,
-    updateApplicationResponse_applicationInfo,
-    updateApplicationResponse_httpStatus,
-
-    -- ** DescribeComponentConfigurationRecommendation
-    describeComponentConfigurationRecommendation_resourceGroupName,
-    describeComponentConfigurationRecommendation_componentName,
-    describeComponentConfigurationRecommendation_tier,
-    describeComponentConfigurationRecommendationResponse_componentConfiguration,
-    describeComponentConfigurationRecommendationResponse_httpStatus,
-
-    -- ** DescribeProblem
-    describeProblem_problemId,
-    describeProblemResponse_problem,
-    describeProblemResponse_httpStatus,
-
-    -- ** UpdateComponentConfiguration
-    updateComponentConfiguration_componentConfiguration,
-    updateComponentConfiguration_monitor,
-    updateComponentConfiguration_tier,
-    updateComponentConfiguration_resourceGroupName,
-    updateComponentConfiguration_componentName,
-    updateComponentConfigurationResponse_httpStatus,
-
-    -- ** CreateApplication
-    createApplication_cWEMonitorEnabled,
-    createApplication_opsItemSNSTopicArn,
-    createApplication_opsCenterEnabled,
-    createApplication_tags,
-    createApplication_resourceGroupName,
-    createApplicationResponse_applicationInfo,
-    createApplicationResponse_httpStatus,
-
-    -- ** DescribeProblemObservations
-    describeProblemObservations_problemId,
-    describeProblemObservationsResponse_relatedObservations,
-    describeProblemObservationsResponse_httpStatus,
-
-    -- ** DescribeObservation
-    describeObservation_observationId,
-    describeObservationResponse_observation,
-    describeObservationResponse_httpStatus,
-
-    -- ** ListLogPatternSets
-    listLogPatternSets_nextToken,
-    listLogPatternSets_maxResults,
-    listLogPatternSets_resourceGroupName,
-    listLogPatternSetsResponse_resourceGroupName,
-    listLogPatternSetsResponse_nextToken,
-    listLogPatternSetsResponse_logPatternSets,
-    listLogPatternSetsResponse_httpStatus,
-
     -- ** DescribeComponentConfiguration
     describeComponentConfiguration_resourceGroupName,
     describeComponentConfiguration_componentName,
@@ -100,31 +77,133 @@ module Amazonka.ApplicationInsights.Lens
     describeComponentConfigurationResponse_tier,
     describeComponentConfigurationResponse_httpStatus,
 
-    -- ** ListProblems
-    listProblems_resourceGroupName,
-    listProblems_startTime,
-    listProblems_nextToken,
-    listProblems_endTime,
-    listProblems_maxResults,
-    listProblemsResponse_nextToken,
-    listProblemsResponse_problemList,
-    listProblemsResponse_httpStatus,
+    -- ** DescribeComponentConfigurationRecommendation
+    describeComponentConfigurationRecommendation_resourceGroupName,
+    describeComponentConfigurationRecommendation_componentName,
+    describeComponentConfigurationRecommendation_tier,
+    describeComponentConfigurationRecommendationResponse_componentConfiguration,
+    describeComponentConfigurationRecommendationResponse_httpStatus,
+
+    -- ** DescribeLogPattern
+    describeLogPattern_resourceGroupName,
+    describeLogPattern_patternSetName,
+    describeLogPattern_patternName,
+    describeLogPatternResponse_logPattern,
+    describeLogPatternResponse_resourceGroupName,
+    describeLogPatternResponse_httpStatus,
+
+    -- ** DescribeObservation
+    describeObservation_observationId,
+    describeObservationResponse_observation,
+    describeObservationResponse_httpStatus,
+
+    -- ** DescribeProblem
+    describeProblem_problemId,
+    describeProblemResponse_problem,
+    describeProblemResponse_httpStatus,
+
+    -- ** DescribeProblemObservations
+    describeProblemObservations_problemId,
+    describeProblemObservationsResponse_relatedObservations,
+    describeProblemObservationsResponse_httpStatus,
+
+    -- ** ListApplications
+    listApplications_maxResults,
+    listApplications_nextToken,
+    listApplicationsResponse_applicationInfoList,
+    listApplicationsResponse_nextToken,
+    listApplicationsResponse_httpStatus,
+
+    -- ** ListComponents
+    listComponents_maxResults,
+    listComponents_nextToken,
+    listComponents_resourceGroupName,
+    listComponentsResponse_applicationComponentList,
+    listComponentsResponse_nextToken,
+    listComponentsResponse_httpStatus,
+
+    -- ** ListConfigurationHistory
+    listConfigurationHistory_endTime,
+    listConfigurationHistory_eventStatus,
+    listConfigurationHistory_maxResults,
+    listConfigurationHistory_nextToken,
+    listConfigurationHistory_resourceGroupName,
+    listConfigurationHistory_startTime,
+    listConfigurationHistoryResponse_eventList,
+    listConfigurationHistoryResponse_nextToken,
+    listConfigurationHistoryResponse_httpStatus,
+
+    -- ** ListLogPatternSets
+    listLogPatternSets_maxResults,
+    listLogPatternSets_nextToken,
+    listLogPatternSets_resourceGroupName,
+    listLogPatternSetsResponse_logPatternSets,
+    listLogPatternSetsResponse_nextToken,
+    listLogPatternSetsResponse_resourceGroupName,
+    listLogPatternSetsResponse_httpStatus,
 
     -- ** ListLogPatterns
+    listLogPatterns_maxResults,
     listLogPatterns_nextToken,
     listLogPatterns_patternSetName,
-    listLogPatterns_maxResults,
     listLogPatterns_resourceGroupName,
-    listLogPatternsResponse_resourceGroupName,
-    listLogPatternsResponse_nextToken,
     listLogPatternsResponse_logPatterns,
+    listLogPatternsResponse_nextToken,
+    listLogPatternsResponse_resourceGroupName,
     listLogPatternsResponse_httpStatus,
 
-    -- ** DeleteLogPattern
-    deleteLogPattern_resourceGroupName,
-    deleteLogPattern_patternSetName,
-    deleteLogPattern_patternName,
-    deleteLogPatternResponse_httpStatus,
+    -- ** ListProblems
+    listProblems_componentName,
+    listProblems_endTime,
+    listProblems_maxResults,
+    listProblems_nextToken,
+    listProblems_resourceGroupName,
+    listProblems_startTime,
+    listProblemsResponse_nextToken,
+    listProblemsResponse_problemList,
+    listProblemsResponse_resourceGroupName,
+    listProblemsResponse_httpStatus,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceARN,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
+    -- ** TagResource
+    tagResource_resourceARN,
+    tagResource_tags,
+    tagResourceResponse_httpStatus,
+
+    -- ** UntagResource
+    untagResource_resourceARN,
+    untagResource_tagKeys,
+    untagResourceResponse_httpStatus,
+
+    -- ** UpdateApplication
+    updateApplication_autoConfigEnabled,
+    updateApplication_cWEMonitorEnabled,
+    updateApplication_opsCenterEnabled,
+    updateApplication_opsItemSNSTopicArn,
+    updateApplication_removeSNSTopic,
+    updateApplication_resourceGroupName,
+    updateApplicationResponse_applicationInfo,
+    updateApplicationResponse_httpStatus,
+
+    -- ** UpdateComponent
+    updateComponent_newComponentName,
+    updateComponent_resourceList,
+    updateComponent_resourceGroupName,
+    updateComponent_componentName,
+    updateComponentResponse_httpStatus,
+
+    -- ** UpdateComponentConfiguration
+    updateComponentConfiguration_autoConfigEnabled,
+    updateComponentConfiguration_componentConfiguration,
+    updateComponentConfiguration_monitor,
+    updateComponentConfiguration_tier,
+    updateComponentConfiguration_resourceGroupName,
+    updateComponentConfiguration_componentName,
+    updateComponentConfigurationResponse_httpStatus,
 
     -- ** UpdateLogPattern
     updateLogPattern_pattern,
@@ -136,104 +215,34 @@ module Amazonka.ApplicationInsights.Lens
     updateLogPatternResponse_resourceGroupName,
     updateLogPatternResponse_httpStatus,
 
-    -- ** CreateLogPattern
-    createLogPattern_resourceGroupName,
-    createLogPattern_patternSetName,
-    createLogPattern_patternName,
-    createLogPattern_pattern,
-    createLogPattern_rank,
-    createLogPatternResponse_logPattern,
-    createLogPatternResponse_resourceGroupName,
-    createLogPatternResponse_httpStatus,
-
-    -- ** ListConfigurationHistory
-    listConfigurationHistory_resourceGroupName,
-    listConfigurationHistory_startTime,
-    listConfigurationHistory_eventStatus,
-    listConfigurationHistory_nextToken,
-    listConfigurationHistory_endTime,
-    listConfigurationHistory_maxResults,
-    listConfigurationHistoryResponse_nextToken,
-    listConfigurationHistoryResponse_eventList,
-    listConfigurationHistoryResponse_httpStatus,
-
-    -- ** TagResource
-    tagResource_resourceARN,
-    tagResource_tags,
-    tagResourceResponse_httpStatus,
-
-    -- ** ListApplications
-    listApplications_nextToken,
-    listApplications_maxResults,
-    listApplicationsResponse_nextToken,
-    listApplicationsResponse_applicationInfoList,
-    listApplicationsResponse_httpStatus,
-
-    -- ** UntagResource
-    untagResource_resourceARN,
-    untagResource_tagKeys,
-    untagResourceResponse_httpStatus,
-
-    -- ** CreateComponent
-    createComponent_resourceGroupName,
-    createComponent_componentName,
-    createComponent_resourceList,
-    createComponentResponse_httpStatus,
-
-    -- ** ListComponents
-    listComponents_nextToken,
-    listComponents_maxResults,
-    listComponents_resourceGroupName,
-    listComponentsResponse_applicationComponentList,
-    listComponentsResponse_nextToken,
-    listComponentsResponse_httpStatus,
-
-    -- ** DeleteComponent
-    deleteComponent_resourceGroupName,
-    deleteComponent_componentName,
-    deleteComponentResponse_httpStatus,
-
-    -- ** UpdateComponent
-    updateComponent_newComponentName,
-    updateComponent_resourceList,
-    updateComponent_resourceGroupName,
-    updateComponent_componentName,
-    updateComponentResponse_httpStatus,
-
-    -- ** DescribeLogPattern
-    describeLogPattern_resourceGroupName,
-    describeLogPattern_patternSetName,
-    describeLogPattern_patternName,
-    describeLogPatternResponse_logPattern,
-    describeLogPatternResponse_resourceGroupName,
-    describeLogPatternResponse_httpStatus,
-
     -- * Types
 
     -- ** ApplicationComponent
-    applicationComponent_osType,
-    applicationComponent_resourceType,
-    applicationComponent_detectedWorkload,
-    applicationComponent_monitor,
-    applicationComponent_tier,
     applicationComponent_componentName,
     applicationComponent_componentRemarks,
+    applicationComponent_detectedWorkload,
+    applicationComponent_monitor,
+    applicationComponent_osType,
+    applicationComponent_resourceType,
+    applicationComponent_tier,
 
     -- ** ApplicationInfo
-    applicationInfo_resourceGroupName,
+    applicationInfo_autoConfigEnabled,
     applicationInfo_cWEMonitorEnabled,
-    applicationInfo_opsItemSNSTopicArn,
+    applicationInfo_discoveryType,
     applicationInfo_lifeCycle,
     applicationInfo_opsCenterEnabled,
+    applicationInfo_opsItemSNSTopicArn,
     applicationInfo_remarks,
+    applicationInfo_resourceGroupName,
 
     -- ** ConfigurationEvent
-    configurationEvent_monitoredResourceARN,
-    configurationEvent_eventStatus,
-    configurationEvent_eventResourceName,
-    configurationEvent_eventTime,
     configurationEvent_eventDetail,
+    configurationEvent_eventResourceName,
     configurationEvent_eventResourceType,
+    configurationEvent_eventStatus,
+    configurationEvent_eventTime,
+    configurationEvent_monitoredResourceARN,
 
     -- ** LogPattern
     logPattern_pattern,
@@ -242,63 +251,65 @@ module Amazonka.ApplicationInsights.Lens
     logPattern_rank,
 
     -- ** Observation
-    observation_codeDeployApplication,
-    observation_rdsEventMessage,
-    observation_codeDeployDeploymentId,
-    observation_startTime,
-    observation_sourceType,
-    observation_sourceARN,
-    observation_xRayRequestAverageLatency,
-    observation_statesStatus,
-    observation_codeDeployDeploymentGroup,
-    observation_healthEventTypeCategory,
-    observation_xRayRequestCount,
-    observation_s3EventName,
-    observation_metricName,
-    observation_ec2State,
-    observation_logGroup,
-    observation_value,
-    observation_healthEventDescription,
-    observation_cloudWatchEventSource,
-    observation_codeDeployState,
-    observation_xRayErrorPercent,
-    observation_statesArn,
-    observation_cloudWatchEventId,
-    observation_logText,
-    observation_logFilter,
-    observation_metricNamespace,
-    observation_rdsEventCategories,
-    observation_xRayNodeType,
-    observation_endTime,
-    observation_statesInput,
-    observation_xRayNodeName,
-    observation_id,
-    observation_healthEventArn,
-    observation_healthEventTypeCode,
-    observation_ebsResult,
     observation_cloudWatchEventDetailType,
+    observation_cloudWatchEventId,
+    observation_cloudWatchEventSource,
+    observation_codeDeployApplication,
+    observation_codeDeployDeploymentGroup,
+    observation_codeDeployDeploymentId,
     observation_codeDeployInstanceGroupId,
+    observation_codeDeployState,
     observation_ebsCause,
     observation_ebsEvent,
     observation_ebsRequestId,
-    observation_xRayFaultPercent,
-    observation_statesExecutionArn,
-    observation_lineTime,
-    observation_unit,
-    observation_xRayThrottlePercent,
+    observation_ebsResult,
+    observation_ec2State,
+    observation_endTime,
+    observation_healthEventArn,
+    observation_healthEventDescription,
+    observation_healthEventTypeCategory,
+    observation_healthEventTypeCode,
     observation_healthService,
+    observation_id,
+    observation_lineTime,
+    observation_logFilter,
+    observation_logGroup,
+    observation_logText,
+    observation_metricName,
+    observation_metricNamespace,
+    observation_rdsEventCategories,
+    observation_rdsEventMessage,
+    observation_s3EventName,
+    observation_sourceARN,
+    observation_sourceType,
+    observation_startTime,
+    observation_statesArn,
+    observation_statesExecutionArn,
+    observation_statesInput,
+    observation_statesStatus,
+    observation_unit,
+    observation_value,
+    observation_xRayErrorPercent,
+    observation_xRayFaultPercent,
+    observation_xRayNodeName,
+    observation_xRayNodeType,
+    observation_xRayRequestAverageLatency,
+    observation_xRayRequestCount,
+    observation_xRayThrottlePercent,
 
     -- ** Problem
-    problem_status,
-    problem_resourceGroupName,
-    problem_startTime,
-    problem_insights,
-    problem_endTime,
-    problem_id,
-    problem_severityLevel,
-    problem_title,
     problem_affectedResource,
+    problem_endTime,
     problem_feedback,
+    problem_id,
+    problem_insights,
+    problem_lastRecurrenceTime,
+    problem_recurringCount,
+    problem_resourceGroupName,
+    problem_severityLevel,
+    problem_startTime,
+    problem_status,
+    problem_title,
 
     -- ** RelatedObservations
     relatedObservations_observationList,

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.Types.GeoMatchSetUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAFRegional.Types.GeoMatchSetUpdate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WAFRegional.Types.ChangeAction
 import Amazonka.WAFRegional.Types.GeoMatchConstraint
@@ -90,12 +91,12 @@ instance Prelude.NFData GeoMatchSetUpdate where
     Prelude.rnf action
       `Prelude.seq` Prelude.rnf geoMatchConstraint
 
-instance Core.ToJSON GeoMatchSetUpdate where
+instance Data.ToJSON GeoMatchSetUpdate where
   toJSON GeoMatchSetUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Action" Core..= action),
+          [ Prelude.Just ("Action" Data..= action),
             Prelude.Just
-              ("GeoMatchConstraint" Core..= geoMatchConstraint)
+              ("GeoMatchConstraint" Data..= geoMatchConstraint)
           ]
       )

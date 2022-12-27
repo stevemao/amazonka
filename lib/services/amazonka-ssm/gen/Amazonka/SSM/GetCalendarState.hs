@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.GetCalendarState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,15 +51,16 @@ module Amazonka.SSM.GetCalendarState
     newGetCalendarStateResponse,
 
     -- * Response Lenses
-    getCalendarStateResponse_state,
-    getCalendarStateResponse_nextTransitionTime,
     getCalendarStateResponse_atTime,
+    getCalendarStateResponse_nextTransitionTime,
+    getCalendarStateResponse_state,
     getCalendarStateResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -120,14 +121,15 @@ instance Core.AWSRequest GetCalendarState where
   type
     AWSResponse GetCalendarState =
       GetCalendarStateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCalendarStateResponse'
-            Prelude.<$> (x Core..?> "State")
-            Prelude.<*> (x Core..?> "NextTransitionTime")
-            Prelude.<*> (x Core..?> "AtTime")
+            Prelude.<$> (x Data..?> "AtTime")
+            Prelude.<*> (x Data..?> "NextTransitionTime")
+            Prelude.<*> (x Data..?> "State")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -141,50 +143,50 @@ instance Prelude.NFData GetCalendarState where
     Prelude.rnf atTime
       `Prelude.seq` Prelude.rnf calendarNames
 
-instance Core.ToHeaders GetCalendarState where
+instance Data.ToHeaders GetCalendarState where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonSSM.GetCalendarState" :: Prelude.ByteString),
+              Data.=# ("AmazonSSM.GetCalendarState" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetCalendarState where
+instance Data.ToJSON GetCalendarState where
   toJSON GetCalendarState' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AtTime" Core..=) Prelude.<$> atTime,
+          [ ("AtTime" Data..=) Prelude.<$> atTime,
             Prelude.Just
-              ("CalendarNames" Core..= calendarNames)
+              ("CalendarNames" Data..= calendarNames)
           ]
       )
 
-instance Core.ToPath GetCalendarState where
+instance Data.ToPath GetCalendarState where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetCalendarState where
+instance Data.ToQuery GetCalendarState where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetCalendarStateResponse' smart constructor.
 data GetCalendarStateResponse = GetCalendarStateResponse'
-  { -- | The state of the calendar. An @OPEN@ calendar indicates that actions are
-    -- allowed to proceed, and a @CLOSED@ calendar indicates that actions
-    -- aren\'t allowed to proceed.
-    state :: Prelude.Maybe CalendarState,
+  { -- | The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
+    -- string, that you specified in your command. If you don\'t specify a
+    -- time, @GetCalendarState@ uses the current time.
+    atTime :: Prelude.Maybe Prelude.Text,
     -- | The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
     -- string, that the calendar state will change. If the current calendar
     -- state is @OPEN@, @NextTransitionTime@ indicates when the calendar state
     -- changes to @CLOSED@, and vice-versa.
     nextTransitionTime :: Prelude.Maybe Prelude.Text,
-    -- | The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
-    -- string, that you specified in your command. If you don\'t specify a
-    -- time, @GetCalendarState@ uses the current time.
-    atTime :: Prelude.Maybe Prelude.Text,
+    -- | The state of the calendar. An @OPEN@ calendar indicates that actions are
+    -- allowed to proceed, and a @CLOSED@ calendar indicates that actions
+    -- aren\'t allowed to proceed.
+    state :: Prelude.Maybe CalendarState,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -198,18 +200,18 @@ data GetCalendarStateResponse = GetCalendarStateResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'getCalendarStateResponse_state' - The state of the calendar. An @OPEN@ calendar indicates that actions are
--- allowed to proceed, and a @CLOSED@ calendar indicates that actions
--- aren\'t allowed to proceed.
+-- 'atTime', 'getCalendarStateResponse_atTime' - The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
+-- string, that you specified in your command. If you don\'t specify a
+-- time, @GetCalendarState@ uses the current time.
 --
 -- 'nextTransitionTime', 'getCalendarStateResponse_nextTransitionTime' - The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
 -- string, that the calendar state will change. If the current calendar
 -- state is @OPEN@, @NextTransitionTime@ indicates when the calendar state
 -- changes to @CLOSED@, and vice-versa.
 --
--- 'atTime', 'getCalendarStateResponse_atTime' - The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
--- string, that you specified in your command. If you don\'t specify a
--- time, @GetCalendarState@ uses the current time.
+-- 'state', 'getCalendarStateResponse_state' - The state of the calendar. An @OPEN@ calendar indicates that actions are
+-- allowed to proceed, and a @CLOSED@ calendar indicates that actions
+-- aren\'t allowed to proceed.
 --
 -- 'httpStatus', 'getCalendarStateResponse_httpStatus' - The response's http status code.
 newGetCalendarStateResponse ::
@@ -218,17 +220,17 @@ newGetCalendarStateResponse ::
   GetCalendarStateResponse
 newGetCalendarStateResponse pHttpStatus_ =
   GetCalendarStateResponse'
-    { state = Prelude.Nothing,
+    { atTime = Prelude.Nothing,
       nextTransitionTime = Prelude.Nothing,
-      atTime = Prelude.Nothing,
+      state = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The state of the calendar. An @OPEN@ calendar indicates that actions are
--- allowed to proceed, and a @CLOSED@ calendar indicates that actions
--- aren\'t allowed to proceed.
-getCalendarStateResponse_state :: Lens.Lens' GetCalendarStateResponse (Prelude.Maybe CalendarState)
-getCalendarStateResponse_state = Lens.lens (\GetCalendarStateResponse' {state} -> state) (\s@GetCalendarStateResponse' {} a -> s {state = a} :: GetCalendarStateResponse)
+-- | The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
+-- string, that you specified in your command. If you don\'t specify a
+-- time, @GetCalendarState@ uses the current time.
+getCalendarStateResponse_atTime :: Lens.Lens' GetCalendarStateResponse (Prelude.Maybe Prelude.Text)
+getCalendarStateResponse_atTime = Lens.lens (\GetCalendarStateResponse' {atTime} -> atTime) (\s@GetCalendarStateResponse' {} a -> s {atTime = a} :: GetCalendarStateResponse)
 
 -- | The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
 -- string, that the calendar state will change. If the current calendar
@@ -237,11 +239,11 @@ getCalendarStateResponse_state = Lens.lens (\GetCalendarStateResponse' {state} -
 getCalendarStateResponse_nextTransitionTime :: Lens.Lens' GetCalendarStateResponse (Prelude.Maybe Prelude.Text)
 getCalendarStateResponse_nextTransitionTime = Lens.lens (\GetCalendarStateResponse' {nextTransitionTime} -> nextTransitionTime) (\s@GetCalendarStateResponse' {} a -> s {nextTransitionTime = a} :: GetCalendarStateResponse)
 
--- | The time, as an <https://en.wikipedia.org/wiki/ISO_8601 ISO 8601>
--- string, that you specified in your command. If you don\'t specify a
--- time, @GetCalendarState@ uses the current time.
-getCalendarStateResponse_atTime :: Lens.Lens' GetCalendarStateResponse (Prelude.Maybe Prelude.Text)
-getCalendarStateResponse_atTime = Lens.lens (\GetCalendarStateResponse' {atTime} -> atTime) (\s@GetCalendarStateResponse' {} a -> s {atTime = a} :: GetCalendarStateResponse)
+-- | The state of the calendar. An @OPEN@ calendar indicates that actions are
+-- allowed to proceed, and a @CLOSED@ calendar indicates that actions
+-- aren\'t allowed to proceed.
+getCalendarStateResponse_state :: Lens.Lens' GetCalendarStateResponse (Prelude.Maybe CalendarState)
+getCalendarStateResponse_state = Lens.lens (\GetCalendarStateResponse' {state} -> state) (\s@GetCalendarStateResponse' {} a -> s {state = a} :: GetCalendarStateResponse)
 
 -- | The response's http status code.
 getCalendarStateResponse_httpStatus :: Lens.Lens' GetCalendarStateResponse Prelude.Int
@@ -249,7 +251,7 @@ getCalendarStateResponse_httpStatus = Lens.lens (\GetCalendarStateResponse' {htt
 
 instance Prelude.NFData GetCalendarStateResponse where
   rnf GetCalendarStateResponse' {..} =
-    Prelude.rnf state
+    Prelude.rnf atTime
       `Prelude.seq` Prelude.rnf nextTransitionTime
-      `Prelude.seq` Prelude.rnf atTime
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf httpStatus

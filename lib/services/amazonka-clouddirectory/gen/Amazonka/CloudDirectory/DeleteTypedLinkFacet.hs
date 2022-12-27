@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.DeleteTypedLinkFacet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,7 +95,8 @@ instance Core.AWSRequest DeleteTypedLinkFacet where
   type
     AWSResponse DeleteTypedLinkFacet =
       DeleteTypedLinkFacetResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -112,24 +114,24 @@ instance Prelude.NFData DeleteTypedLinkFacet where
     Prelude.rnf schemaArn
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders DeleteTypedLinkFacet where
+instance Data.ToHeaders DeleteTypedLinkFacet where
   toHeaders DeleteTypedLinkFacet' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# schemaArn]
+      ["x-amz-data-partition" Data.=# schemaArn]
 
-instance Core.ToJSON DeleteTypedLinkFacet where
+instance Data.ToJSON DeleteTypedLinkFacet where
   toJSON DeleteTypedLinkFacet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath DeleteTypedLinkFacet where
+instance Data.ToPath DeleteTypedLinkFacet where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/typedlink/facet/delete"
 
-instance Core.ToQuery DeleteTypedLinkFacet where
+instance Data.ToQuery DeleteTypedLinkFacet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteTypedLinkFacetResponse' smart constructor.

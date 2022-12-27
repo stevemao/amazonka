@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScalingPlans.Types.MetricDimension
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AutoScalingPlans.Types.MetricDimension where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a dimension for a customized metric.
@@ -62,13 +63,13 @@ metricDimension_name = Lens.lens (\MetricDimension' {name} -> name) (\s@MetricDi
 metricDimension_value :: Lens.Lens' MetricDimension Prelude.Text
 metricDimension_value = Lens.lens (\MetricDimension' {value} -> value) (\s@MetricDimension' {} a -> s {value = a} :: MetricDimension)
 
-instance Core.FromJSON MetricDimension where
+instance Data.FromJSON MetricDimension where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MetricDimension"
       ( \x ->
           MetricDimension'
-            Prelude.<$> (x Core..: "Name") Prelude.<*> (x Core..: "Value")
+            Prelude.<$> (x Data..: "Name") Prelude.<*> (x Data..: "Value")
       )
 
 instance Prelude.Hashable MetricDimension where
@@ -80,11 +81,11 @@ instance Prelude.NFData MetricDimension where
   rnf MetricDimension' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON MetricDimension where
+instance Data.ToJSON MetricDimension where
   toJSON MetricDimension' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Value" Core..= value)
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Value" Data..= value)
           ]
       )

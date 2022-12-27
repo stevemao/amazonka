@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.GetModels
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.ApiGatewayV2.GetModels
     newGetModels,
 
     -- * Request Lenses
-    getModels_nextToken,
     getModels_maxResults,
+    getModels_nextToken,
     getModels_apiId,
 
     -- * Destructuring the Response
@@ -46,18 +46,19 @@ where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetModels' smart constructor.
 data GetModels = GetModels'
-  { -- | The next page of elements from this collection. Not valid for the last
+  { -- | The maximum number of elements to be returned for this resource.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | The next page of elements from this collection. Not valid for the last
     -- element of the collection.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of elements to be returned for this resource.
-    maxResults :: Prelude.Maybe Prelude.Text,
     -- | The API identifier.
     apiId :: Prelude.Text
   }
@@ -71,10 +72,10 @@ data GetModels = GetModels'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getModels_maxResults' - The maximum number of elements to be returned for this resource.
+--
 -- 'nextToken', 'getModels_nextToken' - The next page of elements from this collection. Not valid for the last
 -- element of the collection.
---
--- 'maxResults', 'getModels_maxResults' - The maximum number of elements to be returned for this resource.
 --
 -- 'apiId', 'getModels_apiId' - The API identifier.
 newGetModels ::
@@ -83,19 +84,19 @@ newGetModels ::
   GetModels
 newGetModels pApiId_ =
   GetModels'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       apiId = pApiId_
     }
+
+-- | The maximum number of elements to be returned for this resource.
+getModels_maxResults :: Lens.Lens' GetModels (Prelude.Maybe Prelude.Text)
+getModels_maxResults = Lens.lens (\GetModels' {maxResults} -> maxResults) (\s@GetModels' {} a -> s {maxResults = a} :: GetModels)
 
 -- | The next page of elements from this collection. Not valid for the last
 -- element of the collection.
 getModels_nextToken :: Lens.Lens' GetModels (Prelude.Maybe Prelude.Text)
 getModels_nextToken = Lens.lens (\GetModels' {nextToken} -> nextToken) (\s@GetModels' {} a -> s {nextToken = a} :: GetModels)
-
--- | The maximum number of elements to be returned for this resource.
-getModels_maxResults :: Lens.Lens' GetModels (Prelude.Maybe Prelude.Text)
-getModels_maxResults = Lens.lens (\GetModels' {maxResults} -> maxResults) (\s@GetModels' {} a -> s {maxResults = a} :: GetModels)
 
 -- | The API identifier.
 getModels_apiId :: Lens.Lens' GetModels Prelude.Text
@@ -122,49 +123,50 @@ instance Core.AWSPager GetModels where
 
 instance Core.AWSRequest GetModels where
   type AWSResponse GetModels = GetModelsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetModelsResponse'
-            Prelude.<$> (x Core..?> "items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetModels where
   hashWithSalt _salt GetModels' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` apiId
 
 instance Prelude.NFData GetModels where
   rnf GetModels' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf apiId
 
-instance Core.ToHeaders GetModels where
+instance Data.ToHeaders GetModels where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetModels where
+instance Data.ToPath GetModels where
   toPath GetModels' {..} =
     Prelude.mconcat
-      ["/v2/apis/", Core.toBS apiId, "/models"]
+      ["/v2/apis/", Data.toBS apiId, "/models"]
 
-instance Core.ToQuery GetModels where
+instance Data.ToQuery GetModels where
   toQuery GetModels' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetModelsResponse' smart constructor.

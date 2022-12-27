@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.AnalysisSourceEntity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.AnalysisSourceEntity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.AnalysisSourceTemplate
 
@@ -62,11 +63,11 @@ instance Prelude.NFData AnalysisSourceEntity where
   rnf AnalysisSourceEntity' {..} =
     Prelude.rnf sourceTemplate
 
-instance Core.ToJSON AnalysisSourceEntity where
+instance Data.ToJSON AnalysisSourceEntity where
   toJSON AnalysisSourceEntity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SourceTemplate" Core..=)
+          [ ("SourceTemplate" Data..=)
               Prelude.<$> sourceTemplate
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.Types.PolicyAttributeTypeDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,18 @@
 module Amazonka.ELB.Types.PolicyAttributeTypeDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a policy attribute type.
 --
 -- /See:/ 'newPolicyAttributeTypeDescription' smart constructor.
 data PolicyAttributeTypeDescription = PolicyAttributeTypeDescription'
-  { -- | The type of the attribute. For example, @Boolean@ or @Integer@.
+  { -- | The name of the attribute.
+    attributeName :: Prelude.Maybe Prelude.Text,
+    -- | The type of the attribute. For example, @Boolean@ or @Integer@.
     attributeType :: Prelude.Maybe Prelude.Text,
     -- | The cardinality of the attribute.
     --
@@ -44,8 +47,6 @@ data PolicyAttributeTypeDescription = PolicyAttributeTypeDescription'
     cardinality :: Prelude.Maybe Prelude.Text,
     -- | The default value of the attribute, if applicable.
     defaultValue :: Prelude.Maybe Prelude.Text,
-    -- | The name of the attribute.
-    attributeName :: Prelude.Maybe Prelude.Text,
     -- | A description of the attribute.
     description :: Prelude.Maybe Prelude.Text
   }
@@ -58,6 +59,8 @@ data PolicyAttributeTypeDescription = PolicyAttributeTypeDescription'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'attributeName', 'policyAttributeTypeDescription_attributeName' - The name of the attribute.
 --
 -- 'attributeType', 'policyAttributeTypeDescription_attributeType' - The type of the attribute. For example, @Boolean@ or @Integer@.
 --
@@ -75,20 +78,22 @@ data PolicyAttributeTypeDescription = PolicyAttributeTypeDescription'
 --
 -- 'defaultValue', 'policyAttributeTypeDescription_defaultValue' - The default value of the attribute, if applicable.
 --
--- 'attributeName', 'policyAttributeTypeDescription_attributeName' - The name of the attribute.
---
 -- 'description', 'policyAttributeTypeDescription_description' - A description of the attribute.
 newPolicyAttributeTypeDescription ::
   PolicyAttributeTypeDescription
 newPolicyAttributeTypeDescription =
   PolicyAttributeTypeDescription'
-    { attributeType =
+    { attributeName =
         Prelude.Nothing,
+      attributeType = Prelude.Nothing,
       cardinality = Prelude.Nothing,
       defaultValue = Prelude.Nothing,
-      attributeName = Prelude.Nothing,
       description = Prelude.Nothing
     }
+
+-- | The name of the attribute.
+policyAttributeTypeDescription_attributeName :: Lens.Lens' PolicyAttributeTypeDescription (Prelude.Maybe Prelude.Text)
+policyAttributeTypeDescription_attributeName = Lens.lens (\PolicyAttributeTypeDescription' {attributeName} -> attributeName) (\s@PolicyAttributeTypeDescription' {} a -> s {attributeName = a} :: PolicyAttributeTypeDescription)
 
 -- | The type of the attribute. For example, @Boolean@ or @Integer@.
 policyAttributeTypeDescription_attributeType :: Lens.Lens' PolicyAttributeTypeDescription (Prelude.Maybe Prelude.Text)
@@ -112,22 +117,18 @@ policyAttributeTypeDescription_cardinality = Lens.lens (\PolicyAttributeTypeDesc
 policyAttributeTypeDescription_defaultValue :: Lens.Lens' PolicyAttributeTypeDescription (Prelude.Maybe Prelude.Text)
 policyAttributeTypeDescription_defaultValue = Lens.lens (\PolicyAttributeTypeDescription' {defaultValue} -> defaultValue) (\s@PolicyAttributeTypeDescription' {} a -> s {defaultValue = a} :: PolicyAttributeTypeDescription)
 
--- | The name of the attribute.
-policyAttributeTypeDescription_attributeName :: Lens.Lens' PolicyAttributeTypeDescription (Prelude.Maybe Prelude.Text)
-policyAttributeTypeDescription_attributeName = Lens.lens (\PolicyAttributeTypeDescription' {attributeName} -> attributeName) (\s@PolicyAttributeTypeDescription' {} a -> s {attributeName = a} :: PolicyAttributeTypeDescription)
-
 -- | A description of the attribute.
 policyAttributeTypeDescription_description :: Lens.Lens' PolicyAttributeTypeDescription (Prelude.Maybe Prelude.Text)
 policyAttributeTypeDescription_description = Lens.lens (\PolicyAttributeTypeDescription' {description} -> description) (\s@PolicyAttributeTypeDescription' {} a -> s {description = a} :: PolicyAttributeTypeDescription)
 
-instance Core.FromXML PolicyAttributeTypeDescription where
+instance Data.FromXML PolicyAttributeTypeDescription where
   parseXML x =
     PolicyAttributeTypeDescription'
-      Prelude.<$> (x Core..@? "AttributeType")
-      Prelude.<*> (x Core..@? "Cardinality")
-      Prelude.<*> (x Core..@? "DefaultValue")
-      Prelude.<*> (x Core..@? "AttributeName")
-      Prelude.<*> (x Core..@? "Description")
+      Prelude.<$> (x Data..@? "AttributeName")
+      Prelude.<*> (x Data..@? "AttributeType")
+      Prelude.<*> (x Data..@? "Cardinality")
+      Prelude.<*> (x Data..@? "DefaultValue")
+      Prelude.<*> (x Data..@? "Description")
 
 instance
   Prelude.Hashable
@@ -136,10 +137,10 @@ instance
   hashWithSalt
     _salt
     PolicyAttributeTypeDescription' {..} =
-      _salt `Prelude.hashWithSalt` attributeType
+      _salt `Prelude.hashWithSalt` attributeName
+        `Prelude.hashWithSalt` attributeType
         `Prelude.hashWithSalt` cardinality
         `Prelude.hashWithSalt` defaultValue
-        `Prelude.hashWithSalt` attributeName
         `Prelude.hashWithSalt` description
 
 instance
@@ -147,8 +148,8 @@ instance
     PolicyAttributeTypeDescription
   where
   rnf PolicyAttributeTypeDescription' {..} =
-    Prelude.rnf attributeType
+    Prelude.rnf attributeName
+      `Prelude.seq` Prelude.rnf attributeType
       `Prelude.seq` Prelude.rnf cardinality
       `Prelude.seq` Prelude.rnf defaultValue
-      `Prelude.seq` Prelude.rnf attributeName
       `Prelude.seq` Prelude.rnf description

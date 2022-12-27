@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsS3BucketNotificationConfigurationS3KeyFilterRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsS3BucketNotificationConfigurationS3KeyFilterRule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsS3BucketNotificationConfigurationS3KeyFilterRuleName
 
@@ -28,11 +29,11 @@ import Amazonka.SecurityHub.Types.AwsS3BucketNotificationConfigurationS3KeyFilte
 --
 -- /See:/ 'newAwsS3BucketNotificationConfigurationS3KeyFilterRule' smart constructor.
 data AwsS3BucketNotificationConfigurationS3KeyFilterRule = AwsS3BucketNotificationConfigurationS3KeyFilterRule'
-  { -- | The filter value.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | Indicates whether the filter is based on the prefix or suffix of the
+  { -- | Indicates whether the filter is based on the prefix or suffix of the
     -- Amazon S3 key.
-    name :: Prelude.Maybe AwsS3BucketNotificationConfigurationS3KeyFilterRuleName
+    name :: Prelude.Maybe AwsS3BucketNotificationConfigurationS3KeyFilterRuleName,
+    -- | The filter value.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,38 +45,39 @@ data AwsS3BucketNotificationConfigurationS3KeyFilterRule = AwsS3BucketNotificati
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'awsS3BucketNotificationConfigurationS3KeyFilterRule_value' - The filter value.
---
 -- 'name', 'awsS3BucketNotificationConfigurationS3KeyFilterRule_name' - Indicates whether the filter is based on the prefix or suffix of the
 -- Amazon S3 key.
+--
+-- 'value', 'awsS3BucketNotificationConfigurationS3KeyFilterRule_value' - The filter value.
 newAwsS3BucketNotificationConfigurationS3KeyFilterRule ::
   AwsS3BucketNotificationConfigurationS3KeyFilterRule
 newAwsS3BucketNotificationConfigurationS3KeyFilterRule =
   AwsS3BucketNotificationConfigurationS3KeyFilterRule'
-    { value =
+    { name =
         Prelude.Nothing,
-      name = Prelude.Nothing
+      value =
+        Prelude.Nothing
     }
-
--- | The filter value.
-awsS3BucketNotificationConfigurationS3KeyFilterRule_value :: Lens.Lens' AwsS3BucketNotificationConfigurationS3KeyFilterRule (Prelude.Maybe Prelude.Text)
-awsS3BucketNotificationConfigurationS3KeyFilterRule_value = Lens.lens (\AwsS3BucketNotificationConfigurationS3KeyFilterRule' {value} -> value) (\s@AwsS3BucketNotificationConfigurationS3KeyFilterRule' {} a -> s {value = a} :: AwsS3BucketNotificationConfigurationS3KeyFilterRule)
 
 -- | Indicates whether the filter is based on the prefix or suffix of the
 -- Amazon S3 key.
 awsS3BucketNotificationConfigurationS3KeyFilterRule_name :: Lens.Lens' AwsS3BucketNotificationConfigurationS3KeyFilterRule (Prelude.Maybe AwsS3BucketNotificationConfigurationS3KeyFilterRuleName)
 awsS3BucketNotificationConfigurationS3KeyFilterRule_name = Lens.lens (\AwsS3BucketNotificationConfigurationS3KeyFilterRule' {name} -> name) (\s@AwsS3BucketNotificationConfigurationS3KeyFilterRule' {} a -> s {name = a} :: AwsS3BucketNotificationConfigurationS3KeyFilterRule)
 
+-- | The filter value.
+awsS3BucketNotificationConfigurationS3KeyFilterRule_value :: Lens.Lens' AwsS3BucketNotificationConfigurationS3KeyFilterRule (Prelude.Maybe Prelude.Text)
+awsS3BucketNotificationConfigurationS3KeyFilterRule_value = Lens.lens (\AwsS3BucketNotificationConfigurationS3KeyFilterRule' {value} -> value) (\s@AwsS3BucketNotificationConfigurationS3KeyFilterRule' {} a -> s {value = a} :: AwsS3BucketNotificationConfigurationS3KeyFilterRule)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsS3BucketNotificationConfigurationS3KeyFilterRule
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsS3BucketNotificationConfigurationS3KeyFilterRule"
       ( \x ->
           AwsS3BucketNotificationConfigurationS3KeyFilterRule'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name") Prelude.<*> (x Data..:? "Value")
       )
 
 instance
@@ -85,8 +87,8 @@ instance
   hashWithSalt
     _salt
     AwsS3BucketNotificationConfigurationS3KeyFilterRule' {..} =
-      _salt `Prelude.hashWithSalt` value
-        `Prelude.hashWithSalt` name
+      _salt `Prelude.hashWithSalt` name
+        `Prelude.hashWithSalt` value
 
 instance
   Prelude.NFData
@@ -94,17 +96,17 @@ instance
   where
   rnf
     AwsS3BucketNotificationConfigurationS3KeyFilterRule' {..} =
-      Prelude.rnf value `Prelude.seq` Prelude.rnf name
+      Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsS3BucketNotificationConfigurationS3KeyFilterRule
   where
   toJSON
     AwsS3BucketNotificationConfigurationS3KeyFilterRule' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Value" Core..=) Prelude.<$> value,
-              ("Name" Core..=) Prelude.<$> name
+            [ ("Name" Data..=) Prelude.<$> name,
+              ("Value" Data..=) Prelude.<$> value
             ]
         )

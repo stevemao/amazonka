@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.DeleteBackupVaultLockConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,7 +89,8 @@ instance
   type
     AWSResponse DeleteBackupVaultLockConfiguration =
       DeleteBackupVaultLockConfigurationResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteBackupVaultLockConfigurationResponse'
@@ -110,32 +112,32 @@ instance
     Prelude.rnf backupVaultName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteBackupVaultLockConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeleteBackupVaultLockConfiguration
   where
   toPath DeleteBackupVaultLockConfiguration' {..} =
     Prelude.mconcat
       [ "/backup-vaults/",
-        Core.toBS backupVaultName,
+        Data.toBS backupVaultName,
         "/vault-lock"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteBackupVaultLockConfiguration
   where
   toQuery = Prelude.const Prelude.mempty

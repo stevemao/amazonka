@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QLDBSession.Types.EndSessionResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QLDBSession.Types.EndSessionResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QLDBSession.Types.TimingInformation
 
@@ -54,13 +55,13 @@ newEndSessionResult =
 endSessionResult_timingInformation :: Lens.Lens' EndSessionResult (Prelude.Maybe TimingInformation)
 endSessionResult_timingInformation = Lens.lens (\EndSessionResult' {timingInformation} -> timingInformation) (\s@EndSessionResult' {} a -> s {timingInformation = a} :: EndSessionResult)
 
-instance Core.FromJSON EndSessionResult where
+instance Data.FromJSON EndSessionResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EndSessionResult"
       ( \x ->
           EndSessionResult'
-            Prelude.<$> (x Core..:? "TimingInformation")
+            Prelude.<$> (x Data..:? "TimingInformation")
       )
 
 instance Prelude.Hashable EndSessionResult where

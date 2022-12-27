@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.Types.InputDataConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,19 +22,17 @@ module Amazonka.Comprehend.Types.InputDataConfig where
 import Amazonka.Comprehend.Types.DocumentReaderConfig
 import Amazonka.Comprehend.Types.InputFormat
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The input properties for an inference job.
+-- | The input properties for an inference job. The document reader config
+-- field applies only to non-text inputs for custom analysis.
 --
 -- /See:/ 'newInputDataConfig' smart constructor.
 data InputDataConfig = InputDataConfig'
-  { -- | The document reader config field applies only for InputDataConfig of
-    -- StartEntitiesDetectionJob.
-    --
-    -- Use DocumentReaderConfig to provide specifications about how you want
-    -- your inference documents read. Currently it applies for PDF documents in
-    -- StartEntitiesDetectionJob custom inference.
+  { -- | Provides configuration parameters to override the default actions for
+    -- extracting text from PDF documents and image files.
     documentReaderConfig :: Prelude.Maybe DocumentReaderConfig,
     -- | Specifies how the text in an input file should be processed:
     --
@@ -66,12 +64,8 @@ data InputDataConfig = InputDataConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'documentReaderConfig', 'inputDataConfig_documentReaderConfig' - The document reader config field applies only for InputDataConfig of
--- StartEntitiesDetectionJob.
---
--- Use DocumentReaderConfig to provide specifications about how you want
--- your inference documents read. Currently it applies for PDF documents in
--- StartEntitiesDetectionJob custom inference.
+-- 'documentReaderConfig', 'inputDataConfig_documentReaderConfig' - Provides configuration parameters to override the default actions for
+-- extracting text from PDF documents and image files.
 --
 -- 'inputFormat', 'inputDataConfig_inputFormat' - Specifies how the text in an input file should be processed:
 --
@@ -103,12 +97,8 @@ newInputDataConfig pS3Uri_ =
       s3Uri = pS3Uri_
     }
 
--- | The document reader config field applies only for InputDataConfig of
--- StartEntitiesDetectionJob.
---
--- Use DocumentReaderConfig to provide specifications about how you want
--- your inference documents read. Currently it applies for PDF documents in
--- StartEntitiesDetectionJob custom inference.
+-- | Provides configuration parameters to override the default actions for
+-- extracting text from PDF documents and image files.
 inputDataConfig_documentReaderConfig :: Lens.Lens' InputDataConfig (Prelude.Maybe DocumentReaderConfig)
 inputDataConfig_documentReaderConfig = Lens.lens (\InputDataConfig' {documentReaderConfig} -> documentReaderConfig) (\s@InputDataConfig' {} a -> s {documentReaderConfig = a} :: InputDataConfig)
 
@@ -135,15 +125,15 @@ inputDataConfig_inputFormat = Lens.lens (\InputDataConfig' {inputFormat} -> inpu
 inputDataConfig_s3Uri :: Lens.Lens' InputDataConfig Prelude.Text
 inputDataConfig_s3Uri = Lens.lens (\InputDataConfig' {s3Uri} -> s3Uri) (\s@InputDataConfig' {} a -> s {s3Uri = a} :: InputDataConfig)
 
-instance Core.FromJSON InputDataConfig where
+instance Data.FromJSON InputDataConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InputDataConfig"
       ( \x ->
           InputDataConfig'
-            Prelude.<$> (x Core..:? "DocumentReaderConfig")
-            Prelude.<*> (x Core..:? "InputFormat")
-            Prelude.<*> (x Core..: "S3Uri")
+            Prelude.<$> (x Data..:? "DocumentReaderConfig")
+            Prelude.<*> (x Data..:? "InputFormat")
+            Prelude.<*> (x Data..: "S3Uri")
       )
 
 instance Prelude.Hashable InputDataConfig where
@@ -158,13 +148,13 @@ instance Prelude.NFData InputDataConfig where
       `Prelude.seq` Prelude.rnf inputFormat
       `Prelude.seq` Prelude.rnf s3Uri
 
-instance Core.ToJSON InputDataConfig where
+instance Data.ToJSON InputDataConfig where
   toJSON InputDataConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DocumentReaderConfig" Core..=)
+          [ ("DocumentReaderConfig" Data..=)
               Prelude.<$> documentReaderConfig,
-            ("InputFormat" Core..=) Prelude.<$> inputFormat,
-            Prelude.Just ("S3Uri" Core..= s3Uri)
+            ("InputFormat" Data..=) Prelude.<$> inputFormat,
+            Prelude.Just ("S3Uri" Data..= s3Uri)
           ]
       )

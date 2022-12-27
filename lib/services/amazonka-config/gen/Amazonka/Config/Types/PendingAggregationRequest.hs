@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.PendingAggregationRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Config.Types.PendingAggregationRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the account ID and region of an aggregator
@@ -63,14 +64,14 @@ pendingAggregationRequest_requesterAccountId = Lens.lens (\PendingAggregationReq
 pendingAggregationRequest_requesterAwsRegion :: Lens.Lens' PendingAggregationRequest (Prelude.Maybe Prelude.Text)
 pendingAggregationRequest_requesterAwsRegion = Lens.lens (\PendingAggregationRequest' {requesterAwsRegion} -> requesterAwsRegion) (\s@PendingAggregationRequest' {} a -> s {requesterAwsRegion = a} :: PendingAggregationRequest)
 
-instance Core.FromJSON PendingAggregationRequest where
+instance Data.FromJSON PendingAggregationRequest where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PendingAggregationRequest"
       ( \x ->
           PendingAggregationRequest'
-            Prelude.<$> (x Core..:? "RequesterAccountId")
-            Prelude.<*> (x Core..:? "RequesterAwsRegion")
+            Prelude.<$> (x Data..:? "RequesterAccountId")
+            Prelude.<*> (x Data..:? "RequesterAwsRegion")
       )
 
 instance Prelude.Hashable PendingAggregationRequest where

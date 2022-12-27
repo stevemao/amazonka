@@ -14,16 +14,19 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.AdminUserGlobalSignOut
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Signs out users from all devices, as an administrator. It also
--- invalidates all refresh tokens issued to a user. The user\'s current
--- access and Id tokens remain valid until their expiry. Access and Id
--- tokens expire one hour after they are issued.
+-- Signs out a user from all devices. You must sign
+-- @AdminUserGlobalSignOut@ requests with Amazon Web Services credentials.
+-- It also invalidates all refresh tokens that Amazon Cognito has issued to
+-- a user. The user\'s current access and ID tokens remain valid until they
+-- expire. By default, access and ID tokens expire one hour after they\'re
+-- issued. A user can still use a hosted UI cookie to retrieve new tokens
+-- for the duration of the cookie validity period of 1 hour.
 --
 -- Calling this action requires developer credentials.
 module Amazonka.CognitoIdentityProvider.AdminUserGlobalSignOut
@@ -46,7 +49,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,7 +62,7 @@ data AdminUserGlobalSignOut = AdminUserGlobalSignOut'
   { -- | The user pool ID.
     userPoolId :: Prelude.Text,
     -- | The user name.
-    username :: Core.Sensitive Prelude.Text
+    username :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -82,7 +86,7 @@ newAdminUserGlobalSignOut ::
 newAdminUserGlobalSignOut pUserPoolId_ pUsername_ =
   AdminUserGlobalSignOut'
     { userPoolId = pUserPoolId_,
-      username = Core._Sensitive Lens.# pUsername_
+      username = Data._Sensitive Lens.# pUsername_
     }
 
 -- | The user pool ID.
@@ -91,13 +95,14 @@ adminUserGlobalSignOut_userPoolId = Lens.lens (\AdminUserGlobalSignOut' {userPoo
 
 -- | The user name.
 adminUserGlobalSignOut_username :: Lens.Lens' AdminUserGlobalSignOut Prelude.Text
-adminUserGlobalSignOut_username = Lens.lens (\AdminUserGlobalSignOut' {username} -> username) (\s@AdminUserGlobalSignOut' {} a -> s {username = a} :: AdminUserGlobalSignOut) Prelude.. Core._Sensitive
+adminUserGlobalSignOut_username = Lens.lens (\AdminUserGlobalSignOut' {username} -> username) (\s@AdminUserGlobalSignOut' {} a -> s {username = a} :: AdminUserGlobalSignOut) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest AdminUserGlobalSignOut where
   type
     AWSResponse AdminUserGlobalSignOut =
       AdminUserGlobalSignOutResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -115,34 +120,34 @@ instance Prelude.NFData AdminUserGlobalSignOut where
     Prelude.rnf userPoolId
       `Prelude.seq` Prelude.rnf username
 
-instance Core.ToHeaders AdminUserGlobalSignOut where
+instance Data.ToHeaders AdminUserGlobalSignOut where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.AdminUserGlobalSignOut" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.AdminUserGlobalSignOut" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AdminUserGlobalSignOut where
+instance Data.ToJSON AdminUserGlobalSignOut where
   toJSON AdminUserGlobalSignOut' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("UserPoolId" Core..= userPoolId),
-            Prelude.Just ("Username" Core..= username)
+          [ Prelude.Just ("UserPoolId" Data..= userPoolId),
+            Prelude.Just ("Username" Data..= username)
           ]
       )
 
-instance Core.ToPath AdminUserGlobalSignOut where
+instance Data.ToPath AdminUserGlobalSignOut where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AdminUserGlobalSignOut where
+instance Data.ToQuery AdminUserGlobalSignOut where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The global sign-out response, as an administrator.

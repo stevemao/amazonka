@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.BaiduChannelRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.BaiduChannelRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the status and settings of the Baidu (Baidu Cloud Push)
@@ -93,12 +94,12 @@ instance Prelude.NFData BaiduChannelRequest where
       `Prelude.seq` Prelude.rnf secretKey
       `Prelude.seq` Prelude.rnf apiKey
 
-instance Core.ToJSON BaiduChannelRequest where
+instance Data.ToJSON BaiduChannelRequest where
   toJSON BaiduChannelRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Enabled" Core..=) Prelude.<$> enabled,
-            Prelude.Just ("SecretKey" Core..= secretKey),
-            Prelude.Just ("ApiKey" Core..= apiKey)
+          [ ("Enabled" Data..=) Prelude.<$> enabled,
+            Prelude.Just ("SecretKey" Data..= secretKey),
+            Prelude.Just ("ApiKey" Data..= apiKey)
           ]
       )

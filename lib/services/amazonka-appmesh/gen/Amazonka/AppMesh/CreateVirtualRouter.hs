@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.CreateVirtualRouter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -56,7 +56,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,10 +70,10 @@ data CreateVirtualRouter = CreateVirtualRouter'
     -- idempotency of the request. Up to 36 letters, numbers, hyphens, and
     -- underscores are allowed.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then the account that you specify must share the mesh with
-    -- your account before you can create the resource in the service mesh. For
-    -- more information about mesh sharing, see
+    -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then the account that you specify must share
+    -- the mesh with your account before you can create the resource in the
+    -- service mesh. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Maybe Prelude.Text,
     -- | Optional metadata that you can apply to the virtual router to assist
@@ -102,10 +103,10 @@ data CreateVirtualRouter = CreateVirtualRouter'
 -- idempotency of the request. Up to 36 letters, numbers, hyphens, and
 -- underscores are allowed.
 --
--- 'meshOwner', 'createVirtualRouter_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then the account that you specify must share the mesh with
--- your account before you can create the resource in the service mesh. For
--- more information about mesh sharing, see
+-- 'meshOwner', 'createVirtualRouter_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then the account that you specify must share
+-- the mesh with your account before you can create the resource in the
+-- service mesh. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'tags', 'createVirtualRouter_tags' - Optional metadata that you can apply to the virtual router to assist
@@ -146,10 +147,10 @@ newCreateVirtualRouter
 createVirtualRouter_clientToken :: Lens.Lens' CreateVirtualRouter (Prelude.Maybe Prelude.Text)
 createVirtualRouter_clientToken = Lens.lens (\CreateVirtualRouter' {clientToken} -> clientToken) (\s@CreateVirtualRouter' {} a -> s {clientToken = a} :: CreateVirtualRouter)
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then the account that you specify must share the mesh with
--- your account before you can create the resource in the service mesh. For
--- more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then the account that you specify must share
+-- the mesh with your account before you can create the resource in the
+-- service mesh. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 createVirtualRouter_meshOwner :: Lens.Lens' CreateVirtualRouter (Prelude.Maybe Prelude.Text)
 createVirtualRouter_meshOwner = Lens.lens (\CreateVirtualRouter' {meshOwner} -> meshOwner) (\s@CreateVirtualRouter' {} a -> s {meshOwner = a} :: CreateVirtualRouter)
@@ -178,13 +179,14 @@ instance Core.AWSRequest CreateVirtualRouter where
   type
     AWSResponse CreateVirtualRouter =
       CreateVirtualRouterResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateVirtualRouterResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable CreateVirtualRouter where
@@ -205,40 +207,40 @@ instance Prelude.NFData CreateVirtualRouter where
       `Prelude.seq` Prelude.rnf spec
       `Prelude.seq` Prelude.rnf virtualRouterName
 
-instance Core.ToHeaders CreateVirtualRouter where
+instance Data.ToHeaders CreateVirtualRouter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateVirtualRouter where
+instance Data.ToJSON CreateVirtualRouter where
   toJSON CreateVirtualRouter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("spec" Core..= spec),
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("spec" Data..= spec),
             Prelude.Just
-              ("virtualRouterName" Core..= virtualRouterName)
+              ("virtualRouterName" Data..= virtualRouterName)
           ]
       )
 
-instance Core.ToPath CreateVirtualRouter where
+instance Data.ToPath CreateVirtualRouter where
   toPath CreateVirtualRouter' {..} =
     Prelude.mconcat
       [ "/v20190125/meshes/",
-        Core.toBS meshName,
+        Data.toBS meshName,
         "/virtualRouters"
       ]
 
-instance Core.ToQuery CreateVirtualRouter where
+instance Data.ToQuery CreateVirtualRouter where
   toQuery CreateVirtualRouter' {..} =
-    Prelude.mconcat ["meshOwner" Core.=: meshOwner]
+    Prelude.mconcat ["meshOwner" Data.=: meshOwner]
 
 -- |
 --

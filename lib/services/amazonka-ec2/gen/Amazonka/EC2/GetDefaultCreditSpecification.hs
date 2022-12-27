@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.GetDefaultCreditSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.EC2.GetDefaultCreditSpecification
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,12 +108,13 @@ instance
   type
     AWSResponse GetDefaultCreditSpecification =
       GetDefaultCreditSpecificationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetDefaultCreditSpecificationResponse'
-            Prelude.<$> (x Core..@? "instanceFamilyCreditSpecification")
+            Prelude.<$> (x Data..@? "instanceFamilyCreditSpecification")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,23 +131,23 @@ instance Prelude.NFData GetDefaultCreditSpecification where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf instanceFamily
 
-instance Core.ToHeaders GetDefaultCreditSpecification where
+instance Data.ToHeaders GetDefaultCreditSpecification where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetDefaultCreditSpecification where
+instance Data.ToPath GetDefaultCreditSpecification where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetDefaultCreditSpecification where
+instance Data.ToQuery GetDefaultCreditSpecification where
   toQuery GetDefaultCreditSpecification' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "GetDefaultCreditSpecification" ::
+          Data.=: ( "GetDefaultCreditSpecification" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "InstanceFamily" Core.=: instanceFamily
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "InstanceFamily" Data.=: instanceFamily
       ]
 
 -- | /See:/ 'newGetDefaultCreditSpecificationResponse' smart constructor.

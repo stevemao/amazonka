@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.GetGeofence
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.Location.GetGeofence
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -93,17 +94,18 @@ getGeofence_geofenceId = Lens.lens (\GetGeofence' {geofenceId} -> geofenceId) (\
 
 instance Core.AWSRequest GetGeofence where
   type AWSResponse GetGeofence = GetGeofenceResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetGeofenceResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "CreateTime")
-            Prelude.<*> (x Core..:> "GeofenceId")
-            Prelude.<*> (x Core..:> "Geometry")
-            Prelude.<*> (x Core..:> "Status")
-            Prelude.<*> (x Core..:> "UpdateTime")
+            Prelude.<*> (x Data..:> "CreateTime")
+            Prelude.<*> (x Data..:> "GeofenceId")
+            Prelude.<*> (x Data..:> "Geometry")
+            Prelude.<*> (x Data..:> "Status")
+            Prelude.<*> (x Data..:> "UpdateTime")
       )
 
 instance Prelude.Hashable GetGeofence where
@@ -116,27 +118,27 @@ instance Prelude.NFData GetGeofence where
     Prelude.rnf collectionName
       `Prelude.seq` Prelude.rnf geofenceId
 
-instance Core.ToHeaders GetGeofence where
+instance Data.ToHeaders GetGeofence where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetGeofence where
+instance Data.ToPath GetGeofence where
   toPath GetGeofence' {..} =
     Prelude.mconcat
       [ "/geofencing/v0/collections/",
-        Core.toBS collectionName,
+        Data.toBS collectionName,
         "/geofences/",
-        Core.toBS geofenceId
+        Data.toBS geofenceId
       ]
 
-instance Core.ToQuery GetGeofence where
+instance Data.ToQuery GetGeofence where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetGeofenceResponse' smart constructor.
@@ -146,10 +148,10 @@ data GetGeofenceResponse = GetGeofenceResponse'
     -- | The timestamp for when the geofence collection was created in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@
-    createTime :: Core.POSIX,
+    createTime :: Data.POSIX,
     -- | The geofence identifier.
     geofenceId :: Prelude.Text,
-    -- | Contains the geofence geometry details describing a polygon.
+    -- | Contains the geofence geometry details describing a polygon or a circle.
     geometry :: GeofenceGeometry,
     -- | Identifies the state of the geofence. A geofence will hold one of the
     -- following states:
@@ -167,7 +169,7 @@ data GetGeofenceResponse = GetGeofenceResponse'
     -- | The timestamp for when the geofence collection was last updated in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@
-    updateTime :: Core.POSIX
+    updateTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -187,7 +189,7 @@ data GetGeofenceResponse = GetGeofenceResponse'
 --
 -- 'geofenceId', 'getGeofenceResponse_geofenceId' - The geofence identifier.
 --
--- 'geometry', 'getGeofenceResponse_geometry' - Contains the geofence geometry details describing a polygon.
+-- 'geometry', 'getGeofenceResponse_geometry' - Contains the geofence geometry details describing a polygon or a circle.
 --
 -- 'status', 'getGeofenceResponse_status' - Identifies the state of the geofence. A geofence will hold one of the
 -- following states:
@@ -228,11 +230,11 @@ newGetGeofenceResponse
   pUpdateTime_ =
     GetGeofenceResponse'
       { httpStatus = pHttpStatus_,
-        createTime = Core._Time Lens.# pCreateTime_,
+        createTime = Data._Time Lens.# pCreateTime_,
         geofenceId = pGeofenceId_,
         geometry = pGeometry_,
         status = pStatus_,
-        updateTime = Core._Time Lens.# pUpdateTime_
+        updateTime = Data._Time Lens.# pUpdateTime_
       }
 
 -- | The response's http status code.
@@ -243,13 +245,13 @@ getGeofenceResponse_httpStatus = Lens.lens (\GetGeofenceResponse' {httpStatus} -
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@
 getGeofenceResponse_createTime :: Lens.Lens' GetGeofenceResponse Prelude.UTCTime
-getGeofenceResponse_createTime = Lens.lens (\GetGeofenceResponse' {createTime} -> createTime) (\s@GetGeofenceResponse' {} a -> s {createTime = a} :: GetGeofenceResponse) Prelude.. Core._Time
+getGeofenceResponse_createTime = Lens.lens (\GetGeofenceResponse' {createTime} -> createTime) (\s@GetGeofenceResponse' {} a -> s {createTime = a} :: GetGeofenceResponse) Prelude.. Data._Time
 
 -- | The geofence identifier.
 getGeofenceResponse_geofenceId :: Lens.Lens' GetGeofenceResponse Prelude.Text
 getGeofenceResponse_geofenceId = Lens.lens (\GetGeofenceResponse' {geofenceId} -> geofenceId) (\s@GetGeofenceResponse' {} a -> s {geofenceId = a} :: GetGeofenceResponse)
 
--- | Contains the geofence geometry details describing a polygon.
+-- | Contains the geofence geometry details describing a polygon or a circle.
 getGeofenceResponse_geometry :: Lens.Lens' GetGeofenceResponse GeofenceGeometry
 getGeofenceResponse_geometry = Lens.lens (\GetGeofenceResponse' {geometry} -> geometry) (\s@GetGeofenceResponse' {} a -> s {geometry = a} :: GetGeofenceResponse)
 
@@ -272,7 +274,7 @@ getGeofenceResponse_status = Lens.lens (\GetGeofenceResponse' {status} -> status
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@
 getGeofenceResponse_updateTime :: Lens.Lens' GetGeofenceResponse Prelude.UTCTime
-getGeofenceResponse_updateTime = Lens.lens (\GetGeofenceResponse' {updateTime} -> updateTime) (\s@GetGeofenceResponse' {} a -> s {updateTime = a} :: GetGeofenceResponse) Prelude.. Core._Time
+getGeofenceResponse_updateTime = Lens.lens (\GetGeofenceResponse' {updateTime} -> updateTime) (\s@GetGeofenceResponse' {} a -> s {updateTime = a} :: GetGeofenceResponse) Prelude.. Data._Time
 
 instance Prelude.NFData GetGeofenceResponse where
   rnf GetGeofenceResponse' {..} =

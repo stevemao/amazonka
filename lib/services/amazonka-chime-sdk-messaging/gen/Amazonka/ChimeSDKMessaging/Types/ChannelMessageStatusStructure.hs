@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.Types.ChannelMessageStatusStructure
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,17 +21,18 @@ module Amazonka.ChimeSDKMessaging.Types.ChannelMessageStatusStructure where
 
 import Amazonka.ChimeSDKMessaging.Types.ChannelMessageStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Stores information about a message status.
 --
 -- /See:/ 'newChannelMessageStatusStructure' smart constructor.
 data ChannelMessageStatusStructure = ChannelMessageStatusStructure'
-  { -- | The message status value.
-    value :: Prelude.Maybe ChannelMessageStatus,
-    -- | Contains more details about the messasge status.
-    detail :: Prelude.Maybe Prelude.Text
+  { -- | Contains more details about the messasge status.
+    detail :: Prelude.Maybe Prelude.Text,
+    -- | The message status value.
+    value :: Prelude.Maybe ChannelMessageStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,34 +44,34 @@ data ChannelMessageStatusStructure = ChannelMessageStatusStructure'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'channelMessageStatusStructure_value' - The message status value.
---
 -- 'detail', 'channelMessageStatusStructure_detail' - Contains more details about the messasge status.
+--
+-- 'value', 'channelMessageStatusStructure_value' - The message status value.
 newChannelMessageStatusStructure ::
   ChannelMessageStatusStructure
 newChannelMessageStatusStructure =
   ChannelMessageStatusStructure'
-    { value =
+    { detail =
         Prelude.Nothing,
-      detail = Prelude.Nothing
+      value = Prelude.Nothing
     }
-
--- | The message status value.
-channelMessageStatusStructure_value :: Lens.Lens' ChannelMessageStatusStructure (Prelude.Maybe ChannelMessageStatus)
-channelMessageStatusStructure_value = Lens.lens (\ChannelMessageStatusStructure' {value} -> value) (\s@ChannelMessageStatusStructure' {} a -> s {value = a} :: ChannelMessageStatusStructure)
 
 -- | Contains more details about the messasge status.
 channelMessageStatusStructure_detail :: Lens.Lens' ChannelMessageStatusStructure (Prelude.Maybe Prelude.Text)
 channelMessageStatusStructure_detail = Lens.lens (\ChannelMessageStatusStructure' {detail} -> detail) (\s@ChannelMessageStatusStructure' {} a -> s {detail = a} :: ChannelMessageStatusStructure)
 
-instance Core.FromJSON ChannelMessageStatusStructure where
+-- | The message status value.
+channelMessageStatusStructure_value :: Lens.Lens' ChannelMessageStatusStructure (Prelude.Maybe ChannelMessageStatus)
+channelMessageStatusStructure_value = Lens.lens (\ChannelMessageStatusStructure' {value} -> value) (\s@ChannelMessageStatusStructure' {} a -> s {value = a} :: ChannelMessageStatusStructure)
+
+instance Data.FromJSON ChannelMessageStatusStructure where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ChannelMessageStatusStructure"
       ( \x ->
           ChannelMessageStatusStructure'
-            Prelude.<$> (x Core..:? "Value")
-            Prelude.<*> (x Core..:? "Detail")
+            Prelude.<$> (x Data..:? "Detail")
+            Prelude.<*> (x Data..:? "Value")
       )
 
 instance
@@ -78,9 +79,9 @@ instance
     ChannelMessageStatusStructure
   where
   hashWithSalt _salt ChannelMessageStatusStructure' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` detail
+    _salt `Prelude.hashWithSalt` detail
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData ChannelMessageStatusStructure where
   rnf ChannelMessageStatusStructure' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf detail
+    Prelude.rnf detail `Prelude.seq` Prelude.rnf value

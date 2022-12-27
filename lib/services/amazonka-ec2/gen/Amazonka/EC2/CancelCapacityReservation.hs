@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CancelCapacityReservation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,8 +49,9 @@ module Amazonka.EC2.CancelCapacityReservation
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,12 +108,13 @@ instance Core.AWSRequest CancelCapacityReservation where
   type
     AWSResponse CancelCapacityReservation =
       CancelCapacityReservationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CancelCapacityReservationResponse'
-            Prelude.<$> (x Core..@? "return")
+            Prelude.<$> (x Data..@? "return")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,22 +128,22 @@ instance Prelude.NFData CancelCapacityReservation where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf capacityReservationId
 
-instance Core.ToHeaders CancelCapacityReservation where
+instance Data.ToHeaders CancelCapacityReservation where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CancelCapacityReservation where
+instance Data.ToPath CancelCapacityReservation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelCapacityReservation where
+instance Data.ToQuery CancelCapacityReservation where
   toQuery CancelCapacityReservation' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CancelCapacityReservation" :: Prelude.ByteString),
+          Data.=: ("CancelCapacityReservation" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
         "CapacityReservationId"
-          Core.=: capacityReservationId
+          Data.=: capacityReservationId
       ]
 
 -- | /See:/ 'newCancelCapacityReservationResponse' smart constructor.

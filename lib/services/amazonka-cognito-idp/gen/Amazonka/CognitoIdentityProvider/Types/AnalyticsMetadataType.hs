@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.AnalyticsMetadataType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,17 @@
 module Amazonka.CognitoIdentityProvider.Types.AnalyticsMetadataType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An Amazon Pinpoint analytics endpoint.
 --
 -- An endpoint uniquely identifies a mobile device, email address, or phone
--- number that can receive messages from Amazon Pinpoint analytics.
---
--- Cognito User Pools only supports sending events to Amazon Pinpoint
--- projects in the US East (N. Virginia) us-east-1 Region, regardless of
--- the region in which the user pool resides.
+-- number that can receive messages from Amazon Pinpoint analytics. For
+-- more information about Amazon Web Services Regions that can contain
+-- Amazon Pinpoint resources for use with Amazon Cognito user pools, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pools-pinpoint-integration.html Using Amazon Pinpoint analytics with Amazon Cognito user pools>.
 --
 -- /See:/ 'newAnalyticsMetadataType' smart constructor.
 data AnalyticsMetadataType = AnalyticsMetadataType'
@@ -68,11 +68,11 @@ instance Prelude.NFData AnalyticsMetadataType where
   rnf AnalyticsMetadataType' {..} =
     Prelude.rnf analyticsEndpointId
 
-instance Core.ToJSON AnalyticsMetadataType where
+instance Data.ToJSON AnalyticsMetadataType where
   toJSON AnalyticsMetadataType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AnalyticsEndpointId" Core..=)
+          [ ("AnalyticsEndpointId" Data..=)
               Prelude.<$> analyticsEndpointId
           ]
       )

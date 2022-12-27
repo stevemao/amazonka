@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.GenerateOrganizationsAccessReport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -166,8 +166,9 @@ module Amazonka.IAM.GenerateOrganizationsAccessReport
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -251,13 +252,14 @@ instance
   type
     AWSResponse GenerateOrganizationsAccessReport =
       GenerateOrganizationsAccessReportResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GenerateOrganizationsAccessReportResult"
       ( \s h x ->
           GenerateOrganizationsAccessReportResponse'
-            Prelude.<$> (x Core..@? "JobId")
+            Prelude.<$> (x Data..@? "JobId")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -280,32 +282,32 @@ instance
       `Prelude.seq` Prelude.rnf entityPath
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GenerateOrganizationsAccessReport
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     GenerateOrganizationsAccessReport
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GenerateOrganizationsAccessReport
   where
   toQuery GenerateOrganizationsAccessReport' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "GenerateOrganizationsAccessReport" ::
+          Data.=: ( "GenerateOrganizationsAccessReport" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
         "OrganizationsPolicyId"
-          Core.=: organizationsPolicyId,
-        "EntityPath" Core.=: entityPath
+          Data.=: organizationsPolicyId,
+        "EntityPath" Data.=: entityPath
       ]
 
 -- | /See:/ 'newGenerateOrganizationsAccessReportResponse' smart constructor.

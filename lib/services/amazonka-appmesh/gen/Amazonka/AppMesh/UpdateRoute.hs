@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.UpdateRoute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,9 +61,9 @@ data UpdateRoute = UpdateRoute'
     -- idempotency of the request. Up to 36 letters, numbers, hyphens, and
     -- underscores are allowed.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then it\'s the ID of the account that shared the mesh with
-    -- your account. For more information about mesh sharing, see
+    -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then it\'s the ID of the account that shared
+    -- the mesh with your account. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the service mesh that the route resides in.
@@ -88,9 +89,9 @@ data UpdateRoute = UpdateRoute'
 -- idempotency of the request. Up to 36 letters, numbers, hyphens, and
 -- underscores are allowed.
 --
--- 'meshOwner', 'updateRoute_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- 'meshOwner', 'updateRoute_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'meshName', 'updateRoute_meshName' - The name of the service mesh that the route resides in.
@@ -130,9 +131,9 @@ newUpdateRoute
 updateRoute_clientToken :: Lens.Lens' UpdateRoute (Prelude.Maybe Prelude.Text)
 updateRoute_clientToken = Lens.lens (\UpdateRoute' {clientToken} -> clientToken) (\s@UpdateRoute' {} a -> s {clientToken = a} :: UpdateRoute)
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 updateRoute_meshOwner :: Lens.Lens' UpdateRoute (Prelude.Maybe Prelude.Text)
 updateRoute_meshOwner = Lens.lens (\UpdateRoute' {meshOwner} -> meshOwner) (\s@UpdateRoute' {} a -> s {meshOwner = a} :: UpdateRoute)
@@ -155,13 +156,14 @@ updateRoute_virtualRouterName = Lens.lens (\UpdateRoute' {virtualRouterName} -> 
 
 instance Core.AWSRequest UpdateRoute where
   type AWSResponse UpdateRoute = UpdateRouteResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateRouteResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable UpdateRoute where
@@ -182,40 +184,40 @@ instance Prelude.NFData UpdateRoute where
       `Prelude.seq` Prelude.rnf spec
       `Prelude.seq` Prelude.rnf virtualRouterName
 
-instance Core.ToHeaders UpdateRoute where
+instance Data.ToHeaders UpdateRoute where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRoute where
+instance Data.ToJSON UpdateRoute where
   toJSON UpdateRoute' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            Prelude.Just ("spec" Core..= spec)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            Prelude.Just ("spec" Data..= spec)
           ]
       )
 
-instance Core.ToPath UpdateRoute where
+instance Data.ToPath UpdateRoute where
   toPath UpdateRoute' {..} =
     Prelude.mconcat
       [ "/v20190125/meshes/",
-        Core.toBS meshName,
+        Data.toBS meshName,
         "/virtualRouter/",
-        Core.toBS virtualRouterName,
+        Data.toBS virtualRouterName,
         "/routes/",
-        Core.toBS routeName
+        Data.toBS routeName
       ]
 
-instance Core.ToQuery UpdateRoute where
+instance Data.ToQuery UpdateRoute where
   toQuery UpdateRoute' {..} =
-    Prelude.mconcat ["meshOwner" Core.=: meshOwner]
+    Prelude.mconcat ["meshOwner" Data.=: meshOwner]
 
 -- |
 --

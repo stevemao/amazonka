@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackageVOD.DescribePackagingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,20 +35,21 @@ module Amazonka.MediaPackageVOD.DescribePackagingConfiguration
     newDescribePackagingConfigurationResponse,
 
     -- * Response Lenses
-    describePackagingConfigurationResponse_hlsPackage,
     describePackagingConfigurationResponse_arn,
-    describePackagingConfigurationResponse_packagingGroupId,
-    describePackagingConfigurationResponse_dashPackage,
-    describePackagingConfigurationResponse_mssPackage,
-    describePackagingConfigurationResponse_id,
     describePackagingConfigurationResponse_cmafPackage,
+    describePackagingConfigurationResponse_dashPackage,
+    describePackagingConfigurationResponse_hlsPackage,
+    describePackagingConfigurationResponse_id,
+    describePackagingConfigurationResponse_mssPackage,
+    describePackagingConfigurationResponse_packagingGroupId,
     describePackagingConfigurationResponse_tags,
     describePackagingConfigurationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaPackageVOD.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -88,19 +89,20 @@ instance
   type
     AWSResponse DescribePackagingConfiguration =
       DescribePackagingConfigurationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePackagingConfigurationResponse'
-            Prelude.<$> (x Core..?> "hlsPackage")
-            Prelude.<*> (x Core..?> "arn")
-            Prelude.<*> (x Core..?> "packagingGroupId")
-            Prelude.<*> (x Core..?> "dashPackage")
-            Prelude.<*> (x Core..?> "mssPackage")
-            Prelude.<*> (x Core..?> "id")
-            Prelude.<*> (x Core..?> "cmafPackage")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "arn")
+            Prelude.<*> (x Data..?> "cmafPackage")
+            Prelude.<*> (x Data..?> "dashPackage")
+            Prelude.<*> (x Data..?> "hlsPackage")
+            Prelude.<*> (x Data..?> "id")
+            Prelude.<*> (x Data..?> "mssPackage")
+            Prelude.<*> (x Data..?> "packagingGroupId")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,39 +123,39 @@ instance
     Prelude.rnf id
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribePackagingConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribePackagingConfiguration where
+instance Data.ToPath DescribePackagingConfiguration where
   toPath DescribePackagingConfiguration' {..} =
     Prelude.mconcat
-      ["/packaging_configurations/", Core.toBS id]
+      ["/packaging_configurations/", Data.toBS id]
 
-instance Core.ToQuery DescribePackagingConfiguration where
+instance Data.ToQuery DescribePackagingConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribePackagingConfigurationResponse' smart constructor.
 data DescribePackagingConfigurationResponse = DescribePackagingConfigurationResponse'
-  { hlsPackage :: Prelude.Maybe HlsPackage,
-    -- | The ARN of the PackagingConfiguration.
+  { -- | The ARN of the PackagingConfiguration.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The ID of a PackagingGroup.
-    packagingGroupId :: Prelude.Maybe Prelude.Text,
+    cmafPackage :: Prelude.Maybe CmafPackage,
     dashPackage :: Prelude.Maybe DashPackage,
-    mssPackage :: Prelude.Maybe MssPackage,
+    hlsPackage :: Prelude.Maybe HlsPackage,
     -- | The ID of the PackagingConfiguration.
     id :: Prelude.Maybe Prelude.Text,
-    cmafPackage :: Prelude.Maybe CmafPackage,
+    mssPackage :: Prelude.Maybe MssPackage,
+    -- | The ID of a PackagingGroup.
+    packagingGroupId :: Prelude.Maybe Prelude.Text,
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -168,19 +170,19 @@ data DescribePackagingConfigurationResponse = DescribePackagingConfigurationResp
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'hlsPackage', 'describePackagingConfigurationResponse_hlsPackage' - Undocumented member.
---
 -- 'arn', 'describePackagingConfigurationResponse_arn' - The ARN of the PackagingConfiguration.
 --
--- 'packagingGroupId', 'describePackagingConfigurationResponse_packagingGroupId' - The ID of a PackagingGroup.
+-- 'cmafPackage', 'describePackagingConfigurationResponse_cmafPackage' - Undocumented member.
 --
 -- 'dashPackage', 'describePackagingConfigurationResponse_dashPackage' - Undocumented member.
 --
--- 'mssPackage', 'describePackagingConfigurationResponse_mssPackage' - Undocumented member.
+-- 'hlsPackage', 'describePackagingConfigurationResponse_hlsPackage' - Undocumented member.
 --
 -- 'id', 'describePackagingConfigurationResponse_id' - The ID of the PackagingConfiguration.
 --
--- 'cmafPackage', 'describePackagingConfigurationResponse_cmafPackage' - Undocumented member.
+-- 'mssPackage', 'describePackagingConfigurationResponse_mssPackage' - Undocumented member.
+--
+-- 'packagingGroupId', 'describePackagingConfigurationResponse_packagingGroupId' - The ID of a PackagingGroup.
 --
 -- 'tags', 'describePackagingConfigurationResponse_tags' - Undocumented member.
 --
@@ -192,45 +194,45 @@ newDescribePackagingConfigurationResponse ::
 newDescribePackagingConfigurationResponse
   pHttpStatus_ =
     DescribePackagingConfigurationResponse'
-      { hlsPackage =
+      { arn =
           Prelude.Nothing,
-        arn = Prelude.Nothing,
-        packagingGroupId = Prelude.Nothing,
-        dashPackage = Prelude.Nothing,
-        mssPackage = Prelude.Nothing,
-        id = Prelude.Nothing,
         cmafPackage = Prelude.Nothing,
+        dashPackage = Prelude.Nothing,
+        hlsPackage = Prelude.Nothing,
+        id = Prelude.Nothing,
+        mssPackage = Prelude.Nothing,
+        packagingGroupId = Prelude.Nothing,
         tags = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | Undocumented member.
-describePackagingConfigurationResponse_hlsPackage :: Lens.Lens' DescribePackagingConfigurationResponse (Prelude.Maybe HlsPackage)
-describePackagingConfigurationResponse_hlsPackage = Lens.lens (\DescribePackagingConfigurationResponse' {hlsPackage} -> hlsPackage) (\s@DescribePackagingConfigurationResponse' {} a -> s {hlsPackage = a} :: DescribePackagingConfigurationResponse)
 
 -- | The ARN of the PackagingConfiguration.
 describePackagingConfigurationResponse_arn :: Lens.Lens' DescribePackagingConfigurationResponse (Prelude.Maybe Prelude.Text)
 describePackagingConfigurationResponse_arn = Lens.lens (\DescribePackagingConfigurationResponse' {arn} -> arn) (\s@DescribePackagingConfigurationResponse' {} a -> s {arn = a} :: DescribePackagingConfigurationResponse)
 
--- | The ID of a PackagingGroup.
-describePackagingConfigurationResponse_packagingGroupId :: Lens.Lens' DescribePackagingConfigurationResponse (Prelude.Maybe Prelude.Text)
-describePackagingConfigurationResponse_packagingGroupId = Lens.lens (\DescribePackagingConfigurationResponse' {packagingGroupId} -> packagingGroupId) (\s@DescribePackagingConfigurationResponse' {} a -> s {packagingGroupId = a} :: DescribePackagingConfigurationResponse)
+-- | Undocumented member.
+describePackagingConfigurationResponse_cmafPackage :: Lens.Lens' DescribePackagingConfigurationResponse (Prelude.Maybe CmafPackage)
+describePackagingConfigurationResponse_cmafPackage = Lens.lens (\DescribePackagingConfigurationResponse' {cmafPackage} -> cmafPackage) (\s@DescribePackagingConfigurationResponse' {} a -> s {cmafPackage = a} :: DescribePackagingConfigurationResponse)
 
 -- | Undocumented member.
 describePackagingConfigurationResponse_dashPackage :: Lens.Lens' DescribePackagingConfigurationResponse (Prelude.Maybe DashPackage)
 describePackagingConfigurationResponse_dashPackage = Lens.lens (\DescribePackagingConfigurationResponse' {dashPackage} -> dashPackage) (\s@DescribePackagingConfigurationResponse' {} a -> s {dashPackage = a} :: DescribePackagingConfigurationResponse)
 
 -- | Undocumented member.
-describePackagingConfigurationResponse_mssPackage :: Lens.Lens' DescribePackagingConfigurationResponse (Prelude.Maybe MssPackage)
-describePackagingConfigurationResponse_mssPackage = Lens.lens (\DescribePackagingConfigurationResponse' {mssPackage} -> mssPackage) (\s@DescribePackagingConfigurationResponse' {} a -> s {mssPackage = a} :: DescribePackagingConfigurationResponse)
+describePackagingConfigurationResponse_hlsPackage :: Lens.Lens' DescribePackagingConfigurationResponse (Prelude.Maybe HlsPackage)
+describePackagingConfigurationResponse_hlsPackage = Lens.lens (\DescribePackagingConfigurationResponse' {hlsPackage} -> hlsPackage) (\s@DescribePackagingConfigurationResponse' {} a -> s {hlsPackage = a} :: DescribePackagingConfigurationResponse)
 
 -- | The ID of the PackagingConfiguration.
 describePackagingConfigurationResponse_id :: Lens.Lens' DescribePackagingConfigurationResponse (Prelude.Maybe Prelude.Text)
 describePackagingConfigurationResponse_id = Lens.lens (\DescribePackagingConfigurationResponse' {id} -> id) (\s@DescribePackagingConfigurationResponse' {} a -> s {id = a} :: DescribePackagingConfigurationResponse)
 
 -- | Undocumented member.
-describePackagingConfigurationResponse_cmafPackage :: Lens.Lens' DescribePackagingConfigurationResponse (Prelude.Maybe CmafPackage)
-describePackagingConfigurationResponse_cmafPackage = Lens.lens (\DescribePackagingConfigurationResponse' {cmafPackage} -> cmafPackage) (\s@DescribePackagingConfigurationResponse' {} a -> s {cmafPackage = a} :: DescribePackagingConfigurationResponse)
+describePackagingConfigurationResponse_mssPackage :: Lens.Lens' DescribePackagingConfigurationResponse (Prelude.Maybe MssPackage)
+describePackagingConfigurationResponse_mssPackage = Lens.lens (\DescribePackagingConfigurationResponse' {mssPackage} -> mssPackage) (\s@DescribePackagingConfigurationResponse' {} a -> s {mssPackage = a} :: DescribePackagingConfigurationResponse)
+
+-- | The ID of a PackagingGroup.
+describePackagingConfigurationResponse_packagingGroupId :: Lens.Lens' DescribePackagingConfigurationResponse (Prelude.Maybe Prelude.Text)
+describePackagingConfigurationResponse_packagingGroupId = Lens.lens (\DescribePackagingConfigurationResponse' {packagingGroupId} -> packagingGroupId) (\s@DescribePackagingConfigurationResponse' {} a -> s {packagingGroupId = a} :: DescribePackagingConfigurationResponse)
 
 -- | Undocumented member.
 describePackagingConfigurationResponse_tags :: Lens.Lens' DescribePackagingConfigurationResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -245,12 +247,12 @@ instance
     DescribePackagingConfigurationResponse
   where
   rnf DescribePackagingConfigurationResponse' {..} =
-    Prelude.rnf hlsPackage
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf packagingGroupId
-      `Prelude.seq` Prelude.rnf dashPackage
-      `Prelude.seq` Prelude.rnf mssPackage
-      `Prelude.seq` Prelude.rnf id
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf cmafPackage
+      `Prelude.seq` Prelude.rnf dashPackage
+      `Prelude.seq` Prelude.rnf hlsPackage
+      `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf mssPackage
+      `Prelude.seq` Prelude.rnf packagingGroupId
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

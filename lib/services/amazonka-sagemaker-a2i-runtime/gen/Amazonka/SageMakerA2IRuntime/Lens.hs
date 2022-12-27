@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.SageMakerA2IRuntime.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,20 +14,32 @@
 module Amazonka.SageMakerA2IRuntime.Lens
   ( -- * Operations
 
+    -- ** DeleteHumanLoop
+    deleteHumanLoop_humanLoopName,
+    deleteHumanLoopResponse_httpStatus,
+
+    -- ** DescribeHumanLoop
+    describeHumanLoop_humanLoopName,
+    describeHumanLoopResponse_failureCode,
+    describeHumanLoopResponse_failureReason,
+    describeHumanLoopResponse_humanLoopOutput,
+    describeHumanLoopResponse_httpStatus,
+    describeHumanLoopResponse_creationTime,
+    describeHumanLoopResponse_humanLoopStatus,
+    describeHumanLoopResponse_humanLoopName,
+    describeHumanLoopResponse_humanLoopArn,
+    describeHumanLoopResponse_flowDefinitionArn,
+
     -- ** ListHumanLoops
     listHumanLoops_creationTimeAfter,
-    listHumanLoops_nextToken,
-    listHumanLoops_sortOrder,
     listHumanLoops_creationTimeBefore,
     listHumanLoops_maxResults,
+    listHumanLoops_nextToken,
+    listHumanLoops_sortOrder,
     listHumanLoops_flowDefinitionArn,
     listHumanLoopsResponse_nextToken,
     listHumanLoopsResponse_httpStatus,
     listHumanLoopsResponse_humanLoopSummaries,
-
-    -- ** DeleteHumanLoop
-    deleteHumanLoop_humanLoopName,
-    deleteHumanLoopResponse_httpStatus,
 
     -- ** StartHumanLoop
     startHumanLoop_dataAttributes,
@@ -40,18 +52,6 @@ module Amazonka.SageMakerA2IRuntime.Lens
     -- ** StopHumanLoop
     stopHumanLoop_humanLoopName,
     stopHumanLoopResponse_httpStatus,
-
-    -- ** DescribeHumanLoop
-    describeHumanLoop_humanLoopName,
-    describeHumanLoopResponse_failureReason,
-    describeHumanLoopResponse_failureCode,
-    describeHumanLoopResponse_humanLoopOutput,
-    describeHumanLoopResponse_httpStatus,
-    describeHumanLoopResponse_creationTime,
-    describeHumanLoopResponse_humanLoopStatus,
-    describeHumanLoopResponse_humanLoopName,
-    describeHumanLoopResponse_humanLoopArn,
-    describeHumanLoopResponse_flowDefinitionArn,
 
     -- * Types
 
@@ -67,9 +67,9 @@ module Amazonka.SageMakerA2IRuntime.Lens
     -- ** HumanLoopSummary
     humanLoopSummary_creationTime,
     humanLoopSummary_failureReason,
-    humanLoopSummary_humanLoopStatus,
-    humanLoopSummary_humanLoopName,
     humanLoopSummary_flowDefinitionArn,
+    humanLoopSummary_humanLoopName,
+    humanLoopSummary_humanLoopStatus,
   )
 where
 

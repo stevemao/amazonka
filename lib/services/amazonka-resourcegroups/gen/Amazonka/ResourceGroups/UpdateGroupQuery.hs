@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroups.UpdateGroupQuery
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ module Amazonka.ResourceGroups.UpdateGroupQuery
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import Amazonka.ResourceGroups.Types
@@ -119,12 +120,13 @@ instance Core.AWSRequest UpdateGroupQuery where
   type
     AWSResponse UpdateGroupQuery =
       UpdateGroupQueryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateGroupQueryResponse'
-            Prelude.<$> (x Core..?> "GroupQuery")
+            Prelude.<$> (x Data..?> "GroupQuery")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -140,24 +142,24 @@ instance Prelude.NFData UpdateGroupQuery where
       `Prelude.seq` Prelude.rnf groupName
       `Prelude.seq` Prelude.rnf resourceQuery
 
-instance Core.ToHeaders UpdateGroupQuery where
+instance Data.ToHeaders UpdateGroupQuery where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateGroupQuery where
+instance Data.ToJSON UpdateGroupQuery where
   toJSON UpdateGroupQuery' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Group" Core..=) Prelude.<$> group',
-            ("GroupName" Core..=) Prelude.<$> groupName,
+          [ ("Group" Data..=) Prelude.<$> group',
+            ("GroupName" Data..=) Prelude.<$> groupName,
             Prelude.Just
-              ("ResourceQuery" Core..= resourceQuery)
+              ("ResourceQuery" Data..= resourceQuery)
           ]
       )
 
-instance Core.ToPath UpdateGroupQuery where
+instance Data.ToPath UpdateGroupQuery where
   toPath = Prelude.const "/update-group-query"
 
-instance Core.ToQuery UpdateGroupQuery where
+instance Data.ToQuery UpdateGroupQuery where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateGroupQueryResponse' smart constructor.

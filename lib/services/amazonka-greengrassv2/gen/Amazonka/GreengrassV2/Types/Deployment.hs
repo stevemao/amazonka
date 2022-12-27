@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.Types.Deployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,31 +20,37 @@
 module Amazonka.GreengrassV2.Types.Deployment where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types.DeploymentStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a deployment.
 --
 -- /See:/ 'newDeployment' smart constructor.
 data Deployment = Deployment'
-  { -- | The
-    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
-    -- of the target IoT thing or thing group.
-    targetArn :: Prelude.Maybe Prelude.Text,
+  { -- | The time at which the deployment was created, expressed in ISO 8601
+    -- format.
+    creationTimestamp :: Prelude.Maybe Data.POSIX,
     -- | The ID of the deployment.
     deploymentId :: Prelude.Maybe Prelude.Text,
-    -- | The time at which the deployment was created, expressed in ISO 8601
-    -- format.
-    creationTimestamp :: Prelude.Maybe Core.POSIX,
+    -- | The name of the deployment.
+    deploymentName :: Prelude.Maybe Prelude.Text,
     -- | The status of the deployment.
     deploymentStatus :: Prelude.Maybe DeploymentStatus,
     -- | Whether or not the deployment is the latest revision for its target.
     isLatestForTarget :: Prelude.Maybe Prelude.Bool,
+    -- | The parent deployment\'s target
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+    -- within a subdeployment.
+    parentTargetArn :: Prelude.Maybe Prelude.Text,
     -- | The revision number of the deployment.
     revisionId :: Prelude.Maybe Prelude.Text,
-    -- | The name of the deployment.
-    deploymentName :: Prelude.Maybe Prelude.Text
+    -- | The
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+    -- of the target IoT thing or thing group. When creating a subdeployment,
+    -- the targetARN can only be a thing group.
+    targetArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -56,49 +62,53 @@ data Deployment = Deployment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'targetArn', 'deployment_targetArn' - The
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
--- of the target IoT thing or thing group.
+-- 'creationTimestamp', 'deployment_creationTimestamp' - The time at which the deployment was created, expressed in ISO 8601
+-- format.
 --
 -- 'deploymentId', 'deployment_deploymentId' - The ID of the deployment.
 --
--- 'creationTimestamp', 'deployment_creationTimestamp' - The time at which the deployment was created, expressed in ISO 8601
--- format.
+-- 'deploymentName', 'deployment_deploymentName' - The name of the deployment.
 --
 -- 'deploymentStatus', 'deployment_deploymentStatus' - The status of the deployment.
 --
 -- 'isLatestForTarget', 'deployment_isLatestForTarget' - Whether or not the deployment is the latest revision for its target.
 --
+-- 'parentTargetArn', 'deployment_parentTargetArn' - The parent deployment\'s target
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+-- within a subdeployment.
+--
 -- 'revisionId', 'deployment_revisionId' - The revision number of the deployment.
 --
--- 'deploymentName', 'deployment_deploymentName' - The name of the deployment.
+-- 'targetArn', 'deployment_targetArn' - The
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+-- of the target IoT thing or thing group. When creating a subdeployment,
+-- the targetARN can only be a thing group.
 newDeployment ::
   Deployment
 newDeployment =
   Deployment'
-    { targetArn = Prelude.Nothing,
+    { creationTimestamp = Prelude.Nothing,
       deploymentId = Prelude.Nothing,
-      creationTimestamp = Prelude.Nothing,
+      deploymentName = Prelude.Nothing,
       deploymentStatus = Prelude.Nothing,
       isLatestForTarget = Prelude.Nothing,
+      parentTargetArn = Prelude.Nothing,
       revisionId = Prelude.Nothing,
-      deploymentName = Prelude.Nothing
+      targetArn = Prelude.Nothing
     }
 
--- | The
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
--- of the target IoT thing or thing group.
-deployment_targetArn :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
-deployment_targetArn = Lens.lens (\Deployment' {targetArn} -> targetArn) (\s@Deployment' {} a -> s {targetArn = a} :: Deployment)
+-- | The time at which the deployment was created, expressed in ISO 8601
+-- format.
+deployment_creationTimestamp :: Lens.Lens' Deployment (Prelude.Maybe Prelude.UTCTime)
+deployment_creationTimestamp = Lens.lens (\Deployment' {creationTimestamp} -> creationTimestamp) (\s@Deployment' {} a -> s {creationTimestamp = a} :: Deployment) Prelude.. Lens.mapping Data._Time
 
 -- | The ID of the deployment.
 deployment_deploymentId :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
 deployment_deploymentId = Lens.lens (\Deployment' {deploymentId} -> deploymentId) (\s@Deployment' {} a -> s {deploymentId = a} :: Deployment)
 
--- | The time at which the deployment was created, expressed in ISO 8601
--- format.
-deployment_creationTimestamp :: Lens.Lens' Deployment (Prelude.Maybe Prelude.UTCTime)
-deployment_creationTimestamp = Lens.lens (\Deployment' {creationTimestamp} -> creationTimestamp) (\s@Deployment' {} a -> s {creationTimestamp = a} :: Deployment) Prelude.. Lens.mapping Core._Time
+-- | The name of the deployment.
+deployment_deploymentName :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
+deployment_deploymentName = Lens.lens (\Deployment' {deploymentName} -> deploymentName) (\s@Deployment' {} a -> s {deploymentName = a} :: Deployment)
 
 -- | The status of the deployment.
 deployment_deploymentStatus :: Lens.Lens' Deployment (Prelude.Maybe DeploymentStatus)
@@ -108,45 +118,57 @@ deployment_deploymentStatus = Lens.lens (\Deployment' {deploymentStatus} -> depl
 deployment_isLatestForTarget :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Bool)
 deployment_isLatestForTarget = Lens.lens (\Deployment' {isLatestForTarget} -> isLatestForTarget) (\s@Deployment' {} a -> s {isLatestForTarget = a} :: Deployment)
 
+-- | The parent deployment\'s target
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+-- within a subdeployment.
+deployment_parentTargetArn :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
+deployment_parentTargetArn = Lens.lens (\Deployment' {parentTargetArn} -> parentTargetArn) (\s@Deployment' {} a -> s {parentTargetArn = a} :: Deployment)
+
 -- | The revision number of the deployment.
 deployment_revisionId :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
 deployment_revisionId = Lens.lens (\Deployment' {revisionId} -> revisionId) (\s@Deployment' {} a -> s {revisionId = a} :: Deployment)
 
--- | The name of the deployment.
-deployment_deploymentName :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
-deployment_deploymentName = Lens.lens (\Deployment' {deploymentName} -> deploymentName) (\s@Deployment' {} a -> s {deploymentName = a} :: Deployment)
+-- | The
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+-- of the target IoT thing or thing group. When creating a subdeployment,
+-- the targetARN can only be a thing group.
+deployment_targetArn :: Lens.Lens' Deployment (Prelude.Maybe Prelude.Text)
+deployment_targetArn = Lens.lens (\Deployment' {targetArn} -> targetArn) (\s@Deployment' {} a -> s {targetArn = a} :: Deployment)
 
-instance Core.FromJSON Deployment where
+instance Data.FromJSON Deployment where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Deployment"
       ( \x ->
           Deployment'
-            Prelude.<$> (x Core..:? "targetArn")
-            Prelude.<*> (x Core..:? "deploymentId")
-            Prelude.<*> (x Core..:? "creationTimestamp")
-            Prelude.<*> (x Core..:? "deploymentStatus")
-            Prelude.<*> (x Core..:? "isLatestForTarget")
-            Prelude.<*> (x Core..:? "revisionId")
-            Prelude.<*> (x Core..:? "deploymentName")
+            Prelude.<$> (x Data..:? "creationTimestamp")
+            Prelude.<*> (x Data..:? "deploymentId")
+            Prelude.<*> (x Data..:? "deploymentName")
+            Prelude.<*> (x Data..:? "deploymentStatus")
+            Prelude.<*> (x Data..:? "isLatestForTarget")
+            Prelude.<*> (x Data..:? "parentTargetArn")
+            Prelude.<*> (x Data..:? "revisionId")
+            Prelude.<*> (x Data..:? "targetArn")
       )
 
 instance Prelude.Hashable Deployment where
   hashWithSalt _salt Deployment' {..} =
-    _salt `Prelude.hashWithSalt` targetArn
+    _salt `Prelude.hashWithSalt` creationTimestamp
       `Prelude.hashWithSalt` deploymentId
-      `Prelude.hashWithSalt` creationTimestamp
+      `Prelude.hashWithSalt` deploymentName
       `Prelude.hashWithSalt` deploymentStatus
       `Prelude.hashWithSalt` isLatestForTarget
+      `Prelude.hashWithSalt` parentTargetArn
       `Prelude.hashWithSalt` revisionId
-      `Prelude.hashWithSalt` deploymentName
+      `Prelude.hashWithSalt` targetArn
 
 instance Prelude.NFData Deployment where
   rnf Deployment' {..} =
-    Prelude.rnf targetArn
+    Prelude.rnf creationTimestamp
       `Prelude.seq` Prelude.rnf deploymentId
-      `Prelude.seq` Prelude.rnf creationTimestamp
+      `Prelude.seq` Prelude.rnf deploymentName
       `Prelude.seq` Prelude.rnf deploymentStatus
       `Prelude.seq` Prelude.rnf isLatestForTarget
+      `Prelude.seq` Prelude.rnf parentTargetArn
       `Prelude.seq` Prelude.rnf revisionId
-      `Prelude.seq` Prelude.rnf deploymentName
+      `Prelude.seq` Prelude.rnf targetArn

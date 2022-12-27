@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.AcceptHandshake
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,7 @@
 -- Sends a response to the originator of a handshake agreeing to the action
 -- proposed by the handshake request.
 --
--- This operation can be called only by the following principals when they
+-- You can only call this operation by the following principals when they
 -- also have the relevant IAM permissions:
 --
 -- -   __Invitation to join__ or __Approve all features request__
@@ -32,21 +32,21 @@
 --     The user who calls the API for an invitation to join must have the
 --     @organizations:AcceptHandshake@ permission. If you enabled all
 --     features in the organization, the user must also have the
---     @iam:CreateServiceLinkedRole@ permission so that AWS Organizations
---     can create the required service-linked role named
+--     @iam:CreateServiceLinkedRole@ permission so that Organizations can
+--     create the required service-linked role named
 --     @AWSServiceRoleForOrganizations@. For more information, see
---     <http://docs.aws.amazon.com/organizations/latest/userguide/orgs_integration_services.html#orgs_integration_service-linked-roles AWS Organizations and Service-Linked Roles>
---     in the /AWS Organizations User Guide/.
+--     <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integration_services.html#orgs_integration_service-linked-roles Organizations and Service-Linked Roles>
+--     in the /Organizations User Guide/.
 --
 -- -   __Enable all features final confirmation__ handshake: only a
 --     principal from the management account.
 --
 --     For more information about invitations, see
---     <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_invites.html Inviting an AWS Account to Join Your Organization>
---     in the /AWS Organizations User Guide./ For more information about
+--     <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_invites.html Inviting an Amazon Web Services account to join your organization>
+--     in the /Organizations User Guide./ For more information about
 --     requests to enable all features in the organization, see
---     <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html Enabling All Features in Your Organization>
---     in the /AWS Organizations User Guide./
+--     <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html Enabling all features in your organization>
+--     in the /Organizations User Guide./
 --
 -- After you accept a handshake, it continues to appear in the results of
 -- relevant APIs for only 30 days. After that, it\'s deleted.
@@ -69,7 +69,8 @@ module Amazonka.Organizations.AcceptHandshake
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -118,12 +119,13 @@ instance Core.AWSRequest AcceptHandshake where
   type
     AWSResponse AcceptHandshake =
       AcceptHandshakeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AcceptHandshakeResponse'
-            Prelude.<$> (x Core..?> "Handshake")
+            Prelude.<$> (x Data..?> "Handshake")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,32 +136,32 @@ instance Prelude.Hashable AcceptHandshake where
 instance Prelude.NFData AcceptHandshake where
   rnf AcceptHandshake' {..} = Prelude.rnf handshakeId
 
-instance Core.ToHeaders AcceptHandshake where
+instance Data.ToHeaders AcceptHandshake where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.AcceptHandshake" ::
+              Data.=# ( "AWSOrganizationsV20161128.AcceptHandshake" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AcceptHandshake where
+instance Data.ToJSON AcceptHandshake where
   toJSON AcceptHandshake' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("HandshakeId" Core..= handshakeId)]
+          [Prelude.Just ("HandshakeId" Data..= handshakeId)]
       )
 
-instance Core.ToPath AcceptHandshake where
+instance Data.ToPath AcceptHandshake where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AcceptHandshake where
+instance Data.ToQuery AcceptHandshake where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAcceptHandshakeResponse' smart constructor.

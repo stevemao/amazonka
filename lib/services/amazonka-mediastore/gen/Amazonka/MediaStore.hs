@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.MediaStore
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,23 +21,23 @@ module Amazonka.MediaStore
     -- * Errors
     -- $errors
 
-    -- ** PolicyNotFoundException
-    _PolicyNotFoundException,
-
-    -- ** CorsPolicyNotFoundException
-    _CorsPolicyNotFoundException,
-
     -- ** ContainerInUseException
     _ContainerInUseException,
-
-    -- ** InternalServerError
-    _InternalServerError,
 
     -- ** ContainerNotFoundException
     _ContainerNotFoundException,
 
+    -- ** CorsPolicyNotFoundException
+    _CorsPolicyNotFoundException,
+
+    -- ** InternalServerError
+    _InternalServerError,
+
     -- ** LimitExceededException
     _LimitExceededException,
+
+    -- ** PolicyNotFoundException
+    _PolicyNotFoundException,
 
     -- * Waiters
     -- $waiters
@@ -45,41 +45,11 @@ module Amazonka.MediaStore
     -- * Operations
     -- $operations
 
-    -- ** StopAccessLogging
-    StopAccessLogging (StopAccessLogging'),
-    newStopAccessLogging,
-    StopAccessLoggingResponse (StopAccessLoggingResponse'),
-    newStopAccessLoggingResponse,
-
-    -- ** PutLifecyclePolicy
-    PutLifecyclePolicy (PutLifecyclePolicy'),
-    newPutLifecyclePolicy,
-    PutLifecyclePolicyResponse (PutLifecyclePolicyResponse'),
-    newPutLifecyclePolicyResponse,
-
-    -- ** DeleteLifecyclePolicy
-    DeleteLifecyclePolicy (DeleteLifecyclePolicy'),
-    newDeleteLifecyclePolicy,
-    DeleteLifecyclePolicyResponse (DeleteLifecyclePolicyResponse'),
-    newDeleteLifecyclePolicyResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
     -- ** CreateContainer
     CreateContainer (CreateContainer'),
     newCreateContainer,
     CreateContainerResponse (CreateContainerResponse'),
     newCreateContainerResponse,
-
-    -- ** ListContainers (Paginated)
-    ListContainers (ListContainers'),
-    newListContainers,
-    ListContainersResponse (ListContainersResponse'),
-    newListContainersResponse,
 
     -- ** DeleteContainer
     DeleteContainer (DeleteContainer'),
@@ -87,11 +57,11 @@ module Amazonka.MediaStore
     DeleteContainerResponse (DeleteContainerResponse'),
     newDeleteContainerResponse,
 
-    -- ** PutCorsPolicy
-    PutCorsPolicy (PutCorsPolicy'),
-    newPutCorsPolicy,
-    PutCorsPolicyResponse (PutCorsPolicyResponse'),
-    newPutCorsPolicyResponse,
+    -- ** DeleteContainerPolicy
+    DeleteContainerPolicy (DeleteContainerPolicy'),
+    newDeleteContainerPolicy,
+    DeleteContainerPolicyResponse (DeleteContainerPolicyResponse'),
+    newDeleteContainerPolicyResponse,
 
     -- ** DeleteCorsPolicy
     DeleteCorsPolicy (DeleteCorsPolicy'),
@@ -99,23 +69,11 @@ module Amazonka.MediaStore
     DeleteCorsPolicyResponse (DeleteCorsPolicyResponse'),
     newDeleteCorsPolicyResponse,
 
-    -- ** StartAccessLogging
-    StartAccessLogging (StartAccessLogging'),
-    newStartAccessLogging,
-    StartAccessLoggingResponse (StartAccessLoggingResponse'),
-    newStartAccessLoggingResponse,
-
-    -- ** DescribeContainer
-    DescribeContainer (DescribeContainer'),
-    newDescribeContainer,
-    DescribeContainerResponse (DescribeContainerResponse'),
-    newDescribeContainerResponse,
-
-    -- ** GetMetricPolicy
-    GetMetricPolicy (GetMetricPolicy'),
-    newGetMetricPolicy,
-    GetMetricPolicyResponse (GetMetricPolicyResponse'),
-    newGetMetricPolicyResponse,
+    -- ** DeleteLifecyclePolicy
+    DeleteLifecyclePolicy (DeleteLifecyclePolicy'),
+    newDeleteLifecyclePolicy,
+    DeleteLifecyclePolicyResponse (DeleteLifecyclePolicyResponse'),
+    newDeleteLifecyclePolicyResponse,
 
     -- ** DeleteMetricPolicy
     DeleteMetricPolicy (DeleteMetricPolicy'),
@@ -123,23 +81,17 @@ module Amazonka.MediaStore
     DeleteMetricPolicyResponse (DeleteMetricPolicyResponse'),
     newDeleteMetricPolicyResponse,
 
-    -- ** PutMetricPolicy
-    PutMetricPolicy (PutMetricPolicy'),
-    newPutMetricPolicy,
-    PutMetricPolicyResponse (PutMetricPolicyResponse'),
-    newPutMetricPolicyResponse,
+    -- ** DescribeContainer
+    DescribeContainer (DescribeContainer'),
+    newDescribeContainer,
+    DescribeContainerResponse (DescribeContainerResponse'),
+    newDescribeContainerResponse,
 
-    -- ** GetLifecyclePolicy
-    GetLifecyclePolicy (GetLifecyclePolicy'),
-    newGetLifecyclePolicy,
-    GetLifecyclePolicyResponse (GetLifecyclePolicyResponse'),
-    newGetLifecyclePolicyResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
+    -- ** GetContainerPolicy
+    GetContainerPolicy (GetContainerPolicy'),
+    newGetContainerPolicy,
+    GetContainerPolicyResponse (GetContainerPolicyResponse'),
+    newGetContainerPolicyResponse,
 
     -- ** GetCorsPolicy
     GetCorsPolicy (GetCorsPolicy'),
@@ -147,17 +99,29 @@ module Amazonka.MediaStore
     GetCorsPolicyResponse (GetCorsPolicyResponse'),
     newGetCorsPolicyResponse,
 
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** GetLifecyclePolicy
+    GetLifecyclePolicy (GetLifecyclePolicy'),
+    newGetLifecyclePolicy,
+    GetLifecyclePolicyResponse (GetLifecyclePolicyResponse'),
+    newGetLifecyclePolicyResponse,
 
-    -- ** DeleteContainerPolicy
-    DeleteContainerPolicy (DeleteContainerPolicy'),
-    newDeleteContainerPolicy,
-    DeleteContainerPolicyResponse (DeleteContainerPolicyResponse'),
-    newDeleteContainerPolicyResponse,
+    -- ** GetMetricPolicy
+    GetMetricPolicy (GetMetricPolicy'),
+    newGetMetricPolicy,
+    GetMetricPolicyResponse (GetMetricPolicyResponse'),
+    newGetMetricPolicyResponse,
+
+    -- ** ListContainers (Paginated)
+    ListContainers (ListContainers'),
+    newListContainers,
+    ListContainersResponse (ListContainersResponse'),
+    newListContainersResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** PutContainerPolicy
     PutContainerPolicy (PutContainerPolicy'),
@@ -165,11 +129,47 @@ module Amazonka.MediaStore
     PutContainerPolicyResponse (PutContainerPolicyResponse'),
     newPutContainerPolicyResponse,
 
-    -- ** GetContainerPolicy
-    GetContainerPolicy (GetContainerPolicy'),
-    newGetContainerPolicy,
-    GetContainerPolicyResponse (GetContainerPolicyResponse'),
-    newGetContainerPolicyResponse,
+    -- ** PutCorsPolicy
+    PutCorsPolicy (PutCorsPolicy'),
+    newPutCorsPolicy,
+    PutCorsPolicyResponse (PutCorsPolicyResponse'),
+    newPutCorsPolicyResponse,
+
+    -- ** PutLifecyclePolicy
+    PutLifecyclePolicy (PutLifecyclePolicy'),
+    newPutLifecyclePolicy,
+    PutLifecyclePolicyResponse (PutLifecyclePolicyResponse'),
+    newPutLifecyclePolicyResponse,
+
+    -- ** PutMetricPolicy
+    PutMetricPolicy (PutMetricPolicy'),
+    newPutMetricPolicy,
+    PutMetricPolicyResponse (PutMetricPolicyResponse'),
+    newPutMetricPolicyResponse,
+
+    -- ** StartAccessLogging
+    StartAccessLogging (StartAccessLogging'),
+    newStartAccessLogging,
+    StartAccessLoggingResponse (StartAccessLoggingResponse'),
+    newStartAccessLoggingResponse,
+
+    -- ** StopAccessLogging
+    StopAccessLogging (StopAccessLogging'),
+    newStopAccessLogging,
+    StopAccessLoggingResponse (StopAccessLoggingResponse'),
+    newStopAccessLoggingResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- * Types
 

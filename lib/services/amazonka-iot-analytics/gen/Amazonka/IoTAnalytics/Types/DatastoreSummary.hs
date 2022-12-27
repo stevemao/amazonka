@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.DatastoreSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.IoTAnalytics.Types.DatastoreSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types.DatastorePartitions
 import Amazonka.IoTAnalytics.Types.DatastoreStatus
 import Amazonka.IoTAnalytics.Types.DatastoreStorageSummary
 import Amazonka.IoTAnalytics.Types.FileFormatType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A summary of information about a data store.
@@ -32,9 +33,15 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newDatastoreSummary' smart constructor.
 data DatastoreSummary = DatastoreSummary'
   { -- | When the data store was created.
-    creationTime :: Prelude.Maybe Core.POSIX,
-    -- | The status of the data store.
-    status :: Prelude.Maybe DatastoreStatus,
+    creationTime :: Prelude.Maybe Data.POSIX,
+    -- | The name of the data store.
+    datastoreName :: Prelude.Maybe Prelude.Text,
+    -- | Contains information about the partition dimensions in a data store.
+    datastorePartitions :: Prelude.Maybe DatastorePartitions,
+    -- | Where data in a data store is stored.
+    datastoreStorage :: Prelude.Maybe DatastoreStorageSummary,
+    -- | The file format of the data in the data store.
+    fileFormatType :: Prelude.Maybe FileFormatType,
     -- | The last time when a new message arrived in the data store.
     --
     -- IoT Analytics updates this value at most once per minute for Amazon
@@ -43,17 +50,11 @@ data DatastoreSummary = DatastoreSummary'
     --
     -- This feature only applies to messages that arrived in the data store
     -- after October 23, 2020.
-    lastMessageArrivalTime :: Prelude.Maybe Core.POSIX,
-    -- | The name of the data store.
-    datastoreName :: Prelude.Maybe Prelude.Text,
-    -- | Contains information about the partition dimensions in a data store.
-    datastorePartitions :: Prelude.Maybe DatastorePartitions,
-    -- | The file format of the data in the data store.
-    fileFormatType :: Prelude.Maybe FileFormatType,
+    lastMessageArrivalTime :: Prelude.Maybe Data.POSIX,
     -- | The last time the data store was updated.
-    lastUpdateTime :: Prelude.Maybe Core.POSIX,
-    -- | Where data in a data store is stored.
-    datastoreStorage :: Prelude.Maybe DatastoreStorageSummary
+    lastUpdateTime :: Prelude.Maybe Data.POSIX,
+    -- | The status of the data store.
+    status :: Prelude.Maybe DatastoreStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,7 +68,13 @@ data DatastoreSummary = DatastoreSummary'
 --
 -- 'creationTime', 'datastoreSummary_creationTime' - When the data store was created.
 --
--- 'status', 'datastoreSummary_status' - The status of the data store.
+-- 'datastoreName', 'datastoreSummary_datastoreName' - The name of the data store.
+--
+-- 'datastorePartitions', 'datastoreSummary_datastorePartitions' - Contains information about the partition dimensions in a data store.
+--
+-- 'datastoreStorage', 'datastoreSummary_datastoreStorage' - Where data in a data store is stored.
+--
+-- 'fileFormatType', 'datastoreSummary_fileFormatType' - The file format of the data in the data store.
 --
 -- 'lastMessageArrivalTime', 'datastoreSummary_lastMessageArrivalTime' - The last time when a new message arrived in the data store.
 --
@@ -78,36 +85,42 @@ data DatastoreSummary = DatastoreSummary'
 -- This feature only applies to messages that arrived in the data store
 -- after October 23, 2020.
 --
--- 'datastoreName', 'datastoreSummary_datastoreName' - The name of the data store.
---
--- 'datastorePartitions', 'datastoreSummary_datastorePartitions' - Contains information about the partition dimensions in a data store.
---
--- 'fileFormatType', 'datastoreSummary_fileFormatType' - The file format of the data in the data store.
---
 -- 'lastUpdateTime', 'datastoreSummary_lastUpdateTime' - The last time the data store was updated.
 --
--- 'datastoreStorage', 'datastoreSummary_datastoreStorage' - Where data in a data store is stored.
+-- 'status', 'datastoreSummary_status' - The status of the data store.
 newDatastoreSummary ::
   DatastoreSummary
 newDatastoreSummary =
   DatastoreSummary'
     { creationTime = Prelude.Nothing,
-      status = Prelude.Nothing,
-      lastMessageArrivalTime = Prelude.Nothing,
       datastoreName = Prelude.Nothing,
       datastorePartitions = Prelude.Nothing,
+      datastoreStorage = Prelude.Nothing,
       fileFormatType = Prelude.Nothing,
+      lastMessageArrivalTime = Prelude.Nothing,
       lastUpdateTime = Prelude.Nothing,
-      datastoreStorage = Prelude.Nothing
+      status = Prelude.Nothing
     }
 
 -- | When the data store was created.
 datastoreSummary_creationTime :: Lens.Lens' DatastoreSummary (Prelude.Maybe Prelude.UTCTime)
-datastoreSummary_creationTime = Lens.lens (\DatastoreSummary' {creationTime} -> creationTime) (\s@DatastoreSummary' {} a -> s {creationTime = a} :: DatastoreSummary) Prelude.. Lens.mapping Core._Time
+datastoreSummary_creationTime = Lens.lens (\DatastoreSummary' {creationTime} -> creationTime) (\s@DatastoreSummary' {} a -> s {creationTime = a} :: DatastoreSummary) Prelude.. Lens.mapping Data._Time
 
--- | The status of the data store.
-datastoreSummary_status :: Lens.Lens' DatastoreSummary (Prelude.Maybe DatastoreStatus)
-datastoreSummary_status = Lens.lens (\DatastoreSummary' {status} -> status) (\s@DatastoreSummary' {} a -> s {status = a} :: DatastoreSummary)
+-- | The name of the data store.
+datastoreSummary_datastoreName :: Lens.Lens' DatastoreSummary (Prelude.Maybe Prelude.Text)
+datastoreSummary_datastoreName = Lens.lens (\DatastoreSummary' {datastoreName} -> datastoreName) (\s@DatastoreSummary' {} a -> s {datastoreName = a} :: DatastoreSummary)
+
+-- | Contains information about the partition dimensions in a data store.
+datastoreSummary_datastorePartitions :: Lens.Lens' DatastoreSummary (Prelude.Maybe DatastorePartitions)
+datastoreSummary_datastorePartitions = Lens.lens (\DatastoreSummary' {datastorePartitions} -> datastorePartitions) (\s@DatastoreSummary' {} a -> s {datastorePartitions = a} :: DatastoreSummary)
+
+-- | Where data in a data store is stored.
+datastoreSummary_datastoreStorage :: Lens.Lens' DatastoreSummary (Prelude.Maybe DatastoreStorageSummary)
+datastoreSummary_datastoreStorage = Lens.lens (\DatastoreSummary' {datastoreStorage} -> datastoreStorage) (\s@DatastoreSummary' {} a -> s {datastoreStorage = a} :: DatastoreSummary)
+
+-- | The file format of the data in the data store.
+datastoreSummary_fileFormatType :: Lens.Lens' DatastoreSummary (Prelude.Maybe FileFormatType)
+datastoreSummary_fileFormatType = Lens.lens (\DatastoreSummary' {fileFormatType} -> fileFormatType) (\s@DatastoreSummary' {} a -> s {fileFormatType = a} :: DatastoreSummary)
 
 -- | The last time when a new message arrived in the data store.
 --
@@ -118,62 +131,50 @@ datastoreSummary_status = Lens.lens (\DatastoreSummary' {status} -> status) (\s@
 -- This feature only applies to messages that arrived in the data store
 -- after October 23, 2020.
 datastoreSummary_lastMessageArrivalTime :: Lens.Lens' DatastoreSummary (Prelude.Maybe Prelude.UTCTime)
-datastoreSummary_lastMessageArrivalTime = Lens.lens (\DatastoreSummary' {lastMessageArrivalTime} -> lastMessageArrivalTime) (\s@DatastoreSummary' {} a -> s {lastMessageArrivalTime = a} :: DatastoreSummary) Prelude.. Lens.mapping Core._Time
-
--- | The name of the data store.
-datastoreSummary_datastoreName :: Lens.Lens' DatastoreSummary (Prelude.Maybe Prelude.Text)
-datastoreSummary_datastoreName = Lens.lens (\DatastoreSummary' {datastoreName} -> datastoreName) (\s@DatastoreSummary' {} a -> s {datastoreName = a} :: DatastoreSummary)
-
--- | Contains information about the partition dimensions in a data store.
-datastoreSummary_datastorePartitions :: Lens.Lens' DatastoreSummary (Prelude.Maybe DatastorePartitions)
-datastoreSummary_datastorePartitions = Lens.lens (\DatastoreSummary' {datastorePartitions} -> datastorePartitions) (\s@DatastoreSummary' {} a -> s {datastorePartitions = a} :: DatastoreSummary)
-
--- | The file format of the data in the data store.
-datastoreSummary_fileFormatType :: Lens.Lens' DatastoreSummary (Prelude.Maybe FileFormatType)
-datastoreSummary_fileFormatType = Lens.lens (\DatastoreSummary' {fileFormatType} -> fileFormatType) (\s@DatastoreSummary' {} a -> s {fileFormatType = a} :: DatastoreSummary)
+datastoreSummary_lastMessageArrivalTime = Lens.lens (\DatastoreSummary' {lastMessageArrivalTime} -> lastMessageArrivalTime) (\s@DatastoreSummary' {} a -> s {lastMessageArrivalTime = a} :: DatastoreSummary) Prelude.. Lens.mapping Data._Time
 
 -- | The last time the data store was updated.
 datastoreSummary_lastUpdateTime :: Lens.Lens' DatastoreSummary (Prelude.Maybe Prelude.UTCTime)
-datastoreSummary_lastUpdateTime = Lens.lens (\DatastoreSummary' {lastUpdateTime} -> lastUpdateTime) (\s@DatastoreSummary' {} a -> s {lastUpdateTime = a} :: DatastoreSummary) Prelude.. Lens.mapping Core._Time
+datastoreSummary_lastUpdateTime = Lens.lens (\DatastoreSummary' {lastUpdateTime} -> lastUpdateTime) (\s@DatastoreSummary' {} a -> s {lastUpdateTime = a} :: DatastoreSummary) Prelude.. Lens.mapping Data._Time
 
--- | Where data in a data store is stored.
-datastoreSummary_datastoreStorage :: Lens.Lens' DatastoreSummary (Prelude.Maybe DatastoreStorageSummary)
-datastoreSummary_datastoreStorage = Lens.lens (\DatastoreSummary' {datastoreStorage} -> datastoreStorage) (\s@DatastoreSummary' {} a -> s {datastoreStorage = a} :: DatastoreSummary)
+-- | The status of the data store.
+datastoreSummary_status :: Lens.Lens' DatastoreSummary (Prelude.Maybe DatastoreStatus)
+datastoreSummary_status = Lens.lens (\DatastoreSummary' {status} -> status) (\s@DatastoreSummary' {} a -> s {status = a} :: DatastoreSummary)
 
-instance Core.FromJSON DatastoreSummary where
+instance Data.FromJSON DatastoreSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DatastoreSummary"
       ( \x ->
           DatastoreSummary'
-            Prelude.<$> (x Core..:? "creationTime")
-            Prelude.<*> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "lastMessageArrivalTime")
-            Prelude.<*> (x Core..:? "datastoreName")
-            Prelude.<*> (x Core..:? "datastorePartitions")
-            Prelude.<*> (x Core..:? "fileFormatType")
-            Prelude.<*> (x Core..:? "lastUpdateTime")
-            Prelude.<*> (x Core..:? "datastoreStorage")
+            Prelude.<$> (x Data..:? "creationTime")
+            Prelude.<*> (x Data..:? "datastoreName")
+            Prelude.<*> (x Data..:? "datastorePartitions")
+            Prelude.<*> (x Data..:? "datastoreStorage")
+            Prelude.<*> (x Data..:? "fileFormatType")
+            Prelude.<*> (x Data..:? "lastMessageArrivalTime")
+            Prelude.<*> (x Data..:? "lastUpdateTime")
+            Prelude.<*> (x Data..:? "status")
       )
 
 instance Prelude.Hashable DatastoreSummary where
   hashWithSalt _salt DatastoreSummary' {..} =
     _salt `Prelude.hashWithSalt` creationTime
-      `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` lastMessageArrivalTime
       `Prelude.hashWithSalt` datastoreName
       `Prelude.hashWithSalt` datastorePartitions
-      `Prelude.hashWithSalt` fileFormatType
-      `Prelude.hashWithSalt` lastUpdateTime
       `Prelude.hashWithSalt` datastoreStorage
+      `Prelude.hashWithSalt` fileFormatType
+      `Prelude.hashWithSalt` lastMessageArrivalTime
+      `Prelude.hashWithSalt` lastUpdateTime
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData DatastoreSummary where
   rnf DatastoreSummary' {..} =
     Prelude.rnf creationTime
-      `Prelude.seq` Prelude.rnf status
-      `Prelude.seq` Prelude.rnf lastMessageArrivalTime
       `Prelude.seq` Prelude.rnf datastoreName
       `Prelude.seq` Prelude.rnf datastorePartitions
-      `Prelude.seq` Prelude.rnf fileFormatType
-      `Prelude.seq` Prelude.rnf lastUpdateTime
       `Prelude.seq` Prelude.rnf datastoreStorage
+      `Prelude.seq` Prelude.rnf fileFormatType
+      `Prelude.seq` Prelude.rnf lastMessageArrivalTime
+      `Prelude.seq` Prelude.rnf lastUpdateTime
+      `Prelude.seq` Prelude.rnf status

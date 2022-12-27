@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.MotionGraphicsSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.MotionGraphicsSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.HtmlMotionGraphicsSettings
 import qualified Amazonka.Prelude as Prelude
 
@@ -53,13 +54,13 @@ newMotionGraphicsSettings =
 motionGraphicsSettings_htmlMotionGraphicsSettings :: Lens.Lens' MotionGraphicsSettings (Prelude.Maybe HtmlMotionGraphicsSettings)
 motionGraphicsSettings_htmlMotionGraphicsSettings = Lens.lens (\MotionGraphicsSettings' {htmlMotionGraphicsSettings} -> htmlMotionGraphicsSettings) (\s@MotionGraphicsSettings' {} a -> s {htmlMotionGraphicsSettings = a} :: MotionGraphicsSettings)
 
-instance Core.FromJSON MotionGraphicsSettings where
+instance Data.FromJSON MotionGraphicsSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MotionGraphicsSettings"
       ( \x ->
           MotionGraphicsSettings'
-            Prelude.<$> (x Core..:? "htmlMotionGraphicsSettings")
+            Prelude.<$> (x Data..:? "htmlMotionGraphicsSettings")
       )
 
 instance Prelude.Hashable MotionGraphicsSettings where
@@ -71,11 +72,11 @@ instance Prelude.NFData MotionGraphicsSettings where
   rnf MotionGraphicsSettings' {..} =
     Prelude.rnf htmlMotionGraphicsSettings
 
-instance Core.ToJSON MotionGraphicsSettings where
+instance Data.ToJSON MotionGraphicsSettings where
   toJSON MotionGraphicsSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("htmlMotionGraphicsSettings" Core..=)
+          [ ("htmlMotionGraphicsSettings" Data..=)
               Prelude.<$> htmlMotionGraphicsSettings
           ]
       )

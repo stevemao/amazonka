@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.AssociateFleet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AppStream.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +91,8 @@ instance Core.AWSRequest AssociateFleet where
   type
     AWSResponse AssociateFleet =
       AssociateFleetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -108,34 +110,34 @@ instance Prelude.NFData AssociateFleet where
     Prelude.rnf fleetName
       `Prelude.seq` Prelude.rnf stackName
 
-instance Core.ToHeaders AssociateFleet where
+instance Data.ToHeaders AssociateFleet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "PhotonAdminProxyService.AssociateFleet" ::
+              Data.=# ( "PhotonAdminProxyService.AssociateFleet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateFleet where
+instance Data.ToJSON AssociateFleet where
   toJSON AssociateFleet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("FleetName" Core..= fleetName),
-            Prelude.Just ("StackName" Core..= stackName)
+          [ Prelude.Just ("FleetName" Data..= fleetName),
+            Prelude.Just ("StackName" Data..= stackName)
           ]
       )
 
-instance Core.ToPath AssociateFleet where
+instance Data.ToPath AssociateFleet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateFleet where
+instance Data.ToQuery AssociateFleet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateFleetResponse' smart constructor.

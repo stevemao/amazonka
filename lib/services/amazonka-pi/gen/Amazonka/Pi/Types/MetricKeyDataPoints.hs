@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pi.Types.MetricKeyDataPoints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pi.Types.MetricKeyDataPoints where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pi.Types.DataPoint
 import Amazonka.Pi.Types.ResponseResourceMetricKey
 import qualified Amazonka.Prelude as Prelude
@@ -33,7 +34,7 @@ data MetricKeyDataPoints = MetricKeyDataPoints'
   { -- | An array of timestamp-value pairs, representing measurements over a
     -- period of time.
     dataPoints :: Prelude.Maybe [DataPoint],
-    -- | The dimension(s) to which the data points apply.
+    -- | The dimensions to which the data points apply.
     key :: Prelude.Maybe ResponseResourceMetricKey
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -49,7 +50,7 @@ data MetricKeyDataPoints = MetricKeyDataPoints'
 -- 'dataPoints', 'metricKeyDataPoints_dataPoints' - An array of timestamp-value pairs, representing measurements over a
 -- period of time.
 --
--- 'key', 'metricKeyDataPoints_key' - The dimension(s) to which the data points apply.
+-- 'key', 'metricKeyDataPoints_key' - The dimensions to which the data points apply.
 newMetricKeyDataPoints ::
   MetricKeyDataPoints
 newMetricKeyDataPoints =
@@ -63,18 +64,18 @@ newMetricKeyDataPoints =
 metricKeyDataPoints_dataPoints :: Lens.Lens' MetricKeyDataPoints (Prelude.Maybe [DataPoint])
 metricKeyDataPoints_dataPoints = Lens.lens (\MetricKeyDataPoints' {dataPoints} -> dataPoints) (\s@MetricKeyDataPoints' {} a -> s {dataPoints = a} :: MetricKeyDataPoints) Prelude.. Lens.mapping Lens.coerced
 
--- | The dimension(s) to which the data points apply.
+-- | The dimensions to which the data points apply.
 metricKeyDataPoints_key :: Lens.Lens' MetricKeyDataPoints (Prelude.Maybe ResponseResourceMetricKey)
 metricKeyDataPoints_key = Lens.lens (\MetricKeyDataPoints' {key} -> key) (\s@MetricKeyDataPoints' {} a -> s {key = a} :: MetricKeyDataPoints)
 
-instance Core.FromJSON MetricKeyDataPoints where
+instance Data.FromJSON MetricKeyDataPoints where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MetricKeyDataPoints"
       ( \x ->
           MetricKeyDataPoints'
-            Prelude.<$> (x Core..:? "DataPoints" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Key")
+            Prelude.<$> (x Data..:? "DataPoints" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Key")
       )
 
 instance Prelude.Hashable MetricKeyDataPoints where

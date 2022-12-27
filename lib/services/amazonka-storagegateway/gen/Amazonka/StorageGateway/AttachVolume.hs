@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.AttachVolume
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.StorageGateway.AttachVolume
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -176,13 +177,14 @@ attachVolume_networkInterfaceId = Lens.lens (\AttachVolume' {networkInterfaceId}
 
 instance Core.AWSRequest AttachVolume where
   type AWSResponse AttachVolume = AttachVolumeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AttachVolumeResponse'
-            Prelude.<$> (x Core..?> "TargetARN")
-            Prelude.<*> (x Core..?> "VolumeARN")
+            Prelude.<$> (x Data..?> "TargetARN")
+            Prelude.<*> (x Data..?> "VolumeARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -202,38 +204,38 @@ instance Prelude.NFData AttachVolume where
       `Prelude.seq` Prelude.rnf volumeARN
       `Prelude.seq` Prelude.rnf networkInterfaceId
 
-instance Core.ToHeaders AttachVolume where
+instance Data.ToHeaders AttachVolume where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.AttachVolume" ::
+              Data.=# ( "StorageGateway_20130630.AttachVolume" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AttachVolume where
+instance Data.ToJSON AttachVolume where
   toJSON AttachVolume' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DiskId" Core..=) Prelude.<$> diskId,
-            ("TargetName" Core..=) Prelude.<$> targetName,
-            Prelude.Just ("GatewayARN" Core..= gatewayARN),
-            Prelude.Just ("VolumeARN" Core..= volumeARN),
+          [ ("DiskId" Data..=) Prelude.<$> diskId,
+            ("TargetName" Data..=) Prelude.<$> targetName,
+            Prelude.Just ("GatewayARN" Data..= gatewayARN),
+            Prelude.Just ("VolumeARN" Data..= volumeARN),
             Prelude.Just
-              ("NetworkInterfaceId" Core..= networkInterfaceId)
+              ("NetworkInterfaceId" Data..= networkInterfaceId)
           ]
       )
 
-instance Core.ToPath AttachVolume where
+instance Data.ToPath AttachVolume where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AttachVolume where
+instance Data.ToQuery AttachVolume where
   toQuery = Prelude.const Prelude.mempty
 
 -- | AttachVolumeOutput

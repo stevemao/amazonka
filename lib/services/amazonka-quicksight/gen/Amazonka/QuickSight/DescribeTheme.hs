@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DescribeTheme
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.QuickSight.DescribeTheme
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -133,13 +134,14 @@ instance Core.AWSRequest DescribeTheme where
   type
     AWSResponse DescribeTheme =
       DescribeThemeResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeThemeResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "Theme")
+            Prelude.<$> (x Data..?> "RequestId")
+            Prelude.<*> (x Data..?> "Theme")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -157,31 +159,31 @@ instance Prelude.NFData DescribeTheme where
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf themeId
 
-instance Core.ToHeaders DescribeTheme where
+instance Data.ToHeaders DescribeTheme where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeTheme where
+instance Data.ToPath DescribeTheme where
   toPath DescribeTheme' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/themes/",
-        Core.toBS themeId
+        Data.toBS themeId
       ]
 
-instance Core.ToQuery DescribeTheme where
+instance Data.ToQuery DescribeTheme where
   toQuery DescribeTheme' {..} =
     Prelude.mconcat
-      [ "alias-name" Core.=: aliasName,
-        "version-number" Core.=: versionNumber
+      [ "alias-name" Data.=: aliasName,
+        "version-number" Data.=: versionNumber
       ]
 
 -- | /See:/ 'newDescribeThemeResponse' smart constructor.

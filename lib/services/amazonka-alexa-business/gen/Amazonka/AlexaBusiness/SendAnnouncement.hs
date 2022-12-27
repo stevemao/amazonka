@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.SendAnnouncement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -128,12 +129,13 @@ instance Core.AWSRequest SendAnnouncement where
   type
     AWSResponse SendAnnouncement =
       SendAnnouncementResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SendAnnouncementResponse'
-            Prelude.<$> (x Core..?> "AnnouncementArn")
+            Prelude.<$> (x Data..?> "AnnouncementArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -151,38 +153,38 @@ instance Prelude.NFData SendAnnouncement where
       `Prelude.seq` Prelude.rnf content
       `Prelude.seq` Prelude.rnf clientRequestToken
 
-instance Core.ToHeaders SendAnnouncement where
+instance Data.ToHeaders SendAnnouncement where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.SendAnnouncement" ::
+              Data.=# ( "AlexaForBusiness.SendAnnouncement" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SendAnnouncement where
+instance Data.ToJSON SendAnnouncement where
   toJSON SendAnnouncement' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TimeToLiveInSeconds" Core..=)
+          [ ("TimeToLiveInSeconds" Data..=)
               Prelude.<$> timeToLiveInSeconds,
-            Prelude.Just ("RoomFilters" Core..= roomFilters),
-            Prelude.Just ("Content" Core..= content),
+            Prelude.Just ("RoomFilters" Data..= roomFilters),
+            Prelude.Just ("Content" Data..= content),
             Prelude.Just
-              ("ClientRequestToken" Core..= clientRequestToken)
+              ("ClientRequestToken" Data..= clientRequestToken)
           ]
       )
 
-instance Core.ToPath SendAnnouncement where
+instance Data.ToPath SendAnnouncement where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SendAnnouncement where
+instance Data.ToQuery SendAnnouncement where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSendAnnouncementResponse' smart constructor.

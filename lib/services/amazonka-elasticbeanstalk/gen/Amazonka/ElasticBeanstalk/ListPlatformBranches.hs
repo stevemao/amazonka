@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.ListPlatformBranches
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,23 +32,24 @@ module Amazonka.ElasticBeanstalk.ListPlatformBranches
 
     -- * Request Lenses
     listPlatformBranches_filters,
-    listPlatformBranches_nextToken,
     listPlatformBranches_maxRecords,
+    listPlatformBranches_nextToken,
 
     -- * Destructuring the Response
     ListPlatformBranchesResponse (..),
     newListPlatformBranchesResponse,
 
     -- * Response Lenses
-    listPlatformBranchesResponse_platformBranchSummaryList,
     listPlatformBranchesResponse_nextToken,
+    listPlatformBranchesResponse_platformBranchSummaryList,
     listPlatformBranchesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,14 +91,14 @@ data ListPlatformBranches = ListPlatformBranches'
     -- Within each @SearchFilter@ item, the @Values@ array is limited to 10
     -- items.
     filters :: Prelude.Maybe [SearchFilter],
+    -- | The maximum number of platform branch values returned in one call.
+    maxRecords :: Prelude.Maybe Prelude.Natural,
     -- | For a paginated request. Specify a token from a previous response page
     -- to retrieve the next response page. All other parameter values must be
     -- identical to the ones specified in the initial request.
     --
     -- If no @NextToken@ is specified, the first page is retrieved.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of platform branch values returned in one call.
-    maxRecords :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -144,20 +145,20 @@ data ListPlatformBranches = ListPlatformBranches'
 -- Within each @SearchFilter@ item, the @Values@ array is limited to 10
 -- items.
 --
+-- 'maxRecords', 'listPlatformBranches_maxRecords' - The maximum number of platform branch values returned in one call.
+--
 -- 'nextToken', 'listPlatformBranches_nextToken' - For a paginated request. Specify a token from a previous response page
 -- to retrieve the next response page. All other parameter values must be
 -- identical to the ones specified in the initial request.
 --
 -- If no @NextToken@ is specified, the first page is retrieved.
---
--- 'maxRecords', 'listPlatformBranches_maxRecords' - The maximum number of platform branch values returned in one call.
 newListPlatformBranches ::
   ListPlatformBranches
 newListPlatformBranches =
   ListPlatformBranches'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxRecords = Prelude.Nothing
+      maxRecords = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | Criteria for restricting the resulting list of platform branches. The
@@ -197,6 +198,10 @@ newListPlatformBranches =
 listPlatformBranches_filters :: Lens.Lens' ListPlatformBranches (Prelude.Maybe [SearchFilter])
 listPlatformBranches_filters = Lens.lens (\ListPlatformBranches' {filters} -> filters) (\s@ListPlatformBranches' {} a -> s {filters = a} :: ListPlatformBranches) Prelude.. Lens.mapping Lens.coerced
 
+-- | The maximum number of platform branch values returned in one call.
+listPlatformBranches_maxRecords :: Lens.Lens' ListPlatformBranches (Prelude.Maybe Prelude.Natural)
+listPlatformBranches_maxRecords = Lens.lens (\ListPlatformBranches' {maxRecords} -> maxRecords) (\s@ListPlatformBranches' {} a -> s {maxRecords = a} :: ListPlatformBranches)
+
 -- | For a paginated request. Specify a token from a previous response page
 -- to retrieve the next response page. All other parameter values must be
 -- identical to the ones specified in the initial request.
@@ -205,67 +210,64 @@ listPlatformBranches_filters = Lens.lens (\ListPlatformBranches' {filters} -> fi
 listPlatformBranches_nextToken :: Lens.Lens' ListPlatformBranches (Prelude.Maybe Prelude.Text)
 listPlatformBranches_nextToken = Lens.lens (\ListPlatformBranches' {nextToken} -> nextToken) (\s@ListPlatformBranches' {} a -> s {nextToken = a} :: ListPlatformBranches)
 
--- | The maximum number of platform branch values returned in one call.
-listPlatformBranches_maxRecords :: Lens.Lens' ListPlatformBranches (Prelude.Maybe Prelude.Natural)
-listPlatformBranches_maxRecords = Lens.lens (\ListPlatformBranches' {maxRecords} -> maxRecords) (\s@ListPlatformBranches' {} a -> s {maxRecords = a} :: ListPlatformBranches)
-
 instance Core.AWSRequest ListPlatformBranches where
   type
     AWSResponse ListPlatformBranches =
       ListPlatformBranchesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListPlatformBranchesResult"
       ( \s h x ->
           ListPlatformBranchesResponse'
-            Prelude.<$> ( x Core..@? "PlatformBranchSummaryList"
+            Prelude.<$> (x Data..@? "NextToken")
+            Prelude.<*> ( x Data..@? "PlatformBranchSummaryList"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListPlatformBranches where
   hashWithSalt _salt ListPlatformBranches' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListPlatformBranches where
   rnf ListPlatformBranches' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListPlatformBranches where
+instance Data.ToHeaders ListPlatformBranches where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListPlatformBranches where
+instance Data.ToPath ListPlatformBranches where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPlatformBranches where
+instance Data.ToQuery ListPlatformBranches where
   toQuery ListPlatformBranches' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListPlatformBranches" :: Prelude.ByteString),
+          Data.=: ("ListPlatformBranches" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> filters),
+        "MaxRecords" Data.=: maxRecords,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListPlatformBranchesResponse' smart constructor.
 data ListPlatformBranchesResponse = ListPlatformBranchesResponse'
-  { -- | Summary information about the platform branches.
-    platformBranchSummaryList :: Prelude.Maybe [PlatformBranchSummary],
-    -- | In a paginated request, if this value isn\'t @null@, it\'s the token
+  { -- | In a paginated request, if this value isn\'t @null@, it\'s the token
     -- that you can pass in a subsequent request to get the next response page.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Summary information about the platform branches.
+    platformBranchSummaryList :: Prelude.Maybe [PlatformBranchSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -279,10 +281,10 @@ data ListPlatformBranchesResponse = ListPlatformBranchesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'platformBranchSummaryList', 'listPlatformBranchesResponse_platformBranchSummaryList' - Summary information about the platform branches.
---
 -- 'nextToken', 'listPlatformBranchesResponse_nextToken' - In a paginated request, if this value isn\'t @null@, it\'s the token
 -- that you can pass in a subsequent request to get the next response page.
+--
+-- 'platformBranchSummaryList', 'listPlatformBranchesResponse_platformBranchSummaryList' - Summary information about the platform branches.
 --
 -- 'httpStatus', 'listPlatformBranchesResponse_httpStatus' - The response's http status code.
 newListPlatformBranchesResponse ::
@@ -291,20 +293,20 @@ newListPlatformBranchesResponse ::
   ListPlatformBranchesResponse
 newListPlatformBranchesResponse pHttpStatus_ =
   ListPlatformBranchesResponse'
-    { platformBranchSummaryList =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      platformBranchSummaryList = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Summary information about the platform branches.
-listPlatformBranchesResponse_platformBranchSummaryList :: Lens.Lens' ListPlatformBranchesResponse (Prelude.Maybe [PlatformBranchSummary])
-listPlatformBranchesResponse_platformBranchSummaryList = Lens.lens (\ListPlatformBranchesResponse' {platformBranchSummaryList} -> platformBranchSummaryList) (\s@ListPlatformBranchesResponse' {} a -> s {platformBranchSummaryList = a} :: ListPlatformBranchesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | In a paginated request, if this value isn\'t @null@, it\'s the token
 -- that you can pass in a subsequent request to get the next response page.
 listPlatformBranchesResponse_nextToken :: Lens.Lens' ListPlatformBranchesResponse (Prelude.Maybe Prelude.Text)
 listPlatformBranchesResponse_nextToken = Lens.lens (\ListPlatformBranchesResponse' {nextToken} -> nextToken) (\s@ListPlatformBranchesResponse' {} a -> s {nextToken = a} :: ListPlatformBranchesResponse)
+
+-- | Summary information about the platform branches.
+listPlatformBranchesResponse_platformBranchSummaryList :: Lens.Lens' ListPlatformBranchesResponse (Prelude.Maybe [PlatformBranchSummary])
+listPlatformBranchesResponse_platformBranchSummaryList = Lens.lens (\ListPlatformBranchesResponse' {platformBranchSummaryList} -> platformBranchSummaryList) (\s@ListPlatformBranchesResponse' {} a -> s {platformBranchSummaryList = a} :: ListPlatformBranchesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listPlatformBranchesResponse_httpStatus :: Lens.Lens' ListPlatformBranchesResponse Prelude.Int
@@ -312,6 +314,6 @@ listPlatformBranchesResponse_httpStatus = Lens.lens (\ListPlatformBranchesRespon
 
 instance Prelude.NFData ListPlatformBranchesResponse where
   rnf ListPlatformBranchesResponse' {..} =
-    Prelude.rnf platformBranchSummaryList
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf platformBranchSummaryList
       `Prelude.seq` Prelude.rnf httpStatus

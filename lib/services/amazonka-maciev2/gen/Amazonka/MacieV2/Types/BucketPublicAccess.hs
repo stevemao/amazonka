@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.BucketPublicAccess
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.BucketPublicAccess where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.BucketPermissionConfiguration
 import Amazonka.MacieV2.Types.EffectivePermission
 import qualified Amazonka.Prelude as Prelude
@@ -30,9 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newBucketPublicAccess' smart constructor.
 data BucketPublicAccess = BucketPublicAccess'
-  { -- | The account-level and bucket-level permissions settings for the bucket.
-    permissionConfiguration :: Prelude.Maybe BucketPermissionConfiguration,
-    -- | Specifies whether the bucket is publicly accessible due to the
+  { -- | Specifies whether the bucket is publicly accessible due to the
     -- combination of permissions settings that apply to the bucket. Possible
     -- values are:
     --
@@ -42,7 +41,9 @@ data BucketPublicAccess = BucketPublicAccess'
     --
     -- -   UNKNOWN - Amazon Macie can\'t determine whether the bucket is
     --     publicly accessible.
-    effectivePermission :: Prelude.Maybe EffectivePermission
+    effectivePermission :: Prelude.Maybe EffectivePermission,
+    -- | The account-level and bucket-level permissions settings for the bucket.
+    permissionConfiguration :: Prelude.Maybe BucketPermissionConfiguration
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -54,8 +55,6 @@ data BucketPublicAccess = BucketPublicAccess'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'permissionConfiguration', 'bucketPublicAccess_permissionConfiguration' - The account-level and bucket-level permissions settings for the bucket.
---
 -- 'effectivePermission', 'bucketPublicAccess_effectivePermission' - Specifies whether the bucket is publicly accessible due to the
 -- combination of permissions settings that apply to the bucket. Possible
 -- values are:
@@ -66,18 +65,16 @@ data BucketPublicAccess = BucketPublicAccess'
 --
 -- -   UNKNOWN - Amazon Macie can\'t determine whether the bucket is
 --     publicly accessible.
+--
+-- 'permissionConfiguration', 'bucketPublicAccess_permissionConfiguration' - The account-level and bucket-level permissions settings for the bucket.
 newBucketPublicAccess ::
   BucketPublicAccess
 newBucketPublicAccess =
   BucketPublicAccess'
-    { permissionConfiguration =
+    { effectivePermission =
         Prelude.Nothing,
-      effectivePermission = Prelude.Nothing
+      permissionConfiguration = Prelude.Nothing
     }
-
--- | The account-level and bucket-level permissions settings for the bucket.
-bucketPublicAccess_permissionConfiguration :: Lens.Lens' BucketPublicAccess (Prelude.Maybe BucketPermissionConfiguration)
-bucketPublicAccess_permissionConfiguration = Lens.lens (\BucketPublicAccess' {permissionConfiguration} -> permissionConfiguration) (\s@BucketPublicAccess' {} a -> s {permissionConfiguration = a} :: BucketPublicAccess)
 
 -- | Specifies whether the bucket is publicly accessible due to the
 -- combination of permissions settings that apply to the bucket. Possible
@@ -92,23 +89,26 @@ bucketPublicAccess_permissionConfiguration = Lens.lens (\BucketPublicAccess' {pe
 bucketPublicAccess_effectivePermission :: Lens.Lens' BucketPublicAccess (Prelude.Maybe EffectivePermission)
 bucketPublicAccess_effectivePermission = Lens.lens (\BucketPublicAccess' {effectivePermission} -> effectivePermission) (\s@BucketPublicAccess' {} a -> s {effectivePermission = a} :: BucketPublicAccess)
 
-instance Core.FromJSON BucketPublicAccess where
+-- | The account-level and bucket-level permissions settings for the bucket.
+bucketPublicAccess_permissionConfiguration :: Lens.Lens' BucketPublicAccess (Prelude.Maybe BucketPermissionConfiguration)
+bucketPublicAccess_permissionConfiguration = Lens.lens (\BucketPublicAccess' {permissionConfiguration} -> permissionConfiguration) (\s@BucketPublicAccess' {} a -> s {permissionConfiguration = a} :: BucketPublicAccess)
+
+instance Data.FromJSON BucketPublicAccess where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BucketPublicAccess"
       ( \x ->
           BucketPublicAccess'
-            Prelude.<$> (x Core..:? "permissionConfiguration")
-            Prelude.<*> (x Core..:? "effectivePermission")
+            Prelude.<$> (x Data..:? "effectivePermission")
+            Prelude.<*> (x Data..:? "permissionConfiguration")
       )
 
 instance Prelude.Hashable BucketPublicAccess where
   hashWithSalt _salt BucketPublicAccess' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` effectivePermission
       `Prelude.hashWithSalt` permissionConfiguration
-      `Prelude.hashWithSalt` effectivePermission
 
 instance Prelude.NFData BucketPublicAccess where
   rnf BucketPublicAccess' {..} =
-    Prelude.rnf permissionConfiguration
-      `Prelude.seq` Prelude.rnf effectivePermission
+    Prelude.rnf effectivePermission
+      `Prelude.seq` Prelude.rnf permissionConfiguration

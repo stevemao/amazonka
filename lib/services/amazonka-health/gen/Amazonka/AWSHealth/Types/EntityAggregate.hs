@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AWSHealth.Types.EntityAggregate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AWSHealth.Types.EntityAggregate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The number of entities that are affected by one or more events. Returned
@@ -82,14 +83,14 @@ entityAggregate_count = Lens.lens (\EntityAggregate' {count} -> count) (\s@Entit
 entityAggregate_eventArn :: Lens.Lens' EntityAggregate (Prelude.Maybe Prelude.Text)
 entityAggregate_eventArn = Lens.lens (\EntityAggregate' {eventArn} -> eventArn) (\s@EntityAggregate' {} a -> s {eventArn = a} :: EntityAggregate)
 
-instance Core.FromJSON EntityAggregate where
+instance Data.FromJSON EntityAggregate where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EntityAggregate"
       ( \x ->
           EntityAggregate'
-            Prelude.<$> (x Core..:? "count")
-            Prelude.<*> (x Core..:? "eventArn")
+            Prelude.<$> (x Data..:? "count")
+            Prelude.<*> (x Data..:? "eventArn")
       )
 
 instance Prelude.Hashable EntityAggregate where

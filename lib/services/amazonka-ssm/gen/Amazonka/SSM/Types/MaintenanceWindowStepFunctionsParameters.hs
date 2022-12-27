@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.MaintenanceWindowStepFunctionsParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.MaintenanceWindowStepFunctionsParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The parameters for a @STEP_FUNCTIONS@ task.
@@ -48,7 +49,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newMaintenanceWindowStepFunctionsParameters' smart constructor.
 data MaintenanceWindowStepFunctionsParameters = MaintenanceWindowStepFunctionsParameters'
   { -- | The inputs for the @STEP_FUNCTIONS@ task.
-    input :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    input :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The name of the @STEP_FUNCTIONS@ task.
     name :: Prelude.Maybe Prelude.Text
   }
@@ -76,22 +77,22 @@ newMaintenanceWindowStepFunctionsParameters =
 
 -- | The inputs for the @STEP_FUNCTIONS@ task.
 maintenanceWindowStepFunctionsParameters_input :: Lens.Lens' MaintenanceWindowStepFunctionsParameters (Prelude.Maybe Prelude.Text)
-maintenanceWindowStepFunctionsParameters_input = Lens.lens (\MaintenanceWindowStepFunctionsParameters' {input} -> input) (\s@MaintenanceWindowStepFunctionsParameters' {} a -> s {input = a} :: MaintenanceWindowStepFunctionsParameters) Prelude.. Lens.mapping Core._Sensitive
+maintenanceWindowStepFunctionsParameters_input = Lens.lens (\MaintenanceWindowStepFunctionsParameters' {input} -> input) (\s@MaintenanceWindowStepFunctionsParameters' {} a -> s {input = a} :: MaintenanceWindowStepFunctionsParameters) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The name of the @STEP_FUNCTIONS@ task.
 maintenanceWindowStepFunctionsParameters_name :: Lens.Lens' MaintenanceWindowStepFunctionsParameters (Prelude.Maybe Prelude.Text)
 maintenanceWindowStepFunctionsParameters_name = Lens.lens (\MaintenanceWindowStepFunctionsParameters' {name} -> name) (\s@MaintenanceWindowStepFunctionsParameters' {} a -> s {name = a} :: MaintenanceWindowStepFunctionsParameters)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     MaintenanceWindowStepFunctionsParameters
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MaintenanceWindowStepFunctionsParameters"
       ( \x ->
           MaintenanceWindowStepFunctionsParameters'
-            Prelude.<$> (x Core..:? "Input") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Input") Prelude.<*> (x Data..:? "Name")
       )
 
 instance
@@ -112,13 +113,13 @@ instance
     Prelude.rnf input `Prelude.seq` Prelude.rnf name
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     MaintenanceWindowStepFunctionsParameters
   where
   toJSON MaintenanceWindowStepFunctionsParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Input" Core..=) Prelude.<$> input,
-            ("Name" Core..=) Prelude.<$> name
+          [ ("Input" Data..=) Prelude.<$> input,
+            ("Name" Data..=) Prelude.<$> name
           ]
       )

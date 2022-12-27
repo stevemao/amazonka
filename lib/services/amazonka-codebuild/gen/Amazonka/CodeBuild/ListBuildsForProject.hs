@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.ListBuildsForProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.CodeBuild.ListBuildsForProject
     newListBuildsForProject,
 
     -- * Request Lenses
-    listBuildsForProject_sortOrder,
     listBuildsForProject_nextToken,
+    listBuildsForProject_sortOrder,
     listBuildsForProject_projectName,
 
     -- * Destructuring the Response
@@ -47,14 +47,22 @@ where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListBuildsForProject' smart constructor.
 data ListBuildsForProject = ListBuildsForProject'
-  { -- | The order to sort the results in. The results are sorted by build
+  { -- | During a previous call, if there are more than 100 items in the list,
+    -- only the first 100 items are returned, along with a unique string called
+    -- a /nextToken/. To get the next batch of items in the list, call this
+    -- operation again, adding the next token to the call. To get all of the
+    -- items in the list, keep calling this operation with each subsequent next
+    -- token that is returned, until no more next tokens are returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The order to sort the results in. The results are sorted by build
     -- number, not the build identifier. If this is not specified, the results
     -- are sorted in descending order.
     --
@@ -69,13 +77,6 @@ data ListBuildsForProject = ListBuildsForProject'
     -- If the project has more than 100 builds, setting the sort order will
     -- result in an error.
     sortOrder :: Prelude.Maybe SortOrderType,
-    -- | During a previous call, if there are more than 100 items in the list,
-    -- only the first 100 items are returned, along with a unique string called
-    -- a /nextToken/. To get the next batch of items in the list, call this
-    -- operation again, adding the next token to the call. To get all of the
-    -- items in the list, keep calling this operation with each subsequent next
-    -- token that is returned, until no more next tokens are returned.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the CodeBuild project.
     projectName :: Prelude.Text
   }
@@ -88,6 +89,13 @@ data ListBuildsForProject = ListBuildsForProject'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'nextToken', 'listBuildsForProject_nextToken' - During a previous call, if there are more than 100 items in the list,
+-- only the first 100 items are returned, along with a unique string called
+-- a /nextToken/. To get the next batch of items in the list, call this
+-- operation again, adding the next token to the call. To get all of the
+-- items in the list, keep calling this operation with each subsequent next
+-- token that is returned, until no more next tokens are returned.
 --
 -- 'sortOrder', 'listBuildsForProject_sortOrder' - The order to sort the results in. The results are sorted by build
 -- number, not the build identifier. If this is not specified, the results
@@ -104,13 +112,6 @@ data ListBuildsForProject = ListBuildsForProject'
 -- If the project has more than 100 builds, setting the sort order will
 -- result in an error.
 --
--- 'nextToken', 'listBuildsForProject_nextToken' - During a previous call, if there are more than 100 items in the list,
--- only the first 100 items are returned, along with a unique string called
--- a /nextToken/. To get the next batch of items in the list, call this
--- operation again, adding the next token to the call. To get all of the
--- items in the list, keep calling this operation with each subsequent next
--- token that is returned, until no more next tokens are returned.
---
 -- 'projectName', 'listBuildsForProject_projectName' - The name of the CodeBuild project.
 newListBuildsForProject ::
   -- | 'projectName'
@@ -118,10 +119,19 @@ newListBuildsForProject ::
   ListBuildsForProject
 newListBuildsForProject pProjectName_ =
   ListBuildsForProject'
-    { sortOrder = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      sortOrder = Prelude.Nothing,
       projectName = pProjectName_
     }
+
+-- | During a previous call, if there are more than 100 items in the list,
+-- only the first 100 items are returned, along with a unique string called
+-- a /nextToken/. To get the next batch of items in the list, call this
+-- operation again, adding the next token to the call. To get all of the
+-- items in the list, keep calling this operation with each subsequent next
+-- token that is returned, until no more next tokens are returned.
+listBuildsForProject_nextToken :: Lens.Lens' ListBuildsForProject (Prelude.Maybe Prelude.Text)
+listBuildsForProject_nextToken = Lens.lens (\ListBuildsForProject' {nextToken} -> nextToken) (\s@ListBuildsForProject' {} a -> s {nextToken = a} :: ListBuildsForProject)
 
 -- | The order to sort the results in. The results are sorted by build
 -- number, not the build identifier. If this is not specified, the results
@@ -139,15 +149,6 @@ newListBuildsForProject pProjectName_ =
 -- result in an error.
 listBuildsForProject_sortOrder :: Lens.Lens' ListBuildsForProject (Prelude.Maybe SortOrderType)
 listBuildsForProject_sortOrder = Lens.lens (\ListBuildsForProject' {sortOrder} -> sortOrder) (\s@ListBuildsForProject' {} a -> s {sortOrder = a} :: ListBuildsForProject)
-
--- | During a previous call, if there are more than 100 items in the list,
--- only the first 100 items are returned, along with a unique string called
--- a /nextToken/. To get the next batch of items in the list, call this
--- operation again, adding the next token to the call. To get all of the
--- items in the list, keep calling this operation with each subsequent next
--- token that is returned, until no more next tokens are returned.
-listBuildsForProject_nextToken :: Lens.Lens' ListBuildsForProject (Prelude.Maybe Prelude.Text)
-listBuildsForProject_nextToken = Lens.lens (\ListBuildsForProject' {nextToken} -> nextToken) (\s@ListBuildsForProject' {} a -> s {nextToken = a} :: ListBuildsForProject)
 
 -- | The name of the CodeBuild project.
 listBuildsForProject_projectName :: Lens.Lens' ListBuildsForProject Prelude.Text
@@ -179,57 +180,58 @@ instance Core.AWSRequest ListBuildsForProject where
   type
     AWSResponse ListBuildsForProject =
       ListBuildsForProjectResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListBuildsForProjectResponse'
-            Prelude.<$> (x Core..?> "ids")
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "ids")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListBuildsForProject where
   hashWithSalt _salt ListBuildsForProject' {..} =
-    _salt `Prelude.hashWithSalt` sortOrder
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sortOrder
       `Prelude.hashWithSalt` projectName
 
 instance Prelude.NFData ListBuildsForProject where
   rnf ListBuildsForProject' {..} =
-    Prelude.rnf sortOrder
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sortOrder
       `Prelude.seq` Prelude.rnf projectName
 
-instance Core.ToHeaders ListBuildsForProject where
+instance Data.ToHeaders ListBuildsForProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.ListBuildsForProject" ::
+              Data.=# ( "CodeBuild_20161006.ListBuildsForProject" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListBuildsForProject where
+instance Data.ToJSON ListBuildsForProject where
   toJSON ListBuildsForProject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("sortOrder" Core..=) Prelude.<$> sortOrder,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            Prelude.Just ("projectName" Core..= projectName)
+          [ ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("sortOrder" Data..=) Prelude.<$> sortOrder,
+            Prelude.Just ("projectName" Data..= projectName)
           ]
       )
 
-instance Core.ToPath ListBuildsForProject where
+instance Data.ToPath ListBuildsForProject where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListBuildsForProject where
+instance Data.ToQuery ListBuildsForProject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListBuildsForProjectResponse' smart constructor.

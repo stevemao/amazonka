@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.S3KeyFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.S3KeyFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.FilterRule
@@ -51,10 +52,10 @@ newS3KeyFilter =
 s3KeyFilter_filterRules :: Lens.Lens' S3KeyFilter (Prelude.Maybe [FilterRule])
 s3KeyFilter_filterRules = Lens.lens (\S3KeyFilter' {filterRules} -> filterRules) (\s@S3KeyFilter' {} a -> s {filterRules = a} :: S3KeyFilter) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML S3KeyFilter where
+instance Data.FromXML S3KeyFilter where
   parseXML x =
     S3KeyFilter'
-      Prelude.<$> (Core.may (Core.parseXMLList "FilterRule") x)
+      Prelude.<$> (Core.may (Data.parseXMLList "FilterRule") x)
 
 instance Prelude.Hashable S3KeyFilter where
   hashWithSalt _salt S3KeyFilter' {..} =
@@ -63,11 +64,11 @@ instance Prelude.Hashable S3KeyFilter where
 instance Prelude.NFData S3KeyFilter where
   rnf S3KeyFilter' {..} = Prelude.rnf filterRules
 
-instance Core.ToXML S3KeyFilter where
+instance Data.ToXML S3KeyFilter where
   toXML S3KeyFilter' {..} =
     Prelude.mconcat
-      [ Core.toXML
-          ( Core.toXMLList "FilterRule"
+      [ Data.toXML
+          ( Data.toXMLList "FilterRule"
               Prelude.<$> filterRules
           )
       ]

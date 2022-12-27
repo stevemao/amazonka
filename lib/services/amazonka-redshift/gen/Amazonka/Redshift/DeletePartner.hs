@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DeletePartner
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,13 +38,14 @@ module Amazonka.Redshift.DeletePartner
     newPartnerIntegrationOutputMessage,
 
     -- * Response Lenses
-    partnerIntegrationOutputMessage_partnerName,
     partnerIntegrationOutputMessage_databaseName,
+    partnerIntegrationOutputMessage_partnerName,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -123,11 +124,12 @@ instance Core.AWSRequest DeletePartner where
   type
     AWSResponse DeletePartner =
       PartnerIntegrationOutputMessage
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeletePartnerResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable DeletePartner where
   hashWithSalt _salt DeletePartner' {..} =
@@ -143,21 +145,21 @@ instance Prelude.NFData DeletePartner where
       `Prelude.seq` Prelude.rnf databaseName
       `Prelude.seq` Prelude.rnf partnerName
 
-instance Core.ToHeaders DeletePartner where
+instance Data.ToHeaders DeletePartner where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeletePartner where
+instance Data.ToPath DeletePartner where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeletePartner where
+instance Data.ToQuery DeletePartner where
   toQuery DeletePartner' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeletePartner" :: Prelude.ByteString),
+          Data.=: ("DeletePartner" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "AccountId" Core.=: accountId,
-        "ClusterIdentifier" Core.=: clusterIdentifier,
-        "DatabaseName" Core.=: databaseName,
-        "PartnerName" Core.=: partnerName
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "AccountId" Data.=: accountId,
+        "ClusterIdentifier" Data.=: clusterIdentifier,
+        "DatabaseName" Data.=: databaseName,
+        "PartnerName" Data.=: partnerName
       ]

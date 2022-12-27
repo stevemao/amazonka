@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutEquipment.StartInferenceScheduler
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,17 +34,18 @@ module Amazonka.LookoutEquipment.StartInferenceScheduler
     newStartInferenceSchedulerResponse,
 
     -- * Response Lenses
-    startInferenceSchedulerResponse_status,
-    startInferenceSchedulerResponse_modelArn,
-    startInferenceSchedulerResponse_modelName,
     startInferenceSchedulerResponse_inferenceSchedulerArn,
     startInferenceSchedulerResponse_inferenceSchedulerName,
+    startInferenceSchedulerResponse_modelArn,
+    startInferenceSchedulerResponse_modelName,
+    startInferenceSchedulerResponse_status,
     startInferenceSchedulerResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutEquipment.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -84,16 +85,17 @@ instance Core.AWSRequest StartInferenceScheduler where
   type
     AWSResponse StartInferenceScheduler =
       StartInferenceSchedulerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartInferenceSchedulerResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "ModelArn")
-            Prelude.<*> (x Core..?> "ModelName")
-            Prelude.<*> (x Core..?> "InferenceSchedulerArn")
-            Prelude.<*> (x Core..?> "InferenceSchedulerName")
+            Prelude.<$> (x Data..?> "InferenceSchedulerArn")
+            Prelude.<*> (x Data..?> "InferenceSchedulerName")
+            Prelude.<*> (x Data..?> "ModelArn")
+            Prelude.<*> (x Data..?> "ModelName")
+            Prelude.<*> (x Data..?> "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -105,51 +107,51 @@ instance Prelude.NFData StartInferenceScheduler where
   rnf StartInferenceScheduler' {..} =
     Prelude.rnf inferenceSchedulerName
 
-instance Core.ToHeaders StartInferenceScheduler where
+instance Data.ToHeaders StartInferenceScheduler where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLookoutEquipmentFrontendService.StartInferenceScheduler" ::
+              Data.=# ( "AWSLookoutEquipmentFrontendService.StartInferenceScheduler" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartInferenceScheduler where
+instance Data.ToJSON StartInferenceScheduler where
   toJSON StartInferenceScheduler' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "InferenceSchedulerName"
-                  Core..= inferenceSchedulerName
+                  Data..= inferenceSchedulerName
               )
           ]
       )
 
-instance Core.ToPath StartInferenceScheduler where
+instance Data.ToPath StartInferenceScheduler where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartInferenceScheduler where
+instance Data.ToQuery StartInferenceScheduler where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartInferenceSchedulerResponse' smart constructor.
 data StartInferenceSchedulerResponse = StartInferenceSchedulerResponse'
-  { -- | Indicates the status of the inference scheduler.
-    status :: Prelude.Maybe InferenceSchedulerStatus,
+  { -- | The Amazon Resource Name (ARN) of the inference scheduler being started.
+    inferenceSchedulerArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the inference scheduler being started.
+    inferenceSchedulerName :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the ML model being used by the
     -- inference scheduler.
     modelArn :: Prelude.Maybe Prelude.Text,
     -- | The name of the ML model being used by the inference scheduler.
     modelName :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the inference scheduler being started.
-    inferenceSchedulerArn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the inference scheduler being started.
-    inferenceSchedulerName :: Prelude.Maybe Prelude.Text,
+    -- | Indicates the status of the inference scheduler.
+    status :: Prelude.Maybe InferenceSchedulerStatus,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -163,16 +165,16 @@ data StartInferenceSchedulerResponse = StartInferenceSchedulerResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'startInferenceSchedulerResponse_status' - Indicates the status of the inference scheduler.
+-- 'inferenceSchedulerArn', 'startInferenceSchedulerResponse_inferenceSchedulerArn' - The Amazon Resource Name (ARN) of the inference scheduler being started.
+--
+-- 'inferenceSchedulerName', 'startInferenceSchedulerResponse_inferenceSchedulerName' - The name of the inference scheduler being started.
 --
 -- 'modelArn', 'startInferenceSchedulerResponse_modelArn' - The Amazon Resource Name (ARN) of the ML model being used by the
 -- inference scheduler.
 --
 -- 'modelName', 'startInferenceSchedulerResponse_modelName' - The name of the ML model being used by the inference scheduler.
 --
--- 'inferenceSchedulerArn', 'startInferenceSchedulerResponse_inferenceSchedulerArn' - The Amazon Resource Name (ARN) of the inference scheduler being started.
---
--- 'inferenceSchedulerName', 'startInferenceSchedulerResponse_inferenceSchedulerName' - The name of the inference scheduler being started.
+-- 'status', 'startInferenceSchedulerResponse_status' - Indicates the status of the inference scheduler.
 --
 -- 'httpStatus', 'startInferenceSchedulerResponse_httpStatus' - The response's http status code.
 newStartInferenceSchedulerResponse ::
@@ -181,18 +183,22 @@ newStartInferenceSchedulerResponse ::
   StartInferenceSchedulerResponse
 newStartInferenceSchedulerResponse pHttpStatus_ =
   StartInferenceSchedulerResponse'
-    { status =
+    { inferenceSchedulerArn =
         Prelude.Nothing,
+      inferenceSchedulerName = Prelude.Nothing,
       modelArn = Prelude.Nothing,
       modelName = Prelude.Nothing,
-      inferenceSchedulerArn = Prelude.Nothing,
-      inferenceSchedulerName = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | Indicates the status of the inference scheduler.
-startInferenceSchedulerResponse_status :: Lens.Lens' StartInferenceSchedulerResponse (Prelude.Maybe InferenceSchedulerStatus)
-startInferenceSchedulerResponse_status = Lens.lens (\StartInferenceSchedulerResponse' {status} -> status) (\s@StartInferenceSchedulerResponse' {} a -> s {status = a} :: StartInferenceSchedulerResponse)
+-- | The Amazon Resource Name (ARN) of the inference scheduler being started.
+startInferenceSchedulerResponse_inferenceSchedulerArn :: Lens.Lens' StartInferenceSchedulerResponse (Prelude.Maybe Prelude.Text)
+startInferenceSchedulerResponse_inferenceSchedulerArn = Lens.lens (\StartInferenceSchedulerResponse' {inferenceSchedulerArn} -> inferenceSchedulerArn) (\s@StartInferenceSchedulerResponse' {} a -> s {inferenceSchedulerArn = a} :: StartInferenceSchedulerResponse)
+
+-- | The name of the inference scheduler being started.
+startInferenceSchedulerResponse_inferenceSchedulerName :: Lens.Lens' StartInferenceSchedulerResponse (Prelude.Maybe Prelude.Text)
+startInferenceSchedulerResponse_inferenceSchedulerName = Lens.lens (\StartInferenceSchedulerResponse' {inferenceSchedulerName} -> inferenceSchedulerName) (\s@StartInferenceSchedulerResponse' {} a -> s {inferenceSchedulerName = a} :: StartInferenceSchedulerResponse)
 
 -- | The Amazon Resource Name (ARN) of the ML model being used by the
 -- inference scheduler.
@@ -203,13 +209,9 @@ startInferenceSchedulerResponse_modelArn = Lens.lens (\StartInferenceSchedulerRe
 startInferenceSchedulerResponse_modelName :: Lens.Lens' StartInferenceSchedulerResponse (Prelude.Maybe Prelude.Text)
 startInferenceSchedulerResponse_modelName = Lens.lens (\StartInferenceSchedulerResponse' {modelName} -> modelName) (\s@StartInferenceSchedulerResponse' {} a -> s {modelName = a} :: StartInferenceSchedulerResponse)
 
--- | The Amazon Resource Name (ARN) of the inference scheduler being started.
-startInferenceSchedulerResponse_inferenceSchedulerArn :: Lens.Lens' StartInferenceSchedulerResponse (Prelude.Maybe Prelude.Text)
-startInferenceSchedulerResponse_inferenceSchedulerArn = Lens.lens (\StartInferenceSchedulerResponse' {inferenceSchedulerArn} -> inferenceSchedulerArn) (\s@StartInferenceSchedulerResponse' {} a -> s {inferenceSchedulerArn = a} :: StartInferenceSchedulerResponse)
-
--- | The name of the inference scheduler being started.
-startInferenceSchedulerResponse_inferenceSchedulerName :: Lens.Lens' StartInferenceSchedulerResponse (Prelude.Maybe Prelude.Text)
-startInferenceSchedulerResponse_inferenceSchedulerName = Lens.lens (\StartInferenceSchedulerResponse' {inferenceSchedulerName} -> inferenceSchedulerName) (\s@StartInferenceSchedulerResponse' {} a -> s {inferenceSchedulerName = a} :: StartInferenceSchedulerResponse)
+-- | Indicates the status of the inference scheduler.
+startInferenceSchedulerResponse_status :: Lens.Lens' StartInferenceSchedulerResponse (Prelude.Maybe InferenceSchedulerStatus)
+startInferenceSchedulerResponse_status = Lens.lens (\StartInferenceSchedulerResponse' {status} -> status) (\s@StartInferenceSchedulerResponse' {} a -> s {status = a} :: StartInferenceSchedulerResponse)
 
 -- | The response's http status code.
 startInferenceSchedulerResponse_httpStatus :: Lens.Lens' StartInferenceSchedulerResponse Prelude.Int
@@ -220,9 +222,9 @@ instance
     StartInferenceSchedulerResponse
   where
   rnf StartInferenceSchedulerResponse' {..} =
-    Prelude.rnf status
+    Prelude.rnf inferenceSchedulerArn
+      `Prelude.seq` Prelude.rnf inferenceSchedulerName
       `Prelude.seq` Prelude.rnf modelArn
       `Prelude.seq` Prelude.rnf modelName
-      `Prelude.seq` Prelude.rnf inferenceSchedulerArn
-      `Prelude.seq` Prelude.rnf inferenceSchedulerName
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

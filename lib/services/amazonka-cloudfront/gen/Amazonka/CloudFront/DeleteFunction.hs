@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.DeleteFunction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,7 +96,8 @@ instance Core.AWSRequest DeleteFunction where
   type
     AWSResponse DeleteFunction =
       DeleteFunctionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteFunctionResponse'
 
@@ -108,16 +110,16 @@ instance Prelude.NFData DeleteFunction where
   rnf DeleteFunction' {..} =
     Prelude.rnf ifMatch `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders DeleteFunction where
+instance Data.ToHeaders DeleteFunction where
   toHeaders DeleteFunction' {..} =
-    Prelude.mconcat ["If-Match" Core.=# ifMatch]
+    Prelude.mconcat ["If-Match" Data.=# ifMatch]
 
-instance Core.ToPath DeleteFunction where
+instance Data.ToPath DeleteFunction where
   toPath DeleteFunction' {..} =
     Prelude.mconcat
-      ["/2020-05-31/function/", Core.toBS name]
+      ["/2020-05-31/function/", Data.toBS name]
 
-instance Core.ToQuery DeleteFunction where
+instance Data.ToQuery DeleteFunction where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFunctionResponse' smart constructor.

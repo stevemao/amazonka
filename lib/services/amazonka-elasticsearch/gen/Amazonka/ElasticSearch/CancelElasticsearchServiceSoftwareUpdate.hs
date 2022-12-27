@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.CancelElasticsearchServiceSoftwareUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.ElasticSearch.CancelElasticsearchServiceSoftwareUpdate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,12 +96,13 @@ instance
     AWSResponse
       CancelElasticsearchServiceSoftwareUpdate =
       CancelElasticsearchServiceSoftwareUpdateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CancelElasticsearchServiceSoftwareUpdateResponse'
-            Prelude.<$> (x Core..?> "ServiceSoftwareOptions")
+            Prelude.<$> (x Data..?> "ServiceSoftwareOptions")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,23 +123,23 @@ instance
     Prelude.rnf domainName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CancelElasticsearchServiceSoftwareUpdate
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CancelElasticsearchServiceSoftwareUpdate
   where
   toJSON CancelElasticsearchServiceSoftwareUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("DomainName" Core..= domainName)]
+          [Prelude.Just ("DomainName" Data..= domainName)]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     CancelElasticsearchServiceSoftwareUpdate
   where
   toPath =
@@ -145,7 +147,7 @@ instance
       "/2015-01-01/es/serviceSoftwareUpdate/cancel"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CancelElasticsearchServiceSoftwareUpdate
   where
   toQuery = Prelude.const Prelude.mempty

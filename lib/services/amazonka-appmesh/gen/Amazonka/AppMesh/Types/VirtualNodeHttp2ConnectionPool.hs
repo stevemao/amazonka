@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualNodeHttp2ConnectionPool
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppMesh.Types.VirtualNodeHttp2ConnectionPool where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a type of connection pool.
@@ -58,13 +59,13 @@ newVirtualNodeHttp2ConnectionPool pMaxRequests_ =
 virtualNodeHttp2ConnectionPool_maxRequests :: Lens.Lens' VirtualNodeHttp2ConnectionPool Prelude.Natural
 virtualNodeHttp2ConnectionPool_maxRequests = Lens.lens (\VirtualNodeHttp2ConnectionPool' {maxRequests} -> maxRequests) (\s@VirtualNodeHttp2ConnectionPool' {} a -> s {maxRequests = a} :: VirtualNodeHttp2ConnectionPool)
 
-instance Core.FromJSON VirtualNodeHttp2ConnectionPool where
+instance Data.FromJSON VirtualNodeHttp2ConnectionPool where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualNodeHttp2ConnectionPool"
       ( \x ->
           VirtualNodeHttp2ConnectionPool'
-            Prelude.<$> (x Core..: "maxRequests")
+            Prelude.<$> (x Data..: "maxRequests")
       )
 
 instance
@@ -83,9 +84,9 @@ instance
   rnf VirtualNodeHttp2ConnectionPool' {..} =
     Prelude.rnf maxRequests
 
-instance Core.ToJSON VirtualNodeHttp2ConnectionPool where
+instance Data.ToJSON VirtualNodeHttp2ConnectionPool where
   toJSON VirtualNodeHttp2ConnectionPool' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("maxRequests" Core..= maxRequests)]
+          [Prelude.Just ("maxRequests" Data..= maxRequests)]
       )

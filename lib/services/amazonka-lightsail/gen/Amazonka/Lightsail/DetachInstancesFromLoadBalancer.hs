@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.DetachInstancesFromLoadBalancer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.Lightsail.DetachInstancesFromLoadBalancer
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -104,12 +105,13 @@ instance
   type
     AWSResponse DetachInstancesFromLoadBalancer =
       DetachInstancesFromLoadBalancerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DetachInstancesFromLoadBalancerResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -132,38 +134,38 @@ instance
       `Prelude.seq` Prelude.rnf instanceNames
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DetachInstancesFromLoadBalancer
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.DetachInstancesFromLoadBalancer" ::
+              Data.=# ( "Lightsail_20161128.DetachInstancesFromLoadBalancer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DetachInstancesFromLoadBalancer where
+instance Data.ToJSON DetachInstancesFromLoadBalancer where
   toJSON DetachInstancesFromLoadBalancer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("loadBalancerName" Core..= loadBalancerName),
+              ("loadBalancerName" Data..= loadBalancerName),
             Prelude.Just
-              ("instanceNames" Core..= instanceNames)
+              ("instanceNames" Data..= instanceNames)
           ]
       )
 
-instance Core.ToPath DetachInstancesFromLoadBalancer where
+instance Data.ToPath DetachInstancesFromLoadBalancer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetachInstancesFromLoadBalancer where
+instance Data.ToQuery DetachInstancesFromLoadBalancer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDetachInstancesFromLoadBalancerResponse' smart constructor.

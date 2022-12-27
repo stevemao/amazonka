@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.UpdateGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,9 @@ module Amazonka.AlexaBusiness.UpdateGateway
     newUpdateGateway,
 
     -- * Request Lenses
+    updateGateway_description,
     updateGateway_name,
     updateGateway_softwareVersion,
-    updateGateway_description,
     updateGateway_gatewayArn,
 
     -- * Destructuring the Response
@@ -44,20 +44,21 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateGateway' smart constructor.
 data UpdateGateway = UpdateGateway'
-  { -- | The updated name of the gateway.
+  { -- | The updated description of the gateway.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The updated name of the gateway.
     name :: Prelude.Maybe Prelude.Text,
     -- | The updated software version of the gateway. The gateway automatically
     -- updates its software version during normal operation.
     softwareVersion :: Prelude.Maybe Prelude.Text,
-    -- | The updated description of the gateway.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the gateway to update.
     gatewayArn :: Prelude.Text
   }
@@ -71,12 +72,12 @@ data UpdateGateway = UpdateGateway'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'updateGateway_description' - The updated description of the gateway.
+--
 -- 'name', 'updateGateway_name' - The updated name of the gateway.
 --
 -- 'softwareVersion', 'updateGateway_softwareVersion' - The updated software version of the gateway. The gateway automatically
 -- updates its software version during normal operation.
---
--- 'description', 'updateGateway_description' - The updated description of the gateway.
 --
 -- 'gatewayArn', 'updateGateway_gatewayArn' - The ARN of the gateway to update.
 newUpdateGateway ::
@@ -85,11 +86,15 @@ newUpdateGateway ::
   UpdateGateway
 newUpdateGateway pGatewayArn_ =
   UpdateGateway'
-    { name = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      name = Prelude.Nothing,
       softwareVersion = Prelude.Nothing,
-      description = Prelude.Nothing,
       gatewayArn = pGatewayArn_
     }
+
+-- | The updated description of the gateway.
+updateGateway_description :: Lens.Lens' UpdateGateway (Prelude.Maybe Prelude.Text)
+updateGateway_description = Lens.lens (\UpdateGateway' {description} -> description) (\s@UpdateGateway' {} a -> s {description = a} :: UpdateGateway)
 
 -- | The updated name of the gateway.
 updateGateway_name :: Lens.Lens' UpdateGateway (Prelude.Maybe Prelude.Text)
@@ -100,10 +105,6 @@ updateGateway_name = Lens.lens (\UpdateGateway' {name} -> name) (\s@UpdateGatewa
 updateGateway_softwareVersion :: Lens.Lens' UpdateGateway (Prelude.Maybe Prelude.Text)
 updateGateway_softwareVersion = Lens.lens (\UpdateGateway' {softwareVersion} -> softwareVersion) (\s@UpdateGateway' {} a -> s {softwareVersion = a} :: UpdateGateway)
 
--- | The updated description of the gateway.
-updateGateway_description :: Lens.Lens' UpdateGateway (Prelude.Maybe Prelude.Text)
-updateGateway_description = Lens.lens (\UpdateGateway' {description} -> description) (\s@UpdateGateway' {} a -> s {description = a} :: UpdateGateway)
-
 -- | The ARN of the gateway to update.
 updateGateway_gatewayArn :: Lens.Lens' UpdateGateway Prelude.Text
 updateGateway_gatewayArn = Lens.lens (\UpdateGateway' {gatewayArn} -> gatewayArn) (\s@UpdateGateway' {} a -> s {gatewayArn = a} :: UpdateGateway)
@@ -112,7 +113,8 @@ instance Core.AWSRequest UpdateGateway where
   type
     AWSResponse UpdateGateway =
       UpdateGatewayResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -122,49 +124,49 @@ instance Core.AWSRequest UpdateGateway where
 
 instance Prelude.Hashable UpdateGateway where
   hashWithSalt _salt UpdateGateway' {..} =
-    _salt `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` softwareVersion
-      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` gatewayArn
 
 instance Prelude.NFData UpdateGateway where
   rnf UpdateGateway' {..} =
-    Prelude.rnf name
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf softwareVersion
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf gatewayArn
 
-instance Core.ToHeaders UpdateGateway where
+instance Data.ToHeaders UpdateGateway where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.UpdateGateway" ::
+              Data.=# ( "AlexaForBusiness.UpdateGateway" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateGateway where
+instance Data.ToJSON UpdateGateway where
   toJSON UpdateGateway' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Name" Core..=) Prelude.<$> name,
-            ("SoftwareVersion" Core..=)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Name" Data..=) Prelude.<$> name,
+            ("SoftwareVersion" Data..=)
               Prelude.<$> softwareVersion,
-            ("Description" Core..=) Prelude.<$> description,
-            Prelude.Just ("GatewayArn" Core..= gatewayArn)
+            Prelude.Just ("GatewayArn" Data..= gatewayArn)
           ]
       )
 
-instance Core.ToPath UpdateGateway where
+instance Data.ToPath UpdateGateway where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateGateway where
+instance Data.ToQuery UpdateGateway where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateGatewayResponse' smart constructor.

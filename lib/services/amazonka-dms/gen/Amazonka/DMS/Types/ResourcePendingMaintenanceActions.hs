@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.Types.ResourcePendingMaintenanceActions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DMS.Types.ResourcePendingMaintenanceActions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types.PendingMaintenanceAction
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Identifies an DMS resource and any pending actions for it.
@@ -76,18 +77,18 @@ resourcePendingMaintenanceActions_resourceIdentifier :: Lens.Lens' ResourcePendi
 resourcePendingMaintenanceActions_resourceIdentifier = Lens.lens (\ResourcePendingMaintenanceActions' {resourceIdentifier} -> resourceIdentifier) (\s@ResourcePendingMaintenanceActions' {} a -> s {resourceIdentifier = a} :: ResourcePendingMaintenanceActions)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ResourcePendingMaintenanceActions
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourcePendingMaintenanceActions"
       ( \x ->
           ResourcePendingMaintenanceActions'
-            Prelude.<$> ( x Core..:? "PendingMaintenanceActionDetails"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "PendingMaintenanceActionDetails"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "ResourceIdentifier")
+            Prelude.<*> (x Data..:? "ResourceIdentifier")
       )
 
 instance

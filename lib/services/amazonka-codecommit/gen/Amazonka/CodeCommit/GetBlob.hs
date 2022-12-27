@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.GetBlob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,13 +93,14 @@ getBlob_blobId = Lens.lens (\GetBlob' {blobId} -> blobId) (\s@GetBlob' {} a -> s
 
 instance Core.AWSRequest GetBlob where
   type AWSResponse GetBlob = GetBlobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBlobResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "content")
+            Prelude.<*> (x Data..:> "content")
       )
 
 instance Prelude.Hashable GetBlob where
@@ -111,35 +113,35 @@ instance Prelude.NFData GetBlob where
     Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf blobId
 
-instance Core.ToHeaders GetBlob where
+instance Data.ToHeaders GetBlob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.GetBlob" ::
+              Data.=# ( "CodeCommit_20150413.GetBlob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetBlob where
+instance Data.ToJSON GetBlob where
   toJSON GetBlob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("repositoryName" Core..= repositoryName),
-            Prelude.Just ("blobId" Core..= blobId)
+              ("repositoryName" Data..= repositoryName),
+            Prelude.Just ("blobId" Data..= blobId)
           ]
       )
 
-instance Core.ToPath GetBlob where
+instance Data.ToPath GetBlob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetBlob where
+instance Data.ToQuery GetBlob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a get blob operation.
@@ -149,7 +151,7 @@ data GetBlobResponse = GetBlobResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The content of the blob, usually a file.
-    content :: Core.Base64
+    content :: Data.Base64
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -177,7 +179,7 @@ newGetBlobResponse ::
 newGetBlobResponse pHttpStatus_ pContent_ =
   GetBlobResponse'
     { httpStatus = pHttpStatus_,
-      content = Core._Base64 Lens.# pContent_
+      content = Data._Base64 Lens.# pContent_
     }
 
 -- | The response's http status code.
@@ -190,7 +192,7 @@ getBlobResponse_httpStatus = Lens.lens (\GetBlobResponse' {httpStatus} -> httpSt
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 getBlobResponse_content :: Lens.Lens' GetBlobResponse Prelude.ByteString
-getBlobResponse_content = Lens.lens (\GetBlobResponse' {content} -> content) (\s@GetBlobResponse' {} a -> s {content = a} :: GetBlobResponse) Prelude.. Core._Base64
+getBlobResponse_content = Lens.lens (\GetBlobResponse' {content} -> content) (\s@GetBlobResponse' {} a -> s {content = a} :: GetBlobResponse) Prelude.. Data._Base64
 
 instance Prelude.NFData GetBlobResponse where
   rnf GetBlobResponse' {..} =

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.Types.ResourceSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConnect.Types.ResourceSpecification where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types.ResourceType
 import qualified Amazonka.Prelude as Prelude
 
@@ -65,14 +66,14 @@ resourceSpecification_reservedBitrate = Lens.lens (\ResourceSpecification' {rese
 resourceSpecification_resourceType :: Lens.Lens' ResourceSpecification ResourceType
 resourceSpecification_resourceType = Lens.lens (\ResourceSpecification' {resourceType} -> resourceType) (\s@ResourceSpecification' {} a -> s {resourceType = a} :: ResourceSpecification)
 
-instance Core.FromJSON ResourceSpecification where
+instance Data.FromJSON ResourceSpecification where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceSpecification"
       ( \x ->
           ResourceSpecification'
-            Prelude.<$> (x Core..:? "reservedBitrate")
-            Prelude.<*> (x Core..: "resourceType")
+            Prelude.<$> (x Data..:? "reservedBitrate")
+            Prelude.<*> (x Data..: "resourceType")
       )
 
 instance Prelude.Hashable ResourceSpecification where

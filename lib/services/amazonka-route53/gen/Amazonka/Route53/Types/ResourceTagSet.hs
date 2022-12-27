@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.Types.ResourceTagSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53.Types.ResourceTagSet where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53.Internal
 import Amazonka.Route53.Types.Tag
@@ -85,13 +86,13 @@ resourceTagSet_resourceType = Lens.lens (\ResourceTagSet' {resourceType} -> reso
 resourceTagSet_tags :: Lens.Lens' ResourceTagSet (Prelude.Maybe (Prelude.NonEmpty Tag))
 resourceTagSet_tags = Lens.lens (\ResourceTagSet' {tags} -> tags) (\s@ResourceTagSet' {} a -> s {tags = a} :: ResourceTagSet) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML ResourceTagSet where
+instance Data.FromXML ResourceTagSet where
   parseXML x =
     ResourceTagSet'
-      Prelude.<$> (x Core..@? "ResourceId")
-      Prelude.<*> (x Core..@? "ResourceType")
-      Prelude.<*> ( x Core..@? "Tags" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList1 "Tag")
+      Prelude.<$> (x Data..@? "ResourceId")
+      Prelude.<*> (x Data..@? "ResourceType")
+      Prelude.<*> ( x Data..@? "Tags" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList1 "Tag")
                   )
 
 instance Prelude.Hashable ResourceTagSet where

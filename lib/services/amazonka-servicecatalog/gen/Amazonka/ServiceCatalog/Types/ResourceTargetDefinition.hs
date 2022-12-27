@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.Types.ResourceTargetDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ServiceCatalog.Types.ResourceTargetDefinition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.ServiceCatalog.Types.RequiresRecreation
 import Amazonka.ServiceCatalog.Types.ResourceAttribute
@@ -31,12 +32,12 @@ import Amazonka.ServiceCatalog.Types.ResourceAttribute
 data ResourceTargetDefinition = ResourceTargetDefinition'
   { -- | The attribute to be changed.
     attribute :: Prelude.Maybe ResourceAttribute,
-    -- | If the attribute is @Properties@, indicates whether a change to this
-    -- property causes the resource to be re-created.
-    requiresRecreation :: Prelude.Maybe RequiresRecreation,
     -- | If the attribute is @Properties@, the value is the name of the property.
     -- Otherwise, the value is null.
-    name :: Prelude.Maybe Prelude.Text
+    name :: Prelude.Maybe Prelude.Text,
+    -- | If the attribute is @Properties@, indicates whether a change to this
+    -- property causes the resource to be re-created.
+    requiresRecreation :: Prelude.Maybe RequiresRecreation
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,54 +51,54 @@ data ResourceTargetDefinition = ResourceTargetDefinition'
 --
 -- 'attribute', 'resourceTargetDefinition_attribute' - The attribute to be changed.
 --
--- 'requiresRecreation', 'resourceTargetDefinition_requiresRecreation' - If the attribute is @Properties@, indicates whether a change to this
--- property causes the resource to be re-created.
---
 -- 'name', 'resourceTargetDefinition_name' - If the attribute is @Properties@, the value is the name of the property.
 -- Otherwise, the value is null.
+--
+-- 'requiresRecreation', 'resourceTargetDefinition_requiresRecreation' - If the attribute is @Properties@, indicates whether a change to this
+-- property causes the resource to be re-created.
 newResourceTargetDefinition ::
   ResourceTargetDefinition
 newResourceTargetDefinition =
   ResourceTargetDefinition'
     { attribute =
         Prelude.Nothing,
-      requiresRecreation = Prelude.Nothing,
-      name = Prelude.Nothing
+      name = Prelude.Nothing,
+      requiresRecreation = Prelude.Nothing
     }
 
 -- | The attribute to be changed.
 resourceTargetDefinition_attribute :: Lens.Lens' ResourceTargetDefinition (Prelude.Maybe ResourceAttribute)
 resourceTargetDefinition_attribute = Lens.lens (\ResourceTargetDefinition' {attribute} -> attribute) (\s@ResourceTargetDefinition' {} a -> s {attribute = a} :: ResourceTargetDefinition)
 
--- | If the attribute is @Properties@, indicates whether a change to this
--- property causes the resource to be re-created.
-resourceTargetDefinition_requiresRecreation :: Lens.Lens' ResourceTargetDefinition (Prelude.Maybe RequiresRecreation)
-resourceTargetDefinition_requiresRecreation = Lens.lens (\ResourceTargetDefinition' {requiresRecreation} -> requiresRecreation) (\s@ResourceTargetDefinition' {} a -> s {requiresRecreation = a} :: ResourceTargetDefinition)
-
 -- | If the attribute is @Properties@, the value is the name of the property.
 -- Otherwise, the value is null.
 resourceTargetDefinition_name :: Lens.Lens' ResourceTargetDefinition (Prelude.Maybe Prelude.Text)
 resourceTargetDefinition_name = Lens.lens (\ResourceTargetDefinition' {name} -> name) (\s@ResourceTargetDefinition' {} a -> s {name = a} :: ResourceTargetDefinition)
 
-instance Core.FromJSON ResourceTargetDefinition where
+-- | If the attribute is @Properties@, indicates whether a change to this
+-- property causes the resource to be re-created.
+resourceTargetDefinition_requiresRecreation :: Lens.Lens' ResourceTargetDefinition (Prelude.Maybe RequiresRecreation)
+resourceTargetDefinition_requiresRecreation = Lens.lens (\ResourceTargetDefinition' {requiresRecreation} -> requiresRecreation) (\s@ResourceTargetDefinition' {} a -> s {requiresRecreation = a} :: ResourceTargetDefinition)
+
+instance Data.FromJSON ResourceTargetDefinition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceTargetDefinition"
       ( \x ->
           ResourceTargetDefinition'
-            Prelude.<$> (x Core..:? "Attribute")
-            Prelude.<*> (x Core..:? "RequiresRecreation")
-            Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Attribute")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "RequiresRecreation")
       )
 
 instance Prelude.Hashable ResourceTargetDefinition where
   hashWithSalt _salt ResourceTargetDefinition' {..} =
     _salt `Prelude.hashWithSalt` attribute
-      `Prelude.hashWithSalt` requiresRecreation
       `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` requiresRecreation
 
 instance Prelude.NFData ResourceTargetDefinition where
   rnf ResourceTargetDefinition' {..} =
     Prelude.rnf attribute
-      `Prelude.seq` Prelude.rnf requiresRecreation
       `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf requiresRecreation

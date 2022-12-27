@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.Types.OriginDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.DataExchange.Types.OriginDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Information about the origin of the data set.
+-- | Details about the origin of the data set.
 --
 -- /See:/ 'newOriginDetails' smart constructor.
 data OriginDetails = OriginDetails'
@@ -52,12 +53,12 @@ newOriginDetails pProductId_ =
 originDetails_productId :: Lens.Lens' OriginDetails Prelude.Text
 originDetails_productId = Lens.lens (\OriginDetails' {productId} -> productId) (\s@OriginDetails' {} a -> s {productId = a} :: OriginDetails)
 
-instance Core.FromJSON OriginDetails where
+instance Data.FromJSON OriginDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OriginDetails"
       ( \x ->
-          OriginDetails' Prelude.<$> (x Core..: "ProductId")
+          OriginDetails' Prelude.<$> (x Data..: "ProductId")
       )
 
 instance Prelude.Hashable OriginDetails where

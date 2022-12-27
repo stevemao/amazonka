@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.ListTemplateVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.QuickSight.ListTemplateVersions
     newListTemplateVersions,
 
     -- * Request Lenses
-    listTemplateVersions_nextToken,
     listTemplateVersions_maxResults,
+    listTemplateVersions_nextToken,
     listTemplateVersions_awsAccountId,
     listTemplateVersions_templateId,
 
@@ -40,15 +40,16 @@ module Amazonka.QuickSight.ListTemplateVersions
     newListTemplateVersionsResponse,
 
     -- * Response Lenses
+    listTemplateVersionsResponse_nextToken,
     listTemplateVersionsResponse_requestId,
     listTemplateVersionsResponse_templateVersionSummaryList,
-    listTemplateVersionsResponse_nextToken,
     listTemplateVersionsResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -56,11 +57,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTemplateVersions' smart constructor.
 data ListTemplateVersions = ListTemplateVersions'
-  { -- | The token for the next set of results, or null if there are no more
+  { -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results, or null if there are no more
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the Amazon Web Services account that contains the templates
     -- that you\'re listing.
     awsAccountId :: Prelude.Text,
@@ -77,10 +78,10 @@ data ListTemplateVersions = ListTemplateVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listTemplateVersions_maxResults' - The maximum number of results to be returned per request.
+--
 -- 'nextToken', 'listTemplateVersions_nextToken' - The token for the next set of results, or null if there are no more
 -- results.
---
--- 'maxResults', 'listTemplateVersions_maxResults' - The maximum number of results to be returned per request.
 --
 -- 'awsAccountId', 'listTemplateVersions_awsAccountId' - The ID of the Amazon Web Services account that contains the templates
 -- that you\'re listing.
@@ -94,20 +95,20 @@ newListTemplateVersions ::
   ListTemplateVersions
 newListTemplateVersions pAwsAccountId_ pTemplateId_ =
   ListTemplateVersions'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       awsAccountId = pAwsAccountId_,
       templateId = pTemplateId_
     }
+
+-- | The maximum number of results to be returned per request.
+listTemplateVersions_maxResults :: Lens.Lens' ListTemplateVersions (Prelude.Maybe Prelude.Natural)
+listTemplateVersions_maxResults = Lens.lens (\ListTemplateVersions' {maxResults} -> maxResults) (\s@ListTemplateVersions' {} a -> s {maxResults = a} :: ListTemplateVersions)
 
 -- | The token for the next set of results, or null if there are no more
 -- results.
 listTemplateVersions_nextToken :: Lens.Lens' ListTemplateVersions (Prelude.Maybe Prelude.Text)
 listTemplateVersions_nextToken = Lens.lens (\ListTemplateVersions' {nextToken} -> nextToken) (\s@ListTemplateVersions' {} a -> s {nextToken = a} :: ListTemplateVersions)
-
--- | The maximum number of results to be returned per request.
-listTemplateVersions_maxResults :: Lens.Lens' ListTemplateVersions (Prelude.Maybe Prelude.Natural)
-listTemplateVersions_maxResults = Lens.lens (\ListTemplateVersions' {maxResults} -> maxResults) (\s@ListTemplateVersions' {} a -> s {maxResults = a} :: ListTemplateVersions)
 
 -- | The ID of the Amazon Web Services account that contains the templates
 -- that you\'re listing.
@@ -144,71 +145,72 @@ instance Core.AWSRequest ListTemplateVersions where
   type
     AWSResponse ListTemplateVersions =
       ListTemplateVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTemplateVersionsResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> ( x Core..?> "TemplateVersionSummaryList"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "RequestId")
+            Prelude.<*> ( x Data..?> "TemplateVersionSummaryList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTemplateVersions where
   hashWithSalt _salt ListTemplateVersions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` awsAccountId
       `Prelude.hashWithSalt` templateId
 
 instance Prelude.NFData ListTemplateVersions where
   rnf ListTemplateVersions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf templateId
 
-instance Core.ToHeaders ListTemplateVersions where
+instance Data.ToHeaders ListTemplateVersions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListTemplateVersions where
+instance Data.ToPath ListTemplateVersions where
   toPath ListTemplateVersions' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/templates/",
-        Core.toBS templateId,
+        Data.toBS templateId,
         "/versions"
       ]
 
-instance Core.ToQuery ListTemplateVersions where
+instance Data.ToQuery ListTemplateVersions where
   toQuery ListTemplateVersions' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListTemplateVersionsResponse' smart constructor.
 data ListTemplateVersionsResponse = ListTemplateVersionsResponse'
-  { -- | The Amazon Web Services request ID for this operation.
+  { -- | The token for the next set of results, or null if there are no more
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services request ID for this operation.
     requestId :: Prelude.Maybe Prelude.Text,
     -- | A structure containing a list of all the versions of the specified
     -- template.
     templateVersionSummaryList :: Prelude.Maybe [TemplateVersionSummary],
-    -- | The token for the next set of results, or null if there are no more
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -222,13 +224,13 @@ data ListTemplateVersionsResponse = ListTemplateVersionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'nextToken', 'listTemplateVersionsResponse_nextToken' - The token for the next set of results, or null if there are no more
+-- results.
+--
 -- 'requestId', 'listTemplateVersionsResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'templateVersionSummaryList', 'listTemplateVersionsResponse_templateVersionSummaryList' - A structure containing a list of all the versions of the specified
 -- template.
---
--- 'nextToken', 'listTemplateVersionsResponse_nextToken' - The token for the next set of results, or null if there are no more
--- results.
 --
 -- 'status', 'listTemplateVersionsResponse_status' - The HTTP status of the request.
 newListTemplateVersionsResponse ::
@@ -237,12 +239,17 @@ newListTemplateVersionsResponse ::
   ListTemplateVersionsResponse
 newListTemplateVersionsResponse pStatus_ =
   ListTemplateVersionsResponse'
-    { requestId =
+    { nextToken =
         Prelude.Nothing,
+      requestId = Prelude.Nothing,
       templateVersionSummaryList = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       status = pStatus_
     }
+
+-- | The token for the next set of results, or null if there are no more
+-- results.
+listTemplateVersionsResponse_nextToken :: Lens.Lens' ListTemplateVersionsResponse (Prelude.Maybe Prelude.Text)
+listTemplateVersionsResponse_nextToken = Lens.lens (\ListTemplateVersionsResponse' {nextToken} -> nextToken) (\s@ListTemplateVersionsResponse' {} a -> s {nextToken = a} :: ListTemplateVersionsResponse)
 
 -- | The Amazon Web Services request ID for this operation.
 listTemplateVersionsResponse_requestId :: Lens.Lens' ListTemplateVersionsResponse (Prelude.Maybe Prelude.Text)
@@ -253,18 +260,13 @@ listTemplateVersionsResponse_requestId = Lens.lens (\ListTemplateVersionsRespons
 listTemplateVersionsResponse_templateVersionSummaryList :: Lens.Lens' ListTemplateVersionsResponse (Prelude.Maybe [TemplateVersionSummary])
 listTemplateVersionsResponse_templateVersionSummaryList = Lens.lens (\ListTemplateVersionsResponse' {templateVersionSummaryList} -> templateVersionSummaryList) (\s@ListTemplateVersionsResponse' {} a -> s {templateVersionSummaryList = a} :: ListTemplateVersionsResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next set of results, or null if there are no more
--- results.
-listTemplateVersionsResponse_nextToken :: Lens.Lens' ListTemplateVersionsResponse (Prelude.Maybe Prelude.Text)
-listTemplateVersionsResponse_nextToken = Lens.lens (\ListTemplateVersionsResponse' {nextToken} -> nextToken) (\s@ListTemplateVersionsResponse' {} a -> s {nextToken = a} :: ListTemplateVersionsResponse)
-
 -- | The HTTP status of the request.
 listTemplateVersionsResponse_status :: Lens.Lens' ListTemplateVersionsResponse Prelude.Int
 listTemplateVersionsResponse_status = Lens.lens (\ListTemplateVersionsResponse' {status} -> status) (\s@ListTemplateVersionsResponse' {} a -> s {status = a} :: ListTemplateVersionsResponse)
 
 instance Prelude.NFData ListTemplateVersionsResponse where
   rnf ListTemplateVersionsResponse' {..} =
-    Prelude.rnf requestId
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf templateVersionSummaryList
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf status

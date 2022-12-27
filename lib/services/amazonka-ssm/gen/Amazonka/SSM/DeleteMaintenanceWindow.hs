@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.DeleteMaintenanceWindow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.SSM.DeleteMaintenanceWindow
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ instance Core.AWSRequest DeleteMaintenanceWindow where
   type
     AWSResponse DeleteMaintenanceWindow =
       DeleteMaintenanceWindowResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteMaintenanceWindowResponse'
-            Prelude.<$> (x Core..?> "WindowId")
+            Prelude.<$> (x Data..?> "WindowId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -94,32 +96,32 @@ instance Prelude.NFData DeleteMaintenanceWindow where
   rnf DeleteMaintenanceWindow' {..} =
     Prelude.rnf windowId
 
-instance Core.ToHeaders DeleteMaintenanceWindow where
+instance Data.ToHeaders DeleteMaintenanceWindow where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.DeleteMaintenanceWindow" ::
+              Data.=# ( "AmazonSSM.DeleteMaintenanceWindow" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteMaintenanceWindow where
+instance Data.ToJSON DeleteMaintenanceWindow where
   toJSON DeleteMaintenanceWindow' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("WindowId" Core..= windowId)]
+          [Prelude.Just ("WindowId" Data..= windowId)]
       )
 
-instance Core.ToPath DeleteMaintenanceWindow where
+instance Data.ToPath DeleteMaintenanceWindow where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteMaintenanceWindow where
+instance Data.ToQuery DeleteMaintenanceWindow where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteMaintenanceWindowResponse' smart constructor.

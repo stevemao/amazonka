@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointSMSVoice.Types.PlainTextMessageType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.PinpointSMSVoice.Types.PlainTextMessageType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that defines a message that contains unformatted text.
@@ -89,12 +90,12 @@ instance Prelude.NFData PlainTextMessageType where
       `Prelude.seq` Prelude.rnf text
       `Prelude.seq` Prelude.rnf voiceId
 
-instance Core.ToJSON PlainTextMessageType where
+instance Data.ToJSON PlainTextMessageType where
   toJSON PlainTextMessageType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LanguageCode" Core..=) Prelude.<$> languageCode,
-            ("Text" Core..=) Prelude.<$> text,
-            ("VoiceId" Core..=) Prelude.<$> voiceId
+          [ ("LanguageCode" Data..=) Prelude.<$> languageCode,
+            ("Text" Data..=) Prelude.<$> text,
+            ("VoiceId" Data..=) Prelude.<$> voiceId
           ]
       )

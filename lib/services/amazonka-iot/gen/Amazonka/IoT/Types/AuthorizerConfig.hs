@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.AuthorizerConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.AuthorizerConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that specifies the authorization service for a domain.
@@ -65,14 +66,14 @@ authorizerConfig_allowAuthorizerOverride = Lens.lens (\AuthorizerConfig' {allowA
 authorizerConfig_defaultAuthorizerName :: Lens.Lens' AuthorizerConfig (Prelude.Maybe Prelude.Text)
 authorizerConfig_defaultAuthorizerName = Lens.lens (\AuthorizerConfig' {defaultAuthorizerName} -> defaultAuthorizerName) (\s@AuthorizerConfig' {} a -> s {defaultAuthorizerName = a} :: AuthorizerConfig)
 
-instance Core.FromJSON AuthorizerConfig where
+instance Data.FromJSON AuthorizerConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AuthorizerConfig"
       ( \x ->
           AuthorizerConfig'
-            Prelude.<$> (x Core..:? "allowAuthorizerOverride")
-            Prelude.<*> (x Core..:? "defaultAuthorizerName")
+            Prelude.<$> (x Data..:? "allowAuthorizerOverride")
+            Prelude.<*> (x Data..:? "defaultAuthorizerName")
       )
 
 instance Prelude.Hashable AuthorizerConfig where
@@ -86,13 +87,13 @@ instance Prelude.NFData AuthorizerConfig where
     Prelude.rnf allowAuthorizerOverride
       `Prelude.seq` Prelude.rnf defaultAuthorizerName
 
-instance Core.ToJSON AuthorizerConfig where
+instance Data.ToJSON AuthorizerConfig where
   toJSON AuthorizerConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("allowAuthorizerOverride" Core..=)
+          [ ("allowAuthorizerOverride" Data..=)
               Prelude.<$> allowAuthorizerOverride,
-            ("defaultAuthorizerName" Core..=)
+            ("defaultAuthorizerName" Data..=)
               Prelude.<$> defaultAuthorizerName
           ]
       )

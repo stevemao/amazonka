@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.Types.OrganizationSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,15 @@
 module Amazonka.WorkMail.Types.OrganizationSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The representation of an organization.
 --
 -- /See:/ 'newOrganizationSummary' smart constructor.
 data OrganizationSummary = OrganizationSummary'
-  { -- | The state associated with the organization.
-    state :: Prelude.Maybe Prelude.Text,
-    -- | The alias associated with the organization.
+  { -- | The alias associated with the organization.
     alias :: Prelude.Maybe Prelude.Text,
     -- | The default email domain associated with the organization.
     defaultMailDomain :: Prelude.Maybe Prelude.Text,
@@ -38,7 +37,9 @@ data OrganizationSummary = OrganizationSummary'
     -- provides insight or solutions regarding unexpected behavior.
     errorMessage :: Prelude.Maybe Prelude.Text,
     -- | The identifier associated with the organization.
-    organizationId :: Prelude.Maybe Prelude.Text
+    organizationId :: Prelude.Maybe Prelude.Text,
+    -- | The state associated with the organization.
+    state :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,8 +51,6 @@ data OrganizationSummary = OrganizationSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'organizationSummary_state' - The state associated with the organization.
---
 -- 'alias', 'organizationSummary_alias' - The alias associated with the organization.
 --
 -- 'defaultMailDomain', 'organizationSummary_defaultMailDomain' - The default email domain associated with the organization.
@@ -61,20 +60,18 @@ data OrganizationSummary = OrganizationSummary'
 -- provides insight or solutions regarding unexpected behavior.
 --
 -- 'organizationId', 'organizationSummary_organizationId' - The identifier associated with the organization.
+--
+-- 'state', 'organizationSummary_state' - The state associated with the organization.
 newOrganizationSummary ::
   OrganizationSummary
 newOrganizationSummary =
   OrganizationSummary'
-    { state = Prelude.Nothing,
-      alias = Prelude.Nothing,
+    { alias = Prelude.Nothing,
       defaultMailDomain = Prelude.Nothing,
       errorMessage = Prelude.Nothing,
-      organizationId = Prelude.Nothing
+      organizationId = Prelude.Nothing,
+      state = Prelude.Nothing
     }
-
--- | The state associated with the organization.
-organizationSummary_state :: Lens.Lens' OrganizationSummary (Prelude.Maybe Prelude.Text)
-organizationSummary_state = Lens.lens (\OrganizationSummary' {state} -> state) (\s@OrganizationSummary' {} a -> s {state = a} :: OrganizationSummary)
 
 -- | The alias associated with the organization.
 organizationSummary_alias :: Lens.Lens' OrganizationSummary (Prelude.Maybe Prelude.Text)
@@ -94,31 +91,35 @@ organizationSummary_errorMessage = Lens.lens (\OrganizationSummary' {errorMessag
 organizationSummary_organizationId :: Lens.Lens' OrganizationSummary (Prelude.Maybe Prelude.Text)
 organizationSummary_organizationId = Lens.lens (\OrganizationSummary' {organizationId} -> organizationId) (\s@OrganizationSummary' {} a -> s {organizationId = a} :: OrganizationSummary)
 
-instance Core.FromJSON OrganizationSummary where
+-- | The state associated with the organization.
+organizationSummary_state :: Lens.Lens' OrganizationSummary (Prelude.Maybe Prelude.Text)
+organizationSummary_state = Lens.lens (\OrganizationSummary' {state} -> state) (\s@OrganizationSummary' {} a -> s {state = a} :: OrganizationSummary)
+
+instance Data.FromJSON OrganizationSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OrganizationSummary"
       ( \x ->
           OrganizationSummary'
-            Prelude.<$> (x Core..:? "State")
-            Prelude.<*> (x Core..:? "Alias")
-            Prelude.<*> (x Core..:? "DefaultMailDomain")
-            Prelude.<*> (x Core..:? "ErrorMessage")
-            Prelude.<*> (x Core..:? "OrganizationId")
+            Prelude.<$> (x Data..:? "Alias")
+            Prelude.<*> (x Data..:? "DefaultMailDomain")
+            Prelude.<*> (x Data..:? "ErrorMessage")
+            Prelude.<*> (x Data..:? "OrganizationId")
+            Prelude.<*> (x Data..:? "State")
       )
 
 instance Prelude.Hashable OrganizationSummary where
   hashWithSalt _salt OrganizationSummary' {..} =
-    _salt `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` alias
+    _salt `Prelude.hashWithSalt` alias
       `Prelude.hashWithSalt` defaultMailDomain
       `Prelude.hashWithSalt` errorMessage
       `Prelude.hashWithSalt` organizationId
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData OrganizationSummary where
   rnf OrganizationSummary' {..} =
-    Prelude.rnf state
-      `Prelude.seq` Prelude.rnf alias
+    Prelude.rnf alias
       `Prelude.seq` Prelude.rnf defaultMailDomain
       `Prelude.seq` Prelude.rnf errorMessage
       `Prelude.seq` Prelude.rnf organizationId
+      `Prelude.seq` Prelude.rnf state

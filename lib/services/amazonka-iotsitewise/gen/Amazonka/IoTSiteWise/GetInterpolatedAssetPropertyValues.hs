@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.GetInterpolatedAssetPropertyValues
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,14 +45,14 @@ module Amazonka.IoTSiteWise.GetInterpolatedAssetPropertyValues
     newGetInterpolatedAssetPropertyValues,
 
     -- * Request Lenses
-    getInterpolatedAssetPropertyValues_startTimeOffsetInNanos,
-    getInterpolatedAssetPropertyValues_endTimeOffsetInNanos,
-    getInterpolatedAssetPropertyValues_propertyAlias,
-    getInterpolatedAssetPropertyValues_nextToken,
-    getInterpolatedAssetPropertyValues_intervalWindowInSeconds,
-    getInterpolatedAssetPropertyValues_propertyId,
     getInterpolatedAssetPropertyValues_assetId,
+    getInterpolatedAssetPropertyValues_endTimeOffsetInNanos,
+    getInterpolatedAssetPropertyValues_intervalWindowInSeconds,
     getInterpolatedAssetPropertyValues_maxResults,
+    getInterpolatedAssetPropertyValues_nextToken,
+    getInterpolatedAssetPropertyValues_propertyAlias,
+    getInterpolatedAssetPropertyValues_propertyId,
+    getInterpolatedAssetPropertyValues_startTimeOffsetInNanos,
     getInterpolatedAssetPropertyValues_startTimeInSeconds,
     getInterpolatedAssetPropertyValues_endTimeInSeconds,
     getInterpolatedAssetPropertyValues_quality,
@@ -71,18 +71,46 @@ module Amazonka.IoTSiteWise.GetInterpolatedAssetPropertyValues
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetInterpolatedAssetPropertyValues' smart constructor.
 data GetInterpolatedAssetPropertyValues = GetInterpolatedAssetPropertyValues'
-  { -- | The nanosecond offset converted from @startTimeInSeconds@.
-    startTimeOffsetInNanos :: Prelude.Maybe Prelude.Natural,
+  { -- | The ID of the asset.
+    assetId :: Prelude.Maybe Prelude.Text,
     -- | The nanosecond offset converted from @endTimeInSeconds@.
     endTimeOffsetInNanos :: Prelude.Maybe Prelude.Natural,
+    -- | The query interval for the window, in seconds. IoT SiteWise computes
+    -- each interpolated value by using data points from the timestamp of each
+    -- interval, minus the window to the timestamp of each interval plus the
+    -- window. If not specified, the window ranges between the start time minus
+    -- the interval and the end time plus the interval.
+    --
+    -- -   If you specify a value for the @intervalWindowInSeconds@ parameter,
+    --     the value for the @type@ parameter must be @LINEAR_INTERPOLATION@.
+    --
+    -- -   If a data point isn\'t found during the specified query window, IoT
+    --     SiteWise won\'t return an interpolated value for the interval. This
+    --     indicates that there\'s a gap in the ingested data points.
+    --
+    -- For example, you can get the interpolated temperature values for a wind
+    -- turbine every 24 hours over a duration of 7 days. If the interpolation
+    -- starts on July 1, 2021, at 9 AM with a window of 2 hours, IoT SiteWise
+    -- uses the data points from 7 AM (9 AM minus 2 hours) to 11 AM (9 AM plus
+    -- 2 hours) on July 2, 2021 to compute the first interpolated value. Next,
+    -- IoT SiteWise uses the data points from 7 AM (9 AM minus 2 hours) to 11
+    -- AM (9 AM plus 2 hours) on July 3, 2021 to compute the second
+    -- interpolated value, and so on.
+    intervalWindowInSeconds :: Prelude.Maybe Prelude.Natural,
+    -- | The maximum number of results to return for each paginated request. If
+    -- not specified, the default value is 10.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to be used for the next set of paginated results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The alias that identifies the property, such as an OPC-UA server data
     -- stream path (for example,
     -- @\/company\/windfarm\/3\/turbine\/7\/temperature@). For more
@@ -90,36 +118,10 @@ data GetInterpolatedAssetPropertyValues = GetInterpolatedAssetPropertyValues'
     -- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html Mapping industrial data streams to asset properties>
     -- in the /IoT SiteWise User Guide/.
     propertyAlias :: Prelude.Maybe Prelude.Text,
-    -- | The token to be used for the next set of paginated results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The query interval for the window in seconds. IoT SiteWise computes each
-    -- interpolated value by using data points from the timestamp of each
-    -- interval minus the window to the timestamp of each interval plus the
-    -- window. If not specified, the window is between the start time minus the
-    -- interval and the end time plus the interval.
-    --
-    -- -   If you specify a value for the @intervalWindowInSeconds@ parameter,
-    --     the @type@ parameter must be @LINEAR_INTERPOLATION@.
-    --
-    -- -   If no data point is found during the specified query window, IoT
-    --     SiteWise won\'t return an interpolated value for the interval. This
-    --     indicates that there\'s a gap in the ingested data points.
-    --
-    -- For example, you can get the interpolated temperature values for a wind
-    -- turbine every 24 hours over a duration of 7 days. If the interpolation
-    -- starts on July 1, 2021, at 9 AM with a window of 2 hours, IoT SiteWise
-    -- uses the data points from 7 AM (9 AM - 2 hours) to 11 AM (9 AM + 2
-    -- hours) on July 2, 2021 to compute the first interpolated value, uses the
-    -- data points from 7 AM (9 AM - 2 hours) to 11 AM (9 AM + 2 hours) on July
-    -- 3, 2021 to compute the second interpolated value, and so on.
-    intervalWindowInSeconds :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the asset property.
     propertyId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the asset.
-    assetId :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return for each paginated request. If
-    -- not specified, the default value is 10.
-    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The nanosecond offset converted from @startTimeInSeconds@.
+    startTimeOffsetInNanos :: Prelude.Maybe Prelude.Natural,
     -- | The exclusive start of the range from which to interpolate data,
     -- expressed in seconds in Unix epoch time.
     startTimeInSeconds :: Prelude.Natural,
@@ -142,7 +144,7 @@ data GetInterpolatedAssetPropertyValues = GetInterpolatedAssetPropertyValues'
     --
     --     For example, you can use this operation to return the interpolated
     --     temperature values for a wind turbine every 24 hours over a duration
-    --     of 7 days. If the interpolation starts on July 1, 2021, at 9 AM, IoT
+    --     of 7 days. If the interpolation starts July 1, 2021, at 9 AM, IoT
     --     SiteWise returns the first interpolated value on July 2, 2021, at 9
     --     AM, the second interpolated value on July 3, 2021, at 9 AM, and so
     --     on.
@@ -155,12 +157,12 @@ data GetInterpolatedAssetPropertyValues = GetInterpolatedAssetPropertyValues'
     --     forward this interpolated value until a new data point is found.
     --
     --     For example, you can get the state of an on-off valve every 24 hours
-    --     over a duration of 7 days. If the interpolation starts on July 1,
-    --     2021, at 9 AM, IoT SiteWise returns the last observed data point
-    --     between July 1, 2021, at 9 AM and July 2, 2021, at 9 AM as the first
-    --     interpolated value. If no data point is found after 9 AM on July 2,
-    --     2021, IoT SiteWise uses the same interpolated value for the rest of
-    --     the days.
+    --     over a duration of 7 days. If the interpolation starts July 1, 2021,
+    --     at 9 AM, IoT SiteWise returns the last observed data point between
+    --     July 1, 2021, at 9 AM and July 2, 2021, at 9 AM as the first
+    --     interpolated value. If a data point isn\'t found after 9 AM on July
+    --     2, 2021, IoT SiteWise uses the same interpolated value for the rest
+    --     of the days.
     type' :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -173,9 +175,36 @@ data GetInterpolatedAssetPropertyValues = GetInterpolatedAssetPropertyValues'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'startTimeOffsetInNanos', 'getInterpolatedAssetPropertyValues_startTimeOffsetInNanos' - The nanosecond offset converted from @startTimeInSeconds@.
+-- 'assetId', 'getInterpolatedAssetPropertyValues_assetId' - The ID of the asset.
 --
 -- 'endTimeOffsetInNanos', 'getInterpolatedAssetPropertyValues_endTimeOffsetInNanos' - The nanosecond offset converted from @endTimeInSeconds@.
+--
+-- 'intervalWindowInSeconds', 'getInterpolatedAssetPropertyValues_intervalWindowInSeconds' - The query interval for the window, in seconds. IoT SiteWise computes
+-- each interpolated value by using data points from the timestamp of each
+-- interval, minus the window to the timestamp of each interval plus the
+-- window. If not specified, the window ranges between the start time minus
+-- the interval and the end time plus the interval.
+--
+-- -   If you specify a value for the @intervalWindowInSeconds@ parameter,
+--     the value for the @type@ parameter must be @LINEAR_INTERPOLATION@.
+--
+-- -   If a data point isn\'t found during the specified query window, IoT
+--     SiteWise won\'t return an interpolated value for the interval. This
+--     indicates that there\'s a gap in the ingested data points.
+--
+-- For example, you can get the interpolated temperature values for a wind
+-- turbine every 24 hours over a duration of 7 days. If the interpolation
+-- starts on July 1, 2021, at 9 AM with a window of 2 hours, IoT SiteWise
+-- uses the data points from 7 AM (9 AM minus 2 hours) to 11 AM (9 AM plus
+-- 2 hours) on July 2, 2021 to compute the first interpolated value. Next,
+-- IoT SiteWise uses the data points from 7 AM (9 AM minus 2 hours) to 11
+-- AM (9 AM plus 2 hours) on July 3, 2021 to compute the second
+-- interpolated value, and so on.
+--
+-- 'maxResults', 'getInterpolatedAssetPropertyValues_maxResults' - The maximum number of results to return for each paginated request. If
+-- not specified, the default value is 10.
+--
+-- 'nextToken', 'getInterpolatedAssetPropertyValues_nextToken' - The token to be used for the next set of paginated results.
 --
 -- 'propertyAlias', 'getInterpolatedAssetPropertyValues_propertyAlias' - The alias that identifies the property, such as an OPC-UA server data
 -- stream path (for example,
@@ -184,35 +213,9 @@ data GetInterpolatedAssetPropertyValues = GetInterpolatedAssetPropertyValues'
 -- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/connect-data-streams.html Mapping industrial data streams to asset properties>
 -- in the /IoT SiteWise User Guide/.
 --
--- 'nextToken', 'getInterpolatedAssetPropertyValues_nextToken' - The token to be used for the next set of paginated results.
---
--- 'intervalWindowInSeconds', 'getInterpolatedAssetPropertyValues_intervalWindowInSeconds' - The query interval for the window in seconds. IoT SiteWise computes each
--- interpolated value by using data points from the timestamp of each
--- interval minus the window to the timestamp of each interval plus the
--- window. If not specified, the window is between the start time minus the
--- interval and the end time plus the interval.
---
--- -   If you specify a value for the @intervalWindowInSeconds@ parameter,
---     the @type@ parameter must be @LINEAR_INTERPOLATION@.
---
--- -   If no data point is found during the specified query window, IoT
---     SiteWise won\'t return an interpolated value for the interval. This
---     indicates that there\'s a gap in the ingested data points.
---
--- For example, you can get the interpolated temperature values for a wind
--- turbine every 24 hours over a duration of 7 days. If the interpolation
--- starts on July 1, 2021, at 9 AM with a window of 2 hours, IoT SiteWise
--- uses the data points from 7 AM (9 AM - 2 hours) to 11 AM (9 AM + 2
--- hours) on July 2, 2021 to compute the first interpolated value, uses the
--- data points from 7 AM (9 AM - 2 hours) to 11 AM (9 AM + 2 hours) on July
--- 3, 2021 to compute the second interpolated value, and so on.
---
 -- 'propertyId', 'getInterpolatedAssetPropertyValues_propertyId' - The ID of the asset property.
 --
--- 'assetId', 'getInterpolatedAssetPropertyValues_assetId' - The ID of the asset.
---
--- 'maxResults', 'getInterpolatedAssetPropertyValues_maxResults' - The maximum number of results to return for each paginated request. If
--- not specified, the default value is 10.
+-- 'startTimeOffsetInNanos', 'getInterpolatedAssetPropertyValues_startTimeOffsetInNanos' - The nanosecond offset converted from @startTimeInSeconds@.
 --
 -- 'startTimeInSeconds', 'getInterpolatedAssetPropertyValues_startTimeInSeconds' - The exclusive start of the range from which to interpolate data,
 -- expressed in seconds in Unix epoch time.
@@ -236,7 +239,7 @@ data GetInterpolatedAssetPropertyValues = GetInterpolatedAssetPropertyValues'
 --
 --     For example, you can use this operation to return the interpolated
 --     temperature values for a wind turbine every 24 hours over a duration
---     of 7 days. If the interpolation starts on July 1, 2021, at 9 AM, IoT
+--     of 7 days. If the interpolation starts July 1, 2021, at 9 AM, IoT
 --     SiteWise returns the first interpolated value on July 2, 2021, at 9
 --     AM, the second interpolated value on July 3, 2021, at 9 AM, and so
 --     on.
@@ -249,12 +252,12 @@ data GetInterpolatedAssetPropertyValues = GetInterpolatedAssetPropertyValues'
 --     forward this interpolated value until a new data point is found.
 --
 --     For example, you can get the state of an on-off valve every 24 hours
---     over a duration of 7 days. If the interpolation starts on July 1,
---     2021, at 9 AM, IoT SiteWise returns the last observed data point
---     between July 1, 2021, at 9 AM and July 2, 2021, at 9 AM as the first
---     interpolated value. If no data point is found after 9 AM on July 2,
---     2021, IoT SiteWise uses the same interpolated value for the rest of
---     the days.
+--     over a duration of 7 days. If the interpolation starts July 1, 2021,
+--     at 9 AM, IoT SiteWise returns the last observed data point between
+--     July 1, 2021, at 9 AM and July 2, 2021, at 9 AM as the first
+--     interpolated value. If a data point isn\'t found after 9 AM on July
+--     2, 2021, IoT SiteWise uses the same interpolated value for the rest
+--     of the days.
 newGetInterpolatedAssetPropertyValues ::
   -- | 'startTimeInSeconds'
   Prelude.Natural ->
@@ -274,16 +277,17 @@ newGetInterpolatedAssetPropertyValues
   pIntervalInSeconds_
   pType_ =
     GetInterpolatedAssetPropertyValues'
-      { startTimeOffsetInNanos =
+      { assetId =
           Prelude.Nothing,
         endTimeOffsetInNanos = Prelude.Nothing,
-        propertyAlias = Prelude.Nothing,
-        nextToken = Prelude.Nothing,
         intervalWindowInSeconds =
           Prelude.Nothing,
-        propertyId = Prelude.Nothing,
-        assetId = Prelude.Nothing,
         maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
+        propertyAlias = Prelude.Nothing,
+        propertyId = Prelude.Nothing,
+        startTimeOffsetInNanos =
+          Prelude.Nothing,
         startTimeInSeconds =
           pStartTimeInSeconds_,
         endTimeInSeconds = pEndTimeInSeconds_,
@@ -292,13 +296,46 @@ newGetInterpolatedAssetPropertyValues
         type' = pType_
       }
 
--- | The nanosecond offset converted from @startTimeInSeconds@.
-getInterpolatedAssetPropertyValues_startTimeOffsetInNanos :: Lens.Lens' GetInterpolatedAssetPropertyValues (Prelude.Maybe Prelude.Natural)
-getInterpolatedAssetPropertyValues_startTimeOffsetInNanos = Lens.lens (\GetInterpolatedAssetPropertyValues' {startTimeOffsetInNanos} -> startTimeOffsetInNanos) (\s@GetInterpolatedAssetPropertyValues' {} a -> s {startTimeOffsetInNanos = a} :: GetInterpolatedAssetPropertyValues)
+-- | The ID of the asset.
+getInterpolatedAssetPropertyValues_assetId :: Lens.Lens' GetInterpolatedAssetPropertyValues (Prelude.Maybe Prelude.Text)
+getInterpolatedAssetPropertyValues_assetId = Lens.lens (\GetInterpolatedAssetPropertyValues' {assetId} -> assetId) (\s@GetInterpolatedAssetPropertyValues' {} a -> s {assetId = a} :: GetInterpolatedAssetPropertyValues)
 
 -- | The nanosecond offset converted from @endTimeInSeconds@.
 getInterpolatedAssetPropertyValues_endTimeOffsetInNanos :: Lens.Lens' GetInterpolatedAssetPropertyValues (Prelude.Maybe Prelude.Natural)
 getInterpolatedAssetPropertyValues_endTimeOffsetInNanos = Lens.lens (\GetInterpolatedAssetPropertyValues' {endTimeOffsetInNanos} -> endTimeOffsetInNanos) (\s@GetInterpolatedAssetPropertyValues' {} a -> s {endTimeOffsetInNanos = a} :: GetInterpolatedAssetPropertyValues)
+
+-- | The query interval for the window, in seconds. IoT SiteWise computes
+-- each interpolated value by using data points from the timestamp of each
+-- interval, minus the window to the timestamp of each interval plus the
+-- window. If not specified, the window ranges between the start time minus
+-- the interval and the end time plus the interval.
+--
+-- -   If you specify a value for the @intervalWindowInSeconds@ parameter,
+--     the value for the @type@ parameter must be @LINEAR_INTERPOLATION@.
+--
+-- -   If a data point isn\'t found during the specified query window, IoT
+--     SiteWise won\'t return an interpolated value for the interval. This
+--     indicates that there\'s a gap in the ingested data points.
+--
+-- For example, you can get the interpolated temperature values for a wind
+-- turbine every 24 hours over a duration of 7 days. If the interpolation
+-- starts on July 1, 2021, at 9 AM with a window of 2 hours, IoT SiteWise
+-- uses the data points from 7 AM (9 AM minus 2 hours) to 11 AM (9 AM plus
+-- 2 hours) on July 2, 2021 to compute the first interpolated value. Next,
+-- IoT SiteWise uses the data points from 7 AM (9 AM minus 2 hours) to 11
+-- AM (9 AM plus 2 hours) on July 3, 2021 to compute the second
+-- interpolated value, and so on.
+getInterpolatedAssetPropertyValues_intervalWindowInSeconds :: Lens.Lens' GetInterpolatedAssetPropertyValues (Prelude.Maybe Prelude.Natural)
+getInterpolatedAssetPropertyValues_intervalWindowInSeconds = Lens.lens (\GetInterpolatedAssetPropertyValues' {intervalWindowInSeconds} -> intervalWindowInSeconds) (\s@GetInterpolatedAssetPropertyValues' {} a -> s {intervalWindowInSeconds = a} :: GetInterpolatedAssetPropertyValues)
+
+-- | The maximum number of results to return for each paginated request. If
+-- not specified, the default value is 10.
+getInterpolatedAssetPropertyValues_maxResults :: Lens.Lens' GetInterpolatedAssetPropertyValues (Prelude.Maybe Prelude.Natural)
+getInterpolatedAssetPropertyValues_maxResults = Lens.lens (\GetInterpolatedAssetPropertyValues' {maxResults} -> maxResults) (\s@GetInterpolatedAssetPropertyValues' {} a -> s {maxResults = a} :: GetInterpolatedAssetPropertyValues)
+
+-- | The token to be used for the next set of paginated results.
+getInterpolatedAssetPropertyValues_nextToken :: Lens.Lens' GetInterpolatedAssetPropertyValues (Prelude.Maybe Prelude.Text)
+getInterpolatedAssetPropertyValues_nextToken = Lens.lens (\GetInterpolatedAssetPropertyValues' {nextToken} -> nextToken) (\s@GetInterpolatedAssetPropertyValues' {} a -> s {nextToken = a} :: GetInterpolatedAssetPropertyValues)
 
 -- | The alias that identifies the property, such as an OPC-UA server data
 -- stream path (for example,
@@ -309,45 +346,13 @@ getInterpolatedAssetPropertyValues_endTimeOffsetInNanos = Lens.lens (\GetInterpo
 getInterpolatedAssetPropertyValues_propertyAlias :: Lens.Lens' GetInterpolatedAssetPropertyValues (Prelude.Maybe Prelude.Text)
 getInterpolatedAssetPropertyValues_propertyAlias = Lens.lens (\GetInterpolatedAssetPropertyValues' {propertyAlias} -> propertyAlias) (\s@GetInterpolatedAssetPropertyValues' {} a -> s {propertyAlias = a} :: GetInterpolatedAssetPropertyValues)
 
--- | The token to be used for the next set of paginated results.
-getInterpolatedAssetPropertyValues_nextToken :: Lens.Lens' GetInterpolatedAssetPropertyValues (Prelude.Maybe Prelude.Text)
-getInterpolatedAssetPropertyValues_nextToken = Lens.lens (\GetInterpolatedAssetPropertyValues' {nextToken} -> nextToken) (\s@GetInterpolatedAssetPropertyValues' {} a -> s {nextToken = a} :: GetInterpolatedAssetPropertyValues)
-
--- | The query interval for the window in seconds. IoT SiteWise computes each
--- interpolated value by using data points from the timestamp of each
--- interval minus the window to the timestamp of each interval plus the
--- window. If not specified, the window is between the start time minus the
--- interval and the end time plus the interval.
---
--- -   If you specify a value for the @intervalWindowInSeconds@ parameter,
---     the @type@ parameter must be @LINEAR_INTERPOLATION@.
---
--- -   If no data point is found during the specified query window, IoT
---     SiteWise won\'t return an interpolated value for the interval. This
---     indicates that there\'s a gap in the ingested data points.
---
--- For example, you can get the interpolated temperature values for a wind
--- turbine every 24 hours over a duration of 7 days. If the interpolation
--- starts on July 1, 2021, at 9 AM with a window of 2 hours, IoT SiteWise
--- uses the data points from 7 AM (9 AM - 2 hours) to 11 AM (9 AM + 2
--- hours) on July 2, 2021 to compute the first interpolated value, uses the
--- data points from 7 AM (9 AM - 2 hours) to 11 AM (9 AM + 2 hours) on July
--- 3, 2021 to compute the second interpolated value, and so on.
-getInterpolatedAssetPropertyValues_intervalWindowInSeconds :: Lens.Lens' GetInterpolatedAssetPropertyValues (Prelude.Maybe Prelude.Natural)
-getInterpolatedAssetPropertyValues_intervalWindowInSeconds = Lens.lens (\GetInterpolatedAssetPropertyValues' {intervalWindowInSeconds} -> intervalWindowInSeconds) (\s@GetInterpolatedAssetPropertyValues' {} a -> s {intervalWindowInSeconds = a} :: GetInterpolatedAssetPropertyValues)
-
 -- | The ID of the asset property.
 getInterpolatedAssetPropertyValues_propertyId :: Lens.Lens' GetInterpolatedAssetPropertyValues (Prelude.Maybe Prelude.Text)
 getInterpolatedAssetPropertyValues_propertyId = Lens.lens (\GetInterpolatedAssetPropertyValues' {propertyId} -> propertyId) (\s@GetInterpolatedAssetPropertyValues' {} a -> s {propertyId = a} :: GetInterpolatedAssetPropertyValues)
 
--- | The ID of the asset.
-getInterpolatedAssetPropertyValues_assetId :: Lens.Lens' GetInterpolatedAssetPropertyValues (Prelude.Maybe Prelude.Text)
-getInterpolatedAssetPropertyValues_assetId = Lens.lens (\GetInterpolatedAssetPropertyValues' {assetId} -> assetId) (\s@GetInterpolatedAssetPropertyValues' {} a -> s {assetId = a} :: GetInterpolatedAssetPropertyValues)
-
--- | The maximum number of results to return for each paginated request. If
--- not specified, the default value is 10.
-getInterpolatedAssetPropertyValues_maxResults :: Lens.Lens' GetInterpolatedAssetPropertyValues (Prelude.Maybe Prelude.Natural)
-getInterpolatedAssetPropertyValues_maxResults = Lens.lens (\GetInterpolatedAssetPropertyValues' {maxResults} -> maxResults) (\s@GetInterpolatedAssetPropertyValues' {} a -> s {maxResults = a} :: GetInterpolatedAssetPropertyValues)
+-- | The nanosecond offset converted from @startTimeInSeconds@.
+getInterpolatedAssetPropertyValues_startTimeOffsetInNanos :: Lens.Lens' GetInterpolatedAssetPropertyValues (Prelude.Maybe Prelude.Natural)
+getInterpolatedAssetPropertyValues_startTimeOffsetInNanos = Lens.lens (\GetInterpolatedAssetPropertyValues' {startTimeOffsetInNanos} -> startTimeOffsetInNanos) (\s@GetInterpolatedAssetPropertyValues' {} a -> s {startTimeOffsetInNanos = a} :: GetInterpolatedAssetPropertyValues)
 
 -- | The exclusive start of the range from which to interpolate data,
 -- expressed in seconds in Unix epoch time.
@@ -379,7 +384,7 @@ getInterpolatedAssetPropertyValues_intervalInSeconds = Lens.lens (\GetInterpolat
 --
 --     For example, you can use this operation to return the interpolated
 --     temperature values for a wind turbine every 24 hours over a duration
---     of 7 days. If the interpolation starts on July 1, 2021, at 9 AM, IoT
+--     of 7 days. If the interpolation starts July 1, 2021, at 9 AM, IoT
 --     SiteWise returns the first interpolated value on July 2, 2021, at 9
 --     AM, the second interpolated value on July 3, 2021, at 9 AM, and so
 --     on.
@@ -392,12 +397,12 @@ getInterpolatedAssetPropertyValues_intervalInSeconds = Lens.lens (\GetInterpolat
 --     forward this interpolated value until a new data point is found.
 --
 --     For example, you can get the state of an on-off valve every 24 hours
---     over a duration of 7 days. If the interpolation starts on July 1,
---     2021, at 9 AM, IoT SiteWise returns the last observed data point
---     between July 1, 2021, at 9 AM and July 2, 2021, at 9 AM as the first
---     interpolated value. If no data point is found after 9 AM on July 2,
---     2021, IoT SiteWise uses the same interpolated value for the rest of
---     the days.
+--     over a duration of 7 days. If the interpolation starts July 1, 2021,
+--     at 9 AM, IoT SiteWise returns the last observed data point between
+--     July 1, 2021, at 9 AM and July 2, 2021, at 9 AM as the first
+--     interpolated value. If a data point isn\'t found after 9 AM on July
+--     2, 2021, IoT SiteWise uses the same interpolated value for the rest
+--     of the days.
 getInterpolatedAssetPropertyValues_type :: Lens.Lens' GetInterpolatedAssetPropertyValues Prelude.Text
 getInterpolatedAssetPropertyValues_type = Lens.lens (\GetInterpolatedAssetPropertyValues' {type'} -> type') (\s@GetInterpolatedAssetPropertyValues' {} a -> s {type' = a} :: GetInterpolatedAssetPropertyValues)
 
@@ -432,14 +437,15 @@ instance
   type
     AWSResponse GetInterpolatedAssetPropertyValues =
       GetInterpolatedAssetPropertyValuesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetInterpolatedAssetPropertyValuesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> ( x Core..?> "interpolatedAssetPropertyValues"
+              Prelude.<*> ( x Data..?> "interpolatedAssetPropertyValues"
                               Core..!@ Prelude.mempty
                           )
       )
@@ -451,14 +457,14 @@ instance
   hashWithSalt
     _salt
     GetInterpolatedAssetPropertyValues' {..} =
-      _salt `Prelude.hashWithSalt` startTimeOffsetInNanos
+      _salt `Prelude.hashWithSalt` assetId
         `Prelude.hashWithSalt` endTimeOffsetInNanos
-        `Prelude.hashWithSalt` propertyAlias
-        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` intervalWindowInSeconds
-        `Prelude.hashWithSalt` propertyId
-        `Prelude.hashWithSalt` assetId
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
+        `Prelude.hashWithSalt` propertyAlias
+        `Prelude.hashWithSalt` propertyId
+        `Prelude.hashWithSalt` startTimeOffsetInNanos
         `Prelude.hashWithSalt` startTimeInSeconds
         `Prelude.hashWithSalt` endTimeInSeconds
         `Prelude.hashWithSalt` quality
@@ -470,14 +476,14 @@ instance
     GetInterpolatedAssetPropertyValues
   where
   rnf GetInterpolatedAssetPropertyValues' {..} =
-    Prelude.rnf startTimeOffsetInNanos
+    Prelude.rnf assetId
       `Prelude.seq` Prelude.rnf endTimeOffsetInNanos
-      `Prelude.seq` Prelude.rnf propertyAlias
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf intervalWindowInSeconds
-      `Prelude.seq` Prelude.rnf propertyId
-      `Prelude.seq` Prelude.rnf assetId
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf propertyAlias
+      `Prelude.seq` Prelude.rnf propertyId
+      `Prelude.seq` Prelude.rnf startTimeOffsetInNanos
       `Prelude.seq` Prelude.rnf startTimeInSeconds
       `Prelude.seq` Prelude.rnf endTimeInSeconds
       `Prelude.seq` Prelude.rnf quality
@@ -485,46 +491,46 @@ instance
       `Prelude.seq` Prelude.rnf type'
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetInterpolatedAssetPropertyValues
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetInterpolatedAssetPropertyValues
   where
   toPath = Prelude.const "/properties/interpolated"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetInterpolatedAssetPropertyValues
   where
   toQuery GetInterpolatedAssetPropertyValues' {..} =
     Prelude.mconcat
-      [ "startTimeOffsetInNanos"
-          Core.=: startTimeOffsetInNanos,
-        "endTimeOffsetInNanos" Core.=: endTimeOffsetInNanos,
-        "propertyAlias" Core.=: propertyAlias,
-        "nextToken" Core.=: nextToken,
+      [ "assetId" Data.=: assetId,
+        "endTimeOffsetInNanos" Data.=: endTimeOffsetInNanos,
         "intervalWindowInSeconds"
-          Core.=: intervalWindowInSeconds,
-        "propertyId" Core.=: propertyId,
-        "assetId" Core.=: assetId,
-        "maxResults" Core.=: maxResults,
-        "startTimeInSeconds" Core.=: startTimeInSeconds,
-        "endTimeInSeconds" Core.=: endTimeInSeconds,
-        "quality" Core.=: quality,
-        "intervalInSeconds" Core.=: intervalInSeconds,
-        "type" Core.=: type'
+          Data.=: intervalWindowInSeconds,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "propertyAlias" Data.=: propertyAlias,
+        "propertyId" Data.=: propertyId,
+        "startTimeOffsetInNanos"
+          Data.=: startTimeOffsetInNanos,
+        "startTimeInSeconds" Data.=: startTimeInSeconds,
+        "endTimeInSeconds" Data.=: endTimeInSeconds,
+        "quality" Data.=: quality,
+        "intervalInSeconds" Data.=: intervalInSeconds,
+        "type" Data.=: type'
       ]
 
 -- | /See:/ 'newGetInterpolatedAssetPropertyValuesResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.CreateInsight
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.SecurityHub.CreateInsight
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,13 +124,14 @@ instance Core.AWSRequest CreateInsight where
   type
     AWSResponse CreateInsight =
       CreateInsightResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateInsightResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "InsightArn")
+            Prelude.<*> (x Data..:> "InsightArn")
       )
 
 instance Prelude.Hashable CreateInsight where
@@ -144,32 +146,32 @@ instance Prelude.NFData CreateInsight where
       `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf groupByAttribute
 
-instance Core.ToHeaders CreateInsight where
+instance Data.ToHeaders CreateInsight where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateInsight where
+instance Data.ToJSON CreateInsight where
   toJSON CreateInsight' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Filters" Core..= filters),
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Filters" Data..= filters),
             Prelude.Just
-              ("GroupByAttribute" Core..= groupByAttribute)
+              ("GroupByAttribute" Data..= groupByAttribute)
           ]
       )
 
-instance Core.ToPath CreateInsight where
+instance Data.ToPath CreateInsight where
   toPath = Prelude.const "/insights"
 
-instance Core.ToQuery CreateInsight where
+instance Data.ToQuery CreateInsight where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateInsightResponse' smart constructor.

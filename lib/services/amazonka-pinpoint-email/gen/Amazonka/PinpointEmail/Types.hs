@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointEmail.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,16 +18,16 @@ module Amazonka.PinpointEmail.Types
     defaultService,
 
     -- * Errors
-    _MessageRejected,
-    _MailFromDomainNotVerifiedException,
-    _NotFoundException,
-    _TooManyRequestsException,
-    _ConcurrentModificationException,
     _AccountSuspendedException,
-    _SendingPausedException,
-    _BadRequestException,
     _AlreadyExistsException,
+    _BadRequestException,
+    _ConcurrentModificationException,
     _LimitExceededException,
+    _MailFromDomainNotVerifiedException,
+    _MessageRejected,
+    _NotFoundException,
+    _SendingPausedException,
+    _TooManyRequestsException,
 
     -- * BehaviorOnMxFailure
     BehaviorOnMxFailure (..),
@@ -61,15 +62,15 @@ module Amazonka.PinpointEmail.Types
     -- * BlacklistEntry
     BlacklistEntry (..),
     newBlacklistEntry,
+    blacklistEntry_description,
     blacklistEntry_listingTime,
     blacklistEntry_rblName,
-    blacklistEntry_description,
 
     -- * Body
     Body (..),
     newBody,
-    body_text,
     body_html,
+    body_text,
 
     -- * CloudWatchDestination
     CloudWatchDestination (..),
@@ -107,12 +108,12 @@ module Amazonka.PinpointEmail.Types
     -- * DeliverabilityTestReport
     DeliverabilityTestReport (..),
     newDeliverabilityTestReport,
-    deliverabilityTestReport_subject,
-    deliverabilityTestReport_fromEmailAddress,
     deliverabilityTestReport_createDate,
+    deliverabilityTestReport_deliverabilityTestStatus,
+    deliverabilityTestReport_fromEmailAddress,
     deliverabilityTestReport_reportId,
     deliverabilityTestReport_reportName,
-    deliverabilityTestReport_deliverabilityTestStatus,
+    deliverabilityTestReport_subject,
 
     -- * DeliveryOptions
     DeliveryOptions (..),
@@ -130,42 +131,42 @@ module Amazonka.PinpointEmail.Types
     -- * DkimAttributes
     DkimAttributes (..),
     newDkimAttributes,
+    dkimAttributes_signingEnabled,
     dkimAttributes_status,
     dkimAttributes_tokens,
-    dkimAttributes_signingEnabled,
 
     -- * DomainDeliverabilityCampaign
     DomainDeliverabilityCampaign (..),
     newDomainDeliverabilityCampaign,
+    domainDeliverabilityCampaign_campaignId,
+    domainDeliverabilityCampaign_deleteRate,
+    domainDeliverabilityCampaign_esps,
+    domainDeliverabilityCampaign_firstSeenDateTime,
+    domainDeliverabilityCampaign_fromAddress,
+    domainDeliverabilityCampaign_imageUrl,
+    domainDeliverabilityCampaign_inboxCount,
+    domainDeliverabilityCampaign_lastSeenDateTime,
+    domainDeliverabilityCampaign_projectedVolume,
+    domainDeliverabilityCampaign_readDeleteRate,
+    domainDeliverabilityCampaign_readRate,
+    domainDeliverabilityCampaign_sendingIps,
     domainDeliverabilityCampaign_spamCount,
     domainDeliverabilityCampaign_subject,
-    domainDeliverabilityCampaign_esps,
-    domainDeliverabilityCampaign_fromAddress,
-    domainDeliverabilityCampaign_deleteRate,
-    domainDeliverabilityCampaign_campaignId,
-    domainDeliverabilityCampaign_sendingIps,
-    domainDeliverabilityCampaign_firstSeenDateTime,
-    domainDeliverabilityCampaign_inboxCount,
-    domainDeliverabilityCampaign_readDeleteRate,
-    domainDeliverabilityCampaign_projectedVolume,
-    domainDeliverabilityCampaign_imageUrl,
-    domainDeliverabilityCampaign_readRate,
-    domainDeliverabilityCampaign_lastSeenDateTime,
 
     -- * DomainDeliverabilityTrackingOption
     DomainDeliverabilityTrackingOption (..),
     newDomainDeliverabilityTrackingOption,
     domainDeliverabilityTrackingOption_domain,
-    domainDeliverabilityTrackingOption_subscriptionStartDate,
     domainDeliverabilityTrackingOption_inboxPlacementTrackingOption,
+    domainDeliverabilityTrackingOption_subscriptionStartDate,
 
     -- * DomainIspPlacement
     DomainIspPlacement (..),
     newDomainIspPlacement,
-    domainIspPlacement_spamPercentage,
+    domainIspPlacement_inboxPercentage,
     domainIspPlacement_inboxRawCount,
     domainIspPlacement_ispName,
-    domainIspPlacement_inboxPercentage,
+    domainIspPlacement_spamPercentage,
     domainIspPlacement_spamRawCount,
 
     -- * EmailContent
@@ -178,10 +179,10 @@ module Amazonka.PinpointEmail.Types
     -- * EventDestination
     EventDestination (..),
     newEventDestination,
-    eventDestination_pinpointDestination,
+    eventDestination_cloudWatchDestination,
     eventDestination_enabled,
     eventDestination_kinesisFirehoseDestination,
-    eventDestination_cloudWatchDestination,
+    eventDestination_pinpointDestination,
     eventDestination_snsDestination,
     eventDestination_name,
     eventDestination_matchingEventTypes,
@@ -189,31 +190,31 @@ module Amazonka.PinpointEmail.Types
     -- * EventDestinationDefinition
     EventDestinationDefinition (..),
     newEventDestinationDefinition,
-    eventDestinationDefinition_matchingEventTypes,
-    eventDestinationDefinition_pinpointDestination,
+    eventDestinationDefinition_cloudWatchDestination,
     eventDestinationDefinition_enabled,
     eventDestinationDefinition_kinesisFirehoseDestination,
-    eventDestinationDefinition_cloudWatchDestination,
+    eventDestinationDefinition_matchingEventTypes,
+    eventDestinationDefinition_pinpointDestination,
     eventDestinationDefinition_snsDestination,
 
     -- * IdentityInfo
     IdentityInfo (..),
     newIdentityInfo,
-    identityInfo_identityType,
     identityInfo_identityName,
+    identityInfo_identityType,
     identityInfo_sendingEnabled,
 
     -- * InboxPlacementTrackingOption
     InboxPlacementTrackingOption (..),
     newInboxPlacementTrackingOption,
-    inboxPlacementTrackingOption_trackedIsps,
     inboxPlacementTrackingOption_global,
+    inboxPlacementTrackingOption_trackedIsps,
 
     -- * IspPlacement
     IspPlacement (..),
     newIspPlacement,
-    ispPlacement_placementStatistics,
     ispPlacement_ispName,
+    ispPlacement_placementStatistics,
 
     -- * KinesisFirehoseDestination
     KinesisFirehoseDestination (..),
@@ -244,8 +245,8 @@ module Amazonka.PinpointEmail.Types
     OverallVolume (..),
     newOverallVolume,
     overallVolume_domainIspPlacements,
-    overallVolume_volumeStatistics,
     overallVolume_readRatePercent,
+    overallVolume_volumeStatistics,
 
     -- * PinpointDestination
     PinpointDestination (..),
@@ -255,11 +256,11 @@ module Amazonka.PinpointEmail.Types
     -- * PlacementStatistics
     PlacementStatistics (..),
     newPlacementStatistics,
+    placementStatistics_dkimPercentage,
+    placementStatistics_inboxPercentage,
     placementStatistics_missingPercentage,
     placementStatistics_spamPercentage,
     placementStatistics_spfPercentage,
-    placementStatistics_dkimPercentage,
-    placementStatistics_inboxPercentage,
 
     -- * RawMessage
     RawMessage (..),
@@ -275,9 +276,9 @@ module Amazonka.PinpointEmail.Types
     -- * SendQuota
     SendQuota (..),
     newSendQuota,
+    sendQuota_max24HourSend,
     sendQuota_maxSendRate,
     sendQuota_sentLast24Hours,
-    sendQuota_max24HourSend,
 
     -- * SendingOptions
     SendingOptions (..),
@@ -310,14 +311,14 @@ module Amazonka.PinpointEmail.Types
     VolumeStatistics (..),
     newVolumeStatistics,
     volumeStatistics_inboxRawCount,
-    volumeStatistics_projectedSpam,
     volumeStatistics_projectedInbox,
+    volumeStatistics_projectedSpam,
     volumeStatistics_spamRawCount,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.PinpointEmail.Types.BehaviorOnMxFailure
 import Amazonka.PinpointEmail.Types.BlacklistEntry
 import Amazonka.PinpointEmail.Types.Body
@@ -371,42 +372,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "PinpointEmail",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "email",
-      Core._serviceSigningName = "ses",
-      Core._serviceVersion = "2018-07-26",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "PinpointEmail",
-      Core._serviceRetry = retry
+    { Core.abbrev = "PinpointEmail",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "email",
+      Core.signingName = "ses",
+      Core.version = "2018-07-26",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "PinpointEmail",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -414,69 +422,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | The message can\'t be sent because it contains invalid content.
-_MessageRejected :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_MessageRejected =
-  Core._MatchServiceError
-    defaultService
-    "MessageRejected"
-    Prelude.. Core.hasStatus 400
-
--- | The message can\'t be sent because the sending domain isn\'t verified.
-_MailFromDomainNotVerifiedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_MailFromDomainNotVerifiedException =
-  Core._MatchServiceError
-    defaultService
-    "MailFromDomainNotVerifiedException"
-    Prelude.. Core.hasStatus 400
-
--- | The resource you attempted to access doesn\'t exist.
-_NotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NotFoundException =
-  Core._MatchServiceError
-    defaultService
-    "NotFoundException"
-    Prelude.. Core.hasStatus 404
-
--- | Too many requests have been made to the operation.
-_TooManyRequestsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyRequestsException =
-  Core._MatchServiceError
-    defaultService
-    "TooManyRequestsException"
-    Prelude.. Core.hasStatus 429
-
--- | The resource is being modified by another operation or thread.
-_ConcurrentModificationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ConcurrentModificationException =
-  Core._MatchServiceError
-    defaultService
-    "ConcurrentModificationException"
-    Prelude.. Core.hasStatus 500
 
 -- | The message can\'t be sent because the account\'s ability to send email
 -- has been permanently restricted.
@@ -487,13 +447,12 @@ _AccountSuspendedException =
     "AccountSuspendedException"
     Prelude.. Core.hasStatus 400
 
--- | The message can\'t be sent because the account\'s ability to send email
--- is currently paused.
-_SendingPausedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_SendingPausedException =
+-- | The resource specified in your request already exists.
+_AlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_AlreadyExistsException =
   Core._MatchServiceError
     defaultService
-    "SendingPausedException"
+    "AlreadyExistsException"
     Prelude.. Core.hasStatus 400
 
 -- | The input you provided is invalid.
@@ -504,13 +463,13 @@ _BadRequestException =
     "BadRequestException"
     Prelude.. Core.hasStatus 400
 
--- | The resource specified in your request already exists.
-_AlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_AlreadyExistsException =
+-- | The resource is being modified by another operation or thread.
+_ConcurrentModificationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ConcurrentModificationException =
   Core._MatchServiceError
     defaultService
-    "AlreadyExistsException"
-    Prelude.. Core.hasStatus 400
+    "ConcurrentModificationException"
+    Prelude.. Core.hasStatus 500
 
 -- | There are too many instances of the specified resource type.
 _LimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -519,3 +478,44 @@ _LimitExceededException =
     defaultService
     "LimitExceededException"
     Prelude.. Core.hasStatus 400
+
+-- | The message can\'t be sent because the sending domain isn\'t verified.
+_MailFromDomainNotVerifiedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_MailFromDomainNotVerifiedException =
+  Core._MatchServiceError
+    defaultService
+    "MailFromDomainNotVerifiedException"
+    Prelude.. Core.hasStatus 400
+
+-- | The message can\'t be sent because it contains invalid content.
+_MessageRejected :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_MessageRejected =
+  Core._MatchServiceError
+    defaultService
+    "MessageRejected"
+    Prelude.. Core.hasStatus 400
+
+-- | The resource you attempted to access doesn\'t exist.
+_NotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "NotFoundException"
+    Prelude.. Core.hasStatus 404
+
+-- | The message can\'t be sent because the account\'s ability to send email
+-- is currently paused.
+_SendingPausedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_SendingPausedException =
+  Core._MatchServiceError
+    defaultService
+    "SendingPausedException"
+    Prelude.. Core.hasStatus 400
+
+-- | Too many requests have been made to the operation.
+_TooManyRequestsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyRequestsException =
+  Core._MatchServiceError
+    defaultService
+    "TooManyRequestsException"
+    Prelude.. Core.hasStatus 429

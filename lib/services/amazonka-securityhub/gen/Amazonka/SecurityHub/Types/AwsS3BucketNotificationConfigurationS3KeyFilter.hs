@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsS3BucketNotificationConfigurationS3KeyFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsS3BucketNotificationConfigurationS3KeyFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsS3BucketNotificationConfigurationS3KeyFilterRule
 
@@ -55,15 +56,15 @@ awsS3BucketNotificationConfigurationS3KeyFilter_filterRules :: Lens.Lens' AwsS3B
 awsS3BucketNotificationConfigurationS3KeyFilter_filterRules = Lens.lens (\AwsS3BucketNotificationConfigurationS3KeyFilter' {filterRules} -> filterRules) (\s@AwsS3BucketNotificationConfigurationS3KeyFilter' {} a -> s {filterRules = a} :: AwsS3BucketNotificationConfigurationS3KeyFilter) Prelude.. Lens.mapping Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsS3BucketNotificationConfigurationS3KeyFilter
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsS3BucketNotificationConfigurationS3KeyFilter"
       ( \x ->
           AwsS3BucketNotificationConfigurationS3KeyFilter'
-            Prelude.<$> (x Core..:? "FilterRules" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "FilterRules" Data..!= Prelude.mempty)
       )
 
 instance
@@ -84,12 +85,12 @@ instance
       Prelude.rnf filterRules
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsS3BucketNotificationConfigurationS3KeyFilter
   where
   toJSON
     AwsS3BucketNotificationConfigurationS3KeyFilter' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [("FilterRules" Core..=) Prelude.<$> filterRules]
+            [("FilterRules" Data..=) Prelude.<$> filterRules]
         )

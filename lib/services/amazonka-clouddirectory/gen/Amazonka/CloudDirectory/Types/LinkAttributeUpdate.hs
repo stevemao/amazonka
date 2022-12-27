@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.LinkAttributeUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudDirectory.Types.LinkAttributeUpdate where
 import Amazonka.CloudDirectory.Types.AttributeKey
 import Amazonka.CloudDirectory.Types.LinkAttributeAction
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Structure that contains attribute update information.
@@ -74,12 +75,12 @@ instance Prelude.NFData LinkAttributeUpdate where
     Prelude.rnf attributeAction
       `Prelude.seq` Prelude.rnf attributeKey
 
-instance Core.ToJSON LinkAttributeUpdate where
+instance Data.ToJSON LinkAttributeUpdate where
   toJSON LinkAttributeUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AttributeAction" Core..=)
+          [ ("AttributeAction" Data..=)
               Prelude.<$> attributeAction,
-            ("AttributeKey" Core..=) Prelude.<$> attributeKey
+            ("AttributeKey" Data..=) Prelude.<$> attributeKey
           ]
       )

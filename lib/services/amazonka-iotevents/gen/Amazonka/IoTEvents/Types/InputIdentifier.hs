@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.InputIdentifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.IoTEvents.Types.InputIdentifier where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types.IotEventsInputIdentifier
 import Amazonka.IoTEvents.Types.IotSiteWiseInputIdentifier
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The identifer of the input.
 --
 -- /See:/ 'newInputIdentifier' smart constructor.
 data InputIdentifier = InputIdentifier'
-  { -- | The identifer of the input routed from AWS IoT SiteWise.
-    iotSiteWiseInputIdentifier :: Prelude.Maybe IotSiteWiseInputIdentifier,
-    -- | The identifier of the input routed to AWS IoT Events.
-    iotEventsInputIdentifier :: Prelude.Maybe IotEventsInputIdentifier
+  { -- | The identifier of the input routed to AWS IoT Events.
+    iotEventsInputIdentifier :: Prelude.Maybe IotEventsInputIdentifier,
+    -- | The identifer of the input routed from AWS IoT SiteWise.
+    iotSiteWiseInputIdentifier :: Prelude.Maybe IotSiteWiseInputIdentifier
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,44 +45,44 @@ data InputIdentifier = InputIdentifier'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'iotSiteWiseInputIdentifier', 'inputIdentifier_iotSiteWiseInputIdentifier' - The identifer of the input routed from AWS IoT SiteWise.
---
 -- 'iotEventsInputIdentifier', 'inputIdentifier_iotEventsInputIdentifier' - The identifier of the input routed to AWS IoT Events.
+--
+-- 'iotSiteWiseInputIdentifier', 'inputIdentifier_iotSiteWiseInputIdentifier' - The identifer of the input routed from AWS IoT SiteWise.
 newInputIdentifier ::
   InputIdentifier
 newInputIdentifier =
   InputIdentifier'
-    { iotSiteWiseInputIdentifier =
+    { iotEventsInputIdentifier =
         Prelude.Nothing,
-      iotEventsInputIdentifier = Prelude.Nothing
+      iotSiteWiseInputIdentifier = Prelude.Nothing
     }
-
--- | The identifer of the input routed from AWS IoT SiteWise.
-inputIdentifier_iotSiteWiseInputIdentifier :: Lens.Lens' InputIdentifier (Prelude.Maybe IotSiteWiseInputIdentifier)
-inputIdentifier_iotSiteWiseInputIdentifier = Lens.lens (\InputIdentifier' {iotSiteWiseInputIdentifier} -> iotSiteWiseInputIdentifier) (\s@InputIdentifier' {} a -> s {iotSiteWiseInputIdentifier = a} :: InputIdentifier)
 
 -- | The identifier of the input routed to AWS IoT Events.
 inputIdentifier_iotEventsInputIdentifier :: Lens.Lens' InputIdentifier (Prelude.Maybe IotEventsInputIdentifier)
 inputIdentifier_iotEventsInputIdentifier = Lens.lens (\InputIdentifier' {iotEventsInputIdentifier} -> iotEventsInputIdentifier) (\s@InputIdentifier' {} a -> s {iotEventsInputIdentifier = a} :: InputIdentifier)
 
+-- | The identifer of the input routed from AWS IoT SiteWise.
+inputIdentifier_iotSiteWiseInputIdentifier :: Lens.Lens' InputIdentifier (Prelude.Maybe IotSiteWiseInputIdentifier)
+inputIdentifier_iotSiteWiseInputIdentifier = Lens.lens (\InputIdentifier' {iotSiteWiseInputIdentifier} -> iotSiteWiseInputIdentifier) (\s@InputIdentifier' {} a -> s {iotSiteWiseInputIdentifier = a} :: InputIdentifier)
+
 instance Prelude.Hashable InputIdentifier where
   hashWithSalt _salt InputIdentifier' {..} =
     _salt
-      `Prelude.hashWithSalt` iotSiteWiseInputIdentifier
       `Prelude.hashWithSalt` iotEventsInputIdentifier
+      `Prelude.hashWithSalt` iotSiteWiseInputIdentifier
 
 instance Prelude.NFData InputIdentifier where
   rnf InputIdentifier' {..} =
-    Prelude.rnf iotSiteWiseInputIdentifier
-      `Prelude.seq` Prelude.rnf iotEventsInputIdentifier
+    Prelude.rnf iotEventsInputIdentifier
+      `Prelude.seq` Prelude.rnf iotSiteWiseInputIdentifier
 
-instance Core.ToJSON InputIdentifier where
+instance Data.ToJSON InputIdentifier where
   toJSON InputIdentifier' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("iotSiteWiseInputIdentifier" Core..=)
-              Prelude.<$> iotSiteWiseInputIdentifier,
-            ("iotEventsInputIdentifier" Core..=)
-              Prelude.<$> iotEventsInputIdentifier
+          [ ("iotEventsInputIdentifier" Data..=)
+              Prelude.<$> iotEventsInputIdentifier,
+            ("iotSiteWiseInputIdentifier" Data..=)
+              Prelude.<$> iotSiteWiseInputIdentifier
           ]
       )

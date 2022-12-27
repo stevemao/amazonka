@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.ListResolverRules
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,23 +31,24 @@ module Amazonka.Route53Resolver.ListResolverRules
 
     -- * Request Lenses
     listResolverRules_filters,
-    listResolverRules_nextToken,
     listResolverRules_maxResults,
+    listResolverRules_nextToken,
 
     -- * Destructuring the Response
     ListResolverRulesResponse (..),
     newListResolverRulesResponse,
 
     -- * Response Lenses
-    listResolverRulesResponse_resolverRules,
-    listResolverRulesResponse_nextToken,
     listResolverRulesResponse_maxResults,
+    listResolverRulesResponse_nextToken,
+    listResolverRulesResponse_resolverRules,
     listResolverRulesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,17 +63,17 @@ data ListResolverRules = ListResolverRules'
     -- specify the @NextToken@ parameter, you must use the same values for
     -- @Filters@, if any, as in the previous request.
     filters :: Prelude.Maybe [Filter],
+    -- | The maximum number of Resolver rules that you want to return in the
+    -- response to a @ListResolverRules@ request. If you don\'t specify a value
+    -- for @MaxResults@, Resolver returns up to 100 Resolver rules.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | For the first @ListResolverRules@ request, omit this value.
     --
     -- If you have more than @MaxResults@ Resolver rules, you can submit
     -- another @ListResolverRules@ request to get the next group of Resolver
     -- rules. In the next request, specify the value of @NextToken@ from the
     -- previous response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of Resolver rules that you want to return in the
-    -- response to a @ListResolverRules@ request. If you don\'t specify a value
-    -- for @MaxResults@, Resolver returns up to 100 Resolver rules.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -91,23 +92,23 @@ data ListResolverRules = ListResolverRules'
 -- specify the @NextToken@ parameter, you must use the same values for
 -- @Filters@, if any, as in the previous request.
 --
+-- 'maxResults', 'listResolverRules_maxResults' - The maximum number of Resolver rules that you want to return in the
+-- response to a @ListResolverRules@ request. If you don\'t specify a value
+-- for @MaxResults@, Resolver returns up to 100 Resolver rules.
+--
 -- 'nextToken', 'listResolverRules_nextToken' - For the first @ListResolverRules@ request, omit this value.
 --
 -- If you have more than @MaxResults@ Resolver rules, you can submit
 -- another @ListResolverRules@ request to get the next group of Resolver
 -- rules. In the next request, specify the value of @NextToken@ from the
 -- previous response.
---
--- 'maxResults', 'listResolverRules_maxResults' - The maximum number of Resolver rules that you want to return in the
--- response to a @ListResolverRules@ request. If you don\'t specify a value
--- for @MaxResults@, Resolver returns up to 100 Resolver rules.
 newListResolverRules ::
   ListResolverRules
 newListResolverRules =
   ListResolverRules'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | An optional specification to return a subset of Resolver rules, such as
@@ -119,6 +120,12 @@ newListResolverRules =
 listResolverRules_filters :: Lens.Lens' ListResolverRules (Prelude.Maybe [Filter])
 listResolverRules_filters = Lens.lens (\ListResolverRules' {filters} -> filters) (\s@ListResolverRules' {} a -> s {filters = a} :: ListResolverRules) Prelude.. Lens.mapping Lens.coerced
 
+-- | The maximum number of Resolver rules that you want to return in the
+-- response to a @ListResolverRules@ request. If you don\'t specify a value
+-- for @MaxResults@, Resolver returns up to 100 Resolver rules.
+listResolverRules_maxResults :: Lens.Lens' ListResolverRules (Prelude.Maybe Prelude.Natural)
+listResolverRules_maxResults = Lens.lens (\ListResolverRules' {maxResults} -> maxResults) (\s@ListResolverRules' {} a -> s {maxResults = a} :: ListResolverRules)
+
 -- | For the first @ListResolverRules@ request, omit this value.
 --
 -- If you have more than @MaxResults@ Resolver rules, you can submit
@@ -127,12 +134,6 @@ listResolverRules_filters = Lens.lens (\ListResolverRules' {filters} -> filters)
 -- previous response.
 listResolverRules_nextToken :: Lens.Lens' ListResolverRules (Prelude.Maybe Prelude.Text)
 listResolverRules_nextToken = Lens.lens (\ListResolverRules' {nextToken} -> nextToken) (\s@ListResolverRules' {} a -> s {nextToken = a} :: ListResolverRules)
-
--- | The maximum number of Resolver rules that you want to return in the
--- response to a @ListResolverRules@ request. If you don\'t specify a value
--- for @MaxResults@, Resolver returns up to 100 Resolver rules.
-listResolverRules_maxResults :: Lens.Lens' ListResolverRules (Prelude.Maybe Prelude.Natural)
-listResolverRules_maxResults = Lens.lens (\ListResolverRules' {maxResults} -> maxResults) (\s@ListResolverRules' {} a -> s {maxResults = a} :: ListResolverRules)
 
 instance Core.AWSPager ListResolverRules where
   page rq rs
@@ -160,72 +161,73 @@ instance Core.AWSRequest ListResolverRules where
   type
     AWSResponse ListResolverRules =
       ListResolverRulesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListResolverRulesResponse'
-            Prelude.<$> (x Core..?> "ResolverRules" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "MaxResults")
+            Prelude.<$> (x Data..?> "MaxResults")
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "ResolverRules" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListResolverRules where
   hashWithSalt _salt ListResolverRules' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListResolverRules where
   rnf ListResolverRules' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListResolverRules where
+instance Data.ToHeaders ListResolverRules where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Resolver.ListResolverRules" ::
+              Data.=# ( "Route53Resolver.ListResolverRules" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListResolverRules where
+instance Data.ToJSON ListResolverRules where
   toJSON ListResolverRules' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListResolverRules where
+instance Data.ToPath ListResolverRules where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListResolverRules where
+instance Data.ToQuery ListResolverRules where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListResolverRulesResponse' smart constructor.
 data ListResolverRulesResponse = ListResolverRulesResponse'
-  { -- | The Resolver rules that were created using the current Amazon Web
-    -- Services account and that match the specified filters, if any.
-    resolverRules :: Prelude.Maybe [ResolverRule],
+  { -- | The value that you specified for @MaxResults@ in the request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | If more than @MaxResults@ Resolver rules match the specified criteria,
     -- you can submit another @ListResolverRules@ request to get the next group
     -- of results. In the next request, specify the value of @NextToken@ from
     -- the previous response.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The value that you specified for @MaxResults@ in the request.
-    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The Resolver rules that were created using the current Amazon Web
+    -- Services account and that match the specified filters, if any.
+    resolverRules :: Prelude.Maybe [ResolverRule],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -239,15 +241,15 @@ data ListResolverRulesResponse = ListResolverRulesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resolverRules', 'listResolverRulesResponse_resolverRules' - The Resolver rules that were created using the current Amazon Web
--- Services account and that match the specified filters, if any.
+-- 'maxResults', 'listResolverRulesResponse_maxResults' - The value that you specified for @MaxResults@ in the request.
 --
 -- 'nextToken', 'listResolverRulesResponse_nextToken' - If more than @MaxResults@ Resolver rules match the specified criteria,
 -- you can submit another @ListResolverRules@ request to get the next group
 -- of results. In the next request, specify the value of @NextToken@ from
 -- the previous response.
 --
--- 'maxResults', 'listResolverRulesResponse_maxResults' - The value that you specified for @MaxResults@ in the request.
+-- 'resolverRules', 'listResolverRulesResponse_resolverRules' - The Resolver rules that were created using the current Amazon Web
+-- Services account and that match the specified filters, if any.
 --
 -- 'httpStatus', 'listResolverRulesResponse_httpStatus' - The response's http status code.
 newListResolverRulesResponse ::
@@ -256,17 +258,16 @@ newListResolverRulesResponse ::
   ListResolverRulesResponse
 newListResolverRulesResponse pHttpStatus_ =
   ListResolverRulesResponse'
-    { resolverRules =
+    { maxResults =
         Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      resolverRules = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The Resolver rules that were created using the current Amazon Web
--- Services account and that match the specified filters, if any.
-listResolverRulesResponse_resolverRules :: Lens.Lens' ListResolverRulesResponse (Prelude.Maybe [ResolverRule])
-listResolverRulesResponse_resolverRules = Lens.lens (\ListResolverRulesResponse' {resolverRules} -> resolverRules) (\s@ListResolverRulesResponse' {} a -> s {resolverRules = a} :: ListResolverRulesResponse) Prelude.. Lens.mapping Lens.coerced
+-- | The value that you specified for @MaxResults@ in the request.
+listResolverRulesResponse_maxResults :: Lens.Lens' ListResolverRulesResponse (Prelude.Maybe Prelude.Natural)
+listResolverRulesResponse_maxResults = Lens.lens (\ListResolverRulesResponse' {maxResults} -> maxResults) (\s@ListResolverRulesResponse' {} a -> s {maxResults = a} :: ListResolverRulesResponse)
 
 -- | If more than @MaxResults@ Resolver rules match the specified criteria,
 -- you can submit another @ListResolverRules@ request to get the next group
@@ -275,9 +276,10 @@ listResolverRulesResponse_resolverRules = Lens.lens (\ListResolverRulesResponse'
 listResolverRulesResponse_nextToken :: Lens.Lens' ListResolverRulesResponse (Prelude.Maybe Prelude.Text)
 listResolverRulesResponse_nextToken = Lens.lens (\ListResolverRulesResponse' {nextToken} -> nextToken) (\s@ListResolverRulesResponse' {} a -> s {nextToken = a} :: ListResolverRulesResponse)
 
--- | The value that you specified for @MaxResults@ in the request.
-listResolverRulesResponse_maxResults :: Lens.Lens' ListResolverRulesResponse (Prelude.Maybe Prelude.Natural)
-listResolverRulesResponse_maxResults = Lens.lens (\ListResolverRulesResponse' {maxResults} -> maxResults) (\s@ListResolverRulesResponse' {} a -> s {maxResults = a} :: ListResolverRulesResponse)
+-- | The Resolver rules that were created using the current Amazon Web
+-- Services account and that match the specified filters, if any.
+listResolverRulesResponse_resolverRules :: Lens.Lens' ListResolverRulesResponse (Prelude.Maybe [ResolverRule])
+listResolverRulesResponse_resolverRules = Lens.lens (\ListResolverRulesResponse' {resolverRules} -> resolverRules) (\s@ListResolverRulesResponse' {} a -> s {resolverRules = a} :: ListResolverRulesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listResolverRulesResponse_httpStatus :: Lens.Lens' ListResolverRulesResponse Prelude.Int
@@ -285,7 +287,7 @@ listResolverRulesResponse_httpStatus = Lens.lens (\ListResolverRulesResponse' {h
 
 instance Prelude.NFData ListResolverRulesResponse where
   rnf ListResolverRulesResponse' {..} =
-    Prelude.rnf resolverRules
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf resolverRules
       `Prelude.seq` Prelude.rnf httpStatus

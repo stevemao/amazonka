@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.DescribeLoggingOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,9 @@ module Amazonka.IoTSiteWise.DescribeLoggingOptions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,13 +62,14 @@ instance Core.AWSRequest DescribeLoggingOptions where
   type
     AWSResponse DescribeLoggingOptions =
       DescribeLoggingOptionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeLoggingOptionsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "loggingOptions")
+            Prelude.<*> (x Data..:> "loggingOptions")
       )
 
 instance Prelude.Hashable DescribeLoggingOptions where
@@ -77,21 +79,21 @@ instance Prelude.Hashable DescribeLoggingOptions where
 instance Prelude.NFData DescribeLoggingOptions where
   rnf _ = ()
 
-instance Core.ToHeaders DescribeLoggingOptions where
+instance Data.ToHeaders DescribeLoggingOptions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeLoggingOptions where
+instance Data.ToPath DescribeLoggingOptions where
   toPath = Prelude.const "/logging"
 
-instance Core.ToQuery DescribeLoggingOptions where
+instance Data.ToQuery DescribeLoggingOptions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeLoggingOptionsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.DescribeEngineDefaultParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.Neptune.DescribeEngineDefaultParameters
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -179,13 +180,14 @@ instance
   type
     AWSResponse DescribeEngineDefaultParameters =
       DescribeEngineDefaultParametersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeEngineDefaultParametersResult"
       ( \s h x ->
           DescribeEngineDefaultParametersResponse'
-            Prelude.<$> (x Core..@? "EngineDefaults")
+            Prelude.<$> (x Data..@? "EngineDefaults")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -212,30 +214,30 @@ instance
       `Prelude.seq` Prelude.rnf dbParameterGroupFamily
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeEngineDefaultParameters
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeEngineDefaultParameters where
+instance Data.ToPath DescribeEngineDefaultParameters where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEngineDefaultParameters where
+instance Data.ToQuery DescribeEngineDefaultParameters where
   toQuery DescribeEngineDefaultParameters' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeEngineDefaultParameters" ::
+          Data.=: ( "DescribeEngineDefaultParameters" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
         "DBParameterGroupFamily"
-          Core.=: dbParameterGroupFamily
+          Data.=: dbParameterGroupFamily
       ]
 
 -- | /See:/ 'newDescribeEngineDefaultParametersResponse' smart constructor.

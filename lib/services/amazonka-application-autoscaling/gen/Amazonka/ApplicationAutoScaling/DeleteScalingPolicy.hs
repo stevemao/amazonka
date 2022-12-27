@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationAutoScaling.DeleteScalingPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,7 +54,8 @@ where
 
 import Amazonka.ApplicationAutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -525,7 +526,8 @@ instance Core.AWSRequest DeleteScalingPolicy where
   type
     AWSResponse DeleteScalingPolicy =
       DeleteScalingPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -547,38 +549,38 @@ instance Prelude.NFData DeleteScalingPolicy where
       `Prelude.seq` Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf scalableDimension
 
-instance Core.ToHeaders DeleteScalingPolicy where
+instance Data.ToHeaders DeleteScalingPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AnyScaleFrontendService.DeleteScalingPolicy" ::
+              Data.=# ( "AnyScaleFrontendService.DeleteScalingPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteScalingPolicy where
+instance Data.ToJSON DeleteScalingPolicy where
   toJSON DeleteScalingPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("PolicyName" Core..= policyName),
+          [ Prelude.Just ("PolicyName" Data..= policyName),
             Prelude.Just
-              ("ServiceNamespace" Core..= serviceNamespace),
-            Prelude.Just ("ResourceId" Core..= resourceId),
+              ("ServiceNamespace" Data..= serviceNamespace),
+            Prelude.Just ("ResourceId" Data..= resourceId),
             Prelude.Just
-              ("ScalableDimension" Core..= scalableDimension)
+              ("ScalableDimension" Data..= scalableDimension)
           ]
       )
 
-instance Core.ToPath DeleteScalingPolicy where
+instance Data.ToPath DeleteScalingPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteScalingPolicy where
+instance Data.ToQuery DeleteScalingPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteScalingPolicyResponse' smart constructor.

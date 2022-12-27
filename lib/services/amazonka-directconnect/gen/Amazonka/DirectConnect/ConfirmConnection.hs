@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.ConfirmConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.DirectConnect.ConfirmConnection
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,12 +83,13 @@ instance Core.AWSRequest ConfirmConnection where
   type
     AWSResponse ConfirmConnection =
       ConfirmConnectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ConfirmConnectionResponse'
-            Prelude.<$> (x Core..?> "connectionState")
+            Prelude.<$> (x Data..?> "connectionState")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,32 +100,32 @@ instance Prelude.Hashable ConfirmConnection where
 instance Prelude.NFData ConfirmConnection where
   rnf ConfirmConnection' {..} = Prelude.rnf connectionId
 
-instance Core.ToHeaders ConfirmConnection where
+instance Data.ToHeaders ConfirmConnection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.ConfirmConnection" ::
+              Data.=# ( "OvertureService.ConfirmConnection" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ConfirmConnection where
+instance Data.ToJSON ConfirmConnection where
   toJSON ConfirmConnection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("connectionId" Core..= connectionId)]
+          [Prelude.Just ("connectionId" Data..= connectionId)]
       )
 
-instance Core.ToPath ConfirmConnection where
+instance Data.ToPath ConfirmConnection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ConfirmConnection where
+instance Data.ToQuery ConfirmConnection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newConfirmConnectionResponse' smart constructor.

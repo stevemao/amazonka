@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Proton.GetEnvironmentTemplateVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- View detail data for a major or minor version of an environment
+-- Get detailed data for a major or minor version of an environment
 -- template.
 module Amazonka.Proton.GetEnvironmentTemplateVersion
   ( -- * Creating a Request
@@ -43,7 +43,8 @@ module Amazonka.Proton.GetEnvironmentTemplateVersion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -51,13 +52,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetEnvironmentTemplateVersion' smart constructor.
 data GetEnvironmentTemplateVersion = GetEnvironmentTemplateVersion'
-  { -- | To view environment template major version detail data, include
-    -- @majorVersion@.
+  { -- | To get environment template major version detail data, include
+    -- @major Version@.
     majorVersion :: Prelude.Text,
-    -- | To view environment template minor version detail data, include
+    -- | To get environment template minor version detail data, include
     -- @minorVersion@.
     minorVersion :: Prelude.Text,
-    -- | The name of the environment template.
+    -- | The name of the environment template a version of which you want to get
+    -- detailed data for.
     templateName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -70,13 +72,14 @@ data GetEnvironmentTemplateVersion = GetEnvironmentTemplateVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'majorVersion', 'getEnvironmentTemplateVersion_majorVersion' - To view environment template major version detail data, include
--- @majorVersion@.
+-- 'majorVersion', 'getEnvironmentTemplateVersion_majorVersion' - To get environment template major version detail data, include
+-- @major Version@.
 --
--- 'minorVersion', 'getEnvironmentTemplateVersion_minorVersion' - To view environment template minor version detail data, include
+-- 'minorVersion', 'getEnvironmentTemplateVersion_minorVersion' - To get environment template minor version detail data, include
 -- @minorVersion@.
 --
--- 'templateName', 'getEnvironmentTemplateVersion_templateName' - The name of the environment template.
+-- 'templateName', 'getEnvironmentTemplateVersion_templateName' - The name of the environment template a version of which you want to get
+-- detailed data for.
 newGetEnvironmentTemplateVersion ::
   -- | 'majorVersion'
   Prelude.Text ->
@@ -96,17 +99,18 @@ newGetEnvironmentTemplateVersion
         templateName = pTemplateName_
       }
 
--- | To view environment template major version detail data, include
--- @majorVersion@.
+-- | To get environment template major version detail data, include
+-- @major Version@.
 getEnvironmentTemplateVersion_majorVersion :: Lens.Lens' GetEnvironmentTemplateVersion Prelude.Text
 getEnvironmentTemplateVersion_majorVersion = Lens.lens (\GetEnvironmentTemplateVersion' {majorVersion} -> majorVersion) (\s@GetEnvironmentTemplateVersion' {} a -> s {majorVersion = a} :: GetEnvironmentTemplateVersion)
 
--- | To view environment template minor version detail data, include
+-- | To get environment template minor version detail data, include
 -- @minorVersion@.
 getEnvironmentTemplateVersion_minorVersion :: Lens.Lens' GetEnvironmentTemplateVersion Prelude.Text
 getEnvironmentTemplateVersion_minorVersion = Lens.lens (\GetEnvironmentTemplateVersion' {minorVersion} -> minorVersion) (\s@GetEnvironmentTemplateVersion' {} a -> s {minorVersion = a} :: GetEnvironmentTemplateVersion)
 
--- | The name of the environment template.
+-- | The name of the environment template a version of which you want to get
+-- detailed data for.
 getEnvironmentTemplateVersion_templateName :: Lens.Lens' GetEnvironmentTemplateVersion Prelude.Text
 getEnvironmentTemplateVersion_templateName = Lens.lens (\GetEnvironmentTemplateVersion' {templateName} -> templateName) (\s@GetEnvironmentTemplateVersion' {} a -> s {templateName = a} :: GetEnvironmentTemplateVersion)
 
@@ -117,13 +121,14 @@ instance
   type
     AWSResponse GetEnvironmentTemplateVersion =
       GetEnvironmentTemplateVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetEnvironmentTemplateVersionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "environmentTemplateVersion")
+            Prelude.<*> (x Data..:> "environmentTemplateVersion")
       )
 
 instance
@@ -141,43 +146,42 @@ instance Prelude.NFData GetEnvironmentTemplateVersion where
       `Prelude.seq` Prelude.rnf minorVersion
       `Prelude.seq` Prelude.rnf templateName
 
-instance Core.ToHeaders GetEnvironmentTemplateVersion where
+instance Data.ToHeaders GetEnvironmentTemplateVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.GetEnvironmentTemplateVersion" ::
+              Data.=# ( "AwsProton20200720.GetEnvironmentTemplateVersion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetEnvironmentTemplateVersion where
+instance Data.ToJSON GetEnvironmentTemplateVersion where
   toJSON GetEnvironmentTemplateVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("majorVersion" Core..= majorVersion),
-            Prelude.Just ("minorVersion" Core..= minorVersion),
-            Prelude.Just ("templateName" Core..= templateName)
+          [ Prelude.Just ("majorVersion" Data..= majorVersion),
+            Prelude.Just ("minorVersion" Data..= minorVersion),
+            Prelude.Just ("templateName" Data..= templateName)
           ]
       )
 
-instance Core.ToPath GetEnvironmentTemplateVersion where
+instance Data.ToPath GetEnvironmentTemplateVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetEnvironmentTemplateVersion where
+instance Data.ToQuery GetEnvironmentTemplateVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetEnvironmentTemplateVersionResponse' smart constructor.
 data GetEnvironmentTemplateVersionResponse = GetEnvironmentTemplateVersionResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | The environment template version detail data that\'s returned by AWS
-    -- Proton.
+    -- | The detailed data of the requested environment template version.
     environmentTemplateVersion :: EnvironmentTemplateVersion
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -192,8 +196,7 @@ data GetEnvironmentTemplateVersionResponse = GetEnvironmentTemplateVersionRespon
 --
 -- 'httpStatus', 'getEnvironmentTemplateVersionResponse_httpStatus' - The response's http status code.
 --
--- 'environmentTemplateVersion', 'getEnvironmentTemplateVersionResponse_environmentTemplateVersion' - The environment template version detail data that\'s returned by AWS
--- Proton.
+-- 'environmentTemplateVersion', 'getEnvironmentTemplateVersionResponse_environmentTemplateVersion' - The detailed data of the requested environment template version.
 newGetEnvironmentTemplateVersionResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -214,8 +217,7 @@ newGetEnvironmentTemplateVersionResponse
 getEnvironmentTemplateVersionResponse_httpStatus :: Lens.Lens' GetEnvironmentTemplateVersionResponse Prelude.Int
 getEnvironmentTemplateVersionResponse_httpStatus = Lens.lens (\GetEnvironmentTemplateVersionResponse' {httpStatus} -> httpStatus) (\s@GetEnvironmentTemplateVersionResponse' {} a -> s {httpStatus = a} :: GetEnvironmentTemplateVersionResponse)
 
--- | The environment template version detail data that\'s returned by AWS
--- Proton.
+-- | The detailed data of the requested environment template version.
 getEnvironmentTemplateVersionResponse_environmentTemplateVersion :: Lens.Lens' GetEnvironmentTemplateVersionResponse EnvironmentTemplateVersion
 getEnvironmentTemplateVersionResponse_environmentTemplateVersion = Lens.lens (\GetEnvironmentTemplateVersionResponse' {environmentTemplateVersion} -> environmentTemplateVersion) (\s@GetEnvironmentTemplateVersionResponse' {} a -> s {environmentTemplateVersion = a} :: GetEnvironmentTemplateVersionResponse)
 

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.UpdateApiCache
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,11 +54,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateApiCache' smart constructor.
 data UpdateApiCache = UpdateApiCache'
-  { -- | The GraphQL API Id.
+  { -- | The GraphQL API ID.
     apiId :: Prelude.Text,
     -- | TTL in seconds for cache entries.
     --
-    -- Valid values are between 1 and 3600 seconds.
+    -- Valid values are 1–3,600 seconds.
     ttl :: Prelude.Integer,
     -- | Caching behavior.
     --
@@ -116,11 +117,11 @@ data UpdateApiCache = UpdateApiCache'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'apiId', 'updateApiCache_apiId' - The GraphQL API Id.
+-- 'apiId', 'updateApiCache_apiId' - The GraphQL API ID.
 --
 -- 'ttl', 'updateApiCache_ttl' - TTL in seconds for cache entries.
 --
--- Valid values are between 1 and 3600 seconds.
+-- Valid values are 1–3,600 seconds.
 --
 -- 'apiCachingBehavior', 'updateApiCache_apiCachingBehavior' - Caching behavior.
 --
@@ -189,13 +190,13 @@ newUpdateApiCache
         type' = pType_
       }
 
--- | The GraphQL API Id.
+-- | The GraphQL API ID.
 updateApiCache_apiId :: Lens.Lens' UpdateApiCache Prelude.Text
 updateApiCache_apiId = Lens.lens (\UpdateApiCache' {apiId} -> apiId) (\s@UpdateApiCache' {} a -> s {apiId = a} :: UpdateApiCache)
 
 -- | TTL in seconds for cache entries.
 --
--- Valid values are between 1 and 3600 seconds.
+-- Valid values are 1–3,600 seconds.
 updateApiCache_ttl :: Lens.Lens' UpdateApiCache Prelude.Integer
 updateApiCache_ttl = Lens.lens (\UpdateApiCache' {ttl} -> ttl) (\s@UpdateApiCache' {} a -> s {ttl = a} :: UpdateApiCache)
 
@@ -253,12 +254,13 @@ instance Core.AWSRequest UpdateApiCache where
   type
     AWSResponse UpdateApiCache =
       UpdateApiCacheResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateApiCacheResponse'
-            Prelude.<$> (x Core..?> "apiCache")
+            Prelude.<$> (x Data..?> "apiCache")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -276,34 +278,34 @@ instance Prelude.NFData UpdateApiCache where
       `Prelude.seq` Prelude.rnf apiCachingBehavior
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToHeaders UpdateApiCache where
+instance Data.ToHeaders UpdateApiCache where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateApiCache where
+instance Data.ToJSON UpdateApiCache where
   toJSON UpdateApiCache' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ttl" Core..= ttl),
+          [ Prelude.Just ("ttl" Data..= ttl),
             Prelude.Just
-              ("apiCachingBehavior" Core..= apiCachingBehavior),
-            Prelude.Just ("type" Core..= type')
+              ("apiCachingBehavior" Data..= apiCachingBehavior),
+            Prelude.Just ("type" Data..= type')
           ]
       )
 
-instance Core.ToPath UpdateApiCache where
+instance Data.ToPath UpdateApiCache where
   toPath UpdateApiCache' {..} =
     Prelude.mconcat
-      ["/v1/apis/", Core.toBS apiId, "/ApiCaches/update"]
+      ["/v1/apis/", Data.toBS apiId, "/ApiCaches/update"]
 
-instance Core.ToQuery UpdateApiCache where
+instance Data.ToQuery UpdateApiCache where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @UpdateApiCache@ operation.

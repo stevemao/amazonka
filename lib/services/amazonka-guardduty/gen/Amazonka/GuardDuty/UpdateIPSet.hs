@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.UpdateIPSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.GuardDuty.UpdateIPSet
     newUpdateIPSet,
 
     -- * Request Lenses
-    updateIPSet_location,
     updateIPSet_activate,
+    updateIPSet_location,
     updateIPSet_name,
     updateIPSet_detectorId,
     updateIPSet_ipSetId,
@@ -43,20 +43,20 @@ module Amazonka.GuardDuty.UpdateIPSet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateIPSet' smart constructor.
 data UpdateIPSet = UpdateIPSet'
-  { -- | The updated URI of the file that contains the IPSet. For example:
-    -- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
-    location :: Prelude.Maybe Prelude.Text,
-    -- | The updated Boolean value that specifies whether the IPSet is active or
+  { -- | The updated Boolean value that specifies whether the IPSet is active or
     -- not.
     activate :: Prelude.Maybe Prelude.Bool,
+    -- | The updated URI of the file that contains the IPSet.
+    location :: Prelude.Maybe Prelude.Text,
     -- | The unique ID that specifies the IPSet that you want to update.
     name :: Prelude.Maybe Prelude.Text,
     -- | The detectorID that specifies the GuardDuty service whose IPSet you want
@@ -75,11 +75,10 @@ data UpdateIPSet = UpdateIPSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'location', 'updateIPSet_location' - The updated URI of the file that contains the IPSet. For example:
--- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
---
 -- 'activate', 'updateIPSet_activate' - The updated Boolean value that specifies whether the IPSet is active or
 -- not.
+--
+-- 'location', 'updateIPSet_location' - The updated URI of the file that contains the IPSet.
 --
 -- 'name', 'updateIPSet_name' - The unique ID that specifies the IPSet that you want to update.
 --
@@ -95,22 +94,21 @@ newUpdateIPSet ::
   UpdateIPSet
 newUpdateIPSet pDetectorId_ pIpSetId_ =
   UpdateIPSet'
-    { location = Prelude.Nothing,
-      activate = Prelude.Nothing,
+    { activate = Prelude.Nothing,
+      location = Prelude.Nothing,
       name = Prelude.Nothing,
       detectorId = pDetectorId_,
       ipSetId = pIpSetId_
     }
 
--- | The updated URI of the file that contains the IPSet. For example:
--- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
-updateIPSet_location :: Lens.Lens' UpdateIPSet (Prelude.Maybe Prelude.Text)
-updateIPSet_location = Lens.lens (\UpdateIPSet' {location} -> location) (\s@UpdateIPSet' {} a -> s {location = a} :: UpdateIPSet)
-
 -- | The updated Boolean value that specifies whether the IPSet is active or
 -- not.
 updateIPSet_activate :: Lens.Lens' UpdateIPSet (Prelude.Maybe Prelude.Bool)
 updateIPSet_activate = Lens.lens (\UpdateIPSet' {activate} -> activate) (\s@UpdateIPSet' {} a -> s {activate = a} :: UpdateIPSet)
+
+-- | The updated URI of the file that contains the IPSet.
+updateIPSet_location :: Lens.Lens' UpdateIPSet (Prelude.Maybe Prelude.Text)
+updateIPSet_location = Lens.lens (\UpdateIPSet' {location} -> location) (\s@UpdateIPSet' {} a -> s {location = a} :: UpdateIPSet)
 
 -- | The unique ID that specifies the IPSet that you want to update.
 updateIPSet_name :: Lens.Lens' UpdateIPSet (Prelude.Maybe Prelude.Text)
@@ -127,7 +125,8 @@ updateIPSet_ipSetId = Lens.lens (\UpdateIPSet' {ipSetId} -> ipSetId) (\s@UpdateI
 
 instance Core.AWSRequest UpdateIPSet where
   type AWSResponse UpdateIPSet = UpdateIPSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -137,51 +136,51 @@ instance Core.AWSRequest UpdateIPSet where
 
 instance Prelude.Hashable UpdateIPSet where
   hashWithSalt _salt UpdateIPSet' {..} =
-    _salt `Prelude.hashWithSalt` location
-      `Prelude.hashWithSalt` activate
+    _salt `Prelude.hashWithSalt` activate
+      `Prelude.hashWithSalt` location
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` detectorId
       `Prelude.hashWithSalt` ipSetId
 
 instance Prelude.NFData UpdateIPSet where
   rnf UpdateIPSet' {..} =
-    Prelude.rnf location
-      `Prelude.seq` Prelude.rnf activate
+    Prelude.rnf activate
+      `Prelude.seq` Prelude.rnf location
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf ipSetId
 
-instance Core.ToHeaders UpdateIPSet where
+instance Data.ToHeaders UpdateIPSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateIPSet where
+instance Data.ToJSON UpdateIPSet where
   toJSON UpdateIPSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("location" Core..=) Prelude.<$> location,
-            ("activate" Core..=) Prelude.<$> activate,
-            ("name" Core..=) Prelude.<$> name
+          [ ("activate" Data..=) Prelude.<$> activate,
+            ("location" Data..=) Prelude.<$> location,
+            ("name" Data..=) Prelude.<$> name
           ]
       )
 
-instance Core.ToPath UpdateIPSet where
+instance Data.ToPath UpdateIPSet where
   toPath UpdateIPSet' {..} =
     Prelude.mconcat
       [ "/detector/",
-        Core.toBS detectorId,
+        Data.toBS detectorId,
         "/ipset/",
-        Core.toBS ipSetId
+        Data.toBS ipSetId
       ]
 
-instance Core.ToQuery UpdateIPSet where
+instance Data.ToQuery UpdateIPSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateIPSetResponse' smart constructor.

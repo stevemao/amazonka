@@ -14,19 +14,19 @@
 
 -- |
 -- Module      : Amazonka.AWSHealth.DescribeAffectedAccountsForOrganization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of accounts in the organization from AWS Organizations
--- that are affected by the provided event. For more information about the
--- different types of AWS Health events, see
+-- Returns a list of accounts in the organization from Organizations that
+-- are affected by the provided event. For more information about the
+-- different types of Health events, see
 -- <https://docs.aws.amazon.com/health/latest/APIReference/API_Event.html Event>.
 --
--- Before you can call this operation, you must first enable AWS Health to
--- work with AWS Organizations. To do this, call the
+-- Before you can call this operation, you must first enable Health to work
+-- with Organizations. To do this, call the
 -- <https://docs.aws.amazon.com/health/latest/APIReference/API_EnableHealthServiceAccessForOrganization.html EnableHealthServiceAccessForOrganization>
 -- operation from your organization\'s management account.
 --
@@ -40,8 +40,8 @@ module Amazonka.AWSHealth.DescribeAffectedAccountsForOrganization
     newDescribeAffectedAccountsForOrganization,
 
     -- * Request Lenses
-    describeAffectedAccountsForOrganization_nextToken,
     describeAffectedAccountsForOrganization_maxResults,
+    describeAffectedAccountsForOrganization_nextToken,
     describeAffectedAccountsForOrganization_eventArn,
 
     -- * Destructuring the Response
@@ -58,22 +58,23 @@ where
 
 import Amazonka.AWSHealth.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeAffectedAccountsForOrganization' smart constructor.
 data DescribeAffectedAccountsForOrganization = DescribeAffectedAccountsForOrganization'
-  { -- | If the results of a search are large, only a portion of the results are
+  { -- | The maximum number of items to return in one batch, between 10 and 100,
+    -- inclusive.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If the results of a search are large, only a portion of the results are
     -- returned, and a @nextToken@ pagination token is returned in the
     -- response. To retrieve the next batch of results, reissue the search
     -- request and include the returned token. When all results have been
     -- returned, the response does not contain a pagination token value.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return in one batch, between 10 and 100,
-    -- inclusive.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The unique identifier for the event. The event ARN has the
     -- @arn:aws:health:event-region::event\/SERVICE\/EVENT_TYPE_CODE\/EVENT_TYPE_PLUS_ID @
     -- format.
@@ -93,14 +94,14 @@ data DescribeAffectedAccountsForOrganization = DescribeAffectedAccountsForOrgani
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'describeAffectedAccountsForOrganization_maxResults' - The maximum number of items to return in one batch, between 10 and 100,
+-- inclusive.
+--
 -- 'nextToken', 'describeAffectedAccountsForOrganization_nextToken' - If the results of a search are large, only a portion of the results are
 -- returned, and a @nextToken@ pagination token is returned in the
 -- response. To retrieve the next batch of results, reissue the search
 -- request and include the returned token. When all results have been
 -- returned, the response does not contain a pagination token value.
---
--- 'maxResults', 'describeAffectedAccountsForOrganization_maxResults' - The maximum number of items to return in one batch, between 10 and 100,
--- inclusive.
 --
 -- 'eventArn', 'describeAffectedAccountsForOrganization_eventArn' - The unique identifier for the event. The event ARN has the
 -- @arn:aws:health:event-region::event\/SERVICE\/EVENT_TYPE_CODE\/EVENT_TYPE_PLUS_ID @
@@ -115,11 +116,16 @@ newDescribeAffectedAccountsForOrganization ::
   DescribeAffectedAccountsForOrganization
 newDescribeAffectedAccountsForOrganization pEventArn_ =
   DescribeAffectedAccountsForOrganization'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       eventArn = pEventArn_
     }
+
+-- | The maximum number of items to return in one batch, between 10 and 100,
+-- inclusive.
+describeAffectedAccountsForOrganization_maxResults :: Lens.Lens' DescribeAffectedAccountsForOrganization (Prelude.Maybe Prelude.Natural)
+describeAffectedAccountsForOrganization_maxResults = Lens.lens (\DescribeAffectedAccountsForOrganization' {maxResults} -> maxResults) (\s@DescribeAffectedAccountsForOrganization' {} a -> s {maxResults = a} :: DescribeAffectedAccountsForOrganization)
 
 -- | If the results of a search are large, only a portion of the results are
 -- returned, and a @nextToken@ pagination token is returned in the
@@ -128,11 +134,6 @@ newDescribeAffectedAccountsForOrganization pEventArn_ =
 -- returned, the response does not contain a pagination token value.
 describeAffectedAccountsForOrganization_nextToken :: Lens.Lens' DescribeAffectedAccountsForOrganization (Prelude.Maybe Prelude.Text)
 describeAffectedAccountsForOrganization_nextToken = Lens.lens (\DescribeAffectedAccountsForOrganization' {nextToken} -> nextToken) (\s@DescribeAffectedAccountsForOrganization' {} a -> s {nextToken = a} :: DescribeAffectedAccountsForOrganization)
-
--- | The maximum number of items to return in one batch, between 10 and 100,
--- inclusive.
-describeAffectedAccountsForOrganization_maxResults :: Lens.Lens' DescribeAffectedAccountsForOrganization (Prelude.Maybe Prelude.Natural)
-describeAffectedAccountsForOrganization_maxResults = Lens.lens (\DescribeAffectedAccountsForOrganization' {maxResults} -> maxResults) (\s@DescribeAffectedAccountsForOrganization' {} a -> s {maxResults = a} :: DescribeAffectedAccountsForOrganization)
 
 -- | The unique identifier for the event. The event ARN has the
 -- @arn:aws:health:event-region::event\/SERVICE\/EVENT_TYPE_CODE\/EVENT_TYPE_PLUS_ID @
@@ -177,16 +178,17 @@ instance
     AWSResponse
       DescribeAffectedAccountsForOrganization =
       DescribeAffectedAccountsForOrganizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAffectedAccountsForOrganizationResponse'
-            Prelude.<$> ( x Core..?> "affectedAccounts"
+            Prelude.<$> ( x Data..?> "affectedAccounts"
                             Core..!@ Prelude.mempty
                         )
-              Prelude.<*> (x Core..?> "eventScopeCode")
-              Prelude.<*> (x Core..?> "nextToken")
+              Prelude.<*> (x Data..?> "eventScopeCode")
+              Prelude.<*> (x Data..?> "nextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -197,8 +199,8 @@ instance
   hashWithSalt
     _salt
     DescribeAffectedAccountsForOrganization' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` eventArn
 
 instance
@@ -206,49 +208,49 @@ instance
     DescribeAffectedAccountsForOrganization
   where
   rnf DescribeAffectedAccountsForOrganization' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf eventArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeAffectedAccountsForOrganization
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHealth_20160804.DescribeAffectedAccountsForOrganization" ::
+              Data.=# ( "AWSHealth_20160804.DescribeAffectedAccountsForOrganization" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeAffectedAccountsForOrganization
   where
   toJSON DescribeAffectedAccountsForOrganization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("eventArn" Core..= eventArn)
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("eventArn" Data..= eventArn)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeAffectedAccountsForOrganization
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeAffectedAccountsForOrganization
   where
   toQuery = Prelude.const Prelude.mempty
@@ -257,17 +259,18 @@ instance
 data DescribeAffectedAccountsForOrganizationResponse = DescribeAffectedAccountsForOrganizationResponse'
   { -- | A JSON set of elements of the affected accounts.
     affectedAccounts :: Prelude.Maybe [Prelude.Text],
-    -- | This parameter specifies if the AWS Health event is a public AWS service
-    -- event or an account-specific event.
+    -- | This parameter specifies if the Health event is a public Amazon Web
+    -- Services service event or an account-specific event.
     --
     -- -   If the @eventScopeCode@ value is @PUBLIC@, then the
     --     @affectedAccounts@ value is always empty.
     --
     -- -   If the @eventScopeCode@ value is @ACCOUNT_SPECIFIC@, then the
-    --     @affectedAccounts@ value lists the affected AWS accounts in your
-    --     organization. For example, if an event affects a service such as
-    --     Amazon Elastic Compute Cloud and you have AWS accounts that use that
-    --     service, those account IDs appear in the response.
+    --     @affectedAccounts@ value lists the affected Amazon Web Services
+    --     accounts in your organization. For example, if an event affects a
+    --     service such as Amazon Elastic Compute Cloud and you have Amazon Web
+    --     Services accounts that use that service, those account IDs appear in
+    --     the response.
     --
     -- -   If the @eventScopeCode@ value is @NONE@, then the @eventArn@ that
     --     you specified in the request is invalid or doesn\'t exist.
@@ -293,17 +296,18 @@ data DescribeAffectedAccountsForOrganizationResponse = DescribeAffectedAccountsF
 --
 -- 'affectedAccounts', 'describeAffectedAccountsForOrganizationResponse_affectedAccounts' - A JSON set of elements of the affected accounts.
 --
--- 'eventScopeCode', 'describeAffectedAccountsForOrganizationResponse_eventScopeCode' - This parameter specifies if the AWS Health event is a public AWS service
--- event or an account-specific event.
+-- 'eventScopeCode', 'describeAffectedAccountsForOrganizationResponse_eventScopeCode' - This parameter specifies if the Health event is a public Amazon Web
+-- Services service event or an account-specific event.
 --
 -- -   If the @eventScopeCode@ value is @PUBLIC@, then the
 --     @affectedAccounts@ value is always empty.
 --
 -- -   If the @eventScopeCode@ value is @ACCOUNT_SPECIFIC@, then the
---     @affectedAccounts@ value lists the affected AWS accounts in your
---     organization. For example, if an event affects a service such as
---     Amazon Elastic Compute Cloud and you have AWS accounts that use that
---     service, those account IDs appear in the response.
+--     @affectedAccounts@ value lists the affected Amazon Web Services
+--     accounts in your organization. For example, if an event affects a
+--     service such as Amazon Elastic Compute Cloud and you have Amazon Web
+--     Services accounts that use that service, those account IDs appear in
+--     the response.
 --
 -- -   If the @eventScopeCode@ value is @NONE@, then the @eventArn@ that
 --     you specified in the request is invalid or doesn\'t exist.
@@ -335,17 +339,18 @@ newDescribeAffectedAccountsForOrganizationResponse
 describeAffectedAccountsForOrganizationResponse_affectedAccounts :: Lens.Lens' DescribeAffectedAccountsForOrganizationResponse (Prelude.Maybe [Prelude.Text])
 describeAffectedAccountsForOrganizationResponse_affectedAccounts = Lens.lens (\DescribeAffectedAccountsForOrganizationResponse' {affectedAccounts} -> affectedAccounts) (\s@DescribeAffectedAccountsForOrganizationResponse' {} a -> s {affectedAccounts = a} :: DescribeAffectedAccountsForOrganizationResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | This parameter specifies if the AWS Health event is a public AWS service
--- event or an account-specific event.
+-- | This parameter specifies if the Health event is a public Amazon Web
+-- Services service event or an account-specific event.
 --
 -- -   If the @eventScopeCode@ value is @PUBLIC@, then the
 --     @affectedAccounts@ value is always empty.
 --
 -- -   If the @eventScopeCode@ value is @ACCOUNT_SPECIFIC@, then the
---     @affectedAccounts@ value lists the affected AWS accounts in your
---     organization. For example, if an event affects a service such as
---     Amazon Elastic Compute Cloud and you have AWS accounts that use that
---     service, those account IDs appear in the response.
+--     @affectedAccounts@ value lists the affected Amazon Web Services
+--     accounts in your organization. For example, if an event affects a
+--     service such as Amazon Elastic Compute Cloud and you have Amazon Web
+--     Services accounts that use that service, those account IDs appear in
+--     the response.
 --
 -- -   If the @eventScopeCode@ value is @NONE@, then the @eventArn@ that
 --     you specified in the request is invalid or doesn\'t exist.

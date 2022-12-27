@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearch.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,11 +14,92 @@
 module Amazonka.CloudSearch.Lens
   ( -- * Operations
 
+    -- ** BuildSuggesters
+    buildSuggesters_domainName,
+    buildSuggestersResponse_fieldNames,
+    buildSuggestersResponse_httpStatus,
+
+    -- ** CreateDomain
+    createDomain_domainName,
+    createDomainResponse_domainStatus,
+    createDomainResponse_httpStatus,
+
+    -- ** DefineAnalysisScheme
+    defineAnalysisScheme_domainName,
+    defineAnalysisScheme_analysisScheme,
+    defineAnalysisSchemeResponse_httpStatus,
+    defineAnalysisSchemeResponse_analysisScheme,
+
+    -- ** DefineExpression
+    defineExpression_domainName,
+    defineExpression_expression,
+    defineExpressionResponse_httpStatus,
+    defineExpressionResponse_expression,
+
+    -- ** DefineIndexField
+    defineIndexField_domainName,
+    defineIndexField_indexField,
+    defineIndexFieldResponse_httpStatus,
+    defineIndexFieldResponse_indexField,
+
+    -- ** DefineSuggester
+    defineSuggester_domainName,
+    defineSuggester_suggester,
+    defineSuggesterResponse_httpStatus,
+    defineSuggesterResponse_suggester,
+
+    -- ** DeleteAnalysisScheme
+    deleteAnalysisScheme_domainName,
+    deleteAnalysisScheme_analysisSchemeName,
+    deleteAnalysisSchemeResponse_httpStatus,
+    deleteAnalysisSchemeResponse_analysisScheme,
+
+    -- ** DeleteDomain
+    deleteDomain_domainName,
+    deleteDomainResponse_domainStatus,
+    deleteDomainResponse_httpStatus,
+
+    -- ** DeleteExpression
+    deleteExpression_domainName,
+    deleteExpression_expressionName,
+    deleteExpressionResponse_httpStatus,
+    deleteExpressionResponse_expression,
+
+    -- ** DeleteIndexField
+    deleteIndexField_domainName,
+    deleteIndexField_indexFieldName,
+    deleteIndexFieldResponse_httpStatus,
+    deleteIndexFieldResponse_indexField,
+
+    -- ** DeleteSuggester
+    deleteSuggester_domainName,
+    deleteSuggester_suggesterName,
+    deleteSuggesterResponse_httpStatus,
+    deleteSuggesterResponse_suggester,
+
+    -- ** DescribeAnalysisSchemes
+    describeAnalysisSchemes_analysisSchemeNames,
+    describeAnalysisSchemes_deployed,
+    describeAnalysisSchemes_domainName,
+    describeAnalysisSchemesResponse_httpStatus,
+    describeAnalysisSchemesResponse_analysisSchemes,
+
     -- ** DescribeAvailabilityOptions
     describeAvailabilityOptions_deployed,
     describeAvailabilityOptions_domainName,
     describeAvailabilityOptionsResponse_availabilityOptions,
     describeAvailabilityOptionsResponse_httpStatus,
+
+    -- ** DescribeDomainEndpointOptions
+    describeDomainEndpointOptions_deployed,
+    describeDomainEndpointOptions_domainName,
+    describeDomainEndpointOptionsResponse_domainEndpointOptions,
+    describeDomainEndpointOptionsResponse_httpStatus,
+
+    -- ** DescribeDomains
+    describeDomains_domainNames,
+    describeDomainsResponse_httpStatus,
+    describeDomainsResponse_domainStatusList,
 
     -- ** DescribeExpressions
     describeExpressions_deployed,
@@ -27,11 +108,12 @@ module Amazonka.CloudSearch.Lens
     describeExpressionsResponse_httpStatus,
     describeExpressionsResponse_expressions,
 
-    -- ** DefineExpression
-    defineExpression_domainName,
-    defineExpression_expression,
-    defineExpressionResponse_httpStatus,
-    defineExpressionResponse_expression,
+    -- ** DescribeIndexFields
+    describeIndexFields_deployed,
+    describeIndexFields_fieldNames,
+    describeIndexFields_domainName,
+    describeIndexFieldsResponse_httpStatus,
+    describeIndexFieldsResponse_indexFields,
 
     -- ** DescribeScalingParameters
     describeScalingParameters_domainName,
@@ -51,56 +133,20 @@ module Amazonka.CloudSearch.Lens
     describeSuggestersResponse_httpStatus,
     describeSuggestersResponse_suggesters,
 
-    -- ** UpdateAvailabilityOptions
-    updateAvailabilityOptions_domainName,
-    updateAvailabilityOptions_multiAZ,
-    updateAvailabilityOptionsResponse_availabilityOptions,
-    updateAvailabilityOptionsResponse_httpStatus,
-
-    -- ** DeleteExpression
-    deleteExpression_domainName,
-    deleteExpression_expressionName,
-    deleteExpressionResponse_httpStatus,
-    deleteExpressionResponse_expression,
+    -- ** IndexDocuments
+    indexDocuments_domainName,
+    indexDocumentsResponse_fieldNames,
+    indexDocumentsResponse_httpStatus,
 
     -- ** ListDomainNames
     listDomainNamesResponse_domainNames,
     listDomainNamesResponse_httpStatus,
 
-    -- ** DefineSuggester
-    defineSuggester_domainName,
-    defineSuggester_suggester,
-    defineSuggesterResponse_httpStatus,
-    defineSuggesterResponse_suggester,
-
-    -- ** DescribeDomains
-    describeDomains_domainNames,
-    describeDomainsResponse_httpStatus,
-    describeDomainsResponse_domainStatusList,
-
-    -- ** DeleteAnalysisScheme
-    deleteAnalysisScheme_domainName,
-    deleteAnalysisScheme_analysisSchemeName,
-    deleteAnalysisSchemeResponse_httpStatus,
-    deleteAnalysisSchemeResponse_analysisScheme,
-
-    -- ** DescribeDomainEndpointOptions
-    describeDomainEndpointOptions_deployed,
-    describeDomainEndpointOptions_domainName,
-    describeDomainEndpointOptionsResponse_domainEndpointOptions,
-    describeDomainEndpointOptionsResponse_httpStatus,
-
-    -- ** DescribeAnalysisSchemes
-    describeAnalysisSchemes_deployed,
-    describeAnalysisSchemes_analysisSchemeNames,
-    describeAnalysisSchemes_domainName,
-    describeAnalysisSchemesResponse_httpStatus,
-    describeAnalysisSchemesResponse_analysisSchemes,
-
-    -- ** CreateDomain
-    createDomain_domainName,
-    createDomainResponse_domainStatus,
-    createDomainResponse_httpStatus,
+    -- ** UpdateAvailabilityOptions
+    updateAvailabilityOptions_domainName,
+    updateAvailabilityOptions_multiAZ,
+    updateAvailabilityOptionsResponse_availabilityOptions,
+    updateAvailabilityOptionsResponse_httpStatus,
 
     -- ** UpdateDomainEndpointOptions
     updateDomainEndpointOptions_domainName,
@@ -108,63 +154,17 @@ module Amazonka.CloudSearch.Lens
     updateDomainEndpointOptionsResponse_domainEndpointOptions,
     updateDomainEndpointOptionsResponse_httpStatus,
 
-    -- ** DescribeIndexFields
-    describeIndexFields_deployed,
-    describeIndexFields_fieldNames,
-    describeIndexFields_domainName,
-    describeIndexFieldsResponse_httpStatus,
-    describeIndexFieldsResponse_indexFields,
-
-    -- ** DeleteSuggester
-    deleteSuggester_domainName,
-    deleteSuggester_suggesterName,
-    deleteSuggesterResponse_httpStatus,
-    deleteSuggesterResponse_suggester,
-
-    -- ** DefineAnalysisScheme
-    defineAnalysisScheme_domainName,
-    defineAnalysisScheme_analysisScheme,
-    defineAnalysisSchemeResponse_httpStatus,
-    defineAnalysisSchemeResponse_analysisScheme,
-
-    -- ** IndexDocuments
-    indexDocuments_domainName,
-    indexDocumentsResponse_fieldNames,
-    indexDocumentsResponse_httpStatus,
-
-    -- ** DeleteIndexField
-    deleteIndexField_domainName,
-    deleteIndexField_indexFieldName,
-    deleteIndexFieldResponse_httpStatus,
-    deleteIndexFieldResponse_indexField,
-
-    -- ** UpdateServiceAccessPolicies
-    updateServiceAccessPolicies_domainName,
-    updateServiceAccessPolicies_accessPolicies,
-    updateServiceAccessPoliciesResponse_httpStatus,
-    updateServiceAccessPoliciesResponse_accessPolicies,
-
     -- ** UpdateScalingParameters
     updateScalingParameters_domainName,
     updateScalingParameters_scalingParameters,
     updateScalingParametersResponse_httpStatus,
     updateScalingParametersResponse_scalingParameters,
 
-    -- ** BuildSuggesters
-    buildSuggesters_domainName,
-    buildSuggestersResponse_fieldNames,
-    buildSuggestersResponse_httpStatus,
-
-    -- ** DeleteDomain
-    deleteDomain_domainName,
-    deleteDomainResponse_domainStatus,
-    deleteDomainResponse_httpStatus,
-
-    -- ** DefineIndexField
-    defineIndexField_domainName,
-    defineIndexField_indexField,
-    defineIndexFieldResponse_httpStatus,
-    defineIndexFieldResponse_indexField,
+    -- ** UpdateServiceAccessPolicies
+    updateServiceAccessPolicies_domainName,
+    updateServiceAccessPolicies_accessPolicies,
+    updateServiceAccessPoliciesResponse_httpStatus,
+    updateServiceAccessPoliciesResponse_accessPolicies,
 
     -- * Types
 
@@ -174,10 +174,10 @@ module Amazonka.CloudSearch.Lens
 
     -- ** AnalysisOptions
     analysisOptions_algorithmicStemming,
-    analysisOptions_stopwords,
     analysisOptions_japaneseTokenizationDictionary,
-    analysisOptions_synonyms,
     analysisOptions_stemmingDictionary,
+    analysisOptions_stopwords,
+    analysisOptions_synonyms,
 
     -- ** AnalysisScheme
     analysisScheme_analysisOptions,
@@ -193,23 +193,23 @@ module Amazonka.CloudSearch.Lens
     availabilityOptionsStatus_status,
 
     -- ** DateArrayOptions
-    dateArrayOptions_sourceFields,
-    dateArrayOptions_returnEnabled,
-    dateArrayOptions_facetEnabled,
-    dateArrayOptions_searchEnabled,
     dateArrayOptions_defaultValue,
+    dateArrayOptions_facetEnabled,
+    dateArrayOptions_returnEnabled,
+    dateArrayOptions_searchEnabled,
+    dateArrayOptions_sourceFields,
 
     -- ** DateOptions
-    dateOptions_sourceField,
-    dateOptions_returnEnabled,
+    dateOptions_defaultValue,
     dateOptions_facetEnabled,
+    dateOptions_returnEnabled,
     dateOptions_searchEnabled,
     dateOptions_sortEnabled,
-    dateOptions_defaultValue,
+    dateOptions_sourceField,
 
     -- ** DocumentSuggesterOptions
-    documentSuggesterOptions_sortExpression,
     documentSuggesterOptions_fuzzyMatching,
+    documentSuggesterOptions_sortExpression,
     documentSuggesterOptions_sourceField,
 
     -- ** DomainEndpointOptions
@@ -221,34 +221,34 @@ module Amazonka.CloudSearch.Lens
     domainEndpointOptionsStatus_status,
 
     -- ** DomainStatus
-    domainStatus_searchInstanceCount,
-    domainStatus_searchInstanceType,
-    domainStatus_docService,
     domainStatus_arn,
     domainStatus_created,
-    domainStatus_searchService,
-    domainStatus_limits,
-    domainStatus_searchPartitionCount,
     domainStatus_deleted,
+    domainStatus_docService,
+    domainStatus_limits,
     domainStatus_processing,
+    domainStatus_searchInstanceCount,
+    domainStatus_searchInstanceType,
+    domainStatus_searchPartitionCount,
+    domainStatus_searchService,
     domainStatus_domainId,
     domainStatus_domainName,
     domainStatus_requiresIndexDocuments,
 
     -- ** DoubleArrayOptions
-    doubleArrayOptions_sourceFields,
-    doubleArrayOptions_returnEnabled,
-    doubleArrayOptions_facetEnabled,
-    doubleArrayOptions_searchEnabled,
     doubleArrayOptions_defaultValue,
+    doubleArrayOptions_facetEnabled,
+    doubleArrayOptions_returnEnabled,
+    doubleArrayOptions_searchEnabled,
+    doubleArrayOptions_sourceFields,
 
     -- ** DoubleOptions
-    doubleOptions_sourceField,
-    doubleOptions_returnEnabled,
+    doubleOptions_defaultValue,
     doubleOptions_facetEnabled,
+    doubleOptions_returnEnabled,
     doubleOptions_searchEnabled,
     doubleOptions_sortEnabled,
-    doubleOptions_defaultValue,
+    doubleOptions_sourceField,
 
     -- ** Expression
     expression_expressionName,
@@ -259,17 +259,17 @@ module Amazonka.CloudSearch.Lens
     expressionStatus_status,
 
     -- ** IndexField
-    indexField_doubleArrayOptions,
+    indexField_dateArrayOptions,
     indexField_dateOptions,
-    indexField_textArrayOptions,
+    indexField_doubleArrayOptions,
     indexField_doubleOptions,
-    indexField_textOptions,
+    indexField_intArrayOptions,
+    indexField_intOptions,
     indexField_latLonOptions,
     indexField_literalArrayOptions,
-    indexField_intArrayOptions,
-    indexField_dateArrayOptions,
-    indexField_intOptions,
     indexField_literalOptions,
+    indexField_textArrayOptions,
+    indexField_textOptions,
     indexField_indexFieldName,
     indexField_indexFieldType,
 
@@ -278,46 +278,46 @@ module Amazonka.CloudSearch.Lens
     indexFieldStatus_status,
 
     -- ** IntArrayOptions
-    intArrayOptions_sourceFields,
-    intArrayOptions_returnEnabled,
-    intArrayOptions_facetEnabled,
-    intArrayOptions_searchEnabled,
     intArrayOptions_defaultValue,
+    intArrayOptions_facetEnabled,
+    intArrayOptions_returnEnabled,
+    intArrayOptions_searchEnabled,
+    intArrayOptions_sourceFields,
 
     -- ** IntOptions
-    intOptions_sourceField,
-    intOptions_returnEnabled,
+    intOptions_defaultValue,
     intOptions_facetEnabled,
+    intOptions_returnEnabled,
     intOptions_searchEnabled,
     intOptions_sortEnabled,
-    intOptions_defaultValue,
+    intOptions_sourceField,
 
     -- ** LatLonOptions
-    latLonOptions_sourceField,
-    latLonOptions_returnEnabled,
+    latLonOptions_defaultValue,
     latLonOptions_facetEnabled,
+    latLonOptions_returnEnabled,
     latLonOptions_searchEnabled,
     latLonOptions_sortEnabled,
-    latLonOptions_defaultValue,
+    latLonOptions_sourceField,
 
     -- ** Limits
     limits_maximumReplicationCount,
     limits_maximumPartitionCount,
 
     -- ** LiteralArrayOptions
-    literalArrayOptions_sourceFields,
-    literalArrayOptions_returnEnabled,
-    literalArrayOptions_facetEnabled,
-    literalArrayOptions_searchEnabled,
     literalArrayOptions_defaultValue,
+    literalArrayOptions_facetEnabled,
+    literalArrayOptions_returnEnabled,
+    literalArrayOptions_searchEnabled,
+    literalArrayOptions_sourceFields,
 
     -- ** LiteralOptions
-    literalOptions_sourceField,
-    literalOptions_returnEnabled,
+    literalOptions_defaultValue,
     literalOptions_facetEnabled,
+    literalOptions_returnEnabled,
     literalOptions_searchEnabled,
     literalOptions_sortEnabled,
-    literalOptions_defaultValue,
+    literalOptions_sourceField,
 
     -- ** OptionStatus
     optionStatus_pendingDeletion,
@@ -328,8 +328,8 @@ module Amazonka.CloudSearch.Lens
 
     -- ** ScalingParameters
     scalingParameters_desiredInstanceType,
-    scalingParameters_desiredReplicationCount,
     scalingParameters_desiredPartitionCount,
+    scalingParameters_desiredReplicationCount,
 
     -- ** ScalingParametersStatus
     scalingParametersStatus_options,
@@ -347,19 +347,19 @@ module Amazonka.CloudSearch.Lens
     suggesterStatus_status,
 
     -- ** TextArrayOptions
-    textArrayOptions_sourceFields,
-    textArrayOptions_returnEnabled,
     textArrayOptions_analysisScheme,
-    textArrayOptions_highlightEnabled,
     textArrayOptions_defaultValue,
+    textArrayOptions_highlightEnabled,
+    textArrayOptions_returnEnabled,
+    textArrayOptions_sourceFields,
 
     -- ** TextOptions
-    textOptions_sourceField,
-    textOptions_returnEnabled,
     textOptions_analysisScheme,
-    textOptions_highlightEnabled,
-    textOptions_sortEnabled,
     textOptions_defaultValue,
+    textOptions_highlightEnabled,
+    textOptions_returnEnabled,
+    textOptions_sortEnabled,
+    textOptions_sourceField,
   )
 where
 

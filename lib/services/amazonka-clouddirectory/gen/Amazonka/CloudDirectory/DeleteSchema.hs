@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.DeleteSchema
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,12 +80,13 @@ deleteSchema_schemaArn = Lens.lens (\DeleteSchema' {schemaArn} -> schemaArn) (\s
 
 instance Core.AWSRequest DeleteSchema where
   type AWSResponse DeleteSchema = DeleteSchemaResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteSchemaResponse'
-            Prelude.<$> (x Core..?> "SchemaArn")
+            Prelude.<$> (x Data..?> "SchemaArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,20 +97,20 @@ instance Prelude.Hashable DeleteSchema where
 instance Prelude.NFData DeleteSchema where
   rnf DeleteSchema' {..} = Prelude.rnf schemaArn
 
-instance Core.ToHeaders DeleteSchema where
+instance Data.ToHeaders DeleteSchema where
   toHeaders DeleteSchema' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# schemaArn]
+      ["x-amz-data-partition" Data.=# schemaArn]
 
-instance Core.ToJSON DeleteSchema where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DeleteSchema where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DeleteSchema where
+instance Data.ToPath DeleteSchema where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/schema"
 
-instance Core.ToQuery DeleteSchema where
+instance Data.ToQuery DeleteSchema where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteSchemaResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.Types.ServiceActionAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ServiceCatalog.Types.ServiceActionAssociation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A self-service action association consisting of the Action ID, the
@@ -96,16 +97,16 @@ instance Prelude.NFData ServiceActionAssociation where
       `Prelude.seq` Prelude.rnf productId
       `Prelude.seq` Prelude.rnf provisioningArtifactId
 
-instance Core.ToJSON ServiceActionAssociation where
+instance Data.ToJSON ServiceActionAssociation where
   toJSON ServiceActionAssociation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ServiceActionId" Core..= serviceActionId),
-            Prelude.Just ("ProductId" Core..= productId),
+              ("ServiceActionId" Data..= serviceActionId),
+            Prelude.Just ("ProductId" Data..= productId),
             Prelude.Just
               ( "ProvisioningArtifactId"
-                  Core..= provisioningArtifactId
+                  Data..= provisioningArtifactId
               )
           ]
       )

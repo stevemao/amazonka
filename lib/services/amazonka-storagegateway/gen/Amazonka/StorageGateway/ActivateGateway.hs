@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.ActivateGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,10 +35,10 @@ module Amazonka.StorageGateway.ActivateGateway
     newActivateGateway,
 
     -- * Request Lenses
-    activateGateway_mediumChangerType,
-    activateGateway_tapeDriveType,
     activateGateway_gatewayType,
+    activateGateway_mediumChangerType,
     activateGateway_tags,
+    activateGateway_tapeDriveType,
     activateGateway_activationKey,
     activateGateway_gatewayName,
     activateGateway_gatewayTimezone,
@@ -55,7 +55,8 @@ module Amazonka.StorageGateway.ActivateGateway
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,22 +80,18 @@ import Amazonka.StorageGateway.Types
 --
 -- /See:/ 'newActivateGateway' smart constructor.
 data ActivateGateway = ActivateGateway'
-  { -- | The value that indicates the type of medium changer to use for tape
+  { -- | A value that defines the type of gateway to activate. The type specified
+    -- is critical to all later functions of the gateway and cannot be changed
+    -- after activation. The default value is @CACHED@.
+    --
+    -- Valid Values: @STORED@ | @CACHED@ | @VTL@ | @VTL_SNOW@ | @FILE_S3@ |
+    -- @FILE_FSX_SMB@
+    gatewayType :: Prelude.Maybe Prelude.Text,
+    -- | The value that indicates the type of medium changer to use for tape
     -- gateway. This field is optional.
     --
     -- Valid Values: @STK-L700@ | @AWS-Gateway-VTL@ | @IBM-03584L32-0402@
     mediumChangerType :: Prelude.Maybe Prelude.Text,
-    -- | The value that indicates the type of tape drive to use for tape gateway.
-    -- This field is optional.
-    --
-    -- Valid Values: @IBM-ULT3580-TD5@
-    tapeDriveType :: Prelude.Maybe Prelude.Text,
-    -- | A value that defines the type of gateway to activate. The type specified
-    -- is critical to all later functions of the gateway and cannot be changed
-    -- after activation. The default value is @CACHED@.
-    --
-    -- Valid Values: @STORED@ | @CACHED@ | @VTL@ | @FILE_S3@ | @FILE_FSX_SMB|@
-    gatewayType :: Prelude.Maybe Prelude.Text,
     -- | A list of up to 50 tags that you can assign to the gateway. Each tag is
     -- a key-value pair.
     --
@@ -103,6 +100,11 @@ data ActivateGateway = ActivateGateway'
     -- characters: + - = . _ : \/ \@. The maximum length of a tag\'s key is 128
     -- characters, and the maximum length for a tag\'s value is 256 characters.
     tags :: Prelude.Maybe [Tag],
+    -- | The value that indicates the type of tape drive to use for tape gateway.
+    -- This field is optional.
+    --
+    -- Valid Values: @IBM-ULT3580-TD5@
+    tapeDriveType :: Prelude.Maybe Prelude.Text,
     -- | Your gateway activation key. You can obtain the activation key by
     -- sending an HTTP GET request with redirects enabled to the gateway IP
     -- address (port 80). The redirect URL returned in the response provides
@@ -149,21 +151,17 @@ data ActivateGateway = ActivateGateway'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'mediumChangerType', 'activateGateway_mediumChangerType' - The value that indicates the type of medium changer to use for tape
--- gateway. This field is optional.
---
--- Valid Values: @STK-L700@ | @AWS-Gateway-VTL@ | @IBM-03584L32-0402@
---
--- 'tapeDriveType', 'activateGateway_tapeDriveType' - The value that indicates the type of tape drive to use for tape gateway.
--- This field is optional.
---
--- Valid Values: @IBM-ULT3580-TD5@
---
 -- 'gatewayType', 'activateGateway_gatewayType' - A value that defines the type of gateway to activate. The type specified
 -- is critical to all later functions of the gateway and cannot be changed
 -- after activation. The default value is @CACHED@.
 --
--- Valid Values: @STORED@ | @CACHED@ | @VTL@ | @FILE_S3@ | @FILE_FSX_SMB|@
+-- Valid Values: @STORED@ | @CACHED@ | @VTL@ | @VTL_SNOW@ | @FILE_S3@ |
+-- @FILE_FSX_SMB@
+--
+-- 'mediumChangerType', 'activateGateway_mediumChangerType' - The value that indicates the type of medium changer to use for tape
+-- gateway. This field is optional.
+--
+-- Valid Values: @STK-L700@ | @AWS-Gateway-VTL@ | @IBM-03584L32-0402@
 --
 -- 'tags', 'activateGateway_tags' - A list of up to 50 tags that you can assign to the gateway. Each tag is
 -- a key-value pair.
@@ -172,6 +170,11 @@ data ActivateGateway = ActivateGateway'
 -- can be represented in UTF-8 format, and the following special
 -- characters: + - = . _ : \/ \@. The maximum length of a tag\'s key is 128
 -- characters, and the maximum length for a tag\'s value is 256 characters.
+--
+-- 'tapeDriveType', 'activateGateway_tapeDriveType' - The value that indicates the type of tape drive to use for tape gateway.
+-- This field is optional.
+--
+-- Valid Values: @IBM-ULT3580-TD5@
 --
 -- 'activationKey', 'activateGateway_activationKey' - Your gateway activation key. You can obtain the activation key by
 -- sending an HTTP GET request with redirects enabled to the gateway IP
@@ -223,16 +226,24 @@ newActivateGateway
   pGatewayTimezone_
   pGatewayRegion_ =
     ActivateGateway'
-      { mediumChangerType =
-          Prelude.Nothing,
-        tapeDriveType = Prelude.Nothing,
-        gatewayType = Prelude.Nothing,
+      { gatewayType = Prelude.Nothing,
+        mediumChangerType = Prelude.Nothing,
         tags = Prelude.Nothing,
+        tapeDriveType = Prelude.Nothing,
         activationKey = pActivationKey_,
         gatewayName = pGatewayName_,
         gatewayTimezone = pGatewayTimezone_,
         gatewayRegion = pGatewayRegion_
       }
+
+-- | A value that defines the type of gateway to activate. The type specified
+-- is critical to all later functions of the gateway and cannot be changed
+-- after activation. The default value is @CACHED@.
+--
+-- Valid Values: @STORED@ | @CACHED@ | @VTL@ | @VTL_SNOW@ | @FILE_S3@ |
+-- @FILE_FSX_SMB@
+activateGateway_gatewayType :: Lens.Lens' ActivateGateway (Prelude.Maybe Prelude.Text)
+activateGateway_gatewayType = Lens.lens (\ActivateGateway' {gatewayType} -> gatewayType) (\s@ActivateGateway' {} a -> s {gatewayType = a} :: ActivateGateway)
 
 -- | The value that indicates the type of medium changer to use for tape
 -- gateway. This field is optional.
@@ -240,21 +251,6 @@ newActivateGateway
 -- Valid Values: @STK-L700@ | @AWS-Gateway-VTL@ | @IBM-03584L32-0402@
 activateGateway_mediumChangerType :: Lens.Lens' ActivateGateway (Prelude.Maybe Prelude.Text)
 activateGateway_mediumChangerType = Lens.lens (\ActivateGateway' {mediumChangerType} -> mediumChangerType) (\s@ActivateGateway' {} a -> s {mediumChangerType = a} :: ActivateGateway)
-
--- | The value that indicates the type of tape drive to use for tape gateway.
--- This field is optional.
---
--- Valid Values: @IBM-ULT3580-TD5@
-activateGateway_tapeDriveType :: Lens.Lens' ActivateGateway (Prelude.Maybe Prelude.Text)
-activateGateway_tapeDriveType = Lens.lens (\ActivateGateway' {tapeDriveType} -> tapeDriveType) (\s@ActivateGateway' {} a -> s {tapeDriveType = a} :: ActivateGateway)
-
--- | A value that defines the type of gateway to activate. The type specified
--- is critical to all later functions of the gateway and cannot be changed
--- after activation. The default value is @CACHED@.
---
--- Valid Values: @STORED@ | @CACHED@ | @VTL@ | @FILE_S3@ | @FILE_FSX_SMB|@
-activateGateway_gatewayType :: Lens.Lens' ActivateGateway (Prelude.Maybe Prelude.Text)
-activateGateway_gatewayType = Lens.lens (\ActivateGateway' {gatewayType} -> gatewayType) (\s@ActivateGateway' {} a -> s {gatewayType = a} :: ActivateGateway)
 
 -- | A list of up to 50 tags that you can assign to the gateway. Each tag is
 -- a key-value pair.
@@ -265,6 +261,13 @@ activateGateway_gatewayType = Lens.lens (\ActivateGateway' {gatewayType} -> gate
 -- characters, and the maximum length for a tag\'s value is 256 characters.
 activateGateway_tags :: Lens.Lens' ActivateGateway (Prelude.Maybe [Tag])
 activateGateway_tags = Lens.lens (\ActivateGateway' {tags} -> tags) (\s@ActivateGateway' {} a -> s {tags = a} :: ActivateGateway) Prelude.. Lens.mapping Lens.coerced
+
+-- | The value that indicates the type of tape drive to use for tape gateway.
+-- This field is optional.
+--
+-- Valid Values: @IBM-ULT3580-TD5@
+activateGateway_tapeDriveType :: Lens.Lens' ActivateGateway (Prelude.Maybe Prelude.Text)
+activateGateway_tapeDriveType = Lens.lens (\ActivateGateway' {tapeDriveType} -> tapeDriveType) (\s@ActivateGateway' {} a -> s {tapeDriveType = a} :: ActivateGateway)
 
 -- | Your gateway activation key. You can obtain the activation key by
 -- sending an HTTP GET request with redirects enabled to the gateway IP
@@ -313,21 +316,22 @@ instance Core.AWSRequest ActivateGateway where
   type
     AWSResponse ActivateGateway =
       ActivateGatewayResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ActivateGatewayResponse'
-            Prelude.<$> (x Core..?> "GatewayARN")
+            Prelude.<$> (x Data..?> "GatewayARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ActivateGateway where
   hashWithSalt _salt ActivateGateway' {..} =
-    _salt `Prelude.hashWithSalt` mediumChangerType
-      `Prelude.hashWithSalt` tapeDriveType
-      `Prelude.hashWithSalt` gatewayType
+    _salt `Prelude.hashWithSalt` gatewayType
+      `Prelude.hashWithSalt` mediumChangerType
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` tapeDriveType
       `Prelude.hashWithSalt` activationKey
       `Prelude.hashWithSalt` gatewayName
       `Prelude.hashWithSalt` gatewayTimezone
@@ -335,52 +339,52 @@ instance Prelude.Hashable ActivateGateway where
 
 instance Prelude.NFData ActivateGateway where
   rnf ActivateGateway' {..} =
-    Prelude.rnf mediumChangerType
-      `Prelude.seq` Prelude.rnf tapeDriveType
-      `Prelude.seq` Prelude.rnf gatewayType
+    Prelude.rnf gatewayType
+      `Prelude.seq` Prelude.rnf mediumChangerType
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf tapeDriveType
       `Prelude.seq` Prelude.rnf activationKey
       `Prelude.seq` Prelude.rnf gatewayName
       `Prelude.seq` Prelude.rnf gatewayTimezone
       `Prelude.seq` Prelude.rnf gatewayRegion
 
-instance Core.ToHeaders ActivateGateway where
+instance Data.ToHeaders ActivateGateway where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.ActivateGateway" ::
+              Data.=# ( "StorageGateway_20130630.ActivateGateway" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ActivateGateway where
+instance Data.ToJSON ActivateGateway where
   toJSON ActivateGateway' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MediumChangerType" Core..=)
+          [ ("GatewayType" Data..=) Prelude.<$> gatewayType,
+            ("MediumChangerType" Data..=)
               Prelude.<$> mediumChangerType,
-            ("TapeDriveType" Core..=) Prelude.<$> tapeDriveType,
-            ("GatewayType" Core..=) Prelude.<$> gatewayType,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("ActivationKey" Core..= activationKey),
-            Prelude.Just ("GatewayName" Core..= gatewayName),
+            ("Tags" Data..=) Prelude.<$> tags,
+            ("TapeDriveType" Data..=) Prelude.<$> tapeDriveType,
+            Prelude.Just ("ActivationKey" Data..= activationKey),
+            Prelude.Just ("GatewayName" Data..= gatewayName),
             Prelude.Just
-              ("GatewayTimezone" Core..= gatewayTimezone),
+              ("GatewayTimezone" Data..= gatewayTimezone),
             Prelude.Just
-              ("GatewayRegion" Core..= gatewayRegion)
+              ("GatewayRegion" Data..= gatewayRegion)
           ]
       )
 
-instance Core.ToPath ActivateGateway where
+instance Data.ToPath ActivateGateway where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ActivateGateway where
+instance Data.ToQuery ActivateGateway where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Storage Gateway returns the Amazon Resource Name (ARN) of the activated

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.ListStreams
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,7 +26,7 @@
 -- @ListStreams@. You can limit the number of returned streams using the
 -- @Limit@ parameter. If you do not specify a value for the @Limit@
 -- parameter, Kinesis Data Streams uses the default limit, which is
--- currently 10.
+-- currently 100.
 --
 -- You can detect if there are more streams available to list by using the
 -- @HasMoreStreams@ flag from the returned output. If there are more
@@ -46,8 +46,8 @@ module Amazonka.Kinesis.ListStreams
     newListStreams,
 
     -- * Request Lenses
-    listStreams_limit,
     listStreams_exclusiveStartStreamName,
+    listStreams_limit,
 
     -- * Destructuring the Response
     ListStreamsResponse (..),
@@ -61,8 +61,9 @@ module Amazonka.Kinesis.ListStreams
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -71,10 +72,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListStreams' smart constructor.
 data ListStreams = ListStreams'
-  { -- | The maximum number of streams to list.
-    limit :: Prelude.Maybe Prelude.Natural,
-    -- | The name of the stream to start the list with.
-    exclusiveStartStreamName :: Prelude.Maybe Prelude.Text
+  { -- | The name of the stream to start the list with.
+    exclusiveStartStreamName :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of streams to list. The default value is 100. If you
+    -- specify a value greater than 100, at most 100 results are returned.
+    limit :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -86,24 +88,27 @@ data ListStreams = ListStreams'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'limit', 'listStreams_limit' - The maximum number of streams to list.
---
 -- 'exclusiveStartStreamName', 'listStreams_exclusiveStartStreamName' - The name of the stream to start the list with.
+--
+-- 'limit', 'listStreams_limit' - The maximum number of streams to list. The default value is 100. If you
+-- specify a value greater than 100, at most 100 results are returned.
 newListStreams ::
   ListStreams
 newListStreams =
   ListStreams'
-    { limit = Prelude.Nothing,
-      exclusiveStartStreamName = Prelude.Nothing
+    { exclusiveStartStreamName =
+        Prelude.Nothing,
+      limit = Prelude.Nothing
     }
-
--- | The maximum number of streams to list.
-listStreams_limit :: Lens.Lens' ListStreams (Prelude.Maybe Prelude.Natural)
-listStreams_limit = Lens.lens (\ListStreams' {limit} -> limit) (\s@ListStreams' {} a -> s {limit = a} :: ListStreams)
 
 -- | The name of the stream to start the list with.
 listStreams_exclusiveStartStreamName :: Lens.Lens' ListStreams (Prelude.Maybe Prelude.Text)
 listStreams_exclusiveStartStreamName = Lens.lens (\ListStreams' {exclusiveStartStreamName} -> exclusiveStartStreamName) (\s@ListStreams' {} a -> s {exclusiveStartStreamName = a} :: ListStreams)
+
+-- | The maximum number of streams to list. The default value is 100. If you
+-- specify a value greater than 100, at most 100 results are returned.
+listStreams_limit :: Lens.Lens' ListStreams (Prelude.Maybe Prelude.Natural)
+listStreams_limit = Lens.lens (\ListStreams' {limit} -> limit) (\s@ListStreams' {} a -> s {limit = a} :: ListStreams)
 
 instance Core.AWSPager ListStreams where
   page rq rs
@@ -124,55 +129,57 @@ instance Core.AWSPager ListStreams where
 
 instance Core.AWSRequest ListStreams where
   type AWSResponse ListStreams = ListStreamsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListStreamsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "StreamNames" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..:> "HasMoreStreams")
+            Prelude.<*> (x Data..?> "StreamNames" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "HasMoreStreams")
       )
 
 instance Prelude.Hashable ListStreams where
   hashWithSalt _salt ListStreams' {..} =
-    _salt `Prelude.hashWithSalt` limit
+    _salt
       `Prelude.hashWithSalt` exclusiveStartStreamName
+      `Prelude.hashWithSalt` limit
 
 instance Prelude.NFData ListStreams where
   rnf ListStreams' {..} =
-    Prelude.rnf limit
-      `Prelude.seq` Prelude.rnf exclusiveStartStreamName
+    Prelude.rnf exclusiveStartStreamName
+      `Prelude.seq` Prelude.rnf limit
 
-instance Core.ToHeaders ListStreams where
+instance Data.ToHeaders ListStreams where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Kinesis_20131202.ListStreams" ::
+              Data.=# ( "Kinesis_20131202.ListStreams" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListStreams where
+instance Data.ToJSON ListStreams where
   toJSON ListStreams' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Limit" Core..=) Prelude.<$> limit,
-            ("ExclusiveStartStreamName" Core..=)
-              Prelude.<$> exclusiveStartStreamName
+          [ ("ExclusiveStartStreamName" Data..=)
+              Prelude.<$> exclusiveStartStreamName,
+            ("Limit" Data..=) Prelude.<$> limit
           ]
       )
 
-instance Core.ToPath ListStreams where
+instance Data.ToPath ListStreams where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListStreams where
+instance Data.ToQuery ListStreams where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output for @ListStreams@.
@@ -181,8 +188,8 @@ instance Core.ToQuery ListStreams where
 data ListStreamsResponse = ListStreamsResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | The names of the streams that are associated with the AWS account making
-    -- the @ListStreams@ request.
+    -- | The names of the streams that are associated with the Amazon Web
+    -- Services account making the @ListStreams@ request.
     streamNames :: [Prelude.Text],
     -- | If set to @true@, there are more streams available to list.
     hasMoreStreams :: Prelude.Bool
@@ -199,8 +206,8 @@ data ListStreamsResponse = ListStreamsResponse'
 --
 -- 'httpStatus', 'listStreamsResponse_httpStatus' - The response's http status code.
 --
--- 'streamNames', 'listStreamsResponse_streamNames' - The names of the streams that are associated with the AWS account making
--- the @ListStreams@ request.
+-- 'streamNames', 'listStreamsResponse_streamNames' - The names of the streams that are associated with the Amazon Web
+-- Services account making the @ListStreams@ request.
 --
 -- 'hasMoreStreams', 'listStreamsResponse_hasMoreStreams' - If set to @true@, there are more streams available to list.
 newListStreamsResponse ::
@@ -220,8 +227,8 @@ newListStreamsResponse pHttpStatus_ pHasMoreStreams_ =
 listStreamsResponse_httpStatus :: Lens.Lens' ListStreamsResponse Prelude.Int
 listStreamsResponse_httpStatus = Lens.lens (\ListStreamsResponse' {httpStatus} -> httpStatus) (\s@ListStreamsResponse' {} a -> s {httpStatus = a} :: ListStreamsResponse)
 
--- | The names of the streams that are associated with the AWS account making
--- the @ListStreams@ request.
+-- | The names of the streams that are associated with the Amazon Web
+-- Services account making the @ListStreams@ request.
 listStreamsResponse_streamNames :: Lens.Lens' ListStreamsResponse [Prelude.Text]
 listStreamsResponse_streamNames = Lens.lens (\ListStreamsResponse' {streamNames} -> streamNames) (\s@ListStreamsResponse' {} a -> s {streamNames = a} :: ListStreamsResponse) Prelude.. Lens.coerced
 

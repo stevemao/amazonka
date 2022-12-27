@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.Types.EncodingParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConnect.Types.EncodingParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types.EncoderProfile
 import qualified Amazonka.Prelude as Prelude
 
@@ -92,14 +93,14 @@ encodingParameters_encoderProfile = Lens.lens (\EncodingParameters' {encoderProf
 encodingParameters_compressionFactor :: Lens.Lens' EncodingParameters Prelude.Double
 encodingParameters_compressionFactor = Lens.lens (\EncodingParameters' {compressionFactor} -> compressionFactor) (\s@EncodingParameters' {} a -> s {compressionFactor = a} :: EncodingParameters)
 
-instance Core.FromJSON EncodingParameters where
+instance Data.FromJSON EncodingParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EncodingParameters"
       ( \x ->
           EncodingParameters'
-            Prelude.<$> (x Core..: "encoderProfile")
-            Prelude.<*> (x Core..: "compressionFactor")
+            Prelude.<$> (x Data..: "encoderProfile")
+            Prelude.<*> (x Data..: "compressionFactor")
       )
 
 instance Prelude.Hashable EncodingParameters where

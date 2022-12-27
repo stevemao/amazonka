@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.ExportTableToPointInTime
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,13 +29,13 @@ module Amazonka.DynamoDB.ExportTableToPointInTime
     newExportTableToPointInTime,
 
     -- * Request Lenses
-    exportTableToPointInTime_s3BucketOwner,
-    exportTableToPointInTime_exportFormat,
-    exportTableToPointInTime_s3SseKmsKeyId,
     exportTableToPointInTime_clientToken,
+    exportTableToPointInTime_exportFormat,
     exportTableToPointInTime_exportTime,
-    exportTableToPointInTime_s3SseAlgorithm,
+    exportTableToPointInTime_s3BucketOwner,
     exportTableToPointInTime_s3Prefix,
+    exportTableToPointInTime_s3SseAlgorithm,
+    exportTableToPointInTime_s3SseKmsKeyId,
     exportTableToPointInTime_tableArn,
     exportTableToPointInTime_s3Bucket,
 
@@ -50,24 +50,16 @@ module Amazonka.DynamoDB.ExportTableToPointInTime
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newExportTableToPointInTime' smart constructor.
 data ExportTableToPointInTime = ExportTableToPointInTime'
-  { -- | The ID of the AWS account that owns the bucket the export will be stored
-    -- in.
-    s3BucketOwner :: Prelude.Maybe Prelude.Text,
-    -- | The format for the exported data. Valid values for @ExportFormat@ are
-    -- @DYNAMODB_JSON@ or @ION@.
-    exportFormat :: Prelude.Maybe ExportFormat,
-    -- | The ID of the AWS KMS managed key used to encrypt the S3 bucket where
-    -- export data will be stored (if applicable).
-    s3SseKmsKeyId :: Prelude.Maybe Prelude.Text,
-    -- | Providing a @ClientToken@ makes the call to
+  { -- | Providing a @ClientToken@ makes the call to
     -- @ExportTableToPointInTimeInput@ idempotent, meaning that multiple
     -- identical calls have the same effect as one single call.
     --
@@ -79,21 +71,31 @@ data ExportTableToPointInTime = ExportTableToPointInTime'
     --
     -- If you submit a request with the same client token but a change in other
     -- parameters within the 8-hour idempotency window, DynamoDB returns an
-    -- @IdempotentParameterMismatch@ exception.
+    -- @ImportConflictException@.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | Time in the past from which to export table data. The table export will
-    -- be a snapshot of the table\'s state at this point in time.
-    exportTime :: Prelude.Maybe Core.POSIX,
+    -- | The format for the exported data. Valid values for @ExportFormat@ are
+    -- @DYNAMODB_JSON@ or @ION@.
+    exportFormat :: Prelude.Maybe ExportFormat,
+    -- | Time in the past from which to export table data, counted in seconds
+    -- from the start of the Unix epoch. The table export will be a snapshot of
+    -- the table\'s state at this point in time.
+    exportTime :: Prelude.Maybe Data.POSIX,
+    -- | The ID of the Amazon Web Services account that owns the bucket the
+    -- export will be stored in.
+    s3BucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon S3 bucket prefix to use as the file name and path of the
+    -- exported snapshot.
+    s3Prefix :: Prelude.Maybe Prelude.Text,
     -- | Type of encryption used on the bucket where export data will be stored.
     -- Valid values for @S3SseAlgorithm@ are:
     --
     -- -   @AES256@ - server-side encryption with Amazon S3 managed keys
     --
-    -- -   @KMS@ - server-side encryption with AWS KMS managed keys
+    -- -   @KMS@ - server-side encryption with KMS managed keys
     s3SseAlgorithm :: Prelude.Maybe S3SseAlgorithm,
-    -- | The Amazon S3 bucket prefix to use as the file name and path of the
-    -- exported snapshot.
-    s3Prefix :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the KMS managed key used to encrypt the S3 bucket where export
+    -- data will be stored (if applicable).
+    s3SseKmsKeyId :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) associated with the table to export.
     tableArn :: Prelude.Text,
     -- | The name of the Amazon S3 bucket to export the snapshot to.
@@ -109,15 +111,6 @@ data ExportTableToPointInTime = ExportTableToPointInTime'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 's3BucketOwner', 'exportTableToPointInTime_s3BucketOwner' - The ID of the AWS account that owns the bucket the export will be stored
--- in.
---
--- 'exportFormat', 'exportTableToPointInTime_exportFormat' - The format for the exported data. Valid values for @ExportFormat@ are
--- @DYNAMODB_JSON@ or @ION@.
---
--- 's3SseKmsKeyId', 'exportTableToPointInTime_s3SseKmsKeyId' - The ID of the AWS KMS managed key used to encrypt the S3 bucket where
--- export data will be stored (if applicable).
---
 -- 'clientToken', 'exportTableToPointInTime_clientToken' - Providing a @ClientToken@ makes the call to
 -- @ExportTableToPointInTimeInput@ idempotent, meaning that multiple
 -- identical calls have the same effect as one single call.
@@ -130,20 +123,30 @@ data ExportTableToPointInTime = ExportTableToPointInTime'
 --
 -- If you submit a request with the same client token but a change in other
 -- parameters within the 8-hour idempotency window, DynamoDB returns an
--- @IdempotentParameterMismatch@ exception.
+-- @ImportConflictException@.
 --
--- 'exportTime', 'exportTableToPointInTime_exportTime' - Time in the past from which to export table data. The table export will
--- be a snapshot of the table\'s state at this point in time.
+-- 'exportFormat', 'exportTableToPointInTime_exportFormat' - The format for the exported data. Valid values for @ExportFormat@ are
+-- @DYNAMODB_JSON@ or @ION@.
+--
+-- 'exportTime', 'exportTableToPointInTime_exportTime' - Time in the past from which to export table data, counted in seconds
+-- from the start of the Unix epoch. The table export will be a snapshot of
+-- the table\'s state at this point in time.
+--
+-- 's3BucketOwner', 'exportTableToPointInTime_s3BucketOwner' - The ID of the Amazon Web Services account that owns the bucket the
+-- export will be stored in.
+--
+-- 's3Prefix', 'exportTableToPointInTime_s3Prefix' - The Amazon S3 bucket prefix to use as the file name and path of the
+-- exported snapshot.
 --
 -- 's3SseAlgorithm', 'exportTableToPointInTime_s3SseAlgorithm' - Type of encryption used on the bucket where export data will be stored.
 -- Valid values for @S3SseAlgorithm@ are:
 --
 -- -   @AES256@ - server-side encryption with Amazon S3 managed keys
 --
--- -   @KMS@ - server-side encryption with AWS KMS managed keys
+-- -   @KMS@ - server-side encryption with KMS managed keys
 --
--- 's3Prefix', 'exportTableToPointInTime_s3Prefix' - The Amazon S3 bucket prefix to use as the file name and path of the
--- exported snapshot.
+-- 's3SseKmsKeyId', 'exportTableToPointInTime_s3SseKmsKeyId' - The ID of the KMS managed key used to encrypt the S3 bucket where export
+-- data will be stored (if applicable).
 --
 -- 'tableArn', 'exportTableToPointInTime_tableArn' - The Amazon Resource Name (ARN) associated with the table to export.
 --
@@ -156,32 +159,17 @@ newExportTableToPointInTime ::
   ExportTableToPointInTime
 newExportTableToPointInTime pTableArn_ pS3Bucket_ =
   ExportTableToPointInTime'
-    { s3BucketOwner =
+    { clientToken =
         Prelude.Nothing,
       exportFormat = Prelude.Nothing,
-      s3SseKmsKeyId = Prelude.Nothing,
-      clientToken = Prelude.Nothing,
       exportTime = Prelude.Nothing,
-      s3SseAlgorithm = Prelude.Nothing,
+      s3BucketOwner = Prelude.Nothing,
       s3Prefix = Prelude.Nothing,
+      s3SseAlgorithm = Prelude.Nothing,
+      s3SseKmsKeyId = Prelude.Nothing,
       tableArn = pTableArn_,
       s3Bucket = pS3Bucket_
     }
-
--- | The ID of the AWS account that owns the bucket the export will be stored
--- in.
-exportTableToPointInTime_s3BucketOwner :: Lens.Lens' ExportTableToPointInTime (Prelude.Maybe Prelude.Text)
-exportTableToPointInTime_s3BucketOwner = Lens.lens (\ExportTableToPointInTime' {s3BucketOwner} -> s3BucketOwner) (\s@ExportTableToPointInTime' {} a -> s {s3BucketOwner = a} :: ExportTableToPointInTime)
-
--- | The format for the exported data. Valid values for @ExportFormat@ are
--- @DYNAMODB_JSON@ or @ION@.
-exportTableToPointInTime_exportFormat :: Lens.Lens' ExportTableToPointInTime (Prelude.Maybe ExportFormat)
-exportTableToPointInTime_exportFormat = Lens.lens (\ExportTableToPointInTime' {exportFormat} -> exportFormat) (\s@ExportTableToPointInTime' {} a -> s {exportFormat = a} :: ExportTableToPointInTime)
-
--- | The ID of the AWS KMS managed key used to encrypt the S3 bucket where
--- export data will be stored (if applicable).
-exportTableToPointInTime_s3SseKmsKeyId :: Lens.Lens' ExportTableToPointInTime (Prelude.Maybe Prelude.Text)
-exportTableToPointInTime_s3SseKmsKeyId = Lens.lens (\ExportTableToPointInTime' {s3SseKmsKeyId} -> s3SseKmsKeyId) (\s@ExportTableToPointInTime' {} a -> s {s3SseKmsKeyId = a} :: ExportTableToPointInTime)
 
 -- | Providing a @ClientToken@ makes the call to
 -- @ExportTableToPointInTimeInput@ idempotent, meaning that multiple
@@ -195,28 +183,44 @@ exportTableToPointInTime_s3SseKmsKeyId = Lens.lens (\ExportTableToPointInTime' {
 --
 -- If you submit a request with the same client token but a change in other
 -- parameters within the 8-hour idempotency window, DynamoDB returns an
--- @IdempotentParameterMismatch@ exception.
+-- @ImportConflictException@.
 exportTableToPointInTime_clientToken :: Lens.Lens' ExportTableToPointInTime (Prelude.Maybe Prelude.Text)
 exportTableToPointInTime_clientToken = Lens.lens (\ExportTableToPointInTime' {clientToken} -> clientToken) (\s@ExportTableToPointInTime' {} a -> s {clientToken = a} :: ExportTableToPointInTime)
 
--- | Time in the past from which to export table data. The table export will
--- be a snapshot of the table\'s state at this point in time.
+-- | The format for the exported data. Valid values for @ExportFormat@ are
+-- @DYNAMODB_JSON@ or @ION@.
+exportTableToPointInTime_exportFormat :: Lens.Lens' ExportTableToPointInTime (Prelude.Maybe ExportFormat)
+exportTableToPointInTime_exportFormat = Lens.lens (\ExportTableToPointInTime' {exportFormat} -> exportFormat) (\s@ExportTableToPointInTime' {} a -> s {exportFormat = a} :: ExportTableToPointInTime)
+
+-- | Time in the past from which to export table data, counted in seconds
+-- from the start of the Unix epoch. The table export will be a snapshot of
+-- the table\'s state at this point in time.
 exportTableToPointInTime_exportTime :: Lens.Lens' ExportTableToPointInTime (Prelude.Maybe Prelude.UTCTime)
-exportTableToPointInTime_exportTime = Lens.lens (\ExportTableToPointInTime' {exportTime} -> exportTime) (\s@ExportTableToPointInTime' {} a -> s {exportTime = a} :: ExportTableToPointInTime) Prelude.. Lens.mapping Core._Time
+exportTableToPointInTime_exportTime = Lens.lens (\ExportTableToPointInTime' {exportTime} -> exportTime) (\s@ExportTableToPointInTime' {} a -> s {exportTime = a} :: ExportTableToPointInTime) Prelude.. Lens.mapping Data._Time
+
+-- | The ID of the Amazon Web Services account that owns the bucket the
+-- export will be stored in.
+exportTableToPointInTime_s3BucketOwner :: Lens.Lens' ExportTableToPointInTime (Prelude.Maybe Prelude.Text)
+exportTableToPointInTime_s3BucketOwner = Lens.lens (\ExportTableToPointInTime' {s3BucketOwner} -> s3BucketOwner) (\s@ExportTableToPointInTime' {} a -> s {s3BucketOwner = a} :: ExportTableToPointInTime)
+
+-- | The Amazon S3 bucket prefix to use as the file name and path of the
+-- exported snapshot.
+exportTableToPointInTime_s3Prefix :: Lens.Lens' ExportTableToPointInTime (Prelude.Maybe Prelude.Text)
+exportTableToPointInTime_s3Prefix = Lens.lens (\ExportTableToPointInTime' {s3Prefix} -> s3Prefix) (\s@ExportTableToPointInTime' {} a -> s {s3Prefix = a} :: ExportTableToPointInTime)
 
 -- | Type of encryption used on the bucket where export data will be stored.
 -- Valid values for @S3SseAlgorithm@ are:
 --
 -- -   @AES256@ - server-side encryption with Amazon S3 managed keys
 --
--- -   @KMS@ - server-side encryption with AWS KMS managed keys
+-- -   @KMS@ - server-side encryption with KMS managed keys
 exportTableToPointInTime_s3SseAlgorithm :: Lens.Lens' ExportTableToPointInTime (Prelude.Maybe S3SseAlgorithm)
 exportTableToPointInTime_s3SseAlgorithm = Lens.lens (\ExportTableToPointInTime' {s3SseAlgorithm} -> s3SseAlgorithm) (\s@ExportTableToPointInTime' {} a -> s {s3SseAlgorithm = a} :: ExportTableToPointInTime)
 
--- | The Amazon S3 bucket prefix to use as the file name and path of the
--- exported snapshot.
-exportTableToPointInTime_s3Prefix :: Lens.Lens' ExportTableToPointInTime (Prelude.Maybe Prelude.Text)
-exportTableToPointInTime_s3Prefix = Lens.lens (\ExportTableToPointInTime' {s3Prefix} -> s3Prefix) (\s@ExportTableToPointInTime' {} a -> s {s3Prefix = a} :: ExportTableToPointInTime)
+-- | The ID of the KMS managed key used to encrypt the S3 bucket where export
+-- data will be stored (if applicable).
+exportTableToPointInTime_s3SseKmsKeyId :: Lens.Lens' ExportTableToPointInTime (Prelude.Maybe Prelude.Text)
+exportTableToPointInTime_s3SseKmsKeyId = Lens.lens (\ExportTableToPointInTime' {s3SseKmsKeyId} -> s3SseKmsKeyId) (\s@ExportTableToPointInTime' {} a -> s {s3SseKmsKeyId = a} :: ExportTableToPointInTime)
 
 -- | The Amazon Resource Name (ARN) associated with the table to export.
 exportTableToPointInTime_tableArn :: Lens.Lens' ExportTableToPointInTime Prelude.Text
@@ -230,75 +234,76 @@ instance Core.AWSRequest ExportTableToPointInTime where
   type
     AWSResponse ExportTableToPointInTime =
       ExportTableToPointInTimeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ExportTableToPointInTimeResponse'
-            Prelude.<$> (x Core..?> "ExportDescription")
+            Prelude.<$> (x Data..?> "ExportDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ExportTableToPointInTime where
   hashWithSalt _salt ExportTableToPointInTime' {..} =
-    _salt `Prelude.hashWithSalt` s3BucketOwner
+    _salt `Prelude.hashWithSalt` clientToken
       `Prelude.hashWithSalt` exportFormat
-      `Prelude.hashWithSalt` s3SseKmsKeyId
-      `Prelude.hashWithSalt` clientToken
       `Prelude.hashWithSalt` exportTime
-      `Prelude.hashWithSalt` s3SseAlgorithm
+      `Prelude.hashWithSalt` s3BucketOwner
       `Prelude.hashWithSalt` s3Prefix
+      `Prelude.hashWithSalt` s3SseAlgorithm
+      `Prelude.hashWithSalt` s3SseKmsKeyId
       `Prelude.hashWithSalt` tableArn
       `Prelude.hashWithSalt` s3Bucket
 
 instance Prelude.NFData ExportTableToPointInTime where
   rnf ExportTableToPointInTime' {..} =
-    Prelude.rnf s3BucketOwner
+    Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf exportFormat
-      `Prelude.seq` Prelude.rnf s3SseKmsKeyId
-      `Prelude.seq` Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf exportTime
-      `Prelude.seq` Prelude.rnf s3SseAlgorithm
+      `Prelude.seq` Prelude.rnf s3BucketOwner
       `Prelude.seq` Prelude.rnf s3Prefix
+      `Prelude.seq` Prelude.rnf s3SseAlgorithm
+      `Prelude.seq` Prelude.rnf s3SseKmsKeyId
       `Prelude.seq` Prelude.rnf tableArn
       `Prelude.seq` Prelude.rnf s3Bucket
 
-instance Core.ToHeaders ExportTableToPointInTime where
+instance Data.ToHeaders ExportTableToPointInTime where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.ExportTableToPointInTime" ::
+              Data.=# ( "DynamoDB_20120810.ExportTableToPointInTime" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ExportTableToPointInTime where
+instance Data.ToJSON ExportTableToPointInTime where
   toJSON ExportTableToPointInTime' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("S3BucketOwner" Core..=) Prelude.<$> s3BucketOwner,
-            ("ExportFormat" Core..=) Prelude.<$> exportFormat,
-            ("S3SseKmsKeyId" Core..=) Prelude.<$> s3SseKmsKeyId,
-            ("ClientToken" Core..=) Prelude.<$> clientToken,
-            ("ExportTime" Core..=) Prelude.<$> exportTime,
-            ("S3SseAlgorithm" Core..=)
+          [ ("ClientToken" Data..=) Prelude.<$> clientToken,
+            ("ExportFormat" Data..=) Prelude.<$> exportFormat,
+            ("ExportTime" Data..=) Prelude.<$> exportTime,
+            ("S3BucketOwner" Data..=) Prelude.<$> s3BucketOwner,
+            ("S3Prefix" Data..=) Prelude.<$> s3Prefix,
+            ("S3SseAlgorithm" Data..=)
               Prelude.<$> s3SseAlgorithm,
-            ("S3Prefix" Core..=) Prelude.<$> s3Prefix,
-            Prelude.Just ("TableArn" Core..= tableArn),
-            Prelude.Just ("S3Bucket" Core..= s3Bucket)
+            ("S3SseKmsKeyId" Data..=) Prelude.<$> s3SseKmsKeyId,
+            Prelude.Just ("TableArn" Data..= tableArn),
+            Prelude.Just ("S3Bucket" Data..= s3Bucket)
           ]
       )
 
-instance Core.ToPath ExportTableToPointInTime where
+instance Data.ToPath ExportTableToPointInTime where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ExportTableToPointInTime where
+instance Data.ToQuery ExportTableToPointInTime where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newExportTableToPointInTimeResponse' smart constructor.

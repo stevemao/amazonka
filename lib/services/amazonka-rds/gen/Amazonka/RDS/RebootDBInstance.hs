@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.RebootDBInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,6 +32,11 @@
 -- For more information about rebooting, see
 -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_RebootInstance.html Rebooting a DB Instance>
 -- in the /Amazon RDS User Guide./
+--
+-- This command doesn\'t apply to RDS Custom.
+--
+-- If your DB instance is part of a Multi-AZ DB cluster, you can reboot the
+-- DB cluster with the @RebootDBCluster@ operation.
 module Amazonka.RDS.RebootDBInstance
   ( -- * Creating a Request
     RebootDBInstance (..),
@@ -52,7 +57,8 @@ module Amazonka.RDS.RebootDBInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -129,13 +135,14 @@ instance Core.AWSRequest RebootDBInstance where
   type
     AWSResponse RebootDBInstance =
       RebootDBInstanceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "RebootDBInstanceResult"
       ( \s h x ->
           RebootDBInstanceResponse'
-            Prelude.<$> (x Core..@? "DBInstance")
+            Prelude.<$> (x Data..@? "DBInstance")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -149,21 +156,21 @@ instance Prelude.NFData RebootDBInstance where
     Prelude.rnf forceFailover
       `Prelude.seq` Prelude.rnf dbInstanceIdentifier
 
-instance Core.ToHeaders RebootDBInstance where
+instance Data.ToHeaders RebootDBInstance where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RebootDBInstance where
+instance Data.ToPath RebootDBInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RebootDBInstance where
+instance Data.ToQuery RebootDBInstance where
   toQuery RebootDBInstance' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RebootDBInstance" :: Prelude.ByteString),
+          Data.=: ("RebootDBInstance" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "ForceFailover" Core.=: forceFailover,
-        "DBInstanceIdentifier" Core.=: dbInstanceIdentifier
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "ForceFailover" Data.=: forceFailover,
+        "DBInstanceIdentifier" Data.=: dbInstanceIdentifier
       ]
 
 -- | /See:/ 'newRebootDBInstanceResponse' smart constructor.

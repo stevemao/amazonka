@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.FaceRecord
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.FaceRecord where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.Face
 import Amazonka.Rekognition.Types.FaceDetail
@@ -31,11 +32,11 @@ import Amazonka.Rekognition.Types.FaceDetail
 --
 -- /See:/ 'newFaceRecord' smart constructor.
 data FaceRecord = FaceRecord'
-  { -- | Structure containing attributes of the face that the algorithm detected.
-    faceDetail :: Prelude.Maybe FaceDetail,
-    -- | Describes the face properties such as the bounding box, face ID, image
+  { -- | Describes the face properties such as the bounding box, face ID, image
     -- ID of the input image, and external image ID that you assigned.
-    face :: Prelude.Maybe Face
+    face :: Prelude.Maybe Face,
+    -- | Structure containing attributes of the face that the algorithm detected.
+    faceDetail :: Prelude.Maybe FaceDetail
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,43 +48,43 @@ data FaceRecord = FaceRecord'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'faceDetail', 'faceRecord_faceDetail' - Structure containing attributes of the face that the algorithm detected.
---
 -- 'face', 'faceRecord_face' - Describes the face properties such as the bounding box, face ID, image
 -- ID of the input image, and external image ID that you assigned.
+--
+-- 'faceDetail', 'faceRecord_faceDetail' - Structure containing attributes of the face that the algorithm detected.
 newFaceRecord ::
   FaceRecord
 newFaceRecord =
   FaceRecord'
-    { faceDetail = Prelude.Nothing,
-      face = Prelude.Nothing
+    { face = Prelude.Nothing,
+      faceDetail = Prelude.Nothing
     }
-
--- | Structure containing attributes of the face that the algorithm detected.
-faceRecord_faceDetail :: Lens.Lens' FaceRecord (Prelude.Maybe FaceDetail)
-faceRecord_faceDetail = Lens.lens (\FaceRecord' {faceDetail} -> faceDetail) (\s@FaceRecord' {} a -> s {faceDetail = a} :: FaceRecord)
 
 -- | Describes the face properties such as the bounding box, face ID, image
 -- ID of the input image, and external image ID that you assigned.
 faceRecord_face :: Lens.Lens' FaceRecord (Prelude.Maybe Face)
 faceRecord_face = Lens.lens (\FaceRecord' {face} -> face) (\s@FaceRecord' {} a -> s {face = a} :: FaceRecord)
 
-instance Core.FromJSON FaceRecord where
+-- | Structure containing attributes of the face that the algorithm detected.
+faceRecord_faceDetail :: Lens.Lens' FaceRecord (Prelude.Maybe FaceDetail)
+faceRecord_faceDetail = Lens.lens (\FaceRecord' {faceDetail} -> faceDetail) (\s@FaceRecord' {} a -> s {faceDetail = a} :: FaceRecord)
+
+instance Data.FromJSON FaceRecord where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FaceRecord"
       ( \x ->
           FaceRecord'
-            Prelude.<$> (x Core..:? "FaceDetail")
-            Prelude.<*> (x Core..:? "Face")
+            Prelude.<$> (x Data..:? "Face")
+            Prelude.<*> (x Data..:? "FaceDetail")
       )
 
 instance Prelude.Hashable FaceRecord where
   hashWithSalt _salt FaceRecord' {..} =
-    _salt `Prelude.hashWithSalt` faceDetail
-      `Prelude.hashWithSalt` face
+    _salt `Prelude.hashWithSalt` face
+      `Prelude.hashWithSalt` faceDetail
 
 instance Prelude.NFData FaceRecord where
   rnf FaceRecord' {..} =
-    Prelude.rnf faceDetail
-      `Prelude.seq` Prelude.rnf face
+    Prelude.rnf face
+      `Prelude.seq` Prelude.rnf faceDetail

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.Types.InstanceConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ImageBuilder.Types.InstanceConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types.InstanceBlockDeviceMapping
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Defines a custom base AMI and block device mapping configurations of an
@@ -29,13 +30,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newInstanceConfiguration' smart constructor.
 data InstanceConfiguration = InstanceConfiguration'
-  { -- | The AMI ID to use as the base image for a container build and test
+  { -- | Defines the block devices to attach for building an instance from this
+    -- Image Builder AMI.
+    blockDeviceMappings :: Prelude.Maybe [InstanceBlockDeviceMapping],
+    -- | The AMI ID to use as the base image for a container build and test
     -- instance. If not specified, Image Builder will use the appropriate
     -- ECS-optimized AMI as a base image.
-    image :: Prelude.Maybe Prelude.Text,
-    -- | Defines the block devices to attach for building an instance from this
-    -- Image Builder AMI.
-    blockDeviceMappings :: Prelude.Maybe [InstanceBlockDeviceMapping]
+    image :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,19 +48,25 @@ data InstanceConfiguration = InstanceConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'blockDeviceMappings', 'instanceConfiguration_blockDeviceMappings' - Defines the block devices to attach for building an instance from this
+-- Image Builder AMI.
+--
 -- 'image', 'instanceConfiguration_image' - The AMI ID to use as the base image for a container build and test
 -- instance. If not specified, Image Builder will use the appropriate
 -- ECS-optimized AMI as a base image.
---
--- 'blockDeviceMappings', 'instanceConfiguration_blockDeviceMappings' - Defines the block devices to attach for building an instance from this
--- Image Builder AMI.
 newInstanceConfiguration ::
   InstanceConfiguration
 newInstanceConfiguration =
   InstanceConfiguration'
-    { image = Prelude.Nothing,
-      blockDeviceMappings = Prelude.Nothing
+    { blockDeviceMappings =
+        Prelude.Nothing,
+      image = Prelude.Nothing
     }
+
+-- | Defines the block devices to attach for building an instance from this
+-- Image Builder AMI.
+instanceConfiguration_blockDeviceMappings :: Lens.Lens' InstanceConfiguration (Prelude.Maybe [InstanceBlockDeviceMapping])
+instanceConfiguration_blockDeviceMappings = Lens.lens (\InstanceConfiguration' {blockDeviceMappings} -> blockDeviceMappings) (\s@InstanceConfiguration' {} a -> s {blockDeviceMappings = a} :: InstanceConfiguration) Prelude.. Lens.mapping Lens.coerced
 
 -- | The AMI ID to use as the base image for a container build and test
 -- instance. If not specified, Image Builder will use the appropriate
@@ -67,39 +74,34 @@ newInstanceConfiguration =
 instanceConfiguration_image :: Lens.Lens' InstanceConfiguration (Prelude.Maybe Prelude.Text)
 instanceConfiguration_image = Lens.lens (\InstanceConfiguration' {image} -> image) (\s@InstanceConfiguration' {} a -> s {image = a} :: InstanceConfiguration)
 
--- | Defines the block devices to attach for building an instance from this
--- Image Builder AMI.
-instanceConfiguration_blockDeviceMappings :: Lens.Lens' InstanceConfiguration (Prelude.Maybe [InstanceBlockDeviceMapping])
-instanceConfiguration_blockDeviceMappings = Lens.lens (\InstanceConfiguration' {blockDeviceMappings} -> blockDeviceMappings) (\s@InstanceConfiguration' {} a -> s {blockDeviceMappings = a} :: InstanceConfiguration) Prelude.. Lens.mapping Lens.coerced
-
-instance Core.FromJSON InstanceConfiguration where
+instance Data.FromJSON InstanceConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstanceConfiguration"
       ( \x ->
           InstanceConfiguration'
-            Prelude.<$> (x Core..:? "image")
-            Prelude.<*> ( x Core..:? "blockDeviceMappings"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "blockDeviceMappings"
+                            Data..!= Prelude.mempty
                         )
+            Prelude.<*> (x Data..:? "image")
       )
 
 instance Prelude.Hashable InstanceConfiguration where
   hashWithSalt _salt InstanceConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` image
-      `Prelude.hashWithSalt` blockDeviceMappings
+    _salt `Prelude.hashWithSalt` blockDeviceMappings
+      `Prelude.hashWithSalt` image
 
 instance Prelude.NFData InstanceConfiguration where
   rnf InstanceConfiguration' {..} =
-    Prelude.rnf image
-      `Prelude.seq` Prelude.rnf blockDeviceMappings
+    Prelude.rnf blockDeviceMappings
+      `Prelude.seq` Prelude.rnf image
 
-instance Core.ToJSON InstanceConfiguration where
+instance Data.ToJSON InstanceConfiguration where
   toJSON InstanceConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("image" Core..=) Prelude.<$> image,
-            ("blockDeviceMappings" Core..=)
-              Prelude.<$> blockDeviceMappings
+          [ ("blockDeviceMappings" Data..=)
+              Prelude.<$> blockDeviceMappings,
+            ("image" Data..=) Prelude.<$> image
           ]
       )

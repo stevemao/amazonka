@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.PersonalizeEvents.PutUsers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ module Amazonka.PersonalizeEvents.PutUsers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.PersonalizeEvents.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,7 +53,7 @@ data PutUsers = PutUsers'
     -- | A list of user data.
     users :: Prelude.NonEmpty User
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'PutUsers' with all optional fields omitted.
@@ -89,7 +90,8 @@ putUsers_users = Lens.lens (\PutUsers' {users} -> users) (\s@PutUsers' {} a -> s
 
 instance Core.AWSRequest PutUsers where
   type AWSResponse PutUsers = PutUsersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull PutUsersResponse'
 
 instance Prelude.Hashable PutUsers where
@@ -102,30 +104,30 @@ instance Prelude.NFData PutUsers where
     Prelude.rnf datasetArn
       `Prelude.seq` Prelude.rnf users
 
-instance Core.ToHeaders PutUsers where
+instance Data.ToHeaders PutUsers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutUsers where
+instance Data.ToJSON PutUsers where
   toJSON PutUsers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("datasetArn" Core..= datasetArn),
-            Prelude.Just ("users" Core..= users)
+          [ Prelude.Just ("datasetArn" Data..= datasetArn),
+            Prelude.Just ("users" Data..= users)
           ]
       )
 
-instance Core.ToPath PutUsers where
+instance Data.ToPath PutUsers where
   toPath = Prelude.const "/users"
 
-instance Core.ToQuery PutUsers where
+instance Data.ToQuery PutUsers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutUsersResponse' smart constructor.

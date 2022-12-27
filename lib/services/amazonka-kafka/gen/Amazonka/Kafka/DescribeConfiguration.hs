@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.DescribeConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,20 +34,21 @@ module Amazonka.Kafka.DescribeConfiguration
     newDescribeConfigurationResponse,
 
     -- * Response Lenses
-    describeConfigurationResponse_creationTime,
-    describeConfigurationResponse_state,
-    describeConfigurationResponse_kafkaVersions,
     describeConfigurationResponse_arn,
+    describeConfigurationResponse_creationTime,
+    describeConfigurationResponse_description,
+    describeConfigurationResponse_kafkaVersions,
     describeConfigurationResponse_latestRevision,
     describeConfigurationResponse_name,
-    describeConfigurationResponse_description,
+    describeConfigurationResponse_state,
     describeConfigurationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,18 +87,19 @@ instance Core.AWSRequest DescribeConfiguration where
   type
     AWSResponse DescribeConfiguration =
       DescribeConfigurationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeConfigurationResponse'
-            Prelude.<$> (x Core..?> "creationTime")
-            Prelude.<*> (x Core..?> "state")
-            Prelude.<*> (x Core..?> "kafkaVersions" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "arn")
-            Prelude.<*> (x Core..?> "latestRevision")
-            Prelude.<*> (x Core..?> "name")
-            Prelude.<*> (x Core..?> "description")
+            Prelude.<$> (x Data..?> "arn")
+            Prelude.<*> (x Data..?> "creationTime")
+            Prelude.<*> (x Data..?> "description")
+            Prelude.<*> (x Data..?> "kafkaVersions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "latestRevision")
+            Prelude.<*> (x Data..?> "name")
+            Prelude.<*> (x Data..?> "state")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,43 +110,43 @@ instance Prelude.Hashable DescribeConfiguration where
 instance Prelude.NFData DescribeConfiguration where
   rnf DescribeConfiguration' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders DescribeConfiguration where
+instance Data.ToHeaders DescribeConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeConfiguration where
+instance Data.ToPath DescribeConfiguration where
   toPath DescribeConfiguration' {..} =
     Prelude.mconcat
-      ["/v1/configurations/", Core.toBS arn]
+      ["/v1/configurations/", Data.toBS arn]
 
-instance Core.ToQuery DescribeConfiguration where
+instance Data.ToQuery DescribeConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeConfigurationResponse' smart constructor.
 data DescribeConfigurationResponse = DescribeConfigurationResponse'
-  { -- | The time when the configuration was created.
-    creationTime :: Prelude.Maybe Core.POSIX,
-    -- | The state of the configuration. The possible states are ACTIVE,
-    -- DELETING, and DELETE_FAILED.
-    state :: Prelude.Maybe ConfigurationState,
+  { -- | The Amazon Resource Name (ARN) of the configuration.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The time when the configuration was created.
+    creationTime :: Prelude.Maybe Data.POSIX,
+    -- | The description of the configuration.
+    description :: Prelude.Maybe Prelude.Text,
     -- | The versions of Apache Kafka with which you can use this MSK
     -- configuration.
     kafkaVersions :: Prelude.Maybe [Prelude.Text],
-    -- | The Amazon Resource Name (ARN) of the configuration.
-    arn :: Prelude.Maybe Prelude.Text,
     -- | Latest revision of the configuration.
     latestRevision :: Prelude.Maybe ConfigurationRevision,
     -- | The name of the configuration.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The description of the configuration.
-    description :: Prelude.Maybe Prelude.Text,
+    -- | The state of the configuration. The possible states are ACTIVE,
+    -- DELETING, and DELETE_FAILED.
+    state :: Prelude.Maybe ConfigurationState,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -158,21 +160,21 @@ data DescribeConfigurationResponse = DescribeConfigurationResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'arn', 'describeConfigurationResponse_arn' - The Amazon Resource Name (ARN) of the configuration.
+--
 -- 'creationTime', 'describeConfigurationResponse_creationTime' - The time when the configuration was created.
 --
--- 'state', 'describeConfigurationResponse_state' - The state of the configuration. The possible states are ACTIVE,
--- DELETING, and DELETE_FAILED.
+-- 'description', 'describeConfigurationResponse_description' - The description of the configuration.
 --
 -- 'kafkaVersions', 'describeConfigurationResponse_kafkaVersions' - The versions of Apache Kafka with which you can use this MSK
 -- configuration.
---
--- 'arn', 'describeConfigurationResponse_arn' - The Amazon Resource Name (ARN) of the configuration.
 --
 -- 'latestRevision', 'describeConfigurationResponse_latestRevision' - Latest revision of the configuration.
 --
 -- 'name', 'describeConfigurationResponse_name' - The name of the configuration.
 --
--- 'description', 'describeConfigurationResponse_description' - The description of the configuration.
+-- 'state', 'describeConfigurationResponse_state' - The state of the configuration. The possible states are ACTIVE,
+-- DELETING, and DELETE_FAILED.
 --
 -- 'httpStatus', 'describeConfigurationResponse_httpStatus' - The response's http status code.
 newDescribeConfigurationResponse ::
@@ -181,34 +183,33 @@ newDescribeConfigurationResponse ::
   DescribeConfigurationResponse
 newDescribeConfigurationResponse pHttpStatus_ =
   DescribeConfigurationResponse'
-    { creationTime =
+    { arn =
         Prelude.Nothing,
-      state = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      description = Prelude.Nothing,
       kafkaVersions = Prelude.Nothing,
-      arn = Prelude.Nothing,
       latestRevision = Prelude.Nothing,
       name = Prelude.Nothing,
-      description = Prelude.Nothing,
+      state = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
+-- | The Amazon Resource Name (ARN) of the configuration.
+describeConfigurationResponse_arn :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe Prelude.Text)
+describeConfigurationResponse_arn = Lens.lens (\DescribeConfigurationResponse' {arn} -> arn) (\s@DescribeConfigurationResponse' {} a -> s {arn = a} :: DescribeConfigurationResponse)
+
 -- | The time when the configuration was created.
 describeConfigurationResponse_creationTime :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe Prelude.UTCTime)
-describeConfigurationResponse_creationTime = Lens.lens (\DescribeConfigurationResponse' {creationTime} -> creationTime) (\s@DescribeConfigurationResponse' {} a -> s {creationTime = a} :: DescribeConfigurationResponse) Prelude.. Lens.mapping Core._Time
+describeConfigurationResponse_creationTime = Lens.lens (\DescribeConfigurationResponse' {creationTime} -> creationTime) (\s@DescribeConfigurationResponse' {} a -> s {creationTime = a} :: DescribeConfigurationResponse) Prelude.. Lens.mapping Data._Time
 
--- | The state of the configuration. The possible states are ACTIVE,
--- DELETING, and DELETE_FAILED.
-describeConfigurationResponse_state :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe ConfigurationState)
-describeConfigurationResponse_state = Lens.lens (\DescribeConfigurationResponse' {state} -> state) (\s@DescribeConfigurationResponse' {} a -> s {state = a} :: DescribeConfigurationResponse)
+-- | The description of the configuration.
+describeConfigurationResponse_description :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe Prelude.Text)
+describeConfigurationResponse_description = Lens.lens (\DescribeConfigurationResponse' {description} -> description) (\s@DescribeConfigurationResponse' {} a -> s {description = a} :: DescribeConfigurationResponse)
 
 -- | The versions of Apache Kafka with which you can use this MSK
 -- configuration.
 describeConfigurationResponse_kafkaVersions :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe [Prelude.Text])
 describeConfigurationResponse_kafkaVersions = Lens.lens (\DescribeConfigurationResponse' {kafkaVersions} -> kafkaVersions) (\s@DescribeConfigurationResponse' {} a -> s {kafkaVersions = a} :: DescribeConfigurationResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The Amazon Resource Name (ARN) of the configuration.
-describeConfigurationResponse_arn :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe Prelude.Text)
-describeConfigurationResponse_arn = Lens.lens (\DescribeConfigurationResponse' {arn} -> arn) (\s@DescribeConfigurationResponse' {} a -> s {arn = a} :: DescribeConfigurationResponse)
 
 -- | Latest revision of the configuration.
 describeConfigurationResponse_latestRevision :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe ConfigurationRevision)
@@ -218,9 +219,10 @@ describeConfigurationResponse_latestRevision = Lens.lens (\DescribeConfiguration
 describeConfigurationResponse_name :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe Prelude.Text)
 describeConfigurationResponse_name = Lens.lens (\DescribeConfigurationResponse' {name} -> name) (\s@DescribeConfigurationResponse' {} a -> s {name = a} :: DescribeConfigurationResponse)
 
--- | The description of the configuration.
-describeConfigurationResponse_description :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe Prelude.Text)
-describeConfigurationResponse_description = Lens.lens (\DescribeConfigurationResponse' {description} -> description) (\s@DescribeConfigurationResponse' {} a -> s {description = a} :: DescribeConfigurationResponse)
+-- | The state of the configuration. The possible states are ACTIVE,
+-- DELETING, and DELETE_FAILED.
+describeConfigurationResponse_state :: Lens.Lens' DescribeConfigurationResponse (Prelude.Maybe ConfigurationState)
+describeConfigurationResponse_state = Lens.lens (\DescribeConfigurationResponse' {state} -> state) (\s@DescribeConfigurationResponse' {} a -> s {state = a} :: DescribeConfigurationResponse)
 
 -- | The response's http status code.
 describeConfigurationResponse_httpStatus :: Lens.Lens' DescribeConfigurationResponse Prelude.Int
@@ -228,11 +230,11 @@ describeConfigurationResponse_httpStatus = Lens.lens (\DescribeConfigurationResp
 
 instance Prelude.NFData DescribeConfigurationResponse where
   rnf DescribeConfigurationResponse' {..} =
-    Prelude.rnf creationTime
-      `Prelude.seq` Prelude.rnf state
+    Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf creationTime
+      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf kafkaVersions
-      `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf latestRevision
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf httpStatus

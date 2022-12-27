@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.PutBackupVaultNotifications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,19 +60,24 @@ data PutBackupVaultNotifications = PutBackupVaultNotifications'
     -- | An array of events that indicate the status of jobs to back up resources
     -- to the backup vault.
     --
+    -- For common use cases and code samples, see
+    -- <https://docs.aws.amazon.com/aws-backup/latest/devguide/sns-notifications.html Using Amazon SNS to track Backup events>.
+    --
     -- The following events are supported:
     --
-    -- @BACKUP_JOB_STARTED@, @BACKUP_JOB_COMPLETED@,
+    -- -   @BACKUP_JOB_STARTED@ | @BACKUP_JOB_COMPLETED@
     --
-    -- @COPY_JOB_STARTED@, @COPY_JOB_SUCCESSFUL@, @COPY_JOB_FAILED@,
+    -- -   @COPY_JOB_STARTED@ | @COPY_JOB_SUCCESSFUL@ | @COPY_JOB_FAILED@
     --
-    -- @RESTORE_JOB_STARTED@, @RESTORE_JOB_COMPLETED@, and
-    -- @RECOVERY_POINT_MODIFIED@.
+    -- -   @RESTORE_JOB_STARTED@ | @RESTORE_JOB_COMPLETED@ |
+    --     @RECOVERY_POINT_MODIFIED@
     --
-    -- To find failed backup jobs, use @BACKUP_JOB_COMPLETED@ and filter using
-    -- event metadata.
+    -- -   @S3_BACKUP_OBJECT_FAILED@ | @S3_RESTORE_OBJECT_FAILED@
     --
-    -- Other events in the following list are deprecated.
+    -- The list below shows items that are deprecated events (for reference)
+    -- and are no longer in use. They are no longer supported and will not
+    -- return statuses or notifications. Refer to the list above for current
+    -- supported events.
     backupVaultEvents :: [BackupVaultEvent]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -96,19 +102,24 @@ data PutBackupVaultNotifications = PutBackupVaultNotifications'
 -- 'backupVaultEvents', 'putBackupVaultNotifications_backupVaultEvents' - An array of events that indicate the status of jobs to back up resources
 -- to the backup vault.
 --
+-- For common use cases and code samples, see
+-- <https://docs.aws.amazon.com/aws-backup/latest/devguide/sns-notifications.html Using Amazon SNS to track Backup events>.
+--
 -- The following events are supported:
 --
--- @BACKUP_JOB_STARTED@, @BACKUP_JOB_COMPLETED@,
+-- -   @BACKUP_JOB_STARTED@ | @BACKUP_JOB_COMPLETED@
 --
--- @COPY_JOB_STARTED@, @COPY_JOB_SUCCESSFUL@, @COPY_JOB_FAILED@,
+-- -   @COPY_JOB_STARTED@ | @COPY_JOB_SUCCESSFUL@ | @COPY_JOB_FAILED@
 --
--- @RESTORE_JOB_STARTED@, @RESTORE_JOB_COMPLETED@, and
--- @RECOVERY_POINT_MODIFIED@.
+-- -   @RESTORE_JOB_STARTED@ | @RESTORE_JOB_COMPLETED@ |
+--     @RECOVERY_POINT_MODIFIED@
 --
--- To find failed backup jobs, use @BACKUP_JOB_COMPLETED@ and filter using
--- event metadata.
+-- -   @S3_BACKUP_OBJECT_FAILED@ | @S3_RESTORE_OBJECT_FAILED@
 --
--- Other events in the following list are deprecated.
+-- The list below shows items that are deprecated events (for reference)
+-- and are no longer in use. They are no longer supported and will not
+-- return statuses or notifications. Refer to the list above for current
+-- supported events.
 newPutBackupVaultNotifications ::
   -- | 'backupVaultName'
   Prelude.Text ->
@@ -141,19 +152,24 @@ putBackupVaultNotifications_sNSTopicArn = Lens.lens (\PutBackupVaultNotification
 -- | An array of events that indicate the status of jobs to back up resources
 -- to the backup vault.
 --
+-- For common use cases and code samples, see
+-- <https://docs.aws.amazon.com/aws-backup/latest/devguide/sns-notifications.html Using Amazon SNS to track Backup events>.
+--
 -- The following events are supported:
 --
--- @BACKUP_JOB_STARTED@, @BACKUP_JOB_COMPLETED@,
+-- -   @BACKUP_JOB_STARTED@ | @BACKUP_JOB_COMPLETED@
 --
--- @COPY_JOB_STARTED@, @COPY_JOB_SUCCESSFUL@, @COPY_JOB_FAILED@,
+-- -   @COPY_JOB_STARTED@ | @COPY_JOB_SUCCESSFUL@ | @COPY_JOB_FAILED@
 --
--- @RESTORE_JOB_STARTED@, @RESTORE_JOB_COMPLETED@, and
--- @RECOVERY_POINT_MODIFIED@.
+-- -   @RESTORE_JOB_STARTED@ | @RESTORE_JOB_COMPLETED@ |
+--     @RECOVERY_POINT_MODIFIED@
 --
--- To find failed backup jobs, use @BACKUP_JOB_COMPLETED@ and filter using
--- event metadata.
+-- -   @S3_BACKUP_OBJECT_FAILED@ | @S3_RESTORE_OBJECT_FAILED@
 --
--- Other events in the following list are deprecated.
+-- The list below shows items that are deprecated events (for reference)
+-- and are no longer in use. They are no longer supported and will not
+-- return statuses or notifications. Refer to the list above for current
+-- supported events.
 putBackupVaultNotifications_backupVaultEvents :: Lens.Lens' PutBackupVaultNotifications [BackupVaultEvent]
 putBackupVaultNotifications_backupVaultEvents = Lens.lens (\PutBackupVaultNotifications' {backupVaultEvents} -> backupVaultEvents) (\s@PutBackupVaultNotifications' {} a -> s {backupVaultEvents = a} :: PutBackupVaultNotifications) Prelude.. Lens.coerced
 
@@ -161,7 +177,8 @@ instance Core.AWSRequest PutBackupVaultNotifications where
   type
     AWSResponse PutBackupVaultNotifications =
       PutBackupVaultNotificationsResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveNull
       PutBackupVaultNotificationsResponse'
@@ -178,36 +195,36 @@ instance Prelude.NFData PutBackupVaultNotifications where
       `Prelude.seq` Prelude.rnf sNSTopicArn
       `Prelude.seq` Prelude.rnf backupVaultEvents
 
-instance Core.ToHeaders PutBackupVaultNotifications where
+instance Data.ToHeaders PutBackupVaultNotifications where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutBackupVaultNotifications where
+instance Data.ToJSON PutBackupVaultNotifications where
   toJSON PutBackupVaultNotifications' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("SNSTopicArn" Core..= sNSTopicArn),
+          [ Prelude.Just ("SNSTopicArn" Data..= sNSTopicArn),
             Prelude.Just
-              ("BackupVaultEvents" Core..= backupVaultEvents)
+              ("BackupVaultEvents" Data..= backupVaultEvents)
           ]
       )
 
-instance Core.ToPath PutBackupVaultNotifications where
+instance Data.ToPath PutBackupVaultNotifications where
   toPath PutBackupVaultNotifications' {..} =
     Prelude.mconcat
       [ "/backup-vaults/",
-        Core.toBS backupVaultName,
+        Data.toBS backupVaultName,
         "/notification-configuration"
       ]
 
-instance Core.ToQuery PutBackupVaultNotifications where
+instance Data.ToQuery PutBackupVaultNotifications where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutBackupVaultNotificationsResponse' smart constructor.

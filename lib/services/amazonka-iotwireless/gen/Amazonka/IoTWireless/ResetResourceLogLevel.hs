@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.ResetResourceLogLevel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.IoTWireless.ResetResourceLogLevel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ instance Core.AWSRequest ResetResourceLogLevel where
   type
     AWSResponse ResetResourceLogLevel =
       ResetResourceLogLevelResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -115,18 +117,18 @@ instance Prelude.NFData ResetResourceLogLevel where
     Prelude.rnf resourceIdentifier
       `Prelude.seq` Prelude.rnf resourceType
 
-instance Core.ToHeaders ResetResourceLogLevel where
+instance Data.ToHeaders ResetResourceLogLevel where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ResetResourceLogLevel where
+instance Data.ToPath ResetResourceLogLevel where
   toPath ResetResourceLogLevel' {..} =
     Prelude.mconcat
-      ["/log-levels/", Core.toBS resourceIdentifier]
+      ["/log-levels/", Data.toBS resourceIdentifier]
 
-instance Core.ToQuery ResetResourceLogLevel where
+instance Data.ToQuery ResetResourceLogLevel where
   toQuery ResetResourceLogLevel' {..} =
     Prelude.mconcat
-      ["resourceType" Core.=: resourceType]
+      ["resourceType" Data.=: resourceType]
 
 -- | /See:/ 'newResetResourceLogLevelResponse' smart constructor.
 data ResetResourceLogLevelResponse = ResetResourceLogLevelResponse'

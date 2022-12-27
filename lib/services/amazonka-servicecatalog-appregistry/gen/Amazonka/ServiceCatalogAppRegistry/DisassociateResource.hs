@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalogAppRegistry.DisassociateResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.ServiceCatalogAppRegistry.DisassociateResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,13 +109,14 @@ instance Core.AWSRequest DisassociateResource where
   type
     AWSResponse DisassociateResource =
       DisassociateResourceResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DisassociateResourceResponse'
-            Prelude.<$> (x Core..?> "applicationArn")
-            Prelude.<*> (x Core..?> "resourceArn")
+            Prelude.<$> (x Data..?> "applicationArn")
+            Prelude.<*> (x Data..?> "resourceArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,29 +132,29 @@ instance Prelude.NFData DisassociateResource where
       `Prelude.seq` Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf resource
 
-instance Core.ToHeaders DisassociateResource where
+instance Data.ToHeaders DisassociateResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DisassociateResource where
+instance Data.ToPath DisassociateResource where
   toPath DisassociateResource' {..} =
     Prelude.mconcat
       [ "/applications/",
-        Core.toBS application,
+        Data.toBS application,
         "/resources/",
-        Core.toBS resourceType,
+        Data.toBS resourceType,
         "/",
-        Core.toBS resource
+        Data.toBS resource
       ]
 
-instance Core.ToQuery DisassociateResource where
+instance Data.ToQuery DisassociateResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateResourceResponse' smart constructor.

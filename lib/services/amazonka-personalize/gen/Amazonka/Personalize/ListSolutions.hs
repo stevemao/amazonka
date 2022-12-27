@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.ListSolutions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,8 @@
 -- dataset group is not specified, all the solutions associated with the
 -- account are listed. The response provides the properties for each
 -- solution, including the Amazon Resource Name (ARN). For more information
--- on solutions, see CreateSolution.
+-- on solutions, see
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html CreateSolution>.
 --
 -- This operation returns paginated results.
 module Amazonka.Personalize.ListSolutions
@@ -33,9 +34,9 @@ module Amazonka.Personalize.ListSolutions
     newListSolutions,
 
     -- * Request Lenses
-    listSolutions_nextToken,
     listSolutions_datasetGroupArn,
     listSolutions_maxResults,
+    listSolutions_nextToken,
 
     -- * Destructuring the Response
     ListSolutionsResponse (..),
@@ -49,7 +50,8 @@ module Amazonka.Personalize.ListSolutions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -57,13 +59,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListSolutions' smart constructor.
 data ListSolutions = ListSolutions'
-  { -- | A token returned from the previous call to @ListSolutions@ for getting
-    -- the next set of solutions (if they exist).
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the dataset group.
+  { -- | The Amazon Resource Name (ARN) of the dataset group.
     datasetGroupArn :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of solutions to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token returned from the previous call to @ListSolutions@ for getting
+    -- the next set of solutions (if they exist).
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,25 +77,20 @@ data ListSolutions = ListSolutions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listSolutions_nextToken' - A token returned from the previous call to @ListSolutions@ for getting
--- the next set of solutions (if they exist).
---
 -- 'datasetGroupArn', 'listSolutions_datasetGroupArn' - The Amazon Resource Name (ARN) of the dataset group.
 --
 -- 'maxResults', 'listSolutions_maxResults' - The maximum number of solutions to return.
+--
+-- 'nextToken', 'listSolutions_nextToken' - A token returned from the previous call to @ListSolutions@ for getting
+-- the next set of solutions (if they exist).
 newListSolutions ::
   ListSolutions
 newListSolutions =
   ListSolutions'
-    { nextToken = Prelude.Nothing,
-      datasetGroupArn = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { datasetGroupArn = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | A token returned from the previous call to @ListSolutions@ for getting
--- the next set of solutions (if they exist).
-listSolutions_nextToken :: Lens.Lens' ListSolutions (Prelude.Maybe Prelude.Text)
-listSolutions_nextToken = Lens.lens (\ListSolutions' {nextToken} -> nextToken) (\s@ListSolutions' {} a -> s {nextToken = a} :: ListSolutions)
 
 -- | The Amazon Resource Name (ARN) of the dataset group.
 listSolutions_datasetGroupArn :: Lens.Lens' ListSolutions (Prelude.Maybe Prelude.Text)
@@ -102,6 +99,11 @@ listSolutions_datasetGroupArn = Lens.lens (\ListSolutions' {datasetGroupArn} -> 
 -- | The maximum number of solutions to return.
 listSolutions_maxResults :: Lens.Lens' ListSolutions (Prelude.Maybe Prelude.Natural)
 listSolutions_maxResults = Lens.lens (\ListSolutions' {maxResults} -> maxResults) (\s@ListSolutions' {} a -> s {maxResults = a} :: ListSolutions)
+
+-- | A token returned from the previous call to @ListSolutions@ for getting
+-- the next set of solutions (if they exist).
+listSolutions_nextToken :: Lens.Lens' ListSolutions (Prelude.Maybe Prelude.Text)
+listSolutions_nextToken = Lens.lens (\ListSolutions' {nextToken} -> nextToken) (\s@ListSolutions' {} a -> s {nextToken = a} :: ListSolutions)
 
 instance Core.AWSPager ListSolutions where
   page rq rs
@@ -126,58 +128,59 @@ instance Core.AWSRequest ListSolutions where
   type
     AWSResponse ListSolutions =
       ListSolutionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSolutionsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "solutions" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "solutions" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListSolutions where
   hashWithSalt _salt ListSolutions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` datasetGroupArn
+    _salt `Prelude.hashWithSalt` datasetGroupArn
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListSolutions where
   rnf ListSolutions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf datasetGroupArn
+    Prelude.rnf datasetGroupArn
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListSolutions where
+instance Data.ToHeaders ListSolutions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.ListSolutions" ::
+              Data.=# ( "AmazonPersonalize.ListSolutions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListSolutions where
+instance Data.ToJSON ListSolutions where
   toJSON ListSolutions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("datasetGroupArn" Core..=)
+          [ ("datasetGroupArn" Data..=)
               Prelude.<$> datasetGroupArn,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListSolutions where
+instance Data.ToPath ListSolutions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListSolutions where
+instance Data.ToQuery ListSolutions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListSolutionsResponse' smart constructor.

@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -18,9 +19,9 @@ module Amazonka.DirectConnect.Types
 
     -- * Errors
     _DirectConnectClientException,
+    _DirectConnectServerException,
     _DuplicateTagKeysException,
     _TooManyTagsException,
-    _DirectConnectServerException,
 
     -- * AddressFamily
     AddressFamily (..),
@@ -81,42 +82,42 @@ module Amazonka.DirectConnect.Types
     -- * BGPPeer
     BGPPeer (..),
     newBGPPeer,
-    bGPPeer_customerAddress,
-    bGPPeer_amazonAddress,
     bGPPeer_addressFamily,
-    bGPPeer_awsLogicalDeviceId,
-    bGPPeer_bgpStatus,
+    bGPPeer_amazonAddress,
     bGPPeer_asn,
     bGPPeer_authKey,
+    bGPPeer_awsDeviceV2,
+    bGPPeer_awsLogicalDeviceId,
     bGPPeer_bgpPeerId,
     bGPPeer_bgpPeerState,
-    bGPPeer_awsDeviceV2,
+    bGPPeer_bgpStatus,
+    bGPPeer_customerAddress,
 
     -- * Connection
     Connection (..),
     newConnection,
-    connection_lagId,
-    connection_macSecCapable,
-    connection_portEncryptionStatus,
-    connection_vlan,
-    connection_location,
     connection_awsDevice,
-    connection_hasLogicalRedundancy,
-    connection_connectionId,
-    connection_awsLogicalDeviceId,
-    connection_loaIssueTime,
-    connection_partnerName,
-    connection_connectionName,
-    connection_encryptionMode,
-    connection_bandwidth,
-    connection_jumboFrameCapable,
-    connection_ownerAccount,
-    connection_region,
-    connection_macSecKeys,
-    connection_providerName,
     connection_awsDeviceV2,
+    connection_awsLogicalDeviceId,
+    connection_bandwidth,
+    connection_connectionId,
+    connection_connectionName,
     connection_connectionState,
+    connection_encryptionMode,
+    connection_hasLogicalRedundancy,
+    connection_jumboFrameCapable,
+    connection_lagId,
+    connection_loaIssueTime,
+    connection_location,
+    connection_macSecCapable,
+    connection_macSecKeys,
+    connection_ownerAccount,
+    connection_partnerName,
+    connection_portEncryptionStatus,
+    connection_providerName,
+    connection_region,
     connection_tags,
+    connection_vlan,
 
     -- * Connections
     Connections (..),
@@ -126,137 +127,138 @@ module Amazonka.DirectConnect.Types
     -- * CustomerAgreement
     CustomerAgreement (..),
     newCustomerAgreement,
-    customerAgreement_status,
     customerAgreement_agreementName,
+    customerAgreement_status,
 
     -- * DirectConnectGateway
     DirectConnectGateway (..),
     newDirectConnectGateway,
-    directConnectGateway_directConnectGatewayId,
-    directConnectGateway_stateChangeError,
     directConnectGateway_amazonSideAsn,
+    directConnectGateway_directConnectGatewayId,
     directConnectGateway_directConnectGatewayName,
     directConnectGateway_directConnectGatewayState,
     directConnectGateway_ownerAccount,
+    directConnectGateway_stateChangeError,
 
     -- * DirectConnectGatewayAssociation
     DirectConnectGatewayAssociation (..),
     newDirectConnectGatewayAssociation,
-    directConnectGatewayAssociation_virtualGatewayId,
-    directConnectGatewayAssociation_associationId,
-    directConnectGatewayAssociation_directConnectGatewayId,
-    directConnectGatewayAssociation_virtualGatewayOwnerAccount,
-    directConnectGatewayAssociation_stateChangeError,
-    directConnectGatewayAssociation_virtualGatewayRegion,
-    directConnectGatewayAssociation_associatedGateway,
-    directConnectGatewayAssociation_directConnectGatewayOwnerAccount,
     directConnectGatewayAssociation_allowedPrefixesToDirectConnectGateway,
+    directConnectGatewayAssociation_associatedGateway,
+    directConnectGatewayAssociation_associationId,
     directConnectGatewayAssociation_associationState,
+    directConnectGatewayAssociation_directConnectGatewayId,
+    directConnectGatewayAssociation_directConnectGatewayOwnerAccount,
+    directConnectGatewayAssociation_stateChangeError,
+    directConnectGatewayAssociation_virtualGatewayId,
+    directConnectGatewayAssociation_virtualGatewayOwnerAccount,
+    directConnectGatewayAssociation_virtualGatewayRegion,
 
     -- * DirectConnectGatewayAssociationProposal
     DirectConnectGatewayAssociationProposal (..),
     newDirectConnectGatewayAssociationProposal,
-    directConnectGatewayAssociationProposal_existingAllowedPrefixesToDirectConnectGateway,
-    directConnectGatewayAssociationProposal_directConnectGatewayId,
-    directConnectGatewayAssociationProposal_proposalId,
     directConnectGatewayAssociationProposal_associatedGateway,
-    directConnectGatewayAssociationProposal_proposalState,
+    directConnectGatewayAssociationProposal_directConnectGatewayId,
     directConnectGatewayAssociationProposal_directConnectGatewayOwnerAccount,
+    directConnectGatewayAssociationProposal_existingAllowedPrefixesToDirectConnectGateway,
+    directConnectGatewayAssociationProposal_proposalId,
+    directConnectGatewayAssociationProposal_proposalState,
     directConnectGatewayAssociationProposal_requestedAllowedPrefixesToDirectConnectGateway,
 
     -- * DirectConnectGatewayAttachment
     DirectConnectGatewayAttachment (..),
     newDirectConnectGatewayAttachment,
-    directConnectGatewayAttachment_directConnectGatewayId,
     directConnectGatewayAttachment_attachmentState,
-    directConnectGatewayAttachment_stateChangeError,
-    directConnectGatewayAttachment_virtualInterfaceRegion,
-    directConnectGatewayAttachment_virtualInterfaceOwnerAccount,
-    directConnectGatewayAttachment_virtualInterfaceId,
     directConnectGatewayAttachment_attachmentType,
+    directConnectGatewayAttachment_directConnectGatewayId,
+    directConnectGatewayAttachment_stateChangeError,
+    directConnectGatewayAttachment_virtualInterfaceId,
+    directConnectGatewayAttachment_virtualInterfaceOwnerAccount,
+    directConnectGatewayAttachment_virtualInterfaceRegion,
 
     -- * Interconnect
     Interconnect (..),
     newInterconnect,
-    interconnect_lagId,
-    interconnect_interconnectId,
-    interconnect_location,
-    interconnect_interconnectName,
     interconnect_awsDevice,
-    interconnect_hasLogicalRedundancy,
-    interconnect_awsLogicalDeviceId,
-    interconnect_loaIssueTime,
-    interconnect_bandwidth,
-    interconnect_jumboFrameCapable,
-    interconnect_interconnectState,
-    interconnect_region,
-    interconnect_providerName,
     interconnect_awsDeviceV2,
+    interconnect_awsLogicalDeviceId,
+    interconnect_bandwidth,
+    interconnect_hasLogicalRedundancy,
+    interconnect_interconnectId,
+    interconnect_interconnectName,
+    interconnect_interconnectState,
+    interconnect_jumboFrameCapable,
+    interconnect_lagId,
+    interconnect_loaIssueTime,
+    interconnect_location,
+    interconnect_providerName,
+    interconnect_region,
     interconnect_tags,
 
     -- * Lag
     Lag (..),
     newLag,
-    lag_lagId,
-    lag_macSecCapable,
-    lag_connectionsBandwidth,
-    lag_minimumLinks,
-    lag_lagName,
-    lag_location,
-    lag_connections,
-    lag_awsDevice,
-    lag_hasLogicalRedundancy,
-    lag_awsLogicalDeviceId,
     lag_allowsHostedConnections,
-    lag_encryptionMode,
-    lag_numberOfConnections,
-    lag_jumboFrameCapable,
-    lag_lagState,
-    lag_ownerAccount,
-    lag_region,
-    lag_macSecKeys,
-    lag_providerName,
+    lag_awsDevice,
     lag_awsDeviceV2,
+    lag_awsLogicalDeviceId,
+    lag_connections,
+    lag_connectionsBandwidth,
+    lag_encryptionMode,
+    lag_hasLogicalRedundancy,
+    lag_jumboFrameCapable,
+    lag_lagId,
+    lag_lagName,
+    lag_lagState,
+    lag_location,
+    lag_macSecCapable,
+    lag_macSecKeys,
+    lag_minimumLinks,
+    lag_numberOfConnections,
+    lag_ownerAccount,
+    lag_providerName,
+    lag_region,
     lag_tags,
 
     -- * Location
     Location (..),
     newLocation,
-    location_availablePortSpeeds,
-    location_locationName,
-    location_locationCode,
-    location_region,
-    location_availableProviders,
     location_availableMacSecPortSpeeds,
+    location_availablePortSpeeds,
+    location_availableProviders,
+    location_locationCode,
+    location_locationName,
+    location_region,
 
     -- * MacSecKey
     MacSecKey (..),
     newMacSecKey,
-    macSecKey_state,
     macSecKey_ckn,
     macSecKey_secretARN,
     macSecKey_startOn,
+    macSecKey_state,
 
     -- * NewBGPPeer
     NewBGPPeer (..),
     newNewBGPPeer,
-    newBGPPeer_customerAddress,
-    newBGPPeer_amazonAddress,
     newBGPPeer_addressFamily,
+    newBGPPeer_amazonAddress,
     newBGPPeer_asn,
     newBGPPeer_authKey,
+    newBGPPeer_customerAddress,
 
     -- * NewPrivateVirtualInterface
     NewPrivateVirtualInterface (..),
     newNewPrivateVirtualInterface,
-    newPrivateVirtualInterface_virtualGatewayId,
-    newPrivateVirtualInterface_mtu,
-    newPrivateVirtualInterface_customerAddress,
-    newPrivateVirtualInterface_amazonAddress,
     newPrivateVirtualInterface_addressFamily,
-    newPrivateVirtualInterface_directConnectGatewayId,
+    newPrivateVirtualInterface_amazonAddress,
     newPrivateVirtualInterface_authKey,
+    newPrivateVirtualInterface_customerAddress,
+    newPrivateVirtualInterface_directConnectGatewayId,
+    newPrivateVirtualInterface_enableSiteLink,
+    newPrivateVirtualInterface_mtu,
     newPrivateVirtualInterface_tags,
+    newPrivateVirtualInterface_virtualGatewayId,
     newPrivateVirtualInterface_virtualInterfaceName,
     newPrivateVirtualInterface_vlan,
     newPrivateVirtualInterface_asn,
@@ -264,11 +266,11 @@ module Amazonka.DirectConnect.Types
     -- * NewPrivateVirtualInterfaceAllocation
     NewPrivateVirtualInterfaceAllocation (..),
     newNewPrivateVirtualInterfaceAllocation,
-    newPrivateVirtualInterfaceAllocation_mtu,
-    newPrivateVirtualInterfaceAllocation_customerAddress,
-    newPrivateVirtualInterfaceAllocation_amazonAddress,
     newPrivateVirtualInterfaceAllocation_addressFamily,
+    newPrivateVirtualInterfaceAllocation_amazonAddress,
     newPrivateVirtualInterfaceAllocation_authKey,
+    newPrivateVirtualInterfaceAllocation_customerAddress,
+    newPrivateVirtualInterfaceAllocation_mtu,
     newPrivateVirtualInterfaceAllocation_tags,
     newPrivateVirtualInterfaceAllocation_virtualInterfaceName,
     newPrivateVirtualInterfaceAllocation_vlan,
@@ -277,11 +279,11 @@ module Amazonka.DirectConnect.Types
     -- * NewPublicVirtualInterface
     NewPublicVirtualInterface (..),
     newNewPublicVirtualInterface,
-    newPublicVirtualInterface_routeFilterPrefixes,
-    newPublicVirtualInterface_customerAddress,
-    newPublicVirtualInterface_amazonAddress,
     newPublicVirtualInterface_addressFamily,
+    newPublicVirtualInterface_amazonAddress,
     newPublicVirtualInterface_authKey,
+    newPublicVirtualInterface_customerAddress,
+    newPublicVirtualInterface_routeFilterPrefixes,
     newPublicVirtualInterface_tags,
     newPublicVirtualInterface_virtualInterfaceName,
     newPublicVirtualInterface_vlan,
@@ -290,11 +292,11 @@ module Amazonka.DirectConnect.Types
     -- * NewPublicVirtualInterfaceAllocation
     NewPublicVirtualInterfaceAllocation (..),
     newNewPublicVirtualInterfaceAllocation,
-    newPublicVirtualInterfaceAllocation_routeFilterPrefixes,
-    newPublicVirtualInterfaceAllocation_customerAddress,
-    newPublicVirtualInterfaceAllocation_amazonAddress,
     newPublicVirtualInterfaceAllocation_addressFamily,
+    newPublicVirtualInterfaceAllocation_amazonAddress,
     newPublicVirtualInterfaceAllocation_authKey,
+    newPublicVirtualInterfaceAllocation_customerAddress,
+    newPublicVirtualInterfaceAllocation_routeFilterPrefixes,
     newPublicVirtualInterfaceAllocation_tags,
     newPublicVirtualInterfaceAllocation_virtualInterfaceName,
     newPublicVirtualInterfaceAllocation_vlan,
@@ -303,29 +305,30 @@ module Amazonka.DirectConnect.Types
     -- * NewTransitVirtualInterface
     NewTransitVirtualInterface (..),
     newNewTransitVirtualInterface,
-    newTransitVirtualInterface_mtu,
-    newTransitVirtualInterface_customerAddress,
-    newTransitVirtualInterface_vlan,
-    newTransitVirtualInterface_amazonAddress,
     newTransitVirtualInterface_addressFamily,
-    newTransitVirtualInterface_directConnectGatewayId,
+    newTransitVirtualInterface_amazonAddress,
     newTransitVirtualInterface_asn,
     newTransitVirtualInterface_authKey,
-    newTransitVirtualInterface_virtualInterfaceName,
+    newTransitVirtualInterface_customerAddress,
+    newTransitVirtualInterface_directConnectGatewayId,
+    newTransitVirtualInterface_enableSiteLink,
+    newTransitVirtualInterface_mtu,
     newTransitVirtualInterface_tags,
+    newTransitVirtualInterface_virtualInterfaceName,
+    newTransitVirtualInterface_vlan,
 
     -- * NewTransitVirtualInterfaceAllocation
     NewTransitVirtualInterfaceAllocation (..),
     newNewTransitVirtualInterfaceAllocation,
-    newTransitVirtualInterfaceAllocation_mtu,
-    newTransitVirtualInterfaceAllocation_customerAddress,
-    newTransitVirtualInterfaceAllocation_vlan,
-    newTransitVirtualInterfaceAllocation_amazonAddress,
     newTransitVirtualInterfaceAllocation_addressFamily,
+    newTransitVirtualInterfaceAllocation_amazonAddress,
     newTransitVirtualInterfaceAllocation_asn,
     newTransitVirtualInterfaceAllocation_authKey,
-    newTransitVirtualInterfaceAllocation_virtualInterfaceName,
+    newTransitVirtualInterfaceAllocation_customerAddress,
+    newTransitVirtualInterfaceAllocation_mtu,
     newTransitVirtualInterfaceAllocation_tags,
+    newTransitVirtualInterfaceAllocation_virtualInterfaceName,
+    newTransitVirtualInterfaceAllocation_vlan,
 
     -- * ResourceTag
     ResourceTag (..),
@@ -341,12 +344,12 @@ module Amazonka.DirectConnect.Types
     -- * RouterType
     RouterType (..),
     newRouterType,
-    routerType_vendor,
     routerType_platform,
-    routerType_xsltTemplateName,
-    routerType_software,
-    routerType_xsltTemplateNameForMacSec,
     routerType_routerTypeIdentifier,
+    routerType_software,
+    routerType_vendor,
+    routerType_xsltTemplateName,
+    routerType_xsltTemplateNameForMacSec,
 
     -- * Tag
     Tag (..),
@@ -363,47 +366,49 @@ module Amazonka.DirectConnect.Types
     -- * VirtualInterface
     VirtualInterface (..),
     newVirtualInterface,
-    virtualInterface_bgpPeers,
-    virtualInterface_virtualGatewayId,
-    virtualInterface_mtu,
-    virtualInterface_routeFilterPrefixes,
-    virtualInterface_customerAddress,
-    virtualInterface_vlan,
-    virtualInterface_location,
-    virtualInterface_amazonAddress,
     virtualInterface_addressFamily,
-    virtualInterface_virtualInterfaceState,
-    virtualInterface_connectionId,
-    virtualInterface_awsLogicalDeviceId,
-    virtualInterface_directConnectGatewayId,
+    virtualInterface_amazonAddress,
     virtualInterface_amazonSideAsn,
-    virtualInterface_virtualInterfaceType,
     virtualInterface_asn,
     virtualInterface_authKey,
-    virtualInterface_jumboFrameCapable,
+    virtualInterface_awsDeviceV2,
+    virtualInterface_awsLogicalDeviceId,
+    virtualInterface_bgpPeers,
+    virtualInterface_connectionId,
+    virtualInterface_customerAddress,
     virtualInterface_customerRouterConfig,
+    virtualInterface_directConnectGatewayId,
+    virtualInterface_jumboFrameCapable,
+    virtualInterface_location,
+    virtualInterface_mtu,
     virtualInterface_ownerAccount,
     virtualInterface_region,
-    virtualInterface_virtualInterfaceName,
-    virtualInterface_awsDeviceV2,
-    virtualInterface_virtualInterfaceId,
+    virtualInterface_routeFilterPrefixes,
+    virtualInterface_siteLinkEnabled,
     virtualInterface_tags,
+    virtualInterface_virtualGatewayId,
+    virtualInterface_virtualInterfaceId,
+    virtualInterface_virtualInterfaceName,
+    virtualInterface_virtualInterfaceState,
+    virtualInterface_virtualInterfaceType,
+    virtualInterface_vlan,
 
     -- * VirtualInterfaceTestHistory
     VirtualInterfaceTestHistory (..),
     newVirtualInterfaceTestHistory,
     virtualInterfaceTestHistory_bgpPeers,
-    virtualInterfaceTestHistory_status,
-    virtualInterfaceTestHistory_testDurationInMinutes,
-    virtualInterfaceTestHistory_startTime,
-    virtualInterfaceTestHistory_testId,
     virtualInterfaceTestHistory_endTime,
     virtualInterfaceTestHistory_ownerAccount,
+    virtualInterfaceTestHistory_startTime,
+    virtualInterfaceTestHistory_status,
+    virtualInterfaceTestHistory_testDurationInMinutes,
+    virtualInterfaceTestHistory_testId,
     virtualInterfaceTestHistory_virtualInterfaceId,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DirectConnect.Types.AddressFamily
 import Amazonka.DirectConnect.Types.AssociatedGateway
 import Amazonka.DirectConnect.Types.BGPPeer
@@ -447,7 +452,6 @@ import Amazonka.DirectConnect.Types.VirtualGateway
 import Amazonka.DirectConnect.Types.VirtualInterface
 import Amazonka.DirectConnect.Types.VirtualInterfaceState
 import Amazonka.DirectConnect.Types.VirtualInterfaceTestHistory
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -455,42 +459,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "DirectConnect",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "directconnect",
-      Core._serviceSigningName = "directconnect",
-      Core._serviceVersion = "2012-10-25",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "DirectConnect",
-      Core._serviceRetry = retry
+    { Core.abbrev = "DirectConnect",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "directconnect",
+      Core.signingName = "directconnect",
+      Core.version = "2012-10-25",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "DirectConnect",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -498,28 +509,20 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
 -- | One or more parameters are not valid.
@@ -528,6 +531,13 @@ _DirectConnectClientException =
   Core._MatchServiceError
     defaultService
     "DirectConnectClientException"
+
+-- | A server-side error occurred.
+_DirectConnectServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DirectConnectServerException =
+  Core._MatchServiceError
+    defaultService
+    "DirectConnectServerException"
 
 -- | A tag key was specified more than once.
 _DuplicateTagKeysException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -542,10 +552,3 @@ _TooManyTagsException =
   Core._MatchServiceError
     defaultService
     "TooManyTagsException"
-
--- | A server-side error occurred.
-_DirectConnectServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DirectConnectServerException =
-  Core._MatchServiceError
-    defaultService
-    "DirectConnectServerException"

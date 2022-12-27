@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.Types.ExecutionStepResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Transfer.Types.ExecutionStepResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Transfer.Types.ExecutionError
 import Amazonka.Transfer.Types.WorkflowStepType
@@ -30,22 +31,22 @@ import Amazonka.Transfer.Types.WorkflowStepType
 --
 -- /See:/ 'newExecutionStepResult' smart constructor.
 data ExecutionStepResult = ExecutionStepResult'
-  { -- | One of the available step types.
-    --
-    -- -   /Copy/: copy the file to another location
-    --
-    -- -   /Custom/: custom step with a lambda target
-    --
-    -- -   /Delete/: delete the file
-    --
-    -- -   /Tag/: add a tag to the file
-    stepType :: Prelude.Maybe WorkflowStepType,
-    -- | Specifies the details for an error, if it occurred during execution of
-    -- the specified workfow step.
+  { -- | Specifies the details for an error, if it occurred during execution of
+    -- the specified workflow step.
     error :: Prelude.Maybe ExecutionError,
     -- | The values for the key\/value pair applied as a tag to the file. Only
     -- applicable if the step type is @TAG@.
-    outputs :: Prelude.Maybe Prelude.Text
+    outputs :: Prelude.Maybe Prelude.Text,
+    -- | One of the available step types.
+    --
+    -- -   /COPY/: Copy the file to another location.
+    --
+    -- -   /CUSTOM/: Perform a custom step with an Lambda function target.
+    --
+    -- -   /DELETE/: Delete the file.
+    --
+    -- -   /TAG/: Add a tag to the file.
+    stepType :: Prelude.Maybe WorkflowStepType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -57,44 +58,32 @@ data ExecutionStepResult = ExecutionStepResult'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'stepType', 'executionStepResult_stepType' - One of the available step types.
---
--- -   /Copy/: copy the file to another location
---
--- -   /Custom/: custom step with a lambda target
---
--- -   /Delete/: delete the file
---
--- -   /Tag/: add a tag to the file
---
 -- 'error', 'executionStepResult_error' - Specifies the details for an error, if it occurred during execution of
--- the specified workfow step.
+-- the specified workflow step.
 --
 -- 'outputs', 'executionStepResult_outputs' - The values for the key\/value pair applied as a tag to the file. Only
 -- applicable if the step type is @TAG@.
+--
+-- 'stepType', 'executionStepResult_stepType' - One of the available step types.
+--
+-- -   /COPY/: Copy the file to another location.
+--
+-- -   /CUSTOM/: Perform a custom step with an Lambda function target.
+--
+-- -   /DELETE/: Delete the file.
+--
+-- -   /TAG/: Add a tag to the file.
 newExecutionStepResult ::
   ExecutionStepResult
 newExecutionStepResult =
   ExecutionStepResult'
-    { stepType = Prelude.Nothing,
-      error = Prelude.Nothing,
-      outputs = Prelude.Nothing
+    { error = Prelude.Nothing,
+      outputs = Prelude.Nothing,
+      stepType = Prelude.Nothing
     }
 
--- | One of the available step types.
---
--- -   /Copy/: copy the file to another location
---
--- -   /Custom/: custom step with a lambda target
---
--- -   /Delete/: delete the file
---
--- -   /Tag/: add a tag to the file
-executionStepResult_stepType :: Lens.Lens' ExecutionStepResult (Prelude.Maybe WorkflowStepType)
-executionStepResult_stepType = Lens.lens (\ExecutionStepResult' {stepType} -> stepType) (\s@ExecutionStepResult' {} a -> s {stepType = a} :: ExecutionStepResult)
-
 -- | Specifies the details for an error, if it occurred during execution of
--- the specified workfow step.
+-- the specified workflow step.
 executionStepResult_error :: Lens.Lens' ExecutionStepResult (Prelude.Maybe ExecutionError)
 executionStepResult_error = Lens.lens (\ExecutionStepResult' {error} -> error) (\s@ExecutionStepResult' {} a -> s {error = a} :: ExecutionStepResult)
 
@@ -103,25 +92,37 @@ executionStepResult_error = Lens.lens (\ExecutionStepResult' {error} -> error) (
 executionStepResult_outputs :: Lens.Lens' ExecutionStepResult (Prelude.Maybe Prelude.Text)
 executionStepResult_outputs = Lens.lens (\ExecutionStepResult' {outputs} -> outputs) (\s@ExecutionStepResult' {} a -> s {outputs = a} :: ExecutionStepResult)
 
-instance Core.FromJSON ExecutionStepResult where
+-- | One of the available step types.
+--
+-- -   /COPY/: Copy the file to another location.
+--
+-- -   /CUSTOM/: Perform a custom step with an Lambda function target.
+--
+-- -   /DELETE/: Delete the file.
+--
+-- -   /TAG/: Add a tag to the file.
+executionStepResult_stepType :: Lens.Lens' ExecutionStepResult (Prelude.Maybe WorkflowStepType)
+executionStepResult_stepType = Lens.lens (\ExecutionStepResult' {stepType} -> stepType) (\s@ExecutionStepResult' {} a -> s {stepType = a} :: ExecutionStepResult)
+
+instance Data.FromJSON ExecutionStepResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExecutionStepResult"
       ( \x ->
           ExecutionStepResult'
-            Prelude.<$> (x Core..:? "StepType")
-            Prelude.<*> (x Core..:? "Error")
-            Prelude.<*> (x Core..:? "Outputs")
+            Prelude.<$> (x Data..:? "Error")
+            Prelude.<*> (x Data..:? "Outputs")
+            Prelude.<*> (x Data..:? "StepType")
       )
 
 instance Prelude.Hashable ExecutionStepResult where
   hashWithSalt _salt ExecutionStepResult' {..} =
-    _salt `Prelude.hashWithSalt` stepType
-      `Prelude.hashWithSalt` error
+    _salt `Prelude.hashWithSalt` error
       `Prelude.hashWithSalt` outputs
+      `Prelude.hashWithSalt` stepType
 
 instance Prelude.NFData ExecutionStepResult where
   rnf ExecutionStepResult' {..} =
-    Prelude.rnf stepType
-      `Prelude.seq` Prelude.rnf error
+    Prelude.rnf error
       `Prelude.seq` Prelude.rnf outputs
+      `Prelude.seq` Prelude.rnf stepType

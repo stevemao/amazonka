@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationInsights.DescribeProblemObservations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.ApplicationInsights.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,12 +81,13 @@ instance Core.AWSRequest DescribeProblemObservations where
   type
     AWSResponse DescribeProblemObservations =
       DescribeProblemObservationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeProblemObservationsResponse'
-            Prelude.<$> (x Core..?> "RelatedObservations")
+            Prelude.<$> (x Data..?> "RelatedObservations")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,32 +99,32 @@ instance Prelude.NFData DescribeProblemObservations where
   rnf DescribeProblemObservations' {..} =
     Prelude.rnf problemId
 
-instance Core.ToHeaders DescribeProblemObservations where
+instance Data.ToHeaders DescribeProblemObservations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "EC2WindowsBarleyService.DescribeProblemObservations" ::
+              Data.=# ( "EC2WindowsBarleyService.DescribeProblemObservations" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeProblemObservations where
+instance Data.ToJSON DescribeProblemObservations where
   toJSON DescribeProblemObservations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ProblemId" Core..= problemId)]
+          [Prelude.Just ("ProblemId" Data..= problemId)]
       )
 
-instance Core.ToPath DescribeProblemObservations where
+instance Data.ToPath DescribeProblemObservations where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeProblemObservations where
+instance Data.ToQuery DescribeProblemObservations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeProblemObservationsResponse' smart constructor.

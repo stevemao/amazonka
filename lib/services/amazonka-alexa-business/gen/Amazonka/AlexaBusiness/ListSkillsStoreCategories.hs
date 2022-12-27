@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.ListSkillsStoreCategories
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.AlexaBusiness.ListSkillsStoreCategories
     newListSkillsStoreCategories,
 
     -- * Request Lenses
-    listSkillsStoreCategories_nextToken,
     listSkillsStoreCategories_maxResults,
+    listSkillsStoreCategories_nextToken,
 
     -- * Destructuring the Response
     ListSkillsStoreCategoriesResponse (..),
@@ -45,17 +45,18 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListSkillsStoreCategories' smart constructor.
 data ListSkillsStoreCategories = ListSkillsStoreCategories'
-  { -- | The tokens used for pagination.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of categories returned, per paginated calls.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of categories returned, per paginated calls.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The tokens used for pagination.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,25 +68,25 @@ data ListSkillsStoreCategories = ListSkillsStoreCategories'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listSkillsStoreCategories_nextToken' - The tokens used for pagination.
---
 -- 'maxResults', 'listSkillsStoreCategories_maxResults' - The maximum number of categories returned, per paginated calls.
+--
+-- 'nextToken', 'listSkillsStoreCategories_nextToken' - The tokens used for pagination.
 newListSkillsStoreCategories ::
   ListSkillsStoreCategories
 newListSkillsStoreCategories =
   ListSkillsStoreCategories'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | The tokens used for pagination.
-listSkillsStoreCategories_nextToken :: Lens.Lens' ListSkillsStoreCategories (Prelude.Maybe Prelude.Text)
-listSkillsStoreCategories_nextToken = Lens.lens (\ListSkillsStoreCategories' {nextToken} -> nextToken) (\s@ListSkillsStoreCategories' {} a -> s {nextToken = a} :: ListSkillsStoreCategories)
 
 -- | The maximum number of categories returned, per paginated calls.
 listSkillsStoreCategories_maxResults :: Lens.Lens' ListSkillsStoreCategories (Prelude.Maybe Prelude.Natural)
 listSkillsStoreCategories_maxResults = Lens.lens (\ListSkillsStoreCategories' {maxResults} -> maxResults) (\s@ListSkillsStoreCategories' {} a -> s {maxResults = a} :: ListSkillsStoreCategories)
+
+-- | The tokens used for pagination.
+listSkillsStoreCategories_nextToken :: Lens.Lens' ListSkillsStoreCategories (Prelude.Maybe Prelude.Text)
+listSkillsStoreCategories_nextToken = Lens.lens (\ListSkillsStoreCategories' {nextToken} -> nextToken) (\s@ListSkillsStoreCategories' {} a -> s {nextToken = a} :: ListSkillsStoreCategories)
 
 instance Core.AWSPager ListSkillsStoreCategories where
   page rq rs
@@ -113,54 +114,55 @@ instance Core.AWSRequest ListSkillsStoreCategories where
   type
     AWSResponse ListSkillsStoreCategories =
       ListSkillsStoreCategoriesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSkillsStoreCategoriesResponse'
-            Prelude.<$> (x Core..?> "CategoryList" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "CategoryList" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListSkillsStoreCategories where
   hashWithSalt _salt ListSkillsStoreCategories' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListSkillsStoreCategories where
   rnf ListSkillsStoreCategories' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListSkillsStoreCategories where
+instance Data.ToHeaders ListSkillsStoreCategories where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.ListSkillsStoreCategories" ::
+              Data.=# ( "AlexaForBusiness.ListSkillsStoreCategories" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListSkillsStoreCategories where
+instance Data.ToJSON ListSkillsStoreCategories where
   toJSON ListSkillsStoreCategories' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListSkillsStoreCategories where
+instance Data.ToPath ListSkillsStoreCategories where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListSkillsStoreCategories where
+instance Data.ToQuery ListSkillsStoreCategories where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListSkillsStoreCategoriesResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.ListPortfoliosForProduct
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.ServiceCatalog.ListPortfoliosForProduct
 
     -- * Request Lenses
     listPortfoliosForProduct_acceptLanguage,
-    listPortfoliosForProduct_pageToken,
     listPortfoliosForProduct_pageSize,
+    listPortfoliosForProduct_pageToken,
     listPortfoliosForProduct_productId,
 
     -- * Destructuring the Response
@@ -46,7 +46,8 @@ module Amazonka.ServiceCatalog.ListPortfoliosForProduct
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,11 +63,11 @@ data ListPortfoliosForProduct = ListPortfoliosForProduct'
     --
     -- -   @zh@ - Chinese
     acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The page token for the next set of results. To retrieve the first set of
     -- results, use null.
     pageToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call.
-    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The product identifier.
     productId :: Prelude.Text
   }
@@ -88,10 +89,10 @@ data ListPortfoliosForProduct = ListPortfoliosForProduct'
 --
 -- -   @zh@ - Chinese
 --
+-- 'pageSize', 'listPortfoliosForProduct_pageSize' - The maximum number of items to return with this call.
+--
 -- 'pageToken', 'listPortfoliosForProduct_pageToken' - The page token for the next set of results. To retrieve the first set of
 -- results, use null.
---
--- 'pageSize', 'listPortfoliosForProduct_pageSize' - The maximum number of items to return with this call.
 --
 -- 'productId', 'listPortfoliosForProduct_productId' - The product identifier.
 newListPortfoliosForProduct ::
@@ -102,8 +103,8 @@ newListPortfoliosForProduct pProductId_ =
   ListPortfoliosForProduct'
     { acceptLanguage =
         Prelude.Nothing,
-      pageToken = Prelude.Nothing,
       pageSize = Prelude.Nothing,
+      pageToken = Prelude.Nothing,
       productId = pProductId_
     }
 
@@ -117,14 +118,14 @@ newListPortfoliosForProduct pProductId_ =
 listPortfoliosForProduct_acceptLanguage :: Lens.Lens' ListPortfoliosForProduct (Prelude.Maybe Prelude.Text)
 listPortfoliosForProduct_acceptLanguage = Lens.lens (\ListPortfoliosForProduct' {acceptLanguage} -> acceptLanguage) (\s@ListPortfoliosForProduct' {} a -> s {acceptLanguage = a} :: ListPortfoliosForProduct)
 
+-- | The maximum number of items to return with this call.
+listPortfoliosForProduct_pageSize :: Lens.Lens' ListPortfoliosForProduct (Prelude.Maybe Prelude.Natural)
+listPortfoliosForProduct_pageSize = Lens.lens (\ListPortfoliosForProduct' {pageSize} -> pageSize) (\s@ListPortfoliosForProduct' {} a -> s {pageSize = a} :: ListPortfoliosForProduct)
+
 -- | The page token for the next set of results. To retrieve the first set of
 -- results, use null.
 listPortfoliosForProduct_pageToken :: Lens.Lens' ListPortfoliosForProduct (Prelude.Maybe Prelude.Text)
 listPortfoliosForProduct_pageToken = Lens.lens (\ListPortfoliosForProduct' {pageToken} -> pageToken) (\s@ListPortfoliosForProduct' {} a -> s {pageToken = a} :: ListPortfoliosForProduct)
-
--- | The maximum number of items to return with this call.
-listPortfoliosForProduct_pageSize :: Lens.Lens' ListPortfoliosForProduct (Prelude.Maybe Prelude.Natural)
-listPortfoliosForProduct_pageSize = Lens.lens (\ListPortfoliosForProduct' {pageSize} -> pageSize) (\s@ListPortfoliosForProduct' {} a -> s {pageSize = a} :: ListPortfoliosForProduct)
 
 -- | The product identifier.
 listPortfoliosForProduct_productId :: Lens.Lens' ListPortfoliosForProduct Prelude.Text
@@ -156,13 +157,14 @@ instance Core.AWSRequest ListPortfoliosForProduct where
   type
     AWSResponse ListPortfoliosForProduct =
       ListPortfoliosForProductResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPortfoliosForProductResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-            Prelude.<*> ( x Core..?> "PortfolioDetails"
+            Prelude.<$> (x Data..?> "NextPageToken")
+            Prelude.<*> ( x Data..?> "PortfolioDetails"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -171,48 +173,48 @@ instance Core.AWSRequest ListPortfoliosForProduct where
 instance Prelude.Hashable ListPortfoliosForProduct where
   hashWithSalt _salt ListPortfoliosForProduct' {..} =
     _salt `Prelude.hashWithSalt` acceptLanguage
-      `Prelude.hashWithSalt` pageToken
       `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` pageToken
       `Prelude.hashWithSalt` productId
 
 instance Prelude.NFData ListPortfoliosForProduct where
   rnf ListPortfoliosForProduct' {..} =
     Prelude.rnf acceptLanguage
-      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf productId
 
-instance Core.ToHeaders ListPortfoliosForProduct where
+instance Data.ToHeaders ListPortfoliosForProduct where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.ListPortfoliosForProduct" ::
+              Data.=# ( "AWS242ServiceCatalogService.ListPortfoliosForProduct" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPortfoliosForProduct where
+instance Data.ToJSON ListPortfoliosForProduct where
   toJSON ListPortfoliosForProduct' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("PageToken" Core..=) Prelude.<$> pageToken,
-            ("PageSize" Core..=) Prelude.<$> pageSize,
-            Prelude.Just ("ProductId" Core..= productId)
+            ("PageSize" Data..=) Prelude.<$> pageSize,
+            ("PageToken" Data..=) Prelude.<$> pageToken,
+            Prelude.Just ("ProductId" Data..= productId)
           ]
       )
 
-instance Core.ToPath ListPortfoliosForProduct where
+instance Data.ToPath ListPortfoliosForProduct where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPortfoliosForProduct where
+instance Data.ToQuery ListPortfoliosForProduct where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListPortfoliosForProductResponse' smart constructor.

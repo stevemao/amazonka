@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.ListAssessmentTargets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.Inspector.ListAssessmentTargets
     newListAssessmentTargets,
 
     -- * Request Lenses
-    listAssessmentTargets_nextToken,
     listAssessmentTargets_filter,
     listAssessmentTargets_maxResults,
+    listAssessmentTargets_nextToken,
 
     -- * Destructuring the Response
     ListAssessmentTargetsResponse (..),
@@ -47,21 +47,16 @@ module Amazonka.Inspector.ListAssessmentTargets
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListAssessmentTargets' smart constructor.
 data ListAssessmentTargets = ListAssessmentTargets'
-  { -- | You can use this parameter when paginating results. Set the value of
-    -- this parameter to null on your first call to the
-    -- __ListAssessmentTargets__ action. Subsequent calls to the action fill
-    -- __nextToken__ in the request with the value of __NextToken__ from the
-    -- previous response to continue listing data.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | You can use this parameter to specify a subset of data to be included in
+  { -- | You can use this parameter to specify a subset of data to be included in
     -- the action\'s response.
     --
     -- For a record to match a filter, all specified filter attributes must
@@ -70,7 +65,13 @@ data ListAssessmentTargets = ListAssessmentTargets'
     filter' :: Prelude.Maybe AssessmentTargetFilter,
     -- | You can use this parameter to indicate the maximum number of items you
     -- want in the response. The default value is 10. The maximum value is 500.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | You can use this parameter when paginating results. Set the value of
+    -- this parameter to null on your first call to the
+    -- __ListAssessmentTargets__ action. Subsequent calls to the action fill
+    -- __nextToken__ in the request with the value of __NextToken__ from the
+    -- previous response to continue listing data.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -82,12 +83,6 @@ data ListAssessmentTargets = ListAssessmentTargets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listAssessmentTargets_nextToken' - You can use this parameter when paginating results. Set the value of
--- this parameter to null on your first call to the
--- __ListAssessmentTargets__ action. Subsequent calls to the action fill
--- __nextToken__ in the request with the value of __NextToken__ from the
--- previous response to continue listing data.
---
 -- 'filter'', 'listAssessmentTargets_filter' - You can use this parameter to specify a subset of data to be included in
 -- the action\'s response.
 --
@@ -97,22 +92,20 @@ data ListAssessmentTargets = ListAssessmentTargets'
 --
 -- 'maxResults', 'listAssessmentTargets_maxResults' - You can use this parameter to indicate the maximum number of items you
 -- want in the response. The default value is 10. The maximum value is 500.
-newListAssessmentTargets ::
-  ListAssessmentTargets
-newListAssessmentTargets =
-  ListAssessmentTargets'
-    { nextToken = Prelude.Nothing,
-      filter' = Prelude.Nothing,
-      maxResults = Prelude.Nothing
-    }
-
--- | You can use this parameter when paginating results. Set the value of
+--
+-- 'nextToken', 'listAssessmentTargets_nextToken' - You can use this parameter when paginating results. Set the value of
 -- this parameter to null on your first call to the
 -- __ListAssessmentTargets__ action. Subsequent calls to the action fill
 -- __nextToken__ in the request with the value of __NextToken__ from the
 -- previous response to continue listing data.
-listAssessmentTargets_nextToken :: Lens.Lens' ListAssessmentTargets (Prelude.Maybe Prelude.Text)
-listAssessmentTargets_nextToken = Lens.lens (\ListAssessmentTargets' {nextToken} -> nextToken) (\s@ListAssessmentTargets' {} a -> s {nextToken = a} :: ListAssessmentTargets)
+newListAssessmentTargets ::
+  ListAssessmentTargets
+newListAssessmentTargets =
+  ListAssessmentTargets'
+    { filter' = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
+    }
 
 -- | You can use this parameter to specify a subset of data to be included in
 -- the action\'s response.
@@ -127,6 +120,14 @@ listAssessmentTargets_filter = Lens.lens (\ListAssessmentTargets' {filter'} -> f
 -- want in the response. The default value is 10. The maximum value is 500.
 listAssessmentTargets_maxResults :: Lens.Lens' ListAssessmentTargets (Prelude.Maybe Prelude.Int)
 listAssessmentTargets_maxResults = Lens.lens (\ListAssessmentTargets' {maxResults} -> maxResults) (\s@ListAssessmentTargets' {} a -> s {maxResults = a} :: ListAssessmentTargets)
+
+-- | You can use this parameter when paginating results. Set the value of
+-- this parameter to null on your first call to the
+-- __ListAssessmentTargets__ action. Subsequent calls to the action fill
+-- __nextToken__ in the request with the value of __NextToken__ from the
+-- previous response to continue listing data.
+listAssessmentTargets_nextToken :: Lens.Lens' ListAssessmentTargets (Prelude.Maybe Prelude.Text)
+listAssessmentTargets_nextToken = Lens.lens (\ListAssessmentTargets' {nextToken} -> nextToken) (\s@ListAssessmentTargets' {} a -> s {nextToken = a} :: ListAssessmentTargets)
 
 instance Core.AWSPager ListAssessmentTargets where
   page rq rs
@@ -153,59 +154,60 @@ instance Core.AWSRequest ListAssessmentTargets where
   type
     AWSResponse ListAssessmentTargets =
       ListAssessmentTargetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAssessmentTargetsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "assessmentTargetArns"
+            Prelude.<*> ( x Data..?> "assessmentTargetArns"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListAssessmentTargets where
   hashWithSalt _salt ListAssessmentTargets' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListAssessmentTargets where
   rnf ListAssessmentTargets' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListAssessmentTargets where
+instance Data.ToHeaders ListAssessmentTargets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.ListAssessmentTargets" ::
+              Data.=# ( "InspectorService.ListAssessmentTargets" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListAssessmentTargets where
+instance Data.ToJSON ListAssessmentTargets where
   toJSON ListAssessmentTargets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("filter" Core..=) Prelude.<$> filter',
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("filter" Data..=) Prelude.<$> filter',
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListAssessmentTargets where
+instance Data.ToPath ListAssessmentTargets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListAssessmentTargets where
+instance Data.ToQuery ListAssessmentTargets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListAssessmentTargetsResponse' smart constructor.

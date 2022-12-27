@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.RejectVpcEndpointConnections
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.EC2.RejectVpcEndpointConnections
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,13 +111,14 @@ instance Core.AWSRequest RejectVpcEndpointConnections where
   type
     AWSResponse RejectVpcEndpointConnections =
       RejectVpcEndpointConnectionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           RejectVpcEndpointConnectionsResponse'
-            Prelude.<$> ( x Core..@? "unsuccessful" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "unsuccessful" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -136,24 +138,24 @@ instance Prelude.NFData RejectVpcEndpointConnections where
       `Prelude.seq` Prelude.rnf serviceId
       `Prelude.seq` Prelude.rnf vpcEndpointIds
 
-instance Core.ToHeaders RejectVpcEndpointConnections where
+instance Data.ToHeaders RejectVpcEndpointConnections where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RejectVpcEndpointConnections where
+instance Data.ToPath RejectVpcEndpointConnections where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RejectVpcEndpointConnections where
+instance Data.ToQuery RejectVpcEndpointConnections where
   toQuery RejectVpcEndpointConnections' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "RejectVpcEndpointConnections" ::
+          Data.=: ( "RejectVpcEndpointConnections" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "ServiceId" Core.=: serviceId,
-        Core.toQueryList "VpcEndpointId" vpcEndpointIds
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "ServiceId" Data.=: serviceId,
+        Data.toQueryList "VpcEndpointId" vpcEndpointIds
       ]
 
 -- | /See:/ 'newRejectVpcEndpointConnectionsResponse' smart constructor.

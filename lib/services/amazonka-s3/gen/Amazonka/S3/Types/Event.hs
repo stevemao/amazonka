@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.Event
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,6 +20,12 @@
 module Amazonka.S3.Types.Event
   ( Event
       ( ..,
+        Event_S3_IntelligentTiering,
+        Event_S3_LifecycleExpiration_Delete,
+        Event_S3_LifecycleExpiration_DeleteMarkerCreated,
+        Event_S3_LifecycleExpiration__,
+        Event_S3_LifecycleTransition,
+        Event_S3_ObjectAcl_Put,
         Event_S3_ObjectCreated_CompleteMultipartUpload,
         Event_S3_ObjectCreated_Copy,
         Event_S3_ObjectCreated_Post,
@@ -29,8 +35,12 @@ module Amazonka.S3.Types.Event
         Event_S3_ObjectRemoved_DeleteMarkerCreated,
         Event_S3_ObjectRemoved__,
         Event_S3_ObjectRestore_Completed,
+        Event_S3_ObjectRestore_Delete,
         Event_S3_ObjectRestore_Post,
         Event_S3_ObjectRestore__,
+        Event_S3_ObjectTagging_Delete,
+        Event_S3_ObjectTagging_Put,
+        Event_S3_ObjectTagging__,
         Event_S3_ReducedRedundancyLostObject,
         Event_S3_Replication_OperationFailedReplication,
         Event_S3_Replication_OperationMissedThreshold,
@@ -42,11 +52,12 @@ module Amazonka.S3.Types.Event
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 
 -- | The bucket event for which to send notifications.
-newtype Event = Event' {fromEvent :: Core.Text}
+newtype Event = Event' {fromEvent :: Data.Text}
   deriving stock
     ( Prelude.Show,
       Prelude.Read,
@@ -57,19 +68,37 @@ newtype Event = Event' {fromEvent :: Core.Text}
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern Event_S3_IntelligentTiering :: Event
+pattern Event_S3_IntelligentTiering = Event' "s3:IntelligentTiering"
+
+pattern Event_S3_LifecycleExpiration_Delete :: Event
+pattern Event_S3_LifecycleExpiration_Delete = Event' "s3:LifecycleExpiration:Delete"
+
+pattern Event_S3_LifecycleExpiration_DeleteMarkerCreated :: Event
+pattern Event_S3_LifecycleExpiration_DeleteMarkerCreated = Event' "s3:LifecycleExpiration:DeleteMarkerCreated"
+
+pattern Event_S3_LifecycleExpiration__ :: Event
+pattern Event_S3_LifecycleExpiration__ = Event' "s3:LifecycleExpiration:*"
+
+pattern Event_S3_LifecycleTransition :: Event
+pattern Event_S3_LifecycleTransition = Event' "s3:LifecycleTransition"
+
+pattern Event_S3_ObjectAcl_Put :: Event
+pattern Event_S3_ObjectAcl_Put = Event' "s3:ObjectAcl:Put"
 
 pattern Event_S3_ObjectCreated_CompleteMultipartUpload :: Event
 pattern Event_S3_ObjectCreated_CompleteMultipartUpload = Event' "s3:ObjectCreated:CompleteMultipartUpload"
@@ -98,11 +127,23 @@ pattern Event_S3_ObjectRemoved__ = Event' "s3:ObjectRemoved:*"
 pattern Event_S3_ObjectRestore_Completed :: Event
 pattern Event_S3_ObjectRestore_Completed = Event' "s3:ObjectRestore:Completed"
 
+pattern Event_S3_ObjectRestore_Delete :: Event
+pattern Event_S3_ObjectRestore_Delete = Event' "s3:ObjectRestore:Delete"
+
 pattern Event_S3_ObjectRestore_Post :: Event
 pattern Event_S3_ObjectRestore_Post = Event' "s3:ObjectRestore:Post"
 
 pattern Event_S3_ObjectRestore__ :: Event
 pattern Event_S3_ObjectRestore__ = Event' "s3:ObjectRestore:*"
+
+pattern Event_S3_ObjectTagging_Delete :: Event
+pattern Event_S3_ObjectTagging_Delete = Event' "s3:ObjectTagging:Delete"
+
+pattern Event_S3_ObjectTagging_Put :: Event
+pattern Event_S3_ObjectTagging_Put = Event' "s3:ObjectTagging:Put"
+
+pattern Event_S3_ObjectTagging__ :: Event
+pattern Event_S3_ObjectTagging__ = Event' "s3:ObjectTagging:*"
 
 pattern Event_S3_ReducedRedundancyLostObject :: Event
 pattern Event_S3_ReducedRedundancyLostObject = Event' "s3:ReducedRedundancyLostObject"
@@ -123,6 +164,12 @@ pattern Event_S3_Replication__ :: Event
 pattern Event_S3_Replication__ = Event' "s3:Replication:*"
 
 {-# COMPLETE
+  Event_S3_IntelligentTiering,
+  Event_S3_LifecycleExpiration_Delete,
+  Event_S3_LifecycleExpiration_DeleteMarkerCreated,
+  Event_S3_LifecycleExpiration__,
+  Event_S3_LifecycleTransition,
+  Event_S3_ObjectAcl_Put,
   Event_S3_ObjectCreated_CompleteMultipartUpload,
   Event_S3_ObjectCreated_Copy,
   Event_S3_ObjectCreated_Post,
@@ -132,8 +179,12 @@ pattern Event_S3_Replication__ = Event' "s3:Replication:*"
   Event_S3_ObjectRemoved_DeleteMarkerCreated,
   Event_S3_ObjectRemoved__,
   Event_S3_ObjectRestore_Completed,
+  Event_S3_ObjectRestore_Delete,
   Event_S3_ObjectRestore_Post,
   Event_S3_ObjectRestore__,
+  Event_S3_ObjectTagging_Delete,
+  Event_S3_ObjectTagging_Put,
+  Event_S3_ObjectTagging__,
   Event_S3_ReducedRedundancyLostObject,
   Event_S3_Replication_OperationFailedReplication,
   Event_S3_Replication_OperationMissedThreshold,

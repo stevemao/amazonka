@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.Types.CharacterSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RDS.Types.CharacterSet where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This data type is used as a response element in the action
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCharacterSet' smart constructor.
 data CharacterSet = CharacterSet'
-  { -- | The name of the character set.
-    characterSetName :: Prelude.Maybe Prelude.Text,
-    -- | The description of the character set.
-    characterSetDescription :: Prelude.Maybe Prelude.Text
+  { -- | The description of the character set.
+    characterSetDescription :: Prelude.Maybe Prelude.Text,
+    -- | The name of the character set.
+    characterSetName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,37 +44,39 @@ data CharacterSet = CharacterSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'characterSetName', 'characterSet_characterSetName' - The name of the character set.
---
 -- 'characterSetDescription', 'characterSet_characterSetDescription' - The description of the character set.
+--
+-- 'characterSetName', 'characterSet_characterSetName' - The name of the character set.
 newCharacterSet ::
   CharacterSet
 newCharacterSet =
   CharacterSet'
-    { characterSetName = Prelude.Nothing,
-      characterSetDescription = Prelude.Nothing
+    { characterSetDescription =
+        Prelude.Nothing,
+      characterSetName = Prelude.Nothing
     }
-
--- | The name of the character set.
-characterSet_characterSetName :: Lens.Lens' CharacterSet (Prelude.Maybe Prelude.Text)
-characterSet_characterSetName = Lens.lens (\CharacterSet' {characterSetName} -> characterSetName) (\s@CharacterSet' {} a -> s {characterSetName = a} :: CharacterSet)
 
 -- | The description of the character set.
 characterSet_characterSetDescription :: Lens.Lens' CharacterSet (Prelude.Maybe Prelude.Text)
 characterSet_characterSetDescription = Lens.lens (\CharacterSet' {characterSetDescription} -> characterSetDescription) (\s@CharacterSet' {} a -> s {characterSetDescription = a} :: CharacterSet)
 
-instance Core.FromXML CharacterSet where
+-- | The name of the character set.
+characterSet_characterSetName :: Lens.Lens' CharacterSet (Prelude.Maybe Prelude.Text)
+characterSet_characterSetName = Lens.lens (\CharacterSet' {characterSetName} -> characterSetName) (\s@CharacterSet' {} a -> s {characterSetName = a} :: CharacterSet)
+
+instance Data.FromXML CharacterSet where
   parseXML x =
     CharacterSet'
-      Prelude.<$> (x Core..@? "CharacterSetName")
-      Prelude.<*> (x Core..@? "CharacterSetDescription")
+      Prelude.<$> (x Data..@? "CharacterSetDescription")
+      Prelude.<*> (x Data..@? "CharacterSetName")
 
 instance Prelude.Hashable CharacterSet where
   hashWithSalt _salt CharacterSet' {..} =
-    _salt `Prelude.hashWithSalt` characterSetName
+    _salt
       `Prelude.hashWithSalt` characterSetDescription
+      `Prelude.hashWithSalt` characterSetName
 
 instance Prelude.NFData CharacterSet where
   rnf CharacterSet' {..} =
-    Prelude.rnf characterSetName
-      `Prelude.seq` Prelude.rnf characterSetDescription
+    Prelude.rnf characterSetDescription
+      `Prelude.seq` Prelude.rnf characterSetName

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Grafana.ListPermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,10 +34,10 @@ module Amazonka.Grafana.ListPermissions
     newListPermissions,
 
     -- * Request Lenses
-    listPermissions_userId,
-    listPermissions_nextToken,
     listPermissions_groupId,
     listPermissions_maxResults,
+    listPermissions_nextToken,
+    listPermissions_userId,
     listPermissions_userType,
     listPermissions_workspaceId,
 
@@ -53,26 +53,27 @@ module Amazonka.Grafana.ListPermissions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Grafana.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListPermissions' smart constructor.
 data ListPermissions = ListPermissions'
-  { -- | (Optional) Limits the results to only the user that matches this ID.
-    userId :: Prelude.Maybe Prelude.Text,
-    -- | The token to use when requesting the next set of results. You received
-    -- this token from a previous @ListPermissions@ operation.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | (Optional) Limits the results to only the group that matches this ID.
+  { -- | (Optional) Limits the results to only the group that matches this ID.
     groupId :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results to include in the response.
     maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | (Optional) If you specify @SSO_USER@, then only the permissions of
-    -- Amazon Web Services SSO users are returned. If you specify @SSO_GROUP@,
-    -- only the permissions of Amazon Web Services SSO groups are returned.
+    -- | The token to use when requesting the next set of results. You received
+    -- this token from a previous @ListPermissions@ operation.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | (Optional) Limits the results to only the user that matches this ID.
+    userId :: Prelude.Maybe Prelude.Text,
+    -- | (Optional) If you specify @SSO_USER@, then only the permissions of IAM
+    -- Identity Center users are returned. If you specify @SSO_GROUP@, only the
+    -- permissions of IAM Identity Center groups are returned.
     userType :: Prelude.Maybe UserType,
     -- | The ID of the workspace to list permissions for. This parameter is
     -- required.
@@ -88,18 +89,18 @@ data ListPermissions = ListPermissions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'userId', 'listPermissions_userId' - (Optional) Limits the results to only the user that matches this ID.
---
--- 'nextToken', 'listPermissions_nextToken' - The token to use when requesting the next set of results. You received
--- this token from a previous @ListPermissions@ operation.
---
 -- 'groupId', 'listPermissions_groupId' - (Optional) Limits the results to only the group that matches this ID.
 --
 -- 'maxResults', 'listPermissions_maxResults' - The maximum number of results to include in the response.
 --
--- 'userType', 'listPermissions_userType' - (Optional) If you specify @SSO_USER@, then only the permissions of
--- Amazon Web Services SSO users are returned. If you specify @SSO_GROUP@,
--- only the permissions of Amazon Web Services SSO groups are returned.
+-- 'nextToken', 'listPermissions_nextToken' - The token to use when requesting the next set of results. You received
+-- this token from a previous @ListPermissions@ operation.
+--
+-- 'userId', 'listPermissions_userId' - (Optional) Limits the results to only the user that matches this ID.
+--
+-- 'userType', 'listPermissions_userType' - (Optional) If you specify @SSO_USER@, then only the permissions of IAM
+-- Identity Center users are returned. If you specify @SSO_GROUP@, only the
+-- permissions of IAM Identity Center groups are returned.
 --
 -- 'workspaceId', 'listPermissions_workspaceId' - The ID of the workspace to list permissions for. This parameter is
 -- required.
@@ -109,22 +110,13 @@ newListPermissions ::
   ListPermissions
 newListPermissions pWorkspaceId_ =
   ListPermissions'
-    { userId = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      groupId = Prelude.Nothing,
+    { groupId = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      userId = Prelude.Nothing,
       userType = Prelude.Nothing,
       workspaceId = pWorkspaceId_
     }
-
--- | (Optional) Limits the results to only the user that matches this ID.
-listPermissions_userId :: Lens.Lens' ListPermissions (Prelude.Maybe Prelude.Text)
-listPermissions_userId = Lens.lens (\ListPermissions' {userId} -> userId) (\s@ListPermissions' {} a -> s {userId = a} :: ListPermissions)
-
--- | The token to use when requesting the next set of results. You received
--- this token from a previous @ListPermissions@ operation.
-listPermissions_nextToken :: Lens.Lens' ListPermissions (Prelude.Maybe Prelude.Text)
-listPermissions_nextToken = Lens.lens (\ListPermissions' {nextToken} -> nextToken) (\s@ListPermissions' {} a -> s {nextToken = a} :: ListPermissions)
 
 -- | (Optional) Limits the results to only the group that matches this ID.
 listPermissions_groupId :: Lens.Lens' ListPermissions (Prelude.Maybe Prelude.Text)
@@ -134,9 +126,18 @@ listPermissions_groupId = Lens.lens (\ListPermissions' {groupId} -> groupId) (\s
 listPermissions_maxResults :: Lens.Lens' ListPermissions (Prelude.Maybe Prelude.Natural)
 listPermissions_maxResults = Lens.lens (\ListPermissions' {maxResults} -> maxResults) (\s@ListPermissions' {} a -> s {maxResults = a} :: ListPermissions)
 
--- | (Optional) If you specify @SSO_USER@, then only the permissions of
--- Amazon Web Services SSO users are returned. If you specify @SSO_GROUP@,
--- only the permissions of Amazon Web Services SSO groups are returned.
+-- | The token to use when requesting the next set of results. You received
+-- this token from a previous @ListPermissions@ operation.
+listPermissions_nextToken :: Lens.Lens' ListPermissions (Prelude.Maybe Prelude.Text)
+listPermissions_nextToken = Lens.lens (\ListPermissions' {nextToken} -> nextToken) (\s@ListPermissions' {} a -> s {nextToken = a} :: ListPermissions)
+
+-- | (Optional) Limits the results to only the user that matches this ID.
+listPermissions_userId :: Lens.Lens' ListPermissions (Prelude.Maybe Prelude.Text)
+listPermissions_userId = Lens.lens (\ListPermissions' {userId} -> userId) (\s@ListPermissions' {} a -> s {userId = a} :: ListPermissions)
+
+-- | (Optional) If you specify @SSO_USER@, then only the permissions of IAM
+-- Identity Center users are returned. If you specify @SSO_GROUP@, only the
+-- permissions of IAM Identity Center groups are returned.
 listPermissions_userType :: Lens.Lens' ListPermissions (Prelude.Maybe UserType)
 listPermissions_userType = Lens.lens (\ListPermissions' {userType} -> userType) (\s@ListPermissions' {} a -> s {userType = a} :: ListPermissions)
 
@@ -168,61 +169,62 @@ instance Core.AWSRequest ListPermissions where
   type
     AWSResponse ListPermissions =
       ListPermissionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPermissionsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "permissions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "permissions" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListPermissions where
   hashWithSalt _salt ListPermissions' {..} =
-    _salt `Prelude.hashWithSalt` userId
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` groupId
+    _salt `Prelude.hashWithSalt` groupId
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` userId
       `Prelude.hashWithSalt` userType
       `Prelude.hashWithSalt` workspaceId
 
 instance Prelude.NFData ListPermissions where
   rnf ListPermissions' {..} =
-    Prelude.rnf userId
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf groupId
+    Prelude.rnf groupId
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf userId
       `Prelude.seq` Prelude.rnf userType
       `Prelude.seq` Prelude.rnf workspaceId
 
-instance Core.ToHeaders ListPermissions where
+instance Data.ToHeaders ListPermissions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListPermissions where
+instance Data.ToPath ListPermissions where
   toPath ListPermissions' {..} =
     Prelude.mconcat
       [ "/workspaces/",
-        Core.toBS workspaceId,
+        Data.toBS workspaceId,
         "/permissions"
       ]
 
-instance Core.ToQuery ListPermissions where
+instance Data.ToQuery ListPermissions where
   toQuery ListPermissions' {..} =
     Prelude.mconcat
-      [ "userId" Core.=: userId,
-        "nextToken" Core.=: nextToken,
-        "groupId" Core.=: groupId,
-        "maxResults" Core.=: maxResults,
-        "userType" Core.=: userType
+      [ "groupId" Data.=: groupId,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "userId" Data.=: userId,
+        "userType" Data.=: userType
       ]
 
 -- | /See:/ 'newListPermissionsResponse' smart constructor.

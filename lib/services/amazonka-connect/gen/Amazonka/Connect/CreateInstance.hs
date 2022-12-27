@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.CreateInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,8 @@ module Amazonka.Connect.CreateInstance
     newCreateInstance,
 
     -- * Request Lenses
-    createInstance_directoryId,
     createInstance_clientToken,
+    createInstance_directoryId,
     createInstance_instanceAlias,
     createInstance_identityManagementType,
     createInstance_inboundCallsEnabled,
@@ -59,19 +59,20 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateInstance' smart constructor.
 data CreateInstance = CreateInstance'
-  { -- | The identifier for the directory.
-    directoryId :: Prelude.Maybe Prelude.Text,
-    -- | The idempotency token.
+  { -- | The idempotency token.
     clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The identifier for the directory.
+    directoryId :: Prelude.Maybe Prelude.Text,
     -- | The name for your instance.
-    instanceAlias :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    instanceAlias :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The type of identity management for your Amazon Connect users.
     identityManagementType :: DirectoryType,
     -- | Your contact center handles incoming contacts.
@@ -89,9 +90,9 @@ data CreateInstance = CreateInstance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'directoryId', 'createInstance_directoryId' - The identifier for the directory.
---
 -- 'clientToken', 'createInstance_clientToken' - The idempotency token.
+--
+-- 'directoryId', 'createInstance_directoryId' - The identifier for the directory.
 --
 -- 'instanceAlias', 'createInstance_instanceAlias' - The name for your instance.
 --
@@ -113,25 +114,25 @@ newCreateInstance
   pInboundCallsEnabled_
   pOutboundCallsEnabled_ =
     CreateInstance'
-      { directoryId = Prelude.Nothing,
-        clientToken = Prelude.Nothing,
+      { clientToken = Prelude.Nothing,
+        directoryId = Prelude.Nothing,
         instanceAlias = Prelude.Nothing,
         identityManagementType = pIdentityManagementType_,
         inboundCallsEnabled = pInboundCallsEnabled_,
         outboundCallsEnabled = pOutboundCallsEnabled_
       }
 
--- | The identifier for the directory.
-createInstance_directoryId :: Lens.Lens' CreateInstance (Prelude.Maybe Prelude.Text)
-createInstance_directoryId = Lens.lens (\CreateInstance' {directoryId} -> directoryId) (\s@CreateInstance' {} a -> s {directoryId = a} :: CreateInstance)
-
 -- | The idempotency token.
 createInstance_clientToken :: Lens.Lens' CreateInstance (Prelude.Maybe Prelude.Text)
 createInstance_clientToken = Lens.lens (\CreateInstance' {clientToken} -> clientToken) (\s@CreateInstance' {} a -> s {clientToken = a} :: CreateInstance)
 
+-- | The identifier for the directory.
+createInstance_directoryId :: Lens.Lens' CreateInstance (Prelude.Maybe Prelude.Text)
+createInstance_directoryId = Lens.lens (\CreateInstance' {directoryId} -> directoryId) (\s@CreateInstance' {} a -> s {directoryId = a} :: CreateInstance)
+
 -- | The name for your instance.
 createInstance_instanceAlias :: Lens.Lens' CreateInstance (Prelude.Maybe Prelude.Text)
-createInstance_instanceAlias = Lens.lens (\CreateInstance' {instanceAlias} -> instanceAlias) (\s@CreateInstance' {} a -> s {instanceAlias = a} :: CreateInstance) Prelude.. Lens.mapping Core._Sensitive
+createInstance_instanceAlias = Lens.lens (\CreateInstance' {instanceAlias} -> instanceAlias) (\s@CreateInstance' {} a -> s {instanceAlias = a} :: CreateInstance) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The type of identity management for your Amazon Connect users.
 createInstance_identityManagementType :: Lens.Lens' CreateInstance DirectoryType
@@ -149,20 +150,21 @@ instance Core.AWSRequest CreateInstance where
   type
     AWSResponse CreateInstance =
       CreateInstanceResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateInstanceResponse'
-            Prelude.<$> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "Id")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "Id")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateInstance where
   hashWithSalt _salt CreateInstance' {..} =
-    _salt `Prelude.hashWithSalt` directoryId
-      `Prelude.hashWithSalt` clientToken
+    _salt `Prelude.hashWithSalt` clientToken
+      `Prelude.hashWithSalt` directoryId
       `Prelude.hashWithSalt` instanceAlias
       `Prelude.hashWithSalt` identityManagementType
       `Prelude.hashWithSalt` inboundCallsEnabled
@@ -170,48 +172,48 @@ instance Prelude.Hashable CreateInstance where
 
 instance Prelude.NFData CreateInstance where
   rnf CreateInstance' {..} =
-    Prelude.rnf directoryId
-      `Prelude.seq` Prelude.rnf clientToken
+    Prelude.rnf clientToken
+      `Prelude.seq` Prelude.rnf directoryId
       `Prelude.seq` Prelude.rnf instanceAlias
       `Prelude.seq` Prelude.rnf identityManagementType
       `Prelude.seq` Prelude.rnf inboundCallsEnabled
       `Prelude.seq` Prelude.rnf outboundCallsEnabled
 
-instance Core.ToHeaders CreateInstance where
+instance Data.ToHeaders CreateInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateInstance where
+instance Data.ToJSON CreateInstance where
   toJSON CreateInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DirectoryId" Core..=) Prelude.<$> directoryId,
-            ("ClientToken" Core..=) Prelude.<$> clientToken,
-            ("InstanceAlias" Core..=) Prelude.<$> instanceAlias,
+          [ ("ClientToken" Data..=) Prelude.<$> clientToken,
+            ("DirectoryId" Data..=) Prelude.<$> directoryId,
+            ("InstanceAlias" Data..=) Prelude.<$> instanceAlias,
             Prelude.Just
               ( "IdentityManagementType"
-                  Core..= identityManagementType
+                  Data..= identityManagementType
               ),
             Prelude.Just
-              ("InboundCallsEnabled" Core..= inboundCallsEnabled),
+              ("InboundCallsEnabled" Data..= inboundCallsEnabled),
             Prelude.Just
               ( "OutboundCallsEnabled"
-                  Core..= outboundCallsEnabled
+                  Data..= outboundCallsEnabled
               )
           ]
       )
 
-instance Core.ToPath CreateInstance where
+instance Data.ToPath CreateInstance where
   toPath = Prelude.const "/instance"
 
-instance Core.ToQuery CreateInstance where
+instance Data.ToQuery CreateInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateInstanceResponse' smart constructor.

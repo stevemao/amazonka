@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.VolumeType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,6 +21,7 @@ module Amazonka.OpenSearch.Types.VolumeType
   ( VolumeType
       ( ..,
         VolumeType_Gp2,
+        VolumeType_Gp3,
         VolumeType_Io1,
         VolumeType_Standard
       ),
@@ -28,14 +29,14 @@ module Amazonka.OpenSearch.Types.VolumeType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The type of EBS volume, standard, gp2, or io1. See
--- <http://docs.aws.amazon.com/opensearch-service/latest/developerguide/opensearch-createupdatedomains.html#opensearch-createdomain-configure-ebs Configuring EBS-based Storage>
--- for more information.
+-- | The type of EBS volume that a domain uses. For more information, see
+-- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/opensearch-createupdatedomains.html#opensearch-createdomain-configure-ebs Configuring EBS-based storage>.
 newtype VolumeType = VolumeType'
   { fromVolumeType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -47,22 +48,25 @@ newtype VolumeType = VolumeType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern VolumeType_Gp2 :: VolumeType
 pattern VolumeType_Gp2 = VolumeType' "gp2"
+
+pattern VolumeType_Gp3 :: VolumeType
+pattern VolumeType_Gp3 = VolumeType' "gp3"
 
 pattern VolumeType_Io1 :: VolumeType
 pattern VolumeType_Io1 = VolumeType' "io1"
@@ -72,6 +76,7 @@ pattern VolumeType_Standard = VolumeType' "standard"
 
 {-# COMPLETE
   VolumeType_Gp2,
+  VolumeType_Gp3,
   VolumeType_Io1,
   VolumeType_Standard,
   VolumeType'

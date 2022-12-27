@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.UpdateQueueOutboundCallerConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,6 +25,19 @@
 --
 -- Updates the outbound caller ID name, number, and outbound whisper flow
 -- for a specified queue.
+--
+-- If the number being used in the input is claimed to a traffic
+-- distribution group, and you are calling this API using an instance in
+-- the Amazon Web Services Region where the traffic distribution group was
+-- created, you can use either a full phone number ARN or UUID value for
+-- the @OutboundCallerIdNumberId@ value of the
+-- <https://docs.aws.amazon.com/connect/latest/APIReference/API_OutboundCallerConfig OutboundCallerConfig>
+-- request body parameter. However, if the number is claimed to a traffic
+-- distribution group and you are calling this API using an instance in the
+-- alternate Amazon Web Services Region associated with the traffic
+-- distribution group, you must provide a full phone number ARN. If a UUID
+-- is provided in this scenario, you will receive a
+-- @ResourceNotFoundException@.
 module Amazonka.Connect.UpdateQueueOutboundCallerConfig
   ( -- * Creating a Request
     UpdateQueueOutboundCallerConfig (..),
@@ -43,7 +56,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,7 +128,8 @@ instance
   type
     AWSResponse UpdateQueueOutboundCallerConfig =
       UpdateQueueOutboundCallerConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       UpdateQueueOutboundCallerConfigResponse'
@@ -140,41 +155,41 @@ instance
       `Prelude.seq` Prelude.rnf outboundCallerConfig
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateQueueOutboundCallerConfig
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateQueueOutboundCallerConfig where
+instance Data.ToJSON UpdateQueueOutboundCallerConfig where
   toJSON UpdateQueueOutboundCallerConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "OutboundCallerConfig"
-                  Core..= outboundCallerConfig
+                  Data..= outboundCallerConfig
               )
           ]
       )
 
-instance Core.ToPath UpdateQueueOutboundCallerConfig where
+instance Data.ToPath UpdateQueueOutboundCallerConfig where
   toPath UpdateQueueOutboundCallerConfig' {..} =
     Prelude.mconcat
       [ "/queues/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/",
-        Core.toBS queueId,
+        Data.toBS queueId,
         "/outbound-caller-config"
       ]
 
-instance Core.ToQuery UpdateQueueOutboundCallerConfig where
+instance Data.ToQuery UpdateQueueOutboundCallerConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateQueueOutboundCallerConfigResponse' smart constructor.

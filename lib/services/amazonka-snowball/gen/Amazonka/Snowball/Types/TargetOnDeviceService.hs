@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.Types.TargetOnDeviceService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +20,25 @@
 module Amazonka.Snowball.Types.TargetOnDeviceService where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Snowball.Types.DeviceServiceName
 import Amazonka.Snowball.Types.TransferOption
 
 -- | An object that represents the service or services on the Snow Family
 -- device that your transferred data will be exported from or imported
--- into. AWS Snow Family supports Amazon S3 and NFS (Network File System).
+-- into. Amazon Web Services Snow Family supports Amazon S3 and NFS
+-- (Network File System).
 --
 -- /See:/ 'newTargetOnDeviceService' smart constructor.
 data TargetOnDeviceService = TargetOnDeviceService'
-  { -- | Specifies whether the data is being imported or exported. You can import
-    -- or export the data, or use it locally on the device.
-    transferOption :: Prelude.Maybe TransferOption,
-    -- | Specifies the name of the service on the Snow Family device that your
+  { -- | Specifies the name of the service on the Snow Family device that your
     -- transferred data will be exported from or imported into.
-    serviceName :: Prelude.Maybe DeviceServiceName
+    serviceName :: Prelude.Maybe DeviceServiceName,
+    -- | Specifies whether the data is being imported or exported. You can import
+    -- or export the data, or use it locally on the device.
+    transferOption :: Prelude.Maybe TransferOption
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,56 +50,56 @@ data TargetOnDeviceService = TargetOnDeviceService'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'transferOption', 'targetOnDeviceService_transferOption' - Specifies whether the data is being imported or exported. You can import
--- or export the data, or use it locally on the device.
---
 -- 'serviceName', 'targetOnDeviceService_serviceName' - Specifies the name of the service on the Snow Family device that your
 -- transferred data will be exported from or imported into.
+--
+-- 'transferOption', 'targetOnDeviceService_transferOption' - Specifies whether the data is being imported or exported. You can import
+-- or export the data, or use it locally on the device.
 newTargetOnDeviceService ::
   TargetOnDeviceService
 newTargetOnDeviceService =
   TargetOnDeviceService'
-    { transferOption =
+    { serviceName =
         Prelude.Nothing,
-      serviceName = Prelude.Nothing
+      transferOption = Prelude.Nothing
     }
-
--- | Specifies whether the data is being imported or exported. You can import
--- or export the data, or use it locally on the device.
-targetOnDeviceService_transferOption :: Lens.Lens' TargetOnDeviceService (Prelude.Maybe TransferOption)
-targetOnDeviceService_transferOption = Lens.lens (\TargetOnDeviceService' {transferOption} -> transferOption) (\s@TargetOnDeviceService' {} a -> s {transferOption = a} :: TargetOnDeviceService)
 
 -- | Specifies the name of the service on the Snow Family device that your
 -- transferred data will be exported from or imported into.
 targetOnDeviceService_serviceName :: Lens.Lens' TargetOnDeviceService (Prelude.Maybe DeviceServiceName)
 targetOnDeviceService_serviceName = Lens.lens (\TargetOnDeviceService' {serviceName} -> serviceName) (\s@TargetOnDeviceService' {} a -> s {serviceName = a} :: TargetOnDeviceService)
 
-instance Core.FromJSON TargetOnDeviceService where
+-- | Specifies whether the data is being imported or exported. You can import
+-- or export the data, or use it locally on the device.
+targetOnDeviceService_transferOption :: Lens.Lens' TargetOnDeviceService (Prelude.Maybe TransferOption)
+targetOnDeviceService_transferOption = Lens.lens (\TargetOnDeviceService' {transferOption} -> transferOption) (\s@TargetOnDeviceService' {} a -> s {transferOption = a} :: TargetOnDeviceService)
+
+instance Data.FromJSON TargetOnDeviceService where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TargetOnDeviceService"
       ( \x ->
           TargetOnDeviceService'
-            Prelude.<$> (x Core..:? "TransferOption")
-            Prelude.<*> (x Core..:? "ServiceName")
+            Prelude.<$> (x Data..:? "ServiceName")
+            Prelude.<*> (x Data..:? "TransferOption")
       )
 
 instance Prelude.Hashable TargetOnDeviceService where
   hashWithSalt _salt TargetOnDeviceService' {..} =
-    _salt `Prelude.hashWithSalt` transferOption
-      `Prelude.hashWithSalt` serviceName
+    _salt `Prelude.hashWithSalt` serviceName
+      `Prelude.hashWithSalt` transferOption
 
 instance Prelude.NFData TargetOnDeviceService where
   rnf TargetOnDeviceService' {..} =
-    Prelude.rnf transferOption
-      `Prelude.seq` Prelude.rnf serviceName
+    Prelude.rnf serviceName
+      `Prelude.seq` Prelude.rnf transferOption
 
-instance Core.ToJSON TargetOnDeviceService where
+instance Data.ToJSON TargetOnDeviceService where
   toJSON TargetOnDeviceService' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TransferOption" Core..=)
-              Prelude.<$> transferOption,
-            ("ServiceName" Core..=) Prelude.<$> serviceName
+          [ ("ServiceName" Data..=) Prelude.<$> serviceName,
+            ("TransferOption" Data..=)
+              Prelude.<$> transferOption
           ]
       )

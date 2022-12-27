@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ClientVpnAuthentication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,13 @@
 module Amazonka.EC2.Types.ClientVpnAuthentication where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.CertificateAuthentication
 import Amazonka.EC2.Types.ClientVpnAuthenticationType
 import Amazonka.EC2.Types.DirectoryServiceAuthentication
 import Amazonka.EC2.Types.FederatedAuthentication
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the authentication methods used by a Client VPN endpoint. For
@@ -88,13 +89,13 @@ clientVpnAuthentication_mutualAuthentication = Lens.lens (\ClientVpnAuthenticati
 clientVpnAuthentication_type :: Lens.Lens' ClientVpnAuthentication (Prelude.Maybe ClientVpnAuthenticationType)
 clientVpnAuthentication_type = Lens.lens (\ClientVpnAuthentication' {type'} -> type') (\s@ClientVpnAuthentication' {} a -> s {type' = a} :: ClientVpnAuthentication)
 
-instance Core.FromXML ClientVpnAuthentication where
+instance Data.FromXML ClientVpnAuthentication where
   parseXML x =
     ClientVpnAuthentication'
-      Prelude.<$> (x Core..@? "activeDirectory")
-      Prelude.<*> (x Core..@? "federatedAuthentication")
-      Prelude.<*> (x Core..@? "mutualAuthentication")
-      Prelude.<*> (x Core..@? "type")
+      Prelude.<$> (x Data..@? "activeDirectory")
+      Prelude.<*> (x Data..@? "federatedAuthentication")
+      Prelude.<*> (x Data..@? "mutualAuthentication")
+      Prelude.<*> (x Data..@? "type")
 
 instance Prelude.Hashable ClientVpnAuthentication where
   hashWithSalt _salt ClientVpnAuthentication' {..} =

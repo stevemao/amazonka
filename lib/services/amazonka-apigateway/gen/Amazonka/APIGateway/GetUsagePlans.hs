@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetUsagePlans
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -124,13 +125,14 @@ instance Core.AWSRequest GetUsagePlans where
   type
     AWSResponse GetUsagePlans =
       GetUsagePlansResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetUsagePlansResponse'
-            Prelude.<$> (x Core..?> "item" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "position")
+            Prelude.<$> (x Data..?> "item" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "position")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -146,29 +148,27 @@ instance Prelude.NFData GetUsagePlans where
       `Prelude.seq` Prelude.rnf limit
       `Prelude.seq` Prelude.rnf position
 
-instance Core.ToHeaders GetUsagePlans where
+instance Data.ToHeaders GetUsagePlans where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetUsagePlans where
+instance Data.ToPath GetUsagePlans where
   toPath = Prelude.const "/usageplans"
 
-instance Core.ToQuery GetUsagePlans where
+instance Data.ToQuery GetUsagePlans where
   toQuery GetUsagePlans' {..} =
     Prelude.mconcat
-      [ "keyId" Core.=: keyId,
-        "limit" Core.=: limit,
-        "position" Core.=: position
+      [ "keyId" Data.=: keyId,
+        "limit" Data.=: limit,
+        "position" Data.=: position
       ]
 
 -- | Represents a collection of usage plans for an AWS account.
---
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html Create and Use Usage Plans>
 --
 -- /See:/ 'newGetUsagePlansResponse' smart constructor.
 data GetUsagePlansResponse = GetUsagePlansResponse'

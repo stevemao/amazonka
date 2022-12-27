@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.DeleteService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Route53AutoNaming.DeleteService
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteService where
   type
     AWSResponse DeleteService =
       DeleteServiceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,30 +93,30 @@ instance Prelude.Hashable DeleteService where
 instance Prelude.NFData DeleteService where
   rnf DeleteService' {..} = Prelude.rnf id
 
-instance Core.ToHeaders DeleteService where
+instance Data.ToHeaders DeleteService where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53AutoNaming_v20170314.DeleteService" ::
+              Data.=# ( "Route53AutoNaming_v20170314.DeleteService" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteService where
+instance Data.ToJSON DeleteService where
   toJSON DeleteService' {..} =
-    Core.object
-      (Prelude.catMaybes [Prelude.Just ("Id" Core..= id)])
+    Data.object
+      (Prelude.catMaybes [Prelude.Just ("Id" Data..= id)])
 
-instance Core.ToPath DeleteService where
+instance Data.ToPath DeleteService where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteService where
+instance Data.ToQuery DeleteService where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteServiceResponse' smart constructor.

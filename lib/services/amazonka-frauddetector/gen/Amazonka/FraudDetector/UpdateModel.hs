@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.UpdateModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.FraudDetector.UpdateModel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,7 +99,8 @@ updateModel_modelType = Lens.lens (\UpdateModel' {modelType} -> modelType) (\s@U
 
 instance Core.AWSRequest UpdateModel where
   type AWSResponse UpdateModel = UpdateModelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -118,35 +120,35 @@ instance Prelude.NFData UpdateModel where
       `Prelude.seq` Prelude.rnf modelId
       `Prelude.seq` Prelude.rnf modelType
 
-instance Core.ToHeaders UpdateModel where
+instance Data.ToHeaders UpdateModel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.UpdateModel" ::
+              Data.=# ( "AWSHawksNestServiceFacade.UpdateModel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateModel where
+instance Data.ToJSON UpdateModel where
   toJSON UpdateModel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("description" Core..=) Prelude.<$> description,
-            Prelude.Just ("modelId" Core..= modelId),
-            Prelude.Just ("modelType" Core..= modelType)
+          [ ("description" Data..=) Prelude.<$> description,
+            Prelude.Just ("modelId" Data..= modelId),
+            Prelude.Just ("modelType" Data..= modelType)
           ]
       )
 
-instance Core.ToPath UpdateModel where
+instance Data.ToPath UpdateModel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateModel where
+instance Data.ToQuery UpdateModel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateModelResponse' smart constructor.

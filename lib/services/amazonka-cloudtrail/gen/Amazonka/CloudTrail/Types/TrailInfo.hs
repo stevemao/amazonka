@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudTrail.Types.TrailInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudTrail.Types.TrailInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a CloudTrail trail, including the trail\'s name, home
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTrailInfo' smart constructor.
 data TrailInfo = TrailInfo'
-  { -- | The ARN of a trail.
-    trailARN :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Web Services Region in which a trail was created.
+  { -- | The Amazon Web Services Region in which a trail was created.
     homeRegion :: Prelude.Maybe Prelude.Text,
     -- | The name of a trail.
-    name :: Prelude.Maybe Prelude.Text
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of a trail.
+    trailARN :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,23 +46,19 @@ data TrailInfo = TrailInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'trailARN', 'trailInfo_trailARN' - The ARN of a trail.
---
 -- 'homeRegion', 'trailInfo_homeRegion' - The Amazon Web Services Region in which a trail was created.
 --
 -- 'name', 'trailInfo_name' - The name of a trail.
+--
+-- 'trailARN', 'trailInfo_trailARN' - The ARN of a trail.
 newTrailInfo ::
   TrailInfo
 newTrailInfo =
   TrailInfo'
-    { trailARN = Prelude.Nothing,
-      homeRegion = Prelude.Nothing,
-      name = Prelude.Nothing
+    { homeRegion = Prelude.Nothing,
+      name = Prelude.Nothing,
+      trailARN = Prelude.Nothing
     }
-
--- | The ARN of a trail.
-trailInfo_trailARN :: Lens.Lens' TrailInfo (Prelude.Maybe Prelude.Text)
-trailInfo_trailARN = Lens.lens (\TrailInfo' {trailARN} -> trailARN) (\s@TrailInfo' {} a -> s {trailARN = a} :: TrailInfo)
 
 -- | The Amazon Web Services Region in which a trail was created.
 trailInfo_homeRegion :: Lens.Lens' TrailInfo (Prelude.Maybe Prelude.Text)
@@ -71,25 +68,29 @@ trailInfo_homeRegion = Lens.lens (\TrailInfo' {homeRegion} -> homeRegion) (\s@Tr
 trailInfo_name :: Lens.Lens' TrailInfo (Prelude.Maybe Prelude.Text)
 trailInfo_name = Lens.lens (\TrailInfo' {name} -> name) (\s@TrailInfo' {} a -> s {name = a} :: TrailInfo)
 
-instance Core.FromJSON TrailInfo where
+-- | The ARN of a trail.
+trailInfo_trailARN :: Lens.Lens' TrailInfo (Prelude.Maybe Prelude.Text)
+trailInfo_trailARN = Lens.lens (\TrailInfo' {trailARN} -> trailARN) (\s@TrailInfo' {} a -> s {trailARN = a} :: TrailInfo)
+
+instance Data.FromJSON TrailInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrailInfo"
       ( \x ->
           TrailInfo'
-            Prelude.<$> (x Core..:? "TrailARN")
-            Prelude.<*> (x Core..:? "HomeRegion")
-            Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "HomeRegion")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "TrailARN")
       )
 
 instance Prelude.Hashable TrailInfo where
   hashWithSalt _salt TrailInfo' {..} =
-    _salt `Prelude.hashWithSalt` trailARN
-      `Prelude.hashWithSalt` homeRegion
+    _salt `Prelude.hashWithSalt` homeRegion
       `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` trailARN
 
 instance Prelude.NFData TrailInfo where
   rnf TrailInfo' {..} =
-    Prelude.rnf trailARN
-      `Prelude.seq` Prelude.rnf homeRegion
+    Prelude.rnf homeRegion
       `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf trailARN

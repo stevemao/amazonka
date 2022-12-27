@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.MonitoringOutputConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.MonitoringOutputConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.MonitoringOutput
 
@@ -74,14 +75,14 @@ monitoringOutputConfig_kmsKeyId = Lens.lens (\MonitoringOutputConfig' {kmsKeyId}
 monitoringOutputConfig_monitoringOutputs :: Lens.Lens' MonitoringOutputConfig (Prelude.NonEmpty MonitoringOutput)
 monitoringOutputConfig_monitoringOutputs = Lens.lens (\MonitoringOutputConfig' {monitoringOutputs} -> monitoringOutputs) (\s@MonitoringOutputConfig' {} a -> s {monitoringOutputs = a} :: MonitoringOutputConfig) Prelude.. Lens.coerced
 
-instance Core.FromJSON MonitoringOutputConfig where
+instance Data.FromJSON MonitoringOutputConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MonitoringOutputConfig"
       ( \x ->
           MonitoringOutputConfig'
-            Prelude.<$> (x Core..:? "KmsKeyId")
-            Prelude.<*> (x Core..: "MonitoringOutputs")
+            Prelude.<$> (x Data..:? "KmsKeyId")
+            Prelude.<*> (x Data..: "MonitoringOutputs")
       )
 
 instance Prelude.Hashable MonitoringOutputConfig where
@@ -94,12 +95,12 @@ instance Prelude.NFData MonitoringOutputConfig where
     Prelude.rnf kmsKeyId
       `Prelude.seq` Prelude.rnf monitoringOutputs
 
-instance Core.ToJSON MonitoringOutputConfig where
+instance Data.ToJSON MonitoringOutputConfig where
   toJSON MonitoringOutputConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KmsKeyId" Core..=) Prelude.<$> kmsKeyId,
+          [ ("KmsKeyId" Data..=) Prelude.<$> kmsKeyId,
             Prelude.Just
-              ("MonitoringOutputs" Core..= monitoringOutputs)
+              ("MonitoringOutputs" Data..= monitoringOutputs)
           ]
       )

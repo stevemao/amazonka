@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.DeleteFirewallRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Route53Resolver.DeleteFirewallRule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,12 +98,13 @@ instance Core.AWSRequest DeleteFirewallRule where
   type
     AWSResponse DeleteFirewallRule =
       DeleteFirewallRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteFirewallRuleResponse'
-            Prelude.<$> (x Core..?> "FirewallRule")
+            Prelude.<$> (x Data..?> "FirewallRule")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,38 +118,38 @@ instance Prelude.NFData DeleteFirewallRule where
     Prelude.rnf firewallRuleGroupId
       `Prelude.seq` Prelude.rnf firewallDomainListId
 
-instance Core.ToHeaders DeleteFirewallRule where
+instance Data.ToHeaders DeleteFirewallRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Resolver.DeleteFirewallRule" ::
+              Data.=# ( "Route53Resolver.DeleteFirewallRule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteFirewallRule where
+instance Data.ToJSON DeleteFirewallRule where
   toJSON DeleteFirewallRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("FirewallRuleGroupId" Core..= firewallRuleGroupId),
+              ("FirewallRuleGroupId" Data..= firewallRuleGroupId),
             Prelude.Just
               ( "FirewallDomainListId"
-                  Core..= firewallDomainListId
+                  Data..= firewallDomainListId
               )
           ]
       )
 
-instance Core.ToPath DeleteFirewallRule where
+instance Data.ToPath DeleteFirewallRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteFirewallRule where
+instance Data.ToQuery DeleteFirewallRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFirewallRuleResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.Types.BlueGreenDeploymentConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.CodeDeploy.Types.BlueInstanceTerminationOption
 import Amazonka.CodeDeploy.Types.DeploymentReadyOption
 import Amazonka.CodeDeploy.Types.GreenFleetProvisioningOption
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about blue\/green deployment options for a deployment group.
@@ -86,18 +87,18 @@ blueGreenDeploymentConfiguration_terminateBlueInstancesOnDeploymentSuccess :: Le
 blueGreenDeploymentConfiguration_terminateBlueInstancesOnDeploymentSuccess = Lens.lens (\BlueGreenDeploymentConfiguration' {terminateBlueInstancesOnDeploymentSuccess} -> terminateBlueInstancesOnDeploymentSuccess) (\s@BlueGreenDeploymentConfiguration' {} a -> s {terminateBlueInstancesOnDeploymentSuccess = a} :: BlueGreenDeploymentConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     BlueGreenDeploymentConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BlueGreenDeploymentConfiguration"
       ( \x ->
           BlueGreenDeploymentConfiguration'
-            Prelude.<$> (x Core..:? "deploymentReadyOption")
-            Prelude.<*> (x Core..:? "greenFleetProvisioningOption")
+            Prelude.<$> (x Data..:? "deploymentReadyOption")
+            Prelude.<*> (x Data..:? "greenFleetProvisioningOption")
             Prelude.<*> ( x
-                            Core..:? "terminateBlueInstancesOnDeploymentSuccess"
+                            Data..:? "terminateBlueInstancesOnDeploymentSuccess"
                         )
       )
 
@@ -121,15 +122,15 @@ instance
       `Prelude.seq` Prelude.rnf greenFleetProvisioningOption
       `Prelude.seq` Prelude.rnf terminateBlueInstancesOnDeploymentSuccess
 
-instance Core.ToJSON BlueGreenDeploymentConfiguration where
+instance Data.ToJSON BlueGreenDeploymentConfiguration where
   toJSON BlueGreenDeploymentConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("deploymentReadyOption" Core..=)
+          [ ("deploymentReadyOption" Data..=)
               Prelude.<$> deploymentReadyOption,
-            ("greenFleetProvisioningOption" Core..=)
+            ("greenFleetProvisioningOption" Data..=)
               Prelude.<$> greenFleetProvisioningOption,
-            ("terminateBlueInstancesOnDeploymentSuccess" Core..=)
+            ("terminateBlueInstancesOnDeploymentSuccess" Data..=)
               Prelude.<$> terminateBlueInstancesOnDeploymentSuccess
           ]
       )

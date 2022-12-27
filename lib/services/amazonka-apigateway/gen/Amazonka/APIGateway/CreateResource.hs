@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.CreateResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,17 +36,18 @@ module Amazonka.APIGateway.CreateResource
     newResource,
 
     -- * Response Lenses
-    resource_pathPart,
-    resource_path,
     resource_id,
-    resource_resourceMethods,
     resource_parentId,
+    resource_path,
+    resource_pathPart,
+    resource_resourceMethods,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,9 +56,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateResource' smart constructor.
 data CreateResource = CreateResource'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The parent resource\'s identifier.
+    -- | The parent resource\'s identifier.
     parentId :: Prelude.Text,
     -- | The last path segment for this resource.
     pathPart :: Prelude.Text
@@ -72,9 +73,9 @@ data CreateResource = CreateResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'createResource_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'createResource_restApiId' - The string identifier of the associated RestApi.
 --
--- 'parentId', 'createResource_parentId' - [Required] The parent resource\'s identifier.
+-- 'parentId', 'createResource_parentId' - The parent resource\'s identifier.
 --
 -- 'pathPart', 'createResource_pathPart' - The last path segment for this resource.
 newCreateResource ::
@@ -92,11 +93,11 @@ newCreateResource pRestApiId_ pParentId_ pPathPart_ =
       pathPart = pPathPart_
     }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 createResource_restApiId :: Lens.Lens' CreateResource Prelude.Text
 createResource_restApiId = Lens.lens (\CreateResource' {restApiId} -> restApiId) (\s@CreateResource' {} a -> s {restApiId = a} :: CreateResource)
 
--- | [Required] The parent resource\'s identifier.
+-- | The parent resource\'s identifier.
 createResource_parentId :: Lens.Lens' CreateResource Prelude.Text
 createResource_parentId = Lens.lens (\CreateResource' {parentId} -> parentId) (\s@CreateResource' {} a -> s {parentId = a} :: CreateResource)
 
@@ -106,10 +107,11 @@ createResource_pathPart = Lens.lens (\CreateResource' {pathPart} -> pathPart) (\
 
 instance Core.AWSRequest CreateResource where
   type AWSResponse CreateResource = Resource
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable CreateResource where
   hashWithSalt _salt CreateResource' {..} =
@@ -123,30 +125,30 @@ instance Prelude.NFData CreateResource where
       `Prelude.seq` Prelude.rnf parentId
       `Prelude.seq` Prelude.rnf pathPart
 
-instance Core.ToHeaders CreateResource where
+instance Data.ToHeaders CreateResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON CreateResource where
+instance Data.ToJSON CreateResource where
   toJSON CreateResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("pathPart" Core..= pathPart)]
+          [Prelude.Just ("pathPart" Data..= pathPart)]
       )
 
-instance Core.ToPath CreateResource where
+instance Data.ToPath CreateResource where
   toPath CreateResource' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/resources/",
-        Core.toBS parentId
+        Data.toBS parentId
       ]
 
-instance Core.ToQuery CreateResource where
+instance Data.ToQuery CreateResource where
   toQuery = Prelude.const Prelude.mempty

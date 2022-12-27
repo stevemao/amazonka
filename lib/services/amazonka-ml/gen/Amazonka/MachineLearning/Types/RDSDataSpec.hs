@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MachineLearning.Types.RDSDataSpec
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MachineLearning.Types.RDSDataSpec where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MachineLearning.Types.RDSDatabase
 import Amazonka.MachineLearning.Types.RDSDatabaseCredentials
 import qualified Amazonka.Prelude as Prelude
@@ -30,43 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newRDSDataSpec' smart constructor.
 data RDSDataSpec = RDSDataSpec'
-  { -- | The Amazon S3 location of the @DataSchema@.
-    dataSchemaUri :: Prelude.Maybe Prelude.Text,
-    -- | A JSON string that represents the schema for an Amazon RDS @DataSource@.
-    -- The @DataSchema@ defines the structure of the observation data in the
-    -- data file(s) referenced in the @DataSource@.
-    --
-    -- A @DataSchema@ is not required if you specify a @DataSchemaUri@
-    --
-    -- Define your @DataSchema@ as a series of key-value pairs. @attributes@
-    -- and @excludedVariableNames@ have an array of key-value pairs for their
-    -- value. Use the following format to define your @DataSchema@.
-    --
-    -- { \"version\": \"1.0\",
-    --
-    -- \"recordAnnotationFieldName\": \"F1\",
-    --
-    -- \"recordWeightFieldName\": \"F2\",
-    --
-    -- \"targetFieldName\": \"F3\",
-    --
-    -- \"dataFormat\": \"CSV\",
-    --
-    -- \"dataFileContainsHeader\": true,
-    --
-    -- \"attributes\": [
-    --
-    -- { \"fieldName\": \"F1\", \"fieldType\": \"TEXT\" }, { \"fieldName\":
-    -- \"F2\", \"fieldType\": \"NUMERIC\" }, { \"fieldName\": \"F3\",
-    -- \"fieldType\": \"CATEGORICAL\" }, { \"fieldName\": \"F4\",
-    -- \"fieldType\": \"NUMERIC\" }, { \"fieldName\": \"F5\", \"fieldType\":
-    -- \"CATEGORICAL\" }, { \"fieldName\": \"F6\", \"fieldType\": \"TEXT\" }, {
-    -- \"fieldName\": \"F7\", \"fieldType\": \"WEIGHTED_INT_SEQUENCE\" }, {
-    -- \"fieldName\": \"F8\", \"fieldType\": \"WEIGHTED_STRING_SEQUENCE\" } ],
-    --
-    -- \"excludedVariableNames\": [ \"F6\" ] }
-    dataSchema :: Prelude.Maybe Prelude.Text,
-    -- | A JSON string that represents the splitting and rearrangement processing
+  { -- | A JSON string that represents the splitting and rearrangement processing
     -- to be applied to a @DataSource@. If the @DataRearrangement@ parameter is
     -- not provided, all of the input data is used to create the @Datasource@.
     --
@@ -153,6 +118,42 @@ data RDSDataSpec = RDSDataSpec'
     --     Datasource for training:
     --     @{\"splitting\":{\"percentBegin\":70, \"percentEnd\":100, \"strategy\":\"random\", \"randomSeed\"=\"s3:\/\/my_s3_path\/bucket\/file.csv\", \"complement\":\"true\"}}@
     dataRearrangement :: Prelude.Maybe Prelude.Text,
+    -- | A JSON string that represents the schema for an Amazon RDS @DataSource@.
+    -- The @DataSchema@ defines the structure of the observation data in the
+    -- data file(s) referenced in the @DataSource@.
+    --
+    -- A @DataSchema@ is not required if you specify a @DataSchemaUri@
+    --
+    -- Define your @DataSchema@ as a series of key-value pairs. @attributes@
+    -- and @excludedVariableNames@ have an array of key-value pairs for their
+    -- value. Use the following format to define your @DataSchema@.
+    --
+    -- { \"version\": \"1.0\",
+    --
+    -- \"recordAnnotationFieldName\": \"F1\",
+    --
+    -- \"recordWeightFieldName\": \"F2\",
+    --
+    -- \"targetFieldName\": \"F3\",
+    --
+    -- \"dataFormat\": \"CSV\",
+    --
+    -- \"dataFileContainsHeader\": true,
+    --
+    -- \"attributes\": [
+    --
+    -- { \"fieldName\": \"F1\", \"fieldType\": \"TEXT\" }, { \"fieldName\":
+    -- \"F2\", \"fieldType\": \"NUMERIC\" }, { \"fieldName\": \"F3\",
+    -- \"fieldType\": \"CATEGORICAL\" }, { \"fieldName\": \"F4\",
+    -- \"fieldType\": \"NUMERIC\" }, { \"fieldName\": \"F5\", \"fieldType\":
+    -- \"CATEGORICAL\" }, { \"fieldName\": \"F6\", \"fieldType\": \"TEXT\" }, {
+    -- \"fieldName\": \"F7\", \"fieldType\": \"WEIGHTED_INT_SEQUENCE\" }, {
+    -- \"fieldName\": \"F8\", \"fieldType\": \"WEIGHTED_STRING_SEQUENCE\" } ],
+    --
+    -- \"excludedVariableNames\": [ \"F6\" ] }
+    dataSchema :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon S3 location of the @DataSchema@.
+    dataSchemaUri :: Prelude.Maybe Prelude.Text,
     -- | Describes the @DatabaseName@ and @InstanceIdentifier@ of an Amazon RDS
     -- database.
     databaseInformation :: RDSDatabase,
@@ -196,42 +197,6 @@ data RDSDataSpec = RDSDataSpec'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'dataSchemaUri', 'rDSDataSpec_dataSchemaUri' - The Amazon S3 location of the @DataSchema@.
---
--- 'dataSchema', 'rDSDataSpec_dataSchema' - A JSON string that represents the schema for an Amazon RDS @DataSource@.
--- The @DataSchema@ defines the structure of the observation data in the
--- data file(s) referenced in the @DataSource@.
---
--- A @DataSchema@ is not required if you specify a @DataSchemaUri@
---
--- Define your @DataSchema@ as a series of key-value pairs. @attributes@
--- and @excludedVariableNames@ have an array of key-value pairs for their
--- value. Use the following format to define your @DataSchema@.
---
--- { \"version\": \"1.0\",
---
--- \"recordAnnotationFieldName\": \"F1\",
---
--- \"recordWeightFieldName\": \"F2\",
---
--- \"targetFieldName\": \"F3\",
---
--- \"dataFormat\": \"CSV\",
---
--- \"dataFileContainsHeader\": true,
---
--- \"attributes\": [
---
--- { \"fieldName\": \"F1\", \"fieldType\": \"TEXT\" }, { \"fieldName\":
--- \"F2\", \"fieldType\": \"NUMERIC\" }, { \"fieldName\": \"F3\",
--- \"fieldType\": \"CATEGORICAL\" }, { \"fieldName\": \"F4\",
--- \"fieldType\": \"NUMERIC\" }, { \"fieldName\": \"F5\", \"fieldType\":
--- \"CATEGORICAL\" }, { \"fieldName\": \"F6\", \"fieldType\": \"TEXT\" }, {
--- \"fieldName\": \"F7\", \"fieldType\": \"WEIGHTED_INT_SEQUENCE\" }, {
--- \"fieldName\": \"F8\", \"fieldType\": \"WEIGHTED_STRING_SEQUENCE\" } ],
---
--- \"excludedVariableNames\": [ \"F6\" ] }
 --
 -- 'dataRearrangement', 'rDSDataSpec_dataRearrangement' - A JSON string that represents the splitting and rearrangement processing
 -- to be applied to a @DataSource@. If the @DataRearrangement@ parameter is
@@ -320,6 +285,42 @@ data RDSDataSpec = RDSDataSpec'
 --     Datasource for training:
 --     @{\"splitting\":{\"percentBegin\":70, \"percentEnd\":100, \"strategy\":\"random\", \"randomSeed\"=\"s3:\/\/my_s3_path\/bucket\/file.csv\", \"complement\":\"true\"}}@
 --
+-- 'dataSchema', 'rDSDataSpec_dataSchema' - A JSON string that represents the schema for an Amazon RDS @DataSource@.
+-- The @DataSchema@ defines the structure of the observation data in the
+-- data file(s) referenced in the @DataSource@.
+--
+-- A @DataSchema@ is not required if you specify a @DataSchemaUri@
+--
+-- Define your @DataSchema@ as a series of key-value pairs. @attributes@
+-- and @excludedVariableNames@ have an array of key-value pairs for their
+-- value. Use the following format to define your @DataSchema@.
+--
+-- { \"version\": \"1.0\",
+--
+-- \"recordAnnotationFieldName\": \"F1\",
+--
+-- \"recordWeightFieldName\": \"F2\",
+--
+-- \"targetFieldName\": \"F3\",
+--
+-- \"dataFormat\": \"CSV\",
+--
+-- \"dataFileContainsHeader\": true,
+--
+-- \"attributes\": [
+--
+-- { \"fieldName\": \"F1\", \"fieldType\": \"TEXT\" }, { \"fieldName\":
+-- \"F2\", \"fieldType\": \"NUMERIC\" }, { \"fieldName\": \"F3\",
+-- \"fieldType\": \"CATEGORICAL\" }, { \"fieldName\": \"F4\",
+-- \"fieldType\": \"NUMERIC\" }, { \"fieldName\": \"F5\", \"fieldType\":
+-- \"CATEGORICAL\" }, { \"fieldName\": \"F6\", \"fieldType\": \"TEXT\" }, {
+-- \"fieldName\": \"F7\", \"fieldType\": \"WEIGHTED_INT_SEQUENCE\" }, {
+-- \"fieldName\": \"F8\", \"fieldType\": \"WEIGHTED_STRING_SEQUENCE\" } ],
+--
+-- \"excludedVariableNames\": [ \"F6\" ] }
+--
+-- 'dataSchemaUri', 'rDSDataSpec_dataSchemaUri' - The Amazon S3 location of the @DataSchema@.
+--
 -- 'databaseInformation', 'rDSDataSpec_databaseInformation' - Describes the @DatabaseName@ and @InstanceIdentifier@ of an Amazon RDS
 -- database.
 --
@@ -377,9 +378,9 @@ newRDSDataSpec
   pServiceRole_
   pSubnetId_ =
     RDSDataSpec'
-      { dataSchemaUri = Prelude.Nothing,
+      { dataRearrangement = Prelude.Nothing,
         dataSchema = Prelude.Nothing,
-        dataRearrangement = Prelude.Nothing,
+        dataSchemaUri = Prelude.Nothing,
         databaseInformation = pDatabaseInformation_,
         selectSqlQuery = pSelectSqlQuery_,
         databaseCredentials = pDatabaseCredentials_,
@@ -389,46 +390,6 @@ newRDSDataSpec
         subnetId = pSubnetId_,
         securityGroupIds = Prelude.mempty
       }
-
--- | The Amazon S3 location of the @DataSchema@.
-rDSDataSpec_dataSchemaUri :: Lens.Lens' RDSDataSpec (Prelude.Maybe Prelude.Text)
-rDSDataSpec_dataSchemaUri = Lens.lens (\RDSDataSpec' {dataSchemaUri} -> dataSchemaUri) (\s@RDSDataSpec' {} a -> s {dataSchemaUri = a} :: RDSDataSpec)
-
--- | A JSON string that represents the schema for an Amazon RDS @DataSource@.
--- The @DataSchema@ defines the structure of the observation data in the
--- data file(s) referenced in the @DataSource@.
---
--- A @DataSchema@ is not required if you specify a @DataSchemaUri@
---
--- Define your @DataSchema@ as a series of key-value pairs. @attributes@
--- and @excludedVariableNames@ have an array of key-value pairs for their
--- value. Use the following format to define your @DataSchema@.
---
--- { \"version\": \"1.0\",
---
--- \"recordAnnotationFieldName\": \"F1\",
---
--- \"recordWeightFieldName\": \"F2\",
---
--- \"targetFieldName\": \"F3\",
---
--- \"dataFormat\": \"CSV\",
---
--- \"dataFileContainsHeader\": true,
---
--- \"attributes\": [
---
--- { \"fieldName\": \"F1\", \"fieldType\": \"TEXT\" }, { \"fieldName\":
--- \"F2\", \"fieldType\": \"NUMERIC\" }, { \"fieldName\": \"F3\",
--- \"fieldType\": \"CATEGORICAL\" }, { \"fieldName\": \"F4\",
--- \"fieldType\": \"NUMERIC\" }, { \"fieldName\": \"F5\", \"fieldType\":
--- \"CATEGORICAL\" }, { \"fieldName\": \"F6\", \"fieldType\": \"TEXT\" }, {
--- \"fieldName\": \"F7\", \"fieldType\": \"WEIGHTED_INT_SEQUENCE\" }, {
--- \"fieldName\": \"F8\", \"fieldType\": \"WEIGHTED_STRING_SEQUENCE\" } ],
---
--- \"excludedVariableNames\": [ \"F6\" ] }
-rDSDataSpec_dataSchema :: Lens.Lens' RDSDataSpec (Prelude.Maybe Prelude.Text)
-rDSDataSpec_dataSchema = Lens.lens (\RDSDataSpec' {dataSchema} -> dataSchema) (\s@RDSDataSpec' {} a -> s {dataSchema = a} :: RDSDataSpec)
 
 -- | A JSON string that represents the splitting and rearrangement processing
 -- to be applied to a @DataSource@. If the @DataRearrangement@ parameter is
@@ -519,6 +480,46 @@ rDSDataSpec_dataSchema = Lens.lens (\RDSDataSpec' {dataSchema} -> dataSchema) (\
 rDSDataSpec_dataRearrangement :: Lens.Lens' RDSDataSpec (Prelude.Maybe Prelude.Text)
 rDSDataSpec_dataRearrangement = Lens.lens (\RDSDataSpec' {dataRearrangement} -> dataRearrangement) (\s@RDSDataSpec' {} a -> s {dataRearrangement = a} :: RDSDataSpec)
 
+-- | A JSON string that represents the schema for an Amazon RDS @DataSource@.
+-- The @DataSchema@ defines the structure of the observation data in the
+-- data file(s) referenced in the @DataSource@.
+--
+-- A @DataSchema@ is not required if you specify a @DataSchemaUri@
+--
+-- Define your @DataSchema@ as a series of key-value pairs. @attributes@
+-- and @excludedVariableNames@ have an array of key-value pairs for their
+-- value. Use the following format to define your @DataSchema@.
+--
+-- { \"version\": \"1.0\",
+--
+-- \"recordAnnotationFieldName\": \"F1\",
+--
+-- \"recordWeightFieldName\": \"F2\",
+--
+-- \"targetFieldName\": \"F3\",
+--
+-- \"dataFormat\": \"CSV\",
+--
+-- \"dataFileContainsHeader\": true,
+--
+-- \"attributes\": [
+--
+-- { \"fieldName\": \"F1\", \"fieldType\": \"TEXT\" }, { \"fieldName\":
+-- \"F2\", \"fieldType\": \"NUMERIC\" }, { \"fieldName\": \"F3\",
+-- \"fieldType\": \"CATEGORICAL\" }, { \"fieldName\": \"F4\",
+-- \"fieldType\": \"NUMERIC\" }, { \"fieldName\": \"F5\", \"fieldType\":
+-- \"CATEGORICAL\" }, { \"fieldName\": \"F6\", \"fieldType\": \"TEXT\" }, {
+-- \"fieldName\": \"F7\", \"fieldType\": \"WEIGHTED_INT_SEQUENCE\" }, {
+-- \"fieldName\": \"F8\", \"fieldType\": \"WEIGHTED_STRING_SEQUENCE\" } ],
+--
+-- \"excludedVariableNames\": [ \"F6\" ] }
+rDSDataSpec_dataSchema :: Lens.Lens' RDSDataSpec (Prelude.Maybe Prelude.Text)
+rDSDataSpec_dataSchema = Lens.lens (\RDSDataSpec' {dataSchema} -> dataSchema) (\s@RDSDataSpec' {} a -> s {dataSchema = a} :: RDSDataSpec)
+
+-- | The Amazon S3 location of the @DataSchema@.
+rDSDataSpec_dataSchemaUri :: Lens.Lens' RDSDataSpec (Prelude.Maybe Prelude.Text)
+rDSDataSpec_dataSchemaUri = Lens.lens (\RDSDataSpec' {dataSchemaUri} -> dataSchemaUri) (\s@RDSDataSpec' {} a -> s {dataSchemaUri = a} :: RDSDataSpec)
+
 -- | Describes the @DatabaseName@ and @InstanceIdentifier@ of an Amazon RDS
 -- database.
 rDSDataSpec_databaseInformation :: Lens.Lens' RDSDataSpec RDSDatabase
@@ -570,9 +571,9 @@ rDSDataSpec_securityGroupIds = Lens.lens (\RDSDataSpec' {securityGroupIds} -> se
 
 instance Prelude.Hashable RDSDataSpec where
   hashWithSalt _salt RDSDataSpec' {..} =
-    _salt `Prelude.hashWithSalt` dataSchemaUri
+    _salt `Prelude.hashWithSalt` dataRearrangement
       `Prelude.hashWithSalt` dataSchema
-      `Prelude.hashWithSalt` dataRearrangement
+      `Prelude.hashWithSalt` dataSchemaUri
       `Prelude.hashWithSalt` databaseInformation
       `Prelude.hashWithSalt` selectSqlQuery
       `Prelude.hashWithSalt` databaseCredentials
@@ -584,9 +585,9 @@ instance Prelude.Hashable RDSDataSpec where
 
 instance Prelude.NFData RDSDataSpec where
   rnf RDSDataSpec' {..} =
-    Prelude.rnf dataSchemaUri
+    Prelude.rnf dataRearrangement
       `Prelude.seq` Prelude.rnf dataSchema
-      `Prelude.seq` Prelude.rnf dataRearrangement
+      `Prelude.seq` Prelude.rnf dataSchemaUri
       `Prelude.seq` Prelude.rnf databaseInformation
       `Prelude.seq` Prelude.rnf selectSqlQuery
       `Prelude.seq` Prelude.rnf databaseCredentials
@@ -596,26 +597,26 @@ instance Prelude.NFData RDSDataSpec where
       `Prelude.seq` Prelude.rnf subnetId
       `Prelude.seq` Prelude.rnf securityGroupIds
 
-instance Core.ToJSON RDSDataSpec where
+instance Data.ToJSON RDSDataSpec where
   toJSON RDSDataSpec' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DataSchemaUri" Core..=) Prelude.<$> dataSchemaUri,
-            ("DataSchema" Core..=) Prelude.<$> dataSchema,
-            ("DataRearrangement" Core..=)
+          [ ("DataRearrangement" Data..=)
               Prelude.<$> dataRearrangement,
+            ("DataSchema" Data..=) Prelude.<$> dataSchema,
+            ("DataSchemaUri" Data..=) Prelude.<$> dataSchemaUri,
             Prelude.Just
-              ("DatabaseInformation" Core..= databaseInformation),
+              ("DatabaseInformation" Data..= databaseInformation),
             Prelude.Just
-              ("SelectSqlQuery" Core..= selectSqlQuery),
+              ("SelectSqlQuery" Data..= selectSqlQuery),
             Prelude.Just
-              ("DatabaseCredentials" Core..= databaseCredentials),
+              ("DatabaseCredentials" Data..= databaseCredentials),
             Prelude.Just
-              ("S3StagingLocation" Core..= s3StagingLocation),
-            Prelude.Just ("ResourceRole" Core..= resourceRole),
-            Prelude.Just ("ServiceRole" Core..= serviceRole),
-            Prelude.Just ("SubnetId" Core..= subnetId),
+              ("S3StagingLocation" Data..= s3StagingLocation),
+            Prelude.Just ("ResourceRole" Data..= resourceRole),
+            Prelude.Just ("ServiceRole" Data..= serviceRole),
+            Prelude.Just ("SubnetId" Data..= subnetId),
             Prelude.Just
-              ("SecurityGroupIds" Core..= securityGroupIds)
+              ("SecurityGroupIds" Data..= securityGroupIds)
           ]
       )

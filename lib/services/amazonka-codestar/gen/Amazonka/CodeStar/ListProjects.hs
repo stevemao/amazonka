@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStar.ListProjects
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.CodeStar.ListProjects
     newListProjects,
 
     -- * Request Lenses
-    listProjects_nextToken,
     listProjects_maxResults,
+    listProjects_nextToken,
 
     -- * Destructuring the Response
     ListProjectsResponse (..),
@@ -45,19 +45,20 @@ where
 
 import Amazonka.CodeStar.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListProjects' smart constructor.
 data ListProjects = ListProjects'
-  { -- | The continuation token to be used to return the next set of results, if
-    -- the results cannot be returned in one response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum amount of data that can be contained in a single set of
+  { -- | The maximum amount of data that can be contained in a single set of
     -- results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The continuation token to be used to return the next set of results, if
+    -- the results cannot be returned in one response.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,28 +70,28 @@ data ListProjects = ListProjects'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listProjects_nextToken' - The continuation token to be used to return the next set of results, if
--- the results cannot be returned in one response.
---
 -- 'maxResults', 'listProjects_maxResults' - The maximum amount of data that can be contained in a single set of
 -- results.
+--
+-- 'nextToken', 'listProjects_nextToken' - The continuation token to be used to return the next set of results, if
+-- the results cannot be returned in one response.
 newListProjects ::
   ListProjects
 newListProjects =
   ListProjects'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The continuation token to be used to return the next set of results, if
--- the results cannot be returned in one response.
-listProjects_nextToken :: Lens.Lens' ListProjects (Prelude.Maybe Prelude.Text)
-listProjects_nextToken = Lens.lens (\ListProjects' {nextToken} -> nextToken) (\s@ListProjects' {} a -> s {nextToken = a} :: ListProjects)
 
 -- | The maximum amount of data that can be contained in a single set of
 -- results.
 listProjects_maxResults :: Lens.Lens' ListProjects (Prelude.Maybe Prelude.Natural)
 listProjects_maxResults = Lens.lens (\ListProjects' {maxResults} -> maxResults) (\s@ListProjects' {} a -> s {maxResults = a} :: ListProjects)
+
+-- | The continuation token to be used to return the next set of results, if
+-- the results cannot be returned in one response.
+listProjects_nextToken :: Lens.Lens' ListProjects (Prelude.Maybe Prelude.Text)
+listProjects_nextToken = Lens.lens (\ListProjects' {nextToken} -> nextToken) (\s@ListProjects' {} a -> s {nextToken = a} :: ListProjects)
 
 instance Core.AWSPager ListProjects where
   page rq rs
@@ -111,54 +112,55 @@ instance Core.AWSPager ListProjects where
 
 instance Core.AWSRequest ListProjects where
   type AWSResponse ListProjects = ListProjectsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListProjectsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "projects" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "projects" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListProjects where
   hashWithSalt _salt ListProjects' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListProjects where
   rnf ListProjects' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListProjects where
+instance Data.ToHeaders ListProjects where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeStar_20170419.ListProjects" ::
+              Data.=# ( "CodeStar_20170419.ListProjects" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListProjects where
+instance Data.ToJSON ListProjects where
   toJSON ListProjects' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListProjects where
+instance Data.ToPath ListProjects where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListProjects where
+instance Data.ToQuery ListProjects where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListProjectsResponse' smart constructor.

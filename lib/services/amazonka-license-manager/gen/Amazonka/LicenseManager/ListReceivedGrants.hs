@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.ListReceivedGrants
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,9 @@ module Amazonka.LicenseManager.ListReceivedGrants
 
     -- * Request Lenses
     listReceivedGrants_filters,
-    listReceivedGrants_nextToken,
     listReceivedGrants_grantArns,
     listReceivedGrants_maxResults,
+    listReceivedGrants_nextToken,
 
     -- * Destructuring the Response
     ListReceivedGrantsResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.LicenseManager.ListReceivedGrants
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -64,12 +65,12 @@ data ListReceivedGrants = ListReceivedGrants'
     --
     -- -   @GranterAccountId@
     filters :: Prelude.Maybe [Filter],
-    -- | Token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Amazon Resource Names (ARNs) of the grants.
     grantArns :: Prelude.Maybe [Prelude.Text],
     -- | Maximum number of results to return in a single call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -93,19 +94,19 @@ data ListReceivedGrants = ListReceivedGrants'
 --
 -- -   @GranterAccountId@
 --
--- 'nextToken', 'listReceivedGrants_nextToken' - Token for the next set of results.
---
 -- 'grantArns', 'listReceivedGrants_grantArns' - Amazon Resource Names (ARNs) of the grants.
 --
 -- 'maxResults', 'listReceivedGrants_maxResults' - Maximum number of results to return in a single call.
+--
+-- 'nextToken', 'listReceivedGrants_nextToken' - Token for the next set of results.
 newListReceivedGrants ::
   ListReceivedGrants
 newListReceivedGrants =
   ListReceivedGrants'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       grantArns = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | Filters to scope the results. The following filters are supported:
@@ -122,10 +123,6 @@ newListReceivedGrants =
 listReceivedGrants_filters :: Lens.Lens' ListReceivedGrants (Prelude.Maybe [Filter])
 listReceivedGrants_filters = Lens.lens (\ListReceivedGrants' {filters} -> filters) (\s@ListReceivedGrants' {} a -> s {filters = a} :: ListReceivedGrants) Prelude.. Lens.mapping Lens.coerced
 
--- | Token for the next set of results.
-listReceivedGrants_nextToken :: Lens.Lens' ListReceivedGrants (Prelude.Maybe Prelude.Text)
-listReceivedGrants_nextToken = Lens.lens (\ListReceivedGrants' {nextToken} -> nextToken) (\s@ListReceivedGrants' {} a -> s {nextToken = a} :: ListReceivedGrants)
-
 -- | Amazon Resource Names (ARNs) of the grants.
 listReceivedGrants_grantArns :: Lens.Lens' ListReceivedGrants (Prelude.Maybe [Prelude.Text])
 listReceivedGrants_grantArns = Lens.lens (\ListReceivedGrants' {grantArns} -> grantArns) (\s@ListReceivedGrants' {} a -> s {grantArns = a} :: ListReceivedGrants) Prelude.. Lens.mapping Lens.coerced
@@ -134,64 +131,69 @@ listReceivedGrants_grantArns = Lens.lens (\ListReceivedGrants' {grantArns} -> gr
 listReceivedGrants_maxResults :: Lens.Lens' ListReceivedGrants (Prelude.Maybe Prelude.Natural)
 listReceivedGrants_maxResults = Lens.lens (\ListReceivedGrants' {maxResults} -> maxResults) (\s@ListReceivedGrants' {} a -> s {maxResults = a} :: ListReceivedGrants)
 
+-- | Token for the next set of results.
+listReceivedGrants_nextToken :: Lens.Lens' ListReceivedGrants (Prelude.Maybe Prelude.Text)
+listReceivedGrants_nextToken = Lens.lens (\ListReceivedGrants' {nextToken} -> nextToken) (\s@ListReceivedGrants' {} a -> s {nextToken = a} :: ListReceivedGrants)
+
 instance Core.AWSRequest ListReceivedGrants where
   type
     AWSResponse ListReceivedGrants =
       ListReceivedGrantsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListReceivedGrantsResponse'
-            Prelude.<$> (x Core..?> "Grants" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Grants" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListReceivedGrants where
   hashWithSalt _salt ListReceivedGrants' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` grantArns
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListReceivedGrants where
   rnf ListReceivedGrants' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf grantArns
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListReceivedGrants where
+instance Data.ToHeaders ListReceivedGrants where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLicenseManager.ListReceivedGrants" ::
+              Data.=# ( "AWSLicenseManager.ListReceivedGrants" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListReceivedGrants where
+instance Data.ToJSON ListReceivedGrants where
   toJSON ListReceivedGrants' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("GrantArns" Core..=) Prelude.<$> grantArns,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("GrantArns" Data..=) Prelude.<$> grantArns,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListReceivedGrants where
+instance Data.ToPath ListReceivedGrants where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListReceivedGrants where
+instance Data.ToQuery ListReceivedGrants where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListReceivedGrantsResponse' smart constructor.

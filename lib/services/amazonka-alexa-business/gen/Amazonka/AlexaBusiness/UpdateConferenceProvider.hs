@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.UpdateConferenceProvider
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.AlexaBusiness.UpdateConferenceProvider
     newUpdateConferenceProvider,
 
     -- * Request Lenses
-    updateConferenceProvider_pSTNDialIn,
     updateConferenceProvider_iPDialIn,
+    updateConferenceProvider_pSTNDialIn,
     updateConferenceProvider_conferenceProviderArn,
     updateConferenceProvider_conferenceProviderType,
     updateConferenceProvider_meetingSetting,
@@ -44,17 +44,18 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateConferenceProvider' smart constructor.
 data UpdateConferenceProvider = UpdateConferenceProvider'
-  { -- | The information for PSTN conferencing.
-    pSTNDialIn :: Prelude.Maybe PSTNDialIn,
-    -- | The IP endpoint and protocol for calling.
+  { -- | The IP endpoint and protocol for calling.
     iPDialIn :: Prelude.Maybe IPDialIn,
+    -- | The information for PSTN conferencing.
+    pSTNDialIn :: Prelude.Maybe PSTNDialIn,
     -- | The ARN of the conference provider.
     conferenceProviderArn :: Prelude.Text,
     -- | The type of the conference provider.
@@ -72,9 +73,9 @@ data UpdateConferenceProvider = UpdateConferenceProvider'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'pSTNDialIn', 'updateConferenceProvider_pSTNDialIn' - The information for PSTN conferencing.
---
 -- 'iPDialIn', 'updateConferenceProvider_iPDialIn' - The IP endpoint and protocol for calling.
+--
+-- 'pSTNDialIn', 'updateConferenceProvider_pSTNDialIn' - The information for PSTN conferencing.
 --
 -- 'conferenceProviderArn', 'updateConferenceProvider_conferenceProviderArn' - The ARN of the conference provider.
 --
@@ -94,21 +95,21 @@ newUpdateConferenceProvider
   pConferenceProviderType_
   pMeetingSetting_ =
     UpdateConferenceProvider'
-      { pSTNDialIn =
+      { iPDialIn =
           Prelude.Nothing,
-        iPDialIn = Prelude.Nothing,
+        pSTNDialIn = Prelude.Nothing,
         conferenceProviderArn = pConferenceProviderArn_,
         conferenceProviderType = pConferenceProviderType_,
         meetingSetting = pMeetingSetting_
       }
 
--- | The information for PSTN conferencing.
-updateConferenceProvider_pSTNDialIn :: Lens.Lens' UpdateConferenceProvider (Prelude.Maybe PSTNDialIn)
-updateConferenceProvider_pSTNDialIn = Lens.lens (\UpdateConferenceProvider' {pSTNDialIn} -> pSTNDialIn) (\s@UpdateConferenceProvider' {} a -> s {pSTNDialIn = a} :: UpdateConferenceProvider)
-
 -- | The IP endpoint and protocol for calling.
 updateConferenceProvider_iPDialIn :: Lens.Lens' UpdateConferenceProvider (Prelude.Maybe IPDialIn)
 updateConferenceProvider_iPDialIn = Lens.lens (\UpdateConferenceProvider' {iPDialIn} -> iPDialIn) (\s@UpdateConferenceProvider' {} a -> s {iPDialIn = a} :: UpdateConferenceProvider)
+
+-- | The information for PSTN conferencing.
+updateConferenceProvider_pSTNDialIn :: Lens.Lens' UpdateConferenceProvider (Prelude.Maybe PSTNDialIn)
+updateConferenceProvider_pSTNDialIn = Lens.lens (\UpdateConferenceProvider' {pSTNDialIn} -> pSTNDialIn) (\s@UpdateConferenceProvider' {} a -> s {pSTNDialIn = a} :: UpdateConferenceProvider)
 
 -- | The ARN of the conference provider.
 updateConferenceProvider_conferenceProviderArn :: Lens.Lens' UpdateConferenceProvider Prelude.Text
@@ -126,7 +127,8 @@ instance Core.AWSRequest UpdateConferenceProvider where
   type
     AWSResponse UpdateConferenceProvider =
       UpdateConferenceProviderResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -136,58 +138,58 @@ instance Core.AWSRequest UpdateConferenceProvider where
 
 instance Prelude.Hashable UpdateConferenceProvider where
   hashWithSalt _salt UpdateConferenceProvider' {..} =
-    _salt `Prelude.hashWithSalt` pSTNDialIn
-      `Prelude.hashWithSalt` iPDialIn
+    _salt `Prelude.hashWithSalt` iPDialIn
+      `Prelude.hashWithSalt` pSTNDialIn
       `Prelude.hashWithSalt` conferenceProviderArn
       `Prelude.hashWithSalt` conferenceProviderType
       `Prelude.hashWithSalt` meetingSetting
 
 instance Prelude.NFData UpdateConferenceProvider where
   rnf UpdateConferenceProvider' {..} =
-    Prelude.rnf pSTNDialIn
-      `Prelude.seq` Prelude.rnf iPDialIn
+    Prelude.rnf iPDialIn
+      `Prelude.seq` Prelude.rnf pSTNDialIn
       `Prelude.seq` Prelude.rnf conferenceProviderArn
       `Prelude.seq` Prelude.rnf conferenceProviderType
       `Prelude.seq` Prelude.rnf meetingSetting
 
-instance Core.ToHeaders UpdateConferenceProvider where
+instance Data.ToHeaders UpdateConferenceProvider where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.UpdateConferenceProvider" ::
+              Data.=# ( "AlexaForBusiness.UpdateConferenceProvider" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateConferenceProvider where
+instance Data.ToJSON UpdateConferenceProvider where
   toJSON UpdateConferenceProvider' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PSTNDialIn" Core..=) Prelude.<$> pSTNDialIn,
-            ("IPDialIn" Core..=) Prelude.<$> iPDialIn,
+          [ ("IPDialIn" Data..=) Prelude.<$> iPDialIn,
+            ("PSTNDialIn" Data..=) Prelude.<$> pSTNDialIn,
             Prelude.Just
               ( "ConferenceProviderArn"
-                  Core..= conferenceProviderArn
+                  Data..= conferenceProviderArn
               ),
             Prelude.Just
               ( "ConferenceProviderType"
-                  Core..= conferenceProviderType
+                  Data..= conferenceProviderType
               ),
             Prelude.Just
-              ("MeetingSetting" Core..= meetingSetting)
+              ("MeetingSetting" Data..= meetingSetting)
           ]
       )
 
-instance Core.ToPath UpdateConferenceProvider where
+instance Data.ToPath UpdateConferenceProvider where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateConferenceProvider where
+instance Data.ToQuery UpdateConferenceProvider where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateConferenceProviderResponse' smart constructor.

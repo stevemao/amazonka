@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.Types.MountPoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,25 +20,26 @@
 module Amazonka.Batch.Types.MountPoint where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Details on a Docker volume mount point that\'s used in a job\'s
+-- | Details for a Docker volume mount point that\'s used in a job\'s
 -- container properties. This parameter maps to @Volumes@ in the
 -- <https://docs.docker.com/engine/reference/api/docker_remote_api_v1.19/#create-a-container Create a container>
--- section of the Docker Remote API and the @--volume@ option to docker
+-- section of the /Docker Remote API/ and the @--volume@ option to docker
 -- run.
 --
 -- /See:/ 'newMountPoint' smart constructor.
 data MountPoint = MountPoint'
   { -- | The path on the container where the host volume is mounted.
     containerPath :: Prelude.Maybe Prelude.Text,
-    -- | The name of the volume to mount.
-    sourceVolume :: Prelude.Maybe Prelude.Text,
     -- | If this value is @true@, the container has read-only access to the
     -- volume. Otherwise, the container can write to the volume. The default
     -- value is @false@.
-    readOnly :: Prelude.Maybe Prelude.Bool
+    readOnly :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the volume to mount.
+    sourceVolume :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,27 +53,23 @@ data MountPoint = MountPoint'
 --
 -- 'containerPath', 'mountPoint_containerPath' - The path on the container where the host volume is mounted.
 --
--- 'sourceVolume', 'mountPoint_sourceVolume' - The name of the volume to mount.
---
 -- 'readOnly', 'mountPoint_readOnly' - If this value is @true@, the container has read-only access to the
 -- volume. Otherwise, the container can write to the volume. The default
 -- value is @false@.
+--
+-- 'sourceVolume', 'mountPoint_sourceVolume' - The name of the volume to mount.
 newMountPoint ::
   MountPoint
 newMountPoint =
   MountPoint'
     { containerPath = Prelude.Nothing,
-      sourceVolume = Prelude.Nothing,
-      readOnly = Prelude.Nothing
+      readOnly = Prelude.Nothing,
+      sourceVolume = Prelude.Nothing
     }
 
 -- | The path on the container where the host volume is mounted.
 mountPoint_containerPath :: Lens.Lens' MountPoint (Prelude.Maybe Prelude.Text)
 mountPoint_containerPath = Lens.lens (\MountPoint' {containerPath} -> containerPath) (\s@MountPoint' {} a -> s {containerPath = a} :: MountPoint)
-
--- | The name of the volume to mount.
-mountPoint_sourceVolume :: Lens.Lens' MountPoint (Prelude.Maybe Prelude.Text)
-mountPoint_sourceVolume = Lens.lens (\MountPoint' {sourceVolume} -> sourceVolume) (\s@MountPoint' {} a -> s {sourceVolume = a} :: MountPoint)
 
 -- | If this value is @true@, the container has read-only access to the
 -- volume. Otherwise, the container can write to the volume. The default
@@ -80,35 +77,39 @@ mountPoint_sourceVolume = Lens.lens (\MountPoint' {sourceVolume} -> sourceVolume
 mountPoint_readOnly :: Lens.Lens' MountPoint (Prelude.Maybe Prelude.Bool)
 mountPoint_readOnly = Lens.lens (\MountPoint' {readOnly} -> readOnly) (\s@MountPoint' {} a -> s {readOnly = a} :: MountPoint)
 
-instance Core.FromJSON MountPoint where
+-- | The name of the volume to mount.
+mountPoint_sourceVolume :: Lens.Lens' MountPoint (Prelude.Maybe Prelude.Text)
+mountPoint_sourceVolume = Lens.lens (\MountPoint' {sourceVolume} -> sourceVolume) (\s@MountPoint' {} a -> s {sourceVolume = a} :: MountPoint)
+
+instance Data.FromJSON MountPoint where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MountPoint"
       ( \x ->
           MountPoint'
-            Prelude.<$> (x Core..:? "containerPath")
-            Prelude.<*> (x Core..:? "sourceVolume")
-            Prelude.<*> (x Core..:? "readOnly")
+            Prelude.<$> (x Data..:? "containerPath")
+            Prelude.<*> (x Data..:? "readOnly")
+            Prelude.<*> (x Data..:? "sourceVolume")
       )
 
 instance Prelude.Hashable MountPoint where
   hashWithSalt _salt MountPoint' {..} =
     _salt `Prelude.hashWithSalt` containerPath
-      `Prelude.hashWithSalt` sourceVolume
       `Prelude.hashWithSalt` readOnly
+      `Prelude.hashWithSalt` sourceVolume
 
 instance Prelude.NFData MountPoint where
   rnf MountPoint' {..} =
     Prelude.rnf containerPath
-      `Prelude.seq` Prelude.rnf sourceVolume
       `Prelude.seq` Prelude.rnf readOnly
+      `Prelude.seq` Prelude.rnf sourceVolume
 
-instance Core.ToJSON MountPoint where
+instance Data.ToJSON MountPoint where
   toJSON MountPoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("containerPath" Core..=) Prelude.<$> containerPath,
-            ("sourceVolume" Core..=) Prelude.<$> sourceVolume,
-            ("readOnly" Core..=) Prelude.<$> readOnly
+          [ ("containerPath" Data..=) Prelude.<$> containerPath,
+            ("readOnly" Data..=) Prelude.<$> readOnly,
+            ("sourceVolume" Data..=) Prelude.<$> sourceVolume
           ]
       )

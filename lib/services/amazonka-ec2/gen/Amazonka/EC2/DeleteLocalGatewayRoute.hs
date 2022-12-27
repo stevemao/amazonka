@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteLocalGatewayRoute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.EC2.DeleteLocalGatewayRoute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,12 +118,13 @@ instance Core.AWSRequest DeleteLocalGatewayRoute where
   type
     AWSResponse DeleteLocalGatewayRoute =
       DeleteLocalGatewayRouteResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DeleteLocalGatewayRouteResponse'
-            Prelude.<$> (x Core..@? "route")
+            Prelude.<$> (x Data..@? "route")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -138,23 +140,23 @@ instance Prelude.NFData DeleteLocalGatewayRoute where
       `Prelude.seq` Prelude.rnf destinationCidrBlock
       `Prelude.seq` Prelude.rnf localGatewayRouteTableId
 
-instance Core.ToHeaders DeleteLocalGatewayRoute where
+instance Data.ToHeaders DeleteLocalGatewayRoute where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteLocalGatewayRoute where
+instance Data.ToPath DeleteLocalGatewayRoute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteLocalGatewayRoute where
+instance Data.ToQuery DeleteLocalGatewayRoute where
   toQuery DeleteLocalGatewayRoute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteLocalGatewayRoute" :: Prelude.ByteString),
+          Data.=: ("DeleteLocalGatewayRoute" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "DestinationCidrBlock" Core.=: destinationCidrBlock,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "DestinationCidrBlock" Data.=: destinationCidrBlock,
         "LocalGatewayRouteTableId"
-          Core.=: localGatewayRouteTableId
+          Data.=: localGatewayRouteTableId
       ]
 
 -- | /See:/ 'newDeleteLocalGatewayRouteResponse' smart constructor.

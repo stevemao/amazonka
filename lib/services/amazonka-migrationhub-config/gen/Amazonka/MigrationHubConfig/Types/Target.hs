@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MigrationHubConfig.Types.Target
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MigrationHubConfig.Types.Target where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MigrationHubConfig.Types.TargetType
 import qualified Amazonka.Prelude as Prelude
 
@@ -66,13 +67,13 @@ target_id = Lens.lens (\Target' {id} -> id) (\s@Target' {} a -> s {id = a} :: Ta
 target_type :: Lens.Lens' Target TargetType
 target_type = Lens.lens (\Target' {type'} -> type') (\s@Target' {} a -> s {type' = a} :: Target)
 
-instance Core.FromJSON Target where
+instance Data.FromJSON Target where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Target"
       ( \x ->
           Target'
-            Prelude.<$> (x Core..:? "Id") Prelude.<*> (x Core..: "Type")
+            Prelude.<$> (x Data..:? "Id") Prelude.<*> (x Data..: "Type")
       )
 
 instance Prelude.Hashable Target where
@@ -84,11 +85,11 @@ instance Prelude.NFData Target where
   rnf Target' {..} =
     Prelude.rnf id `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON Target where
+instance Data.ToJSON Target where
   toJSON Target' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Id" Core..=) Prelude.<$> id,
-            Prelude.Just ("Type" Core..= type')
+          [ ("Id" Data..=) Prelude.<$> id,
+            Prelude.Just ("Type" Data..= type')
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.Types.ConnectorConfigRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EKS.Types.ConnectorConfigRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types.ConnectorConfigProvider
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration sent to a cluster for configuration.
@@ -79,11 +80,11 @@ instance Prelude.NFData ConnectorConfigRequest where
     Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf provider
 
-instance Core.ToJSON ConnectorConfigRequest where
+instance Data.ToJSON ConnectorConfigRequest where
   toJSON ConnectorConfigRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("roleArn" Core..= roleArn),
-            Prelude.Just ("provider" Core..= provider)
+          [ Prelude.Just ("roleArn" Data..= roleArn),
+            Prelude.Just ("provider" Data..= provider)
           ]
       )

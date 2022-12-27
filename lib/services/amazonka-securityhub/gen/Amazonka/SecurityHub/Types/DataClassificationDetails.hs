@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.DataClassificationDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.DataClassificationDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.ClassificationResult
 
@@ -63,14 +64,14 @@ dataClassificationDetails_detailedResultsLocation = Lens.lens (\DataClassificati
 dataClassificationDetails_result :: Lens.Lens' DataClassificationDetails (Prelude.Maybe ClassificationResult)
 dataClassificationDetails_result = Lens.lens (\DataClassificationDetails' {result} -> result) (\s@DataClassificationDetails' {} a -> s {result = a} :: DataClassificationDetails)
 
-instance Core.FromJSON DataClassificationDetails where
+instance Data.FromJSON DataClassificationDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataClassificationDetails"
       ( \x ->
           DataClassificationDetails'
-            Prelude.<$> (x Core..:? "DetailedResultsLocation")
-            Prelude.<*> (x Core..:? "Result")
+            Prelude.<$> (x Data..:? "DetailedResultsLocation")
+            Prelude.<*> (x Data..:? "Result")
       )
 
 instance Prelude.Hashable DataClassificationDetails where
@@ -84,12 +85,12 @@ instance Prelude.NFData DataClassificationDetails where
     Prelude.rnf detailedResultsLocation
       `Prelude.seq` Prelude.rnf result
 
-instance Core.ToJSON DataClassificationDetails where
+instance Data.ToJSON DataClassificationDetails where
   toJSON DataClassificationDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DetailedResultsLocation" Core..=)
+          [ ("DetailedResultsLocation" Data..=)
               Prelude.<$> detailedResultsLocation,
-            ("Result" Core..=) Prelude.<$> result
+            ("Result" Data..=) Prelude.<$> result
           ]
       )

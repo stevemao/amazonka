@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeImages
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,12 +38,12 @@ module Amazonka.EC2.DescribeImages
     newDescribeImages,
 
     -- * Request Lenses
-    describeImages_owners,
+    describeImages_dryRun,
     describeImages_executableUsers,
     describeImages_filters,
     describeImages_imageIds,
     describeImages_includeDeprecated,
-    describeImages_dryRun,
+    describeImages_owners,
 
     -- * Destructuring the Response
     DescribeImagesResponse (..),
@@ -56,22 +56,35 @@ module Amazonka.EC2.DescribeImages
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeImages' smart constructor.
 data DescribeImages = DescribeImages'
-  { -- | Scopes the results to images with the specified owners. You can specify
-    -- a combination of Amazon Web Services account IDs, @self@, @amazon@, and
-    -- @aws-marketplace@. If you omit this parameter, the results include all
-    -- images for which you have launch permissions, regardless of ownership.
-    owners :: Prelude.Maybe [Prelude.Text],
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | Scopes the images by users with explicit launch permissions. Specify an
     -- Amazon Web Services account ID, @self@ (the sender of the request), or
     -- @all@ (public AMIs).
+    --
+    -- -   If you specify an Amazon Web Services account ID that is not your
+    --     own, only AMIs shared with that specific Amazon Web Services account
+    --     ID are returned. However, AMIs that are shared with the account’s
+    --     organization or organizational unit (OU) are not returned.
+    --
+    -- -   If you specify @self@ or your own Amazon Web Services account ID,
+    --     AMIs shared with your account are returned. In addition, AMIs that
+    --     are shared with the organization or OU of which you are member are
+    --     also returned.
+    --
+    -- -   If you specify @all@, all public AMIs are returned.
     executableUsers :: Prelude.Maybe [Prelude.Text],
     -- | The filters.
     --
@@ -97,6 +110,11 @@ data DescribeImages = DescribeImages'
     --
     -- -   @block-device-mapping.encrypted@ - A Boolean that indicates whether
     --     the Amazon EBS volume is encrypted.
+    --
+    -- -   @creation-date@ - The time when the image was created, in the ISO
+    --     8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), for
+    --     example, @2021-09-29T11:04:43.305Z@. You can use a wildcard (@*@),
+    --     for example, @2021-09-29T*@, which matches an entire day.
     --
     -- -   @description@ - The description of the image (provided during image
     --     creation).
@@ -128,8 +146,7 @@ data DescribeImages = DescribeImages'
     --     recommend that you use the __Owner__ request parameter instead of
     --     this filter.
     --
-    -- -   @platform@ - The platform. To only list Windows-based AMIs, use
-    --     @windows@.
+    -- -   @platform@ - The platform. The only supported value is @windows@.
     --
     -- -   @product-code@ - The product code.
     --
@@ -170,19 +187,18 @@ data DescribeImages = DescribeImages'
     --
     -- Default: Describes all images available to you.
     imageIds :: Prelude.Maybe [Prelude.Text],
-    -- | If @true@, all deprecated AMIs are included in the response. If @false@,
-    -- no deprecated AMIs are included in the response. If no value is
-    -- specified, the default value is @false@.
+    -- | Specifies whether to include deprecated AMIs.
+    --
+    -- Default: No deprecated AMIs are included in the response.
     --
     -- If you are the AMI owner, all deprecated AMIs appear in the response
-    -- regardless of the value (@true@ or @false@) that you set for this
-    -- parameter.
+    -- regardless of what you specify for this parameter.
     includeDeprecated :: Prelude.Maybe Prelude.Bool,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool
+    -- | Scopes the results to images with the specified owners. You can specify
+    -- a combination of Amazon Web Services account IDs, @self@, @amazon@, and
+    -- @aws-marketplace@. If you omit this parameter, the results include all
+    -- images for which you have launch permissions, regardless of ownership.
+    owners :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -194,14 +210,26 @@ data DescribeImages = DescribeImages'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'owners', 'describeImages_owners' - Scopes the results to images with the specified owners. You can specify
--- a combination of Amazon Web Services account IDs, @self@, @amazon@, and
--- @aws-marketplace@. If you omit this parameter, the results include all
--- images for which you have launch permissions, regardless of ownership.
+-- 'dryRun', 'describeImages_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'executableUsers', 'describeImages_executableUsers' - Scopes the images by users with explicit launch permissions. Specify an
 -- Amazon Web Services account ID, @self@ (the sender of the request), or
 -- @all@ (public AMIs).
+--
+-- -   If you specify an Amazon Web Services account ID that is not your
+--     own, only AMIs shared with that specific Amazon Web Services account
+--     ID are returned. However, AMIs that are shared with the account’s
+--     organization or organizational unit (OU) are not returned.
+--
+-- -   If you specify @self@ or your own Amazon Web Services account ID,
+--     AMIs shared with your account are returned. In addition, AMIs that
+--     are shared with the organization or OU of which you are member are
+--     also returned.
+--
+-- -   If you specify @all@, all public AMIs are returned.
 --
 -- 'filters', 'describeImages_filters' - The filters.
 --
@@ -227,6 +255,11 @@ data DescribeImages = DescribeImages'
 --
 -- -   @block-device-mapping.encrypted@ - A Boolean that indicates whether
 --     the Amazon EBS volume is encrypted.
+--
+-- -   @creation-date@ - The time when the image was created, in the ISO
+--     8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), for
+--     example, @2021-09-29T11:04:43.305Z@. You can use a wildcard (@*@),
+--     for example, @2021-09-29T*@, which matches an entire day.
 --
 -- -   @description@ - The description of the image (provided during image
 --     creation).
@@ -258,8 +291,7 @@ data DescribeImages = DescribeImages'
 --     recommend that you use the __Owner__ request parameter instead of
 --     this filter.
 --
--- -   @platform@ - The platform. To only list Windows-based AMIs, use
---     @windows@.
+-- -   @platform@ - The platform. The only supported value is @windows@.
 --
 -- -   @product-code@ - The product code.
 --
@@ -300,40 +332,51 @@ data DescribeImages = DescribeImages'
 --
 -- Default: Describes all images available to you.
 --
--- 'includeDeprecated', 'describeImages_includeDeprecated' - If @true@, all deprecated AMIs are included in the response. If @false@,
--- no deprecated AMIs are included in the response. If no value is
--- specified, the default value is @false@.
+-- 'includeDeprecated', 'describeImages_includeDeprecated' - Specifies whether to include deprecated AMIs.
+--
+-- Default: No deprecated AMIs are included in the response.
 --
 -- If you are the AMI owner, all deprecated AMIs appear in the response
--- regardless of the value (@true@ or @false@) that you set for this
--- parameter.
+-- regardless of what you specify for this parameter.
 --
--- 'dryRun', 'describeImages_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
+-- 'owners', 'describeImages_owners' - Scopes the results to images with the specified owners. You can specify
+-- a combination of Amazon Web Services account IDs, @self@, @amazon@, and
+-- @aws-marketplace@. If you omit this parameter, the results include all
+-- images for which you have launch permissions, regardless of ownership.
 newDescribeImages ::
   DescribeImages
 newDescribeImages =
   DescribeImages'
-    { owners = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
       executableUsers = Prelude.Nothing,
       filters = Prelude.Nothing,
       imageIds = Prelude.Nothing,
       includeDeprecated = Prelude.Nothing,
-      dryRun = Prelude.Nothing
+      owners = Prelude.Nothing
     }
 
--- | Scopes the results to images with the specified owners. You can specify
--- a combination of Amazon Web Services account IDs, @self@, @amazon@, and
--- @aws-marketplace@. If you omit this parameter, the results include all
--- images for which you have launch permissions, regardless of ownership.
-describeImages_owners :: Lens.Lens' DescribeImages (Prelude.Maybe [Prelude.Text])
-describeImages_owners = Lens.lens (\DescribeImages' {owners} -> owners) (\s@DescribeImages' {} a -> s {owners = a} :: DescribeImages) Prelude.. Lens.mapping Lens.coerced
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeImages_dryRun :: Lens.Lens' DescribeImages (Prelude.Maybe Prelude.Bool)
+describeImages_dryRun = Lens.lens (\DescribeImages' {dryRun} -> dryRun) (\s@DescribeImages' {} a -> s {dryRun = a} :: DescribeImages)
 
 -- | Scopes the images by users with explicit launch permissions. Specify an
 -- Amazon Web Services account ID, @self@ (the sender of the request), or
 -- @all@ (public AMIs).
+--
+-- -   If you specify an Amazon Web Services account ID that is not your
+--     own, only AMIs shared with that specific Amazon Web Services account
+--     ID are returned. However, AMIs that are shared with the account’s
+--     organization or organizational unit (OU) are not returned.
+--
+-- -   If you specify @self@ or your own Amazon Web Services account ID,
+--     AMIs shared with your account are returned. In addition, AMIs that
+--     are shared with the organization or OU of which you are member are
+--     also returned.
+--
+-- -   If you specify @all@, all public AMIs are returned.
 describeImages_executableUsers :: Lens.Lens' DescribeImages (Prelude.Maybe [Prelude.Text])
 describeImages_executableUsers = Lens.lens (\DescribeImages' {executableUsers} -> executableUsers) (\s@DescribeImages' {} a -> s {executableUsers = a} :: DescribeImages) Prelude.. Lens.mapping Lens.coerced
 
@@ -361,6 +404,11 @@ describeImages_executableUsers = Lens.lens (\DescribeImages' {executableUsers} -
 --
 -- -   @block-device-mapping.encrypted@ - A Boolean that indicates whether
 --     the Amazon EBS volume is encrypted.
+--
+-- -   @creation-date@ - The time when the image was created, in the ISO
+--     8601 format in the UTC time zone (YYYY-MM-DDThh:mm:ss.sssZ), for
+--     example, @2021-09-29T11:04:43.305Z@. You can use a wildcard (@*@),
+--     for example, @2021-09-29T*@, which matches an entire day.
 --
 -- -   @description@ - The description of the image (provided during image
 --     creation).
@@ -392,8 +440,7 @@ describeImages_executableUsers = Lens.lens (\DescribeImages' {executableUsers} -
 --     recommend that you use the __Owner__ request parameter instead of
 --     this filter.
 --
--- -   @platform@ - The platform. To only list Windows-based AMIs, use
---     @windows@.
+-- -   @platform@ - The platform. The only supported value is @windows@.
 --
 -- -   @product-code@ - The product code.
 --
@@ -438,81 +485,81 @@ describeImages_filters = Lens.lens (\DescribeImages' {filters} -> filters) (\s@D
 describeImages_imageIds :: Lens.Lens' DescribeImages (Prelude.Maybe [Prelude.Text])
 describeImages_imageIds = Lens.lens (\DescribeImages' {imageIds} -> imageIds) (\s@DescribeImages' {} a -> s {imageIds = a} :: DescribeImages) Prelude.. Lens.mapping Lens.coerced
 
--- | If @true@, all deprecated AMIs are included in the response. If @false@,
--- no deprecated AMIs are included in the response. If no value is
--- specified, the default value is @false@.
+-- | Specifies whether to include deprecated AMIs.
+--
+-- Default: No deprecated AMIs are included in the response.
 --
 -- If you are the AMI owner, all deprecated AMIs appear in the response
--- regardless of the value (@true@ or @false@) that you set for this
--- parameter.
+-- regardless of what you specify for this parameter.
 describeImages_includeDeprecated :: Lens.Lens' DescribeImages (Prelude.Maybe Prelude.Bool)
 describeImages_includeDeprecated = Lens.lens (\DescribeImages' {includeDeprecated} -> includeDeprecated) (\s@DescribeImages' {} a -> s {includeDeprecated = a} :: DescribeImages)
 
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeImages_dryRun :: Lens.Lens' DescribeImages (Prelude.Maybe Prelude.Bool)
-describeImages_dryRun = Lens.lens (\DescribeImages' {dryRun} -> dryRun) (\s@DescribeImages' {} a -> s {dryRun = a} :: DescribeImages)
+-- | Scopes the results to images with the specified owners. You can specify
+-- a combination of Amazon Web Services account IDs, @self@, @amazon@, and
+-- @aws-marketplace@. If you omit this parameter, the results include all
+-- images for which you have launch permissions, regardless of ownership.
+describeImages_owners :: Lens.Lens' DescribeImages (Prelude.Maybe [Prelude.Text])
+describeImages_owners = Lens.lens (\DescribeImages' {owners} -> owners) (\s@DescribeImages' {} a -> s {owners = a} :: DescribeImages) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSRequest DescribeImages where
   type
     AWSResponse DescribeImages =
       DescribeImagesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeImagesResponse'
-            Prelude.<$> ( x Core..@? "imagesSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "imagesSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeImages where
   hashWithSalt _salt DescribeImages' {..} =
-    _salt `Prelude.hashWithSalt` owners
+    _salt `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` executableUsers
       `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` imageIds
       `Prelude.hashWithSalt` includeDeprecated
-      `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` owners
 
 instance Prelude.NFData DescribeImages where
   rnf DescribeImages' {..} =
-    Prelude.rnf owners
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf executableUsers
       `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf imageIds
       `Prelude.seq` Prelude.rnf includeDeprecated
-      `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf owners
 
-instance Core.ToHeaders DescribeImages where
+instance Data.ToHeaders DescribeImages where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeImages where
+instance Data.ToPath DescribeImages where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeImages where
+instance Data.ToQuery DescribeImages where
   toQuery DescribeImages' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeImages" :: Prelude.ByteString),
+          Data.=: ("DescribeImages" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Owner" Prelude.<$> owners),
-        Core.toQuery
-          ( Core.toQueryList "ExecutableBy"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          ( Data.toQueryList "ExecutableBy"
               Prelude.<$> executableUsers
           ),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        Core.toQuery
-          (Core.toQueryList "ImageId" Prelude.<$> imageIds),
-        "IncludeDeprecated" Core.=: includeDeprecated,
-        "DryRun" Core.=: dryRun
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        Data.toQuery
+          (Data.toQueryList "ImageId" Prelude.<$> imageIds),
+        "IncludeDeprecated" Data.=: includeDeprecated,
+        Data.toQuery
+          (Data.toQueryList "Owner" Prelude.<$> owners)
       ]
 
 -- | /See:/ 'newDescribeImagesResponse' smart constructor.

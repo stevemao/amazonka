@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.Types.CachingConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,22 +20,23 @@
 module Amazonka.AppSync.Types.CachingConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The caching configuration for a resolver that has caching enabled.
+-- | The caching configuration for a resolver that has caching activated.
 --
 -- /See:/ 'newCachingConfig' smart constructor.
 data CachingConfig = CachingConfig'
-  { -- | The TTL in seconds for a resolver that has caching enabled.
-    --
-    -- Valid values are between 1 and 3600 seconds.
-    ttl :: Prelude.Maybe Prelude.Integer,
-    -- | The caching keys for a resolver that has caching enabled.
+  { -- | The caching keys for a resolver that has caching activated.
     --
     -- Valid values are entries from the @$context.arguments@,
     -- @$context.source@, and @$context.identity@ maps.
-    cachingKeys :: Prelude.Maybe [Prelude.Text]
+    cachingKeys :: Prelude.Maybe [Prelude.Text],
+    -- | The TTL in seconds for a resolver that has caching activated.
+    --
+    -- Valid values are 1–3,600 seconds.
+    ttl :: Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,60 +48,62 @@ data CachingConfig = CachingConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ttl', 'cachingConfig_ttl' - The TTL in seconds for a resolver that has caching enabled.
---
--- Valid values are between 1 and 3600 seconds.
---
--- 'cachingKeys', 'cachingConfig_cachingKeys' - The caching keys for a resolver that has caching enabled.
+-- 'cachingKeys', 'cachingConfig_cachingKeys' - The caching keys for a resolver that has caching activated.
 --
 -- Valid values are entries from the @$context.arguments@,
 -- @$context.source@, and @$context.identity@ maps.
+--
+-- 'ttl', 'cachingConfig_ttl' - The TTL in seconds for a resolver that has caching activated.
+--
+-- Valid values are 1–3,600 seconds.
 newCachingConfig ::
+  -- | 'ttl'
+  Prelude.Integer ->
   CachingConfig
-newCachingConfig =
+newCachingConfig pTtl_ =
   CachingConfig'
-    { ttl = Prelude.Nothing,
-      cachingKeys = Prelude.Nothing
+    { cachingKeys = Prelude.Nothing,
+      ttl = pTtl_
     }
 
--- | The TTL in seconds for a resolver that has caching enabled.
---
--- Valid values are between 1 and 3600 seconds.
-cachingConfig_ttl :: Lens.Lens' CachingConfig (Prelude.Maybe Prelude.Integer)
-cachingConfig_ttl = Lens.lens (\CachingConfig' {ttl} -> ttl) (\s@CachingConfig' {} a -> s {ttl = a} :: CachingConfig)
-
--- | The caching keys for a resolver that has caching enabled.
+-- | The caching keys for a resolver that has caching activated.
 --
 -- Valid values are entries from the @$context.arguments@,
 -- @$context.source@, and @$context.identity@ maps.
 cachingConfig_cachingKeys :: Lens.Lens' CachingConfig (Prelude.Maybe [Prelude.Text])
 cachingConfig_cachingKeys = Lens.lens (\CachingConfig' {cachingKeys} -> cachingKeys) (\s@CachingConfig' {} a -> s {cachingKeys = a} :: CachingConfig) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON CachingConfig where
+-- | The TTL in seconds for a resolver that has caching activated.
+--
+-- Valid values are 1–3,600 seconds.
+cachingConfig_ttl :: Lens.Lens' CachingConfig Prelude.Integer
+cachingConfig_ttl = Lens.lens (\CachingConfig' {ttl} -> ttl) (\s@CachingConfig' {} a -> s {ttl = a} :: CachingConfig)
+
+instance Data.FromJSON CachingConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CachingConfig"
       ( \x ->
           CachingConfig'
-            Prelude.<$> (x Core..:? "ttl")
-            Prelude.<*> (x Core..:? "cachingKeys" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "cachingKeys" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "ttl")
       )
 
 instance Prelude.Hashable CachingConfig where
   hashWithSalt _salt CachingConfig' {..} =
-    _salt `Prelude.hashWithSalt` ttl
-      `Prelude.hashWithSalt` cachingKeys
+    _salt `Prelude.hashWithSalt` cachingKeys
+      `Prelude.hashWithSalt` ttl
 
 instance Prelude.NFData CachingConfig where
   rnf CachingConfig' {..} =
-    Prelude.rnf ttl
-      `Prelude.seq` Prelude.rnf cachingKeys
+    Prelude.rnf cachingKeys
+      `Prelude.seq` Prelude.rnf ttl
 
-instance Core.ToJSON CachingConfig where
+instance Data.ToJSON CachingConfig where
   toJSON CachingConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ttl" Core..=) Prelude.<$> ttl,
-            ("cachingKeys" Core..=) Prelude.<$> cachingKeys
+          [ ("cachingKeys" Data..=) Prelude.<$> cachingKeys,
+            Prelude.Just ("ttl" Data..= ttl)
           ]
       )

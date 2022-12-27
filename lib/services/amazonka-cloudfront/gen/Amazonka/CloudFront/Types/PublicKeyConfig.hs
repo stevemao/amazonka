@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.PublicKeyConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudFront.Types.PublicKeyConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration information about a public key that you can use with
@@ -106,13 +107,13 @@ publicKeyConfig_name = Lens.lens (\PublicKeyConfig' {name} -> name) (\s@PublicKe
 publicKeyConfig_encodedKey :: Lens.Lens' PublicKeyConfig Prelude.Text
 publicKeyConfig_encodedKey = Lens.lens (\PublicKeyConfig' {encodedKey} -> encodedKey) (\s@PublicKeyConfig' {} a -> s {encodedKey = a} :: PublicKeyConfig)
 
-instance Core.FromXML PublicKeyConfig where
+instance Data.FromXML PublicKeyConfig where
   parseXML x =
     PublicKeyConfig'
-      Prelude.<$> (x Core..@? "Comment")
-      Prelude.<*> (x Core..@ "CallerReference")
-      Prelude.<*> (x Core..@ "Name")
-      Prelude.<*> (x Core..@ "EncodedKey")
+      Prelude.<$> (x Data..@? "Comment")
+      Prelude.<*> (x Data..@ "CallerReference")
+      Prelude.<*> (x Data..@ "Name")
+      Prelude.<*> (x Data..@ "EncodedKey")
 
 instance Prelude.Hashable PublicKeyConfig where
   hashWithSalt _salt PublicKeyConfig' {..} =
@@ -128,11 +129,11 @@ instance Prelude.NFData PublicKeyConfig where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf encodedKey
 
-instance Core.ToXML PublicKeyConfig where
+instance Data.ToXML PublicKeyConfig where
   toXML PublicKeyConfig' {..} =
     Prelude.mconcat
-      [ "Comment" Core.@= comment,
-        "CallerReference" Core.@= callerReference,
-        "Name" Core.@= name,
-        "EncodedKey" Core.@= encodedKey
+      [ "Comment" Data.@= comment,
+        "CallerReference" Data.@= callerReference,
+        "Name" Data.@= name,
+        "EncodedKey" Data.@= encodedKey
       ]

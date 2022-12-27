@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.Types.ApplicationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppStream.Types.ApplicationSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The persistent application settings for users of a stack.
@@ -86,11 +87,11 @@ instance Prelude.NFData ApplicationSettings where
     Prelude.rnf settingsGroup
       `Prelude.seq` Prelude.rnf enabled
 
-instance Core.ToJSON ApplicationSettings where
+instance Data.ToJSON ApplicationSettings where
   toJSON ApplicationSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SettingsGroup" Core..=) Prelude.<$> settingsGroup,
-            Prelude.Just ("Enabled" Core..= enabled)
+          [ ("SettingsGroup" Data..=) Prelude.<$> settingsGroup,
+            Prelude.Just ("Enabled" Data..= enabled)
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.GetSubscriptionState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ module Amazonka.Shield.GetSubscriptionState
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,13 +62,14 @@ instance Core.AWSRequest GetSubscriptionState where
   type
     AWSResponse GetSubscriptionState =
       GetSubscriptionStateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSubscriptionStateResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "SubscriptionState")
+            Prelude.<*> (x Data..:> "SubscriptionState")
       )
 
 instance Prelude.Hashable GetSubscriptionState where
@@ -77,28 +79,28 @@ instance Prelude.Hashable GetSubscriptionState where
 instance Prelude.NFData GetSubscriptionState where
   rnf _ = ()
 
-instance Core.ToHeaders GetSubscriptionState where
+instance Data.ToHeaders GetSubscriptionState where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSShield_20160616.GetSubscriptionState" ::
+              Data.=# ( "AWSShield_20160616.GetSubscriptionState" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetSubscriptionState where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON GetSubscriptionState where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath GetSubscriptionState where
+instance Data.ToPath GetSubscriptionState where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetSubscriptionState where
+instance Data.ToQuery GetSubscriptionState where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSubscriptionStateResponse' smart constructor.

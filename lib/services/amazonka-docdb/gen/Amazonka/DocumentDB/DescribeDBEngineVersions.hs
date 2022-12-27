@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.DescribeDBEngineVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,13 +29,13 @@ module Amazonka.DocumentDB.DescribeDBEngineVersions
     newDescribeDBEngineVersions,
 
     -- * Request Lenses
-    describeDBEngineVersions_engineVersion,
-    describeDBEngineVersions_listSupportedTimezones,
-    describeDBEngineVersions_defaultOnly,
-    describeDBEngineVersions_filters,
-    describeDBEngineVersions_engine,
     describeDBEngineVersions_dbParameterGroupFamily,
+    describeDBEngineVersions_defaultOnly,
+    describeDBEngineVersions_engine,
+    describeDBEngineVersions_engineVersion,
+    describeDBEngineVersions_filters,
     describeDBEngineVersions_listSupportedCharacterSets,
+    describeDBEngineVersions_listSupportedTimezones,
     describeDBEngineVersions_marker,
     describeDBEngineVersions_maxRecords,
 
@@ -44,15 +44,16 @@ module Amazonka.DocumentDB.DescribeDBEngineVersions
     newDescribeDBEngineVersionsResponse,
 
     -- * Response Lenses
-    describeDBEngineVersionsResponse_marker,
     describeDBEngineVersionsResponse_dbEngineVersions,
+    describeDBEngineVersionsResponse_marker,
     describeDBEngineVersionsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,31 +62,31 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeDBEngineVersions' smart constructor.
 data DescribeDBEngineVersions = DescribeDBEngineVersions'
-  { -- | The database engine version to return.
-    --
-    -- Example: @3.6.0@
-    engineVersion :: Prelude.Maybe Prelude.Text,
-    -- | If this parameter is specified and the requested engine supports the
-    -- @TimeZone@ parameter for @CreateDBInstance@, the response includes a
-    -- list of supported time zones for each engine version.
-    listSupportedTimezones :: Prelude.Maybe Prelude.Bool,
-    -- | Indicates that only the default version of the specified engine or
-    -- engine and major version combination is returned.
-    defaultOnly :: Prelude.Maybe Prelude.Bool,
-    -- | This parameter is not currently supported.
-    filters :: Prelude.Maybe [Filter],
-    -- | The database engine to return.
-    engine :: Prelude.Maybe Prelude.Text,
-    -- | The name of a specific parameter group family to return details for.
+  { -- | The name of a specific parameter group family to return details for.
     --
     -- Constraints:
     --
     -- -   If provided, must match an existing @DBParameterGroupFamily@.
     dbParameterGroupFamily :: Prelude.Maybe Prelude.Text,
+    -- | Indicates that only the default version of the specified engine or
+    -- engine and major version combination is returned.
+    defaultOnly :: Prelude.Maybe Prelude.Bool,
+    -- | The database engine to return.
+    engine :: Prelude.Maybe Prelude.Text,
+    -- | The database engine version to return.
+    --
+    -- Example: @3.6.0@
+    engineVersion :: Prelude.Maybe Prelude.Text,
+    -- | This parameter is not currently supported.
+    filters :: Prelude.Maybe [Filter],
     -- | If this parameter is specified and the requested engine supports the
     -- @CharacterSetName@ parameter for @CreateDBInstance@, the response
     -- includes a list of supported character sets for each engine version.
     listSupportedCharacterSets :: Prelude.Maybe Prelude.Bool,
+    -- | If this parameter is specified and the requested engine supports the
+    -- @TimeZone@ parameter for @CreateDBInstance@, the response includes a
+    -- list of supported time zones for each engine version.
+    listSupportedTimezones :: Prelude.Maybe Prelude.Bool,
     -- | An optional pagination token provided by a previous request. If this
     -- parameter is specified, the response includes only records beyond the
     -- marker, up to the value specified by @MaxRecords@.
@@ -110,30 +111,30 @@ data DescribeDBEngineVersions = DescribeDBEngineVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'engineVersion', 'describeDBEngineVersions_engineVersion' - The database engine version to return.
---
--- Example: @3.6.0@
---
--- 'listSupportedTimezones', 'describeDBEngineVersions_listSupportedTimezones' - If this parameter is specified and the requested engine supports the
--- @TimeZone@ parameter for @CreateDBInstance@, the response includes a
--- list of supported time zones for each engine version.
---
--- 'defaultOnly', 'describeDBEngineVersions_defaultOnly' - Indicates that only the default version of the specified engine or
--- engine and major version combination is returned.
---
--- 'filters', 'describeDBEngineVersions_filters' - This parameter is not currently supported.
---
--- 'engine', 'describeDBEngineVersions_engine' - The database engine to return.
---
 -- 'dbParameterGroupFamily', 'describeDBEngineVersions_dbParameterGroupFamily' - The name of a specific parameter group family to return details for.
 --
 -- Constraints:
 --
 -- -   If provided, must match an existing @DBParameterGroupFamily@.
 --
+-- 'defaultOnly', 'describeDBEngineVersions_defaultOnly' - Indicates that only the default version of the specified engine or
+-- engine and major version combination is returned.
+--
+-- 'engine', 'describeDBEngineVersions_engine' - The database engine to return.
+--
+-- 'engineVersion', 'describeDBEngineVersions_engineVersion' - The database engine version to return.
+--
+-- Example: @3.6.0@
+--
+-- 'filters', 'describeDBEngineVersions_filters' - This parameter is not currently supported.
+--
 -- 'listSupportedCharacterSets', 'describeDBEngineVersions_listSupportedCharacterSets' - If this parameter is specified and the requested engine supports the
 -- @CharacterSetName@ parameter for @CreateDBInstance@, the response
 -- includes a list of supported character sets for each engine version.
+--
+-- 'listSupportedTimezones', 'describeDBEngineVersions_listSupportedTimezones' - If this parameter is specified and the requested engine supports the
+-- @TimeZone@ parameter for @CreateDBInstance@, the response includes a
+-- list of supported time zones for each engine version.
 --
 -- 'marker', 'describeDBEngineVersions_marker' - An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
@@ -151,42 +152,17 @@ newDescribeDBEngineVersions ::
   DescribeDBEngineVersions
 newDescribeDBEngineVersions =
   DescribeDBEngineVersions'
-    { engineVersion =
+    { dbParameterGroupFamily =
         Prelude.Nothing,
-      listSupportedTimezones = Prelude.Nothing,
       defaultOnly = Prelude.Nothing,
-      filters = Prelude.Nothing,
       engine = Prelude.Nothing,
-      dbParameterGroupFamily = Prelude.Nothing,
+      engineVersion = Prelude.Nothing,
+      filters = Prelude.Nothing,
       listSupportedCharacterSets = Prelude.Nothing,
+      listSupportedTimezones = Prelude.Nothing,
       marker = Prelude.Nothing,
       maxRecords = Prelude.Nothing
     }
-
--- | The database engine version to return.
---
--- Example: @3.6.0@
-describeDBEngineVersions_engineVersion :: Lens.Lens' DescribeDBEngineVersions (Prelude.Maybe Prelude.Text)
-describeDBEngineVersions_engineVersion = Lens.lens (\DescribeDBEngineVersions' {engineVersion} -> engineVersion) (\s@DescribeDBEngineVersions' {} a -> s {engineVersion = a} :: DescribeDBEngineVersions)
-
--- | If this parameter is specified and the requested engine supports the
--- @TimeZone@ parameter for @CreateDBInstance@, the response includes a
--- list of supported time zones for each engine version.
-describeDBEngineVersions_listSupportedTimezones :: Lens.Lens' DescribeDBEngineVersions (Prelude.Maybe Prelude.Bool)
-describeDBEngineVersions_listSupportedTimezones = Lens.lens (\DescribeDBEngineVersions' {listSupportedTimezones} -> listSupportedTimezones) (\s@DescribeDBEngineVersions' {} a -> s {listSupportedTimezones = a} :: DescribeDBEngineVersions)
-
--- | Indicates that only the default version of the specified engine or
--- engine and major version combination is returned.
-describeDBEngineVersions_defaultOnly :: Lens.Lens' DescribeDBEngineVersions (Prelude.Maybe Prelude.Bool)
-describeDBEngineVersions_defaultOnly = Lens.lens (\DescribeDBEngineVersions' {defaultOnly} -> defaultOnly) (\s@DescribeDBEngineVersions' {} a -> s {defaultOnly = a} :: DescribeDBEngineVersions)
-
--- | This parameter is not currently supported.
-describeDBEngineVersions_filters :: Lens.Lens' DescribeDBEngineVersions (Prelude.Maybe [Filter])
-describeDBEngineVersions_filters = Lens.lens (\DescribeDBEngineVersions' {filters} -> filters) (\s@DescribeDBEngineVersions' {} a -> s {filters = a} :: DescribeDBEngineVersions) Prelude.. Lens.mapping Lens.coerced
-
--- | The database engine to return.
-describeDBEngineVersions_engine :: Lens.Lens' DescribeDBEngineVersions (Prelude.Maybe Prelude.Text)
-describeDBEngineVersions_engine = Lens.lens (\DescribeDBEngineVersions' {engine} -> engine) (\s@DescribeDBEngineVersions' {} a -> s {engine = a} :: DescribeDBEngineVersions)
 
 -- | The name of a specific parameter group family to return details for.
 --
@@ -196,11 +172,36 @@ describeDBEngineVersions_engine = Lens.lens (\DescribeDBEngineVersions' {engine}
 describeDBEngineVersions_dbParameterGroupFamily :: Lens.Lens' DescribeDBEngineVersions (Prelude.Maybe Prelude.Text)
 describeDBEngineVersions_dbParameterGroupFamily = Lens.lens (\DescribeDBEngineVersions' {dbParameterGroupFamily} -> dbParameterGroupFamily) (\s@DescribeDBEngineVersions' {} a -> s {dbParameterGroupFamily = a} :: DescribeDBEngineVersions)
 
+-- | Indicates that only the default version of the specified engine or
+-- engine and major version combination is returned.
+describeDBEngineVersions_defaultOnly :: Lens.Lens' DescribeDBEngineVersions (Prelude.Maybe Prelude.Bool)
+describeDBEngineVersions_defaultOnly = Lens.lens (\DescribeDBEngineVersions' {defaultOnly} -> defaultOnly) (\s@DescribeDBEngineVersions' {} a -> s {defaultOnly = a} :: DescribeDBEngineVersions)
+
+-- | The database engine to return.
+describeDBEngineVersions_engine :: Lens.Lens' DescribeDBEngineVersions (Prelude.Maybe Prelude.Text)
+describeDBEngineVersions_engine = Lens.lens (\DescribeDBEngineVersions' {engine} -> engine) (\s@DescribeDBEngineVersions' {} a -> s {engine = a} :: DescribeDBEngineVersions)
+
+-- | The database engine version to return.
+--
+-- Example: @3.6.0@
+describeDBEngineVersions_engineVersion :: Lens.Lens' DescribeDBEngineVersions (Prelude.Maybe Prelude.Text)
+describeDBEngineVersions_engineVersion = Lens.lens (\DescribeDBEngineVersions' {engineVersion} -> engineVersion) (\s@DescribeDBEngineVersions' {} a -> s {engineVersion = a} :: DescribeDBEngineVersions)
+
+-- | This parameter is not currently supported.
+describeDBEngineVersions_filters :: Lens.Lens' DescribeDBEngineVersions (Prelude.Maybe [Filter])
+describeDBEngineVersions_filters = Lens.lens (\DescribeDBEngineVersions' {filters} -> filters) (\s@DescribeDBEngineVersions' {} a -> s {filters = a} :: DescribeDBEngineVersions) Prelude.. Lens.mapping Lens.coerced
+
 -- | If this parameter is specified and the requested engine supports the
 -- @CharacterSetName@ parameter for @CreateDBInstance@, the response
 -- includes a list of supported character sets for each engine version.
 describeDBEngineVersions_listSupportedCharacterSets :: Lens.Lens' DescribeDBEngineVersions (Prelude.Maybe Prelude.Bool)
 describeDBEngineVersions_listSupportedCharacterSets = Lens.lens (\DescribeDBEngineVersions' {listSupportedCharacterSets} -> listSupportedCharacterSets) (\s@DescribeDBEngineVersions' {} a -> s {listSupportedCharacterSets = a} :: DescribeDBEngineVersions)
+
+-- | If this parameter is specified and the requested engine supports the
+-- @TimeZone@ parameter for @CreateDBInstance@, the response includes a
+-- list of supported time zones for each engine version.
+describeDBEngineVersions_listSupportedTimezones :: Lens.Lens' DescribeDBEngineVersions (Prelude.Maybe Prelude.Bool)
+describeDBEngineVersions_listSupportedTimezones = Lens.lens (\DescribeDBEngineVersions' {listSupportedTimezones} -> listSupportedTimezones) (\s@DescribeDBEngineVersions' {} a -> s {listSupportedTimezones = a} :: DescribeDBEngineVersions)
 
 -- | An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
@@ -245,83 +246,84 @@ instance Core.AWSRequest DescribeDBEngineVersions where
   type
     AWSResponse DescribeDBEngineVersions =
       DescribeDBEngineVersionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeDBEngineVersionsResult"
       ( \s h x ->
           DescribeDBEngineVersionsResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> ( x Core..@? "DBEngineVersions"
+            Prelude.<$> ( x Data..@? "DBEngineVersions"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "DBEngineVersion")
+                            Prelude.>>= Core.may (Data.parseXMLList "DBEngineVersion")
                         )
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeDBEngineVersions where
   hashWithSalt _salt DescribeDBEngineVersions' {..} =
-    _salt `Prelude.hashWithSalt` engineVersion
-      `Prelude.hashWithSalt` listSupportedTimezones
+    _salt `Prelude.hashWithSalt` dbParameterGroupFamily
       `Prelude.hashWithSalt` defaultOnly
-      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` engine
-      `Prelude.hashWithSalt` dbParameterGroupFamily
+      `Prelude.hashWithSalt` engineVersion
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` listSupportedCharacterSets
+      `Prelude.hashWithSalt` listSupportedTimezones
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
 
 instance Prelude.NFData DescribeDBEngineVersions where
   rnf DescribeDBEngineVersions' {..} =
-    Prelude.rnf engineVersion
-      `Prelude.seq` Prelude.rnf listSupportedTimezones
+    Prelude.rnf dbParameterGroupFamily
       `Prelude.seq` Prelude.rnf defaultOnly
-      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf engine
-      `Prelude.seq` Prelude.rnf dbParameterGroupFamily
+      `Prelude.seq` Prelude.rnf engineVersion
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf listSupportedCharacterSets
+      `Prelude.seq` Prelude.rnf listSupportedTimezones
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
 
-instance Core.ToHeaders DescribeDBEngineVersions where
+instance Data.ToHeaders DescribeDBEngineVersions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDBEngineVersions where
+instance Data.ToPath DescribeDBEngineVersions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDBEngineVersions where
+instance Data.ToQuery DescribeDBEngineVersions where
   toQuery DescribeDBEngineVersions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeDBEngineVersions" :: Prelude.ByteString),
+          Data.=: ("DescribeDBEngineVersions" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "EngineVersion" Core.=: engineVersion,
-        "ListSupportedTimezones"
-          Core.=: listSupportedTimezones,
-        "DefaultOnly" Core.=: defaultOnly,
-        "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "Engine" Core.=: engine,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "DBParameterGroupFamily"
-          Core.=: dbParameterGroupFamily,
+          Data.=: dbParameterGroupFamily,
+        "DefaultOnly" Data.=: defaultOnly,
+        "Engine" Data.=: engine,
+        "EngineVersion" Data.=: engineVersion,
+        "Filters"
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
         "ListSupportedCharacterSets"
-          Core.=: listSupportedCharacterSets,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: listSupportedCharacterSets,
+        "ListSupportedTimezones"
+          Data.=: listSupportedTimezones,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords
       ]
 
 -- | Represents the output of DescribeDBEngineVersions.
 --
 -- /See:/ 'newDescribeDBEngineVersionsResponse' smart constructor.
 data DescribeDBEngineVersionsResponse = DescribeDBEngineVersionsResponse'
-  { -- | An optional pagination token provided by a previous request. If this
+  { -- | Detailed information about one or more engine versions.
+    dbEngineVersions :: Prelude.Maybe [DBEngineVersion],
+    -- | An optional pagination token provided by a previous request. If this
     -- parameter is specified, the response includes only records beyond the
     -- marker, up to the value specified by @MaxRecords@.
     marker :: Prelude.Maybe Prelude.Text,
-    -- | Detailed information about one or more engine versions.
-    dbEngineVersions :: Prelude.Maybe [DBEngineVersion],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -335,11 +337,11 @@ data DescribeDBEngineVersionsResponse = DescribeDBEngineVersionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dbEngineVersions', 'describeDBEngineVersionsResponse_dbEngineVersions' - Detailed information about one or more engine versions.
+--
 -- 'marker', 'describeDBEngineVersionsResponse_marker' - An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
 -- marker, up to the value specified by @MaxRecords@.
---
--- 'dbEngineVersions', 'describeDBEngineVersionsResponse_dbEngineVersions' - Detailed information about one or more engine versions.
 --
 -- 'httpStatus', 'describeDBEngineVersionsResponse_httpStatus' - The response's http status code.
 newDescribeDBEngineVersionsResponse ::
@@ -348,21 +350,21 @@ newDescribeDBEngineVersionsResponse ::
   DescribeDBEngineVersionsResponse
 newDescribeDBEngineVersionsResponse pHttpStatus_ =
   DescribeDBEngineVersionsResponse'
-    { marker =
+    { dbEngineVersions =
         Prelude.Nothing,
-      dbEngineVersions = Prelude.Nothing,
+      marker = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Detailed information about one or more engine versions.
+describeDBEngineVersionsResponse_dbEngineVersions :: Lens.Lens' DescribeDBEngineVersionsResponse (Prelude.Maybe [DBEngineVersion])
+describeDBEngineVersionsResponse_dbEngineVersions = Lens.lens (\DescribeDBEngineVersionsResponse' {dbEngineVersions} -> dbEngineVersions) (\s@DescribeDBEngineVersionsResponse' {} a -> s {dbEngineVersions = a} :: DescribeDBEngineVersionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
 -- marker, up to the value specified by @MaxRecords@.
 describeDBEngineVersionsResponse_marker :: Lens.Lens' DescribeDBEngineVersionsResponse (Prelude.Maybe Prelude.Text)
 describeDBEngineVersionsResponse_marker = Lens.lens (\DescribeDBEngineVersionsResponse' {marker} -> marker) (\s@DescribeDBEngineVersionsResponse' {} a -> s {marker = a} :: DescribeDBEngineVersionsResponse)
-
--- | Detailed information about one or more engine versions.
-describeDBEngineVersionsResponse_dbEngineVersions :: Lens.Lens' DescribeDBEngineVersionsResponse (Prelude.Maybe [DBEngineVersion])
-describeDBEngineVersionsResponse_dbEngineVersions = Lens.lens (\DescribeDBEngineVersionsResponse' {dbEngineVersions} -> dbEngineVersions) (\s@DescribeDBEngineVersionsResponse' {} a -> s {dbEngineVersions = a} :: DescribeDBEngineVersionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeDBEngineVersionsResponse_httpStatus :: Lens.Lens' DescribeDBEngineVersionsResponse Prelude.Int
@@ -373,6 +375,6 @@ instance
     DescribeDBEngineVersionsResponse
   where
   rnf DescribeDBEngineVersionsResponse' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf dbEngineVersions
+    Prelude.rnf dbEngineVersions
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf httpStatus

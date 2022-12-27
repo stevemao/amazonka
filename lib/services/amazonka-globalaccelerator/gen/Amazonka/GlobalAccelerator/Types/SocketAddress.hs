@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.Types.SocketAddress
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GlobalAccelerator.Types.SocketAddress where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An IP address\/port combination.
@@ -61,14 +62,14 @@ socketAddress_ipAddress = Lens.lens (\SocketAddress' {ipAddress} -> ipAddress) (
 socketAddress_port :: Lens.Lens' SocketAddress (Prelude.Maybe Prelude.Natural)
 socketAddress_port = Lens.lens (\SocketAddress' {port} -> port) (\s@SocketAddress' {} a -> s {port = a} :: SocketAddress)
 
-instance Core.FromJSON SocketAddress where
+instance Data.FromJSON SocketAddress where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SocketAddress"
       ( \x ->
           SocketAddress'
-            Prelude.<$> (x Core..:? "IpAddress")
-            Prelude.<*> (x Core..:? "Port")
+            Prelude.<$> (x Data..:? "IpAddress")
+            Prelude.<*> (x Data..:? "Port")
       )
 
 instance Prelude.Hashable SocketAddress where

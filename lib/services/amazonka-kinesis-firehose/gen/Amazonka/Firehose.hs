@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -15,8 +15,8 @@
 --
 -- Amazon Kinesis Data Firehose is a fully managed service that delivers
 -- real-time streaming data to destinations such as Amazon Simple Storage
--- Service (Amazon S3), Amazon Elasticsearch Service (Amazon ES), Amazon
--- Redshift, and Splunk.
+-- Service (Amazon S3), Amazon OpenSearch Service, Amazon Redshift, Splunk,
+-- and various other supportd destinations.
 module Amazonka.Firehose
   ( -- * Service Configuration
     defaultService,
@@ -24,20 +24,14 @@ module Amazonka.Firehose
     -- * Errors
     -- $errors
 
+    -- ** ConcurrentModificationException
+    _ConcurrentModificationException,
+
     -- ** InvalidArgumentException
     _InvalidArgumentException,
 
     -- ** InvalidKMSResourceException
     _InvalidKMSResourceException,
-
-    -- ** ConcurrentModificationException
-    _ConcurrentModificationException,
-
-    -- ** ServiceUnavailableException
-    _ServiceUnavailableException,
-
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
 
     -- ** LimitExceededException
     _LimitExceededException,
@@ -45,17 +39,65 @@ module Amazonka.Firehose
     -- ** ResourceInUseException
     _ResourceInUseException,
 
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
+
+    -- ** ServiceUnavailableException
+    _ServiceUnavailableException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
 
+    -- ** CreateDeliveryStream
+    CreateDeliveryStream (CreateDeliveryStream'),
+    newCreateDeliveryStream,
+    CreateDeliveryStreamResponse (CreateDeliveryStreamResponse'),
+    newCreateDeliveryStreamResponse,
+
+    -- ** DeleteDeliveryStream
+    DeleteDeliveryStream (DeleteDeliveryStream'),
+    newDeleteDeliveryStream,
+    DeleteDeliveryStreamResponse (DeleteDeliveryStreamResponse'),
+    newDeleteDeliveryStreamResponse,
+
+    -- ** DescribeDeliveryStream
+    DescribeDeliveryStream (DescribeDeliveryStream'),
+    newDescribeDeliveryStream,
+    DescribeDeliveryStreamResponse (DescribeDeliveryStreamResponse'),
+    newDescribeDeliveryStreamResponse,
+
+    -- ** ListDeliveryStreams
+    ListDeliveryStreams (ListDeliveryStreams'),
+    newListDeliveryStreams,
+    ListDeliveryStreamsResponse (ListDeliveryStreamsResponse'),
+    newListDeliveryStreamsResponse,
+
+    -- ** ListTagsForDeliveryStream
+    ListTagsForDeliveryStream (ListTagsForDeliveryStream'),
+    newListTagsForDeliveryStream,
+    ListTagsForDeliveryStreamResponse (ListTagsForDeliveryStreamResponse'),
+    newListTagsForDeliveryStreamResponse,
+
     -- ** PutRecord
     PutRecord (PutRecord'),
     newPutRecord,
     PutRecordResponse (PutRecordResponse'),
     newPutRecordResponse,
+
+    -- ** PutRecordBatch
+    PutRecordBatch (PutRecordBatch'),
+    newPutRecordBatch,
+    PutRecordBatchResponse (PutRecordBatchResponse'),
+    newPutRecordBatchResponse,
+
+    -- ** StartDeliveryStreamEncryption
+    StartDeliveryStreamEncryption (StartDeliveryStreamEncryption'),
+    newStartDeliveryStreamEncryption,
+    StartDeliveryStreamEncryptionResponse (StartDeliveryStreamEncryptionResponse'),
+    newStartDeliveryStreamEncryptionResponse,
 
     -- ** StopDeliveryStreamEncryption
     StopDeliveryStreamEncryption (StopDeliveryStreamEncryption'),
@@ -69,61 +111,22 @@ module Amazonka.Firehose
     TagDeliveryStreamResponse (TagDeliveryStreamResponse'),
     newTagDeliveryStreamResponse,
 
-    -- ** UpdateDestination
-    UpdateDestination (UpdateDestination'),
-    newUpdateDestination,
-    UpdateDestinationResponse (UpdateDestinationResponse'),
-    newUpdateDestinationResponse,
-
-    -- ** PutRecordBatch
-    PutRecordBatch (PutRecordBatch'),
-    newPutRecordBatch,
-    PutRecordBatchResponse (PutRecordBatchResponse'),
-    newPutRecordBatchResponse,
-
     -- ** UntagDeliveryStream
     UntagDeliveryStream (UntagDeliveryStream'),
     newUntagDeliveryStream,
     UntagDeliveryStreamResponse (UntagDeliveryStreamResponse'),
     newUntagDeliveryStreamResponse,
 
-    -- ** CreateDeliveryStream
-    CreateDeliveryStream (CreateDeliveryStream'),
-    newCreateDeliveryStream,
-    CreateDeliveryStreamResponse (CreateDeliveryStreamResponse'),
-    newCreateDeliveryStreamResponse,
-
-    -- ** StartDeliveryStreamEncryption
-    StartDeliveryStreamEncryption (StartDeliveryStreamEncryption'),
-    newStartDeliveryStreamEncryption,
-    StartDeliveryStreamEncryptionResponse (StartDeliveryStreamEncryptionResponse'),
-    newStartDeliveryStreamEncryptionResponse,
-
-    -- ** DescribeDeliveryStream
-    DescribeDeliveryStream (DescribeDeliveryStream'),
-    newDescribeDeliveryStream,
-    DescribeDeliveryStreamResponse (DescribeDeliveryStreamResponse'),
-    newDescribeDeliveryStreamResponse,
-
-    -- ** ListTagsForDeliveryStream
-    ListTagsForDeliveryStream (ListTagsForDeliveryStream'),
-    newListTagsForDeliveryStream,
-    ListTagsForDeliveryStreamResponse (ListTagsForDeliveryStreamResponse'),
-    newListTagsForDeliveryStreamResponse,
-
-    -- ** ListDeliveryStreams
-    ListDeliveryStreams (ListDeliveryStreams'),
-    newListDeliveryStreams,
-    ListDeliveryStreamsResponse (ListDeliveryStreamsResponse'),
-    newListDeliveryStreamsResponse,
-
-    -- ** DeleteDeliveryStream
-    DeleteDeliveryStream (DeleteDeliveryStream'),
-    newDeleteDeliveryStream,
-    DeleteDeliveryStreamResponse (DeleteDeliveryStreamResponse'),
-    newDeleteDeliveryStreamResponse,
+    -- ** UpdateDestination
+    UpdateDestination (UpdateDestination'),
+    newUpdateDestination,
+    UpdateDestinationResponse (UpdateDestinationResponse'),
+    newUpdateDestinationResponse,
 
     -- * Types
+
+    -- ** AmazonOpenSearchServerlessS3BackupMode
+    AmazonOpenSearchServerlessS3BackupMode (..),
 
     -- ** AmazonopensearchserviceIndexRotationPeriod
     AmazonopensearchserviceIndexRotationPeriod (..),
@@ -193,6 +196,26 @@ module Amazonka.Firehose
 
     -- ** SplunkS3BackupMode
     SplunkS3BackupMode (..),
+
+    -- ** AmazonOpenSearchServerlessBufferingHints
+    AmazonOpenSearchServerlessBufferingHints (AmazonOpenSearchServerlessBufferingHints'),
+    newAmazonOpenSearchServerlessBufferingHints,
+
+    -- ** AmazonOpenSearchServerlessDestinationConfiguration
+    AmazonOpenSearchServerlessDestinationConfiguration (AmazonOpenSearchServerlessDestinationConfiguration'),
+    newAmazonOpenSearchServerlessDestinationConfiguration,
+
+    -- ** AmazonOpenSearchServerlessDestinationDescription
+    AmazonOpenSearchServerlessDestinationDescription (AmazonOpenSearchServerlessDestinationDescription'),
+    newAmazonOpenSearchServerlessDestinationDescription,
+
+    -- ** AmazonOpenSearchServerlessDestinationUpdate
+    AmazonOpenSearchServerlessDestinationUpdate (AmazonOpenSearchServerlessDestinationUpdate'),
+    newAmazonOpenSearchServerlessDestinationUpdate,
+
+    -- ** AmazonOpenSearchServerlessRetryOptions
+    AmazonOpenSearchServerlessRetryOptions (AmazonOpenSearchServerlessRetryOptions'),
+    newAmazonOpenSearchServerlessRetryOptions,
 
     -- ** AmazonopensearchserviceBufferingHints
     AmazonopensearchserviceBufferingHints (AmazonopensearchserviceBufferingHints'),

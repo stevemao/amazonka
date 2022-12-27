@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.GetContent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Wisdom.GetContent
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,8 +53,8 @@ data GetContent = GetContent'
   { -- | The identifier of the content. Can be either the ID or the ARN. URLs
     -- cannot contain the ARN.
     contentId :: Prelude.Text,
-    -- | The the identifier of the knowledge base. Can be either the ID or the
-    -- ARN. URLs cannot contain the ARN.
+    -- | The identifier of the knowledge base. Can be either the ID or the ARN.
+    -- URLs cannot contain the ARN.
     knowledgeBaseId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -69,8 +70,8 @@ data GetContent = GetContent'
 -- 'contentId', 'getContent_contentId' - The identifier of the content. Can be either the ID or the ARN. URLs
 -- cannot contain the ARN.
 --
--- 'knowledgeBaseId', 'getContent_knowledgeBaseId' - The the identifier of the knowledge base. Can be either the ID or the
--- ARN. URLs cannot contain the ARN.
+-- 'knowledgeBaseId', 'getContent_knowledgeBaseId' - The identifier of the knowledge base. Can be either the ID or the ARN.
+-- URLs cannot contain the ARN.
 newGetContent ::
   -- | 'contentId'
   Prelude.Text ->
@@ -88,19 +89,20 @@ newGetContent pContentId_ pKnowledgeBaseId_ =
 getContent_contentId :: Lens.Lens' GetContent Prelude.Text
 getContent_contentId = Lens.lens (\GetContent' {contentId} -> contentId) (\s@GetContent' {} a -> s {contentId = a} :: GetContent)
 
--- | The the identifier of the knowledge base. Can be either the ID or the
--- ARN. URLs cannot contain the ARN.
+-- | The identifier of the knowledge base. Can be either the ID or the ARN.
+-- URLs cannot contain the ARN.
 getContent_knowledgeBaseId :: Lens.Lens' GetContent Prelude.Text
 getContent_knowledgeBaseId = Lens.lens (\GetContent' {knowledgeBaseId} -> knowledgeBaseId) (\s@GetContent' {} a -> s {knowledgeBaseId = a} :: GetContent)
 
 instance Core.AWSRequest GetContent where
   type AWSResponse GetContent = GetContentResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetContentResponse'
-            Prelude.<$> (x Core..?> "content")
+            Prelude.<$> (x Data..?> "content")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,27 +116,27 @@ instance Prelude.NFData GetContent where
     Prelude.rnf contentId
       `Prelude.seq` Prelude.rnf knowledgeBaseId
 
-instance Core.ToHeaders GetContent where
+instance Data.ToHeaders GetContent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetContent where
+instance Data.ToPath GetContent where
   toPath GetContent' {..} =
     Prelude.mconcat
       [ "/knowledgeBases/",
-        Core.toBS knowledgeBaseId,
+        Data.toBS knowledgeBaseId,
         "/contents/",
-        Core.toBS contentId
+        Data.toBS contentId
       ]
 
-instance Core.ToQuery GetContent where
+instance Data.ToQuery GetContent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetContentResponse' smart constructor.

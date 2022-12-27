@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.MetricGranularityType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AutoScaling.Types.MetricGranularityType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a granularity of a metric.
@@ -53,10 +54,10 @@ newMetricGranularityType =
 metricGranularityType_granularity :: Lens.Lens' MetricGranularityType (Prelude.Maybe Prelude.Text)
 metricGranularityType_granularity = Lens.lens (\MetricGranularityType' {granularity} -> granularity) (\s@MetricGranularityType' {} a -> s {granularity = a} :: MetricGranularityType)
 
-instance Core.FromXML MetricGranularityType where
+instance Data.FromXML MetricGranularityType where
   parseXML x =
     MetricGranularityType'
-      Prelude.<$> (x Core..@? "Granularity")
+      Prelude.<$> (x Data..@? "Granularity")
 
 instance Prelude.Hashable MetricGranularityType where
   hashWithSalt _salt MetricGranularityType' {..} =

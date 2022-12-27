@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Synthetics.UntagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes one or more tags from the specified canary.
+-- Removes one or more tags from the specified resource.
 module Amazonka.Synthetics.UntagResource
   ( -- * Creating a Request
     UntagResource (..),
@@ -40,7 +40,8 @@ module Amazonka.Synthetics.UntagResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -48,10 +49,13 @@ import Amazonka.Synthetics.Types
 
 -- | /See:/ 'newUntagResource' smart constructor.
 data UntagResource = UntagResource'
-  { -- | The ARN of the canary that you\'re removing tags from.
+  { -- | The ARN of the canary or group that you\'re removing tags from.
     --
     -- The ARN format of a canary is
     -- @arn:aws:synthetics:Region:account-id:canary:canary-name @.
+    --
+    -- The ARN format of a group is
+    -- @arn:aws:synthetics:Region:account-id:group:group-name @
     resourceArn :: Prelude.Text,
     -- | The list of tag keys to remove from the resource.
     tagKeys :: Prelude.NonEmpty Prelude.Text
@@ -66,10 +70,13 @@ data UntagResource = UntagResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceArn', 'untagResource_resourceArn' - The ARN of the canary that you\'re removing tags from.
+-- 'resourceArn', 'untagResource_resourceArn' - The ARN of the canary or group that you\'re removing tags from.
 --
 -- The ARN format of a canary is
 -- @arn:aws:synthetics:Region:account-id:canary:canary-name @.
+--
+-- The ARN format of a group is
+-- @arn:aws:synthetics:Region:account-id:group:group-name @
 --
 -- 'tagKeys', 'untagResource_tagKeys' - The list of tag keys to remove from the resource.
 newUntagResource ::
@@ -84,10 +91,13 @@ newUntagResource pResourceArn_ pTagKeys_ =
       tagKeys = Lens.coerced Lens.# pTagKeys_
     }
 
--- | The ARN of the canary that you\'re removing tags from.
+-- | The ARN of the canary or group that you\'re removing tags from.
 --
 -- The ARN format of a canary is
 -- @arn:aws:synthetics:Region:account-id:canary:canary-name @.
+--
+-- The ARN format of a group is
+-- @arn:aws:synthetics:Region:account-id:group:group-name @
 untagResource_resourceArn :: Lens.Lens' UntagResource Prelude.Text
 untagResource_resourceArn = Lens.lens (\UntagResource' {resourceArn} -> resourceArn) (\s@UntagResource' {} a -> s {resourceArn = a} :: UntagResource)
 
@@ -99,7 +109,8 @@ instance Core.AWSRequest UntagResource where
   type
     AWSResponse UntagResource =
       UntagResourceResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -117,25 +128,25 @@ instance Prelude.NFData UntagResource where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagResource where
+instance Data.ToHeaders UntagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath UntagResource where
+instance Data.ToPath UntagResource where
   toPath UntagResource' {..} =
-    Prelude.mconcat ["/tags/", Core.toBS resourceArn]
+    Prelude.mconcat ["/tags/", Data.toBS resourceArn]
 
-instance Core.ToQuery UntagResource where
+instance Data.ToQuery UntagResource where
   toQuery UntagResource' {..} =
     Prelude.mconcat
-      ["tagKeys" Core.=: Core.toQueryList "member" tagKeys]
+      ["tagKeys" Data.=: Data.toQueryList "member" tagKeys]
 
 -- | /See:/ 'newUntagResourceResponse' smart constructor.
 data UntagResourceResponse = UntagResourceResponse'

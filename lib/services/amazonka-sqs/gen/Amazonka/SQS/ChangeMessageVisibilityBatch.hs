@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.ChangeMessageVisibilityBatch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,7 +58,8 @@ module Amazonka.SQS.ChangeMessageVisibilityBatch
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -118,18 +119,19 @@ instance Core.AWSRequest ChangeMessageVisibilityBatch where
   type
     AWSResponse ChangeMessageVisibilityBatch =
       ChangeMessageVisibilityBatchResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ChangeMessageVisibilityBatchResult"
       ( \s h x ->
           ChangeMessageVisibilityBatchResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( Core.parseXMLList
+            Prelude.<*> ( Data.parseXMLList
                             "ChangeMessageVisibilityBatchResultEntry"
                             x
                         )
-            Prelude.<*> (Core.parseXMLList "BatchResultErrorEntry" x)
+            Prelude.<*> (Data.parseXMLList "BatchResultErrorEntry" x)
       )
 
 instance
@@ -145,23 +147,23 @@ instance Prelude.NFData ChangeMessageVisibilityBatch where
     Prelude.rnf queueUrl
       `Prelude.seq` Prelude.rnf entries
 
-instance Core.ToHeaders ChangeMessageVisibilityBatch where
+instance Data.ToHeaders ChangeMessageVisibilityBatch where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ChangeMessageVisibilityBatch where
+instance Data.ToPath ChangeMessageVisibilityBatch where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ChangeMessageVisibilityBatch where
+instance Data.ToQuery ChangeMessageVisibilityBatch where
   toQuery ChangeMessageVisibilityBatch' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ChangeMessageVisibilityBatch" ::
+          Data.=: ( "ChangeMessageVisibilityBatch" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-11-05" :: Prelude.ByteString),
-        "QueueUrl" Core.=: queueUrl,
-        Core.toQueryList
+          Data.=: ("2012-11-05" :: Prelude.ByteString),
+        "QueueUrl" Data.=: queueUrl,
+        Data.toQueryList
           "ChangeMessageVisibilityBatchRequestEntry"
           entries
       ]

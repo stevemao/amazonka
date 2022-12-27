@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.CreateBatchPredictionJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.FraudDetector.CreateBatchPredictionJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,6 +70,12 @@ data CreateBatchPredictionJob = CreateBatchPredictionJob'
     -- | The name of the detector.
     detectorName :: Prelude.Text,
     -- | The ARN of the IAM role to use for this job request.
+    --
+    -- The IAM Role must have read permissions to your input S3 bucket and
+    -- write permissions to your output S3 bucket. For more information about
+    -- bucket permissions, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html User policy examples>
+    -- in the /Amazon S3 User Guide/.
     iamRoleArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -96,6 +103,12 @@ data CreateBatchPredictionJob = CreateBatchPredictionJob'
 -- 'detectorName', 'createBatchPredictionJob_detectorName' - The name of the detector.
 --
 -- 'iamRoleArn', 'createBatchPredictionJob_iamRoleArn' - The ARN of the IAM role to use for this job request.
+--
+-- The IAM Role must have read permissions to your input S3 bucket and
+-- write permissions to your output S3 bucket. For more information about
+-- bucket permissions, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html User policy examples>
+-- in the /Amazon S3 User Guide/.
 newCreateBatchPredictionJob ::
   -- | 'jobId'
   Prelude.Text ->
@@ -158,6 +171,12 @@ createBatchPredictionJob_detectorName :: Lens.Lens' CreateBatchPredictionJob Pre
 createBatchPredictionJob_detectorName = Lens.lens (\CreateBatchPredictionJob' {detectorName} -> detectorName) (\s@CreateBatchPredictionJob' {} a -> s {detectorName = a} :: CreateBatchPredictionJob)
 
 -- | The ARN of the IAM role to use for this job request.
+--
+-- The IAM Role must have read permissions to your input S3 bucket and
+-- write permissions to your output S3 bucket. For more information about
+-- bucket permissions, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/example-policies-s3.html User policy examples>
+-- in the /Amazon S3 User Guide/.
 createBatchPredictionJob_iamRoleArn :: Lens.Lens' CreateBatchPredictionJob Prelude.Text
 createBatchPredictionJob_iamRoleArn = Lens.lens (\CreateBatchPredictionJob' {iamRoleArn} -> iamRoleArn) (\s@CreateBatchPredictionJob' {} a -> s {iamRoleArn = a} :: CreateBatchPredictionJob)
 
@@ -165,7 +184,8 @@ instance Core.AWSRequest CreateBatchPredictionJob where
   type
     AWSResponse CreateBatchPredictionJob =
       CreateBatchPredictionJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -195,41 +215,41 @@ instance Prelude.NFData CreateBatchPredictionJob where
       `Prelude.seq` Prelude.rnf detectorName
       `Prelude.seq` Prelude.rnf iamRoleArn
 
-instance Core.ToHeaders CreateBatchPredictionJob where
+instance Data.ToHeaders CreateBatchPredictionJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.CreateBatchPredictionJob" ::
+              Data.=# ( "AWSHawksNestServiceFacade.CreateBatchPredictionJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateBatchPredictionJob where
+instance Data.ToJSON CreateBatchPredictionJob where
   toJSON CreateBatchPredictionJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("detectorVersion" Core..=)
+          [ ("detectorVersion" Data..=)
               Prelude.<$> detectorVersion,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("jobId" Core..= jobId),
-            Prelude.Just ("inputPath" Core..= inputPath),
-            Prelude.Just ("outputPath" Core..= outputPath),
-            Prelude.Just ("eventTypeName" Core..= eventTypeName),
-            Prelude.Just ("detectorName" Core..= detectorName),
-            Prelude.Just ("iamRoleArn" Core..= iamRoleArn)
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("jobId" Data..= jobId),
+            Prelude.Just ("inputPath" Data..= inputPath),
+            Prelude.Just ("outputPath" Data..= outputPath),
+            Prelude.Just ("eventTypeName" Data..= eventTypeName),
+            Prelude.Just ("detectorName" Data..= detectorName),
+            Prelude.Just ("iamRoleArn" Data..= iamRoleArn)
           ]
       )
 
-instance Core.ToPath CreateBatchPredictionJob where
+instance Data.ToPath CreateBatchPredictionJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateBatchPredictionJob where
+instance Data.ToQuery CreateBatchPredictionJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateBatchPredictionJobResponse' smart constructor.

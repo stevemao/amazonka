@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.UpdateThemeAlias
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.QuickSight.UpdateThemeAlias
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -123,13 +124,14 @@ instance Core.AWSRequest UpdateThemeAlias where
   type
     AWSResponse UpdateThemeAlias =
       UpdateThemeAliasResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateThemeAliasResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "ThemeAlias")
+            Prelude.<$> (x Data..?> "RequestId")
+            Prelude.<*> (x Data..?> "ThemeAlias")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,38 +149,38 @@ instance Prelude.NFData UpdateThemeAlias where
       `Prelude.seq` Prelude.rnf aliasName
       `Prelude.seq` Prelude.rnf themeVersionNumber
 
-instance Core.ToHeaders UpdateThemeAlias where
+instance Data.ToHeaders UpdateThemeAlias where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateThemeAlias where
+instance Data.ToJSON UpdateThemeAlias where
   toJSON UpdateThemeAlias' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ThemeVersionNumber" Core..= themeVersionNumber)
+              ("ThemeVersionNumber" Data..= themeVersionNumber)
           ]
       )
 
-instance Core.ToPath UpdateThemeAlias where
+instance Data.ToPath UpdateThemeAlias where
   toPath UpdateThemeAlias' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/themes/",
-        Core.toBS themeId,
+        Data.toBS themeId,
         "/aliases/",
-        Core.toBS aliasName
+        Data.toBS aliasName
       ]
 
-instance Core.ToQuery UpdateThemeAlias where
+instance Data.ToQuery UpdateThemeAlias where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateThemeAliasResponse' smart constructor.

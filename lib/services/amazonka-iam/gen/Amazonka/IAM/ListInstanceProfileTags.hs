@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.ListInstanceProfileTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,16 +40,17 @@ module Amazonka.IAM.ListInstanceProfileTags
     newListInstanceProfileTagsResponse,
 
     -- * Response Lenses
-    listInstanceProfileTagsResponse_marker,
     listInstanceProfileTagsResponse_isTruncated,
+    listInstanceProfileTagsResponse_marker,
     listInstanceProfileTagsResponse_httpStatus,
     listInstanceProfileTagsResponse_tags,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -153,17 +154,18 @@ instance Core.AWSRequest ListInstanceProfileTags where
   type
     AWSResponse ListInstanceProfileTags =
       ListInstanceProfileTagsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListInstanceProfileTagsResult"
       ( \s h x ->
           ListInstanceProfileTagsResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> (x Core..@? "IsTruncated")
+            Prelude.<$> (x Data..@? "IsTruncated")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "Tags" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "member"
+            Prelude.<*> ( x Data..@? "Tags" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "member"
                         )
       )
 
@@ -179,31 +181,27 @@ instance Prelude.NFData ListInstanceProfileTags where
       `Prelude.seq` Prelude.rnf maxItems
       `Prelude.seq` Prelude.rnf instanceProfileName
 
-instance Core.ToHeaders ListInstanceProfileTags where
+instance Data.ToHeaders ListInstanceProfileTags where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListInstanceProfileTags where
+instance Data.ToPath ListInstanceProfileTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListInstanceProfileTags where
+instance Data.ToQuery ListInstanceProfileTags where
   toQuery ListInstanceProfileTags' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListInstanceProfileTags" :: Prelude.ByteString),
+          Data.=: ("ListInstanceProfileTags" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems,
-        "InstanceProfileName" Core.=: instanceProfileName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems,
+        "InstanceProfileName" Data.=: instanceProfileName
       ]
 
 -- | /See:/ 'newListInstanceProfileTagsResponse' smart constructor.
 data ListInstanceProfileTagsResponse = ListInstanceProfileTagsResponse'
-  { -- | When @IsTruncated@ is @true@, this element is present and contains the
-    -- value to use for the @Marker@ parameter in a subsequent pagination
-    -- request.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | A flag that indicates whether there are more items to return. If your
+  { -- | A flag that indicates whether there are more items to return. If your
     -- results were truncated, you can make a subsequent pagination request
     -- using the @Marker@ request parameter to retrieve more items. Note that
     -- IAM might return fewer than the @MaxItems@ number of results even when
@@ -211,6 +209,10 @@ data ListInstanceProfileTagsResponse = ListInstanceProfileTagsResponse'
     -- @IsTruncated@ after every call to ensure that you receive all your
     -- results.
     isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The list of tags that are currently attached to the IAM instance
@@ -229,10 +231,6 @@ data ListInstanceProfileTagsResponse = ListInstanceProfileTagsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'marker', 'listInstanceProfileTagsResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
--- value to use for the @Marker@ parameter in a subsequent pagination
--- request.
---
 -- 'isTruncated', 'listInstanceProfileTagsResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
 -- results were truncated, you can make a subsequent pagination request
 -- using the @Marker@ request parameter to retrieve more items. Note that
@@ -240,6 +238,10 @@ data ListInstanceProfileTagsResponse = ListInstanceProfileTagsResponse'
 -- there are more results available. We recommend that you check
 -- @IsTruncated@ after every call to ensure that you receive all your
 -- results.
+--
+-- 'marker', 'listInstanceProfileTagsResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
 --
 -- 'httpStatus', 'listInstanceProfileTagsResponse_httpStatus' - The response's http status code.
 --
@@ -253,18 +255,12 @@ newListInstanceProfileTagsResponse ::
   ListInstanceProfileTagsResponse
 newListInstanceProfileTagsResponse pHttpStatus_ =
   ListInstanceProfileTagsResponse'
-    { marker =
+    { isTruncated =
         Prelude.Nothing,
-      isTruncated = Prelude.Nothing,
+      marker = Prelude.Nothing,
       httpStatus = pHttpStatus_,
       tags = Prelude.mempty
     }
-
--- | When @IsTruncated@ is @true@, this element is present and contains the
--- value to use for the @Marker@ parameter in a subsequent pagination
--- request.
-listInstanceProfileTagsResponse_marker :: Lens.Lens' ListInstanceProfileTagsResponse (Prelude.Maybe Prelude.Text)
-listInstanceProfileTagsResponse_marker = Lens.lens (\ListInstanceProfileTagsResponse' {marker} -> marker) (\s@ListInstanceProfileTagsResponse' {} a -> s {marker = a} :: ListInstanceProfileTagsResponse)
 
 -- | A flag that indicates whether there are more items to return. If your
 -- results were truncated, you can make a subsequent pagination request
@@ -275,6 +271,12 @@ listInstanceProfileTagsResponse_marker = Lens.lens (\ListInstanceProfileTagsResp
 -- results.
 listInstanceProfileTagsResponse_isTruncated :: Lens.Lens' ListInstanceProfileTagsResponse (Prelude.Maybe Prelude.Bool)
 listInstanceProfileTagsResponse_isTruncated = Lens.lens (\ListInstanceProfileTagsResponse' {isTruncated} -> isTruncated) (\s@ListInstanceProfileTagsResponse' {} a -> s {isTruncated = a} :: ListInstanceProfileTagsResponse)
+
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listInstanceProfileTagsResponse_marker :: Lens.Lens' ListInstanceProfileTagsResponse (Prelude.Maybe Prelude.Text)
+listInstanceProfileTagsResponse_marker = Lens.lens (\ListInstanceProfileTagsResponse' {marker} -> marker) (\s@ListInstanceProfileTagsResponse' {} a -> s {marker = a} :: ListInstanceProfileTagsResponse)
 
 -- | The response's http status code.
 listInstanceProfileTagsResponse_httpStatus :: Lens.Lens' ListInstanceProfileTagsResponse Prelude.Int
@@ -292,7 +294,7 @@ instance
     ListInstanceProfileTagsResponse
   where
   rnf ListInstanceProfileTagsResponse' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf isTruncated
+    Prelude.rnf isTruncated
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf tags

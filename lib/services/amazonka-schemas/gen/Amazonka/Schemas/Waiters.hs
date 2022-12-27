@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.Schemas.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,7 +17,8 @@
 module Amazonka.Schemas.Waiters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Schemas.DescribeCodeBinding
 import Amazonka.Schemas.Lens
@@ -26,30 +28,30 @@ import Amazonka.Schemas.Types
 newCodeBindingExists :: Core.Wait DescribeCodeBinding
 newCodeBindingExists =
   Core.Wait
-    { Core._waitName = "CodeBindingExists",
-      Core._waitAttempts = 30,
-      Core._waitDelay = 2,
-      Core._waitAcceptors =
+    { Core.name = "CodeBindingExists",
+      Core.attempts = 30,
+      Core.delay = 2,
+      Core.acceptors =
         [ Core.matchAll
             "CREATE_COMPLETE"
             Core.AcceptSuccess
             ( describeCodeBindingResponse_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "CREATE_IN_PROGRESS"
             Core.AcceptRetry
             ( describeCodeBindingResponse_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "CREATE_FAILED"
             Core.AcceptFailure
             ( describeCodeBindingResponse_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchError
             "NotFoundException"

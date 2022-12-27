@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.RevokeSnapshotAccess
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,6 +33,7 @@ module Amazonka.Redshift.RevokeSnapshotAccess
     newRevokeSnapshotAccess,
 
     -- * Request Lenses
+    revokeSnapshotAccess_snapshotArn,
     revokeSnapshotAccess_snapshotClusterIdentifier,
     revokeSnapshotAccess_snapshotIdentifier,
     revokeSnapshotAccess_accountWithRestoreAccess,
@@ -48,7 +49,8 @@ module Amazonka.Redshift.RevokeSnapshotAccess
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -58,13 +60,16 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newRevokeSnapshotAccess' smart constructor.
 data RevokeSnapshotAccess = RevokeSnapshotAccess'
-  { -- | The identifier of the cluster the snapshot was created from. This
+  { -- | The Amazon Resource Name (ARN) of the snapshot associated with the
+    -- message to revoke access.
+    snapshotArn :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the cluster the snapshot was created from. This
     -- parameter is required if your IAM user has a policy containing a
     -- snapshot resource element that specifies anything other than * for the
     -- cluster name.
     snapshotClusterIdentifier :: Prelude.Maybe Prelude.Text,
     -- | The identifier of the snapshot that the account can no longer access.
-    snapshotIdentifier :: Prelude.Text,
+    snapshotIdentifier :: Prelude.Maybe Prelude.Text,
     -- | The identifier of the Amazon Web Services account that can no longer
     -- restore the specified snapshot.
     accountWithRestoreAccess :: Prelude.Text
@@ -79,6 +84,9 @@ data RevokeSnapshotAccess = RevokeSnapshotAccess'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'snapshotArn', 'revokeSnapshotAccess_snapshotArn' - The Amazon Resource Name (ARN) of the snapshot associated with the
+-- message to revoke access.
+--
 -- 'snapshotClusterIdentifier', 'revokeSnapshotAccess_snapshotClusterIdentifier' - The identifier of the cluster the snapshot was created from. This
 -- parameter is required if your IAM user has a policy containing a
 -- snapshot resource element that specifies anything other than * for the
@@ -89,21 +97,23 @@ data RevokeSnapshotAccess = RevokeSnapshotAccess'
 -- 'accountWithRestoreAccess', 'revokeSnapshotAccess_accountWithRestoreAccess' - The identifier of the Amazon Web Services account that can no longer
 -- restore the specified snapshot.
 newRevokeSnapshotAccess ::
-  -- | 'snapshotIdentifier'
-  Prelude.Text ->
   -- | 'accountWithRestoreAccess'
   Prelude.Text ->
   RevokeSnapshotAccess
-newRevokeSnapshotAccess
-  pSnapshotIdentifier_
-  pAccountWithRestoreAccess_ =
-    RevokeSnapshotAccess'
-      { snapshotClusterIdentifier =
-          Prelude.Nothing,
-        snapshotIdentifier = pSnapshotIdentifier_,
-        accountWithRestoreAccess =
-          pAccountWithRestoreAccess_
-      }
+newRevokeSnapshotAccess pAccountWithRestoreAccess_ =
+  RevokeSnapshotAccess'
+    { snapshotArn =
+        Prelude.Nothing,
+      snapshotClusterIdentifier = Prelude.Nothing,
+      snapshotIdentifier = Prelude.Nothing,
+      accountWithRestoreAccess =
+        pAccountWithRestoreAccess_
+    }
+
+-- | The Amazon Resource Name (ARN) of the snapshot associated with the
+-- message to revoke access.
+revokeSnapshotAccess_snapshotArn :: Lens.Lens' RevokeSnapshotAccess (Prelude.Maybe Prelude.Text)
+revokeSnapshotAccess_snapshotArn = Lens.lens (\RevokeSnapshotAccess' {snapshotArn} -> snapshotArn) (\s@RevokeSnapshotAccess' {} a -> s {snapshotArn = a} :: RevokeSnapshotAccess)
 
 -- | The identifier of the cluster the snapshot was created from. This
 -- parameter is required if your IAM user has a policy containing a
@@ -113,7 +123,7 @@ revokeSnapshotAccess_snapshotClusterIdentifier :: Lens.Lens' RevokeSnapshotAcces
 revokeSnapshotAccess_snapshotClusterIdentifier = Lens.lens (\RevokeSnapshotAccess' {snapshotClusterIdentifier} -> snapshotClusterIdentifier) (\s@RevokeSnapshotAccess' {} a -> s {snapshotClusterIdentifier = a} :: RevokeSnapshotAccess)
 
 -- | The identifier of the snapshot that the account can no longer access.
-revokeSnapshotAccess_snapshotIdentifier :: Lens.Lens' RevokeSnapshotAccess Prelude.Text
+revokeSnapshotAccess_snapshotIdentifier :: Lens.Lens' RevokeSnapshotAccess (Prelude.Maybe Prelude.Text)
 revokeSnapshotAccess_snapshotIdentifier = Lens.lens (\RevokeSnapshotAccess' {snapshotIdentifier} -> snapshotIdentifier) (\s@RevokeSnapshotAccess' {} a -> s {snapshotIdentifier = a} :: RevokeSnapshotAccess)
 
 -- | The identifier of the Amazon Web Services account that can no longer
@@ -125,47 +135,50 @@ instance Core.AWSRequest RevokeSnapshotAccess where
   type
     AWSResponse RevokeSnapshotAccess =
       RevokeSnapshotAccessResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "RevokeSnapshotAccessResult"
       ( \s h x ->
           RevokeSnapshotAccessResponse'
-            Prelude.<$> (x Core..@? "Snapshot")
+            Prelude.<$> (x Data..@? "Snapshot")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable RevokeSnapshotAccess where
   hashWithSalt _salt RevokeSnapshotAccess' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` snapshotArn
       `Prelude.hashWithSalt` snapshotClusterIdentifier
       `Prelude.hashWithSalt` snapshotIdentifier
       `Prelude.hashWithSalt` accountWithRestoreAccess
 
 instance Prelude.NFData RevokeSnapshotAccess where
   rnf RevokeSnapshotAccess' {..} =
-    Prelude.rnf snapshotClusterIdentifier
+    Prelude.rnf snapshotArn
+      `Prelude.seq` Prelude.rnf snapshotClusterIdentifier
       `Prelude.seq` Prelude.rnf snapshotIdentifier
       `Prelude.seq` Prelude.rnf accountWithRestoreAccess
 
-instance Core.ToHeaders RevokeSnapshotAccess where
+instance Data.ToHeaders RevokeSnapshotAccess where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RevokeSnapshotAccess where
+instance Data.ToPath RevokeSnapshotAccess where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RevokeSnapshotAccess where
+instance Data.ToQuery RevokeSnapshotAccess where
   toQuery RevokeSnapshotAccess' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RevokeSnapshotAccess" :: Prelude.ByteString),
+          Data.=: ("RevokeSnapshotAccess" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "SnapshotArn" Data.=: snapshotArn,
         "SnapshotClusterIdentifier"
-          Core.=: snapshotClusterIdentifier,
-        "SnapshotIdentifier" Core.=: snapshotIdentifier,
+          Data.=: snapshotClusterIdentifier,
+        "SnapshotIdentifier" Data.=: snapshotIdentifier,
         "AccountWithRestoreAccess"
-          Core.=: accountWithRestoreAccess
+          Data.=: accountWithRestoreAccess
       ]
 
 -- | /See:/ 'newRevokeSnapshotAccessResponse' smart constructor.

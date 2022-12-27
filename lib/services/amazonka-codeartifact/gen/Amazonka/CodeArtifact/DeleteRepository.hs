@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.DeleteRepository
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,15 +43,16 @@ where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteRepository' smart constructor.
 data DeleteRepository = DeleteRepository'
-  { -- | The 12-digit account number of the AWS account that owns the domain. It
-    -- does not include dashes or spaces.
+  { -- | The 12-digit account number of the Amazon Web Services account that owns
+    -- the domain. It does not include dashes or spaces.
     domainOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the domain that contains the repository to delete.
     domain :: Prelude.Text,
@@ -68,8 +69,8 @@ data DeleteRepository = DeleteRepository'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainOwner', 'deleteRepository_domainOwner' - The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- 'domainOwner', 'deleteRepository_domainOwner' - The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 --
 -- 'domain', 'deleteRepository_domain' - The name of the domain that contains the repository to delete.
 --
@@ -87,8 +88,8 @@ newDeleteRepository pDomain_ pRepository_ =
       repository = pRepository_
     }
 
--- | The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- | The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 deleteRepository_domainOwner :: Lens.Lens' DeleteRepository (Prelude.Maybe Prelude.Text)
 deleteRepository_domainOwner = Lens.lens (\DeleteRepository' {domainOwner} -> domainOwner) (\s@DeleteRepository' {} a -> s {domainOwner = a} :: DeleteRepository)
 
@@ -104,12 +105,13 @@ instance Core.AWSRequest DeleteRepository where
   type
     AWSResponse DeleteRepository =
       DeleteRepositoryResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteRepositoryResponse'
-            Prelude.<$> (x Core..?> "repository")
+            Prelude.<$> (x Data..?> "repository")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,26 +127,26 @@ instance Prelude.NFData DeleteRepository where
       `Prelude.seq` Prelude.rnf domain
       `Prelude.seq` Prelude.rnf repository
 
-instance Core.ToHeaders DeleteRepository where
+instance Data.ToHeaders DeleteRepository where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteRepository where
+instance Data.ToPath DeleteRepository where
   toPath = Prelude.const "/v1/repository"
 
-instance Core.ToQuery DeleteRepository where
+instance Data.ToQuery DeleteRepository where
   toQuery DeleteRepository' {..} =
     Prelude.mconcat
-      [ "domain-owner" Core.=: domainOwner,
-        "domain" Core.=: domain,
-        "repository" Core.=: repository
+      [ "domain-owner" Data.=: domainOwner,
+        "domain" Data.=: domain,
+        "repository" Data.=: repository
       ]
 
 -- | /See:/ 'newDeleteRepositoryResponse' smart constructor.

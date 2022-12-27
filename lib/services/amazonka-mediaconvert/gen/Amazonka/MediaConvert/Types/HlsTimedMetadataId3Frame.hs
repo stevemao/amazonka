@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.HlsTimedMetadataId3Frame
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,12 +28,17 @@ module Amazonka.MediaConvert.Types.HlsTimedMetadataId3Frame
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Indicates ID3 frame that has the timecode.
+-- | Specify the type of the ID3 frame (timedMetadataId3Frame) to use for ID3
+-- timestamps (timedMetadataId3Period) in your output. To include ID3
+-- timestamps: Specify PRIV (PRIV) or TDRL (TDRL) and set ID3 metadata
+-- (timedMetadata) to Passthrough (PASSTHROUGH). To exclude ID3 timestamps:
+-- Set ID3 timestamp frame type to None (NONE).
 newtype HlsTimedMetadataId3Frame = HlsTimedMetadataId3Frame'
   { fromHlsTimedMetadataId3Frame ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -45,18 +50,18 @@ newtype HlsTimedMetadataId3Frame = HlsTimedMetadataId3Frame'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern HlsTimedMetadataId3Frame_NONE :: HlsTimedMetadataId3Frame

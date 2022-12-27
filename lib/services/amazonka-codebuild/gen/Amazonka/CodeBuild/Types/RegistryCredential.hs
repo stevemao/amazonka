@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.Types.RegistryCredential
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodeBuild.Types.RegistryCredential where
 
 import Amazonka.CodeBuild.Types.CredentialProviderType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about credentials that provide access to a private Docker
@@ -91,14 +92,14 @@ registryCredential_credential = Lens.lens (\RegistryCredential' {credential} -> 
 registryCredential_credentialProvider :: Lens.Lens' RegistryCredential CredentialProviderType
 registryCredential_credentialProvider = Lens.lens (\RegistryCredential' {credentialProvider} -> credentialProvider) (\s@RegistryCredential' {} a -> s {credentialProvider = a} :: RegistryCredential)
 
-instance Core.FromJSON RegistryCredential where
+instance Data.FromJSON RegistryCredential where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RegistryCredential"
       ( \x ->
           RegistryCredential'
-            Prelude.<$> (x Core..: "credential")
-            Prelude.<*> (x Core..: "credentialProvider")
+            Prelude.<$> (x Data..: "credential")
+            Prelude.<*> (x Data..: "credentialProvider")
       )
 
 instance Prelude.Hashable RegistryCredential where
@@ -111,12 +112,12 @@ instance Prelude.NFData RegistryCredential where
     Prelude.rnf credential
       `Prelude.seq` Prelude.rnf credentialProvider
 
-instance Core.ToJSON RegistryCredential where
+instance Data.ToJSON RegistryCredential where
   toJSON RegistryCredential' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("credential" Core..= credential),
+          [ Prelude.Just ("credential" Data..= credential),
             Prelude.Just
-              ("credentialProvider" Core..= credentialProvider)
+              ("credentialProvider" Data..= credentialProvider)
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.GetRun
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DeviceFarm.GetRun
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,12 +77,13 @@ getRun_arn = Lens.lens (\GetRun' {arn} -> arn) (\s@GetRun' {} a -> s {arn = a} :
 
 instance Core.AWSRequest GetRun where
   type AWSResponse GetRun = GetRunResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRunResponse'
-            Prelude.<$> (x Core..?> "run")
+            Prelude.<$> (x Data..?> "run")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -92,30 +94,30 @@ instance Prelude.Hashable GetRun where
 instance Prelude.NFData GetRun where
   rnf GetRun' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders GetRun where
+instance Data.ToHeaders GetRun where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("DeviceFarm_20150623.GetRun" :: Prelude.ByteString),
+              Data.=# ("DeviceFarm_20150623.GetRun" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetRun where
+instance Data.ToJSON GetRun where
   toJSON GetRun' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arn" Core..= arn)]
+          [Prelude.Just ("arn" Data..= arn)]
       )
 
-instance Core.ToPath GetRun where
+instance Data.ToPath GetRun where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetRun where
+instance Data.ToQuery GetRun where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a get run request.

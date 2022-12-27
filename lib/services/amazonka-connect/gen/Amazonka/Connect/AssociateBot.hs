@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.AssociateBot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,7 +100,8 @@ associateBot_instanceId = Lens.lens (\AssociateBot' {instanceId} -> instanceId) 
 
 instance Core.AWSRequest AssociateBot where
   type AWSResponse AssociateBot = AssociateBotResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response = Response.receiveNull AssociateBotResponse'
 
 instance Prelude.Hashable AssociateBot where
@@ -114,32 +116,32 @@ instance Prelude.NFData AssociateBot where
       `Prelude.seq` Prelude.rnf lexV2Bot
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders AssociateBot where
+instance Data.ToHeaders AssociateBot where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateBot where
+instance Data.ToJSON AssociateBot where
   toJSON AssociateBot' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LexBot" Core..=) Prelude.<$> lexBot,
-            ("LexV2Bot" Core..=) Prelude.<$> lexV2Bot
+          [ ("LexBot" Data..=) Prelude.<$> lexBot,
+            ("LexV2Bot" Data..=) Prelude.<$> lexV2Bot
           ]
       )
 
-instance Core.ToPath AssociateBot where
+instance Data.ToPath AssociateBot where
   toPath AssociateBot' {..} =
     Prelude.mconcat
-      ["/instance/", Core.toBS instanceId, "/bot"]
+      ["/instance/", Data.toBS instanceId, "/bot"]
 
-instance Core.ToQuery AssociateBot where
+instance Data.ToQuery AssociateBot where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateBotResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DeleteModelPackageGroupPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,7 +36,8 @@ module Amazonka.SageMaker.DeleteModelPackageGroupPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +81,8 @@ instance
   type
     AWSResponse DeleteModelPackageGroupPolicy =
       DeleteModelPackageGroupPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteModelPackageGroupPolicyResponse'
@@ -96,36 +98,36 @@ instance Prelude.NFData DeleteModelPackageGroupPolicy where
   rnf DeleteModelPackageGroupPolicy' {..} =
     Prelude.rnf modelPackageGroupName
 
-instance Core.ToHeaders DeleteModelPackageGroupPolicy where
+instance Data.ToHeaders DeleteModelPackageGroupPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DeleteModelPackageGroupPolicy" ::
+              Data.=# ( "SageMaker.DeleteModelPackageGroupPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteModelPackageGroupPolicy where
+instance Data.ToJSON DeleteModelPackageGroupPolicy where
   toJSON DeleteModelPackageGroupPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "ModelPackageGroupName"
-                  Core..= modelPackageGroupName
+                  Data..= modelPackageGroupName
               )
           ]
       )
 
-instance Core.ToPath DeleteModelPackageGroupPolicy where
+instance Data.ToPath DeleteModelPackageGroupPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteModelPackageGroupPolicy where
+instance Data.ToQuery DeleteModelPackageGroupPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteModelPackageGroupPolicyResponse' smart constructor.

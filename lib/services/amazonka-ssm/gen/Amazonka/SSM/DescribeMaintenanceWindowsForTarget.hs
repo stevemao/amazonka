@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.SSM.DescribeMaintenanceWindowsForTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Retrieves information about the maintenance window targets or tasks that
--- an instance is associated with.
+-- a managed node is associated with.
 --
 -- This operation returns paginated results.
 module Amazonka.SSM.DescribeMaintenanceWindowsForTarget
@@ -30,8 +30,8 @@ module Amazonka.SSM.DescribeMaintenanceWindowsForTarget
     newDescribeMaintenanceWindowsForTarget,
 
     -- * Request Lenses
-    describeMaintenanceWindowsForTarget_nextToken,
     describeMaintenanceWindowsForTarget_maxResults,
+    describeMaintenanceWindowsForTarget_nextToken,
     describeMaintenanceWindowsForTarget_targets,
     describeMaintenanceWindowsForTarget_resourceType,
 
@@ -40,14 +40,15 @@ module Amazonka.SSM.DescribeMaintenanceWindowsForTarget
     newDescribeMaintenanceWindowsForTargetResponse,
 
     -- * Response Lenses
-    describeMaintenanceWindowsForTargetResponse_windowIdentities,
     describeMaintenanceWindowsForTargetResponse_nextToken,
+    describeMaintenanceWindowsForTargetResponse_windowIdentities,
     describeMaintenanceWindowsForTargetResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,14 +56,14 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newDescribeMaintenanceWindowsForTarget' smart constructor.
 data DescribeMaintenanceWindowsForTarget = DescribeMaintenanceWindowsForTarget'
-  { -- | The token for the next set of items to return. (You received this token
-    -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return for this call. The call also
+  { -- | The maximum number of items to return for this call. The call also
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The instance ID or key-value pair to retrieve information about.
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The managed node ID or key-value pair to retrieve information about.
     targets :: [Target],
     -- | The type of resource you want to retrieve information about. For
     -- example, @INSTANCE@.
@@ -78,14 +79,14 @@ data DescribeMaintenanceWindowsForTarget = DescribeMaintenanceWindowsForTarget'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeMaintenanceWindowsForTarget_nextToken' - The token for the next set of items to return. (You received this token
--- from a previous call.)
---
 -- 'maxResults', 'describeMaintenanceWindowsForTarget_maxResults' - The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
 --
--- 'targets', 'describeMaintenanceWindowsForTarget_targets' - The instance ID or key-value pair to retrieve information about.
+-- 'nextToken', 'describeMaintenanceWindowsForTarget_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
+--
+-- 'targets', 'describeMaintenanceWindowsForTarget_targets' - The managed node ID or key-value pair to retrieve information about.
 --
 -- 'resourceType', 'describeMaintenanceWindowsForTarget_resourceType' - The type of resource you want to retrieve information about. For
 -- example, @INSTANCE@.
@@ -95,17 +96,12 @@ newDescribeMaintenanceWindowsForTarget ::
   DescribeMaintenanceWindowsForTarget
 newDescribeMaintenanceWindowsForTarget pResourceType_ =
   DescribeMaintenanceWindowsForTarget'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       targets = Prelude.mempty,
       resourceType = pResourceType_
     }
-
--- | The token for the next set of items to return. (You received this token
--- from a previous call.)
-describeMaintenanceWindowsForTarget_nextToken :: Lens.Lens' DescribeMaintenanceWindowsForTarget (Prelude.Maybe Prelude.Text)
-describeMaintenanceWindowsForTarget_nextToken = Lens.lens (\DescribeMaintenanceWindowsForTarget' {nextToken} -> nextToken) (\s@DescribeMaintenanceWindowsForTarget' {} a -> s {nextToken = a} :: DescribeMaintenanceWindowsForTarget)
 
 -- | The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
@@ -113,7 +109,12 @@ describeMaintenanceWindowsForTarget_nextToken = Lens.lens (\DescribeMaintenanceW
 describeMaintenanceWindowsForTarget_maxResults :: Lens.Lens' DescribeMaintenanceWindowsForTarget (Prelude.Maybe Prelude.Natural)
 describeMaintenanceWindowsForTarget_maxResults = Lens.lens (\DescribeMaintenanceWindowsForTarget' {maxResults} -> maxResults) (\s@DescribeMaintenanceWindowsForTarget' {} a -> s {maxResults = a} :: DescribeMaintenanceWindowsForTarget)
 
--- | The instance ID or key-value pair to retrieve information about.
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeMaintenanceWindowsForTarget_nextToken :: Lens.Lens' DescribeMaintenanceWindowsForTarget (Prelude.Maybe Prelude.Text)
+describeMaintenanceWindowsForTarget_nextToken = Lens.lens (\DescribeMaintenanceWindowsForTarget' {nextToken} -> nextToken) (\s@DescribeMaintenanceWindowsForTarget' {} a -> s {nextToken = a} :: DescribeMaintenanceWindowsForTarget)
+
+-- | The managed node ID or key-value pair to retrieve information about.
 describeMaintenanceWindowsForTarget_targets :: Lens.Lens' DescribeMaintenanceWindowsForTarget [Target]
 describeMaintenanceWindowsForTarget_targets = Lens.lens (\DescribeMaintenanceWindowsForTarget' {targets} -> targets) (\s@DescribeMaintenanceWindowsForTarget' {} a -> s {targets = a} :: DescribeMaintenanceWindowsForTarget) Prelude.. Lens.coerced
 
@@ -154,15 +155,16 @@ instance
   type
     AWSResponse DescribeMaintenanceWindowsForTarget =
       DescribeMaintenanceWindowsForTargetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeMaintenanceWindowsForTargetResponse'
-            Prelude.<$> ( x Core..?> "WindowIdentities"
-                            Core..!@ Prelude.mempty
-                        )
-              Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+              Prelude.<*> ( x Data..?> "WindowIdentities"
+                              Core..!@ Prelude.mempty
+                          )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -173,8 +175,8 @@ instance
   hashWithSalt
     _salt
     DescribeMaintenanceWindowsForTarget' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` targets
         `Prelude.hashWithSalt` resourceType
 
@@ -183,63 +185,63 @@ instance
     DescribeMaintenanceWindowsForTarget
   where
   rnf DescribeMaintenanceWindowsForTarget' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf targets
       `Prelude.seq` Prelude.rnf resourceType
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeMaintenanceWindowsForTarget
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.DescribeMaintenanceWindowsForTarget" ::
+              Data.=# ( "AmazonSSM.DescribeMaintenanceWindowsForTarget" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeMaintenanceWindowsForTarget
   where
   toJSON DescribeMaintenanceWindowsForTarget' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("Targets" Core..= targets),
-            Prelude.Just ("ResourceType" Core..= resourceType)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("Targets" Data..= targets),
+            Prelude.Just ("ResourceType" Data..= resourceType)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeMaintenanceWindowsForTarget
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeMaintenanceWindowsForTarget
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeMaintenanceWindowsForTargetResponse' smart constructor.
 data DescribeMaintenanceWindowsForTargetResponse = DescribeMaintenanceWindowsForTargetResponse'
-  { -- | Information about the maintenance window targets and tasks an instance
-    -- is associated with.
-    windowIdentities :: Prelude.Maybe [MaintenanceWindowIdentityForTarget],
-    -- | The token for the next set of items to return. (You use this token in
+  { -- | The token for the next set of items to return. (You use this token in
     -- the next call.)
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the maintenance window targets and tasks a managed
+    -- node is associated with.
+    windowIdentities :: Prelude.Maybe [MaintenanceWindowIdentityForTarget],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -253,11 +255,11 @@ data DescribeMaintenanceWindowsForTargetResponse = DescribeMaintenanceWindowsFor
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'windowIdentities', 'describeMaintenanceWindowsForTargetResponse_windowIdentities' - Information about the maintenance window targets and tasks an instance
--- is associated with.
---
 -- 'nextToken', 'describeMaintenanceWindowsForTargetResponse_nextToken' - The token for the next set of items to return. (You use this token in
 -- the next call.)
+--
+-- 'windowIdentities', 'describeMaintenanceWindowsForTargetResponse_windowIdentities' - Information about the maintenance window targets and tasks a managed
+-- node is associated with.
 --
 -- 'httpStatus', 'describeMaintenanceWindowsForTargetResponse_httpStatus' - The response's http status code.
 newDescribeMaintenanceWindowsForTargetResponse ::
@@ -267,21 +269,22 @@ newDescribeMaintenanceWindowsForTargetResponse ::
 newDescribeMaintenanceWindowsForTargetResponse
   pHttpStatus_ =
     DescribeMaintenanceWindowsForTargetResponse'
-      { windowIdentities =
+      { nextToken =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
+        windowIdentities =
+          Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | Information about the maintenance window targets and tasks an instance
--- is associated with.
-describeMaintenanceWindowsForTargetResponse_windowIdentities :: Lens.Lens' DescribeMaintenanceWindowsForTargetResponse (Prelude.Maybe [MaintenanceWindowIdentityForTarget])
-describeMaintenanceWindowsForTargetResponse_windowIdentities = Lens.lens (\DescribeMaintenanceWindowsForTargetResponse' {windowIdentities} -> windowIdentities) (\s@DescribeMaintenanceWindowsForTargetResponse' {} a -> s {windowIdentities = a} :: DescribeMaintenanceWindowsForTargetResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token for the next set of items to return. (You use this token in
 -- the next call.)
 describeMaintenanceWindowsForTargetResponse_nextToken :: Lens.Lens' DescribeMaintenanceWindowsForTargetResponse (Prelude.Maybe Prelude.Text)
 describeMaintenanceWindowsForTargetResponse_nextToken = Lens.lens (\DescribeMaintenanceWindowsForTargetResponse' {nextToken} -> nextToken) (\s@DescribeMaintenanceWindowsForTargetResponse' {} a -> s {nextToken = a} :: DescribeMaintenanceWindowsForTargetResponse)
+
+-- | Information about the maintenance window targets and tasks a managed
+-- node is associated with.
+describeMaintenanceWindowsForTargetResponse_windowIdentities :: Lens.Lens' DescribeMaintenanceWindowsForTargetResponse (Prelude.Maybe [MaintenanceWindowIdentityForTarget])
+describeMaintenanceWindowsForTargetResponse_windowIdentities = Lens.lens (\DescribeMaintenanceWindowsForTargetResponse' {windowIdentities} -> windowIdentities) (\s@DescribeMaintenanceWindowsForTargetResponse' {} a -> s {windowIdentities = a} :: DescribeMaintenanceWindowsForTargetResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeMaintenanceWindowsForTargetResponse_httpStatus :: Lens.Lens' DescribeMaintenanceWindowsForTargetResponse Prelude.Int
@@ -292,6 +295,6 @@ instance
     DescribeMaintenanceWindowsForTargetResponse
   where
   rnf DescribeMaintenanceWindowsForTargetResponse' {..} =
-    Prelude.rnf windowIdentities
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf windowIdentities
       `Prelude.seq` Prelude.rnf httpStatus

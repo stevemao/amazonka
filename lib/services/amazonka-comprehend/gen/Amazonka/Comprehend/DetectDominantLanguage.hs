@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.DetectDominantLanguage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,16 +43,17 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDetectDominantLanguage' smart constructor.
 data DetectDominantLanguage = DetectDominantLanguage'
-  { -- | A UTF-8 text string. Each string should contain at least 20 characters
-    -- and must contain fewer that 5,000 bytes of UTF-8 encoded characters.
-    text :: Core.Sensitive Prelude.Text
+  { -- | A UTF-8 text string. The string must contain at least 20 characters. The
+    -- maximum string size is 100 KB.
+    text :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -64,8 +65,8 @@ data DetectDominantLanguage = DetectDominantLanguage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'text', 'detectDominantLanguage_text' - A UTF-8 text string. Each string should contain at least 20 characters
--- and must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+-- 'text', 'detectDominantLanguage_text' - A UTF-8 text string. The string must contain at least 20 characters. The
+-- maximum string size is 100 KB.
 newDetectDominantLanguage ::
   -- | 'text'
   Prelude.Text ->
@@ -73,24 +74,25 @@ newDetectDominantLanguage ::
 newDetectDominantLanguage pText_ =
   DetectDominantLanguage'
     { text =
-        Core._Sensitive Lens.# pText_
+        Data._Sensitive Lens.# pText_
     }
 
--- | A UTF-8 text string. Each string should contain at least 20 characters
--- and must contain fewer that 5,000 bytes of UTF-8 encoded characters.
+-- | A UTF-8 text string. The string must contain at least 20 characters. The
+-- maximum string size is 100 KB.
 detectDominantLanguage_text :: Lens.Lens' DetectDominantLanguage Prelude.Text
-detectDominantLanguage_text = Lens.lens (\DetectDominantLanguage' {text} -> text) (\s@DetectDominantLanguage' {} a -> s {text = a} :: DetectDominantLanguage) Prelude.. Core._Sensitive
+detectDominantLanguage_text = Lens.lens (\DetectDominantLanguage' {text} -> text) (\s@DetectDominantLanguage' {} a -> s {text = a} :: DetectDominantLanguage) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest DetectDominantLanguage where
   type
     AWSResponse DetectDominantLanguage =
       DetectDominantLanguageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DetectDominantLanguageResponse'
-            Prelude.<$> (x Core..?> "Languages" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Languages" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,32 +103,32 @@ instance Prelude.Hashable DetectDominantLanguage where
 instance Prelude.NFData DetectDominantLanguage where
   rnf DetectDominantLanguage' {..} = Prelude.rnf text
 
-instance Core.ToHeaders DetectDominantLanguage where
+instance Data.ToHeaders DetectDominantLanguage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.DetectDominantLanguage" ::
+              Data.=# ( "Comprehend_20171127.DetectDominantLanguage" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DetectDominantLanguage where
+instance Data.ToJSON DetectDominantLanguage where
   toJSON DetectDominantLanguage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Text" Core..= text)]
+          [Prelude.Just ("Text" Data..= text)]
       )
 
-instance Core.ToPath DetectDominantLanguage where
+instance Data.ToPath DetectDominantLanguage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetectDominantLanguage where
+instance Data.ToQuery DetectDominantLanguage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDetectDominantLanguageResponse' smart constructor.

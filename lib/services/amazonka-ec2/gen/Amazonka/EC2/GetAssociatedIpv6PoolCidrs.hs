@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.GetAssociatedIpv6PoolCidrs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.EC2.GetAssociatedIpv6PoolCidrs
     newGetAssociatedIpv6PoolCidrs,
 
     -- * Request Lenses
-    getAssociatedIpv6PoolCidrs_nextToken,
     getAssociatedIpv6PoolCidrs_dryRun,
     getAssociatedIpv6PoolCidrs_maxResults,
+    getAssociatedIpv6PoolCidrs_nextToken,
     getAssociatedIpv6PoolCidrs_poolId,
 
     -- * Destructuring the Response
@@ -47,17 +47,16 @@ module Amazonka.EC2.GetAssociatedIpv6PoolCidrs
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetAssociatedIpv6PoolCidrs' smart constructor.
 data GetAssociatedIpv6PoolCidrs = GetAssociatedIpv6PoolCidrs'
-  { -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
@@ -66,6 +65,8 @@ data GetAssociatedIpv6PoolCidrs = GetAssociatedIpv6PoolCidrs'
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the IPv6 address pool.
     poolId :: Prelude.Text
   }
@@ -79,8 +80,6 @@ data GetAssociatedIpv6PoolCidrs = GetAssociatedIpv6PoolCidrs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getAssociatedIpv6PoolCidrs_nextToken' - The token for the next page of results.
---
 -- 'dryRun', 'getAssociatedIpv6PoolCidrs_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
@@ -90,6 +89,8 @@ data GetAssociatedIpv6PoolCidrs = GetAssociatedIpv6PoolCidrs'
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 --
+-- 'nextToken', 'getAssociatedIpv6PoolCidrs_nextToken' - The token for the next page of results.
+--
 -- 'poolId', 'getAssociatedIpv6PoolCidrs_poolId' - The ID of the IPv6 address pool.
 newGetAssociatedIpv6PoolCidrs ::
   -- | 'poolId'
@@ -97,16 +98,12 @@ newGetAssociatedIpv6PoolCidrs ::
   GetAssociatedIpv6PoolCidrs
 newGetAssociatedIpv6PoolCidrs pPoolId_ =
   GetAssociatedIpv6PoolCidrs'
-    { nextToken =
+    { dryRun =
         Prelude.Nothing,
-      dryRun = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       poolId = pPoolId_
     }
-
--- | The token for the next page of results.
-getAssociatedIpv6PoolCidrs_nextToken :: Lens.Lens' GetAssociatedIpv6PoolCidrs (Prelude.Maybe Prelude.Text)
-getAssociatedIpv6PoolCidrs_nextToken = Lens.lens (\GetAssociatedIpv6PoolCidrs' {nextToken} -> nextToken) (\s@GetAssociatedIpv6PoolCidrs' {} a -> s {nextToken = a} :: GetAssociatedIpv6PoolCidrs)
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -120,6 +117,10 @@ getAssociatedIpv6PoolCidrs_dryRun = Lens.lens (\GetAssociatedIpv6PoolCidrs' {dry
 -- value.
 getAssociatedIpv6PoolCidrs_maxResults :: Lens.Lens' GetAssociatedIpv6PoolCidrs (Prelude.Maybe Prelude.Natural)
 getAssociatedIpv6PoolCidrs_maxResults = Lens.lens (\GetAssociatedIpv6PoolCidrs' {maxResults} -> maxResults) (\s@GetAssociatedIpv6PoolCidrs' {} a -> s {maxResults = a} :: GetAssociatedIpv6PoolCidrs)
+
+-- | The token for the next page of results.
+getAssociatedIpv6PoolCidrs_nextToken :: Lens.Lens' GetAssociatedIpv6PoolCidrs (Prelude.Maybe Prelude.Text)
+getAssociatedIpv6PoolCidrs_nextToken = Lens.lens (\GetAssociatedIpv6PoolCidrs' {nextToken} -> nextToken) (\s@GetAssociatedIpv6PoolCidrs' {} a -> s {nextToken = a} :: GetAssociatedIpv6PoolCidrs)
 
 -- | The ID of the IPv6 address pool.
 getAssociatedIpv6PoolCidrs_poolId :: Lens.Lens' GetAssociatedIpv6PoolCidrs Prelude.Text
@@ -151,50 +152,51 @@ instance Core.AWSRequest GetAssociatedIpv6PoolCidrs where
   type
     AWSResponse GetAssociatedIpv6PoolCidrs =
       GetAssociatedIpv6PoolCidrsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetAssociatedIpv6PoolCidrsResponse'
-            Prelude.<$> ( x Core..@? "ipv6CidrAssociationSet"
+            Prelude.<$> ( x Data..@? "ipv6CidrAssociationSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> (x Core..@? "nextToken")
+            Prelude.<*> (x Data..@? "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetAssociatedIpv6PoolCidrs where
   hashWithSalt _salt GetAssociatedIpv6PoolCidrs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` dryRun
+    _salt `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` poolId
 
 instance Prelude.NFData GetAssociatedIpv6PoolCidrs where
   rnf GetAssociatedIpv6PoolCidrs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf poolId
 
-instance Core.ToHeaders GetAssociatedIpv6PoolCidrs where
+instance Data.ToHeaders GetAssociatedIpv6PoolCidrs where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetAssociatedIpv6PoolCidrs where
+instance Data.ToPath GetAssociatedIpv6PoolCidrs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetAssociatedIpv6PoolCidrs where
+instance Data.ToQuery GetAssociatedIpv6PoolCidrs where
   toQuery GetAssociatedIpv6PoolCidrs' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetAssociatedIpv6PoolCidrs" :: Prelude.ByteString),
+          Data.=: ("GetAssociatedIpv6PoolCidrs" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults,
-        "PoolId" Core.=: poolId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        "PoolId" Data.=: poolId
       ]
 
 -- | /See:/ 'newGetAssociatedIpv6PoolCidrsResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.ChannelStatistics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTAnalytics.Types.ChannelStatistics where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types.EstimatedResourceSize
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Statistics information about the channel.
@@ -51,12 +52,12 @@ newChannelStatistics =
 channelStatistics_size :: Lens.Lens' ChannelStatistics (Prelude.Maybe EstimatedResourceSize)
 channelStatistics_size = Lens.lens (\ChannelStatistics' {size} -> size) (\s@ChannelStatistics' {} a -> s {size = a} :: ChannelStatistics)
 
-instance Core.FromJSON ChannelStatistics where
+instance Data.FromJSON ChannelStatistics where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ChannelStatistics"
       ( \x ->
-          ChannelStatistics' Prelude.<$> (x Core..:? "size")
+          ChannelStatistics' Prelude.<$> (x Data..:? "size")
       )
 
 instance Prelude.Hashable ChannelStatistics where

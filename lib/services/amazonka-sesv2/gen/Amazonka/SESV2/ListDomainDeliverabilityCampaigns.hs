@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.ListDomainDeliverabilityCampaigns
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.SESV2.ListDomainDeliverabilityCampaigns
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -70,13 +71,12 @@ data ListDomainDeliverabilityCampaigns = ListDomainDeliverabilityCampaigns'
     -- the response includes a @NextToken@ element, which you can use to obtain
     -- additional results.
     pageSize :: Prelude.Maybe Prelude.Int,
-    -- | The first day, in Unix time format, that you want to obtain
-    -- deliverability data for.
-    startDate :: Core.POSIX,
-    -- | The last day, in Unix time format, that you want to obtain
-    -- deliverability data for. This value has to be less than or equal to 30
-    -- days after the value of the @StartDate@ parameter.
-    endDate :: Core.POSIX,
+    -- | The first day that you want to obtain deliverability data for.
+    startDate :: Data.POSIX,
+    -- | The last day that you want to obtain deliverability data for. This value
+    -- has to be less than or equal to 30 days after the value of the
+    -- @StartDate@ parameter.
+    endDate :: Data.POSIX,
     -- | The domain to obtain deliverability data for.
     subscribedDomain :: Prelude.Text
   }
@@ -100,12 +100,11 @@ data ListDomainDeliverabilityCampaigns = ListDomainDeliverabilityCampaigns'
 -- the response includes a @NextToken@ element, which you can use to obtain
 -- additional results.
 --
--- 'startDate', 'listDomainDeliverabilityCampaigns_startDate' - The first day, in Unix time format, that you want to obtain
--- deliverability data for.
+-- 'startDate', 'listDomainDeliverabilityCampaigns_startDate' - The first day that you want to obtain deliverability data for.
 --
--- 'endDate', 'listDomainDeliverabilityCampaigns_endDate' - The last day, in Unix time format, that you want to obtain
--- deliverability data for. This value has to be less than or equal to 30
--- days after the value of the @StartDate@ parameter.
+-- 'endDate', 'listDomainDeliverabilityCampaigns_endDate' - The last day that you want to obtain deliverability data for. This value
+-- has to be less than or equal to 30 days after the value of the
+-- @StartDate@ parameter.
 --
 -- 'subscribedDomain', 'listDomainDeliverabilityCampaigns_subscribedDomain' - The domain to obtain deliverability data for.
 newListDomainDeliverabilityCampaigns ::
@@ -125,8 +124,8 @@ newListDomainDeliverabilityCampaigns
           Prelude.Nothing,
         pageSize = Prelude.Nothing,
         startDate =
-          Core._Time Lens.# pStartDate_,
-        endDate = Core._Time Lens.# pEndDate_,
+          Data._Time Lens.# pStartDate_,
+        endDate = Data._Time Lens.# pEndDate_,
         subscribedDomain = pSubscribedDomain_
       }
 
@@ -144,16 +143,15 @@ listDomainDeliverabilityCampaigns_nextToken = Lens.lens (\ListDomainDeliverabili
 listDomainDeliverabilityCampaigns_pageSize :: Lens.Lens' ListDomainDeliverabilityCampaigns (Prelude.Maybe Prelude.Int)
 listDomainDeliverabilityCampaigns_pageSize = Lens.lens (\ListDomainDeliverabilityCampaigns' {pageSize} -> pageSize) (\s@ListDomainDeliverabilityCampaigns' {} a -> s {pageSize = a} :: ListDomainDeliverabilityCampaigns)
 
--- | The first day, in Unix time format, that you want to obtain
--- deliverability data for.
+-- | The first day that you want to obtain deliverability data for.
 listDomainDeliverabilityCampaigns_startDate :: Lens.Lens' ListDomainDeliverabilityCampaigns Prelude.UTCTime
-listDomainDeliverabilityCampaigns_startDate = Lens.lens (\ListDomainDeliverabilityCampaigns' {startDate} -> startDate) (\s@ListDomainDeliverabilityCampaigns' {} a -> s {startDate = a} :: ListDomainDeliverabilityCampaigns) Prelude.. Core._Time
+listDomainDeliverabilityCampaigns_startDate = Lens.lens (\ListDomainDeliverabilityCampaigns' {startDate} -> startDate) (\s@ListDomainDeliverabilityCampaigns' {} a -> s {startDate = a} :: ListDomainDeliverabilityCampaigns) Prelude.. Data._Time
 
--- | The last day, in Unix time format, that you want to obtain
--- deliverability data for. This value has to be less than or equal to 30
--- days after the value of the @StartDate@ parameter.
+-- | The last day that you want to obtain deliverability data for. This value
+-- has to be less than or equal to 30 days after the value of the
+-- @StartDate@ parameter.
 listDomainDeliverabilityCampaigns_endDate :: Lens.Lens' ListDomainDeliverabilityCampaigns Prelude.UTCTime
-listDomainDeliverabilityCampaigns_endDate = Lens.lens (\ListDomainDeliverabilityCampaigns' {endDate} -> endDate) (\s@ListDomainDeliverabilityCampaigns' {} a -> s {endDate = a} :: ListDomainDeliverabilityCampaigns) Prelude.. Core._Time
+listDomainDeliverabilityCampaigns_endDate = Lens.lens (\ListDomainDeliverabilityCampaigns' {endDate} -> endDate) (\s@ListDomainDeliverabilityCampaigns' {} a -> s {endDate = a} :: ListDomainDeliverabilityCampaigns) Prelude.. Data._Time
 
 -- | The domain to obtain deliverability data for.
 listDomainDeliverabilityCampaigns_subscribedDomain :: Lens.Lens' ListDomainDeliverabilityCampaigns Prelude.Text
@@ -166,14 +164,15 @@ instance
   type
     AWSResponse ListDomainDeliverabilityCampaigns =
       ListDomainDeliverabilityCampaignsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDomainDeliverabilityCampaignsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> ( x Core..?> "DomainDeliverabilityCampaigns"
+              Prelude.<*> ( x Data..?> "DomainDeliverabilityCampaigns"
                               Core..!@ Prelude.mempty
                           )
       )
@@ -203,40 +202,40 @@ instance
       `Prelude.seq` Prelude.rnf subscribedDomain
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListDomainDeliverabilityCampaigns
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListDomainDeliverabilityCampaigns
   where
   toPath ListDomainDeliverabilityCampaigns' {..} =
     Prelude.mconcat
       [ "/v2/email/deliverability-dashboard/domains/",
-        Core.toBS subscribedDomain,
+        Data.toBS subscribedDomain,
         "/campaigns"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListDomainDeliverabilityCampaigns
   where
   toQuery ListDomainDeliverabilityCampaigns' {..} =
     Prelude.mconcat
-      [ "NextToken" Core.=: nextToken,
-        "PageSize" Core.=: pageSize,
-        "StartDate" Core.=: startDate,
-        "EndDate" Core.=: endDate
+      [ "NextToken" Data.=: nextToken,
+        "PageSize" Data.=: pageSize,
+        "StartDate" Data.=: startDate,
+        "EndDate" Data.=: endDate
       ]
 
 -- | An array of objects that provide deliverability data for all the

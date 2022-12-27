@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.Types.Operator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DataPipeline.Types.Operator where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataPipeline.Types.OperatorType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains a logical operation for comparing the value of a field with a
@@ -29,9 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newOperator' smart constructor.
 data Operator = Operator'
-  { -- | The value that the actual field value will be compared with.
-    values :: Prelude.Maybe [Prelude.Text],
-    -- | The logical operation to be performed: equal (@EQ@), equal reference
+  { -- | The logical operation to be performed: equal (@EQ@), equal reference
     -- (@REF_EQ@), less than or equal (@LE@), greater than or equal (@GE@), or
     -- between (@BETWEEN@). Equal reference (@REF_EQ@) can be used only with
     -- reference fields. The other comparison types can be used only with
@@ -64,7 +63,9 @@ data Operator = Operator'
     -- containing only alpha-numeric values, as symbols may be reserved by AWS
     -- Data Pipeline. User-defined fields that you add to a pipeline should
     -- prefix their name with the string \"my\".
-    type' :: Prelude.Maybe OperatorType
+    type' :: Prelude.Maybe OperatorType,
+    -- | The value that the actual field value will be compared with.
+    values :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,8 +76,6 @@ data Operator = Operator'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'values', 'operator_values' - The value that the actual field value will be compared with.
 --
 -- 'type'', 'operator_type' - The logical operation to be performed: equal (@EQ@), equal reference
 -- (@REF_EQ@), less than or equal (@LE@), greater than or equal (@GE@), or
@@ -111,17 +110,15 @@ data Operator = Operator'
 -- containing only alpha-numeric values, as symbols may be reserved by AWS
 -- Data Pipeline. User-defined fields that you add to a pipeline should
 -- prefix their name with the string \"my\".
+--
+-- 'values', 'operator_values' - The value that the actual field value will be compared with.
 newOperator ::
   Operator
 newOperator =
   Operator'
-    { values = Prelude.Nothing,
-      type' = Prelude.Nothing
+    { type' = Prelude.Nothing,
+      values = Prelude.Nothing
     }
-
--- | The value that the actual field value will be compared with.
-operator_values :: Lens.Lens' Operator (Prelude.Maybe [Prelude.Text])
-operator_values = Lens.lens (\Operator' {values} -> values) (\s@Operator' {} a -> s {values = a} :: Operator) Prelude.. Lens.mapping Lens.coerced
 
 -- | The logical operation to be performed: equal (@EQ@), equal reference
 -- (@REF_EQ@), less than or equal (@LE@), greater than or equal (@GE@), or
@@ -159,20 +156,24 @@ operator_values = Lens.lens (\Operator' {values} -> values) (\s@Operator' {} a -
 operator_type :: Lens.Lens' Operator (Prelude.Maybe OperatorType)
 operator_type = Lens.lens (\Operator' {type'} -> type') (\s@Operator' {} a -> s {type' = a} :: Operator)
 
+-- | The value that the actual field value will be compared with.
+operator_values :: Lens.Lens' Operator (Prelude.Maybe [Prelude.Text])
+operator_values = Lens.lens (\Operator' {values} -> values) (\s@Operator' {} a -> s {values = a} :: Operator) Prelude.. Lens.mapping Lens.coerced
+
 instance Prelude.Hashable Operator where
   hashWithSalt _salt Operator' {..} =
-    _salt `Prelude.hashWithSalt` values
-      `Prelude.hashWithSalt` type'
+    _salt `Prelude.hashWithSalt` type'
+      `Prelude.hashWithSalt` values
 
 instance Prelude.NFData Operator where
   rnf Operator' {..} =
-    Prelude.rnf values `Prelude.seq` Prelude.rnf type'
+    Prelude.rnf type' `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON Operator where
+instance Data.ToJSON Operator where
   toJSON Operator' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("values" Core..=) Prelude.<$> values,
-            ("type" Core..=) Prelude.<$> type'
+          [ ("type" Data..=) Prelude.<$> type',
+            ("values" Data..=) Prelude.<$> values
           ]
       )

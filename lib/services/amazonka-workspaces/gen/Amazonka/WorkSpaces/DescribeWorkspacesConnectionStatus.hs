@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.DescribeWorkspacesConnectionStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.WorkSpaces.DescribeWorkspacesConnectionStatus
     newDescribeWorkspacesConnectionStatus,
 
     -- * Request Lenses
-    describeWorkspacesConnectionStatus_workspaceIds,
     describeWorkspacesConnectionStatus_nextToken,
+    describeWorkspacesConnectionStatus_workspaceIds,
 
     -- * Destructuring the Response
     DescribeWorkspacesConnectionStatusResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.WorkSpaces.DescribeWorkspacesConnectionStatus
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,11 +53,11 @@ import Amazonka.WorkSpaces.Types
 
 -- | /See:/ 'newDescribeWorkspacesConnectionStatus' smart constructor.
 data DescribeWorkspacesConnectionStatus = DescribeWorkspacesConnectionStatus'
-  { -- | The identifiers of the WorkSpaces. You can specify up to 25 WorkSpaces.
-    workspaceIds :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | If you received a @NextToken@ from a previous call that was paginated,
+  { -- | If you received a @NextToken@ from a previous call that was paginated,
     -- provide this token to receive the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The identifiers of the WorkSpaces. You can specify up to 25 WorkSpaces.
+    workspaceIds :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,27 +69,27 @@ data DescribeWorkspacesConnectionStatus = DescribeWorkspacesConnectionStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'workspaceIds', 'describeWorkspacesConnectionStatus_workspaceIds' - The identifiers of the WorkSpaces. You can specify up to 25 WorkSpaces.
---
 -- 'nextToken', 'describeWorkspacesConnectionStatus_nextToken' - If you received a @NextToken@ from a previous call that was paginated,
 -- provide this token to receive the next set of results.
+--
+-- 'workspaceIds', 'describeWorkspacesConnectionStatus_workspaceIds' - The identifiers of the WorkSpaces. You can specify up to 25 WorkSpaces.
 newDescribeWorkspacesConnectionStatus ::
   DescribeWorkspacesConnectionStatus
 newDescribeWorkspacesConnectionStatus =
   DescribeWorkspacesConnectionStatus'
-    { workspaceIds =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing
+      workspaceIds = Prelude.Nothing
     }
-
--- | The identifiers of the WorkSpaces. You can specify up to 25 WorkSpaces.
-describeWorkspacesConnectionStatus_workspaceIds :: Lens.Lens' DescribeWorkspacesConnectionStatus (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-describeWorkspacesConnectionStatus_workspaceIds = Lens.lens (\DescribeWorkspacesConnectionStatus' {workspaceIds} -> workspaceIds) (\s@DescribeWorkspacesConnectionStatus' {} a -> s {workspaceIds = a} :: DescribeWorkspacesConnectionStatus) Prelude.. Lens.mapping Lens.coerced
 
 -- | If you received a @NextToken@ from a previous call that was paginated,
 -- provide this token to receive the next set of results.
 describeWorkspacesConnectionStatus_nextToken :: Lens.Lens' DescribeWorkspacesConnectionStatus (Prelude.Maybe Prelude.Text)
 describeWorkspacesConnectionStatus_nextToken = Lens.lens (\DescribeWorkspacesConnectionStatus' {nextToken} -> nextToken) (\s@DescribeWorkspacesConnectionStatus' {} a -> s {nextToken = a} :: DescribeWorkspacesConnectionStatus)
+
+-- | The identifiers of the WorkSpaces. You can specify up to 25 WorkSpaces.
+describeWorkspacesConnectionStatus_workspaceIds :: Lens.Lens' DescribeWorkspacesConnectionStatus (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+describeWorkspacesConnectionStatus_workspaceIds = Lens.lens (\DescribeWorkspacesConnectionStatus' {workspaceIds} -> workspaceIds) (\s@DescribeWorkspacesConnectionStatus' {} a -> s {workspaceIds = a} :: DescribeWorkspacesConnectionStatus) Prelude.. Lens.mapping Lens.coerced
 
 instance
   Core.AWSPager
@@ -122,13 +123,14 @@ instance
   type
     AWSResponse DescribeWorkspacesConnectionStatus =
       DescribeWorkspacesConnectionStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeWorkspacesConnectionStatusResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-              Prelude.<*> ( x Core..?> "WorkspacesConnectionStatus"
+            Prelude.<$> (x Data..?> "NextToken")
+              Prelude.<*> ( x Data..?> "WorkspacesConnectionStatus"
                               Core..!@ Prelude.mempty
                           )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -141,55 +143,55 @@ instance
   hashWithSalt
     _salt
     DescribeWorkspacesConnectionStatus' {..} =
-      _salt `Prelude.hashWithSalt` workspaceIds
-        `Prelude.hashWithSalt` nextToken
+      _salt `Prelude.hashWithSalt` nextToken
+        `Prelude.hashWithSalt` workspaceIds
 
 instance
   Prelude.NFData
     DescribeWorkspacesConnectionStatus
   where
   rnf DescribeWorkspacesConnectionStatus' {..} =
-    Prelude.rnf workspaceIds
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf workspaceIds
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeWorkspacesConnectionStatus
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.DescribeWorkspacesConnectionStatus" ::
+              Data.=# ( "WorkspacesService.DescribeWorkspacesConnectionStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeWorkspacesConnectionStatus
   where
   toJSON DescribeWorkspacesConnectionStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("WorkspaceIds" Core..=) Prelude.<$> workspaceIds,
-            ("NextToken" Core..=) Prelude.<$> nextToken
+          [ ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("WorkspaceIds" Data..=) Prelude.<$> workspaceIds
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeWorkspacesConnectionStatus
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeWorkspacesConnectionStatus
   where
   toQuery = Prelude.const Prelude.mempty

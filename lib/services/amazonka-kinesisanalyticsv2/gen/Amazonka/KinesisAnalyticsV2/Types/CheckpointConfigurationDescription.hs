@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.CheckpointConfigurationDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.CheckpointConfigurationDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.ConfigurationType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes checkpointing parameters for a Flink-based Kinesis Data
@@ -29,7 +30,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCheckpointConfigurationDescription' smart constructor.
 data CheckpointConfigurationDescription = CheckpointConfigurationDescription'
-  { -- | Describes whether checkpointing is enabled for a Flink-based Kinesis
+  { -- | Describes the interval in milliseconds between checkpoint operations.
+    --
+    -- If @CheckpointConfiguration.ConfigurationType@ is @DEFAULT@, the
+    -- application will use a @CheckpointInterval@ value of 60000, even if this
+    -- value is set to another value using this API or in application code.
+    checkpointInterval :: Prelude.Maybe Prelude.Natural,
+    -- | Describes whether checkpointing is enabled for a Flink-based Kinesis
     -- Data Analytics application.
     --
     -- If @CheckpointConfiguration.ConfigurationType@ is @DEFAULT@, the
@@ -56,13 +63,7 @@ data CheckpointConfigurationDescription = CheckpointConfigurationDescription'
     -- If @CheckpointConfiguration.ConfigurationType@ is @DEFAULT@, the
     -- application will use a @MinPauseBetweenCheckpoints@ value of 5000, even
     -- if this value is set using this API or in application code.
-    minPauseBetweenCheckpoints :: Prelude.Maybe Prelude.Natural,
-    -- | Describes the interval in milliseconds between checkpoint operations.
-    --
-    -- If @CheckpointConfiguration.ConfigurationType@ is @DEFAULT@, the
-    -- application will use a @CheckpointInterval@ value of 60000, even if this
-    -- value is set to another value using this API or in application code.
-    checkpointInterval :: Prelude.Maybe Prelude.Natural
+    minPauseBetweenCheckpoints :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,6 +74,12 @@ data CheckpointConfigurationDescription = CheckpointConfigurationDescription'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'checkpointInterval', 'checkpointConfigurationDescription_checkpointInterval' - Describes the interval in milliseconds between checkpoint operations.
+--
+-- If @CheckpointConfiguration.ConfigurationType@ is @DEFAULT@, the
+-- application will use a @CheckpointInterval@ value of 60000, even if this
+-- value is set to another value using this API or in application code.
 --
 -- 'checkpointingEnabled', 'checkpointConfigurationDescription_checkpointingEnabled' - Describes whether checkpointing is enabled for a Flink-based Kinesis
 -- Data Analytics application.
@@ -101,23 +108,25 @@ data CheckpointConfigurationDescription = CheckpointConfigurationDescription'
 -- If @CheckpointConfiguration.ConfigurationType@ is @DEFAULT@, the
 -- application will use a @MinPauseBetweenCheckpoints@ value of 5000, even
 -- if this value is set using this API or in application code.
---
--- 'checkpointInterval', 'checkpointConfigurationDescription_checkpointInterval' - Describes the interval in milliseconds between checkpoint operations.
---
--- If @CheckpointConfiguration.ConfigurationType@ is @DEFAULT@, the
--- application will use a @CheckpointInterval@ value of 60000, even if this
--- value is set to another value using this API or in application code.
 newCheckpointConfigurationDescription ::
   CheckpointConfigurationDescription
 newCheckpointConfigurationDescription =
   CheckpointConfigurationDescription'
-    { checkpointingEnabled =
+    { checkpointInterval =
         Prelude.Nothing,
+      checkpointingEnabled = Prelude.Nothing,
       configurationType = Prelude.Nothing,
       minPauseBetweenCheckpoints =
-        Prelude.Nothing,
-      checkpointInterval = Prelude.Nothing
+        Prelude.Nothing
     }
+
+-- | Describes the interval in milliseconds between checkpoint operations.
+--
+-- If @CheckpointConfiguration.ConfigurationType@ is @DEFAULT@, the
+-- application will use a @CheckpointInterval@ value of 60000, even if this
+-- value is set to another value using this API or in application code.
+checkpointConfigurationDescription_checkpointInterval :: Lens.Lens' CheckpointConfigurationDescription (Prelude.Maybe Prelude.Natural)
+checkpointConfigurationDescription_checkpointInterval = Lens.lens (\CheckpointConfigurationDescription' {checkpointInterval} -> checkpointInterval) (\s@CheckpointConfigurationDescription' {} a -> s {checkpointInterval = a} :: CheckpointConfigurationDescription)
 
 -- | Describes whether checkpointing is enabled for a Flink-based Kinesis
 -- Data Analytics application.
@@ -153,27 +162,19 @@ checkpointConfigurationDescription_configurationType = Lens.lens (\CheckpointCon
 checkpointConfigurationDescription_minPauseBetweenCheckpoints :: Lens.Lens' CheckpointConfigurationDescription (Prelude.Maybe Prelude.Natural)
 checkpointConfigurationDescription_minPauseBetweenCheckpoints = Lens.lens (\CheckpointConfigurationDescription' {minPauseBetweenCheckpoints} -> minPauseBetweenCheckpoints) (\s@CheckpointConfigurationDescription' {} a -> s {minPauseBetweenCheckpoints = a} :: CheckpointConfigurationDescription)
 
--- | Describes the interval in milliseconds between checkpoint operations.
---
--- If @CheckpointConfiguration.ConfigurationType@ is @DEFAULT@, the
--- application will use a @CheckpointInterval@ value of 60000, even if this
--- value is set to another value using this API or in application code.
-checkpointConfigurationDescription_checkpointInterval :: Lens.Lens' CheckpointConfigurationDescription (Prelude.Maybe Prelude.Natural)
-checkpointConfigurationDescription_checkpointInterval = Lens.lens (\CheckpointConfigurationDescription' {checkpointInterval} -> checkpointInterval) (\s@CheckpointConfigurationDescription' {} a -> s {checkpointInterval = a} :: CheckpointConfigurationDescription)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     CheckpointConfigurationDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CheckpointConfigurationDescription"
       ( \x ->
           CheckpointConfigurationDescription'
-            Prelude.<$> (x Core..:? "CheckpointingEnabled")
-            Prelude.<*> (x Core..:? "ConfigurationType")
-            Prelude.<*> (x Core..:? "MinPauseBetweenCheckpoints")
-            Prelude.<*> (x Core..:? "CheckpointInterval")
+            Prelude.<$> (x Data..:? "CheckpointInterval")
+            Prelude.<*> (x Data..:? "CheckpointingEnabled")
+            Prelude.<*> (x Data..:? "ConfigurationType")
+            Prelude.<*> (x Data..:? "MinPauseBetweenCheckpoints")
       )
 
 instance
@@ -183,17 +184,17 @@ instance
   hashWithSalt
     _salt
     CheckpointConfigurationDescription' {..} =
-      _salt `Prelude.hashWithSalt` checkpointingEnabled
+      _salt `Prelude.hashWithSalt` checkpointInterval
+        `Prelude.hashWithSalt` checkpointingEnabled
         `Prelude.hashWithSalt` configurationType
         `Prelude.hashWithSalt` minPauseBetweenCheckpoints
-        `Prelude.hashWithSalt` checkpointInterval
 
 instance
   Prelude.NFData
     CheckpointConfigurationDescription
   where
   rnf CheckpointConfigurationDescription' {..} =
-    Prelude.rnf checkpointingEnabled
+    Prelude.rnf checkpointInterval
+      `Prelude.seq` Prelude.rnf checkpointingEnabled
       `Prelude.seq` Prelude.rnf configurationType
       `Prelude.seq` Prelude.rnf minPauseBetweenCheckpoints
-      `Prelude.seq` Prelude.rnf checkpointInterval

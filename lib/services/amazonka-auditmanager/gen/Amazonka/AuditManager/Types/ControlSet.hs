@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.Types.ControlSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AuditManager.Types.ControlSet where
 
 import Amazonka.AuditManager.Types.Control
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A set of controls in Audit Manager.
@@ -30,11 +31,11 @@ import qualified Amazonka.Prelude as Prelude
 data ControlSet = ControlSet'
   { -- | The list of controls within the control set.
     controls :: Prelude.Maybe (Prelude.NonEmpty Control),
-    -- | The name of the control set.
-    name :: Prelude.Maybe Prelude.Text,
     -- | The identifier of the control set in the assessment. This is the control
     -- set name in a plain string format.
-    id :: Prelude.Maybe Prelude.Text
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the control set.
+    name :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,51 +49,51 @@ data ControlSet = ControlSet'
 --
 -- 'controls', 'controlSet_controls' - The list of controls within the control set.
 --
--- 'name', 'controlSet_name' - The name of the control set.
---
 -- 'id', 'controlSet_id' - The identifier of the control set in the assessment. This is the control
 -- set name in a plain string format.
+--
+-- 'name', 'controlSet_name' - The name of the control set.
 newControlSet ::
   ControlSet
 newControlSet =
   ControlSet'
     { controls = Prelude.Nothing,
-      name = Prelude.Nothing,
-      id = Prelude.Nothing
+      id = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The list of controls within the control set.
 controlSet_controls :: Lens.Lens' ControlSet (Prelude.Maybe (Prelude.NonEmpty Control))
 controlSet_controls = Lens.lens (\ControlSet' {controls} -> controls) (\s@ControlSet' {} a -> s {controls = a} :: ControlSet) Prelude.. Lens.mapping Lens.coerced
 
--- | The name of the control set.
-controlSet_name :: Lens.Lens' ControlSet (Prelude.Maybe Prelude.Text)
-controlSet_name = Lens.lens (\ControlSet' {name} -> name) (\s@ControlSet' {} a -> s {name = a} :: ControlSet)
-
 -- | The identifier of the control set in the assessment. This is the control
 -- set name in a plain string format.
 controlSet_id :: Lens.Lens' ControlSet (Prelude.Maybe Prelude.Text)
 controlSet_id = Lens.lens (\ControlSet' {id} -> id) (\s@ControlSet' {} a -> s {id = a} :: ControlSet)
 
-instance Core.FromJSON ControlSet where
+-- | The name of the control set.
+controlSet_name :: Lens.Lens' ControlSet (Prelude.Maybe Prelude.Text)
+controlSet_name = Lens.lens (\ControlSet' {name} -> name) (\s@ControlSet' {} a -> s {name = a} :: ControlSet)
+
+instance Data.FromJSON ControlSet where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ControlSet"
       ( \x ->
           ControlSet'
-            Prelude.<$> (x Core..:? "controls")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "id")
+            Prelude.<$> (x Data..:? "controls")
+            Prelude.<*> (x Data..:? "id")
+            Prelude.<*> (x Data..:? "name")
       )
 
 instance Prelude.Hashable ControlSet where
   hashWithSalt _salt ControlSet' {..} =
     _salt `Prelude.hashWithSalt` controls
-      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` name
 
 instance Prelude.NFData ControlSet where
   rnf ControlSet' {..} =
     Prelude.rnf controls
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf name

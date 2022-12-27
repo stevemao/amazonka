@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.DeleteAddon
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.EKS.DeleteAddon
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,7 +57,7 @@ import qualified Amazonka.Response as Response
 data DeleteAddon = DeleteAddon'
   { -- | Specifying this option preserves the add-on software on your cluster but
     -- Amazon EKS stops managing any settings for the add-on. If an IAM account
-    -- is associated with the add-on, it is not removed.
+    -- is associated with the add-on, it isn\'t removed.
     preserve :: Prelude.Maybe Prelude.Bool,
     -- | The name of the cluster to delete the add-on from.
     clusterName :: Prelude.Text,
@@ -77,7 +78,7 @@ data DeleteAddon = DeleteAddon'
 --
 -- 'preserve', 'deleteAddon_preserve' - Specifying this option preserves the add-on software on your cluster but
 -- Amazon EKS stops managing any settings for the add-on. If an IAM account
--- is associated with the add-on, it is not removed.
+-- is associated with the add-on, it isn\'t removed.
 --
 -- 'clusterName', 'deleteAddon_clusterName' - The name of the cluster to delete the add-on from.
 --
@@ -99,7 +100,7 @@ newDeleteAddon pClusterName_ pAddonName_ =
 
 -- | Specifying this option preserves the add-on software on your cluster but
 -- Amazon EKS stops managing any settings for the add-on. If an IAM account
--- is associated with the add-on, it is not removed.
+-- is associated with the add-on, it isn\'t removed.
 deleteAddon_preserve :: Lens.Lens' DeleteAddon (Prelude.Maybe Prelude.Bool)
 deleteAddon_preserve = Lens.lens (\DeleteAddon' {preserve} -> preserve) (\s@DeleteAddon' {} a -> s {preserve = a} :: DeleteAddon)
 
@@ -115,12 +116,13 @@ deleteAddon_addonName = Lens.lens (\DeleteAddon' {addonName} -> addonName) (\s@D
 
 instance Core.AWSRequest DeleteAddon where
   type AWSResponse DeleteAddon = DeleteAddonResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteAddonResponse'
-            Prelude.<$> (x Core..?> "addon")
+            Prelude.<$> (x Data..?> "addon")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,29 +138,29 @@ instance Prelude.NFData DeleteAddon where
       `Prelude.seq` Prelude.rnf clusterName
       `Prelude.seq` Prelude.rnf addonName
 
-instance Core.ToHeaders DeleteAddon where
+instance Data.ToHeaders DeleteAddon where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteAddon where
+instance Data.ToPath DeleteAddon where
   toPath DeleteAddon' {..} =
     Prelude.mconcat
       [ "/clusters/",
-        Core.toBS clusterName,
+        Data.toBS clusterName,
         "/addons/",
-        Core.toBS addonName
+        Data.toBS addonName
       ]
 
-instance Core.ToQuery DeleteAddon where
+instance Data.ToQuery DeleteAddon where
   toQuery DeleteAddon' {..} =
-    Prelude.mconcat ["preserve" Core.=: preserve]
+    Prelude.mconcat ["preserve" Data.=: preserve]
 
 -- | /See:/ 'newDeleteAddonResponse' smart constructor.
 data DeleteAddonResponse = DeleteAddonResponse'

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Athena.Types.UnprocessedQueryExecutionId
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Athena.Types.UnprocessedQueryExecutionId where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a query execution that failed to process.
@@ -30,11 +31,11 @@ data UnprocessedQueryExecutionId = UnprocessedQueryExecutionId'
   { -- | The error code returned when the query execution failed to process, if
     -- applicable.
     errorCode :: Prelude.Maybe Prelude.Text,
-    -- | The unique identifier of the query execution.
-    queryExecutionId :: Prelude.Maybe Prelude.Text,
     -- | The error message returned when the query execution failed to process,
     -- if applicable.
-    errorMessage :: Prelude.Maybe Prelude.Text
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier of the query execution.
+    queryExecutionId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,18 +50,18 @@ data UnprocessedQueryExecutionId = UnprocessedQueryExecutionId'
 -- 'errorCode', 'unprocessedQueryExecutionId_errorCode' - The error code returned when the query execution failed to process, if
 -- applicable.
 --
--- 'queryExecutionId', 'unprocessedQueryExecutionId_queryExecutionId' - The unique identifier of the query execution.
---
 -- 'errorMessage', 'unprocessedQueryExecutionId_errorMessage' - The error message returned when the query execution failed to process,
 -- if applicable.
+--
+-- 'queryExecutionId', 'unprocessedQueryExecutionId_queryExecutionId' - The unique identifier of the query execution.
 newUnprocessedQueryExecutionId ::
   UnprocessedQueryExecutionId
 newUnprocessedQueryExecutionId =
   UnprocessedQueryExecutionId'
     { errorCode =
         Prelude.Nothing,
-      queryExecutionId = Prelude.Nothing,
-      errorMessage = Prelude.Nothing
+      errorMessage = Prelude.Nothing,
+      queryExecutionId = Prelude.Nothing
     }
 
 -- | The error code returned when the query execution failed to process, if
@@ -68,34 +69,34 @@ newUnprocessedQueryExecutionId =
 unprocessedQueryExecutionId_errorCode :: Lens.Lens' UnprocessedQueryExecutionId (Prelude.Maybe Prelude.Text)
 unprocessedQueryExecutionId_errorCode = Lens.lens (\UnprocessedQueryExecutionId' {errorCode} -> errorCode) (\s@UnprocessedQueryExecutionId' {} a -> s {errorCode = a} :: UnprocessedQueryExecutionId)
 
--- | The unique identifier of the query execution.
-unprocessedQueryExecutionId_queryExecutionId :: Lens.Lens' UnprocessedQueryExecutionId (Prelude.Maybe Prelude.Text)
-unprocessedQueryExecutionId_queryExecutionId = Lens.lens (\UnprocessedQueryExecutionId' {queryExecutionId} -> queryExecutionId) (\s@UnprocessedQueryExecutionId' {} a -> s {queryExecutionId = a} :: UnprocessedQueryExecutionId)
-
 -- | The error message returned when the query execution failed to process,
 -- if applicable.
 unprocessedQueryExecutionId_errorMessage :: Lens.Lens' UnprocessedQueryExecutionId (Prelude.Maybe Prelude.Text)
 unprocessedQueryExecutionId_errorMessage = Lens.lens (\UnprocessedQueryExecutionId' {errorMessage} -> errorMessage) (\s@UnprocessedQueryExecutionId' {} a -> s {errorMessage = a} :: UnprocessedQueryExecutionId)
 
-instance Core.FromJSON UnprocessedQueryExecutionId where
+-- | The unique identifier of the query execution.
+unprocessedQueryExecutionId_queryExecutionId :: Lens.Lens' UnprocessedQueryExecutionId (Prelude.Maybe Prelude.Text)
+unprocessedQueryExecutionId_queryExecutionId = Lens.lens (\UnprocessedQueryExecutionId' {queryExecutionId} -> queryExecutionId) (\s@UnprocessedQueryExecutionId' {} a -> s {queryExecutionId = a} :: UnprocessedQueryExecutionId)
+
+instance Data.FromJSON UnprocessedQueryExecutionId where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UnprocessedQueryExecutionId"
       ( \x ->
           UnprocessedQueryExecutionId'
-            Prelude.<$> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "QueryExecutionId")
-            Prelude.<*> (x Core..:? "ErrorMessage")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "ErrorMessage")
+            Prelude.<*> (x Data..:? "QueryExecutionId")
       )
 
 instance Prelude.Hashable UnprocessedQueryExecutionId where
   hashWithSalt _salt UnprocessedQueryExecutionId' {..} =
     _salt `Prelude.hashWithSalt` errorCode
-      `Prelude.hashWithSalt` queryExecutionId
       `Prelude.hashWithSalt` errorMessage
+      `Prelude.hashWithSalt` queryExecutionId
 
 instance Prelude.NFData UnprocessedQueryExecutionId where
   rnf UnprocessedQueryExecutionId' {..} =
     Prelude.rnf errorCode
-      `Prelude.seq` Prelude.rnf queryExecutionId
       `Prelude.seq` Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf queryExecutionId

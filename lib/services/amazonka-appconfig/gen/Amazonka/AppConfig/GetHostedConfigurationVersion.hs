@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.GetHostedConfigurationVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Get information about a specific configuration version.
+-- Retrieves information about a specific configuration version.
 module Amazonka.AppConfig.GetHostedConfigurationVersion
   ( -- * Creating a Request
     GetHostedConfigurationVersion (..),
@@ -36,18 +36,19 @@ module Amazonka.AppConfig.GetHostedConfigurationVersion
     newHostedConfigurationVersion,
 
     -- * Response Lenses
-    hostedConfigurationVersion_content,
-    hostedConfigurationVersion_versionNumber,
     hostedConfigurationVersion_applicationId,
-    hostedConfigurationVersion_description,
     hostedConfigurationVersion_configurationProfileId,
+    hostedConfigurationVersion_content,
     hostedConfigurationVersion_contentType,
+    hostedConfigurationVersion_description,
+    hostedConfigurationVersion_versionNumber,
   )
 where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,17 +116,18 @@ instance
   type
     AWSResponse GetHostedConfigurationVersion =
       HostedConfigurationVersion
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveBytes
       ( \s h x ->
           HostedConfigurationVersion'
-            Prelude.<$> (Prelude.pure (Prelude.Just (Prelude.coerce x)))
-            Prelude.<*> (h Core..#? "Version-Number")
-            Prelude.<*> (h Core..#? "Application-Id")
-            Prelude.<*> (h Core..#? "Description")
-            Prelude.<*> (h Core..#? "Configuration-Profile-Id")
-            Prelude.<*> (h Core..#? "Content-Type")
+            Prelude.<$> (h Data..#? "Application-Id")
+            Prelude.<*> (h Data..#? "Configuration-Profile-Id")
+            Prelude.<*> (Prelude.pure (Prelude.Just (Prelude.coerce x)))
+            Prelude.<*> (h Data..#? "Content-Type")
+            Prelude.<*> (h Data..#? "Description")
+            Prelude.<*> (h Data..#? "Version-Number")
       )
 
 instance
@@ -143,27 +145,27 @@ instance Prelude.NFData GetHostedConfigurationVersion where
       `Prelude.seq` Prelude.rnf configurationProfileId
       `Prelude.seq` Prelude.rnf versionNumber
 
-instance Core.ToHeaders GetHostedConfigurationVersion where
+instance Data.ToHeaders GetHostedConfigurationVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetHostedConfigurationVersion where
+instance Data.ToPath GetHostedConfigurationVersion where
   toPath GetHostedConfigurationVersion' {..} =
     Prelude.mconcat
       [ "/applications/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/configurationprofiles/",
-        Core.toBS configurationProfileId,
+        Data.toBS configurationProfileId,
         "/hostedconfigurationversions/",
-        Core.toBS versionNumber
+        Data.toBS versionNumber
       ]
 
-instance Core.ToQuery GetHostedConfigurationVersion where
+instance Data.ToQuery GetHostedConfigurationVersion where
   toQuery = Prelude.const Prelude.mempty

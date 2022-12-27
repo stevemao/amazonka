@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.PinpointDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SESV2.Types.PinpointDestination where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that defines an Amazon Pinpoint project destination for email
@@ -61,13 +62,13 @@ newPinpointDestination =
 pinpointDestination_applicationArn :: Lens.Lens' PinpointDestination (Prelude.Maybe Prelude.Text)
 pinpointDestination_applicationArn = Lens.lens (\PinpointDestination' {applicationArn} -> applicationArn) (\s@PinpointDestination' {} a -> s {applicationArn = a} :: PinpointDestination)
 
-instance Core.FromJSON PinpointDestination where
+instance Data.FromJSON PinpointDestination where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PinpointDestination"
       ( \x ->
           PinpointDestination'
-            Prelude.<$> (x Core..:? "ApplicationArn")
+            Prelude.<$> (x Data..:? "ApplicationArn")
       )
 
 instance Prelude.Hashable PinpointDestination where
@@ -78,11 +79,11 @@ instance Prelude.NFData PinpointDestination where
   rnf PinpointDestination' {..} =
     Prelude.rnf applicationArn
 
-instance Core.ToJSON PinpointDestination where
+instance Data.ToJSON PinpointDestination where
   toJSON PinpointDestination' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ApplicationArn" Core..=)
+          [ ("ApplicationArn" Data..=)
               Prelude.<$> applicationArn
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.DeleteRemediationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,7 +96,8 @@ instance
   type
     AWSResponse DeleteRemediationConfiguration =
       DeleteRemediationConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -122,37 +124,37 @@ instance
       `Prelude.seq` Prelude.rnf configRuleName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteRemediationConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.DeleteRemediationConfiguration" ::
+              Data.=# ( "StarlingDoveService.DeleteRemediationConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteRemediationConfiguration where
+instance Data.ToJSON DeleteRemediationConfiguration where
   toJSON DeleteRemediationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ResourceType" Core..=) Prelude.<$> resourceType,
+          [ ("ResourceType" Data..=) Prelude.<$> resourceType,
             Prelude.Just
-              ("ConfigRuleName" Core..= configRuleName)
+              ("ConfigRuleName" Data..= configRuleName)
           ]
       )
 
-instance Core.ToPath DeleteRemediationConfiguration where
+instance Data.ToPath DeleteRemediationConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteRemediationConfiguration where
+instance Data.ToQuery DeleteRemediationConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRemediationConfigurationResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.ListTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.ElasticSearch.ListTags
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,12 +82,13 @@ listTags_arn = Lens.lens (\ListTags' {arn} -> arn) (\s@ListTags' {} a -> s {arn 
 
 instance Core.AWSRequest ListTags where
   type AWSResponse ListTags = ListTagsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsResponse'
-            Prelude.<$> (x Core..?> "TagList" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "TagList" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,15 +99,15 @@ instance Prelude.Hashable ListTags where
 instance Prelude.NFData ListTags where
   rnf ListTags' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders ListTags where
+instance Data.ToHeaders ListTags where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListTags where
+instance Data.ToPath ListTags where
   toPath = Prelude.const "/2015-01-01/tags/"
 
-instance Core.ToQuery ListTags where
+instance Data.ToQuery ListTags where
   toQuery ListTags' {..} =
-    Prelude.mconcat ["arn" Core.=: arn]
+    Prelude.mconcat ["arn" Data.=: arn]
 
 -- | The result of a @ListTags@ operation. Contains tags for all requested
 -- Elasticsearch domains.

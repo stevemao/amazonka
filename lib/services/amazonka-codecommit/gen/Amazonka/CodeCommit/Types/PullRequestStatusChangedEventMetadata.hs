@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.Types.PullRequestStatusChangedEventMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodeCommit.Types.PullRequestStatusChangedEventMetadata where
 
 import Amazonka.CodeCommit.Types.PullRequestStatusEnum
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a change to the status of a pull request.
@@ -55,15 +56,15 @@ pullRequestStatusChangedEventMetadata_pullRequestStatus :: Lens.Lens' PullReques
 pullRequestStatusChangedEventMetadata_pullRequestStatus = Lens.lens (\PullRequestStatusChangedEventMetadata' {pullRequestStatus} -> pullRequestStatus) (\s@PullRequestStatusChangedEventMetadata' {} a -> s {pullRequestStatus = a} :: PullRequestStatusChangedEventMetadata)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     PullRequestStatusChangedEventMetadata
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PullRequestStatusChangedEventMetadata"
       ( \x ->
           PullRequestStatusChangedEventMetadata'
-            Prelude.<$> (x Core..:? "pullRequestStatus")
+            Prelude.<$> (x Data..:? "pullRequestStatus")
       )
 
 instance

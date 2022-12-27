@@ -14,21 +14,21 @@
 
 -- |
 -- Module      : Amazonka.Firehose.TagDeliveryStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Adds or updates tags for the specified delivery stream. A tag is a
--- key-value pair that you can define and assign to AWS resources. If you
--- specify a tag that already exists, the tag value is replaced with the
--- value that you specify in the request. Tags are metadata. For example,
--- you can add friendly names and descriptions or other types of
--- information that can help you distinguish the delivery stream. For more
--- information about tags, see
+-- key-value pair that you can define and assign to Amazon Web Services
+-- resources. If you specify a tag that already exists, the tag value is
+-- replaced with the value that you specify in the request. Tags are
+-- metadata. For example, you can add friendly names and descriptions or
+-- other types of information that can help you distinguish the delivery
+-- stream. For more information about tags, see
 -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html Using Cost Allocation Tags>
--- in the /AWS Billing and Cost Management User Guide/.
+-- in the /Amazon Web Services Billing and Cost Management User Guide/.
 --
 -- Each delivery stream can have up to 50 tags.
 --
@@ -52,8 +52,9 @@ module Amazonka.Firehose.TagDeliveryStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Firehose.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,7 +104,8 @@ instance Core.AWSRequest TagDeliveryStream where
   type
     AWSResponse TagDeliveryStream =
       TagDeliveryStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -121,35 +123,35 @@ instance Prelude.NFData TagDeliveryStream where
     Prelude.rnf deliveryStreamName
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagDeliveryStream where
+instance Data.ToHeaders TagDeliveryStream where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Firehose_20150804.TagDeliveryStream" ::
+              Data.=# ( "Firehose_20150804.TagDeliveryStream" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TagDeliveryStream where
+instance Data.ToJSON TagDeliveryStream where
   toJSON TagDeliveryStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("DeliveryStreamName" Core..= deliveryStreamName),
-            Prelude.Just ("Tags" Core..= tags)
+              ("DeliveryStreamName" Data..= deliveryStreamName),
+            Prelude.Just ("Tags" Data..= tags)
           ]
       )
 
-instance Core.ToPath TagDeliveryStream where
+instance Data.ToPath TagDeliveryStream where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TagDeliveryStream where
+instance Data.ToQuery TagDeliveryStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTagDeliveryStreamResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MachineLearning.DeleteBatchPrediction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.MachineLearning.DeleteBatchPrediction
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MachineLearning.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -88,12 +89,13 @@ instance Core.AWSRequest DeleteBatchPrediction where
   type
     AWSResponse DeleteBatchPrediction =
       DeleteBatchPredictionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteBatchPredictionResponse'
-            Prelude.<$> (x Core..?> "BatchPredictionId")
+            Prelude.<$> (x Data..?> "BatchPredictionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -105,34 +107,34 @@ instance Prelude.NFData DeleteBatchPrediction where
   rnf DeleteBatchPrediction' {..} =
     Prelude.rnf batchPredictionId
 
-instance Core.ToHeaders DeleteBatchPrediction where
+instance Data.ToHeaders DeleteBatchPrediction where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonML_20141212.DeleteBatchPrediction" ::
+              Data.=# ( "AmazonML_20141212.DeleteBatchPrediction" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteBatchPrediction where
+instance Data.ToJSON DeleteBatchPrediction where
   toJSON DeleteBatchPrediction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("BatchPredictionId" Core..= batchPredictionId)
+              ("BatchPredictionId" Data..= batchPredictionId)
           ]
       )
 
-instance Core.ToPath DeleteBatchPrediction where
+instance Data.ToPath DeleteBatchPrediction where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteBatchPrediction where
+instance Data.ToQuery DeleteBatchPrediction where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @DeleteBatchPrediction@ operation.

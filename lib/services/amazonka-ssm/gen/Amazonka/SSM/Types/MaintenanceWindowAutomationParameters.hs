@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.MaintenanceWindowAutomationParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,17 @@
 module Amazonka.SSM.Types.MaintenanceWindowAutomationParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The parameters for an @AUTOMATION@ task type.
 --
 -- /See:/ 'newMaintenanceWindowAutomationParameters' smart constructor.
 data MaintenanceWindowAutomationParameters = MaintenanceWindowAutomationParameters'
-  { -- | The parameters for the @AUTOMATION@ task.
+  { -- | The version of an Automation runbook to use during task execution.
+    documentVersion :: Prelude.Maybe Prelude.Text,
+    -- | The parameters for the @AUTOMATION@ task.
     --
     -- For information about specifying and updating task parameters, see
     -- RegisterTaskWithMaintenanceWindow and UpdateMaintenanceWindowTask.
@@ -48,9 +51,7 @@ data MaintenanceWindowAutomationParameters = MaintenanceWindowAutomationParamete
     --
     -- For @AUTOMATION@ task types, Amazon Web Services Systems Manager ignores
     -- any values specified for these parameters.
-    parameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]),
-    -- | The version of an Automation runbook to use during task execution.
-    documentVersion :: Prelude.Maybe Prelude.Text
+    parameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text])
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -61,6 +62,8 @@ data MaintenanceWindowAutomationParameters = MaintenanceWindowAutomationParamete
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'documentVersion', 'maintenanceWindowAutomationParameters_documentVersion' - The version of an Automation runbook to use during task execution.
 --
 -- 'parameters', 'maintenanceWindowAutomationParameters_parameters' - The parameters for the @AUTOMATION@ task.
 --
@@ -83,16 +86,18 @@ data MaintenanceWindowAutomationParameters = MaintenanceWindowAutomationParamete
 --
 -- For @AUTOMATION@ task types, Amazon Web Services Systems Manager ignores
 -- any values specified for these parameters.
---
--- 'documentVersion', 'maintenanceWindowAutomationParameters_documentVersion' - The version of an Automation runbook to use during task execution.
 newMaintenanceWindowAutomationParameters ::
   MaintenanceWindowAutomationParameters
 newMaintenanceWindowAutomationParameters =
   MaintenanceWindowAutomationParameters'
-    { parameters =
+    { documentVersion =
         Prelude.Nothing,
-      documentVersion = Prelude.Nothing
+      parameters = Prelude.Nothing
     }
+
+-- | The version of an Automation runbook to use during task execution.
+maintenanceWindowAutomationParameters_documentVersion :: Lens.Lens' MaintenanceWindowAutomationParameters (Prelude.Maybe Prelude.Text)
+maintenanceWindowAutomationParameters_documentVersion = Lens.lens (\MaintenanceWindowAutomationParameters' {documentVersion} -> documentVersion) (\s@MaintenanceWindowAutomationParameters' {} a -> s {documentVersion = a} :: MaintenanceWindowAutomationParameters)
 
 -- | The parameters for the @AUTOMATION@ task.
 --
@@ -118,21 +123,17 @@ newMaintenanceWindowAutomationParameters =
 maintenanceWindowAutomationParameters_parameters :: Lens.Lens' MaintenanceWindowAutomationParameters (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
 maintenanceWindowAutomationParameters_parameters = Lens.lens (\MaintenanceWindowAutomationParameters' {parameters} -> parameters) (\s@MaintenanceWindowAutomationParameters' {} a -> s {parameters = a} :: MaintenanceWindowAutomationParameters) Prelude.. Lens.mapping Lens.coerced
 
--- | The version of an Automation runbook to use during task execution.
-maintenanceWindowAutomationParameters_documentVersion :: Lens.Lens' MaintenanceWindowAutomationParameters (Prelude.Maybe Prelude.Text)
-maintenanceWindowAutomationParameters_documentVersion = Lens.lens (\MaintenanceWindowAutomationParameters' {documentVersion} -> documentVersion) (\s@MaintenanceWindowAutomationParameters' {} a -> s {documentVersion = a} :: MaintenanceWindowAutomationParameters)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     MaintenanceWindowAutomationParameters
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MaintenanceWindowAutomationParameters"
       ( \x ->
           MaintenanceWindowAutomationParameters'
-            Prelude.<$> (x Core..:? "Parameters" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "DocumentVersion")
+            Prelude.<$> (x Data..:? "DocumentVersion")
+            Prelude.<*> (x Data..:? "Parameters" Data..!= Prelude.mempty)
       )
 
 instance
@@ -142,26 +143,26 @@ instance
   hashWithSalt
     _salt
     MaintenanceWindowAutomationParameters' {..} =
-      _salt `Prelude.hashWithSalt` parameters
-        `Prelude.hashWithSalt` documentVersion
+      _salt `Prelude.hashWithSalt` documentVersion
+        `Prelude.hashWithSalt` parameters
 
 instance
   Prelude.NFData
     MaintenanceWindowAutomationParameters
   where
   rnf MaintenanceWindowAutomationParameters' {..} =
-    Prelude.rnf parameters
-      `Prelude.seq` Prelude.rnf documentVersion
+    Prelude.rnf documentVersion
+      `Prelude.seq` Prelude.rnf parameters
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     MaintenanceWindowAutomationParameters
   where
   toJSON MaintenanceWindowAutomationParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Parameters" Core..=) Prelude.<$> parameters,
-            ("DocumentVersion" Core..=)
-              Prelude.<$> documentVersion
+          [ ("DocumentVersion" Data..=)
+              Prelude.<$> documentVersion,
+            ("Parameters" Data..=) Prelude.<$> parameters
           ]
       )

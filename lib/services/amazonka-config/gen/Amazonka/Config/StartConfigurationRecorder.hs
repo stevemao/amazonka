@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.StartConfigurationRecorder
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,7 +87,8 @@ instance Core.AWSRequest StartConfigurationRecorder where
   type
     AWSResponse StartConfigurationRecorder =
       StartConfigurationRecorderResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       StartConfigurationRecorderResponse'
@@ -100,36 +102,36 @@ instance Prelude.NFData StartConfigurationRecorder where
   rnf StartConfigurationRecorder' {..} =
     Prelude.rnf configurationRecorderName
 
-instance Core.ToHeaders StartConfigurationRecorder where
+instance Data.ToHeaders StartConfigurationRecorder where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.StartConfigurationRecorder" ::
+              Data.=# ( "StarlingDoveService.StartConfigurationRecorder" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartConfigurationRecorder where
+instance Data.ToJSON StartConfigurationRecorder where
   toJSON StartConfigurationRecorder' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "ConfigurationRecorderName"
-                  Core..= configurationRecorderName
+                  Data..= configurationRecorderName
               )
           ]
       )
 
-instance Core.ToPath StartConfigurationRecorder where
+instance Data.ToPath StartConfigurationRecorder where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartConfigurationRecorder where
+instance Data.ToQuery StartConfigurationRecorder where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartConfigurationRecorderResponse' smart constructor.

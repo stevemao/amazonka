@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.DisableOrganizationAdminAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.SecurityHub.DisableOrganizationAdminAccount
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,7 +87,8 @@ instance
   type
     AWSResponse DisableOrganizationAdminAccount =
       DisableOrganizationAdminAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -111,32 +113,32 @@ instance
     Prelude.rnf adminAccountId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DisableOrganizationAdminAccount
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisableOrganizationAdminAccount where
+instance Data.ToJSON DisableOrganizationAdminAccount where
   toJSON DisableOrganizationAdminAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("AdminAccountId" Core..= adminAccountId)
+              ("AdminAccountId" Data..= adminAccountId)
           ]
       )
 
-instance Core.ToPath DisableOrganizationAdminAccount where
+instance Data.ToPath DisableOrganizationAdminAccount where
   toPath = Prelude.const "/organization/admin/disable"
 
-instance Core.ToQuery DisableOrganizationAdminAccount where
+instance Data.ToQuery DisableOrganizationAdminAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisableOrganizationAdminAccountResponse' smart constructor.

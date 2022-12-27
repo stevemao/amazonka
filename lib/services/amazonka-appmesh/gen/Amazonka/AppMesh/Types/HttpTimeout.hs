@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.HttpTimeout
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.HttpTimeout where
 
 import Amazonka.AppMesh.Types.Duration
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents types of timeouts.
@@ -80,14 +81,14 @@ httpTimeout_idle = Lens.lens (\HttpTimeout' {idle} -> idle) (\s@HttpTimeout' {} 
 httpTimeout_perRequest :: Lens.Lens' HttpTimeout (Prelude.Maybe Duration)
 httpTimeout_perRequest = Lens.lens (\HttpTimeout' {perRequest} -> perRequest) (\s@HttpTimeout' {} a -> s {perRequest = a} :: HttpTimeout)
 
-instance Core.FromJSON HttpTimeout where
+instance Data.FromJSON HttpTimeout where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HttpTimeout"
       ( \x ->
           HttpTimeout'
-            Prelude.<$> (x Core..:? "idle")
-            Prelude.<*> (x Core..:? "perRequest")
+            Prelude.<$> (x Data..:? "idle")
+            Prelude.<*> (x Data..:? "perRequest")
       )
 
 instance Prelude.Hashable HttpTimeout where
@@ -100,11 +101,11 @@ instance Prelude.NFData HttpTimeout where
     Prelude.rnf idle
       `Prelude.seq` Prelude.rnf perRequest
 
-instance Core.ToJSON HttpTimeout where
+instance Data.ToJSON HttpTimeout where
   toJSON HttpTimeout' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("idle" Core..=) Prelude.<$> idle,
-            ("perRequest" Core..=) Prelude.<$> perRequest
+          [ ("idle" Data..=) Prelude.<$> idle,
+            ("perRequest" Data..=) Prelude.<$> perRequest
           ]
       )

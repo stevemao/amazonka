@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.Types.InstanceAccessControlAttributeConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSOAdmin.Types.InstanceAccessControlAttributeConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSOAdmin.Types.AccessControlAttribute
 
@@ -29,8 +30,8 @@ import Amazonka.SSOAdmin.Types.AccessControlAttribute
 --
 -- /See:/ 'newInstanceAccessControlAttributeConfiguration' smart constructor.
 data InstanceAccessControlAttributeConfiguration = InstanceAccessControlAttributeConfiguration'
-  { -- | Lists the attributes that are configured for ABAC in the specified
-    -- Amazon Web Services SSO instance.
+  { -- | Lists the attributes that are configured for ABAC in the specified IAM
+    -- Identity Center instance.
     accessControlAttributes :: [AccessControlAttribute]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -43,8 +44,8 @@ data InstanceAccessControlAttributeConfiguration = InstanceAccessControlAttribut
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'accessControlAttributes', 'instanceAccessControlAttributeConfiguration_accessControlAttributes' - Lists the attributes that are configured for ABAC in the specified
--- Amazon Web Services SSO instance.
+-- 'accessControlAttributes', 'instanceAccessControlAttributeConfiguration_accessControlAttributes' - Lists the attributes that are configured for ABAC in the specified IAM
+-- Identity Center instance.
 newInstanceAccessControlAttributeConfiguration ::
   InstanceAccessControlAttributeConfiguration
 newInstanceAccessControlAttributeConfiguration =
@@ -53,22 +54,22 @@ newInstanceAccessControlAttributeConfiguration =
         Prelude.mempty
     }
 
--- | Lists the attributes that are configured for ABAC in the specified
--- Amazon Web Services SSO instance.
+-- | Lists the attributes that are configured for ABAC in the specified IAM
+-- Identity Center instance.
 instanceAccessControlAttributeConfiguration_accessControlAttributes :: Lens.Lens' InstanceAccessControlAttributeConfiguration [AccessControlAttribute]
 instanceAccessControlAttributeConfiguration_accessControlAttributes = Lens.lens (\InstanceAccessControlAttributeConfiguration' {accessControlAttributes} -> accessControlAttributes) (\s@InstanceAccessControlAttributeConfiguration' {} a -> s {accessControlAttributes = a} :: InstanceAccessControlAttributeConfiguration) Prelude.. Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     InstanceAccessControlAttributeConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstanceAccessControlAttributeConfiguration"
       ( \x ->
           InstanceAccessControlAttributeConfiguration'
-            Prelude.<$> ( x Core..:? "AccessControlAttributes"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "AccessControlAttributes"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -90,16 +91,16 @@ instance
     Prelude.rnf accessControlAttributes
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     InstanceAccessControlAttributeConfiguration
   where
   toJSON
     InstanceAccessControlAttributeConfiguration' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
             [ Prelude.Just
                 ( "AccessControlAttributes"
-                    Core..= accessControlAttributes
+                    Data..= accessControlAttributes
                 )
             ]
         )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Discovery.Types.OrderByElement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Discovery.Types.OrderByElement where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Discovery.Types.OrderString
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A field and direction for ordered output.
@@ -74,11 +75,11 @@ instance Prelude.NFData OrderByElement where
     Prelude.rnf sortOrder
       `Prelude.seq` Prelude.rnf fieldName
 
-instance Core.ToJSON OrderByElement where
+instance Data.ToJSON OrderByElement where
   toJSON OrderByElement' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("sortOrder" Core..=) Prelude.<$> sortOrder,
-            Prelude.Just ("fieldName" Core..= fieldName)
+          [ ("sortOrder" Data..=) Prelude.<$> sortOrder,
+            Prelude.Just ("fieldName" Data..= fieldName)
           ]
       )

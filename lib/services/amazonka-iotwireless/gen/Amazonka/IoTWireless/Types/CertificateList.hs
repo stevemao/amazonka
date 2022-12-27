@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.Types.CertificateList
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTWireless.Types.CertificateList where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types.SigningAlg
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | List of sidewalk certificates.
@@ -66,14 +67,14 @@ certificateList_signingAlg = Lens.lens (\CertificateList' {signingAlg} -> signin
 certificateList_value :: Lens.Lens' CertificateList Prelude.Text
 certificateList_value = Lens.lens (\CertificateList' {value} -> value) (\s@CertificateList' {} a -> s {value = a} :: CertificateList)
 
-instance Core.FromJSON CertificateList where
+instance Data.FromJSON CertificateList where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CertificateList"
       ( \x ->
           CertificateList'
-            Prelude.<$> (x Core..: "SigningAlg")
-            Prelude.<*> (x Core..: "Value")
+            Prelude.<$> (x Data..: "SigningAlg")
+            Prelude.<*> (x Data..: "Value")
       )
 
 instance Prelude.Hashable CertificateList where

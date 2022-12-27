@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.Types.DocumentClassifierFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Comprehend.Types.DocumentClassifierFilter where
 
 import Amazonka.Comprehend.Types.ModelStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information for filtering a list of document classifiers. You
@@ -30,20 +31,20 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDocumentClassifierFilter' smart constructor.
 data DocumentClassifierFilter = DocumentClassifierFilter'
-  { -- | Filters the list of classifiers based on status.
+  { -- | The name that you assigned to the document classifier
+    documentClassifierName :: Prelude.Maybe Prelude.Text,
+    -- | Filters the list of classifiers based on status.
     status :: Prelude.Maybe ModelStatus,
     -- | Filters the list of classifiers based on the time that the classifier
     -- was submitted for processing. Returns only classifiers submitted after
     -- the specified time. Classifiers are returned in descending order, newest
     -- to oldest.
-    submitTimeAfter :: Prelude.Maybe Core.POSIX,
+    submitTimeAfter :: Prelude.Maybe Data.POSIX,
     -- | Filters the list of classifiers based on the time that the classifier
     -- was submitted for processing. Returns only classifiers submitted before
     -- the specified time. Classifiers are returned in ascending order, oldest
     -- to newest.
-    submitTimeBefore :: Prelude.Maybe Core.POSIX,
-    -- | The name that you assigned to the document classifier
-    documentClassifierName :: Prelude.Maybe Prelude.Text
+    submitTimeBefore :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -54,6 +55,8 @@ data DocumentClassifierFilter = DocumentClassifierFilter'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'documentClassifierName', 'documentClassifierFilter_documentClassifierName' - The name that you assigned to the document classifier
 --
 -- 'status', 'documentClassifierFilter_status' - Filters the list of classifiers based on status.
 --
@@ -66,17 +69,20 @@ data DocumentClassifierFilter = DocumentClassifierFilter'
 -- was submitted for processing. Returns only classifiers submitted before
 -- the specified time. Classifiers are returned in ascending order, oldest
 -- to newest.
---
--- 'documentClassifierName', 'documentClassifierFilter_documentClassifierName' - The name that you assigned to the document classifier
 newDocumentClassifierFilter ::
   DocumentClassifierFilter
 newDocumentClassifierFilter =
   DocumentClassifierFilter'
-    { status = Prelude.Nothing,
+    { documentClassifierName =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
       submitTimeAfter = Prelude.Nothing,
-      submitTimeBefore = Prelude.Nothing,
-      documentClassifierName = Prelude.Nothing
+      submitTimeBefore = Prelude.Nothing
     }
+
+-- | The name that you assigned to the document classifier
+documentClassifierFilter_documentClassifierName :: Lens.Lens' DocumentClassifierFilter (Prelude.Maybe Prelude.Text)
+documentClassifierFilter_documentClassifierName = Lens.lens (\DocumentClassifierFilter' {documentClassifierName} -> documentClassifierName) (\s@DocumentClassifierFilter' {} a -> s {documentClassifierName = a} :: DocumentClassifierFilter)
 
 -- | Filters the list of classifiers based on status.
 documentClassifierFilter_status :: Lens.Lens' DocumentClassifierFilter (Prelude.Maybe ModelStatus)
@@ -87,43 +93,39 @@ documentClassifierFilter_status = Lens.lens (\DocumentClassifierFilter' {status}
 -- the specified time. Classifiers are returned in descending order, newest
 -- to oldest.
 documentClassifierFilter_submitTimeAfter :: Lens.Lens' DocumentClassifierFilter (Prelude.Maybe Prelude.UTCTime)
-documentClassifierFilter_submitTimeAfter = Lens.lens (\DocumentClassifierFilter' {submitTimeAfter} -> submitTimeAfter) (\s@DocumentClassifierFilter' {} a -> s {submitTimeAfter = a} :: DocumentClassifierFilter) Prelude.. Lens.mapping Core._Time
+documentClassifierFilter_submitTimeAfter = Lens.lens (\DocumentClassifierFilter' {submitTimeAfter} -> submitTimeAfter) (\s@DocumentClassifierFilter' {} a -> s {submitTimeAfter = a} :: DocumentClassifierFilter) Prelude.. Lens.mapping Data._Time
 
 -- | Filters the list of classifiers based on the time that the classifier
 -- was submitted for processing. Returns only classifiers submitted before
 -- the specified time. Classifiers are returned in ascending order, oldest
 -- to newest.
 documentClassifierFilter_submitTimeBefore :: Lens.Lens' DocumentClassifierFilter (Prelude.Maybe Prelude.UTCTime)
-documentClassifierFilter_submitTimeBefore = Lens.lens (\DocumentClassifierFilter' {submitTimeBefore} -> submitTimeBefore) (\s@DocumentClassifierFilter' {} a -> s {submitTimeBefore = a} :: DocumentClassifierFilter) Prelude.. Lens.mapping Core._Time
-
--- | The name that you assigned to the document classifier
-documentClassifierFilter_documentClassifierName :: Lens.Lens' DocumentClassifierFilter (Prelude.Maybe Prelude.Text)
-documentClassifierFilter_documentClassifierName = Lens.lens (\DocumentClassifierFilter' {documentClassifierName} -> documentClassifierName) (\s@DocumentClassifierFilter' {} a -> s {documentClassifierName = a} :: DocumentClassifierFilter)
+documentClassifierFilter_submitTimeBefore = Lens.lens (\DocumentClassifierFilter' {submitTimeBefore} -> submitTimeBefore) (\s@DocumentClassifierFilter' {} a -> s {submitTimeBefore = a} :: DocumentClassifierFilter) Prelude.. Lens.mapping Data._Time
 
 instance Prelude.Hashable DocumentClassifierFilter where
   hashWithSalt _salt DocumentClassifierFilter' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt `Prelude.hashWithSalt` documentClassifierName
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` submitTimeAfter
       `Prelude.hashWithSalt` submitTimeBefore
-      `Prelude.hashWithSalt` documentClassifierName
 
 instance Prelude.NFData DocumentClassifierFilter where
   rnf DocumentClassifierFilter' {..} =
-    Prelude.rnf status
+    Prelude.rnf documentClassifierName
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf submitTimeAfter
       `Prelude.seq` Prelude.rnf submitTimeBefore
-      `Prelude.seq` Prelude.rnf documentClassifierName
 
-instance Core.ToJSON DocumentClassifierFilter where
+instance Data.ToJSON DocumentClassifierFilter where
   toJSON DocumentClassifierFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Status" Core..=) Prelude.<$> status,
-            ("SubmitTimeAfter" Core..=)
+          [ ("DocumentClassifierName" Data..=)
+              Prelude.<$> documentClassifierName,
+            ("Status" Data..=) Prelude.<$> status,
+            ("SubmitTimeAfter" Data..=)
               Prelude.<$> submitTimeAfter,
-            ("SubmitTimeBefore" Core..=)
-              Prelude.<$> submitTimeBefore,
-            ("DocumentClassifierName" Core..=)
-              Prelude.<$> documentClassifierName
+            ("SubmitTimeBefore" Data..=)
+              Prelude.<$> submitTimeBefore
           ]
       )

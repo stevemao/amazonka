@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.UntagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.Nimble.UntagResource
     newUntagResource,
 
     -- * Request Lenses
-    untagResource_tagKeys,
     untagResource_resourceArn,
+    untagResource_tagKeys,
 
     -- * Destructuring the Response
     UntagResourceResponse (..),
@@ -40,7 +40,8 @@ module Amazonka.Nimble.UntagResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -48,10 +49,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUntagResource' smart constructor.
 data UntagResource = UntagResource'
-  { -- | An array of tag keys to delete.
-    tagKeys :: [Prelude.Text],
-    -- | The ARN of the target resource for tagging operations.
-    resourceArn :: Prelude.Text
+  { -- | Identifies the Amazon Resource Name(ARN) key from which you are removing
+    -- tags.
+    resourceArn :: Prelude.Text,
+    -- | One or more tag keys. Specify only the tag keys, not the tag values.
+    tagKeys :: [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -63,32 +65,35 @@ data UntagResource = UntagResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tagKeys', 'untagResource_tagKeys' - An array of tag keys to delete.
+-- 'resourceArn', 'untagResource_resourceArn' - Identifies the Amazon Resource Name(ARN) key from which you are removing
+-- tags.
 --
--- 'resourceArn', 'untagResource_resourceArn' - The ARN of the target resource for tagging operations.
+-- 'tagKeys', 'untagResource_tagKeys' - One or more tag keys. Specify only the tag keys, not the tag values.
 newUntagResource ::
   -- | 'resourceArn'
   Prelude.Text ->
   UntagResource
 newUntagResource pResourceArn_ =
   UntagResource'
-    { tagKeys = Prelude.mempty,
-      resourceArn = pResourceArn_
+    { resourceArn = pResourceArn_,
+      tagKeys = Prelude.mempty
     }
 
--- | An array of tag keys to delete.
-untagResource_tagKeys :: Lens.Lens' UntagResource [Prelude.Text]
-untagResource_tagKeys = Lens.lens (\UntagResource' {tagKeys} -> tagKeys) (\s@UntagResource' {} a -> s {tagKeys = a} :: UntagResource) Prelude.. Lens.coerced
-
--- | The ARN of the target resource for tagging operations.
+-- | Identifies the Amazon Resource Name(ARN) key from which you are removing
+-- tags.
 untagResource_resourceArn :: Lens.Lens' UntagResource Prelude.Text
 untagResource_resourceArn = Lens.lens (\UntagResource' {resourceArn} -> resourceArn) (\s@UntagResource' {} a -> s {resourceArn = a} :: UntagResource)
+
+-- | One or more tag keys. Specify only the tag keys, not the tag values.
+untagResource_tagKeys :: Lens.Lens' UntagResource [Prelude.Text]
+untagResource_tagKeys = Lens.lens (\UntagResource' {tagKeys} -> tagKeys) (\s@UntagResource' {} a -> s {tagKeys = a} :: UntagResource) Prelude.. Lens.coerced
 
 instance Core.AWSRequest UntagResource where
   type
     AWSResponse UntagResource =
       UntagResourceResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -98,34 +103,34 @@ instance Core.AWSRequest UntagResource where
 
 instance Prelude.Hashable UntagResource where
   hashWithSalt _salt UntagResource' {..} =
-    _salt `Prelude.hashWithSalt` tagKeys
-      `Prelude.hashWithSalt` resourceArn
+    _salt `Prelude.hashWithSalt` resourceArn
+      `Prelude.hashWithSalt` tagKeys
 
 instance Prelude.NFData UntagResource where
   rnf UntagResource' {..} =
-    Prelude.rnf tagKeys
-      `Prelude.seq` Prelude.rnf resourceArn
+    Prelude.rnf resourceArn
+      `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagResource where
+instance Data.ToHeaders UntagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath UntagResource where
+instance Data.ToPath UntagResource where
   toPath UntagResource' {..} =
     Prelude.mconcat
-      ["/2020-08-01/tags/", Core.toBS resourceArn]
+      ["/2020-08-01/tags/", Data.toBS resourceArn]
 
-instance Core.ToQuery UntagResource where
+instance Data.ToQuery UntagResource where
   toQuery UntagResource' {..} =
     Prelude.mconcat
-      ["tagKeys" Core.=: Core.toQueryList "member" tagKeys]
+      ["tagKeys" Data.=: Data.toQueryList "member" tagKeys]
 
 -- | /See:/ 'newUntagResourceResponse' smart constructor.
 data UntagResourceResponse = UntagResourceResponse'

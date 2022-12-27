@@ -14,19 +14,20 @@
 
 -- |
 -- Module      : Amazonka.S3.GetBucketCors
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the cors configuration information set for the bucket.
+-- Returns the Cross-Origin Resource Sharing (CORS) configuration
+-- information set for the bucket.
 --
 -- To use this operation, you must have permission to perform the
--- s3:GetBucketCORS action. By default, the bucket owner has this
+-- @s3:GetBucketCORS@ action. By default, the bucket owner has this
 -- permission and can grant it to others.
 --
--- For more information about cors, see
+-- For more information about CORS, see
 -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/cors.html Enabling Cross-Origin Resource Sharing>.
 --
 -- The following operations are related to @GetBucketCors@:
@@ -54,7 +55,8 @@ module Amazonka.S3.GetBucketCors
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,8 +65,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newGetBucketCors' smart constructor.
 data GetBucketCors = GetBucketCors'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The bucket name for which to get the cors configuration.
     bucket :: BucketName
@@ -80,8 +82,8 @@ data GetBucketCors = GetBucketCors'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'getBucketCors_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'getBucketCors_bucket' - The bucket name for which to get the cors configuration.
 newGetBucketCors ::
@@ -96,8 +98,8 @@ newGetBucketCors pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 getBucketCors_expectedBucketOwner :: Lens.Lens' GetBucketCors (Prelude.Maybe Prelude.Text)
 getBucketCors_expectedBucketOwner = Lens.lens (\GetBucketCors' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetBucketCors' {} a -> s {expectedBucketOwner = a} :: GetBucketCors)
 
@@ -109,14 +111,14 @@ instance Core.AWSRequest GetBucketCors where
   type
     AWSResponse GetBucketCors =
       GetBucketCorsResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetBucketCorsResponse'
-            Prelude.<$> (Core.may (Core.parseXMLList "CORSRule") x)
+            Prelude.<$> (Core.may (Data.parseXMLList "CORSRule") x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,18 +132,18 @@ instance Prelude.NFData GetBucketCors where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders GetBucketCors where
+instance Data.ToHeaders GetBucketCors where
   toHeaders GetBucketCors' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath GetBucketCors where
+instance Data.ToPath GetBucketCors where
   toPath GetBucketCors' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery GetBucketCors where
+instance Data.ToQuery GetBucketCors where
   toQuery = Prelude.const (Prelude.mconcat ["cors"])
 
 -- | /See:/ 'newGetBucketCorsResponse' smart constructor.

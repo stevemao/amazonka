@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.DescribeNodegroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.EKS.DescribeNodegroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,12 +92,13 @@ instance Core.AWSRequest DescribeNodegroup where
   type
     AWSResponse DescribeNodegroup =
       DescribeNodegroupResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeNodegroupResponse'
-            Prelude.<$> (x Core..?> "nodegroup")
+            Prelude.<$> (x Data..?> "nodegroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,27 +112,27 @@ instance Prelude.NFData DescribeNodegroup where
     Prelude.rnf clusterName
       `Prelude.seq` Prelude.rnf nodegroupName
 
-instance Core.ToHeaders DescribeNodegroup where
+instance Data.ToHeaders DescribeNodegroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeNodegroup where
+instance Data.ToPath DescribeNodegroup where
   toPath DescribeNodegroup' {..} =
     Prelude.mconcat
       [ "/clusters/",
-        Core.toBS clusterName,
+        Data.toBS clusterName,
         "/node-groups/",
-        Core.toBS nodegroupName
+        Data.toBS nodegroupName
       ]
 
-instance Core.ToQuery DescribeNodegroup where
+instance Data.ToQuery DescribeNodegroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeNodegroupResponse' smart constructor.

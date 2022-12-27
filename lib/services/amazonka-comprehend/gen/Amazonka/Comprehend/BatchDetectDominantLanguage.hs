@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.BatchDetectDominantLanguage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,18 +45,18 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newBatchDetectDominantLanguage' smart constructor.
 data BatchDetectDominantLanguage = BatchDetectDominantLanguage'
-  { -- | A list containing the text of the input documents. The list can contain
-    -- a maximum of 25 documents. Each document should contain at least 20
-    -- characters and must contain fewer than 5,000 bytes of UTF-8 encoded
-    -- characters.
-    textList :: Core.Sensitive [Core.Sensitive Prelude.Text]
+  { -- | A list containing the UTF-8 encoded text of the input documents. The
+    -- list can contain a maximum of 25 documents. Each document should contain
+    -- at least 20 characters. The maximum size of each document is 5 KB.
+    textList :: Data.Sensitive (Prelude.NonEmpty (Data.Sensitive Prelude.Text))
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -68,37 +68,39 @@ data BatchDetectDominantLanguage = BatchDetectDominantLanguage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'textList', 'batchDetectDominantLanguage_textList' - A list containing the text of the input documents. The list can contain
--- a maximum of 25 documents. Each document should contain at least 20
--- characters and must contain fewer than 5,000 bytes of UTF-8 encoded
--- characters.
+-- 'textList', 'batchDetectDominantLanguage_textList' - A list containing the UTF-8 encoded text of the input documents. The
+-- list can contain a maximum of 25 documents. Each document should contain
+-- at least 20 characters. The maximum size of each document is 5 KB.
 newBatchDetectDominantLanguage ::
+  -- | 'textList'
+  Prelude.NonEmpty Prelude.Text ->
   BatchDetectDominantLanguage
-newBatchDetectDominantLanguage =
+newBatchDetectDominantLanguage pTextList_ =
   BatchDetectDominantLanguage'
     { textList =
-        Prelude.mempty
+        Data._Sensitive Prelude.. Lens.coerced
+          Lens.# pTextList_
     }
 
--- | A list containing the text of the input documents. The list can contain
--- a maximum of 25 documents. Each document should contain at least 20
--- characters and must contain fewer than 5,000 bytes of UTF-8 encoded
--- characters.
-batchDetectDominantLanguage_textList :: Lens.Lens' BatchDetectDominantLanguage [Prelude.Text]
-batchDetectDominantLanguage_textList = Lens.lens (\BatchDetectDominantLanguage' {textList} -> textList) (\s@BatchDetectDominantLanguage' {} a -> s {textList = a} :: BatchDetectDominantLanguage) Prelude.. Core._Sensitive Prelude.. Lens.coerced
+-- | A list containing the UTF-8 encoded text of the input documents. The
+-- list can contain a maximum of 25 documents. Each document should contain
+-- at least 20 characters. The maximum size of each document is 5 KB.
+batchDetectDominantLanguage_textList :: Lens.Lens' BatchDetectDominantLanguage (Prelude.NonEmpty Prelude.Text)
+batchDetectDominantLanguage_textList = Lens.lens (\BatchDetectDominantLanguage' {textList} -> textList) (\s@BatchDetectDominantLanguage' {} a -> s {textList = a} :: BatchDetectDominantLanguage) Prelude.. Data._Sensitive Prelude.. Lens.coerced
 
 instance Core.AWSRequest BatchDetectDominantLanguage where
   type
     AWSResponse BatchDetectDominantLanguage =
       BatchDetectDominantLanguageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDetectDominantLanguageResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "ResultList" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "ErrorList" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "ResultList" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "ErrorList" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable BatchDetectDominantLanguage where
@@ -109,32 +111,32 @@ instance Prelude.NFData BatchDetectDominantLanguage where
   rnf BatchDetectDominantLanguage' {..} =
     Prelude.rnf textList
 
-instance Core.ToHeaders BatchDetectDominantLanguage where
+instance Data.ToHeaders BatchDetectDominantLanguage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.BatchDetectDominantLanguage" ::
+              Data.=# ( "Comprehend_20171127.BatchDetectDominantLanguage" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchDetectDominantLanguage where
+instance Data.ToJSON BatchDetectDominantLanguage where
   toJSON BatchDetectDominantLanguage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("TextList" Core..= textList)]
+          [Prelude.Just ("TextList" Data..= textList)]
       )
 
-instance Core.ToPath BatchDetectDominantLanguage where
+instance Data.ToPath BatchDetectDominantLanguage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchDetectDominantLanguage where
+instance Data.ToQuery BatchDetectDominantLanguage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchDetectDominantLanguageResponse' smart constructor.

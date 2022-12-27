@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.RemoveTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,9 @@ module Amazonka.ElasticSearch.RemoveTags
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ removeTags_tagKeys = Lens.lens (\RemoveTags' {tagKeys} -> tagKeys) (\s@RemoveTag
 
 instance Core.AWSRequest RemoveTags where
   type AWSResponse RemoveTags = RemoveTagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull RemoveTagsResponse'
 
 instance Prelude.Hashable RemoveTags where
@@ -103,22 +105,22 @@ instance Prelude.NFData RemoveTags where
   rnf RemoveTags' {..} =
     Prelude.rnf arn `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders RemoveTags where
+instance Data.ToHeaders RemoveTags where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON RemoveTags where
+instance Data.ToJSON RemoveTags where
   toJSON RemoveTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ARN" Core..= arn),
-            Prelude.Just ("TagKeys" Core..= tagKeys)
+          [ Prelude.Just ("ARN" Data..= arn),
+            Prelude.Just ("TagKeys" Data..= tagKeys)
           ]
       )
 
-instance Core.ToPath RemoveTags where
+instance Data.ToPath RemoveTags where
   toPath = Prelude.const "/2015-01-01/tags-removal"
 
-instance Core.ToQuery RemoveTags where
+instance Data.ToQuery RemoveTags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveTagsResponse' smart constructor.

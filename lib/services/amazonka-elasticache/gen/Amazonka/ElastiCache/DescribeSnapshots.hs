@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.DescribeSnapshots
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,9 +37,9 @@ module Amazonka.ElastiCache.DescribeSnapshots
     describeSnapshots_cacheClusterId,
     describeSnapshots_marker,
     describeSnapshots_maxRecords,
-    describeSnapshots_snapshotName,
-    describeSnapshots_showNodeGroupConfig,
     describeSnapshots_replicationGroupId,
+    describeSnapshots_showNodeGroupConfig,
+    describeSnapshots_snapshotName,
     describeSnapshots_snapshotSource,
 
     -- * Destructuring the Response
@@ -47,15 +47,16 @@ module Amazonka.ElastiCache.DescribeSnapshots
     newDescribeSnapshotsResponse,
 
     -- * Response Lenses
-    describeSnapshotsResponse_snapshots,
     describeSnapshotsResponse_marker,
+    describeSnapshotsResponse_snapshots,
     describeSnapshotsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,16 +81,16 @@ data DescribeSnapshots = DescribeSnapshots'
     --
     -- Constraints: minimum 20; maximum 50.
     maxRecords :: Prelude.Maybe Prelude.Int,
-    -- | A user-supplied name of the snapshot. If this parameter is specified,
-    -- only this snapshot are described.
-    snapshotName :: Prelude.Maybe Prelude.Text,
-    -- | A Boolean value which if true, the node group (shard) configuration is
-    -- included in the snapshot description.
-    showNodeGroupConfig :: Prelude.Maybe Prelude.Bool,
     -- | A user-supplied replication group identifier. If this parameter is
     -- specified, only snapshots associated with that specific replication
     -- group are described.
     replicationGroupId :: Prelude.Maybe Prelude.Text,
+    -- | A Boolean value which if true, the node group (shard) configuration is
+    -- included in the snapshot description.
+    showNodeGroupConfig :: Prelude.Maybe Prelude.Bool,
+    -- | A user-supplied name of the snapshot. If this parameter is specified,
+    -- only this snapshot are described.
+    snapshotName :: Prelude.Maybe Prelude.Text,
     -- | If set to @system@, the output shows snapshots that were automatically
     -- created by ElastiCache. If set to @user@ the output shows snapshots that
     -- were manually created. If omitted, the output shows both automatically
@@ -122,15 +123,15 @@ data DescribeSnapshots = DescribeSnapshots'
 --
 -- Constraints: minimum 20; maximum 50.
 --
--- 'snapshotName', 'describeSnapshots_snapshotName' - A user-supplied name of the snapshot. If this parameter is specified,
--- only this snapshot are described.
+-- 'replicationGroupId', 'describeSnapshots_replicationGroupId' - A user-supplied replication group identifier. If this parameter is
+-- specified, only snapshots associated with that specific replication
+-- group are described.
 --
 -- 'showNodeGroupConfig', 'describeSnapshots_showNodeGroupConfig' - A Boolean value which if true, the node group (shard) configuration is
 -- included in the snapshot description.
 --
--- 'replicationGroupId', 'describeSnapshots_replicationGroupId' - A user-supplied replication group identifier. If this parameter is
--- specified, only snapshots associated with that specific replication
--- group are described.
+-- 'snapshotName', 'describeSnapshots_snapshotName' - A user-supplied name of the snapshot. If this parameter is specified,
+-- only this snapshot are described.
 --
 -- 'snapshotSource', 'describeSnapshots_snapshotSource' - If set to @system@, the output shows snapshots that were automatically
 -- created by ElastiCache. If set to @user@ the output shows snapshots that
@@ -144,9 +145,9 @@ newDescribeSnapshots =
         Prelude.Nothing,
       marker = Prelude.Nothing,
       maxRecords = Prelude.Nothing,
-      snapshotName = Prelude.Nothing,
-      showNodeGroupConfig = Prelude.Nothing,
       replicationGroupId = Prelude.Nothing,
+      showNodeGroupConfig = Prelude.Nothing,
+      snapshotName = Prelude.Nothing,
       snapshotSource = Prelude.Nothing
     }
 
@@ -172,21 +173,21 @@ describeSnapshots_marker = Lens.lens (\DescribeSnapshots' {marker} -> marker) (\
 describeSnapshots_maxRecords :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Int)
 describeSnapshots_maxRecords = Lens.lens (\DescribeSnapshots' {maxRecords} -> maxRecords) (\s@DescribeSnapshots' {} a -> s {maxRecords = a} :: DescribeSnapshots)
 
--- | A user-supplied name of the snapshot. If this parameter is specified,
--- only this snapshot are described.
-describeSnapshots_snapshotName :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Text)
-describeSnapshots_snapshotName = Lens.lens (\DescribeSnapshots' {snapshotName} -> snapshotName) (\s@DescribeSnapshots' {} a -> s {snapshotName = a} :: DescribeSnapshots)
+-- | A user-supplied replication group identifier. If this parameter is
+-- specified, only snapshots associated with that specific replication
+-- group are described.
+describeSnapshots_replicationGroupId :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Text)
+describeSnapshots_replicationGroupId = Lens.lens (\DescribeSnapshots' {replicationGroupId} -> replicationGroupId) (\s@DescribeSnapshots' {} a -> s {replicationGroupId = a} :: DescribeSnapshots)
 
 -- | A Boolean value which if true, the node group (shard) configuration is
 -- included in the snapshot description.
 describeSnapshots_showNodeGroupConfig :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Bool)
 describeSnapshots_showNodeGroupConfig = Lens.lens (\DescribeSnapshots' {showNodeGroupConfig} -> showNodeGroupConfig) (\s@DescribeSnapshots' {} a -> s {showNodeGroupConfig = a} :: DescribeSnapshots)
 
--- | A user-supplied replication group identifier. If this parameter is
--- specified, only snapshots associated with that specific replication
--- group are described.
-describeSnapshots_replicationGroupId :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Text)
-describeSnapshots_replicationGroupId = Lens.lens (\DescribeSnapshots' {replicationGroupId} -> replicationGroupId) (\s@DescribeSnapshots' {} a -> s {replicationGroupId = a} :: DescribeSnapshots)
+-- | A user-supplied name of the snapshot. If this parameter is specified,
+-- only this snapshot are described.
+describeSnapshots_snapshotName :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Text)
+describeSnapshots_snapshotName = Lens.lens (\DescribeSnapshots' {snapshotName} -> snapshotName) (\s@DescribeSnapshots' {} a -> s {snapshotName = a} :: DescribeSnapshots)
 
 -- | If set to @system@, the output shows snapshots that were automatically
 -- created by ElastiCache. If set to @user@ the output shows snapshots that
@@ -220,16 +221,17 @@ instance Core.AWSRequest DescribeSnapshots where
   type
     AWSResponse DescribeSnapshots =
       DescribeSnapshotsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeSnapshotsResult"
       ( \s h x ->
           DescribeSnapshotsResponse'
-            Prelude.<$> ( x Core..@? "Snapshots" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "Snapshot")
+            Prelude.<$> (x Data..@? "Marker")
+            Prelude.<*> ( x Data..@? "Snapshots" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "Snapshot")
                         )
-            Prelude.<*> (x Core..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -238,9 +240,9 @@ instance Prelude.Hashable DescribeSnapshots where
     _salt `Prelude.hashWithSalt` cacheClusterId
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
-      `Prelude.hashWithSalt` snapshotName
-      `Prelude.hashWithSalt` showNodeGroupConfig
       `Prelude.hashWithSalt` replicationGroupId
+      `Prelude.hashWithSalt` showNodeGroupConfig
+      `Prelude.hashWithSalt` snapshotName
       `Prelude.hashWithSalt` snapshotSource
 
 instance Prelude.NFData DescribeSnapshots where
@@ -248,45 +250,45 @@ instance Prelude.NFData DescribeSnapshots where
     Prelude.rnf cacheClusterId
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
-      `Prelude.seq` Prelude.rnf snapshotName
-      `Prelude.seq` Prelude.rnf showNodeGroupConfig
       `Prelude.seq` Prelude.rnf replicationGroupId
+      `Prelude.seq` Prelude.rnf showNodeGroupConfig
+      `Prelude.seq` Prelude.rnf snapshotName
       `Prelude.seq` Prelude.rnf snapshotSource
 
-instance Core.ToHeaders DescribeSnapshots where
+instance Data.ToHeaders DescribeSnapshots where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeSnapshots where
+instance Data.ToPath DescribeSnapshots where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeSnapshots where
+instance Data.ToQuery DescribeSnapshots where
   toQuery DescribeSnapshots' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeSnapshots" :: Prelude.ByteString),
+          Data.=: ("DescribeSnapshots" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "CacheClusterId" Core.=: cacheClusterId,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "SnapshotName" Core.=: snapshotName,
-        "ShowNodeGroupConfig" Core.=: showNodeGroupConfig,
-        "ReplicationGroupId" Core.=: replicationGroupId,
-        "SnapshotSource" Core.=: snapshotSource
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "CacheClusterId" Data.=: cacheClusterId,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "ReplicationGroupId" Data.=: replicationGroupId,
+        "ShowNodeGroupConfig" Data.=: showNodeGroupConfig,
+        "SnapshotName" Data.=: snapshotName,
+        "SnapshotSource" Data.=: snapshotSource
       ]
 
 -- | Represents the output of a @DescribeSnapshots@ operation.
 --
 -- /See:/ 'newDescribeSnapshotsResponse' smart constructor.
 data DescribeSnapshotsResponse = DescribeSnapshotsResponse'
-  { -- | A list of snapshots. Each item in the list contains detailed information
-    -- about one snapshot.
-    snapshots :: Prelude.Maybe [Snapshot],
-    -- | An optional marker returned from a prior request. Use this marker for
+  { -- | An optional marker returned from a prior request. Use this marker for
     -- pagination of results from this operation. If this parameter is
     -- specified, the response includes only records beyond the marker, up to
     -- the value specified by @MaxRecords@.
     marker :: Prelude.Maybe Prelude.Text,
+    -- | A list of snapshots. Each item in the list contains detailed information
+    -- about one snapshot.
+    snapshots :: Prelude.Maybe [Snapshot],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -300,13 +302,13 @@ data DescribeSnapshotsResponse = DescribeSnapshotsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'snapshots', 'describeSnapshotsResponse_snapshots' - A list of snapshots. Each item in the list contains detailed information
--- about one snapshot.
---
 -- 'marker', 'describeSnapshotsResponse_marker' - An optional marker returned from a prior request. Use this marker for
 -- pagination of results from this operation. If this parameter is
 -- specified, the response includes only records beyond the marker, up to
 -- the value specified by @MaxRecords@.
+--
+-- 'snapshots', 'describeSnapshotsResponse_snapshots' - A list of snapshots. Each item in the list contains detailed information
+-- about one snapshot.
 --
 -- 'httpStatus', 'describeSnapshotsResponse_httpStatus' - The response's http status code.
 newDescribeSnapshotsResponse ::
@@ -315,16 +317,11 @@ newDescribeSnapshotsResponse ::
   DescribeSnapshotsResponse
 newDescribeSnapshotsResponse pHttpStatus_ =
   DescribeSnapshotsResponse'
-    { snapshots =
+    { marker =
         Prelude.Nothing,
-      marker = Prelude.Nothing,
+      snapshots = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of snapshots. Each item in the list contains detailed information
--- about one snapshot.
-describeSnapshotsResponse_snapshots :: Lens.Lens' DescribeSnapshotsResponse (Prelude.Maybe [Snapshot])
-describeSnapshotsResponse_snapshots = Lens.lens (\DescribeSnapshotsResponse' {snapshots} -> snapshots) (\s@DescribeSnapshotsResponse' {} a -> s {snapshots = a} :: DescribeSnapshotsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | An optional marker returned from a prior request. Use this marker for
 -- pagination of results from this operation. If this parameter is
@@ -333,12 +330,17 @@ describeSnapshotsResponse_snapshots = Lens.lens (\DescribeSnapshotsResponse' {sn
 describeSnapshotsResponse_marker :: Lens.Lens' DescribeSnapshotsResponse (Prelude.Maybe Prelude.Text)
 describeSnapshotsResponse_marker = Lens.lens (\DescribeSnapshotsResponse' {marker} -> marker) (\s@DescribeSnapshotsResponse' {} a -> s {marker = a} :: DescribeSnapshotsResponse)
 
+-- | A list of snapshots. Each item in the list contains detailed information
+-- about one snapshot.
+describeSnapshotsResponse_snapshots :: Lens.Lens' DescribeSnapshotsResponse (Prelude.Maybe [Snapshot])
+describeSnapshotsResponse_snapshots = Lens.lens (\DescribeSnapshotsResponse' {snapshots} -> snapshots) (\s@DescribeSnapshotsResponse' {} a -> s {snapshots = a} :: DescribeSnapshotsResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 describeSnapshotsResponse_httpStatus :: Lens.Lens' DescribeSnapshotsResponse Prelude.Int
 describeSnapshotsResponse_httpStatus = Lens.lens (\DescribeSnapshotsResponse' {httpStatus} -> httpStatus) (\s@DescribeSnapshotsResponse' {} a -> s {httpStatus = a} :: DescribeSnapshotsResponse)
 
 instance Prelude.NFData DescribeSnapshotsResponse where
   rnf DescribeSnapshotsResponse' {..} =
-    Prelude.rnf snapshots
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
+      `Prelude.seq` Prelude.rnf snapshots
       `Prelude.seq` Prelude.rnf httpStatus

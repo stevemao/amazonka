@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.CreateExclusionsPreview
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.Inspector.CreateExclusionsPreview
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,13 +87,14 @@ instance Core.AWSRequest CreateExclusionsPreview where
   type
     AWSResponse CreateExclusionsPreview =
       CreateExclusionsPreviewResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateExclusionsPreviewResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "previewToken")
+            Prelude.<*> (x Data..:> "previewToken")
       )
 
 instance Prelude.Hashable CreateExclusionsPreview where
@@ -103,36 +105,36 @@ instance Prelude.NFData CreateExclusionsPreview where
   rnf CreateExclusionsPreview' {..} =
     Prelude.rnf assessmentTemplateArn
 
-instance Core.ToHeaders CreateExclusionsPreview where
+instance Data.ToHeaders CreateExclusionsPreview where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.CreateExclusionsPreview" ::
+              Data.=# ( "InspectorService.CreateExclusionsPreview" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateExclusionsPreview where
+instance Data.ToJSON CreateExclusionsPreview where
   toJSON CreateExclusionsPreview' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "assessmentTemplateArn"
-                  Core..= assessmentTemplateArn
+                  Data..= assessmentTemplateArn
               )
           ]
       )
 
-instance Core.ToPath CreateExclusionsPreview where
+instance Data.ToPath CreateExclusionsPreview where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateExclusionsPreview where
+instance Data.ToQuery CreateExclusionsPreview where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateExclusionsPreviewResponse' smart constructor.

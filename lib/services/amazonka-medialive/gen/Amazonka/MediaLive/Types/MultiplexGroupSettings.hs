@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.MultiplexGroupSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.MultiplexGroupSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Multiplex Group Settings
@@ -39,9 +40,9 @@ newMultiplexGroupSettings ::
   MultiplexGroupSettings
 newMultiplexGroupSettings = MultiplexGroupSettings'
 
-instance Core.FromJSON MultiplexGroupSettings where
+instance Data.FromJSON MultiplexGroupSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MultiplexGroupSettings"
       (\x -> Prelude.pure MultiplexGroupSettings')
 
@@ -52,5 +53,5 @@ instance Prelude.Hashable MultiplexGroupSettings where
 instance Prelude.NFData MultiplexGroupSettings where
   rnf _ = ()
 
-instance Core.ToJSON MultiplexGroupSettings where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON MultiplexGroupSettings where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)

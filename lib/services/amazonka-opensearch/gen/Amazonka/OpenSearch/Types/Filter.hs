@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.Filter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.OpenSearch.Types.Filter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A filter used to limit results when describing inbound or outbound
--- cross-cluster connections. Multiple values can be specified per filter.
--- A cross-cluster connection must match at least one of the specified
--- values for it to be returned from an operation.
+-- cross-cluster connections. You can specify multiple values per filter. A
+-- cross-cluster connection must match at least one of the specified values
+-- for it to be returned from an operation.
 --
 -- /See:/ 'newFilter' smart constructor.
 data Filter = Filter'
-  { -- | Contains one or more values for the filter.
-    values :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | The name of the filter.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | The name of the filter.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | One or more values for the filter.
+    values :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,39 +46,39 @@ data Filter = Filter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'values', 'filter_values' - Contains one or more values for the filter.
---
 -- 'name', 'filter_name' - The name of the filter.
+--
+-- 'values', 'filter_values' - One or more values for the filter.
 newFilter ::
   Filter
 newFilter =
   Filter'
-    { values = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      values = Prelude.Nothing
     }
-
--- | Contains one or more values for the filter.
-filter_values :: Lens.Lens' Filter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-filter_values = Lens.lens (\Filter' {values} -> values) (\s@Filter' {} a -> s {values = a} :: Filter) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the filter.
 filter_name :: Lens.Lens' Filter (Prelude.Maybe Prelude.Text)
 filter_name = Lens.lens (\Filter' {name} -> name) (\s@Filter' {} a -> s {name = a} :: Filter)
 
+-- | One or more values for the filter.
+filter_values :: Lens.Lens' Filter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+filter_values = Lens.lens (\Filter' {values} -> values) (\s@Filter' {} a -> s {values = a} :: Filter) Prelude.. Lens.mapping Lens.coerced
+
 instance Prelude.Hashable Filter where
   hashWithSalt _salt Filter' {..} =
-    _salt `Prelude.hashWithSalt` values
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` values
 
 instance Prelude.NFData Filter where
   rnf Filter' {..} =
-    Prelude.rnf values `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON Filter where
+instance Data.ToJSON Filter where
   toJSON Filter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Values" Core..=) Prelude.<$> values,
-            ("Name" Core..=) Prelude.<$> name
+          [ ("Name" Data..=) Prelude.<$> name,
+            ("Values" Data..=) Prelude.<$> values
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.ListAccountsForParent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,7 +35,7 @@
 --
 -- This operation can be called only from the organization\'s management
 -- account or by a member account that is a delegated administrator for an
--- AWS service.
+-- Amazon Web Services service.
 --
 -- This operation returns paginated results.
 module Amazonka.Organizations.ListAccountsForParent
@@ -44,8 +44,8 @@ module Amazonka.Organizations.ListAccountsForParent
     newListAccountsForParent,
 
     -- * Request Lenses
-    listAccountsForParent_nextToken,
     listAccountsForParent_maxResults,
+    listAccountsForParent_nextToken,
     listAccountsForParent_parentId,
 
     -- * Destructuring the Response
@@ -60,7 +60,8 @@ module Amazonka.Organizations.ListAccountsForParent
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -68,13 +69,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListAccountsForParent' smart constructor.
 data ListAccountsForParent = ListAccountsForParent'
-  { -- | The parameter for receiving additional results if you receive a
-    -- @NextToken@ response in a previous request. A @NextToken@ response
-    -- indicates that more output is available. Set this parameter to the value
-    -- of the previous call\'s @NextToken@ response to indicate where the
-    -- output should continue from.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The total number of results that you want included on each page of the
+  { -- | The total number of results that you want included on each page of the
     -- response. If you do not include this parameter, it defaults to a value
     -- that is specific to the operation. If additional items exist beyond the
     -- maximum you specify, the @NextToken@ response element is present and has
@@ -85,6 +80,12 @@ data ListAccountsForParent = ListAccountsForParent'
     -- @NextToken@ after every operation to ensure that you receive all of the
     -- results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The parameter for receiving additional results if you receive a
+    -- @NextToken@ response in a previous request. A @NextToken@ response
+    -- indicates that more output is available. Set this parameter to the value
+    -- of the previous call\'s @NextToken@ response to indicate where the
+    -- output should continue from.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier (ID) for the parent root or organization unit (OU)
     -- whose accounts you want to list.
     parentId :: Prelude.Text
@@ -99,12 +100,6 @@ data ListAccountsForParent = ListAccountsForParent'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listAccountsForParent_nextToken' - The parameter for receiving additional results if you receive a
--- @NextToken@ response in a previous request. A @NextToken@ response
--- indicates that more output is available. Set this parameter to the value
--- of the previous call\'s @NextToken@ response to indicate where the
--- output should continue from.
---
 -- 'maxResults', 'listAccountsForParent_maxResults' - The total number of results that you want included on each page of the
 -- response. If you do not include this parameter, it defaults to a value
 -- that is specific to the operation. If additional items exist beyond the
@@ -116,6 +111,12 @@ data ListAccountsForParent = ListAccountsForParent'
 -- @NextToken@ after every operation to ensure that you receive all of the
 -- results.
 --
+-- 'nextToken', 'listAccountsForParent_nextToken' - The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
+--
 -- 'parentId', 'listAccountsForParent_parentId' - The unique identifier (ID) for the parent root or organization unit (OU)
 -- whose accounts you want to list.
 newListAccountsForParent ::
@@ -124,18 +125,11 @@ newListAccountsForParent ::
   ListAccountsForParent
 newListAccountsForParent pParentId_ =
   ListAccountsForParent'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       parentId = pParentId_
     }
-
--- | The parameter for receiving additional results if you receive a
--- @NextToken@ response in a previous request. A @NextToken@ response
--- indicates that more output is available. Set this parameter to the value
--- of the previous call\'s @NextToken@ response to indicate where the
--- output should continue from.
-listAccountsForParent_nextToken :: Lens.Lens' ListAccountsForParent (Prelude.Maybe Prelude.Text)
-listAccountsForParent_nextToken = Lens.lens (\ListAccountsForParent' {nextToken} -> nextToken) (\s@ListAccountsForParent' {} a -> s {nextToken = a} :: ListAccountsForParent)
 
 -- | The total number of results that you want included on each page of the
 -- response. If you do not include this parameter, it defaults to a value
@@ -149,6 +143,14 @@ listAccountsForParent_nextToken = Lens.lens (\ListAccountsForParent' {nextToken}
 -- results.
 listAccountsForParent_maxResults :: Lens.Lens' ListAccountsForParent (Prelude.Maybe Prelude.Natural)
 listAccountsForParent_maxResults = Lens.lens (\ListAccountsForParent' {maxResults} -> maxResults) (\s@ListAccountsForParent' {} a -> s {maxResults = a} :: ListAccountsForParent)
+
+-- | The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
+listAccountsForParent_nextToken :: Lens.Lens' ListAccountsForParent (Prelude.Maybe Prelude.Text)
+listAccountsForParent_nextToken = Lens.lens (\ListAccountsForParent' {nextToken} -> nextToken) (\s@ListAccountsForParent' {} a -> s {nextToken = a} :: ListAccountsForParent)
 
 -- | The unique identifier (ID) for the parent root or organization unit (OU)
 -- whose accounts you want to list.
@@ -181,57 +183,58 @@ instance Core.AWSRequest ListAccountsForParent where
   type
     AWSResponse ListAccountsForParent =
       ListAccountsForParentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAccountsForParentResponse'
-            Prelude.<$> (x Core..?> "Accounts" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Accounts" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAccountsForParent where
   hashWithSalt _salt ListAccountsForParent' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` parentId
 
 instance Prelude.NFData ListAccountsForParent where
   rnf ListAccountsForParent' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf parentId
 
-instance Core.ToHeaders ListAccountsForParent where
+instance Data.ToHeaders ListAccountsForParent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.ListAccountsForParent" ::
+              Data.=# ( "AWSOrganizationsV20161128.ListAccountsForParent" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListAccountsForParent where
+instance Data.ToJSON ListAccountsForParent where
   toJSON ListAccountsForParent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("ParentId" Core..= parentId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ParentId" Data..= parentId)
           ]
       )
 
-instance Core.ToPath ListAccountsForParent where
+instance Data.ToPath ListAccountsForParent where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListAccountsForParent where
+instance Data.ToQuery ListAccountsForParent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListAccountsForParentResponse' smart constructor.

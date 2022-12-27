@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.DeleteAccountPasswordPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,9 @@ module Amazonka.IAM.DeleteAccountPasswordPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,7 +60,8 @@ instance Core.AWSRequest DeleteAccountPasswordPolicy where
   type
     AWSResponse DeleteAccountPasswordPolicy =
       DeleteAccountPasswordPolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DeleteAccountPasswordPolicyResponse'
@@ -71,22 +73,22 @@ instance Prelude.Hashable DeleteAccountPasswordPolicy where
 instance Prelude.NFData DeleteAccountPasswordPolicy where
   rnf _ = ()
 
-instance Core.ToHeaders DeleteAccountPasswordPolicy where
+instance Data.ToHeaders DeleteAccountPasswordPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteAccountPasswordPolicy where
+instance Data.ToPath DeleteAccountPasswordPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAccountPasswordPolicy where
+instance Data.ToQuery DeleteAccountPasswordPolicy where
   toQuery =
     Prelude.const
       ( Prelude.mconcat
           [ "Action"
-              Core.=: ( "DeleteAccountPasswordPolicy" ::
+              Data.=: ( "DeleteAccountPasswordPolicy" ::
                           Prelude.ByteString
                       ),
             "Version"
-              Core.=: ("2010-05-08" :: Prelude.ByteString)
+              Data.=: ("2010-05-08" :: Prelude.ByteString)
           ]
       )
 

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types.SnoozeActionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTEventsData.Types.SnoozeActionConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the configuration information of a snooze action.
@@ -64,14 +65,14 @@ snoozeActionConfiguration_note = Lens.lens (\SnoozeActionConfiguration' {note} -
 snoozeActionConfiguration_snoozeDuration :: Lens.Lens' SnoozeActionConfiguration (Prelude.Maybe Prelude.Int)
 snoozeActionConfiguration_snoozeDuration = Lens.lens (\SnoozeActionConfiguration' {snoozeDuration} -> snoozeDuration) (\s@SnoozeActionConfiguration' {} a -> s {snoozeDuration = a} :: SnoozeActionConfiguration)
 
-instance Core.FromJSON SnoozeActionConfiguration where
+instance Data.FromJSON SnoozeActionConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SnoozeActionConfiguration"
       ( \x ->
           SnoozeActionConfiguration'
-            Prelude.<$> (x Core..:? "note")
-            Prelude.<*> (x Core..:? "snoozeDuration")
+            Prelude.<$> (x Data..:? "note")
+            Prelude.<*> (x Data..:? "snoozeDuration")
       )
 
 instance Prelude.Hashable SnoozeActionConfiguration where

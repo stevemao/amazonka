@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Location.Types.ListDevicePositionsResponseEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,27 @@
 module Amazonka.Location.Types.ListDevicePositionsResponseEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.Location.Types.PositionalAccuracy
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the tracker resource details.
 --
 -- /See:/ 'newListDevicePositionsResponseEntry' smart constructor.
 data ListDevicePositionsResponseEntry = ListDevicePositionsResponseEntry'
-  { -- | The ID of the device for this position.
+  { -- | The accuracy of the device position.
+    accuracy :: Prelude.Maybe PositionalAccuracy,
+    -- | The properties associated with the position.
+    positionProperties :: Prelude.Maybe (Data.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text)),
+    -- | The ID of the device for this position.
     deviceId :: Prelude.Text,
     -- | The last known device position. Empty if no positions currently stored.
-    position :: Core.Sensitive (Prelude.NonEmpty Prelude.Double),
+    position :: Data.Sensitive (Prelude.NonEmpty Prelude.Double),
     -- | The timestamp at which the device position was determined. Uses
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    sampleTime :: Core.POSIX
+    sampleTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -45,6 +51,10 @@ data ListDevicePositionsResponseEntry = ListDevicePositionsResponseEntry'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'accuracy', 'listDevicePositionsResponseEntry_accuracy' - The accuracy of the device position.
+--
+-- 'positionProperties', 'listDevicePositionsResponseEntry_positionProperties' - The properties associated with the position.
 --
 -- 'deviceId', 'listDevicePositionsResponseEntry_deviceId' - The ID of the device for this position.
 --
@@ -66,14 +76,24 @@ newListDevicePositionsResponseEntry
   pPosition_
   pSampleTime_ =
     ListDevicePositionsResponseEntry'
-      { deviceId =
-          pDeviceId_,
+      { accuracy =
+          Prelude.Nothing,
+        positionProperties = Prelude.Nothing,
+        deviceId = pDeviceId_,
         position =
-          Core._Sensitive Prelude.. Lens.coerced
+          Data._Sensitive Prelude.. Lens.coerced
             Lens.# pPosition_,
         sampleTime =
-          Core._Time Lens.# pSampleTime_
+          Data._Time Lens.# pSampleTime_
       }
+
+-- | The accuracy of the device position.
+listDevicePositionsResponseEntry_accuracy :: Lens.Lens' ListDevicePositionsResponseEntry (Prelude.Maybe PositionalAccuracy)
+listDevicePositionsResponseEntry_accuracy = Lens.lens (\ListDevicePositionsResponseEntry' {accuracy} -> accuracy) (\s@ListDevicePositionsResponseEntry' {} a -> s {accuracy = a} :: ListDevicePositionsResponseEntry)
+
+-- | The properties associated with the position.
+listDevicePositionsResponseEntry_positionProperties :: Lens.Lens' ListDevicePositionsResponseEntry (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+listDevicePositionsResponseEntry_positionProperties = Lens.lens (\ListDevicePositionsResponseEntry' {positionProperties} -> positionProperties) (\s@ListDevicePositionsResponseEntry' {} a -> s {positionProperties = a} :: ListDevicePositionsResponseEntry) Prelude.. Lens.mapping (Data._Sensitive Prelude.. Lens.coerced)
 
 -- | The ID of the device for this position.
 listDevicePositionsResponseEntry_deviceId :: Lens.Lens' ListDevicePositionsResponseEntry Prelude.Text
@@ -81,26 +101,30 @@ listDevicePositionsResponseEntry_deviceId = Lens.lens (\ListDevicePositionsRespo
 
 -- | The last known device position. Empty if no positions currently stored.
 listDevicePositionsResponseEntry_position :: Lens.Lens' ListDevicePositionsResponseEntry (Prelude.NonEmpty Prelude.Double)
-listDevicePositionsResponseEntry_position = Lens.lens (\ListDevicePositionsResponseEntry' {position} -> position) (\s@ListDevicePositionsResponseEntry' {} a -> s {position = a} :: ListDevicePositionsResponseEntry) Prelude.. Core._Sensitive Prelude.. Lens.coerced
+listDevicePositionsResponseEntry_position = Lens.lens (\ListDevicePositionsResponseEntry' {position} -> position) (\s@ListDevicePositionsResponseEntry' {} a -> s {position = a} :: ListDevicePositionsResponseEntry) Prelude.. Data._Sensitive Prelude.. Lens.coerced
 
 -- | The timestamp at which the device position was determined. Uses
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 listDevicePositionsResponseEntry_sampleTime :: Lens.Lens' ListDevicePositionsResponseEntry Prelude.UTCTime
-listDevicePositionsResponseEntry_sampleTime = Lens.lens (\ListDevicePositionsResponseEntry' {sampleTime} -> sampleTime) (\s@ListDevicePositionsResponseEntry' {} a -> s {sampleTime = a} :: ListDevicePositionsResponseEntry) Prelude.. Core._Time
+listDevicePositionsResponseEntry_sampleTime = Lens.lens (\ListDevicePositionsResponseEntry' {sampleTime} -> sampleTime) (\s@ListDevicePositionsResponseEntry' {} a -> s {sampleTime = a} :: ListDevicePositionsResponseEntry) Prelude.. Data._Time
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ListDevicePositionsResponseEntry
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ListDevicePositionsResponseEntry"
       ( \x ->
           ListDevicePositionsResponseEntry'
-            Prelude.<$> (x Core..: "DeviceId")
-            Prelude.<*> (x Core..: "Position")
-            Prelude.<*> (x Core..: "SampleTime")
+            Prelude.<$> (x Data..:? "Accuracy")
+            Prelude.<*> ( x Data..:? "PositionProperties"
+                            Data..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Data..: "DeviceId")
+            Prelude.<*> (x Data..: "Position")
+            Prelude.<*> (x Data..: "SampleTime")
       )
 
 instance
@@ -110,7 +134,9 @@ instance
   hashWithSalt
     _salt
     ListDevicePositionsResponseEntry' {..} =
-      _salt `Prelude.hashWithSalt` deviceId
+      _salt `Prelude.hashWithSalt` accuracy
+        `Prelude.hashWithSalt` positionProperties
+        `Prelude.hashWithSalt` deviceId
         `Prelude.hashWithSalt` position
         `Prelude.hashWithSalt` sampleTime
 
@@ -119,6 +145,8 @@ instance
     ListDevicePositionsResponseEntry
   where
   rnf ListDevicePositionsResponseEntry' {..} =
-    Prelude.rnf deviceId
+    Prelude.rnf accuracy
+      `Prelude.seq` Prelude.rnf positionProperties
+      `Prelude.seq` Prelude.rnf deviceId
       `Prelude.seq` Prelude.rnf position
       `Prelude.seq` Prelude.rnf sampleTime

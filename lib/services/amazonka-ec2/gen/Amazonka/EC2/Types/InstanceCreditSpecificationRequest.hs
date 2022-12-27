@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.InstanceCreditSpecificationRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.InstanceCreditSpecificationRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the credit option for CPU usage of a burstable performance
@@ -29,14 +30,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newInstanceCreditSpecificationRequest' smart constructor.
 data InstanceCreditSpecificationRequest = InstanceCreditSpecificationRequest'
-  { -- | The ID of the instance.
-    instanceId :: Prelude.Maybe Prelude.Text,
-    -- | The credit option for CPU usage of the instance. Valid values are
-    -- @standard@ and @unlimited@.
+  { -- | The credit option for CPU usage of the instance.
+    --
+    -- Valid values: @standard@ | @unlimited@
     --
     -- T3 instances with @host@ tenancy do not support the @unlimited@ CPU
     -- credit option.
-    cpuCredits :: Prelude.Maybe Prelude.Text
+    cpuCredits :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the instance.
+    instanceId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,33 +50,35 @@ data InstanceCreditSpecificationRequest = InstanceCreditSpecificationRequest'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceId', 'instanceCreditSpecificationRequest_instanceId' - The ID of the instance.
+-- 'cpuCredits', 'instanceCreditSpecificationRequest_cpuCredits' - The credit option for CPU usage of the instance.
 --
--- 'cpuCredits', 'instanceCreditSpecificationRequest_cpuCredits' - The credit option for CPU usage of the instance. Valid values are
--- @standard@ and @unlimited@.
+-- Valid values: @standard@ | @unlimited@
 --
 -- T3 instances with @host@ tenancy do not support the @unlimited@ CPU
 -- credit option.
+--
+-- 'instanceId', 'instanceCreditSpecificationRequest_instanceId' - The ID of the instance.
 newInstanceCreditSpecificationRequest ::
   InstanceCreditSpecificationRequest
 newInstanceCreditSpecificationRequest =
   InstanceCreditSpecificationRequest'
-    { instanceId =
+    { cpuCredits =
         Prelude.Nothing,
-      cpuCredits = Prelude.Nothing
+      instanceId = Prelude.Nothing
     }
 
--- | The ID of the instance.
-instanceCreditSpecificationRequest_instanceId :: Lens.Lens' InstanceCreditSpecificationRequest (Prelude.Maybe Prelude.Text)
-instanceCreditSpecificationRequest_instanceId = Lens.lens (\InstanceCreditSpecificationRequest' {instanceId} -> instanceId) (\s@InstanceCreditSpecificationRequest' {} a -> s {instanceId = a} :: InstanceCreditSpecificationRequest)
-
--- | The credit option for CPU usage of the instance. Valid values are
--- @standard@ and @unlimited@.
+-- | The credit option for CPU usage of the instance.
+--
+-- Valid values: @standard@ | @unlimited@
 --
 -- T3 instances with @host@ tenancy do not support the @unlimited@ CPU
 -- credit option.
 instanceCreditSpecificationRequest_cpuCredits :: Lens.Lens' InstanceCreditSpecificationRequest (Prelude.Maybe Prelude.Text)
 instanceCreditSpecificationRequest_cpuCredits = Lens.lens (\InstanceCreditSpecificationRequest' {cpuCredits} -> cpuCredits) (\s@InstanceCreditSpecificationRequest' {} a -> s {cpuCredits = a} :: InstanceCreditSpecificationRequest)
+
+-- | The ID of the instance.
+instanceCreditSpecificationRequest_instanceId :: Lens.Lens' InstanceCreditSpecificationRequest (Prelude.Maybe Prelude.Text)
+instanceCreditSpecificationRequest_instanceId = Lens.lens (\InstanceCreditSpecificationRequest' {instanceId} -> instanceId) (\s@InstanceCreditSpecificationRequest' {} a -> s {instanceId = a} :: InstanceCreditSpecificationRequest)
 
 instance
   Prelude.Hashable
@@ -83,23 +87,23 @@ instance
   hashWithSalt
     _salt
     InstanceCreditSpecificationRequest' {..} =
-      _salt `Prelude.hashWithSalt` instanceId
-        `Prelude.hashWithSalt` cpuCredits
+      _salt `Prelude.hashWithSalt` cpuCredits
+        `Prelude.hashWithSalt` instanceId
 
 instance
   Prelude.NFData
     InstanceCreditSpecificationRequest
   where
   rnf InstanceCreditSpecificationRequest' {..} =
-    Prelude.rnf instanceId
-      `Prelude.seq` Prelude.rnf cpuCredits
+    Prelude.rnf cpuCredits
+      `Prelude.seq` Prelude.rnf instanceId
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     InstanceCreditSpecificationRequest
   where
   toQuery InstanceCreditSpecificationRequest' {..} =
     Prelude.mconcat
-      [ "InstanceId" Core.=: instanceId,
-        "CpuCredits" Core.=: cpuCredits
+      [ "CpuCredits" Data.=: cpuCredits,
+        "InstanceId" Data.=: instanceId
       ]

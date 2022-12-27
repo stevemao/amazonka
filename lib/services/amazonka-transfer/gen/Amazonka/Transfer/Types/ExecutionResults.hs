@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.Types.ExecutionResults
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Transfer.Types.ExecutionResults where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Transfer.Types.ExecutionStepResult
 
@@ -67,14 +68,14 @@ executionResults_onExceptionSteps = Lens.lens (\ExecutionResults' {onExceptionSt
 executionResults_steps :: Lens.Lens' ExecutionResults (Prelude.Maybe (Prelude.NonEmpty ExecutionStepResult))
 executionResults_steps = Lens.lens (\ExecutionResults' {steps} -> steps) (\s@ExecutionResults' {} a -> s {steps = a} :: ExecutionResults) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ExecutionResults where
+instance Data.FromJSON ExecutionResults where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExecutionResults"
       ( \x ->
           ExecutionResults'
-            Prelude.<$> (x Core..:? "OnExceptionSteps")
-            Prelude.<*> (x Core..:? "Steps")
+            Prelude.<$> (x Data..:? "OnExceptionSteps")
+            Prelude.<*> (x Data..:? "Steps")
       )
 
 instance Prelude.Hashable ExecutionResults where

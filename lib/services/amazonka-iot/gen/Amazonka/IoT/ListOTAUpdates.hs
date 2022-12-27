@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListOTAUpdates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,9 +33,9 @@ module Amazonka.IoT.ListOTAUpdates
     newListOTAUpdates,
 
     -- * Request Lenses
+    listOTAUpdates_maxResults,
     listOTAUpdates_nextToken,
     listOTAUpdates_otaUpdateStatus,
-    listOTAUpdates_maxResults,
 
     -- * Destructuring the Response
     ListOTAUpdatesResponse (..),
@@ -49,20 +49,21 @@ module Amazonka.IoT.ListOTAUpdates
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListOTAUpdates' smart constructor.
 data ListOTAUpdates = ListOTAUpdates'
-  { -- | A token used to retrieve the next set of results.
+  { -- | The maximum number of results to return at one time.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token used to retrieve the next set of results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The OTA update job status.
-    otaUpdateStatus :: Prelude.Maybe OTAUpdateStatus,
-    -- | The maximum number of results to return at one time.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    otaUpdateStatus :: Prelude.Maybe OTAUpdateStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -74,19 +75,23 @@ data ListOTAUpdates = ListOTAUpdates'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listOTAUpdates_maxResults' - The maximum number of results to return at one time.
+--
 -- 'nextToken', 'listOTAUpdates_nextToken' - A token used to retrieve the next set of results.
 --
 -- 'otaUpdateStatus', 'listOTAUpdates_otaUpdateStatus' - The OTA update job status.
---
--- 'maxResults', 'listOTAUpdates_maxResults' - The maximum number of results to return at one time.
 newListOTAUpdates ::
   ListOTAUpdates
 newListOTAUpdates =
   ListOTAUpdates'
-    { nextToken = Prelude.Nothing,
-      otaUpdateStatus = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      otaUpdateStatus = Prelude.Nothing
     }
+
+-- | The maximum number of results to return at one time.
+listOTAUpdates_maxResults :: Lens.Lens' ListOTAUpdates (Prelude.Maybe Prelude.Natural)
+listOTAUpdates_maxResults = Lens.lens (\ListOTAUpdates' {maxResults} -> maxResults) (\s@ListOTAUpdates' {} a -> s {maxResults = a} :: ListOTAUpdates)
 
 -- | A token used to retrieve the next set of results.
 listOTAUpdates_nextToken :: Lens.Lens' ListOTAUpdates (Prelude.Maybe Prelude.Text)
@@ -95,10 +100,6 @@ listOTAUpdates_nextToken = Lens.lens (\ListOTAUpdates' {nextToken} -> nextToken)
 -- | The OTA update job status.
 listOTAUpdates_otaUpdateStatus :: Lens.Lens' ListOTAUpdates (Prelude.Maybe OTAUpdateStatus)
 listOTAUpdates_otaUpdateStatus = Lens.lens (\ListOTAUpdates' {otaUpdateStatus} -> otaUpdateStatus) (\s@ListOTAUpdates' {} a -> s {otaUpdateStatus = a} :: ListOTAUpdates)
-
--- | The maximum number of results to return at one time.
-listOTAUpdates_maxResults :: Lens.Lens' ListOTAUpdates (Prelude.Maybe Prelude.Natural)
-listOTAUpdates_maxResults = Lens.lens (\ListOTAUpdates' {maxResults} -> maxResults) (\s@ListOTAUpdates' {} a -> s {maxResults = a} :: ListOTAUpdates)
 
 instance Core.AWSPager ListOTAUpdates where
   page rq rs
@@ -125,40 +126,41 @@ instance Core.AWSRequest ListOTAUpdates where
   type
     AWSResponse ListOTAUpdates =
       ListOTAUpdatesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListOTAUpdatesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "otaUpdates" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "otaUpdates" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListOTAUpdates where
   hashWithSalt _salt ListOTAUpdates' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` otaUpdateStatus
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData ListOTAUpdates where
   rnf ListOTAUpdates' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf otaUpdateStatus
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders ListOTAUpdates where
+instance Data.ToHeaders ListOTAUpdates where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListOTAUpdates where
+instance Data.ToPath ListOTAUpdates where
   toPath = Prelude.const "/otaUpdates"
 
-instance Core.ToQuery ListOTAUpdates where
+instance Data.ToQuery ListOTAUpdates where
   toQuery ListOTAUpdates' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "otaUpdateStatus" Core.=: otaUpdateStatus,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "otaUpdateStatus" Data.=: otaUpdateStatus
       ]
 
 -- | /See:/ 'newListOTAUpdatesResponse' smart constructor.

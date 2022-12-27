@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.StreamingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Chime.Types.StreamingConfiguration where
 
 import Amazonka.Chime.Types.StreamingNotificationTarget
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The streaming configuration associated with an Amazon Chime Voice
@@ -76,15 +77,15 @@ streamingConfiguration_streamingNotificationTargets = Lens.lens (\StreamingConfi
 streamingConfiguration_dataRetentionInHours :: Lens.Lens' StreamingConfiguration Prelude.Natural
 streamingConfiguration_dataRetentionInHours = Lens.lens (\StreamingConfiguration' {dataRetentionInHours} -> dataRetentionInHours) (\s@StreamingConfiguration' {} a -> s {dataRetentionInHours = a} :: StreamingConfiguration)
 
-instance Core.FromJSON StreamingConfiguration where
+instance Data.FromJSON StreamingConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StreamingConfiguration"
       ( \x ->
           StreamingConfiguration'
-            Prelude.<$> (x Core..:? "Disabled")
-            Prelude.<*> (x Core..:? "StreamingNotificationTargets")
-            Prelude.<*> (x Core..: "DataRetentionInHours")
+            Prelude.<$> (x Data..:? "Disabled")
+            Prelude.<*> (x Data..:? "StreamingNotificationTargets")
+            Prelude.<*> (x Data..: "DataRetentionInHours")
       )
 
 instance Prelude.Hashable StreamingConfiguration where
@@ -99,16 +100,16 @@ instance Prelude.NFData StreamingConfiguration where
       `Prelude.seq` Prelude.rnf streamingNotificationTargets
       `Prelude.seq` Prelude.rnf dataRetentionInHours
 
-instance Core.ToJSON StreamingConfiguration where
+instance Data.ToJSON StreamingConfiguration where
   toJSON StreamingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Disabled" Core..=) Prelude.<$> disabled,
-            ("StreamingNotificationTargets" Core..=)
+          [ ("Disabled" Data..=) Prelude.<$> disabled,
+            ("StreamingNotificationTargets" Data..=)
               Prelude.<$> streamingNotificationTargets,
             Prelude.Just
               ( "DataRetentionInHours"
-                  Core..= dataRetentionInHours
+                  Data..= dataRetentionInHours
               )
           ]
       )

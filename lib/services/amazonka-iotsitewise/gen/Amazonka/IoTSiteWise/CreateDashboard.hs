@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.CreateDashboard
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.IoTSiteWise.CreateDashboard
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -161,14 +162,15 @@ instance Core.AWSRequest CreateDashboard where
   type
     AWSResponse CreateDashboard =
       CreateDashboardResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDashboardResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "dashboardId")
-            Prelude.<*> (x Core..:> "dashboardArn")
+            Prelude.<*> (x Data..:> "dashboardId")
+            Prelude.<*> (x Data..:> "dashboardArn")
       )
 
 instance Prelude.Hashable CreateDashboard where
@@ -189,36 +191,36 @@ instance Prelude.NFData CreateDashboard where
       `Prelude.seq` Prelude.rnf dashboardName
       `Prelude.seq` Prelude.rnf dashboardDefinition
 
-instance Core.ToHeaders CreateDashboard where
+instance Data.ToHeaders CreateDashboard where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDashboard where
+instance Data.ToJSON CreateDashboard where
   toJSON CreateDashboard' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("dashboardDescription" Core..=)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("dashboardDescription" Data..=)
               Prelude.<$> dashboardDescription,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("projectId" Core..= projectId),
-            Prelude.Just ("dashboardName" Core..= dashboardName),
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("projectId" Data..= projectId),
+            Prelude.Just ("dashboardName" Data..= dashboardName),
             Prelude.Just
-              ("dashboardDefinition" Core..= dashboardDefinition)
+              ("dashboardDefinition" Data..= dashboardDefinition)
           ]
       )
 
-instance Core.ToPath CreateDashboard where
+instance Data.ToPath CreateDashboard where
   toPath = Prelude.const "/dashboards"
 
-instance Core.ToQuery CreateDashboard where
+instance Data.ToQuery CreateDashboard where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDashboardResponse' smart constructor.

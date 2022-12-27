@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.ContentTypeProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.ContentTypeProfile where
 
 import Amazonka.CloudFront.Types.Format
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A field-level encryption content type profile.
@@ -81,12 +82,12 @@ contentTypeProfile_format = Lens.lens (\ContentTypeProfile' {format} -> format) 
 contentTypeProfile_contentType :: Lens.Lens' ContentTypeProfile Prelude.Text
 contentTypeProfile_contentType = Lens.lens (\ContentTypeProfile' {contentType} -> contentType) (\s@ContentTypeProfile' {} a -> s {contentType = a} :: ContentTypeProfile)
 
-instance Core.FromXML ContentTypeProfile where
+instance Data.FromXML ContentTypeProfile where
   parseXML x =
     ContentTypeProfile'
-      Prelude.<$> (x Core..@? "ProfileId")
-      Prelude.<*> (x Core..@ "Format")
-      Prelude.<*> (x Core..@ "ContentType")
+      Prelude.<$> (x Data..@? "ProfileId")
+      Prelude.<*> (x Data..@ "Format")
+      Prelude.<*> (x Data..@ "ContentType")
 
 instance Prelude.Hashable ContentTypeProfile where
   hashWithSalt _salt ContentTypeProfile' {..} =
@@ -100,10 +101,10 @@ instance Prelude.NFData ContentTypeProfile where
       `Prelude.seq` Prelude.rnf format
       `Prelude.seq` Prelude.rnf contentType
 
-instance Core.ToXML ContentTypeProfile where
+instance Data.ToXML ContentTypeProfile where
   toXML ContentTypeProfile' {..} =
     Prelude.mconcat
-      [ "ProfileId" Core.@= profileId,
-        "Format" Core.@= format,
-        "ContentType" Core.@= contentType
+      [ "ProfileId" Data.@= profileId,
+        "Format" Data.@= format,
+        "ContentType" Data.@= contentType
       ]

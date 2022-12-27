@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.DestinationInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.Lightsail.Types.DestinationInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the destination of a record.
 --
 -- /See:/ 'newDestinationInfo' smart constructor.
 data DestinationInfo = DestinationInfo'
-  { -- | The destination service of the record.
-    service :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the resource created at the destination.
-    id :: Prelude.Maybe Prelude.Text
+  { -- | The ID of the resource created at the destination.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The destination service of the record.
+    service :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,39 +43,39 @@ data DestinationInfo = DestinationInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'service', 'destinationInfo_service' - The destination service of the record.
---
 -- 'id', 'destinationInfo_id' - The ID of the resource created at the destination.
+--
+-- 'service', 'destinationInfo_service' - The destination service of the record.
 newDestinationInfo ::
   DestinationInfo
 newDestinationInfo =
   DestinationInfo'
-    { service = Prelude.Nothing,
-      id = Prelude.Nothing
+    { id = Prelude.Nothing,
+      service = Prelude.Nothing
     }
-
--- | The destination service of the record.
-destinationInfo_service :: Lens.Lens' DestinationInfo (Prelude.Maybe Prelude.Text)
-destinationInfo_service = Lens.lens (\DestinationInfo' {service} -> service) (\s@DestinationInfo' {} a -> s {service = a} :: DestinationInfo)
 
 -- | The ID of the resource created at the destination.
 destinationInfo_id :: Lens.Lens' DestinationInfo (Prelude.Maybe Prelude.Text)
 destinationInfo_id = Lens.lens (\DestinationInfo' {id} -> id) (\s@DestinationInfo' {} a -> s {id = a} :: DestinationInfo)
 
-instance Core.FromJSON DestinationInfo where
+-- | The destination service of the record.
+destinationInfo_service :: Lens.Lens' DestinationInfo (Prelude.Maybe Prelude.Text)
+destinationInfo_service = Lens.lens (\DestinationInfo' {service} -> service) (\s@DestinationInfo' {} a -> s {service = a} :: DestinationInfo)
+
+instance Data.FromJSON DestinationInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DestinationInfo"
       ( \x ->
           DestinationInfo'
-            Prelude.<$> (x Core..:? "service") Prelude.<*> (x Core..:? "id")
+            Prelude.<$> (x Data..:? "id") Prelude.<*> (x Data..:? "service")
       )
 
 instance Prelude.Hashable DestinationInfo where
   hashWithSalt _salt DestinationInfo' {..} =
-    _salt `Prelude.hashWithSalt` service
-      `Prelude.hashWithSalt` id
+    _salt `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` service
 
 instance Prelude.NFData DestinationInfo where
   rnf DestinationInfo' {..} =
-    Prelude.rnf service `Prelude.seq` Prelude.rnf id
+    Prelude.rnf id `Prelude.seq` Prelude.rnf service

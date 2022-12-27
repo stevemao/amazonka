@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,7 +17,8 @@
 module Amazonka.Rekognition.Waiters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.DescribeProjectVersions
 import Amazonka.Rekognition.Lens
@@ -26,10 +28,10 @@ import Amazonka.Rekognition.Types
 newProjectVersionRunning :: Core.Wait DescribeProjectVersions
 newProjectVersionRunning =
   Core.Wait
-    { Core._waitName = "ProjectVersionRunning",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 30,
-      Core._waitAcceptors =
+    { Core.name = "ProjectVersionRunning",
+      Core.attempts = 40,
+      Core.delay = 30,
+      Core.acceptors =
         [ Core.matchAll
             "RUNNING"
             Core.AcceptSuccess
@@ -41,7 +43,7 @@ newProjectVersionRunning =
                 )
                 Prelude.. projectVersionDescription_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "FAILED"
@@ -54,7 +56,7 @@ newProjectVersionRunning =
                 )
                 Prelude.. projectVersionDescription_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
@@ -63,11 +65,11 @@ newProjectVersionRunning =
 newProjectVersionTrainingCompleted :: Core.Wait DescribeProjectVersions
 newProjectVersionTrainingCompleted =
   Core.Wait
-    { Core._waitName =
+    { Core.name =
         "ProjectVersionTrainingCompleted",
-      Core._waitAttempts = 360,
-      Core._waitDelay = 120,
-      Core._waitAcceptors =
+      Core.attempts = 360,
+      Core.delay = 120,
+      Core.acceptors =
         [ Core.matchAll
             "TRAINING_COMPLETED"
             Core.AcceptSuccess
@@ -79,7 +81,7 @@ newProjectVersionTrainingCompleted =
                 )
                 Prelude.. projectVersionDescription_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "TRAINING_FAILED"
@@ -92,7 +94,7 @@ newProjectVersionTrainingCompleted =
                 )
                 Prelude.. projectVersionDescription_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.DescribeChannelBan
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ where
 
 import Amazonka.ChimeSDKMessaging.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,7 +57,7 @@ import qualified Amazonka.Response as Response
 data DescribeChannelBan = DescribeChannelBan'
   { -- | The ARN of the channel from which the user is banned.
     channelArn :: Prelude.Text,
-    -- | The ARN of the member being banned.
+    -- | The @AppInstanceUserArn@ of the member being banned.
     memberArn :: Prelude.Text,
     -- | The @AppInstanceUserArn@ of the user that makes the API call.
     chimeBearer :: Prelude.Text
@@ -73,7 +74,7 @@ data DescribeChannelBan = DescribeChannelBan'
 --
 -- 'channelArn', 'describeChannelBan_channelArn' - The ARN of the channel from which the user is banned.
 --
--- 'memberArn', 'describeChannelBan_memberArn' - The ARN of the member being banned.
+-- 'memberArn', 'describeChannelBan_memberArn' - The @AppInstanceUserArn@ of the member being banned.
 --
 -- 'chimeBearer', 'describeChannelBan_chimeBearer' - The @AppInstanceUserArn@ of the user that makes the API call.
 newDescribeChannelBan ::
@@ -98,7 +99,7 @@ newDescribeChannelBan
 describeChannelBan_channelArn :: Lens.Lens' DescribeChannelBan Prelude.Text
 describeChannelBan_channelArn = Lens.lens (\DescribeChannelBan' {channelArn} -> channelArn) (\s@DescribeChannelBan' {} a -> s {channelArn = a} :: DescribeChannelBan)
 
--- | The ARN of the member being banned.
+-- | The @AppInstanceUserArn@ of the member being banned.
 describeChannelBan_memberArn :: Lens.Lens' DescribeChannelBan Prelude.Text
 describeChannelBan_memberArn = Lens.lens (\DescribeChannelBan' {memberArn} -> memberArn) (\s@DescribeChannelBan' {} a -> s {memberArn = a} :: DescribeChannelBan)
 
@@ -110,12 +111,13 @@ instance Core.AWSRequest DescribeChannelBan where
   type
     AWSResponse DescribeChannelBan =
       DescribeChannelBanResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeChannelBanResponse'
-            Prelude.<$> (x Core..?> "ChannelBan")
+            Prelude.<$> (x Data..?> "ChannelBan")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -131,21 +133,21 @@ instance Prelude.NFData DescribeChannelBan where
       `Prelude.seq` Prelude.rnf memberArn
       `Prelude.seq` Prelude.rnf chimeBearer
 
-instance Core.ToHeaders DescribeChannelBan where
+instance Data.ToHeaders DescribeChannelBan where
   toHeaders DescribeChannelBan' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToPath DescribeChannelBan where
+instance Data.ToPath DescribeChannelBan where
   toPath DescribeChannelBan' {..} =
     Prelude.mconcat
       [ "/channels/",
-        Core.toBS channelArn,
+        Data.toBS channelArn,
         "/bans/",
-        Core.toBS memberArn
+        Data.toBS memberArn
       ]
 
-instance Core.ToQuery DescribeChannelBan where
+instance Data.ToQuery DescribeChannelBan where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeChannelBanResponse' smart constructor.

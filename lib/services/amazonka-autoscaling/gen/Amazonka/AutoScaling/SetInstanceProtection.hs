@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.SetInstanceProtection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,7 +25,7 @@
 --
 -- For more information about preventing instances that are part of an Auto
 -- Scaling group from terminating on scale in, see
--- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection Instance scale-in protection>
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-instance-protection.html Using instance scale-in protection>
 -- in the /Amazon EC2 Auto Scaling User Guide/.
 --
 -- If you exceed your maximum limit of instance IDs, which is 50 per Auto
@@ -51,7 +51,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,7 +116,8 @@ instance Core.AWSRequest SetInstanceProtection where
   type
     AWSResponse SetInstanceProtection =
       SetInstanceProtectionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SetInstanceProtectionResult"
@@ -136,23 +138,23 @@ instance Prelude.NFData SetInstanceProtection where
       `Prelude.seq` Prelude.rnf autoScalingGroupName
       `Prelude.seq` Prelude.rnf protectedFromScaleIn
 
-instance Core.ToHeaders SetInstanceProtection where
+instance Data.ToHeaders SetInstanceProtection where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetInstanceProtection where
+instance Data.ToPath SetInstanceProtection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetInstanceProtection where
+instance Data.ToQuery SetInstanceProtection where
   toQuery SetInstanceProtection' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SetInstanceProtection" :: Prelude.ByteString),
+          Data.=: ("SetInstanceProtection" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
         "InstanceIds"
-          Core.=: Core.toQueryList "member" instanceIds,
-        "AutoScalingGroupName" Core.=: autoScalingGroupName,
-        "ProtectedFromScaleIn" Core.=: protectedFromScaleIn
+          Data.=: Data.toQueryList "member" instanceIds,
+        "AutoScalingGroupName" Data.=: autoScalingGroupName,
+        "ProtectedFromScaleIn" Data.=: protectedFromScaleIn
       ]
 
 -- | /See:/ 'newSetInstanceProtectionResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.RemoveAllResourcePermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ module Amazonka.WorkDocs.RemoveAllResourcePermissions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -47,7 +48,7 @@ import Amazonka.WorkDocs.Types
 data RemoveAllResourcePermissions = RemoveAllResourcePermissions'
   { -- | Amazon WorkDocs authentication token. Not required when using AWS
     -- administrator credentials to access the API.
-    authenticationToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    authenticationToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The ID of the resource.
     resourceId :: Prelude.Text
   }
@@ -79,7 +80,7 @@ newRemoveAllResourcePermissions pResourceId_ =
 -- | Amazon WorkDocs authentication token. Not required when using AWS
 -- administrator credentials to access the API.
 removeAllResourcePermissions_authenticationToken :: Lens.Lens' RemoveAllResourcePermissions (Prelude.Maybe Prelude.Text)
-removeAllResourcePermissions_authenticationToken = Lens.lens (\RemoveAllResourcePermissions' {authenticationToken} -> authenticationToken) (\s@RemoveAllResourcePermissions' {} a -> s {authenticationToken = a} :: RemoveAllResourcePermissions) Prelude.. Lens.mapping Core._Sensitive
+removeAllResourcePermissions_authenticationToken = Lens.lens (\RemoveAllResourcePermissions' {authenticationToken} -> authenticationToken) (\s@RemoveAllResourcePermissions' {} a -> s {authenticationToken = a} :: RemoveAllResourcePermissions) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The ID of the resource.
 removeAllResourcePermissions_resourceId :: Lens.Lens' RemoveAllResourcePermissions Prelude.Text
@@ -89,7 +90,8 @@ instance Core.AWSRequest RemoveAllResourcePermissions where
   type
     AWSResponse RemoveAllResourcePermissions =
       RemoveAllResourcePermissionsResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       RemoveAllResourcePermissionsResponse'
@@ -107,23 +109,23 @@ instance Prelude.NFData RemoveAllResourcePermissions where
     Prelude.rnf authenticationToken
       `Prelude.seq` Prelude.rnf resourceId
 
-instance Core.ToHeaders RemoveAllResourcePermissions where
+instance Data.ToHeaders RemoveAllResourcePermissions where
   toHeaders RemoveAllResourcePermissions' {..} =
     Prelude.mconcat
-      [ "Authentication" Core.=# authenticationToken,
+      [ "Authentication" Data.=# authenticationToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath RemoveAllResourcePermissions where
+instance Data.ToPath RemoveAllResourcePermissions where
   toPath RemoveAllResourcePermissions' {..} =
     Prelude.mconcat
       [ "/api/v1/resources/",
-        Core.toBS resourceId,
+        Data.toBS resourceId,
         "/permissions"
       ]
 
-instance Core.ToQuery RemoveAllResourcePermissions where
+instance Data.ToQuery RemoveAllResourcePermissions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveAllResourcePermissionsResponse' smart constructor.

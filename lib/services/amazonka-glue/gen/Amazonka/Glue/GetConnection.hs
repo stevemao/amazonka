@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.Glue.GetConnection
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,10 +55,10 @@ data GetConnection = GetConnection'
     -- provided, the Amazon Web Services account ID is used by default.
     catalogId :: Prelude.Maybe Prelude.Text,
     -- | Allows you to retrieve the connection metadata without returning the
-    -- password. For instance, the AWS Glue console uses this flag to retrieve
-    -- the connection, and does not display the password. Set this parameter
-    -- when the caller might not have permission to use the KMS key to decrypt
-    -- the password, but it does have permission to access the rest of the
+    -- password. For instance, the Glue console uses this flag to retrieve the
+    -- connection, and does not display the password. Set this parameter when
+    -- the caller might not have permission to use the KMS key to decrypt the
+    -- password, but it does have permission to access the rest of the
     -- connection properties.
     hidePassword :: Prelude.Maybe Prelude.Bool,
     -- | The name of the connection definition to retrieve.
@@ -77,10 +78,10 @@ data GetConnection = GetConnection'
 -- provided, the Amazon Web Services account ID is used by default.
 --
 -- 'hidePassword', 'getConnection_hidePassword' - Allows you to retrieve the connection metadata without returning the
--- password. For instance, the AWS Glue console uses this flag to retrieve
--- the connection, and does not display the password. Set this parameter
--- when the caller might not have permission to use the KMS key to decrypt
--- the password, but it does have permission to access the rest of the
+-- password. For instance, the Glue console uses this flag to retrieve the
+-- connection, and does not display the password. Set this parameter when
+-- the caller might not have permission to use the KMS key to decrypt the
+-- password, but it does have permission to access the rest of the
 -- connection properties.
 --
 -- 'name', 'getConnection_name' - The name of the connection definition to retrieve.
@@ -101,10 +102,10 @@ getConnection_catalogId :: Lens.Lens' GetConnection (Prelude.Maybe Prelude.Text)
 getConnection_catalogId = Lens.lens (\GetConnection' {catalogId} -> catalogId) (\s@GetConnection' {} a -> s {catalogId = a} :: GetConnection)
 
 -- | Allows you to retrieve the connection metadata without returning the
--- password. For instance, the AWS Glue console uses this flag to retrieve
--- the connection, and does not display the password. Set this parameter
--- when the caller might not have permission to use the KMS key to decrypt
--- the password, but it does have permission to access the rest of the
+-- password. For instance, the Glue console uses this flag to retrieve the
+-- connection, and does not display the password. Set this parameter when
+-- the caller might not have permission to use the KMS key to decrypt the
+-- password, but it does have permission to access the rest of the
 -- connection properties.
 getConnection_hidePassword :: Lens.Lens' GetConnection (Prelude.Maybe Prelude.Bool)
 getConnection_hidePassword = Lens.lens (\GetConnection' {hidePassword} -> hidePassword) (\s@GetConnection' {} a -> s {hidePassword = a} :: GetConnection)
@@ -117,12 +118,13 @@ instance Core.AWSRequest GetConnection where
   type
     AWSResponse GetConnection =
       GetConnectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetConnectionResponse'
-            Prelude.<$> (x Core..?> "Connection")
+            Prelude.<$> (x Data..?> "Connection")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -138,33 +140,33 @@ instance Prelude.NFData GetConnection where
       `Prelude.seq` Prelude.rnf hidePassword
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders GetConnection where
+instance Data.ToHeaders GetConnection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetConnection" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetConnection" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetConnection where
+instance Data.ToJSON GetConnection where
   toJSON GetConnection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            ("HidePassword" Core..=) Prelude.<$> hidePassword,
-            Prelude.Just ("Name" Core..= name)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            ("HidePassword" Data..=) Prelude.<$> hidePassword,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath GetConnection where
+instance Data.ToPath GetConnection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetConnection where
+instance Data.ToQuery GetConnection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetConnectionResponse' smart constructor.

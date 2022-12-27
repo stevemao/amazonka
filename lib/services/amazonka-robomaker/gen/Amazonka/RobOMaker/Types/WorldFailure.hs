@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.Types.WorldFailure
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RobOMaker.Types.WorldFailure where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RobOMaker.Types.WorldGenerationJobErrorCode
 
@@ -28,10 +29,7 @@ import Amazonka.RobOMaker.Types.WorldGenerationJobErrorCode
 --
 -- /See:/ 'newWorldFailure' smart constructor.
 data WorldFailure = WorldFailure'
-  { -- | The sample reason why the world failed. World errors are aggregated. A
-    -- sample is used as the @sampleFailureReason@.
-    sampleFailureReason :: Prelude.Maybe Prelude.Text,
-    -- | The failure code of the world export job if it failed:
+  { -- | The failure code of the world export job if it failed:
     --
     -- [InternalServiceError]
     --     Internal service error.
@@ -51,7 +49,10 @@ data WorldFailure = WorldFailure'
     --     An input parameter in the request is not valid.
     failureCode :: Prelude.Maybe WorldGenerationJobErrorCode,
     -- | The number of failed worlds.
-    failureCount :: Prelude.Maybe Prelude.Int
+    failureCount :: Prelude.Maybe Prelude.Int,
+    -- | The sample reason why the world failed. World errors are aggregated. A
+    -- sample is used as the @sampleFailureReason@.
+    sampleFailureReason :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -62,9 +63,6 @@ data WorldFailure = WorldFailure'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'sampleFailureReason', 'worldFailure_sampleFailureReason' - The sample reason why the world failed. World errors are aggregated. A
--- sample is used as the @sampleFailureReason@.
 --
 -- 'failureCode', 'worldFailure_failureCode' - The failure code of the world export job if it failed:
 --
@@ -86,20 +84,17 @@ data WorldFailure = WorldFailure'
 --     An input parameter in the request is not valid.
 --
 -- 'failureCount', 'worldFailure_failureCount' - The number of failed worlds.
+--
+-- 'sampleFailureReason', 'worldFailure_sampleFailureReason' - The sample reason why the world failed. World errors are aggregated. A
+-- sample is used as the @sampleFailureReason@.
 newWorldFailure ::
   WorldFailure
 newWorldFailure =
   WorldFailure'
-    { sampleFailureReason =
-        Prelude.Nothing,
-      failureCode = Prelude.Nothing,
-      failureCount = Prelude.Nothing
+    { failureCode = Prelude.Nothing,
+      failureCount = Prelude.Nothing,
+      sampleFailureReason = Prelude.Nothing
     }
-
--- | The sample reason why the world failed. World errors are aggregated. A
--- sample is used as the @sampleFailureReason@.
-worldFailure_sampleFailureReason :: Lens.Lens' WorldFailure (Prelude.Maybe Prelude.Text)
-worldFailure_sampleFailureReason = Lens.lens (\WorldFailure' {sampleFailureReason} -> sampleFailureReason) (\s@WorldFailure' {} a -> s {sampleFailureReason = a} :: WorldFailure)
 
 -- | The failure code of the world export job if it failed:
 --
@@ -126,25 +121,30 @@ worldFailure_failureCode = Lens.lens (\WorldFailure' {failureCode} -> failureCod
 worldFailure_failureCount :: Lens.Lens' WorldFailure (Prelude.Maybe Prelude.Int)
 worldFailure_failureCount = Lens.lens (\WorldFailure' {failureCount} -> failureCount) (\s@WorldFailure' {} a -> s {failureCount = a} :: WorldFailure)
 
-instance Core.FromJSON WorldFailure where
+-- | The sample reason why the world failed. World errors are aggregated. A
+-- sample is used as the @sampleFailureReason@.
+worldFailure_sampleFailureReason :: Lens.Lens' WorldFailure (Prelude.Maybe Prelude.Text)
+worldFailure_sampleFailureReason = Lens.lens (\WorldFailure' {sampleFailureReason} -> sampleFailureReason) (\s@WorldFailure' {} a -> s {sampleFailureReason = a} :: WorldFailure)
+
+instance Data.FromJSON WorldFailure where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WorldFailure"
       ( \x ->
           WorldFailure'
-            Prelude.<$> (x Core..:? "sampleFailureReason")
-            Prelude.<*> (x Core..:? "failureCode")
-            Prelude.<*> (x Core..:? "failureCount")
+            Prelude.<$> (x Data..:? "failureCode")
+            Prelude.<*> (x Data..:? "failureCount")
+            Prelude.<*> (x Data..:? "sampleFailureReason")
       )
 
 instance Prelude.Hashable WorldFailure where
   hashWithSalt _salt WorldFailure' {..} =
-    _salt `Prelude.hashWithSalt` sampleFailureReason
-      `Prelude.hashWithSalt` failureCode
+    _salt `Prelude.hashWithSalt` failureCode
       `Prelude.hashWithSalt` failureCount
+      `Prelude.hashWithSalt` sampleFailureReason
 
 instance Prelude.NFData WorldFailure where
   rnf WorldFailure' {..} =
-    Prelude.rnf sampleFailureReason
-      `Prelude.seq` Prelude.rnf failureCode
+    Prelude.rnf failureCode
       `Prelude.seq` Prelude.rnf failureCount
+      `Prelude.seq` Prelude.rnf sampleFailureReason

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManager.RenewCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,8 +22,8 @@
 --
 -- Renews an eligible ACM certificate. At this time, only exported private
 -- certificates can be renewed with this operation. In order to renew your
--- ACM PCA certificates with ACM, you must first
--- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaPermissions.html grant the ACM service principal permission to do so>.
+-- Amazon Web Services Private CA certificates with ACM, you must first
+-- <https://docs.aws.amazon.com/privateca/latest/userguide/PcaPermissions.html grant the ACM service principal permission to do so>.
 -- For more information, see
 -- <https://docs.aws.amazon.com/acm/latest/userguide/manual-renewal.html Testing Managed Renewal>
 -- in the ACM User Guide.
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CertificateManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,7 +101,8 @@ instance Core.AWSRequest RenewCertificate where
   type
     AWSResponse RenewCertificate =
       RenewCertificateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull RenewCertificateResponse'
 
@@ -112,34 +114,34 @@ instance Prelude.NFData RenewCertificate where
   rnf RenewCertificate' {..} =
     Prelude.rnf certificateArn
 
-instance Core.ToHeaders RenewCertificate where
+instance Data.ToHeaders RenewCertificate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CertificateManager.RenewCertificate" ::
+              Data.=# ( "CertificateManager.RenewCertificate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RenewCertificate where
+instance Data.ToJSON RenewCertificate where
   toJSON RenewCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("CertificateArn" Core..= certificateArn)
+              ("CertificateArn" Data..= certificateArn)
           ]
       )
 
-instance Core.ToPath RenewCertificate where
+instance Data.ToPath RenewCertificate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RenewCertificate where
+instance Data.ToQuery RenewCertificate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRenewCertificateResponse' smart constructor.

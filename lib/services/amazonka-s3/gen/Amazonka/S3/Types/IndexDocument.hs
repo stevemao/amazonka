@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.IndexDocument
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.IndexDocument where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 
@@ -80,9 +81,9 @@ newIndexDocument pSuffix_ =
 indexDocument_suffix :: Lens.Lens' IndexDocument Prelude.Text
 indexDocument_suffix = Lens.lens (\IndexDocument' {suffix} -> suffix) (\s@IndexDocument' {} a -> s {suffix = a} :: IndexDocument)
 
-instance Core.FromXML IndexDocument where
+instance Data.FromXML IndexDocument where
   parseXML x =
-    IndexDocument' Prelude.<$> (x Core..@ "Suffix")
+    IndexDocument' Prelude.<$> (x Data..@ "Suffix")
 
 instance Prelude.Hashable IndexDocument where
   hashWithSalt _salt IndexDocument' {..} =
@@ -91,6 +92,6 @@ instance Prelude.Hashable IndexDocument where
 instance Prelude.NFData IndexDocument where
   rnf IndexDocument' {..} = Prelude.rnf suffix
 
-instance Core.ToXML IndexDocument where
+instance Data.ToXML IndexDocument where
   toXML IndexDocument' {..} =
-    Prelude.mconcat ["Suffix" Core.@= suffix]
+    Prelude.mconcat ["Suffix" Data.@= suffix]

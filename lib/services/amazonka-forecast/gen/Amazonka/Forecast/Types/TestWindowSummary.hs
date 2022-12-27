@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.Types.TestWindowSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Forecast.Types.TestWindowSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The status, start time, and end time of a backtest, as well as a failure
@@ -28,7 +29,9 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTestWindowSummary' smart constructor.
 data TestWindowSummary = TestWindowSummary'
-  { -- | The status of the test. Possible status values are:
+  { -- | If the test failed, the reason why it failed.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The status of the test. Possible status values are:
     --
     -- -   @ACTIVE@
     --
@@ -37,11 +40,9 @@ data TestWindowSummary = TestWindowSummary'
     -- -   @CREATE_FAILED@
     status :: Prelude.Maybe Prelude.Text,
     -- | The time at which the test ended.
-    testWindowEnd :: Prelude.Maybe Core.POSIX,
+    testWindowEnd :: Prelude.Maybe Data.POSIX,
     -- | The time at which the test began.
-    testWindowStart :: Prelude.Maybe Core.POSIX,
-    -- | If the test failed, the reason why it failed.
-    message :: Prelude.Maybe Prelude.Text
+    testWindowStart :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,6 +53,8 @@ data TestWindowSummary = TestWindowSummary'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'message', 'testWindowSummary_message' - If the test failed, the reason why it failed.
 --
 -- 'status', 'testWindowSummary_status' - The status of the test. Possible status values are:
 --
@@ -64,17 +67,19 @@ data TestWindowSummary = TestWindowSummary'
 -- 'testWindowEnd', 'testWindowSummary_testWindowEnd' - The time at which the test ended.
 --
 -- 'testWindowStart', 'testWindowSummary_testWindowStart' - The time at which the test began.
---
--- 'message', 'testWindowSummary_message' - If the test failed, the reason why it failed.
 newTestWindowSummary ::
   TestWindowSummary
 newTestWindowSummary =
   TestWindowSummary'
-    { status = Prelude.Nothing,
+    { message = Prelude.Nothing,
+      status = Prelude.Nothing,
       testWindowEnd = Prelude.Nothing,
-      testWindowStart = Prelude.Nothing,
-      message = Prelude.Nothing
+      testWindowStart = Prelude.Nothing
     }
+
+-- | If the test failed, the reason why it failed.
+testWindowSummary_message :: Lens.Lens' TestWindowSummary (Prelude.Maybe Prelude.Text)
+testWindowSummary_message = Lens.lens (\TestWindowSummary' {message} -> message) (\s@TestWindowSummary' {} a -> s {message = a} :: TestWindowSummary)
 
 -- | The status of the test. Possible status values are:
 --
@@ -88,38 +93,34 @@ testWindowSummary_status = Lens.lens (\TestWindowSummary' {status} -> status) (\
 
 -- | The time at which the test ended.
 testWindowSummary_testWindowEnd :: Lens.Lens' TestWindowSummary (Prelude.Maybe Prelude.UTCTime)
-testWindowSummary_testWindowEnd = Lens.lens (\TestWindowSummary' {testWindowEnd} -> testWindowEnd) (\s@TestWindowSummary' {} a -> s {testWindowEnd = a} :: TestWindowSummary) Prelude.. Lens.mapping Core._Time
+testWindowSummary_testWindowEnd = Lens.lens (\TestWindowSummary' {testWindowEnd} -> testWindowEnd) (\s@TestWindowSummary' {} a -> s {testWindowEnd = a} :: TestWindowSummary) Prelude.. Lens.mapping Data._Time
 
 -- | The time at which the test began.
 testWindowSummary_testWindowStart :: Lens.Lens' TestWindowSummary (Prelude.Maybe Prelude.UTCTime)
-testWindowSummary_testWindowStart = Lens.lens (\TestWindowSummary' {testWindowStart} -> testWindowStart) (\s@TestWindowSummary' {} a -> s {testWindowStart = a} :: TestWindowSummary) Prelude.. Lens.mapping Core._Time
+testWindowSummary_testWindowStart = Lens.lens (\TestWindowSummary' {testWindowStart} -> testWindowStart) (\s@TestWindowSummary' {} a -> s {testWindowStart = a} :: TestWindowSummary) Prelude.. Lens.mapping Data._Time
 
--- | If the test failed, the reason why it failed.
-testWindowSummary_message :: Lens.Lens' TestWindowSummary (Prelude.Maybe Prelude.Text)
-testWindowSummary_message = Lens.lens (\TestWindowSummary' {message} -> message) (\s@TestWindowSummary' {} a -> s {message = a} :: TestWindowSummary)
-
-instance Core.FromJSON TestWindowSummary where
+instance Data.FromJSON TestWindowSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TestWindowSummary"
       ( \x ->
           TestWindowSummary'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "TestWindowEnd")
-            Prelude.<*> (x Core..:? "TestWindowStart")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Message")
+            Prelude.<*> (x Data..:? "Status")
+            Prelude.<*> (x Data..:? "TestWindowEnd")
+            Prelude.<*> (x Data..:? "TestWindowStart")
       )
 
 instance Prelude.Hashable TestWindowSummary where
   hashWithSalt _salt TestWindowSummary' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt `Prelude.hashWithSalt` message
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` testWindowEnd
       `Prelude.hashWithSalt` testWindowStart
-      `Prelude.hashWithSalt` message
 
 instance Prelude.NFData TestWindowSummary where
   rnf TestWindowSummary' {..} =
-    Prelude.rnf status
+    Prelude.rnf message
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf testWindowEnd
       `Prelude.seq` Prelude.rnf testWindowStart
-      `Prelude.seq` Prelude.rnf message

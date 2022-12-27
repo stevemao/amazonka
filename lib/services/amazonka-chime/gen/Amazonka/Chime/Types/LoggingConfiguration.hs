@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.LoggingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Chime.Types.LoggingConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The logging configuration associated with an Amazon Chime Voice
@@ -29,7 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newLoggingConfiguration' smart constructor.
 data LoggingConfiguration = LoggingConfiguration'
-  { -- | When true, enables SIP message logs for sending to Amazon CloudWatch
+  { -- | Boolean that enables the logging of Voice Connector metrics to
+    -- Cloudwatch.
+    enableMediaMetricLogs :: Prelude.Maybe Prelude.Bool,
+    -- | When true, enables SIP message logs for sending to Amazon CloudWatch
     -- Logs.
     enableSIPLogs :: Prelude.Maybe Prelude.Bool
   }
@@ -43,43 +47,56 @@ data LoggingConfiguration = LoggingConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'enableMediaMetricLogs', 'loggingConfiguration_enableMediaMetricLogs' - Boolean that enables the logging of Voice Connector metrics to
+-- Cloudwatch.
+--
 -- 'enableSIPLogs', 'loggingConfiguration_enableSIPLogs' - When true, enables SIP message logs for sending to Amazon CloudWatch
 -- Logs.
 newLoggingConfiguration ::
   LoggingConfiguration
 newLoggingConfiguration =
   LoggingConfiguration'
-    { enableSIPLogs =
-        Prelude.Nothing
+    { enableMediaMetricLogs =
+        Prelude.Nothing,
+      enableSIPLogs = Prelude.Nothing
     }
+
+-- | Boolean that enables the logging of Voice Connector metrics to
+-- Cloudwatch.
+loggingConfiguration_enableMediaMetricLogs :: Lens.Lens' LoggingConfiguration (Prelude.Maybe Prelude.Bool)
+loggingConfiguration_enableMediaMetricLogs = Lens.lens (\LoggingConfiguration' {enableMediaMetricLogs} -> enableMediaMetricLogs) (\s@LoggingConfiguration' {} a -> s {enableMediaMetricLogs = a} :: LoggingConfiguration)
 
 -- | When true, enables SIP message logs for sending to Amazon CloudWatch
 -- Logs.
 loggingConfiguration_enableSIPLogs :: Lens.Lens' LoggingConfiguration (Prelude.Maybe Prelude.Bool)
 loggingConfiguration_enableSIPLogs = Lens.lens (\LoggingConfiguration' {enableSIPLogs} -> enableSIPLogs) (\s@LoggingConfiguration' {} a -> s {enableSIPLogs = a} :: LoggingConfiguration)
 
-instance Core.FromJSON LoggingConfiguration where
+instance Data.FromJSON LoggingConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LoggingConfiguration"
       ( \x ->
           LoggingConfiguration'
-            Prelude.<$> (x Core..:? "EnableSIPLogs")
+            Prelude.<$> (x Data..:? "EnableMediaMetricLogs")
+            Prelude.<*> (x Data..:? "EnableSIPLogs")
       )
 
 instance Prelude.Hashable LoggingConfiguration where
   hashWithSalt _salt LoggingConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` enableSIPLogs
+    _salt `Prelude.hashWithSalt` enableMediaMetricLogs
+      `Prelude.hashWithSalt` enableSIPLogs
 
 instance Prelude.NFData LoggingConfiguration where
   rnf LoggingConfiguration' {..} =
-    Prelude.rnf enableSIPLogs
+    Prelude.rnf enableMediaMetricLogs
+      `Prelude.seq` Prelude.rnf enableSIPLogs
 
-instance Core.ToJSON LoggingConfiguration where
+instance Data.ToJSON LoggingConfiguration where
   toJSON LoggingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EnableSIPLogs" Core..=)
-              Prelude.<$> enableSIPLogs
+          [ ("EnableMediaMetricLogs" Data..=)
+              Prelude.<$> enableMediaMetricLogs,
+            ("EnableSIPLogs" Data..=) Prelude.<$> enableSIPLogs
           ]
       )

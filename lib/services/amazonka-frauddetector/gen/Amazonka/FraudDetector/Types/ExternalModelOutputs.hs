@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.ExternalModelOutputs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.FraudDetector.Types.ExternalModelOutputs where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types.ExternalModelSummary
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The fraud prediction scores from Amazon SageMaker model.
@@ -63,14 +64,14 @@ externalModelOutputs_externalModel = Lens.lens (\ExternalModelOutputs' {external
 externalModelOutputs_outputs :: Lens.Lens' ExternalModelOutputs (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 externalModelOutputs_outputs = Lens.lens (\ExternalModelOutputs' {outputs} -> outputs) (\s@ExternalModelOutputs' {} a -> s {outputs = a} :: ExternalModelOutputs) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ExternalModelOutputs where
+instance Data.FromJSON ExternalModelOutputs where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExternalModelOutputs"
       ( \x ->
           ExternalModelOutputs'
-            Prelude.<$> (x Core..:? "externalModel")
-            Prelude.<*> (x Core..:? "outputs" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "externalModel")
+            Prelude.<*> (x Data..:? "outputs" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ExternalModelOutputs where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.DeleteStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,8 @@
 -- When you delete a stream, any shards in that stream are also deleted,
 -- and any tags are dissociated from the stream.
 --
--- You can use the DescribeStream operation to check the state of the
--- stream, which is returned in @StreamStatus@.
+-- You can use the DescribeStreamSummary operation to check the state of
+-- the stream, which is returned in @StreamStatus@.
 --
 -- DeleteStream has a limit of five transactions per second per account.
 module Amazonka.Kinesis.DeleteStream
@@ -56,8 +56,9 @@ module Amazonka.Kinesis.DeleteStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,7 +112,8 @@ deleteStream_streamName = Lens.lens (\DeleteStream' {streamName} -> streamName) 
 
 instance Core.AWSRequest DeleteStream where
   type AWSResponse DeleteStream = DeleteStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DeleteStreamResponse'
 
 instance Prelude.Hashable DeleteStream where
@@ -125,35 +127,35 @@ instance Prelude.NFData DeleteStream where
     Prelude.rnf enforceConsumerDeletion
       `Prelude.seq` Prelude.rnf streamName
 
-instance Core.ToHeaders DeleteStream where
+instance Data.ToHeaders DeleteStream where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Kinesis_20131202.DeleteStream" ::
+              Data.=# ( "Kinesis_20131202.DeleteStream" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteStream where
+instance Data.ToJSON DeleteStream where
   toJSON DeleteStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EnforceConsumerDeletion" Core..=)
+          [ ("EnforceConsumerDeletion" Data..=)
               Prelude.<$> enforceConsumerDeletion,
-            Prelude.Just ("StreamName" Core..= streamName)
+            Prelude.Just ("StreamName" Data..= streamName)
           ]
       )
 
-instance Core.ToPath DeleteStream where
+instance Data.ToPath DeleteStream where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteStream where
+instance Data.ToQuery DeleteStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteStreamResponse' smart constructor.

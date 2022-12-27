@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.MatchedPlayerSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GameLift.Types.MatchedPlayerSession where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a new player session that is created as a result of a
@@ -33,10 +34,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMatchedPlayerSession' smart constructor.
 data MatchedPlayerSession = MatchedPlayerSession'
-  { -- | A unique identifier for a player session
-    playerSessionId :: Prelude.Maybe Prelude.Text,
-    -- | A unique identifier for a player
-    playerId :: Prelude.Maybe Prelude.Text
+  { -- | A unique identifier for a player
+    playerId :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for a player session
+    playerSessionId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,42 +49,41 @@ data MatchedPlayerSession = MatchedPlayerSession'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'playerSessionId', 'matchedPlayerSession_playerSessionId' - A unique identifier for a player session
---
 -- 'playerId', 'matchedPlayerSession_playerId' - A unique identifier for a player
+--
+-- 'playerSessionId', 'matchedPlayerSession_playerSessionId' - A unique identifier for a player session
 newMatchedPlayerSession ::
   MatchedPlayerSession
 newMatchedPlayerSession =
   MatchedPlayerSession'
-    { playerSessionId =
-        Prelude.Nothing,
-      playerId = Prelude.Nothing
+    { playerId = Prelude.Nothing,
+      playerSessionId = Prelude.Nothing
     }
-
--- | A unique identifier for a player session
-matchedPlayerSession_playerSessionId :: Lens.Lens' MatchedPlayerSession (Prelude.Maybe Prelude.Text)
-matchedPlayerSession_playerSessionId = Lens.lens (\MatchedPlayerSession' {playerSessionId} -> playerSessionId) (\s@MatchedPlayerSession' {} a -> s {playerSessionId = a} :: MatchedPlayerSession)
 
 -- | A unique identifier for a player
 matchedPlayerSession_playerId :: Lens.Lens' MatchedPlayerSession (Prelude.Maybe Prelude.Text)
 matchedPlayerSession_playerId = Lens.lens (\MatchedPlayerSession' {playerId} -> playerId) (\s@MatchedPlayerSession' {} a -> s {playerId = a} :: MatchedPlayerSession)
 
-instance Core.FromJSON MatchedPlayerSession where
+-- | A unique identifier for a player session
+matchedPlayerSession_playerSessionId :: Lens.Lens' MatchedPlayerSession (Prelude.Maybe Prelude.Text)
+matchedPlayerSession_playerSessionId = Lens.lens (\MatchedPlayerSession' {playerSessionId} -> playerSessionId) (\s@MatchedPlayerSession' {} a -> s {playerSessionId = a} :: MatchedPlayerSession)
+
+instance Data.FromJSON MatchedPlayerSession where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MatchedPlayerSession"
       ( \x ->
           MatchedPlayerSession'
-            Prelude.<$> (x Core..:? "PlayerSessionId")
-            Prelude.<*> (x Core..:? "PlayerId")
+            Prelude.<$> (x Data..:? "PlayerId")
+            Prelude.<*> (x Data..:? "PlayerSessionId")
       )
 
 instance Prelude.Hashable MatchedPlayerSession where
   hashWithSalt _salt MatchedPlayerSession' {..} =
-    _salt `Prelude.hashWithSalt` playerSessionId
-      `Prelude.hashWithSalt` playerId
+    _salt `Prelude.hashWithSalt` playerId
+      `Prelude.hashWithSalt` playerSessionId
 
 instance Prelude.NFData MatchedPlayerSession where
   rnf MatchedPlayerSession' {..} =
-    Prelude.rnf playerSessionId
-      `Prelude.seq` Prelude.rnf playerId
+    Prelude.rnf playerId
+      `Prelude.seq` Prelude.rnf playerSessionId

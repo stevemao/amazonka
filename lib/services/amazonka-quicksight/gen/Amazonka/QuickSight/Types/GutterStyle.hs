@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.GutterStyle
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.GutterStyle where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The display options for gutter spacing between tiles on a sheet.
@@ -52,11 +53,11 @@ newGutterStyle = GutterStyle' {show = Prelude.Nothing}
 gutterStyle_show :: Lens.Lens' GutterStyle (Prelude.Maybe Prelude.Bool)
 gutterStyle_show = Lens.lens (\GutterStyle' {show} -> show) (\s@GutterStyle' {} a -> s {show = a} :: GutterStyle)
 
-instance Core.FromJSON GutterStyle where
+instance Data.FromJSON GutterStyle where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GutterStyle"
-      (\x -> GutterStyle' Prelude.<$> (x Core..:? "Show"))
+      (\x -> GutterStyle' Prelude.<$> (x Data..:? "Show"))
 
 instance Prelude.Hashable GutterStyle where
   hashWithSalt _salt GutterStyle' {..} =
@@ -65,9 +66,9 @@ instance Prelude.Hashable GutterStyle where
 instance Prelude.NFData GutterStyle where
   rnf GutterStyle' {..} = Prelude.rnf show
 
-instance Core.ToJSON GutterStyle where
+instance Data.ToJSON GutterStyle where
   toJSON GutterStyle' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Show" Core..=) Prelude.<$> show]
+          [("Show" Data..=) Prelude.<$> show]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointEmail.Types.Content
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.PinpointEmail.Types.Content where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the content of the email, and optionally a
@@ -82,11 +83,11 @@ instance Prelude.NFData Content where
   rnf Content' {..} =
     Prelude.rnf charset `Prelude.seq` Prelude.rnf data'
 
-instance Core.ToJSON Content where
+instance Data.ToJSON Content where
   toJSON Content' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Charset" Core..=) Prelude.<$> charset,
-            Prelude.Just ("Data" Core..= data')
+          [ ("Charset" Data..=) Prelude.<$> charset,
+            Prelude.Just ("Data" Data..= data')
           ]
       )

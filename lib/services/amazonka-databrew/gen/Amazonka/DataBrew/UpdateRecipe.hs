@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.UpdateRecipe
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.DataBrew.UpdateRecipe
     newUpdateRecipe,
 
     -- * Request Lenses
-    updateRecipe_steps,
     updateRecipe_description,
+    updateRecipe_steps,
     updateRecipe_name,
 
     -- * Destructuring the Response
@@ -43,19 +43,20 @@ module Amazonka.DataBrew.UpdateRecipe
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateRecipe' smart constructor.
 data UpdateRecipe = UpdateRecipe'
-  { -- | One or more steps to be performed by the recipe. Each step consists of
+  { -- | A description of the recipe.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | One or more steps to be performed by the recipe. Each step consists of
     -- an action, and the conditions under which the action should succeed.
     steps :: Prelude.Maybe [RecipeStep],
-    -- | A description of the recipe.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The name of the recipe to be updated.
     name :: Prelude.Text
   }
@@ -69,10 +70,10 @@ data UpdateRecipe = UpdateRecipe'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'updateRecipe_description' - A description of the recipe.
+--
 -- 'steps', 'updateRecipe_steps' - One or more steps to be performed by the recipe. Each step consists of
 -- an action, and the conditions under which the action should succeed.
---
--- 'description', 'updateRecipe_description' - A description of the recipe.
 --
 -- 'name', 'updateRecipe_name' - The name of the recipe to be updated.
 newUpdateRecipe ::
@@ -81,19 +82,19 @@ newUpdateRecipe ::
   UpdateRecipe
 newUpdateRecipe pName_ =
   UpdateRecipe'
-    { steps = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      steps = Prelude.Nothing,
       name = pName_
     }
+
+-- | A description of the recipe.
+updateRecipe_description :: Lens.Lens' UpdateRecipe (Prelude.Maybe Prelude.Text)
+updateRecipe_description = Lens.lens (\UpdateRecipe' {description} -> description) (\s@UpdateRecipe' {} a -> s {description = a} :: UpdateRecipe)
 
 -- | One or more steps to be performed by the recipe. Each step consists of
 -- an action, and the conditions under which the action should succeed.
 updateRecipe_steps :: Lens.Lens' UpdateRecipe (Prelude.Maybe [RecipeStep])
 updateRecipe_steps = Lens.lens (\UpdateRecipe' {steps} -> steps) (\s@UpdateRecipe' {} a -> s {steps = a} :: UpdateRecipe) Prelude.. Lens.mapping Lens.coerced
-
--- | A description of the recipe.
-updateRecipe_description :: Lens.Lens' UpdateRecipe (Prelude.Maybe Prelude.Text)
-updateRecipe_description = Lens.lens (\UpdateRecipe' {description} -> description) (\s@UpdateRecipe' {} a -> s {description = a} :: UpdateRecipe)
 
 -- | The name of the recipe to be updated.
 updateRecipe_name :: Lens.Lens' UpdateRecipe Prelude.Text
@@ -101,52 +102,53 @@ updateRecipe_name = Lens.lens (\UpdateRecipe' {name} -> name) (\s@UpdateRecipe' 
 
 instance Core.AWSRequest UpdateRecipe where
   type AWSResponse UpdateRecipe = UpdateRecipeResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateRecipeResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Name")
+            Prelude.<*> (x Data..:> "Name")
       )
 
 instance Prelude.Hashable UpdateRecipe where
   hashWithSalt _salt UpdateRecipe' {..} =
-    _salt `Prelude.hashWithSalt` steps
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` steps
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData UpdateRecipe where
   rnf UpdateRecipe' {..} =
-    Prelude.rnf steps
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf steps
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders UpdateRecipe where
+instance Data.ToHeaders UpdateRecipe where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRecipe where
+instance Data.ToJSON UpdateRecipe where
   toJSON UpdateRecipe' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Steps" Core..=) Prelude.<$> steps,
-            ("Description" Core..=) Prelude.<$> description
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Steps" Data..=) Prelude.<$> steps
           ]
       )
 
-instance Core.ToPath UpdateRecipe where
+instance Data.ToPath UpdateRecipe where
   toPath UpdateRecipe' {..} =
-    Prelude.mconcat ["/recipes/", Core.toBS name]
+    Prelude.mconcat ["/recipes/", Data.toBS name]
 
-instance Core.ToQuery UpdateRecipe where
+instance Data.ToQuery UpdateRecipe where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateRecipeResponse' smart constructor.

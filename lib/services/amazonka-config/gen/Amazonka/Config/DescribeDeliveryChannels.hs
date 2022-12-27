@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.DescribeDeliveryChannels
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,12 +86,13 @@ instance Core.AWSRequest DescribeDeliveryChannels where
   type
     AWSResponse DescribeDeliveryChannels =
       DescribeDeliveryChannelsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDeliveryChannelsResponse'
-            Prelude.<$> ( x Core..?> "DeliveryChannels"
+            Prelude.<$> ( x Data..?> "DeliveryChannels"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -104,34 +106,34 @@ instance Prelude.NFData DescribeDeliveryChannels where
   rnf DescribeDeliveryChannels' {..} =
     Prelude.rnf deliveryChannelNames
 
-instance Core.ToHeaders DescribeDeliveryChannels where
+instance Data.ToHeaders DescribeDeliveryChannels where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.DescribeDeliveryChannels" ::
+              Data.=# ( "StarlingDoveService.DescribeDeliveryChannels" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeDeliveryChannels where
+instance Data.ToJSON DescribeDeliveryChannels where
   toJSON DescribeDeliveryChannels' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DeliveryChannelNames" Core..=)
+          [ ("DeliveryChannelNames" Data..=)
               Prelude.<$> deliveryChannelNames
           ]
       )
 
-instance Core.ToPath DescribeDeliveryChannels where
+instance Data.ToPath DescribeDeliveryChannels where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDeliveryChannels where
+instance Data.ToQuery DescribeDeliveryChannels where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The output for the DescribeDeliveryChannels action.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,33 +29,34 @@ module Amazonka.Glue.GetJobs
     newGetJobs,
 
     -- * Request Lenses
-    getJobs_nextToken,
     getJobs_maxResults,
+    getJobs_nextToken,
 
     -- * Destructuring the Response
     GetJobsResponse (..),
     newGetJobsResponse,
 
     -- * Response Lenses
-    getJobsResponse_nextToken,
     getJobsResponse_jobs,
+    getJobsResponse_nextToken,
     getJobsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetJobs' smart constructor.
 data GetJobs = GetJobs'
-  { -- | A continuation token, if this is a continuation call.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum size of the response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum size of the response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A continuation token, if this is a continuation call.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,24 +68,24 @@ data GetJobs = GetJobs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getJobs_nextToken' - A continuation token, if this is a continuation call.
---
 -- 'maxResults', 'getJobs_maxResults' - The maximum size of the response.
+--
+-- 'nextToken', 'getJobs_nextToken' - A continuation token, if this is a continuation call.
 newGetJobs ::
   GetJobs
 newGetJobs =
   GetJobs'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | A continuation token, if this is a continuation call.
-getJobs_nextToken :: Lens.Lens' GetJobs (Prelude.Maybe Prelude.Text)
-getJobs_nextToken = Lens.lens (\GetJobs' {nextToken} -> nextToken) (\s@GetJobs' {} a -> s {nextToken = a} :: GetJobs)
 
 -- | The maximum size of the response.
 getJobs_maxResults :: Lens.Lens' GetJobs (Prelude.Maybe Prelude.Natural)
 getJobs_maxResults = Lens.lens (\GetJobs' {maxResults} -> maxResults) (\s@GetJobs' {} a -> s {maxResults = a} :: GetJobs)
+
+-- | A continuation token, if this is a continuation call.
+getJobs_nextToken :: Lens.Lens' GetJobs (Prelude.Maybe Prelude.Text)
+getJobs_nextToken = Lens.lens (\GetJobs' {nextToken} -> nextToken) (\s@GetJobs' {} a -> s {nextToken = a} :: GetJobs)
 
 instance Core.AWSPager GetJobs where
   page rq rs
@@ -107,64 +108,65 @@ instance Core.AWSPager GetJobs where
 
 instance Core.AWSRequest GetJobs where
   type AWSResponse GetJobs = GetJobsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetJobsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Jobs" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Jobs" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetJobs where
   hashWithSalt _salt GetJobs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData GetJobs where
   rnf GetJobs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders GetJobs where
+instance Data.ToHeaders GetJobs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetJobs" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetJobs" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetJobs where
+instance Data.ToJSON GetJobs where
   toJSON GetJobs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath GetJobs where
+instance Data.ToPath GetJobs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetJobs where
+instance Data.ToQuery GetJobs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetJobsResponse' smart constructor.
 data GetJobsResponse = GetJobsResponse'
-  { -- | A continuation token, if not all job definitions have yet been returned.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A list of job definitions.
+  { -- | A list of job definitions.
     jobs :: Prelude.Maybe [Job],
+    -- | A continuation token, if not all job definitions have yet been returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'GetJobsResponse' with all optional fields omitted.
@@ -174,9 +176,9 @@ data GetJobsResponse = GetJobsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getJobsResponse_nextToken' - A continuation token, if not all job definitions have yet been returned.
---
 -- 'jobs', 'getJobsResponse_jobs' - A list of job definitions.
+--
+-- 'nextToken', 'getJobsResponse_nextToken' - A continuation token, if not all job definitions have yet been returned.
 --
 -- 'httpStatus', 'getJobsResponse_httpStatus' - The response's http status code.
 newGetJobsResponse ::
@@ -185,18 +187,18 @@ newGetJobsResponse ::
   GetJobsResponse
 newGetJobsResponse pHttpStatus_ =
   GetJobsResponse'
-    { nextToken = Prelude.Nothing,
-      jobs = Prelude.Nothing,
+    { jobs = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A continuation token, if not all job definitions have yet been returned.
-getJobsResponse_nextToken :: Lens.Lens' GetJobsResponse (Prelude.Maybe Prelude.Text)
-getJobsResponse_nextToken = Lens.lens (\GetJobsResponse' {nextToken} -> nextToken) (\s@GetJobsResponse' {} a -> s {nextToken = a} :: GetJobsResponse)
 
 -- | A list of job definitions.
 getJobsResponse_jobs :: Lens.Lens' GetJobsResponse (Prelude.Maybe [Job])
 getJobsResponse_jobs = Lens.lens (\GetJobsResponse' {jobs} -> jobs) (\s@GetJobsResponse' {} a -> s {jobs = a} :: GetJobsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A continuation token, if not all job definitions have yet been returned.
+getJobsResponse_nextToken :: Lens.Lens' GetJobsResponse (Prelude.Maybe Prelude.Text)
+getJobsResponse_nextToken = Lens.lens (\GetJobsResponse' {nextToken} -> nextToken) (\s@GetJobsResponse' {} a -> s {nextToken = a} :: GetJobsResponse)
 
 -- | The response's http status code.
 getJobsResponse_httpStatus :: Lens.Lens' GetJobsResponse Prelude.Int
@@ -204,6 +206,6 @@ getJobsResponse_httpStatus = Lens.lens (\GetJobsResponse' {httpStatus} -> httpSt
 
 instance Prelude.NFData GetJobsResponse where
   rnf GetJobsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf jobs
+    Prelude.rnf jobs
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

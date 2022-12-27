@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.ProvisionDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,8 +22,10 @@
 --
 -- Creates a device and returns a configuration archive. The configuration
 -- archive is a ZIP file that contains a provisioning certificate that is
--- valid for 5 minutes. Transfer the configuration archive to the device
--- with the included USB storage device within 5 minutes.
+-- valid for 5 minutes. Name the configuration archive
+-- @certificates-omni_device-name.zip@ and transfer it to the device within
+-- 5 minutes. Use the included USB storage device and connect it to the USB
+-- 3.0 port next to the HDMI output.
 module Amazonka.Panorama.ProvisionDevice
   ( -- * Creating a Request
     ProvisionDevice (..),
@@ -50,7 +52,8 @@ module Amazonka.Panorama.ProvisionDevice
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Panorama.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -116,17 +119,18 @@ instance Core.AWSRequest ProvisionDevice where
   type
     AWSResponse ProvisionDevice =
       ProvisionDeviceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ProvisionDeviceResponse'
-            Prelude.<$> (x Core..?> "Certificates")
-            Prelude.<*> (x Core..?> "DeviceId")
-            Prelude.<*> (x Core..?> "IotThingName")
+            Prelude.<$> (x Data..?> "Certificates")
+            Prelude.<*> (x Data..?> "DeviceId")
+            Prelude.<*> (x Data..?> "IotThingName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Arn")
-            Prelude.<*> (x Core..:> "Status")
+            Prelude.<*> (x Data..:> "Arn")
+            Prelude.<*> (x Data..:> "Status")
       )
 
 instance Prelude.Hashable ProvisionDevice where
@@ -143,39 +147,39 @@ instance Prelude.NFData ProvisionDevice where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders ProvisionDevice where
+instance Data.ToHeaders ProvisionDevice where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ProvisionDevice where
+instance Data.ToJSON ProvisionDevice where
   toJSON ProvisionDevice' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            ("NetworkingConfiguration" Core..=)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("NetworkingConfiguration" Data..=)
               Prelude.<$> networkingConfiguration,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name)
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath ProvisionDevice where
+instance Data.ToPath ProvisionDevice where
   toPath = Prelude.const "/devices"
 
-instance Core.ToQuery ProvisionDevice where
+instance Data.ToQuery ProvisionDevice where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newProvisionDeviceResponse' smart constructor.
 data ProvisionDeviceResponse = ProvisionDeviceResponse'
   { -- | The device\'s configuration bundle.
-    certificates :: Prelude.Maybe Core.Base64,
+    certificates :: Prelude.Maybe Data.Base64,
     -- | The device\'s ID.
     deviceId :: Prelude.Maybe Prelude.Text,
     -- | The device\'s IoT thing name.
@@ -240,7 +244,7 @@ newProvisionDeviceResponse
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 provisionDeviceResponse_certificates :: Lens.Lens' ProvisionDeviceResponse (Prelude.Maybe Prelude.ByteString)
-provisionDeviceResponse_certificates = Lens.lens (\ProvisionDeviceResponse' {certificates} -> certificates) (\s@ProvisionDeviceResponse' {} a -> s {certificates = a} :: ProvisionDeviceResponse) Prelude.. Lens.mapping Core._Base64
+provisionDeviceResponse_certificates = Lens.lens (\ProvisionDeviceResponse' {certificates} -> certificates) (\s@ProvisionDeviceResponse' {} a -> s {certificates = a} :: ProvisionDeviceResponse) Prelude.. Lens.mapping Data._Base64
 
 -- | The device\'s ID.
 provisionDeviceResponse_deviceId :: Lens.Lens' ProvisionDeviceResponse (Prelude.Maybe Prelude.Text)

@@ -14,21 +14,25 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.UpdateCallAnalyticsCategory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the call analytics category with new values. The
--- @UpdateCallAnalyticsCategory@ operation overwrites all of the existing
--- information with the values that you provide in the request.
+-- Updates the specified Call Analytics category with new rules. Note that
+-- the @UpdateCallAnalyticsCategory@ operation overwrites all existing
+-- rules contained in the specified category. You cannot append additional
+-- rules onto an existing category.
+--
+-- To create a new category, see .
 module Amazonka.Transcribe.UpdateCallAnalyticsCategory
   ( -- * Creating a Request
     UpdateCallAnalyticsCategory (..),
     newUpdateCallAnalyticsCategory,
 
     -- * Request Lenses
+    updateCallAnalyticsCategory_inputType,
     updateCallAnalyticsCategory_categoryName,
     updateCallAnalyticsCategory_rules,
 
@@ -43,7 +47,8 @@ module Amazonka.Transcribe.UpdateCallAnalyticsCategory
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,13 +56,18 @@ import Amazonka.Transcribe.Types
 
 -- | /See:/ 'newUpdateCallAnalyticsCategory' smart constructor.
 data UpdateCallAnalyticsCategory = UpdateCallAnalyticsCategory'
-  { -- | The name of the analytics category to update. The name is case
-    -- sensitive. If you try to update a call analytics category with the same
-    -- name as a previous category you will receive a @ConflictException@
-    -- error.
+  { -- | Choose whether you want to update a streaming or a batch Call Analytics
+    -- category. The input type you specify must match the input type specified
+    -- when the category was created. For example, if you created a category
+    -- with the @POST_CALL@ input type, you must use @POST_CALL@ as the input
+    -- type when updating this category.
+    inputType :: Prelude.Maybe InputType,
+    -- | The name of the Call Analytics category you want to update. Category
+    -- names are case sensitive.
     categoryName :: Prelude.Text,
-    -- | The rules used for the updated analytics category. The rules that you
-    -- provide in this field replace the ones that are currently being used.
+    -- | The rules used for the updated Call Analytics category. The rules you
+    -- provide in this field replace the ones that are currently being used in
+    -- the specified category.
     rules :: Prelude.NonEmpty Rule
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -70,13 +80,18 @@ data UpdateCallAnalyticsCategory = UpdateCallAnalyticsCategory'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'categoryName', 'updateCallAnalyticsCategory_categoryName' - The name of the analytics category to update. The name is case
--- sensitive. If you try to update a call analytics category with the same
--- name as a previous category you will receive a @ConflictException@
--- error.
+-- 'inputType', 'updateCallAnalyticsCategory_inputType' - Choose whether you want to update a streaming or a batch Call Analytics
+-- category. The input type you specify must match the input type specified
+-- when the category was created. For example, if you created a category
+-- with the @POST_CALL@ input type, you must use @POST_CALL@ as the input
+-- type when updating this category.
 --
--- 'rules', 'updateCallAnalyticsCategory_rules' - The rules used for the updated analytics category. The rules that you
--- provide in this field replace the ones that are currently being used.
+-- 'categoryName', 'updateCallAnalyticsCategory_categoryName' - The name of the Call Analytics category you want to update. Category
+-- names are case sensitive.
+--
+-- 'rules', 'updateCallAnalyticsCategory_rules' - The rules used for the updated Call Analytics category. The rules you
+-- provide in this field replace the ones that are currently being used in
+-- the specified category.
 newUpdateCallAnalyticsCategory ::
   -- | 'categoryName'
   Prelude.Text ->
@@ -85,20 +100,28 @@ newUpdateCallAnalyticsCategory ::
   UpdateCallAnalyticsCategory
 newUpdateCallAnalyticsCategory pCategoryName_ pRules_ =
   UpdateCallAnalyticsCategory'
-    { categoryName =
-        pCategoryName_,
+    { inputType =
+        Prelude.Nothing,
+      categoryName = pCategoryName_,
       rules = Lens.coerced Lens.# pRules_
     }
 
--- | The name of the analytics category to update. The name is case
--- sensitive. If you try to update a call analytics category with the same
--- name as a previous category you will receive a @ConflictException@
--- error.
+-- | Choose whether you want to update a streaming or a batch Call Analytics
+-- category. The input type you specify must match the input type specified
+-- when the category was created. For example, if you created a category
+-- with the @POST_CALL@ input type, you must use @POST_CALL@ as the input
+-- type when updating this category.
+updateCallAnalyticsCategory_inputType :: Lens.Lens' UpdateCallAnalyticsCategory (Prelude.Maybe InputType)
+updateCallAnalyticsCategory_inputType = Lens.lens (\UpdateCallAnalyticsCategory' {inputType} -> inputType) (\s@UpdateCallAnalyticsCategory' {} a -> s {inputType = a} :: UpdateCallAnalyticsCategory)
+
+-- | The name of the Call Analytics category you want to update. Category
+-- names are case sensitive.
 updateCallAnalyticsCategory_categoryName :: Lens.Lens' UpdateCallAnalyticsCategory Prelude.Text
 updateCallAnalyticsCategory_categoryName = Lens.lens (\UpdateCallAnalyticsCategory' {categoryName} -> categoryName) (\s@UpdateCallAnalyticsCategory' {} a -> s {categoryName = a} :: UpdateCallAnalyticsCategory)
 
--- | The rules used for the updated analytics category. The rules that you
--- provide in this field replace the ones that are currently being used.
+-- | The rules used for the updated Call Analytics category. The rules you
+-- provide in this field replace the ones that are currently being used in
+-- the specified category.
 updateCallAnalyticsCategory_rules :: Lens.Lens' UpdateCallAnalyticsCategory (Prelude.NonEmpty Rule)
 updateCallAnalyticsCategory_rules = Lens.lens (\UpdateCallAnalyticsCategory' {rules} -> rules) (\s@UpdateCallAnalyticsCategory' {} a -> s {rules = a} :: UpdateCallAnalyticsCategory) Prelude.. Lens.coerced
 
@@ -106,60 +129,63 @@ instance Core.AWSRequest UpdateCallAnalyticsCategory where
   type
     AWSResponse UpdateCallAnalyticsCategory =
       UpdateCallAnalyticsCategoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateCallAnalyticsCategoryResponse'
-            Prelude.<$> (x Core..?> "CategoryProperties")
+            Prelude.<$> (x Data..?> "CategoryProperties")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateCallAnalyticsCategory where
   hashWithSalt _salt UpdateCallAnalyticsCategory' {..} =
-    _salt `Prelude.hashWithSalt` categoryName
+    _salt `Prelude.hashWithSalt` inputType
+      `Prelude.hashWithSalt` categoryName
       `Prelude.hashWithSalt` rules
 
 instance Prelude.NFData UpdateCallAnalyticsCategory where
   rnf UpdateCallAnalyticsCategory' {..} =
-    Prelude.rnf categoryName
+    Prelude.rnf inputType
+      `Prelude.seq` Prelude.rnf categoryName
       `Prelude.seq` Prelude.rnf rules
 
-instance Core.ToHeaders UpdateCallAnalyticsCategory where
+instance Data.ToHeaders UpdateCallAnalyticsCategory where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Transcribe.UpdateCallAnalyticsCategory" ::
+              Data.=# ( "Transcribe.UpdateCallAnalyticsCategory" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateCallAnalyticsCategory where
+instance Data.ToJSON UpdateCallAnalyticsCategory where
   toJSON UpdateCallAnalyticsCategory' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("CategoryName" Core..= categoryName),
-            Prelude.Just ("Rules" Core..= rules)
+          [ ("InputType" Data..=) Prelude.<$> inputType,
+            Prelude.Just ("CategoryName" Data..= categoryName),
+            Prelude.Just ("Rules" Data..= rules)
           ]
       )
 
-instance Core.ToPath UpdateCallAnalyticsCategory where
+instance Data.ToPath UpdateCallAnalyticsCategory where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateCallAnalyticsCategory where
+instance Data.ToQuery UpdateCallAnalyticsCategory where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateCallAnalyticsCategoryResponse' smart constructor.
 data UpdateCallAnalyticsCategoryResponse = UpdateCallAnalyticsCategoryResponse'
-  { -- | The attributes describing the analytics category. You can see
-    -- information such as the rules that you\'ve used to update the category
-    -- and when the category was originally created.
+  { -- | Provides you with the properties of the Call Analytics category you
+    -- specified in your @UpdateCallAnalyticsCategory@ request.
     categoryProperties :: Prelude.Maybe CategoryProperties,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -174,9 +200,8 @@ data UpdateCallAnalyticsCategoryResponse = UpdateCallAnalyticsCategoryResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'categoryProperties', 'updateCallAnalyticsCategoryResponse_categoryProperties' - The attributes describing the analytics category. You can see
--- information such as the rules that you\'ve used to update the category
--- and when the category was originally created.
+-- 'categoryProperties', 'updateCallAnalyticsCategoryResponse_categoryProperties' - Provides you with the properties of the Call Analytics category you
+-- specified in your @UpdateCallAnalyticsCategory@ request.
 --
 -- 'httpStatus', 'updateCallAnalyticsCategoryResponse_httpStatus' - The response's http status code.
 newUpdateCallAnalyticsCategoryResponse ::
@@ -190,9 +215,8 @@ newUpdateCallAnalyticsCategoryResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The attributes describing the analytics category. You can see
--- information such as the rules that you\'ve used to update the category
--- and when the category was originally created.
+-- | Provides you with the properties of the Call Analytics category you
+-- specified in your @UpdateCallAnalyticsCategory@ request.
 updateCallAnalyticsCategoryResponse_categoryProperties :: Lens.Lens' UpdateCallAnalyticsCategoryResponse (Prelude.Maybe CategoryProperties)
 updateCallAnalyticsCategoryResponse_categoryProperties = Lens.lens (\UpdateCallAnalyticsCategoryResponse' {categoryProperties} -> categoryProperties) (\s@UpdateCallAnalyticsCategoryResponse' {} a -> s {categoryProperties = a} :: UpdateCallAnalyticsCategoryResponse)
 

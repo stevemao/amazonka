@@ -14,14 +14,18 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.GetServicesInScope
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of the in-scope Amazon Web Services services for the
--- specified assessment.
+-- Returns a list of all of the Amazon Web Services that you can choose to
+-- include in your assessment. When you
+-- <https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_CreateAssessment.html create an assessment>,
+-- specify which of these services you want to include to narrow the
+-- assessment\'s
+-- <https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_Scope.html scope>.
 module Amazonka.AuditManager.GetServicesInScope
   ( -- * Creating a Request
     GetServicesInScope (..),
@@ -39,7 +43,8 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,12 +67,13 @@ instance Core.AWSRequest GetServicesInScope where
   type
     AWSResponse GetServicesInScope =
       GetServicesInScopeResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetServicesInScopeResponse'
-            Prelude.<$> ( x Core..?> "serviceMetadata"
+            Prelude.<$> ( x Data..?> "serviceMetadata"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -80,26 +86,26 @@ instance Prelude.Hashable GetServicesInScope where
 instance Prelude.NFData GetServicesInScope where
   rnf _ = ()
 
-instance Core.ToHeaders GetServicesInScope where
+instance Data.ToHeaders GetServicesInScope where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetServicesInScope where
+instance Data.ToPath GetServicesInScope where
   toPath = Prelude.const "/services"
 
-instance Core.ToQuery GetServicesInScope where
+instance Data.ToQuery GetServicesInScope where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetServicesInScopeResponse' smart constructor.
 data GetServicesInScopeResponse = GetServicesInScopeResponse'
-  { -- | The metadata associated with the Amazon Web Service.
+  { -- | The metadata that\'s associated with the Amazon Web Service.
     serviceMetadata :: Prelude.Maybe [ServiceMetadata],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -114,7 +120,7 @@ data GetServicesInScopeResponse = GetServicesInScopeResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'serviceMetadata', 'getServicesInScopeResponse_serviceMetadata' - The metadata associated with the Amazon Web Service.
+-- 'serviceMetadata', 'getServicesInScopeResponse_serviceMetadata' - The metadata that\'s associated with the Amazon Web Service.
 --
 -- 'httpStatus', 'getServicesInScopeResponse_httpStatus' - The response's http status code.
 newGetServicesInScopeResponse ::
@@ -128,7 +134,7 @@ newGetServicesInScopeResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The metadata associated with the Amazon Web Service.
+-- | The metadata that\'s associated with the Amazon Web Service.
 getServicesInScopeResponse_serviceMetadata :: Lens.Lens' GetServicesInScopeResponse (Prelude.Maybe [ServiceMetadata])
 getServicesInScopeResponse_serviceMetadata = Lens.lens (\GetServicesInScopeResponse' {serviceMetadata} -> serviceMetadata) (\s@GetServicesInScopeResponse' {} a -> s {serviceMetadata = a} :: GetServicesInScopeResponse) Prelude.. Lens.mapping Lens.coerced
 

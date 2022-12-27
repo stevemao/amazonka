@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,13 +18,13 @@ module Amazonka.SSMIncidents.Types
     defaultService,
 
     -- * Errors
-    _ValidationException,
     _AccessDeniedException,
     _ConflictException,
-    _ServiceQuotaExceededException,
-    _ThrottlingException,
     _InternalServerException,
     _ResourceNotFoundException,
+    _ServiceQuotaExceededException,
+    _ThrottlingException,
+    _ValidationException,
 
     -- * IncidentRecordStatus
     IncidentRecordStatus (..),
@@ -46,6 +47,9 @@ module Amazonka.SSMIncidents.Types
     -- * TimelineEventSort
     TimelineEventSort (..),
 
+    -- * VariableType
+    VariableType (..),
+
     -- * Action
     Action (..),
     newAction,
@@ -60,8 +64,8 @@ module Amazonka.SSMIncidents.Types
     -- * AttributeValueList
     AttributeValueList (..),
     newAttributeValueList,
-    attributeValueList_stringValues,
     attributeValueList_integerValues,
+    attributeValueList_stringValues,
 
     -- * AutomationExecution
     AutomationExecution (..),
@@ -71,28 +75,40 @@ module Amazonka.SSMIncidents.Types
     -- * ChatChannel
     ChatChannel (..),
     newChatChannel,
-    chatChannel_empty,
     chatChannel_chatbotSns,
+    chatChannel_empty,
 
     -- * Condition
     Condition (..),
     newCondition,
     condition_after,
-    condition_equals,
     condition_before,
+    condition_equals,
 
     -- * DeleteRegionAction
     DeleteRegionAction (..),
     newDeleteRegionAction,
     deleteRegionAction_regionName,
 
+    -- * DynamicSsmParameterValue
+    DynamicSsmParameterValue (..),
+    newDynamicSsmParameterValue,
+    dynamicSsmParameterValue_variable,
+
     -- * EmptyChatChannel
     EmptyChatChannel (..),
     newEmptyChatChannel,
 
+    -- * EventReference
+    EventReference (..),
+    newEventReference,
+    eventReference_relatedItemId,
+    eventReference_resource,
+
     -- * EventSummary
     EventSummary (..),
     newEventSummary,
+    eventSummary_eventReferences,
     eventSummary_eventId,
     eventSummary_eventTime,
     eventSummary_eventType,
@@ -108,11 +124,11 @@ module Amazonka.SSMIncidents.Types
     -- * IncidentRecord
     IncidentRecord (..),
     newIncidentRecord,
-    incidentRecord_summary,
+    incidentRecord_automationExecutions,
+    incidentRecord_chatChannel,
     incidentRecord_notificationTargets,
     incidentRecord_resolvedTime,
-    incidentRecord_chatChannel,
-    incidentRecord_automationExecutions,
+    incidentRecord_summary,
     incidentRecord_arn,
     incidentRecord_creationTime,
     incidentRecord_dedupeString,
@@ -145,11 +161,17 @@ module Amazonka.SSMIncidents.Types
     -- * IncidentTemplate
     IncidentTemplate (..),
     newIncidentTemplate,
-    incidentTemplate_summary,
-    incidentTemplate_notificationTargets,
     incidentTemplate_dedupeString,
+    incidentTemplate_incidentTags,
+    incidentTemplate_notificationTargets,
+    incidentTemplate_summary,
     incidentTemplate_impact,
     incidentTemplate_title,
+
+    -- * Integration
+    Integration (..),
+    newIntegration,
+    integration_pagerDutyConfiguration,
 
     -- * ItemIdentifier
     ItemIdentifier (..),
@@ -161,19 +183,39 @@ module Amazonka.SSMIncidents.Types
     ItemValue (..),
     newItemValue,
     itemValue_arn,
-    itemValue_url,
     itemValue_metricDefinition,
+    itemValue_pagerDutyIncidentDetail,
+    itemValue_url,
 
     -- * NotificationTargetItem
     NotificationTargetItem (..),
     newNotificationTargetItem,
     notificationTargetItem_snsTopicArn,
 
+    -- * PagerDutyConfiguration
+    PagerDutyConfiguration (..),
+    newPagerDutyConfiguration,
+    pagerDutyConfiguration_name,
+    pagerDutyConfiguration_pagerDutyIncidentConfiguration,
+    pagerDutyConfiguration_secretId,
+
+    -- * PagerDutyIncidentConfiguration
+    PagerDutyIncidentConfiguration (..),
+    newPagerDutyIncidentConfiguration,
+    pagerDutyIncidentConfiguration_serviceId,
+
+    -- * PagerDutyIncidentDetail
+    PagerDutyIncidentDetail (..),
+    newPagerDutyIncidentDetail,
+    pagerDutyIncidentDetail_autoResolve,
+    pagerDutyIncidentDetail_secretId,
+    pagerDutyIncidentDetail_id,
+
     -- * RegionInfo
     RegionInfo (..),
     newRegionInfo,
-    regionInfo_statusMessage,
     regionInfo_sseKmsKeyId,
+    regionInfo_statusMessage,
     regionInfo_status,
     regionInfo_statusUpdateDateTime,
 
@@ -185,14 +227,15 @@ module Amazonka.SSMIncidents.Types
     -- * RelatedItem
     RelatedItem (..),
     newRelatedItem,
+    relatedItem_generatedId,
     relatedItem_title,
     relatedItem_identifier,
 
     -- * RelatedItemsUpdate
     RelatedItemsUpdate (..),
     newRelatedItemsUpdate,
-    relatedItemsUpdate_itemToRemove,
     relatedItemsUpdate_itemToAdd,
+    relatedItemsUpdate_itemToRemove,
 
     -- * ReplicationSet
     ReplicationSet (..),
@@ -223,15 +266,17 @@ module Amazonka.SSMIncidents.Types
     -- * SsmAutomation
     SsmAutomation (..),
     newSsmAutomation,
-    ssmAutomation_targetAccount,
-    ssmAutomation_parameters,
     ssmAutomation_documentVersion,
+    ssmAutomation_dynamicParameters,
+    ssmAutomation_parameters,
+    ssmAutomation_targetAccount,
     ssmAutomation_documentName,
     ssmAutomation_roleArn,
 
     -- * TimelineEvent
     TimelineEvent (..),
     newTimelineEvent,
+    timelineEvent_eventReferences,
     timelineEvent_eventData,
     timelineEvent_eventId,
     timelineEvent_eventTime,
@@ -256,7 +301,7 @@ module Amazonka.SSMIncidents.Types
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSMIncidents.Types.Action
 import Amazonka.SSMIncidents.Types.AddRegionAction
@@ -265,7 +310,9 @@ import Amazonka.SSMIncidents.Types.AutomationExecution
 import Amazonka.SSMIncidents.Types.ChatChannel
 import Amazonka.SSMIncidents.Types.Condition
 import Amazonka.SSMIncidents.Types.DeleteRegionAction
+import Amazonka.SSMIncidents.Types.DynamicSsmParameterValue
 import Amazonka.SSMIncidents.Types.EmptyChatChannel
+import Amazonka.SSMIncidents.Types.EventReference
 import Amazonka.SSMIncidents.Types.EventSummary
 import Amazonka.SSMIncidents.Types.Filter
 import Amazonka.SSMIncidents.Types.IncidentRecord
@@ -273,10 +320,14 @@ import Amazonka.SSMIncidents.Types.IncidentRecordSource
 import Amazonka.SSMIncidents.Types.IncidentRecordStatus
 import Amazonka.SSMIncidents.Types.IncidentRecordSummary
 import Amazonka.SSMIncidents.Types.IncidentTemplate
+import Amazonka.SSMIncidents.Types.Integration
 import Amazonka.SSMIncidents.Types.ItemIdentifier
 import Amazonka.SSMIncidents.Types.ItemType
 import Amazonka.SSMIncidents.Types.ItemValue
 import Amazonka.SSMIncidents.Types.NotificationTargetItem
+import Amazonka.SSMIncidents.Types.PagerDutyConfiguration
+import Amazonka.SSMIncidents.Types.PagerDutyIncidentConfiguration
+import Amazonka.SSMIncidents.Types.PagerDutyIncidentDetail
 import Amazonka.SSMIncidents.Types.RegionInfo
 import Amazonka.SSMIncidents.Types.RegionMapInputValue
 import Amazonka.SSMIncidents.Types.RegionStatus
@@ -293,48 +344,56 @@ import Amazonka.SSMIncidents.Types.TimelineEvent
 import Amazonka.SSMIncidents.Types.TimelineEventSort
 import Amazonka.SSMIncidents.Types.TriggerDetails
 import Amazonka.SSMIncidents.Types.UpdateReplicationSetAction
+import Amazonka.SSMIncidents.Types.VariableType
 import qualified Amazonka.Sign.V4 as Sign
 
 -- | API version @2018-05-10@ of the Amazon Systems Manager Incident Manager SDK configuration.
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "SSMIncidents",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "ssm-incidents",
-      Core._serviceSigningName = "ssm-incidents",
-      Core._serviceVersion = "2018-05-10",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "SSMIncidents",
-      Core._serviceRetry = retry
+    { Core.abbrev = "SSMIncidents",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "ssm-incidents",
+      Core.signingName = "ssm-incidents",
+      Core.version = "2018-05-10",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "SSMIncidents",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -342,39 +401,23 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
--- | The input fails to satisfy the constraints specified by an AWS service.
-_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ValidationException =
-  Core._MatchServiceError
-    defaultService
-    "ValidationException"
-    Prelude.. Core.hasStatus 400
-
--- | You don\'t have sufficient access to perform this action.
+-- | You don\'t have sufficient access to perform this operation.
 _AccessDeniedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _AccessDeniedException =
   Core._MatchServiceError
@@ -389,6 +432,23 @@ _ConflictException =
     defaultService
     "ConflictException"
     Prelude.. Core.hasStatus 409
+
+-- | The request processing has failed because of an unknown error, exception
+-- or failure.
+_InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InternalServerException =
+  Core._MatchServiceError
+    defaultService
+    "InternalServerException"
+    Prelude.. Core.hasStatus 500
+
+-- | Request references a resource which doesn\'t exist.
+_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceNotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "ResourceNotFoundException"
+    Prelude.. Core.hasStatus 404
 
 -- | Request would cause a service quota to be exceeded.
 _ServiceQuotaExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -406,19 +466,11 @@ _ThrottlingException =
     "ThrottlingException"
     Prelude.. Core.hasStatus 429
 
--- | The request processing has failed because of an unknown error, exception
--- or failure.
-_InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InternalServerException =
+-- | The input fails to satisfy the constraints specified by an Amazon Web
+-- Services service.
+_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ValidationException =
   Core._MatchServiceError
     defaultService
-    "InternalServerException"
-    Prelude.. Core.hasStatus 500
-
--- | Request references a resource which does not exist.
-_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceNotFoundException =
-  Core._MatchServiceError
-    defaultService
-    "ResourceNotFoundException"
-    Prelude.. Core.hasStatus 404
+    "ValidationException"
+    Prelude.. Core.hasStatus 400

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.StepStateChangeReason
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EMR.Types.StepStateChangeReason where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types.StepStateChangeReasonCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of the step state change reason.
@@ -65,14 +66,14 @@ stepStateChangeReason_code = Lens.lens (\StepStateChangeReason' {code} -> code) 
 stepStateChangeReason_message :: Lens.Lens' StepStateChangeReason (Prelude.Maybe Prelude.Text)
 stepStateChangeReason_message = Lens.lens (\StepStateChangeReason' {message} -> message) (\s@StepStateChangeReason' {} a -> s {message = a} :: StepStateChangeReason)
 
-instance Core.FromJSON StepStateChangeReason where
+instance Data.FromJSON StepStateChangeReason where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StepStateChangeReason"
       ( \x ->
           StepStateChangeReason'
-            Prelude.<$> (x Core..:? "Code")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Code")
+            Prelude.<*> (x Data..:? "Message")
       )
 
 instance Prelude.Hashable StepStateChangeReason where

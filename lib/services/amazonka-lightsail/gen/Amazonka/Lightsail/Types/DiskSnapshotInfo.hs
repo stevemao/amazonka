@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.DiskSnapshotInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.DiskSnapshotInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a disk snapshot.
@@ -50,13 +51,13 @@ newDiskSnapshotInfo =
 diskSnapshotInfo_sizeInGb :: Lens.Lens' DiskSnapshotInfo (Prelude.Maybe Prelude.Int)
 diskSnapshotInfo_sizeInGb = Lens.lens (\DiskSnapshotInfo' {sizeInGb} -> sizeInGb) (\s@DiskSnapshotInfo' {} a -> s {sizeInGb = a} :: DiskSnapshotInfo)
 
-instance Core.FromJSON DiskSnapshotInfo where
+instance Data.FromJSON DiskSnapshotInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DiskSnapshotInfo"
       ( \x ->
           DiskSnapshotInfo'
-            Prelude.<$> (x Core..:? "sizeInGb")
+            Prelude.<$> (x Data..:? "sizeInGb")
       )
 
 instance Prelude.Hashable DiskSnapshotInfo where

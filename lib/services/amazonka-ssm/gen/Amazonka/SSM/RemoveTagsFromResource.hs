@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.RemoveTagsFromResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.SSM.RemoveTagsFromResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,15 +53,16 @@ data RemoveTagsFromResource = RemoveTagsFromResource'
   { -- | The type of resource from which you want to remove a tag.
     --
     -- The @ManagedInstance@ type for this API operation is only for
-    -- on-premises managed instances. Specify the name of the managed instance
-    -- in the following format: @mi-ID_number @. For example,
-    -- @mi-1a2b3c4d5e6f@.
+    -- on-premises managed nodes. Specify the name of the managed node in the
+    -- following format: @mi-ID_number @. For example, @mi-1a2b3c4d5e6f@.
     resourceType :: ResourceTypeForTagging,
     -- | The ID of the resource from which you want to remove tags. For example:
     --
     -- ManagedInstance: mi-012345abcde
     --
     -- MaintenanceWindow: mw-012345abcde
+    --
+    -- @Automation@: @example-c160-4567-8519-012345abcde@
     --
     -- PatchBaseline: pb-012345abcde
     --
@@ -74,8 +76,8 @@ data RemoveTagsFromResource = RemoveTagsFromResource'
     --
     -- For the Document and Parameter values, use the name of the resource.
     --
-    -- The ManagedInstance type for this API operation is only for on-premises
-    -- managed instances. Specify the name of the managed instance in the
+    -- The @ManagedInstance@ type for this API operation is only for
+    -- on-premises managed nodes. Specify the name of the managed node in the
     -- following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
     resourceId :: Prelude.Text,
     -- | Tag keys that you want to remove from the specified resource.
@@ -94,15 +96,16 @@ data RemoveTagsFromResource = RemoveTagsFromResource'
 -- 'resourceType', 'removeTagsFromResource_resourceType' - The type of resource from which you want to remove a tag.
 --
 -- The @ManagedInstance@ type for this API operation is only for
--- on-premises managed instances. Specify the name of the managed instance
--- in the following format: @mi-ID_number @. For example,
--- @mi-1a2b3c4d5e6f@.
+-- on-premises managed nodes. Specify the name of the managed node in the
+-- following format: @mi-ID_number @. For example, @mi-1a2b3c4d5e6f@.
 --
 -- 'resourceId', 'removeTagsFromResource_resourceId' - The ID of the resource from which you want to remove tags. For example:
 --
 -- ManagedInstance: mi-012345abcde
 --
 -- MaintenanceWindow: mw-012345abcde
+--
+-- @Automation@: @example-c160-4567-8519-012345abcde@
 --
 -- PatchBaseline: pb-012345abcde
 --
@@ -116,8 +119,8 @@ data RemoveTagsFromResource = RemoveTagsFromResource'
 --
 -- For the Document and Parameter values, use the name of the resource.
 --
--- The ManagedInstance type for this API operation is only for on-premises
--- managed instances. Specify the name of the managed instance in the
+-- The @ManagedInstance@ type for this API operation is only for
+-- on-premises managed nodes. Specify the name of the managed node in the
 -- following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
 --
 -- 'tagKeys', 'removeTagsFromResource_tagKeys' - Tag keys that you want to remove from the specified resource.
@@ -138,9 +141,8 @@ newRemoveTagsFromResource pResourceType_ pResourceId_ =
 -- | The type of resource from which you want to remove a tag.
 --
 -- The @ManagedInstance@ type for this API operation is only for
--- on-premises managed instances. Specify the name of the managed instance
--- in the following format: @mi-ID_number @. For example,
--- @mi-1a2b3c4d5e6f@.
+-- on-premises managed nodes. Specify the name of the managed node in the
+-- following format: @mi-ID_number @. For example, @mi-1a2b3c4d5e6f@.
 removeTagsFromResource_resourceType :: Lens.Lens' RemoveTagsFromResource ResourceTypeForTagging
 removeTagsFromResource_resourceType = Lens.lens (\RemoveTagsFromResource' {resourceType} -> resourceType) (\s@RemoveTagsFromResource' {} a -> s {resourceType = a} :: RemoveTagsFromResource)
 
@@ -149,6 +151,8 @@ removeTagsFromResource_resourceType = Lens.lens (\RemoveTagsFromResource' {resou
 -- ManagedInstance: mi-012345abcde
 --
 -- MaintenanceWindow: mw-012345abcde
+--
+-- @Automation@: @example-c160-4567-8519-012345abcde@
 --
 -- PatchBaseline: pb-012345abcde
 --
@@ -162,8 +166,8 @@ removeTagsFromResource_resourceType = Lens.lens (\RemoveTagsFromResource' {resou
 --
 -- For the Document and Parameter values, use the name of the resource.
 --
--- The ManagedInstance type for this API operation is only for on-premises
--- managed instances. Specify the name of the managed instance in the
+-- The @ManagedInstance@ type for this API operation is only for
+-- on-premises managed nodes. Specify the name of the managed node in the
 -- following format: mi-ID_number. For example, mi-1a2b3c4d5e6f.
 removeTagsFromResource_resourceId :: Lens.Lens' RemoveTagsFromResource Prelude.Text
 removeTagsFromResource_resourceId = Lens.lens (\RemoveTagsFromResource' {resourceId} -> resourceId) (\s@RemoveTagsFromResource' {} a -> s {resourceId = a} :: RemoveTagsFromResource)
@@ -176,7 +180,8 @@ instance Core.AWSRequest RemoveTagsFromResource where
   type
     AWSResponse RemoveTagsFromResource =
       RemoveTagsFromResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -196,35 +201,35 @@ instance Prelude.NFData RemoveTagsFromResource where
       `Prelude.seq` Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders RemoveTagsFromResource where
+instance Data.ToHeaders RemoveTagsFromResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.RemoveTagsFromResource" ::
+              Data.=# ( "AmazonSSM.RemoveTagsFromResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RemoveTagsFromResource where
+instance Data.ToJSON RemoveTagsFromResource where
   toJSON RemoveTagsFromResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceType" Core..= resourceType),
-            Prelude.Just ("ResourceId" Core..= resourceId),
-            Prelude.Just ("TagKeys" Core..= tagKeys)
+          [ Prelude.Just ("ResourceType" Data..= resourceType),
+            Prelude.Just ("ResourceId" Data..= resourceId),
+            Prelude.Just ("TagKeys" Data..= tagKeys)
           ]
       )
 
-instance Core.ToPath RemoveTagsFromResource where
+instance Data.ToPath RemoveTagsFromResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemoveTagsFromResource where
+instance Data.ToQuery RemoveTagsFromResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveTagsFromResourceResponse' smart constructor.

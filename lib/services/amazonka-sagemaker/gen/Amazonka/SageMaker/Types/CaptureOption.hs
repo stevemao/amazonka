@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.CaptureOption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,17 @@
 module Amazonka.SageMaker.Types.CaptureOption where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.CaptureMode
 
--- |
+-- | Specifies data Model Monitor will capture.
 --
 -- /See:/ 'newCaptureOption' smart constructor.
 data CaptureOption = CaptureOption'
-  { captureMode :: CaptureMode
+  { -- | Specify the boundary of data to capture.
+    captureMode :: CaptureMode
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -40,7 +42,7 @@ data CaptureOption = CaptureOption'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'captureMode', 'captureOption_captureMode' -
+-- 'captureMode', 'captureOption_captureMode' - Specify the boundary of data to capture.
 newCaptureOption ::
   -- | 'captureMode'
   CaptureMode ->
@@ -48,16 +50,16 @@ newCaptureOption ::
 newCaptureOption pCaptureMode_ =
   CaptureOption' {captureMode = pCaptureMode_}
 
--- |
+-- | Specify the boundary of data to capture.
 captureOption_captureMode :: Lens.Lens' CaptureOption CaptureMode
 captureOption_captureMode = Lens.lens (\CaptureOption' {captureMode} -> captureMode) (\s@CaptureOption' {} a -> s {captureMode = a} :: CaptureOption)
 
-instance Core.FromJSON CaptureOption where
+instance Data.FromJSON CaptureOption where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CaptureOption"
       ( \x ->
-          CaptureOption' Prelude.<$> (x Core..: "CaptureMode")
+          CaptureOption' Prelude.<$> (x Data..: "CaptureMode")
       )
 
 instance Prelude.Hashable CaptureOption where
@@ -67,9 +69,9 @@ instance Prelude.Hashable CaptureOption where
 instance Prelude.NFData CaptureOption where
   rnf CaptureOption' {..} = Prelude.rnf captureMode
 
-instance Core.ToJSON CaptureOption where
+instance Data.ToJSON CaptureOption where
   toJSON CaptureOption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("CaptureMode" Core..= captureMode)]
+          [Prelude.Just ("CaptureMode" Data..= captureMode)]
       )

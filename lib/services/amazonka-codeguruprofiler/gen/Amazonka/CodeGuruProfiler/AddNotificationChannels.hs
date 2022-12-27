@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruProfiler.AddNotificationChannels
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CodeGuruProfiler.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,12 +100,13 @@ instance Core.AWSRequest AddNotificationChannels where
   type
     AWSResponse AddNotificationChannels =
       AddNotificationChannelsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddNotificationChannelsResponse'
-            Prelude.<$> (x Core..?> "notificationConfiguration")
+            Prelude.<$> (x Data..?> "notificationConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,33 +120,33 @@ instance Prelude.NFData AddNotificationChannels where
     Prelude.rnf channels
       `Prelude.seq` Prelude.rnf profilingGroupName
 
-instance Core.ToHeaders AddNotificationChannels where
+instance Data.ToHeaders AddNotificationChannels where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddNotificationChannels where
+instance Data.ToJSON AddNotificationChannels where
   toJSON AddNotificationChannels' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("channels" Core..= channels)]
+          [Prelude.Just ("channels" Data..= channels)]
       )
 
-instance Core.ToPath AddNotificationChannels where
+instance Data.ToPath AddNotificationChannels where
   toPath AddNotificationChannels' {..} =
     Prelude.mconcat
       [ "/profilingGroups/",
-        Core.toBS profilingGroupName,
+        Data.toBS profilingGroupName,
         "/notificationConfiguration"
       ]
 
-instance Core.ToQuery AddNotificationChannels where
+instance Data.ToQuery AddNotificationChannels where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The structure representing the AddNotificationChannelsResponse.

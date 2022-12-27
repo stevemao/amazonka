@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.EBS
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,29 +46,29 @@ module Amazonka.EBS
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
-
-    -- ** ConflictException
-    _ConflictException,
-
-    -- ** ServiceQuotaExceededException
-    _ServiceQuotaExceededException,
 
     -- ** ConcurrentLimitExceededException
     _ConcurrentLimitExceededException,
 
-    -- ** RequestThrottledException
-    _RequestThrottledException,
+    -- ** ConflictException
+    _ConflictException,
 
     -- ** InternalServerException
     _InternalServerException,
 
+    -- ** RequestThrottledException
+    _RequestThrottledException,
+
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
+
+    -- ** ServiceQuotaExceededException
+    _ServiceQuotaExceededException,
+
+    -- ** ValidationException
+    _ValidationException,
 
     -- * Waiters
     -- $waiters
@@ -76,11 +76,23 @@ module Amazonka.EBS
     -- * Operations
     -- $operations
 
-    -- ** StartSnapshot
-    StartSnapshot (StartSnapshot'),
-    newStartSnapshot,
-    StartSnapshotResponse (StartSnapshotResponse'),
-    newStartSnapshotResponse,
+    -- ** CompleteSnapshot
+    CompleteSnapshot (CompleteSnapshot'),
+    newCompleteSnapshot,
+    CompleteSnapshotResponse (CompleteSnapshotResponse'),
+    newCompleteSnapshotResponse,
+
+    -- ** GetSnapshotBlock
+    GetSnapshotBlock (GetSnapshotBlock'),
+    newGetSnapshotBlock,
+    GetSnapshotBlockResponse (GetSnapshotBlockResponse'),
+    newGetSnapshotBlockResponse,
+
+    -- ** ListChangedBlocks
+    ListChangedBlocks (ListChangedBlocks'),
+    newListChangedBlocks,
+    ListChangedBlocksResponse (ListChangedBlocksResponse'),
+    newListChangedBlocksResponse,
 
     -- ** ListSnapshotBlocks
     ListSnapshotBlocks (ListSnapshotBlocks'),
@@ -94,23 +106,11 @@ module Amazonka.EBS
     PutSnapshotBlockResponse (PutSnapshotBlockResponse'),
     newPutSnapshotBlockResponse,
 
-    -- ** ListChangedBlocks
-    ListChangedBlocks (ListChangedBlocks'),
-    newListChangedBlocks,
-    ListChangedBlocksResponse (ListChangedBlocksResponse'),
-    newListChangedBlocksResponse,
-
-    -- ** CompleteSnapshot
-    CompleteSnapshot (CompleteSnapshot'),
-    newCompleteSnapshot,
-    CompleteSnapshotResponse (CompleteSnapshotResponse'),
-    newCompleteSnapshotResponse,
-
-    -- ** GetSnapshotBlock
-    GetSnapshotBlock (GetSnapshotBlock'),
-    newGetSnapshotBlock,
-    GetSnapshotBlockResponse (GetSnapshotBlockResponse'),
-    newGetSnapshotBlockResponse,
+    -- ** StartSnapshot
+    StartSnapshot (StartSnapshot'),
+    newStartSnapshot,
+    StartSnapshotResponse (StartSnapshotResponse'),
+    newStartSnapshotResponse,
 
     -- * Types
 

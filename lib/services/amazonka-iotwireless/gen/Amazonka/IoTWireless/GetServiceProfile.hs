@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.GetServiceProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,16 +35,17 @@ module Amazonka.IoTWireless.GetServiceProfile
 
     -- * Response Lenses
     getServiceProfileResponse_arn,
+    getServiceProfileResponse_id,
     getServiceProfileResponse_loRaWAN,
     getServiceProfileResponse_name,
-    getServiceProfileResponse_id,
     getServiceProfileResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,15 +81,16 @@ instance Core.AWSRequest GetServiceProfile where
   type
     AWSResponse GetServiceProfile =
       GetServiceProfileResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetServiceProfileResponse'
-            Prelude.<$> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "LoRaWAN")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "Id")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "Id")
+            Prelude.<*> (x Data..?> "LoRaWAN")
+            Prelude.<*> (x Data..?> "Name")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -99,27 +101,27 @@ instance Prelude.Hashable GetServiceProfile where
 instance Prelude.NFData GetServiceProfile where
   rnf GetServiceProfile' {..} = Prelude.rnf id
 
-instance Core.ToHeaders GetServiceProfile where
+instance Data.ToHeaders GetServiceProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetServiceProfile where
+instance Data.ToPath GetServiceProfile where
   toPath GetServiceProfile' {..} =
     Prelude.mconcat
-      ["/service-profiles/", Core.toBS id]
+      ["/service-profiles/", Data.toBS id]
 
-instance Core.ToQuery GetServiceProfile where
+instance Data.ToQuery GetServiceProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetServiceProfileResponse' smart constructor.
 data GetServiceProfileResponse = GetServiceProfileResponse'
   { -- | The Amazon Resource Name of the resource.
     arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the service profile.
+    id :: Prelude.Maybe Prelude.Text,
     -- | Information about the service profile.
     loRaWAN :: Prelude.Maybe LoRaWANGetServiceProfileInfo,
     -- | The name of the resource.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the service profile.
-    id :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -135,11 +137,11 @@ data GetServiceProfileResponse = GetServiceProfileResponse'
 --
 -- 'arn', 'getServiceProfileResponse_arn' - The Amazon Resource Name of the resource.
 --
+-- 'id', 'getServiceProfileResponse_id' - The ID of the service profile.
+--
 -- 'loRaWAN', 'getServiceProfileResponse_loRaWAN' - Information about the service profile.
 --
 -- 'name', 'getServiceProfileResponse_name' - The name of the resource.
---
--- 'id', 'getServiceProfileResponse_id' - The ID of the service profile.
 --
 -- 'httpStatus', 'getServiceProfileResponse_httpStatus' - The response's http status code.
 newGetServiceProfileResponse ::
@@ -149,15 +151,19 @@ newGetServiceProfileResponse ::
 newGetServiceProfileResponse pHttpStatus_ =
   GetServiceProfileResponse'
     { arn = Prelude.Nothing,
+      id = Prelude.Nothing,
       loRaWAN = Prelude.Nothing,
       name = Prelude.Nothing,
-      id = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name of the resource.
 getServiceProfileResponse_arn :: Lens.Lens' GetServiceProfileResponse (Prelude.Maybe Prelude.Text)
 getServiceProfileResponse_arn = Lens.lens (\GetServiceProfileResponse' {arn} -> arn) (\s@GetServiceProfileResponse' {} a -> s {arn = a} :: GetServiceProfileResponse)
+
+-- | The ID of the service profile.
+getServiceProfileResponse_id :: Lens.Lens' GetServiceProfileResponse (Prelude.Maybe Prelude.Text)
+getServiceProfileResponse_id = Lens.lens (\GetServiceProfileResponse' {id} -> id) (\s@GetServiceProfileResponse' {} a -> s {id = a} :: GetServiceProfileResponse)
 
 -- | Information about the service profile.
 getServiceProfileResponse_loRaWAN :: Lens.Lens' GetServiceProfileResponse (Prelude.Maybe LoRaWANGetServiceProfileInfo)
@@ -167,10 +173,6 @@ getServiceProfileResponse_loRaWAN = Lens.lens (\GetServiceProfileResponse' {loRa
 getServiceProfileResponse_name :: Lens.Lens' GetServiceProfileResponse (Prelude.Maybe Prelude.Text)
 getServiceProfileResponse_name = Lens.lens (\GetServiceProfileResponse' {name} -> name) (\s@GetServiceProfileResponse' {} a -> s {name = a} :: GetServiceProfileResponse)
 
--- | The ID of the service profile.
-getServiceProfileResponse_id :: Lens.Lens' GetServiceProfileResponse (Prelude.Maybe Prelude.Text)
-getServiceProfileResponse_id = Lens.lens (\GetServiceProfileResponse' {id} -> id) (\s@GetServiceProfileResponse' {} a -> s {id = a} :: GetServiceProfileResponse)
-
 -- | The response's http status code.
 getServiceProfileResponse_httpStatus :: Lens.Lens' GetServiceProfileResponse Prelude.Int
 getServiceProfileResponse_httpStatus = Lens.lens (\GetServiceProfileResponse' {httpStatus} -> httpStatus) (\s@GetServiceProfileResponse' {} a -> s {httpStatus = a} :: GetServiceProfileResponse)
@@ -178,7 +180,7 @@ getServiceProfileResponse_httpStatus = Lens.lens (\GetServiceProfileResponse' {h
 instance Prelude.NFData GetServiceProfileResponse where
   rnf GetServiceProfileResponse' {..} =
     Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf loRaWAN
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.ListConfigurationSets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.SESV2.ListConfigurationSets
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,15 +111,16 @@ instance Core.AWSRequest ListConfigurationSets where
   type
     AWSResponse ListConfigurationSets =
       ListConfigurationSetsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListConfigurationSetsResponse'
-            Prelude.<$> ( x Core..?> "ConfigurationSets"
+            Prelude.<$> ( x Data..?> "ConfigurationSets"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -132,25 +134,25 @@ instance Prelude.NFData ListConfigurationSets where
     Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf pageSize
 
-instance Core.ToHeaders ListConfigurationSets where
+instance Data.ToHeaders ListConfigurationSets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListConfigurationSets where
+instance Data.ToPath ListConfigurationSets where
   toPath = Prelude.const "/v2/email/configuration-sets"
 
-instance Core.ToQuery ListConfigurationSets where
+instance Data.ToQuery ListConfigurationSets where
   toQuery ListConfigurationSets' {..} =
     Prelude.mconcat
-      [ "NextToken" Core.=: nextToken,
-        "PageSize" Core.=: pageSize
+      [ "NextToken" Data.=: nextToken,
+        "PageSize" Data.=: pageSize
       ]
 
 -- | A list of configuration sets in your Amazon SES account in the current

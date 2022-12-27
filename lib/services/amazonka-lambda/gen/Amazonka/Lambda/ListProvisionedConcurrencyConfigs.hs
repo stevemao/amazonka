@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.ListProvisionedConcurrencyConfigs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,15 +39,16 @@ module Amazonka.Lambda.ListProvisionedConcurrencyConfigs
     newListProvisionedConcurrencyConfigsResponse,
 
     -- * Response Lenses
-    listProvisionedConcurrencyConfigsResponse_provisionedConcurrencyConfigs,
     listProvisionedConcurrencyConfigsResponse_nextMarker,
+    listProvisionedConcurrencyConfigsResponse_provisionedConcurrencyConfigs,
     listProvisionedConcurrencyConfigsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,12 +64,12 @@ data ListProvisionedConcurrencyConfigs = ListProvisionedConcurrencyConfigs'
     --
     -- __Name formats__
     --
-    -- -   __Function name__ - @my-function@.
+    -- -   __Function name__ – @my-function@.
     --
-    -- -   __Function ARN__ -
+    -- -   __Function ARN__ –
     --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
     --
-    -- -   __Partial ARN__ - @123456789012:function:my-function@.
+    -- -   __Partial ARN__ – @123456789012:function:my-function@.
     --
     -- The length constraint applies only to the full ARN. If you specify only
     -- the function name, it is limited to 64 characters in length.
@@ -93,12 +94,12 @@ data ListProvisionedConcurrencyConfigs = ListProvisionedConcurrencyConfigs'
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@.
+-- -   __Function name__ – @my-function@.
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- The length constraint applies only to the full ARN. If you specify only
 -- the function name, it is limited to 64 characters in length.
@@ -127,12 +128,12 @@ listProvisionedConcurrencyConfigs_maxItems = Lens.lens (\ListProvisionedConcurre
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@.
+-- -   __Function name__ – @my-function@.
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- The length constraint applies only to the full ARN. If you specify only
 -- the function name, it is limited to 64 characters in length.
@@ -171,15 +172,16 @@ instance
   type
     AWSResponse ListProvisionedConcurrencyConfigs =
       ListProvisionedConcurrencyConfigsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListProvisionedConcurrencyConfigsResponse'
-            Prelude.<$> ( x Core..?> "ProvisionedConcurrencyConfigs"
-                            Core..!@ Prelude.mempty
-                        )
-              Prelude.<*> (x Core..?> "NextMarker")
+            Prelude.<$> (x Data..?> "NextMarker")
+              Prelude.<*> ( x Data..?> "ProvisionedConcurrencyConfigs"
+                              Core..!@ Prelude.mempty
+                          )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -204,39 +206,39 @@ instance
       `Prelude.seq` Prelude.rnf functionName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListProvisionedConcurrencyConfigs
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListProvisionedConcurrencyConfigs
   where
   toPath ListProvisionedConcurrencyConfigs' {..} =
     Prelude.mconcat
       [ "/2019-09-30/functions/",
-        Core.toBS functionName,
+        Data.toBS functionName,
         "/provisioned-concurrency"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListProvisionedConcurrencyConfigs
   where
   toQuery ListProvisionedConcurrencyConfigs' {..} =
     Prelude.mconcat
-      [ "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems,
+      [ "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems,
         "List=ALL"
       ]
 
 -- | /See:/ 'newListProvisionedConcurrencyConfigsResponse' smart constructor.
 data ListProvisionedConcurrencyConfigsResponse = ListProvisionedConcurrencyConfigsResponse'
-  { -- | A list of provisioned concurrency configurations.
-    provisionedConcurrencyConfigs :: Prelude.Maybe [ProvisionedConcurrencyConfigListItem],
-    -- | The pagination token that\'s included if more results are available.
+  { -- | The pagination token that\'s included if more results are available.
     nextMarker :: Prelude.Maybe Prelude.Text,
+    -- | A list of provisioned concurrency configurations.
+    provisionedConcurrencyConfigs :: Prelude.Maybe [ProvisionedConcurrencyConfigListItem],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -250,9 +252,9 @@ data ListProvisionedConcurrencyConfigsResponse = ListProvisionedConcurrencyConfi
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'provisionedConcurrencyConfigs', 'listProvisionedConcurrencyConfigsResponse_provisionedConcurrencyConfigs' - A list of provisioned concurrency configurations.
---
 -- 'nextMarker', 'listProvisionedConcurrencyConfigsResponse_nextMarker' - The pagination token that\'s included if more results are available.
+--
+-- 'provisionedConcurrencyConfigs', 'listProvisionedConcurrencyConfigsResponse_provisionedConcurrencyConfigs' - A list of provisioned concurrency configurations.
 --
 -- 'httpStatus', 'listProvisionedConcurrencyConfigsResponse_httpStatus' - The response's http status code.
 newListProvisionedConcurrencyConfigsResponse ::
@@ -262,19 +264,20 @@ newListProvisionedConcurrencyConfigsResponse ::
 newListProvisionedConcurrencyConfigsResponse
   pHttpStatus_ =
     ListProvisionedConcurrencyConfigsResponse'
-      { provisionedConcurrencyConfigs =
+      { nextMarker =
           Prelude.Nothing,
-        nextMarker = Prelude.Nothing,
+        provisionedConcurrencyConfigs =
+          Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | A list of provisioned concurrency configurations.
-listProvisionedConcurrencyConfigsResponse_provisionedConcurrencyConfigs :: Lens.Lens' ListProvisionedConcurrencyConfigsResponse (Prelude.Maybe [ProvisionedConcurrencyConfigListItem])
-listProvisionedConcurrencyConfigsResponse_provisionedConcurrencyConfigs = Lens.lens (\ListProvisionedConcurrencyConfigsResponse' {provisionedConcurrencyConfigs} -> provisionedConcurrencyConfigs) (\s@ListProvisionedConcurrencyConfigsResponse' {} a -> s {provisionedConcurrencyConfigs = a} :: ListProvisionedConcurrencyConfigsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The pagination token that\'s included if more results are available.
 listProvisionedConcurrencyConfigsResponse_nextMarker :: Lens.Lens' ListProvisionedConcurrencyConfigsResponse (Prelude.Maybe Prelude.Text)
 listProvisionedConcurrencyConfigsResponse_nextMarker = Lens.lens (\ListProvisionedConcurrencyConfigsResponse' {nextMarker} -> nextMarker) (\s@ListProvisionedConcurrencyConfigsResponse' {} a -> s {nextMarker = a} :: ListProvisionedConcurrencyConfigsResponse)
+
+-- | A list of provisioned concurrency configurations.
+listProvisionedConcurrencyConfigsResponse_provisionedConcurrencyConfigs :: Lens.Lens' ListProvisionedConcurrencyConfigsResponse (Prelude.Maybe [ProvisionedConcurrencyConfigListItem])
+listProvisionedConcurrencyConfigsResponse_provisionedConcurrencyConfigs = Lens.lens (\ListProvisionedConcurrencyConfigsResponse' {provisionedConcurrencyConfigs} -> provisionedConcurrencyConfigs) (\s@ListProvisionedConcurrencyConfigsResponse' {} a -> s {provisionedConcurrencyConfigs = a} :: ListProvisionedConcurrencyConfigsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listProvisionedConcurrencyConfigsResponse_httpStatus :: Lens.Lens' ListProvisionedConcurrencyConfigsResponse Prelude.Int
@@ -285,6 +288,6 @@ instance
     ListProvisionedConcurrencyConfigsResponse
   where
   rnf ListProvisionedConcurrencyConfigsResponse' {..} =
-    Prelude.rnf provisionedConcurrencyConfigs
-      `Prelude.seq` Prelude.rnf nextMarker
+    Prelude.rnf nextMarker
+      `Prelude.seq` Prelude.rnf provisionedConcurrencyConfigs
       `Prelude.seq` Prelude.rnf httpStatus

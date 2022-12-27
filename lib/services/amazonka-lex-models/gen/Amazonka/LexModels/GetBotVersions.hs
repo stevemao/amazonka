@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.GetBotVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,8 @@ module Amazonka.LexModels.GetBotVersions
     newGetBotVersions,
 
     -- * Request Lenses
-    getBotVersions_nextToken,
     getBotVersions_maxResults,
+    getBotVersions_nextToken,
     getBotVersions_name,
 
     -- * Destructuring the Response
@@ -56,7 +56,8 @@ module Amazonka.LexModels.GetBotVersions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -64,14 +65,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetBotVersions' smart constructor.
 data GetBotVersions = GetBotVersions'
-  { -- | A pagination token for fetching the next page of bot versions. If the
+  { -- | The maximum number of bot versions to return in the response. The
+    -- default is 10.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A pagination token for fetching the next page of bot versions. If the
     -- response to this call is truncated, Amazon Lex returns a pagination
     -- token in the response. To fetch the next page of versions, specify the
     -- pagination token in the next request.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of bot versions to return in the response. The
-    -- default is 10.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The name of the bot for which versions should be returned.
     name :: Prelude.Text
   }
@@ -85,13 +86,13 @@ data GetBotVersions = GetBotVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getBotVersions_maxResults' - The maximum number of bot versions to return in the response. The
+-- default is 10.
+--
 -- 'nextToken', 'getBotVersions_nextToken' - A pagination token for fetching the next page of bot versions. If the
 -- response to this call is truncated, Amazon Lex returns a pagination
 -- token in the response. To fetch the next page of versions, specify the
 -- pagination token in the next request.
---
--- 'maxResults', 'getBotVersions_maxResults' - The maximum number of bot versions to return in the response. The
--- default is 10.
 --
 -- 'name', 'getBotVersions_name' - The name of the bot for which versions should be returned.
 newGetBotVersions ::
@@ -100,10 +101,15 @@ newGetBotVersions ::
   GetBotVersions
 newGetBotVersions pName_ =
   GetBotVersions'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       name = pName_
     }
+
+-- | The maximum number of bot versions to return in the response. The
+-- default is 10.
+getBotVersions_maxResults :: Lens.Lens' GetBotVersions (Prelude.Maybe Prelude.Natural)
+getBotVersions_maxResults = Lens.lens (\GetBotVersions' {maxResults} -> maxResults) (\s@GetBotVersions' {} a -> s {maxResults = a} :: GetBotVersions)
 
 -- | A pagination token for fetching the next page of bot versions. If the
 -- response to this call is truncated, Amazon Lex returns a pagination
@@ -111,11 +117,6 @@ newGetBotVersions pName_ =
 -- pagination token in the next request.
 getBotVersions_nextToken :: Lens.Lens' GetBotVersions (Prelude.Maybe Prelude.Text)
 getBotVersions_nextToken = Lens.lens (\GetBotVersions' {nextToken} -> nextToken) (\s@GetBotVersions' {} a -> s {nextToken = a} :: GetBotVersions)
-
--- | The maximum number of bot versions to return in the response. The
--- default is 10.
-getBotVersions_maxResults :: Lens.Lens' GetBotVersions (Prelude.Maybe Prelude.Natural)
-getBotVersions_maxResults = Lens.lens (\GetBotVersions' {maxResults} -> maxResults) (\s@GetBotVersions' {} a -> s {maxResults = a} :: GetBotVersions)
 
 -- | The name of the bot for which versions should be returned.
 getBotVersions_name :: Lens.Lens' GetBotVersions Prelude.Text
@@ -145,49 +146,50 @@ instance Core.AWSRequest GetBotVersions where
   type
     AWSResponse GetBotVersions =
       GetBotVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBotVersionsResponse'
-            Prelude.<$> (x Core..?> "bots" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "bots" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetBotVersions where
   hashWithSalt _salt GetBotVersions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData GetBotVersions where
   rnf GetBotVersions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders GetBotVersions where
+instance Data.ToHeaders GetBotVersions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetBotVersions where
+instance Data.ToPath GetBotVersions where
   toPath GetBotVersions' {..} =
     Prelude.mconcat
-      ["/bots/", Core.toBS name, "/versions/"]
+      ["/bots/", Data.toBS name, "/versions/"]
 
-instance Core.ToQuery GetBotVersions where
+instance Data.ToQuery GetBotVersions where
   toQuery GetBotVersions' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetBotVersionsResponse' smart constructor.

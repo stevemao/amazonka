@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.DescribeConnectionAliases
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.WorkSpaces.DescribeConnectionAliases
     newDescribeConnectionAliases,
 
     -- * Request Lenses
-    describeConnectionAliases_resourceId,
     describeConnectionAliases_aliasIds,
-    describeConnectionAliases_nextToken,
     describeConnectionAliases_limit,
+    describeConnectionAliases_nextToken,
+    describeConnectionAliases_resourceId,
 
     -- * Destructuring the Response
     DescribeConnectionAliasesResponse (..),
@@ -46,7 +46,8 @@ module Amazonka.WorkSpaces.DescribeConnectionAliases
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,15 +55,15 @@ import Amazonka.WorkSpaces.Types
 
 -- | /See:/ 'newDescribeConnectionAliases' smart constructor.
 data DescribeConnectionAliases = DescribeConnectionAliases'
-  { -- | The identifier of the directory associated with the connection alias.
-    resourceId :: Prelude.Maybe Prelude.Text,
-    -- | The identifiers of the connection aliases to describe.
+  { -- | The identifiers of the connection aliases to describe.
     aliasIds :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | The maximum number of connection aliases to return.
+    limit :: Prelude.Maybe Prelude.Natural,
     -- | If you received a @NextToken@ from a previous call that was paginated,
     -- provide this token to receive the next set of results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of connection aliases to return.
-    limit :: Prelude.Maybe Prelude.Natural
+    -- | The identifier of the directory associated with the connection alias.
+    resourceId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -74,100 +75,101 @@ data DescribeConnectionAliases = DescribeConnectionAliases'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceId', 'describeConnectionAliases_resourceId' - The identifier of the directory associated with the connection alias.
---
 -- 'aliasIds', 'describeConnectionAliases_aliasIds' - The identifiers of the connection aliases to describe.
+--
+-- 'limit', 'describeConnectionAliases_limit' - The maximum number of connection aliases to return.
 --
 -- 'nextToken', 'describeConnectionAliases_nextToken' - If you received a @NextToken@ from a previous call that was paginated,
 -- provide this token to receive the next set of results.
 --
--- 'limit', 'describeConnectionAliases_limit' - The maximum number of connection aliases to return.
+-- 'resourceId', 'describeConnectionAliases_resourceId' - The identifier of the directory associated with the connection alias.
 newDescribeConnectionAliases ::
   DescribeConnectionAliases
 newDescribeConnectionAliases =
   DescribeConnectionAliases'
-    { resourceId =
+    { aliasIds =
         Prelude.Nothing,
-      aliasIds = Prelude.Nothing,
+      limit = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      limit = Prelude.Nothing
+      resourceId = Prelude.Nothing
     }
-
--- | The identifier of the directory associated with the connection alias.
-describeConnectionAliases_resourceId :: Lens.Lens' DescribeConnectionAliases (Prelude.Maybe Prelude.Text)
-describeConnectionAliases_resourceId = Lens.lens (\DescribeConnectionAliases' {resourceId} -> resourceId) (\s@DescribeConnectionAliases' {} a -> s {resourceId = a} :: DescribeConnectionAliases)
 
 -- | The identifiers of the connection aliases to describe.
 describeConnectionAliases_aliasIds :: Lens.Lens' DescribeConnectionAliases (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 describeConnectionAliases_aliasIds = Lens.lens (\DescribeConnectionAliases' {aliasIds} -> aliasIds) (\s@DescribeConnectionAliases' {} a -> s {aliasIds = a} :: DescribeConnectionAliases) Prelude.. Lens.mapping Lens.coerced
+
+-- | The maximum number of connection aliases to return.
+describeConnectionAliases_limit :: Lens.Lens' DescribeConnectionAliases (Prelude.Maybe Prelude.Natural)
+describeConnectionAliases_limit = Lens.lens (\DescribeConnectionAliases' {limit} -> limit) (\s@DescribeConnectionAliases' {} a -> s {limit = a} :: DescribeConnectionAliases)
 
 -- | If you received a @NextToken@ from a previous call that was paginated,
 -- provide this token to receive the next set of results.
 describeConnectionAliases_nextToken :: Lens.Lens' DescribeConnectionAliases (Prelude.Maybe Prelude.Text)
 describeConnectionAliases_nextToken = Lens.lens (\DescribeConnectionAliases' {nextToken} -> nextToken) (\s@DescribeConnectionAliases' {} a -> s {nextToken = a} :: DescribeConnectionAliases)
 
--- | The maximum number of connection aliases to return.
-describeConnectionAliases_limit :: Lens.Lens' DescribeConnectionAliases (Prelude.Maybe Prelude.Natural)
-describeConnectionAliases_limit = Lens.lens (\DescribeConnectionAliases' {limit} -> limit) (\s@DescribeConnectionAliases' {} a -> s {limit = a} :: DescribeConnectionAliases)
+-- | The identifier of the directory associated with the connection alias.
+describeConnectionAliases_resourceId :: Lens.Lens' DescribeConnectionAliases (Prelude.Maybe Prelude.Text)
+describeConnectionAliases_resourceId = Lens.lens (\DescribeConnectionAliases' {resourceId} -> resourceId) (\s@DescribeConnectionAliases' {} a -> s {resourceId = a} :: DescribeConnectionAliases)
 
 instance Core.AWSRequest DescribeConnectionAliases where
   type
     AWSResponse DescribeConnectionAliases =
       DescribeConnectionAliasesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeConnectionAliasesResponse'
-            Prelude.<$> (x Core..?> "ConnectionAliases")
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "ConnectionAliases")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeConnectionAliases where
   hashWithSalt _salt DescribeConnectionAliases' {..} =
-    _salt `Prelude.hashWithSalt` resourceId
-      `Prelude.hashWithSalt` aliasIds
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` aliasIds
       `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` resourceId
 
 instance Prelude.NFData DescribeConnectionAliases where
   rnf DescribeConnectionAliases' {..} =
-    Prelude.rnf resourceId
-      `Prelude.seq` Prelude.rnf aliasIds
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf aliasIds
       `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf resourceId
 
-instance Core.ToHeaders DescribeConnectionAliases where
+instance Data.ToHeaders DescribeConnectionAliases where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.DescribeConnectionAliases" ::
+              Data.=# ( "WorkspacesService.DescribeConnectionAliases" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeConnectionAliases where
+instance Data.ToJSON DescribeConnectionAliases where
   toJSON DescribeConnectionAliases' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ResourceId" Core..=) Prelude.<$> resourceId,
-            ("AliasIds" Core..=) Prelude.<$> aliasIds,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit
+          [ ("AliasIds" Data..=) Prelude.<$> aliasIds,
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("ResourceId" Data..=) Prelude.<$> resourceId
           ]
       )
 
-instance Core.ToPath DescribeConnectionAliases where
+instance Data.ToPath DescribeConnectionAliases where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeConnectionAliases where
+instance Data.ToQuery DescribeConnectionAliases where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeConnectionAliasesResponse' smart constructor.

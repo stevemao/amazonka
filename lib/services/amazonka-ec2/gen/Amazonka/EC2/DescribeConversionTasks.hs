@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeConversionTasks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.EC2.DescribeConversionTasks
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,13 +104,14 @@ instance Core.AWSRequest DescribeConversionTasks where
   type
     AWSResponse DescribeConversionTasks =
       DescribeConversionTasksResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeConversionTasksResponse'
-            Prelude.<$> ( x Core..@? "conversionTasks" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "conversionTasks" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -124,24 +126,24 @@ instance Prelude.NFData DescribeConversionTasks where
     Prelude.rnf conversionTaskIds
       `Prelude.seq` Prelude.rnf dryRun
 
-instance Core.ToHeaders DescribeConversionTasks where
+instance Data.ToHeaders DescribeConversionTasks where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeConversionTasks where
+instance Data.ToPath DescribeConversionTasks where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeConversionTasks where
+instance Data.ToQuery DescribeConversionTasks where
   toQuery DescribeConversionTasks' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeConversionTasks" :: Prelude.ByteString),
+          Data.=: ("DescribeConversionTasks" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          ( Core.toQueryList "ConversionTaskId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        Data.toQuery
+          ( Data.toQueryList "ConversionTaskId"
               Prelude.<$> conversionTaskIds
           ),
-        "DryRun" Core.=: dryRun
+        "DryRun" Data.=: dryRun
       ]
 
 -- | /See:/ 'newDescribeConversionTasksResponse' smart constructor.

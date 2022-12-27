@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ComprehendMedical.DescribePHIDetectionJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,14 +42,15 @@ where
 
 import Amazonka.ComprehendMedical.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribePHIDetectionJob' smart constructor.
 data DescribePHIDetectionJob = DescribePHIDetectionJob'
-  { -- | The identifier that Amazon Comprehend Medical generated for the job. The
+  { -- | The identifier that Comprehend Medical; generated for the job. The
     -- @StartPHIDetectionJob@ operation returns this identifier in its
     -- response.
     jobId :: Prelude.Text
@@ -64,7 +65,7 @@ data DescribePHIDetectionJob = DescribePHIDetectionJob'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'jobId', 'describePHIDetectionJob_jobId' - The identifier that Amazon Comprehend Medical generated for the job. The
+-- 'jobId', 'describePHIDetectionJob_jobId' - The identifier that Comprehend Medical; generated for the job. The
 -- @StartPHIDetectionJob@ operation returns this identifier in its
 -- response.
 newDescribePHIDetectionJob ::
@@ -74,7 +75,7 @@ newDescribePHIDetectionJob ::
 newDescribePHIDetectionJob pJobId_ =
   DescribePHIDetectionJob' {jobId = pJobId_}
 
--- | The identifier that Amazon Comprehend Medical generated for the job. The
+-- | The identifier that Comprehend Medical; generated for the job. The
 -- @StartPHIDetectionJob@ operation returns this identifier in its
 -- response.
 describePHIDetectionJob_jobId :: Lens.Lens' DescribePHIDetectionJob Prelude.Text
@@ -84,12 +85,13 @@ instance Core.AWSRequest DescribePHIDetectionJob where
   type
     AWSResponse DescribePHIDetectionJob =
       DescribePHIDetectionJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePHIDetectionJobResponse'
-            Prelude.<$> (x Core..?> "ComprehendMedicalAsyncJobProperties")
+            Prelude.<$> (x Data..?> "ComprehendMedicalAsyncJobProperties")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,32 +102,32 @@ instance Prelude.Hashable DescribePHIDetectionJob where
 instance Prelude.NFData DescribePHIDetectionJob where
   rnf DescribePHIDetectionJob' {..} = Prelude.rnf jobId
 
-instance Core.ToHeaders DescribePHIDetectionJob where
+instance Data.ToHeaders DescribePHIDetectionJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ComprehendMedical_20181030.DescribePHIDetectionJob" ::
+              Data.=# ( "ComprehendMedical_20181030.DescribePHIDetectionJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribePHIDetectionJob where
+instance Data.ToJSON DescribePHIDetectionJob where
   toJSON DescribePHIDetectionJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("JobId" Core..= jobId)]
+          [Prelude.Just ("JobId" Data..= jobId)]
       )
 
-instance Core.ToPath DescribePHIDetectionJob where
+instance Data.ToPath DescribePHIDetectionJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribePHIDetectionJob where
+instance Data.ToQuery DescribePHIDetectionJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribePHIDetectionJobResponse' smart constructor.

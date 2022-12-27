@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.DisableMacie
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disables an Amazon Macie account and deletes Macie resources for the
+-- Disables Amazon Macie and deletes all settings and resources for a Macie
 -- account.
 module Amazonka.MacieV2.DisableMacie
   ( -- * Creating a Request
@@ -37,7 +37,8 @@ module Amazonka.MacieV2.DisableMacie
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -59,7 +60,8 @@ newDisableMacie = DisableMacie'
 
 instance Core.AWSRequest DisableMacie where
   type AWSResponse DisableMacie = DisableMacieResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -74,21 +76,21 @@ instance Prelude.Hashable DisableMacie where
 instance Prelude.NFData DisableMacie where
   rnf _ = ()
 
-instance Core.ToHeaders DisableMacie where
+instance Data.ToHeaders DisableMacie where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DisableMacie where
+instance Data.ToPath DisableMacie where
   toPath = Prelude.const "/macie"
 
-instance Core.ToQuery DisableMacie where
+instance Data.ToQuery DisableMacie where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisableMacieResponse' smart constructor.

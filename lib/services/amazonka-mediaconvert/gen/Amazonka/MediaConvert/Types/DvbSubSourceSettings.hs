@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.DvbSubSourceSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.DvbSubSourceSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | DVB Sub Source Settings
@@ -56,12 +57,12 @@ newDvbSubSourceSettings =
 dvbSubSourceSettings_pid :: Lens.Lens' DvbSubSourceSettings (Prelude.Maybe Prelude.Natural)
 dvbSubSourceSettings_pid = Lens.lens (\DvbSubSourceSettings' {pid} -> pid) (\s@DvbSubSourceSettings' {} a -> s {pid = a} :: DvbSubSourceSettings)
 
-instance Core.FromJSON DvbSubSourceSettings where
+instance Data.FromJSON DvbSubSourceSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DvbSubSourceSettings"
       ( \x ->
-          DvbSubSourceSettings' Prelude.<$> (x Core..:? "pid")
+          DvbSubSourceSettings' Prelude.<$> (x Data..:? "pid")
       )
 
 instance Prelude.Hashable DvbSubSourceSettings where
@@ -71,7 +72,7 @@ instance Prelude.Hashable DvbSubSourceSettings where
 instance Prelude.NFData DvbSubSourceSettings where
   rnf DvbSubSourceSettings' {..} = Prelude.rnf pid
 
-instance Core.ToJSON DvbSubSourceSettings where
+instance Data.ToJSON DvbSubSourceSettings where
   toJSON DvbSubSourceSettings' {..} =
-    Core.object
-      (Prelude.catMaybes [("pid" Core..=) Prelude.<$> pid])
+    Data.object
+      (Prelude.catMaybes [("pid" Data..=) Prelude.<$> pid])

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.AssociateAssets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.IoTSiteWise.AssociateAssets
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -133,7 +134,8 @@ instance Core.AWSRequest AssociateAssets where
   type
     AWSResponse AssociateAssets =
       AssociateAssetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull AssociateAssetsResponse'
 
@@ -151,33 +153,33 @@ instance Prelude.NFData AssociateAssets where
       `Prelude.seq` Prelude.rnf hierarchyId
       `Prelude.seq` Prelude.rnf childAssetId
 
-instance Core.ToHeaders AssociateAssets where
+instance Data.ToHeaders AssociateAssets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateAssets where
+instance Data.ToJSON AssociateAssets where
   toJSON AssociateAssets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            Prelude.Just ("hierarchyId" Core..= hierarchyId),
-            Prelude.Just ("childAssetId" Core..= childAssetId)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            Prelude.Just ("hierarchyId" Data..= hierarchyId),
+            Prelude.Just ("childAssetId" Data..= childAssetId)
           ]
       )
 
-instance Core.ToPath AssociateAssets where
+instance Data.ToPath AssociateAssets where
   toPath AssociateAssets' {..} =
     Prelude.mconcat
-      ["/assets/", Core.toBS assetId, "/associate"]
+      ["/assets/", Data.toBS assetId, "/associate"]
 
-instance Core.ToQuery AssociateAssets where
+instance Data.ToQuery AssociateAssets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateAssetsResponse' smart constructor.

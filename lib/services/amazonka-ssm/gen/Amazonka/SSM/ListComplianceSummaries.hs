@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.ListComplianceSummaries
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,22 +33,23 @@ module Amazonka.SSM.ListComplianceSummaries
 
     -- * Request Lenses
     listComplianceSummaries_filters,
-    listComplianceSummaries_nextToken,
     listComplianceSummaries_maxResults,
+    listComplianceSummaries_nextToken,
 
     -- * Destructuring the Response
     ListComplianceSummariesResponse (..),
     newListComplianceSummariesResponse,
 
     -- * Response Lenses
-    listComplianceSummariesResponse_nextToken,
     listComplianceSummariesResponse_complianceSummaryItems,
+    listComplianceSummariesResponse_nextToken,
     listComplianceSummariesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,13 +60,13 @@ data ListComplianceSummaries = ListComplianceSummaries'
   { -- | One or more compliance or inventory filters. Use a filter to return a
     -- more specific list of results.
     filters :: Prelude.Maybe [ComplianceStringFilter],
-    -- | A token to start the list. Use this token to get the next set of
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of items to return for this call. Currently, you can
     -- specify null or 50. The call also returns a token that you can specify
     -- in a subsequent call to get the next set of results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token to start the list. Use this token to get the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -80,19 +81,19 @@ data ListComplianceSummaries = ListComplianceSummaries'
 -- 'filters', 'listComplianceSummaries_filters' - One or more compliance or inventory filters. Use a filter to return a
 -- more specific list of results.
 --
--- 'nextToken', 'listComplianceSummaries_nextToken' - A token to start the list. Use this token to get the next set of
--- results.
---
 -- 'maxResults', 'listComplianceSummaries_maxResults' - The maximum number of items to return for this call. Currently, you can
 -- specify null or 50. The call also returns a token that you can specify
 -- in a subsequent call to get the next set of results.
+--
+-- 'nextToken', 'listComplianceSummaries_nextToken' - A token to start the list. Use this token to get the next set of
+-- results.
 newListComplianceSummaries ::
   ListComplianceSummaries
 newListComplianceSummaries =
   ListComplianceSummaries'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | One or more compliance or inventory filters. Use a filter to return a
@@ -100,16 +101,16 @@ newListComplianceSummaries =
 listComplianceSummaries_filters :: Lens.Lens' ListComplianceSummaries (Prelude.Maybe [ComplianceStringFilter])
 listComplianceSummaries_filters = Lens.lens (\ListComplianceSummaries' {filters} -> filters) (\s@ListComplianceSummaries' {} a -> s {filters = a} :: ListComplianceSummaries) Prelude.. Lens.mapping Lens.coerced
 
--- | A token to start the list. Use this token to get the next set of
--- results.
-listComplianceSummaries_nextToken :: Lens.Lens' ListComplianceSummaries (Prelude.Maybe Prelude.Text)
-listComplianceSummaries_nextToken = Lens.lens (\ListComplianceSummaries' {nextToken} -> nextToken) (\s@ListComplianceSummaries' {} a -> s {nextToken = a} :: ListComplianceSummaries)
-
 -- | The maximum number of items to return for this call. Currently, you can
 -- specify null or 50. The call also returns a token that you can specify
 -- in a subsequent call to get the next set of results.
 listComplianceSummaries_maxResults :: Lens.Lens' ListComplianceSummaries (Prelude.Maybe Prelude.Natural)
 listComplianceSummaries_maxResults = Lens.lens (\ListComplianceSummaries' {maxResults} -> maxResults) (\s@ListComplianceSummaries' {} a -> s {maxResults = a} :: ListComplianceSummaries)
+
+-- | A token to start the list. Use this token to get the next set of
+-- results.
+listComplianceSummaries_nextToken :: Lens.Lens' ListComplianceSummaries (Prelude.Maybe Prelude.Text)
+listComplianceSummaries_nextToken = Lens.lens (\ListComplianceSummaries' {nextToken} -> nextToken) (\s@ListComplianceSummaries' {} a -> s {nextToken = a} :: ListComplianceSummaries)
 
 instance Core.AWSPager ListComplianceSummaries where
   page rq rs
@@ -137,71 +138,72 @@ instance Core.AWSRequest ListComplianceSummaries where
   type
     AWSResponse ListComplianceSummaries =
       ListComplianceSummariesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListComplianceSummariesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "ComplianceSummaryItems"
+            Prelude.<$> ( x Data..?> "ComplianceSummaryItems"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListComplianceSummaries where
   hashWithSalt _salt ListComplianceSummaries' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListComplianceSummaries where
   rnf ListComplianceSummaries' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListComplianceSummaries where
+instance Data.ToHeaders ListComplianceSummaries where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.ListComplianceSummaries" ::
+              Data.=# ( "AmazonSSM.ListComplianceSummaries" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListComplianceSummaries where
+instance Data.ToJSON ListComplianceSummaries where
   toJSON ListComplianceSummaries' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListComplianceSummaries where
+instance Data.ToPath ListComplianceSummaries where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListComplianceSummaries where
+instance Data.ToQuery ListComplianceSummaries where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListComplianceSummariesResponse' smart constructor.
 data ListComplianceSummariesResponse = ListComplianceSummariesResponse'
-  { -- | The token for the next set of items to return. Use this token to get the
-    -- next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A list of compliant and non-compliant summary counts based on compliance
+  { -- | A list of compliant and non-compliant summary counts based on compliance
     -- types. For example, this call returns State Manager associations,
     -- patches, or custom compliance types according to the filter criteria
     -- that you specified.
     complianceSummaryItems :: Prelude.Maybe [ComplianceSummaryItem],
+    -- | The token for the next set of items to return. Use this token to get the
+    -- next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -215,13 +217,13 @@ data ListComplianceSummariesResponse = ListComplianceSummariesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listComplianceSummariesResponse_nextToken' - The token for the next set of items to return. Use this token to get the
--- next set of results.
---
 -- 'complianceSummaryItems', 'listComplianceSummariesResponse_complianceSummaryItems' - A list of compliant and non-compliant summary counts based on compliance
 -- types. For example, this call returns State Manager associations,
 -- patches, or custom compliance types according to the filter criteria
 -- that you specified.
+--
+-- 'nextToken', 'listComplianceSummariesResponse_nextToken' - The token for the next set of items to return. Use this token to get the
+-- next set of results.
 --
 -- 'httpStatus', 'listComplianceSummariesResponse_httpStatus' - The response's http status code.
 newListComplianceSummariesResponse ::
@@ -230,16 +232,11 @@ newListComplianceSummariesResponse ::
   ListComplianceSummariesResponse
 newListComplianceSummariesResponse pHttpStatus_ =
   ListComplianceSummariesResponse'
-    { nextToken =
+    { complianceSummaryItems =
         Prelude.Nothing,
-      complianceSummaryItems = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The token for the next set of items to return. Use this token to get the
--- next set of results.
-listComplianceSummariesResponse_nextToken :: Lens.Lens' ListComplianceSummariesResponse (Prelude.Maybe Prelude.Text)
-listComplianceSummariesResponse_nextToken = Lens.lens (\ListComplianceSummariesResponse' {nextToken} -> nextToken) (\s@ListComplianceSummariesResponse' {} a -> s {nextToken = a} :: ListComplianceSummariesResponse)
 
 -- | A list of compliant and non-compliant summary counts based on compliance
 -- types. For example, this call returns State Manager associations,
@@ -247,6 +244,11 @@ listComplianceSummariesResponse_nextToken = Lens.lens (\ListComplianceSummariesR
 -- that you specified.
 listComplianceSummariesResponse_complianceSummaryItems :: Lens.Lens' ListComplianceSummariesResponse (Prelude.Maybe [ComplianceSummaryItem])
 listComplianceSummariesResponse_complianceSummaryItems = Lens.lens (\ListComplianceSummariesResponse' {complianceSummaryItems} -> complianceSummaryItems) (\s@ListComplianceSummariesResponse' {} a -> s {complianceSummaryItems = a} :: ListComplianceSummariesResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The token for the next set of items to return. Use this token to get the
+-- next set of results.
+listComplianceSummariesResponse_nextToken :: Lens.Lens' ListComplianceSummariesResponse (Prelude.Maybe Prelude.Text)
+listComplianceSummariesResponse_nextToken = Lens.lens (\ListComplianceSummariesResponse' {nextToken} -> nextToken) (\s@ListComplianceSummariesResponse' {} a -> s {nextToken = a} :: ListComplianceSummariesResponse)
 
 -- | The response's http status code.
 listComplianceSummariesResponse_httpStatus :: Lens.Lens' ListComplianceSummariesResponse Prelude.Int
@@ -257,6 +259,6 @@ instance
     ListComplianceSummariesResponse
   where
   rnf ListComplianceSummariesResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf complianceSummaryItems
+    Prelude.rnf complianceSummaryItems
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

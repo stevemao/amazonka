@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ComputeOptimizer.ExportAutoScalingGroupRecommendations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,9 +38,9 @@ module Amazonka.ComputeOptimizer.ExportAutoScalingGroupRecommendations
 
     -- * Request Lenses
     exportAutoScalingGroupRecommendations_accountIds,
+    exportAutoScalingGroupRecommendations_fieldsToExport,
     exportAutoScalingGroupRecommendations_fileFormat,
     exportAutoScalingGroupRecommendations_filters,
-    exportAutoScalingGroupRecommendations_fieldsToExport,
     exportAutoScalingGroupRecommendations_includeMemberAccounts,
     exportAutoScalingGroupRecommendations_recommendationPreferences,
     exportAutoScalingGroupRecommendations_s3DestinationConfig,
@@ -58,7 +58,8 @@ where
 
 import Amazonka.ComputeOptimizer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,6 +81,11 @@ data ExportAutoScalingGroupRecommendations = ExportAutoScalingGroupRecommendatio
     --
     -- You can specify multiple account IDs per request.
     accountIds :: Prelude.Maybe [Prelude.Text],
+    -- | The recommendations data to include in the export file. For more
+    -- information about the fields that can be exported, see
+    -- <https://docs.aws.amazon.com/compute-optimizer/latest/ug/exporting-recommendations.html#exported-files Exported files>
+    -- in the /Compute Optimizer User Guide/.
+    fieldsToExport :: Prelude.Maybe [ExportableAutoScalingGroupField],
     -- | The format of the export file.
     --
     -- The only export file format currently supported is @Csv@.
@@ -87,11 +93,6 @@ data ExportAutoScalingGroupRecommendations = ExportAutoScalingGroupRecommendatio
     -- | An array of objects to specify a filter that exports a more specific set
     -- of Auto Scaling group recommendations.
     filters :: Prelude.Maybe [Filter],
-    -- | The recommendations data to include in the export file. For more
-    -- information about the fields that can be exported, see
-    -- <https://docs.aws.amazon.com/compute-optimizer/latest/ug/exporting-recommendations.html#exported-files Exported files>
-    -- in the /Compute Optimizer User Guide/.
-    fieldsToExport :: Prelude.Maybe [ExportableAutoScalingGroupField],
     -- | Indicates whether to include recommendations for resources in all member
     -- accounts of the organization if your account is the management account
     -- of an organization.
@@ -154,17 +155,17 @@ data ExportAutoScalingGroupRecommendations = ExportAutoScalingGroupRecommendatio
 --
 -- You can specify multiple account IDs per request.
 --
+-- 'fieldsToExport', 'exportAutoScalingGroupRecommendations_fieldsToExport' - The recommendations data to include in the export file. For more
+-- information about the fields that can be exported, see
+-- <https://docs.aws.amazon.com/compute-optimizer/latest/ug/exporting-recommendations.html#exported-files Exported files>
+-- in the /Compute Optimizer User Guide/.
+--
 -- 'fileFormat', 'exportAutoScalingGroupRecommendations_fileFormat' - The format of the export file.
 --
 -- The only export file format currently supported is @Csv@.
 --
 -- 'filters', 'exportAutoScalingGroupRecommendations_filters' - An array of objects to specify a filter that exports a more specific set
 -- of Auto Scaling group recommendations.
---
--- 'fieldsToExport', 'exportAutoScalingGroupRecommendations_fieldsToExport' - The recommendations data to include in the export file. For more
--- information about the fields that can be exported, see
--- <https://docs.aws.amazon.com/compute-optimizer/latest/ug/exporting-recommendations.html#exported-files Exported files>
--- in the /Compute Optimizer User Guide/.
 --
 -- 'includeMemberAccounts', 'exportAutoScalingGroupRecommendations_includeMemberAccounts' - Indicates whether to include recommendations for resources in all member
 -- accounts of the organization if your account is the management account
@@ -210,9 +211,9 @@ newExportAutoScalingGroupRecommendations
     ExportAutoScalingGroupRecommendations'
       { accountIds =
           Prelude.Nothing,
+        fieldsToExport = Prelude.Nothing,
         fileFormat = Prelude.Nothing,
         filters = Prelude.Nothing,
-        fieldsToExport = Prelude.Nothing,
         includeMemberAccounts =
           Prelude.Nothing,
         recommendationPreferences =
@@ -238,6 +239,13 @@ newExportAutoScalingGroupRecommendations
 exportAutoScalingGroupRecommendations_accountIds :: Lens.Lens' ExportAutoScalingGroupRecommendations (Prelude.Maybe [Prelude.Text])
 exportAutoScalingGroupRecommendations_accountIds = Lens.lens (\ExportAutoScalingGroupRecommendations' {accountIds} -> accountIds) (\s@ExportAutoScalingGroupRecommendations' {} a -> s {accountIds = a} :: ExportAutoScalingGroupRecommendations) Prelude.. Lens.mapping Lens.coerced
 
+-- | The recommendations data to include in the export file. For more
+-- information about the fields that can be exported, see
+-- <https://docs.aws.amazon.com/compute-optimizer/latest/ug/exporting-recommendations.html#exported-files Exported files>
+-- in the /Compute Optimizer User Guide/.
+exportAutoScalingGroupRecommendations_fieldsToExport :: Lens.Lens' ExportAutoScalingGroupRecommendations (Prelude.Maybe [ExportableAutoScalingGroupField])
+exportAutoScalingGroupRecommendations_fieldsToExport = Lens.lens (\ExportAutoScalingGroupRecommendations' {fieldsToExport} -> fieldsToExport) (\s@ExportAutoScalingGroupRecommendations' {} a -> s {fieldsToExport = a} :: ExportAutoScalingGroupRecommendations) Prelude.. Lens.mapping Lens.coerced
+
 -- | The format of the export file.
 --
 -- The only export file format currently supported is @Csv@.
@@ -248,13 +256,6 @@ exportAutoScalingGroupRecommendations_fileFormat = Lens.lens (\ExportAutoScaling
 -- of Auto Scaling group recommendations.
 exportAutoScalingGroupRecommendations_filters :: Lens.Lens' ExportAutoScalingGroupRecommendations (Prelude.Maybe [Filter])
 exportAutoScalingGroupRecommendations_filters = Lens.lens (\ExportAutoScalingGroupRecommendations' {filters} -> filters) (\s@ExportAutoScalingGroupRecommendations' {} a -> s {filters = a} :: ExportAutoScalingGroupRecommendations) Prelude.. Lens.mapping Lens.coerced
-
--- | The recommendations data to include in the export file. For more
--- information about the fields that can be exported, see
--- <https://docs.aws.amazon.com/compute-optimizer/latest/ug/exporting-recommendations.html#exported-files Exported files>
--- in the /Compute Optimizer User Guide/.
-exportAutoScalingGroupRecommendations_fieldsToExport :: Lens.Lens' ExportAutoScalingGroupRecommendations (Prelude.Maybe [ExportableAutoScalingGroupField])
-exportAutoScalingGroupRecommendations_fieldsToExport = Lens.lens (\ExportAutoScalingGroupRecommendations' {fieldsToExport} -> fieldsToExport) (\s@ExportAutoScalingGroupRecommendations' {} a -> s {fieldsToExport = a} :: ExportAutoScalingGroupRecommendations) Prelude.. Lens.mapping Lens.coerced
 
 -- | Indicates whether to include recommendations for resources in all member
 -- accounts of the organization if your account is the management account
@@ -306,13 +307,14 @@ instance
     AWSResponse
       ExportAutoScalingGroupRecommendations =
       ExportAutoScalingGroupRecommendationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ExportAutoScalingGroupRecommendationsResponse'
-            Prelude.<$> (x Core..?> "jobId")
-              Prelude.<*> (x Core..?> "s3Destination")
+            Prelude.<$> (x Data..?> "jobId")
+              Prelude.<*> (x Data..?> "s3Destination")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -324,9 +326,9 @@ instance
     _salt
     ExportAutoScalingGroupRecommendations' {..} =
       _salt `Prelude.hashWithSalt` accountIds
+        `Prelude.hashWithSalt` fieldsToExport
         `Prelude.hashWithSalt` fileFormat
         `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` fieldsToExport
         `Prelude.hashWithSalt` includeMemberAccounts
         `Prelude.hashWithSalt` recommendationPreferences
         `Prelude.hashWithSalt` s3DestinationConfig
@@ -337,60 +339,60 @@ instance
   where
   rnf ExportAutoScalingGroupRecommendations' {..} =
     Prelude.rnf accountIds
+      `Prelude.seq` Prelude.rnf fieldsToExport
       `Prelude.seq` Prelude.rnf fileFormat
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf fieldsToExport
       `Prelude.seq` Prelude.rnf includeMemberAccounts
       `Prelude.seq` Prelude.rnf recommendationPreferences
       `Prelude.seq` Prelude.rnf s3DestinationConfig
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ExportAutoScalingGroupRecommendations
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ComputeOptimizerService.ExportAutoScalingGroupRecommendations" ::
+              Data.=# ( "ComputeOptimizerService.ExportAutoScalingGroupRecommendations" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ExportAutoScalingGroupRecommendations
   where
   toJSON ExportAutoScalingGroupRecommendations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("accountIds" Core..=) Prelude.<$> accountIds,
-            ("fileFormat" Core..=) Prelude.<$> fileFormat,
-            ("filters" Core..=) Prelude.<$> filters,
-            ("fieldsToExport" Core..=)
+          [ ("accountIds" Data..=) Prelude.<$> accountIds,
+            ("fieldsToExport" Data..=)
               Prelude.<$> fieldsToExport,
-            ("includeMemberAccounts" Core..=)
+            ("fileFormat" Data..=) Prelude.<$> fileFormat,
+            ("filters" Data..=) Prelude.<$> filters,
+            ("includeMemberAccounts" Data..=)
               Prelude.<$> includeMemberAccounts,
-            ("recommendationPreferences" Core..=)
+            ("recommendationPreferences" Data..=)
               Prelude.<$> recommendationPreferences,
             Prelude.Just
-              ("s3DestinationConfig" Core..= s3DestinationConfig)
+              ("s3DestinationConfig" Data..= s3DestinationConfig)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     ExportAutoScalingGroupRecommendations
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ExportAutoScalingGroupRecommendations
   where
   toQuery = Prelude.const Prelude.mempty

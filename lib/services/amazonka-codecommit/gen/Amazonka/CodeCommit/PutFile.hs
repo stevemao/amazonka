@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.PutFile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,11 +28,11 @@ module Amazonka.CodeCommit.PutFile
     newPutFile,
 
     -- * Request Lenses
+    putFile_commitMessage,
     putFile_email,
     putFile_fileMode,
-    putFile_parentCommitId,
     putFile_name,
-    putFile_commitMessage,
+    putFile_parentCommitId,
     putFile_repositoryName,
     putFile_branchName,
     putFile_fileContent,
@@ -52,18 +52,27 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newPutFile' smart constructor.
 data PutFile = PutFile'
-  { -- | An email address for the person adding or updating the file.
+  { -- | A message about why this file was added or updated. Although it is
+    -- optional, a message makes the commit history for your repository more
+    -- useful.
+    commitMessage :: Prelude.Maybe Prelude.Text,
+    -- | An email address for the person adding or updating the file.
     email :: Prelude.Maybe Prelude.Text,
     -- | The file mode permissions of the blob. Valid file mode permissions are
     -- listed here.
     fileMode :: Prelude.Maybe FileModeTypeEnum,
+    -- | The name of the person adding or updating the file. Although it is
+    -- optional, a name makes the commit history for your repository more
+    -- useful.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The full commit ID of the head commit in the branch where you want to
     -- add or update the file. If this is an empty repository, no commit ID is
     -- required. If this is not an empty repository, a commit ID is required.
@@ -72,21 +81,13 @@ data PutFile = PutFile'
     -- operation. Otherwise, an error occurs, and the file is not added or
     -- updated.
     parentCommitId :: Prelude.Maybe Prelude.Text,
-    -- | The name of the person adding or updating the file. Although it is
-    -- optional, a name makes the commit history for your repository more
-    -- useful.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | A message about why this file was added or updated. Although it is
-    -- optional, a message makes the commit history for your repository more
-    -- useful.
-    commitMessage :: Prelude.Maybe Prelude.Text,
     -- | The name of the repository where you want to add or update the file.
     repositoryName :: Prelude.Text,
     -- | The name of the branch where you want to add or update the file. If this
     -- is an empty repository, this branch is created.
     branchName :: Prelude.Text,
     -- | The content of the file, in binary object format.
-    fileContent :: Core.Base64,
+    fileContent :: Data.Base64,
     -- | The name of the file you want to add or update, including the relative
     -- path to the file in the repository.
     --
@@ -104,10 +105,18 @@ data PutFile = PutFile'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'commitMessage', 'putFile_commitMessage' - A message about why this file was added or updated. Although it is
+-- optional, a message makes the commit history for your repository more
+-- useful.
+--
 -- 'email', 'putFile_email' - An email address for the person adding or updating the file.
 --
 -- 'fileMode', 'putFile_fileMode' - The file mode permissions of the blob. Valid file mode permissions are
 -- listed here.
+--
+-- 'name', 'putFile_name' - The name of the person adding or updating the file. Although it is
+-- optional, a name makes the commit history for your repository more
+-- useful.
 --
 -- 'parentCommitId', 'putFile_parentCommitId' - The full commit ID of the head commit in the branch where you want to
 -- add or update the file. If this is an empty repository, no commit ID is
@@ -116,14 +125,6 @@ data PutFile = PutFile'
 -- The commit ID must match the ID of the head commit at the time of the
 -- operation. Otherwise, an error occurs, and the file is not added or
 -- updated.
---
--- 'name', 'putFile_name' - The name of the person adding or updating the file. Although it is
--- optional, a name makes the commit history for your repository more
--- useful.
---
--- 'commitMessage', 'putFile_commitMessage' - A message about why this file was added or updated. Although it is
--- optional, a message makes the commit history for your repository more
--- useful.
 --
 -- 'repositoryName', 'putFile_repositoryName' - The name of the repository where you want to add or update the file.
 --
@@ -157,16 +158,22 @@ newPutFile
   pFileContent_
   pFilePath_ =
     PutFile'
-      { email = Prelude.Nothing,
+      { commitMessage = Prelude.Nothing,
+        email = Prelude.Nothing,
         fileMode = Prelude.Nothing,
-        parentCommitId = Prelude.Nothing,
         name = Prelude.Nothing,
-        commitMessage = Prelude.Nothing,
+        parentCommitId = Prelude.Nothing,
         repositoryName = pRepositoryName_,
         branchName = pBranchName_,
-        fileContent = Core._Base64 Lens.# pFileContent_,
+        fileContent = Data._Base64 Lens.# pFileContent_,
         filePath = pFilePath_
       }
+
+-- | A message about why this file was added or updated. Although it is
+-- optional, a message makes the commit history for your repository more
+-- useful.
+putFile_commitMessage :: Lens.Lens' PutFile (Prelude.Maybe Prelude.Text)
+putFile_commitMessage = Lens.lens (\PutFile' {commitMessage} -> commitMessage) (\s@PutFile' {} a -> s {commitMessage = a} :: PutFile)
 
 -- | An email address for the person adding or updating the file.
 putFile_email :: Lens.Lens' PutFile (Prelude.Maybe Prelude.Text)
@@ -177,6 +184,12 @@ putFile_email = Lens.lens (\PutFile' {email} -> email) (\s@PutFile' {} a -> s {e
 putFile_fileMode :: Lens.Lens' PutFile (Prelude.Maybe FileModeTypeEnum)
 putFile_fileMode = Lens.lens (\PutFile' {fileMode} -> fileMode) (\s@PutFile' {} a -> s {fileMode = a} :: PutFile)
 
+-- | The name of the person adding or updating the file. Although it is
+-- optional, a name makes the commit history for your repository more
+-- useful.
+putFile_name :: Lens.Lens' PutFile (Prelude.Maybe Prelude.Text)
+putFile_name = Lens.lens (\PutFile' {name} -> name) (\s@PutFile' {} a -> s {name = a} :: PutFile)
+
 -- | The full commit ID of the head commit in the branch where you want to
 -- add or update the file. If this is an empty repository, no commit ID is
 -- required. If this is not an empty repository, a commit ID is required.
@@ -186,18 +199,6 @@ putFile_fileMode = Lens.lens (\PutFile' {fileMode} -> fileMode) (\s@PutFile' {} 
 -- updated.
 putFile_parentCommitId :: Lens.Lens' PutFile (Prelude.Maybe Prelude.Text)
 putFile_parentCommitId = Lens.lens (\PutFile' {parentCommitId} -> parentCommitId) (\s@PutFile' {} a -> s {parentCommitId = a} :: PutFile)
-
--- | The name of the person adding or updating the file. Although it is
--- optional, a name makes the commit history for your repository more
--- useful.
-putFile_name :: Lens.Lens' PutFile (Prelude.Maybe Prelude.Text)
-putFile_name = Lens.lens (\PutFile' {name} -> name) (\s@PutFile' {} a -> s {name = a} :: PutFile)
-
--- | A message about why this file was added or updated. Although it is
--- optional, a message makes the commit history for your repository more
--- useful.
-putFile_commitMessage :: Lens.Lens' PutFile (Prelude.Maybe Prelude.Text)
-putFile_commitMessage = Lens.lens (\PutFile' {commitMessage} -> commitMessage) (\s@PutFile' {} a -> s {commitMessage = a} :: PutFile)
 
 -- | The name of the repository where you want to add or update the file.
 putFile_repositoryName :: Lens.Lens' PutFile Prelude.Text
@@ -214,7 +215,7 @@ putFile_branchName = Lens.lens (\PutFile' {branchName} -> branchName) (\s@PutFil
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 putFile_fileContent :: Lens.Lens' PutFile Prelude.ByteString
-putFile_fileContent = Lens.lens (\PutFile' {fileContent} -> fileContent) (\s@PutFile' {} a -> s {fileContent = a} :: PutFile) Prelude.. Core._Base64
+putFile_fileContent = Lens.lens (\PutFile' {fileContent} -> fileContent) (\s@PutFile' {} a -> s {fileContent = a} :: PutFile) Prelude.. Data._Base64
 
 -- | The name of the file you want to add or update, including the relative
 -- path to the file in the repository.
@@ -226,24 +227,25 @@ putFile_filePath = Lens.lens (\PutFile' {filePath} -> filePath) (\s@PutFile' {} 
 
 instance Core.AWSRequest PutFile where
   type AWSResponse PutFile = PutFileResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutFileResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "commitId")
-            Prelude.<*> (x Core..:> "blobId")
-            Prelude.<*> (x Core..:> "treeId")
+            Prelude.<*> (x Data..:> "commitId")
+            Prelude.<*> (x Data..:> "blobId")
+            Prelude.<*> (x Data..:> "treeId")
       )
 
 instance Prelude.Hashable PutFile where
   hashWithSalt _salt PutFile' {..} =
-    _salt `Prelude.hashWithSalt` email
+    _salt `Prelude.hashWithSalt` commitMessage
+      `Prelude.hashWithSalt` email
       `Prelude.hashWithSalt` fileMode
-      `Prelude.hashWithSalt` parentCommitId
       `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` commitMessage
+      `Prelude.hashWithSalt` parentCommitId
       `Prelude.hashWithSalt` repositoryName
       `Prelude.hashWithSalt` branchName
       `Prelude.hashWithSalt` fileContent
@@ -251,53 +253,53 @@ instance Prelude.Hashable PutFile where
 
 instance Prelude.NFData PutFile where
   rnf PutFile' {..} =
-    Prelude.rnf email
+    Prelude.rnf commitMessage
+      `Prelude.seq` Prelude.rnf email
       `Prelude.seq` Prelude.rnf fileMode
-      `Prelude.seq` Prelude.rnf parentCommitId
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf commitMessage
+      `Prelude.seq` Prelude.rnf parentCommitId
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf branchName
       `Prelude.seq` Prelude.rnf fileContent
       `Prelude.seq` Prelude.rnf filePath
 
-instance Core.ToHeaders PutFile where
+instance Data.ToHeaders PutFile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.PutFile" ::
+              Data.=# ( "CodeCommit_20150413.PutFile" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutFile where
+instance Data.ToJSON PutFile where
   toJSON PutFile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("email" Core..=) Prelude.<$> email,
-            ("fileMode" Core..=) Prelude.<$> fileMode,
-            ("parentCommitId" Core..=)
+          [ ("commitMessage" Data..=) Prelude.<$> commitMessage,
+            ("email" Data..=) Prelude.<$> email,
+            ("fileMode" Data..=) Prelude.<$> fileMode,
+            ("name" Data..=) Prelude.<$> name,
+            ("parentCommitId" Data..=)
               Prelude.<$> parentCommitId,
-            ("name" Core..=) Prelude.<$> name,
-            ("commitMessage" Core..=) Prelude.<$> commitMessage,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
-            Prelude.Just ("branchName" Core..= branchName),
-            Prelude.Just ("fileContent" Core..= fileContent),
-            Prelude.Just ("filePath" Core..= filePath)
+              ("repositoryName" Data..= repositoryName),
+            Prelude.Just ("branchName" Data..= branchName),
+            Prelude.Just ("fileContent" Data..= fileContent),
+            Prelude.Just ("filePath" Data..= filePath)
           ]
       )
 
-instance Core.ToPath PutFile where
+instance Data.ToPath PutFile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutFile where
+instance Data.ToQuery PutFile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutFileResponse' smart constructor.

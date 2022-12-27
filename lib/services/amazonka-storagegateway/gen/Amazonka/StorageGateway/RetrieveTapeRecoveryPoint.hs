@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.RetrieveTapeRecoveryPoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ module Amazonka.StorageGateway.RetrieveTapeRecoveryPoint
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,12 +105,13 @@ instance Core.AWSRequest RetrieveTapeRecoveryPoint where
   type
     AWSResponse RetrieveTapeRecoveryPoint =
       RetrieveTapeRecoveryPointResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RetrieveTapeRecoveryPointResponse'
-            Prelude.<$> (x Core..?> "TapeARN")
+            Prelude.<$> (x Data..?> "TapeARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -123,34 +125,34 @@ instance Prelude.NFData RetrieveTapeRecoveryPoint where
     Prelude.rnf tapeARN
       `Prelude.seq` Prelude.rnf gatewayARN
 
-instance Core.ToHeaders RetrieveTapeRecoveryPoint where
+instance Data.ToHeaders RetrieveTapeRecoveryPoint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.RetrieveTapeRecoveryPoint" ::
+              Data.=# ( "StorageGateway_20130630.RetrieveTapeRecoveryPoint" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RetrieveTapeRecoveryPoint where
+instance Data.ToJSON RetrieveTapeRecoveryPoint where
   toJSON RetrieveTapeRecoveryPoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("TapeARN" Core..= tapeARN),
-            Prelude.Just ("GatewayARN" Core..= gatewayARN)
+          [ Prelude.Just ("TapeARN" Data..= tapeARN),
+            Prelude.Just ("GatewayARN" Data..= gatewayARN)
           ]
       )
 
-instance Core.ToPath RetrieveTapeRecoveryPoint where
+instance Data.ToPath RetrieveTapeRecoveryPoint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RetrieveTapeRecoveryPoint where
+instance Data.ToQuery RetrieveTapeRecoveryPoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | RetrieveTapeRecoveryPointOutput

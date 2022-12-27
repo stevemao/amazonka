@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.SageMakerEdge
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,31 +27,37 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestSendHeartbeat $
---             newSendHeartbeat
+--         [ requestGetDeployments $
+--             newGetDeployments
 --
 --         , requestGetDeviceRegistration $
 --             newGetDeviceRegistration
 --
+--         , requestSendHeartbeat $
+--             newSendHeartbeat
+--
 --           ]
 
 --     , testGroup "response"
---         [ responseSendHeartbeat $
---             newSendHeartbeatResponse
+--         [ responseGetDeployments $
+--             newGetDeploymentsResponse
 --
 --         , responseGetDeviceRegistration $
 --             newGetDeviceRegistrationResponse
+--
+--         , responseSendHeartbeat $
+--             newSendHeartbeatResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestSendHeartbeat :: SendHeartbeat -> TestTree
-requestSendHeartbeat =
+requestGetDeployments :: GetDeployments -> TestTree
+requestGetDeployments =
   req
-    "SendHeartbeat"
-    "fixture/SendHeartbeat.yaml"
+    "GetDeployments"
+    "fixture/GetDeployments.yaml"
 
 requestGetDeviceRegistration :: GetDeviceRegistration -> TestTree
 requestGetDeviceRegistration =
@@ -59,15 +65,21 @@ requestGetDeviceRegistration =
     "GetDeviceRegistration"
     "fixture/GetDeviceRegistration.yaml"
 
+requestSendHeartbeat :: SendHeartbeat -> TestTree
+requestSendHeartbeat =
+  req
+    "SendHeartbeat"
+    "fixture/SendHeartbeat.yaml"
+
 -- Responses
 
-responseSendHeartbeat :: SendHeartbeatResponse -> TestTree
-responseSendHeartbeat =
+responseGetDeployments :: GetDeploymentsResponse -> TestTree
+responseGetDeployments =
   res
-    "SendHeartbeatResponse"
-    "fixture/SendHeartbeatResponse.proto"
+    "GetDeploymentsResponse"
+    "fixture/GetDeploymentsResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy SendHeartbeat)
+    (Proxy.Proxy :: Proxy.Proxy GetDeployments)
 
 responseGetDeviceRegistration :: GetDeviceRegistrationResponse -> TestTree
 responseGetDeviceRegistration =
@@ -76,3 +88,11 @@ responseGetDeviceRegistration =
     "fixture/GetDeviceRegistrationResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetDeviceRegistration)
+
+responseSendHeartbeat :: SendHeartbeatResponse -> TestTree
+responseSendHeartbeat =
+  res
+    "SendHeartbeatResponse"
+    "fixture/SendHeartbeatResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy SendHeartbeat)

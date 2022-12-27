@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MigrationHub.Types.CreatedArtifact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MigrationHub.Types.CreatedArtifact where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An ARN of the AWS cloud resource target receiving the migration (e.g.,
@@ -67,14 +68,14 @@ createdArtifact_description = Lens.lens (\CreatedArtifact' {description} -> desc
 createdArtifact_name :: Lens.Lens' CreatedArtifact Prelude.Text
 createdArtifact_name = Lens.lens (\CreatedArtifact' {name} -> name) (\s@CreatedArtifact' {} a -> s {name = a} :: CreatedArtifact)
 
-instance Core.FromJSON CreatedArtifact where
+instance Data.FromJSON CreatedArtifact where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CreatedArtifact"
       ( \x ->
           CreatedArtifact'
-            Prelude.<$> (x Core..:? "Description")
-            Prelude.<*> (x Core..: "Name")
+            Prelude.<$> (x Data..:? "Description")
+            Prelude.<*> (x Data..: "Name")
       )
 
 instance Prelude.Hashable CreatedArtifact where
@@ -87,11 +88,11 @@ instance Prelude.NFData CreatedArtifact where
     Prelude.rnf description
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON CreatedArtifact where
+instance Data.ToJSON CreatedArtifact where
   toJSON CreatedArtifact' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            Prelude.Just ("Name" Core..= name)
+          [ ("Description" Data..=) Prelude.<$> description,
+            Prelude.Just ("Name" Data..= name)
           ]
       )

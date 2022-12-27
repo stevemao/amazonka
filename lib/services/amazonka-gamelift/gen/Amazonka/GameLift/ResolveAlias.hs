@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.ResolveAlias
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,8 +24,6 @@
 --
 -- __Related actions__
 --
--- CreateAlias | ListAliases | DescribeAlias | UpdateAlias | DeleteAlias |
--- ResolveAlias |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.ResolveAlias
   ( -- * Creating a Request
@@ -47,15 +45,14 @@ module Amazonka.GameLift.ResolveAlias
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newResolveAlias' smart constructor.
+-- | /See:/ 'newResolveAlias' smart constructor.
 data ResolveAlias = ResolveAlias'
   { -- | The unique identifier of the alias that you want to retrieve a fleet ID
     -- for. You can use either the alias ID or ARN value.
@@ -87,13 +84,14 @@ resolveAlias_aliasId = Lens.lens (\ResolveAlias' {aliasId} -> aliasId) (\s@Resol
 
 instance Core.AWSRequest ResolveAlias where
   type AWSResponse ResolveAlias = ResolveAliasResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ResolveAliasResponse'
-            Prelude.<$> (x Core..?> "FleetArn")
-            Prelude.<*> (x Core..?> "FleetId")
+            Prelude.<$> (x Data..?> "FleetArn")
+            Prelude.<*> (x Data..?> "FleetId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -104,35 +102,33 @@ instance Prelude.Hashable ResolveAlias where
 instance Prelude.NFData ResolveAlias where
   rnf ResolveAlias' {..} = Prelude.rnf aliasId
 
-instance Core.ToHeaders ResolveAlias where
+instance Data.ToHeaders ResolveAlias where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.ResolveAlias" :: Prelude.ByteString),
+              Data.=# ("GameLift.ResolveAlias" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ResolveAlias where
+instance Data.ToJSON ResolveAlias where
   toJSON ResolveAlias' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("AliasId" Core..= aliasId)]
+          [Prelude.Just ("AliasId" Data..= aliasId)]
       )
 
-instance Core.ToPath ResolveAlias where
+instance Data.ToPath ResolveAlias where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ResolveAlias where
+instance Data.ToQuery ResolveAlias where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newResolveAliasResponse' smart constructor.
+-- | /See:/ 'newResolveAliasResponse' smart constructor.
 data ResolveAliasResponse = ResolveAliasResponse'
   { -- | The Amazon Resource Name
     -- (<https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html ARN>)

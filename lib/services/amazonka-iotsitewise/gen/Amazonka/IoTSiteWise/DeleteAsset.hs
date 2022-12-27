@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.DeleteAsset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.IoTSiteWise.DeleteAsset
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,13 +101,14 @@ deleteAsset_assetId = Lens.lens (\DeleteAsset' {assetId} -> assetId) (\s@DeleteA
 
 instance Core.AWSRequest DeleteAsset where
   type AWSResponse DeleteAsset = DeleteAssetResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteAssetResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "assetStatus")
+            Prelude.<*> (x Data..:> "assetStatus")
       )
 
 instance Prelude.Hashable DeleteAsset where
@@ -119,24 +121,24 @@ instance Prelude.NFData DeleteAsset where
     Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf assetId
 
-instance Core.ToHeaders DeleteAsset where
+instance Data.ToHeaders DeleteAsset where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteAsset where
+instance Data.ToPath DeleteAsset where
   toPath DeleteAsset' {..} =
-    Prelude.mconcat ["/assets/", Core.toBS assetId]
+    Prelude.mconcat ["/assets/", Data.toBS assetId]
 
-instance Core.ToQuery DeleteAsset where
+instance Data.ToQuery DeleteAsset where
   toQuery DeleteAsset' {..} =
-    Prelude.mconcat ["clientToken" Core.=: clientToken]
+    Prelude.mconcat ["clientToken" Data.=: clientToken]
 
 -- | /See:/ 'newDeleteAssetResponse' smart constructor.
 data DeleteAssetResponse = DeleteAssetResponse'

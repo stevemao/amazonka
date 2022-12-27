@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.CreateCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,11 +29,11 @@
 -- action to use the certificate and its domains with your container
 -- service.
 --
--- Only certificates created in the @us-east-1@ AWS Region can be attached
--- to Lightsail distributions. Lightsail distributions are global resources
--- that can reference an origin in any AWS Region, and distribute its
--- content globally. However, all distributions are located in the
--- @us-east-1@ Region.
+-- Only certificates created in the @us-east-1@ Amazon Web Services Region
+-- can be attached to Lightsail distributions. Lightsail distributions are
+-- global resources that can reference an origin in any Amazon Web Services
+-- Region, and distribute its content globally. However, all distributions
+-- are located in the @us-east-1@ Region.
 module Amazonka.Lightsail.CreateCertificate
   ( -- * Creating a Request
     CreateCertificate (..),
@@ -57,7 +57,8 @@ module Amazonka.Lightsail.CreateCertificate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -156,13 +157,14 @@ instance Core.AWSRequest CreateCertificate where
   type
     AWSResponse CreateCertificate =
       CreateCertificateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateCertificateResponse'
-            Prelude.<$> (x Core..?> "certificate")
-            Prelude.<*> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "certificate")
+            Prelude.<*> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -181,38 +183,38 @@ instance Prelude.NFData CreateCertificate where
       `Prelude.seq` Prelude.rnf certificateName
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders CreateCertificate where
+instance Data.ToHeaders CreateCertificate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.CreateCertificate" ::
+              Data.=# ( "Lightsail_20161128.CreateCertificate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateCertificate where
+instance Data.ToJSON CreateCertificate where
   toJSON CreateCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("subjectAlternativeNames" Core..=)
+          [ ("subjectAlternativeNames" Data..=)
               Prelude.<$> subjectAlternativeNames,
-            ("tags" Core..=) Prelude.<$> tags,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("certificateName" Core..= certificateName),
-            Prelude.Just ("domainName" Core..= domainName)
+              ("certificateName" Data..= certificateName),
+            Prelude.Just ("domainName" Data..= domainName)
           ]
       )
 
-instance Core.ToPath CreateCertificate where
+instance Data.ToPath CreateCertificate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateCertificate where
+instance Data.ToQuery CreateCertificate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateCertificateResponse' smart constructor.

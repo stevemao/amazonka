@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.GetServiceRoleForAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,9 @@ module Amazonka.Greengrass.GetServiceRoleForAccount
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,13 +64,14 @@ instance Core.AWSRequest GetServiceRoleForAccount where
   type
     AWSResponse GetServiceRoleForAccount =
       GetServiceRoleForAccountResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetServiceRoleForAccountResponse'
-            Prelude.<$> (x Core..?> "AssociatedAt")
-            Prelude.<*> (x Core..?> "RoleArn")
+            Prelude.<$> (x Data..?> "AssociatedAt")
+            Prelude.<*> (x Data..?> "RoleArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -80,21 +82,21 @@ instance Prelude.Hashable GetServiceRoleForAccount where
 instance Prelude.NFData GetServiceRoleForAccount where
   rnf _ = ()
 
-instance Core.ToHeaders GetServiceRoleForAccount where
+instance Data.ToHeaders GetServiceRoleForAccount where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetServiceRoleForAccount where
+instance Data.ToPath GetServiceRoleForAccount where
   toPath = Prelude.const "/greengrass/servicerole"
 
-instance Core.ToQuery GetServiceRoleForAccount where
+instance Data.ToQuery GetServiceRoleForAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetServiceRoleForAccountResponse' smart constructor.

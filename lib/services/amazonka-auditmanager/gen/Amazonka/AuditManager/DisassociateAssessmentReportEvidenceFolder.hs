@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.DisassociateAssessmentReportEvidenceFolder
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,16 +42,17 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDisassociateAssessmentReportEvidenceFolder' smart constructor.
 data DisassociateAssessmentReportEvidenceFolder = DisassociateAssessmentReportEvidenceFolder'
-  { -- | The identifier for the specified assessment.
+  { -- | The unique identifier for the assessment.
     assessmentId :: Prelude.Text,
-    -- | The identifier for the folder in which evidence is stored.
+    -- | The unique identifier for the folder that the evidence is stored in.
     evidenceFolderId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -64,9 +65,9 @@ data DisassociateAssessmentReportEvidenceFolder = DisassociateAssessmentReportEv
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'assessmentId', 'disassociateAssessmentReportEvidenceFolder_assessmentId' - The identifier for the specified assessment.
+-- 'assessmentId', 'disassociateAssessmentReportEvidenceFolder_assessmentId' - The unique identifier for the assessment.
 --
--- 'evidenceFolderId', 'disassociateAssessmentReportEvidenceFolder_evidenceFolderId' - The identifier for the folder in which evidence is stored.
+-- 'evidenceFolderId', 'disassociateAssessmentReportEvidenceFolder_evidenceFolderId' - The unique identifier for the folder that the evidence is stored in.
 newDisassociateAssessmentReportEvidenceFolder ::
   -- | 'assessmentId'
   Prelude.Text ->
@@ -83,11 +84,11 @@ newDisassociateAssessmentReportEvidenceFolder
           pEvidenceFolderId_
       }
 
--- | The identifier for the specified assessment.
+-- | The unique identifier for the assessment.
 disassociateAssessmentReportEvidenceFolder_assessmentId :: Lens.Lens' DisassociateAssessmentReportEvidenceFolder Prelude.Text
 disassociateAssessmentReportEvidenceFolder_assessmentId = Lens.lens (\DisassociateAssessmentReportEvidenceFolder' {assessmentId} -> assessmentId) (\s@DisassociateAssessmentReportEvidenceFolder' {} a -> s {assessmentId = a} :: DisassociateAssessmentReportEvidenceFolder)
 
--- | The identifier for the folder in which evidence is stored.
+-- | The unique identifier for the folder that the evidence is stored in.
 disassociateAssessmentReportEvidenceFolder_evidenceFolderId :: Lens.Lens' DisassociateAssessmentReportEvidenceFolder Prelude.Text
 disassociateAssessmentReportEvidenceFolder_evidenceFolderId = Lens.lens (\DisassociateAssessmentReportEvidenceFolder' {evidenceFolderId} -> evidenceFolderId) (\s@DisassociateAssessmentReportEvidenceFolder' {} a -> s {evidenceFolderId = a} :: DisassociateAssessmentReportEvidenceFolder)
 
@@ -99,7 +100,8 @@ instance
     AWSResponse
       DisassociateAssessmentReportEvidenceFolder =
       DisassociateAssessmentReportEvidenceFolderResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -126,46 +128,46 @@ instance
       `Prelude.seq` Prelude.rnf evidenceFolderId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DisassociateAssessmentReportEvidenceFolder
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DisassociateAssessmentReportEvidenceFolder
   where
   toJSON
     DisassociateAssessmentReportEvidenceFolder' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
             [ Prelude.Just
-                ("evidenceFolderId" Core..= evidenceFolderId)
+                ("evidenceFolderId" Data..= evidenceFolderId)
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DisassociateAssessmentReportEvidenceFolder
   where
   toPath
     DisassociateAssessmentReportEvidenceFolder' {..} =
       Prelude.mconcat
         [ "/assessments/",
-          Core.toBS assessmentId,
+          Data.toBS assessmentId,
           "/disassociateFromAssessmentReport"
         ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DisassociateAssessmentReportEvidenceFolder
   where
   toQuery = Prelude.const Prelude.mempty

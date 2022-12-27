@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.ListApplications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.KinesisAnalyticsV2.ListApplications
     newListApplications,
 
     -- * Request Lenses
-    listApplications_nextToken,
     listApplications_limit,
+    listApplications_nextToken,
 
     -- * Destructuring the Response
     ListApplicationsResponse (..),
@@ -49,21 +49,22 @@ module Amazonka.KinesisAnalyticsV2.ListApplications
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListApplications' smart constructor.
 data ListApplications = ListApplications'
-  { -- | If a previous command returned a pagination token, pass it into this
+  { -- | The maximum number of applications to list.
+    limit :: Prelude.Maybe Prelude.Natural,
+    -- | If a previous command returned a pagination token, pass it into this
     -- value to retrieve the next set of results. For more information about
     -- pagination, see
     -- <https://docs.aws.amazon.com/cli/latest/userguide/pagination.html Using the Amazon Command Line Interface\'s Pagination Options>.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of applications to list.
-    limit :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,19 +76,23 @@ data ListApplications = ListApplications'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'limit', 'listApplications_limit' - The maximum number of applications to list.
+--
 -- 'nextToken', 'listApplications_nextToken' - If a previous command returned a pagination token, pass it into this
 -- value to retrieve the next set of results. For more information about
 -- pagination, see
 -- <https://docs.aws.amazon.com/cli/latest/userguide/pagination.html Using the Amazon Command Line Interface\'s Pagination Options>.
---
--- 'limit', 'listApplications_limit' - The maximum number of applications to list.
 newListApplications ::
   ListApplications
 newListApplications =
   ListApplications'
-    { nextToken = Prelude.Nothing,
-      limit = Prelude.Nothing
+    { limit = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of applications to list.
+listApplications_limit :: Lens.Lens' ListApplications (Prelude.Maybe Prelude.Natural)
+listApplications_limit = Lens.lens (\ListApplications' {limit} -> limit) (\s@ListApplications' {} a -> s {limit = a} :: ListApplications)
 
 -- | If a previous command returned a pagination token, pass it into this
 -- value to retrieve the next set of results. For more information about
@@ -95,10 +100,6 @@ newListApplications =
 -- <https://docs.aws.amazon.com/cli/latest/userguide/pagination.html Using the Amazon Command Line Interface\'s Pagination Options>.
 listApplications_nextToken :: Lens.Lens' ListApplications (Prelude.Maybe Prelude.Text)
 listApplications_nextToken = Lens.lens (\ListApplications' {nextToken} -> nextToken) (\s@ListApplications' {} a -> s {nextToken = a} :: ListApplications)
-
--- | The maximum number of applications to list.
-listApplications_limit :: Lens.Lens' ListApplications (Prelude.Maybe Prelude.Natural)
-listApplications_limit = Lens.lens (\ListApplications' {limit} -> limit) (\s@ListApplications' {} a -> s {limit = a} :: ListApplications)
 
 instance Core.AWSPager ListApplications where
   page rq rs
@@ -125,56 +126,57 @@ instance Core.AWSRequest ListApplications where
   type
     AWSResponse ListApplications =
       ListApplicationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListApplicationsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "ApplicationSummaries"
+            Prelude.<*> ( x Data..?> "ApplicationSummaries"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListApplications where
   hashWithSalt _salt ListApplications' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListApplications where
   rnf ListApplications' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListApplications where
+instance Data.ToHeaders ListApplications where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "KinesisAnalytics_20180523.ListApplications" ::
+              Data.=# ( "KinesisAnalytics_20180523.ListApplications" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListApplications where
+instance Data.ToJSON ListApplications where
   toJSON ListApplications' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListApplications where
+instance Data.ToPath ListApplications where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListApplications where
+instance Data.ToQuery ListApplications where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListApplicationsResponse' smart constructor.

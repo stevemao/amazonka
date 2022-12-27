@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.InstanceCountLimits
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticSearch.Types.InstanceCountLimits where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | InstanceCountLimits represents the limits on number of instances that be
@@ -61,14 +62,14 @@ instanceCountLimits_maximumInstanceCount = Lens.lens (\InstanceCountLimits' {max
 instanceCountLimits_minimumInstanceCount :: Lens.Lens' InstanceCountLimits (Prelude.Maybe Prelude.Int)
 instanceCountLimits_minimumInstanceCount = Lens.lens (\InstanceCountLimits' {minimumInstanceCount} -> minimumInstanceCount) (\s@InstanceCountLimits' {} a -> s {minimumInstanceCount = a} :: InstanceCountLimits)
 
-instance Core.FromJSON InstanceCountLimits where
+instance Data.FromJSON InstanceCountLimits where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstanceCountLimits"
       ( \x ->
           InstanceCountLimits'
-            Prelude.<$> (x Core..:? "MaximumInstanceCount")
-            Prelude.<*> (x Core..:? "MinimumInstanceCount")
+            Prelude.<$> (x Data..:? "MaximumInstanceCount")
+            Prelude.<*> (x Data..:? "MinimumInstanceCount")
       )
 
 instance Prelude.Hashable InstanceCountLimits where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.Types.LaunchedInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.MGN.Types.LaunchedInstance where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types.FirstBoot
 import qualified Amazonka.Prelude as Prelude
 
--- | Configure launced instance.
+-- | Launched instance.
 --
 -- /See:/ 'newLaunchedInstance' smart constructor.
 data LaunchedInstance = LaunchedInstance'
-  { -- | Configure launced instance Job ID.
-    jobID :: Prelude.Maybe Prelude.Text,
-    -- | Configure launced instance EC2 ID.
+  { -- | Launched instance EC2 ID.
     ec2InstanceID :: Prelude.Maybe Prelude.Text,
-    -- | Configure launced instance first boot.
-    firstBoot :: Prelude.Maybe FirstBoot
+    -- | Launched instance first boot.
+    firstBoot :: Prelude.Maybe FirstBoot,
+    -- | Launched instance Job ID.
+    jobID :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,51 +46,51 @@ data LaunchedInstance = LaunchedInstance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'jobID', 'launchedInstance_jobID' - Configure launced instance Job ID.
+-- 'ec2InstanceID', 'launchedInstance_ec2InstanceID' - Launched instance EC2 ID.
 --
--- 'ec2InstanceID', 'launchedInstance_ec2InstanceID' - Configure launced instance EC2 ID.
+-- 'firstBoot', 'launchedInstance_firstBoot' - Launched instance first boot.
 --
--- 'firstBoot', 'launchedInstance_firstBoot' - Configure launced instance first boot.
+-- 'jobID', 'launchedInstance_jobID' - Launched instance Job ID.
 newLaunchedInstance ::
   LaunchedInstance
 newLaunchedInstance =
   LaunchedInstance'
-    { jobID = Prelude.Nothing,
-      ec2InstanceID = Prelude.Nothing,
-      firstBoot = Prelude.Nothing
+    { ec2InstanceID = Prelude.Nothing,
+      firstBoot = Prelude.Nothing,
+      jobID = Prelude.Nothing
     }
 
--- | Configure launced instance Job ID.
-launchedInstance_jobID :: Lens.Lens' LaunchedInstance (Prelude.Maybe Prelude.Text)
-launchedInstance_jobID = Lens.lens (\LaunchedInstance' {jobID} -> jobID) (\s@LaunchedInstance' {} a -> s {jobID = a} :: LaunchedInstance)
-
--- | Configure launced instance EC2 ID.
+-- | Launched instance EC2 ID.
 launchedInstance_ec2InstanceID :: Lens.Lens' LaunchedInstance (Prelude.Maybe Prelude.Text)
 launchedInstance_ec2InstanceID = Lens.lens (\LaunchedInstance' {ec2InstanceID} -> ec2InstanceID) (\s@LaunchedInstance' {} a -> s {ec2InstanceID = a} :: LaunchedInstance)
 
--- | Configure launced instance first boot.
+-- | Launched instance first boot.
 launchedInstance_firstBoot :: Lens.Lens' LaunchedInstance (Prelude.Maybe FirstBoot)
 launchedInstance_firstBoot = Lens.lens (\LaunchedInstance' {firstBoot} -> firstBoot) (\s@LaunchedInstance' {} a -> s {firstBoot = a} :: LaunchedInstance)
 
-instance Core.FromJSON LaunchedInstance where
+-- | Launched instance Job ID.
+launchedInstance_jobID :: Lens.Lens' LaunchedInstance (Prelude.Maybe Prelude.Text)
+launchedInstance_jobID = Lens.lens (\LaunchedInstance' {jobID} -> jobID) (\s@LaunchedInstance' {} a -> s {jobID = a} :: LaunchedInstance)
+
+instance Data.FromJSON LaunchedInstance where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LaunchedInstance"
       ( \x ->
           LaunchedInstance'
-            Prelude.<$> (x Core..:? "jobID")
-            Prelude.<*> (x Core..:? "ec2InstanceID")
-            Prelude.<*> (x Core..:? "firstBoot")
+            Prelude.<$> (x Data..:? "ec2InstanceID")
+            Prelude.<*> (x Data..:? "firstBoot")
+            Prelude.<*> (x Data..:? "jobID")
       )
 
 instance Prelude.Hashable LaunchedInstance where
   hashWithSalt _salt LaunchedInstance' {..} =
-    _salt `Prelude.hashWithSalt` jobID
-      `Prelude.hashWithSalt` ec2InstanceID
+    _salt `Prelude.hashWithSalt` ec2InstanceID
       `Prelude.hashWithSalt` firstBoot
+      `Prelude.hashWithSalt` jobID
 
 instance Prelude.NFData LaunchedInstance where
   rnf LaunchedInstance' {..} =
-    Prelude.rnf jobID
-      `Prelude.seq` Prelude.rnf ec2InstanceID
+    Prelude.rnf ec2InstanceID
       `Prelude.seq` Prelude.rnf firstBoot
+      `Prelude.seq` Prelude.rnf jobID

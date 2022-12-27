@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.ListProvisionedCapacity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.Glacier.ListProvisionedCapacity
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,14 +91,14 @@ instance Core.AWSRequest ListProvisionedCapacity where
   type
     AWSResponse ListProvisionedCapacity =
       ListProvisionedCapacityResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.get defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListProvisionedCapacityResponse'
-            Prelude.<$> ( x Core..?> "ProvisionedCapacityList"
+            Prelude.<$> ( x Data..?> "ProvisionedCapacityList"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -111,15 +112,15 @@ instance Prelude.NFData ListProvisionedCapacity where
   rnf ListProvisionedCapacity' {..} =
     Prelude.rnf accountId
 
-instance Core.ToHeaders ListProvisionedCapacity where
+instance Data.ToHeaders ListProvisionedCapacity where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListProvisionedCapacity where
+instance Data.ToPath ListProvisionedCapacity where
   toPath ListProvisionedCapacity' {..} =
     Prelude.mconcat
-      ["/", Core.toBS accountId, "/provisioned-capacity"]
+      ["/", Data.toBS accountId, "/provisioned-capacity"]
 
-instance Core.ToQuery ListProvisionedCapacity where
+instance Data.ToQuery ListProvisionedCapacity where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListProvisionedCapacityResponse' smart constructor.

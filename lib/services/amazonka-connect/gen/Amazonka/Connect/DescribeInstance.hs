@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.DescribeInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,12 +91,13 @@ instance Core.AWSRequest DescribeInstance where
   type
     AWSResponse DescribeInstance =
       DescribeInstanceResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeInstanceResponse'
-            Prelude.<$> (x Core..?> "Instance")
+            Prelude.<$> (x Data..?> "Instance")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -106,23 +108,23 @@ instance Prelude.Hashable DescribeInstance where
 instance Prelude.NFData DescribeInstance where
   rnf DescribeInstance' {..} = Prelude.rnf instanceId
 
-instance Core.ToHeaders DescribeInstance where
+instance Data.ToHeaders DescribeInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeInstance where
+instance Data.ToPath DescribeInstance where
   toPath DescribeInstance' {..} =
     Prelude.mconcat
-      ["/instance/", Core.toBS instanceId]
+      ["/instance/", Data.toBS instanceId]
 
-instance Core.ToQuery DescribeInstance where
+instance Data.ToQuery DescribeInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeInstanceResponse' smart constructor.

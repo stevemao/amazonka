@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.PutNotificationChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.FMS.PutNotificationChannel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,7 +102,8 @@ instance Core.AWSRequest PutNotificationChannel where
   type
     AWSResponse PutNotificationChannel =
       PutNotificationChannelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       PutNotificationChannelResponse'
@@ -116,34 +118,34 @@ instance Prelude.NFData PutNotificationChannel where
     Prelude.rnf snsTopicArn
       `Prelude.seq` Prelude.rnf snsRoleName
 
-instance Core.ToHeaders PutNotificationChannel where
+instance Data.ToHeaders PutNotificationChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSFMS_20180101.PutNotificationChannel" ::
+              Data.=# ( "AWSFMS_20180101.PutNotificationChannel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutNotificationChannel where
+instance Data.ToJSON PutNotificationChannel where
   toJSON PutNotificationChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("SnsTopicArn" Core..= snsTopicArn),
-            Prelude.Just ("SnsRoleName" Core..= snsRoleName)
+          [ Prelude.Just ("SnsTopicArn" Data..= snsTopicArn),
+            Prelude.Just ("SnsRoleName" Data..= snsRoleName)
           ]
       )
 
-instance Core.ToPath PutNotificationChannel where
+instance Data.ToPath PutNotificationChannel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutNotificationChannel where
+instance Data.ToQuery PutNotificationChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutNotificationChannelResponse' smart constructor.

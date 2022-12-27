@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Location.Types.TruckWeight
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Location.Types.TruckWeight where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types.VehicleWeightUnit
 import qualified Amazonka.Prelude as Prelude
 
@@ -85,11 +86,11 @@ instance Prelude.NFData TruckWeight where
   rnf TruckWeight' {..} =
     Prelude.rnf total `Prelude.seq` Prelude.rnf unit
 
-instance Core.ToJSON TruckWeight where
+instance Data.ToJSON TruckWeight where
   toJSON TruckWeight' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Total" Core..=) Prelude.<$> total,
-            ("Unit" Core..=) Prelude.<$> unit
+          [ ("Total" Data..=) Prelude.<$> total,
+            ("Unit" Data..=) Prelude.<$> unit
           ]
       )

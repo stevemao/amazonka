@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.GameServerGroupAutoScalingPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GameLift.Types.GameServerGroupAutoScalingPolicy where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types.TargetTrackingConfiguration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | __This data type is used with the GameLift FleetIQ and game server
@@ -29,11 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- Configuration settings for intelligent automatic scaling that uses
 -- target tracking. These settings are used to add an Auto Scaling policy
--- when creating the corresponding Auto Scaling group with
--- CreateGameServerGroup. After the Auto Scaling group is created, all
--- updates to Auto Scaling policies, including changing this policy and
--- adding or removing other policies, is done directly on the Auto Scaling
--- group.
+-- when creating the corresponding Auto Scaling group. After the Auto
+-- Scaling group is created, all updates to Auto Scaling policies,
+-- including changing this policy and adding or removing other policies, is
+-- done directly on the Auto Scaling group.
 --
 -- /See:/ 'newGameServerGroupAutoScalingPolicy' smart constructor.
 data GameServerGroupAutoScalingPolicy = GameServerGroupAutoScalingPolicy'
@@ -122,15 +122,15 @@ instance
     Prelude.rnf estimatedInstanceWarmup
       `Prelude.seq` Prelude.rnf targetTrackingConfiguration
 
-instance Core.ToJSON GameServerGroupAutoScalingPolicy where
+instance Data.ToJSON GameServerGroupAutoScalingPolicy where
   toJSON GameServerGroupAutoScalingPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EstimatedInstanceWarmup" Core..=)
+          [ ("EstimatedInstanceWarmup" Data..=)
               Prelude.<$> estimatedInstanceWarmup,
             Prelude.Just
               ( "TargetTrackingConfiguration"
-                  Core..= targetTrackingConfiguration
+                  Data..= targetTrackingConfiguration
               )
           ]
       )

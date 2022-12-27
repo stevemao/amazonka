@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.MessageResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.MessageResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.DeliveryStatus
 import qualified Amazonka.Prelude as Prelude
 
@@ -29,14 +30,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMessageResult' smart constructor.
 data MessageResult = MessageResult'
-  { -- | The status message for delivering the message.
+  { -- | The unique identifier for the message that was sent.
+    messageId :: Prelude.Maybe Prelude.Text,
+    -- | The status message for delivering the message.
     statusMessage :: Prelude.Maybe Prelude.Text,
     -- | For push notifications that are sent through the GCM channel, specifies
     -- whether the endpoint\'s device registration token was updated as part of
     -- delivering the message.
     updatedToken :: Prelude.Maybe Prelude.Text,
-    -- | The unique identifier for the message that was sent.
-    messageId :: Prelude.Maybe Prelude.Text,
     -- | The delivery status of the message. Possible values are:
     --
     -- -   DUPLICATE - The endpoint address is a duplicate of another endpoint
@@ -76,13 +77,13 @@ data MessageResult = MessageResult'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'messageId', 'messageResult_messageId' - The unique identifier for the message that was sent.
+--
 -- 'statusMessage', 'messageResult_statusMessage' - The status message for delivering the message.
 --
 -- 'updatedToken', 'messageResult_updatedToken' - For push notifications that are sent through the GCM channel, specifies
 -- whether the endpoint\'s device registration token was updated as part of
 -- delivering the message.
---
--- 'messageId', 'messageResult_messageId' - The unique identifier for the message that was sent.
 --
 -- 'deliveryStatus', 'messageResult_deliveryStatus' - The delivery status of the message. Possible values are:
 --
@@ -119,12 +120,16 @@ newMessageResult ::
   MessageResult
 newMessageResult pDeliveryStatus_ pStatusCode_ =
   MessageResult'
-    { statusMessage = Prelude.Nothing,
+    { messageId = Prelude.Nothing,
+      statusMessage = Prelude.Nothing,
       updatedToken = Prelude.Nothing,
-      messageId = Prelude.Nothing,
       deliveryStatus = pDeliveryStatus_,
       statusCode = pStatusCode_
     }
+
+-- | The unique identifier for the message that was sent.
+messageResult_messageId :: Lens.Lens' MessageResult (Prelude.Maybe Prelude.Text)
+messageResult_messageId = Lens.lens (\MessageResult' {messageId} -> messageId) (\s@MessageResult' {} a -> s {messageId = a} :: MessageResult)
 
 -- | The status message for delivering the message.
 messageResult_statusMessage :: Lens.Lens' MessageResult (Prelude.Maybe Prelude.Text)
@@ -135,10 +140,6 @@ messageResult_statusMessage = Lens.lens (\MessageResult' {statusMessage} -> stat
 -- delivering the message.
 messageResult_updatedToken :: Lens.Lens' MessageResult (Prelude.Maybe Prelude.Text)
 messageResult_updatedToken = Lens.lens (\MessageResult' {updatedToken} -> updatedToken) (\s@MessageResult' {} a -> s {updatedToken = a} :: MessageResult)
-
--- | The unique identifier for the message that was sent.
-messageResult_messageId :: Lens.Lens' MessageResult (Prelude.Maybe Prelude.Text)
-messageResult_messageId = Lens.lens (\MessageResult' {messageId} -> messageId) (\s@MessageResult' {} a -> s {messageId = a} :: MessageResult)
 
 -- | The delivery status of the message. Possible values are:
 --
@@ -172,31 +173,31 @@ messageResult_deliveryStatus = Lens.lens (\MessageResult' {deliveryStatus} -> de
 messageResult_statusCode :: Lens.Lens' MessageResult Prelude.Int
 messageResult_statusCode = Lens.lens (\MessageResult' {statusCode} -> statusCode) (\s@MessageResult' {} a -> s {statusCode = a} :: MessageResult)
 
-instance Core.FromJSON MessageResult where
+instance Data.FromJSON MessageResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MessageResult"
       ( \x ->
           MessageResult'
-            Prelude.<$> (x Core..:? "StatusMessage")
-            Prelude.<*> (x Core..:? "UpdatedToken")
-            Prelude.<*> (x Core..:? "MessageId")
-            Prelude.<*> (x Core..: "DeliveryStatus")
-            Prelude.<*> (x Core..: "StatusCode")
+            Prelude.<$> (x Data..:? "MessageId")
+            Prelude.<*> (x Data..:? "StatusMessage")
+            Prelude.<*> (x Data..:? "UpdatedToken")
+            Prelude.<*> (x Data..: "DeliveryStatus")
+            Prelude.<*> (x Data..: "StatusCode")
       )
 
 instance Prelude.Hashable MessageResult where
   hashWithSalt _salt MessageResult' {..} =
-    _salt `Prelude.hashWithSalt` statusMessage
+    _salt `Prelude.hashWithSalt` messageId
+      `Prelude.hashWithSalt` statusMessage
       `Prelude.hashWithSalt` updatedToken
-      `Prelude.hashWithSalt` messageId
       `Prelude.hashWithSalt` deliveryStatus
       `Prelude.hashWithSalt` statusCode
 
 instance Prelude.NFData MessageResult where
   rnf MessageResult' {..} =
-    Prelude.rnf statusMessage
+    Prelude.rnf messageId
+      `Prelude.seq` Prelude.rnf statusMessage
       `Prelude.seq` Prelude.rnf updatedToken
-      `Prelude.seq` Prelude.rnf messageId
       `Prelude.seq` Prelude.rnf deliveryStatus
       `Prelude.seq` Prelude.rnf statusCode

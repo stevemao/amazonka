@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.DetectorModelDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTEvents.Types.DetectorModelDefinition where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types.State
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information that defines how a detector operates.
@@ -69,14 +70,14 @@ detectorModelDefinition_states = Lens.lens (\DetectorModelDefinition' {states} -
 detectorModelDefinition_initialStateName :: Lens.Lens' DetectorModelDefinition Prelude.Text
 detectorModelDefinition_initialStateName = Lens.lens (\DetectorModelDefinition' {initialStateName} -> initialStateName) (\s@DetectorModelDefinition' {} a -> s {initialStateName = a} :: DetectorModelDefinition)
 
-instance Core.FromJSON DetectorModelDefinition where
+instance Data.FromJSON DetectorModelDefinition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DetectorModelDefinition"
       ( \x ->
           DetectorModelDefinition'
-            Prelude.<$> (x Core..: "states")
-            Prelude.<*> (x Core..: "initialStateName")
+            Prelude.<$> (x Data..: "states")
+            Prelude.<*> (x Data..: "initialStateName")
       )
 
 instance Prelude.Hashable DetectorModelDefinition where
@@ -89,12 +90,12 @@ instance Prelude.NFData DetectorModelDefinition where
     Prelude.rnf states
       `Prelude.seq` Prelude.rnf initialStateName
 
-instance Core.ToJSON DetectorModelDefinition where
+instance Data.ToJSON DetectorModelDefinition where
   toJSON DetectorModelDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("states" Core..= states),
+          [ Prelude.Just ("states" Data..= states),
             Prelude.Just
-              ("initialStateName" Core..= initialStateName)
+              ("initialStateName" Data..= initialStateName)
           ]
       )

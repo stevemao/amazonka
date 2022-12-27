@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.ListReplicationSets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.SSMIncidents.ListReplicationSets
     newListReplicationSets,
 
     -- * Request Lenses
-    listReplicationSets_nextToken,
     listReplicationSets_maxResults,
+    listReplicationSets_nextToken,
 
     -- * Destructuring the Response
     ListReplicationSetsResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.SSMIncidents.ListReplicationSets
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,10 +53,10 @@ import Amazonka.SSMIncidents.Types
 
 -- | /See:/ 'newListReplicationSets' smart constructor.
 data ListReplicationSets = ListReplicationSets'
-  { -- | The pagination token to continue to the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results per page.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of results per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token to continue to the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,24 +68,24 @@ data ListReplicationSets = ListReplicationSets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listReplicationSets_nextToken' - The pagination token to continue to the next page of results.
---
 -- 'maxResults', 'listReplicationSets_maxResults' - The maximum number of results per page.
+--
+-- 'nextToken', 'listReplicationSets_nextToken' - The pagination token to continue to the next page of results.
 newListReplicationSets ::
   ListReplicationSets
 newListReplicationSets =
   ListReplicationSets'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The pagination token to continue to the next page of results.
-listReplicationSets_nextToken :: Lens.Lens' ListReplicationSets (Prelude.Maybe Prelude.Text)
-listReplicationSets_nextToken = Lens.lens (\ListReplicationSets' {nextToken} -> nextToken) (\s@ListReplicationSets' {} a -> s {nextToken = a} :: ListReplicationSets)
 
 -- | The maximum number of results per page.
 listReplicationSets_maxResults :: Lens.Lens' ListReplicationSets (Prelude.Maybe Prelude.Natural)
 listReplicationSets_maxResults = Lens.lens (\ListReplicationSets' {maxResults} -> maxResults) (\s@ListReplicationSets' {} a -> s {maxResults = a} :: ListReplicationSets)
+
+-- | The pagination token to continue to the next page of results.
+listReplicationSets_nextToken :: Lens.Lens' ListReplicationSets (Prelude.Maybe Prelude.Text)
+listReplicationSets_nextToken = Lens.lens (\ListReplicationSets' {nextToken} -> nextToken) (\s@ListReplicationSets' {} a -> s {nextToken = a} :: ListReplicationSets)
 
 instance Core.AWSPager ListReplicationSets where
   page rq rs
@@ -111,52 +112,53 @@ instance Core.AWSRequest ListReplicationSets where
   type
     AWSResponse ListReplicationSets =
       ListReplicationSetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListReplicationSetsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "replicationSetArns"
+            Prelude.<*> ( x Data..?> "replicationSetArns"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListReplicationSets where
   hashWithSalt _salt ListReplicationSets' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListReplicationSets where
   rnf ListReplicationSets' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListReplicationSets where
+instance Data.ToHeaders ListReplicationSets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListReplicationSets where
+instance Data.ToJSON ListReplicationSets where
   toJSON ListReplicationSets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListReplicationSets where
+instance Data.ToPath ListReplicationSets where
   toPath = Prelude.const "/listReplicationSets"
 
-instance Core.ToQuery ListReplicationSets where
+instance Data.ToQuery ListReplicationSets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListReplicationSetsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeleteJobExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IoT.DeleteJobExecution
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -192,7 +193,8 @@ instance Core.AWSRequest DeleteJobExecution where
   type
     AWSResponse DeleteJobExecution =
       DeleteJobExecutionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteJobExecutionResponse'
 
@@ -212,25 +214,25 @@ instance Prelude.NFData DeleteJobExecution where
       `Prelude.seq` Prelude.rnf thingName
       `Prelude.seq` Prelude.rnf executionNumber
 
-instance Core.ToHeaders DeleteJobExecution where
+instance Data.ToHeaders DeleteJobExecution where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteJobExecution where
+instance Data.ToPath DeleteJobExecution where
   toPath DeleteJobExecution' {..} =
     Prelude.mconcat
       [ "/things/",
-        Core.toBS thingName,
+        Data.toBS thingName,
         "/jobs/",
-        Core.toBS jobId,
+        Data.toBS jobId,
         "/executionNumber/",
-        Core.toBS executionNumber
+        Data.toBS executionNumber
       ]
 
-instance Core.ToQuery DeleteJobExecution where
+instance Data.ToQuery DeleteJobExecution where
   toQuery DeleteJobExecution' {..} =
     Prelude.mconcat
-      [ "force" Core.=: force,
-        "namespaceId" Core.=: namespaceId
+      [ "force" Data.=: force,
+        "namespaceId" Data.=: namespaceId
       ]
 
 -- | /See:/ 'newDeleteJobExecutionResponse' smart constructor.

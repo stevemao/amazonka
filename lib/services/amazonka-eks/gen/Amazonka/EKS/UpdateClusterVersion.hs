@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.UpdateClusterVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,8 +54,9 @@ module Amazonka.EKS.UpdateClusterVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,12 +118,13 @@ instance Core.AWSRequest UpdateClusterVersion where
   type
     AWSResponse UpdateClusterVersion =
       UpdateClusterVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateClusterVersionResponse'
-            Prelude.<$> (x Core..?> "update")
+            Prelude.<$> (x Data..?> "update")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -138,33 +140,33 @@ instance Prelude.NFData UpdateClusterVersion where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf version
 
-instance Core.ToHeaders UpdateClusterVersion where
+instance Data.ToHeaders UpdateClusterVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateClusterVersion where
+instance Data.ToJSON UpdateClusterVersion where
   toJSON UpdateClusterVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientRequestToken" Core..=)
+          [ ("clientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            Prelude.Just ("version" Core..= version)
+            Prelude.Just ("version" Data..= version)
           ]
       )
 
-instance Core.ToPath UpdateClusterVersion where
+instance Data.ToPath UpdateClusterVersion where
   toPath UpdateClusterVersion' {..} =
     Prelude.mconcat
-      ["/clusters/", Core.toBS name, "/updates"]
+      ["/clusters/", Data.toBS name, "/updates"]
 
-instance Core.ToQuery UpdateClusterVersion where
+instance Data.ToQuery UpdateClusterVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateClusterVersionResponse' smart constructor.

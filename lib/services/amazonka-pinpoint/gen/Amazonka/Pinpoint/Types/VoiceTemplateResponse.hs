@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.VoiceTemplateResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.VoiceTemplateResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.TemplateType
 import qualified Amazonka.Prelude as Prelude
 
@@ -30,23 +31,23 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newVoiceTemplateResponse' smart constructor.
 data VoiceTemplateResponse = VoiceTemplateResponse'
-  { -- | The code for the language that\'s used when synthesizing the text of the
-    -- script in messages that are based on the message template. For a list of
-    -- supported languages and the code for each one, see the
-    -- <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide>.
-    languageCode :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the message template.
+  { -- | The Amazon Resource Name (ARN) of the message template.
     arn :: Prelude.Maybe Prelude.Text,
     -- | The text of the script that\'s used in messages that are based on the
     -- message template, in plain text format.
     body :: Prelude.Maybe Prelude.Text,
-    -- | The custom description of the message template.
-    templateDescription :: Prelude.Maybe Prelude.Text,
     -- | The JSON object that specifies the default values that are used for
     -- message variables in the message template. This object is a set of
     -- key-value pairs. Each key defines a message variable in the template.
     -- The corresponding value defines the default value for that variable.
     defaultSubstitutions :: Prelude.Maybe Prelude.Text,
+    -- | The code for the language that\'s used when synthesizing the text of the
+    -- script in messages that are based on the message template. For a list of
+    -- supported languages and the code for each one, see the
+    -- <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide>.
+    languageCode :: Prelude.Maybe Prelude.Text,
+    -- | The custom description of the message template.
+    templateDescription :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier, as an integer, for the active version of the
     -- message template, or the version of the template that you specified by
     -- using the version parameter in your request.
@@ -80,22 +81,22 @@ data VoiceTemplateResponse = VoiceTemplateResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'languageCode', 'voiceTemplateResponse_languageCode' - The code for the language that\'s used when synthesizing the text of the
--- script in messages that are based on the message template. For a list of
--- supported languages and the code for each one, see the
--- <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide>.
---
 -- 'arn', 'voiceTemplateResponse_arn' - The Amazon Resource Name (ARN) of the message template.
 --
 -- 'body', 'voiceTemplateResponse_body' - The text of the script that\'s used in messages that are based on the
 -- message template, in plain text format.
 --
--- 'templateDescription', 'voiceTemplateResponse_templateDescription' - The custom description of the message template.
---
 -- 'defaultSubstitutions', 'voiceTemplateResponse_defaultSubstitutions' - The JSON object that specifies the default values that are used for
 -- message variables in the message template. This object is a set of
 -- key-value pairs. Each key defines a message variable in the template.
 -- The corresponding value defines the default value for that variable.
+--
+-- 'languageCode', 'voiceTemplateResponse_languageCode' - The code for the language that\'s used when synthesizing the text of the
+-- script in messages that are based on the message template. For a list of
+-- supported languages and the code for each one, see the
+-- <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide>.
+--
+-- 'templateDescription', 'voiceTemplateResponse_templateDescription' - The custom description of the message template.
 --
 -- 'version', 'voiceTemplateResponse_version' - The unique identifier, as an integer, for the active version of the
 -- message template, or the version of the template that you specified by
@@ -134,12 +135,11 @@ newVoiceTemplateResponse
   pTemplateName_
   pTemplateType_ =
     VoiceTemplateResponse'
-      { languageCode =
-          Prelude.Nothing,
-        arn = Prelude.Nothing,
+      { arn = Prelude.Nothing,
         body = Prelude.Nothing,
-        templateDescription = Prelude.Nothing,
         defaultSubstitutions = Prelude.Nothing,
+        languageCode = Prelude.Nothing,
+        templateDescription = Prelude.Nothing,
         version = Prelude.Nothing,
         voiceId = Prelude.Nothing,
         tags = Prelude.Nothing,
@@ -148,13 +148,6 @@ newVoiceTemplateResponse
         templateName = pTemplateName_,
         templateType = pTemplateType_
       }
-
--- | The code for the language that\'s used when synthesizing the text of the
--- script in messages that are based on the message template. For a list of
--- supported languages and the code for each one, see the
--- <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide>.
-voiceTemplateResponse_languageCode :: Lens.Lens' VoiceTemplateResponse (Prelude.Maybe Prelude.Text)
-voiceTemplateResponse_languageCode = Lens.lens (\VoiceTemplateResponse' {languageCode} -> languageCode) (\s@VoiceTemplateResponse' {} a -> s {languageCode = a} :: VoiceTemplateResponse)
 
 -- | The Amazon Resource Name (ARN) of the message template.
 voiceTemplateResponse_arn :: Lens.Lens' VoiceTemplateResponse (Prelude.Maybe Prelude.Text)
@@ -165,16 +158,23 @@ voiceTemplateResponse_arn = Lens.lens (\VoiceTemplateResponse' {arn} -> arn) (\s
 voiceTemplateResponse_body :: Lens.Lens' VoiceTemplateResponse (Prelude.Maybe Prelude.Text)
 voiceTemplateResponse_body = Lens.lens (\VoiceTemplateResponse' {body} -> body) (\s@VoiceTemplateResponse' {} a -> s {body = a} :: VoiceTemplateResponse)
 
--- | The custom description of the message template.
-voiceTemplateResponse_templateDescription :: Lens.Lens' VoiceTemplateResponse (Prelude.Maybe Prelude.Text)
-voiceTemplateResponse_templateDescription = Lens.lens (\VoiceTemplateResponse' {templateDescription} -> templateDescription) (\s@VoiceTemplateResponse' {} a -> s {templateDescription = a} :: VoiceTemplateResponse)
-
 -- | The JSON object that specifies the default values that are used for
 -- message variables in the message template. This object is a set of
 -- key-value pairs. Each key defines a message variable in the template.
 -- The corresponding value defines the default value for that variable.
 voiceTemplateResponse_defaultSubstitutions :: Lens.Lens' VoiceTemplateResponse (Prelude.Maybe Prelude.Text)
 voiceTemplateResponse_defaultSubstitutions = Lens.lens (\VoiceTemplateResponse' {defaultSubstitutions} -> defaultSubstitutions) (\s@VoiceTemplateResponse' {} a -> s {defaultSubstitutions = a} :: VoiceTemplateResponse)
+
+-- | The code for the language that\'s used when synthesizing the text of the
+-- script in messages that are based on the message template. For a list of
+-- supported languages and the code for each one, see the
+-- <https://docs.aws.amazon.com/polly/latest/dg/what-is.html Amazon Polly Developer Guide>.
+voiceTemplateResponse_languageCode :: Lens.Lens' VoiceTemplateResponse (Prelude.Maybe Prelude.Text)
+voiceTemplateResponse_languageCode = Lens.lens (\VoiceTemplateResponse' {languageCode} -> languageCode) (\s@VoiceTemplateResponse' {} a -> s {languageCode = a} :: VoiceTemplateResponse)
+
+-- | The custom description of the message template.
+voiceTemplateResponse_templateDescription :: Lens.Lens' VoiceTemplateResponse (Prelude.Maybe Prelude.Text)
+voiceTemplateResponse_templateDescription = Lens.lens (\VoiceTemplateResponse' {templateDescription} -> templateDescription) (\s@VoiceTemplateResponse' {} a -> s {templateDescription = a} :: VoiceTemplateResponse)
 
 -- | The unique identifier, as an integer, for the active version of the
 -- message template, or the version of the template that you specified by
@@ -212,33 +212,33 @@ voiceTemplateResponse_templateName = Lens.lens (\VoiceTemplateResponse' {templat
 voiceTemplateResponse_templateType :: Lens.Lens' VoiceTemplateResponse TemplateType
 voiceTemplateResponse_templateType = Lens.lens (\VoiceTemplateResponse' {templateType} -> templateType) (\s@VoiceTemplateResponse' {} a -> s {templateType = a} :: VoiceTemplateResponse)
 
-instance Core.FromJSON VoiceTemplateResponse where
+instance Data.FromJSON VoiceTemplateResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VoiceTemplateResponse"
       ( \x ->
           VoiceTemplateResponse'
-            Prelude.<$> (x Core..:? "LanguageCode")
-            Prelude.<*> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "Body")
-            Prelude.<*> (x Core..:? "TemplateDescription")
-            Prelude.<*> (x Core..:? "DefaultSubstitutions")
-            Prelude.<*> (x Core..:? "Version")
-            Prelude.<*> (x Core..:? "VoiceId")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "LastModifiedDate")
-            Prelude.<*> (x Core..: "CreationDate")
-            Prelude.<*> (x Core..: "TemplateName")
-            Prelude.<*> (x Core..: "TemplateType")
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "Body")
+            Prelude.<*> (x Data..:? "DefaultSubstitutions")
+            Prelude.<*> (x Data..:? "LanguageCode")
+            Prelude.<*> (x Data..:? "TemplateDescription")
+            Prelude.<*> (x Data..:? "Version")
+            Prelude.<*> (x Data..:? "VoiceId")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "LastModifiedDate")
+            Prelude.<*> (x Data..: "CreationDate")
+            Prelude.<*> (x Data..: "TemplateName")
+            Prelude.<*> (x Data..: "TemplateType")
       )
 
 instance Prelude.Hashable VoiceTemplateResponse where
   hashWithSalt _salt VoiceTemplateResponse' {..} =
-    _salt `Prelude.hashWithSalt` languageCode
-      `Prelude.hashWithSalt` arn
+    _salt `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` body
-      `Prelude.hashWithSalt` templateDescription
       `Prelude.hashWithSalt` defaultSubstitutions
+      `Prelude.hashWithSalt` languageCode
+      `Prelude.hashWithSalt` templateDescription
       `Prelude.hashWithSalt` version
       `Prelude.hashWithSalt` voiceId
       `Prelude.hashWithSalt` tags
@@ -249,11 +249,11 @@ instance Prelude.Hashable VoiceTemplateResponse where
 
 instance Prelude.NFData VoiceTemplateResponse where
   rnf VoiceTemplateResponse' {..} =
-    Prelude.rnf languageCode
-      `Prelude.seq` Prelude.rnf arn
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf body
-      `Prelude.seq` Prelude.rnf templateDescription
       `Prelude.seq` Prelude.rnf defaultSubstitutions
+      `Prelude.seq` Prelude.rnf languageCode
+      `Prelude.seq` Prelude.rnf templateDescription
       `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf voiceId
       `Prelude.seq` Prelude.rnf tags

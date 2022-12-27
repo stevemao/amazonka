@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MQ.DeleteUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.MQ.DeleteUser
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MQ.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -94,7 +95,8 @@ deleteUser_brokerId = Lens.lens (\DeleteUser' {brokerId} -> brokerId) (\s@Delete
 
 instance Core.AWSRequest DeleteUser where
   type AWSResponse DeleteUser = DeleteUserResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -112,27 +114,27 @@ instance Prelude.NFData DeleteUser where
     Prelude.rnf username
       `Prelude.seq` Prelude.rnf brokerId
 
-instance Core.ToHeaders DeleteUser where
+instance Data.ToHeaders DeleteUser where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteUser where
+instance Data.ToPath DeleteUser where
   toPath DeleteUser' {..} =
     Prelude.mconcat
       [ "/v1/brokers/",
-        Core.toBS brokerId,
+        Data.toBS brokerId,
         "/users/",
-        Core.toBS username
+        Data.toBS username
       ]
 
-instance Core.ToQuery DeleteUser where
+instance Data.ToQuery DeleteUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteUserResponse' smart constructor.

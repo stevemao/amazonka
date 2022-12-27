@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.CreateRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.FraudDetector.CreateRule
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,7 +64,7 @@ data CreateRule = CreateRule'
     -- | The detector ID for the rule\'s parent detector.
     detectorId :: Prelude.Text,
     -- | The rule expression.
-    expression :: Core.Sensitive Prelude.Text,
+    expression :: Data.Sensitive Prelude.Text,
     -- | The language of the rule.
     language :: Language,
     -- | The outcome or outcomes returned when the rule expression matches.
@@ -115,7 +116,7 @@ newCreateRule
         tags = Prelude.Nothing,
         ruleId = pRuleId_,
         detectorId = pDetectorId_,
-        expression = Core._Sensitive Lens.# pExpression_,
+        expression = Data._Sensitive Lens.# pExpression_,
         language = pLanguage_,
         outcomes = Lens.coerced Lens.# pOutcomes_
       }
@@ -138,7 +139,7 @@ createRule_detectorId = Lens.lens (\CreateRule' {detectorId} -> detectorId) (\s@
 
 -- | The rule expression.
 createRule_expression :: Lens.Lens' CreateRule Prelude.Text
-createRule_expression = Lens.lens (\CreateRule' {expression} -> expression) (\s@CreateRule' {} a -> s {expression = a} :: CreateRule) Prelude.. Core._Sensitive
+createRule_expression = Lens.lens (\CreateRule' {expression} -> expression) (\s@CreateRule' {} a -> s {expression = a} :: CreateRule) Prelude.. Data._Sensitive
 
 -- | The language of the rule.
 createRule_language :: Lens.Lens' CreateRule Language
@@ -150,12 +151,13 @@ createRule_outcomes = Lens.lens (\CreateRule' {outcomes} -> outcomes) (\s@Create
 
 instance Core.AWSRequest CreateRule where
   type AWSResponse CreateRule = CreateRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateRuleResponse'
-            Prelude.<$> (x Core..?> "rule")
+            Prelude.<$> (x Data..?> "rule")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -179,39 +181,39 @@ instance Prelude.NFData CreateRule where
       `Prelude.seq` Prelude.rnf language
       `Prelude.seq` Prelude.rnf outcomes
 
-instance Core.ToHeaders CreateRule where
+instance Data.ToHeaders CreateRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.CreateRule" ::
+              Data.=# ( "AWSHawksNestServiceFacade.CreateRule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateRule where
+instance Data.ToJSON CreateRule where
   toJSON CreateRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("ruleId" Core..= ruleId),
-            Prelude.Just ("detectorId" Core..= detectorId),
-            Prelude.Just ("expression" Core..= expression),
-            Prelude.Just ("language" Core..= language),
-            Prelude.Just ("outcomes" Core..= outcomes)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("ruleId" Data..= ruleId),
+            Prelude.Just ("detectorId" Data..= detectorId),
+            Prelude.Just ("expression" Data..= expression),
+            Prelude.Just ("language" Data..= language),
+            Prelude.Just ("outcomes" Data..= outcomes)
           ]
       )
 
-instance Core.ToPath CreateRule where
+instance Data.ToPath CreateRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateRule where
+instance Data.ToQuery CreateRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateRuleResponse' smart constructor.

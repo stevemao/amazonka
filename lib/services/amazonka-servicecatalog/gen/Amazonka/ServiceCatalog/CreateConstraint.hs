@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.CreateConstraint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,15 +42,16 @@ module Amazonka.ServiceCatalog.CreateConstraint
     newCreateConstraintResponse,
 
     -- * Response Lenses
-    createConstraintResponse_status,
     createConstraintResponse_constraintDetail,
     createConstraintResponse_constraintParameters,
+    createConstraintResponse_status,
     createConstraintResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -125,8 +126,8 @@ data CreateConstraint = CreateConstraint'
     --     You also cannot have more than one @STACKSET@ constraint on a
     --     product and portfolio.
     --
-    --     Products with a @STACKSET@ constraint will launch an AWS
-    --     CloudFormation stack set.
+    --     Products with a @STACKSET@ constraint will launch an CloudFormation
+    --     stack set.
     --
     -- [TEMPLATE]
     --     Specify the @Rules@ property. For more information, see
@@ -226,8 +227,8 @@ data CreateConstraint = CreateConstraint'
 --     You also cannot have more than one @STACKSET@ constraint on a
 --     product and portfolio.
 --
---     Products with a @STACKSET@ constraint will launch an AWS
---     CloudFormation stack set.
+--     Products with a @STACKSET@ constraint will launch an CloudFormation
+--     stack set.
 --
 -- [TEMPLATE]
 --     Specify the @Rules@ property. For more information, see
@@ -351,8 +352,8 @@ createConstraint_productId = Lens.lens (\CreateConstraint' {productId} -> produc
 --     You also cannot have more than one @STACKSET@ constraint on a
 --     product and portfolio.
 --
---     Products with a @STACKSET@ constraint will launch an AWS
---     CloudFormation stack set.
+--     Products with a @STACKSET@ constraint will launch an CloudFormation
+--     stack set.
 --
 -- [TEMPLATE]
 --     Specify the @Rules@ property. For more information, see
@@ -384,14 +385,15 @@ instance Core.AWSRequest CreateConstraint where
   type
     AWSResponse CreateConstraint =
       CreateConstraintResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateConstraintResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "ConstraintDetail")
-            Prelude.<*> (x Core..?> "ConstraintParameters")
+            Prelude.<$> (x Data..?> "ConstraintDetail")
+            Prelude.<*> (x Data..?> "ConstraintParameters")
+            Prelude.<*> (x Data..?> "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -415,51 +417,51 @@ instance Prelude.NFData CreateConstraint where
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf idempotencyToken
 
-instance Core.ToHeaders CreateConstraint where
+instance Data.ToHeaders CreateConstraint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.CreateConstraint" ::
+              Data.=# ( "AWS242ServiceCatalogService.CreateConstraint" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateConstraint where
+instance Data.ToJSON CreateConstraint where
   toJSON CreateConstraint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("Description" Core..=) Prelude.<$> description,
-            Prelude.Just ("PortfolioId" Core..= portfolioId),
-            Prelude.Just ("ProductId" Core..= productId),
-            Prelude.Just ("Parameters" Core..= parameters),
-            Prelude.Just ("Type" Core..= type'),
+            ("Description" Data..=) Prelude.<$> description,
+            Prelude.Just ("PortfolioId" Data..= portfolioId),
+            Prelude.Just ("ProductId" Data..= productId),
+            Prelude.Just ("Parameters" Data..= parameters),
+            Prelude.Just ("Type" Data..= type'),
             Prelude.Just
-              ("IdempotencyToken" Core..= idempotencyToken)
+              ("IdempotencyToken" Data..= idempotencyToken)
           ]
       )
 
-instance Core.ToPath CreateConstraint where
+instance Data.ToPath CreateConstraint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateConstraint where
+instance Data.ToQuery CreateConstraint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateConstraintResponse' smart constructor.
 data CreateConstraintResponse = CreateConstraintResponse'
-  { -- | The status of the current request.
-    status :: Prelude.Maybe RequestStatus,
-    -- | Information about the constraint.
+  { -- | Information about the constraint.
     constraintDetail :: Prelude.Maybe ConstraintDetail,
     -- | The constraint parameters.
     constraintParameters :: Prelude.Maybe Prelude.Text,
+    -- | The status of the current request.
+    status :: Prelude.Maybe RequestStatus,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -473,11 +475,11 @@ data CreateConstraintResponse = CreateConstraintResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'createConstraintResponse_status' - The status of the current request.
---
 -- 'constraintDetail', 'createConstraintResponse_constraintDetail' - Information about the constraint.
 --
 -- 'constraintParameters', 'createConstraintResponse_constraintParameters' - The constraint parameters.
+--
+-- 'status', 'createConstraintResponse_status' - The status of the current request.
 --
 -- 'httpStatus', 'createConstraintResponse_httpStatus' - The response's http status code.
 newCreateConstraintResponse ::
@@ -486,15 +488,12 @@ newCreateConstraintResponse ::
   CreateConstraintResponse
 newCreateConstraintResponse pHttpStatus_ =
   CreateConstraintResponse'
-    { status = Prelude.Nothing,
-      constraintDetail = Prelude.Nothing,
+    { constraintDetail =
+        Prelude.Nothing,
       constraintParameters = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The status of the current request.
-createConstraintResponse_status :: Lens.Lens' CreateConstraintResponse (Prelude.Maybe RequestStatus)
-createConstraintResponse_status = Lens.lens (\CreateConstraintResponse' {status} -> status) (\s@CreateConstraintResponse' {} a -> s {status = a} :: CreateConstraintResponse)
 
 -- | Information about the constraint.
 createConstraintResponse_constraintDetail :: Lens.Lens' CreateConstraintResponse (Prelude.Maybe ConstraintDetail)
@@ -504,13 +503,17 @@ createConstraintResponse_constraintDetail = Lens.lens (\CreateConstraintResponse
 createConstraintResponse_constraintParameters :: Lens.Lens' CreateConstraintResponse (Prelude.Maybe Prelude.Text)
 createConstraintResponse_constraintParameters = Lens.lens (\CreateConstraintResponse' {constraintParameters} -> constraintParameters) (\s@CreateConstraintResponse' {} a -> s {constraintParameters = a} :: CreateConstraintResponse)
 
+-- | The status of the current request.
+createConstraintResponse_status :: Lens.Lens' CreateConstraintResponse (Prelude.Maybe RequestStatus)
+createConstraintResponse_status = Lens.lens (\CreateConstraintResponse' {status} -> status) (\s@CreateConstraintResponse' {} a -> s {status = a} :: CreateConstraintResponse)
+
 -- | The response's http status code.
 createConstraintResponse_httpStatus :: Lens.Lens' CreateConstraintResponse Prelude.Int
 createConstraintResponse_httpStatus = Lens.lens (\CreateConstraintResponse' {httpStatus} -> httpStatus) (\s@CreateConstraintResponse' {} a -> s {httpStatus = a} :: CreateConstraintResponse)
 
 instance Prelude.NFData CreateConstraintResponse where
   rnf CreateConstraintResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf constraintDetail
+    Prelude.rnf constraintDetail
       `Prelude.seq` Prelude.rnf constraintParameters
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

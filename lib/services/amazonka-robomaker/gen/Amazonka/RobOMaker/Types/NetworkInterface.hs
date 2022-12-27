@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.Types.NetworkInterface
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RobOMaker.Types.NetworkInterface where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a network interface.
@@ -71,15 +72,15 @@ networkInterface_privateIpAddress = Lens.lens (\NetworkInterface' {privateIpAddr
 networkInterface_publicIpAddress :: Lens.Lens' NetworkInterface (Prelude.Maybe Prelude.Text)
 networkInterface_publicIpAddress = Lens.lens (\NetworkInterface' {publicIpAddress} -> publicIpAddress) (\s@NetworkInterface' {} a -> s {publicIpAddress = a} :: NetworkInterface)
 
-instance Core.FromJSON NetworkInterface where
+instance Data.FromJSON NetworkInterface where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NetworkInterface"
       ( \x ->
           NetworkInterface'
-            Prelude.<$> (x Core..:? "networkInterfaceId")
-            Prelude.<*> (x Core..:? "privateIpAddress")
-            Prelude.<*> (x Core..:? "publicIpAddress")
+            Prelude.<$> (x Data..:? "networkInterfaceId")
+            Prelude.<*> (x Data..:? "privateIpAddress")
+            Prelude.<*> (x Data..:? "publicIpAddress")
       )
 
 instance Prelude.Hashable NetworkInterface where

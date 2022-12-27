@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.EFS
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,11 +14,11 @@
 -- Amazon Elastic File System
 --
 -- Amazon Elastic File System (Amazon EFS) provides simple, scalable file
--- storage for use with Amazon EC2 instances in the Amazon Web Services
--- Cloud. With Amazon EFS, storage capacity is elastic, growing and
--- shrinking automatically as you add and remove files, so your
--- applications have the storage they need, when they need it. For more
--- information, see the
+-- storage for use with Amazon EC2 Linux and Mac instances in the Amazon
+-- Web Services Cloud. With Amazon EFS, storage capacity is elastic,
+-- growing and shrinking automatically as you add and remove files, so that
+-- your applications have the storage they need, when they need it. For
+-- more information, see the
 -- <https://docs.aws.amazon.com/efs/latest/ug/api-reference.html Amazon Elastic File System API Reference>
 -- and the
 -- <https://docs.aws.amazon.com/efs/latest/ug/whatisefs.html Amazon Elastic File System User Guide>.
@@ -29,41 +29,32 @@ module Amazonka.EFS
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
+    -- ** AccessPointAlreadyExists
+    _AccessPointAlreadyExists,
 
-    -- ** MountTargetNotFound
-    _MountTargetNotFound,
+    -- ** AccessPointLimitExceeded
+    _AccessPointLimitExceeded,
 
-    -- ** SecurityGroupLimitExceeded
-    _SecurityGroupLimitExceeded,
+    -- ** AccessPointNotFound
+    _AccessPointNotFound,
 
-    -- ** SecurityGroupNotFound
-    _SecurityGroupNotFound,
+    -- ** AvailabilityZonesMismatch
+    _AvailabilityZonesMismatch,
 
-    -- ** MountTargetConflict
-    _MountTargetConflict,
+    -- ** BadRequest
+    _BadRequest,
 
-    -- ** UnsupportedAvailabilityZone
-    _UnsupportedAvailabilityZone,
-
-    -- ** FileSystemLimitExceeded
-    _FileSystemLimitExceeded,
-
-    -- ** TooManyRequests
-    _TooManyRequests,
-
-    -- ** NetworkInterfaceLimitExceeded
-    _NetworkInterfaceLimitExceeded,
+    -- ** DependencyTimeout
+    _DependencyTimeout,
 
     -- ** FileSystemAlreadyExists
     _FileSystemAlreadyExists,
 
-    -- ** SubnetNotFound
-    _SubnetNotFound,
+    -- ** FileSystemInUse
+    _FileSystemInUse,
 
-    -- ** AvailabilityZonesMismatch
-    _AvailabilityZonesMismatch,
+    -- ** FileSystemLimitExceeded
+    _FileSystemLimitExceeded,
 
     -- ** FileSystemNotFound
     _FileSystemNotFound,
@@ -71,47 +62,62 @@ module Amazonka.EFS
     -- ** IncorrectFileSystemLifeCycleState
     _IncorrectFileSystemLifeCycleState,
 
-    -- ** BadRequest
-    _BadRequest,
-
-    -- ** NoFreeAddressesInSubnet
-    _NoFreeAddressesInSubnet,
-
-    -- ** ThroughputLimitExceeded
-    _ThroughputLimitExceeded,
-
-    -- ** DependencyTimeout
-    _DependencyTimeout,
-
-    -- ** FileSystemInUse
-    _FileSystemInUse,
-
     -- ** IncorrectMountTargetState
     _IncorrectMountTargetState,
-
-    -- ** InternalServerError
-    _InternalServerError,
-
-    -- ** IpAddressInUse
-    _IpAddressInUse,
-
-    -- ** PolicyNotFound
-    _PolicyNotFound,
-
-    -- ** AccessPointNotFound
-    _AccessPointNotFound,
 
     -- ** InsufficientThroughputCapacity
     _InsufficientThroughputCapacity,
 
+    -- ** InternalServerError
+    _InternalServerError,
+
     -- ** InvalidPolicyException
     _InvalidPolicyException,
 
-    -- ** AccessPointAlreadyExists
-    _AccessPointAlreadyExists,
+    -- ** IpAddressInUse
+    _IpAddressInUse,
 
-    -- ** AccessPointLimitExceeded
-    _AccessPointLimitExceeded,
+    -- ** MountTargetConflict
+    _MountTargetConflict,
+
+    -- ** MountTargetNotFound
+    _MountTargetNotFound,
+
+    -- ** NetworkInterfaceLimitExceeded
+    _NetworkInterfaceLimitExceeded,
+
+    -- ** NoFreeAddressesInSubnet
+    _NoFreeAddressesInSubnet,
+
+    -- ** PolicyNotFound
+    _PolicyNotFound,
+
+    -- ** ReplicationNotFound
+    _ReplicationNotFound,
+
+    -- ** SecurityGroupLimitExceeded
+    _SecurityGroupLimitExceeded,
+
+    -- ** SecurityGroupNotFound
+    _SecurityGroupNotFound,
+
+    -- ** SubnetNotFound
+    _SubnetNotFound,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** ThroughputLimitExceeded
+    _ThroughputLimitExceeded,
+
+    -- ** TooManyRequests
+    _TooManyRequests,
+
+    -- ** UnsupportedAvailabilityZone
+    _UnsupportedAvailabilityZone,
+
+    -- ** ValidationException
+    _ValidationException,
 
     -- * Waiters
     -- $waiters
@@ -125,99 +131,9 @@ module Amazonka.EFS
     AccessPointDescription (AccessPointDescription'),
     newAccessPointDescription,
 
-    -- ** DescribeAccountPreferences
-    DescribeAccountPreferences (DescribeAccountPreferences'),
-    newDescribeAccountPreferences,
-    DescribeAccountPreferencesResponse (DescribeAccountPreferencesResponse'),
-    newDescribeAccountPreferencesResponse,
-
-    -- ** DescribeMountTargets (Paginated)
-    DescribeMountTargets (DescribeMountTargets'),
-    newDescribeMountTargets,
-    DescribeMountTargetsResponse (DescribeMountTargetsResponse'),
-    newDescribeMountTargetsResponse,
-
-    -- ** DeleteFileSystemPolicy
-    DeleteFileSystemPolicy (DeleteFileSystemPolicy'),
-    newDeleteFileSystemPolicy,
-    DeleteFileSystemPolicyResponse (DeleteFileSystemPolicyResponse'),
-    newDeleteFileSystemPolicyResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** PutFileSystemPolicy
-    PutFileSystemPolicy (PutFileSystemPolicy'),
-    newPutFileSystemPolicy,
-    FileSystemPolicyDescription (FileSystemPolicyDescription'),
-    newFileSystemPolicyDescription,
-
-    -- ** DescribeFileSystems (Paginated)
-    DescribeFileSystems (DescribeFileSystems'),
-    newDescribeFileSystems,
-    DescribeFileSystemsResponse (DescribeFileSystemsResponse'),
-    newDescribeFileSystemsResponse,
-
-    -- ** DeleteMountTarget
-    DeleteMountTarget (DeleteMountTarget'),
-    newDeleteMountTarget,
-    DeleteMountTargetResponse (DeleteMountTargetResponse'),
-    newDeleteMountTargetResponse,
-
-    -- ** PutAccountPreferences
-    PutAccountPreferences (PutAccountPreferences'),
-    newPutAccountPreferences,
-    PutAccountPreferencesResponse (PutAccountPreferencesResponse'),
-    newPutAccountPreferencesResponse,
-
-    -- ** DescribeMountTargetSecurityGroups
-    DescribeMountTargetSecurityGroups (DescribeMountTargetSecurityGroups'),
-    newDescribeMountTargetSecurityGroups,
-    DescribeMountTargetSecurityGroupsResponse (DescribeMountTargetSecurityGroupsResponse'),
-    newDescribeMountTargetSecurityGroupsResponse,
-
-    -- ** DescribeAccessPoints
-    DescribeAccessPoints (DescribeAccessPoints'),
-    newDescribeAccessPoints,
-    DescribeAccessPointsResponse (DescribeAccessPointsResponse'),
-    newDescribeAccessPointsResponse,
-
-    -- ** ModifyMountTargetSecurityGroups
-    ModifyMountTargetSecurityGroups (ModifyMountTargetSecurityGroups'),
-    newModifyMountTargetSecurityGroups,
-    ModifyMountTargetSecurityGroupsResponse (ModifyMountTargetSecurityGroupsResponse'),
-    newModifyMountTargetSecurityGroupsResponse,
-
     -- ** CreateFileSystem
     CreateFileSystem (CreateFileSystem'),
     newCreateFileSystem,
-    FileSystemDescription (FileSystemDescription'),
-    newFileSystemDescription,
-
-    -- ** PutLifecycleConfiguration
-    PutLifecycleConfiguration (PutLifecycleConfiguration'),
-    newPutLifecycleConfiguration,
-    LifecycleConfigurationDescription (LifecycleConfigurationDescription'),
-    newLifecycleConfigurationDescription,
-
-    -- ** PutBackupPolicy
-    PutBackupPolicy (PutBackupPolicy'),
-    newPutBackupPolicy,
-    BackupPolicyDescription (BackupPolicyDescription'),
-    newBackupPolicyDescription,
-
-    -- ** DeleteFileSystem
-    DeleteFileSystem (DeleteFileSystem'),
-    newDeleteFileSystem,
-    DeleteFileSystemResponse (DeleteFileSystemResponse'),
-    newDeleteFileSystemResponse,
-
-    -- ** UpdateFileSystem
-    UpdateFileSystem (UpdateFileSystem'),
-    newUpdateFileSystem,
     FileSystemDescription (FileSystemDescription'),
     newFileSystemDescription,
 
@@ -227,11 +143,53 @@ module Amazonka.EFS
     MountTargetDescription (MountTargetDescription'),
     newMountTargetDescription,
 
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
+    -- ** CreateReplicationConfiguration
+    CreateReplicationConfiguration (CreateReplicationConfiguration'),
+    newCreateReplicationConfiguration,
+    ReplicationConfigurationDescription (ReplicationConfigurationDescription'),
+    newReplicationConfigurationDescription,
+
+    -- ** DeleteAccessPoint
+    DeleteAccessPoint (DeleteAccessPoint'),
+    newDeleteAccessPoint,
+    DeleteAccessPointResponse (DeleteAccessPointResponse'),
+    newDeleteAccessPointResponse,
+
+    -- ** DeleteFileSystem
+    DeleteFileSystem (DeleteFileSystem'),
+    newDeleteFileSystem,
+    DeleteFileSystemResponse (DeleteFileSystemResponse'),
+    newDeleteFileSystemResponse,
+
+    -- ** DeleteFileSystemPolicy
+    DeleteFileSystemPolicy (DeleteFileSystemPolicy'),
+    newDeleteFileSystemPolicy,
+    DeleteFileSystemPolicyResponse (DeleteFileSystemPolicyResponse'),
+    newDeleteFileSystemPolicyResponse,
+
+    -- ** DeleteMountTarget
+    DeleteMountTarget (DeleteMountTarget'),
+    newDeleteMountTarget,
+    DeleteMountTargetResponse (DeleteMountTargetResponse'),
+    newDeleteMountTargetResponse,
+
+    -- ** DeleteReplicationConfiguration
+    DeleteReplicationConfiguration (DeleteReplicationConfiguration'),
+    newDeleteReplicationConfiguration,
+    DeleteReplicationConfigurationResponse (DeleteReplicationConfigurationResponse'),
+    newDeleteReplicationConfigurationResponse,
+
+    -- ** DescribeAccessPoints
+    DescribeAccessPoints (DescribeAccessPoints'),
+    newDescribeAccessPoints,
+    DescribeAccessPointsResponse (DescribeAccessPointsResponse'),
+    newDescribeAccessPointsResponse,
+
+    -- ** DescribeAccountPreferences
+    DescribeAccountPreferences (DescribeAccountPreferences'),
+    newDescribeAccountPreferences,
+    DescribeAccountPreferencesResponse (DescribeAccountPreferencesResponse'),
+    newDescribeAccountPreferencesResponse,
 
     -- ** DescribeBackupPolicy
     DescribeBackupPolicy (DescribeBackupPolicy'),
@@ -239,11 +197,83 @@ module Amazonka.EFS
     BackupPolicyDescription (BackupPolicyDescription'),
     newBackupPolicyDescription,
 
+    -- ** DescribeFileSystemPolicy
+    DescribeFileSystemPolicy (DescribeFileSystemPolicy'),
+    newDescribeFileSystemPolicy,
+    FileSystemPolicyDescription (FileSystemPolicyDescription'),
+    newFileSystemPolicyDescription,
+
+    -- ** DescribeFileSystems (Paginated)
+    DescribeFileSystems (DescribeFileSystems'),
+    newDescribeFileSystems,
+    DescribeFileSystemsResponse (DescribeFileSystemsResponse'),
+    newDescribeFileSystemsResponse,
+
     -- ** DescribeLifecycleConfiguration
     DescribeLifecycleConfiguration (DescribeLifecycleConfiguration'),
     newDescribeLifecycleConfiguration,
     LifecycleConfigurationDescription (LifecycleConfigurationDescription'),
     newLifecycleConfigurationDescription,
+
+    -- ** DescribeMountTargetSecurityGroups
+    DescribeMountTargetSecurityGroups (DescribeMountTargetSecurityGroups'),
+    newDescribeMountTargetSecurityGroups,
+    DescribeMountTargetSecurityGroupsResponse (DescribeMountTargetSecurityGroupsResponse'),
+    newDescribeMountTargetSecurityGroupsResponse,
+
+    -- ** DescribeMountTargets (Paginated)
+    DescribeMountTargets (DescribeMountTargets'),
+    newDescribeMountTargets,
+    DescribeMountTargetsResponse (DescribeMountTargetsResponse'),
+    newDescribeMountTargetsResponse,
+
+    -- ** DescribeReplicationConfigurations
+    DescribeReplicationConfigurations (DescribeReplicationConfigurations'),
+    newDescribeReplicationConfigurations,
+    DescribeReplicationConfigurationsResponse (DescribeReplicationConfigurationsResponse'),
+    newDescribeReplicationConfigurationsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** ModifyMountTargetSecurityGroups
+    ModifyMountTargetSecurityGroups (ModifyMountTargetSecurityGroups'),
+    newModifyMountTargetSecurityGroups,
+    ModifyMountTargetSecurityGroupsResponse (ModifyMountTargetSecurityGroupsResponse'),
+    newModifyMountTargetSecurityGroupsResponse,
+
+    -- ** PutAccountPreferences
+    PutAccountPreferences (PutAccountPreferences'),
+    newPutAccountPreferences,
+    PutAccountPreferencesResponse (PutAccountPreferencesResponse'),
+    newPutAccountPreferencesResponse,
+
+    -- ** PutBackupPolicy
+    PutBackupPolicy (PutBackupPolicy'),
+    newPutBackupPolicy,
+    BackupPolicyDescription (BackupPolicyDescription'),
+    newBackupPolicyDescription,
+
+    -- ** PutFileSystemPolicy
+    PutFileSystemPolicy (PutFileSystemPolicy'),
+    newPutFileSystemPolicy,
+    FileSystemPolicyDescription (FileSystemPolicyDescription'),
+    newFileSystemPolicyDescription,
+
+    -- ** PutLifecycleConfiguration
+    PutLifecycleConfiguration (PutLifecycleConfiguration'),
+    newPutLifecycleConfiguration,
+    LifecycleConfigurationDescription (LifecycleConfigurationDescription'),
+    newLifecycleConfigurationDescription,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** UntagResource
     UntagResource (UntagResource'),
@@ -251,17 +281,11 @@ module Amazonka.EFS
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** DescribeFileSystemPolicy
-    DescribeFileSystemPolicy (DescribeFileSystemPolicy'),
-    newDescribeFileSystemPolicy,
-    FileSystemPolicyDescription (FileSystemPolicyDescription'),
-    newFileSystemPolicyDescription,
-
-    -- ** DeleteAccessPoint
-    DeleteAccessPoint (DeleteAccessPoint'),
-    newDeleteAccessPoint,
-    DeleteAccessPointResponse (DeleteAccessPointResponse'),
-    newDeleteAccessPointResponse,
+    -- ** UpdateFileSystem
+    UpdateFileSystem (UpdateFileSystem'),
+    newUpdateFileSystem,
+    FileSystemDescription (FileSystemDescription'),
+    newFileSystemDescription,
 
     -- * Types
 
@@ -273,6 +297,9 @@ module Amazonka.EFS
 
     -- ** PerformanceMode
     PerformanceMode (..),
+
+    -- ** ReplicationStatus
+    ReplicationStatus (..),
 
     -- ** Resource
     Resource (..),
@@ -305,6 +332,14 @@ module Amazonka.EFS
     CreationInfo (CreationInfo'),
     newCreationInfo,
 
+    -- ** Destination
+    Destination (Destination'),
+    newDestination,
+
+    -- ** DestinationToCreate
+    DestinationToCreate (DestinationToCreate'),
+    newDestinationToCreate,
+
     -- ** FileSystemDescription
     FileSystemDescription (FileSystemDescription'),
     newFileSystemDescription,
@@ -333,6 +368,10 @@ module Amazonka.EFS
     PosixUser (PosixUser'),
     newPosixUser,
 
+    -- ** ReplicationConfigurationDescription
+    ReplicationConfigurationDescription (ReplicationConfigurationDescription'),
+    newReplicationConfigurationDescription,
+
     -- ** ResourceIdPreference
     ResourceIdPreference (ResourceIdPreference'),
     newResourceIdPreference,
@@ -350,10 +389,12 @@ where
 import Amazonka.EFS.CreateAccessPoint
 import Amazonka.EFS.CreateFileSystem
 import Amazonka.EFS.CreateMountTarget
+import Amazonka.EFS.CreateReplicationConfiguration
 import Amazonka.EFS.DeleteAccessPoint
 import Amazonka.EFS.DeleteFileSystem
 import Amazonka.EFS.DeleteFileSystemPolicy
 import Amazonka.EFS.DeleteMountTarget
+import Amazonka.EFS.DeleteReplicationConfiguration
 import Amazonka.EFS.DescribeAccessPoints
 import Amazonka.EFS.DescribeAccountPreferences
 import Amazonka.EFS.DescribeBackupPolicy
@@ -362,6 +403,7 @@ import Amazonka.EFS.DescribeFileSystems
 import Amazonka.EFS.DescribeLifecycleConfiguration
 import Amazonka.EFS.DescribeMountTargetSecurityGroups
 import Amazonka.EFS.DescribeMountTargets
+import Amazonka.EFS.DescribeReplicationConfigurations
 import Amazonka.EFS.Lens
 import Amazonka.EFS.ListTagsForResource
 import Amazonka.EFS.ModifyMountTargetSecurityGroups

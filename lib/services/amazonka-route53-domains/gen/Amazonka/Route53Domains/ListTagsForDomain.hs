@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.ListTagsForDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.Route53Domains.ListTagsForDomain
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,13 +84,14 @@ instance Core.AWSRequest ListTagsForDomain where
   type
     AWSResponse ListTagsForDomain =
       ListTagsForDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForDomainResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "TagList" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "TagList" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListTagsForDomain where
@@ -99,32 +101,32 @@ instance Prelude.Hashable ListTagsForDomain where
 instance Prelude.NFData ListTagsForDomain where
   rnf ListTagsForDomain' {..} = Prelude.rnf domainName
 
-instance Core.ToHeaders ListTagsForDomain where
+instance Data.ToHeaders ListTagsForDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Domains_v20140515.ListTagsForDomain" ::
+              Data.=# ( "Route53Domains_v20140515.ListTagsForDomain" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTagsForDomain where
+instance Data.ToJSON ListTagsForDomain where
   toJSON ListTagsForDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("DomainName" Core..= domainName)]
+          [Prelude.Just ("DomainName" Data..= domainName)]
       )
 
-instance Core.ToPath ListTagsForDomain where
+instance Data.ToPath ListTagsForDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTagsForDomain where
+instance Data.ToQuery ListTagsForDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The ListTagsForDomain response includes the following elements.

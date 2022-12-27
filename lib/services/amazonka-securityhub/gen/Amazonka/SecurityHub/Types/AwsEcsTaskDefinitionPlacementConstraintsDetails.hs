@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionPlacementConstraintsDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionPlacementConstraintsDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A placement constraint object to use for tasks.
@@ -63,16 +64,16 @@ awsEcsTaskDefinitionPlacementConstraintsDetails_type :: Lens.Lens' AwsEcsTaskDef
 awsEcsTaskDefinitionPlacementConstraintsDetails_type = Lens.lens (\AwsEcsTaskDefinitionPlacementConstraintsDetails' {type'} -> type') (\s@AwsEcsTaskDefinitionPlacementConstraintsDetails' {} a -> s {type' = a} :: AwsEcsTaskDefinitionPlacementConstraintsDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsTaskDefinitionPlacementConstraintsDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsTaskDefinitionPlacementConstraintsDetails"
       ( \x ->
           AwsEcsTaskDefinitionPlacementConstraintsDetails'
-            Prelude.<$> (x Core..:? "Expression")
-              Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Expression")
+              Prelude.<*> (x Data..:? "Type")
       )
 
 instance
@@ -95,14 +96,14 @@ instance
         `Prelude.seq` Prelude.rnf type'
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsTaskDefinitionPlacementConstraintsDetails
   where
   toJSON
     AwsEcsTaskDefinitionPlacementConstraintsDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Expression" Core..=) Prelude.<$> expression,
-              ("Type" Core..=) Prelude.<$> type'
+            [ ("Expression" Data..=) Prelude.<$> expression,
+              ("Type" Data..=) Prelude.<$> type'
             ]
         )

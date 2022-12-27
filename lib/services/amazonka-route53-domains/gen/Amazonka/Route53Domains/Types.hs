@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,12 +18,12 @@ module Amazonka.Route53Domains.Types
     defaultService,
 
     -- * Errors
+    _DomainLimitExceeded,
+    _DuplicateRequest,
     _InvalidInput,
     _OperationLimitExceeded,
-    _DomainLimitExceeded,
-    _UnsupportedTLD,
     _TLDRulesViolation,
-    _DuplicateRequest,
+    _UnsupportedTLD,
 
     -- * ContactType
     ContactType (..),
@@ -36,14 +37,23 @@ module Amazonka.Route53Domains.Types
     -- * ExtraParamName
     ExtraParamName (..),
 
+    -- * ListDomainsAttributeName
+    ListDomainsAttributeName (..),
+
     -- * OperationStatus
     OperationStatus (..),
 
     -- * OperationType
     OperationType (..),
 
+    -- * Operator
+    Operator (..),
+
     -- * ReachabilityStatus
     ReachabilityStatus (..),
+
+    -- * SortOrder
+    SortOrder (..),
 
     -- * Transferable
     Transferable (..),
@@ -51,29 +61,39 @@ module Amazonka.Route53Domains.Types
     -- * BillingRecord
     BillingRecord (..),
     newBillingRecord,
-    billingRecord_operation,
-    billingRecord_invoiceId,
-    billingRecord_domainName,
     billingRecord_billDate,
+    billingRecord_domainName,
+    billingRecord_invoiceId,
+    billingRecord_operation,
     billingRecord_price,
 
     -- * ContactDetail
     ContactDetail (..),
     newContactDetail,
-    contactDetail_organizationName,
-    contactDetail_email,
-    contactDetail_state,
-    contactDetail_fax,
-    contactDetail_lastName,
-    contactDetail_extraParams,
-    contactDetail_zipCode,
     contactDetail_addressLine1,
-    contactDetail_city,
-    contactDetail_phoneNumber,
     contactDetail_addressLine2,
-    contactDetail_firstName,
-    contactDetail_countryCode,
+    contactDetail_city,
     contactDetail_contactType,
+    contactDetail_countryCode,
+    contactDetail_email,
+    contactDetail_extraParams,
+    contactDetail_fax,
+    contactDetail_firstName,
+    contactDetail_lastName,
+    contactDetail_organizationName,
+    contactDetail_phoneNumber,
+    contactDetail_state,
+    contactDetail_zipCode,
+
+    -- * DomainPrice
+    DomainPrice (..),
+    newDomainPrice,
+    domainPrice_changeOwnershipPrice,
+    domainPrice_name,
+    domainPrice_registrationPrice,
+    domainPrice_renewalPrice,
+    domainPrice_restorationPrice,
+    domainPrice_transferPrice,
 
     -- * DomainSuggestion
     DomainSuggestion (..),
@@ -84,9 +104,9 @@ module Amazonka.Route53Domains.Types
     -- * DomainSummary
     DomainSummary (..),
     newDomainSummary,
+    domainSummary_autoRenew,
     domainSummary_expiry,
     domainSummary_transferLock,
-    domainSummary_autoRenew,
     domainSummary_domainName,
 
     -- * DomainTransferability
@@ -99,6 +119,13 @@ module Amazonka.Route53Domains.Types
     newExtraParam,
     extraParam_name,
     extraParam_value,
+
+    -- * FilterCondition
+    FilterCondition (..),
+    newFilterCondition,
+    filterCondition_name,
+    filterCondition_operator,
+    filterCondition_values,
 
     -- * Nameserver
     Nameserver (..),
@@ -114,32 +141,51 @@ module Amazonka.Route53Domains.Types
     operationSummary_type,
     operationSummary_submittedDate,
 
+    -- * PriceWithCurrency
+    PriceWithCurrency (..),
+    newPriceWithCurrency,
+    priceWithCurrency_price,
+    priceWithCurrency_currency,
+
+    -- * SortCondition
+    SortCondition (..),
+    newSortCondition,
+    sortCondition_name,
+    sortCondition_sortOrder,
+
     -- * Tag
     Tag (..),
     newTag,
-    tag_value,
     tag_key,
+    tag_value,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53Domains.Types.BillingRecord
 import Amazonka.Route53Domains.Types.ContactDetail
 import Amazonka.Route53Domains.Types.ContactType
 import Amazonka.Route53Domains.Types.CountryCode
 import Amazonka.Route53Domains.Types.DomainAvailability
+import Amazonka.Route53Domains.Types.DomainPrice
 import Amazonka.Route53Domains.Types.DomainSuggestion
 import Amazonka.Route53Domains.Types.DomainSummary
 import Amazonka.Route53Domains.Types.DomainTransferability
 import Amazonka.Route53Domains.Types.ExtraParam
 import Amazonka.Route53Domains.Types.ExtraParamName
+import Amazonka.Route53Domains.Types.FilterCondition
+import Amazonka.Route53Domains.Types.ListDomainsAttributeName
 import Amazonka.Route53Domains.Types.Nameserver
 import Amazonka.Route53Domains.Types.OperationStatus
 import Amazonka.Route53Domains.Types.OperationSummary
 import Amazonka.Route53Domains.Types.OperationType
+import Amazonka.Route53Domains.Types.Operator
+import Amazonka.Route53Domains.Types.PriceWithCurrency
 import Amazonka.Route53Domains.Types.ReachabilityStatus
+import Amazonka.Route53Domains.Types.SortCondition
+import Amazonka.Route53Domains.Types.SortOrder
 import Amazonka.Route53Domains.Types.Tag
 import Amazonka.Route53Domains.Types.Transferable
 import qualified Amazonka.Sign.V4 as Sign
@@ -148,43 +194,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev =
-        "Route53Domains",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "route53domains",
-      Core._serviceSigningName = "route53domains",
-      Core._serviceVersion = "2014-05-15",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "Route53Domains",
-      Core._serviceRetry = retry
+    { Core.abbrev = "Route53Domains",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "route53domains",
+      Core.signingName = "route53domains",
+      Core.version = "2014-05-15",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "Route53Domains",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -192,29 +244,36 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
+
+-- | The number of domains has exceeded the allowed threshold for the
+-- account.
+_DomainLimitExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DomainLimitExceeded =
+  Core._MatchServiceError
+    defaultService
+    "DomainLimitExceeded"
+
+-- | The request is already in progress for the domain.
+_DuplicateRequest :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DuplicateRequest =
+  Core._MatchServiceError
+    defaultService
+    "DuplicateRequest"
 
 -- | The requested item is not acceptable. For example, for APIs that accept
 -- a domain name, the request might specify a domain name that doesn\'t
@@ -235,21 +294,6 @@ _OperationLimitExceeded =
     defaultService
     "OperationLimitExceeded"
 
--- | The number of domains has exceeded the allowed threshold for the
--- account.
-_DomainLimitExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DomainLimitExceeded =
-  Core._MatchServiceError
-    defaultService
-    "DomainLimitExceeded"
-
--- | Amazon Route 53 does not support this top-level domain (TLD).
-_UnsupportedTLD :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_UnsupportedTLD =
-  Core._MatchServiceError
-    defaultService
-    "UnsupportedTLD"
-
 -- | The top-level domain does not support this operation.
 _TLDRulesViolation :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _TLDRulesViolation =
@@ -257,9 +301,9 @@ _TLDRulesViolation =
     defaultService
     "TLDRulesViolation"
 
--- | The request is already in progress for the domain.
-_DuplicateRequest :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DuplicateRequest =
+-- | Amazon Route 53 does not support this top-level domain (TLD).
+_UnsupportedTLD :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_UnsupportedTLD =
   Core._MatchServiceError
     defaultService
-    "DuplicateRequest"
+    "UnsupportedTLD"

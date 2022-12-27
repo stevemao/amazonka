@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.Types.Outpost
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RDS.Types.Outpost where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A data type that represents an Outpost.
@@ -53,8 +54,8 @@ newOutpost = Outpost' {arn = Prelude.Nothing}
 outpost_arn :: Lens.Lens' Outpost (Prelude.Maybe Prelude.Text)
 outpost_arn = Lens.lens (\Outpost' {arn} -> arn) (\s@Outpost' {} a -> s {arn = a} :: Outpost)
 
-instance Core.FromXML Outpost where
-  parseXML x = Outpost' Prelude.<$> (x Core..@? "Arn")
+instance Data.FromXML Outpost where
+  parseXML x = Outpost' Prelude.<$> (x Data..@? "Arn")
 
 instance Prelude.Hashable Outpost where
   hashWithSalt _salt Outpost' {..} =

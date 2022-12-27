@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.ListClientDevicesAssociatedWithCoreDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.GreengrassV2.ListClientDevicesAssociatedWithCoreDevice
     newListClientDevicesAssociatedWithCoreDevice,
 
     -- * Request Lenses
-    listClientDevicesAssociatedWithCoreDevice_nextToken,
     listClientDevicesAssociatedWithCoreDevice_maxResults,
+    listClientDevicesAssociatedWithCoreDevice_nextToken,
     listClientDevicesAssociatedWithCoreDevice_coreDeviceThingName,
 
     -- * Destructuring the Response
@@ -46,18 +46,19 @@ module Amazonka.GreengrassV2.ListClientDevicesAssociatedWithCoreDevice
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListClientDevicesAssociatedWithCoreDevice' smart constructor.
 data ListClientDevicesAssociatedWithCoreDevice = ListClientDevicesAssociatedWithCoreDevice'
-  { -- | The token to be used for the next set of paginated results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per paginated request.
+  { -- | The maximum number of results to be returned per paginated request.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to be used for the next set of paginated results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the core device. This is also the name of the IoT thing.
     coreDeviceThingName :: Prelude.Text
   }
@@ -71,9 +72,9 @@ data ListClientDevicesAssociatedWithCoreDevice = ListClientDevicesAssociatedWith
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listClientDevicesAssociatedWithCoreDevice_nextToken' - The token to be used for the next set of paginated results.
---
 -- 'maxResults', 'listClientDevicesAssociatedWithCoreDevice_maxResults' - The maximum number of results to be returned per paginated request.
+--
+-- 'nextToken', 'listClientDevicesAssociatedWithCoreDevice_nextToken' - The token to be used for the next set of paginated results.
 --
 -- 'coreDeviceThingName', 'listClientDevicesAssociatedWithCoreDevice_coreDeviceThingName' - The name of the core device. This is also the name of the IoT thing.
 newListClientDevicesAssociatedWithCoreDevice ::
@@ -83,20 +84,20 @@ newListClientDevicesAssociatedWithCoreDevice ::
 newListClientDevicesAssociatedWithCoreDevice
   pCoreDeviceThingName_ =
     ListClientDevicesAssociatedWithCoreDevice'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         coreDeviceThingName =
           pCoreDeviceThingName_
       }
 
--- | The token to be used for the next set of paginated results.
-listClientDevicesAssociatedWithCoreDevice_nextToken :: Lens.Lens' ListClientDevicesAssociatedWithCoreDevice (Prelude.Maybe Prelude.Text)
-listClientDevicesAssociatedWithCoreDevice_nextToken = Lens.lens (\ListClientDevicesAssociatedWithCoreDevice' {nextToken} -> nextToken) (\s@ListClientDevicesAssociatedWithCoreDevice' {} a -> s {nextToken = a} :: ListClientDevicesAssociatedWithCoreDevice)
-
 -- | The maximum number of results to be returned per paginated request.
 listClientDevicesAssociatedWithCoreDevice_maxResults :: Lens.Lens' ListClientDevicesAssociatedWithCoreDevice (Prelude.Maybe Prelude.Natural)
 listClientDevicesAssociatedWithCoreDevice_maxResults = Lens.lens (\ListClientDevicesAssociatedWithCoreDevice' {maxResults} -> maxResults) (\s@ListClientDevicesAssociatedWithCoreDevice' {} a -> s {maxResults = a} :: ListClientDevicesAssociatedWithCoreDevice)
+
+-- | The token to be used for the next set of paginated results.
+listClientDevicesAssociatedWithCoreDevice_nextToken :: Lens.Lens' ListClientDevicesAssociatedWithCoreDevice (Prelude.Maybe Prelude.Text)
+listClientDevicesAssociatedWithCoreDevice_nextToken = Lens.lens (\ListClientDevicesAssociatedWithCoreDevice' {nextToken} -> nextToken) (\s@ListClientDevicesAssociatedWithCoreDevice' {} a -> s {nextToken = a} :: ListClientDevicesAssociatedWithCoreDevice)
 
 -- | The name of the core device. This is also the name of the IoT thing.
 listClientDevicesAssociatedWithCoreDevice_coreDeviceThingName :: Lens.Lens' ListClientDevicesAssociatedWithCoreDevice Prelude.Text
@@ -136,13 +137,14 @@ instance
     AWSResponse
       ListClientDevicesAssociatedWithCoreDevice =
       ListClientDevicesAssociatedWithCoreDeviceResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListClientDevicesAssociatedWithCoreDeviceResponse'
-            Prelude.<$> (x Core..?> "associatedClientDevices")
-              Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "associatedClientDevices")
+              Prelude.<*> (x Data..?> "nextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -153,8 +155,8 @@ instance
   hashWithSalt
     _salt
     ListClientDevicesAssociatedWithCoreDevice' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` coreDeviceThingName
 
 instance
@@ -162,44 +164,36 @@ instance
     ListClientDevicesAssociatedWithCoreDevice
   where
   rnf ListClientDevicesAssociatedWithCoreDevice' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf coreDeviceThingName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListClientDevicesAssociatedWithCoreDevice
   where
-  toHeaders =
-    Prelude.const
-      ( Prelude.mconcat
-          [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
-                          Prelude.ByteString
-                      )
-          ]
-      )
+  toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListClientDevicesAssociatedWithCoreDevice
   where
   toPath ListClientDevicesAssociatedWithCoreDevice' {..} =
     Prelude.mconcat
       [ "/greengrass/v2/coreDevices/",
-        Core.toBS coreDeviceThingName,
+        Data.toBS coreDeviceThingName,
         "/associatedClientDevices"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListClientDevicesAssociatedWithCoreDevice
   where
   toQuery
     ListClientDevicesAssociatedWithCoreDevice' {..} =
       Prelude.mconcat
-        [ "nextToken" Core.=: nextToken,
-          "maxResults" Core.=: maxResults
+        [ "maxResults" Data.=: maxResults,
+          "nextToken" Data.=: nextToken
         ]
 
 -- | /See:/ 'newListClientDevicesAssociatedWithCoreDeviceResponse' smart constructor.

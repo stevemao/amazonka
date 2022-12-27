@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.RefreshCache
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,10 +49,19 @@
 -- <https://docs.aws.amazon.com/storagegateway/latest/userguide/monitoring-file-gateway.html#get-notification Getting notified about file operations>
 -- in the /Storage Gateway User Guide/.
 --
--- If you invoke the RefreshCache API when two requests are already being
--- processed, any new request will cause an
--- @InvalidGatewayRequestException@ error because too many requests were
--- sent to the server.
+-- -   Wait at least 60 seconds between consecutive RefreshCache API
+--     requests.
+--
+-- -   RefreshCache does not evict cache entries if invoked consecutively
+--     within 60 seconds of a previous RefreshCache request.
+--
+-- -   If you invoke the RefreshCache API when two requests are already
+--     being processed, any new request will cause an
+--     @InvalidGatewayRequestException@ error because too many requests
+--     were sent to the server.
+--
+-- The S3 bucket name does not need to be included when entering the list
+-- of folders in the FolderList parameter.
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/storagegateway/latest/userguide/monitoring-file-gateway.html#get-notification Getting notified about file operations>
@@ -79,7 +88,8 @@ module Amazonka.StorageGateway.RefreshCache
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -169,13 +179,14 @@ refreshCache_fileShareARN = Lens.lens (\RefreshCache' {fileShareARN} -> fileShar
 
 instance Core.AWSRequest RefreshCache where
   type AWSResponse RefreshCache = RefreshCacheResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RefreshCacheResponse'
-            Prelude.<$> (x Core..?> "FileShareARN")
-            Prelude.<*> (x Core..?> "NotificationId")
+            Prelude.<$> (x Data..?> "FileShareARN")
+            Prelude.<*> (x Data..?> "NotificationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -191,35 +202,35 @@ instance Prelude.NFData RefreshCache where
       `Prelude.seq` Prelude.rnf recursive
       `Prelude.seq` Prelude.rnf fileShareARN
 
-instance Core.ToHeaders RefreshCache where
+instance Data.ToHeaders RefreshCache where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.RefreshCache" ::
+              Data.=# ( "StorageGateway_20130630.RefreshCache" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RefreshCache where
+instance Data.ToJSON RefreshCache where
   toJSON RefreshCache' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FolderList" Core..=) Prelude.<$> folderList,
-            ("Recursive" Core..=) Prelude.<$> recursive,
-            Prelude.Just ("FileShareARN" Core..= fileShareARN)
+          [ ("FolderList" Data..=) Prelude.<$> folderList,
+            ("Recursive" Data..=) Prelude.<$> recursive,
+            Prelude.Just ("FileShareARN" Data..= fileShareARN)
           ]
       )
 
-instance Core.ToPath RefreshCache where
+instance Data.ToPath RefreshCache where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RefreshCache where
+instance Data.ToQuery RefreshCache where
   toQuery = Prelude.const Prelude.mempty
 
 -- | RefreshCacheOutput

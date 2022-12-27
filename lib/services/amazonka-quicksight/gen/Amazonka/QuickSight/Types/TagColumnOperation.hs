@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.TagColumnOperation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.TagColumnOperation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.ColumnTag
 
@@ -72,14 +73,14 @@ tagColumnOperation_columnName = Lens.lens (\TagColumnOperation' {columnName} -> 
 tagColumnOperation_tags :: Lens.Lens' TagColumnOperation (Prelude.NonEmpty ColumnTag)
 tagColumnOperation_tags = Lens.lens (\TagColumnOperation' {tags} -> tags) (\s@TagColumnOperation' {} a -> s {tags = a} :: TagColumnOperation) Prelude.. Lens.coerced
 
-instance Core.FromJSON TagColumnOperation where
+instance Data.FromJSON TagColumnOperation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TagColumnOperation"
       ( \x ->
           TagColumnOperation'
-            Prelude.<$> (x Core..: "ColumnName")
-            Prelude.<*> (x Core..: "Tags")
+            Prelude.<$> (x Data..: "ColumnName")
+            Prelude.<*> (x Data..: "Tags")
       )
 
 instance Prelude.Hashable TagColumnOperation where
@@ -92,11 +93,11 @@ instance Prelude.NFData TagColumnOperation where
     Prelude.rnf columnName
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToJSON TagColumnOperation where
+instance Data.ToJSON TagColumnOperation where
   toJSON TagColumnOperation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ColumnName" Core..= columnName),
-            Prelude.Just ("Tags" Core..= tags)
+          [ Prelude.Just ("ColumnName" Data..= columnName),
+            Prelude.Just ("Tags" Data..= tags)
           ]
       )

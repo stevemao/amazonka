@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualGatewayListener
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,17 +24,18 @@ import Amazonka.AppMesh.Types.VirtualGatewayHealthCheckPolicy
 import Amazonka.AppMesh.Types.VirtualGatewayListenerTls
 import Amazonka.AppMesh.Types.VirtualGatewayPortMapping
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a listener for a virtual gateway.
 --
 -- /See:/ 'newVirtualGatewayListener' smart constructor.
 data VirtualGatewayListener = VirtualGatewayListener'
-  { -- | The health check information for the listener.
-    healthCheck :: Prelude.Maybe VirtualGatewayHealthCheckPolicy,
-    -- | The connection pool information for the virtual gateway listener.
+  { -- | The connection pool information for the virtual gateway listener.
     connectionPool :: Prelude.Maybe VirtualGatewayConnectionPool,
+    -- | The health check information for the listener.
+    healthCheck :: Prelude.Maybe VirtualGatewayHealthCheckPolicy,
     -- | A reference to an object that represents the Transport Layer Security
     -- (TLS) properties for the listener.
     tls :: Prelude.Maybe VirtualGatewayListenerTls,
@@ -51,9 +52,9 @@ data VirtualGatewayListener = VirtualGatewayListener'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'healthCheck', 'virtualGatewayListener_healthCheck' - The health check information for the listener.
---
 -- 'connectionPool', 'virtualGatewayListener_connectionPool' - The connection pool information for the virtual gateway listener.
+--
+-- 'healthCheck', 'virtualGatewayListener_healthCheck' - The health check information for the listener.
 --
 -- 'tls', 'virtualGatewayListener_tls' - A reference to an object that represents the Transport Layer Security
 -- (TLS) properties for the listener.
@@ -65,20 +66,20 @@ newVirtualGatewayListener ::
   VirtualGatewayListener
 newVirtualGatewayListener pPortMapping_ =
   VirtualGatewayListener'
-    { healthCheck =
+    { connectionPool =
         Prelude.Nothing,
-      connectionPool = Prelude.Nothing,
+      healthCheck = Prelude.Nothing,
       tls = Prelude.Nothing,
       portMapping = pPortMapping_
     }
 
--- | The health check information for the listener.
-virtualGatewayListener_healthCheck :: Lens.Lens' VirtualGatewayListener (Prelude.Maybe VirtualGatewayHealthCheckPolicy)
-virtualGatewayListener_healthCheck = Lens.lens (\VirtualGatewayListener' {healthCheck} -> healthCheck) (\s@VirtualGatewayListener' {} a -> s {healthCheck = a} :: VirtualGatewayListener)
-
 -- | The connection pool information for the virtual gateway listener.
 virtualGatewayListener_connectionPool :: Lens.Lens' VirtualGatewayListener (Prelude.Maybe VirtualGatewayConnectionPool)
 virtualGatewayListener_connectionPool = Lens.lens (\VirtualGatewayListener' {connectionPool} -> connectionPool) (\s@VirtualGatewayListener' {} a -> s {connectionPool = a} :: VirtualGatewayListener)
+
+-- | The health check information for the listener.
+virtualGatewayListener_healthCheck :: Lens.Lens' VirtualGatewayListener (Prelude.Maybe VirtualGatewayHealthCheckPolicy)
+virtualGatewayListener_healthCheck = Lens.lens (\VirtualGatewayListener' {healthCheck} -> healthCheck) (\s@VirtualGatewayListener' {} a -> s {healthCheck = a} :: VirtualGatewayListener)
 
 -- | A reference to an object that represents the Transport Layer Security
 -- (TLS) properties for the listener.
@@ -89,40 +90,40 @@ virtualGatewayListener_tls = Lens.lens (\VirtualGatewayListener' {tls} -> tls) (
 virtualGatewayListener_portMapping :: Lens.Lens' VirtualGatewayListener VirtualGatewayPortMapping
 virtualGatewayListener_portMapping = Lens.lens (\VirtualGatewayListener' {portMapping} -> portMapping) (\s@VirtualGatewayListener' {} a -> s {portMapping = a} :: VirtualGatewayListener)
 
-instance Core.FromJSON VirtualGatewayListener where
+instance Data.FromJSON VirtualGatewayListener where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualGatewayListener"
       ( \x ->
           VirtualGatewayListener'
-            Prelude.<$> (x Core..:? "healthCheck")
-            Prelude.<*> (x Core..:? "connectionPool")
-            Prelude.<*> (x Core..:? "tls")
-            Prelude.<*> (x Core..: "portMapping")
+            Prelude.<$> (x Data..:? "connectionPool")
+            Prelude.<*> (x Data..:? "healthCheck")
+            Prelude.<*> (x Data..:? "tls")
+            Prelude.<*> (x Data..: "portMapping")
       )
 
 instance Prelude.Hashable VirtualGatewayListener where
   hashWithSalt _salt VirtualGatewayListener' {..} =
-    _salt `Prelude.hashWithSalt` healthCheck
-      `Prelude.hashWithSalt` connectionPool
+    _salt `Prelude.hashWithSalt` connectionPool
+      `Prelude.hashWithSalt` healthCheck
       `Prelude.hashWithSalt` tls
       `Prelude.hashWithSalt` portMapping
 
 instance Prelude.NFData VirtualGatewayListener where
   rnf VirtualGatewayListener' {..} =
-    Prelude.rnf healthCheck
-      `Prelude.seq` Prelude.rnf connectionPool
+    Prelude.rnf connectionPool
+      `Prelude.seq` Prelude.rnf healthCheck
       `Prelude.seq` Prelude.rnf tls
       `Prelude.seq` Prelude.rnf portMapping
 
-instance Core.ToJSON VirtualGatewayListener where
+instance Data.ToJSON VirtualGatewayListener where
   toJSON VirtualGatewayListener' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("healthCheck" Core..=) Prelude.<$> healthCheck,
-            ("connectionPool" Core..=)
+          [ ("connectionPool" Data..=)
               Prelude.<$> connectionPool,
-            ("tls" Core..=) Prelude.<$> tls,
-            Prelude.Just ("portMapping" Core..= portMapping)
+            ("healthCheck" Data..=) Prelude.<$> healthCheck,
+            ("tls" Data..=) Prelude.<$> tls,
+            Prelude.Just ("portMapping" Data..= portMapping)
           ]
       )

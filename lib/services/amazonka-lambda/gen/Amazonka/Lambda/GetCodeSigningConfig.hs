@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.GetCodeSigningConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Lambda.GetCodeSigningConfig
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,13 +81,14 @@ instance Core.AWSRequest GetCodeSigningConfig where
   type
     AWSResponse GetCodeSigningConfig =
       GetCodeSigningConfigResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCodeSigningConfigResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "CodeSigningConfig")
+            Prelude.<*> (x Data..:> "CodeSigningConfig")
       )
 
 instance Prelude.Hashable GetCodeSigningConfig where
@@ -97,17 +99,17 @@ instance Prelude.NFData GetCodeSigningConfig where
   rnf GetCodeSigningConfig' {..} =
     Prelude.rnf codeSigningConfigArn
 
-instance Core.ToHeaders GetCodeSigningConfig where
+instance Data.ToHeaders GetCodeSigningConfig where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetCodeSigningConfig where
+instance Data.ToPath GetCodeSigningConfig where
   toPath GetCodeSigningConfig' {..} =
     Prelude.mconcat
       [ "/2020-04-22/code-signing-configs/",
-        Core.toBS codeSigningConfigArn
+        Data.toBS codeSigningConfigArn
       ]
 
-instance Core.ToQuery GetCodeSigningConfig where
+instance Data.ToQuery GetCodeSigningConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetCodeSigningConfigResponse' smart constructor.

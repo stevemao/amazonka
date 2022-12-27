@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.GetPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,15 +34,16 @@ module Amazonka.FMS.GetPolicy
     newGetPolicyResponse,
 
     -- * Response Lenses
-    getPolicyResponse_policyArn,
     getPolicyResponse_policy,
+    getPolicyResponse_policyArn,
     getPolicyResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,13 +77,14 @@ getPolicy_policyId = Lens.lens (\GetPolicy' {policyId} -> policyId) (\s@GetPolic
 
 instance Core.AWSRequest GetPolicy where
   type AWSResponse GetPolicy = GetPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPolicyResponse'
-            Prelude.<$> (x Core..?> "PolicyArn")
-            Prelude.<*> (x Core..?> "Policy")
+            Prelude.<$> (x Data..?> "Policy")
+            Prelude.<*> (x Data..?> "PolicyArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,38 +95,38 @@ instance Prelude.Hashable GetPolicy where
 instance Prelude.NFData GetPolicy where
   rnf GetPolicy' {..} = Prelude.rnf policyId
 
-instance Core.ToHeaders GetPolicy where
+instance Data.ToHeaders GetPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSFMS_20180101.GetPolicy" :: Prelude.ByteString),
+              Data.=# ("AWSFMS_20180101.GetPolicy" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetPolicy where
+instance Data.ToJSON GetPolicy where
   toJSON GetPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("PolicyId" Core..= policyId)]
+          [Prelude.Just ("PolicyId" Data..= policyId)]
       )
 
-instance Core.ToPath GetPolicy where
+instance Data.ToPath GetPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetPolicy where
+instance Data.ToQuery GetPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetPolicyResponse' smart constructor.
 data GetPolicyResponse = GetPolicyResponse'
-  { -- | The Amazon Resource Name (ARN) of the specified policy.
-    policyArn :: Prelude.Maybe Prelude.Text,
-    -- | Information about the specified Firewall Manager policy.
+  { -- | Information about the specified Firewall Manager policy.
     policy :: Prelude.Maybe Policy,
+    -- | The Amazon Resource Name (ARN) of the specified policy.
+    policyArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -138,9 +140,9 @@ data GetPolicyResponse = GetPolicyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'policyArn', 'getPolicyResponse_policyArn' - The Amazon Resource Name (ARN) of the specified policy.
---
 -- 'policy', 'getPolicyResponse_policy' - Information about the specified Firewall Manager policy.
+--
+-- 'policyArn', 'getPolicyResponse_policyArn' - The Amazon Resource Name (ARN) of the specified policy.
 --
 -- 'httpStatus', 'getPolicyResponse_httpStatus' - The response's http status code.
 newGetPolicyResponse ::
@@ -149,18 +151,18 @@ newGetPolicyResponse ::
   GetPolicyResponse
 newGetPolicyResponse pHttpStatus_ =
   GetPolicyResponse'
-    { policyArn = Prelude.Nothing,
-      policy = Prelude.Nothing,
+    { policy = Prelude.Nothing,
+      policyArn = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The Amazon Resource Name (ARN) of the specified policy.
-getPolicyResponse_policyArn :: Lens.Lens' GetPolicyResponse (Prelude.Maybe Prelude.Text)
-getPolicyResponse_policyArn = Lens.lens (\GetPolicyResponse' {policyArn} -> policyArn) (\s@GetPolicyResponse' {} a -> s {policyArn = a} :: GetPolicyResponse)
 
 -- | Information about the specified Firewall Manager policy.
 getPolicyResponse_policy :: Lens.Lens' GetPolicyResponse (Prelude.Maybe Policy)
 getPolicyResponse_policy = Lens.lens (\GetPolicyResponse' {policy} -> policy) (\s@GetPolicyResponse' {} a -> s {policy = a} :: GetPolicyResponse)
+
+-- | The Amazon Resource Name (ARN) of the specified policy.
+getPolicyResponse_policyArn :: Lens.Lens' GetPolicyResponse (Prelude.Maybe Prelude.Text)
+getPolicyResponse_policyArn = Lens.lens (\GetPolicyResponse' {policyArn} -> policyArn) (\s@GetPolicyResponse' {} a -> s {policyArn = a} :: GetPolicyResponse)
 
 -- | The response's http status code.
 getPolicyResponse_httpStatus :: Lens.Lens' GetPolicyResponse Prelude.Int
@@ -168,6 +170,6 @@ getPolicyResponse_httpStatus = Lens.lens (\GetPolicyResponse' {httpStatus} -> ht
 
 instance Prelude.NFData GetPolicyResponse where
   rnf GetPolicyResponse' {..} =
-    Prelude.rnf policyArn
-      `Prelude.seq` Prelude.rnf policy
+    Prelude.rnf policy
+      `Prelude.seq` Prelude.rnf policyArn
       `Prelude.seq` Prelude.rnf httpStatus

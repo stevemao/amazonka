@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.Types.AutoMLResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,13 @@
 module Amazonka.Personalize.Types.AutoMLResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | When the solution performs AutoML (@performAutoML@ is true in
--- CreateSolution), specifies the recipe that best optimized the specified
--- metric.
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html CreateSolution>),
+-- specifies the recipe that best optimized the specified metric.
 --
 -- /See:/ 'newAutoMLResult' smart constructor.
 data AutoMLResult = AutoMLResult'
@@ -52,13 +53,13 @@ newAutoMLResult =
 autoMLResult_bestRecipeArn :: Lens.Lens' AutoMLResult (Prelude.Maybe Prelude.Text)
 autoMLResult_bestRecipeArn = Lens.lens (\AutoMLResult' {bestRecipeArn} -> bestRecipeArn) (\s@AutoMLResult' {} a -> s {bestRecipeArn = a} :: AutoMLResult)
 
-instance Core.FromJSON AutoMLResult where
+instance Data.FromJSON AutoMLResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutoMLResult"
       ( \x ->
           AutoMLResult'
-            Prelude.<$> (x Core..:? "bestRecipeArn")
+            Prelude.<$> (x Data..:? "bestRecipeArn")
       )
 
 instance Prelude.Hashable AutoMLResult where

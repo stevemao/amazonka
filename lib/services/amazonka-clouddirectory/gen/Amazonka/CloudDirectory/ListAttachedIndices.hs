@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.ListAttachedIndices
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.CloudDirectory.ListAttachedIndices
 
     -- * Request Lenses
     listAttachedIndices_consistencyLevel,
-    listAttachedIndices_nextToken,
     listAttachedIndices_maxResults,
+    listAttachedIndices_nextToken,
     listAttachedIndices_directoryArn,
     listAttachedIndices_targetReference,
 
@@ -48,7 +48,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,10 +58,10 @@ import qualified Amazonka.Response as Response
 data ListAttachedIndices = ListAttachedIndices'
   { -- | The consistency level to use for this operation.
     consistencyLevel :: Prelude.Maybe ConsistencyLevel,
-    -- | The pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results to retrieve.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the directory.
     directoryArn :: Prelude.Text,
     -- | A reference to the object that has indices attached.
@@ -78,9 +79,9 @@ data ListAttachedIndices = ListAttachedIndices'
 --
 -- 'consistencyLevel', 'listAttachedIndices_consistencyLevel' - The consistency level to use for this operation.
 --
--- 'nextToken', 'listAttachedIndices_nextToken' - The pagination token.
---
 -- 'maxResults', 'listAttachedIndices_maxResults' - The maximum number of results to retrieve.
+--
+-- 'nextToken', 'listAttachedIndices_nextToken' - The pagination token.
 --
 -- 'directoryArn', 'listAttachedIndices_directoryArn' - The ARN of the directory.
 --
@@ -97,8 +98,8 @@ newListAttachedIndices
     ListAttachedIndices'
       { consistencyLevel =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
         maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         directoryArn = pDirectoryArn_,
         targetReference = pTargetReference_
       }
@@ -107,13 +108,13 @@ newListAttachedIndices
 listAttachedIndices_consistencyLevel :: Lens.Lens' ListAttachedIndices (Prelude.Maybe ConsistencyLevel)
 listAttachedIndices_consistencyLevel = Lens.lens (\ListAttachedIndices' {consistencyLevel} -> consistencyLevel) (\s@ListAttachedIndices' {} a -> s {consistencyLevel = a} :: ListAttachedIndices)
 
--- | The pagination token.
-listAttachedIndices_nextToken :: Lens.Lens' ListAttachedIndices (Prelude.Maybe Prelude.Text)
-listAttachedIndices_nextToken = Lens.lens (\ListAttachedIndices' {nextToken} -> nextToken) (\s@ListAttachedIndices' {} a -> s {nextToken = a} :: ListAttachedIndices)
-
 -- | The maximum number of results to retrieve.
 listAttachedIndices_maxResults :: Lens.Lens' ListAttachedIndices (Prelude.Maybe Prelude.Natural)
 listAttachedIndices_maxResults = Lens.lens (\ListAttachedIndices' {maxResults} -> maxResults) (\s@ListAttachedIndices' {} a -> s {maxResults = a} :: ListAttachedIndices)
+
+-- | The pagination token.
+listAttachedIndices_nextToken :: Lens.Lens' ListAttachedIndices (Prelude.Maybe Prelude.Text)
+listAttachedIndices_nextToken = Lens.lens (\ListAttachedIndices' {nextToken} -> nextToken) (\s@ListAttachedIndices' {} a -> s {nextToken = a} :: ListAttachedIndices)
 
 -- | The ARN of the directory.
 listAttachedIndices_directoryArn :: Lens.Lens' ListAttachedIndices Prelude.Text
@@ -149,58 +150,59 @@ instance Core.AWSRequest ListAttachedIndices where
   type
     AWSResponse ListAttachedIndices =
       ListAttachedIndicesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAttachedIndicesResponse'
-            Prelude.<$> ( x Core..?> "IndexAttachments"
+            Prelude.<$> ( x Data..?> "IndexAttachments"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAttachedIndices where
   hashWithSalt _salt ListAttachedIndices' {..} =
     _salt `Prelude.hashWithSalt` consistencyLevel
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` directoryArn
       `Prelude.hashWithSalt` targetReference
 
 instance Prelude.NFData ListAttachedIndices where
   rnf ListAttachedIndices' {..} =
     Prelude.rnf consistencyLevel
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf directoryArn
       `Prelude.seq` Prelude.rnf targetReference
 
-instance Core.ToHeaders ListAttachedIndices where
+instance Data.ToHeaders ListAttachedIndices where
   toHeaders ListAttachedIndices' {..} =
     Prelude.mconcat
-      [ "x-amz-consistency-level" Core.=# consistencyLevel,
-        "x-amz-data-partition" Core.=# directoryArn
+      [ "x-amz-consistency-level" Data.=# consistencyLevel,
+        "x-amz-data-partition" Data.=# directoryArn
       ]
 
-instance Core.ToJSON ListAttachedIndices where
+instance Data.ToJSON ListAttachedIndices where
   toJSON ListAttachedIndices' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("TargetReference" Core..= targetReference)
+              ("TargetReference" Data..= targetReference)
           ]
       )
 
-instance Core.ToPath ListAttachedIndices where
+instance Data.ToPath ListAttachedIndices where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/object/indices"
 
-instance Core.ToQuery ListAttachedIndices where
+instance Data.ToQuery ListAttachedIndices where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListAttachedIndicesResponse' smart constructor.

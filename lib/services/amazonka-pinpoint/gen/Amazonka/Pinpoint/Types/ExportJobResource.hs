@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.ExportJobResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.ExportJobResource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about the resource settings for a job that exports
@@ -114,16 +115,16 @@ exportJobResource_s3UrlPrefix = Lens.lens (\ExportJobResource' {s3UrlPrefix} -> 
 exportJobResource_roleArn :: Lens.Lens' ExportJobResource Prelude.Text
 exportJobResource_roleArn = Lens.lens (\ExportJobResource' {roleArn} -> roleArn) (\s@ExportJobResource' {} a -> s {roleArn = a} :: ExportJobResource)
 
-instance Core.FromJSON ExportJobResource where
+instance Data.FromJSON ExportJobResource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExportJobResource"
       ( \x ->
           ExportJobResource'
-            Prelude.<$> (x Core..:? "SegmentId")
-            Prelude.<*> (x Core..:? "SegmentVersion")
-            Prelude.<*> (x Core..: "S3UrlPrefix")
-            Prelude.<*> (x Core..: "RoleArn")
+            Prelude.<$> (x Data..:? "SegmentId")
+            Prelude.<*> (x Data..:? "SegmentVersion")
+            Prelude.<*> (x Data..: "S3UrlPrefix")
+            Prelude.<*> (x Data..: "RoleArn")
       )
 
 instance Prelude.Hashable ExportJobResource where

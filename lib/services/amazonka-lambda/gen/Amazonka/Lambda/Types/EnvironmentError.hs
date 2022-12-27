@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.Types.EnvironmentError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lambda.Types.EnvironmentError where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Error messages for environment variables that couldn\'t be applied.
@@ -30,7 +31,7 @@ data EnvironmentError = EnvironmentError'
   { -- | The error code.
     errorCode :: Prelude.Maybe Prelude.Text,
     -- | The error message.
-    message :: Prelude.Maybe (Core.Sensitive Prelude.Text)
+    message :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -59,16 +60,16 @@ environmentError_errorCode = Lens.lens (\EnvironmentError' {errorCode} -> errorC
 
 -- | The error message.
 environmentError_message :: Lens.Lens' EnvironmentError (Prelude.Maybe Prelude.Text)
-environmentError_message = Lens.lens (\EnvironmentError' {message} -> message) (\s@EnvironmentError' {} a -> s {message = a} :: EnvironmentError) Prelude.. Lens.mapping Core._Sensitive
+environmentError_message = Lens.lens (\EnvironmentError' {message} -> message) (\s@EnvironmentError' {} a -> s {message = a} :: EnvironmentError) Prelude.. Lens.mapping Data._Sensitive
 
-instance Core.FromJSON EnvironmentError where
+instance Data.FromJSON EnvironmentError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EnvironmentError"
       ( \x ->
           EnvironmentError'
-            Prelude.<$> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "Message")
       )
 
 instance Prelude.Hashable EnvironmentError where

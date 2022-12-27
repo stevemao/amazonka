@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.Types.LanguageCode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,6 @@ module Amazonka.Transcribe.Types.LanguageCode
         LanguageCode_Af_ZA,
         LanguageCode_Ar_AE,
         LanguageCode_Ar_SA,
-        LanguageCode_Cy_GB,
         LanguageCode_Da_DK,
         LanguageCode_De_CH,
         LanguageCode_De_DE,
@@ -41,8 +40,6 @@ module Amazonka.Transcribe.Types.LanguageCode
         LanguageCode_Fa_IR,
         LanguageCode_Fr_CA,
         LanguageCode_Fr_FR,
-        LanguageCode_Ga_IE,
-        LanguageCode_Gd_GB,
         LanguageCode_He_IL,
         LanguageCode_Hi_IN,
         LanguageCode_Id_ID,
@@ -65,11 +62,12 @@ module Amazonka.Transcribe.Types.LanguageCode
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype LanguageCode = LanguageCode'
   { fromLanguageCode ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -81,18 +79,18 @@ newtype LanguageCode = LanguageCode'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern LanguageCode_Af_ZA :: LanguageCode
@@ -103,9 +101,6 @@ pattern LanguageCode_Ar_AE = LanguageCode' "ar-AE"
 
 pattern LanguageCode_Ar_SA :: LanguageCode
 pattern LanguageCode_Ar_SA = LanguageCode' "ar-SA"
-
-pattern LanguageCode_Cy_GB :: LanguageCode
-pattern LanguageCode_Cy_GB = LanguageCode' "cy-GB"
 
 pattern LanguageCode_Da_DK :: LanguageCode
 pattern LanguageCode_Da_DK = LanguageCode' "da-DK"
@@ -157,12 +152,6 @@ pattern LanguageCode_Fr_CA = LanguageCode' "fr-CA"
 
 pattern LanguageCode_Fr_FR :: LanguageCode
 pattern LanguageCode_Fr_FR = LanguageCode' "fr-FR"
-
-pattern LanguageCode_Ga_IE :: LanguageCode
-pattern LanguageCode_Ga_IE = LanguageCode' "ga-IE"
-
-pattern LanguageCode_Gd_GB :: LanguageCode
-pattern LanguageCode_Gd_GB = LanguageCode' "gd-GB"
 
 pattern LanguageCode_He_IL :: LanguageCode
 pattern LanguageCode_He_IL = LanguageCode' "he-IL"
@@ -219,7 +208,6 @@ pattern LanguageCode_Zh_TW = LanguageCode' "zh-TW"
   LanguageCode_Af_ZA,
   LanguageCode_Ar_AE,
   LanguageCode_Ar_SA,
-  LanguageCode_Cy_GB,
   LanguageCode_Da_DK,
   LanguageCode_De_CH,
   LanguageCode_De_DE,
@@ -237,8 +225,6 @@ pattern LanguageCode_Zh_TW = LanguageCode' "zh-TW"
   LanguageCode_Fa_IR,
   LanguageCode_Fr_CA,
   LanguageCode_Fr_FR,
-  LanguageCode_Ga_IE,
-  LanguageCode_Gd_GB,
   LanguageCode_He_IL,
   LanguageCode_Hi_IN,
   LanguageCode_Id_ID,

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FIS.Types.ActionTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.FIS.Types.ActionTarget where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a target for an action.
@@ -50,13 +51,13 @@ newActionTarget =
 actionTarget_resourceType :: Lens.Lens' ActionTarget (Prelude.Maybe Prelude.Text)
 actionTarget_resourceType = Lens.lens (\ActionTarget' {resourceType} -> resourceType) (\s@ActionTarget' {} a -> s {resourceType = a} :: ActionTarget)
 
-instance Core.FromJSON ActionTarget where
+instance Data.FromJSON ActionTarget where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActionTarget"
       ( \x ->
           ActionTarget'
-            Prelude.<$> (x Core..:? "resourceType")
+            Prelude.<$> (x Data..:? "resourceType")
       )
 
 instance Prelude.Hashable ActionTarget where

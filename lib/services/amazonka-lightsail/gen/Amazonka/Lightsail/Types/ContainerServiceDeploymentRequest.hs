@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.ContainerServiceDeploymentRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.ContainerServiceDeploymentRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.Container
 import Amazonka.Lightsail.Types.EndpointRequest
 import qualified Amazonka.Prelude as Prelude
@@ -33,11 +34,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newContainerServiceDeploymentRequest' smart constructor.
 data ContainerServiceDeploymentRequest = ContainerServiceDeploymentRequest'
-  { -- | An object that describes the endpoint of the deployment.
-    publicEndpoint :: Prelude.Maybe EndpointRequest,
-    -- | An object that describes the configuration for the containers of the
+  { -- | An object that describes the configuration for the containers of the
     -- deployment.
-    containers :: Prelude.Maybe (Prelude.HashMap Prelude.Text Container)
+    containers :: Prelude.Maybe (Prelude.HashMap Prelude.Text Container),
+    -- | An object that describes the endpoint of the deployment.
+    publicEndpoint :: Prelude.Maybe EndpointRequest
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,27 +50,27 @@ data ContainerServiceDeploymentRequest = ContainerServiceDeploymentRequest'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'publicEndpoint', 'containerServiceDeploymentRequest_publicEndpoint' - An object that describes the endpoint of the deployment.
---
 -- 'containers', 'containerServiceDeploymentRequest_containers' - An object that describes the configuration for the containers of the
 -- deployment.
+--
+-- 'publicEndpoint', 'containerServiceDeploymentRequest_publicEndpoint' - An object that describes the endpoint of the deployment.
 newContainerServiceDeploymentRequest ::
   ContainerServiceDeploymentRequest
 newContainerServiceDeploymentRequest =
   ContainerServiceDeploymentRequest'
-    { publicEndpoint =
+    { containers =
         Prelude.Nothing,
-      containers = Prelude.Nothing
+      publicEndpoint = Prelude.Nothing
     }
-
--- | An object that describes the endpoint of the deployment.
-containerServiceDeploymentRequest_publicEndpoint :: Lens.Lens' ContainerServiceDeploymentRequest (Prelude.Maybe EndpointRequest)
-containerServiceDeploymentRequest_publicEndpoint = Lens.lens (\ContainerServiceDeploymentRequest' {publicEndpoint} -> publicEndpoint) (\s@ContainerServiceDeploymentRequest' {} a -> s {publicEndpoint = a} :: ContainerServiceDeploymentRequest)
 
 -- | An object that describes the configuration for the containers of the
 -- deployment.
 containerServiceDeploymentRequest_containers :: Lens.Lens' ContainerServiceDeploymentRequest (Prelude.Maybe (Prelude.HashMap Prelude.Text Container))
 containerServiceDeploymentRequest_containers = Lens.lens (\ContainerServiceDeploymentRequest' {containers} -> containers) (\s@ContainerServiceDeploymentRequest' {} a -> s {containers = a} :: ContainerServiceDeploymentRequest) Prelude.. Lens.mapping Lens.coerced
+
+-- | An object that describes the endpoint of the deployment.
+containerServiceDeploymentRequest_publicEndpoint :: Lens.Lens' ContainerServiceDeploymentRequest (Prelude.Maybe EndpointRequest)
+containerServiceDeploymentRequest_publicEndpoint = Lens.lens (\ContainerServiceDeploymentRequest' {publicEndpoint} -> publicEndpoint) (\s@ContainerServiceDeploymentRequest' {} a -> s {publicEndpoint = a} :: ContainerServiceDeploymentRequest)
 
 instance
   Prelude.Hashable
@@ -78,26 +79,26 @@ instance
   hashWithSalt
     _salt
     ContainerServiceDeploymentRequest' {..} =
-      _salt `Prelude.hashWithSalt` publicEndpoint
-        `Prelude.hashWithSalt` containers
+      _salt `Prelude.hashWithSalt` containers
+        `Prelude.hashWithSalt` publicEndpoint
 
 instance
   Prelude.NFData
     ContainerServiceDeploymentRequest
   where
   rnf ContainerServiceDeploymentRequest' {..} =
-    Prelude.rnf publicEndpoint
-      `Prelude.seq` Prelude.rnf containers
+    Prelude.rnf containers
+      `Prelude.seq` Prelude.rnf publicEndpoint
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ContainerServiceDeploymentRequest
   where
   toJSON ContainerServiceDeploymentRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("publicEndpoint" Core..=)
-              Prelude.<$> publicEndpoint,
-            ("containers" Core..=) Prelude.<$> containers
+          [ ("containers" Data..=) Prelude.<$> containers,
+            ("publicEndpoint" Data..=)
+              Prelude.<$> publicEndpoint
           ]
       )

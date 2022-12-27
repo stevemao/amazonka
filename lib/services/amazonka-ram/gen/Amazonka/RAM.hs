@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.RAM
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,11 +14,13 @@
 -- This is the /Resource Access Manager API Reference/. This documentation
 -- provides descriptions and syntax for each of the actions and data types
 -- in RAM. RAM is a service that helps you securely share your Amazon Web
--- Services resources across Amazon Web Services accounts and within your
--- organization or organizational units (OUs) in Organizations. For
--- supported resource types, you can also share resources with IAM roles
--- and IAM users. If you have multiple Amazon Web Services accounts, you
--- can use RAM to share those resources with other accounts.
+-- Services resources across Amazon Web Services accounts. If you have
+-- multiple Amazon Web Services accounts, you can use RAM to share those
+-- resources with other accounts. If you use Organizations to manage your
+-- accounts, then you share your resources with your organization or
+-- organizational units (OUs). For supported resource types, you can also
+-- share resources with individual Identity and Access Management (IAM)
+-- roles an users.
 --
 -- To learn more about RAM, see the following resources:
 --
@@ -32,11 +34,17 @@ module Amazonka.RAM
     -- * Errors
     -- $errors
 
+    -- ** IdempotentParameterMismatchException
+    _IdempotentParameterMismatchException,
+
     -- ** InvalidClientTokenException
     _InvalidClientTokenException,
 
-    -- ** TagPolicyViolationException
-    _TagPolicyViolationException,
+    -- ** InvalidMaxResultsException
+    _InvalidMaxResultsException,
+
+    -- ** InvalidNextTokenException
+    _InvalidNextTokenException,
 
     -- ** InvalidParameterException
     _InvalidParameterException,
@@ -44,56 +52,53 @@ module Amazonka.RAM
     -- ** InvalidResourceTypeException
     _InvalidResourceTypeException,
 
-    -- ** ResourceShareInvitationArnNotFoundException
-    _ResourceShareInvitationArnNotFoundException,
-
-    -- ** InvalidNextTokenException
-    _InvalidNextTokenException,
+    -- ** InvalidStateTransitionException
+    _InvalidStateTransitionException,
 
     -- ** MalformedArnException
     _MalformedArnException,
 
-    -- ** ServerInternalException
-    _ServerInternalException,
-
-    -- ** UnknownResourceException
-    _UnknownResourceException,
+    -- ** MissingRequiredParameterException
+    _MissingRequiredParameterException,
 
     -- ** OperationNotPermittedException
     _OperationNotPermittedException,
 
-    -- ** InvalidMaxResultsException
-    _InvalidMaxResultsException,
-
-    -- ** ServiceUnavailableException
-    _ServiceUnavailableException,
-
     -- ** ResourceArnNotFoundException
     _ResourceArnNotFoundException,
-
-    -- ** IdempotentParameterMismatchException
-    _IdempotentParameterMismatchException,
-
-    -- ** MissingRequiredParameterException
-    _MissingRequiredParameterException,
-
-    -- ** TagLimitExceededException
-    _TagLimitExceededException,
-
-    -- ** InvalidStateTransitionException
-    _InvalidStateTransitionException,
 
     -- ** ResourceShareInvitationAlreadyAcceptedException
     _ResourceShareInvitationAlreadyAcceptedException,
 
-    -- ** ResourceShareLimitExceededException
-    _ResourceShareLimitExceededException,
+    -- ** ResourceShareInvitationAlreadyRejectedException
+    _ResourceShareInvitationAlreadyRejectedException,
+
+    -- ** ResourceShareInvitationArnNotFoundException
+    _ResourceShareInvitationArnNotFoundException,
 
     -- ** ResourceShareInvitationExpiredException
     _ResourceShareInvitationExpiredException,
 
-    -- ** ResourceShareInvitationAlreadyRejectedException
-    _ResourceShareInvitationAlreadyRejectedException,
+    -- ** ResourceShareLimitExceededException
+    _ResourceShareLimitExceededException,
+
+    -- ** ServerInternalException
+    _ServerInternalException,
+
+    -- ** ServiceUnavailableException
+    _ServiceUnavailableException,
+
+    -- ** TagLimitExceededException
+    _TagLimitExceededException,
+
+    -- ** TagPolicyViolationException
+    _TagPolicyViolationException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** UnknownResourceException
+    _UnknownResourceException,
 
     -- * Waiters
     -- $waiters
@@ -101,41 +106,17 @@ module Amazonka.RAM
     -- * Operations
     -- $operations
 
-    -- ** PromoteResourceShareCreatedFromPolicy
-    PromoteResourceShareCreatedFromPolicy (PromoteResourceShareCreatedFromPolicy'),
-    newPromoteResourceShareCreatedFromPolicy,
-    PromoteResourceShareCreatedFromPolicyResponse (PromoteResourceShareCreatedFromPolicyResponse'),
-    newPromoteResourceShareCreatedFromPolicyResponse,
+    -- ** AcceptResourceShareInvitation
+    AcceptResourceShareInvitation (AcceptResourceShareInvitation'),
+    newAcceptResourceShareInvitation,
+    AcceptResourceShareInvitationResponse (AcceptResourceShareInvitationResponse'),
+    newAcceptResourceShareInvitationResponse,
 
-    -- ** GetResourceShares (Paginated)
-    GetResourceShares (GetResourceShares'),
-    newGetResourceShares,
-    GetResourceSharesResponse (GetResourceSharesResponse'),
-    newGetResourceSharesResponse,
-
-    -- ** GetResourcePolicies (Paginated)
-    GetResourcePolicies (GetResourcePolicies'),
-    newGetResourcePolicies,
-    GetResourcePoliciesResponse (GetResourcePoliciesResponse'),
-    newGetResourcePoliciesResponse,
-
-    -- ** ListPendingInvitationResources
-    ListPendingInvitationResources (ListPendingInvitationResources'),
-    newListPendingInvitationResources,
-    ListPendingInvitationResourcesResponse (ListPendingInvitationResourcesResponse'),
-    newListPendingInvitationResourcesResponse,
-
-    -- ** GetPermission
-    GetPermission (GetPermission'),
-    newGetPermission,
-    GetPermissionResponse (GetPermissionResponse'),
-    newGetPermissionResponse,
-
-    -- ** EnableSharingWithAwsOrganization
-    EnableSharingWithAwsOrganization (EnableSharingWithAwsOrganization'),
-    newEnableSharingWithAwsOrganization,
-    EnableSharingWithAwsOrganizationResponse (EnableSharingWithAwsOrganizationResponse'),
-    newEnableSharingWithAwsOrganizationResponse,
+    -- ** AssociateResourceShare
+    AssociateResourceShare (AssociateResourceShare'),
+    newAssociateResourceShare,
+    AssociateResourceShareResponse (AssociateResourceShareResponse'),
+    newAssociateResourceShareResponse,
 
     -- ** AssociateResourceSharePermission
     AssociateResourceSharePermission (AssociateResourceSharePermission'),
@@ -149,47 +130,11 @@ module Amazonka.RAM
     CreateResourceShareResponse (CreateResourceShareResponse'),
     newCreateResourceShareResponse,
 
-    -- ** ListPrincipals (Paginated)
-    ListPrincipals (ListPrincipals'),
-    newListPrincipals,
-    ListPrincipalsResponse (ListPrincipalsResponse'),
-    newListPrincipalsResponse,
-
-    -- ** ListResources (Paginated)
-    ListResources (ListResources'),
-    newListResources,
-    ListResourcesResponse (ListResourcesResponse'),
-    newListResourcesResponse,
-
-    -- ** AcceptResourceShareInvitation
-    AcceptResourceShareInvitation (AcceptResourceShareInvitation'),
-    newAcceptResourceShareInvitation,
-    AcceptResourceShareInvitationResponse (AcceptResourceShareInvitationResponse'),
-    newAcceptResourceShareInvitationResponse,
-
     -- ** DeleteResourceShare
     DeleteResourceShare (DeleteResourceShare'),
     newDeleteResourceShare,
     DeleteResourceShareResponse (DeleteResourceShareResponse'),
     newDeleteResourceShareResponse,
-
-    -- ** UpdateResourceShare
-    UpdateResourceShare (UpdateResourceShare'),
-    newUpdateResourceShare,
-    UpdateResourceShareResponse (UpdateResourceShareResponse'),
-    newUpdateResourceShareResponse,
-
-    -- ** RejectResourceShareInvitation
-    RejectResourceShareInvitation (RejectResourceShareInvitation'),
-    newRejectResourceShareInvitation,
-    RejectResourceShareInvitationResponse (RejectResourceShareInvitationResponse'),
-    newRejectResourceShareInvitationResponse,
-
-    -- ** ListPermissions
-    ListPermissions (ListPermissions'),
-    newListPermissions,
-    ListPermissionsResponse (ListPermissionsResponse'),
-    newListPermissionsResponse,
 
     -- ** DisassociateResourceShare
     DisassociateResourceShare (DisassociateResourceShare'),
@@ -197,23 +142,29 @@ module Amazonka.RAM
     DisassociateResourceShareResponse (DisassociateResourceShareResponse'),
     newDisassociateResourceShareResponse,
 
-    -- ** ListResourceSharePermissions
-    ListResourceSharePermissions (ListResourceSharePermissions'),
-    newListResourceSharePermissions,
-    ListResourceSharePermissionsResponse (ListResourceSharePermissionsResponse'),
-    newListResourceSharePermissionsResponse,
+    -- ** DisassociateResourceSharePermission
+    DisassociateResourceSharePermission (DisassociateResourceSharePermission'),
+    newDisassociateResourceSharePermission,
+    DisassociateResourceSharePermissionResponse (DisassociateResourceSharePermissionResponse'),
+    newDisassociateResourceSharePermissionResponse,
 
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
+    -- ** EnableSharingWithAwsOrganization
+    EnableSharingWithAwsOrganization (EnableSharingWithAwsOrganization'),
+    newEnableSharingWithAwsOrganization,
+    EnableSharingWithAwsOrganizationResponse (EnableSharingWithAwsOrganizationResponse'),
+    newEnableSharingWithAwsOrganizationResponse,
 
-    -- ** ListResourceTypes
-    ListResourceTypes (ListResourceTypes'),
-    newListResourceTypes,
-    ListResourceTypesResponse (ListResourceTypesResponse'),
-    newListResourceTypesResponse,
+    -- ** GetPermission
+    GetPermission (GetPermission'),
+    newGetPermission,
+    GetPermissionResponse (GetPermissionResponse'),
+    newGetPermissionResponse,
+
+    -- ** GetResourcePolicies (Paginated)
+    GetResourcePolicies (GetResourcePolicies'),
+    newGetResourcePolicies,
+    GetResourcePoliciesResponse (GetResourcePoliciesResponse'),
+    newGetResourcePoliciesResponse,
 
     -- ** GetResourceShareAssociations (Paginated)
     GetResourceShareAssociations (GetResourceShareAssociations'),
@@ -227,28 +178,94 @@ module Amazonka.RAM
     GetResourceShareInvitationsResponse (GetResourceShareInvitationsResponse'),
     newGetResourceShareInvitationsResponse,
 
+    -- ** GetResourceShares (Paginated)
+    GetResourceShares (GetResourceShares'),
+    newGetResourceShares,
+    GetResourceSharesResponse (GetResourceSharesResponse'),
+    newGetResourceSharesResponse,
+
+    -- ** ListPendingInvitationResources
+    ListPendingInvitationResources (ListPendingInvitationResources'),
+    newListPendingInvitationResources,
+    ListPendingInvitationResourcesResponse (ListPendingInvitationResourcesResponse'),
+    newListPendingInvitationResourcesResponse,
+
+    -- ** ListPermissionVersions
+    ListPermissionVersions (ListPermissionVersions'),
+    newListPermissionVersions,
+    ListPermissionVersionsResponse (ListPermissionVersionsResponse'),
+    newListPermissionVersionsResponse,
+
+    -- ** ListPermissions
+    ListPermissions (ListPermissions'),
+    newListPermissions,
+    ListPermissionsResponse (ListPermissionsResponse'),
+    newListPermissionsResponse,
+
+    -- ** ListPrincipals (Paginated)
+    ListPrincipals (ListPrincipals'),
+    newListPrincipals,
+    ListPrincipalsResponse (ListPrincipalsResponse'),
+    newListPrincipalsResponse,
+
+    -- ** ListResourceSharePermissions
+    ListResourceSharePermissions (ListResourceSharePermissions'),
+    newListResourceSharePermissions,
+    ListResourceSharePermissionsResponse (ListResourceSharePermissionsResponse'),
+    newListResourceSharePermissionsResponse,
+
+    -- ** ListResourceTypes
+    ListResourceTypes (ListResourceTypes'),
+    newListResourceTypes,
+    ListResourceTypesResponse (ListResourceTypesResponse'),
+    newListResourceTypesResponse,
+
+    -- ** ListResources (Paginated)
+    ListResources (ListResources'),
+    newListResources,
+    ListResourcesResponse (ListResourcesResponse'),
+    newListResourcesResponse,
+
+    -- ** PromoteResourceShareCreatedFromPolicy
+    PromoteResourceShareCreatedFromPolicy (PromoteResourceShareCreatedFromPolicy'),
+    newPromoteResourceShareCreatedFromPolicy,
+    PromoteResourceShareCreatedFromPolicyResponse (PromoteResourceShareCreatedFromPolicyResponse'),
+    newPromoteResourceShareCreatedFromPolicyResponse,
+
+    -- ** RejectResourceShareInvitation
+    RejectResourceShareInvitation (RejectResourceShareInvitation'),
+    newRejectResourceShareInvitation,
+    RejectResourceShareInvitationResponse (RejectResourceShareInvitationResponse'),
+    newRejectResourceShareInvitationResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
     -- ** UntagResource
     UntagResource (UntagResource'),
     newUntagResource,
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** AssociateResourceShare
-    AssociateResourceShare (AssociateResourceShare'),
-    newAssociateResourceShare,
-    AssociateResourceShareResponse (AssociateResourceShareResponse'),
-    newAssociateResourceShareResponse,
-
-    -- ** DisassociateResourceSharePermission
-    DisassociateResourceSharePermission (DisassociateResourceSharePermission'),
-    newDisassociateResourceSharePermission,
-    DisassociateResourceSharePermissionResponse (DisassociateResourceSharePermissionResponse'),
-    newDisassociateResourceSharePermissionResponse,
+    -- ** UpdateResourceShare
+    UpdateResourceShare (UpdateResourceShare'),
+    newUpdateResourceShare,
+    UpdateResourceShareResponse (UpdateResourceShareResponse'),
+    newUpdateResourceShareResponse,
 
     -- * Types
 
     -- ** ResourceOwner
     ResourceOwner (..),
+
+    -- ** ResourceRegionScope
+    ResourceRegionScope (..),
+
+    -- ** ResourceRegionScopeFilter
+    ResourceRegionScopeFilter (..),
 
     -- ** ResourceShareAssociationStatus
     ResourceShareAssociationStatus (..),
@@ -325,6 +342,7 @@ import Amazonka.RAM.GetResourceShareInvitations
 import Amazonka.RAM.GetResourceShares
 import Amazonka.RAM.Lens
 import Amazonka.RAM.ListPendingInvitationResources
+import Amazonka.RAM.ListPermissionVersions
 import Amazonka.RAM.ListPermissions
 import Amazonka.RAM.ListPrincipals
 import Amazonka.RAM.ListResourceSharePermissions

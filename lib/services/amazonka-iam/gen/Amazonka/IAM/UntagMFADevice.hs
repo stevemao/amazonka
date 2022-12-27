@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.UntagMFADevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IAM.UntagMFADevice
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,7 +113,8 @@ instance Core.AWSRequest UntagMFADevice where
   type
     AWSResponse UntagMFADevice =
       UntagMFADeviceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull UntagMFADeviceResponse'
 
@@ -126,21 +128,21 @@ instance Prelude.NFData UntagMFADevice where
     Prelude.rnf serialNumber
       `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagMFADevice where
+instance Data.ToHeaders UntagMFADevice where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UntagMFADevice where
+instance Data.ToPath UntagMFADevice where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UntagMFADevice where
+instance Data.ToQuery UntagMFADevice where
   toQuery UntagMFADevice' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("UntagMFADevice" :: Prelude.ByteString),
+          Data.=: ("UntagMFADevice" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "SerialNumber" Core.=: serialNumber,
-        "TagKeys" Core.=: Core.toQueryList "member" tagKeys
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "SerialNumber" Data.=: serialNumber,
+        "TagKeys" Data.=: Data.toQueryList "member" tagKeys
       ]
 
 -- | /See:/ 'newUntagMFADeviceResponse' smart constructor.

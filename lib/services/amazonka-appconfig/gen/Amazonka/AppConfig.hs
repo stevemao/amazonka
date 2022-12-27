@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.AppConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -11,23 +11,21 @@
 --
 -- Derived from API version @2019-10-09@ of the AWS service descriptions, licensed under Apache 2.0.
 --
--- AWS AppConfig
---
--- Use AWS AppConfig, a capability of AWS Systems Manager, to create,
--- manage, and quickly deploy application configurations. AppConfig
+-- Use AppConfig, a capability of Amazon Web Services Systems Manager, to
+-- create, manage, and quickly deploy application configurations. AppConfig
 -- supports controlled deployments to applications of any size and includes
 -- built-in validation checks and monitoring. You can use AppConfig with
--- applications hosted on Amazon EC2 instances, AWS Lambda, containers,
--- mobile applications, or IoT devices.
+-- applications hosted on Amazon EC2 instances, Lambda, containers, mobile
+-- applications, or IoT devices.
 --
 -- To prevent errors when deploying application configurations, especially
 -- for production systems where a simple typo could cause an unexpected
 -- outage, AppConfig includes validators. A validator provides a syntactic
 -- or semantic check to ensure that the configuration you want to deploy
 -- works as intended. To validate your application configuration data, you
--- provide a schema or a Lambda function that runs against the
--- configuration. The configuration deployment or update can only proceed
--- when the configuration data is valid.
+-- provide a schema or an Amazon Web Services Lambda function that runs
+-- against the configuration. The configuration deployment or update can
+-- only proceed when the configuration data is valid.
 --
 -- During a configuration deployment, AppConfig monitors the application to
 -- ensure that the deployment is successful. If the system encounters an
@@ -38,14 +36,14 @@
 -- if a deployment triggers an alarm, AppConfig automatically rolls back to
 -- the previous version.
 --
--- AppConfig supports multiple use cases. Here are some examples.
+-- AppConfig supports multiple use cases. Here are some examples:
+--
+-- -   __Feature flags__: Use AppConfig to turn on new features that
+--     require a timely deployment, such as a product launch or
+--     announcement.
 --
 -- -   __Application tuning__: Use AppConfig to carefully introduce changes
 --     to your application that can only be tested with production traffic.
---
--- -   __Feature toggle__: Use AppConfig to turn on new features that
---     require a timely deployment, such as a product launch or
---     announcement.
 --
 -- -   __Allow list__: Use AppConfig to allow premium subscribers to access
 --     paid content.
@@ -55,7 +53,7 @@
 --     system.
 --
 -- This reference is intended to be used with the
--- <http://docs.aws.amazon.com/systems-manager/latest/userguide/appconfig.html AWS AppConfig User Guide>.
+-- <http://docs.aws.amazon.com/appconfig/latest/userguide/what-is-appconfig.html AppConfig User Guide>.
 module Amazonka.AppConfig
   ( -- * Service Configuration
     defaultService,
@@ -63,23 +61,23 @@ module Amazonka.AppConfig
     -- * Errors
     -- $errors
 
-    -- ** PayloadTooLargeException
-    _PayloadTooLargeException,
+    -- ** BadRequestException
+    _BadRequestException,
 
     -- ** ConflictException
     _ConflictException,
 
-    -- ** ServiceQuotaExceededException
-    _ServiceQuotaExceededException,
-
     -- ** InternalServerException
     _InternalServerException,
+
+    -- ** PayloadTooLargeException
+    _PayloadTooLargeException,
 
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
-    -- ** BadRequestException
-    _BadRequestException,
+    -- ** ServiceQuotaExceededException
+    _ServiceQuotaExceededException,
 
     -- * Waiters
     -- $waiters
@@ -87,17 +85,65 @@ module Amazonka.AppConfig
     -- * Operations
     -- $operations
 
-    -- ** ListEnvironments
-    ListEnvironments (ListEnvironments'),
-    newListEnvironments,
-    ListEnvironmentsResponse (ListEnvironmentsResponse'),
-    newListEnvironmentsResponse,
+    -- ** CreateApplication
+    CreateApplication (CreateApplication'),
+    newCreateApplication,
+    Application (Application'),
+    newApplication,
 
-    -- ** UpdateEnvironment
-    UpdateEnvironment (UpdateEnvironment'),
-    newUpdateEnvironment,
+    -- ** CreateConfigurationProfile
+    CreateConfigurationProfile (CreateConfigurationProfile'),
+    newCreateConfigurationProfile,
+    ConfigurationProfile (ConfigurationProfile'),
+    newConfigurationProfile,
+
+    -- ** CreateDeploymentStrategy
+    CreateDeploymentStrategy (CreateDeploymentStrategy'),
+    newCreateDeploymentStrategy,
+    DeploymentStrategy (DeploymentStrategy'),
+    newDeploymentStrategy,
+
+    -- ** CreateEnvironment
+    CreateEnvironment (CreateEnvironment'),
+    newCreateEnvironment,
     Environment (Environment'),
     newEnvironment,
+
+    -- ** CreateExtension
+    CreateExtension (CreateExtension'),
+    newCreateExtension,
+    Extension (Extension'),
+    newExtension,
+
+    -- ** CreateExtensionAssociation
+    CreateExtensionAssociation (CreateExtensionAssociation'),
+    newCreateExtensionAssociation,
+    ExtensionAssociation (ExtensionAssociation'),
+    newExtensionAssociation,
+
+    -- ** CreateHostedConfigurationVersion
+    CreateHostedConfigurationVersion (CreateHostedConfigurationVersion'),
+    newCreateHostedConfigurationVersion,
+    HostedConfigurationVersion (HostedConfigurationVersion'),
+    newHostedConfigurationVersion,
+
+    -- ** DeleteApplication
+    DeleteApplication (DeleteApplication'),
+    newDeleteApplication,
+    DeleteApplicationResponse (DeleteApplicationResponse'),
+    newDeleteApplicationResponse,
+
+    -- ** DeleteConfigurationProfile
+    DeleteConfigurationProfile (DeleteConfigurationProfile'),
+    newDeleteConfigurationProfile,
+    DeleteConfigurationProfileResponse (DeleteConfigurationProfileResponse'),
+    newDeleteConfigurationProfileResponse,
+
+    -- ** DeleteDeploymentStrategy
+    DeleteDeploymentStrategy (DeleteDeploymentStrategy'),
+    newDeleteDeploymentStrategy,
+    DeleteDeploymentStrategyResponse (DeleteDeploymentStrategyResponse'),
+    newDeleteDeploymentStrategyResponse,
 
     -- ** DeleteEnvironment
     DeleteEnvironment (DeleteEnvironment'),
@@ -105,15 +151,33 @@ module Amazonka.AppConfig
     DeleteEnvironmentResponse (DeleteEnvironmentResponse'),
     newDeleteEnvironmentResponse,
 
-    -- ** GetDeploymentStrategy
-    GetDeploymentStrategy (GetDeploymentStrategy'),
-    newGetDeploymentStrategy,
-    DeploymentStrategy (DeploymentStrategy'),
-    newDeploymentStrategy,
+    -- ** DeleteExtension
+    DeleteExtension (DeleteExtension'),
+    newDeleteExtension,
+    DeleteExtensionResponse (DeleteExtensionResponse'),
+    newDeleteExtensionResponse,
 
-    -- ** CreateConfigurationProfile
-    CreateConfigurationProfile (CreateConfigurationProfile'),
-    newCreateConfigurationProfile,
+    -- ** DeleteExtensionAssociation
+    DeleteExtensionAssociation (DeleteExtensionAssociation'),
+    newDeleteExtensionAssociation,
+    DeleteExtensionAssociationResponse (DeleteExtensionAssociationResponse'),
+    newDeleteExtensionAssociationResponse,
+
+    -- ** DeleteHostedConfigurationVersion
+    DeleteHostedConfigurationVersion (DeleteHostedConfigurationVersion'),
+    newDeleteHostedConfigurationVersion,
+    DeleteHostedConfigurationVersionResponse (DeleteHostedConfigurationVersionResponse'),
+    newDeleteHostedConfigurationVersionResponse,
+
+    -- ** GetApplication
+    GetApplication (GetApplication'),
+    newGetApplication,
+    Application (Application'),
+    newApplication,
+
+    -- ** GetConfigurationProfile
+    GetConfigurationProfile (GetConfigurationProfile'),
+    newGetConfigurationProfile,
     ConfigurationProfile (ConfigurationProfile'),
     newConfigurationProfile,
 
@@ -123,119 +187,11 @@ module Amazonka.AppConfig
     Deployment (Deployment'),
     newDeployment,
 
-    -- ** UpdateConfigurationProfile
-    UpdateConfigurationProfile (UpdateConfigurationProfile'),
-    newUpdateConfigurationProfile,
-    ConfigurationProfile (ConfigurationProfile'),
-    newConfigurationProfile,
-
-    -- ** DeleteConfigurationProfile
-    DeleteConfigurationProfile (DeleteConfigurationProfile'),
-    newDeleteConfigurationProfile,
-    DeleteConfigurationProfileResponse (DeleteConfigurationProfileResponse'),
-    newDeleteConfigurationProfileResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** ListHostedConfigurationVersions
-    ListHostedConfigurationVersions (ListHostedConfigurationVersions'),
-    newListHostedConfigurationVersions,
-    ListHostedConfigurationVersionsResponse (ListHostedConfigurationVersionsResponse'),
-    newListHostedConfigurationVersionsResponse,
-
-    -- ** GetConfigurationProfile
-    GetConfigurationProfile (GetConfigurationProfile'),
-    newGetConfigurationProfile,
-    ConfigurationProfile (ConfigurationProfile'),
-    newConfigurationProfile,
-
-    -- ** DeleteApplication
-    DeleteApplication (DeleteApplication'),
-    newDeleteApplication,
-    DeleteApplicationResponse (DeleteApplicationResponse'),
-    newDeleteApplicationResponse,
-
-    -- ** UpdateApplication
-    UpdateApplication (UpdateApplication'),
-    newUpdateApplication,
-    Application (Application'),
-    newApplication,
-
-    -- ** UpdateDeploymentStrategy
-    UpdateDeploymentStrategy (UpdateDeploymentStrategy'),
-    newUpdateDeploymentStrategy,
+    -- ** GetDeploymentStrategy
+    GetDeploymentStrategy (GetDeploymentStrategy'),
+    newGetDeploymentStrategy,
     DeploymentStrategy (DeploymentStrategy'),
     newDeploymentStrategy,
-
-    -- ** DeleteDeploymentStrategy
-    DeleteDeploymentStrategy (DeleteDeploymentStrategy'),
-    newDeleteDeploymentStrategy,
-    DeleteDeploymentStrategyResponse (DeleteDeploymentStrategyResponse'),
-    newDeleteDeploymentStrategyResponse,
-
-    -- ** CreateApplication
-    CreateApplication (CreateApplication'),
-    newCreateApplication,
-    Application (Application'),
-    newApplication,
-
-    -- ** ValidateConfiguration
-    ValidateConfiguration (ValidateConfiguration'),
-    newValidateConfiguration,
-    ValidateConfigurationResponse (ValidateConfigurationResponse'),
-    newValidateConfigurationResponse,
-
-    -- ** StopDeployment
-    StopDeployment (StopDeployment'),
-    newStopDeployment,
-    Deployment (Deployment'),
-    newDeployment,
-
-    -- ** GetApplication
-    GetApplication (GetApplication'),
-    newGetApplication,
-    Application (Application'),
-    newApplication,
-
-    -- ** CreateHostedConfigurationVersion
-    CreateHostedConfigurationVersion (CreateHostedConfigurationVersion'),
-    newCreateHostedConfigurationVersion,
-    HostedConfigurationVersion (HostedConfigurationVersion'),
-    newHostedConfigurationVersion,
-
-    -- ** ListConfigurationProfiles
-    ListConfigurationProfiles (ListConfigurationProfiles'),
-    newListConfigurationProfiles,
-    ListConfigurationProfilesResponse (ListConfigurationProfilesResponse'),
-    newListConfigurationProfilesResponse,
-
-    -- ** DeleteHostedConfigurationVersion
-    DeleteHostedConfigurationVersion (DeleteHostedConfigurationVersion'),
-    newDeleteHostedConfigurationVersion,
-    DeleteHostedConfigurationVersionResponse (DeleteHostedConfigurationVersionResponse'),
-    newDeleteHostedConfigurationVersionResponse,
-
-    -- ** GetHostedConfigurationVersion
-    GetHostedConfigurationVersion (GetHostedConfigurationVersion'),
-    newGetHostedConfigurationVersion,
-    HostedConfigurationVersion (HostedConfigurationVersion'),
-    newHostedConfigurationVersion,
-
-    -- ** ListDeployments
-    ListDeployments (ListDeployments'),
-    newListDeployments,
-    ListDeploymentsResponse (ListDeploymentsResponse'),
-    newListDeploymentsResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
 
     -- ** GetEnvironment
     GetEnvironment (GetEnvironment'),
@@ -243,17 +199,35 @@ module Amazonka.AppConfig
     Environment (Environment'),
     newEnvironment,
 
+    -- ** GetExtension
+    GetExtension (GetExtension'),
+    newGetExtension,
+    Extension (Extension'),
+    newExtension,
+
+    -- ** GetExtensionAssociation
+    GetExtensionAssociation (GetExtensionAssociation'),
+    newGetExtensionAssociation,
+    ExtensionAssociation (ExtensionAssociation'),
+    newExtensionAssociation,
+
+    -- ** GetHostedConfigurationVersion
+    GetHostedConfigurationVersion (GetHostedConfigurationVersion'),
+    newGetHostedConfigurationVersion,
+    HostedConfigurationVersion (HostedConfigurationVersion'),
+    newHostedConfigurationVersion,
+
     -- ** ListApplications
     ListApplications (ListApplications'),
     newListApplications,
     ListApplicationsResponse (ListApplicationsResponse'),
     newListApplicationsResponse,
 
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** ListConfigurationProfiles
+    ListConfigurationProfiles (ListConfigurationProfiles'),
+    newListConfigurationProfiles,
+    ListConfigurationProfilesResponse (ListConfigurationProfilesResponse'),
+    newListConfigurationProfilesResponse,
 
     -- ** ListDeploymentStrategies
     ListDeploymentStrategies (ListDeploymentStrategies'),
@@ -261,17 +235,41 @@ module Amazonka.AppConfig
     ListDeploymentStrategiesResponse (ListDeploymentStrategiesResponse'),
     newListDeploymentStrategiesResponse,
 
-    -- ** GetConfiguration
-    GetConfiguration (GetConfiguration'),
-    newGetConfiguration,
-    GetConfigurationResponse (GetConfigurationResponse'),
-    newGetConfigurationResponse,
+    -- ** ListDeployments
+    ListDeployments (ListDeployments'),
+    newListDeployments,
+    ListDeploymentsResponse (ListDeploymentsResponse'),
+    newListDeploymentsResponse,
 
-    -- ** CreateDeploymentStrategy
-    CreateDeploymentStrategy (CreateDeploymentStrategy'),
-    newCreateDeploymentStrategy,
-    DeploymentStrategy (DeploymentStrategy'),
-    newDeploymentStrategy,
+    -- ** ListEnvironments
+    ListEnvironments (ListEnvironments'),
+    newListEnvironments,
+    ListEnvironmentsResponse (ListEnvironmentsResponse'),
+    newListEnvironmentsResponse,
+
+    -- ** ListExtensionAssociations
+    ListExtensionAssociations (ListExtensionAssociations'),
+    newListExtensionAssociations,
+    ListExtensionAssociationsResponse (ListExtensionAssociationsResponse'),
+    newListExtensionAssociationsResponse,
+
+    -- ** ListExtensions
+    ListExtensions (ListExtensions'),
+    newListExtensions,
+    ListExtensionsResponse (ListExtensionsResponse'),
+    newListExtensionsResponse,
+
+    -- ** ListHostedConfigurationVersions
+    ListHostedConfigurationVersions (ListHostedConfigurationVersions'),
+    newListHostedConfigurationVersions,
+    ListHostedConfigurationVersionsResponse (ListHostedConfigurationVersionsResponse'),
+    newListHostedConfigurationVersionsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** StartDeployment
     StartDeployment (StartDeployment'),
@@ -279,13 +277,70 @@ module Amazonka.AppConfig
     Deployment (Deployment'),
     newDeployment,
 
-    -- ** CreateEnvironment
-    CreateEnvironment (CreateEnvironment'),
-    newCreateEnvironment,
+    -- ** StopDeployment
+    StopDeployment (StopDeployment'),
+    newStopDeployment,
+    Deployment (Deployment'),
+    newDeployment,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateApplication
+    UpdateApplication (UpdateApplication'),
+    newUpdateApplication,
+    Application (Application'),
+    newApplication,
+
+    -- ** UpdateConfigurationProfile
+    UpdateConfigurationProfile (UpdateConfigurationProfile'),
+    newUpdateConfigurationProfile,
+    ConfigurationProfile (ConfigurationProfile'),
+    newConfigurationProfile,
+
+    -- ** UpdateDeploymentStrategy
+    UpdateDeploymentStrategy (UpdateDeploymentStrategy'),
+    newUpdateDeploymentStrategy,
+    DeploymentStrategy (DeploymentStrategy'),
+    newDeploymentStrategy,
+
+    -- ** UpdateEnvironment
+    UpdateEnvironment (UpdateEnvironment'),
+    newUpdateEnvironment,
     Environment (Environment'),
     newEnvironment,
 
+    -- ** UpdateExtension
+    UpdateExtension (UpdateExtension'),
+    newUpdateExtension,
+    Extension (Extension'),
+    newExtension,
+
+    -- ** UpdateExtensionAssociation
+    UpdateExtensionAssociation (UpdateExtensionAssociation'),
+    newUpdateExtensionAssociation,
+    ExtensionAssociation (ExtensionAssociation'),
+    newExtensionAssociation,
+
+    -- ** ValidateConfiguration
+    ValidateConfiguration (ValidateConfiguration'),
+    newValidateConfiguration,
+    ValidateConfigurationResponse (ValidateConfigurationResponse'),
+    newValidateConfigurationResponse,
+
     -- * Types
+
+    -- ** ActionPoint
+    ActionPoint (..),
 
     -- ** DeploymentEventType
     DeploymentEventType (..),
@@ -308,9 +363,21 @@ module Amazonka.AppConfig
     -- ** ValidatorType
     ValidatorType (..),
 
+    -- ** Action
+    Action (Action'),
+    newAction,
+
+    -- ** ActionInvocation
+    ActionInvocation (ActionInvocation'),
+    newActionInvocation,
+
     -- ** Application
     Application (Application'),
     newApplication,
+
+    -- ** AppliedExtension
+    AppliedExtension (AppliedExtension'),
+    newAppliedExtension,
 
     -- ** ConfigurationProfile
     ConfigurationProfile (ConfigurationProfile'),
@@ -340,6 +407,22 @@ module Amazonka.AppConfig
     Environment (Environment'),
     newEnvironment,
 
+    -- ** Extension
+    Extension (Extension'),
+    newExtension,
+
+    -- ** ExtensionAssociation
+    ExtensionAssociation (ExtensionAssociation'),
+    newExtensionAssociation,
+
+    -- ** ExtensionAssociationSummary
+    ExtensionAssociationSummary (ExtensionAssociationSummary'),
+    newExtensionAssociationSummary,
+
+    -- ** ExtensionSummary
+    ExtensionSummary (ExtensionSummary'),
+    newExtensionSummary,
+
     -- ** HostedConfigurationVersion
     HostedConfigurationVersion (HostedConfigurationVersion'),
     newHostedConfigurationVersion,
@@ -352,6 +435,10 @@ module Amazonka.AppConfig
     Monitor (Monitor'),
     newMonitor,
 
+    -- ** Parameter
+    Parameter (Parameter'),
+    newParameter,
+
     -- ** Validator
     Validator (Validator'),
     newValidator,
@@ -362,18 +449,23 @@ import Amazonka.AppConfig.CreateApplication
 import Amazonka.AppConfig.CreateConfigurationProfile
 import Amazonka.AppConfig.CreateDeploymentStrategy
 import Amazonka.AppConfig.CreateEnvironment
+import Amazonka.AppConfig.CreateExtension
+import Amazonka.AppConfig.CreateExtensionAssociation
 import Amazonka.AppConfig.CreateHostedConfigurationVersion
 import Amazonka.AppConfig.DeleteApplication
 import Amazonka.AppConfig.DeleteConfigurationProfile
 import Amazonka.AppConfig.DeleteDeploymentStrategy
 import Amazonka.AppConfig.DeleteEnvironment
+import Amazonka.AppConfig.DeleteExtension
+import Amazonka.AppConfig.DeleteExtensionAssociation
 import Amazonka.AppConfig.DeleteHostedConfigurationVersion
 import Amazonka.AppConfig.GetApplication
-import Amazonka.AppConfig.GetConfiguration
 import Amazonka.AppConfig.GetConfigurationProfile
 import Amazonka.AppConfig.GetDeployment
 import Amazonka.AppConfig.GetDeploymentStrategy
 import Amazonka.AppConfig.GetEnvironment
+import Amazonka.AppConfig.GetExtension
+import Amazonka.AppConfig.GetExtensionAssociation
 import Amazonka.AppConfig.GetHostedConfigurationVersion
 import Amazonka.AppConfig.Lens
 import Amazonka.AppConfig.ListApplications
@@ -381,6 +473,8 @@ import Amazonka.AppConfig.ListConfigurationProfiles
 import Amazonka.AppConfig.ListDeploymentStrategies
 import Amazonka.AppConfig.ListDeployments
 import Amazonka.AppConfig.ListEnvironments
+import Amazonka.AppConfig.ListExtensionAssociations
+import Amazonka.AppConfig.ListExtensions
 import Amazonka.AppConfig.ListHostedConfigurationVersions
 import Amazonka.AppConfig.ListTagsForResource
 import Amazonka.AppConfig.StartDeployment
@@ -392,6 +486,8 @@ import Amazonka.AppConfig.UpdateApplication
 import Amazonka.AppConfig.UpdateConfigurationProfile
 import Amazonka.AppConfig.UpdateDeploymentStrategy
 import Amazonka.AppConfig.UpdateEnvironment
+import Amazonka.AppConfig.UpdateExtension
+import Amazonka.AppConfig.UpdateExtensionAssociation
 import Amazonka.AppConfig.ValidateConfiguration
 import Amazonka.AppConfig.Waiters
 

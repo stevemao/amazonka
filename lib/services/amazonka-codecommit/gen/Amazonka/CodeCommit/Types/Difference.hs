@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.Types.Difference
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CodeCommit.Types.Difference where
 import Amazonka.CodeCommit.Types.BlobMetadata
 import Amazonka.CodeCommit.Types.ChangeTypeEnum
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Returns information about a set of differences for a commit specifier.
@@ -81,15 +82,15 @@ difference_beforeBlob = Lens.lens (\Difference' {beforeBlob} -> beforeBlob) (\s@
 difference_changeType :: Lens.Lens' Difference (Prelude.Maybe ChangeTypeEnum)
 difference_changeType = Lens.lens (\Difference' {changeType} -> changeType) (\s@Difference' {} a -> s {changeType = a} :: Difference)
 
-instance Core.FromJSON Difference where
+instance Data.FromJSON Difference where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Difference"
       ( \x ->
           Difference'
-            Prelude.<$> (x Core..:? "afterBlob")
-            Prelude.<*> (x Core..:? "beforeBlob")
-            Prelude.<*> (x Core..:? "changeType")
+            Prelude.<$> (x Data..:? "afterBlob")
+            Prelude.<*> (x Data..:? "beforeBlob")
+            Prelude.<*> (x Data..:? "changeType")
       )
 
 instance Prelude.Hashable Difference where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruReviewer.ListRecommendationFeedback
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,10 +30,10 @@ module Amazonka.CodeGuruReviewer.ListRecommendationFeedback
     newListRecommendationFeedback,
 
     -- * Request Lenses
-    listRecommendationFeedback_userIds,
+    listRecommendationFeedback_maxResults,
     listRecommendationFeedback_nextToken,
     listRecommendationFeedback_recommendationIds,
-    listRecommendationFeedback_maxResults,
+    listRecommendationFeedback_userIds,
     listRecommendationFeedback_codeReviewArn,
 
     -- * Destructuring the Response
@@ -49,14 +49,25 @@ where
 
 import Amazonka.CodeGuruReviewer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListRecommendationFeedback' smart constructor.
 data ListRecommendationFeedback = ListRecommendationFeedback'
-  { -- | An Amazon Web Services user\'s account ID or Amazon Resource Name (ARN).
+  { -- | The maximum number of results that are returned per call. The default is
+    -- 100.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If @nextToken@ is returned, there are more results available. The value
+    -- of @nextToken@ is a unique pagination token for each page. Make the call
+    -- again using the returned token to retrieve the next page. Keep all other
+    -- arguments unchanged.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Used to query the recommendation feedback for a given recommendation.
+    recommendationIds :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | An Amazon Web Services user\'s account ID or Amazon Resource Name (ARN).
     -- Use this ID to query the recommendation feedback for a code review from
     -- that user.
     --
@@ -66,16 +77,6 @@ data ListRecommendationFeedback = ListRecommendationFeedback'
     -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying Specifying a Principal>
     -- in the /Amazon Web Services Identity and Access Management User Guide/.
     userIds :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | If @nextToken@ is returned, there are more results available. The value
-    -- of nextToken is a unique pagination token for each page. Make the call
-    -- again using the returned token to retrieve the next page. Keep all other
-    -- arguments unchanged.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Used to query the recommendation feedback for a given recommendation.
-    recommendationIds :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | The maximum number of results that are returned per call. The default is
-    -- 100.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The Amazon Resource Name (ARN) of the
     -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html CodeReview>
     -- object.
@@ -91,6 +92,16 @@ data ListRecommendationFeedback = ListRecommendationFeedback'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listRecommendationFeedback_maxResults' - The maximum number of results that are returned per call. The default is
+-- 100.
+--
+-- 'nextToken', 'listRecommendationFeedback_nextToken' - If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged.
+--
+-- 'recommendationIds', 'listRecommendationFeedback_recommendationIds' - Used to query the recommendation feedback for a given recommendation.
+--
 -- 'userIds', 'listRecommendationFeedback_userIds' - An Amazon Web Services user\'s account ID or Amazon Resource Name (ARN).
 -- Use this ID to query the recommendation feedback for a code review from
 -- that user.
@@ -101,16 +112,6 @@ data ListRecommendationFeedback = ListRecommendationFeedback'
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies_elements_principal.html#Principal_specifying Specifying a Principal>
 -- in the /Amazon Web Services Identity and Access Management User Guide/.
 --
--- 'nextToken', 'listRecommendationFeedback_nextToken' - If @nextToken@ is returned, there are more results available. The value
--- of nextToken is a unique pagination token for each page. Make the call
--- again using the returned token to retrieve the next page. Keep all other
--- arguments unchanged.
---
--- 'recommendationIds', 'listRecommendationFeedback_recommendationIds' - Used to query the recommendation feedback for a given recommendation.
---
--- 'maxResults', 'listRecommendationFeedback_maxResults' - The maximum number of results that are returned per call. The default is
--- 100.
---
 -- 'codeReviewArn', 'listRecommendationFeedback_codeReviewArn' - The Amazon Resource Name (ARN) of the
 -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html CodeReview>
 -- object.
@@ -120,13 +121,29 @@ newListRecommendationFeedback ::
   ListRecommendationFeedback
 newListRecommendationFeedback pCodeReviewArn_ =
   ListRecommendationFeedback'
-    { userIds =
+    { maxResults =
         Prelude.Nothing,
       nextToken = Prelude.Nothing,
       recommendationIds = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      userIds = Prelude.Nothing,
       codeReviewArn = pCodeReviewArn_
     }
+
+-- | The maximum number of results that are returned per call. The default is
+-- 100.
+listRecommendationFeedback_maxResults :: Lens.Lens' ListRecommendationFeedback (Prelude.Maybe Prelude.Natural)
+listRecommendationFeedback_maxResults = Lens.lens (\ListRecommendationFeedback' {maxResults} -> maxResults) (\s@ListRecommendationFeedback' {} a -> s {maxResults = a} :: ListRecommendationFeedback)
+
+-- | If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged.
+listRecommendationFeedback_nextToken :: Lens.Lens' ListRecommendationFeedback (Prelude.Maybe Prelude.Text)
+listRecommendationFeedback_nextToken = Lens.lens (\ListRecommendationFeedback' {nextToken} -> nextToken) (\s@ListRecommendationFeedback' {} a -> s {nextToken = a} :: ListRecommendationFeedback)
+
+-- | Used to query the recommendation feedback for a given recommendation.
+listRecommendationFeedback_recommendationIds :: Lens.Lens' ListRecommendationFeedback (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+listRecommendationFeedback_recommendationIds = Lens.lens (\ListRecommendationFeedback' {recommendationIds} -> recommendationIds) (\s@ListRecommendationFeedback' {} a -> s {recommendationIds = a} :: ListRecommendationFeedback) Prelude.. Lens.mapping Lens.coerced
 
 -- | An Amazon Web Services user\'s account ID or Amazon Resource Name (ARN).
 -- Use this ID to query the recommendation feedback for a code review from
@@ -140,22 +157,6 @@ newListRecommendationFeedback pCodeReviewArn_ =
 listRecommendationFeedback_userIds :: Lens.Lens' ListRecommendationFeedback (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 listRecommendationFeedback_userIds = Lens.lens (\ListRecommendationFeedback' {userIds} -> userIds) (\s@ListRecommendationFeedback' {} a -> s {userIds = a} :: ListRecommendationFeedback) Prelude.. Lens.mapping Lens.coerced
 
--- | If @nextToken@ is returned, there are more results available. The value
--- of nextToken is a unique pagination token for each page. Make the call
--- again using the returned token to retrieve the next page. Keep all other
--- arguments unchanged.
-listRecommendationFeedback_nextToken :: Lens.Lens' ListRecommendationFeedback (Prelude.Maybe Prelude.Text)
-listRecommendationFeedback_nextToken = Lens.lens (\ListRecommendationFeedback' {nextToken} -> nextToken) (\s@ListRecommendationFeedback' {} a -> s {nextToken = a} :: ListRecommendationFeedback)
-
--- | Used to query the recommendation feedback for a given recommendation.
-listRecommendationFeedback_recommendationIds :: Lens.Lens' ListRecommendationFeedback (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-listRecommendationFeedback_recommendationIds = Lens.lens (\ListRecommendationFeedback' {recommendationIds} -> recommendationIds) (\s@ListRecommendationFeedback' {} a -> s {recommendationIds = a} :: ListRecommendationFeedback) Prelude.. Lens.mapping Lens.coerced
-
--- | The maximum number of results that are returned per call. The default is
--- 100.
-listRecommendationFeedback_maxResults :: Lens.Lens' ListRecommendationFeedback (Prelude.Maybe Prelude.Natural)
-listRecommendationFeedback_maxResults = Lens.lens (\ListRecommendationFeedback' {maxResults} -> maxResults) (\s@ListRecommendationFeedback' {} a -> s {maxResults = a} :: ListRecommendationFeedback)
-
 -- | The Amazon Resource Name (ARN) of the
 -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CodeReview.html CodeReview>
 -- object.
@@ -166,13 +167,14 @@ instance Core.AWSRequest ListRecommendationFeedback where
   type
     AWSResponse ListRecommendationFeedback =
       ListRecommendationFeedbackResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRecommendationFeedbackResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "RecommendationFeedbackSummaries"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "RecommendationFeedbackSummaries"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -180,58 +182,58 @@ instance Core.AWSRequest ListRecommendationFeedback where
 
 instance Prelude.Hashable ListRecommendationFeedback where
   hashWithSalt _salt ListRecommendationFeedback' {..} =
-    _salt `Prelude.hashWithSalt` userIds
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` recommendationIds
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` userIds
       `Prelude.hashWithSalt` codeReviewArn
 
 instance Prelude.NFData ListRecommendationFeedback where
   rnf ListRecommendationFeedback' {..} =
-    Prelude.rnf userIds
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf recommendationIds
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf userIds
       `Prelude.seq` Prelude.rnf codeReviewArn
 
-instance Core.ToHeaders ListRecommendationFeedback where
+instance Data.ToHeaders ListRecommendationFeedback where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListRecommendationFeedback where
+instance Data.ToPath ListRecommendationFeedback where
   toPath ListRecommendationFeedback' {..} =
     Prelude.mconcat
       [ "/feedback/",
-        Core.toBS codeReviewArn,
+        Data.toBS codeReviewArn,
         "/RecommendationFeedback"
       ]
 
-instance Core.ToQuery ListRecommendationFeedback where
+instance Data.ToQuery ListRecommendationFeedback where
   toQuery ListRecommendationFeedback' {..} =
     Prelude.mconcat
-      [ "UserIds"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> userIds),
-        "NextToken" Core.=: nextToken,
+      [ "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
         "RecommendationIds"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> recommendationIds
             ),
-        "MaxResults" Core.=: maxResults
+        "UserIds"
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> userIds)
       ]
 
 -- | /See:/ 'newListRecommendationFeedbackResponse' smart constructor.
 data ListRecommendationFeedbackResponse = ListRecommendationFeedbackResponse'
-  { -- | If nextToken is returned, there are more results available. The value of
-    -- nextToken is a unique pagination token for each page. Make the call
+  { -- | If @nextToken@ is returned, there are more results available. The value
+    -- of @nextToken@ is a unique pagination token for each page. Make the call
     -- again using the returned token to retrieve the next page. Keep all other
     -- arguments unchanged.
     nextToken :: Prelude.Maybe Prelude.Text,
@@ -250,8 +252,8 @@ data ListRecommendationFeedbackResponse = ListRecommendationFeedbackResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listRecommendationFeedbackResponse_nextToken' - If nextToken is returned, there are more results available. The value of
--- nextToken is a unique pagination token for each page. Make the call
+-- 'nextToken', 'listRecommendationFeedbackResponse_nextToken' - If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
 -- again using the returned token to retrieve the next page. Keep all other
 -- arguments unchanged.
 --
@@ -271,8 +273,8 @@ newListRecommendationFeedbackResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | If nextToken is returned, there are more results available. The value of
--- nextToken is a unique pagination token for each page. Make the call
+-- | If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
 -- again using the returned token to retrieve the next page. Keep all other
 -- arguments unchanged.
 listRecommendationFeedbackResponse_nextToken :: Lens.Lens' ListRecommendationFeedbackResponse (Prelude.Maybe Prelude.Text)

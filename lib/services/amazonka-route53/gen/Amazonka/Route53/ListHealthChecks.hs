@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.ListHealthChecks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.Route53.ListHealthChecks
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -152,19 +153,20 @@ instance Core.AWSRequest ListHealthChecks where
   type
     AWSResponse ListHealthChecks =
       ListHealthChecksResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ListHealthChecksResponse'
-            Prelude.<$> (x Core..@? "NextMarker")
+            Prelude.<$> (x Data..@? "NextMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "HealthChecks" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "HealthCheck"
+            Prelude.<*> ( x Data..@? "HealthChecks" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "HealthCheck"
                         )
-            Prelude.<*> (x Core..@ "Marker")
-            Prelude.<*> (x Core..@ "IsTruncated")
-            Prelude.<*> (x Core..@ "MaxItems")
+            Prelude.<*> (x Data..@ "Marker")
+            Prelude.<*> (x Data..@ "IsTruncated")
+            Prelude.<*> (x Data..@ "MaxItems")
       )
 
 instance Prelude.Hashable ListHealthChecks where
@@ -177,17 +179,17 @@ instance Prelude.NFData ListHealthChecks where
     Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxItems
 
-instance Core.ToHeaders ListHealthChecks where
+instance Data.ToHeaders ListHealthChecks where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListHealthChecks where
+instance Data.ToPath ListHealthChecks where
   toPath = Prelude.const "/2013-04-01/healthcheck"
 
-instance Core.ToQuery ListHealthChecks where
+instance Data.ToQuery ListHealthChecks where
   toQuery ListHealthChecks' {..} =
     Prelude.mconcat
-      [ "marker" Core.=: marker,
-        "maxitems" Core.=: maxItems
+      [ "marker" Data.=: marker,
+        "maxitems" Data.=: maxItems
       ]
 
 -- | A complex type that contains the response to a @ListHealthChecks@

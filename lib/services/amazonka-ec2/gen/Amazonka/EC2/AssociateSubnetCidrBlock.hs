@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.AssociateSubnetCidrBlock
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,15 +37,16 @@ module Amazonka.EC2.AssociateSubnetCidrBlock
     newAssociateSubnetCidrBlockResponse,
 
     -- * Response Lenses
-    associateSubnetCidrBlockResponse_subnetId,
     associateSubnetCidrBlockResponse_ipv6CidrBlockAssociation,
+    associateSubnetCidrBlockResponse_subnetId,
     associateSubnetCidrBlockResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,13 +101,14 @@ instance Core.AWSRequest AssociateSubnetCidrBlock where
   type
     AWSResponse AssociateSubnetCidrBlock =
       AssociateSubnetCidrBlockResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           AssociateSubnetCidrBlockResponse'
-            Prelude.<$> (x Core..@? "subnetId")
-            Prelude.<*> (x Core..@? "ipv6CidrBlockAssociation")
+            Prelude.<$> (x Data..@? "ipv6CidrBlockAssociation")
+            Prelude.<*> (x Data..@? "subnetId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,29 +122,29 @@ instance Prelude.NFData AssociateSubnetCidrBlock where
     Prelude.rnf ipv6CidrBlock
       `Prelude.seq` Prelude.rnf subnetId
 
-instance Core.ToHeaders AssociateSubnetCidrBlock where
+instance Data.ToHeaders AssociateSubnetCidrBlock where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AssociateSubnetCidrBlock where
+instance Data.ToPath AssociateSubnetCidrBlock where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateSubnetCidrBlock where
+instance Data.ToQuery AssociateSubnetCidrBlock where
   toQuery AssociateSubnetCidrBlock' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("AssociateSubnetCidrBlock" :: Prelude.ByteString),
+          Data.=: ("AssociateSubnetCidrBlock" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "Ipv6CidrBlock" Core.=: ipv6CidrBlock,
-        "SubnetId" Core.=: subnetId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "Ipv6CidrBlock" Data.=: ipv6CidrBlock,
+        "SubnetId" Data.=: subnetId
       ]
 
 -- | /See:/ 'newAssociateSubnetCidrBlockResponse' smart constructor.
 data AssociateSubnetCidrBlockResponse = AssociateSubnetCidrBlockResponse'
-  { -- | The ID of the subnet.
-    subnetId :: Prelude.Maybe Prelude.Text,
-    -- | Information about the IPv6 CIDR block association.
+  { -- | Information about the IPv6 association.
     ipv6CidrBlockAssociation :: Prelude.Maybe SubnetIpv6CidrBlockAssociation,
+    -- | The ID of the subnet.
+    subnetId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -156,9 +158,9 @@ data AssociateSubnetCidrBlockResponse = AssociateSubnetCidrBlockResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subnetId', 'associateSubnetCidrBlockResponse_subnetId' - The ID of the subnet.
+-- 'ipv6CidrBlockAssociation', 'associateSubnetCidrBlockResponse_ipv6CidrBlockAssociation' - Information about the IPv6 association.
 --
--- 'ipv6CidrBlockAssociation', 'associateSubnetCidrBlockResponse_ipv6CidrBlockAssociation' - Information about the IPv6 CIDR block association.
+-- 'subnetId', 'associateSubnetCidrBlockResponse_subnetId' - The ID of the subnet.
 --
 -- 'httpStatus', 'associateSubnetCidrBlockResponse_httpStatus' - The response's http status code.
 newAssociateSubnetCidrBlockResponse ::
@@ -167,20 +169,19 @@ newAssociateSubnetCidrBlockResponse ::
   AssociateSubnetCidrBlockResponse
 newAssociateSubnetCidrBlockResponse pHttpStatus_ =
   AssociateSubnetCidrBlockResponse'
-    { subnetId =
+    { ipv6CidrBlockAssociation =
         Prelude.Nothing,
-      ipv6CidrBlockAssociation =
-        Prelude.Nothing,
+      subnetId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Information about the IPv6 association.
+associateSubnetCidrBlockResponse_ipv6CidrBlockAssociation :: Lens.Lens' AssociateSubnetCidrBlockResponse (Prelude.Maybe SubnetIpv6CidrBlockAssociation)
+associateSubnetCidrBlockResponse_ipv6CidrBlockAssociation = Lens.lens (\AssociateSubnetCidrBlockResponse' {ipv6CidrBlockAssociation} -> ipv6CidrBlockAssociation) (\s@AssociateSubnetCidrBlockResponse' {} a -> s {ipv6CidrBlockAssociation = a} :: AssociateSubnetCidrBlockResponse)
 
 -- | The ID of the subnet.
 associateSubnetCidrBlockResponse_subnetId :: Lens.Lens' AssociateSubnetCidrBlockResponse (Prelude.Maybe Prelude.Text)
 associateSubnetCidrBlockResponse_subnetId = Lens.lens (\AssociateSubnetCidrBlockResponse' {subnetId} -> subnetId) (\s@AssociateSubnetCidrBlockResponse' {} a -> s {subnetId = a} :: AssociateSubnetCidrBlockResponse)
-
--- | Information about the IPv6 CIDR block association.
-associateSubnetCidrBlockResponse_ipv6CidrBlockAssociation :: Lens.Lens' AssociateSubnetCidrBlockResponse (Prelude.Maybe SubnetIpv6CidrBlockAssociation)
-associateSubnetCidrBlockResponse_ipv6CidrBlockAssociation = Lens.lens (\AssociateSubnetCidrBlockResponse' {ipv6CidrBlockAssociation} -> ipv6CidrBlockAssociation) (\s@AssociateSubnetCidrBlockResponse' {} a -> s {ipv6CidrBlockAssociation = a} :: AssociateSubnetCidrBlockResponse)
 
 -- | The response's http status code.
 associateSubnetCidrBlockResponse_httpStatus :: Lens.Lens' AssociateSubnetCidrBlockResponse Prelude.Int
@@ -191,6 +192,6 @@ instance
     AssociateSubnetCidrBlockResponse
   where
   rnf AssociateSubnetCidrBlockResponse' {..} =
-    Prelude.rnf subnetId
-      `Prelude.seq` Prelude.rnf ipv6CidrBlockAssociation
+    Prelude.rnf ipv6CidrBlockAssociation
+      `Prelude.seq` Prelude.rnf subnetId
       `Prelude.seq` Prelude.rnf httpStatus

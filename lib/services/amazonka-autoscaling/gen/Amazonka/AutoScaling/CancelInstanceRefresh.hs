@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.CancelInstanceRefresh
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,13 +88,14 @@ instance Core.AWSRequest CancelInstanceRefresh where
   type
     AWSResponse CancelInstanceRefresh =
       CancelInstanceRefreshResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CancelInstanceRefreshResult"
       ( \s h x ->
           CancelInstanceRefreshResponse'
-            Prelude.<$> (x Core..@? "InstanceRefreshId")
+            Prelude.<$> (x Data..@? "InstanceRefreshId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -105,20 +107,20 @@ instance Prelude.NFData CancelInstanceRefresh where
   rnf CancelInstanceRefresh' {..} =
     Prelude.rnf autoScalingGroupName
 
-instance Core.ToHeaders CancelInstanceRefresh where
+instance Data.ToHeaders CancelInstanceRefresh where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CancelInstanceRefresh where
+instance Data.ToPath CancelInstanceRefresh where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelInstanceRefresh where
+instance Data.ToQuery CancelInstanceRefresh where
   toQuery CancelInstanceRefresh' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CancelInstanceRefresh" :: Prelude.ByteString),
+          Data.=: ("CancelInstanceRefresh" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "AutoScalingGroupName" Core.=: autoScalingGroupName
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "AutoScalingGroupName" Data.=: autoScalingGroupName
       ]
 
 -- | /See:/ 'newCancelInstanceRefreshResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.DeleteNamespace
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Route53AutoNaming.DeleteNamespace
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ instance Core.AWSRequest DeleteNamespace where
   type
     AWSResponse DeleteNamespace =
       DeleteNamespaceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteNamespaceResponse'
-            Prelude.<$> (x Core..?> "OperationId")
+            Prelude.<$> (x Data..?> "OperationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,30 +95,30 @@ instance Prelude.Hashable DeleteNamespace where
 instance Prelude.NFData DeleteNamespace where
   rnf DeleteNamespace' {..} = Prelude.rnf id
 
-instance Core.ToHeaders DeleteNamespace where
+instance Data.ToHeaders DeleteNamespace where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53AutoNaming_v20170314.DeleteNamespace" ::
+              Data.=# ( "Route53AutoNaming_v20170314.DeleteNamespace" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteNamespace where
+instance Data.ToJSON DeleteNamespace where
   toJSON DeleteNamespace' {..} =
-    Core.object
-      (Prelude.catMaybes [Prelude.Just ("Id" Core..= id)])
+    Data.object
+      (Prelude.catMaybes [Prelude.Just ("Id" Data..= id)])
 
-instance Core.ToPath DeleteNamespace where
+instance Data.ToPath DeleteNamespace where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteNamespace where
+instance Data.ToQuery DeleteNamespace where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteNamespaceResponse' smart constructor.

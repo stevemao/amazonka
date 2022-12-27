@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.AttributePayload
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.AttributePayload where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The attribute payload.
@@ -94,14 +95,14 @@ attributePayload_attributes = Lens.lens (\AttributePayload' {attributes} -> attr
 attributePayload_merge :: Lens.Lens' AttributePayload (Prelude.Maybe Prelude.Bool)
 attributePayload_merge = Lens.lens (\AttributePayload' {merge} -> merge) (\s@AttributePayload' {} a -> s {merge = a} :: AttributePayload)
 
-instance Core.FromJSON AttributePayload where
+instance Data.FromJSON AttributePayload where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AttributePayload"
       ( \x ->
           AttributePayload'
-            Prelude.<$> (x Core..:? "attributes" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "merge")
+            Prelude.<$> (x Data..:? "attributes" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "merge")
       )
 
 instance Prelude.Hashable AttributePayload where
@@ -114,11 +115,11 @@ instance Prelude.NFData AttributePayload where
     Prelude.rnf attributes
       `Prelude.seq` Prelude.rnf merge
 
-instance Core.ToJSON AttributePayload where
+instance Data.ToJSON AttributePayload where
   toJSON AttributePayload' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("attributes" Core..=) Prelude.<$> attributes,
-            ("merge" Core..=) Prelude.<$> merge
+          [ ("attributes" Data..=) Prelude.<$> attributes,
+            ("merge" Data..=) Prelude.<$> merge
           ]
       )

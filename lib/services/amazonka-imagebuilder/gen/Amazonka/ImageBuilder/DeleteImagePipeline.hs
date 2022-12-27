@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.DeleteImagePipeline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,15 +34,16 @@ module Amazonka.ImageBuilder.DeleteImagePipeline
     newDeleteImagePipelineResponse,
 
     -- * Response Lenses
-    deleteImagePipelineResponse_requestId,
     deleteImagePipelineResponse_imagePipelineArn,
+    deleteImagePipelineResponse_requestId,
     deleteImagePipelineResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,13 +82,14 @@ instance Core.AWSRequest DeleteImagePipeline where
   type
     AWSResponse DeleteImagePipeline =
       DeleteImagePipelineResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteImagePipelineResponse'
-            Prelude.<$> (x Core..?> "requestId")
-            Prelude.<*> (x Core..?> "imagePipelineArn")
+            Prelude.<$> (x Data..?> "imagePipelineArn")
+            Prelude.<*> (x Data..?> "requestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -99,31 +101,31 @@ instance Prelude.NFData DeleteImagePipeline where
   rnf DeleteImagePipeline' {..} =
     Prelude.rnf imagePipelineArn
 
-instance Core.ToHeaders DeleteImagePipeline where
+instance Data.ToHeaders DeleteImagePipeline where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteImagePipeline where
+instance Data.ToPath DeleteImagePipeline where
   toPath = Prelude.const "/DeleteImagePipeline"
 
-instance Core.ToQuery DeleteImagePipeline where
+instance Data.ToQuery DeleteImagePipeline where
   toQuery DeleteImagePipeline' {..} =
     Prelude.mconcat
-      ["imagePipelineArn" Core.=: imagePipelineArn]
+      ["imagePipelineArn" Data.=: imagePipelineArn]
 
 -- | /See:/ 'newDeleteImagePipelineResponse' smart constructor.
 data DeleteImagePipelineResponse = DeleteImagePipelineResponse'
-  { -- | The request ID that uniquely identifies this request.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the image pipeline that was deleted.
+  { -- | The Amazon Resource Name (ARN) of the image pipeline that was deleted.
     imagePipelineArn :: Prelude.Maybe Prelude.Text,
+    -- | The request ID that uniquely identifies this request.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -137,9 +139,9 @@ data DeleteImagePipelineResponse = DeleteImagePipelineResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'deleteImagePipelineResponse_requestId' - The request ID that uniquely identifies this request.
---
 -- 'imagePipelineArn', 'deleteImagePipelineResponse_imagePipelineArn' - The Amazon Resource Name (ARN) of the image pipeline that was deleted.
+--
+-- 'requestId', 'deleteImagePipelineResponse_requestId' - The request ID that uniquely identifies this request.
 --
 -- 'httpStatus', 'deleteImagePipelineResponse_httpStatus' - The response's http status code.
 newDeleteImagePipelineResponse ::
@@ -148,19 +150,19 @@ newDeleteImagePipelineResponse ::
   DeleteImagePipelineResponse
 newDeleteImagePipelineResponse pHttpStatus_ =
   DeleteImagePipelineResponse'
-    { requestId =
+    { imagePipelineArn =
         Prelude.Nothing,
-      imagePipelineArn = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The request ID that uniquely identifies this request.
-deleteImagePipelineResponse_requestId :: Lens.Lens' DeleteImagePipelineResponse (Prelude.Maybe Prelude.Text)
-deleteImagePipelineResponse_requestId = Lens.lens (\DeleteImagePipelineResponse' {requestId} -> requestId) (\s@DeleteImagePipelineResponse' {} a -> s {requestId = a} :: DeleteImagePipelineResponse)
 
 -- | The Amazon Resource Name (ARN) of the image pipeline that was deleted.
 deleteImagePipelineResponse_imagePipelineArn :: Lens.Lens' DeleteImagePipelineResponse (Prelude.Maybe Prelude.Text)
 deleteImagePipelineResponse_imagePipelineArn = Lens.lens (\DeleteImagePipelineResponse' {imagePipelineArn} -> imagePipelineArn) (\s@DeleteImagePipelineResponse' {} a -> s {imagePipelineArn = a} :: DeleteImagePipelineResponse)
+
+-- | The request ID that uniquely identifies this request.
+deleteImagePipelineResponse_requestId :: Lens.Lens' DeleteImagePipelineResponse (Prelude.Maybe Prelude.Text)
+deleteImagePipelineResponse_requestId = Lens.lens (\DeleteImagePipelineResponse' {requestId} -> requestId) (\s@DeleteImagePipelineResponse' {} a -> s {requestId = a} :: DeleteImagePipelineResponse)
 
 -- | The response's http status code.
 deleteImagePipelineResponse_httpStatus :: Lens.Lens' DeleteImagePipelineResponse Prelude.Int
@@ -168,6 +170,6 @@ deleteImagePipelineResponse_httpStatus = Lens.lens (\DeleteImagePipelineResponse
 
 instance Prelude.NFData DeleteImagePipelineResponse where
   rnf DeleteImagePipelineResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf imagePipelineArn
+    Prelude.rnf imagePipelineArn
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.CreateConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,8 @@ module Amazonka.DirectConnect.CreateConnection
 
     -- * Request Lenses
     createConnection_lagId,
-    createConnection_requestMACSec,
     createConnection_providerName,
+    createConnection_requestMACSec,
     createConnection_tags,
     createConnection_location,
     createConnection_bandwidth,
@@ -53,34 +53,35 @@ module Amazonka.DirectConnect.CreateConnection
     newConnection,
 
     -- * Response Lenses
-    connection_lagId,
-    connection_macSecCapable,
-    connection_portEncryptionStatus,
-    connection_vlan,
-    connection_location,
     connection_awsDevice,
-    connection_hasLogicalRedundancy,
-    connection_connectionId,
-    connection_awsLogicalDeviceId,
-    connection_loaIssueTime,
-    connection_partnerName,
-    connection_connectionName,
-    connection_encryptionMode,
-    connection_bandwidth,
-    connection_jumboFrameCapable,
-    connection_ownerAccount,
-    connection_region,
-    connection_macSecKeys,
-    connection_providerName,
     connection_awsDeviceV2,
+    connection_awsLogicalDeviceId,
+    connection_bandwidth,
+    connection_connectionId,
+    connection_connectionName,
     connection_connectionState,
+    connection_encryptionMode,
+    connection_hasLogicalRedundancy,
+    connection_jumboFrameCapable,
+    connection_lagId,
+    connection_loaIssueTime,
+    connection_location,
+    connection_macSecCapable,
+    connection_macSecKeys,
+    connection_ownerAccount,
+    connection_partnerName,
+    connection_portEncryptionStatus,
+    connection_providerName,
+    connection_region,
     connection_tags,
+    connection_vlan,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,6 +90,9 @@ import qualified Amazonka.Response as Response
 data CreateConnection = CreateConnection'
   { -- | The ID of the LAG.
     lagId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the service provider associated with the requested
+    -- connection.
+    providerName :: Prelude.Maybe Prelude.Text,
     -- | Indicates whether you want the connection to support MAC Security
     -- (MACsec).
     --
@@ -97,9 +101,6 @@ data CreateConnection = CreateConnection'
     -- <https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-mac-sec-getting-started.html#mac-sec-prerequisites MACsec prerequisties>
     -- in the /Direct Connect User Guide/.
     requestMACSec :: Prelude.Maybe Prelude.Bool,
-    -- | The name of the service provider associated with the requested
-    -- connection.
-    providerName :: Prelude.Maybe Prelude.Text,
     -- | The tags to associate with the lag.
     tags :: Prelude.Maybe (Prelude.NonEmpty Tag),
     -- | The location of the connection.
@@ -121,6 +122,9 @@ data CreateConnection = CreateConnection'
 --
 -- 'lagId', 'createConnection_lagId' - The ID of the LAG.
 --
+-- 'providerName', 'createConnection_providerName' - The name of the service provider associated with the requested
+-- connection.
+--
 -- 'requestMACSec', 'createConnection_requestMACSec' - Indicates whether you want the connection to support MAC Security
 -- (MACsec).
 --
@@ -128,9 +132,6 @@ data CreateConnection = CreateConnection'
 -- information about MAC Security (MACsec) prerequisties, see
 -- <https://docs.aws.amazon.com/directconnect/latest/UserGuide/direct-connect-mac-sec-getting-started.html#mac-sec-prerequisites MACsec prerequisties>
 -- in the /Direct Connect User Guide/.
---
--- 'providerName', 'createConnection_providerName' - The name of the service provider associated with the requested
--- connection.
 --
 -- 'tags', 'createConnection_tags' - The tags to associate with the lag.
 --
@@ -153,8 +154,8 @@ newCreateConnection
   pConnectionName_ =
     CreateConnection'
       { lagId = Prelude.Nothing,
-        requestMACSec = Prelude.Nothing,
         providerName = Prelude.Nothing,
+        requestMACSec = Prelude.Nothing,
         tags = Prelude.Nothing,
         location = pLocation_,
         bandwidth = pBandwidth_,
@@ -165,6 +166,11 @@ newCreateConnection
 createConnection_lagId :: Lens.Lens' CreateConnection (Prelude.Maybe Prelude.Text)
 createConnection_lagId = Lens.lens (\CreateConnection' {lagId} -> lagId) (\s@CreateConnection' {} a -> s {lagId = a} :: CreateConnection)
 
+-- | The name of the service provider associated with the requested
+-- connection.
+createConnection_providerName :: Lens.Lens' CreateConnection (Prelude.Maybe Prelude.Text)
+createConnection_providerName = Lens.lens (\CreateConnection' {providerName} -> providerName) (\s@CreateConnection' {} a -> s {providerName = a} :: CreateConnection)
+
 -- | Indicates whether you want the connection to support MAC Security
 -- (MACsec).
 --
@@ -174,11 +180,6 @@ createConnection_lagId = Lens.lens (\CreateConnection' {lagId} -> lagId) (\s@Cre
 -- in the /Direct Connect User Guide/.
 createConnection_requestMACSec :: Lens.Lens' CreateConnection (Prelude.Maybe Prelude.Bool)
 createConnection_requestMACSec = Lens.lens (\CreateConnection' {requestMACSec} -> requestMACSec) (\s@CreateConnection' {} a -> s {requestMACSec = a} :: CreateConnection)
-
--- | The name of the service provider associated with the requested
--- connection.
-createConnection_providerName :: Lens.Lens' CreateConnection (Prelude.Maybe Prelude.Text)
-createConnection_providerName = Lens.lens (\CreateConnection' {providerName} -> providerName) (\s@CreateConnection' {} a -> s {providerName = a} :: CreateConnection)
 
 -- | The tags to associate with the lag.
 createConnection_tags :: Lens.Lens' CreateConnection (Prelude.Maybe (Prelude.NonEmpty Tag))
@@ -198,16 +199,17 @@ createConnection_connectionName = Lens.lens (\CreateConnection' {connectionName}
 
 instance Core.AWSRequest CreateConnection where
   type AWSResponse CreateConnection = Connection
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable CreateConnection where
   hashWithSalt _salt CreateConnection' {..} =
     _salt `Prelude.hashWithSalt` lagId
-      `Prelude.hashWithSalt` requestMACSec
       `Prelude.hashWithSalt` providerName
+      `Prelude.hashWithSalt` requestMACSec
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` location
       `Prelude.hashWithSalt` bandwidth
@@ -216,45 +218,45 @@ instance Prelude.Hashable CreateConnection where
 instance Prelude.NFData CreateConnection where
   rnf CreateConnection' {..} =
     Prelude.rnf lagId
-      `Prelude.seq` Prelude.rnf requestMACSec
       `Prelude.seq` Prelude.rnf providerName
+      `Prelude.seq` Prelude.rnf requestMACSec
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf location
       `Prelude.seq` Prelude.rnf bandwidth
       `Prelude.seq` Prelude.rnf connectionName
 
-instance Core.ToHeaders CreateConnection where
+instance Data.ToHeaders CreateConnection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.CreateConnection" ::
+              Data.=# ( "OvertureService.CreateConnection" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateConnection where
+instance Data.ToJSON CreateConnection where
   toJSON CreateConnection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("lagId" Core..=) Prelude.<$> lagId,
-            ("requestMACSec" Core..=) Prelude.<$> requestMACSec,
-            ("providerName" Core..=) Prelude.<$> providerName,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("location" Core..= location),
-            Prelude.Just ("bandwidth" Core..= bandwidth),
+          [ ("lagId" Data..=) Prelude.<$> lagId,
+            ("providerName" Data..=) Prelude.<$> providerName,
+            ("requestMACSec" Data..=) Prelude.<$> requestMACSec,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("location" Data..= location),
+            Prelude.Just ("bandwidth" Data..= bandwidth),
             Prelude.Just
-              ("connectionName" Core..= connectionName)
+              ("connectionName" Data..= connectionName)
           ]
       )
 
-instance Core.ToPath CreateConnection where
+instance Data.ToPath CreateConnection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateConnection where
+instance Data.ToQuery CreateConnection where
   toQuery = Prelude.const Prelude.mempty

@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.DeleteConfigurationProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Delete a configuration profile. Deleting a configuration profile does
+-- Deletes a configuration profile. Deleting a configuration profile does
 -- not delete a configuration from a host.
 module Amazonka.AppConfig.DeleteConfigurationProfile
   ( -- * Creating a Request
@@ -39,7 +39,8 @@ where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,7 +96,8 @@ instance Core.AWSRequest DeleteConfigurationProfile where
   type
     AWSResponse DeleteConfigurationProfile =
       DeleteConfigurationProfileResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteConfigurationProfileResponse'
@@ -110,27 +112,27 @@ instance Prelude.NFData DeleteConfigurationProfile where
     Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf configurationProfileId
 
-instance Core.ToHeaders DeleteConfigurationProfile where
+instance Data.ToHeaders DeleteConfigurationProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteConfigurationProfile where
+instance Data.ToPath DeleteConfigurationProfile where
   toPath DeleteConfigurationProfile' {..} =
     Prelude.mconcat
       [ "/applications/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/configurationprofiles/",
-        Core.toBS configurationProfileId
+        Data.toBS configurationProfileId
       ]
 
-instance Core.ToQuery DeleteConfigurationProfile where
+instance Data.ToQuery DeleteConfigurationProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteConfigurationProfileResponse' smart constructor.

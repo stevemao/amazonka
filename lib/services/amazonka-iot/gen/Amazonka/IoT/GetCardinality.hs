@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.GetCardinality
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.IoT.GetCardinality
     newGetCardinality,
 
     -- * Request Lenses
-    getCardinality_queryVersion,
     getCardinality_aggregationField,
     getCardinality_indexName,
+    getCardinality_queryVersion,
     getCardinality_queryString,
 
     -- * Destructuring the Response
@@ -47,20 +47,21 @@ module Amazonka.IoT.GetCardinality
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetCardinality' smart constructor.
 data GetCardinality = GetCardinality'
-  { -- | The query version.
-    queryVersion :: Prelude.Maybe Prelude.Text,
-    -- | The field to aggregate.
+  { -- | The field to aggregate.
     aggregationField :: Prelude.Maybe Prelude.Text,
     -- | The name of the index to search.
     indexName :: Prelude.Maybe Prelude.Text,
+    -- | The query version.
+    queryVersion :: Prelude.Maybe Prelude.Text,
     -- | The search query string.
     queryString :: Prelude.Text
   }
@@ -74,11 +75,11 @@ data GetCardinality = GetCardinality'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'queryVersion', 'getCardinality_queryVersion' - The query version.
---
 -- 'aggregationField', 'getCardinality_aggregationField' - The field to aggregate.
 --
 -- 'indexName', 'getCardinality_indexName' - The name of the index to search.
+--
+-- 'queryVersion', 'getCardinality_queryVersion' - The query version.
 --
 -- 'queryString', 'getCardinality_queryString' - The search query string.
 newGetCardinality ::
@@ -87,15 +88,11 @@ newGetCardinality ::
   GetCardinality
 newGetCardinality pQueryString_ =
   GetCardinality'
-    { queryVersion = Prelude.Nothing,
-      aggregationField = Prelude.Nothing,
+    { aggregationField = Prelude.Nothing,
       indexName = Prelude.Nothing,
+      queryVersion = Prelude.Nothing,
       queryString = pQueryString_
     }
-
--- | The query version.
-getCardinality_queryVersion :: Lens.Lens' GetCardinality (Prelude.Maybe Prelude.Text)
-getCardinality_queryVersion = Lens.lens (\GetCardinality' {queryVersion} -> queryVersion) (\s@GetCardinality' {} a -> s {queryVersion = a} :: GetCardinality)
 
 -- | The field to aggregate.
 getCardinality_aggregationField :: Lens.Lens' GetCardinality (Prelude.Maybe Prelude.Text)
@@ -105,6 +102,10 @@ getCardinality_aggregationField = Lens.lens (\GetCardinality' {aggregationField}
 getCardinality_indexName :: Lens.Lens' GetCardinality (Prelude.Maybe Prelude.Text)
 getCardinality_indexName = Lens.lens (\GetCardinality' {indexName} -> indexName) (\s@GetCardinality' {} a -> s {indexName = a} :: GetCardinality)
 
+-- | The query version.
+getCardinality_queryVersion :: Lens.Lens' GetCardinality (Prelude.Maybe Prelude.Text)
+getCardinality_queryVersion = Lens.lens (\GetCardinality' {queryVersion} -> queryVersion) (\s@GetCardinality' {} a -> s {queryVersion = a} :: GetCardinality)
+
 -- | The search query string.
 getCardinality_queryString :: Lens.Lens' GetCardinality Prelude.Text
 getCardinality_queryString = Lens.lens (\GetCardinality' {queryString} -> queryString) (\s@GetCardinality' {} a -> s {queryString = a} :: GetCardinality)
@@ -113,48 +114,49 @@ instance Core.AWSRequest GetCardinality where
   type
     AWSResponse GetCardinality =
       GetCardinalityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCardinalityResponse'
-            Prelude.<$> (x Core..?> "cardinality")
+            Prelude.<$> (x Data..?> "cardinality")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetCardinality where
   hashWithSalt _salt GetCardinality' {..} =
-    _salt `Prelude.hashWithSalt` queryVersion
-      `Prelude.hashWithSalt` aggregationField
+    _salt `Prelude.hashWithSalt` aggregationField
       `Prelude.hashWithSalt` indexName
+      `Prelude.hashWithSalt` queryVersion
       `Prelude.hashWithSalt` queryString
 
 instance Prelude.NFData GetCardinality where
   rnf GetCardinality' {..} =
-    Prelude.rnf queryVersion
-      `Prelude.seq` Prelude.rnf aggregationField
+    Prelude.rnf aggregationField
       `Prelude.seq` Prelude.rnf indexName
+      `Prelude.seq` Prelude.rnf queryVersion
       `Prelude.seq` Prelude.rnf queryString
 
-instance Core.ToHeaders GetCardinality where
+instance Data.ToHeaders GetCardinality where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON GetCardinality where
+instance Data.ToJSON GetCardinality where
   toJSON GetCardinality' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("queryVersion" Core..=) Prelude.<$> queryVersion,
-            ("aggregationField" Core..=)
+          [ ("aggregationField" Data..=)
               Prelude.<$> aggregationField,
-            ("indexName" Core..=) Prelude.<$> indexName,
-            Prelude.Just ("queryString" Core..= queryString)
+            ("indexName" Data..=) Prelude.<$> indexName,
+            ("queryVersion" Data..=) Prelude.<$> queryVersion,
+            Prelude.Just ("queryString" Data..= queryString)
           ]
       )
 
-instance Core.ToPath GetCardinality where
+instance Data.ToPath GetCardinality where
   toPath = Prelude.const "/indices/cardinality"
 
-instance Core.ToQuery GetCardinality where
+instance Data.ToQuery GetCardinality where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetCardinalityResponse' smart constructor.

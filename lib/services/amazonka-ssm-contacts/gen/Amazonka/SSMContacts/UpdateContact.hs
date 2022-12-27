@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.UpdateContact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.SSMContacts.UpdateContact
     newUpdateContact,
 
     -- * Request Lenses
-    updateContact_plan,
     updateContact_displayName,
+    updateContact_plan,
     updateContact_contactId,
 
     -- * Destructuring the Response
@@ -41,7 +41,8 @@ module Amazonka.SSMContacts.UpdateContact
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,12 +50,12 @@ import Amazonka.SSMContacts.Types
 
 -- | /See:/ 'newUpdateContact' smart constructor.
 data UpdateContact = UpdateContact'
-  { -- | A list of stages. A contact has an engagement plan with stages for
+  { -- | The full name of the contact or escalation plan.
+    displayName :: Prelude.Maybe Prelude.Text,
+    -- | A list of stages. A contact has an engagement plan with stages for
     -- specified contact channels. An escalation plan uses these stages to
     -- contact specified contacts.
     plan :: Prelude.Maybe Plan,
-    -- | The full name of the contact or escalation plan.
-    displayName :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the contact or escalation plan you\'re
     -- updating.
     contactId :: Prelude.Text
@@ -69,11 +70,11 @@ data UpdateContact = UpdateContact'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'displayName', 'updateContact_displayName' - The full name of the contact or escalation plan.
+--
 -- 'plan', 'updateContact_plan' - A list of stages. A contact has an engagement plan with stages for
 -- specified contact channels. An escalation plan uses these stages to
 -- contact specified contacts.
---
--- 'displayName', 'updateContact_displayName' - The full name of the contact or escalation plan.
 --
 -- 'contactId', 'updateContact_contactId' - The Amazon Resource Name (ARN) of the contact or escalation plan you\'re
 -- updating.
@@ -83,20 +84,20 @@ newUpdateContact ::
   UpdateContact
 newUpdateContact pContactId_ =
   UpdateContact'
-    { plan = Prelude.Nothing,
-      displayName = Prelude.Nothing,
+    { displayName = Prelude.Nothing,
+      plan = Prelude.Nothing,
       contactId = pContactId_
     }
+
+-- | The full name of the contact or escalation plan.
+updateContact_displayName :: Lens.Lens' UpdateContact (Prelude.Maybe Prelude.Text)
+updateContact_displayName = Lens.lens (\UpdateContact' {displayName} -> displayName) (\s@UpdateContact' {} a -> s {displayName = a} :: UpdateContact)
 
 -- | A list of stages. A contact has an engagement plan with stages for
 -- specified contact channels. An escalation plan uses these stages to
 -- contact specified contacts.
 updateContact_plan :: Lens.Lens' UpdateContact (Prelude.Maybe Plan)
 updateContact_plan = Lens.lens (\UpdateContact' {plan} -> plan) (\s@UpdateContact' {} a -> s {plan = a} :: UpdateContact)
-
--- | The full name of the contact or escalation plan.
-updateContact_displayName :: Lens.Lens' UpdateContact (Prelude.Maybe Prelude.Text)
-updateContact_displayName = Lens.lens (\UpdateContact' {displayName} -> displayName) (\s@UpdateContact' {} a -> s {displayName = a} :: UpdateContact)
 
 -- | The Amazon Resource Name (ARN) of the contact or escalation plan you\'re
 -- updating.
@@ -107,7 +108,8 @@ instance Core.AWSRequest UpdateContact where
   type
     AWSResponse UpdateContact =
       UpdateContactResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -117,43 +119,43 @@ instance Core.AWSRequest UpdateContact where
 
 instance Prelude.Hashable UpdateContact where
   hashWithSalt _salt UpdateContact' {..} =
-    _salt `Prelude.hashWithSalt` plan
-      `Prelude.hashWithSalt` displayName
+    _salt `Prelude.hashWithSalt` displayName
+      `Prelude.hashWithSalt` plan
       `Prelude.hashWithSalt` contactId
 
 instance Prelude.NFData UpdateContact where
   rnf UpdateContact' {..} =
-    Prelude.rnf plan
-      `Prelude.seq` Prelude.rnf displayName
+    Prelude.rnf displayName
+      `Prelude.seq` Prelude.rnf plan
       `Prelude.seq` Prelude.rnf contactId
 
-instance Core.ToHeaders UpdateContact where
+instance Data.ToHeaders UpdateContact where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SSMContacts.UpdateContact" :: Prelude.ByteString),
+              Data.=# ("SSMContacts.UpdateContact" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateContact where
+instance Data.ToJSON UpdateContact where
   toJSON UpdateContact' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Plan" Core..=) Prelude.<$> plan,
-            ("DisplayName" Core..=) Prelude.<$> displayName,
-            Prelude.Just ("ContactId" Core..= contactId)
+          [ ("DisplayName" Data..=) Prelude.<$> displayName,
+            ("Plan" Data..=) Prelude.<$> plan,
+            Prelude.Just ("ContactId" Data..= contactId)
           ]
       )
 
-instance Core.ToPath UpdateContact where
+instance Data.ToPath UpdateContact where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateContact where
+instance Data.ToQuery UpdateContact where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateContactResponse' smart constructor.

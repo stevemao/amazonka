@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.ListMembers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,9 +33,9 @@ module Amazonka.SecurityHub.ListMembers
     newListMembers,
 
     -- * Request Lenses
-    listMembers_onlyAssociated,
-    listMembers_nextToken,
     listMembers_maxResults,
+    listMembers_nextToken,
+    listMembers_onlyAssociated,
 
     -- * Destructuring the Response
     ListMembersResponse (..),
@@ -49,7 +49,8 @@ module Amazonka.SecurityHub.ListMembers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,7 +58,16 @@ import Amazonka.SecurityHub.Types
 
 -- | /See:/ 'newListMembers' smart constructor.
 data ListMembers = ListMembers'
-  { -- | Specifies which member accounts to include in the response based on
+  { -- | The maximum number of items to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that is required for pagination. On your first call to the
+    -- @ListMembers@ operation, set the value of this parameter to @NULL@.
+    --
+    -- For subsequent calls to the operation, to continue listing data, set the
+    -- value of this parameter to the value returned from the previous
+    -- response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Specifies which member accounts to include in the response based on
     -- their relationship status with the administrator account. The default
     -- value is @TRUE@.
     --
@@ -67,16 +77,7 @@ data ListMembers = ListMembers'
     --
     -- If @OnlyAssociated@ is set to @FALSE@, the response includes all
     -- existing member accounts.
-    onlyAssociated :: Prelude.Maybe Prelude.Bool,
-    -- | The token that is required for pagination. On your first call to the
-    -- @ListMembers@ operation, set the value of this parameter to @NULL@.
-    --
-    -- For subsequent calls to the operation, to continue listing data, set the
-    -- value of this parameter to the value returned from the previous
-    -- response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return in the response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    onlyAssociated :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -88,6 +89,15 @@ data ListMembers = ListMembers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listMembers_maxResults' - The maximum number of items to return in the response.
+--
+-- 'nextToken', 'listMembers_nextToken' - The token that is required for pagination. On your first call to the
+-- @ListMembers@ operation, set the value of this parameter to @NULL@.
+--
+-- For subsequent calls to the operation, to continue listing data, set the
+-- value of this parameter to the value returned from the previous
+-- response.
+--
 -- 'onlyAssociated', 'listMembers_onlyAssociated' - Specifies which member accounts to include in the response based on
 -- their relationship status with the administrator account. The default
 -- value is @TRUE@.
@@ -98,23 +108,27 @@ data ListMembers = ListMembers'
 --
 -- If @OnlyAssociated@ is set to @FALSE@, the response includes all
 -- existing member accounts.
---
--- 'nextToken', 'listMembers_nextToken' - The token that is required for pagination. On your first call to the
+newListMembers ::
+  ListMembers
+newListMembers =
+  ListMembers'
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      onlyAssociated = Prelude.Nothing
+    }
+
+-- | The maximum number of items to return in the response.
+listMembers_maxResults :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Natural)
+listMembers_maxResults = Lens.lens (\ListMembers' {maxResults} -> maxResults) (\s@ListMembers' {} a -> s {maxResults = a} :: ListMembers)
+
+-- | The token that is required for pagination. On your first call to the
 -- @ListMembers@ operation, set the value of this parameter to @NULL@.
 --
 -- For subsequent calls to the operation, to continue listing data, set the
 -- value of this parameter to the value returned from the previous
 -- response.
---
--- 'maxResults', 'listMembers_maxResults' - The maximum number of items to return in the response.
-newListMembers ::
-  ListMembers
-newListMembers =
-  ListMembers'
-    { onlyAssociated = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
-    }
+listMembers_nextToken :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Text)
+listMembers_nextToken = Lens.lens (\ListMembers' {nextToken} -> nextToken) (\s@ListMembers' {} a -> s {nextToken = a} :: ListMembers)
 
 -- | Specifies which member accounts to include in the response based on
 -- their relationship status with the administrator account. The default
@@ -128,19 +142,6 @@ newListMembers =
 -- existing member accounts.
 listMembers_onlyAssociated :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Bool)
 listMembers_onlyAssociated = Lens.lens (\ListMembers' {onlyAssociated} -> onlyAssociated) (\s@ListMembers' {} a -> s {onlyAssociated = a} :: ListMembers)
-
--- | The token that is required for pagination. On your first call to the
--- @ListMembers@ operation, set the value of this parameter to @NULL@.
---
--- For subsequent calls to the operation, to continue listing data, set the
--- value of this parameter to the value returned from the previous
--- response.
-listMembers_nextToken :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Text)
-listMembers_nextToken = Lens.lens (\ListMembers' {nextToken} -> nextToken) (\s@ListMembers' {} a -> s {nextToken = a} :: ListMembers)
-
--- | The maximum number of items to return in the response.
-listMembers_maxResults :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Natural)
-listMembers_maxResults = Lens.lens (\ListMembers' {maxResults} -> maxResults) (\s@ListMembers' {} a -> s {maxResults = a} :: ListMembers)
 
 instance Core.AWSPager ListMembers where
   page rq rs
@@ -163,48 +164,49 @@ instance Core.AWSPager ListMembers where
 
 instance Core.AWSRequest ListMembers where
   type AWSResponse ListMembers = ListMembersResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListMembersResponse'
-            Prelude.<$> (x Core..?> "Members" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Members" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListMembers where
   hashWithSalt _salt ListMembers' {..} =
-    _salt `Prelude.hashWithSalt` onlyAssociated
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` onlyAssociated
 
 instance Prelude.NFData ListMembers where
   rnf ListMembers' {..} =
-    Prelude.rnf onlyAssociated
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf onlyAssociated
 
-instance Core.ToHeaders ListMembers where
+instance Data.ToHeaders ListMembers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListMembers where
+instance Data.ToPath ListMembers where
   toPath = Prelude.const "/members"
 
-instance Core.ToQuery ListMembers where
+instance Data.ToQuery ListMembers where
   toQuery ListMembers' {..} =
     Prelude.mconcat
-      [ "OnlyAssociated" Core.=: onlyAssociated,
-        "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+      [ "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        "OnlyAssociated" Data.=: onlyAssociated
       ]
 
 -- | /See:/ 'newListMembersResponse' smart constructor.

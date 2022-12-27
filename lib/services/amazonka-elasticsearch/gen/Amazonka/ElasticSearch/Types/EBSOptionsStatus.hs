@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.EBSOptionsStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.ElasticSearch.Types.EBSOptionsStatus where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types.EBSOptions
 import Amazonka.ElasticSearch.Types.OptionStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Status of the EBS options for the specified Elasticsearch domain.
@@ -70,14 +71,14 @@ eBSOptionsStatus_options = Lens.lens (\EBSOptionsStatus' {options} -> options) (
 eBSOptionsStatus_status :: Lens.Lens' EBSOptionsStatus OptionStatus
 eBSOptionsStatus_status = Lens.lens (\EBSOptionsStatus' {status} -> status) (\s@EBSOptionsStatus' {} a -> s {status = a} :: EBSOptionsStatus)
 
-instance Core.FromJSON EBSOptionsStatus where
+instance Data.FromJSON EBSOptionsStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EBSOptionsStatus"
       ( \x ->
           EBSOptionsStatus'
-            Prelude.<$> (x Core..: "Options")
-            Prelude.<*> (x Core..: "Status")
+            Prelude.<$> (x Data..: "Options")
+            Prelude.<*> (x Data..: "Status")
       )
 
 instance Prelude.Hashable EBSOptionsStatus where

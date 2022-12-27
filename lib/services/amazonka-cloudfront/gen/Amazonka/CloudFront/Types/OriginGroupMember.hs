@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.OriginGroupMember
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudFront.Types.OriginGroupMember where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An origin in an origin group.
@@ -52,10 +53,10 @@ newOriginGroupMember pOriginId_ =
 originGroupMember_originId :: Lens.Lens' OriginGroupMember Prelude.Text
 originGroupMember_originId = Lens.lens (\OriginGroupMember' {originId} -> originId) (\s@OriginGroupMember' {} a -> s {originId = a} :: OriginGroupMember)
 
-instance Core.FromXML OriginGroupMember where
+instance Data.FromXML OriginGroupMember where
   parseXML x =
     OriginGroupMember'
-      Prelude.<$> (x Core..@ "OriginId")
+      Prelude.<$> (x Data..@ "OriginId")
 
 instance Prelude.Hashable OriginGroupMember where
   hashWithSalt _salt OriginGroupMember' {..} =
@@ -64,6 +65,6 @@ instance Prelude.Hashable OriginGroupMember where
 instance Prelude.NFData OriginGroupMember where
   rnf OriginGroupMember' {..} = Prelude.rnf originId
 
-instance Core.ToXML OriginGroupMember where
+instance Data.ToXML OriginGroupMember where
   toXML OriginGroupMember' {..} =
-    Prelude.mconcat ["OriginId" Core.@= originId]
+    Prelude.mconcat ["OriginId" Data.@= originId]

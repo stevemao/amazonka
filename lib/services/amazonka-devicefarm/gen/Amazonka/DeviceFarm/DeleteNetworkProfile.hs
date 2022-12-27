@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.DeleteNetworkProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.DeviceFarm.DeleteNetworkProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteNetworkProfile where
   type
     AWSResponse DeleteNetworkProfile =
       DeleteNetworkProfileResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,32 +93,32 @@ instance Prelude.Hashable DeleteNetworkProfile where
 instance Prelude.NFData DeleteNetworkProfile where
   rnf DeleteNetworkProfile' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders DeleteNetworkProfile where
+instance Data.ToHeaders DeleteNetworkProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.DeleteNetworkProfile" ::
+              Data.=# ( "DeviceFarm_20150623.DeleteNetworkProfile" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteNetworkProfile where
+instance Data.ToJSON DeleteNetworkProfile where
   toJSON DeleteNetworkProfile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arn" Core..= arn)]
+          [Prelude.Just ("arn" Data..= arn)]
       )
 
-instance Core.ToPath DeleteNetworkProfile where
+instance Data.ToPath DeleteNetworkProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteNetworkProfile where
+instance Data.ToQuery DeleteNetworkProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteNetworkProfileResponse' smart constructor.

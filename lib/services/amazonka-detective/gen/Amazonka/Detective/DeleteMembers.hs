@@ -14,17 +14,30 @@
 
 -- |
 -- Module      : Amazonka.Detective.DeleteMembers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes one or more member accounts from the administrator account\'s
--- behavior graph. This operation can only be called by a Detective
--- administrator account. That account cannot use @DeleteMembers@ to delete
--- their own account from the behavior graph. To disable a behavior graph,
--- the administrator account uses the @DeleteGraph@ API method.
+-- Removes the specified member accounts from the behavior graph. The
+-- removed accounts no longer contribute data to the behavior graph. This
+-- operation can only be called by the administrator account for the
+-- behavior graph.
+--
+-- For invited accounts, the removed accounts are deleted from the list of
+-- accounts in the behavior graph. To restore the account, the
+-- administrator account must send another invitation.
+--
+-- For organization accounts in the organization behavior graph, the
+-- Detective administrator account can always enable the organization
+-- account again. Organization accounts that are not enabled as member
+-- accounts are not included in the @ListMembers@ results for the
+-- organization behavior graph.
+--
+-- An administrator account cannot use @DeleteMembers@ to remove their own
+-- account from the behavior graph. To disable a behavior graph, the
+-- administrator account uses the @DeleteGraph@ API method.
 module Amazonka.Detective.DeleteMembers
   ( -- * Creating a Request
     DeleteMembers (..),
@@ -46,19 +59,20 @@ module Amazonka.Detective.DeleteMembers
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Detective.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteMembers' smart constructor.
 data DeleteMembers = DeleteMembers'
-  { -- | The ARN of the behavior graph to delete members from.
+  { -- | The ARN of the behavior graph to remove members from.
     graphArn :: Prelude.Text,
-    -- | The list of AWS account identifiers for the member accounts to delete
-    -- from the behavior graph. You can delete up to 50 member accounts at a
-    -- time.
+    -- | The list of Amazon Web Services account identifiers for the member
+    -- accounts to remove from the behavior graph. You can remove up to 50
+    -- member accounts at a time.
     accountIds :: Prelude.NonEmpty Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -71,11 +85,11 @@ data DeleteMembers = DeleteMembers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'graphArn', 'deleteMembers_graphArn' - The ARN of the behavior graph to delete members from.
+-- 'graphArn', 'deleteMembers_graphArn' - The ARN of the behavior graph to remove members from.
 --
--- 'accountIds', 'deleteMembers_accountIds' - The list of AWS account identifiers for the member accounts to delete
--- from the behavior graph. You can delete up to 50 member accounts at a
--- time.
+-- 'accountIds', 'deleteMembers_accountIds' - The list of Amazon Web Services account identifiers for the member
+-- accounts to remove from the behavior graph. You can remove up to 50
+-- member accounts at a time.
 newDeleteMembers ::
   -- | 'graphArn'
   Prelude.Text ->
@@ -88,13 +102,13 @@ newDeleteMembers pGraphArn_ pAccountIds_ =
       accountIds = Lens.coerced Lens.# pAccountIds_
     }
 
--- | The ARN of the behavior graph to delete members from.
+-- | The ARN of the behavior graph to remove members from.
 deleteMembers_graphArn :: Lens.Lens' DeleteMembers Prelude.Text
 deleteMembers_graphArn = Lens.lens (\DeleteMembers' {graphArn} -> graphArn) (\s@DeleteMembers' {} a -> s {graphArn = a} :: DeleteMembers)
 
--- | The list of AWS account identifiers for the member accounts to delete
--- from the behavior graph. You can delete up to 50 member accounts at a
--- time.
+-- | The list of Amazon Web Services account identifiers for the member
+-- accounts to remove from the behavior graph. You can remove up to 50
+-- member accounts at a time.
 deleteMembers_accountIds :: Lens.Lens' DeleteMembers (Prelude.NonEmpty Prelude.Text)
 deleteMembers_accountIds = Lens.lens (\DeleteMembers' {accountIds} -> accountIds) (\s@DeleteMembers' {} a -> s {accountIds = a} :: DeleteMembers) Prelude.. Lens.coerced
 
@@ -102,13 +116,14 @@ instance Core.AWSRequest DeleteMembers where
   type
     AWSResponse DeleteMembers =
       DeleteMembersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteMembersResponse'
-            Prelude.<$> (x Core..?> "AccountIds")
-            Prelude.<*> ( x Core..?> "UnprocessedAccounts"
+            Prelude.<$> (x Data..?> "AccountIds")
+            Prelude.<*> ( x Data..?> "UnprocessedAccounts"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -124,38 +139,38 @@ instance Prelude.NFData DeleteMembers where
     Prelude.rnf graphArn
       `Prelude.seq` Prelude.rnf accountIds
 
-instance Core.ToHeaders DeleteMembers where
+instance Data.ToHeaders DeleteMembers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteMembers where
+instance Data.ToJSON DeleteMembers where
   toJSON DeleteMembers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("GraphArn" Core..= graphArn),
-            Prelude.Just ("AccountIds" Core..= accountIds)
+          [ Prelude.Just ("GraphArn" Data..= graphArn),
+            Prelude.Just ("AccountIds" Data..= accountIds)
           ]
       )
 
-instance Core.ToPath DeleteMembers where
+instance Data.ToPath DeleteMembers where
   toPath = Prelude.const "/graph/members/removal"
 
-instance Core.ToQuery DeleteMembers where
+instance Data.ToQuery DeleteMembers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteMembersResponse' smart constructor.
 data DeleteMembersResponse = DeleteMembersResponse'
-  { -- | The list of AWS account identifiers for the member accounts that
-    -- Detective successfully deleted from the behavior graph.
+  { -- | The list of Amazon Web Services account identifiers for the member
+    -- accounts that Detective successfully removed from the behavior graph.
     accountIds :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | The list of member accounts that Detective was not able to delete from
+    -- | The list of member accounts that Detective was not able to remove from
     -- the behavior graph. For each member account, provides the reason that
     -- the deletion could not be processed.
     unprocessedAccounts :: Prelude.Maybe [UnprocessedAccount],
@@ -172,10 +187,10 @@ data DeleteMembersResponse = DeleteMembersResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'accountIds', 'deleteMembersResponse_accountIds' - The list of AWS account identifiers for the member accounts that
--- Detective successfully deleted from the behavior graph.
+-- 'accountIds', 'deleteMembersResponse_accountIds' - The list of Amazon Web Services account identifiers for the member
+-- accounts that Detective successfully removed from the behavior graph.
 --
--- 'unprocessedAccounts', 'deleteMembersResponse_unprocessedAccounts' - The list of member accounts that Detective was not able to delete from
+-- 'unprocessedAccounts', 'deleteMembersResponse_unprocessedAccounts' - The list of member accounts that Detective was not able to remove from
 -- the behavior graph. For each member account, provides the reason that
 -- the deletion could not be processed.
 --
@@ -192,12 +207,12 @@ newDeleteMembersResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The list of AWS account identifiers for the member accounts that
--- Detective successfully deleted from the behavior graph.
+-- | The list of Amazon Web Services account identifiers for the member
+-- accounts that Detective successfully removed from the behavior graph.
 deleteMembersResponse_accountIds :: Lens.Lens' DeleteMembersResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 deleteMembersResponse_accountIds = Lens.lens (\DeleteMembersResponse' {accountIds} -> accountIds) (\s@DeleteMembersResponse' {} a -> s {accountIds = a} :: DeleteMembersResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The list of member accounts that Detective was not able to delete from
+-- | The list of member accounts that Detective was not able to remove from
 -- the behavior graph. For each member account, provides the reason that
 -- the deletion could not be processed.
 deleteMembersResponse_unprocessedAccounts :: Lens.Lens' DeleteMembersResponse (Prelude.Maybe [UnprocessedAccount])

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.UpdateConnectivityInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,15 +37,16 @@ module Amazonka.Greengrass.UpdateConnectivityInfo
     newUpdateConnectivityInfoResponse,
 
     -- * Response Lenses
-    updateConnectivityInfoResponse_version,
     updateConnectivityInfoResponse_message,
+    updateConnectivityInfoResponse_version,
     updateConnectivityInfoResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,13 +96,14 @@ instance Core.AWSRequest UpdateConnectivityInfo where
   type
     AWSResponse UpdateConnectivityInfo =
       UpdateConnectivityInfoResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateConnectivityInfoResponse'
-            Prelude.<$> (x Core..?> "Version")
-            Prelude.<*> (x Core..?> "message")
+            Prelude.<$> (x Data..?> "message")
+            Prelude.<*> (x Data..?> "Version")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,43 +117,43 @@ instance Prelude.NFData UpdateConnectivityInfo where
     Prelude.rnf connectivityInfo
       `Prelude.seq` Prelude.rnf thingName
 
-instance Core.ToHeaders UpdateConnectivityInfo where
+instance Data.ToHeaders UpdateConnectivityInfo where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateConnectivityInfo where
+instance Data.ToJSON UpdateConnectivityInfo where
   toJSON UpdateConnectivityInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ConnectivityInfo" Core..=)
+          [ ("ConnectivityInfo" Data..=)
               Prelude.<$> connectivityInfo
           ]
       )
 
-instance Core.ToPath UpdateConnectivityInfo where
+instance Data.ToPath UpdateConnectivityInfo where
   toPath UpdateConnectivityInfo' {..} =
     Prelude.mconcat
       [ "/greengrass/things/",
-        Core.toBS thingName,
+        Data.toBS thingName,
         "/connectivityInfo"
       ]
 
-instance Core.ToQuery UpdateConnectivityInfo where
+instance Data.ToQuery UpdateConnectivityInfo where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateConnectivityInfoResponse' smart constructor.
 data UpdateConnectivityInfoResponse = UpdateConnectivityInfoResponse'
-  { -- | The new version of the connectivity info.
-    version :: Prelude.Maybe Prelude.Text,
-    -- | A message about the connectivity info update request.
+  { -- | A message about the connectivity info update request.
     message :: Prelude.Maybe Prelude.Text,
+    -- | The new version of the connectivity info.
+    version :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -165,9 +167,9 @@ data UpdateConnectivityInfoResponse = UpdateConnectivityInfoResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'version', 'updateConnectivityInfoResponse_version' - The new version of the connectivity info.
---
 -- 'message', 'updateConnectivityInfoResponse_message' - A message about the connectivity info update request.
+--
+-- 'version', 'updateConnectivityInfoResponse_version' - The new version of the connectivity info.
 --
 -- 'httpStatus', 'updateConnectivityInfoResponse_httpStatus' - The response's http status code.
 newUpdateConnectivityInfoResponse ::
@@ -176,19 +178,19 @@ newUpdateConnectivityInfoResponse ::
   UpdateConnectivityInfoResponse
 newUpdateConnectivityInfoResponse pHttpStatus_ =
   UpdateConnectivityInfoResponse'
-    { version =
+    { message =
         Prelude.Nothing,
-      message = Prelude.Nothing,
+      version = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The new version of the connectivity info.
-updateConnectivityInfoResponse_version :: Lens.Lens' UpdateConnectivityInfoResponse (Prelude.Maybe Prelude.Text)
-updateConnectivityInfoResponse_version = Lens.lens (\UpdateConnectivityInfoResponse' {version} -> version) (\s@UpdateConnectivityInfoResponse' {} a -> s {version = a} :: UpdateConnectivityInfoResponse)
 
 -- | A message about the connectivity info update request.
 updateConnectivityInfoResponse_message :: Lens.Lens' UpdateConnectivityInfoResponse (Prelude.Maybe Prelude.Text)
 updateConnectivityInfoResponse_message = Lens.lens (\UpdateConnectivityInfoResponse' {message} -> message) (\s@UpdateConnectivityInfoResponse' {} a -> s {message = a} :: UpdateConnectivityInfoResponse)
+
+-- | The new version of the connectivity info.
+updateConnectivityInfoResponse_version :: Lens.Lens' UpdateConnectivityInfoResponse (Prelude.Maybe Prelude.Text)
+updateConnectivityInfoResponse_version = Lens.lens (\UpdateConnectivityInfoResponse' {version} -> version) (\s@UpdateConnectivityInfoResponse' {} a -> s {version = a} :: UpdateConnectivityInfoResponse)
 
 -- | The response's http status code.
 updateConnectivityInfoResponse_httpStatus :: Lens.Lens' UpdateConnectivityInfoResponse Prelude.Int
@@ -199,6 +201,6 @@ instance
     UpdateConnectivityInfoResponse
   where
   rnf UpdateConnectivityInfoResponse' {..} =
-    Prelude.rnf version
-      `Prelude.seq` Prelude.rnf message
+    Prelude.rnf message
+      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.SensitiveDataDetections
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.SensitiveDataDetections where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.Occurrences
 
@@ -28,10 +29,10 @@ import Amazonka.SecurityHub.Types.Occurrences
 --
 -- /See:/ 'newSensitiveDataDetections' smart constructor.
 data SensitiveDataDetections = SensitiveDataDetections'
-  { -- | Details about the sensitive data that was detected.
-    occurrences :: Prelude.Maybe Occurrences,
-    -- | The total number of occurrences of sensitive data that were detected.
+  { -- | The total number of occurrences of sensitive data that were detected.
     count :: Prelude.Maybe Prelude.Integer,
+    -- | Details about the sensitive data that was detected.
+    occurrences :: Prelude.Maybe Occurrences,
     -- | The type of sensitive data that was detected. For example, the type
     -- might indicate that the data is an email address.
     type' :: Prelude.Maybe Prelude.Text
@@ -46,9 +47,9 @@ data SensitiveDataDetections = SensitiveDataDetections'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'occurrences', 'sensitiveDataDetections_occurrences' - Details about the sensitive data that was detected.
---
 -- 'count', 'sensitiveDataDetections_count' - The total number of occurrences of sensitive data that were detected.
+--
+-- 'occurrences', 'sensitiveDataDetections_occurrences' - Details about the sensitive data that was detected.
 --
 -- 'type'', 'sensitiveDataDetections_type' - The type of sensitive data that was detected. For example, the type
 -- might indicate that the data is an email address.
@@ -56,54 +57,53 @@ newSensitiveDataDetections ::
   SensitiveDataDetections
 newSensitiveDataDetections =
   SensitiveDataDetections'
-    { occurrences =
-        Prelude.Nothing,
-      count = Prelude.Nothing,
+    { count = Prelude.Nothing,
+      occurrences = Prelude.Nothing,
       type' = Prelude.Nothing
     }
-
--- | Details about the sensitive data that was detected.
-sensitiveDataDetections_occurrences :: Lens.Lens' SensitiveDataDetections (Prelude.Maybe Occurrences)
-sensitiveDataDetections_occurrences = Lens.lens (\SensitiveDataDetections' {occurrences} -> occurrences) (\s@SensitiveDataDetections' {} a -> s {occurrences = a} :: SensitiveDataDetections)
 
 -- | The total number of occurrences of sensitive data that were detected.
 sensitiveDataDetections_count :: Lens.Lens' SensitiveDataDetections (Prelude.Maybe Prelude.Integer)
 sensitiveDataDetections_count = Lens.lens (\SensitiveDataDetections' {count} -> count) (\s@SensitiveDataDetections' {} a -> s {count = a} :: SensitiveDataDetections)
+
+-- | Details about the sensitive data that was detected.
+sensitiveDataDetections_occurrences :: Lens.Lens' SensitiveDataDetections (Prelude.Maybe Occurrences)
+sensitiveDataDetections_occurrences = Lens.lens (\SensitiveDataDetections' {occurrences} -> occurrences) (\s@SensitiveDataDetections' {} a -> s {occurrences = a} :: SensitiveDataDetections)
 
 -- | The type of sensitive data that was detected. For example, the type
 -- might indicate that the data is an email address.
 sensitiveDataDetections_type :: Lens.Lens' SensitiveDataDetections (Prelude.Maybe Prelude.Text)
 sensitiveDataDetections_type = Lens.lens (\SensitiveDataDetections' {type'} -> type') (\s@SensitiveDataDetections' {} a -> s {type' = a} :: SensitiveDataDetections)
 
-instance Core.FromJSON SensitiveDataDetections where
+instance Data.FromJSON SensitiveDataDetections where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SensitiveDataDetections"
       ( \x ->
           SensitiveDataDetections'
-            Prelude.<$> (x Core..:? "Occurrences")
-            Prelude.<*> (x Core..:? "Count")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Count")
+            Prelude.<*> (x Data..:? "Occurrences")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable SensitiveDataDetections where
   hashWithSalt _salt SensitiveDataDetections' {..} =
-    _salt `Prelude.hashWithSalt` occurrences
-      `Prelude.hashWithSalt` count
+    _salt `Prelude.hashWithSalt` count
+      `Prelude.hashWithSalt` occurrences
       `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData SensitiveDataDetections where
   rnf SensitiveDataDetections' {..} =
-    Prelude.rnf occurrences
-      `Prelude.seq` Prelude.rnf count
+    Prelude.rnf count
+      `Prelude.seq` Prelude.rnf occurrences
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON SensitiveDataDetections where
+instance Data.ToJSON SensitiveDataDetections where
   toJSON SensitiveDataDetections' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Occurrences" Core..=) Prelude.<$> occurrences,
-            ("Count" Core..=) Prelude.<$> count,
-            ("Type" Core..=) Prelude.<$> type'
+          [ ("Count" Data..=) Prelude.<$> count,
+            ("Occurrences" Data..=) Prelude.<$> occurrences,
+            ("Type" Data..=) Prelude.<$> type'
           ]
       )

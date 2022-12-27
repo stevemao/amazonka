@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Synthetics.Types.CanaryRunStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Synthetics.Types.CanaryRunStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Synthetics.Types.CanaryRunState
 import Amazonka.Synthetics.Types.CanaryRunStateReasonCode
@@ -81,15 +82,15 @@ canaryRunStatus_stateReason = Lens.lens (\CanaryRunStatus' {stateReason} -> stat
 canaryRunStatus_stateReasonCode :: Lens.Lens' CanaryRunStatus (Prelude.Maybe CanaryRunStateReasonCode)
 canaryRunStatus_stateReasonCode = Lens.lens (\CanaryRunStatus' {stateReasonCode} -> stateReasonCode) (\s@CanaryRunStatus' {} a -> s {stateReasonCode = a} :: CanaryRunStatus)
 
-instance Core.FromJSON CanaryRunStatus where
+instance Data.FromJSON CanaryRunStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CanaryRunStatus"
       ( \x ->
           CanaryRunStatus'
-            Prelude.<$> (x Core..:? "State")
-            Prelude.<*> (x Core..:? "StateReason")
-            Prelude.<*> (x Core..:? "StateReasonCode")
+            Prelude.<$> (x Data..:? "State")
+            Prelude.<*> (x Data..:? "StateReason")
+            Prelude.<*> (x Data..:? "StateReasonCode")
       )
 
 instance Prelude.Hashable CanaryRunStatus where

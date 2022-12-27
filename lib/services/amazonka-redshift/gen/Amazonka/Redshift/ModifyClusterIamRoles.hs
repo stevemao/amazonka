@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.ModifyClusterIamRoles
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,15 +23,19 @@
 -- Modifies the list of Identity and Access Management (IAM) roles that can
 -- be used by the cluster to access other Amazon Web Services services.
 --
--- A cluster can have up to 10 IAM roles associated at any time.
+-- The maximum number of IAM roles that you can associate is subject to a
+-- quota. For more information, go to
+-- <https://docs.aws.amazon.com/redshift/latest/mgmt/amazon-redshift-limits.html Quotas and limits>
+-- in the /Amazon Redshift Cluster Management Guide/.
 module Amazonka.Redshift.ModifyClusterIamRoles
   ( -- * Creating a Request
     ModifyClusterIamRoles (..),
     newModifyClusterIamRoles,
 
     -- * Request Lenses
-    modifyClusterIamRoles_removeIamRoles,
     modifyClusterIamRoles_addIamRoles,
+    modifyClusterIamRoles_defaultIamRoleArn,
+    modifyClusterIamRoles_removeIamRoles,
     modifyClusterIamRoles_clusterIdentifier,
 
     -- * Destructuring the Response
@@ -45,7 +49,8 @@ module Amazonka.Redshift.ModifyClusterIamRoles
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -55,14 +60,14 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newModifyClusterIamRoles' smart constructor.
 data ModifyClusterIamRoles = ModifyClusterIamRoles'
-  { -- | Zero or more IAM roles in ARN format to disassociate from the cluster.
-    -- You can disassociate up to 10 IAM roles from a single cluster in a
-    -- single request.
-    removeIamRoles :: Prelude.Maybe [Prelude.Text],
-    -- | Zero or more IAM roles to associate with the cluster. The roles must be
-    -- in their Amazon Resource Name (ARN) format. You can associate up to 10
-    -- IAM roles with a single cluster in a single request.
+  { -- | Zero or more IAM roles to associate with the cluster. The roles must be
+    -- in their Amazon Resource Name (ARN) format.
     addIamRoles :: Prelude.Maybe [Prelude.Text],
+    -- | The Amazon Resource Name (ARN) for the IAM role that was set as default
+    -- for the cluster when the cluster was last modified.
+    defaultIamRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | Zero or more IAM roles in ARN format to disassociate from the cluster.
+    removeIamRoles :: Prelude.Maybe [Prelude.Text],
     -- | The unique identifier of the cluster for which you want to associate or
     -- disassociate IAM roles.
     clusterIdentifier :: Prelude.Text
@@ -77,13 +82,13 @@ data ModifyClusterIamRoles = ModifyClusterIamRoles'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'removeIamRoles', 'modifyClusterIamRoles_removeIamRoles' - Zero or more IAM roles in ARN format to disassociate from the cluster.
--- You can disassociate up to 10 IAM roles from a single cluster in a
--- single request.
---
 -- 'addIamRoles', 'modifyClusterIamRoles_addIamRoles' - Zero or more IAM roles to associate with the cluster. The roles must be
--- in their Amazon Resource Name (ARN) format. You can associate up to 10
--- IAM roles with a single cluster in a single request.
+-- in their Amazon Resource Name (ARN) format.
+--
+-- 'defaultIamRoleArn', 'modifyClusterIamRoles_defaultIamRoleArn' - The Amazon Resource Name (ARN) for the IAM role that was set as default
+-- for the cluster when the cluster was last modified.
+--
+-- 'removeIamRoles', 'modifyClusterIamRoles_removeIamRoles' - Zero or more IAM roles in ARN format to disassociate from the cluster.
 --
 -- 'clusterIdentifier', 'modifyClusterIamRoles_clusterIdentifier' - The unique identifier of the cluster for which you want to associate or
 -- disassociate IAM roles.
@@ -93,23 +98,26 @@ newModifyClusterIamRoles ::
   ModifyClusterIamRoles
 newModifyClusterIamRoles pClusterIdentifier_ =
   ModifyClusterIamRoles'
-    { removeIamRoles =
+    { addIamRoles =
         Prelude.Nothing,
-      addIamRoles = Prelude.Nothing,
+      defaultIamRoleArn = Prelude.Nothing,
+      removeIamRoles = Prelude.Nothing,
       clusterIdentifier = pClusterIdentifier_
     }
 
--- | Zero or more IAM roles in ARN format to disassociate from the cluster.
--- You can disassociate up to 10 IAM roles from a single cluster in a
--- single request.
-modifyClusterIamRoles_removeIamRoles :: Lens.Lens' ModifyClusterIamRoles (Prelude.Maybe [Prelude.Text])
-modifyClusterIamRoles_removeIamRoles = Lens.lens (\ModifyClusterIamRoles' {removeIamRoles} -> removeIamRoles) (\s@ModifyClusterIamRoles' {} a -> s {removeIamRoles = a} :: ModifyClusterIamRoles) Prelude.. Lens.mapping Lens.coerced
-
 -- | Zero or more IAM roles to associate with the cluster. The roles must be
--- in their Amazon Resource Name (ARN) format. You can associate up to 10
--- IAM roles with a single cluster in a single request.
+-- in their Amazon Resource Name (ARN) format.
 modifyClusterIamRoles_addIamRoles :: Lens.Lens' ModifyClusterIamRoles (Prelude.Maybe [Prelude.Text])
 modifyClusterIamRoles_addIamRoles = Lens.lens (\ModifyClusterIamRoles' {addIamRoles} -> addIamRoles) (\s@ModifyClusterIamRoles' {} a -> s {addIamRoles = a} :: ModifyClusterIamRoles) Prelude.. Lens.mapping Lens.coerced
+
+-- | The Amazon Resource Name (ARN) for the IAM role that was set as default
+-- for the cluster when the cluster was last modified.
+modifyClusterIamRoles_defaultIamRoleArn :: Lens.Lens' ModifyClusterIamRoles (Prelude.Maybe Prelude.Text)
+modifyClusterIamRoles_defaultIamRoleArn = Lens.lens (\ModifyClusterIamRoles' {defaultIamRoleArn} -> defaultIamRoleArn) (\s@ModifyClusterIamRoles' {} a -> s {defaultIamRoleArn = a} :: ModifyClusterIamRoles)
+
+-- | Zero or more IAM roles in ARN format to disassociate from the cluster.
+modifyClusterIamRoles_removeIamRoles :: Lens.Lens' ModifyClusterIamRoles (Prelude.Maybe [Prelude.Text])
+modifyClusterIamRoles_removeIamRoles = Lens.lens (\ModifyClusterIamRoles' {removeIamRoles} -> removeIamRoles) (\s@ModifyClusterIamRoles' {} a -> s {removeIamRoles = a} :: ModifyClusterIamRoles) Prelude.. Lens.mapping Lens.coerced
 
 -- | The unique identifier of the cluster for which you want to associate or
 -- disassociate IAM roles.
@@ -120,52 +128,56 @@ instance Core.AWSRequest ModifyClusterIamRoles where
   type
     AWSResponse ModifyClusterIamRoles =
       ModifyClusterIamRolesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyClusterIamRolesResult"
       ( \s h x ->
           ModifyClusterIamRolesResponse'
-            Prelude.<$> (x Core..@? "Cluster")
+            Prelude.<$> (x Data..@? "Cluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ModifyClusterIamRoles where
   hashWithSalt _salt ModifyClusterIamRoles' {..} =
-    _salt `Prelude.hashWithSalt` removeIamRoles
-      `Prelude.hashWithSalt` addIamRoles
+    _salt `Prelude.hashWithSalt` addIamRoles
+      `Prelude.hashWithSalt` defaultIamRoleArn
+      `Prelude.hashWithSalt` removeIamRoles
       `Prelude.hashWithSalt` clusterIdentifier
 
 instance Prelude.NFData ModifyClusterIamRoles where
   rnf ModifyClusterIamRoles' {..} =
-    Prelude.rnf removeIamRoles
-      `Prelude.seq` Prelude.rnf addIamRoles
+    Prelude.rnf addIamRoles
+      `Prelude.seq` Prelude.rnf defaultIamRoleArn
+      `Prelude.seq` Prelude.rnf removeIamRoles
       `Prelude.seq` Prelude.rnf clusterIdentifier
 
-instance Core.ToHeaders ModifyClusterIamRoles where
+instance Data.ToHeaders ModifyClusterIamRoles where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyClusterIamRoles where
+instance Data.ToPath ModifyClusterIamRoles where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyClusterIamRoles where
+instance Data.ToQuery ModifyClusterIamRoles where
   toQuery ModifyClusterIamRoles' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyClusterIamRoles" :: Prelude.ByteString),
+          Data.=: ("ModifyClusterIamRoles" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "RemoveIamRoles"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "IamRoleArn"
-                Prelude.<$> removeIamRoles
-            ),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
         "AddIamRoles"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "IamRoleArn"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "IamRoleArn"
                 Prelude.<$> addIamRoles
             ),
-        "ClusterIdentifier" Core.=: clusterIdentifier
+        "DefaultIamRoleArn" Data.=: defaultIamRoleArn,
+        "RemoveIamRoles"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "IamRoleArn"
+                Prelude.<$> removeIamRoles
+            ),
+        "ClusterIdentifier" Data.=: clusterIdentifier
       ]
 
 -- | /See:/ 'newModifyClusterIamRolesResponse' smart constructor.

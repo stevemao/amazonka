@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.SetTagsForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,9 @@ module Amazonka.Inspector.SetTagsForResource
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,7 +90,8 @@ instance Core.AWSRequest SetTagsForResource where
   type
     AWSResponse SetTagsForResource =
       SetTagsForResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull SetTagsForResourceResponse'
 
@@ -103,34 +105,34 @@ instance Prelude.NFData SetTagsForResource where
     Prelude.rnf tags
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders SetTagsForResource where
+instance Data.ToHeaders SetTagsForResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.SetTagsForResource" ::
+              Data.=# ( "InspectorService.SetTagsForResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SetTagsForResource where
+instance Data.ToJSON SetTagsForResource where
   toJSON SetTagsForResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("resourceArn" Core..= resourceArn)
+          [ ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("resourceArn" Data..= resourceArn)
           ]
       )
 
-instance Core.ToPath SetTagsForResource where
+instance Data.ToPath SetTagsForResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetTagsForResource where
+instance Data.ToQuery SetTagsForResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSetTagsForResourceResponse' smart constructor.

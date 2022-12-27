@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.GetCommentsForComparedCommit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,9 +34,9 @@ module Amazonka.CodeCommit.GetCommentsForComparedCommit
     newGetCommentsForComparedCommit,
 
     -- * Request Lenses
-    getCommentsForComparedCommit_nextToken,
     getCommentsForComparedCommit_beforeCommitId,
     getCommentsForComparedCommit_maxResults,
+    getCommentsForComparedCommit_nextToken,
     getCommentsForComparedCommit_repositoryName,
     getCommentsForComparedCommit_afterCommitId,
 
@@ -53,22 +53,23 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetCommentsForComparedCommit' smart constructor.
 data GetCommentsForComparedCommit = GetCommentsForComparedCommit'
-  { -- | An enumeration token that when provided in a request, returns the next
-    -- batch of the results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | To establish the directionality of the comparison, the full commit ID of
+  { -- | To establish the directionality of the comparison, the full commit ID of
     -- the before commit.
     beforeCommitId :: Prelude.Maybe Prelude.Text,
     -- | A non-zero, non-negative integer used to limit the number of returned
     -- results. The default is 100 comments, but you can configure up to 500.
     maxResults :: Prelude.Maybe Prelude.Int,
+    -- | An enumeration token that when provided in a request, returns the next
+    -- batch of the results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the repository where you want to compare commits.
     repositoryName :: Prelude.Text,
     -- | To establish the directionality of the comparison, the full commit ID of
@@ -85,14 +86,14 @@ data GetCommentsForComparedCommit = GetCommentsForComparedCommit'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getCommentsForComparedCommit_nextToken' - An enumeration token that when provided in a request, returns the next
--- batch of the results.
---
 -- 'beforeCommitId', 'getCommentsForComparedCommit_beforeCommitId' - To establish the directionality of the comparison, the full commit ID of
 -- the before commit.
 --
 -- 'maxResults', 'getCommentsForComparedCommit_maxResults' - A non-zero, non-negative integer used to limit the number of returned
 -- results. The default is 100 comments, but you can configure up to 500.
+--
+-- 'nextToken', 'getCommentsForComparedCommit_nextToken' - An enumeration token that when provided in a request, returns the next
+-- batch of the results.
 --
 -- 'repositoryName', 'getCommentsForComparedCommit_repositoryName' - The name of the repository where you want to compare commits.
 --
@@ -108,18 +109,13 @@ newGetCommentsForComparedCommit
   pRepositoryName_
   pAfterCommitId_ =
     GetCommentsForComparedCommit'
-      { nextToken =
+      { beforeCommitId =
           Prelude.Nothing,
-        beforeCommitId = Prelude.Nothing,
         maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         repositoryName = pRepositoryName_,
         afterCommitId = pAfterCommitId_
       }
-
--- | An enumeration token that when provided in a request, returns the next
--- batch of the results.
-getCommentsForComparedCommit_nextToken :: Lens.Lens' GetCommentsForComparedCommit (Prelude.Maybe Prelude.Text)
-getCommentsForComparedCommit_nextToken = Lens.lens (\GetCommentsForComparedCommit' {nextToken} -> nextToken) (\s@GetCommentsForComparedCommit' {} a -> s {nextToken = a} :: GetCommentsForComparedCommit)
 
 -- | To establish the directionality of the comparison, the full commit ID of
 -- the before commit.
@@ -130,6 +126,11 @@ getCommentsForComparedCommit_beforeCommitId = Lens.lens (\GetCommentsForCompared
 -- results. The default is 100 comments, but you can configure up to 500.
 getCommentsForComparedCommit_maxResults :: Lens.Lens' GetCommentsForComparedCommit (Prelude.Maybe Prelude.Int)
 getCommentsForComparedCommit_maxResults = Lens.lens (\GetCommentsForComparedCommit' {maxResults} -> maxResults) (\s@GetCommentsForComparedCommit' {} a -> s {maxResults = a} :: GetCommentsForComparedCommit)
+
+-- | An enumeration token that when provided in a request, returns the next
+-- batch of the results.
+getCommentsForComparedCommit_nextToken :: Lens.Lens' GetCommentsForComparedCommit (Prelude.Maybe Prelude.Text)
+getCommentsForComparedCommit_nextToken = Lens.lens (\GetCommentsForComparedCommit' {nextToken} -> nextToken) (\s@GetCommentsForComparedCommit' {} a -> s {nextToken = a} :: GetCommentsForComparedCommit)
 
 -- | The name of the repository where you want to compare commits.
 getCommentsForComparedCommit_repositoryName :: Lens.Lens' GetCommentsForComparedCommit Prelude.Text
@@ -166,15 +167,16 @@ instance Core.AWSRequest GetCommentsForComparedCommit where
   type
     AWSResponse GetCommentsForComparedCommit =
       GetCommentsForComparedCommitResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCommentsForComparedCommitResponse'
-            Prelude.<$> ( x Core..?> "commentsForComparedCommitData"
+            Prelude.<$> ( x Data..?> "commentsForComparedCommitData"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -183,54 +185,54 @@ instance
     GetCommentsForComparedCommit
   where
   hashWithSalt _salt GetCommentsForComparedCommit' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` beforeCommitId
+    _salt `Prelude.hashWithSalt` beforeCommitId
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` repositoryName
       `Prelude.hashWithSalt` afterCommitId
 
 instance Prelude.NFData GetCommentsForComparedCommit where
   rnf GetCommentsForComparedCommit' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf beforeCommitId
+    Prelude.rnf beforeCommitId
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf afterCommitId
 
-instance Core.ToHeaders GetCommentsForComparedCommit where
+instance Data.ToHeaders GetCommentsForComparedCommit where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.GetCommentsForComparedCommit" ::
+              Data.=# ( "CodeCommit_20150413.GetCommentsForComparedCommit" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetCommentsForComparedCommit where
+instance Data.ToJSON GetCommentsForComparedCommit where
   toJSON GetCommentsForComparedCommit' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("beforeCommitId" Core..=)
+          [ ("beforeCommitId" Data..=)
               Prelude.<$> beforeCommitId,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
+              ("repositoryName" Data..= repositoryName),
             Prelude.Just
-              ("afterCommitId" Core..= afterCommitId)
+              ("afterCommitId" Data..= afterCommitId)
           ]
       )
 
-instance Core.ToPath GetCommentsForComparedCommit where
+instance Data.ToPath GetCommentsForComparedCommit where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetCommentsForComparedCommit where
+instance Data.ToQuery GetCommentsForComparedCommit where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetCommentsForComparedCommitResponse' smart constructor.

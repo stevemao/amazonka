@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.Types.KinesisFirehoseOutputDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalytics.Types.KinesisFirehoseOutputDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | For an application output, describes the Amazon Kinesis Firehose
@@ -70,16 +71,16 @@ kinesisFirehoseOutputDescription_roleARN :: Lens.Lens' KinesisFirehoseOutputDesc
 kinesisFirehoseOutputDescription_roleARN = Lens.lens (\KinesisFirehoseOutputDescription' {roleARN} -> roleARN) (\s@KinesisFirehoseOutputDescription' {} a -> s {roleARN = a} :: KinesisFirehoseOutputDescription)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     KinesisFirehoseOutputDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KinesisFirehoseOutputDescription"
       ( \x ->
           KinesisFirehoseOutputDescription'
-            Prelude.<$> (x Core..:? "ResourceARN")
-            Prelude.<*> (x Core..:? "RoleARN")
+            Prelude.<$> (x Data..:? "ResourceARN")
+            Prelude.<*> (x Data..:? "RoleARN")
       )
 
 instance

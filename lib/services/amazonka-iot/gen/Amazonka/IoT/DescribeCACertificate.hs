@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DescribeCACertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IoT.DescribeCACertificate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,13 +88,14 @@ instance Core.AWSRequest DescribeCACertificate where
   type
     AWSResponse DescribeCACertificate =
       DescribeCACertificateResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeCACertificateResponse'
-            Prelude.<$> (x Core..?> "certificateDescription")
-            Prelude.<*> (x Core..?> "registrationConfig")
+            Prelude.<$> (x Data..?> "certificateDescription")
+            Prelude.<*> (x Data..?> "registrationConfig")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -105,15 +107,15 @@ instance Prelude.NFData DescribeCACertificate where
   rnf DescribeCACertificate' {..} =
     Prelude.rnf certificateId
 
-instance Core.ToHeaders DescribeCACertificate where
+instance Data.ToHeaders DescribeCACertificate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeCACertificate where
+instance Data.ToPath DescribeCACertificate where
   toPath DescribeCACertificate' {..} =
     Prelude.mconcat
-      ["/cacertificate/", Core.toBS certificateId]
+      ["/cacertificate/", Data.toBS certificateId]
 
-instance Core.ToQuery DescribeCACertificate where
+instance Data.ToQuery DescribeCACertificate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The output from the DescribeCACertificate operation.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.Types.AutomaticTapeCreationRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.StorageGateway.Types.AutomaticTapeCreationRule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An automatic tape creation policy consists of automatic tape creation
@@ -45,8 +46,6 @@ data AutomaticTapeCreationRule = AutomaticTapeCreationRule'
     -- associated with the pool. When you use your backup application to eject
     -- the tape, the tape is archived directly into the storage class (S3
     -- Glacier or S3 Glacier Deep Archive) that corresponds to the pool.
-    --
-    -- Valid Values: @GLACIER@ | @DEEP_ARCHIVE@
     poolId :: Prelude.Text,
     -- | The size, in bytes, of the virtual tape capacity.
     tapeSizeInBytes :: Prelude.Integer,
@@ -83,8 +82,6 @@ data AutomaticTapeCreationRule = AutomaticTapeCreationRule'
 -- associated with the pool. When you use your backup application to eject
 -- the tape, the tape is archived directly into the storage class (S3
 -- Glacier or S3 Glacier Deep Archive) that corresponds to the pool.
---
--- Valid Values: @GLACIER@ | @DEEP_ARCHIVE@
 --
 -- 'tapeSizeInBytes', 'automaticTapeCreationRule_tapeSizeInBytes' - The size, in bytes, of the virtual tape capacity.
 --
@@ -136,8 +133,6 @@ automaticTapeCreationRule_tapeBarcodePrefix = Lens.lens (\AutomaticTapeCreationR
 -- associated with the pool. When you use your backup application to eject
 -- the tape, the tape is archived directly into the storage class (S3
 -- Glacier or S3 Glacier Deep Archive) that corresponds to the pool.
---
--- Valid Values: @GLACIER@ | @DEEP_ARCHIVE@
 automaticTapeCreationRule_poolId :: Lens.Lens' AutomaticTapeCreationRule Prelude.Text
 automaticTapeCreationRule_poolId = Lens.lens (\AutomaticTapeCreationRule' {poolId} -> poolId) (\s@AutomaticTapeCreationRule' {} a -> s {poolId = a} :: AutomaticTapeCreationRule)
 
@@ -154,17 +149,17 @@ automaticTapeCreationRule_tapeSizeInBytes = Lens.lens (\AutomaticTapeCreationRul
 automaticTapeCreationRule_minimumNumTapes :: Lens.Lens' AutomaticTapeCreationRule Prelude.Natural
 automaticTapeCreationRule_minimumNumTapes = Lens.lens (\AutomaticTapeCreationRule' {minimumNumTapes} -> minimumNumTapes) (\s@AutomaticTapeCreationRule' {} a -> s {minimumNumTapes = a} :: AutomaticTapeCreationRule)
 
-instance Core.FromJSON AutomaticTapeCreationRule where
+instance Data.FromJSON AutomaticTapeCreationRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutomaticTapeCreationRule"
       ( \x ->
           AutomaticTapeCreationRule'
-            Prelude.<$> (x Core..:? "Worm")
-            Prelude.<*> (x Core..: "TapeBarcodePrefix")
-            Prelude.<*> (x Core..: "PoolId")
-            Prelude.<*> (x Core..: "TapeSizeInBytes")
-            Prelude.<*> (x Core..: "MinimumNumTapes")
+            Prelude.<$> (x Data..:? "Worm")
+            Prelude.<*> (x Data..: "TapeBarcodePrefix")
+            Prelude.<*> (x Data..: "PoolId")
+            Prelude.<*> (x Data..: "TapeSizeInBytes")
+            Prelude.<*> (x Data..: "MinimumNumTapes")
       )
 
 instance Prelude.Hashable AutomaticTapeCreationRule where
@@ -183,17 +178,17 @@ instance Prelude.NFData AutomaticTapeCreationRule where
       `Prelude.seq` Prelude.rnf tapeSizeInBytes
       `Prelude.seq` Prelude.rnf minimumNumTapes
 
-instance Core.ToJSON AutomaticTapeCreationRule where
+instance Data.ToJSON AutomaticTapeCreationRule where
   toJSON AutomaticTapeCreationRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Worm" Core..=) Prelude.<$> worm,
+          [ ("Worm" Data..=) Prelude.<$> worm,
             Prelude.Just
-              ("TapeBarcodePrefix" Core..= tapeBarcodePrefix),
-            Prelude.Just ("PoolId" Core..= poolId),
+              ("TapeBarcodePrefix" Data..= tapeBarcodePrefix),
+            Prelude.Just ("PoolId" Data..= poolId),
             Prelude.Just
-              ("TapeSizeInBytes" Core..= tapeSizeInBytes),
+              ("TapeSizeInBytes" Data..= tapeSizeInBytes),
             Prelude.Just
-              ("MinimumNumTapes" Core..= minimumNumTapes)
+              ("MinimumNumTapes" Data..= minimumNumTapes)
           ]
       )

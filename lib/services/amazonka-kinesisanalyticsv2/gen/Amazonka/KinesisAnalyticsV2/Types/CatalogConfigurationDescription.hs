@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.CatalogConfigurationDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.CatalogConfigurationDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.GlueDataCatalogConfigurationDescription
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration parameters for the default Amazon Glue database. You
@@ -66,16 +67,16 @@ catalogConfigurationDescription_glueDataCatalogConfigurationDescription :: Lens.
 catalogConfigurationDescription_glueDataCatalogConfigurationDescription = Lens.lens (\CatalogConfigurationDescription' {glueDataCatalogConfigurationDescription} -> glueDataCatalogConfigurationDescription) (\s@CatalogConfigurationDescription' {} a -> s {glueDataCatalogConfigurationDescription = a} :: CatalogConfigurationDescription)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     CatalogConfigurationDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CatalogConfigurationDescription"
       ( \x ->
           CatalogConfigurationDescription'
             Prelude.<$> ( x
-                            Core..: "GlueDataCatalogConfigurationDescription"
+                            Data..: "GlueDataCatalogConfigurationDescription"
                         )
       )
 

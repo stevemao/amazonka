@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ComputeOptimizer.GetEC2InstanceRecommendations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,26 +35,27 @@ module Amazonka.ComputeOptimizer.GetEC2InstanceRecommendations
     -- * Request Lenses
     getEC2InstanceRecommendations_accountIds,
     getEC2InstanceRecommendations_filters,
-    getEC2InstanceRecommendations_recommendationPreferences,
-    getEC2InstanceRecommendations_nextToken,
     getEC2InstanceRecommendations_instanceArns,
     getEC2InstanceRecommendations_maxResults,
+    getEC2InstanceRecommendations_nextToken,
+    getEC2InstanceRecommendations_recommendationPreferences,
 
     -- * Destructuring the Response
     GetEC2InstanceRecommendationsResponse (..),
     newGetEC2InstanceRecommendationsResponse,
 
     -- * Response Lenses
-    getEC2InstanceRecommendationsResponse_nextToken,
     getEC2InstanceRecommendationsResponse_errors,
     getEC2InstanceRecommendationsResponse_instanceRecommendations,
+    getEC2InstanceRecommendationsResponse_nextToken,
     getEC2InstanceRecommendationsResponse_httpStatus,
   )
 where
 
 import Amazonka.ComputeOptimizer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,11 +74,6 @@ data GetEC2InstanceRecommendations = GetEC2InstanceRecommendations'
     -- | An array of objects to specify a filter that returns a more specific
     -- list of instance recommendations.
     filters :: Prelude.Maybe [Filter],
-    -- | An object to specify the preferences for the Amazon EC2 instance
-    -- recommendations to return in the response.
-    recommendationPreferences :: Prelude.Maybe RecommendationPreferences,
-    -- | The token to advance to the next page of instance recommendations.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the instances for which to return
     -- recommendations.
     instanceArns :: Prelude.Maybe [Prelude.Text],
@@ -86,7 +82,12 @@ data GetEC2InstanceRecommendations = GetEC2InstanceRecommendations'
     --
     -- To retrieve the remaining results, make another request with the
     -- returned @nextToken@ value.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token to advance to the next page of instance recommendations.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An object to specify the preferences for the Amazon EC2 instance
+    -- recommendations to return in the response.
+    recommendationPreferences :: Prelude.Maybe RecommendationPreferences
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -110,11 +111,6 @@ data GetEC2InstanceRecommendations = GetEC2InstanceRecommendations'
 -- 'filters', 'getEC2InstanceRecommendations_filters' - An array of objects to specify a filter that returns a more specific
 -- list of instance recommendations.
 --
--- 'recommendationPreferences', 'getEC2InstanceRecommendations_recommendationPreferences' - An object to specify the preferences for the Amazon EC2 instance
--- recommendations to return in the response.
---
--- 'nextToken', 'getEC2InstanceRecommendations_nextToken' - The token to advance to the next page of instance recommendations.
---
 -- 'instanceArns', 'getEC2InstanceRecommendations_instanceArns' - The Amazon Resource Name (ARN) of the instances for which to return
 -- recommendations.
 --
@@ -123,6 +119,11 @@ data GetEC2InstanceRecommendations = GetEC2InstanceRecommendations'
 --
 -- To retrieve the remaining results, make another request with the
 -- returned @nextToken@ value.
+--
+-- 'nextToken', 'getEC2InstanceRecommendations_nextToken' - The token to advance to the next page of instance recommendations.
+--
+-- 'recommendationPreferences', 'getEC2InstanceRecommendations_recommendationPreferences' - An object to specify the preferences for the Amazon EC2 instance
+-- recommendations to return in the response.
 newGetEC2InstanceRecommendations ::
   GetEC2InstanceRecommendations
 newGetEC2InstanceRecommendations =
@@ -130,10 +131,10 @@ newGetEC2InstanceRecommendations =
     { accountIds =
         Prelude.Nothing,
       filters = Prelude.Nothing,
-      recommendationPreferences = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       instanceArns = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      recommendationPreferences = Prelude.Nothing
     }
 
 -- | The ID of the Amazon Web Services account for which to return instance
@@ -152,15 +153,6 @@ getEC2InstanceRecommendations_accountIds = Lens.lens (\GetEC2InstanceRecommendat
 getEC2InstanceRecommendations_filters :: Lens.Lens' GetEC2InstanceRecommendations (Prelude.Maybe [Filter])
 getEC2InstanceRecommendations_filters = Lens.lens (\GetEC2InstanceRecommendations' {filters} -> filters) (\s@GetEC2InstanceRecommendations' {} a -> s {filters = a} :: GetEC2InstanceRecommendations) Prelude.. Lens.mapping Lens.coerced
 
--- | An object to specify the preferences for the Amazon EC2 instance
--- recommendations to return in the response.
-getEC2InstanceRecommendations_recommendationPreferences :: Lens.Lens' GetEC2InstanceRecommendations (Prelude.Maybe RecommendationPreferences)
-getEC2InstanceRecommendations_recommendationPreferences = Lens.lens (\GetEC2InstanceRecommendations' {recommendationPreferences} -> recommendationPreferences) (\s@GetEC2InstanceRecommendations' {} a -> s {recommendationPreferences = a} :: GetEC2InstanceRecommendations)
-
--- | The token to advance to the next page of instance recommendations.
-getEC2InstanceRecommendations_nextToken :: Lens.Lens' GetEC2InstanceRecommendations (Prelude.Maybe Prelude.Text)
-getEC2InstanceRecommendations_nextToken = Lens.lens (\GetEC2InstanceRecommendations' {nextToken} -> nextToken) (\s@GetEC2InstanceRecommendations' {} a -> s {nextToken = a} :: GetEC2InstanceRecommendations)
-
 -- | The Amazon Resource Name (ARN) of the instances for which to return
 -- recommendations.
 getEC2InstanceRecommendations_instanceArns :: Lens.Lens' GetEC2InstanceRecommendations (Prelude.Maybe [Prelude.Text])
@@ -174,6 +166,15 @@ getEC2InstanceRecommendations_instanceArns = Lens.lens (\GetEC2InstanceRecommend
 getEC2InstanceRecommendations_maxResults :: Lens.Lens' GetEC2InstanceRecommendations (Prelude.Maybe Prelude.Int)
 getEC2InstanceRecommendations_maxResults = Lens.lens (\GetEC2InstanceRecommendations' {maxResults} -> maxResults) (\s@GetEC2InstanceRecommendations' {} a -> s {maxResults = a} :: GetEC2InstanceRecommendations)
 
+-- | The token to advance to the next page of instance recommendations.
+getEC2InstanceRecommendations_nextToken :: Lens.Lens' GetEC2InstanceRecommendations (Prelude.Maybe Prelude.Text)
+getEC2InstanceRecommendations_nextToken = Lens.lens (\GetEC2InstanceRecommendations' {nextToken} -> nextToken) (\s@GetEC2InstanceRecommendations' {} a -> s {nextToken = a} :: GetEC2InstanceRecommendations)
+
+-- | An object to specify the preferences for the Amazon EC2 instance
+-- recommendations to return in the response.
+getEC2InstanceRecommendations_recommendationPreferences :: Lens.Lens' GetEC2InstanceRecommendations (Prelude.Maybe RecommendationPreferences)
+getEC2InstanceRecommendations_recommendationPreferences = Lens.lens (\GetEC2InstanceRecommendations' {recommendationPreferences} -> recommendationPreferences) (\s@GetEC2InstanceRecommendations' {} a -> s {recommendationPreferences = a} :: GetEC2InstanceRecommendations)
+
 instance
   Core.AWSRequest
     GetEC2InstanceRecommendations
@@ -181,16 +182,17 @@ instance
   type
     AWSResponse GetEC2InstanceRecommendations =
       GetEC2InstanceRecommendationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetEC2InstanceRecommendationsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "errors" Core..!@ Prelude.mempty)
-            Prelude.<*> ( x Core..?> "instanceRecommendations"
+            Prelude.<$> (x Data..?> "errors" Core..!@ Prelude.mempty)
+            Prelude.<*> ( x Data..?> "instanceRecommendations"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -201,70 +203,70 @@ instance
   hashWithSalt _salt GetEC2InstanceRecommendations' {..} =
     _salt `Prelude.hashWithSalt` accountIds
       `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` recommendationPreferences
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` instanceArns
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` recommendationPreferences
 
 instance Prelude.NFData GetEC2InstanceRecommendations where
   rnf GetEC2InstanceRecommendations' {..} =
     Prelude.rnf accountIds
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf recommendationPreferences
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf instanceArns
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf recommendationPreferences
 
-instance Core.ToHeaders GetEC2InstanceRecommendations where
+instance Data.ToHeaders GetEC2InstanceRecommendations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ComputeOptimizerService.GetEC2InstanceRecommendations" ::
+              Data.=# ( "ComputeOptimizerService.GetEC2InstanceRecommendations" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetEC2InstanceRecommendations where
+instance Data.ToJSON GetEC2InstanceRecommendations where
   toJSON GetEC2InstanceRecommendations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("accountIds" Core..=) Prelude.<$> accountIds,
-            ("filters" Core..=) Prelude.<$> filters,
-            ("recommendationPreferences" Core..=)
-              Prelude.<$> recommendationPreferences,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("instanceArns" Core..=) Prelude.<$> instanceArns,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("accountIds" Data..=) Prelude.<$> accountIds,
+            ("filters" Data..=) Prelude.<$> filters,
+            ("instanceArns" Data..=) Prelude.<$> instanceArns,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("recommendationPreferences" Data..=)
+              Prelude.<$> recommendationPreferences
           ]
       )
 
-instance Core.ToPath GetEC2InstanceRecommendations where
+instance Data.ToPath GetEC2InstanceRecommendations where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetEC2InstanceRecommendations where
+instance Data.ToQuery GetEC2InstanceRecommendations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetEC2InstanceRecommendationsResponse' smart constructor.
 data GetEC2InstanceRecommendationsResponse = GetEC2InstanceRecommendationsResponse'
-  { -- | The token to use to advance to the next page of instance
-    -- recommendations.
-    --
-    -- This value is null when there are no more pages of instance
-    -- recommendations to return.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An array of objects that describe errors of the request.
+  { -- | An array of objects that describe errors of the request.
     --
     -- For example, an error is returned if you request recommendations for an
     -- instance of an unsupported instance family.
     errors :: Prelude.Maybe [GetRecommendationError],
     -- | An array of objects that describe instance recommendations.
     instanceRecommendations :: Prelude.Maybe [InstanceRecommendation],
+    -- | The token to use to advance to the next page of instance
+    -- recommendations.
+    --
+    -- This value is null when there are no more pages of instance
+    -- recommendations to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -278,18 +280,18 @@ data GetEC2InstanceRecommendationsResponse = GetEC2InstanceRecommendationsRespon
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getEC2InstanceRecommendationsResponse_nextToken' - The token to use to advance to the next page of instance
--- recommendations.
---
--- This value is null when there are no more pages of instance
--- recommendations to return.
---
 -- 'errors', 'getEC2InstanceRecommendationsResponse_errors' - An array of objects that describe errors of the request.
 --
 -- For example, an error is returned if you request recommendations for an
 -- instance of an unsupported instance family.
 --
 -- 'instanceRecommendations', 'getEC2InstanceRecommendationsResponse_instanceRecommendations' - An array of objects that describe instance recommendations.
+--
+-- 'nextToken', 'getEC2InstanceRecommendationsResponse_nextToken' - The token to use to advance to the next page of instance
+-- recommendations.
+--
+-- This value is null when there are no more pages of instance
+-- recommendations to return.
 --
 -- 'httpStatus', 'getEC2InstanceRecommendationsResponse_httpStatus' - The response's http status code.
 newGetEC2InstanceRecommendationsResponse ::
@@ -298,21 +300,13 @@ newGetEC2InstanceRecommendationsResponse ::
   GetEC2InstanceRecommendationsResponse
 newGetEC2InstanceRecommendationsResponse pHttpStatus_ =
   GetEC2InstanceRecommendationsResponse'
-    { nextToken =
+    { errors =
         Prelude.Nothing,
-      errors = Prelude.Nothing,
       instanceRecommendations =
         Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The token to use to advance to the next page of instance
--- recommendations.
---
--- This value is null when there are no more pages of instance
--- recommendations to return.
-getEC2InstanceRecommendationsResponse_nextToken :: Lens.Lens' GetEC2InstanceRecommendationsResponse (Prelude.Maybe Prelude.Text)
-getEC2InstanceRecommendationsResponse_nextToken = Lens.lens (\GetEC2InstanceRecommendationsResponse' {nextToken} -> nextToken) (\s@GetEC2InstanceRecommendationsResponse' {} a -> s {nextToken = a} :: GetEC2InstanceRecommendationsResponse)
 
 -- | An array of objects that describe errors of the request.
 --
@@ -325,6 +319,14 @@ getEC2InstanceRecommendationsResponse_errors = Lens.lens (\GetEC2InstanceRecomme
 getEC2InstanceRecommendationsResponse_instanceRecommendations :: Lens.Lens' GetEC2InstanceRecommendationsResponse (Prelude.Maybe [InstanceRecommendation])
 getEC2InstanceRecommendationsResponse_instanceRecommendations = Lens.lens (\GetEC2InstanceRecommendationsResponse' {instanceRecommendations} -> instanceRecommendations) (\s@GetEC2InstanceRecommendationsResponse' {} a -> s {instanceRecommendations = a} :: GetEC2InstanceRecommendationsResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | The token to use to advance to the next page of instance
+-- recommendations.
+--
+-- This value is null when there are no more pages of instance
+-- recommendations to return.
+getEC2InstanceRecommendationsResponse_nextToken :: Lens.Lens' GetEC2InstanceRecommendationsResponse (Prelude.Maybe Prelude.Text)
+getEC2InstanceRecommendationsResponse_nextToken = Lens.lens (\GetEC2InstanceRecommendationsResponse' {nextToken} -> nextToken) (\s@GetEC2InstanceRecommendationsResponse' {} a -> s {nextToken = a} :: GetEC2InstanceRecommendationsResponse)
+
 -- | The response's http status code.
 getEC2InstanceRecommendationsResponse_httpStatus :: Lens.Lens' GetEC2InstanceRecommendationsResponse Prelude.Int
 getEC2InstanceRecommendationsResponse_httpStatus = Lens.lens (\GetEC2InstanceRecommendationsResponse' {httpStatus} -> httpStatus) (\s@GetEC2InstanceRecommendationsResponse' {} a -> s {httpStatus = a} :: GetEC2InstanceRecommendationsResponse)
@@ -334,7 +336,7 @@ instance
     GetEC2InstanceRecommendationsResponse
   where
   rnf GetEC2InstanceRecommendationsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf errors
+    Prelude.rnf errors
       `Prelude.seq` Prelude.rnf instanceRecommendations
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

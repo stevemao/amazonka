@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.BulkEmailEntryResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SESV2.Types.BulkEmailEntryResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SESV2.Types.BulkEmailStatus
 
@@ -29,7 +30,13 @@ import Amazonka.SESV2.Types.BulkEmailStatus
 --
 -- /See:/ 'newBulkEmailEntryResult' smart constructor.
 data BulkEmailEntryResult = BulkEmailEntryResult'
-  { -- | The status of a message sent using the @SendBulkTemplatedEmail@
+  { -- | A description of an error that prevented a message being sent using the
+    -- @SendBulkTemplatedEmail@ operation.
+    error :: Prelude.Maybe Prelude.Text,
+    -- | The unique message identifier returned from the @SendBulkTemplatedEmail@
+    -- operation.
+    messageId :: Prelude.Maybe Prelude.Text,
+    -- | The status of a message sent using the @SendBulkTemplatedEmail@
     -- operation.
     --
     -- Possible values for this parameter include:
@@ -81,13 +88,7 @@ data BulkEmailEntryResult = BulkEmailEntryResult'
     --
     -- -   FAILED: Amazon SES was unable to process your request. See the error
     --     message for additional information.
-    status :: Prelude.Maybe BulkEmailStatus,
-    -- | A description of an error that prevented a message being sent using the
-    -- @SendBulkTemplatedEmail@ operation.
-    error :: Prelude.Maybe Prelude.Text,
-    -- | The unique message identifier returned from the @SendBulkTemplatedEmail@
-    -- operation.
-    messageId :: Prelude.Maybe Prelude.Text
+    status :: Prelude.Maybe BulkEmailStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -98,6 +99,12 @@ data BulkEmailEntryResult = BulkEmailEntryResult'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'error', 'bulkEmailEntryResult_error' - A description of an error that prevented a message being sent using the
+-- @SendBulkTemplatedEmail@ operation.
+--
+-- 'messageId', 'bulkEmailEntryResult_messageId' - The unique message identifier returned from the @SendBulkTemplatedEmail@
+-- operation.
 --
 -- 'status', 'bulkEmailEntryResult_status' - The status of a message sent using the @SendBulkTemplatedEmail@
 -- operation.
@@ -151,20 +158,24 @@ data BulkEmailEntryResult = BulkEmailEntryResult'
 --
 -- -   FAILED: Amazon SES was unable to process your request. See the error
 --     message for additional information.
---
--- 'error', 'bulkEmailEntryResult_error' - A description of an error that prevented a message being sent using the
--- @SendBulkTemplatedEmail@ operation.
---
--- 'messageId', 'bulkEmailEntryResult_messageId' - The unique message identifier returned from the @SendBulkTemplatedEmail@
--- operation.
 newBulkEmailEntryResult ::
   BulkEmailEntryResult
 newBulkEmailEntryResult =
   BulkEmailEntryResult'
-    { status = Prelude.Nothing,
-      error = Prelude.Nothing,
-      messageId = Prelude.Nothing
+    { error = Prelude.Nothing,
+      messageId = Prelude.Nothing,
+      status = Prelude.Nothing
     }
+
+-- | A description of an error that prevented a message being sent using the
+-- @SendBulkTemplatedEmail@ operation.
+bulkEmailEntryResult_error :: Lens.Lens' BulkEmailEntryResult (Prelude.Maybe Prelude.Text)
+bulkEmailEntryResult_error = Lens.lens (\BulkEmailEntryResult' {error} -> error) (\s@BulkEmailEntryResult' {} a -> s {error = a} :: BulkEmailEntryResult)
+
+-- | The unique message identifier returned from the @SendBulkTemplatedEmail@
+-- operation.
+bulkEmailEntryResult_messageId :: Lens.Lens' BulkEmailEntryResult (Prelude.Maybe Prelude.Text)
+bulkEmailEntryResult_messageId = Lens.lens (\BulkEmailEntryResult' {messageId} -> messageId) (\s@BulkEmailEntryResult' {} a -> s {messageId = a} :: BulkEmailEntryResult)
 
 -- | The status of a message sent using the @SendBulkTemplatedEmail@
 -- operation.
@@ -221,35 +232,25 @@ newBulkEmailEntryResult =
 bulkEmailEntryResult_status :: Lens.Lens' BulkEmailEntryResult (Prelude.Maybe BulkEmailStatus)
 bulkEmailEntryResult_status = Lens.lens (\BulkEmailEntryResult' {status} -> status) (\s@BulkEmailEntryResult' {} a -> s {status = a} :: BulkEmailEntryResult)
 
--- | A description of an error that prevented a message being sent using the
--- @SendBulkTemplatedEmail@ operation.
-bulkEmailEntryResult_error :: Lens.Lens' BulkEmailEntryResult (Prelude.Maybe Prelude.Text)
-bulkEmailEntryResult_error = Lens.lens (\BulkEmailEntryResult' {error} -> error) (\s@BulkEmailEntryResult' {} a -> s {error = a} :: BulkEmailEntryResult)
-
--- | The unique message identifier returned from the @SendBulkTemplatedEmail@
--- operation.
-bulkEmailEntryResult_messageId :: Lens.Lens' BulkEmailEntryResult (Prelude.Maybe Prelude.Text)
-bulkEmailEntryResult_messageId = Lens.lens (\BulkEmailEntryResult' {messageId} -> messageId) (\s@BulkEmailEntryResult' {} a -> s {messageId = a} :: BulkEmailEntryResult)
-
-instance Core.FromJSON BulkEmailEntryResult where
+instance Data.FromJSON BulkEmailEntryResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BulkEmailEntryResult"
       ( \x ->
           BulkEmailEntryResult'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "Error")
-            Prelude.<*> (x Core..:? "MessageId")
+            Prelude.<$> (x Data..:? "Error")
+            Prelude.<*> (x Data..:? "MessageId")
+            Prelude.<*> (x Data..:? "Status")
       )
 
 instance Prelude.Hashable BulkEmailEntryResult where
   hashWithSalt _salt BulkEmailEntryResult' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` error
+    _salt `Prelude.hashWithSalt` error
       `Prelude.hashWithSalt` messageId
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData BulkEmailEntryResult where
   rnf BulkEmailEntryResult' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf error
+    Prelude.rnf error
       `Prelude.seq` Prelude.rnf messageId
+      `Prelude.seq` Prelude.rnf status

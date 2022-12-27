@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.DeleteListener
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,9 @@ module Amazonka.GlobalAccelerator.DeleteListener
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,7 +74,8 @@ instance Core.AWSRequest DeleteListener where
   type
     AWSResponse DeleteListener =
       DeleteListenerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteListenerResponse'
 
@@ -84,32 +86,32 @@ instance Prelude.Hashable DeleteListener where
 instance Prelude.NFData DeleteListener where
   rnf DeleteListener' {..} = Prelude.rnf listenerArn
 
-instance Core.ToHeaders DeleteListener where
+instance Data.ToHeaders DeleteListener where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.DeleteListener" ::
+              Data.=# ( "GlobalAccelerator_V20180706.DeleteListener" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteListener where
+instance Data.ToJSON DeleteListener where
   toJSON DeleteListener' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ListenerArn" Core..= listenerArn)]
+          [Prelude.Just ("ListenerArn" Data..= listenerArn)]
       )
 
-instance Core.ToPath DeleteListener where
+instance Data.ToPath DeleteListener where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteListener where
+instance Data.ToQuery DeleteListener where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteListenerResponse' smart constructor.

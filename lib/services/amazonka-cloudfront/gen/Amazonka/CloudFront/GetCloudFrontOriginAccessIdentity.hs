@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.GetCloudFrontOriginAccessIdentity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,15 +34,16 @@ module Amazonka.CloudFront.GetCloudFrontOriginAccessIdentity
     newGetCloudFrontOriginAccessIdentityResponse,
 
     -- * Response Lenses
-    getCloudFrontOriginAccessIdentityResponse_eTag,
     getCloudFrontOriginAccessIdentityResponse_cloudFrontOriginAccessIdentity,
+    getCloudFrontOriginAccessIdentityResponse_eTag,
     getCloudFrontOriginAccessIdentityResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,12 +84,13 @@ instance
   type
     AWSResponse GetCloudFrontOriginAccessIdentity =
       GetCloudFrontOriginAccessIdentityResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetCloudFrontOriginAccessIdentityResponse'
-            Prelude.<$> (h Core..#? "ETag") Prelude.<*> (Core.parseXML x)
+            Prelude.<$> (Data.parseXML x) Prelude.<*> (h Data..#? "ETag")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,23 +111,23 @@ instance
     Prelude.rnf id
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetCloudFrontOriginAccessIdentity
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetCloudFrontOriginAccessIdentity
   where
   toPath GetCloudFrontOriginAccessIdentity' {..} =
     Prelude.mconcat
       [ "/2020-05-31/origin-access-identity/cloudfront/",
-        Core.toBS id
+        Data.toBS id
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetCloudFrontOriginAccessIdentity
   where
   toQuery = Prelude.const Prelude.mempty
@@ -134,11 +136,11 @@ instance
 --
 -- /See:/ 'newGetCloudFrontOriginAccessIdentityResponse' smart constructor.
 data GetCloudFrontOriginAccessIdentityResponse = GetCloudFrontOriginAccessIdentityResponse'
-  { -- | The current version of the origin access identity\'s information. For
+  { -- | The origin access identity\'s information.
+    cloudFrontOriginAccessIdentity :: Prelude.Maybe CloudFrontOriginAccessIdentity,
+    -- | The current version of the origin access identity\'s information. For
     -- example: @E2QWRUHAPOMQZL@.
     eTag :: Prelude.Maybe Prelude.Text,
-    -- | The origin access identity\'s information.
-    cloudFrontOriginAccessIdentity :: Prelude.Maybe CloudFrontOriginAccessIdentity,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -152,10 +154,10 @@ data GetCloudFrontOriginAccessIdentityResponse = GetCloudFrontOriginAccessIdenti
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'cloudFrontOriginAccessIdentity', 'getCloudFrontOriginAccessIdentityResponse_cloudFrontOriginAccessIdentity' - The origin access identity\'s information.
+--
 -- 'eTag', 'getCloudFrontOriginAccessIdentityResponse_eTag' - The current version of the origin access identity\'s information. For
 -- example: @E2QWRUHAPOMQZL@.
---
--- 'cloudFrontOriginAccessIdentity', 'getCloudFrontOriginAccessIdentityResponse_cloudFrontOriginAccessIdentity' - The origin access identity\'s information.
 --
 -- 'httpStatus', 'getCloudFrontOriginAccessIdentityResponse_httpStatus' - The response's http status code.
 newGetCloudFrontOriginAccessIdentityResponse ::
@@ -165,21 +167,20 @@ newGetCloudFrontOriginAccessIdentityResponse ::
 newGetCloudFrontOriginAccessIdentityResponse
   pHttpStatus_ =
     GetCloudFrontOriginAccessIdentityResponse'
-      { eTag =
+      { cloudFrontOriginAccessIdentity =
           Prelude.Nothing,
-        cloudFrontOriginAccessIdentity =
-          Prelude.Nothing,
+        eTag = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
+
+-- | The origin access identity\'s information.
+getCloudFrontOriginAccessIdentityResponse_cloudFrontOriginAccessIdentity :: Lens.Lens' GetCloudFrontOriginAccessIdentityResponse (Prelude.Maybe CloudFrontOriginAccessIdentity)
+getCloudFrontOriginAccessIdentityResponse_cloudFrontOriginAccessIdentity = Lens.lens (\GetCloudFrontOriginAccessIdentityResponse' {cloudFrontOriginAccessIdentity} -> cloudFrontOriginAccessIdentity) (\s@GetCloudFrontOriginAccessIdentityResponse' {} a -> s {cloudFrontOriginAccessIdentity = a} :: GetCloudFrontOriginAccessIdentityResponse)
 
 -- | The current version of the origin access identity\'s information. For
 -- example: @E2QWRUHAPOMQZL@.
 getCloudFrontOriginAccessIdentityResponse_eTag :: Lens.Lens' GetCloudFrontOriginAccessIdentityResponse (Prelude.Maybe Prelude.Text)
 getCloudFrontOriginAccessIdentityResponse_eTag = Lens.lens (\GetCloudFrontOriginAccessIdentityResponse' {eTag} -> eTag) (\s@GetCloudFrontOriginAccessIdentityResponse' {} a -> s {eTag = a} :: GetCloudFrontOriginAccessIdentityResponse)
-
--- | The origin access identity\'s information.
-getCloudFrontOriginAccessIdentityResponse_cloudFrontOriginAccessIdentity :: Lens.Lens' GetCloudFrontOriginAccessIdentityResponse (Prelude.Maybe CloudFrontOriginAccessIdentity)
-getCloudFrontOriginAccessIdentityResponse_cloudFrontOriginAccessIdentity = Lens.lens (\GetCloudFrontOriginAccessIdentityResponse' {cloudFrontOriginAccessIdentity} -> cloudFrontOriginAccessIdentity) (\s@GetCloudFrontOriginAccessIdentityResponse' {} a -> s {cloudFrontOriginAccessIdentity = a} :: GetCloudFrontOriginAccessIdentityResponse)
 
 -- | The response's http status code.
 getCloudFrontOriginAccessIdentityResponse_httpStatus :: Lens.Lens' GetCloudFrontOriginAccessIdentityResponse Prelude.Int
@@ -190,6 +191,6 @@ instance
     GetCloudFrontOriginAccessIdentityResponse
   where
   rnf GetCloudFrontOriginAccessIdentityResponse' {..} =
-    Prelude.rnf eTag
-      `Prelude.seq` Prelude.rnf cloudFrontOriginAccessIdentity
+    Prelude.rnf cloudFrontOriginAccessIdentity
+      `Prelude.seq` Prelude.rnf eTag
       `Prelude.seq` Prelude.rnf httpStatus

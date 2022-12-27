@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticTranscoder.UpdatePipelineNotifications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.ElasticTranscoder.UpdatePipelineNotifications
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticTranscoder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -166,12 +167,13 @@ instance Core.AWSRequest UpdatePipelineNotifications where
   type
     AWSResponse UpdatePipelineNotifications =
       UpdatePipelineNotificationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdatePipelineNotificationsResponse'
-            Prelude.<$> (x Core..?> "Pipeline")
+            Prelude.<$> (x Data..?> "Pipeline")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -185,27 +187,27 @@ instance Prelude.NFData UpdatePipelineNotifications where
     Prelude.rnf id
       `Prelude.seq` Prelude.rnf notifications
 
-instance Core.ToHeaders UpdatePipelineNotifications where
+instance Data.ToHeaders UpdatePipelineNotifications where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdatePipelineNotifications where
+instance Data.ToJSON UpdatePipelineNotifications where
   toJSON UpdatePipelineNotifications' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("Notifications" Core..= notifications)
+              ("Notifications" Data..= notifications)
           ]
       )
 
-instance Core.ToPath UpdatePipelineNotifications where
+instance Data.ToPath UpdatePipelineNotifications where
   toPath UpdatePipelineNotifications' {..} =
     Prelude.mconcat
       [ "/2012-09-25/pipelines/",
-        Core.toBS id,
+        Data.toBS id,
         "/notifications"
       ]
 
-instance Core.ToQuery UpdatePipelineNotifications where
+instance Data.ToQuery UpdatePipelineNotifications where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The @UpdatePipelineNotificationsResponse@ structure.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.SubscribeToEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.Inspector.SubscribeToEvent
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,7 +104,8 @@ instance Core.AWSRequest SubscribeToEvent where
   type
     AWSResponse SubscribeToEvent =
       SubscribeToEventResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull SubscribeToEventResponse'
 
@@ -119,35 +121,35 @@ instance Prelude.NFData SubscribeToEvent where
       `Prelude.seq` Prelude.rnf event
       `Prelude.seq` Prelude.rnf topicArn
 
-instance Core.ToHeaders SubscribeToEvent where
+instance Data.ToHeaders SubscribeToEvent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.SubscribeToEvent" ::
+              Data.=# ( "InspectorService.SubscribeToEvent" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SubscribeToEvent where
+instance Data.ToJSON SubscribeToEvent where
   toJSON SubscribeToEvent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("resourceArn" Core..= resourceArn),
-            Prelude.Just ("event" Core..= event),
-            Prelude.Just ("topicArn" Core..= topicArn)
+          [ Prelude.Just ("resourceArn" Data..= resourceArn),
+            Prelude.Just ("event" Data..= event),
+            Prelude.Just ("topicArn" Data..= topicArn)
           ]
       )
 
-instance Core.ToPath SubscribeToEvent where
+instance Data.ToPath SubscribeToEvent where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SubscribeToEvent where
+instance Data.ToQuery SubscribeToEvent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSubscribeToEventResponse' smart constructor.

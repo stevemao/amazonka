@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.LoggingEnabled
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.LoggingEnabled where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.TargetGrant
@@ -33,6 +34,11 @@ import Amazonka.S3.Types.TargetGrant
 -- /See:/ 'newLoggingEnabled' smart constructor.
 data LoggingEnabled = LoggingEnabled'
   { -- | Container for granting information.
+    --
+    -- Buckets that use the bucket owner enforced setting for Object Ownership
+    -- don\'t support target grants. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/enable-server-access-logging.html#grant-log-delivery-permissions-general Permissions for server access log delivery>
+    -- in the /Amazon S3 User Guide/.
     targetGrants :: Prelude.Maybe [TargetGrant],
     -- | Specifies the bucket where you want Amazon S3 to store server access
     -- logs. You can have your logs delivered to any bucket that you own,
@@ -58,6 +64,11 @@ data LoggingEnabled = LoggingEnabled'
 --
 -- 'targetGrants', 'loggingEnabled_targetGrants' - Container for granting information.
 --
+-- Buckets that use the bucket owner enforced setting for Object Ownership
+-- don\'t support target grants. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/enable-server-access-logging.html#grant-log-delivery-permissions-general Permissions for server access log delivery>
+-- in the /Amazon S3 User Guide/.
+--
 -- 'targetBucket', 'loggingEnabled_targetBucket' - Specifies the bucket where you want Amazon S3 to store server access
 -- logs. You can have your logs delivered to any bucket that you own,
 -- including the same bucket that is being logged. You can also configure
@@ -82,6 +93,11 @@ newLoggingEnabled pTargetBucket_ pTargetPrefix_ =
     }
 
 -- | Container for granting information.
+--
+-- Buckets that use the bucket owner enforced setting for Object Ownership
+-- don\'t support target grants. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/enable-server-access-logging.html#grant-log-delivery-permissions-general Permissions for server access log delivery>
+-- in the /Amazon S3 User Guide/.
 loggingEnabled_targetGrants :: Lens.Lens' LoggingEnabled (Prelude.Maybe [TargetGrant])
 loggingEnabled_targetGrants = Lens.lens (\LoggingEnabled' {targetGrants} -> targetGrants) (\s@LoggingEnabled' {} a -> s {targetGrants = a} :: LoggingEnabled) Prelude.. Lens.mapping Lens.coerced
 
@@ -100,14 +116,14 @@ loggingEnabled_targetBucket = Lens.lens (\LoggingEnabled' {targetBucket} -> targ
 loggingEnabled_targetPrefix :: Lens.Lens' LoggingEnabled Prelude.Text
 loggingEnabled_targetPrefix = Lens.lens (\LoggingEnabled' {targetPrefix} -> targetPrefix) (\s@LoggingEnabled' {} a -> s {targetPrefix = a} :: LoggingEnabled)
 
-instance Core.FromXML LoggingEnabled where
+instance Data.FromXML LoggingEnabled where
   parseXML x =
     LoggingEnabled'
-      Prelude.<$> ( x Core..@? "TargetGrants" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "Grant")
+      Prelude.<$> ( x Data..@? "TargetGrants" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "Grant")
                   )
-      Prelude.<*> (x Core..@ "TargetBucket")
-      Prelude.<*> (x Core..@ "TargetPrefix")
+      Prelude.<*> (x Data..@ "TargetBucket")
+      Prelude.<*> (x Data..@ "TargetPrefix")
 
 instance Prelude.Hashable LoggingEnabled where
   hashWithSalt _salt LoggingEnabled' {..} =
@@ -121,12 +137,12 @@ instance Prelude.NFData LoggingEnabled where
       `Prelude.seq` Prelude.rnf targetBucket
       `Prelude.seq` Prelude.rnf targetPrefix
 
-instance Core.ToXML LoggingEnabled where
+instance Data.ToXML LoggingEnabled where
   toXML LoggingEnabled' {..} =
     Prelude.mconcat
       [ "TargetGrants"
-          Core.@= Core.toXML
-            (Core.toXMLList "Grant" Prelude.<$> targetGrants),
-        "TargetBucket" Core.@= targetBucket,
-        "TargetPrefix" Core.@= targetPrefix
+          Data.@= Data.toXML
+            (Data.toXMLList "Grant" Prelude.<$> targetGrants),
+        "TargetBucket" Data.@= targetBucket,
+        "TargetPrefix" Data.@= targetPrefix
       ]

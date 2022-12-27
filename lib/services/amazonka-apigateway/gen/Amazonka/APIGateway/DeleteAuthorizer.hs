@@ -14,15 +14,13 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteAuthorizer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Deletes an existing Authorizer resource.
---
--- <https://docs.aws.amazon.com/cli/latest/reference/apigateway/delete-authorizer.html AWS CLI>
 module Amazonka.APIGateway.DeleteAuthorizer
   ( -- * Creating a Request
     DeleteAuthorizer (..),
@@ -40,7 +38,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,9 +48,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteAuthorizer' smart constructor.
 data DeleteAuthorizer = DeleteAuthorizer'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The identifier of the Authorizer resource.
+    -- | The identifier of the Authorizer resource.
     authorizerId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -64,9 +63,9 @@ data DeleteAuthorizer = DeleteAuthorizer'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'deleteAuthorizer_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'deleteAuthorizer_restApiId' - The string identifier of the associated RestApi.
 --
--- 'authorizerId', 'deleteAuthorizer_authorizerId' - [Required] The identifier of the Authorizer resource.
+-- 'authorizerId', 'deleteAuthorizer_authorizerId' - The identifier of the Authorizer resource.
 newDeleteAuthorizer ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -79,11 +78,11 @@ newDeleteAuthorizer pRestApiId_ pAuthorizerId_ =
       authorizerId = pAuthorizerId_
     }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 deleteAuthorizer_restApiId :: Lens.Lens' DeleteAuthorizer Prelude.Text
 deleteAuthorizer_restApiId = Lens.lens (\DeleteAuthorizer' {restApiId} -> restApiId) (\s@DeleteAuthorizer' {} a -> s {restApiId = a} :: DeleteAuthorizer)
 
--- | [Required] The identifier of the Authorizer resource.
+-- | The identifier of the Authorizer resource.
 deleteAuthorizer_authorizerId :: Lens.Lens' DeleteAuthorizer Prelude.Text
 deleteAuthorizer_authorizerId = Lens.lens (\DeleteAuthorizer' {authorizerId} -> authorizerId) (\s@DeleteAuthorizer' {} a -> s {authorizerId = a} :: DeleteAuthorizer)
 
@@ -91,7 +90,8 @@ instance Core.AWSRequest DeleteAuthorizer where
   type
     AWSResponse DeleteAuthorizer =
       DeleteAuthorizerResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteAuthorizerResponse'
 
@@ -105,25 +105,25 @@ instance Prelude.NFData DeleteAuthorizer where
     Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf authorizerId
 
-instance Core.ToHeaders DeleteAuthorizer where
+instance Data.ToHeaders DeleteAuthorizer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteAuthorizer where
+instance Data.ToPath DeleteAuthorizer where
   toPath DeleteAuthorizer' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/authorizers/",
-        Core.toBS authorizerId
+        Data.toBS authorizerId
       ]
 
-instance Core.ToQuery DeleteAuthorizer where
+instance Data.ToQuery DeleteAuthorizer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAuthorizerResponse' smart constructor.

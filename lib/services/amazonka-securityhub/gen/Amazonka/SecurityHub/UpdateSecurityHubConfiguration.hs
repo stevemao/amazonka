@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.UpdateSecurityHubConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.SecurityHub.UpdateSecurityHubConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,7 +96,8 @@ instance
   type
     AWSResponse UpdateSecurityHubConfiguration =
       UpdateSecurityHubConfigurationResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -120,32 +122,32 @@ instance
     Prelude.rnf autoEnableControls
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateSecurityHubConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateSecurityHubConfiguration where
+instance Data.ToJSON UpdateSecurityHubConfiguration where
   toJSON UpdateSecurityHubConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AutoEnableControls" Core..=)
+          [ ("AutoEnableControls" Data..=)
               Prelude.<$> autoEnableControls
           ]
       )
 
-instance Core.ToPath UpdateSecurityHubConfiguration where
+instance Data.ToPath UpdateSecurityHubConfiguration where
   toPath = Prelude.const "/accounts"
 
-instance Core.ToQuery UpdateSecurityHubConfiguration where
+instance Data.ToQuery UpdateSecurityHubConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateSecurityHubConfigurationResponse' smart constructor.

@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.MwAA
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,15 +16,51 @@
 -- This section contains the Amazon Managed Workflows for Apache Airflow
 -- (MWAA) API reference documentation. For more information, see
 -- <https://docs.aws.amazon.com/mwaa/latest/userguide/what-is-mwaa.html What Is Amazon MWAA?>.
+--
+-- __Endpoints__
+--
+-- -   @api.airflow.{region}.amazonaws.com@ - This endpoint is used for
+--     environment management.
+--
+--     -   <https://docs.aws.amazon.com/mwaa/latest/API/API_CreateEnvironment.html CreateEnvironment>
+--
+--     -   <https://docs.aws.amazon.com/mwaa/latest/API/API_DeleteEnvironment.html DeleteEnvironment>
+--
+--     -   <https://docs.aws.amazon.com/mwaa/latest/API/API_GetEnvironment.html GetEnvironment>
+--
+--     -   <https://docs.aws.amazon.com/mwaa/latest/API/API_ListEnvironments.html ListEnvironments>
+--
+--     -   <https://docs.aws.amazon.com/mwaa/latest/API/API_ListTagsForResource.html ListTagsForResource>
+--
+--     -   <https://docs.aws.amazon.com/mwaa/latest/API/API_TagResource.html TagResource>
+--
+--     -   <https://docs.aws.amazon.com/mwaa/latest/API/API_UntagResource.html UntagResource>
+--
+--     -   <https://docs.aws.amazon.com/mwaa/latest/API/API_UpdateEnvironment.html UpdateEnvironment>
+--
+-- -   @env.airflow.{region}.amazonaws.com@ - This endpoint is used to
+--     operate the Airflow environment.
+--
+--     -   <https://docs.aws.amazon.com/mwaa/latest/API/API_CreateCliToken.html%20 CreateCliToken>
+--
+--     -   <https://docs.aws.amazon.com/mwaa/latest/API/API_CreateWebLoginToken.html CreateWebLoginToken>
+--
+-- -   @ops.airflow.{region}.amazonaws.com@ - This endpoint is used to push
+--     environment metrics that track environment health.
+--
+--     -   <https://docs.aws.amazon.com/mwaa/latest/API/API_PublishMetrics.html%20 PublishMetrics>
+--
+-- __Regions__
+--
+-- For a list of regions that Amazon MWAA supports, see
+-- <https://docs.aws.amazon.com/mwaa/latest/userguide/what-is-mwaa.html#regions-mwaa Region availability>
+-- in the /Amazon MWAA User Guide/.
 module Amazonka.MwAA
   ( -- * Service Configuration
     defaultService,
 
     -- * Errors
     -- $errors
-
-    -- ** ValidationException
-    _ValidationException,
 
     -- ** AccessDeniedException
     _AccessDeniedException,
@@ -35,65 +71,20 @@ module Amazonka.MwAA
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
+    -- ** ValidationException
+    _ValidationException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
 
-    -- ** ListEnvironments (Paginated)
-    ListEnvironments (ListEnvironments'),
-    newListEnvironments,
-    ListEnvironmentsResponse (ListEnvironmentsResponse'),
-    newListEnvironmentsResponse,
-
-    -- ** UpdateEnvironment
-    UpdateEnvironment (UpdateEnvironment'),
-    newUpdateEnvironment,
-    UpdateEnvironmentResponse (UpdateEnvironmentResponse'),
-    newUpdateEnvironmentResponse,
-
-    -- ** DeleteEnvironment
-    DeleteEnvironment (DeleteEnvironment'),
-    newDeleteEnvironment,
-    DeleteEnvironmentResponse (DeleteEnvironmentResponse'),
-    newDeleteEnvironmentResponse,
-
-    -- ** CreateWebLoginToken
-    CreateWebLoginToken (CreateWebLoginToken'),
-    newCreateWebLoginToken,
-    CreateWebLoginTokenResponse (CreateWebLoginTokenResponse'),
-    newCreateWebLoginTokenResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** GetEnvironment
-    GetEnvironment (GetEnvironment'),
-    newGetEnvironment,
-    GetEnvironmentResponse (GetEnvironmentResponse'),
-    newGetEnvironmentResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
-
-    -- ** PublishMetrics
-    PublishMetrics (PublishMetrics'),
-    newPublishMetrics,
-    PublishMetricsResponse (PublishMetricsResponse'),
-    newPublishMetricsResponse,
+    -- ** CreateCliToken
+    CreateCliToken (CreateCliToken'),
+    newCreateCliToken,
+    CreateCliTokenResponse (CreateCliTokenResponse'),
+    newCreateCliTokenResponse,
 
     -- ** CreateEnvironment
     CreateEnvironment (CreateEnvironment'),
@@ -101,11 +92,59 @@ module Amazonka.MwAA
     CreateEnvironmentResponse (CreateEnvironmentResponse'),
     newCreateEnvironmentResponse,
 
-    -- ** CreateCliToken
-    CreateCliToken (CreateCliToken'),
-    newCreateCliToken,
-    CreateCliTokenResponse (CreateCliTokenResponse'),
-    newCreateCliTokenResponse,
+    -- ** CreateWebLoginToken
+    CreateWebLoginToken (CreateWebLoginToken'),
+    newCreateWebLoginToken,
+    CreateWebLoginTokenResponse (CreateWebLoginTokenResponse'),
+    newCreateWebLoginTokenResponse,
+
+    -- ** DeleteEnvironment
+    DeleteEnvironment (DeleteEnvironment'),
+    newDeleteEnvironment,
+    DeleteEnvironmentResponse (DeleteEnvironmentResponse'),
+    newDeleteEnvironmentResponse,
+
+    -- ** GetEnvironment
+    GetEnvironment (GetEnvironment'),
+    newGetEnvironment,
+    GetEnvironmentResponse (GetEnvironmentResponse'),
+    newGetEnvironmentResponse,
+
+    -- ** ListEnvironments (Paginated)
+    ListEnvironments (ListEnvironments'),
+    newListEnvironments,
+    ListEnvironmentsResponse (ListEnvironmentsResponse'),
+    newListEnvironmentsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** PublishMetrics
+    PublishMetrics (PublishMetrics'),
+    newPublishMetrics,
+    PublishMetricsResponse (PublishMetricsResponse'),
+    newPublishMetricsResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateEnvironment
+    UpdateEnvironment (UpdateEnvironment'),
+    newUpdateEnvironment,
+    UpdateEnvironmentResponse (UpdateEnvironmentResponse'),
+    newUpdateEnvironmentResponse,
 
     -- * Types
 

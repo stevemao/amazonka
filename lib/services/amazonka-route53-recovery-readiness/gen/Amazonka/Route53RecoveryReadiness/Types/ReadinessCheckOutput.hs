@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.Types.ReadinessCheckOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.Route53RecoveryReadiness.Types.ReadinessCheckOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | A resource used for checking the readiness of a Resource Set
+-- | A readiness check.
 --
 -- /See:/ 'newReadinessCheckOutput' smart constructor.
 data ReadinessCheckOutput = ReadinessCheckOutput'
-  { -- | Name for a ReadinessCheck
+  { -- | Name of a readiness check.
     readinessCheckName :: Prelude.Maybe Prelude.Text,
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | Arn associated with ReadinessCheck
+    -- | The Amazon Resource Name (ARN) associated with a readiness check.
     readinessCheckArn :: Prelude.Text,
-    -- | Name of the ResourceSet to be checked
+    -- | Name of the resource set to be checked.
     resourceSet :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -45,13 +46,13 @@ data ReadinessCheckOutput = ReadinessCheckOutput'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'readinessCheckName', 'readinessCheckOutput_readinessCheckName' - Name for a ReadinessCheck
+-- 'readinessCheckName', 'readinessCheckOutput_readinessCheckName' - Name of a readiness check.
 --
 -- 'tags', 'readinessCheckOutput_tags' - Undocumented member.
 --
--- 'readinessCheckArn', 'readinessCheckOutput_readinessCheckArn' - Arn associated with ReadinessCheck
+-- 'readinessCheckArn', 'readinessCheckOutput_readinessCheckArn' - The Amazon Resource Name (ARN) associated with a readiness check.
 --
--- 'resourceSet', 'readinessCheckOutput_resourceSet' - Name of the ResourceSet to be checked
+-- 'resourceSet', 'readinessCheckOutput_resourceSet' - Name of the resource set to be checked.
 newReadinessCheckOutput ::
   -- | 'readinessCheckArn'
   Prelude.Text ->
@@ -69,7 +70,7 @@ newReadinessCheckOutput
         resourceSet = pResourceSet_
       }
 
--- | Name for a ReadinessCheck
+-- | Name of a readiness check.
 readinessCheckOutput_readinessCheckName :: Lens.Lens' ReadinessCheckOutput (Prelude.Maybe Prelude.Text)
 readinessCheckOutput_readinessCheckName = Lens.lens (\ReadinessCheckOutput' {readinessCheckName} -> readinessCheckName) (\s@ReadinessCheckOutput' {} a -> s {readinessCheckName = a} :: ReadinessCheckOutput)
 
@@ -77,24 +78,24 @@ readinessCheckOutput_readinessCheckName = Lens.lens (\ReadinessCheckOutput' {rea
 readinessCheckOutput_tags :: Lens.Lens' ReadinessCheckOutput (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 readinessCheckOutput_tags = Lens.lens (\ReadinessCheckOutput' {tags} -> tags) (\s@ReadinessCheckOutput' {} a -> s {tags = a} :: ReadinessCheckOutput) Prelude.. Lens.mapping Lens.coerced
 
--- | Arn associated with ReadinessCheck
+-- | The Amazon Resource Name (ARN) associated with a readiness check.
 readinessCheckOutput_readinessCheckArn :: Lens.Lens' ReadinessCheckOutput Prelude.Text
 readinessCheckOutput_readinessCheckArn = Lens.lens (\ReadinessCheckOutput' {readinessCheckArn} -> readinessCheckArn) (\s@ReadinessCheckOutput' {} a -> s {readinessCheckArn = a} :: ReadinessCheckOutput)
 
--- | Name of the ResourceSet to be checked
+-- | Name of the resource set to be checked.
 readinessCheckOutput_resourceSet :: Lens.Lens' ReadinessCheckOutput Prelude.Text
 readinessCheckOutput_resourceSet = Lens.lens (\ReadinessCheckOutput' {resourceSet} -> resourceSet) (\s@ReadinessCheckOutput' {} a -> s {resourceSet = a} :: ReadinessCheckOutput)
 
-instance Core.FromJSON ReadinessCheckOutput where
+instance Data.FromJSON ReadinessCheckOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReadinessCheckOutput"
       ( \x ->
           ReadinessCheckOutput'
-            Prelude.<$> (x Core..:? "readinessCheckName")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "readinessCheckArn")
-            Prelude.<*> (x Core..: "resourceSet")
+            Prelude.<$> (x Data..:? "readinessCheckName")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "readinessCheckArn")
+            Prelude.<*> (x Data..: "resourceSet")
       )
 
 instance Prelude.Hashable ReadinessCheckOutput where

@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.CreateResourceSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new Resource Set.
+-- Creates a resource set. A resource set is a set of resources of one type
+-- that span multiple cells. You can associate a resource set with a
+-- readiness check to monitor the resources for failover readiness.
 module Amazonka.Route53RecoveryReadiness.CreateResourceSet
   ( -- * Creating a Request
     CreateResourceSet (..),
@@ -37,32 +39,43 @@ module Amazonka.Route53RecoveryReadiness.CreateResourceSet
     newCreateResourceSetResponse,
 
     -- * Response Lenses
+    createResourceSetResponse_resourceSetArn,
     createResourceSetResponse_resourceSetName,
     createResourceSetResponse_resourceSetType,
     createResourceSetResponse_resources,
-    createResourceSetResponse_resourceSetArn,
     createResourceSetResponse_tags,
     createResourceSetResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 import Amazonka.Route53RecoveryReadiness.Types
 
--- | The ResourceSet to create
---
--- /See:/ 'newCreateResourceSet' smart constructor.
+-- | /See:/ 'newCreateResourceSet' smart constructor.
 data CreateResourceSet = CreateResourceSet'
-  { tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | AWS Resource type of the resources in the ResourceSet
+  { -- | A tag to associate with the parameters for a resource set.
+    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The resource type of the resources in the resource set. Enter one of the
+    -- following values for resource type:
+    --
+    -- AWS::ApiGateway::Stage, AWS::ApiGatewayV2::Stage,
+    -- AWS::AutoScaling::AutoScalingGroup, AWS::CloudWatch::Alarm,
+    -- AWS::EC2::CustomerGateway, AWS::DynamoDB::Table, AWS::EC2::Volume,
+    -- AWS::ElasticLoadBalancing::LoadBalancer,
+    -- AWS::ElasticLoadBalancingV2::LoadBalancer, AWS::Lambda::Function,
+    -- AWS::MSK::Cluster, AWS::RDS::DBCluster, AWS::Route53::HealthCheck,
+    -- AWS::SQS::Queue, AWS::SNS::Topic, AWS::SNS::Subscription, AWS::EC2::VPC,
+    -- AWS::EC2::VPNConnection, AWS::EC2::VPNGateway,
+    -- AWS::Route53RecoveryReadiness::DNSTargetResource
     resourceSetType :: Prelude.Text,
-    -- | The name of the ResourceSet to create
+    -- | The name of the resource set to create.
     resourceSetName :: Prelude.Text,
-    -- | A list of Resource objects
+    -- | A list of resource objects in the resource set.
     resources :: [Resource]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -75,13 +88,24 @@ data CreateResourceSet = CreateResourceSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tags', 'createResourceSet_tags' - Undocumented member.
+-- 'tags', 'createResourceSet_tags' - A tag to associate with the parameters for a resource set.
 --
--- 'resourceSetType', 'createResourceSet_resourceSetType' - AWS Resource type of the resources in the ResourceSet
+-- 'resourceSetType', 'createResourceSet_resourceSetType' - The resource type of the resources in the resource set. Enter one of the
+-- following values for resource type:
 --
--- 'resourceSetName', 'createResourceSet_resourceSetName' - The name of the ResourceSet to create
+-- AWS::ApiGateway::Stage, AWS::ApiGatewayV2::Stage,
+-- AWS::AutoScaling::AutoScalingGroup, AWS::CloudWatch::Alarm,
+-- AWS::EC2::CustomerGateway, AWS::DynamoDB::Table, AWS::EC2::Volume,
+-- AWS::ElasticLoadBalancing::LoadBalancer,
+-- AWS::ElasticLoadBalancingV2::LoadBalancer, AWS::Lambda::Function,
+-- AWS::MSK::Cluster, AWS::RDS::DBCluster, AWS::Route53::HealthCheck,
+-- AWS::SQS::Queue, AWS::SNS::Topic, AWS::SNS::Subscription, AWS::EC2::VPC,
+-- AWS::EC2::VPNConnection, AWS::EC2::VPNGateway,
+-- AWS::Route53RecoveryReadiness::DNSTargetResource
 --
--- 'resources', 'createResourceSet_resources' - A list of Resource objects
+-- 'resourceSetName', 'createResourceSet_resourceSetName' - The name of the resource set to create.
+--
+-- 'resources', 'createResourceSet_resources' - A list of resource objects in the resource set.
 newCreateResourceSet ::
   -- | 'resourceSetType'
   Prelude.Text ->
@@ -98,19 +122,30 @@ newCreateResourceSet
         resources = Prelude.mempty
       }
 
--- | Undocumented member.
+-- | A tag to associate with the parameters for a resource set.
 createResourceSet_tags :: Lens.Lens' CreateResourceSet (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createResourceSet_tags = Lens.lens (\CreateResourceSet' {tags} -> tags) (\s@CreateResourceSet' {} a -> s {tags = a} :: CreateResourceSet) Prelude.. Lens.mapping Lens.coerced
 
--- | AWS Resource type of the resources in the ResourceSet
+-- | The resource type of the resources in the resource set. Enter one of the
+-- following values for resource type:
+--
+-- AWS::ApiGateway::Stage, AWS::ApiGatewayV2::Stage,
+-- AWS::AutoScaling::AutoScalingGroup, AWS::CloudWatch::Alarm,
+-- AWS::EC2::CustomerGateway, AWS::DynamoDB::Table, AWS::EC2::Volume,
+-- AWS::ElasticLoadBalancing::LoadBalancer,
+-- AWS::ElasticLoadBalancingV2::LoadBalancer, AWS::Lambda::Function,
+-- AWS::MSK::Cluster, AWS::RDS::DBCluster, AWS::Route53::HealthCheck,
+-- AWS::SQS::Queue, AWS::SNS::Topic, AWS::SNS::Subscription, AWS::EC2::VPC,
+-- AWS::EC2::VPNConnection, AWS::EC2::VPNGateway,
+-- AWS::Route53RecoveryReadiness::DNSTargetResource
 createResourceSet_resourceSetType :: Lens.Lens' CreateResourceSet Prelude.Text
 createResourceSet_resourceSetType = Lens.lens (\CreateResourceSet' {resourceSetType} -> resourceSetType) (\s@CreateResourceSet' {} a -> s {resourceSetType = a} :: CreateResourceSet)
 
--- | The name of the ResourceSet to create
+-- | The name of the resource set to create.
 createResourceSet_resourceSetName :: Lens.Lens' CreateResourceSet Prelude.Text
 createResourceSet_resourceSetName = Lens.lens (\CreateResourceSet' {resourceSetName} -> resourceSetName) (\s@CreateResourceSet' {} a -> s {resourceSetName = a} :: CreateResourceSet)
 
--- | A list of Resource objects
+-- | A list of resource objects in the resource set.
 createResourceSet_resources :: Lens.Lens' CreateResourceSet [Resource]
 createResourceSet_resources = Lens.lens (\CreateResourceSet' {resources} -> resources) (\s@CreateResourceSet' {} a -> s {resources = a} :: CreateResourceSet) Prelude.. Lens.coerced
 
@@ -118,16 +153,17 @@ instance Core.AWSRequest CreateResourceSet where
   type
     AWSResponse CreateResourceSet =
       CreateResourceSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateResourceSetResponse'
-            Prelude.<$> (x Core..?> "resourceSetName")
-            Prelude.<*> (x Core..?> "resourceSetType")
-            Prelude.<*> (x Core..?> "resources" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "resourceSetArn")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "resourceSetArn")
+            Prelude.<*> (x Data..?> "resourceSetName")
+            Prelude.<*> (x Data..?> "resourceSetType")
+            Prelude.<*> (x Data..?> "resources" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -145,46 +181,57 @@ instance Prelude.NFData CreateResourceSet where
       `Prelude.seq` Prelude.rnf resourceSetName
       `Prelude.seq` Prelude.rnf resources
 
-instance Core.ToHeaders CreateResourceSet where
+instance Data.ToHeaders CreateResourceSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateResourceSet where
+instance Data.ToJSON CreateResourceSet where
   toJSON CreateResourceSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
+          [ ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("resourceSetType" Core..= resourceSetType),
+              ("resourceSetType" Data..= resourceSetType),
             Prelude.Just
-              ("resourceSetName" Core..= resourceSetName),
-            Prelude.Just ("resources" Core..= resources)
+              ("resourceSetName" Data..= resourceSetName),
+            Prelude.Just ("resources" Data..= resources)
           ]
       )
 
-instance Core.ToPath CreateResourceSet where
+instance Data.ToPath CreateResourceSet where
   toPath = Prelude.const "/resourcesets"
 
-instance Core.ToQuery CreateResourceSet where
+instance Data.ToQuery CreateResourceSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateResourceSetResponse' smart constructor.
 data CreateResourceSetResponse = CreateResourceSetResponse'
-  { -- | The name of the ResourceSet
-    resourceSetName :: Prelude.Maybe Prelude.Text,
-    -- | AWS Resource Type of the resources in the ResourceSet
-    resourceSetType :: Prelude.Maybe Prelude.Text,
-    -- | A list of Resource objects
-    resources :: Prelude.Maybe [Resource],
-    -- | The arn for the ResourceSet
+  { -- | The Amazon Resource Name (ARN) for the resource set.
     resourceSetArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the resource set.
+    resourceSetName :: Prelude.Maybe Prelude.Text,
+    -- | The resource type of the resources in the resource set. Enter one of the
+    -- following values for resource type:
+    --
+    -- AWS::ApiGateway::Stage, AWS::ApiGatewayV2::Stage,
+    -- AWS::AutoScaling::AutoScalingGroup, AWS::CloudWatch::Alarm,
+    -- AWS::EC2::CustomerGateway, AWS::DynamoDB::Table, AWS::EC2::Volume,
+    -- AWS::ElasticLoadBalancing::LoadBalancer,
+    -- AWS::ElasticLoadBalancingV2::LoadBalancer, AWS::Lambda::Function,
+    -- AWS::MSK::Cluster, AWS::RDS::DBCluster, AWS::Route53::HealthCheck,
+    -- AWS::SQS::Queue, AWS::SNS::Topic, AWS::SNS::Subscription, AWS::EC2::VPC,
+    -- AWS::EC2::VPNConnection, AWS::EC2::VPNGateway,
+    -- AWS::Route53RecoveryReadiness::DNSTargetResource
+    resourceSetType :: Prelude.Maybe Prelude.Text,
+    -- | A list of resource objects.
+    resources :: Prelude.Maybe [Resource],
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -199,13 +246,24 @@ data CreateResourceSetResponse = CreateResourceSetResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceSetName', 'createResourceSetResponse_resourceSetName' - The name of the ResourceSet
+-- 'resourceSetArn', 'createResourceSetResponse_resourceSetArn' - The Amazon Resource Name (ARN) for the resource set.
 --
--- 'resourceSetType', 'createResourceSetResponse_resourceSetType' - AWS Resource Type of the resources in the ResourceSet
+-- 'resourceSetName', 'createResourceSetResponse_resourceSetName' - The name of the resource set.
 --
--- 'resources', 'createResourceSetResponse_resources' - A list of Resource objects
+-- 'resourceSetType', 'createResourceSetResponse_resourceSetType' - The resource type of the resources in the resource set. Enter one of the
+-- following values for resource type:
 --
--- 'resourceSetArn', 'createResourceSetResponse_resourceSetArn' - The arn for the ResourceSet
+-- AWS::ApiGateway::Stage, AWS::ApiGatewayV2::Stage,
+-- AWS::AutoScaling::AutoScalingGroup, AWS::CloudWatch::Alarm,
+-- AWS::EC2::CustomerGateway, AWS::DynamoDB::Table, AWS::EC2::Volume,
+-- AWS::ElasticLoadBalancing::LoadBalancer,
+-- AWS::ElasticLoadBalancingV2::LoadBalancer, AWS::Lambda::Function,
+-- AWS::MSK::Cluster, AWS::RDS::DBCluster, AWS::Route53::HealthCheck,
+-- AWS::SQS::Queue, AWS::SNS::Topic, AWS::SNS::Subscription, AWS::EC2::VPC,
+-- AWS::EC2::VPNConnection, AWS::EC2::VPNGateway,
+-- AWS::Route53RecoveryReadiness::DNSTargetResource
+--
+-- 'resources', 'createResourceSetResponse_resources' - A list of resource objects.
 --
 -- 'tags', 'createResourceSetResponse_tags' - Undocumented member.
 --
@@ -216,30 +274,41 @@ newCreateResourceSetResponse ::
   CreateResourceSetResponse
 newCreateResourceSetResponse pHttpStatus_ =
   CreateResourceSetResponse'
-    { resourceSetName =
+    { resourceSetArn =
         Prelude.Nothing,
+      resourceSetName = Prelude.Nothing,
       resourceSetType = Prelude.Nothing,
       resources = Prelude.Nothing,
-      resourceSetArn = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The name of the ResourceSet
+-- | The Amazon Resource Name (ARN) for the resource set.
+createResourceSetResponse_resourceSetArn :: Lens.Lens' CreateResourceSetResponse (Prelude.Maybe Prelude.Text)
+createResourceSetResponse_resourceSetArn = Lens.lens (\CreateResourceSetResponse' {resourceSetArn} -> resourceSetArn) (\s@CreateResourceSetResponse' {} a -> s {resourceSetArn = a} :: CreateResourceSetResponse)
+
+-- | The name of the resource set.
 createResourceSetResponse_resourceSetName :: Lens.Lens' CreateResourceSetResponse (Prelude.Maybe Prelude.Text)
 createResourceSetResponse_resourceSetName = Lens.lens (\CreateResourceSetResponse' {resourceSetName} -> resourceSetName) (\s@CreateResourceSetResponse' {} a -> s {resourceSetName = a} :: CreateResourceSetResponse)
 
--- | AWS Resource Type of the resources in the ResourceSet
+-- | The resource type of the resources in the resource set. Enter one of the
+-- following values for resource type:
+--
+-- AWS::ApiGateway::Stage, AWS::ApiGatewayV2::Stage,
+-- AWS::AutoScaling::AutoScalingGroup, AWS::CloudWatch::Alarm,
+-- AWS::EC2::CustomerGateway, AWS::DynamoDB::Table, AWS::EC2::Volume,
+-- AWS::ElasticLoadBalancing::LoadBalancer,
+-- AWS::ElasticLoadBalancingV2::LoadBalancer, AWS::Lambda::Function,
+-- AWS::MSK::Cluster, AWS::RDS::DBCluster, AWS::Route53::HealthCheck,
+-- AWS::SQS::Queue, AWS::SNS::Topic, AWS::SNS::Subscription, AWS::EC2::VPC,
+-- AWS::EC2::VPNConnection, AWS::EC2::VPNGateway,
+-- AWS::Route53RecoveryReadiness::DNSTargetResource
 createResourceSetResponse_resourceSetType :: Lens.Lens' CreateResourceSetResponse (Prelude.Maybe Prelude.Text)
 createResourceSetResponse_resourceSetType = Lens.lens (\CreateResourceSetResponse' {resourceSetType} -> resourceSetType) (\s@CreateResourceSetResponse' {} a -> s {resourceSetType = a} :: CreateResourceSetResponse)
 
--- | A list of Resource objects
+-- | A list of resource objects.
 createResourceSetResponse_resources :: Lens.Lens' CreateResourceSetResponse (Prelude.Maybe [Resource])
 createResourceSetResponse_resources = Lens.lens (\CreateResourceSetResponse' {resources} -> resources) (\s@CreateResourceSetResponse' {} a -> s {resources = a} :: CreateResourceSetResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The arn for the ResourceSet
-createResourceSetResponse_resourceSetArn :: Lens.Lens' CreateResourceSetResponse (Prelude.Maybe Prelude.Text)
-createResourceSetResponse_resourceSetArn = Lens.lens (\CreateResourceSetResponse' {resourceSetArn} -> resourceSetArn) (\s@CreateResourceSetResponse' {} a -> s {resourceSetArn = a} :: CreateResourceSetResponse)
 
 -- | Undocumented member.
 createResourceSetResponse_tags :: Lens.Lens' CreateResourceSetResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -251,9 +320,9 @@ createResourceSetResponse_httpStatus = Lens.lens (\CreateResourceSetResponse' {h
 
 instance Prelude.NFData CreateResourceSetResponse where
   rnf CreateResourceSetResponse' {..} =
-    Prelude.rnf resourceSetName
+    Prelude.rnf resourceSetArn
+      `Prelude.seq` Prelude.rnf resourceSetName
       `Prelude.seq` Prelude.rnf resourceSetType
       `Prelude.seq` Prelude.rnf resources
-      `Prelude.seq` Prelude.rnf resourceSetArn
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

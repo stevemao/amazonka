@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.JmxExporterInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,15 @@
 module Amazonka.Kafka.Types.JmxExporterInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Indicates whether you want to enable or disable the JMX Exporter.
+-- | Indicates whether you want to turn on or turn off the JMX Exporter.
 --
 -- /See:/ 'newJmxExporterInfo' smart constructor.
 data JmxExporterInfo = JmxExporterInfo'
-  { -- | Indicates whether you want to enable or disable the JMX Exporter.
+  { -- | Indicates whether you want to turn on or turn off the JMX Exporter.
     enabledInBroker :: Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -40,7 +41,7 @@ data JmxExporterInfo = JmxExporterInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'enabledInBroker', 'jmxExporterInfo_enabledInBroker' - Indicates whether you want to enable or disable the JMX Exporter.
+-- 'enabledInBroker', 'jmxExporterInfo_enabledInBroker' - Indicates whether you want to turn on or turn off the JMX Exporter.
 newJmxExporterInfo ::
   -- | 'enabledInBroker'
   Prelude.Bool ->
@@ -51,9 +52,18 @@ newJmxExporterInfo pEnabledInBroker_ =
         pEnabledInBroker_
     }
 
--- | Indicates whether you want to enable or disable the JMX Exporter.
+-- | Indicates whether you want to turn on or turn off the JMX Exporter.
 jmxExporterInfo_enabledInBroker :: Lens.Lens' JmxExporterInfo Prelude.Bool
 jmxExporterInfo_enabledInBroker = Lens.lens (\JmxExporterInfo' {enabledInBroker} -> enabledInBroker) (\s@JmxExporterInfo' {} a -> s {enabledInBroker = a} :: JmxExporterInfo)
+
+instance Data.FromJSON JmxExporterInfo where
+  parseJSON =
+    Data.withObject
+      "JmxExporterInfo"
+      ( \x ->
+          JmxExporterInfo'
+            Prelude.<$> (x Data..: "enabledInBroker")
+      )
 
 instance Prelude.Hashable JmxExporterInfo where
   hashWithSalt _salt JmxExporterInfo' {..} =
@@ -63,11 +73,11 @@ instance Prelude.NFData JmxExporterInfo where
   rnf JmxExporterInfo' {..} =
     Prelude.rnf enabledInBroker
 
-instance Core.ToJSON JmxExporterInfo where
+instance Data.ToJSON JmxExporterInfo where
   toJSON JmxExporterInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("enabledInBroker" Core..= enabledInBroker)
+              ("enabledInBroker" Data..= enabledInBroker)
           ]
       )

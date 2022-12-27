@@ -14,14 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Connect.DeleteIntegrationAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an AWS resource association from an Amazon Connect instance. The
--- association must not have any use cases associated with it.
+-- Deletes an Amazon Web Services resource association from an Amazon
+-- Connect instance. The association must not have any use cases associated
+-- with it.
 module Amazonka.Connect.DeleteIntegrationAssociation
   ( -- * Creating a Request
     DeleteIntegrationAssociation (..),
@@ -39,7 +40,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,7 +97,8 @@ instance Core.AWSRequest DeleteIntegrationAssociation where
   type
     AWSResponse DeleteIntegrationAssociation =
       DeleteIntegrationAssociationResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteIntegrationAssociationResponse'
@@ -113,27 +116,27 @@ instance Prelude.NFData DeleteIntegrationAssociation where
     Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf integrationAssociationId
 
-instance Core.ToHeaders DeleteIntegrationAssociation where
+instance Data.ToHeaders DeleteIntegrationAssociation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteIntegrationAssociation where
+instance Data.ToPath DeleteIntegrationAssociation where
   toPath DeleteIntegrationAssociation' {..} =
     Prelude.mconcat
       [ "/instance/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/integration-associations/",
-        Core.toBS integrationAssociationId
+        Data.toBS integrationAssociationId
       ]
 
-instance Core.ToQuery DeleteIntegrationAssociation where
+instance Data.ToQuery DeleteIntegrationAssociation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteIntegrationAssociationResponse' smart constructor.

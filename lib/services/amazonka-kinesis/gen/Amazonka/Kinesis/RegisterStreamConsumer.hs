@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.RegisterStreamConsumer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,8 +58,9 @@ module Amazonka.Kinesis.RegisterStreamConsumer
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,7 +69,7 @@ import qualified Amazonka.Response as Response
 data RegisterStreamConsumer = RegisterStreamConsumer'
   { -- | The ARN of the Kinesis data stream that you want to register the
     -- consumer with. For more info, see
-    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>.
     streamARN :: Prelude.Text,
     -- | For a given Kinesis data stream, each consumer must have a unique name.
     -- However, consumer names don\'t have to be unique across data streams.
@@ -86,7 +87,7 @@ data RegisterStreamConsumer = RegisterStreamConsumer'
 --
 -- 'streamARN', 'registerStreamConsumer_streamARN' - The ARN of the Kinesis data stream that you want to register the
 -- consumer with. For more info, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>.
 --
 -- 'consumerName', 'registerStreamConsumer_consumerName' - For a given Kinesis data stream, each consumer must have a unique name.
 -- However, consumer names don\'t have to be unique across data streams.
@@ -104,7 +105,7 @@ newRegisterStreamConsumer pStreamARN_ pConsumerName_ =
 
 -- | The ARN of the Kinesis data stream that you want to register the
 -- consumer with. For more info, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-kinesis-streams Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>.
 registerStreamConsumer_streamARN :: Lens.Lens' RegisterStreamConsumer Prelude.Text
 registerStreamConsumer_streamARN = Lens.lens (\RegisterStreamConsumer' {streamARN} -> streamARN) (\s@RegisterStreamConsumer' {} a -> s {streamARN = a} :: RegisterStreamConsumer)
 
@@ -117,13 +118,14 @@ instance Core.AWSRequest RegisterStreamConsumer where
   type
     AWSResponse RegisterStreamConsumer =
       RegisterStreamConsumerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RegisterStreamConsumerResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Consumer")
+            Prelude.<*> (x Data..:> "Consumer")
       )
 
 instance Prelude.Hashable RegisterStreamConsumer where
@@ -136,34 +138,34 @@ instance Prelude.NFData RegisterStreamConsumer where
     Prelude.rnf streamARN
       `Prelude.seq` Prelude.rnf consumerName
 
-instance Core.ToHeaders RegisterStreamConsumer where
+instance Data.ToHeaders RegisterStreamConsumer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Kinesis_20131202.RegisterStreamConsumer" ::
+              Data.=# ( "Kinesis_20131202.RegisterStreamConsumer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterStreamConsumer where
+instance Data.ToJSON RegisterStreamConsumer where
   toJSON RegisterStreamConsumer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("StreamARN" Core..= streamARN),
-            Prelude.Just ("ConsumerName" Core..= consumerName)
+          [ Prelude.Just ("StreamARN" Data..= streamARN),
+            Prelude.Just ("ConsumerName" Data..= consumerName)
           ]
       )
 
-instance Core.ToPath RegisterStreamConsumer where
+instance Data.ToPath RegisterStreamConsumer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterStreamConsumer where
+instance Data.ToQuery RegisterStreamConsumer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRegisterStreamConsumerResponse' smart constructor.

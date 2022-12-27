@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.Types.FilterExpression
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,13 @@
 module Amazonka.DataBrew.Types.FilterExpression where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a structure for defining parameter conditions. Supported
 -- conditions are described here:
--- <https://docs-aws.amazon.com/databrew/latest/dg/datasets.multiple-files.html#conditions.for.dynamic.datasets Supported conditions for dynamic datasets>
+-- <https://docs.aws.amazon.com/databrew/latest/dg/datasets.multiple-files.html#conditions.for.dynamic.datasets Supported conditions for dynamic datasets>
 -- in the /Glue DataBrew Developer Guide/.
 --
 -- /See:/ 'newFilterExpression' smart constructor.
@@ -81,14 +82,14 @@ filterExpression_expression = Lens.lens (\FilterExpression' {expression} -> expr
 filterExpression_valuesMap :: Lens.Lens' FilterExpression (Prelude.HashMap Prelude.Text Prelude.Text)
 filterExpression_valuesMap = Lens.lens (\FilterExpression' {valuesMap} -> valuesMap) (\s@FilterExpression' {} a -> s {valuesMap = a} :: FilterExpression) Prelude.. Lens.coerced
 
-instance Core.FromJSON FilterExpression where
+instance Data.FromJSON FilterExpression where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FilterExpression"
       ( \x ->
           FilterExpression'
-            Prelude.<$> (x Core..: "Expression")
-            Prelude.<*> (x Core..:? "ValuesMap" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..: "Expression")
+            Prelude.<*> (x Data..:? "ValuesMap" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable FilterExpression where
@@ -101,11 +102,11 @@ instance Prelude.NFData FilterExpression where
     Prelude.rnf expression
       `Prelude.seq` Prelude.rnf valuesMap
 
-instance Core.ToJSON FilterExpression where
+instance Data.ToJSON FilterExpression where
   toJSON FilterExpression' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Expression" Core..= expression),
-            Prelude.Just ("ValuesMap" Core..= valuesMap)
+          [ Prelude.Just ("Expression" Data..= expression),
+            Prelude.Just ("ValuesMap" Data..= valuesMap)
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.ListConnections
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,10 +27,10 @@ module Amazonka.CloudWatchEvents.ListConnections
     newListConnections,
 
     -- * Request Lenses
-    listConnections_nextToken,
-    listConnections_namePrefix,
-    listConnections_limit,
     listConnections_connectionState,
+    listConnections_limit,
+    listConnections_namePrefix,
+    listConnections_nextToken,
 
     -- * Destructuring the Response
     ListConnectionsResponse (..),
@@ -45,23 +45,24 @@ where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListConnections' smart constructor.
 data ListConnections = ListConnections'
-  { -- | The token returned by a previous call to retrieve the next set of
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { -- | The state of the connection.
+    connectionState :: Prelude.Maybe ConnectionState,
+    -- | The maximum number of connections to return.
+    limit :: Prelude.Maybe Prelude.Natural,
     -- | A name prefix to filter results returned. Only connections with a name
     -- that starts with the prefix are returned.
     namePrefix :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of connections to return.
-    limit :: Prelude.Maybe Prelude.Natural,
-    -- | The state of the connection.
-    connectionState :: Prelude.Maybe ConnectionState
+    -- | The token returned by a previous call to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,100 +74,101 @@ data ListConnections = ListConnections'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listConnections_nextToken' - The token returned by a previous call to retrieve the next set of
--- results.
+-- 'connectionState', 'listConnections_connectionState' - The state of the connection.
+--
+-- 'limit', 'listConnections_limit' - The maximum number of connections to return.
 --
 -- 'namePrefix', 'listConnections_namePrefix' - A name prefix to filter results returned. Only connections with a name
 -- that starts with the prefix are returned.
 --
--- 'limit', 'listConnections_limit' - The maximum number of connections to return.
---
--- 'connectionState', 'listConnections_connectionState' - The state of the connection.
+-- 'nextToken', 'listConnections_nextToken' - The token returned by a previous call to retrieve the next set of
+-- results.
 newListConnections ::
   ListConnections
 newListConnections =
   ListConnections'
-    { nextToken = Prelude.Nothing,
-      namePrefix = Prelude.Nothing,
+    { connectionState = Prelude.Nothing,
       limit = Prelude.Nothing,
-      connectionState = Prelude.Nothing
+      namePrefix = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
--- | The token returned by a previous call to retrieve the next set of
--- results.
-listConnections_nextToken :: Lens.Lens' ListConnections (Prelude.Maybe Prelude.Text)
-listConnections_nextToken = Lens.lens (\ListConnections' {nextToken} -> nextToken) (\s@ListConnections' {} a -> s {nextToken = a} :: ListConnections)
+-- | The state of the connection.
+listConnections_connectionState :: Lens.Lens' ListConnections (Prelude.Maybe ConnectionState)
+listConnections_connectionState = Lens.lens (\ListConnections' {connectionState} -> connectionState) (\s@ListConnections' {} a -> s {connectionState = a} :: ListConnections)
+
+-- | The maximum number of connections to return.
+listConnections_limit :: Lens.Lens' ListConnections (Prelude.Maybe Prelude.Natural)
+listConnections_limit = Lens.lens (\ListConnections' {limit} -> limit) (\s@ListConnections' {} a -> s {limit = a} :: ListConnections)
 
 -- | A name prefix to filter results returned. Only connections with a name
 -- that starts with the prefix are returned.
 listConnections_namePrefix :: Lens.Lens' ListConnections (Prelude.Maybe Prelude.Text)
 listConnections_namePrefix = Lens.lens (\ListConnections' {namePrefix} -> namePrefix) (\s@ListConnections' {} a -> s {namePrefix = a} :: ListConnections)
 
--- | The maximum number of connections to return.
-listConnections_limit :: Lens.Lens' ListConnections (Prelude.Maybe Prelude.Natural)
-listConnections_limit = Lens.lens (\ListConnections' {limit} -> limit) (\s@ListConnections' {} a -> s {limit = a} :: ListConnections)
-
--- | The state of the connection.
-listConnections_connectionState :: Lens.Lens' ListConnections (Prelude.Maybe ConnectionState)
-listConnections_connectionState = Lens.lens (\ListConnections' {connectionState} -> connectionState) (\s@ListConnections' {} a -> s {connectionState = a} :: ListConnections)
+-- | The token returned by a previous call to retrieve the next set of
+-- results.
+listConnections_nextToken :: Lens.Lens' ListConnections (Prelude.Maybe Prelude.Text)
+listConnections_nextToken = Lens.lens (\ListConnections' {nextToken} -> nextToken) (\s@ListConnections' {} a -> s {nextToken = a} :: ListConnections)
 
 instance Core.AWSRequest ListConnections where
   type
     AWSResponse ListConnections =
       ListConnectionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListConnectionsResponse'
-            Prelude.<$> (x Core..?> "Connections" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Connections" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListConnections where
   hashWithSalt _salt ListConnections' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` namePrefix
+    _salt `Prelude.hashWithSalt` connectionState
       `Prelude.hashWithSalt` limit
-      `Prelude.hashWithSalt` connectionState
+      `Prelude.hashWithSalt` namePrefix
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListConnections where
   rnf ListConnections' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf namePrefix
+    Prelude.rnf connectionState
       `Prelude.seq` Prelude.rnf limit
-      `Prelude.seq` Prelude.rnf connectionState
+      `Prelude.seq` Prelude.rnf namePrefix
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListConnections where
+instance Data.ToHeaders ListConnections where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSEvents.ListConnections" :: Prelude.ByteString),
+              Data.=# ("AWSEvents.ListConnections" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListConnections where
+instance Data.ToJSON ListConnections where
   toJSON ListConnections' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("NamePrefix" Core..=) Prelude.<$> namePrefix,
-            ("Limit" Core..=) Prelude.<$> limit,
-            ("ConnectionState" Core..=)
-              Prelude.<$> connectionState
+          [ ("ConnectionState" Data..=)
+              Prelude.<$> connectionState,
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("NamePrefix" Data..=) Prelude.<$> namePrefix,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListConnections where
+instance Data.ToPath ListConnections where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListConnections where
+instance Data.ToQuery ListConnections where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListConnectionsResponse' smart constructor.

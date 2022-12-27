@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.AttachVolume
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -64,18 +64,19 @@ module Amazonka.EC2.AttachVolume
     newVolumeAttachment,
 
     -- * Response Lenses
-    volumeAttachment_instanceId,
-    volumeAttachment_deleteOnTermination,
-    volumeAttachment_state,
-    volumeAttachment_device,
-    volumeAttachment_volumeId,
     volumeAttachment_attachTime,
+    volumeAttachment_deleteOnTermination,
+    volumeAttachment_device,
+    volumeAttachment_instanceId,
+    volumeAttachment_state,
+    volumeAttachment_volumeId,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -154,9 +155,10 @@ attachVolume_volumeId = Lens.lens (\AttachVolume' {volumeId} -> volumeId) (\s@At
 
 instance Core.AWSRequest AttachVolume where
   type AWSResponse AttachVolume = VolumeAttachment
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
-    Response.receiveXML (\s h x -> Core.parseXML x)
+    Response.receiveXML (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable AttachVolume where
   hashWithSalt _salt AttachVolume' {..} =
@@ -172,21 +174,21 @@ instance Prelude.NFData AttachVolume where
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf volumeId
 
-instance Core.ToHeaders AttachVolume where
+instance Data.ToHeaders AttachVolume where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AttachVolume where
+instance Data.ToPath AttachVolume where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AttachVolume where
+instance Data.ToQuery AttachVolume where
   toQuery AttachVolume' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("AttachVolume" :: Prelude.ByteString),
+          Data.=: ("AttachVolume" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "Device" Core.=: device,
-        "InstanceId" Core.=: instanceId,
-        "VolumeId" Core.=: volumeId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "Device" Data.=: device,
+        "InstanceId" Data.=: instanceId,
+        "VolumeId" Data.=: volumeId
       ]

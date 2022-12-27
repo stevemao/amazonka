@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.NetworkPathComponentDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.NetworkPathComponentDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.PortRange
 
@@ -29,10 +30,10 @@ import Amazonka.SecurityHub.Types.PortRange
 --
 -- /See:/ 'newNetworkPathComponentDetails' smart constructor.
 data NetworkPathComponentDetails = NetworkPathComponentDetails'
-  { -- | A list of port ranges for the destination.
-    portRanges :: Prelude.Maybe [PortRange],
-    -- | The IP addresses of the destination.
-    address :: Prelude.Maybe [Prelude.Text]
+  { -- | The IP addresses of the destination.
+    address :: Prelude.Maybe [Prelude.Text],
+    -- | A list of port ranges for the destination.
+    portRanges :: Prelude.Maybe [PortRange]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,51 +45,51 @@ data NetworkPathComponentDetails = NetworkPathComponentDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'portRanges', 'networkPathComponentDetails_portRanges' - A list of port ranges for the destination.
---
 -- 'address', 'networkPathComponentDetails_address' - The IP addresses of the destination.
+--
+-- 'portRanges', 'networkPathComponentDetails_portRanges' - A list of port ranges for the destination.
 newNetworkPathComponentDetails ::
   NetworkPathComponentDetails
 newNetworkPathComponentDetails =
   NetworkPathComponentDetails'
-    { portRanges =
+    { address =
         Prelude.Nothing,
-      address = Prelude.Nothing
+      portRanges = Prelude.Nothing
     }
-
--- | A list of port ranges for the destination.
-networkPathComponentDetails_portRanges :: Lens.Lens' NetworkPathComponentDetails (Prelude.Maybe [PortRange])
-networkPathComponentDetails_portRanges = Lens.lens (\NetworkPathComponentDetails' {portRanges} -> portRanges) (\s@NetworkPathComponentDetails' {} a -> s {portRanges = a} :: NetworkPathComponentDetails) Prelude.. Lens.mapping Lens.coerced
 
 -- | The IP addresses of the destination.
 networkPathComponentDetails_address :: Lens.Lens' NetworkPathComponentDetails (Prelude.Maybe [Prelude.Text])
 networkPathComponentDetails_address = Lens.lens (\NetworkPathComponentDetails' {address} -> address) (\s@NetworkPathComponentDetails' {} a -> s {address = a} :: NetworkPathComponentDetails) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON NetworkPathComponentDetails where
+-- | A list of port ranges for the destination.
+networkPathComponentDetails_portRanges :: Lens.Lens' NetworkPathComponentDetails (Prelude.Maybe [PortRange])
+networkPathComponentDetails_portRanges = Lens.lens (\NetworkPathComponentDetails' {portRanges} -> portRanges) (\s@NetworkPathComponentDetails' {} a -> s {portRanges = a} :: NetworkPathComponentDetails) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON NetworkPathComponentDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NetworkPathComponentDetails"
       ( \x ->
           NetworkPathComponentDetails'
-            Prelude.<$> (x Core..:? "PortRanges" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Address" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Address" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "PortRanges" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable NetworkPathComponentDetails where
   hashWithSalt _salt NetworkPathComponentDetails' {..} =
-    _salt `Prelude.hashWithSalt` portRanges
-      `Prelude.hashWithSalt` address
+    _salt `Prelude.hashWithSalt` address
+      `Prelude.hashWithSalt` portRanges
 
 instance Prelude.NFData NetworkPathComponentDetails where
   rnf NetworkPathComponentDetails' {..} =
-    Prelude.rnf portRanges
-      `Prelude.seq` Prelude.rnf address
+    Prelude.rnf address
+      `Prelude.seq` Prelude.rnf portRanges
 
-instance Core.ToJSON NetworkPathComponentDetails where
+instance Data.ToJSON NetworkPathComponentDetails where
   toJSON NetworkPathComponentDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PortRanges" Core..=) Prelude.<$> portRanges,
-            ("Address" Core..=) Prelude.<$> address
+          [ ("Address" Data..=) Prelude.<$> address,
+            ("PortRanges" Data..=) Prelude.<$> portRanges
           ]
       )

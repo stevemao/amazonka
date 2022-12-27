@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.ActionConfigurationProperty
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,14 +21,18 @@ module Amazonka.CodePipeline.Types.ActionConfigurationProperty where
 
 import Amazonka.CodePipeline.Types.ActionConfigurationPropertyType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents information about an action configuration property.
 --
 -- /See:/ 'newActionConfigurationProperty' smart constructor.
 data ActionConfigurationProperty = ActionConfigurationProperty'
-  { -- | Indicates that the property is used with @PollForJobs@. When creating a
+  { -- | The description of the action configuration property that is displayed
+    -- to users.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Indicates that the property is used with @PollForJobs@. When creating a
     -- custom action, an action can have up to one queryable property. If it
     -- has one, that property must be both required and not secret.
     --
@@ -40,9 +44,6 @@ data ActionConfigurationProperty = ActionConfigurationProperty'
     queryable :: Prelude.Maybe Prelude.Bool,
     -- | The type of the configuration property.
     type' :: Prelude.Maybe ActionConfigurationPropertyType,
-    -- | The description of the action configuration property that is displayed
-    -- to users.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The name of the action configuration property.
     name :: Prelude.Text,
     -- | Whether the configuration property is a required value.
@@ -67,6 +68,9 @@ data ActionConfigurationProperty = ActionConfigurationProperty'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'actionConfigurationProperty_description' - The description of the action configuration property that is displayed
+-- to users.
+--
 -- 'queryable', 'actionConfigurationProperty_queryable' - Indicates that the property is used with @PollForJobs@. When creating a
 -- custom action, an action can have up to one queryable property. If it
 -- has one, that property must be both required and not secret.
@@ -78,9 +82,6 @@ data ActionConfigurationProperty = ActionConfigurationProperty'
 -- alphanumeric characters, underscores, and hyphens.
 --
 -- 'type'', 'actionConfigurationProperty_type' - The type of the configuration property.
---
--- 'description', 'actionConfigurationProperty_description' - The description of the action configuration property that is displayed
--- to users.
 --
 -- 'name', 'actionConfigurationProperty_name' - The name of the action configuration property.
 --
@@ -110,15 +111,20 @@ newActionConfigurationProperty
   pKey_
   pSecret_ =
     ActionConfigurationProperty'
-      { queryable =
+      { description =
           Prelude.Nothing,
+        queryable = Prelude.Nothing,
         type' = Prelude.Nothing,
-        description = Prelude.Nothing,
         name = pName_,
         required = pRequired_,
         key = pKey_,
         secret = pSecret_
       }
+
+-- | The description of the action configuration property that is displayed
+-- to users.
+actionConfigurationProperty_description :: Lens.Lens' ActionConfigurationProperty (Prelude.Maybe Prelude.Text)
+actionConfigurationProperty_description = Lens.lens (\ActionConfigurationProperty' {description} -> description) (\s@ActionConfigurationProperty' {} a -> s {description = a} :: ActionConfigurationProperty)
 
 -- | Indicates that the property is used with @PollForJobs@. When creating a
 -- custom action, an action can have up to one queryable property. If it
@@ -135,11 +141,6 @@ actionConfigurationProperty_queryable = Lens.lens (\ActionConfigurationProperty'
 -- | The type of the configuration property.
 actionConfigurationProperty_type :: Lens.Lens' ActionConfigurationProperty (Prelude.Maybe ActionConfigurationPropertyType)
 actionConfigurationProperty_type = Lens.lens (\ActionConfigurationProperty' {type'} -> type') (\s@ActionConfigurationProperty' {} a -> s {type' = a} :: ActionConfigurationProperty)
-
--- | The description of the action configuration property that is displayed
--- to users.
-actionConfigurationProperty_description :: Lens.Lens' ActionConfigurationProperty (Prelude.Maybe Prelude.Text)
-actionConfigurationProperty_description = Lens.lens (\ActionConfigurationProperty' {description} -> description) (\s@ActionConfigurationProperty' {} a -> s {description = a} :: ActionConfigurationProperty)
 
 -- | The name of the action configuration property.
 actionConfigurationProperty_name :: Lens.Lens' ActionConfigurationProperty Prelude.Text
@@ -162,26 +163,26 @@ actionConfigurationProperty_key = Lens.lens (\ActionConfigurationProperty' {key}
 actionConfigurationProperty_secret :: Lens.Lens' ActionConfigurationProperty Prelude.Bool
 actionConfigurationProperty_secret = Lens.lens (\ActionConfigurationProperty' {secret} -> secret) (\s@ActionConfigurationProperty' {} a -> s {secret = a} :: ActionConfigurationProperty)
 
-instance Core.FromJSON ActionConfigurationProperty where
+instance Data.FromJSON ActionConfigurationProperty where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActionConfigurationProperty"
       ( \x ->
           ActionConfigurationProperty'
-            Prelude.<$> (x Core..:? "queryable")
-            Prelude.<*> (x Core..:? "type")
-            Prelude.<*> (x Core..:? "description")
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "required")
-            Prelude.<*> (x Core..: "key")
-            Prelude.<*> (x Core..: "secret")
+            Prelude.<$> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "queryable")
+            Prelude.<*> (x Data..:? "type")
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "required")
+            Prelude.<*> (x Data..: "key")
+            Prelude.<*> (x Data..: "secret")
       )
 
 instance Prelude.Hashable ActionConfigurationProperty where
   hashWithSalt _salt ActionConfigurationProperty' {..} =
-    _salt `Prelude.hashWithSalt` queryable
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` queryable
       `Prelude.hashWithSalt` type'
-      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` required
       `Prelude.hashWithSalt` key
@@ -189,24 +190,24 @@ instance Prelude.Hashable ActionConfigurationProperty where
 
 instance Prelude.NFData ActionConfigurationProperty where
   rnf ActionConfigurationProperty' {..} =
-    Prelude.rnf queryable
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf queryable
       `Prelude.seq` Prelude.rnf type'
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf required
       `Prelude.seq` Prelude.rnf key
       `Prelude.seq` Prelude.rnf secret
 
-instance Core.ToJSON ActionConfigurationProperty where
+instance Data.ToJSON ActionConfigurationProperty where
   toJSON ActionConfigurationProperty' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("queryable" Core..=) Prelude.<$> queryable,
-            ("type" Core..=) Prelude.<$> type',
-            ("description" Core..=) Prelude.<$> description,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("required" Core..= required),
-            Prelude.Just ("key" Core..= key),
-            Prelude.Just ("secret" Core..= secret)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("queryable" Data..=) Prelude.<$> queryable,
+            ("type" Data..=) Prelude.<$> type',
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("required" Data..= required),
+            Prelude.Just ("key" Data..= key),
+            Prelude.Just ("secret" Data..= secret)
           ]
       )

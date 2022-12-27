@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.DiskImage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,22 +20,23 @@
 module Amazonka.EC2.Types.DiskImage where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.DiskImageDetail
 import Amazonka.EC2.Types.VolumeDetail
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a disk image.
 --
 -- /See:/ 'newDiskImage' smart constructor.
 data DiskImage = DiskImage'
-  { -- | Information about the disk image.
+  { -- | A description of the disk image.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Information about the disk image.
     image :: Prelude.Maybe DiskImageDetail,
     -- | Information about the volume.
-    volume :: Prelude.Maybe VolumeDetail,
-    -- | A description of the disk image.
-    description :: Prelude.Maybe Prelude.Text
+    volume :: Prelude.Maybe VolumeDetail
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,19 +48,23 @@ data DiskImage = DiskImage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'diskImage_description' - A description of the disk image.
+--
 -- 'image', 'diskImage_image' - Information about the disk image.
 --
 -- 'volume', 'diskImage_volume' - Information about the volume.
---
--- 'description', 'diskImage_description' - A description of the disk image.
 newDiskImage ::
   DiskImage
 newDiskImage =
   DiskImage'
-    { image = Prelude.Nothing,
-      volume = Prelude.Nothing,
-      description = Prelude.Nothing
+    { description = Prelude.Nothing,
+      image = Prelude.Nothing,
+      volume = Prelude.Nothing
     }
+
+-- | A description of the disk image.
+diskImage_description :: Lens.Lens' DiskImage (Prelude.Maybe Prelude.Text)
+diskImage_description = Lens.lens (\DiskImage' {description} -> description) (\s@DiskImage' {} a -> s {description = a} :: DiskImage)
 
 -- | Information about the disk image.
 diskImage_image :: Lens.Lens' DiskImage (Prelude.Maybe DiskImageDetail)
@@ -69,26 +74,22 @@ diskImage_image = Lens.lens (\DiskImage' {image} -> image) (\s@DiskImage' {} a -
 diskImage_volume :: Lens.Lens' DiskImage (Prelude.Maybe VolumeDetail)
 diskImage_volume = Lens.lens (\DiskImage' {volume} -> volume) (\s@DiskImage' {} a -> s {volume = a} :: DiskImage)
 
--- | A description of the disk image.
-diskImage_description :: Lens.Lens' DiskImage (Prelude.Maybe Prelude.Text)
-diskImage_description = Lens.lens (\DiskImage' {description} -> description) (\s@DiskImage' {} a -> s {description = a} :: DiskImage)
-
 instance Prelude.Hashable DiskImage where
   hashWithSalt _salt DiskImage' {..} =
-    _salt `Prelude.hashWithSalt` image
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` image
       `Prelude.hashWithSalt` volume
-      `Prelude.hashWithSalt` description
 
 instance Prelude.NFData DiskImage where
   rnf DiskImage' {..} =
-    Prelude.rnf image
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf image
       `Prelude.seq` Prelude.rnf volume
-      `Prelude.seq` Prelude.rnf description
 
-instance Core.ToQuery DiskImage where
+instance Data.ToQuery DiskImage where
   toQuery DiskImage' {..} =
     Prelude.mconcat
-      [ "Image" Core.=: image,
-        "Volume" Core.=: volume,
-        "Description" Core.=: description
+      [ "Description" Data.=: description,
+        "Image" Data.=: image,
+        "Volume" Data.=: volume
       ]

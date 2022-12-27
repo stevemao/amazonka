@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListThingsInThingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,9 +33,9 @@ module Amazonka.IoT.ListThingsInThingGroup
     newListThingsInThingGroup,
 
     -- * Request Lenses
+    listThingsInThingGroup_maxResults,
     listThingsInThingGroup_nextToken,
     listThingsInThingGroup_recursive,
-    listThingsInThingGroup_maxResults,
     listThingsInThingGroup_thingGroupName,
 
     -- * Destructuring the Response
@@ -50,23 +50,24 @@ module Amazonka.IoT.ListThingsInThingGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListThingsInThingGroup' smart constructor.
 data ListThingsInThingGroup = ListThingsInThingGroup'
-  { -- | To retrieve the next set of results, the @nextToken@ value from a
+  { -- | The maximum number of results to return at one time.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | To retrieve the next set of results, the @nextToken@ value from a
     -- previous response; otherwise __null__ to receive the first set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | When true, list things in this thing group and in all child groups as
     -- well.
     recursive :: Prelude.Maybe Prelude.Bool,
-    -- | The maximum number of results to return at one time.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The thing group name.
     thingGroupName :: Prelude.Text
   }
@@ -80,14 +81,14 @@ data ListThingsInThingGroup = ListThingsInThingGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listThingsInThingGroup_maxResults' - The maximum number of results to return at one time.
+--
 -- 'nextToken', 'listThingsInThingGroup_nextToken' - To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
 -- results.
 --
 -- 'recursive', 'listThingsInThingGroup_recursive' - When true, list things in this thing group and in all child groups as
 -- well.
---
--- 'maxResults', 'listThingsInThingGroup_maxResults' - The maximum number of results to return at one time.
 --
 -- 'thingGroupName', 'listThingsInThingGroup_thingGroupName' - The thing group name.
 newListThingsInThingGroup ::
@@ -96,12 +97,16 @@ newListThingsInThingGroup ::
   ListThingsInThingGroup
 newListThingsInThingGroup pThingGroupName_ =
   ListThingsInThingGroup'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       recursive = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
       thingGroupName = pThingGroupName_
     }
+
+-- | The maximum number of results to return at one time.
+listThingsInThingGroup_maxResults :: Lens.Lens' ListThingsInThingGroup (Prelude.Maybe Prelude.Natural)
+listThingsInThingGroup_maxResults = Lens.lens (\ListThingsInThingGroup' {maxResults} -> maxResults) (\s@ListThingsInThingGroup' {} a -> s {maxResults = a} :: ListThingsInThingGroup)
 
 -- | To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
@@ -113,10 +118,6 @@ listThingsInThingGroup_nextToken = Lens.lens (\ListThingsInThingGroup' {nextToke
 -- well.
 listThingsInThingGroup_recursive :: Lens.Lens' ListThingsInThingGroup (Prelude.Maybe Prelude.Bool)
 listThingsInThingGroup_recursive = Lens.lens (\ListThingsInThingGroup' {recursive} -> recursive) (\s@ListThingsInThingGroup' {} a -> s {recursive = a} :: ListThingsInThingGroup)
-
--- | The maximum number of results to return at one time.
-listThingsInThingGroup_maxResults :: Lens.Lens' ListThingsInThingGroup (Prelude.Maybe Prelude.Natural)
-listThingsInThingGroup_maxResults = Lens.lens (\ListThingsInThingGroup' {maxResults} -> maxResults) (\s@ListThingsInThingGroup' {} a -> s {maxResults = a} :: ListThingsInThingGroup)
 
 -- | The thing group name.
 listThingsInThingGroup_thingGroupName :: Lens.Lens' ListThingsInThingGroup Prelude.Text
@@ -148,47 +149,48 @@ instance Core.AWSRequest ListThingsInThingGroup where
   type
     AWSResponse ListThingsInThingGroup =
       ListThingsInThingGroupResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListThingsInThingGroupResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "things" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "things" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListThingsInThingGroup where
   hashWithSalt _salt ListThingsInThingGroup' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` recursive
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` thingGroupName
 
 instance Prelude.NFData ListThingsInThingGroup where
   rnf ListThingsInThingGroup' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf recursive
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf thingGroupName
 
-instance Core.ToHeaders ListThingsInThingGroup where
+instance Data.ToHeaders ListThingsInThingGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListThingsInThingGroup where
+instance Data.ToPath ListThingsInThingGroup where
   toPath ListThingsInThingGroup' {..} =
     Prelude.mconcat
       [ "/thing-groups/",
-        Core.toBS thingGroupName,
+        Data.toBS thingGroupName,
         "/things"
       ]
 
-instance Core.ToQuery ListThingsInThingGroup where
+instance Data.ToQuery ListThingsInThingGroup where
   toQuery ListThingsInThingGroup' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "recursive" Core.=: recursive,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "recursive" Data.=: recursive
       ]
 
 -- | /See:/ 'newListThingsInThingGroupResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.GetStudioMember
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.Nimble.GetStudioMember
     newGetStudioMember,
 
     -- * Request Lenses
-    getStudioMember_studioId,
     getStudioMember_principalId,
+    getStudioMember_studioId,
 
     -- * Destructuring the Response
     GetStudioMemberResponse (..),
@@ -41,7 +41,8 @@ module Amazonka.Nimble.GetStudioMember
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -49,10 +50,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetStudioMember' smart constructor.
 data GetStudioMember = GetStudioMember'
-  { -- | The studio ID.
-    studioId :: Prelude.Text,
-    -- | The principal ID.
-    principalId :: Prelude.Text
+  { -- | The principal ID. This currently supports a IAM Identity Center UserId.
+    principalId :: Prelude.Text,
+    -- | The studio ID.
+    studioId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -64,73 +65,74 @@ data GetStudioMember = GetStudioMember'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'studioId', 'getStudioMember_studioId' - The studio ID.
+-- 'principalId', 'getStudioMember_principalId' - The principal ID. This currently supports a IAM Identity Center UserId.
 --
--- 'principalId', 'getStudioMember_principalId' - The principal ID.
+-- 'studioId', 'getStudioMember_studioId' - The studio ID.
 newGetStudioMember ::
-  -- | 'studioId'
-  Prelude.Text ->
   -- | 'principalId'
   Prelude.Text ->
+  -- | 'studioId'
+  Prelude.Text ->
   GetStudioMember
-newGetStudioMember pStudioId_ pPrincipalId_ =
+newGetStudioMember pPrincipalId_ pStudioId_ =
   GetStudioMember'
-    { studioId = pStudioId_,
-      principalId = pPrincipalId_
+    { principalId = pPrincipalId_,
+      studioId = pStudioId_
     }
+
+-- | The principal ID. This currently supports a IAM Identity Center UserId.
+getStudioMember_principalId :: Lens.Lens' GetStudioMember Prelude.Text
+getStudioMember_principalId = Lens.lens (\GetStudioMember' {principalId} -> principalId) (\s@GetStudioMember' {} a -> s {principalId = a} :: GetStudioMember)
 
 -- | The studio ID.
 getStudioMember_studioId :: Lens.Lens' GetStudioMember Prelude.Text
 getStudioMember_studioId = Lens.lens (\GetStudioMember' {studioId} -> studioId) (\s@GetStudioMember' {} a -> s {studioId = a} :: GetStudioMember)
 
--- | The principal ID.
-getStudioMember_principalId :: Lens.Lens' GetStudioMember Prelude.Text
-getStudioMember_principalId = Lens.lens (\GetStudioMember' {principalId} -> principalId) (\s@GetStudioMember' {} a -> s {principalId = a} :: GetStudioMember)
-
 instance Core.AWSRequest GetStudioMember where
   type
     AWSResponse GetStudioMember =
       GetStudioMemberResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetStudioMemberResponse'
-            Prelude.<$> (x Core..?> "member")
+            Prelude.<$> (x Data..?> "member")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetStudioMember where
   hashWithSalt _salt GetStudioMember' {..} =
-    _salt `Prelude.hashWithSalt` studioId
-      `Prelude.hashWithSalt` principalId
+    _salt `Prelude.hashWithSalt` principalId
+      `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData GetStudioMember where
   rnf GetStudioMember' {..} =
-    Prelude.rnf studioId
-      `Prelude.seq` Prelude.rnf principalId
+    Prelude.rnf principalId
+      `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders GetStudioMember where
+instance Data.ToHeaders GetStudioMember where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetStudioMember where
+instance Data.ToPath GetStudioMember where
   toPath GetStudioMember' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/membership/",
-        Core.toBS principalId
+        Data.toBS principalId
       ]
 
-instance Core.ToQuery GetStudioMember where
+instance Data.ToQuery GetStudioMember where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetStudioMemberResponse' smart constructor.

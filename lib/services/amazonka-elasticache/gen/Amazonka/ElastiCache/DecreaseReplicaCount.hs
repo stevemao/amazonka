@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.DecreaseReplicaCount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.ElastiCache.DecreaseReplicaCount
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -190,13 +191,14 @@ instance Core.AWSRequest DecreaseReplicaCount where
   type
     AWSResponse DecreaseReplicaCount =
       DecreaseReplicaCountResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DecreaseReplicaCountResult"
       ( \s h x ->
           DecreaseReplicaCountResponse'
-            Prelude.<$> (x Core..@? "ReplicationGroup")
+            Prelude.<$> (x Data..@? "ReplicationGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -216,32 +218,32 @@ instance Prelude.NFData DecreaseReplicaCount where
       `Prelude.seq` Prelude.rnf replicationGroupId
       `Prelude.seq` Prelude.rnf applyImmediately
 
-instance Core.ToHeaders DecreaseReplicaCount where
+instance Data.ToHeaders DecreaseReplicaCount where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DecreaseReplicaCount where
+instance Data.ToPath DecreaseReplicaCount where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DecreaseReplicaCount where
+instance Data.ToQuery DecreaseReplicaCount where
   toQuery DecreaseReplicaCount' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DecreaseReplicaCount" :: Prelude.ByteString),
+          Data.=: ("DecreaseReplicaCount" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "NewReplicaCount" Core.=: newReplicaCount',
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "NewReplicaCount" Data.=: newReplicaCount',
         "ReplicaConfiguration"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "ConfigureShard"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "ConfigureShard"
                 Prelude.<$> replicaConfiguration
             ),
         "ReplicasToRemove"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> replicasToRemove
             ),
-        "ReplicationGroupId" Core.=: replicationGroupId,
-        "ApplyImmediately" Core.=: applyImmediately
+        "ReplicationGroupId" Data.=: replicationGroupId,
+        "ApplyImmediately" Data.=: applyImmediately
       ]
 
 -- | /See:/ 'newDecreaseReplicaCountResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.DescribeAgent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,20 +37,21 @@ module Amazonka.DataSync.DescribeAgent
     newDescribeAgentResponse,
 
     -- * Response Lenses
+    describeAgentResponse_agentArn,
     describeAgentResponse_creationTime,
-    describeAgentResponse_status,
-    describeAgentResponse_privateLinkConfig,
     describeAgentResponse_endpointType,
     describeAgentResponse_lastConnectionTime,
-    describeAgentResponse_agentArn,
     describeAgentResponse_name,
+    describeAgentResponse_privateLinkConfig,
+    describeAgentResponse_status,
     describeAgentResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,18 +89,19 @@ instance Core.AWSRequest DescribeAgent where
   type
     AWSResponse DescribeAgent =
       DescribeAgentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAgentResponse'
-            Prelude.<$> (x Core..?> "CreationTime")
-            Prelude.<*> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "PrivateLinkConfig")
-            Prelude.<*> (x Core..?> "EndpointType")
-            Prelude.<*> (x Core..?> "LastConnectionTime")
-            Prelude.<*> (x Core..?> "AgentArn")
-            Prelude.<*> (x Core..?> "Name")
+            Prelude.<$> (x Data..?> "AgentArn")
+            Prelude.<*> (x Data..?> "CreationTime")
+            Prelude.<*> (x Data..?> "EndpointType")
+            Prelude.<*> (x Data..?> "LastConnectionTime")
+            Prelude.<*> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "PrivateLinkConfig")
+            Prelude.<*> (x Data..?> "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,39 +112,51 @@ instance Prelude.Hashable DescribeAgent where
 instance Prelude.NFData DescribeAgent where
   rnf DescribeAgent' {..} = Prelude.rnf agentArn
 
-instance Core.ToHeaders DescribeAgent where
+instance Data.ToHeaders DescribeAgent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("FmrsService.DescribeAgent" :: Prelude.ByteString),
+              Data.=# ("FmrsService.DescribeAgent" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAgent where
+instance Data.ToJSON DescribeAgent where
   toJSON DescribeAgent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("AgentArn" Core..= agentArn)]
+          [Prelude.Just ("AgentArn" Data..= agentArn)]
       )
 
-instance Core.ToPath DescribeAgent where
+instance Data.ToPath DescribeAgent where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAgent where
+instance Data.ToQuery DescribeAgent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | DescribeAgentResponse
 --
 -- /See:/ 'newDescribeAgentResponse' smart constructor.
 data DescribeAgentResponse = DescribeAgentResponse'
-  { -- | The time that the agent was activated (that is, created in your
+  { -- | The Amazon Resource Name (ARN) of the agent.
+    agentArn :: Prelude.Maybe Prelude.Text,
+    -- | The time that the agent was activated (that is, created in your
     -- account).
-    creationTime :: Prelude.Maybe Core.POSIX,
+    creationTime :: Prelude.Maybe Data.POSIX,
+    -- | The type of endpoint that your agent is connected to. If the endpoint is
+    -- a VPC endpoint, the agent is not accessible over the public internet.
+    endpointType :: Prelude.Maybe EndpointType,
+    -- | The time that the agent last connected to DataSync.
+    lastConnectionTime :: Prelude.Maybe Data.POSIX,
+    -- | The name of the agent.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The subnet and the security group that DataSync used to access a VPC
+    -- endpoint.
+    privateLinkConfig :: Prelude.Maybe PrivateLinkConfig,
     -- | The status of the agent. If the status is ONLINE, then the agent is
     -- configured properly and is available to use. The Running status is the
     -- normal running status for an agent. If the status is OFFLINE, the
@@ -150,18 +164,6 @@ data DescribeAgentResponse = DescribeAgentResponse'
     -- the issue that caused the unhealthy state is resolved, the agent returns
     -- to ONLINE status.
     status :: Prelude.Maybe AgentStatus,
-    -- | The subnet and the security group that DataSync used to access a VPC
-    -- endpoint.
-    privateLinkConfig :: Prelude.Maybe PrivateLinkConfig,
-    -- | The type of endpoint that your agent is connected to. If the endpoint is
-    -- a VPC endpoint, the agent is not accessible over the public internet.
-    endpointType :: Prelude.Maybe EndpointType,
-    -- | The time that the agent last connected to DataSync.
-    lastConnectionTime :: Prelude.Maybe Core.POSIX,
-    -- | The Amazon Resource Name (ARN) of the agent.
-    agentArn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the agent.
-    name :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -175,8 +177,20 @@ data DescribeAgentResponse = DescribeAgentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'agentArn', 'describeAgentResponse_agentArn' - The Amazon Resource Name (ARN) of the agent.
+--
 -- 'creationTime', 'describeAgentResponse_creationTime' - The time that the agent was activated (that is, created in your
 -- account).
+--
+-- 'endpointType', 'describeAgentResponse_endpointType' - The type of endpoint that your agent is connected to. If the endpoint is
+-- a VPC endpoint, the agent is not accessible over the public internet.
+--
+-- 'lastConnectionTime', 'describeAgentResponse_lastConnectionTime' - The time that the agent last connected to DataSync.
+--
+-- 'name', 'describeAgentResponse_name' - The name of the agent.
+--
+-- 'privateLinkConfig', 'describeAgentResponse_privateLinkConfig' - The subnet and the security group that DataSync used to access a VPC
+-- endpoint.
 --
 -- 'status', 'describeAgentResponse_status' - The status of the agent. If the status is ONLINE, then the agent is
 -- configured properly and is available to use. The Running status is the
@@ -185,18 +199,6 @@ data DescribeAgentResponse = DescribeAgentResponse'
 -- the issue that caused the unhealthy state is resolved, the agent returns
 -- to ONLINE status.
 --
--- 'privateLinkConfig', 'describeAgentResponse_privateLinkConfig' - The subnet and the security group that DataSync used to access a VPC
--- endpoint.
---
--- 'endpointType', 'describeAgentResponse_endpointType' - The type of endpoint that your agent is connected to. If the endpoint is
--- a VPC endpoint, the agent is not accessible over the public internet.
---
--- 'lastConnectionTime', 'describeAgentResponse_lastConnectionTime' - The time that the agent last connected to DataSync.
---
--- 'agentArn', 'describeAgentResponse_agentArn' - The Amazon Resource Name (ARN) of the agent.
---
--- 'name', 'describeAgentResponse_name' - The name of the agent.
---
 -- 'httpStatus', 'describeAgentResponse_httpStatus' - The response's http status code.
 newDescribeAgentResponse ::
   -- | 'httpStatus'
@@ -204,21 +206,42 @@ newDescribeAgentResponse ::
   DescribeAgentResponse
 newDescribeAgentResponse pHttpStatus_ =
   DescribeAgentResponse'
-    { creationTime =
-        Prelude.Nothing,
-      status = Prelude.Nothing,
-      privateLinkConfig = Prelude.Nothing,
+    { agentArn = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
       endpointType = Prelude.Nothing,
       lastConnectionTime = Prelude.Nothing,
-      agentArn = Prelude.Nothing,
       name = Prelude.Nothing,
+      privateLinkConfig = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The Amazon Resource Name (ARN) of the agent.
+describeAgentResponse_agentArn :: Lens.Lens' DescribeAgentResponse (Prelude.Maybe Prelude.Text)
+describeAgentResponse_agentArn = Lens.lens (\DescribeAgentResponse' {agentArn} -> agentArn) (\s@DescribeAgentResponse' {} a -> s {agentArn = a} :: DescribeAgentResponse)
 
 -- | The time that the agent was activated (that is, created in your
 -- account).
 describeAgentResponse_creationTime :: Lens.Lens' DescribeAgentResponse (Prelude.Maybe Prelude.UTCTime)
-describeAgentResponse_creationTime = Lens.lens (\DescribeAgentResponse' {creationTime} -> creationTime) (\s@DescribeAgentResponse' {} a -> s {creationTime = a} :: DescribeAgentResponse) Prelude.. Lens.mapping Core._Time
+describeAgentResponse_creationTime = Lens.lens (\DescribeAgentResponse' {creationTime} -> creationTime) (\s@DescribeAgentResponse' {} a -> s {creationTime = a} :: DescribeAgentResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The type of endpoint that your agent is connected to. If the endpoint is
+-- a VPC endpoint, the agent is not accessible over the public internet.
+describeAgentResponse_endpointType :: Lens.Lens' DescribeAgentResponse (Prelude.Maybe EndpointType)
+describeAgentResponse_endpointType = Lens.lens (\DescribeAgentResponse' {endpointType} -> endpointType) (\s@DescribeAgentResponse' {} a -> s {endpointType = a} :: DescribeAgentResponse)
+
+-- | The time that the agent last connected to DataSync.
+describeAgentResponse_lastConnectionTime :: Lens.Lens' DescribeAgentResponse (Prelude.Maybe Prelude.UTCTime)
+describeAgentResponse_lastConnectionTime = Lens.lens (\DescribeAgentResponse' {lastConnectionTime} -> lastConnectionTime) (\s@DescribeAgentResponse' {} a -> s {lastConnectionTime = a} :: DescribeAgentResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The name of the agent.
+describeAgentResponse_name :: Lens.Lens' DescribeAgentResponse (Prelude.Maybe Prelude.Text)
+describeAgentResponse_name = Lens.lens (\DescribeAgentResponse' {name} -> name) (\s@DescribeAgentResponse' {} a -> s {name = a} :: DescribeAgentResponse)
+
+-- | The subnet and the security group that DataSync used to access a VPC
+-- endpoint.
+describeAgentResponse_privateLinkConfig :: Lens.Lens' DescribeAgentResponse (Prelude.Maybe PrivateLinkConfig)
+describeAgentResponse_privateLinkConfig = Lens.lens (\DescribeAgentResponse' {privateLinkConfig} -> privateLinkConfig) (\s@DescribeAgentResponse' {} a -> s {privateLinkConfig = a} :: DescribeAgentResponse)
 
 -- | The status of the agent. If the status is ONLINE, then the agent is
 -- configured properly and is available to use. The Running status is the
@@ -229,39 +252,17 @@ describeAgentResponse_creationTime = Lens.lens (\DescribeAgentResponse' {creatio
 describeAgentResponse_status :: Lens.Lens' DescribeAgentResponse (Prelude.Maybe AgentStatus)
 describeAgentResponse_status = Lens.lens (\DescribeAgentResponse' {status} -> status) (\s@DescribeAgentResponse' {} a -> s {status = a} :: DescribeAgentResponse)
 
--- | The subnet and the security group that DataSync used to access a VPC
--- endpoint.
-describeAgentResponse_privateLinkConfig :: Lens.Lens' DescribeAgentResponse (Prelude.Maybe PrivateLinkConfig)
-describeAgentResponse_privateLinkConfig = Lens.lens (\DescribeAgentResponse' {privateLinkConfig} -> privateLinkConfig) (\s@DescribeAgentResponse' {} a -> s {privateLinkConfig = a} :: DescribeAgentResponse)
-
--- | The type of endpoint that your agent is connected to. If the endpoint is
--- a VPC endpoint, the agent is not accessible over the public internet.
-describeAgentResponse_endpointType :: Lens.Lens' DescribeAgentResponse (Prelude.Maybe EndpointType)
-describeAgentResponse_endpointType = Lens.lens (\DescribeAgentResponse' {endpointType} -> endpointType) (\s@DescribeAgentResponse' {} a -> s {endpointType = a} :: DescribeAgentResponse)
-
--- | The time that the agent last connected to DataSync.
-describeAgentResponse_lastConnectionTime :: Lens.Lens' DescribeAgentResponse (Prelude.Maybe Prelude.UTCTime)
-describeAgentResponse_lastConnectionTime = Lens.lens (\DescribeAgentResponse' {lastConnectionTime} -> lastConnectionTime) (\s@DescribeAgentResponse' {} a -> s {lastConnectionTime = a} :: DescribeAgentResponse) Prelude.. Lens.mapping Core._Time
-
--- | The Amazon Resource Name (ARN) of the agent.
-describeAgentResponse_agentArn :: Lens.Lens' DescribeAgentResponse (Prelude.Maybe Prelude.Text)
-describeAgentResponse_agentArn = Lens.lens (\DescribeAgentResponse' {agentArn} -> agentArn) (\s@DescribeAgentResponse' {} a -> s {agentArn = a} :: DescribeAgentResponse)
-
--- | The name of the agent.
-describeAgentResponse_name :: Lens.Lens' DescribeAgentResponse (Prelude.Maybe Prelude.Text)
-describeAgentResponse_name = Lens.lens (\DescribeAgentResponse' {name} -> name) (\s@DescribeAgentResponse' {} a -> s {name = a} :: DescribeAgentResponse)
-
 -- | The response's http status code.
 describeAgentResponse_httpStatus :: Lens.Lens' DescribeAgentResponse Prelude.Int
 describeAgentResponse_httpStatus = Lens.lens (\DescribeAgentResponse' {httpStatus} -> httpStatus) (\s@DescribeAgentResponse' {} a -> s {httpStatus = a} :: DescribeAgentResponse)
 
 instance Prelude.NFData DescribeAgentResponse where
   rnf DescribeAgentResponse' {..} =
-    Prelude.rnf creationTime
-      `Prelude.seq` Prelude.rnf status
-      `Prelude.seq` Prelude.rnf privateLinkConfig
+    Prelude.rnf agentArn
+      `Prelude.seq` Prelude.rnf creationTime
       `Prelude.seq` Prelude.rnf endpointType
       `Prelude.seq` Prelude.rnf lastConnectionTime
-      `Prelude.seq` Prelude.rnf agentArn
       `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf privateLinkConfig
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

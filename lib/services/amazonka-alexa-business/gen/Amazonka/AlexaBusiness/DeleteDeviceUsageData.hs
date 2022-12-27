@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.DeleteDeviceUsageData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,7 +96,8 @@ instance Core.AWSRequest DeleteDeviceUsageData where
   type
     AWSResponse DeleteDeviceUsageData =
       DeleteDeviceUsageDataResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -113,35 +115,35 @@ instance Prelude.NFData DeleteDeviceUsageData where
     Prelude.rnf deviceArn
       `Prelude.seq` Prelude.rnf deviceUsageType
 
-instance Core.ToHeaders DeleteDeviceUsageData where
+instance Data.ToHeaders DeleteDeviceUsageData where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.DeleteDeviceUsageData" ::
+              Data.=# ( "AlexaForBusiness.DeleteDeviceUsageData" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteDeviceUsageData where
+instance Data.ToJSON DeleteDeviceUsageData where
   toJSON DeleteDeviceUsageData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DeviceArn" Core..= deviceArn),
+          [ Prelude.Just ("DeviceArn" Data..= deviceArn),
             Prelude.Just
-              ("DeviceUsageType" Core..= deviceUsageType)
+              ("DeviceUsageType" Data..= deviceUsageType)
           ]
       )
 
-instance Core.ToPath DeleteDeviceUsageData where
+instance Data.ToPath DeleteDeviceUsageData where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDeviceUsageData where
+instance Data.ToQuery DeleteDeviceUsageData where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDeviceUsageDataResponse' smart constructor.

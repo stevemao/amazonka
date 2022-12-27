@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.EnclaveOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.EnclaveOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Indicates whether the instance is enabled for Amazon Web Services Nitro
@@ -58,9 +59,9 @@ newEnclaveOptions =
 enclaveOptions_enabled :: Lens.Lens' EnclaveOptions (Prelude.Maybe Prelude.Bool)
 enclaveOptions_enabled = Lens.lens (\EnclaveOptions' {enabled} -> enabled) (\s@EnclaveOptions' {} a -> s {enabled = a} :: EnclaveOptions)
 
-instance Core.FromXML EnclaveOptions where
+instance Data.FromXML EnclaveOptions where
   parseXML x =
-    EnclaveOptions' Prelude.<$> (x Core..@? "enabled")
+    EnclaveOptions' Prelude.<$> (x Data..@? "enabled")
 
 instance Prelude.Hashable EnclaveOptions where
   hashWithSalt _salt EnclaveOptions' {..} =

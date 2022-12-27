@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.DeleteRecordingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.IVS.DeleteRecordingConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +80,8 @@ instance Core.AWSRequest DeleteRecordingConfiguration where
   type
     AWSResponse DeleteRecordingConfiguration =
       DeleteRecordingConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteRecordingConfigurationResponse'
@@ -95,29 +97,29 @@ instance Prelude.NFData DeleteRecordingConfiguration where
   rnf DeleteRecordingConfiguration' {..} =
     Prelude.rnf arn
 
-instance Core.ToHeaders DeleteRecordingConfiguration where
+instance Data.ToHeaders DeleteRecordingConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteRecordingConfiguration where
+instance Data.ToJSON DeleteRecordingConfiguration where
   toJSON DeleteRecordingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arn" Core..= arn)]
+          [Prelude.Just ("arn" Data..= arn)]
       )
 
-instance Core.ToPath DeleteRecordingConfiguration where
+instance Data.ToPath DeleteRecordingConfiguration where
   toPath =
     Prelude.const "/DeleteRecordingConfiguration"
 
-instance Core.ToQuery DeleteRecordingConfiguration where
+instance Data.ToQuery DeleteRecordingConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRecordingConfigurationResponse' smart constructor.

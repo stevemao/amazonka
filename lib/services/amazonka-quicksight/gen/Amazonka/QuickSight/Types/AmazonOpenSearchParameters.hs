@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.AmazonOpenSearchParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,16 @@
 module Amazonka.QuickSight.Types.AmazonOpenSearchParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | /See:/ 'newAmazonOpenSearchParameters' smart constructor.
+-- | The parameters for OpenSearch.
+--
+-- /See:/ 'newAmazonOpenSearchParameters' smart constructor.
 data AmazonOpenSearchParameters = AmazonOpenSearchParameters'
-  { domain :: Prelude.Text
+  { -- | The OpenSearch domain.
+    domain :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -37,7 +41,7 @@ data AmazonOpenSearchParameters = AmazonOpenSearchParameters'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domain', 'amazonOpenSearchParameters_domain' - Undocumented member.
+-- 'domain', 'amazonOpenSearchParameters_domain' - The OpenSearch domain.
 newAmazonOpenSearchParameters ::
   -- | 'domain'
   Prelude.Text ->
@@ -45,17 +49,17 @@ newAmazonOpenSearchParameters ::
 newAmazonOpenSearchParameters pDomain_ =
   AmazonOpenSearchParameters' {domain = pDomain_}
 
--- | Undocumented member.
+-- | The OpenSearch domain.
 amazonOpenSearchParameters_domain :: Lens.Lens' AmazonOpenSearchParameters Prelude.Text
 amazonOpenSearchParameters_domain = Lens.lens (\AmazonOpenSearchParameters' {domain} -> domain) (\s@AmazonOpenSearchParameters' {} a -> s {domain = a} :: AmazonOpenSearchParameters)
 
-instance Core.FromJSON AmazonOpenSearchParameters where
+instance Data.FromJSON AmazonOpenSearchParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AmazonOpenSearchParameters"
       ( \x ->
           AmazonOpenSearchParameters'
-            Prelude.<$> (x Core..: "Domain")
+            Prelude.<$> (x Data..: "Domain")
       )
 
 instance Prelude.Hashable AmazonOpenSearchParameters where
@@ -66,9 +70,9 @@ instance Prelude.NFData AmazonOpenSearchParameters where
   rnf AmazonOpenSearchParameters' {..} =
     Prelude.rnf domain
 
-instance Core.ToJSON AmazonOpenSearchParameters where
+instance Data.ToJSON AmazonOpenSearchParameters where
   toJSON AmazonOpenSearchParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Domain" Core..= domain)]
+          [Prelude.Just ("Domain" Data..= domain)]
       )

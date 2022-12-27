@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,16 +18,16 @@ module Amazonka.IoTSiteWise.Types
     defaultService,
 
     -- * Errors
-    _InvalidRequestException,
-    _ResourceAlreadyExistsException,
-    _TooManyTagsException,
     _ConflictingOperationException,
-    _ThrottlingException,
     _InternalFailureException,
-    _ServiceUnavailableException,
-    _UnauthorizedException,
-    _ResourceNotFoundException,
+    _InvalidRequestException,
     _LimitExceededException,
+    _ResourceAlreadyExistsException,
+    _ResourceNotFoundException,
+    _ServiceUnavailableException,
+    _ThrottlingException,
+    _TooManyTagsException,
+    _UnauthorizedException,
 
     -- * AggregateType
     AggregateType (..),
@@ -46,11 +47,26 @@ module Amazonka.IoTSiteWise.Types
     -- * AuthMode
     AuthMode (..),
 
+    -- * BatchEntryCompletionStatus
+    BatchEntryCompletionStatus (..),
+
+    -- * BatchGetAssetPropertyAggregatesErrorCode
+    BatchGetAssetPropertyAggregatesErrorCode (..),
+
+    -- * BatchGetAssetPropertyValueErrorCode
+    BatchGetAssetPropertyValueErrorCode (..),
+
+    -- * BatchGetAssetPropertyValueHistoryErrorCode
+    BatchGetAssetPropertyValueHistoryErrorCode (..),
+
     -- * BatchPutAssetPropertyValueErrorCode
     BatchPutAssetPropertyValueErrorCode (..),
 
     -- * CapabilitySyncStatus
     CapabilitySyncStatus (..),
+
+    -- * ColumnName
+    ColumnName (..),
 
     -- * ComputeLocation
     ComputeLocation (..),
@@ -60,6 +76,9 @@ module Amazonka.IoTSiteWise.Types
 
     -- * DetailedErrorCode
     DetailedErrorCode (..),
+
+    -- * DisassociatedDataStorageState
+    DisassociatedDataStorageState (..),
 
     -- * EncryptionType
     EncryptionType (..),
@@ -76,8 +95,23 @@ module Amazonka.IoTSiteWise.Types
     -- * ImageFileType
     ImageFileType (..),
 
+    -- * JobStatus
+    JobStatus (..),
+
+    -- * ListAssetModelPropertiesFilter
+    ListAssetModelPropertiesFilter (..),
+
+    -- * ListAssetPropertiesFilter
+    ListAssetPropertiesFilter (..),
+
     -- * ListAssetsFilter
     ListAssetsFilter (..),
+
+    -- * ListBulkImportJobsFilter
+    ListBulkImportJobsFilter (..),
+
+    -- * ListTimeSeriesType
+    ListTimeSeriesType (..),
 
     -- * LoggingLevel
     LoggingLevel (..),
@@ -118,8 +152,8 @@ module Amazonka.IoTSiteWise.Types
     -- * AccessPolicySummary
     AccessPolicySummary (..),
     newAccessPolicySummary,
-    accessPolicySummary_lastUpdateDate,
     accessPolicySummary_creationDate,
+    accessPolicySummary_lastUpdateDate,
     accessPolicySummary_id,
     accessPolicySummary_identity,
     accessPolicySummary_resource,
@@ -135,9 +169,9 @@ module Amazonka.IoTSiteWise.Types
     -- * Aggregates
     Aggregates (..),
     newAggregates,
-    aggregates_maximum,
     aggregates_average,
     aggregates_count,
+    aggregates_maximum,
     aggregates_minimum,
     aggregates_standardDeviation,
     aggregates_sum,
@@ -152,6 +186,7 @@ module Amazonka.IoTSiteWise.Types
     AssetCompositeModel (..),
     newAssetCompositeModel,
     assetCompositeModel_description,
+    assetCompositeModel_id,
     assetCompositeModel_name,
     assetCompositeModel_type,
     assetCompositeModel_properties,
@@ -179,6 +214,7 @@ module Amazonka.IoTSiteWise.Types
     AssetModelCompositeModel (..),
     newAssetModelCompositeModel,
     assetModelCompositeModel_description,
+    assetModelCompositeModel_id,
     assetModelCompositeModel_properties,
     assetModelCompositeModel_name,
     assetModelCompositeModel_type,
@@ -223,6 +259,17 @@ module Amazonka.IoTSiteWise.Types
     assetModelPropertyDefinition_dataType,
     assetModelPropertyDefinition_type,
 
+    -- * AssetModelPropertySummary
+    AssetModelPropertySummary (..),
+    newAssetModelPropertySummary,
+    assetModelPropertySummary_assetModelCompositeModelId,
+    assetModelPropertySummary_dataTypeSpec,
+    assetModelPropertySummary_id,
+    assetModelPropertySummary_unit,
+    assetModelPropertySummary_name,
+    assetModelPropertySummary_dataType,
+    assetModelPropertySummary_type,
+
     -- * AssetModelStatus
     AssetModelStatus (..),
     newAssetModelStatus,
@@ -243,13 +290,22 @@ module Amazonka.IoTSiteWise.Types
     -- * AssetProperty
     AssetProperty (..),
     newAssetProperty,
+    assetProperty_alias,
     assetProperty_dataTypeSpec,
     assetProperty_notification,
-    assetProperty_alias,
     assetProperty_unit,
     assetProperty_id,
     assetProperty_name,
     assetProperty_dataType,
+
+    -- * AssetPropertySummary
+    AssetPropertySummary (..),
+    newAssetPropertySummary,
+    assetPropertySummary_alias,
+    assetPropertySummary_assetCompositeModelId,
+    assetPropertySummary_id,
+    assetPropertySummary_notification,
+    assetPropertySummary_unit,
 
     -- * AssetPropertyValue
     AssetPropertyValue (..),
@@ -273,6 +329,7 @@ module Amazonka.IoTSiteWise.Types
     -- * AssetSummary
     AssetSummary (..),
     newAssetSummary,
+    assetSummary_description,
     assetSummary_id,
     assetSummary_arn,
     assetSummary_name,
@@ -285,6 +342,7 @@ module Amazonka.IoTSiteWise.Types
     -- * AssociatedAssetsSummary
     AssociatedAssetsSummary (..),
     newAssociatedAssetsSummary,
+    associatedAssetsSummary_description,
     associatedAssetsSummary_id,
     associatedAssetsSummary_arn,
     associatedAssetsSummary_name,
@@ -298,6 +356,118 @@ module Amazonka.IoTSiteWise.Types
     Attribute (..),
     newAttribute,
     attribute_defaultValue,
+
+    -- * BatchGetAssetPropertyAggregatesEntry
+    BatchGetAssetPropertyAggregatesEntry (..),
+    newBatchGetAssetPropertyAggregatesEntry,
+    batchGetAssetPropertyAggregatesEntry_assetId,
+    batchGetAssetPropertyAggregatesEntry_propertyAlias,
+    batchGetAssetPropertyAggregatesEntry_propertyId,
+    batchGetAssetPropertyAggregatesEntry_qualities,
+    batchGetAssetPropertyAggregatesEntry_timeOrdering,
+    batchGetAssetPropertyAggregatesEntry_entryId,
+    batchGetAssetPropertyAggregatesEntry_aggregateTypes,
+    batchGetAssetPropertyAggregatesEntry_resolution,
+    batchGetAssetPropertyAggregatesEntry_startDate,
+    batchGetAssetPropertyAggregatesEntry_endDate,
+
+    -- * BatchGetAssetPropertyAggregatesErrorEntry
+    BatchGetAssetPropertyAggregatesErrorEntry (..),
+    newBatchGetAssetPropertyAggregatesErrorEntry,
+    batchGetAssetPropertyAggregatesErrorEntry_errorCode,
+    batchGetAssetPropertyAggregatesErrorEntry_errorMessage,
+    batchGetAssetPropertyAggregatesErrorEntry_entryId,
+
+    -- * BatchGetAssetPropertyAggregatesErrorInfo
+    BatchGetAssetPropertyAggregatesErrorInfo (..),
+    newBatchGetAssetPropertyAggregatesErrorInfo,
+    batchGetAssetPropertyAggregatesErrorInfo_errorCode,
+    batchGetAssetPropertyAggregatesErrorInfo_errorTimestamp,
+
+    -- * BatchGetAssetPropertyAggregatesSkippedEntry
+    BatchGetAssetPropertyAggregatesSkippedEntry (..),
+    newBatchGetAssetPropertyAggregatesSkippedEntry,
+    batchGetAssetPropertyAggregatesSkippedEntry_errorInfo,
+    batchGetAssetPropertyAggregatesSkippedEntry_entryId,
+    batchGetAssetPropertyAggregatesSkippedEntry_completionStatus,
+
+    -- * BatchGetAssetPropertyAggregatesSuccessEntry
+    BatchGetAssetPropertyAggregatesSuccessEntry (..),
+    newBatchGetAssetPropertyAggregatesSuccessEntry,
+    batchGetAssetPropertyAggregatesSuccessEntry_entryId,
+    batchGetAssetPropertyAggregatesSuccessEntry_aggregatedValues,
+
+    -- * BatchGetAssetPropertyValueEntry
+    BatchGetAssetPropertyValueEntry (..),
+    newBatchGetAssetPropertyValueEntry,
+    batchGetAssetPropertyValueEntry_assetId,
+    batchGetAssetPropertyValueEntry_propertyAlias,
+    batchGetAssetPropertyValueEntry_propertyId,
+    batchGetAssetPropertyValueEntry_entryId,
+
+    -- * BatchGetAssetPropertyValueErrorEntry
+    BatchGetAssetPropertyValueErrorEntry (..),
+    newBatchGetAssetPropertyValueErrorEntry,
+    batchGetAssetPropertyValueErrorEntry_errorCode,
+    batchGetAssetPropertyValueErrorEntry_errorMessage,
+    batchGetAssetPropertyValueErrorEntry_entryId,
+
+    -- * BatchGetAssetPropertyValueErrorInfo
+    BatchGetAssetPropertyValueErrorInfo (..),
+    newBatchGetAssetPropertyValueErrorInfo,
+    batchGetAssetPropertyValueErrorInfo_errorCode,
+    batchGetAssetPropertyValueErrorInfo_errorTimestamp,
+
+    -- * BatchGetAssetPropertyValueHistoryEntry
+    BatchGetAssetPropertyValueHistoryEntry (..),
+    newBatchGetAssetPropertyValueHistoryEntry,
+    batchGetAssetPropertyValueHistoryEntry_assetId,
+    batchGetAssetPropertyValueHistoryEntry_endDate,
+    batchGetAssetPropertyValueHistoryEntry_propertyAlias,
+    batchGetAssetPropertyValueHistoryEntry_propertyId,
+    batchGetAssetPropertyValueHistoryEntry_qualities,
+    batchGetAssetPropertyValueHistoryEntry_startDate,
+    batchGetAssetPropertyValueHistoryEntry_timeOrdering,
+    batchGetAssetPropertyValueHistoryEntry_entryId,
+
+    -- * BatchGetAssetPropertyValueHistoryErrorEntry
+    BatchGetAssetPropertyValueHistoryErrorEntry (..),
+    newBatchGetAssetPropertyValueHistoryErrorEntry,
+    batchGetAssetPropertyValueHistoryErrorEntry_errorCode,
+    batchGetAssetPropertyValueHistoryErrorEntry_errorMessage,
+    batchGetAssetPropertyValueHistoryErrorEntry_entryId,
+
+    -- * BatchGetAssetPropertyValueHistoryErrorInfo
+    BatchGetAssetPropertyValueHistoryErrorInfo (..),
+    newBatchGetAssetPropertyValueHistoryErrorInfo,
+    batchGetAssetPropertyValueHistoryErrorInfo_errorCode,
+    batchGetAssetPropertyValueHistoryErrorInfo_errorTimestamp,
+
+    -- * BatchGetAssetPropertyValueHistorySkippedEntry
+    BatchGetAssetPropertyValueHistorySkippedEntry (..),
+    newBatchGetAssetPropertyValueHistorySkippedEntry,
+    batchGetAssetPropertyValueHistorySkippedEntry_errorInfo,
+    batchGetAssetPropertyValueHistorySkippedEntry_entryId,
+    batchGetAssetPropertyValueHistorySkippedEntry_completionStatus,
+
+    -- * BatchGetAssetPropertyValueHistorySuccessEntry
+    BatchGetAssetPropertyValueHistorySuccessEntry (..),
+    newBatchGetAssetPropertyValueHistorySuccessEntry,
+    batchGetAssetPropertyValueHistorySuccessEntry_entryId,
+    batchGetAssetPropertyValueHistorySuccessEntry_assetPropertyValueHistory,
+
+    -- * BatchGetAssetPropertyValueSkippedEntry
+    BatchGetAssetPropertyValueSkippedEntry (..),
+    newBatchGetAssetPropertyValueSkippedEntry,
+    batchGetAssetPropertyValueSkippedEntry_errorInfo,
+    batchGetAssetPropertyValueSkippedEntry_entryId,
+    batchGetAssetPropertyValueSkippedEntry_completionStatus,
+
+    -- * BatchGetAssetPropertyValueSuccessEntry
+    BatchGetAssetPropertyValueSuccessEntry (..),
+    newBatchGetAssetPropertyValueSuccessEntry,
+    batchGetAssetPropertyValueSuccessEntry_assetPropertyValue,
+    batchGetAssetPropertyValueSuccessEntry_entryId,
 
     -- * BatchPutAssetPropertyError
     BatchPutAssetPropertyError (..),
@@ -315,6 +485,7 @@ module Amazonka.IoTSiteWise.Types
     -- * CompositeModelProperty
     CompositeModelProperty (..),
     newCompositeModelProperty,
+    compositeModelProperty_id,
     compositeModelProperty_name,
     compositeModelProperty_type,
     compositeModelProperty_assetProperty,
@@ -331,6 +502,11 @@ module Amazonka.IoTSiteWise.Types
     configurationStatus_error,
     configurationStatus_state,
 
+    -- * Csv
+    Csv (..),
+    newCsv,
+    csv_columnNames,
+
     -- * CustomerManagedS3Storage
     CustomerManagedS3Storage (..),
     newCustomerManagedS3Storage,
@@ -340,9 +516,9 @@ module Amazonka.IoTSiteWise.Types
     -- * DashboardSummary
     DashboardSummary (..),
     newDashboardSummary,
-    dashboardSummary_lastUpdateDate,
     dashboardSummary_creationDate,
     dashboardSummary_description,
+    dashboardSummary_lastUpdateDate,
     dashboardSummary_id,
     dashboardSummary_name,
 
@@ -359,11 +535,29 @@ module Amazonka.IoTSiteWise.Types
     errorDetails_code,
     errorDetails_message,
 
+    -- * ErrorReportLocation
+    ErrorReportLocation (..),
+    newErrorReportLocation,
+    errorReportLocation_bucket,
+    errorReportLocation_prefix,
+
     -- * ExpressionVariable
     ExpressionVariable (..),
     newExpressionVariable,
     expressionVariable_name,
     expressionVariable_value,
+
+    -- * File
+    File (..),
+    newFile,
+    file_versionId,
+    file_bucket,
+    file_key,
+
+    -- * FileFormat
+    FileFormat (..),
+    newFileFormat,
+    fileFormat_csv,
 
     -- * ForwardingConfig
     ForwardingConfig (..),
@@ -385,8 +579,8 @@ module Amazonka.IoTSiteWise.Types
     -- * GatewaySummary
     GatewaySummary (..),
     newGatewaySummary,
-    gatewaySummary_gatewayPlatform,
     gatewaySummary_gatewayCapabilitySummaries,
+    gatewaySummary_gatewayPlatform,
     gatewaySummary_gatewayId,
     gatewaySummary_gatewayName,
     gatewaySummary_creationDate,
@@ -420,16 +614,16 @@ module Amazonka.IoTSiteWise.Types
     -- * Identity
     Identity (..),
     newIdentity,
-    identity_iamUser,
     identity_group,
-    identity_user,
     identity_iamRole,
+    identity_iamUser,
+    identity_user,
 
     -- * Image
     Image (..),
     newImage,
-    image_id,
     image_file,
+    image_id,
 
     -- * ImageFile
     ImageFile (..),
@@ -448,6 +642,18 @@ module Amazonka.IoTSiteWise.Types
     newInterpolatedAssetPropertyValue,
     interpolatedAssetPropertyValue_timestamp,
     interpolatedAssetPropertyValue_value,
+
+    -- * JobConfiguration
+    JobConfiguration (..),
+    newJobConfiguration,
+    jobConfiguration_fileFormat,
+
+    -- * JobSummary
+    JobSummary (..),
+    newJobSummary,
+    jobSummary_id,
+    jobSummary_name,
+    jobSummary_status,
 
     -- * LoggingOptions
     LoggingOptions (..),
@@ -507,9 +713,9 @@ module Amazonka.IoTSiteWise.Types
     -- * PortalSummary
     PortalSummary (..),
     newPortalSummary,
-    portalSummary_lastUpdateDate,
     portalSummary_creationDate,
     portalSummary_description,
+    portalSummary_lastUpdateDate,
     portalSummary_roleArn,
     portalSummary_id,
     portalSummary_name,
@@ -524,17 +730,17 @@ module Amazonka.IoTSiteWise.Types
     -- * ProjectSummary
     ProjectSummary (..),
     newProjectSummary,
-    projectSummary_lastUpdateDate,
     projectSummary_creationDate,
     projectSummary_description,
+    projectSummary_lastUpdateDate,
     projectSummary_id,
     projectSummary_name,
 
     -- * Property
     Property (..),
     newProperty,
-    property_notification,
     property_alias,
+    property_notification,
     property_type,
     property_unit,
     property_id,
@@ -551,16 +757,16 @@ module Amazonka.IoTSiteWise.Types
     PropertyType (..),
     newPropertyType,
     propertyType_attribute,
-    propertyType_transform,
-    propertyType_metric,
     propertyType_measurement,
+    propertyType_metric,
+    propertyType_transform,
 
     -- * PutAssetPropertyValueEntry
     PutAssetPropertyValueEntry (..),
     newPutAssetPropertyValueEntry,
+    putAssetPropertyValueEntry_assetId,
     putAssetPropertyValueEntry_propertyAlias,
     putAssetPropertyValueEntry_propertyId,
-    putAssetPropertyValueEntry_assetId,
     putAssetPropertyValueEntry_entryId,
     putAssetPropertyValueEntry_propertyValues,
 
@@ -570,11 +776,29 @@ module Amazonka.IoTSiteWise.Types
     resource_portal,
     resource_project,
 
+    -- * RetentionPeriod
+    RetentionPeriod (..),
+    newRetentionPeriod,
+    retentionPeriod_numberOfDays,
+    retentionPeriod_unlimited,
+
     -- * TimeInNanos
     TimeInNanos (..),
     newTimeInNanos,
     timeInNanos_offsetInNanos,
     timeInNanos_timeInSeconds,
+
+    -- * TimeSeriesSummary
+    TimeSeriesSummary (..),
+    newTimeSeriesSummary,
+    timeSeriesSummary_alias,
+    timeSeriesSummary_assetId,
+    timeSeriesSummary_dataTypeSpec,
+    timeSeriesSummary_propertyId,
+    timeSeriesSummary_timeSeriesId,
+    timeSeriesSummary_dataType,
+    timeSeriesSummary_timeSeriesCreationDate,
+    timeSeriesSummary_timeSeriesLastUpdateDate,
 
     -- * Transform
     Transform (..),
@@ -609,14 +833,15 @@ module Amazonka.IoTSiteWise.Types
     -- * Variant
     Variant (..),
     newVariant,
-    variant_integerValue,
-    variant_doubleValue,
-    variant_stringValue,
     variant_booleanValue,
+    variant_doubleValue,
+    variant_integerValue,
+    variant_stringValue,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.IoTSiteWise.Types.AccessPolicySummary
 import Amazonka.IoTSiteWise.Types.AggregateType
 import Amazonka.IoTSiteWise.Types.AggregatedValue
@@ -633,10 +858,12 @@ import Amazonka.IoTSiteWise.Types.AssetModelHierarchy
 import Amazonka.IoTSiteWise.Types.AssetModelHierarchyDefinition
 import Amazonka.IoTSiteWise.Types.AssetModelProperty
 import Amazonka.IoTSiteWise.Types.AssetModelPropertyDefinition
+import Amazonka.IoTSiteWise.Types.AssetModelPropertySummary
 import Amazonka.IoTSiteWise.Types.AssetModelState
 import Amazonka.IoTSiteWise.Types.AssetModelStatus
 import Amazonka.IoTSiteWise.Types.AssetModelSummary
 import Amazonka.IoTSiteWise.Types.AssetProperty
+import Amazonka.IoTSiteWise.Types.AssetPropertySummary
 import Amazonka.IoTSiteWise.Types.AssetPropertyValue
 import Amazonka.IoTSiteWise.Types.AssetRelationshipSummary
 import Amazonka.IoTSiteWise.Types.AssetRelationshipType
@@ -646,23 +873,48 @@ import Amazonka.IoTSiteWise.Types.AssetSummary
 import Amazonka.IoTSiteWise.Types.AssociatedAssetsSummary
 import Amazonka.IoTSiteWise.Types.Attribute
 import Amazonka.IoTSiteWise.Types.AuthMode
+import Amazonka.IoTSiteWise.Types.BatchEntryCompletionStatus
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyAggregatesEntry
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyAggregatesErrorCode
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyAggregatesErrorEntry
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyAggregatesErrorInfo
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyAggregatesSkippedEntry
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyAggregatesSuccessEntry
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyValueEntry
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyValueErrorCode
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyValueErrorEntry
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyValueErrorInfo
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyValueHistoryEntry
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyValueHistoryErrorCode
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyValueHistoryErrorEntry
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyValueHistoryErrorInfo
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyValueHistorySkippedEntry
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyValueHistorySuccessEntry
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyValueSkippedEntry
+import Amazonka.IoTSiteWise.Types.BatchGetAssetPropertyValueSuccessEntry
 import Amazonka.IoTSiteWise.Types.BatchPutAssetPropertyError
 import Amazonka.IoTSiteWise.Types.BatchPutAssetPropertyErrorEntry
 import Amazonka.IoTSiteWise.Types.BatchPutAssetPropertyValueErrorCode
 import Amazonka.IoTSiteWise.Types.CapabilitySyncStatus
+import Amazonka.IoTSiteWise.Types.ColumnName
 import Amazonka.IoTSiteWise.Types.CompositeModelProperty
 import Amazonka.IoTSiteWise.Types.ComputeLocation
 import Amazonka.IoTSiteWise.Types.ConfigurationErrorDetails
 import Amazonka.IoTSiteWise.Types.ConfigurationState
 import Amazonka.IoTSiteWise.Types.ConfigurationStatus
+import Amazonka.IoTSiteWise.Types.Csv
 import Amazonka.IoTSiteWise.Types.CustomerManagedS3Storage
 import Amazonka.IoTSiteWise.Types.DashboardSummary
 import Amazonka.IoTSiteWise.Types.DetailedError
 import Amazonka.IoTSiteWise.Types.DetailedErrorCode
+import Amazonka.IoTSiteWise.Types.DisassociatedDataStorageState
 import Amazonka.IoTSiteWise.Types.EncryptionType
 import Amazonka.IoTSiteWise.Types.ErrorCode
 import Amazonka.IoTSiteWise.Types.ErrorDetails
+import Amazonka.IoTSiteWise.Types.ErrorReportLocation
 import Amazonka.IoTSiteWise.Types.ExpressionVariable
+import Amazonka.IoTSiteWise.Types.File
+import Amazonka.IoTSiteWise.Types.FileFormat
 import Amazonka.IoTSiteWise.Types.ForwardingConfig
 import Amazonka.IoTSiteWise.Types.ForwardingConfigState
 import Amazonka.IoTSiteWise.Types.GatewayCapabilitySummary
@@ -680,7 +932,14 @@ import Amazonka.IoTSiteWise.Types.ImageFile
 import Amazonka.IoTSiteWise.Types.ImageFileType
 import Amazonka.IoTSiteWise.Types.ImageLocation
 import Amazonka.IoTSiteWise.Types.InterpolatedAssetPropertyValue
+import Amazonka.IoTSiteWise.Types.JobConfiguration
+import Amazonka.IoTSiteWise.Types.JobStatus
+import Amazonka.IoTSiteWise.Types.JobSummary
+import Amazonka.IoTSiteWise.Types.ListAssetModelPropertiesFilter
+import Amazonka.IoTSiteWise.Types.ListAssetPropertiesFilter
 import Amazonka.IoTSiteWise.Types.ListAssetsFilter
+import Amazonka.IoTSiteWise.Types.ListBulkImportJobsFilter
+import Amazonka.IoTSiteWise.Types.ListTimeSeriesType
 import Amazonka.IoTSiteWise.Types.LoggingLevel
 import Amazonka.IoTSiteWise.Types.LoggingOptions
 import Amazonka.IoTSiteWise.Types.Measurement
@@ -707,9 +966,11 @@ import Amazonka.IoTSiteWise.Types.PutAssetPropertyValueEntry
 import Amazonka.IoTSiteWise.Types.Quality
 import Amazonka.IoTSiteWise.Types.Resource
 import Amazonka.IoTSiteWise.Types.ResourceType
+import Amazonka.IoTSiteWise.Types.RetentionPeriod
 import Amazonka.IoTSiteWise.Types.StorageType
 import Amazonka.IoTSiteWise.Types.TimeInNanos
 import Amazonka.IoTSiteWise.Types.TimeOrdering
+import Amazonka.IoTSiteWise.Types.TimeSeriesSummary
 import Amazonka.IoTSiteWise.Types.Transform
 import Amazonka.IoTSiteWise.Types.TransformProcessingConfig
 import Amazonka.IoTSiteWise.Types.TraversalDirection
@@ -718,7 +979,6 @@ import Amazonka.IoTSiteWise.Types.TumblingWindow
 import Amazonka.IoTSiteWise.Types.UserIdentity
 import Amazonka.IoTSiteWise.Types.VariableValue
 import Amazonka.IoTSiteWise.Types.Variant
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -726,42 +986,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "IoTSiteWise",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "iotsitewise",
-      Core._serviceSigningName = "iotsitewise",
-      Core._serviceVersion = "2019-12-02",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "IoTSiteWise",
-      Core._serviceRetry = retry
+    { Core.abbrev = "IoTSiteWise",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "iotsitewise",
+      Core.signingName = "iotsitewise",
+      Core.version = "2019-12-02",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "IoTSiteWise",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -769,58 +1036,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | The request isn\'t valid. This can occur if your request contains
--- malformed JSON or unsupported characters. Check your request and try
--- again.
-_InvalidRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidRequestException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidRequestException"
-    Prelude.. Core.hasStatus 400
-
--- | The resource already exists.
-_ResourceAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceAlreadyExistsException =
-  Core._MatchServiceError
-    defaultService
-    "ResourceAlreadyExistsException"
-    Prelude.. Core.hasStatus 409
-
--- | You\'ve reached the limit for the number of tags allowed for a resource.
--- For more information, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html#tag-conventions Tag naming limits and requirements>
--- in the /Amazon Web Services General Reference/.
-_TooManyTagsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyTagsException =
-  Core._MatchServiceError
-    defaultService
-    "TooManyTagsException"
-    Prelude.. Core.hasStatus 400
 
 -- | Your request has conflicting operations. This can occur if you\'re
 -- trying to perform more than one operation on the same resource at the
@@ -832,20 +1062,6 @@ _ConflictingOperationException =
     "ConflictingOperationException"
     Prelude.. Core.hasStatus 409
 
--- | Your request exceeded a rate limit. For example, you might have exceeded
--- the number of IoT SiteWise assets that can be created per second, the
--- allowed number of messages per second, and so on.
---
--- For more information, see
--- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html Quotas>
--- in the /IoT SiteWise User Guide/.
-_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ThrottlingException =
-  Core._MatchServiceError
-    defaultService
-    "ThrottlingException"
-    Prelude.. Core.hasStatus 429
-
 -- | IoT SiteWise can\'t process your request right now. Try again later.
 _InternalFailureException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _InternalFailureException =
@@ -854,29 +1070,15 @@ _InternalFailureException =
     "InternalFailureException"
     Prelude.. Core.hasStatus 500
 
--- | The requested service is unavailable.
-_ServiceUnavailableException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ServiceUnavailableException =
+-- | The request isn\'t valid. This can occur if your request contains
+-- malformed JSON or unsupported characters. Check your request and try
+-- again.
+_InvalidRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidRequestException =
   Core._MatchServiceError
     defaultService
-    "ServiceUnavailableException"
-    Prelude.. Core.hasStatus 503
-
--- | You are not authorized.
-_UnauthorizedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_UnauthorizedException =
-  Core._MatchServiceError
-    defaultService
-    "UnauthorizedException"
-    Prelude.. Core.hasStatus 401
-
--- | The requested resource can\'t be found.
-_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceNotFoundException =
-  Core._MatchServiceError
-    defaultService
-    "ResourceNotFoundException"
-    Prelude.. Core.hasStatus 404
+    "InvalidRequestException"
+    Prelude.. Core.hasStatus 400
 
 -- | You\'ve reached the limit for a resource. For example, this can occur if
 -- you\'re trying to associate more than the allowed number of child assets
@@ -892,3 +1094,60 @@ _LimitExceededException =
     defaultService
     "LimitExceededException"
     Prelude.. Core.hasStatus 410
+
+-- | The resource already exists.
+_ResourceAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceAlreadyExistsException =
+  Core._MatchServiceError
+    defaultService
+    "ResourceAlreadyExistsException"
+    Prelude.. Core.hasStatus 409
+
+-- | The requested resource can\'t be found.
+_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceNotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "ResourceNotFoundException"
+    Prelude.. Core.hasStatus 404
+
+-- | The requested service is unavailable.
+_ServiceUnavailableException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ServiceUnavailableException =
+  Core._MatchServiceError
+    defaultService
+    "ServiceUnavailableException"
+    Prelude.. Core.hasStatus 503
+
+-- | Your request exceeded a rate limit. For example, you might have exceeded
+-- the number of IoT SiteWise assets that can be created per second, the
+-- allowed number of messages per second, and so on.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/quotas.html Quotas>
+-- in the /IoT SiteWise User Guide/.
+_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ThrottlingException =
+  Core._MatchServiceError
+    defaultService
+    "ThrottlingException"
+    Prelude.. Core.hasStatus 429
+
+-- | You\'ve reached the limit for the number of tags allowed for a resource.
+-- For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html#tag-conventions Tag naming limits and requirements>
+-- in the /Amazon Web Services General Reference/.
+_TooManyTagsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyTagsException =
+  Core._MatchServiceError
+    defaultService
+    "TooManyTagsException"
+    Prelude.. Core.hasStatus 400
+
+-- | You are not authorized.
+_UnauthorizedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_UnauthorizedException =
+  Core._MatchServiceError
+    defaultService
+    "UnauthorizedException"
+    Prelude.. Core.hasStatus 401

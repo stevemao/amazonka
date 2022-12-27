@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.GenerateChangeSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.SMS.GenerateChangeSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,12 +89,13 @@ instance Core.AWSRequest GenerateChangeSet where
   type
     AWSResponse GenerateChangeSet =
       GenerateChangeSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GenerateChangeSetResponse'
-            Prelude.<$> (x Core..?> "s3Location")
+            Prelude.<$> (x Data..?> "s3Location")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -107,35 +109,35 @@ instance Prelude.NFData GenerateChangeSet where
     Prelude.rnf appId
       `Prelude.seq` Prelude.rnf changesetFormat
 
-instance Core.ToHeaders GenerateChangeSet where
+instance Data.ToHeaders GenerateChangeSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.GenerateChangeSet" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.GenerateChangeSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GenerateChangeSet where
+instance Data.ToJSON GenerateChangeSet where
   toJSON GenerateChangeSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("appId" Core..=) Prelude.<$> appId,
-            ("changesetFormat" Core..=)
+          [ ("appId" Data..=) Prelude.<$> appId,
+            ("changesetFormat" Data..=)
               Prelude.<$> changesetFormat
           ]
       )
 
-instance Core.ToPath GenerateChangeSet where
+instance Data.ToPath GenerateChangeSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GenerateChangeSet where
+instance Data.ToQuery GenerateChangeSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGenerateChangeSetResponse' smart constructor.

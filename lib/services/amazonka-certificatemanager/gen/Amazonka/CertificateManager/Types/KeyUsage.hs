@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManager.Types.KeyUsage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CertificateManager.Types.KeyUsage where
 
 import Amazonka.CertificateManager.Types.KeyUsageName
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The Key Usage X.509 v3 extension defines the purpose of the public key
@@ -51,11 +52,11 @@ newKeyUsage = KeyUsage' {name = Prelude.Nothing}
 keyUsage_name :: Lens.Lens' KeyUsage (Prelude.Maybe KeyUsageName)
 keyUsage_name = Lens.lens (\KeyUsage' {name} -> name) (\s@KeyUsage' {} a -> s {name = a} :: KeyUsage)
 
-instance Core.FromJSON KeyUsage where
+instance Data.FromJSON KeyUsage where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KeyUsage"
-      (\x -> KeyUsage' Prelude.<$> (x Core..:? "Name"))
+      (\x -> KeyUsage' Prelude.<$> (x Data..:? "Name"))
 
 instance Prelude.Hashable KeyUsage where
   hashWithSalt _salt KeyUsage' {..} =

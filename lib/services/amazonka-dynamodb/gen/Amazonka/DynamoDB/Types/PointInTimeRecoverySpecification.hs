@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.PointInTimeRecoverySpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,10 @@
 module Amazonka.DynamoDB.Types.PointInTimeRecoverySpecification where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the settings used to enable point in time recovery.
@@ -77,13 +79,13 @@ instance
   rnf PointInTimeRecoverySpecification' {..} =
     Prelude.rnf pointInTimeRecoveryEnabled
 
-instance Core.ToJSON PointInTimeRecoverySpecification where
+instance Data.ToJSON PointInTimeRecoverySpecification where
   toJSON PointInTimeRecoverySpecification' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "PointInTimeRecoveryEnabled"
-                  Core..= pointInTimeRecoveryEnabled
+                  Data..= pointInTimeRecoveryEnabled
               )
           ]
       )

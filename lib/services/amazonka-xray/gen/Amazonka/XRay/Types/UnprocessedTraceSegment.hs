@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.Types.UnprocessedTraceSegment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.XRay.Types.UnprocessedTraceSegment where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a segment that failed processing.
@@ -71,15 +72,15 @@ unprocessedTraceSegment_id = Lens.lens (\UnprocessedTraceSegment' {id} -> id) (\
 unprocessedTraceSegment_message :: Lens.Lens' UnprocessedTraceSegment (Prelude.Maybe Prelude.Text)
 unprocessedTraceSegment_message = Lens.lens (\UnprocessedTraceSegment' {message} -> message) (\s@UnprocessedTraceSegment' {} a -> s {message = a} :: UnprocessedTraceSegment)
 
-instance Core.FromJSON UnprocessedTraceSegment where
+instance Data.FromJSON UnprocessedTraceSegment where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UnprocessedTraceSegment"
       ( \x ->
           UnprocessedTraceSegment'
-            Prelude.<$> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "Id")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "Id")
+            Prelude.<*> (x Data..:? "Message")
       )
 
 instance Prelude.Hashable UnprocessedTraceSegment where

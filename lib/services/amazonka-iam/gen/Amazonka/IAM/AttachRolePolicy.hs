@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.AttachRolePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,8 +54,9 @@ module Amazonka.IAM.AttachRolePolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -131,7 +132,8 @@ instance Core.AWSRequest AttachRolePolicy where
   type
     AWSResponse AttachRolePolicy =
       AttachRolePolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull AttachRolePolicyResponse'
 
@@ -145,21 +147,21 @@ instance Prelude.NFData AttachRolePolicy where
     Prelude.rnf roleName
       `Prelude.seq` Prelude.rnf policyArn
 
-instance Core.ToHeaders AttachRolePolicy where
+instance Data.ToHeaders AttachRolePolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AttachRolePolicy where
+instance Data.ToPath AttachRolePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AttachRolePolicy where
+instance Data.ToQuery AttachRolePolicy where
   toQuery AttachRolePolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("AttachRolePolicy" :: Prelude.ByteString),
+          Data.=: ("AttachRolePolicy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "RoleName" Core.=: roleName,
-        "PolicyArn" Core.=: policyArn
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "RoleName" Data.=: roleName,
+        "PolicyArn" Data.=: policyArn
       ]
 
 -- | /See:/ 'newAttachRolePolicyResponse' smart constructor.

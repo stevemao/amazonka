@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AMP.ListWorkspaces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.AMP.ListWorkspaces
 
     -- * Request Lenses
     listWorkspaces_alias,
-    listWorkspaces_nextToken,
     listWorkspaces_maxResults,
+    listWorkspaces_nextToken,
 
     -- * Destructuring the Response
     ListWorkspacesResponse (..),
@@ -46,7 +46,8 @@ where
 
 import Amazonka.AMP.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,12 +59,12 @@ data ListWorkspaces = ListWorkspaces'
   { -- | Optional filter for workspace alias. Only the workspaces with aliases
     -- that begin with this value will be returned.
     alias :: Prelude.Maybe Prelude.Text,
+    -- | Maximum results to return in response (default=100, maximum=1000).
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | Pagination token to request the next page in a paginated list. This
     -- token is obtained from the output of the previous ListWorkspaces
     -- request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum results to return in response (default=100, maximum=1000).
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -78,18 +79,18 @@ data ListWorkspaces = ListWorkspaces'
 -- 'alias', 'listWorkspaces_alias' - Optional filter for workspace alias. Only the workspaces with aliases
 -- that begin with this value will be returned.
 --
+-- 'maxResults', 'listWorkspaces_maxResults' - Maximum results to return in response (default=100, maximum=1000).
+--
 -- 'nextToken', 'listWorkspaces_nextToken' - Pagination token to request the next page in a paginated list. This
 -- token is obtained from the output of the previous ListWorkspaces
 -- request.
---
--- 'maxResults', 'listWorkspaces_maxResults' - Maximum results to return in response (default=100, maximum=1000).
 newListWorkspaces ::
   ListWorkspaces
 newListWorkspaces =
   ListWorkspaces'
     { alias = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | Optional filter for workspace alias. Only the workspaces with aliases
@@ -97,15 +98,15 @@ newListWorkspaces =
 listWorkspaces_alias :: Lens.Lens' ListWorkspaces (Prelude.Maybe Prelude.Text)
 listWorkspaces_alias = Lens.lens (\ListWorkspaces' {alias} -> alias) (\s@ListWorkspaces' {} a -> s {alias = a} :: ListWorkspaces)
 
+-- | Maximum results to return in response (default=100, maximum=1000).
+listWorkspaces_maxResults :: Lens.Lens' ListWorkspaces (Prelude.Maybe Prelude.Natural)
+listWorkspaces_maxResults = Lens.lens (\ListWorkspaces' {maxResults} -> maxResults) (\s@ListWorkspaces' {} a -> s {maxResults = a} :: ListWorkspaces)
+
 -- | Pagination token to request the next page in a paginated list. This
 -- token is obtained from the output of the previous ListWorkspaces
 -- request.
 listWorkspaces_nextToken :: Lens.Lens' ListWorkspaces (Prelude.Maybe Prelude.Text)
 listWorkspaces_nextToken = Lens.lens (\ListWorkspaces' {nextToken} -> nextToken) (\s@ListWorkspaces' {} a -> s {nextToken = a} :: ListWorkspaces)
-
--- | Maximum results to return in response (default=100, maximum=1000).
-listWorkspaces_maxResults :: Lens.Lens' ListWorkspaces (Prelude.Maybe Prelude.Natural)
-listWorkspaces_maxResults = Lens.lens (\ListWorkspaces' {maxResults} -> maxResults) (\s@ListWorkspaces' {} a -> s {maxResults = a} :: ListWorkspaces)
 
 instance Core.AWSPager ListWorkspaces where
   page rq rs
@@ -129,48 +130,49 @@ instance Core.AWSRequest ListWorkspaces where
   type
     AWSResponse ListWorkspaces =
       ListWorkspacesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListWorkspacesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "workspaces" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "workspaces" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListWorkspaces where
   hashWithSalt _salt ListWorkspaces' {..} =
     _salt `Prelude.hashWithSalt` alias
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListWorkspaces where
   rnf ListWorkspaces' {..} =
     Prelude.rnf alias
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListWorkspaces where
+instance Data.ToHeaders ListWorkspaces where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListWorkspaces where
+instance Data.ToPath ListWorkspaces where
   toPath = Prelude.const "/workspaces"
 
-instance Core.ToQuery ListWorkspaces where
+instance Data.ToQuery ListWorkspaces where
   toQuery ListWorkspaces' {..} =
     Prelude.mconcat
-      [ "alias" Core.=: alias,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "alias" Data.=: alias,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | Represents the output of a ListWorkspaces operation.

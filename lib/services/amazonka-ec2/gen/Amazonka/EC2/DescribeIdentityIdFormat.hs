@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeIdentityIdFormat
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -62,8 +62,9 @@ module Amazonka.EC2.DescribeIdentityIdFormat
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -141,13 +142,14 @@ instance Core.AWSRequest DescribeIdentityIdFormat where
   type
     AWSResponse DescribeIdentityIdFormat =
       DescribeIdentityIdFormatResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeIdentityIdFormatResponse'
-            Prelude.<$> ( x Core..@? "statusSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "statusSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -162,21 +164,21 @@ instance Prelude.NFData DescribeIdentityIdFormat where
     Prelude.rnf resource
       `Prelude.seq` Prelude.rnf principalArn
 
-instance Core.ToHeaders DescribeIdentityIdFormat where
+instance Data.ToHeaders DescribeIdentityIdFormat where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeIdentityIdFormat where
+instance Data.ToPath DescribeIdentityIdFormat where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeIdentityIdFormat where
+instance Data.ToQuery DescribeIdentityIdFormat where
   toQuery DescribeIdentityIdFormat' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeIdentityIdFormat" :: Prelude.ByteString),
+          Data.=: ("DescribeIdentityIdFormat" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "Resource" Core.=: resource,
-        "PrincipalArn" Core.=: principalArn
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "Resource" Data.=: resource,
+        "PrincipalArn" Data.=: principalArn
       ]
 
 -- | /See:/ 'newDescribeIdentityIdFormatResponse' smart constructor.

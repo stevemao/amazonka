@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyVolume
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,21 +49,22 @@
 -- require detaching and reattaching the volume or stopping and restarting
 -- the instance.
 --
--- If you reach the maximum volume modification rate per volume limit, you
--- must wait at least six hours before applying further modifications to
--- the affected EBS volume.
+-- After modifying a volume, you must wait at least six hours and ensure
+-- that the volume is in the @in-use@ or @available@ state before you can
+-- modify the same volume. This is sometimes referred to as a cooldown
+-- period.
 module Amazonka.EC2.ModifyVolume
   ( -- * Creating a Request
     ModifyVolume (..),
     newModifyVolume,
 
     -- * Request Lenses
-    modifyVolume_multiAttachEnabled,
-    modifyVolume_throughput,
-    modifyVolume_size,
-    modifyVolume_iops,
-    modifyVolume_volumeType,
     modifyVolume_dryRun,
+    modifyVolume_iops,
+    modifyVolume_multiAttachEnabled,
+    modifyVolume_size,
+    modifyVolume_throughput,
+    modifyVolume_volumeType,
     modifyVolume_volumeId,
 
     -- * Destructuring the Response
@@ -77,45 +78,20 @@ module Amazonka.EC2.ModifyVolume
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newModifyVolume' smart constructor.
 data ModifyVolume = ModifyVolume'
-  { -- | Specifies whether to enable Amazon EBS Multi-Attach. If you enable
-    -- Multi-Attach, you can attach the volume to up to 16
-    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances Nitro-based instances>
-    -- in the same Availability Zone. This parameter is supported with @io1@
-    -- and @io2@ volumes only. For more information, see
-    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volumes-multi.html Amazon EBS Multi-Attach>
-    -- in the /Amazon Elastic Compute Cloud User Guide/.
-    multiAttachEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | The target throughput of the volume, in MiB\/s. This parameter is valid
-    -- only for @gp3@ volumes. The maximum value is 1,000.
-    --
-    -- Default: The existing value is retained if the source and target volume
-    -- type is @gp3@. Otherwise, the default value is 125.
-    --
-    -- Valid Range: Minimum value of 125. Maximum value of 1000.
-    throughput :: Prelude.Maybe Prelude.Int,
-    -- | The target size of the volume, in GiB. The target volume size must be
-    -- greater than or equal to the existing size of the volume.
-    --
-    -- The following are the supported volumes sizes for each volume type:
-    --
-    -- -   @gp2@ and @gp3@: 1-16,384
-    --
-    -- -   @io1@ and @io2@: 4-16,384
-    --
-    -- -   @st1@ and @sc1@: 125-16,384
-    --
-    -- -   @standard@: 1-1,024
-    --
-    -- Default: The existing size is retained.
-    size :: Prelude.Maybe Prelude.Int,
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The target IOPS rate of the volume. This parameter is valid only for
     -- @gp3@, @io1@, and @io2@ volumes.
     --
@@ -131,17 +107,43 @@ data ModifyVolume = ModifyVolume'
     -- type. If you change the volume type to @io1@, @io2@, or @gp3@, the
     -- default is 3,000.
     iops :: Prelude.Maybe Prelude.Int,
+    -- | Specifies whether to enable Amazon EBS Multi-Attach. If you enable
+    -- Multi-Attach, you can attach the volume to up to 16
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances Nitro-based instances>
+    -- in the same Availability Zone. This parameter is supported with @io1@
+    -- and @io2@ volumes only. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volumes-multi.html Amazon EBS Multi-Attach>
+    -- in the /Amazon Elastic Compute Cloud User Guide/.
+    multiAttachEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The target size of the volume, in GiB. The target volume size must be
+    -- greater than or equal to the existing size of the volume.
+    --
+    -- The following are the supported volumes sizes for each volume type:
+    --
+    -- -   @gp2@ and @gp3@: 1-16,384
+    --
+    -- -   @io1@ and @io2@: 4-16,384
+    --
+    -- -   @st1@ and @sc1@: 125-16,384
+    --
+    -- -   @standard@: 1-1,024
+    --
+    -- Default: The existing size is retained.
+    size :: Prelude.Maybe Prelude.Int,
+    -- | The target throughput of the volume, in MiB\/s. This parameter is valid
+    -- only for @gp3@ volumes. The maximum value is 1,000.
+    --
+    -- Default: The existing value is retained if the source and target volume
+    -- type is @gp3@. Otherwise, the default value is 125.
+    --
+    -- Valid Range: Minimum value of 125. Maximum value of 1000.
+    throughput :: Prelude.Maybe Prelude.Int,
     -- | The target EBS volume type of the volume. For more information, see
     -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html Amazon EBS volume types>
     -- in the /Amazon Elastic Compute Cloud User Guide/.
     --
     -- Default: The existing type is retained.
     volumeType :: Prelude.Maybe VolumeType,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The ID of the volume.
     volumeId :: Prelude.Text
   }
@@ -155,36 +157,10 @@ data ModifyVolume = ModifyVolume'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'multiAttachEnabled', 'modifyVolume_multiAttachEnabled' - Specifies whether to enable Amazon EBS Multi-Attach. If you enable
--- Multi-Attach, you can attach the volume to up to 16
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances Nitro-based instances>
--- in the same Availability Zone. This parameter is supported with @io1@
--- and @io2@ volumes only. For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volumes-multi.html Amazon EBS Multi-Attach>
--- in the /Amazon Elastic Compute Cloud User Guide/.
---
--- 'throughput', 'modifyVolume_throughput' - The target throughput of the volume, in MiB\/s. This parameter is valid
--- only for @gp3@ volumes. The maximum value is 1,000.
---
--- Default: The existing value is retained if the source and target volume
--- type is @gp3@. Otherwise, the default value is 125.
---
--- Valid Range: Minimum value of 125. Maximum value of 1000.
---
--- 'size', 'modifyVolume_size' - The target size of the volume, in GiB. The target volume size must be
--- greater than or equal to the existing size of the volume.
---
--- The following are the supported volumes sizes for each volume type:
---
--- -   @gp2@ and @gp3@: 1-16,384
---
--- -   @io1@ and @io2@: 4-16,384
---
--- -   @st1@ and @sc1@: 125-16,384
---
--- -   @standard@: 1-1,024
---
--- Default: The existing size is retained.
+-- 'dryRun', 'modifyVolume_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'iops', 'modifyVolume_iops' - The target IOPS rate of the volume. This parameter is valid only for
 -- @gp3@, @io1@, and @io2@ volumes.
@@ -201,54 +177,15 @@ data ModifyVolume = ModifyVolume'
 -- type. If you change the volume type to @io1@, @io2@, or @gp3@, the
 -- default is 3,000.
 --
--- 'volumeType', 'modifyVolume_volumeType' - The target EBS volume type of the volume. For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html Amazon EBS volume types>
--- in the /Amazon Elastic Compute Cloud User Guide/.
---
--- Default: The existing type is retained.
---
--- 'dryRun', 'modifyVolume_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
--- 'volumeId', 'modifyVolume_volumeId' - The ID of the volume.
-newModifyVolume ::
-  -- | 'volumeId'
-  Prelude.Text ->
-  ModifyVolume
-newModifyVolume pVolumeId_ =
-  ModifyVolume'
-    { multiAttachEnabled = Prelude.Nothing,
-      throughput = Prelude.Nothing,
-      size = Prelude.Nothing,
-      iops = Prelude.Nothing,
-      volumeType = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      volumeId = pVolumeId_
-    }
-
--- | Specifies whether to enable Amazon EBS Multi-Attach. If you enable
+-- 'multiAttachEnabled', 'modifyVolume_multiAttachEnabled' - Specifies whether to enable Amazon EBS Multi-Attach. If you enable
 -- Multi-Attach, you can attach the volume to up to 16
 -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances Nitro-based instances>
 -- in the same Availability Zone. This parameter is supported with @io1@
 -- and @io2@ volumes only. For more information, see
 -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volumes-multi.html Amazon EBS Multi-Attach>
 -- in the /Amazon Elastic Compute Cloud User Guide/.
-modifyVolume_multiAttachEnabled :: Lens.Lens' ModifyVolume (Prelude.Maybe Prelude.Bool)
-modifyVolume_multiAttachEnabled = Lens.lens (\ModifyVolume' {multiAttachEnabled} -> multiAttachEnabled) (\s@ModifyVolume' {} a -> s {multiAttachEnabled = a} :: ModifyVolume)
-
--- | The target throughput of the volume, in MiB\/s. This parameter is valid
--- only for @gp3@ volumes. The maximum value is 1,000.
 --
--- Default: The existing value is retained if the source and target volume
--- type is @gp3@. Otherwise, the default value is 125.
---
--- Valid Range: Minimum value of 125. Maximum value of 1000.
-modifyVolume_throughput :: Lens.Lens' ModifyVolume (Prelude.Maybe Prelude.Int)
-modifyVolume_throughput = Lens.lens (\ModifyVolume' {throughput} -> throughput) (\s@ModifyVolume' {} a -> s {throughput = a} :: ModifyVolume)
-
--- | The target size of the volume, in GiB. The target volume size must be
+-- 'size', 'modifyVolume_size' - The target size of the volume, in GiB. The target volume size must be
 -- greater than or equal to the existing size of the volume.
 --
 -- The following are the supported volumes sizes for each volume type:
@@ -262,8 +199,43 @@ modifyVolume_throughput = Lens.lens (\ModifyVolume' {throughput} -> throughput) 
 -- -   @standard@: 1-1,024
 --
 -- Default: The existing size is retained.
-modifyVolume_size :: Lens.Lens' ModifyVolume (Prelude.Maybe Prelude.Int)
-modifyVolume_size = Lens.lens (\ModifyVolume' {size} -> size) (\s@ModifyVolume' {} a -> s {size = a} :: ModifyVolume)
+--
+-- 'throughput', 'modifyVolume_throughput' - The target throughput of the volume, in MiB\/s. This parameter is valid
+-- only for @gp3@ volumes. The maximum value is 1,000.
+--
+-- Default: The existing value is retained if the source and target volume
+-- type is @gp3@. Otherwise, the default value is 125.
+--
+-- Valid Range: Minimum value of 125. Maximum value of 1000.
+--
+-- 'volumeType', 'modifyVolume_volumeType' - The target EBS volume type of the volume. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html Amazon EBS volume types>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+--
+-- Default: The existing type is retained.
+--
+-- 'volumeId', 'modifyVolume_volumeId' - The ID of the volume.
+newModifyVolume ::
+  -- | 'volumeId'
+  Prelude.Text ->
+  ModifyVolume
+newModifyVolume pVolumeId_ =
+  ModifyVolume'
+    { dryRun = Prelude.Nothing,
+      iops = Prelude.Nothing,
+      multiAttachEnabled = Prelude.Nothing,
+      size = Prelude.Nothing,
+      throughput = Prelude.Nothing,
+      volumeType = Prelude.Nothing,
+      volumeId = pVolumeId_
+    }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+modifyVolume_dryRun :: Lens.Lens' ModifyVolume (Prelude.Maybe Prelude.Bool)
+modifyVolume_dryRun = Lens.lens (\ModifyVolume' {dryRun} -> dryRun) (\s@ModifyVolume' {} a -> s {dryRun = a} :: ModifyVolume)
 
 -- | The target IOPS rate of the volume. This parameter is valid only for
 -- @gp3@, @io1@, and @io2@ volumes.
@@ -282,6 +254,43 @@ modifyVolume_size = Lens.lens (\ModifyVolume' {size} -> size) (\s@ModifyVolume' 
 modifyVolume_iops :: Lens.Lens' ModifyVolume (Prelude.Maybe Prelude.Int)
 modifyVolume_iops = Lens.lens (\ModifyVolume' {iops} -> iops) (\s@ModifyVolume' {} a -> s {iops = a} :: ModifyVolume)
 
+-- | Specifies whether to enable Amazon EBS Multi-Attach. If you enable
+-- Multi-Attach, you can attach the volume to up to 16
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html#ec2-nitro-instances Nitro-based instances>
+-- in the same Availability Zone. This parameter is supported with @io1@
+-- and @io2@ volumes only. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-volumes-multi.html Amazon EBS Multi-Attach>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
+modifyVolume_multiAttachEnabled :: Lens.Lens' ModifyVolume (Prelude.Maybe Prelude.Bool)
+modifyVolume_multiAttachEnabled = Lens.lens (\ModifyVolume' {multiAttachEnabled} -> multiAttachEnabled) (\s@ModifyVolume' {} a -> s {multiAttachEnabled = a} :: ModifyVolume)
+
+-- | The target size of the volume, in GiB. The target volume size must be
+-- greater than or equal to the existing size of the volume.
+--
+-- The following are the supported volumes sizes for each volume type:
+--
+-- -   @gp2@ and @gp3@: 1-16,384
+--
+-- -   @io1@ and @io2@: 4-16,384
+--
+-- -   @st1@ and @sc1@: 125-16,384
+--
+-- -   @standard@: 1-1,024
+--
+-- Default: The existing size is retained.
+modifyVolume_size :: Lens.Lens' ModifyVolume (Prelude.Maybe Prelude.Int)
+modifyVolume_size = Lens.lens (\ModifyVolume' {size} -> size) (\s@ModifyVolume' {} a -> s {size = a} :: ModifyVolume)
+
+-- | The target throughput of the volume, in MiB\/s. This parameter is valid
+-- only for @gp3@ volumes. The maximum value is 1,000.
+--
+-- Default: The existing value is retained if the source and target volume
+-- type is @gp3@. Otherwise, the default value is 125.
+--
+-- Valid Range: Minimum value of 125. Maximum value of 1000.
+modifyVolume_throughput :: Lens.Lens' ModifyVolume (Prelude.Maybe Prelude.Int)
+modifyVolume_throughput = Lens.lens (\ModifyVolume' {throughput} -> throughput) (\s@ModifyVolume' {} a -> s {throughput = a} :: ModifyVolume)
+
 -- | The target EBS volume type of the volume. For more information, see
 -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/EBSVolumeTypes.html Amazon EBS volume types>
 -- in the /Amazon Elastic Compute Cloud User Guide/.
@@ -290,68 +299,62 @@ modifyVolume_iops = Lens.lens (\ModifyVolume' {iops} -> iops) (\s@ModifyVolume' 
 modifyVolume_volumeType :: Lens.Lens' ModifyVolume (Prelude.Maybe VolumeType)
 modifyVolume_volumeType = Lens.lens (\ModifyVolume' {volumeType} -> volumeType) (\s@ModifyVolume' {} a -> s {volumeType = a} :: ModifyVolume)
 
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-modifyVolume_dryRun :: Lens.Lens' ModifyVolume (Prelude.Maybe Prelude.Bool)
-modifyVolume_dryRun = Lens.lens (\ModifyVolume' {dryRun} -> dryRun) (\s@ModifyVolume' {} a -> s {dryRun = a} :: ModifyVolume)
-
 -- | The ID of the volume.
 modifyVolume_volumeId :: Lens.Lens' ModifyVolume Prelude.Text
 modifyVolume_volumeId = Lens.lens (\ModifyVolume' {volumeId} -> volumeId) (\s@ModifyVolume' {} a -> s {volumeId = a} :: ModifyVolume)
 
 instance Core.AWSRequest ModifyVolume where
   type AWSResponse ModifyVolume = ModifyVolumeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ModifyVolumeResponse'
-            Prelude.<$> (x Core..@? "volumeModification")
+            Prelude.<$> (x Data..@? "volumeModification")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ModifyVolume where
   hashWithSalt _salt ModifyVolume' {..} =
-    _salt `Prelude.hashWithSalt` multiAttachEnabled
-      `Prelude.hashWithSalt` throughput
-      `Prelude.hashWithSalt` size
+    _salt `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` iops
+      `Prelude.hashWithSalt` multiAttachEnabled
+      `Prelude.hashWithSalt` size
+      `Prelude.hashWithSalt` throughput
       `Prelude.hashWithSalt` volumeType
-      `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` volumeId
 
 instance Prelude.NFData ModifyVolume where
   rnf ModifyVolume' {..} =
-    Prelude.rnf multiAttachEnabled
-      `Prelude.seq` Prelude.rnf throughput
-      `Prelude.seq` Prelude.rnf size
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf iops
+      `Prelude.seq` Prelude.rnf multiAttachEnabled
+      `Prelude.seq` Prelude.rnf size
+      `Prelude.seq` Prelude.rnf throughput
       `Prelude.seq` Prelude.rnf volumeType
-      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf volumeId
 
-instance Core.ToHeaders ModifyVolume where
+instance Data.ToHeaders ModifyVolume where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyVolume where
+instance Data.ToPath ModifyVolume where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyVolume where
+instance Data.ToQuery ModifyVolume where
   toQuery ModifyVolume' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyVolume" :: Prelude.ByteString),
+          Data.=: ("ModifyVolume" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "MultiAttachEnabled" Core.=: multiAttachEnabled,
-        "Throughput" Core.=: throughput,
-        "Size" Core.=: size,
-        "Iops" Core.=: iops,
-        "VolumeType" Core.=: volumeType,
-        "DryRun" Core.=: dryRun,
-        "VolumeId" Core.=: volumeId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "Iops" Data.=: iops,
+        "MultiAttachEnabled" Data.=: multiAttachEnabled,
+        "Size" Data.=: size,
+        "Throughput" Data.=: throughput,
+        "VolumeType" Data.=: volumeType,
+        "VolumeId" Data.=: volumeId
       ]
 
 -- | /See:/ 'newModifyVolumeResponse' smart constructor.

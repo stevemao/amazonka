@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.Types.BuildPhase
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.CodeBuild.Types.BuildPhaseType
 import Amazonka.CodeBuild.Types.PhaseContext
 import Amazonka.CodeBuild.Types.StatusType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a stage for a build.
@@ -33,8 +34,11 @@ data BuildPhase = BuildPhase'
   { -- | Additional information about a build phase, especially to help
     -- troubleshoot a failed build.
     contexts :: Prelude.Maybe [PhaseContext],
-    -- | When the build phase started, expressed in Unix time format.
-    startTime :: Prelude.Maybe Core.POSIX,
+    -- | How long, in seconds, between the starting and ending times of the
+    -- build\'s phase.
+    durationInSeconds :: Prelude.Maybe Prelude.Integer,
+    -- | When the build phase ended, expressed in Unix time format.
+    endTime :: Prelude.Maybe Data.POSIX,
     -- | The current status of the build phase. Valid values include:
     --
     -- [FAILED]
@@ -91,11 +95,8 @@ data BuildPhase = BuildPhase'
     -- [UPLOAD_ARTIFACTS]
     --     Build output artifacts are being uploaded to the output location.
     phaseType :: Prelude.Maybe BuildPhaseType,
-    -- | When the build phase ended, expressed in Unix time format.
-    endTime :: Prelude.Maybe Core.POSIX,
-    -- | How long, in seconds, between the starting and ending times of the
-    -- build\'s phase.
-    durationInSeconds :: Prelude.Maybe Prelude.Integer
+    -- | When the build phase started, expressed in Unix time format.
+    startTime :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -110,7 +111,10 @@ data BuildPhase = BuildPhase'
 -- 'contexts', 'buildPhase_contexts' - Additional information about a build phase, especially to help
 -- troubleshoot a failed build.
 --
--- 'startTime', 'buildPhase_startTime' - When the build phase started, expressed in Unix time format.
+-- 'durationInSeconds', 'buildPhase_durationInSeconds' - How long, in seconds, between the starting and ending times of the
+-- build\'s phase.
+--
+-- 'endTime', 'buildPhase_endTime' - When the build phase ended, expressed in Unix time format.
 --
 -- 'phaseStatus', 'buildPhase_phaseStatus' - The current status of the build phase. Valid values include:
 --
@@ -168,20 +172,17 @@ data BuildPhase = BuildPhase'
 -- [UPLOAD_ARTIFACTS]
 --     Build output artifacts are being uploaded to the output location.
 --
--- 'endTime', 'buildPhase_endTime' - When the build phase ended, expressed in Unix time format.
---
--- 'durationInSeconds', 'buildPhase_durationInSeconds' - How long, in seconds, between the starting and ending times of the
--- build\'s phase.
+-- 'startTime', 'buildPhase_startTime' - When the build phase started, expressed in Unix time format.
 newBuildPhase ::
   BuildPhase
 newBuildPhase =
   BuildPhase'
     { contexts = Prelude.Nothing,
-      startTime = Prelude.Nothing,
+      durationInSeconds = Prelude.Nothing,
+      endTime = Prelude.Nothing,
       phaseStatus = Prelude.Nothing,
       phaseType = Prelude.Nothing,
-      endTime = Prelude.Nothing,
-      durationInSeconds = Prelude.Nothing
+      startTime = Prelude.Nothing
     }
 
 -- | Additional information about a build phase, especially to help
@@ -189,9 +190,14 @@ newBuildPhase =
 buildPhase_contexts :: Lens.Lens' BuildPhase (Prelude.Maybe [PhaseContext])
 buildPhase_contexts = Lens.lens (\BuildPhase' {contexts} -> contexts) (\s@BuildPhase' {} a -> s {contexts = a} :: BuildPhase) Prelude.. Lens.mapping Lens.coerced
 
--- | When the build phase started, expressed in Unix time format.
-buildPhase_startTime :: Lens.Lens' BuildPhase (Prelude.Maybe Prelude.UTCTime)
-buildPhase_startTime = Lens.lens (\BuildPhase' {startTime} -> startTime) (\s@BuildPhase' {} a -> s {startTime = a} :: BuildPhase) Prelude.. Lens.mapping Core._Time
+-- | How long, in seconds, between the starting and ending times of the
+-- build\'s phase.
+buildPhase_durationInSeconds :: Lens.Lens' BuildPhase (Prelude.Maybe Prelude.Integer)
+buildPhase_durationInSeconds = Lens.lens (\BuildPhase' {durationInSeconds} -> durationInSeconds) (\s@BuildPhase' {} a -> s {durationInSeconds = a} :: BuildPhase)
+
+-- | When the build phase ended, expressed in Unix time format.
+buildPhase_endTime :: Lens.Lens' BuildPhase (Prelude.Maybe Prelude.UTCTime)
+buildPhase_endTime = Lens.lens (\BuildPhase' {endTime} -> endTime) (\s@BuildPhase' {} a -> s {endTime = a} :: BuildPhase) Prelude.. Lens.mapping Data._Time
 
 -- | The current status of the build phase. Valid values include:
 --
@@ -253,43 +259,38 @@ buildPhase_phaseStatus = Lens.lens (\BuildPhase' {phaseStatus} -> phaseStatus) (
 buildPhase_phaseType :: Lens.Lens' BuildPhase (Prelude.Maybe BuildPhaseType)
 buildPhase_phaseType = Lens.lens (\BuildPhase' {phaseType} -> phaseType) (\s@BuildPhase' {} a -> s {phaseType = a} :: BuildPhase)
 
--- | When the build phase ended, expressed in Unix time format.
-buildPhase_endTime :: Lens.Lens' BuildPhase (Prelude.Maybe Prelude.UTCTime)
-buildPhase_endTime = Lens.lens (\BuildPhase' {endTime} -> endTime) (\s@BuildPhase' {} a -> s {endTime = a} :: BuildPhase) Prelude.. Lens.mapping Core._Time
+-- | When the build phase started, expressed in Unix time format.
+buildPhase_startTime :: Lens.Lens' BuildPhase (Prelude.Maybe Prelude.UTCTime)
+buildPhase_startTime = Lens.lens (\BuildPhase' {startTime} -> startTime) (\s@BuildPhase' {} a -> s {startTime = a} :: BuildPhase) Prelude.. Lens.mapping Data._Time
 
--- | How long, in seconds, between the starting and ending times of the
--- build\'s phase.
-buildPhase_durationInSeconds :: Lens.Lens' BuildPhase (Prelude.Maybe Prelude.Integer)
-buildPhase_durationInSeconds = Lens.lens (\BuildPhase' {durationInSeconds} -> durationInSeconds) (\s@BuildPhase' {} a -> s {durationInSeconds = a} :: BuildPhase)
-
-instance Core.FromJSON BuildPhase where
+instance Data.FromJSON BuildPhase where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BuildPhase"
       ( \x ->
           BuildPhase'
-            Prelude.<$> (x Core..:? "contexts" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "startTime")
-            Prelude.<*> (x Core..:? "phaseStatus")
-            Prelude.<*> (x Core..:? "phaseType")
-            Prelude.<*> (x Core..:? "endTime")
-            Prelude.<*> (x Core..:? "durationInSeconds")
+            Prelude.<$> (x Data..:? "contexts" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "durationInSeconds")
+            Prelude.<*> (x Data..:? "endTime")
+            Prelude.<*> (x Data..:? "phaseStatus")
+            Prelude.<*> (x Data..:? "phaseType")
+            Prelude.<*> (x Data..:? "startTime")
       )
 
 instance Prelude.Hashable BuildPhase where
   hashWithSalt _salt BuildPhase' {..} =
     _salt `Prelude.hashWithSalt` contexts
-      `Prelude.hashWithSalt` startTime
+      `Prelude.hashWithSalt` durationInSeconds
+      `Prelude.hashWithSalt` endTime
       `Prelude.hashWithSalt` phaseStatus
       `Prelude.hashWithSalt` phaseType
-      `Prelude.hashWithSalt` endTime
-      `Prelude.hashWithSalt` durationInSeconds
+      `Prelude.hashWithSalt` startTime
 
 instance Prelude.NFData BuildPhase where
   rnf BuildPhase' {..} =
     Prelude.rnf contexts
-      `Prelude.seq` Prelude.rnf startTime
+      `Prelude.seq` Prelude.rnf durationInSeconds
+      `Prelude.seq` Prelude.rnf endTime
       `Prelude.seq` Prelude.rnf phaseStatus
       `Prelude.seq` Prelude.rnf phaseType
-      `Prelude.seq` Prelude.rnf endTime
-      `Prelude.seq` Prelude.rnf durationInSeconds
+      `Prelude.seq` Prelude.rnf startTime

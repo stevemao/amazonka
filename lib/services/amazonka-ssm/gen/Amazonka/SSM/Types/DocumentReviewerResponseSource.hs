@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.DocumentReviewerResponseSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.DocumentReviewerResponseSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.DocumentReviewCommentSource
 import Amazonka.SSM.Types.ReviewStatus
@@ -29,8 +30,12 @@ import Amazonka.SSM.Types.ReviewStatus
 --
 -- /See:/ 'newDocumentReviewerResponseSource' smart constructor.
 data DocumentReviewerResponseSource = DocumentReviewerResponseSource'
-  { -- | The user in your organization assigned to review a document request.
-    reviewer :: Prelude.Maybe Prelude.Text,
+  { -- | The comment entered by a reviewer as part of their document review
+    -- response.
+    comment :: Prelude.Maybe [DocumentReviewCommentSource],
+    -- | The date and time that a reviewer entered a response to a document
+    -- review request.
+    createTime :: Prelude.Maybe Data.POSIX,
     -- | The current review status of a new custom SSM document created by a
     -- member of your organization, or of the latest version of an existing SSM
     -- document.
@@ -41,15 +46,11 @@ data DocumentReviewerResponseSource = DocumentReviewerResponseSource'
     --
     -- Only one version of a document can be in review, or PENDING, at a time.
     reviewStatus :: Prelude.Maybe ReviewStatus,
+    -- | The user in your organization assigned to review a document request.
+    reviewer :: Prelude.Maybe Prelude.Text,
     -- | The date and time that a reviewer last updated a response to a document
     -- review request.
-    updatedTime :: Prelude.Maybe Core.POSIX,
-    -- | The comment entered by a reviewer as part of their document review
-    -- response.
-    comment :: Prelude.Maybe [DocumentReviewCommentSource],
-    -- | The date and time that a reviewer entered a response to a document
-    -- review request.
-    createTime :: Prelude.Maybe Core.POSIX
+    updatedTime :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -61,7 +62,11 @@ data DocumentReviewerResponseSource = DocumentReviewerResponseSource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'reviewer', 'documentReviewerResponseSource_reviewer' - The user in your organization assigned to review a document request.
+-- 'comment', 'documentReviewerResponseSource_comment' - The comment entered by a reviewer as part of their document review
+-- response.
+--
+-- 'createTime', 'documentReviewerResponseSource_createTime' - The date and time that a reviewer entered a response to a document
+-- review request.
 --
 -- 'reviewStatus', 'documentReviewerResponseSource_reviewStatus' - The current review status of a new custom SSM document created by a
 -- member of your organization, or of the latest version of an existing SSM
@@ -73,29 +78,31 @@ data DocumentReviewerResponseSource = DocumentReviewerResponseSource'
 --
 -- Only one version of a document can be in review, or PENDING, at a time.
 --
+-- 'reviewer', 'documentReviewerResponseSource_reviewer' - The user in your organization assigned to review a document request.
+--
 -- 'updatedTime', 'documentReviewerResponseSource_updatedTime' - The date and time that a reviewer last updated a response to a document
--- review request.
---
--- 'comment', 'documentReviewerResponseSource_comment' - The comment entered by a reviewer as part of their document review
--- response.
---
--- 'createTime', 'documentReviewerResponseSource_createTime' - The date and time that a reviewer entered a response to a document
 -- review request.
 newDocumentReviewerResponseSource ::
   DocumentReviewerResponseSource
 newDocumentReviewerResponseSource =
   DocumentReviewerResponseSource'
-    { reviewer =
+    { comment =
         Prelude.Nothing,
+      createTime = Prelude.Nothing,
       reviewStatus = Prelude.Nothing,
-      updatedTime = Prelude.Nothing,
-      comment = Prelude.Nothing,
-      createTime = Prelude.Nothing
+      reviewer = Prelude.Nothing,
+      updatedTime = Prelude.Nothing
     }
 
--- | The user in your organization assigned to review a document request.
-documentReviewerResponseSource_reviewer :: Lens.Lens' DocumentReviewerResponseSource (Prelude.Maybe Prelude.Text)
-documentReviewerResponseSource_reviewer = Lens.lens (\DocumentReviewerResponseSource' {reviewer} -> reviewer) (\s@DocumentReviewerResponseSource' {} a -> s {reviewer = a} :: DocumentReviewerResponseSource)
+-- | The comment entered by a reviewer as part of their document review
+-- response.
+documentReviewerResponseSource_comment :: Lens.Lens' DocumentReviewerResponseSource (Prelude.Maybe [DocumentReviewCommentSource])
+documentReviewerResponseSource_comment = Lens.lens (\DocumentReviewerResponseSource' {comment} -> comment) (\s@DocumentReviewerResponseSource' {} a -> s {comment = a} :: DocumentReviewerResponseSource) Prelude.. Lens.mapping Lens.coerced
+
+-- | The date and time that a reviewer entered a response to a document
+-- review request.
+documentReviewerResponseSource_createTime :: Lens.Lens' DocumentReviewerResponseSource (Prelude.Maybe Prelude.UTCTime)
+documentReviewerResponseSource_createTime = Lens.lens (\DocumentReviewerResponseSource' {createTime} -> createTime) (\s@DocumentReviewerResponseSource' {} a -> s {createTime = a} :: DocumentReviewerResponseSource) Prelude.. Lens.mapping Data._Time
 
 -- | The current review status of a new custom SSM document created by a
 -- member of your organization, or of the latest version of an existing SSM
@@ -109,32 +116,26 @@ documentReviewerResponseSource_reviewer = Lens.lens (\DocumentReviewerResponseSo
 documentReviewerResponseSource_reviewStatus :: Lens.Lens' DocumentReviewerResponseSource (Prelude.Maybe ReviewStatus)
 documentReviewerResponseSource_reviewStatus = Lens.lens (\DocumentReviewerResponseSource' {reviewStatus} -> reviewStatus) (\s@DocumentReviewerResponseSource' {} a -> s {reviewStatus = a} :: DocumentReviewerResponseSource)
 
+-- | The user in your organization assigned to review a document request.
+documentReviewerResponseSource_reviewer :: Lens.Lens' DocumentReviewerResponseSource (Prelude.Maybe Prelude.Text)
+documentReviewerResponseSource_reviewer = Lens.lens (\DocumentReviewerResponseSource' {reviewer} -> reviewer) (\s@DocumentReviewerResponseSource' {} a -> s {reviewer = a} :: DocumentReviewerResponseSource)
+
 -- | The date and time that a reviewer last updated a response to a document
 -- review request.
 documentReviewerResponseSource_updatedTime :: Lens.Lens' DocumentReviewerResponseSource (Prelude.Maybe Prelude.UTCTime)
-documentReviewerResponseSource_updatedTime = Lens.lens (\DocumentReviewerResponseSource' {updatedTime} -> updatedTime) (\s@DocumentReviewerResponseSource' {} a -> s {updatedTime = a} :: DocumentReviewerResponseSource) Prelude.. Lens.mapping Core._Time
+documentReviewerResponseSource_updatedTime = Lens.lens (\DocumentReviewerResponseSource' {updatedTime} -> updatedTime) (\s@DocumentReviewerResponseSource' {} a -> s {updatedTime = a} :: DocumentReviewerResponseSource) Prelude.. Lens.mapping Data._Time
 
--- | The comment entered by a reviewer as part of their document review
--- response.
-documentReviewerResponseSource_comment :: Lens.Lens' DocumentReviewerResponseSource (Prelude.Maybe [DocumentReviewCommentSource])
-documentReviewerResponseSource_comment = Lens.lens (\DocumentReviewerResponseSource' {comment} -> comment) (\s@DocumentReviewerResponseSource' {} a -> s {comment = a} :: DocumentReviewerResponseSource) Prelude.. Lens.mapping Lens.coerced
-
--- | The date and time that a reviewer entered a response to a document
--- review request.
-documentReviewerResponseSource_createTime :: Lens.Lens' DocumentReviewerResponseSource (Prelude.Maybe Prelude.UTCTime)
-documentReviewerResponseSource_createTime = Lens.lens (\DocumentReviewerResponseSource' {createTime} -> createTime) (\s@DocumentReviewerResponseSource' {} a -> s {createTime = a} :: DocumentReviewerResponseSource) Prelude.. Lens.mapping Core._Time
-
-instance Core.FromJSON DocumentReviewerResponseSource where
+instance Data.FromJSON DocumentReviewerResponseSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DocumentReviewerResponseSource"
       ( \x ->
           DocumentReviewerResponseSource'
-            Prelude.<$> (x Core..:? "Reviewer")
-            Prelude.<*> (x Core..:? "ReviewStatus")
-            Prelude.<*> (x Core..:? "UpdatedTime")
-            Prelude.<*> (x Core..:? "Comment" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "CreateTime")
+            Prelude.<$> (x Data..:? "Comment" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "CreateTime")
+            Prelude.<*> (x Data..:? "ReviewStatus")
+            Prelude.<*> (x Data..:? "Reviewer")
+            Prelude.<*> (x Data..:? "UpdatedTime")
       )
 
 instance
@@ -144,19 +145,19 @@ instance
   hashWithSalt
     _salt
     DocumentReviewerResponseSource' {..} =
-      _salt `Prelude.hashWithSalt` reviewer
-        `Prelude.hashWithSalt` reviewStatus
-        `Prelude.hashWithSalt` updatedTime
-        `Prelude.hashWithSalt` comment
+      _salt `Prelude.hashWithSalt` comment
         `Prelude.hashWithSalt` createTime
+        `Prelude.hashWithSalt` reviewStatus
+        `Prelude.hashWithSalt` reviewer
+        `Prelude.hashWithSalt` updatedTime
 
 instance
   Prelude.NFData
     DocumentReviewerResponseSource
   where
   rnf DocumentReviewerResponseSource' {..} =
-    Prelude.rnf reviewer
-      `Prelude.seq` Prelude.rnf reviewStatus
-      `Prelude.seq` Prelude.rnf updatedTime
-      `Prelude.seq` Prelude.rnf comment
+    Prelude.rnf comment
       `Prelude.seq` Prelude.rnf createTime
+      `Prelude.seq` Prelude.rnf reviewStatus
+      `Prelude.seq` Prelude.rnf reviewer
+      `Prelude.seq` Prelude.rnf updatedTime

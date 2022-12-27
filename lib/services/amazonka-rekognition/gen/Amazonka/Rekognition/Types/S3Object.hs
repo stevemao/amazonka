@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.S3Object
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.S3Object where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides the S3 bucket name and object name.
@@ -29,8 +30,8 @@ import qualified Amazonka.Prelude as Prelude
 -- region you use for Amazon Rekognition operations.
 --
 -- For Amazon Rekognition to process an S3 object, the user must have
--- permission to access the S3 object. For more information, see
--- Resource-Based Policies in the Amazon Rekognition Developer Guide.
+-- permission to access the S3 object. For more information, see How Amazon
+-- Rekognition works with IAM in the Amazon Rekognition Developer Guide.
 --
 -- /See:/ 'newS3Object' smart constructor.
 data S3Object = S3Object'
@@ -77,15 +78,15 @@ s3Object_name = Lens.lens (\S3Object' {name} -> name) (\s@S3Object' {} a -> s {n
 s3Object_version :: Lens.Lens' S3Object (Prelude.Maybe Prelude.Text)
 s3Object_version = Lens.lens (\S3Object' {version} -> version) (\s@S3Object' {} a -> s {version = a} :: S3Object)
 
-instance Core.FromJSON S3Object where
+instance Data.FromJSON S3Object where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3Object"
       ( \x ->
           S3Object'
-            Prelude.<$> (x Core..:? "Bucket")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Version")
+            Prelude.<$> (x Data..:? "Bucket")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "Version")
       )
 
 instance Prelude.Hashable S3Object where
@@ -100,12 +101,12 @@ instance Prelude.NFData S3Object where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf version
 
-instance Core.ToJSON S3Object where
+instance Data.ToJSON S3Object where
   toJSON S3Object' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Bucket" Core..=) Prelude.<$> bucket,
-            ("Name" Core..=) Prelude.<$> name,
-            ("Version" Core..=) Prelude.<$> version
+          [ ("Bucket" Data..=) Prelude.<$> bucket,
+            ("Name" Data..=) Prelude.<$> name,
+            ("Version" Data..=) Prelude.<$> version
           ]
       )

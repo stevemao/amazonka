@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.Types.VaultAccessPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glacier.Types.VaultAccessPolicy where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the vault access policy.
@@ -50,12 +51,12 @@ newVaultAccessPolicy =
 vaultAccessPolicy_policy :: Lens.Lens' VaultAccessPolicy (Prelude.Maybe Prelude.Text)
 vaultAccessPolicy_policy = Lens.lens (\VaultAccessPolicy' {policy} -> policy) (\s@VaultAccessPolicy' {} a -> s {policy = a} :: VaultAccessPolicy)
 
-instance Core.FromJSON VaultAccessPolicy where
+instance Data.FromJSON VaultAccessPolicy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VaultAccessPolicy"
       ( \x ->
-          VaultAccessPolicy' Prelude.<$> (x Core..:? "Policy")
+          VaultAccessPolicy' Prelude.<$> (x Data..:? "Policy")
       )
 
 instance Prelude.Hashable VaultAccessPolicy where
@@ -65,9 +66,9 @@ instance Prelude.Hashable VaultAccessPolicy where
 instance Prelude.NFData VaultAccessPolicy where
   rnf VaultAccessPolicy' {..} = Prelude.rnf policy
 
-instance Core.ToJSON VaultAccessPolicy where
+instance Data.ToJSON VaultAccessPolicy where
   toJSON VaultAccessPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Policy" Core..=) Prelude.<$> policy]
+          [("Policy" Data..=) Prelude.<$> policy]
       )

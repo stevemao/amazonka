@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.Tag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,20 @@
 module Amazonka.DynamoDB.Types.Tag where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a tag. A tag is a key-value pair. You can add up to 50 tags to
 -- a single DynamoDB table.
 --
--- AWS-assigned tag names and values are automatically assigned the @aws:@
--- prefix, which the user cannot assign. AWS-assigned tag names do not
--- count towards the tag limit of 50. User-assigned tag names have the
--- prefix @user:@ in the Cost Allocation Report. You cannot backdate the
--- application of a tag.
+-- Amazon Web Services-assigned tag names and values are automatically
+-- assigned the @aws:@ prefix, which the user cannot assign. Amazon Web
+-- Services-assigned tag names do not count towards the tag limit of 50.
+-- User-assigned tag names have the prefix @user:@ in the Cost Allocation
+-- Report. You cannot backdate the application of a tag.
 --
 -- For an overview on tagging DynamoDB resources, see
 -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html Tagging for DynamoDB>
@@ -80,13 +82,13 @@ tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 tag_value :: Lens.Lens' Tag Prelude.Text
 tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
 
-instance Core.FromJSON Tag where
+instance Data.FromJSON Tag where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Tag"
       ( \x ->
           Tag'
-            Prelude.<$> (x Core..: "Key") Prelude.<*> (x Core..: "Value")
+            Prelude.<$> (x Data..: "Key") Prelude.<*> (x Data..: "Value")
       )
 
 instance Prelude.Hashable Tag where
@@ -98,11 +100,11 @@ instance Prelude.NFData Tag where
   rnf Tag' {..} =
     Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON Tag where
+instance Data.ToJSON Tag where
   toJSON Tag' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Key" Core..= key),
-            Prelude.Just ("Value" Core..= value)
+          [ Prelude.Just ("Key" Data..= key),
+            Prelude.Just ("Value" Data..= value)
           ]
       )

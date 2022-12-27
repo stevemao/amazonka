@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.StartAssessmentRun
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.Inspector.StartAssessmentRun
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,13 +102,14 @@ instance Core.AWSRequest StartAssessmentRun where
   type
     AWSResponse StartAssessmentRun =
       StartAssessmentRunResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartAssessmentRunResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "assessmentRunArn")
+            Prelude.<*> (x Data..:> "assessmentRunArn")
       )
 
 instance Prelude.Hashable StartAssessmentRun where
@@ -120,38 +122,38 @@ instance Prelude.NFData StartAssessmentRun where
     Prelude.rnf assessmentRunName
       `Prelude.seq` Prelude.rnf assessmentTemplateArn
 
-instance Core.ToHeaders StartAssessmentRun where
+instance Data.ToHeaders StartAssessmentRun where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.StartAssessmentRun" ::
+              Data.=# ( "InspectorService.StartAssessmentRun" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartAssessmentRun where
+instance Data.ToJSON StartAssessmentRun where
   toJSON StartAssessmentRun' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("assessmentRunName" Core..=)
+          [ ("assessmentRunName" Data..=)
               Prelude.<$> assessmentRunName,
             Prelude.Just
               ( "assessmentTemplateArn"
-                  Core..= assessmentTemplateArn
+                  Data..= assessmentTemplateArn
               )
           ]
       )
 
-instance Core.ToPath StartAssessmentRun where
+instance Data.ToPath StartAssessmentRun where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartAssessmentRun where
+instance Data.ToQuery StartAssessmentRun where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartAssessmentRunResponse' smart constructor.

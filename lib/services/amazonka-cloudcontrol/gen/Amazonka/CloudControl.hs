@@ -3,22 +3,13 @@
 
 -- |
 -- Module      : Amazonka.CloudControl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Derived from API version @2021-09-30@ of the AWS service descriptions, licensed under Apache 2.0.
---
--- Use Amazon Web Services Cloud Control API to create, read, update,
--- delete, and list (CRUD-L) your cloud resources that belong to a wide
--- range of services--both Amazon Web Services and third-party. With the
--- Cloud Control API standardized set of application programming interfaces
--- (APIs), you can perform CRUD-L operations on any supported resources in
--- your Amazon Web Services account. Using Cloud Control API, you won\'t
--- have to generate code or scripts specific to each individual service
--- responsible for those resources.
 --
 -- For more information about Amazon Web Services Cloud Control API, see
 -- the
@@ -30,8 +21,17 @@ module Amazonka.CloudControl
     -- * Errors
     -- $errors
 
-    -- ** TypeNotFoundException
-    _TypeNotFoundException,
+    -- ** AlreadyExistsException
+    _AlreadyExistsException,
+
+    -- ** ClientTokenConflictException
+    _ClientTokenConflictException,
+
+    -- ** ConcurrentModificationException
+    _ConcurrentModificationException,
+
+    -- ** ConcurrentOperationException
+    _ConcurrentOperationException,
 
     -- ** GeneralServiceException
     _GeneralServiceException,
@@ -39,23 +39,14 @@ module Amazonka.CloudControl
     -- ** HandlerFailureException
     _HandlerFailureException,
 
-    -- ** InvalidRequestException
-    _InvalidRequestException,
-
-    -- ** PrivateTypeException
-    _PrivateTypeException,
-
-    -- ** ServiceInternalErrorException
-    _ServiceInternalErrorException,
-
     -- ** HandlerInternalFailureException
     _HandlerInternalFailureException,
 
-    -- ** ClientTokenConflictException
-    _ClientTokenConflictException,
+    -- ** InvalidCredentialsException
+    _InvalidCredentialsException,
 
-    -- ** RequestTokenNotFoundException
-    _RequestTokenNotFoundException,
+    -- ** InvalidRequestException
+    _InvalidRequestException,
 
     -- ** NetworkFailureException
     _NetworkFailureException,
@@ -66,8 +57,20 @@ module Amazonka.CloudControl
     -- ** NotUpdatableException
     _NotUpdatableException,
 
-    -- ** UnsupportedActionException
-    _UnsupportedActionException,
+    -- ** PrivateTypeException
+    _PrivateTypeException,
+
+    -- ** RequestTokenNotFoundException
+    _RequestTokenNotFoundException,
+
+    -- ** ResourceConflictException
+    _ResourceConflictException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
+
+    -- ** ServiceInternalErrorException
+    _ServiceInternalErrorException,
 
     -- ** ServiceLimitExceededException
     _ServiceLimitExceededException,
@@ -75,23 +78,11 @@ module Amazonka.CloudControl
     -- ** ThrottlingException
     _ThrottlingException,
 
-    -- ** ConcurrentModificationException
-    _ConcurrentModificationException,
+    -- ** TypeNotFoundException
+    _TypeNotFoundException,
 
-    -- ** ResourceConflictException
-    _ResourceConflictException,
-
-    -- ** InvalidCredentialsException
-    _InvalidCredentialsException,
-
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
-
-    -- ** ConcurrentOperationException
-    _ConcurrentOperationException,
-
-    -- ** AlreadyExistsException
-    _AlreadyExistsException,
+    -- ** UnsupportedActionException
+    _UnsupportedActionException,
 
     -- * Waiters
     -- $waiters
@@ -102,41 +93,11 @@ module Amazonka.CloudControl
     -- * Operations
     -- $operations
 
-    -- ** GetResource
-    GetResource (GetResource'),
-    newGetResource,
-    GetResourceResponse (GetResourceResponse'),
-    newGetResourceResponse,
-
-    -- ** ListResourceRequests
-    ListResourceRequests (ListResourceRequests'),
-    newListResourceRequests,
-    ListResourceRequestsResponse (ListResourceRequestsResponse'),
-    newListResourceRequestsResponse,
-
     -- ** CancelResourceRequest
     CancelResourceRequest (CancelResourceRequest'),
     newCancelResourceRequest,
     CancelResourceRequestResponse (CancelResourceRequestResponse'),
     newCancelResourceRequestResponse,
-
-    -- ** DeleteResource
-    DeleteResource (DeleteResource'),
-    newDeleteResource,
-    DeleteResourceResponse (DeleteResourceResponse'),
-    newDeleteResourceResponse,
-
-    -- ** UpdateResource
-    UpdateResource (UpdateResource'),
-    newUpdateResource,
-    UpdateResourceResponse (UpdateResourceResponse'),
-    newUpdateResourceResponse,
-
-    -- ** ListResources
-    ListResources (ListResources'),
-    newListResources,
-    ListResourcesResponse (ListResourcesResponse'),
-    newListResourcesResponse,
 
     -- ** CreateResource
     CreateResource (CreateResource'),
@@ -144,11 +105,41 @@ module Amazonka.CloudControl
     CreateResourceResponse (CreateResourceResponse'),
     newCreateResourceResponse,
 
+    -- ** DeleteResource
+    DeleteResource (DeleteResource'),
+    newDeleteResource,
+    DeleteResourceResponse (DeleteResourceResponse'),
+    newDeleteResourceResponse,
+
+    -- ** GetResource
+    GetResource (GetResource'),
+    newGetResource,
+    GetResourceResponse (GetResourceResponse'),
+    newGetResourceResponse,
+
     -- ** GetResourceRequestStatus
     GetResourceRequestStatus (GetResourceRequestStatus'),
     newGetResourceRequestStatus,
     GetResourceRequestStatusResponse (GetResourceRequestStatusResponse'),
     newGetResourceRequestStatusResponse,
+
+    -- ** ListResourceRequests (Paginated)
+    ListResourceRequests (ListResourceRequests'),
+    newListResourceRequests,
+    ListResourceRequestsResponse (ListResourceRequestsResponse'),
+    newListResourceRequestsResponse,
+
+    -- ** ListResources (Paginated)
+    ListResources (ListResources'),
+    newListResources,
+    ListResourcesResponse (ListResourcesResponse'),
+    newListResourcesResponse,
+
+    -- ** UpdateResource
+    UpdateResource (UpdateResource'),
+    newUpdateResource,
+    UpdateResourceResponse (UpdateResourceResponse'),
+    newUpdateResourceResponse,
 
     -- * Types
 

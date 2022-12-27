@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.UpdateUsagePlan
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,19 +36,20 @@ module Amazonka.APIGateway.UpdateUsagePlan
 
     -- * Response Lenses
     usagePlan_apiStages,
-    usagePlan_name,
-    usagePlan_id,
-    usagePlan_throttle,
-    usagePlan_quota,
     usagePlan_description,
+    usagePlan_id,
+    usagePlan_name,
     usagePlan_productCode,
+    usagePlan_quota,
     usagePlan_tags,
+    usagePlan_throttle,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,10 +58,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateUsagePlan' smart constructor.
 data UpdateUsagePlan = UpdateUsagePlan'
-  { -- | A list of update operations to be applied to the specified resource and
-    -- in the order specified in this list.
+  { -- | For more information about supported patch operations, see
+    -- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
     patchOperations :: Prelude.Maybe [PatchOperation],
-    -- | [Required] The Id of the to-be-updated usage plan.
+    -- | The Id of the to-be-updated usage plan.
     usagePlanId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -73,10 +74,10 @@ data UpdateUsagePlan = UpdateUsagePlan'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'patchOperations', 'updateUsagePlan_patchOperations' - A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- 'patchOperations', 'updateUsagePlan_patchOperations' - For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 --
--- 'usagePlanId', 'updateUsagePlan_usagePlanId' - [Required] The Id of the to-be-updated usage plan.
+-- 'usagePlanId', 'updateUsagePlan_usagePlanId' - The Id of the to-be-updated usage plan.
 newUpdateUsagePlan ::
   -- | 'usagePlanId'
   Prelude.Text ->
@@ -87,21 +88,22 @@ newUpdateUsagePlan pUsagePlanId_ =
       usagePlanId = pUsagePlanId_
     }
 
--- | A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- | For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 updateUsagePlan_patchOperations :: Lens.Lens' UpdateUsagePlan (Prelude.Maybe [PatchOperation])
 updateUsagePlan_patchOperations = Lens.lens (\UpdateUsagePlan' {patchOperations} -> patchOperations) (\s@UpdateUsagePlan' {} a -> s {patchOperations = a} :: UpdateUsagePlan) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The Id of the to-be-updated usage plan.
+-- | The Id of the to-be-updated usage plan.
 updateUsagePlan_usagePlanId :: Lens.Lens' UpdateUsagePlan Prelude.Text
 updateUsagePlan_usagePlanId = Lens.lens (\UpdateUsagePlan' {usagePlanId} -> usagePlanId) (\s@UpdateUsagePlan' {} a -> s {usagePlanId = a} :: UpdateUsagePlan)
 
 instance Core.AWSRequest UpdateUsagePlan where
   type AWSResponse UpdateUsagePlan = UsagePlan
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable UpdateUsagePlan where
   hashWithSalt _salt UpdateUsagePlan' {..} =
@@ -113,28 +115,28 @@ instance Prelude.NFData UpdateUsagePlan where
     Prelude.rnf patchOperations
       `Prelude.seq` Prelude.rnf usagePlanId
 
-instance Core.ToHeaders UpdateUsagePlan where
+instance Data.ToHeaders UpdateUsagePlan where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON UpdateUsagePlan where
+instance Data.ToJSON UpdateUsagePlan where
   toJSON UpdateUsagePlan' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("patchOperations" Core..=)
+          [ ("patchOperations" Data..=)
               Prelude.<$> patchOperations
           ]
       )
 
-instance Core.ToPath UpdateUsagePlan where
+instance Data.ToPath UpdateUsagePlan where
   toPath UpdateUsagePlan' {..} =
     Prelude.mconcat
-      ["/usageplans/", Core.toBS usagePlanId]
+      ["/usageplans/", Data.toBS usagePlanId]
 
-instance Core.ToQuery UpdateUsagePlan where
+instance Data.ToQuery UpdateUsagePlan where
   toQuery = Prelude.const Prelude.mempty

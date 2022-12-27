@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ProcessingInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ProcessingInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.DatasetDefinition
 import Amazonka.SageMaker.Types.ProcessingS3Input
@@ -30,12 +31,12 @@ import Amazonka.SageMaker.Types.ProcessingS3Input
 --
 -- /See:/ 'newProcessingInput' smart constructor.
 data ProcessingInput = ProcessingInput'
-  { -- | Configuration for a Dataset Definition input.
-    datasetDefinition :: Prelude.Maybe DatasetDefinition,
-    -- | When @True@, input operations such as data download are managed natively
+  { -- | When @True@, input operations such as data download are managed natively
     -- by the processing job application. When @False@ (default), input
     -- operations are managed by Amazon SageMaker.
     appManaged :: Prelude.Maybe Prelude.Bool,
+    -- | Configuration for a Dataset Definition input.
+    datasetDefinition :: Prelude.Maybe DatasetDefinition,
     -- | Configuration for downloading input data from Amazon S3 into the
     -- processing container.
     s3Input :: Prelude.Maybe ProcessingS3Input,
@@ -52,11 +53,11 @@ data ProcessingInput = ProcessingInput'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'datasetDefinition', 'processingInput_datasetDefinition' - Configuration for a Dataset Definition input.
---
 -- 'appManaged', 'processingInput_appManaged' - When @True@, input operations such as data download are managed natively
 -- by the processing job application. When @False@ (default), input
 -- operations are managed by Amazon SageMaker.
+--
+-- 'datasetDefinition', 'processingInput_datasetDefinition' - Configuration for a Dataset Definition input.
 --
 -- 's3Input', 'processingInput_s3Input' - Configuration for downloading input data from Amazon S3 into the
 -- processing container.
@@ -68,22 +69,21 @@ newProcessingInput ::
   ProcessingInput
 newProcessingInput pInputName_ =
   ProcessingInput'
-    { datasetDefinition =
-        Prelude.Nothing,
-      appManaged = Prelude.Nothing,
+    { appManaged = Prelude.Nothing,
+      datasetDefinition = Prelude.Nothing,
       s3Input = Prelude.Nothing,
       inputName = pInputName_
     }
-
--- | Configuration for a Dataset Definition input.
-processingInput_datasetDefinition :: Lens.Lens' ProcessingInput (Prelude.Maybe DatasetDefinition)
-processingInput_datasetDefinition = Lens.lens (\ProcessingInput' {datasetDefinition} -> datasetDefinition) (\s@ProcessingInput' {} a -> s {datasetDefinition = a} :: ProcessingInput)
 
 -- | When @True@, input operations such as data download are managed natively
 -- by the processing job application. When @False@ (default), input
 -- operations are managed by Amazon SageMaker.
 processingInput_appManaged :: Lens.Lens' ProcessingInput (Prelude.Maybe Prelude.Bool)
 processingInput_appManaged = Lens.lens (\ProcessingInput' {appManaged} -> appManaged) (\s@ProcessingInput' {} a -> s {appManaged = a} :: ProcessingInput)
+
+-- | Configuration for a Dataset Definition input.
+processingInput_datasetDefinition :: Lens.Lens' ProcessingInput (Prelude.Maybe DatasetDefinition)
+processingInput_datasetDefinition = Lens.lens (\ProcessingInput' {datasetDefinition} -> datasetDefinition) (\s@ProcessingInput' {} a -> s {datasetDefinition = a} :: ProcessingInput)
 
 -- | Configuration for downloading input data from Amazon S3 into the
 -- processing container.
@@ -94,40 +94,40 @@ processingInput_s3Input = Lens.lens (\ProcessingInput' {s3Input} -> s3Input) (\s
 processingInput_inputName :: Lens.Lens' ProcessingInput Prelude.Text
 processingInput_inputName = Lens.lens (\ProcessingInput' {inputName} -> inputName) (\s@ProcessingInput' {} a -> s {inputName = a} :: ProcessingInput)
 
-instance Core.FromJSON ProcessingInput where
+instance Data.FromJSON ProcessingInput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProcessingInput"
       ( \x ->
           ProcessingInput'
-            Prelude.<$> (x Core..:? "DatasetDefinition")
-            Prelude.<*> (x Core..:? "AppManaged")
-            Prelude.<*> (x Core..:? "S3Input")
-            Prelude.<*> (x Core..: "InputName")
+            Prelude.<$> (x Data..:? "AppManaged")
+            Prelude.<*> (x Data..:? "DatasetDefinition")
+            Prelude.<*> (x Data..:? "S3Input")
+            Prelude.<*> (x Data..: "InputName")
       )
 
 instance Prelude.Hashable ProcessingInput where
   hashWithSalt _salt ProcessingInput' {..} =
-    _salt `Prelude.hashWithSalt` datasetDefinition
-      `Prelude.hashWithSalt` appManaged
+    _salt `Prelude.hashWithSalt` appManaged
+      `Prelude.hashWithSalt` datasetDefinition
       `Prelude.hashWithSalt` s3Input
       `Prelude.hashWithSalt` inputName
 
 instance Prelude.NFData ProcessingInput where
   rnf ProcessingInput' {..} =
-    Prelude.rnf datasetDefinition
-      `Prelude.seq` Prelude.rnf appManaged
+    Prelude.rnf appManaged
+      `Prelude.seq` Prelude.rnf datasetDefinition
       `Prelude.seq` Prelude.rnf s3Input
       `Prelude.seq` Prelude.rnf inputName
 
-instance Core.ToJSON ProcessingInput where
+instance Data.ToJSON ProcessingInput where
   toJSON ProcessingInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DatasetDefinition" Core..=)
+          [ ("AppManaged" Data..=) Prelude.<$> appManaged,
+            ("DatasetDefinition" Data..=)
               Prelude.<$> datasetDefinition,
-            ("AppManaged" Core..=) Prelude.<$> appManaged,
-            ("S3Input" Core..=) Prelude.<$> s3Input,
-            Prelude.Just ("InputName" Core..= inputName)
+            ("S3Input" Data..=) Prelude.<$> s3Input,
+            Prelude.Just ("InputName" Data..= inputName)
           ]
       )

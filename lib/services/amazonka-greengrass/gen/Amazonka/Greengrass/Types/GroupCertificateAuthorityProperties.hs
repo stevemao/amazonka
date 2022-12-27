@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.Types.GroupCertificateAuthorityProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Greengrass.Types.GroupCertificateAuthorityProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a certificate authority for a group.
@@ -64,16 +65,16 @@ groupCertificateAuthorityProperties_groupCertificateAuthorityId :: Lens.Lens' Gr
 groupCertificateAuthorityProperties_groupCertificateAuthorityId = Lens.lens (\GroupCertificateAuthorityProperties' {groupCertificateAuthorityId} -> groupCertificateAuthorityId) (\s@GroupCertificateAuthorityProperties' {} a -> s {groupCertificateAuthorityId = a} :: GroupCertificateAuthorityProperties)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     GroupCertificateAuthorityProperties
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GroupCertificateAuthorityProperties"
       ( \x ->
           GroupCertificateAuthorityProperties'
-            Prelude.<$> (x Core..:? "GroupCertificateAuthorityArn")
-            Prelude.<*> (x Core..:? "GroupCertificateAuthorityId")
+            Prelude.<$> (x Data..:? "GroupCertificateAuthorityArn")
+            Prelude.<*> (x Data..:? "GroupCertificateAuthorityId")
       )
 
 instance

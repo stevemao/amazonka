@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.DisassociateHealthCheck
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,9 +23,9 @@
 -- Removes health-based detection from the Shield Advanced protection for a
 -- resource. Shield Advanced health-based detection uses the health of your
 -- Amazon Web Services resource to improve responsiveness and accuracy in
--- attack detection and mitigation.
+-- attack detection and response.
 --
--- You define the health check in Route 53 and then associate or
+-- You define the health check in Route 53 and then associate or
 -- disassociate it with your Shield Advanced protection. For more
 -- information, see
 -- <https://docs.aws.amazon.com/waf/latest/developerguide/ddos-overview.html#ddos-advanced-health-check-option Shield Advanced Health-Based Detection>
@@ -49,7 +49,8 @@ module Amazonka.Shield.DisassociateHealthCheck
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,7 +109,8 @@ instance Core.AWSRequest DisassociateHealthCheck where
   type
     AWSResponse DisassociateHealthCheck =
       DisassociateHealthCheckResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -126,35 +128,35 @@ instance Prelude.NFData DisassociateHealthCheck where
     Prelude.rnf protectionId
       `Prelude.seq` Prelude.rnf healthCheckArn
 
-instance Core.ToHeaders DisassociateHealthCheck where
+instance Data.ToHeaders DisassociateHealthCheck where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSShield_20160616.DisassociateHealthCheck" ::
+              Data.=# ( "AWSShield_20160616.DisassociateHealthCheck" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateHealthCheck where
+instance Data.ToJSON DisassociateHealthCheck where
   toJSON DisassociateHealthCheck' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ProtectionId" Core..= protectionId),
+          [ Prelude.Just ("ProtectionId" Data..= protectionId),
             Prelude.Just
-              ("HealthCheckArn" Core..= healthCheckArn)
+              ("HealthCheckArn" Data..= healthCheckArn)
           ]
       )
 
-instance Core.ToPath DisassociateHealthCheck where
+instance Data.ToPath DisassociateHealthCheck where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateHealthCheck where
+instance Data.ToQuery DisassociateHealthCheck where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateHealthCheckResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.StopSolutionVersionCreation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ module Amazonka.Personalize.StopSolutionVersionCreation
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -93,7 +94,8 @@ instance Core.AWSRequest StopSolutionVersionCreation where
   type
     AWSResponse StopSolutionVersionCreation =
       StopSolutionVersionCreationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       StopSolutionVersionCreationResponse'
@@ -106,34 +108,34 @@ instance Prelude.NFData StopSolutionVersionCreation where
   rnf StopSolutionVersionCreation' {..} =
     Prelude.rnf solutionVersionArn
 
-instance Core.ToHeaders StopSolutionVersionCreation where
+instance Data.ToHeaders StopSolutionVersionCreation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.StopSolutionVersionCreation" ::
+              Data.=# ( "AmazonPersonalize.StopSolutionVersionCreation" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopSolutionVersionCreation where
+instance Data.ToJSON StopSolutionVersionCreation where
   toJSON StopSolutionVersionCreation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("solutionVersionArn" Core..= solutionVersionArn)
+              ("solutionVersionArn" Data..= solutionVersionArn)
           ]
       )
 
-instance Core.ToPath StopSolutionVersionCreation where
+instance Data.ToPath StopSolutionVersionCreation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopSolutionVersionCreation where
+instance Data.ToQuery StopSolutionVersionCreation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopSolutionVersionCreationResponse' smart constructor.

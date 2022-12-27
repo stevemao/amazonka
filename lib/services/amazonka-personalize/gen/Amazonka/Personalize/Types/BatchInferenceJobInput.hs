@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.Types.BatchInferenceJobInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Personalize.Types.BatchInferenceJobInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types.S3DataConfig
 import qualified Amazonka.Prelude as Prelude
 
@@ -62,13 +63,13 @@ newBatchInferenceJobInput pS3DataSource_ =
 batchInferenceJobInput_s3DataSource :: Lens.Lens' BatchInferenceJobInput S3DataConfig
 batchInferenceJobInput_s3DataSource = Lens.lens (\BatchInferenceJobInput' {s3DataSource} -> s3DataSource) (\s@BatchInferenceJobInput' {} a -> s {s3DataSource = a} :: BatchInferenceJobInput)
 
-instance Core.FromJSON BatchInferenceJobInput where
+instance Data.FromJSON BatchInferenceJobInput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchInferenceJobInput"
       ( \x ->
           BatchInferenceJobInput'
-            Prelude.<$> (x Core..: "s3DataSource")
+            Prelude.<$> (x Data..: "s3DataSource")
       )
 
 instance Prelude.Hashable BatchInferenceJobInput where
@@ -79,9 +80,9 @@ instance Prelude.NFData BatchInferenceJobInput where
   rnf BatchInferenceJobInput' {..} =
     Prelude.rnf s3DataSource
 
-instance Core.ToJSON BatchInferenceJobInput where
+instance Data.ToJSON BatchInferenceJobInput where
   toJSON BatchInferenceJobInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("s3DataSource" Core..= s3DataSource)]
+          [Prelude.Just ("s3DataSource" Data..= s3DataSource)]
       )

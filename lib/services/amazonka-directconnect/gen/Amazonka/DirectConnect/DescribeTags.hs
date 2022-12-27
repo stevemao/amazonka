@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.DescribeTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.DirectConnect.DescribeTags
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,12 +75,13 @@ describeTags_resourceArns = Lens.lens (\DescribeTags' {resourceArns} -> resource
 
 instance Core.AWSRequest DescribeTags where
   type AWSResponse DescribeTags = DescribeTagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTagsResponse'
-            Prelude.<$> (x Core..?> "resourceTags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "resourceTags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -90,32 +92,32 @@ instance Prelude.Hashable DescribeTags where
 instance Prelude.NFData DescribeTags where
   rnf DescribeTags' {..} = Prelude.rnf resourceArns
 
-instance Core.ToHeaders DescribeTags where
+instance Data.ToHeaders DescribeTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.DescribeTags" ::
+              Data.=# ( "OvertureService.DescribeTags" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeTags where
+instance Data.ToJSON DescribeTags where
   toJSON DescribeTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("resourceArns" Core..= resourceArns)]
+          [Prelude.Just ("resourceArns" Data..= resourceArns)]
       )
 
-instance Core.ToPath DescribeTags where
+instance Data.ToPath DescribeTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTags where
+instance Data.ToQuery DescribeTags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeTagsResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.Types.URL
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.AuditManager.Types.URL where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | A uniform resource locator, used as a unique identifier to locate a
--- resource on the internet.
+-- | Short for uniform resource locator. A URL is used as a unique identifier
+-- to locate a resource on the internet.
 --
 -- /See:/ 'newURL' smart constructor.
 data URL = URL'
-  { -- | The unique identifier for the internet resource.
-    link :: Prelude.Maybe Prelude.Text,
-    -- | The name or word used as a hyperlink to the URL.
-    hyperlinkName :: Prelude.Maybe Prelude.Text
+  { -- | The name or word that\'s used as a hyperlink to the URL.
+    hyperlinkName :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the internet resource.
+    link :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,41 +44,41 @@ data URL = URL'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'link', 'url_link' - The unique identifier for the internet resource.
+-- 'hyperlinkName', 'url_hyperlinkName' - The name or word that\'s used as a hyperlink to the URL.
 --
--- 'hyperlinkName', 'url_hyperlinkName' - The name or word used as a hyperlink to the URL.
+-- 'link', 'url_link' - The unique identifier for the internet resource.
 newURL ::
   URL
 newURL =
   URL'
-    { link = Prelude.Nothing,
-      hyperlinkName = Prelude.Nothing
+    { hyperlinkName = Prelude.Nothing,
+      link = Prelude.Nothing
     }
+
+-- | The name or word that\'s used as a hyperlink to the URL.
+url_hyperlinkName :: Lens.Lens' URL (Prelude.Maybe Prelude.Text)
+url_hyperlinkName = Lens.lens (\URL' {hyperlinkName} -> hyperlinkName) (\s@URL' {} a -> s {hyperlinkName = a} :: URL)
 
 -- | The unique identifier for the internet resource.
 url_link :: Lens.Lens' URL (Prelude.Maybe Prelude.Text)
 url_link = Lens.lens (\URL' {link} -> link) (\s@URL' {} a -> s {link = a} :: URL)
 
--- | The name or word used as a hyperlink to the URL.
-url_hyperlinkName :: Lens.Lens' URL (Prelude.Maybe Prelude.Text)
-url_hyperlinkName = Lens.lens (\URL' {hyperlinkName} -> hyperlinkName) (\s@URL' {} a -> s {hyperlinkName = a} :: URL)
-
-instance Core.FromJSON URL where
+instance Data.FromJSON URL where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "URL"
       ( \x ->
           URL'
-            Prelude.<$> (x Core..:? "link")
-            Prelude.<*> (x Core..:? "hyperlinkName")
+            Prelude.<$> (x Data..:? "hyperlinkName")
+            Prelude.<*> (x Data..:? "link")
       )
 
 instance Prelude.Hashable URL where
   hashWithSalt _salt URL' {..} =
-    _salt `Prelude.hashWithSalt` link
-      `Prelude.hashWithSalt` hyperlinkName
+    _salt `Prelude.hashWithSalt` hyperlinkName
+      `Prelude.hashWithSalt` link
 
 instance Prelude.NFData URL where
   rnf URL' {..} =
-    Prelude.rnf link
-      `Prelude.seq` Prelude.rnf hyperlinkName
+    Prelude.rnf hyperlinkName
+      `Prelude.seq` Prelude.rnf link

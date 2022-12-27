@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.UpdateUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,11 +27,11 @@ module Amazonka.QuickSight.UpdateUser
     newUpdateUser,
 
     -- * Request Lenses
-    updateUser_unapplyCustomPermissions,
-    updateUser_customPermissionsName,
     updateUser_customFederationProviderUrl,
+    updateUser_customPermissionsName,
     updateUser_externalLoginFederationProviderType,
     updateUser_externalLoginId,
+    updateUser_unapplyCustomPermissions,
     updateUser_userName,
     updateUser_awsAccountId,
     updateUser_namespace,
@@ -50,7 +50,8 @@ module Amazonka.QuickSight.UpdateUser
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -58,11 +59,12 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateUser' smart constructor.
 data UpdateUser = UpdateUser'
-  { -- | A flag that you use to indicate that you want to remove all custom
-    -- permissions from this user. Using this parameter resets the user to the
-    -- state it was in before a custom permissions profile was applied. This
-    -- parameter defaults to NULL and it doesn\'t accept any other value.
-    unapplyCustomPermissions :: Prelude.Maybe Prelude.Bool,
+  { -- | The URL of the custom OpenID Connect (OIDC) provider that provides
+    -- identity to let a user federate into Amazon QuickSight with an
+    -- associated Identity and Access Management(IAM) role. This parameter
+    -- should only be used when @ExternalLoginFederationProviderType@ parameter
+    -- is set to @CUSTOM_OIDC@.
+    customFederationProviderUrl :: Prelude.Maybe Prelude.Text,
     -- | (Enterprise edition only) The name of the custom permissions profile
     -- that you want to assign to this user. Customized permissions allows you
     -- to control a user\'s access by restricting access the following
@@ -82,7 +84,7 @@ data UpdateUser = UpdateUser'
     -- the @RegisterUser@ API operation to assign the named set of permissions
     -- to a Amazon QuickSight user.
     --
-    -- Amazon QuickSight custom permissions are applied through IAMpolicies.
+    -- Amazon QuickSight custom permissions are applied through IAM policies.
     -- Therefore, they override the permissions typically granted by assigning
     -- Amazon QuickSight users to one of the default security cohorts in Amazon
     -- QuickSight (admin, author, reader).
@@ -90,12 +92,6 @@ data UpdateUser = UpdateUser'
     -- This feature is available only to Amazon QuickSight Enterprise edition
     -- subscriptions.
     customPermissionsName :: Prelude.Maybe Prelude.Text,
-    -- | The URL of the custom OpenID Connect (OIDC) provider that provides
-    -- identity to let a user federate into Amazon QuickSight with an
-    -- associated Identity and Access Management(IAM) role. This parameter
-    -- should only be used when @ExternalLoginFederationProviderType@ parameter
-    -- is set to @CUSTOM_OIDC@.
-    customFederationProviderUrl :: Prelude.Maybe Prelude.Text,
     -- | The type of supported external login provider that provides identity to
     -- let a user federate into Amazon QuickSight with an associated Identity
     -- and Access Management(IAM) role. The type of supported external login
@@ -111,11 +107,16 @@ data UpdateUser = UpdateUser'
     --     to provide the custom OIDC provider URL.
     --
     -- -   @NONE@: This clears all the previously saved external login
-    --     information for a user. Use @ DescribeUser @ API to check the
-    --     external login information.
+    --     information for a user. Use the @ DescribeUser @ API operation to
+    --     check the external login information.
     externalLoginFederationProviderType :: Prelude.Maybe Prelude.Text,
     -- | The identity ID for a user in the external login provider.
     externalLoginId :: Prelude.Maybe Prelude.Text,
+    -- | A flag that you use to indicate that you want to remove all custom
+    -- permissions from this user. Using this parameter resets the user to the
+    -- state it was in before a custom permissions profile was applied. This
+    -- parameter defaults to NULL and it doesn\'t accept any other value.
+    unapplyCustomPermissions :: Prelude.Maybe Prelude.Bool,
     -- | The Amazon QuickSight user name that you want to update.
     userName :: Prelude.Text,
     -- | The ID for the Amazon Web Services account that the user is in.
@@ -151,10 +152,11 @@ data UpdateUser = UpdateUser'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'unapplyCustomPermissions', 'updateUser_unapplyCustomPermissions' - A flag that you use to indicate that you want to remove all custom
--- permissions from this user. Using this parameter resets the user to the
--- state it was in before a custom permissions profile was applied. This
--- parameter defaults to NULL and it doesn\'t accept any other value.
+-- 'customFederationProviderUrl', 'updateUser_customFederationProviderUrl' - The URL of the custom OpenID Connect (OIDC) provider that provides
+-- identity to let a user federate into Amazon QuickSight with an
+-- associated Identity and Access Management(IAM) role. This parameter
+-- should only be used when @ExternalLoginFederationProviderType@ parameter
+-- is set to @CUSTOM_OIDC@.
 --
 -- 'customPermissionsName', 'updateUser_customPermissionsName' - (Enterprise edition only) The name of the custom permissions profile
 -- that you want to assign to this user. Customized permissions allows you
@@ -175,19 +177,13 @@ data UpdateUser = UpdateUser'
 -- the @RegisterUser@ API operation to assign the named set of permissions
 -- to a Amazon QuickSight user.
 --
--- Amazon QuickSight custom permissions are applied through IAMpolicies.
+-- Amazon QuickSight custom permissions are applied through IAM policies.
 -- Therefore, they override the permissions typically granted by assigning
 -- Amazon QuickSight users to one of the default security cohorts in Amazon
 -- QuickSight (admin, author, reader).
 --
 -- This feature is available only to Amazon QuickSight Enterprise edition
 -- subscriptions.
---
--- 'customFederationProviderUrl', 'updateUser_customFederationProviderUrl' - The URL of the custom OpenID Connect (OIDC) provider that provides
--- identity to let a user federate into Amazon QuickSight with an
--- associated Identity and Access Management(IAM) role. This parameter
--- should only be used when @ExternalLoginFederationProviderType@ parameter
--- is set to @CUSTOM_OIDC@.
 --
 -- 'externalLoginFederationProviderType', 'updateUser_externalLoginFederationProviderType' - The type of supported external login provider that provides identity to
 -- let a user federate into Amazon QuickSight with an associated Identity
@@ -204,10 +200,15 @@ data UpdateUser = UpdateUser'
 --     to provide the custom OIDC provider URL.
 --
 -- -   @NONE@: This clears all the previously saved external login
---     information for a user. Use @ DescribeUser @ API to check the
---     external login information.
+--     information for a user. Use the @ DescribeUser @ API operation to
+--     check the external login information.
 --
 -- 'externalLoginId', 'updateUser_externalLoginId' - The identity ID for a user in the external login provider.
+--
+-- 'unapplyCustomPermissions', 'updateUser_unapplyCustomPermissions' - A flag that you use to indicate that you want to remove all custom
+-- permissions from this user. Using this parameter resets the user to the
+-- state it was in before a custom permissions profile was applied. This
+-- parameter defaults to NULL and it doesn\'t accept any other value.
 --
 -- 'userName', 'updateUser_userName' - The Amazon QuickSight user name that you want to update.
 --
@@ -251,13 +252,13 @@ newUpdateUser
   pEmail_
   pRole_ =
     UpdateUser'
-      { unapplyCustomPermissions =
+      { customFederationProviderUrl =
           Prelude.Nothing,
         customPermissionsName = Prelude.Nothing,
-        customFederationProviderUrl = Prelude.Nothing,
         externalLoginFederationProviderType =
           Prelude.Nothing,
         externalLoginId = Prelude.Nothing,
+        unapplyCustomPermissions = Prelude.Nothing,
         userName = pUserName_,
         awsAccountId = pAwsAccountId_,
         namespace = pNamespace_,
@@ -265,12 +266,13 @@ newUpdateUser
         role' = pRole_
       }
 
--- | A flag that you use to indicate that you want to remove all custom
--- permissions from this user. Using this parameter resets the user to the
--- state it was in before a custom permissions profile was applied. This
--- parameter defaults to NULL and it doesn\'t accept any other value.
-updateUser_unapplyCustomPermissions :: Lens.Lens' UpdateUser (Prelude.Maybe Prelude.Bool)
-updateUser_unapplyCustomPermissions = Lens.lens (\UpdateUser' {unapplyCustomPermissions} -> unapplyCustomPermissions) (\s@UpdateUser' {} a -> s {unapplyCustomPermissions = a} :: UpdateUser)
+-- | The URL of the custom OpenID Connect (OIDC) provider that provides
+-- identity to let a user federate into Amazon QuickSight with an
+-- associated Identity and Access Management(IAM) role. This parameter
+-- should only be used when @ExternalLoginFederationProviderType@ parameter
+-- is set to @CUSTOM_OIDC@.
+updateUser_customFederationProviderUrl :: Lens.Lens' UpdateUser (Prelude.Maybe Prelude.Text)
+updateUser_customFederationProviderUrl = Lens.lens (\UpdateUser' {customFederationProviderUrl} -> customFederationProviderUrl) (\s@UpdateUser' {} a -> s {customFederationProviderUrl = a} :: UpdateUser)
 
 -- | (Enterprise edition only) The name of the custom permissions profile
 -- that you want to assign to this user. Customized permissions allows you
@@ -291,7 +293,7 @@ updateUser_unapplyCustomPermissions = Lens.lens (\UpdateUser' {unapplyCustomPerm
 -- the @RegisterUser@ API operation to assign the named set of permissions
 -- to a Amazon QuickSight user.
 --
--- Amazon QuickSight custom permissions are applied through IAMpolicies.
+-- Amazon QuickSight custom permissions are applied through IAM policies.
 -- Therefore, they override the permissions typically granted by assigning
 -- Amazon QuickSight users to one of the default security cohorts in Amazon
 -- QuickSight (admin, author, reader).
@@ -300,14 +302,6 @@ updateUser_unapplyCustomPermissions = Lens.lens (\UpdateUser' {unapplyCustomPerm
 -- subscriptions.
 updateUser_customPermissionsName :: Lens.Lens' UpdateUser (Prelude.Maybe Prelude.Text)
 updateUser_customPermissionsName = Lens.lens (\UpdateUser' {customPermissionsName} -> customPermissionsName) (\s@UpdateUser' {} a -> s {customPermissionsName = a} :: UpdateUser)
-
--- | The URL of the custom OpenID Connect (OIDC) provider that provides
--- identity to let a user federate into Amazon QuickSight with an
--- associated Identity and Access Management(IAM) role. This parameter
--- should only be used when @ExternalLoginFederationProviderType@ parameter
--- is set to @CUSTOM_OIDC@.
-updateUser_customFederationProviderUrl :: Lens.Lens' UpdateUser (Prelude.Maybe Prelude.Text)
-updateUser_customFederationProviderUrl = Lens.lens (\UpdateUser' {customFederationProviderUrl} -> customFederationProviderUrl) (\s@UpdateUser' {} a -> s {customFederationProviderUrl = a} :: UpdateUser)
 
 -- | The type of supported external login provider that provides identity to
 -- let a user federate into Amazon QuickSight with an associated Identity
@@ -324,14 +318,21 @@ updateUser_customFederationProviderUrl = Lens.lens (\UpdateUser' {customFederati
 --     to provide the custom OIDC provider URL.
 --
 -- -   @NONE@: This clears all the previously saved external login
---     information for a user. Use @ DescribeUser @ API to check the
---     external login information.
+--     information for a user. Use the @ DescribeUser @ API operation to
+--     check the external login information.
 updateUser_externalLoginFederationProviderType :: Lens.Lens' UpdateUser (Prelude.Maybe Prelude.Text)
 updateUser_externalLoginFederationProviderType = Lens.lens (\UpdateUser' {externalLoginFederationProviderType} -> externalLoginFederationProviderType) (\s@UpdateUser' {} a -> s {externalLoginFederationProviderType = a} :: UpdateUser)
 
 -- | The identity ID for a user in the external login provider.
 updateUser_externalLoginId :: Lens.Lens' UpdateUser (Prelude.Maybe Prelude.Text)
 updateUser_externalLoginId = Lens.lens (\UpdateUser' {externalLoginId} -> externalLoginId) (\s@UpdateUser' {} a -> s {externalLoginId = a} :: UpdateUser)
+
+-- | A flag that you use to indicate that you want to remove all custom
+-- permissions from this user. Using this parameter resets the user to the
+-- state it was in before a custom permissions profile was applied. This
+-- parameter defaults to NULL and it doesn\'t accept any other value.
+updateUser_unapplyCustomPermissions :: Lens.Lens' UpdateUser (Prelude.Maybe Prelude.Bool)
+updateUser_unapplyCustomPermissions = Lens.lens (\UpdateUser' {unapplyCustomPermissions} -> unapplyCustomPermissions) (\s@UpdateUser' {} a -> s {unapplyCustomPermissions = a} :: UpdateUser)
 
 -- | The Amazon QuickSight user name that you want to update.
 updateUser_userName :: Lens.Lens' UpdateUser Prelude.Text
@@ -369,24 +370,25 @@ updateUser_role = Lens.lens (\UpdateUser' {role'} -> role') (\s@UpdateUser' {} a
 
 instance Core.AWSRequest UpdateUser where
   type AWSResponse UpdateUser = UpdateUserResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateUserResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "User")
+            Prelude.<$> (x Data..?> "RequestId")
+            Prelude.<*> (x Data..?> "User")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateUser where
   hashWithSalt _salt UpdateUser' {..} =
     _salt
-      `Prelude.hashWithSalt` unapplyCustomPermissions
-      `Prelude.hashWithSalt` customPermissionsName
       `Prelude.hashWithSalt` customFederationProviderUrl
+      `Prelude.hashWithSalt` customPermissionsName
       `Prelude.hashWithSalt` externalLoginFederationProviderType
       `Prelude.hashWithSalt` externalLoginId
+      `Prelude.hashWithSalt` unapplyCustomPermissions
       `Prelude.hashWithSalt` userName
       `Prelude.hashWithSalt` awsAccountId
       `Prelude.hashWithSalt` namespace
@@ -395,59 +397,59 @@ instance Prelude.Hashable UpdateUser where
 
 instance Prelude.NFData UpdateUser where
   rnf UpdateUser' {..} =
-    Prelude.rnf unapplyCustomPermissions
+    Prelude.rnf customFederationProviderUrl
       `Prelude.seq` Prelude.rnf customPermissionsName
-      `Prelude.seq` Prelude.rnf customFederationProviderUrl
       `Prelude.seq` Prelude.rnf externalLoginFederationProviderType
       `Prelude.seq` Prelude.rnf externalLoginId
+      `Prelude.seq` Prelude.rnf unapplyCustomPermissions
       `Prelude.seq` Prelude.rnf userName
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf namespace
       `Prelude.seq` Prelude.rnf email
       `Prelude.seq` Prelude.rnf role'
 
-instance Core.ToHeaders UpdateUser where
+instance Data.ToHeaders UpdateUser where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateUser where
+instance Data.ToJSON UpdateUser where
   toJSON UpdateUser' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("UnapplyCustomPermissions" Core..=)
-              Prelude.<$> unapplyCustomPermissions,
-            ("CustomPermissionsName" Core..=)
-              Prelude.<$> customPermissionsName,
-            ("CustomFederationProviderUrl" Core..=)
+          [ ("CustomFederationProviderUrl" Data..=)
               Prelude.<$> customFederationProviderUrl,
-            ("ExternalLoginFederationProviderType" Core..=)
+            ("CustomPermissionsName" Data..=)
+              Prelude.<$> customPermissionsName,
+            ("ExternalLoginFederationProviderType" Data..=)
               Prelude.<$> externalLoginFederationProviderType,
-            ("ExternalLoginId" Core..=)
+            ("ExternalLoginId" Data..=)
               Prelude.<$> externalLoginId,
-            Prelude.Just ("Email" Core..= email),
-            Prelude.Just ("Role" Core..= role')
+            ("UnapplyCustomPermissions" Data..=)
+              Prelude.<$> unapplyCustomPermissions,
+            Prelude.Just ("Email" Data..= email),
+            Prelude.Just ("Role" Data..= role')
           ]
       )
 
-instance Core.ToPath UpdateUser where
+instance Data.ToPath UpdateUser where
   toPath UpdateUser' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/namespaces/",
-        Core.toBS namespace,
+        Data.toBS namespace,
         "/users/",
-        Core.toBS userName
+        Data.toBS userName
       ]
 
-instance Core.ToQuery UpdateUser where
+instance Data.ToQuery UpdateUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateUserResponse' smart constructor.

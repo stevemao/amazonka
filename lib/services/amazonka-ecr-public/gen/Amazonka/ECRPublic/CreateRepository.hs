@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECRPublic.CreateRepository
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,15 +38,16 @@ module Amazonka.ECRPublic.CreateRepository
     newCreateRepositoryResponse,
 
     -- * Response Lenses
-    createRepositoryResponse_repository,
     createRepositoryResponse_catalogData,
+    createRepositoryResponse_repository,
     createRepositoryResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECRPublic.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -126,13 +127,14 @@ instance Core.AWSRequest CreateRepository where
   type
     AWSResponse CreateRepository =
       CreateRepositoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateRepositoryResponse'
-            Prelude.<$> (x Core..?> "repository")
-            Prelude.<*> (x Core..?> "catalogData")
+            Prelude.<$> (x Data..?> "catalogData")
+            Prelude.<*> (x Data..?> "repository")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -148,43 +150,43 @@ instance Prelude.NFData CreateRepository where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf repositoryName
 
-instance Core.ToHeaders CreateRepository where
+instance Data.ToHeaders CreateRepository where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SpencerFrontendService.CreateRepository" ::
+              Data.=# ( "SpencerFrontendService.CreateRepository" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateRepository where
+instance Data.ToJSON CreateRepository where
   toJSON CreateRepository' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("catalogData" Core..=) Prelude.<$> catalogData,
-            ("tags" Core..=) Prelude.<$> tags,
+          [ ("catalogData" Data..=) Prelude.<$> catalogData,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName)
+              ("repositoryName" Data..= repositoryName)
           ]
       )
 
-instance Core.ToPath CreateRepository where
+instance Data.ToPath CreateRepository where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateRepository where
+instance Data.ToQuery CreateRepository where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateRepositoryResponse' smart constructor.
 data CreateRepositoryResponse = CreateRepositoryResponse'
-  { -- | The repository that was created.
+  { catalogData :: Prelude.Maybe RepositoryCatalogData,
+    -- | The repository that was created.
     repository :: Prelude.Maybe Repository,
-    catalogData :: Prelude.Maybe RepositoryCatalogData,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -198,9 +200,9 @@ data CreateRepositoryResponse = CreateRepositoryResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'repository', 'createRepositoryResponse_repository' - The repository that was created.
---
 -- 'catalogData', 'createRepositoryResponse_catalogData' - Undocumented member.
+--
+-- 'repository', 'createRepositoryResponse_repository' - The repository that was created.
 --
 -- 'httpStatus', 'createRepositoryResponse_httpStatus' - The response's http status code.
 newCreateRepositoryResponse ::
@@ -209,19 +211,19 @@ newCreateRepositoryResponse ::
   CreateRepositoryResponse
 newCreateRepositoryResponse pHttpStatus_ =
   CreateRepositoryResponse'
-    { repository =
+    { catalogData =
         Prelude.Nothing,
-      catalogData = Prelude.Nothing,
+      repository = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The repository that was created.
-createRepositoryResponse_repository :: Lens.Lens' CreateRepositoryResponse (Prelude.Maybe Repository)
-createRepositoryResponse_repository = Lens.lens (\CreateRepositoryResponse' {repository} -> repository) (\s@CreateRepositoryResponse' {} a -> s {repository = a} :: CreateRepositoryResponse)
 
 -- | Undocumented member.
 createRepositoryResponse_catalogData :: Lens.Lens' CreateRepositoryResponse (Prelude.Maybe RepositoryCatalogData)
 createRepositoryResponse_catalogData = Lens.lens (\CreateRepositoryResponse' {catalogData} -> catalogData) (\s@CreateRepositoryResponse' {} a -> s {catalogData = a} :: CreateRepositoryResponse)
+
+-- | The repository that was created.
+createRepositoryResponse_repository :: Lens.Lens' CreateRepositoryResponse (Prelude.Maybe Repository)
+createRepositoryResponse_repository = Lens.lens (\CreateRepositoryResponse' {repository} -> repository) (\s@CreateRepositoryResponse' {} a -> s {repository = a} :: CreateRepositoryResponse)
 
 -- | The response's http status code.
 createRepositoryResponse_httpStatus :: Lens.Lens' CreateRepositoryResponse Prelude.Int
@@ -229,6 +231,6 @@ createRepositoryResponse_httpStatus = Lens.lens (\CreateRepositoryResponse' {htt
 
 instance Prelude.NFData CreateRepositoryResponse where
   rnf CreateRepositoryResponse' {..} =
-    Prelude.rnf repository
-      `Prelude.seq` Prelude.rnf catalogData
+    Prelude.rnf catalogData
+      `Prelude.seq` Prelude.rnf repository
       `Prelude.seq` Prelude.rnf httpStatus

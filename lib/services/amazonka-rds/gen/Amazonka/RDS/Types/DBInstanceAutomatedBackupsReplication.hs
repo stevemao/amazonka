@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.Types.DBInstanceAutomatedBackupsReplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RDS.Types.DBInstanceAutomatedBackupsReplication where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Automated backups of a DB instance replicated to another Amazon Web
@@ -56,12 +57,12 @@ dbInstanceAutomatedBackupsReplication_dbInstanceAutomatedBackupsArn :: Lens.Lens
 dbInstanceAutomatedBackupsReplication_dbInstanceAutomatedBackupsArn = Lens.lens (\DBInstanceAutomatedBackupsReplication' {dbInstanceAutomatedBackupsArn} -> dbInstanceAutomatedBackupsArn) (\s@DBInstanceAutomatedBackupsReplication' {} a -> s {dbInstanceAutomatedBackupsArn = a} :: DBInstanceAutomatedBackupsReplication)
 
 instance
-  Core.FromXML
+  Data.FromXML
     DBInstanceAutomatedBackupsReplication
   where
   parseXML x =
     DBInstanceAutomatedBackupsReplication'
-      Prelude.<$> (x Core..@? "DBInstanceAutomatedBackupsArn")
+      Prelude.<$> (x Data..@? "DBInstanceAutomatedBackupsArn")
 
 instance
   Prelude.Hashable

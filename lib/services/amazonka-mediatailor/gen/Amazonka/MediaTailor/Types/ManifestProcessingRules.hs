@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.Types.ManifestProcessingRules
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaTailor.Types.ManifestProcessingRules where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types.AdMarkerPassthrough
 import qualified Amazonka.Prelude as Prelude
 
@@ -30,13 +31,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newManifestProcessingRules' smart constructor.
 data ManifestProcessingRules = ManifestProcessingRules'
-  { -- | For HLS, when set to true, MediaTailor passes through EXT-X-CUE-IN,
-    -- EXT-X-CUE-OUT, and EXT-X-SPLICEPOINT-SCTE35 ad markers from the origin
-    -- manifest to the MediaTailor personalized manifest.
+  { -- | For HLS, when set to @true@, MediaTailor passes through @EXT-X-CUE-IN@,
+    -- @EXT-X-CUE-OUT@, and @EXT-X-SPLICEPOINT-SCTE35@ ad markers from the
+    -- origin manifest to the MediaTailor personalized manifest.
     --
-    -- No logic is applied to these ad markers. For example, if EXT-X-CUE-OUT
-    -- has a value of 60, but no ads are filled for that ad break, MediaTailor
-    -- will not set the value to 0.
+    -- No logic is applied to these ad markers. For example, if @EXT-X-CUE-OUT@
+    -- has a value of @60@, but no ads are filled for that ad break,
+    -- MediaTailor will not set the value to @0@.
     adMarkerPassthrough :: Prelude.Maybe AdMarkerPassthrough
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -49,13 +50,13 @@ data ManifestProcessingRules = ManifestProcessingRules'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'adMarkerPassthrough', 'manifestProcessingRules_adMarkerPassthrough' - For HLS, when set to true, MediaTailor passes through EXT-X-CUE-IN,
--- EXT-X-CUE-OUT, and EXT-X-SPLICEPOINT-SCTE35 ad markers from the origin
--- manifest to the MediaTailor personalized manifest.
+-- 'adMarkerPassthrough', 'manifestProcessingRules_adMarkerPassthrough' - For HLS, when set to @true@, MediaTailor passes through @EXT-X-CUE-IN@,
+-- @EXT-X-CUE-OUT@, and @EXT-X-SPLICEPOINT-SCTE35@ ad markers from the
+-- origin manifest to the MediaTailor personalized manifest.
 --
--- No logic is applied to these ad markers. For example, if EXT-X-CUE-OUT
--- has a value of 60, but no ads are filled for that ad break, MediaTailor
--- will not set the value to 0.
+-- No logic is applied to these ad markers. For example, if @EXT-X-CUE-OUT@
+-- has a value of @60@, but no ads are filled for that ad break,
+-- MediaTailor will not set the value to @0@.
 newManifestProcessingRules ::
   ManifestProcessingRules
 newManifestProcessingRules =
@@ -64,23 +65,23 @@ newManifestProcessingRules =
         Prelude.Nothing
     }
 
--- | For HLS, when set to true, MediaTailor passes through EXT-X-CUE-IN,
--- EXT-X-CUE-OUT, and EXT-X-SPLICEPOINT-SCTE35 ad markers from the origin
--- manifest to the MediaTailor personalized manifest.
+-- | For HLS, when set to @true@, MediaTailor passes through @EXT-X-CUE-IN@,
+-- @EXT-X-CUE-OUT@, and @EXT-X-SPLICEPOINT-SCTE35@ ad markers from the
+-- origin manifest to the MediaTailor personalized manifest.
 --
--- No logic is applied to these ad markers. For example, if EXT-X-CUE-OUT
--- has a value of 60, but no ads are filled for that ad break, MediaTailor
--- will not set the value to 0.
+-- No logic is applied to these ad markers. For example, if @EXT-X-CUE-OUT@
+-- has a value of @60@, but no ads are filled for that ad break,
+-- MediaTailor will not set the value to @0@.
 manifestProcessingRules_adMarkerPassthrough :: Lens.Lens' ManifestProcessingRules (Prelude.Maybe AdMarkerPassthrough)
 manifestProcessingRules_adMarkerPassthrough = Lens.lens (\ManifestProcessingRules' {adMarkerPassthrough} -> adMarkerPassthrough) (\s@ManifestProcessingRules' {} a -> s {adMarkerPassthrough = a} :: ManifestProcessingRules)
 
-instance Core.FromJSON ManifestProcessingRules where
+instance Data.FromJSON ManifestProcessingRules where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ManifestProcessingRules"
       ( \x ->
           ManifestProcessingRules'
-            Prelude.<$> (x Core..:? "AdMarkerPassthrough")
+            Prelude.<$> (x Data..:? "AdMarkerPassthrough")
       )
 
 instance Prelude.Hashable ManifestProcessingRules where
@@ -91,11 +92,11 @@ instance Prelude.NFData ManifestProcessingRules where
   rnf ManifestProcessingRules' {..} =
     Prelude.rnf adMarkerPassthrough
 
-instance Core.ToJSON ManifestProcessingRules where
+instance Data.ToJSON ManifestProcessingRules where
   toJSON ManifestProcessingRules' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AdMarkerPassthrough" Core..=)
+          [ ("AdMarkerPassthrough" Data..=)
               Prelude.<$> adMarkerPassthrough
           ]
       )

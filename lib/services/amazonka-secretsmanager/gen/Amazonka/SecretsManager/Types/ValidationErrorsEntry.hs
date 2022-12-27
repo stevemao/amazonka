@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecretsManager.Types.ValidationErrorsEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecretsManager.Types.ValidationErrorsEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Displays errors that occurred during validation of the resource policy.
@@ -64,14 +65,14 @@ validationErrorsEntry_checkName = Lens.lens (\ValidationErrorsEntry' {checkName}
 validationErrorsEntry_errorMessage :: Lens.Lens' ValidationErrorsEntry (Prelude.Maybe Prelude.Text)
 validationErrorsEntry_errorMessage = Lens.lens (\ValidationErrorsEntry' {errorMessage} -> errorMessage) (\s@ValidationErrorsEntry' {} a -> s {errorMessage = a} :: ValidationErrorsEntry)
 
-instance Core.FromJSON ValidationErrorsEntry where
+instance Data.FromJSON ValidationErrorsEntry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ValidationErrorsEntry"
       ( \x ->
           ValidationErrorsEntry'
-            Prelude.<$> (x Core..:? "CheckName")
-            Prelude.<*> (x Core..:? "ErrorMessage")
+            Prelude.<$> (x Data..:? "CheckName")
+            Prelude.<*> (x Data..:? "ErrorMessage")
       )
 
 instance Prelude.Hashable ValidationErrorsEntry where

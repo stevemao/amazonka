@@ -14,13 +14,16 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.UpdateShareInvitation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Update a workload invitation.
+-- Update a workload or custom lens share invitation.
+--
+-- This API operation can be called independently of any resource. Previous
+-- documentation implied that a workload ARN must be specified.
 module Amazonka.WellArchitected.UpdateShareInvitation
   ( -- * Creating a Request
     UpdateShareInvitation (..),
@@ -41,7 +44,8 @@ module Amazonka.WellArchitected.UpdateShareInvitation
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,12 +99,13 @@ instance Core.AWSRequest UpdateShareInvitation where
   type
     AWSResponse UpdateShareInvitation =
       UpdateShareInvitationResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateShareInvitationResponse'
-            Prelude.<$> (x Core..?> "ShareInvitation")
+            Prelude.<$> (x Data..?> "ShareInvitation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,39 +119,39 @@ instance Prelude.NFData UpdateShareInvitation where
     Prelude.rnf shareInvitationId
       `Prelude.seq` Prelude.rnf shareInvitationAction
 
-instance Core.ToHeaders UpdateShareInvitation where
+instance Data.ToHeaders UpdateShareInvitation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateShareInvitation where
+instance Data.ToJSON UpdateShareInvitation where
   toJSON UpdateShareInvitation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "ShareInvitationAction"
-                  Core..= shareInvitationAction
+                  Data..= shareInvitationAction
               )
           ]
       )
 
-instance Core.ToPath UpdateShareInvitation where
+instance Data.ToPath UpdateShareInvitation where
   toPath UpdateShareInvitation' {..} =
     Prelude.mconcat
-      ["/shareInvitations/", Core.toBS shareInvitationId]
+      ["/shareInvitations/", Data.toBS shareInvitationId]
 
-instance Core.ToQuery UpdateShareInvitation where
+instance Data.ToQuery UpdateShareInvitation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateShareInvitationResponse' smart constructor.
 data UpdateShareInvitationResponse = UpdateShareInvitationResponse'
-  { -- | The updated workload share invitation.
+  { -- | The updated workload or custom lens share invitation.
     shareInvitation :: Prelude.Maybe ShareInvitation,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -161,7 +166,7 @@ data UpdateShareInvitationResponse = UpdateShareInvitationResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'shareInvitation', 'updateShareInvitationResponse_shareInvitation' - The updated workload share invitation.
+-- 'shareInvitation', 'updateShareInvitationResponse_shareInvitation' - The updated workload or custom lens share invitation.
 --
 -- 'httpStatus', 'updateShareInvitationResponse_httpStatus' - The response's http status code.
 newUpdateShareInvitationResponse ::
@@ -175,7 +180,7 @@ newUpdateShareInvitationResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The updated workload share invitation.
+-- | The updated workload or custom lens share invitation.
 updateShareInvitationResponse_shareInvitation :: Lens.Lens' UpdateShareInvitationResponse (Prelude.Maybe ShareInvitation)
 updateShareInvitationResponse_shareInvitation = Lens.lens (\UpdateShareInvitationResponse' {shareInvitation} -> shareInvitation) (\s@UpdateShareInvitationResponse' {} a -> s {shareInvitation = a} :: UpdateShareInvitationResponse)
 

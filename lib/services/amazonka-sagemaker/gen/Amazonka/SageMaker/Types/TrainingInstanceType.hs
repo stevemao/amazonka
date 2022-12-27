@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.TrainingInstanceType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,6 +40,14 @@ module Amazonka.SageMaker.Types.TrainingInstanceType
         TrainingInstanceType_Ml_g4dn_4xlarge,
         TrainingInstanceType_Ml_g4dn_8xlarge,
         TrainingInstanceType_Ml_g4dn_xlarge,
+        TrainingInstanceType_Ml_g5_12xlarge,
+        TrainingInstanceType_Ml_g5_16xlarge,
+        TrainingInstanceType_Ml_g5_24xlarge,
+        TrainingInstanceType_Ml_g5_2xlarge,
+        TrainingInstanceType_Ml_g5_48xlarge,
+        TrainingInstanceType_Ml_g5_4xlarge,
+        TrainingInstanceType_Ml_g5_8xlarge,
+        TrainingInstanceType_Ml_g5_xlarge,
         TrainingInstanceType_Ml_m4_10xlarge,
         TrainingInstanceType_Ml_m4_16xlarge,
         TrainingInstanceType_Ml_m4_2xlarge,
@@ -58,17 +66,20 @@ module Amazonka.SageMaker.Types.TrainingInstanceType
         TrainingInstanceType_Ml_p3_2xlarge,
         TrainingInstanceType_Ml_p3_8xlarge,
         TrainingInstanceType_Ml_p3dn_24xlarge,
-        TrainingInstanceType_Ml_p4d_24xlarge
+        TrainingInstanceType_Ml_p4d_24xlarge,
+        TrainingInstanceType_Ml_trn1_2xlarge,
+        TrainingInstanceType_Ml_trn1_32xlarge
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype TrainingInstanceType = TrainingInstanceType'
   { fromTrainingInstanceType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -80,18 +91,18 @@ newtype TrainingInstanceType = TrainingInstanceType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern TrainingInstanceType_Ml_c4_2xlarge :: TrainingInstanceType
@@ -154,6 +165,30 @@ pattern TrainingInstanceType_Ml_g4dn_8xlarge = TrainingInstanceType' "ml.g4dn.8x
 pattern TrainingInstanceType_Ml_g4dn_xlarge :: TrainingInstanceType
 pattern TrainingInstanceType_Ml_g4dn_xlarge = TrainingInstanceType' "ml.g4dn.xlarge"
 
+pattern TrainingInstanceType_Ml_g5_12xlarge :: TrainingInstanceType
+pattern TrainingInstanceType_Ml_g5_12xlarge = TrainingInstanceType' "ml.g5.12xlarge"
+
+pattern TrainingInstanceType_Ml_g5_16xlarge :: TrainingInstanceType
+pattern TrainingInstanceType_Ml_g5_16xlarge = TrainingInstanceType' "ml.g5.16xlarge"
+
+pattern TrainingInstanceType_Ml_g5_24xlarge :: TrainingInstanceType
+pattern TrainingInstanceType_Ml_g5_24xlarge = TrainingInstanceType' "ml.g5.24xlarge"
+
+pattern TrainingInstanceType_Ml_g5_2xlarge :: TrainingInstanceType
+pattern TrainingInstanceType_Ml_g5_2xlarge = TrainingInstanceType' "ml.g5.2xlarge"
+
+pattern TrainingInstanceType_Ml_g5_48xlarge :: TrainingInstanceType
+pattern TrainingInstanceType_Ml_g5_48xlarge = TrainingInstanceType' "ml.g5.48xlarge"
+
+pattern TrainingInstanceType_Ml_g5_4xlarge :: TrainingInstanceType
+pattern TrainingInstanceType_Ml_g5_4xlarge = TrainingInstanceType' "ml.g5.4xlarge"
+
+pattern TrainingInstanceType_Ml_g5_8xlarge :: TrainingInstanceType
+pattern TrainingInstanceType_Ml_g5_8xlarge = TrainingInstanceType' "ml.g5.8xlarge"
+
+pattern TrainingInstanceType_Ml_g5_xlarge :: TrainingInstanceType
+pattern TrainingInstanceType_Ml_g5_xlarge = TrainingInstanceType' "ml.g5.xlarge"
+
 pattern TrainingInstanceType_Ml_m4_10xlarge :: TrainingInstanceType
 pattern TrainingInstanceType_Ml_m4_10xlarge = TrainingInstanceType' "ml.m4.10xlarge"
 
@@ -211,6 +246,12 @@ pattern TrainingInstanceType_Ml_p3dn_24xlarge = TrainingInstanceType' "ml.p3dn.2
 pattern TrainingInstanceType_Ml_p4d_24xlarge :: TrainingInstanceType
 pattern TrainingInstanceType_Ml_p4d_24xlarge = TrainingInstanceType' "ml.p4d.24xlarge"
 
+pattern TrainingInstanceType_Ml_trn1_2xlarge :: TrainingInstanceType
+pattern TrainingInstanceType_Ml_trn1_2xlarge = TrainingInstanceType' "ml.trn1.2xlarge"
+
+pattern TrainingInstanceType_Ml_trn1_32xlarge :: TrainingInstanceType
+pattern TrainingInstanceType_Ml_trn1_32xlarge = TrainingInstanceType' "ml.trn1.32xlarge"
+
 {-# COMPLETE
   TrainingInstanceType_Ml_c4_2xlarge,
   TrainingInstanceType_Ml_c4_4xlarge,
@@ -232,6 +273,14 @@ pattern TrainingInstanceType_Ml_p4d_24xlarge = TrainingInstanceType' "ml.p4d.24x
   TrainingInstanceType_Ml_g4dn_4xlarge,
   TrainingInstanceType_Ml_g4dn_8xlarge,
   TrainingInstanceType_Ml_g4dn_xlarge,
+  TrainingInstanceType_Ml_g5_12xlarge,
+  TrainingInstanceType_Ml_g5_16xlarge,
+  TrainingInstanceType_Ml_g5_24xlarge,
+  TrainingInstanceType_Ml_g5_2xlarge,
+  TrainingInstanceType_Ml_g5_48xlarge,
+  TrainingInstanceType_Ml_g5_4xlarge,
+  TrainingInstanceType_Ml_g5_8xlarge,
+  TrainingInstanceType_Ml_g5_xlarge,
   TrainingInstanceType_Ml_m4_10xlarge,
   TrainingInstanceType_Ml_m4_16xlarge,
   TrainingInstanceType_Ml_m4_2xlarge,
@@ -251,5 +300,7 @@ pattern TrainingInstanceType_Ml_p4d_24xlarge = TrainingInstanceType' "ml.p4d.24x
   TrainingInstanceType_Ml_p3_8xlarge,
   TrainingInstanceType_Ml_p3dn_24xlarge,
   TrainingInstanceType_Ml_p4d_24xlarge,
+  TrainingInstanceType_Ml_trn1_2xlarge,
+  TrainingInstanceType_Ml_trn1_32xlarge,
   TrainingInstanceType'
   #-}

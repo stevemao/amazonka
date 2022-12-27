@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.RequestUploadCredentials
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@
 --
 -- Retrieves a fresh set of credentials for use when uploading a new set of
 -- game build files to Amazon GameLift\'s Amazon S3. This is done as part
--- of the build creation process; see CreateBuild.
+-- of the build creation process; see
+-- <https://docs.aws.amazon.com/gamelift/latest/apireference/API_CreateBuild.html GameSession>.
 --
 -- To request new credentials, specify the build ID as returned with an
 -- initial @CreateBuild@ request. If successful, a new set of credentials
@@ -33,9 +34,6 @@
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/gamelift-build-cli-uploading.html#gamelift-build-cli-uploading-create-build Create a Build with Files in S3>
 --
--- __Related actions__
---
--- CreateBuild | ListBuilds | DescribeBuild | UpdateBuild | DeleteBuild |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.RequestUploadCredentials
   ( -- * Creating a Request
@@ -57,15 +55,14 @@ module Amazonka.GameLift.RequestUploadCredentials
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newRequestUploadCredentials' smart constructor.
+-- | /See:/ 'newRequestUploadCredentials' smart constructor.
 data RequestUploadCredentials = RequestUploadCredentials'
   { -- | A unique identifier for the build to get credentials for. You can use
     -- either the build ID or ARN value.
@@ -99,13 +96,14 @@ instance Core.AWSRequest RequestUploadCredentials where
   type
     AWSResponse RequestUploadCredentials =
       RequestUploadCredentialsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RequestUploadCredentialsResponse'
-            Prelude.<$> (x Core..?> "StorageLocation")
-            Prelude.<*> (x Core..?> "UploadCredentials")
+            Prelude.<$> (x Data..?> "StorageLocation")
+            Prelude.<*> (x Data..?> "UploadCredentials")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,45 +115,43 @@ instance Prelude.NFData RequestUploadCredentials where
   rnf RequestUploadCredentials' {..} =
     Prelude.rnf buildId
 
-instance Core.ToHeaders RequestUploadCredentials where
+instance Data.ToHeaders RequestUploadCredentials where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.RequestUploadCredentials" ::
+              Data.=# ( "GameLift.RequestUploadCredentials" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RequestUploadCredentials where
+instance Data.ToJSON RequestUploadCredentials where
   toJSON RequestUploadCredentials' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("BuildId" Core..= buildId)]
+          [Prelude.Just ("BuildId" Data..= buildId)]
       )
 
-instance Core.ToPath RequestUploadCredentials where
+instance Data.ToPath RequestUploadCredentials where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RequestUploadCredentials where
+instance Data.ToQuery RequestUploadCredentials where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newRequestUploadCredentialsResponse' smart constructor.
+-- | /See:/ 'newRequestUploadCredentialsResponse' smart constructor.
 data RequestUploadCredentialsResponse = RequestUploadCredentialsResponse'
   { -- | Amazon S3 path and key, identifying where the game build files are
     -- stored.
     storageLocation :: Prelude.Maybe S3Location,
-    -- | AWS credentials required when uploading a game build to the storage
-    -- location. These credentials have a limited lifespan and are valid only
-    -- for the build they were issued for.
-    uploadCredentials :: Prelude.Maybe (Core.Sensitive AwsCredentials),
+    -- | Amazon Web Services credentials required when uploading a game build to
+    -- the storage location. These credentials have a limited lifespan and are
+    -- valid only for the build they were issued for.
+    uploadCredentials :: Prelude.Maybe (Data.Sensitive AwsCredentials),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -172,9 +168,9 @@ data RequestUploadCredentialsResponse = RequestUploadCredentialsResponse'
 -- 'storageLocation', 'requestUploadCredentialsResponse_storageLocation' - Amazon S3 path and key, identifying where the game build files are
 -- stored.
 --
--- 'uploadCredentials', 'requestUploadCredentialsResponse_uploadCredentials' - AWS credentials required when uploading a game build to the storage
--- location. These credentials have a limited lifespan and are valid only
--- for the build they were issued for.
+-- 'uploadCredentials', 'requestUploadCredentialsResponse_uploadCredentials' - Amazon Web Services credentials required when uploading a game build to
+-- the storage location. These credentials have a limited lifespan and are
+-- valid only for the build they were issued for.
 --
 -- 'httpStatus', 'requestUploadCredentialsResponse_httpStatus' - The response's http status code.
 newRequestUploadCredentialsResponse ::
@@ -194,11 +190,11 @@ newRequestUploadCredentialsResponse pHttpStatus_ =
 requestUploadCredentialsResponse_storageLocation :: Lens.Lens' RequestUploadCredentialsResponse (Prelude.Maybe S3Location)
 requestUploadCredentialsResponse_storageLocation = Lens.lens (\RequestUploadCredentialsResponse' {storageLocation} -> storageLocation) (\s@RequestUploadCredentialsResponse' {} a -> s {storageLocation = a} :: RequestUploadCredentialsResponse)
 
--- | AWS credentials required when uploading a game build to the storage
--- location. These credentials have a limited lifespan and are valid only
--- for the build they were issued for.
+-- | Amazon Web Services credentials required when uploading a game build to
+-- the storage location. These credentials have a limited lifespan and are
+-- valid only for the build they were issued for.
 requestUploadCredentialsResponse_uploadCredentials :: Lens.Lens' RequestUploadCredentialsResponse (Prelude.Maybe AwsCredentials)
-requestUploadCredentialsResponse_uploadCredentials = Lens.lens (\RequestUploadCredentialsResponse' {uploadCredentials} -> uploadCredentials) (\s@RequestUploadCredentialsResponse' {} a -> s {uploadCredentials = a} :: RequestUploadCredentialsResponse) Prelude.. Lens.mapping Core._Sensitive
+requestUploadCredentialsResponse_uploadCredentials = Lens.lens (\RequestUploadCredentialsResponse' {uploadCredentials} -> uploadCredentials) (\s@RequestUploadCredentialsResponse' {} a -> s {uploadCredentials = a} :: RequestUploadCredentialsResponse) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The response's http status code.
 requestUploadCredentialsResponse_httpStatus :: Lens.Lens' RequestUploadCredentialsResponse Prelude.Int

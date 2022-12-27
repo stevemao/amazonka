@@ -14,22 +14,23 @@
 
 -- |
 -- Module      : Amazonka.Organizations.RegisterDelegatedAdministrator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Enables the specified member account to administer the Organizations
--- features of the specified AWS service. It grants read-only access to AWS
--- Organizations service data. The account still requires IAM permissions
--- to access and administer the AWS service.
+-- features of the specified Amazon Web Services service. It grants
+-- read-only access to Organizations service data. The account still
+-- requires IAM permissions to access and administer the Amazon Web
+-- Services service.
 --
--- You can run this action only for AWS services that support this feature.
--- For a current list of services that support it, see the column /Supports
--- Delegated Administrator/ in the table at
--- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services_list.html AWS Services that you can use with AWS Organizations>
--- in the /AWS Organizations User Guide./
+-- You can run this action only for Amazon Web Services services that
+-- support this feature. For a current list of services that support it,
+-- see the column /Supports Delegated Administrator/ in the table at
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_integrate_services_list.html Amazon Web Services Services that you can use with Organizations>
+-- in the /Organizations User Guide./
 --
 -- This operation can be called only from the organization\'s management
 -- account.
@@ -49,7 +50,8 @@ module Amazonka.Organizations.RegisterDelegatedAdministrator
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -60,8 +62,8 @@ data RegisterDelegatedAdministrator = RegisterDelegatedAdministrator'
   { -- | The account ID number of the member account in the organization to
     -- register as a delegated administrator.
     accountId :: Prelude.Text,
-    -- | The service principal of the AWS service for which you want to make the
-    -- member account a delegated administrator.
+    -- | The service principal of the Amazon Web Services service for which you
+    -- want to make the member account a delegated administrator.
     servicePrincipal :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -77,8 +79,8 @@ data RegisterDelegatedAdministrator = RegisterDelegatedAdministrator'
 -- 'accountId', 'registerDelegatedAdministrator_accountId' - The account ID number of the member account in the organization to
 -- register as a delegated administrator.
 --
--- 'servicePrincipal', 'registerDelegatedAdministrator_servicePrincipal' - The service principal of the AWS service for which you want to make the
--- member account a delegated administrator.
+-- 'servicePrincipal', 'registerDelegatedAdministrator_servicePrincipal' - The service principal of the Amazon Web Services service for which you
+-- want to make the member account a delegated administrator.
 newRegisterDelegatedAdministrator ::
   -- | 'accountId'
   Prelude.Text ->
@@ -99,8 +101,8 @@ newRegisterDelegatedAdministrator
 registerDelegatedAdministrator_accountId :: Lens.Lens' RegisterDelegatedAdministrator Prelude.Text
 registerDelegatedAdministrator_accountId = Lens.lens (\RegisterDelegatedAdministrator' {accountId} -> accountId) (\s@RegisterDelegatedAdministrator' {} a -> s {accountId = a} :: RegisterDelegatedAdministrator)
 
--- | The service principal of the AWS service for which you want to make the
--- member account a delegated administrator.
+-- | The service principal of the Amazon Web Services service for which you
+-- want to make the member account a delegated administrator.
 registerDelegatedAdministrator_servicePrincipal :: Lens.Lens' RegisterDelegatedAdministrator Prelude.Text
 registerDelegatedAdministrator_servicePrincipal = Lens.lens (\RegisterDelegatedAdministrator' {servicePrincipal} -> servicePrincipal) (\s@RegisterDelegatedAdministrator' {} a -> s {servicePrincipal = a} :: RegisterDelegatedAdministrator)
 
@@ -111,7 +113,8 @@ instance
   type
     AWSResponse RegisterDelegatedAdministrator =
       RegisterDelegatedAdministratorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       RegisterDelegatedAdministratorResponse'
@@ -135,37 +138,37 @@ instance
       `Prelude.seq` Prelude.rnf servicePrincipal
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     RegisterDelegatedAdministrator
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.RegisterDelegatedAdministrator" ::
+              Data.=# ( "AWSOrganizationsV20161128.RegisterDelegatedAdministrator" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterDelegatedAdministrator where
+instance Data.ToJSON RegisterDelegatedAdministrator where
   toJSON RegisterDelegatedAdministrator' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("AccountId" Core..= accountId),
+          [ Prelude.Just ("AccountId" Data..= accountId),
             Prelude.Just
-              ("ServicePrincipal" Core..= servicePrincipal)
+              ("ServicePrincipal" Data..= servicePrincipal)
           ]
       )
 
-instance Core.ToPath RegisterDelegatedAdministrator where
+instance Data.ToPath RegisterDelegatedAdministrator where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterDelegatedAdministrator where
+instance Data.ToQuery RegisterDelegatedAdministrator where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRegisterDelegatedAdministratorResponse' smart constructor.

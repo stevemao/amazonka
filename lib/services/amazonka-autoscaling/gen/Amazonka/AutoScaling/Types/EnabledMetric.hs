@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.EnabledMetric
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.AutoScaling.Types.EnabledMetric where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Describes an enabled metric.
+-- | Describes an enabled Auto Scaling group metric.
 --
 -- /See:/ 'newEnabledMetric' smart constructor.
 data EnabledMetric = EnabledMetric'
@@ -70,6 +71,10 @@ data EnabledMetric = EnabledMetric'
     -- -   @GroupAndWarmPoolDesiredCapacity@
     --
     -- -   @GroupAndWarmPoolTotalCapacity@
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-cloudwatch-monitoring.html#as-group-metrics Auto Scaling group metrics>
+    -- in the /Amazon EC2 Auto Scaling User Guide/.
     metric :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -125,6 +130,10 @@ data EnabledMetric = EnabledMetric'
 -- -   @GroupAndWarmPoolDesiredCapacity@
 --
 -- -   @GroupAndWarmPoolTotalCapacity@
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-cloudwatch-monitoring.html#as-group-metrics Auto Scaling group metrics>
+-- in the /Amazon EC2 Auto Scaling User Guide/.
 newEnabledMetric ::
   EnabledMetric
 newEnabledMetric =
@@ -178,14 +187,18 @@ enabledMetric_granularity = Lens.lens (\EnabledMetric' {granularity} -> granular
 -- -   @GroupAndWarmPoolDesiredCapacity@
 --
 -- -   @GroupAndWarmPoolTotalCapacity@
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-cloudwatch-monitoring.html#as-group-metrics Auto Scaling group metrics>
+-- in the /Amazon EC2 Auto Scaling User Guide/.
 enabledMetric_metric :: Lens.Lens' EnabledMetric (Prelude.Maybe Prelude.Text)
 enabledMetric_metric = Lens.lens (\EnabledMetric' {metric} -> metric) (\s@EnabledMetric' {} a -> s {metric = a} :: EnabledMetric)
 
-instance Core.FromXML EnabledMetric where
+instance Data.FromXML EnabledMetric where
   parseXML x =
     EnabledMetric'
-      Prelude.<$> (x Core..@? "Granularity")
-      Prelude.<*> (x Core..@? "Metric")
+      Prelude.<$> (x Data..@? "Granularity")
+      Prelude.<*> (x Data..@? "Metric")
 
 instance Prelude.Hashable EnabledMetric where
   hashWithSalt _salt EnabledMetric' {..} =

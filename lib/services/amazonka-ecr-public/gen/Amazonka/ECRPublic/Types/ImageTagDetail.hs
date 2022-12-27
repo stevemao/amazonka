@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECRPublic.Types.ImageTagDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ECRPublic.Types.ImageTagDetail where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECRPublic.Types.ReferencedImageDetail
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing the image tag details for an image.
@@ -29,7 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newImageTagDetail' smart constructor.
 data ImageTagDetail = ImageTagDetail'
   { -- | The time stamp indicating when the image tag was created.
-    createdAt :: Prelude.Maybe Core.POSIX,
+    createdAt :: Prelude.Maybe Data.POSIX,
     -- | An object that describes the details of an image.
     imageDetail :: Prelude.Maybe ReferencedImageDetail,
     -- | The tag associated with the image.
@@ -61,7 +62,7 @@ newImageTagDetail =
 
 -- | The time stamp indicating when the image tag was created.
 imageTagDetail_createdAt :: Lens.Lens' ImageTagDetail (Prelude.Maybe Prelude.UTCTime)
-imageTagDetail_createdAt = Lens.lens (\ImageTagDetail' {createdAt} -> createdAt) (\s@ImageTagDetail' {} a -> s {createdAt = a} :: ImageTagDetail) Prelude.. Lens.mapping Core._Time
+imageTagDetail_createdAt = Lens.lens (\ImageTagDetail' {createdAt} -> createdAt) (\s@ImageTagDetail' {} a -> s {createdAt = a} :: ImageTagDetail) Prelude.. Lens.mapping Data._Time
 
 -- | An object that describes the details of an image.
 imageTagDetail_imageDetail :: Lens.Lens' ImageTagDetail (Prelude.Maybe ReferencedImageDetail)
@@ -71,15 +72,15 @@ imageTagDetail_imageDetail = Lens.lens (\ImageTagDetail' {imageDetail} -> imageD
 imageTagDetail_imageTag :: Lens.Lens' ImageTagDetail (Prelude.Maybe Prelude.Text)
 imageTagDetail_imageTag = Lens.lens (\ImageTagDetail' {imageTag} -> imageTag) (\s@ImageTagDetail' {} a -> s {imageTag = a} :: ImageTagDetail)
 
-instance Core.FromJSON ImageTagDetail where
+instance Data.FromJSON ImageTagDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ImageTagDetail"
       ( \x ->
           ImageTagDetail'
-            Prelude.<$> (x Core..:? "createdAt")
-            Prelude.<*> (x Core..:? "imageDetail")
-            Prelude.<*> (x Core..:? "imageTag")
+            Prelude.<$> (x Data..:? "createdAt")
+            Prelude.<*> (x Data..:? "imageDetail")
+            Prelude.<*> (x Data..:? "imageTag")
       )
 
 instance Prelude.Hashable ImageTagDetail where

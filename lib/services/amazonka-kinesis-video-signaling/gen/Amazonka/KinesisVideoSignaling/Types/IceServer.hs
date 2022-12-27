@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideoSignaling.Types.IceServer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,17 @@
 module Amazonka.KinesisVideoSignaling.Types.IceServer where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure for the ICE server connection data.
 --
 -- /See:/ 'newIceServer' smart constructor.
 data IceServer = IceServer'
-  { -- | The period of time, in seconds, during which the username and password
+  { -- | A password to login to the ICE server.
+    password :: Prelude.Maybe Prelude.Text,
+    -- | The period of time, in seconds, during which the username and password
     -- are valid.
     ttl :: Prelude.Maybe Prelude.Natural,
     -- | An array of URIs, in the form specified in the
@@ -36,9 +39,7 @@ data IceServer = IceServer'
     -- can be used to reach the TURN server.
     uris :: Prelude.Maybe [Prelude.Text],
     -- | A username to login to the ICE server.
-    username :: Prelude.Maybe Prelude.Text,
-    -- | A password to login to the ICE server.
-    password :: Prelude.Maybe Prelude.Text
+    username :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,6 +51,8 @@ data IceServer = IceServer'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'password', 'iceServer_password' - A password to login to the ICE server.
+--
 -- 'ttl', 'iceServer_ttl' - The period of time, in seconds, during which the username and password
 -- are valid.
 --
@@ -59,17 +62,19 @@ data IceServer = IceServer'
 -- can be used to reach the TURN server.
 --
 -- 'username', 'iceServer_username' - A username to login to the ICE server.
---
--- 'password', 'iceServer_password' - A password to login to the ICE server.
 newIceServer ::
   IceServer
 newIceServer =
   IceServer'
-    { ttl = Prelude.Nothing,
+    { password = Prelude.Nothing,
+      ttl = Prelude.Nothing,
       uris = Prelude.Nothing,
-      username = Prelude.Nothing,
-      password = Prelude.Nothing
+      username = Prelude.Nothing
     }
+
+-- | A password to login to the ICE server.
+iceServer_password :: Lens.Lens' IceServer (Prelude.Maybe Prelude.Text)
+iceServer_password = Lens.lens (\IceServer' {password} -> password) (\s@IceServer' {} a -> s {password = a} :: IceServer)
 
 -- | The period of time, in seconds, during which the username and password
 -- are valid.
@@ -87,32 +92,28 @@ iceServer_uris = Lens.lens (\IceServer' {uris} -> uris) (\s@IceServer' {} a -> s
 iceServer_username :: Lens.Lens' IceServer (Prelude.Maybe Prelude.Text)
 iceServer_username = Lens.lens (\IceServer' {username} -> username) (\s@IceServer' {} a -> s {username = a} :: IceServer)
 
--- | A password to login to the ICE server.
-iceServer_password :: Lens.Lens' IceServer (Prelude.Maybe Prelude.Text)
-iceServer_password = Lens.lens (\IceServer' {password} -> password) (\s@IceServer' {} a -> s {password = a} :: IceServer)
-
-instance Core.FromJSON IceServer where
+instance Data.FromJSON IceServer where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IceServer"
       ( \x ->
           IceServer'
-            Prelude.<$> (x Core..:? "Ttl")
-            Prelude.<*> (x Core..:? "Uris" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Username")
-            Prelude.<*> (x Core..:? "Password")
+            Prelude.<$> (x Data..:? "Password")
+            Prelude.<*> (x Data..:? "Ttl")
+            Prelude.<*> (x Data..:? "Uris" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Username")
       )
 
 instance Prelude.Hashable IceServer where
   hashWithSalt _salt IceServer' {..} =
-    _salt `Prelude.hashWithSalt` ttl
+    _salt `Prelude.hashWithSalt` password
+      `Prelude.hashWithSalt` ttl
       `Prelude.hashWithSalt` uris
       `Prelude.hashWithSalt` username
-      `Prelude.hashWithSalt` password
 
 instance Prelude.NFData IceServer where
   rnf IceServer' {..} =
-    Prelude.rnf ttl
+    Prelude.rnf password
+      `Prelude.seq` Prelude.rnf ttl
       `Prelude.seq` Prelude.rnf uris
       `Prelude.seq` Prelude.rnf username
-      `Prelude.seq` Prelude.rnf password

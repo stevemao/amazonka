@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.ListContents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Wisdom.ListContents
     newListContents,
 
     -- * Request Lenses
-    listContents_nextToken,
     listContents_maxResults,
+    listContents_nextToken,
     listContents_knowledgeBaseId,
 
     -- * Destructuring the Response
@@ -45,7 +45,8 @@ module Amazonka.Wisdom.ListContents
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,14 +54,14 @@ import Amazonka.Wisdom.Types
 
 -- | /See:/ 'newListContents' smart constructor.
 data ListContents = ListContents'
-  { -- | The token for the next set of results. Use the value returned in the
+  { -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The the identifier of the knowledge base. Can be either the ID or the
-    -- ARN. URLs cannot contain the ARN.
+    -- | The identifier of the knowledge base. Can be either the ID or the ARN.
+    -- URLs cannot contain the ARN.
     knowledgeBaseId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -73,24 +74,28 @@ data ListContents = ListContents'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listContents_maxResults' - The maximum number of results to return per page.
+--
 -- 'nextToken', 'listContents_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
 --
--- 'maxResults', 'listContents_maxResults' - The maximum number of results to return per page.
---
--- 'knowledgeBaseId', 'listContents_knowledgeBaseId' - The the identifier of the knowledge base. Can be either the ID or the
--- ARN. URLs cannot contain the ARN.
+-- 'knowledgeBaseId', 'listContents_knowledgeBaseId' - The identifier of the knowledge base. Can be either the ID or the ARN.
+-- URLs cannot contain the ARN.
 newListContents ::
   -- | 'knowledgeBaseId'
   Prelude.Text ->
   ListContents
 newListContents pKnowledgeBaseId_ =
   ListContents'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       knowledgeBaseId = pKnowledgeBaseId_
     }
+
+-- | The maximum number of results to return per page.
+listContents_maxResults :: Lens.Lens' ListContents (Prelude.Maybe Prelude.Natural)
+listContents_maxResults = Lens.lens (\ListContents' {maxResults} -> maxResults) (\s@ListContents' {} a -> s {maxResults = a} :: ListContents)
 
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
@@ -98,12 +103,8 @@ newListContents pKnowledgeBaseId_ =
 listContents_nextToken :: Lens.Lens' ListContents (Prelude.Maybe Prelude.Text)
 listContents_nextToken = Lens.lens (\ListContents' {nextToken} -> nextToken) (\s@ListContents' {} a -> s {nextToken = a} :: ListContents)
 
--- | The maximum number of results to return per page.
-listContents_maxResults :: Lens.Lens' ListContents (Prelude.Maybe Prelude.Natural)
-listContents_maxResults = Lens.lens (\ListContents' {maxResults} -> maxResults) (\s@ListContents' {} a -> s {maxResults = a} :: ListContents)
-
--- | The the identifier of the knowledge base. Can be either the ID or the
--- ARN. URLs cannot contain the ARN.
+-- | The identifier of the knowledge base. Can be either the ID or the ARN.
+-- URLs cannot contain the ARN.
 listContents_knowledgeBaseId :: Lens.Lens' ListContents Prelude.Text
 listContents_knowledgeBaseId = Lens.lens (\ListContents' {knowledgeBaseId} -> knowledgeBaseId) (\s@ListContents' {} a -> s {knowledgeBaseId = a} :: ListContents)
 
@@ -126,54 +127,55 @@ instance Core.AWSPager ListContents where
 
 instance Core.AWSRequest ListContents where
   type AWSResponse ListContents = ListContentsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListContentsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "contentSummaries"
+            Prelude.<*> ( x Data..?> "contentSummaries"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListContents where
   hashWithSalt _salt ListContents' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` knowledgeBaseId
 
 instance Prelude.NFData ListContents where
   rnf ListContents' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf knowledgeBaseId
 
-instance Core.ToHeaders ListContents where
+instance Data.ToHeaders ListContents where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListContents where
+instance Data.ToPath ListContents where
   toPath ListContents' {..} =
     Prelude.mconcat
       [ "/knowledgeBases/",
-        Core.toBS knowledgeBaseId,
+        Data.toBS knowledgeBaseId,
         "/contents"
       ]
 
-instance Core.ToQuery ListContents where
+instance Data.ToQuery ListContents where
   toQuery ListContents' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListContentsResponse' smart constructor.

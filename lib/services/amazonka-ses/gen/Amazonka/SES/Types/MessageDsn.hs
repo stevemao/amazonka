@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SES.Types.MessageDsn
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SES.Types.MessageDsn where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SES.Types.ExtensionField
 
@@ -36,7 +37,7 @@ data MessageDsn = MessageDsn'
   { -- | When the message was received by the reporting mail transfer agent
     -- (MTA), in <https://www.ietf.org/rfc/rfc0822.txt RFC 822> date-time
     -- format.
-    arrivalDate :: Prelude.Maybe Core.ISO8601,
+    arrivalDate :: Prelude.Maybe Data.ISO8601,
     -- | Additional X-headers to include in the DSN.
     extensionFields :: Prelude.Maybe [ExtensionField],
     -- | The reporting MTA that attempted to deliver the message, formatted as
@@ -80,7 +81,7 @@ newMessageDsn pReportingMta_ =
 -- (MTA), in <https://www.ietf.org/rfc/rfc0822.txt RFC 822> date-time
 -- format.
 messageDsn_arrivalDate :: Lens.Lens' MessageDsn (Prelude.Maybe Prelude.UTCTime)
-messageDsn_arrivalDate = Lens.lens (\MessageDsn' {arrivalDate} -> arrivalDate) (\s@MessageDsn' {} a -> s {arrivalDate = a} :: MessageDsn) Prelude.. Lens.mapping Core._Time
+messageDsn_arrivalDate = Lens.lens (\MessageDsn' {arrivalDate} -> arrivalDate) (\s@MessageDsn' {} a -> s {arrivalDate = a} :: MessageDsn) Prelude.. Lens.mapping Data._Time
 
 -- | Additional X-headers to include in the DSN.
 messageDsn_extensionFields :: Lens.Lens' MessageDsn (Prelude.Maybe [ExtensionField])
@@ -105,14 +106,14 @@ instance Prelude.NFData MessageDsn where
       `Prelude.seq` Prelude.rnf extensionFields
       `Prelude.seq` Prelude.rnf reportingMta
 
-instance Core.ToQuery MessageDsn where
+instance Data.ToQuery MessageDsn where
   toQuery MessageDsn' {..} =
     Prelude.mconcat
-      [ "ArrivalDate" Core.=: arrivalDate,
+      [ "ArrivalDate" Data.=: arrivalDate,
         "ExtensionFields"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> extensionFields
             ),
-        "ReportingMta" Core.=: reportingMta
+        "ReportingMta" Data.=: reportingMta
       ]

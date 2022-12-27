@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.GetTrafficPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.Route53.GetTrafficPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,13 +98,14 @@ instance Core.AWSRequest GetTrafficPolicy where
   type
     AWSResponse GetTrafficPolicy =
       GetTrafficPolicyResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetTrafficPolicyResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "TrafficPolicy")
+            Prelude.<*> (x Data..@ "TrafficPolicy")
       )
 
 instance Prelude.Hashable GetTrafficPolicy where
@@ -115,19 +117,19 @@ instance Prelude.NFData GetTrafficPolicy where
   rnf GetTrafficPolicy' {..} =
     Prelude.rnf id `Prelude.seq` Prelude.rnf version
 
-instance Core.ToHeaders GetTrafficPolicy where
+instance Data.ToHeaders GetTrafficPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetTrafficPolicy where
+instance Data.ToPath GetTrafficPolicy where
   toPath GetTrafficPolicy' {..} =
     Prelude.mconcat
       [ "/2013-04-01/trafficpolicy/",
-        Core.toBS id,
+        Data.toBS id,
         "/",
-        Core.toBS version
+        Data.toBS version
       ]
 
-instance Core.ToQuery GetTrafficPolicy where
+instance Data.ToQuery GetTrafficPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A complex type that contains the response information for the request.

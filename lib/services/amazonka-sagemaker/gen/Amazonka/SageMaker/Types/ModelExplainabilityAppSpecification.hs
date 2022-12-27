@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ModelExplainabilityAppSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ModelExplainabilityAppSpecification where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Docker container image configuration object for the model explainability
@@ -34,7 +35,7 @@ data ModelExplainabilityAppSpecification = ModelExplainabilityAppSpecification'
     imageUri :: Prelude.Text,
     -- | JSON formatted S3 file that defines explainability parameters. For more
     -- information on this JSON configuration file, see
-    -- <https://docs.aws.amazon.com/sagemaker/latest/json-model-explainability-parameter-config.html Configure model explainability parameters>.
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-config-json-monitor-model-explainability-parameters.html Configure model explainability parameters>.
     configUri :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -53,7 +54,7 @@ data ModelExplainabilityAppSpecification = ModelExplainabilityAppSpecification'
 --
 -- 'configUri', 'modelExplainabilityAppSpecification_configUri' - JSON formatted S3 file that defines explainability parameters. For more
 -- information on this JSON configuration file, see
--- <https://docs.aws.amazon.com/sagemaker/latest/json-model-explainability-parameter-config.html Configure model explainability parameters>.
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-config-json-monitor-model-explainability-parameters.html Configure model explainability parameters>.
 newModelExplainabilityAppSpecification ::
   -- | 'imageUri'
   Prelude.Text ->
@@ -80,22 +81,22 @@ modelExplainabilityAppSpecification_imageUri = Lens.lens (\ModelExplainabilityAp
 
 -- | JSON formatted S3 file that defines explainability parameters. For more
 -- information on this JSON configuration file, see
--- <https://docs.aws.amazon.com/sagemaker/latest/json-model-explainability-parameter-config.html Configure model explainability parameters>.
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-config-json-monitor-model-explainability-parameters.html Configure model explainability parameters>.
 modelExplainabilityAppSpecification_configUri :: Lens.Lens' ModelExplainabilityAppSpecification Prelude.Text
 modelExplainabilityAppSpecification_configUri = Lens.lens (\ModelExplainabilityAppSpecification' {configUri} -> configUri) (\s@ModelExplainabilityAppSpecification' {} a -> s {configUri = a} :: ModelExplainabilityAppSpecification)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ModelExplainabilityAppSpecification
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ModelExplainabilityAppSpecification"
       ( \x ->
           ModelExplainabilityAppSpecification'
-            Prelude.<$> (x Core..:? "Environment" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "ImageUri")
-            Prelude.<*> (x Core..: "ConfigUri")
+            Prelude.<$> (x Data..:? "Environment" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "ImageUri")
+            Prelude.<*> (x Data..: "ConfigUri")
       )
 
 instance
@@ -119,14 +120,14 @@ instance
       `Prelude.seq` Prelude.rnf configUri
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ModelExplainabilityAppSpecification
   where
   toJSON ModelExplainabilityAppSpecification' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Environment" Core..=) Prelude.<$> environment,
-            Prelude.Just ("ImageUri" Core..= imageUri),
-            Prelude.Just ("ConfigUri" Core..= configUri)
+          [ ("Environment" Data..=) Prelude.<$> environment,
+            Prelude.Just ("ImageUri" Data..= imageUri),
+            Prelude.Just ("ConfigUri" Data..= configUri)
           ]
       )

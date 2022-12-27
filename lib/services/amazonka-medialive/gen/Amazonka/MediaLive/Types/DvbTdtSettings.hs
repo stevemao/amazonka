@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.DvbTdtSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.DvbTdtSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | DVB Time and Date Table (SDT)
@@ -53,13 +54,13 @@ newDvbTdtSettings =
 dvbTdtSettings_repInterval :: Lens.Lens' DvbTdtSettings (Prelude.Maybe Prelude.Natural)
 dvbTdtSettings_repInterval = Lens.lens (\DvbTdtSettings' {repInterval} -> repInterval) (\s@DvbTdtSettings' {} a -> s {repInterval = a} :: DvbTdtSettings)
 
-instance Core.FromJSON DvbTdtSettings where
+instance Data.FromJSON DvbTdtSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DvbTdtSettings"
       ( \x ->
           DvbTdtSettings'
-            Prelude.<$> (x Core..:? "repInterval")
+            Prelude.<$> (x Data..:? "repInterval")
       )
 
 instance Prelude.Hashable DvbTdtSettings where
@@ -69,9 +70,9 @@ instance Prelude.Hashable DvbTdtSettings where
 instance Prelude.NFData DvbTdtSettings where
   rnf DvbTdtSettings' {..} = Prelude.rnf repInterval
 
-instance Core.ToJSON DvbTdtSettings where
+instance Data.ToJSON DvbTdtSettings where
   toJSON DvbTdtSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("repInterval" Core..=) Prelude.<$> repInterval]
+          [("repInterval" Data..=) Prelude.<$> repInterval]
       )

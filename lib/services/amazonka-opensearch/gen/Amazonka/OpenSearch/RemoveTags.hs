@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.RemoveTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes the specified set of tags from the given domain.
+-- Removes the specified set of tags from an Amazon OpenSearch Service
+-- domain. For more information, see
+-- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/managedomains.html#managedomains-awsresorcetagging Tagging Amazon OpenSearch Service domains>.
 module Amazonka.OpenSearch.RemoveTags
   ( -- * Creating a Request
     RemoveTags (..),
@@ -37,22 +39,21 @@ module Amazonka.OpenSearch.RemoveTags
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Container for the parameters to the @ RemoveTags @ operation. Specify
--- the @ARN@ for the domain from which you want to remove the specified
--- @TagKey@.
+-- | Container for the request parameters to the @RemoveTags@ operation.
 --
 -- /See:/ 'newRemoveTags' smart constructor.
 data RemoveTags = RemoveTags'
-  { -- | The @ARN@ of the domain from which you want to delete the specified
-    -- tags.
+  { -- | The Amazon Resource Name (ARN) of the domain from which you want to
+    -- delete the specified tags.
     arn :: Prelude.Text,
-    -- | The @TagKey@ list you want to remove from the domain.
+    -- | The list of tag keys to remove from the domain.
     tagKeys :: [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -65,10 +66,10 @@ data RemoveTags = RemoveTags'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'arn', 'removeTags_arn' - The @ARN@ of the domain from which you want to delete the specified
--- tags.
+-- 'arn', 'removeTags_arn' - The Amazon Resource Name (ARN) of the domain from which you want to
+-- delete the specified tags.
 --
--- 'tagKeys', 'removeTags_tagKeys' - The @TagKey@ list you want to remove from the domain.
+-- 'tagKeys', 'removeTags_tagKeys' - The list of tag keys to remove from the domain.
 newRemoveTags ::
   -- | 'arn'
   Prelude.Text ->
@@ -76,18 +77,19 @@ newRemoveTags ::
 newRemoveTags pARN_ =
   RemoveTags' {arn = pARN_, tagKeys = Prelude.mempty}
 
--- | The @ARN@ of the domain from which you want to delete the specified
--- tags.
+-- | The Amazon Resource Name (ARN) of the domain from which you want to
+-- delete the specified tags.
 removeTags_arn :: Lens.Lens' RemoveTags Prelude.Text
 removeTags_arn = Lens.lens (\RemoveTags' {arn} -> arn) (\s@RemoveTags' {} a -> s {arn = a} :: RemoveTags)
 
--- | The @TagKey@ list you want to remove from the domain.
+-- | The list of tag keys to remove from the domain.
 removeTags_tagKeys :: Lens.Lens' RemoveTags [Prelude.Text]
 removeTags_tagKeys = Lens.lens (\RemoveTags' {tagKeys} -> tagKeys) (\s@RemoveTags' {} a -> s {tagKeys = a} :: RemoveTags) Prelude.. Lens.coerced
 
 instance Core.AWSRequest RemoveTags where
   type AWSResponse RemoveTags = RemoveTagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull RemoveTagsResponse'
 
 instance Prelude.Hashable RemoveTags where
@@ -99,22 +101,22 @@ instance Prelude.NFData RemoveTags where
   rnf RemoveTags' {..} =
     Prelude.rnf arn `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders RemoveTags where
+instance Data.ToHeaders RemoveTags where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON RemoveTags where
+instance Data.ToJSON RemoveTags where
   toJSON RemoveTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ARN" Core..= arn),
-            Prelude.Just ("TagKeys" Core..= tagKeys)
+          [ Prelude.Just ("ARN" Data..= arn),
+            Prelude.Just ("TagKeys" Data..= tagKeys)
           ]
       )
 
-instance Core.ToPath RemoveTags where
+instance Data.ToPath RemoveTags where
   toPath = Prelude.const "/2021-01-01/tags-removal"
 
-instance Core.ToQuery RemoveTags where
+instance Data.ToQuery RemoveTags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveTagsResponse' smart constructor.

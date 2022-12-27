@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.RevokePermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.LakeFormation.RevokePermissions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LakeFormation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,7 +56,7 @@ data RevokePermissions = RevokePermissions'
   { -- | The identifier for the Data Catalog. By default, the account ID. The
     -- Data Catalog is the persistent metadata store. It contains database
     -- definitions, table definitions, and other control information to manage
-    -- your AWS Lake Formation environment.
+    -- your Lake Formation environment.
     catalogId :: Prelude.Maybe Prelude.Text,
     -- | Indicates a list of permissions for which to revoke the grant option
     -- allowing the principal to pass permissions to other principals.
@@ -82,7 +83,7 @@ data RevokePermissions = RevokePermissions'
 -- 'catalogId', 'revokePermissions_catalogId' - The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 --
 -- 'permissionsWithGrantOption', 'revokePermissions_permissionsWithGrantOption' - Indicates a list of permissions for which to revoke the grant option
 -- allowing the principal to pass permissions to other principals.
@@ -112,7 +113,7 @@ newRevokePermissions pPrincipal_ pResource_ =
 -- | The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 revokePermissions_catalogId :: Lens.Lens' RevokePermissions (Prelude.Maybe Prelude.Text)
 revokePermissions_catalogId = Lens.lens (\RevokePermissions' {catalogId} -> catalogId) (\s@RevokePermissions' {} a -> s {catalogId = a} :: RevokePermissions)
 
@@ -139,7 +140,8 @@ instance Core.AWSRequest RevokePermissions where
   type
     AWSResponse RevokePermissions =
       RevokePermissionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -163,38 +165,34 @@ instance Prelude.NFData RevokePermissions where
       `Prelude.seq` Prelude.rnf resource
       `Prelude.seq` Prelude.rnf permissions
 
-instance Core.ToHeaders RevokePermissions where
+instance Data.ToHeaders RevokePermissions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
-          [ "X-Amz-Target"
-              Core.=# ( "AWSLakeFormation.RevokePermissions" ::
-                          Prelude.ByteString
-                      ),
-            "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+          [ "Content-Type"
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RevokePermissions where
+instance Data.ToJSON RevokePermissions where
   toJSON RevokePermissions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            ("PermissionsWithGrantOption" Core..=)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            ("PermissionsWithGrantOption" Data..=)
               Prelude.<$> permissionsWithGrantOption,
-            Prelude.Just ("Principal" Core..= principal),
-            Prelude.Just ("Resource" Core..= resource),
-            Prelude.Just ("Permissions" Core..= permissions)
+            Prelude.Just ("Principal" Data..= principal),
+            Prelude.Just ("Resource" Data..= resource),
+            Prelude.Just ("Permissions" Data..= permissions)
           ]
       )
 
-instance Core.ToPath RevokePermissions where
-  toPath = Prelude.const "/"
+instance Data.ToPath RevokePermissions where
+  toPath = Prelude.const "/RevokePermissions"
 
-instance Core.ToQuery RevokePermissions where
+instance Data.ToQuery RevokePermissions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRevokePermissionsResponse' smart constructor.

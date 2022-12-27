@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.StartServer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.Transfer.StartServer
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +80,8 @@ startServer_serverId = Lens.lens (\StartServer' {serverId} -> serverId) (\s@Star
 
 instance Core.AWSRequest StartServer where
   type AWSResponse StartServer = StartServerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull StartServerResponse'
 
 instance Prelude.Hashable StartServer where
@@ -89,32 +91,32 @@ instance Prelude.Hashable StartServer where
 instance Prelude.NFData StartServer where
   rnf StartServer' {..} = Prelude.rnf serverId
 
-instance Core.ToHeaders StartServer where
+instance Data.ToHeaders StartServer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "TransferService.StartServer" ::
+              Data.=# ( "TransferService.StartServer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartServer where
+instance Data.ToJSON StartServer where
   toJSON StartServer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ServerId" Core..= serverId)]
+          [Prelude.Just ("ServerId" Data..= serverId)]
       )
 
-instance Core.ToPath StartServer where
+instance Data.ToPath StartServer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartServer where
+instance Data.ToQuery StartServer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartServerResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.CreateFramework
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.Backup.CreateFramework
     newCreateFramework,
 
     -- * Request Lenses
-    createFramework_idempotencyToken,
     createFramework_frameworkDescription,
     createFramework_frameworkTags,
+    createFramework_idempotencyToken,
     createFramework_frameworkName,
     createFramework_frameworkControls,
 
@@ -50,24 +50,25 @@ where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateFramework' smart constructor.
 data CreateFramework = CreateFramework'
-  { -- | A customer-chosen string that you can use to distinguish between
-    -- otherwise identical calls to @CreateFrameworkInput@. Retrying a
-    -- successful request with the same idempotency token results in a success
-    -- message with no action taken.
-    idempotencyToken :: Prelude.Maybe Prelude.Text,
-    -- | An optional description of the framework with a maximum of 1,024
+  { -- | An optional description of the framework with a maximum of 1,024
     -- characters.
     frameworkDescription :: Prelude.Maybe Prelude.Text,
     -- | Metadata that you can assign to help organize the frameworks that you
     -- create. Each tag is a key-value pair.
     frameworkTags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | A customer-chosen string that you can use to distinguish between
+    -- otherwise identical calls to @CreateFrameworkInput@. Retrying a
+    -- successful request with the same idempotency token results in a success
+    -- message with no action taken.
+    idempotencyToken :: Prelude.Maybe Prelude.Text,
     -- | The unique name of the framework. The name must be between 1 and 256
     -- characters, starting with a letter, and consisting of letters (a-z,
     -- A-Z), numbers (0-9), and underscores (_).
@@ -86,16 +87,16 @@ data CreateFramework = CreateFramework'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'idempotencyToken', 'createFramework_idempotencyToken' - A customer-chosen string that you can use to distinguish between
--- otherwise identical calls to @CreateFrameworkInput@. Retrying a
--- successful request with the same idempotency token results in a success
--- message with no action taken.
---
 -- 'frameworkDescription', 'createFramework_frameworkDescription' - An optional description of the framework with a maximum of 1,024
 -- characters.
 --
 -- 'frameworkTags', 'createFramework_frameworkTags' - Metadata that you can assign to help organize the frameworks that you
 -- create. Each tag is a key-value pair.
+--
+-- 'idempotencyToken', 'createFramework_idempotencyToken' - A customer-chosen string that you can use to distinguish between
+-- otherwise identical calls to @CreateFrameworkInput@. Retrying a
+-- successful request with the same idempotency token results in a success
+-- message with no action taken.
 --
 -- 'frameworkName', 'createFramework_frameworkName' - The unique name of the framework. The name must be between 1 and 256
 -- characters, starting with a letter, and consisting of letters (a-z,
@@ -109,20 +110,13 @@ newCreateFramework ::
   CreateFramework
 newCreateFramework pFrameworkName_ =
   CreateFramework'
-    { idempotencyToken =
+    { frameworkDescription =
         Prelude.Nothing,
-      frameworkDescription = Prelude.Nothing,
       frameworkTags = Prelude.Nothing,
+      idempotencyToken = Prelude.Nothing,
       frameworkName = pFrameworkName_,
       frameworkControls = Prelude.mempty
     }
-
--- | A customer-chosen string that you can use to distinguish between
--- otherwise identical calls to @CreateFrameworkInput@. Retrying a
--- successful request with the same idempotency token results in a success
--- message with no action taken.
-createFramework_idempotencyToken :: Lens.Lens' CreateFramework (Prelude.Maybe Prelude.Text)
-createFramework_idempotencyToken = Lens.lens (\CreateFramework' {idempotencyToken} -> idempotencyToken) (\s@CreateFramework' {} a -> s {idempotencyToken = a} :: CreateFramework)
 
 -- | An optional description of the framework with a maximum of 1,024
 -- characters.
@@ -133,6 +127,13 @@ createFramework_frameworkDescription = Lens.lens (\CreateFramework' {frameworkDe
 -- create. Each tag is a key-value pair.
 createFramework_frameworkTags :: Lens.Lens' CreateFramework (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createFramework_frameworkTags = Lens.lens (\CreateFramework' {frameworkTags} -> frameworkTags) (\s@CreateFramework' {} a -> s {frameworkTags = a} :: CreateFramework) Prelude.. Lens.mapping Lens.coerced
+
+-- | A customer-chosen string that you can use to distinguish between
+-- otherwise identical calls to @CreateFrameworkInput@. Retrying a
+-- successful request with the same idempotency token results in a success
+-- message with no action taken.
+createFramework_idempotencyToken :: Lens.Lens' CreateFramework (Prelude.Maybe Prelude.Text)
+createFramework_idempotencyToken = Lens.lens (\CreateFramework' {idempotencyToken} -> idempotencyToken) (\s@CreateFramework' {} a -> s {idempotencyToken = a} :: CreateFramework)
 
 -- | The unique name of the framework. The name must be between 1 and 256
 -- characters, starting with a letter, and consisting of letters (a-z,
@@ -149,62 +150,63 @@ instance Core.AWSRequest CreateFramework where
   type
     AWSResponse CreateFramework =
       CreateFrameworkResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateFrameworkResponse'
-            Prelude.<$> (x Core..?> "FrameworkArn")
-            Prelude.<*> (x Core..?> "FrameworkName")
+            Prelude.<$> (x Data..?> "FrameworkArn")
+            Prelude.<*> (x Data..?> "FrameworkName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateFramework where
   hashWithSalt _salt CreateFramework' {..} =
-    _salt `Prelude.hashWithSalt` idempotencyToken
-      `Prelude.hashWithSalt` frameworkDescription
+    _salt `Prelude.hashWithSalt` frameworkDescription
       `Prelude.hashWithSalt` frameworkTags
+      `Prelude.hashWithSalt` idempotencyToken
       `Prelude.hashWithSalt` frameworkName
       `Prelude.hashWithSalt` frameworkControls
 
 instance Prelude.NFData CreateFramework where
   rnf CreateFramework' {..} =
-    Prelude.rnf idempotencyToken
-      `Prelude.seq` Prelude.rnf frameworkDescription
+    Prelude.rnf frameworkDescription
       `Prelude.seq` Prelude.rnf frameworkTags
+      `Prelude.seq` Prelude.rnf idempotencyToken
       `Prelude.seq` Prelude.rnf frameworkName
       `Prelude.seq` Prelude.rnf frameworkControls
 
-instance Core.ToHeaders CreateFramework where
+instance Data.ToHeaders CreateFramework where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateFramework where
+instance Data.ToJSON CreateFramework where
   toJSON CreateFramework' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IdempotencyToken" Core..=)
-              Prelude.<$> idempotencyToken,
-            ("FrameworkDescription" Core..=)
+          [ ("FrameworkDescription" Data..=)
               Prelude.<$> frameworkDescription,
-            ("FrameworkTags" Core..=) Prelude.<$> frameworkTags,
-            Prelude.Just ("FrameworkName" Core..= frameworkName),
+            ("FrameworkTags" Data..=) Prelude.<$> frameworkTags,
+            ("IdempotencyToken" Data..=)
+              Prelude.<$> idempotencyToken,
+            Prelude.Just ("FrameworkName" Data..= frameworkName),
             Prelude.Just
-              ("FrameworkControls" Core..= frameworkControls)
+              ("FrameworkControls" Data..= frameworkControls)
           ]
       )
 
-instance Core.ToPath CreateFramework where
+instance Data.ToPath CreateFramework where
   toPath = Prelude.const "/audit/frameworks"
 
-instance Core.ToQuery CreateFramework where
+instance Data.ToQuery CreateFramework where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateFrameworkResponse' smart constructor.

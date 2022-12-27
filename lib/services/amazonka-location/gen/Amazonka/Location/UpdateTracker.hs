@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.UpdateTracker
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,10 +27,10 @@ module Amazonka.Location.UpdateTracker
     newUpdateTracker,
 
     -- * Request Lenses
-    updateTracker_pricingPlan,
-    updateTracker_pricingPlanDataSource,
     updateTracker_description,
     updateTracker_positionFiltering,
+    updateTracker_pricingPlan,
+    updateTracker_pricingPlanDataSource,
     updateTracker_trackerName,
 
     -- * Destructuring the Response
@@ -46,7 +46,8 @@ module Amazonka.Location.UpdateTracker
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,30 +55,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateTracker' smart constructor.
 data UpdateTracker = UpdateTracker'
-  { -- | Updates the pricing plan for the tracker resource.
-    --
-    -- For more information about each pricing plan option restrictions, see
-    -- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-    pricingPlan :: Prelude.Maybe PricingPlan,
-    -- | Updates the data provider for the tracker resource.
-    --
-    -- A required value for the following pricing plans: @MobileAssetTracking@|
-    -- @MobileAssetManagement@
-    --
-    -- For more information about
-    -- <https://aws.amazon.com/location/data-providers/ data providers> and
-    -- <https://aws.amazon.com/location/pricing/ pricing plans>, see the Amazon
-    -- Location Service product page
-    --
-    -- This can only be updated when updating the @PricingPlan@ in the same
-    -- request.
-    --
-    -- Amazon Location Service uses @PricingPlanDataSource@ to calculate
-    -- billing for your tracker resource. Your data won\'t be shared with the
-    -- data provider, and will remain in your AWS account and Region unless you
-    -- move it.
-    pricingPlanDataSource :: Prelude.Maybe Prelude.Text,
-    -- | Updates the description for the tracker resource.
+  { -- | Updates the description for the tracker resource.
     description :: Prelude.Maybe Prelude.Text,
     -- | Updates the position filtering for the tracker resource.
     --
@@ -92,10 +70,25 @@ data UpdateTracker = UpdateTracker'
     --     location updates are ignored. Location updates within this distance
     --     are neither evaluated against linked geofence collections, nor
     --     stored. This helps control costs by reducing the number of geofence
-    --     evaluations and device positions to retrieve. Distance-based
-    --     filtering can also reduce the jitter effect when displaying device
-    --     trajectory on a map.
+    --     evaluations and historical device positions to paginate through.
+    --     Distance-based filtering can also reduce the effects of GPS noise
+    --     when displaying device trajectories on a map.
+    --
+    -- -   @AccuracyBased@ - If the device has moved less than the measured
+    --     accuracy, location updates are ignored. For example, if two
+    --     consecutive updates from a device have a horizontal accuracy of 5 m
+    --     and 10 m, the second update is ignored if the device has moved less
+    --     than 15 m. Ignored location updates are neither evaluated against
+    --     linked geofence collections, nor stored. This helps educe the
+    --     effects of GPS noise when displaying device trajectories on a map,
+    --     and can help control costs by reducing the number of geofence
+    --     evaluations.
     positionFiltering :: Prelude.Maybe PositionFiltering,
+    -- | No longer used. If included, the only allowed value is
+    -- @RequestBasedUsage@.
+    pricingPlan :: Prelude.Maybe PricingPlan,
+    -- | This parameter is no longer used.
+    pricingPlanDataSource :: Prelude.Maybe Prelude.Text,
     -- | The name of the tracker resource to update.
     trackerName :: Prelude.Text
   }
@@ -108,29 +101,6 @@ data UpdateTracker = UpdateTracker'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'pricingPlan', 'updateTracker_pricingPlan' - Updates the pricing plan for the tracker resource.
---
--- For more information about each pricing plan option restrictions, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
---
--- 'pricingPlanDataSource', 'updateTracker_pricingPlanDataSource' - Updates the data provider for the tracker resource.
---
--- A required value for the following pricing plans: @MobileAssetTracking@|
--- @MobileAssetManagement@
---
--- For more information about
--- <https://aws.amazon.com/location/data-providers/ data providers> and
--- <https://aws.amazon.com/location/pricing/ pricing plans>, see the Amazon
--- Location Service product page
---
--- This can only be updated when updating the @PricingPlan@ in the same
--- request.
---
--- Amazon Location Service uses @PricingPlanDataSource@ to calculate
--- billing for your tracker resource. Your data won\'t be shared with the
--- data provider, and will remain in your AWS account and Region unless you
--- move it.
 --
 -- 'description', 'updateTracker_description' - Updates the description for the tracker resource.
 --
@@ -147,9 +117,24 @@ data UpdateTracker = UpdateTracker'
 --     location updates are ignored. Location updates within this distance
 --     are neither evaluated against linked geofence collections, nor
 --     stored. This helps control costs by reducing the number of geofence
---     evaluations and device positions to retrieve. Distance-based
---     filtering can also reduce the jitter effect when displaying device
---     trajectory on a map.
+--     evaluations and historical device positions to paginate through.
+--     Distance-based filtering can also reduce the effects of GPS noise
+--     when displaying device trajectories on a map.
+--
+-- -   @AccuracyBased@ - If the device has moved less than the measured
+--     accuracy, location updates are ignored. For example, if two
+--     consecutive updates from a device have a horizontal accuracy of 5 m
+--     and 10 m, the second update is ignored if the device has moved less
+--     than 15 m. Ignored location updates are neither evaluated against
+--     linked geofence collections, nor stored. This helps educe the
+--     effects of GPS noise when displaying device trajectories on a map,
+--     and can help control costs by reducing the number of geofence
+--     evaluations.
+--
+-- 'pricingPlan', 'updateTracker_pricingPlan' - No longer used. If included, the only allowed value is
+-- @RequestBasedUsage@.
+--
+-- 'pricingPlanDataSource', 'updateTracker_pricingPlanDataSource' - This parameter is no longer used.
 --
 -- 'trackerName', 'updateTracker_trackerName' - The name of the tracker resource to update.
 newUpdateTracker ::
@@ -158,39 +143,12 @@ newUpdateTracker ::
   UpdateTracker
 newUpdateTracker pTrackerName_ =
   UpdateTracker'
-    { pricingPlan = Prelude.Nothing,
-      pricingPlanDataSource = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
       positionFiltering = Prelude.Nothing,
+      pricingPlan = Prelude.Nothing,
+      pricingPlanDataSource = Prelude.Nothing,
       trackerName = pTrackerName_
     }
-
--- | Updates the pricing plan for the tracker resource.
---
--- For more information about each pricing plan option restrictions, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-updateTracker_pricingPlan :: Lens.Lens' UpdateTracker (Prelude.Maybe PricingPlan)
-updateTracker_pricingPlan = Lens.lens (\UpdateTracker' {pricingPlan} -> pricingPlan) (\s@UpdateTracker' {} a -> s {pricingPlan = a} :: UpdateTracker)
-
--- | Updates the data provider for the tracker resource.
---
--- A required value for the following pricing plans: @MobileAssetTracking@|
--- @MobileAssetManagement@
---
--- For more information about
--- <https://aws.amazon.com/location/data-providers/ data providers> and
--- <https://aws.amazon.com/location/pricing/ pricing plans>, see the Amazon
--- Location Service product page
---
--- This can only be updated when updating the @PricingPlan@ in the same
--- request.
---
--- Amazon Location Service uses @PricingPlanDataSource@ to calculate
--- billing for your tracker resource. Your data won\'t be shared with the
--- data provider, and will remain in your AWS account and Region unless you
--- move it.
-updateTracker_pricingPlanDataSource :: Lens.Lens' UpdateTracker (Prelude.Maybe Prelude.Text)
-updateTracker_pricingPlanDataSource = Lens.lens (\UpdateTracker' {pricingPlanDataSource} -> pricingPlanDataSource) (\s@UpdateTracker' {} a -> s {pricingPlanDataSource = a} :: UpdateTracker)
 
 -- | Updates the description for the tracker resource.
 updateTracker_description :: Lens.Lens' UpdateTracker (Prelude.Maybe Prelude.Text)
@@ -209,11 +167,30 @@ updateTracker_description = Lens.lens (\UpdateTracker' {description} -> descript
 --     location updates are ignored. Location updates within this distance
 --     are neither evaluated against linked geofence collections, nor
 --     stored. This helps control costs by reducing the number of geofence
---     evaluations and device positions to retrieve. Distance-based
---     filtering can also reduce the jitter effect when displaying device
---     trajectory on a map.
+--     evaluations and historical device positions to paginate through.
+--     Distance-based filtering can also reduce the effects of GPS noise
+--     when displaying device trajectories on a map.
+--
+-- -   @AccuracyBased@ - If the device has moved less than the measured
+--     accuracy, location updates are ignored. For example, if two
+--     consecutive updates from a device have a horizontal accuracy of 5 m
+--     and 10 m, the second update is ignored if the device has moved less
+--     than 15 m. Ignored location updates are neither evaluated against
+--     linked geofence collections, nor stored. This helps educe the
+--     effects of GPS noise when displaying device trajectories on a map,
+--     and can help control costs by reducing the number of geofence
+--     evaluations.
 updateTracker_positionFiltering :: Lens.Lens' UpdateTracker (Prelude.Maybe PositionFiltering)
 updateTracker_positionFiltering = Lens.lens (\UpdateTracker' {positionFiltering} -> positionFiltering) (\s@UpdateTracker' {} a -> s {positionFiltering = a} :: UpdateTracker)
+
+-- | No longer used. If included, the only allowed value is
+-- @RequestBasedUsage@.
+updateTracker_pricingPlan :: Lens.Lens' UpdateTracker (Prelude.Maybe PricingPlan)
+updateTracker_pricingPlan = Lens.lens (\UpdateTracker' {pricingPlan} -> pricingPlan) (\s@UpdateTracker' {} a -> s {pricingPlan = a} :: UpdateTracker)
+
+-- | This parameter is no longer used.
+updateTracker_pricingPlanDataSource :: Lens.Lens' UpdateTracker (Prelude.Maybe Prelude.Text)
+updateTracker_pricingPlanDataSource = Lens.lens (\UpdateTracker' {pricingPlanDataSource} -> pricingPlanDataSource) (\s@UpdateTracker' {} a -> s {pricingPlanDataSource = a} :: UpdateTracker)
 
 -- | The name of the tracker resource to update.
 updateTracker_trackerName :: Lens.Lens' UpdateTracker Prelude.Text
@@ -223,63 +200,64 @@ instance Core.AWSRequest UpdateTracker where
   type
     AWSResponse UpdateTracker =
       UpdateTrackerResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateTrackerResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "TrackerArn")
-            Prelude.<*> (x Core..:> "TrackerName")
-            Prelude.<*> (x Core..:> "UpdateTime")
+            Prelude.<*> (x Data..:> "TrackerArn")
+            Prelude.<*> (x Data..:> "TrackerName")
+            Prelude.<*> (x Data..:> "UpdateTime")
       )
 
 instance Prelude.Hashable UpdateTracker where
   hashWithSalt _salt UpdateTracker' {..} =
-    _salt `Prelude.hashWithSalt` pricingPlan
-      `Prelude.hashWithSalt` pricingPlanDataSource
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` positionFiltering
+      `Prelude.hashWithSalt` pricingPlan
+      `Prelude.hashWithSalt` pricingPlanDataSource
       `Prelude.hashWithSalt` trackerName
 
 instance Prelude.NFData UpdateTracker where
   rnf UpdateTracker' {..} =
-    Prelude.rnf pricingPlan
-      `Prelude.seq` Prelude.rnf pricingPlanDataSource
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf positionFiltering
+      `Prelude.seq` Prelude.rnf pricingPlan
+      `Prelude.seq` Prelude.rnf pricingPlanDataSource
       `Prelude.seq` Prelude.rnf trackerName
 
-instance Core.ToHeaders UpdateTracker where
+instance Data.ToHeaders UpdateTracker where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateTracker where
+instance Data.ToJSON UpdateTracker where
   toJSON UpdateTracker' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PricingPlan" Core..=) Prelude.<$> pricingPlan,
-            ("PricingPlanDataSource" Core..=)
-              Prelude.<$> pricingPlanDataSource,
-            ("Description" Core..=) Prelude.<$> description,
-            ("PositionFiltering" Core..=)
-              Prelude.<$> positionFiltering
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("PositionFiltering" Data..=)
+              Prelude.<$> positionFiltering,
+            ("PricingPlan" Data..=) Prelude.<$> pricingPlan,
+            ("PricingPlanDataSource" Data..=)
+              Prelude.<$> pricingPlanDataSource
           ]
       )
 
-instance Core.ToPath UpdateTracker where
+instance Data.ToPath UpdateTracker where
   toPath UpdateTracker' {..} =
     Prelude.mconcat
-      ["/tracking/v0/trackers/", Core.toBS trackerName]
+      ["/tracking/v0/trackers/", Data.toBS trackerName]
 
-instance Core.ToQuery UpdateTracker where
+instance Data.ToQuery UpdateTracker where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateTrackerResponse' smart constructor.
@@ -297,7 +275,7 @@ data UpdateTrackerResponse = UpdateTrackerResponse'
     -- | The timestamp for when the tracker resource was last updated in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    updateTime :: Core.POSIX
+    updateTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -341,7 +319,7 @@ newUpdateTrackerResponse
       { httpStatus = pHttpStatus_,
         trackerArn = pTrackerArn_,
         trackerName = pTrackerName_,
-        updateTime = Core._Time Lens.# pUpdateTime_
+        updateTime = Data._Time Lens.# pUpdateTime_
       }
 
 -- | The response's http status code.
@@ -364,7 +342,7 @@ updateTrackerResponse_trackerName = Lens.lens (\UpdateTrackerResponse' {trackerN
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 updateTrackerResponse_updateTime :: Lens.Lens' UpdateTrackerResponse Prelude.UTCTime
-updateTrackerResponse_updateTime = Lens.lens (\UpdateTrackerResponse' {updateTime} -> updateTime) (\s@UpdateTrackerResponse' {} a -> s {updateTime = a} :: UpdateTrackerResponse) Prelude.. Core._Time
+updateTrackerResponse_updateTime = Lens.lens (\UpdateTrackerResponse' {updateTime} -> updateTime) (\s@UpdateTrackerResponse' {} a -> s {updateTime = a} :: UpdateTrackerResponse) Prelude.. Data._Time
 
 instance Prelude.NFData UpdateTrackerResponse where
   rnf UpdateTrackerResponse' {..} =

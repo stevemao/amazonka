@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.Types.ExportAssetsToS3ResponseDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.DataExchange.Types.ExportAssetsToS3ResponseDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataExchange.Types.AssetDestinationEntry
 import Amazonka.DataExchange.Types.ExportServerSideEncryption
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details about the export to Amazon S3 response.
@@ -92,20 +93,20 @@ exportAssetsToS3ResponseDetails_revisionId :: Lens.Lens' ExportAssetsToS3Respons
 exportAssetsToS3ResponseDetails_revisionId = Lens.lens (\ExportAssetsToS3ResponseDetails' {revisionId} -> revisionId) (\s@ExportAssetsToS3ResponseDetails' {} a -> s {revisionId = a} :: ExportAssetsToS3ResponseDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ExportAssetsToS3ResponseDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExportAssetsToS3ResponseDetails"
       ( \x ->
           ExportAssetsToS3ResponseDetails'
-            Prelude.<$> (x Core..:? "Encryption")
-            Prelude.<*> ( x Core..:? "AssetDestinations"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "Encryption")
+            Prelude.<*> ( x Data..:? "AssetDestinations"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..: "DataSetId")
-            Prelude.<*> (x Core..: "RevisionId")
+            Prelude.<*> (x Data..: "DataSetId")
+            Prelude.<*> (x Data..: "RevisionId")
       )
 
 instance

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ApplySecurityGroupsToClientVpnTargetNetwork
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.EC2.ApplySecurityGroupsToClientVpnTargetNetwork
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -137,14 +138,15 @@ instance
     AWSResponse
       ApplySecurityGroupsToClientVpnTargetNetwork =
       ApplySecurityGroupsToClientVpnTargetNetworkResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ApplySecurityGroupsToClientVpnTargetNetworkResponse'
-            Prelude.<$> ( x Core..@? "securityGroupIds"
+            Prelude.<$> ( x Data..@? "securityGroupIds"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -172,34 +174,34 @@ instance
       `Prelude.seq` Prelude.rnf securityGroupIds
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ApplySecurityGroupsToClientVpnTargetNetwork
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     ApplySecurityGroupsToClientVpnTargetNetwork
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ApplySecurityGroupsToClientVpnTargetNetwork
   where
   toQuery
     ApplySecurityGroupsToClientVpnTargetNetwork' {..} =
       Prelude.mconcat
         [ "Action"
-            Core.=: ( "ApplySecurityGroupsToClientVpnTargetNetwork" ::
+            Data.=: ( "ApplySecurityGroupsToClientVpnTargetNetwork" ::
                         Prelude.ByteString
                     ),
           "Version"
-            Core.=: ("2016-11-15" :: Prelude.ByteString),
-          "DryRun" Core.=: dryRun,
-          "ClientVpnEndpointId" Core.=: clientVpnEndpointId,
-          "VpcId" Core.=: vpcId,
-          Core.toQueryList "SecurityGroupId" securityGroupIds
+            Data.=: ("2016-11-15" :: Prelude.ByteString),
+          "DryRun" Data.=: dryRun,
+          "ClientVpnEndpointId" Data.=: clientVpnEndpointId,
+          "VpcId" Data.=: vpcId,
+          Data.toQueryList "SecurityGroupId" securityGroupIds
         ]
 
 -- | /See:/ 'newApplySecurityGroupsToClientVpnTargetNetworkResponse' smart constructor.

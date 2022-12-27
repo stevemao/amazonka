@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutMetrics.Types.DimensionValueContribution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.LookoutMetrics.Types.DimensionValueContribution where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The severity of a value of a dimension that contributed to an anomaly.
 --
 -- /See:/ 'newDimensionValueContribution' smart constructor.
 data DimensionValueContribution = DimensionValueContribution'
-  { -- | The value of the dimension.
-    dimensionValue :: Prelude.Maybe Prelude.Text,
-    -- | The severity score of the value.
-    contributionScore :: Prelude.Maybe Prelude.Double
+  { -- | The severity score of the value.
+    contributionScore :: Prelude.Maybe Prelude.Double,
+    -- | The value of the dimension.
+    dimensionValue :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,42 +43,42 @@ data DimensionValueContribution = DimensionValueContribution'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'dimensionValue', 'dimensionValueContribution_dimensionValue' - The value of the dimension.
---
 -- 'contributionScore', 'dimensionValueContribution_contributionScore' - The severity score of the value.
+--
+-- 'dimensionValue', 'dimensionValueContribution_dimensionValue' - The value of the dimension.
 newDimensionValueContribution ::
   DimensionValueContribution
 newDimensionValueContribution =
   DimensionValueContribution'
-    { dimensionValue =
+    { contributionScore =
         Prelude.Nothing,
-      contributionScore = Prelude.Nothing
+      dimensionValue = Prelude.Nothing
     }
-
--- | The value of the dimension.
-dimensionValueContribution_dimensionValue :: Lens.Lens' DimensionValueContribution (Prelude.Maybe Prelude.Text)
-dimensionValueContribution_dimensionValue = Lens.lens (\DimensionValueContribution' {dimensionValue} -> dimensionValue) (\s@DimensionValueContribution' {} a -> s {dimensionValue = a} :: DimensionValueContribution)
 
 -- | The severity score of the value.
 dimensionValueContribution_contributionScore :: Lens.Lens' DimensionValueContribution (Prelude.Maybe Prelude.Double)
 dimensionValueContribution_contributionScore = Lens.lens (\DimensionValueContribution' {contributionScore} -> contributionScore) (\s@DimensionValueContribution' {} a -> s {contributionScore = a} :: DimensionValueContribution)
 
-instance Core.FromJSON DimensionValueContribution where
+-- | The value of the dimension.
+dimensionValueContribution_dimensionValue :: Lens.Lens' DimensionValueContribution (Prelude.Maybe Prelude.Text)
+dimensionValueContribution_dimensionValue = Lens.lens (\DimensionValueContribution' {dimensionValue} -> dimensionValue) (\s@DimensionValueContribution' {} a -> s {dimensionValue = a} :: DimensionValueContribution)
+
+instance Data.FromJSON DimensionValueContribution where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DimensionValueContribution"
       ( \x ->
           DimensionValueContribution'
-            Prelude.<$> (x Core..:? "DimensionValue")
-            Prelude.<*> (x Core..:? "ContributionScore")
+            Prelude.<$> (x Data..:? "ContributionScore")
+            Prelude.<*> (x Data..:? "DimensionValue")
       )
 
 instance Prelude.Hashable DimensionValueContribution where
   hashWithSalt _salt DimensionValueContribution' {..} =
-    _salt `Prelude.hashWithSalt` dimensionValue
-      `Prelude.hashWithSalt` contributionScore
+    _salt `Prelude.hashWithSalt` contributionScore
+      `Prelude.hashWithSalt` dimensionValue
 
 instance Prelude.NFData DimensionValueContribution where
   rnf DimensionValueContribution' {..} =
-    Prelude.rnf dimensionValue
-      `Prelude.seq` Prelude.rnf contributionScore
+    Prelude.rnf contributionScore
+      `Prelude.seq` Prelude.rnf dimensionValue

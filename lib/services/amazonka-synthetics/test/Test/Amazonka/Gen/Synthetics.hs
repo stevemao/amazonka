@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.Synthetics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,35 +27,59 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestUpdateCanary $
---             newUpdateCanary
---
---         , requestDeleteCanary $
---             newDeleteCanary
+--         [ requestAssociateResource $
+--             newAssociateResource
 --
 --         , requestCreateCanary $
 --             newCreateCanary
 --
---         , requestListTagsForResource $
---             newListTagsForResource
+--         , requestCreateGroup $
+--             newCreateGroup
 --
---         , requestGetCanaryRuns $
---             newGetCanaryRuns
+--         , requestDeleteCanary $
+--             newDeleteCanary
 --
---         , requestGetCanary $
---             newGetCanary
+--         , requestDeleteGroup $
+--             newDeleteGroup
 --
---         , requestDescribeRuntimeVersions $
---             newDescribeRuntimeVersions
+--         , requestDescribeCanaries $
+--             newDescribeCanaries
 --
 --         , requestDescribeCanariesLastRun $
 --             newDescribeCanariesLastRun
 --
+--         , requestDescribeRuntimeVersions $
+--             newDescribeRuntimeVersions
+--
+--         , requestDisassociateResource $
+--             newDisassociateResource
+--
+--         , requestGetCanary $
+--             newGetCanary
+--
+--         , requestGetCanaryRuns $
+--             newGetCanaryRuns
+--
+--         , requestGetGroup $
+--             newGetGroup
+--
+--         , requestListAssociatedGroups $
+--             newListAssociatedGroups
+--
+--         , requestListGroupResources $
+--             newListGroupResources
+--
+--         , requestListGroups $
+--             newListGroups
+--
+--         , requestListTagsForResource $
+--             newListTagsForResource
+--
 --         , requestStartCanary $
 --             newStartCanary
 --
---         , requestDescribeCanaries $
---             newDescribeCanaries
+--         , requestStopCanary $
+--             newStopCanary
 --
 --         , requestTagResource $
 --             newTagResource
@@ -63,41 +87,65 @@ import Test.Tasty
 --         , requestUntagResource $
 --             newUntagResource
 --
---         , requestStopCanary $
---             newStopCanary
+--         , requestUpdateCanary $
+--             newUpdateCanary
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseUpdateCanary $
---             newUpdateCanaryResponse
---
---         , responseDeleteCanary $
---             newDeleteCanaryResponse
+--         [ responseAssociateResource $
+--             newAssociateResourceResponse
 --
 --         , responseCreateCanary $
 --             newCreateCanaryResponse
 --
---         , responseListTagsForResource $
---             newListTagsForResourceResponse
+--         , responseCreateGroup $
+--             newCreateGroupResponse
 --
---         , responseGetCanaryRuns $
---             newGetCanaryRunsResponse
+--         , responseDeleteCanary $
+--             newDeleteCanaryResponse
 --
---         , responseGetCanary $
---             newGetCanaryResponse
+--         , responseDeleteGroup $
+--             newDeleteGroupResponse
 --
---         , responseDescribeRuntimeVersions $
---             newDescribeRuntimeVersionsResponse
+--         , responseDescribeCanaries $
+--             newDescribeCanariesResponse
 --
 --         , responseDescribeCanariesLastRun $
 --             newDescribeCanariesLastRunResponse
 --
+--         , responseDescribeRuntimeVersions $
+--             newDescribeRuntimeVersionsResponse
+--
+--         , responseDisassociateResource $
+--             newDisassociateResourceResponse
+--
+--         , responseGetCanary $
+--             newGetCanaryResponse
+--
+--         , responseGetCanaryRuns $
+--             newGetCanaryRunsResponse
+--
+--         , responseGetGroup $
+--             newGetGroupResponse
+--
+--         , responseListAssociatedGroups $
+--             newListAssociatedGroupsResponse
+--
+--         , responseListGroupResources $
+--             newListGroupResourcesResponse
+--
+--         , responseListGroups $
+--             newListGroupsResponse
+--
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
+--
 --         , responseStartCanary $
 --             newStartCanaryResponse
 --
---         , responseDescribeCanaries $
---             newDescribeCanariesResponse
+--         , responseStopCanary $
+--             newStopCanaryResponse
 --
 --         , responseTagResource $
 --             newTagResourceResponse
@@ -105,25 +153,19 @@ import Test.Tasty
 --         , responseUntagResource $
 --             newUntagResourceResponse
 --
---         , responseStopCanary $
---             newStopCanaryResponse
+--         , responseUpdateCanary $
+--             newUpdateCanaryResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestUpdateCanary :: UpdateCanary -> TestTree
-requestUpdateCanary =
+requestAssociateResource :: AssociateResource -> TestTree
+requestAssociateResource =
   req
-    "UpdateCanary"
-    "fixture/UpdateCanary.yaml"
-
-requestDeleteCanary :: DeleteCanary -> TestTree
-requestDeleteCanary =
-  req
-    "DeleteCanary"
-    "fixture/DeleteCanary.yaml"
+    "AssociateResource"
+    "fixture/AssociateResource.yaml"
 
 requestCreateCanary :: CreateCanary -> TestTree
 requestCreateCanary =
@@ -131,29 +173,29 @@ requestCreateCanary =
     "CreateCanary"
     "fixture/CreateCanary.yaml"
 
-requestListTagsForResource :: ListTagsForResource -> TestTree
-requestListTagsForResource =
+requestCreateGroup :: CreateGroup -> TestTree
+requestCreateGroup =
   req
-    "ListTagsForResource"
-    "fixture/ListTagsForResource.yaml"
+    "CreateGroup"
+    "fixture/CreateGroup.yaml"
 
-requestGetCanaryRuns :: GetCanaryRuns -> TestTree
-requestGetCanaryRuns =
+requestDeleteCanary :: DeleteCanary -> TestTree
+requestDeleteCanary =
   req
-    "GetCanaryRuns"
-    "fixture/GetCanaryRuns.yaml"
+    "DeleteCanary"
+    "fixture/DeleteCanary.yaml"
 
-requestGetCanary :: GetCanary -> TestTree
-requestGetCanary =
+requestDeleteGroup :: DeleteGroup -> TestTree
+requestDeleteGroup =
   req
-    "GetCanary"
-    "fixture/GetCanary.yaml"
+    "DeleteGroup"
+    "fixture/DeleteGroup.yaml"
 
-requestDescribeRuntimeVersions :: DescribeRuntimeVersions -> TestTree
-requestDescribeRuntimeVersions =
+requestDescribeCanaries :: DescribeCanaries -> TestTree
+requestDescribeCanaries =
   req
-    "DescribeRuntimeVersions"
-    "fixture/DescribeRuntimeVersions.yaml"
+    "DescribeCanaries"
+    "fixture/DescribeCanaries.yaml"
 
 requestDescribeCanariesLastRun :: DescribeCanariesLastRun -> TestTree
 requestDescribeCanariesLastRun =
@@ -161,17 +203,71 @@ requestDescribeCanariesLastRun =
     "DescribeCanariesLastRun"
     "fixture/DescribeCanariesLastRun.yaml"
 
+requestDescribeRuntimeVersions :: DescribeRuntimeVersions -> TestTree
+requestDescribeRuntimeVersions =
+  req
+    "DescribeRuntimeVersions"
+    "fixture/DescribeRuntimeVersions.yaml"
+
+requestDisassociateResource :: DisassociateResource -> TestTree
+requestDisassociateResource =
+  req
+    "DisassociateResource"
+    "fixture/DisassociateResource.yaml"
+
+requestGetCanary :: GetCanary -> TestTree
+requestGetCanary =
+  req
+    "GetCanary"
+    "fixture/GetCanary.yaml"
+
+requestGetCanaryRuns :: GetCanaryRuns -> TestTree
+requestGetCanaryRuns =
+  req
+    "GetCanaryRuns"
+    "fixture/GetCanaryRuns.yaml"
+
+requestGetGroup :: GetGroup -> TestTree
+requestGetGroup =
+  req
+    "GetGroup"
+    "fixture/GetGroup.yaml"
+
+requestListAssociatedGroups :: ListAssociatedGroups -> TestTree
+requestListAssociatedGroups =
+  req
+    "ListAssociatedGroups"
+    "fixture/ListAssociatedGroups.yaml"
+
+requestListGroupResources :: ListGroupResources -> TestTree
+requestListGroupResources =
+  req
+    "ListGroupResources"
+    "fixture/ListGroupResources.yaml"
+
+requestListGroups :: ListGroups -> TestTree
+requestListGroups =
+  req
+    "ListGroups"
+    "fixture/ListGroups.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
 requestStartCanary :: StartCanary -> TestTree
 requestStartCanary =
   req
     "StartCanary"
     "fixture/StartCanary.yaml"
 
-requestDescribeCanaries :: DescribeCanaries -> TestTree
-requestDescribeCanaries =
+requestStopCanary :: StopCanary -> TestTree
+requestStopCanary =
   req
-    "DescribeCanaries"
-    "fixture/DescribeCanaries.yaml"
+    "StopCanary"
+    "fixture/StopCanary.yaml"
 
 requestTagResource :: TagResource -> TestTree
 requestTagResource =
@@ -185,29 +281,21 @@ requestUntagResource =
     "UntagResource"
     "fixture/UntagResource.yaml"
 
-requestStopCanary :: StopCanary -> TestTree
-requestStopCanary =
+requestUpdateCanary :: UpdateCanary -> TestTree
+requestUpdateCanary =
   req
-    "StopCanary"
-    "fixture/StopCanary.yaml"
+    "UpdateCanary"
+    "fixture/UpdateCanary.yaml"
 
 -- Responses
 
-responseUpdateCanary :: UpdateCanaryResponse -> TestTree
-responseUpdateCanary =
+responseAssociateResource :: AssociateResourceResponse -> TestTree
+responseAssociateResource =
   res
-    "UpdateCanaryResponse"
-    "fixture/UpdateCanaryResponse.proto"
+    "AssociateResourceResponse"
+    "fixture/AssociateResourceResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateCanary)
-
-responseDeleteCanary :: DeleteCanaryResponse -> TestTree
-responseDeleteCanary =
-  res
-    "DeleteCanaryResponse"
-    "fixture/DeleteCanaryResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteCanary)
+    (Proxy.Proxy :: Proxy.Proxy AssociateResource)
 
 responseCreateCanary :: CreateCanaryResponse -> TestTree
 responseCreateCanary =
@@ -217,37 +305,37 @@ responseCreateCanary =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateCanary)
 
-responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
-responseListTagsForResource =
+responseCreateGroup :: CreateGroupResponse -> TestTree
+responseCreateGroup =
   res
-    "ListTagsForResourceResponse"
-    "fixture/ListTagsForResourceResponse.proto"
+    "CreateGroupResponse"
+    "fixture/CreateGroupResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+    (Proxy.Proxy :: Proxy.Proxy CreateGroup)
 
-responseGetCanaryRuns :: GetCanaryRunsResponse -> TestTree
-responseGetCanaryRuns =
+responseDeleteCanary :: DeleteCanaryResponse -> TestTree
+responseDeleteCanary =
   res
-    "GetCanaryRunsResponse"
-    "fixture/GetCanaryRunsResponse.proto"
+    "DeleteCanaryResponse"
+    "fixture/DeleteCanaryResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetCanaryRuns)
+    (Proxy.Proxy :: Proxy.Proxy DeleteCanary)
 
-responseGetCanary :: GetCanaryResponse -> TestTree
-responseGetCanary =
+responseDeleteGroup :: DeleteGroupResponse -> TestTree
+responseDeleteGroup =
   res
-    "GetCanaryResponse"
-    "fixture/GetCanaryResponse.proto"
+    "DeleteGroupResponse"
+    "fixture/DeleteGroupResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetCanary)
+    (Proxy.Proxy :: Proxy.Proxy DeleteGroup)
 
-responseDescribeRuntimeVersions :: DescribeRuntimeVersionsResponse -> TestTree
-responseDescribeRuntimeVersions =
+responseDescribeCanaries :: DescribeCanariesResponse -> TestTree
+responseDescribeCanaries =
   res
-    "DescribeRuntimeVersionsResponse"
-    "fixture/DescribeRuntimeVersionsResponse.proto"
+    "DescribeCanariesResponse"
+    "fixture/DescribeCanariesResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeRuntimeVersions)
+    (Proxy.Proxy :: Proxy.Proxy DescribeCanaries)
 
 responseDescribeCanariesLastRun :: DescribeCanariesLastRunResponse -> TestTree
 responseDescribeCanariesLastRun =
@@ -257,6 +345,78 @@ responseDescribeCanariesLastRun =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DescribeCanariesLastRun)
 
+responseDescribeRuntimeVersions :: DescribeRuntimeVersionsResponse -> TestTree
+responseDescribeRuntimeVersions =
+  res
+    "DescribeRuntimeVersionsResponse"
+    "fixture/DescribeRuntimeVersionsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeRuntimeVersions)
+
+responseDisassociateResource :: DisassociateResourceResponse -> TestTree
+responseDisassociateResource =
+  res
+    "DisassociateResourceResponse"
+    "fixture/DisassociateResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DisassociateResource)
+
+responseGetCanary :: GetCanaryResponse -> TestTree
+responseGetCanary =
+  res
+    "GetCanaryResponse"
+    "fixture/GetCanaryResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetCanary)
+
+responseGetCanaryRuns :: GetCanaryRunsResponse -> TestTree
+responseGetCanaryRuns =
+  res
+    "GetCanaryRunsResponse"
+    "fixture/GetCanaryRunsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetCanaryRuns)
+
+responseGetGroup :: GetGroupResponse -> TestTree
+responseGetGroup =
+  res
+    "GetGroupResponse"
+    "fixture/GetGroupResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetGroup)
+
+responseListAssociatedGroups :: ListAssociatedGroupsResponse -> TestTree
+responseListAssociatedGroups =
+  res
+    "ListAssociatedGroupsResponse"
+    "fixture/ListAssociatedGroupsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListAssociatedGroups)
+
+responseListGroupResources :: ListGroupResourcesResponse -> TestTree
+responseListGroupResources =
+  res
+    "ListGroupResourcesResponse"
+    "fixture/ListGroupResourcesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListGroupResources)
+
+responseListGroups :: ListGroupsResponse -> TestTree
+responseListGroups =
+  res
+    "ListGroupsResponse"
+    "fixture/ListGroupsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListGroups)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+
 responseStartCanary :: StartCanaryResponse -> TestTree
 responseStartCanary =
   res
@@ -265,13 +425,13 @@ responseStartCanary =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy StartCanary)
 
-responseDescribeCanaries :: DescribeCanariesResponse -> TestTree
-responseDescribeCanaries =
+responseStopCanary :: StopCanaryResponse -> TestTree
+responseStopCanary =
   res
-    "DescribeCanariesResponse"
-    "fixture/DescribeCanariesResponse.proto"
+    "StopCanaryResponse"
+    "fixture/StopCanaryResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeCanaries)
+    (Proxy.Proxy :: Proxy.Proxy StopCanary)
 
 responseTagResource :: TagResourceResponse -> TestTree
 responseTagResource =
@@ -289,10 +449,10 @@ responseUntagResource =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy UntagResource)
 
-responseStopCanary :: StopCanaryResponse -> TestTree
-responseStopCanary =
+responseUpdateCanary :: UpdateCanaryResponse -> TestTree
+responseUpdateCanary =
   res
-    "StopCanaryResponse"
-    "fixture/StopCanaryResponse.proto"
+    "UpdateCanaryResponse"
+    "fixture/UpdateCanaryResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy StopCanary)
+    (Proxy.Proxy :: Proxy.Proxy UpdateCanary)

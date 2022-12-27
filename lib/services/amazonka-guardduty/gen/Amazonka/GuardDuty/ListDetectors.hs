@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.ListDetectors
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.GuardDuty.ListDetectors
     newListDetectors,
 
     -- * Request Lenses
-    listDetectors_nextToken,
     listDetectors_maxResults,
+    listDetectors_nextToken,
 
     -- * Destructuring the Response
     ListDetectorsResponse (..),
@@ -45,23 +45,24 @@ module Amazonka.GuardDuty.ListDetectors
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDetectors' smart constructor.
 data ListDetectors = ListDetectors'
-  { -- | You can use this parameter when paginating results. Set the value of
+  { -- | You can use this parameter to indicate the maximum number of items that
+    -- you want in the response. The default value is 50. The maximum value is
+    -- 50.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | You can use this parameter when paginating results. Set the value of
     -- this parameter to null on your first call to the list action. For
     -- subsequent calls to the action, fill nextToken in the request with the
     -- value of NextToken from the previous response to continue listing data.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | You can use this parameter to indicate the maximum number of items that
-    -- you want in the response. The default value is 50. The maximum value is
-    -- 50.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,21 +74,27 @@ data ListDetectors = ListDetectors'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listDetectors_maxResults' - You can use this parameter to indicate the maximum number of items that
+-- you want in the response. The default value is 50. The maximum value is
+-- 50.
+--
 -- 'nextToken', 'listDetectors_nextToken' - You can use this parameter when paginating results. Set the value of
 -- this parameter to null on your first call to the list action. For
 -- subsequent calls to the action, fill nextToken in the request with the
 -- value of NextToken from the previous response to continue listing data.
---
--- 'maxResults', 'listDetectors_maxResults' - You can use this parameter to indicate the maximum number of items that
--- you want in the response. The default value is 50. The maximum value is
--- 50.
 newListDetectors ::
   ListDetectors
 newListDetectors =
   ListDetectors'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | You can use this parameter to indicate the maximum number of items that
+-- you want in the response. The default value is 50. The maximum value is
+-- 50.
+listDetectors_maxResults :: Lens.Lens' ListDetectors (Prelude.Maybe Prelude.Natural)
+listDetectors_maxResults = Lens.lens (\ListDetectors' {maxResults} -> maxResults) (\s@ListDetectors' {} a -> s {maxResults = a} :: ListDetectors)
 
 -- | You can use this parameter when paginating results. Set the value of
 -- this parameter to null on your first call to the list action. For
@@ -95,12 +102,6 @@ newListDetectors =
 -- value of NextToken from the previous response to continue listing data.
 listDetectors_nextToken :: Lens.Lens' ListDetectors (Prelude.Maybe Prelude.Text)
 listDetectors_nextToken = Lens.lens (\ListDetectors' {nextToken} -> nextToken) (\s@ListDetectors' {} a -> s {nextToken = a} :: ListDetectors)
-
--- | You can use this parameter to indicate the maximum number of items that
--- you want in the response. The default value is 50. The maximum value is
--- 50.
-listDetectors_maxResults :: Lens.Lens' ListDetectors (Prelude.Maybe Prelude.Natural)
-listDetectors_maxResults = Lens.lens (\ListDetectors' {maxResults} -> maxResults) (\s@ListDetectors' {} a -> s {maxResults = a} :: ListDetectors)
 
 instance Core.AWSPager ListDetectors where
   page rq rs
@@ -123,45 +124,46 @@ instance Core.AWSRequest ListDetectors where
   type
     AWSResponse ListDetectors =
       ListDetectorsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDetectorsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "detectorIds" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "detectorIds" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListDetectors where
   hashWithSalt _salt ListDetectors' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDetectors where
   rnf ListDetectors' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDetectors where
+instance Data.ToHeaders ListDetectors where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListDetectors where
+instance Data.ToPath ListDetectors where
   toPath = Prelude.const "/detector"
 
-instance Core.ToQuery ListDetectors where
+instance Data.ToQuery ListDetectors where
   toQuery ListDetectors' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListDetectorsResponse' smart constructor.

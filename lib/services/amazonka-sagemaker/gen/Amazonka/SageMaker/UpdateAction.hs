@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.UpdateAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,10 +27,10 @@ module Amazonka.SageMaker.UpdateAction
     newUpdateAction,
 
     -- * Request Lenses
-    updateAction_status,
-    updateAction_propertiesToRemove,
     updateAction_description,
     updateAction_properties,
+    updateAction_propertiesToRemove,
+    updateAction_status,
     updateAction_actionName,
 
     -- * Destructuring the Response
@@ -44,7 +44,8 @@ module Amazonka.SageMaker.UpdateAction
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,14 +53,14 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newUpdateAction' smart constructor.
 data UpdateAction = UpdateAction'
-  { -- | The new status for the action.
-    status :: Prelude.Maybe ActionStatus,
-    -- | A list of properties to remove.
-    propertiesToRemove :: Prelude.Maybe [Prelude.Text],
-    -- | The new description for the action.
+  { -- | The new description for the action.
     description :: Prelude.Maybe Prelude.Text,
     -- | The new list of properties. Overwrites the current property list.
     properties :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | A list of properties to remove.
+    propertiesToRemove :: Prelude.Maybe [Prelude.Text],
+    -- | The new status for the action.
+    status :: Prelude.Maybe ActionStatus,
     -- | The name of the action to update.
     actionName :: Prelude.Text
   }
@@ -73,13 +74,13 @@ data UpdateAction = UpdateAction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'updateAction_status' - The new status for the action.
---
--- 'propertiesToRemove', 'updateAction_propertiesToRemove' - A list of properties to remove.
---
 -- 'description', 'updateAction_description' - The new description for the action.
 --
 -- 'properties', 'updateAction_properties' - The new list of properties. Overwrites the current property list.
+--
+-- 'propertiesToRemove', 'updateAction_propertiesToRemove' - A list of properties to remove.
+--
+-- 'status', 'updateAction_status' - The new status for the action.
 --
 -- 'actionName', 'updateAction_actionName' - The name of the action to update.
 newUpdateAction ::
@@ -88,20 +89,12 @@ newUpdateAction ::
   UpdateAction
 newUpdateAction pActionName_ =
   UpdateAction'
-    { status = Prelude.Nothing,
-      propertiesToRemove = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
       properties = Prelude.Nothing,
+      propertiesToRemove = Prelude.Nothing,
+      status = Prelude.Nothing,
       actionName = pActionName_
     }
-
--- | The new status for the action.
-updateAction_status :: Lens.Lens' UpdateAction (Prelude.Maybe ActionStatus)
-updateAction_status = Lens.lens (\UpdateAction' {status} -> status) (\s@UpdateAction' {} a -> s {status = a} :: UpdateAction)
-
--- | A list of properties to remove.
-updateAction_propertiesToRemove :: Lens.Lens' UpdateAction (Prelude.Maybe [Prelude.Text])
-updateAction_propertiesToRemove = Lens.lens (\UpdateAction' {propertiesToRemove} -> propertiesToRemove) (\s@UpdateAction' {} a -> s {propertiesToRemove = a} :: UpdateAction) Prelude.. Lens.mapping Lens.coerced
 
 -- | The new description for the action.
 updateAction_description :: Lens.Lens' UpdateAction (Prelude.Maybe Prelude.Text)
@@ -111,67 +104,76 @@ updateAction_description = Lens.lens (\UpdateAction' {description} -> descriptio
 updateAction_properties :: Lens.Lens' UpdateAction (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 updateAction_properties = Lens.lens (\UpdateAction' {properties} -> properties) (\s@UpdateAction' {} a -> s {properties = a} :: UpdateAction) Prelude.. Lens.mapping Lens.coerced
 
+-- | A list of properties to remove.
+updateAction_propertiesToRemove :: Lens.Lens' UpdateAction (Prelude.Maybe [Prelude.Text])
+updateAction_propertiesToRemove = Lens.lens (\UpdateAction' {propertiesToRemove} -> propertiesToRemove) (\s@UpdateAction' {} a -> s {propertiesToRemove = a} :: UpdateAction) Prelude.. Lens.mapping Lens.coerced
+
+-- | The new status for the action.
+updateAction_status :: Lens.Lens' UpdateAction (Prelude.Maybe ActionStatus)
+updateAction_status = Lens.lens (\UpdateAction' {status} -> status) (\s@UpdateAction' {} a -> s {status = a} :: UpdateAction)
+
 -- | The name of the action to update.
 updateAction_actionName :: Lens.Lens' UpdateAction Prelude.Text
 updateAction_actionName = Lens.lens (\UpdateAction' {actionName} -> actionName) (\s@UpdateAction' {} a -> s {actionName = a} :: UpdateAction)
 
 instance Core.AWSRequest UpdateAction where
   type AWSResponse UpdateAction = UpdateActionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateActionResponse'
-            Prelude.<$> (x Core..?> "ActionArn")
+            Prelude.<$> (x Data..?> "ActionArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateAction where
   hashWithSalt _salt UpdateAction' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` propertiesToRemove
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` properties
+      `Prelude.hashWithSalt` propertiesToRemove
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` actionName
 
 instance Prelude.NFData UpdateAction where
   rnf UpdateAction' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf propertiesToRemove
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf properties
+      `Prelude.seq` Prelude.rnf propertiesToRemove
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf actionName
 
-instance Core.ToHeaders UpdateAction where
+instance Data.ToHeaders UpdateAction where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.UpdateAction" :: Prelude.ByteString),
+              Data.=# ("SageMaker.UpdateAction" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAction where
+instance Data.ToJSON UpdateAction where
   toJSON UpdateAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Status" Core..=) Prelude.<$> status,
-            ("PropertiesToRemove" Core..=)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Properties" Data..=) Prelude.<$> properties,
+            ("PropertiesToRemove" Data..=)
               Prelude.<$> propertiesToRemove,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Properties" Core..=) Prelude.<$> properties,
-            Prelude.Just ("ActionName" Core..= actionName)
+            ("Status" Data..=) Prelude.<$> status,
+            Prelude.Just ("ActionName" Data..= actionName)
           ]
       )
 
-instance Core.ToPath UpdateAction where
+instance Data.ToPath UpdateAction where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateAction where
+instance Data.ToQuery UpdateAction where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateActionResponse' smart constructor.

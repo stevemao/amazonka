@@ -6,65 +6,13 @@
 
 -- |
 -- Module      : Amazonka.XRay.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.XRay.Lens
   ( -- * Operations
-
-    -- ** PutEncryptionConfig
-    putEncryptionConfig_keyId,
-    putEncryptionConfig_type,
-    putEncryptionConfigResponse_encryptionConfig,
-    putEncryptionConfigResponse_httpStatus,
-
-    -- ** GetServiceGraph
-    getServiceGraph_nextToken,
-    getServiceGraph_groupARN,
-    getServiceGraph_groupName,
-    getServiceGraph_startTime,
-    getServiceGraph_endTime,
-    getServiceGraphResponse_containsOldGroupVersions,
-    getServiceGraphResponse_startTime,
-    getServiceGraphResponse_nextToken,
-    getServiceGraphResponse_endTime,
-    getServiceGraphResponse_services,
-    getServiceGraphResponse_httpStatus,
-
-    -- ** GetSamplingTargets
-    getSamplingTargets_samplingStatisticsDocuments,
-    getSamplingTargetsResponse_unprocessedStatistics,
-    getSamplingTargetsResponse_lastRuleModification,
-    getSamplingTargetsResponse_samplingTargetDocuments,
-    getSamplingTargetsResponse_httpStatus,
-
-    -- ** ListTagsForResource
-    listTagsForResource_nextToken,
-    listTagsForResource_resourceARN,
-    listTagsForResourceResponse_nextToken,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** GetTraceSummaries
-    getTraceSummaries_filterExpression,
-    getTraceSummaries_nextToken,
-    getTraceSummaries_timeRangeType,
-    getTraceSummaries_samplingStrategy,
-    getTraceSummaries_sampling,
-    getTraceSummaries_startTime,
-    getTraceSummaries_endTime,
-    getTraceSummariesResponse_tracesProcessedCount,
-    getTraceSummariesResponse_nextToken,
-    getTraceSummariesResponse_approximateTime,
-    getTraceSummariesResponse_traceSummaries,
-    getTraceSummariesResponse_httpStatus,
-
-    -- ** PutTraceSegments
-    putTraceSegments_traceSegmentDocuments,
-    putTraceSegmentsResponse_unprocessedTraceSegments,
-    putTraceSegmentsResponse_httpStatus,
 
     -- ** BatchGetTraces
     batchGetTraces_nextToken,
@@ -74,105 +22,6 @@ module Amazonka.XRay.Lens
     batchGetTracesResponse_unprocessedTraceIds,
     batchGetTracesResponse_httpStatus,
 
-    -- ** GetInsight
-    getInsight_insightId,
-    getInsightResponse_insight,
-    getInsightResponse_httpStatus,
-
-    -- ** GetTimeSeriesServiceStatistics
-    getTimeSeriesServiceStatistics_entitySelectorExpression,
-    getTimeSeriesServiceStatistics_period,
-    getTimeSeriesServiceStatistics_forecastStatistics,
-    getTimeSeriesServiceStatistics_nextToken,
-    getTimeSeriesServiceStatistics_groupARN,
-    getTimeSeriesServiceStatistics_groupName,
-    getTimeSeriesServiceStatistics_startTime,
-    getTimeSeriesServiceStatistics_endTime,
-    getTimeSeriesServiceStatisticsResponse_containsOldGroupVersions,
-    getTimeSeriesServiceStatisticsResponse_timeSeriesServiceStatistics,
-    getTimeSeriesServiceStatisticsResponse_nextToken,
-    getTimeSeriesServiceStatisticsResponse_httpStatus,
-
-    -- ** GetEncryptionConfig
-    getEncryptionConfigResponse_encryptionConfig,
-    getEncryptionConfigResponse_httpStatus,
-
-    -- ** GetInsightImpactGraph
-    getInsightImpactGraph_nextToken,
-    getInsightImpactGraph_insightId,
-    getInsightImpactGraph_startTime,
-    getInsightImpactGraph_endTime,
-    getInsightImpactGraphResponse_serviceGraphStartTime,
-    getInsightImpactGraphResponse_startTime,
-    getInsightImpactGraphResponse_insightId,
-    getInsightImpactGraphResponse_nextToken,
-    getInsightImpactGraphResponse_endTime,
-    getInsightImpactGraphResponse_serviceGraphEndTime,
-    getInsightImpactGraphResponse_services,
-    getInsightImpactGraphResponse_httpStatus,
-
-    -- ** UpdateSamplingRule
-    updateSamplingRule_samplingRuleUpdate,
-    updateSamplingRuleResponse_samplingRuleRecord,
-    updateSamplingRuleResponse_httpStatus,
-
-    -- ** DeleteSamplingRule
-    deleteSamplingRule_ruleName,
-    deleteSamplingRule_ruleARN,
-    deleteSamplingRuleResponse_samplingRuleRecord,
-    deleteSamplingRuleResponse_httpStatus,
-
-    -- ** GetInsightEvents
-    getInsightEvents_nextToken,
-    getInsightEvents_maxResults,
-    getInsightEvents_insightId,
-    getInsightEventsResponse_insightEvents,
-    getInsightEventsResponse_nextToken,
-    getInsightEventsResponse_httpStatus,
-
-    -- ** GetGroups
-    getGroups_nextToken,
-    getGroupsResponse_groups,
-    getGroupsResponse_nextToken,
-    getGroupsResponse_httpStatus,
-
-    -- ** GetInsightSummaries
-    getInsightSummaries_states,
-    getInsightSummaries_nextToken,
-    getInsightSummaries_groupARN,
-    getInsightSummaries_groupName,
-    getInsightSummaries_maxResults,
-    getInsightSummaries_startTime,
-    getInsightSummaries_endTime,
-    getInsightSummariesResponse_insightSummaries,
-    getInsightSummariesResponse_nextToken,
-    getInsightSummariesResponse_httpStatus,
-
-    -- ** PutTelemetryRecords
-    putTelemetryRecords_hostname,
-    putTelemetryRecords_eC2InstanceId,
-    putTelemetryRecords_resourceARN,
-    putTelemetryRecords_telemetryRecords,
-    putTelemetryRecordsResponse_httpStatus,
-
-    -- ** GetSamplingRules
-    getSamplingRules_nextToken,
-    getSamplingRulesResponse_samplingRuleRecords,
-    getSamplingRulesResponse_nextToken,
-    getSamplingRulesResponse_httpStatus,
-
-    -- ** TagResource
-    tagResource_resourceARN,
-    tagResource_tags,
-    tagResourceResponse_httpStatus,
-
-    -- ** GetTraceGraph
-    getTraceGraph_nextToken,
-    getTraceGraph_traceIds,
-    getTraceGraphResponse_nextToken,
-    getTraceGraphResponse_services,
-    getTraceGraphResponse_httpStatus,
-
     -- ** CreateGroup
     createGroup_filterExpression,
     createGroup_insightsConfiguration,
@@ -181,23 +30,31 @@ module Amazonka.XRay.Lens
     createGroupResponse_group,
     createGroupResponse_httpStatus,
 
-    -- ** UntagResource
-    untagResource_resourceARN,
-    untagResource_tagKeys,
-    untagResourceResponse_httpStatus,
+    -- ** CreateSamplingRule
+    createSamplingRule_tags,
+    createSamplingRule_samplingRule,
+    createSamplingRuleResponse_samplingRuleRecord,
+    createSamplingRuleResponse_httpStatus,
 
     -- ** DeleteGroup
     deleteGroup_groupARN,
     deleteGroup_groupName,
     deleteGroupResponse_httpStatus,
 
-    -- ** UpdateGroup
-    updateGroup_filterExpression,
-    updateGroup_insightsConfiguration,
-    updateGroup_groupARN,
-    updateGroup_groupName,
-    updateGroupResponse_group,
-    updateGroupResponse_httpStatus,
+    -- ** DeleteResourcePolicy
+    deleteResourcePolicy_policyRevisionId,
+    deleteResourcePolicy_policyName,
+    deleteResourcePolicyResponse_httpStatus,
+
+    -- ** DeleteSamplingRule
+    deleteSamplingRule_ruleARN,
+    deleteSamplingRule_ruleName,
+    deleteSamplingRuleResponse_samplingRuleRecord,
+    deleteSamplingRuleResponse_httpStatus,
+
+    -- ** GetEncryptionConfig
+    getEncryptionConfigResponse_encryptionConfig,
+    getEncryptionConfigResponse_httpStatus,
 
     -- ** GetGroup
     getGroup_groupARN,
@@ -205,29 +62,191 @@ module Amazonka.XRay.Lens
     getGroupResponse_group,
     getGroupResponse_httpStatus,
 
+    -- ** GetGroups
+    getGroups_nextToken,
+    getGroupsResponse_groups,
+    getGroupsResponse_nextToken,
+    getGroupsResponse_httpStatus,
+
+    -- ** GetInsight
+    getInsight_insightId,
+    getInsightResponse_insight,
+    getInsightResponse_httpStatus,
+
+    -- ** GetInsightEvents
+    getInsightEvents_maxResults,
+    getInsightEvents_nextToken,
+    getInsightEvents_insightId,
+    getInsightEventsResponse_insightEvents,
+    getInsightEventsResponse_nextToken,
+    getInsightEventsResponse_httpStatus,
+
+    -- ** GetInsightImpactGraph
+    getInsightImpactGraph_nextToken,
+    getInsightImpactGraph_insightId,
+    getInsightImpactGraph_startTime,
+    getInsightImpactGraph_endTime,
+    getInsightImpactGraphResponse_endTime,
+    getInsightImpactGraphResponse_insightId,
+    getInsightImpactGraphResponse_nextToken,
+    getInsightImpactGraphResponse_serviceGraphEndTime,
+    getInsightImpactGraphResponse_serviceGraphStartTime,
+    getInsightImpactGraphResponse_services,
+    getInsightImpactGraphResponse_startTime,
+    getInsightImpactGraphResponse_httpStatus,
+
+    -- ** GetInsightSummaries
+    getInsightSummaries_groupARN,
+    getInsightSummaries_groupName,
+    getInsightSummaries_maxResults,
+    getInsightSummaries_nextToken,
+    getInsightSummaries_states,
+    getInsightSummaries_startTime,
+    getInsightSummaries_endTime,
+    getInsightSummariesResponse_insightSummaries,
+    getInsightSummariesResponse_nextToken,
+    getInsightSummariesResponse_httpStatus,
+
+    -- ** GetSamplingRules
+    getSamplingRules_nextToken,
+    getSamplingRulesResponse_nextToken,
+    getSamplingRulesResponse_samplingRuleRecords,
+    getSamplingRulesResponse_httpStatus,
+
     -- ** GetSamplingStatisticSummaries
     getSamplingStatisticSummaries_nextToken,
-    getSamplingStatisticSummariesResponse_samplingStatisticSummaries,
     getSamplingStatisticSummariesResponse_nextToken,
+    getSamplingStatisticSummariesResponse_samplingStatisticSummaries,
     getSamplingStatisticSummariesResponse_httpStatus,
 
-    -- ** CreateSamplingRule
-    createSamplingRule_tags,
-    createSamplingRule_samplingRule,
-    createSamplingRuleResponse_samplingRuleRecord,
-    createSamplingRuleResponse_httpStatus,
+    -- ** GetSamplingTargets
+    getSamplingTargets_samplingStatisticsDocuments,
+    getSamplingTargetsResponse_lastRuleModification,
+    getSamplingTargetsResponse_samplingTargetDocuments,
+    getSamplingTargetsResponse_unprocessedStatistics,
+    getSamplingTargetsResponse_httpStatus,
+
+    -- ** GetServiceGraph
+    getServiceGraph_groupARN,
+    getServiceGraph_groupName,
+    getServiceGraph_nextToken,
+    getServiceGraph_startTime,
+    getServiceGraph_endTime,
+    getServiceGraphResponse_containsOldGroupVersions,
+    getServiceGraphResponse_endTime,
+    getServiceGraphResponse_nextToken,
+    getServiceGraphResponse_services,
+    getServiceGraphResponse_startTime,
+    getServiceGraphResponse_httpStatus,
+
+    -- ** GetTimeSeriesServiceStatistics
+    getTimeSeriesServiceStatistics_entitySelectorExpression,
+    getTimeSeriesServiceStatistics_forecastStatistics,
+    getTimeSeriesServiceStatistics_groupARN,
+    getTimeSeriesServiceStatistics_groupName,
+    getTimeSeriesServiceStatistics_nextToken,
+    getTimeSeriesServiceStatistics_period,
+    getTimeSeriesServiceStatistics_startTime,
+    getTimeSeriesServiceStatistics_endTime,
+    getTimeSeriesServiceStatisticsResponse_containsOldGroupVersions,
+    getTimeSeriesServiceStatisticsResponse_nextToken,
+    getTimeSeriesServiceStatisticsResponse_timeSeriesServiceStatistics,
+    getTimeSeriesServiceStatisticsResponse_httpStatus,
+
+    -- ** GetTraceGraph
+    getTraceGraph_nextToken,
+    getTraceGraph_traceIds,
+    getTraceGraphResponse_nextToken,
+    getTraceGraphResponse_services,
+    getTraceGraphResponse_httpStatus,
+
+    -- ** GetTraceSummaries
+    getTraceSummaries_filterExpression,
+    getTraceSummaries_nextToken,
+    getTraceSummaries_sampling,
+    getTraceSummaries_samplingStrategy,
+    getTraceSummaries_timeRangeType,
+    getTraceSummaries_startTime,
+    getTraceSummaries_endTime,
+    getTraceSummariesResponse_approximateTime,
+    getTraceSummariesResponse_nextToken,
+    getTraceSummariesResponse_traceSummaries,
+    getTraceSummariesResponse_tracesProcessedCount,
+    getTraceSummariesResponse_httpStatus,
+
+    -- ** ListResourcePolicies
+    listResourcePolicies_nextToken,
+    listResourcePoliciesResponse_nextToken,
+    listResourcePoliciesResponse_resourcePolicies,
+    listResourcePoliciesResponse_httpStatus,
+
+    -- ** ListTagsForResource
+    listTagsForResource_nextToken,
+    listTagsForResource_resourceARN,
+    listTagsForResourceResponse_nextToken,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
+    -- ** PutEncryptionConfig
+    putEncryptionConfig_keyId,
+    putEncryptionConfig_type,
+    putEncryptionConfigResponse_encryptionConfig,
+    putEncryptionConfigResponse_httpStatus,
+
+    -- ** PutResourcePolicy
+    putResourcePolicy_bypassPolicyLockoutCheck,
+    putResourcePolicy_policyRevisionId,
+    putResourcePolicy_policyName,
+    putResourcePolicy_policyDocument,
+    putResourcePolicyResponse_resourcePolicy,
+    putResourcePolicyResponse_httpStatus,
+
+    -- ** PutTelemetryRecords
+    putTelemetryRecords_eC2InstanceId,
+    putTelemetryRecords_hostname,
+    putTelemetryRecords_resourceARN,
+    putTelemetryRecords_telemetryRecords,
+    putTelemetryRecordsResponse_httpStatus,
+
+    -- ** PutTraceSegments
+    putTraceSegments_traceSegmentDocuments,
+    putTraceSegmentsResponse_unprocessedTraceSegments,
+    putTraceSegmentsResponse_httpStatus,
+
+    -- ** TagResource
+    tagResource_resourceARN,
+    tagResource_tags,
+    tagResourceResponse_httpStatus,
+
+    -- ** UntagResource
+    untagResource_resourceARN,
+    untagResource_tagKeys,
+    untagResourceResponse_httpStatus,
+
+    -- ** UpdateGroup
+    updateGroup_filterExpression,
+    updateGroup_groupARN,
+    updateGroup_groupName,
+    updateGroup_insightsConfiguration,
+    updateGroupResponse_group,
+    updateGroupResponse_httpStatus,
+
+    -- ** UpdateSamplingRule
+    updateSamplingRule_samplingRuleUpdate,
+    updateSamplingRuleResponse_samplingRuleRecord,
+    updateSamplingRuleResponse_httpStatus,
 
     -- * Types
 
     -- ** Alias
-    alias_names,
     alias_name,
+    alias_names,
     alias_type,
 
     -- ** AnnotationValue
+    annotationValue_booleanValue,
     annotationValue_numberValue,
     annotationValue_stringValue,
-    annotationValue_booleanValue,
 
     -- ** AnomalousService
     anomalousService_serviceId,
@@ -236,31 +255,33 @@ module Amazonka.XRay.Lens
     availabilityZoneDetail_name,
 
     -- ** BackendConnectionErrors
-    backendConnectionErrors_otherCount,
-    backendConnectionErrors_timeoutCount,
-    backendConnectionErrors_hTTPCode5XXCount,
     backendConnectionErrors_connectionRefusedCount,
     backendConnectionErrors_hTTPCode4XXCount,
+    backendConnectionErrors_hTTPCode5XXCount,
+    backendConnectionErrors_otherCount,
+    backendConnectionErrors_timeoutCount,
     backendConnectionErrors_unknownHostCount,
 
     -- ** Edge
-    edge_startTime,
     edge_aliases,
-    edge_responseTimeHistogram,
-    edge_referenceId,
+    edge_edgeType,
     edge_endTime,
+    edge_receivedEventAgeHistogram,
+    edge_referenceId,
+    edge_responseTimeHistogram,
+    edge_startTime,
     edge_summaryStatistics,
 
     -- ** EdgeStatistics
+    edgeStatistics_errorStatistics,
     edgeStatistics_faultStatistics,
     edgeStatistics_okCount,
-    edgeStatistics_totalResponseTime,
-    edgeStatistics_errorStatistics,
     edgeStatistics_totalCount,
+    edgeStatistics_totalResponseTime,
 
     -- ** EncryptionConfig
-    encryptionConfig_status,
     encryptionConfig_keyId,
+    encryptionConfig_status,
     encryptionConfig_type,
 
     -- ** ErrorRootCause
@@ -269,15 +290,15 @@ module Amazonka.XRay.Lens
 
     -- ** ErrorRootCauseEntity
     errorRootCauseEntity_exceptions,
-    errorRootCauseEntity_remote,
     errorRootCauseEntity_name,
+    errorRootCauseEntity_remote,
 
     -- ** ErrorRootCauseService
-    errorRootCauseService_entityPath,
     errorRootCauseService_accountId,
-    errorRootCauseService_names,
-    errorRootCauseService_name,
+    errorRootCauseService_entityPath,
     errorRootCauseService_inferred,
+    errorRootCauseService_name,
+    errorRootCauseService_names,
     errorRootCauseService_type,
 
     -- ** ErrorStatistics
@@ -291,15 +312,15 @@ module Amazonka.XRay.Lens
 
     -- ** FaultRootCauseEntity
     faultRootCauseEntity_exceptions,
-    faultRootCauseEntity_remote,
     faultRootCauseEntity_name,
+    faultRootCauseEntity_remote,
 
     -- ** FaultRootCauseService
-    faultRootCauseService_entityPath,
     faultRootCauseService_accountId,
-    faultRootCauseService_names,
-    faultRootCauseService_name,
+    faultRootCauseService_entityPath,
     faultRootCauseService_inferred,
+    faultRootCauseService_name,
+    faultRootCauseService_names,
     faultRootCauseService_type,
 
     -- ** FaultStatistics
@@ -307,119 +328,125 @@ module Amazonka.XRay.Lens
     faultStatistics_totalCount,
 
     -- ** ForecastStatistics
-    forecastStatistics_faultCountLow,
     forecastStatistics_faultCountHigh,
+    forecastStatistics_faultCountLow,
 
     -- ** Group
     group_filterExpression,
-    group_insightsConfiguration,
     group_groupARN,
     group_groupName,
+    group_insightsConfiguration,
 
     -- ** GroupSummary
     groupSummary_filterExpression,
-    groupSummary_insightsConfiguration,
     groupSummary_groupARN,
     groupSummary_groupName,
+    groupSummary_insightsConfiguration,
 
     -- ** HistogramEntry
     histogramEntry_count,
     histogramEntry_value,
 
     -- ** Http
+    http_clientIp,
     http_httpMethod,
     http_httpStatus,
-    http_clientIp,
-    http_userAgent,
     http_httpURL,
+    http_userAgent,
 
     -- ** Insight
-    insight_summary,
-    insight_state,
-    insight_startTime,
-    insight_insightId,
     insight_categories,
-    insight_rootCauseServiceRequestImpactStatistics,
-    insight_topAnomalousServices,
-    insight_rootCauseServiceId,
     insight_clientRequestImpactStatistics,
     insight_endTime,
     insight_groupARN,
     insight_groupName,
+    insight_insightId,
+    insight_rootCauseServiceId,
+    insight_rootCauseServiceRequestImpactStatistics,
+    insight_startTime,
+    insight_state,
+    insight_summary,
+    insight_topAnomalousServices,
 
     -- ** InsightEvent
-    insightEvent_summary,
+    insightEvent_clientRequestImpactStatistics,
     insightEvent_eventTime,
     insightEvent_rootCauseServiceRequestImpactStatistics,
+    insightEvent_summary,
     insightEvent_topAnomalousServices,
-    insightEvent_clientRequestImpactStatistics,
 
     -- ** InsightImpactGraphEdge
     insightImpactGraphEdge_referenceId,
 
     -- ** InsightImpactGraphService
-    insightImpactGraphService_referenceId,
     insightImpactGraphService_accountId,
-    insightImpactGraphService_names,
-    insightImpactGraphService_name,
-    insightImpactGraphService_type,
     insightImpactGraphService_edges,
+    insightImpactGraphService_name,
+    insightImpactGraphService_names,
+    insightImpactGraphService_referenceId,
+    insightImpactGraphService_type,
 
     -- ** InsightSummary
-    insightSummary_summary,
-    insightSummary_state,
-    insightSummary_startTime,
-    insightSummary_insightId,
     insightSummary_categories,
-    insightSummary_rootCauseServiceRequestImpactStatistics,
-    insightSummary_topAnomalousServices,
-    insightSummary_rootCauseServiceId,
     insightSummary_clientRequestImpactStatistics,
     insightSummary_endTime,
     insightSummary_groupARN,
     insightSummary_groupName,
+    insightSummary_insightId,
     insightSummary_lastUpdateTime,
+    insightSummary_rootCauseServiceId,
+    insightSummary_rootCauseServiceRequestImpactStatistics,
+    insightSummary_startTime,
+    insightSummary_state,
+    insightSummary_summary,
+    insightSummary_topAnomalousServices,
 
     -- ** InsightsConfiguration
-    insightsConfiguration_notificationsEnabled,
     insightsConfiguration_insightsEnabled,
+    insightsConfiguration_notificationsEnabled,
 
     -- ** InstanceIdDetail
     instanceIdDetail_id,
 
     -- ** RequestImpactStatistics
-    requestImpactStatistics_okCount,
     requestImpactStatistics_faultCount,
+    requestImpactStatistics_okCount,
     requestImpactStatistics_totalCount,
 
     -- ** ResourceARNDetail
     resourceARNDetail_arn,
+
+    -- ** ResourcePolicy
+    resourcePolicy_lastUpdatedTime,
+    resourcePolicy_policyDocument,
+    resourcePolicy_policyName,
+    resourcePolicy_policyRevisionId,
 
     -- ** ResponseTimeRootCause
     responseTimeRootCause_clientImpacting,
     responseTimeRootCause_services,
 
     -- ** ResponseTimeRootCauseEntity
-    responseTimeRootCauseEntity_remote,
     responseTimeRootCauseEntity_coverage,
     responseTimeRootCauseEntity_name,
+    responseTimeRootCauseEntity_remote,
 
     -- ** ResponseTimeRootCauseService
-    responseTimeRootCauseService_entityPath,
     responseTimeRootCauseService_accountId,
-    responseTimeRootCauseService_names,
-    responseTimeRootCauseService_name,
+    responseTimeRootCauseService_entityPath,
     responseTimeRootCauseService_inferred,
+    responseTimeRootCauseService_name,
+    responseTimeRootCauseService_names,
     responseTimeRootCauseService_type,
 
     -- ** RootCauseException
-    rootCauseException_name,
     rootCauseException_message,
+    rootCauseException_name,
 
     -- ** SamplingRule
-    samplingRule_ruleName,
     samplingRule_attributes,
     samplingRule_ruleARN,
+    samplingRule_ruleName,
     samplingRule_resourceARN,
     samplingRule_priority,
     samplingRule_fixedRate,
@@ -432,30 +459,30 @@ module Amazonka.XRay.Lens
     samplingRule_version,
 
     -- ** SamplingRuleRecord
+    samplingRuleRecord_createdAt,
     samplingRuleRecord_modifiedAt,
     samplingRuleRecord_samplingRule,
-    samplingRuleRecord_createdAt,
 
     -- ** SamplingRuleUpdate
-    samplingRuleUpdate_hTTPMethod,
-    samplingRuleUpdate_priority,
-    samplingRuleUpdate_ruleName,
-    samplingRuleUpdate_reservoirSize,
-    samplingRuleUpdate_fixedRate,
-    samplingRuleUpdate_resourceARN,
     samplingRuleUpdate_attributes,
+    samplingRuleUpdate_fixedRate,
+    samplingRuleUpdate_hTTPMethod,
+    samplingRuleUpdate_host,
+    samplingRuleUpdate_priority,
+    samplingRuleUpdate_reservoirSize,
+    samplingRuleUpdate_resourceARN,
+    samplingRuleUpdate_ruleARN,
+    samplingRuleUpdate_ruleName,
     samplingRuleUpdate_serviceName,
     samplingRuleUpdate_serviceType,
-    samplingRuleUpdate_host,
-    samplingRuleUpdate_ruleARN,
     samplingRuleUpdate_uRLPath,
 
     -- ** SamplingStatisticSummary
-    samplingStatisticSummary_requestCount,
     samplingStatisticSummary_borrowCount,
+    samplingStatisticSummary_requestCount,
     samplingStatisticSummary_ruleName,
-    samplingStatisticSummary_timestamp,
     samplingStatisticSummary_sampledCount,
+    samplingStatisticSummary_timestamp,
 
     -- ** SamplingStatisticsDocument
     samplingStatisticsDocument_borrowCount,
@@ -466,15 +493,15 @@ module Amazonka.XRay.Lens
     samplingStatisticsDocument_sampledCount,
 
     -- ** SamplingStrategy
-    samplingStrategy_value,
     samplingStrategy_name,
+    samplingStrategy_value,
 
     -- ** SamplingTargetDocument
-    samplingTargetDocument_reservoirQuota,
-    samplingTargetDocument_ruleName,
     samplingTargetDocument_fixedRate,
     samplingTargetDocument_interval,
+    samplingTargetDocument_reservoirQuota,
     samplingTargetDocument_reservoirQuotaTTL,
+    samplingTargetDocument_ruleName,
 
     -- ** Segment
     segment_document,
@@ -482,87 +509,87 @@ module Amazonka.XRay.Lens
 
     -- ** ServiceId
     serviceId_accountId,
-    serviceId_names,
     serviceId_name,
+    serviceId_names,
     serviceId_type,
 
     -- ** ServiceInfo
-    serviceInfo_state,
-    serviceInfo_startTime,
-    serviceInfo_root,
-    serviceInfo_responseTimeHistogram,
-    serviceInfo_durationHistogram,
-    serviceInfo_referenceId,
     serviceInfo_accountId,
-    serviceInfo_names,
-    serviceInfo_name,
-    serviceInfo_endTime,
-    serviceInfo_type,
+    serviceInfo_durationHistogram,
     serviceInfo_edges,
+    serviceInfo_endTime,
+    serviceInfo_name,
+    serviceInfo_names,
+    serviceInfo_referenceId,
+    serviceInfo_responseTimeHistogram,
+    serviceInfo_root,
+    serviceInfo_startTime,
+    serviceInfo_state,
     serviceInfo_summaryStatistics,
+    serviceInfo_type,
 
     -- ** ServiceStatistics
+    serviceStatistics_errorStatistics,
     serviceStatistics_faultStatistics,
     serviceStatistics_okCount,
-    serviceStatistics_totalResponseTime,
-    serviceStatistics_errorStatistics,
     serviceStatistics_totalCount,
+    serviceStatistics_totalResponseTime,
 
     -- ** Tag
     tag_key,
     tag_value,
 
     -- ** TelemetryRecord
+    telemetryRecord_backendConnectionErrors,
     telemetryRecord_segmentsReceivedCount,
+    telemetryRecord_segmentsRejectedCount,
     telemetryRecord_segmentsSentCount,
     telemetryRecord_segmentsSpilloverCount,
-    telemetryRecord_segmentsRejectedCount,
-    telemetryRecord_backendConnectionErrors,
     telemetryRecord_timestamp,
 
     -- ** TimeSeriesServiceStatistics
-    timeSeriesServiceStatistics_serviceSummaryStatistics,
-    timeSeriesServiceStatistics_responseTimeHistogram,
     timeSeriesServiceStatistics_edgeSummaryStatistics,
+    timeSeriesServiceStatistics_responseTimeHistogram,
     timeSeriesServiceStatistics_serviceForecastStatistics,
+    timeSeriesServiceStatistics_serviceSummaryStatistics,
     timeSeriesServiceStatistics_timestamp,
 
     -- ** Trace
-    trace_limitExceeded,
-    trace_id,
-    trace_segments,
     trace_duration,
+    trace_id,
+    trace_limitExceeded,
+    trace_segments,
 
     -- ** TraceSummary
     traceSummary_annotations,
-    traceSummary_hasThrottle,
-    traceSummary_users,
-    traceSummary_entryPoint,
-    traceSummary_hasFault,
-    traceSummary_serviceIds,
-    traceSummary_matchedEventTime,
-    traceSummary_isPartial,
-    traceSummary_errorRootCauses,
-    traceSummary_resourceARNs,
     traceSummary_availabilityZones,
-    traceSummary_instanceIds,
-    traceSummary_responseTimeRootCauses,
-    traceSummary_hasError,
-    traceSummary_id,
-    traceSummary_http,
-    traceSummary_revision,
     traceSummary_duration,
+    traceSummary_entryPoint,
+    traceSummary_errorRootCauses,
     traceSummary_faultRootCauses,
+    traceSummary_hasError,
+    traceSummary_hasFault,
+    traceSummary_hasThrottle,
+    traceSummary_http,
+    traceSummary_id,
+    traceSummary_instanceIds,
+    traceSummary_isPartial,
+    traceSummary_matchedEventTime,
+    traceSummary_resourceARNs,
     traceSummary_responseTime,
+    traceSummary_responseTimeRootCauses,
+    traceSummary_revision,
+    traceSummary_serviceIds,
+    traceSummary_users,
 
     -- ** TraceUser
     traceUser_serviceIds,
     traceUser_userName,
 
     -- ** UnprocessedStatistics
-    unprocessedStatistics_ruleName,
     unprocessedStatistics_errorCode,
     unprocessedStatistics_message,
+    unprocessedStatistics_ruleName,
 
     -- ** UnprocessedTraceSegment
     unprocessedTraceSegment_errorCode,
@@ -570,8 +597,8 @@ module Amazonka.XRay.Lens
     unprocessedTraceSegment_message,
 
     -- ** ValueWithServiceIds
-    valueWithServiceIds_serviceIds,
     valueWithServiceIds_annotationValue,
+    valueWithServiceIds_serviceIds,
   )
 where
 
@@ -579,6 +606,7 @@ import Amazonka.XRay.BatchGetTraces
 import Amazonka.XRay.CreateGroup
 import Amazonka.XRay.CreateSamplingRule
 import Amazonka.XRay.DeleteGroup
+import Amazonka.XRay.DeleteResourcePolicy
 import Amazonka.XRay.DeleteSamplingRule
 import Amazonka.XRay.GetEncryptionConfig
 import Amazonka.XRay.GetGroup
@@ -594,8 +622,10 @@ import Amazonka.XRay.GetServiceGraph
 import Amazonka.XRay.GetTimeSeriesServiceStatistics
 import Amazonka.XRay.GetTraceGraph
 import Amazonka.XRay.GetTraceSummaries
+import Amazonka.XRay.ListResourcePolicies
 import Amazonka.XRay.ListTagsForResource
 import Amazonka.XRay.PutEncryptionConfig
+import Amazonka.XRay.PutResourcePolicy
 import Amazonka.XRay.PutTelemetryRecords
 import Amazonka.XRay.PutTraceSegments
 import Amazonka.XRay.TagResource
@@ -629,6 +659,7 @@ import Amazonka.XRay.Types.InsightsConfiguration
 import Amazonka.XRay.Types.InstanceIdDetail
 import Amazonka.XRay.Types.RequestImpactStatistics
 import Amazonka.XRay.Types.ResourceARNDetail
+import Amazonka.XRay.Types.ResourcePolicy
 import Amazonka.XRay.Types.ResponseTimeRootCause
 import Amazonka.XRay.Types.ResponseTimeRootCauseEntity
 import Amazonka.XRay.Types.ResponseTimeRootCauseService

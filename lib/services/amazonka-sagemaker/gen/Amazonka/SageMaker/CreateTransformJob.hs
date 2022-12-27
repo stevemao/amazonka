@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateTransformJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,7 +36,8 @@
 -- -   @ModelName@ - Identifies the model to use. @ModelName@ must be the
 --     name of an existing Amazon SageMaker model in the same Amazon Web
 --     Services Region and Amazon Web Services account. For information on
---     creating a model, see CreateModel.
+--     creating a model, see
+--     <https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateModel.html CreateModel>.
 --
 -- -   @TransformInput@ - Describes the dataset to be transformed and the
 --     Amazon S3 location where it is stored.
@@ -55,13 +56,14 @@ module Amazonka.SageMaker.CreateTransformJob
     newCreateTransformJob,
 
     -- * Request Lenses
-    createTransformJob_modelClientConfig,
     createTransformJob_batchStrategy,
-    createTransformJob_maxPayloadInMB,
+    createTransformJob_dataCaptureConfig,
+    createTransformJob_dataProcessing,
     createTransformJob_environment,
     createTransformJob_experimentConfig,
     createTransformJob_maxConcurrentTransforms,
-    createTransformJob_dataProcessing,
+    createTransformJob_maxPayloadInMB,
+    createTransformJob_modelClientConfig,
     createTransformJob_tags,
     createTransformJob_transformJobName,
     createTransformJob_modelName,
@@ -80,7 +82,8 @@ module Amazonka.SageMaker.CreateTransformJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,10 +91,7 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newCreateTransformJob' smart constructor.
 data CreateTransformJob = CreateTransformJob'
-  { -- | Configures the timeout and maximum number of retries for processing a
-    -- transform job invocation.
-    modelClientConfig :: Prelude.Maybe ModelClientConfig,
-    -- | Specifies the number of records to include in a mini-batch for an HTTP
+  { -- | Specifies the number of records to include in a mini-batch for an HTTP
     -- inference request. A /record/ // is a single unit of input data that
     -- inference can be made on. For example, a single line in a CSV file is a
     -- record.
@@ -107,19 +107,17 @@ data CreateTransformJob = CreateTransformJob'
     -- @MaxPayloadInMB@ limit, set @BatchStrategy@ to @MultiRecord@ and
     -- @SplitType@ to @Line@.
     batchStrategy :: Prelude.Maybe BatchStrategy,
-    -- | The maximum allowed size of the payload, in MB. A /payload/ is the data
-    -- portion of a record (without metadata). The value in @MaxPayloadInMB@
-    -- must be greater than, or equal to, the size of a single record. To
-    -- estimate the size of a record in MB, divide the size of your dataset by
-    -- the number of records. To ensure that the records fit within the maximum
-    -- payload size, we recommend using a slightly larger value. The default
-    -- value is @6@ MB.
-    --
-    -- For cases where the payload might be arbitrarily large and is
-    -- transmitted using HTTP chunked encoding, set the value to @0@. This
-    -- feature works only in supported algorithms. Currently, Amazon SageMaker
-    -- built-in algorithms do not support HTTP chunked encoding.
-    maxPayloadInMB :: Prelude.Maybe Prelude.Natural,
+    -- | Configuration to control how SageMaker captures inference data.
+    dataCaptureConfig :: Prelude.Maybe BatchDataCaptureConfig,
+    -- | The data structure used to specify the data to be used for inference in
+    -- a batch transform job and to associate the data that is relevant to the
+    -- prediction results in the output. The input filter provided allows you
+    -- to exclude input data that is not needed for inference in a batch
+    -- transform job. The output filter provided allows you to include input
+    -- data relevant to interpreting the predictions in the output from the
+    -- job. For more information, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html Associate Prediction Results with their Corresponding Input Records>.
+    dataProcessing :: Prelude.Maybe DataProcessing,
     -- | The environment variables to set in the Docker container. We support up
     -- to 16 key and values entries in the map.
     environment :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
@@ -134,15 +132,26 @@ data CreateTransformJob = CreateTransformJob'
     -- For built-in algorithms, you don\'t need to set a value for
     -- @MaxConcurrentTransforms@.
     maxConcurrentTransforms :: Prelude.Maybe Prelude.Natural,
-    -- | The data structure used to specify the data to be used for inference in
-    -- a batch transform job and to associate the data that is relevant to the
-    -- prediction results in the output. The input filter provided allows you
-    -- to exclude input data that is not needed for inference in a batch
-    -- transform job. The output filter provided allows you to include input
-    -- data relevant to interpreting the predictions in the output from the
-    -- job. For more information, see
-    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html Associate Prediction Results with their Corresponding Input Records>.
-    dataProcessing :: Prelude.Maybe DataProcessing,
+    -- | The maximum allowed size of the payload, in MB. A /payload/ is the data
+    -- portion of a record (without metadata). The value in @MaxPayloadInMB@
+    -- must be greater than, or equal to, the size of a single record. To
+    -- estimate the size of a record in MB, divide the size of your dataset by
+    -- the number of records. To ensure that the records fit within the maximum
+    -- payload size, we recommend using a slightly larger value. The default
+    -- value is @6@ MB.
+    --
+    -- The value of @MaxPayloadInMB@ cannot be greater than 100 MB. If you
+    -- specify the @MaxConcurrentTransforms@ parameter, the value of
+    -- @(MaxConcurrentTransforms * MaxPayloadInMB)@ also cannot exceed 100 MB.
+    --
+    -- For cases where the payload might be arbitrarily large and is
+    -- transmitted using HTTP chunked encoding, set the value to @0@. This
+    -- feature works only in supported algorithms. Currently, Amazon SageMaker
+    -- built-in algorithms do not support HTTP chunked encoding.
+    maxPayloadInMB :: Prelude.Maybe Prelude.Natural,
+    -- | Configures the timeout and maximum number of retries for processing a
+    -- transform job invocation.
+    modelClientConfig :: Prelude.Maybe ModelClientConfig,
     -- | (Optional) An array of key-value pairs. For more information, see
     -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what Using Cost Allocation Tags>
     -- in the /Amazon Web Services Billing and Cost Management User Guide/.
@@ -172,9 +181,6 @@ data CreateTransformJob = CreateTransformJob'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'modelClientConfig', 'createTransformJob_modelClientConfig' - Configures the timeout and maximum number of retries for processing a
--- transform job invocation.
---
 -- 'batchStrategy', 'createTransformJob_batchStrategy' - Specifies the number of records to include in a mini-batch for an HTTP
 -- inference request. A /record/ // is a single unit of input data that
 -- inference can be made on. For example, a single line in a CSV file is a
@@ -191,18 +197,16 @@ data CreateTransformJob = CreateTransformJob'
 -- @MaxPayloadInMB@ limit, set @BatchStrategy@ to @MultiRecord@ and
 -- @SplitType@ to @Line@.
 --
--- 'maxPayloadInMB', 'createTransformJob_maxPayloadInMB' - The maximum allowed size of the payload, in MB. A /payload/ is the data
--- portion of a record (without metadata). The value in @MaxPayloadInMB@
--- must be greater than, or equal to, the size of a single record. To
--- estimate the size of a record in MB, divide the size of your dataset by
--- the number of records. To ensure that the records fit within the maximum
--- payload size, we recommend using a slightly larger value. The default
--- value is @6@ MB.
+-- 'dataCaptureConfig', 'createTransformJob_dataCaptureConfig' - Configuration to control how SageMaker captures inference data.
 --
--- For cases where the payload might be arbitrarily large and is
--- transmitted using HTTP chunked encoding, set the value to @0@. This
--- feature works only in supported algorithms. Currently, Amazon SageMaker
--- built-in algorithms do not support HTTP chunked encoding.
+-- 'dataProcessing', 'createTransformJob_dataProcessing' - The data structure used to specify the data to be used for inference in
+-- a batch transform job and to associate the data that is relevant to the
+-- prediction results in the output. The input filter provided allows you
+-- to exclude input data that is not needed for inference in a batch
+-- transform job. The output filter provided allows you to include input
+-- data relevant to interpreting the predictions in the output from the
+-- job. For more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html Associate Prediction Results with their Corresponding Input Records>.
 --
 -- 'environment', 'createTransformJob_environment' - The environment variables to set in the Docker container. We support up
 -- to 16 key and values entries in the map.
@@ -219,14 +223,25 @@ data CreateTransformJob = CreateTransformJob'
 -- For built-in algorithms, you don\'t need to set a value for
 -- @MaxConcurrentTransforms@.
 --
--- 'dataProcessing', 'createTransformJob_dataProcessing' - The data structure used to specify the data to be used for inference in
--- a batch transform job and to associate the data that is relevant to the
--- prediction results in the output. The input filter provided allows you
--- to exclude input data that is not needed for inference in a batch
--- transform job. The output filter provided allows you to include input
--- data relevant to interpreting the predictions in the output from the
--- job. For more information, see
--- <https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html Associate Prediction Results with their Corresponding Input Records>.
+-- 'maxPayloadInMB', 'createTransformJob_maxPayloadInMB' - The maximum allowed size of the payload, in MB. A /payload/ is the data
+-- portion of a record (without metadata). The value in @MaxPayloadInMB@
+-- must be greater than, or equal to, the size of a single record. To
+-- estimate the size of a record in MB, divide the size of your dataset by
+-- the number of records. To ensure that the records fit within the maximum
+-- payload size, we recommend using a slightly larger value. The default
+-- value is @6@ MB.
+--
+-- The value of @MaxPayloadInMB@ cannot be greater than 100 MB. If you
+-- specify the @MaxConcurrentTransforms@ parameter, the value of
+-- @(MaxConcurrentTransforms * MaxPayloadInMB)@ also cannot exceed 100 MB.
+--
+-- For cases where the payload might be arbitrarily large and is
+-- transmitted using HTTP chunked encoding, set the value to @0@. This
+-- feature works only in supported algorithms. Currently, Amazon SageMaker
+-- built-in algorithms do not support HTTP chunked encoding.
+--
+-- 'modelClientConfig', 'createTransformJob_modelClientConfig' - Configures the timeout and maximum number of retries for processing a
+-- transform job invocation.
 --
 -- 'tags', 'createTransformJob_tags' - (Optional) An array of key-value pairs. For more information, see
 -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what Using Cost Allocation Tags>
@@ -264,14 +279,15 @@ newCreateTransformJob
   pTransformOutput_
   pTransformResources_ =
     CreateTransformJob'
-      { modelClientConfig =
+      { batchStrategy =
           Prelude.Nothing,
-        batchStrategy = Prelude.Nothing,
-        maxPayloadInMB = Prelude.Nothing,
+        dataCaptureConfig = Prelude.Nothing,
+        dataProcessing = Prelude.Nothing,
         environment = Prelude.Nothing,
         experimentConfig = Prelude.Nothing,
         maxConcurrentTransforms = Prelude.Nothing,
-        dataProcessing = Prelude.Nothing,
+        maxPayloadInMB = Prelude.Nothing,
+        modelClientConfig = Prelude.Nothing,
         tags = Prelude.Nothing,
         transformJobName = pTransformJobName_,
         modelName = pModelName_,
@@ -279,11 +295,6 @@ newCreateTransformJob
         transformOutput = pTransformOutput_,
         transformResources = pTransformResources_
       }
-
--- | Configures the timeout and maximum number of retries for processing a
--- transform job invocation.
-createTransformJob_modelClientConfig :: Lens.Lens' CreateTransformJob (Prelude.Maybe ModelClientConfig)
-createTransformJob_modelClientConfig = Lens.lens (\CreateTransformJob' {modelClientConfig} -> modelClientConfig) (\s@CreateTransformJob' {} a -> s {modelClientConfig = a} :: CreateTransformJob)
 
 -- | Specifies the number of records to include in a mini-batch for an HTTP
 -- inference request. A /record/ // is a single unit of input data that
@@ -303,20 +314,20 @@ createTransformJob_modelClientConfig = Lens.lens (\CreateTransformJob' {modelCli
 createTransformJob_batchStrategy :: Lens.Lens' CreateTransformJob (Prelude.Maybe BatchStrategy)
 createTransformJob_batchStrategy = Lens.lens (\CreateTransformJob' {batchStrategy} -> batchStrategy) (\s@CreateTransformJob' {} a -> s {batchStrategy = a} :: CreateTransformJob)
 
--- | The maximum allowed size of the payload, in MB. A /payload/ is the data
--- portion of a record (without metadata). The value in @MaxPayloadInMB@
--- must be greater than, or equal to, the size of a single record. To
--- estimate the size of a record in MB, divide the size of your dataset by
--- the number of records. To ensure that the records fit within the maximum
--- payload size, we recommend using a slightly larger value. The default
--- value is @6@ MB.
---
--- For cases where the payload might be arbitrarily large and is
--- transmitted using HTTP chunked encoding, set the value to @0@. This
--- feature works only in supported algorithms. Currently, Amazon SageMaker
--- built-in algorithms do not support HTTP chunked encoding.
-createTransformJob_maxPayloadInMB :: Lens.Lens' CreateTransformJob (Prelude.Maybe Prelude.Natural)
-createTransformJob_maxPayloadInMB = Lens.lens (\CreateTransformJob' {maxPayloadInMB} -> maxPayloadInMB) (\s@CreateTransformJob' {} a -> s {maxPayloadInMB = a} :: CreateTransformJob)
+-- | Configuration to control how SageMaker captures inference data.
+createTransformJob_dataCaptureConfig :: Lens.Lens' CreateTransformJob (Prelude.Maybe BatchDataCaptureConfig)
+createTransformJob_dataCaptureConfig = Lens.lens (\CreateTransformJob' {dataCaptureConfig} -> dataCaptureConfig) (\s@CreateTransformJob' {} a -> s {dataCaptureConfig = a} :: CreateTransformJob)
+
+-- | The data structure used to specify the data to be used for inference in
+-- a batch transform job and to associate the data that is relevant to the
+-- prediction results in the output. The input filter provided allows you
+-- to exclude input data that is not needed for inference in a batch
+-- transform job. The output filter provided allows you to include input
+-- data relevant to interpreting the predictions in the output from the
+-- job. For more information, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html Associate Prediction Results with their Corresponding Input Records>.
+createTransformJob_dataProcessing :: Lens.Lens' CreateTransformJob (Prelude.Maybe DataProcessing)
+createTransformJob_dataProcessing = Lens.lens (\CreateTransformJob' {dataProcessing} -> dataProcessing) (\s@CreateTransformJob' {} a -> s {dataProcessing = a} :: CreateTransformJob)
 
 -- | The environment variables to set in the Docker container. We support up
 -- to 16 key and values entries in the map.
@@ -339,16 +350,29 @@ createTransformJob_experimentConfig = Lens.lens (\CreateTransformJob' {experimen
 createTransformJob_maxConcurrentTransforms :: Lens.Lens' CreateTransformJob (Prelude.Maybe Prelude.Natural)
 createTransformJob_maxConcurrentTransforms = Lens.lens (\CreateTransformJob' {maxConcurrentTransforms} -> maxConcurrentTransforms) (\s@CreateTransformJob' {} a -> s {maxConcurrentTransforms = a} :: CreateTransformJob)
 
--- | The data structure used to specify the data to be used for inference in
--- a batch transform job and to associate the data that is relevant to the
--- prediction results in the output. The input filter provided allows you
--- to exclude input data that is not needed for inference in a batch
--- transform job. The output filter provided allows you to include input
--- data relevant to interpreting the predictions in the output from the
--- job. For more information, see
--- <https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html Associate Prediction Results with their Corresponding Input Records>.
-createTransformJob_dataProcessing :: Lens.Lens' CreateTransformJob (Prelude.Maybe DataProcessing)
-createTransformJob_dataProcessing = Lens.lens (\CreateTransformJob' {dataProcessing} -> dataProcessing) (\s@CreateTransformJob' {} a -> s {dataProcessing = a} :: CreateTransformJob)
+-- | The maximum allowed size of the payload, in MB. A /payload/ is the data
+-- portion of a record (without metadata). The value in @MaxPayloadInMB@
+-- must be greater than, or equal to, the size of a single record. To
+-- estimate the size of a record in MB, divide the size of your dataset by
+-- the number of records. To ensure that the records fit within the maximum
+-- payload size, we recommend using a slightly larger value. The default
+-- value is @6@ MB.
+--
+-- The value of @MaxPayloadInMB@ cannot be greater than 100 MB. If you
+-- specify the @MaxConcurrentTransforms@ parameter, the value of
+-- @(MaxConcurrentTransforms * MaxPayloadInMB)@ also cannot exceed 100 MB.
+--
+-- For cases where the payload might be arbitrarily large and is
+-- transmitted using HTTP chunked encoding, set the value to @0@. This
+-- feature works only in supported algorithms. Currently, Amazon SageMaker
+-- built-in algorithms do not support HTTP chunked encoding.
+createTransformJob_maxPayloadInMB :: Lens.Lens' CreateTransformJob (Prelude.Maybe Prelude.Natural)
+createTransformJob_maxPayloadInMB = Lens.lens (\CreateTransformJob' {maxPayloadInMB} -> maxPayloadInMB) (\s@CreateTransformJob' {} a -> s {maxPayloadInMB = a} :: CreateTransformJob)
+
+-- | Configures the timeout and maximum number of retries for processing a
+-- transform job invocation.
+createTransformJob_modelClientConfig :: Lens.Lens' CreateTransformJob (Prelude.Maybe ModelClientConfig)
+createTransformJob_modelClientConfig = Lens.lens (\CreateTransformJob' {modelClientConfig} -> modelClientConfig) (\s@CreateTransformJob' {} a -> s {modelClientConfig = a} :: CreateTransformJob)
 
 -- | (Optional) An array of key-value pairs. For more information, see
 -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-what Using Cost Allocation Tags>
@@ -384,24 +408,26 @@ instance Core.AWSRequest CreateTransformJob where
   type
     AWSResponse CreateTransformJob =
       CreateTransformJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateTransformJobResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "TransformJobArn")
+            Prelude.<*> (x Data..:> "TransformJobArn")
       )
 
 instance Prelude.Hashable CreateTransformJob where
   hashWithSalt _salt CreateTransformJob' {..} =
-    _salt `Prelude.hashWithSalt` modelClientConfig
-      `Prelude.hashWithSalt` batchStrategy
-      `Prelude.hashWithSalt` maxPayloadInMB
+    _salt `Prelude.hashWithSalt` batchStrategy
+      `Prelude.hashWithSalt` dataCaptureConfig
+      `Prelude.hashWithSalt` dataProcessing
       `Prelude.hashWithSalt` environment
       `Prelude.hashWithSalt` experimentConfig
       `Prelude.hashWithSalt` maxConcurrentTransforms
-      `Prelude.hashWithSalt` dataProcessing
+      `Prelude.hashWithSalt` maxPayloadInMB
+      `Prelude.hashWithSalt` modelClientConfig
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` transformJobName
       `Prelude.hashWithSalt` modelName
@@ -411,13 +437,14 @@ instance Prelude.Hashable CreateTransformJob where
 
 instance Prelude.NFData CreateTransformJob where
   rnf CreateTransformJob' {..} =
-    Prelude.rnf modelClientConfig
-      `Prelude.seq` Prelude.rnf batchStrategy
-      `Prelude.seq` Prelude.rnf maxPayloadInMB
+    Prelude.rnf batchStrategy
+      `Prelude.seq` Prelude.rnf dataCaptureConfig
+      `Prelude.seq` Prelude.rnf dataProcessing
       `Prelude.seq` Prelude.rnf environment
       `Prelude.seq` Prelude.rnf experimentConfig
       `Prelude.seq` Prelude.rnf maxConcurrentTransforms
-      `Prelude.seq` Prelude.rnf dataProcessing
+      `Prelude.seq` Prelude.rnf maxPayloadInMB
+      `Prelude.seq` Prelude.rnf modelClientConfig
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf transformJobName
       `Prelude.seq` Prelude.rnf modelName
@@ -425,54 +452,56 @@ instance Prelude.NFData CreateTransformJob where
       `Prelude.seq` Prelude.rnf transformOutput
       `Prelude.seq` Prelude.rnf transformResources
 
-instance Core.ToHeaders CreateTransformJob where
+instance Data.ToHeaders CreateTransformJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.CreateTransformJob" ::
+              Data.=# ( "SageMaker.CreateTransformJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateTransformJob where
+instance Data.ToJSON CreateTransformJob where
   toJSON CreateTransformJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ModelClientConfig" Core..=)
-              Prelude.<$> modelClientConfig,
-            ("BatchStrategy" Core..=) Prelude.<$> batchStrategy,
-            ("MaxPayloadInMB" Core..=)
-              Prelude.<$> maxPayloadInMB,
-            ("Environment" Core..=) Prelude.<$> environment,
-            ("ExperimentConfig" Core..=)
-              Prelude.<$> experimentConfig,
-            ("MaxConcurrentTransforms" Core..=)
-              Prelude.<$> maxConcurrentTransforms,
-            ("DataProcessing" Core..=)
+          [ ("BatchStrategy" Data..=) Prelude.<$> batchStrategy,
+            ("DataCaptureConfig" Data..=)
+              Prelude.<$> dataCaptureConfig,
+            ("DataProcessing" Data..=)
               Prelude.<$> dataProcessing,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("Environment" Data..=) Prelude.<$> environment,
+            ("ExperimentConfig" Data..=)
+              Prelude.<$> experimentConfig,
+            ("MaxConcurrentTransforms" Data..=)
+              Prelude.<$> maxConcurrentTransforms,
+            ("MaxPayloadInMB" Data..=)
+              Prelude.<$> maxPayloadInMB,
+            ("ModelClientConfig" Data..=)
+              Prelude.<$> modelClientConfig,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("TransformJobName" Core..= transformJobName),
-            Prelude.Just ("ModelName" Core..= modelName),
+              ("TransformJobName" Data..= transformJobName),
+            Prelude.Just ("ModelName" Data..= modelName),
             Prelude.Just
-              ("TransformInput" Core..= transformInput),
+              ("TransformInput" Data..= transformInput),
             Prelude.Just
-              ("TransformOutput" Core..= transformOutput),
+              ("TransformOutput" Data..= transformOutput),
             Prelude.Just
-              ("TransformResources" Core..= transformResources)
+              ("TransformResources" Data..= transformResources)
           ]
       )
 
-instance Core.ToPath CreateTransformJob where
+instance Data.ToPath CreateTransformJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateTransformJob where
+instance Data.ToQuery CreateTransformJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateTransformJobResponse' smart constructor.

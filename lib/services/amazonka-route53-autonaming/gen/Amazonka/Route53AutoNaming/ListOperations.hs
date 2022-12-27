@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.ListOperations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.Route53AutoNaming.ListOperations
 
     -- * Request Lenses
     listOperations_filters,
-    listOperations_nextToken,
     listOperations_maxResults,
+    listOperations_nextToken,
 
     -- * Destructuring the Response
     ListOperationsResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.Route53AutoNaming.ListOperations
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,6 +61,10 @@ data ListOperations = ListOperations'
     -- If you specify more than one filter, an operation must match all filters
     -- to be returned by @ListOperations@.
     filters :: Prelude.Maybe [OperationFilter],
+    -- | The maximum number of items that you want Cloud Map to return in the
+    -- response to a @ListOperations@ request. If you don\'t specify a value
+    -- for @MaxResults@, Cloud Map returns up to 100 operations.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | For the first @ListOperations@ request, omit this value.
     --
     -- If the response contains @NextToken@, submit another @ListOperations@
@@ -71,11 +76,7 @@ data ListOperations = ListOperations'
     -- @MaxResults@ operations matched the specified criteria but that
     -- subsequent groups of @MaxResults@ operations do contain operations that
     -- match the criteria.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items that you want Cloud Map to return in the
-    -- response to a @ListOperations@ request. If you don\'t specify a value
-    -- for @MaxResults@, Cloud Map returns up to 100 operations.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -94,6 +95,10 @@ data ListOperations = ListOperations'
 -- If you specify more than one filter, an operation must match all filters
 -- to be returned by @ListOperations@.
 --
+-- 'maxResults', 'listOperations_maxResults' - The maximum number of items that you want Cloud Map to return in the
+-- response to a @ListOperations@ request. If you don\'t specify a value
+-- for @MaxResults@, Cloud Map returns up to 100 operations.
+--
 -- 'nextToken', 'listOperations_nextToken' - For the first @ListOperations@ request, omit this value.
 --
 -- If the response contains @NextToken@, submit another @ListOperations@
@@ -105,17 +110,13 @@ data ListOperations = ListOperations'
 -- @MaxResults@ operations matched the specified criteria but that
 -- subsequent groups of @MaxResults@ operations do contain operations that
 -- match the criteria.
---
--- 'maxResults', 'listOperations_maxResults' - The maximum number of items that you want Cloud Map to return in the
--- response to a @ListOperations@ request. If you don\'t specify a value
--- for @MaxResults@, Cloud Map returns up to 100 operations.
 newListOperations ::
   ListOperations
 newListOperations =
   ListOperations'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | A complex type that contains specifications for the operations that you
@@ -126,6 +127,12 @@ newListOperations =
 -- to be returned by @ListOperations@.
 listOperations_filters :: Lens.Lens' ListOperations (Prelude.Maybe [OperationFilter])
 listOperations_filters = Lens.lens (\ListOperations' {filters} -> filters) (\s@ListOperations' {} a -> s {filters = a} :: ListOperations) Prelude.. Lens.mapping Lens.coerced
+
+-- | The maximum number of items that you want Cloud Map to return in the
+-- response to a @ListOperations@ request. If you don\'t specify a value
+-- for @MaxResults@, Cloud Map returns up to 100 operations.
+listOperations_maxResults :: Lens.Lens' ListOperations (Prelude.Maybe Prelude.Natural)
+listOperations_maxResults = Lens.lens (\ListOperations' {maxResults} -> maxResults) (\s@ListOperations' {} a -> s {maxResults = a} :: ListOperations)
 
 -- | For the first @ListOperations@ request, omit this value.
 --
@@ -140,12 +147,6 @@ listOperations_filters = Lens.lens (\ListOperations' {filters} -> filters) (\s@L
 -- match the criteria.
 listOperations_nextToken :: Lens.Lens' ListOperations (Prelude.Maybe Prelude.Text)
 listOperations_nextToken = Lens.lens (\ListOperations' {nextToken} -> nextToken) (\s@ListOperations' {} a -> s {nextToken = a} :: ListOperations)
-
--- | The maximum number of items that you want Cloud Map to return in the
--- response to a @ListOperations@ request. If you don\'t specify a value
--- for @MaxResults@, Cloud Map returns up to 100 operations.
-listOperations_maxResults :: Lens.Lens' ListOperations (Prelude.Maybe Prelude.Natural)
-listOperations_maxResults = Lens.lens (\ListOperations' {maxResults} -> maxResults) (\s@ListOperations' {} a -> s {maxResults = a} :: ListOperations)
 
 instance Core.AWSPager ListOperations where
   page rq rs
@@ -172,57 +173,58 @@ instance Core.AWSRequest ListOperations where
   type
     AWSResponse ListOperations =
       ListOperationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListOperationsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListOperations where
   hashWithSalt _salt ListOperations' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListOperations where
   rnf ListOperations' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListOperations where
+instance Data.ToHeaders ListOperations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53AutoNaming_v20170314.ListOperations" ::
+              Data.=# ( "Route53AutoNaming_v20170314.ListOperations" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListOperations where
+instance Data.ToJSON ListOperations where
   toJSON ListOperations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListOperations where
+instance Data.ToPath ListOperations where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListOperations where
+instance Data.ToQuery ListOperations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListOperationsResponse' smart constructor.

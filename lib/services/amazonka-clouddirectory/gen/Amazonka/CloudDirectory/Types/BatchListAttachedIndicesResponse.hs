@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchListAttachedIndicesResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudDirectory.Types.BatchListAttachedIndicesResponse where
 
 import Amazonka.CloudDirectory.Types.IndexAttachment
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output of a ListAttachedIndices response operation.
@@ -64,18 +65,18 @@ batchListAttachedIndicesResponse_nextToken :: Lens.Lens' BatchListAttachedIndice
 batchListAttachedIndicesResponse_nextToken = Lens.lens (\BatchListAttachedIndicesResponse' {nextToken} -> nextToken) (\s@BatchListAttachedIndicesResponse' {} a -> s {nextToken = a} :: BatchListAttachedIndicesResponse)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     BatchListAttachedIndicesResponse
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchListAttachedIndicesResponse"
       ( \x ->
           BatchListAttachedIndicesResponse'
-            Prelude.<$> ( x Core..:? "IndexAttachments"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "IndexAttachments"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "NextToken")
+            Prelude.<*> (x Data..:? "NextToken")
       )
 
 instance

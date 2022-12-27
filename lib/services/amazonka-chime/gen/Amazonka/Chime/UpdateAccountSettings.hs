@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.UpdateAccountSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,7 +97,8 @@ instance Core.AWSRequest UpdateAccountSettings where
   type
     AWSResponse UpdateAccountSettings =
       UpdateAccountSettingsResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,24 +116,24 @@ instance Prelude.NFData UpdateAccountSettings where
     Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf accountSettings
 
-instance Core.ToHeaders UpdateAccountSettings where
+instance Data.ToHeaders UpdateAccountSettings where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateAccountSettings where
+instance Data.ToJSON UpdateAccountSettings where
   toJSON UpdateAccountSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("AccountSettings" Core..= accountSettings)
+              ("AccountSettings" Data..= accountSettings)
           ]
       )
 
-instance Core.ToPath UpdateAccountSettings where
+instance Data.ToPath UpdateAccountSettings where
   toPath UpdateAccountSettings' {..} =
     Prelude.mconcat
-      ["/accounts/", Core.toBS accountId, "/settings"]
+      ["/accounts/", Data.toBS accountId, "/settings"]
 
-instance Core.ToQuery UpdateAccountSettings where
+instance Data.ToQuery UpdateAccountSettings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAccountSettingsResponse' smart constructor.

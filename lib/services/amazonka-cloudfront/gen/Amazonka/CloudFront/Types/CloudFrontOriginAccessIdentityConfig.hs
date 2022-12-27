@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.CloudFrontOriginAccessIdentityConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudFront.Types.CloudFrontOriginAccessIdentityConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Origin access identity configuration. Send a @GET@ request to the
@@ -121,13 +122,13 @@ cloudFrontOriginAccessIdentityConfig_comment :: Lens.Lens' CloudFrontOriginAcces
 cloudFrontOriginAccessIdentityConfig_comment = Lens.lens (\CloudFrontOriginAccessIdentityConfig' {comment} -> comment) (\s@CloudFrontOriginAccessIdentityConfig' {} a -> s {comment = a} :: CloudFrontOriginAccessIdentityConfig)
 
 instance
-  Core.FromXML
+  Data.FromXML
     CloudFrontOriginAccessIdentityConfig
   where
   parseXML x =
     CloudFrontOriginAccessIdentityConfig'
-      Prelude.<$> (x Core..@ "CallerReference")
-      Prelude.<*> (x Core..@ "Comment")
+      Prelude.<$> (x Data..@ "CallerReference")
+      Prelude.<*> (x Data..@ "Comment")
 
 instance
   Prelude.Hashable
@@ -148,11 +149,11 @@ instance
       `Prelude.seq` Prelude.rnf comment
 
 instance
-  Core.ToXML
+  Data.ToXML
     CloudFrontOriginAccessIdentityConfig
   where
   toXML CloudFrontOriginAccessIdentityConfig' {..} =
     Prelude.mconcat
-      [ "CallerReference" Core.@= callerReference,
-        "Comment" Core.@= comment
+      [ "CallerReference" Data.@= callerReference,
+        "Comment" Data.@= comment
       ]

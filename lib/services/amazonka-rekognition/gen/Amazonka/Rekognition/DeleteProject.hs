@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.DeleteProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,6 +23,12 @@
 -- Deletes an Amazon Rekognition Custom Labels project. To delete a project
 -- you must first delete all models associated with the project. To delete
 -- a model, see DeleteProjectVersion.
+--
+-- @DeleteProject@ is an asynchronous operation. To check if the project is
+-- deleted, call DescribeProjects. The project is deleted when the project
+-- no longer appears in the response. Be aware that deleting a given
+-- project will also delete any @ProjectPolicies@ associated with that
+-- project.
 --
 -- This operation requires permissions to perform the
 -- @rekognition:DeleteProject@ action.
@@ -45,7 +51,8 @@ module Amazonka.Rekognition.DeleteProject
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types
 import qualified Amazonka.Request as Request
@@ -82,12 +89,13 @@ instance Core.AWSRequest DeleteProject where
   type
     AWSResponse DeleteProject =
       DeleteProjectResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteProjectResponse'
-            Prelude.<$> (x Core..?> "Status")
+            Prelude.<$> (x Data..?> "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,32 +106,32 @@ instance Prelude.Hashable DeleteProject where
 instance Prelude.NFData DeleteProject where
   rnf DeleteProject' {..} = Prelude.rnf projectArn
 
-instance Core.ToHeaders DeleteProject where
+instance Data.ToHeaders DeleteProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "RekognitionService.DeleteProject" ::
+              Data.=# ( "RekognitionService.DeleteProject" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteProject where
+instance Data.ToJSON DeleteProject where
   toJSON DeleteProject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ProjectArn" Core..= projectArn)]
+          [Prelude.Just ("ProjectArn" Data..= projectArn)]
       )
 
-instance Core.ToPath DeleteProject where
+instance Data.ToPath DeleteProject where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteProject where
+instance Data.ToQuery DeleteProject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteProjectResponse' smart constructor.

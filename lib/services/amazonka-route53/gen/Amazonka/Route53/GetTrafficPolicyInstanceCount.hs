@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.GetTrafficPolicyInstanceCount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ module Amazonka.Route53.GetTrafficPolicyInstanceCount
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,13 +70,14 @@ instance
   type
     AWSResponse GetTrafficPolicyInstanceCount =
       GetTrafficPolicyInstanceCountResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetTrafficPolicyInstanceCountResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "TrafficPolicyInstanceCount")
+            Prelude.<*> (x Data..@ "TrafficPolicyInstanceCount")
       )
 
 instance
@@ -88,15 +90,15 @@ instance
 instance Prelude.NFData GetTrafficPolicyInstanceCount where
   rnf _ = ()
 
-instance Core.ToHeaders GetTrafficPolicyInstanceCount where
+instance Data.ToHeaders GetTrafficPolicyInstanceCount where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetTrafficPolicyInstanceCount where
+instance Data.ToPath GetTrafficPolicyInstanceCount where
   toPath =
     Prelude.const
       "/2013-04-01/trafficpolicyinstancecount"
 
-instance Core.ToQuery GetTrafficPolicyInstanceCount where
+instance Data.ToQuery GetTrafficPolicyInstanceCount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A complex type that contains information about the resource record sets

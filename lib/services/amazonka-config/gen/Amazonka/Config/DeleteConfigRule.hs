@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.DeleteConfigRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,7 +87,8 @@ instance Core.AWSRequest DeleteConfigRule where
   type
     AWSResponse DeleteConfigRule =
       DeleteConfigRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteConfigRuleResponse'
 
@@ -98,34 +100,34 @@ instance Prelude.NFData DeleteConfigRule where
   rnf DeleteConfigRule' {..} =
     Prelude.rnf configRuleName
 
-instance Core.ToHeaders DeleteConfigRule where
+instance Data.ToHeaders DeleteConfigRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.DeleteConfigRule" ::
+              Data.=# ( "StarlingDoveService.DeleteConfigRule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteConfigRule where
+instance Data.ToJSON DeleteConfigRule where
   toJSON DeleteConfigRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ConfigRuleName" Core..= configRuleName)
+              ("ConfigRuleName" Data..= configRuleName)
           ]
       )
 
-instance Core.ToPath DeleteConfigRule where
+instance Data.ToPath DeleteConfigRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteConfigRule where
+instance Data.ToQuery DeleteConfigRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteConfigRuleResponse' smart constructor.

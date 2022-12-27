@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ProcessingS3Output
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ProcessingS3Output where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.ProcessingS3UploadMode
 
@@ -96,15 +97,15 @@ processingS3Output_localPath = Lens.lens (\ProcessingS3Output' {localPath} -> lo
 processingS3Output_s3UploadMode :: Lens.Lens' ProcessingS3Output ProcessingS3UploadMode
 processingS3Output_s3UploadMode = Lens.lens (\ProcessingS3Output' {s3UploadMode} -> s3UploadMode) (\s@ProcessingS3Output' {} a -> s {s3UploadMode = a} :: ProcessingS3Output)
 
-instance Core.FromJSON ProcessingS3Output where
+instance Data.FromJSON ProcessingS3Output where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProcessingS3Output"
       ( \x ->
           ProcessingS3Output'
-            Prelude.<$> (x Core..: "S3Uri")
-            Prelude.<*> (x Core..: "LocalPath")
-            Prelude.<*> (x Core..: "S3UploadMode")
+            Prelude.<$> (x Data..: "S3Uri")
+            Prelude.<*> (x Data..: "LocalPath")
+            Prelude.<*> (x Data..: "S3UploadMode")
       )
 
 instance Prelude.Hashable ProcessingS3Output where
@@ -119,12 +120,12 @@ instance Prelude.NFData ProcessingS3Output where
       `Prelude.seq` Prelude.rnf localPath
       `Prelude.seq` Prelude.rnf s3UploadMode
 
-instance Core.ToJSON ProcessingS3Output where
+instance Data.ToJSON ProcessingS3Output where
   toJSON ProcessingS3Output' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("S3Uri" Core..= s3Uri),
-            Prelude.Just ("LocalPath" Core..= localPath),
-            Prelude.Just ("S3UploadMode" Core..= s3UploadMode)
+          [ Prelude.Just ("S3Uri" Data..= s3Uri),
+            Prelude.Just ("LocalPath" Data..= localPath),
+            Prelude.Just ("S3UploadMode" Data..= s3UploadMode)
           ]
       )

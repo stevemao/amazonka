@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DescribeGameSessionPlacement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,15 +25,13 @@
 --
 -- To get game session placement details, specify the placement ID.
 --
--- If successful, a GameSessionPlacement object is returned.
---
--- __Related actions__
---
--- CreateGameSession | DescribeGameSessions | DescribeGameSessionDetails |
--- SearchGameSessions | UpdateGameSession | GetGameSessionLogUrl |
--- StartGameSessionPlacement | DescribeGameSessionPlacement |
--- StopGameSessionPlacement |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
+-- This operation is not designed to be continually called to track game
+-- session status. This practice can cause you to exceed your API limit,
+-- which results in errors. Instead, you must configure configure an Amazon
+-- Simple Notification Service (SNS) topic to receive notifications from
+-- FlexMatch or queues. Continuously polling with
+-- @DescribeGameSessionPlacement@ should only be used for games in
+-- development with low game session usage.
 module Amazonka.GameLift.DescribeGameSessionPlacement
   ( -- * Creating a Request
     DescribeGameSessionPlacement (..),
@@ -53,15 +51,14 @@ module Amazonka.GameLift.DescribeGameSessionPlacement
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDescribeGameSessionPlacement' smart constructor.
+-- | /See:/ 'newDescribeGameSessionPlacement' smart constructor.
 data DescribeGameSessionPlacement = DescribeGameSessionPlacement'
   { -- | A unique identifier for a game session placement to retrieve.
     placementId :: Prelude.Text
@@ -95,12 +92,13 @@ instance Core.AWSRequest DescribeGameSessionPlacement where
   type
     AWSResponse DescribeGameSessionPlacement =
       DescribeGameSessionPlacementResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeGameSessionPlacementResponse'
-            Prelude.<$> (x Core..?> "GameSessionPlacement")
+            Prelude.<$> (x Data..?> "GameSessionPlacement")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,37 +113,35 @@ instance Prelude.NFData DescribeGameSessionPlacement where
   rnf DescribeGameSessionPlacement' {..} =
     Prelude.rnf placementId
 
-instance Core.ToHeaders DescribeGameSessionPlacement where
+instance Data.ToHeaders DescribeGameSessionPlacement where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DescribeGameSessionPlacement" ::
+              Data.=# ( "GameLift.DescribeGameSessionPlacement" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeGameSessionPlacement where
+instance Data.ToJSON DescribeGameSessionPlacement where
   toJSON DescribeGameSessionPlacement' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("PlacementId" Core..= placementId)]
+          [Prelude.Just ("PlacementId" Data..= placementId)]
       )
 
-instance Core.ToPath DescribeGameSessionPlacement where
+instance Data.ToPath DescribeGameSessionPlacement where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeGameSessionPlacement where
+instance Data.ToQuery DescribeGameSessionPlacement where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newDescribeGameSessionPlacementResponse' smart constructor.
+-- | /See:/ 'newDescribeGameSessionPlacementResponse' smart constructor.
 data DescribeGameSessionPlacementResponse = DescribeGameSessionPlacementResponse'
   { -- | Object that describes the requested game session placement.
     gameSessionPlacement :: Prelude.Maybe GameSessionPlacement,

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchGetObjectInformationResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudDirectory.Types.BatchGetObjectInformationResponse where
 
 import Amazonka.CloudDirectory.Types.SchemaFacet
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output of a GetObjectInformation response operation.
@@ -64,16 +65,16 @@ batchGetObjectInformationResponse_schemaFacets :: Lens.Lens' BatchGetObjectInfor
 batchGetObjectInformationResponse_schemaFacets = Lens.lens (\BatchGetObjectInformationResponse' {schemaFacets} -> schemaFacets) (\s@BatchGetObjectInformationResponse' {} a -> s {schemaFacets = a} :: BatchGetObjectInformationResponse) Prelude.. Lens.mapping Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     BatchGetObjectInformationResponse
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchGetObjectInformationResponse"
       ( \x ->
           BatchGetObjectInformationResponse'
-            Prelude.<$> (x Core..:? "ObjectIdentifier")
-            Prelude.<*> (x Core..:? "SchemaFacets" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "ObjectIdentifier")
+            Prelude.<*> (x Data..:? "SchemaFacets" Data..!= Prelude.mempty)
       )
 
 instance

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.DescribeResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,20 +35,21 @@ module Amazonka.WorkMail.DescribeResource
     newDescribeResourceResponse,
 
     -- * Response Lenses
-    describeResourceResponse_email,
-    describeResourceResponse_state,
-    describeResourceResponse_resourceId,
-    describeResourceResponse_disabledDate,
-    describeResourceResponse_name,
-    describeResourceResponse_type,
-    describeResourceResponse_enabledDate,
     describeResourceResponse_bookingOptions,
+    describeResourceResponse_disabledDate,
+    describeResourceResponse_email,
+    describeResourceResponse_enabledDate,
+    describeResourceResponse_name,
+    describeResourceResponse_resourceId,
+    describeResourceResponse_state,
+    describeResourceResponse_type,
     describeResourceResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,19 +103,20 @@ instance Core.AWSRequest DescribeResource where
   type
     AWSResponse DescribeResource =
       DescribeResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeResourceResponse'
-            Prelude.<$> (x Core..?> "Email")
-            Prelude.<*> (x Core..?> "State")
-            Prelude.<*> (x Core..?> "ResourceId")
-            Prelude.<*> (x Core..?> "DisabledDate")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "Type")
-            Prelude.<*> (x Core..?> "EnabledDate")
-            Prelude.<*> (x Core..?> "BookingOptions")
+            Prelude.<$> (x Data..?> "BookingOptions")
+            Prelude.<*> (x Data..?> "DisabledDate")
+            Prelude.<*> (x Data..?> "Email")
+            Prelude.<*> (x Data..?> "EnabledDate")
+            Prelude.<*> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "ResourceId")
+            Prelude.<*> (x Data..?> "State")
+            Prelude.<*> (x Data..?> "Type")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,58 +130,58 @@ instance Prelude.NFData DescribeResource where
     Prelude.rnf organizationId
       `Prelude.seq` Prelude.rnf resourceId
 
-instance Core.ToHeaders DescribeResource where
+instance Data.ToHeaders DescribeResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.DescribeResource" ::
+              Data.=# ( "WorkMailService.DescribeResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeResource where
+instance Data.ToJSON DescribeResource where
   toJSON DescribeResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("ResourceId" Core..= resourceId)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("ResourceId" Data..= resourceId)
           ]
       )
 
-instance Core.ToPath DescribeResource where
+instance Data.ToPath DescribeResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeResource where
+instance Data.ToQuery DescribeResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeResourceResponse' smart constructor.
 data DescribeResourceResponse = DescribeResourceResponse'
-  { -- | The email of the described resource.
-    email :: Prelude.Maybe Prelude.Text,
-    -- | The state of the resource: enabled (registered to Amazon WorkMail),
-    -- disabled (deregistered or never registered to WorkMail), or deleted.
-    state :: Prelude.Maybe EntityState,
-    -- | The identifier of the described resource.
-    resourceId :: Prelude.Maybe Prelude.Text,
+  { -- | The booking options for the described resource.
+    bookingOptions :: Prelude.Maybe BookingOptions,
     -- | The date and time when a resource was disabled from WorkMail, in UNIX
     -- epoch time format.
-    disabledDate :: Prelude.Maybe Core.POSIX,
-    -- | The name of the described resource.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The type of the described resource.
-    type' :: Prelude.Maybe ResourceType,
+    disabledDate :: Prelude.Maybe Data.POSIX,
+    -- | The email of the described resource.
+    email :: Prelude.Maybe Prelude.Text,
     -- | The date and time when a resource was enabled for WorkMail, in UNIX
     -- epoch time format.
-    enabledDate :: Prelude.Maybe Core.POSIX,
-    -- | The booking options for the described resource.
-    bookingOptions :: Prelude.Maybe BookingOptions,
+    enabledDate :: Prelude.Maybe Data.POSIX,
+    -- | The name of the described resource.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the described resource.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The state of the resource: enabled (registered to WorkMail), disabled
+    -- (deregistered or never registered to WorkMail), or deleted.
+    state :: Prelude.Maybe EntityState,
+    -- | The type of the described resource.
+    type' :: Prelude.Maybe ResourceType,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -193,24 +195,24 @@ data DescribeResourceResponse = DescribeResourceResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'email', 'describeResourceResponse_email' - The email of the described resource.
---
--- 'state', 'describeResourceResponse_state' - The state of the resource: enabled (registered to Amazon WorkMail),
--- disabled (deregistered or never registered to WorkMail), or deleted.
---
--- 'resourceId', 'describeResourceResponse_resourceId' - The identifier of the described resource.
+-- 'bookingOptions', 'describeResourceResponse_bookingOptions' - The booking options for the described resource.
 --
 -- 'disabledDate', 'describeResourceResponse_disabledDate' - The date and time when a resource was disabled from WorkMail, in UNIX
 -- epoch time format.
 --
--- 'name', 'describeResourceResponse_name' - The name of the described resource.
---
--- 'type'', 'describeResourceResponse_type' - The type of the described resource.
+-- 'email', 'describeResourceResponse_email' - The email of the described resource.
 --
 -- 'enabledDate', 'describeResourceResponse_enabledDate' - The date and time when a resource was enabled for WorkMail, in UNIX
 -- epoch time format.
 --
--- 'bookingOptions', 'describeResourceResponse_bookingOptions' - The booking options for the described resource.
+-- 'name', 'describeResourceResponse_name' - The name of the described resource.
+--
+-- 'resourceId', 'describeResourceResponse_resourceId' - The identifier of the described resource.
+--
+-- 'state', 'describeResourceResponse_state' - The state of the resource: enabled (registered to WorkMail), disabled
+-- (deregistered or never registered to WorkMail), or deleted.
+--
+-- 'type'', 'describeResourceResponse_type' - The type of the described resource.
 --
 -- 'httpStatus', 'describeResourceResponse_httpStatus' - The response's http status code.
 newDescribeResourceResponse ::
@@ -219,51 +221,52 @@ newDescribeResourceResponse ::
   DescribeResourceResponse
 newDescribeResourceResponse pHttpStatus_ =
   DescribeResourceResponse'
-    { email = Prelude.Nothing,
-      state = Prelude.Nothing,
-      resourceId = Prelude.Nothing,
+    { bookingOptions =
+        Prelude.Nothing,
       disabledDate = Prelude.Nothing,
-      name = Prelude.Nothing,
-      type' = Prelude.Nothing,
+      email = Prelude.Nothing,
       enabledDate = Prelude.Nothing,
-      bookingOptions = Prelude.Nothing,
+      name = Prelude.Nothing,
+      resourceId = Prelude.Nothing,
+      state = Prelude.Nothing,
+      type' = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The booking options for the described resource.
+describeResourceResponse_bookingOptions :: Lens.Lens' DescribeResourceResponse (Prelude.Maybe BookingOptions)
+describeResourceResponse_bookingOptions = Lens.lens (\DescribeResourceResponse' {bookingOptions} -> bookingOptions) (\s@DescribeResourceResponse' {} a -> s {bookingOptions = a} :: DescribeResourceResponse)
+
+-- | The date and time when a resource was disabled from WorkMail, in UNIX
+-- epoch time format.
+describeResourceResponse_disabledDate :: Lens.Lens' DescribeResourceResponse (Prelude.Maybe Prelude.UTCTime)
+describeResourceResponse_disabledDate = Lens.lens (\DescribeResourceResponse' {disabledDate} -> disabledDate) (\s@DescribeResourceResponse' {} a -> s {disabledDate = a} :: DescribeResourceResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The email of the described resource.
 describeResourceResponse_email :: Lens.Lens' DescribeResourceResponse (Prelude.Maybe Prelude.Text)
 describeResourceResponse_email = Lens.lens (\DescribeResourceResponse' {email} -> email) (\s@DescribeResourceResponse' {} a -> s {email = a} :: DescribeResourceResponse)
 
--- | The state of the resource: enabled (registered to Amazon WorkMail),
--- disabled (deregistered or never registered to WorkMail), or deleted.
-describeResourceResponse_state :: Lens.Lens' DescribeResourceResponse (Prelude.Maybe EntityState)
-describeResourceResponse_state = Lens.lens (\DescribeResourceResponse' {state} -> state) (\s@DescribeResourceResponse' {} a -> s {state = a} :: DescribeResourceResponse)
-
--- | The identifier of the described resource.
-describeResourceResponse_resourceId :: Lens.Lens' DescribeResourceResponse (Prelude.Maybe Prelude.Text)
-describeResourceResponse_resourceId = Lens.lens (\DescribeResourceResponse' {resourceId} -> resourceId) (\s@DescribeResourceResponse' {} a -> s {resourceId = a} :: DescribeResourceResponse)
-
--- | The date and time when a resource was disabled from WorkMail, in UNIX
+-- | The date and time when a resource was enabled for WorkMail, in UNIX
 -- epoch time format.
-describeResourceResponse_disabledDate :: Lens.Lens' DescribeResourceResponse (Prelude.Maybe Prelude.UTCTime)
-describeResourceResponse_disabledDate = Lens.lens (\DescribeResourceResponse' {disabledDate} -> disabledDate) (\s@DescribeResourceResponse' {} a -> s {disabledDate = a} :: DescribeResourceResponse) Prelude.. Lens.mapping Core._Time
+describeResourceResponse_enabledDate :: Lens.Lens' DescribeResourceResponse (Prelude.Maybe Prelude.UTCTime)
+describeResourceResponse_enabledDate = Lens.lens (\DescribeResourceResponse' {enabledDate} -> enabledDate) (\s@DescribeResourceResponse' {} a -> s {enabledDate = a} :: DescribeResourceResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The name of the described resource.
 describeResourceResponse_name :: Lens.Lens' DescribeResourceResponse (Prelude.Maybe Prelude.Text)
 describeResourceResponse_name = Lens.lens (\DescribeResourceResponse' {name} -> name) (\s@DescribeResourceResponse' {} a -> s {name = a} :: DescribeResourceResponse)
 
+-- | The identifier of the described resource.
+describeResourceResponse_resourceId :: Lens.Lens' DescribeResourceResponse (Prelude.Maybe Prelude.Text)
+describeResourceResponse_resourceId = Lens.lens (\DescribeResourceResponse' {resourceId} -> resourceId) (\s@DescribeResourceResponse' {} a -> s {resourceId = a} :: DescribeResourceResponse)
+
+-- | The state of the resource: enabled (registered to WorkMail), disabled
+-- (deregistered or never registered to WorkMail), or deleted.
+describeResourceResponse_state :: Lens.Lens' DescribeResourceResponse (Prelude.Maybe EntityState)
+describeResourceResponse_state = Lens.lens (\DescribeResourceResponse' {state} -> state) (\s@DescribeResourceResponse' {} a -> s {state = a} :: DescribeResourceResponse)
+
 -- | The type of the described resource.
 describeResourceResponse_type :: Lens.Lens' DescribeResourceResponse (Prelude.Maybe ResourceType)
 describeResourceResponse_type = Lens.lens (\DescribeResourceResponse' {type'} -> type') (\s@DescribeResourceResponse' {} a -> s {type' = a} :: DescribeResourceResponse)
-
--- | The date and time when a resource was enabled for WorkMail, in UNIX
--- epoch time format.
-describeResourceResponse_enabledDate :: Lens.Lens' DescribeResourceResponse (Prelude.Maybe Prelude.UTCTime)
-describeResourceResponse_enabledDate = Lens.lens (\DescribeResourceResponse' {enabledDate} -> enabledDate) (\s@DescribeResourceResponse' {} a -> s {enabledDate = a} :: DescribeResourceResponse) Prelude.. Lens.mapping Core._Time
-
--- | The booking options for the described resource.
-describeResourceResponse_bookingOptions :: Lens.Lens' DescribeResourceResponse (Prelude.Maybe BookingOptions)
-describeResourceResponse_bookingOptions = Lens.lens (\DescribeResourceResponse' {bookingOptions} -> bookingOptions) (\s@DescribeResourceResponse' {} a -> s {bookingOptions = a} :: DescribeResourceResponse)
 
 -- | The response's http status code.
 describeResourceResponse_httpStatus :: Lens.Lens' DescribeResourceResponse Prelude.Int
@@ -271,12 +274,12 @@ describeResourceResponse_httpStatus = Lens.lens (\DescribeResourceResponse' {htt
 
 instance Prelude.NFData DescribeResourceResponse where
   rnf DescribeResourceResponse' {..} =
-    Prelude.rnf email
-      `Prelude.seq` Prelude.rnf state
-      `Prelude.seq` Prelude.rnf resourceId
+    Prelude.rnf bookingOptions
       `Prelude.seq` Prelude.rnf disabledDate
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf type'
+      `Prelude.seq` Prelude.rnf email
       `Prelude.seq` Prelude.rnf enabledDate
-      `Prelude.seq` Prelude.rnf bookingOptions
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf resourceId
+      `Prelude.seq` Prelude.rnf state
+      `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf httpStatus

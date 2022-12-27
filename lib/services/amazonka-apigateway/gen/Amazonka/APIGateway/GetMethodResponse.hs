@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetMethodResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,14 +38,15 @@ module Amazonka.APIGateway.GetMethodResponse
 
     -- * Response Lenses
     methodResponse_responseModels,
-    methodResponse_statusCode,
     methodResponse_responseParameters,
+    methodResponse_statusCode,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,13 +55,13 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetMethodResponse' smart constructor.
 data GetMethodResponse = GetMethodResponse'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The Resource identifier for the MethodResponse resource.
+    -- | The Resource identifier for the MethodResponse resource.
     resourceId :: Prelude.Text,
-    -- | [Required] The HTTP verb of the Method resource.
+    -- | The HTTP verb of the Method resource.
     httpMethod :: Prelude.Text,
-    -- | [Required] The status code for the MethodResponse resource.
+    -- | The status code for the MethodResponse resource.
     statusCode :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -73,13 +74,13 @@ data GetMethodResponse = GetMethodResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'getMethodResponse_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getMethodResponse_restApiId' - The string identifier of the associated RestApi.
 --
--- 'resourceId', 'getMethodResponse_resourceId' - [Required] The Resource identifier for the MethodResponse resource.
+-- 'resourceId', 'getMethodResponse_resourceId' - The Resource identifier for the MethodResponse resource.
 --
--- 'httpMethod', 'getMethodResponse_httpMethod' - [Required] The HTTP verb of the Method resource.
+-- 'httpMethod', 'getMethodResponse_httpMethod' - The HTTP verb of the Method resource.
 --
--- 'statusCode', 'getMethodResponse_statusCode' - [Required] The status code for the MethodResponse resource.
+-- 'statusCode', 'getMethodResponse_statusCode' - The status code for the MethodResponse resource.
 newGetMethodResponse ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -102,28 +103,29 @@ newGetMethodResponse
         statusCode = pStatusCode_
       }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getMethodResponse_restApiId :: Lens.Lens' GetMethodResponse Prelude.Text
 getMethodResponse_restApiId = Lens.lens (\GetMethodResponse' {restApiId} -> restApiId) (\s@GetMethodResponse' {} a -> s {restApiId = a} :: GetMethodResponse)
 
--- | [Required] The Resource identifier for the MethodResponse resource.
+-- | The Resource identifier for the MethodResponse resource.
 getMethodResponse_resourceId :: Lens.Lens' GetMethodResponse Prelude.Text
 getMethodResponse_resourceId = Lens.lens (\GetMethodResponse' {resourceId} -> resourceId) (\s@GetMethodResponse' {} a -> s {resourceId = a} :: GetMethodResponse)
 
--- | [Required] The HTTP verb of the Method resource.
+-- | The HTTP verb of the Method resource.
 getMethodResponse_httpMethod :: Lens.Lens' GetMethodResponse Prelude.Text
 getMethodResponse_httpMethod = Lens.lens (\GetMethodResponse' {httpMethod} -> httpMethod) (\s@GetMethodResponse' {} a -> s {httpMethod = a} :: GetMethodResponse)
 
--- | [Required] The status code for the MethodResponse resource.
+-- | The status code for the MethodResponse resource.
 getMethodResponse_statusCode :: Lens.Lens' GetMethodResponse Prelude.Text
 getMethodResponse_statusCode = Lens.lens (\GetMethodResponse' {statusCode} -> statusCode) (\s@GetMethodResponse' {} a -> s {statusCode = a} :: GetMethodResponse)
 
 instance Core.AWSRequest GetMethodResponse where
   type AWSResponse GetMethodResponse = MethodResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetMethodResponse where
   hashWithSalt _salt GetMethodResponse' {..} =
@@ -139,27 +141,27 @@ instance Prelude.NFData GetMethodResponse where
       `Prelude.seq` Prelude.rnf httpMethod
       `Prelude.seq` Prelude.rnf statusCode
 
-instance Core.ToHeaders GetMethodResponse where
+instance Data.ToHeaders GetMethodResponse where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetMethodResponse where
+instance Data.ToPath GetMethodResponse where
   toPath GetMethodResponse' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/resources/",
-        Core.toBS resourceId,
+        Data.toBS resourceId,
         "/methods/",
-        Core.toBS httpMethod,
+        Data.toBS httpMethod,
         "/responses/",
-        Core.toBS statusCode
+        Data.toBS statusCode
       ]
 
-instance Core.ToQuery GetMethodResponse where
+instance Data.ToQuery GetMethodResponse where
   toQuery = Prelude.const Prelude.mempty

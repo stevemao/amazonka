@@ -14,14 +14,16 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.AcceptInboundConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Allows the remote domain owner to accept an inbound cross-cluster
--- connection request.
+-- Allows the destination Amazon OpenSearch Service domain owner to accept
+-- an inbound cross-cluster search connection request. For more
+-- information, see
+-- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cross-cluster-search.html Cross-cluster search for Amazon OpenSearch Service>.
 module Amazonka.OpenSearch.AcceptInboundConnection
   ( -- * Creating a Request
     AcceptInboundConnection (..),
@@ -41,18 +43,18 @@ module Amazonka.OpenSearch.AcceptInboundConnection
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Container for the parameters to the @ AcceptInboundConnection @
--- operation.
+-- | Container for the parameters to the @AcceptInboundConnection@ operation.
 --
 -- /See:/ 'newAcceptInboundConnection' smart constructor.
 data AcceptInboundConnection = AcceptInboundConnection'
-  { -- | The ID of the inbound connection you want to accept.
+  { -- | The ID of the inbound connection to accept.
     connectionId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -65,7 +67,7 @@ data AcceptInboundConnection = AcceptInboundConnection'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'connectionId', 'acceptInboundConnection_connectionId' - The ID of the inbound connection you want to accept.
+-- 'connectionId', 'acceptInboundConnection_connectionId' - The ID of the inbound connection to accept.
 newAcceptInboundConnection ::
   -- | 'connectionId'
   Prelude.Text ->
@@ -76,7 +78,7 @@ newAcceptInboundConnection pConnectionId_ =
         pConnectionId_
     }
 
--- | The ID of the inbound connection you want to accept.
+-- | The ID of the inbound connection to accept.
 acceptInboundConnection_connectionId :: Lens.Lens' AcceptInboundConnection Prelude.Text
 acceptInboundConnection_connectionId = Lens.lens (\AcceptInboundConnection' {connectionId} -> connectionId) (\s@AcceptInboundConnection' {} a -> s {connectionId = a} :: AcceptInboundConnection)
 
@@ -84,12 +86,13 @@ instance Core.AWSRequest AcceptInboundConnection where
   type
     AWSResponse AcceptInboundConnection =
       AcceptInboundConnectionResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AcceptInboundConnectionResponse'
-            Prelude.<$> (x Core..?> "Connection")
+            Prelude.<$> (x Data..?> "Connection")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,29 +104,28 @@ instance Prelude.NFData AcceptInboundConnection where
   rnf AcceptInboundConnection' {..} =
     Prelude.rnf connectionId
 
-instance Core.ToHeaders AcceptInboundConnection where
+instance Data.ToHeaders AcceptInboundConnection where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON AcceptInboundConnection where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON AcceptInboundConnection where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath AcceptInboundConnection where
+instance Data.ToPath AcceptInboundConnection where
   toPath AcceptInboundConnection' {..} =
     Prelude.mconcat
       [ "/2021-01-01/opensearch/cc/inboundConnection/",
-        Core.toBS connectionId,
+        Data.toBS connectionId,
         "/accept"
       ]
 
-instance Core.ToQuery AcceptInboundConnection where
+instance Data.ToQuery AcceptInboundConnection where
   toQuery = Prelude.const Prelude.mempty
 
--- | The result of an @ AcceptInboundConnection @ operation. Contains details
--- about the accepted inbound connection.
+-- | Contains details about the accepted inbound connection.
 --
 -- /See:/ 'newAcceptInboundConnectionResponse' smart constructor.
 data AcceptInboundConnectionResponse = AcceptInboundConnectionResponse'
-  { -- | The @ InboundConnection @ of the accepted inbound connection.
+  { -- | Information about the accepted inbound connection.
     connection :: Prelude.Maybe InboundConnection,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -138,7 +140,7 @@ data AcceptInboundConnectionResponse = AcceptInboundConnectionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'connection', 'acceptInboundConnectionResponse_connection' - The @ InboundConnection @ of the accepted inbound connection.
+-- 'connection', 'acceptInboundConnectionResponse_connection' - Information about the accepted inbound connection.
 --
 -- 'httpStatus', 'acceptInboundConnectionResponse_httpStatus' - The response's http status code.
 newAcceptInboundConnectionResponse ::
@@ -152,7 +154,7 @@ newAcceptInboundConnectionResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The @ InboundConnection @ of the accepted inbound connection.
+-- | Information about the accepted inbound connection.
 acceptInboundConnectionResponse_connection :: Lens.Lens' AcceptInboundConnectionResponse (Prelude.Maybe InboundConnection)
 acceptInboundConnectionResponse_connection = Lens.lens (\AcceptInboundConnectionResponse' {connection} -> connection) (\s@AcceptInboundConnectionResponse' {} a -> s {connection = a} :: AcceptInboundConnectionResponse)
 

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.DeleteBucketPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -61,7 +61,8 @@ module Amazonka.S3.DeleteBucketPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -70,8 +71,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newDeleteBucketPolicy' smart constructor.
 data DeleteBucketPolicy = DeleteBucketPolicy'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The bucket name.
     bucket :: BucketName
@@ -87,8 +88,8 @@ data DeleteBucketPolicy = DeleteBucketPolicy'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'deleteBucketPolicy_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'deleteBucketPolicy_bucket' - The bucket name.
 newDeleteBucketPolicy ::
@@ -103,8 +104,8 @@ newDeleteBucketPolicy pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 deleteBucketPolicy_expectedBucketOwner :: Lens.Lens' DeleteBucketPolicy (Prelude.Maybe Prelude.Text)
 deleteBucketPolicy_expectedBucketOwner = Lens.lens (\DeleteBucketPolicy' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeleteBucketPolicy' {} a -> s {expectedBucketOwner = a} :: DeleteBucketPolicy)
 
@@ -116,9 +117,9 @@ instance Core.AWSRequest DeleteBucketPolicy where
   type
     AWSResponse DeleteBucketPolicy =
       DeleteBucketPolicyResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.delete defaultService
+      Prelude.. Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteBucketPolicyResponse'
 
@@ -132,18 +133,18 @@ instance Prelude.NFData DeleteBucketPolicy where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders DeleteBucketPolicy where
+instance Data.ToHeaders DeleteBucketPolicy where
   toHeaders DeleteBucketPolicy' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath DeleteBucketPolicy where
+instance Data.ToPath DeleteBucketPolicy where
   toPath DeleteBucketPolicy' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery DeleteBucketPolicy where
+instance Data.ToQuery DeleteBucketPolicy where
   toQuery = Prelude.const (Prelude.mconcat ["policy"])
 
 -- | /See:/ 'newDeleteBucketPolicyResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.Types.ComponentDependencyRequirement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GreengrassV2.Types.ComponentDependencyRequirement where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types.ComponentDependencyType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a component dependency for a Lambda function
@@ -112,13 +113,13 @@ instance
     Prelude.rnf dependencyType
       `Prelude.seq` Prelude.rnf versionRequirement
 
-instance Core.ToJSON ComponentDependencyRequirement where
+instance Data.ToJSON ComponentDependencyRequirement where
   toJSON ComponentDependencyRequirement' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("dependencyType" Core..=)
+          [ ("dependencyType" Data..=)
               Prelude.<$> dependencyType,
-            ("versionRequirement" Core..=)
+            ("versionRequirement" Data..=)
               Prelude.<$> versionRequirement
           ]
       )

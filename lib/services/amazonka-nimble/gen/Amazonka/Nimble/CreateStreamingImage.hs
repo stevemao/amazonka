@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.CreateStreamingImage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.Nimble.CreateStreamingImage
     createStreamingImage_clientToken,
     createStreamingImage_description,
     createStreamingImage_tags,
-    createStreamingImage_studioId,
-    createStreamingImage_name,
     createStreamingImage_ec2ImageId,
+    createStreamingImage_name,
+    createStreamingImage_studioId,
 
     -- * Destructuring the Response
     CreateStreamingImageResponse (..),
@@ -45,39 +45,34 @@ module Amazonka.Nimble.CreateStreamingImage
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | A collection of streaming images.
---
--- /See:/ 'newCreateStreamingImage' smart constructor.
+-- | /See:/ 'newCreateStreamingImage' smart constructor.
 data CreateStreamingImage = CreateStreamingImage'
-  { -- | To make an idempotent API request using one of these actions, specify a
-    -- client token in the request. You should not reuse the same client token
-    -- for other API requests. If you retry a request that completed
-    -- successfully using the same client token and the same parameters, the
-    -- retry succeeds without performing any further actions. If you retry a
-    -- successful request using the same client token, but one or more of the
-    -- parameters are different, the retry fails with a ValidationException
-    -- error.
+  { -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. If you don’t specify a client token, the AWS
+    -- SDK automatically generates a client token and uses it for the request
+    -- to ensure idempotency.
     clientToken :: Prelude.Maybe Prelude.Text,
     -- | A human-readable description of the streaming image.
-    description :: Prelude.Maybe Prelude.Text,
+    description :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | A collection of labels, in the form of key:value pairs, that apply to
     -- this resource.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The studio ID.
-    studioId :: Prelude.Text,
-    -- | A friendly name for a streaming image resource.
-    name :: Prelude.Text,
     -- | The ID of an EC2 machine image with which to create this streaming
     -- image.
-    ec2ImageId :: Prelude.Text
+    ec2ImageId :: Prelude.Text,
+    -- | A friendly name for a streaming image resource.
+    name :: Data.Sensitive Prelude.Text,
+    -- | The studio ID.
+    studioId :: Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'CreateStreamingImage' with all optional fields omitted.
@@ -87,91 +82,84 @@ data CreateStreamingImage = CreateStreamingImage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'createStreamingImage_clientToken' - To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- 'clientToken', 'createStreamingImage_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 --
 -- 'description', 'createStreamingImage_description' - A human-readable description of the streaming image.
 --
 -- 'tags', 'createStreamingImage_tags' - A collection of labels, in the form of key:value pairs, that apply to
 -- this resource.
 --
--- 'studioId', 'createStreamingImage_studioId' - The studio ID.
+-- 'ec2ImageId', 'createStreamingImage_ec2ImageId' - The ID of an EC2 machine image with which to create this streaming
+-- image.
 --
 -- 'name', 'createStreamingImage_name' - A friendly name for a streaming image resource.
 --
--- 'ec2ImageId', 'createStreamingImage_ec2ImageId' - The ID of an EC2 machine image with which to create this streaming
--- image.
+-- 'studioId', 'createStreamingImage_studioId' - The studio ID.
 newCreateStreamingImage ::
-  -- | 'studioId'
+  -- | 'ec2ImageId'
   Prelude.Text ->
   -- | 'name'
   Prelude.Text ->
-  -- | 'ec2ImageId'
+  -- | 'studioId'
   Prelude.Text ->
   CreateStreamingImage
 newCreateStreamingImage
-  pStudioId_
+  pEc2ImageId_
   pName_
-  pEc2ImageId_ =
+  pStudioId_ =
     CreateStreamingImage'
       { clientToken =
           Prelude.Nothing,
         description = Prelude.Nothing,
         tags = Prelude.Nothing,
-        studioId = pStudioId_,
-        name = pName_,
-        ec2ImageId = pEc2ImageId_
+        ec2ImageId = pEc2ImageId_,
+        name = Data._Sensitive Lens.# pName_,
+        studioId = pStudioId_
       }
 
--- | To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 createStreamingImage_clientToken :: Lens.Lens' CreateStreamingImage (Prelude.Maybe Prelude.Text)
 createStreamingImage_clientToken = Lens.lens (\CreateStreamingImage' {clientToken} -> clientToken) (\s@CreateStreamingImage' {} a -> s {clientToken = a} :: CreateStreamingImage)
 
 -- | A human-readable description of the streaming image.
 createStreamingImage_description :: Lens.Lens' CreateStreamingImage (Prelude.Maybe Prelude.Text)
-createStreamingImage_description = Lens.lens (\CreateStreamingImage' {description} -> description) (\s@CreateStreamingImage' {} a -> s {description = a} :: CreateStreamingImage)
+createStreamingImage_description = Lens.lens (\CreateStreamingImage' {description} -> description) (\s@CreateStreamingImage' {} a -> s {description = a} :: CreateStreamingImage) Prelude.. Lens.mapping Data._Sensitive
 
 -- | A collection of labels, in the form of key:value pairs, that apply to
 -- this resource.
 createStreamingImage_tags :: Lens.Lens' CreateStreamingImage (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createStreamingImage_tags = Lens.lens (\CreateStreamingImage' {tags} -> tags) (\s@CreateStreamingImage' {} a -> s {tags = a} :: CreateStreamingImage) Prelude.. Lens.mapping Lens.coerced
 
--- | The studio ID.
-createStreamingImage_studioId :: Lens.Lens' CreateStreamingImage Prelude.Text
-createStreamingImage_studioId = Lens.lens (\CreateStreamingImage' {studioId} -> studioId) (\s@CreateStreamingImage' {} a -> s {studioId = a} :: CreateStreamingImage)
-
--- | A friendly name for a streaming image resource.
-createStreamingImage_name :: Lens.Lens' CreateStreamingImage Prelude.Text
-createStreamingImage_name = Lens.lens (\CreateStreamingImage' {name} -> name) (\s@CreateStreamingImage' {} a -> s {name = a} :: CreateStreamingImage)
-
 -- | The ID of an EC2 machine image with which to create this streaming
 -- image.
 createStreamingImage_ec2ImageId :: Lens.Lens' CreateStreamingImage Prelude.Text
 createStreamingImage_ec2ImageId = Lens.lens (\CreateStreamingImage' {ec2ImageId} -> ec2ImageId) (\s@CreateStreamingImage' {} a -> s {ec2ImageId = a} :: CreateStreamingImage)
 
+-- | A friendly name for a streaming image resource.
+createStreamingImage_name :: Lens.Lens' CreateStreamingImage Prelude.Text
+createStreamingImage_name = Lens.lens (\CreateStreamingImage' {name} -> name) (\s@CreateStreamingImage' {} a -> s {name = a} :: CreateStreamingImage) Prelude.. Data._Sensitive
+
+-- | The studio ID.
+createStreamingImage_studioId :: Lens.Lens' CreateStreamingImage Prelude.Text
+createStreamingImage_studioId = Lens.lens (\CreateStreamingImage' {studioId} -> studioId) (\s@CreateStreamingImage' {} a -> s {studioId = a} :: CreateStreamingImage)
+
 instance Core.AWSRequest CreateStreamingImage where
   type
     AWSResponse CreateStreamingImage =
       CreateStreamingImageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateStreamingImageResponse'
-            Prelude.<$> (x Core..?> "streamingImage")
+            Prelude.<$> (x Data..?> "streamingImage")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -180,56 +168,57 @@ instance Prelude.Hashable CreateStreamingImage where
     _salt `Prelude.hashWithSalt` clientToken
       `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` tags
-      `Prelude.hashWithSalt` studioId
-      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` ec2ImageId
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData CreateStreamingImage where
   rnf CreateStreamingImage' {..} =
     Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf tags
-      `Prelude.seq` Prelude.rnf studioId
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf ec2ImageId
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders CreateStreamingImage where
+instance Data.ToHeaders CreateStreamingImage where
   toHeaders CreateStreamingImage' {..} =
     Prelude.mconcat
-      [ "X-Amz-Client-Token" Core.=# clientToken,
+      [ "X-Amz-Client-Token" Data.=# clientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON CreateStreamingImage where
+instance Data.ToJSON CreateStreamingImage where
   toJSON CreateStreamingImage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("ec2ImageId" Core..= ec2ImageId)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("ec2ImageId" Data..= ec2ImageId),
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateStreamingImage where
+instance Data.ToPath CreateStreamingImage where
   toPath CreateStreamingImage' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/streaming-images"
       ]
 
-instance Core.ToQuery CreateStreamingImage where
+instance Data.ToQuery CreateStreamingImage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateStreamingImageResponse' smart constructor.
 data CreateStreamingImageResponse = CreateStreamingImageResponse'
-  { streamingImage :: Prelude.Maybe StreamingImage,
+  { -- | The streaming image.
+    streamingImage :: Prelude.Maybe StreamingImage,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'CreateStreamingImageResponse' with all optional fields omitted.
@@ -239,7 +228,7 @@ data CreateStreamingImageResponse = CreateStreamingImageResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'streamingImage', 'createStreamingImageResponse_streamingImage' -
+-- 'streamingImage', 'createStreamingImageResponse_streamingImage' - The streaming image.
 --
 -- 'httpStatus', 'createStreamingImageResponse_httpStatus' - The response's http status code.
 newCreateStreamingImageResponse ::
@@ -253,7 +242,7 @@ newCreateStreamingImageResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- |
+-- | The streaming image.
 createStreamingImageResponse_streamingImage :: Lens.Lens' CreateStreamingImageResponse (Prelude.Maybe StreamingImage)
 createStreamingImageResponse_streamingImage = Lens.lens (\CreateStreamingImageResponse' {streamingImage} -> streamingImage) (\s@CreateStreamingImageResponse' {} a -> s {streamingImage = a} :: CreateStreamingImageResponse)
 

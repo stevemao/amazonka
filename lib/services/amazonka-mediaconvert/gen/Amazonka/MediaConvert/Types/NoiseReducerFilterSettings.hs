@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.NoiseReducerFilterSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.NoiseReducerFilterSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Settings for a noise reducer filter
@@ -56,13 +57,13 @@ newNoiseReducerFilterSettings =
 noiseReducerFilterSettings_strength :: Lens.Lens' NoiseReducerFilterSettings (Prelude.Maybe Prelude.Natural)
 noiseReducerFilterSettings_strength = Lens.lens (\NoiseReducerFilterSettings' {strength} -> strength) (\s@NoiseReducerFilterSettings' {} a -> s {strength = a} :: NoiseReducerFilterSettings)
 
-instance Core.FromJSON NoiseReducerFilterSettings where
+instance Data.FromJSON NoiseReducerFilterSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NoiseReducerFilterSettings"
       ( \x ->
           NoiseReducerFilterSettings'
-            Prelude.<$> (x Core..:? "strength")
+            Prelude.<$> (x Data..:? "strength")
       )
 
 instance Prelude.Hashable NoiseReducerFilterSettings where
@@ -73,9 +74,9 @@ instance Prelude.NFData NoiseReducerFilterSettings where
   rnf NoiseReducerFilterSettings' {..} =
     Prelude.rnf strength
 
-instance Core.ToJSON NoiseReducerFilterSettings where
+instance Data.ToJSON NoiseReducerFilterSettings where
   toJSON NoiseReducerFilterSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("strength" Core..=) Prelude.<$> strength]
+          [("strength" Data..=) Prelude.<$> strength]
       )

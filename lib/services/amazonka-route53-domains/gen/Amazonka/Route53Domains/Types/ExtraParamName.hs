@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.Types.ExtraParamName
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,6 +36,7 @@ module Amazonka.Route53Domains.Types.ExtraParamName
         ExtraParamName_ES_IDENTIFICATION,
         ExtraParamName_ES_IDENTIFICATION_TYPE,
         ExtraParamName_ES_LEGAL_FORM,
+        ExtraParamName_EU_COUNTRY_OF_CITIZENSHIP,
         ExtraParamName_FI_BUSINESS_NUMBER,
         ExtraParamName_FI_ID_NUMBER,
         ExtraParamName_FI_NATIONALITY,
@@ -54,11 +55,12 @@ module Amazonka.Route53Domains.Types.ExtraParamName
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype ExtraParamName = ExtraParamName'
   { fromExtraParamName ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -70,18 +72,18 @@ newtype ExtraParamName = ExtraParamName'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern ExtraParamName_AU_ID_NUMBER :: ExtraParamName
@@ -131,6 +133,9 @@ pattern ExtraParamName_ES_IDENTIFICATION_TYPE = ExtraParamName' "ES_IDENTIFICATI
 
 pattern ExtraParamName_ES_LEGAL_FORM :: ExtraParamName
 pattern ExtraParamName_ES_LEGAL_FORM = ExtraParamName' "ES_LEGAL_FORM"
+
+pattern ExtraParamName_EU_COUNTRY_OF_CITIZENSHIP :: ExtraParamName
+pattern ExtraParamName_EU_COUNTRY_OF_CITIZENSHIP = ExtraParamName' "EU_COUNTRY_OF_CITIZENSHIP"
 
 pattern ExtraParamName_FI_BUSINESS_NUMBER :: ExtraParamName
 pattern ExtraParamName_FI_BUSINESS_NUMBER = ExtraParamName' "FI_BUSINESS_NUMBER"
@@ -188,6 +193,7 @@ pattern ExtraParamName_VAT_NUMBER = ExtraParamName' "VAT_NUMBER"
   ExtraParamName_ES_IDENTIFICATION,
   ExtraParamName_ES_IDENTIFICATION_TYPE,
   ExtraParamName_ES_LEGAL_FORM,
+  ExtraParamName_EU_COUNTRY_OF_CITIZENSHIP,
   ExtraParamName_FI_BUSINESS_NUMBER,
   ExtraParamName_FI_ID_NUMBER,
   ExtraParamName_FI_NATIONALITY,

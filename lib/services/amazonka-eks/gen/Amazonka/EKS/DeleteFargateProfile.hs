@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.DeleteFargateProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,8 +51,9 @@ module Amazonka.EKS.DeleteFargateProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,12 +107,13 @@ instance Core.AWSRequest DeleteFargateProfile where
   type
     AWSResponse DeleteFargateProfile =
       DeleteFargateProfileResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteFargateProfileResponse'
-            Prelude.<$> (x Core..?> "fargateProfile")
+            Prelude.<$> (x Data..?> "fargateProfile")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,27 +127,27 @@ instance Prelude.NFData DeleteFargateProfile where
     Prelude.rnf clusterName
       `Prelude.seq` Prelude.rnf fargateProfileName
 
-instance Core.ToHeaders DeleteFargateProfile where
+instance Data.ToHeaders DeleteFargateProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteFargateProfile where
+instance Data.ToPath DeleteFargateProfile where
   toPath DeleteFargateProfile' {..} =
     Prelude.mconcat
       [ "/clusters/",
-        Core.toBS clusterName,
+        Data.toBS clusterName,
         "/fargate-profiles/",
-        Core.toBS fargateProfileName
+        Data.toBS fargateProfileName
       ]
 
-instance Core.ToQuery DeleteFargateProfile where
+instance Data.ToQuery DeleteFargateProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFargateProfileResponse' smart constructor.

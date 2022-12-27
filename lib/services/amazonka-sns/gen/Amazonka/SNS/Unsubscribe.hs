@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.Unsubscribe
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,6 +27,10 @@
 -- not the subscription owner, a final cancellation message is delivered to
 -- the endpoint, so that the endpoint owner can easily resubscribe to the
 -- topic if the @Unsubscribe@ request was unintended.
+--
+-- Amazon SQS queue subscriptions require authentication for deletion. Only
+-- the owner of the subscription, or the owner of the topic can unsubscribe
+-- using the required Amazon Web Services signature.
 --
 -- This action is throttled at 100 transactions per second (TPS).
 module Amazonka.SNS.Unsubscribe
@@ -44,7 +48,8 @@ module Amazonka.SNS.Unsubscribe
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,7 +86,8 @@ unsubscribe_subscriptionArn = Lens.lens (\Unsubscribe' {subscriptionArn} -> subs
 
 instance Core.AWSRequest Unsubscribe where
   type AWSResponse Unsubscribe = UnsubscribeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull UnsubscribeResponse'
 
 instance Prelude.Hashable Unsubscribe where
@@ -91,20 +97,20 @@ instance Prelude.Hashable Unsubscribe where
 instance Prelude.NFData Unsubscribe where
   rnf Unsubscribe' {..} = Prelude.rnf subscriptionArn
 
-instance Core.ToHeaders Unsubscribe where
+instance Data.ToHeaders Unsubscribe where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath Unsubscribe where
+instance Data.ToPath Unsubscribe where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery Unsubscribe where
+instance Data.ToQuery Unsubscribe where
   toQuery Unsubscribe' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("Unsubscribe" :: Prelude.ByteString),
+          Data.=: ("Unsubscribe" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "SubscriptionArn" Core.=: subscriptionArn
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "SubscriptionArn" Data.=: subscriptionArn
       ]
 
 -- | /See:/ 'newUnsubscribeResponse' smart constructor.

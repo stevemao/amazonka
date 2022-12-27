@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexRuntime.DeleteSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,14 +38,15 @@ module Amazonka.LexRuntime.DeleteSession
     -- * Response Lenses
     deleteSessionResponse_botAlias,
     deleteSessionResponse_botName,
-    deleteSessionResponse_userId,
     deleteSessionResponse_sessionId,
+    deleteSessionResponse_userId,
     deleteSessionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexRuntime.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -106,15 +107,16 @@ instance Core.AWSRequest DeleteSession where
   type
     AWSResponse DeleteSession =
       DeleteSessionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteSessionResponse'
-            Prelude.<$> (x Core..?> "botAlias")
-            Prelude.<*> (x Core..?> "botName")
-            Prelude.<*> (x Core..?> "userId")
-            Prelude.<*> (x Core..?> "sessionId")
+            Prelude.<$> (x Data..?> "botAlias")
+            Prelude.<*> (x Data..?> "botName")
+            Prelude.<*> (x Data..?> "sessionId")
+            Prelude.<*> (x Data..?> "userId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,30 +132,30 @@ instance Prelude.NFData DeleteSession where
       `Prelude.seq` Prelude.rnf botAlias
       `Prelude.seq` Prelude.rnf userId
 
-instance Core.ToHeaders DeleteSession where
+instance Data.ToHeaders DeleteSession where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteSession where
+instance Data.ToPath DeleteSession where
   toPath DeleteSession' {..} =
     Prelude.mconcat
       [ "/bot/",
-        Core.toBS botName,
+        Data.toBS botName,
         "/alias/",
-        Core.toBS botAlias,
+        Data.toBS botAlias,
         "/user/",
-        Core.toBS userId,
+        Data.toBS userId,
         "/session"
       ]
 
-instance Core.ToQuery DeleteSession where
+instance Data.ToQuery DeleteSession where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteSessionResponse' smart constructor.
@@ -162,10 +164,10 @@ data DeleteSessionResponse = DeleteSessionResponse'
     botAlias :: Prelude.Maybe Prelude.Text,
     -- | The name of the bot associated with the session data.
     botName :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the client application user.
-    userId :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier for the session.
     sessionId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the client application user.
+    userId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -183,9 +185,9 @@ data DeleteSessionResponse = DeleteSessionResponse'
 --
 -- 'botName', 'deleteSessionResponse_botName' - The name of the bot associated with the session data.
 --
--- 'userId', 'deleteSessionResponse_userId' - The ID of the client application user.
---
 -- 'sessionId', 'deleteSessionResponse_sessionId' - The unique identifier for the session.
+--
+-- 'userId', 'deleteSessionResponse_userId' - The ID of the client application user.
 --
 -- 'httpStatus', 'deleteSessionResponse_httpStatus' - The response's http status code.
 newDeleteSessionResponse ::
@@ -196,8 +198,8 @@ newDeleteSessionResponse pHttpStatus_ =
   DeleteSessionResponse'
     { botAlias = Prelude.Nothing,
       botName = Prelude.Nothing,
-      userId = Prelude.Nothing,
       sessionId = Prelude.Nothing,
+      userId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -209,13 +211,13 @@ deleteSessionResponse_botAlias = Lens.lens (\DeleteSessionResponse' {botAlias} -
 deleteSessionResponse_botName :: Lens.Lens' DeleteSessionResponse (Prelude.Maybe Prelude.Text)
 deleteSessionResponse_botName = Lens.lens (\DeleteSessionResponse' {botName} -> botName) (\s@DeleteSessionResponse' {} a -> s {botName = a} :: DeleteSessionResponse)
 
--- | The ID of the client application user.
-deleteSessionResponse_userId :: Lens.Lens' DeleteSessionResponse (Prelude.Maybe Prelude.Text)
-deleteSessionResponse_userId = Lens.lens (\DeleteSessionResponse' {userId} -> userId) (\s@DeleteSessionResponse' {} a -> s {userId = a} :: DeleteSessionResponse)
-
 -- | The unique identifier for the session.
 deleteSessionResponse_sessionId :: Lens.Lens' DeleteSessionResponse (Prelude.Maybe Prelude.Text)
 deleteSessionResponse_sessionId = Lens.lens (\DeleteSessionResponse' {sessionId} -> sessionId) (\s@DeleteSessionResponse' {} a -> s {sessionId = a} :: DeleteSessionResponse)
+
+-- | The ID of the client application user.
+deleteSessionResponse_userId :: Lens.Lens' DeleteSessionResponse (Prelude.Maybe Prelude.Text)
+deleteSessionResponse_userId = Lens.lens (\DeleteSessionResponse' {userId} -> userId) (\s@DeleteSessionResponse' {} a -> s {userId = a} :: DeleteSessionResponse)
 
 -- | The response's http status code.
 deleteSessionResponse_httpStatus :: Lens.Lens' DeleteSessionResponse Prelude.Int
@@ -225,6 +227,6 @@ instance Prelude.NFData DeleteSessionResponse where
   rnf DeleteSessionResponse' {..} =
     Prelude.rnf botAlias
       `Prelude.seq` Prelude.rnf botName
-      `Prelude.seq` Prelude.rnf userId
       `Prelude.seq` Prelude.rnf sessionId
+      `Prelude.seq` Prelude.rnf userId
       `Prelude.seq` Prelude.rnf httpStatus

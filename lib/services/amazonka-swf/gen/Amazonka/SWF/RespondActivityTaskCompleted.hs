@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.RespondActivityTaskCompleted
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -73,7 +73,8 @@ module Amazonka.SWF.RespondActivityTaskCompleted
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -140,7 +141,8 @@ instance Core.AWSRequest RespondActivityTaskCompleted where
   type
     AWSResponse RespondActivityTaskCompleted =
       RespondActivityTaskCompletedResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       RespondActivityTaskCompletedResponse'
@@ -158,34 +160,34 @@ instance Prelude.NFData RespondActivityTaskCompleted where
     Prelude.rnf result
       `Prelude.seq` Prelude.rnf taskToken
 
-instance Core.ToHeaders RespondActivityTaskCompleted where
+instance Data.ToHeaders RespondActivityTaskCompleted where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SimpleWorkflowService.RespondActivityTaskCompleted" ::
+              Data.=# ( "SimpleWorkflowService.RespondActivityTaskCompleted" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RespondActivityTaskCompleted where
+instance Data.ToJSON RespondActivityTaskCompleted where
   toJSON RespondActivityTaskCompleted' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("result" Core..=) Prelude.<$> result,
-            Prelude.Just ("taskToken" Core..= taskToken)
+          [ ("result" Data..=) Prelude.<$> result,
+            Prelude.Just ("taskToken" Data..= taskToken)
           ]
       )
 
-instance Core.ToPath RespondActivityTaskCompleted where
+instance Data.ToPath RespondActivityTaskCompleted where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RespondActivityTaskCompleted where
+instance Data.ToQuery RespondActivityTaskCompleted where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRespondActivityTaskCompletedResponse' smart constructor.

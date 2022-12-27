@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.ListPlaybackKeyPairs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.IVS.ListPlaybackKeyPairs
     newListPlaybackKeyPairs,
 
     -- * Request Lenses
-    listPlaybackKeyPairs_nextToken,
     listPlaybackKeyPairs_maxResults,
+    listPlaybackKeyPairs_nextToken,
 
     -- * Destructuring the Response
     ListPlaybackKeyPairsResponse (..),
@@ -47,19 +47,21 @@ module Amazonka.IVS.ListPlaybackKeyPairs
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListPlaybackKeyPairs' smart constructor.
 data ListPlaybackKeyPairs = ListPlaybackKeyPairs'
-  { -- | Maximum number of key pairs to return.
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { -- | Maximum number of key pairs to return. Default: your service quota or
+    -- 100, whichever is smaller.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The first key pair to retrieve. This is used for pagination; see the
-    -- @nextToken@ response field. Default: 50.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- @nextToken@ response field.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,26 +73,28 @@ data ListPlaybackKeyPairs = ListPlaybackKeyPairs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listPlaybackKeyPairs_nextToken' - Maximum number of key pairs to return.
+-- 'maxResults', 'listPlaybackKeyPairs_maxResults' - Maximum number of key pairs to return. Default: your service quota or
+-- 100, whichever is smaller.
 --
--- 'maxResults', 'listPlaybackKeyPairs_maxResults' - The first key pair to retrieve. This is used for pagination; see the
--- @nextToken@ response field. Default: 50.
+-- 'nextToken', 'listPlaybackKeyPairs_nextToken' - The first key pair to retrieve. This is used for pagination; see the
+-- @nextToken@ response field.
 newListPlaybackKeyPairs ::
   ListPlaybackKeyPairs
 newListPlaybackKeyPairs =
   ListPlaybackKeyPairs'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
--- | Maximum number of key pairs to return.
-listPlaybackKeyPairs_nextToken :: Lens.Lens' ListPlaybackKeyPairs (Prelude.Maybe Prelude.Text)
-listPlaybackKeyPairs_nextToken = Lens.lens (\ListPlaybackKeyPairs' {nextToken} -> nextToken) (\s@ListPlaybackKeyPairs' {} a -> s {nextToken = a} :: ListPlaybackKeyPairs)
-
--- | The first key pair to retrieve. This is used for pagination; see the
--- @nextToken@ response field. Default: 50.
+-- | Maximum number of key pairs to return. Default: your service quota or
+-- 100, whichever is smaller.
 listPlaybackKeyPairs_maxResults :: Lens.Lens' ListPlaybackKeyPairs (Prelude.Maybe Prelude.Natural)
 listPlaybackKeyPairs_maxResults = Lens.lens (\ListPlaybackKeyPairs' {maxResults} -> maxResults) (\s@ListPlaybackKeyPairs' {} a -> s {maxResults = a} :: ListPlaybackKeyPairs)
+
+-- | The first key pair to retrieve. This is used for pagination; see the
+-- @nextToken@ response field.
+listPlaybackKeyPairs_nextToken :: Lens.Lens' ListPlaybackKeyPairs (Prelude.Maybe Prelude.Text)
+listPlaybackKeyPairs_nextToken = Lens.lens (\ListPlaybackKeyPairs' {nextToken} -> nextToken) (\s@ListPlaybackKeyPairs' {} a -> s {nextToken = a} :: ListPlaybackKeyPairs)
 
 instance Core.AWSPager ListPlaybackKeyPairs where
   page rq rs
@@ -115,50 +119,51 @@ instance Core.AWSRequest ListPlaybackKeyPairs where
   type
     AWSResponse ListPlaybackKeyPairs =
       ListPlaybackKeyPairsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPlaybackKeyPairsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "keyPairs" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "keyPairs" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListPlaybackKeyPairs where
   hashWithSalt _salt ListPlaybackKeyPairs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListPlaybackKeyPairs where
   rnf ListPlaybackKeyPairs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListPlaybackKeyPairs where
+instance Data.ToHeaders ListPlaybackKeyPairs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPlaybackKeyPairs where
+instance Data.ToJSON ListPlaybackKeyPairs where
   toJSON ListPlaybackKeyPairs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListPlaybackKeyPairs where
+instance Data.ToPath ListPlaybackKeyPairs where
   toPath = Prelude.const "/ListPlaybackKeyPairs"
 
-instance Core.ToQuery ListPlaybackKeyPairs where
+instance Data.ToQuery ListPlaybackKeyPairs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListPlaybackKeyPairsResponse' smart constructor.

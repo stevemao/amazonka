@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Parameters that are used to automatically set up EBS volumes when an
@@ -30,6 +31,18 @@ import qualified Amazonka.Prelude as Prelude
 data AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails = AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails'
   { -- | Whether to delete the volume when the instance is terminated.
     deleteOnTermination :: Prelude.Maybe Prelude.Bool,
+    -- | Whether to encrypt the volume.
+    encrypted :: Prelude.Maybe Prelude.Bool,
+    -- | The number of input\/output (I\/O) operations per second (IOPS) to
+    -- provision for the volume.
+    --
+    -- Only supported for @gp3@ or @io1@ volumes. Required for @io1@ volumes.
+    -- Not used with @standard@, @gp2@, @st1@, or @sc1@ volumes.
+    iops :: Prelude.Maybe Prelude.Int,
+    -- | The snapshot ID of the volume to use.
+    --
+    -- You must specify either @VolumeSize@ or @SnapshotId@.
+    snapshotId :: Prelude.Maybe Prelude.Text,
     -- | The volume size, in GiBs. The following are the supported volumes sizes
     -- for each volume type:
     --
@@ -45,20 +58,20 @@ data AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails = AwsAutoSca
     -- both @SnapshotId@ and @VolumeSize@, the volume size must be equal or
     -- greater than the size of the snapshot.
     volumeSize :: Prelude.Maybe Prelude.Int,
-    -- | The number of input\/output (I\/O) operations per second (IOPS) to
-    -- provision for the volume.
+    -- | The volume type. Valid values are as follows:
     --
-    -- Only supported for @gp3@ or @io1@ volumes. Required for @io1@ volumes.
-    -- Not used with @standard@, @gp2@, @st1@, or @sc1@ volumes.
-    iops :: Prelude.Maybe Prelude.Int,
-    -- | Whether to encrypt the volume.
-    encrypted :: Prelude.Maybe Prelude.Bool,
-    -- | The volume type.
-    volumeType :: Prelude.Maybe Prelude.Text,
-    -- | The snapshot ID of the volume to use.
+    -- -   @gp2@
     --
-    -- You must specify either @VolumeSize@ or @SnapshotId@.
-    snapshotId :: Prelude.Maybe Prelude.Text
+    -- -   @gp3@
+    --
+    -- -   @io1@
+    --
+    -- -   @sc1@
+    --
+    -- -   @st1@
+    --
+    -- -   @standard@
+    volumeType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,6 +84,18 @@ data AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails = AwsAutoSca
 -- for backwards compatibility:
 --
 -- 'deleteOnTermination', 'awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_deleteOnTermination' - Whether to delete the volume when the instance is terminated.
+--
+-- 'encrypted', 'awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_encrypted' - Whether to encrypt the volume.
+--
+-- 'iops', 'awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_iops' - The number of input\/output (I\/O) operations per second (IOPS) to
+-- provision for the volume.
+--
+-- Only supported for @gp3@ or @io1@ volumes. Required for @io1@ volumes.
+-- Not used with @standard@, @gp2@, @st1@, or @sc1@ volumes.
+--
+-- 'snapshotId', 'awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_snapshotId' - The snapshot ID of the volume to use.
+--
+-- You must specify either @VolumeSize@ or @SnapshotId@.
 --
 -- 'volumeSize', 'awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_volumeSize' - The volume size, in GiBs. The following are the supported volumes sizes
 -- for each volume type:
@@ -87,40 +112,58 @@ data AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails = AwsAutoSca
 -- both @SnapshotId@ and @VolumeSize@, the volume size must be equal or
 -- greater than the size of the snapshot.
 --
--- 'iops', 'awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_iops' - The number of input\/output (I\/O) operations per second (IOPS) to
--- provision for the volume.
+-- 'volumeType', 'awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_volumeType' - The volume type. Valid values are as follows:
 --
--- Only supported for @gp3@ or @io1@ volumes. Required for @io1@ volumes.
--- Not used with @standard@, @gp2@, @st1@, or @sc1@ volumes.
+-- -   @gp2@
 --
--- 'encrypted', 'awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_encrypted' - Whether to encrypt the volume.
+-- -   @gp3@
 --
--- 'volumeType', 'awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_volumeType' - The volume type.
+-- -   @io1@
 --
--- 'snapshotId', 'awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_snapshotId' - The snapshot ID of the volume to use.
+-- -   @sc1@
 --
--- You must specify either @VolumeSize@ or @SnapshotId@.
+-- -   @st1@
+--
+-- -   @standard@
 newAwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails ::
   AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails
 newAwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails =
   AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails'
     { deleteOnTermination =
         Prelude.Nothing,
-      volumeSize =
+      encrypted =
         Prelude.Nothing,
       iops =
         Prelude.Nothing,
-      encrypted =
+      snapshotId =
+        Prelude.Nothing,
+      volumeSize =
         Prelude.Nothing,
       volumeType =
-        Prelude.Nothing,
-      snapshotId =
         Prelude.Nothing
     }
 
 -- | Whether to delete the volume when the instance is terminated.
 awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_deleteOnTermination :: Lens.Lens' AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails (Prelude.Maybe Prelude.Bool)
 awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_deleteOnTermination = Lens.lens (\AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {deleteOnTermination} -> deleteOnTermination) (\s@AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {} a -> s {deleteOnTermination = a} :: AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails)
+
+-- | Whether to encrypt the volume.
+awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_encrypted :: Lens.Lens' AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails (Prelude.Maybe Prelude.Bool)
+awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_encrypted = Lens.lens (\AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {encrypted} -> encrypted) (\s@AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {} a -> s {encrypted = a} :: AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails)
+
+-- | The number of input\/output (I\/O) operations per second (IOPS) to
+-- provision for the volume.
+--
+-- Only supported for @gp3@ or @io1@ volumes. Required for @io1@ volumes.
+-- Not used with @standard@, @gp2@, @st1@, or @sc1@ volumes.
+awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_iops :: Lens.Lens' AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails (Prelude.Maybe Prelude.Int)
+awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_iops = Lens.lens (\AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {iops} -> iops) (\s@AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {} a -> s {iops = a} :: AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails)
+
+-- | The snapshot ID of the volume to use.
+--
+-- You must specify either @VolumeSize@ or @SnapshotId@.
+awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_snapshotId :: Lens.Lens' AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails (Prelude.Maybe Prelude.Text)
+awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_snapshotId = Lens.lens (\AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {snapshotId} -> snapshotId) (\s@AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {} a -> s {snapshotId = a} :: AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails)
 
 -- | The volume size, in GiBs. The following are the supported volumes sizes
 -- for each volume type:
@@ -139,43 +182,37 @@ awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_deleteOnTerminati
 awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_volumeSize :: Lens.Lens' AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails (Prelude.Maybe Prelude.Int)
 awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_volumeSize = Lens.lens (\AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {volumeSize} -> volumeSize) (\s@AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {} a -> s {volumeSize = a} :: AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails)
 
--- | The number of input\/output (I\/O) operations per second (IOPS) to
--- provision for the volume.
+-- | The volume type. Valid values are as follows:
 --
--- Only supported for @gp3@ or @io1@ volumes. Required for @io1@ volumes.
--- Not used with @standard@, @gp2@, @st1@, or @sc1@ volumes.
-awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_iops :: Lens.Lens' AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails (Prelude.Maybe Prelude.Int)
-awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_iops = Lens.lens (\AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {iops} -> iops) (\s@AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {} a -> s {iops = a} :: AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails)
-
--- | Whether to encrypt the volume.
-awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_encrypted :: Lens.Lens' AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails (Prelude.Maybe Prelude.Bool)
-awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_encrypted = Lens.lens (\AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {encrypted} -> encrypted) (\s@AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {} a -> s {encrypted = a} :: AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails)
-
--- | The volume type.
+-- -   @gp2@
+--
+-- -   @gp3@
+--
+-- -   @io1@
+--
+-- -   @sc1@
+--
+-- -   @st1@
+--
+-- -   @standard@
 awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_volumeType :: Lens.Lens' AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails (Prelude.Maybe Prelude.Text)
 awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_volumeType = Lens.lens (\AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {volumeType} -> volumeType) (\s@AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {} a -> s {volumeType = a} :: AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails)
 
--- | The snapshot ID of the volume to use.
---
--- You must specify either @VolumeSize@ or @SnapshotId@.
-awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_snapshotId :: Lens.Lens' AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails (Prelude.Maybe Prelude.Text)
-awsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails_snapshotId = Lens.lens (\AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {snapshotId} -> snapshotId) (\s@AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {} a -> s {snapshotId = a} :: AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails"
       ( \x ->
           AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails'
-            Prelude.<$> (x Core..:? "DeleteOnTermination")
-              Prelude.<*> (x Core..:? "VolumeSize")
-              Prelude.<*> (x Core..:? "Iops")
-              Prelude.<*> (x Core..:? "Encrypted")
-              Prelude.<*> (x Core..:? "VolumeType")
-              Prelude.<*> (x Core..:? "SnapshotId")
+            Prelude.<$> (x Data..:? "DeleteOnTermination")
+              Prelude.<*> (x Data..:? "Encrypted")
+              Prelude.<*> (x Data..:? "Iops")
+              Prelude.<*> (x Data..:? "SnapshotId")
+              Prelude.<*> (x Data..:? "VolumeSize")
+              Prelude.<*> (x Data..:? "VolumeType")
       )
 
 instance
@@ -186,11 +223,11 @@ instance
     _salt
     AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {..} =
       _salt `Prelude.hashWithSalt` deleteOnTermination
-        `Prelude.hashWithSalt` volumeSize
-        `Prelude.hashWithSalt` iops
         `Prelude.hashWithSalt` encrypted
-        `Prelude.hashWithSalt` volumeType
+        `Prelude.hashWithSalt` iops
         `Prelude.hashWithSalt` snapshotId
+        `Prelude.hashWithSalt` volumeSize
+        `Prelude.hashWithSalt` volumeType
 
 instance
   Prelude.NFData
@@ -199,26 +236,26 @@ instance
   rnf
     AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {..} =
       Prelude.rnf deleteOnTermination
-        `Prelude.seq` Prelude.rnf volumeSize
-        `Prelude.seq` Prelude.rnf iops
         `Prelude.seq` Prelude.rnf encrypted
-        `Prelude.seq` Prelude.rnf volumeType
+        `Prelude.seq` Prelude.rnf iops
         `Prelude.seq` Prelude.rnf snapshotId
+        `Prelude.seq` Prelude.rnf volumeSize
+        `Prelude.seq` Prelude.rnf volumeType
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails
   where
   toJSON
     AwsAutoScalingLaunchConfigurationBlockDeviceMappingsEbsDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("DeleteOnTermination" Core..=)
+            [ ("DeleteOnTermination" Data..=)
                 Prelude.<$> deleteOnTermination,
-              ("VolumeSize" Core..=) Prelude.<$> volumeSize,
-              ("Iops" Core..=) Prelude.<$> iops,
-              ("Encrypted" Core..=) Prelude.<$> encrypted,
-              ("VolumeType" Core..=) Prelude.<$> volumeType,
-              ("SnapshotId" Core..=) Prelude.<$> snapshotId
+              ("Encrypted" Data..=) Prelude.<$> encrypted,
+              ("Iops" Data..=) Prelude.<$> iops,
+              ("SnapshotId" Data..=) Prelude.<$> snapshotId,
+              ("VolumeSize" Data..=) Prelude.<$> volumeSize,
+              ("VolumeType" Data..=) Prelude.<$> volumeType
             ]
         )

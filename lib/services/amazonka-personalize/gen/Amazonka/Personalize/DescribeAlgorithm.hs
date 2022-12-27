@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.DescribeAlgorithm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Personalize.DescribeAlgorithm
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -77,12 +78,13 @@ instance Core.AWSRequest DescribeAlgorithm where
   type
     AWSResponse DescribeAlgorithm =
       DescribeAlgorithmResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAlgorithmResponse'
-            Prelude.<$> (x Core..?> "algorithm")
+            Prelude.<$> (x Data..?> "algorithm")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,32 +95,32 @@ instance Prelude.Hashable DescribeAlgorithm where
 instance Prelude.NFData DescribeAlgorithm where
   rnf DescribeAlgorithm' {..} = Prelude.rnf algorithmArn
 
-instance Core.ToHeaders DescribeAlgorithm where
+instance Data.ToHeaders DescribeAlgorithm where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.DescribeAlgorithm" ::
+              Data.=# ( "AmazonPersonalize.DescribeAlgorithm" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAlgorithm where
+instance Data.ToJSON DescribeAlgorithm where
   toJSON DescribeAlgorithm' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("algorithmArn" Core..= algorithmArn)]
+          [Prelude.Just ("algorithmArn" Data..= algorithmArn)]
       )
 
-instance Core.ToPath DescribeAlgorithm where
+instance Data.ToPath DescribeAlgorithm where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAlgorithm where
+instance Data.ToQuery DescribeAlgorithm where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAlgorithmResponse' smart constructor.

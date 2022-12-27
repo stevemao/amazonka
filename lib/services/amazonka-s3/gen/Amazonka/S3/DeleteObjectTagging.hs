@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.DeleteObjectTagging
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,8 @@ module Amazonka.S3.DeleteObjectTagging
     newDeleteObjectTagging,
 
     -- * Request Lenses
-    deleteObjectTagging_versionId,
     deleteObjectTagging_expectedBucketOwner,
+    deleteObjectTagging_versionId,
     deleteObjectTagging_bucket,
     deleteObjectTagging_key,
 
@@ -59,7 +59,8 @@ module Amazonka.S3.DeleteObjectTagging
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,12 +68,12 @@ import Amazonka.S3.Types
 
 -- | /See:/ 'newDeleteObjectTagging' smart constructor.
 data DeleteObjectTagging = DeleteObjectTagging'
-  { -- | The versionId of the object that the tag-set will be removed from.
-    versionId :: Prelude.Maybe ObjectVersionId,
-    -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+  { -- | The account ID of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | The versionId of the object that the tag-set will be removed from.
+    versionId :: Prelude.Maybe ObjectVersionId,
     -- | The bucket name containing the objects from which to remove the tags.
     --
     -- When using this action with an access point, you must direct requests to
@@ -87,11 +88,11 @@ data DeleteObjectTagging = DeleteObjectTagging'
     -- When using this action with Amazon S3 on Outposts, you must direct
     -- requests to the S3 on Outposts hostname. The S3 on Outposts hostname
     -- takes the form
-    -- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
-    -- When using this action using S3 on Outposts through the Amazon Web
+    -- @ AccessPointName-AccountId.outpostID.s3-outposts.Region.amazonaws.com@.
+    -- When using this action with S3 on Outposts through the Amazon Web
     -- Services SDKs, you provide the Outposts bucket ARN in place of the
     -- bucket name. For more information about S3 on Outposts ARNs, see
-    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using S3 on Outposts>
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using Amazon S3 on Outposts>
     -- in the /Amazon S3 User Guide/.
     bucket :: BucketName,
     -- | The key that identifies the object in the bucket from which to remove
@@ -108,11 +109,11 @@ data DeleteObjectTagging = DeleteObjectTagging'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'versionId', 'deleteObjectTagging_versionId' - The versionId of the object that the tag-set will be removed from.
---
 -- 'expectedBucketOwner', 'deleteObjectTagging_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
+--
+-- 'versionId', 'deleteObjectTagging_versionId' - The versionId of the object that the tag-set will be removed from.
 --
 -- 'bucket', 'deleteObjectTagging_bucket' - The bucket name containing the objects from which to remove the tags.
 --
@@ -128,11 +129,11 @@ data DeleteObjectTagging = DeleteObjectTagging'
 -- When using this action with Amazon S3 on Outposts, you must direct
 -- requests to the S3 on Outposts hostname. The S3 on Outposts hostname
 -- takes the form
--- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
--- When using this action using S3 on Outposts through the Amazon Web
+-- @ AccessPointName-AccountId.outpostID.s3-outposts.Region.amazonaws.com@.
+-- When using this action with S3 on Outposts through the Amazon Web
 -- Services SDKs, you provide the Outposts bucket ARN in place of the
 -- bucket name. For more information about S3 on Outposts ARNs, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using S3 on Outposts>
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using Amazon S3 on Outposts>
 -- in the /Amazon S3 User Guide/.
 --
 -- 'key', 'deleteObjectTagging_key' - The key that identifies the object in the bucket from which to remove
@@ -145,21 +146,22 @@ newDeleteObjectTagging ::
   DeleteObjectTagging
 newDeleteObjectTagging pBucket_ pKey_ =
   DeleteObjectTagging'
-    { versionId = Prelude.Nothing,
-      expectedBucketOwner = Prelude.Nothing,
+    { expectedBucketOwner =
+        Prelude.Nothing,
+      versionId = Prelude.Nothing,
       bucket = pBucket_,
       key = pKey_
     }
 
+-- | The account ID of the expected bucket owner. If the bucket is owned by a
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
+deleteObjectTagging_expectedBucketOwner :: Lens.Lens' DeleteObjectTagging (Prelude.Maybe Prelude.Text)
+deleteObjectTagging_expectedBucketOwner = Lens.lens (\DeleteObjectTagging' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeleteObjectTagging' {} a -> s {expectedBucketOwner = a} :: DeleteObjectTagging)
+
 -- | The versionId of the object that the tag-set will be removed from.
 deleteObjectTagging_versionId :: Lens.Lens' DeleteObjectTagging (Prelude.Maybe ObjectVersionId)
 deleteObjectTagging_versionId = Lens.lens (\DeleteObjectTagging' {versionId} -> versionId) (\s@DeleteObjectTagging' {} a -> s {versionId = a} :: DeleteObjectTagging)
-
--- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
-deleteObjectTagging_expectedBucketOwner :: Lens.Lens' DeleteObjectTagging (Prelude.Maybe Prelude.Text)
-deleteObjectTagging_expectedBucketOwner = Lens.lens (\DeleteObjectTagging' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeleteObjectTagging' {} a -> s {expectedBucketOwner = a} :: DeleteObjectTagging)
 
 -- | The bucket name containing the objects from which to remove the tags.
 --
@@ -175,11 +177,11 @@ deleteObjectTagging_expectedBucketOwner = Lens.lens (\DeleteObjectTagging' {expe
 -- When using this action with Amazon S3 on Outposts, you must direct
 -- requests to the S3 on Outposts hostname. The S3 on Outposts hostname
 -- takes the form
--- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
--- When using this action using S3 on Outposts through the Amazon Web
+-- @ AccessPointName-AccountId.outpostID.s3-outposts.Region.amazonaws.com@.
+-- When using this action with S3 on Outposts through the Amazon Web
 -- Services SDKs, you provide the Outposts bucket ARN in place of the
 -- bucket name. For more information about S3 on Outposts ARNs, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using S3 on Outposts>
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using Amazon S3 on Outposts>
 -- in the /Amazon S3 User Guide/.
 deleteObjectTagging_bucket :: Lens.Lens' DeleteObjectTagging BucketName
 deleteObjectTagging_bucket = Lens.lens (\DeleteObjectTagging' {bucket} -> bucket) (\s@DeleteObjectTagging' {} a -> s {bucket = a} :: DeleteObjectTagging)
@@ -193,47 +195,47 @@ instance Core.AWSRequest DeleteObjectTagging where
   type
     AWSResponse DeleteObjectTagging =
       DeleteObjectTaggingResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.delete defaultService
+      Prelude.. Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
           DeleteObjectTaggingResponse'
-            Prelude.<$> (h Core..#? "x-amz-version-id")
+            Prelude.<$> (h Data..#? "x-amz-version-id")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DeleteObjectTagging where
   hashWithSalt _salt DeleteObjectTagging' {..} =
-    _salt `Prelude.hashWithSalt` versionId
-      `Prelude.hashWithSalt` expectedBucketOwner
+    _salt `Prelude.hashWithSalt` expectedBucketOwner
+      `Prelude.hashWithSalt` versionId
       `Prelude.hashWithSalt` bucket
       `Prelude.hashWithSalt` key
 
 instance Prelude.NFData DeleteObjectTagging where
   rnf DeleteObjectTagging' {..} =
-    Prelude.rnf versionId
-      `Prelude.seq` Prelude.rnf expectedBucketOwner
+    Prelude.rnf expectedBucketOwner
+      `Prelude.seq` Prelude.rnf versionId
       `Prelude.seq` Prelude.rnf bucket
       `Prelude.seq` Prelude.rnf key
 
-instance Core.ToHeaders DeleteObjectTagging where
+instance Data.ToHeaders DeleteObjectTagging where
   toHeaders DeleteObjectTagging' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath DeleteObjectTagging where
+instance Data.ToPath DeleteObjectTagging where
   toPath DeleteObjectTagging' {..} =
     Prelude.mconcat
-      ["/", Core.toBS bucket, "/", Core.toBS key]
+      ["/", Data.toBS bucket, "/", Data.toBS key]
 
-instance Core.ToQuery DeleteObjectTagging where
+instance Data.ToQuery DeleteObjectTagging where
   toQuery DeleteObjectTagging' {..} =
     Prelude.mconcat
-      ["versionId" Core.=: versionId, "tagging"]
+      ["versionId" Data.=: versionId, "tagging"]
 
 -- | /See:/ 'newDeleteObjectTaggingResponse' smart constructor.
 data DeleteObjectTaggingResponse = DeleteObjectTaggingResponse'

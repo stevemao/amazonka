@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.ListKeyPhrasesDetectionJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.Comprehend.ListKeyPhrasesDetectionJobs
     newListKeyPhrasesDetectionJobs,
 
     -- * Request Lenses
-    listKeyPhrasesDetectionJobs_nextToken,
     listKeyPhrasesDetectionJobs_filter,
     listKeyPhrasesDetectionJobs_maxResults,
+    listKeyPhrasesDetectionJobs_nextToken,
 
     -- * Destructuring the Response
     ListKeyPhrasesDetectionJobsResponse (..),
@@ -46,22 +46,23 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListKeyPhrasesDetectionJobs' smart constructor.
 data ListKeyPhrasesDetectionJobs = ListKeyPhrasesDetectionJobs'
-  { -- | Identifies the next page of results to return.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Filters the jobs that are returned. You can filter jobs on their name,
+  { -- | Filters the jobs that are returned. You can filter jobs on their name,
     -- status, or the date and time that they were submitted. You can only set
     -- one filter at a time.
     filter' :: Prelude.Maybe KeyPhrasesDetectionJobFilter,
     -- | The maximum number of results to return in each page. The default is
     -- 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,27 +74,23 @@ data ListKeyPhrasesDetectionJobs = ListKeyPhrasesDetectionJobs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listKeyPhrasesDetectionJobs_nextToken' - Identifies the next page of results to return.
---
 -- 'filter'', 'listKeyPhrasesDetectionJobs_filter' - Filters the jobs that are returned. You can filter jobs on their name,
 -- status, or the date and time that they were submitted. You can only set
 -- one filter at a time.
 --
 -- 'maxResults', 'listKeyPhrasesDetectionJobs_maxResults' - The maximum number of results to return in each page. The default is
 -- 100.
+--
+-- 'nextToken', 'listKeyPhrasesDetectionJobs_nextToken' - Identifies the next page of results to return.
 newListKeyPhrasesDetectionJobs ::
   ListKeyPhrasesDetectionJobs
 newListKeyPhrasesDetectionJobs =
   ListKeyPhrasesDetectionJobs'
-    { nextToken =
+    { filter' =
         Prelude.Nothing,
-      filter' = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | Identifies the next page of results to return.
-listKeyPhrasesDetectionJobs_nextToken :: Lens.Lens' ListKeyPhrasesDetectionJobs (Prelude.Maybe Prelude.Text)
-listKeyPhrasesDetectionJobs_nextToken = Lens.lens (\ListKeyPhrasesDetectionJobs' {nextToken} -> nextToken) (\s@ListKeyPhrasesDetectionJobs' {} a -> s {nextToken = a} :: ListKeyPhrasesDetectionJobs)
 
 -- | Filters the jobs that are returned. You can filter jobs on their name,
 -- status, or the date and time that they were submitted. You can only set
@@ -105,6 +102,10 @@ listKeyPhrasesDetectionJobs_filter = Lens.lens (\ListKeyPhrasesDetectionJobs' {f
 -- 100.
 listKeyPhrasesDetectionJobs_maxResults :: Lens.Lens' ListKeyPhrasesDetectionJobs (Prelude.Maybe Prelude.Natural)
 listKeyPhrasesDetectionJobs_maxResults = Lens.lens (\ListKeyPhrasesDetectionJobs' {maxResults} -> maxResults) (\s@ListKeyPhrasesDetectionJobs' {} a -> s {maxResults = a} :: ListKeyPhrasesDetectionJobs)
+
+-- | Identifies the next page of results to return.
+listKeyPhrasesDetectionJobs_nextToken :: Lens.Lens' ListKeyPhrasesDetectionJobs (Prelude.Maybe Prelude.Text)
+listKeyPhrasesDetectionJobs_nextToken = Lens.lens (\ListKeyPhrasesDetectionJobs' {nextToken} -> nextToken) (\s@ListKeyPhrasesDetectionJobs' {} a -> s {nextToken = a} :: ListKeyPhrasesDetectionJobs)
 
 instance Core.AWSPager ListKeyPhrasesDetectionJobs where
   page rq rs
@@ -132,59 +133,60 @@ instance Core.AWSRequest ListKeyPhrasesDetectionJobs where
   type
     AWSResponse ListKeyPhrasesDetectionJobs =
       ListKeyPhrasesDetectionJobsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListKeyPhrasesDetectionJobsResponse'
-            Prelude.<$> ( x Core..?> "KeyPhrasesDetectionJobPropertiesList"
+            Prelude.<$> ( x Data..?> "KeyPhrasesDetectionJobPropertiesList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListKeyPhrasesDetectionJobs where
   hashWithSalt _salt ListKeyPhrasesDetectionJobs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListKeyPhrasesDetectionJobs where
   rnf ListKeyPhrasesDetectionJobs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListKeyPhrasesDetectionJobs where
+instance Data.ToHeaders ListKeyPhrasesDetectionJobs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.ListKeyPhrasesDetectionJobs" ::
+              Data.=# ( "Comprehend_20171127.ListKeyPhrasesDetectionJobs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListKeyPhrasesDetectionJobs where
+instance Data.ToJSON ListKeyPhrasesDetectionJobs where
   toJSON ListKeyPhrasesDetectionJobs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Filter" Core..=) Prelude.<$> filter',
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filter" Data..=) Prelude.<$> filter',
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListKeyPhrasesDetectionJobs where
+instance Data.ToPath ListKeyPhrasesDetectionJobs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListKeyPhrasesDetectionJobs where
+instance Data.ToQuery ListKeyPhrasesDetectionJobs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListKeyPhrasesDetectionJobsResponse' smart constructor.

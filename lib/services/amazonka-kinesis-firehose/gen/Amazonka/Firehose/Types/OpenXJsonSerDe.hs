@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.OpenXJsonSerDe
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Firehose.Types.OpenXJsonSerDe where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The OpenX SerDe. Used by Kinesis Data Firehose for deserializing data,
@@ -32,15 +33,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newOpenXJsonSerDe' smart constructor.
 data OpenXJsonSerDe = OpenXJsonSerDe'
-  { -- | Maps column names to JSON keys that aren\'t identical to the column
+  { -- | When set to @true@, which is the default, Kinesis Data Firehose converts
+    -- JSON keys to lowercase before deserializing them.
+    caseInsensitive :: Prelude.Maybe Prelude.Bool,
+    -- | Maps column names to JSON keys that aren\'t identical to the column
     -- names. This is useful when the JSON contains keys that are Hive
     -- keywords. For example, @timestamp@ is a Hive keyword. If you have a JSON
     -- key named @timestamp@, set this parameter to @{\"ts\": \"timestamp\"}@
     -- to map this key to a column named @ts@.
     columnToJsonKeyMappings :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | When set to @true@, which is the default, Kinesis Data Firehose converts
-    -- JSON keys to lowercase before deserializing them.
-    caseInsensitive :: Prelude.Maybe Prelude.Bool,
     -- | When set to @true@, specifies that the names of the keys include dots
     -- and that you want Kinesis Data Firehose to replace them with
     -- underscores. This is useful because Apache Hive does not allow dots in
@@ -61,14 +62,14 @@ data OpenXJsonSerDe = OpenXJsonSerDe'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'caseInsensitive', 'openXJsonSerDe_caseInsensitive' - When set to @true@, which is the default, Kinesis Data Firehose converts
+-- JSON keys to lowercase before deserializing them.
+--
 -- 'columnToJsonKeyMappings', 'openXJsonSerDe_columnToJsonKeyMappings' - Maps column names to JSON keys that aren\'t identical to the column
 -- names. This is useful when the JSON contains keys that are Hive
 -- keywords. For example, @timestamp@ is a Hive keyword. If you have a JSON
 -- key named @timestamp@, set this parameter to @{\"ts\": \"timestamp\"}@
 -- to map this key to a column named @ts@.
---
--- 'caseInsensitive', 'openXJsonSerDe_caseInsensitive' - When set to @true@, which is the default, Kinesis Data Firehose converts
--- JSON keys to lowercase before deserializing them.
 --
 -- 'convertDotsInJsonKeysToUnderscores', 'openXJsonSerDe_convertDotsInJsonKeysToUnderscores' - When set to @true@, specifies that the names of the keys include dots
 -- and that you want Kinesis Data Firehose to replace them with
@@ -82,11 +83,15 @@ newOpenXJsonSerDe ::
   OpenXJsonSerDe
 newOpenXJsonSerDe =
   OpenXJsonSerDe'
-    { columnToJsonKeyMappings =
-        Prelude.Nothing,
-      caseInsensitive = Prelude.Nothing,
+    { caseInsensitive = Prelude.Nothing,
+      columnToJsonKeyMappings = Prelude.Nothing,
       convertDotsInJsonKeysToUnderscores = Prelude.Nothing
     }
+
+-- | When set to @true@, which is the default, Kinesis Data Firehose converts
+-- JSON keys to lowercase before deserializing them.
+openXJsonSerDe_caseInsensitive :: Lens.Lens' OpenXJsonSerDe (Prelude.Maybe Prelude.Bool)
+openXJsonSerDe_caseInsensitive = Lens.lens (\OpenXJsonSerDe' {caseInsensitive} -> caseInsensitive) (\s@OpenXJsonSerDe' {} a -> s {caseInsensitive = a} :: OpenXJsonSerDe)
 
 -- | Maps column names to JSON keys that aren\'t identical to the column
 -- names. This is useful when the JSON contains keys that are Hive
@@ -95,11 +100,6 @@ newOpenXJsonSerDe =
 -- to map this key to a column named @ts@.
 openXJsonSerDe_columnToJsonKeyMappings :: Lens.Lens' OpenXJsonSerDe (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 openXJsonSerDe_columnToJsonKeyMappings = Lens.lens (\OpenXJsonSerDe' {columnToJsonKeyMappings} -> columnToJsonKeyMappings) (\s@OpenXJsonSerDe' {} a -> s {columnToJsonKeyMappings = a} :: OpenXJsonSerDe) Prelude.. Lens.mapping Lens.coerced
-
--- | When set to @true@, which is the default, Kinesis Data Firehose converts
--- JSON keys to lowercase before deserializing them.
-openXJsonSerDe_caseInsensitive :: Lens.Lens' OpenXJsonSerDe (Prelude.Maybe Prelude.Bool)
-openXJsonSerDe_caseInsensitive = Lens.lens (\OpenXJsonSerDe' {caseInsensitive} -> caseInsensitive) (\s@OpenXJsonSerDe' {} a -> s {caseInsensitive = a} :: OpenXJsonSerDe)
 
 -- | When set to @true@, specifies that the names of the keys include dots
 -- and that you want Kinesis Data Firehose to replace them with
@@ -112,41 +112,40 @@ openXJsonSerDe_caseInsensitive = Lens.lens (\OpenXJsonSerDe' {caseInsensitive} -
 openXJsonSerDe_convertDotsInJsonKeysToUnderscores :: Lens.Lens' OpenXJsonSerDe (Prelude.Maybe Prelude.Bool)
 openXJsonSerDe_convertDotsInJsonKeysToUnderscores = Lens.lens (\OpenXJsonSerDe' {convertDotsInJsonKeysToUnderscores} -> convertDotsInJsonKeysToUnderscores) (\s@OpenXJsonSerDe' {} a -> s {convertDotsInJsonKeysToUnderscores = a} :: OpenXJsonSerDe)
 
-instance Core.FromJSON OpenXJsonSerDe where
+instance Data.FromJSON OpenXJsonSerDe where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OpenXJsonSerDe"
       ( \x ->
           OpenXJsonSerDe'
-            Prelude.<$> ( x Core..:? "ColumnToJsonKeyMappings"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "CaseInsensitive")
+            Prelude.<*> ( x Data..:? "ColumnToJsonKeyMappings"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "CaseInsensitive")
-            Prelude.<*> (x Core..:? "ConvertDotsInJsonKeysToUnderscores")
+            Prelude.<*> (x Data..:? "ConvertDotsInJsonKeysToUnderscores")
       )
 
 instance Prelude.Hashable OpenXJsonSerDe where
   hashWithSalt _salt OpenXJsonSerDe' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` caseInsensitive
       `Prelude.hashWithSalt` columnToJsonKeyMappings
-      `Prelude.hashWithSalt` caseInsensitive
       `Prelude.hashWithSalt` convertDotsInJsonKeysToUnderscores
 
 instance Prelude.NFData OpenXJsonSerDe where
   rnf OpenXJsonSerDe' {..} =
-    Prelude.rnf columnToJsonKeyMappings
-      `Prelude.seq` Prelude.rnf caseInsensitive
+    Prelude.rnf caseInsensitive
+      `Prelude.seq` Prelude.rnf columnToJsonKeyMappings
       `Prelude.seq` Prelude.rnf convertDotsInJsonKeysToUnderscores
 
-instance Core.ToJSON OpenXJsonSerDe where
+instance Data.ToJSON OpenXJsonSerDe where
   toJSON OpenXJsonSerDe' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ColumnToJsonKeyMappings" Core..=)
-              Prelude.<$> columnToJsonKeyMappings,
-            ("CaseInsensitive" Core..=)
+          [ ("CaseInsensitive" Data..=)
               Prelude.<$> caseInsensitive,
-            ("ConvertDotsInJsonKeysToUnderscores" Core..=)
+            ("ColumnToJsonKeyMappings" Data..=)
+              Prelude.<$> columnToJsonKeyMappings,
+            ("ConvertDotsInJsonKeysToUnderscores" Data..=)
               Prelude.<$> convertDotsInJsonKeysToUnderscores
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.DashboardFilterAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,24 @@
 module Amazonka.QuickSight.Types.DashboardFilterAttribute
   ( DashboardFilterAttribute
       ( ..,
-        DashboardFilterAttribute_QUICKSIGHT_USER
+        DashboardFilterAttribute_DASHBOARD_NAME,
+        DashboardFilterAttribute_DIRECT_QUICKSIGHT_OWNER,
+        DashboardFilterAttribute_DIRECT_QUICKSIGHT_SOLE_OWNER,
+        DashboardFilterAttribute_DIRECT_QUICKSIGHT_VIEWER_OR_OWNER,
+        DashboardFilterAttribute_QUICKSIGHT_OWNER,
+        DashboardFilterAttribute_QUICKSIGHT_USER,
+        DashboardFilterAttribute_QUICKSIGHT_VIEWER_OR_OWNER
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype DashboardFilterAttribute = DashboardFilterAttribute'
   { fromDashboardFilterAttribute ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -42,24 +49,48 @@ newtype DashboardFilterAttribute = DashboardFilterAttribute'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern DashboardFilterAttribute_DASHBOARD_NAME :: DashboardFilterAttribute
+pattern DashboardFilterAttribute_DASHBOARD_NAME = DashboardFilterAttribute' "DASHBOARD_NAME"
+
+pattern DashboardFilterAttribute_DIRECT_QUICKSIGHT_OWNER :: DashboardFilterAttribute
+pattern DashboardFilterAttribute_DIRECT_QUICKSIGHT_OWNER = DashboardFilterAttribute' "DIRECT_QUICKSIGHT_OWNER"
+
+pattern DashboardFilterAttribute_DIRECT_QUICKSIGHT_SOLE_OWNER :: DashboardFilterAttribute
+pattern DashboardFilterAttribute_DIRECT_QUICKSIGHT_SOLE_OWNER = DashboardFilterAttribute' "DIRECT_QUICKSIGHT_SOLE_OWNER"
+
+pattern DashboardFilterAttribute_DIRECT_QUICKSIGHT_VIEWER_OR_OWNER :: DashboardFilterAttribute
+pattern DashboardFilterAttribute_DIRECT_QUICKSIGHT_VIEWER_OR_OWNER = DashboardFilterAttribute' "DIRECT_QUICKSIGHT_VIEWER_OR_OWNER"
+
+pattern DashboardFilterAttribute_QUICKSIGHT_OWNER :: DashboardFilterAttribute
+pattern DashboardFilterAttribute_QUICKSIGHT_OWNER = DashboardFilterAttribute' "QUICKSIGHT_OWNER"
 
 pattern DashboardFilterAttribute_QUICKSIGHT_USER :: DashboardFilterAttribute
 pattern DashboardFilterAttribute_QUICKSIGHT_USER = DashboardFilterAttribute' "QUICKSIGHT_USER"
 
+pattern DashboardFilterAttribute_QUICKSIGHT_VIEWER_OR_OWNER :: DashboardFilterAttribute
+pattern DashboardFilterAttribute_QUICKSIGHT_VIEWER_OR_OWNER = DashboardFilterAttribute' "QUICKSIGHT_VIEWER_OR_OWNER"
+
 {-# COMPLETE
+  DashboardFilterAttribute_DASHBOARD_NAME,
+  DashboardFilterAttribute_DIRECT_QUICKSIGHT_OWNER,
+  DashboardFilterAttribute_DIRECT_QUICKSIGHT_SOLE_OWNER,
+  DashboardFilterAttribute_DIRECT_QUICKSIGHT_VIEWER_OR_OWNER,
+  DashboardFilterAttribute_QUICKSIGHT_OWNER,
   DashboardFilterAttribute_QUICKSIGHT_USER,
+  DashboardFilterAttribute_QUICKSIGHT_VIEWER_OR_OWNER,
   DashboardFilterAttribute'
   #-}

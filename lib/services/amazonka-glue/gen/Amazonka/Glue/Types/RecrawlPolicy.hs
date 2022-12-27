@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.RecrawlPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Glue.Types.RecrawlPolicy where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.RecrawlBehavior
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | When crawling an Amazon S3 data source after the first crawl is
@@ -86,13 +87,13 @@ newRecrawlPolicy =
 recrawlPolicy_recrawlBehavior :: Lens.Lens' RecrawlPolicy (Prelude.Maybe RecrawlBehavior)
 recrawlPolicy_recrawlBehavior = Lens.lens (\RecrawlPolicy' {recrawlBehavior} -> recrawlBehavior) (\s@RecrawlPolicy' {} a -> s {recrawlBehavior = a} :: RecrawlPolicy)
 
-instance Core.FromJSON RecrawlPolicy where
+instance Data.FromJSON RecrawlPolicy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RecrawlPolicy"
       ( \x ->
           RecrawlPolicy'
-            Prelude.<$> (x Core..:? "RecrawlBehavior")
+            Prelude.<$> (x Data..:? "RecrawlBehavior")
       )
 
 instance Prelude.Hashable RecrawlPolicy where
@@ -102,11 +103,11 @@ instance Prelude.Hashable RecrawlPolicy where
 instance Prelude.NFData RecrawlPolicy where
   rnf RecrawlPolicy' {..} = Prelude.rnf recrawlBehavior
 
-instance Core.ToJSON RecrawlPolicy where
+instance Data.ToJSON RecrawlPolicy where
   toJSON RecrawlPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RecrawlBehavior" Core..=)
+          [ ("RecrawlBehavior" Data..=)
               Prelude.<$> recrawlBehavior
           ]
       )

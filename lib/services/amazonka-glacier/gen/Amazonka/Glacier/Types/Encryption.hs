@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.Types.Encryption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Glacier.Types.Encryption where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types.EncryptionType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the encryption used to store the job results
@@ -32,13 +33,13 @@ data Encryption = Encryption'
   { -- | The server-side encryption algorithm used when storing job results in
     -- Amazon S3, for example @AES256@ or @aws:kms@.
     encryptionType :: Prelude.Maybe EncryptionType,
+    -- | Optional. If the encryption type is @aws:kms@, you can use this value to
+    -- specify the encryption context for the job results.
+    kmsContext :: Prelude.Maybe Prelude.Text,
     -- | The AWS KMS key ID to use for object encryption. All GET and PUT
     -- requests for an object protected by AWS KMS fail if not made by using
     -- Secure Sockets Layer (SSL) or Signature Version 4.
-    kmsKeyId :: Prelude.Maybe Prelude.Text,
-    -- | Optional. If the encryption type is @aws:kms@, you can use this value to
-    -- specify the encryption context for the job results.
-    kmsContext :: Prelude.Maybe Prelude.Text
+    kmsKeyId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -53,19 +54,19 @@ data Encryption = Encryption'
 -- 'encryptionType', 'encryption_encryptionType' - The server-side encryption algorithm used when storing job results in
 -- Amazon S3, for example @AES256@ or @aws:kms@.
 --
+-- 'kmsContext', 'encryption_kmsContext' - Optional. If the encryption type is @aws:kms@, you can use this value to
+-- specify the encryption context for the job results.
+--
 -- 'kmsKeyId', 'encryption_kmsKeyId' - The AWS KMS key ID to use for object encryption. All GET and PUT
 -- requests for an object protected by AWS KMS fail if not made by using
 -- Secure Sockets Layer (SSL) or Signature Version 4.
---
--- 'kmsContext', 'encryption_kmsContext' - Optional. If the encryption type is @aws:kms@, you can use this value to
--- specify the encryption context for the job results.
 newEncryption ::
   Encryption
 newEncryption =
   Encryption'
     { encryptionType = Prelude.Nothing,
-      kmsKeyId = Prelude.Nothing,
-      kmsContext = Prelude.Nothing
+      kmsContext = Prelude.Nothing,
+      kmsKeyId = Prelude.Nothing
     }
 
 -- | The server-side encryption algorithm used when storing job results in
@@ -73,47 +74,47 @@ newEncryption =
 encryption_encryptionType :: Lens.Lens' Encryption (Prelude.Maybe EncryptionType)
 encryption_encryptionType = Lens.lens (\Encryption' {encryptionType} -> encryptionType) (\s@Encryption' {} a -> s {encryptionType = a} :: Encryption)
 
+-- | Optional. If the encryption type is @aws:kms@, you can use this value to
+-- specify the encryption context for the job results.
+encryption_kmsContext :: Lens.Lens' Encryption (Prelude.Maybe Prelude.Text)
+encryption_kmsContext = Lens.lens (\Encryption' {kmsContext} -> kmsContext) (\s@Encryption' {} a -> s {kmsContext = a} :: Encryption)
+
 -- | The AWS KMS key ID to use for object encryption. All GET and PUT
 -- requests for an object protected by AWS KMS fail if not made by using
 -- Secure Sockets Layer (SSL) or Signature Version 4.
 encryption_kmsKeyId :: Lens.Lens' Encryption (Prelude.Maybe Prelude.Text)
 encryption_kmsKeyId = Lens.lens (\Encryption' {kmsKeyId} -> kmsKeyId) (\s@Encryption' {} a -> s {kmsKeyId = a} :: Encryption)
 
--- | Optional. If the encryption type is @aws:kms@, you can use this value to
--- specify the encryption context for the job results.
-encryption_kmsContext :: Lens.Lens' Encryption (Prelude.Maybe Prelude.Text)
-encryption_kmsContext = Lens.lens (\Encryption' {kmsContext} -> kmsContext) (\s@Encryption' {} a -> s {kmsContext = a} :: Encryption)
-
-instance Core.FromJSON Encryption where
+instance Data.FromJSON Encryption where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Encryption"
       ( \x ->
           Encryption'
-            Prelude.<$> (x Core..:? "EncryptionType")
-            Prelude.<*> (x Core..:? "KMSKeyId")
-            Prelude.<*> (x Core..:? "KMSContext")
+            Prelude.<$> (x Data..:? "EncryptionType")
+            Prelude.<*> (x Data..:? "KMSContext")
+            Prelude.<*> (x Data..:? "KMSKeyId")
       )
 
 instance Prelude.Hashable Encryption where
   hashWithSalt _salt Encryption' {..} =
     _salt `Prelude.hashWithSalt` encryptionType
-      `Prelude.hashWithSalt` kmsKeyId
       `Prelude.hashWithSalt` kmsContext
+      `Prelude.hashWithSalt` kmsKeyId
 
 instance Prelude.NFData Encryption where
   rnf Encryption' {..} =
     Prelude.rnf encryptionType
-      `Prelude.seq` Prelude.rnf kmsKeyId
       `Prelude.seq` Prelude.rnf kmsContext
+      `Prelude.seq` Prelude.rnf kmsKeyId
 
-instance Core.ToJSON Encryption where
+instance Data.ToJSON Encryption where
   toJSON Encryption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EncryptionType" Core..=)
+          [ ("EncryptionType" Data..=)
               Prelude.<$> encryptionType,
-            ("KMSKeyId" Core..=) Prelude.<$> kmsKeyId,
-            ("KMSContext" Core..=) Prelude.<$> kmsContext
+            ("KMSContext" Data..=) Prelude.<$> kmsContext,
+            ("KMSKeyId" Data..=) Prelude.<$> kmsKeyId
           ]
       )

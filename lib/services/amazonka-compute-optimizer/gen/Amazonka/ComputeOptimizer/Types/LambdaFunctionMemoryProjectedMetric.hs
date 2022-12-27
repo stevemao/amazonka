@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ComputeOptimizer.Types.LambdaFunctionMemoryProjectedMetric
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.ComputeOptimizer.Types.LambdaFunctionMemoryProjectedMetric where
 import Amazonka.ComputeOptimizer.Types.LambdaFunctionMemoryMetricName
 import Amazonka.ComputeOptimizer.Types.LambdaFunctionMemoryMetricStatistic
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a projected utilization metric of an Lambda function
@@ -30,12 +31,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newLambdaFunctionMemoryProjectedMetric' smart constructor.
 data LambdaFunctionMemoryProjectedMetric = LambdaFunctionMemoryProjectedMetric'
-  { -- | The values of the projected utilization metrics.
-    value :: Prelude.Maybe Prelude.Double,
-    -- | The name of the projected utilization metric.
+  { -- | The name of the projected utilization metric.
     name :: Prelude.Maybe LambdaFunctionMemoryMetricName,
     -- | The statistic of the projected utilization metric.
-    statistic :: Prelude.Maybe LambdaFunctionMemoryMetricStatistic
+    statistic :: Prelude.Maybe LambdaFunctionMemoryMetricStatistic,
+    -- | The values of the projected utilization metrics.
+    value :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,24 +48,20 @@ data LambdaFunctionMemoryProjectedMetric = LambdaFunctionMemoryProjectedMetric'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'lambdaFunctionMemoryProjectedMetric_value' - The values of the projected utilization metrics.
---
 -- 'name', 'lambdaFunctionMemoryProjectedMetric_name' - The name of the projected utilization metric.
 --
 -- 'statistic', 'lambdaFunctionMemoryProjectedMetric_statistic' - The statistic of the projected utilization metric.
+--
+-- 'value', 'lambdaFunctionMemoryProjectedMetric_value' - The values of the projected utilization metrics.
 newLambdaFunctionMemoryProjectedMetric ::
   LambdaFunctionMemoryProjectedMetric
 newLambdaFunctionMemoryProjectedMetric =
   LambdaFunctionMemoryProjectedMetric'
-    { value =
+    { name =
         Prelude.Nothing,
-      name = Prelude.Nothing,
-      statistic = Prelude.Nothing
+      statistic = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The values of the projected utilization metrics.
-lambdaFunctionMemoryProjectedMetric_value :: Lens.Lens' LambdaFunctionMemoryProjectedMetric (Prelude.Maybe Prelude.Double)
-lambdaFunctionMemoryProjectedMetric_value = Lens.lens (\LambdaFunctionMemoryProjectedMetric' {value} -> value) (\s@LambdaFunctionMemoryProjectedMetric' {} a -> s {value = a} :: LambdaFunctionMemoryProjectedMetric)
 
 -- | The name of the projected utilization metric.
 lambdaFunctionMemoryProjectedMetric_name :: Lens.Lens' LambdaFunctionMemoryProjectedMetric (Prelude.Maybe LambdaFunctionMemoryMetricName)
@@ -74,18 +71,22 @@ lambdaFunctionMemoryProjectedMetric_name = Lens.lens (\LambdaFunctionMemoryProje
 lambdaFunctionMemoryProjectedMetric_statistic :: Lens.Lens' LambdaFunctionMemoryProjectedMetric (Prelude.Maybe LambdaFunctionMemoryMetricStatistic)
 lambdaFunctionMemoryProjectedMetric_statistic = Lens.lens (\LambdaFunctionMemoryProjectedMetric' {statistic} -> statistic) (\s@LambdaFunctionMemoryProjectedMetric' {} a -> s {statistic = a} :: LambdaFunctionMemoryProjectedMetric)
 
+-- | The values of the projected utilization metrics.
+lambdaFunctionMemoryProjectedMetric_value :: Lens.Lens' LambdaFunctionMemoryProjectedMetric (Prelude.Maybe Prelude.Double)
+lambdaFunctionMemoryProjectedMetric_value = Lens.lens (\LambdaFunctionMemoryProjectedMetric' {value} -> value) (\s@LambdaFunctionMemoryProjectedMetric' {} a -> s {value = a} :: LambdaFunctionMemoryProjectedMetric)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     LambdaFunctionMemoryProjectedMetric
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LambdaFunctionMemoryProjectedMetric"
       ( \x ->
           LambdaFunctionMemoryProjectedMetric'
-            Prelude.<$> (x Core..:? "value")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "statistic")
+            Prelude.<$> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "statistic")
+            Prelude.<*> (x Data..:? "value")
       )
 
 instance
@@ -95,15 +96,15 @@ instance
   hashWithSalt
     _salt
     LambdaFunctionMemoryProjectedMetric' {..} =
-      _salt `Prelude.hashWithSalt` value
-        `Prelude.hashWithSalt` name
+      _salt `Prelude.hashWithSalt` name
         `Prelude.hashWithSalt` statistic
+        `Prelude.hashWithSalt` value
 
 instance
   Prelude.NFData
     LambdaFunctionMemoryProjectedMetric
   where
   rnf LambdaFunctionMemoryProjectedMetric' {..} =
-    Prelude.rnf value
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name
       `Prelude.seq` Prelude.rnf statistic
+      `Prelude.seq` Prelude.rnf value

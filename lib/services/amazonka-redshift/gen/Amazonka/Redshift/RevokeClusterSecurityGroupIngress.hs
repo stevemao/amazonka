@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.RevokeClusterSecurityGroupIngress
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,9 +32,9 @@ module Amazonka.Redshift.RevokeClusterSecurityGroupIngress
     newRevokeClusterSecurityGroupIngress,
 
     -- * Request Lenses
-    revokeClusterSecurityGroupIngress_eC2SecurityGroupOwnerId,
-    revokeClusterSecurityGroupIngress_eC2SecurityGroupName,
     revokeClusterSecurityGroupIngress_cidrip,
+    revokeClusterSecurityGroupIngress_eC2SecurityGroupName,
+    revokeClusterSecurityGroupIngress_eC2SecurityGroupOwnerId,
     revokeClusterSecurityGroupIngress_clusterSecurityGroupName,
 
     -- * Destructuring the Response
@@ -48,7 +48,8 @@ module Amazonka.Redshift.RevokeClusterSecurityGroupIngress
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -58,7 +59,16 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newRevokeClusterSecurityGroupIngress' smart constructor.
 data RevokeClusterSecurityGroupIngress = RevokeClusterSecurityGroupIngress'
-  { -- | The Amazon Web Services account number of the owner of the security
+  { -- | The IP range for which to revoke access. This range must be a valid
+    -- Classless Inter-Domain Routing (CIDR) block of IP addresses. If @CIDRIP@
+    -- is specified, @EC2SecurityGroupName@ and @EC2SecurityGroupOwnerId@
+    -- cannot be provided.
+    cidrip :: Prelude.Maybe Prelude.Text,
+    -- | The name of the EC2 Security Group whose access is to be revoked. If
+    -- @EC2SecurityGroupName@ is specified, @EC2SecurityGroupOwnerId@ must also
+    -- be provided and @CIDRIP@ cannot be provided.
+    eC2SecurityGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services account number of the owner of the security
     -- group specified in the @EC2SecurityGroupName@ parameter. The Amazon Web
     -- Services access key ID is not an acceptable value. If
     -- @EC2SecurityGroupOwnerId@ is specified, @EC2SecurityGroupName@ must also
@@ -66,15 +76,6 @@ data RevokeClusterSecurityGroupIngress = RevokeClusterSecurityGroupIngress'
     --
     -- Example: @111122223333@
     eC2SecurityGroupOwnerId :: Prelude.Maybe Prelude.Text,
-    -- | The name of the EC2 Security Group whose access is to be revoked. If
-    -- @EC2SecurityGroupName@ is specified, @EC2SecurityGroupOwnerId@ must also
-    -- be provided and @CIDRIP@ cannot be provided.
-    eC2SecurityGroupName :: Prelude.Maybe Prelude.Text,
-    -- | The IP range for which to revoke access. This range must be a valid
-    -- Classless Inter-Domain Routing (CIDR) block of IP addresses. If @CIDRIP@
-    -- is specified, @EC2SecurityGroupName@ and @EC2SecurityGroupOwnerId@
-    -- cannot be provided.
-    cidrip :: Prelude.Maybe Prelude.Text,
     -- | The name of the security Group from which to revoke the ingress rule.
     clusterSecurityGroupName :: Prelude.Text
   }
@@ -88,6 +89,15 @@ data RevokeClusterSecurityGroupIngress = RevokeClusterSecurityGroupIngress'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'cidrip', 'revokeClusterSecurityGroupIngress_cidrip' - The IP range for which to revoke access. This range must be a valid
+-- Classless Inter-Domain Routing (CIDR) block of IP addresses. If @CIDRIP@
+-- is specified, @EC2SecurityGroupName@ and @EC2SecurityGroupOwnerId@
+-- cannot be provided.
+--
+-- 'eC2SecurityGroupName', 'revokeClusterSecurityGroupIngress_eC2SecurityGroupName' - The name of the EC2 Security Group whose access is to be revoked. If
+-- @EC2SecurityGroupName@ is specified, @EC2SecurityGroupOwnerId@ must also
+-- be provided and @CIDRIP@ cannot be provided.
+--
 -- 'eC2SecurityGroupOwnerId', 'revokeClusterSecurityGroupIngress_eC2SecurityGroupOwnerId' - The Amazon Web Services account number of the owner of the security
 -- group specified in the @EC2SecurityGroupName@ parameter. The Amazon Web
 -- Services access key ID is not an acceptable value. If
@@ -95,15 +105,6 @@ data RevokeClusterSecurityGroupIngress = RevokeClusterSecurityGroupIngress'
 -- be provided. and @CIDRIP@ cannot be provided.
 --
 -- Example: @111122223333@
---
--- 'eC2SecurityGroupName', 'revokeClusterSecurityGroupIngress_eC2SecurityGroupName' - The name of the EC2 Security Group whose access is to be revoked. If
--- @EC2SecurityGroupName@ is specified, @EC2SecurityGroupOwnerId@ must also
--- be provided and @CIDRIP@ cannot be provided.
---
--- 'cidrip', 'revokeClusterSecurityGroupIngress_cidrip' - The IP range for which to revoke access. This range must be a valid
--- Classless Inter-Domain Routing (CIDR) block of IP addresses. If @CIDRIP@
--- is specified, @EC2SecurityGroupName@ and @EC2SecurityGroupOwnerId@
--- cannot be provided.
 --
 -- 'clusterSecurityGroupName', 'revokeClusterSecurityGroupIngress_clusterSecurityGroupName' - The name of the security Group from which to revoke the ingress rule.
 newRevokeClusterSecurityGroupIngress ::
@@ -113,13 +114,27 @@ newRevokeClusterSecurityGroupIngress ::
 newRevokeClusterSecurityGroupIngress
   pClusterSecurityGroupName_ =
     RevokeClusterSecurityGroupIngress'
-      { eC2SecurityGroupOwnerId =
+      { cidrip =
           Prelude.Nothing,
         eC2SecurityGroupName = Prelude.Nothing,
-        cidrip = Prelude.Nothing,
+        eC2SecurityGroupOwnerId =
+          Prelude.Nothing,
         clusterSecurityGroupName =
           pClusterSecurityGroupName_
       }
+
+-- | The IP range for which to revoke access. This range must be a valid
+-- Classless Inter-Domain Routing (CIDR) block of IP addresses. If @CIDRIP@
+-- is specified, @EC2SecurityGroupName@ and @EC2SecurityGroupOwnerId@
+-- cannot be provided.
+revokeClusterSecurityGroupIngress_cidrip :: Lens.Lens' RevokeClusterSecurityGroupIngress (Prelude.Maybe Prelude.Text)
+revokeClusterSecurityGroupIngress_cidrip = Lens.lens (\RevokeClusterSecurityGroupIngress' {cidrip} -> cidrip) (\s@RevokeClusterSecurityGroupIngress' {} a -> s {cidrip = a} :: RevokeClusterSecurityGroupIngress)
+
+-- | The name of the EC2 Security Group whose access is to be revoked. If
+-- @EC2SecurityGroupName@ is specified, @EC2SecurityGroupOwnerId@ must also
+-- be provided and @CIDRIP@ cannot be provided.
+revokeClusterSecurityGroupIngress_eC2SecurityGroupName :: Lens.Lens' RevokeClusterSecurityGroupIngress (Prelude.Maybe Prelude.Text)
+revokeClusterSecurityGroupIngress_eC2SecurityGroupName = Lens.lens (\RevokeClusterSecurityGroupIngress' {eC2SecurityGroupName} -> eC2SecurityGroupName) (\s@RevokeClusterSecurityGroupIngress' {} a -> s {eC2SecurityGroupName = a} :: RevokeClusterSecurityGroupIngress)
 
 -- | The Amazon Web Services account number of the owner of the security
 -- group specified in the @EC2SecurityGroupName@ parameter. The Amazon Web
@@ -130,19 +145,6 @@ newRevokeClusterSecurityGroupIngress
 -- Example: @111122223333@
 revokeClusterSecurityGroupIngress_eC2SecurityGroupOwnerId :: Lens.Lens' RevokeClusterSecurityGroupIngress (Prelude.Maybe Prelude.Text)
 revokeClusterSecurityGroupIngress_eC2SecurityGroupOwnerId = Lens.lens (\RevokeClusterSecurityGroupIngress' {eC2SecurityGroupOwnerId} -> eC2SecurityGroupOwnerId) (\s@RevokeClusterSecurityGroupIngress' {} a -> s {eC2SecurityGroupOwnerId = a} :: RevokeClusterSecurityGroupIngress)
-
--- | The name of the EC2 Security Group whose access is to be revoked. If
--- @EC2SecurityGroupName@ is specified, @EC2SecurityGroupOwnerId@ must also
--- be provided and @CIDRIP@ cannot be provided.
-revokeClusterSecurityGroupIngress_eC2SecurityGroupName :: Lens.Lens' RevokeClusterSecurityGroupIngress (Prelude.Maybe Prelude.Text)
-revokeClusterSecurityGroupIngress_eC2SecurityGroupName = Lens.lens (\RevokeClusterSecurityGroupIngress' {eC2SecurityGroupName} -> eC2SecurityGroupName) (\s@RevokeClusterSecurityGroupIngress' {} a -> s {eC2SecurityGroupName = a} :: RevokeClusterSecurityGroupIngress)
-
--- | The IP range for which to revoke access. This range must be a valid
--- Classless Inter-Domain Routing (CIDR) block of IP addresses. If @CIDRIP@
--- is specified, @EC2SecurityGroupName@ and @EC2SecurityGroupOwnerId@
--- cannot be provided.
-revokeClusterSecurityGroupIngress_cidrip :: Lens.Lens' RevokeClusterSecurityGroupIngress (Prelude.Maybe Prelude.Text)
-revokeClusterSecurityGroupIngress_cidrip = Lens.lens (\RevokeClusterSecurityGroupIngress' {cidrip} -> cidrip) (\s@RevokeClusterSecurityGroupIngress' {} a -> s {cidrip = a} :: RevokeClusterSecurityGroupIngress)
 
 -- | The name of the security Group from which to revoke the ingress rule.
 revokeClusterSecurityGroupIngress_clusterSecurityGroupName :: Lens.Lens' RevokeClusterSecurityGroupIngress Prelude.Text
@@ -155,13 +157,14 @@ instance
   type
     AWSResponse RevokeClusterSecurityGroupIngress =
       RevokeClusterSecurityGroupIngressResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "RevokeClusterSecurityGroupIngressResult"
       ( \s h x ->
           RevokeClusterSecurityGroupIngressResponse'
-            Prelude.<$> (x Core..@? "ClusterSecurityGroup")
+            Prelude.<$> (x Data..@? "ClusterSecurityGroup")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -172,10 +175,9 @@ instance
   hashWithSalt
     _salt
     RevokeClusterSecurityGroupIngress' {..} =
-      _salt
-        `Prelude.hashWithSalt` eC2SecurityGroupOwnerId
+      _salt `Prelude.hashWithSalt` cidrip
         `Prelude.hashWithSalt` eC2SecurityGroupName
-        `Prelude.hashWithSalt` cidrip
+        `Prelude.hashWithSalt` eC2SecurityGroupOwnerId
         `Prelude.hashWithSalt` clusterSecurityGroupName
 
 instance
@@ -183,41 +185,41 @@ instance
     RevokeClusterSecurityGroupIngress
   where
   rnf RevokeClusterSecurityGroupIngress' {..} =
-    Prelude.rnf eC2SecurityGroupOwnerId
+    Prelude.rnf cidrip
       `Prelude.seq` Prelude.rnf eC2SecurityGroupName
-      `Prelude.seq` Prelude.rnf cidrip
+      `Prelude.seq` Prelude.rnf eC2SecurityGroupOwnerId
       `Prelude.seq` Prelude.rnf clusterSecurityGroupName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     RevokeClusterSecurityGroupIngress
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     RevokeClusterSecurityGroupIngress
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     RevokeClusterSecurityGroupIngress
   where
   toQuery RevokeClusterSecurityGroupIngress' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "RevokeClusterSecurityGroupIngress" ::
+          Data.=: ( "RevokeClusterSecurityGroupIngress" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "CIDRIP" Data.=: cidrip,
+        "EC2SecurityGroupName" Data.=: eC2SecurityGroupName,
         "EC2SecurityGroupOwnerId"
-          Core.=: eC2SecurityGroupOwnerId,
-        "EC2SecurityGroupName" Core.=: eC2SecurityGroupName,
-        "CIDRIP" Core.=: cidrip,
+          Data.=: eC2SecurityGroupOwnerId,
         "ClusterSecurityGroupName"
-          Core.=: clusterSecurityGroupName
+          Data.=: clusterSecurityGroupName
       ]
 
 -- | /See:/ 'newRevokeClusterSecurityGroupIngressResponse' smart constructor.

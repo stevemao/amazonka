@@ -14,21 +14,21 @@
 
 -- |
 -- Module      : Amazonka.RAM.UpdateResourceShare
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the specified resource share that you own.
+-- Modifies some of the properties of the specified resource share.
 module Amazonka.RAM.UpdateResourceShare
   ( -- * Creating a Request
     UpdateResourceShare (..),
     newUpdateResourceShare,
 
     -- * Request Lenses
-    updateResourceShare_clientToken,
     updateResourceShare_allowExternalPrincipals,
+    updateResourceShare_clientToken,
     updateResourceShare_name,
     updateResourceShare_resourceShareArn,
 
@@ -44,7 +44,8 @@ module Amazonka.RAM.UpdateResourceShare
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RAM.Types
 import qualified Amazonka.Request as Request
@@ -52,15 +53,26 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateResourceShare' smart constructor.
 data UpdateResourceShare = UpdateResourceShare'
-  { -- | A unique, case-sensitive identifier that you provide to ensure the
-    -- idempotency of the request.
-    clientToken :: Prelude.Maybe Prelude.Text,
-    -- | Indicates whether principals outside your organization in Organizations
+  { -- | Specifies whether principals outside your organization in Organizations
     -- can be associated with a resource share.
     allowExternalPrincipals :: Prelude.Maybe Prelude.Bool,
-    -- | The name of the resource share.
+    -- | Specifies a unique, case-sensitive identifier that you provide to ensure
+    -- the idempotency of the request. This lets you safely retry the request
+    -- without accidentally performing the same operation a second time.
+    -- Passing the same value to a later call to an operation requires that you
+    -- also pass the same value for all other parameters. We recommend that you
+    -- use a
+    -- <https://wikipedia.org/wiki/Universally_unique_identifier UUID type of value.>.
+    --
+    -- If you don\'t provide this value, then Amazon Web Services generates a
+    -- random one for you.
+    clientToken :: Prelude.Maybe Prelude.Text,
+    -- | If specified, the new name that you want to attach to the resource
+    -- share.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the resource share.
+    -- | Specifies the
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resoure Name (ARN)>
+    -- of the resource share that you want to modify.
     resourceShareArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -73,42 +85,65 @@ data UpdateResourceShare = UpdateResourceShare'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'updateResourceShare_clientToken' - A unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
---
--- 'allowExternalPrincipals', 'updateResourceShare_allowExternalPrincipals' - Indicates whether principals outside your organization in Organizations
+-- 'allowExternalPrincipals', 'updateResourceShare_allowExternalPrincipals' - Specifies whether principals outside your organization in Organizations
 -- can be associated with a resource share.
 --
--- 'name', 'updateResourceShare_name' - The name of the resource share.
+-- 'clientToken', 'updateResourceShare_clientToken' - Specifies a unique, case-sensitive identifier that you provide to ensure
+-- the idempotency of the request. This lets you safely retry the request
+-- without accidentally performing the same operation a second time.
+-- Passing the same value to a later call to an operation requires that you
+-- also pass the same value for all other parameters. We recommend that you
+-- use a
+-- <https://wikipedia.org/wiki/Universally_unique_identifier UUID type of value.>.
 --
--- 'resourceShareArn', 'updateResourceShare_resourceShareArn' - The Amazon Resource Name (ARN) of the resource share.
+-- If you don\'t provide this value, then Amazon Web Services generates a
+-- random one for you.
+--
+-- 'name', 'updateResourceShare_name' - If specified, the new name that you want to attach to the resource
+-- share.
+--
+-- 'resourceShareArn', 'updateResourceShare_resourceShareArn' - Specifies the
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resoure Name (ARN)>
+-- of the resource share that you want to modify.
 newUpdateResourceShare ::
   -- | 'resourceShareArn'
   Prelude.Text ->
   UpdateResourceShare
 newUpdateResourceShare pResourceShareArn_ =
   UpdateResourceShare'
-    { clientToken = Prelude.Nothing,
-      allowExternalPrincipals = Prelude.Nothing,
+    { allowExternalPrincipals =
+        Prelude.Nothing,
+      clientToken = Prelude.Nothing,
       name = Prelude.Nothing,
       resourceShareArn = pResourceShareArn_
     }
 
--- | A unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
-updateResourceShare_clientToken :: Lens.Lens' UpdateResourceShare (Prelude.Maybe Prelude.Text)
-updateResourceShare_clientToken = Lens.lens (\UpdateResourceShare' {clientToken} -> clientToken) (\s@UpdateResourceShare' {} a -> s {clientToken = a} :: UpdateResourceShare)
-
--- | Indicates whether principals outside your organization in Organizations
+-- | Specifies whether principals outside your organization in Organizations
 -- can be associated with a resource share.
 updateResourceShare_allowExternalPrincipals :: Lens.Lens' UpdateResourceShare (Prelude.Maybe Prelude.Bool)
 updateResourceShare_allowExternalPrincipals = Lens.lens (\UpdateResourceShare' {allowExternalPrincipals} -> allowExternalPrincipals) (\s@UpdateResourceShare' {} a -> s {allowExternalPrincipals = a} :: UpdateResourceShare)
 
--- | The name of the resource share.
+-- | Specifies a unique, case-sensitive identifier that you provide to ensure
+-- the idempotency of the request. This lets you safely retry the request
+-- without accidentally performing the same operation a second time.
+-- Passing the same value to a later call to an operation requires that you
+-- also pass the same value for all other parameters. We recommend that you
+-- use a
+-- <https://wikipedia.org/wiki/Universally_unique_identifier UUID type of value.>.
+--
+-- If you don\'t provide this value, then Amazon Web Services generates a
+-- random one for you.
+updateResourceShare_clientToken :: Lens.Lens' UpdateResourceShare (Prelude.Maybe Prelude.Text)
+updateResourceShare_clientToken = Lens.lens (\UpdateResourceShare' {clientToken} -> clientToken) (\s@UpdateResourceShare' {} a -> s {clientToken = a} :: UpdateResourceShare)
+
+-- | If specified, the new name that you want to attach to the resource
+-- share.
 updateResourceShare_name :: Lens.Lens' UpdateResourceShare (Prelude.Maybe Prelude.Text)
 updateResourceShare_name = Lens.lens (\UpdateResourceShare' {name} -> name) (\s@UpdateResourceShare' {} a -> s {name = a} :: UpdateResourceShare)
 
--- | The Amazon Resource Name (ARN) of the resource share.
+-- | Specifies the
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resoure Name (ARN)>
+-- of the resource share that you want to modify.
 updateResourceShare_resourceShareArn :: Lens.Lens' UpdateResourceShare Prelude.Text
 updateResourceShare_resourceShareArn = Lens.lens (\UpdateResourceShare' {resourceShareArn} -> resourceShareArn) (\s@UpdateResourceShare' {} a -> s {resourceShareArn = a} :: UpdateResourceShare)
 
@@ -116,64 +151,69 @@ instance Core.AWSRequest UpdateResourceShare where
   type
     AWSResponse UpdateResourceShare =
       UpdateResourceShareResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateResourceShareResponse'
-            Prelude.<$> (x Core..?> "clientToken")
-            Prelude.<*> (x Core..?> "resourceShare")
+            Prelude.<$> (x Data..?> "clientToken")
+            Prelude.<*> (x Data..?> "resourceShare")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateResourceShare where
   hashWithSalt _salt UpdateResourceShare' {..} =
-    _salt `Prelude.hashWithSalt` clientToken
+    _salt
       `Prelude.hashWithSalt` allowExternalPrincipals
+      `Prelude.hashWithSalt` clientToken
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` resourceShareArn
 
 instance Prelude.NFData UpdateResourceShare where
   rnf UpdateResourceShare' {..} =
-    Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf allowExternalPrincipals
+    Prelude.rnf allowExternalPrincipals
+      `Prelude.seq` Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf resourceShareArn
 
-instance Core.ToHeaders UpdateResourceShare where
+instance Data.ToHeaders UpdateResourceShare where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateResourceShare where
+instance Data.ToJSON UpdateResourceShare where
   toJSON UpdateResourceShare' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("allowExternalPrincipals" Core..=)
+          [ ("allowExternalPrincipals" Data..=)
               Prelude.<$> allowExternalPrincipals,
-            ("name" Core..=) Prelude.<$> name,
+            ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("name" Data..=) Prelude.<$> name,
             Prelude.Just
-              ("resourceShareArn" Core..= resourceShareArn)
+              ("resourceShareArn" Data..= resourceShareArn)
           ]
       )
 
-instance Core.ToPath UpdateResourceShare where
+instance Data.ToPath UpdateResourceShare where
   toPath = Prelude.const "/updateresourceshare"
 
-instance Core.ToQuery UpdateResourceShare where
+instance Data.ToQuery UpdateResourceShare where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateResourceShareResponse' smart constructor.
 data UpdateResourceShareResponse = UpdateResourceShareResponse'
-  { -- | A unique, case-sensitive identifier that you provide to ensure the
-    -- idempotency of the request.
+  { -- | The idempotency identifier associated with this request. If you want to
+    -- repeat the same operation in an idempotent manner then you must include
+    -- this value in the @clientToken@ request parameter of that later call.
+    -- All other parameters must also have the same values that you used in the
+    -- first call.
     clientToken :: Prelude.Maybe Prelude.Text,
     -- | Information about the resource share.
     resourceShare :: Prelude.Maybe ResourceShare,
@@ -190,8 +230,11 @@ data UpdateResourceShareResponse = UpdateResourceShareResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'updateResourceShareResponse_clientToken' - A unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
+-- 'clientToken', 'updateResourceShareResponse_clientToken' - The idempotency identifier associated with this request. If you want to
+-- repeat the same operation in an idempotent manner then you must include
+-- this value in the @clientToken@ request parameter of that later call.
+-- All other parameters must also have the same values that you used in the
+-- first call.
 --
 -- 'resourceShare', 'updateResourceShareResponse_resourceShare' - Information about the resource share.
 --
@@ -208,8 +251,11 @@ newUpdateResourceShareResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | A unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
+-- | The idempotency identifier associated with this request. If you want to
+-- repeat the same operation in an idempotent manner then you must include
+-- this value in the @clientToken@ request parameter of that later call.
+-- All other parameters must also have the same values that you used in the
+-- first call.
 updateResourceShareResponse_clientToken :: Lens.Lens' UpdateResourceShareResponse (Prelude.Maybe Prelude.Text)
 updateResourceShareResponse_clientToken = Lens.lens (\UpdateResourceShareResponse' {clientToken} -> clientToken) (\s@UpdateResourceShareResponse' {} a -> s {clientToken = a} :: UpdateResourceShareResponse)
 

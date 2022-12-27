@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.CreateDirectConnectGatewayAssociationProposal
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.DirectConnect.CreateDirectConnectGatewayAssociationProposal
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -144,13 +145,14 @@ instance
     AWSResponse
       CreateDirectConnectGatewayAssociationProposal =
       CreateDirectConnectGatewayAssociationProposalResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDirectConnectGatewayAssociationProposalResponse'
             Prelude.<$> ( x
-                            Core..?> "directConnectGatewayAssociationProposal"
+                            Data..?> "directConnectGatewayAssociationProposal"
                         )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -184,57 +186,57 @@ instance
         `Prelude.seq` Prelude.rnf gatewayId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateDirectConnectGatewayAssociationProposal
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.CreateDirectConnectGatewayAssociationProposal" ::
+              Data.=# ( "OvertureService.CreateDirectConnectGatewayAssociationProposal" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CreateDirectConnectGatewayAssociationProposal
   where
   toJSON
     CreateDirectConnectGatewayAssociationProposal' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("addAllowedPrefixesToDirectConnectGateway" Core..=)
+            [ ("addAllowedPrefixesToDirectConnectGateway" Data..=)
                 Prelude.<$> addAllowedPrefixesToDirectConnectGateway,
               ( "removeAllowedPrefixesToDirectConnectGateway"
-                  Core..=
+                  Data..=
               )
                 Prelude.<$> removeAllowedPrefixesToDirectConnectGateway,
               Prelude.Just
                 ( "directConnectGatewayId"
-                    Core..= directConnectGatewayId
+                    Data..= directConnectGatewayId
                 ),
               Prelude.Just
                 ( "directConnectGatewayOwnerAccount"
-                    Core..= directConnectGatewayOwnerAccount
+                    Data..= directConnectGatewayOwnerAccount
                 ),
-              Prelude.Just ("gatewayId" Core..= gatewayId)
+              Prelude.Just ("gatewayId" Data..= gatewayId)
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     CreateDirectConnectGatewayAssociationProposal
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CreateDirectConnectGatewayAssociationProposal
   where
   toQuery = Prelude.const Prelude.mempty

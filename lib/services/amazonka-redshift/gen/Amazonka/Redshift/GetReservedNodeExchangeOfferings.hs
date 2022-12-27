@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.GetReservedNodeExchangeOfferings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,14 +39,15 @@ module Amazonka.Redshift.GetReservedNodeExchangeOfferings
     newGetReservedNodeExchangeOfferingsResponse,
 
     -- * Response Lenses
-    getReservedNodeExchangeOfferingsResponse_reservedNodeOfferings,
     getReservedNodeExchangeOfferingsResponse_marker,
+    getReservedNodeExchangeOfferingsResponse_reservedNodeOfferings,
     getReservedNodeExchangeOfferingsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -143,17 +144,18 @@ instance
   type
     AWSResponse GetReservedNodeExchangeOfferings =
       GetReservedNodeExchangeOfferingsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetReservedNodeExchangeOfferingsResult"
       ( \s h x ->
           GetReservedNodeExchangeOfferingsResponse'
-            Prelude.<$> ( x Core..@? "ReservedNodeOfferings"
+            Prelude.<$> (x Data..@? "Marker")
+            Prelude.<*> ( x Data..@? "ReservedNodeOfferings"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "ReservedNodeOffering")
+                            Prelude.>>= Core.may (Data.parseXMLList "ReservedNodeOffering")
                         )
-            Prelude.<*> (x Core..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -178,36 +180,34 @@ instance
       `Prelude.seq` Prelude.rnf reservedNodeId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetReservedNodeExchangeOfferings
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetReservedNodeExchangeOfferings where
+instance Data.ToPath GetReservedNodeExchangeOfferings where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetReservedNodeExchangeOfferings
   where
   toQuery GetReservedNodeExchangeOfferings' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "GetReservedNodeExchangeOfferings" ::
+          Data.=: ( "GetReservedNodeExchangeOfferings" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "ReservedNodeId" Core.=: reservedNodeId
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "ReservedNodeId" Data.=: reservedNodeId
       ]
 
 -- | /See:/ 'newGetReservedNodeExchangeOfferingsResponse' smart constructor.
 data GetReservedNodeExchangeOfferingsResponse = GetReservedNodeExchangeOfferingsResponse'
-  { -- | Returns an array of ReservedNodeOffering objects.
-    reservedNodeOfferings :: Prelude.Maybe [ReservedNodeOffering],
-    -- | An optional parameter that specifies the starting point for returning a
+  { -- | An optional parameter that specifies the starting point for returning a
     -- set of response records. When the results of a
     -- @GetReservedNodeExchangeOfferings@ request exceed the value specified in
     -- MaxRecords, Amazon Redshift returns a value in the marker field of the
@@ -215,6 +215,8 @@ data GetReservedNodeExchangeOfferingsResponse = GetReservedNodeExchangeOfferings
     -- the returned marker value in the marker parameter and retrying the
     -- request.
     marker :: Prelude.Maybe Prelude.Text,
+    -- | Returns an array of ReservedNodeOffering objects.
+    reservedNodeOfferings :: Prelude.Maybe [ReservedNodeOffering],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -228,8 +230,6 @@ data GetReservedNodeExchangeOfferingsResponse = GetReservedNodeExchangeOfferings
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'reservedNodeOfferings', 'getReservedNodeExchangeOfferingsResponse_reservedNodeOfferings' - Returns an array of ReservedNodeOffering objects.
---
 -- 'marker', 'getReservedNodeExchangeOfferingsResponse_marker' - An optional parameter that specifies the starting point for returning a
 -- set of response records. When the results of a
 -- @GetReservedNodeExchangeOfferings@ request exceed the value specified in
@@ -237,6 +237,8 @@ data GetReservedNodeExchangeOfferingsResponse = GetReservedNodeExchangeOfferings
 -- response. You can retrieve the next set of response records by providing
 -- the returned marker value in the marker parameter and retrying the
 -- request.
+--
+-- 'reservedNodeOfferings', 'getReservedNodeExchangeOfferingsResponse_reservedNodeOfferings' - Returns an array of ReservedNodeOffering objects.
 --
 -- 'httpStatus', 'getReservedNodeExchangeOfferingsResponse_httpStatus' - The response's http status code.
 newGetReservedNodeExchangeOfferingsResponse ::
@@ -246,15 +248,12 @@ newGetReservedNodeExchangeOfferingsResponse ::
 newGetReservedNodeExchangeOfferingsResponse
   pHttpStatus_ =
     GetReservedNodeExchangeOfferingsResponse'
-      { reservedNodeOfferings =
+      { marker =
           Prelude.Nothing,
-        marker = Prelude.Nothing,
+        reservedNodeOfferings =
+          Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | Returns an array of ReservedNodeOffering objects.
-getReservedNodeExchangeOfferingsResponse_reservedNodeOfferings :: Lens.Lens' GetReservedNodeExchangeOfferingsResponse (Prelude.Maybe [ReservedNodeOffering])
-getReservedNodeExchangeOfferingsResponse_reservedNodeOfferings = Lens.lens (\GetReservedNodeExchangeOfferingsResponse' {reservedNodeOfferings} -> reservedNodeOfferings) (\s@GetReservedNodeExchangeOfferingsResponse' {} a -> s {reservedNodeOfferings = a} :: GetReservedNodeExchangeOfferingsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | An optional parameter that specifies the starting point for returning a
 -- set of response records. When the results of a
@@ -266,6 +265,10 @@ getReservedNodeExchangeOfferingsResponse_reservedNodeOfferings = Lens.lens (\Get
 getReservedNodeExchangeOfferingsResponse_marker :: Lens.Lens' GetReservedNodeExchangeOfferingsResponse (Prelude.Maybe Prelude.Text)
 getReservedNodeExchangeOfferingsResponse_marker = Lens.lens (\GetReservedNodeExchangeOfferingsResponse' {marker} -> marker) (\s@GetReservedNodeExchangeOfferingsResponse' {} a -> s {marker = a} :: GetReservedNodeExchangeOfferingsResponse)
 
+-- | Returns an array of ReservedNodeOffering objects.
+getReservedNodeExchangeOfferingsResponse_reservedNodeOfferings :: Lens.Lens' GetReservedNodeExchangeOfferingsResponse (Prelude.Maybe [ReservedNodeOffering])
+getReservedNodeExchangeOfferingsResponse_reservedNodeOfferings = Lens.lens (\GetReservedNodeExchangeOfferingsResponse' {reservedNodeOfferings} -> reservedNodeOfferings) (\s@GetReservedNodeExchangeOfferingsResponse' {} a -> s {reservedNodeOfferings = a} :: GetReservedNodeExchangeOfferingsResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 getReservedNodeExchangeOfferingsResponse_httpStatus :: Lens.Lens' GetReservedNodeExchangeOfferingsResponse Prelude.Int
 getReservedNodeExchangeOfferingsResponse_httpStatus = Lens.lens (\GetReservedNodeExchangeOfferingsResponse' {httpStatus} -> httpStatus) (\s@GetReservedNodeExchangeOfferingsResponse' {} a -> s {httpStatus = a} :: GetReservedNodeExchangeOfferingsResponse)
@@ -275,6 +278,6 @@ instance
     GetReservedNodeExchangeOfferingsResponse
   where
   rnf GetReservedNodeExchangeOfferingsResponse' {..} =
-    Prelude.rnf reservedNodeOfferings
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
+      `Prelude.seq` Prelude.rnf reservedNodeOfferings
       `Prelude.seq` Prelude.rnf httpStatus

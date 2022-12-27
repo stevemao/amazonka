@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.Types.RepositoryTriggerExecutionFailure
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeCommit.Types.RepositoryTriggerExecutionFailure where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A trigger failed to run.
@@ -63,16 +64,16 @@ repositoryTriggerExecutionFailure_trigger :: Lens.Lens' RepositoryTriggerExecuti
 repositoryTriggerExecutionFailure_trigger = Lens.lens (\RepositoryTriggerExecutionFailure' {trigger} -> trigger) (\s@RepositoryTriggerExecutionFailure' {} a -> s {trigger = a} :: RepositoryTriggerExecutionFailure)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     RepositoryTriggerExecutionFailure
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RepositoryTriggerExecutionFailure"
       ( \x ->
           RepositoryTriggerExecutionFailure'
-            Prelude.<$> (x Core..:? "failureMessage")
-            Prelude.<*> (x Core..:? "trigger")
+            Prelude.<$> (x Data..:? "failureMessage")
+            Prelude.<*> (x Data..:? "trigger")
       )
 
 instance

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.DeleteServerCatalog
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,7 +36,8 @@ module Amazonka.SMS.DeleteServerCatalog
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,7 +61,8 @@ instance Core.AWSRequest DeleteServerCatalog where
   type
     AWSResponse DeleteServerCatalog =
       DeleteServerCatalogResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -75,28 +77,28 @@ instance Prelude.Hashable DeleteServerCatalog where
 instance Prelude.NFData DeleteServerCatalog where
   rnf _ = ()
 
-instance Core.ToHeaders DeleteServerCatalog where
+instance Data.ToHeaders DeleteServerCatalog where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.DeleteServerCatalog" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.DeleteServerCatalog" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteServerCatalog where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DeleteServerCatalog where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DeleteServerCatalog where
+instance Data.ToPath DeleteServerCatalog where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteServerCatalog where
+instance Data.ToQuery DeleteServerCatalog where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteServerCatalogResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.DeleteLifecycleHook
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ instance Core.AWSRequest DeleteLifecycleHook where
   type
     AWSResponse DeleteLifecycleHook =
       DeleteLifecycleHookResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteLifecycleHookResult"
@@ -116,21 +118,21 @@ instance Prelude.NFData DeleteLifecycleHook where
     Prelude.rnf lifecycleHookName
       `Prelude.seq` Prelude.rnf autoScalingGroupName
 
-instance Core.ToHeaders DeleteLifecycleHook where
+instance Data.ToHeaders DeleteLifecycleHook where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteLifecycleHook where
+instance Data.ToPath DeleteLifecycleHook where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteLifecycleHook where
+instance Data.ToQuery DeleteLifecycleHook where
   toQuery DeleteLifecycleHook' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteLifecycleHook" :: Prelude.ByteString),
+          Data.=: ("DeleteLifecycleHook" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "LifecycleHookName" Core.=: lifecycleHookName,
-        "AutoScalingGroupName" Core.=: autoScalingGroupName
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "LifecycleHookName" Data.=: lifecycleHookName,
+        "AutoScalingGroupName" Data.=: autoScalingGroupName
       ]
 
 -- | /See:/ 'newDeleteLifecycleHookResponse' smart constructor.

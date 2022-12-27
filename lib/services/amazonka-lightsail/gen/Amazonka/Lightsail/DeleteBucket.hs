@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.DeleteBucket
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@
 -- Deletes a Amazon Lightsail bucket.
 --
 -- When you delete your bucket, the bucket name is released and can be
--- reused for a new bucket in your account or another AWS account.
+-- reused for a new bucket in your account or another Amazon Web Services
+-- account.
 module Amazonka.Lightsail.DeleteBucket
   ( -- * Creating a Request
     DeleteBucket (..),
@@ -44,7 +45,8 @@ module Amazonka.Lightsail.DeleteBucket
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -60,7 +62,8 @@ data DeleteBucket = DeleteBucket'
     -- -   The bucket is the origin of a distribution.
     --
     -- -   The bucket has instances that were granted access to it using the
-    --     SetResourceAccessForBucket action.
+    --     <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_SetResourceAccessForBucket.html SetResourceAccessForBucket>
+    --     action.
     --
     -- -   The bucket has objects.
     --
@@ -72,8 +75,9 @@ data DeleteBucket = DeleteBucket'
     forceDelete :: Prelude.Maybe Prelude.Bool,
     -- | The name of the bucket to delete.
     --
-    -- Use the GetBuckets action to get a list of bucket names that you can
-    -- specify.
+    -- Use the
+    -- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetBuckets.html GetBuckets>
+    -- action to get a list of bucket names that you can specify.
     bucketName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -94,7 +98,8 @@ data DeleteBucket = DeleteBucket'
 -- -   The bucket is the origin of a distribution.
 --
 -- -   The bucket has instances that were granted access to it using the
---     SetResourceAccessForBucket action.
+--     <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_SetResourceAccessForBucket.html SetResourceAccessForBucket>
+--     action.
 --
 -- -   The bucket has objects.
 --
@@ -106,8 +111,9 @@ data DeleteBucket = DeleteBucket'
 --
 -- 'bucketName', 'deleteBucket_bucketName' - The name of the bucket to delete.
 --
--- Use the GetBuckets action to get a list of bucket names that you can
--- specify.
+-- Use the
+-- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetBuckets.html GetBuckets>
+-- action to get a list of bucket names that you can specify.
 newDeleteBucket ::
   -- | 'bucketName'
   Prelude.Text ->
@@ -126,7 +132,8 @@ newDeleteBucket pBucketName_ =
 -- -   The bucket is the origin of a distribution.
 --
 -- -   The bucket has instances that were granted access to it using the
---     SetResourceAccessForBucket action.
+--     <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_SetResourceAccessForBucket.html SetResourceAccessForBucket>
+--     action.
 --
 -- -   The bucket has objects.
 --
@@ -140,19 +147,21 @@ deleteBucket_forceDelete = Lens.lens (\DeleteBucket' {forceDelete} -> forceDelet
 
 -- | The name of the bucket to delete.
 --
--- Use the GetBuckets action to get a list of bucket names that you can
--- specify.
+-- Use the
+-- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetBuckets.html GetBuckets>
+-- action to get a list of bucket names that you can specify.
 deleteBucket_bucketName :: Lens.Lens' DeleteBucket Prelude.Text
 deleteBucket_bucketName = Lens.lens (\DeleteBucket' {bucketName} -> bucketName) (\s@DeleteBucket' {} a -> s {bucketName = a} :: DeleteBucket)
 
 instance Core.AWSRequest DeleteBucket where
   type AWSResponse DeleteBucket = DeleteBucketResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteBucketResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -166,34 +175,34 @@ instance Prelude.NFData DeleteBucket where
     Prelude.rnf forceDelete
       `Prelude.seq` Prelude.rnf bucketName
 
-instance Core.ToHeaders DeleteBucket where
+instance Data.ToHeaders DeleteBucket where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.DeleteBucket" ::
+              Data.=# ( "Lightsail_20161128.DeleteBucket" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteBucket where
+instance Data.ToJSON DeleteBucket where
   toJSON DeleteBucket' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("forceDelete" Core..=) Prelude.<$> forceDelete,
-            Prelude.Just ("bucketName" Core..= bucketName)
+          [ ("forceDelete" Data..=) Prelude.<$> forceDelete,
+            Prelude.Just ("bucketName" Data..= bucketName)
           ]
       )
 
-instance Core.ToPath DeleteBucket where
+instance Data.ToPath DeleteBucket where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteBucket where
+instance Data.ToQuery DeleteBucket where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteBucketResponse' smart constructor.

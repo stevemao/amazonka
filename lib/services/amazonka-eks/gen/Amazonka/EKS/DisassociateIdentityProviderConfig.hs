@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.DisassociateIdentityProviderConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.EKS.DisassociateIdentityProviderConfig
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,7 +59,7 @@ data DisassociateIdentityProviderConfig = DisassociateIdentityProviderConfig'
     clientRequestToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the cluster to disassociate an identity provider from.
     clusterName :: Prelude.Text,
-    -- | An object that represents an identity provider configuration.
+    -- | An object representing an identity provider configuration.
     identityProviderConfig :: IdentityProviderConfig
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -76,7 +77,7 @@ data DisassociateIdentityProviderConfig = DisassociateIdentityProviderConfig'
 --
 -- 'clusterName', 'disassociateIdentityProviderConfig_clusterName' - The name of the cluster to disassociate an identity provider from.
 --
--- 'identityProviderConfig', 'disassociateIdentityProviderConfig_identityProviderConfig' - An object that represents an identity provider configuration.
+-- 'identityProviderConfig', 'disassociateIdentityProviderConfig_identityProviderConfig' - An object representing an identity provider configuration.
 newDisassociateIdentityProviderConfig ::
   -- | 'clusterName'
   Prelude.Text ->
@@ -103,7 +104,7 @@ disassociateIdentityProviderConfig_clientRequestToken = Lens.lens (\Disassociate
 disassociateIdentityProviderConfig_clusterName :: Lens.Lens' DisassociateIdentityProviderConfig Prelude.Text
 disassociateIdentityProviderConfig_clusterName = Lens.lens (\DisassociateIdentityProviderConfig' {clusterName} -> clusterName) (\s@DisassociateIdentityProviderConfig' {} a -> s {clusterName = a} :: DisassociateIdentityProviderConfig)
 
--- | An object that represents an identity provider configuration.
+-- | An object representing an identity provider configuration.
 disassociateIdentityProviderConfig_identityProviderConfig :: Lens.Lens' DisassociateIdentityProviderConfig IdentityProviderConfig
 disassociateIdentityProviderConfig_identityProviderConfig = Lens.lens (\DisassociateIdentityProviderConfig' {identityProviderConfig} -> identityProviderConfig) (\s@DisassociateIdentityProviderConfig' {} a -> s {identityProviderConfig = a} :: DisassociateIdentityProviderConfig)
 
@@ -114,12 +115,13 @@ instance
   type
     AWSResponse DisassociateIdentityProviderConfig =
       DisassociateIdentityProviderConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DisassociateIdentityProviderConfigResponse'
-            Prelude.<$> (x Core..?> "update")
+            Prelude.<$> (x Data..?> "update")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -144,48 +146,48 @@ instance
       `Prelude.seq` Prelude.rnf identityProviderConfig
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DisassociateIdentityProviderConfig
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DisassociateIdentityProviderConfig
   where
   toJSON DisassociateIdentityProviderConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientRequestToken" Core..=)
+          [ ("clientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
             Prelude.Just
               ( "identityProviderConfig"
-                  Core..= identityProviderConfig
+                  Data..= identityProviderConfig
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DisassociateIdentityProviderConfig
   where
   toPath DisassociateIdentityProviderConfig' {..} =
     Prelude.mconcat
       [ "/clusters/",
-        Core.toBS clusterName,
+        Data.toBS clusterName,
         "/identity-provider-configs/disassociate"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DisassociateIdentityProviderConfig
   where
   toQuery = Prelude.const Prelude.mempty

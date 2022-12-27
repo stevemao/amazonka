@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.RegisterPatchBaselineForPatchGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.SSM.RegisterPatchBaselineForPatchGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,13 +99,14 @@ instance
   type
     AWSResponse RegisterPatchBaselineForPatchGroup =
       RegisterPatchBaselineForPatchGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RegisterPatchBaselineForPatchGroupResponse'
-            Prelude.<$> (x Core..?> "BaselineId")
-              Prelude.<*> (x Core..?> "PatchGroup")
+            Prelude.<$> (x Data..?> "BaselineId")
+              Prelude.<*> (x Data..?> "PatchGroup")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -127,43 +129,43 @@ instance
       `Prelude.seq` Prelude.rnf patchGroup
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     RegisterPatchBaselineForPatchGroup
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.RegisterPatchBaselineForPatchGroup" ::
+              Data.=# ( "AmazonSSM.RegisterPatchBaselineForPatchGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     RegisterPatchBaselineForPatchGroup
   where
   toJSON RegisterPatchBaselineForPatchGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("BaselineId" Core..= baselineId),
-            Prelude.Just ("PatchGroup" Core..= patchGroup)
+          [ Prelude.Just ("BaselineId" Data..= baselineId),
+            Prelude.Just ("PatchGroup" Data..= patchGroup)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     RegisterPatchBaselineForPatchGroup
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     RegisterPatchBaselineForPatchGroup
   where
   toQuery = Prelude.const Prelude.mempty

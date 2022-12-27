@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutMetrics.Types.ContributionMatrix
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LookoutMetrics.Types.ContributionMatrix where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutMetrics.Types.DimensionContribution
 import qualified Amazonka.Prelude as Prelude
 
@@ -54,14 +55,14 @@ newContributionMatrix =
 contributionMatrix_dimensionContributionList :: Lens.Lens' ContributionMatrix (Prelude.Maybe [DimensionContribution])
 contributionMatrix_dimensionContributionList = Lens.lens (\ContributionMatrix' {dimensionContributionList} -> dimensionContributionList) (\s@ContributionMatrix' {} a -> s {dimensionContributionList = a} :: ContributionMatrix) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ContributionMatrix where
+instance Data.FromJSON ContributionMatrix where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContributionMatrix"
       ( \x ->
           ContributionMatrix'
-            Prelude.<$> ( x Core..:? "DimensionContributionList"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "DimensionContributionList"
+                            Data..!= Prelude.mempty
                         )
       )
 

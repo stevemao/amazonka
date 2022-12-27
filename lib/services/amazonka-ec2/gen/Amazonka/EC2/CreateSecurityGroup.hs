@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateSecurityGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,15 +48,20 @@
 --
 -- For more information about VPC security group limits, see
 -- <https://docs.aws.amazon.com/vpc/latest/userguide/amazon-vpc-limits.html Amazon VPC Limits>.
+--
+-- We are retiring EC2-Classic. We recommend that you migrate from
+-- EC2-Classic to a VPC. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html Migrate from EC2-Classic to a VPC>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 module Amazonka.EC2.CreateSecurityGroup
   ( -- * Creating a Request
     CreateSecurityGroup (..),
     newCreateSecurityGroup,
 
     -- * Request Lenses
-    createSecurityGroup_vpcId,
-    createSecurityGroup_tagSpecifications,
     createSecurityGroup_dryRun,
+    createSecurityGroup_tagSpecifications,
+    createSecurityGroup_vpcId,
     createSecurityGroup_description,
     createSecurityGroup_groupName,
 
@@ -72,23 +77,24 @@ module Amazonka.EC2.CreateSecurityGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateSecurityGroup' smart constructor.
 data CreateSecurityGroup = CreateSecurityGroup'
-  { -- | [EC2-VPC] The ID of the VPC. Required for EC2-VPC.
-    vpcId :: Prelude.Maybe Prelude.Text,
-    -- | The tags to assign to the security group.
-    tagSpecifications :: Prelude.Maybe [TagSpecification],
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The tags to assign to the security group.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | [EC2-VPC] The ID of the VPC. Required for EC2-VPC.
+    vpcId :: Prelude.Maybe Prelude.Text,
     -- | A description for the security group. This is informational only.
     --
     -- Constraints: Up to 255 characters in length
@@ -118,14 +124,14 @@ data CreateSecurityGroup = CreateSecurityGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vpcId', 'createSecurityGroup_vpcId' - [EC2-VPC] The ID of the VPC. Required for EC2-VPC.
---
--- 'tagSpecifications', 'createSecurityGroup_tagSpecifications' - The tags to assign to the security group.
---
 -- 'dryRun', 'createSecurityGroup_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'tagSpecifications', 'createSecurityGroup_tagSpecifications' - The tags to assign to the security group.
+--
+-- 'vpcId', 'createSecurityGroup_vpcId' - [EC2-VPC] The ID of the VPC. Required for EC2-VPC.
 --
 -- 'description', 'createSecurityGroup_description' - A description for the security group. This is informational only.
 --
@@ -152,20 +158,12 @@ newCreateSecurityGroup ::
   CreateSecurityGroup
 newCreateSecurityGroup pDescription_ pGroupName_ =
   CreateSecurityGroup'
-    { vpcId = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
       tagSpecifications = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
+      vpcId = Prelude.Nothing,
       description = pDescription_,
       groupName = pGroupName_
     }
-
--- | [EC2-VPC] The ID of the VPC. Required for EC2-VPC.
-createSecurityGroup_vpcId :: Lens.Lens' CreateSecurityGroup (Prelude.Maybe Prelude.Text)
-createSecurityGroup_vpcId = Lens.lens (\CreateSecurityGroup' {vpcId} -> vpcId) (\s@CreateSecurityGroup' {} a -> s {vpcId = a} :: CreateSecurityGroup)
-
--- | The tags to assign to the security group.
-createSecurityGroup_tagSpecifications :: Lens.Lens' CreateSecurityGroup (Prelude.Maybe [TagSpecification])
-createSecurityGroup_tagSpecifications = Lens.lens (\CreateSecurityGroup' {tagSpecifications} -> tagSpecifications) (\s@CreateSecurityGroup' {} a -> s {tagSpecifications = a} :: CreateSecurityGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -173,6 +171,14 @@ createSecurityGroup_tagSpecifications = Lens.lens (\CreateSecurityGroup' {tagSpe
 -- Otherwise, it is @UnauthorizedOperation@.
 createSecurityGroup_dryRun :: Lens.Lens' CreateSecurityGroup (Prelude.Maybe Prelude.Bool)
 createSecurityGroup_dryRun = Lens.lens (\CreateSecurityGroup' {dryRun} -> dryRun) (\s@CreateSecurityGroup' {} a -> s {dryRun = a} :: CreateSecurityGroup)
+
+-- | The tags to assign to the security group.
+createSecurityGroup_tagSpecifications :: Lens.Lens' CreateSecurityGroup (Prelude.Maybe [TagSpecification])
+createSecurityGroup_tagSpecifications = Lens.lens (\CreateSecurityGroup' {tagSpecifications} -> tagSpecifications) (\s@CreateSecurityGroup' {} a -> s {tagSpecifications = a} :: CreateSecurityGroup) Prelude.. Lens.mapping Lens.coerced
+
+-- | [EC2-VPC] The ID of the VPC. Required for EC2-VPC.
+createSecurityGroup_vpcId :: Lens.Lens' CreateSecurityGroup (Prelude.Maybe Prelude.Text)
+createSecurityGroup_vpcId = Lens.lens (\CreateSecurityGroup' {vpcId} -> vpcId) (\s@CreateSecurityGroup' {} a -> s {vpcId = a} :: CreateSecurityGroup)
 
 -- | A description for the security group. This is informational only.
 --
@@ -200,55 +206,56 @@ instance Core.AWSRequest CreateSecurityGroup where
   type
     AWSResponse CreateSecurityGroup =
       CreateSecurityGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateSecurityGroupResponse'
-            Prelude.<$> ( x Core..@? "tagSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "tagSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "groupId")
+            Prelude.<*> (x Data..@ "groupId")
       )
 
 instance Prelude.Hashable CreateSecurityGroup where
   hashWithSalt _salt CreateSecurityGroup' {..} =
-    _salt `Prelude.hashWithSalt` vpcId
+    _salt `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` tagSpecifications
-      `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` vpcId
       `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` groupName
 
 instance Prelude.NFData CreateSecurityGroup where
   rnf CreateSecurityGroup' {..} =
-    Prelude.rnf vpcId
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf tagSpecifications
-      `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf vpcId
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf groupName
 
-instance Core.ToHeaders CreateSecurityGroup where
+instance Data.ToHeaders CreateSecurityGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateSecurityGroup where
+instance Data.ToPath CreateSecurityGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateSecurityGroup where
+instance Data.ToQuery CreateSecurityGroup where
   toQuery CreateSecurityGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateSecurityGroup" :: Prelude.ByteString),
+          Data.=: ("CreateSecurityGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "VpcId" Core.=: vpcId,
-        Core.toQuery
-          ( Core.toQueryList "TagSpecification"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          ( Data.toQueryList "TagSpecification"
               Prelude.<$> tagSpecifications
           ),
-        "DryRun" Core.=: dryRun,
-        "GroupDescription" Core.=: description,
-        "GroupName" Core.=: groupName
+        "VpcId" Data.=: vpcId,
+        "GroupDescription" Data.=: description,
+        "GroupName" Data.=: groupName
       ]
 
 -- | /See:/ 'newCreateSecurityGroupResponse' smart constructor.

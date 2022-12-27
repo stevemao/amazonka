@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.UpdateGatewayInformation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,10 +33,10 @@ module Amazonka.StorageGateway.UpdateGatewayInformation
     newUpdateGatewayInformation,
 
     -- * Request Lenses
+    updateGatewayInformation_cloudWatchLogGroupARN,
     updateGatewayInformation_gatewayCapacity,
     updateGatewayInformation_gatewayName,
     updateGatewayInformation_gatewayTimezone,
-    updateGatewayInformation_cloudWatchLogGroupARN,
     updateGatewayInformation_gatewayARN,
 
     -- * Destructuring the Response
@@ -51,7 +51,8 @@ module Amazonka.StorageGateway.UpdateGatewayInformation
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,17 +60,17 @@ import Amazonka.StorageGateway.Types
 
 -- | /See:/ 'newUpdateGatewayInformation' smart constructor.
 data UpdateGatewayInformation = UpdateGatewayInformation'
-  { -- | Specifies the size of the gateway\'s metadata cache.
-    gatewayCapacity :: Prelude.Maybe GatewayCapacity,
-    gatewayName :: Prelude.Maybe Prelude.Text,
-    -- | A value that indicates the time zone of the gateway.
-    gatewayTimezone :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that
+  { -- | The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that
     -- you want to use to monitor and log events in the gateway.
     --
     -- For more information, see
     -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html What is Amazon CloudWatch Logs?>
     cloudWatchLogGroupARN :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the size of the gateway\'s metadata cache.
+    gatewayCapacity :: Prelude.Maybe GatewayCapacity,
+    gatewayName :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates the time zone of the gateway.
+    gatewayTimezone :: Prelude.Maybe Prelude.Text,
     gatewayARN :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -82,17 +83,17 @@ data UpdateGatewayInformation = UpdateGatewayInformation'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'gatewayCapacity', 'updateGatewayInformation_gatewayCapacity' - Specifies the size of the gateway\'s metadata cache.
---
--- 'gatewayName', 'updateGatewayInformation_gatewayName' - Undocumented member.
---
--- 'gatewayTimezone', 'updateGatewayInformation_gatewayTimezone' - A value that indicates the time zone of the gateway.
---
 -- 'cloudWatchLogGroupARN', 'updateGatewayInformation_cloudWatchLogGroupARN' - The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that
 -- you want to use to monitor and log events in the gateway.
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html What is Amazon CloudWatch Logs?>
+--
+-- 'gatewayCapacity', 'updateGatewayInformation_gatewayCapacity' - Specifies the size of the gateway\'s metadata cache.
+--
+-- 'gatewayName', 'updateGatewayInformation_gatewayName' - Undocumented member.
+--
+-- 'gatewayTimezone', 'updateGatewayInformation_gatewayTimezone' - A value that indicates the time zone of the gateway.
 --
 -- 'gatewayARN', 'updateGatewayInformation_gatewayARN' - Undocumented member.
 newUpdateGatewayInformation ::
@@ -101,13 +102,21 @@ newUpdateGatewayInformation ::
   UpdateGatewayInformation
 newUpdateGatewayInformation pGatewayARN_ =
   UpdateGatewayInformation'
-    { gatewayCapacity =
+    { cloudWatchLogGroupARN =
         Prelude.Nothing,
+      gatewayCapacity = Prelude.Nothing,
       gatewayName = Prelude.Nothing,
       gatewayTimezone = Prelude.Nothing,
-      cloudWatchLogGroupARN = Prelude.Nothing,
       gatewayARN = pGatewayARN_
     }
+
+-- | The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that
+-- you want to use to monitor and log events in the gateway.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html What is Amazon CloudWatch Logs?>
+updateGatewayInformation_cloudWatchLogGroupARN :: Lens.Lens' UpdateGatewayInformation (Prelude.Maybe Prelude.Text)
+updateGatewayInformation_cloudWatchLogGroupARN = Lens.lens (\UpdateGatewayInformation' {cloudWatchLogGroupARN} -> cloudWatchLogGroupARN) (\s@UpdateGatewayInformation' {} a -> s {cloudWatchLogGroupARN = a} :: UpdateGatewayInformation)
 
 -- | Specifies the size of the gateway\'s metadata cache.
 updateGatewayInformation_gatewayCapacity :: Lens.Lens' UpdateGatewayInformation (Prelude.Maybe GatewayCapacity)
@@ -121,14 +130,6 @@ updateGatewayInformation_gatewayName = Lens.lens (\UpdateGatewayInformation' {ga
 updateGatewayInformation_gatewayTimezone :: Lens.Lens' UpdateGatewayInformation (Prelude.Maybe Prelude.Text)
 updateGatewayInformation_gatewayTimezone = Lens.lens (\UpdateGatewayInformation' {gatewayTimezone} -> gatewayTimezone) (\s@UpdateGatewayInformation' {} a -> s {gatewayTimezone = a} :: UpdateGatewayInformation)
 
--- | The Amazon Resource Name (ARN) of the Amazon CloudWatch log group that
--- you want to use to monitor and log events in the gateway.
---
--- For more information, see
--- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html What is Amazon CloudWatch Logs?>
-updateGatewayInformation_cloudWatchLogGroupARN :: Lens.Lens' UpdateGatewayInformation (Prelude.Maybe Prelude.Text)
-updateGatewayInformation_cloudWatchLogGroupARN = Lens.lens (\UpdateGatewayInformation' {cloudWatchLogGroupARN} -> cloudWatchLogGroupARN) (\s@UpdateGatewayInformation' {} a -> s {cloudWatchLogGroupARN = a} :: UpdateGatewayInformation)
-
 -- | Undocumented member.
 updateGatewayInformation_gatewayARN :: Lens.Lens' UpdateGatewayInformation Prelude.Text
 updateGatewayInformation_gatewayARN = Lens.lens (\UpdateGatewayInformation' {gatewayARN} -> gatewayARN) (\s@UpdateGatewayInformation' {} a -> s {gatewayARN = a} :: UpdateGatewayInformation)
@@ -137,66 +138,67 @@ instance Core.AWSRequest UpdateGatewayInformation where
   type
     AWSResponse UpdateGatewayInformation =
       UpdateGatewayInformationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateGatewayInformationResponse'
-            Prelude.<$> (x Core..?> "GatewayARN")
-            Prelude.<*> (x Core..?> "GatewayName")
+            Prelude.<$> (x Data..?> "GatewayARN")
+            Prelude.<*> (x Data..?> "GatewayName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateGatewayInformation where
   hashWithSalt _salt UpdateGatewayInformation' {..} =
-    _salt `Prelude.hashWithSalt` gatewayCapacity
+    _salt `Prelude.hashWithSalt` cloudWatchLogGroupARN
+      `Prelude.hashWithSalt` gatewayCapacity
       `Prelude.hashWithSalt` gatewayName
       `Prelude.hashWithSalt` gatewayTimezone
-      `Prelude.hashWithSalt` cloudWatchLogGroupARN
       `Prelude.hashWithSalt` gatewayARN
 
 instance Prelude.NFData UpdateGatewayInformation where
   rnf UpdateGatewayInformation' {..} =
-    Prelude.rnf gatewayCapacity
+    Prelude.rnf cloudWatchLogGroupARN
+      `Prelude.seq` Prelude.rnf gatewayCapacity
       `Prelude.seq` Prelude.rnf gatewayName
       `Prelude.seq` Prelude.rnf gatewayTimezone
-      `Prelude.seq` Prelude.rnf cloudWatchLogGroupARN
       `Prelude.seq` Prelude.rnf gatewayARN
 
-instance Core.ToHeaders UpdateGatewayInformation where
+instance Data.ToHeaders UpdateGatewayInformation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.UpdateGatewayInformation" ::
+              Data.=# ( "StorageGateway_20130630.UpdateGatewayInformation" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateGatewayInformation where
+instance Data.ToJSON UpdateGatewayInformation where
   toJSON UpdateGatewayInformation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GatewayCapacity" Core..=)
-              Prelude.<$> gatewayCapacity,
-            ("GatewayName" Core..=) Prelude.<$> gatewayName,
-            ("GatewayTimezone" Core..=)
-              Prelude.<$> gatewayTimezone,
-            ("CloudWatchLogGroupARN" Core..=)
+          [ ("CloudWatchLogGroupARN" Data..=)
               Prelude.<$> cloudWatchLogGroupARN,
-            Prelude.Just ("GatewayARN" Core..= gatewayARN)
+            ("GatewayCapacity" Data..=)
+              Prelude.<$> gatewayCapacity,
+            ("GatewayName" Data..=) Prelude.<$> gatewayName,
+            ("GatewayTimezone" Data..=)
+              Prelude.<$> gatewayTimezone,
+            Prelude.Just ("GatewayARN" Data..= gatewayARN)
           ]
       )
 
-instance Core.ToPath UpdateGatewayInformation where
+instance Data.ToPath UpdateGatewayInformation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateGatewayInformation where
+instance Data.ToQuery UpdateGatewayInformation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A JSON object containing the Amazon Resource Name (ARN) of the gateway

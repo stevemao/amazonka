@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.UpdateInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.IoTEvents.UpdateInput
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,12 +100,13 @@ updateInput_inputDefinition = Lens.lens (\UpdateInput' {inputDefinition} -> inpu
 
 instance Core.AWSRequest UpdateInput where
   type AWSResponse UpdateInput = UpdateInputResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateInputResponse'
-            Prelude.<$> (x Core..?> "inputConfiguration")
+            Prelude.<$> (x Data..?> "inputConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,25 +122,25 @@ instance Prelude.NFData UpdateInput where
       `Prelude.seq` Prelude.rnf inputName
       `Prelude.seq` Prelude.rnf inputDefinition
 
-instance Core.ToHeaders UpdateInput where
+instance Data.ToHeaders UpdateInput where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateInput where
+instance Data.ToJSON UpdateInput where
   toJSON UpdateInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("inputDescription" Core..=)
+          [ ("inputDescription" Data..=)
               Prelude.<$> inputDescription,
             Prelude.Just
-              ("inputDefinition" Core..= inputDefinition)
+              ("inputDefinition" Data..= inputDefinition)
           ]
       )
 
-instance Core.ToPath UpdateInput where
+instance Data.ToPath UpdateInput where
   toPath UpdateInput' {..} =
-    Prelude.mconcat ["/inputs/", Core.toBS inputName]
+    Prelude.mconcat ["/inputs/", Data.toBS inputName]
 
-instance Core.ToQuery UpdateInput where
+instance Data.ToQuery UpdateInput where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateInputResponse' smart constructor.

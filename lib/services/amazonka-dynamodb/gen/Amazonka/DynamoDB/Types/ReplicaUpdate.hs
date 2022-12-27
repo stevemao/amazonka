@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.ReplicaUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,12 @@
 module Amazonka.DynamoDB.Types.ReplicaUpdate where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.CreateReplicaAction
 import Amazonka.DynamoDB.Types.DeleteReplicaAction
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents one of the following:
@@ -83,11 +85,11 @@ instance Prelude.NFData ReplicaUpdate where
     Prelude.rnf create
       `Prelude.seq` Prelude.rnf delete'
 
-instance Core.ToJSON ReplicaUpdate where
+instance Data.ToJSON ReplicaUpdate where
   toJSON ReplicaUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Create" Core..=) Prelude.<$> create,
-            ("Delete" Core..=) Prelude.<$> delete'
+          [ ("Create" Data..=) Prelude.<$> create,
+            ("Delete" Data..=) Prelude.<$> delete'
           ]
       )

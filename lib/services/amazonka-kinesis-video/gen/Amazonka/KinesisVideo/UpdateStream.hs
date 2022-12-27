@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.UpdateStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,9 +38,9 @@ module Amazonka.KinesisVideo.UpdateStream
     newUpdateStream,
 
     -- * Request Lenses
+    updateStream_deviceName,
     updateStream_mediaType,
     updateStream_streamARN,
-    updateStream_deviceName,
     updateStream_streamName,
     updateStream_currentVersion,
 
@@ -54,15 +54,21 @@ module Amazonka.KinesisVideo.UpdateStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideo.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateStream' smart constructor.
 data UpdateStream = UpdateStream'
-  { -- | The stream\'s media type. Use @MediaType@ to specify the type of content
+  { -- | The name of the device that is writing to the stream.
+    --
+    -- In the current implementation, Kinesis Video Streams does not use this
+    -- name.
+    deviceName :: Prelude.Maybe Prelude.Text,
+    -- | The stream\'s media type. Use @MediaType@ to specify the type of content
     -- that the stream contains to the consumers of the stream. For more
     -- information about media types, see
     -- <http://www.iana.org/assignments/media-types/media-types.xhtml Media Types>.
@@ -75,11 +81,6 @@ data UpdateStream = UpdateStream'
     mediaType :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the stream whose metadata you want to update.
     streamARN :: Prelude.Maybe Prelude.Text,
-    -- | The name of the device that is writing to the stream.
-    --
-    -- In the current implementation, Kinesis Video Streams does not use this
-    -- name.
-    deviceName :: Prelude.Maybe Prelude.Text,
     -- | The name of the stream whose metadata you want to update.
     --
     -- The stream name is an identifier for the stream, and must be unique for
@@ -98,6 +99,11 @@ data UpdateStream = UpdateStream'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'deviceName', 'updateStream_deviceName' - The name of the device that is writing to the stream.
+--
+-- In the current implementation, Kinesis Video Streams does not use this
+-- name.
+--
 -- 'mediaType', 'updateStream_mediaType' - The stream\'s media type. Use @MediaType@ to specify the type of content
 -- that the stream contains to the consumers of the stream. For more
 -- information about media types, see
@@ -111,11 +117,6 @@ data UpdateStream = UpdateStream'
 --
 -- 'streamARN', 'updateStream_streamARN' - The ARN of the stream whose metadata you want to update.
 --
--- 'deviceName', 'updateStream_deviceName' - The name of the device that is writing to the stream.
---
--- In the current implementation, Kinesis Video Streams does not use this
--- name.
---
 -- 'streamName', 'updateStream_streamName' - The name of the stream whose metadata you want to update.
 --
 -- The stream name is an identifier for the stream, and must be unique for
@@ -128,12 +129,19 @@ newUpdateStream ::
   UpdateStream
 newUpdateStream pCurrentVersion_ =
   UpdateStream'
-    { mediaType = Prelude.Nothing,
+    { deviceName = Prelude.Nothing,
+      mediaType = Prelude.Nothing,
       streamARN = Prelude.Nothing,
-      deviceName = Prelude.Nothing,
       streamName = Prelude.Nothing,
       currentVersion = pCurrentVersion_
     }
+
+-- | The name of the device that is writing to the stream.
+--
+-- In the current implementation, Kinesis Video Streams does not use this
+-- name.
+updateStream_deviceName :: Lens.Lens' UpdateStream (Prelude.Maybe Prelude.Text)
+updateStream_deviceName = Lens.lens (\UpdateStream' {deviceName} -> deviceName) (\s@UpdateStream' {} a -> s {deviceName = a} :: UpdateStream)
 
 -- | The stream\'s media type. Use @MediaType@ to specify the type of content
 -- that the stream contains to the consumers of the stream. For more
@@ -152,13 +160,6 @@ updateStream_mediaType = Lens.lens (\UpdateStream' {mediaType} -> mediaType) (\s
 updateStream_streamARN :: Lens.Lens' UpdateStream (Prelude.Maybe Prelude.Text)
 updateStream_streamARN = Lens.lens (\UpdateStream' {streamARN} -> streamARN) (\s@UpdateStream' {} a -> s {streamARN = a} :: UpdateStream)
 
--- | The name of the device that is writing to the stream.
---
--- In the current implementation, Kinesis Video Streams does not use this
--- name.
-updateStream_deviceName :: Lens.Lens' UpdateStream (Prelude.Maybe Prelude.Text)
-updateStream_deviceName = Lens.lens (\UpdateStream' {deviceName} -> deviceName) (\s@UpdateStream' {} a -> s {deviceName = a} :: UpdateStream)
-
 -- | The name of the stream whose metadata you want to update.
 --
 -- The stream name is an identifier for the stream, and must be unique for
@@ -172,7 +173,8 @@ updateStream_currentVersion = Lens.lens (\UpdateStream' {currentVersion} -> curr
 
 instance Core.AWSRequest UpdateStream where
   type AWSResponse UpdateStream = UpdateStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -182,40 +184,40 @@ instance Core.AWSRequest UpdateStream where
 
 instance Prelude.Hashable UpdateStream where
   hashWithSalt _salt UpdateStream' {..} =
-    _salt `Prelude.hashWithSalt` mediaType
+    _salt `Prelude.hashWithSalt` deviceName
+      `Prelude.hashWithSalt` mediaType
       `Prelude.hashWithSalt` streamARN
-      `Prelude.hashWithSalt` deviceName
       `Prelude.hashWithSalt` streamName
       `Prelude.hashWithSalt` currentVersion
 
 instance Prelude.NFData UpdateStream where
   rnf UpdateStream' {..} =
-    Prelude.rnf mediaType
+    Prelude.rnf deviceName
+      `Prelude.seq` Prelude.rnf mediaType
       `Prelude.seq` Prelude.rnf streamARN
-      `Prelude.seq` Prelude.rnf deviceName
       `Prelude.seq` Prelude.rnf streamName
       `Prelude.seq` Prelude.rnf currentVersion
 
-instance Core.ToHeaders UpdateStream where
+instance Data.ToHeaders UpdateStream where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateStream where
+instance Data.ToJSON UpdateStream where
   toJSON UpdateStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MediaType" Core..=) Prelude.<$> mediaType,
-            ("StreamARN" Core..=) Prelude.<$> streamARN,
-            ("DeviceName" Core..=) Prelude.<$> deviceName,
-            ("StreamName" Core..=) Prelude.<$> streamName,
+          [ ("DeviceName" Data..=) Prelude.<$> deviceName,
+            ("MediaType" Data..=) Prelude.<$> mediaType,
+            ("StreamARN" Data..=) Prelude.<$> streamARN,
+            ("StreamName" Data..=) Prelude.<$> streamName,
             Prelude.Just
-              ("CurrentVersion" Core..= currentVersion)
+              ("CurrentVersion" Data..= currentVersion)
           ]
       )
 
-instance Core.ToPath UpdateStream where
+instance Data.ToPath UpdateStream where
   toPath = Prelude.const "/updateStream"
 
-instance Core.ToQuery UpdateStream where
+instance Data.ToQuery UpdateStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateStreamResponse' smart constructor.

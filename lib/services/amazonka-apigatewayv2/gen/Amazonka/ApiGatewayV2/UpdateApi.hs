@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.UpdateApi
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,17 +27,17 @@ module Amazonka.ApiGatewayV2.UpdateApi
     newUpdateApi,
 
     -- * Request Lenses
-    updateApi_credentialsArn,
-    updateApi_disableExecuteApiEndpoint,
-    updateApi_name,
-    updateApi_version,
     updateApi_apiKeySelectionExpression,
     updateApi_corsConfiguration,
-    updateApi_routeSelectionExpression,
-    updateApi_disableSchemaValidation,
+    updateApi_credentialsArn,
     updateApi_description,
+    updateApi_disableExecuteApiEndpoint,
+    updateApi_disableSchemaValidation,
+    updateApi_name,
     updateApi_routeKey,
+    updateApi_routeSelectionExpression,
     updateApi_target,
+    updateApi_version,
     updateApi_apiId,
 
     -- * Destructuring the Response
@@ -45,29 +45,30 @@ module Amazonka.ApiGatewayV2.UpdateApi
     newUpdateApiResponse,
 
     -- * Response Lenses
-    updateApiResponse_apiId,
-    updateApiResponse_disableExecuteApiEndpoint,
     updateApiResponse_apiEndpoint,
-    updateApiResponse_warnings,
-    updateApiResponse_createdDate,
-    updateApiResponse_name,
-    updateApiResponse_version,
     updateApiResponse_apiGatewayManaged,
+    updateApiResponse_apiId,
     updateApiResponse_apiKeySelectionExpression,
     updateApiResponse_corsConfiguration,
-    updateApiResponse_routeSelectionExpression,
-    updateApiResponse_importInfo,
-    updateApiResponse_disableSchemaValidation,
+    updateApiResponse_createdDate,
     updateApiResponse_description,
+    updateApiResponse_disableExecuteApiEndpoint,
+    updateApiResponse_disableSchemaValidation,
+    updateApiResponse_importInfo,
+    updateApiResponse_name,
     updateApiResponse_protocolType,
+    updateApiResponse_routeSelectionExpression,
     updateApiResponse_tags,
+    updateApiResponse_version,
+    updateApiResponse_warnings,
     updateApiResponse_httpStatus,
   )
 where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateApi' smart constructor.
 data UpdateApi = UpdateApi'
-  { -- | This property is part of quick create. It specifies the credentials
+  { -- | An API key selection expression. Supported only for WebSocket APIs. See
+    -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions API Key Selection Expressions>.
+    apiKeySelectionExpression :: Prelude.Maybe Prelude.Text,
+    -- | A CORS configuration. Supported only for HTTP APIs.
+    corsConfiguration :: Prelude.Maybe Cors,
+    -- | This property is part of quick create. It specifies the credentials
     -- required for the integration, if any. For a Lambda integration, three
     -- options are available. To specify an IAM Role for API Gateway to assume,
     -- use the role\'s Amazon Resource Name (ARN). To require that the
@@ -87,36 +93,29 @@ data UpdateApi = UpdateApi'
     -- credentials associated with the quick create integration. Supported only
     -- for HTTP APIs.
     credentialsArn :: Prelude.Maybe Prelude.Text,
+    -- | The description of the API.
+    description :: Prelude.Maybe Prelude.Text,
     -- | Specifies whether clients can invoke your API by using the default
     -- execute-api endpoint. By default, clients can invoke your API with the
     -- default https:\/\/{api_id}.execute-api.{region}.amazonaws.com endpoint.
     -- To require that clients use a custom domain name to invoke your API,
     -- disable the default endpoint.
     disableExecuteApiEndpoint :: Prelude.Maybe Prelude.Bool,
-    -- | The name of the API.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | A version identifier for the API.
-    version :: Prelude.Maybe Prelude.Text,
-    -- | An API key selection expression. Supported only for WebSocket APIs. See
-    -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions API Key Selection Expressions>.
-    apiKeySelectionExpression :: Prelude.Maybe Prelude.Text,
-    -- | A CORS configuration. Supported only for HTTP APIs.
-    corsConfiguration :: Prelude.Maybe Cors,
-    -- | The route selection expression for the API. For HTTP APIs, the
-    -- routeSelectionExpression must be ${request.method} ${request.path}. If
-    -- not provided, this will be the default for HTTP APIs. This property is
-    -- required for WebSocket APIs.
-    routeSelectionExpression :: Prelude.Maybe Prelude.Text,
     -- | Avoid validating models when creating a deployment. Supported only for
     -- WebSocket APIs.
     disableSchemaValidation :: Prelude.Maybe Prelude.Bool,
-    -- | The description of the API.
-    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the API.
+    name :: Prelude.Maybe Prelude.Text,
     -- | This property is part of quick create. If not specified, the route
     -- created using quick create is kept. Otherwise, this value replaces the
     -- route key of the quick create route. Additional routes may still be
     -- added after the API is updated. Supported only for HTTP APIs.
     routeKey :: Prelude.Maybe Prelude.Text,
+    -- | The route selection expression for the API. For HTTP APIs, the
+    -- routeSelectionExpression must be ${request.method} ${request.path}. If
+    -- not provided, this will be the default for HTTP APIs. This property is
+    -- required for WebSocket APIs.
+    routeSelectionExpression :: Prelude.Maybe Prelude.Text,
     -- | This property is part of quick create. For HTTP integrations, specify a
     -- fully qualified URL. For Lambda integrations, specify a function ARN.
     -- The type of the integration will be HTTP_PROXY or AWS_PROXY,
@@ -124,6 +123,8 @@ data UpdateApi = UpdateApi'
     -- integration type. You can update a quick-created target, but you can\'t
     -- remove it from an API. Supported only for HTTP APIs.
     target :: Prelude.Maybe Prelude.Text,
+    -- | A version identifier for the API.
+    version :: Prelude.Maybe Prelude.Text,
     -- | The API identifier.
     apiId :: Prelude.Text
   }
@@ -137,6 +138,11 @@ data UpdateApi = UpdateApi'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'apiKeySelectionExpression', 'updateApi_apiKeySelectionExpression' - An API key selection expression. Supported only for WebSocket APIs. See
+-- <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions API Key Selection Expressions>.
+--
+-- 'corsConfiguration', 'updateApi_corsConfiguration' - A CORS configuration. Supported only for HTTP APIs.
+--
 -- 'credentialsArn', 'updateApi_credentialsArn' - This property is part of quick create. It specifies the credentials
 -- required for the integration, if any. For a Lambda integration, three
 -- options are available. To specify an IAM Role for API Gateway to assume,
@@ -148,35 +154,28 @@ data UpdateApi = UpdateApi'
 -- credentials associated with the quick create integration. Supported only
 -- for HTTP APIs.
 --
+-- 'description', 'updateApi_description' - The description of the API.
+--
 -- 'disableExecuteApiEndpoint', 'updateApi_disableExecuteApiEndpoint' - Specifies whether clients can invoke your API by using the default
 -- execute-api endpoint. By default, clients can invoke your API with the
 -- default https:\/\/{api_id}.execute-api.{region}.amazonaws.com endpoint.
 -- To require that clients use a custom domain name to invoke your API,
 -- disable the default endpoint.
 --
--- 'name', 'updateApi_name' - The name of the API.
---
--- 'version', 'updateApi_version' - A version identifier for the API.
---
--- 'apiKeySelectionExpression', 'updateApi_apiKeySelectionExpression' - An API key selection expression. Supported only for WebSocket APIs. See
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions API Key Selection Expressions>.
---
--- 'corsConfiguration', 'updateApi_corsConfiguration' - A CORS configuration. Supported only for HTTP APIs.
---
--- 'routeSelectionExpression', 'updateApi_routeSelectionExpression' - The route selection expression for the API. For HTTP APIs, the
--- routeSelectionExpression must be ${request.method} ${request.path}. If
--- not provided, this will be the default for HTTP APIs. This property is
--- required for WebSocket APIs.
---
 -- 'disableSchemaValidation', 'updateApi_disableSchemaValidation' - Avoid validating models when creating a deployment. Supported only for
 -- WebSocket APIs.
 --
--- 'description', 'updateApi_description' - The description of the API.
+-- 'name', 'updateApi_name' - The name of the API.
 --
 -- 'routeKey', 'updateApi_routeKey' - This property is part of quick create. If not specified, the route
 -- created using quick create is kept. Otherwise, this value replaces the
 -- route key of the quick create route. Additional routes may still be
 -- added after the API is updated. Supported only for HTTP APIs.
+--
+-- 'routeSelectionExpression', 'updateApi_routeSelectionExpression' - The route selection expression for the API. For HTTP APIs, the
+-- routeSelectionExpression must be ${request.method} ${request.path}. If
+-- not provided, this will be the default for HTTP APIs. This property is
+-- required for WebSocket APIs.
 --
 -- 'target', 'updateApi_target' - This property is part of quick create. For HTTP integrations, specify a
 -- fully qualified URL. For Lambda integrations, specify a function ARN.
@@ -185,6 +184,8 @@ data UpdateApi = UpdateApi'
 -- integration type. You can update a quick-created target, but you can\'t
 -- remove it from an API. Supported only for HTTP APIs.
 --
+-- 'version', 'updateApi_version' - A version identifier for the API.
+--
 -- 'apiId', 'updateApi_apiId' - The API identifier.
 newUpdateApi ::
   -- | 'apiId'
@@ -192,19 +193,29 @@ newUpdateApi ::
   UpdateApi
 newUpdateApi pApiId_ =
   UpdateApi'
-    { credentialsArn = Prelude.Nothing,
-      disableExecuteApiEndpoint = Prelude.Nothing,
-      name = Prelude.Nothing,
-      version = Prelude.Nothing,
-      apiKeySelectionExpression = Prelude.Nothing,
+    { apiKeySelectionExpression =
+        Prelude.Nothing,
       corsConfiguration = Prelude.Nothing,
-      routeSelectionExpression = Prelude.Nothing,
-      disableSchemaValidation = Prelude.Nothing,
+      credentialsArn = Prelude.Nothing,
       description = Prelude.Nothing,
+      disableExecuteApiEndpoint = Prelude.Nothing,
+      disableSchemaValidation = Prelude.Nothing,
+      name = Prelude.Nothing,
       routeKey = Prelude.Nothing,
+      routeSelectionExpression = Prelude.Nothing,
       target = Prelude.Nothing,
+      version = Prelude.Nothing,
       apiId = pApiId_
     }
+
+-- | An API key selection expression. Supported only for WebSocket APIs. See
+-- <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions API Key Selection Expressions>.
+updateApi_apiKeySelectionExpression :: Lens.Lens' UpdateApi (Prelude.Maybe Prelude.Text)
+updateApi_apiKeySelectionExpression = Lens.lens (\UpdateApi' {apiKeySelectionExpression} -> apiKeySelectionExpression) (\s@UpdateApi' {} a -> s {apiKeySelectionExpression = a} :: UpdateApi)
+
+-- | A CORS configuration. Supported only for HTTP APIs.
+updateApi_corsConfiguration :: Lens.Lens' UpdateApi (Prelude.Maybe Cors)
+updateApi_corsConfiguration = Lens.lens (\UpdateApi' {corsConfiguration} -> corsConfiguration) (\s@UpdateApi' {} a -> s {corsConfiguration = a} :: UpdateApi)
 
 -- | This property is part of quick create. It specifies the credentials
 -- required for the integration, if any. For a Lambda integration, three
@@ -219,6 +230,10 @@ newUpdateApi pApiId_ =
 updateApi_credentialsArn :: Lens.Lens' UpdateApi (Prelude.Maybe Prelude.Text)
 updateApi_credentialsArn = Lens.lens (\UpdateApi' {credentialsArn} -> credentialsArn) (\s@UpdateApi' {} a -> s {credentialsArn = a} :: UpdateApi)
 
+-- | The description of the API.
+updateApi_description :: Lens.Lens' UpdateApi (Prelude.Maybe Prelude.Text)
+updateApi_description = Lens.lens (\UpdateApi' {description} -> description) (\s@UpdateApi' {} a -> s {description = a} :: UpdateApi)
+
 -- | Specifies whether clients can invoke your API by using the default
 -- execute-api endpoint. By default, clients can invoke your API with the
 -- default https:\/\/{api_id}.execute-api.{region}.amazonaws.com endpoint.
@@ -227,38 +242,14 @@ updateApi_credentialsArn = Lens.lens (\UpdateApi' {credentialsArn} -> credential
 updateApi_disableExecuteApiEndpoint :: Lens.Lens' UpdateApi (Prelude.Maybe Prelude.Bool)
 updateApi_disableExecuteApiEndpoint = Lens.lens (\UpdateApi' {disableExecuteApiEndpoint} -> disableExecuteApiEndpoint) (\s@UpdateApi' {} a -> s {disableExecuteApiEndpoint = a} :: UpdateApi)
 
--- | The name of the API.
-updateApi_name :: Lens.Lens' UpdateApi (Prelude.Maybe Prelude.Text)
-updateApi_name = Lens.lens (\UpdateApi' {name} -> name) (\s@UpdateApi' {} a -> s {name = a} :: UpdateApi)
-
--- | A version identifier for the API.
-updateApi_version :: Lens.Lens' UpdateApi (Prelude.Maybe Prelude.Text)
-updateApi_version = Lens.lens (\UpdateApi' {version} -> version) (\s@UpdateApi' {} a -> s {version = a} :: UpdateApi)
-
--- | An API key selection expression. Supported only for WebSocket APIs. See
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions API Key Selection Expressions>.
-updateApi_apiKeySelectionExpression :: Lens.Lens' UpdateApi (Prelude.Maybe Prelude.Text)
-updateApi_apiKeySelectionExpression = Lens.lens (\UpdateApi' {apiKeySelectionExpression} -> apiKeySelectionExpression) (\s@UpdateApi' {} a -> s {apiKeySelectionExpression = a} :: UpdateApi)
-
--- | A CORS configuration. Supported only for HTTP APIs.
-updateApi_corsConfiguration :: Lens.Lens' UpdateApi (Prelude.Maybe Cors)
-updateApi_corsConfiguration = Lens.lens (\UpdateApi' {corsConfiguration} -> corsConfiguration) (\s@UpdateApi' {} a -> s {corsConfiguration = a} :: UpdateApi)
-
--- | The route selection expression for the API. For HTTP APIs, the
--- routeSelectionExpression must be ${request.method} ${request.path}. If
--- not provided, this will be the default for HTTP APIs. This property is
--- required for WebSocket APIs.
-updateApi_routeSelectionExpression :: Lens.Lens' UpdateApi (Prelude.Maybe Prelude.Text)
-updateApi_routeSelectionExpression = Lens.lens (\UpdateApi' {routeSelectionExpression} -> routeSelectionExpression) (\s@UpdateApi' {} a -> s {routeSelectionExpression = a} :: UpdateApi)
-
 -- | Avoid validating models when creating a deployment. Supported only for
 -- WebSocket APIs.
 updateApi_disableSchemaValidation :: Lens.Lens' UpdateApi (Prelude.Maybe Prelude.Bool)
 updateApi_disableSchemaValidation = Lens.lens (\UpdateApi' {disableSchemaValidation} -> disableSchemaValidation) (\s@UpdateApi' {} a -> s {disableSchemaValidation = a} :: UpdateApi)
 
--- | The description of the API.
-updateApi_description :: Lens.Lens' UpdateApi (Prelude.Maybe Prelude.Text)
-updateApi_description = Lens.lens (\UpdateApi' {description} -> description) (\s@UpdateApi' {} a -> s {description = a} :: UpdateApi)
+-- | The name of the API.
+updateApi_name :: Lens.Lens' UpdateApi (Prelude.Maybe Prelude.Text)
+updateApi_name = Lens.lens (\UpdateApi' {name} -> name) (\s@UpdateApi' {} a -> s {name = a} :: UpdateApi)
 
 -- | This property is part of quick create. If not specified, the route
 -- created using quick create is kept. Otherwise, this value replaces the
@@ -266,6 +257,13 @@ updateApi_description = Lens.lens (\UpdateApi' {description} -> description) (\s
 -- added after the API is updated. Supported only for HTTP APIs.
 updateApi_routeKey :: Lens.Lens' UpdateApi (Prelude.Maybe Prelude.Text)
 updateApi_routeKey = Lens.lens (\UpdateApi' {routeKey} -> routeKey) (\s@UpdateApi' {} a -> s {routeKey = a} :: UpdateApi)
+
+-- | The route selection expression for the API. For HTTP APIs, the
+-- routeSelectionExpression must be ${request.method} ${request.path}. If
+-- not provided, this will be the default for HTTP APIs. This property is
+-- required for WebSocket APIs.
+updateApi_routeSelectionExpression :: Lens.Lens' UpdateApi (Prelude.Maybe Prelude.Text)
+updateApi_routeSelectionExpression = Lens.lens (\UpdateApi' {routeSelectionExpression} -> routeSelectionExpression) (\s@UpdateApi' {} a -> s {routeSelectionExpression = a} :: UpdateApi)
 
 -- | This property is part of quick create. For HTTP integrations, specify a
 -- fully qualified URL. For Lambda integrations, specify a function ARN.
@@ -276,158 +274,164 @@ updateApi_routeKey = Lens.lens (\UpdateApi' {routeKey} -> routeKey) (\s@UpdateAp
 updateApi_target :: Lens.Lens' UpdateApi (Prelude.Maybe Prelude.Text)
 updateApi_target = Lens.lens (\UpdateApi' {target} -> target) (\s@UpdateApi' {} a -> s {target = a} :: UpdateApi)
 
+-- | A version identifier for the API.
+updateApi_version :: Lens.Lens' UpdateApi (Prelude.Maybe Prelude.Text)
+updateApi_version = Lens.lens (\UpdateApi' {version} -> version) (\s@UpdateApi' {} a -> s {version = a} :: UpdateApi)
+
 -- | The API identifier.
 updateApi_apiId :: Lens.Lens' UpdateApi Prelude.Text
 updateApi_apiId = Lens.lens (\UpdateApi' {apiId} -> apiId) (\s@UpdateApi' {} a -> s {apiId = a} :: UpdateApi)
 
 instance Core.AWSRequest UpdateApi where
   type AWSResponse UpdateApi = UpdateApiResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateApiResponse'
-            Prelude.<$> (x Core..?> "apiId")
-            Prelude.<*> (x Core..?> "disableExecuteApiEndpoint")
-            Prelude.<*> (x Core..?> "apiEndpoint")
-            Prelude.<*> (x Core..?> "warnings" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "createdDate")
-            Prelude.<*> (x Core..?> "name")
-            Prelude.<*> (x Core..?> "version")
-            Prelude.<*> (x Core..?> "apiGatewayManaged")
-            Prelude.<*> (x Core..?> "apiKeySelectionExpression")
-            Prelude.<*> (x Core..?> "corsConfiguration")
-            Prelude.<*> (x Core..?> "routeSelectionExpression")
-            Prelude.<*> (x Core..?> "importInfo" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "disableSchemaValidation")
-            Prelude.<*> (x Core..?> "description")
-            Prelude.<*> (x Core..?> "protocolType")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "apiEndpoint")
+            Prelude.<*> (x Data..?> "apiGatewayManaged")
+            Prelude.<*> (x Data..?> "apiId")
+            Prelude.<*> (x Data..?> "apiKeySelectionExpression")
+            Prelude.<*> (x Data..?> "corsConfiguration")
+            Prelude.<*> (x Data..?> "createdDate")
+            Prelude.<*> (x Data..?> "description")
+            Prelude.<*> (x Data..?> "disableExecuteApiEndpoint")
+            Prelude.<*> (x Data..?> "disableSchemaValidation")
+            Prelude.<*> (x Data..?> "importInfo" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "name")
+            Prelude.<*> (x Data..?> "protocolType")
+            Prelude.<*> (x Data..?> "routeSelectionExpression")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "version")
+            Prelude.<*> (x Data..?> "warnings" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateApi where
   hashWithSalt _salt UpdateApi' {..} =
-    _salt `Prelude.hashWithSalt` credentialsArn
-      `Prelude.hashWithSalt` disableExecuteApiEndpoint
-      `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` version
+    _salt
       `Prelude.hashWithSalt` apiKeySelectionExpression
       `Prelude.hashWithSalt` corsConfiguration
-      `Prelude.hashWithSalt` routeSelectionExpression
-      `Prelude.hashWithSalt` disableSchemaValidation
+      `Prelude.hashWithSalt` credentialsArn
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` disableExecuteApiEndpoint
+      `Prelude.hashWithSalt` disableSchemaValidation
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` routeKey
+      `Prelude.hashWithSalt` routeSelectionExpression
       `Prelude.hashWithSalt` target
+      `Prelude.hashWithSalt` version
       `Prelude.hashWithSalt` apiId
 
 instance Prelude.NFData UpdateApi where
   rnf UpdateApi' {..} =
-    Prelude.rnf credentialsArn
-      `Prelude.seq` Prelude.rnf disableExecuteApiEndpoint
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf version
-      `Prelude.seq` Prelude.rnf apiKeySelectionExpression
+    Prelude.rnf apiKeySelectionExpression
       `Prelude.seq` Prelude.rnf corsConfiguration
-      `Prelude.seq` Prelude.rnf routeSelectionExpression
-      `Prelude.seq` Prelude.rnf disableSchemaValidation
+      `Prelude.seq` Prelude.rnf credentialsArn
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf disableExecuteApiEndpoint
+      `Prelude.seq` Prelude.rnf disableSchemaValidation
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf routeKey
+      `Prelude.seq` Prelude.rnf routeSelectionExpression
       `Prelude.seq` Prelude.rnf target
+      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf apiId
 
-instance Core.ToHeaders UpdateApi where
+instance Data.ToHeaders UpdateApi where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateApi where
+instance Data.ToJSON UpdateApi where
   toJSON UpdateApi' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("credentialsArn" Core..=)
-              Prelude.<$> credentialsArn,
-            ("disableExecuteApiEndpoint" Core..=)
-              Prelude.<$> disableExecuteApiEndpoint,
-            ("name" Core..=) Prelude.<$> name,
-            ("version" Core..=) Prelude.<$> version,
-            ("apiKeySelectionExpression" Core..=)
+          [ ("apiKeySelectionExpression" Data..=)
               Prelude.<$> apiKeySelectionExpression,
-            ("corsConfiguration" Core..=)
+            ("corsConfiguration" Data..=)
               Prelude.<$> corsConfiguration,
-            ("routeSelectionExpression" Core..=)
-              Prelude.<$> routeSelectionExpression,
-            ("disableSchemaValidation" Core..=)
+            ("credentialsArn" Data..=)
+              Prelude.<$> credentialsArn,
+            ("description" Data..=) Prelude.<$> description,
+            ("disableExecuteApiEndpoint" Data..=)
+              Prelude.<$> disableExecuteApiEndpoint,
+            ("disableSchemaValidation" Data..=)
               Prelude.<$> disableSchemaValidation,
-            ("description" Core..=) Prelude.<$> description,
-            ("routeKey" Core..=) Prelude.<$> routeKey,
-            ("target" Core..=) Prelude.<$> target
+            ("name" Data..=) Prelude.<$> name,
+            ("routeKey" Data..=) Prelude.<$> routeKey,
+            ("routeSelectionExpression" Data..=)
+              Prelude.<$> routeSelectionExpression,
+            ("target" Data..=) Prelude.<$> target,
+            ("version" Data..=) Prelude.<$> version
           ]
       )
 
-instance Core.ToPath UpdateApi where
+instance Data.ToPath UpdateApi where
   toPath UpdateApi' {..} =
-    Prelude.mconcat ["/v2/apis/", Core.toBS apiId]
+    Prelude.mconcat ["/v2/apis/", Data.toBS apiId]
 
-instance Core.ToQuery UpdateApi where
+instance Data.ToQuery UpdateApi where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateApiResponse' smart constructor.
 data UpdateApiResponse = UpdateApiResponse'
-  { -- | The API ID.
+  { -- | The URI of the API, of the form
+    -- {api-id}.execute-api.{region}.amazonaws.com. The stage name is typically
+    -- appended to this URI to form a complete path to a deployed API stage.
+    apiEndpoint :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether an API is managed by API Gateway. You can\'t update or
+    -- delete a managed API by using API Gateway. A managed API can be deleted
+    -- only through the tooling or service that created it.
+    apiGatewayManaged :: Prelude.Maybe Prelude.Bool,
+    -- | The API ID.
     apiId :: Prelude.Maybe Prelude.Text,
+    -- | An API key selection expression. Supported only for WebSocket APIs. See
+    -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions API Key Selection Expressions>.
+    apiKeySelectionExpression :: Prelude.Maybe Prelude.Text,
+    -- | A CORS configuration. Supported only for HTTP APIs.
+    corsConfiguration :: Prelude.Maybe Cors,
+    -- | The timestamp when the API was created.
+    createdDate :: Prelude.Maybe Data.POSIX,
+    -- | The description of the API.
+    description :: Prelude.Maybe Prelude.Text,
     -- | Specifies whether clients can invoke your API by using the default
     -- execute-api endpoint. By default, clients can invoke your API with the
     -- default https:\/\/{api_id}.execute-api.{region}.amazonaws.com endpoint.
     -- To require that clients use a custom domain name to invoke your API,
     -- disable the default endpoint.
     disableExecuteApiEndpoint :: Prelude.Maybe Prelude.Bool,
-    -- | The URI of the API, of the form
-    -- {api-id}.execute-api.{region}.amazonaws.com. The stage name is typically
-    -- appended to this URI to form a complete path to a deployed API stage.
-    apiEndpoint :: Prelude.Maybe Prelude.Text,
-    -- | The warning messages reported when failonwarnings is turned on during
-    -- API import.
-    warnings :: Prelude.Maybe [Prelude.Text],
-    -- | The timestamp when the API was created.
-    createdDate :: Prelude.Maybe Core.POSIX,
+    -- | Avoid validating models when creating a deployment. Supported only for
+    -- WebSocket APIs.
+    disableSchemaValidation :: Prelude.Maybe Prelude.Bool,
+    -- | The validation information during API import. This may include
+    -- particular properties of your OpenAPI definition which are ignored
+    -- during import. Supported only for HTTP APIs.
+    importInfo :: Prelude.Maybe [Prelude.Text],
     -- | The name of the API.
     name :: Prelude.Maybe Prelude.Text,
-    -- | A version identifier for the API.
-    version :: Prelude.Maybe Prelude.Text,
-    -- | Specifies whether an API is managed by API Gateway. You can\'t update or
-    -- delete a managed API by using API Gateway. A managed API can be deleted
-    -- only through the tooling or service that created it.
-    apiGatewayManaged :: Prelude.Maybe Prelude.Bool,
-    -- | An API key selection expression. Supported only for WebSocket APIs. See
-    -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions API Key Selection Expressions>.
-    apiKeySelectionExpression :: Prelude.Maybe Prelude.Text,
-    -- | A CORS configuration. Supported only for HTTP APIs.
-    corsConfiguration :: Prelude.Maybe Cors,
+    -- | The API protocol.
+    protocolType :: Prelude.Maybe ProtocolType,
     -- | The route selection expression for the API. For HTTP APIs, the
     -- routeSelectionExpression must be ${request.method} ${request.path}. If
     -- not provided, this will be the default for HTTP APIs. This property is
     -- required for WebSocket APIs.
     routeSelectionExpression :: Prelude.Maybe Prelude.Text,
-    -- | The validation information during API import. This may include
-    -- particular properties of your OpenAPI definition which are ignored
-    -- during import. Supported only for HTTP APIs.
-    importInfo :: Prelude.Maybe [Prelude.Text],
-    -- | Avoid validating models when creating a deployment. Supported only for
-    -- WebSocket APIs.
-    disableSchemaValidation :: Prelude.Maybe Prelude.Bool,
-    -- | The description of the API.
-    description :: Prelude.Maybe Prelude.Text,
-    -- | The API protocol.
-    protocolType :: Prelude.Maybe ProtocolType,
     -- | A collection of tags associated with the API.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | A version identifier for the API.
+    version :: Prelude.Maybe Prelude.Text,
+    -- | The warning messages reported when failonwarnings is turned on during
+    -- API import.
+    warnings :: Prelude.Maybe [Prelude.Text],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -441,7 +445,24 @@ data UpdateApiResponse = UpdateApiResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'apiEndpoint', 'updateApiResponse_apiEndpoint' - The URI of the API, of the form
+-- {api-id}.execute-api.{region}.amazonaws.com. The stage name is typically
+-- appended to this URI to form a complete path to a deployed API stage.
+--
+-- 'apiGatewayManaged', 'updateApiResponse_apiGatewayManaged' - Specifies whether an API is managed by API Gateway. You can\'t update or
+-- delete a managed API by using API Gateway. A managed API can be deleted
+-- only through the tooling or service that created it.
+--
 -- 'apiId', 'updateApiResponse_apiId' - The API ID.
+--
+-- 'apiKeySelectionExpression', 'updateApiResponse_apiKeySelectionExpression' - An API key selection expression. Supported only for WebSocket APIs. See
+-- <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions API Key Selection Expressions>.
+--
+-- 'corsConfiguration', 'updateApiResponse_corsConfiguration' - A CORS configuration. Supported only for HTTP APIs.
+--
+-- 'createdDate', 'updateApiResponse_createdDate' - The timestamp when the API was created.
+--
+-- 'description', 'updateApiResponse_description' - The description of the API.
 --
 -- 'disableExecuteApiEndpoint', 'updateApiResponse_disableExecuteApiEndpoint' - Specifies whether clients can invoke your API by using the default
 -- execute-api endpoint. By default, clients can invoke your API with the
@@ -449,45 +470,28 @@ data UpdateApiResponse = UpdateApiResponse'
 -- To require that clients use a custom domain name to invoke your API,
 -- disable the default endpoint.
 --
--- 'apiEndpoint', 'updateApiResponse_apiEndpoint' - The URI of the API, of the form
--- {api-id}.execute-api.{region}.amazonaws.com. The stage name is typically
--- appended to this URI to form a complete path to a deployed API stage.
+-- 'disableSchemaValidation', 'updateApiResponse_disableSchemaValidation' - Avoid validating models when creating a deployment. Supported only for
+-- WebSocket APIs.
 --
--- 'warnings', 'updateApiResponse_warnings' - The warning messages reported when failonwarnings is turned on during
--- API import.
---
--- 'createdDate', 'updateApiResponse_createdDate' - The timestamp when the API was created.
+-- 'importInfo', 'updateApiResponse_importInfo' - The validation information during API import. This may include
+-- particular properties of your OpenAPI definition which are ignored
+-- during import. Supported only for HTTP APIs.
 --
 -- 'name', 'updateApiResponse_name' - The name of the API.
 --
--- 'version', 'updateApiResponse_version' - A version identifier for the API.
---
--- 'apiGatewayManaged', 'updateApiResponse_apiGatewayManaged' - Specifies whether an API is managed by API Gateway. You can\'t update or
--- delete a managed API by using API Gateway. A managed API can be deleted
--- only through the tooling or service that created it.
---
--- 'apiKeySelectionExpression', 'updateApiResponse_apiKeySelectionExpression' - An API key selection expression. Supported only for WebSocket APIs. See
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions API Key Selection Expressions>.
---
--- 'corsConfiguration', 'updateApiResponse_corsConfiguration' - A CORS configuration. Supported only for HTTP APIs.
+-- 'protocolType', 'updateApiResponse_protocolType' - The API protocol.
 --
 -- 'routeSelectionExpression', 'updateApiResponse_routeSelectionExpression' - The route selection expression for the API. For HTTP APIs, the
 -- routeSelectionExpression must be ${request.method} ${request.path}. If
 -- not provided, this will be the default for HTTP APIs. This property is
 -- required for WebSocket APIs.
 --
--- 'importInfo', 'updateApiResponse_importInfo' - The validation information during API import. This may include
--- particular properties of your OpenAPI definition which are ignored
--- during import. Supported only for HTTP APIs.
---
--- 'disableSchemaValidation', 'updateApiResponse_disableSchemaValidation' - Avoid validating models when creating a deployment. Supported only for
--- WebSocket APIs.
---
--- 'description', 'updateApiResponse_description' - The description of the API.
---
--- 'protocolType', 'updateApiResponse_protocolType' - The API protocol.
---
 -- 'tags', 'updateApiResponse_tags' - A collection of tags associated with the API.
+--
+-- 'version', 'updateApiResponse_version' - A version identifier for the API.
+--
+-- 'warnings', 'updateApiResponse_warnings' - The warning messages reported when failonwarnings is turned on during
+-- API import.
 --
 -- 'httpStatus', 'updateApiResponse_httpStatus' - The response's http status code.
 newUpdateApiResponse ::
@@ -496,36 +500,24 @@ newUpdateApiResponse ::
   UpdateApiResponse
 newUpdateApiResponse pHttpStatus_ =
   UpdateApiResponse'
-    { apiId = Prelude.Nothing,
-      disableExecuteApiEndpoint = Prelude.Nothing,
-      apiEndpoint = Prelude.Nothing,
-      warnings = Prelude.Nothing,
-      createdDate = Prelude.Nothing,
-      name = Prelude.Nothing,
-      version = Prelude.Nothing,
+    { apiEndpoint = Prelude.Nothing,
       apiGatewayManaged = Prelude.Nothing,
+      apiId = Prelude.Nothing,
       apiKeySelectionExpression = Prelude.Nothing,
       corsConfiguration = Prelude.Nothing,
-      routeSelectionExpression = Prelude.Nothing,
-      importInfo = Prelude.Nothing,
-      disableSchemaValidation = Prelude.Nothing,
+      createdDate = Prelude.Nothing,
       description = Prelude.Nothing,
+      disableExecuteApiEndpoint = Prelude.Nothing,
+      disableSchemaValidation = Prelude.Nothing,
+      importInfo = Prelude.Nothing,
+      name = Prelude.Nothing,
       protocolType = Prelude.Nothing,
+      routeSelectionExpression = Prelude.Nothing,
       tags = Prelude.Nothing,
+      version = Prelude.Nothing,
+      warnings = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The API ID.
-updateApiResponse_apiId :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.Text)
-updateApiResponse_apiId = Lens.lens (\UpdateApiResponse' {apiId} -> apiId) (\s@UpdateApiResponse' {} a -> s {apiId = a} :: UpdateApiResponse)
-
--- | Specifies whether clients can invoke your API by using the default
--- execute-api endpoint. By default, clients can invoke your API with the
--- default https:\/\/{api_id}.execute-api.{region}.amazonaws.com endpoint.
--- To require that clients use a custom domain name to invoke your API,
--- disable the default endpoint.
-updateApiResponse_disableExecuteApiEndpoint :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.Bool)
-updateApiResponse_disableExecuteApiEndpoint = Lens.lens (\UpdateApiResponse' {disableExecuteApiEndpoint} -> disableExecuteApiEndpoint) (\s@UpdateApiResponse' {} a -> s {disableExecuteApiEndpoint = a} :: UpdateApiResponse)
 
 -- | The URI of the API, of the form
 -- {api-id}.execute-api.{region}.amazonaws.com. The stage name is typically
@@ -533,28 +525,15 @@ updateApiResponse_disableExecuteApiEndpoint = Lens.lens (\UpdateApiResponse' {di
 updateApiResponse_apiEndpoint :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.Text)
 updateApiResponse_apiEndpoint = Lens.lens (\UpdateApiResponse' {apiEndpoint} -> apiEndpoint) (\s@UpdateApiResponse' {} a -> s {apiEndpoint = a} :: UpdateApiResponse)
 
--- | The warning messages reported when failonwarnings is turned on during
--- API import.
-updateApiResponse_warnings :: Lens.Lens' UpdateApiResponse (Prelude.Maybe [Prelude.Text])
-updateApiResponse_warnings = Lens.lens (\UpdateApiResponse' {warnings} -> warnings) (\s@UpdateApiResponse' {} a -> s {warnings = a} :: UpdateApiResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The timestamp when the API was created.
-updateApiResponse_createdDate :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.UTCTime)
-updateApiResponse_createdDate = Lens.lens (\UpdateApiResponse' {createdDate} -> createdDate) (\s@UpdateApiResponse' {} a -> s {createdDate = a} :: UpdateApiResponse) Prelude.. Lens.mapping Core._Time
-
--- | The name of the API.
-updateApiResponse_name :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.Text)
-updateApiResponse_name = Lens.lens (\UpdateApiResponse' {name} -> name) (\s@UpdateApiResponse' {} a -> s {name = a} :: UpdateApiResponse)
-
--- | A version identifier for the API.
-updateApiResponse_version :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.Text)
-updateApiResponse_version = Lens.lens (\UpdateApiResponse' {version} -> version) (\s@UpdateApiResponse' {} a -> s {version = a} :: UpdateApiResponse)
-
 -- | Specifies whether an API is managed by API Gateway. You can\'t update or
 -- delete a managed API by using API Gateway. A managed API can be deleted
 -- only through the tooling or service that created it.
 updateApiResponse_apiGatewayManaged :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.Bool)
 updateApiResponse_apiGatewayManaged = Lens.lens (\UpdateApiResponse' {apiGatewayManaged} -> apiGatewayManaged) (\s@UpdateApiResponse' {} a -> s {apiGatewayManaged = a} :: UpdateApiResponse)
+
+-- | The API ID.
+updateApiResponse_apiId :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.Text)
+updateApiResponse_apiId = Lens.lens (\UpdateApiResponse' {apiId} -> apiId) (\s@UpdateApiResponse' {} a -> s {apiId = a} :: UpdateApiResponse)
 
 -- | An API key selection expression. Supported only for WebSocket APIs. See
 -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/apigateway-websocket-api-selection-expressions.html#apigateway-websocket-api-apikey-selection-expressions API Key Selection Expressions>.
@@ -565,12 +544,26 @@ updateApiResponse_apiKeySelectionExpression = Lens.lens (\UpdateApiResponse' {ap
 updateApiResponse_corsConfiguration :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Cors)
 updateApiResponse_corsConfiguration = Lens.lens (\UpdateApiResponse' {corsConfiguration} -> corsConfiguration) (\s@UpdateApiResponse' {} a -> s {corsConfiguration = a} :: UpdateApiResponse)
 
--- | The route selection expression for the API. For HTTP APIs, the
--- routeSelectionExpression must be ${request.method} ${request.path}. If
--- not provided, this will be the default for HTTP APIs. This property is
--- required for WebSocket APIs.
-updateApiResponse_routeSelectionExpression :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.Text)
-updateApiResponse_routeSelectionExpression = Lens.lens (\UpdateApiResponse' {routeSelectionExpression} -> routeSelectionExpression) (\s@UpdateApiResponse' {} a -> s {routeSelectionExpression = a} :: UpdateApiResponse)
+-- | The timestamp when the API was created.
+updateApiResponse_createdDate :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.UTCTime)
+updateApiResponse_createdDate = Lens.lens (\UpdateApiResponse' {createdDate} -> createdDate) (\s@UpdateApiResponse' {} a -> s {createdDate = a} :: UpdateApiResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The description of the API.
+updateApiResponse_description :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.Text)
+updateApiResponse_description = Lens.lens (\UpdateApiResponse' {description} -> description) (\s@UpdateApiResponse' {} a -> s {description = a} :: UpdateApiResponse)
+
+-- | Specifies whether clients can invoke your API by using the default
+-- execute-api endpoint. By default, clients can invoke your API with the
+-- default https:\/\/{api_id}.execute-api.{region}.amazonaws.com endpoint.
+-- To require that clients use a custom domain name to invoke your API,
+-- disable the default endpoint.
+updateApiResponse_disableExecuteApiEndpoint :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.Bool)
+updateApiResponse_disableExecuteApiEndpoint = Lens.lens (\UpdateApiResponse' {disableExecuteApiEndpoint} -> disableExecuteApiEndpoint) (\s@UpdateApiResponse' {} a -> s {disableExecuteApiEndpoint = a} :: UpdateApiResponse)
+
+-- | Avoid validating models when creating a deployment. Supported only for
+-- WebSocket APIs.
+updateApiResponse_disableSchemaValidation :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.Bool)
+updateApiResponse_disableSchemaValidation = Lens.lens (\UpdateApiResponse' {disableSchemaValidation} -> disableSchemaValidation) (\s@UpdateApiResponse' {} a -> s {disableSchemaValidation = a} :: UpdateApiResponse)
 
 -- | The validation information during API import. This may include
 -- particular properties of your OpenAPI definition which are ignored
@@ -578,22 +571,33 @@ updateApiResponse_routeSelectionExpression = Lens.lens (\UpdateApiResponse' {rou
 updateApiResponse_importInfo :: Lens.Lens' UpdateApiResponse (Prelude.Maybe [Prelude.Text])
 updateApiResponse_importInfo = Lens.lens (\UpdateApiResponse' {importInfo} -> importInfo) (\s@UpdateApiResponse' {} a -> s {importInfo = a} :: UpdateApiResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | Avoid validating models when creating a deployment. Supported only for
--- WebSocket APIs.
-updateApiResponse_disableSchemaValidation :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.Bool)
-updateApiResponse_disableSchemaValidation = Lens.lens (\UpdateApiResponse' {disableSchemaValidation} -> disableSchemaValidation) (\s@UpdateApiResponse' {} a -> s {disableSchemaValidation = a} :: UpdateApiResponse)
-
--- | The description of the API.
-updateApiResponse_description :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.Text)
-updateApiResponse_description = Lens.lens (\UpdateApiResponse' {description} -> description) (\s@UpdateApiResponse' {} a -> s {description = a} :: UpdateApiResponse)
+-- | The name of the API.
+updateApiResponse_name :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.Text)
+updateApiResponse_name = Lens.lens (\UpdateApiResponse' {name} -> name) (\s@UpdateApiResponse' {} a -> s {name = a} :: UpdateApiResponse)
 
 -- | The API protocol.
 updateApiResponse_protocolType :: Lens.Lens' UpdateApiResponse (Prelude.Maybe ProtocolType)
 updateApiResponse_protocolType = Lens.lens (\UpdateApiResponse' {protocolType} -> protocolType) (\s@UpdateApiResponse' {} a -> s {protocolType = a} :: UpdateApiResponse)
 
+-- | The route selection expression for the API. For HTTP APIs, the
+-- routeSelectionExpression must be ${request.method} ${request.path}. If
+-- not provided, this will be the default for HTTP APIs. This property is
+-- required for WebSocket APIs.
+updateApiResponse_routeSelectionExpression :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.Text)
+updateApiResponse_routeSelectionExpression = Lens.lens (\UpdateApiResponse' {routeSelectionExpression} -> routeSelectionExpression) (\s@UpdateApiResponse' {} a -> s {routeSelectionExpression = a} :: UpdateApiResponse)
+
 -- | A collection of tags associated with the API.
 updateApiResponse_tags :: Lens.Lens' UpdateApiResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 updateApiResponse_tags = Lens.lens (\UpdateApiResponse' {tags} -> tags) (\s@UpdateApiResponse' {} a -> s {tags = a} :: UpdateApiResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A version identifier for the API.
+updateApiResponse_version :: Lens.Lens' UpdateApiResponse (Prelude.Maybe Prelude.Text)
+updateApiResponse_version = Lens.lens (\UpdateApiResponse' {version} -> version) (\s@UpdateApiResponse' {} a -> s {version = a} :: UpdateApiResponse)
+
+-- | The warning messages reported when failonwarnings is turned on during
+-- API import.
+updateApiResponse_warnings :: Lens.Lens' UpdateApiResponse (Prelude.Maybe [Prelude.Text])
+updateApiResponse_warnings = Lens.lens (\UpdateApiResponse' {warnings} -> warnings) (\s@UpdateApiResponse' {} a -> s {warnings = a} :: UpdateApiResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 updateApiResponse_httpStatus :: Lens.Lens' UpdateApiResponse Prelude.Int
@@ -601,20 +605,20 @@ updateApiResponse_httpStatus = Lens.lens (\UpdateApiResponse' {httpStatus} -> ht
 
 instance Prelude.NFData UpdateApiResponse where
   rnf UpdateApiResponse' {..} =
-    Prelude.rnf apiId
-      `Prelude.seq` Prelude.rnf disableExecuteApiEndpoint
-      `Prelude.seq` Prelude.rnf apiEndpoint
-      `Prelude.seq` Prelude.rnf warnings
-      `Prelude.seq` Prelude.rnf createdDate
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf version
+    Prelude.rnf apiEndpoint
       `Prelude.seq` Prelude.rnf apiGatewayManaged
+      `Prelude.seq` Prelude.rnf apiId
       `Prelude.seq` Prelude.rnf apiKeySelectionExpression
       `Prelude.seq` Prelude.rnf corsConfiguration
-      `Prelude.seq` Prelude.rnf routeSelectionExpression
-      `Prelude.seq` Prelude.rnf importInfo
-      `Prelude.seq` Prelude.rnf disableSchemaValidation
+      `Prelude.seq` Prelude.rnf createdDate
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf disableExecuteApiEndpoint
+      `Prelude.seq` Prelude.rnf disableSchemaValidation
+      `Prelude.seq` Prelude.rnf importInfo
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf protocolType
+      `Prelude.seq` Prelude.rnf routeSelectionExpression
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf version
+      `Prelude.seq` Prelude.rnf warnings
       `Prelude.seq` Prelude.rnf httpStatus

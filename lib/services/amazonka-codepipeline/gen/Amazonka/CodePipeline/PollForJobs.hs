@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.PollForJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ where
 
 import Amazonka.CodePipeline.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -119,12 +120,13 @@ pollForJobs_actionTypeId = Lens.lens (\PollForJobs' {actionTypeId} -> actionType
 
 instance Core.AWSRequest PollForJobs where
   type AWSResponse PollForJobs = PollForJobsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PollForJobsResponse'
-            Prelude.<$> (x Core..?> "jobs" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "jobs" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -140,35 +142,35 @@ instance Prelude.NFData PollForJobs where
       `Prelude.seq` Prelude.rnf queryParam
       `Prelude.seq` Prelude.rnf actionTypeId
 
-instance Core.ToHeaders PollForJobs where
+instance Data.ToHeaders PollForJobs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodePipeline_20150709.PollForJobs" ::
+              Data.=# ( "CodePipeline_20150709.PollForJobs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PollForJobs where
+instance Data.ToJSON PollForJobs where
   toJSON PollForJobs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("maxBatchSize" Core..=) Prelude.<$> maxBatchSize,
-            ("queryParam" Core..=) Prelude.<$> queryParam,
-            Prelude.Just ("actionTypeId" Core..= actionTypeId)
+          [ ("maxBatchSize" Data..=) Prelude.<$> maxBatchSize,
+            ("queryParam" Data..=) Prelude.<$> queryParam,
+            Prelude.Just ("actionTypeId" Data..= actionTypeId)
           ]
       )
 
-instance Core.ToPath PollForJobs where
+instance Data.ToPath PollForJobs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PollForJobs where
+instance Data.ToQuery PollForJobs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @PollForJobs@ action.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsApiGatewayAccessLogSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.SecurityHub.Types.AwsApiGatewayAccessLogSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about settings for logging access for the stage.
 --
 -- /See:/ 'newAwsApiGatewayAccessLogSettings' smart constructor.
 data AwsApiGatewayAccessLogSettings = AwsApiGatewayAccessLogSettings'
-  { -- | A single-line format of the access logs of data, as specified by
+  { -- | The ARN of the CloudWatch Logs log group that receives the access logs.
+    destinationArn :: Prelude.Maybe Prelude.Text,
+    -- | A single-line format of the access logs of data, as specified by
     -- selected @$context@ variables. The format must include at least
     -- @$context.requestId@.
-    format :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the CloudWatch Logs log group that receives the access logs.
-    destinationArn :: Prelude.Maybe Prelude.Text
+    format :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,19 +45,23 @@ data AwsApiGatewayAccessLogSettings = AwsApiGatewayAccessLogSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'destinationArn', 'awsApiGatewayAccessLogSettings_destinationArn' - The ARN of the CloudWatch Logs log group that receives the access logs.
+--
 -- 'format', 'awsApiGatewayAccessLogSettings_format' - A single-line format of the access logs of data, as specified by
 -- selected @$context@ variables. The format must include at least
 -- @$context.requestId@.
---
--- 'destinationArn', 'awsApiGatewayAccessLogSettings_destinationArn' - The ARN of the CloudWatch Logs log group that receives the access logs.
 newAwsApiGatewayAccessLogSettings ::
   AwsApiGatewayAccessLogSettings
 newAwsApiGatewayAccessLogSettings =
   AwsApiGatewayAccessLogSettings'
-    { format =
+    { destinationArn =
         Prelude.Nothing,
-      destinationArn = Prelude.Nothing
+      format = Prelude.Nothing
     }
+
+-- | The ARN of the CloudWatch Logs log group that receives the access logs.
+awsApiGatewayAccessLogSettings_destinationArn :: Lens.Lens' AwsApiGatewayAccessLogSettings (Prelude.Maybe Prelude.Text)
+awsApiGatewayAccessLogSettings_destinationArn = Lens.lens (\AwsApiGatewayAccessLogSettings' {destinationArn} -> destinationArn) (\s@AwsApiGatewayAccessLogSettings' {} a -> s {destinationArn = a} :: AwsApiGatewayAccessLogSettings)
 
 -- | A single-line format of the access logs of data, as specified by
 -- selected @$context@ variables. The format must include at least
@@ -64,18 +69,14 @@ newAwsApiGatewayAccessLogSettings =
 awsApiGatewayAccessLogSettings_format :: Lens.Lens' AwsApiGatewayAccessLogSettings (Prelude.Maybe Prelude.Text)
 awsApiGatewayAccessLogSettings_format = Lens.lens (\AwsApiGatewayAccessLogSettings' {format} -> format) (\s@AwsApiGatewayAccessLogSettings' {} a -> s {format = a} :: AwsApiGatewayAccessLogSettings)
 
--- | The ARN of the CloudWatch Logs log group that receives the access logs.
-awsApiGatewayAccessLogSettings_destinationArn :: Lens.Lens' AwsApiGatewayAccessLogSettings (Prelude.Maybe Prelude.Text)
-awsApiGatewayAccessLogSettings_destinationArn = Lens.lens (\AwsApiGatewayAccessLogSettings' {destinationArn} -> destinationArn) (\s@AwsApiGatewayAccessLogSettings' {} a -> s {destinationArn = a} :: AwsApiGatewayAccessLogSettings)
-
-instance Core.FromJSON AwsApiGatewayAccessLogSettings where
+instance Data.FromJSON AwsApiGatewayAccessLogSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsApiGatewayAccessLogSettings"
       ( \x ->
           AwsApiGatewayAccessLogSettings'
-            Prelude.<$> (x Core..:? "Format")
-            Prelude.<*> (x Core..:? "DestinationArn")
+            Prelude.<$> (x Data..:? "DestinationArn")
+            Prelude.<*> (x Data..:? "Format")
       )
 
 instance
@@ -85,23 +86,23 @@ instance
   hashWithSalt
     _salt
     AwsApiGatewayAccessLogSettings' {..} =
-      _salt `Prelude.hashWithSalt` format
-        `Prelude.hashWithSalt` destinationArn
+      _salt `Prelude.hashWithSalt` destinationArn
+        `Prelude.hashWithSalt` format
 
 instance
   Prelude.NFData
     AwsApiGatewayAccessLogSettings
   where
   rnf AwsApiGatewayAccessLogSettings' {..} =
-    Prelude.rnf format
-      `Prelude.seq` Prelude.rnf destinationArn
+    Prelude.rnf destinationArn
+      `Prelude.seq` Prelude.rnf format
 
-instance Core.ToJSON AwsApiGatewayAccessLogSettings where
+instance Data.ToJSON AwsApiGatewayAccessLogSettings where
   toJSON AwsApiGatewayAccessLogSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Format" Core..=) Prelude.<$> format,
-            ("DestinationArn" Core..=)
-              Prelude.<$> destinationArn
+          [ ("DestinationArn" Data..=)
+              Prelude.<$> destinationArn,
+            ("Format" Data..=) Prelude.<$> format
           ]
       )

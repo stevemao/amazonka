@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.BatchUpdateTableRows
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,8 +51,9 @@ module Amazonka.HoneyCode.BatchUpdateTableRows
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HoneyCode.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -191,16 +192,17 @@ instance Core.AWSRequest BatchUpdateTableRows where
   type
     AWSResponse BatchUpdateTableRows =
       BatchUpdateTableRowsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchUpdateTableRowsResponse'
-            Prelude.<$> ( x Core..?> "failedBatchItems"
+            Prelude.<$> ( x Data..?> "failedBatchItems"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "workbookCursor")
+            Prelude.<*> (x Data..:> "workbookCursor")
       )
 
 instance Prelude.Hashable BatchUpdateTableRows where
@@ -217,38 +219,38 @@ instance Prelude.NFData BatchUpdateTableRows where
       `Prelude.seq` Prelude.rnf tableId
       `Prelude.seq` Prelude.rnf rowsToUpdate
 
-instance Core.ToHeaders BatchUpdateTableRows where
+instance Data.ToHeaders BatchUpdateTableRows where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchUpdateTableRows where
+instance Data.ToJSON BatchUpdateTableRows where
   toJSON BatchUpdateTableRows' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientRequestToken" Core..=)
+          [ ("clientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            Prelude.Just ("rowsToUpdate" Core..= rowsToUpdate)
+            Prelude.Just ("rowsToUpdate" Data..= rowsToUpdate)
           ]
       )
 
-instance Core.ToPath BatchUpdateTableRows where
+instance Data.ToPath BatchUpdateTableRows where
   toPath BatchUpdateTableRows' {..} =
     Prelude.mconcat
       [ "/workbooks/",
-        Core.toBS workbookId,
+        Data.toBS workbookId,
         "/tables/",
-        Core.toBS tableId,
+        Data.toBS tableId,
         "/rows/batchupdate"
       ]
 
-instance Core.ToQuery BatchUpdateTableRows where
+instance Data.ToQuery BatchUpdateTableRows where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchUpdateTableRowsResponse' smart constructor.

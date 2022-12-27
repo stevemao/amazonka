@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.GetFolder
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,11 +36,11 @@ module Amazonka.CodeCommit.GetFolder
     newGetFolderResponse,
 
     -- * Response Lenses
-    getFolderResponse_subModules,
-    getFolderResponse_treeId,
-    getFolderResponse_subFolders,
-    getFolderResponse_symbolicLinks,
     getFolderResponse_files,
+    getFolderResponse_subFolders,
+    getFolderResponse_subModules,
+    getFolderResponse_symbolicLinks,
+    getFolderResponse_treeId,
     getFolderResponse_httpStatus,
     getFolderResponse_commitId,
     getFolderResponse_folderPath,
@@ -49,7 +49,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -126,19 +127,20 @@ getFolder_folderPath = Lens.lens (\GetFolder' {folderPath} -> folderPath) (\s@Ge
 
 instance Core.AWSRequest GetFolder where
   type AWSResponse GetFolder = GetFolderResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetFolderResponse'
-            Prelude.<$> (x Core..?> "subModules" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "treeId")
-            Prelude.<*> (x Core..?> "subFolders" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "symbolicLinks" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "files" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "files" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "subFolders" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "subModules" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "symbolicLinks" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "treeId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "commitId")
-            Prelude.<*> (x Core..:> "folderPath")
+            Prelude.<*> (x Data..:> "commitId")
+            Prelude.<*> (x Data..:> "folderPath")
       )
 
 instance Prelude.Hashable GetFolder where
@@ -153,53 +155,53 @@ instance Prelude.NFData GetFolder where
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf folderPath
 
-instance Core.ToHeaders GetFolder where
+instance Data.ToHeaders GetFolder where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.GetFolder" ::
+              Data.=# ( "CodeCommit_20150413.GetFolder" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetFolder where
+instance Data.ToJSON GetFolder where
   toJSON GetFolder' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("commitSpecifier" Core..=)
+          [ ("commitSpecifier" Data..=)
               Prelude.<$> commitSpecifier,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
-            Prelude.Just ("folderPath" Core..= folderPath)
+              ("repositoryName" Data..= repositoryName),
+            Prelude.Just ("folderPath" Data..= folderPath)
           ]
       )
 
-instance Core.ToPath GetFolder where
+instance Data.ToPath GetFolder where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetFolder where
+instance Data.ToQuery GetFolder where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetFolderResponse' smart constructor.
 data GetFolderResponse = GetFolderResponse'
-  { -- | The list of submodules in the specified folder, if any.
-    subModules :: Prelude.Maybe [SubModule],
-    -- | The full SHA-1 pointer of the tree information for the commit that
-    -- contains the folder.
-    treeId :: Prelude.Maybe Prelude.Text,
+  { -- | The list of files in the specified folder, if any.
+    files :: Prelude.Maybe [File],
     -- | The list of folders that exist under the specified folder, if any.
     subFolders :: Prelude.Maybe [Folder],
+    -- | The list of submodules in the specified folder, if any.
+    subModules :: Prelude.Maybe [SubModule],
     -- | The list of symbolic links to other files and folders in the specified
     -- folder, if any.
     symbolicLinks :: Prelude.Maybe [SymbolicLink],
-    -- | The list of files in the specified folder, if any.
-    files :: Prelude.Maybe [File],
+    -- | The full SHA-1 pointer of the tree information for the commit that
+    -- contains the folder.
+    treeId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The full commit ID used as a reference for the returned version of the
@@ -218,17 +220,17 @@ data GetFolderResponse = GetFolderResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subModules', 'getFolderResponse_subModules' - The list of submodules in the specified folder, if any.
---
--- 'treeId', 'getFolderResponse_treeId' - The full SHA-1 pointer of the tree information for the commit that
--- contains the folder.
+-- 'files', 'getFolderResponse_files' - The list of files in the specified folder, if any.
 --
 -- 'subFolders', 'getFolderResponse_subFolders' - The list of folders that exist under the specified folder, if any.
+--
+-- 'subModules', 'getFolderResponse_subModules' - The list of submodules in the specified folder, if any.
 --
 -- 'symbolicLinks', 'getFolderResponse_symbolicLinks' - The list of symbolic links to other files and folders in the specified
 -- folder, if any.
 --
--- 'files', 'getFolderResponse_files' - The list of files in the specified folder, if any.
+-- 'treeId', 'getFolderResponse_treeId' - The full SHA-1 pointer of the tree information for the commit that
+-- contains the folder.
 --
 -- 'httpStatus', 'getFolderResponse_httpStatus' - The response's http status code.
 --
@@ -249,37 +251,37 @@ newGetFolderResponse
   pCommitId_
   pFolderPath_ =
     GetFolderResponse'
-      { subModules = Prelude.Nothing,
-        treeId = Prelude.Nothing,
+      { files = Prelude.Nothing,
         subFolders = Prelude.Nothing,
+        subModules = Prelude.Nothing,
         symbolicLinks = Prelude.Nothing,
-        files = Prelude.Nothing,
+        treeId = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         commitId = pCommitId_,
         folderPath = pFolderPath_
       }
 
--- | The list of submodules in the specified folder, if any.
-getFolderResponse_subModules :: Lens.Lens' GetFolderResponse (Prelude.Maybe [SubModule])
-getFolderResponse_subModules = Lens.lens (\GetFolderResponse' {subModules} -> subModules) (\s@GetFolderResponse' {} a -> s {subModules = a} :: GetFolderResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The full SHA-1 pointer of the tree information for the commit that
--- contains the folder.
-getFolderResponse_treeId :: Lens.Lens' GetFolderResponse (Prelude.Maybe Prelude.Text)
-getFolderResponse_treeId = Lens.lens (\GetFolderResponse' {treeId} -> treeId) (\s@GetFolderResponse' {} a -> s {treeId = a} :: GetFolderResponse)
+-- | The list of files in the specified folder, if any.
+getFolderResponse_files :: Lens.Lens' GetFolderResponse (Prelude.Maybe [File])
+getFolderResponse_files = Lens.lens (\GetFolderResponse' {files} -> files) (\s@GetFolderResponse' {} a -> s {files = a} :: GetFolderResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The list of folders that exist under the specified folder, if any.
 getFolderResponse_subFolders :: Lens.Lens' GetFolderResponse (Prelude.Maybe [Folder])
 getFolderResponse_subFolders = Lens.lens (\GetFolderResponse' {subFolders} -> subFolders) (\s@GetFolderResponse' {} a -> s {subFolders = a} :: GetFolderResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The list of submodules in the specified folder, if any.
+getFolderResponse_subModules :: Lens.Lens' GetFolderResponse (Prelude.Maybe [SubModule])
+getFolderResponse_subModules = Lens.lens (\GetFolderResponse' {subModules} -> subModules) (\s@GetFolderResponse' {} a -> s {subModules = a} :: GetFolderResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The list of symbolic links to other files and folders in the specified
 -- folder, if any.
 getFolderResponse_symbolicLinks :: Lens.Lens' GetFolderResponse (Prelude.Maybe [SymbolicLink])
 getFolderResponse_symbolicLinks = Lens.lens (\GetFolderResponse' {symbolicLinks} -> symbolicLinks) (\s@GetFolderResponse' {} a -> s {symbolicLinks = a} :: GetFolderResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The list of files in the specified folder, if any.
-getFolderResponse_files :: Lens.Lens' GetFolderResponse (Prelude.Maybe [File])
-getFolderResponse_files = Lens.lens (\GetFolderResponse' {files} -> files) (\s@GetFolderResponse' {} a -> s {files = a} :: GetFolderResponse) Prelude.. Lens.mapping Lens.coerced
+-- | The full SHA-1 pointer of the tree information for the commit that
+-- contains the folder.
+getFolderResponse_treeId :: Lens.Lens' GetFolderResponse (Prelude.Maybe Prelude.Text)
+getFolderResponse_treeId = Lens.lens (\GetFolderResponse' {treeId} -> treeId) (\s@GetFolderResponse' {} a -> s {treeId = a} :: GetFolderResponse)
 
 -- | The response's http status code.
 getFolderResponse_httpStatus :: Lens.Lens' GetFolderResponse Prelude.Int
@@ -296,11 +298,11 @@ getFolderResponse_folderPath = Lens.lens (\GetFolderResponse' {folderPath} -> fo
 
 instance Prelude.NFData GetFolderResponse where
   rnf GetFolderResponse' {..} =
-    Prelude.rnf subModules
-      `Prelude.seq` Prelude.rnf treeId
+    Prelude.rnf files
       `Prelude.seq` Prelude.rnf subFolders
+      `Prelude.seq` Prelude.rnf subModules
       `Prelude.seq` Prelude.rnf symbolicLinks
-      `Prelude.seq` Prelude.rnf files
+      `Prelude.seq` Prelude.rnf treeId
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf commitId
       `Prelude.seq` Prelude.rnf folderPath

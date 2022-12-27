@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Types.StatelessRuleGroupReference
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.NetworkFirewall.Types.StatelessRuleGroupReference where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Identifier for a single stateless rule group, used in a firewall policy
@@ -81,14 +82,14 @@ statelessRuleGroupReference_resourceArn = Lens.lens (\StatelessRuleGroupReferenc
 statelessRuleGroupReference_priority :: Lens.Lens' StatelessRuleGroupReference Prelude.Natural
 statelessRuleGroupReference_priority = Lens.lens (\StatelessRuleGroupReference' {priority} -> priority) (\s@StatelessRuleGroupReference' {} a -> s {priority = a} :: StatelessRuleGroupReference)
 
-instance Core.FromJSON StatelessRuleGroupReference where
+instance Data.FromJSON StatelessRuleGroupReference where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StatelessRuleGroupReference"
       ( \x ->
           StatelessRuleGroupReference'
-            Prelude.<$> (x Core..: "ResourceArn")
-            Prelude.<*> (x Core..: "Priority")
+            Prelude.<$> (x Data..: "ResourceArn")
+            Prelude.<*> (x Data..: "Priority")
       )
 
 instance Prelude.Hashable StatelessRuleGroupReference where
@@ -101,11 +102,11 @@ instance Prelude.NFData StatelessRuleGroupReference where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf priority
 
-instance Core.ToJSON StatelessRuleGroupReference where
+instance Data.ToJSON StatelessRuleGroupReference where
   toJSON StatelessRuleGroupReference' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceArn" Core..= resourceArn),
-            Prelude.Just ("Priority" Core..= priority)
+          [ Prelude.Just ("ResourceArn" Data..= resourceArn),
+            Prelude.Just ("Priority" Data..= priority)
           ]
       )

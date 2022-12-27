@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Textract.AnalyzeDocument
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,6 +39,18 @@
 --     document are returned (including text that doesn\'t have a
 --     relationship with the value of @FeatureTypes@).
 --
+-- -   Signatures. A SIGNATURE @Block@ object contains the location
+--     information of a signature in a document. If used in conjunction
+--     with forms or tables, a signature can be given a Key-Value pairing
+--     or be detected in the cell of a table.
+--
+-- -   Query. A QUERY Block object contains the query text, alias and link
+--     to the associated Query results block object.
+--
+-- -   Query Result. A QUERY_RESULT Block object contains the answer to the
+--     query and an ID that connects it to the query asked. This Block also
+--     contains a confidence score.
+--
 -- Selection elements such as check boxes and option buttons (radio
 -- buttons) can be detected in form data and in tables. A SELECTION_ELEMENT
 -- @Block@ object contains information about a selection element, including
@@ -61,6 +73,7 @@ module Amazonka.Textract.AnalyzeDocument
 
     -- * Request Lenses
     analyzeDocument_humanLoopConfig,
+    analyzeDocument_queriesConfig,
     analyzeDocument_document,
     analyzeDocument_featureTypes,
 
@@ -69,16 +82,17 @@ module Amazonka.Textract.AnalyzeDocument
     newAnalyzeDocumentResponse,
 
     -- * Response Lenses
-    analyzeDocumentResponse_documentMetadata,
-    analyzeDocumentResponse_blocks,
-    analyzeDocumentResponse_humanLoopActivationOutput,
     analyzeDocumentResponse_analyzeDocumentModelVersion,
+    analyzeDocumentResponse_blocks,
+    analyzeDocumentResponse_documentMetadata,
+    analyzeDocumentResponse_humanLoopActivationOutput,
     analyzeDocumentResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,19 +103,26 @@ data AnalyzeDocument = AnalyzeDocument'
   { -- | Sets the configuration for the human in the loop workflow for analyzing
     -- documents.
     humanLoopConfig :: Prelude.Maybe HumanLoopConfig,
+    -- | Contains Queries and the alias for those Queries, as determined by the
+    -- input.
+    queriesConfig :: Prelude.Maybe QueriesConfig,
     -- | The input document as base64-encoded bytes or an Amazon S3 object. If
     -- you use the AWS CLI to call Amazon Textract operations, you can\'t pass
-    -- image bytes. The document must be an image in JPEG or PNG format.
+    -- image bytes. The document must be an image in JPEG, PNG, PDF, or TIFF
+    -- format.
     --
     -- If you\'re using an AWS SDK to call Amazon Textract, you might not need
     -- to base64-encode image bytes that are passed using the @Bytes@ field.
     document :: Document,
     -- | A list of the types of analysis to perform. Add TABLES to the list to
     -- return information about the tables that are detected in the input
-    -- document. Add FORMS to return detected form data. To perform both types
-    -- of analysis, add TABLES and FORMS to @FeatureTypes@. All lines and words
-    -- detected in the document are included in the response (including text
-    -- that isn\'t related to the value of @FeatureTypes@).
+    -- document. Add FORMS to return detected form data. Add SIGNATURES to
+    -- return the locations of detected signatures. To perform both forms and
+    -- table analysis, add TABLES and FORMS to @FeatureTypes@. To detect
+    -- signatures within form data and table data, add SIGNATURES to either
+    -- TABLES or FORMS. All lines and words detected in the document are
+    -- included in the response (including text that isn\'t related to the
+    -- value of @FeatureTypes@).
     featureTypes :: [FeatureType]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -117,19 +138,26 @@ data AnalyzeDocument = AnalyzeDocument'
 -- 'humanLoopConfig', 'analyzeDocument_humanLoopConfig' - Sets the configuration for the human in the loop workflow for analyzing
 -- documents.
 --
+-- 'queriesConfig', 'analyzeDocument_queriesConfig' - Contains Queries and the alias for those Queries, as determined by the
+-- input.
+--
 -- 'document', 'analyzeDocument_document' - The input document as base64-encoded bytes or an Amazon S3 object. If
 -- you use the AWS CLI to call Amazon Textract operations, you can\'t pass
--- image bytes. The document must be an image in JPEG or PNG format.
+-- image bytes. The document must be an image in JPEG, PNG, PDF, or TIFF
+-- format.
 --
 -- If you\'re using an AWS SDK to call Amazon Textract, you might not need
 -- to base64-encode image bytes that are passed using the @Bytes@ field.
 --
 -- 'featureTypes', 'analyzeDocument_featureTypes' - A list of the types of analysis to perform. Add TABLES to the list to
 -- return information about the tables that are detected in the input
--- document. Add FORMS to return detected form data. To perform both types
--- of analysis, add TABLES and FORMS to @FeatureTypes@. All lines and words
--- detected in the document are included in the response (including text
--- that isn\'t related to the value of @FeatureTypes@).
+-- document. Add FORMS to return detected form data. Add SIGNATURES to
+-- return the locations of detected signatures. To perform both forms and
+-- table analysis, add TABLES and FORMS to @FeatureTypes@. To detect
+-- signatures within form data and table data, add SIGNATURES to either
+-- TABLES or FORMS. All lines and words detected in the document are
+-- included in the response (including text that isn\'t related to the
+-- value of @FeatureTypes@).
 newAnalyzeDocument ::
   -- | 'document'
   Document ->
@@ -137,6 +165,7 @@ newAnalyzeDocument ::
 newAnalyzeDocument pDocument_ =
   AnalyzeDocument'
     { humanLoopConfig = Prelude.Nothing,
+      queriesConfig = Prelude.Nothing,
       document = pDocument_,
       featureTypes = Prelude.mempty
     }
@@ -146,9 +175,15 @@ newAnalyzeDocument pDocument_ =
 analyzeDocument_humanLoopConfig :: Lens.Lens' AnalyzeDocument (Prelude.Maybe HumanLoopConfig)
 analyzeDocument_humanLoopConfig = Lens.lens (\AnalyzeDocument' {humanLoopConfig} -> humanLoopConfig) (\s@AnalyzeDocument' {} a -> s {humanLoopConfig = a} :: AnalyzeDocument)
 
+-- | Contains Queries and the alias for those Queries, as determined by the
+-- input.
+analyzeDocument_queriesConfig :: Lens.Lens' AnalyzeDocument (Prelude.Maybe QueriesConfig)
+analyzeDocument_queriesConfig = Lens.lens (\AnalyzeDocument' {queriesConfig} -> queriesConfig) (\s@AnalyzeDocument' {} a -> s {queriesConfig = a} :: AnalyzeDocument)
+
 -- | The input document as base64-encoded bytes or an Amazon S3 object. If
 -- you use the AWS CLI to call Amazon Textract operations, you can\'t pass
--- image bytes. The document must be an image in JPEG or PNG format.
+-- image bytes. The document must be an image in JPEG, PNG, PDF, or TIFF
+-- format.
 --
 -- If you\'re using an AWS SDK to call Amazon Textract, you might not need
 -- to base64-encode image bytes that are passed using the @Bytes@ field.
@@ -157,10 +192,13 @@ analyzeDocument_document = Lens.lens (\AnalyzeDocument' {document} -> document) 
 
 -- | A list of the types of analysis to perform. Add TABLES to the list to
 -- return information about the tables that are detected in the input
--- document. Add FORMS to return detected form data. To perform both types
--- of analysis, add TABLES and FORMS to @FeatureTypes@. All lines and words
--- detected in the document are included in the response (including text
--- that isn\'t related to the value of @FeatureTypes@).
+-- document. Add FORMS to return detected form data. Add SIGNATURES to
+-- return the locations of detected signatures. To perform both forms and
+-- table analysis, add TABLES and FORMS to @FeatureTypes@. To detect
+-- signatures within form data and table data, add SIGNATURES to either
+-- TABLES or FORMS. All lines and words detected in the document are
+-- included in the response (including text that isn\'t related to the
+-- value of @FeatureTypes@).
 analyzeDocument_featureTypes :: Lens.Lens' AnalyzeDocument [FeatureType]
 analyzeDocument_featureTypes = Lens.lens (\AnalyzeDocument' {featureTypes} -> featureTypes) (\s@AnalyzeDocument' {} a -> s {featureTypes = a} :: AnalyzeDocument) Prelude.. Lens.coerced
 
@@ -168,70 +206,74 @@ instance Core.AWSRequest AnalyzeDocument where
   type
     AWSResponse AnalyzeDocument =
       AnalyzeDocumentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AnalyzeDocumentResponse'
-            Prelude.<$> (x Core..?> "DocumentMetadata")
-            Prelude.<*> (x Core..?> "Blocks" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "HumanLoopActivationOutput")
-            Prelude.<*> (x Core..?> "AnalyzeDocumentModelVersion")
+            Prelude.<$> (x Data..?> "AnalyzeDocumentModelVersion")
+            Prelude.<*> (x Data..?> "Blocks" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "DocumentMetadata")
+            Prelude.<*> (x Data..?> "HumanLoopActivationOutput")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable AnalyzeDocument where
   hashWithSalt _salt AnalyzeDocument' {..} =
     _salt `Prelude.hashWithSalt` humanLoopConfig
+      `Prelude.hashWithSalt` queriesConfig
       `Prelude.hashWithSalt` document
       `Prelude.hashWithSalt` featureTypes
 
 instance Prelude.NFData AnalyzeDocument where
   rnf AnalyzeDocument' {..} =
     Prelude.rnf humanLoopConfig
+      `Prelude.seq` Prelude.rnf queriesConfig
       `Prelude.seq` Prelude.rnf document
       `Prelude.seq` Prelude.rnf featureTypes
 
-instance Core.ToHeaders AnalyzeDocument where
+instance Data.ToHeaders AnalyzeDocument where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("Textract.AnalyzeDocument" :: Prelude.ByteString),
+              Data.=# ("Textract.AnalyzeDocument" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AnalyzeDocument where
+instance Data.ToJSON AnalyzeDocument where
   toJSON AnalyzeDocument' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("HumanLoopConfig" Core..=)
+          [ ("HumanLoopConfig" Data..=)
               Prelude.<$> humanLoopConfig,
-            Prelude.Just ("Document" Core..= document),
-            Prelude.Just ("FeatureTypes" Core..= featureTypes)
+            ("QueriesConfig" Data..=) Prelude.<$> queriesConfig,
+            Prelude.Just ("Document" Data..= document),
+            Prelude.Just ("FeatureTypes" Data..= featureTypes)
           ]
       )
 
-instance Core.ToPath AnalyzeDocument where
+instance Data.ToPath AnalyzeDocument where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AnalyzeDocument where
+instance Data.ToQuery AnalyzeDocument where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAnalyzeDocumentResponse' smart constructor.
 data AnalyzeDocumentResponse = AnalyzeDocumentResponse'
-  { -- | Metadata about the analyzed document. An example is the number of pages.
-    documentMetadata :: Prelude.Maybe DocumentMetadata,
+  { -- | The version of the model used to analyze the document.
+    analyzeDocumentModelVersion :: Prelude.Maybe Prelude.Text,
     -- | The items that are detected and analyzed by @AnalyzeDocument@.
     blocks :: Prelude.Maybe [Block],
+    -- | Metadata about the analyzed document. An example is the number of pages.
+    documentMetadata :: Prelude.Maybe DocumentMetadata,
     -- | Shows the results of the human in the loop evaluation.
     humanLoopActivationOutput :: Prelude.Maybe HumanLoopActivationOutput,
-    -- | The version of the model used to analyze the document.
-    analyzeDocumentModelVersion :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -245,13 +287,13 @@ data AnalyzeDocumentResponse = AnalyzeDocumentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'documentMetadata', 'analyzeDocumentResponse_documentMetadata' - Metadata about the analyzed document. An example is the number of pages.
+-- 'analyzeDocumentModelVersion', 'analyzeDocumentResponse_analyzeDocumentModelVersion' - The version of the model used to analyze the document.
 --
 -- 'blocks', 'analyzeDocumentResponse_blocks' - The items that are detected and analyzed by @AnalyzeDocument@.
 --
--- 'humanLoopActivationOutput', 'analyzeDocumentResponse_humanLoopActivationOutput' - Shows the results of the human in the loop evaluation.
+-- 'documentMetadata', 'analyzeDocumentResponse_documentMetadata' - Metadata about the analyzed document. An example is the number of pages.
 --
--- 'analyzeDocumentModelVersion', 'analyzeDocumentResponse_analyzeDocumentModelVersion' - The version of the model used to analyze the document.
+-- 'humanLoopActivationOutput', 'analyzeDocumentResponse_humanLoopActivationOutput' - Shows the results of the human in the loop evaluation.
 --
 -- 'httpStatus', 'analyzeDocumentResponse_httpStatus' - The response's http status code.
 newAnalyzeDocumentResponse ::
@@ -260,29 +302,29 @@ newAnalyzeDocumentResponse ::
   AnalyzeDocumentResponse
 newAnalyzeDocumentResponse pHttpStatus_ =
   AnalyzeDocumentResponse'
-    { documentMetadata =
+    { analyzeDocumentModelVersion =
         Prelude.Nothing,
       blocks = Prelude.Nothing,
+      documentMetadata = Prelude.Nothing,
       humanLoopActivationOutput = Prelude.Nothing,
-      analyzeDocumentModelVersion = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | Metadata about the analyzed document. An example is the number of pages.
-analyzeDocumentResponse_documentMetadata :: Lens.Lens' AnalyzeDocumentResponse (Prelude.Maybe DocumentMetadata)
-analyzeDocumentResponse_documentMetadata = Lens.lens (\AnalyzeDocumentResponse' {documentMetadata} -> documentMetadata) (\s@AnalyzeDocumentResponse' {} a -> s {documentMetadata = a} :: AnalyzeDocumentResponse)
+-- | The version of the model used to analyze the document.
+analyzeDocumentResponse_analyzeDocumentModelVersion :: Lens.Lens' AnalyzeDocumentResponse (Prelude.Maybe Prelude.Text)
+analyzeDocumentResponse_analyzeDocumentModelVersion = Lens.lens (\AnalyzeDocumentResponse' {analyzeDocumentModelVersion} -> analyzeDocumentModelVersion) (\s@AnalyzeDocumentResponse' {} a -> s {analyzeDocumentModelVersion = a} :: AnalyzeDocumentResponse)
 
 -- | The items that are detected and analyzed by @AnalyzeDocument@.
 analyzeDocumentResponse_blocks :: Lens.Lens' AnalyzeDocumentResponse (Prelude.Maybe [Block])
 analyzeDocumentResponse_blocks = Lens.lens (\AnalyzeDocumentResponse' {blocks} -> blocks) (\s@AnalyzeDocumentResponse' {} a -> s {blocks = a} :: AnalyzeDocumentResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | Metadata about the analyzed document. An example is the number of pages.
+analyzeDocumentResponse_documentMetadata :: Lens.Lens' AnalyzeDocumentResponse (Prelude.Maybe DocumentMetadata)
+analyzeDocumentResponse_documentMetadata = Lens.lens (\AnalyzeDocumentResponse' {documentMetadata} -> documentMetadata) (\s@AnalyzeDocumentResponse' {} a -> s {documentMetadata = a} :: AnalyzeDocumentResponse)
+
 -- | Shows the results of the human in the loop evaluation.
 analyzeDocumentResponse_humanLoopActivationOutput :: Lens.Lens' AnalyzeDocumentResponse (Prelude.Maybe HumanLoopActivationOutput)
 analyzeDocumentResponse_humanLoopActivationOutput = Lens.lens (\AnalyzeDocumentResponse' {humanLoopActivationOutput} -> humanLoopActivationOutput) (\s@AnalyzeDocumentResponse' {} a -> s {humanLoopActivationOutput = a} :: AnalyzeDocumentResponse)
-
--- | The version of the model used to analyze the document.
-analyzeDocumentResponse_analyzeDocumentModelVersion :: Lens.Lens' AnalyzeDocumentResponse (Prelude.Maybe Prelude.Text)
-analyzeDocumentResponse_analyzeDocumentModelVersion = Lens.lens (\AnalyzeDocumentResponse' {analyzeDocumentModelVersion} -> analyzeDocumentModelVersion) (\s@AnalyzeDocumentResponse' {} a -> s {analyzeDocumentModelVersion = a} :: AnalyzeDocumentResponse)
 
 -- | The response's http status code.
 analyzeDocumentResponse_httpStatus :: Lens.Lens' AnalyzeDocumentResponse Prelude.Int
@@ -290,8 +332,8 @@ analyzeDocumentResponse_httpStatus = Lens.lens (\AnalyzeDocumentResponse' {httpS
 
 instance Prelude.NFData AnalyzeDocumentResponse where
   rnf AnalyzeDocumentResponse' {..} =
-    Prelude.rnf documentMetadata
+    Prelude.rnf analyzeDocumentModelVersion
       `Prelude.seq` Prelude.rnf blocks
+      `Prelude.seq` Prelude.rnf documentMetadata
       `Prelude.seq` Prelude.rnf humanLoopActivationOutput
-      `Prelude.seq` Prelude.rnf analyzeDocumentModelVersion
       `Prelude.seq` Prelude.rnf httpStatus

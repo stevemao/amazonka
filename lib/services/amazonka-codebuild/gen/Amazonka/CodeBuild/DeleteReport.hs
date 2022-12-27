@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.DeleteReport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,7 +74,8 @@ deleteReport_arn = Lens.lens (\DeleteReport' {arn} -> arn) (\s@DeleteReport' {} 
 
 instance Core.AWSRequest DeleteReport where
   type AWSResponse DeleteReport = DeleteReportResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -88,32 +90,32 @@ instance Prelude.Hashable DeleteReport where
 instance Prelude.NFData DeleteReport where
   rnf DeleteReport' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders DeleteReport where
+instance Data.ToHeaders DeleteReport where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.DeleteReport" ::
+              Data.=# ( "CodeBuild_20161006.DeleteReport" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteReport where
+instance Data.ToJSON DeleteReport where
   toJSON DeleteReport' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arn" Core..= arn)]
+          [Prelude.Just ("arn" Data..= arn)]
       )
 
-instance Core.ToPath DeleteReport where
+instance Data.ToPath DeleteReport where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteReport where
+instance Data.ToQuery DeleteReport where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteReportResponse' smart constructor.

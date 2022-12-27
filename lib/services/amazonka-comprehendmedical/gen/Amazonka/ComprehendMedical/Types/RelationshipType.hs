@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ComprehendMedical.Types.RelationshipType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,7 @@ module Amazonka.ComprehendMedical.Types.RelationshipType
       ( ..,
         RelationshipType_ACUITY,
         RelationshipType_ADMINISTERED_VIA,
+        RelationshipType_AMOUNT,
         RelationshipType_DIRECTION,
         RelationshipType_DOSAGE,
         RelationshipType_DURATION,
@@ -35,6 +36,7 @@ module Amazonka.ComprehendMedical.Types.RelationshipType
         RelationshipType_ROUTE_OR_MODE,
         RelationshipType_STRENGTH,
         RelationshipType_SYSTEM_ORGAN_SITE,
+        RelationshipType_TEST_UNIT,
         RelationshipType_TEST_UNITS,
         RelationshipType_TEST_VALUE,
         RelationshipType_WITH_DOSAGE
@@ -43,11 +45,12 @@ module Amazonka.ComprehendMedical.Types.RelationshipType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype RelationshipType = RelationshipType'
   { fromRelationshipType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -59,18 +62,18 @@ newtype RelationshipType = RelationshipType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern RelationshipType_ACUITY :: RelationshipType
@@ -78,6 +81,9 @@ pattern RelationshipType_ACUITY = RelationshipType' "ACUITY"
 
 pattern RelationshipType_ADMINISTERED_VIA :: RelationshipType
 pattern RelationshipType_ADMINISTERED_VIA = RelationshipType' "ADMINISTERED_VIA"
+
+pattern RelationshipType_AMOUNT :: RelationshipType
+pattern RelationshipType_AMOUNT = RelationshipType' "AMOUNT"
 
 pattern RelationshipType_DIRECTION :: RelationshipType
 pattern RelationshipType_DIRECTION = RelationshipType' "DIRECTION"
@@ -118,6 +124,9 @@ pattern RelationshipType_STRENGTH = RelationshipType' "STRENGTH"
 pattern RelationshipType_SYSTEM_ORGAN_SITE :: RelationshipType
 pattern RelationshipType_SYSTEM_ORGAN_SITE = RelationshipType' "SYSTEM_ORGAN_SITE"
 
+pattern RelationshipType_TEST_UNIT :: RelationshipType
+pattern RelationshipType_TEST_UNIT = RelationshipType' "TEST_UNIT"
+
 pattern RelationshipType_TEST_UNITS :: RelationshipType
 pattern RelationshipType_TEST_UNITS = RelationshipType' "TEST_UNITS"
 
@@ -130,6 +139,7 @@ pattern RelationshipType_WITH_DOSAGE = RelationshipType' "WITH_DOSAGE"
 {-# COMPLETE
   RelationshipType_ACUITY,
   RelationshipType_ADMINISTERED_VIA,
+  RelationshipType_AMOUNT,
   RelationshipType_DIRECTION,
   RelationshipType_DOSAGE,
   RelationshipType_DURATION,
@@ -143,6 +153,7 @@ pattern RelationshipType_WITH_DOSAGE = RelationshipType' "WITH_DOSAGE"
   RelationshipType_ROUTE_OR_MODE,
   RelationshipType_STRENGTH,
   RelationshipType_SYSTEM_ORGAN_SITE,
+  RelationshipType_TEST_UNIT,
   RelationshipType_TEST_UNITS,
   RelationshipType_TEST_VALUE,
   RelationshipType_WITH_DOSAGE,

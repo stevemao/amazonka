@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.GetMembers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.GuardDuty.GetMembers
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,14 +98,15 @@ getMembers_accountIds = Lens.lens (\GetMembers' {accountIds} -> accountIds) (\s@
 
 instance Core.AWSRequest GetMembers where
   type AWSResponse GetMembers = GetMembersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetMembersResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "members" Core..!@ Prelude.mempty)
-            Prelude.<*> ( x Core..?> "unprocessedAccounts"
+            Prelude.<*> (x Data..?> "members" Core..!@ Prelude.mempty)
+            Prelude.<*> ( x Data..?> "unprocessedAccounts"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -119,30 +121,30 @@ instance Prelude.NFData GetMembers where
     Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf accountIds
 
-instance Core.ToHeaders GetMembers where
+instance Data.ToHeaders GetMembers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetMembers where
+instance Data.ToJSON GetMembers where
   toJSON GetMembers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("accountIds" Core..= accountIds)]
+          [Prelude.Just ("accountIds" Data..= accountIds)]
       )
 
-instance Core.ToPath GetMembers where
+instance Data.ToPath GetMembers where
   toPath GetMembers' {..} =
     Prelude.mconcat
-      ["/detector/", Core.toBS detectorId, "/member/get"]
+      ["/detector/", Data.toBS detectorId, "/member/get"]
 
-instance Core.ToQuery GetMembers where
+instance Data.ToQuery GetMembers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetMembersResponse' smart constructor.

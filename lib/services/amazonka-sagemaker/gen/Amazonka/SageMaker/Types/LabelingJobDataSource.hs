@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.LabelingJobDataSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.LabelingJobDataSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.LabelingJobS3DataSource
 import Amazonka.SageMaker.Types.LabelingJobSnsDataSource
@@ -81,14 +82,14 @@ labelingJobDataSource_s3DataSource = Lens.lens (\LabelingJobDataSource' {s3DataS
 labelingJobDataSource_snsDataSource :: Lens.Lens' LabelingJobDataSource (Prelude.Maybe LabelingJobSnsDataSource)
 labelingJobDataSource_snsDataSource = Lens.lens (\LabelingJobDataSource' {snsDataSource} -> snsDataSource) (\s@LabelingJobDataSource' {} a -> s {snsDataSource = a} :: LabelingJobDataSource)
 
-instance Core.FromJSON LabelingJobDataSource where
+instance Data.FromJSON LabelingJobDataSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LabelingJobDataSource"
       ( \x ->
           LabelingJobDataSource'
-            Prelude.<$> (x Core..:? "S3DataSource")
-            Prelude.<*> (x Core..:? "SnsDataSource")
+            Prelude.<$> (x Data..:? "S3DataSource")
+            Prelude.<*> (x Data..:? "SnsDataSource")
       )
 
 instance Prelude.Hashable LabelingJobDataSource where
@@ -101,11 +102,11 @@ instance Prelude.NFData LabelingJobDataSource where
     Prelude.rnf s3DataSource
       `Prelude.seq` Prelude.rnf snsDataSource
 
-instance Core.ToJSON LabelingJobDataSource where
+instance Data.ToJSON LabelingJobDataSource where
   toJSON LabelingJobDataSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("S3DataSource" Core..=) Prelude.<$> s3DataSource,
-            ("SnsDataSource" Core..=) Prelude.<$> snsDataSource
+          [ ("S3DataSource" Data..=) Prelude.<$> s3DataSource,
+            ("SnsDataSource" Data..=) Prelude.<$> snsDataSource
           ]
       )

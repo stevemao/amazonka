@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsClusterDefaultCapacityProviderStrategyDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEcsClusterDefaultCapacityProviderStrategyDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The default capacity provider strategy for the cluster. The default
@@ -79,17 +80,17 @@ awsEcsClusterDefaultCapacityProviderStrategyDetails_weight :: Lens.Lens' AwsEcsC
 awsEcsClusterDefaultCapacityProviderStrategyDetails_weight = Lens.lens (\AwsEcsClusterDefaultCapacityProviderStrategyDetails' {weight} -> weight) (\s@AwsEcsClusterDefaultCapacityProviderStrategyDetails' {} a -> s {weight = a} :: AwsEcsClusterDefaultCapacityProviderStrategyDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsClusterDefaultCapacityProviderStrategyDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsClusterDefaultCapacityProviderStrategyDetails"
       ( \x ->
           AwsEcsClusterDefaultCapacityProviderStrategyDetails'
-            Prelude.<$> (x Core..:? "Base")
-              Prelude.<*> (x Core..:? "CapacityProvider")
-              Prelude.<*> (x Core..:? "Weight")
+            Prelude.<$> (x Data..:? "Base")
+              Prelude.<*> (x Data..:? "CapacityProvider")
+              Prelude.<*> (x Data..:? "Weight")
       )
 
 instance
@@ -114,16 +115,16 @@ instance
         `Prelude.seq` Prelude.rnf weight
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsClusterDefaultCapacityProviderStrategyDetails
   where
   toJSON
     AwsEcsClusterDefaultCapacityProviderStrategyDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Base" Core..=) Prelude.<$> base,
-              ("CapacityProvider" Core..=)
+            [ ("Base" Data..=) Prelude.<$> base,
+              ("CapacityProvider" Data..=)
                 Prelude.<$> capacityProvider,
-              ("Weight" Core..=) Prelude.<$> weight
+              ("Weight" Data..=) Prelude.<$> weight
             ]
         )

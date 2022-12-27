@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.ListIdentities
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.SES.ListIdentities
 
     -- * Request Lenses
     listIdentities_identityType,
-    listIdentities_nextToken,
     listIdentities_maxItems,
+    listIdentities_nextToken,
 
     -- * Destructuring the Response
     ListIdentitiesResponse (..),
@@ -49,7 +49,8 @@ module Amazonka.SES.ListIdentities
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,11 +66,11 @@ data ListIdentities = ListIdentities'
     -- and \"Domain\". If this parameter is omitted, then all identities will
     -- be listed.
     identityType :: Prelude.Maybe IdentityType,
-    -- | The token to use for pagination.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of identities per page. Possible values are 1-1000
     -- inclusive.
-    maxItems :: Prelude.Maybe Prelude.Int
+    maxItems :: Prelude.Maybe Prelude.Int,
+    -- | The token to use for pagination.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -85,17 +86,17 @@ data ListIdentities = ListIdentities'
 -- and \"Domain\". If this parameter is omitted, then all identities will
 -- be listed.
 --
--- 'nextToken', 'listIdentities_nextToken' - The token to use for pagination.
---
 -- 'maxItems', 'listIdentities_maxItems' - The maximum number of identities per page. Possible values are 1-1000
 -- inclusive.
+--
+-- 'nextToken', 'listIdentities_nextToken' - The token to use for pagination.
 newListIdentities ::
   ListIdentities
 newListIdentities =
   ListIdentities'
     { identityType = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxItems = Prelude.Nothing
+      maxItems = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | The type of the identities to list. Possible values are \"EmailAddress\"
@@ -104,14 +105,14 @@ newListIdentities =
 listIdentities_identityType :: Lens.Lens' ListIdentities (Prelude.Maybe IdentityType)
 listIdentities_identityType = Lens.lens (\ListIdentities' {identityType} -> identityType) (\s@ListIdentities' {} a -> s {identityType = a} :: ListIdentities)
 
--- | The token to use for pagination.
-listIdentities_nextToken :: Lens.Lens' ListIdentities (Prelude.Maybe Prelude.Text)
-listIdentities_nextToken = Lens.lens (\ListIdentities' {nextToken} -> nextToken) (\s@ListIdentities' {} a -> s {nextToken = a} :: ListIdentities)
-
 -- | The maximum number of identities per page. Possible values are 1-1000
 -- inclusive.
 listIdentities_maxItems :: Lens.Lens' ListIdentities (Prelude.Maybe Prelude.Int)
 listIdentities_maxItems = Lens.lens (\ListIdentities' {maxItems} -> maxItems) (\s@ListIdentities' {} a -> s {maxItems = a} :: ListIdentities)
+
+-- | The token to use for pagination.
+listIdentities_nextToken :: Lens.Lens' ListIdentities (Prelude.Maybe Prelude.Text)
+listIdentities_nextToken = Lens.lens (\ListIdentities' {nextToken} -> nextToken) (\s@ListIdentities' {} a -> s {nextToken = a} :: ListIdentities)
 
 instance Core.AWSPager ListIdentities where
   page rq rs
@@ -135,47 +136,48 @@ instance Core.AWSRequest ListIdentities where
   type
     AWSResponse ListIdentities =
       ListIdentitiesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListIdentitiesResult"
       ( \s h x ->
           ListIdentitiesResponse'
-            Prelude.<$> (x Core..@? "NextToken")
+            Prelude.<$> (x Data..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "Identities" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "member"
+            Prelude.<*> ( x Data..@? "Identities" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "member"
                         )
       )
 
 instance Prelude.Hashable ListIdentities where
   hashWithSalt _salt ListIdentities' {..} =
     _salt `Prelude.hashWithSalt` identityType
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxItems
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListIdentities where
   rnf ListIdentities' {..} =
     Prelude.rnf identityType
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxItems
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListIdentities where
+instance Data.ToHeaders ListIdentities where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListIdentities where
+instance Data.ToPath ListIdentities where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListIdentities where
+instance Data.ToQuery ListIdentities where
   toQuery ListIdentities' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListIdentities" :: Prelude.ByteString),
+          Data.=: ("ListIdentities" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "IdentityType" Core.=: identityType,
-        "NextToken" Core.=: nextToken,
-        "MaxItems" Core.=: maxItems
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "IdentityType" Data.=: identityType,
+        "MaxItems" Data.=: maxItems,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | A list of all identities that you have attempted to verify under your

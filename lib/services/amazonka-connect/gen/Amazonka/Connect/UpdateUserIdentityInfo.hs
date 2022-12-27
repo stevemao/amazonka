@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.UpdateUserIdentityInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,7 +116,8 @@ instance Core.AWSRequest UpdateUserIdentityInfo where
   type
     AWSResponse UpdateUserIdentityInfo =
       UpdateUserIdentityInfoResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       UpdateUserIdentityInfoResponse'
@@ -132,35 +134,35 @@ instance Prelude.NFData UpdateUserIdentityInfo where
       `Prelude.seq` Prelude.rnf userId
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders UpdateUserIdentityInfo where
+instance Data.ToHeaders UpdateUserIdentityInfo where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateUserIdentityInfo where
+instance Data.ToJSON UpdateUserIdentityInfo where
   toJSON UpdateUserIdentityInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("IdentityInfo" Core..= identityInfo)]
+          [Prelude.Just ("IdentityInfo" Data..= identityInfo)]
       )
 
-instance Core.ToPath UpdateUserIdentityInfo where
+instance Data.ToPath UpdateUserIdentityInfo where
   toPath UpdateUserIdentityInfo' {..} =
     Prelude.mconcat
       [ "/users/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/",
-        Core.toBS userId,
+        Data.toBS userId,
         "/identity-info"
       ]
 
-instance Core.ToQuery UpdateUserIdentityInfo where
+instance Data.ToQuery UpdateUserIdentityInfo where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateUserIdentityInfoResponse' smart constructor.

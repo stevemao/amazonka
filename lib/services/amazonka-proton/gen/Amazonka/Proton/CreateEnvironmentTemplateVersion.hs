@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.CreateEnvironmentTemplateVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.Proton.CreateEnvironmentTemplateVersion
 
     -- * Request Lenses
     createEnvironmentTemplateVersion_clientToken,
-    createEnvironmentTemplateVersion_majorVersion,
     createEnvironmentTemplateVersion_description,
+    createEnvironmentTemplateVersion_majorVersion,
     createEnvironmentTemplateVersion_tags,
     createEnvironmentTemplateVersion_source,
     createEnvironmentTemplateVersion_templateName,
@@ -48,7 +48,8 @@ module Amazonka.Proton.CreateEnvironmentTemplateVersion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -56,19 +57,24 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateEnvironmentTemplateVersion' smart constructor.
 data CreateEnvironmentTemplateVersion = CreateEnvironmentTemplateVersion'
-  { -- | When included, if two identicial requests are made with the same client
-    -- token, AWS Proton returns the environment template version that the
-    -- first request created.
+  { -- | When included, if two identical requests are made with the same client
+    -- token, Proton returns the environment template version that the first
+    -- request created.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | To create a new minor version of the environment template, include a
-    -- @majorVersion@.
+    -- | A description of the new version of an environment template.
+    description :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | To create a new minor version of the environment template, include
+    -- @major Version@.
     --
     -- To create a new major and minor version of the environment template,
-    -- /exclude/ @majorVersion@.
+    -- exclude @major Version@.
     majorVersion :: Prelude.Maybe Prelude.Text,
-    -- | A description of the new version of an environment template.
-    description :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | Create tags for a new version of an environment template.
+    -- | An optional list of metadata items that you can associate with the
+    -- Proton environment template version. A tag is a key-value pair.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/proton/latest/userguide/resources.html Proton resources and tagging>
+    -- in the /Proton User Guide/.
     tags :: Prelude.Maybe [Tag],
     -- | An object that includes the template bundle S3 bucket path and name for
     -- the new version of an template.
@@ -86,19 +92,24 @@ data CreateEnvironmentTemplateVersion = CreateEnvironmentTemplateVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'createEnvironmentTemplateVersion_clientToken' - When included, if two identicial requests are made with the same client
--- token, AWS Proton returns the environment template version that the
--- first request created.
---
--- 'majorVersion', 'createEnvironmentTemplateVersion_majorVersion' - To create a new minor version of the environment template, include a
--- @majorVersion@.
---
--- To create a new major and minor version of the environment template,
--- /exclude/ @majorVersion@.
+-- 'clientToken', 'createEnvironmentTemplateVersion_clientToken' - When included, if two identical requests are made with the same client
+-- token, Proton returns the environment template version that the first
+-- request created.
 --
 -- 'description', 'createEnvironmentTemplateVersion_description' - A description of the new version of an environment template.
 --
--- 'tags', 'createEnvironmentTemplateVersion_tags' - Create tags for a new version of an environment template.
+-- 'majorVersion', 'createEnvironmentTemplateVersion_majorVersion' - To create a new minor version of the environment template, include
+-- @major Version@.
+--
+-- To create a new major and minor version of the environment template,
+-- exclude @major Version@.
+--
+-- 'tags', 'createEnvironmentTemplateVersion_tags' - An optional list of metadata items that you can associate with the
+-- Proton environment template version. A tag is a key-value pair.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/proton/latest/userguide/resources.html Proton resources and tagging>
+-- in the /Proton User Guide/.
 --
 -- 'source', 'createEnvironmentTemplateVersion_source' - An object that includes the template bundle S3 bucket path and name for
 -- the new version of an template.
@@ -116,32 +127,37 @@ newCreateEnvironmentTemplateVersion
     CreateEnvironmentTemplateVersion'
       { clientToken =
           Prelude.Nothing,
-        majorVersion = Prelude.Nothing,
         description = Prelude.Nothing,
+        majorVersion = Prelude.Nothing,
         tags = Prelude.Nothing,
         source = pSource_,
         templateName = pTemplateName_
       }
 
--- | When included, if two identicial requests are made with the same client
--- token, AWS Proton returns the environment template version that the
--- first request created.
+-- | When included, if two identical requests are made with the same client
+-- token, Proton returns the environment template version that the first
+-- request created.
 createEnvironmentTemplateVersion_clientToken :: Lens.Lens' CreateEnvironmentTemplateVersion (Prelude.Maybe Prelude.Text)
 createEnvironmentTemplateVersion_clientToken = Lens.lens (\CreateEnvironmentTemplateVersion' {clientToken} -> clientToken) (\s@CreateEnvironmentTemplateVersion' {} a -> s {clientToken = a} :: CreateEnvironmentTemplateVersion)
 
--- | To create a new minor version of the environment template, include a
--- @majorVersion@.
+-- | A description of the new version of an environment template.
+createEnvironmentTemplateVersion_description :: Lens.Lens' CreateEnvironmentTemplateVersion (Prelude.Maybe Prelude.Text)
+createEnvironmentTemplateVersion_description = Lens.lens (\CreateEnvironmentTemplateVersion' {description} -> description) (\s@CreateEnvironmentTemplateVersion' {} a -> s {description = a} :: CreateEnvironmentTemplateVersion) Prelude.. Lens.mapping Data._Sensitive
+
+-- | To create a new minor version of the environment template, include
+-- @major Version@.
 --
 -- To create a new major and minor version of the environment template,
--- /exclude/ @majorVersion@.
+-- exclude @major Version@.
 createEnvironmentTemplateVersion_majorVersion :: Lens.Lens' CreateEnvironmentTemplateVersion (Prelude.Maybe Prelude.Text)
 createEnvironmentTemplateVersion_majorVersion = Lens.lens (\CreateEnvironmentTemplateVersion' {majorVersion} -> majorVersion) (\s@CreateEnvironmentTemplateVersion' {} a -> s {majorVersion = a} :: CreateEnvironmentTemplateVersion)
 
--- | A description of the new version of an environment template.
-createEnvironmentTemplateVersion_description :: Lens.Lens' CreateEnvironmentTemplateVersion (Prelude.Maybe Prelude.Text)
-createEnvironmentTemplateVersion_description = Lens.lens (\CreateEnvironmentTemplateVersion' {description} -> description) (\s@CreateEnvironmentTemplateVersion' {} a -> s {description = a} :: CreateEnvironmentTemplateVersion) Prelude.. Lens.mapping Core._Sensitive
-
--- | Create tags for a new version of an environment template.
+-- | An optional list of metadata items that you can associate with the
+-- Proton environment template version. A tag is a key-value pair.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/proton/latest/userguide/resources.html Proton resources and tagging>
+-- in the /Proton User Guide/.
 createEnvironmentTemplateVersion_tags :: Lens.Lens' CreateEnvironmentTemplateVersion (Prelude.Maybe [Tag])
 createEnvironmentTemplateVersion_tags = Lens.lens (\CreateEnvironmentTemplateVersion' {tags} -> tags) (\s@CreateEnvironmentTemplateVersion' {} a -> s {tags = a} :: CreateEnvironmentTemplateVersion) Prelude.. Lens.mapping Lens.coerced
 
@@ -161,13 +177,14 @@ instance
   type
     AWSResponse CreateEnvironmentTemplateVersion =
       CreateEnvironmentTemplateVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateEnvironmentTemplateVersionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "environmentTemplateVersion")
+            Prelude.<*> (x Data..:> "environmentTemplateVersion")
       )
 
 instance
@@ -178,8 +195,8 @@ instance
     _salt
     CreateEnvironmentTemplateVersion' {..} =
       _salt `Prelude.hashWithSalt` clientToken
-        `Prelude.hashWithSalt` majorVersion
         `Prelude.hashWithSalt` description
+        `Prelude.hashWithSalt` majorVersion
         `Prelude.hashWithSalt` tags
         `Prelude.hashWithSalt` source
         `Prelude.hashWithSalt` templateName
@@ -190,48 +207,48 @@ instance
   where
   rnf CreateEnvironmentTemplateVersion' {..} =
     Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf majorVersion
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf majorVersion
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf source
       `Prelude.seq` Prelude.rnf templateName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateEnvironmentTemplateVersion
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.CreateEnvironmentTemplateVersion" ::
+              Data.=# ( "AwsProton20200720.CreateEnvironmentTemplateVersion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateEnvironmentTemplateVersion where
+instance Data.ToJSON CreateEnvironmentTemplateVersion where
   toJSON CreateEnvironmentTemplateVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("majorVersion" Core..=) Prelude.<$> majorVersion,
-            ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("source" Core..= source),
-            Prelude.Just ("templateName" Core..= templateName)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("description" Data..=) Prelude.<$> description,
+            ("majorVersion" Data..=) Prelude.<$> majorVersion,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("source" Data..= source),
+            Prelude.Just ("templateName" Data..= templateName)
           ]
       )
 
-instance Core.ToPath CreateEnvironmentTemplateVersion where
+instance Data.ToPath CreateEnvironmentTemplateVersion where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CreateEnvironmentTemplateVersion
   where
   toQuery = Prelude.const Prelude.mempty
@@ -240,7 +257,7 @@ instance
 data CreateEnvironmentTemplateVersionResponse = CreateEnvironmentTemplateVersionResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | The environment template detail data that\'s returned by AWS Proton.
+    -- | The environment template detail data that\'s returned by Proton.
     environmentTemplateVersion :: EnvironmentTemplateVersion
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -255,7 +272,7 @@ data CreateEnvironmentTemplateVersionResponse = CreateEnvironmentTemplateVersion
 --
 -- 'httpStatus', 'createEnvironmentTemplateVersionResponse_httpStatus' - The response's http status code.
 --
--- 'environmentTemplateVersion', 'createEnvironmentTemplateVersionResponse_environmentTemplateVersion' - The environment template detail data that\'s returned by AWS Proton.
+-- 'environmentTemplateVersion', 'createEnvironmentTemplateVersionResponse_environmentTemplateVersion' - The environment template detail data that\'s returned by Proton.
 newCreateEnvironmentTemplateVersionResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -276,7 +293,7 @@ newCreateEnvironmentTemplateVersionResponse
 createEnvironmentTemplateVersionResponse_httpStatus :: Lens.Lens' CreateEnvironmentTemplateVersionResponse Prelude.Int
 createEnvironmentTemplateVersionResponse_httpStatus = Lens.lens (\CreateEnvironmentTemplateVersionResponse' {httpStatus} -> httpStatus) (\s@CreateEnvironmentTemplateVersionResponse' {} a -> s {httpStatus = a} :: CreateEnvironmentTemplateVersionResponse)
 
--- | The environment template detail data that\'s returned by AWS Proton.
+-- | The environment template detail data that\'s returned by Proton.
 createEnvironmentTemplateVersionResponse_environmentTemplateVersion :: Lens.Lens' CreateEnvironmentTemplateVersionResponse EnvironmentTemplateVersion
 createEnvironmentTemplateVersionResponse_environmentTemplateVersion = Lens.lens (\CreateEnvironmentTemplateVersionResponse' {environmentTemplateVersion} -> environmentTemplateVersion) (\s@CreateEnvironmentTemplateVersionResponse' {} a -> s {environmentTemplateVersion = a} :: CreateEnvironmentTemplateVersionResponse)
 

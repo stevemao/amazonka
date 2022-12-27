@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.Types.RateBasedRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAFRegional.Types.RateBasedRule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WAFRegional.Types.Predicate
 import Amazonka.WAFRegional.Types.RateKey
@@ -188,20 +189,20 @@ rateBasedRule_rateKey = Lens.lens (\RateBasedRule' {rateKey} -> rateKey) (\s@Rat
 rateBasedRule_rateLimit :: Lens.Lens' RateBasedRule Prelude.Natural
 rateBasedRule_rateLimit = Lens.lens (\RateBasedRule' {rateLimit} -> rateLimit) (\s@RateBasedRule' {} a -> s {rateLimit = a} :: RateBasedRule)
 
-instance Core.FromJSON RateBasedRule where
+instance Data.FromJSON RateBasedRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RateBasedRule"
       ( \x ->
           RateBasedRule'
-            Prelude.<$> (x Core..:? "MetricName")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..: "RuleId")
-            Prelude.<*> ( x Core..:? "MatchPredicates"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "MetricName")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..: "RuleId")
+            Prelude.<*> ( x Data..:? "MatchPredicates"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..: "RateKey")
-            Prelude.<*> (x Core..: "RateLimit")
+            Prelude.<*> (x Data..: "RateKey")
+            Prelude.<*> (x Data..: "RateLimit")
       )
 
 instance Prelude.Hashable RateBasedRule where

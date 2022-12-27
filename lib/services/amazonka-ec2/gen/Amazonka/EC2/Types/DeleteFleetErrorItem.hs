@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.DeleteFleetErrorItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.DeleteFleetErrorItem where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.DeleteFleetError
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an EC2 Fleet that was not successfully deleted.
@@ -63,11 +64,11 @@ deleteFleetErrorItem_error = Lens.lens (\DeleteFleetErrorItem' {error} -> error)
 deleteFleetErrorItem_fleetId :: Lens.Lens' DeleteFleetErrorItem (Prelude.Maybe Prelude.Text)
 deleteFleetErrorItem_fleetId = Lens.lens (\DeleteFleetErrorItem' {fleetId} -> fleetId) (\s@DeleteFleetErrorItem' {} a -> s {fleetId = a} :: DeleteFleetErrorItem)
 
-instance Core.FromXML DeleteFleetErrorItem where
+instance Data.FromXML DeleteFleetErrorItem where
   parseXML x =
     DeleteFleetErrorItem'
-      Prelude.<$> (x Core..@? "error")
-      Prelude.<*> (x Core..@? "fleetId")
+      Prelude.<$> (x Data..@? "error")
+      Prelude.<*> (x Data..@? "fleetId")
 
 instance Prelude.Hashable DeleteFleetErrorItem where
   hashWithSalt _salt DeleteFleetErrorItem' {..} =

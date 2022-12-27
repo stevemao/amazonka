@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.Types.SettingAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,6 +23,7 @@ module Amazonka.AuditManager.Types.SettingAttribute
         SettingAttribute_ALL,
         SettingAttribute_DEFAULT_ASSESSMENT_REPORTS_DESTINATION,
         SettingAttribute_DEFAULT_PROCESS_OWNERS,
+        SettingAttribute_EVIDENCE_FINDER_ENABLEMENT,
         SettingAttribute_IS_AWS_ORG_ENABLED,
         SettingAttribute_SNS_TOPIC
       ),
@@ -30,11 +31,12 @@ module Amazonka.AuditManager.Types.SettingAttribute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype SettingAttribute = SettingAttribute'
   { fromSettingAttribute ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -46,18 +48,18 @@ newtype SettingAttribute = SettingAttribute'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern SettingAttribute_ALL :: SettingAttribute
@@ -69,6 +71,9 @@ pattern SettingAttribute_DEFAULT_ASSESSMENT_REPORTS_DESTINATION = SettingAttribu
 pattern SettingAttribute_DEFAULT_PROCESS_OWNERS :: SettingAttribute
 pattern SettingAttribute_DEFAULT_PROCESS_OWNERS = SettingAttribute' "DEFAULT_PROCESS_OWNERS"
 
+pattern SettingAttribute_EVIDENCE_FINDER_ENABLEMENT :: SettingAttribute
+pattern SettingAttribute_EVIDENCE_FINDER_ENABLEMENT = SettingAttribute' "EVIDENCE_FINDER_ENABLEMENT"
+
 pattern SettingAttribute_IS_AWS_ORG_ENABLED :: SettingAttribute
 pattern SettingAttribute_IS_AWS_ORG_ENABLED = SettingAttribute' "IS_AWS_ORG_ENABLED"
 
@@ -79,6 +84,7 @@ pattern SettingAttribute_SNS_TOPIC = SettingAttribute' "SNS_TOPIC"
   SettingAttribute_ALL,
   SettingAttribute_DEFAULT_ASSESSMENT_REPORTS_DESTINATION,
   SettingAttribute_DEFAULT_PROCESS_OWNERS,
+  SettingAttribute_EVIDENCE_FINDER_ENABLEMENT,
   SettingAttribute_IS_AWS_ORG_ENABLED,
   SettingAttribute_SNS_TOPIC,
   SettingAttribute'

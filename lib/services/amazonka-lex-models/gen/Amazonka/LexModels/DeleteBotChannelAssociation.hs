@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.DeleteBotChannelAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.LexModels.DeleteBotChannelAssociation
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -109,7 +110,8 @@ instance Core.AWSRequest DeleteBotChannelAssociation where
   type
     AWSResponse DeleteBotChannelAssociation =
       DeleteBotChannelAssociationResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteBotChannelAssociationResponse'
@@ -126,29 +128,29 @@ instance Prelude.NFData DeleteBotChannelAssociation where
       `Prelude.seq` Prelude.rnf botName
       `Prelude.seq` Prelude.rnf botAlias
 
-instance Core.ToHeaders DeleteBotChannelAssociation where
+instance Data.ToHeaders DeleteBotChannelAssociation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteBotChannelAssociation where
+instance Data.ToPath DeleteBotChannelAssociation where
   toPath DeleteBotChannelAssociation' {..} =
     Prelude.mconcat
       [ "/bots/",
-        Core.toBS botName,
+        Data.toBS botName,
         "/aliases/",
-        Core.toBS botAlias,
+        Data.toBS botAlias,
         "/channels/",
-        Core.toBS name
+        Data.toBS name
       ]
 
-instance Core.ToQuery DeleteBotChannelAssociation where
+instance Data.ToQuery DeleteBotChannelAssociation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteBotChannelAssociationResponse' smart constructor.

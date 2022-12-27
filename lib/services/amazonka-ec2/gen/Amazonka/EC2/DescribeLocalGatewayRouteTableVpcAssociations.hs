@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeLocalGatewayRouteTableVpcAssociations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,11 +30,11 @@ module Amazonka.EC2.DescribeLocalGatewayRouteTableVpcAssociations
     newDescribeLocalGatewayRouteTableVpcAssociations,
 
     -- * Request Lenses
-    describeLocalGatewayRouteTableVpcAssociations_localGatewayRouteTableVpcAssociationIds,
-    describeLocalGatewayRouteTableVpcAssociations_filters,
-    describeLocalGatewayRouteTableVpcAssociations_nextToken,
     describeLocalGatewayRouteTableVpcAssociations_dryRun,
+    describeLocalGatewayRouteTableVpcAssociations_filters,
+    describeLocalGatewayRouteTableVpcAssociations_localGatewayRouteTableVpcAssociationIds,
     describeLocalGatewayRouteTableVpcAssociations_maxResults,
+    describeLocalGatewayRouteTableVpcAssociations_nextToken,
 
     -- * Destructuring the Response
     DescribeLocalGatewayRouteTableVpcAssociationsResponse (..),
@@ -48,19 +48,26 @@ module Amazonka.EC2.DescribeLocalGatewayRouteTableVpcAssociations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeLocalGatewayRouteTableVpcAssociations' smart constructor.
 data DescribeLocalGatewayRouteTableVpcAssociations = DescribeLocalGatewayRouteTableVpcAssociations'
-  { -- | The IDs of the associations.
-    localGatewayRouteTableVpcAssociationIds :: Prelude.Maybe [Prelude.Text],
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | One or more filters.
     --
     -- -   @local-gateway-id@ - The ID of a local gateway.
+    --
+    -- -   @local-gateway-route-table-arn@ - The Amazon Resource Name (ARN) of
+    --     the local gateway route table for the association.
     --
     -- -   @local-gateway-route-table-id@ - The ID of the local gateway route
     --     table.
@@ -68,21 +75,21 @@ data DescribeLocalGatewayRouteTableVpcAssociations = DescribeLocalGatewayRouteTa
     -- -   @local-gateway-route-table-vpc-association-id@ - The ID of the
     --     association.
     --
+    -- -   @owner-id@ - The ID of the Amazon Web Services account that owns the
+    --     local gateway route table for the association.
+    --
     -- -   @state@ - The state of the association.
     --
     -- -   @vpc-id@ - The ID of the VPC.
     filters :: Prelude.Maybe [Filter],
-    -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The IDs of the associations.
+    localGatewayRouteTableVpcAssociationIds :: Prelude.Maybe [Prelude.Text],
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -94,51 +101,17 @@ data DescribeLocalGatewayRouteTableVpcAssociations = DescribeLocalGatewayRouteTa
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'localGatewayRouteTableVpcAssociationIds', 'describeLocalGatewayRouteTableVpcAssociations_localGatewayRouteTableVpcAssociationIds' - The IDs of the associations.
---
--- 'filters', 'describeLocalGatewayRouteTableVpcAssociations_filters' - One or more filters.
---
--- -   @local-gateway-id@ - The ID of a local gateway.
---
--- -   @local-gateway-route-table-id@ - The ID of the local gateway route
---     table.
---
--- -   @local-gateway-route-table-vpc-association-id@ - The ID of the
---     association.
---
--- -   @state@ - The state of the association.
---
--- -   @vpc-id@ - The ID of the VPC.
---
--- 'nextToken', 'describeLocalGatewayRouteTableVpcAssociations_nextToken' - The token for the next page of results.
---
 -- 'dryRun', 'describeLocalGatewayRouteTableVpcAssociations_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
 --
--- 'maxResults', 'describeLocalGatewayRouteTableVpcAssociations_maxResults' - The maximum number of results to return with a single call. To retrieve
--- the remaining results, make another call with the returned @nextToken@
--- value.
-newDescribeLocalGatewayRouteTableVpcAssociations ::
-  DescribeLocalGatewayRouteTableVpcAssociations
-newDescribeLocalGatewayRouteTableVpcAssociations =
-  DescribeLocalGatewayRouteTableVpcAssociations'
-    { localGatewayRouteTableVpcAssociationIds =
-        Prelude.Nothing,
-      filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
-    }
-
--- | The IDs of the associations.
-describeLocalGatewayRouteTableVpcAssociations_localGatewayRouteTableVpcAssociationIds :: Lens.Lens' DescribeLocalGatewayRouteTableVpcAssociations (Prelude.Maybe [Prelude.Text])
-describeLocalGatewayRouteTableVpcAssociations_localGatewayRouteTableVpcAssociationIds = Lens.lens (\DescribeLocalGatewayRouteTableVpcAssociations' {localGatewayRouteTableVpcAssociationIds} -> localGatewayRouteTableVpcAssociationIds) (\s@DescribeLocalGatewayRouteTableVpcAssociations' {} a -> s {localGatewayRouteTableVpcAssociationIds = a} :: DescribeLocalGatewayRouteTableVpcAssociations) Prelude.. Lens.mapping Lens.coerced
-
--- | One or more filters.
+-- 'filters', 'describeLocalGatewayRouteTableVpcAssociations_filters' - One or more filters.
 --
 -- -   @local-gateway-id@ - The ID of a local gateway.
+--
+-- -   @local-gateway-route-table-arn@ - The Amazon Resource Name (ARN) of
+--     the local gateway route table for the association.
 --
 -- -   @local-gateway-route-table-id@ - The ID of the local gateway route
 --     table.
@@ -146,15 +119,32 @@ describeLocalGatewayRouteTableVpcAssociations_localGatewayRouteTableVpcAssociati
 -- -   @local-gateway-route-table-vpc-association-id@ - The ID of the
 --     association.
 --
+-- -   @owner-id@ - The ID of the Amazon Web Services account that owns the
+--     local gateway route table for the association.
+--
 -- -   @state@ - The state of the association.
 --
 -- -   @vpc-id@ - The ID of the VPC.
-describeLocalGatewayRouteTableVpcAssociations_filters :: Lens.Lens' DescribeLocalGatewayRouteTableVpcAssociations (Prelude.Maybe [Filter])
-describeLocalGatewayRouteTableVpcAssociations_filters = Lens.lens (\DescribeLocalGatewayRouteTableVpcAssociations' {filters} -> filters) (\s@DescribeLocalGatewayRouteTableVpcAssociations' {} a -> s {filters = a} :: DescribeLocalGatewayRouteTableVpcAssociations) Prelude.. Lens.mapping Lens.coerced
-
--- | The token for the next page of results.
-describeLocalGatewayRouteTableVpcAssociations_nextToken :: Lens.Lens' DescribeLocalGatewayRouteTableVpcAssociations (Prelude.Maybe Prelude.Text)
-describeLocalGatewayRouteTableVpcAssociations_nextToken = Lens.lens (\DescribeLocalGatewayRouteTableVpcAssociations' {nextToken} -> nextToken) (\s@DescribeLocalGatewayRouteTableVpcAssociations' {} a -> s {nextToken = a} :: DescribeLocalGatewayRouteTableVpcAssociations)
+--
+-- 'localGatewayRouteTableVpcAssociationIds', 'describeLocalGatewayRouteTableVpcAssociations_localGatewayRouteTableVpcAssociationIds' - The IDs of the associations.
+--
+-- 'maxResults', 'describeLocalGatewayRouteTableVpcAssociations_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+--
+-- 'nextToken', 'describeLocalGatewayRouteTableVpcAssociations_nextToken' - The token for the next page of results.
+newDescribeLocalGatewayRouteTableVpcAssociations ::
+  DescribeLocalGatewayRouteTableVpcAssociations
+newDescribeLocalGatewayRouteTableVpcAssociations =
+  DescribeLocalGatewayRouteTableVpcAssociations'
+    { dryRun =
+        Prelude.Nothing,
+      filters = Prelude.Nothing,
+      localGatewayRouteTableVpcAssociationIds =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
+    }
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -163,11 +153,41 @@ describeLocalGatewayRouteTableVpcAssociations_nextToken = Lens.lens (\DescribeLo
 describeLocalGatewayRouteTableVpcAssociations_dryRun :: Lens.Lens' DescribeLocalGatewayRouteTableVpcAssociations (Prelude.Maybe Prelude.Bool)
 describeLocalGatewayRouteTableVpcAssociations_dryRun = Lens.lens (\DescribeLocalGatewayRouteTableVpcAssociations' {dryRun} -> dryRun) (\s@DescribeLocalGatewayRouteTableVpcAssociations' {} a -> s {dryRun = a} :: DescribeLocalGatewayRouteTableVpcAssociations)
 
+-- | One or more filters.
+--
+-- -   @local-gateway-id@ - The ID of a local gateway.
+--
+-- -   @local-gateway-route-table-arn@ - The Amazon Resource Name (ARN) of
+--     the local gateway route table for the association.
+--
+-- -   @local-gateway-route-table-id@ - The ID of the local gateway route
+--     table.
+--
+-- -   @local-gateway-route-table-vpc-association-id@ - The ID of the
+--     association.
+--
+-- -   @owner-id@ - The ID of the Amazon Web Services account that owns the
+--     local gateway route table for the association.
+--
+-- -   @state@ - The state of the association.
+--
+-- -   @vpc-id@ - The ID of the VPC.
+describeLocalGatewayRouteTableVpcAssociations_filters :: Lens.Lens' DescribeLocalGatewayRouteTableVpcAssociations (Prelude.Maybe [Filter])
+describeLocalGatewayRouteTableVpcAssociations_filters = Lens.lens (\DescribeLocalGatewayRouteTableVpcAssociations' {filters} -> filters) (\s@DescribeLocalGatewayRouteTableVpcAssociations' {} a -> s {filters = a} :: DescribeLocalGatewayRouteTableVpcAssociations) Prelude.. Lens.mapping Lens.coerced
+
+-- | The IDs of the associations.
+describeLocalGatewayRouteTableVpcAssociations_localGatewayRouteTableVpcAssociationIds :: Lens.Lens' DescribeLocalGatewayRouteTableVpcAssociations (Prelude.Maybe [Prelude.Text])
+describeLocalGatewayRouteTableVpcAssociations_localGatewayRouteTableVpcAssociationIds = Lens.lens (\DescribeLocalGatewayRouteTableVpcAssociations' {localGatewayRouteTableVpcAssociationIds} -> localGatewayRouteTableVpcAssociationIds) (\s@DescribeLocalGatewayRouteTableVpcAssociations' {} a -> s {localGatewayRouteTableVpcAssociationIds = a} :: DescribeLocalGatewayRouteTableVpcAssociations) Prelude.. Lens.mapping Lens.coerced
+
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 describeLocalGatewayRouteTableVpcAssociations_maxResults :: Lens.Lens' DescribeLocalGatewayRouteTableVpcAssociations (Prelude.Maybe Prelude.Natural)
 describeLocalGatewayRouteTableVpcAssociations_maxResults = Lens.lens (\DescribeLocalGatewayRouteTableVpcAssociations' {maxResults} -> maxResults) (\s@DescribeLocalGatewayRouteTableVpcAssociations' {} a -> s {maxResults = a} :: DescribeLocalGatewayRouteTableVpcAssociations)
+
+-- | The token for the next page of results.
+describeLocalGatewayRouteTableVpcAssociations_nextToken :: Lens.Lens' DescribeLocalGatewayRouteTableVpcAssociations (Prelude.Maybe Prelude.Text)
+describeLocalGatewayRouteTableVpcAssociations_nextToken = Lens.lens (\DescribeLocalGatewayRouteTableVpcAssociations' {nextToken} -> nextToken) (\s@DescribeLocalGatewayRouteTableVpcAssociations' {} a -> s {nextToken = a} :: DescribeLocalGatewayRouteTableVpcAssociations)
 
 instance
   Core.AWSPager
@@ -202,16 +222,17 @@ instance
     AWSResponse
       DescribeLocalGatewayRouteTableVpcAssociations =
       DescribeLocalGatewayRouteTableVpcAssociationsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeLocalGatewayRouteTableVpcAssociationsResponse'
-            Prelude.<$> ( x Core..@? "localGatewayRouteTableVpcAssociationSet"
+            Prelude.<$> ( x Data..@? "localGatewayRouteTableVpcAssociationSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-              Prelude.<*> (x Core..@? "nextToken")
+              Prelude.<*> (x Data..@? "nextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -222,12 +243,11 @@ instance
   hashWithSalt
     _salt
     DescribeLocalGatewayRouteTableVpcAssociations' {..} =
-      _salt
-        `Prelude.hashWithSalt` localGatewayRouteTableVpcAssociationIds
+      _salt `Prelude.hashWithSalt` dryRun
         `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` localGatewayRouteTableVpcAssociationIds
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
 
 instance
   Prelude.NFData
@@ -235,47 +255,47 @@ instance
   where
   rnf
     DescribeLocalGatewayRouteTableVpcAssociations' {..} =
-      Prelude.rnf localGatewayRouteTableVpcAssociationIds
+      Prelude.rnf dryRun
         `Prelude.seq` Prelude.rnf filters
-        `Prelude.seq` Prelude.rnf nextToken
-        `Prelude.seq` Prelude.rnf dryRun
+        `Prelude.seq` Prelude.rnf localGatewayRouteTableVpcAssociationIds
         `Prelude.seq` Prelude.rnf maxResults
+        `Prelude.seq` Prelude.rnf nextToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeLocalGatewayRouteTableVpcAssociations
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeLocalGatewayRouteTableVpcAssociations
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeLocalGatewayRouteTableVpcAssociations
   where
   toQuery
     DescribeLocalGatewayRouteTableVpcAssociations' {..} =
       Prelude.mconcat
         [ "Action"
-            Core.=: ( "DescribeLocalGatewayRouteTableVpcAssociations" ::
+            Data.=: ( "DescribeLocalGatewayRouteTableVpcAssociations" ::
                         Prelude.ByteString
                     ),
           "Version"
-            Core.=: ("2016-11-15" :: Prelude.ByteString),
-          Core.toQuery
-            ( Core.toQueryList
+            Data.=: ("2016-11-15" :: Prelude.ByteString),
+          "DryRun" Data.=: dryRun,
+          Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+          Data.toQuery
+            ( Data.toQueryList
                 "LocalGatewayRouteTableVpcAssociationId"
                 Prelude.<$> localGatewayRouteTableVpcAssociationIds
             ),
-          Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-          "NextToken" Core.=: nextToken,
-          "DryRun" Core.=: dryRun,
-          "MaxResults" Core.=: maxResults
+          "MaxResults" Data.=: maxResults,
+          "NextToken" Data.=: nextToken
         ]
 
 -- | /See:/ 'newDescribeLocalGatewayRouteTableVpcAssociationsResponse' smart constructor.

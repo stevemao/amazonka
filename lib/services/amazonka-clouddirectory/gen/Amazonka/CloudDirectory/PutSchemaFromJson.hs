@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.PutSchemaFromJson
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,12 +95,13 @@ instance Core.AWSRequest PutSchemaFromJson where
   type
     AWSResponse PutSchemaFromJson =
       PutSchemaFromJsonResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutSchemaFromJsonResponse'
-            Prelude.<$> (x Core..?> "Arn")
+            Prelude.<$> (x Data..?> "Arn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,24 +115,24 @@ instance Prelude.NFData PutSchemaFromJson where
     Prelude.rnf schemaArn
       `Prelude.seq` Prelude.rnf document
 
-instance Core.ToHeaders PutSchemaFromJson where
+instance Data.ToHeaders PutSchemaFromJson where
   toHeaders PutSchemaFromJson' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# schemaArn]
+      ["x-amz-data-partition" Data.=# schemaArn]
 
-instance Core.ToJSON PutSchemaFromJson where
+instance Data.ToJSON PutSchemaFromJson where
   toJSON PutSchemaFromJson' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Document" Core..= document)]
+          [Prelude.Just ("Document" Data..= document)]
       )
 
-instance Core.ToPath PutSchemaFromJson where
+instance Data.ToPath PutSchemaFromJson where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/schema/json"
 
-instance Core.ToQuery PutSchemaFromJson where
+instance Data.ToQuery PutSchemaFromJson where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutSchemaFromJsonResponse' smart constructor.

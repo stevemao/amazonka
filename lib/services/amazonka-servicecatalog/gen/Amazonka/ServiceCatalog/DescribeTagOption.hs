@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.DescribeTagOption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.ServiceCatalog.DescribeTagOption
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ instance Core.AWSRequest DescribeTagOption where
   type
     AWSResponse DescribeTagOption =
       DescribeTagOptionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTagOptionResponse'
-            Prelude.<$> (x Core..?> "TagOptionDetail")
+            Prelude.<$> (x Data..?> "TagOptionDetail")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,30 +95,30 @@ instance Prelude.Hashable DescribeTagOption where
 instance Prelude.NFData DescribeTagOption where
   rnf DescribeTagOption' {..} = Prelude.rnf id
 
-instance Core.ToHeaders DescribeTagOption where
+instance Data.ToHeaders DescribeTagOption where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.DescribeTagOption" ::
+              Data.=# ( "AWS242ServiceCatalogService.DescribeTagOption" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeTagOption where
+instance Data.ToJSON DescribeTagOption where
   toJSON DescribeTagOption' {..} =
-    Core.object
-      (Prelude.catMaybes [Prelude.Just ("Id" Core..= id)])
+    Data.object
+      (Prelude.catMaybes [Prelude.Just ("Id" Data..= id)])
 
-instance Core.ToPath DescribeTagOption where
+instance Data.ToPath DescribeTagOption where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTagOption where
+instance Data.ToQuery DescribeTagOption where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeTagOptionResponse' smart constructor.

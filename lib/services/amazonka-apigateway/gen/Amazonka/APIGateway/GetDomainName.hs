@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetDomainName
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,29 +35,30 @@ module Amazonka.APIGateway.GetDomainName
     newDomainName,
 
     -- * Response Lenses
-    domainName_regionalHostedZoneId,
-    domainName_certificateName,
-    domainName_ownershipVerificationCertificateArn,
-    domainName_regionalCertificateArn,
     domainName_certificateArn,
-    domainName_distributionHostedZoneId,
-    domainName_securityPolicy,
-    domainName_domainName,
-    domainName_mutualTlsAuthentication,
-    domainName_regionalCertificateName,
-    domainName_regionalDomainName,
+    domainName_certificateName,
     domainName_certificateUploadDate,
     domainName_distributionDomainName,
+    domainName_distributionHostedZoneId,
+    domainName_domainName,
+    domainName_domainNameStatus,
     domainName_domainNameStatusMessage,
     domainName_endpointConfiguration,
-    domainName_domainNameStatus,
+    domainName_mutualTlsAuthentication,
+    domainName_ownershipVerificationCertificateArn,
+    domainName_regionalCertificateArn,
+    domainName_regionalCertificateName,
+    domainName_regionalDomainName,
+    domainName_regionalHostedZoneId,
+    domainName_securityPolicy,
     domainName_tags,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,7 +67,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetDomainName' smart constructor.
 data GetDomainName = GetDomainName'
-  { -- | [Required] The name of the DomainName resource.
+  { -- | The name of the DomainName resource.
     domainName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -79,7 +80,7 @@ data GetDomainName = GetDomainName'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainName', 'getDomainName_domainName' - [Required] The name of the DomainName resource.
+-- 'domainName', 'getDomainName_domainName' - The name of the DomainName resource.
 newGetDomainName ::
   -- | 'domainName'
   Prelude.Text ->
@@ -87,16 +88,17 @@ newGetDomainName ::
 newGetDomainName pDomainName_ =
   GetDomainName' {domainName = pDomainName_}
 
--- | [Required] The name of the DomainName resource.
+-- | The name of the DomainName resource.
 getDomainName_domainName :: Lens.Lens' GetDomainName Prelude.Text
 getDomainName_domainName = Lens.lens (\GetDomainName' {domainName} -> domainName) (\s@GetDomainName' {} a -> s {domainName = a} :: GetDomainName)
 
 instance Core.AWSRequest GetDomainName where
   type AWSResponse GetDomainName = DomainName
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetDomainName where
   hashWithSalt _salt GetDomainName' {..} =
@@ -105,19 +107,19 @@ instance Prelude.Hashable GetDomainName where
 instance Prelude.NFData GetDomainName where
   rnf GetDomainName' {..} = Prelude.rnf domainName
 
-instance Core.ToHeaders GetDomainName where
+instance Data.ToHeaders GetDomainName where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetDomainName where
+instance Data.ToPath GetDomainName where
   toPath GetDomainName' {..} =
     Prelude.mconcat
-      ["/domainnames/", Core.toBS domainName]
+      ["/domainnames/", Data.toBS domainName]
 
-instance Core.ToQuery GetDomainName where
+instance Data.ToQuery GetDomainName where
   toQuery = Prelude.const Prelude.mempty

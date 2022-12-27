@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.SearchNetworkProfiles
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.AlexaBusiness.SearchNetworkProfiles
 
     -- * Request Lenses
     searchNetworkProfiles_filters,
-    searchNetworkProfiles_sortCriteria,
-    searchNetworkProfiles_nextToken,
     searchNetworkProfiles_maxResults,
+    searchNetworkProfiles_nextToken,
+    searchNetworkProfiles_sortCriteria,
 
     -- * Destructuring the Response
     SearchNetworkProfilesResponse (..),
@@ -47,7 +47,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,18 +58,18 @@ data SearchNetworkProfiles = SearchNetworkProfiles'
   { -- | The filters to use to list a specified set of network profiles. Valid
     -- filters are NetworkProfileName, Ssid, and SecurityType.
     filters :: Prelude.Maybe [Filter],
-    -- | The sort order to use to list the specified set of network profiles.
-    -- Valid sort criteria includes NetworkProfileName, Ssid, and SecurityType.
-    sortCriteria :: Prelude.Maybe [Sort],
+    -- | The maximum number of results to include in the response. If more
+    -- results exist than the specified MaxResults value, a token is included
+    -- in the response so that the remaining results can be retrieved.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | An optional token returned from a prior request. Use this token for
     -- pagination of results from this action. If this parameter is specified,
     -- the response includes only results beyond the token, up to the value
     -- specified by MaxResults.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to include in the response. If more
-    -- results exist than the specified MaxResults value, a token is included
-    -- in the response so that the remaining results can be retrieved.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | The sort order to use to list the specified set of network profiles.
+    -- Valid sort criteria includes NetworkProfileName, Ssid, and SecurityType.
+    sortCriteria :: Prelude.Maybe [Sort]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -83,25 +84,25 @@ data SearchNetworkProfiles = SearchNetworkProfiles'
 -- 'filters', 'searchNetworkProfiles_filters' - The filters to use to list a specified set of network profiles. Valid
 -- filters are NetworkProfileName, Ssid, and SecurityType.
 --
--- 'sortCriteria', 'searchNetworkProfiles_sortCriteria' - The sort order to use to list the specified set of network profiles.
--- Valid sort criteria includes NetworkProfileName, Ssid, and SecurityType.
+-- 'maxResults', 'searchNetworkProfiles_maxResults' - The maximum number of results to include in the response. If more
+-- results exist than the specified MaxResults value, a token is included
+-- in the response so that the remaining results can be retrieved.
 --
 -- 'nextToken', 'searchNetworkProfiles_nextToken' - An optional token returned from a prior request. Use this token for
 -- pagination of results from this action. If this parameter is specified,
 -- the response includes only results beyond the token, up to the value
 -- specified by MaxResults.
 --
--- 'maxResults', 'searchNetworkProfiles_maxResults' - The maximum number of results to include in the response. If more
--- results exist than the specified MaxResults value, a token is included
--- in the response so that the remaining results can be retrieved.
+-- 'sortCriteria', 'searchNetworkProfiles_sortCriteria' - The sort order to use to list the specified set of network profiles.
+-- Valid sort criteria includes NetworkProfileName, Ssid, and SecurityType.
 newSearchNetworkProfiles ::
   SearchNetworkProfiles
 newSearchNetworkProfiles =
   SearchNetworkProfiles'
     { filters = Prelude.Nothing,
-      sortCriteria = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      sortCriteria = Prelude.Nothing
     }
 
 -- | The filters to use to list a specified set of network profiles. Valid
@@ -109,10 +110,11 @@ newSearchNetworkProfiles =
 searchNetworkProfiles_filters :: Lens.Lens' SearchNetworkProfiles (Prelude.Maybe [Filter])
 searchNetworkProfiles_filters = Lens.lens (\SearchNetworkProfiles' {filters} -> filters) (\s@SearchNetworkProfiles' {} a -> s {filters = a} :: SearchNetworkProfiles) Prelude.. Lens.mapping Lens.coerced
 
--- | The sort order to use to list the specified set of network profiles.
--- Valid sort criteria includes NetworkProfileName, Ssid, and SecurityType.
-searchNetworkProfiles_sortCriteria :: Lens.Lens' SearchNetworkProfiles (Prelude.Maybe [Sort])
-searchNetworkProfiles_sortCriteria = Lens.lens (\SearchNetworkProfiles' {sortCriteria} -> sortCriteria) (\s@SearchNetworkProfiles' {} a -> s {sortCriteria = a} :: SearchNetworkProfiles) Prelude.. Lens.mapping Lens.coerced
+-- | The maximum number of results to include in the response. If more
+-- results exist than the specified MaxResults value, a token is included
+-- in the response so that the remaining results can be retrieved.
+searchNetworkProfiles_maxResults :: Lens.Lens' SearchNetworkProfiles (Prelude.Maybe Prelude.Natural)
+searchNetworkProfiles_maxResults = Lens.lens (\SearchNetworkProfiles' {maxResults} -> maxResults) (\s@SearchNetworkProfiles' {} a -> s {maxResults = a} :: SearchNetworkProfiles)
 
 -- | An optional token returned from a prior request. Use this token for
 -- pagination of results from this action. If this parameter is specified,
@@ -121,73 +123,73 @@ searchNetworkProfiles_sortCriteria = Lens.lens (\SearchNetworkProfiles' {sortCri
 searchNetworkProfiles_nextToken :: Lens.Lens' SearchNetworkProfiles (Prelude.Maybe Prelude.Text)
 searchNetworkProfiles_nextToken = Lens.lens (\SearchNetworkProfiles' {nextToken} -> nextToken) (\s@SearchNetworkProfiles' {} a -> s {nextToken = a} :: SearchNetworkProfiles)
 
--- | The maximum number of results to include in the response. If more
--- results exist than the specified MaxResults value, a token is included
--- in the response so that the remaining results can be retrieved.
-searchNetworkProfiles_maxResults :: Lens.Lens' SearchNetworkProfiles (Prelude.Maybe Prelude.Natural)
-searchNetworkProfiles_maxResults = Lens.lens (\SearchNetworkProfiles' {maxResults} -> maxResults) (\s@SearchNetworkProfiles' {} a -> s {maxResults = a} :: SearchNetworkProfiles)
+-- | The sort order to use to list the specified set of network profiles.
+-- Valid sort criteria includes NetworkProfileName, Ssid, and SecurityType.
+searchNetworkProfiles_sortCriteria :: Lens.Lens' SearchNetworkProfiles (Prelude.Maybe [Sort])
+searchNetworkProfiles_sortCriteria = Lens.lens (\SearchNetworkProfiles' {sortCriteria} -> sortCriteria) (\s@SearchNetworkProfiles' {} a -> s {sortCriteria = a} :: SearchNetworkProfiles) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSRequest SearchNetworkProfiles where
   type
     AWSResponse SearchNetworkProfiles =
       SearchNetworkProfilesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SearchNetworkProfilesResponse'
-            Prelude.<$> ( x Core..?> "NetworkProfiles"
+            Prelude.<$> ( x Data..?> "NetworkProfiles"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "TotalCount")
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "TotalCount")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable SearchNetworkProfiles where
   hashWithSalt _salt SearchNetworkProfiles' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` sortCriteria
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sortCriteria
 
 instance Prelude.NFData SearchNetworkProfiles where
   rnf SearchNetworkProfiles' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf sortCriteria
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sortCriteria
 
-instance Core.ToHeaders SearchNetworkProfiles where
+instance Data.ToHeaders SearchNetworkProfiles where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.SearchNetworkProfiles" ::
+              Data.=# ( "AlexaForBusiness.SearchNetworkProfiles" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SearchNetworkProfiles where
+instance Data.ToJSON SearchNetworkProfiles where
   toJSON SearchNetworkProfiles' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("SortCriteria" Core..=) Prelude.<$> sortCriteria,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SortCriteria" Data..=) Prelude.<$> sortCriteria
           ]
       )
 
-instance Core.ToPath SearchNetworkProfiles where
+instance Data.ToPath SearchNetworkProfiles where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SearchNetworkProfiles where
+instance Data.ToQuery SearchNetworkProfiles where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSearchNetworkProfilesResponse' smart constructor.

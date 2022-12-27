@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.CreateThingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,8 @@ module Amazonka.IoT.CreateThingGroup
 
     -- * Request Lenses
     createThingGroup_parentGroupName,
-    createThingGroup_thingGroupProperties,
     createThingGroup_tags,
+    createThingGroup_thingGroupProperties,
     createThingGroup_thingGroupName,
 
     -- * Destructuring the Response
@@ -53,8 +53,9 @@ module Amazonka.IoT.CreateThingGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,10 +64,10 @@ import qualified Amazonka.Response as Response
 data CreateThingGroup = CreateThingGroup'
   { -- | The name of the parent thing group.
     parentGroupName :: Prelude.Maybe Prelude.Text,
-    -- | The thing group properties.
-    thingGroupProperties :: Prelude.Maybe ThingGroupProperties,
     -- | Metadata which can be used to manage the thing group.
     tags :: Prelude.Maybe [Tag],
+    -- | The thing group properties.
+    thingGroupProperties :: Prelude.Maybe ThingGroupProperties,
     -- | The thing group name to create.
     thingGroupName :: Prelude.Text
   }
@@ -82,9 +83,9 @@ data CreateThingGroup = CreateThingGroup'
 --
 -- 'parentGroupName', 'createThingGroup_parentGroupName' - The name of the parent thing group.
 --
--- 'thingGroupProperties', 'createThingGroup_thingGroupProperties' - The thing group properties.
---
 -- 'tags', 'createThingGroup_tags' - Metadata which can be used to manage the thing group.
+--
+-- 'thingGroupProperties', 'createThingGroup_thingGroupProperties' - The thing group properties.
 --
 -- 'thingGroupName', 'createThingGroup_thingGroupName' - The thing group name to create.
 newCreateThingGroup ::
@@ -95,8 +96,8 @@ newCreateThingGroup pThingGroupName_ =
   CreateThingGroup'
     { parentGroupName =
         Prelude.Nothing,
-      thingGroupProperties = Prelude.Nothing,
       tags = Prelude.Nothing,
+      thingGroupProperties = Prelude.Nothing,
       thingGroupName = pThingGroupName_
     }
 
@@ -104,13 +105,13 @@ newCreateThingGroup pThingGroupName_ =
 createThingGroup_parentGroupName :: Lens.Lens' CreateThingGroup (Prelude.Maybe Prelude.Text)
 createThingGroup_parentGroupName = Lens.lens (\CreateThingGroup' {parentGroupName} -> parentGroupName) (\s@CreateThingGroup' {} a -> s {parentGroupName = a} :: CreateThingGroup)
 
--- | The thing group properties.
-createThingGroup_thingGroupProperties :: Lens.Lens' CreateThingGroup (Prelude.Maybe ThingGroupProperties)
-createThingGroup_thingGroupProperties = Lens.lens (\CreateThingGroup' {thingGroupProperties} -> thingGroupProperties) (\s@CreateThingGroup' {} a -> s {thingGroupProperties = a} :: CreateThingGroup)
-
 -- | Metadata which can be used to manage the thing group.
 createThingGroup_tags :: Lens.Lens' CreateThingGroup (Prelude.Maybe [Tag])
 createThingGroup_tags = Lens.lens (\CreateThingGroup' {tags} -> tags) (\s@CreateThingGroup' {} a -> s {tags = a} :: CreateThingGroup) Prelude.. Lens.mapping Lens.coerced
+
+-- | The thing group properties.
+createThingGroup_thingGroupProperties :: Lens.Lens' CreateThingGroup (Prelude.Maybe ThingGroupProperties)
+createThingGroup_thingGroupProperties = Lens.lens (\CreateThingGroup' {thingGroupProperties} -> thingGroupProperties) (\s@CreateThingGroup' {} a -> s {thingGroupProperties = a} :: CreateThingGroup)
 
 -- | The thing group name to create.
 createThingGroup_thingGroupName :: Lens.Lens' CreateThingGroup Prelude.Text
@@ -120,52 +121,53 @@ instance Core.AWSRequest CreateThingGroup where
   type
     AWSResponse CreateThingGroup =
       CreateThingGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateThingGroupResponse'
-            Prelude.<$> (x Core..?> "thingGroupArn")
-            Prelude.<*> (x Core..?> "thingGroupId")
-            Prelude.<*> (x Core..?> "thingGroupName")
+            Prelude.<$> (x Data..?> "thingGroupArn")
+            Prelude.<*> (x Data..?> "thingGroupId")
+            Prelude.<*> (x Data..?> "thingGroupName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateThingGroup where
   hashWithSalt _salt CreateThingGroup' {..} =
     _salt `Prelude.hashWithSalt` parentGroupName
-      `Prelude.hashWithSalt` thingGroupProperties
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` thingGroupProperties
       `Prelude.hashWithSalt` thingGroupName
 
 instance Prelude.NFData CreateThingGroup where
   rnf CreateThingGroup' {..} =
     Prelude.rnf parentGroupName
-      `Prelude.seq` Prelude.rnf thingGroupProperties
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf thingGroupProperties
       `Prelude.seq` Prelude.rnf thingGroupName
 
-instance Core.ToHeaders CreateThingGroup where
+instance Data.ToHeaders CreateThingGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateThingGroup where
+instance Data.ToJSON CreateThingGroup where
   toJSON CreateThingGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("parentGroupName" Core..=)
+          [ ("parentGroupName" Data..=)
               Prelude.<$> parentGroupName,
-            ("thingGroupProperties" Core..=)
-              Prelude.<$> thingGroupProperties,
-            ("tags" Core..=) Prelude.<$> tags
+            ("tags" Data..=) Prelude.<$> tags,
+            ("thingGroupProperties" Data..=)
+              Prelude.<$> thingGroupProperties
           ]
       )
 
-instance Core.ToPath CreateThingGroup where
+instance Data.ToPath CreateThingGroup where
   toPath CreateThingGroup' {..} =
     Prelude.mconcat
-      ["/thing-groups/", Core.toBS thingGroupName]
+      ["/thing-groups/", Data.toBS thingGroupName]
 
-instance Core.ToQuery CreateThingGroup where
+instance Data.ToQuery CreateThingGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateThingGroupResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.AssociateRouteTable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,9 +36,9 @@ module Amazonka.EC2.AssociateRouteTable
     newAssociateRouteTable,
 
     -- * Request Lenses
-    associateRouteTable_subnetId,
-    associateRouteTable_gatewayId,
     associateRouteTable_dryRun,
+    associateRouteTable_gatewayId,
+    associateRouteTable_subnetId,
     associateRouteTable_routeTableId,
 
     -- * Destructuring the Response
@@ -53,23 +53,24 @@ module Amazonka.EC2.AssociateRouteTable
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newAssociateRouteTable' smart constructor.
 data AssociateRouteTable = AssociateRouteTable'
-  { -- | The ID of the subnet.
-    subnetId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the internet gateway or virtual private gateway.
-    gatewayId :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the internet gateway or virtual private gateway.
+    gatewayId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the subnet.
+    subnetId :: Prelude.Maybe Prelude.Text,
     -- | The ID of the route table.
     routeTableId :: Prelude.Text
   }
@@ -83,14 +84,14 @@ data AssociateRouteTable = AssociateRouteTable'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subnetId', 'associateRouteTable_subnetId' - The ID of the subnet.
---
--- 'gatewayId', 'associateRouteTable_gatewayId' - The ID of the internet gateway or virtual private gateway.
---
 -- 'dryRun', 'associateRouteTable_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'gatewayId', 'associateRouteTable_gatewayId' - The ID of the internet gateway or virtual private gateway.
+--
+-- 'subnetId', 'associateRouteTable_subnetId' - The ID of the subnet.
 --
 -- 'routeTableId', 'associateRouteTable_routeTableId' - The ID of the route table.
 newAssociateRouteTable ::
@@ -99,19 +100,11 @@ newAssociateRouteTable ::
   AssociateRouteTable
 newAssociateRouteTable pRouteTableId_ =
   AssociateRouteTable'
-    { subnetId = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
       gatewayId = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
+      subnetId = Prelude.Nothing,
       routeTableId = pRouteTableId_
     }
-
--- | The ID of the subnet.
-associateRouteTable_subnetId :: Lens.Lens' AssociateRouteTable (Prelude.Maybe Prelude.Text)
-associateRouteTable_subnetId = Lens.lens (\AssociateRouteTable' {subnetId} -> subnetId) (\s@AssociateRouteTable' {} a -> s {subnetId = a} :: AssociateRouteTable)
-
--- | The ID of the internet gateway or virtual private gateway.
-associateRouteTable_gatewayId :: Lens.Lens' AssociateRouteTable (Prelude.Maybe Prelude.Text)
-associateRouteTable_gatewayId = Lens.lens (\AssociateRouteTable' {gatewayId} -> gatewayId) (\s@AssociateRouteTable' {} a -> s {gatewayId = a} :: AssociateRouteTable)
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -119,6 +112,14 @@ associateRouteTable_gatewayId = Lens.lens (\AssociateRouteTable' {gatewayId} -> 
 -- Otherwise, it is @UnauthorizedOperation@.
 associateRouteTable_dryRun :: Lens.Lens' AssociateRouteTable (Prelude.Maybe Prelude.Bool)
 associateRouteTable_dryRun = Lens.lens (\AssociateRouteTable' {dryRun} -> dryRun) (\s@AssociateRouteTable' {} a -> s {dryRun = a} :: AssociateRouteTable)
+
+-- | The ID of the internet gateway or virtual private gateway.
+associateRouteTable_gatewayId :: Lens.Lens' AssociateRouteTable (Prelude.Maybe Prelude.Text)
+associateRouteTable_gatewayId = Lens.lens (\AssociateRouteTable' {gatewayId} -> gatewayId) (\s@AssociateRouteTable' {} a -> s {gatewayId = a} :: AssociateRouteTable)
+
+-- | The ID of the subnet.
+associateRouteTable_subnetId :: Lens.Lens' AssociateRouteTable (Prelude.Maybe Prelude.Text)
+associateRouteTable_subnetId = Lens.lens (\AssociateRouteTable' {subnetId} -> subnetId) (\s@AssociateRouteTable' {} a -> s {subnetId = a} :: AssociateRouteTable)
 
 -- | The ID of the route table.
 associateRouteTable_routeTableId :: Lens.Lens' AssociateRouteTable Prelude.Text
@@ -128,47 +129,48 @@ instance Core.AWSRequest AssociateRouteTable where
   type
     AWSResponse AssociateRouteTable =
       AssociateRouteTableResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           AssociateRouteTableResponse'
-            Prelude.<$> (x Core..@? "associationId")
-            Prelude.<*> (x Core..@? "associationState")
+            Prelude.<$> (x Data..@? "associationId")
+            Prelude.<*> (x Data..@? "associationState")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable AssociateRouteTable where
   hashWithSalt _salt AssociateRouteTable' {..} =
-    _salt `Prelude.hashWithSalt` subnetId
+    _salt `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` gatewayId
-      `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` subnetId
       `Prelude.hashWithSalt` routeTableId
 
 instance Prelude.NFData AssociateRouteTable where
   rnf AssociateRouteTable' {..} =
-    Prelude.rnf subnetId
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf gatewayId
-      `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf subnetId
       `Prelude.seq` Prelude.rnf routeTableId
 
-instance Core.ToHeaders AssociateRouteTable where
+instance Data.ToHeaders AssociateRouteTable where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AssociateRouteTable where
+instance Data.ToPath AssociateRouteTable where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateRouteTable where
+instance Data.ToQuery AssociateRouteTable where
   toQuery AssociateRouteTable' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("AssociateRouteTable" :: Prelude.ByteString),
+          Data.=: ("AssociateRouteTable" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "SubnetId" Core.=: subnetId,
-        "GatewayId" Core.=: gatewayId,
-        "DryRun" Core.=: dryRun,
-        "RouteTableId" Core.=: routeTableId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "GatewayId" Data.=: gatewayId,
+        "SubnetId" Data.=: subnetId,
+        "RouteTableId" Data.=: routeTableId
       ]
 
 -- | /See:/ 'newAssociateRouteTableResponse' smart constructor.

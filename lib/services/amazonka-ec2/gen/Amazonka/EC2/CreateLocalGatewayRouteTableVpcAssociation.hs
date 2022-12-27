@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateLocalGatewayRouteTableVpcAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.EC2.CreateLocalGatewayRouteTableVpcAssociation
     newCreateLocalGatewayRouteTableVpcAssociation,
 
     -- * Request Lenses
-    createLocalGatewayRouteTableVpcAssociation_tagSpecifications,
     createLocalGatewayRouteTableVpcAssociation_dryRun,
+    createLocalGatewayRouteTableVpcAssociation_tagSpecifications,
     createLocalGatewayRouteTableVpcAssociation_localGatewayRouteTableId,
     createLocalGatewayRouteTableVpcAssociation_vpcId,
 
@@ -44,21 +44,22 @@ module Amazonka.EC2.CreateLocalGatewayRouteTableVpcAssociation
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateLocalGatewayRouteTableVpcAssociation' smart constructor.
 data CreateLocalGatewayRouteTableVpcAssociation = CreateLocalGatewayRouteTableVpcAssociation'
-  { -- | The tags to assign to the local gateway route table VPC association.
-    tagSpecifications :: Prelude.Maybe [TagSpecification],
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The tags to assign to the local gateway route table VPC association.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
     -- | The ID of the local gateway route table.
     localGatewayRouteTableId :: Prelude.Text,
     -- | The ID of the VPC.
@@ -74,12 +75,12 @@ data CreateLocalGatewayRouteTableVpcAssociation = CreateLocalGatewayRouteTableVp
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tagSpecifications', 'createLocalGatewayRouteTableVpcAssociation_tagSpecifications' - The tags to assign to the local gateway route table VPC association.
---
 -- 'dryRun', 'createLocalGatewayRouteTableVpcAssociation_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'tagSpecifications', 'createLocalGatewayRouteTableVpcAssociation_tagSpecifications' - The tags to assign to the local gateway route table VPC association.
 --
 -- 'localGatewayRouteTableId', 'createLocalGatewayRouteTableVpcAssociation_localGatewayRouteTableId' - The ID of the local gateway route table.
 --
@@ -94,17 +95,14 @@ newCreateLocalGatewayRouteTableVpcAssociation
   pLocalGatewayRouteTableId_
   pVpcId_ =
     CreateLocalGatewayRouteTableVpcAssociation'
-      { tagSpecifications =
+      { dryRun =
           Prelude.Nothing,
-        dryRun = Prelude.Nothing,
+        tagSpecifications =
+          Prelude.Nothing,
         localGatewayRouteTableId =
           pLocalGatewayRouteTableId_,
         vpcId = pVpcId_
       }
-
--- | The tags to assign to the local gateway route table VPC association.
-createLocalGatewayRouteTableVpcAssociation_tagSpecifications :: Lens.Lens' CreateLocalGatewayRouteTableVpcAssociation (Prelude.Maybe [TagSpecification])
-createLocalGatewayRouteTableVpcAssociation_tagSpecifications = Lens.lens (\CreateLocalGatewayRouteTableVpcAssociation' {tagSpecifications} -> tagSpecifications) (\s@CreateLocalGatewayRouteTableVpcAssociation' {} a -> s {tagSpecifications = a} :: CreateLocalGatewayRouteTableVpcAssociation) Prelude.. Lens.mapping Lens.coerced
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -112,6 +110,10 @@ createLocalGatewayRouteTableVpcAssociation_tagSpecifications = Lens.lens (\Creat
 -- Otherwise, it is @UnauthorizedOperation@.
 createLocalGatewayRouteTableVpcAssociation_dryRun :: Lens.Lens' CreateLocalGatewayRouteTableVpcAssociation (Prelude.Maybe Prelude.Bool)
 createLocalGatewayRouteTableVpcAssociation_dryRun = Lens.lens (\CreateLocalGatewayRouteTableVpcAssociation' {dryRun} -> dryRun) (\s@CreateLocalGatewayRouteTableVpcAssociation' {} a -> s {dryRun = a} :: CreateLocalGatewayRouteTableVpcAssociation)
+
+-- | The tags to assign to the local gateway route table VPC association.
+createLocalGatewayRouteTableVpcAssociation_tagSpecifications :: Lens.Lens' CreateLocalGatewayRouteTableVpcAssociation (Prelude.Maybe [TagSpecification])
+createLocalGatewayRouteTableVpcAssociation_tagSpecifications = Lens.lens (\CreateLocalGatewayRouteTableVpcAssociation' {tagSpecifications} -> tagSpecifications) (\s@CreateLocalGatewayRouteTableVpcAssociation' {} a -> s {tagSpecifications = a} :: CreateLocalGatewayRouteTableVpcAssociation) Prelude.. Lens.mapping Lens.coerced
 
 -- | The ID of the local gateway route table.
 createLocalGatewayRouteTableVpcAssociation_localGatewayRouteTableId :: Lens.Lens' CreateLocalGatewayRouteTableVpcAssociation Prelude.Text
@@ -129,12 +131,13 @@ instance
     AWSResponse
       CreateLocalGatewayRouteTableVpcAssociation =
       CreateLocalGatewayRouteTableVpcAssociationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateLocalGatewayRouteTableVpcAssociationResponse'
-            Prelude.<$> (x Core..@? "localGatewayRouteTableVpcAssociation")
+            Prelude.<$> (x Data..@? "localGatewayRouteTableVpcAssociation")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -145,8 +148,8 @@ instance
   hashWithSalt
     _salt
     CreateLocalGatewayRouteTableVpcAssociation' {..} =
-      _salt `Prelude.hashWithSalt` tagSpecifications
-        `Prelude.hashWithSalt` dryRun
+      _salt `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` tagSpecifications
         `Prelude.hashWithSalt` localGatewayRouteTableId
         `Prelude.hashWithSalt` vpcId
 
@@ -155,44 +158,44 @@ instance
     CreateLocalGatewayRouteTableVpcAssociation
   where
   rnf CreateLocalGatewayRouteTableVpcAssociation' {..} =
-    Prelude.rnf tagSpecifications
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf tagSpecifications
       `Prelude.seq` Prelude.rnf localGatewayRouteTableId
       `Prelude.seq` Prelude.rnf vpcId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateLocalGatewayRouteTableVpcAssociation
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     CreateLocalGatewayRouteTableVpcAssociation
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CreateLocalGatewayRouteTableVpcAssociation
   where
   toQuery
     CreateLocalGatewayRouteTableVpcAssociation' {..} =
       Prelude.mconcat
         [ "Action"
-            Core.=: ( "CreateLocalGatewayRouteTableVpcAssociation" ::
+            Data.=: ( "CreateLocalGatewayRouteTableVpcAssociation" ::
                         Prelude.ByteString
                     ),
           "Version"
-            Core.=: ("2016-11-15" :: Prelude.ByteString),
-          Core.toQuery
-            ( Core.toQueryList "TagSpecification"
+            Data.=: ("2016-11-15" :: Prelude.ByteString),
+          "DryRun" Data.=: dryRun,
+          Data.toQuery
+            ( Data.toQueryList "TagSpecification"
                 Prelude.<$> tagSpecifications
             ),
-          "DryRun" Core.=: dryRun,
           "LocalGatewayRouteTableId"
-            Core.=: localGatewayRouteTableId,
-          "VpcId" Core.=: vpcId
+            Data.=: localGatewayRouteTableId,
+          "VpcId" Data.=: vpcId
         ]
 
 -- | /See:/ 'newCreateLocalGatewayRouteTableVpcAssociationResponse' smart constructor.

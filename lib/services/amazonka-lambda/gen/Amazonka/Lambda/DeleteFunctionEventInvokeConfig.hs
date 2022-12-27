@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.DeleteFunctionEventInvokeConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.Lambda.DeleteFunctionEventInvokeConfig
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -135,7 +136,8 @@ instance
   type
     AWSResponse DeleteFunctionEventInvokeConfig =
       DeleteFunctionEventInvokeConfigResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteFunctionEventInvokeConfigResponse'
@@ -159,22 +161,22 @@ instance
       `Prelude.seq` Prelude.rnf functionName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteFunctionEventInvokeConfig
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteFunctionEventInvokeConfig where
+instance Data.ToPath DeleteFunctionEventInvokeConfig where
   toPath DeleteFunctionEventInvokeConfig' {..} =
     Prelude.mconcat
       [ "/2019-09-25/functions/",
-        Core.toBS functionName,
+        Data.toBS functionName,
         "/event-invoke-config"
       ]
 
-instance Core.ToQuery DeleteFunctionEventInvokeConfig where
+instance Data.ToQuery DeleteFunctionEventInvokeConfig where
   toQuery DeleteFunctionEventInvokeConfig' {..} =
-    Prelude.mconcat ["Qualifier" Core.=: qualifier]
+    Prelude.mconcat ["Qualifier" Data.=: qualifier]
 
 -- | /See:/ 'newDeleteFunctionEventInvokeConfigResponse' smart constructor.
 data DeleteFunctionEventInvokeConfigResponse = DeleteFunctionEventInvokeConfigResponse'

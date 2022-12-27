@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.TypedLinkSchemaAndFacetName
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudDirectory.Types.TypedLinkSchemaAndFacetName where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Identifies the schema Amazon Resource Name (ARN) and facet name for the
@@ -72,14 +73,14 @@ typedLinkSchemaAndFacetName_schemaArn = Lens.lens (\TypedLinkSchemaAndFacetName'
 typedLinkSchemaAndFacetName_typedLinkName :: Lens.Lens' TypedLinkSchemaAndFacetName Prelude.Text
 typedLinkSchemaAndFacetName_typedLinkName = Lens.lens (\TypedLinkSchemaAndFacetName' {typedLinkName} -> typedLinkName) (\s@TypedLinkSchemaAndFacetName' {} a -> s {typedLinkName = a} :: TypedLinkSchemaAndFacetName)
 
-instance Core.FromJSON TypedLinkSchemaAndFacetName where
+instance Data.FromJSON TypedLinkSchemaAndFacetName where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TypedLinkSchemaAndFacetName"
       ( \x ->
           TypedLinkSchemaAndFacetName'
-            Prelude.<$> (x Core..: "SchemaArn")
-            Prelude.<*> (x Core..: "TypedLinkName")
+            Prelude.<$> (x Data..: "SchemaArn")
+            Prelude.<*> (x Data..: "TypedLinkName")
       )
 
 instance Prelude.Hashable TypedLinkSchemaAndFacetName where
@@ -92,12 +93,12 @@ instance Prelude.NFData TypedLinkSchemaAndFacetName where
     Prelude.rnf schemaArn
       `Prelude.seq` Prelude.rnf typedLinkName
 
-instance Core.ToJSON TypedLinkSchemaAndFacetName where
+instance Data.ToJSON TypedLinkSchemaAndFacetName where
   toJSON TypedLinkSchemaAndFacetName' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("SchemaArn" Core..= schemaArn),
+          [ Prelude.Just ("SchemaArn" Data..= schemaArn),
             Prelude.Just
-              ("TypedLinkName" Core..= typedLinkName)
+              ("TypedLinkName" Data..= typedLinkName)
           ]
       )

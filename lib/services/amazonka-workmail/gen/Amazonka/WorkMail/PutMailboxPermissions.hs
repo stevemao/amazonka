@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.PutMailboxPermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.WorkMail.PutMailboxPermissions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -144,7 +145,8 @@ instance Core.AWSRequest PutMailboxPermissions where
   type
     AWSResponse PutMailboxPermissions =
       PutMailboxPermissionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -166,38 +168,38 @@ instance Prelude.NFData PutMailboxPermissions where
       `Prelude.seq` Prelude.rnf granteeId
       `Prelude.seq` Prelude.rnf permissionValues
 
-instance Core.ToHeaders PutMailboxPermissions where
+instance Data.ToHeaders PutMailboxPermissions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.PutMailboxPermissions" ::
+              Data.=# ( "WorkMailService.PutMailboxPermissions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutMailboxPermissions where
+instance Data.ToJSON PutMailboxPermissions where
   toJSON PutMailboxPermissions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("EntityId" Core..= entityId),
-            Prelude.Just ("GranteeId" Core..= granteeId),
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("EntityId" Data..= entityId),
+            Prelude.Just ("GranteeId" Data..= granteeId),
             Prelude.Just
-              ("PermissionValues" Core..= permissionValues)
+              ("PermissionValues" Data..= permissionValues)
           ]
       )
 
-instance Core.ToPath PutMailboxPermissions where
+instance Data.ToPath PutMailboxPermissions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutMailboxPermissions where
+instance Data.ToQuery PutMailboxPermissions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutMailboxPermissionsResponse' smart constructor.

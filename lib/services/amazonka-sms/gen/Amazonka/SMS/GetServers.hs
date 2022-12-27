@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.GetServers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,25 +32,26 @@ module Amazonka.SMS.GetServers
     newGetServers,
 
     -- * Request Lenses
-    getServers_vmServerAddressList,
-    getServers_nextToken,
     getServers_maxResults,
+    getServers_nextToken,
+    getServers_vmServerAddressList,
 
     -- * Destructuring the Response
     GetServersResponse (..),
     newGetServersResponse,
 
     -- * Response Lenses
-    getServersResponse_serverCatalogStatus,
     getServersResponse_lastModifiedOn,
     getServersResponse_nextToken,
+    getServersResponse_serverCatalogStatus,
     getServersResponse_serverList,
     getServersResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,14 +59,14 @@ import Amazonka.SMS.Types
 
 -- | /See:/ 'newGetServers' smart constructor.
 data GetServers = GetServers'
-  { -- | The server addresses.
-    vmServerAddressList :: Prelude.Maybe [VmServerAddress],
-    -- | The token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call. The default
+  { -- | The maximum number of results to return in a single call. The default
     -- value is 50. To retrieve the remaining results, make another call with
     -- the returned @NextToken@ value.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The server addresses.
+    vmServerAddressList :: Prelude.Maybe [VmServerAddress]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -77,35 +78,35 @@ data GetServers = GetServers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vmServerAddressList', 'getServers_vmServerAddressList' - The server addresses.
---
--- 'nextToken', 'getServers_nextToken' - The token for the next set of results.
---
 -- 'maxResults', 'getServers_maxResults' - The maximum number of results to return in a single call. The default
 -- value is 50. To retrieve the remaining results, make another call with
 -- the returned @NextToken@ value.
+--
+-- 'nextToken', 'getServers_nextToken' - The token for the next set of results.
+--
+-- 'vmServerAddressList', 'getServers_vmServerAddressList' - The server addresses.
 newGetServers ::
   GetServers
 newGetServers =
   GetServers'
-    { vmServerAddressList = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      vmServerAddressList = Prelude.Nothing
     }
-
--- | The server addresses.
-getServers_vmServerAddressList :: Lens.Lens' GetServers (Prelude.Maybe [VmServerAddress])
-getServers_vmServerAddressList = Lens.lens (\GetServers' {vmServerAddressList} -> vmServerAddressList) (\s@GetServers' {} a -> s {vmServerAddressList = a} :: GetServers) Prelude.. Lens.mapping Lens.coerced
-
--- | The token for the next set of results.
-getServers_nextToken :: Lens.Lens' GetServers (Prelude.Maybe Prelude.Text)
-getServers_nextToken = Lens.lens (\GetServers' {nextToken} -> nextToken) (\s@GetServers' {} a -> s {nextToken = a} :: GetServers)
 
 -- | The maximum number of results to return in a single call. The default
 -- value is 50. To retrieve the remaining results, make another call with
 -- the returned @NextToken@ value.
 getServers_maxResults :: Lens.Lens' GetServers (Prelude.Maybe Prelude.Int)
 getServers_maxResults = Lens.lens (\GetServers' {maxResults} -> maxResults) (\s@GetServers' {} a -> s {maxResults = a} :: GetServers)
+
+-- | The token for the next set of results.
+getServers_nextToken :: Lens.Lens' GetServers (Prelude.Maybe Prelude.Text)
+getServers_nextToken = Lens.lens (\GetServers' {nextToken} -> nextToken) (\s@GetServers' {} a -> s {nextToken = a} :: GetServers)
+
+-- | The server addresses.
+getServers_vmServerAddressList :: Lens.Lens' GetServers (Prelude.Maybe [VmServerAddress])
+getServers_vmServerAddressList = Lens.lens (\GetServers' {vmServerAddressList} -> vmServerAddressList) (\s@GetServers' {} a -> s {vmServerAddressList = a} :: GetServers) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSPager GetServers where
   page rq rs
@@ -128,71 +129,72 @@ instance Core.AWSPager GetServers where
 
 instance Core.AWSRequest GetServers where
   type AWSResponse GetServers = GetServersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetServersResponse'
-            Prelude.<$> (x Core..?> "serverCatalogStatus")
-            Prelude.<*> (x Core..?> "lastModifiedOn")
-            Prelude.<*> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "serverList" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "lastModifiedOn")
+            Prelude.<*> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "serverCatalogStatus")
+            Prelude.<*> (x Data..?> "serverList" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetServers where
   hashWithSalt _salt GetServers' {..} =
-    _salt `Prelude.hashWithSalt` vmServerAddressList
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` vmServerAddressList
 
 instance Prelude.NFData GetServers where
   rnf GetServers' {..} =
-    Prelude.rnf vmServerAddressList
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf vmServerAddressList
 
-instance Core.ToHeaders GetServers where
+instance Data.ToHeaders GetServers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.GetServers" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.GetServers" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetServers where
+instance Data.ToJSON GetServers where
   toJSON GetServers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("vmServerAddressList" Core..=)
-              Prelude.<$> vmServerAddressList,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("vmServerAddressList" Data..=)
+              Prelude.<$> vmServerAddressList
           ]
       )
 
-instance Core.ToPath GetServers where
+instance Data.ToPath GetServers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetServers where
+instance Data.ToQuery GetServers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetServersResponse' smart constructor.
 data GetServersResponse = GetServersResponse'
-  { -- | The status of the server catalog.
-    serverCatalogStatus :: Prelude.Maybe ServerCatalogStatus,
-    -- | The time when the server was last modified.
-    lastModifiedOn :: Prelude.Maybe Core.POSIX,
+  { -- | The time when the server was last modified.
+    lastModifiedOn :: Prelude.Maybe Data.POSIX,
     -- | The token required to retrieve the next set of results. This value is
     -- null when there are no more results to return.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The status of the server catalog.
+    serverCatalogStatus :: Prelude.Maybe ServerCatalogStatus,
     -- | Information about the servers.
     serverList :: Prelude.Maybe [Server],
     -- | The response's http status code.
@@ -208,12 +210,12 @@ data GetServersResponse = GetServersResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'serverCatalogStatus', 'getServersResponse_serverCatalogStatus' - The status of the server catalog.
---
 -- 'lastModifiedOn', 'getServersResponse_lastModifiedOn' - The time when the server was last modified.
 --
 -- 'nextToken', 'getServersResponse_nextToken' - The token required to retrieve the next set of results. This value is
 -- null when there are no more results to return.
+--
+-- 'serverCatalogStatus', 'getServersResponse_serverCatalogStatus' - The status of the server catalog.
 --
 -- 'serverList', 'getServersResponse_serverList' - Information about the servers.
 --
@@ -224,26 +226,26 @@ newGetServersResponse ::
   GetServersResponse
 newGetServersResponse pHttpStatus_ =
   GetServersResponse'
-    { serverCatalogStatus =
+    { lastModifiedOn =
         Prelude.Nothing,
-      lastModifiedOn = Prelude.Nothing,
       nextToken = Prelude.Nothing,
+      serverCatalogStatus = Prelude.Nothing,
       serverList = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The status of the server catalog.
-getServersResponse_serverCatalogStatus :: Lens.Lens' GetServersResponse (Prelude.Maybe ServerCatalogStatus)
-getServersResponse_serverCatalogStatus = Lens.lens (\GetServersResponse' {serverCatalogStatus} -> serverCatalogStatus) (\s@GetServersResponse' {} a -> s {serverCatalogStatus = a} :: GetServersResponse)
-
 -- | The time when the server was last modified.
 getServersResponse_lastModifiedOn :: Lens.Lens' GetServersResponse (Prelude.Maybe Prelude.UTCTime)
-getServersResponse_lastModifiedOn = Lens.lens (\GetServersResponse' {lastModifiedOn} -> lastModifiedOn) (\s@GetServersResponse' {} a -> s {lastModifiedOn = a} :: GetServersResponse) Prelude.. Lens.mapping Core._Time
+getServersResponse_lastModifiedOn = Lens.lens (\GetServersResponse' {lastModifiedOn} -> lastModifiedOn) (\s@GetServersResponse' {} a -> s {lastModifiedOn = a} :: GetServersResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The token required to retrieve the next set of results. This value is
 -- null when there are no more results to return.
 getServersResponse_nextToken :: Lens.Lens' GetServersResponse (Prelude.Maybe Prelude.Text)
 getServersResponse_nextToken = Lens.lens (\GetServersResponse' {nextToken} -> nextToken) (\s@GetServersResponse' {} a -> s {nextToken = a} :: GetServersResponse)
+
+-- | The status of the server catalog.
+getServersResponse_serverCatalogStatus :: Lens.Lens' GetServersResponse (Prelude.Maybe ServerCatalogStatus)
+getServersResponse_serverCatalogStatus = Lens.lens (\GetServersResponse' {serverCatalogStatus} -> serverCatalogStatus) (\s@GetServersResponse' {} a -> s {serverCatalogStatus = a} :: GetServersResponse)
 
 -- | Information about the servers.
 getServersResponse_serverList :: Lens.Lens' GetServersResponse (Prelude.Maybe [Server])
@@ -255,8 +257,8 @@ getServersResponse_httpStatus = Lens.lens (\GetServersResponse' {httpStatus} -> 
 
 instance Prelude.NFData GetServersResponse where
   rnf GetServersResponse' {..} =
-    Prelude.rnf serverCatalogStatus
-      `Prelude.seq` Prelude.rnf lastModifiedOn
+    Prelude.rnf lastModifiedOn
       `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf serverCatalogStatus
       `Prelude.seq` Prelude.rnf serverList
       `Prelude.seq` Prelude.rnf httpStatus

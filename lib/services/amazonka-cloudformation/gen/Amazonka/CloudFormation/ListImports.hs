@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.ListImports
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,7 +52,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -125,16 +126,17 @@ instance Core.AWSPager ListImports where
 
 instance Core.AWSRequest ListImports where
   type AWSResponse ListImports = ListImportsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListImportsResult"
       ( \s h x ->
           ListImportsResponse'
-            Prelude.<$> ( x Core..@? "Imports" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "Imports" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "NextToken")
+            Prelude.<*> (x Data..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -148,21 +150,21 @@ instance Prelude.NFData ListImports where
     Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf exportName
 
-instance Core.ToHeaders ListImports where
+instance Data.ToHeaders ListImports where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListImports where
+instance Data.ToPath ListImports where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListImports where
+instance Data.ToQuery ListImports where
   toQuery ListImports' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListImports" :: Prelude.ByteString),
+          Data.=: ("ListImports" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "ExportName" Core.=: exportName
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "NextToken" Data.=: nextToken,
+        "ExportName" Data.=: exportName
       ]
 
 -- | /See:/ 'newListImportsResponse' smart constructor.

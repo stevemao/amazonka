@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.DeleteDocumentClassifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,7 +89,8 @@ instance Core.AWSRequest DeleteDocumentClassifier where
   type
     AWSResponse DeleteDocumentClassifier =
       DeleteDocumentClassifierResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -104,36 +106,36 @@ instance Prelude.NFData DeleteDocumentClassifier where
   rnf DeleteDocumentClassifier' {..} =
     Prelude.rnf documentClassifierArn
 
-instance Core.ToHeaders DeleteDocumentClassifier where
+instance Data.ToHeaders DeleteDocumentClassifier where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.DeleteDocumentClassifier" ::
+              Data.=# ( "Comprehend_20171127.DeleteDocumentClassifier" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteDocumentClassifier where
+instance Data.ToJSON DeleteDocumentClassifier where
   toJSON DeleteDocumentClassifier' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "DocumentClassifierArn"
-                  Core..= documentClassifierArn
+                  Data..= documentClassifierArn
               )
           ]
       )
 
-instance Core.ToPath DeleteDocumentClassifier where
+instance Data.ToPath DeleteDocumentClassifier where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDocumentClassifier where
+instance Data.ToQuery DeleteDocumentClassifier where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDocumentClassifierResponse' smart constructor.

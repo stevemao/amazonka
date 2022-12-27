@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.GetSessionEmbedUrl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,8 @@ module Amazonka.QuickSight.GetSessionEmbedUrl
     newGetSessionEmbedUrl,
 
     -- * Request Lenses
-    getSessionEmbedUrl_sessionLifetimeInMinutes,
     getSessionEmbedUrl_entryPoint,
+    getSessionEmbedUrl_sessionLifetimeInMinutes,
     getSessionEmbedUrl_userArn,
     getSessionEmbedUrl_awsAccountId,
 
@@ -51,14 +51,15 @@ module Amazonka.QuickSight.GetSessionEmbedUrl
     newGetSessionEmbedUrlResponse,
 
     -- * Response Lenses
-    getSessionEmbedUrlResponse_requestId,
     getSessionEmbedUrlResponse_embedUrl,
+    getSessionEmbedUrlResponse_requestId,
     getSessionEmbedUrlResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -66,10 +67,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetSessionEmbedUrl' smart constructor.
 data GetSessionEmbedUrl = GetSessionEmbedUrl'
-  { -- | How many minutes the session is valid. The session lifetime must be
-    -- 15-600 minutes.
-    sessionLifetimeInMinutes :: Prelude.Maybe Prelude.Natural,
-    -- | The URL you use to access the embedded session. The entry point URL is
+  { -- | The URL you use to access the embedded session. The entry point URL is
     -- constrained to the following paths:
     --
     -- -   @\/start@
@@ -86,6 +84,9 @@ data GetSessionEmbedUrl = GetSessionEmbedUrl'
     -- -   @\/analyses\/AnalysisId @ - where @AnalysisId@ is the actual ID key
     --     from the Amazon QuickSight console URL of the analysis
     entryPoint :: Prelude.Maybe Prelude.Text,
+    -- | How many minutes the session is valid. The session lifetime must be
+    -- 15-600 minutes.
+    sessionLifetimeInMinutes :: Prelude.Maybe Prelude.Natural,
     -- | The Amazon QuickSight user\'s Amazon Resource Name (ARN), for use with
     -- @QUICKSIGHT@ identity type. You can use this for any type of Amazon
     -- QuickSight users in your account (readers, authors, or admins). They
@@ -116,9 +117,6 @@ data GetSessionEmbedUrl = GetSessionEmbedUrl'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sessionLifetimeInMinutes', 'getSessionEmbedUrl_sessionLifetimeInMinutes' - How many minutes the session is valid. The session lifetime must be
--- 15-600 minutes.
---
 -- 'entryPoint', 'getSessionEmbedUrl_entryPoint' - The URL you use to access the embedded session. The entry point URL is
 -- constrained to the following paths:
 --
@@ -135,6 +133,9 @@ data GetSessionEmbedUrl = GetSessionEmbedUrl'
 --
 -- -   @\/analyses\/AnalysisId @ - where @AnalysisId@ is the actual ID key
 --     from the Amazon QuickSight console URL of the analysis
+--
+-- 'sessionLifetimeInMinutes', 'getSessionEmbedUrl_sessionLifetimeInMinutes' - How many minutes the session is valid. The session lifetime must be
+-- 15-600 minutes.
 --
 -- 'userArn', 'getSessionEmbedUrl_userArn' - The Amazon QuickSight user\'s Amazon Resource Name (ARN), for use with
 -- @QUICKSIGHT@ identity type. You can use this for any type of Amazon
@@ -160,17 +161,11 @@ newGetSessionEmbedUrl ::
   GetSessionEmbedUrl
 newGetSessionEmbedUrl pAwsAccountId_ =
   GetSessionEmbedUrl'
-    { sessionLifetimeInMinutes =
-        Prelude.Nothing,
-      entryPoint = Prelude.Nothing,
+    { entryPoint = Prelude.Nothing,
+      sessionLifetimeInMinutes = Prelude.Nothing,
       userArn = Prelude.Nothing,
       awsAccountId = pAwsAccountId_
     }
-
--- | How many minutes the session is valid. The session lifetime must be
--- 15-600 minutes.
-getSessionEmbedUrl_sessionLifetimeInMinutes :: Lens.Lens' GetSessionEmbedUrl (Prelude.Maybe Prelude.Natural)
-getSessionEmbedUrl_sessionLifetimeInMinutes = Lens.lens (\GetSessionEmbedUrl' {sessionLifetimeInMinutes} -> sessionLifetimeInMinutes) (\s@GetSessionEmbedUrl' {} a -> s {sessionLifetimeInMinutes = a} :: GetSessionEmbedUrl)
 
 -- | The URL you use to access the embedded session. The entry point URL is
 -- constrained to the following paths:
@@ -190,6 +185,11 @@ getSessionEmbedUrl_sessionLifetimeInMinutes = Lens.lens (\GetSessionEmbedUrl' {s
 --     from the Amazon QuickSight console URL of the analysis
 getSessionEmbedUrl_entryPoint :: Lens.Lens' GetSessionEmbedUrl (Prelude.Maybe Prelude.Text)
 getSessionEmbedUrl_entryPoint = Lens.lens (\GetSessionEmbedUrl' {entryPoint} -> entryPoint) (\s@GetSessionEmbedUrl' {} a -> s {entryPoint = a} :: GetSessionEmbedUrl)
+
+-- | How many minutes the session is valid. The session lifetime must be
+-- 15-600 minutes.
+getSessionEmbedUrl_sessionLifetimeInMinutes :: Lens.Lens' GetSessionEmbedUrl (Prelude.Maybe Prelude.Natural)
+getSessionEmbedUrl_sessionLifetimeInMinutes = Lens.lens (\GetSessionEmbedUrl' {sessionLifetimeInMinutes} -> sessionLifetimeInMinutes) (\s@GetSessionEmbedUrl' {} a -> s {sessionLifetimeInMinutes = a} :: GetSessionEmbedUrl)
 
 -- | The Amazon QuickSight user\'s Amazon Resource Name (ARN), for use with
 -- @QUICKSIGHT@ identity type. You can use this for any type of Amazon
@@ -218,68 +218,68 @@ instance Core.AWSRequest GetSessionEmbedUrl where
   type
     AWSResponse GetSessionEmbedUrl =
       GetSessionEmbedUrlResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSessionEmbedUrlResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "EmbedUrl")
+            Prelude.<$> (x Data..?> "EmbedUrl")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetSessionEmbedUrl where
   hashWithSalt _salt GetSessionEmbedUrl' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` entryPoint
       `Prelude.hashWithSalt` sessionLifetimeInMinutes
-      `Prelude.hashWithSalt` entryPoint
       `Prelude.hashWithSalt` userArn
       `Prelude.hashWithSalt` awsAccountId
 
 instance Prelude.NFData GetSessionEmbedUrl where
   rnf GetSessionEmbedUrl' {..} =
-    Prelude.rnf sessionLifetimeInMinutes
-      `Prelude.seq` Prelude.rnf entryPoint
+    Prelude.rnf entryPoint
+      `Prelude.seq` Prelude.rnf sessionLifetimeInMinutes
       `Prelude.seq` Prelude.rnf userArn
       `Prelude.seq` Prelude.rnf awsAccountId
 
-instance Core.ToHeaders GetSessionEmbedUrl where
+instance Data.ToHeaders GetSessionEmbedUrl where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetSessionEmbedUrl where
+instance Data.ToPath GetSessionEmbedUrl where
   toPath GetSessionEmbedUrl' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/session-embed-url"
       ]
 
-instance Core.ToQuery GetSessionEmbedUrl where
+instance Data.ToQuery GetSessionEmbedUrl where
   toQuery GetSessionEmbedUrl' {..} =
     Prelude.mconcat
-      [ "session-lifetime" Core.=: sessionLifetimeInMinutes,
-        "entry-point" Core.=: entryPoint,
-        "user-arn" Core.=: userArn
+      [ "entry-point" Data.=: entryPoint,
+        "session-lifetime" Data.=: sessionLifetimeInMinutes,
+        "user-arn" Data.=: userArn
       ]
 
 -- | /See:/ 'newGetSessionEmbedUrlResponse' smart constructor.
 data GetSessionEmbedUrlResponse = GetSessionEmbedUrlResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | A single-use URL that you can put into your server-side web page to
+  { -- | A single-use URL that you can put into your server-side web page to
     -- embed your Amazon QuickSight session. This URL is valid for 5 minutes.
     -- The API operation provides the URL with an @auth_code@ value that
     -- enables one (and only one) sign-on to a user session that is valid for
     -- 10 hours.
-    embedUrl :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    embedUrl :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -293,13 +293,13 @@ data GetSessionEmbedUrlResponse = GetSessionEmbedUrlResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'getSessionEmbedUrlResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'embedUrl', 'getSessionEmbedUrlResponse_embedUrl' - A single-use URL that you can put into your server-side web page to
 -- embed your Amazon QuickSight session. This URL is valid for 5 minutes.
 -- The API operation provides the URL with an @auth_code@ value that
 -- enables one (and only one) sign-on to a user session that is valid for
 -- 10 hours.
+--
+-- 'requestId', 'getSessionEmbedUrlResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'getSessionEmbedUrlResponse_status' - The HTTP status of the request.
 newGetSessionEmbedUrlResponse ::
@@ -308,15 +308,11 @@ newGetSessionEmbedUrlResponse ::
   GetSessionEmbedUrlResponse
 newGetSessionEmbedUrlResponse pStatus_ =
   GetSessionEmbedUrlResponse'
-    { requestId =
+    { embedUrl =
         Prelude.Nothing,
-      embedUrl = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-getSessionEmbedUrlResponse_requestId :: Lens.Lens' GetSessionEmbedUrlResponse (Prelude.Maybe Prelude.Text)
-getSessionEmbedUrlResponse_requestId = Lens.lens (\GetSessionEmbedUrlResponse' {requestId} -> requestId) (\s@GetSessionEmbedUrlResponse' {} a -> s {requestId = a} :: GetSessionEmbedUrlResponse)
 
 -- | A single-use URL that you can put into your server-side web page to
 -- embed your Amazon QuickSight session. This URL is valid for 5 minutes.
@@ -324,7 +320,11 @@ getSessionEmbedUrlResponse_requestId = Lens.lens (\GetSessionEmbedUrlResponse' {
 -- enables one (and only one) sign-on to a user session that is valid for
 -- 10 hours.
 getSessionEmbedUrlResponse_embedUrl :: Lens.Lens' GetSessionEmbedUrlResponse (Prelude.Maybe Prelude.Text)
-getSessionEmbedUrlResponse_embedUrl = Lens.lens (\GetSessionEmbedUrlResponse' {embedUrl} -> embedUrl) (\s@GetSessionEmbedUrlResponse' {} a -> s {embedUrl = a} :: GetSessionEmbedUrlResponse) Prelude.. Lens.mapping Core._Sensitive
+getSessionEmbedUrlResponse_embedUrl = Lens.lens (\GetSessionEmbedUrlResponse' {embedUrl} -> embedUrl) (\s@GetSessionEmbedUrlResponse' {} a -> s {embedUrl = a} :: GetSessionEmbedUrlResponse) Prelude.. Lens.mapping Data._Sensitive
+
+-- | The Amazon Web Services request ID for this operation.
+getSessionEmbedUrlResponse_requestId :: Lens.Lens' GetSessionEmbedUrlResponse (Prelude.Maybe Prelude.Text)
+getSessionEmbedUrlResponse_requestId = Lens.lens (\GetSessionEmbedUrlResponse' {requestId} -> requestId) (\s@GetSessionEmbedUrlResponse' {} a -> s {requestId = a} :: GetSessionEmbedUrlResponse)
 
 -- | The HTTP status of the request.
 getSessionEmbedUrlResponse_status :: Lens.Lens' GetSessionEmbedUrlResponse Prelude.Int
@@ -332,6 +332,6 @@ getSessionEmbedUrlResponse_status = Lens.lens (\GetSessionEmbedUrlResponse' {sta
 
 instance Prelude.NFData GetSessionEmbedUrlResponse where
   rnf GetSessionEmbedUrlResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf embedUrl
+    Prelude.rnf embedUrl
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.GetThreatIntelSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.GuardDuty.GetThreatIntelSet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,17 +99,18 @@ instance Core.AWSRequest GetThreatIntelSet where
   type
     AWSResponse GetThreatIntelSet =
       GetThreatIntelSetResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetThreatIntelSetResponse'
-            Prelude.<$> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "name")
-            Prelude.<*> (x Core..:> "format")
-            Prelude.<*> (x Core..:> "location")
-            Prelude.<*> (x Core..:> "status")
+            Prelude.<*> (x Data..:> "name")
+            Prelude.<*> (x Data..:> "format")
+            Prelude.<*> (x Data..:> "location")
+            Prelude.<*> (x Data..:> "status")
       )
 
 instance Prelude.Hashable GetThreatIntelSet where
@@ -121,27 +123,27 @@ instance Prelude.NFData GetThreatIntelSet where
     Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf threatIntelSetId
 
-instance Core.ToHeaders GetThreatIntelSet where
+instance Data.ToHeaders GetThreatIntelSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetThreatIntelSet where
+instance Data.ToPath GetThreatIntelSet where
   toPath GetThreatIntelSet' {..} =
     Prelude.mconcat
       [ "/detector/",
-        Core.toBS detectorId,
+        Data.toBS detectorId,
         "/threatintelset/",
-        Core.toBS threatIntelSetId
+        Data.toBS threatIntelSetId
       ]
 
-instance Core.ToQuery GetThreatIntelSet where
+instance Data.ToQuery GetThreatIntelSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetThreatIntelSetResponse' smart constructor.
@@ -156,8 +158,7 @@ data GetThreatIntelSetResponse = GetThreatIntelSetResponse'
     name :: Prelude.Text,
     -- | The format of the threatIntelSet.
     format :: ThreatIntelSetFormat,
-    -- | The URI of the file that contains the ThreatIntelSet. For example:
-    -- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
+    -- | The URI of the file that contains the ThreatIntelSet.
     location :: Prelude.Text,
     -- | The status of threatIntelSet file uploaded.
     status :: ThreatIntelSetStatus
@@ -182,8 +183,7 @@ data GetThreatIntelSetResponse = GetThreatIntelSetResponse'
 --
 -- 'format', 'getThreatIntelSetResponse_format' - The format of the threatIntelSet.
 --
--- 'location', 'getThreatIntelSetResponse_location' - The URI of the file that contains the ThreatIntelSet. For example:
--- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
+-- 'location', 'getThreatIntelSetResponse_location' - The URI of the file that contains the ThreatIntelSet.
 --
 -- 'status', 'getThreatIntelSetResponse_status' - The status of threatIntelSet file uploaded.
 newGetThreatIntelSetResponse ::
@@ -231,8 +231,7 @@ getThreatIntelSetResponse_name = Lens.lens (\GetThreatIntelSetResponse' {name} -
 getThreatIntelSetResponse_format :: Lens.Lens' GetThreatIntelSetResponse ThreatIntelSetFormat
 getThreatIntelSetResponse_format = Lens.lens (\GetThreatIntelSetResponse' {format} -> format) (\s@GetThreatIntelSetResponse' {} a -> s {format = a} :: GetThreatIntelSetResponse)
 
--- | The URI of the file that contains the ThreatIntelSet. For example:
--- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
+-- | The URI of the file that contains the ThreatIntelSet.
 getThreatIntelSetResponse_location :: Lens.Lens' GetThreatIntelSetResponse Prelude.Text
 getThreatIntelSetResponse_location = Lens.lens (\GetThreatIntelSetResponse' {location} -> location) (\s@GetThreatIntelSetResponse' {} a -> s {location = a} :: GetThreatIntelSetResponse)
 

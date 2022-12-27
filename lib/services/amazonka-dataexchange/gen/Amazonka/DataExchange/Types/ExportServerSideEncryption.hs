@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.Types.ExportServerSideEncryption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.DataExchange.Types.ExportServerSideEncryption where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataExchange.Types.ServerSideEncryptionTypes
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Encryption configuration of the export job. Includes the encryption type
 -- in addition to the AWS KMS key. The KMS key is only necessary if you
--- chose the KMS encryption. type.
+-- chose the KMS encryption type.
 --
 -- /See:/ 'newExportServerSideEncryption' smart constructor.
 data ExportServerSideEncryption = ExportServerSideEncryption'
@@ -76,14 +77,14 @@ exportServerSideEncryption_kmsKeyArn = Lens.lens (\ExportServerSideEncryption' {
 exportServerSideEncryption_type :: Lens.Lens' ExportServerSideEncryption ServerSideEncryptionTypes
 exportServerSideEncryption_type = Lens.lens (\ExportServerSideEncryption' {type'} -> type') (\s@ExportServerSideEncryption' {} a -> s {type' = a} :: ExportServerSideEncryption)
 
-instance Core.FromJSON ExportServerSideEncryption where
+instance Data.FromJSON ExportServerSideEncryption where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExportServerSideEncryption"
       ( \x ->
           ExportServerSideEncryption'
-            Prelude.<$> (x Core..:? "KmsKeyArn")
-            Prelude.<*> (x Core..: "Type")
+            Prelude.<$> (x Data..:? "KmsKeyArn")
+            Prelude.<*> (x Data..: "Type")
       )
 
 instance Prelude.Hashable ExportServerSideEncryption where
@@ -96,11 +97,11 @@ instance Prelude.NFData ExportServerSideEncryption where
     Prelude.rnf kmsKeyArn
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON ExportServerSideEncryption where
+instance Data.ToJSON ExportServerSideEncryption where
   toJSON ExportServerSideEncryption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KmsKeyArn" Core..=) Prelude.<$> kmsKeyArn,
-            Prelude.Just ("Type" Core..= type')
+          [ ("KmsKeyArn" Data..=) Prelude.<$> kmsKeyArn,
+            Prelude.Just ("Type" Data..= type')
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.KinesisStreamsInputDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalyticsV2.Types.KinesisStreamsInputDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | For a SQL-based Kinesis Data Analytics application, describes the
@@ -81,14 +82,14 @@ kinesisStreamsInputDescription_roleARN = Lens.lens (\KinesisStreamsInputDescript
 kinesisStreamsInputDescription_resourceARN :: Lens.Lens' KinesisStreamsInputDescription Prelude.Text
 kinesisStreamsInputDescription_resourceARN = Lens.lens (\KinesisStreamsInputDescription' {resourceARN} -> resourceARN) (\s@KinesisStreamsInputDescription' {} a -> s {resourceARN = a} :: KinesisStreamsInputDescription)
 
-instance Core.FromJSON KinesisStreamsInputDescription where
+instance Data.FromJSON KinesisStreamsInputDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KinesisStreamsInputDescription"
       ( \x ->
           KinesisStreamsInputDescription'
-            Prelude.<$> (x Core..:? "RoleARN")
-            Prelude.<*> (x Core..: "ResourceARN")
+            Prelude.<$> (x Data..:? "RoleARN")
+            Prelude.<*> (x Data..: "ResourceARN")
       )
 
 instance

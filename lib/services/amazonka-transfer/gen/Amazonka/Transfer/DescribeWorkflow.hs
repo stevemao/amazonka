@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.DescribeWorkflow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Transfer.DescribeWorkflow
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,13 +78,14 @@ instance Core.AWSRequest DescribeWorkflow where
   type
     AWSResponse DescribeWorkflow =
       DescribeWorkflowResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeWorkflowResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Workflow")
+            Prelude.<*> (x Data..:> "Workflow")
       )
 
 instance Prelude.Hashable DescribeWorkflow where
@@ -93,32 +95,32 @@ instance Prelude.Hashable DescribeWorkflow where
 instance Prelude.NFData DescribeWorkflow where
   rnf DescribeWorkflow' {..} = Prelude.rnf workflowId
 
-instance Core.ToHeaders DescribeWorkflow where
+instance Data.ToHeaders DescribeWorkflow where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "TransferService.DescribeWorkflow" ::
+              Data.=# ( "TransferService.DescribeWorkflow" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeWorkflow where
+instance Data.ToJSON DescribeWorkflow where
   toJSON DescribeWorkflow' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("WorkflowId" Core..= workflowId)]
+          [Prelude.Just ("WorkflowId" Data..= workflowId)]
       )
 
-instance Core.ToPath DescribeWorkflow where
+instance Data.ToPath DescribeWorkflow where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeWorkflow where
+instance Data.ToQuery DescribeWorkflow where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeWorkflowResponse' smart constructor.

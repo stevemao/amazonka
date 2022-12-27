@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.Types.BuildConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ElasticBeanstalk.Types.BuildConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types.ComputeType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Settings for an AWS CodeBuild build.
@@ -154,12 +155,12 @@ instance Prelude.NFData BuildConfiguration where
       `Prelude.seq` Prelude.rnf codeBuildServiceRole
       `Prelude.seq` Prelude.rnf image
 
-instance Core.ToQuery BuildConfiguration where
+instance Data.ToQuery BuildConfiguration where
   toQuery BuildConfiguration' {..} =
     Prelude.mconcat
-      [ "ArtifactName" Core.=: artifactName,
-        "ComputeType" Core.=: computeType,
-        "TimeoutInMinutes" Core.=: timeoutInMinutes,
-        "CodeBuildServiceRole" Core.=: codeBuildServiceRole,
-        "Image" Core.=: image
+      [ "ArtifactName" Data.=: artifactName,
+        "ComputeType" Data.=: computeType,
+        "TimeoutInMinutes" Data.=: timeoutInMinutes,
+        "CodeBuildServiceRole" Data.=: codeBuildServiceRole,
+        "Image" Data.=: image
       ]

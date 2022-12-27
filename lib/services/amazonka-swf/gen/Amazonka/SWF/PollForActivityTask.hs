@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.PollForActivityTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -70,8 +70,8 @@ module Amazonka.SWF.PollForActivityTask
     newPollForActivityTaskResponse,
 
     -- * Response Lenses
-    pollForActivityTaskResponse_activityType,
     pollForActivityTaskResponse_activityId,
+    pollForActivityTaskResponse_activityType,
     pollForActivityTaskResponse_input,
     pollForActivityTaskResponse_taskToken,
     pollForActivityTaskResponse_workflowExecution,
@@ -81,7 +81,8 @@ module Amazonka.SWF.PollForActivityTask
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -164,18 +165,19 @@ instance Core.AWSRequest PollForActivityTask where
   type
     AWSResponse PollForActivityTask =
       PollForActivityTaskResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PollForActivityTaskResponse'
-            Prelude.<$> (x Core..?> "activityType")
-            Prelude.<*> (x Core..?> "activityId")
-            Prelude.<*> (x Core..?> "input")
-            Prelude.<*> (x Core..?> "taskToken")
-            Prelude.<*> (x Core..?> "workflowExecution")
+            Prelude.<$> (x Data..?> "activityId")
+            Prelude.<*> (x Data..?> "activityType")
+            Prelude.<*> (x Data..?> "input")
+            Prelude.<*> (x Data..?> "taskToken")
+            Prelude.<*> (x Data..?> "workflowExecution")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "startedEventId")
+            Prelude.<*> (x Data..:> "startedEventId")
       )
 
 instance Prelude.Hashable PollForActivityTask where
@@ -190,45 +192,45 @@ instance Prelude.NFData PollForActivityTask where
       `Prelude.seq` Prelude.rnf domain
       `Prelude.seq` Prelude.rnf taskList
 
-instance Core.ToHeaders PollForActivityTask where
+instance Data.ToHeaders PollForActivityTask where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SimpleWorkflowService.PollForActivityTask" ::
+              Data.=# ( "SimpleWorkflowService.PollForActivityTask" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PollForActivityTask where
+instance Data.ToJSON PollForActivityTask where
   toJSON PollForActivityTask' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("identity" Core..=) Prelude.<$> identity,
-            Prelude.Just ("domain" Core..= domain),
-            Prelude.Just ("taskList" Core..= taskList)
+          [ ("identity" Data..=) Prelude.<$> identity,
+            Prelude.Just ("domain" Data..= domain),
+            Prelude.Just ("taskList" Data..= taskList)
           ]
       )
 
-instance Core.ToPath PollForActivityTask where
+instance Data.ToPath PollForActivityTask where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PollForActivityTask where
+instance Data.ToQuery PollForActivityTask where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Unit of work sent to an activity worker.
 --
 -- /See:/ 'newPollForActivityTaskResponse' smart constructor.
 data PollForActivityTaskResponse = PollForActivityTaskResponse'
-  { -- | The type of this activity task.
-    activityType :: Prelude.Maybe ActivityType,
-    -- | The unique ID of the task.
+  { -- | The unique ID of the task.
     activityId :: Prelude.Maybe Prelude.Text,
+    -- | The type of this activity task.
+    activityType :: Prelude.Maybe ActivityType,
     -- | The inputs provided when the activity task was scheduled. The form of
     -- the input is user defined and should be meaningful to the activity
     -- implementation.
@@ -254,9 +256,9 @@ data PollForActivityTaskResponse = PollForActivityTaskResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'activityType', 'pollForActivityTaskResponse_activityType' - The type of this activity task.
---
 -- 'activityId', 'pollForActivityTaskResponse_activityId' - The unique ID of the task.
+--
+-- 'activityType', 'pollForActivityTaskResponse_activityType' - The type of this activity task.
 --
 -- 'input', 'pollForActivityTaskResponse_input' - The inputs provided when the activity task was scheduled. The form of
 -- the input is user defined and should be meaningful to the activity
@@ -281,9 +283,9 @@ newPollForActivityTaskResponse
   pHttpStatus_
   pStartedEventId_ =
     PollForActivityTaskResponse'
-      { activityType =
+      { activityId =
           Prelude.Nothing,
-        activityId = Prelude.Nothing,
+        activityType = Prelude.Nothing,
         input = Prelude.Nothing,
         taskToken = Prelude.Nothing,
         workflowExecution = Prelude.Nothing,
@@ -291,13 +293,13 @@ newPollForActivityTaskResponse
         startedEventId = pStartedEventId_
       }
 
--- | The type of this activity task.
-pollForActivityTaskResponse_activityType :: Lens.Lens' PollForActivityTaskResponse (Prelude.Maybe ActivityType)
-pollForActivityTaskResponse_activityType = Lens.lens (\PollForActivityTaskResponse' {activityType} -> activityType) (\s@PollForActivityTaskResponse' {} a -> s {activityType = a} :: PollForActivityTaskResponse)
-
 -- | The unique ID of the task.
 pollForActivityTaskResponse_activityId :: Lens.Lens' PollForActivityTaskResponse (Prelude.Maybe Prelude.Text)
 pollForActivityTaskResponse_activityId = Lens.lens (\PollForActivityTaskResponse' {activityId} -> activityId) (\s@PollForActivityTaskResponse' {} a -> s {activityId = a} :: PollForActivityTaskResponse)
+
+-- | The type of this activity task.
+pollForActivityTaskResponse_activityType :: Lens.Lens' PollForActivityTaskResponse (Prelude.Maybe ActivityType)
+pollForActivityTaskResponse_activityType = Lens.lens (\PollForActivityTaskResponse' {activityType} -> activityType) (\s@PollForActivityTaskResponse' {} a -> s {activityType = a} :: PollForActivityTaskResponse)
 
 -- | The inputs provided when the activity task was scheduled. The form of
 -- the input is user defined and should be meaningful to the activity
@@ -325,8 +327,8 @@ pollForActivityTaskResponse_startedEventId = Lens.lens (\PollForActivityTaskResp
 
 instance Prelude.NFData PollForActivityTaskResponse where
   rnf PollForActivityTaskResponse' {..} =
-    Prelude.rnf activityType
-      `Prelude.seq` Prelude.rnf activityId
+    Prelude.rnf activityId
+      `Prelude.seq` Prelude.rnf activityType
       `Prelude.seq` Prelude.rnf input
       `Prelude.seq` Prelude.rnf taskToken
       `Prelude.seq` Prelude.rnf workflowExecution

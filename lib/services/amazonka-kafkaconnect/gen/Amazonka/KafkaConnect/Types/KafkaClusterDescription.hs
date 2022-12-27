@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.KafkaClusterDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KafkaConnect.Types.KafkaClusterDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types.ApacheKafkaClusterDescription
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details of how to connect to the Apache Kafka cluster.
@@ -54,13 +55,13 @@ newKafkaClusterDescription =
 kafkaClusterDescription_apacheKafkaCluster :: Lens.Lens' KafkaClusterDescription (Prelude.Maybe ApacheKafkaClusterDescription)
 kafkaClusterDescription_apacheKafkaCluster = Lens.lens (\KafkaClusterDescription' {apacheKafkaCluster} -> apacheKafkaCluster) (\s@KafkaClusterDescription' {} a -> s {apacheKafkaCluster = a} :: KafkaClusterDescription)
 
-instance Core.FromJSON KafkaClusterDescription where
+instance Data.FromJSON KafkaClusterDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KafkaClusterDescription"
       ( \x ->
           KafkaClusterDescription'
-            Prelude.<$> (x Core..:? "apacheKafkaCluster")
+            Prelude.<$> (x Data..:? "apacheKafkaCluster")
       )
 
 instance Prelude.Hashable KafkaClusterDescription where

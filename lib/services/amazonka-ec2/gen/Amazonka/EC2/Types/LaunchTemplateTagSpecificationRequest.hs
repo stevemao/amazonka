@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LaunchTemplateTagSpecificationRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,26 @@
 module Amazonka.EC2.Types.LaunchTemplateTagSpecificationRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ResourceType
 import Amazonka.EC2.Types.Tag
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | The tags specification for the launch template.
+-- | The tags specification for the resources that are created during
+-- instance launch.
 --
 -- /See:/ 'newLaunchTemplateTagSpecificationRequest' smart constructor.
 data LaunchTemplateTagSpecificationRequest = LaunchTemplateTagSpecificationRequest'
-  { -- | The type of resource to tag. Currently, the resource types that support
-    -- tagging on creation are @instance@ and @volume@. To tag a resource after
-    -- it has been created, see
+  { -- | The type of resource to tag.
+    --
+    -- The @Valid Values@ are all the resource types that can be tagged.
+    -- However, when creating a launch template, you can specify tags for the
+    -- following resource types only: @instance@ | @volume@ | @elastic-gpu@ |
+    -- @network-interface@ | @spot-instances-request@
+    --
+    -- To tag a resource after it has been created, see
     -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html CreateTags>.
     resourceType :: Prelude.Maybe ResourceType,
     -- | The tags to apply to the resource.
@@ -48,9 +55,14 @@ data LaunchTemplateTagSpecificationRequest = LaunchTemplateTagSpecificationReque
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceType', 'launchTemplateTagSpecificationRequest_resourceType' - The type of resource to tag. Currently, the resource types that support
--- tagging on creation are @instance@ and @volume@. To tag a resource after
--- it has been created, see
+-- 'resourceType', 'launchTemplateTagSpecificationRequest_resourceType' - The type of resource to tag.
+--
+-- The @Valid Values@ are all the resource types that can be tagged.
+-- However, when creating a launch template, you can specify tags for the
+-- following resource types only: @instance@ | @volume@ | @elastic-gpu@ |
+-- @network-interface@ | @spot-instances-request@
+--
+-- To tag a resource after it has been created, see
 -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html CreateTags>.
 --
 -- 'tags', 'launchTemplateTagSpecificationRequest_tags' - The tags to apply to the resource.
@@ -63,9 +75,14 @@ newLaunchTemplateTagSpecificationRequest =
       tags = Prelude.Nothing
     }
 
--- | The type of resource to tag. Currently, the resource types that support
--- tagging on creation are @instance@ and @volume@. To tag a resource after
--- it has been created, see
+-- | The type of resource to tag.
+--
+-- The @Valid Values@ are all the resource types that can be tagged.
+-- However, when creating a launch template, you can specify tags for the
+-- following resource types only: @instance@ | @volume@ | @elastic-gpu@ |
+-- @network-interface@ | @spot-instances-request@
+--
+-- To tag a resource after it has been created, see
 -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTags.html CreateTags>.
 launchTemplateTagSpecificationRequest_resourceType :: Lens.Lens' LaunchTemplateTagSpecificationRequest (Prelude.Maybe ResourceType)
 launchTemplateTagSpecificationRequest_resourceType = Lens.lens (\LaunchTemplateTagSpecificationRequest' {resourceType} -> resourceType) (\s@LaunchTemplateTagSpecificationRequest' {} a -> s {resourceType = a} :: LaunchTemplateTagSpecificationRequest)
@@ -93,12 +110,12 @@ instance
       `Prelude.seq` Prelude.rnf tags
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     LaunchTemplateTagSpecificationRequest
   where
   toQuery LaunchTemplateTagSpecificationRequest' {..} =
     Prelude.mconcat
-      [ "ResourceType" Core.=: resourceType,
-        Core.toQuery
-          (Core.toQueryList "Tag" Prelude.<$> tags)
+      [ "ResourceType" Data.=: resourceType,
+        Data.toQuery
+          (Data.toQueryList "Tag" Prelude.<$> tags)
       ]

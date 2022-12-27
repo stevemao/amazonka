@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.Types.SigningAlgorithmSpec
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,17 +28,19 @@ module Amazonka.KMS.Types.SigningAlgorithmSpec
         SigningAlgorithmSpec_RSASSA_PKCS1_V1_5_SHA_512,
         SigningAlgorithmSpec_RSASSA_PSS_SHA_256,
         SigningAlgorithmSpec_RSASSA_PSS_SHA_384,
-        SigningAlgorithmSpec_RSASSA_PSS_SHA_512
+        SigningAlgorithmSpec_RSASSA_PSS_SHA_512,
+        SigningAlgorithmSpec_SM2DSA
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype SigningAlgorithmSpec = SigningAlgorithmSpec'
   { fromSigningAlgorithmSpec ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -50,18 +52,18 @@ newtype SigningAlgorithmSpec = SigningAlgorithmSpec'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern SigningAlgorithmSpec_ECDSA_SHA_256 :: SigningAlgorithmSpec
@@ -91,6 +93,9 @@ pattern SigningAlgorithmSpec_RSASSA_PSS_SHA_384 = SigningAlgorithmSpec' "RSASSA_
 pattern SigningAlgorithmSpec_RSASSA_PSS_SHA_512 :: SigningAlgorithmSpec
 pattern SigningAlgorithmSpec_RSASSA_PSS_SHA_512 = SigningAlgorithmSpec' "RSASSA_PSS_SHA_512"
 
+pattern SigningAlgorithmSpec_SM2DSA :: SigningAlgorithmSpec
+pattern SigningAlgorithmSpec_SM2DSA = SigningAlgorithmSpec' "SM2DSA"
+
 {-# COMPLETE
   SigningAlgorithmSpec_ECDSA_SHA_256,
   SigningAlgorithmSpec_ECDSA_SHA_384,
@@ -101,5 +106,6 @@ pattern SigningAlgorithmSpec_RSASSA_PSS_SHA_512 = SigningAlgorithmSpec' "RSASSA_
   SigningAlgorithmSpec_RSASSA_PSS_SHA_256,
   SigningAlgorithmSpec_RSASSA_PSS_SHA_384,
   SigningAlgorithmSpec_RSASSA_PSS_SHA_512,
+  SigningAlgorithmSpec_SM2DSA,
   SigningAlgorithmSpec'
   #-}

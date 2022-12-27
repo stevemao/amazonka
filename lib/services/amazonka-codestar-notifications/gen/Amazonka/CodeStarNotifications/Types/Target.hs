@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarNotifications.Types.Target
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,23 @@
 module Amazonka.CodeStarNotifications.Types.Target where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Information about the SNS topics associated with a notification rule.
+-- | Information about the Chatbot topics or Chatbot clients associated with
+-- a notification rule.
 --
 -- /See:/ 'newTarget' smart constructor.
 data Target = Target'
-  { -- | The target type. Can be an Amazon SNS topic.
-    targetType :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the SNS topic.
-    targetAddress :: Prelude.Maybe (Core.Sensitive Prelude.Text)
+  { -- | The Amazon Resource Name (ARN) of the Chatbot topic or Chatbot client.
+    targetAddress :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The target type. Can be an Chatbot topic or Chatbot client.
+    --
+    -- -   Chatbot topics are specified as @SNS@.
+    --
+    -- -   Chatbot clients are specified as @AWSChatbotSlack@.
+    targetType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -42,40 +48,48 @@ data Target = Target'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'targetType', 'target_targetType' - The target type. Can be an Amazon SNS topic.
+-- 'targetAddress', 'target_targetAddress' - The Amazon Resource Name (ARN) of the Chatbot topic or Chatbot client.
 --
--- 'targetAddress', 'target_targetAddress' - The Amazon Resource Name (ARN) of the SNS topic.
+-- 'targetType', 'target_targetType' - The target type. Can be an Chatbot topic or Chatbot client.
+--
+-- -   Chatbot topics are specified as @SNS@.
+--
+-- -   Chatbot clients are specified as @AWSChatbotSlack@.
 newTarget ::
   Target
 newTarget =
   Target'
-    { targetType = Prelude.Nothing,
-      targetAddress = Prelude.Nothing
+    { targetAddress = Prelude.Nothing,
+      targetType = Prelude.Nothing
     }
 
--- | The target type. Can be an Amazon SNS topic.
+-- | The Amazon Resource Name (ARN) of the Chatbot topic or Chatbot client.
+target_targetAddress :: Lens.Lens' Target (Prelude.Maybe Prelude.Text)
+target_targetAddress = Lens.lens (\Target' {targetAddress} -> targetAddress) (\s@Target' {} a -> s {targetAddress = a} :: Target) Prelude.. Lens.mapping Data._Sensitive
+
+-- | The target type. Can be an Chatbot topic or Chatbot client.
+--
+-- -   Chatbot topics are specified as @SNS@.
+--
+-- -   Chatbot clients are specified as @AWSChatbotSlack@.
 target_targetType :: Lens.Lens' Target (Prelude.Maybe Prelude.Text)
 target_targetType = Lens.lens (\Target' {targetType} -> targetType) (\s@Target' {} a -> s {targetType = a} :: Target)
 
--- | The Amazon Resource Name (ARN) of the SNS topic.
-target_targetAddress :: Lens.Lens' Target (Prelude.Maybe Prelude.Text)
-target_targetAddress = Lens.lens (\Target' {targetAddress} -> targetAddress) (\s@Target' {} a -> s {targetAddress = a} :: Target) Prelude.. Lens.mapping Core._Sensitive
-
 instance Prelude.Hashable Target where
   hashWithSalt _salt Target' {..} =
-    _salt `Prelude.hashWithSalt` targetType
-      `Prelude.hashWithSalt` targetAddress
+    _salt `Prelude.hashWithSalt` targetAddress
+      `Prelude.hashWithSalt` targetType
 
 instance Prelude.NFData Target where
   rnf Target' {..} =
-    Prelude.rnf targetType
-      `Prelude.seq` Prelude.rnf targetAddress
+    Prelude.rnf targetAddress
+      `Prelude.seq` Prelude.rnf targetType
 
-instance Core.ToJSON Target where
+instance Data.ToJSON Target where
   toJSON Target' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TargetType" Core..=) Prelude.<$> targetType,
-            ("TargetAddress" Core..=) Prelude.<$> targetAddress
+          [ ("TargetAddress" Data..=) Prelude.<$> targetAddress,
+            ("TargetType" Data..=) Prelude.<$> targetType
           ]
       )

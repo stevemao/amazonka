@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.DeleteDBInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -57,7 +57,8 @@ module Amazonka.Neptune.DeleteDBInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -217,13 +218,14 @@ instance Core.AWSRequest DeleteDBInstance where
   type
     AWSResponse DeleteDBInstance =
       DeleteDBInstanceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteDBInstanceResult"
       ( \s h x ->
           DeleteDBInstanceResponse'
-            Prelude.<$> (x Core..@? "DBInstance")
+            Prelude.<$> (x Data..@? "DBInstance")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -240,23 +242,23 @@ instance Prelude.NFData DeleteDBInstance where
       `Prelude.seq` Prelude.rnf skipFinalSnapshot
       `Prelude.seq` Prelude.rnf dbInstanceIdentifier
 
-instance Core.ToHeaders DeleteDBInstance where
+instance Data.ToHeaders DeleteDBInstance where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDBInstance where
+instance Data.ToPath DeleteDBInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDBInstance where
+instance Data.ToQuery DeleteDBInstance where
   toQuery DeleteDBInstance' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteDBInstance" :: Prelude.ByteString),
+          Data.=: ("DeleteDBInstance" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "FinalDBSnapshotIdentifier"
-          Core.=: finalDBSnapshotIdentifier,
-        "SkipFinalSnapshot" Core.=: skipFinalSnapshot,
-        "DBInstanceIdentifier" Core.=: dbInstanceIdentifier
+          Data.=: finalDBSnapshotIdentifier,
+        "SkipFinalSnapshot" Data.=: skipFinalSnapshot,
+        "DBInstanceIdentifier" Data.=: dbInstanceIdentifier
       ]
 
 -- | /See:/ 'newDeleteDBInstanceResponse' smart constructor.

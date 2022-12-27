@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.Facet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudDirectory.Types.Facet where
 import Amazonka.CloudDirectory.Types.FacetStyle
 import Amazonka.CloudDirectory.Types.ObjectType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure that contains @Name@, @ARN@, @Attributes@, @ Rules@, and
@@ -37,11 +38,11 @@ data Facet = Facet'
     -- defined in the schema. For dynamic facets, attributes can be defined
     -- during data plane operations.
     facetStyle :: Prelude.Maybe FacetStyle,
+    -- | The name of the Facet.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The object type that is associated with the facet. See
     -- CreateFacetRequest$ObjectType for more details.
-    objectType :: Prelude.Maybe ObjectType,
-    -- | The name of the Facet.
-    name :: Prelude.Maybe Prelude.Text
+    objectType :: Prelude.Maybe ObjectType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,17 +59,17 @@ data Facet = Facet'
 -- defined in the schema. For dynamic facets, attributes can be defined
 -- during data plane operations.
 --
+-- 'name', 'facet_name' - The name of the Facet.
+--
 -- 'objectType', 'facet_objectType' - The object type that is associated with the facet. See
 -- CreateFacetRequest$ObjectType for more details.
---
--- 'name', 'facet_name' - The name of the Facet.
 newFacet ::
   Facet
 newFacet =
   Facet'
     { facetStyle = Prelude.Nothing,
-      objectType = Prelude.Nothing,
-      name = Prelude.Nothing
+      name = Prelude.Nothing,
+      objectType = Prelude.Nothing
     }
 
 -- | There are two different styles that you can define on any given facet,
@@ -78,34 +79,34 @@ newFacet =
 facet_facetStyle :: Lens.Lens' Facet (Prelude.Maybe FacetStyle)
 facet_facetStyle = Lens.lens (\Facet' {facetStyle} -> facetStyle) (\s@Facet' {} a -> s {facetStyle = a} :: Facet)
 
+-- | The name of the Facet.
+facet_name :: Lens.Lens' Facet (Prelude.Maybe Prelude.Text)
+facet_name = Lens.lens (\Facet' {name} -> name) (\s@Facet' {} a -> s {name = a} :: Facet)
+
 -- | The object type that is associated with the facet. See
 -- CreateFacetRequest$ObjectType for more details.
 facet_objectType :: Lens.Lens' Facet (Prelude.Maybe ObjectType)
 facet_objectType = Lens.lens (\Facet' {objectType} -> objectType) (\s@Facet' {} a -> s {objectType = a} :: Facet)
 
--- | The name of the Facet.
-facet_name :: Lens.Lens' Facet (Prelude.Maybe Prelude.Text)
-facet_name = Lens.lens (\Facet' {name} -> name) (\s@Facet' {} a -> s {name = a} :: Facet)
-
-instance Core.FromJSON Facet where
+instance Data.FromJSON Facet where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Facet"
       ( \x ->
           Facet'
-            Prelude.<$> (x Core..:? "FacetStyle")
-            Prelude.<*> (x Core..:? "ObjectType")
-            Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "FacetStyle")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "ObjectType")
       )
 
 instance Prelude.Hashable Facet where
   hashWithSalt _salt Facet' {..} =
     _salt `Prelude.hashWithSalt` facetStyle
-      `Prelude.hashWithSalt` objectType
       `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` objectType
 
 instance Prelude.NFData Facet where
   rnf Facet' {..} =
     Prelude.rnf facetStyle
-      `Prelude.seq` Prelude.rnf objectType
       `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf objectType

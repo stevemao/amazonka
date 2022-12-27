@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.ListGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.QuickSight.ListGroups
     newListGroups,
 
     -- * Request Lenses
-    listGroups_nextToken,
     listGroups_maxResults,
+    listGroups_nextToken,
     listGroups_awsAccountId,
     listGroups_namespace,
 
@@ -37,15 +37,16 @@ module Amazonka.QuickSight.ListGroups
     newListGroupsResponse,
 
     -- * Response Lenses
-    listGroupsResponse_requestId,
     listGroupsResponse_groupList,
     listGroupsResponse_nextToken,
+    listGroupsResponse_requestId,
     listGroupsResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -53,15 +54,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListGroups' smart constructor.
 data ListGroups = ListGroups'
-  { -- | A pagination token that can be used in a subsequent request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return.
+  { -- | The maximum number of results to return.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A pagination token that can be used in a subsequent request.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID for the Amazon Web Services account that the group is in.
     -- Currently, you use the ID for the Amazon Web Services account that
     -- contains your Amazon QuickSight account.
     awsAccountId :: Prelude.Text,
-    -- | The namespace. Currently, you should set this to @default@.
+    -- | The namespace that you want a list of groups from.
     namespace :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -74,15 +75,15 @@ data ListGroups = ListGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listGroups_nextToken' - A pagination token that can be used in a subsequent request.
---
 -- 'maxResults', 'listGroups_maxResults' - The maximum number of results to return.
+--
+-- 'nextToken', 'listGroups_nextToken' - A pagination token that can be used in a subsequent request.
 --
 -- 'awsAccountId', 'listGroups_awsAccountId' - The ID for the Amazon Web Services account that the group is in.
 -- Currently, you use the ID for the Amazon Web Services account that
 -- contains your Amazon QuickSight account.
 --
--- 'namespace', 'listGroups_namespace' - The namespace. Currently, you should set this to @default@.
+-- 'namespace', 'listGroups_namespace' - The namespace that you want a list of groups from.
 newListGroups ::
   -- | 'awsAccountId'
   Prelude.Text ->
@@ -91,19 +92,19 @@ newListGroups ::
   ListGroups
 newListGroups pAwsAccountId_ pNamespace_ =
   ListGroups'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       awsAccountId = pAwsAccountId_,
       namespace = pNamespace_
     }
 
--- | A pagination token that can be used in a subsequent request.
-listGroups_nextToken :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Text)
-listGroups_nextToken = Lens.lens (\ListGroups' {nextToken} -> nextToken) (\s@ListGroups' {} a -> s {nextToken = a} :: ListGroups)
-
 -- | The maximum number of results to return.
 listGroups_maxResults :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Natural)
 listGroups_maxResults = Lens.lens (\ListGroups' {maxResults} -> maxResults) (\s@ListGroups' {} a -> s {maxResults = a} :: ListGroups)
+
+-- | A pagination token that can be used in a subsequent request.
+listGroups_nextToken :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Text)
+listGroups_nextToken = Lens.lens (\ListGroups' {nextToken} -> nextToken) (\s@ListGroups' {} a -> s {nextToken = a} :: ListGroups)
 
 -- | The ID for the Amazon Web Services account that the group is in.
 -- Currently, you use the ID for the Amazon Web Services account that
@@ -111,73 +112,74 @@ listGroups_maxResults = Lens.lens (\ListGroups' {maxResults} -> maxResults) (\s@
 listGroups_awsAccountId :: Lens.Lens' ListGroups Prelude.Text
 listGroups_awsAccountId = Lens.lens (\ListGroups' {awsAccountId} -> awsAccountId) (\s@ListGroups' {} a -> s {awsAccountId = a} :: ListGroups)
 
--- | The namespace. Currently, you should set this to @default@.
+-- | The namespace that you want a list of groups from.
 listGroups_namespace :: Lens.Lens' ListGroups Prelude.Text
 listGroups_namespace = Lens.lens (\ListGroups' {namespace} -> namespace) (\s@ListGroups' {} a -> s {namespace = a} :: ListGroups)
 
 instance Core.AWSRequest ListGroups where
   type AWSResponse ListGroups = ListGroupsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListGroupsResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "GroupList" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "GroupList" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListGroups where
   hashWithSalt _salt ListGroups' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` awsAccountId
       `Prelude.hashWithSalt` namespace
 
 instance Prelude.NFData ListGroups where
   rnf ListGroups' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf namespace
 
-instance Core.ToHeaders ListGroups where
+instance Data.ToHeaders ListGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListGroups where
+instance Data.ToPath ListGroups where
   toPath ListGroups' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/namespaces/",
-        Core.toBS namespace,
+        Data.toBS namespace,
         "/groups"
       ]
 
-instance Core.ToQuery ListGroups where
+instance Data.ToQuery ListGroups where
   toQuery ListGroups' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListGroupsResponse' smart constructor.
 data ListGroupsResponse = ListGroupsResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The list of the groups.
+  { -- | The list of the groups.
     groupList :: Prelude.Maybe [Group],
     -- | A pagination token that can be used in a subsequent request.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -191,11 +193,11 @@ data ListGroupsResponse = ListGroupsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'listGroupsResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'groupList', 'listGroupsResponse_groupList' - The list of the groups.
 --
 -- 'nextToken', 'listGroupsResponse_nextToken' - A pagination token that can be used in a subsequent request.
+--
+-- 'requestId', 'listGroupsResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'listGroupsResponse_status' - The HTTP status of the request.
 newListGroupsResponse ::
@@ -204,15 +206,11 @@ newListGroupsResponse ::
   ListGroupsResponse
 newListGroupsResponse pStatus_ =
   ListGroupsResponse'
-    { requestId = Prelude.Nothing,
-      groupList = Prelude.Nothing,
+    { groupList = Prelude.Nothing,
       nextToken = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-listGroupsResponse_requestId :: Lens.Lens' ListGroupsResponse (Prelude.Maybe Prelude.Text)
-listGroupsResponse_requestId = Lens.lens (\ListGroupsResponse' {requestId} -> requestId) (\s@ListGroupsResponse' {} a -> s {requestId = a} :: ListGroupsResponse)
 
 -- | The list of the groups.
 listGroupsResponse_groupList :: Lens.Lens' ListGroupsResponse (Prelude.Maybe [Group])
@@ -222,13 +220,17 @@ listGroupsResponse_groupList = Lens.lens (\ListGroupsResponse' {groupList} -> gr
 listGroupsResponse_nextToken :: Lens.Lens' ListGroupsResponse (Prelude.Maybe Prelude.Text)
 listGroupsResponse_nextToken = Lens.lens (\ListGroupsResponse' {nextToken} -> nextToken) (\s@ListGroupsResponse' {} a -> s {nextToken = a} :: ListGroupsResponse)
 
+-- | The Amazon Web Services request ID for this operation.
+listGroupsResponse_requestId :: Lens.Lens' ListGroupsResponse (Prelude.Maybe Prelude.Text)
+listGroupsResponse_requestId = Lens.lens (\ListGroupsResponse' {requestId} -> requestId) (\s@ListGroupsResponse' {} a -> s {requestId = a} :: ListGroupsResponse)
+
 -- | The HTTP status of the request.
 listGroupsResponse_status :: Lens.Lens' ListGroupsResponse Prelude.Int
 listGroupsResponse_status = Lens.lens (\ListGroupsResponse' {status} -> status) (\s@ListGroupsResponse' {} a -> s {status = a} :: ListGroupsResponse)
 
 instance Prelude.NFData ListGroupsResponse where
   rnf ListGroupsResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf groupList
+    Prelude.rnf groupList
       `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

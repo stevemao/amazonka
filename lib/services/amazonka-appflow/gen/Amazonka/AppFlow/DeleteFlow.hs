@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.DeleteFlow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.AppFlow.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,7 +95,8 @@ deleteFlow_flowName = Lens.lens (\DeleteFlow' {flowName} -> flowName) (\s@Delete
 
 instance Core.AWSRequest DeleteFlow where
   type AWSResponse DeleteFlow = DeleteFlowResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -112,30 +114,30 @@ instance Prelude.NFData DeleteFlow where
     Prelude.rnf forceDelete
       `Prelude.seq` Prelude.rnf flowName
 
-instance Core.ToHeaders DeleteFlow where
+instance Data.ToHeaders DeleteFlow where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteFlow where
+instance Data.ToJSON DeleteFlow where
   toJSON DeleteFlow' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("forceDelete" Core..=) Prelude.<$> forceDelete,
-            Prelude.Just ("flowName" Core..= flowName)
+          [ ("forceDelete" Data..=) Prelude.<$> forceDelete,
+            Prelude.Just ("flowName" Data..= flowName)
           ]
       )
 
-instance Core.ToPath DeleteFlow where
+instance Data.ToPath DeleteFlow where
   toPath = Prelude.const "/delete-flow"
 
-instance Core.ToQuery DeleteFlow where
+instance Data.ToQuery DeleteFlow where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFlowResponse' smart constructor.

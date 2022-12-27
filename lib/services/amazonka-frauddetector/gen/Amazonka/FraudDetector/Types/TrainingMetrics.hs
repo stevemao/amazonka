@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.TrainingMetrics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.FraudDetector.Types.TrainingMetrics where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types.MetricDataPoint
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The training metric details.
@@ -71,15 +72,15 @@ trainingMetrics_auc = Lens.lens (\TrainingMetrics' {auc} -> auc) (\s@TrainingMet
 trainingMetrics_metricDataPoints :: Lens.Lens' TrainingMetrics (Prelude.Maybe [MetricDataPoint])
 trainingMetrics_metricDataPoints = Lens.lens (\TrainingMetrics' {metricDataPoints} -> metricDataPoints) (\s@TrainingMetrics' {} a -> s {metricDataPoints = a} :: TrainingMetrics) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON TrainingMetrics where
+instance Data.FromJSON TrainingMetrics where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrainingMetrics"
       ( \x ->
           TrainingMetrics'
-            Prelude.<$> (x Core..:? "auc")
-            Prelude.<*> ( x Core..:? "metricDataPoints"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "auc")
+            Prelude.<*> ( x Data..:? "metricDataPoints"
+                            Data..!= Prelude.mempty
                         )
       )
 

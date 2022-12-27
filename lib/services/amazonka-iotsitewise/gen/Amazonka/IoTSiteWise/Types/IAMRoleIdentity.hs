@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.IAMRoleIdentity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTSiteWise.Types.IAMRoleIdentity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about an Identity and Access Management role. For
@@ -61,12 +62,12 @@ newIAMRoleIdentity pArn_ =
 iAMRoleIdentity_arn :: Lens.Lens' IAMRoleIdentity Prelude.Text
 iAMRoleIdentity_arn = Lens.lens (\IAMRoleIdentity' {arn} -> arn) (\s@IAMRoleIdentity' {} a -> s {arn = a} :: IAMRoleIdentity)
 
-instance Core.FromJSON IAMRoleIdentity where
+instance Data.FromJSON IAMRoleIdentity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IAMRoleIdentity"
       ( \x ->
-          IAMRoleIdentity' Prelude.<$> (x Core..: "arn")
+          IAMRoleIdentity' Prelude.<$> (x Data..: "arn")
       )
 
 instance Prelude.Hashable IAMRoleIdentity where
@@ -76,9 +77,9 @@ instance Prelude.Hashable IAMRoleIdentity where
 instance Prelude.NFData IAMRoleIdentity where
   rnf IAMRoleIdentity' {..} = Prelude.rnf arn
 
-instance Core.ToJSON IAMRoleIdentity where
+instance Data.ToJSON IAMRoleIdentity where
   toJSON IAMRoleIdentity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arn" Core..= arn)]
+          [Prelude.Just ("arn" Data..= arn)]
       )

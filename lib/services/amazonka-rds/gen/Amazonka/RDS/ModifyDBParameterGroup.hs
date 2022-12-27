@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.ModifyDBParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -56,7 +56,8 @@ module Amazonka.RDS.ModifyDBParameterGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -74,8 +75,8 @@ data ModifyDBParameterGroup = ModifyDBParameterGroup'
     dbParameterGroupName :: Prelude.Text,
     -- | An array of parameter names, values, and the application methods for the
     -- parameter update. At least one parameter name, value, and application
-    -- method method must be supplied; later arguments are optional. A maximum
-    -- of 20 parameters can be modified in a single request.
+    -- method must be supplied; later arguments are optional. A maximum of 20
+    -- parameters can be modified in a single request.
     --
     -- Valid Values (for the application method): @immediate | pending-reboot@
     --
@@ -84,10 +85,18 @@ data ModifyDBParameterGroup = ModifyDBParameterGroup'
     --
     -- When the application method is @immediate@, changes to dynamic
     -- parameters are applied immediately to the DB instances associated with
-    -- the parameter group. When the application method is @pending-reboot@,
-    -- changes to dynamic and static parameters are applied after a reboot
-    -- without failover to the DB instances associated with the parameter
-    -- group.
+    -- the parameter group.
+    --
+    -- When the application method is @pending-reboot@, changes to dynamic and
+    -- static parameters are applied after a reboot without failover to the DB
+    -- instances associated with the parameter group.
+    --
+    -- You can\'t use @pending-reboot@ with dynamic parameters on RDS for SQL
+    -- Server DB instances. Use @immediate@.
+    --
+    -- For more information on modifying DB parameters, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html Working with DB parameter groups>
+    -- in the /Amazon RDS User Guide/.
     parameters :: [Parameter]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -108,8 +117,8 @@ data ModifyDBParameterGroup = ModifyDBParameterGroup'
 --
 -- 'parameters', 'modifyDBParameterGroup_parameters' - An array of parameter names, values, and the application methods for the
 -- parameter update. At least one parameter name, value, and application
--- method method must be supplied; later arguments are optional. A maximum
--- of 20 parameters can be modified in a single request.
+-- method must be supplied; later arguments are optional. A maximum of 20
+-- parameters can be modified in a single request.
 --
 -- Valid Values (for the application method): @immediate | pending-reboot@
 --
@@ -118,10 +127,18 @@ data ModifyDBParameterGroup = ModifyDBParameterGroup'
 --
 -- When the application method is @immediate@, changes to dynamic
 -- parameters are applied immediately to the DB instances associated with
--- the parameter group. When the application method is @pending-reboot@,
--- changes to dynamic and static parameters are applied after a reboot
--- without failover to the DB instances associated with the parameter
--- group.
+-- the parameter group.
+--
+-- When the application method is @pending-reboot@, changes to dynamic and
+-- static parameters are applied after a reboot without failover to the DB
+-- instances associated with the parameter group.
+--
+-- You can\'t use @pending-reboot@ with dynamic parameters on RDS for SQL
+-- Server DB instances. Use @immediate@.
+--
+-- For more information on modifying DB parameters, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html Working with DB parameter groups>
+-- in the /Amazon RDS User Guide/.
 newModifyDBParameterGroup ::
   -- | 'dbParameterGroupName'
   Prelude.Text ->
@@ -143,8 +160,8 @@ modifyDBParameterGroup_dbParameterGroupName = Lens.lens (\ModifyDBParameterGroup
 
 -- | An array of parameter names, values, and the application methods for the
 -- parameter update. At least one parameter name, value, and application
--- method method must be supplied; later arguments are optional. A maximum
--- of 20 parameters can be modified in a single request.
+-- method must be supplied; later arguments are optional. A maximum of 20
+-- parameters can be modified in a single request.
 --
 -- Valid Values (for the application method): @immediate | pending-reboot@
 --
@@ -153,10 +170,18 @@ modifyDBParameterGroup_dbParameterGroupName = Lens.lens (\ModifyDBParameterGroup
 --
 -- When the application method is @immediate@, changes to dynamic
 -- parameters are applied immediately to the DB instances associated with
--- the parameter group. When the application method is @pending-reboot@,
--- changes to dynamic and static parameters are applied after a reboot
--- without failover to the DB instances associated with the parameter
--- group.
+-- the parameter group.
+--
+-- When the application method is @pending-reboot@, changes to dynamic and
+-- static parameters are applied after a reboot without failover to the DB
+-- instances associated with the parameter group.
+--
+-- You can\'t use @pending-reboot@ with dynamic parameters on RDS for SQL
+-- Server DB instances. Use @immediate@.
+--
+-- For more information on modifying DB parameters, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithParamGroups.html Working with DB parameter groups>
+-- in the /Amazon RDS User Guide/.
 modifyDBParameterGroup_parameters :: Lens.Lens' ModifyDBParameterGroup [Parameter]
 modifyDBParameterGroup_parameters = Lens.lens (\ModifyDBParameterGroup' {parameters} -> parameters) (\s@ModifyDBParameterGroup' {} a -> s {parameters = a} :: ModifyDBParameterGroup) Prelude.. Lens.coerced
 
@@ -164,11 +189,12 @@ instance Core.AWSRequest ModifyDBParameterGroup where
   type
     AWSResponse ModifyDBParameterGroup =
       DBParameterGroupNameMessage
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyDBParameterGroupResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable ModifyDBParameterGroup where
   hashWithSalt _salt ModifyDBParameterGroup' {..} =
@@ -180,20 +206,20 @@ instance Prelude.NFData ModifyDBParameterGroup where
     Prelude.rnf dbParameterGroupName
       `Prelude.seq` Prelude.rnf parameters
 
-instance Core.ToHeaders ModifyDBParameterGroup where
+instance Data.ToHeaders ModifyDBParameterGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyDBParameterGroup where
+instance Data.ToPath ModifyDBParameterGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyDBParameterGroup where
+instance Data.ToQuery ModifyDBParameterGroup where
   toQuery ModifyDBParameterGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyDBParameterGroup" :: Prelude.ByteString),
+          Data.=: ("ModifyDBParameterGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBParameterGroupName" Core.=: dbParameterGroupName,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBParameterGroupName" Data.=: dbParameterGroupName,
         "Parameters"
-          Core.=: Core.toQueryList "Parameter" parameters
+          Data.=: Data.toQueryList "Parameter" parameters
       ]

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Location.Types.ListMapsResponseEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Location.Types.ListMapsResponseEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types.PricingPlan
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,25 +29,22 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newListMapsResponseEntry' smart constructor.
 data ListMapsResponseEntry = ListMapsResponseEntry'
-  { -- | The timestamp for when the map resource was created in
+  { -- | No longer used. Always returns @RequestBasedUsage@.
+    pricingPlan :: Prelude.Maybe PricingPlan,
+    -- | The timestamp for when the map resource was created in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    createTime :: Core.POSIX,
+    createTime :: Data.POSIX,
     -- | Specifies the data provider for the associated map tiles.
     dataSource :: Prelude.Text,
     -- | The description for the map resource.
     description :: Prelude.Text,
     -- | The name of the associated map resource.
     mapName :: Prelude.Text,
-    -- | The pricing plan for the specified map resource.
-    --
-    -- For additional details and restrictions on each pricing plan option, see
-    -- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-    pricingPlan :: PricingPlan,
     -- | The timestamp for when the map resource was last updated in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    updateTime :: Core.POSIX
+    updateTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,6 +56,8 @@ data ListMapsResponseEntry = ListMapsResponseEntry'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'pricingPlan', 'listMapsResponseEntry_pricingPlan' - No longer used. Always returns @RequestBasedUsage@.
+--
 -- 'createTime', 'listMapsResponseEntry_createTime' - The timestamp for when the map resource was created in
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
@@ -67,11 +67,6 @@ data ListMapsResponseEntry = ListMapsResponseEntry'
 -- 'description', 'listMapsResponseEntry_description' - The description for the map resource.
 --
 -- 'mapName', 'listMapsResponseEntry_mapName' - The name of the associated map resource.
---
--- 'pricingPlan', 'listMapsResponseEntry_pricingPlan' - The pricing plan for the specified map resource.
---
--- For additional details and restrictions on each pricing plan option, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
 --
 -- 'updateTime', 'listMapsResponseEntry_updateTime' - The timestamp for when the map resource was last updated in
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
@@ -85,8 +80,6 @@ newListMapsResponseEntry ::
   Prelude.Text ->
   -- | 'mapName'
   Prelude.Text ->
-  -- | 'pricingPlan'
-  PricingPlan ->
   -- | 'updateTime'
   Prelude.UTCTime ->
   ListMapsResponseEntry
@@ -95,23 +88,26 @@ newListMapsResponseEntry
   pDataSource_
   pDescription_
   pMapName_
-  pPricingPlan_
   pUpdateTime_ =
     ListMapsResponseEntry'
-      { createTime =
-          Core._Time Lens.# pCreateTime_,
+      { pricingPlan =
+          Prelude.Nothing,
+        createTime = Data._Time Lens.# pCreateTime_,
         dataSource = pDataSource_,
         description = pDescription_,
         mapName = pMapName_,
-        pricingPlan = pPricingPlan_,
-        updateTime = Core._Time Lens.# pUpdateTime_
+        updateTime = Data._Time Lens.# pUpdateTime_
       }
+
+-- | No longer used. Always returns @RequestBasedUsage@.
+listMapsResponseEntry_pricingPlan :: Lens.Lens' ListMapsResponseEntry (Prelude.Maybe PricingPlan)
+listMapsResponseEntry_pricingPlan = Lens.lens (\ListMapsResponseEntry' {pricingPlan} -> pricingPlan) (\s@ListMapsResponseEntry' {} a -> s {pricingPlan = a} :: ListMapsResponseEntry)
 
 -- | The timestamp for when the map resource was created in
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 listMapsResponseEntry_createTime :: Lens.Lens' ListMapsResponseEntry Prelude.UTCTime
-listMapsResponseEntry_createTime = Lens.lens (\ListMapsResponseEntry' {createTime} -> createTime) (\s@ListMapsResponseEntry' {} a -> s {createTime = a} :: ListMapsResponseEntry) Prelude.. Core._Time
+listMapsResponseEntry_createTime = Lens.lens (\ListMapsResponseEntry' {createTime} -> createTime) (\s@ListMapsResponseEntry' {} a -> s {createTime = a} :: ListMapsResponseEntry) Prelude.. Data._Time
 
 -- | Specifies the data provider for the associated map tiles.
 listMapsResponseEntry_dataSource :: Lens.Lens' ListMapsResponseEntry Prelude.Text
@@ -125,47 +121,40 @@ listMapsResponseEntry_description = Lens.lens (\ListMapsResponseEntry' {descript
 listMapsResponseEntry_mapName :: Lens.Lens' ListMapsResponseEntry Prelude.Text
 listMapsResponseEntry_mapName = Lens.lens (\ListMapsResponseEntry' {mapName} -> mapName) (\s@ListMapsResponseEntry' {} a -> s {mapName = a} :: ListMapsResponseEntry)
 
--- | The pricing plan for the specified map resource.
---
--- For additional details and restrictions on each pricing plan option, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-listMapsResponseEntry_pricingPlan :: Lens.Lens' ListMapsResponseEntry PricingPlan
-listMapsResponseEntry_pricingPlan = Lens.lens (\ListMapsResponseEntry' {pricingPlan} -> pricingPlan) (\s@ListMapsResponseEntry' {} a -> s {pricingPlan = a} :: ListMapsResponseEntry)
-
 -- | The timestamp for when the map resource was last updated in
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 listMapsResponseEntry_updateTime :: Lens.Lens' ListMapsResponseEntry Prelude.UTCTime
-listMapsResponseEntry_updateTime = Lens.lens (\ListMapsResponseEntry' {updateTime} -> updateTime) (\s@ListMapsResponseEntry' {} a -> s {updateTime = a} :: ListMapsResponseEntry) Prelude.. Core._Time
+listMapsResponseEntry_updateTime = Lens.lens (\ListMapsResponseEntry' {updateTime} -> updateTime) (\s@ListMapsResponseEntry' {} a -> s {updateTime = a} :: ListMapsResponseEntry) Prelude.. Data._Time
 
-instance Core.FromJSON ListMapsResponseEntry where
+instance Data.FromJSON ListMapsResponseEntry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ListMapsResponseEntry"
       ( \x ->
           ListMapsResponseEntry'
-            Prelude.<$> (x Core..: "CreateTime")
-            Prelude.<*> (x Core..: "DataSource")
-            Prelude.<*> (x Core..: "Description")
-            Prelude.<*> (x Core..: "MapName")
-            Prelude.<*> (x Core..: "PricingPlan")
-            Prelude.<*> (x Core..: "UpdateTime")
+            Prelude.<$> (x Data..:? "PricingPlan")
+            Prelude.<*> (x Data..: "CreateTime")
+            Prelude.<*> (x Data..: "DataSource")
+            Prelude.<*> (x Data..: "Description")
+            Prelude.<*> (x Data..: "MapName")
+            Prelude.<*> (x Data..: "UpdateTime")
       )
 
 instance Prelude.Hashable ListMapsResponseEntry where
   hashWithSalt _salt ListMapsResponseEntry' {..} =
-    _salt `Prelude.hashWithSalt` createTime
+    _salt `Prelude.hashWithSalt` pricingPlan
+      `Prelude.hashWithSalt` createTime
       `Prelude.hashWithSalt` dataSource
       `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` mapName
-      `Prelude.hashWithSalt` pricingPlan
       `Prelude.hashWithSalt` updateTime
 
 instance Prelude.NFData ListMapsResponseEntry where
   rnf ListMapsResponseEntry' {..} =
-    Prelude.rnf createTime
+    Prelude.rnf pricingPlan
+      `Prelude.seq` Prelude.rnf createTime
       `Prelude.seq` Prelude.rnf dataSource
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf mapName
-      `Prelude.seq` Prelude.rnf pricingPlan
       `Prelude.seq` Prelude.rnf updateTime

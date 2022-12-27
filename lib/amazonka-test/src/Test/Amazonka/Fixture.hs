@@ -19,6 +19,7 @@
 module Test.Amazonka.Fixture where
 
 import Amazonka.Core
+import Amazonka.Data
 import Amazonka.Prelude
 import Control.Monad.Trans.Resource
 import qualified Data.ByteString.Lazy as LBS
@@ -52,6 +53,7 @@ res n f s p e =
       >>= assertDiff f e
 
 req ::
+  forall a.
   (AWSRequest a, Eq a, Show a) =>
   TestName ->
   FilePath ->
@@ -63,7 +65,7 @@ req n f e = testCase n $ do
   assertDiff f e' (first show a)
   where
     expected = do
-      let x = signedRequest (requestSign (request e) auth NorthVirginia time)
+      let x = signedRequest (requestSign (request id e) auth NorthVirginia time)
       b <- sink (Client.requestBody x)
       return
         $! mkReq

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.GetShardIterator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -85,8 +85,9 @@ module Amazonka.Kinesis.GetShardIterator
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,7 +108,7 @@ data GetShardIterator = GetShardIterator'
     -- next (later) record. If the time stamp is older than the current trim
     -- horizon, the iterator returned is for the oldest untrimmed data record
     -- (TRIM_HORIZON).
-    timestamp :: Prelude.Maybe Core.POSIX,
+    timestamp :: Prelude.Maybe Data.POSIX,
     -- | The name of the Amazon Kinesis data stream.
     streamName :: Prelude.Text,
     -- | The shard ID of the Kinesis Data Streams shard to get the iterator for.
@@ -219,7 +220,7 @@ getShardIterator_startingSequenceNumber = Lens.lens (\GetShardIterator' {startin
 -- horizon, the iterator returned is for the oldest untrimmed data record
 -- (TRIM_HORIZON).
 getShardIterator_timestamp :: Lens.Lens' GetShardIterator (Prelude.Maybe Prelude.UTCTime)
-getShardIterator_timestamp = Lens.lens (\GetShardIterator' {timestamp} -> timestamp) (\s@GetShardIterator' {} a -> s {timestamp = a} :: GetShardIterator) Prelude.. Lens.mapping Core._Time
+getShardIterator_timestamp = Lens.lens (\GetShardIterator' {timestamp} -> timestamp) (\s@GetShardIterator' {} a -> s {timestamp = a} :: GetShardIterator) Prelude.. Lens.mapping Data._Time
 
 -- | The name of the Amazon Kinesis data stream.
 getShardIterator_streamName :: Lens.Lens' GetShardIterator Prelude.Text
@@ -257,12 +258,13 @@ instance Core.AWSRequest GetShardIterator where
   type
     AWSResponse GetShardIterator =
       GetShardIteratorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetShardIteratorResponse'
-            Prelude.<$> (x Core..?> "ShardIterator")
+            Prelude.<$> (x Data..?> "ShardIterator")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -282,39 +284,39 @@ instance Prelude.NFData GetShardIterator where
       `Prelude.seq` Prelude.rnf shardId
       `Prelude.seq` Prelude.rnf shardIteratorType
 
-instance Core.ToHeaders GetShardIterator where
+instance Data.ToHeaders GetShardIterator where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Kinesis_20131202.GetShardIterator" ::
+              Data.=# ( "Kinesis_20131202.GetShardIterator" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetShardIterator where
+instance Data.ToJSON GetShardIterator where
   toJSON GetShardIterator' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StartingSequenceNumber" Core..=)
+          [ ("StartingSequenceNumber" Data..=)
               Prelude.<$> startingSequenceNumber,
-            ("Timestamp" Core..=) Prelude.<$> timestamp,
-            Prelude.Just ("StreamName" Core..= streamName),
-            Prelude.Just ("ShardId" Core..= shardId),
+            ("Timestamp" Data..=) Prelude.<$> timestamp,
+            Prelude.Just ("StreamName" Data..= streamName),
+            Prelude.Just ("ShardId" Data..= shardId),
             Prelude.Just
-              ("ShardIteratorType" Core..= shardIteratorType)
+              ("ShardIteratorType" Data..= shardIteratorType)
           ]
       )
 
-instance Core.ToPath GetShardIterator where
+instance Data.ToPath GetShardIterator where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetShardIterator where
+instance Data.ToQuery GetShardIterator where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output for @GetShardIterator@.

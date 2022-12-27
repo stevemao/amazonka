@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.Types.S3ReferenceDataSourceUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalytics.Types.S3ReferenceDataSourceUpdate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the S3 bucket name, object key name, and IAM role that Amazon
@@ -88,14 +89,14 @@ instance Prelude.NFData S3ReferenceDataSourceUpdate where
       `Prelude.seq` Prelude.rnf fileKeyUpdate
       `Prelude.seq` Prelude.rnf referenceRoleARNUpdate
 
-instance Core.ToJSON S3ReferenceDataSourceUpdate where
+instance Data.ToJSON S3ReferenceDataSourceUpdate where
   toJSON S3ReferenceDataSourceUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BucketARNUpdate" Core..=)
+          [ ("BucketARNUpdate" Data..=)
               Prelude.<$> bucketARNUpdate,
-            ("FileKeyUpdate" Core..=) Prelude.<$> fileKeyUpdate,
-            ("ReferenceRoleARNUpdate" Core..=)
+            ("FileKeyUpdate" Data..=) Prelude.<$> fileKeyUpdate,
+            ("ReferenceRoleARNUpdate" Data..=)
               Prelude.<$> referenceRoleARNUpdate
           ]
       )

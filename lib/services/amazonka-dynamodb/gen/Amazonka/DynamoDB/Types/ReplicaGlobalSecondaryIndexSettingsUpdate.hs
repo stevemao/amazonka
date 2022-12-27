@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.ReplicaGlobalSecondaryIndexSettingsUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.DynamoDB.Types.ReplicaGlobalSecondaryIndexSettingsUpdate where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.AutoScalingSettingsUpdate
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the settings of a global secondary index for a global table
@@ -110,18 +112,18 @@ instance
       `Prelude.seq` Prelude.rnf indexName
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ReplicaGlobalSecondaryIndexSettingsUpdate
   where
   toJSON ReplicaGlobalSecondaryIndexSettingsUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ ( "ProvisionedReadCapacityAutoScalingSettingsUpdate"
-                Core..=
+                Data..=
             )
               Prelude.<$> provisionedReadCapacityAutoScalingSettingsUpdate,
-            ("ProvisionedReadCapacityUnits" Core..=)
+            ("ProvisionedReadCapacityUnits" Data..=)
               Prelude.<$> provisionedReadCapacityUnits,
-            Prelude.Just ("IndexName" Core..= indexName)
+            Prelude.Just ("IndexName" Data..= indexName)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.Types.AssessmentFramework
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AuditManager.Types.AssessmentFramework where
 import Amazonka.AuditManager.Types.AssessmentControlSet
 import Amazonka.AuditManager.Types.FrameworkMetadata
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The file used to structure and automate Audit Manager assessments for a
@@ -30,13 +31,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAssessmentFramework' smart constructor.
 data AssessmentFramework = AssessmentFramework'
-  { -- | The Amazon Resource Name (ARN) of the specified framework.
+  { -- | The Amazon Resource Name (ARN) of the framework.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The control sets associated with the framework.
+    -- | The control sets that are associated with the framework.
     controlSets :: Prelude.Maybe [AssessmentControlSet],
-    metadata :: Prelude.Maybe FrameworkMetadata,
     -- | The unique identifier for the framework.
-    id :: Prelude.Maybe Prelude.Text
+    id :: Prelude.Maybe Prelude.Text,
+    metadata :: Prelude.Maybe FrameworkMetadata
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,61 +49,61 @@ data AssessmentFramework = AssessmentFramework'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'arn', 'assessmentFramework_arn' - The Amazon Resource Name (ARN) of the specified framework.
+-- 'arn', 'assessmentFramework_arn' - The Amazon Resource Name (ARN) of the framework.
 --
--- 'controlSets', 'assessmentFramework_controlSets' - The control sets associated with the framework.
---
--- 'metadata', 'assessmentFramework_metadata' - Undocumented member.
+-- 'controlSets', 'assessmentFramework_controlSets' - The control sets that are associated with the framework.
 --
 -- 'id', 'assessmentFramework_id' - The unique identifier for the framework.
+--
+-- 'metadata', 'assessmentFramework_metadata' - Undocumented member.
 newAssessmentFramework ::
   AssessmentFramework
 newAssessmentFramework =
   AssessmentFramework'
     { arn = Prelude.Nothing,
       controlSets = Prelude.Nothing,
-      metadata = Prelude.Nothing,
-      id = Prelude.Nothing
+      id = Prelude.Nothing,
+      metadata = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) of the specified framework.
+-- | The Amazon Resource Name (ARN) of the framework.
 assessmentFramework_arn :: Lens.Lens' AssessmentFramework (Prelude.Maybe Prelude.Text)
 assessmentFramework_arn = Lens.lens (\AssessmentFramework' {arn} -> arn) (\s@AssessmentFramework' {} a -> s {arn = a} :: AssessmentFramework)
 
--- | The control sets associated with the framework.
+-- | The control sets that are associated with the framework.
 assessmentFramework_controlSets :: Lens.Lens' AssessmentFramework (Prelude.Maybe [AssessmentControlSet])
 assessmentFramework_controlSets = Lens.lens (\AssessmentFramework' {controlSets} -> controlSets) (\s@AssessmentFramework' {} a -> s {controlSets = a} :: AssessmentFramework) Prelude.. Lens.mapping Lens.coerced
-
--- | Undocumented member.
-assessmentFramework_metadata :: Lens.Lens' AssessmentFramework (Prelude.Maybe FrameworkMetadata)
-assessmentFramework_metadata = Lens.lens (\AssessmentFramework' {metadata} -> metadata) (\s@AssessmentFramework' {} a -> s {metadata = a} :: AssessmentFramework)
 
 -- | The unique identifier for the framework.
 assessmentFramework_id :: Lens.Lens' AssessmentFramework (Prelude.Maybe Prelude.Text)
 assessmentFramework_id = Lens.lens (\AssessmentFramework' {id} -> id) (\s@AssessmentFramework' {} a -> s {id = a} :: AssessmentFramework)
 
-instance Core.FromJSON AssessmentFramework where
+-- | Undocumented member.
+assessmentFramework_metadata :: Lens.Lens' AssessmentFramework (Prelude.Maybe FrameworkMetadata)
+assessmentFramework_metadata = Lens.lens (\AssessmentFramework' {metadata} -> metadata) (\s@AssessmentFramework' {} a -> s {metadata = a} :: AssessmentFramework)
+
+instance Data.FromJSON AssessmentFramework where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssessmentFramework"
       ( \x ->
           AssessmentFramework'
-            Prelude.<$> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "controlSets" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "metadata")
-            Prelude.<*> (x Core..:? "id")
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "controlSets" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "id")
+            Prelude.<*> (x Data..:? "metadata")
       )
 
 instance Prelude.Hashable AssessmentFramework where
   hashWithSalt _salt AssessmentFramework' {..} =
     _salt `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` controlSets
-      `Prelude.hashWithSalt` metadata
       `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` metadata
 
 instance Prelude.NFData AssessmentFramework where
   rnf AssessmentFramework' {..} =
     Prelude.rnf arn
       `Prelude.seq` Prelude.rnf controlSets
-      `Prelude.seq` Prelude.rnf metadata
       `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf metadata

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.Aggregates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.IoTSiteWise.Types.Aggregates where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the (pre-calculated) aggregate values for an asset property.
 --
 -- /See:/ 'newAggregates' smart constructor.
 data Aggregates = Aggregates'
-  { -- | The maximum value of the time series over a time interval window.
-    maximum :: Prelude.Maybe Prelude.Double,
-    -- | The average (mean) value of the time series over a time interval window.
+  { -- | The average (mean) value of the time series over a time interval window.
     average :: Prelude.Maybe Prelude.Double,
     -- | The count of data points in the time series over a time interval window.
     count :: Prelude.Maybe Prelude.Double,
+    -- | The maximum value of the time series over a time interval window.
+    maximum :: Prelude.Maybe Prelude.Double,
     -- | The minimum value of the time series over a time interval window.
     minimum :: Prelude.Maybe Prelude.Double,
     -- | The standard deviation of the time series over a time interval window.
@@ -50,11 +51,11 @@ data Aggregates = Aggregates'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'maximum', 'aggregates_maximum' - The maximum value of the time series over a time interval window.
---
 -- 'average', 'aggregates_average' - The average (mean) value of the time series over a time interval window.
 --
 -- 'count', 'aggregates_count' - The count of data points in the time series over a time interval window.
+--
+-- 'maximum', 'aggregates_maximum' - The maximum value of the time series over a time interval window.
 --
 -- 'minimum', 'aggregates_minimum' - The minimum value of the time series over a time interval window.
 --
@@ -65,17 +66,13 @@ newAggregates ::
   Aggregates
 newAggregates =
   Aggregates'
-    { maximum = Prelude.Nothing,
-      average = Prelude.Nothing,
+    { average = Prelude.Nothing,
       count = Prelude.Nothing,
+      maximum = Prelude.Nothing,
       minimum = Prelude.Nothing,
       standardDeviation = Prelude.Nothing,
       sum = Prelude.Nothing
     }
-
--- | The maximum value of the time series over a time interval window.
-aggregates_maximum :: Lens.Lens' Aggregates (Prelude.Maybe Prelude.Double)
-aggregates_maximum = Lens.lens (\Aggregates' {maximum} -> maximum) (\s@Aggregates' {} a -> s {maximum = a} :: Aggregates)
 
 -- | The average (mean) value of the time series over a time interval window.
 aggregates_average :: Lens.Lens' Aggregates (Prelude.Maybe Prelude.Double)
@@ -84,6 +81,10 @@ aggregates_average = Lens.lens (\Aggregates' {average} -> average) (\s@Aggregate
 -- | The count of data points in the time series over a time interval window.
 aggregates_count :: Lens.Lens' Aggregates (Prelude.Maybe Prelude.Double)
 aggregates_count = Lens.lens (\Aggregates' {count} -> count) (\s@Aggregates' {} a -> s {count = a} :: Aggregates)
+
+-- | The maximum value of the time series over a time interval window.
+aggregates_maximum :: Lens.Lens' Aggregates (Prelude.Maybe Prelude.Double)
+aggregates_maximum = Lens.lens (\Aggregates' {maximum} -> maximum) (\s@Aggregates' {} a -> s {maximum = a} :: Aggregates)
 
 -- | The minimum value of the time series over a time interval window.
 aggregates_minimum :: Lens.Lens' Aggregates (Prelude.Maybe Prelude.Double)
@@ -97,34 +98,34 @@ aggregates_standardDeviation = Lens.lens (\Aggregates' {standardDeviation} -> st
 aggregates_sum :: Lens.Lens' Aggregates (Prelude.Maybe Prelude.Double)
 aggregates_sum = Lens.lens (\Aggregates' {sum} -> sum) (\s@Aggregates' {} a -> s {sum = a} :: Aggregates)
 
-instance Core.FromJSON Aggregates where
+instance Data.FromJSON Aggregates where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Aggregates"
       ( \x ->
           Aggregates'
-            Prelude.<$> (x Core..:? "maximum")
-            Prelude.<*> (x Core..:? "average")
-            Prelude.<*> (x Core..:? "count")
-            Prelude.<*> (x Core..:? "minimum")
-            Prelude.<*> (x Core..:? "standardDeviation")
-            Prelude.<*> (x Core..:? "sum")
+            Prelude.<$> (x Data..:? "average")
+            Prelude.<*> (x Data..:? "count")
+            Prelude.<*> (x Data..:? "maximum")
+            Prelude.<*> (x Data..:? "minimum")
+            Prelude.<*> (x Data..:? "standardDeviation")
+            Prelude.<*> (x Data..:? "sum")
       )
 
 instance Prelude.Hashable Aggregates where
   hashWithSalt _salt Aggregates' {..} =
-    _salt `Prelude.hashWithSalt` maximum
-      `Prelude.hashWithSalt` average
+    _salt `Prelude.hashWithSalt` average
       `Prelude.hashWithSalt` count
+      `Prelude.hashWithSalt` maximum
       `Prelude.hashWithSalt` minimum
       `Prelude.hashWithSalt` standardDeviation
       `Prelude.hashWithSalt` sum
 
 instance Prelude.NFData Aggregates where
   rnf Aggregates' {..} =
-    Prelude.rnf maximum
-      `Prelude.seq` Prelude.rnf average
+    Prelude.rnf average
       `Prelude.seq` Prelude.rnf count
+      `Prelude.seq` Prelude.rnf maximum
       `Prelude.seq` Prelude.rnf minimum
       `Prelude.seq` Prelude.rnf standardDeviation
       `Prelude.seq` Prelude.rnf sum

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.Types.JobEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.DataExchange.Types.JobEntry where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataExchange.Types.JobError
 import Amazonka.DataExchange.Types.ResponseDetails
 import Amazonka.DataExchange.Types.State
 import Amazonka.DataExchange.Types.Type
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | AWS Data Exchange Jobs are asynchronous import or export operations used
@@ -36,21 +37,21 @@ import qualified Amazonka.Prelude as Prelude
 data JobEntry = JobEntry'
   { -- | Errors for jobs.
     errors :: Prelude.Maybe [JobError],
-    -- | The job type.
-    type' :: Type,
+    -- | The ARN for the job.
+    arn :: Prelude.Text,
+    -- | The date and time that the job was created, in ISO 8601 format.
+    createdAt :: Data.POSIX,
     -- | Details of the operation to be performed by the job, such as export
     -- destination details or import source details.
     details :: ResponseDetails,
-    -- | The state of the job.
-    state :: State,
-    -- | The date and time that the job was created, in ISO 8601 format.
-    createdAt :: Core.POSIX,
     -- | The unique identifier for the job.
     id :: Prelude.Text,
-    -- | The ARN for the job.
-    arn :: Prelude.Text,
+    -- | The state of the job.
+    state :: State,
+    -- | The job type.
+    type' :: Type,
     -- | The date and time that the job was last updated, in ISO 8601 format.
-    updatedAt :: Core.POSIX
+    updatedAt :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -64,122 +65,122 @@ data JobEntry = JobEntry'
 --
 -- 'errors', 'jobEntry_errors' - Errors for jobs.
 --
--- 'type'', 'jobEntry_type' - The job type.
+-- 'arn', 'jobEntry_arn' - The ARN for the job.
+--
+-- 'createdAt', 'jobEntry_createdAt' - The date and time that the job was created, in ISO 8601 format.
 --
 -- 'details', 'jobEntry_details' - Details of the operation to be performed by the job, such as export
 -- destination details or import source details.
 --
--- 'state', 'jobEntry_state' - The state of the job.
---
--- 'createdAt', 'jobEntry_createdAt' - The date and time that the job was created, in ISO 8601 format.
---
 -- 'id', 'jobEntry_id' - The unique identifier for the job.
 --
--- 'arn', 'jobEntry_arn' - The ARN for the job.
+-- 'state', 'jobEntry_state' - The state of the job.
+--
+-- 'type'', 'jobEntry_type' - The job type.
 --
 -- 'updatedAt', 'jobEntry_updatedAt' - The date and time that the job was last updated, in ISO 8601 format.
 newJobEntry ::
-  -- | 'type''
-  Type ->
-  -- | 'details'
-  ResponseDetails ->
-  -- | 'state'
-  State ->
-  -- | 'createdAt'
-  Prelude.UTCTime ->
-  -- | 'id'
-  Prelude.Text ->
   -- | 'arn'
   Prelude.Text ->
+  -- | 'createdAt'
+  Prelude.UTCTime ->
+  -- | 'details'
+  ResponseDetails ->
+  -- | 'id'
+  Prelude.Text ->
+  -- | 'state'
+  State ->
+  -- | 'type''
+  Type ->
   -- | 'updatedAt'
   Prelude.UTCTime ->
   JobEntry
 newJobEntry
-  pType_
-  pDetails_
-  pState_
-  pCreatedAt_
-  pId_
   pArn_
+  pCreatedAt_
+  pDetails_
+  pId_
+  pState_
+  pType_
   pUpdatedAt_ =
     JobEntry'
       { errors = Prelude.Nothing,
-        type' = pType_,
-        details = pDetails_,
-        state = pState_,
-        createdAt = Core._Time Lens.# pCreatedAt_,
-        id = pId_,
         arn = pArn_,
-        updatedAt = Core._Time Lens.# pUpdatedAt_
+        createdAt = Data._Time Lens.# pCreatedAt_,
+        details = pDetails_,
+        id = pId_,
+        state = pState_,
+        type' = pType_,
+        updatedAt = Data._Time Lens.# pUpdatedAt_
       }
 
 -- | Errors for jobs.
 jobEntry_errors :: Lens.Lens' JobEntry (Prelude.Maybe [JobError])
 jobEntry_errors = Lens.lens (\JobEntry' {errors} -> errors) (\s@JobEntry' {} a -> s {errors = a} :: JobEntry) Prelude.. Lens.mapping Lens.coerced
 
--- | The job type.
-jobEntry_type :: Lens.Lens' JobEntry Type
-jobEntry_type = Lens.lens (\JobEntry' {type'} -> type') (\s@JobEntry' {} a -> s {type' = a} :: JobEntry)
+-- | The ARN for the job.
+jobEntry_arn :: Lens.Lens' JobEntry Prelude.Text
+jobEntry_arn = Lens.lens (\JobEntry' {arn} -> arn) (\s@JobEntry' {} a -> s {arn = a} :: JobEntry)
+
+-- | The date and time that the job was created, in ISO 8601 format.
+jobEntry_createdAt :: Lens.Lens' JobEntry Prelude.UTCTime
+jobEntry_createdAt = Lens.lens (\JobEntry' {createdAt} -> createdAt) (\s@JobEntry' {} a -> s {createdAt = a} :: JobEntry) Prelude.. Data._Time
 
 -- | Details of the operation to be performed by the job, such as export
 -- destination details or import source details.
 jobEntry_details :: Lens.Lens' JobEntry ResponseDetails
 jobEntry_details = Lens.lens (\JobEntry' {details} -> details) (\s@JobEntry' {} a -> s {details = a} :: JobEntry)
 
--- | The state of the job.
-jobEntry_state :: Lens.Lens' JobEntry State
-jobEntry_state = Lens.lens (\JobEntry' {state} -> state) (\s@JobEntry' {} a -> s {state = a} :: JobEntry)
-
--- | The date and time that the job was created, in ISO 8601 format.
-jobEntry_createdAt :: Lens.Lens' JobEntry Prelude.UTCTime
-jobEntry_createdAt = Lens.lens (\JobEntry' {createdAt} -> createdAt) (\s@JobEntry' {} a -> s {createdAt = a} :: JobEntry) Prelude.. Core._Time
-
 -- | The unique identifier for the job.
 jobEntry_id :: Lens.Lens' JobEntry Prelude.Text
 jobEntry_id = Lens.lens (\JobEntry' {id} -> id) (\s@JobEntry' {} a -> s {id = a} :: JobEntry)
 
--- | The ARN for the job.
-jobEntry_arn :: Lens.Lens' JobEntry Prelude.Text
-jobEntry_arn = Lens.lens (\JobEntry' {arn} -> arn) (\s@JobEntry' {} a -> s {arn = a} :: JobEntry)
+-- | The state of the job.
+jobEntry_state :: Lens.Lens' JobEntry State
+jobEntry_state = Lens.lens (\JobEntry' {state} -> state) (\s@JobEntry' {} a -> s {state = a} :: JobEntry)
+
+-- | The job type.
+jobEntry_type :: Lens.Lens' JobEntry Type
+jobEntry_type = Lens.lens (\JobEntry' {type'} -> type') (\s@JobEntry' {} a -> s {type' = a} :: JobEntry)
 
 -- | The date and time that the job was last updated, in ISO 8601 format.
 jobEntry_updatedAt :: Lens.Lens' JobEntry Prelude.UTCTime
-jobEntry_updatedAt = Lens.lens (\JobEntry' {updatedAt} -> updatedAt) (\s@JobEntry' {} a -> s {updatedAt = a} :: JobEntry) Prelude.. Core._Time
+jobEntry_updatedAt = Lens.lens (\JobEntry' {updatedAt} -> updatedAt) (\s@JobEntry' {} a -> s {updatedAt = a} :: JobEntry) Prelude.. Data._Time
 
-instance Core.FromJSON JobEntry where
+instance Data.FromJSON JobEntry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "JobEntry"
       ( \x ->
           JobEntry'
-            Prelude.<$> (x Core..:? "Errors" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "Type")
-            Prelude.<*> (x Core..: "Details")
-            Prelude.<*> (x Core..: "State")
-            Prelude.<*> (x Core..: "CreatedAt")
-            Prelude.<*> (x Core..: "Id")
-            Prelude.<*> (x Core..: "Arn")
-            Prelude.<*> (x Core..: "UpdatedAt")
+            Prelude.<$> (x Data..:? "Errors" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "Arn")
+            Prelude.<*> (x Data..: "CreatedAt")
+            Prelude.<*> (x Data..: "Details")
+            Prelude.<*> (x Data..: "Id")
+            Prelude.<*> (x Data..: "State")
+            Prelude.<*> (x Data..: "Type")
+            Prelude.<*> (x Data..: "UpdatedAt")
       )
 
 instance Prelude.Hashable JobEntry where
   hashWithSalt _salt JobEntry' {..} =
     _salt `Prelude.hashWithSalt` errors
-      `Prelude.hashWithSalt` type'
-      `Prelude.hashWithSalt` details
-      `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` createdAt
-      `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` arn
+      `Prelude.hashWithSalt` createdAt
+      `Prelude.hashWithSalt` details
+      `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` state
+      `Prelude.hashWithSalt` type'
       `Prelude.hashWithSalt` updatedAt
 
 instance Prelude.NFData JobEntry where
   rnf JobEntry' {..} =
     Prelude.rnf errors
-      `Prelude.seq` Prelude.rnf type'
-      `Prelude.seq` Prelude.rnf details
-      `Prelude.seq` Prelude.rnf state
-      `Prelude.seq` Prelude.rnf createdAt
-      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf createdAt
+      `Prelude.seq` Prelude.rnf details
+      `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf state
+      `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf updatedAt

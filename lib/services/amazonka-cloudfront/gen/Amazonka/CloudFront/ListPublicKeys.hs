@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.ListPublicKeys
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,12 +101,13 @@ instance Core.AWSRequest ListPublicKeys where
   type
     AWSResponse ListPublicKeys =
       ListPublicKeysResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ListPublicKeysResponse'
-            Prelude.<$> (Core.parseXML x)
+            Prelude.<$> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -119,17 +121,17 @@ instance Prelude.NFData ListPublicKeys where
     Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxItems
 
-instance Core.ToHeaders ListPublicKeys where
+instance Data.ToHeaders ListPublicKeys where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListPublicKeys where
+instance Data.ToPath ListPublicKeys where
   toPath = Prelude.const "/2020-05-31/public-key"
 
-instance Core.ToQuery ListPublicKeys where
+instance Data.ToQuery ListPublicKeys where
   toQuery ListPublicKeys' {..} =
     Prelude.mconcat
-      [ "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems
+      [ "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems
       ]
 
 -- | /See:/ 'newListPublicKeysResponse' smart constructor.

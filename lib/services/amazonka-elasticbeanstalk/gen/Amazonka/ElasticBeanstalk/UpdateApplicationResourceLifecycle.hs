@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.UpdateApplicationResourceLifecycle
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.ElasticBeanstalk.UpdateApplicationResourceLifecycle
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,14 +100,15 @@ instance
   type
     AWSResponse UpdateApplicationResourceLifecycle =
       UpdateApplicationResourceLifecycleResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "UpdateApplicationResourceLifecycleResult"
       ( \s h x ->
           UpdateApplicationResourceLifecycleResponse'
-            Prelude.<$> (x Core..@? "ApplicationName")
-              Prelude.<*> (x Core..@? "ResourceLifecycleConfig")
+            Prelude.<$> (x Data..@? "ApplicationName")
+              Prelude.<*> (x Data..@? "ResourceLifecycleConfig")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,32 +131,32 @@ instance
       `Prelude.seq` Prelude.rnf resourceLifecycleConfig
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateApplicationResourceLifecycle
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     UpdateApplicationResourceLifecycle
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateApplicationResourceLifecycle
   where
   toQuery UpdateApplicationResourceLifecycle' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "UpdateApplicationResourceLifecycle" ::
+          Data.=: ( "UpdateApplicationResourceLifecycle" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "ApplicationName" Core.=: applicationName,
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "ApplicationName" Data.=: applicationName,
         "ResourceLifecycleConfig"
-          Core.=: resourceLifecycleConfig
+          Data.=: resourceLifecycleConfig
       ]
 
 -- | /See:/ 'newUpdateApplicationResourceLifecycleResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.UntagCertificateAuthority
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,7 +111,8 @@ instance Core.AWSRequest UntagCertificateAuthority where
   type
     AWSResponse UntagCertificateAuthority =
       UntagCertificateAuthorityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       UntagCertificateAuthorityResponse'
@@ -126,37 +128,37 @@ instance Prelude.NFData UntagCertificateAuthority where
     Prelude.rnf certificateAuthorityArn
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders UntagCertificateAuthority where
+instance Data.ToHeaders UntagCertificateAuthority where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ACMPrivateCA.UntagCertificateAuthority" ::
+              Data.=# ( "ACMPrivateCA.UntagCertificateAuthority" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UntagCertificateAuthority where
+instance Data.ToJSON UntagCertificateAuthority where
   toJSON UntagCertificateAuthority' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "CertificateAuthorityArn"
-                  Core..= certificateAuthorityArn
+                  Data..= certificateAuthorityArn
               ),
-            Prelude.Just ("Tags" Core..= tags)
+            Prelude.Just ("Tags" Data..= tags)
           ]
       )
 
-instance Core.ToPath UntagCertificateAuthority where
+instance Data.ToPath UntagCertificateAuthority where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UntagCertificateAuthority where
+instance Data.ToQuery UntagCertificateAuthority where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUntagCertificateAuthorityResponse' smart constructor.

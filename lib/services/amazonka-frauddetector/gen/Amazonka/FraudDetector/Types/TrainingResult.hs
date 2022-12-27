@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.TrainingResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.FraudDetector.Types.TrainingResult where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types.DataValidationMetrics
 import Amazonka.FraudDetector.Types.TrainingMetrics
 import Amazonka.FraudDetector.Types.VariableImportanceMetrics
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The training result details.
@@ -74,15 +75,15 @@ trainingResult_trainingMetrics = Lens.lens (\TrainingResult' {trainingMetrics} -
 trainingResult_variableImportanceMetrics :: Lens.Lens' TrainingResult (Prelude.Maybe VariableImportanceMetrics)
 trainingResult_variableImportanceMetrics = Lens.lens (\TrainingResult' {variableImportanceMetrics} -> variableImportanceMetrics) (\s@TrainingResult' {} a -> s {variableImportanceMetrics = a} :: TrainingResult)
 
-instance Core.FromJSON TrainingResult where
+instance Data.FromJSON TrainingResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrainingResult"
       ( \x ->
           TrainingResult'
-            Prelude.<$> (x Core..:? "dataValidationMetrics")
-            Prelude.<*> (x Core..:? "trainingMetrics")
-            Prelude.<*> (x Core..:? "variableImportanceMetrics")
+            Prelude.<$> (x Data..:? "dataValidationMetrics")
+            Prelude.<*> (x Data..:? "trainingMetrics")
+            Prelude.<*> (x Data..:? "variableImportanceMetrics")
       )
 
 instance Prelude.Hashable TrainingResult where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types.Variable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTEventsData.Types.Variable where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The current state of the variable.
@@ -62,13 +63,13 @@ variable_name = Lens.lens (\Variable' {name} -> name) (\s@Variable' {} a -> s {n
 variable_value :: Lens.Lens' Variable Prelude.Text
 variable_value = Lens.lens (\Variable' {value} -> value) (\s@Variable' {} a -> s {value = a} :: Variable)
 
-instance Core.FromJSON Variable where
+instance Data.FromJSON Variable where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Variable"
       ( \x ->
           Variable'
-            Prelude.<$> (x Core..: "name") Prelude.<*> (x Core..: "value")
+            Prelude.<$> (x Data..: "name") Prelude.<*> (x Data..: "value")
       )
 
 instance Prelude.Hashable Variable where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.UntagQueue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.SQS.UntagQueue
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ untagQueue_tagKeys = Lens.lens (\UntagQueue' {tagKeys} -> tagKeys) (\s@UntagQueu
 
 instance Core.AWSRequest UntagQueue where
   type AWSResponse UntagQueue = UntagQueueResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull UntagQueueResponse'
 
 instance Prelude.Hashable UntagQueue where
@@ -104,21 +106,21 @@ instance Prelude.NFData UntagQueue where
     Prelude.rnf queueUrl
       `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagQueue where
+instance Data.ToHeaders UntagQueue where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UntagQueue where
+instance Data.ToPath UntagQueue where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UntagQueue where
+instance Data.ToQuery UntagQueue where
   toQuery UntagQueue' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("UntagQueue" :: Prelude.ByteString),
+          Data.=: ("UntagQueue" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-11-05" :: Prelude.ByteString),
-        "QueueUrl" Core.=: queueUrl,
-        Core.toQueryList "TagKey" tagKeys
+          Data.=: ("2012-11-05" :: Prelude.ByteString),
+        "QueueUrl" Data.=: queueUrl,
+        Data.toQueryList "TagKey" tagKeys
       ]
 
 -- | /See:/ 'newUntagQueueResponse' smart constructor.

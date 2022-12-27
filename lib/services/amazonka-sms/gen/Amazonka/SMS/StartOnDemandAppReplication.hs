@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.StartOnDemandAppReplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.SMS.StartOnDemandAppReplication
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,7 +90,8 @@ instance Core.AWSRequest StartOnDemandAppReplication where
   type
     AWSResponse StartOnDemandAppReplication =
       StartOnDemandAppReplicationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -107,34 +109,34 @@ instance Prelude.NFData StartOnDemandAppReplication where
     Prelude.rnf description
       `Prelude.seq` Prelude.rnf appId
 
-instance Core.ToHeaders StartOnDemandAppReplication where
+instance Data.ToHeaders StartOnDemandAppReplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.StartOnDemandAppReplication" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.StartOnDemandAppReplication" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartOnDemandAppReplication where
+instance Data.ToJSON StartOnDemandAppReplication where
   toJSON StartOnDemandAppReplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("description" Core..=) Prelude.<$> description,
-            Prelude.Just ("appId" Core..= appId)
+          [ ("description" Data..=) Prelude.<$> description,
+            Prelude.Just ("appId" Data..= appId)
           ]
       )
 
-instance Core.ToPath StartOnDemandAppReplication where
+instance Data.ToPath StartOnDemandAppReplication where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartOnDemandAppReplication where
+instance Data.ToQuery StartOnDemandAppReplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartOnDemandAppReplicationResponse' smart constructor.

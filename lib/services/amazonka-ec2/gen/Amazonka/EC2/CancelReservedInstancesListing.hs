@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CancelReservedInstancesListing
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.EC2.CancelReservedInstancesListing
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,14 +92,15 @@ instance
   type
     AWSResponse CancelReservedInstancesListing =
       CancelReservedInstancesListingResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CancelReservedInstancesListingResponse'
-            Prelude.<$> ( x Core..@? "reservedInstancesListingsSet"
+            Prelude.<$> ( x Data..@? "reservedInstancesListingsSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -121,25 +123,25 @@ instance
     Prelude.rnf reservedInstancesListingId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CancelReservedInstancesListing
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CancelReservedInstancesListing where
+instance Data.ToPath CancelReservedInstancesListing where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelReservedInstancesListing where
+instance Data.ToQuery CancelReservedInstancesListing where
   toQuery CancelReservedInstancesListing' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "CancelReservedInstancesListing" ::
+          Data.=: ( "CancelReservedInstancesListing" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
         "ReservedInstancesListingId"
-          Core.=: reservedInstancesListingId
+          Data.=: reservedInstancesListingId
       ]
 
 -- | Contains the output of CancelReservedInstancesListing.

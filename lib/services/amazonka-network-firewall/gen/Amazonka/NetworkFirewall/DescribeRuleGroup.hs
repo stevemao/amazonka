@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.DescribeRuleGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.NetworkFirewall.DescribeRuleGroup
 
     -- * Request Lenses
     describeRuleGroup_ruleGroupArn,
-    describeRuleGroup_type,
     describeRuleGroup_ruleGroupName,
+    describeRuleGroup_type,
 
     -- * Destructuring the Response
     DescribeRuleGroupResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.NetworkFirewall.DescribeRuleGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -56,18 +57,18 @@ data DescribeRuleGroup = DescribeRuleGroup'
     --
     -- You must specify the ARN or the name, and you can specify both.
     ruleGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | The descriptive name of the rule group. You can\'t change the name of a
+    -- rule group after you create it.
+    --
+    -- You must specify the ARN or the name, and you can specify both.
+    ruleGroupName :: Prelude.Maybe Prelude.Text,
     -- | Indicates whether the rule group is stateless or stateful. If the rule
     -- group is stateless, it contains stateless rules. If it is stateful, it
     -- contains stateful rules.
     --
     -- This setting is required for requests that do not include the
     -- @RuleGroupARN@.
-    type' :: Prelude.Maybe RuleGroupType,
-    -- | The descriptive name of the rule group. You can\'t change the name of a
-    -- rule group after you create it.
-    --
-    -- You must specify the ARN or the name, and you can specify both.
-    ruleGroupName :: Prelude.Maybe Prelude.Text
+    type' :: Prelude.Maybe RuleGroupType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -83,24 +84,24 @@ data DescribeRuleGroup = DescribeRuleGroup'
 --
 -- You must specify the ARN or the name, and you can specify both.
 --
+-- 'ruleGroupName', 'describeRuleGroup_ruleGroupName' - The descriptive name of the rule group. You can\'t change the name of a
+-- rule group after you create it.
+--
+-- You must specify the ARN or the name, and you can specify both.
+--
 -- 'type'', 'describeRuleGroup_type' - Indicates whether the rule group is stateless or stateful. If the rule
 -- group is stateless, it contains stateless rules. If it is stateful, it
 -- contains stateful rules.
 --
 -- This setting is required for requests that do not include the
 -- @RuleGroupARN@.
---
--- 'ruleGroupName', 'describeRuleGroup_ruleGroupName' - The descriptive name of the rule group. You can\'t change the name of a
--- rule group after you create it.
---
--- You must specify the ARN or the name, and you can specify both.
 newDescribeRuleGroup ::
   DescribeRuleGroup
 newDescribeRuleGroup =
   DescribeRuleGroup'
     { ruleGroupArn = Prelude.Nothing,
-      type' = Prelude.Nothing,
-      ruleGroupName = Prelude.Nothing
+      ruleGroupName = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of the rule group.
@@ -108,6 +109,13 @@ newDescribeRuleGroup =
 -- You must specify the ARN or the name, and you can specify both.
 describeRuleGroup_ruleGroupArn :: Lens.Lens' DescribeRuleGroup (Prelude.Maybe Prelude.Text)
 describeRuleGroup_ruleGroupArn = Lens.lens (\DescribeRuleGroup' {ruleGroupArn} -> ruleGroupArn) (\s@DescribeRuleGroup' {} a -> s {ruleGroupArn = a} :: DescribeRuleGroup)
+
+-- | The descriptive name of the rule group. You can\'t change the name of a
+-- rule group after you create it.
+--
+-- You must specify the ARN or the name, and you can specify both.
+describeRuleGroup_ruleGroupName :: Lens.Lens' DescribeRuleGroup (Prelude.Maybe Prelude.Text)
+describeRuleGroup_ruleGroupName = Lens.lens (\DescribeRuleGroup' {ruleGroupName} -> ruleGroupName) (\s@DescribeRuleGroup' {} a -> s {ruleGroupName = a} :: DescribeRuleGroup)
 
 -- | Indicates whether the rule group is stateless or stateful. If the rule
 -- group is stateless, it contains stateless rules. If it is stateful, it
@@ -118,69 +126,63 @@ describeRuleGroup_ruleGroupArn = Lens.lens (\DescribeRuleGroup' {ruleGroupArn} -
 describeRuleGroup_type :: Lens.Lens' DescribeRuleGroup (Prelude.Maybe RuleGroupType)
 describeRuleGroup_type = Lens.lens (\DescribeRuleGroup' {type'} -> type') (\s@DescribeRuleGroup' {} a -> s {type' = a} :: DescribeRuleGroup)
 
--- | The descriptive name of the rule group. You can\'t change the name of a
--- rule group after you create it.
---
--- You must specify the ARN or the name, and you can specify both.
-describeRuleGroup_ruleGroupName :: Lens.Lens' DescribeRuleGroup (Prelude.Maybe Prelude.Text)
-describeRuleGroup_ruleGroupName = Lens.lens (\DescribeRuleGroup' {ruleGroupName} -> ruleGroupName) (\s@DescribeRuleGroup' {} a -> s {ruleGroupName = a} :: DescribeRuleGroup)
-
 instance Core.AWSRequest DescribeRuleGroup where
   type
     AWSResponse DescribeRuleGroup =
       DescribeRuleGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRuleGroupResponse'
-            Prelude.<$> (x Core..?> "RuleGroup")
+            Prelude.<$> (x Data..?> "RuleGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "UpdateToken")
-            Prelude.<*> (x Core..:> "RuleGroupResponse")
+            Prelude.<*> (x Data..:> "UpdateToken")
+            Prelude.<*> (x Data..:> "RuleGroupResponse")
       )
 
 instance Prelude.Hashable DescribeRuleGroup where
   hashWithSalt _salt DescribeRuleGroup' {..} =
     _salt `Prelude.hashWithSalt` ruleGroupArn
-      `Prelude.hashWithSalt` type'
       `Prelude.hashWithSalt` ruleGroupName
+      `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData DescribeRuleGroup where
   rnf DescribeRuleGroup' {..} =
     Prelude.rnf ruleGroupArn
-      `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf ruleGroupName
+      `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToHeaders DescribeRuleGroup where
+instance Data.ToHeaders DescribeRuleGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "NetworkFirewall_20201112.DescribeRuleGroup" ::
+              Data.=# ( "NetworkFirewall_20201112.DescribeRuleGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeRuleGroup where
+instance Data.ToJSON DescribeRuleGroup where
   toJSON DescribeRuleGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RuleGroupArn" Core..=) Prelude.<$> ruleGroupArn,
-            ("Type" Core..=) Prelude.<$> type',
-            ("RuleGroupName" Core..=) Prelude.<$> ruleGroupName
+          [ ("RuleGroupArn" Data..=) Prelude.<$> ruleGroupArn,
+            ("RuleGroupName" Data..=) Prelude.<$> ruleGroupName,
+            ("Type" Data..=) Prelude.<$> type'
           ]
       )
 
-instance Core.ToPath DescribeRuleGroup where
+instance Data.ToPath DescribeRuleGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeRuleGroup where
+instance Data.ToQuery DescribeRuleGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeRuleGroupResponse' smart constructor.
@@ -189,7 +191,7 @@ data DescribeRuleGroupResponse = DescribeRuleGroupResponse'
     -- RuleGroupResponse, define the rule group. You can retrieve all objects
     -- for a rule group by calling DescribeRuleGroup.
     --
-    -- AWS Network Firewall uses a rule group to inspect and control network
+    -- Network Firewall uses a rule group to inspect and control network
     -- traffic. You define stateless rule groups to inspect individual packets
     -- and you define stateful rule groups to inspect packets in the context of
     -- their traffic flow.
@@ -232,7 +234,7 @@ data DescribeRuleGroupResponse = DescribeRuleGroupResponse'
 -- RuleGroupResponse, define the rule group. You can retrieve all objects
 -- for a rule group by calling DescribeRuleGroup.
 --
--- AWS Network Firewall uses a rule group to inspect and control network
+-- Network Firewall uses a rule group to inspect and control network
 -- traffic. You define stateless rule groups to inspect individual packets
 -- and you define stateful rule groups to inspect packets in the context of
 -- their traffic flow.
@@ -283,7 +285,7 @@ newDescribeRuleGroupResponse
 -- RuleGroupResponse, define the rule group. You can retrieve all objects
 -- for a rule group by calling DescribeRuleGroup.
 --
--- AWS Network Firewall uses a rule group to inspect and control network
+-- Network Firewall uses a rule group to inspect and control network
 -- traffic. You define stateless rule groups to inspect individual packets
 -- and you define stateful rule groups to inspect packets in the context of
 -- their traffic flow.

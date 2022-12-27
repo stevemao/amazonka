@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.Scte27SourceSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.Scte27SourceSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.Scte27OcrLanguage
 import qualified Amazonka.Prelude as Prelude
 
@@ -87,14 +88,14 @@ scte27SourceSettings_ocrLanguage = Lens.lens (\Scte27SourceSettings' {ocrLanguag
 scte27SourceSettings_pid :: Lens.Lens' Scte27SourceSettings (Prelude.Maybe Prelude.Natural)
 scte27SourceSettings_pid = Lens.lens (\Scte27SourceSettings' {pid} -> pid) (\s@Scte27SourceSettings' {} a -> s {pid = a} :: Scte27SourceSettings)
 
-instance Core.FromJSON Scte27SourceSettings where
+instance Data.FromJSON Scte27SourceSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Scte27SourceSettings"
       ( \x ->
           Scte27SourceSettings'
-            Prelude.<$> (x Core..:? "ocrLanguage")
-            Prelude.<*> (x Core..:? "pid")
+            Prelude.<$> (x Data..:? "ocrLanguage")
+            Prelude.<*> (x Data..:? "pid")
       )
 
 instance Prelude.Hashable Scte27SourceSettings where
@@ -107,11 +108,11 @@ instance Prelude.NFData Scte27SourceSettings where
     Prelude.rnf ocrLanguage
       `Prelude.seq` Prelude.rnf pid
 
-instance Core.ToJSON Scte27SourceSettings where
+instance Data.ToJSON Scte27SourceSettings where
   toJSON Scte27SourceSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ocrLanguage" Core..=) Prelude.<$> ocrLanguage,
-            ("pid" Core..=) Prelude.<$> pid
+          [ ("ocrLanguage" Data..=) Prelude.<$> ocrLanguage,
+            ("pid" Data..=) Prelude.<$> pid
           ]
       )

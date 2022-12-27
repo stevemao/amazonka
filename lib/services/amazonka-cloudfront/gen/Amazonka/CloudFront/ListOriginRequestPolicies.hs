@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.ListOriginRequestPolicies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,7 @@
 --
 -- You can optionally apply a filter to return only the managed policies
 -- created by Amazon Web Services, or only the custom policies created in
--- your account.
+-- your Amazon Web Services account.
 --
 -- You can optionally specify the maximum number of items to receive in the
 -- response. If the total number of items in the list exceeds the maximum
@@ -54,7 +54,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ data ListOriginRequestPolicies = ListOriginRequestPolicies'
     -- -   @managed@ – Returns only the managed policies created by Amazon Web
     --     Services.
     --
-    -- -   @custom@ – Returns only the custom policies created in your account.
+    -- -   @custom@ – Returns only the custom policies created in your Amazon
+    --     Web Services account.
     type' :: Prelude.Maybe OriginRequestPolicyType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -104,7 +106,8 @@ data ListOriginRequestPolicies = ListOriginRequestPolicies'
 -- -   @managed@ – Returns only the managed policies created by Amazon Web
 --     Services.
 --
--- -   @custom@ – Returns only the custom policies created in your account.
+-- -   @custom@ – Returns only the custom policies created in your Amazon
+--     Web Services account.
 newListOriginRequestPolicies ::
   ListOriginRequestPolicies
 newListOriginRequestPolicies =
@@ -134,7 +137,8 @@ listOriginRequestPolicies_maxItems = Lens.lens (\ListOriginRequestPolicies' {max
 -- -   @managed@ – Returns only the managed policies created by Amazon Web
 --     Services.
 --
--- -   @custom@ – Returns only the custom policies created in your account.
+-- -   @custom@ – Returns only the custom policies created in your Amazon
+--     Web Services account.
 listOriginRequestPolicies_type :: Lens.Lens' ListOriginRequestPolicies (Prelude.Maybe OriginRequestPolicyType)
 listOriginRequestPolicies_type = Lens.lens (\ListOriginRequestPolicies' {type'} -> type') (\s@ListOriginRequestPolicies' {} a -> s {type' = a} :: ListOriginRequestPolicies)
 
@@ -142,12 +146,13 @@ instance Core.AWSRequest ListOriginRequestPolicies where
   type
     AWSResponse ListOriginRequestPolicies =
       ListOriginRequestPoliciesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ListOriginRequestPoliciesResponse'
-            Prelude.<$> (Core.parseXML x)
+            Prelude.<$> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -163,19 +168,19 @@ instance Prelude.NFData ListOriginRequestPolicies where
       `Prelude.seq` Prelude.rnf maxItems
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToHeaders ListOriginRequestPolicies where
+instance Data.ToHeaders ListOriginRequestPolicies where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListOriginRequestPolicies where
+instance Data.ToPath ListOriginRequestPolicies where
   toPath =
     Prelude.const "/2020-05-31/origin-request-policy"
 
-instance Core.ToQuery ListOriginRequestPolicies where
+instance Data.ToQuery ListOriginRequestPolicies where
   toQuery ListOriginRequestPolicies' {..} =
     Prelude.mconcat
-      [ "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems,
-        "Type" Core.=: type'
+      [ "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems,
+        "Type" Data.=: type'
       ]
 
 -- | /See:/ 'newListOriginRequestPoliciesResponse' smart constructor.

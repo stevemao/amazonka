@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.Types.ApplicationVersionDescriptionMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ElasticBeanstalk.Types.ApplicationVersionDescriptionMessage where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types.ApplicationVersionDescription
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Result message wrapping a single description of an application version.
@@ -55,12 +56,12 @@ applicationVersionDescriptionMessage_applicationVersion :: Lens.Lens' Applicatio
 applicationVersionDescriptionMessage_applicationVersion = Lens.lens (\ApplicationVersionDescriptionMessage' {applicationVersion} -> applicationVersion) (\s@ApplicationVersionDescriptionMessage' {} a -> s {applicationVersion = a} :: ApplicationVersionDescriptionMessage)
 
 instance
-  Core.FromXML
+  Data.FromXML
     ApplicationVersionDescriptionMessage
   where
   parseXML x =
     ApplicationVersionDescriptionMessage'
-      Prelude.<$> (x Core..@? "ApplicationVersion")
+      Prelude.<$> (x Data..@? "ApplicationVersion")
 
 instance
   Prelude.Hashable

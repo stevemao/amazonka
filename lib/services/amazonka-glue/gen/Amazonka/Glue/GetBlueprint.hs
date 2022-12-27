@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetBlueprint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.Glue.GetBlueprint
     newGetBlueprint,
 
     -- * Request Lenses
-    getBlueprint_includeParameterSpec,
     getBlueprint_includeBlueprint,
+    getBlueprint_includeParameterSpec,
     getBlueprint_name,
 
     -- * Destructuring the Response
@@ -42,18 +42,19 @@ module Amazonka.Glue.GetBlueprint
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetBlueprint' smart constructor.
 data GetBlueprint = GetBlueprint'
-  { -- | Specifies whether or not to include the parameter specification.
-    includeParameterSpec :: Prelude.Maybe Prelude.Bool,
-    -- | Specifies whether or not to include the blueprint in the response.
+  { -- | Specifies whether or not to include the blueprint in the response.
     includeBlueprint :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether or not to include the parameter specification.
+    includeParameterSpec :: Prelude.Maybe Prelude.Bool,
     -- | The name of the blueprint.
     name :: Prelude.Text
   }
@@ -67,9 +68,9 @@ data GetBlueprint = GetBlueprint'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'includeParameterSpec', 'getBlueprint_includeParameterSpec' - Specifies whether or not to include the parameter specification.
---
 -- 'includeBlueprint', 'getBlueprint_includeBlueprint' - Specifies whether or not to include the blueprint in the response.
+--
+-- 'includeParameterSpec', 'getBlueprint_includeParameterSpec' - Specifies whether or not to include the parameter specification.
 --
 -- 'name', 'getBlueprint_name' - The name of the blueprint.
 newGetBlueprint ::
@@ -78,19 +79,18 @@ newGetBlueprint ::
   GetBlueprint
 newGetBlueprint pName_ =
   GetBlueprint'
-    { includeParameterSpec =
-        Prelude.Nothing,
-      includeBlueprint = Prelude.Nothing,
+    { includeBlueprint = Prelude.Nothing,
+      includeParameterSpec = Prelude.Nothing,
       name = pName_
     }
-
--- | Specifies whether or not to include the parameter specification.
-getBlueprint_includeParameterSpec :: Lens.Lens' GetBlueprint (Prelude.Maybe Prelude.Bool)
-getBlueprint_includeParameterSpec = Lens.lens (\GetBlueprint' {includeParameterSpec} -> includeParameterSpec) (\s@GetBlueprint' {} a -> s {includeParameterSpec = a} :: GetBlueprint)
 
 -- | Specifies whether or not to include the blueprint in the response.
 getBlueprint_includeBlueprint :: Lens.Lens' GetBlueprint (Prelude.Maybe Prelude.Bool)
 getBlueprint_includeBlueprint = Lens.lens (\GetBlueprint' {includeBlueprint} -> includeBlueprint) (\s@GetBlueprint' {} a -> s {includeBlueprint = a} :: GetBlueprint)
+
+-- | Specifies whether or not to include the parameter specification.
+getBlueprint_includeParameterSpec :: Lens.Lens' GetBlueprint (Prelude.Maybe Prelude.Bool)
+getBlueprint_includeParameterSpec = Lens.lens (\GetBlueprint' {includeParameterSpec} -> includeParameterSpec) (\s@GetBlueprint' {} a -> s {includeParameterSpec = a} :: GetBlueprint)
 
 -- | The name of the blueprint.
 getBlueprint_name :: Lens.Lens' GetBlueprint Prelude.Text
@@ -98,56 +98,57 @@ getBlueprint_name = Lens.lens (\GetBlueprint' {name} -> name) (\s@GetBlueprint' 
 
 instance Core.AWSRequest GetBlueprint where
   type AWSResponse GetBlueprint = GetBlueprintResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBlueprintResponse'
-            Prelude.<$> (x Core..?> "Blueprint")
+            Prelude.<$> (x Data..?> "Blueprint")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetBlueprint where
   hashWithSalt _salt GetBlueprint' {..} =
-    _salt `Prelude.hashWithSalt` includeParameterSpec
-      `Prelude.hashWithSalt` includeBlueprint
+    _salt `Prelude.hashWithSalt` includeBlueprint
+      `Prelude.hashWithSalt` includeParameterSpec
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData GetBlueprint where
   rnf GetBlueprint' {..} =
-    Prelude.rnf includeParameterSpec
-      `Prelude.seq` Prelude.rnf includeBlueprint
+    Prelude.rnf includeBlueprint
+      `Prelude.seq` Prelude.rnf includeParameterSpec
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders GetBlueprint where
+instance Data.ToHeaders GetBlueprint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetBlueprint" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetBlueprint" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetBlueprint where
+instance Data.ToJSON GetBlueprint where
   toJSON GetBlueprint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IncludeParameterSpec" Core..=)
-              Prelude.<$> includeParameterSpec,
-            ("IncludeBlueprint" Core..=)
+          [ ("IncludeBlueprint" Data..=)
               Prelude.<$> includeBlueprint,
-            Prelude.Just ("Name" Core..= name)
+            ("IncludeParameterSpec" Data..=)
+              Prelude.<$> includeParameterSpec,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath GetBlueprint where
+instance Data.ToPath GetBlueprint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetBlueprint where
+instance Data.ToQuery GetBlueprint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetBlueprintResponse' smart constructor.

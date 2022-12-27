@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.CreatePreset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.MediaConvert.CreatePreset
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -124,12 +125,13 @@ createPreset_name = Lens.lens (\CreatePreset' {name} -> name) (\s@CreatePreset' 
 
 instance Core.AWSRequest CreatePreset where
   type AWSResponse CreatePreset = CreatePresetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreatePresetResponse'
-            Prelude.<$> (x Core..?> "preset")
+            Prelude.<$> (x Data..?> "preset")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -149,33 +151,33 @@ instance Prelude.NFData CreatePreset where
       `Prelude.seq` Prelude.rnf settings
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreatePreset where
+instance Data.ToHeaders CreatePreset where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreatePreset where
+instance Data.ToJSON CreatePreset where
   toJSON CreatePreset' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("category" Core..=) Prelude.<$> category,
-            ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("settings" Core..= settings),
-            Prelude.Just ("name" Core..= name)
+          [ ("category" Data..=) Prelude.<$> category,
+            ("description" Data..=) Prelude.<$> description,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("settings" Data..= settings),
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreatePreset where
+instance Data.ToPath CreatePreset where
   toPath = Prelude.const "/2017-08-29/presets"
 
-instance Core.ToQuery CreatePreset where
+instance Data.ToQuery CreatePreset where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreatePresetResponse' smart constructor.

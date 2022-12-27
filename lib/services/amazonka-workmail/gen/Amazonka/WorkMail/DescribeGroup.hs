@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.DescribeGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,18 +35,19 @@ module Amazonka.WorkMail.DescribeGroup
     newDescribeGroupResponse,
 
     -- * Response Lenses
-    describeGroupResponse_email,
-    describeGroupResponse_state,
     describeGroupResponse_disabledDate,
-    describeGroupResponse_name,
-    describeGroupResponse_groupId,
+    describeGroupResponse_email,
     describeGroupResponse_enabledDate,
+    describeGroupResponse_groupId,
+    describeGroupResponse_name,
+    describeGroupResponse_state,
     describeGroupResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,17 +97,18 @@ instance Core.AWSRequest DescribeGroup where
   type
     AWSResponse DescribeGroup =
       DescribeGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeGroupResponse'
-            Prelude.<$> (x Core..?> "Email")
-            Prelude.<*> (x Core..?> "State")
-            Prelude.<*> (x Core..?> "DisabledDate")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "GroupId")
-            Prelude.<*> (x Core..?> "EnabledDate")
+            Prelude.<$> (x Data..?> "DisabledDate")
+            Prelude.<*> (x Data..?> "Email")
+            Prelude.<*> (x Data..?> "EnabledDate")
+            Prelude.<*> (x Data..?> "GroupId")
+            Prelude.<*> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "State")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,54 +122,54 @@ instance Prelude.NFData DescribeGroup where
     Prelude.rnf organizationId
       `Prelude.seq` Prelude.rnf groupId
 
-instance Core.ToHeaders DescribeGroup where
+instance Data.ToHeaders DescribeGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.DescribeGroup" ::
+              Data.=# ( "WorkMailService.DescribeGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeGroup where
+instance Data.ToJSON DescribeGroup where
   toJSON DescribeGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("GroupId" Core..= groupId)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("GroupId" Data..= groupId)
           ]
       )
 
-instance Core.ToPath DescribeGroup where
+instance Data.ToPath DescribeGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeGroup where
+instance Data.ToQuery DescribeGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeGroupResponse' smart constructor.
 data DescribeGroupResponse = DescribeGroupResponse'
-  { -- | The email of the described group.
-    email :: Prelude.Maybe Prelude.Text,
-    -- | The state of the user: enabled (registered to Amazon WorkMail) or
-    -- disabled (deregistered or never registered to WorkMail).
-    state :: Prelude.Maybe EntityState,
-    -- | The date and time when a user was deregistered from WorkMail, in UNIX
+  { -- | The date and time when a user was deregistered from WorkMail, in UNIX
     -- epoch time format.
-    disabledDate :: Prelude.Maybe Core.POSIX,
-    -- | The name of the described group.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The identifier of the described group.
-    groupId :: Prelude.Maybe Prelude.Text,
+    disabledDate :: Prelude.Maybe Data.POSIX,
+    -- | The email of the described group.
+    email :: Prelude.Maybe Prelude.Text,
     -- | The date and time when a user was registered to WorkMail, in UNIX epoch
     -- time format.
-    enabledDate :: Prelude.Maybe Core.POSIX,
+    enabledDate :: Prelude.Maybe Data.POSIX,
+    -- | The identifier of the described group.
+    groupId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the described group.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The state of the user: enabled (registered to WorkMail) or disabled
+    -- (deregistered or never registered to WorkMail).
+    state :: Prelude.Maybe EntityState,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -181,20 +183,20 @@ data DescribeGroupResponse = DescribeGroupResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'email', 'describeGroupResponse_email' - The email of the described group.
---
--- 'state', 'describeGroupResponse_state' - The state of the user: enabled (registered to Amazon WorkMail) or
--- disabled (deregistered or never registered to WorkMail).
---
 -- 'disabledDate', 'describeGroupResponse_disabledDate' - The date and time when a user was deregistered from WorkMail, in UNIX
 -- epoch time format.
 --
--- 'name', 'describeGroupResponse_name' - The name of the described group.
---
--- 'groupId', 'describeGroupResponse_groupId' - The identifier of the described group.
+-- 'email', 'describeGroupResponse_email' - The email of the described group.
 --
 -- 'enabledDate', 'describeGroupResponse_enabledDate' - The date and time when a user was registered to WorkMail, in UNIX epoch
 -- time format.
+--
+-- 'groupId', 'describeGroupResponse_groupId' - The identifier of the described group.
+--
+-- 'name', 'describeGroupResponse_name' - The name of the described group.
+--
+-- 'state', 'describeGroupResponse_state' - The state of the user: enabled (registered to WorkMail) or disabled
+-- (deregistered or never registered to WorkMail).
 --
 -- 'httpStatus', 'describeGroupResponse_httpStatus' - The response's http status code.
 newDescribeGroupResponse ::
@@ -203,41 +205,42 @@ newDescribeGroupResponse ::
   DescribeGroupResponse
 newDescribeGroupResponse pHttpStatus_ =
   DescribeGroupResponse'
-    { email = Prelude.Nothing,
-      state = Prelude.Nothing,
-      disabledDate = Prelude.Nothing,
-      name = Prelude.Nothing,
-      groupId = Prelude.Nothing,
+    { disabledDate =
+        Prelude.Nothing,
+      email = Prelude.Nothing,
       enabledDate = Prelude.Nothing,
+      groupId = Prelude.Nothing,
+      name = Prelude.Nothing,
+      state = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The date and time when a user was deregistered from WorkMail, in UNIX
+-- epoch time format.
+describeGroupResponse_disabledDate :: Lens.Lens' DescribeGroupResponse (Prelude.Maybe Prelude.UTCTime)
+describeGroupResponse_disabledDate = Lens.lens (\DescribeGroupResponse' {disabledDate} -> disabledDate) (\s@DescribeGroupResponse' {} a -> s {disabledDate = a} :: DescribeGroupResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The email of the described group.
 describeGroupResponse_email :: Lens.Lens' DescribeGroupResponse (Prelude.Maybe Prelude.Text)
 describeGroupResponse_email = Lens.lens (\DescribeGroupResponse' {email} -> email) (\s@DescribeGroupResponse' {} a -> s {email = a} :: DescribeGroupResponse)
 
--- | The state of the user: enabled (registered to Amazon WorkMail) or
--- disabled (deregistered or never registered to WorkMail).
-describeGroupResponse_state :: Lens.Lens' DescribeGroupResponse (Prelude.Maybe EntityState)
-describeGroupResponse_state = Lens.lens (\DescribeGroupResponse' {state} -> state) (\s@DescribeGroupResponse' {} a -> s {state = a} :: DescribeGroupResponse)
-
--- | The date and time when a user was deregistered from WorkMail, in UNIX
--- epoch time format.
-describeGroupResponse_disabledDate :: Lens.Lens' DescribeGroupResponse (Prelude.Maybe Prelude.UTCTime)
-describeGroupResponse_disabledDate = Lens.lens (\DescribeGroupResponse' {disabledDate} -> disabledDate) (\s@DescribeGroupResponse' {} a -> s {disabledDate = a} :: DescribeGroupResponse) Prelude.. Lens.mapping Core._Time
-
--- | The name of the described group.
-describeGroupResponse_name :: Lens.Lens' DescribeGroupResponse (Prelude.Maybe Prelude.Text)
-describeGroupResponse_name = Lens.lens (\DescribeGroupResponse' {name} -> name) (\s@DescribeGroupResponse' {} a -> s {name = a} :: DescribeGroupResponse)
+-- | The date and time when a user was registered to WorkMail, in UNIX epoch
+-- time format.
+describeGroupResponse_enabledDate :: Lens.Lens' DescribeGroupResponse (Prelude.Maybe Prelude.UTCTime)
+describeGroupResponse_enabledDate = Lens.lens (\DescribeGroupResponse' {enabledDate} -> enabledDate) (\s@DescribeGroupResponse' {} a -> s {enabledDate = a} :: DescribeGroupResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The identifier of the described group.
 describeGroupResponse_groupId :: Lens.Lens' DescribeGroupResponse (Prelude.Maybe Prelude.Text)
 describeGroupResponse_groupId = Lens.lens (\DescribeGroupResponse' {groupId} -> groupId) (\s@DescribeGroupResponse' {} a -> s {groupId = a} :: DescribeGroupResponse)
 
--- | The date and time when a user was registered to WorkMail, in UNIX epoch
--- time format.
-describeGroupResponse_enabledDate :: Lens.Lens' DescribeGroupResponse (Prelude.Maybe Prelude.UTCTime)
-describeGroupResponse_enabledDate = Lens.lens (\DescribeGroupResponse' {enabledDate} -> enabledDate) (\s@DescribeGroupResponse' {} a -> s {enabledDate = a} :: DescribeGroupResponse) Prelude.. Lens.mapping Core._Time
+-- | The name of the described group.
+describeGroupResponse_name :: Lens.Lens' DescribeGroupResponse (Prelude.Maybe Prelude.Text)
+describeGroupResponse_name = Lens.lens (\DescribeGroupResponse' {name} -> name) (\s@DescribeGroupResponse' {} a -> s {name = a} :: DescribeGroupResponse)
+
+-- | The state of the user: enabled (registered to WorkMail) or disabled
+-- (deregistered or never registered to WorkMail).
+describeGroupResponse_state :: Lens.Lens' DescribeGroupResponse (Prelude.Maybe EntityState)
+describeGroupResponse_state = Lens.lens (\DescribeGroupResponse' {state} -> state) (\s@DescribeGroupResponse' {} a -> s {state = a} :: DescribeGroupResponse)
 
 -- | The response's http status code.
 describeGroupResponse_httpStatus :: Lens.Lens' DescribeGroupResponse Prelude.Int
@@ -245,10 +248,10 @@ describeGroupResponse_httpStatus = Lens.lens (\DescribeGroupResponse' {httpStatu
 
 instance Prelude.NFData DescribeGroupResponse where
   rnf DescribeGroupResponse' {..} =
-    Prelude.rnf email
-      `Prelude.seq` Prelude.rnf state
-      `Prelude.seq` Prelude.rnf disabledDate
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf groupId
+    Prelude.rnf disabledDate
+      `Prelude.seq` Prelude.rnf email
       `Prelude.seq` Prelude.rnf enabledDate
+      `Prelude.seq` Prelude.rnf groupId
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf httpStatus

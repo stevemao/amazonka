@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.CreateHsmClientCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ module Amazonka.Redshift.CreateHsmClientCertificate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -109,13 +110,14 @@ instance Core.AWSRequest CreateHsmClientCertificate where
   type
     AWSResponse CreateHsmClientCertificate =
       CreateHsmClientCertificateResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateHsmClientCertificateResult"
       ( \s h x ->
           CreateHsmClientCertificateResponse'
-            Prelude.<$> (x Core..@? "HsmClientCertificate")
+            Prelude.<$> (x Data..@? "HsmClientCertificate")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,24 +131,24 @@ instance Prelude.NFData CreateHsmClientCertificate where
     Prelude.rnf tags
       `Prelude.seq` Prelude.rnf hsmClientCertificateIdentifier
 
-instance Core.ToHeaders CreateHsmClientCertificate where
+instance Data.ToHeaders CreateHsmClientCertificate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateHsmClientCertificate where
+instance Data.ToPath CreateHsmClientCertificate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateHsmClientCertificate where
+instance Data.ToQuery CreateHsmClientCertificate where
   toQuery CreateHsmClientCertificate' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateHsmClientCertificate" :: Prelude.ByteString),
+          Data.=: ("CreateHsmClientCertificate" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
         "HsmClientCertificateIdentifier"
-          Core.=: hsmClientCertificateIdentifier
+          Data.=: hsmClientCertificateIdentifier
       ]
 
 -- | /See:/ 'newCreateHsmClientCertificateResponse' smart constructor.

@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.StartCostEstimation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Starts the creation of an estimate of the monthly cost to analyze your
--- AWS resources.
+-- Amazon Web Services resources.
 module Amazonka.DevOpsGuru.StartCostEstimation
   ( -- * Creating a Request
     StartCostEstimation (..),
@@ -41,8 +41,9 @@ module Amazonka.DevOpsGuru.StartCostEstimation
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,8 +52,8 @@ import qualified Amazonka.Response as Response
 data StartCostEstimation = StartCostEstimation'
   { -- | The idempotency token used to identify each cost estimate request.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The collection of AWS resources used to create a monthly DevOps Guru
-    -- cost estimate.
+    -- | The collection of Amazon Web Services resources used to create a monthly
+    -- DevOps Guru cost estimate.
     resourceCollection :: CostEstimationResourceCollectionFilter
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -67,8 +68,8 @@ data StartCostEstimation = StartCostEstimation'
 --
 -- 'clientToken', 'startCostEstimation_clientToken' - The idempotency token used to identify each cost estimate request.
 --
--- 'resourceCollection', 'startCostEstimation_resourceCollection' - The collection of AWS resources used to create a monthly DevOps Guru
--- cost estimate.
+-- 'resourceCollection', 'startCostEstimation_resourceCollection' - The collection of Amazon Web Services resources used to create a monthly
+-- DevOps Guru cost estimate.
 newStartCostEstimation ::
   -- | 'resourceCollection'
   CostEstimationResourceCollectionFilter ->
@@ -83,8 +84,8 @@ newStartCostEstimation pResourceCollection_ =
 startCostEstimation_clientToken :: Lens.Lens' StartCostEstimation (Prelude.Maybe Prelude.Text)
 startCostEstimation_clientToken = Lens.lens (\StartCostEstimation' {clientToken} -> clientToken) (\s@StartCostEstimation' {} a -> s {clientToken = a} :: StartCostEstimation)
 
--- | The collection of AWS resources used to create a monthly DevOps Guru
--- cost estimate.
+-- | The collection of Amazon Web Services resources used to create a monthly
+-- DevOps Guru cost estimate.
 startCostEstimation_resourceCollection :: Lens.Lens' StartCostEstimation CostEstimationResourceCollectionFilter
 startCostEstimation_resourceCollection = Lens.lens (\StartCostEstimation' {resourceCollection} -> resourceCollection) (\s@StartCostEstimation' {} a -> s {resourceCollection = a} :: StartCostEstimation)
 
@@ -92,7 +93,8 @@ instance Core.AWSRequest StartCostEstimation where
   type
     AWSResponse StartCostEstimation =
       StartCostEstimationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -110,31 +112,31 @@ instance Prelude.NFData StartCostEstimation where
     Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf resourceCollection
 
-instance Core.ToHeaders StartCostEstimation where
+instance Data.ToHeaders StartCostEstimation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartCostEstimation where
+instance Data.ToJSON StartCostEstimation where
   toJSON StartCostEstimation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientToken" Core..=) Prelude.<$> clientToken,
+          [ ("ClientToken" Data..=) Prelude.<$> clientToken,
             Prelude.Just
-              ("ResourceCollection" Core..= resourceCollection)
+              ("ResourceCollection" Data..= resourceCollection)
           ]
       )
 
-instance Core.ToPath StartCostEstimation where
+instance Data.ToPath StartCostEstimation where
   toPath = Prelude.const "/cost-estimation"
 
-instance Core.ToQuery StartCostEstimation where
+instance Data.ToQuery StartCostEstimation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartCostEstimationResponse' smart constructor.

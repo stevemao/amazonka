@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.StorageClassAnalysis
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.StorageClassAnalysis where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.StorageClassAnalysisDataExport
@@ -57,10 +58,10 @@ newStorageClassAnalysis =
 storageClassAnalysis_dataExport :: Lens.Lens' StorageClassAnalysis (Prelude.Maybe StorageClassAnalysisDataExport)
 storageClassAnalysis_dataExport = Lens.lens (\StorageClassAnalysis' {dataExport} -> dataExport) (\s@StorageClassAnalysis' {} a -> s {dataExport = a} :: StorageClassAnalysis)
 
-instance Core.FromXML StorageClassAnalysis where
+instance Data.FromXML StorageClassAnalysis where
   parseXML x =
     StorageClassAnalysis'
-      Prelude.<$> (x Core..@? "DataExport")
+      Prelude.<$> (x Data..@? "DataExport")
 
 instance Prelude.Hashable StorageClassAnalysis where
   hashWithSalt _salt StorageClassAnalysis' {..} =
@@ -70,6 +71,6 @@ instance Prelude.NFData StorageClassAnalysis where
   rnf StorageClassAnalysis' {..} =
     Prelude.rnf dataExport
 
-instance Core.ToXML StorageClassAnalysis where
+instance Data.ToXML StorageClassAnalysis where
   toXML StorageClassAnalysis' {..} =
-    Prelude.mconcat ["DataExport" Core.@= dataExport]
+    Prelude.mconcat ["DataExport" Data.@= dataExport]

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.ListGrants
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,7 +26,7 @@
 -- list by grant ID or grantee principal.
 --
 -- For detailed information about grants, including grant terminology, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/grants.html Using grants>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/grants.html Grants in KMS>
 -- in the //Key Management Service Developer Guide// . For examples of
 -- working with grants in several programming languages, see
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/programming-grants.html Programming grants>.
@@ -65,8 +65,8 @@ module Amazonka.KMS.ListGrants
     -- * Request Lenses
     listGrants_grantId,
     listGrants_granteePrincipal,
-    listGrants_marker,
     listGrants_limit,
+    listGrants_marker,
     listGrants_keyId,
 
     -- * Destructuring the Response
@@ -74,15 +74,16 @@ module Amazonka.KMS.ListGrants
     newListGrantsResponse,
 
     -- * Response Lenses
-    listGrantsResponse_truncated,
     listGrantsResponse_grants,
     listGrantsResponse_nextMarker,
+    listGrantsResponse_truncated,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,10 +96,6 @@ data ListGrants = ListGrants'
     -- | Returns only grants where the specified principal is the grantee
     -- principal for the grant.
     granteePrincipal :: Prelude.Maybe Prelude.Text,
-    -- | Use this parameter in a subsequent request after you receive a response
-    -- with truncated results. Set it to the value of @NextMarker@ from the
-    -- truncated response you just received.
-    marker :: Prelude.Maybe Prelude.Text,
     -- | Use this parameter to specify the maximum number of items to return.
     -- When this value is present, KMS does not return more than the specified
     -- number of items, but it might return fewer.
@@ -106,6 +103,10 @@ data ListGrants = ListGrants'
     -- This value is optional. If you include a value, it must be between 1 and
     -- 100, inclusive. If you do not include a value, it defaults to 50.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | Use this parameter in a subsequent request after you receive a response
+    -- with truncated results. Set it to the value of @NextMarker@ from the
+    -- truncated response you just received.
+    marker :: Prelude.Maybe Prelude.Text,
     -- | Returns only grants for the specified KMS key. This parameter is
     -- required.
     --
@@ -139,16 +140,16 @@ data ListGrants = ListGrants'
 -- 'granteePrincipal', 'listGrants_granteePrincipal' - Returns only grants where the specified principal is the grantee
 -- principal for the grant.
 --
--- 'marker', 'listGrants_marker' - Use this parameter in a subsequent request after you receive a response
--- with truncated results. Set it to the value of @NextMarker@ from the
--- truncated response you just received.
---
 -- 'limit', 'listGrants_limit' - Use this parameter to specify the maximum number of items to return.
 -- When this value is present, KMS does not return more than the specified
 -- number of items, but it might return fewer.
 --
 -- This value is optional. If you include a value, it must be between 1 and
 -- 100, inclusive. If you do not include a value, it defaults to 50.
+--
+-- 'marker', 'listGrants_marker' - Use this parameter in a subsequent request after you receive a response
+-- with truncated results. Set it to the value of @NextMarker@ from the
+-- truncated response you just received.
 --
 -- 'keyId', 'listGrants_keyId' - Returns only grants for the specified KMS key. This parameter is
 -- required.
@@ -173,8 +174,8 @@ newListGrants pKeyId_ =
   ListGrants'
     { grantId = Prelude.Nothing,
       granteePrincipal = Prelude.Nothing,
-      marker = Prelude.Nothing,
       limit = Prelude.Nothing,
+      marker = Prelude.Nothing,
       keyId = pKeyId_
     }
 
@@ -188,12 +189,6 @@ listGrants_grantId = Lens.lens (\ListGrants' {grantId} -> grantId) (\s@ListGrant
 listGrants_granteePrincipal :: Lens.Lens' ListGrants (Prelude.Maybe Prelude.Text)
 listGrants_granteePrincipal = Lens.lens (\ListGrants' {granteePrincipal} -> granteePrincipal) (\s@ListGrants' {} a -> s {granteePrincipal = a} :: ListGrants)
 
--- | Use this parameter in a subsequent request after you receive a response
--- with truncated results. Set it to the value of @NextMarker@ from the
--- truncated response you just received.
-listGrants_marker :: Lens.Lens' ListGrants (Prelude.Maybe Prelude.Text)
-listGrants_marker = Lens.lens (\ListGrants' {marker} -> marker) (\s@ListGrants' {} a -> s {marker = a} :: ListGrants)
-
 -- | Use this parameter to specify the maximum number of items to return.
 -- When this value is present, KMS does not return more than the specified
 -- number of items, but it might return fewer.
@@ -202,6 +197,12 @@ listGrants_marker = Lens.lens (\ListGrants' {marker} -> marker) (\s@ListGrants' 
 -- 100, inclusive. If you do not include a value, it defaults to 50.
 listGrants_limit :: Lens.Lens' ListGrants (Prelude.Maybe Prelude.Natural)
 listGrants_limit = Lens.lens (\ListGrants' {limit} -> limit) (\s@ListGrants' {} a -> s {limit = a} :: ListGrants)
+
+-- | Use this parameter in a subsequent request after you receive a response
+-- with truncated results. Set it to the value of @NextMarker@ from the
+-- truncated response you just received.
+listGrants_marker :: Lens.Lens' ListGrants (Prelude.Maybe Prelude.Text)
+listGrants_marker = Lens.lens (\ListGrants' {marker} -> marker) (\s@ListGrants' {} a -> s {marker = a} :: ListGrants)
 
 -- | Returns only grants for the specified KMS key. This parameter is
 -- required.
@@ -242,55 +243,56 @@ instance Core.AWSPager ListGrants where
 
 instance Core.AWSRequest ListGrants where
   type AWSResponse ListGrants = ListGrantsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable ListGrants where
   hashWithSalt _salt ListGrants' {..} =
     _salt `Prelude.hashWithSalt` grantId
       `Prelude.hashWithSalt` granteePrincipal
-      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` keyId
 
 instance Prelude.NFData ListGrants where
   rnf ListGrants' {..} =
     Prelude.rnf grantId
       `Prelude.seq` Prelude.rnf granteePrincipal
-      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf keyId
 
-instance Core.ToHeaders ListGrants where
+instance Data.ToHeaders ListGrants where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("TrentService.ListGrants" :: Prelude.ByteString),
+              Data.=# ("TrentService.ListGrants" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListGrants where
+instance Data.ToJSON ListGrants where
   toJSON ListGrants' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GrantId" Core..=) Prelude.<$> grantId,
-            ("GranteePrincipal" Core..=)
+          [ ("GrantId" Data..=) Prelude.<$> grantId,
+            ("GranteePrincipal" Data..=)
               Prelude.<$> granteePrincipal,
-            ("Marker" Core..=) Prelude.<$> marker,
-            ("Limit" Core..=) Prelude.<$> limit,
-            Prelude.Just ("KeyId" Core..= keyId)
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("Marker" Data..=) Prelude.<$> marker,
+            Prelude.Just ("KeyId" Data..= keyId)
           ]
       )
 
-instance Core.ToPath ListGrants where
+instance Data.ToPath ListGrants where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListGrants where
+instance Data.ToQuery ListGrants where
   toQuery = Prelude.const Prelude.mempty

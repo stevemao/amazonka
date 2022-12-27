@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.WorkerConfigurationRevisionDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KafkaConnect.Types.WorkerConfigurationRevisionDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The description of the worker configuration revision.
@@ -28,15 +29,15 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newWorkerConfigurationRevisionDescription' smart constructor.
 data WorkerConfigurationRevisionDescription = WorkerConfigurationRevisionDescription'
   { -- | The time that the worker configuration was created.
-    creationTime :: Prelude.Maybe Core.POSIX,
-    -- | The description of a revision of the worker configuration.
-    revision :: Prelude.Maybe Prelude.Integer,
-    -- | Base64 encoded contents of the connect-distributed.properties file.
-    propertiesFileContent :: Prelude.Maybe Prelude.Text,
+    creationTime :: Prelude.Maybe Data.POSIX,
     -- | The description of the worker configuration revision.
-    description :: Prelude.Maybe Prelude.Text
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Base64 encoded contents of the connect-distributed.properties file.
+    propertiesFileContent :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The description of a revision of the worker configuration.
+    revision :: Prelude.Maybe Prelude.Integer
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'WorkerConfigurationRevisionDescription' with all optional fields omitted.
@@ -48,52 +49,52 @@ data WorkerConfigurationRevisionDescription = WorkerConfigurationRevisionDescrip
 --
 -- 'creationTime', 'workerConfigurationRevisionDescription_creationTime' - The time that the worker configuration was created.
 --
--- 'revision', 'workerConfigurationRevisionDescription_revision' - The description of a revision of the worker configuration.
+-- 'description', 'workerConfigurationRevisionDescription_description' - The description of the worker configuration revision.
 --
 -- 'propertiesFileContent', 'workerConfigurationRevisionDescription_propertiesFileContent' - Base64 encoded contents of the connect-distributed.properties file.
 --
--- 'description', 'workerConfigurationRevisionDescription_description' - The description of the worker configuration revision.
+-- 'revision', 'workerConfigurationRevisionDescription_revision' - The description of a revision of the worker configuration.
 newWorkerConfigurationRevisionDescription ::
   WorkerConfigurationRevisionDescription
 newWorkerConfigurationRevisionDescription =
   WorkerConfigurationRevisionDescription'
     { creationTime =
         Prelude.Nothing,
-      revision = Prelude.Nothing,
+      description = Prelude.Nothing,
       propertiesFileContent =
         Prelude.Nothing,
-      description = Prelude.Nothing
+      revision = Prelude.Nothing
     }
 
 -- | The time that the worker configuration was created.
 workerConfigurationRevisionDescription_creationTime :: Lens.Lens' WorkerConfigurationRevisionDescription (Prelude.Maybe Prelude.UTCTime)
-workerConfigurationRevisionDescription_creationTime = Lens.lens (\WorkerConfigurationRevisionDescription' {creationTime} -> creationTime) (\s@WorkerConfigurationRevisionDescription' {} a -> s {creationTime = a} :: WorkerConfigurationRevisionDescription) Prelude.. Lens.mapping Core._Time
-
--- | The description of a revision of the worker configuration.
-workerConfigurationRevisionDescription_revision :: Lens.Lens' WorkerConfigurationRevisionDescription (Prelude.Maybe Prelude.Integer)
-workerConfigurationRevisionDescription_revision = Lens.lens (\WorkerConfigurationRevisionDescription' {revision} -> revision) (\s@WorkerConfigurationRevisionDescription' {} a -> s {revision = a} :: WorkerConfigurationRevisionDescription)
-
--- | Base64 encoded contents of the connect-distributed.properties file.
-workerConfigurationRevisionDescription_propertiesFileContent :: Lens.Lens' WorkerConfigurationRevisionDescription (Prelude.Maybe Prelude.Text)
-workerConfigurationRevisionDescription_propertiesFileContent = Lens.lens (\WorkerConfigurationRevisionDescription' {propertiesFileContent} -> propertiesFileContent) (\s@WorkerConfigurationRevisionDescription' {} a -> s {propertiesFileContent = a} :: WorkerConfigurationRevisionDescription)
+workerConfigurationRevisionDescription_creationTime = Lens.lens (\WorkerConfigurationRevisionDescription' {creationTime} -> creationTime) (\s@WorkerConfigurationRevisionDescription' {} a -> s {creationTime = a} :: WorkerConfigurationRevisionDescription) Prelude.. Lens.mapping Data._Time
 
 -- | The description of the worker configuration revision.
 workerConfigurationRevisionDescription_description :: Lens.Lens' WorkerConfigurationRevisionDescription (Prelude.Maybe Prelude.Text)
 workerConfigurationRevisionDescription_description = Lens.lens (\WorkerConfigurationRevisionDescription' {description} -> description) (\s@WorkerConfigurationRevisionDescription' {} a -> s {description = a} :: WorkerConfigurationRevisionDescription)
 
+-- | Base64 encoded contents of the connect-distributed.properties file.
+workerConfigurationRevisionDescription_propertiesFileContent :: Lens.Lens' WorkerConfigurationRevisionDescription (Prelude.Maybe Prelude.Text)
+workerConfigurationRevisionDescription_propertiesFileContent = Lens.lens (\WorkerConfigurationRevisionDescription' {propertiesFileContent} -> propertiesFileContent) (\s@WorkerConfigurationRevisionDescription' {} a -> s {propertiesFileContent = a} :: WorkerConfigurationRevisionDescription) Prelude.. Lens.mapping Data._Sensitive
+
+-- | The description of a revision of the worker configuration.
+workerConfigurationRevisionDescription_revision :: Lens.Lens' WorkerConfigurationRevisionDescription (Prelude.Maybe Prelude.Integer)
+workerConfigurationRevisionDescription_revision = Lens.lens (\WorkerConfigurationRevisionDescription' {revision} -> revision) (\s@WorkerConfigurationRevisionDescription' {} a -> s {revision = a} :: WorkerConfigurationRevisionDescription)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     WorkerConfigurationRevisionDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WorkerConfigurationRevisionDescription"
       ( \x ->
           WorkerConfigurationRevisionDescription'
-            Prelude.<$> (x Core..:? "creationTime")
-            Prelude.<*> (x Core..:? "revision")
-            Prelude.<*> (x Core..:? "propertiesFileContent")
-            Prelude.<*> (x Core..:? "description")
+            Prelude.<$> (x Data..:? "creationTime")
+            Prelude.<*> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "propertiesFileContent")
+            Prelude.<*> (x Data..:? "revision")
       )
 
 instance
@@ -104,9 +105,9 @@ instance
     _salt
     WorkerConfigurationRevisionDescription' {..} =
       _salt `Prelude.hashWithSalt` creationTime
-        `Prelude.hashWithSalt` revision
-        `Prelude.hashWithSalt` propertiesFileContent
         `Prelude.hashWithSalt` description
+        `Prelude.hashWithSalt` propertiesFileContent
+        `Prelude.hashWithSalt` revision
 
 instance
   Prelude.NFData
@@ -114,6 +115,6 @@ instance
   where
   rnf WorkerConfigurationRevisionDescription' {..} =
     Prelude.rnf creationTime
-      `Prelude.seq` Prelude.rnf revision
-      `Prelude.seq` Prelude.rnf propertiesFileContent
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf propertiesFileContent
+      `Prelude.seq` Prelude.rnf revision

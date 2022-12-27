@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.Types.ECSTaskSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,19 +22,34 @@ module Amazonka.CodeDeploy.Types.ECSTaskSet where
 import Amazonka.CodeDeploy.Types.TargetGroupInfo
 import Amazonka.CodeDeploy.Types.TargetLabel
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Information about a set of Amazon ECS tasks in an AWS CodeDeploy
--- deployment. An Amazon ECS task set includes details such as the desired
--- number of tasks, how many tasks are running, and whether the task set
--- serves production traffic. An AWS CodeDeploy application that uses the
--- Amazon ECS compute platform deploys a containerized application in an
--- Amazon ECS service as a task set.
+-- | Information about a set of Amazon ECS tasks in an CodeDeploy deployment.
+-- An Amazon ECS task set includes details such as the desired number of
+-- tasks, how many tasks are running, and whether the task set serves
+-- production traffic. An CodeDeploy application that uses the Amazon ECS
+-- compute platform deploys a containerized application in an Amazon ECS
+-- service as a task set.
 --
 -- /See:/ 'newECSTaskSet' smart constructor.
 data ECSTaskSet = ECSTaskSet'
-  { -- | The number of tasks in the task set that are in the @RUNNING@ status
+  { -- | The number of tasks in a task set. During a deployment that uses the
+    -- Amazon ECS compute type, CodeDeploy instructs Amazon ECS to create a new
+    -- task set and uses this value to determine how many tasks to create.
+    -- After the updated task set is created, CodeDeploy shifts traffic to the
+    -- new task set.
+    desiredCount :: Prelude.Maybe Prelude.Integer,
+    -- | A unique ID of an @ECSTaskSet@.
+    identifer :: Prelude.Maybe Prelude.Text,
+    -- | The number of tasks in the task set that are in the @PENDING@ status
+    -- during an Amazon ECS deployment. A task in the @PENDING@ state is
+    -- preparing to enter the @RUNNING@ state. A task set enters the @PENDING@
+    -- status when it launches for the first time, or when it is restarted
+    -- after being in the @STOPPED@ state.
+    pendingCount :: Prelude.Maybe Prelude.Integer,
+    -- | The number of tasks in the task set that are in the @RUNNING@ status
     -- during an Amazon ECS deployment. A task in the @RUNNING@ state is
     -- running and ready for use.
     runningCount :: Prelude.Maybe Prelude.Integer,
@@ -48,28 +63,14 @@ data ECSTaskSet = ECSTaskSet'
     --     and their corresponding targets are being deregistered from their
     --     target group.
     status :: Prelude.Maybe Prelude.Text,
-    -- | A unique ID of an @ECSTaskSet@.
-    identifer :: Prelude.Maybe Prelude.Text,
-    -- | The number of tasks in a task set. During a deployment that uses the
-    -- Amazon ECS compute type, CodeDeploy instructs Amazon ECS to create a new
-    -- task set and uses this value to determine how many tasks to create.
-    -- After the updated task set is created, CodeDeploy shifts traffic to the
-    -- new task set.
-    desiredCount :: Prelude.Maybe Prelude.Integer,
-    -- | The number of tasks in the task set that are in the @PENDING@ status
-    -- during an Amazon ECS deployment. A task in the @PENDING@ state is
-    -- preparing to enter the @RUNNING@ state. A task set enters the @PENDING@
-    -- status when it launches for the first time, or when it is restarted
-    -- after being in the @STOPPED@ state.
-    pendingCount :: Prelude.Maybe Prelude.Integer,
-    -- | The percentage of traffic served by this task set.
-    trafficWeight :: Prelude.Maybe Prelude.Double,
     -- | The target group associated with the task set. The target group is used
-    -- by AWS CodeDeploy to manage traffic to a task set.
+    -- by CodeDeploy to manage traffic to a task set.
     targetGroup :: Prelude.Maybe TargetGroupInfo,
     -- | A label that identifies whether the ECS task set is an original target
     -- (@BLUE@) or a replacement target (@GREEN@).
-    taskSetLabel :: Prelude.Maybe TargetLabel
+    taskSetLabel :: Prelude.Maybe TargetLabel,
+    -- | The percentage of traffic served by this task set.
+    trafficWeight :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -80,6 +81,20 @@ data ECSTaskSet = ECSTaskSet'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'desiredCount', 'eCSTaskSet_desiredCount' - The number of tasks in a task set. During a deployment that uses the
+-- Amazon ECS compute type, CodeDeploy instructs Amazon ECS to create a new
+-- task set and uses this value to determine how many tasks to create.
+-- After the updated task set is created, CodeDeploy shifts traffic to the
+-- new task set.
+--
+-- 'identifer', 'eCSTaskSet_identifer' - A unique ID of an @ECSTaskSet@.
+--
+-- 'pendingCount', 'eCSTaskSet_pendingCount' - The number of tasks in the task set that are in the @PENDING@ status
+-- during an Amazon ECS deployment. A task in the @PENDING@ state is
+-- preparing to enter the @RUNNING@ state. A task set enters the @PENDING@
+-- status when it launches for the first time, or when it is restarted
+-- after being in the @STOPPED@ state.
 --
 -- 'runningCount', 'eCSTaskSet_runningCount' - The number of tasks in the task set that are in the @RUNNING@ status
 -- during an Amazon ECS deployment. A task in the @RUNNING@ state is
@@ -95,40 +110,46 @@ data ECSTaskSet = ECSTaskSet'
 --     and their corresponding targets are being deregistered from their
 --     target group.
 --
--- 'identifer', 'eCSTaskSet_identifer' - A unique ID of an @ECSTaskSet@.
---
--- 'desiredCount', 'eCSTaskSet_desiredCount' - The number of tasks in a task set. During a deployment that uses the
--- Amazon ECS compute type, CodeDeploy instructs Amazon ECS to create a new
--- task set and uses this value to determine how many tasks to create.
--- After the updated task set is created, CodeDeploy shifts traffic to the
--- new task set.
---
--- 'pendingCount', 'eCSTaskSet_pendingCount' - The number of tasks in the task set that are in the @PENDING@ status
--- during an Amazon ECS deployment. A task in the @PENDING@ state is
--- preparing to enter the @RUNNING@ state. A task set enters the @PENDING@
--- status when it launches for the first time, or when it is restarted
--- after being in the @STOPPED@ state.
---
--- 'trafficWeight', 'eCSTaskSet_trafficWeight' - The percentage of traffic served by this task set.
---
 -- 'targetGroup', 'eCSTaskSet_targetGroup' - The target group associated with the task set. The target group is used
--- by AWS CodeDeploy to manage traffic to a task set.
+-- by CodeDeploy to manage traffic to a task set.
 --
 -- 'taskSetLabel', 'eCSTaskSet_taskSetLabel' - A label that identifies whether the ECS task set is an original target
 -- (@BLUE@) or a replacement target (@GREEN@).
+--
+-- 'trafficWeight', 'eCSTaskSet_trafficWeight' - The percentage of traffic served by this task set.
 newECSTaskSet ::
   ECSTaskSet
 newECSTaskSet =
   ECSTaskSet'
-    { runningCount = Prelude.Nothing,
-      status = Prelude.Nothing,
+    { desiredCount = Prelude.Nothing,
       identifer = Prelude.Nothing,
-      desiredCount = Prelude.Nothing,
       pendingCount = Prelude.Nothing,
-      trafficWeight = Prelude.Nothing,
+      runningCount = Prelude.Nothing,
+      status = Prelude.Nothing,
       targetGroup = Prelude.Nothing,
-      taskSetLabel = Prelude.Nothing
+      taskSetLabel = Prelude.Nothing,
+      trafficWeight = Prelude.Nothing
     }
+
+-- | The number of tasks in a task set. During a deployment that uses the
+-- Amazon ECS compute type, CodeDeploy instructs Amazon ECS to create a new
+-- task set and uses this value to determine how many tasks to create.
+-- After the updated task set is created, CodeDeploy shifts traffic to the
+-- new task set.
+eCSTaskSet_desiredCount :: Lens.Lens' ECSTaskSet (Prelude.Maybe Prelude.Integer)
+eCSTaskSet_desiredCount = Lens.lens (\ECSTaskSet' {desiredCount} -> desiredCount) (\s@ECSTaskSet' {} a -> s {desiredCount = a} :: ECSTaskSet)
+
+-- | A unique ID of an @ECSTaskSet@.
+eCSTaskSet_identifer :: Lens.Lens' ECSTaskSet (Prelude.Maybe Prelude.Text)
+eCSTaskSet_identifer = Lens.lens (\ECSTaskSet' {identifer} -> identifer) (\s@ECSTaskSet' {} a -> s {identifer = a} :: ECSTaskSet)
+
+-- | The number of tasks in the task set that are in the @PENDING@ status
+-- during an Amazon ECS deployment. A task in the @PENDING@ state is
+-- preparing to enter the @RUNNING@ state. A task set enters the @PENDING@
+-- status when it launches for the first time, or when it is restarted
+-- after being in the @STOPPED@ state.
+eCSTaskSet_pendingCount :: Lens.Lens' ECSTaskSet (Prelude.Maybe Prelude.Integer)
+eCSTaskSet_pendingCount = Lens.lens (\ECSTaskSet' {pendingCount} -> pendingCount) (\s@ECSTaskSet' {} a -> s {pendingCount = a} :: ECSTaskSet)
 
 -- | The number of tasks in the task set that are in the @RUNNING@ status
 -- during an Amazon ECS deployment. A task in the @RUNNING@ state is
@@ -148,32 +169,8 @@ eCSTaskSet_runningCount = Lens.lens (\ECSTaskSet' {runningCount} -> runningCount
 eCSTaskSet_status :: Lens.Lens' ECSTaskSet (Prelude.Maybe Prelude.Text)
 eCSTaskSet_status = Lens.lens (\ECSTaskSet' {status} -> status) (\s@ECSTaskSet' {} a -> s {status = a} :: ECSTaskSet)
 
--- | A unique ID of an @ECSTaskSet@.
-eCSTaskSet_identifer :: Lens.Lens' ECSTaskSet (Prelude.Maybe Prelude.Text)
-eCSTaskSet_identifer = Lens.lens (\ECSTaskSet' {identifer} -> identifer) (\s@ECSTaskSet' {} a -> s {identifer = a} :: ECSTaskSet)
-
--- | The number of tasks in a task set. During a deployment that uses the
--- Amazon ECS compute type, CodeDeploy instructs Amazon ECS to create a new
--- task set and uses this value to determine how many tasks to create.
--- After the updated task set is created, CodeDeploy shifts traffic to the
--- new task set.
-eCSTaskSet_desiredCount :: Lens.Lens' ECSTaskSet (Prelude.Maybe Prelude.Integer)
-eCSTaskSet_desiredCount = Lens.lens (\ECSTaskSet' {desiredCount} -> desiredCount) (\s@ECSTaskSet' {} a -> s {desiredCount = a} :: ECSTaskSet)
-
--- | The number of tasks in the task set that are in the @PENDING@ status
--- during an Amazon ECS deployment. A task in the @PENDING@ state is
--- preparing to enter the @RUNNING@ state. A task set enters the @PENDING@
--- status when it launches for the first time, or when it is restarted
--- after being in the @STOPPED@ state.
-eCSTaskSet_pendingCount :: Lens.Lens' ECSTaskSet (Prelude.Maybe Prelude.Integer)
-eCSTaskSet_pendingCount = Lens.lens (\ECSTaskSet' {pendingCount} -> pendingCount) (\s@ECSTaskSet' {} a -> s {pendingCount = a} :: ECSTaskSet)
-
--- | The percentage of traffic served by this task set.
-eCSTaskSet_trafficWeight :: Lens.Lens' ECSTaskSet (Prelude.Maybe Prelude.Double)
-eCSTaskSet_trafficWeight = Lens.lens (\ECSTaskSet' {trafficWeight} -> trafficWeight) (\s@ECSTaskSet' {} a -> s {trafficWeight = a} :: ECSTaskSet)
-
 -- | The target group associated with the task set. The target group is used
--- by AWS CodeDeploy to manage traffic to a task set.
+-- by CodeDeploy to manage traffic to a task set.
 eCSTaskSet_targetGroup :: Lens.Lens' ECSTaskSet (Prelude.Maybe TargetGroupInfo)
 eCSTaskSet_targetGroup = Lens.lens (\ECSTaskSet' {targetGroup} -> targetGroup) (\s@ECSTaskSet' {} a -> s {targetGroup = a} :: ECSTaskSet)
 
@@ -182,40 +179,44 @@ eCSTaskSet_targetGroup = Lens.lens (\ECSTaskSet' {targetGroup} -> targetGroup) (
 eCSTaskSet_taskSetLabel :: Lens.Lens' ECSTaskSet (Prelude.Maybe TargetLabel)
 eCSTaskSet_taskSetLabel = Lens.lens (\ECSTaskSet' {taskSetLabel} -> taskSetLabel) (\s@ECSTaskSet' {} a -> s {taskSetLabel = a} :: ECSTaskSet)
 
-instance Core.FromJSON ECSTaskSet where
+-- | The percentage of traffic served by this task set.
+eCSTaskSet_trafficWeight :: Lens.Lens' ECSTaskSet (Prelude.Maybe Prelude.Double)
+eCSTaskSet_trafficWeight = Lens.lens (\ECSTaskSet' {trafficWeight} -> trafficWeight) (\s@ECSTaskSet' {} a -> s {trafficWeight = a} :: ECSTaskSet)
+
+instance Data.FromJSON ECSTaskSet where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ECSTaskSet"
       ( \x ->
           ECSTaskSet'
-            Prelude.<$> (x Core..:? "runningCount")
-            Prelude.<*> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "identifer")
-            Prelude.<*> (x Core..:? "desiredCount")
-            Prelude.<*> (x Core..:? "pendingCount")
-            Prelude.<*> (x Core..:? "trafficWeight")
-            Prelude.<*> (x Core..:? "targetGroup")
-            Prelude.<*> (x Core..:? "taskSetLabel")
+            Prelude.<$> (x Data..:? "desiredCount")
+            Prelude.<*> (x Data..:? "identifer")
+            Prelude.<*> (x Data..:? "pendingCount")
+            Prelude.<*> (x Data..:? "runningCount")
+            Prelude.<*> (x Data..:? "status")
+            Prelude.<*> (x Data..:? "targetGroup")
+            Prelude.<*> (x Data..:? "taskSetLabel")
+            Prelude.<*> (x Data..:? "trafficWeight")
       )
 
 instance Prelude.Hashable ECSTaskSet where
   hashWithSalt _salt ECSTaskSet' {..} =
-    _salt `Prelude.hashWithSalt` runningCount
-      `Prelude.hashWithSalt` status
+    _salt `Prelude.hashWithSalt` desiredCount
       `Prelude.hashWithSalt` identifer
-      `Prelude.hashWithSalt` desiredCount
       `Prelude.hashWithSalt` pendingCount
-      `Prelude.hashWithSalt` trafficWeight
+      `Prelude.hashWithSalt` runningCount
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` targetGroup
       `Prelude.hashWithSalt` taskSetLabel
+      `Prelude.hashWithSalt` trafficWeight
 
 instance Prelude.NFData ECSTaskSet where
   rnf ECSTaskSet' {..} =
-    Prelude.rnf runningCount
-      `Prelude.seq` Prelude.rnf status
+    Prelude.rnf desiredCount
       `Prelude.seq` Prelude.rnf identifer
-      `Prelude.seq` Prelude.rnf desiredCount
       `Prelude.seq` Prelude.rnf pendingCount
-      `Prelude.seq` Prelude.rnf trafficWeight
+      `Prelude.seq` Prelude.rnf runningCount
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf targetGroup
       `Prelude.seq` Prelude.rnf taskSetLabel
+      `Prelude.seq` Prelude.rnf trafficWeight

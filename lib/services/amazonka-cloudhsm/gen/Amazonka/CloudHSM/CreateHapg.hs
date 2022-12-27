@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudHSM.CreateHapg
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -57,7 +57,8 @@ where
 
 import Amazonka.CloudHSM.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,12 +93,13 @@ createHapg_label = Lens.lens (\CreateHapg' {label} -> label) (\s@CreateHapg' {} 
 
 instance Core.AWSRequest CreateHapg where
   type AWSResponse CreateHapg = CreateHapgResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateHapgResponse'
-            Prelude.<$> (x Core..?> "HapgArn")
+            Prelude.<$> (x Data..?> "HapgArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,32 +110,32 @@ instance Prelude.Hashable CreateHapg where
 instance Prelude.NFData CreateHapg where
   rnf CreateHapg' {..} = Prelude.rnf label
 
-instance Core.ToHeaders CreateHapg where
+instance Data.ToHeaders CreateHapg where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CloudHsmFrontendService.CreateHapg" ::
+              Data.=# ( "CloudHsmFrontendService.CreateHapg" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateHapg where
+instance Data.ToJSON CreateHapg where
   toJSON CreateHapg' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Label" Core..= label)]
+          [Prelude.Just ("Label" Data..= label)]
       )
 
-instance Core.ToPath CreateHapg where
+instance Data.ToPath CreateHapg where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateHapg where
+instance Data.ToQuery CreateHapg where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of the CreateHAPartitionGroup action.

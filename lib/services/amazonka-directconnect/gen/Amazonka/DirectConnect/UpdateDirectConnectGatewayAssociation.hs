@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.UpdateDirectConnectGatewayAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.DirectConnect.UpdateDirectConnectGatewayAssociation
     newUpdateDirectConnectGatewayAssociation,
 
     -- * Request Lenses
-    updateDirectConnectGatewayAssociation_associationId,
     updateDirectConnectGatewayAssociation_addAllowedPrefixesToDirectConnectGateway,
+    updateDirectConnectGatewayAssociation_associationId,
     updateDirectConnectGatewayAssociation_removeAllowedPrefixesToDirectConnectGateway,
 
     -- * Destructuring the Response
@@ -45,18 +45,19 @@ module Amazonka.DirectConnect.UpdateDirectConnectGatewayAssociation
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateDirectConnectGatewayAssociation' smart constructor.
 data UpdateDirectConnectGatewayAssociation = UpdateDirectConnectGatewayAssociation'
-  { -- | The ID of the Direct Connect gateway association.
-    associationId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon VPC prefixes to advertise to the Direct Connect gateway.
+  { -- | The Amazon VPC prefixes to advertise to the Direct Connect gateway.
     addAllowedPrefixesToDirectConnectGateway :: Prelude.Maybe [RouteFilterPrefix],
+    -- | The ID of the Direct Connect gateway association.
+    associationId :: Prelude.Maybe Prelude.Text,
     -- | The Amazon VPC prefixes to no longer advertise to the Direct Connect
     -- gateway.
     removeAllowedPrefixesToDirectConnectGateway :: Prelude.Maybe [RouteFilterPrefix]
@@ -71,9 +72,9 @@ data UpdateDirectConnectGatewayAssociation = UpdateDirectConnectGatewayAssociati
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'associationId', 'updateDirectConnectGatewayAssociation_associationId' - The ID of the Direct Connect gateway association.
---
 -- 'addAllowedPrefixesToDirectConnectGateway', 'updateDirectConnectGatewayAssociation_addAllowedPrefixesToDirectConnectGateway' - The Amazon VPC prefixes to advertise to the Direct Connect gateway.
+--
+-- 'associationId', 'updateDirectConnectGatewayAssociation_associationId' - The ID of the Direct Connect gateway association.
 --
 -- 'removeAllowedPrefixesToDirectConnectGateway', 'updateDirectConnectGatewayAssociation_removeAllowedPrefixesToDirectConnectGateway' - The Amazon VPC prefixes to no longer advertise to the Direct Connect
 -- gateway.
@@ -81,21 +82,20 @@ newUpdateDirectConnectGatewayAssociation ::
   UpdateDirectConnectGatewayAssociation
 newUpdateDirectConnectGatewayAssociation =
   UpdateDirectConnectGatewayAssociation'
-    { associationId =
+    { addAllowedPrefixesToDirectConnectGateway =
         Prelude.Nothing,
-      addAllowedPrefixesToDirectConnectGateway =
-        Prelude.Nothing,
+      associationId = Prelude.Nothing,
       removeAllowedPrefixesToDirectConnectGateway =
         Prelude.Nothing
     }
 
--- | The ID of the Direct Connect gateway association.
-updateDirectConnectGatewayAssociation_associationId :: Lens.Lens' UpdateDirectConnectGatewayAssociation (Prelude.Maybe Prelude.Text)
-updateDirectConnectGatewayAssociation_associationId = Lens.lens (\UpdateDirectConnectGatewayAssociation' {associationId} -> associationId) (\s@UpdateDirectConnectGatewayAssociation' {} a -> s {associationId = a} :: UpdateDirectConnectGatewayAssociation)
-
 -- | The Amazon VPC prefixes to advertise to the Direct Connect gateway.
 updateDirectConnectGatewayAssociation_addAllowedPrefixesToDirectConnectGateway :: Lens.Lens' UpdateDirectConnectGatewayAssociation (Prelude.Maybe [RouteFilterPrefix])
 updateDirectConnectGatewayAssociation_addAllowedPrefixesToDirectConnectGateway = Lens.lens (\UpdateDirectConnectGatewayAssociation' {addAllowedPrefixesToDirectConnectGateway} -> addAllowedPrefixesToDirectConnectGateway) (\s@UpdateDirectConnectGatewayAssociation' {} a -> s {addAllowedPrefixesToDirectConnectGateway = a} :: UpdateDirectConnectGatewayAssociation) Prelude.. Lens.mapping Lens.coerced
+
+-- | The ID of the Direct Connect gateway association.
+updateDirectConnectGatewayAssociation_associationId :: Lens.Lens' UpdateDirectConnectGatewayAssociation (Prelude.Maybe Prelude.Text)
+updateDirectConnectGatewayAssociation_associationId = Lens.lens (\UpdateDirectConnectGatewayAssociation' {associationId} -> associationId) (\s@UpdateDirectConnectGatewayAssociation' {} a -> s {associationId = a} :: UpdateDirectConnectGatewayAssociation)
 
 -- | The Amazon VPC prefixes to no longer advertise to the Direct Connect
 -- gateway.
@@ -110,12 +110,13 @@ instance
     AWSResponse
       UpdateDirectConnectGatewayAssociation =
       UpdateDirectConnectGatewayAssociationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDirectConnectGatewayAssociationResponse'
-            Prelude.<$> (x Core..?> "directConnectGatewayAssociation")
+            Prelude.<$> (x Data..?> "directConnectGatewayAssociation")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,8 +127,9 @@ instance
   hashWithSalt
     _salt
     UpdateDirectConnectGatewayAssociation' {..} =
-      _salt `Prelude.hashWithSalt` associationId
+      _salt
         `Prelude.hashWithSalt` addAllowedPrefixesToDirectConnectGateway
+        `Prelude.hashWithSalt` associationId
         `Prelude.hashWithSalt` removeAllowedPrefixesToDirectConnectGateway
 
 instance
@@ -135,54 +137,55 @@ instance
     UpdateDirectConnectGatewayAssociation
   where
   rnf UpdateDirectConnectGatewayAssociation' {..} =
-    Prelude.rnf associationId
-      `Prelude.seq` Prelude.rnf addAllowedPrefixesToDirectConnectGateway
+    Prelude.rnf
+      addAllowedPrefixesToDirectConnectGateway
+      `Prelude.seq` Prelude.rnf associationId
       `Prelude.seq` Prelude.rnf
         removeAllowedPrefixesToDirectConnectGateway
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateDirectConnectGatewayAssociation
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.UpdateDirectConnectGatewayAssociation" ::
+              Data.=# ( "OvertureService.UpdateDirectConnectGatewayAssociation" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     UpdateDirectConnectGatewayAssociation
   where
   toJSON UpdateDirectConnectGatewayAssociation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("associationId" Core..=) Prelude.<$> associationId,
-            ("addAllowedPrefixesToDirectConnectGateway" Core..=)
+          [ ("addAllowedPrefixesToDirectConnectGateway" Data..=)
               Prelude.<$> addAllowedPrefixesToDirectConnectGateway,
+            ("associationId" Data..=) Prelude.<$> associationId,
             ( "removeAllowedPrefixesToDirectConnectGateway"
-                Core..=
+                Data..=
             )
               Prelude.<$> removeAllowedPrefixesToDirectConnectGateway
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     UpdateDirectConnectGatewayAssociation
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateDirectConnectGatewayAssociation
   where
   toQuery = Prelude.const Prelude.mempty

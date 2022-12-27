@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutEquipment.Types.DatasetSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LookoutEquipment.Types.DatasetSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutEquipment.Types.DatasetStatus
 import qualified Amazonka.Prelude as Prelude
 
@@ -29,15 +30,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDatasetSummary' smart constructor.
 data DatasetSummary = DatasetSummary'
-  { -- | Indicates the status of the dataset.
-    status :: Prelude.Maybe DatasetStatus,
+  { -- | The time at which the dataset was created in Amazon Lookout for
+    -- Equipment.
+    createdAt :: Prelude.Maybe Data.POSIX,
     -- | The Amazon Resource Name (ARN) of the specified dataset.
     datasetArn :: Prelude.Maybe Prelude.Text,
-    -- | The time at which the dataset was created in Amazon Lookout for
-    -- Equipment.
-    createdAt :: Prelude.Maybe Core.POSIX,
     -- | The name of the dataset.
-    datasetName :: Prelude.Maybe Prelude.Text
+    datasetName :: Prelude.Maybe Prelude.Text,
+    -- | Indicates the status of the dataset.
+    status :: Prelude.Maybe DatasetStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,63 +50,63 @@ data DatasetSummary = DatasetSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'datasetSummary_status' - Indicates the status of the dataset.
---
--- 'datasetArn', 'datasetSummary_datasetArn' - The Amazon Resource Name (ARN) of the specified dataset.
---
 -- 'createdAt', 'datasetSummary_createdAt' - The time at which the dataset was created in Amazon Lookout for
 -- Equipment.
 --
+-- 'datasetArn', 'datasetSummary_datasetArn' - The Amazon Resource Name (ARN) of the specified dataset.
+--
 -- 'datasetName', 'datasetSummary_datasetName' - The name of the dataset.
+--
+-- 'status', 'datasetSummary_status' - Indicates the status of the dataset.
 newDatasetSummary ::
   DatasetSummary
 newDatasetSummary =
   DatasetSummary'
-    { status = Prelude.Nothing,
+    { createdAt = Prelude.Nothing,
       datasetArn = Prelude.Nothing,
-      createdAt = Prelude.Nothing,
-      datasetName = Prelude.Nothing
+      datasetName = Prelude.Nothing,
+      status = Prelude.Nothing
     }
 
--- | Indicates the status of the dataset.
-datasetSummary_status :: Lens.Lens' DatasetSummary (Prelude.Maybe DatasetStatus)
-datasetSummary_status = Lens.lens (\DatasetSummary' {status} -> status) (\s@DatasetSummary' {} a -> s {status = a} :: DatasetSummary)
+-- | The time at which the dataset was created in Amazon Lookout for
+-- Equipment.
+datasetSummary_createdAt :: Lens.Lens' DatasetSummary (Prelude.Maybe Prelude.UTCTime)
+datasetSummary_createdAt = Lens.lens (\DatasetSummary' {createdAt} -> createdAt) (\s@DatasetSummary' {} a -> s {createdAt = a} :: DatasetSummary) Prelude.. Lens.mapping Data._Time
 
 -- | The Amazon Resource Name (ARN) of the specified dataset.
 datasetSummary_datasetArn :: Lens.Lens' DatasetSummary (Prelude.Maybe Prelude.Text)
 datasetSummary_datasetArn = Lens.lens (\DatasetSummary' {datasetArn} -> datasetArn) (\s@DatasetSummary' {} a -> s {datasetArn = a} :: DatasetSummary)
 
--- | The time at which the dataset was created in Amazon Lookout for
--- Equipment.
-datasetSummary_createdAt :: Lens.Lens' DatasetSummary (Prelude.Maybe Prelude.UTCTime)
-datasetSummary_createdAt = Lens.lens (\DatasetSummary' {createdAt} -> createdAt) (\s@DatasetSummary' {} a -> s {createdAt = a} :: DatasetSummary) Prelude.. Lens.mapping Core._Time
-
 -- | The name of the dataset.
 datasetSummary_datasetName :: Lens.Lens' DatasetSummary (Prelude.Maybe Prelude.Text)
 datasetSummary_datasetName = Lens.lens (\DatasetSummary' {datasetName} -> datasetName) (\s@DatasetSummary' {} a -> s {datasetName = a} :: DatasetSummary)
 
-instance Core.FromJSON DatasetSummary where
+-- | Indicates the status of the dataset.
+datasetSummary_status :: Lens.Lens' DatasetSummary (Prelude.Maybe DatasetStatus)
+datasetSummary_status = Lens.lens (\DatasetSummary' {status} -> status) (\s@DatasetSummary' {} a -> s {status = a} :: DatasetSummary)
+
+instance Data.FromJSON DatasetSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DatasetSummary"
       ( \x ->
           DatasetSummary'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "DatasetArn")
-            Prelude.<*> (x Core..:? "CreatedAt")
-            Prelude.<*> (x Core..:? "DatasetName")
+            Prelude.<$> (x Data..:? "CreatedAt")
+            Prelude.<*> (x Data..:? "DatasetArn")
+            Prelude.<*> (x Data..:? "DatasetName")
+            Prelude.<*> (x Data..:? "Status")
       )
 
 instance Prelude.Hashable DatasetSummary where
   hashWithSalt _salt DatasetSummary' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt `Prelude.hashWithSalt` createdAt
       `Prelude.hashWithSalt` datasetArn
-      `Prelude.hashWithSalt` createdAt
       `Prelude.hashWithSalt` datasetName
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData DatasetSummary where
   rnf DatasetSummary' {..} =
-    Prelude.rnf status
+    Prelude.rnf createdAt
       `Prelude.seq` Prelude.rnf datasetArn
-      `Prelude.seq` Prelude.rnf createdAt
       `Prelude.seq` Prelude.rnf datasetName
+      `Prelude.seq` Prelude.rnf status

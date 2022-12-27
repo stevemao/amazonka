@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackageVOD.ListPackagingGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,22 +29,23 @@ module Amazonka.MediaPackageVOD.ListPackagingGroups
     newListPackagingGroups,
 
     -- * Request Lenses
-    listPackagingGroups_nextToken,
     listPackagingGroups_maxResults,
+    listPackagingGroups_nextToken,
 
     -- * Destructuring the Response
     ListPackagingGroupsResponse (..),
     newListPackagingGroupsResponse,
 
     -- * Response Lenses
-    listPackagingGroupsResponse_packagingGroups,
     listPackagingGroupsResponse_nextToken,
+    listPackagingGroupsResponse_packagingGroups,
     listPackagingGroupsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaPackageVOD.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,10 +53,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListPackagingGroups' smart constructor.
 data ListPackagingGroups = ListPackagingGroups'
-  { -- | A token used to resume pagination from the end of a previous request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Upper bound on number of records to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | Upper bound on number of records to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token used to resume pagination from the end of a previous request.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,24 +68,24 @@ data ListPackagingGroups = ListPackagingGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listPackagingGroups_nextToken' - A token used to resume pagination from the end of a previous request.
---
 -- 'maxResults', 'listPackagingGroups_maxResults' - Upper bound on number of records to return.
+--
+-- 'nextToken', 'listPackagingGroups_nextToken' - A token used to resume pagination from the end of a previous request.
 newListPackagingGroups ::
   ListPackagingGroups
 newListPackagingGroups =
   ListPackagingGroups'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | A token used to resume pagination from the end of a previous request.
-listPackagingGroups_nextToken :: Lens.Lens' ListPackagingGroups (Prelude.Maybe Prelude.Text)
-listPackagingGroups_nextToken = Lens.lens (\ListPackagingGroups' {nextToken} -> nextToken) (\s@ListPackagingGroups' {} a -> s {nextToken = a} :: ListPackagingGroups)
 
 -- | Upper bound on number of records to return.
 listPackagingGroups_maxResults :: Lens.Lens' ListPackagingGroups (Prelude.Maybe Prelude.Natural)
 listPackagingGroups_maxResults = Lens.lens (\ListPackagingGroups' {maxResults} -> maxResults) (\s@ListPackagingGroups' {} a -> s {maxResults = a} :: ListPackagingGroups)
+
+-- | A token used to resume pagination from the end of a previous request.
+listPackagingGroups_nextToken :: Lens.Lens' ListPackagingGroups (Prelude.Maybe Prelude.Text)
+listPackagingGroups_nextToken = Lens.lens (\ListPackagingGroups' {nextToken} -> nextToken) (\s@ListPackagingGroups' {} a -> s {nextToken = a} :: ListPackagingGroups)
 
 instance Core.AWSPager ListPackagingGroups where
   page rq rs
@@ -112,56 +113,57 @@ instance Core.AWSRequest ListPackagingGroups where
   type
     AWSResponse ListPackagingGroups =
       ListPackagingGroupsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPackagingGroupsResponse'
-            Prelude.<$> ( x Core..?> "packagingGroups"
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> ( x Data..?> "packagingGroups"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListPackagingGroups where
   hashWithSalt _salt ListPackagingGroups' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListPackagingGroups where
   rnf ListPackagingGroups' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListPackagingGroups where
+instance Data.ToHeaders ListPackagingGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListPackagingGroups where
+instance Data.ToPath ListPackagingGroups where
   toPath = Prelude.const "/packaging_groups"
 
-instance Core.ToQuery ListPackagingGroups where
+instance Data.ToQuery ListPackagingGroups where
   toQuery ListPackagingGroups' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListPackagingGroupsResponse' smart constructor.
 data ListPackagingGroupsResponse = ListPackagingGroupsResponse'
-  { -- | A list of MediaPackage VOD PackagingGroup resources.
-    packagingGroups :: Prelude.Maybe [PackagingGroup],
-    -- | A token that can be used to resume pagination from the end of the
+  { -- | A token that can be used to resume pagination from the end of the
     -- collection.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of MediaPackage VOD PackagingGroup resources.
+    packagingGroups :: Prelude.Maybe [PackagingGroup],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -175,10 +177,10 @@ data ListPackagingGroupsResponse = ListPackagingGroupsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'packagingGroups', 'listPackagingGroupsResponse_packagingGroups' - A list of MediaPackage VOD PackagingGroup resources.
---
 -- 'nextToken', 'listPackagingGroupsResponse_nextToken' - A token that can be used to resume pagination from the end of the
 -- collection.
+--
+-- 'packagingGroups', 'listPackagingGroupsResponse_packagingGroups' - A list of MediaPackage VOD PackagingGroup resources.
 --
 -- 'httpStatus', 'listPackagingGroupsResponse_httpStatus' - The response's http status code.
 newListPackagingGroupsResponse ::
@@ -187,20 +189,20 @@ newListPackagingGroupsResponse ::
   ListPackagingGroupsResponse
 newListPackagingGroupsResponse pHttpStatus_ =
   ListPackagingGroupsResponse'
-    { packagingGroups =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      packagingGroups = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of MediaPackage VOD PackagingGroup resources.
-listPackagingGroupsResponse_packagingGroups :: Lens.Lens' ListPackagingGroupsResponse (Prelude.Maybe [PackagingGroup])
-listPackagingGroupsResponse_packagingGroups = Lens.lens (\ListPackagingGroupsResponse' {packagingGroups} -> packagingGroups) (\s@ListPackagingGroupsResponse' {} a -> s {packagingGroups = a} :: ListPackagingGroupsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A token that can be used to resume pagination from the end of the
 -- collection.
 listPackagingGroupsResponse_nextToken :: Lens.Lens' ListPackagingGroupsResponse (Prelude.Maybe Prelude.Text)
 listPackagingGroupsResponse_nextToken = Lens.lens (\ListPackagingGroupsResponse' {nextToken} -> nextToken) (\s@ListPackagingGroupsResponse' {} a -> s {nextToken = a} :: ListPackagingGroupsResponse)
+
+-- | A list of MediaPackage VOD PackagingGroup resources.
+listPackagingGroupsResponse_packagingGroups :: Lens.Lens' ListPackagingGroupsResponse (Prelude.Maybe [PackagingGroup])
+listPackagingGroupsResponse_packagingGroups = Lens.lens (\ListPackagingGroupsResponse' {packagingGroups} -> packagingGroups) (\s@ListPackagingGroupsResponse' {} a -> s {packagingGroups = a} :: ListPackagingGroupsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listPackagingGroupsResponse_httpStatus :: Lens.Lens' ListPackagingGroupsResponse Prelude.Int
@@ -208,6 +210,6 @@ listPackagingGroupsResponse_httpStatus = Lens.lens (\ListPackagingGroupsResponse
 
 instance Prelude.NFData ListPackagingGroupsResponse where
   rnf ListPackagingGroupsResponse' {..} =
-    Prelude.rnf packagingGroups
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf packagingGroups
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.Types.GeoLocation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53.Types.GeoLocation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53.Internal
 
@@ -28,21 +29,7 @@ import Amazonka.Route53.Internal
 --
 -- /See:/ 'newGeoLocation' smart constructor.
 data GeoLocation = GeoLocation'
-  { -- | For geolocation resource record sets, the two-letter code for a state of
-    -- the United States. Route 53 doesn\'t support any other values for
-    -- @SubdivisionCode@. For a list of state abbreviations, see
-    -- <https://pe.usps.com/text/pub28/28apb.htm Appendix B: Two–Letter State and Possession Abbreviations>
-    -- on the United States Postal Service website.
-    --
-    -- If you specify @subdivisioncode@, you must also specify @US@ for
-    -- @CountryCode@.
-    subdivisionCode :: Prelude.Maybe Prelude.Text,
-    -- | For geolocation resource record sets, the two-letter code for a country.
-    --
-    -- Amazon Route 53 uses the two-letter country codes that are specified in
-    -- <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO standard 3166-1 alpha-2>.
-    countryCode :: Prelude.Maybe Prelude.Text,
-    -- | The two-letter code for the continent.
+  { -- | The two-letter code for the continent.
     --
     -- Amazon Route 53 supports the following continent codes:
     --
@@ -62,7 +49,21 @@ data GeoLocation = GeoLocation'
     --
     -- Constraint: Specifying @ContinentCode@ with either @CountryCode@ or
     -- @SubdivisionCode@ returns an @InvalidInput@ error.
-    continentCode :: Prelude.Maybe Prelude.Text
+    continentCode :: Prelude.Maybe Prelude.Text,
+    -- | For geolocation resource record sets, the two-letter code for a country.
+    --
+    -- Amazon Route 53 uses the two-letter country codes that are specified in
+    -- <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO standard 3166-1 alpha-2>.
+    countryCode :: Prelude.Maybe Prelude.Text,
+    -- | For geolocation resource record sets, the two-letter code for a state of
+    -- the United States. Route 53 doesn\'t support any other values for
+    -- @SubdivisionCode@. For a list of state abbreviations, see
+    -- <https://pe.usps.com/text/pub28/28apb.htm Appendix B: Two–Letter State and Possession Abbreviations>
+    -- on the United States Postal Service website.
+    --
+    -- If you specify @subdivisioncode@, you must also specify @US@ for
+    -- @CountryCode@.
+    subdivisionCode :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,20 +74,6 @@ data GeoLocation = GeoLocation'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'subdivisionCode', 'geoLocation_subdivisionCode' - For geolocation resource record sets, the two-letter code for a state of
--- the United States. Route 53 doesn\'t support any other values for
--- @SubdivisionCode@. For a list of state abbreviations, see
--- <https://pe.usps.com/text/pub28/28apb.htm Appendix B: Two–Letter State and Possession Abbreviations>
--- on the United States Postal Service website.
---
--- If you specify @subdivisioncode@, you must also specify @US@ for
--- @CountryCode@.
---
--- 'countryCode', 'geoLocation_countryCode' - For geolocation resource record sets, the two-letter code for a country.
---
--- Amazon Route 53 uses the two-letter country codes that are specified in
--- <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO standard 3166-1 alpha-2>.
 --
 -- 'continentCode', 'geoLocation_continentCode' - The two-letter code for the continent.
 --
@@ -108,16 +95,13 @@ data GeoLocation = GeoLocation'
 --
 -- Constraint: Specifying @ContinentCode@ with either @CountryCode@ or
 -- @SubdivisionCode@ returns an @InvalidInput@ error.
-newGeoLocation ::
-  GeoLocation
-newGeoLocation =
-  GeoLocation'
-    { subdivisionCode = Prelude.Nothing,
-      countryCode = Prelude.Nothing,
-      continentCode = Prelude.Nothing
-    }
-
--- | For geolocation resource record sets, the two-letter code for a state of
+--
+-- 'countryCode', 'geoLocation_countryCode' - For geolocation resource record sets, the two-letter code for a country.
+--
+-- Amazon Route 53 uses the two-letter country codes that are specified in
+-- <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO standard 3166-1 alpha-2>.
+--
+-- 'subdivisionCode', 'geoLocation_subdivisionCode' - For geolocation resource record sets, the two-letter code for a state of
 -- the United States. Route 53 doesn\'t support any other values for
 -- @SubdivisionCode@. For a list of state abbreviations, see
 -- <https://pe.usps.com/text/pub28/28apb.htm Appendix B: Two–Letter State and Possession Abbreviations>
@@ -125,15 +109,14 @@ newGeoLocation =
 --
 -- If you specify @subdivisioncode@, you must also specify @US@ for
 -- @CountryCode@.
-geoLocation_subdivisionCode :: Lens.Lens' GeoLocation (Prelude.Maybe Prelude.Text)
-geoLocation_subdivisionCode = Lens.lens (\GeoLocation' {subdivisionCode} -> subdivisionCode) (\s@GeoLocation' {} a -> s {subdivisionCode = a} :: GeoLocation)
-
--- | For geolocation resource record sets, the two-letter code for a country.
---
--- Amazon Route 53 uses the two-letter country codes that are specified in
--- <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO standard 3166-1 alpha-2>.
-geoLocation_countryCode :: Lens.Lens' GeoLocation (Prelude.Maybe Prelude.Text)
-geoLocation_countryCode = Lens.lens (\GeoLocation' {countryCode} -> countryCode) (\s@GeoLocation' {} a -> s {countryCode = a} :: GeoLocation)
+newGeoLocation ::
+  GeoLocation
+newGeoLocation =
+  GeoLocation'
+    { continentCode = Prelude.Nothing,
+      countryCode = Prelude.Nothing,
+      subdivisionCode = Prelude.Nothing
+    }
 
 -- | The two-letter code for the continent.
 --
@@ -158,29 +141,47 @@ geoLocation_countryCode = Lens.lens (\GeoLocation' {countryCode} -> countryCode)
 geoLocation_continentCode :: Lens.Lens' GeoLocation (Prelude.Maybe Prelude.Text)
 geoLocation_continentCode = Lens.lens (\GeoLocation' {continentCode} -> continentCode) (\s@GeoLocation' {} a -> s {continentCode = a} :: GeoLocation)
 
-instance Core.FromXML GeoLocation where
+-- | For geolocation resource record sets, the two-letter code for a country.
+--
+-- Amazon Route 53 uses the two-letter country codes that are specified in
+-- <https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2 ISO standard 3166-1 alpha-2>.
+geoLocation_countryCode :: Lens.Lens' GeoLocation (Prelude.Maybe Prelude.Text)
+geoLocation_countryCode = Lens.lens (\GeoLocation' {countryCode} -> countryCode) (\s@GeoLocation' {} a -> s {countryCode = a} :: GeoLocation)
+
+-- | For geolocation resource record sets, the two-letter code for a state of
+-- the United States. Route 53 doesn\'t support any other values for
+-- @SubdivisionCode@. For a list of state abbreviations, see
+-- <https://pe.usps.com/text/pub28/28apb.htm Appendix B: Two–Letter State and Possession Abbreviations>
+-- on the United States Postal Service website.
+--
+-- If you specify @subdivisioncode@, you must also specify @US@ for
+-- @CountryCode@.
+geoLocation_subdivisionCode :: Lens.Lens' GeoLocation (Prelude.Maybe Prelude.Text)
+geoLocation_subdivisionCode = Lens.lens (\GeoLocation' {subdivisionCode} -> subdivisionCode) (\s@GeoLocation' {} a -> s {subdivisionCode = a} :: GeoLocation)
+
+instance Data.FromXML GeoLocation where
   parseXML x =
     GeoLocation'
-      Prelude.<$> (x Core..@? "SubdivisionCode")
-      Prelude.<*> (x Core..@? "CountryCode")
-      Prelude.<*> (x Core..@? "ContinentCode")
+      Prelude.<$> (x Data..@? "ContinentCode")
+      Prelude.<*> (x Data..@? "CountryCode")
+      Prelude.<*> (x Data..@? "SubdivisionCode")
 
 instance Prelude.Hashable GeoLocation where
   hashWithSalt _salt GeoLocation' {..} =
-    _salt `Prelude.hashWithSalt` subdivisionCode
+    _salt `Prelude.hashWithSalt` continentCode
       `Prelude.hashWithSalt` countryCode
-      `Prelude.hashWithSalt` continentCode
+      `Prelude.hashWithSalt` subdivisionCode
 
 instance Prelude.NFData GeoLocation where
   rnf GeoLocation' {..} =
-    Prelude.rnf subdivisionCode
+    Prelude.rnf continentCode
       `Prelude.seq` Prelude.rnf countryCode
-      `Prelude.seq` Prelude.rnf continentCode
+      `Prelude.seq` Prelude.rnf subdivisionCode
 
-instance Core.ToXML GeoLocation where
+instance Data.ToXML GeoLocation where
   toXML GeoLocation' {..} =
     Prelude.mconcat
-      [ "SubdivisionCode" Core.@= subdivisionCode,
-        "CountryCode" Core.@= countryCode,
-        "ContinentCode" Core.@= continentCode
+      [ "ContinentCode" Data.@= continentCode,
+        "CountryCode" Data.@= countryCode,
+        "SubdivisionCode" Data.@= subdivisionCode
       ]

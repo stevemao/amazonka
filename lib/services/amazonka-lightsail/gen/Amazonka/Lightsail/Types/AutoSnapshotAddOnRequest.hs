@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.AutoSnapshotAddOnRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.AutoSnapshotAddOnRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a request to enable or modify the automatic snapshot add-on
@@ -121,11 +122,11 @@ instance Prelude.NFData AutoSnapshotAddOnRequest where
   rnf AutoSnapshotAddOnRequest' {..} =
     Prelude.rnf snapshotTimeOfDay
 
-instance Core.ToJSON AutoSnapshotAddOnRequest where
+instance Data.ToJSON AutoSnapshotAddOnRequest where
   toJSON AutoSnapshotAddOnRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("snapshotTimeOfDay" Core..=)
+          [ ("snapshotTimeOfDay" Data..=)
               Prelude.<$> snapshotTimeOfDay
           ]
       )

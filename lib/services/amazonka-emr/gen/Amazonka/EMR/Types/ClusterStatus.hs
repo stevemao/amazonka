@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.ClusterStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.EMR.Types.ClusterStatus where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types.ClusterState
 import Amazonka.EMR.Types.ClusterStateChangeReason
 import Amazonka.EMR.Types.ClusterTimeline
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The detailed status of the cluster.
@@ -76,15 +77,15 @@ clusterStatus_stateChangeReason = Lens.lens (\ClusterStatus' {stateChangeReason}
 clusterStatus_timeline :: Lens.Lens' ClusterStatus (Prelude.Maybe ClusterTimeline)
 clusterStatus_timeline = Lens.lens (\ClusterStatus' {timeline} -> timeline) (\s@ClusterStatus' {} a -> s {timeline = a} :: ClusterStatus)
 
-instance Core.FromJSON ClusterStatus where
+instance Data.FromJSON ClusterStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ClusterStatus"
       ( \x ->
           ClusterStatus'
-            Prelude.<$> (x Core..:? "State")
-            Prelude.<*> (x Core..:? "StateChangeReason")
-            Prelude.<*> (x Core..:? "Timeline")
+            Prelude.<$> (x Data..:? "State")
+            Prelude.<*> (x Data..:? "StateChangeReason")
+            Prelude.<*> (x Data..:? "Timeline")
       )
 
 instance Prelude.Hashable ClusterStatus where

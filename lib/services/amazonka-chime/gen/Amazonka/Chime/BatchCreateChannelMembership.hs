@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.BatchCreateChannelMembership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,15 +37,16 @@ module Amazonka.Chime.BatchCreateChannelMembership
     newBatchCreateChannelMembershipResponse,
 
     -- * Response Lenses
-    batchCreateChannelMembershipResponse_errors,
     batchCreateChannelMembershipResponse_batchChannelMemberships,
+    batchCreateChannelMembershipResponse_errors,
     batchCreateChannelMembershipResponse_httpStatus,
   )
 where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -127,13 +128,14 @@ instance Core.AWSRequest BatchCreateChannelMembership where
   type
     AWSResponse BatchCreateChannelMembership =
       BatchCreateChannelMembershipResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchCreateChannelMembershipResponse'
-            Prelude.<$> (x Core..?> "Errors" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "BatchChannelMemberships")
+            Prelude.<$> (x Data..?> "BatchChannelMemberships")
+            Prelude.<*> (x Data..?> "Errors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -154,38 +156,38 @@ instance Prelude.NFData BatchCreateChannelMembership where
       `Prelude.seq` Prelude.rnf channelArn
       `Prelude.seq` Prelude.rnf memberArns
 
-instance Core.ToHeaders BatchCreateChannelMembership where
+instance Data.ToHeaders BatchCreateChannelMembership where
   toHeaders BatchCreateChannelMembership' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToJSON BatchCreateChannelMembership where
+instance Data.ToJSON BatchCreateChannelMembership where
   toJSON BatchCreateChannelMembership' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Type" Core..=) Prelude.<$> type',
-            Prelude.Just ("MemberArns" Core..= memberArns)
+          [ ("Type" Data..=) Prelude.<$> type',
+            Prelude.Just ("MemberArns" Data..= memberArns)
           ]
       )
 
-instance Core.ToPath BatchCreateChannelMembership where
+instance Data.ToPath BatchCreateChannelMembership where
   toPath BatchCreateChannelMembership' {..} =
     Prelude.mconcat
-      ["/channels/", Core.toBS channelArn, "/memberships"]
+      ["/channels/", Data.toBS channelArn, "/memberships"]
 
-instance Core.ToQuery BatchCreateChannelMembership where
+instance Data.ToQuery BatchCreateChannelMembership where
   toQuery =
     Prelude.const
       (Prelude.mconcat ["operation=batch-create"])
 
 -- | /See:/ 'newBatchCreateChannelMembershipResponse' smart constructor.
 data BatchCreateChannelMembershipResponse = BatchCreateChannelMembershipResponse'
-  { -- | If the action fails for one or more of the memberships in the request, a
+  { -- | The list of channel memberships in the response.
+    batchChannelMemberships :: Prelude.Maybe BatchChannelMemberships,
+    -- | If the action fails for one or more of the memberships in the request, a
     -- list of the memberships is returned, along with error codes and error
     -- messages.
     errors :: Prelude.Maybe [BatchCreateChannelMembershipError],
-    -- | The list of channel memberships in the response.
-    batchChannelMemberships :: Prelude.Maybe BatchChannelMemberships,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -199,11 +201,11 @@ data BatchCreateChannelMembershipResponse = BatchCreateChannelMembershipResponse
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'batchChannelMemberships', 'batchCreateChannelMembershipResponse_batchChannelMemberships' - The list of channel memberships in the response.
+--
 -- 'errors', 'batchCreateChannelMembershipResponse_errors' - If the action fails for one or more of the memberships in the request, a
 -- list of the memberships is returned, along with error codes and error
 -- messages.
---
--- 'batchChannelMemberships', 'batchCreateChannelMembershipResponse_batchChannelMemberships' - The list of channel memberships in the response.
 --
 -- 'httpStatus', 'batchCreateChannelMembershipResponse_httpStatus' - The response's http status code.
 newBatchCreateChannelMembershipResponse ::
@@ -212,22 +214,21 @@ newBatchCreateChannelMembershipResponse ::
   BatchCreateChannelMembershipResponse
 newBatchCreateChannelMembershipResponse pHttpStatus_ =
   BatchCreateChannelMembershipResponse'
-    { errors =
+    { batchChannelMemberships =
         Prelude.Nothing,
-      batchChannelMemberships =
-        Prelude.Nothing,
+      errors = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The list of channel memberships in the response.
+batchCreateChannelMembershipResponse_batchChannelMemberships :: Lens.Lens' BatchCreateChannelMembershipResponse (Prelude.Maybe BatchChannelMemberships)
+batchCreateChannelMembershipResponse_batchChannelMemberships = Lens.lens (\BatchCreateChannelMembershipResponse' {batchChannelMemberships} -> batchChannelMemberships) (\s@BatchCreateChannelMembershipResponse' {} a -> s {batchChannelMemberships = a} :: BatchCreateChannelMembershipResponse)
 
 -- | If the action fails for one or more of the memberships in the request, a
 -- list of the memberships is returned, along with error codes and error
 -- messages.
 batchCreateChannelMembershipResponse_errors :: Lens.Lens' BatchCreateChannelMembershipResponse (Prelude.Maybe [BatchCreateChannelMembershipError])
 batchCreateChannelMembershipResponse_errors = Lens.lens (\BatchCreateChannelMembershipResponse' {errors} -> errors) (\s@BatchCreateChannelMembershipResponse' {} a -> s {errors = a} :: BatchCreateChannelMembershipResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The list of channel memberships in the response.
-batchCreateChannelMembershipResponse_batchChannelMemberships :: Lens.Lens' BatchCreateChannelMembershipResponse (Prelude.Maybe BatchChannelMemberships)
-batchCreateChannelMembershipResponse_batchChannelMemberships = Lens.lens (\BatchCreateChannelMembershipResponse' {batchChannelMemberships} -> batchChannelMemberships) (\s@BatchCreateChannelMembershipResponse' {} a -> s {batchChannelMemberships = a} :: BatchCreateChannelMembershipResponse)
 
 -- | The response's http status code.
 batchCreateChannelMembershipResponse_httpStatus :: Lens.Lens' BatchCreateChannelMembershipResponse Prelude.Int
@@ -238,6 +239,6 @@ instance
     BatchCreateChannelMembershipResponse
   where
   rnf BatchCreateChannelMembershipResponse' {..} =
-    Prelude.rnf errors
-      `Prelude.seq` Prelude.rnf batchChannelMemberships
+    Prelude.rnf batchChannelMemberships
+      `Prelude.seq` Prelude.rnf errors
       `Prelude.seq` Prelude.rnf httpStatus

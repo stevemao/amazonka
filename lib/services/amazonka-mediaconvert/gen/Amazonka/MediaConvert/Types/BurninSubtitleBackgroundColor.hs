@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.BurninSubtitleBackgroundColor
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,16 +29,16 @@ module Amazonka.MediaConvert.Types.BurninSubtitleBackgroundColor
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specify the color of the rectangle behind the captions. Leave background
 -- color (BackgroundColor) blank and set Style passthrough
 -- (StylePassthrough) to enabled to use the background color data from your
--- input captions, if present. Within your job settings, all of your
--- DVB-Sub settings must be identical.
+-- input captions, if present.
 newtype BurninSubtitleBackgroundColor = BurninSubtitleBackgroundColor'
   { fromBurninSubtitleBackgroundColor ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -50,18 +50,18 @@ newtype BurninSubtitleBackgroundColor = BurninSubtitleBackgroundColor'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern BurninSubtitleBackgroundColor_AUTO :: BurninSubtitleBackgroundColor

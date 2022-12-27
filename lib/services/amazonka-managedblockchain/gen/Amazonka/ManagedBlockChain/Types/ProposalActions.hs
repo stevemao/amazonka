@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.Types.ProposalActions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ManagedBlockChain.Types.ProposalActions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types.InviteAction
 import Amazonka.ManagedBlockChain.Types.RemoveAction
 import qualified Amazonka.Prelude as Prelude
@@ -31,8 +32,8 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newProposalActions' smart constructor.
 data ProposalActions = ProposalActions'
-  { -- | The actions to perform for an @APPROVED@ proposal to invite an AWS
-    -- account to create a member and join the network.
+  { -- | The actions to perform for an @APPROVED@ proposal to invite an Amazon
+    -- Web Services account to create a member and join the network.
     invitations :: Prelude.Maybe [InviteAction],
     -- | The actions to perform for an @APPROVED@ proposal to remove a member
     -- from the network, which deletes the member and all associated member
@@ -49,8 +50,8 @@ data ProposalActions = ProposalActions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'invitations', 'proposalActions_invitations' - The actions to perform for an @APPROVED@ proposal to invite an AWS
--- account to create a member and join the network.
+-- 'invitations', 'proposalActions_invitations' - The actions to perform for an @APPROVED@ proposal to invite an Amazon
+-- Web Services account to create a member and join the network.
 --
 -- 'removals', 'proposalActions_removals' - The actions to perform for an @APPROVED@ proposal to remove a member
 -- from the network, which deletes the member and all associated member
@@ -63,8 +64,8 @@ newProposalActions =
       removals = Prelude.Nothing
     }
 
--- | The actions to perform for an @APPROVED@ proposal to invite an AWS
--- account to create a member and join the network.
+-- | The actions to perform for an @APPROVED@ proposal to invite an Amazon
+-- Web Services account to create a member and join the network.
 proposalActions_invitations :: Lens.Lens' ProposalActions (Prelude.Maybe [InviteAction])
 proposalActions_invitations = Lens.lens (\ProposalActions' {invitations} -> invitations) (\s@ProposalActions' {} a -> s {invitations = a} :: ProposalActions) Prelude.. Lens.mapping Lens.coerced
 
@@ -74,14 +75,14 @@ proposalActions_invitations = Lens.lens (\ProposalActions' {invitations} -> invi
 proposalActions_removals :: Lens.Lens' ProposalActions (Prelude.Maybe [RemoveAction])
 proposalActions_removals = Lens.lens (\ProposalActions' {removals} -> removals) (\s@ProposalActions' {} a -> s {removals = a} :: ProposalActions) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ProposalActions where
+instance Data.FromJSON ProposalActions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProposalActions"
       ( \x ->
           ProposalActions'
-            Prelude.<$> (x Core..:? "Invitations" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Removals" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Invitations" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Removals" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ProposalActions where
@@ -94,11 +95,11 @@ instance Prelude.NFData ProposalActions where
     Prelude.rnf invitations
       `Prelude.seq` Prelude.rnf removals
 
-instance Core.ToJSON ProposalActions where
+instance Data.ToJSON ProposalActions where
   toJSON ProposalActions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Invitations" Core..=) Prelude.<$> invitations,
-            ("Removals" Core..=) Prelude.<$> removals
+          [ ("Invitations" Data..=) Prelude.<$> invitations,
+            ("Removals" Data..=) Prelude.<$> removals
           ]
       )

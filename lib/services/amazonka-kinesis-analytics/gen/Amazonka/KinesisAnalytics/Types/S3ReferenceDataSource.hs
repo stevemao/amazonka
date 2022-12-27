@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.Types.S3ReferenceDataSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalytics.Types.S3ReferenceDataSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Identifies the S3 bucket and object that contains the reference data.
@@ -107,13 +108,13 @@ instance Prelude.NFData S3ReferenceDataSource where
       `Prelude.seq` Prelude.rnf fileKey
       `Prelude.seq` Prelude.rnf referenceRoleARN
 
-instance Core.ToJSON S3ReferenceDataSource where
+instance Data.ToJSON S3ReferenceDataSource where
   toJSON S3ReferenceDataSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("BucketARN" Core..= bucketARN),
-            Prelude.Just ("FileKey" Core..= fileKey),
+          [ Prelude.Just ("BucketARN" Data..= bucketARN),
+            Prelude.Just ("FileKey" Data..= fileKey),
             Prelude.Just
-              ("ReferenceRoleARN" Core..= referenceRoleARN)
+              ("ReferenceRoleARN" Data..= referenceRoleARN)
           ]
       )

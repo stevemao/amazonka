@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.RetryPipelineExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,6 +27,7 @@ module Amazonka.SageMaker.RetryPipelineExecution
     newRetryPipelineExecution,
 
     -- * Request Lenses
+    retryPipelineExecution_parallelismConfiguration,
     retryPipelineExecution_pipelineExecutionArn,
     retryPipelineExecution_clientRequestToken,
 
@@ -41,7 +42,8 @@ module Amazonka.SageMaker.RetryPipelineExecution
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,7 +51,10 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newRetryPipelineExecution' smart constructor.
 data RetryPipelineExecution = RetryPipelineExecution'
-  { -- | The Amazon Resource Name (ARN) of the pipeline execution.
+  { -- | This configuration, if specified, overrides the parallelism
+    -- configuration of the parent pipeline.
+    parallelismConfiguration :: Prelude.Maybe ParallelismConfiguration,
+    -- | The Amazon Resource Name (ARN) of the pipeline execution.
     pipelineExecutionArn :: Prelude.Text,
     -- | A unique, case-sensitive identifier that you provide to ensure the
     -- idempotency of the operation. An idempotent operation completes no more
@@ -66,6 +71,9 @@ data RetryPipelineExecution = RetryPipelineExecution'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'parallelismConfiguration', 'retryPipelineExecution_parallelismConfiguration' - This configuration, if specified, overrides the parallelism
+-- configuration of the parent pipeline.
+--
 -- 'pipelineExecutionArn', 'retryPipelineExecution_pipelineExecutionArn' - The Amazon Resource Name (ARN) of the pipeline execution.
 --
 -- 'clientRequestToken', 'retryPipelineExecution_clientRequestToken' - A unique, case-sensitive identifier that you provide to ensure the
@@ -81,10 +89,16 @@ newRetryPipelineExecution
   pPipelineExecutionArn_
   pClientRequestToken_ =
     RetryPipelineExecution'
-      { pipelineExecutionArn =
-          pPipelineExecutionArn_,
+      { parallelismConfiguration =
+          Prelude.Nothing,
+        pipelineExecutionArn = pPipelineExecutionArn_,
         clientRequestToken = pClientRequestToken_
       }
+
+-- | This configuration, if specified, overrides the parallelism
+-- configuration of the parent pipeline.
+retryPipelineExecution_parallelismConfiguration :: Lens.Lens' RetryPipelineExecution (Prelude.Maybe ParallelismConfiguration)
+retryPipelineExecution_parallelismConfiguration = Lens.lens (\RetryPipelineExecution' {parallelismConfiguration} -> parallelismConfiguration) (\s@RetryPipelineExecution' {} a -> s {parallelismConfiguration = a} :: RetryPipelineExecution)
 
 -- | The Amazon Resource Name (ARN) of the pipeline execution.
 retryPipelineExecution_pipelineExecutionArn :: Lens.Lens' RetryPipelineExecution Prelude.Text
@@ -100,57 +114,63 @@ instance Core.AWSRequest RetryPipelineExecution where
   type
     AWSResponse RetryPipelineExecution =
       RetryPipelineExecutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RetryPipelineExecutionResponse'
-            Prelude.<$> (x Core..?> "PipelineExecutionArn")
+            Prelude.<$> (x Data..?> "PipelineExecutionArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable RetryPipelineExecution where
   hashWithSalt _salt RetryPipelineExecution' {..} =
-    _salt `Prelude.hashWithSalt` pipelineExecutionArn
+    _salt
+      `Prelude.hashWithSalt` parallelismConfiguration
+      `Prelude.hashWithSalt` pipelineExecutionArn
       `Prelude.hashWithSalt` clientRequestToken
 
 instance Prelude.NFData RetryPipelineExecution where
   rnf RetryPipelineExecution' {..} =
-    Prelude.rnf pipelineExecutionArn
+    Prelude.rnf parallelismConfiguration
+      `Prelude.seq` Prelude.rnf pipelineExecutionArn
       `Prelude.seq` Prelude.rnf clientRequestToken
 
-instance Core.ToHeaders RetryPipelineExecution where
+instance Data.ToHeaders RetryPipelineExecution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.RetryPipelineExecution" ::
+              Data.=# ( "SageMaker.RetryPipelineExecution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RetryPipelineExecution where
+instance Data.ToJSON RetryPipelineExecution where
   toJSON RetryPipelineExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just
+          [ ("ParallelismConfiguration" Data..=)
+              Prelude.<$> parallelismConfiguration,
+            Prelude.Just
               ( "PipelineExecutionArn"
-                  Core..= pipelineExecutionArn
+                  Data..= pipelineExecutionArn
               ),
             Prelude.Just
-              ("ClientRequestToken" Core..= clientRequestToken)
+              ("ClientRequestToken" Data..= clientRequestToken)
           ]
       )
 
-instance Core.ToPath RetryPipelineExecution where
+instance Data.ToPath RetryPipelineExecution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RetryPipelineExecution where
+instance Data.ToQuery RetryPipelineExecution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRetryPipelineExecutionResponse' smart constructor.

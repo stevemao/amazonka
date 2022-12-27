@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.SearchTransitGatewayMulticastGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,33 +30,39 @@ module Amazonka.EC2.SearchTransitGatewayMulticastGroups
     newSearchTransitGatewayMulticastGroups,
 
     -- * Request Lenses
-    searchTransitGatewayMulticastGroups_filters,
-    searchTransitGatewayMulticastGroups_transitGatewayMulticastDomainId,
-    searchTransitGatewayMulticastGroups_nextToken,
     searchTransitGatewayMulticastGroups_dryRun,
+    searchTransitGatewayMulticastGroups_filters,
     searchTransitGatewayMulticastGroups_maxResults,
+    searchTransitGatewayMulticastGroups_nextToken,
+    searchTransitGatewayMulticastGroups_transitGatewayMulticastDomainId,
 
     -- * Destructuring the Response
     SearchTransitGatewayMulticastGroupsResponse (..),
     newSearchTransitGatewayMulticastGroupsResponse,
 
     -- * Response Lenses
-    searchTransitGatewayMulticastGroupsResponse_nextToken,
     searchTransitGatewayMulticastGroupsResponse_multicastGroups,
+    searchTransitGatewayMulticastGroupsResponse_nextToken,
     searchTransitGatewayMulticastGroupsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newSearchTransitGatewayMulticastGroups' smart constructor.
 data SearchTransitGatewayMulticastGroups = SearchTransitGatewayMulticastGroups'
-  { -- | One or more filters. The possible values are:
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters. The possible values are:
     --
     -- -   @group-ip-address@ - The IP address of the transit gateway multicast
     --     group.
@@ -81,19 +87,14 @@ data SearchTransitGatewayMulticastGroups = SearchTransitGatewayMulticastGroups'
     -- -   @transit-gateway-attachment-id@ - The id of the transit gateway
     --     attachment.
     filters :: Prelude.Maybe [Filter],
-    -- | The ID of the transit gateway multicast domain.
-    transitGatewayMulticastDomainId :: Prelude.Maybe Prelude.Text,
-    -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the transit gateway multicast domain.
+    transitGatewayMulticastDomainId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -104,6 +105,11 @@ data SearchTransitGatewayMulticastGroups = SearchTransitGatewayMulticastGroups'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dryRun', 'searchTransitGatewayMulticastGroups_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'searchTransitGatewayMulticastGroups_filters' - One or more filters. The possible values are:
 --
@@ -130,30 +136,32 @@ data SearchTransitGatewayMulticastGroups = SearchTransitGatewayMulticastGroups'
 -- -   @transit-gateway-attachment-id@ - The id of the transit gateway
 --     attachment.
 --
--- 'transitGatewayMulticastDomainId', 'searchTransitGatewayMulticastGroups_transitGatewayMulticastDomainId' - The ID of the transit gateway multicast domain.
---
--- 'nextToken', 'searchTransitGatewayMulticastGroups_nextToken' - The token for the next page of results.
---
--- 'dryRun', 'searchTransitGatewayMulticastGroups_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
 -- 'maxResults', 'searchTransitGatewayMulticastGroups_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'searchTransitGatewayMulticastGroups_nextToken' - The token for the next page of results.
+--
+-- 'transitGatewayMulticastDomainId', 'searchTransitGatewayMulticastGroups_transitGatewayMulticastDomainId' - The ID of the transit gateway multicast domain.
 newSearchTransitGatewayMulticastGroups ::
   SearchTransitGatewayMulticastGroups
 newSearchTransitGatewayMulticastGroups =
   SearchTransitGatewayMulticastGroups'
-    { filters =
+    { dryRun =
         Prelude.Nothing,
-      transitGatewayMulticastDomainId =
-        Prelude.Nothing,
+      filters = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      transitGatewayMulticastDomainId =
+        Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+searchTransitGatewayMulticastGroups_dryRun :: Lens.Lens' SearchTransitGatewayMulticastGroups (Prelude.Maybe Prelude.Bool)
+searchTransitGatewayMulticastGroups_dryRun = Lens.lens (\SearchTransitGatewayMulticastGroups' {dryRun} -> dryRun) (\s@SearchTransitGatewayMulticastGroups' {} a -> s {dryRun = a} :: SearchTransitGatewayMulticastGroups)
 
 -- | One or more filters. The possible values are:
 --
@@ -182,26 +190,19 @@ newSearchTransitGatewayMulticastGroups =
 searchTransitGatewayMulticastGroups_filters :: Lens.Lens' SearchTransitGatewayMulticastGroups (Prelude.Maybe [Filter])
 searchTransitGatewayMulticastGroups_filters = Lens.lens (\SearchTransitGatewayMulticastGroups' {filters} -> filters) (\s@SearchTransitGatewayMulticastGroups' {} a -> s {filters = a} :: SearchTransitGatewayMulticastGroups) Prelude.. Lens.mapping Lens.coerced
 
--- | The ID of the transit gateway multicast domain.
-searchTransitGatewayMulticastGroups_transitGatewayMulticastDomainId :: Lens.Lens' SearchTransitGatewayMulticastGroups (Prelude.Maybe Prelude.Text)
-searchTransitGatewayMulticastGroups_transitGatewayMulticastDomainId = Lens.lens (\SearchTransitGatewayMulticastGroups' {transitGatewayMulticastDomainId} -> transitGatewayMulticastDomainId) (\s@SearchTransitGatewayMulticastGroups' {} a -> s {transitGatewayMulticastDomainId = a} :: SearchTransitGatewayMulticastGroups)
-
--- | The token for the next page of results.
-searchTransitGatewayMulticastGroups_nextToken :: Lens.Lens' SearchTransitGatewayMulticastGroups (Prelude.Maybe Prelude.Text)
-searchTransitGatewayMulticastGroups_nextToken = Lens.lens (\SearchTransitGatewayMulticastGroups' {nextToken} -> nextToken) (\s@SearchTransitGatewayMulticastGroups' {} a -> s {nextToken = a} :: SearchTransitGatewayMulticastGroups)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-searchTransitGatewayMulticastGroups_dryRun :: Lens.Lens' SearchTransitGatewayMulticastGroups (Prelude.Maybe Prelude.Bool)
-searchTransitGatewayMulticastGroups_dryRun = Lens.lens (\SearchTransitGatewayMulticastGroups' {dryRun} -> dryRun) (\s@SearchTransitGatewayMulticastGroups' {} a -> s {dryRun = a} :: SearchTransitGatewayMulticastGroups)
-
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 searchTransitGatewayMulticastGroups_maxResults :: Lens.Lens' SearchTransitGatewayMulticastGroups (Prelude.Maybe Prelude.Natural)
 searchTransitGatewayMulticastGroups_maxResults = Lens.lens (\SearchTransitGatewayMulticastGroups' {maxResults} -> maxResults) (\s@SearchTransitGatewayMulticastGroups' {} a -> s {maxResults = a} :: SearchTransitGatewayMulticastGroups)
+
+-- | The token for the next page of results.
+searchTransitGatewayMulticastGroups_nextToken :: Lens.Lens' SearchTransitGatewayMulticastGroups (Prelude.Maybe Prelude.Text)
+searchTransitGatewayMulticastGroups_nextToken = Lens.lens (\SearchTransitGatewayMulticastGroups' {nextToken} -> nextToken) (\s@SearchTransitGatewayMulticastGroups' {} a -> s {nextToken = a} :: SearchTransitGatewayMulticastGroups)
+
+-- | The ID of the transit gateway multicast domain.
+searchTransitGatewayMulticastGroups_transitGatewayMulticastDomainId :: Lens.Lens' SearchTransitGatewayMulticastGroups (Prelude.Maybe Prelude.Text)
+searchTransitGatewayMulticastGroups_transitGatewayMulticastDomainId = Lens.lens (\SearchTransitGatewayMulticastGroups' {transitGatewayMulticastDomainId} -> transitGatewayMulticastDomainId) (\s@SearchTransitGatewayMulticastGroups' {} a -> s {transitGatewayMulticastDomainId = a} :: SearchTransitGatewayMulticastGroups)
 
 instance
   Core.AWSPager
@@ -235,15 +236,16 @@ instance
   type
     AWSResponse SearchTransitGatewayMulticastGroups =
       SearchTransitGatewayMulticastGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           SearchTransitGatewayMulticastGroupsResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-              Prelude.<*> ( x Core..@? "multicastGroups" Core..!@ Prelude.mempty
-                              Prelude.>>= Core.may (Core.parseXMLList "item")
-                          )
+            Prelude.<$> ( x Data..@? "multicastGroups" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
+                        )
+              Prelude.<*> (x Data..@? "nextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -254,63 +256,63 @@ instance
   hashWithSalt
     _salt
     SearchTransitGatewayMulticastGroups' {..} =
-      _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` transitGatewayMulticastDomainId
-        `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` dryRun
+      _salt `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` filters
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
+        `Prelude.hashWithSalt` transitGatewayMulticastDomainId
 
 instance
   Prelude.NFData
     SearchTransitGatewayMulticastGroups
   where
   rnf SearchTransitGatewayMulticastGroups' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf transitGatewayMulticastDomainId
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf transitGatewayMulticastDomainId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     SearchTransitGatewayMulticastGroups
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     SearchTransitGatewayMulticastGroups
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     SearchTransitGatewayMulticastGroups
   where
   toQuery SearchTransitGatewayMulticastGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "SearchTransitGatewayMulticastGroups" ::
+          Data.=: ( "SearchTransitGatewayMulticastGroups" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
         "TransitGatewayMulticastDomainId"
-          Core.=: transitGatewayMulticastDomainId,
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+          Data.=: transitGatewayMulticastDomainId
       ]
 
 -- | /See:/ 'newSearchTransitGatewayMulticastGroupsResponse' smart constructor.
 data SearchTransitGatewayMulticastGroupsResponse = SearchTransitGatewayMulticastGroupsResponse'
-  { -- | The token to use to retrieve the next page of results. This value is
+  { -- | Information about the transit gateway multicast group.
+    multicastGroups :: Prelude.Maybe [TransitGatewayMulticastGroup],
+    -- | The token to use to retrieve the next page of results. This value is
     -- @null@ when there are no more results to return.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Information about the transit gateway multicast group.
-    multicastGroups :: Prelude.Maybe [TransitGatewayMulticastGroup],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -324,10 +326,10 @@ data SearchTransitGatewayMulticastGroupsResponse = SearchTransitGatewayMulticast
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'multicastGroups', 'searchTransitGatewayMulticastGroupsResponse_multicastGroups' - Information about the transit gateway multicast group.
+--
 -- 'nextToken', 'searchTransitGatewayMulticastGroupsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
 -- @null@ when there are no more results to return.
---
--- 'multicastGroups', 'searchTransitGatewayMulticastGroupsResponse_multicastGroups' - Information about the transit gateway multicast group.
 --
 -- 'httpStatus', 'searchTransitGatewayMulticastGroupsResponse_httpStatus' - The response's http status code.
 newSearchTransitGatewayMulticastGroupsResponse ::
@@ -337,21 +339,20 @@ newSearchTransitGatewayMulticastGroupsResponse ::
 newSearchTransitGatewayMulticastGroupsResponse
   pHttpStatus_ =
     SearchTransitGatewayMulticastGroupsResponse'
-      { nextToken =
+      { multicastGroups =
           Prelude.Nothing,
-        multicastGroups =
-          Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
+
+-- | Information about the transit gateway multicast group.
+searchTransitGatewayMulticastGroupsResponse_multicastGroups :: Lens.Lens' SearchTransitGatewayMulticastGroupsResponse (Prelude.Maybe [TransitGatewayMulticastGroup])
+searchTransitGatewayMulticastGroupsResponse_multicastGroups = Lens.lens (\SearchTransitGatewayMulticastGroupsResponse' {multicastGroups} -> multicastGroups) (\s@SearchTransitGatewayMulticastGroupsResponse' {} a -> s {multicastGroups = a} :: SearchTransitGatewayMulticastGroupsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to use to retrieve the next page of results. This value is
 -- @null@ when there are no more results to return.
 searchTransitGatewayMulticastGroupsResponse_nextToken :: Lens.Lens' SearchTransitGatewayMulticastGroupsResponse (Prelude.Maybe Prelude.Text)
 searchTransitGatewayMulticastGroupsResponse_nextToken = Lens.lens (\SearchTransitGatewayMulticastGroupsResponse' {nextToken} -> nextToken) (\s@SearchTransitGatewayMulticastGroupsResponse' {} a -> s {nextToken = a} :: SearchTransitGatewayMulticastGroupsResponse)
-
--- | Information about the transit gateway multicast group.
-searchTransitGatewayMulticastGroupsResponse_multicastGroups :: Lens.Lens' SearchTransitGatewayMulticastGroupsResponse (Prelude.Maybe [TransitGatewayMulticastGroup])
-searchTransitGatewayMulticastGroupsResponse_multicastGroups = Lens.lens (\SearchTransitGatewayMulticastGroupsResponse' {multicastGroups} -> multicastGroups) (\s@SearchTransitGatewayMulticastGroupsResponse' {} a -> s {multicastGroups = a} :: SearchTransitGatewayMulticastGroupsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 searchTransitGatewayMulticastGroupsResponse_httpStatus :: Lens.Lens' SearchTransitGatewayMulticastGroupsResponse Prelude.Int
@@ -362,6 +363,6 @@ instance
     SearchTransitGatewayMulticastGroupsResponse
   where
   rnf SearchTransitGatewayMulticastGroupsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf multicastGroups
+    Prelude.rnf multicastGroups
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

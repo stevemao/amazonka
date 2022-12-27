@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.DeleteDBClusterSnapshot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.Neptune.DeleteDBClusterSnapshot
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -93,13 +94,14 @@ instance Core.AWSRequest DeleteDBClusterSnapshot where
   type
     AWSResponse DeleteDBClusterSnapshot =
       DeleteDBClusterSnapshotResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteDBClusterSnapshotResult"
       ( \s h x ->
           DeleteDBClusterSnapshotResponse'
-            Prelude.<$> (x Core..@? "DBClusterSnapshot")
+            Prelude.<$> (x Data..@? "DBClusterSnapshot")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,21 +114,21 @@ instance Prelude.NFData DeleteDBClusterSnapshot where
   rnf DeleteDBClusterSnapshot' {..} =
     Prelude.rnf dbClusterSnapshotIdentifier
 
-instance Core.ToHeaders DeleteDBClusterSnapshot where
+instance Data.ToHeaders DeleteDBClusterSnapshot where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDBClusterSnapshot where
+instance Data.ToPath DeleteDBClusterSnapshot where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDBClusterSnapshot where
+instance Data.ToQuery DeleteDBClusterSnapshot where
   toQuery DeleteDBClusterSnapshot' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteDBClusterSnapshot" :: Prelude.ByteString),
+          Data.=: ("DeleteDBClusterSnapshot" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "DBClusterSnapshotIdentifier"
-          Core.=: dbClusterSnapshotIdentifier
+          Data.=: dbClusterSnapshotIdentifier
       ]
 
 -- | /See:/ 'newDeleteDBClusterSnapshotResponse' smart constructor.

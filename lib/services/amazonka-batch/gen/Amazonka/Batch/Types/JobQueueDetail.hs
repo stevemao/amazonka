@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.Types.JobQueueDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,38 +23,44 @@ import Amazonka.Batch.Types.ComputeEnvironmentOrder
 import Amazonka.Batch.Types.JQState
 import Amazonka.Batch.Types.JQStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | An object representing the details of an Batch job queue.
+-- | An object that represents the details for an Batch job queue.
 --
 -- /See:/ 'newJobQueueDetail' smart constructor.
 data JobQueueDetail = JobQueueDetail'
-  { -- | The status of the job queue (for example, @CREATING@ or @VALID@).
+  { -- | The Amazon Resource Name (ARN) of the scheduling policy. The format is
+    -- @aws:Partition:batch:Region:Account:scheduling-policy\/Name @. For
+    -- example,
+    -- @aws:aws:batch:us-west-2:123456789012:scheduling-policy\/MySchedulingPolicy@.
+    schedulingPolicyArn :: Prelude.Maybe Prelude.Text,
+    -- | The status of the job queue (for example, @CREATING@ or @VALID@).
     status :: Prelude.Maybe JQStatus,
-    -- | A short, human-readable string to provide additional details about the
+    -- | A short, human-readable string to provide additional details for the
     -- current status of the job queue.
     statusReason :: Prelude.Maybe Prelude.Text,
-    -- | The tags applied to the job queue. For more information, see
+    -- | The tags that are applied to the job queue. For more information, see
     -- <https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html Tagging your Batch resources>
     -- in /Batch User Guide/.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The name of the job queue.
+    -- | The job queue name.
     jobQueueName :: Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the job queue.
     jobQueueArn :: Prelude.Text,
     -- | Describes the ability of the queue to accept new jobs. If the job queue
-    -- state is @ENABLED@, it\'s able to accept jobs. If the job queue state is
+    -- state is @ENABLED@, it can accept jobs. If the job queue state is
     -- @DISABLED@, new jobs can\'t be added to the queue, but jobs already in
     -- the queue can finish.
     state :: JQState,
     -- | The priority of the job queue. Job queues with a higher priority (or a
     -- higher integer value for the @priority@ parameter) are evaluated first
     -- when associated with the same compute environment. Priority is
-    -- determined in descending order, for example, a job queue with a priority
+    -- determined in descending order. For example, a job queue with a priority
     -- value of @10@ is given scheduling preference over a job queue with a
     -- priority value of @1@. All of the compute environments must be either
-    -- EC2 (@EC2@ or @SPOT@) or Fargate (@FARGATE@ or @FARGATE_SPOT@); EC2 and
+    -- EC2 (@EC2@ or @SPOT@) or Fargate (@FARGATE@ or @FARGATE_SPOT@). EC2 and
     -- Fargate compute environments can\'t be mixed.
     priority :: Prelude.Int,
     -- | The compute environments that are attached to the job queue and the
@@ -72,31 +78,36 @@ data JobQueueDetail = JobQueueDetail'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'schedulingPolicyArn', 'jobQueueDetail_schedulingPolicyArn' - The Amazon Resource Name (ARN) of the scheduling policy. The format is
+-- @aws:Partition:batch:Region:Account:scheduling-policy\/Name @. For
+-- example,
+-- @aws:aws:batch:us-west-2:123456789012:scheduling-policy\/MySchedulingPolicy@.
+--
 -- 'status', 'jobQueueDetail_status' - The status of the job queue (for example, @CREATING@ or @VALID@).
 --
--- 'statusReason', 'jobQueueDetail_statusReason' - A short, human-readable string to provide additional details about the
+-- 'statusReason', 'jobQueueDetail_statusReason' - A short, human-readable string to provide additional details for the
 -- current status of the job queue.
 --
--- 'tags', 'jobQueueDetail_tags' - The tags applied to the job queue. For more information, see
+-- 'tags', 'jobQueueDetail_tags' - The tags that are applied to the job queue. For more information, see
 -- <https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html Tagging your Batch resources>
 -- in /Batch User Guide/.
 --
--- 'jobQueueName', 'jobQueueDetail_jobQueueName' - The name of the job queue.
+-- 'jobQueueName', 'jobQueueDetail_jobQueueName' - The job queue name.
 --
 -- 'jobQueueArn', 'jobQueueDetail_jobQueueArn' - The Amazon Resource Name (ARN) of the job queue.
 --
 -- 'state', 'jobQueueDetail_state' - Describes the ability of the queue to accept new jobs. If the job queue
--- state is @ENABLED@, it\'s able to accept jobs. If the job queue state is
+-- state is @ENABLED@, it can accept jobs. If the job queue state is
 -- @DISABLED@, new jobs can\'t be added to the queue, but jobs already in
 -- the queue can finish.
 --
 -- 'priority', 'jobQueueDetail_priority' - The priority of the job queue. Job queues with a higher priority (or a
 -- higher integer value for the @priority@ parameter) are evaluated first
 -- when associated with the same compute environment. Priority is
--- determined in descending order, for example, a job queue with a priority
+-- determined in descending order. For example, a job queue with a priority
 -- value of @10@ is given scheduling preference over a job queue with a
 -- priority value of @1@. All of the compute environments must be either
--- EC2 (@EC2@ or @SPOT@) or Fargate (@FARGATE@ or @FARGATE_SPOT@); EC2 and
+-- EC2 (@EC2@ or @SPOT@) or Fargate (@FARGATE@ or @FARGATE_SPOT@). EC2 and
 -- Fargate compute environments can\'t be mixed.
 --
 -- 'computeEnvironmentOrder', 'jobQueueDetail_computeEnvironmentOrder' - The compute environments that are attached to the job queue and the
@@ -118,7 +129,9 @@ newJobQueueDetail
   pState_
   pPriority_ =
     JobQueueDetail'
-      { status = Prelude.Nothing,
+      { schedulingPolicyArn =
+          Prelude.Nothing,
+        status = Prelude.Nothing,
         statusReason = Prelude.Nothing,
         tags = Prelude.Nothing,
         jobQueueName = pJobQueueName_,
@@ -128,22 +141,29 @@ newJobQueueDetail
         computeEnvironmentOrder = Prelude.mempty
       }
 
+-- | The Amazon Resource Name (ARN) of the scheduling policy. The format is
+-- @aws:Partition:batch:Region:Account:scheduling-policy\/Name @. For
+-- example,
+-- @aws:aws:batch:us-west-2:123456789012:scheduling-policy\/MySchedulingPolicy@.
+jobQueueDetail_schedulingPolicyArn :: Lens.Lens' JobQueueDetail (Prelude.Maybe Prelude.Text)
+jobQueueDetail_schedulingPolicyArn = Lens.lens (\JobQueueDetail' {schedulingPolicyArn} -> schedulingPolicyArn) (\s@JobQueueDetail' {} a -> s {schedulingPolicyArn = a} :: JobQueueDetail)
+
 -- | The status of the job queue (for example, @CREATING@ or @VALID@).
 jobQueueDetail_status :: Lens.Lens' JobQueueDetail (Prelude.Maybe JQStatus)
 jobQueueDetail_status = Lens.lens (\JobQueueDetail' {status} -> status) (\s@JobQueueDetail' {} a -> s {status = a} :: JobQueueDetail)
 
--- | A short, human-readable string to provide additional details about the
+-- | A short, human-readable string to provide additional details for the
 -- current status of the job queue.
 jobQueueDetail_statusReason :: Lens.Lens' JobQueueDetail (Prelude.Maybe Prelude.Text)
 jobQueueDetail_statusReason = Lens.lens (\JobQueueDetail' {statusReason} -> statusReason) (\s@JobQueueDetail' {} a -> s {statusReason = a} :: JobQueueDetail)
 
--- | The tags applied to the job queue. For more information, see
+-- | The tags that are applied to the job queue. For more information, see
 -- <https://docs.aws.amazon.com/batch/latest/userguide/using-tags.html Tagging your Batch resources>
 -- in /Batch User Guide/.
 jobQueueDetail_tags :: Lens.Lens' JobQueueDetail (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 jobQueueDetail_tags = Lens.lens (\JobQueueDetail' {tags} -> tags) (\s@JobQueueDetail' {} a -> s {tags = a} :: JobQueueDetail) Prelude.. Lens.mapping Lens.coerced
 
--- | The name of the job queue.
+-- | The job queue name.
 jobQueueDetail_jobQueueName :: Lens.Lens' JobQueueDetail Prelude.Text
 jobQueueDetail_jobQueueName = Lens.lens (\JobQueueDetail' {jobQueueName} -> jobQueueName) (\s@JobQueueDetail' {} a -> s {jobQueueName = a} :: JobQueueDetail)
 
@@ -152,7 +172,7 @@ jobQueueDetail_jobQueueArn :: Lens.Lens' JobQueueDetail Prelude.Text
 jobQueueDetail_jobQueueArn = Lens.lens (\JobQueueDetail' {jobQueueArn} -> jobQueueArn) (\s@JobQueueDetail' {} a -> s {jobQueueArn = a} :: JobQueueDetail)
 
 -- | Describes the ability of the queue to accept new jobs. If the job queue
--- state is @ENABLED@, it\'s able to accept jobs. If the job queue state is
+-- state is @ENABLED@, it can accept jobs. If the job queue state is
 -- @DISABLED@, new jobs can\'t be added to the queue, but jobs already in
 -- the queue can finish.
 jobQueueDetail_state :: Lens.Lens' JobQueueDetail JQState
@@ -161,10 +181,10 @@ jobQueueDetail_state = Lens.lens (\JobQueueDetail' {state} -> state) (\s@JobQueu
 -- | The priority of the job queue. Job queues with a higher priority (or a
 -- higher integer value for the @priority@ parameter) are evaluated first
 -- when associated with the same compute environment. Priority is
--- determined in descending order, for example, a job queue with a priority
+-- determined in descending order. For example, a job queue with a priority
 -- value of @10@ is given scheduling preference over a job queue with a
 -- priority value of @1@. All of the compute environments must be either
--- EC2 (@EC2@ or @SPOT@) or Fargate (@FARGATE@ or @FARGATE_SPOT@); EC2 and
+-- EC2 (@EC2@ or @SPOT@) or Fargate (@FARGATE@ or @FARGATE_SPOT@). EC2 and
 -- Fargate compute environments can\'t be mixed.
 jobQueueDetail_priority :: Lens.Lens' JobQueueDetail Prelude.Int
 jobQueueDetail_priority = Lens.lens (\JobQueueDetail' {priority} -> priority) (\s@JobQueueDetail' {} a -> s {priority = a} :: JobQueueDetail)
@@ -175,27 +195,29 @@ jobQueueDetail_priority = Lens.lens (\JobQueueDetail' {priority} -> priority) (\
 jobQueueDetail_computeEnvironmentOrder :: Lens.Lens' JobQueueDetail [ComputeEnvironmentOrder]
 jobQueueDetail_computeEnvironmentOrder = Lens.lens (\JobQueueDetail' {computeEnvironmentOrder} -> computeEnvironmentOrder) (\s@JobQueueDetail' {} a -> s {computeEnvironmentOrder = a} :: JobQueueDetail) Prelude.. Lens.coerced
 
-instance Core.FromJSON JobQueueDetail where
+instance Data.FromJSON JobQueueDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "JobQueueDetail"
       ( \x ->
           JobQueueDetail'
-            Prelude.<$> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "statusReason")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "jobQueueName")
-            Prelude.<*> (x Core..: "jobQueueArn")
-            Prelude.<*> (x Core..: "state")
-            Prelude.<*> (x Core..: "priority")
-            Prelude.<*> ( x Core..:? "computeEnvironmentOrder"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "schedulingPolicyArn")
+            Prelude.<*> (x Data..:? "status")
+            Prelude.<*> (x Data..:? "statusReason")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "jobQueueName")
+            Prelude.<*> (x Data..: "jobQueueArn")
+            Prelude.<*> (x Data..: "state")
+            Prelude.<*> (x Data..: "priority")
+            Prelude.<*> ( x Data..:? "computeEnvironmentOrder"
+                            Data..!= Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable JobQueueDetail where
   hashWithSalt _salt JobQueueDetail' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt `Prelude.hashWithSalt` schedulingPolicyArn
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` statusReason
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` jobQueueName
@@ -206,7 +228,8 @@ instance Prelude.Hashable JobQueueDetail where
 
 instance Prelude.NFData JobQueueDetail where
   rnf JobQueueDetail' {..} =
-    Prelude.rnf status
+    Prelude.rnf schedulingPolicyArn
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf statusReason
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf jobQueueName

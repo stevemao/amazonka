@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.SendUsersMessageResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.SendUsersMessageResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.EndpointMessageResult
 import qualified Amazonka.Prelude as Prelude
 
@@ -87,15 +88,15 @@ sendUsersMessageResponse_result = Lens.lens (\SendUsersMessageResponse' {result}
 sendUsersMessageResponse_applicationId :: Lens.Lens' SendUsersMessageResponse Prelude.Text
 sendUsersMessageResponse_applicationId = Lens.lens (\SendUsersMessageResponse' {applicationId} -> applicationId) (\s@SendUsersMessageResponse' {} a -> s {applicationId = a} :: SendUsersMessageResponse)
 
-instance Core.FromJSON SendUsersMessageResponse where
+instance Data.FromJSON SendUsersMessageResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SendUsersMessageResponse"
       ( \x ->
           SendUsersMessageResponse'
-            Prelude.<$> (x Core..:? "RequestId")
-            Prelude.<*> (x Core..:? "Result" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "ApplicationId")
+            Prelude.<$> (x Data..:? "RequestId")
+            Prelude.<*> (x Data..:? "Result" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "ApplicationId")
       )
 
 instance Prelude.Hashable SendUsersMessageResponse where

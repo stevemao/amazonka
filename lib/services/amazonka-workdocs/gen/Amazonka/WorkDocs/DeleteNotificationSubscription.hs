@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.DeleteNotificationSubscription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ module Amazonka.WorkDocs.DeleteNotificationSubscription
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,7 +94,8 @@ instance
   type
     AWSResponse DeleteNotificationSubscription =
       DeleteNotificationSubscriptionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteNotificationSubscriptionResponse'
@@ -117,29 +119,29 @@ instance
       `Prelude.seq` Prelude.rnf organizationId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteNotificationSubscription
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteNotificationSubscription where
+instance Data.ToPath DeleteNotificationSubscription where
   toPath DeleteNotificationSubscription' {..} =
     Prelude.mconcat
       [ "/api/v1/organizations/",
-        Core.toBS organizationId,
+        Data.toBS organizationId,
         "/subscriptions/",
-        Core.toBS subscriptionId
+        Data.toBS subscriptionId
       ]
 
-instance Core.ToQuery DeleteNotificationSubscription where
+instance Data.ToQuery DeleteNotificationSubscription where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteNotificationSubscriptionResponse' smart constructor.

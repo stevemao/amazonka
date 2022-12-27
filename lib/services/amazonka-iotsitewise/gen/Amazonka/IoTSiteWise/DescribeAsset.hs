@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.DescribeAsset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,6 +27,7 @@ module Amazonka.IoTSiteWise.DescribeAsset
     newDescribeAsset,
 
     -- * Request Lenses
+    describeAsset_excludeProperties,
     describeAsset_assetId,
 
     -- * Destructuring the Response
@@ -35,6 +36,7 @@ module Amazonka.IoTSiteWise.DescribeAsset
 
     -- * Response Lenses
     describeAssetResponse_assetCompositeModels,
+    describeAssetResponse_assetDescription,
     describeAssetResponse_httpStatus,
     describeAssetResponse_assetId,
     describeAssetResponse_assetArn,
@@ -49,15 +51,18 @@ module Amazonka.IoTSiteWise.DescribeAsset
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeAsset' smart constructor.
 data DescribeAsset = DescribeAsset'
-  { -- | The ID of the asset.
+  { -- | Whether or not to exclude asset properties from the response.
+    excludeProperties :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the asset.
     assetId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -70,13 +75,22 @@ data DescribeAsset = DescribeAsset'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'excludeProperties', 'describeAsset_excludeProperties' - Whether or not to exclude asset properties from the response.
+--
 -- 'assetId', 'describeAsset_assetId' - The ID of the asset.
 newDescribeAsset ::
   -- | 'assetId'
   Prelude.Text ->
   DescribeAsset
 newDescribeAsset pAssetId_ =
-  DescribeAsset' {assetId = pAssetId_}
+  DescribeAsset'
+    { excludeProperties = Prelude.Nothing,
+      assetId = pAssetId_
+    }
+
+-- | Whether or not to exclude asset properties from the response.
+describeAsset_excludeProperties :: Lens.Lens' DescribeAsset (Prelude.Maybe Prelude.Bool)
+describeAsset_excludeProperties = Lens.lens (\DescribeAsset' {excludeProperties} -> excludeProperties) (\s@DescribeAsset' {} a -> s {excludeProperties = a} :: DescribeAsset)
 
 -- | The ID of the asset.
 describeAsset_assetId :: Lens.Lens' DescribeAsset Prelude.Text
@@ -86,59 +100,68 @@ instance Core.AWSRequest DescribeAsset where
   type
     AWSResponse DescribeAsset =
       DescribeAssetResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAssetResponse'
-            Prelude.<$> ( x Core..?> "assetCompositeModels"
+            Prelude.<$> ( x Data..?> "assetCompositeModels"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "assetDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "assetId")
-            Prelude.<*> (x Core..:> "assetArn")
-            Prelude.<*> (x Core..:> "assetName")
-            Prelude.<*> (x Core..:> "assetModelId")
-            Prelude.<*> ( x Core..?> "assetProperties"
+            Prelude.<*> (x Data..:> "assetId")
+            Prelude.<*> (x Data..:> "assetArn")
+            Prelude.<*> (x Data..:> "assetName")
+            Prelude.<*> (x Data..:> "assetModelId")
+            Prelude.<*> ( x Data..?> "assetProperties"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> ( x Core..?> "assetHierarchies"
+            Prelude.<*> ( x Data..?> "assetHierarchies"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..:> "assetCreationDate")
-            Prelude.<*> (x Core..:> "assetLastUpdateDate")
-            Prelude.<*> (x Core..:> "assetStatus")
+            Prelude.<*> (x Data..:> "assetCreationDate")
+            Prelude.<*> (x Data..:> "assetLastUpdateDate")
+            Prelude.<*> (x Data..:> "assetStatus")
       )
 
 instance Prelude.Hashable DescribeAsset where
   hashWithSalt _salt DescribeAsset' {..} =
-    _salt `Prelude.hashWithSalt` assetId
+    _salt `Prelude.hashWithSalt` excludeProperties
+      `Prelude.hashWithSalt` assetId
 
 instance Prelude.NFData DescribeAsset where
-  rnf DescribeAsset' {..} = Prelude.rnf assetId
+  rnf DescribeAsset' {..} =
+    Prelude.rnf excludeProperties
+      `Prelude.seq` Prelude.rnf assetId
 
-instance Core.ToHeaders DescribeAsset where
+instance Data.ToHeaders DescribeAsset where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeAsset where
+instance Data.ToPath DescribeAsset where
   toPath DescribeAsset' {..} =
-    Prelude.mconcat ["/assets/", Core.toBS assetId]
+    Prelude.mconcat ["/assets/", Data.toBS assetId]
 
-instance Core.ToQuery DescribeAsset where
-  toQuery = Prelude.const Prelude.mempty
+instance Data.ToQuery DescribeAsset where
+  toQuery DescribeAsset' {..} =
+    Prelude.mconcat
+      ["excludeProperties" Data.=: excludeProperties]
 
 -- | /See:/ 'newDescribeAssetResponse' smart constructor.
 data DescribeAssetResponse = DescribeAssetResponse'
   { -- | The composite models for the asset.
     assetCompositeModels :: Prelude.Maybe [AssetCompositeModel],
+    -- | A description for the asset.
+    assetDescription :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The ID of the asset.
@@ -163,9 +186,9 @@ data DescribeAssetResponse = DescribeAssetResponse'
     -- hierarchy specifies allowed parent\/child asset relationships.
     assetHierarchies :: [AssetHierarchy],
     -- | The date the asset was created, in Unix epoch time.
-    assetCreationDate :: Core.POSIX,
+    assetCreationDate :: Data.POSIX,
     -- | The date the asset was last updated, in Unix epoch time.
-    assetLastUpdateDate :: Core.POSIX,
+    assetLastUpdateDate :: Data.POSIX,
     -- | The current status of the asset, which contains a state and any error
     -- message.
     assetStatus :: AssetStatus
@@ -181,6 +204,8 @@ data DescribeAssetResponse = DescribeAssetResponse'
 -- for backwards compatibility:
 --
 -- 'assetCompositeModels', 'describeAssetResponse_assetCompositeModels' - The composite models for the asset.
+--
+-- 'assetDescription', 'describeAssetResponse_assetDescription' - A description for the asset.
 --
 -- 'httpStatus', 'describeAssetResponse_httpStatus' - The response's http status code.
 --
@@ -241,6 +266,7 @@ newDescribeAssetResponse
     DescribeAssetResponse'
       { assetCompositeModels =
           Prelude.Nothing,
+        assetDescription = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         assetId = pAssetId_,
         assetArn = pAssetArn_,
@@ -249,15 +275,19 @@ newDescribeAssetResponse
         assetProperties = Prelude.mempty,
         assetHierarchies = Prelude.mempty,
         assetCreationDate =
-          Core._Time Lens.# pAssetCreationDate_,
+          Data._Time Lens.# pAssetCreationDate_,
         assetLastUpdateDate =
-          Core._Time Lens.# pAssetLastUpdateDate_,
+          Data._Time Lens.# pAssetLastUpdateDate_,
         assetStatus = pAssetStatus_
       }
 
 -- | The composite models for the asset.
 describeAssetResponse_assetCompositeModels :: Lens.Lens' DescribeAssetResponse (Prelude.Maybe [AssetCompositeModel])
 describeAssetResponse_assetCompositeModels = Lens.lens (\DescribeAssetResponse' {assetCompositeModels} -> assetCompositeModels) (\s@DescribeAssetResponse' {} a -> s {assetCompositeModels = a} :: DescribeAssetResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A description for the asset.
+describeAssetResponse_assetDescription :: Lens.Lens' DescribeAssetResponse (Prelude.Maybe Prelude.Text)
+describeAssetResponse_assetDescription = Lens.lens (\DescribeAssetResponse' {assetDescription} -> assetDescription) (\s@DescribeAssetResponse' {} a -> s {assetDescription = a} :: DescribeAssetResponse)
 
 -- | The response's http status code.
 describeAssetResponse_httpStatus :: Lens.Lens' DescribeAssetResponse Prelude.Int
@@ -298,11 +328,11 @@ describeAssetResponse_assetHierarchies = Lens.lens (\DescribeAssetResponse' {ass
 
 -- | The date the asset was created, in Unix epoch time.
 describeAssetResponse_assetCreationDate :: Lens.Lens' DescribeAssetResponse Prelude.UTCTime
-describeAssetResponse_assetCreationDate = Lens.lens (\DescribeAssetResponse' {assetCreationDate} -> assetCreationDate) (\s@DescribeAssetResponse' {} a -> s {assetCreationDate = a} :: DescribeAssetResponse) Prelude.. Core._Time
+describeAssetResponse_assetCreationDate = Lens.lens (\DescribeAssetResponse' {assetCreationDate} -> assetCreationDate) (\s@DescribeAssetResponse' {} a -> s {assetCreationDate = a} :: DescribeAssetResponse) Prelude.. Data._Time
 
 -- | The date the asset was last updated, in Unix epoch time.
 describeAssetResponse_assetLastUpdateDate :: Lens.Lens' DescribeAssetResponse Prelude.UTCTime
-describeAssetResponse_assetLastUpdateDate = Lens.lens (\DescribeAssetResponse' {assetLastUpdateDate} -> assetLastUpdateDate) (\s@DescribeAssetResponse' {} a -> s {assetLastUpdateDate = a} :: DescribeAssetResponse) Prelude.. Core._Time
+describeAssetResponse_assetLastUpdateDate = Lens.lens (\DescribeAssetResponse' {assetLastUpdateDate} -> assetLastUpdateDate) (\s@DescribeAssetResponse' {} a -> s {assetLastUpdateDate = a} :: DescribeAssetResponse) Prelude.. Data._Time
 
 -- | The current status of the asset, which contains a state and any error
 -- message.
@@ -312,6 +342,7 @@ describeAssetResponse_assetStatus = Lens.lens (\DescribeAssetResponse' {assetSta
 instance Prelude.NFData DescribeAssetResponse where
   rnf DescribeAssetResponse' {..} =
     Prelude.rnf assetCompositeModels
+      `Prelude.seq` Prelude.rnf assetDescription
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf assetId
       `Prelude.seq` Prelude.rnf assetArn

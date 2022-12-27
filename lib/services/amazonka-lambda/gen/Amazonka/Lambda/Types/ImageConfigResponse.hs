@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.Types.ImageConfigResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.Lambda.Types.ImageConfigResponse where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types.ImageConfig
 import Amazonka.Lambda.Types.ImageConfigError
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | Response to GetFunctionConfiguration request.
+-- | Response to a @GetFunctionConfiguration@ request.
 --
 -- /See:/ 'newImageConfigResponse' smart constructor.
 data ImageConfigResponse = ImageConfigResponse'
-  { -- | Configuration values that override the container image Dockerfile.
-    imageConfig :: Prelude.Maybe ImageConfig,
-    -- | Error response to GetFunctionConfiguration.
-    error :: Prelude.Maybe ImageConfigError
+  { -- | Error response to @GetFunctionConfiguration@.
+    error :: Prelude.Maybe ImageConfigError,
+    -- | Configuration values that override the container image Dockerfile.
+    imageConfig :: Prelude.Maybe ImageConfig
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -44,41 +45,41 @@ data ImageConfigResponse = ImageConfigResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'imageConfig', 'imageConfigResponse_imageConfig' - Configuration values that override the container image Dockerfile.
+-- 'error', 'imageConfigResponse_error' - Error response to @GetFunctionConfiguration@.
 --
--- 'error', 'imageConfigResponse_error' - Error response to GetFunctionConfiguration.
+-- 'imageConfig', 'imageConfigResponse_imageConfig' - Configuration values that override the container image Dockerfile.
 newImageConfigResponse ::
   ImageConfigResponse
 newImageConfigResponse =
   ImageConfigResponse'
-    { imageConfig = Prelude.Nothing,
-      error = Prelude.Nothing
+    { error = Prelude.Nothing,
+      imageConfig = Prelude.Nothing
     }
+
+-- | Error response to @GetFunctionConfiguration@.
+imageConfigResponse_error :: Lens.Lens' ImageConfigResponse (Prelude.Maybe ImageConfigError)
+imageConfigResponse_error = Lens.lens (\ImageConfigResponse' {error} -> error) (\s@ImageConfigResponse' {} a -> s {error = a} :: ImageConfigResponse)
 
 -- | Configuration values that override the container image Dockerfile.
 imageConfigResponse_imageConfig :: Lens.Lens' ImageConfigResponse (Prelude.Maybe ImageConfig)
 imageConfigResponse_imageConfig = Lens.lens (\ImageConfigResponse' {imageConfig} -> imageConfig) (\s@ImageConfigResponse' {} a -> s {imageConfig = a} :: ImageConfigResponse)
 
--- | Error response to GetFunctionConfiguration.
-imageConfigResponse_error :: Lens.Lens' ImageConfigResponse (Prelude.Maybe ImageConfigError)
-imageConfigResponse_error = Lens.lens (\ImageConfigResponse' {error} -> error) (\s@ImageConfigResponse' {} a -> s {error = a} :: ImageConfigResponse)
-
-instance Core.FromJSON ImageConfigResponse where
+instance Data.FromJSON ImageConfigResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ImageConfigResponse"
       ( \x ->
           ImageConfigResponse'
-            Prelude.<$> (x Core..:? "ImageConfig")
-            Prelude.<*> (x Core..:? "Error")
+            Prelude.<$> (x Data..:? "Error")
+            Prelude.<*> (x Data..:? "ImageConfig")
       )
 
 instance Prelude.Hashable ImageConfigResponse where
   hashWithSalt _salt ImageConfigResponse' {..} =
-    _salt `Prelude.hashWithSalt` imageConfig
-      `Prelude.hashWithSalt` error
+    _salt `Prelude.hashWithSalt` error
+      `Prelude.hashWithSalt` imageConfig
 
 instance Prelude.NFData ImageConfigResponse where
   rnf ImageConfigResponse' {..} =
-    Prelude.rnf imageConfig
-      `Prelude.seq` Prelude.rnf error
+    Prelude.rnf error
+      `Prelude.seq` Prelude.rnf imageConfig

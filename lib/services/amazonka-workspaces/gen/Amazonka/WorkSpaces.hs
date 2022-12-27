@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,7 +14,29 @@
 -- Amazon WorkSpaces Service
 --
 -- Amazon WorkSpaces enables you to provision virtual, cloud-based
--- Microsoft Windows and Amazon Linux desktops for your users.
+-- Microsoft Windows or Amazon Linux desktops for your users, known as
+-- /WorkSpaces/. WorkSpaces eliminates the need to procure and deploy
+-- hardware or install complex software. You can quickly add or remove
+-- users as your needs change. Users can access their virtual desktops from
+-- multiple devices or web browsers.
+--
+-- This API Reference provides detailed information about the actions, data
+-- types, parameters, and errors of the WorkSpaces service. For more
+-- information about the supported Amazon Web Services Regions, endpoints,
+-- and service quotas of the Amazon WorkSpaces service, see
+-- <https://docs.aws.amazon.com/general/latest/gr/wsp.html WorkSpaces endpoints and quotas>
+-- in the /Amazon Web Services General Reference/.
+--
+-- You can also manage your WorkSpaces resources using the WorkSpaces
+-- console, Command Line Interface (CLI), and SDKs. For more information
+-- about administering WorkSpaces, see the
+-- <https://docs.aws.amazon.com/workspaces/latest/adminguide/ Amazon WorkSpaces Administration Guide>.
+-- For more information about using the Amazon WorkSpaces client
+-- application or web browser to access provisioned WorkSpaces, see the
+-- <https://docs.aws.amazon.com/workspaces/latest/userguide/ Amazon WorkSpaces User Guide>.
+-- For more information about using the CLI to manage your WorkSpaces
+-- resources, see the
+-- <https://docs.aws.amazon.com/cli/latest/reference/workspaces/index.html WorkSpaces section of the CLI Reference>.
 module Amazonka.WorkSpaces
   ( -- * Service Configuration
     defaultService,
@@ -22,47 +44,47 @@ module Amazonka.WorkSpaces
     -- * Errors
     -- $errors
 
-    -- ** UnsupportedNetworkConfigurationException
-    _UnsupportedNetworkConfigurationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
-
-    -- ** ResourceCreationFailedException
-    _ResourceCreationFailedException,
-
-    -- ** ResourceUnavailableException
-    _ResourceUnavailableException,
 
     -- ** InvalidParameterValuesException
     _InvalidParameterValuesException,
 
-    -- ** ResourceAssociatedException
-    _ResourceAssociatedException,
+    -- ** InvalidResourceStateException
+    _InvalidResourceStateException,
 
     -- ** OperationInProgressException
     _OperationInProgressException,
 
+    -- ** OperationNotSupportedException
+    _OperationNotSupportedException,
+
     -- ** ResourceAlreadyExistsException
     _ResourceAlreadyExistsException,
+
+    -- ** ResourceAssociatedException
+    _ResourceAssociatedException,
+
+    -- ** ResourceCreationFailedException
+    _ResourceCreationFailedException,
 
     -- ** ResourceLimitExceededException
     _ResourceLimitExceededException,
 
-    -- ** InvalidResourceStateException
-    _InvalidResourceStateException,
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
 
-    -- ** OperationNotSupportedException
-    _OperationNotSupportedException,
+    -- ** ResourceUnavailableException
+    _ResourceUnavailableException,
+
+    -- ** UnsupportedNetworkConfigurationException
+    _UnsupportedNetworkConfigurationException,
 
     -- ** UnsupportedWorkspaceConfigurationException
     _UnsupportedWorkspaceConfigurationException,
 
     -- ** WorkspacesDefaultRoleNotFoundException
     _WorkspacesDefaultRoleNotFoundException,
-
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
 
     -- * Waiters
     -- $waiters
@@ -76,65 +98,11 @@ module Amazonka.WorkSpaces
     AssociateConnectionAliasResponse (AssociateConnectionAliasResponse'),
     newAssociateConnectionAliasResponse,
 
-    -- ** DescribeAccount
-    DescribeAccount (DescribeAccount'),
-    newDescribeAccount,
-    DescribeAccountResponse (DescribeAccountResponse'),
-    newDescribeAccountResponse,
-
-    -- ** RevokeIpRules
-    RevokeIpRules (RevokeIpRules'),
-    newRevokeIpRules,
-    RevokeIpRulesResponse (RevokeIpRulesResponse'),
-    newRevokeIpRulesResponse,
-
-    -- ** DescribeWorkspaceImages (Paginated)
-    DescribeWorkspaceImages (DescribeWorkspaceImages'),
-    newDescribeWorkspaceImages,
-    DescribeWorkspaceImagesResponse (DescribeWorkspaceImagesResponse'),
-    newDescribeWorkspaceImagesResponse,
-
-    -- ** ModifyWorkspaceProperties
-    ModifyWorkspaceProperties (ModifyWorkspaceProperties'),
-    newModifyWorkspaceProperties,
-    ModifyWorkspacePropertiesResponse (ModifyWorkspacePropertiesResponse'),
-    newModifyWorkspacePropertiesResponse,
-
-    -- ** DeregisterWorkspaceDirectory
-    DeregisterWorkspaceDirectory (DeregisterWorkspaceDirectory'),
-    newDeregisterWorkspaceDirectory,
-    DeregisterWorkspaceDirectoryResponse (DeregisterWorkspaceDirectoryResponse'),
-    newDeregisterWorkspaceDirectoryResponse,
-
-    -- ** MigrateWorkspace
-    MigrateWorkspace (MigrateWorkspace'),
-    newMigrateWorkspace,
-    MigrateWorkspaceResponse (MigrateWorkspaceResponse'),
-    newMigrateWorkspaceResponse,
-
-    -- ** DescribeTags
-    DescribeTags (DescribeTags'),
-    newDescribeTags,
-    DescribeTagsResponse (DescribeTagsResponse'),
-    newDescribeTagsResponse,
-
-    -- ** DescribeWorkspaceDirectories (Paginated)
-    DescribeWorkspaceDirectories (DescribeWorkspaceDirectories'),
-    newDescribeWorkspaceDirectories,
-    DescribeWorkspaceDirectoriesResponse (DescribeWorkspaceDirectoriesResponse'),
-    newDescribeWorkspaceDirectoriesResponse,
-
-    -- ** DisassociateIpGroups
-    DisassociateIpGroups (DisassociateIpGroups'),
-    newDisassociateIpGroups,
-    DisassociateIpGroupsResponse (DisassociateIpGroupsResponse'),
-    newDisassociateIpGroupsResponse,
-
-    -- ** DescribeWorkspaceBundles (Paginated)
-    DescribeWorkspaceBundles (DescribeWorkspaceBundles'),
-    newDescribeWorkspaceBundles,
-    DescribeWorkspaceBundlesResponse (DescribeWorkspaceBundlesResponse'),
-    newDescribeWorkspaceBundlesResponse,
+    -- ** AssociateIpGroups
+    AssociateIpGroups (AssociateIpGroups'),
+    newAssociateIpGroups,
+    AssociateIpGroupsResponse (AssociateIpGroupsResponse'),
+    newAssociateIpGroupsResponse,
 
     -- ** AuthorizeIpRules
     AuthorizeIpRules (AuthorizeIpRules'),
@@ -142,29 +110,23 @@ module Amazonka.WorkSpaces
     AuthorizeIpRulesResponse (AuthorizeIpRulesResponse'),
     newAuthorizeIpRulesResponse,
 
-    -- ** DescribeWorkspaceImagePermissions
-    DescribeWorkspaceImagePermissions (DescribeWorkspaceImagePermissions'),
-    newDescribeWorkspaceImagePermissions,
-    DescribeWorkspaceImagePermissionsResponse (DescribeWorkspaceImagePermissionsResponse'),
-    newDescribeWorkspaceImagePermissionsResponse,
+    -- ** CopyWorkspaceImage
+    CopyWorkspaceImage (CopyWorkspaceImage'),
+    newCopyWorkspaceImage,
+    CopyWorkspaceImageResponse (CopyWorkspaceImageResponse'),
+    newCopyWorkspaceImageResponse,
 
-    -- ** RebuildWorkspaces
-    RebuildWorkspaces (RebuildWorkspaces'),
-    newRebuildWorkspaces,
-    RebuildWorkspacesResponse (RebuildWorkspacesResponse'),
-    newRebuildWorkspacesResponse,
+    -- ** CreateConnectClientAddIn
+    CreateConnectClientAddIn (CreateConnectClientAddIn'),
+    newCreateConnectClientAddIn,
+    CreateConnectClientAddInResponse (CreateConnectClientAddInResponse'),
+    newCreateConnectClientAddInResponse,
 
-    -- ** ImportWorkspaceImage
-    ImportWorkspaceImage (ImportWorkspaceImage'),
-    newImportWorkspaceImage,
-    ImportWorkspaceImageResponse (ImportWorkspaceImageResponse'),
-    newImportWorkspaceImageResponse,
-
-    -- ** ModifyWorkspaceState
-    ModifyWorkspaceState (ModifyWorkspaceState'),
-    newModifyWorkspaceState,
-    ModifyWorkspaceStateResponse (ModifyWorkspaceStateResponse'),
-    newModifyWorkspaceStateResponse,
+    -- ** CreateConnectionAlias
+    CreateConnectionAlias (CreateConnectionAlias'),
+    newCreateConnectionAlias,
+    CreateConnectionAliasResponse (CreateConnectionAliasResponse'),
+    newCreateConnectionAliasResponse,
 
     -- ** CreateIpGroup
     CreateIpGroup (CreateIpGroup'),
@@ -172,17 +134,287 @@ module Amazonka.WorkSpaces
     CreateIpGroupResponse (CreateIpGroupResponse'),
     newCreateIpGroupResponse,
 
+    -- ** CreateStandbyWorkspaces
+    CreateStandbyWorkspaces (CreateStandbyWorkspaces'),
+    newCreateStandbyWorkspaces,
+    CreateStandbyWorkspacesResponse (CreateStandbyWorkspacesResponse'),
+    newCreateStandbyWorkspacesResponse,
+
+    -- ** CreateTags
+    CreateTags (CreateTags'),
+    newCreateTags,
+    CreateTagsResponse (CreateTagsResponse'),
+    newCreateTagsResponse,
+
+    -- ** CreateUpdatedWorkspaceImage
+    CreateUpdatedWorkspaceImage (CreateUpdatedWorkspaceImage'),
+    newCreateUpdatedWorkspaceImage,
+    CreateUpdatedWorkspaceImageResponse (CreateUpdatedWorkspaceImageResponse'),
+    newCreateUpdatedWorkspaceImageResponse,
+
+    -- ** CreateWorkspaceBundle
+    CreateWorkspaceBundle (CreateWorkspaceBundle'),
+    newCreateWorkspaceBundle,
+    CreateWorkspaceBundleResponse (CreateWorkspaceBundleResponse'),
+    newCreateWorkspaceBundleResponse,
+
+    -- ** CreateWorkspaceImage
+    CreateWorkspaceImage (CreateWorkspaceImage'),
+    newCreateWorkspaceImage,
+    CreateWorkspaceImageResponse (CreateWorkspaceImageResponse'),
+    newCreateWorkspaceImageResponse,
+
+    -- ** CreateWorkspaces
+    CreateWorkspaces (CreateWorkspaces'),
+    newCreateWorkspaces,
+    CreateWorkspacesResponse (CreateWorkspacesResponse'),
+    newCreateWorkspacesResponse,
+
+    -- ** DeleteClientBranding
+    DeleteClientBranding (DeleteClientBranding'),
+    newDeleteClientBranding,
+    DeleteClientBrandingResponse (DeleteClientBrandingResponse'),
+    newDeleteClientBrandingResponse,
+
+    -- ** DeleteConnectClientAddIn
+    DeleteConnectClientAddIn (DeleteConnectClientAddIn'),
+    newDeleteConnectClientAddIn,
+    DeleteConnectClientAddInResponse (DeleteConnectClientAddInResponse'),
+    newDeleteConnectClientAddInResponse,
+
+    -- ** DeleteConnectionAlias
+    DeleteConnectionAlias (DeleteConnectionAlias'),
+    newDeleteConnectionAlias,
+    DeleteConnectionAliasResponse (DeleteConnectionAliasResponse'),
+    newDeleteConnectionAliasResponse,
+
+    -- ** DeleteIpGroup
+    DeleteIpGroup (DeleteIpGroup'),
+    newDeleteIpGroup,
+    DeleteIpGroupResponse (DeleteIpGroupResponse'),
+    newDeleteIpGroupResponse,
+
+    -- ** DeleteTags
+    DeleteTags (DeleteTags'),
+    newDeleteTags,
+    DeleteTagsResponse (DeleteTagsResponse'),
+    newDeleteTagsResponse,
+
+    -- ** DeleteWorkspaceBundle
+    DeleteWorkspaceBundle (DeleteWorkspaceBundle'),
+    newDeleteWorkspaceBundle,
+    DeleteWorkspaceBundleResponse (DeleteWorkspaceBundleResponse'),
+    newDeleteWorkspaceBundleResponse,
+
+    -- ** DeleteWorkspaceImage
+    DeleteWorkspaceImage (DeleteWorkspaceImage'),
+    newDeleteWorkspaceImage,
+    DeleteWorkspaceImageResponse (DeleteWorkspaceImageResponse'),
+    newDeleteWorkspaceImageResponse,
+
+    -- ** DeregisterWorkspaceDirectory
+    DeregisterWorkspaceDirectory (DeregisterWorkspaceDirectory'),
+    newDeregisterWorkspaceDirectory,
+    DeregisterWorkspaceDirectoryResponse (DeregisterWorkspaceDirectoryResponse'),
+    newDeregisterWorkspaceDirectoryResponse,
+
+    -- ** DescribeAccount
+    DescribeAccount (DescribeAccount'),
+    newDescribeAccount,
+    DescribeAccountResponse (DescribeAccountResponse'),
+    newDescribeAccountResponse,
+
+    -- ** DescribeAccountModifications (Paginated)
+    DescribeAccountModifications (DescribeAccountModifications'),
+    newDescribeAccountModifications,
+    DescribeAccountModificationsResponse (DescribeAccountModificationsResponse'),
+    newDescribeAccountModificationsResponse,
+
+    -- ** DescribeClientBranding
+    DescribeClientBranding (DescribeClientBranding'),
+    newDescribeClientBranding,
+    DescribeClientBrandingResponse (DescribeClientBrandingResponse'),
+    newDescribeClientBrandingResponse,
+
+    -- ** DescribeClientProperties
+    DescribeClientProperties (DescribeClientProperties'),
+    newDescribeClientProperties,
+    DescribeClientPropertiesResponse (DescribeClientPropertiesResponse'),
+    newDescribeClientPropertiesResponse,
+
+    -- ** DescribeConnectClientAddIns
+    DescribeConnectClientAddIns (DescribeConnectClientAddIns'),
+    newDescribeConnectClientAddIns,
+    DescribeConnectClientAddInsResponse (DescribeConnectClientAddInsResponse'),
+    newDescribeConnectClientAddInsResponse,
+
+    -- ** DescribeConnectionAliasPermissions
+    DescribeConnectionAliasPermissions (DescribeConnectionAliasPermissions'),
+    newDescribeConnectionAliasPermissions,
+    DescribeConnectionAliasPermissionsResponse (DescribeConnectionAliasPermissionsResponse'),
+    newDescribeConnectionAliasPermissionsResponse,
+
+    -- ** DescribeConnectionAliases
+    DescribeConnectionAliases (DescribeConnectionAliases'),
+    newDescribeConnectionAliases,
+    DescribeConnectionAliasesResponse (DescribeConnectionAliasesResponse'),
+    newDescribeConnectionAliasesResponse,
+
+    -- ** DescribeIpGroups (Paginated)
+    DescribeIpGroups (DescribeIpGroups'),
+    newDescribeIpGroups,
+    DescribeIpGroupsResponse (DescribeIpGroupsResponse'),
+    newDescribeIpGroupsResponse,
+
+    -- ** DescribeTags
+    DescribeTags (DescribeTags'),
+    newDescribeTags,
+    DescribeTagsResponse (DescribeTagsResponse'),
+    newDescribeTagsResponse,
+
+    -- ** DescribeWorkspaceBundles (Paginated)
+    DescribeWorkspaceBundles (DescribeWorkspaceBundles'),
+    newDescribeWorkspaceBundles,
+    DescribeWorkspaceBundlesResponse (DescribeWorkspaceBundlesResponse'),
+    newDescribeWorkspaceBundlesResponse,
+
+    -- ** DescribeWorkspaceDirectories (Paginated)
+    DescribeWorkspaceDirectories (DescribeWorkspaceDirectories'),
+    newDescribeWorkspaceDirectories,
+    DescribeWorkspaceDirectoriesResponse (DescribeWorkspaceDirectoriesResponse'),
+    newDescribeWorkspaceDirectoriesResponse,
+
+    -- ** DescribeWorkspaceImagePermissions
+    DescribeWorkspaceImagePermissions (DescribeWorkspaceImagePermissions'),
+    newDescribeWorkspaceImagePermissions,
+    DescribeWorkspaceImagePermissionsResponse (DescribeWorkspaceImagePermissionsResponse'),
+    newDescribeWorkspaceImagePermissionsResponse,
+
+    -- ** DescribeWorkspaceImages (Paginated)
+    DescribeWorkspaceImages (DescribeWorkspaceImages'),
+    newDescribeWorkspaceImages,
+    DescribeWorkspaceImagesResponse (DescribeWorkspaceImagesResponse'),
+    newDescribeWorkspaceImagesResponse,
+
+    -- ** DescribeWorkspaceSnapshots
+    DescribeWorkspaceSnapshots (DescribeWorkspaceSnapshots'),
+    newDescribeWorkspaceSnapshots,
+    DescribeWorkspaceSnapshotsResponse (DescribeWorkspaceSnapshotsResponse'),
+    newDescribeWorkspaceSnapshotsResponse,
+
+    -- ** DescribeWorkspaces (Paginated)
+    DescribeWorkspaces (DescribeWorkspaces'),
+    newDescribeWorkspaces,
+    DescribeWorkspacesResponse (DescribeWorkspacesResponse'),
+    newDescribeWorkspacesResponse,
+
+    -- ** DescribeWorkspacesConnectionStatus (Paginated)
+    DescribeWorkspacesConnectionStatus (DescribeWorkspacesConnectionStatus'),
+    newDescribeWorkspacesConnectionStatus,
+    DescribeWorkspacesConnectionStatusResponse (DescribeWorkspacesConnectionStatusResponse'),
+    newDescribeWorkspacesConnectionStatusResponse,
+
     -- ** DisassociateConnectionAlias
     DisassociateConnectionAlias (DisassociateConnectionAlias'),
     newDisassociateConnectionAlias,
     DisassociateConnectionAliasResponse (DisassociateConnectionAliasResponse'),
     newDisassociateConnectionAliasResponse,
 
+    -- ** DisassociateIpGroups
+    DisassociateIpGroups (DisassociateIpGroups'),
+    newDisassociateIpGroups,
+    DisassociateIpGroupsResponse (DisassociateIpGroupsResponse'),
+    newDisassociateIpGroupsResponse,
+
+    -- ** ImportClientBranding
+    ImportClientBranding (ImportClientBranding'),
+    newImportClientBranding,
+    ImportClientBrandingResponse (ImportClientBrandingResponse'),
+    newImportClientBrandingResponse,
+
+    -- ** ImportWorkspaceImage
+    ImportWorkspaceImage (ImportWorkspaceImage'),
+    newImportWorkspaceImage,
+    ImportWorkspaceImageResponse (ImportWorkspaceImageResponse'),
+    newImportWorkspaceImageResponse,
+
+    -- ** ListAvailableManagementCidrRanges (Paginated)
+    ListAvailableManagementCidrRanges (ListAvailableManagementCidrRanges'),
+    newListAvailableManagementCidrRanges,
+    ListAvailableManagementCidrRangesResponse (ListAvailableManagementCidrRangesResponse'),
+    newListAvailableManagementCidrRangesResponse,
+
+    -- ** MigrateWorkspace
+    MigrateWorkspace (MigrateWorkspace'),
+    newMigrateWorkspace,
+    MigrateWorkspaceResponse (MigrateWorkspaceResponse'),
+    newMigrateWorkspaceResponse,
+
+    -- ** ModifyAccount
+    ModifyAccount (ModifyAccount'),
+    newModifyAccount,
+    ModifyAccountResponse (ModifyAccountResponse'),
+    newModifyAccountResponse,
+
+    -- ** ModifyCertificateBasedAuthProperties
+    ModifyCertificateBasedAuthProperties (ModifyCertificateBasedAuthProperties'),
+    newModifyCertificateBasedAuthProperties,
+    ModifyCertificateBasedAuthPropertiesResponse (ModifyCertificateBasedAuthPropertiesResponse'),
+    newModifyCertificateBasedAuthPropertiesResponse,
+
+    -- ** ModifyClientProperties
+    ModifyClientProperties (ModifyClientProperties'),
+    newModifyClientProperties,
+    ModifyClientPropertiesResponse (ModifyClientPropertiesResponse'),
+    newModifyClientPropertiesResponse,
+
+    -- ** ModifySamlProperties
+    ModifySamlProperties (ModifySamlProperties'),
+    newModifySamlProperties,
+    ModifySamlPropertiesResponse (ModifySamlPropertiesResponse'),
+    newModifySamlPropertiesResponse,
+
+    -- ** ModifySelfservicePermissions
+    ModifySelfservicePermissions (ModifySelfservicePermissions'),
+    newModifySelfservicePermissions,
+    ModifySelfservicePermissionsResponse (ModifySelfservicePermissionsResponse'),
+    newModifySelfservicePermissionsResponse,
+
+    -- ** ModifyWorkspaceAccessProperties
+    ModifyWorkspaceAccessProperties (ModifyWorkspaceAccessProperties'),
+    newModifyWorkspaceAccessProperties,
+    ModifyWorkspaceAccessPropertiesResponse (ModifyWorkspaceAccessPropertiesResponse'),
+    newModifyWorkspaceAccessPropertiesResponse,
+
     -- ** ModifyWorkspaceCreationProperties
     ModifyWorkspaceCreationProperties (ModifyWorkspaceCreationProperties'),
     newModifyWorkspaceCreationProperties,
     ModifyWorkspaceCreationPropertiesResponse (ModifyWorkspaceCreationPropertiesResponse'),
     newModifyWorkspaceCreationPropertiesResponse,
+
+    -- ** ModifyWorkspaceProperties
+    ModifyWorkspaceProperties (ModifyWorkspaceProperties'),
+    newModifyWorkspaceProperties,
+    ModifyWorkspacePropertiesResponse (ModifyWorkspacePropertiesResponse'),
+    newModifyWorkspacePropertiesResponse,
+
+    -- ** ModifyWorkspaceState
+    ModifyWorkspaceState (ModifyWorkspaceState'),
+    newModifyWorkspaceState,
+    ModifyWorkspaceStateResponse (ModifyWorkspaceStateResponse'),
+    newModifyWorkspaceStateResponse,
+
+    -- ** RebootWorkspaces
+    RebootWorkspaces (RebootWorkspaces'),
+    newRebootWorkspaces,
+    RebootWorkspacesResponse (RebootWorkspacesResponse'),
+    newRebootWorkspacesResponse,
+
+    -- ** RebuildWorkspaces
+    RebuildWorkspaces (RebuildWorkspaces'),
+    newRebuildWorkspaces,
+    RebuildWorkspacesResponse (RebuildWorkspacesResponse'),
+    newRebuildWorkspacesResponse,
 
     -- ** RegisterWorkspaceDirectory
     RegisterWorkspaceDirectory (RegisterWorkspaceDirectory'),
@@ -196,185 +428,11 @@ module Amazonka.WorkSpaces
     RestoreWorkspaceResponse (RestoreWorkspaceResponse'),
     newRestoreWorkspaceResponse,
 
-    -- ** DescribeConnectionAliasPermissions
-    DescribeConnectionAliasPermissions (DescribeConnectionAliasPermissions'),
-    newDescribeConnectionAliasPermissions,
-    DescribeConnectionAliasPermissionsResponse (DescribeConnectionAliasPermissionsResponse'),
-    newDescribeConnectionAliasPermissionsResponse,
-
-    -- ** CreateTags
-    CreateTags (CreateTags'),
-    newCreateTags,
-    CreateTagsResponse (CreateTagsResponse'),
-    newCreateTagsResponse,
-
-    -- ** CreateWorkspaceBundle
-    CreateWorkspaceBundle (CreateWorkspaceBundle'),
-    newCreateWorkspaceBundle,
-    CreateWorkspaceBundleResponse (CreateWorkspaceBundleResponse'),
-    newCreateWorkspaceBundleResponse,
-
-    -- ** DeleteTags
-    DeleteTags (DeleteTags'),
-    newDeleteTags,
-    DeleteTagsResponse (DeleteTagsResponse'),
-    newDeleteTagsResponse,
-
-    -- ** ModifyWorkspaceAccessProperties
-    ModifyWorkspaceAccessProperties (ModifyWorkspaceAccessProperties'),
-    newModifyWorkspaceAccessProperties,
-    ModifyWorkspaceAccessPropertiesResponse (ModifyWorkspaceAccessPropertiesResponse'),
-    newModifyWorkspaceAccessPropertiesResponse,
-
-    -- ** UpdateRulesOfIpGroup
-    UpdateRulesOfIpGroup (UpdateRulesOfIpGroup'),
-    newUpdateRulesOfIpGroup,
-    UpdateRulesOfIpGroupResponse (UpdateRulesOfIpGroupResponse'),
-    newUpdateRulesOfIpGroupResponse,
-
-    -- ** DeleteWorkspaceImage
-    DeleteWorkspaceImage (DeleteWorkspaceImage'),
-    newDeleteWorkspaceImage,
-    DeleteWorkspaceImageResponse (DeleteWorkspaceImageResponse'),
-    newDeleteWorkspaceImageResponse,
-
-    -- ** StopWorkspaces
-    StopWorkspaces (StopWorkspaces'),
-    newStopWorkspaces,
-    StopWorkspacesResponse (StopWorkspacesResponse'),
-    newStopWorkspacesResponse,
-
-    -- ** AssociateIpGroups
-    AssociateIpGroups (AssociateIpGroups'),
-    newAssociateIpGroups,
-    AssociateIpGroupsResponse (AssociateIpGroupsResponse'),
-    newAssociateIpGroupsResponse,
-
-    -- ** ModifySelfservicePermissions
-    ModifySelfservicePermissions (ModifySelfservicePermissions'),
-    newModifySelfservicePermissions,
-    ModifySelfservicePermissionsResponse (ModifySelfservicePermissionsResponse'),
-    newModifySelfservicePermissionsResponse,
-
-    -- ** DeleteConnectionAlias
-    DeleteConnectionAlias (DeleteConnectionAlias'),
-    newDeleteConnectionAlias,
-    DeleteConnectionAliasResponse (DeleteConnectionAliasResponse'),
-    newDeleteConnectionAliasResponse,
-
-    -- ** DescribeWorkspacesConnectionStatus (Paginated)
-    DescribeWorkspacesConnectionStatus (DescribeWorkspacesConnectionStatus'),
-    newDescribeWorkspacesConnectionStatus,
-    DescribeWorkspacesConnectionStatusResponse (DescribeWorkspacesConnectionStatusResponse'),
-    newDescribeWorkspacesConnectionStatusResponse,
-
-    -- ** CreateConnectionAlias
-    CreateConnectionAlias (CreateConnectionAlias'),
-    newCreateConnectionAlias,
-    CreateConnectionAliasResponse (CreateConnectionAliasResponse'),
-    newCreateConnectionAliasResponse,
-
-    -- ** RebootWorkspaces
-    RebootWorkspaces (RebootWorkspaces'),
-    newRebootWorkspaces,
-    RebootWorkspacesResponse (RebootWorkspacesResponse'),
-    newRebootWorkspacesResponse,
-
-    -- ** DeleteIpGroup
-    DeleteIpGroup (DeleteIpGroup'),
-    newDeleteIpGroup,
-    DeleteIpGroupResponse (DeleteIpGroupResponse'),
-    newDeleteIpGroupResponse,
-
-    -- ** CopyWorkspaceImage
-    CopyWorkspaceImage (CopyWorkspaceImage'),
-    newCopyWorkspaceImage,
-    CopyWorkspaceImageResponse (CopyWorkspaceImageResponse'),
-    newCopyWorkspaceImageResponse,
-
-    -- ** DescribeWorkspaceSnapshots
-    DescribeWorkspaceSnapshots (DescribeWorkspaceSnapshots'),
-    newDescribeWorkspaceSnapshots,
-    DescribeWorkspaceSnapshotsResponse (DescribeWorkspaceSnapshotsResponse'),
-    newDescribeWorkspaceSnapshotsResponse,
-
-    -- ** TerminateWorkspaces
-    TerminateWorkspaces (TerminateWorkspaces'),
-    newTerminateWorkspaces,
-    TerminateWorkspacesResponse (TerminateWorkspacesResponse'),
-    newTerminateWorkspacesResponse,
-
-    -- ** UpdateConnectionAliasPermission
-    UpdateConnectionAliasPermission (UpdateConnectionAliasPermission'),
-    newUpdateConnectionAliasPermission,
-    UpdateConnectionAliasPermissionResponse (UpdateConnectionAliasPermissionResponse'),
-    newUpdateConnectionAliasPermissionResponse,
-
-    -- ** CreateWorkspaces
-    CreateWorkspaces (CreateWorkspaces'),
-    newCreateWorkspaces,
-    CreateWorkspacesResponse (CreateWorkspacesResponse'),
-    newCreateWorkspacesResponse,
-
-    -- ** DescribeClientProperties
-    DescribeClientProperties (DescribeClientProperties'),
-    newDescribeClientProperties,
-    DescribeClientPropertiesResponse (DescribeClientPropertiesResponse'),
-    newDescribeClientPropertiesResponse,
-
-    -- ** ModifyClientProperties
-    ModifyClientProperties (ModifyClientProperties'),
-    newModifyClientProperties,
-    ModifyClientPropertiesResponse (ModifyClientPropertiesResponse'),
-    newModifyClientPropertiesResponse,
-
-    -- ** DescribeIpGroups (Paginated)
-    DescribeIpGroups (DescribeIpGroups'),
-    newDescribeIpGroups,
-    DescribeIpGroupsResponse (DescribeIpGroupsResponse'),
-    newDescribeIpGroupsResponse,
-
-    -- ** DeleteWorkspaceBundle
-    DeleteWorkspaceBundle (DeleteWorkspaceBundle'),
-    newDeleteWorkspaceBundle,
-    DeleteWorkspaceBundleResponse (DeleteWorkspaceBundleResponse'),
-    newDeleteWorkspaceBundleResponse,
-
-    -- ** UpdateWorkspaceBundle
-    UpdateWorkspaceBundle (UpdateWorkspaceBundle'),
-    newUpdateWorkspaceBundle,
-    UpdateWorkspaceBundleResponse (UpdateWorkspaceBundleResponse'),
-    newUpdateWorkspaceBundleResponse,
-
-    -- ** ListAvailableManagementCidrRanges (Paginated)
-    ListAvailableManagementCidrRanges (ListAvailableManagementCidrRanges'),
-    newListAvailableManagementCidrRanges,
-    ListAvailableManagementCidrRangesResponse (ListAvailableManagementCidrRangesResponse'),
-    newListAvailableManagementCidrRangesResponse,
-
-    -- ** UpdateWorkspaceImagePermission
-    UpdateWorkspaceImagePermission (UpdateWorkspaceImagePermission'),
-    newUpdateWorkspaceImagePermission,
-    UpdateWorkspaceImagePermissionResponse (UpdateWorkspaceImagePermissionResponse'),
-    newUpdateWorkspaceImagePermissionResponse,
-
-    -- ** CreateUpdatedWorkspaceImage
-    CreateUpdatedWorkspaceImage (CreateUpdatedWorkspaceImage'),
-    newCreateUpdatedWorkspaceImage,
-    CreateUpdatedWorkspaceImageResponse (CreateUpdatedWorkspaceImageResponse'),
-    newCreateUpdatedWorkspaceImageResponse,
-
-    -- ** DescribeWorkspaces (Paginated)
-    DescribeWorkspaces (DescribeWorkspaces'),
-    newDescribeWorkspaces,
-    DescribeWorkspacesResponse (DescribeWorkspacesResponse'),
-    newDescribeWorkspacesResponse,
-
-    -- ** DescribeConnectionAliases
-    DescribeConnectionAliases (DescribeConnectionAliases'),
-    newDescribeConnectionAliases,
-    DescribeConnectionAliasesResponse (DescribeConnectionAliasesResponse'),
-    newDescribeConnectionAliasesResponse,
+    -- ** RevokeIpRules
+    RevokeIpRules (RevokeIpRules'),
+    newRevokeIpRules,
+    RevokeIpRulesResponse (RevokeIpRulesResponse'),
+    newRevokeIpRulesResponse,
 
     -- ** StartWorkspaces
     StartWorkspaces (StartWorkspaces'),
@@ -382,17 +440,47 @@ module Amazonka.WorkSpaces
     StartWorkspacesResponse (StartWorkspacesResponse'),
     newStartWorkspacesResponse,
 
-    -- ** DescribeAccountModifications (Paginated)
-    DescribeAccountModifications (DescribeAccountModifications'),
-    newDescribeAccountModifications,
-    DescribeAccountModificationsResponse (DescribeAccountModificationsResponse'),
-    newDescribeAccountModificationsResponse,
+    -- ** StopWorkspaces
+    StopWorkspaces (StopWorkspaces'),
+    newStopWorkspaces,
+    StopWorkspacesResponse (StopWorkspacesResponse'),
+    newStopWorkspacesResponse,
 
-    -- ** ModifyAccount
-    ModifyAccount (ModifyAccount'),
-    newModifyAccount,
-    ModifyAccountResponse (ModifyAccountResponse'),
-    newModifyAccountResponse,
+    -- ** TerminateWorkspaces
+    TerminateWorkspaces (TerminateWorkspaces'),
+    newTerminateWorkspaces,
+    TerminateWorkspacesResponse (TerminateWorkspacesResponse'),
+    newTerminateWorkspacesResponse,
+
+    -- ** UpdateConnectClientAddIn
+    UpdateConnectClientAddIn (UpdateConnectClientAddIn'),
+    newUpdateConnectClientAddIn,
+    UpdateConnectClientAddInResponse (UpdateConnectClientAddInResponse'),
+    newUpdateConnectClientAddInResponse,
+
+    -- ** UpdateConnectionAliasPermission
+    UpdateConnectionAliasPermission (UpdateConnectionAliasPermission'),
+    newUpdateConnectionAliasPermission,
+    UpdateConnectionAliasPermissionResponse (UpdateConnectionAliasPermissionResponse'),
+    newUpdateConnectionAliasPermissionResponse,
+
+    -- ** UpdateRulesOfIpGroup
+    UpdateRulesOfIpGroup (UpdateRulesOfIpGroup'),
+    newUpdateRulesOfIpGroup,
+    UpdateRulesOfIpGroupResponse (UpdateRulesOfIpGroupResponse'),
+    newUpdateRulesOfIpGroupResponse,
+
+    -- ** UpdateWorkspaceBundle
+    UpdateWorkspaceBundle (UpdateWorkspaceBundle'),
+    newUpdateWorkspaceBundle,
+    UpdateWorkspaceBundleResponse (UpdateWorkspaceBundleResponse'),
+    newUpdateWorkspaceBundleResponse,
+
+    -- ** UpdateWorkspaceImagePermission
+    UpdateWorkspaceImagePermission (UpdateWorkspaceImagePermission'),
+    newUpdateWorkspaceImagePermission,
+    UpdateWorkspaceImagePermissionResponse (UpdateWorkspaceImagePermissionResponse'),
+    newUpdateWorkspaceImagePermissionResponse,
 
     -- * Types
 
@@ -404,6 +492,15 @@ module Amazonka.WorkSpaces
 
     -- ** AssociationStatus
     AssociationStatus (..),
+
+    -- ** BundleType
+    BundleType (..),
+
+    -- ** CertificateBasedAuthStatusEnum
+    CertificateBasedAuthStatusEnum (..),
+
+    -- ** ClientDeviceType
+    ClientDeviceType (..),
 
     -- ** Compute
     Compute (..),
@@ -423,8 +520,17 @@ module Amazonka.WorkSpaces
     -- ** DedicatedTenancySupportResultEnum
     DedicatedTenancySupportResultEnum (..),
 
+    -- ** DeletableCertificateBasedAuthProperty
+    DeletableCertificateBasedAuthProperty (..),
+
+    -- ** DeletableSamlProperty
+    DeletableSamlProperty (..),
+
     -- ** ImageType
     ImageType (..),
+
+    -- ** LogUploadEnum
+    LogUploadEnum (..),
 
     -- ** ModificationResourceEnum
     ModificationResourceEnum (..),
@@ -435,17 +541,29 @@ module Amazonka.WorkSpaces
     -- ** OperatingSystemType
     OperatingSystemType (..),
 
+    -- ** Protocol
+    Protocol (..),
+
     -- ** ReconnectEnum
     ReconnectEnum (..),
 
     -- ** RunningMode
     RunningMode (..),
 
+    -- ** SamlStatusEnum
+    SamlStatusEnum (..),
+
+    -- ** StandbyWorkspaceRelationshipType
+    StandbyWorkspaceRelationshipType (..),
+
     -- ** TargetWorkspaceState
     TargetWorkspaceState (..),
 
     -- ** Tenancy
     Tenancy (..),
+
+    -- ** WorkspaceBundleState
+    WorkspaceBundleState (..),
 
     -- ** WorkspaceDirectoryState
     WorkspaceDirectoryState (..),
@@ -469,6 +587,10 @@ module Amazonka.WorkSpaces
     AccountModification (AccountModification'),
     newAccountModification,
 
+    -- ** CertificateBasedAuthProperties
+    CertificateBasedAuthProperties (CertificateBasedAuthProperties'),
+    newCertificateBasedAuthProperties,
+
     -- ** ClientProperties
     ClientProperties (ClientProperties'),
     newClientProperties,
@@ -480,6 +602,10 @@ module Amazonka.WorkSpaces
     -- ** ComputeType
     ComputeType (ComputeType'),
     newComputeType,
+
+    -- ** ConnectClientAddIn
+    ConnectClientAddIn (ConnectClientAddIn'),
+    newConnectClientAddIn,
 
     -- ** ConnectionAlias
     ConnectionAlias (ConnectionAlias'),
@@ -493,9 +619,21 @@ module Amazonka.WorkSpaces
     ConnectionAliasPermission (ConnectionAliasPermission'),
     newConnectionAliasPermission,
 
+    -- ** DefaultClientBrandingAttributes
+    DefaultClientBrandingAttributes (DefaultClientBrandingAttributes'),
+    newDefaultClientBrandingAttributes,
+
+    -- ** DefaultImportClientBrandingAttributes
+    DefaultImportClientBrandingAttributes (DefaultImportClientBrandingAttributes'),
+    newDefaultImportClientBrandingAttributes,
+
     -- ** DefaultWorkspaceCreationProperties
     DefaultWorkspaceCreationProperties (DefaultWorkspaceCreationProperties'),
     newDefaultWorkspaceCreationProperties,
+
+    -- ** FailedCreateStandbyWorkspacesRequest
+    FailedCreateStandbyWorkspacesRequest (FailedCreateStandbyWorkspacesRequest'),
+    newFailedCreateStandbyWorkspacesRequest,
 
     -- ** FailedCreateWorkspaceRequest
     FailedCreateWorkspaceRequest (FailedCreateWorkspaceRequest'),
@@ -509,6 +647,14 @@ module Amazonka.WorkSpaces
     ImagePermission (ImagePermission'),
     newImagePermission,
 
+    -- ** IosClientBrandingAttributes
+    IosClientBrandingAttributes (IosClientBrandingAttributes'),
+    newIosClientBrandingAttributes,
+
+    -- ** IosImportClientBrandingAttributes
+    IosImportClientBrandingAttributes (IosImportClientBrandingAttributes'),
+    newIosImportClientBrandingAttributes,
+
     -- ** IpRuleItem
     IpRuleItem (IpRuleItem'),
     newIpRuleItem,
@@ -521,6 +667,10 @@ module Amazonka.WorkSpaces
     OperatingSystem (OperatingSystem'),
     newOperatingSystem,
 
+    -- ** PendingCreateStandbyWorkspacesRequest
+    PendingCreateStandbyWorkspacesRequest (PendingCreateStandbyWorkspacesRequest'),
+    newPendingCreateStandbyWorkspacesRequest,
+
     -- ** RebootRequest
     RebootRequest (RebootRequest'),
     newRebootRequest,
@@ -529,9 +679,17 @@ module Amazonka.WorkSpaces
     RebuildRequest (RebuildRequest'),
     newRebuildRequest,
 
+    -- ** RelatedWorkspaceProperties
+    RelatedWorkspaceProperties (RelatedWorkspaceProperties'),
+    newRelatedWorkspaceProperties,
+
     -- ** RootStorage
     RootStorage (RootStorage'),
     newRootStorage,
+
+    -- ** SamlProperties
+    SamlProperties (SamlProperties'),
+    newSamlProperties,
 
     -- ** SelfservicePermissions
     SelfservicePermissions (SelfservicePermissions'),
@@ -540,6 +698,10 @@ module Amazonka.WorkSpaces
     -- ** Snapshot
     Snapshot (Snapshot'),
     newSnapshot,
+
+    -- ** StandbyWorkspace
+    StandbyWorkspace (StandbyWorkspace'),
+    newStandbyWorkspace,
 
     -- ** StartRequest
     StartRequest (StartRequest'),
@@ -611,12 +773,17 @@ import Amazonka.WorkSpaces.AssociateConnectionAlias
 import Amazonka.WorkSpaces.AssociateIpGroups
 import Amazonka.WorkSpaces.AuthorizeIpRules
 import Amazonka.WorkSpaces.CopyWorkspaceImage
+import Amazonka.WorkSpaces.CreateConnectClientAddIn
 import Amazonka.WorkSpaces.CreateConnectionAlias
 import Amazonka.WorkSpaces.CreateIpGroup
+import Amazonka.WorkSpaces.CreateStandbyWorkspaces
 import Amazonka.WorkSpaces.CreateTags
 import Amazonka.WorkSpaces.CreateUpdatedWorkspaceImage
 import Amazonka.WorkSpaces.CreateWorkspaceBundle
+import Amazonka.WorkSpaces.CreateWorkspaceImage
 import Amazonka.WorkSpaces.CreateWorkspaces
+import Amazonka.WorkSpaces.DeleteClientBranding
+import Amazonka.WorkSpaces.DeleteConnectClientAddIn
 import Amazonka.WorkSpaces.DeleteConnectionAlias
 import Amazonka.WorkSpaces.DeleteIpGroup
 import Amazonka.WorkSpaces.DeleteTags
@@ -625,7 +792,9 @@ import Amazonka.WorkSpaces.DeleteWorkspaceImage
 import Amazonka.WorkSpaces.DeregisterWorkspaceDirectory
 import Amazonka.WorkSpaces.DescribeAccount
 import Amazonka.WorkSpaces.DescribeAccountModifications
+import Amazonka.WorkSpaces.DescribeClientBranding
 import Amazonka.WorkSpaces.DescribeClientProperties
+import Amazonka.WorkSpaces.DescribeConnectClientAddIns
 import Amazonka.WorkSpaces.DescribeConnectionAliasPermissions
 import Amazonka.WorkSpaces.DescribeConnectionAliases
 import Amazonka.WorkSpaces.DescribeIpGroups
@@ -639,12 +808,15 @@ import Amazonka.WorkSpaces.DescribeWorkspaces
 import Amazonka.WorkSpaces.DescribeWorkspacesConnectionStatus
 import Amazonka.WorkSpaces.DisassociateConnectionAlias
 import Amazonka.WorkSpaces.DisassociateIpGroups
+import Amazonka.WorkSpaces.ImportClientBranding
 import Amazonka.WorkSpaces.ImportWorkspaceImage
 import Amazonka.WorkSpaces.Lens
 import Amazonka.WorkSpaces.ListAvailableManagementCidrRanges
 import Amazonka.WorkSpaces.MigrateWorkspace
 import Amazonka.WorkSpaces.ModifyAccount
+import Amazonka.WorkSpaces.ModifyCertificateBasedAuthProperties
 import Amazonka.WorkSpaces.ModifyClientProperties
+import Amazonka.WorkSpaces.ModifySamlProperties
 import Amazonka.WorkSpaces.ModifySelfservicePermissions
 import Amazonka.WorkSpaces.ModifyWorkspaceAccessProperties
 import Amazonka.WorkSpaces.ModifyWorkspaceCreationProperties
@@ -659,6 +831,7 @@ import Amazonka.WorkSpaces.StartWorkspaces
 import Amazonka.WorkSpaces.StopWorkspaces
 import Amazonka.WorkSpaces.TerminateWorkspaces
 import Amazonka.WorkSpaces.Types
+import Amazonka.WorkSpaces.UpdateConnectClientAddIn
 import Amazonka.WorkSpaces.UpdateConnectionAliasPermission
 import Amazonka.WorkSpaces.UpdateRulesOfIpGroup
 import Amazonka.WorkSpaces.UpdateWorkspaceBundle

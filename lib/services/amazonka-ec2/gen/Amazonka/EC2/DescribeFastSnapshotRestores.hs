@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeFastSnapshotRestores
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.EC2.DescribeFastSnapshotRestores
     newDescribeFastSnapshotRestores,
 
     -- * Request Lenses
-    describeFastSnapshotRestores_filters,
-    describeFastSnapshotRestores_nextToken,
     describeFastSnapshotRestores_dryRun,
+    describeFastSnapshotRestores_filters,
     describeFastSnapshotRestores_maxResults,
+    describeFastSnapshotRestores_nextToken,
 
     -- * Destructuring the Response
     DescribeFastSnapshotRestoresResponse (..),
@@ -46,15 +46,21 @@ module Amazonka.EC2.DescribeFastSnapshotRestores
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeFastSnapshotRestores' smart constructor.
 data DescribeFastSnapshotRestores = DescribeFastSnapshotRestores'
-  { -- | The filters. The possible values are:
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The filters. The possible values are:
     --
     -- -   @availability-zone@: The Availability Zone of the snapshot.
     --
@@ -66,17 +72,12 @@ data DescribeFastSnapshotRestores = DescribeFastSnapshotRestores'
     -- -   @state@: The state of fast snapshot restores for the snapshot
     --     (@enabling@ | @optimizing@ | @enabled@ | @disabling@ | @disabled@).
     filters :: Prelude.Maybe [Filter],
-    -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -87,6 +88,11 @@ data DescribeFastSnapshotRestores = DescribeFastSnapshotRestores'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dryRun', 'describeFastSnapshotRestores_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeFastSnapshotRestores_filters' - The filters. The possible values are:
 --
@@ -100,26 +106,28 @@ data DescribeFastSnapshotRestores = DescribeFastSnapshotRestores'
 -- -   @state@: The state of fast snapshot restores for the snapshot
 --     (@enabling@ | @optimizing@ | @enabled@ | @disabling@ | @disabled@).
 --
--- 'nextToken', 'describeFastSnapshotRestores_nextToken' - The token for the next page of results.
---
--- 'dryRun', 'describeFastSnapshotRestores_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
 -- 'maxResults', 'describeFastSnapshotRestores_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'describeFastSnapshotRestores_nextToken' - The token for the next page of results.
 newDescribeFastSnapshotRestores ::
   DescribeFastSnapshotRestores
 newDescribeFastSnapshotRestores =
   DescribeFastSnapshotRestores'
-    { filters =
+    { dryRun =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      filters = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeFastSnapshotRestores_dryRun :: Lens.Lens' DescribeFastSnapshotRestores (Prelude.Maybe Prelude.Bool)
+describeFastSnapshotRestores_dryRun = Lens.lens (\DescribeFastSnapshotRestores' {dryRun} -> dryRun) (\s@DescribeFastSnapshotRestores' {} a -> s {dryRun = a} :: DescribeFastSnapshotRestores)
 
 -- | The filters. The possible values are:
 --
@@ -135,22 +143,15 @@ newDescribeFastSnapshotRestores =
 describeFastSnapshotRestores_filters :: Lens.Lens' DescribeFastSnapshotRestores (Prelude.Maybe [Filter])
 describeFastSnapshotRestores_filters = Lens.lens (\DescribeFastSnapshotRestores' {filters} -> filters) (\s@DescribeFastSnapshotRestores' {} a -> s {filters = a} :: DescribeFastSnapshotRestores) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next page of results.
-describeFastSnapshotRestores_nextToken :: Lens.Lens' DescribeFastSnapshotRestores (Prelude.Maybe Prelude.Text)
-describeFastSnapshotRestores_nextToken = Lens.lens (\DescribeFastSnapshotRestores' {nextToken} -> nextToken) (\s@DescribeFastSnapshotRestores' {} a -> s {nextToken = a} :: DescribeFastSnapshotRestores)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeFastSnapshotRestores_dryRun :: Lens.Lens' DescribeFastSnapshotRestores (Prelude.Maybe Prelude.Bool)
-describeFastSnapshotRestores_dryRun = Lens.lens (\DescribeFastSnapshotRestores' {dryRun} -> dryRun) (\s@DescribeFastSnapshotRestores' {} a -> s {dryRun = a} :: DescribeFastSnapshotRestores)
-
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 describeFastSnapshotRestores_maxResults :: Lens.Lens' DescribeFastSnapshotRestores (Prelude.Maybe Prelude.Natural)
 describeFastSnapshotRestores_maxResults = Lens.lens (\DescribeFastSnapshotRestores' {maxResults} -> maxResults) (\s@DescribeFastSnapshotRestores' {} a -> s {maxResults = a} :: DescribeFastSnapshotRestores)
+
+-- | The token for the next page of results.
+describeFastSnapshotRestores_nextToken :: Lens.Lens' DescribeFastSnapshotRestores (Prelude.Maybe Prelude.Text)
+describeFastSnapshotRestores_nextToken = Lens.lens (\DescribeFastSnapshotRestores' {nextToken} -> nextToken) (\s@DescribeFastSnapshotRestores' {} a -> s {nextToken = a} :: DescribeFastSnapshotRestores)
 
 instance Core.AWSPager DescribeFastSnapshotRestores where
   page rq rs
@@ -178,16 +179,17 @@ instance Core.AWSRequest DescribeFastSnapshotRestores where
   type
     AWSResponse DescribeFastSnapshotRestores =
       DescribeFastSnapshotRestoresResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeFastSnapshotRestoresResponse'
-            Prelude.<$> ( x Core..@? "fastSnapshotRestoreSet"
+            Prelude.<$> ( x Data..@? "fastSnapshotRestoreSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> (x Core..@? "nextToken")
+            Prelude.<*> (x Data..@? "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -196,38 +198,38 @@ instance
     DescribeFastSnapshotRestores
   where
   hashWithSalt _salt DescribeFastSnapshotRestores' {..} =
-    _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` dryRun
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeFastSnapshotRestores where
   rnf DescribeFastSnapshotRestores' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeFastSnapshotRestores where
+instance Data.ToHeaders DescribeFastSnapshotRestores where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeFastSnapshotRestores where
+instance Data.ToPath DescribeFastSnapshotRestores where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeFastSnapshotRestores where
+instance Data.ToQuery DescribeFastSnapshotRestores where
   toQuery DescribeFastSnapshotRestores' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeFastSnapshotRestores" ::
+          Data.=: ( "DescribeFastSnapshotRestores" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeFastSnapshotRestoresResponse' smart constructor.

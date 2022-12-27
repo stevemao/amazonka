@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.ListLambdaFunctions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,7 @@
 -- change.
 --
 -- Returns a paginated list of all Lambda functions that display in the
--- dropdown options in the relevant contact flow blocks.
+-- dropdown options in the relevant flow blocks.
 --
 -- This operation returns paginated results.
 module Amazonka.Connect.ListLambdaFunctions
@@ -33,8 +33,8 @@ module Amazonka.Connect.ListLambdaFunctions
     newListLambdaFunctions,
 
     -- * Request Lenses
-    listLambdaFunctions_nextToken,
     listLambdaFunctions_maxResults,
+    listLambdaFunctions_nextToken,
     listLambdaFunctions_instanceId,
 
     -- * Destructuring the Response
@@ -50,19 +50,20 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListLambdaFunctions' smart constructor.
 data ListLambdaFunctions = ListLambdaFunctions'
-  { -- | The token for the next set of results. Use the value returned in the
+  { -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
     instanceId :: Prelude.Text
@@ -77,11 +78,11 @@ data ListLambdaFunctions = ListLambdaFunctions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listLambdaFunctions_maxResults' - The maximum number of results to return per page.
+--
 -- 'nextToken', 'listLambdaFunctions_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listLambdaFunctions_maxResults' - The maximum number of results to return per page.
 --
 -- 'instanceId', 'listLambdaFunctions_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -91,20 +92,20 @@ newListLambdaFunctions ::
   ListLambdaFunctions
 newListLambdaFunctions pInstanceId_ =
   ListLambdaFunctions'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       instanceId = pInstanceId_
     }
+
+-- | The maximum number of results to return per page.
+listLambdaFunctions_maxResults :: Lens.Lens' ListLambdaFunctions (Prelude.Maybe Prelude.Natural)
+listLambdaFunctions_maxResults = Lens.lens (\ListLambdaFunctions' {maxResults} -> maxResults) (\s@ListLambdaFunctions' {} a -> s {maxResults = a} :: ListLambdaFunctions)
 
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
 listLambdaFunctions_nextToken :: Lens.Lens' ListLambdaFunctions (Prelude.Maybe Prelude.Text)
 listLambdaFunctions_nextToken = Lens.lens (\ListLambdaFunctions' {nextToken} -> nextToken) (\s@ListLambdaFunctions' {} a -> s {nextToken = a} :: ListLambdaFunctions)
-
--- | The maximum number of results to return per page.
-listLambdaFunctions_maxResults :: Lens.Lens' ListLambdaFunctions (Prelude.Maybe Prelude.Natural)
-listLambdaFunctions_maxResults = Lens.lens (\ListLambdaFunctions' {maxResults} -> maxResults) (\s@ListLambdaFunctions' {} a -> s {maxResults = a} :: ListLambdaFunctions)
 
 -- | The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -137,54 +138,55 @@ instance Core.AWSRequest ListLambdaFunctions where
   type
     AWSResponse ListLambdaFunctions =
       ListLambdaFunctionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListLambdaFunctionsResponse'
-            Prelude.<$> ( x Core..?> "LambdaFunctions"
+            Prelude.<$> ( x Data..?> "LambdaFunctions"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListLambdaFunctions where
   hashWithSalt _salt ListLambdaFunctions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` instanceId
 
 instance Prelude.NFData ListLambdaFunctions where
   rnf ListLambdaFunctions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders ListLambdaFunctions where
+instance Data.ToHeaders ListLambdaFunctions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListLambdaFunctions where
+instance Data.ToPath ListLambdaFunctions where
   toPath ListLambdaFunctions' {..} =
     Prelude.mconcat
       [ "/instance/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/lambda-functions"
       ]
 
-instance Core.ToQuery ListLambdaFunctions where
+instance Data.ToQuery ListLambdaFunctions where
   toQuery ListLambdaFunctions' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListLambdaFunctionsResponse' smart constructor.

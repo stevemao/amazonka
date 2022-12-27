@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointEmail.GetDomainDeliverabilityCampaign
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.PinpointEmail.GetDomainDeliverabilityCampaign
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.PinpointEmail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -103,13 +104,14 @@ instance
   type
     AWSResponse GetDomainDeliverabilityCampaign =
       GetDomainDeliverabilityCampaignResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDomainDeliverabilityCampaignResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "DomainDeliverabilityCampaign")
+            Prelude.<*> (x Data..:> "DomainDeliverabilityCampaign")
       )
 
 instance
@@ -129,27 +131,27 @@ instance
     Prelude.rnf campaignId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetDomainDeliverabilityCampaign
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetDomainDeliverabilityCampaign where
+instance Data.ToPath GetDomainDeliverabilityCampaign where
   toPath GetDomainDeliverabilityCampaign' {..} =
     Prelude.mconcat
       [ "/v1/email/deliverability-dashboard/campaigns/",
-        Core.toBS campaignId
+        Data.toBS campaignId
       ]
 
-instance Core.ToQuery GetDomainDeliverabilityCampaign where
+instance Data.ToQuery GetDomainDeliverabilityCampaign where
   toQuery = Prelude.const Prelude.mempty
 
 -- | An object that contains all the deliverability data for a specific

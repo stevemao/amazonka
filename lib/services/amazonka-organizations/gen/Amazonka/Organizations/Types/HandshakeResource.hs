@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.Types.HandshakeResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Organizations.Types.HandshakeResource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types.HandshakeResourceType
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,17 +29,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newHandshakeResource' smart constructor.
 data HandshakeResource = HandshakeResource'
-  { -- | The information that is passed to the other party in the handshake. The
-    -- format of the value string must match the requirements of the specified
-    -- type.
-    value :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | When needed, contains an additional array of @HandshakeResource@
+  { -- | When needed, contains an additional array of @HandshakeResource@
     -- objects.
     resources :: Prelude.Maybe [HandshakeResource],
     -- | The type of information being passed, specifying how the value is to be
     -- interpreted by the other party:
     --
-    -- -   @ACCOUNT@ - Specifies an AWS account ID number.
+    -- -   @ACCOUNT@ - Specifies an Amazon Web Services account ID number.
     --
     -- -   @ORGANIZATION@ - Specifies an organization ID number.
     --
@@ -53,7 +50,11 @@ data HandshakeResource = HandshakeResource'
     --
     -- -   @NOTES@ - Additional text provided by the handshake initiator and
     --     intended for the recipient to read.
-    type' :: Prelude.Maybe HandshakeResourceType
+    type' :: Prelude.Maybe HandshakeResourceType,
+    -- | The information that is passed to the other party in the handshake. The
+    -- format of the value string must match the requirements of the specified
+    -- type.
+    value :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -65,17 +66,13 @@ data HandshakeResource = HandshakeResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'handshakeResource_value' - The information that is passed to the other party in the handshake. The
--- format of the value string must match the requirements of the specified
--- type.
---
 -- 'resources', 'handshakeResource_resources' - When needed, contains an additional array of @HandshakeResource@
 -- objects.
 --
 -- 'type'', 'handshakeResource_type' - The type of information being passed, specifying how the value is to be
 -- interpreted by the other party:
 --
--- -   @ACCOUNT@ - Specifies an AWS account ID number.
+-- -   @ACCOUNT@ - Specifies an Amazon Web Services account ID number.
 --
 -- -   @ORGANIZATION@ - Specifies an organization ID number.
 --
@@ -90,20 +87,18 @@ data HandshakeResource = HandshakeResource'
 --
 -- -   @NOTES@ - Additional text provided by the handshake initiator and
 --     intended for the recipient to read.
+--
+-- 'value', 'handshakeResource_value' - The information that is passed to the other party in the handshake. The
+-- format of the value string must match the requirements of the specified
+-- type.
 newHandshakeResource ::
   HandshakeResource
 newHandshakeResource =
   HandshakeResource'
-    { value = Prelude.Nothing,
-      resources = Prelude.Nothing,
-      type' = Prelude.Nothing
+    { resources = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The information that is passed to the other party in the handshake. The
--- format of the value string must match the requirements of the specified
--- type.
-handshakeResource_value :: Lens.Lens' HandshakeResource (Prelude.Maybe Prelude.Text)
-handshakeResource_value = Lens.lens (\HandshakeResource' {value} -> value) (\s@HandshakeResource' {} a -> s {value = a} :: HandshakeResource) Prelude.. Lens.mapping Core._Sensitive
 
 -- | When needed, contains an additional array of @HandshakeResource@
 -- objects.
@@ -113,7 +108,7 @@ handshakeResource_resources = Lens.lens (\HandshakeResource' {resources} -> reso
 -- | The type of information being passed, specifying how the value is to be
 -- interpreted by the other party:
 --
--- -   @ACCOUNT@ - Specifies an AWS account ID number.
+-- -   @ACCOUNT@ - Specifies an Amazon Web Services account ID number.
 --
 -- -   @ORGANIZATION@ - Specifies an organization ID number.
 --
@@ -131,25 +126,31 @@ handshakeResource_resources = Lens.lens (\HandshakeResource' {resources} -> reso
 handshakeResource_type :: Lens.Lens' HandshakeResource (Prelude.Maybe HandshakeResourceType)
 handshakeResource_type = Lens.lens (\HandshakeResource' {type'} -> type') (\s@HandshakeResource' {} a -> s {type' = a} :: HandshakeResource)
 
-instance Core.FromJSON HandshakeResource where
+-- | The information that is passed to the other party in the handshake. The
+-- format of the value string must match the requirements of the specified
+-- type.
+handshakeResource_value :: Lens.Lens' HandshakeResource (Prelude.Maybe Prelude.Text)
+handshakeResource_value = Lens.lens (\HandshakeResource' {value} -> value) (\s@HandshakeResource' {} a -> s {value = a} :: HandshakeResource) Prelude.. Lens.mapping Data._Sensitive
+
+instance Data.FromJSON HandshakeResource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HandshakeResource"
       ( \x ->
           HandshakeResource'
-            Prelude.<$> (x Core..:? "Value")
-            Prelude.<*> (x Core..:? "Resources" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Resources" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Type")
+            Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable HandshakeResource where
   hashWithSalt _salt HandshakeResource' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` resources
+    _salt `Prelude.hashWithSalt` resources
       `Prelude.hashWithSalt` type'
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData HandshakeResource where
   rnf HandshakeResource' {..} =
-    Prelude.rnf value
-      `Prelude.seq` Prelude.rnf resources
+    Prelude.rnf resources
       `Prelude.seq` Prelude.rnf type'
+      `Prelude.seq` Prelude.rnf value

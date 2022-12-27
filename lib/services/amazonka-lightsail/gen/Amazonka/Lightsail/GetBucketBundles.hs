@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetBucketBundles
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,7 +25,9 @@
 -- The bucket bundle specifies the monthly cost, storage quota, and data
 -- transfer quota for a bucket.
 --
--- Use the UpdateBucketBundle action to update the bundle for a bucket.
+-- Use the
+-- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_UpdateBucketBundle.html UpdateBucketBundle>
+-- action to update the bundle for a bucket.
 module Amazonka.Lightsail.GetBucketBundles
   ( -- * Creating a Request
     GetBucketBundles (..),
@@ -45,7 +47,8 @@ module Amazonka.Lightsail.GetBucketBundles
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,7 +57,7 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newGetBucketBundles' smart constructor.
 data GetBucketBundles = GetBucketBundles'
   { -- | A Boolean value that indicates whether to include inactive (unavailable)
-    -- bundles in the response.
+    -- bundles in the response of your request.
     includeInactive :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -68,7 +71,7 @@ data GetBucketBundles = GetBucketBundles'
 -- for backwards compatibility:
 --
 -- 'includeInactive', 'getBucketBundles_includeInactive' - A Boolean value that indicates whether to include inactive (unavailable)
--- bundles in the response.
+-- bundles in the response of your request.
 newGetBucketBundles ::
   GetBucketBundles
 newGetBucketBundles =
@@ -78,7 +81,7 @@ newGetBucketBundles =
     }
 
 -- | A Boolean value that indicates whether to include inactive (unavailable)
--- bundles in the response.
+-- bundles in the response of your request.
 getBucketBundles_includeInactive :: Lens.Lens' GetBucketBundles (Prelude.Maybe Prelude.Bool)
 getBucketBundles_includeInactive = Lens.lens (\GetBucketBundles' {includeInactive} -> includeInactive) (\s@GetBucketBundles' {} a -> s {includeInactive = a} :: GetBucketBundles)
 
@@ -86,12 +89,13 @@ instance Core.AWSRequest GetBucketBundles where
   type
     AWSResponse GetBucketBundles =
       GetBucketBundlesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBucketBundlesResponse'
-            Prelude.<$> (x Core..?> "bundles" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "bundles" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -103,34 +107,34 @@ instance Prelude.NFData GetBucketBundles where
   rnf GetBucketBundles' {..} =
     Prelude.rnf includeInactive
 
-instance Core.ToHeaders GetBucketBundles where
+instance Data.ToHeaders GetBucketBundles where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetBucketBundles" ::
+              Data.=# ( "Lightsail_20161128.GetBucketBundles" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetBucketBundles where
+instance Data.ToJSON GetBucketBundles where
   toJSON GetBucketBundles' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("includeInactive" Core..=)
+          [ ("includeInactive" Data..=)
               Prelude.<$> includeInactive
           ]
       )
 
-instance Core.ToPath GetBucketBundles where
+instance Data.ToPath GetBucketBundles where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetBucketBundles where
+instance Data.ToQuery GetBucketBundles where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetBucketBundlesResponse' smart constructor.

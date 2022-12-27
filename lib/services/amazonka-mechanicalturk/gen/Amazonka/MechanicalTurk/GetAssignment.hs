@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.GetAssignment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,14 +35,15 @@ module Amazonka.MechanicalTurk.GetAssignment
     newGetAssignmentResponse,
 
     -- * Response Lenses
-    getAssignmentResponse_hit,
     getAssignmentResponse_assignment,
+    getAssignmentResponse_hit,
     getAssignmentResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -79,13 +80,14 @@ instance Core.AWSRequest GetAssignment where
   type
     AWSResponse GetAssignment =
       GetAssignmentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAssignmentResponse'
-            Prelude.<$> (x Core..?> "HIT")
-            Prelude.<*> (x Core..?> "Assignment")
+            Prelude.<$> (x Data..?> "Assignment")
+            Prelude.<*> (x Data..?> "HIT")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -96,41 +98,41 @@ instance Prelude.Hashable GetAssignment where
 instance Prelude.NFData GetAssignment where
   rnf GetAssignment' {..} = Prelude.rnf assignmentId
 
-instance Core.ToHeaders GetAssignment where
+instance Data.ToHeaders GetAssignment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MTurkRequesterServiceV20170117.GetAssignment" ::
+              Data.=# ( "MTurkRequesterServiceV20170117.GetAssignment" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetAssignment where
+instance Data.ToJSON GetAssignment where
   toJSON GetAssignment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("AssignmentId" Core..= assignmentId)]
+          [Prelude.Just ("AssignmentId" Data..= assignmentId)]
       )
 
-instance Core.ToPath GetAssignment where
+instance Data.ToPath GetAssignment where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetAssignment where
+instance Data.ToQuery GetAssignment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAssignmentResponse' smart constructor.
 data GetAssignmentResponse = GetAssignmentResponse'
-  { -- | The HIT associated with this assignment. The response includes one HIT
+  { -- | The assignment. The response includes one Assignment element.
+    assignment :: Prelude.Maybe Assignment,
+    -- | The HIT associated with this assignment. The response includes one HIT
     -- element.
     hit :: Prelude.Maybe HIT,
-    -- | The assignment. The response includes one Assignment element.
-    assignment :: Prelude.Maybe Assignment,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -144,10 +146,10 @@ data GetAssignmentResponse = GetAssignmentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'assignment', 'getAssignmentResponse_assignment' - The assignment. The response includes one Assignment element.
+--
 -- 'hit', 'getAssignmentResponse_hit' - The HIT associated with this assignment. The response includes one HIT
 -- element.
---
--- 'assignment', 'getAssignmentResponse_assignment' - The assignment. The response includes one Assignment element.
 --
 -- 'httpStatus', 'getAssignmentResponse_httpStatus' - The response's http status code.
 newGetAssignmentResponse ::
@@ -156,19 +158,20 @@ newGetAssignmentResponse ::
   GetAssignmentResponse
 newGetAssignmentResponse pHttpStatus_ =
   GetAssignmentResponse'
-    { hit = Prelude.Nothing,
-      assignment = Prelude.Nothing,
+    { assignment =
+        Prelude.Nothing,
+      hit = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The assignment. The response includes one Assignment element.
+getAssignmentResponse_assignment :: Lens.Lens' GetAssignmentResponse (Prelude.Maybe Assignment)
+getAssignmentResponse_assignment = Lens.lens (\GetAssignmentResponse' {assignment} -> assignment) (\s@GetAssignmentResponse' {} a -> s {assignment = a} :: GetAssignmentResponse)
 
 -- | The HIT associated with this assignment. The response includes one HIT
 -- element.
 getAssignmentResponse_hit :: Lens.Lens' GetAssignmentResponse (Prelude.Maybe HIT)
 getAssignmentResponse_hit = Lens.lens (\GetAssignmentResponse' {hit} -> hit) (\s@GetAssignmentResponse' {} a -> s {hit = a} :: GetAssignmentResponse)
-
--- | The assignment. The response includes one Assignment element.
-getAssignmentResponse_assignment :: Lens.Lens' GetAssignmentResponse (Prelude.Maybe Assignment)
-getAssignmentResponse_assignment = Lens.lens (\GetAssignmentResponse' {assignment} -> assignment) (\s@GetAssignmentResponse' {} a -> s {assignment = a} :: GetAssignmentResponse)
 
 -- | The response's http status code.
 getAssignmentResponse_httpStatus :: Lens.Lens' GetAssignmentResponse Prelude.Int
@@ -176,6 +179,6 @@ getAssignmentResponse_httpStatus = Lens.lens (\GetAssignmentResponse' {httpStatu
 
 instance Prelude.NFData GetAssignmentResponse where
   rnf GetAssignmentResponse' {..} =
-    Prelude.rnf hit
-      `Prelude.seq` Prelude.rnf assignment
+    Prelude.rnf assignment
+      `Prelude.seq` Prelude.rnf hit
       `Prelude.seq` Prelude.rnf httpStatus

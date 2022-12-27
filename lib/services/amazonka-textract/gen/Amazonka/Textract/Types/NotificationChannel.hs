@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Textract.Types.NotificationChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,13 @@
 module Amazonka.Textract.Types.NotificationChannel where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The Amazon Simple Notification Service (Amazon SNS) topic to which
 -- Amazon Textract publishes the completion status of an asynchronous
--- document operation, such as StartDocumentTextDetection.
+-- document operation.
 --
 -- /See:/ 'newNotificationChannel' smart constructor.
 data NotificationChannel = NotificationChannel'
@@ -83,11 +84,11 @@ instance Prelude.NFData NotificationChannel where
     Prelude.rnf sNSTopicArn
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToJSON NotificationChannel where
+instance Data.ToJSON NotificationChannel where
   toJSON NotificationChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("SNSTopicArn" Core..= sNSTopicArn),
-            Prelude.Just ("RoleArn" Core..= roleArn)
+          [ Prelude.Just ("SNSTopicArn" Data..= sNSTopicArn),
+            Prelude.Just ("RoleArn" Data..= roleArn)
           ]
       )

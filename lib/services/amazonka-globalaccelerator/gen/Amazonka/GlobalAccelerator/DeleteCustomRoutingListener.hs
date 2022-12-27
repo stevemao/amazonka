@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.DeleteCustomRoutingListener
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,9 @@ module Amazonka.GlobalAccelerator.DeleteCustomRoutingListener
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteCustomRoutingListener where
   type
     AWSResponse DeleteCustomRoutingListener =
       DeleteCustomRoutingListenerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteCustomRoutingListenerResponse'
@@ -89,32 +91,32 @@ instance Prelude.NFData DeleteCustomRoutingListener where
   rnf DeleteCustomRoutingListener' {..} =
     Prelude.rnf listenerArn
 
-instance Core.ToHeaders DeleteCustomRoutingListener where
+instance Data.ToHeaders DeleteCustomRoutingListener where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.DeleteCustomRoutingListener" ::
+              Data.=# ( "GlobalAccelerator_V20180706.DeleteCustomRoutingListener" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteCustomRoutingListener where
+instance Data.ToJSON DeleteCustomRoutingListener where
   toJSON DeleteCustomRoutingListener' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ListenerArn" Core..= listenerArn)]
+          [Prelude.Just ("ListenerArn" Data..= listenerArn)]
       )
 
-instance Core.ToPath DeleteCustomRoutingListener where
+instance Data.ToPath DeleteCustomRoutingListener where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCustomRoutingListener where
+instance Data.ToQuery DeleteCustomRoutingListener where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCustomRoutingListenerResponse' smart constructor.

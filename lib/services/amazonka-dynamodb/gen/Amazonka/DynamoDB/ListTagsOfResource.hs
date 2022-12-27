@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.ListTagsOfResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,8 +49,9 @@ module Amazonka.DynamoDB.ListTagsOfResource
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -127,13 +128,14 @@ instance Core.AWSRequest ListTagsOfResource where
   type
     AWSResponse ListTagsOfResource =
       ListTagsOfResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsOfResourceResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,34 +149,34 @@ instance Prelude.NFData ListTagsOfResource where
     Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders ListTagsOfResource where
+instance Data.ToHeaders ListTagsOfResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.ListTagsOfResource" ::
+              Data.=# ( "DynamoDB_20120810.ListTagsOfResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTagsOfResource where
+instance Data.ToJSON ListTagsOfResource where
   toJSON ListTagsOfResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            Prelude.Just ("ResourceArn" Core..= resourceArn)
+          [ ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ResourceArn" Data..= resourceArn)
           ]
       )
 
-instance Core.ToPath ListTagsOfResource where
+instance Data.ToPath ListTagsOfResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTagsOfResource where
+instance Data.ToQuery ListTagsOfResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagsOfResourceResponse' smart constructor.

@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -50,32 +50,48 @@ library
     Amazonka.ChimeSDKIdentity.DeleteAppInstance
     Amazonka.ChimeSDKIdentity.DeleteAppInstanceAdmin
     Amazonka.ChimeSDKIdentity.DeleteAppInstanceUser
+    Amazonka.ChimeSDKIdentity.DeregisterAppInstanceUserEndpoint
     Amazonka.ChimeSDKIdentity.DescribeAppInstance
     Amazonka.ChimeSDKIdentity.DescribeAppInstanceAdmin
     Amazonka.ChimeSDKIdentity.DescribeAppInstanceUser
+    Amazonka.ChimeSDKIdentity.DescribeAppInstanceUserEndpoint
     Amazonka.ChimeSDKIdentity.GetAppInstanceRetentionSettings
     Amazonka.ChimeSDKIdentity.Lens
     Amazonka.ChimeSDKIdentity.ListAppInstanceAdmins
     Amazonka.ChimeSDKIdentity.ListAppInstances
+    Amazonka.ChimeSDKIdentity.ListAppInstanceUserEndpoints
     Amazonka.ChimeSDKIdentity.ListAppInstanceUsers
+    Amazonka.ChimeSDKIdentity.ListTagsForResource
     Amazonka.ChimeSDKIdentity.PutAppInstanceRetentionSettings
+    Amazonka.ChimeSDKIdentity.RegisterAppInstanceUserEndpoint
+    Amazonka.ChimeSDKIdentity.TagResource
     Amazonka.ChimeSDKIdentity.Types
+    Amazonka.ChimeSDKIdentity.Types.AllowMessages
     Amazonka.ChimeSDKIdentity.Types.AppInstance
     Amazonka.ChimeSDKIdentity.Types.AppInstanceAdmin
     Amazonka.ChimeSDKIdentity.Types.AppInstanceAdminSummary
     Amazonka.ChimeSDKIdentity.Types.AppInstanceRetentionSettings
     Amazonka.ChimeSDKIdentity.Types.AppInstanceSummary
     Amazonka.ChimeSDKIdentity.Types.AppInstanceUser
+    Amazonka.ChimeSDKIdentity.Types.AppInstanceUserEndpoint
+    Amazonka.ChimeSDKIdentity.Types.AppInstanceUserEndpointSummary
+    Amazonka.ChimeSDKIdentity.Types.AppInstanceUserEndpointType
     Amazonka.ChimeSDKIdentity.Types.AppInstanceUserSummary
     Amazonka.ChimeSDKIdentity.Types.ChannelRetentionSettings
+    Amazonka.ChimeSDKIdentity.Types.EndpointAttributes
+    Amazonka.ChimeSDKIdentity.Types.EndpointState
+    Amazonka.ChimeSDKIdentity.Types.EndpointStatus
+    Amazonka.ChimeSDKIdentity.Types.EndpointStatusReason
     Amazonka.ChimeSDKIdentity.Types.Identity
     Amazonka.ChimeSDKIdentity.Types.Tag
+    Amazonka.ChimeSDKIdentity.UntagResource
     Amazonka.ChimeSDKIdentity.UpdateAppInstance
     Amazonka.ChimeSDKIdentity.UpdateAppInstanceUser
+    Amazonka.ChimeSDKIdentity.UpdateAppInstanceUserEndpoint
     Amazonka.ChimeSDKIdentity.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-chime-sdk-identity-test
@@ -95,8 +111,8 @@ test-suite amazonka-chime-sdk-identity-test
 
   build-depends:
     , amazonka-chime-sdk-identity
-    , amazonka-core                ^>=2.0
-    , amazonka-test                ^>=2.0
+    , amazonka-core                >=2.0 && <2.1
+    , amazonka-test                >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

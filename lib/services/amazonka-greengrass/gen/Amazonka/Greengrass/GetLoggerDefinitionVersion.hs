@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.GetLoggerDefinitionVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,18 +36,19 @@ module Amazonka.Greengrass.GetLoggerDefinitionVersion
     newGetLoggerDefinitionVersionResponse,
 
     -- * Response Lenses
-    getLoggerDefinitionVersionResponse_definition,
     getLoggerDefinitionVersionResponse_arn,
     getLoggerDefinitionVersionResponse_creationTimestamp,
-    getLoggerDefinitionVersionResponse_version,
+    getLoggerDefinitionVersionResponse_definition,
     getLoggerDefinitionVersionResponse_id,
+    getLoggerDefinitionVersionResponse_version,
     getLoggerDefinitionVersionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -127,16 +128,17 @@ instance Core.AWSRequest GetLoggerDefinitionVersion where
   type
     AWSResponse GetLoggerDefinitionVersion =
       GetLoggerDefinitionVersionResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetLoggerDefinitionVersionResponse'
-            Prelude.<$> (x Core..?> "Definition")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "CreationTimestamp")
-            Prelude.<*> (x Core..?> "Version")
-            Prelude.<*> (x Core..?> "Id")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "CreationTimestamp")
+            Prelude.<*> (x Data..?> "Definition")
+            Prelude.<*> (x Data..?> "Id")
+            Prelude.<*> (x Data..?> "Version")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -152,43 +154,43 @@ instance Prelude.NFData GetLoggerDefinitionVersion where
       `Prelude.seq` Prelude.rnf loggerDefinitionVersionId
       `Prelude.seq` Prelude.rnf loggerDefinitionId
 
-instance Core.ToHeaders GetLoggerDefinitionVersion where
+instance Data.ToHeaders GetLoggerDefinitionVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetLoggerDefinitionVersion where
+instance Data.ToPath GetLoggerDefinitionVersion where
   toPath GetLoggerDefinitionVersion' {..} =
     Prelude.mconcat
       [ "/greengrass/definition/loggers/",
-        Core.toBS loggerDefinitionId,
+        Data.toBS loggerDefinitionId,
         "/versions/",
-        Core.toBS loggerDefinitionVersionId
+        Data.toBS loggerDefinitionVersionId
       ]
 
-instance Core.ToQuery GetLoggerDefinitionVersion where
+instance Data.ToQuery GetLoggerDefinitionVersion where
   toQuery GetLoggerDefinitionVersion' {..} =
-    Prelude.mconcat ["NextToken" Core.=: nextToken]
+    Prelude.mconcat ["NextToken" Data.=: nextToken]
 
 -- | /See:/ 'newGetLoggerDefinitionVersionResponse' smart constructor.
 data GetLoggerDefinitionVersionResponse = GetLoggerDefinitionVersionResponse'
-  { -- | Information about the logger definition version.
-    definition :: Prelude.Maybe LoggerDefinitionVersion,
-    -- | The ARN of the logger definition version.
+  { -- | The ARN of the logger definition version.
     arn :: Prelude.Maybe Prelude.Text,
     -- | The time, in milliseconds since the epoch, when the logger definition
     -- version was created.
     creationTimestamp :: Prelude.Maybe Prelude.Text,
-    -- | The version of the logger definition version.
-    version :: Prelude.Maybe Prelude.Text,
+    -- | Information about the logger definition version.
+    definition :: Prelude.Maybe LoggerDefinitionVersion,
     -- | The ID of the logger definition version.
     id :: Prelude.Maybe Prelude.Text,
+    -- | The version of the logger definition version.
+    version :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -202,16 +204,16 @@ data GetLoggerDefinitionVersionResponse = GetLoggerDefinitionVersionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'definition', 'getLoggerDefinitionVersionResponse_definition' - Information about the logger definition version.
---
 -- 'arn', 'getLoggerDefinitionVersionResponse_arn' - The ARN of the logger definition version.
 --
 -- 'creationTimestamp', 'getLoggerDefinitionVersionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the logger definition
 -- version was created.
 --
--- 'version', 'getLoggerDefinitionVersionResponse_version' - The version of the logger definition version.
+-- 'definition', 'getLoggerDefinitionVersionResponse_definition' - Information about the logger definition version.
 --
 -- 'id', 'getLoggerDefinitionVersionResponse_id' - The ID of the logger definition version.
+--
+-- 'version', 'getLoggerDefinitionVersionResponse_version' - The version of the logger definition version.
 --
 -- 'httpStatus', 'getLoggerDefinitionVersionResponse_httpStatus' - The response's http status code.
 newGetLoggerDefinitionVersionResponse ::
@@ -220,18 +222,14 @@ newGetLoggerDefinitionVersionResponse ::
   GetLoggerDefinitionVersionResponse
 newGetLoggerDefinitionVersionResponse pHttpStatus_ =
   GetLoggerDefinitionVersionResponse'
-    { definition =
+    { arn =
         Prelude.Nothing,
-      arn = Prelude.Nothing,
       creationTimestamp = Prelude.Nothing,
-      version = Prelude.Nothing,
+      definition = Prelude.Nothing,
       id = Prelude.Nothing,
+      version = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Information about the logger definition version.
-getLoggerDefinitionVersionResponse_definition :: Lens.Lens' GetLoggerDefinitionVersionResponse (Prelude.Maybe LoggerDefinitionVersion)
-getLoggerDefinitionVersionResponse_definition = Lens.lens (\GetLoggerDefinitionVersionResponse' {definition} -> definition) (\s@GetLoggerDefinitionVersionResponse' {} a -> s {definition = a} :: GetLoggerDefinitionVersionResponse)
 
 -- | The ARN of the logger definition version.
 getLoggerDefinitionVersionResponse_arn :: Lens.Lens' GetLoggerDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
@@ -242,13 +240,17 @@ getLoggerDefinitionVersionResponse_arn = Lens.lens (\GetLoggerDefinitionVersionR
 getLoggerDefinitionVersionResponse_creationTimestamp :: Lens.Lens' GetLoggerDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
 getLoggerDefinitionVersionResponse_creationTimestamp = Lens.lens (\GetLoggerDefinitionVersionResponse' {creationTimestamp} -> creationTimestamp) (\s@GetLoggerDefinitionVersionResponse' {} a -> s {creationTimestamp = a} :: GetLoggerDefinitionVersionResponse)
 
--- | The version of the logger definition version.
-getLoggerDefinitionVersionResponse_version :: Lens.Lens' GetLoggerDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
-getLoggerDefinitionVersionResponse_version = Lens.lens (\GetLoggerDefinitionVersionResponse' {version} -> version) (\s@GetLoggerDefinitionVersionResponse' {} a -> s {version = a} :: GetLoggerDefinitionVersionResponse)
+-- | Information about the logger definition version.
+getLoggerDefinitionVersionResponse_definition :: Lens.Lens' GetLoggerDefinitionVersionResponse (Prelude.Maybe LoggerDefinitionVersion)
+getLoggerDefinitionVersionResponse_definition = Lens.lens (\GetLoggerDefinitionVersionResponse' {definition} -> definition) (\s@GetLoggerDefinitionVersionResponse' {} a -> s {definition = a} :: GetLoggerDefinitionVersionResponse)
 
 -- | The ID of the logger definition version.
 getLoggerDefinitionVersionResponse_id :: Lens.Lens' GetLoggerDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
 getLoggerDefinitionVersionResponse_id = Lens.lens (\GetLoggerDefinitionVersionResponse' {id} -> id) (\s@GetLoggerDefinitionVersionResponse' {} a -> s {id = a} :: GetLoggerDefinitionVersionResponse)
+
+-- | The version of the logger definition version.
+getLoggerDefinitionVersionResponse_version :: Lens.Lens' GetLoggerDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+getLoggerDefinitionVersionResponse_version = Lens.lens (\GetLoggerDefinitionVersionResponse' {version} -> version) (\s@GetLoggerDefinitionVersionResponse' {} a -> s {version = a} :: GetLoggerDefinitionVersionResponse)
 
 -- | The response's http status code.
 getLoggerDefinitionVersionResponse_httpStatus :: Lens.Lens' GetLoggerDefinitionVersionResponse Prelude.Int
@@ -259,9 +261,9 @@ instance
     GetLoggerDefinitionVersionResponse
   where
   rnf GetLoggerDefinitionVersionResponse' {..} =
-    Prelude.rnf definition
-      `Prelude.seq` Prelude.rnf arn
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf creationTimestamp
-      `Prelude.seq` Prelude.rnf version
+      `Prelude.seq` Prelude.rnf definition
       `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf httpStatus

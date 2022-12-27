@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.Types.ConditionalForwarder
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DirectoryService.Types.ConditionalForwarder where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types.ReplicationScope
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Points to a remote domain with which you are setting up a trust
@@ -88,15 +89,15 @@ conditionalForwarder_remoteDomainName = Lens.lens (\ConditionalForwarder' {remot
 conditionalForwarder_replicationScope :: Lens.Lens' ConditionalForwarder (Prelude.Maybe ReplicationScope)
 conditionalForwarder_replicationScope = Lens.lens (\ConditionalForwarder' {replicationScope} -> replicationScope) (\s@ConditionalForwarder' {} a -> s {replicationScope = a} :: ConditionalForwarder)
 
-instance Core.FromJSON ConditionalForwarder where
+instance Data.FromJSON ConditionalForwarder where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConditionalForwarder"
       ( \x ->
           ConditionalForwarder'
-            Prelude.<$> (x Core..:? "DnsIpAddrs" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "RemoteDomainName")
-            Prelude.<*> (x Core..:? "ReplicationScope")
+            Prelude.<$> (x Data..:? "DnsIpAddrs" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "RemoteDomainName")
+            Prelude.<*> (x Data..:? "ReplicationScope")
       )
 
 instance Prelude.Hashable ConditionalForwarder where

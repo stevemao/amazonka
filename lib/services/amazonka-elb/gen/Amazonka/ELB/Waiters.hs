@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,20 +17,21 @@
 module Amazonka.ELB.Waiters where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.DescribeInstanceHealth
 import Amazonka.ELB.Lens
 import Amazonka.ELB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Polls 'Amazonka.ELB.DescribeInstanceHealth' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
 newAnyInstanceInService :: Core.Wait DescribeInstanceHealth
 newAnyInstanceInService =
   Core.Wait
-    { Core._waitName = "AnyInstanceInService",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "AnyInstanceInService",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAny
             "InService"
             Core.AcceptSuccess
@@ -41,7 +43,7 @@ newAnyInstanceInService =
                 )
                 Prelude.. instanceState_state
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
@@ -50,10 +52,10 @@ newAnyInstanceInService =
 newInstanceDeregistered :: Core.Wait DescribeInstanceHealth
 newInstanceDeregistered =
   Core.Wait
-    { Core._waitName = "InstanceDeregistered",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "InstanceDeregistered",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
             "OutOfService"
             Core.AcceptSuccess
@@ -65,7 +67,7 @@ newInstanceDeregistered =
                 )
                 Prelude.. instanceState_state
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchError
             "InvalidInstance"
@@ -77,10 +79,10 @@ newInstanceDeregistered =
 newInstanceInService :: Core.Wait DescribeInstanceHealth
 newInstanceInService =
   Core.Wait
-    { Core._waitName = "InstanceInService",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "InstanceInService",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
             "InService"
             Core.AcceptSuccess
@@ -92,7 +94,7 @@ newInstanceInService =
                 )
                 Prelude.. instanceState_state
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchError "InvalidInstance" Core.AcceptRetry
         ]

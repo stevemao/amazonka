@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.PutBucketAcl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,6 +39,15 @@
 -- bucket using either the request body or the headers. For example, if you
 -- have an existing application that updates a bucket ACL using the request
 -- body, then you can continue to use that approach.
+--
+-- If your bucket uses the bucket owner enforced setting for S3 Object
+-- Ownership, ACLs are disabled and no longer affect permissions. You must
+-- use policies to grant access to your bucket and the objects in it.
+-- Requests to set ACLs or update ACLs fail and return the
+-- @AccessControlListNotSupported@ error code. Requests to read ACLs are
+-- still supported. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html Controlling object ownership>
+-- in the /Amazon S3 User Guide/.
 --
 -- __Access Permissions__
 --
@@ -166,15 +175,16 @@ module Amazonka.S3.PutBucketAcl
     newPutBucketAcl,
 
     -- * Request Lenses
-    putBucketAcl_grantReadACP,
-    putBucketAcl_grantWriteACP,
-    putBucketAcl_grantRead,
-    putBucketAcl_grantFullControl,
-    putBucketAcl_contentMD5,
-    putBucketAcl_accessControlPolicy,
-    putBucketAcl_grantWrite,
     putBucketAcl_acl,
+    putBucketAcl_accessControlPolicy,
+    putBucketAcl_checksumAlgorithm,
+    putBucketAcl_contentMD5,
     putBucketAcl_expectedBucketOwner,
+    putBucketAcl_grantFullControl,
+    putBucketAcl_grantRead,
+    putBucketAcl_grantReadACP,
+    putBucketAcl_grantWrite,
+    putBucketAcl_grantWriteACP,
     putBucketAcl_bucket,
 
     -- * Destructuring the Response
@@ -184,7 +194,8 @@ module Amazonka.S3.PutBucketAcl
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -192,15 +203,23 @@ import Amazonka.S3.Types
 
 -- | /See:/ 'newPutBucketAcl' smart constructor.
 data PutBucketAcl = PutBucketAcl'
-  { -- | Allows grantee to read the bucket ACL.
-    grantReadACP :: Prelude.Maybe Prelude.Text,
-    -- | Allows grantee to write the ACL for the applicable bucket.
-    grantWriteACP :: Prelude.Maybe Prelude.Text,
-    -- | Allows grantee to list the objects in the bucket.
-    grantRead :: Prelude.Maybe Prelude.Text,
-    -- | Allows grantee the read, write, read ACP, and write ACP permissions on
-    -- the bucket.
-    grantFullControl :: Prelude.Maybe Prelude.Text,
+  { -- | The canned ACL to apply to the bucket.
+    acl :: Prelude.Maybe BucketCannedACL,
+    -- | Contains the elements that set the ACL permissions for an object per
+    -- grantee.
+    accessControlPolicy :: Prelude.Maybe AccessControlPolicy,
+    -- | Indicates the algorithm used to create the checksum for the object when
+    -- using the SDK. This header will not provide any additional functionality
+    -- if not using the SDK. When sending this header, there must be a
+    -- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+    -- Otherwise, Amazon S3 fails the request with the HTTP status code
+    -- @400 Bad Request@. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+    -- in the /Amazon S3 User Guide/.
+    --
+    -- If you provide an individual checksum, Amazon S3 ignores any provided
+    -- @ChecksumAlgorithm@ parameter.
+    checksumAlgorithm :: Prelude.Maybe ChecksumAlgorithm,
     -- | The base64-encoded 128-bit MD5 digest of the data. This header must be
     -- used as a message integrity check to verify that the request body was
     -- not corrupted in transit. For more information, go to
@@ -210,20 +229,24 @@ data PutBucketAcl = PutBucketAcl'
     -- (CLI) or Amazon Web Services SDKs, this field is calculated
     -- automatically.
     contentMD5 :: Prelude.Maybe Prelude.Text,
-    -- | Contains the elements that set the ACL permissions for an object per
-    -- grantee.
-    accessControlPolicy :: Prelude.Maybe AccessControlPolicy,
+    -- | The account ID of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
+    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | Allows grantee the read, write, read ACP, and write ACP permissions on
+    -- the bucket.
+    grantFullControl :: Prelude.Maybe Prelude.Text,
+    -- | Allows grantee to list the objects in the bucket.
+    grantRead :: Prelude.Maybe Prelude.Text,
+    -- | Allows grantee to read the bucket ACL.
+    grantReadACP :: Prelude.Maybe Prelude.Text,
     -- | Allows grantee to create new objects in the bucket.
     --
     -- For the bucket and object owners of existing objects, also allows
     -- deletions and overwrites of those objects.
     grantWrite :: Prelude.Maybe Prelude.Text,
-    -- | The canned ACL to apply to the bucket.
-    acl :: Prelude.Maybe BucketCannedACL,
-    -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
-    expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | Allows grantee to write the ACL for the applicable bucket.
+    grantWriteACP :: Prelude.Maybe Prelude.Text,
     -- | The bucket to which to apply the ACL.
     bucket :: BucketName
   }
@@ -237,14 +260,22 @@ data PutBucketAcl = PutBucketAcl'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'grantReadACP', 'putBucketAcl_grantReadACP' - Allows grantee to read the bucket ACL.
+-- 'acl', 'putBucketAcl_acl' - The canned ACL to apply to the bucket.
 --
--- 'grantWriteACP', 'putBucketAcl_grantWriteACP' - Allows grantee to write the ACL for the applicable bucket.
+-- 'accessControlPolicy', 'putBucketAcl_accessControlPolicy' - Contains the elements that set the ACL permissions for an object per
+-- grantee.
 --
--- 'grantRead', 'putBucketAcl_grantRead' - Allows grantee to list the objects in the bucket.
+-- 'checksumAlgorithm', 'putBucketAcl_checksumAlgorithm' - Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
 --
--- 'grantFullControl', 'putBucketAcl_grantFullControl' - Allows grantee the read, write, read ACP, and write ACP permissions on
--- the bucket.
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
 --
 -- 'contentMD5', 'putBucketAcl_contentMD5' - The base64-encoded 128-bit MD5 digest of the data. This header must be
 -- used as a message integrity check to verify that the request body was
@@ -255,19 +286,23 @@ data PutBucketAcl = PutBucketAcl'
 -- (CLI) or Amazon Web Services SDKs, this field is calculated
 -- automatically.
 --
--- 'accessControlPolicy', 'putBucketAcl_accessControlPolicy' - Contains the elements that set the ACL permissions for an object per
--- grantee.
+-- 'expectedBucketOwner', 'putBucketAcl_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
+--
+-- 'grantFullControl', 'putBucketAcl_grantFullControl' - Allows grantee the read, write, read ACP, and write ACP permissions on
+-- the bucket.
+--
+-- 'grantRead', 'putBucketAcl_grantRead' - Allows grantee to list the objects in the bucket.
+--
+-- 'grantReadACP', 'putBucketAcl_grantReadACP' - Allows grantee to read the bucket ACL.
 --
 -- 'grantWrite', 'putBucketAcl_grantWrite' - Allows grantee to create new objects in the bucket.
 --
 -- For the bucket and object owners of existing objects, also allows
 -- deletions and overwrites of those objects.
 --
--- 'acl', 'putBucketAcl_acl' - The canned ACL to apply to the bucket.
---
--- 'expectedBucketOwner', 'putBucketAcl_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- 'grantWriteACP', 'putBucketAcl_grantWriteACP' - Allows grantee to write the ACL for the applicable bucket.
 --
 -- 'bucket', 'putBucketAcl_bucket' - The bucket to which to apply the ACL.
 newPutBucketAcl ::
@@ -276,34 +311,41 @@ newPutBucketAcl ::
   PutBucketAcl
 newPutBucketAcl pBucket_ =
   PutBucketAcl'
-    { grantReadACP = Prelude.Nothing,
-      grantWriteACP = Prelude.Nothing,
-      grantRead = Prelude.Nothing,
-      grantFullControl = Prelude.Nothing,
-      contentMD5 = Prelude.Nothing,
+    { acl = Prelude.Nothing,
       accessControlPolicy = Prelude.Nothing,
-      grantWrite = Prelude.Nothing,
-      acl = Prelude.Nothing,
+      checksumAlgorithm = Prelude.Nothing,
+      contentMD5 = Prelude.Nothing,
       expectedBucketOwner = Prelude.Nothing,
+      grantFullControl = Prelude.Nothing,
+      grantRead = Prelude.Nothing,
+      grantReadACP = Prelude.Nothing,
+      grantWrite = Prelude.Nothing,
+      grantWriteACP = Prelude.Nothing,
       bucket = pBucket_
     }
 
--- | Allows grantee to read the bucket ACL.
-putBucketAcl_grantReadACP :: Lens.Lens' PutBucketAcl (Prelude.Maybe Prelude.Text)
-putBucketAcl_grantReadACP = Lens.lens (\PutBucketAcl' {grantReadACP} -> grantReadACP) (\s@PutBucketAcl' {} a -> s {grantReadACP = a} :: PutBucketAcl)
+-- | The canned ACL to apply to the bucket.
+putBucketAcl_acl :: Lens.Lens' PutBucketAcl (Prelude.Maybe BucketCannedACL)
+putBucketAcl_acl = Lens.lens (\PutBucketAcl' {acl} -> acl) (\s@PutBucketAcl' {} a -> s {acl = a} :: PutBucketAcl)
 
--- | Allows grantee to write the ACL for the applicable bucket.
-putBucketAcl_grantWriteACP :: Lens.Lens' PutBucketAcl (Prelude.Maybe Prelude.Text)
-putBucketAcl_grantWriteACP = Lens.lens (\PutBucketAcl' {grantWriteACP} -> grantWriteACP) (\s@PutBucketAcl' {} a -> s {grantWriteACP = a} :: PutBucketAcl)
+-- | Contains the elements that set the ACL permissions for an object per
+-- grantee.
+putBucketAcl_accessControlPolicy :: Lens.Lens' PutBucketAcl (Prelude.Maybe AccessControlPolicy)
+putBucketAcl_accessControlPolicy = Lens.lens (\PutBucketAcl' {accessControlPolicy} -> accessControlPolicy) (\s@PutBucketAcl' {} a -> s {accessControlPolicy = a} :: PutBucketAcl)
 
--- | Allows grantee to list the objects in the bucket.
-putBucketAcl_grantRead :: Lens.Lens' PutBucketAcl (Prelude.Maybe Prelude.Text)
-putBucketAcl_grantRead = Lens.lens (\PutBucketAcl' {grantRead} -> grantRead) (\s@PutBucketAcl' {} a -> s {grantRead = a} :: PutBucketAcl)
-
--- | Allows grantee the read, write, read ACP, and write ACP permissions on
--- the bucket.
-putBucketAcl_grantFullControl :: Lens.Lens' PutBucketAcl (Prelude.Maybe Prelude.Text)
-putBucketAcl_grantFullControl = Lens.lens (\PutBucketAcl' {grantFullControl} -> grantFullControl) (\s@PutBucketAcl' {} a -> s {grantFullControl = a} :: PutBucketAcl)
+-- | Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
+putBucketAcl_checksumAlgorithm :: Lens.Lens' PutBucketAcl (Prelude.Maybe ChecksumAlgorithm)
+putBucketAcl_checksumAlgorithm = Lens.lens (\PutBucketAcl' {checksumAlgorithm} -> checksumAlgorithm) (\s@PutBucketAcl' {} a -> s {checksumAlgorithm = a} :: PutBucketAcl)
 
 -- | The base64-encoded 128-bit MD5 digest of the data. This header must be
 -- used as a message integrity check to verify that the request body was
@@ -316,10 +358,24 @@ putBucketAcl_grantFullControl = Lens.lens (\PutBucketAcl' {grantFullControl} -> 
 putBucketAcl_contentMD5 :: Lens.Lens' PutBucketAcl (Prelude.Maybe Prelude.Text)
 putBucketAcl_contentMD5 = Lens.lens (\PutBucketAcl' {contentMD5} -> contentMD5) (\s@PutBucketAcl' {} a -> s {contentMD5 = a} :: PutBucketAcl)
 
--- | Contains the elements that set the ACL permissions for an object per
--- grantee.
-putBucketAcl_accessControlPolicy :: Lens.Lens' PutBucketAcl (Prelude.Maybe AccessControlPolicy)
-putBucketAcl_accessControlPolicy = Lens.lens (\PutBucketAcl' {accessControlPolicy} -> accessControlPolicy) (\s@PutBucketAcl' {} a -> s {accessControlPolicy = a} :: PutBucketAcl)
+-- | The account ID of the expected bucket owner. If the bucket is owned by a
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
+putBucketAcl_expectedBucketOwner :: Lens.Lens' PutBucketAcl (Prelude.Maybe Prelude.Text)
+putBucketAcl_expectedBucketOwner = Lens.lens (\PutBucketAcl' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutBucketAcl' {} a -> s {expectedBucketOwner = a} :: PutBucketAcl)
+
+-- | Allows grantee the read, write, read ACP, and write ACP permissions on
+-- the bucket.
+putBucketAcl_grantFullControl :: Lens.Lens' PutBucketAcl (Prelude.Maybe Prelude.Text)
+putBucketAcl_grantFullControl = Lens.lens (\PutBucketAcl' {grantFullControl} -> grantFullControl) (\s@PutBucketAcl' {} a -> s {grantFullControl = a} :: PutBucketAcl)
+
+-- | Allows grantee to list the objects in the bucket.
+putBucketAcl_grantRead :: Lens.Lens' PutBucketAcl (Prelude.Maybe Prelude.Text)
+putBucketAcl_grantRead = Lens.lens (\PutBucketAcl' {grantRead} -> grantRead) (\s@PutBucketAcl' {} a -> s {grantRead = a} :: PutBucketAcl)
+
+-- | Allows grantee to read the bucket ACL.
+putBucketAcl_grantReadACP :: Lens.Lens' PutBucketAcl (Prelude.Maybe Prelude.Text)
+putBucketAcl_grantReadACP = Lens.lens (\PutBucketAcl' {grantReadACP} -> grantReadACP) (\s@PutBucketAcl' {} a -> s {grantReadACP = a} :: PutBucketAcl)
 
 -- | Allows grantee to create new objects in the bucket.
 --
@@ -328,15 +384,9 @@ putBucketAcl_accessControlPolicy = Lens.lens (\PutBucketAcl' {accessControlPolic
 putBucketAcl_grantWrite :: Lens.Lens' PutBucketAcl (Prelude.Maybe Prelude.Text)
 putBucketAcl_grantWrite = Lens.lens (\PutBucketAcl' {grantWrite} -> grantWrite) (\s@PutBucketAcl' {} a -> s {grantWrite = a} :: PutBucketAcl)
 
--- | The canned ACL to apply to the bucket.
-putBucketAcl_acl :: Lens.Lens' PutBucketAcl (Prelude.Maybe BucketCannedACL)
-putBucketAcl_acl = Lens.lens (\PutBucketAcl' {acl} -> acl) (\s@PutBucketAcl' {} a -> s {acl = a} :: PutBucketAcl)
-
--- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
-putBucketAcl_expectedBucketOwner :: Lens.Lens' PutBucketAcl (Prelude.Maybe Prelude.Text)
-putBucketAcl_expectedBucketOwner = Lens.lens (\PutBucketAcl' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutBucketAcl' {} a -> s {expectedBucketOwner = a} :: PutBucketAcl)
+-- | Allows grantee to write the ACL for the applicable bucket.
+putBucketAcl_grantWriteACP :: Lens.Lens' PutBucketAcl (Prelude.Maybe Prelude.Text)
+putBucketAcl_grantWriteACP = Lens.lens (\PutBucketAcl' {grantWriteACP} -> grantWriteACP) (\s@PutBucketAcl' {} a -> s {grantWriteACP = a} :: PutBucketAcl)
 
 -- | The bucket to which to apply the ACL.
 putBucketAcl_bucket :: Lens.Lens' PutBucketAcl BucketName
@@ -344,62 +394,66 @@ putBucketAcl_bucket = Lens.lens (\PutBucketAcl' {bucket} -> bucket) (\s@PutBucke
 
 instance Core.AWSRequest PutBucketAcl where
   type AWSResponse PutBucketAcl = PutBucketAclResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.putXML defaultService
+      Prelude.. Request.putXML (overrides defaultService)
   response = Response.receiveNull PutBucketAclResponse'
 
 instance Prelude.Hashable PutBucketAcl where
   hashWithSalt _salt PutBucketAcl' {..} =
-    _salt `Prelude.hashWithSalt` grantReadACP
-      `Prelude.hashWithSalt` grantWriteACP
-      `Prelude.hashWithSalt` grantRead
-      `Prelude.hashWithSalt` grantFullControl
-      `Prelude.hashWithSalt` contentMD5
+    _salt `Prelude.hashWithSalt` acl
       `Prelude.hashWithSalt` accessControlPolicy
-      `Prelude.hashWithSalt` grantWrite
-      `Prelude.hashWithSalt` acl
+      `Prelude.hashWithSalt` checksumAlgorithm
+      `Prelude.hashWithSalt` contentMD5
       `Prelude.hashWithSalt` expectedBucketOwner
+      `Prelude.hashWithSalt` grantFullControl
+      `Prelude.hashWithSalt` grantRead
+      `Prelude.hashWithSalt` grantReadACP
+      `Prelude.hashWithSalt` grantWrite
+      `Prelude.hashWithSalt` grantWriteACP
       `Prelude.hashWithSalt` bucket
 
 instance Prelude.NFData PutBucketAcl where
   rnf PutBucketAcl' {..} =
-    Prelude.rnf grantReadACP
-      `Prelude.seq` Prelude.rnf grantWriteACP
-      `Prelude.seq` Prelude.rnf grantRead
-      `Prelude.seq` Prelude.rnf grantFullControl
-      `Prelude.seq` Prelude.rnf contentMD5
+    Prelude.rnf acl
       `Prelude.seq` Prelude.rnf accessControlPolicy
-      `Prelude.seq` Prelude.rnf grantWrite
-      `Prelude.seq` Prelude.rnf acl
+      `Prelude.seq` Prelude.rnf checksumAlgorithm
+      `Prelude.seq` Prelude.rnf contentMD5
       `Prelude.seq` Prelude.rnf expectedBucketOwner
+      `Prelude.seq` Prelude.rnf grantFullControl
+      `Prelude.seq` Prelude.rnf grantRead
+      `Prelude.seq` Prelude.rnf grantReadACP
+      `Prelude.seq` Prelude.rnf grantWrite
+      `Prelude.seq` Prelude.rnf grantWriteACP
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToElement PutBucketAcl where
+instance Data.ToElement PutBucketAcl where
   toElement PutBucketAcl' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}AccessControlPolicy"
       accessControlPolicy
 
-instance Core.ToHeaders PutBucketAcl where
+instance Data.ToHeaders PutBucketAcl where
   toHeaders PutBucketAcl' {..} =
     Prelude.mconcat
-      [ "x-amz-grant-read-acp" Core.=# grantReadACP,
-        "x-amz-grant-write-acp" Core.=# grantWriteACP,
-        "x-amz-grant-read" Core.=# grantRead,
-        "x-amz-grant-full-control" Core.=# grantFullControl,
-        "Content-MD5" Core.=# contentMD5,
-        "x-amz-grant-write" Core.=# grantWrite,
-        "x-amz-acl" Core.=# acl,
+      [ "x-amz-acl" Data.=# acl,
+        "x-amz-sdk-checksum-algorithm"
+          Data.=# checksumAlgorithm,
+        "Content-MD5" Data.=# contentMD5,
         "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner,
+        "x-amz-grant-full-control" Data.=# grantFullControl,
+        "x-amz-grant-read" Data.=# grantRead,
+        "x-amz-grant-read-acp" Data.=# grantReadACP,
+        "x-amz-grant-write" Data.=# grantWrite,
+        "x-amz-grant-write-acp" Data.=# grantWriteACP
       ]
 
-instance Core.ToPath PutBucketAcl where
+instance Data.ToPath PutBucketAcl where
   toPath PutBucketAcl' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery PutBucketAcl where
+instance Data.ToQuery PutBucketAcl where
   toQuery = Prelude.const (Prelude.mconcat ["acl"])
 
 -- | /See:/ 'newPutBucketAclResponse' smart constructor.

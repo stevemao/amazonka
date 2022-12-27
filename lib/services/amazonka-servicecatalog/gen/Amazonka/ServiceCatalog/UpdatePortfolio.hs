@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.UpdatePortfolio
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,12 +29,12 @@ module Amazonka.ServiceCatalog.UpdatePortfolio
     newUpdatePortfolio,
 
     -- * Request Lenses
-    updatePortfolio_removeTags,
     updatePortfolio_acceptLanguage,
-    updatePortfolio_displayName,
     updatePortfolio_addTags,
     updatePortfolio_description,
+    updatePortfolio_displayName,
     updatePortfolio_providerName,
+    updatePortfolio_removeTags,
     updatePortfolio_id,
 
     -- * Destructuring the Response
@@ -49,7 +49,8 @@ module Amazonka.ServiceCatalog.UpdatePortfolio
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,9 +58,7 @@ import Amazonka.ServiceCatalog.Types
 
 -- | /See:/ 'newUpdatePortfolio' smart constructor.
 data UpdatePortfolio = UpdatePortfolio'
-  { -- | The tags to remove.
-    removeTags :: Prelude.Maybe [Prelude.Text],
-    -- | The language code.
+  { -- | The language code.
     --
     -- -   @en@ - English (default)
     --
@@ -67,14 +66,16 @@ data UpdatePortfolio = UpdatePortfolio'
     --
     -- -   @zh@ - Chinese
     acceptLanguage :: Prelude.Maybe Prelude.Text,
-    -- | The name to use for display purposes.
-    displayName :: Prelude.Maybe Prelude.Text,
     -- | The tags to add.
     addTags :: Prelude.Maybe [Tag],
     -- | The updated description of the portfolio.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The name to use for display purposes.
+    displayName :: Prelude.Maybe Prelude.Text,
     -- | The updated name of the portfolio provider.
     providerName :: Prelude.Maybe Prelude.Text,
+    -- | The tags to remove.
+    removeTags :: Prelude.Maybe [Prelude.Text],
     -- | The portfolio identifier.
     id :: Prelude.Text
   }
@@ -88,8 +89,6 @@ data UpdatePortfolio = UpdatePortfolio'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'removeTags', 'updatePortfolio_removeTags' - The tags to remove.
---
 -- 'acceptLanguage', 'updatePortfolio_acceptLanguage' - The language code.
 --
 -- -   @en@ - English (default)
@@ -98,13 +97,15 @@ data UpdatePortfolio = UpdatePortfolio'
 --
 -- -   @zh@ - Chinese
 --
--- 'displayName', 'updatePortfolio_displayName' - The name to use for display purposes.
---
 -- 'addTags', 'updatePortfolio_addTags' - The tags to add.
 --
 -- 'description', 'updatePortfolio_description' - The updated description of the portfolio.
 --
+-- 'displayName', 'updatePortfolio_displayName' - The name to use for display purposes.
+--
 -- 'providerName', 'updatePortfolio_providerName' - The updated name of the portfolio provider.
+--
+-- 'removeTags', 'updatePortfolio_removeTags' - The tags to remove.
 --
 -- 'id', 'updatePortfolio_id' - The portfolio identifier.
 newUpdatePortfolio ::
@@ -113,18 +114,14 @@ newUpdatePortfolio ::
   UpdatePortfolio
 newUpdatePortfolio pId_ =
   UpdatePortfolio'
-    { removeTags = Prelude.Nothing,
-      acceptLanguage = Prelude.Nothing,
-      displayName = Prelude.Nothing,
+    { acceptLanguage = Prelude.Nothing,
       addTags = Prelude.Nothing,
       description = Prelude.Nothing,
+      displayName = Prelude.Nothing,
       providerName = Prelude.Nothing,
+      removeTags = Prelude.Nothing,
       id = pId_
     }
-
--- | The tags to remove.
-updatePortfolio_removeTags :: Lens.Lens' UpdatePortfolio (Prelude.Maybe [Prelude.Text])
-updatePortfolio_removeTags = Lens.lens (\UpdatePortfolio' {removeTags} -> removeTags) (\s@UpdatePortfolio' {} a -> s {removeTags = a} :: UpdatePortfolio) Prelude.. Lens.mapping Lens.coerced
 
 -- | The language code.
 --
@@ -136,10 +133,6 @@ updatePortfolio_removeTags = Lens.lens (\UpdatePortfolio' {removeTags} -> remove
 updatePortfolio_acceptLanguage :: Lens.Lens' UpdatePortfolio (Prelude.Maybe Prelude.Text)
 updatePortfolio_acceptLanguage = Lens.lens (\UpdatePortfolio' {acceptLanguage} -> acceptLanguage) (\s@UpdatePortfolio' {} a -> s {acceptLanguage = a} :: UpdatePortfolio)
 
--- | The name to use for display purposes.
-updatePortfolio_displayName :: Lens.Lens' UpdatePortfolio (Prelude.Maybe Prelude.Text)
-updatePortfolio_displayName = Lens.lens (\UpdatePortfolio' {displayName} -> displayName) (\s@UpdatePortfolio' {} a -> s {displayName = a} :: UpdatePortfolio)
-
 -- | The tags to add.
 updatePortfolio_addTags :: Lens.Lens' UpdatePortfolio (Prelude.Maybe [Tag])
 updatePortfolio_addTags = Lens.lens (\UpdatePortfolio' {addTags} -> addTags) (\s@UpdatePortfolio' {} a -> s {addTags = a} :: UpdatePortfolio) Prelude.. Lens.mapping Lens.coerced
@@ -148,9 +141,17 @@ updatePortfolio_addTags = Lens.lens (\UpdatePortfolio' {addTags} -> addTags) (\s
 updatePortfolio_description :: Lens.Lens' UpdatePortfolio (Prelude.Maybe Prelude.Text)
 updatePortfolio_description = Lens.lens (\UpdatePortfolio' {description} -> description) (\s@UpdatePortfolio' {} a -> s {description = a} :: UpdatePortfolio)
 
+-- | The name to use for display purposes.
+updatePortfolio_displayName :: Lens.Lens' UpdatePortfolio (Prelude.Maybe Prelude.Text)
+updatePortfolio_displayName = Lens.lens (\UpdatePortfolio' {displayName} -> displayName) (\s@UpdatePortfolio' {} a -> s {displayName = a} :: UpdatePortfolio)
+
 -- | The updated name of the portfolio provider.
 updatePortfolio_providerName :: Lens.Lens' UpdatePortfolio (Prelude.Maybe Prelude.Text)
 updatePortfolio_providerName = Lens.lens (\UpdatePortfolio' {providerName} -> providerName) (\s@UpdatePortfolio' {} a -> s {providerName = a} :: UpdatePortfolio)
+
+-- | The tags to remove.
+updatePortfolio_removeTags :: Lens.Lens' UpdatePortfolio (Prelude.Maybe [Prelude.Text])
+updatePortfolio_removeTags = Lens.lens (\UpdatePortfolio' {removeTags} -> removeTags) (\s@UpdatePortfolio' {} a -> s {removeTags = a} :: UpdatePortfolio) Prelude.. Lens.mapping Lens.coerced
 
 -- | The portfolio identifier.
 updatePortfolio_id :: Lens.Lens' UpdatePortfolio Prelude.Text
@@ -160,70 +161,71 @@ instance Core.AWSRequest UpdatePortfolio where
   type
     AWSResponse UpdatePortfolio =
       UpdatePortfolioResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdatePortfolioResponse'
-            Prelude.<$> (x Core..?> "PortfolioDetail")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "PortfolioDetail")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdatePortfolio where
   hashWithSalt _salt UpdatePortfolio' {..} =
-    _salt `Prelude.hashWithSalt` removeTags
-      `Prelude.hashWithSalt` acceptLanguage
-      `Prelude.hashWithSalt` displayName
+    _salt `Prelude.hashWithSalt` acceptLanguage
       `Prelude.hashWithSalt` addTags
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` displayName
       `Prelude.hashWithSalt` providerName
+      `Prelude.hashWithSalt` removeTags
       `Prelude.hashWithSalt` id
 
 instance Prelude.NFData UpdatePortfolio where
   rnf UpdatePortfolio' {..} =
-    Prelude.rnf removeTags
-      `Prelude.seq` Prelude.rnf acceptLanguage
-      `Prelude.seq` Prelude.rnf displayName
+    Prelude.rnf acceptLanguage
       `Prelude.seq` Prelude.rnf addTags
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf displayName
       `Prelude.seq` Prelude.rnf providerName
+      `Prelude.seq` Prelude.rnf removeTags
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToHeaders UpdatePortfolio where
+instance Data.ToHeaders UpdatePortfolio where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.UpdatePortfolio" ::
+              Data.=# ( "AWS242ServiceCatalogService.UpdatePortfolio" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdatePortfolio where
+instance Data.ToJSON UpdatePortfolio where
   toJSON UpdatePortfolio' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RemoveTags" Core..=) Prelude.<$> removeTags,
-            ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("DisplayName" Core..=) Prelude.<$> displayName,
-            ("AddTags" Core..=) Prelude.<$> addTags,
-            ("Description" Core..=) Prelude.<$> description,
-            ("ProviderName" Core..=) Prelude.<$> providerName,
-            Prelude.Just ("Id" Core..= id)
+            ("AddTags" Data..=) Prelude.<$> addTags,
+            ("Description" Data..=) Prelude.<$> description,
+            ("DisplayName" Data..=) Prelude.<$> displayName,
+            ("ProviderName" Data..=) Prelude.<$> providerName,
+            ("RemoveTags" Data..=) Prelude.<$> removeTags,
+            Prelude.Just ("Id" Data..= id)
           ]
       )
 
-instance Core.ToPath UpdatePortfolio where
+instance Data.ToPath UpdatePortfolio where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdatePortfolio where
+instance Data.ToQuery UpdatePortfolio where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdatePortfolioResponse' smart constructor.

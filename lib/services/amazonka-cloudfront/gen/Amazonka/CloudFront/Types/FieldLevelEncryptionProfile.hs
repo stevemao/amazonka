@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.FieldLevelEncryptionProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.FieldLevelEncryptionProfile where
 
 import Amazonka.CloudFront.Types.FieldLevelEncryptionProfileConfig
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A complex data type for field-level encryption profiles.
@@ -33,7 +34,7 @@ data FieldLevelEncryptionProfile = FieldLevelEncryptionProfile'
     -- encrypted by specific public keys.
     id :: Prelude.Text,
     -- | The last time the field-level encryption profile was updated.
-    lastModifiedTime :: Core.ISO8601,
+    lastModifiedTime :: Data.ISO8601,
     -- | A complex data type that includes the profile name and the encryption
     -- entities for the field-level encryption profile.
     fieldLevelEncryptionProfileConfig :: FieldLevelEncryptionProfileConfig
@@ -71,7 +72,7 @@ newFieldLevelEncryptionProfile
     FieldLevelEncryptionProfile'
       { id = pId_,
         lastModifiedTime =
-          Core._Time Lens.# pLastModifiedTime_,
+          Data._Time Lens.# pLastModifiedTime_,
         fieldLevelEncryptionProfileConfig =
           pFieldLevelEncryptionProfileConfig_
       }
@@ -84,19 +85,19 @@ fieldLevelEncryptionProfile_id = Lens.lens (\FieldLevelEncryptionProfile' {id} -
 
 -- | The last time the field-level encryption profile was updated.
 fieldLevelEncryptionProfile_lastModifiedTime :: Lens.Lens' FieldLevelEncryptionProfile Prelude.UTCTime
-fieldLevelEncryptionProfile_lastModifiedTime = Lens.lens (\FieldLevelEncryptionProfile' {lastModifiedTime} -> lastModifiedTime) (\s@FieldLevelEncryptionProfile' {} a -> s {lastModifiedTime = a} :: FieldLevelEncryptionProfile) Prelude.. Core._Time
+fieldLevelEncryptionProfile_lastModifiedTime = Lens.lens (\FieldLevelEncryptionProfile' {lastModifiedTime} -> lastModifiedTime) (\s@FieldLevelEncryptionProfile' {} a -> s {lastModifiedTime = a} :: FieldLevelEncryptionProfile) Prelude.. Data._Time
 
 -- | A complex data type that includes the profile name and the encryption
 -- entities for the field-level encryption profile.
 fieldLevelEncryptionProfile_fieldLevelEncryptionProfileConfig :: Lens.Lens' FieldLevelEncryptionProfile FieldLevelEncryptionProfileConfig
 fieldLevelEncryptionProfile_fieldLevelEncryptionProfileConfig = Lens.lens (\FieldLevelEncryptionProfile' {fieldLevelEncryptionProfileConfig} -> fieldLevelEncryptionProfileConfig) (\s@FieldLevelEncryptionProfile' {} a -> s {fieldLevelEncryptionProfileConfig = a} :: FieldLevelEncryptionProfile)
 
-instance Core.FromXML FieldLevelEncryptionProfile where
+instance Data.FromXML FieldLevelEncryptionProfile where
   parseXML x =
     FieldLevelEncryptionProfile'
-      Prelude.<$> (x Core..@ "Id")
-      Prelude.<*> (x Core..@ "LastModifiedTime")
-      Prelude.<*> (x Core..@ "FieldLevelEncryptionProfileConfig")
+      Prelude.<$> (x Data..@ "Id")
+      Prelude.<*> (x Data..@ "LastModifiedTime")
+      Prelude.<*> (x Data..@ "FieldLevelEncryptionProfileConfig")
 
 instance Prelude.Hashable FieldLevelEncryptionProfile where
   hashWithSalt _salt FieldLevelEncryptionProfile' {..} =

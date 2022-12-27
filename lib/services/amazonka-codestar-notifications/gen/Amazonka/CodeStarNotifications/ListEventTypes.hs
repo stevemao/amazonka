@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarNotifications.ListEventTypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.CodeStarNotifications.ListEventTypes
 
     -- * Request Lenses
     listEventTypes_filters,
-    listEventTypes_nextToken,
     listEventTypes_maxResults,
+    listEventTypes_nextToken,
 
     -- * Destructuring the Response
     ListEventTypesResponse (..),
@@ -47,7 +47,8 @@ where
 
 import Amazonka.CodeStarNotifications.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,13 +57,13 @@ import qualified Amazonka.Response as Response
 data ListEventTypes = ListEventTypes'
   { -- | The filters to use to return information by service or resource type.
     filters :: Prelude.Maybe [ListEventTypesFilter],
-    -- | An enumeration token that, when provided in a request, returns the next
-    -- batch of the results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | A non-negative integer used to limit the number of returned results. The
     -- default number is 50. The maximum number of results that can be returned
     -- is 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | An enumeration token that, when provided in a request, returns the next
+    -- batch of the results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -76,35 +77,35 @@ data ListEventTypes = ListEventTypes'
 --
 -- 'filters', 'listEventTypes_filters' - The filters to use to return information by service or resource type.
 --
--- 'nextToken', 'listEventTypes_nextToken' - An enumeration token that, when provided in a request, returns the next
--- batch of the results.
---
 -- 'maxResults', 'listEventTypes_maxResults' - A non-negative integer used to limit the number of returned results. The
 -- default number is 50. The maximum number of results that can be returned
 -- is 100.
+--
+-- 'nextToken', 'listEventTypes_nextToken' - An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
 newListEventTypes ::
   ListEventTypes
 newListEventTypes =
   ListEventTypes'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | The filters to use to return information by service or resource type.
 listEventTypes_filters :: Lens.Lens' ListEventTypes (Prelude.Maybe [ListEventTypesFilter])
 listEventTypes_filters = Lens.lens (\ListEventTypes' {filters} -> filters) (\s@ListEventTypes' {} a -> s {filters = a} :: ListEventTypes) Prelude.. Lens.mapping Lens.coerced
 
--- | An enumeration token that, when provided in a request, returns the next
--- batch of the results.
-listEventTypes_nextToken :: Lens.Lens' ListEventTypes (Prelude.Maybe Prelude.Text)
-listEventTypes_nextToken = Lens.lens (\ListEventTypes' {nextToken} -> nextToken) (\s@ListEventTypes' {} a -> s {nextToken = a} :: ListEventTypes)
-
 -- | A non-negative integer used to limit the number of returned results. The
 -- default number is 50. The maximum number of results that can be returned
 -- is 100.
 listEventTypes_maxResults :: Lens.Lens' ListEventTypes (Prelude.Maybe Prelude.Natural)
 listEventTypes_maxResults = Lens.lens (\ListEventTypes' {maxResults} -> maxResults) (\s@ListEventTypes' {} a -> s {maxResults = a} :: ListEventTypes)
+
+-- | An enumeration token that, when provided in a request, returns the next
+-- batch of the results.
+listEventTypes_nextToken :: Lens.Lens' ListEventTypes (Prelude.Maybe Prelude.Text)
+listEventTypes_nextToken = Lens.lens (\ListEventTypes' {nextToken} -> nextToken) (\s@ListEventTypes' {} a -> s {nextToken = a} :: ListEventTypes)
 
 instance Core.AWSPager ListEventTypes where
   page rq rs
@@ -131,53 +132,54 @@ instance Core.AWSRequest ListEventTypes where
   type
     AWSResponse ListEventTypes =
       ListEventTypesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEventTypesResponse'
-            Prelude.<$> (x Core..?> "EventTypes" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "EventTypes" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListEventTypes where
   hashWithSalt _salt ListEventTypes' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListEventTypes where
   rnf ListEventTypes' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListEventTypes where
+instance Data.ToHeaders ListEventTypes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListEventTypes where
+instance Data.ToJSON ListEventTypes where
   toJSON ListEventTypes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListEventTypes where
+instance Data.ToPath ListEventTypes where
   toPath = Prelude.const "/listEventTypes"
 
-instance Core.ToQuery ListEventTypes where
+instance Data.ToQuery ListEventTypes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListEventTypesResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.DeleteIntent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ module Amazonka.LexModels.DeleteIntent
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -85,7 +86,8 @@ deleteIntent_name = Lens.lens (\DeleteIntent' {name} -> name) (\s@DeleteIntent' 
 
 instance Core.AWSRequest DeleteIntent where
   type AWSResponse DeleteIntent = DeleteIntentResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response = Response.receiveNull DeleteIntentResponse'
 
 instance Prelude.Hashable DeleteIntent where
@@ -95,22 +97,22 @@ instance Prelude.Hashable DeleteIntent where
 instance Prelude.NFData DeleteIntent where
   rnf DeleteIntent' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteIntent where
+instance Data.ToHeaders DeleteIntent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteIntent where
+instance Data.ToPath DeleteIntent where
   toPath DeleteIntent' {..} =
-    Prelude.mconcat ["/intents/", Core.toBS name]
+    Prelude.mconcat ["/intents/", Data.toBS name]
 
-instance Core.ToQuery DeleteIntent where
+instance Data.ToQuery DeleteIntent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteIntentResponse' smart constructor.

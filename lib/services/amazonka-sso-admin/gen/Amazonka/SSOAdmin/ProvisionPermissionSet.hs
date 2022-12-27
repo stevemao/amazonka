@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.ProvisionPermissionSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.SSOAdmin.ProvisionPermissionSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,13 +53,13 @@ import Amazonka.SSOAdmin.Types
 
 -- | /See:/ 'newProvisionPermissionSet' smart constructor.
 data ProvisionPermissionSet = ProvisionPermissionSet'
-  { -- | TargetID is an Amazon Web Services account identifier, typically a 10-12
-    -- digit string (For example, 123456789012).
+  { -- | TargetID is an AWS account identifier, typically a 10-12 digit string
+    -- (For example, 123456789012).
     targetId :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the SSO instance under which the operation will be executed.
-    -- For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
+    -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
     instanceArn :: Prelude.Text,
     -- | The ARN of the permission set.
     permissionSetArn :: Prelude.Text,
@@ -75,13 +76,13 @@ data ProvisionPermissionSet = ProvisionPermissionSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'targetId', 'provisionPermissionSet_targetId' - TargetID is an Amazon Web Services account identifier, typically a 10-12
--- digit string (For example, 123456789012).
+-- 'targetId', 'provisionPermissionSet_targetId' - TargetID is an AWS account identifier, typically a 10-12 digit string
+-- (For example, 123456789012).
 --
--- 'instanceArn', 'provisionPermissionSet_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- 'instanceArn', 'provisionPermissionSet_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 --
 -- 'permissionSetArn', 'provisionPermissionSet_permissionSetArn' - The ARN of the permission set.
 --
@@ -105,15 +106,15 @@ newProvisionPermissionSet
         targetType = pTargetType_
       }
 
--- | TargetID is an Amazon Web Services account identifier, typically a 10-12
--- digit string (For example, 123456789012).
+-- | TargetID is an AWS account identifier, typically a 10-12 digit string
+-- (For example, 123456789012).
 provisionPermissionSet_targetId :: Lens.Lens' ProvisionPermissionSet (Prelude.Maybe Prelude.Text)
 provisionPermissionSet_targetId = Lens.lens (\ProvisionPermissionSet' {targetId} -> targetId) (\s@ProvisionPermissionSet' {} a -> s {targetId = a} :: ProvisionPermissionSet)
 
--- | The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 provisionPermissionSet_instanceArn :: Lens.Lens' ProvisionPermissionSet Prelude.Text
 provisionPermissionSet_instanceArn = Lens.lens (\ProvisionPermissionSet' {instanceArn} -> instanceArn) (\s@ProvisionPermissionSet' {} a -> s {instanceArn = a} :: ProvisionPermissionSet)
 
@@ -129,12 +130,13 @@ instance Core.AWSRequest ProvisionPermissionSet where
   type
     AWSResponse ProvisionPermissionSet =
       ProvisionPermissionSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ProvisionPermissionSetResponse'
-            Prelude.<$> (x Core..?> "PermissionSetProvisioningStatus")
+            Prelude.<$> (x Data..?> "PermissionSetProvisioningStatus")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -152,37 +154,37 @@ instance Prelude.NFData ProvisionPermissionSet where
       `Prelude.seq` Prelude.rnf permissionSetArn
       `Prelude.seq` Prelude.rnf targetType
 
-instance Core.ToHeaders ProvisionPermissionSet where
+instance Data.ToHeaders ProvisionPermissionSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.ProvisionPermissionSet" ::
+              Data.=# ( "SWBExternalService.ProvisionPermissionSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ProvisionPermissionSet where
+instance Data.ToJSON ProvisionPermissionSet where
   toJSON ProvisionPermissionSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TargetId" Core..=) Prelude.<$> targetId,
-            Prelude.Just ("InstanceArn" Core..= instanceArn),
+          [ ("TargetId" Data..=) Prelude.<$> targetId,
+            Prelude.Just ("InstanceArn" Data..= instanceArn),
             Prelude.Just
-              ("PermissionSetArn" Core..= permissionSetArn),
-            Prelude.Just ("TargetType" Core..= targetType)
+              ("PermissionSetArn" Data..= permissionSetArn),
+            Prelude.Just ("TargetType" Data..= targetType)
           ]
       )
 
-instance Core.ToPath ProvisionPermissionSet where
+instance Data.ToPath ProvisionPermissionSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ProvisionPermissionSet where
+instance Data.ToQuery ProvisionPermissionSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newProvisionPermissionSetResponse' smart constructor.

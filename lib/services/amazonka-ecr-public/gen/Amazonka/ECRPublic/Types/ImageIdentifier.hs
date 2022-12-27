@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECRPublic.Types.ImageIdentifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ECRPublic.Types.ImageIdentifier where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object with identifying information for an Amazon ECR image.
@@ -61,14 +62,14 @@ imageIdentifier_imageDigest = Lens.lens (\ImageIdentifier' {imageDigest} -> imag
 imageIdentifier_imageTag :: Lens.Lens' ImageIdentifier (Prelude.Maybe Prelude.Text)
 imageIdentifier_imageTag = Lens.lens (\ImageIdentifier' {imageTag} -> imageTag) (\s@ImageIdentifier' {} a -> s {imageTag = a} :: ImageIdentifier)
 
-instance Core.FromJSON ImageIdentifier where
+instance Data.FromJSON ImageIdentifier where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ImageIdentifier"
       ( \x ->
           ImageIdentifier'
-            Prelude.<$> (x Core..:? "imageDigest")
-            Prelude.<*> (x Core..:? "imageTag")
+            Prelude.<$> (x Data..:? "imageDigest")
+            Prelude.<*> (x Data..:? "imageTag")
       )
 
 instance Prelude.Hashable ImageIdentifier where
@@ -81,11 +82,11 @@ instance Prelude.NFData ImageIdentifier where
     Prelude.rnf imageDigest
       `Prelude.seq` Prelude.rnf imageTag
 
-instance Core.ToJSON ImageIdentifier where
+instance Data.ToJSON ImageIdentifier where
   toJSON ImageIdentifier' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("imageDigest" Core..=) Prelude.<$> imageDigest,
-            ("imageTag" Core..=) Prelude.<$> imageTag
+          [ ("imageDigest" Data..=) Prelude.<$> imageDigest,
+            ("imageTag" Data..=) Prelude.<$> imageTag
           ]
       )

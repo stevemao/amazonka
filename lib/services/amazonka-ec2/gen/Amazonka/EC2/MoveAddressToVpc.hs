@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.MoveAddressToVpc
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,6 +28,11 @@
 -- RestoreAddressToClassic request. You cannot move an Elastic IP address
 -- that was originally allocated for use in the EC2-VPC platform to the
 -- EC2-Classic platform.
+--
+-- We are retiring EC2-Classic. We recommend that you migrate from
+-- EC2-Classic to a VPC. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html Migrate from EC2-Classic to a VPC>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 module Amazonka.EC2.MoveAddressToVpc
   ( -- * Creating a Request
     MoveAddressToVpc (..),
@@ -42,15 +47,16 @@ module Amazonka.EC2.MoveAddressToVpc
     newMoveAddressToVpcResponse,
 
     -- * Response Lenses
-    moveAddressToVpcResponse_status,
     moveAddressToVpcResponse_allocationId,
+    moveAddressToVpcResponse_status,
     moveAddressToVpcResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,13 +112,14 @@ instance Core.AWSRequest MoveAddressToVpc where
   type
     AWSResponse MoveAddressToVpc =
       MoveAddressToVpcResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           MoveAddressToVpcResponse'
-            Prelude.<$> (x Core..@? "status")
-            Prelude.<*> (x Core..@? "allocationId")
+            Prelude.<$> (x Data..@? "allocationId")
+            Prelude.<*> (x Data..@? "status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,29 +133,29 @@ instance Prelude.NFData MoveAddressToVpc where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf publicIp
 
-instance Core.ToHeaders MoveAddressToVpc where
+instance Data.ToHeaders MoveAddressToVpc where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath MoveAddressToVpc where
+instance Data.ToPath MoveAddressToVpc where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery MoveAddressToVpc where
+instance Data.ToQuery MoveAddressToVpc where
   toQuery MoveAddressToVpc' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("MoveAddressToVpc" :: Prelude.ByteString),
+          Data.=: ("MoveAddressToVpc" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "PublicIp" Core.=: publicIp
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "PublicIp" Data.=: publicIp
       ]
 
 -- | /See:/ 'newMoveAddressToVpcResponse' smart constructor.
 data MoveAddressToVpcResponse = MoveAddressToVpcResponse'
-  { -- | The status of the move of the IP address.
-    status :: Prelude.Maybe AddressStatus,
-    -- | The allocation ID for the Elastic IP address.
+  { -- | The allocation ID for the Elastic IP address.
     allocationId :: Prelude.Maybe Prelude.Text,
+    -- | The status of the move of the IP address.
+    status :: Prelude.Maybe AddressStatus,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -162,9 +169,9 @@ data MoveAddressToVpcResponse = MoveAddressToVpcResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'moveAddressToVpcResponse_status' - The status of the move of the IP address.
---
 -- 'allocationId', 'moveAddressToVpcResponse_allocationId' - The allocation ID for the Elastic IP address.
+--
+-- 'status', 'moveAddressToVpcResponse_status' - The status of the move of the IP address.
 --
 -- 'httpStatus', 'moveAddressToVpcResponse_httpStatus' - The response's http status code.
 newMoveAddressToVpcResponse ::
@@ -173,18 +180,19 @@ newMoveAddressToVpcResponse ::
   MoveAddressToVpcResponse
 newMoveAddressToVpcResponse pHttpStatus_ =
   MoveAddressToVpcResponse'
-    { status = Prelude.Nothing,
-      allocationId = Prelude.Nothing,
+    { allocationId =
+        Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The status of the move of the IP address.
-moveAddressToVpcResponse_status :: Lens.Lens' MoveAddressToVpcResponse (Prelude.Maybe AddressStatus)
-moveAddressToVpcResponse_status = Lens.lens (\MoveAddressToVpcResponse' {status} -> status) (\s@MoveAddressToVpcResponse' {} a -> s {status = a} :: MoveAddressToVpcResponse)
 
 -- | The allocation ID for the Elastic IP address.
 moveAddressToVpcResponse_allocationId :: Lens.Lens' MoveAddressToVpcResponse (Prelude.Maybe Prelude.Text)
 moveAddressToVpcResponse_allocationId = Lens.lens (\MoveAddressToVpcResponse' {allocationId} -> allocationId) (\s@MoveAddressToVpcResponse' {} a -> s {allocationId = a} :: MoveAddressToVpcResponse)
+
+-- | The status of the move of the IP address.
+moveAddressToVpcResponse_status :: Lens.Lens' MoveAddressToVpcResponse (Prelude.Maybe AddressStatus)
+moveAddressToVpcResponse_status = Lens.lens (\MoveAddressToVpcResponse' {status} -> status) (\s@MoveAddressToVpcResponse' {} a -> s {status = a} :: MoveAddressToVpcResponse)
 
 -- | The response's http status code.
 moveAddressToVpcResponse_httpStatus :: Lens.Lens' MoveAddressToVpcResponse Prelude.Int
@@ -192,6 +200,6 @@ moveAddressToVpcResponse_httpStatus = Lens.lens (\MoveAddressToVpcResponse' {htt
 
 instance Prelude.NFData MoveAddressToVpcResponse where
   rnf MoveAddressToVpcResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf allocationId
+    Prelude.rnf allocationId
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

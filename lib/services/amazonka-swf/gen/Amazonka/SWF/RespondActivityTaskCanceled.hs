@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.RespondActivityTaskCanceled
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -73,7 +73,8 @@ module Amazonka.SWF.RespondActivityTaskCanceled
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -137,7 +138,8 @@ instance Core.AWSRequest RespondActivityTaskCanceled where
   type
     AWSResponse RespondActivityTaskCanceled =
       RespondActivityTaskCanceledResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       RespondActivityTaskCanceledResponse'
@@ -152,34 +154,34 @@ instance Prelude.NFData RespondActivityTaskCanceled where
     Prelude.rnf details
       `Prelude.seq` Prelude.rnf taskToken
 
-instance Core.ToHeaders RespondActivityTaskCanceled where
+instance Data.ToHeaders RespondActivityTaskCanceled where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SimpleWorkflowService.RespondActivityTaskCanceled" ::
+              Data.=# ( "SimpleWorkflowService.RespondActivityTaskCanceled" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RespondActivityTaskCanceled where
+instance Data.ToJSON RespondActivityTaskCanceled where
   toJSON RespondActivityTaskCanceled' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("details" Core..=) Prelude.<$> details,
-            Prelude.Just ("taskToken" Core..= taskToken)
+          [ ("details" Data..=) Prelude.<$> details,
+            Prelude.Just ("taskToken" Data..= taskToken)
           ]
       )
 
-instance Core.ToPath RespondActivityTaskCanceled where
+instance Data.ToPath RespondActivityTaskCanceled where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RespondActivityTaskCanceled where
+instance Data.ToQuery RespondActivityTaskCanceled where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRespondActivityTaskCanceledResponse' smart constructor.

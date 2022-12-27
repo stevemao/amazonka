@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.Types.PipelineIdName
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.DataPipeline.Types.PipelineIdName where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the name and identifier of a pipeline.
 --
 -- /See:/ 'newPipelineIdName' smart constructor.
 data PipelineIdName = PipelineIdName'
-  { -- | The name of the pipeline.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the pipeline that was assigned by AWS Data Pipeline. This is a
+  { -- | The ID of the pipeline that was assigned by AWS Data Pipeline. This is a
     -- string of the form @df-297EG78HU43EEXAMPLE@.
-    id :: Prelude.Maybe Prelude.Text
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the pipeline.
+    name :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,41 +44,41 @@ data PipelineIdName = PipelineIdName'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'pipelineIdName_name' - The name of the pipeline.
---
 -- 'id', 'pipelineIdName_id' - The ID of the pipeline that was assigned by AWS Data Pipeline. This is a
 -- string of the form @df-297EG78HU43EEXAMPLE@.
+--
+-- 'name', 'pipelineIdName_name' - The name of the pipeline.
 newPipelineIdName ::
   PipelineIdName
 newPipelineIdName =
   PipelineIdName'
-    { name = Prelude.Nothing,
-      id = Prelude.Nothing
+    { id = Prelude.Nothing,
+      name = Prelude.Nothing
     }
-
--- | The name of the pipeline.
-pipelineIdName_name :: Lens.Lens' PipelineIdName (Prelude.Maybe Prelude.Text)
-pipelineIdName_name = Lens.lens (\PipelineIdName' {name} -> name) (\s@PipelineIdName' {} a -> s {name = a} :: PipelineIdName)
 
 -- | The ID of the pipeline that was assigned by AWS Data Pipeline. This is a
 -- string of the form @df-297EG78HU43EEXAMPLE@.
 pipelineIdName_id :: Lens.Lens' PipelineIdName (Prelude.Maybe Prelude.Text)
 pipelineIdName_id = Lens.lens (\PipelineIdName' {id} -> id) (\s@PipelineIdName' {} a -> s {id = a} :: PipelineIdName)
 
-instance Core.FromJSON PipelineIdName where
+-- | The name of the pipeline.
+pipelineIdName_name :: Lens.Lens' PipelineIdName (Prelude.Maybe Prelude.Text)
+pipelineIdName_name = Lens.lens (\PipelineIdName' {name} -> name) (\s@PipelineIdName' {} a -> s {name = a} :: PipelineIdName)
+
+instance Data.FromJSON PipelineIdName where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PipelineIdName"
       ( \x ->
           PipelineIdName'
-            Prelude.<$> (x Core..:? "name") Prelude.<*> (x Core..:? "id")
+            Prelude.<$> (x Data..:? "id") Prelude.<*> (x Data..:? "name")
       )
 
 instance Prelude.Hashable PipelineIdName where
   hashWithSalt _salt PipelineIdName' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` id
+    _salt `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` name
 
 instance Prelude.NFData PipelineIdName where
   rnf PipelineIdName' {..} =
-    Prelude.rnf name `Prelude.seq` Prelude.rnf id
+    Prelude.rnf id `Prelude.seq` Prelude.rnf name

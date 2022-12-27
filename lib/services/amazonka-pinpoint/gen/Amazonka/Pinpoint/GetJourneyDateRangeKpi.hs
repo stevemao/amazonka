@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetJourneyDateRangeKpi
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,10 +28,10 @@ module Amazonka.Pinpoint.GetJourneyDateRangeKpi
     newGetJourneyDateRangeKpi,
 
     -- * Request Lenses
-    getJourneyDateRangeKpi_startTime,
-    getJourneyDateRangeKpi_nextToken,
     getJourneyDateRangeKpi_endTime,
+    getJourneyDateRangeKpi_nextToken,
     getJourneyDateRangeKpi_pageSize,
+    getJourneyDateRangeKpi_startTime,
     getJourneyDateRangeKpi_journeyId,
     getJourneyDateRangeKpi_applicationId,
     getJourneyDateRangeKpi_kpiName,
@@ -47,7 +47,8 @@ module Amazonka.Pinpoint.GetJourneyDateRangeKpi
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,25 +56,25 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetJourneyDateRangeKpi' smart constructor.
 data GetJourneyDateRangeKpi = GetJourneyDateRangeKpi'
-  { -- | The first date and time to retrieve data for, as part of an inclusive
+  { -- | The last date and time to retrieve data for, as part of an inclusive
     -- date range that filters the query results. This value should be in
     -- extended ISO 8601 format and use Coordinated Universal Time (UTC), for
-    -- example: 2019-07-19T20:00:00Z for 8:00 PM UTC July 19, 2019. This value
-    -- should also be fewer than 90 days from the current day.
-    startTime :: Prelude.Maybe Core.POSIX,
+    -- example: 2019-07-26T20:00:00Z for 8:00 PM UTC July 26, 2019.
+    endTime :: Prelude.Maybe Data.POSIX,
     -- | The string that specifies which page of results to return in a paginated
     -- response. This parameter is not supported for application, campaign, and
     -- journey metrics.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The last date and time to retrieve data for, as part of an inclusive
-    -- date range that filters the query results. This value should be in
-    -- extended ISO 8601 format and use Coordinated Universal Time (UTC), for
-    -- example: 2019-07-26T20:00:00Z for 8:00 PM UTC July 26, 2019.
-    endTime :: Prelude.Maybe Core.POSIX,
     -- | The maximum number of items to include in each page of a paginated
     -- response. This parameter is not supported for application, campaign, and
     -- journey metrics.
     pageSize :: Prelude.Maybe Prelude.Text,
+    -- | The first date and time to retrieve data for, as part of an inclusive
+    -- date range that filters the query results. This value should be in
+    -- extended ISO 8601 format and use Coordinated Universal Time (UTC), for
+    -- example: 2019-07-19T20:00:00Z for 8:00 PM UTC July 19, 2019. This value
+    -- should also be fewer than 90 days from the current day.
+    startTime :: Prelude.Maybe Data.POSIX,
     -- | The unique identifier for the journey.
     journeyId :: Prelude.Text,
     -- | The unique identifier for the application. This identifier is displayed
@@ -98,24 +99,24 @@ data GetJourneyDateRangeKpi = GetJourneyDateRangeKpi'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'startTime', 'getJourneyDateRangeKpi_startTime' - The first date and time to retrieve data for, as part of an inclusive
--- date range that filters the query results. This value should be in
--- extended ISO 8601 format and use Coordinated Universal Time (UTC), for
--- example: 2019-07-19T20:00:00Z for 8:00 PM UTC July 19, 2019. This value
--- should also be fewer than 90 days from the current day.
---
--- 'nextToken', 'getJourneyDateRangeKpi_nextToken' - The string that specifies which page of results to return in a paginated
--- response. This parameter is not supported for application, campaign, and
--- journey metrics.
---
 -- 'endTime', 'getJourneyDateRangeKpi_endTime' - The last date and time to retrieve data for, as part of an inclusive
 -- date range that filters the query results. This value should be in
 -- extended ISO 8601 format and use Coordinated Universal Time (UTC), for
 -- example: 2019-07-26T20:00:00Z for 8:00 PM UTC July 26, 2019.
 --
+-- 'nextToken', 'getJourneyDateRangeKpi_nextToken' - The string that specifies which page of results to return in a paginated
+-- response. This parameter is not supported for application, campaign, and
+-- journey metrics.
+--
 -- 'pageSize', 'getJourneyDateRangeKpi_pageSize' - The maximum number of items to include in each page of a paginated
 -- response. This parameter is not supported for application, campaign, and
 -- journey metrics.
+--
+-- 'startTime', 'getJourneyDateRangeKpi_startTime' - The first date and time to retrieve data for, as part of an inclusive
+-- date range that filters the query results. This value should be in
+-- extended ISO 8601 format and use Coordinated Universal Time (UTC), for
+-- example: 2019-07-19T20:00:00Z for 8:00 PM UTC July 19, 2019. This value
+-- should also be fewer than 90 days from the current day.
 --
 -- 'journeyId', 'getJourneyDateRangeKpi_journeyId' - The unique identifier for the journey.
 --
@@ -142,23 +143,21 @@ newGetJourneyDateRangeKpi
   pApplicationId_
   pKpiName_ =
     GetJourneyDateRangeKpi'
-      { startTime =
-          Prelude.Nothing,
+      { endTime = Prelude.Nothing,
         nextToken = Prelude.Nothing,
-        endTime = Prelude.Nothing,
         pageSize = Prelude.Nothing,
+        startTime = Prelude.Nothing,
         journeyId = pJourneyId_,
         applicationId = pApplicationId_,
         kpiName = pKpiName_
       }
 
--- | The first date and time to retrieve data for, as part of an inclusive
+-- | The last date and time to retrieve data for, as part of an inclusive
 -- date range that filters the query results. This value should be in
 -- extended ISO 8601 format and use Coordinated Universal Time (UTC), for
--- example: 2019-07-19T20:00:00Z for 8:00 PM UTC July 19, 2019. This value
--- should also be fewer than 90 days from the current day.
-getJourneyDateRangeKpi_startTime :: Lens.Lens' GetJourneyDateRangeKpi (Prelude.Maybe Prelude.UTCTime)
-getJourneyDateRangeKpi_startTime = Lens.lens (\GetJourneyDateRangeKpi' {startTime} -> startTime) (\s@GetJourneyDateRangeKpi' {} a -> s {startTime = a} :: GetJourneyDateRangeKpi) Prelude.. Lens.mapping Core._Time
+-- example: 2019-07-26T20:00:00Z for 8:00 PM UTC July 26, 2019.
+getJourneyDateRangeKpi_endTime :: Lens.Lens' GetJourneyDateRangeKpi (Prelude.Maybe Prelude.UTCTime)
+getJourneyDateRangeKpi_endTime = Lens.lens (\GetJourneyDateRangeKpi' {endTime} -> endTime) (\s@GetJourneyDateRangeKpi' {} a -> s {endTime = a} :: GetJourneyDateRangeKpi) Prelude.. Lens.mapping Data._Time
 
 -- | The string that specifies which page of results to return in a paginated
 -- response. This parameter is not supported for application, campaign, and
@@ -166,18 +165,19 @@ getJourneyDateRangeKpi_startTime = Lens.lens (\GetJourneyDateRangeKpi' {startTim
 getJourneyDateRangeKpi_nextToken :: Lens.Lens' GetJourneyDateRangeKpi (Prelude.Maybe Prelude.Text)
 getJourneyDateRangeKpi_nextToken = Lens.lens (\GetJourneyDateRangeKpi' {nextToken} -> nextToken) (\s@GetJourneyDateRangeKpi' {} a -> s {nextToken = a} :: GetJourneyDateRangeKpi)
 
--- | The last date and time to retrieve data for, as part of an inclusive
--- date range that filters the query results. This value should be in
--- extended ISO 8601 format and use Coordinated Universal Time (UTC), for
--- example: 2019-07-26T20:00:00Z for 8:00 PM UTC July 26, 2019.
-getJourneyDateRangeKpi_endTime :: Lens.Lens' GetJourneyDateRangeKpi (Prelude.Maybe Prelude.UTCTime)
-getJourneyDateRangeKpi_endTime = Lens.lens (\GetJourneyDateRangeKpi' {endTime} -> endTime) (\s@GetJourneyDateRangeKpi' {} a -> s {endTime = a} :: GetJourneyDateRangeKpi) Prelude.. Lens.mapping Core._Time
-
 -- | The maximum number of items to include in each page of a paginated
 -- response. This parameter is not supported for application, campaign, and
 -- journey metrics.
 getJourneyDateRangeKpi_pageSize :: Lens.Lens' GetJourneyDateRangeKpi (Prelude.Maybe Prelude.Text)
 getJourneyDateRangeKpi_pageSize = Lens.lens (\GetJourneyDateRangeKpi' {pageSize} -> pageSize) (\s@GetJourneyDateRangeKpi' {} a -> s {pageSize = a} :: GetJourneyDateRangeKpi)
+
+-- | The first date and time to retrieve data for, as part of an inclusive
+-- date range that filters the query results. This value should be in
+-- extended ISO 8601 format and use Coordinated Universal Time (UTC), for
+-- example: 2019-07-19T20:00:00Z for 8:00 PM UTC July 19, 2019. This value
+-- should also be fewer than 90 days from the current day.
+getJourneyDateRangeKpi_startTime :: Lens.Lens' GetJourneyDateRangeKpi (Prelude.Maybe Prelude.UTCTime)
+getJourneyDateRangeKpi_startTime = Lens.lens (\GetJourneyDateRangeKpi' {startTime} -> startTime) (\s@GetJourneyDateRangeKpi' {} a -> s {startTime = a} :: GetJourneyDateRangeKpi) Prelude.. Lens.mapping Data._Time
 
 -- | The unique identifier for the journey.
 getJourneyDateRangeKpi_journeyId :: Lens.Lens' GetJourneyDateRangeKpi Prelude.Text
@@ -202,64 +202,65 @@ instance Core.AWSRequest GetJourneyDateRangeKpi where
   type
     AWSResponse GetJourneyDateRangeKpi =
       GetJourneyDateRangeKpiResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetJourneyDateRangeKpiResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetJourneyDateRangeKpi where
   hashWithSalt _salt GetJourneyDateRangeKpi' {..} =
-    _salt `Prelude.hashWithSalt` startTime
+    _salt `Prelude.hashWithSalt` endTime
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` endTime
       `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` startTime
       `Prelude.hashWithSalt` journeyId
       `Prelude.hashWithSalt` applicationId
       `Prelude.hashWithSalt` kpiName
 
 instance Prelude.NFData GetJourneyDateRangeKpi where
   rnf GetJourneyDateRangeKpi' {..} =
-    Prelude.rnf startTime
+    Prelude.rnf endTime
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf endTime
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf startTime
       `Prelude.seq` Prelude.rnf journeyId
       `Prelude.seq` Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf kpiName
 
-instance Core.ToHeaders GetJourneyDateRangeKpi where
+instance Data.ToHeaders GetJourneyDateRangeKpi where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetJourneyDateRangeKpi where
+instance Data.ToPath GetJourneyDateRangeKpi where
   toPath GetJourneyDateRangeKpi' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/journeys/",
-        Core.toBS journeyId,
+        Data.toBS journeyId,
         "/kpis/daterange/",
-        Core.toBS kpiName
+        Data.toBS kpiName
       ]
 
-instance Core.ToQuery GetJourneyDateRangeKpi where
+instance Data.ToQuery GetJourneyDateRangeKpi where
   toQuery GetJourneyDateRangeKpi' {..} =
     Prelude.mconcat
-      [ "start-time" Core.=: startTime,
-        "next-token" Core.=: nextToken,
-        "end-time" Core.=: endTime,
-        "page-size" Core.=: pageSize
+      [ "end-time" Data.=: endTime,
+        "next-token" Data.=: nextToken,
+        "page-size" Data.=: pageSize,
+        "start-time" Data.=: startTime
       ]
 
 -- | /See:/ 'newGetJourneyDateRangeKpiResponse' smart constructor.

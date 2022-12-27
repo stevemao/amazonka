@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.TagFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.TagFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Used to filter the workflow executions in visibility APIs based on a
@@ -71,9 +72,9 @@ instance Prelude.Hashable TagFilter where
 instance Prelude.NFData TagFilter where
   rnf TagFilter' {..} = Prelude.rnf tag
 
-instance Core.ToJSON TagFilter where
+instance Data.ToJSON TagFilter where
   toJSON TagFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("tag" Core..= tag)]
+          [Prelude.Just ("tag" Data..= tag)]
       )

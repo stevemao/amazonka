@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTJobsData.StartNextPendingJobExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.IoTJobsData.StartNextPendingJobExecution
     newStartNextPendingJobExecution,
 
     -- * Request Lenses
-    startNextPendingJobExecution_stepTimeoutInMinutes,
     startNextPendingJobExecution_statusDetails,
+    startNextPendingJobExecution_stepTimeoutInMinutes,
     startNextPendingJobExecution_thingName,
 
     -- * Destructuring the Response
@@ -43,15 +43,19 @@ module Amazonka.IoTJobsData.StartNextPendingJobExecution
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTJobsData.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newStartNextPendingJobExecution' smart constructor.
 data StartNextPendingJobExecution = StartNextPendingJobExecution'
-  { -- | Specifies the amount of time this device has to finish execution of this
+  { -- | A collection of name\/value pairs that describe the status of the job
+    -- execution. If not specified, the statusDetails are unchanged.
+    statusDetails :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | Specifies the amount of time this device has to finish execution of this
     -- job. If the job execution status is not set to a terminal state before
     -- this timer expires, or before the timer is reset (by calling
     -- @UpdateJobExecution@, setting the status to @IN_PROGRESS@ and specifying
@@ -61,9 +65,6 @@ data StartNextPendingJobExecution = StartNextPendingJobExecution'
     -- specified when the job was created (@CreateJob@ using field
     -- @timeoutConfig@).
     stepTimeoutInMinutes :: Prelude.Maybe Prelude.Integer,
-    -- | A collection of name\/value pairs that describe the status of the job
-    -- execution. If not specified, the statusDetails are unchanged.
-    statusDetails :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The name of the thing associated with the device.
     thingName :: Prelude.Text
   }
@@ -77,6 +78,9 @@ data StartNextPendingJobExecution = StartNextPendingJobExecution'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'statusDetails', 'startNextPendingJobExecution_statusDetails' - A collection of name\/value pairs that describe the status of the job
+-- execution. If not specified, the statusDetails are unchanged.
+--
 -- 'stepTimeoutInMinutes', 'startNextPendingJobExecution_stepTimeoutInMinutes' - Specifies the amount of time this device has to finish execution of this
 -- job. If the job execution status is not set to a terminal state before
 -- this timer expires, or before the timer is reset (by calling
@@ -87,9 +91,6 @@ data StartNextPendingJobExecution = StartNextPendingJobExecution'
 -- specified when the job was created (@CreateJob@ using field
 -- @timeoutConfig@).
 --
--- 'statusDetails', 'startNextPendingJobExecution_statusDetails' - A collection of name\/value pairs that describe the status of the job
--- execution. If not specified, the statusDetails are unchanged.
---
 -- 'thingName', 'startNextPendingJobExecution_thingName' - The name of the thing associated with the device.
 newStartNextPendingJobExecution ::
   -- | 'thingName'
@@ -97,11 +98,16 @@ newStartNextPendingJobExecution ::
   StartNextPendingJobExecution
 newStartNextPendingJobExecution pThingName_ =
   StartNextPendingJobExecution'
-    { stepTimeoutInMinutes =
+    { statusDetails =
         Prelude.Nothing,
-      statusDetails = Prelude.Nothing,
+      stepTimeoutInMinutes = Prelude.Nothing,
       thingName = pThingName_
     }
+
+-- | A collection of name\/value pairs that describe the status of the job
+-- execution. If not specified, the statusDetails are unchanged.
+startNextPendingJobExecution_statusDetails :: Lens.Lens' StartNextPendingJobExecution (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+startNextPendingJobExecution_statusDetails = Lens.lens (\StartNextPendingJobExecution' {statusDetails} -> statusDetails) (\s@StartNextPendingJobExecution' {} a -> s {statusDetails = a} :: StartNextPendingJobExecution) Prelude.. Lens.mapping Lens.coerced
 
 -- | Specifies the amount of time this device has to finish execution of this
 -- job. If the job execution status is not set to a terminal state before
@@ -115,11 +121,6 @@ newStartNextPendingJobExecution pThingName_ =
 startNextPendingJobExecution_stepTimeoutInMinutes :: Lens.Lens' StartNextPendingJobExecution (Prelude.Maybe Prelude.Integer)
 startNextPendingJobExecution_stepTimeoutInMinutes = Lens.lens (\StartNextPendingJobExecution' {stepTimeoutInMinutes} -> stepTimeoutInMinutes) (\s@StartNextPendingJobExecution' {} a -> s {stepTimeoutInMinutes = a} :: StartNextPendingJobExecution)
 
--- | A collection of name\/value pairs that describe the status of the job
--- execution. If not specified, the statusDetails are unchanged.
-startNextPendingJobExecution_statusDetails :: Lens.Lens' StartNextPendingJobExecution (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-startNextPendingJobExecution_statusDetails = Lens.lens (\StartNextPendingJobExecution' {statusDetails} -> statusDetails) (\s@StartNextPendingJobExecution' {} a -> s {statusDetails = a} :: StartNextPendingJobExecution) Prelude.. Lens.mapping Lens.coerced
-
 -- | The name of the thing associated with the device.
 startNextPendingJobExecution_thingName :: Lens.Lens' StartNextPendingJobExecution Prelude.Text
 startNextPendingJobExecution_thingName = Lens.lens (\StartNextPendingJobExecution' {thingName} -> thingName) (\s@StartNextPendingJobExecution' {} a -> s {thingName = a} :: StartNextPendingJobExecution)
@@ -128,12 +129,13 @@ instance Core.AWSRequest StartNextPendingJobExecution where
   type
     AWSResponse StartNextPendingJobExecution =
       StartNextPendingJobExecutionResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartNextPendingJobExecutionResponse'
-            Prelude.<$> (x Core..?> "execution")
+            Prelude.<$> (x Data..?> "execution")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -142,35 +144,35 @@ instance
     StartNextPendingJobExecution
   where
   hashWithSalt _salt StartNextPendingJobExecution' {..} =
-    _salt `Prelude.hashWithSalt` stepTimeoutInMinutes
-      `Prelude.hashWithSalt` statusDetails
+    _salt `Prelude.hashWithSalt` statusDetails
+      `Prelude.hashWithSalt` stepTimeoutInMinutes
       `Prelude.hashWithSalt` thingName
 
 instance Prelude.NFData StartNextPendingJobExecution where
   rnf StartNextPendingJobExecution' {..} =
-    Prelude.rnf stepTimeoutInMinutes
-      `Prelude.seq` Prelude.rnf statusDetails
+    Prelude.rnf statusDetails
+      `Prelude.seq` Prelude.rnf stepTimeoutInMinutes
       `Prelude.seq` Prelude.rnf thingName
 
-instance Core.ToHeaders StartNextPendingJobExecution where
+instance Data.ToHeaders StartNextPendingJobExecution where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON StartNextPendingJobExecution where
+instance Data.ToJSON StartNextPendingJobExecution where
   toJSON StartNextPendingJobExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("stepTimeoutInMinutes" Core..=)
-              Prelude.<$> stepTimeoutInMinutes,
-            ("statusDetails" Core..=) Prelude.<$> statusDetails
+          [ ("statusDetails" Data..=) Prelude.<$> statusDetails,
+            ("stepTimeoutInMinutes" Data..=)
+              Prelude.<$> stepTimeoutInMinutes
           ]
       )
 
-instance Core.ToPath StartNextPendingJobExecution where
+instance Data.ToPath StartNextPendingJobExecution where
   toPath StartNextPendingJobExecution' {..} =
     Prelude.mconcat
-      ["/things/", Core.toBS thingName, "/jobs/$next"]
+      ["/things/", Data.toBS thingName, "/jobs/$next"]
 
-instance Core.ToQuery StartNextPendingJobExecution where
+instance Data.ToQuery StartNextPendingJobExecution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartNextPendingJobExecutionResponse' smart constructor.

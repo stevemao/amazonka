@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeleteProvisioningTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a fleet provisioning template.
+-- Deletes a provisioning template.
 --
 -- Requires permission to access the
 -- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions DeleteProvisioningTemplate>
@@ -43,8 +43,9 @@ module Amazonka.IoT.DeleteProvisioningTemplate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,7 +84,8 @@ instance Core.AWSRequest DeleteProvisioningTemplate where
   type
     AWSResponse DeleteProvisioningTemplate =
       DeleteProvisioningTemplateResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -99,15 +101,15 @@ instance Prelude.NFData DeleteProvisioningTemplate where
   rnf DeleteProvisioningTemplate' {..} =
     Prelude.rnf templateName
 
-instance Core.ToHeaders DeleteProvisioningTemplate where
+instance Data.ToHeaders DeleteProvisioningTemplate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteProvisioningTemplate where
+instance Data.ToPath DeleteProvisioningTemplate where
   toPath DeleteProvisioningTemplate' {..} =
     Prelude.mconcat
-      ["/provisioning-templates/", Core.toBS templateName]
+      ["/provisioning-templates/", Data.toBS templateName]
 
-instance Core.ToQuery DeleteProvisioningTemplate where
+instance Data.ToQuery DeleteProvisioningTemplate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteProvisioningTemplateResponse' smart constructor.

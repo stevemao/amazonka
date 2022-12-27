@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.ListIndex
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.CloudDirectory.ListIndex
     newListIndex,
 
     -- * Request Lenses
-    listIndex_rangesOnIndexedValues,
     listIndex_consistencyLevel,
-    listIndex_nextToken,
     listIndex_maxResults,
+    listIndex_nextToken,
+    listIndex_rangesOnIndexedValues,
     listIndex_directoryArn,
     listIndex_indexReference,
 
@@ -49,23 +49,24 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListIndex' smart constructor.
 data ListIndex = ListIndex'
-  { -- | Specifies the ranges of indexed values that you want to query.
-    rangesOnIndexedValues :: Prelude.Maybe [ObjectAttributeRange],
-    -- | The consistency level to execute the request at.
+  { -- | The consistency level to execute the request at.
     consistencyLevel :: Prelude.Maybe ConsistencyLevel,
-    -- | The pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of objects in a single page to retrieve from the
     -- index during a request. For more information, see
     -- <http://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html Amazon Cloud Directory Limits>.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the ranges of indexed values that you want to query.
+    rangesOnIndexedValues :: Prelude.Maybe [ObjectAttributeRange],
     -- | The ARN of the directory that the index exists in.
     directoryArn :: Prelude.Text,
     -- | The reference to the index to list.
@@ -81,15 +82,15 @@ data ListIndex = ListIndex'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'rangesOnIndexedValues', 'listIndex_rangesOnIndexedValues' - Specifies the ranges of indexed values that you want to query.
---
 -- 'consistencyLevel', 'listIndex_consistencyLevel' - The consistency level to execute the request at.
---
--- 'nextToken', 'listIndex_nextToken' - The pagination token.
 --
 -- 'maxResults', 'listIndex_maxResults' - The maximum number of objects in a single page to retrieve from the
 -- index during a request. For more information, see
 -- <http://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html Amazon Cloud Directory Limits>.
+--
+-- 'nextToken', 'listIndex_nextToken' - The pagination token.
+--
+-- 'rangesOnIndexedValues', 'listIndex_rangesOnIndexedValues' - Specifies the ranges of indexed values that you want to query.
 --
 -- 'directoryArn', 'listIndex_directoryArn' - The ARN of the directory that the index exists in.
 --
@@ -102,31 +103,31 @@ newListIndex ::
   ListIndex
 newListIndex pDirectoryArn_ pIndexReference_ =
   ListIndex'
-    { rangesOnIndexedValues = Prelude.Nothing,
-      consistencyLevel = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { consistencyLevel = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      rangesOnIndexedValues = Prelude.Nothing,
       directoryArn = pDirectoryArn_,
       indexReference = pIndexReference_
     }
 
--- | Specifies the ranges of indexed values that you want to query.
-listIndex_rangesOnIndexedValues :: Lens.Lens' ListIndex (Prelude.Maybe [ObjectAttributeRange])
-listIndex_rangesOnIndexedValues = Lens.lens (\ListIndex' {rangesOnIndexedValues} -> rangesOnIndexedValues) (\s@ListIndex' {} a -> s {rangesOnIndexedValues = a} :: ListIndex) Prelude.. Lens.mapping Lens.coerced
-
 -- | The consistency level to execute the request at.
 listIndex_consistencyLevel :: Lens.Lens' ListIndex (Prelude.Maybe ConsistencyLevel)
 listIndex_consistencyLevel = Lens.lens (\ListIndex' {consistencyLevel} -> consistencyLevel) (\s@ListIndex' {} a -> s {consistencyLevel = a} :: ListIndex)
-
--- | The pagination token.
-listIndex_nextToken :: Lens.Lens' ListIndex (Prelude.Maybe Prelude.Text)
-listIndex_nextToken = Lens.lens (\ListIndex' {nextToken} -> nextToken) (\s@ListIndex' {} a -> s {nextToken = a} :: ListIndex)
 
 -- | The maximum number of objects in a single page to retrieve from the
 -- index during a request. For more information, see
 -- <http://docs.aws.amazon.com/clouddirectory/latest/developerguide/limits.html Amazon Cloud Directory Limits>.
 listIndex_maxResults :: Lens.Lens' ListIndex (Prelude.Maybe Prelude.Natural)
 listIndex_maxResults = Lens.lens (\ListIndex' {maxResults} -> maxResults) (\s@ListIndex' {} a -> s {maxResults = a} :: ListIndex)
+
+-- | The pagination token.
+listIndex_nextToken :: Lens.Lens' ListIndex (Prelude.Maybe Prelude.Text)
+listIndex_nextToken = Lens.lens (\ListIndex' {nextToken} -> nextToken) (\s@ListIndex' {} a -> s {nextToken = a} :: ListIndex)
+
+-- | Specifies the ranges of indexed values that you want to query.
+listIndex_rangesOnIndexedValues :: Lens.Lens' ListIndex (Prelude.Maybe [ObjectAttributeRange])
+listIndex_rangesOnIndexedValues = Lens.lens (\ListIndex' {rangesOnIndexedValues} -> rangesOnIndexedValues) (\s@ListIndex' {} a -> s {rangesOnIndexedValues = a} :: ListIndex) Prelude.. Lens.mapping Lens.coerced
 
 -- | The ARN of the directory that the index exists in.
 listIndex_directoryArn :: Lens.Lens' ListIndex Prelude.Text
@@ -158,62 +159,63 @@ instance Core.AWSPager ListIndex where
 
 instance Core.AWSRequest ListIndex where
   type AWSResponse ListIndex = ListIndexResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListIndexResponse'
-            Prelude.<$> ( x Core..?> "IndexAttachments"
+            Prelude.<$> ( x Data..?> "IndexAttachments"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListIndex where
   hashWithSalt _salt ListIndex' {..} =
-    _salt `Prelude.hashWithSalt` rangesOnIndexedValues
-      `Prelude.hashWithSalt` consistencyLevel
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` consistencyLevel
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` rangesOnIndexedValues
       `Prelude.hashWithSalt` directoryArn
       `Prelude.hashWithSalt` indexReference
 
 instance Prelude.NFData ListIndex where
   rnf ListIndex' {..} =
-    Prelude.rnf rangesOnIndexedValues
-      `Prelude.seq` Prelude.rnf consistencyLevel
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf consistencyLevel
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf rangesOnIndexedValues
       `Prelude.seq` Prelude.rnf directoryArn
       `Prelude.seq` Prelude.rnf indexReference
 
-instance Core.ToHeaders ListIndex where
+instance Data.ToHeaders ListIndex where
   toHeaders ListIndex' {..} =
     Prelude.mconcat
-      [ "x-amz-consistency-level" Core.=# consistencyLevel,
-        "x-amz-data-partition" Core.=# directoryArn
+      [ "x-amz-consistency-level" Data.=# consistencyLevel,
+        "x-amz-data-partition" Data.=# directoryArn
       ]
 
-instance Core.ToJSON ListIndex where
+instance Data.ToJSON ListIndex where
   toJSON ListIndex' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RangesOnIndexedValues" Core..=)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("RangesOnIndexedValues" Data..=)
               Prelude.<$> rangesOnIndexedValues,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
             Prelude.Just
-              ("IndexReference" Core..= indexReference)
+              ("IndexReference" Data..= indexReference)
           ]
       )
 
-instance Core.ToPath ListIndex where
+instance Data.ToPath ListIndex where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/index/targets"
 
-instance Core.ToQuery ListIndex where
+instance Data.ToQuery ListIndex where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListIndexResponse' smart constructor.

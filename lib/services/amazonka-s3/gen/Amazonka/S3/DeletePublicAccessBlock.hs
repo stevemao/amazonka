@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.DeletePublicAccessBlock
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,7 +52,8 @@ module Amazonka.S3.DeletePublicAccessBlock
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,8 +62,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newDeletePublicAccessBlock' smart constructor.
 data DeletePublicAccessBlock = DeletePublicAccessBlock'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The Amazon S3 bucket whose @PublicAccessBlock@ configuration you want to
     -- delete.
@@ -79,8 +80,8 @@ data DeletePublicAccessBlock = DeletePublicAccessBlock'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'deletePublicAccessBlock_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'deletePublicAccessBlock_bucket' - The Amazon S3 bucket whose @PublicAccessBlock@ configuration you want to
 -- delete.
@@ -96,8 +97,8 @@ newDeletePublicAccessBlock pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 deletePublicAccessBlock_expectedBucketOwner :: Lens.Lens' DeletePublicAccessBlock (Prelude.Maybe Prelude.Text)
 deletePublicAccessBlock_expectedBucketOwner = Lens.lens (\DeletePublicAccessBlock' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeletePublicAccessBlock' {} a -> s {expectedBucketOwner = a} :: DeletePublicAccessBlock)
 
@@ -110,9 +111,9 @@ instance Core.AWSRequest DeletePublicAccessBlock where
   type
     AWSResponse DeletePublicAccessBlock =
       DeletePublicAccessBlockResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.delete defaultService
+      Prelude.. Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeletePublicAccessBlockResponse'
@@ -127,18 +128,18 @@ instance Prelude.NFData DeletePublicAccessBlock where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders DeletePublicAccessBlock where
+instance Data.ToHeaders DeletePublicAccessBlock where
   toHeaders DeletePublicAccessBlock' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath DeletePublicAccessBlock where
+instance Data.ToPath DeletePublicAccessBlock where
   toPath DeletePublicAccessBlock' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery DeletePublicAccessBlock where
+instance Data.ToQuery DeletePublicAccessBlock where
   toQuery =
     Prelude.const
       (Prelude.mconcat ["publicAccessBlock"])

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.FieldLevelEncryptionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudFront.Types.FieldLevelEncryptionConfig where
 import Amazonka.CloudFront.Types.ContentTypeProfileConfig
 import Amazonka.CloudFront.Types.QueryArgProfileConfig
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A complex data type that includes the profile configurations specified
@@ -30,17 +31,17 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newFieldLevelEncryptionConfig' smart constructor.
 data FieldLevelEncryptionConfig = FieldLevelEncryptionConfig'
-  { -- | A complex data type that specifies when to forward content if a profile
-    -- isn\'t found and the profile that can be provided as a query argument in
-    -- a request.
-    queryArgProfileConfig :: Prelude.Maybe QueryArgProfileConfig,
+  { -- | An optional comment about the configuration. The comment cannot be
+    -- longer than 128 characters.
+    comment :: Prelude.Maybe Prelude.Text,
     -- | A complex data type that specifies when to forward content if a content
     -- type isn\'t recognized and profiles to use as by default in a request if
     -- a query argument doesn\'t specify a profile to use.
     contentTypeProfileConfig :: Prelude.Maybe ContentTypeProfileConfig,
-    -- | An optional comment about the configuration. The comment cannot be
-    -- longer than 128 characters.
-    comment :: Prelude.Maybe Prelude.Text,
+    -- | A complex data type that specifies when to forward content if a profile
+    -- isn\'t found and the profile that can be provided as a query argument in
+    -- a request.
+    queryArgProfileConfig :: Prelude.Maybe QueryArgProfileConfig,
     -- | A unique number that ensures the request can\'t be replayed.
     callerReference :: Prelude.Text
   }
@@ -54,16 +55,16 @@ data FieldLevelEncryptionConfig = FieldLevelEncryptionConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'queryArgProfileConfig', 'fieldLevelEncryptionConfig_queryArgProfileConfig' - A complex data type that specifies when to forward content if a profile
--- isn\'t found and the profile that can be provided as a query argument in
--- a request.
+-- 'comment', 'fieldLevelEncryptionConfig_comment' - An optional comment about the configuration. The comment cannot be
+-- longer than 128 characters.
 --
 -- 'contentTypeProfileConfig', 'fieldLevelEncryptionConfig_contentTypeProfileConfig' - A complex data type that specifies when to forward content if a content
 -- type isn\'t recognized and profiles to use as by default in a request if
 -- a query argument doesn\'t specify a profile to use.
 --
--- 'comment', 'fieldLevelEncryptionConfig_comment' - An optional comment about the configuration. The comment cannot be
--- longer than 128 characters.
+-- 'queryArgProfileConfig', 'fieldLevelEncryptionConfig_queryArgProfileConfig' - A complex data type that specifies when to forward content if a profile
+-- isn\'t found and the profile that can be provided as a query argument in
+-- a request.
 --
 -- 'callerReference', 'fieldLevelEncryptionConfig_callerReference' - A unique number that ensures the request can\'t be replayed.
 newFieldLevelEncryptionConfig ::
@@ -72,18 +73,17 @@ newFieldLevelEncryptionConfig ::
   FieldLevelEncryptionConfig
 newFieldLevelEncryptionConfig pCallerReference_ =
   FieldLevelEncryptionConfig'
-    { queryArgProfileConfig =
+    { comment =
         Prelude.Nothing,
       contentTypeProfileConfig = Prelude.Nothing,
-      comment = Prelude.Nothing,
+      queryArgProfileConfig = Prelude.Nothing,
       callerReference = pCallerReference_
     }
 
--- | A complex data type that specifies when to forward content if a profile
--- isn\'t found and the profile that can be provided as a query argument in
--- a request.
-fieldLevelEncryptionConfig_queryArgProfileConfig :: Lens.Lens' FieldLevelEncryptionConfig (Prelude.Maybe QueryArgProfileConfig)
-fieldLevelEncryptionConfig_queryArgProfileConfig = Lens.lens (\FieldLevelEncryptionConfig' {queryArgProfileConfig} -> queryArgProfileConfig) (\s@FieldLevelEncryptionConfig' {} a -> s {queryArgProfileConfig = a} :: FieldLevelEncryptionConfig)
+-- | An optional comment about the configuration. The comment cannot be
+-- longer than 128 characters.
+fieldLevelEncryptionConfig_comment :: Lens.Lens' FieldLevelEncryptionConfig (Prelude.Maybe Prelude.Text)
+fieldLevelEncryptionConfig_comment = Lens.lens (\FieldLevelEncryptionConfig' {comment} -> comment) (\s@FieldLevelEncryptionConfig' {} a -> s {comment = a} :: FieldLevelEncryptionConfig)
 
 -- | A complex data type that specifies when to forward content if a content
 -- type isn\'t recognized and profiles to use as by default in a request if
@@ -91,44 +91,45 @@ fieldLevelEncryptionConfig_queryArgProfileConfig = Lens.lens (\FieldLevelEncrypt
 fieldLevelEncryptionConfig_contentTypeProfileConfig :: Lens.Lens' FieldLevelEncryptionConfig (Prelude.Maybe ContentTypeProfileConfig)
 fieldLevelEncryptionConfig_contentTypeProfileConfig = Lens.lens (\FieldLevelEncryptionConfig' {contentTypeProfileConfig} -> contentTypeProfileConfig) (\s@FieldLevelEncryptionConfig' {} a -> s {contentTypeProfileConfig = a} :: FieldLevelEncryptionConfig)
 
--- | An optional comment about the configuration. The comment cannot be
--- longer than 128 characters.
-fieldLevelEncryptionConfig_comment :: Lens.Lens' FieldLevelEncryptionConfig (Prelude.Maybe Prelude.Text)
-fieldLevelEncryptionConfig_comment = Lens.lens (\FieldLevelEncryptionConfig' {comment} -> comment) (\s@FieldLevelEncryptionConfig' {} a -> s {comment = a} :: FieldLevelEncryptionConfig)
+-- | A complex data type that specifies when to forward content if a profile
+-- isn\'t found and the profile that can be provided as a query argument in
+-- a request.
+fieldLevelEncryptionConfig_queryArgProfileConfig :: Lens.Lens' FieldLevelEncryptionConfig (Prelude.Maybe QueryArgProfileConfig)
+fieldLevelEncryptionConfig_queryArgProfileConfig = Lens.lens (\FieldLevelEncryptionConfig' {queryArgProfileConfig} -> queryArgProfileConfig) (\s@FieldLevelEncryptionConfig' {} a -> s {queryArgProfileConfig = a} :: FieldLevelEncryptionConfig)
 
 -- | A unique number that ensures the request can\'t be replayed.
 fieldLevelEncryptionConfig_callerReference :: Lens.Lens' FieldLevelEncryptionConfig Prelude.Text
 fieldLevelEncryptionConfig_callerReference = Lens.lens (\FieldLevelEncryptionConfig' {callerReference} -> callerReference) (\s@FieldLevelEncryptionConfig' {} a -> s {callerReference = a} :: FieldLevelEncryptionConfig)
 
-instance Core.FromXML FieldLevelEncryptionConfig where
+instance Data.FromXML FieldLevelEncryptionConfig where
   parseXML x =
     FieldLevelEncryptionConfig'
-      Prelude.<$> (x Core..@? "QueryArgProfileConfig")
-      Prelude.<*> (x Core..@? "ContentTypeProfileConfig")
-      Prelude.<*> (x Core..@? "Comment")
-      Prelude.<*> (x Core..@ "CallerReference")
+      Prelude.<$> (x Data..@? "Comment")
+      Prelude.<*> (x Data..@? "ContentTypeProfileConfig")
+      Prelude.<*> (x Data..@? "QueryArgProfileConfig")
+      Prelude.<*> (x Data..@ "CallerReference")
 
 instance Prelude.Hashable FieldLevelEncryptionConfig where
   hashWithSalt _salt FieldLevelEncryptionConfig' {..} =
-    _salt `Prelude.hashWithSalt` queryArgProfileConfig
+    _salt `Prelude.hashWithSalt` comment
       `Prelude.hashWithSalt` contentTypeProfileConfig
-      `Prelude.hashWithSalt` comment
+      `Prelude.hashWithSalt` queryArgProfileConfig
       `Prelude.hashWithSalt` callerReference
 
 instance Prelude.NFData FieldLevelEncryptionConfig where
   rnf FieldLevelEncryptionConfig' {..} =
-    Prelude.rnf queryArgProfileConfig
+    Prelude.rnf comment
       `Prelude.seq` Prelude.rnf contentTypeProfileConfig
-      `Prelude.seq` Prelude.rnf comment
+      `Prelude.seq` Prelude.rnf queryArgProfileConfig
       `Prelude.seq` Prelude.rnf callerReference
 
-instance Core.ToXML FieldLevelEncryptionConfig where
+instance Data.ToXML FieldLevelEncryptionConfig where
   toXML FieldLevelEncryptionConfig' {..} =
     Prelude.mconcat
-      [ "QueryArgProfileConfig"
-          Core.@= queryArgProfileConfig,
+      [ "Comment" Data.@= comment,
         "ContentTypeProfileConfig"
-          Core.@= contentTypeProfileConfig,
-        "Comment" Core.@= comment,
-        "CallerReference" Core.@= callerReference
+          Data.@= contentTypeProfileConfig,
+        "QueryArgProfileConfig"
+          Data.@= queryArgProfileConfig,
+        "CallerReference" Data.@= callerReference
       ]

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.CmafAdditionalManifest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.CmafAdditionalManifest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specify the details for each pair of HLS and DASH additional manifests
@@ -92,15 +93,15 @@ cmafAdditionalManifest_manifestNameModifier = Lens.lens (\CmafAdditionalManifest
 cmafAdditionalManifest_selectedOutputs :: Lens.Lens' CmafAdditionalManifest (Prelude.Maybe [Prelude.Text])
 cmafAdditionalManifest_selectedOutputs = Lens.lens (\CmafAdditionalManifest' {selectedOutputs} -> selectedOutputs) (\s@CmafAdditionalManifest' {} a -> s {selectedOutputs = a} :: CmafAdditionalManifest) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON CmafAdditionalManifest where
+instance Data.FromJSON CmafAdditionalManifest where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CmafAdditionalManifest"
       ( \x ->
           CmafAdditionalManifest'
-            Prelude.<$> (x Core..:? "manifestNameModifier")
-            Prelude.<*> ( x Core..:? "selectedOutputs"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "manifestNameModifier")
+            Prelude.<*> ( x Data..:? "selectedOutputs"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -114,13 +115,13 @@ instance Prelude.NFData CmafAdditionalManifest where
     Prelude.rnf manifestNameModifier
       `Prelude.seq` Prelude.rnf selectedOutputs
 
-instance Core.ToJSON CmafAdditionalManifest where
+instance Data.ToJSON CmafAdditionalManifest where
   toJSON CmafAdditionalManifest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("manifestNameModifier" Core..=)
+          [ ("manifestNameModifier" Data..=)
               Prelude.<$> manifestNameModifier,
-            ("selectedOutputs" Core..=)
+            ("selectedOutputs" Data..=)
               Prelude.<$> selectedOutputs
           ]
       )

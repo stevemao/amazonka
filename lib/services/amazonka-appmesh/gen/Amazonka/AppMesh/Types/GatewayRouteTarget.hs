@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.GatewayRouteTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,14 +21,17 @@ module Amazonka.AppMesh.Types.GatewayRouteTarget where
 
 import Amazonka.AppMesh.Types.GatewayRouteVirtualService
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a gateway route target.
 --
 -- /See:/ 'newGatewayRouteTarget' smart constructor.
 data GatewayRouteTarget = GatewayRouteTarget'
-  { -- | An object that represents a virtual service gateway route target.
+  { -- | The port number of the gateway route target.
+    port :: Prelude.Maybe Prelude.Natural,
+    -- | An object that represents a virtual service gateway route target.
     virtualService :: GatewayRouteVirtualService
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -41,6 +44,8 @@ data GatewayRouteTarget = GatewayRouteTarget'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'port', 'gatewayRouteTarget_port' - The port number of the gateway route target.
+--
 -- 'virtualService', 'gatewayRouteTarget_virtualService' - An object that represents a virtual service gateway route target.
 newGatewayRouteTarget ::
   -- | 'virtualService'
@@ -48,36 +53,44 @@ newGatewayRouteTarget ::
   GatewayRouteTarget
 newGatewayRouteTarget pVirtualService_ =
   GatewayRouteTarget'
-    { virtualService =
-        pVirtualService_
+    { port = Prelude.Nothing,
+      virtualService = pVirtualService_
     }
+
+-- | The port number of the gateway route target.
+gatewayRouteTarget_port :: Lens.Lens' GatewayRouteTarget (Prelude.Maybe Prelude.Natural)
+gatewayRouteTarget_port = Lens.lens (\GatewayRouteTarget' {port} -> port) (\s@GatewayRouteTarget' {} a -> s {port = a} :: GatewayRouteTarget)
 
 -- | An object that represents a virtual service gateway route target.
 gatewayRouteTarget_virtualService :: Lens.Lens' GatewayRouteTarget GatewayRouteVirtualService
 gatewayRouteTarget_virtualService = Lens.lens (\GatewayRouteTarget' {virtualService} -> virtualService) (\s@GatewayRouteTarget' {} a -> s {virtualService = a} :: GatewayRouteTarget)
 
-instance Core.FromJSON GatewayRouteTarget where
+instance Data.FromJSON GatewayRouteTarget where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GatewayRouteTarget"
       ( \x ->
           GatewayRouteTarget'
-            Prelude.<$> (x Core..: "virtualService")
+            Prelude.<$> (x Data..:? "port")
+            Prelude.<*> (x Data..: "virtualService")
       )
 
 instance Prelude.Hashable GatewayRouteTarget where
   hashWithSalt _salt GatewayRouteTarget' {..} =
-    _salt `Prelude.hashWithSalt` virtualService
+    _salt `Prelude.hashWithSalt` port
+      `Prelude.hashWithSalt` virtualService
 
 instance Prelude.NFData GatewayRouteTarget where
   rnf GatewayRouteTarget' {..} =
-    Prelude.rnf virtualService
+    Prelude.rnf port
+      `Prelude.seq` Prelude.rnf virtualService
 
-instance Core.ToJSON GatewayRouteTarget where
+instance Data.ToJSON GatewayRouteTarget where
   toJSON GatewayRouteTarget' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just
-              ("virtualService" Core..= virtualService)
+          [ ("port" Data..=) Prelude.<$> port,
+            Prelude.Just
+              ("virtualService" Data..= virtualService)
           ]
       )

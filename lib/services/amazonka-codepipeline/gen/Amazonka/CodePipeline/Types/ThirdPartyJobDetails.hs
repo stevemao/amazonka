@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.ThirdPartyJobDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodePipeline.Types.ThirdPartyJobDetails where
 
 import Amazonka.CodePipeline.Types.ThirdPartyJobData
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of a job sent in response to a @GetThirdPartyJobDetails@
@@ -78,15 +79,15 @@ thirdPartyJobDetails_id = Lens.lens (\ThirdPartyJobDetails' {id} -> id) (\s@Thir
 thirdPartyJobDetails_nonce :: Lens.Lens' ThirdPartyJobDetails (Prelude.Maybe Prelude.Text)
 thirdPartyJobDetails_nonce = Lens.lens (\ThirdPartyJobDetails' {nonce} -> nonce) (\s@ThirdPartyJobDetails' {} a -> s {nonce = a} :: ThirdPartyJobDetails)
 
-instance Core.FromJSON ThirdPartyJobDetails where
+instance Data.FromJSON ThirdPartyJobDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ThirdPartyJobDetails"
       ( \x ->
           ThirdPartyJobDetails'
-            Prelude.<$> (x Core..:? "data")
-            Prelude.<*> (x Core..:? "id")
-            Prelude.<*> (x Core..:? "nonce")
+            Prelude.<$> (x Data..:? "data")
+            Prelude.<*> (x Data..:? "id")
+            Prelude.<*> (x Data..:? "nonce")
       )
 
 instance Prelude.Hashable ThirdPartyJobDetails where

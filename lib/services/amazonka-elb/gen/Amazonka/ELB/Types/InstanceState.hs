@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.Types.InstanceState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,26 +20,16 @@
 module Amazonka.ELB.Types.InstanceState where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the state of an EC2 instance.
 --
 -- /See:/ 'newInstanceState' smart constructor.
 data InstanceState = InstanceState'
-  { -- | The ID of the instance.
-    instanceId :: Prelude.Maybe Prelude.Text,
-    -- | The current state of the instance.
-    --
-    -- Valid values: @InService@ | @OutOfService@ | @Unknown@
-    state :: Prelude.Maybe Prelude.Text,
-    -- | Information about the cause of @OutOfService@ instances. Specifically,
-    -- whether the cause is Elastic Load Balancing or the instance.
-    --
-    -- Valid values: @ELB@ | @Instance@ | @N\/A@
-    reasonCode :: Prelude.Maybe Prelude.Text,
-    -- | A description of the instance state. This string can contain one or more
+  { -- | A description of the instance state. This string can contain one or more
     -- of the following messages.
     --
     -- -   @N\/A@
@@ -65,7 +55,18 @@ data InstanceState = InstanceState'
     -- -   @Instance is in stopped state.@
     --
     -- -   @Instance is in terminated state.@
-    description :: Prelude.Maybe Prelude.Text
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the instance.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | Information about the cause of @OutOfService@ instances. Specifically,
+    -- whether the cause is Elastic Load Balancing or the instance.
+    --
+    -- Valid values: @ELB@ | @Instance@ | @N\/A@
+    reasonCode :: Prelude.Maybe Prelude.Text,
+    -- | The current state of the instance.
+    --
+    -- Valid values: @InService@ | @OutOfService@ | @Unknown@
+    state :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -76,17 +77,6 @@ data InstanceState = InstanceState'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'instanceId', 'instanceState_instanceId' - The ID of the instance.
---
--- 'state', 'instanceState_state' - The current state of the instance.
---
--- Valid values: @InService@ | @OutOfService@ | @Unknown@
---
--- 'reasonCode', 'instanceState_reasonCode' - Information about the cause of @OutOfService@ instances. Specifically,
--- whether the cause is Elastic Load Balancing or the instance.
---
--- Valid values: @ELB@ | @Instance@ | @N\/A@
 --
 -- 'description', 'instanceState_description' - A description of the instance state. This string can contain one or more
 -- of the following messages.
@@ -114,32 +104,26 @@ data InstanceState = InstanceState'
 -- -   @Instance is in stopped state.@
 --
 -- -   @Instance is in terminated state.@
+--
+-- 'instanceId', 'instanceState_instanceId' - The ID of the instance.
+--
+-- 'reasonCode', 'instanceState_reasonCode' - Information about the cause of @OutOfService@ instances. Specifically,
+-- whether the cause is Elastic Load Balancing or the instance.
+--
+-- Valid values: @ELB@ | @Instance@ | @N\/A@
+--
+-- 'state', 'instanceState_state' - The current state of the instance.
+--
+-- Valid values: @InService@ | @OutOfService@ | @Unknown@
 newInstanceState ::
   InstanceState
 newInstanceState =
   InstanceState'
-    { instanceId = Prelude.Nothing,
-      state = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      instanceId = Prelude.Nothing,
       reasonCode = Prelude.Nothing,
-      description = Prelude.Nothing
+      state = Prelude.Nothing
     }
-
--- | The ID of the instance.
-instanceState_instanceId :: Lens.Lens' InstanceState (Prelude.Maybe Prelude.Text)
-instanceState_instanceId = Lens.lens (\InstanceState' {instanceId} -> instanceId) (\s@InstanceState' {} a -> s {instanceId = a} :: InstanceState)
-
--- | The current state of the instance.
---
--- Valid values: @InService@ | @OutOfService@ | @Unknown@
-instanceState_state :: Lens.Lens' InstanceState (Prelude.Maybe Prelude.Text)
-instanceState_state = Lens.lens (\InstanceState' {state} -> state) (\s@InstanceState' {} a -> s {state = a} :: InstanceState)
-
--- | Information about the cause of @OutOfService@ instances. Specifically,
--- whether the cause is Elastic Load Balancing or the instance.
---
--- Valid values: @ELB@ | @Instance@ | @N\/A@
-instanceState_reasonCode :: Lens.Lens' InstanceState (Prelude.Maybe Prelude.Text)
-instanceState_reasonCode = Lens.lens (\InstanceState' {reasonCode} -> reasonCode) (\s@InstanceState' {} a -> s {reasonCode = a} :: InstanceState)
 
 -- | A description of the instance state. This string can contain one or more
 -- of the following messages.
@@ -170,24 +154,41 @@ instanceState_reasonCode = Lens.lens (\InstanceState' {reasonCode} -> reasonCode
 instanceState_description :: Lens.Lens' InstanceState (Prelude.Maybe Prelude.Text)
 instanceState_description = Lens.lens (\InstanceState' {description} -> description) (\s@InstanceState' {} a -> s {description = a} :: InstanceState)
 
-instance Core.FromXML InstanceState where
+-- | The ID of the instance.
+instanceState_instanceId :: Lens.Lens' InstanceState (Prelude.Maybe Prelude.Text)
+instanceState_instanceId = Lens.lens (\InstanceState' {instanceId} -> instanceId) (\s@InstanceState' {} a -> s {instanceId = a} :: InstanceState)
+
+-- | Information about the cause of @OutOfService@ instances. Specifically,
+-- whether the cause is Elastic Load Balancing or the instance.
+--
+-- Valid values: @ELB@ | @Instance@ | @N\/A@
+instanceState_reasonCode :: Lens.Lens' InstanceState (Prelude.Maybe Prelude.Text)
+instanceState_reasonCode = Lens.lens (\InstanceState' {reasonCode} -> reasonCode) (\s@InstanceState' {} a -> s {reasonCode = a} :: InstanceState)
+
+-- | The current state of the instance.
+--
+-- Valid values: @InService@ | @OutOfService@ | @Unknown@
+instanceState_state :: Lens.Lens' InstanceState (Prelude.Maybe Prelude.Text)
+instanceState_state = Lens.lens (\InstanceState' {state} -> state) (\s@InstanceState' {} a -> s {state = a} :: InstanceState)
+
+instance Data.FromXML InstanceState where
   parseXML x =
     InstanceState'
-      Prelude.<$> (x Core..@? "InstanceId")
-      Prelude.<*> (x Core..@? "State")
-      Prelude.<*> (x Core..@? "ReasonCode")
-      Prelude.<*> (x Core..@? "Description")
+      Prelude.<$> (x Data..@? "Description")
+      Prelude.<*> (x Data..@? "InstanceId")
+      Prelude.<*> (x Data..@? "ReasonCode")
+      Prelude.<*> (x Data..@? "State")
 
 instance Prelude.Hashable InstanceState where
   hashWithSalt _salt InstanceState' {..} =
-    _salt `Prelude.hashWithSalt` instanceId
-      `Prelude.hashWithSalt` state
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` instanceId
       `Prelude.hashWithSalt` reasonCode
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData InstanceState where
   rnf InstanceState' {..} =
-    Prelude.rnf instanceId
-      `Prelude.seq` Prelude.rnf state
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf reasonCode
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf state

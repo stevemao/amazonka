@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.Types.BackupRuleInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,45 +22,51 @@ module Amazonka.Backup.Types.BackupRuleInput where
 import Amazonka.Backup.Types.CopyAction
 import Amazonka.Backup.Types.Lifecycle
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies a scheduled task used to back up a selection of resources.
 --
 -- /See:/ 'newBackupRuleInput' smart constructor.
 data BackupRuleInput = BackupRuleInput'
-  { -- | The lifecycle defines when a protected resource is transitioned to cold
-    -- storage and when it expires. Backup will transition and expire backups
-    -- automatically according to the lifecycle that you define.
-    --
-    -- Backups transitioned to cold storage must be stored in cold storage for
-    -- a minimum of 90 days. Therefore, the “expire after days” setting must be
-    -- 90 days greater than the “transition to cold after days” setting. The
-    -- “transition to cold after days” setting cannot be changed after a backup
-    -- has been transitioned to cold.
-    --
-    -- Only Amazon EFS file system backups can be transitioned to cold storage.
-    lifecycle :: Prelude.Maybe Lifecycle,
-    -- | To help organize your resources, you can assign your own metadata to the
-    -- resources that you create. Each tag is a key-value pair.
-    recoveryPointTags :: Prelude.Maybe (Core.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text)),
-    -- | A CRON expression in UTC specifying when Backup initiates a backup job.
-    scheduleExpression :: Prelude.Maybe Prelude.Text,
-    -- | Specifies whether Backup creates continuous backups. True causes Backup
-    -- to create continuous backups capable of point-in-time restore (PITR).
-    -- False (or not specified) causes Backup to create snapshot backups.
-    enableContinuousBackup :: Prelude.Maybe Prelude.Bool,
-    -- | A value in minutes after a backup job is successfully started before it
+  { -- | A value in minutes after a backup job is successfully started before it
     -- must be completed or it will be canceled by Backup. This value is
     -- optional.
     completionWindowMinutes :: Prelude.Maybe Prelude.Integer,
     -- | An array of @CopyAction@ objects, which contains the details of the copy
     -- operation.
     copyActions :: Prelude.Maybe [CopyAction],
+    -- | Specifies whether Backup creates continuous backups. True causes Backup
+    -- to create continuous backups capable of point-in-time restore (PITR).
+    -- False (or not specified) causes Backup to create snapshot backups.
+    enableContinuousBackup :: Prelude.Maybe Prelude.Bool,
+    -- | The lifecycle defines when a protected resource is transitioned to cold
+    -- storage and when it expires. Backup will transition and expire backups
+    -- automatically according to the lifecycle that you define.
+    --
+    -- Backups transitioned to cold storage must be stored in cold storage for
+    -- a minimum of 90 days. Therefore, the “retention” setting must be 90 days
+    -- greater than the “transition to cold after days” setting. The
+    -- “transition to cold after days” setting cannot be changed after a backup
+    -- has been transitioned to cold.
+    --
+    -- Resource types that are able to be transitioned to cold storage are
+    -- listed in the \"Lifecycle to cold storage\" section of the
+    -- <https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource Feature availability by resource>
+    -- table. Backup ignores this expression for other resource types.
+    lifecycle :: Prelude.Maybe Lifecycle,
+    -- | To help organize your resources, you can assign your own metadata to the
+    -- resources that you create. Each tag is a key-value pair.
+    recoveryPointTags :: Prelude.Maybe (Data.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text)),
+    -- | A CRON expression in UTC specifying when Backup initiates a backup job.
+    scheduleExpression :: Prelude.Maybe Prelude.Text,
     -- | A value in minutes after a backup is scheduled before a job will be
-    -- canceled if it doesn\'t start successfully. This value is optional.
+    -- canceled if it doesn\'t start successfully. This value is optional. If
+    -- this value is included, it must be at least 60 minutes to avoid errors.
     startWindowMinutes :: Prelude.Maybe Prelude.Integer,
-    -- | An optional display name for a backup rule.
+    -- | A display name for a backup rule. Must contain 1 to 50 alphanumeric or
+    -- \'-_.\' characters.
     ruleName :: Prelude.Text,
     -- | The name of a logical container where backups are stored. Backup vaults
     -- are identified by names that are unique to the account used to create
@@ -78,27 +84,6 @@ data BackupRuleInput = BackupRuleInput'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'lifecycle', 'backupRuleInput_lifecycle' - The lifecycle defines when a protected resource is transitioned to cold
--- storage and when it expires. Backup will transition and expire backups
--- automatically according to the lifecycle that you define.
---
--- Backups transitioned to cold storage must be stored in cold storage for
--- a minimum of 90 days. Therefore, the “expire after days” setting must be
--- 90 days greater than the “transition to cold after days” setting. The
--- “transition to cold after days” setting cannot be changed after a backup
--- has been transitioned to cold.
---
--- Only Amazon EFS file system backups can be transitioned to cold storage.
---
--- 'recoveryPointTags', 'backupRuleInput_recoveryPointTags' - To help organize your resources, you can assign your own metadata to the
--- resources that you create. Each tag is a key-value pair.
---
--- 'scheduleExpression', 'backupRuleInput_scheduleExpression' - A CRON expression in UTC specifying when Backup initiates a backup job.
---
--- 'enableContinuousBackup', 'backupRuleInput_enableContinuousBackup' - Specifies whether Backup creates continuous backups. True causes Backup
--- to create continuous backups capable of point-in-time restore (PITR).
--- False (or not specified) causes Backup to create snapshot backups.
---
 -- 'completionWindowMinutes', 'backupRuleInput_completionWindowMinutes' - A value in minutes after a backup job is successfully started before it
 -- must be completed or it will be canceled by Backup. This value is
 -- optional.
@@ -106,10 +91,36 @@ data BackupRuleInput = BackupRuleInput'
 -- 'copyActions', 'backupRuleInput_copyActions' - An array of @CopyAction@ objects, which contains the details of the copy
 -- operation.
 --
--- 'startWindowMinutes', 'backupRuleInput_startWindowMinutes' - A value in minutes after a backup is scheduled before a job will be
--- canceled if it doesn\'t start successfully. This value is optional.
+-- 'enableContinuousBackup', 'backupRuleInput_enableContinuousBackup' - Specifies whether Backup creates continuous backups. True causes Backup
+-- to create continuous backups capable of point-in-time restore (PITR).
+-- False (or not specified) causes Backup to create snapshot backups.
 --
--- 'ruleName', 'backupRuleInput_ruleName' - An optional display name for a backup rule.
+-- 'lifecycle', 'backupRuleInput_lifecycle' - The lifecycle defines when a protected resource is transitioned to cold
+-- storage and when it expires. Backup will transition and expire backups
+-- automatically according to the lifecycle that you define.
+--
+-- Backups transitioned to cold storage must be stored in cold storage for
+-- a minimum of 90 days. Therefore, the “retention” setting must be 90 days
+-- greater than the “transition to cold after days” setting. The
+-- “transition to cold after days” setting cannot be changed after a backup
+-- has been transitioned to cold.
+--
+-- Resource types that are able to be transitioned to cold storage are
+-- listed in the \"Lifecycle to cold storage\" section of the
+-- <https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource Feature availability by resource>
+-- table. Backup ignores this expression for other resource types.
+--
+-- 'recoveryPointTags', 'backupRuleInput_recoveryPointTags' - To help organize your resources, you can assign your own metadata to the
+-- resources that you create. Each tag is a key-value pair.
+--
+-- 'scheduleExpression', 'backupRuleInput_scheduleExpression' - A CRON expression in UTC specifying when Backup initiates a backup job.
+--
+-- 'startWindowMinutes', 'backupRuleInput_startWindowMinutes' - A value in minutes after a backup is scheduled before a job will be
+-- canceled if it doesn\'t start successfully. This value is optional. If
+-- this value is included, it must be at least 60 minutes to avoid errors.
+--
+-- 'ruleName', 'backupRuleInput_ruleName' - A display name for a backup rule. Must contain 1 to 50 alphanumeric or
+-- \'-_.\' characters.
 --
 -- 'targetBackupVaultName', 'backupRuleInput_targetBackupVaultName' - The name of a logical container where backups are stored. Backup vaults
 -- are identified by names that are unique to the account used to create
@@ -123,45 +134,17 @@ newBackupRuleInput ::
   BackupRuleInput
 newBackupRuleInput pRuleName_ pTargetBackupVaultName_ =
   BackupRuleInput'
-    { lifecycle = Prelude.Nothing,
+    { completionWindowMinutes =
+        Prelude.Nothing,
+      copyActions = Prelude.Nothing,
+      enableContinuousBackup = Prelude.Nothing,
+      lifecycle = Prelude.Nothing,
       recoveryPointTags = Prelude.Nothing,
       scheduleExpression = Prelude.Nothing,
-      enableContinuousBackup = Prelude.Nothing,
-      completionWindowMinutes = Prelude.Nothing,
-      copyActions = Prelude.Nothing,
       startWindowMinutes = Prelude.Nothing,
       ruleName = pRuleName_,
       targetBackupVaultName = pTargetBackupVaultName_
     }
-
--- | The lifecycle defines when a protected resource is transitioned to cold
--- storage and when it expires. Backup will transition and expire backups
--- automatically according to the lifecycle that you define.
---
--- Backups transitioned to cold storage must be stored in cold storage for
--- a minimum of 90 days. Therefore, the “expire after days” setting must be
--- 90 days greater than the “transition to cold after days” setting. The
--- “transition to cold after days” setting cannot be changed after a backup
--- has been transitioned to cold.
---
--- Only Amazon EFS file system backups can be transitioned to cold storage.
-backupRuleInput_lifecycle :: Lens.Lens' BackupRuleInput (Prelude.Maybe Lifecycle)
-backupRuleInput_lifecycle = Lens.lens (\BackupRuleInput' {lifecycle} -> lifecycle) (\s@BackupRuleInput' {} a -> s {lifecycle = a} :: BackupRuleInput)
-
--- | To help organize your resources, you can assign your own metadata to the
--- resources that you create. Each tag is a key-value pair.
-backupRuleInput_recoveryPointTags :: Lens.Lens' BackupRuleInput (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-backupRuleInput_recoveryPointTags = Lens.lens (\BackupRuleInput' {recoveryPointTags} -> recoveryPointTags) (\s@BackupRuleInput' {} a -> s {recoveryPointTags = a} :: BackupRuleInput) Prelude.. Lens.mapping (Core._Sensitive Prelude.. Lens.coerced)
-
--- | A CRON expression in UTC specifying when Backup initiates a backup job.
-backupRuleInput_scheduleExpression :: Lens.Lens' BackupRuleInput (Prelude.Maybe Prelude.Text)
-backupRuleInput_scheduleExpression = Lens.lens (\BackupRuleInput' {scheduleExpression} -> scheduleExpression) (\s@BackupRuleInput' {} a -> s {scheduleExpression = a} :: BackupRuleInput)
-
--- | Specifies whether Backup creates continuous backups. True causes Backup
--- to create continuous backups capable of point-in-time restore (PITR).
--- False (or not specified) causes Backup to create snapshot backups.
-backupRuleInput_enableContinuousBackup :: Lens.Lens' BackupRuleInput (Prelude.Maybe Prelude.Bool)
-backupRuleInput_enableContinuousBackup = Lens.lens (\BackupRuleInput' {enableContinuousBackup} -> enableContinuousBackup) (\s@BackupRuleInput' {} a -> s {enableContinuousBackup = a} :: BackupRuleInput)
 
 -- | A value in minutes after a backup job is successfully started before it
 -- must be completed or it will be canceled by Backup. This value is
@@ -174,12 +157,46 @@ backupRuleInput_completionWindowMinutes = Lens.lens (\BackupRuleInput' {completi
 backupRuleInput_copyActions :: Lens.Lens' BackupRuleInput (Prelude.Maybe [CopyAction])
 backupRuleInput_copyActions = Lens.lens (\BackupRuleInput' {copyActions} -> copyActions) (\s@BackupRuleInput' {} a -> s {copyActions = a} :: BackupRuleInput) Prelude.. Lens.mapping Lens.coerced
 
+-- | Specifies whether Backup creates continuous backups. True causes Backup
+-- to create continuous backups capable of point-in-time restore (PITR).
+-- False (or not specified) causes Backup to create snapshot backups.
+backupRuleInput_enableContinuousBackup :: Lens.Lens' BackupRuleInput (Prelude.Maybe Prelude.Bool)
+backupRuleInput_enableContinuousBackup = Lens.lens (\BackupRuleInput' {enableContinuousBackup} -> enableContinuousBackup) (\s@BackupRuleInput' {} a -> s {enableContinuousBackup = a} :: BackupRuleInput)
+
+-- | The lifecycle defines when a protected resource is transitioned to cold
+-- storage and when it expires. Backup will transition and expire backups
+-- automatically according to the lifecycle that you define.
+--
+-- Backups transitioned to cold storage must be stored in cold storage for
+-- a minimum of 90 days. Therefore, the “retention” setting must be 90 days
+-- greater than the “transition to cold after days” setting. The
+-- “transition to cold after days” setting cannot be changed after a backup
+-- has been transitioned to cold.
+--
+-- Resource types that are able to be transitioned to cold storage are
+-- listed in the \"Lifecycle to cold storage\" section of the
+-- <https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource Feature availability by resource>
+-- table. Backup ignores this expression for other resource types.
+backupRuleInput_lifecycle :: Lens.Lens' BackupRuleInput (Prelude.Maybe Lifecycle)
+backupRuleInput_lifecycle = Lens.lens (\BackupRuleInput' {lifecycle} -> lifecycle) (\s@BackupRuleInput' {} a -> s {lifecycle = a} :: BackupRuleInput)
+
+-- | To help organize your resources, you can assign your own metadata to the
+-- resources that you create. Each tag is a key-value pair.
+backupRuleInput_recoveryPointTags :: Lens.Lens' BackupRuleInput (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+backupRuleInput_recoveryPointTags = Lens.lens (\BackupRuleInput' {recoveryPointTags} -> recoveryPointTags) (\s@BackupRuleInput' {} a -> s {recoveryPointTags = a} :: BackupRuleInput) Prelude.. Lens.mapping (Data._Sensitive Prelude.. Lens.coerced)
+
+-- | A CRON expression in UTC specifying when Backup initiates a backup job.
+backupRuleInput_scheduleExpression :: Lens.Lens' BackupRuleInput (Prelude.Maybe Prelude.Text)
+backupRuleInput_scheduleExpression = Lens.lens (\BackupRuleInput' {scheduleExpression} -> scheduleExpression) (\s@BackupRuleInput' {} a -> s {scheduleExpression = a} :: BackupRuleInput)
+
 -- | A value in minutes after a backup is scheduled before a job will be
--- canceled if it doesn\'t start successfully. This value is optional.
+-- canceled if it doesn\'t start successfully. This value is optional. If
+-- this value is included, it must be at least 60 minutes to avoid errors.
 backupRuleInput_startWindowMinutes :: Lens.Lens' BackupRuleInput (Prelude.Maybe Prelude.Integer)
 backupRuleInput_startWindowMinutes = Lens.lens (\BackupRuleInput' {startWindowMinutes} -> startWindowMinutes) (\s@BackupRuleInput' {} a -> s {startWindowMinutes = a} :: BackupRuleInput)
 
--- | An optional display name for a backup rule.
+-- | A display name for a backup rule. Must contain 1 to 50 alphanumeric or
+-- \'-_.\' characters.
 backupRuleInput_ruleName :: Lens.Lens' BackupRuleInput Prelude.Text
 backupRuleInput_ruleName = Lens.lens (\BackupRuleInput' {ruleName} -> ruleName) (\s@BackupRuleInput' {} a -> s {ruleName = a} :: BackupRuleInput)
 
@@ -192,48 +209,49 @@ backupRuleInput_targetBackupVaultName = Lens.lens (\BackupRuleInput' {targetBack
 
 instance Prelude.Hashable BackupRuleInput where
   hashWithSalt _salt BackupRuleInput' {..} =
-    _salt `Prelude.hashWithSalt` lifecycle
-      `Prelude.hashWithSalt` recoveryPointTags
-      `Prelude.hashWithSalt` scheduleExpression
-      `Prelude.hashWithSalt` enableContinuousBackup
+    _salt
       `Prelude.hashWithSalt` completionWindowMinutes
       `Prelude.hashWithSalt` copyActions
+      `Prelude.hashWithSalt` enableContinuousBackup
+      `Prelude.hashWithSalt` lifecycle
+      `Prelude.hashWithSalt` recoveryPointTags
+      `Prelude.hashWithSalt` scheduleExpression
       `Prelude.hashWithSalt` startWindowMinutes
       `Prelude.hashWithSalt` ruleName
       `Prelude.hashWithSalt` targetBackupVaultName
 
 instance Prelude.NFData BackupRuleInput where
   rnf BackupRuleInput' {..} =
-    Prelude.rnf lifecycle
+    Prelude.rnf completionWindowMinutes
+      `Prelude.seq` Prelude.rnf copyActions
+      `Prelude.seq` Prelude.rnf enableContinuousBackup
+      `Prelude.seq` Prelude.rnf lifecycle
       `Prelude.seq` Prelude.rnf recoveryPointTags
       `Prelude.seq` Prelude.rnf scheduleExpression
-      `Prelude.seq` Prelude.rnf enableContinuousBackup
-      `Prelude.seq` Prelude.rnf completionWindowMinutes
-      `Prelude.seq` Prelude.rnf copyActions
       `Prelude.seq` Prelude.rnf startWindowMinutes
       `Prelude.seq` Prelude.rnf ruleName
       `Prelude.seq` Prelude.rnf targetBackupVaultName
 
-instance Core.ToJSON BackupRuleInput where
+instance Data.ToJSON BackupRuleInput where
   toJSON BackupRuleInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Lifecycle" Core..=) Prelude.<$> lifecycle,
-            ("RecoveryPointTags" Core..=)
-              Prelude.<$> recoveryPointTags,
-            ("ScheduleExpression" Core..=)
-              Prelude.<$> scheduleExpression,
-            ("EnableContinuousBackup" Core..=)
-              Prelude.<$> enableContinuousBackup,
-            ("CompletionWindowMinutes" Core..=)
+          [ ("CompletionWindowMinutes" Data..=)
               Prelude.<$> completionWindowMinutes,
-            ("CopyActions" Core..=) Prelude.<$> copyActions,
-            ("StartWindowMinutes" Core..=)
+            ("CopyActions" Data..=) Prelude.<$> copyActions,
+            ("EnableContinuousBackup" Data..=)
+              Prelude.<$> enableContinuousBackup,
+            ("Lifecycle" Data..=) Prelude.<$> lifecycle,
+            ("RecoveryPointTags" Data..=)
+              Prelude.<$> recoveryPointTags,
+            ("ScheduleExpression" Data..=)
+              Prelude.<$> scheduleExpression,
+            ("StartWindowMinutes" Data..=)
               Prelude.<$> startWindowMinutes,
-            Prelude.Just ("RuleName" Core..= ruleName),
+            Prelude.Just ("RuleName" Data..= ruleName),
             Prelude.Just
               ( "TargetBackupVaultName"
-                  Core..= targetBackupVaultName
+                  Data..= targetBackupVaultName
               )
           ]
       )

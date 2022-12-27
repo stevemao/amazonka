@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarNotifications.TagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CodeStarNotifications.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,7 +53,7 @@ data TagResource = TagResource'
   { -- | The Amazon Resource Name (ARN) of the notification rule to tag.
     arn :: Prelude.Text,
     -- | The list of tags to associate with the resource. Tag key names cannot
-    -- start with \"aws\".
+    -- start with \"@aws@\".
     tags :: Prelude.HashMap Prelude.Text Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -68,7 +69,7 @@ data TagResource = TagResource'
 -- 'arn', 'tagResource_arn' - The Amazon Resource Name (ARN) of the notification rule to tag.
 --
 -- 'tags', 'tagResource_tags' - The list of tags to associate with the resource. Tag key names cannot
--- start with \"aws\".
+-- start with \"@aws@\".
 newTagResource ::
   -- | 'arn'
   Prelude.Text ->
@@ -81,18 +82,19 @@ tagResource_arn :: Lens.Lens' TagResource Prelude.Text
 tagResource_arn = Lens.lens (\TagResource' {arn} -> arn) (\s@TagResource' {} a -> s {arn = a} :: TagResource)
 
 -- | The list of tags to associate with the resource. Tag key names cannot
--- start with \"aws\".
+-- start with \"@aws@\".
 tagResource_tags :: Lens.Lens' TagResource (Prelude.HashMap Prelude.Text Prelude.Text)
 tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} a -> s {tags = a} :: TagResource) Prelude.. Lens.coerced
 
 instance Core.AWSRequest TagResource where
   type AWSResponse TagResource = TagResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           TagResourceResponse'
-            Prelude.<$> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -105,30 +107,30 @@ instance Prelude.NFData TagResource where
   rnf TagResource' {..} =
     Prelude.rnf arn `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagResource where
+instance Data.ToHeaders TagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TagResource where
+instance Data.ToJSON TagResource where
   toJSON TagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Arn" Core..= arn),
-            Prelude.Just ("Tags" Core..= tags)
+          [ Prelude.Just ("Arn" Data..= arn),
+            Prelude.Just ("Tags" Data..= tags)
           ]
       )
 
-instance Core.ToPath TagResource where
+instance Data.ToPath TagResource where
   toPath = Prelude.const "/tagResource"
 
-instance Core.ToQuery TagResource where
+instance Data.ToQuery TagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTagResourceResponse' smart constructor.

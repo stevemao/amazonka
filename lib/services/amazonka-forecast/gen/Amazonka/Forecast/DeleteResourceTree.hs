@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.DeleteResourceTree
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -57,8 +57,9 @@ module Amazonka.Forecast.DeleteResourceTree
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ instance Core.AWSRequest DeleteResourceTree where
   type
     AWSResponse DeleteResourceTree =
       DeleteResourceTreeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteResourceTreeResponse'
 
@@ -108,32 +110,32 @@ instance Prelude.Hashable DeleteResourceTree where
 instance Prelude.NFData DeleteResourceTree where
   rnf DeleteResourceTree' {..} = Prelude.rnf resourceArn
 
-instance Core.ToHeaders DeleteResourceTree where
+instance Data.ToHeaders DeleteResourceTree where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.DeleteResourceTree" ::
+              Data.=# ( "AmazonForecast.DeleteResourceTree" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteResourceTree where
+instance Data.ToJSON DeleteResourceTree where
   toJSON DeleteResourceTree' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ResourceArn" Core..= resourceArn)]
+          [Prelude.Just ("ResourceArn" Data..= resourceArn)]
       )
 
-instance Core.ToPath DeleteResourceTree where
+instance Data.ToPath DeleteResourceTree where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteResourceTree where
+instance Data.ToQuery DeleteResourceTree where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteResourceTreeResponse' smart constructor.

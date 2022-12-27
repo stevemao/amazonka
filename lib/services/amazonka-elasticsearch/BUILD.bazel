@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-elasticsearch/amazonka-elasticsearch.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-elasticsearch/amazonka-elasticsearch.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-elasticsearch",
     srcs = [
@@ -8,16 +8,20 @@ haskell_library(
         "gen/Amazonka/ElasticSearch/AcceptInboundCrossClusterSearchConnection.hs",
         "gen/Amazonka/ElasticSearch/AddTags.hs",
         "gen/Amazonka/ElasticSearch/AssociatePackage.hs",
+        "gen/Amazonka/ElasticSearch/AuthorizeVpcEndpointAccess.hs",
         "gen/Amazonka/ElasticSearch/CancelElasticsearchServiceSoftwareUpdate.hs",
         "gen/Amazonka/ElasticSearch/CreateElasticsearchDomain.hs",
         "gen/Amazonka/ElasticSearch/CreateOutboundCrossClusterSearchConnection.hs",
         "gen/Amazonka/ElasticSearch/CreatePackage.hs",
+        "gen/Amazonka/ElasticSearch/CreateVpcEndpoint.hs",
         "gen/Amazonka/ElasticSearch/DeleteElasticsearchDomain.hs",
         "gen/Amazonka/ElasticSearch/DeleteElasticsearchServiceRole.hs",
         "gen/Amazonka/ElasticSearch/DeleteInboundCrossClusterSearchConnection.hs",
         "gen/Amazonka/ElasticSearch/DeleteOutboundCrossClusterSearchConnection.hs",
         "gen/Amazonka/ElasticSearch/DeletePackage.hs",
+        "gen/Amazonka/ElasticSearch/DeleteVpcEndpoint.hs",
         "gen/Amazonka/ElasticSearch/DescribeDomainAutoTunes.hs",
+        "gen/Amazonka/ElasticSearch/DescribeDomainChangeProgress.hs",
         "gen/Amazonka/ElasticSearch/DescribeElasticsearchDomain.hs",
         "gen/Amazonka/ElasticSearch/DescribeElasticsearchDomainConfig.hs",
         "gen/Amazonka/ElasticSearch/DescribeElasticsearchDomains.hs",
@@ -27,6 +31,7 @@ haskell_library(
         "gen/Amazonka/ElasticSearch/DescribePackages.hs",
         "gen/Amazonka/ElasticSearch/DescribeReservedElasticsearchInstanceOfferings.hs",
         "gen/Amazonka/ElasticSearch/DescribeReservedElasticsearchInstances.hs",
+        "gen/Amazonka/ElasticSearch/DescribeVpcEndpoints.hs",
         "gen/Amazonka/ElasticSearch/DissociatePackage.hs",
         "gen/Amazonka/ElasticSearch/GetCompatibleElasticsearchVersions.hs",
         "gen/Amazonka/ElasticSearch/GetPackageVersionHistory.hs",
@@ -39,9 +44,13 @@ haskell_library(
         "gen/Amazonka/ElasticSearch/ListElasticsearchVersions.hs",
         "gen/Amazonka/ElasticSearch/ListPackagesForDomain.hs",
         "gen/Amazonka/ElasticSearch/ListTags.hs",
+        "gen/Amazonka/ElasticSearch/ListVpcEndpointAccess.hs",
+        "gen/Amazonka/ElasticSearch/ListVpcEndpoints.hs",
+        "gen/Amazonka/ElasticSearch/ListVpcEndpointsForDomain.hs",
         "gen/Amazonka/ElasticSearch/PurchaseReservedElasticsearchInstanceOffering.hs",
         "gen/Amazonka/ElasticSearch/RejectInboundCrossClusterSearchConnection.hs",
         "gen/Amazonka/ElasticSearch/RemoveTags.hs",
+        "gen/Amazonka/ElasticSearch/RevokeVpcEndpointAccess.hs",
         "gen/Amazonka/ElasticSearch/StartElasticsearchServiceSoftwareUpdate.hs",
         "gen/Amazonka/ElasticSearch/Types.hs",
         "gen/Amazonka/ElasticSearch/Types/AccessPoliciesStatus.hs",
@@ -50,6 +59,7 @@ haskell_library(
         "gen/Amazonka/ElasticSearch/Types/AdvancedSecurityOptions.hs",
         "gen/Amazonka/ElasticSearch/Types/AdvancedSecurityOptionsInput.hs",
         "gen/Amazonka/ElasticSearch/Types/AdvancedSecurityOptionsStatus.hs",
+        "gen/Amazonka/ElasticSearch/Types/AuthorizedPrincipal.hs",
         "gen/Amazonka/ElasticSearch/Types/AutoTune.hs",
         "gen/Amazonka/ElasticSearch/Types/AutoTuneDesiredState.hs",
         "gen/Amazonka/ElasticSearch/Types/AutoTuneDetails.hs",
@@ -61,6 +71,9 @@ haskell_library(
         "gen/Amazonka/ElasticSearch/Types/AutoTuneState.hs",
         "gen/Amazonka/ElasticSearch/Types/AutoTuneStatus.hs",
         "gen/Amazonka/ElasticSearch/Types/AutoTuneType.hs",
+        "gen/Amazonka/ElasticSearch/Types/ChangeProgressDetails.hs",
+        "gen/Amazonka/ElasticSearch/Types/ChangeProgressStage.hs",
+        "gen/Amazonka/ElasticSearch/Types/ChangeProgressStatusDetails.hs",
         "gen/Amazonka/ElasticSearch/Types/CognitoOptions.hs",
         "gen/Amazonka/ElasticSearch/Types/CognitoOptionsStatus.hs",
         "gen/Amazonka/ElasticSearch/Types/ColdStorageOptions.hs",
@@ -74,6 +87,7 @@ haskell_library(
         "gen/Amazonka/ElasticSearch/Types/DomainInformation.hs",
         "gen/Amazonka/ElasticSearch/Types/DomainPackageDetails.hs",
         "gen/Amazonka/ElasticSearch/Types/DomainPackageStatus.hs",
+        "gen/Amazonka/ElasticSearch/Types/DryRunResults.hs",
         "gen/Amazonka/ElasticSearch/Types/Duration.hs",
         "gen/Amazonka/ElasticSearch/Types/EBSOptions.hs",
         "gen/Amazonka/ElasticSearch/Types/EBSOptionsStatus.hs",
@@ -106,11 +120,13 @@ haskell_library(
         "gen/Amazonka/ElasticSearch/Types/OutboundCrossClusterSearchConnection.hs",
         "gen/Amazonka/ElasticSearch/Types/OutboundCrossClusterSearchConnectionStatus.hs",
         "gen/Amazonka/ElasticSearch/Types/OutboundCrossClusterSearchConnectionStatusCode.hs",
+        "gen/Amazonka/ElasticSearch/Types/OverallChangeStatus.hs",
         "gen/Amazonka/ElasticSearch/Types/PackageDetails.hs",
         "gen/Amazonka/ElasticSearch/Types/PackageSource.hs",
         "gen/Amazonka/ElasticSearch/Types/PackageStatus.hs",
         "gen/Amazonka/ElasticSearch/Types/PackageType.hs",
         "gen/Amazonka/ElasticSearch/Types/PackageVersionHistory.hs",
+        "gen/Amazonka/ElasticSearch/Types/PrincipalType.hs",
         "gen/Amazonka/ElasticSearch/Types/RecurringCharge.hs",
         "gen/Amazonka/ElasticSearch/Types/ReservedElasticsearchInstance.hs",
         "gen/Amazonka/ElasticSearch/Types/ReservedElasticsearchInstanceOffering.hs",
@@ -138,20 +154,25 @@ haskell_library(
         "gen/Amazonka/ElasticSearch/Types/VPCDerivedInfoStatus.hs",
         "gen/Amazonka/ElasticSearch/Types/VPCOptions.hs",
         "gen/Amazonka/ElasticSearch/Types/VolumeType.hs",
+        "gen/Amazonka/ElasticSearch/Types/VpcEndpoint.hs",
+        "gen/Amazonka/ElasticSearch/Types/VpcEndpointError.hs",
+        "gen/Amazonka/ElasticSearch/Types/VpcEndpointErrorCode.hs",
+        "gen/Amazonka/ElasticSearch/Types/VpcEndpointStatus.hs",
+        "gen/Amazonka/ElasticSearch/Types/VpcEndpointSummary.hs",
         "gen/Amazonka/ElasticSearch/Types/ZoneAwarenessConfig.hs",
         "gen/Amazonka/ElasticSearch/UpdateElasticsearchDomainConfig.hs",
         "gen/Amazonka/ElasticSearch/UpdatePackage.hs",
+        "gen/Amazonka/ElasticSearch/UpdateVpcEndpoint.hs",
         "gen/Amazonka/ElasticSearch/UpgradeElasticsearchDomain.hs",
         "gen/Amazonka/ElasticSearch/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_elasticsearch=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_elasticsearch=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -160,7 +181,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-elasticsearch/amazonka-elasticsearch.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-elasticsearch/amazonka-elasticsearch.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-elasticsearch-test",
     srcs = [
@@ -169,11 +190,12 @@ haskell_test(
         "test/Test/Amazonka/ElasticSearch/Internal.hs",
         "test/Test/Amazonka/Gen/ElasticSearch.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_elasticsearch=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_elasticsearch=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Support.Types.TrustedAdvisorCostOptimizingSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Support.Types.TrustedAdvisorCostOptimizingSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The estimated cost savings that might be realized if the recommended
@@ -77,16 +78,16 @@ trustedAdvisorCostOptimizingSummary_estimatedPercentMonthlySavings :: Lens.Lens'
 trustedAdvisorCostOptimizingSummary_estimatedPercentMonthlySavings = Lens.lens (\TrustedAdvisorCostOptimizingSummary' {estimatedPercentMonthlySavings} -> estimatedPercentMonthlySavings) (\s@TrustedAdvisorCostOptimizingSummary' {} a -> s {estimatedPercentMonthlySavings = a} :: TrustedAdvisorCostOptimizingSummary)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     TrustedAdvisorCostOptimizingSummary
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrustedAdvisorCostOptimizingSummary"
       ( \x ->
           TrustedAdvisorCostOptimizingSummary'
-            Prelude.<$> (x Core..: "estimatedMonthlySavings")
-            Prelude.<*> (x Core..: "estimatedPercentMonthlySavings")
+            Prelude.<$> (x Data..: "estimatedMonthlySavings")
+            Prelude.<*> (x Data..: "estimatedPercentMonthlySavings")
       )
 
 instance

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.UpdateLaunchProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,13 +28,13 @@ module Amazonka.Nimble.UpdateLaunchProfile
 
     -- * Request Lenses
     updateLaunchProfile_clientToken,
-    updateLaunchProfile_launchProfileProtocolVersions,
-    updateLaunchProfile_streamConfiguration,
-    updateLaunchProfile_name,
     updateLaunchProfile_description,
+    updateLaunchProfile_launchProfileProtocolVersions,
+    updateLaunchProfile_name,
+    updateLaunchProfile_streamConfiguration,
     updateLaunchProfile_studioComponentIds,
-    updateLaunchProfile_studioId,
     updateLaunchProfile_launchProfileId,
+    updateLaunchProfile_studioId,
 
     -- * Destructuring the Response
     UpdateLaunchProfileResponse (..),
@@ -47,43 +47,38 @@ module Amazonka.Nimble.UpdateLaunchProfile
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | The launch profile ID.
---
--- /See:/ 'newUpdateLaunchProfile' smart constructor.
+-- | /See:/ 'newUpdateLaunchProfile' smart constructor.
 data UpdateLaunchProfile = UpdateLaunchProfile'
-  { -- | To make an idempotent API request using one of these actions, specify a
-    -- client token in the request. You should not reuse the same client token
-    -- for other API requests. If you retry a request that completed
-    -- successfully using the same client token and the same parameters, the
-    -- retry succeeds without performing any further actions. If you retry a
-    -- successful request using the same client token, but one or more of the
-    -- parameters are different, the retry fails with a ValidationException
-    -- error.
+  { -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. If you don’t specify a client token, the AWS
+    -- SDK automatically generates a client token and uses it for the request
+    -- to ensure idempotency.
     clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The description.
+    description :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The version number of the protocol that is used by the launch profile.
     -- The only valid version is \"2021-03-31\".
     launchProfileProtocolVersions :: Prelude.Maybe [Prelude.Text],
+    -- | The name for the launch profile.
+    name :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | A configuration for a streaming session.
     streamConfiguration :: Prelude.Maybe StreamConfigurationCreate,
-    -- | The name for the launch profile.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The description.
-    description :: Prelude.Maybe Prelude.Text,
     -- | Unique identifiers for a collection of studio components that can be
     -- used with this launch profile.
     studioComponentIds :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | The Launch Profile ID.
+    launchProfileId :: Prelude.Text,
     -- | The studio ID.
-    studioId :: Prelude.Text,
-    -- | The launch profile ID.
-    launchProfileId :: Prelude.Text
+    studioId :: Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'UpdateLaunchProfile' with all optional fields omitted.
@@ -93,157 +88,150 @@ data UpdateLaunchProfile = UpdateLaunchProfile'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'updateLaunchProfile_clientToken' - To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- 'clientToken', 'updateLaunchProfile_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
+--
+-- 'description', 'updateLaunchProfile_description' - The description.
 --
 -- 'launchProfileProtocolVersions', 'updateLaunchProfile_launchProfileProtocolVersions' - The version number of the protocol that is used by the launch profile.
 -- The only valid version is \"2021-03-31\".
 --
--- 'streamConfiguration', 'updateLaunchProfile_streamConfiguration' - A configuration for a streaming session.
---
 -- 'name', 'updateLaunchProfile_name' - The name for the launch profile.
 --
--- 'description', 'updateLaunchProfile_description' - The description.
+-- 'streamConfiguration', 'updateLaunchProfile_streamConfiguration' - A configuration for a streaming session.
 --
 -- 'studioComponentIds', 'updateLaunchProfile_studioComponentIds' - Unique identifiers for a collection of studio components that can be
 -- used with this launch profile.
 --
--- 'studioId', 'updateLaunchProfile_studioId' - The studio ID.
+-- 'launchProfileId', 'updateLaunchProfile_launchProfileId' - The Launch Profile ID.
 --
--- 'launchProfileId', 'updateLaunchProfile_launchProfileId' - The launch profile ID.
+-- 'studioId', 'updateLaunchProfile_studioId' - The studio ID.
 newUpdateLaunchProfile ::
-  -- | 'studioId'
-  Prelude.Text ->
   -- | 'launchProfileId'
   Prelude.Text ->
+  -- | 'studioId'
+  Prelude.Text ->
   UpdateLaunchProfile
-newUpdateLaunchProfile pStudioId_ pLaunchProfileId_ =
+newUpdateLaunchProfile pLaunchProfileId_ pStudioId_ =
   UpdateLaunchProfile'
     { clientToken = Prelude.Nothing,
-      launchProfileProtocolVersions = Prelude.Nothing,
-      streamConfiguration = Prelude.Nothing,
-      name = Prelude.Nothing,
       description = Prelude.Nothing,
+      launchProfileProtocolVersions = Prelude.Nothing,
+      name = Prelude.Nothing,
+      streamConfiguration = Prelude.Nothing,
       studioComponentIds = Prelude.Nothing,
-      studioId = pStudioId_,
-      launchProfileId = pLaunchProfileId_
+      launchProfileId = pLaunchProfileId_,
+      studioId = pStudioId_
     }
 
--- | To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 updateLaunchProfile_clientToken :: Lens.Lens' UpdateLaunchProfile (Prelude.Maybe Prelude.Text)
 updateLaunchProfile_clientToken = Lens.lens (\UpdateLaunchProfile' {clientToken} -> clientToken) (\s@UpdateLaunchProfile' {} a -> s {clientToken = a} :: UpdateLaunchProfile)
+
+-- | The description.
+updateLaunchProfile_description :: Lens.Lens' UpdateLaunchProfile (Prelude.Maybe Prelude.Text)
+updateLaunchProfile_description = Lens.lens (\UpdateLaunchProfile' {description} -> description) (\s@UpdateLaunchProfile' {} a -> s {description = a} :: UpdateLaunchProfile) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The version number of the protocol that is used by the launch profile.
 -- The only valid version is \"2021-03-31\".
 updateLaunchProfile_launchProfileProtocolVersions :: Lens.Lens' UpdateLaunchProfile (Prelude.Maybe [Prelude.Text])
 updateLaunchProfile_launchProfileProtocolVersions = Lens.lens (\UpdateLaunchProfile' {launchProfileProtocolVersions} -> launchProfileProtocolVersions) (\s@UpdateLaunchProfile' {} a -> s {launchProfileProtocolVersions = a} :: UpdateLaunchProfile) Prelude.. Lens.mapping Lens.coerced
 
+-- | The name for the launch profile.
+updateLaunchProfile_name :: Lens.Lens' UpdateLaunchProfile (Prelude.Maybe Prelude.Text)
+updateLaunchProfile_name = Lens.lens (\UpdateLaunchProfile' {name} -> name) (\s@UpdateLaunchProfile' {} a -> s {name = a} :: UpdateLaunchProfile) Prelude.. Lens.mapping Data._Sensitive
+
 -- | A configuration for a streaming session.
 updateLaunchProfile_streamConfiguration :: Lens.Lens' UpdateLaunchProfile (Prelude.Maybe StreamConfigurationCreate)
 updateLaunchProfile_streamConfiguration = Lens.lens (\UpdateLaunchProfile' {streamConfiguration} -> streamConfiguration) (\s@UpdateLaunchProfile' {} a -> s {streamConfiguration = a} :: UpdateLaunchProfile)
-
--- | The name for the launch profile.
-updateLaunchProfile_name :: Lens.Lens' UpdateLaunchProfile (Prelude.Maybe Prelude.Text)
-updateLaunchProfile_name = Lens.lens (\UpdateLaunchProfile' {name} -> name) (\s@UpdateLaunchProfile' {} a -> s {name = a} :: UpdateLaunchProfile)
-
--- | The description.
-updateLaunchProfile_description :: Lens.Lens' UpdateLaunchProfile (Prelude.Maybe Prelude.Text)
-updateLaunchProfile_description = Lens.lens (\UpdateLaunchProfile' {description} -> description) (\s@UpdateLaunchProfile' {} a -> s {description = a} :: UpdateLaunchProfile)
 
 -- | Unique identifiers for a collection of studio components that can be
 -- used with this launch profile.
 updateLaunchProfile_studioComponentIds :: Lens.Lens' UpdateLaunchProfile (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 updateLaunchProfile_studioComponentIds = Lens.lens (\UpdateLaunchProfile' {studioComponentIds} -> studioComponentIds) (\s@UpdateLaunchProfile' {} a -> s {studioComponentIds = a} :: UpdateLaunchProfile) Prelude.. Lens.mapping Lens.coerced
 
+-- | The Launch Profile ID.
+updateLaunchProfile_launchProfileId :: Lens.Lens' UpdateLaunchProfile Prelude.Text
+updateLaunchProfile_launchProfileId = Lens.lens (\UpdateLaunchProfile' {launchProfileId} -> launchProfileId) (\s@UpdateLaunchProfile' {} a -> s {launchProfileId = a} :: UpdateLaunchProfile)
+
 -- | The studio ID.
 updateLaunchProfile_studioId :: Lens.Lens' UpdateLaunchProfile Prelude.Text
 updateLaunchProfile_studioId = Lens.lens (\UpdateLaunchProfile' {studioId} -> studioId) (\s@UpdateLaunchProfile' {} a -> s {studioId = a} :: UpdateLaunchProfile)
-
--- | The launch profile ID.
-updateLaunchProfile_launchProfileId :: Lens.Lens' UpdateLaunchProfile Prelude.Text
-updateLaunchProfile_launchProfileId = Lens.lens (\UpdateLaunchProfile' {launchProfileId} -> launchProfileId) (\s@UpdateLaunchProfile' {} a -> s {launchProfileId = a} :: UpdateLaunchProfile)
 
 instance Core.AWSRequest UpdateLaunchProfile where
   type
     AWSResponse UpdateLaunchProfile =
       UpdateLaunchProfileResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateLaunchProfileResponse'
-            Prelude.<$> (x Core..?> "launchProfile")
+            Prelude.<$> (x Data..?> "launchProfile")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateLaunchProfile where
   hashWithSalt _salt UpdateLaunchProfile' {..} =
     _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` launchProfileProtocolVersions
-      `Prelude.hashWithSalt` streamConfiguration
-      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` launchProfileProtocolVersions
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` streamConfiguration
       `Prelude.hashWithSalt` studioComponentIds
-      `Prelude.hashWithSalt` studioId
       `Prelude.hashWithSalt` launchProfileId
+      `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData UpdateLaunchProfile where
   rnf UpdateLaunchProfile' {..} =
     Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf launchProfileProtocolVersions
-      `Prelude.seq` Prelude.rnf streamConfiguration
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf launchProfileProtocolVersions
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf streamConfiguration
       `Prelude.seq` Prelude.rnf studioComponentIds
-      `Prelude.seq` Prelude.rnf studioId
       `Prelude.seq` Prelude.rnf launchProfileId
+      `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders UpdateLaunchProfile where
+instance Data.ToHeaders UpdateLaunchProfile where
   toHeaders UpdateLaunchProfile' {..} =
     Prelude.mconcat
-      [ "X-Amz-Client-Token" Core.=# clientToken,
+      [ "X-Amz-Client-Token" Data.=# clientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON UpdateLaunchProfile where
+instance Data.ToJSON UpdateLaunchProfile where
   toJSON UpdateLaunchProfile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("launchProfileProtocolVersions" Core..=)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("launchProfileProtocolVersions" Data..=)
               Prelude.<$> launchProfileProtocolVersions,
-            ("streamConfiguration" Core..=)
+            ("name" Data..=) Prelude.<$> name,
+            ("streamConfiguration" Data..=)
               Prelude.<$> streamConfiguration,
-            ("name" Core..=) Prelude.<$> name,
-            ("description" Core..=) Prelude.<$> description,
-            ("studioComponentIds" Core..=)
+            ("studioComponentIds" Data..=)
               Prelude.<$> studioComponentIds
           ]
       )
 
-instance Core.ToPath UpdateLaunchProfile where
+instance Data.ToPath UpdateLaunchProfile where
   toPath UpdateLaunchProfile' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/launch-profiles/",
-        Core.toBS launchProfileId
+        Data.toBS launchProfileId
       ]
 
-instance Core.ToQuery UpdateLaunchProfile where
+instance Data.ToQuery UpdateLaunchProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateLaunchProfileResponse' smart constructor.
@@ -253,7 +241,7 @@ data UpdateLaunchProfileResponse = UpdateLaunchProfileResponse'
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'UpdateLaunchProfileResponse' with all optional fields omitted.

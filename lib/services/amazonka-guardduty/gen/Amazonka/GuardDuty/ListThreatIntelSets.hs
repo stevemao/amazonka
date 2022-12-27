@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.ListThreatIntelSets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.GuardDuty.ListThreatIntelSets
     newListThreatIntelSets,
 
     -- * Request Lenses
-    listThreatIntelSets_nextToken,
     listThreatIntelSets_maxResults,
+    listThreatIntelSets_nextToken,
     listThreatIntelSets_detectorId,
 
     -- * Destructuring the Response
@@ -47,24 +47,25 @@ module Amazonka.GuardDuty.ListThreatIntelSets
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListThreatIntelSets' smart constructor.
 data ListThreatIntelSets = ListThreatIntelSets'
-  { -- | You can use this parameter to paginate results in the response. Set the
+  { -- | You can use this parameter to indicate the maximum number of items that
+    -- you want in the response. The default value is 50. The maximum value is
+    -- 50.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | You can use this parameter to paginate results in the response. Set the
     -- value of this parameter to null on your first call to the list action.
     -- For subsequent calls to the action, fill nextToken in the request with
     -- the value of NextToken from the previous response to continue listing
     -- data.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | You can use this parameter to indicate the maximum number of items that
-    -- you want in the response. The default value is 50. The maximum value is
-    -- 50.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The unique ID of the detector that the threatIntelSet is associated
     -- with.
     detectorId :: Prelude.Text
@@ -79,15 +80,15 @@ data ListThreatIntelSets = ListThreatIntelSets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listThreatIntelSets_maxResults' - You can use this parameter to indicate the maximum number of items that
+-- you want in the response. The default value is 50. The maximum value is
+-- 50.
+--
 -- 'nextToken', 'listThreatIntelSets_nextToken' - You can use this parameter to paginate results in the response. Set the
 -- value of this parameter to null on your first call to the list action.
 -- For subsequent calls to the action, fill nextToken in the request with
 -- the value of NextToken from the previous response to continue listing
 -- data.
---
--- 'maxResults', 'listThreatIntelSets_maxResults' - You can use this parameter to indicate the maximum number of items that
--- you want in the response. The default value is 50. The maximum value is
--- 50.
 --
 -- 'detectorId', 'listThreatIntelSets_detectorId' - The unique ID of the detector that the threatIntelSet is associated
 -- with.
@@ -97,10 +98,16 @@ newListThreatIntelSets ::
   ListThreatIntelSets
 newListThreatIntelSets pDetectorId_ =
   ListThreatIntelSets'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       detectorId = pDetectorId_
     }
+
+-- | You can use this parameter to indicate the maximum number of items that
+-- you want in the response. The default value is 50. The maximum value is
+-- 50.
+listThreatIntelSets_maxResults :: Lens.Lens' ListThreatIntelSets (Prelude.Maybe Prelude.Natural)
+listThreatIntelSets_maxResults = Lens.lens (\ListThreatIntelSets' {maxResults} -> maxResults) (\s@ListThreatIntelSets' {} a -> s {maxResults = a} :: ListThreatIntelSets)
 
 -- | You can use this parameter to paginate results in the response. Set the
 -- value of this parameter to null on your first call to the list action.
@@ -109,12 +116,6 @@ newListThreatIntelSets pDetectorId_ =
 -- data.
 listThreatIntelSets_nextToken :: Lens.Lens' ListThreatIntelSets (Prelude.Maybe Prelude.Text)
 listThreatIntelSets_nextToken = Lens.lens (\ListThreatIntelSets' {nextToken} -> nextToken) (\s@ListThreatIntelSets' {} a -> s {nextToken = a} :: ListThreatIntelSets)
-
--- | You can use this parameter to indicate the maximum number of items that
--- you want in the response. The default value is 50. The maximum value is
--- 50.
-listThreatIntelSets_maxResults :: Lens.Lens' ListThreatIntelSets (Prelude.Maybe Prelude.Natural)
-listThreatIntelSets_maxResults = Lens.lens (\ListThreatIntelSets' {maxResults} -> maxResults) (\s@ListThreatIntelSets' {} a -> s {maxResults = a} :: ListThreatIntelSets)
 
 -- | The unique ID of the detector that the threatIntelSet is associated
 -- with.
@@ -146,54 +147,55 @@ instance Core.AWSRequest ListThreatIntelSets where
   type
     AWSResponse ListThreatIntelSets =
       ListThreatIntelSetsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListThreatIntelSetsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "threatIntelSetIds"
+            Prelude.<*> ( x Data..?> "threatIntelSetIds"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListThreatIntelSets where
   hashWithSalt _salt ListThreatIntelSets' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` detectorId
 
 instance Prelude.NFData ListThreatIntelSets where
   rnf ListThreatIntelSets' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf detectorId
 
-instance Core.ToHeaders ListThreatIntelSets where
+instance Data.ToHeaders ListThreatIntelSets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListThreatIntelSets where
+instance Data.ToPath ListThreatIntelSets where
   toPath ListThreatIntelSets' {..} =
     Prelude.mconcat
       [ "/detector/",
-        Core.toBS detectorId,
+        Data.toBS detectorId,
         "/threatintelset"
       ]
 
-instance Core.ToQuery ListThreatIntelSets where
+instance Data.ToQuery ListThreatIntelSets where
   toQuery ListThreatIntelSets' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListThreatIntelSetsResponse' smart constructor.

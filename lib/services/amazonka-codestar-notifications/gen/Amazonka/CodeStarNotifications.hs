@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarNotifications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,8 @@
 --
 -- Targets, by calling the following:
 --
--- -   DeleteTarget, which removes a notification rule target (SNS topic)
---     from a notification rule.
+-- -   DeleteTarget, which removes a notification rule target from a
+--     notification rule.
 --
 -- -   ListTargets, which lists the targets associated with a notification
 --     rule.
@@ -60,8 +60,8 @@
 -- -   UntagResource, which removes a tag from a notification rule in your
 --     account.
 --
--- For information about how to use AWS CodeStar Notifications, see link in
--- the CodeStarNotifications User Guide.
+-- For information about how to use AWS CodeStar Notifications, see the
+-- <https://docs.aws.amazon.com/dtconsole/latest/userguide/what-is-dtconsole.html Amazon Web Services Developer Tools Console User Guide>.
 module Amazonka.CodeStarNotifications
   ( -- * Service Configuration
     defaultService,
@@ -69,29 +69,29 @@ module Amazonka.CodeStarNotifications
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
-
-    -- ** ResourceAlreadyExistsException
-    _ResourceAlreadyExistsException,
-
-    -- ** ConfigurationException
-    _ConfigurationException,
 
     -- ** ConcurrentModificationException
     _ConcurrentModificationException,
 
+    -- ** ConfigurationException
+    _ConfigurationException,
+
     -- ** InvalidNextTokenException
     _InvalidNextTokenException,
+
+    -- ** LimitExceededException
+    _LimitExceededException,
+
+    -- ** ResourceAlreadyExistsException
+    _ResourceAlreadyExistsException,
 
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
-    -- ** LimitExceededException
-    _LimitExceededException,
+    -- ** ValidationException
+    _ValidationException,
 
     -- * Waiters
     -- $waiters
@@ -105,29 +105,11 @@ module Amazonka.CodeStarNotifications
     CreateNotificationRuleResponse (CreateNotificationRuleResponse'),
     newCreateNotificationRuleResponse,
 
-    -- ** UpdateNotificationRule
-    UpdateNotificationRule (UpdateNotificationRule'),
-    newUpdateNotificationRule,
-    UpdateNotificationRuleResponse (UpdateNotificationRuleResponse'),
-    newUpdateNotificationRuleResponse,
-
     -- ** DeleteNotificationRule
     DeleteNotificationRule (DeleteNotificationRule'),
     newDeleteNotificationRule,
     DeleteNotificationRuleResponse (DeleteNotificationRuleResponse'),
     newDeleteNotificationRuleResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** ListEventTypes (Paginated)
-    ListEventTypes (ListEventTypes'),
-    newListEventTypes,
-    ListEventTypesResponse (ListEventTypesResponse'),
-    newListEventTypesResponse,
 
     -- ** DeleteTarget
     DeleteTarget (DeleteTarget'),
@@ -135,11 +117,29 @@ module Amazonka.CodeStarNotifications
     DeleteTargetResponse (DeleteTargetResponse'),
     newDeleteTargetResponse,
 
+    -- ** DescribeNotificationRule
+    DescribeNotificationRule (DescribeNotificationRule'),
+    newDescribeNotificationRule,
+    DescribeNotificationRuleResponse (DescribeNotificationRuleResponse'),
+    newDescribeNotificationRuleResponse,
+
+    -- ** ListEventTypes (Paginated)
+    ListEventTypes (ListEventTypes'),
+    newListEventTypes,
+    ListEventTypesResponse (ListEventTypesResponse'),
+    newListEventTypesResponse,
+
     -- ** ListNotificationRules (Paginated)
     ListNotificationRules (ListNotificationRules'),
     newListNotificationRules,
     ListNotificationRulesResponse (ListNotificationRulesResponse'),
     newListNotificationRulesResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** ListTargets (Paginated)
     ListTargets (ListTargets'),
@@ -147,23 +147,17 @@ module Amazonka.CodeStarNotifications
     ListTargetsResponse (ListTargetsResponse'),
     newListTargetsResponse,
 
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
     -- ** Subscribe
     Subscribe (Subscribe'),
     newSubscribe,
     SubscribeResponse (SubscribeResponse'),
     newSubscribeResponse,
 
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** Unsubscribe
     Unsubscribe (Unsubscribe'),
@@ -171,11 +165,17 @@ module Amazonka.CodeStarNotifications
     UnsubscribeResponse (UnsubscribeResponse'),
     newUnsubscribeResponse,
 
-    -- ** DescribeNotificationRule
-    DescribeNotificationRule (DescribeNotificationRule'),
-    newDescribeNotificationRule,
-    DescribeNotificationRuleResponse (DescribeNotificationRuleResponse'),
-    newDescribeNotificationRuleResponse,
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateNotificationRule
+    UpdateNotificationRule (UpdateNotificationRule'),
+    newUpdateNotificationRule,
+    UpdateNotificationRuleResponse (UpdateNotificationRuleResponse'),
+    newUpdateNotificationRuleResponse,
 
     -- * Types
 

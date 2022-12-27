@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.SuccessfulInstanceCreditSpecificationItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.SuccessfulInstanceCreditSpecificationItem where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the burstable performance instance whose credit option for CPU
@@ -56,12 +57,12 @@ successfulInstanceCreditSpecificationItem_instanceId :: Lens.Lens' SuccessfulIns
 successfulInstanceCreditSpecificationItem_instanceId = Lens.lens (\SuccessfulInstanceCreditSpecificationItem' {instanceId} -> instanceId) (\s@SuccessfulInstanceCreditSpecificationItem' {} a -> s {instanceId = a} :: SuccessfulInstanceCreditSpecificationItem)
 
 instance
-  Core.FromXML
+  Data.FromXML
     SuccessfulInstanceCreditSpecificationItem
   where
   parseXML x =
     SuccessfulInstanceCreditSpecificationItem'
-      Prelude.<$> (x Core..@? "instanceId")
+      Prelude.<$> (x Data..@? "instanceId")
 
 instance
   Prelude.Hashable

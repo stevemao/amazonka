@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.Types.HlsConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaTailor.Types.HlsConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration for HLS content.
@@ -56,13 +57,13 @@ newHlsConfiguration =
 hlsConfiguration_manifestEndpointPrefix :: Lens.Lens' HlsConfiguration (Prelude.Maybe Prelude.Text)
 hlsConfiguration_manifestEndpointPrefix = Lens.lens (\HlsConfiguration' {manifestEndpointPrefix} -> manifestEndpointPrefix) (\s@HlsConfiguration' {} a -> s {manifestEndpointPrefix = a} :: HlsConfiguration)
 
-instance Core.FromJSON HlsConfiguration where
+instance Data.FromJSON HlsConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HlsConfiguration"
       ( \x ->
           HlsConfiguration'
-            Prelude.<$> (x Core..:? "ManifestEndpointPrefix")
+            Prelude.<$> (x Data..:? "ManifestEndpointPrefix")
       )
 
 instance Prelude.Hashable HlsConfiguration where

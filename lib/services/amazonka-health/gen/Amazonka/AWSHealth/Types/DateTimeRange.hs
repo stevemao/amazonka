@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AWSHealth.Types.DateTimeRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AWSHealth.Types.DateTimeRange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A range of dates and times that is used by the
@@ -36,10 +37,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDateTimeRange' smart constructor.
 data DateTimeRange = DateTimeRange'
-  { -- | The ending date and time of a time range.
-    to :: Prelude.Maybe Core.POSIX,
-    -- | The starting date and time of a time range.
-    from :: Prelude.Maybe Core.POSIX
+  { -- | The starting date and time of a time range.
+    from :: Prelude.Maybe Data.POSIX,
+    -- | The ending date and time of a time range.
+    to :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,39 +52,39 @@ data DateTimeRange = DateTimeRange'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'to', 'dateTimeRange_to' - The ending date and time of a time range.
---
 -- 'from', 'dateTimeRange_from' - The starting date and time of a time range.
+--
+-- 'to', 'dateTimeRange_to' - The ending date and time of a time range.
 newDateTimeRange ::
   DateTimeRange
 newDateTimeRange =
   DateTimeRange'
-    { to = Prelude.Nothing,
-      from = Prelude.Nothing
+    { from = Prelude.Nothing,
+      to = Prelude.Nothing
     }
-
--- | The ending date and time of a time range.
-dateTimeRange_to :: Lens.Lens' DateTimeRange (Prelude.Maybe Prelude.UTCTime)
-dateTimeRange_to = Lens.lens (\DateTimeRange' {to} -> to) (\s@DateTimeRange' {} a -> s {to = a} :: DateTimeRange) Prelude.. Lens.mapping Core._Time
 
 -- | The starting date and time of a time range.
 dateTimeRange_from :: Lens.Lens' DateTimeRange (Prelude.Maybe Prelude.UTCTime)
-dateTimeRange_from = Lens.lens (\DateTimeRange' {from} -> from) (\s@DateTimeRange' {} a -> s {from = a} :: DateTimeRange) Prelude.. Lens.mapping Core._Time
+dateTimeRange_from = Lens.lens (\DateTimeRange' {from} -> from) (\s@DateTimeRange' {} a -> s {from = a} :: DateTimeRange) Prelude.. Lens.mapping Data._Time
+
+-- | The ending date and time of a time range.
+dateTimeRange_to :: Lens.Lens' DateTimeRange (Prelude.Maybe Prelude.UTCTime)
+dateTimeRange_to = Lens.lens (\DateTimeRange' {to} -> to) (\s@DateTimeRange' {} a -> s {to = a} :: DateTimeRange) Prelude.. Lens.mapping Data._Time
 
 instance Prelude.Hashable DateTimeRange where
   hashWithSalt _salt DateTimeRange' {..} =
-    _salt `Prelude.hashWithSalt` to
-      `Prelude.hashWithSalt` from
+    _salt `Prelude.hashWithSalt` from
+      `Prelude.hashWithSalt` to
 
 instance Prelude.NFData DateTimeRange where
   rnf DateTimeRange' {..} =
-    Prelude.rnf to `Prelude.seq` Prelude.rnf from
+    Prelude.rnf from `Prelude.seq` Prelude.rnf to
 
-instance Core.ToJSON DateTimeRange where
+instance Data.ToJSON DateTimeRange where
   toJSON DateTimeRange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("to" Core..=) Prelude.<$> to,
-            ("from" Core..=) Prelude.<$> from
+          [ ("from" Data..=) Prelude.<$> from,
+            ("to" Data..=) Prelude.<$> to
           ]
       )

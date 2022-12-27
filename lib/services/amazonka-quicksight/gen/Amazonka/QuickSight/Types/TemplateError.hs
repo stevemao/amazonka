@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.TemplateError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,21 @@
 module Amazonka.QuickSight.Types.TemplateError where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
+import Amazonka.QuickSight.Types.Entity
 import Amazonka.QuickSight.Types.TemplateErrorType
 
 -- | List of errors that occurred when the template version creation failed.
 --
 -- /See:/ 'newTemplateError' smart constructor.
 data TemplateError = TemplateError'
-  { -- | Type of error.
+  { -- | Description of the error type.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | Type of error.
     type' :: Prelude.Maybe TemplateErrorType,
-    -- | Description of the error type.
-    message :: Prelude.Maybe Prelude.Text
+    violatedEntities :: Prelude.Maybe [Entity]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,40 +46,53 @@ data TemplateError = TemplateError'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'message', 'templateError_message' - Description of the error type.
+--
 -- 'type'', 'templateError_type' - Type of error.
 --
--- 'message', 'templateError_message' - Description of the error type.
+-- 'violatedEntities', 'templateError_violatedEntities' -
 newTemplateError ::
   TemplateError
 newTemplateError =
   TemplateError'
-    { type' = Prelude.Nothing,
-      message = Prelude.Nothing
+    { message = Prelude.Nothing,
+      type' = Prelude.Nothing,
+      violatedEntities = Prelude.Nothing
     }
-
--- | Type of error.
-templateError_type :: Lens.Lens' TemplateError (Prelude.Maybe TemplateErrorType)
-templateError_type = Lens.lens (\TemplateError' {type'} -> type') (\s@TemplateError' {} a -> s {type' = a} :: TemplateError)
 
 -- | Description of the error type.
 templateError_message :: Lens.Lens' TemplateError (Prelude.Maybe Prelude.Text)
 templateError_message = Lens.lens (\TemplateError' {message} -> message) (\s@TemplateError' {} a -> s {message = a} :: TemplateError)
 
-instance Core.FromJSON TemplateError where
+-- | Type of error.
+templateError_type :: Lens.Lens' TemplateError (Prelude.Maybe TemplateErrorType)
+templateError_type = Lens.lens (\TemplateError' {type'} -> type') (\s@TemplateError' {} a -> s {type' = a} :: TemplateError)
+
+-- |
+templateError_violatedEntities :: Lens.Lens' TemplateError (Prelude.Maybe [Entity])
+templateError_violatedEntities = Lens.lens (\TemplateError' {violatedEntities} -> violatedEntities) (\s@TemplateError' {} a -> s {violatedEntities = a} :: TemplateError) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON TemplateError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TemplateError"
       ( \x ->
           TemplateError'
-            Prelude.<$> (x Core..:? "Type")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Message")
+            Prelude.<*> (x Data..:? "Type")
+            Prelude.<*> ( x Data..:? "ViolatedEntities"
+                            Data..!= Prelude.mempty
+                        )
       )
 
 instance Prelude.Hashable TemplateError where
   hashWithSalt _salt TemplateError' {..} =
-    _salt `Prelude.hashWithSalt` type'
-      `Prelude.hashWithSalt` message
+    _salt `Prelude.hashWithSalt` message
+      `Prelude.hashWithSalt` type'
+      `Prelude.hashWithSalt` violatedEntities
 
 instance Prelude.NFData TemplateError where
   rnf TemplateError' {..} =
-    Prelude.rnf type' `Prelude.seq` Prelude.rnf message
+    Prelude.rnf message
+      `Prelude.seq` Prelude.rnf type'
+      `Prelude.seq` Prelude.rnf violatedEntities

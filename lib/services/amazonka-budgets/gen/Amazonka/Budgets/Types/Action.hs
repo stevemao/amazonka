@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.Types.Action
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,7 +27,8 @@ import Amazonka.Budgets.Types.Definition
 import Amazonka.Budgets.Types.NotificationType
 import Amazonka.Budgets.Types.Subscriber
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A budget action resource.
@@ -51,7 +52,7 @@ data Action = Action'
     executionRoleArn :: Prelude.Text,
     -- | This specifies if the action needs manual or automatic approval.
     approvalModel :: ApprovalModel,
-    -- | The status of action.
+    -- | The status of the action.
     status :: ActionStatus,
     subscribers :: Prelude.NonEmpty Subscriber
   }
@@ -84,7 +85,7 @@ data Action = Action'
 --
 -- 'approvalModel', 'action_approvalModel' - This specifies if the action needs manual or automatic approval.
 --
--- 'status', 'action_status' - The status of action.
+-- 'status', 'action_status' - The status of the action.
 --
 -- 'subscribers', 'action_subscribers' - Undocumented member.
 newAction ::
@@ -168,7 +169,7 @@ action_executionRoleArn = Lens.lens (\Action' {executionRoleArn} -> executionRol
 action_approvalModel :: Lens.Lens' Action ApprovalModel
 action_approvalModel = Lens.lens (\Action' {approvalModel} -> approvalModel) (\s@Action' {} a -> s {approvalModel = a} :: Action)
 
--- | The status of action.
+-- | The status of the action.
 action_status :: Lens.Lens' Action ActionStatus
 action_status = Lens.lens (\Action' {status} -> status) (\s@Action' {} a -> s {status = a} :: Action)
 
@@ -176,22 +177,22 @@ action_status = Lens.lens (\Action' {status} -> status) (\s@Action' {} a -> s {s
 action_subscribers :: Lens.Lens' Action (Prelude.NonEmpty Subscriber)
 action_subscribers = Lens.lens (\Action' {subscribers} -> subscribers) (\s@Action' {} a -> s {subscribers = a} :: Action) Prelude.. Lens.coerced
 
-instance Core.FromJSON Action where
+instance Data.FromJSON Action where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Action"
       ( \x ->
           Action'
-            Prelude.<$> (x Core..: "ActionId")
-            Prelude.<*> (x Core..: "BudgetName")
-            Prelude.<*> (x Core..: "NotificationType")
-            Prelude.<*> (x Core..: "ActionType")
-            Prelude.<*> (x Core..: "ActionThreshold")
-            Prelude.<*> (x Core..: "Definition")
-            Prelude.<*> (x Core..: "ExecutionRoleArn")
-            Prelude.<*> (x Core..: "ApprovalModel")
-            Prelude.<*> (x Core..: "Status")
-            Prelude.<*> (x Core..: "Subscribers")
+            Prelude.<$> (x Data..: "ActionId")
+            Prelude.<*> (x Data..: "BudgetName")
+            Prelude.<*> (x Data..: "NotificationType")
+            Prelude.<*> (x Data..: "ActionType")
+            Prelude.<*> (x Data..: "ActionThreshold")
+            Prelude.<*> (x Data..: "Definition")
+            Prelude.<*> (x Data..: "ExecutionRoleArn")
+            Prelude.<*> (x Data..: "ApprovalModel")
+            Prelude.<*> (x Data..: "Status")
+            Prelude.<*> (x Data..: "Subscribers")
       )
 
 instance Prelude.Hashable Action where

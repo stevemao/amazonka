@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.DeleteFirewallPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.NetworkFirewall.DeleteFirewallPolicy
     newDeleteFirewallPolicy,
 
     -- * Request Lenses
-    deleteFirewallPolicy_firewallPolicyName,
     deleteFirewallPolicy_firewallPolicyArn,
+    deleteFirewallPolicy_firewallPolicyName,
 
     -- * Destructuring the Response
     DeleteFirewallPolicyResponse (..),
@@ -41,7 +41,8 @@ module Amazonka.NetworkFirewall.DeleteFirewallPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -49,15 +50,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteFirewallPolicy' smart constructor.
 data DeleteFirewallPolicy = DeleteFirewallPolicy'
-  { -- | The descriptive name of the firewall policy. You can\'t change the name
+  { -- | The Amazon Resource Name (ARN) of the firewall policy.
+    --
+    -- You must specify the ARN or the name, and you can specify both.
+    firewallPolicyArn :: Prelude.Maybe Prelude.Text,
+    -- | The descriptive name of the firewall policy. You can\'t change the name
     -- of a firewall policy after you create it.
     --
     -- You must specify the ARN or the name, and you can specify both.
-    firewallPolicyName :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the firewall policy.
-    --
-    -- You must specify the ARN or the name, and you can specify both.
-    firewallPolicyArn :: Prelude.Maybe Prelude.Text
+    firewallPolicyName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,22 +70,28 @@ data DeleteFirewallPolicy = DeleteFirewallPolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'firewallPolicyName', 'deleteFirewallPolicy_firewallPolicyName' - The descriptive name of the firewall policy. You can\'t change the name
--- of a firewall policy after you create it.
+-- 'firewallPolicyArn', 'deleteFirewallPolicy_firewallPolicyArn' - The Amazon Resource Name (ARN) of the firewall policy.
 --
 -- You must specify the ARN or the name, and you can specify both.
 --
--- 'firewallPolicyArn', 'deleteFirewallPolicy_firewallPolicyArn' - The Amazon Resource Name (ARN) of the firewall policy.
+-- 'firewallPolicyName', 'deleteFirewallPolicy_firewallPolicyName' - The descriptive name of the firewall policy. You can\'t change the name
+-- of a firewall policy after you create it.
 --
 -- You must specify the ARN or the name, and you can specify both.
 newDeleteFirewallPolicy ::
   DeleteFirewallPolicy
 newDeleteFirewallPolicy =
   DeleteFirewallPolicy'
-    { firewallPolicyName =
+    { firewallPolicyArn =
         Prelude.Nothing,
-      firewallPolicyArn = Prelude.Nothing
+      firewallPolicyName = Prelude.Nothing
     }
+
+-- | The Amazon Resource Name (ARN) of the firewall policy.
+--
+-- You must specify the ARN or the name, and you can specify both.
+deleteFirewallPolicy_firewallPolicyArn :: Lens.Lens' DeleteFirewallPolicy (Prelude.Maybe Prelude.Text)
+deleteFirewallPolicy_firewallPolicyArn = Lens.lens (\DeleteFirewallPolicy' {firewallPolicyArn} -> firewallPolicyArn) (\s@DeleteFirewallPolicy' {} a -> s {firewallPolicyArn = a} :: DeleteFirewallPolicy)
 
 -- | The descriptive name of the firewall policy. You can\'t change the name
 -- of a firewall policy after you create it.
@@ -93,65 +100,60 @@ newDeleteFirewallPolicy =
 deleteFirewallPolicy_firewallPolicyName :: Lens.Lens' DeleteFirewallPolicy (Prelude.Maybe Prelude.Text)
 deleteFirewallPolicy_firewallPolicyName = Lens.lens (\DeleteFirewallPolicy' {firewallPolicyName} -> firewallPolicyName) (\s@DeleteFirewallPolicy' {} a -> s {firewallPolicyName = a} :: DeleteFirewallPolicy)
 
--- | The Amazon Resource Name (ARN) of the firewall policy.
---
--- You must specify the ARN or the name, and you can specify both.
-deleteFirewallPolicy_firewallPolicyArn :: Lens.Lens' DeleteFirewallPolicy (Prelude.Maybe Prelude.Text)
-deleteFirewallPolicy_firewallPolicyArn = Lens.lens (\DeleteFirewallPolicy' {firewallPolicyArn} -> firewallPolicyArn) (\s@DeleteFirewallPolicy' {} a -> s {firewallPolicyArn = a} :: DeleteFirewallPolicy)
-
 instance Core.AWSRequest DeleteFirewallPolicy where
   type
     AWSResponse DeleteFirewallPolicy =
       DeleteFirewallPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteFirewallPolicyResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "FirewallPolicyResponse")
+            Prelude.<*> (x Data..:> "FirewallPolicyResponse")
       )
 
 instance Prelude.Hashable DeleteFirewallPolicy where
   hashWithSalt _salt DeleteFirewallPolicy' {..} =
-    _salt `Prelude.hashWithSalt` firewallPolicyName
-      `Prelude.hashWithSalt` firewallPolicyArn
+    _salt `Prelude.hashWithSalt` firewallPolicyArn
+      `Prelude.hashWithSalt` firewallPolicyName
 
 instance Prelude.NFData DeleteFirewallPolicy where
   rnf DeleteFirewallPolicy' {..} =
-    Prelude.rnf firewallPolicyName
-      `Prelude.seq` Prelude.rnf firewallPolicyArn
+    Prelude.rnf firewallPolicyArn
+      `Prelude.seq` Prelude.rnf firewallPolicyName
 
-instance Core.ToHeaders DeleteFirewallPolicy where
+instance Data.ToHeaders DeleteFirewallPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "NetworkFirewall_20201112.DeleteFirewallPolicy" ::
+              Data.=# ( "NetworkFirewall_20201112.DeleteFirewallPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteFirewallPolicy where
+instance Data.ToJSON DeleteFirewallPolicy where
   toJSON DeleteFirewallPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FirewallPolicyName" Core..=)
-              Prelude.<$> firewallPolicyName,
-            ("FirewallPolicyArn" Core..=)
-              Prelude.<$> firewallPolicyArn
+          [ ("FirewallPolicyArn" Data..=)
+              Prelude.<$> firewallPolicyArn,
+            ("FirewallPolicyName" Data..=)
+              Prelude.<$> firewallPolicyName
           ]
       )
 
-instance Core.ToPath DeleteFirewallPolicy where
+instance Data.ToPath DeleteFirewallPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteFirewallPolicy where
+instance Data.ToQuery DeleteFirewallPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFirewallPolicyResponse' smart constructor.

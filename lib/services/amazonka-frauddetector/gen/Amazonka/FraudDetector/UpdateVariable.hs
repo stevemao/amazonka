@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.UpdateVariable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.FraudDetector.UpdateVariable
 
     -- * Request Lenses
     updateVariable_defaultValue,
-    updateVariable_variableType,
     updateVariable_description,
+    updateVariable_variableType,
     updateVariable_name,
 
     -- * Destructuring the Response
@@ -42,8 +42,9 @@ module Amazonka.FraudDetector.UpdateVariable
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,11 +53,11 @@ import qualified Amazonka.Response as Response
 data UpdateVariable = UpdateVariable'
   { -- | The new default value of the variable.
     defaultValue :: Prelude.Maybe Prelude.Text,
+    -- | The new description.
+    description :: Prelude.Maybe Prelude.Text,
     -- | The variable type. For more information see
     -- <https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types Variable types>.
     variableType :: Prelude.Maybe Prelude.Text,
-    -- | The new description.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The name of the variable.
     name :: Prelude.Text
   }
@@ -72,10 +73,10 @@ data UpdateVariable = UpdateVariable'
 --
 -- 'defaultValue', 'updateVariable_defaultValue' - The new default value of the variable.
 --
+-- 'description', 'updateVariable_description' - The new description.
+--
 -- 'variableType', 'updateVariable_variableType' - The variable type. For more information see
 -- <https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types Variable types>.
---
--- 'description', 'updateVariable_description' - The new description.
 --
 -- 'name', 'updateVariable_name' - The name of the variable.
 newUpdateVariable ::
@@ -85,8 +86,8 @@ newUpdateVariable ::
 newUpdateVariable pName_ =
   UpdateVariable'
     { defaultValue = Prelude.Nothing,
-      variableType = Prelude.Nothing,
       description = Prelude.Nothing,
+      variableType = Prelude.Nothing,
       name = pName_
     }
 
@@ -94,14 +95,14 @@ newUpdateVariable pName_ =
 updateVariable_defaultValue :: Lens.Lens' UpdateVariable (Prelude.Maybe Prelude.Text)
 updateVariable_defaultValue = Lens.lens (\UpdateVariable' {defaultValue} -> defaultValue) (\s@UpdateVariable' {} a -> s {defaultValue = a} :: UpdateVariable)
 
+-- | The new description.
+updateVariable_description :: Lens.Lens' UpdateVariable (Prelude.Maybe Prelude.Text)
+updateVariable_description = Lens.lens (\UpdateVariable' {description} -> description) (\s@UpdateVariable' {} a -> s {description = a} :: UpdateVariable)
+
 -- | The variable type. For more information see
 -- <https://docs.aws.amazon.com/frauddetector/latest/ug/create-a-variable.html#variable-types Variable types>.
 updateVariable_variableType :: Lens.Lens' UpdateVariable (Prelude.Maybe Prelude.Text)
 updateVariable_variableType = Lens.lens (\UpdateVariable' {variableType} -> variableType) (\s@UpdateVariable' {} a -> s {variableType = a} :: UpdateVariable)
-
--- | The new description.
-updateVariable_description :: Lens.Lens' UpdateVariable (Prelude.Maybe Prelude.Text)
-updateVariable_description = Lens.lens (\UpdateVariable' {description} -> description) (\s@UpdateVariable' {} a -> s {description = a} :: UpdateVariable)
 
 -- | The name of the variable.
 updateVariable_name :: Lens.Lens' UpdateVariable Prelude.Text
@@ -111,7 +112,8 @@ instance Core.AWSRequest UpdateVariable where
   type
     AWSResponse UpdateVariable =
       UpdateVariableResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -122,47 +124,47 @@ instance Core.AWSRequest UpdateVariable where
 instance Prelude.Hashable UpdateVariable where
   hashWithSalt _salt UpdateVariable' {..} =
     _salt `Prelude.hashWithSalt` defaultValue
-      `Prelude.hashWithSalt` variableType
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` variableType
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData UpdateVariable where
   rnf UpdateVariable' {..} =
     Prelude.rnf defaultValue
-      `Prelude.seq` Prelude.rnf variableType
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf variableType
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders UpdateVariable where
+instance Data.ToHeaders UpdateVariable where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.UpdateVariable" ::
+              Data.=# ( "AWSHawksNestServiceFacade.UpdateVariable" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateVariable where
+instance Data.ToJSON UpdateVariable where
   toJSON UpdateVariable' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("defaultValue" Core..=) Prelude.<$> defaultValue,
-            ("variableType" Core..=) Prelude.<$> variableType,
-            ("description" Core..=) Prelude.<$> description,
-            Prelude.Just ("name" Core..= name)
+          [ ("defaultValue" Data..=) Prelude.<$> defaultValue,
+            ("description" Data..=) Prelude.<$> description,
+            ("variableType" Data..=) Prelude.<$> variableType,
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath UpdateVariable where
+instance Data.ToPath UpdateVariable where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateVariable where
+instance Data.ToQuery UpdateVariable where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateVariableResponse' smart constructor.

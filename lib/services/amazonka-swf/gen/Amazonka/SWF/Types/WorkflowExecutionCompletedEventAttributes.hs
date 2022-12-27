@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.WorkflowExecutionCompletedEventAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.WorkflowExecutionCompletedEventAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides the details of the @WorkflowExecutionCompleted@ event.
@@ -82,16 +83,16 @@ workflowExecutionCompletedEventAttributes_decisionTaskCompletedEventId :: Lens.L
 workflowExecutionCompletedEventAttributes_decisionTaskCompletedEventId = Lens.lens (\WorkflowExecutionCompletedEventAttributes' {decisionTaskCompletedEventId} -> decisionTaskCompletedEventId) (\s@WorkflowExecutionCompletedEventAttributes' {} a -> s {decisionTaskCompletedEventId = a} :: WorkflowExecutionCompletedEventAttributes)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     WorkflowExecutionCompletedEventAttributes
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WorkflowExecutionCompletedEventAttributes"
       ( \x ->
           WorkflowExecutionCompletedEventAttributes'
-            Prelude.<$> (x Core..:? "result")
-              Prelude.<*> (x Core..: "decisionTaskCompletedEventId")
+            Prelude.<$> (x Data..:? "result")
+              Prelude.<*> (x Data..: "decisionTaskCompletedEventId")
       )
 
 instance

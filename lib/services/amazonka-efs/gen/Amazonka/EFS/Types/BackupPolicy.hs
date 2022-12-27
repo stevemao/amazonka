@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.Types.BackupPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EFS.Types.BackupPolicy where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EFS.Types.BackupStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The backup policy for the file system used to create automatic daily
@@ -38,7 +39,7 @@ data BackupPolicy = BackupPolicy'
     -- -   __@ENABLING@__ - EFS is turning on automatic backups for the file
     --     system.
     --
-    -- -   __@DISABLED@__ - automatic back ups are turned off for the file
+    -- -   __@DISABLED@__ - Automatic back ups are turned off for the file
     --     system.
     --
     -- -   __@DISABLING@__ - EFS is turning off automatic backups for the file
@@ -62,7 +63,7 @@ data BackupPolicy = BackupPolicy'
 -- -   __@ENABLING@__ - EFS is turning on automatic backups for the file
 --     system.
 --
--- -   __@DISABLED@__ - automatic back ups are turned off for the file
+-- -   __@DISABLED@__ - Automatic back ups are turned off for the file
 --     system.
 --
 -- -   __@DISABLING@__ - EFS is turning off automatic backups for the file
@@ -81,7 +82,7 @@ newBackupPolicy pStatus_ =
 -- -   __@ENABLING@__ - EFS is turning on automatic backups for the file
 --     system.
 --
--- -   __@DISABLED@__ - automatic back ups are turned off for the file
+-- -   __@DISABLED@__ - Automatic back ups are turned off for the file
 --     system.
 --
 -- -   __@DISABLING@__ - EFS is turning off automatic backups for the file
@@ -89,12 +90,12 @@ newBackupPolicy pStatus_ =
 backupPolicy_status :: Lens.Lens' BackupPolicy BackupStatus
 backupPolicy_status = Lens.lens (\BackupPolicy' {status} -> status) (\s@BackupPolicy' {} a -> s {status = a} :: BackupPolicy)
 
-instance Core.FromJSON BackupPolicy where
+instance Data.FromJSON BackupPolicy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BackupPolicy"
       ( \x ->
-          BackupPolicy' Prelude.<$> (x Core..: "Status")
+          BackupPolicy' Prelude.<$> (x Data..: "Status")
       )
 
 instance Prelude.Hashable BackupPolicy where
@@ -104,9 +105,9 @@ instance Prelude.Hashable BackupPolicy where
 instance Prelude.NFData BackupPolicy where
   rnf BackupPolicy' {..} = Prelude.rnf status
 
-instance Core.ToJSON BackupPolicy where
+instance Data.ToJSON BackupPolicy where
   toJSON BackupPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Status" Core..= status)]
+          [Prelude.Just ("Status" Data..= status)]
       )

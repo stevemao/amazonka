@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.ExecutionTimeFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.ExecutionTimeFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Used to filter the workflow executions in visibility APIs by various
@@ -32,9 +33,9 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newExecutionTimeFilter' smart constructor.
 data ExecutionTimeFilter = ExecutionTimeFilter'
   { -- | Specifies the latest start or close date and time to return.
-    latestDate :: Prelude.Maybe Core.POSIX,
+    latestDate :: Prelude.Maybe Data.POSIX,
     -- | Specifies the oldest start or close date and time to return.
-    oldestDate :: Core.POSIX
+    oldestDate :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -56,16 +57,16 @@ newExecutionTimeFilter ::
 newExecutionTimeFilter pOldestDate_ =
   ExecutionTimeFilter'
     { latestDate = Prelude.Nothing,
-      oldestDate = Core._Time Lens.# pOldestDate_
+      oldestDate = Data._Time Lens.# pOldestDate_
     }
 
 -- | Specifies the latest start or close date and time to return.
 executionTimeFilter_latestDate :: Lens.Lens' ExecutionTimeFilter (Prelude.Maybe Prelude.UTCTime)
-executionTimeFilter_latestDate = Lens.lens (\ExecutionTimeFilter' {latestDate} -> latestDate) (\s@ExecutionTimeFilter' {} a -> s {latestDate = a} :: ExecutionTimeFilter) Prelude.. Lens.mapping Core._Time
+executionTimeFilter_latestDate = Lens.lens (\ExecutionTimeFilter' {latestDate} -> latestDate) (\s@ExecutionTimeFilter' {} a -> s {latestDate = a} :: ExecutionTimeFilter) Prelude.. Lens.mapping Data._Time
 
 -- | Specifies the oldest start or close date and time to return.
 executionTimeFilter_oldestDate :: Lens.Lens' ExecutionTimeFilter Prelude.UTCTime
-executionTimeFilter_oldestDate = Lens.lens (\ExecutionTimeFilter' {oldestDate} -> oldestDate) (\s@ExecutionTimeFilter' {} a -> s {oldestDate = a} :: ExecutionTimeFilter) Prelude.. Core._Time
+executionTimeFilter_oldestDate = Lens.lens (\ExecutionTimeFilter' {oldestDate} -> oldestDate) (\s@ExecutionTimeFilter' {} a -> s {oldestDate = a} :: ExecutionTimeFilter) Prelude.. Data._Time
 
 instance Prelude.Hashable ExecutionTimeFilter where
   hashWithSalt _salt ExecutionTimeFilter' {..} =
@@ -77,11 +78,11 @@ instance Prelude.NFData ExecutionTimeFilter where
     Prelude.rnf latestDate
       `Prelude.seq` Prelude.rnf oldestDate
 
-instance Core.ToJSON ExecutionTimeFilter where
+instance Data.ToJSON ExecutionTimeFilter where
   toJSON ExecutionTimeFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("latestDate" Core..=) Prelude.<$> latestDate,
-            Prelude.Just ("oldestDate" Core..= oldestDate)
+          [ ("latestDate" Data..=) Prelude.<$> latestDate,
+            Prelude.Just ("oldestDate" Data..= oldestDate)
           ]
       )

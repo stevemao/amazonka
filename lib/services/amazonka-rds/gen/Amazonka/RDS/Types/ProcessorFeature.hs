@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.Types.ProcessorFeature
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RDS.Types.ProcessorFeature where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the processor features of a DB instance class.
@@ -72,11 +73,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newProcessorFeature' smart constructor.
 data ProcessorFeature = ProcessorFeature'
-  { -- | The value of a processor feature name.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The name of the processor feature. Valid names are @coreCount@ and
+  { -- | The name of the processor feature. Valid names are @coreCount@ and
     -- @threadsPerCore@.
-    name :: Prelude.Maybe Prelude.Text
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value of a processor feature name.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -88,42 +89,42 @@ data ProcessorFeature = ProcessorFeature'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'processorFeature_value' - The value of a processor feature name.
---
 -- 'name', 'processorFeature_name' - The name of the processor feature. Valid names are @coreCount@ and
 -- @threadsPerCore@.
+--
+-- 'value', 'processorFeature_value' - The value of a processor feature name.
 newProcessorFeature ::
   ProcessorFeature
 newProcessorFeature =
   ProcessorFeature'
-    { value = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The value of a processor feature name.
-processorFeature_value :: Lens.Lens' ProcessorFeature (Prelude.Maybe Prelude.Text)
-processorFeature_value = Lens.lens (\ProcessorFeature' {value} -> value) (\s@ProcessorFeature' {} a -> s {value = a} :: ProcessorFeature)
 
 -- | The name of the processor feature. Valid names are @coreCount@ and
 -- @threadsPerCore@.
 processorFeature_name :: Lens.Lens' ProcessorFeature (Prelude.Maybe Prelude.Text)
 processorFeature_name = Lens.lens (\ProcessorFeature' {name} -> name) (\s@ProcessorFeature' {} a -> s {name = a} :: ProcessorFeature)
 
-instance Core.FromXML ProcessorFeature where
+-- | The value of a processor feature name.
+processorFeature_value :: Lens.Lens' ProcessorFeature (Prelude.Maybe Prelude.Text)
+processorFeature_value = Lens.lens (\ProcessorFeature' {value} -> value) (\s@ProcessorFeature' {} a -> s {value = a} :: ProcessorFeature)
+
+instance Data.FromXML ProcessorFeature where
   parseXML x =
     ProcessorFeature'
-      Prelude.<$> (x Core..@? "Value") Prelude.<*> (x Core..@? "Name")
+      Prelude.<$> (x Data..@? "Name") Prelude.<*> (x Data..@? "Value")
 
 instance Prelude.Hashable ProcessorFeature where
   hashWithSalt _salt ProcessorFeature' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData ProcessorFeature where
   rnf ProcessorFeature' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
-instance Core.ToQuery ProcessorFeature where
+instance Data.ToQuery ProcessorFeature where
   toQuery ProcessorFeature' {..} =
     Prelude.mconcat
-      ["Value" Core.=: value, "Name" Core.=: name]
+      ["Name" Data.=: name, "Value" Data.=: value]

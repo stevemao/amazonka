@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsSystemControlsDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsSystemControlsDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A namespaced kernel parameter to set in the container.
@@ -64,16 +65,16 @@ awsEcsTaskDefinitionContainerDefinitionsSystemControlsDetails_value :: Lens.Lens
 awsEcsTaskDefinitionContainerDefinitionsSystemControlsDetails_value = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsSystemControlsDetails' {value} -> value) (\s@AwsEcsTaskDefinitionContainerDefinitionsSystemControlsDetails' {} a -> s {value = a} :: AwsEcsTaskDefinitionContainerDefinitionsSystemControlsDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsTaskDefinitionContainerDefinitionsSystemControlsDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsTaskDefinitionContainerDefinitionsSystemControlsDetails"
       ( \x ->
           AwsEcsTaskDefinitionContainerDefinitionsSystemControlsDetails'
-            Prelude.<$> (x Core..:? "Namespace")
-              Prelude.<*> (x Core..:? "Value")
+            Prelude.<$> (x Data..:? "Namespace")
+              Prelude.<*> (x Data..:? "Value")
       )
 
 instance
@@ -96,14 +97,14 @@ instance
         `Prelude.seq` Prelude.rnf value
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsTaskDefinitionContainerDefinitionsSystemControlsDetails
   where
   toJSON
     AwsEcsTaskDefinitionContainerDefinitionsSystemControlsDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Namespace" Core..=) Prelude.<$> namespace,
-              ("Value" Core..=) Prelude.<$> value
+            [ ("Namespace" Data..=) Prelude.<$> namespace,
+              ("Value" Data..=) Prelude.<$> value
             ]
         )

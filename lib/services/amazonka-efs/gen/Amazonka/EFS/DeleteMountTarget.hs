@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.DeleteMountTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -61,8 +61,9 @@ module Amazonka.EFS.DeleteMountTarget
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EFS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,7 +101,8 @@ instance Core.AWSRequest DeleteMountTarget where
   type
     AWSResponse DeleteMountTarget =
       DeleteMountTargetResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteMountTargetResponse'
 
@@ -112,17 +114,17 @@ instance Prelude.NFData DeleteMountTarget where
   rnf DeleteMountTarget' {..} =
     Prelude.rnf mountTargetId
 
-instance Core.ToHeaders DeleteMountTarget where
+instance Data.ToHeaders DeleteMountTarget where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteMountTarget where
+instance Data.ToPath DeleteMountTarget where
   toPath DeleteMountTarget' {..} =
     Prelude.mconcat
       [ "/2015-02-01/mount-targets/",
-        Core.toBS mountTargetId
+        Data.toBS mountTargetId
       ]
 
-instance Core.ToQuery DeleteMountTarget where
+instance Data.ToQuery DeleteMountTarget where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteMountTargetResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.AssistantAssociationInputData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.AssistantAssociationInputData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The data that is input into Wisdom as a result of the assistant
@@ -28,7 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAssistantAssociationInputData' smart constructor.
 data AssistantAssociationInputData = AssistantAssociationInputData'
-  { -- | The the identifier of the knowledge base.
+  { -- | The identifier of the knowledge base.
     knowledgeBaseId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -41,7 +42,7 @@ data AssistantAssociationInputData = AssistantAssociationInputData'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'knowledgeBaseId', 'assistantAssociationInputData_knowledgeBaseId' - The the identifier of the knowledge base.
+-- 'knowledgeBaseId', 'assistantAssociationInputData_knowledgeBaseId' - The identifier of the knowledge base.
 newAssistantAssociationInputData ::
   AssistantAssociationInputData
 newAssistantAssociationInputData =
@@ -50,7 +51,7 @@ newAssistantAssociationInputData =
         Prelude.Nothing
     }
 
--- | The the identifier of the knowledge base.
+-- | The identifier of the knowledge base.
 assistantAssociationInputData_knowledgeBaseId :: Lens.Lens' AssistantAssociationInputData (Prelude.Maybe Prelude.Text)
 assistantAssociationInputData_knowledgeBaseId = Lens.lens (\AssistantAssociationInputData' {knowledgeBaseId} -> knowledgeBaseId) (\s@AssistantAssociationInputData' {} a -> s {knowledgeBaseId = a} :: AssistantAssociationInputData)
 
@@ -65,11 +66,11 @@ instance Prelude.NFData AssistantAssociationInputData where
   rnf AssistantAssociationInputData' {..} =
     Prelude.rnf knowledgeBaseId
 
-instance Core.ToJSON AssistantAssociationInputData where
+instance Data.ToJSON AssistantAssociationInputData where
   toJSON AssistantAssociationInputData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("knowledgeBaseId" Core..=)
+          [ ("knowledgeBaseId" Data..=)
               Prelude.<$> knowledgeBaseId
           ]
       )

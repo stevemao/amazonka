@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.CreateCustomMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.WorkDocs.CreateCustomMetadata
     newCreateCustomMetadata,
 
     -- * Request Lenses
-    createCustomMetadata_versionId,
     createCustomMetadata_authenticationToken,
+    createCustomMetadata_versionId,
     createCustomMetadata_resourceId,
     createCustomMetadata_customMetadata,
 
@@ -43,7 +43,8 @@ module Amazonka.WorkDocs.CreateCustomMetadata
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,12 +52,12 @@ import Amazonka.WorkDocs.Types
 
 -- | /See:/ 'newCreateCustomMetadata' smart constructor.
 data CreateCustomMetadata = CreateCustomMetadata'
-  { -- | The ID of the version, if the custom metadata is being added to a
+  { -- | Amazon WorkDocs authentication token. Not required when using AWS
+    -- administrator credentials to access the API.
+    authenticationToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The ID of the version, if the custom metadata is being added to a
     -- document version.
     versionId :: Prelude.Maybe Prelude.Text,
-    -- | Amazon WorkDocs authentication token. Not required when using AWS
-    -- administrator credentials to access the API.
-    authenticationToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
     -- | The ID of the resource.
     resourceId :: Prelude.Text,
     -- | Custom metadata in the form of name-value pairs.
@@ -72,11 +73,11 @@ data CreateCustomMetadata = CreateCustomMetadata'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'versionId', 'createCustomMetadata_versionId' - The ID of the version, if the custom metadata is being added to a
--- document version.
---
 -- 'authenticationToken', 'createCustomMetadata_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
 -- administrator credentials to access the API.
+--
+-- 'versionId', 'createCustomMetadata_versionId' - The ID of the version, if the custom metadata is being added to a
+-- document version.
 --
 -- 'resourceId', 'createCustomMetadata_resourceId' - The ID of the resource.
 --
@@ -87,21 +88,22 @@ newCreateCustomMetadata ::
   CreateCustomMetadata
 newCreateCustomMetadata pResourceId_ =
   CreateCustomMetadata'
-    { versionId = Prelude.Nothing,
-      authenticationToken = Prelude.Nothing,
+    { authenticationToken =
+        Prelude.Nothing,
+      versionId = Prelude.Nothing,
       resourceId = pResourceId_,
       customMetadata = Prelude.mempty
     }
+
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+createCustomMetadata_authenticationToken :: Lens.Lens' CreateCustomMetadata (Prelude.Maybe Prelude.Text)
+createCustomMetadata_authenticationToken = Lens.lens (\CreateCustomMetadata' {authenticationToken} -> authenticationToken) (\s@CreateCustomMetadata' {} a -> s {authenticationToken = a} :: CreateCustomMetadata) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The ID of the version, if the custom metadata is being added to a
 -- document version.
 createCustomMetadata_versionId :: Lens.Lens' CreateCustomMetadata (Prelude.Maybe Prelude.Text)
 createCustomMetadata_versionId = Lens.lens (\CreateCustomMetadata' {versionId} -> versionId) (\s@CreateCustomMetadata' {} a -> s {versionId = a} :: CreateCustomMetadata)
-
--- | Amazon WorkDocs authentication token. Not required when using AWS
--- administrator credentials to access the API.
-createCustomMetadata_authenticationToken :: Lens.Lens' CreateCustomMetadata (Prelude.Maybe Prelude.Text)
-createCustomMetadata_authenticationToken = Lens.lens (\CreateCustomMetadata' {authenticationToken} -> authenticationToken) (\s@CreateCustomMetadata' {} a -> s {authenticationToken = a} :: CreateCustomMetadata) Prelude.. Lens.mapping Core._Sensitive
 
 -- | The ID of the resource.
 createCustomMetadata_resourceId :: Lens.Lens' CreateCustomMetadata Prelude.Text
@@ -115,7 +117,8 @@ instance Core.AWSRequest CreateCustomMetadata where
   type
     AWSResponse CreateCustomMetadata =
       CreateCustomMetadataResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -125,46 +128,46 @@ instance Core.AWSRequest CreateCustomMetadata where
 
 instance Prelude.Hashable CreateCustomMetadata where
   hashWithSalt _salt CreateCustomMetadata' {..} =
-    _salt `Prelude.hashWithSalt` versionId
-      `Prelude.hashWithSalt` authenticationToken
+    _salt `Prelude.hashWithSalt` authenticationToken
+      `Prelude.hashWithSalt` versionId
       `Prelude.hashWithSalt` resourceId
       `Prelude.hashWithSalt` customMetadata
 
 instance Prelude.NFData CreateCustomMetadata where
   rnf CreateCustomMetadata' {..} =
-    Prelude.rnf versionId
-      `Prelude.seq` Prelude.rnf authenticationToken
+    Prelude.rnf authenticationToken
+      `Prelude.seq` Prelude.rnf versionId
       `Prelude.seq` Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf customMetadata
 
-instance Core.ToHeaders CreateCustomMetadata where
+instance Data.ToHeaders CreateCustomMetadata where
   toHeaders CreateCustomMetadata' {..} =
     Prelude.mconcat
-      [ "Authentication" Core.=# authenticationToken,
+      [ "Authentication" Data.=# authenticationToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON CreateCustomMetadata where
+instance Data.ToJSON CreateCustomMetadata where
   toJSON CreateCustomMetadata' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("CustomMetadata" Core..= customMetadata)
+              ("CustomMetadata" Data..= customMetadata)
           ]
       )
 
-instance Core.ToPath CreateCustomMetadata where
+instance Data.ToPath CreateCustomMetadata where
   toPath CreateCustomMetadata' {..} =
     Prelude.mconcat
       [ "/api/v1/resources/",
-        Core.toBS resourceId,
+        Data.toBS resourceId,
         "/customMetadata"
       ]
 
-instance Core.ToQuery CreateCustomMetadata where
+instance Data.ToQuery CreateCustomMetadata where
   toQuery CreateCustomMetadata' {..} =
-    Prelude.mconcat ["versionid" Core.=: versionId]
+    Prelude.mconcat ["versionid" Data.=: versionId]
 
 -- | /See:/ 'newCreateCustomMetadataResponse' smart constructor.
 data CreateCustomMetadataResponse = CreateCustomMetadataResponse'

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetAutoSnapshots
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,15 +36,16 @@ module Amazonka.Lightsail.GetAutoSnapshots
     newGetAutoSnapshotsResponse,
 
     -- * Response Lenses
-    getAutoSnapshotsResponse_resourceType,
-    getAutoSnapshotsResponse_resourceName,
     getAutoSnapshotsResponse_autoSnapshots,
+    getAutoSnapshotsResponse_resourceName,
+    getAutoSnapshotsResponse_resourceType,
     getAutoSnapshotsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -84,14 +85,15 @@ instance Core.AWSRequest GetAutoSnapshots where
   type
     AWSResponse GetAutoSnapshots =
       GetAutoSnapshotsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAutoSnapshotsResponse'
-            Prelude.<$> (x Core..?> "resourceType")
-            Prelude.<*> (x Core..?> "resourceName")
-            Prelude.<*> (x Core..?> "autoSnapshots" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "autoSnapshots" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "resourceName")
+            Prelude.<*> (x Data..?> "resourceType")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -102,43 +104,43 @@ instance Prelude.Hashable GetAutoSnapshots where
 instance Prelude.NFData GetAutoSnapshots where
   rnf GetAutoSnapshots' {..} = Prelude.rnf resourceName
 
-instance Core.ToHeaders GetAutoSnapshots where
+instance Data.ToHeaders GetAutoSnapshots where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetAutoSnapshots" ::
+              Data.=# ( "Lightsail_20161128.GetAutoSnapshots" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetAutoSnapshots where
+instance Data.ToJSON GetAutoSnapshots where
   toJSON GetAutoSnapshots' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("resourceName" Core..= resourceName)]
+          [Prelude.Just ("resourceName" Data..= resourceName)]
       )
 
-instance Core.ToPath GetAutoSnapshots where
+instance Data.ToPath GetAutoSnapshots where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetAutoSnapshots where
+instance Data.ToQuery GetAutoSnapshots where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAutoSnapshotsResponse' smart constructor.
 data GetAutoSnapshotsResponse = GetAutoSnapshotsResponse'
-  { -- | The resource type (e.g., @Instance@ or @Disk@).
-    resourceType :: Prelude.Maybe ResourceType,
-    -- | The name of the source instance or disk for the automatic snapshots.
-    resourceName :: Prelude.Maybe Prelude.Text,
-    -- | An array of objects that describe the automatic snapshots that are
+  { -- | An array of objects that describe the automatic snapshots that are
     -- available for the specified source instance or disk.
     autoSnapshots :: Prelude.Maybe [AutoSnapshotDetails],
+    -- | The name of the source instance or disk for the automatic snapshots.
+    resourceName :: Prelude.Maybe Prelude.Text,
+    -- | The resource type (e.g., @Instance@ or @Disk@).
+    resourceType :: Prelude.Maybe ResourceType,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -152,12 +154,12 @@ data GetAutoSnapshotsResponse = GetAutoSnapshotsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceType', 'getAutoSnapshotsResponse_resourceType' - The resource type (e.g., @Instance@ or @Disk@).
+-- 'autoSnapshots', 'getAutoSnapshotsResponse_autoSnapshots' - An array of objects that describe the automatic snapshots that are
+-- available for the specified source instance or disk.
 --
 -- 'resourceName', 'getAutoSnapshotsResponse_resourceName' - The name of the source instance or disk for the automatic snapshots.
 --
--- 'autoSnapshots', 'getAutoSnapshotsResponse_autoSnapshots' - An array of objects that describe the automatic snapshots that are
--- available for the specified source instance or disk.
+-- 'resourceType', 'getAutoSnapshotsResponse_resourceType' - The resource type (e.g., @Instance@ or @Disk@).
 --
 -- 'httpStatus', 'getAutoSnapshotsResponse_httpStatus' - The response's http status code.
 newGetAutoSnapshotsResponse ::
@@ -166,25 +168,25 @@ newGetAutoSnapshotsResponse ::
   GetAutoSnapshotsResponse
 newGetAutoSnapshotsResponse pHttpStatus_ =
   GetAutoSnapshotsResponse'
-    { resourceType =
+    { autoSnapshots =
         Prelude.Nothing,
       resourceName = Prelude.Nothing,
-      autoSnapshots = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The resource type (e.g., @Instance@ or @Disk@).
-getAutoSnapshotsResponse_resourceType :: Lens.Lens' GetAutoSnapshotsResponse (Prelude.Maybe ResourceType)
-getAutoSnapshotsResponse_resourceType = Lens.lens (\GetAutoSnapshotsResponse' {resourceType} -> resourceType) (\s@GetAutoSnapshotsResponse' {} a -> s {resourceType = a} :: GetAutoSnapshotsResponse)
-
--- | The name of the source instance or disk for the automatic snapshots.
-getAutoSnapshotsResponse_resourceName :: Lens.Lens' GetAutoSnapshotsResponse (Prelude.Maybe Prelude.Text)
-getAutoSnapshotsResponse_resourceName = Lens.lens (\GetAutoSnapshotsResponse' {resourceName} -> resourceName) (\s@GetAutoSnapshotsResponse' {} a -> s {resourceName = a} :: GetAutoSnapshotsResponse)
 
 -- | An array of objects that describe the automatic snapshots that are
 -- available for the specified source instance or disk.
 getAutoSnapshotsResponse_autoSnapshots :: Lens.Lens' GetAutoSnapshotsResponse (Prelude.Maybe [AutoSnapshotDetails])
 getAutoSnapshotsResponse_autoSnapshots = Lens.lens (\GetAutoSnapshotsResponse' {autoSnapshots} -> autoSnapshots) (\s@GetAutoSnapshotsResponse' {} a -> s {autoSnapshots = a} :: GetAutoSnapshotsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The name of the source instance or disk for the automatic snapshots.
+getAutoSnapshotsResponse_resourceName :: Lens.Lens' GetAutoSnapshotsResponse (Prelude.Maybe Prelude.Text)
+getAutoSnapshotsResponse_resourceName = Lens.lens (\GetAutoSnapshotsResponse' {resourceName} -> resourceName) (\s@GetAutoSnapshotsResponse' {} a -> s {resourceName = a} :: GetAutoSnapshotsResponse)
+
+-- | The resource type (e.g., @Instance@ or @Disk@).
+getAutoSnapshotsResponse_resourceType :: Lens.Lens' GetAutoSnapshotsResponse (Prelude.Maybe ResourceType)
+getAutoSnapshotsResponse_resourceType = Lens.lens (\GetAutoSnapshotsResponse' {resourceType} -> resourceType) (\s@GetAutoSnapshotsResponse' {} a -> s {resourceType = a} :: GetAutoSnapshotsResponse)
 
 -- | The response's http status code.
 getAutoSnapshotsResponse_httpStatus :: Lens.Lens' GetAutoSnapshotsResponse Prelude.Int
@@ -192,7 +194,7 @@ getAutoSnapshotsResponse_httpStatus = Lens.lens (\GetAutoSnapshotsResponse' {htt
 
 instance Prelude.NFData GetAutoSnapshotsResponse where
   rnf GetAutoSnapshotsResponse' {..} =
-    Prelude.rnf resourceType
+    Prelude.rnf autoSnapshots
       `Prelude.seq` Prelude.rnf resourceName
-      `Prelude.seq` Prelude.rnf autoSnapshots
+      `Prelude.seq` Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf httpStatus

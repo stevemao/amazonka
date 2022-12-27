@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.DescribeFunction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,13 +97,14 @@ instance Core.AWSRequest DescribeFunction where
   type
     AWSResponse DescribeFunction =
       DescribeFunctionResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeFunctionResponse'
-            Prelude.<$> (h Core..#? "ETag")
-            Prelude.<*> (Core.parseXML x)
+            Prelude.<$> (h Data..#? "ETag")
+            Prelude.<*> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,20 +117,20 @@ instance Prelude.NFData DescribeFunction where
   rnf DescribeFunction' {..} =
     Prelude.rnf stage `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders DescribeFunction where
+instance Data.ToHeaders DescribeFunction where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeFunction where
+instance Data.ToPath DescribeFunction where
   toPath DescribeFunction' {..} =
     Prelude.mconcat
       [ "/2020-05-31/function/",
-        Core.toBS name,
+        Data.toBS name,
         "/describe"
       ]
 
-instance Core.ToQuery DescribeFunction where
+instance Data.ToQuery DescribeFunction where
   toQuery DescribeFunction' {..} =
-    Prelude.mconcat ["Stage" Core.=: stage]
+    Prelude.mconcat ["Stage" Data.=: stage]
 
 -- | /See:/ 'newDescribeFunctionResponse' smart constructor.
 data DescribeFunctionResponse = DescribeFunctionResponse'

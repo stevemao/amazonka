@@ -14,17 +14,17 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.ListPermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- List all permissions on a private CA, if any, granted to the AWS
--- Certificate Manager (ACM) service principal (acm.amazonaws.com).
+-- List all permissions on a private CA, if any, granted to the Certificate
+-- Manager (ACM) service principal (acm.amazonaws.com).
 --
 -- These permissions allow ACM to issue and renew ACM certificates that
--- reside in the same AWS account as the CA.
+-- reside in the same Amazon Web Services account as the CA.
 --
 -- Permissions can be granted with the
 -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_CreatePermission.html CreatePermission>
@@ -56,8 +56,8 @@ module Amazonka.CertificateManagerPCA.ListPermissions
     newListPermissions,
 
     -- * Request Lenses
-    listPermissions_nextToken,
     listPermissions_maxResults,
+    listPermissions_nextToken,
     listPermissions_certificateAuthorityArn,
 
     -- * Destructuring the Response
@@ -73,23 +73,24 @@ where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListPermissions' smart constructor.
 data ListPermissions = ListPermissions'
-  { -- | When paginating results, use this parameter in a subsequent request
-    -- after you receive a response with truncated results. Set it to the value
-    -- of __NextToken__ from the response you just received.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | When paginating results, use this parameter to specify the maximum
+  { -- | When paginating results, use this parameter to specify the maximum
     -- number of items to return in the response. If additional items exist
     -- beyond the number you specify, the __NextToken__ element is sent in the
     -- response. Use this __NextToken__ value in a subsequent request to
     -- retrieve additional items.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | When paginating results, use this parameter in a subsequent request
+    -- after you receive a response with truncated results. Set it to the value
+    -- of __NextToken__ from the response you just received.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Number (ARN) of the private CA to inspect. You can
     -- find the ARN by calling the
     -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_ListCertificateAuthorities.html ListCertificateAuthorities>
@@ -110,15 +111,15 @@ data ListPermissions = ListPermissions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listPermissions_nextToken' - When paginating results, use this parameter in a subsequent request
--- after you receive a response with truncated results. Set it to the value
--- of __NextToken__ from the response you just received.
---
 -- 'maxResults', 'listPermissions_maxResults' - When paginating results, use this parameter to specify the maximum
 -- number of items to return in the response. If additional items exist
 -- beyond the number you specify, the __NextToken__ element is sent in the
 -- response. Use this __NextToken__ value in a subsequent request to
 -- retrieve additional items.
+--
+-- 'nextToken', 'listPermissions_nextToken' - When paginating results, use this parameter in a subsequent request
+-- after you receive a response with truncated results. Set it to the value
+-- of __NextToken__ from the response you just received.
 --
 -- 'certificateAuthorityArn', 'listPermissions_certificateAuthorityArn' - The Amazon Resource Number (ARN) of the private CA to inspect. You can
 -- find the ARN by calling the
@@ -134,16 +135,10 @@ newListPermissions ::
   ListPermissions
 newListPermissions pCertificateAuthorityArn_ =
   ListPermissions'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       certificateAuthorityArn = pCertificateAuthorityArn_
     }
-
--- | When paginating results, use this parameter in a subsequent request
--- after you receive a response with truncated results. Set it to the value
--- of __NextToken__ from the response you just received.
-listPermissions_nextToken :: Lens.Lens' ListPermissions (Prelude.Maybe Prelude.Text)
-listPermissions_nextToken = Lens.lens (\ListPermissions' {nextToken} -> nextToken) (\s@ListPermissions' {} a -> s {nextToken = a} :: ListPermissions)
 
 -- | When paginating results, use this parameter to specify the maximum
 -- number of items to return in the response. If additional items exist
@@ -152,6 +147,12 @@ listPermissions_nextToken = Lens.lens (\ListPermissions' {nextToken} -> nextToke
 -- retrieve additional items.
 listPermissions_maxResults :: Lens.Lens' ListPermissions (Prelude.Maybe Prelude.Natural)
 listPermissions_maxResults = Lens.lens (\ListPermissions' {maxResults} -> maxResults) (\s@ListPermissions' {} a -> s {maxResults = a} :: ListPermissions)
+
+-- | When paginating results, use this parameter in a subsequent request
+-- after you receive a response with truncated results. Set it to the value
+-- of __NextToken__ from the response you just received.
+listPermissions_nextToken :: Lens.Lens' ListPermissions (Prelude.Maybe Prelude.Text)
+listPermissions_nextToken = Lens.lens (\ListPermissions' {nextToken} -> nextToken) (\s@ListPermissions' {} a -> s {nextToken = a} :: ListPermissions)
 
 -- | The Amazon Resource Number (ARN) of the private CA to inspect. You can
 -- find the ARN by calling the
@@ -190,60 +191,61 @@ instance Core.AWSRequest ListPermissions where
   type
     AWSResponse ListPermissions =
       ListPermissionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPermissionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Permissions" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Permissions" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListPermissions where
   hashWithSalt _salt ListPermissions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` certificateAuthorityArn
 
 instance Prelude.NFData ListPermissions where
   rnf ListPermissions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf certificateAuthorityArn
 
-instance Core.ToHeaders ListPermissions where
+instance Data.ToHeaders ListPermissions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ACMPrivateCA.ListPermissions" ::
+              Data.=# ( "ACMPrivateCA.ListPermissions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPermissions where
+instance Data.ToJSON ListPermissions where
   toJSON ListPermissions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
               ( "CertificateAuthorityArn"
-                  Core..= certificateAuthorityArn
+                  Data..= certificateAuthorityArn
               )
           ]
       )
 
-instance Core.ToPath ListPermissions where
+instance Data.ToPath ListPermissions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPermissions where
+instance Data.ToQuery ListPermissions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListPermissionsResponse' smart constructor.

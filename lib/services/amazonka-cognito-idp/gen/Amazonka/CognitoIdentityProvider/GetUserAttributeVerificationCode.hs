@@ -14,33 +14,33 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.GetUserAttributeVerificationCode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the user attribute verification code for the specified attribute
--- name.
+-- Generates a user attribute verification code for the specified attribute
+-- name. Sends a message to a user with a code that they must return in a
+-- VerifyUserAttribute request.
 --
 -- This action might generate an SMS text message. Starting June 1, 2021,
--- U.S. telecom carriers require that you register an origination phone
--- number before you can send SMS messages to U.S. phone numbers. If you
--- use SMS text messages in Amazon Cognito, you must register a phone
--- number with
--- <https://console.aws.amazon.com/pinpoint/home/ Amazon Pinpoint>. Cognito
--- will use the the registered number automatically. Otherwise, Cognito
--- users that must receive SMS messages might be unable to sign up,
--- activate their accounts, or sign in.
+-- US telecom carriers require you to register an origination phone number
+-- before you can send SMS messages to US phone numbers. If you use SMS
+-- text messages in Amazon Cognito, you must register a phone number with
+-- <https://console.aws.amazon.com/pinpoint/home/ Amazon Pinpoint>. Amazon
+-- Cognito uses the registered number automatically. Otherwise, Amazon
+-- Cognito users who must receive SMS messages might not be able to sign
+-- up, activate their accounts, or sign in.
 --
 -- If you have never used SMS text messages with Amazon Cognito or any
--- other Amazon Web Service, Amazon SNS might place your account in SMS
--- sandbox. In
+-- other Amazon Web Service, Amazon Simple Notification Service might place
+-- your account in the SMS sandbox. In
 -- /<https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html sandbox mode>/
--- , you’ll have limitations, such as sending messages to only verified
--- phone numbers. After testing in the sandbox environment, you can move
--- out of the SMS sandbox and into production. For more information, see
--- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-sms-userpool-settings.html SMS message settings for Cognito User Pools>
+-- , you can send messages only to verified phone numbers. After you test
+-- your app while in the sandbox environment, you can move out of the
+-- sandbox and into production. For more information, see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-sms-userpool-settings.html SMS message settings for Amazon Cognito user pools>
 -- in the /Amazon Cognito Developer Guide/.
 module Amazonka.CognitoIdentityProvider.GetUserAttributeVerificationCode
   ( -- * Creating a Request
@@ -64,7 +64,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,26 +89,25 @@ data GetUserAttributeVerificationCode = GetUserAttributeVerificationCode'
     -- workflow for your specific needs.
     --
     -- For more information, see
-    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing user pool Workflows with Lambda Triggers>
     -- in the /Amazon Cognito Developer Guide/.
     --
-    -- Take the following limitations into consideration when you use the
-    -- ClientMetadata parameter:
+    -- When you use the ClientMetadata parameter, remember that Amazon Cognito
+    -- won\'t do the following:
     --
-    -- -   Amazon Cognito does not store the ClientMetadata value. This data is
-    --     available only to Lambda triggers that are assigned to a user pool
-    --     to support custom workflows. If your user pool configuration does
-    --     not include triggers, the ClientMetadata parameter serves no
-    --     purpose.
+    -- -   Store the ClientMetadata value. This data is available only to
+    --     Lambda triggers that are assigned to a user pool to support custom
+    --     workflows. If your user pool configuration doesn\'t include
+    --     triggers, the ClientMetadata parameter serves no purpose.
     --
-    -- -   Amazon Cognito does not validate the ClientMetadata value.
+    -- -   Validate the ClientMetadata value.
     --
-    -- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
-    --     don\'t use it to provide sensitive information.
+    -- -   Encrypt the ClientMetadata value. Don\'t use Amazon Cognito to
+    --     provide sensitive information.
     clientMetadata :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The access token returned by the server response to get the user
-    -- attribute verification code.
-    accessToken :: Core.Sensitive Prelude.Text,
+    -- | A non-expired access token for the user whose attribute verification
+    -- code you want to generate.
+    accessToken :: Data.Sensitive Prelude.Text,
     -- | The attribute name returned by the server response to get the user
     -- attribute verification code.
     attributeName :: Prelude.Text
@@ -137,25 +137,24 @@ data GetUserAttributeVerificationCode = GetUserAttributeVerificationCode'
 -- workflow for your specific needs.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing user pool Workflows with Lambda Triggers>
 -- in the /Amazon Cognito Developer Guide/.
 --
--- Take the following limitations into consideration when you use the
--- ClientMetadata parameter:
+-- When you use the ClientMetadata parameter, remember that Amazon Cognito
+-- won\'t do the following:
 --
--- -   Amazon Cognito does not store the ClientMetadata value. This data is
---     available only to Lambda triggers that are assigned to a user pool
---     to support custom workflows. If your user pool configuration does
---     not include triggers, the ClientMetadata parameter serves no
---     purpose.
+-- -   Store the ClientMetadata value. This data is available only to
+--     Lambda triggers that are assigned to a user pool to support custom
+--     workflows. If your user pool configuration doesn\'t include
+--     triggers, the ClientMetadata parameter serves no purpose.
 --
--- -   Amazon Cognito does not validate the ClientMetadata value.
+-- -   Validate the ClientMetadata value.
 --
--- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
---     don\'t use it to provide sensitive information.
+-- -   Encrypt the ClientMetadata value. Don\'t use Amazon Cognito to
+--     provide sensitive information.
 --
--- 'accessToken', 'getUserAttributeVerificationCode_accessToken' - The access token returned by the server response to get the user
--- attribute verification code.
+-- 'accessToken', 'getUserAttributeVerificationCode_accessToken' - A non-expired access token for the user whose attribute verification
+-- code you want to generate.
 --
 -- 'attributeName', 'getUserAttributeVerificationCode_attributeName' - The attribute name returned by the server response to get the user
 -- attribute verification code.
@@ -172,7 +171,7 @@ newGetUserAttributeVerificationCode
       { clientMetadata =
           Prelude.Nothing,
         accessToken =
-          Core._Sensitive Lens.# pAccessToken_,
+          Data._Sensitive Lens.# pAccessToken_,
         attributeName = pAttributeName_
       }
 
@@ -191,29 +190,28 @@ newGetUserAttributeVerificationCode
 -- workflow for your specific needs.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing User Pool Workflows with Lambda Triggers>
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html Customizing user pool Workflows with Lambda Triggers>
 -- in the /Amazon Cognito Developer Guide/.
 --
--- Take the following limitations into consideration when you use the
--- ClientMetadata parameter:
+-- When you use the ClientMetadata parameter, remember that Amazon Cognito
+-- won\'t do the following:
 --
--- -   Amazon Cognito does not store the ClientMetadata value. This data is
---     available only to Lambda triggers that are assigned to a user pool
---     to support custom workflows. If your user pool configuration does
---     not include triggers, the ClientMetadata parameter serves no
---     purpose.
+-- -   Store the ClientMetadata value. This data is available only to
+--     Lambda triggers that are assigned to a user pool to support custom
+--     workflows. If your user pool configuration doesn\'t include
+--     triggers, the ClientMetadata parameter serves no purpose.
 --
--- -   Amazon Cognito does not validate the ClientMetadata value.
+-- -   Validate the ClientMetadata value.
 --
--- -   Amazon Cognito does not encrypt the the ClientMetadata value, so
---     don\'t use it to provide sensitive information.
+-- -   Encrypt the ClientMetadata value. Don\'t use Amazon Cognito to
+--     provide sensitive information.
 getUserAttributeVerificationCode_clientMetadata :: Lens.Lens' GetUserAttributeVerificationCode (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 getUserAttributeVerificationCode_clientMetadata = Lens.lens (\GetUserAttributeVerificationCode' {clientMetadata} -> clientMetadata) (\s@GetUserAttributeVerificationCode' {} a -> s {clientMetadata = a} :: GetUserAttributeVerificationCode) Prelude.. Lens.mapping Lens.coerced
 
--- | The access token returned by the server response to get the user
--- attribute verification code.
+-- | A non-expired access token for the user whose attribute verification
+-- code you want to generate.
 getUserAttributeVerificationCode_accessToken :: Lens.Lens' GetUserAttributeVerificationCode Prelude.Text
-getUserAttributeVerificationCode_accessToken = Lens.lens (\GetUserAttributeVerificationCode' {accessToken} -> accessToken) (\s@GetUserAttributeVerificationCode' {} a -> s {accessToken = a} :: GetUserAttributeVerificationCode) Prelude.. Core._Sensitive
+getUserAttributeVerificationCode_accessToken = Lens.lens (\GetUserAttributeVerificationCode' {accessToken} -> accessToken) (\s@GetUserAttributeVerificationCode' {} a -> s {accessToken = a} :: GetUserAttributeVerificationCode) Prelude.. Data._Sensitive
 
 -- | The attribute name returned by the server response to get the user
 -- attribute verification code.
@@ -227,12 +225,13 @@ instance
   type
     AWSResponse GetUserAttributeVerificationCode =
       GetUserAttributeVerificationCodeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetUserAttributeVerificationCodeResponse'
-            Prelude.<$> (x Core..?> "CodeDeliveryDetails")
+            Prelude.<$> (x Data..?> "CodeDeliveryDetails")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -257,40 +256,40 @@ instance
       `Prelude.seq` Prelude.rnf attributeName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetUserAttributeVerificationCode
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.GetUserAttributeVerificationCode" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.GetUserAttributeVerificationCode" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetUserAttributeVerificationCode where
+instance Data.ToJSON GetUserAttributeVerificationCode where
   toJSON GetUserAttributeVerificationCode' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientMetadata" Core..=)
+          [ ("ClientMetadata" Data..=)
               Prelude.<$> clientMetadata,
-            Prelude.Just ("AccessToken" Core..= accessToken),
+            Prelude.Just ("AccessToken" Data..= accessToken),
             Prelude.Just
-              ("AttributeName" Core..= attributeName)
+              ("AttributeName" Data..= attributeName)
           ]
       )
 
-instance Core.ToPath GetUserAttributeVerificationCode where
+instance Data.ToPath GetUserAttributeVerificationCode where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetUserAttributeVerificationCode
   where
   toQuery = Prelude.const Prelude.mempty

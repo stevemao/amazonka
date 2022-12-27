@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-ecs/amazonka-ecs.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-ecs/amazonka-ecs.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-ecs",
     srcs = [
@@ -26,12 +26,14 @@ haskell_library(
         "gen/Amazonka/ECS/DescribeTasks.hs",
         "gen/Amazonka/ECS/DiscoverPollEndpoint.hs",
         "gen/Amazonka/ECS/ExecuteCommand.hs",
+        "gen/Amazonka/ECS/GetTaskProtection.hs",
         "gen/Amazonka/ECS/Lens.hs",
         "gen/Amazonka/ECS/ListAccountSettings.hs",
         "gen/Amazonka/ECS/ListAttributes.hs",
         "gen/Amazonka/ECS/ListClusters.hs",
         "gen/Amazonka/ECS/ListContainerInstances.hs",
         "gen/Amazonka/ECS/ListServices.hs",
+        "gen/Amazonka/ECS/ListServicesByNamespace.hs",
         "gen/Amazonka/ECS/ListTagsForResource.hs",
         "gen/Amazonka/ECS/ListTaskDefinitionFamilies.hs",
         "gen/Amazonka/ECS/ListTaskDefinitions.hs",
@@ -51,6 +53,7 @@ haskell_library(
         "gen/Amazonka/ECS/TagResource.hs",
         "gen/Amazonka/ECS/Types.hs",
         "gen/Amazonka/ECS/Types/AgentUpdateStatus.hs",
+        "gen/Amazonka/ECS/Types/ApplicationProtocol.hs",
         "gen/Amazonka/ECS/Types/AssignPublicIp.hs",
         "gen/Amazonka/ECS/Types/Attachment.hs",
         "gen/Amazonka/ECS/Types/AttachmentStateChange.hs",
@@ -58,6 +61,7 @@ haskell_library(
         "gen/Amazonka/ECS/Types/AutoScalingGroupProvider.hs",
         "gen/Amazonka/ECS/Types/AutoScalingGroupProviderUpdate.hs",
         "gen/Amazonka/ECS/Types/AwsVpcConfiguration.hs",
+        "gen/Amazonka/ECS/Types/CPUArchitecture.hs",
         "gen/Amazonka/ECS/Types/CapacityProvider.hs",
         "gen/Amazonka/ECS/Types/CapacityProviderField.hs",
         "gen/Amazonka/ECS/Types/CapacityProviderStatus.hs",
@@ -66,6 +70,8 @@ haskell_library(
         "gen/Amazonka/ECS/Types/Cluster.hs",
         "gen/Amazonka/ECS/Types/ClusterConfiguration.hs",
         "gen/Amazonka/ECS/Types/ClusterField.hs",
+        "gen/Amazonka/ECS/Types/ClusterServiceConnectDefaults.hs",
+        "gen/Amazonka/ECS/Types/ClusterServiceConnectDefaultsRequest.hs",
         "gen/Amazonka/ECS/Types/ClusterSetting.hs",
         "gen/Amazonka/ECS/Types/ClusterSettingName.hs",
         "gen/Amazonka/ECS/Types/Compatibility.hs",
@@ -76,6 +82,7 @@ haskell_library(
         "gen/Amazonka/ECS/Types/ContainerDependency.hs",
         "gen/Amazonka/ECS/Types/ContainerInstance.hs",
         "gen/Amazonka/ECS/Types/ContainerInstanceField.hs",
+        "gen/Amazonka/ECS/Types/ContainerInstanceHealthStatus.hs",
         "gen/Amazonka/ECS/Types/ContainerInstanceStatus.hs",
         "gen/Amazonka/ECS/Types/ContainerOverride.hs",
         "gen/Amazonka/ECS/Types/ContainerService.hs",
@@ -111,6 +118,9 @@ haskell_library(
         "gen/Amazonka/ECS/Types/HostVolumeProperties.hs",
         "gen/Amazonka/ECS/Types/InferenceAccelerator.hs",
         "gen/Amazonka/ECS/Types/InferenceAcceleratorOverride.hs",
+        "gen/Amazonka/ECS/Types/InstanceHealthCheckResult.hs",
+        "gen/Amazonka/ECS/Types/InstanceHealthCheckState.hs",
+        "gen/Amazonka/ECS/Types/InstanceHealthCheckType.hs",
         "gen/Amazonka/ECS/Types/IpcMode.hs",
         "gen/Amazonka/ECS/Types/KernelCapabilities.hs",
         "gen/Amazonka/ECS/Types/KeyValuePair.hs",
@@ -130,6 +140,7 @@ haskell_library(
         "gen/Amazonka/ECS/Types/NetworkConfiguration.hs",
         "gen/Amazonka/ECS/Types/NetworkInterface.hs",
         "gen/Amazonka/ECS/Types/NetworkMode.hs",
+        "gen/Amazonka/ECS/Types/OSFamily.hs",
         "gen/Amazonka/ECS/Types/PidMode.hs",
         "gen/Amazonka/ECS/Types/PlacementConstraint.hs",
         "gen/Amazonka/ECS/Types/PlacementConstraintType.hs",
@@ -139,17 +150,23 @@ haskell_library(
         "gen/Amazonka/ECS/Types/PlatformDeviceType.hs",
         "gen/Amazonka/ECS/Types/PortMapping.hs",
         "gen/Amazonka/ECS/Types/PropagateTags.hs",
+        "gen/Amazonka/ECS/Types/ProtectedTask.hs",
         "gen/Amazonka/ECS/Types/ProxyConfiguration.hs",
         "gen/Amazonka/ECS/Types/ProxyConfigurationType.hs",
         "gen/Amazonka/ECS/Types/RepositoryCredentials.hs",
         "gen/Amazonka/ECS/Types/Resource.hs",
         "gen/Amazonka/ECS/Types/ResourceRequirement.hs",
         "gen/Amazonka/ECS/Types/ResourceType.hs",
+        "gen/Amazonka/ECS/Types/RuntimePlatform.hs",
         "gen/Amazonka/ECS/Types/Scale.hs",
         "gen/Amazonka/ECS/Types/ScaleUnit.hs",
         "gen/Amazonka/ECS/Types/SchedulingStrategy.hs",
         "gen/Amazonka/ECS/Types/Scope.hs",
         "gen/Amazonka/ECS/Types/Secret.hs",
+        "gen/Amazonka/ECS/Types/ServiceConnectClientAlias.hs",
+        "gen/Amazonka/ECS/Types/ServiceConnectConfiguration.hs",
+        "gen/Amazonka/ECS/Types/ServiceConnectService.hs",
+        "gen/Amazonka/ECS/Types/ServiceConnectServiceResource.hs",
         "gen/Amazonka/ECS/Types/ServiceEvent.hs",
         "gen/Amazonka/ECS/Types/ServiceField.hs",
         "gen/Amazonka/ECS/Types/ServiceRegistry.hs",
@@ -188,17 +205,17 @@ haskell_library(
         "gen/Amazonka/ECS/UpdateContainerInstancesState.hs",
         "gen/Amazonka/ECS/UpdateService.hs",
         "gen/Amazonka/ECS/UpdateServicePrimaryTaskSet.hs",
+        "gen/Amazonka/ECS/UpdateTaskProtection.hs",
         "gen/Amazonka/ECS/UpdateTaskSet.hs",
         "gen/Amazonka/ECS/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_ecs=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_ecs=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -207,7 +224,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-ecs/amazonka-ecs.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-ecs/amazonka-ecs.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-ecs-test",
     srcs = [
@@ -216,11 +233,12 @@ haskell_test(
         "test/Test/Amazonka/ECS/Internal.hs",
         "test/Test/Amazonka/Gen/ECS.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_ecs=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_ecs=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

@@ -14,21 +14,24 @@
 
 -- |
 -- Module      : Amazonka.ECS.DescribeTasks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Describes a specified task or tasks.
+--
+-- Currently, stopped tasks appear in the returned results for at least one
+-- hour.
 module Amazonka.ECS.DescribeTasks
   ( -- * Creating a Request
     DescribeTasks (..),
     newDescribeTasks,
 
     -- * Request Lenses
-    describeTasks_include,
     describeTasks_cluster,
+    describeTasks_include,
     describeTasks_tasks,
 
     -- * Destructuring the Response
@@ -43,24 +46,25 @@ module Amazonka.ECS.DescribeTasks
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeTasks' smart constructor.
 data DescribeTasks = DescribeTasks'
-  { -- | Specifies whether you want to see the resource tags for the task. If
-    -- @TAGS@ is specified, the tags are included in the response. If this
-    -- field is omitted, tags are not included in the response.
-    include :: Prelude.Maybe [TaskField],
-    -- | The short name or full Amazon Resource Name (ARN) of the cluster that
+  { -- | The short name or full Amazon Resource Name (ARN) of the cluster that
     -- hosts the task or tasks to describe. If you do not specify a cluster,
     -- the default cluster is assumed. This parameter is required if the task
     -- or tasks you are describing were launched in any cluster other than the
     -- default cluster.
     cluster :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether you want to see the resource tags for the task. If
+    -- @TAGS@ is specified, the tags are included in the response. If this
+    -- field is omitted, tags aren\'t included in the response.
+    include :: Prelude.Maybe [TaskField],
     -- | A list of up to 100 task IDs or full ARN entries.
     tasks :: [Prelude.Text]
   }
@@ -74,31 +78,25 @@ data DescribeTasks = DescribeTasks'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'include', 'describeTasks_include' - Specifies whether you want to see the resource tags for the task. If
--- @TAGS@ is specified, the tags are included in the response. If this
--- field is omitted, tags are not included in the response.
---
 -- 'cluster', 'describeTasks_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster that
 -- hosts the task or tasks to describe. If you do not specify a cluster,
 -- the default cluster is assumed. This parameter is required if the task
 -- or tasks you are describing were launched in any cluster other than the
 -- default cluster.
 --
+-- 'include', 'describeTasks_include' - Specifies whether you want to see the resource tags for the task. If
+-- @TAGS@ is specified, the tags are included in the response. If this
+-- field is omitted, tags aren\'t included in the response.
+--
 -- 'tasks', 'describeTasks_tasks' - A list of up to 100 task IDs or full ARN entries.
 newDescribeTasks ::
   DescribeTasks
 newDescribeTasks =
   DescribeTasks'
-    { include = Prelude.Nothing,
-      cluster = Prelude.Nothing,
+    { cluster = Prelude.Nothing,
+      include = Prelude.Nothing,
       tasks = Prelude.mempty
     }
-
--- | Specifies whether you want to see the resource tags for the task. If
--- @TAGS@ is specified, the tags are included in the response. If this
--- field is omitted, tags are not included in the response.
-describeTasks_include :: Lens.Lens' DescribeTasks (Prelude.Maybe [TaskField])
-describeTasks_include = Lens.lens (\DescribeTasks' {include} -> include) (\s@DescribeTasks' {} a -> s {include = a} :: DescribeTasks) Prelude.. Lens.mapping Lens.coerced
 
 -- | The short name or full Amazon Resource Name (ARN) of the cluster that
 -- hosts the task or tasks to describe. If you do not specify a cluster,
@@ -108,6 +106,12 @@ describeTasks_include = Lens.lens (\DescribeTasks' {include} -> include) (\s@Des
 describeTasks_cluster :: Lens.Lens' DescribeTasks (Prelude.Maybe Prelude.Text)
 describeTasks_cluster = Lens.lens (\DescribeTasks' {cluster} -> cluster) (\s@DescribeTasks' {} a -> s {cluster = a} :: DescribeTasks)
 
+-- | Specifies whether you want to see the resource tags for the task. If
+-- @TAGS@ is specified, the tags are included in the response. If this
+-- field is omitted, tags aren\'t included in the response.
+describeTasks_include :: Lens.Lens' DescribeTasks (Prelude.Maybe [TaskField])
+describeTasks_include = Lens.lens (\DescribeTasks' {include} -> include) (\s@DescribeTasks' {} a -> s {include = a} :: DescribeTasks) Prelude.. Lens.mapping Lens.coerced
+
 -- | A list of up to 100 task IDs or full ARN entries.
 describeTasks_tasks :: Lens.Lens' DescribeTasks [Prelude.Text]
 describeTasks_tasks = Lens.lens (\DescribeTasks' {tasks} -> tasks) (\s@DescribeTasks' {} a -> s {tasks = a} :: DescribeTasks) Prelude.. Lens.coerced
@@ -116,57 +120,58 @@ instance Core.AWSRequest DescribeTasks where
   type
     AWSResponse DescribeTasks =
       DescribeTasksResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTasksResponse'
-            Prelude.<$> (x Core..?> "failures" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "tasks" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "failures" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "tasks" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeTasks where
   hashWithSalt _salt DescribeTasks' {..} =
-    _salt `Prelude.hashWithSalt` include
-      `Prelude.hashWithSalt` cluster
+    _salt `Prelude.hashWithSalt` cluster
+      `Prelude.hashWithSalt` include
       `Prelude.hashWithSalt` tasks
 
 instance Prelude.NFData DescribeTasks where
   rnf DescribeTasks' {..} =
-    Prelude.rnf include
-      `Prelude.seq` Prelude.rnf cluster
+    Prelude.rnf cluster
+      `Prelude.seq` Prelude.rnf include
       `Prelude.seq` Prelude.rnf tasks
 
-instance Core.ToHeaders DescribeTasks where
+instance Data.ToHeaders DescribeTasks where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.DescribeTasks" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.DescribeTasks" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeTasks where
+instance Data.ToJSON DescribeTasks where
   toJSON DescribeTasks' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("include" Core..=) Prelude.<$> include,
-            ("cluster" Core..=) Prelude.<$> cluster,
-            Prelude.Just ("tasks" Core..= tasks)
+          [ ("cluster" Data..=) Prelude.<$> cluster,
+            ("include" Data..=) Prelude.<$> include,
+            Prelude.Just ("tasks" Data..= tasks)
           ]
       )
 
-instance Core.ToPath DescribeTasks where
+instance Data.ToPath DescribeTasks where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTasks where
+instance Data.ToQuery DescribeTasks where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeTasksResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.CapacityReservationTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.CapacityReservationTarget where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a target Capacity Reservation or Capacity Reservation group.
@@ -77,11 +78,11 @@ instance Prelude.NFData CapacityReservationTarget where
     Prelude.rnf capacityReservationId
       `Prelude.seq` Prelude.rnf capacityReservationResourceGroupArn
 
-instance Core.ToQuery CapacityReservationTarget where
+instance Data.ToQuery CapacityReservationTarget where
   toQuery CapacityReservationTarget' {..} =
     Prelude.mconcat
       [ "CapacityReservationId"
-          Core.=: capacityReservationId,
+          Data.=: capacityReservationId,
         "CapacityReservationResourceGroupArn"
-          Core.=: capacityReservationResourceGroupArn
+          Data.=: capacityReservationResourceGroupArn
       ]

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.SalesforceConnectorProfileProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.SalesforceConnectorProfileProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The connector-specific profile properties required when using
@@ -68,16 +69,16 @@ salesforceConnectorProfileProperties_isSandboxEnvironment :: Lens.Lens' Salesfor
 salesforceConnectorProfileProperties_isSandboxEnvironment = Lens.lens (\SalesforceConnectorProfileProperties' {isSandboxEnvironment} -> isSandboxEnvironment) (\s@SalesforceConnectorProfileProperties' {} a -> s {isSandboxEnvironment = a} :: SalesforceConnectorProfileProperties)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     SalesforceConnectorProfileProperties
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SalesforceConnectorProfileProperties"
       ( \x ->
           SalesforceConnectorProfileProperties'
-            Prelude.<$> (x Core..:? "instanceUrl")
-            Prelude.<*> (x Core..:? "isSandboxEnvironment")
+            Prelude.<$> (x Data..:? "instanceUrl")
+            Prelude.<*> (x Data..:? "isSandboxEnvironment")
       )
 
 instance
@@ -99,14 +100,14 @@ instance
       `Prelude.seq` Prelude.rnf isSandboxEnvironment
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     SalesforceConnectorProfileProperties
   where
   toJSON SalesforceConnectorProfileProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("instanceUrl" Core..=) Prelude.<$> instanceUrl,
-            ("isSandboxEnvironment" Core..=)
+          [ ("instanceUrl" Data..=) Prelude.<$> instanceUrl,
+            ("isSandboxEnvironment" Data..=)
               Prelude.<$> isSandboxEnvironment
           ]
       )

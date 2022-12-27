@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.CreateDatasetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,18 +22,22 @@
 --
 -- Creates a dataset group, which holds a collection of related datasets.
 -- You can add datasets to the dataset group when you create the dataset
--- group, or later by using the UpdateDatasetGroup operation.
+-- group, or later by using the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_UpdateDatasetGroup.html UpdateDatasetGroup>
+-- operation.
 --
 -- After creating a dataset group and adding datasets, you use the dataset
 -- group when you create a predictor. For more information, see
--- howitworks-datasets-groups.
+-- <https://docs.aws.amazon.com/forecast/latest/dg/howitworks-datasets-groups.html Dataset groups>.
 --
--- To get a list of all your datasets groups, use the ListDatasetGroups
+-- To get a list of all your datasets groups, use the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_ListDatasetGroups.html ListDatasetGroups>
 -- operation.
 --
 -- The @Status@ of a dataset group must be @ACTIVE@ before you can use the
 -- dataset group to create a predictor. To get the status, use the
--- DescribeDatasetGroup operation.
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_DescribeDatasetGroup.html DescribeDatasetGroup>
+-- operation.
 module Amazonka.Forecast.CreateDatasetGroup
   ( -- * Creating a Request
     CreateDatasetGroup (..),
@@ -56,8 +60,9 @@ module Amazonka.Forecast.CreateDatasetGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,14 +107,16 @@ data CreateDatasetGroup = CreateDatasetGroup'
     datasetGroupName :: Prelude.Text,
     -- | The domain associated with the dataset group. When you add a dataset to
     -- a dataset group, this value and the value specified for the @Domain@
-    -- parameter of the CreateDataset operation must match.
+    -- parameter of the
+    -- <https://docs.aws.amazon.com/forecast/latest/dg/API_CreateDataset.html CreateDataset>
+    -- operation must match.
     --
     -- The @Domain@ and @DatasetType@ that you choose determine the fields that
     -- must be present in training data that you import to a dataset. For
     -- example, if you choose the @RETAIL@ domain and @TARGET_TIME_SERIES@ as
     -- the @DatasetType@, Amazon Forecast requires that @item_id@, @timestamp@,
     -- and @demand@ fields are present in your data. For more information, see
-    -- howitworks-datasets-groups.
+    -- <https://docs.aws.amazon.com/forecast/latest/dg/howitworks-datasets-groups.html Dataset groups>.
     domain :: Domain
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -160,14 +167,16 @@ data CreateDatasetGroup = CreateDatasetGroup'
 --
 -- 'domain', 'createDatasetGroup_domain' - The domain associated with the dataset group. When you add a dataset to
 -- a dataset group, this value and the value specified for the @Domain@
--- parameter of the CreateDataset operation must match.
+-- parameter of the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_CreateDataset.html CreateDataset>
+-- operation must match.
 --
 -- The @Domain@ and @DatasetType@ that you choose determine the fields that
 -- must be present in training data that you import to a dataset. For
 -- example, if you choose the @RETAIL@ domain and @TARGET_TIME_SERIES@ as
 -- the @DatasetType@, Amazon Forecast requires that @item_id@, @timestamp@,
 -- and @demand@ fields are present in your data. For more information, see
--- howitworks-datasets-groups.
+-- <https://docs.aws.amazon.com/forecast/latest/dg/howitworks-datasets-groups.html Dataset groups>.
 newCreateDatasetGroup ::
   -- | 'datasetGroupName'
   Prelude.Text ->
@@ -226,14 +235,16 @@ createDatasetGroup_datasetGroupName = Lens.lens (\CreateDatasetGroup' {datasetGr
 
 -- | The domain associated with the dataset group. When you add a dataset to
 -- a dataset group, this value and the value specified for the @Domain@
--- parameter of the CreateDataset operation must match.
+-- parameter of the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_CreateDataset.html CreateDataset>
+-- operation must match.
 --
 -- The @Domain@ and @DatasetType@ that you choose determine the fields that
 -- must be present in training data that you import to a dataset. For
 -- example, if you choose the @RETAIL@ domain and @TARGET_TIME_SERIES@ as
 -- the @DatasetType@, Amazon Forecast requires that @item_id@, @timestamp@,
 -- and @demand@ fields are present in your data. For more information, see
--- howitworks-datasets-groups.
+-- <https://docs.aws.amazon.com/forecast/latest/dg/howitworks-datasets-groups.html Dataset groups>.
 createDatasetGroup_domain :: Lens.Lens' CreateDatasetGroup Domain
 createDatasetGroup_domain = Lens.lens (\CreateDatasetGroup' {domain} -> domain) (\s@CreateDatasetGroup' {} a -> s {domain = a} :: CreateDatasetGroup)
 
@@ -241,12 +252,13 @@ instance Core.AWSRequest CreateDatasetGroup where
   type
     AWSResponse CreateDatasetGroup =
       CreateDatasetGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDatasetGroupResponse'
-            Prelude.<$> (x Core..?> "DatasetGroupArn")
+            Prelude.<$> (x Data..?> "DatasetGroupArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -264,37 +276,37 @@ instance Prelude.NFData CreateDatasetGroup where
       `Prelude.seq` Prelude.rnf datasetGroupName
       `Prelude.seq` Prelude.rnf domain
 
-instance Core.ToHeaders CreateDatasetGroup where
+instance Data.ToHeaders CreateDatasetGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.CreateDatasetGroup" ::
+              Data.=# ( "AmazonForecast.CreateDatasetGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDatasetGroup where
+instance Data.ToJSON CreateDatasetGroup where
   toJSON CreateDatasetGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DatasetArns" Core..=) Prelude.<$> datasetArns,
-            ("Tags" Core..=) Prelude.<$> tags,
+          [ ("DatasetArns" Data..=) Prelude.<$> datasetArns,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("DatasetGroupName" Core..= datasetGroupName),
-            Prelude.Just ("Domain" Core..= domain)
+              ("DatasetGroupName" Data..= datasetGroupName),
+            Prelude.Just ("Domain" Data..= domain)
           ]
       )
 
-instance Core.ToPath CreateDatasetGroup where
+instance Data.ToPath CreateDatasetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDatasetGroup where
+instance Data.ToQuery CreateDatasetGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDatasetGroupResponse' smart constructor.

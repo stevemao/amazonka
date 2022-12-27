@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.SortDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.CostExplorer.Types.SortDefinition where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types.SortOrder
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The details of how to sort the data.
+-- | The details for how to sort the data.
 --
 -- /See:/ 'newSortDefinition' smart constructor.
 data SortDefinition = SortDefinition'
@@ -73,11 +74,11 @@ instance Prelude.NFData SortDefinition where
   rnf SortDefinition' {..} =
     Prelude.rnf sortOrder `Prelude.seq` Prelude.rnf key
 
-instance Core.ToJSON SortDefinition where
+instance Data.ToJSON SortDefinition where
   toJSON SortDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SortOrder" Core..=) Prelude.<$> sortOrder,
-            Prelude.Just ("Key" Core..= key)
+          [ ("SortOrder" Data..=) Prelude.<$> sortOrder,
+            Prelude.Just ("Key" Data..= key)
           ]
       )

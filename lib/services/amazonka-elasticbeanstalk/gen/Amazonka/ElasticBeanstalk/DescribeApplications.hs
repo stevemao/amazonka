@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.DescribeApplications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.ElasticBeanstalk.DescribeApplications
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,14 +84,15 @@ instance Core.AWSRequest DescribeApplications where
   type
     AWSResponse DescribeApplications =
       DescribeApplicationsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeApplicationsResult"
       ( \s h x ->
           DescribeApplicationsResponse'
-            Prelude.<$> ( x Core..@? "Applications" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "Applications" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -103,22 +105,22 @@ instance Prelude.NFData DescribeApplications where
   rnf DescribeApplications' {..} =
     Prelude.rnf applicationNames
 
-instance Core.ToHeaders DescribeApplications where
+instance Data.ToHeaders DescribeApplications where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeApplications where
+instance Data.ToPath DescribeApplications where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeApplications where
+instance Data.ToQuery DescribeApplications where
   toQuery DescribeApplications' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeApplications" :: Prelude.ByteString),
+          Data.=: ("DescribeApplications" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
         "ApplicationNames"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> applicationNames
             )
       ]

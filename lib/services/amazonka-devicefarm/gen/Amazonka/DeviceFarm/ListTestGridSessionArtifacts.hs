@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.ListTestGridSessionArtifacts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.DeviceFarm.ListTestGridSessionArtifacts
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,13 +112,14 @@ instance Core.AWSRequest ListTestGridSessionArtifacts where
   type
     AWSResponse ListTestGridSessionArtifacts =
       ListTestGridSessionArtifactsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTestGridSessionArtifactsResponse'
-            Prelude.<$> (x Core..?> "artifacts" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "artifacts" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -138,36 +140,36 @@ instance Prelude.NFData ListTestGridSessionArtifacts where
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf sessionArn
 
-instance Core.ToHeaders ListTestGridSessionArtifacts where
+instance Data.ToHeaders ListTestGridSessionArtifacts where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.ListTestGridSessionArtifacts" ::
+              Data.=# ( "DeviceFarm_20150623.ListTestGridSessionArtifacts" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTestGridSessionArtifacts where
+instance Data.ToJSON ListTestGridSessionArtifacts where
   toJSON ListTestGridSessionArtifacts' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("maxResult" Core..=) Prelude.<$> maxResult,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("type" Core..=) Prelude.<$> type',
-            Prelude.Just ("sessionArn" Core..= sessionArn)
+          [ ("maxResult" Data..=) Prelude.<$> maxResult,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("type" Data..=) Prelude.<$> type',
+            Prelude.Just ("sessionArn" Data..= sessionArn)
           ]
       )
 
-instance Core.ToPath ListTestGridSessionArtifacts where
+instance Data.ToPath ListTestGridSessionArtifacts where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTestGridSessionArtifacts where
+instance Data.ToQuery ListTestGridSessionArtifacts where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTestGridSessionArtifactsResponse' smart constructor.

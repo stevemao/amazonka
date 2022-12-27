@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.Types.Endpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Redshift.Types.Endpoint where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Internal
 import Amazonka.Redshift.Types.VpcEndpoint
@@ -31,10 +32,10 @@ import Amazonka.Redshift.Types.VpcEndpoint
 data Endpoint = Endpoint'
   { -- | The DNS address of the Cluster.
     address :: Prelude.Maybe Prelude.Text,
-    -- | Describes a connection endpoint.
-    vpcEndpoints :: Prelude.Maybe [VpcEndpoint],
     -- | The port that the database engine is listening on.
-    port :: Prelude.Maybe Prelude.Int
+    port :: Prelude.Maybe Prelude.Int,
+    -- | Describes a connection endpoint.
+    vpcEndpoints :: Prelude.Maybe [VpcEndpoint]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,47 +49,47 @@ data Endpoint = Endpoint'
 --
 -- 'address', 'endpoint_address' - The DNS address of the Cluster.
 --
--- 'vpcEndpoints', 'endpoint_vpcEndpoints' - Describes a connection endpoint.
---
 -- 'port', 'endpoint_port' - The port that the database engine is listening on.
+--
+-- 'vpcEndpoints', 'endpoint_vpcEndpoints' - Describes a connection endpoint.
 newEndpoint ::
   Endpoint
 newEndpoint =
   Endpoint'
     { address = Prelude.Nothing,
-      vpcEndpoints = Prelude.Nothing,
-      port = Prelude.Nothing
+      port = Prelude.Nothing,
+      vpcEndpoints = Prelude.Nothing
     }
 
 -- | The DNS address of the Cluster.
 endpoint_address :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
 endpoint_address = Lens.lens (\Endpoint' {address} -> address) (\s@Endpoint' {} a -> s {address = a} :: Endpoint)
 
--- | Describes a connection endpoint.
-endpoint_vpcEndpoints :: Lens.Lens' Endpoint (Prelude.Maybe [VpcEndpoint])
-endpoint_vpcEndpoints = Lens.lens (\Endpoint' {vpcEndpoints} -> vpcEndpoints) (\s@Endpoint' {} a -> s {vpcEndpoints = a} :: Endpoint) Prelude.. Lens.mapping Lens.coerced
-
 -- | The port that the database engine is listening on.
 endpoint_port :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Int)
 endpoint_port = Lens.lens (\Endpoint' {port} -> port) (\s@Endpoint' {} a -> s {port = a} :: Endpoint)
 
-instance Core.FromXML Endpoint where
+-- | Describes a connection endpoint.
+endpoint_vpcEndpoints :: Lens.Lens' Endpoint (Prelude.Maybe [VpcEndpoint])
+endpoint_vpcEndpoints = Lens.lens (\Endpoint' {vpcEndpoints} -> vpcEndpoints) (\s@Endpoint' {} a -> s {vpcEndpoints = a} :: Endpoint) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromXML Endpoint where
   parseXML x =
     Endpoint'
-      Prelude.<$> (x Core..@? "Address")
-      Prelude.<*> ( x Core..@? "VpcEndpoints" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "VpcEndpoint")
+      Prelude.<$> (x Data..@? "Address")
+      Prelude.<*> (x Data..@? "Port")
+      Prelude.<*> ( x Data..@? "VpcEndpoints" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "VpcEndpoint")
                   )
-      Prelude.<*> (x Core..@? "Port")
 
 instance Prelude.Hashable Endpoint where
   hashWithSalt _salt Endpoint' {..} =
     _salt `Prelude.hashWithSalt` address
-      `Prelude.hashWithSalt` vpcEndpoints
       `Prelude.hashWithSalt` port
+      `Prelude.hashWithSalt` vpcEndpoints
 
 instance Prelude.NFData Endpoint where
   rnf Endpoint' {..} =
     Prelude.rnf address
-      `Prelude.seq` Prelude.rnf vpcEndpoints
       `Prelude.seq` Prelude.rnf port
+      `Prelude.seq` Prelude.rnf vpcEndpoints

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.JourneyChannelSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.JourneyChannelSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The channel-specific configurations for the journey.
@@ -65,14 +66,14 @@ journeyChannelSettings_connectCampaignArn = Lens.lens (\JourneyChannelSettings' 
 journeyChannelSettings_connectCampaignExecutionRoleArn :: Lens.Lens' JourneyChannelSettings (Prelude.Maybe Prelude.Text)
 journeyChannelSettings_connectCampaignExecutionRoleArn = Lens.lens (\JourneyChannelSettings' {connectCampaignExecutionRoleArn} -> connectCampaignExecutionRoleArn) (\s@JourneyChannelSettings' {} a -> s {connectCampaignExecutionRoleArn = a} :: JourneyChannelSettings)
 
-instance Core.FromJSON JourneyChannelSettings where
+instance Data.FromJSON JourneyChannelSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "JourneyChannelSettings"
       ( \x ->
           JourneyChannelSettings'
-            Prelude.<$> (x Core..:? "ConnectCampaignArn")
-            Prelude.<*> (x Core..:? "ConnectCampaignExecutionRoleArn")
+            Prelude.<$> (x Data..:? "ConnectCampaignArn")
+            Prelude.<*> (x Data..:? "ConnectCampaignExecutionRoleArn")
       )
 
 instance Prelude.Hashable JourneyChannelSettings where
@@ -84,3 +85,14 @@ instance Prelude.NFData JourneyChannelSettings where
   rnf JourneyChannelSettings' {..} =
     Prelude.rnf connectCampaignArn
       `Prelude.seq` Prelude.rnf connectCampaignExecutionRoleArn
+
+instance Data.ToJSON JourneyChannelSettings where
+  toJSON JourneyChannelSettings' {..} =
+    Data.object
+      ( Prelude.catMaybes
+          [ ("ConnectCampaignArn" Data..=)
+              Prelude.<$> connectCampaignArn,
+            ("ConnectCampaignExecutionRoleArn" Data..=)
+              Prelude.<$> connectCampaignExecutionRoleArn
+          ]
+      )

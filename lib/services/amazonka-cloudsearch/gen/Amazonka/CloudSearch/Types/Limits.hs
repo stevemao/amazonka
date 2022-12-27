@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearch.Types.Limits
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudSearch.Types.Limits where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newLimits' smart constructor.
@@ -64,11 +65,11 @@ limits_maximumReplicationCount = Lens.lens (\Limits' {maximumReplicationCount} -
 limits_maximumPartitionCount :: Lens.Lens' Limits Prelude.Natural
 limits_maximumPartitionCount = Lens.lens (\Limits' {maximumPartitionCount} -> maximumPartitionCount) (\s@Limits' {} a -> s {maximumPartitionCount = a} :: Limits)
 
-instance Core.FromXML Limits where
+instance Data.FromXML Limits where
   parseXML x =
     Limits'
-      Prelude.<$> (x Core..@ "MaximumReplicationCount")
-      Prelude.<*> (x Core..@ "MaximumPartitionCount")
+      Prelude.<$> (x Data..@ "MaximumReplicationCount")
+      Prelude.<*> (x Data..@ "MaximumPartitionCount")
 
 instance Prelude.Hashable Limits where
   hashWithSalt _salt Limits' {..} =

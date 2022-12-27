@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.ListEngagements
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.SSMContacts.ListEngagements
     newListEngagements,
 
     -- * Request Lenses
-    listEngagements_timeRangeValue,
-    listEngagements_nextToken,
     listEngagements_incidentId,
     listEngagements_maxResults,
+    listEngagements_nextToken,
+    listEngagements_timeRangeValue,
 
     -- * Destructuring the Response
     ListEngagementsResponse (..),
@@ -46,7 +46,8 @@ module Amazonka.SSMContacts.ListEngagements
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,15 +55,15 @@ import Amazonka.SSMContacts.Types
 
 -- | /See:/ 'newListEngagements' smart constructor.
 data ListEngagements = ListEngagements'
-  { -- | The time range to lists engagements for an incident.
-    timeRangeValue :: Prelude.Maybe TimeRange,
-    -- | The pagination token to continue to the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the incident you\'re listing
+  { -- | The Amazon Resource Name (ARN) of the incident you\'re listing
     -- engagements for.
     incidentId :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of engagements per page of results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token to continue to the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The time range to lists engagements for an incident.
+    timeRangeValue :: Prelude.Maybe TimeRange
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -74,31 +75,23 @@ data ListEngagements = ListEngagements'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'timeRangeValue', 'listEngagements_timeRangeValue' - The time range to lists engagements for an incident.
---
--- 'nextToken', 'listEngagements_nextToken' - The pagination token to continue to the next page of results.
---
 -- 'incidentId', 'listEngagements_incidentId' - The Amazon Resource Name (ARN) of the incident you\'re listing
 -- engagements for.
 --
 -- 'maxResults', 'listEngagements_maxResults' - The maximum number of engagements per page of results.
+--
+-- 'nextToken', 'listEngagements_nextToken' - The pagination token to continue to the next page of results.
+--
+-- 'timeRangeValue', 'listEngagements_timeRangeValue' - The time range to lists engagements for an incident.
 newListEngagements ::
   ListEngagements
 newListEngagements =
   ListEngagements'
-    { timeRangeValue = Prelude.Nothing,
+    { incidentId = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      incidentId = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      timeRangeValue = Prelude.Nothing
     }
-
--- | The time range to lists engagements for an incident.
-listEngagements_timeRangeValue :: Lens.Lens' ListEngagements (Prelude.Maybe TimeRange)
-listEngagements_timeRangeValue = Lens.lens (\ListEngagements' {timeRangeValue} -> timeRangeValue) (\s@ListEngagements' {} a -> s {timeRangeValue = a} :: ListEngagements)
-
--- | The pagination token to continue to the next page of results.
-listEngagements_nextToken :: Lens.Lens' ListEngagements (Prelude.Maybe Prelude.Text)
-listEngagements_nextToken = Lens.lens (\ListEngagements' {nextToken} -> nextToken) (\s@ListEngagements' {} a -> s {nextToken = a} :: ListEngagements)
 
 -- | The Amazon Resource Name (ARN) of the incident you\'re listing
 -- engagements for.
@@ -108,6 +101,14 @@ listEngagements_incidentId = Lens.lens (\ListEngagements' {incidentId} -> incide
 -- | The maximum number of engagements per page of results.
 listEngagements_maxResults :: Lens.Lens' ListEngagements (Prelude.Maybe Prelude.Natural)
 listEngagements_maxResults = Lens.lens (\ListEngagements' {maxResults} -> maxResults) (\s@ListEngagements' {} a -> s {maxResults = a} :: ListEngagements)
+
+-- | The pagination token to continue to the next page of results.
+listEngagements_nextToken :: Lens.Lens' ListEngagements (Prelude.Maybe Prelude.Text)
+listEngagements_nextToken = Lens.lens (\ListEngagements' {nextToken} -> nextToken) (\s@ListEngagements' {} a -> s {nextToken = a} :: ListEngagements)
+
+-- | The time range to lists engagements for an incident.
+listEngagements_timeRangeValue :: Lens.Lens' ListEngagements (Prelude.Maybe TimeRange)
+listEngagements_timeRangeValue = Lens.lens (\ListEngagements' {timeRangeValue} -> timeRangeValue) (\s@ListEngagements' {} a -> s {timeRangeValue = a} :: ListEngagements)
 
 instance Core.AWSPager ListEngagements where
   page rq rs
@@ -132,61 +133,62 @@ instance Core.AWSRequest ListEngagements where
   type
     AWSResponse ListEngagements =
       ListEngagementsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEngagementsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Engagements" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Engagements" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListEngagements where
   hashWithSalt _salt ListEngagements' {..} =
-    _salt `Prelude.hashWithSalt` timeRangeValue
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` incidentId
+    _salt `Prelude.hashWithSalt` incidentId
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` timeRangeValue
 
 instance Prelude.NFData ListEngagements where
   rnf ListEngagements' {..} =
-    Prelude.rnf timeRangeValue
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf incidentId
+    Prelude.rnf incidentId
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf timeRangeValue
 
-instance Core.ToHeaders ListEngagements where
+instance Data.ToHeaders ListEngagements where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SSMContacts.ListEngagements" ::
+              Data.=# ( "SSMContacts.ListEngagements" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListEngagements where
+instance Data.ToJSON ListEngagements where
   toJSON ListEngagements' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TimeRangeValue" Core..=)
-              Prelude.<$> timeRangeValue,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("IncidentId" Core..=) Prelude.<$> incidentId,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("IncidentId" Data..=) Prelude.<$> incidentId,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("TimeRangeValue" Data..=)
+              Prelude.<$> timeRangeValue
           ]
       )
 
-instance Core.ToPath ListEngagements where
+instance Data.ToPath ListEngagements where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListEngagements where
+instance Data.ToQuery ListEngagements where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListEngagementsResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.Types.KinesisStreamsInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalytics.Types.KinesisStreamsInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Identifies an Amazon Kinesis stream as the streaming source. You provide
@@ -83,11 +84,11 @@ instance Prelude.NFData KinesisStreamsInput where
     Prelude.rnf resourceARN
       `Prelude.seq` Prelude.rnf roleARN
 
-instance Core.ToJSON KinesisStreamsInput where
+instance Data.ToJSON KinesisStreamsInput where
   toJSON KinesisStreamsInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceARN" Core..= resourceARN),
-            Prelude.Just ("RoleARN" Core..= roleARN)
+          [ Prelude.Just ("ResourceARN" Data..= resourceARN),
+            Prelude.Just ("RoleARN" Data..= roleARN)
           ]
       )

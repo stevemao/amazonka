@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.ServiceNowParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.ServiceNowParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The parameters for ServiceNow.
@@ -52,13 +53,13 @@ newServiceNowParameters pSiteBaseUrl_ =
 serviceNowParameters_siteBaseUrl :: Lens.Lens' ServiceNowParameters Prelude.Text
 serviceNowParameters_siteBaseUrl = Lens.lens (\ServiceNowParameters' {siteBaseUrl} -> siteBaseUrl) (\s@ServiceNowParameters' {} a -> s {siteBaseUrl = a} :: ServiceNowParameters)
 
-instance Core.FromJSON ServiceNowParameters where
+instance Data.FromJSON ServiceNowParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServiceNowParameters"
       ( \x ->
           ServiceNowParameters'
-            Prelude.<$> (x Core..: "SiteBaseUrl")
+            Prelude.<$> (x Data..: "SiteBaseUrl")
       )
 
 instance Prelude.Hashable ServiceNowParameters where
@@ -69,9 +70,9 @@ instance Prelude.NFData ServiceNowParameters where
   rnf ServiceNowParameters' {..} =
     Prelude.rnf siteBaseUrl
 
-instance Core.ToJSON ServiceNowParameters where
+instance Data.ToJSON ServiceNowParameters where
   toJSON ServiceNowParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("SiteBaseUrl" Core..= siteBaseUrl)]
+          [Prelude.Just ("SiteBaseUrl" Data..= siteBaseUrl)]
       )

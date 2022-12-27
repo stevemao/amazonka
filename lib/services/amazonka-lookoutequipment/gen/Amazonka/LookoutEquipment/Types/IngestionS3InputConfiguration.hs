@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutEquipment.Types.IngestionS3InputConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LookoutEquipment.Types.IngestionS3InputConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies S3 configuration information for the input data for the data
@@ -28,7 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newIngestionS3InputConfiguration' smart constructor.
 data IngestionS3InputConfiguration = IngestionS3InputConfiguration'
-  { -- | The prefix for the S3 location being used for the input data for the
+  { -- | Pattern for matching the Amazon S3 files which will be used for
+    -- ingestion. If no KeyPattern is provided, we will use the default
+    -- hierarchy file structure, which is same as KeyPattern
+    -- {prefix}\/{component_name}\/*
+    keyPattern :: Prelude.Maybe Prelude.Text,
+    -- | The prefix for the S3 location being used for the input data for the
     -- data ingestion.
     prefix :: Prelude.Maybe Prelude.Text,
     -- | The name of the S3 bucket used for the input data for the data
@@ -45,6 +51,11 @@ data IngestionS3InputConfiguration = IngestionS3InputConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'keyPattern', 'ingestionS3InputConfiguration_keyPattern' - Pattern for matching the Amazon S3 files which will be used for
+-- ingestion. If no KeyPattern is provided, we will use the default
+-- hierarchy file structure, which is same as KeyPattern
+-- {prefix}\/{component_name}\/*
+--
 -- 'prefix', 'ingestionS3InputConfiguration_prefix' - The prefix for the S3 location being used for the input data for the
 -- data ingestion.
 --
@@ -56,10 +67,18 @@ newIngestionS3InputConfiguration ::
   IngestionS3InputConfiguration
 newIngestionS3InputConfiguration pBucket_ =
   IngestionS3InputConfiguration'
-    { prefix =
+    { keyPattern =
         Prelude.Nothing,
+      prefix = Prelude.Nothing,
       bucket = pBucket_
     }
+
+-- | Pattern for matching the Amazon S3 files which will be used for
+-- ingestion. If no KeyPattern is provided, we will use the default
+-- hierarchy file structure, which is same as KeyPattern
+-- {prefix}\/{component_name}\/*
+ingestionS3InputConfiguration_keyPattern :: Lens.Lens' IngestionS3InputConfiguration (Prelude.Maybe Prelude.Text)
+ingestionS3InputConfiguration_keyPattern = Lens.lens (\IngestionS3InputConfiguration' {keyPattern} -> keyPattern) (\s@IngestionS3InputConfiguration' {} a -> s {keyPattern = a} :: IngestionS3InputConfiguration)
 
 -- | The prefix for the S3 location being used for the input data for the
 -- data ingestion.
@@ -71,14 +90,15 @@ ingestionS3InputConfiguration_prefix = Lens.lens (\IngestionS3InputConfiguration
 ingestionS3InputConfiguration_bucket :: Lens.Lens' IngestionS3InputConfiguration Prelude.Text
 ingestionS3InputConfiguration_bucket = Lens.lens (\IngestionS3InputConfiguration' {bucket} -> bucket) (\s@IngestionS3InputConfiguration' {} a -> s {bucket = a} :: IngestionS3InputConfiguration)
 
-instance Core.FromJSON IngestionS3InputConfiguration where
+instance Data.FromJSON IngestionS3InputConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IngestionS3InputConfiguration"
       ( \x ->
           IngestionS3InputConfiguration'
-            Prelude.<$> (x Core..:? "Prefix")
-            Prelude.<*> (x Core..: "Bucket")
+            Prelude.<$> (x Data..:? "KeyPattern")
+            Prelude.<*> (x Data..:? "Prefix")
+            Prelude.<*> (x Data..: "Bucket")
       )
 
 instance
@@ -86,18 +106,22 @@ instance
     IngestionS3InputConfiguration
   where
   hashWithSalt _salt IngestionS3InputConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` prefix
+    _salt `Prelude.hashWithSalt` keyPattern
+      `Prelude.hashWithSalt` prefix
       `Prelude.hashWithSalt` bucket
 
 instance Prelude.NFData IngestionS3InputConfiguration where
   rnf IngestionS3InputConfiguration' {..} =
-    Prelude.rnf prefix `Prelude.seq` Prelude.rnf bucket
+    Prelude.rnf keyPattern
+      `Prelude.seq` Prelude.rnf prefix
+      `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToJSON IngestionS3InputConfiguration where
+instance Data.ToJSON IngestionS3InputConfiguration where
   toJSON IngestionS3InputConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Prefix" Core..=) Prelude.<$> prefix,
-            Prelude.Just ("Bucket" Core..= bucket)
+          [ ("KeyPattern" Data..=) Prelude.<$> keyPattern,
+            ("Prefix" Data..=) Prelude.<$> prefix,
+            Prelude.Just ("Bucket" Data..= bucket)
           ]
       )

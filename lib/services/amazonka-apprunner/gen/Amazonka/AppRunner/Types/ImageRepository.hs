@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.Types.ImageRepository
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AppRunner.Types.ImageRepository where
 import Amazonka.AppRunner.Types.ImageConfiguration
 import Amazonka.AppRunner.Types.ImageRepositoryType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a source image repository.
@@ -97,15 +98,15 @@ imageRepository_imageIdentifier = Lens.lens (\ImageRepository' {imageIdentifier}
 imageRepository_imageRepositoryType :: Lens.Lens' ImageRepository ImageRepositoryType
 imageRepository_imageRepositoryType = Lens.lens (\ImageRepository' {imageRepositoryType} -> imageRepositoryType) (\s@ImageRepository' {} a -> s {imageRepositoryType = a} :: ImageRepository)
 
-instance Core.FromJSON ImageRepository where
+instance Data.FromJSON ImageRepository where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ImageRepository"
       ( \x ->
           ImageRepository'
-            Prelude.<$> (x Core..:? "ImageConfiguration")
-            Prelude.<*> (x Core..: "ImageIdentifier")
-            Prelude.<*> (x Core..: "ImageRepositoryType")
+            Prelude.<$> (x Data..:? "ImageConfiguration")
+            Prelude.<*> (x Data..: "ImageIdentifier")
+            Prelude.<*> (x Data..: "ImageRepositoryType")
       )
 
 instance Prelude.Hashable ImageRepository where
@@ -120,15 +121,15 @@ instance Prelude.NFData ImageRepository where
       `Prelude.seq` Prelude.rnf imageIdentifier
       `Prelude.seq` Prelude.rnf imageRepositoryType
 
-instance Core.ToJSON ImageRepository where
+instance Data.ToJSON ImageRepository where
   toJSON ImageRepository' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ImageConfiguration" Core..=)
+          [ ("ImageConfiguration" Data..=)
               Prelude.<$> imageConfiguration,
             Prelude.Just
-              ("ImageIdentifier" Core..= imageIdentifier),
+              ("ImageIdentifier" Data..= imageIdentifier),
             Prelude.Just
-              ("ImageRepositoryType" Core..= imageRepositoryType)
+              ("ImageRepositoryType" Data..= imageRepositoryType)
           ]
       )

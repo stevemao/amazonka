@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.GetEula
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Nimble.GetEula
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -74,12 +75,13 @@ getEula_eulaId = Lens.lens (\GetEula' {eulaId} -> eulaId) (\s@GetEula' {} a -> s
 
 instance Core.AWSRequest GetEula where
   type AWSResponse GetEula = GetEulaResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetEulaResponse'
-            Prelude.<$> (x Core..?> "eula")
+            Prelude.<$> (x Data..?> "eula")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -90,23 +92,23 @@ instance Prelude.Hashable GetEula where
 instance Prelude.NFData GetEula where
   rnf GetEula' {..} = Prelude.rnf eulaId
 
-instance Core.ToHeaders GetEula where
+instance Data.ToHeaders GetEula where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetEula where
+instance Data.ToPath GetEula where
   toPath GetEula' {..} =
     Prelude.mconcat
-      ["/2020-08-01/eulas/", Core.toBS eulaId]
+      ["/2020-08-01/eulas/", Data.toBS eulaId]
 
-instance Core.ToQuery GetEula where
+instance Data.ToQuery GetEula where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetEulaResponse' smart constructor.

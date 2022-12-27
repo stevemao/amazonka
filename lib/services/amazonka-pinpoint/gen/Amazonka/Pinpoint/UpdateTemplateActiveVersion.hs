@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.UpdateTemplateActiveVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.Pinpoint.UpdateTemplateActiveVersion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -120,13 +121,14 @@ instance Core.AWSRequest UpdateTemplateActiveVersion where
   type
     AWSResponse UpdateTemplateActiveVersion =
       UpdateTemplateActiveVersionResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateTemplateActiveVersionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable UpdateTemplateActiveVersion where
@@ -141,39 +143,32 @@ instance Prelude.NFData UpdateTemplateActiveVersion where
       `Prelude.seq` Prelude.rnf templateType
       `Prelude.seq` Prelude.rnf templateActiveVersionRequest
 
-instance Core.ToHeaders UpdateTemplateActiveVersion where
+instance Data.ToHeaders UpdateTemplateActiveVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateTemplateActiveVersion where
+instance Data.ToJSON UpdateTemplateActiveVersion where
   toJSON UpdateTemplateActiveVersion' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ Prelude.Just
-              ( "TemplateActiveVersionRequest"
-                  Core..= templateActiveVersionRequest
-              )
-          ]
-      )
+    Data.toJSON templateActiveVersionRequest
 
-instance Core.ToPath UpdateTemplateActiveVersion where
+instance Data.ToPath UpdateTemplateActiveVersion where
   toPath UpdateTemplateActiveVersion' {..} =
     Prelude.mconcat
       [ "/v1/templates/",
-        Core.toBS templateName,
+        Data.toBS templateName,
         "/",
-        Core.toBS templateType,
+        Data.toBS templateType,
         "/active-version"
       ]
 
-instance Core.ToQuery UpdateTemplateActiveVersion where
+instance Data.ToQuery UpdateTemplateActiveVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateTemplateActiveVersionResponse' smart constructor.

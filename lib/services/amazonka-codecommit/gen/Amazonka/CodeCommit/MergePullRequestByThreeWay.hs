@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.MergePullRequestByThreeWay
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,12 +30,12 @@ module Amazonka.CodeCommit.MergePullRequestByThreeWay
     newMergePullRequestByThreeWay,
 
     -- * Request Lenses
-    mergePullRequestByThreeWay_email,
     mergePullRequestByThreeWay_authorName,
-    mergePullRequestByThreeWay_conflictDetailLevel,
     mergePullRequestByThreeWay_commitMessage,
+    mergePullRequestByThreeWay_conflictDetailLevel,
     mergePullRequestByThreeWay_conflictResolution,
     mergePullRequestByThreeWay_conflictResolutionStrategy,
+    mergePullRequestByThreeWay_email,
     mergePullRequestByThreeWay_keepEmptyFolders,
     mergePullRequestByThreeWay_sourceCommitId,
     mergePullRequestByThreeWay_pullRequestId,
@@ -53,27 +53,25 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newMergePullRequestByThreeWay' smart constructor.
 data MergePullRequestByThreeWay = MergePullRequestByThreeWay'
-  { -- | The email address of the person merging the branches. This information
-    -- is used in the commit information for the merge.
-    email :: Prelude.Maybe Prelude.Text,
-    -- | The name of the author who created the commit. This information is used
+  { -- | The name of the author who created the commit. This information is used
     -- as both the author and committer for the commit.
     authorName :: Prelude.Maybe Prelude.Text,
+    -- | The commit message to include in the commit information for the merge.
+    commitMessage :: Prelude.Maybe Prelude.Text,
     -- | The level of conflict detail to use. If unspecified, the default
     -- FILE_LEVEL is used, which returns a not-mergeable result if the same
     -- file has differences in both branches. If LINE_LEVEL is specified, a
     -- conflict is considered not mergeable if the same file in both branches
     -- has differences on the same line.
     conflictDetailLevel :: Prelude.Maybe ConflictDetailLevelTypeEnum,
-    -- | The commit message to include in the commit information for the merge.
-    commitMessage :: Prelude.Maybe Prelude.Text,
     -- | If AUTOMERGE is the conflict resolution strategy, a list of inputs to
     -- use when resolving conflicts during a merge.
     conflictResolution :: Prelude.Maybe ConflictResolution,
@@ -82,6 +80,9 @@ data MergePullRequestByThreeWay = MergePullRequestByThreeWay'
     -- NONE, which requires any conflicts to be resolved manually before the
     -- merge operation is successful.
     conflictResolutionStrategy :: Prelude.Maybe ConflictResolutionStrategyTypeEnum,
+    -- | The email address of the person merging the branches. This information
+    -- is used in the commit information for the merge.
+    email :: Prelude.Maybe Prelude.Text,
     -- | If the commit contains deletions, whether to keep a folder or folder
     -- structure if the changes leave the folders empty. If true, a .gitkeep
     -- file is created for empty folders. The default is false.
@@ -107,19 +108,16 @@ data MergePullRequestByThreeWay = MergePullRequestByThreeWay'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'email', 'mergePullRequestByThreeWay_email' - The email address of the person merging the branches. This information
--- is used in the commit information for the merge.
---
 -- 'authorName', 'mergePullRequestByThreeWay_authorName' - The name of the author who created the commit. This information is used
 -- as both the author and committer for the commit.
+--
+-- 'commitMessage', 'mergePullRequestByThreeWay_commitMessage' - The commit message to include in the commit information for the merge.
 --
 -- 'conflictDetailLevel', 'mergePullRequestByThreeWay_conflictDetailLevel' - The level of conflict detail to use. If unspecified, the default
 -- FILE_LEVEL is used, which returns a not-mergeable result if the same
 -- file has differences in both branches. If LINE_LEVEL is specified, a
 -- conflict is considered not mergeable if the same file in both branches
 -- has differences on the same line.
---
--- 'commitMessage', 'mergePullRequestByThreeWay_commitMessage' - The commit message to include in the commit information for the merge.
 --
 -- 'conflictResolution', 'mergePullRequestByThreeWay_conflictResolution' - If AUTOMERGE is the conflict resolution strategy, a list of inputs to
 -- use when resolving conflicts during a merge.
@@ -128,6 +126,9 @@ data MergePullRequestByThreeWay = MergePullRequestByThreeWay'
 -- attempt automatically merging two versions of a file. The default is
 -- NONE, which requires any conflicts to be resolved manually before the
 -- merge operation is successful.
+--
+-- 'email', 'mergePullRequestByThreeWay_email' - The email address of the person merging the branches. This information
+-- is used in the commit information for the merge.
 --
 -- 'keepEmptyFolders', 'mergePullRequestByThreeWay_keepEmptyFolders' - If the commit contains deletions, whether to keep a folder or folder
 -- structure if the changes leave the folders empty. If true, a .gitkeep
@@ -152,28 +153,27 @@ newMergePullRequestByThreeWay
   pPullRequestId_
   pRepositoryName_ =
     MergePullRequestByThreeWay'
-      { email =
+      { authorName =
           Prelude.Nothing,
-        authorName = Prelude.Nothing,
-        conflictDetailLevel = Prelude.Nothing,
         commitMessage = Prelude.Nothing,
+        conflictDetailLevel = Prelude.Nothing,
         conflictResolution = Prelude.Nothing,
         conflictResolutionStrategy = Prelude.Nothing,
+        email = Prelude.Nothing,
         keepEmptyFolders = Prelude.Nothing,
         sourceCommitId = Prelude.Nothing,
         pullRequestId = pPullRequestId_,
         repositoryName = pRepositoryName_
       }
 
--- | The email address of the person merging the branches. This information
--- is used in the commit information for the merge.
-mergePullRequestByThreeWay_email :: Lens.Lens' MergePullRequestByThreeWay (Prelude.Maybe Prelude.Text)
-mergePullRequestByThreeWay_email = Lens.lens (\MergePullRequestByThreeWay' {email} -> email) (\s@MergePullRequestByThreeWay' {} a -> s {email = a} :: MergePullRequestByThreeWay)
-
 -- | The name of the author who created the commit. This information is used
 -- as both the author and committer for the commit.
 mergePullRequestByThreeWay_authorName :: Lens.Lens' MergePullRequestByThreeWay (Prelude.Maybe Prelude.Text)
 mergePullRequestByThreeWay_authorName = Lens.lens (\MergePullRequestByThreeWay' {authorName} -> authorName) (\s@MergePullRequestByThreeWay' {} a -> s {authorName = a} :: MergePullRequestByThreeWay)
+
+-- | The commit message to include in the commit information for the merge.
+mergePullRequestByThreeWay_commitMessage :: Lens.Lens' MergePullRequestByThreeWay (Prelude.Maybe Prelude.Text)
+mergePullRequestByThreeWay_commitMessage = Lens.lens (\MergePullRequestByThreeWay' {commitMessage} -> commitMessage) (\s@MergePullRequestByThreeWay' {} a -> s {commitMessage = a} :: MergePullRequestByThreeWay)
 
 -- | The level of conflict detail to use. If unspecified, the default
 -- FILE_LEVEL is used, which returns a not-mergeable result if the same
@@ -182,10 +182,6 @@ mergePullRequestByThreeWay_authorName = Lens.lens (\MergePullRequestByThreeWay' 
 -- has differences on the same line.
 mergePullRequestByThreeWay_conflictDetailLevel :: Lens.Lens' MergePullRequestByThreeWay (Prelude.Maybe ConflictDetailLevelTypeEnum)
 mergePullRequestByThreeWay_conflictDetailLevel = Lens.lens (\MergePullRequestByThreeWay' {conflictDetailLevel} -> conflictDetailLevel) (\s@MergePullRequestByThreeWay' {} a -> s {conflictDetailLevel = a} :: MergePullRequestByThreeWay)
-
--- | The commit message to include in the commit information for the merge.
-mergePullRequestByThreeWay_commitMessage :: Lens.Lens' MergePullRequestByThreeWay (Prelude.Maybe Prelude.Text)
-mergePullRequestByThreeWay_commitMessage = Lens.lens (\MergePullRequestByThreeWay' {commitMessage} -> commitMessage) (\s@MergePullRequestByThreeWay' {} a -> s {commitMessage = a} :: MergePullRequestByThreeWay)
 
 -- | If AUTOMERGE is the conflict resolution strategy, a list of inputs to
 -- use when resolving conflicts during a merge.
@@ -198,6 +194,11 @@ mergePullRequestByThreeWay_conflictResolution = Lens.lens (\MergePullRequestByTh
 -- merge operation is successful.
 mergePullRequestByThreeWay_conflictResolutionStrategy :: Lens.Lens' MergePullRequestByThreeWay (Prelude.Maybe ConflictResolutionStrategyTypeEnum)
 mergePullRequestByThreeWay_conflictResolutionStrategy = Lens.lens (\MergePullRequestByThreeWay' {conflictResolutionStrategy} -> conflictResolutionStrategy) (\s@MergePullRequestByThreeWay' {} a -> s {conflictResolutionStrategy = a} :: MergePullRequestByThreeWay)
+
+-- | The email address of the person merging the branches. This information
+-- is used in the commit information for the merge.
+mergePullRequestByThreeWay_email :: Lens.Lens' MergePullRequestByThreeWay (Prelude.Maybe Prelude.Text)
+mergePullRequestByThreeWay_email = Lens.lens (\MergePullRequestByThreeWay' {email} -> email) (\s@MergePullRequestByThreeWay' {} a -> s {email = a} :: MergePullRequestByThreeWay)
 
 -- | If the commit contains deletions, whether to keep a folder or folder
 -- structure if the changes leave the folders empty. If true, a .gitkeep
@@ -225,23 +226,24 @@ instance Core.AWSRequest MergePullRequestByThreeWay where
   type
     AWSResponse MergePullRequestByThreeWay =
       MergePullRequestByThreeWayResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           MergePullRequestByThreeWayResponse'
-            Prelude.<$> (x Core..?> "pullRequest")
+            Prelude.<$> (x Data..?> "pullRequest")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable MergePullRequestByThreeWay where
   hashWithSalt _salt MergePullRequestByThreeWay' {..} =
-    _salt `Prelude.hashWithSalt` email
-      `Prelude.hashWithSalt` authorName
-      `Prelude.hashWithSalt` conflictDetailLevel
+    _salt `Prelude.hashWithSalt` authorName
       `Prelude.hashWithSalt` commitMessage
+      `Prelude.hashWithSalt` conflictDetailLevel
       `Prelude.hashWithSalt` conflictResolution
       `Prelude.hashWithSalt` conflictResolutionStrategy
+      `Prelude.hashWithSalt` email
       `Prelude.hashWithSalt` keepEmptyFolders
       `Prelude.hashWithSalt` sourceCommitId
       `Prelude.hashWithSalt` pullRequestId
@@ -249,59 +251,59 @@ instance Prelude.Hashable MergePullRequestByThreeWay where
 
 instance Prelude.NFData MergePullRequestByThreeWay where
   rnf MergePullRequestByThreeWay' {..} =
-    Prelude.rnf email
-      `Prelude.seq` Prelude.rnf authorName
-      `Prelude.seq` Prelude.rnf conflictDetailLevel
+    Prelude.rnf authorName
       `Prelude.seq` Prelude.rnf commitMessage
+      `Prelude.seq` Prelude.rnf conflictDetailLevel
       `Prelude.seq` Prelude.rnf conflictResolution
       `Prelude.seq` Prelude.rnf conflictResolutionStrategy
+      `Prelude.seq` Prelude.rnf email
       `Prelude.seq` Prelude.rnf keepEmptyFolders
       `Prelude.seq` Prelude.rnf sourceCommitId
       `Prelude.seq` Prelude.rnf pullRequestId
       `Prelude.seq` Prelude.rnf repositoryName
 
-instance Core.ToHeaders MergePullRequestByThreeWay where
+instance Data.ToHeaders MergePullRequestByThreeWay where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.MergePullRequestByThreeWay" ::
+              Data.=# ( "CodeCommit_20150413.MergePullRequestByThreeWay" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON MergePullRequestByThreeWay where
+instance Data.ToJSON MergePullRequestByThreeWay where
   toJSON MergePullRequestByThreeWay' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("email" Core..=) Prelude.<$> email,
-            ("authorName" Core..=) Prelude.<$> authorName,
-            ("conflictDetailLevel" Core..=)
+          [ ("authorName" Data..=) Prelude.<$> authorName,
+            ("commitMessage" Data..=) Prelude.<$> commitMessage,
+            ("conflictDetailLevel" Data..=)
               Prelude.<$> conflictDetailLevel,
-            ("commitMessage" Core..=) Prelude.<$> commitMessage,
-            ("conflictResolution" Core..=)
+            ("conflictResolution" Data..=)
               Prelude.<$> conflictResolution,
-            ("conflictResolutionStrategy" Core..=)
+            ("conflictResolutionStrategy" Data..=)
               Prelude.<$> conflictResolutionStrategy,
-            ("keepEmptyFolders" Core..=)
+            ("email" Data..=) Prelude.<$> email,
+            ("keepEmptyFolders" Data..=)
               Prelude.<$> keepEmptyFolders,
-            ("sourceCommitId" Core..=)
+            ("sourceCommitId" Data..=)
               Prelude.<$> sourceCommitId,
-            Prelude.Just ("pullRequestId" Core..= pullRequestId),
+            Prelude.Just ("pullRequestId" Data..= pullRequestId),
             Prelude.Just
-              ("repositoryName" Core..= repositoryName)
+              ("repositoryName" Data..= repositoryName)
           ]
       )
 
-instance Core.ToPath MergePullRequestByThreeWay where
+instance Data.ToPath MergePullRequestByThreeWay where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery MergePullRequestByThreeWay where
+instance Data.ToQuery MergePullRequestByThreeWay where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newMergePullRequestByThreeWayResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ReleaseAddress
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,6 +26,11 @@
 -- disassociates it from any instance that it\'s associated with. To
 -- disassociate an Elastic IP address without releasing it, use
 -- DisassociateAddress.
+--
+-- We are retiring EC2-Classic. We recommend that you migrate from
+-- EC2-Classic to a VPC. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html Migrate from EC2-Classic to a VPC>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 --
 -- [Nondefault VPC] You must use DisassociateAddress to disassociate the
 -- Elastic IP address before you can release it. Otherwise, Amazon EC2
@@ -39,6 +44,10 @@
 --
 -- [EC2-VPC] After you release an Elastic IP address for use in a VPC, you
 -- might be able to recover it. For more information, see AllocateAddress.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/elastic-ip-addresses-eip.html Elastic IP Addresses>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 module Amazonka.EC2.ReleaseAddress
   ( -- * Creating a Request
     ReleaseAddress (..),
@@ -46,9 +55,9 @@ module Amazonka.EC2.ReleaseAddress
 
     -- * Request Lenses
     releaseAddress_allocationId,
+    releaseAddress_dryRun,
     releaseAddress_networkBorderGroup,
     releaseAddress_publicIp,
-    releaseAddress_dryRun,
 
     -- * Destructuring the Response
     ReleaseAddressResponse (..),
@@ -57,8 +66,9 @@ module Amazonka.EC2.ReleaseAddress
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,6 +77,11 @@ import qualified Amazonka.Response as Response
 data ReleaseAddress = ReleaseAddress'
   { -- | [EC2-VPC] The allocation ID. Required for EC2-VPC.
     allocationId :: Prelude.Maybe Prelude.Text,
+    -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The set of Availability Zones, Local Zones, or Wavelength Zones from
     -- which Amazon Web Services advertises IP addresses.
     --
@@ -78,12 +93,7 @@ data ReleaseAddress = ReleaseAddress'
     -- @InvalidParameterCombination@ error.
     networkBorderGroup :: Prelude.Maybe Prelude.Text,
     -- | [EC2-Classic] The Elastic IP address. Required for EC2-Classic.
-    publicIp :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool
+    publicIp :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -97,6 +107,11 @@ data ReleaseAddress = ReleaseAddress'
 --
 -- 'allocationId', 'releaseAddress_allocationId' - [EC2-VPC] The allocation ID. Required for EC2-VPC.
 --
+-- 'dryRun', 'releaseAddress_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
 -- 'networkBorderGroup', 'releaseAddress_networkBorderGroup' - The set of Availability Zones, Local Zones, or Wavelength Zones from
 -- which Amazon Web Services advertises IP addresses.
 --
@@ -108,24 +123,26 @@ data ReleaseAddress = ReleaseAddress'
 -- @InvalidParameterCombination@ error.
 --
 -- 'publicIp', 'releaseAddress_publicIp' - [EC2-Classic] The Elastic IP address. Required for EC2-Classic.
---
--- 'dryRun', 'releaseAddress_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
 newReleaseAddress ::
   ReleaseAddress
 newReleaseAddress =
   ReleaseAddress'
     { allocationId = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
       networkBorderGroup = Prelude.Nothing,
-      publicIp = Prelude.Nothing,
-      dryRun = Prelude.Nothing
+      publicIp = Prelude.Nothing
     }
 
 -- | [EC2-VPC] The allocation ID. Required for EC2-VPC.
 releaseAddress_allocationId :: Lens.Lens' ReleaseAddress (Prelude.Maybe Prelude.Text)
 releaseAddress_allocationId = Lens.lens (\ReleaseAddress' {allocationId} -> allocationId) (\s@ReleaseAddress' {} a -> s {allocationId = a} :: ReleaseAddress)
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+releaseAddress_dryRun :: Lens.Lens' ReleaseAddress (Prelude.Maybe Prelude.Bool)
+releaseAddress_dryRun = Lens.lens (\ReleaseAddress' {dryRun} -> dryRun) (\s@ReleaseAddress' {} a -> s {dryRun = a} :: ReleaseAddress)
 
 -- | The set of Availability Zones, Local Zones, or Wavelength Zones from
 -- which Amazon Web Services advertises IP addresses.
@@ -143,52 +160,46 @@ releaseAddress_networkBorderGroup = Lens.lens (\ReleaseAddress' {networkBorderGr
 releaseAddress_publicIp :: Lens.Lens' ReleaseAddress (Prelude.Maybe Prelude.Text)
 releaseAddress_publicIp = Lens.lens (\ReleaseAddress' {publicIp} -> publicIp) (\s@ReleaseAddress' {} a -> s {publicIp = a} :: ReleaseAddress)
 
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-releaseAddress_dryRun :: Lens.Lens' ReleaseAddress (Prelude.Maybe Prelude.Bool)
-releaseAddress_dryRun = Lens.lens (\ReleaseAddress' {dryRun} -> dryRun) (\s@ReleaseAddress' {} a -> s {dryRun = a} :: ReleaseAddress)
-
 instance Core.AWSRequest ReleaseAddress where
   type
     AWSResponse ReleaseAddress =
       ReleaseAddressResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull ReleaseAddressResponse'
 
 instance Prelude.Hashable ReleaseAddress where
   hashWithSalt _salt ReleaseAddress' {..} =
     _salt `Prelude.hashWithSalt` allocationId
+      `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` networkBorderGroup
       `Prelude.hashWithSalt` publicIp
-      `Prelude.hashWithSalt` dryRun
 
 instance Prelude.NFData ReleaseAddress where
   rnf ReleaseAddress' {..} =
     Prelude.rnf allocationId
+      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf networkBorderGroup
       `Prelude.seq` Prelude.rnf publicIp
-      `Prelude.seq` Prelude.rnf dryRun
 
-instance Core.ToHeaders ReleaseAddress where
+instance Data.ToHeaders ReleaseAddress where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ReleaseAddress where
+instance Data.ToPath ReleaseAddress where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ReleaseAddress where
+instance Data.ToQuery ReleaseAddress where
   toQuery ReleaseAddress' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ReleaseAddress" :: Prelude.ByteString),
+          Data.=: ("ReleaseAddress" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "AllocationId" Core.=: allocationId,
-        "NetworkBorderGroup" Core.=: networkBorderGroup,
-        "PublicIp" Core.=: publicIp,
-        "DryRun" Core.=: dryRun
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "AllocationId" Data.=: allocationId,
+        "DryRun" Data.=: dryRun,
+        "NetworkBorderGroup" Data.=: networkBorderGroup,
+        "PublicIp" Data.=: publicIp
       ]
 
 -- | /See:/ 'newReleaseAddressResponse' smart constructor.

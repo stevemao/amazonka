@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDBStreams.Types.KeySchemaElement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.DynamoDBStreams.Types.KeySchemaElement where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDBStreams.Internal
 import Amazonka.DynamoDBStreams.Types.KeyType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents /a single element/ of a key schema. A key schema specifies
@@ -121,14 +122,14 @@ keySchemaElement_attributeName = Lens.lens (\KeySchemaElement' {attributeName} -
 keySchemaElement_keyType :: Lens.Lens' KeySchemaElement KeyType
 keySchemaElement_keyType = Lens.lens (\KeySchemaElement' {keyType} -> keyType) (\s@KeySchemaElement' {} a -> s {keyType = a} :: KeySchemaElement)
 
-instance Core.FromJSON KeySchemaElement where
+instance Data.FromJSON KeySchemaElement where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KeySchemaElement"
       ( \x ->
           KeySchemaElement'
-            Prelude.<$> (x Core..: "AttributeName")
-            Prelude.<*> (x Core..: "KeyType")
+            Prelude.<$> (x Data..: "AttributeName")
+            Prelude.<*> (x Data..: "KeyType")
       )
 
 instance Prelude.Hashable KeySchemaElement where

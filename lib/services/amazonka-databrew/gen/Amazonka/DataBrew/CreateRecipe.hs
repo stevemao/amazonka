@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.CreateRecipe
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.DataBrew.CreateRecipe
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,13 +117,14 @@ createRecipe_steps = Lens.lens (\CreateRecipe' {steps} -> steps) (\s@CreateRecip
 
 instance Core.AWSRequest CreateRecipe where
   type AWSResponse CreateRecipe = CreateRecipeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateRecipeResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Name")
+            Prelude.<*> (x Data..:> "Name")
       )
 
 instance Prelude.Hashable CreateRecipe where
@@ -139,32 +141,32 @@ instance Prelude.NFData CreateRecipe where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf steps
 
-instance Core.ToHeaders CreateRecipe where
+instance Data.ToHeaders CreateRecipe where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateRecipe where
+instance Data.ToJSON CreateRecipe where
   toJSON CreateRecipe' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Steps" Core..= steps)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Steps" Data..= steps)
           ]
       )
 
-instance Core.ToPath CreateRecipe where
+instance Data.ToPath CreateRecipe where
   toPath = Prelude.const "/recipes"
 
-instance Core.ToQuery CreateRecipe where
+instance Data.ToQuery CreateRecipe where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateRecipeResponse' smart constructor.

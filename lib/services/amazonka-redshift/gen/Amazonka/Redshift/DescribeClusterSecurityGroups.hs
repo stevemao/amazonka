@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DescribeClusterSecurityGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,11 +45,11 @@ module Amazonka.Redshift.DescribeClusterSecurityGroups
     newDescribeClusterSecurityGroups,
 
     -- * Request Lenses
-    describeClusterSecurityGroups_tagValues,
-    describeClusterSecurityGroups_tagKeys,
     describeClusterSecurityGroups_clusterSecurityGroupName,
     describeClusterSecurityGroups_marker,
     describeClusterSecurityGroups_maxRecords,
+    describeClusterSecurityGroups_tagKeys,
+    describeClusterSecurityGroups_tagValues,
 
     -- * Destructuring the Response
     DescribeClusterSecurityGroupsResponse (..),
@@ -63,7 +63,8 @@ module Amazonka.Redshift.DescribeClusterSecurityGroups
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -73,22 +74,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeClusterSecurityGroups' smart constructor.
 data DescribeClusterSecurityGroups = DescribeClusterSecurityGroups'
-  { -- | A tag value or values for which you want to return all matching cluster
-    -- security groups that are associated with the specified tag value or
-    -- values. For example, suppose that you have security groups that are
-    -- tagged with values called @admin@ and @test@. If you specify both of
-    -- these tag values in the request, Amazon Redshift returns a response with
-    -- the security groups that have either or both of these tag values
-    -- associated with them.
-    tagValues :: Prelude.Maybe [Prelude.Text],
-    -- | A tag key or keys for which you want to return all matching cluster
-    -- security groups that are associated with the specified key or keys. For
-    -- example, suppose that you have security groups that are tagged with keys
-    -- called @owner@ and @environment@. If you specify both of these tag keys
-    -- in the request, Amazon Redshift returns a response with the security
-    -- groups that have either or both of these tag keys associated with them.
-    tagKeys :: Prelude.Maybe [Prelude.Text],
-    -- | The name of a cluster security group for which you are requesting
+  { -- | The name of a cluster security group for which you are requesting
     -- details. You can specify either the __Marker__ parameter or a
     -- __ClusterSecurityGroupName__ parameter, but not both.
     --
@@ -113,7 +99,22 @@ data DescribeClusterSecurityGroups = DescribeClusterSecurityGroups'
     -- Default: @100@
     --
     -- Constraints: minimum 20, maximum 100.
-    maxRecords :: Prelude.Maybe Prelude.Int
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | A tag key or keys for which you want to return all matching cluster
+    -- security groups that are associated with the specified key or keys. For
+    -- example, suppose that you have security groups that are tagged with keys
+    -- called @owner@ and @environment@. If you specify both of these tag keys
+    -- in the request, Amazon Redshift returns a response with the security
+    -- groups that have either or both of these tag keys associated with them.
+    tagKeys :: Prelude.Maybe [Prelude.Text],
+    -- | A tag value or values for which you want to return all matching cluster
+    -- security groups that are associated with the specified tag value or
+    -- values. For example, suppose that you have security groups that are
+    -- tagged with values called @admin@ and @test@. If you specify both of
+    -- these tag values in the request, Amazon Redshift returns a response with
+    -- the security groups that have either or both of these tag values
+    -- associated with them.
+    tagValues :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -124,21 +125,6 @@ data DescribeClusterSecurityGroups = DescribeClusterSecurityGroups'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'tagValues', 'describeClusterSecurityGroups_tagValues' - A tag value or values for which you want to return all matching cluster
--- security groups that are associated with the specified tag value or
--- values. For example, suppose that you have security groups that are
--- tagged with values called @admin@ and @test@. If you specify both of
--- these tag values in the request, Amazon Redshift returns a response with
--- the security groups that have either or both of these tag values
--- associated with them.
---
--- 'tagKeys', 'describeClusterSecurityGroups_tagKeys' - A tag key or keys for which you want to return all matching cluster
--- security groups that are associated with the specified key or keys. For
--- example, suppose that you have security groups that are tagged with keys
--- called @owner@ and @environment@. If you specify both of these tag keys
--- in the request, Amazon Redshift returns a response with the security
--- groups that have either or both of these tag keys associated with them.
 --
 -- 'clusterSecurityGroupName', 'describeClusterSecurityGroups_clusterSecurityGroupName' - The name of a cluster security group for which you are requesting
 -- details. You can specify either the __Marker__ parameter or a
@@ -165,36 +151,32 @@ data DescribeClusterSecurityGroups = DescribeClusterSecurityGroups'
 -- Default: @100@
 --
 -- Constraints: minimum 20, maximum 100.
-newDescribeClusterSecurityGroups ::
-  DescribeClusterSecurityGroups
-newDescribeClusterSecurityGroups =
-  DescribeClusterSecurityGroups'
-    { tagValues =
-        Prelude.Nothing,
-      tagKeys = Prelude.Nothing,
-      clusterSecurityGroupName = Prelude.Nothing,
-      marker = Prelude.Nothing,
-      maxRecords = Prelude.Nothing
-    }
-
--- | A tag value or values for which you want to return all matching cluster
+--
+-- 'tagKeys', 'describeClusterSecurityGroups_tagKeys' - A tag key or keys for which you want to return all matching cluster
+-- security groups that are associated with the specified key or keys. For
+-- example, suppose that you have security groups that are tagged with keys
+-- called @owner@ and @environment@. If you specify both of these tag keys
+-- in the request, Amazon Redshift returns a response with the security
+-- groups that have either or both of these tag keys associated with them.
+--
+-- 'tagValues', 'describeClusterSecurityGroups_tagValues' - A tag value or values for which you want to return all matching cluster
 -- security groups that are associated with the specified tag value or
 -- values. For example, suppose that you have security groups that are
 -- tagged with values called @admin@ and @test@. If you specify both of
 -- these tag values in the request, Amazon Redshift returns a response with
 -- the security groups that have either or both of these tag values
 -- associated with them.
-describeClusterSecurityGroups_tagValues :: Lens.Lens' DescribeClusterSecurityGroups (Prelude.Maybe [Prelude.Text])
-describeClusterSecurityGroups_tagValues = Lens.lens (\DescribeClusterSecurityGroups' {tagValues} -> tagValues) (\s@DescribeClusterSecurityGroups' {} a -> s {tagValues = a} :: DescribeClusterSecurityGroups) Prelude.. Lens.mapping Lens.coerced
-
--- | A tag key or keys for which you want to return all matching cluster
--- security groups that are associated with the specified key or keys. For
--- example, suppose that you have security groups that are tagged with keys
--- called @owner@ and @environment@. If you specify both of these tag keys
--- in the request, Amazon Redshift returns a response with the security
--- groups that have either or both of these tag keys associated with them.
-describeClusterSecurityGroups_tagKeys :: Lens.Lens' DescribeClusterSecurityGroups (Prelude.Maybe [Prelude.Text])
-describeClusterSecurityGroups_tagKeys = Lens.lens (\DescribeClusterSecurityGroups' {tagKeys} -> tagKeys) (\s@DescribeClusterSecurityGroups' {} a -> s {tagKeys = a} :: DescribeClusterSecurityGroups) Prelude.. Lens.mapping Lens.coerced
+newDescribeClusterSecurityGroups ::
+  DescribeClusterSecurityGroups
+newDescribeClusterSecurityGroups =
+  DescribeClusterSecurityGroups'
+    { clusterSecurityGroupName =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing,
+      tagKeys = Prelude.Nothing,
+      tagValues = Prelude.Nothing
+    }
 
 -- | The name of a cluster security group for which you are requesting
 -- details. You can specify either the __Marker__ parameter or a
@@ -228,6 +210,25 @@ describeClusterSecurityGroups_marker = Lens.lens (\DescribeClusterSecurityGroups
 describeClusterSecurityGroups_maxRecords :: Lens.Lens' DescribeClusterSecurityGroups (Prelude.Maybe Prelude.Int)
 describeClusterSecurityGroups_maxRecords = Lens.lens (\DescribeClusterSecurityGroups' {maxRecords} -> maxRecords) (\s@DescribeClusterSecurityGroups' {} a -> s {maxRecords = a} :: DescribeClusterSecurityGroups)
 
+-- | A tag key or keys for which you want to return all matching cluster
+-- security groups that are associated with the specified key or keys. For
+-- example, suppose that you have security groups that are tagged with keys
+-- called @owner@ and @environment@. If you specify both of these tag keys
+-- in the request, Amazon Redshift returns a response with the security
+-- groups that have either or both of these tag keys associated with them.
+describeClusterSecurityGroups_tagKeys :: Lens.Lens' DescribeClusterSecurityGroups (Prelude.Maybe [Prelude.Text])
+describeClusterSecurityGroups_tagKeys = Lens.lens (\DescribeClusterSecurityGroups' {tagKeys} -> tagKeys) (\s@DescribeClusterSecurityGroups' {} a -> s {tagKeys = a} :: DescribeClusterSecurityGroups) Prelude.. Lens.mapping Lens.coerced
+
+-- | A tag value or values for which you want to return all matching cluster
+-- security groups that are associated with the specified tag value or
+-- values. For example, suppose that you have security groups that are
+-- tagged with values called @admin@ and @test@. If you specify both of
+-- these tag values in the request, Amazon Redshift returns a response with
+-- the security groups that have either or both of these tag values
+-- associated with them.
+describeClusterSecurityGroups_tagValues :: Lens.Lens' DescribeClusterSecurityGroups (Prelude.Maybe [Prelude.Text])
+describeClusterSecurityGroups_tagValues = Lens.lens (\DescribeClusterSecurityGroups' {tagValues} -> tagValues) (\s@DescribeClusterSecurityGroups' {} a -> s {tagValues = a} :: DescribeClusterSecurityGroups) Prelude.. Lens.mapping Lens.coerced
+
 instance Core.AWSPager DescribeClusterSecurityGroups where
   page rq rs
     | Core.stop
@@ -257,17 +258,18 @@ instance
   type
     AWSResponse DescribeClusterSecurityGroups =
       DescribeClusterSecurityGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeClusterSecurityGroupsResult"
       ( \s h x ->
           DescribeClusterSecurityGroupsResponse'
-            Prelude.<$> ( x Core..@? "ClusterSecurityGroups"
+            Prelude.<$> ( x Data..@? "ClusterSecurityGroups"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "ClusterSecurityGroup")
+                            Prelude.>>= Core.may (Data.parseXMLList "ClusterSecurityGroup")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -276,45 +278,46 @@ instance
     DescribeClusterSecurityGroups
   where
   hashWithSalt _salt DescribeClusterSecurityGroups' {..} =
-    _salt `Prelude.hashWithSalt` tagValues
-      `Prelude.hashWithSalt` tagKeys
+    _salt
       `Prelude.hashWithSalt` clusterSecurityGroupName
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` tagKeys
+      `Prelude.hashWithSalt` tagValues
 
 instance Prelude.NFData DescribeClusterSecurityGroups where
   rnf DescribeClusterSecurityGroups' {..} =
-    Prelude.rnf tagValues
-      `Prelude.seq` Prelude.rnf tagKeys
-      `Prelude.seq` Prelude.rnf clusterSecurityGroupName
+    Prelude.rnf clusterSecurityGroupName
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf tagKeys
+      `Prelude.seq` Prelude.rnf tagValues
 
-instance Core.ToHeaders DescribeClusterSecurityGroups where
+instance Data.ToHeaders DescribeClusterSecurityGroups where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeClusterSecurityGroups where
+instance Data.ToPath DescribeClusterSecurityGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeClusterSecurityGroups where
+instance Data.ToQuery DescribeClusterSecurityGroups where
   toQuery DescribeClusterSecurityGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeClusterSecurityGroups" ::
+          Data.=: ( "DescribeClusterSecurityGroups" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "TagValues"
-          Core.=: Core.toQuery
-            (Core.toQueryList "TagValue" Prelude.<$> tagValues),
-        "TagKeys"
-          Core.=: Core.toQuery
-            (Core.toQueryList "TagKey" Prelude.<$> tagKeys),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
         "ClusterSecurityGroupName"
-          Core.=: clusterSecurityGroupName,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: clusterSecurityGroupName,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "TagKeys"
+          Data.=: Data.toQuery
+            (Data.toQueryList "TagKey" Prelude.<$> tagKeys),
+        "TagValues"
+          Data.=: Data.toQuery
+            (Data.toQueryList "TagValue" Prelude.<$> tagValues)
       ]
 
 -- |

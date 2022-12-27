@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsRedshiftClusterResizeInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsRedshiftClusterResizeInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the resize operation for the cluster.
@@ -68,14 +69,14 @@ awsRedshiftClusterResizeInfo_allowCancelResize = Lens.lens (\AwsRedshiftClusterR
 awsRedshiftClusterResizeInfo_resizeType :: Lens.Lens' AwsRedshiftClusterResizeInfo (Prelude.Maybe Prelude.Text)
 awsRedshiftClusterResizeInfo_resizeType = Lens.lens (\AwsRedshiftClusterResizeInfo' {resizeType} -> resizeType) (\s@AwsRedshiftClusterResizeInfo' {} a -> s {resizeType = a} :: AwsRedshiftClusterResizeInfo)
 
-instance Core.FromJSON AwsRedshiftClusterResizeInfo where
+instance Data.FromJSON AwsRedshiftClusterResizeInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsRedshiftClusterResizeInfo"
       ( \x ->
           AwsRedshiftClusterResizeInfo'
-            Prelude.<$> (x Core..:? "AllowCancelResize")
-            Prelude.<*> (x Core..:? "ResizeType")
+            Prelude.<$> (x Data..:? "AllowCancelResize")
+            Prelude.<*> (x Data..:? "ResizeType")
       )
 
 instance
@@ -91,12 +92,12 @@ instance Prelude.NFData AwsRedshiftClusterResizeInfo where
     Prelude.rnf allowCancelResize
       `Prelude.seq` Prelude.rnf resizeType
 
-instance Core.ToJSON AwsRedshiftClusterResizeInfo where
+instance Data.ToJSON AwsRedshiftClusterResizeInfo where
   toJSON AwsRedshiftClusterResizeInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AllowCancelResize" Core..=)
+          [ ("AllowCancelResize" Data..=)
               Prelude.<$> allowCancelResize,
-            ("ResizeType" Core..=) Prelude.<$> resizeType
+            ("ResizeType" Data..=) Prelude.<$> resizeType
           ]
       )

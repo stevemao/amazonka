@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.Plugin
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KafkaConnect.Types.Plugin where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types.CustomPlugin
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A plugin is an AWS resource that contains the code that defines your
@@ -61,9 +62,9 @@ instance Prelude.Hashable Plugin where
 instance Prelude.NFData Plugin where
   rnf Plugin' {..} = Prelude.rnf customPlugin
 
-instance Core.ToJSON Plugin where
+instance Data.ToJSON Plugin where
   toJSON Plugin' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("customPlugin" Core..= customPlugin)]
+          [Prelude.Just ("customPlugin" Data..= customPlugin)]
       )

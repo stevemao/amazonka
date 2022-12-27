@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.ListTypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.AppSync.ListTypes
     newListTypes,
 
     -- * Request Lenses
-    listTypes_nextToken,
     listTypes_maxResults,
+    listTypes_nextToken,
     listTypes_apiId,
     listTypes_format,
 
@@ -39,27 +39,28 @@ module Amazonka.AppSync.ListTypes
     newListTypesResponse,
 
     -- * Response Lenses
-    listTypesResponse_types,
     listTypesResponse_nextToken,
+    listTypesResponse_types,
     listTypesResponse_httpStatus,
   )
 where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTypes' smart constructor.
 data ListTypes = ListTypes'
-  { -- | An identifier that was returned from the previous call to this
-    -- operation, which can be used to return the next set of items in the
+  { -- | The maximum number of results that you want the request to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | An identifier that was returned from the previous call to this
+    -- operation, which you can use to return the next set of items in the
     -- list.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results you want the request to return.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The API ID.
     apiId :: Prelude.Text,
     -- | The type format: SDL or JSON.
@@ -75,11 +76,11 @@ data ListTypes = ListTypes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listTypes_nextToken' - An identifier that was returned from the previous call to this
--- operation, which can be used to return the next set of items in the
--- list.
+-- 'maxResults', 'listTypes_maxResults' - The maximum number of results that you want the request to return.
 --
--- 'maxResults', 'listTypes_maxResults' - The maximum number of results you want the request to return.
+-- 'nextToken', 'listTypes_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which you can use to return the next set of items in the
+-- list.
 --
 -- 'apiId', 'listTypes_apiId' - The API ID.
 --
@@ -92,21 +93,21 @@ newListTypes ::
   ListTypes
 newListTypes pApiId_ pFormat_ =
   ListTypes'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       apiId = pApiId_,
       format = pFormat_
     }
 
+-- | The maximum number of results that you want the request to return.
+listTypes_maxResults :: Lens.Lens' ListTypes (Prelude.Maybe Prelude.Natural)
+listTypes_maxResults = Lens.lens (\ListTypes' {maxResults} -> maxResults) (\s@ListTypes' {} a -> s {maxResults = a} :: ListTypes)
+
 -- | An identifier that was returned from the previous call to this
--- operation, which can be used to return the next set of items in the
+-- operation, which you can use to return the next set of items in the
 -- list.
 listTypes_nextToken :: Lens.Lens' ListTypes (Prelude.Maybe Prelude.Text)
 listTypes_nextToken = Lens.lens (\ListTypes' {nextToken} -> nextToken) (\s@ListTypes' {} a -> s {nextToken = a} :: ListTypes)
-
--- | The maximum number of results you want the request to return.
-listTypes_maxResults :: Lens.Lens' ListTypes (Prelude.Maybe Prelude.Natural)
-listTypes_maxResults = Lens.lens (\ListTypes' {maxResults} -> maxResults) (\s@ListTypes' {} a -> s {maxResults = a} :: ListTypes)
 
 -- | The API ID.
 listTypes_apiId :: Lens.Lens' ListTypes Prelude.Text
@@ -137,61 +138,62 @@ instance Core.AWSPager ListTypes where
 
 instance Core.AWSRequest ListTypes where
   type AWSResponse ListTypes = ListTypesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTypesResponse'
-            Prelude.<$> (x Core..?> "types" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "types" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTypes where
   hashWithSalt _salt ListTypes' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` apiId
       `Prelude.hashWithSalt` format
 
 instance Prelude.NFData ListTypes where
   rnf ListTypes' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf apiId
       `Prelude.seq` Prelude.rnf format
 
-instance Core.ToHeaders ListTypes where
+instance Data.ToHeaders ListTypes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListTypes where
+instance Data.ToPath ListTypes where
   toPath ListTypes' {..} =
     Prelude.mconcat
-      ["/v1/apis/", Core.toBS apiId, "/types"]
+      ["/v1/apis/", Data.toBS apiId, "/types"]
 
-instance Core.ToQuery ListTypes where
+instance Data.ToQuery ListTypes where
   toQuery ListTypes' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults,
-        "format" Core.=: format
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "format" Data.=: format
       ]
 
 -- | /See:/ 'newListTypesResponse' smart constructor.
 data ListTypesResponse = ListTypesResponse'
-  { -- | The @Type@ objects.
-    types :: Prelude.Maybe [Type],
-    -- | An identifier to be passed in the next request to this operation to
-    -- return the next set of items in the list.
+  { -- | An identifier to pass in the next request to this operation to return
+    -- the next set of items in the list.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The @Type@ objects.
+    types :: Prelude.Maybe [Type],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -205,10 +207,10 @@ data ListTypesResponse = ListTypesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'types', 'listTypesResponse_types' - The @Type@ objects.
+-- 'nextToken', 'listTypesResponse_nextToken' - An identifier to pass in the next request to this operation to return
+-- the next set of items in the list.
 --
--- 'nextToken', 'listTypesResponse_nextToken' - An identifier to be passed in the next request to this operation to
--- return the next set of items in the list.
+-- 'types', 'listTypesResponse_types' - The @Type@ objects.
 --
 -- 'httpStatus', 'listTypesResponse_httpStatus' - The response's http status code.
 newListTypesResponse ::
@@ -217,19 +219,19 @@ newListTypesResponse ::
   ListTypesResponse
 newListTypesResponse pHttpStatus_ =
   ListTypesResponse'
-    { types = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      types = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | An identifier to pass in the next request to this operation to return
+-- the next set of items in the list.
+listTypesResponse_nextToken :: Lens.Lens' ListTypesResponse (Prelude.Maybe Prelude.Text)
+listTypesResponse_nextToken = Lens.lens (\ListTypesResponse' {nextToken} -> nextToken) (\s@ListTypesResponse' {} a -> s {nextToken = a} :: ListTypesResponse)
 
 -- | The @Type@ objects.
 listTypesResponse_types :: Lens.Lens' ListTypesResponse (Prelude.Maybe [Type])
 listTypesResponse_types = Lens.lens (\ListTypesResponse' {types} -> types) (\s@ListTypesResponse' {} a -> s {types = a} :: ListTypesResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | An identifier to be passed in the next request to this operation to
--- return the next set of items in the list.
-listTypesResponse_nextToken :: Lens.Lens' ListTypesResponse (Prelude.Maybe Prelude.Text)
-listTypesResponse_nextToken = Lens.lens (\ListTypesResponse' {nextToken} -> nextToken) (\s@ListTypesResponse' {} a -> s {nextToken = a} :: ListTypesResponse)
 
 -- | The response's http status code.
 listTypesResponse_httpStatus :: Lens.Lens' ListTypesResponse Prelude.Int
@@ -237,6 +239,6 @@ listTypesResponse_httpStatus = Lens.lens (\ListTypesResponse' {httpStatus} -> ht
 
 instance Prelude.NFData ListTypesResponse where
   rnf ListTypesResponse' {..} =
-    Prelude.rnf types
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf types
       `Prelude.seq` Prelude.rnf httpStatus

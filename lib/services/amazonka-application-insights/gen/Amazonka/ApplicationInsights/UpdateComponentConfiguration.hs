@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationInsights.UpdateComponentConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,6 +30,7 @@ module Amazonka.ApplicationInsights.UpdateComponentConfiguration
     newUpdateComponentConfiguration,
 
     -- * Request Lenses
+    updateComponentConfiguration_autoConfigEnabled,
     updateComponentConfiguration_componentConfiguration,
     updateComponentConfiguration_monitor,
     updateComponentConfiguration_tier,
@@ -47,14 +48,18 @@ where
 
 import Amazonka.ApplicationInsights.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateComponentConfiguration' smart constructor.
 data UpdateComponentConfiguration = UpdateComponentConfiguration'
-  { -- | The configuration settings of the component. The value is the escaped
+  { -- | Automatically configures the component by applying the recommended
+    -- configurations.
+    autoConfigEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The configuration settings of the component. The value is the escaped
     -- JSON of the configuration. For more information about the JSON format,
     -- see
     -- <https://docs.aws.amazon.com/sdk-for-javascript/v2/developer-guide/working-with-json.html Working with JSON>.
@@ -65,9 +70,7 @@ data UpdateComponentConfiguration = UpdateComponentConfiguration'
     componentConfiguration :: Prelude.Maybe Prelude.Text,
     -- | Indicates whether the application component is monitored.
     monitor :: Prelude.Maybe Prelude.Bool,
-    -- | The tier of the application component. Supported tiers include
-    -- @DOT_NET_WORKER@, @DOT_NET_WEB@, @DOT_NET_CORE@, @SQL_SERVER@, and
-    -- @DEFAULT@.
+    -- | The tier of the application component.
     tier :: Prelude.Maybe Tier,
     -- | The name of the resource group.
     resourceGroupName :: Prelude.Text,
@@ -84,6 +87,9 @@ data UpdateComponentConfiguration = UpdateComponentConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'autoConfigEnabled', 'updateComponentConfiguration_autoConfigEnabled' - Automatically configures the component by applying the recommended
+-- configurations.
+--
 -- 'componentConfiguration', 'updateComponentConfiguration_componentConfiguration' - The configuration settings of the component. The value is the escaped
 -- JSON of the configuration. For more information about the JSON format,
 -- see
@@ -95,9 +101,7 @@ data UpdateComponentConfiguration = UpdateComponentConfiguration'
 --
 -- 'monitor', 'updateComponentConfiguration_monitor' - Indicates whether the application component is monitored.
 --
--- 'tier', 'updateComponentConfiguration_tier' - The tier of the application component. Supported tiers include
--- @DOT_NET_WORKER@, @DOT_NET_WEB@, @DOT_NET_CORE@, @SQL_SERVER@, and
--- @DEFAULT@.
+-- 'tier', 'updateComponentConfiguration_tier' - The tier of the application component.
 --
 -- 'resourceGroupName', 'updateComponentConfiguration_resourceGroupName' - The name of the resource group.
 --
@@ -112,13 +116,19 @@ newUpdateComponentConfiguration
   pResourceGroupName_
   pComponentName_ =
     UpdateComponentConfiguration'
-      { componentConfiguration =
+      { autoConfigEnabled =
           Prelude.Nothing,
+        componentConfiguration = Prelude.Nothing,
         monitor = Prelude.Nothing,
         tier = Prelude.Nothing,
         resourceGroupName = pResourceGroupName_,
         componentName = pComponentName_
       }
+
+-- | Automatically configures the component by applying the recommended
+-- configurations.
+updateComponentConfiguration_autoConfigEnabled :: Lens.Lens' UpdateComponentConfiguration (Prelude.Maybe Prelude.Bool)
+updateComponentConfiguration_autoConfigEnabled = Lens.lens (\UpdateComponentConfiguration' {autoConfigEnabled} -> autoConfigEnabled) (\s@UpdateComponentConfiguration' {} a -> s {autoConfigEnabled = a} :: UpdateComponentConfiguration)
 
 -- | The configuration settings of the component. The value is the escaped
 -- JSON of the configuration. For more information about the JSON format,
@@ -135,9 +145,7 @@ updateComponentConfiguration_componentConfiguration = Lens.lens (\UpdateComponen
 updateComponentConfiguration_monitor :: Lens.Lens' UpdateComponentConfiguration (Prelude.Maybe Prelude.Bool)
 updateComponentConfiguration_monitor = Lens.lens (\UpdateComponentConfiguration' {monitor} -> monitor) (\s@UpdateComponentConfiguration' {} a -> s {monitor = a} :: UpdateComponentConfiguration)
 
--- | The tier of the application component. Supported tiers include
--- @DOT_NET_WORKER@, @DOT_NET_WEB@, @DOT_NET_CORE@, @SQL_SERVER@, and
--- @DEFAULT@.
+-- | The tier of the application component.
 updateComponentConfiguration_tier :: Lens.Lens' UpdateComponentConfiguration (Prelude.Maybe Tier)
 updateComponentConfiguration_tier = Lens.lens (\UpdateComponentConfiguration' {tier} -> tier) (\s@UpdateComponentConfiguration' {} a -> s {tier = a} :: UpdateComponentConfiguration)
 
@@ -153,7 +161,8 @@ instance Core.AWSRequest UpdateComponentConfiguration where
   type
     AWSResponse UpdateComponentConfiguration =
       UpdateComponentConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -166,7 +175,8 @@ instance
     UpdateComponentConfiguration
   where
   hashWithSalt _salt UpdateComponentConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` componentConfiguration
+    _salt `Prelude.hashWithSalt` autoConfigEnabled
+      `Prelude.hashWithSalt` componentConfiguration
       `Prelude.hashWithSalt` monitor
       `Prelude.hashWithSalt` tier
       `Prelude.hashWithSalt` resourceGroupName
@@ -174,46 +184,49 @@ instance
 
 instance Prelude.NFData UpdateComponentConfiguration where
   rnf UpdateComponentConfiguration' {..} =
-    Prelude.rnf componentConfiguration
+    Prelude.rnf autoConfigEnabled
+      `Prelude.seq` Prelude.rnf componentConfiguration
       `Prelude.seq` Prelude.rnf monitor
       `Prelude.seq` Prelude.rnf tier
       `Prelude.seq` Prelude.rnf resourceGroupName
       `Prelude.seq` Prelude.rnf componentName
 
-instance Core.ToHeaders UpdateComponentConfiguration where
+instance Data.ToHeaders UpdateComponentConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "EC2WindowsBarleyService.UpdateComponentConfiguration" ::
+              Data.=# ( "EC2WindowsBarleyService.UpdateComponentConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateComponentConfiguration where
+instance Data.ToJSON UpdateComponentConfiguration where
   toJSON UpdateComponentConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ComponentConfiguration" Core..=)
+          [ ("AutoConfigEnabled" Data..=)
+              Prelude.<$> autoConfigEnabled,
+            ("ComponentConfiguration" Data..=)
               Prelude.<$> componentConfiguration,
-            ("Monitor" Core..=) Prelude.<$> monitor,
-            ("Tier" Core..=) Prelude.<$> tier,
+            ("Monitor" Data..=) Prelude.<$> monitor,
+            ("Tier" Data..=) Prelude.<$> tier,
             Prelude.Just
-              ("ResourceGroupName" Core..= resourceGroupName),
+              ("ResourceGroupName" Data..= resourceGroupName),
             Prelude.Just
-              ("ComponentName" Core..= componentName)
+              ("ComponentName" Data..= componentName)
           ]
       )
 
-instance Core.ToPath UpdateComponentConfiguration where
+instance Data.ToPath UpdateComponentConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateComponentConfiguration where
+instance Data.ToQuery UpdateComponentConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateComponentConfigurationResponse' smart constructor.

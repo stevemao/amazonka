@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.ListRelatedItems
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.SSMIncidents.ListRelatedItems
     newListRelatedItems,
 
     -- * Request Lenses
-    listRelatedItems_nextToken,
     listRelatedItems_maxResults,
+    listRelatedItems_nextToken,
     listRelatedItems_incidentRecordArn,
 
     -- * Destructuring the Response
@@ -45,7 +45,8 @@ module Amazonka.SSMIncidents.ListRelatedItems
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,12 +54,12 @@ import Amazonka.SSMIncidents.Types
 
 -- | /See:/ 'newListRelatedItems' smart constructor.
 data ListRelatedItems = ListRelatedItems'
-  { -- | The pagination token to continue to the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of related items per page.
+  { -- | The maximum number of related items per page.
     maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The Amazon Resource Name (ARN) of the incident record that you are
-    -- listing related items for.
+    -- | The pagination token to continue to the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the incident record containing the
+    -- listed related items.
     incidentRecordArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -71,33 +72,33 @@ data ListRelatedItems = ListRelatedItems'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listRelatedItems_nextToken' - The pagination token to continue to the next page of results.
---
 -- 'maxResults', 'listRelatedItems_maxResults' - The maximum number of related items per page.
 --
--- 'incidentRecordArn', 'listRelatedItems_incidentRecordArn' - The Amazon Resource Name (ARN) of the incident record that you are
--- listing related items for.
+-- 'nextToken', 'listRelatedItems_nextToken' - The pagination token to continue to the next page of results.
+--
+-- 'incidentRecordArn', 'listRelatedItems_incidentRecordArn' - The Amazon Resource Name (ARN) of the incident record containing the
+-- listed related items.
 newListRelatedItems ::
   -- | 'incidentRecordArn'
   Prelude.Text ->
   ListRelatedItems
 newListRelatedItems pIncidentRecordArn_ =
   ListRelatedItems'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       incidentRecordArn = pIncidentRecordArn_
     }
-
--- | The pagination token to continue to the next page of results.
-listRelatedItems_nextToken :: Lens.Lens' ListRelatedItems (Prelude.Maybe Prelude.Text)
-listRelatedItems_nextToken = Lens.lens (\ListRelatedItems' {nextToken} -> nextToken) (\s@ListRelatedItems' {} a -> s {nextToken = a} :: ListRelatedItems)
 
 -- | The maximum number of related items per page.
 listRelatedItems_maxResults :: Lens.Lens' ListRelatedItems (Prelude.Maybe Prelude.Natural)
 listRelatedItems_maxResults = Lens.lens (\ListRelatedItems' {maxResults} -> maxResults) (\s@ListRelatedItems' {} a -> s {maxResults = a} :: ListRelatedItems)
 
--- | The Amazon Resource Name (ARN) of the incident record that you are
--- listing related items for.
+-- | The pagination token to continue to the next page of results.
+listRelatedItems_nextToken :: Lens.Lens' ListRelatedItems (Prelude.Maybe Prelude.Text)
+listRelatedItems_nextToken = Lens.lens (\ListRelatedItems' {nextToken} -> nextToken) (\s@ListRelatedItems' {} a -> s {nextToken = a} :: ListRelatedItems)
+
+-- | The Amazon Resource Name (ARN) of the incident record containing the
+-- listed related items.
 listRelatedItems_incidentRecordArn :: Lens.Lens' ListRelatedItems Prelude.Text
 listRelatedItems_incidentRecordArn = Lens.lens (\ListRelatedItems' {incidentRecordArn} -> incidentRecordArn) (\s@ListRelatedItems' {} a -> s {incidentRecordArn = a} :: ListRelatedItems)
 
@@ -124,54 +125,55 @@ instance Core.AWSRequest ListRelatedItems where
   type
     AWSResponse ListRelatedItems =
       ListRelatedItemsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRelatedItemsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "relatedItems" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "relatedItems" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListRelatedItems where
   hashWithSalt _salt ListRelatedItems' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` incidentRecordArn
 
 instance Prelude.NFData ListRelatedItems where
   rnf ListRelatedItems' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf incidentRecordArn
 
-instance Core.ToHeaders ListRelatedItems where
+instance Data.ToHeaders ListRelatedItems where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListRelatedItems where
+instance Data.ToJSON ListRelatedItems where
   toJSON ListRelatedItems' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("incidentRecordArn" Core..= incidentRecordArn)
+              ("incidentRecordArn" Data..= incidentRecordArn)
           ]
       )
 
-instance Core.ToPath ListRelatedItems where
+instance Data.ToPath ListRelatedItems where
   toPath = Prelude.const "/listRelatedItems"
 
-instance Core.ToQuery ListRelatedItems where
+instance Data.ToQuery ListRelatedItems where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListRelatedItemsResponse' smart constructor.

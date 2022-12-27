@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DAX.Types.SecurityGroupMembership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.DAX.Types.SecurityGroupMembership where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An individual VPC security group and its status.
 --
 -- /See:/ 'newSecurityGroupMembership' smart constructor.
 data SecurityGroupMembership = SecurityGroupMembership'
-  { -- | The status of this security group.
-    status :: Prelude.Maybe Prelude.Text,
-    -- | The unique ID for this security group.
-    securityGroupIdentifier :: Prelude.Maybe Prelude.Text
+  { -- | The unique ID for this security group.
+    securityGroupIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The status of this security group.
+    status :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,41 +43,43 @@ data SecurityGroupMembership = SecurityGroupMembership'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'securityGroupMembership_status' - The status of this security group.
---
 -- 'securityGroupIdentifier', 'securityGroupMembership_securityGroupIdentifier' - The unique ID for this security group.
+--
+-- 'status', 'securityGroupMembership_status' - The status of this security group.
 newSecurityGroupMembership ::
   SecurityGroupMembership
 newSecurityGroupMembership =
   SecurityGroupMembership'
-    { status = Prelude.Nothing,
-      securityGroupIdentifier = Prelude.Nothing
+    { securityGroupIdentifier =
+        Prelude.Nothing,
+      status = Prelude.Nothing
     }
-
--- | The status of this security group.
-securityGroupMembership_status :: Lens.Lens' SecurityGroupMembership (Prelude.Maybe Prelude.Text)
-securityGroupMembership_status = Lens.lens (\SecurityGroupMembership' {status} -> status) (\s@SecurityGroupMembership' {} a -> s {status = a} :: SecurityGroupMembership)
 
 -- | The unique ID for this security group.
 securityGroupMembership_securityGroupIdentifier :: Lens.Lens' SecurityGroupMembership (Prelude.Maybe Prelude.Text)
 securityGroupMembership_securityGroupIdentifier = Lens.lens (\SecurityGroupMembership' {securityGroupIdentifier} -> securityGroupIdentifier) (\s@SecurityGroupMembership' {} a -> s {securityGroupIdentifier = a} :: SecurityGroupMembership)
 
-instance Core.FromJSON SecurityGroupMembership where
+-- | The status of this security group.
+securityGroupMembership_status :: Lens.Lens' SecurityGroupMembership (Prelude.Maybe Prelude.Text)
+securityGroupMembership_status = Lens.lens (\SecurityGroupMembership' {status} -> status) (\s@SecurityGroupMembership' {} a -> s {status = a} :: SecurityGroupMembership)
+
+instance Data.FromJSON SecurityGroupMembership where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SecurityGroupMembership"
       ( \x ->
           SecurityGroupMembership'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "SecurityGroupIdentifier")
+            Prelude.<$> (x Data..:? "SecurityGroupIdentifier")
+            Prelude.<*> (x Data..:? "Status")
       )
 
 instance Prelude.Hashable SecurityGroupMembership where
   hashWithSalt _salt SecurityGroupMembership' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt
       `Prelude.hashWithSalt` securityGroupIdentifier
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData SecurityGroupMembership where
   rnf SecurityGroupMembership' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf securityGroupIdentifier
+    Prelude.rnf securityGroupIdentifier
+      `Prelude.seq` Prelude.rnf status

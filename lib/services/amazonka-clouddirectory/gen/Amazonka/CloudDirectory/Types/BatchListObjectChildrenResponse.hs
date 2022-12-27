@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchListObjectChildrenResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudDirectory.Types.BatchListObjectChildrenResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output of a ListObjectChildren response operation.
@@ -66,16 +67,16 @@ batchListObjectChildrenResponse_nextToken :: Lens.Lens' BatchListObjectChildrenR
 batchListObjectChildrenResponse_nextToken = Lens.lens (\BatchListObjectChildrenResponse' {nextToken} -> nextToken) (\s@BatchListObjectChildrenResponse' {} a -> s {nextToken = a} :: BatchListObjectChildrenResponse)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     BatchListObjectChildrenResponse
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchListObjectChildrenResponse"
       ( \x ->
           BatchListObjectChildrenResponse'
-            Prelude.<$> (x Core..:? "Children" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "NextToken")
+            Prelude.<$> (x Data..:? "Children" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "NextToken")
       )
 
 instance

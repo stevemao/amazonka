@@ -14,14 +14,28 @@
 
 -- |
 -- Module      : Amazonka.SecretsManager.StopReplicationToReplica
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes the secret from replication and promotes the secret to a
--- regional secret in the replica Region.
+-- Removes the link between the replica secret and the primary secret and
+-- promotes the replica to a primary secret in the replica Region.
+--
+-- You must call this operation from the Region in which you want to
+-- promote the replica to a primary secret.
+--
+-- Secrets Manager generates a CloudTrail log entry when you call this
+-- action. Do not include sensitive information in request parameters
+-- because it might be logged. For more information, see
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html Logging Secrets Manager events with CloudTrail>.
+--
+-- __Required permissions:__ @secretsmanager:StopReplicationToReplica@. For
+-- more information, see
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions IAM policy actions for Secrets Manager>
+-- and
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html Authentication and access control in Secrets Manager>.
 module Amazonka.SecretsManager.StopReplicationToReplica
   ( -- * Creating a Request
     StopReplicationToReplica (..),
@@ -41,7 +55,8 @@ module Amazonka.SecretsManager.StopReplicationToReplica
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,8 +64,7 @@ import Amazonka.SecretsManager.Types
 
 -- | /See:/ 'newStopReplicationToReplica' smart constructor.
 data StopReplicationToReplica = StopReplicationToReplica'
-  { -- | Response to @StopReplicationToReplica@ of a secret, based on the
-    -- @SecretId@.
+  { -- | The ARN of the primary secret.
     secretId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -63,8 +77,7 @@ data StopReplicationToReplica = StopReplicationToReplica'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'secretId', 'stopReplicationToReplica_secretId' - Response to @StopReplicationToReplica@ of a secret, based on the
--- @SecretId@.
+-- 'secretId', 'stopReplicationToReplica_secretId' - The ARN of the primary secret.
 newStopReplicationToReplica ::
   -- | 'secretId'
   Prelude.Text ->
@@ -72,8 +85,7 @@ newStopReplicationToReplica ::
 newStopReplicationToReplica pSecretId_ =
   StopReplicationToReplica' {secretId = pSecretId_}
 
--- | Response to @StopReplicationToReplica@ of a secret, based on the
--- @SecretId@.
+-- | The ARN of the primary secret.
 stopReplicationToReplica_secretId :: Lens.Lens' StopReplicationToReplica Prelude.Text
 stopReplicationToReplica_secretId = Lens.lens (\StopReplicationToReplica' {secretId} -> secretId) (\s@StopReplicationToReplica' {} a -> s {secretId = a} :: StopReplicationToReplica)
 
@@ -81,12 +93,13 @@ instance Core.AWSRequest StopReplicationToReplica where
   type
     AWSResponse StopReplicationToReplica =
       StopReplicationToReplicaResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StopReplicationToReplicaResponse'
-            Prelude.<$> (x Core..?> "ARN")
+            Prelude.<$> (x Data..?> "ARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,37 +111,38 @@ instance Prelude.NFData StopReplicationToReplica where
   rnf StopReplicationToReplica' {..} =
     Prelude.rnf secretId
 
-instance Core.ToHeaders StopReplicationToReplica where
+instance Data.ToHeaders StopReplicationToReplica where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "secretsmanager.StopReplicationToReplica" ::
+              Data.=# ( "secretsmanager.StopReplicationToReplica" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopReplicationToReplica where
+instance Data.ToJSON StopReplicationToReplica where
   toJSON StopReplicationToReplica' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("SecretId" Core..= secretId)]
+          [Prelude.Just ("SecretId" Data..= secretId)]
       )
 
-instance Core.ToPath StopReplicationToReplica where
+instance Data.ToPath StopReplicationToReplica where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopReplicationToReplica where
+instance Data.ToQuery StopReplicationToReplica where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopReplicationToReplicaResponse' smart constructor.
 data StopReplicationToReplicaResponse = StopReplicationToReplicaResponse'
-  { -- | Response @StopReplicationToReplica@ of a secret, based on the @ARN,@.
+  { -- | The ARN of the promoted secret. The ARN is the same as the original
+    -- primary secret except the Region is changed.
     arn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -143,7 +157,8 @@ data StopReplicationToReplicaResponse = StopReplicationToReplicaResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'arn', 'stopReplicationToReplicaResponse_arn' - Response @StopReplicationToReplica@ of a secret, based on the @ARN,@.
+-- 'arn', 'stopReplicationToReplicaResponse_arn' - The ARN of the promoted secret. The ARN is the same as the original
+-- primary secret except the Region is changed.
 --
 -- 'httpStatus', 'stopReplicationToReplicaResponse_httpStatus' - The response's http status code.
 newStopReplicationToReplicaResponse ::
@@ -157,7 +172,8 @@ newStopReplicationToReplicaResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Response @StopReplicationToReplica@ of a secret, based on the @ARN,@.
+-- | The ARN of the promoted secret. The ARN is the same as the original
+-- primary secret except the Region is changed.
 stopReplicationToReplicaResponse_arn :: Lens.Lens' StopReplicationToReplicaResponse (Prelude.Maybe Prelude.Text)
 stopReplicationToReplicaResponse_arn = Lens.lens (\StopReplicationToReplicaResponse' {arn} -> arn) (\s@StopReplicationToReplicaResponse' {} a -> s {arn = a} :: StopReplicationToReplicaResponse)
 

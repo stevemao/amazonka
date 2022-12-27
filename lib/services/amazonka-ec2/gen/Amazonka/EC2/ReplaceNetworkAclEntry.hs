@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ReplaceNetworkAclEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,11 +29,11 @@ module Amazonka.EC2.ReplaceNetworkAclEntry
     newReplaceNetworkAclEntry,
 
     -- * Request Lenses
-    replaceNetworkAclEntry_ipv6CidrBlock,
-    replaceNetworkAclEntry_icmpTypeCode,
-    replaceNetworkAclEntry_portRange,
     replaceNetworkAclEntry_cidrBlock,
     replaceNetworkAclEntry_dryRun,
+    replaceNetworkAclEntry_icmpTypeCode,
+    replaceNetworkAclEntry_ipv6CidrBlock,
+    replaceNetworkAclEntry_portRange,
     replaceNetworkAclEntry_egress,
     replaceNetworkAclEntry_networkAclId,
     replaceNetworkAclEntry_protocol,
@@ -47,24 +47,16 @@ module Amazonka.EC2.ReplaceNetworkAclEntry
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newReplaceNetworkAclEntry' smart constructor.
 data ReplaceNetworkAclEntry = ReplaceNetworkAclEntry'
-  { -- | The IPv6 network range to allow or deny, in CIDR notation (for example
-    -- @2001:bd8:1234:1a00::\/64@).
-    ipv6CidrBlock :: Prelude.Maybe Prelude.Text,
-    -- | ICMP protocol: The ICMP or ICMPv6 type and code. Required if specifying
-    -- protocol 1 (ICMP) or protocol 58 (ICMPv6) with an IPv6 CIDR block.
-    icmpTypeCode :: Prelude.Maybe IcmpTypeCode,
-    -- | TCP or UDP protocols: The range of ports the rule applies to. Required
-    -- if specifying protocol 6 (TCP) or 17 (UDP).
-    portRange :: Prelude.Maybe PortRange,
-    -- | The IPv4 network range to allow or deny, in CIDR notation (for example
+  { -- | The IPv4 network range to allow or deny, in CIDR notation (for example
     -- @172.16.0.0\/24@).
     cidrBlock :: Prelude.Maybe Prelude.Text,
     -- | Checks whether you have the required permissions for the action, without
@@ -72,6 +64,15 @@ data ReplaceNetworkAclEntry = ReplaceNetworkAclEntry'
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | ICMP protocol: The ICMP or ICMPv6 type and code. Required if specifying
+    -- protocol 1 (ICMP) or protocol 58 (ICMPv6) with an IPv6 CIDR block.
+    icmpTypeCode :: Prelude.Maybe IcmpTypeCode,
+    -- | The IPv6 network range to allow or deny, in CIDR notation (for example
+    -- @2001:bd8:1234:1a00::\/64@).
+    ipv6CidrBlock :: Prelude.Maybe Prelude.Text,
+    -- | TCP or UDP protocols: The range of ports the rule applies to. Required
+    -- if specifying protocol 6 (TCP) or 17 (UDP).
+    portRange :: Prelude.Maybe PortRange,
     -- | Indicates whether to replace the egress rule.
     --
     -- Default: If no value is specified, we replace the ingress rule.
@@ -102,15 +103,6 @@ data ReplaceNetworkAclEntry = ReplaceNetworkAclEntry'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ipv6CidrBlock', 'replaceNetworkAclEntry_ipv6CidrBlock' - The IPv6 network range to allow or deny, in CIDR notation (for example
--- @2001:bd8:1234:1a00::\/64@).
---
--- 'icmpTypeCode', 'replaceNetworkAclEntry_icmpTypeCode' - ICMP protocol: The ICMP or ICMPv6 type and code. Required if specifying
--- protocol 1 (ICMP) or protocol 58 (ICMPv6) with an IPv6 CIDR block.
---
--- 'portRange', 'replaceNetworkAclEntry_portRange' - TCP or UDP protocols: The range of ports the rule applies to. Required
--- if specifying protocol 6 (TCP) or 17 (UDP).
---
 -- 'cidrBlock', 'replaceNetworkAclEntry_cidrBlock' - The IPv4 network range to allow or deny, in CIDR notation (for example
 -- @172.16.0.0\/24@).
 --
@@ -118,6 +110,15 @@ data ReplaceNetworkAclEntry = ReplaceNetworkAclEntry'
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'icmpTypeCode', 'replaceNetworkAclEntry_icmpTypeCode' - ICMP protocol: The ICMP or ICMPv6 type and code. Required if specifying
+-- protocol 1 (ICMP) or protocol 58 (ICMPv6) with an IPv6 CIDR block.
+--
+-- 'ipv6CidrBlock', 'replaceNetworkAclEntry_ipv6CidrBlock' - The IPv6 network range to allow or deny, in CIDR notation (for example
+-- @2001:bd8:1234:1a00::\/64@).
+--
+-- 'portRange', 'replaceNetworkAclEntry_portRange' - TCP or UDP protocols: The range of ports the rule applies to. Required
+-- if specifying protocol 6 (TCP) or 17 (UDP).
 --
 -- 'egress', 'replaceNetworkAclEntry_egress' - Indicates whether to replace the egress rule.
 --
@@ -156,33 +157,18 @@ newReplaceNetworkAclEntry
   pRuleAction_
   pRuleNumber_ =
     ReplaceNetworkAclEntry'
-      { ipv6CidrBlock =
+      { cidrBlock =
           Prelude.Nothing,
-        icmpTypeCode = Prelude.Nothing,
-        portRange = Prelude.Nothing,
-        cidrBlock = Prelude.Nothing,
         dryRun = Prelude.Nothing,
+        icmpTypeCode = Prelude.Nothing,
+        ipv6CidrBlock = Prelude.Nothing,
+        portRange = Prelude.Nothing,
         egress = pEgress_,
         networkAclId = pNetworkAclId_,
         protocol = pProtocol_,
         ruleAction = pRuleAction_,
         ruleNumber = pRuleNumber_
       }
-
--- | The IPv6 network range to allow or deny, in CIDR notation (for example
--- @2001:bd8:1234:1a00::\/64@).
-replaceNetworkAclEntry_ipv6CidrBlock :: Lens.Lens' ReplaceNetworkAclEntry (Prelude.Maybe Prelude.Text)
-replaceNetworkAclEntry_ipv6CidrBlock = Lens.lens (\ReplaceNetworkAclEntry' {ipv6CidrBlock} -> ipv6CidrBlock) (\s@ReplaceNetworkAclEntry' {} a -> s {ipv6CidrBlock = a} :: ReplaceNetworkAclEntry)
-
--- | ICMP protocol: The ICMP or ICMPv6 type and code. Required if specifying
--- protocol 1 (ICMP) or protocol 58 (ICMPv6) with an IPv6 CIDR block.
-replaceNetworkAclEntry_icmpTypeCode :: Lens.Lens' ReplaceNetworkAclEntry (Prelude.Maybe IcmpTypeCode)
-replaceNetworkAclEntry_icmpTypeCode = Lens.lens (\ReplaceNetworkAclEntry' {icmpTypeCode} -> icmpTypeCode) (\s@ReplaceNetworkAclEntry' {} a -> s {icmpTypeCode = a} :: ReplaceNetworkAclEntry)
-
--- | TCP or UDP protocols: The range of ports the rule applies to. Required
--- if specifying protocol 6 (TCP) or 17 (UDP).
-replaceNetworkAclEntry_portRange :: Lens.Lens' ReplaceNetworkAclEntry (Prelude.Maybe PortRange)
-replaceNetworkAclEntry_portRange = Lens.lens (\ReplaceNetworkAclEntry' {portRange} -> portRange) (\s@ReplaceNetworkAclEntry' {} a -> s {portRange = a} :: ReplaceNetworkAclEntry)
 
 -- | The IPv4 network range to allow or deny, in CIDR notation (for example
 -- @172.16.0.0\/24@).
@@ -195,6 +181,21 @@ replaceNetworkAclEntry_cidrBlock = Lens.lens (\ReplaceNetworkAclEntry' {cidrBloc
 -- Otherwise, it is @UnauthorizedOperation@.
 replaceNetworkAclEntry_dryRun :: Lens.Lens' ReplaceNetworkAclEntry (Prelude.Maybe Prelude.Bool)
 replaceNetworkAclEntry_dryRun = Lens.lens (\ReplaceNetworkAclEntry' {dryRun} -> dryRun) (\s@ReplaceNetworkAclEntry' {} a -> s {dryRun = a} :: ReplaceNetworkAclEntry)
+
+-- | ICMP protocol: The ICMP or ICMPv6 type and code. Required if specifying
+-- protocol 1 (ICMP) or protocol 58 (ICMPv6) with an IPv6 CIDR block.
+replaceNetworkAclEntry_icmpTypeCode :: Lens.Lens' ReplaceNetworkAclEntry (Prelude.Maybe IcmpTypeCode)
+replaceNetworkAclEntry_icmpTypeCode = Lens.lens (\ReplaceNetworkAclEntry' {icmpTypeCode} -> icmpTypeCode) (\s@ReplaceNetworkAclEntry' {} a -> s {icmpTypeCode = a} :: ReplaceNetworkAclEntry)
+
+-- | The IPv6 network range to allow or deny, in CIDR notation (for example
+-- @2001:bd8:1234:1a00::\/64@).
+replaceNetworkAclEntry_ipv6CidrBlock :: Lens.Lens' ReplaceNetworkAclEntry (Prelude.Maybe Prelude.Text)
+replaceNetworkAclEntry_ipv6CidrBlock = Lens.lens (\ReplaceNetworkAclEntry' {ipv6CidrBlock} -> ipv6CidrBlock) (\s@ReplaceNetworkAclEntry' {} a -> s {ipv6CidrBlock = a} :: ReplaceNetworkAclEntry)
+
+-- | TCP or UDP protocols: The range of ports the rule applies to. Required
+-- if specifying protocol 6 (TCP) or 17 (UDP).
+replaceNetworkAclEntry_portRange :: Lens.Lens' ReplaceNetworkAclEntry (Prelude.Maybe PortRange)
+replaceNetworkAclEntry_portRange = Lens.lens (\ReplaceNetworkAclEntry' {portRange} -> portRange) (\s@ReplaceNetworkAclEntry' {} a -> s {portRange = a} :: ReplaceNetworkAclEntry)
 
 -- | Indicates whether to replace the egress rule.
 --
@@ -229,18 +230,19 @@ instance Core.AWSRequest ReplaceNetworkAclEntry where
   type
     AWSResponse ReplaceNetworkAclEntry =
       ReplaceNetworkAclEntryResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       ReplaceNetworkAclEntryResponse'
 
 instance Prelude.Hashable ReplaceNetworkAclEntry where
   hashWithSalt _salt ReplaceNetworkAclEntry' {..} =
-    _salt `Prelude.hashWithSalt` ipv6CidrBlock
-      `Prelude.hashWithSalt` icmpTypeCode
-      `Prelude.hashWithSalt` portRange
-      `Prelude.hashWithSalt` cidrBlock
+    _salt `Prelude.hashWithSalt` cidrBlock
       `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` icmpTypeCode
+      `Prelude.hashWithSalt` ipv6CidrBlock
+      `Prelude.hashWithSalt` portRange
       `Prelude.hashWithSalt` egress
       `Prelude.hashWithSalt` networkAclId
       `Prelude.hashWithSalt` protocol
@@ -249,40 +251,40 @@ instance Prelude.Hashable ReplaceNetworkAclEntry where
 
 instance Prelude.NFData ReplaceNetworkAclEntry where
   rnf ReplaceNetworkAclEntry' {..} =
-    Prelude.rnf ipv6CidrBlock
-      `Prelude.seq` Prelude.rnf icmpTypeCode
-      `Prelude.seq` Prelude.rnf portRange
-      `Prelude.seq` Prelude.rnf cidrBlock
+    Prelude.rnf cidrBlock
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf icmpTypeCode
+      `Prelude.seq` Prelude.rnf ipv6CidrBlock
+      `Prelude.seq` Prelude.rnf portRange
       `Prelude.seq` Prelude.rnf egress
       `Prelude.seq` Prelude.rnf networkAclId
       `Prelude.seq` Prelude.rnf protocol
       `Prelude.seq` Prelude.rnf ruleAction
       `Prelude.seq` Prelude.rnf ruleNumber
 
-instance Core.ToHeaders ReplaceNetworkAclEntry where
+instance Data.ToHeaders ReplaceNetworkAclEntry where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ReplaceNetworkAclEntry where
+instance Data.ToPath ReplaceNetworkAclEntry where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ReplaceNetworkAclEntry where
+instance Data.ToQuery ReplaceNetworkAclEntry where
   toQuery ReplaceNetworkAclEntry' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ReplaceNetworkAclEntry" :: Prelude.ByteString),
+          Data.=: ("ReplaceNetworkAclEntry" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "Ipv6CidrBlock" Core.=: ipv6CidrBlock,
-        "Icmp" Core.=: icmpTypeCode,
-        "PortRange" Core.=: portRange,
-        "CidrBlock" Core.=: cidrBlock,
-        "DryRun" Core.=: dryRun,
-        "Egress" Core.=: egress,
-        "NetworkAclId" Core.=: networkAclId,
-        "Protocol" Core.=: protocol,
-        "RuleAction" Core.=: ruleAction,
-        "RuleNumber" Core.=: ruleNumber
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "CidrBlock" Data.=: cidrBlock,
+        "DryRun" Data.=: dryRun,
+        "Icmp" Data.=: icmpTypeCode,
+        "Ipv6CidrBlock" Data.=: ipv6CidrBlock,
+        "PortRange" Data.=: portRange,
+        "Egress" Data.=: egress,
+        "NetworkAclId" Data.=: networkAclId,
+        "Protocol" Data.=: protocol,
+        "RuleAction" Data.=: ruleAction,
+        "RuleNumber" Data.=: ruleNumber
       ]
 
 -- | /See:/ 'newReplaceNetworkAclEntryResponse' smart constructor.

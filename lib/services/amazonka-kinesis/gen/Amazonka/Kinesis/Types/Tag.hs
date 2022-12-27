@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.Types.Tag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Kinesis.Types.Tag where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Metadata assigned to the stream, consisting of a key-value pair.
@@ -69,13 +70,13 @@ tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} ::
 tag_key :: Lens.Lens' Tag Prelude.Text
 tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 
-instance Core.FromJSON Tag where
+instance Data.FromJSON Tag where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Tag"
       ( \x ->
           Tag'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..: "Key")
+            Prelude.<$> (x Data..:? "Value") Prelude.<*> (x Data..: "Key")
       )
 
 instance Prelude.Hashable Tag where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.LastActiveDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.LastActiveDefinition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | When there are multiple versions of a blueprint and the latest version
@@ -29,18 +30,18 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newLastActiveDefinition' smart constructor.
 data LastActiveDefinition = LastActiveDefinition'
-  { -- | A JSON string specifying the parameters for the blueprint.
-    parameterSpec :: Prelude.Maybe Prelude.Text,
-    -- | Specifies a path in Amazon S3 where the blueprint is published by the
+  { -- | Specifies a path in Amazon S3 where the blueprint is published by the
     -- Glue developer.
     blueprintLocation :: Prelude.Maybe Prelude.Text,
-    -- | The date and time the blueprint was last modified.
-    lastModifiedOn :: Prelude.Maybe Core.POSIX,
     -- | Specifies a path in Amazon S3 where the blueprint is copied when you
     -- create or update the blueprint.
     blueprintServiceLocation :: Prelude.Maybe Prelude.Text,
     -- | The description of the blueprint.
-    description :: Prelude.Maybe Prelude.Text
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The date and time the blueprint was last modified.
+    lastModifiedOn :: Prelude.Maybe Data.POSIX,
+    -- | A JSON string specifying the parameters for the blueprint.
+    parameterSpec :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,41 +53,33 @@ data LastActiveDefinition = LastActiveDefinition'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'parameterSpec', 'lastActiveDefinition_parameterSpec' - A JSON string specifying the parameters for the blueprint.
---
 -- 'blueprintLocation', 'lastActiveDefinition_blueprintLocation' - Specifies a path in Amazon S3 where the blueprint is published by the
 -- Glue developer.
---
--- 'lastModifiedOn', 'lastActiveDefinition_lastModifiedOn' - The date and time the blueprint was last modified.
 --
 -- 'blueprintServiceLocation', 'lastActiveDefinition_blueprintServiceLocation' - Specifies a path in Amazon S3 where the blueprint is copied when you
 -- create or update the blueprint.
 --
 -- 'description', 'lastActiveDefinition_description' - The description of the blueprint.
+--
+-- 'lastModifiedOn', 'lastActiveDefinition_lastModifiedOn' - The date and time the blueprint was last modified.
+--
+-- 'parameterSpec', 'lastActiveDefinition_parameterSpec' - A JSON string specifying the parameters for the blueprint.
 newLastActiveDefinition ::
   LastActiveDefinition
 newLastActiveDefinition =
   LastActiveDefinition'
-    { parameterSpec =
+    { blueprintLocation =
         Prelude.Nothing,
-      blueprintLocation = Prelude.Nothing,
-      lastModifiedOn = Prelude.Nothing,
       blueprintServiceLocation = Prelude.Nothing,
-      description = Prelude.Nothing
+      description = Prelude.Nothing,
+      lastModifiedOn = Prelude.Nothing,
+      parameterSpec = Prelude.Nothing
     }
-
--- | A JSON string specifying the parameters for the blueprint.
-lastActiveDefinition_parameterSpec :: Lens.Lens' LastActiveDefinition (Prelude.Maybe Prelude.Text)
-lastActiveDefinition_parameterSpec = Lens.lens (\LastActiveDefinition' {parameterSpec} -> parameterSpec) (\s@LastActiveDefinition' {} a -> s {parameterSpec = a} :: LastActiveDefinition)
 
 -- | Specifies a path in Amazon S3 where the blueprint is published by the
 -- Glue developer.
 lastActiveDefinition_blueprintLocation :: Lens.Lens' LastActiveDefinition (Prelude.Maybe Prelude.Text)
 lastActiveDefinition_blueprintLocation = Lens.lens (\LastActiveDefinition' {blueprintLocation} -> blueprintLocation) (\s@LastActiveDefinition' {} a -> s {blueprintLocation = a} :: LastActiveDefinition)
-
--- | The date and time the blueprint was last modified.
-lastActiveDefinition_lastModifiedOn :: Lens.Lens' LastActiveDefinition (Prelude.Maybe Prelude.UTCTime)
-lastActiveDefinition_lastModifiedOn = Lens.lens (\LastActiveDefinition' {lastModifiedOn} -> lastModifiedOn) (\s@LastActiveDefinition' {} a -> s {lastModifiedOn = a} :: LastActiveDefinition) Prelude.. Lens.mapping Core._Time
 
 -- | Specifies a path in Amazon S3 where the blueprint is copied when you
 -- create or update the blueprint.
@@ -97,31 +90,39 @@ lastActiveDefinition_blueprintServiceLocation = Lens.lens (\LastActiveDefinition
 lastActiveDefinition_description :: Lens.Lens' LastActiveDefinition (Prelude.Maybe Prelude.Text)
 lastActiveDefinition_description = Lens.lens (\LastActiveDefinition' {description} -> description) (\s@LastActiveDefinition' {} a -> s {description = a} :: LastActiveDefinition)
 
-instance Core.FromJSON LastActiveDefinition where
+-- | The date and time the blueprint was last modified.
+lastActiveDefinition_lastModifiedOn :: Lens.Lens' LastActiveDefinition (Prelude.Maybe Prelude.UTCTime)
+lastActiveDefinition_lastModifiedOn = Lens.lens (\LastActiveDefinition' {lastModifiedOn} -> lastModifiedOn) (\s@LastActiveDefinition' {} a -> s {lastModifiedOn = a} :: LastActiveDefinition) Prelude.. Lens.mapping Data._Time
+
+-- | A JSON string specifying the parameters for the blueprint.
+lastActiveDefinition_parameterSpec :: Lens.Lens' LastActiveDefinition (Prelude.Maybe Prelude.Text)
+lastActiveDefinition_parameterSpec = Lens.lens (\LastActiveDefinition' {parameterSpec} -> parameterSpec) (\s@LastActiveDefinition' {} a -> s {parameterSpec = a} :: LastActiveDefinition)
+
+instance Data.FromJSON LastActiveDefinition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LastActiveDefinition"
       ( \x ->
           LastActiveDefinition'
-            Prelude.<$> (x Core..:? "ParameterSpec")
-            Prelude.<*> (x Core..:? "BlueprintLocation")
-            Prelude.<*> (x Core..:? "LastModifiedOn")
-            Prelude.<*> (x Core..:? "BlueprintServiceLocation")
-            Prelude.<*> (x Core..:? "Description")
+            Prelude.<$> (x Data..:? "BlueprintLocation")
+            Prelude.<*> (x Data..:? "BlueprintServiceLocation")
+            Prelude.<*> (x Data..:? "Description")
+            Prelude.<*> (x Data..:? "LastModifiedOn")
+            Prelude.<*> (x Data..:? "ParameterSpec")
       )
 
 instance Prelude.Hashable LastActiveDefinition where
   hashWithSalt _salt LastActiveDefinition' {..} =
-    _salt `Prelude.hashWithSalt` parameterSpec
-      `Prelude.hashWithSalt` blueprintLocation
-      `Prelude.hashWithSalt` lastModifiedOn
+    _salt `Prelude.hashWithSalt` blueprintLocation
       `Prelude.hashWithSalt` blueprintServiceLocation
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` lastModifiedOn
+      `Prelude.hashWithSalt` parameterSpec
 
 instance Prelude.NFData LastActiveDefinition where
   rnf LastActiveDefinition' {..} =
-    Prelude.rnf parameterSpec
-      `Prelude.seq` Prelude.rnf blueprintLocation
-      `Prelude.seq` Prelude.rnf lastModifiedOn
+    Prelude.rnf blueprintLocation
       `Prelude.seq` Prelude.rnf blueprintServiceLocation
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf lastModifiedOn
+      `Prelude.seq` Prelude.rnf parameterSpec

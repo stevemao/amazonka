@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.ListTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,15 +23,19 @@
 -- Returns a list of key-value pairs assigned to a target recovery point,
 -- backup plan, or backup vault.
 --
--- @ListTags@ are currently only supported with Amazon EFS backups.
+-- @ListTags@ only works for resource types that support full Backup
+-- management of their backups. Those resource types are listed in the
+-- \"Full Backup management\" section of the
+-- <https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource Feature availability by resource>
+-- table.
 module Amazonka.Backup.ListTags
   ( -- * Creating a Request
     ListTags (..),
     newListTags,
 
     -- * Request Lenses
-    listTags_nextToken,
     listTags_maxResults,
+    listTags_nextToken,
     listTags_resourceArn,
 
     -- * Destructuring the Response
@@ -47,20 +51,21 @@ where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTags' smart constructor.
 data ListTags = ListTags'
-  { -- | The next item following a partial list of returned items. For example,
+  { -- | The maximum number of items to be returned.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The next item following a partial list of returned items. For example,
     -- if a request is made to return @maxResults@ number of items, @NextToken@
     -- allows you to return more items in your list starting at the location
     -- pointed to by the next token.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to be returned.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | An Amazon Resource Name (ARN) that uniquely identifies a resource. The
     -- format of the ARN depends on the type of resource. Valid targets for
     -- @ListTags@ are recovery points, backup plans, and backup vaults.
@@ -76,12 +81,12 @@ data ListTags = ListTags'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listTags_maxResults' - The maximum number of items to be returned.
+--
 -- 'nextToken', 'listTags_nextToken' - The next item following a partial list of returned items. For example,
 -- if a request is made to return @maxResults@ number of items, @NextToken@
 -- allows you to return more items in your list starting at the location
 -- pointed to by the next token.
---
--- 'maxResults', 'listTags_maxResults' - The maximum number of items to be returned.
 --
 -- 'resourceArn', 'listTags_resourceArn' - An Amazon Resource Name (ARN) that uniquely identifies a resource. The
 -- format of the ARN depends on the type of resource. Valid targets for
@@ -92,10 +97,14 @@ newListTags ::
   ListTags
 newListTags pResourceArn_ =
   ListTags'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       resourceArn = pResourceArn_
     }
+
+-- | The maximum number of items to be returned.
+listTags_maxResults :: Lens.Lens' ListTags (Prelude.Maybe Prelude.Natural)
+listTags_maxResults = Lens.lens (\ListTags' {maxResults} -> maxResults) (\s@ListTags' {} a -> s {maxResults = a} :: ListTags)
 
 -- | The next item following a partial list of returned items. For example,
 -- if a request is made to return @maxResults@ number of items, @NextToken@
@@ -103,10 +112,6 @@ newListTags pResourceArn_ =
 -- pointed to by the next token.
 listTags_nextToken :: Lens.Lens' ListTags (Prelude.Maybe Prelude.Text)
 listTags_nextToken = Lens.lens (\ListTags' {nextToken} -> nextToken) (\s@ListTags' {} a -> s {nextToken = a} :: ListTags)
-
--- | The maximum number of items to be returned.
-listTags_maxResults :: Lens.Lens' ListTags (Prelude.Maybe Prelude.Natural)
-listTags_maxResults = Lens.lens (\ListTags' {maxResults} -> maxResults) (\s@ListTags' {} a -> s {maxResults = a} :: ListTags)
 
 -- | An Amazon Resource Name (ARN) that uniquely identifies a resource. The
 -- format of the ARN depends on the type of resource. Valid targets for
@@ -116,49 +121,50 @@ listTags_resourceArn = Lens.lens (\ListTags' {resourceArn} -> resourceArn) (\s@L
 
 instance Core.AWSRequest ListTags where
   type AWSResponse ListTags = ListTagsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTags where
   hashWithSalt _salt ListTags' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` resourceArn
 
 instance Prelude.NFData ListTags where
   rnf ListTags' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders ListTags where
+instance Data.ToHeaders ListTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListTags where
+instance Data.ToPath ListTags where
   toPath ListTags' {..} =
     Prelude.mconcat
-      ["/tags/", Core.toBS resourceArn, "/"]
+      ["/tags/", Data.toBS resourceArn, "/"]
 
-instance Core.ToQuery ListTags where
+instance Data.ToQuery ListTags where
   toQuery ListTags' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListTagsResponse' smart constructor.
@@ -170,7 +176,7 @@ data ListTagsResponse = ListTagsResponse'
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | To help organize your resources, you can assign your own metadata to the
     -- resources you create. Each tag is a key-value pair.
-    tags :: Prelude.Maybe (Core.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text)),
+    tags :: Prelude.Maybe (Data.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text)),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -214,7 +220,7 @@ listTagsResponse_nextToken = Lens.lens (\ListTagsResponse' {nextToken} -> nextTo
 -- | To help organize your resources, you can assign your own metadata to the
 -- resources you create. Each tag is a key-value pair.
 listTagsResponse_tags :: Lens.Lens' ListTagsResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-listTagsResponse_tags = Lens.lens (\ListTagsResponse' {tags} -> tags) (\s@ListTagsResponse' {} a -> s {tags = a} :: ListTagsResponse) Prelude.. Lens.mapping (Core._Sensitive Prelude.. Lens.coerced)
+listTagsResponse_tags = Lens.lens (\ListTagsResponse' {tags} -> tags) (\s@ListTagsResponse' {} a -> s {tags = a} :: ListTagsResponse) Prelude.. Lens.mapping (Data._Sensitive Prelude.. Lens.coerced)
 
 -- | The response's http status code.
 listTagsResponse_httpStatus :: Lens.Lens' ListTagsResponse Prelude.Int

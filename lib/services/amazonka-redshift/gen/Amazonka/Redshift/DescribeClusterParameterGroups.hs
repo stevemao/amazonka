@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DescribeClusterParameterGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,11 +47,11 @@ module Amazonka.Redshift.DescribeClusterParameterGroups
     newDescribeClusterParameterGroups,
 
     -- * Request Lenses
-    describeClusterParameterGroups_tagValues,
-    describeClusterParameterGroups_tagKeys,
     describeClusterParameterGroups_marker,
     describeClusterParameterGroups_maxRecords,
     describeClusterParameterGroups_parameterGroupName,
+    describeClusterParameterGroups_tagKeys,
+    describeClusterParameterGroups_tagValues,
 
     -- * Destructuring the Response
     DescribeClusterParameterGroupsResponse (..),
@@ -65,7 +65,8 @@ module Amazonka.Redshift.DescribeClusterParameterGroups
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -75,23 +76,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeClusterParameterGroups' smart constructor.
 data DescribeClusterParameterGroups = DescribeClusterParameterGroups'
-  { -- | A tag value or values for which you want to return all matching cluster
-    -- parameter groups that are associated with the specified tag value or
-    -- values. For example, suppose that you have parameter groups that are
-    -- tagged with values called @admin@ and @test@. If you specify both of
-    -- these tag values in the request, Amazon Redshift returns a response with
-    -- the parameter groups that have either or both of these tag values
-    -- associated with them.
-    tagValues :: Prelude.Maybe [Prelude.Text],
-    -- | A tag key or keys for which you want to return all matching cluster
-    -- parameter groups that are associated with the specified key or keys. For
-    -- example, suppose that you have parameter groups that are tagged with
-    -- keys called @owner@ and @environment@. If you specify both of these tag
-    -- keys in the request, Amazon Redshift returns a response with the
-    -- parameter groups that have either or both of these tag keys associated
-    -- with them.
-    tagKeys :: Prelude.Maybe [Prelude.Text],
-    -- | An optional parameter that specifies the starting point to return a set
+  { -- | An optional parameter that specifies the starting point to return a set
     -- of response records. When the results of a
     -- DescribeClusterParameterGroups request exceed the value specified in
     -- @MaxRecords@, Amazon Web Services returns a value in the @Marker@ field
@@ -112,7 +97,23 @@ data DescribeClusterParameterGroups = DescribeClusterParameterGroups'
     -- | The name of a specific parameter group for which to return details. By
     -- default, details about all parameter groups and the default parameter
     -- group are returned.
-    parameterGroupName :: Prelude.Maybe Prelude.Text
+    parameterGroupName :: Prelude.Maybe Prelude.Text,
+    -- | A tag key or keys for which you want to return all matching cluster
+    -- parameter groups that are associated with the specified key or keys. For
+    -- example, suppose that you have parameter groups that are tagged with
+    -- keys called @owner@ and @environment@. If you specify both of these tag
+    -- keys in the request, Amazon Redshift returns a response with the
+    -- parameter groups that have either or both of these tag keys associated
+    -- with them.
+    tagKeys :: Prelude.Maybe [Prelude.Text],
+    -- | A tag value or values for which you want to return all matching cluster
+    -- parameter groups that are associated with the specified tag value or
+    -- values. For example, suppose that you have parameter groups that are
+    -- tagged with values called @admin@ and @test@. If you specify both of
+    -- these tag values in the request, Amazon Redshift returns a response with
+    -- the parameter groups that have either or both of these tag values
+    -- associated with them.
+    tagValues :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -123,22 +124,6 @@ data DescribeClusterParameterGroups = DescribeClusterParameterGroups'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'tagValues', 'describeClusterParameterGroups_tagValues' - A tag value or values for which you want to return all matching cluster
--- parameter groups that are associated with the specified tag value or
--- values. For example, suppose that you have parameter groups that are
--- tagged with values called @admin@ and @test@. If you specify both of
--- these tag values in the request, Amazon Redshift returns a response with
--- the parameter groups that have either or both of these tag values
--- associated with them.
---
--- 'tagKeys', 'describeClusterParameterGroups_tagKeys' - A tag key or keys for which you want to return all matching cluster
--- parameter groups that are associated with the specified key or keys. For
--- example, suppose that you have parameter groups that are tagged with
--- keys called @owner@ and @environment@. If you specify both of these tag
--- keys in the request, Amazon Redshift returns a response with the
--- parameter groups that have either or both of these tag keys associated
--- with them.
 --
 -- 'marker', 'describeClusterParameterGroups_marker' - An optional parameter that specifies the starting point to return a set
 -- of response records. When the results of a
@@ -161,37 +146,33 @@ data DescribeClusterParameterGroups = DescribeClusterParameterGroups'
 -- 'parameterGroupName', 'describeClusterParameterGroups_parameterGroupName' - The name of a specific parameter group for which to return details. By
 -- default, details about all parameter groups and the default parameter
 -- group are returned.
-newDescribeClusterParameterGroups ::
-  DescribeClusterParameterGroups
-newDescribeClusterParameterGroups =
-  DescribeClusterParameterGroups'
-    { tagValues =
-        Prelude.Nothing,
-      tagKeys = Prelude.Nothing,
-      marker = Prelude.Nothing,
-      maxRecords = Prelude.Nothing,
-      parameterGroupName = Prelude.Nothing
-    }
-
--- | A tag value or values for which you want to return all matching cluster
--- parameter groups that are associated with the specified tag value or
--- values. For example, suppose that you have parameter groups that are
--- tagged with values called @admin@ and @test@. If you specify both of
--- these tag values in the request, Amazon Redshift returns a response with
--- the parameter groups that have either or both of these tag values
--- associated with them.
-describeClusterParameterGroups_tagValues :: Lens.Lens' DescribeClusterParameterGroups (Prelude.Maybe [Prelude.Text])
-describeClusterParameterGroups_tagValues = Lens.lens (\DescribeClusterParameterGroups' {tagValues} -> tagValues) (\s@DescribeClusterParameterGroups' {} a -> s {tagValues = a} :: DescribeClusterParameterGroups) Prelude.. Lens.mapping Lens.coerced
-
--- | A tag key or keys for which you want to return all matching cluster
+--
+-- 'tagKeys', 'describeClusterParameterGroups_tagKeys' - A tag key or keys for which you want to return all matching cluster
 -- parameter groups that are associated with the specified key or keys. For
 -- example, suppose that you have parameter groups that are tagged with
 -- keys called @owner@ and @environment@. If you specify both of these tag
 -- keys in the request, Amazon Redshift returns a response with the
 -- parameter groups that have either or both of these tag keys associated
 -- with them.
-describeClusterParameterGroups_tagKeys :: Lens.Lens' DescribeClusterParameterGroups (Prelude.Maybe [Prelude.Text])
-describeClusterParameterGroups_tagKeys = Lens.lens (\DescribeClusterParameterGroups' {tagKeys} -> tagKeys) (\s@DescribeClusterParameterGroups' {} a -> s {tagKeys = a} :: DescribeClusterParameterGroups) Prelude.. Lens.mapping Lens.coerced
+--
+-- 'tagValues', 'describeClusterParameterGroups_tagValues' - A tag value or values for which you want to return all matching cluster
+-- parameter groups that are associated with the specified tag value or
+-- values. For example, suppose that you have parameter groups that are
+-- tagged with values called @admin@ and @test@. If you specify both of
+-- these tag values in the request, Amazon Redshift returns a response with
+-- the parameter groups that have either or both of these tag values
+-- associated with them.
+newDescribeClusterParameterGroups ::
+  DescribeClusterParameterGroups
+newDescribeClusterParameterGroups =
+  DescribeClusterParameterGroups'
+    { marker =
+        Prelude.Nothing,
+      maxRecords = Prelude.Nothing,
+      parameterGroupName = Prelude.Nothing,
+      tagKeys = Prelude.Nothing,
+      tagValues = Prelude.Nothing
+    }
 
 -- | An optional parameter that specifies the starting point to return a set
 -- of response records. When the results of a
@@ -220,6 +201,26 @@ describeClusterParameterGroups_maxRecords = Lens.lens (\DescribeClusterParameter
 -- group are returned.
 describeClusterParameterGroups_parameterGroupName :: Lens.Lens' DescribeClusterParameterGroups (Prelude.Maybe Prelude.Text)
 describeClusterParameterGroups_parameterGroupName = Lens.lens (\DescribeClusterParameterGroups' {parameterGroupName} -> parameterGroupName) (\s@DescribeClusterParameterGroups' {} a -> s {parameterGroupName = a} :: DescribeClusterParameterGroups)
+
+-- | A tag key or keys for which you want to return all matching cluster
+-- parameter groups that are associated with the specified key or keys. For
+-- example, suppose that you have parameter groups that are tagged with
+-- keys called @owner@ and @environment@. If you specify both of these tag
+-- keys in the request, Amazon Redshift returns a response with the
+-- parameter groups that have either or both of these tag keys associated
+-- with them.
+describeClusterParameterGroups_tagKeys :: Lens.Lens' DescribeClusterParameterGroups (Prelude.Maybe [Prelude.Text])
+describeClusterParameterGroups_tagKeys = Lens.lens (\DescribeClusterParameterGroups' {tagKeys} -> tagKeys) (\s@DescribeClusterParameterGroups' {} a -> s {tagKeys = a} :: DescribeClusterParameterGroups) Prelude.. Lens.mapping Lens.coerced
+
+-- | A tag value or values for which you want to return all matching cluster
+-- parameter groups that are associated with the specified tag value or
+-- values. For example, suppose that you have parameter groups that are
+-- tagged with values called @admin@ and @test@. If you specify both of
+-- these tag values in the request, Amazon Redshift returns a response with
+-- the parameter groups that have either or both of these tag values
+-- associated with them.
+describeClusterParameterGroups_tagValues :: Lens.Lens' DescribeClusterParameterGroups (Prelude.Maybe [Prelude.Text])
+describeClusterParameterGroups_tagValues = Lens.lens (\DescribeClusterParameterGroups' {tagValues} -> tagValues) (\s@DescribeClusterParameterGroups' {} a -> s {tagValues = a} :: DescribeClusterParameterGroups) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSPager DescribeClusterParameterGroups where
   page rq rs
@@ -250,15 +251,16 @@ instance
   type
     AWSResponse DescribeClusterParameterGroups =
       DescribeClusterParameterGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeClusterParameterGroupsResult"
       ( \s h x ->
           DescribeClusterParameterGroupsResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> ( x Core..@? "ParameterGroups" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "ClusterParameterGroup")
+            Prelude.<$> (x Data..@? "Marker")
+            Prelude.<*> ( x Data..@? "ParameterGroups" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "ClusterParameterGroup")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -270,50 +272,50 @@ instance
   hashWithSalt
     _salt
     DescribeClusterParameterGroups' {..} =
-      _salt `Prelude.hashWithSalt` tagValues
-        `Prelude.hashWithSalt` tagKeys
-        `Prelude.hashWithSalt` marker
+      _salt `Prelude.hashWithSalt` marker
         `Prelude.hashWithSalt` maxRecords
         `Prelude.hashWithSalt` parameterGroupName
+        `Prelude.hashWithSalt` tagKeys
+        `Prelude.hashWithSalt` tagValues
 
 instance
   Prelude.NFData
     DescribeClusterParameterGroups
   where
   rnf DescribeClusterParameterGroups' {..} =
-    Prelude.rnf tagValues
-      `Prelude.seq` Prelude.rnf tagKeys
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
       `Prelude.seq` Prelude.rnf parameterGroupName
+      `Prelude.seq` Prelude.rnf tagKeys
+      `Prelude.seq` Prelude.rnf tagValues
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeClusterParameterGroups
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeClusterParameterGroups where
+instance Data.ToPath DescribeClusterParameterGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeClusterParameterGroups where
+instance Data.ToQuery DescribeClusterParameterGroups where
   toQuery DescribeClusterParameterGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeClusterParameterGroups" ::
+          Data.=: ( "DescribeClusterParameterGroups" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "TagValues"
-          Core.=: Core.toQuery
-            (Core.toQueryList "TagValue" Prelude.<$> tagValues),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "ParameterGroupName" Data.=: parameterGroupName,
         "TagKeys"
-          Core.=: Core.toQuery
-            (Core.toQueryList "TagKey" Prelude.<$> tagKeys),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "ParameterGroupName" Core.=: parameterGroupName
+          Data.=: Data.toQuery
+            (Data.toQueryList "TagKey" Prelude.<$> tagKeys),
+        "TagValues"
+          Data.=: Data.toQuery
+            (Data.toQueryList "TagValue" Prelude.<$> tagValues)
       ]
 
 -- | Contains the output from the DescribeClusterParameterGroups action.

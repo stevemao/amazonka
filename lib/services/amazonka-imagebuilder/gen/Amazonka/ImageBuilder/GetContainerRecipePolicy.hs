@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.GetContainerRecipePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,15 +34,16 @@ module Amazonka.ImageBuilder.GetContainerRecipePolicy
     newGetContainerRecipePolicyResponse,
 
     -- * Response Lenses
-    getContainerRecipePolicyResponse_requestId,
     getContainerRecipePolicyResponse_policy,
+    getContainerRecipePolicyResponse_requestId,
     getContainerRecipePolicyResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,13 +85,14 @@ instance Core.AWSRequest GetContainerRecipePolicy where
   type
     AWSResponse GetContainerRecipePolicy =
       GetContainerRecipePolicyResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetContainerRecipePolicyResponse'
-            Prelude.<$> (x Core..?> "requestId")
-            Prelude.<*> (x Core..?> "policy")
+            Prelude.<$> (x Data..?> "policy")
+            Prelude.<*> (x Data..?> "requestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -102,31 +104,31 @@ instance Prelude.NFData GetContainerRecipePolicy where
   rnf GetContainerRecipePolicy' {..} =
     Prelude.rnf containerRecipeArn
 
-instance Core.ToHeaders GetContainerRecipePolicy where
+instance Data.ToHeaders GetContainerRecipePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetContainerRecipePolicy where
+instance Data.ToPath GetContainerRecipePolicy where
   toPath = Prelude.const "/GetContainerRecipePolicy"
 
-instance Core.ToQuery GetContainerRecipePolicy where
+instance Data.ToQuery GetContainerRecipePolicy where
   toQuery GetContainerRecipePolicy' {..} =
     Prelude.mconcat
-      ["containerRecipeArn" Core.=: containerRecipeArn]
+      ["containerRecipeArn" Data.=: containerRecipeArn]
 
 -- | /See:/ 'newGetContainerRecipePolicyResponse' smart constructor.
 data GetContainerRecipePolicyResponse = GetContainerRecipePolicyResponse'
-  { -- | The request ID that uniquely identifies this request.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The container recipe policy object that is returned.
+  { -- | The container recipe policy object that is returned.
     policy :: Prelude.Maybe Prelude.Text,
+    -- | The request ID that uniquely identifies this request.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -140,9 +142,9 @@ data GetContainerRecipePolicyResponse = GetContainerRecipePolicyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'getContainerRecipePolicyResponse_requestId' - The request ID that uniquely identifies this request.
---
 -- 'policy', 'getContainerRecipePolicyResponse_policy' - The container recipe policy object that is returned.
+--
+-- 'requestId', 'getContainerRecipePolicyResponse_requestId' - The request ID that uniquely identifies this request.
 --
 -- 'httpStatus', 'getContainerRecipePolicyResponse_httpStatus' - The response's http status code.
 newGetContainerRecipePolicyResponse ::
@@ -151,19 +153,19 @@ newGetContainerRecipePolicyResponse ::
   GetContainerRecipePolicyResponse
 newGetContainerRecipePolicyResponse pHttpStatus_ =
   GetContainerRecipePolicyResponse'
-    { requestId =
+    { policy =
         Prelude.Nothing,
-      policy = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The request ID that uniquely identifies this request.
-getContainerRecipePolicyResponse_requestId :: Lens.Lens' GetContainerRecipePolicyResponse (Prelude.Maybe Prelude.Text)
-getContainerRecipePolicyResponse_requestId = Lens.lens (\GetContainerRecipePolicyResponse' {requestId} -> requestId) (\s@GetContainerRecipePolicyResponse' {} a -> s {requestId = a} :: GetContainerRecipePolicyResponse)
 
 -- | The container recipe policy object that is returned.
 getContainerRecipePolicyResponse_policy :: Lens.Lens' GetContainerRecipePolicyResponse (Prelude.Maybe Prelude.Text)
 getContainerRecipePolicyResponse_policy = Lens.lens (\GetContainerRecipePolicyResponse' {policy} -> policy) (\s@GetContainerRecipePolicyResponse' {} a -> s {policy = a} :: GetContainerRecipePolicyResponse)
+
+-- | The request ID that uniquely identifies this request.
+getContainerRecipePolicyResponse_requestId :: Lens.Lens' GetContainerRecipePolicyResponse (Prelude.Maybe Prelude.Text)
+getContainerRecipePolicyResponse_requestId = Lens.lens (\GetContainerRecipePolicyResponse' {requestId} -> requestId) (\s@GetContainerRecipePolicyResponse' {} a -> s {requestId = a} :: GetContainerRecipePolicyResponse)
 
 -- | The response's http status code.
 getContainerRecipePolicyResponse_httpStatus :: Lens.Lens' GetContainerRecipePolicyResponse Prelude.Int
@@ -174,6 +176,6 @@ instance
     GetContainerRecipePolicyResponse
   where
   rnf GetContainerRecipePolicyResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf policy
+    Prelude.rnf policy
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf httpStatus

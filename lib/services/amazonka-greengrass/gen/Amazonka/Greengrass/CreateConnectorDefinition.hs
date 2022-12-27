@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.CreateConnectorDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,20 +39,21 @@ module Amazonka.Greengrass.CreateConnectorDefinition
     newCreateConnectorDefinitionResponse,
 
     -- * Response Lenses
-    createConnectorDefinitionResponse_latestVersionArn,
     createConnectorDefinitionResponse_arn,
-    createConnectorDefinitionResponse_name,
     createConnectorDefinitionResponse_creationTimestamp,
     createConnectorDefinitionResponse_id,
-    createConnectorDefinitionResponse_latestVersion,
     createConnectorDefinitionResponse_lastUpdatedTimestamp,
+    createConnectorDefinitionResponse_latestVersion,
+    createConnectorDefinitionResponse_latestVersionArn,
+    createConnectorDefinitionResponse_name,
     createConnectorDefinitionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,18 +117,19 @@ instance Core.AWSRequest CreateConnectorDefinition where
   type
     AWSResponse CreateConnectorDefinition =
       CreateConnectorDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateConnectorDefinitionResponse'
-            Prelude.<$> (x Core..?> "LatestVersionArn")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "CreationTimestamp")
-            Prelude.<*> (x Core..?> "Id")
-            Prelude.<*> (x Core..?> "LatestVersion")
-            Prelude.<*> (x Core..?> "LastUpdatedTimestamp")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "CreationTimestamp")
+            Prelude.<*> (x Data..?> "Id")
+            Prelude.<*> (x Data..?> "LastUpdatedTimestamp")
+            Prelude.<*> (x Data..?> "LatestVersion")
+            Prelude.<*> (x Data..?> "LatestVersionArn")
+            Prelude.<*> (x Data..?> "Name")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -145,50 +147,50 @@ instance Prelude.NFData CreateConnectorDefinition where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders CreateConnectorDefinition where
+instance Data.ToHeaders CreateConnectorDefinition where
   toHeaders CreateConnectorDefinition' {..} =
     Prelude.mconcat
-      [ "X-Amzn-Client-Token" Core.=# amznClientToken,
+      [ "X-Amzn-Client-Token" Data.=# amznClientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON CreateConnectorDefinition where
+instance Data.ToJSON CreateConnectorDefinition where
   toJSON CreateConnectorDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("InitialVersion" Core..=)
+          [ ("InitialVersion" Data..=)
               Prelude.<$> initialVersion,
-            ("Name" Core..=) Prelude.<$> name,
-            ("tags" Core..=) Prelude.<$> tags
+            ("Name" Data..=) Prelude.<$> name,
+            ("tags" Data..=) Prelude.<$> tags
           ]
       )
 
-instance Core.ToPath CreateConnectorDefinition where
+instance Data.ToPath CreateConnectorDefinition where
   toPath =
     Prelude.const "/greengrass/definition/connectors"
 
-instance Core.ToQuery CreateConnectorDefinition where
+instance Data.ToQuery CreateConnectorDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateConnectorDefinitionResponse' smart constructor.
 data CreateConnectorDefinitionResponse = CreateConnectorDefinitionResponse'
-  { -- | The ARN of the latest version associated with the definition.
-    latestVersionArn :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the definition.
+  { -- | The ARN of the definition.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the definition.
-    name :: Prelude.Maybe Prelude.Text,
     -- | The time, in milliseconds since the epoch, when the definition was
     -- created.
     creationTimestamp :: Prelude.Maybe Prelude.Text,
     -- | The ID of the definition.
     id :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the latest version associated with the definition.
-    latestVersion :: Prelude.Maybe Prelude.Text,
     -- | The time, in milliseconds since the epoch, when the definition was last
     -- updated.
     lastUpdatedTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the latest version associated with the definition.
+    latestVersion :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the latest version associated with the definition.
+    latestVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the definition.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -202,21 +204,21 @@ data CreateConnectorDefinitionResponse = CreateConnectorDefinitionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'latestVersionArn', 'createConnectorDefinitionResponse_latestVersionArn' - The ARN of the latest version associated with the definition.
---
 -- 'arn', 'createConnectorDefinitionResponse_arn' - The ARN of the definition.
---
--- 'name', 'createConnectorDefinitionResponse_name' - The name of the definition.
 --
 -- 'creationTimestamp', 'createConnectorDefinitionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the definition was
 -- created.
 --
 -- 'id', 'createConnectorDefinitionResponse_id' - The ID of the definition.
 --
--- 'latestVersion', 'createConnectorDefinitionResponse_latestVersion' - The ID of the latest version associated with the definition.
---
 -- 'lastUpdatedTimestamp', 'createConnectorDefinitionResponse_lastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last
 -- updated.
+--
+-- 'latestVersion', 'createConnectorDefinitionResponse_latestVersion' - The ID of the latest version associated with the definition.
+--
+-- 'latestVersionArn', 'createConnectorDefinitionResponse_latestVersionArn' - The ARN of the latest version associated with the definition.
+--
+-- 'name', 'createConnectorDefinitionResponse_name' - The name of the definition.
 --
 -- 'httpStatus', 'createConnectorDefinitionResponse_httpStatus' - The response's http status code.
 newCreateConnectorDefinitionResponse ::
@@ -225,28 +227,20 @@ newCreateConnectorDefinitionResponse ::
   CreateConnectorDefinitionResponse
 newCreateConnectorDefinitionResponse pHttpStatus_ =
   CreateConnectorDefinitionResponse'
-    { latestVersionArn =
+    { arn =
         Prelude.Nothing,
-      arn = Prelude.Nothing,
-      name = Prelude.Nothing,
       creationTimestamp = Prelude.Nothing,
       id = Prelude.Nothing,
-      latestVersion = Prelude.Nothing,
       lastUpdatedTimestamp = Prelude.Nothing,
+      latestVersion = Prelude.Nothing,
+      latestVersionArn = Prelude.Nothing,
+      name = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The ARN of the latest version associated with the definition.
-createConnectorDefinitionResponse_latestVersionArn :: Lens.Lens' CreateConnectorDefinitionResponse (Prelude.Maybe Prelude.Text)
-createConnectorDefinitionResponse_latestVersionArn = Lens.lens (\CreateConnectorDefinitionResponse' {latestVersionArn} -> latestVersionArn) (\s@CreateConnectorDefinitionResponse' {} a -> s {latestVersionArn = a} :: CreateConnectorDefinitionResponse)
 
 -- | The ARN of the definition.
 createConnectorDefinitionResponse_arn :: Lens.Lens' CreateConnectorDefinitionResponse (Prelude.Maybe Prelude.Text)
 createConnectorDefinitionResponse_arn = Lens.lens (\CreateConnectorDefinitionResponse' {arn} -> arn) (\s@CreateConnectorDefinitionResponse' {} a -> s {arn = a} :: CreateConnectorDefinitionResponse)
-
--- | The name of the definition.
-createConnectorDefinitionResponse_name :: Lens.Lens' CreateConnectorDefinitionResponse (Prelude.Maybe Prelude.Text)
-createConnectorDefinitionResponse_name = Lens.lens (\CreateConnectorDefinitionResponse' {name} -> name) (\s@CreateConnectorDefinitionResponse' {} a -> s {name = a} :: CreateConnectorDefinitionResponse)
 
 -- | The time, in milliseconds since the epoch, when the definition was
 -- created.
@@ -257,14 +251,22 @@ createConnectorDefinitionResponse_creationTimestamp = Lens.lens (\CreateConnecto
 createConnectorDefinitionResponse_id :: Lens.Lens' CreateConnectorDefinitionResponse (Prelude.Maybe Prelude.Text)
 createConnectorDefinitionResponse_id = Lens.lens (\CreateConnectorDefinitionResponse' {id} -> id) (\s@CreateConnectorDefinitionResponse' {} a -> s {id = a} :: CreateConnectorDefinitionResponse)
 
--- | The ID of the latest version associated with the definition.
-createConnectorDefinitionResponse_latestVersion :: Lens.Lens' CreateConnectorDefinitionResponse (Prelude.Maybe Prelude.Text)
-createConnectorDefinitionResponse_latestVersion = Lens.lens (\CreateConnectorDefinitionResponse' {latestVersion} -> latestVersion) (\s@CreateConnectorDefinitionResponse' {} a -> s {latestVersion = a} :: CreateConnectorDefinitionResponse)
-
 -- | The time, in milliseconds since the epoch, when the definition was last
 -- updated.
 createConnectorDefinitionResponse_lastUpdatedTimestamp :: Lens.Lens' CreateConnectorDefinitionResponse (Prelude.Maybe Prelude.Text)
 createConnectorDefinitionResponse_lastUpdatedTimestamp = Lens.lens (\CreateConnectorDefinitionResponse' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@CreateConnectorDefinitionResponse' {} a -> s {lastUpdatedTimestamp = a} :: CreateConnectorDefinitionResponse)
+
+-- | The ID of the latest version associated with the definition.
+createConnectorDefinitionResponse_latestVersion :: Lens.Lens' CreateConnectorDefinitionResponse (Prelude.Maybe Prelude.Text)
+createConnectorDefinitionResponse_latestVersion = Lens.lens (\CreateConnectorDefinitionResponse' {latestVersion} -> latestVersion) (\s@CreateConnectorDefinitionResponse' {} a -> s {latestVersion = a} :: CreateConnectorDefinitionResponse)
+
+-- | The ARN of the latest version associated with the definition.
+createConnectorDefinitionResponse_latestVersionArn :: Lens.Lens' CreateConnectorDefinitionResponse (Prelude.Maybe Prelude.Text)
+createConnectorDefinitionResponse_latestVersionArn = Lens.lens (\CreateConnectorDefinitionResponse' {latestVersionArn} -> latestVersionArn) (\s@CreateConnectorDefinitionResponse' {} a -> s {latestVersionArn = a} :: CreateConnectorDefinitionResponse)
+
+-- | The name of the definition.
+createConnectorDefinitionResponse_name :: Lens.Lens' CreateConnectorDefinitionResponse (Prelude.Maybe Prelude.Text)
+createConnectorDefinitionResponse_name = Lens.lens (\CreateConnectorDefinitionResponse' {name} -> name) (\s@CreateConnectorDefinitionResponse' {} a -> s {name = a} :: CreateConnectorDefinitionResponse)
 
 -- | The response's http status code.
 createConnectorDefinitionResponse_httpStatus :: Lens.Lens' CreateConnectorDefinitionResponse Prelude.Int
@@ -275,11 +277,11 @@ instance
     CreateConnectorDefinitionResponse
   where
   rnf CreateConnectorDefinitionResponse' {..} =
-    Prelude.rnf latestVersionArn
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf creationTimestamp
       `Prelude.seq` Prelude.rnf id
-      `Prelude.seq` Prelude.rnf latestVersion
       `Prelude.seq` Prelude.rnf lastUpdatedTimestamp
+      `Prelude.seq` Prelude.rnf latestVersion
+      `Prelude.seq` Prelude.rnf latestVersionArn
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf httpStatus

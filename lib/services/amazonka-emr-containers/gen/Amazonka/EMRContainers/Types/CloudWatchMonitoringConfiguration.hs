@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMRContainers.Types.CloudWatchMonitoringConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EMRContainers.Types.CloudWatchMonitoringConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A configuration for CloudWatch monitoring. You can configure your jobs
@@ -66,16 +67,16 @@ cloudWatchMonitoringConfiguration_logGroupName :: Lens.Lens' CloudWatchMonitorin
 cloudWatchMonitoringConfiguration_logGroupName = Lens.lens (\CloudWatchMonitoringConfiguration' {logGroupName} -> logGroupName) (\s@CloudWatchMonitoringConfiguration' {} a -> s {logGroupName = a} :: CloudWatchMonitoringConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     CloudWatchMonitoringConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CloudWatchMonitoringConfiguration"
       ( \x ->
           CloudWatchMonitoringConfiguration'
-            Prelude.<$> (x Core..:? "logStreamNamePrefix")
-            Prelude.<*> (x Core..: "logGroupName")
+            Prelude.<$> (x Data..:? "logStreamNamePrefix")
+            Prelude.<*> (x Data..: "logGroupName")
       )
 
 instance
@@ -97,14 +98,14 @@ instance
       `Prelude.seq` Prelude.rnf logGroupName
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CloudWatchMonitoringConfiguration
   where
   toJSON CloudWatchMonitoringConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("logStreamNamePrefix" Core..=)
+          [ ("logStreamNamePrefix" Data..=)
               Prelude.<$> logStreamNamePrefix,
-            Prelude.Just ("logGroupName" Core..= logGroupName)
+            Prelude.Just ("logGroupName" Data..= logGroupName)
           ]
       )

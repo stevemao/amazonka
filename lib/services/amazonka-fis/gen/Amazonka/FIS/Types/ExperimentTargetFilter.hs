@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FIS.Types.ExperimentTargetFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.FIS.Types.ExperimentTargetFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a filter used for the target resources in an experiment.
@@ -61,14 +62,14 @@ experimentTargetFilter_path = Lens.lens (\ExperimentTargetFilter' {path} -> path
 experimentTargetFilter_values :: Lens.Lens' ExperimentTargetFilter (Prelude.Maybe [Prelude.Text])
 experimentTargetFilter_values = Lens.lens (\ExperimentTargetFilter' {values} -> values) (\s@ExperimentTargetFilter' {} a -> s {values = a} :: ExperimentTargetFilter) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ExperimentTargetFilter where
+instance Data.FromJSON ExperimentTargetFilter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExperimentTargetFilter"
       ( \x ->
           ExperimentTargetFilter'
-            Prelude.<$> (x Core..:? "path")
-            Prelude.<*> (x Core..:? "values" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "path")
+            Prelude.<*> (x Data..:? "values" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ExperimentTargetFilter where

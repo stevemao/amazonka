@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetPushTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Pinpoint.GetPushTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -162,13 +163,14 @@ instance Core.AWSRequest GetPushTemplate where
   type
     AWSResponse GetPushTemplate =
       GetPushTemplateResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPushTemplateResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetPushTemplate where
@@ -181,25 +183,25 @@ instance Prelude.NFData GetPushTemplate where
     Prelude.rnf version
       `Prelude.seq` Prelude.rnf templateName
 
-instance Core.ToHeaders GetPushTemplate where
+instance Data.ToHeaders GetPushTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetPushTemplate where
+instance Data.ToPath GetPushTemplate where
   toPath GetPushTemplate' {..} =
     Prelude.mconcat
-      ["/v1/templates/", Core.toBS templateName, "/push"]
+      ["/v1/templates/", Data.toBS templateName, "/push"]
 
-instance Core.ToQuery GetPushTemplate where
+instance Data.ToQuery GetPushTemplate where
   toQuery GetPushTemplate' {..} =
-    Prelude.mconcat ["version" Core.=: version]
+    Prelude.mconcat ["version" Data.=: version]
 
 -- | /See:/ 'newGetPushTemplateResponse' smart constructor.
 data GetPushTemplateResponse = GetPushTemplateResponse'

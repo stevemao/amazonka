@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.LogoutUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,7 +90,8 @@ logoutUser_userId = Lens.lens (\LogoutUser' {userId} -> userId) (\s@LogoutUser' 
 
 instance Core.AWSRequest LogoutUser where
   type AWSResponse LogoutUser = LogoutUserResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -107,22 +109,22 @@ instance Prelude.NFData LogoutUser where
     Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf userId
 
-instance Core.ToHeaders LogoutUser where
+instance Data.ToHeaders LogoutUser where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON LogoutUser where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON LogoutUser where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath LogoutUser where
+instance Data.ToPath LogoutUser where
   toPath LogoutUser' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/users/",
-        Core.toBS userId
+        Data.toBS userId
       ]
 
-instance Core.ToQuery LogoutUser where
+instance Data.ToQuery LogoutUser where
   toQuery =
     Prelude.const
       (Prelude.mconcat ["operation=logout"])

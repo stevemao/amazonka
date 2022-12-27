@@ -6,21 +6,13 @@
 
 -- |
 -- Module      : Amazonka.AMP.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.AMP.Lens
   ( -- * Operations
-
-    -- ** ListWorkspaces
-    listWorkspaces_alias,
-    listWorkspaces_nextToken,
-    listWorkspaces_maxResults,
-    listWorkspacesResponse_nextToken,
-    listWorkspacesResponse_httpStatus,
-    listWorkspacesResponse_workspaces,
 
     -- ** CreateAlertManagerDefinition
     createAlertManagerDefinition_clientToken,
@@ -29,14 +21,12 @@ module Amazonka.AMP.Lens
     createAlertManagerDefinitionResponse_httpStatus,
     createAlertManagerDefinitionResponse_status,
 
-    -- ** DeleteWorkspace
-    deleteWorkspace_clientToken,
-    deleteWorkspace_workspaceId,
-
-    -- ** ListTagsForResource
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
+    -- ** CreateLoggingConfiguration
+    createLoggingConfiguration_clientToken,
+    createLoggingConfiguration_logGroupArn,
+    createLoggingConfiguration_workspaceId,
+    createLoggingConfigurationResponse_httpStatus,
+    createLoggingConfigurationResponse_status,
 
     -- ** CreateRuleGroupsNamespace
     createRuleGroupsNamespace_clientToken,
@@ -50,26 +40,42 @@ module Amazonka.AMP.Lens
     createRuleGroupsNamespaceResponse_name,
     createRuleGroupsNamespaceResponse_status,
 
+    -- ** CreateWorkspace
+    createWorkspace_alias,
+    createWorkspace_clientToken,
+    createWorkspace_tags,
+    createWorkspaceResponse_tags,
+    createWorkspaceResponse_httpStatus,
+    createWorkspaceResponse_arn,
+    createWorkspaceResponse_status,
+    createWorkspaceResponse_workspaceId,
+
+    -- ** DeleteAlertManagerDefinition
+    deleteAlertManagerDefinition_clientToken,
+    deleteAlertManagerDefinition_workspaceId,
+
+    -- ** DeleteLoggingConfiguration
+    deleteLoggingConfiguration_clientToken,
+    deleteLoggingConfiguration_workspaceId,
+
+    -- ** DeleteRuleGroupsNamespace
+    deleteRuleGroupsNamespace_clientToken,
+    deleteRuleGroupsNamespace_name,
+    deleteRuleGroupsNamespace_workspaceId,
+
+    -- ** DeleteWorkspace
+    deleteWorkspace_clientToken,
+    deleteWorkspace_workspaceId,
+
     -- ** DescribeAlertManagerDefinition
     describeAlertManagerDefinition_workspaceId,
     describeAlertManagerDefinitionResponse_httpStatus,
     describeAlertManagerDefinitionResponse_alertManagerDefinition,
 
-    -- ** DescribeWorkspace
-    describeWorkspace_workspaceId,
-    describeWorkspaceResponse_httpStatus,
-    describeWorkspaceResponse_workspace,
-
-    -- ** PutAlertManagerDefinition
-    putAlertManagerDefinition_clientToken,
-    putAlertManagerDefinition_data,
-    putAlertManagerDefinition_workspaceId,
-    putAlertManagerDefinitionResponse_httpStatus,
-    putAlertManagerDefinitionResponse_status,
-
-    -- ** DeleteAlertManagerDefinition
-    deleteAlertManagerDefinition_clientToken,
-    deleteAlertManagerDefinition_workspaceId,
+    -- ** DescribeLoggingConfiguration
+    describeLoggingConfiguration_workspaceId,
+    describeLoggingConfigurationResponse_httpStatus,
+    describeLoggingConfigurationResponse_loggingConfiguration,
 
     -- ** DescribeRuleGroupsNamespace
     describeRuleGroupsNamespace_name,
@@ -77,15 +83,39 @@ module Amazonka.AMP.Lens
     describeRuleGroupsNamespaceResponse_httpStatus,
     describeRuleGroupsNamespaceResponse_ruleGroupsNamespace,
 
-    -- ** UpdateWorkspaceAlias
-    updateWorkspaceAlias_clientToken,
-    updateWorkspaceAlias_alias,
-    updateWorkspaceAlias_workspaceId,
+    -- ** DescribeWorkspace
+    describeWorkspace_workspaceId,
+    describeWorkspaceResponse_httpStatus,
+    describeWorkspaceResponse_workspace,
 
-    -- ** DeleteRuleGroupsNamespace
-    deleteRuleGroupsNamespace_clientToken,
-    deleteRuleGroupsNamespace_name,
-    deleteRuleGroupsNamespace_workspaceId,
+    -- ** ListRuleGroupsNamespaces
+    listRuleGroupsNamespaces_maxResults,
+    listRuleGroupsNamespaces_name,
+    listRuleGroupsNamespaces_nextToken,
+    listRuleGroupsNamespaces_workspaceId,
+    listRuleGroupsNamespacesResponse_nextToken,
+    listRuleGroupsNamespacesResponse_httpStatus,
+    listRuleGroupsNamespacesResponse_ruleGroupsNamespaces,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
+    -- ** ListWorkspaces
+    listWorkspaces_alias,
+    listWorkspaces_maxResults,
+    listWorkspaces_nextToken,
+    listWorkspacesResponse_nextToken,
+    listWorkspacesResponse_httpStatus,
+    listWorkspacesResponse_workspaces,
+
+    -- ** PutAlertManagerDefinition
+    putAlertManagerDefinition_clientToken,
+    putAlertManagerDefinition_data,
+    putAlertManagerDefinition_workspaceId,
+    putAlertManagerDefinitionResponse_httpStatus,
+    putAlertManagerDefinitionResponse_status,
 
     -- ** PutRuleGroupsNamespace
     putRuleGroupsNamespace_clientToken,
@@ -98,15 +128,6 @@ module Amazonka.AMP.Lens
     putRuleGroupsNamespaceResponse_name,
     putRuleGroupsNamespaceResponse_status,
 
-    -- ** ListRuleGroupsNamespaces
-    listRuleGroupsNamespaces_nextToken,
-    listRuleGroupsNamespaces_name,
-    listRuleGroupsNamespaces_maxResults,
-    listRuleGroupsNamespaces_workspaceId,
-    listRuleGroupsNamespacesResponse_nextToken,
-    listRuleGroupsNamespacesResponse_httpStatus,
-    listRuleGroupsNamespacesResponse_ruleGroupsNamespaces,
-
     -- ** TagResource
     tagResource_resourceArn,
     tagResource_tags,
@@ -117,15 +138,17 @@ module Amazonka.AMP.Lens
     untagResource_tagKeys,
     untagResourceResponse_httpStatus,
 
-    -- ** CreateWorkspace
-    createWorkspace_clientToken,
-    createWorkspace_alias,
-    createWorkspace_tags,
-    createWorkspaceResponse_tags,
-    createWorkspaceResponse_httpStatus,
-    createWorkspaceResponse_arn,
-    createWorkspaceResponse_status,
-    createWorkspaceResponse_workspaceId,
+    -- ** UpdateLoggingConfiguration
+    updateLoggingConfiguration_clientToken,
+    updateLoggingConfiguration_logGroupArn,
+    updateLoggingConfiguration_workspaceId,
+    updateLoggingConfigurationResponse_httpStatus,
+    updateLoggingConfigurationResponse_status,
+
+    -- ** UpdateWorkspaceAlias
+    updateWorkspaceAlias_alias,
+    updateWorkspaceAlias_clientToken,
+    updateWorkspaceAlias_workspaceId,
 
     -- * Types
 
@@ -138,6 +161,17 @@ module Amazonka.AMP.Lens
     -- ** AlertManagerDefinitionStatus
     alertManagerDefinitionStatus_statusReason,
     alertManagerDefinitionStatus_statusCode,
+
+    -- ** LoggingConfigurationMetadata
+    loggingConfigurationMetadata_createdAt,
+    loggingConfigurationMetadata_logGroupArn,
+    loggingConfigurationMetadata_modifiedAt,
+    loggingConfigurationMetadata_status,
+    loggingConfigurationMetadata_workspace,
+
+    -- ** LoggingConfigurationStatus
+    loggingConfigurationStatus_statusReason,
+    loggingConfigurationStatus_statusCode,
 
     -- ** RuleGroupsNamespaceDescription
     ruleGroupsNamespaceDescription_tags,
@@ -183,12 +217,15 @@ module Amazonka.AMP.Lens
 where
 
 import Amazonka.AMP.CreateAlertManagerDefinition
+import Amazonka.AMP.CreateLoggingConfiguration
 import Amazonka.AMP.CreateRuleGroupsNamespace
 import Amazonka.AMP.CreateWorkspace
 import Amazonka.AMP.DeleteAlertManagerDefinition
+import Amazonka.AMP.DeleteLoggingConfiguration
 import Amazonka.AMP.DeleteRuleGroupsNamespace
 import Amazonka.AMP.DeleteWorkspace
 import Amazonka.AMP.DescribeAlertManagerDefinition
+import Amazonka.AMP.DescribeLoggingConfiguration
 import Amazonka.AMP.DescribeRuleGroupsNamespace
 import Amazonka.AMP.DescribeWorkspace
 import Amazonka.AMP.ListRuleGroupsNamespaces
@@ -199,6 +236,8 @@ import Amazonka.AMP.PutRuleGroupsNamespace
 import Amazonka.AMP.TagResource
 import Amazonka.AMP.Types.AlertManagerDefinitionDescription
 import Amazonka.AMP.Types.AlertManagerDefinitionStatus
+import Amazonka.AMP.Types.LoggingConfigurationMetadata
+import Amazonka.AMP.Types.LoggingConfigurationStatus
 import Amazonka.AMP.Types.RuleGroupsNamespaceDescription
 import Amazonka.AMP.Types.RuleGroupsNamespaceStatus
 import Amazonka.AMP.Types.RuleGroupsNamespaceSummary
@@ -206,4 +245,5 @@ import Amazonka.AMP.Types.WorkspaceDescription
 import Amazonka.AMP.Types.WorkspaceStatus
 import Amazonka.AMP.Types.WorkspaceSummary
 import Amazonka.AMP.UntagResource
+import Amazonka.AMP.UpdateLoggingConfiguration
 import Amazonka.AMP.UpdateWorkspaceAlias

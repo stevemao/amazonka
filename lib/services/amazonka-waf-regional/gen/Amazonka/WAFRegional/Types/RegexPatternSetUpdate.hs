@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.Types.RegexPatternSetUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAFRegional.Types.RegexPatternSetUpdate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WAFRegional.Types.ChangeAction
 
@@ -92,12 +93,12 @@ instance Prelude.NFData RegexPatternSetUpdate where
     Prelude.rnf action
       `Prelude.seq` Prelude.rnf regexPatternString
 
-instance Core.ToJSON RegexPatternSetUpdate where
+instance Data.ToJSON RegexPatternSetUpdate where
   toJSON RegexPatternSetUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Action" Core..= action),
+          [ Prelude.Just ("Action" Data..= action),
             Prelude.Just
-              ("RegexPatternString" Core..= regexPatternString)
+              ("RegexPatternString" Data..= regexPatternString)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.SqlApplicationConfigurationDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.KinesisAnalyticsV2.Types.SqlApplicationConfigurationDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.InputDescription
 import Amazonka.KinesisAnalyticsV2.Types.OutputDescription
 import Amazonka.KinesisAnalyticsV2.Types.ReferenceDataSourceDescription
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the inputs, outputs, and reference data sources for a
@@ -31,15 +32,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSqlApplicationConfigurationDescription' smart constructor.
 data SqlApplicationConfigurationDescription = SqlApplicationConfigurationDescription'
-  { -- | The array of OutputDescription objects describing the destination
+  { -- | The array of InputDescription objects describing the input streams used
+    -- by the application.
+    inputDescriptions :: Prelude.Maybe [InputDescription],
+    -- | The array of OutputDescription objects describing the destination
     -- streams used by the application.
     outputDescriptions :: Prelude.Maybe [OutputDescription],
     -- | The array of ReferenceDataSourceDescription objects describing the
     -- reference data sources used by the application.
-    referenceDataSourceDescriptions :: Prelude.Maybe [ReferenceDataSourceDescription],
-    -- | The array of InputDescription objects describing the input streams used
-    -- by the application.
-    inputDescriptions :: Prelude.Maybe [InputDescription]
+    referenceDataSourceDescriptions :: Prelude.Maybe [ReferenceDataSourceDescription]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,24 +52,30 @@ data SqlApplicationConfigurationDescription = SqlApplicationConfigurationDescrip
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'inputDescriptions', 'sqlApplicationConfigurationDescription_inputDescriptions' - The array of InputDescription objects describing the input streams used
+-- by the application.
+--
 -- 'outputDescriptions', 'sqlApplicationConfigurationDescription_outputDescriptions' - The array of OutputDescription objects describing the destination
 -- streams used by the application.
 --
 -- 'referenceDataSourceDescriptions', 'sqlApplicationConfigurationDescription_referenceDataSourceDescriptions' - The array of ReferenceDataSourceDescription objects describing the
 -- reference data sources used by the application.
---
--- 'inputDescriptions', 'sqlApplicationConfigurationDescription_inputDescriptions' - The array of InputDescription objects describing the input streams used
--- by the application.
 newSqlApplicationConfigurationDescription ::
   SqlApplicationConfigurationDescription
 newSqlApplicationConfigurationDescription =
   SqlApplicationConfigurationDescription'
-    { outputDescriptions =
+    { inputDescriptions =
+        Prelude.Nothing,
+      outputDescriptions =
         Prelude.Nothing,
       referenceDataSourceDescriptions =
-        Prelude.Nothing,
-      inputDescriptions = Prelude.Nothing
+        Prelude.Nothing
     }
+
+-- | The array of InputDescription objects describing the input streams used
+-- by the application.
+sqlApplicationConfigurationDescription_inputDescriptions :: Lens.Lens' SqlApplicationConfigurationDescription (Prelude.Maybe [InputDescription])
+sqlApplicationConfigurationDescription_inputDescriptions = Lens.lens (\SqlApplicationConfigurationDescription' {inputDescriptions} -> inputDescriptions) (\s@SqlApplicationConfigurationDescription' {} a -> s {inputDescriptions = a} :: SqlApplicationConfigurationDescription) Prelude.. Lens.mapping Lens.coerced
 
 -- | The array of OutputDescription objects describing the destination
 -- streams used by the application.
@@ -80,28 +87,23 @@ sqlApplicationConfigurationDescription_outputDescriptions = Lens.lens (\SqlAppli
 sqlApplicationConfigurationDescription_referenceDataSourceDescriptions :: Lens.Lens' SqlApplicationConfigurationDescription (Prelude.Maybe [ReferenceDataSourceDescription])
 sqlApplicationConfigurationDescription_referenceDataSourceDescriptions = Lens.lens (\SqlApplicationConfigurationDescription' {referenceDataSourceDescriptions} -> referenceDataSourceDescriptions) (\s@SqlApplicationConfigurationDescription' {} a -> s {referenceDataSourceDescriptions = a} :: SqlApplicationConfigurationDescription) Prelude.. Lens.mapping Lens.coerced
 
--- | The array of InputDescription objects describing the input streams used
--- by the application.
-sqlApplicationConfigurationDescription_inputDescriptions :: Lens.Lens' SqlApplicationConfigurationDescription (Prelude.Maybe [InputDescription])
-sqlApplicationConfigurationDescription_inputDescriptions = Lens.lens (\SqlApplicationConfigurationDescription' {inputDescriptions} -> inputDescriptions) (\s@SqlApplicationConfigurationDescription' {} a -> s {inputDescriptions = a} :: SqlApplicationConfigurationDescription) Prelude.. Lens.mapping Lens.coerced
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     SqlApplicationConfigurationDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SqlApplicationConfigurationDescription"
       ( \x ->
           SqlApplicationConfigurationDescription'
-            Prelude.<$> ( x Core..:? "OutputDescriptions"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "InputDescriptions"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> ( x Core..:? "ReferenceDataSourceDescriptions"
-                            Core..!= Prelude.mempty
+            Prelude.<*> ( x Data..:? "OutputDescriptions"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> ( x Core..:? "InputDescriptions"
-                            Core..!= Prelude.mempty
+            Prelude.<*> ( x Data..:? "ReferenceDataSourceDescriptions"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -112,15 +114,15 @@ instance
   hashWithSalt
     _salt
     SqlApplicationConfigurationDescription' {..} =
-      _salt `Prelude.hashWithSalt` outputDescriptions
+      _salt `Prelude.hashWithSalt` inputDescriptions
+        `Prelude.hashWithSalt` outputDescriptions
         `Prelude.hashWithSalt` referenceDataSourceDescriptions
-        `Prelude.hashWithSalt` inputDescriptions
 
 instance
   Prelude.NFData
     SqlApplicationConfigurationDescription
   where
   rnf SqlApplicationConfigurationDescription' {..} =
-    Prelude.rnf outputDescriptions
+    Prelude.rnf inputDescriptions
+      `Prelude.seq` Prelude.rnf outputDescriptions
       `Prelude.seq` Prelude.rnf referenceDataSourceDescriptions
-      `Prelude.seq` Prelude.rnf inputDescriptions

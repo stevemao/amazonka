@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.GetServerCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.IAM.GetServerCertificate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,14 +106,15 @@ instance Core.AWSRequest GetServerCertificate where
   type
     AWSResponse GetServerCertificate =
       GetServerCertificateResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetServerCertificateResult"
       ( \s h x ->
           GetServerCertificateResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "ServerCertificate")
+            Prelude.<*> (x Data..@ "ServerCertificate")
       )
 
 instance Prelude.Hashable GetServerCertificate where
@@ -123,21 +125,21 @@ instance Prelude.NFData GetServerCertificate where
   rnf GetServerCertificate' {..} =
     Prelude.rnf serverCertificateName
 
-instance Core.ToHeaders GetServerCertificate where
+instance Data.ToHeaders GetServerCertificate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetServerCertificate where
+instance Data.ToPath GetServerCertificate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetServerCertificate where
+instance Data.ToQuery GetServerCertificate where
   toQuery GetServerCertificate' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetServerCertificate" :: Prelude.ByteString),
+          Data.=: ("GetServerCertificate" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
         "ServerCertificateName"
-          Core.=: serverCertificateName
+          Data.=: serverCertificateName
       ]
 
 -- | Contains the response to a successful GetServerCertificate request.

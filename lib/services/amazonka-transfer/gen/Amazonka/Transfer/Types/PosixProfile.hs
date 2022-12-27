@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.Types.PosixProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Transfer.Types.PosixProfile where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The full POSIX identity, including user ID (@Uid@), group ID (@Gid@),
@@ -79,15 +80,15 @@ posixProfile_uid = Lens.lens (\PosixProfile' {uid} -> uid) (\s@PosixProfile' {} 
 posixProfile_gid :: Lens.Lens' PosixProfile Prelude.Natural
 posixProfile_gid = Lens.lens (\PosixProfile' {gid} -> gid) (\s@PosixProfile' {} a -> s {gid = a} :: PosixProfile)
 
-instance Core.FromJSON PosixProfile where
+instance Data.FromJSON PosixProfile where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PosixProfile"
       ( \x ->
           PosixProfile'
-            Prelude.<$> (x Core..:? "SecondaryGids" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "Uid")
-            Prelude.<*> (x Core..: "Gid")
+            Prelude.<$> (x Data..:? "SecondaryGids" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "Uid")
+            Prelude.<*> (x Data..: "Gid")
       )
 
 instance Prelude.Hashable PosixProfile where
@@ -102,12 +103,12 @@ instance Prelude.NFData PosixProfile where
       `Prelude.seq` Prelude.rnf uid
       `Prelude.seq` Prelude.rnf gid
 
-instance Core.ToJSON PosixProfile where
+instance Data.ToJSON PosixProfile where
   toJSON PosixProfile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SecondaryGids" Core..=) Prelude.<$> secondaryGids,
-            Prelude.Just ("Uid" Core..= uid),
-            Prelude.Just ("Gid" Core..= gid)
+          [ ("SecondaryGids" Data..=) Prelude.<$> secondaryGids,
+            Prelude.Just ("Uid" Data..= uid),
+            Prelude.Just ("Gid" Data..= gid)
           ]
       )

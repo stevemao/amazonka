@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.PutBucketNotificationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,6 +53,11 @@
 -- You can disable notifications by adding the empty
 -- NotificationConfiguration element.
 --
+-- For more information about the number of event notification
+-- configurations that you can create per bucket, see
+-- <https://docs.aws.amazon.com/general/latest/gr/s3.html#limits_s3 Amazon S3 service quotas>
+-- in /Amazon Web Services General Reference/.
+--
 -- By default, only the bucket owner can configure notifications on a
 -- bucket. However, bucket owners can use a bucket policy to grant
 -- permission to other users to set this configuration with
@@ -83,6 +88,7 @@ module Amazonka.S3.PutBucketNotificationConfiguration
 
     -- * Request Lenses
     putBucketNotificationConfiguration_expectedBucketOwner,
+    putBucketNotificationConfiguration_skipDestinationValidation,
     putBucketNotificationConfiguration_bucket,
     putBucketNotificationConfiguration_notificationConfiguration,
 
@@ -93,7 +99,8 @@ module Amazonka.S3.PutBucketNotificationConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,9 +109,12 @@ import Amazonka.S3.Types
 -- | /See:/ 'newPutBucketNotificationConfiguration' smart constructor.
 data PutBucketNotificationConfiguration = PutBucketNotificationConfiguration'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    -- | Skips validation of Amazon SQS, Amazon SNS, and Lambda destinations.
+    -- True or false value.
+    skipDestinationValidation :: Prelude.Maybe Prelude.Bool,
     -- | The name of the bucket.
     bucket :: BucketName,
     notificationConfiguration :: NotificationConfiguration
@@ -120,8 +130,11 @@ data PutBucketNotificationConfiguration = PutBucketNotificationConfiguration'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'putBucketNotificationConfiguration_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
+--
+-- 'skipDestinationValidation', 'putBucketNotificationConfiguration_skipDestinationValidation' - Skips validation of Amazon SQS, Amazon SNS, and Lambda destinations.
+-- True or false value.
 --
 -- 'bucket', 'putBucketNotificationConfiguration_bucket' - The name of the bucket.
 --
@@ -138,16 +151,23 @@ newPutBucketNotificationConfiguration
     PutBucketNotificationConfiguration'
       { expectedBucketOwner =
           Prelude.Nothing,
+        skipDestinationValidation =
+          Prelude.Nothing,
         bucket = pBucket_,
         notificationConfiguration =
           pNotificationConfiguration_
       }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 putBucketNotificationConfiguration_expectedBucketOwner :: Lens.Lens' PutBucketNotificationConfiguration (Prelude.Maybe Prelude.Text)
 putBucketNotificationConfiguration_expectedBucketOwner = Lens.lens (\PutBucketNotificationConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutBucketNotificationConfiguration' {} a -> s {expectedBucketOwner = a} :: PutBucketNotificationConfiguration)
+
+-- | Skips validation of Amazon SQS, Amazon SNS, and Lambda destinations.
+-- True or false value.
+putBucketNotificationConfiguration_skipDestinationValidation :: Lens.Lens' PutBucketNotificationConfiguration (Prelude.Maybe Prelude.Bool)
+putBucketNotificationConfiguration_skipDestinationValidation = Lens.lens (\PutBucketNotificationConfiguration' {skipDestinationValidation} -> skipDestinationValidation) (\s@PutBucketNotificationConfiguration' {} a -> s {skipDestinationValidation = a} :: PutBucketNotificationConfiguration)
 
 -- | The name of the bucket.
 putBucketNotificationConfiguration_bucket :: Lens.Lens' PutBucketNotificationConfiguration BucketName
@@ -164,9 +184,9 @@ instance
   type
     AWSResponse PutBucketNotificationConfiguration =
       PutBucketNotificationConfigurationResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.putXML defaultService
+      Prelude.. Request.putXML (overrides defaultService)
   response =
     Response.receiveNull
       PutBucketNotificationConfigurationResponse'
@@ -179,6 +199,7 @@ instance
     _salt
     PutBucketNotificationConfiguration' {..} =
       _salt `Prelude.hashWithSalt` expectedBucketOwner
+        `Prelude.hashWithSalt` skipDestinationValidation
         `Prelude.hashWithSalt` bucket
         `Prelude.hashWithSalt` notificationConfiguration
 
@@ -188,37 +209,40 @@ instance
   where
   rnf PutBucketNotificationConfiguration' {..} =
     Prelude.rnf expectedBucketOwner
+      `Prelude.seq` Prelude.rnf skipDestinationValidation
       `Prelude.seq` Prelude.rnf bucket
       `Prelude.seq` Prelude.rnf notificationConfiguration
 
 instance
-  Core.ToElement
+  Data.ToElement
     PutBucketNotificationConfiguration
   where
   toElement PutBucketNotificationConfiguration' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}NotificationConfiguration"
       notificationConfiguration
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PutBucketNotificationConfiguration
   where
   toHeaders PutBucketNotificationConfiguration' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner,
+        "x-amz-skip-destination-validation"
+          Data.=# skipDestinationValidation
       ]
 
 instance
-  Core.ToPath
+  Data.ToPath
     PutBucketNotificationConfiguration
   where
   toPath PutBucketNotificationConfiguration' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     PutBucketNotificationConfiguration
   where
   toQuery =

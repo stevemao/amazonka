@@ -14,20 +14,20 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates an endpoint using the endpoint configuration specified in the
--- request. Amazon SageMaker uses the endpoint to provision resources and
--- deploy models. You create the endpoint configuration with the
+-- request. SageMaker uses the endpoint to provision resources and deploy
+-- models. You create the endpoint configuration with the
 -- CreateEndpointConfig API.
 --
--- Use this API to deploy models using Amazon SageMaker hosting services.
+-- Use this API to deploy models using SageMaker hosting services.
 --
--- For an example that calls this method when deploying a model to Amazon
+-- For an example that calls this method when deploying a model to
 -- SageMaker hosting services, see the
 -- <https://github.com/aws/amazon-sagemaker-examples/blob/master/sagemaker-fundamentals/create-endpoint/create_endpoint.ipynb Create Endpoint example notebook.>
 --
@@ -39,9 +39,8 @@
 -- The endpoint name must be unique within an Amazon Web Services Region in
 -- your Amazon Web Services account.
 --
--- When it receives the request, Amazon SageMaker creates the endpoint,
--- launches the resources (ML compute instances), and deploys the model(s)
--- on them.
+-- When it receives the request, SageMaker creates the endpoint, launches
+-- the resources (ML compute instances), and deploys the model(s) on them.
 --
 -- When you call CreateEndpoint, a load call is made to DynamoDB to verify
 -- that your endpoint configuration exists. When you read data from a
@@ -56,15 +55,15 @@
 -- DescribeEndpointConfig before calling CreateEndpoint to minimize the
 -- potential impact of a DynamoDB eventually consistent read.
 --
--- When Amazon SageMaker receives the request, it sets the endpoint status
--- to @Creating@. After it creates the endpoint, it sets the status to
--- @InService@. Amazon SageMaker can then process incoming requests for
+-- When SageMaker receives the request, it sets the endpoint status to
+-- @Creating@. After it creates the endpoint, it sets the status to
+-- @InService@. SageMaker can then process incoming requests for
 -- inferences. To check the status of an endpoint, use the DescribeEndpoint
 -- API.
 --
 -- If any of the models hosted at this endpoint get model data from an
--- Amazon S3 location, Amazon SageMaker uses Amazon Web Services Security
--- Token Service to download model artifacts from the S3 path you provided.
+-- Amazon S3 location, SageMaker uses Amazon Web Services Security Token
+-- Service to download model artifacts from the S3 path you provided.
 -- Amazon Web Services STS is activated in your IAM user account by
 -- default. If you previously deactivated Amazon Web Services STS for a
 -- region, you need to reactivate Amazon Web Services STS for that region.
@@ -103,6 +102,7 @@ module Amazonka.SageMaker.CreateEndpoint
     newCreateEndpoint,
 
     -- * Request Lenses
+    createEndpoint_deploymentConfig,
     createEndpoint_tags,
     createEndpoint_endpointName,
     createEndpoint_endpointConfigName,
@@ -118,7 +118,8 @@ module Amazonka.SageMaker.CreateEndpoint
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -126,7 +127,8 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newCreateEndpoint' smart constructor.
 data CreateEndpoint = CreateEndpoint'
-  { -- | An array of key-value pairs. You can use tags to categorize your Amazon
+  { deploymentConfig :: Prelude.Maybe DeploymentConfig,
+    -- | An array of key-value pairs. You can use tags to categorize your Amazon
     -- Web Services resources in different ways, for example, by purpose,
     -- owner, or environment. For more information, see
     -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>.
@@ -150,6 +152,8 @@ data CreateEndpoint = CreateEndpoint'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'deploymentConfig', 'createEndpoint_deploymentConfig' - Undocumented member.
+--
 -- 'tags', 'createEndpoint_tags' - An array of key-value pairs. You can use tags to categorize your Amazon
 -- Web Services resources in different ways, for example, by purpose,
 -- owner, or environment. For more information, see
@@ -170,10 +174,15 @@ newCreateEndpoint ::
   CreateEndpoint
 newCreateEndpoint pEndpointName_ pEndpointConfigName_ =
   CreateEndpoint'
-    { tags = Prelude.Nothing,
+    { deploymentConfig = Prelude.Nothing,
+      tags = Prelude.Nothing,
       endpointName = pEndpointName_,
       endpointConfigName = pEndpointConfigName_
     }
+
+-- | Undocumented member.
+createEndpoint_deploymentConfig :: Lens.Lens' CreateEndpoint (Prelude.Maybe DeploymentConfig)
+createEndpoint_deploymentConfig = Lens.lens (\CreateEndpoint' {deploymentConfig} -> deploymentConfig) (\s@CreateEndpoint' {} a -> s {deploymentConfig = a} :: CreateEndpoint)
 
 -- | An array of key-value pairs. You can use tags to categorize your Amazon
 -- Web Services resources in different ways, for example, by purpose,
@@ -198,55 +207,60 @@ instance Core.AWSRequest CreateEndpoint where
   type
     AWSResponse CreateEndpoint =
       CreateEndpointResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateEndpointResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "EndpointArn")
+            Prelude.<*> (x Data..:> "EndpointArn")
       )
 
 instance Prelude.Hashable CreateEndpoint where
   hashWithSalt _salt CreateEndpoint' {..} =
-    _salt `Prelude.hashWithSalt` tags
+    _salt `Prelude.hashWithSalt` deploymentConfig
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` endpointName
       `Prelude.hashWithSalt` endpointConfigName
 
 instance Prelude.NFData CreateEndpoint where
   rnf CreateEndpoint' {..} =
-    Prelude.rnf tags
+    Prelude.rnf deploymentConfig
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf endpointName
       `Prelude.seq` Prelude.rnf endpointConfigName
 
-instance Core.ToHeaders CreateEndpoint where
+instance Data.ToHeaders CreateEndpoint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.CreateEndpoint" :: Prelude.ByteString),
+              Data.=# ("SageMaker.CreateEndpoint" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateEndpoint where
+instance Data.ToJSON CreateEndpoint where
   toJSON CreateEndpoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("EndpointName" Core..= endpointName),
+          [ ("DeploymentConfig" Data..=)
+              Prelude.<$> deploymentConfig,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("EndpointName" Data..= endpointName),
             Prelude.Just
-              ("EndpointConfigName" Core..= endpointConfigName)
+              ("EndpointConfigName" Data..= endpointConfigName)
           ]
       )
 
-instance Core.ToPath CreateEndpoint where
+instance Data.ToPath CreateEndpoint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateEndpoint where
+instance Data.ToQuery CreateEndpoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateEndpointResponse' smart constructor.

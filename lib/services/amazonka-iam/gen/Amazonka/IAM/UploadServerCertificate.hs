@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.UploadServerCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -59,8 +59,8 @@ module Amazonka.IAM.UploadServerCertificate
     newUploadServerCertificate,
 
     -- * Request Lenses
-    uploadServerCertificate_path,
     uploadServerCertificate_certificateChain,
+    uploadServerCertificate_path,
     uploadServerCertificate_tags,
     uploadServerCertificate_serverCertificateName,
     uploadServerCertificate_certificateBody,
@@ -78,15 +78,31 @@ module Amazonka.IAM.UploadServerCertificate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUploadServerCertificate' smart constructor.
 data UploadServerCertificate = UploadServerCertificate'
-  { -- | The path for the server certificate. For more information about paths,
+  { -- | The contents of the certificate chain. This is typically a concatenation
+    -- of the PEM-encoded public key certificates of the chain.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> used to validate
+    -- this parameter is a string of characters consisting of the following:
+    --
+    -- -   Any printable ASCII character ranging from the space character
+    --     (@\\u0020@) through the end of the ASCII character range
+    --
+    -- -   The printable characters in the Basic Latin and Latin-1 Supplement
+    --     character set (through @\\u00FF@)
+    --
+    -- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
+    --     carriage return (@\\u000D@)
+    certificateChain :: Prelude.Maybe Prelude.Text,
+    -- | The path for the server certificate. For more information about paths,
     -- see
     -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
     -- in the /IAM User Guide/.
@@ -105,21 +121,6 @@ data UploadServerCertificate = UploadServerCertificate'
     -- @path@ parameter. The path must begin with @\/cloudfront@ and must
     -- include a trailing slash (for example, @\/cloudfront\/test\/@).
     path :: Prelude.Maybe Prelude.Text,
-    -- | The contents of the certificate chain. This is typically a concatenation
-    -- of the PEM-encoded public key certificates of the chain.
-    --
-    -- The <http://wikipedia.org/wiki/regex regex pattern> used to validate
-    -- this parameter is a string of characters consisting of the following:
-    --
-    -- -   Any printable ASCII character ranging from the space character
-    --     (@\\u0020@) through the end of the ASCII character range
-    --
-    -- -   The printable characters in the Basic Latin and Latin-1 Supplement
-    --     character set (through @\\u00FF@)
-    --
-    -- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
-    --     carriage return (@\\u000D@)
-    certificateChain :: Prelude.Maybe Prelude.Text,
     -- | A list of tags that you want to attach to the new IAM server certificate
     -- resource. Each tag consists of a key name and an associated value. For
     -- more information about tagging, see
@@ -165,7 +166,7 @@ data UploadServerCertificate = UploadServerCertificate'
     --
     -- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
     --     carriage return (@\\u000D@)
-    privateKey :: Core.Sensitive Prelude.Text
+    privateKey :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -176,6 +177,21 @@ data UploadServerCertificate = UploadServerCertificate'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'certificateChain', 'uploadServerCertificate_certificateChain' - The contents of the certificate chain. This is typically a concatenation
+-- of the PEM-encoded public key certificates of the chain.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> used to validate
+-- this parameter is a string of characters consisting of the following:
+--
+-- -   Any printable ASCII character ranging from the space character
+--     (@\\u0020@) through the end of the ASCII character range
+--
+-- -   The printable characters in the Basic Latin and Latin-1 Supplement
+--     character set (through @\\u00FF@)
+--
+-- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
+--     carriage return (@\\u000D@)
 --
 -- 'path', 'uploadServerCertificate_path' - The path for the server certificate. For more information about paths,
 -- see
@@ -195,21 +211,6 @@ data UploadServerCertificate = UploadServerCertificate'
 -- Amazon CloudFront distributions, you must specify a path using the
 -- @path@ parameter. The path must begin with @\/cloudfront@ and must
 -- include a trailing slash (for example, @\/cloudfront\/test\/@).
---
--- 'certificateChain', 'uploadServerCertificate_certificateChain' - The contents of the certificate chain. This is typically a concatenation
--- of the PEM-encoded public key certificates of the chain.
---
--- The <http://wikipedia.org/wiki/regex regex pattern> used to validate
--- this parameter is a string of characters consisting of the following:
---
--- -   Any printable ASCII character ranging from the space character
---     (@\\u0020@) through the end of the ASCII character range
---
--- -   The printable characters in the Basic Latin and Latin-1 Supplement
---     character set (through @\\u00FF@)
---
--- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
---     carriage return (@\\u000D@)
 --
 -- 'tags', 'uploadServerCertificate_tags' - A list of tags that you want to attach to the new IAM server certificate
 -- resource. Each tag consists of a key name and an associated value. For
@@ -269,13 +270,31 @@ newUploadServerCertificate
   pCertificateBody_
   pPrivateKey_ =
     UploadServerCertificate'
-      { path = Prelude.Nothing,
-        certificateChain = Prelude.Nothing,
+      { certificateChain =
+          Prelude.Nothing,
+        path = Prelude.Nothing,
         tags = Prelude.Nothing,
         serverCertificateName = pServerCertificateName_,
         certificateBody = pCertificateBody_,
-        privateKey = Core._Sensitive Lens.# pPrivateKey_
+        privateKey = Data._Sensitive Lens.# pPrivateKey_
       }
+
+-- | The contents of the certificate chain. This is typically a concatenation
+-- of the PEM-encoded public key certificates of the chain.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> used to validate
+-- this parameter is a string of characters consisting of the following:
+--
+-- -   Any printable ASCII character ranging from the space character
+--     (@\\u0020@) through the end of the ASCII character range
+--
+-- -   The printable characters in the Basic Latin and Latin-1 Supplement
+--     character set (through @\\u00FF@)
+--
+-- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
+--     carriage return (@\\u000D@)
+uploadServerCertificate_certificateChain :: Lens.Lens' UploadServerCertificate (Prelude.Maybe Prelude.Text)
+uploadServerCertificate_certificateChain = Lens.lens (\UploadServerCertificate' {certificateChain} -> certificateChain) (\s@UploadServerCertificate' {} a -> s {certificateChain = a} :: UploadServerCertificate)
 
 -- | The path for the server certificate. For more information about paths,
 -- see
@@ -297,23 +316,6 @@ newUploadServerCertificate
 -- include a trailing slash (for example, @\/cloudfront\/test\/@).
 uploadServerCertificate_path :: Lens.Lens' UploadServerCertificate (Prelude.Maybe Prelude.Text)
 uploadServerCertificate_path = Lens.lens (\UploadServerCertificate' {path} -> path) (\s@UploadServerCertificate' {} a -> s {path = a} :: UploadServerCertificate)
-
--- | The contents of the certificate chain. This is typically a concatenation
--- of the PEM-encoded public key certificates of the chain.
---
--- The <http://wikipedia.org/wiki/regex regex pattern> used to validate
--- this parameter is a string of characters consisting of the following:
---
--- -   Any printable ASCII character ranging from the space character
---     (@\\u0020@) through the end of the ASCII character range
---
--- -   The printable characters in the Basic Latin and Latin-1 Supplement
---     character set (through @\\u00FF@)
---
--- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
---     carriage return (@\\u000D@)
-uploadServerCertificate_certificateChain :: Lens.Lens' UploadServerCertificate (Prelude.Maybe Prelude.Text)
-uploadServerCertificate_certificateChain = Lens.lens (\UploadServerCertificate' {certificateChain} -> certificateChain) (\s@UploadServerCertificate' {} a -> s {certificateChain = a} :: UploadServerCertificate)
 
 -- | A list of tags that you want to attach to the new IAM server certificate
 -- resource. Each tag consists of a key name and an associated value. For
@@ -367,29 +369,30 @@ uploadServerCertificate_certificateBody = Lens.lens (\UploadServerCertificate' {
 -- -   The special characters tab (@\\u0009@), line feed (@\\u000A@), and
 --     carriage return (@\\u000D@)
 uploadServerCertificate_privateKey :: Lens.Lens' UploadServerCertificate Prelude.Text
-uploadServerCertificate_privateKey = Lens.lens (\UploadServerCertificate' {privateKey} -> privateKey) (\s@UploadServerCertificate' {} a -> s {privateKey = a} :: UploadServerCertificate) Prelude.. Core._Sensitive
+uploadServerCertificate_privateKey = Lens.lens (\UploadServerCertificate' {privateKey} -> privateKey) (\s@UploadServerCertificate' {} a -> s {privateKey = a} :: UploadServerCertificate) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest UploadServerCertificate where
   type
     AWSResponse UploadServerCertificate =
       UploadServerCertificateResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "UploadServerCertificateResult"
       ( \s h x ->
           UploadServerCertificateResponse'
-            Prelude.<$> (x Core..@? "ServerCertificateMetadata")
-            Prelude.<*> ( x Core..@? "Tags" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "ServerCertificateMetadata")
+            Prelude.<*> ( x Data..@? "Tags" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UploadServerCertificate where
   hashWithSalt _salt UploadServerCertificate' {..} =
-    _salt `Prelude.hashWithSalt` path
-      `Prelude.hashWithSalt` certificateChain
+    _salt `Prelude.hashWithSalt` certificateChain
+      `Prelude.hashWithSalt` path
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` serverCertificateName
       `Prelude.hashWithSalt` certificateBody
@@ -397,35 +400,35 @@ instance Prelude.Hashable UploadServerCertificate where
 
 instance Prelude.NFData UploadServerCertificate where
   rnf UploadServerCertificate' {..} =
-    Prelude.rnf path
-      `Prelude.seq` Prelude.rnf certificateChain
+    Prelude.rnf certificateChain
+      `Prelude.seq` Prelude.rnf path
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf serverCertificateName
       `Prelude.seq` Prelude.rnf certificateBody
       `Prelude.seq` Prelude.rnf privateKey
 
-instance Core.ToHeaders UploadServerCertificate where
+instance Data.ToHeaders UploadServerCertificate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UploadServerCertificate where
+instance Data.ToPath UploadServerCertificate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UploadServerCertificate where
+instance Data.ToQuery UploadServerCertificate where
   toQuery UploadServerCertificate' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("UploadServerCertificate" :: Prelude.ByteString),
+          Data.=: ("UploadServerCertificate" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "Path" Core.=: path,
-        "CertificateChain" Core.=: certificateChain,
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "CertificateChain" Data.=: certificateChain,
+        "Path" Data.=: path,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tags),
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tags),
         "ServerCertificateName"
-          Core.=: serverCertificateName,
-        "CertificateBody" Core.=: certificateBody,
-        "PrivateKey" Core.=: privateKey
+          Data.=: serverCertificateName,
+        "CertificateBody" Data.=: certificateBody,
+        "PrivateKey" Data.=: privateKey
       ]
 
 -- | Contains the response to a successful UploadServerCertificate request.

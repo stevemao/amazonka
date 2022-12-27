@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.MultiplexOutputDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.MultiplexOutputDestination where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.MultiplexMediaConnectOutputDestinationSettings
 import qualified Amazonka.Prelude as Prelude
 
@@ -54,13 +55,13 @@ newMultiplexOutputDestination =
 multiplexOutputDestination_mediaConnectSettings :: Lens.Lens' MultiplexOutputDestination (Prelude.Maybe MultiplexMediaConnectOutputDestinationSettings)
 multiplexOutputDestination_mediaConnectSettings = Lens.lens (\MultiplexOutputDestination' {mediaConnectSettings} -> mediaConnectSettings) (\s@MultiplexOutputDestination' {} a -> s {mediaConnectSettings = a} :: MultiplexOutputDestination)
 
-instance Core.FromJSON MultiplexOutputDestination where
+instance Data.FromJSON MultiplexOutputDestination where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MultiplexOutputDestination"
       ( \x ->
           MultiplexOutputDestination'
-            Prelude.<$> (x Core..:? "mediaConnectSettings")
+            Prelude.<$> (x Data..:? "mediaConnectSettings")
       )
 
 instance Prelude.Hashable MultiplexOutputDestination where

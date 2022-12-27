@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.Types.ValidDBInstanceModificationsMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Neptune.Types.ValidDBInstanceModificationsMessage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.Types.ValidStorageOptions
 import qualified Amazonka.Prelude as Prelude
 
@@ -58,13 +59,13 @@ validDBInstanceModificationsMessage_storage :: Lens.Lens' ValidDBInstanceModific
 validDBInstanceModificationsMessage_storage = Lens.lens (\ValidDBInstanceModificationsMessage' {storage} -> storage) (\s@ValidDBInstanceModificationsMessage' {} a -> s {storage = a} :: ValidDBInstanceModificationsMessage) Prelude.. Lens.mapping Lens.coerced
 
 instance
-  Core.FromXML
+  Data.FromXML
     ValidDBInstanceModificationsMessage
   where
   parseXML x =
     ValidDBInstanceModificationsMessage'
-      Prelude.<$> ( x Core..@? "Storage" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "ValidStorageOptions")
+      Prelude.<$> ( x Data..@? "Storage" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "ValidStorageOptions")
                   )
 
 instance

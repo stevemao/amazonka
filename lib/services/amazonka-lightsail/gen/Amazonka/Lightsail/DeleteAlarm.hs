@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.DeleteAlarm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.Lightsail.DeleteAlarm
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -81,12 +82,13 @@ deleteAlarm_alarmName = Lens.lens (\DeleteAlarm' {alarmName} -> alarmName) (\s@D
 
 instance Core.AWSRequest DeleteAlarm where
   type AWSResponse DeleteAlarm = DeleteAlarmResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteAlarmResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,32 +99,32 @@ instance Prelude.Hashable DeleteAlarm where
 instance Prelude.NFData DeleteAlarm where
   rnf DeleteAlarm' {..} = Prelude.rnf alarmName
 
-instance Core.ToHeaders DeleteAlarm where
+instance Data.ToHeaders DeleteAlarm where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.DeleteAlarm" ::
+              Data.=# ( "Lightsail_20161128.DeleteAlarm" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteAlarm where
+instance Data.ToJSON DeleteAlarm where
   toJSON DeleteAlarm' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("alarmName" Core..= alarmName)]
+          [Prelude.Just ("alarmName" Data..= alarmName)]
       )
 
-instance Core.ToPath DeleteAlarm where
+instance Data.ToPath DeleteAlarm where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAlarm where
+instance Data.ToQuery DeleteAlarm where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAlarmResponse' smart constructor.

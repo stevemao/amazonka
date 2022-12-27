@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.Types.ManagedResourceSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LicenseManager.Types.ManagedResourceSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types.ResourceType
 import qualified Amazonka.Prelude as Prelude
 
@@ -63,14 +64,14 @@ managedResourceSummary_associationCount = Lens.lens (\ManagedResourceSummary' {a
 managedResourceSummary_resourceType :: Lens.Lens' ManagedResourceSummary (Prelude.Maybe ResourceType)
 managedResourceSummary_resourceType = Lens.lens (\ManagedResourceSummary' {resourceType} -> resourceType) (\s@ManagedResourceSummary' {} a -> s {resourceType = a} :: ManagedResourceSummary)
 
-instance Core.FromJSON ManagedResourceSummary where
+instance Data.FromJSON ManagedResourceSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ManagedResourceSummary"
       ( \x ->
           ManagedResourceSummary'
-            Prelude.<$> (x Core..:? "AssociationCount")
-            Prelude.<*> (x Core..:? "ResourceType")
+            Prelude.<$> (x Data..:? "AssociationCount")
+            Prelude.<*> (x Data..:? "ResourceType")
       )
 
 instance Prelude.Hashable ManagedResourceSummary where

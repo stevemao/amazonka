@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.TagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.Location.TagResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -57,10 +58,26 @@ data TagResource = TagResource'
     -- -   Format example:
     --     @arn:aws:geo:region:account-id:resourcetype\/ExampleResource@
     resourceArn :: Prelude.Text,
-    -- | Tags that have been applied to the specified resource. Tags are mapped
-    -- from the tag key to the tag value: @\"TagKey\" : \"TagValue\"@.
+    -- | Applies one or more tags to specific resource. A tag is a key-value pair
+    -- that helps you manage, identify, search, and filter your resources.
     --
-    -- -   Format example: @{\"tag1\" : \"value1\", \"tag2\" : \"value2\"} @
+    -- Format: @\"key\" : \"value\"@
+    --
+    -- Restrictions:
+    --
+    -- -   Maximum 50 tags per resource.
+    --
+    -- -   Each tag key must be unique and must have exactly one associated
+    --     value.
+    --
+    -- -   Maximum key length: 128 Unicode characters in UTF-8.
+    --
+    -- -   Maximum value length: 256 Unicode characters in UTF-8.
+    --
+    -- -   Can use alphanumeric characters (A–Z, a–z, 0–9), and the following
+    --     characters: + - = . _ : \/ \@
+    --
+    -- -   Cannot use \"aws:\" as a prefix for a key.
     tags :: Prelude.HashMap Prelude.Text Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -79,10 +96,26 @@ data TagResource = TagResource'
 -- -   Format example:
 --     @arn:aws:geo:region:account-id:resourcetype\/ExampleResource@
 --
--- 'tags', 'tagResource_tags' - Tags that have been applied to the specified resource. Tags are mapped
--- from the tag key to the tag value: @\"TagKey\" : \"TagValue\"@.
+-- 'tags', 'tagResource_tags' - Applies one or more tags to specific resource. A tag is a key-value pair
+-- that helps you manage, identify, search, and filter your resources.
 --
--- -   Format example: @{\"tag1\" : \"value1\", \"tag2\" : \"value2\"} @
+-- Format: @\"key\" : \"value\"@
+--
+-- Restrictions:
+--
+-- -   Maximum 50 tags per resource.
+--
+-- -   Each tag key must be unique and must have exactly one associated
+--     value.
+--
+-- -   Maximum key length: 128 Unicode characters in UTF-8.
+--
+-- -   Maximum value length: 256 Unicode characters in UTF-8.
+--
+-- -   Can use alphanumeric characters (A–Z, a–z, 0–9), and the following
+--     characters: + - = . _ : \/ \@
+--
+-- -   Cannot use \"aws:\" as a prefix for a key.
 newTagResource ::
   -- | 'resourceArn'
   Prelude.Text ->
@@ -101,16 +134,33 @@ newTagResource pResourceArn_ =
 tagResource_resourceArn :: Lens.Lens' TagResource Prelude.Text
 tagResource_resourceArn = Lens.lens (\TagResource' {resourceArn} -> resourceArn) (\s@TagResource' {} a -> s {resourceArn = a} :: TagResource)
 
--- | Tags that have been applied to the specified resource. Tags are mapped
--- from the tag key to the tag value: @\"TagKey\" : \"TagValue\"@.
+-- | Applies one or more tags to specific resource. A tag is a key-value pair
+-- that helps you manage, identify, search, and filter your resources.
 --
--- -   Format example: @{\"tag1\" : \"value1\", \"tag2\" : \"value2\"} @
+-- Format: @\"key\" : \"value\"@
+--
+-- Restrictions:
+--
+-- -   Maximum 50 tags per resource.
+--
+-- -   Each tag key must be unique and must have exactly one associated
+--     value.
+--
+-- -   Maximum key length: 128 Unicode characters in UTF-8.
+--
+-- -   Maximum value length: 256 Unicode characters in UTF-8.
+--
+-- -   Can use alphanumeric characters (A–Z, a–z, 0–9), and the following
+--     characters: + - = . _ : \/ \@
+--
+-- -   Cannot use \"aws:\" as a prefix for a key.
 tagResource_tags :: Lens.Lens' TagResource (Prelude.HashMap Prelude.Text Prelude.Text)
 tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} a -> s {tags = a} :: TagResource) Prelude.. Lens.coerced
 
 instance Core.AWSRequest TagResource where
   type AWSResponse TagResource = TagResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -128,29 +178,29 @@ instance Prelude.NFData TagResource where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagResource where
+instance Data.ToHeaders TagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TagResource where
+instance Data.ToJSON TagResource where
   toJSON TagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Tags" Core..= tags)]
+          [Prelude.Just ("Tags" Data..= tags)]
       )
 
-instance Core.ToPath TagResource where
+instance Data.ToPath TagResource where
   toPath TagResource' {..} =
-    Prelude.mconcat ["/tags/", Core.toBS resourceArn]
+    Prelude.mconcat ["/tags/", Data.toBS resourceArn]
 
-instance Core.ToQuery TagResource where
+instance Data.ToQuery TagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTagResourceResponse' smart constructor.

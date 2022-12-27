@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DeleteUserByPrincipalId
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.QuickSight.DeleteUserByPrincipalId
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -115,12 +116,13 @@ instance Core.AWSRequest DeleteUserByPrincipalId where
   type
     AWSResponse DeleteUserByPrincipalId =
       DeleteUserByPrincipalIdResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteUserByPrincipalIdResponse'
-            Prelude.<$> (x Core..?> "RequestId")
+            Prelude.<$> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,29 +138,29 @@ instance Prelude.NFData DeleteUserByPrincipalId where
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf namespace
 
-instance Core.ToHeaders DeleteUserByPrincipalId where
+instance Data.ToHeaders DeleteUserByPrincipalId where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteUserByPrincipalId where
+instance Data.ToPath DeleteUserByPrincipalId where
   toPath DeleteUserByPrincipalId' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/namespaces/",
-        Core.toBS namespace,
+        Data.toBS namespace,
         "/user-principals/",
-        Core.toBS principalId
+        Data.toBS principalId
       ]
 
-instance Core.ToQuery DeleteUserByPrincipalId where
+instance Data.ToQuery DeleteUserByPrincipalId where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteUserByPrincipalIdResponse' smart constructor.

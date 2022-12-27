@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.UpdateVirtualInterfaceAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,7 +36,9 @@ module Amazonka.DirectConnect.UpdateVirtualInterfaceAttributes
     newUpdateVirtualInterfaceAttributes,
 
     -- * Request Lenses
+    updateVirtualInterfaceAttributes_enableSiteLink,
     updateVirtualInterfaceAttributes_mtu,
+    updateVirtualInterfaceAttributes_virtualInterfaceName,
     updateVirtualInterfaceAttributes_virtualInterfaceId,
 
     -- * Destructuring the Response
@@ -44,46 +46,52 @@ module Amazonka.DirectConnect.UpdateVirtualInterfaceAttributes
     newVirtualInterface,
 
     -- * Response Lenses
-    virtualInterface_bgpPeers,
-    virtualInterface_virtualGatewayId,
-    virtualInterface_mtu,
-    virtualInterface_routeFilterPrefixes,
-    virtualInterface_customerAddress,
-    virtualInterface_vlan,
-    virtualInterface_location,
-    virtualInterface_amazonAddress,
     virtualInterface_addressFamily,
-    virtualInterface_virtualInterfaceState,
-    virtualInterface_connectionId,
-    virtualInterface_awsLogicalDeviceId,
-    virtualInterface_directConnectGatewayId,
+    virtualInterface_amazonAddress,
     virtualInterface_amazonSideAsn,
-    virtualInterface_virtualInterfaceType,
     virtualInterface_asn,
     virtualInterface_authKey,
-    virtualInterface_jumboFrameCapable,
+    virtualInterface_awsDeviceV2,
+    virtualInterface_awsLogicalDeviceId,
+    virtualInterface_bgpPeers,
+    virtualInterface_connectionId,
+    virtualInterface_customerAddress,
     virtualInterface_customerRouterConfig,
+    virtualInterface_directConnectGatewayId,
+    virtualInterface_jumboFrameCapable,
+    virtualInterface_location,
+    virtualInterface_mtu,
     virtualInterface_ownerAccount,
     virtualInterface_region,
-    virtualInterface_virtualInterfaceName,
-    virtualInterface_awsDeviceV2,
-    virtualInterface_virtualInterfaceId,
+    virtualInterface_routeFilterPrefixes,
+    virtualInterface_siteLinkEnabled,
     virtualInterface_tags,
+    virtualInterface_virtualGatewayId,
+    virtualInterface_virtualInterfaceId,
+    virtualInterface_virtualInterfaceName,
+    virtualInterface_virtualInterfaceState,
+    virtualInterface_virtualInterfaceType,
+    virtualInterface_vlan,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateVirtualInterfaceAttributes' smart constructor.
 data UpdateVirtualInterfaceAttributes = UpdateVirtualInterfaceAttributes'
-  { -- | The maximum transmission unit (MTU), in bytes. The supported values are
+  { -- | Indicates whether to enable or disable SiteLink.
+    enableSiteLink :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum transmission unit (MTU), in bytes. The supported values are
     -- 1500 and 9001. The default value is 1500.
     mtu :: Prelude.Maybe Prelude.Int,
+    -- | The name of the virtual private interface.
+    virtualInterfaceName :: Prelude.Maybe Prelude.Text,
     -- | The ID of the virtual private interface.
     virtualInterfaceId :: Prelude.Text
   }
@@ -97,8 +105,12 @@ data UpdateVirtualInterfaceAttributes = UpdateVirtualInterfaceAttributes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'enableSiteLink', 'updateVirtualInterfaceAttributes_enableSiteLink' - Indicates whether to enable or disable SiteLink.
+--
 -- 'mtu', 'updateVirtualInterfaceAttributes_mtu' - The maximum transmission unit (MTU), in bytes. The supported values are
 -- 1500 and 9001. The default value is 1500.
+--
+-- 'virtualInterfaceName', 'updateVirtualInterfaceAttributes_virtualInterfaceName' - The name of the virtual private interface.
 --
 -- 'virtualInterfaceId', 'updateVirtualInterfaceAttributes_virtualInterfaceId' - The ID of the virtual private interface.
 newUpdateVirtualInterfaceAttributes ::
@@ -108,15 +120,25 @@ newUpdateVirtualInterfaceAttributes ::
 newUpdateVirtualInterfaceAttributes
   pVirtualInterfaceId_ =
     UpdateVirtualInterfaceAttributes'
-      { mtu =
+      { enableSiteLink =
           Prelude.Nothing,
+        mtu = Prelude.Nothing,
+        virtualInterfaceName = Prelude.Nothing,
         virtualInterfaceId = pVirtualInterfaceId_
       }
+
+-- | Indicates whether to enable or disable SiteLink.
+updateVirtualInterfaceAttributes_enableSiteLink :: Lens.Lens' UpdateVirtualInterfaceAttributes (Prelude.Maybe Prelude.Bool)
+updateVirtualInterfaceAttributes_enableSiteLink = Lens.lens (\UpdateVirtualInterfaceAttributes' {enableSiteLink} -> enableSiteLink) (\s@UpdateVirtualInterfaceAttributes' {} a -> s {enableSiteLink = a} :: UpdateVirtualInterfaceAttributes)
 
 -- | The maximum transmission unit (MTU), in bytes. The supported values are
 -- 1500 and 9001. The default value is 1500.
 updateVirtualInterfaceAttributes_mtu :: Lens.Lens' UpdateVirtualInterfaceAttributes (Prelude.Maybe Prelude.Int)
 updateVirtualInterfaceAttributes_mtu = Lens.lens (\UpdateVirtualInterfaceAttributes' {mtu} -> mtu) (\s@UpdateVirtualInterfaceAttributes' {} a -> s {mtu = a} :: UpdateVirtualInterfaceAttributes)
+
+-- | The name of the virtual private interface.
+updateVirtualInterfaceAttributes_virtualInterfaceName :: Lens.Lens' UpdateVirtualInterfaceAttributes (Prelude.Maybe Prelude.Text)
+updateVirtualInterfaceAttributes_virtualInterfaceName = Lens.lens (\UpdateVirtualInterfaceAttributes' {virtualInterfaceName} -> virtualInterfaceName) (\s@UpdateVirtualInterfaceAttributes' {} a -> s {virtualInterfaceName = a} :: UpdateVirtualInterfaceAttributes)
 
 -- | The ID of the virtual private interface.
 updateVirtualInterfaceAttributes_virtualInterfaceId :: Lens.Lens' UpdateVirtualInterfaceAttributes Prelude.Text
@@ -129,10 +151,11 @@ instance
   type
     AWSResponse UpdateVirtualInterfaceAttributes =
       VirtualInterface
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance
   Prelude.Hashable
@@ -141,7 +164,9 @@ instance
   hashWithSalt
     _salt
     UpdateVirtualInterfaceAttributes' {..} =
-      _salt `Prelude.hashWithSalt` mtu
+      _salt `Prelude.hashWithSalt` enableSiteLink
+        `Prelude.hashWithSalt` mtu
+        `Prelude.hashWithSalt` virtualInterfaceName
         `Prelude.hashWithSalt` virtualInterfaceId
 
 instance
@@ -149,42 +174,48 @@ instance
     UpdateVirtualInterfaceAttributes
   where
   rnf UpdateVirtualInterfaceAttributes' {..} =
-    Prelude.rnf mtu
+    Prelude.rnf enableSiteLink
+      `Prelude.seq` Prelude.rnf mtu
+      `Prelude.seq` Prelude.rnf virtualInterfaceName
       `Prelude.seq` Prelude.rnf virtualInterfaceId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateVirtualInterfaceAttributes
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.UpdateVirtualInterfaceAttributes" ::
+              Data.=# ( "OvertureService.UpdateVirtualInterfaceAttributes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateVirtualInterfaceAttributes where
+instance Data.ToJSON UpdateVirtualInterfaceAttributes where
   toJSON UpdateVirtualInterfaceAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("mtu" Core..=) Prelude.<$> mtu,
+          [ ("enableSiteLink" Data..=)
+              Prelude.<$> enableSiteLink,
+            ("mtu" Data..=) Prelude.<$> mtu,
+            ("virtualInterfaceName" Data..=)
+              Prelude.<$> virtualInterfaceName,
             Prelude.Just
-              ("virtualInterfaceId" Core..= virtualInterfaceId)
+              ("virtualInterfaceId" Data..= virtualInterfaceId)
           ]
       )
 
-instance Core.ToPath UpdateVirtualInterfaceAttributes where
+instance Data.ToPath UpdateVirtualInterfaceAttributes where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateVirtualInterfaceAttributes
   where
   toQuery = Prelude.const Prelude.mempty

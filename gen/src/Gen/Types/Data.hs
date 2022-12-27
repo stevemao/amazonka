@@ -41,19 +41,22 @@ data Prod = Prod'
   { _prodName :: Text,
     _prodDoc :: Maybe Help,
     _prodDecl :: Rendered,
+    -- | Minimal declaration for a @.hs-boot@ file, if required.
+    _prodBootDecl :: Rendered,
     _prodCtor :: Fun,
     _prodLenses :: [Fun],
     _prodDeps :: Set.Set Text
   }
   deriving (Eq, Show)
 
-prodToJSON :: ToJSON a => Solved -> Prod -> HashMap Text a -> [Pair]
+prodToJSON :: ToJSON a => Solved -> Prod -> Map Text a -> [Pair]
 prodToJSON s Prod' {..} is =
   [ "type" .= Text.pack "product",
     "name" .= _prodName,
     "constructor" .= _prodCtor,
     "documentation" .= _prodDoc,
     "declaration" .= _prodDecl,
+    "bootDeclaration" .= _prodBootDecl,
     "lenses" .= _prodLenses,
     "instances" .= is,
     "shared" .= isShared s,
@@ -65,7 +68,7 @@ data Sum = Sum'
     _sumDoc :: Maybe Help,
     _sumDecl :: Rendered,
     _sumCtor :: Text,
-    _sumCtors :: HashMap Text Text
+    _sumCtors :: Map Text Text
   }
   deriving (Eq, Show)
 
@@ -100,7 +103,7 @@ instance ToJSON Gen where
 
 data SData
   = -- | A product type (record).
-    Prod !Solved Prod (HashMap Text Rendered)
+    Prod !Solved Prod (Map Text Rendered)
   | -- | A nullary sum type.
     Sum !Solved Sum [Text]
   | -- | A function declaration.

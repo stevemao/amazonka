@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.CreateSampleFindings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.GuardDuty.CreateSampleFindings
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ instance Core.AWSRequest CreateSampleFindings where
   type
     AWSResponse CreateSampleFindings =
       CreateSampleFindingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -109,33 +111,33 @@ instance Prelude.NFData CreateSampleFindings where
     Prelude.rnf findingTypes
       `Prelude.seq` Prelude.rnf detectorId
 
-instance Core.ToHeaders CreateSampleFindings where
+instance Data.ToHeaders CreateSampleFindings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateSampleFindings where
+instance Data.ToJSON CreateSampleFindings where
   toJSON CreateSampleFindings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("findingTypes" Core..=) Prelude.<$> findingTypes]
+          [("findingTypes" Data..=) Prelude.<$> findingTypes]
       )
 
-instance Core.ToPath CreateSampleFindings where
+instance Data.ToPath CreateSampleFindings where
   toPath CreateSampleFindings' {..} =
     Prelude.mconcat
       [ "/detector/",
-        Core.toBS detectorId,
+        Data.toBS detectorId,
         "/findings/create"
       ]
 
-instance Core.ToQuery CreateSampleFindings where
+instance Data.ToQuery CreateSampleFindings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateSampleFindingsResponse' smart constructor.

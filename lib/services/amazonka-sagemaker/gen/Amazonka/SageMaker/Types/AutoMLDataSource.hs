@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.AutoMLDataSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.AutoMLDataSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.AutoMLS3DataSource
 
@@ -29,8 +30,6 @@ import Amazonka.SageMaker.Types.AutoMLS3DataSource
 -- /See:/ 'newAutoMLDataSource' smart constructor.
 data AutoMLDataSource = AutoMLDataSource'
   { -- | The Amazon S3 location of the input data.
-    --
-    -- The input data must be in CSV format and contain at least 500 rows.
     s3DataSource :: AutoMLS3DataSource
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,8 +43,6 @@ data AutoMLDataSource = AutoMLDataSource'
 -- for backwards compatibility:
 --
 -- 's3DataSource', 'autoMLDataSource_s3DataSource' - The Amazon S3 location of the input data.
---
--- The input data must be in CSV format and contain at least 500 rows.
 newAutoMLDataSource ::
   -- | 's3DataSource'
   AutoMLS3DataSource ->
@@ -54,18 +51,16 @@ newAutoMLDataSource pS3DataSource_ =
   AutoMLDataSource' {s3DataSource = pS3DataSource_}
 
 -- | The Amazon S3 location of the input data.
---
--- The input data must be in CSV format and contain at least 500 rows.
 autoMLDataSource_s3DataSource :: Lens.Lens' AutoMLDataSource AutoMLS3DataSource
 autoMLDataSource_s3DataSource = Lens.lens (\AutoMLDataSource' {s3DataSource} -> s3DataSource) (\s@AutoMLDataSource' {} a -> s {s3DataSource = a} :: AutoMLDataSource)
 
-instance Core.FromJSON AutoMLDataSource where
+instance Data.FromJSON AutoMLDataSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutoMLDataSource"
       ( \x ->
           AutoMLDataSource'
-            Prelude.<$> (x Core..: "S3DataSource")
+            Prelude.<$> (x Data..: "S3DataSource")
       )
 
 instance Prelude.Hashable AutoMLDataSource where
@@ -75,9 +70,9 @@ instance Prelude.Hashable AutoMLDataSource where
 instance Prelude.NFData AutoMLDataSource where
   rnf AutoMLDataSource' {..} = Prelude.rnf s3DataSource
 
-instance Core.ToJSON AutoMLDataSource where
+instance Data.ToJSON AutoMLDataSource where
   toJSON AutoMLDataSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("S3DataSource" Core..= s3DataSource)]
+          [Prelude.Just ("S3DataSource" Data..= s3DataSource)]
       )

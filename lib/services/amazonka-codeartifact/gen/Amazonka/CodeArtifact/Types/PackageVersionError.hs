@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.Types.PackageVersionError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,10 +21,11 @@ module Amazonka.CodeArtifact.Types.PackageVersionError where
 
 import Amazonka.CodeArtifact.Types.PackageVersionErrorCode
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | An error associated with package.
+-- | l An error associated with package.
 --
 -- /See:/ 'newPackageVersionError' smart constructor.
 data PackageVersionError = PackageVersionError'
@@ -98,14 +99,14 @@ packageVersionError_errorCode = Lens.lens (\PackageVersionError' {errorCode} -> 
 packageVersionError_errorMessage :: Lens.Lens' PackageVersionError (Prelude.Maybe Prelude.Text)
 packageVersionError_errorMessage = Lens.lens (\PackageVersionError' {errorMessage} -> errorMessage) (\s@PackageVersionError' {} a -> s {errorMessage = a} :: PackageVersionError)
 
-instance Core.FromJSON PackageVersionError where
+instance Data.FromJSON PackageVersionError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PackageVersionError"
       ( \x ->
           PackageVersionError'
-            Prelude.<$> (x Core..:? "errorCode")
-            Prelude.<*> (x Core..:? "errorMessage")
+            Prelude.<$> (x Data..:? "errorCode")
+            Prelude.<*> (x Data..:? "errorMessage")
       )
 
 instance Prelude.Hashable PackageVersionError where

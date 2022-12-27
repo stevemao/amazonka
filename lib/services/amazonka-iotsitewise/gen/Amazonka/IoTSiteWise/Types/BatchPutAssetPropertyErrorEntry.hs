@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.BatchPutAssetPropertyErrorEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTSiteWise.Types.BatchPutAssetPropertyErrorEntry where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.BatchPutAssetPropertyError
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains error information for asset property value entries that are
@@ -69,16 +70,16 @@ batchPutAssetPropertyErrorEntry_errors :: Lens.Lens' BatchPutAssetPropertyErrorE
 batchPutAssetPropertyErrorEntry_errors = Lens.lens (\BatchPutAssetPropertyErrorEntry' {errors} -> errors) (\s@BatchPutAssetPropertyErrorEntry' {} a -> s {errors = a} :: BatchPutAssetPropertyErrorEntry) Prelude.. Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     BatchPutAssetPropertyErrorEntry
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchPutAssetPropertyErrorEntry"
       ( \x ->
           BatchPutAssetPropertyErrorEntry'
-            Prelude.<$> (x Core..: "entryId")
-            Prelude.<*> (x Core..:? "errors" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..: "entryId")
+            Prelude.<*> (x Data..:? "errors" Data..!= Prelude.mempty)
       )
 
 instance

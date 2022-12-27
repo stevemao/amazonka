@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.SSM.DescribeInstanceAssociationsStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The status of the associations for the instance(s).
+-- The status of the associations for the managed node(s).
 --
 -- This operation returns paginated results.
 module Amazonka.SSM.DescribeInstanceAssociationsStatus
@@ -29,8 +29,8 @@ module Amazonka.SSM.DescribeInstanceAssociationsStatus
     newDescribeInstanceAssociationsStatus,
 
     -- * Request Lenses
-    describeInstanceAssociationsStatus_nextToken,
     describeInstanceAssociationsStatus_maxResults,
+    describeInstanceAssociationsStatus_nextToken,
     describeInstanceAssociationsStatus_instanceId,
 
     -- * Destructuring the Response
@@ -45,7 +45,8 @@ module Amazonka.SSM.DescribeInstanceAssociationsStatus
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,14 +54,14 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newDescribeInstanceAssociationsStatus' smart constructor.
 data DescribeInstanceAssociationsStatus = DescribeInstanceAssociationsStatus'
-  { -- | The token for the next set of items to return. (You received this token
-    -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return for this call. The call also
+  { -- | The maximum number of items to return for this call. The call also
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The instance IDs for which you want association status information.
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The managed node IDs for which you want association status information.
     instanceId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -73,30 +74,25 @@ data DescribeInstanceAssociationsStatus = DescribeInstanceAssociationsStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeInstanceAssociationsStatus_nextToken' - The token for the next set of items to return. (You received this token
--- from a previous call.)
---
 -- 'maxResults', 'describeInstanceAssociationsStatus_maxResults' - The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
 --
--- 'instanceId', 'describeInstanceAssociationsStatus_instanceId' - The instance IDs for which you want association status information.
+-- 'nextToken', 'describeInstanceAssociationsStatus_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
+--
+-- 'instanceId', 'describeInstanceAssociationsStatus_instanceId' - The managed node IDs for which you want association status information.
 newDescribeInstanceAssociationsStatus ::
   -- | 'instanceId'
   Prelude.Text ->
   DescribeInstanceAssociationsStatus
 newDescribeInstanceAssociationsStatus pInstanceId_ =
   DescribeInstanceAssociationsStatus'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       instanceId = pInstanceId_
     }
-
--- | The token for the next set of items to return. (You received this token
--- from a previous call.)
-describeInstanceAssociationsStatus_nextToken :: Lens.Lens' DescribeInstanceAssociationsStatus (Prelude.Maybe Prelude.Text)
-describeInstanceAssociationsStatus_nextToken = Lens.lens (\DescribeInstanceAssociationsStatus' {nextToken} -> nextToken) (\s@DescribeInstanceAssociationsStatus' {} a -> s {nextToken = a} :: DescribeInstanceAssociationsStatus)
 
 -- | The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
@@ -104,7 +100,12 @@ describeInstanceAssociationsStatus_nextToken = Lens.lens (\DescribeInstanceAssoc
 describeInstanceAssociationsStatus_maxResults :: Lens.Lens' DescribeInstanceAssociationsStatus (Prelude.Maybe Prelude.Natural)
 describeInstanceAssociationsStatus_maxResults = Lens.lens (\DescribeInstanceAssociationsStatus' {maxResults} -> maxResults) (\s@DescribeInstanceAssociationsStatus' {} a -> s {maxResults = a} :: DescribeInstanceAssociationsStatus)
 
--- | The instance IDs for which you want association status information.
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeInstanceAssociationsStatus_nextToken :: Lens.Lens' DescribeInstanceAssociationsStatus (Prelude.Maybe Prelude.Text)
+describeInstanceAssociationsStatus_nextToken = Lens.lens (\DescribeInstanceAssociationsStatus' {nextToken} -> nextToken) (\s@DescribeInstanceAssociationsStatus' {} a -> s {nextToken = a} :: DescribeInstanceAssociationsStatus)
+
+-- | The managed node IDs for which you want association status information.
 describeInstanceAssociationsStatus_instanceId :: Lens.Lens' DescribeInstanceAssociationsStatus Prelude.Text
 describeInstanceAssociationsStatus_instanceId = Lens.lens (\DescribeInstanceAssociationsStatus' {instanceId} -> instanceId) (\s@DescribeInstanceAssociationsStatus' {} a -> s {instanceId = a} :: DescribeInstanceAssociationsStatus)
 
@@ -140,15 +141,16 @@ instance
   type
     AWSResponse DescribeInstanceAssociationsStatus =
       DescribeInstanceAssociationsStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeInstanceAssociationsStatusResponse'
-            Prelude.<$> ( x Core..?> "InstanceAssociationStatusInfos"
+            Prelude.<$> ( x Data..?> "InstanceAssociationStatusInfos"
                             Core..!@ Prelude.mempty
                         )
-              Prelude.<*> (x Core..?> "NextToken")
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -159,8 +161,8 @@ instance
   hashWithSalt
     _salt
     DescribeInstanceAssociationsStatus' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` instanceId
 
 instance
@@ -168,49 +170,49 @@ instance
     DescribeInstanceAssociationsStatus
   where
   rnf DescribeInstanceAssociationsStatus' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf instanceId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeInstanceAssociationsStatus
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.DescribeInstanceAssociationsStatus" ::
+              Data.=# ( "AmazonSSM.DescribeInstanceAssociationsStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeInstanceAssociationsStatus
   where
   toJSON DescribeInstanceAssociationsStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("InstanceId" Core..= instanceId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("InstanceId" Data..= instanceId)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeInstanceAssociationsStatus
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeInstanceAssociationsStatus
   where
   toQuery = Prelude.const Prelude.mempty

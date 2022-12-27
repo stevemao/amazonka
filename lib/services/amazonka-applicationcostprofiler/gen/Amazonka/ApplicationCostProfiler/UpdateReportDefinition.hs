@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationCostProfiler.UpdateReportDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.ApplicationCostProfiler.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -135,12 +136,13 @@ instance Core.AWSRequest UpdateReportDefinition where
   type
     AWSResponse UpdateReportDefinition =
       UpdateReportDefinitionResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateReportDefinitionResponse'
-            Prelude.<$> (x Core..?> "reportId")
+            Prelude.<$> (x Data..?> "reportId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -160,39 +162,39 @@ instance Prelude.NFData UpdateReportDefinition where
       `Prelude.seq` Prelude.rnf format
       `Prelude.seq` Prelude.rnf destinationS3Location
 
-instance Core.ToHeaders UpdateReportDefinition where
+instance Data.ToHeaders UpdateReportDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateReportDefinition where
+instance Data.ToJSON UpdateReportDefinition where
   toJSON UpdateReportDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("reportDescription" Core..= reportDescription),
+              ("reportDescription" Data..= reportDescription),
             Prelude.Just
-              ("reportFrequency" Core..= reportFrequency),
-            Prelude.Just ("format" Core..= format),
+              ("reportFrequency" Data..= reportFrequency),
+            Prelude.Just ("format" Data..= format),
             Prelude.Just
               ( "destinationS3Location"
-                  Core..= destinationS3Location
+                  Data..= destinationS3Location
               )
           ]
       )
 
-instance Core.ToPath UpdateReportDefinition where
+instance Data.ToPath UpdateReportDefinition where
   toPath UpdateReportDefinition' {..} =
     Prelude.mconcat
-      ["/reportDefinition/", Core.toBS reportId]
+      ["/reportDefinition/", Data.toBS reportId]
 
-instance Core.ToQuery UpdateReportDefinition where
+instance Data.ToQuery UpdateReportDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateReportDefinitionResponse' smart constructor.

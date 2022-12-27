@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.Types.DelimitedTextImportOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.HoneyCode.Types.DelimitedTextImportOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HoneyCode.Types.ImportDataCharacterEncoding
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that contains the options relating to parsing delimited text
@@ -29,14 +30,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDelimitedTextImportOptions' smart constructor.
 data DelimitedTextImportOptions = DelimitedTextImportOptions'
-  { -- | A parameter to indicate whether empty rows should be ignored or be
-    -- included in the import.
-    ignoreEmptyRows :: Prelude.Maybe Prelude.Bool,
+  { -- | The encoding of the data in the input file.
+    dataCharacterEncoding :: Prelude.Maybe ImportDataCharacterEncoding,
     -- | Indicates whether the input file has a header row at the top containing
     -- the column names.
     hasHeaderRow :: Prelude.Maybe Prelude.Bool,
-    -- | The encoding of the data in the input file.
-    dataCharacterEncoding :: Prelude.Maybe ImportDataCharacterEncoding,
+    -- | A parameter to indicate whether empty rows should be ignored or be
+    -- included in the import.
+    ignoreEmptyRows :: Prelude.Maybe Prelude.Bool,
     -- | The delimiter to use for separating columns in a single row of the
     -- input.
     delimiter :: Prelude.Text
@@ -51,13 +52,13 @@ data DelimitedTextImportOptions = DelimitedTextImportOptions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ignoreEmptyRows', 'delimitedTextImportOptions_ignoreEmptyRows' - A parameter to indicate whether empty rows should be ignored or be
--- included in the import.
+-- 'dataCharacterEncoding', 'delimitedTextImportOptions_dataCharacterEncoding' - The encoding of the data in the input file.
 --
 -- 'hasHeaderRow', 'delimitedTextImportOptions_hasHeaderRow' - Indicates whether the input file has a header row at the top containing
 -- the column names.
 --
--- 'dataCharacterEncoding', 'delimitedTextImportOptions_dataCharacterEncoding' - The encoding of the data in the input file.
+-- 'ignoreEmptyRows', 'delimitedTextImportOptions_ignoreEmptyRows' - A parameter to indicate whether empty rows should be ignored or be
+-- included in the import.
 --
 -- 'delimiter', 'delimitedTextImportOptions_delimiter' - The delimiter to use for separating columns in a single row of the
 -- input.
@@ -67,67 +68,67 @@ newDelimitedTextImportOptions ::
   DelimitedTextImportOptions
 newDelimitedTextImportOptions pDelimiter_ =
   DelimitedTextImportOptions'
-    { ignoreEmptyRows =
+    { dataCharacterEncoding =
         Prelude.Nothing,
       hasHeaderRow = Prelude.Nothing,
-      dataCharacterEncoding = Prelude.Nothing,
+      ignoreEmptyRows = Prelude.Nothing,
       delimiter = pDelimiter_
     }
 
--- | A parameter to indicate whether empty rows should be ignored or be
--- included in the import.
-delimitedTextImportOptions_ignoreEmptyRows :: Lens.Lens' DelimitedTextImportOptions (Prelude.Maybe Prelude.Bool)
-delimitedTextImportOptions_ignoreEmptyRows = Lens.lens (\DelimitedTextImportOptions' {ignoreEmptyRows} -> ignoreEmptyRows) (\s@DelimitedTextImportOptions' {} a -> s {ignoreEmptyRows = a} :: DelimitedTextImportOptions)
+-- | The encoding of the data in the input file.
+delimitedTextImportOptions_dataCharacterEncoding :: Lens.Lens' DelimitedTextImportOptions (Prelude.Maybe ImportDataCharacterEncoding)
+delimitedTextImportOptions_dataCharacterEncoding = Lens.lens (\DelimitedTextImportOptions' {dataCharacterEncoding} -> dataCharacterEncoding) (\s@DelimitedTextImportOptions' {} a -> s {dataCharacterEncoding = a} :: DelimitedTextImportOptions)
 
 -- | Indicates whether the input file has a header row at the top containing
 -- the column names.
 delimitedTextImportOptions_hasHeaderRow :: Lens.Lens' DelimitedTextImportOptions (Prelude.Maybe Prelude.Bool)
 delimitedTextImportOptions_hasHeaderRow = Lens.lens (\DelimitedTextImportOptions' {hasHeaderRow} -> hasHeaderRow) (\s@DelimitedTextImportOptions' {} a -> s {hasHeaderRow = a} :: DelimitedTextImportOptions)
 
--- | The encoding of the data in the input file.
-delimitedTextImportOptions_dataCharacterEncoding :: Lens.Lens' DelimitedTextImportOptions (Prelude.Maybe ImportDataCharacterEncoding)
-delimitedTextImportOptions_dataCharacterEncoding = Lens.lens (\DelimitedTextImportOptions' {dataCharacterEncoding} -> dataCharacterEncoding) (\s@DelimitedTextImportOptions' {} a -> s {dataCharacterEncoding = a} :: DelimitedTextImportOptions)
+-- | A parameter to indicate whether empty rows should be ignored or be
+-- included in the import.
+delimitedTextImportOptions_ignoreEmptyRows :: Lens.Lens' DelimitedTextImportOptions (Prelude.Maybe Prelude.Bool)
+delimitedTextImportOptions_ignoreEmptyRows = Lens.lens (\DelimitedTextImportOptions' {ignoreEmptyRows} -> ignoreEmptyRows) (\s@DelimitedTextImportOptions' {} a -> s {ignoreEmptyRows = a} :: DelimitedTextImportOptions)
 
 -- | The delimiter to use for separating columns in a single row of the
 -- input.
 delimitedTextImportOptions_delimiter :: Lens.Lens' DelimitedTextImportOptions Prelude.Text
 delimitedTextImportOptions_delimiter = Lens.lens (\DelimitedTextImportOptions' {delimiter} -> delimiter) (\s@DelimitedTextImportOptions' {} a -> s {delimiter = a} :: DelimitedTextImportOptions)
 
-instance Core.FromJSON DelimitedTextImportOptions where
+instance Data.FromJSON DelimitedTextImportOptions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DelimitedTextImportOptions"
       ( \x ->
           DelimitedTextImportOptions'
-            Prelude.<$> (x Core..:? "ignoreEmptyRows")
-            Prelude.<*> (x Core..:? "hasHeaderRow")
-            Prelude.<*> (x Core..:? "dataCharacterEncoding")
-            Prelude.<*> (x Core..: "delimiter")
+            Prelude.<$> (x Data..:? "dataCharacterEncoding")
+            Prelude.<*> (x Data..:? "hasHeaderRow")
+            Prelude.<*> (x Data..:? "ignoreEmptyRows")
+            Prelude.<*> (x Data..: "delimiter")
       )
 
 instance Prelude.Hashable DelimitedTextImportOptions where
   hashWithSalt _salt DelimitedTextImportOptions' {..} =
-    _salt `Prelude.hashWithSalt` ignoreEmptyRows
+    _salt `Prelude.hashWithSalt` dataCharacterEncoding
       `Prelude.hashWithSalt` hasHeaderRow
-      `Prelude.hashWithSalt` dataCharacterEncoding
+      `Prelude.hashWithSalt` ignoreEmptyRows
       `Prelude.hashWithSalt` delimiter
 
 instance Prelude.NFData DelimitedTextImportOptions where
   rnf DelimitedTextImportOptions' {..} =
-    Prelude.rnf ignoreEmptyRows
+    Prelude.rnf dataCharacterEncoding
       `Prelude.seq` Prelude.rnf hasHeaderRow
-      `Prelude.seq` Prelude.rnf dataCharacterEncoding
+      `Prelude.seq` Prelude.rnf ignoreEmptyRows
       `Prelude.seq` Prelude.rnf delimiter
 
-instance Core.ToJSON DelimitedTextImportOptions where
+instance Data.ToJSON DelimitedTextImportOptions where
   toJSON DelimitedTextImportOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ignoreEmptyRows" Core..=)
-              Prelude.<$> ignoreEmptyRows,
-            ("hasHeaderRow" Core..=) Prelude.<$> hasHeaderRow,
-            ("dataCharacterEncoding" Core..=)
+          [ ("dataCharacterEncoding" Data..=)
               Prelude.<$> dataCharacterEncoding,
-            Prelude.Just ("delimiter" Core..= delimiter)
+            ("hasHeaderRow" Data..=) Prelude.<$> hasHeaderRow,
+            ("ignoreEmptyRows" Data..=)
+              Prelude.<$> ignoreEmptyRows,
+            Prelude.Just ("delimiter" Data..= delimiter)
           ]
       )

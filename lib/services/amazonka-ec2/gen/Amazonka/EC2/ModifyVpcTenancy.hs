@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyVpcTenancy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,8 +53,9 @@ module Amazonka.EC2.ModifyVpcTenancy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,12 +122,13 @@ instance Core.AWSRequest ModifyVpcTenancy where
   type
     AWSResponse ModifyVpcTenancy =
       ModifyVpcTenancyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ModifyVpcTenancyResponse'
-            Prelude.<$> (x Core..@? "return")
+            Prelude.<$> (x Data..@? "return")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -142,22 +144,22 @@ instance Prelude.NFData ModifyVpcTenancy where
       `Prelude.seq` Prelude.rnf vpcId
       `Prelude.seq` Prelude.rnf instanceTenancy
 
-instance Core.ToHeaders ModifyVpcTenancy where
+instance Data.ToHeaders ModifyVpcTenancy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyVpcTenancy where
+instance Data.ToPath ModifyVpcTenancy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyVpcTenancy where
+instance Data.ToQuery ModifyVpcTenancy where
   toQuery ModifyVpcTenancy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyVpcTenancy" :: Prelude.ByteString),
+          Data.=: ("ModifyVpcTenancy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "VpcId" Core.=: vpcId,
-        "InstanceTenancy" Core.=: instanceTenancy
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "VpcId" Data.=: vpcId,
+        "InstanceTenancy" Data.=: instanceTenancy
       ]
 
 -- | /See:/ 'newModifyVpcTenancyResponse' smart constructor.

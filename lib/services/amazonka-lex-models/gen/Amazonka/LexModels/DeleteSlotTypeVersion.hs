@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.DeleteSlotTypeVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.LexModels.DeleteSlotTypeVersion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -97,7 +98,8 @@ instance Core.AWSRequest DeleteSlotTypeVersion where
   type
     AWSResponse DeleteSlotTypeVersion =
       DeleteSlotTypeVersionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteSlotTypeVersionResponse'
 
@@ -110,27 +112,27 @@ instance Prelude.NFData DeleteSlotTypeVersion where
   rnf DeleteSlotTypeVersion' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf version
 
-instance Core.ToHeaders DeleteSlotTypeVersion where
+instance Data.ToHeaders DeleteSlotTypeVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteSlotTypeVersion where
+instance Data.ToPath DeleteSlotTypeVersion where
   toPath DeleteSlotTypeVersion' {..} =
     Prelude.mconcat
       [ "/slottypes/",
-        Core.toBS name,
+        Data.toBS name,
         "/version/",
-        Core.toBS version
+        Data.toBS version
       ]
 
-instance Core.ToQuery DeleteSlotTypeVersion where
+instance Data.ToQuery DeleteSlotTypeVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteSlotTypeVersionResponse' smart constructor.

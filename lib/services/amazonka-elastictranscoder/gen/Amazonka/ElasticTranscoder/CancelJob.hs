@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticTranscoder.CancelJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.ElasticTranscoder.CancelJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticTranscoder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,7 +89,8 @@ cancelJob_id = Lens.lens (\CancelJob' {id} -> id) (\s@CancelJob' {} a -> s {id =
 
 instance Core.AWSRequest CancelJob where
   type AWSResponse CancelJob = CancelJobResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -103,14 +105,14 @@ instance Prelude.Hashable CancelJob where
 instance Prelude.NFData CancelJob where
   rnf CancelJob' {..} = Prelude.rnf id
 
-instance Core.ToHeaders CancelJob where
+instance Data.ToHeaders CancelJob where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CancelJob where
+instance Data.ToPath CancelJob where
   toPath CancelJob' {..} =
-    Prelude.mconcat ["/2012-09-25/jobs/", Core.toBS id]
+    Prelude.mconcat ["/2012-09-25/jobs/", Data.toBS id]
 
-instance Core.ToQuery CancelJob where
+instance Data.ToQuery CancelJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The response body contains a JSON object. If the job is successfully

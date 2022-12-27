@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.HoldoutActivity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.HoldoutActivity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the settings for a holdout activity in a journey. This type of
@@ -82,14 +83,14 @@ holdoutActivity_nextActivity = Lens.lens (\HoldoutActivity' {nextActivity} -> ne
 holdoutActivity_percentage :: Lens.Lens' HoldoutActivity Prelude.Int
 holdoutActivity_percentage = Lens.lens (\HoldoutActivity' {percentage} -> percentage) (\s@HoldoutActivity' {} a -> s {percentage = a} :: HoldoutActivity)
 
-instance Core.FromJSON HoldoutActivity where
+instance Data.FromJSON HoldoutActivity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HoldoutActivity"
       ( \x ->
           HoldoutActivity'
-            Prelude.<$> (x Core..:? "NextActivity")
-            Prelude.<*> (x Core..: "Percentage")
+            Prelude.<$> (x Data..:? "NextActivity")
+            Prelude.<*> (x Data..: "Percentage")
       )
 
 instance Prelude.Hashable HoldoutActivity where
@@ -102,11 +103,11 @@ instance Prelude.NFData HoldoutActivity where
     Prelude.rnf nextActivity
       `Prelude.seq` Prelude.rnf percentage
 
-instance Core.ToJSON HoldoutActivity where
+instance Data.ToJSON HoldoutActivity where
   toJSON HoldoutActivity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextActivity" Core..=) Prelude.<$> nextActivity,
-            Prelude.Just ("Percentage" Core..= percentage)
+          [ ("NextActivity" Data..=) Prelude.<$> nextActivity,
+            Prelude.Just ("Percentage" Data..= percentage)
           ]
       )

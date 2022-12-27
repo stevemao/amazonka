@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.ListPermissionSets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the PermissionSets in an SSO instance.
+-- Lists the PermissionSets in an IAM Identity Center instance.
 --
 -- This operation returns paginated results.
 module Amazonka.SSOAdmin.ListPermissionSets
@@ -29,8 +29,8 @@ module Amazonka.SSOAdmin.ListPermissionSets
     newListPermissionSets,
 
     -- * Request Lenses
-    listPermissionSets_nextToken,
     listPermissionSets_maxResults,
+    listPermissionSets_nextToken,
     listPermissionSets_instanceArn,
 
     -- * Destructuring the Response
@@ -38,14 +38,15 @@ module Amazonka.SSOAdmin.ListPermissionSets
     newListPermissionSetsResponse,
 
     -- * Response Lenses
-    listPermissionSetsResponse_permissionSets,
     listPermissionSetsResponse_nextToken,
+    listPermissionSetsResponse_permissionSets,
     listPermissionSetsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,15 +54,15 @@ import Amazonka.SSOAdmin.Types
 
 -- | /See:/ 'newListPermissionSets' smart constructor.
 data ListPermissionSets = ListPermissionSets'
-  { -- | The pagination token for the list API. Initially the value is null. Use
+  { -- | The maximum number of results to display for the assignment.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token for the list API. Initially the value is null. Use
     -- the output of previous API calls to make subsequent calls.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to display for the assignment.
-    maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The ARN of the SSO instance under which the operation will be executed.
-    -- For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
+    -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
     instanceArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -74,39 +75,39 @@ data ListPermissionSets = ListPermissionSets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listPermissionSets_maxResults' - The maximum number of results to display for the assignment.
+--
 -- 'nextToken', 'listPermissionSets_nextToken' - The pagination token for the list API. Initially the value is null. Use
 -- the output of previous API calls to make subsequent calls.
 --
--- 'maxResults', 'listPermissionSets_maxResults' - The maximum number of results to display for the assignment.
---
--- 'instanceArn', 'listPermissionSets_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- 'instanceArn', 'listPermissionSets_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 newListPermissionSets ::
   -- | 'instanceArn'
   Prelude.Text ->
   ListPermissionSets
 newListPermissionSets pInstanceArn_ =
   ListPermissionSets'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       instanceArn = pInstanceArn_
     }
+
+-- | The maximum number of results to display for the assignment.
+listPermissionSets_maxResults :: Lens.Lens' ListPermissionSets (Prelude.Maybe Prelude.Natural)
+listPermissionSets_maxResults = Lens.lens (\ListPermissionSets' {maxResults} -> maxResults) (\s@ListPermissionSets' {} a -> s {maxResults = a} :: ListPermissionSets)
 
 -- | The pagination token for the list API. Initially the value is null. Use
 -- the output of previous API calls to make subsequent calls.
 listPermissionSets_nextToken :: Lens.Lens' ListPermissionSets (Prelude.Maybe Prelude.Text)
 listPermissionSets_nextToken = Lens.lens (\ListPermissionSets' {nextToken} -> nextToken) (\s@ListPermissionSets' {} a -> s {nextToken = a} :: ListPermissionSets)
 
--- | The maximum number of results to display for the assignment.
-listPermissionSets_maxResults :: Lens.Lens' ListPermissionSets (Prelude.Maybe Prelude.Natural)
-listPermissionSets_maxResults = Lens.lens (\ListPermissionSets' {maxResults} -> maxResults) (\s@ListPermissionSets' {} a -> s {maxResults = a} :: ListPermissionSets)
-
--- | The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 listPermissionSets_instanceArn :: Lens.Lens' ListPermissionSets Prelude.Text
 listPermissionSets_instanceArn = Lens.lens (\ListPermissionSets' {instanceArn} -> instanceArn) (\s@ListPermissionSets' {} a -> s {instanceArn = a} :: ListPermissionSets)
 
@@ -136,66 +137,67 @@ instance Core.AWSRequest ListPermissionSets where
   type
     AWSResponse ListPermissionSets =
       ListPermissionSetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPermissionSetsResponse'
-            Prelude.<$> (x Core..?> "PermissionSets" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "PermissionSets" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListPermissionSets where
   hashWithSalt _salt ListPermissionSets' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` instanceArn
 
 instance Prelude.NFData ListPermissionSets where
   rnf ListPermissionSets' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf instanceArn
 
-instance Core.ToHeaders ListPermissionSets where
+instance Data.ToHeaders ListPermissionSets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.ListPermissionSets" ::
+              Data.=# ( "SWBExternalService.ListPermissionSets" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPermissionSets where
+instance Data.ToJSON ListPermissionSets where
   toJSON ListPermissionSets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("InstanceArn" Core..= instanceArn)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("InstanceArn" Data..= instanceArn)
           ]
       )
 
-instance Core.ToPath ListPermissionSets where
+instance Data.ToPath ListPermissionSets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPermissionSets where
+instance Data.ToQuery ListPermissionSets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListPermissionSetsResponse' smart constructor.
 data ListPermissionSetsResponse = ListPermissionSetsResponse'
-  { -- | Defines the level of access on an Amazon Web Services account.
-    permissionSets :: Prelude.Maybe [Prelude.Text],
-    -- | The pagination token for the list API. Initially the value is null. Use
+  { -- | The pagination token for the list API. Initially the value is null. Use
     -- the output of previous API calls to make subsequent calls.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Defines the level of access on an AWS account.
+    permissionSets :: Prelude.Maybe [Prelude.Text],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -209,10 +211,10 @@ data ListPermissionSetsResponse = ListPermissionSetsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'permissionSets', 'listPermissionSetsResponse_permissionSets' - Defines the level of access on an Amazon Web Services account.
---
 -- 'nextToken', 'listPermissionSetsResponse_nextToken' - The pagination token for the list API. Initially the value is null. Use
 -- the output of previous API calls to make subsequent calls.
+--
+-- 'permissionSets', 'listPermissionSetsResponse_permissionSets' - Defines the level of access on an AWS account.
 --
 -- 'httpStatus', 'listPermissionSetsResponse_httpStatus' - The response's http status code.
 newListPermissionSetsResponse ::
@@ -221,20 +223,20 @@ newListPermissionSetsResponse ::
   ListPermissionSetsResponse
 newListPermissionSetsResponse pHttpStatus_ =
   ListPermissionSetsResponse'
-    { permissionSets =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      permissionSets = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Defines the level of access on an Amazon Web Services account.
-listPermissionSetsResponse_permissionSets :: Lens.Lens' ListPermissionSetsResponse (Prelude.Maybe [Prelude.Text])
-listPermissionSetsResponse_permissionSets = Lens.lens (\ListPermissionSetsResponse' {permissionSets} -> permissionSets) (\s@ListPermissionSetsResponse' {} a -> s {permissionSets = a} :: ListPermissionSetsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The pagination token for the list API. Initially the value is null. Use
 -- the output of previous API calls to make subsequent calls.
 listPermissionSetsResponse_nextToken :: Lens.Lens' ListPermissionSetsResponse (Prelude.Maybe Prelude.Text)
 listPermissionSetsResponse_nextToken = Lens.lens (\ListPermissionSetsResponse' {nextToken} -> nextToken) (\s@ListPermissionSetsResponse' {} a -> s {nextToken = a} :: ListPermissionSetsResponse)
+
+-- | Defines the level of access on an AWS account.
+listPermissionSetsResponse_permissionSets :: Lens.Lens' ListPermissionSetsResponse (Prelude.Maybe [Prelude.Text])
+listPermissionSetsResponse_permissionSets = Lens.lens (\ListPermissionSetsResponse' {permissionSets} -> permissionSets) (\s@ListPermissionSetsResponse' {} a -> s {permissionSets = a} :: ListPermissionSetsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listPermissionSetsResponse_httpStatus :: Lens.Lens' ListPermissionSetsResponse Prelude.Int
@@ -242,6 +244,6 @@ listPermissionSetsResponse_httpStatus = Lens.lens (\ListPermissionSetsResponse' 
 
 instance Prelude.NFData ListPermissionSetsResponse where
   rnf ListPermissionSetsResponse' {..} =
-    Prelude.rnf permissionSets
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf permissionSets
       `Prelude.seq` Prelude.rnf httpStatus

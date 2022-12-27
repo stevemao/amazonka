@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.CapacityUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.KafkaConnect.Types.CapacityUpdate where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types.AutoScalingUpdate
 import Amazonka.KafkaConnect.Types.ProvisionedCapacityUpdate
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The target capacity for the connector. The capacity can be auto scaled
@@ -74,12 +75,12 @@ instance Prelude.NFData CapacityUpdate where
     Prelude.rnf autoScaling
       `Prelude.seq` Prelude.rnf provisionedCapacity
 
-instance Core.ToJSON CapacityUpdate where
+instance Data.ToJSON CapacityUpdate where
   toJSON CapacityUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("autoScaling" Core..=) Prelude.<$> autoScaling,
-            ("provisionedCapacity" Core..=)
+          [ ("autoScaling" Data..=) Prelude.<$> autoScaling,
+            ("provisionedCapacity" Data..=)
               Prelude.<$> provisionedCapacity
           ]
       )

@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.SMS.DisassociateConnector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disassociates the specified connector from AWS SMS.
+-- Disassociates the specified connector from Server Migration Service.
 --
 -- After you disassociate a connector, it is no longer available to support
 -- replication jobs.
@@ -42,7 +42,8 @@ module Amazonka.SMS.DisassociateConnector
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +80,8 @@ instance Core.AWSRequest DisassociateConnector where
   type
     AWSResponse DisassociateConnector =
       DisassociateConnectorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,32 +97,32 @@ instance Prelude.NFData DisassociateConnector where
   rnf DisassociateConnector' {..} =
     Prelude.rnf connectorId
 
-instance Core.ToHeaders DisassociateConnector where
+instance Data.ToHeaders DisassociateConnector where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.DisassociateConnector" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.DisassociateConnector" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateConnector where
+instance Data.ToJSON DisassociateConnector where
   toJSON DisassociateConnector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("connectorId" Core..= connectorId)]
+          [Prelude.Just ("connectorId" Data..= connectorId)]
       )
 
-instance Core.ToPath DisassociateConnector where
+instance Data.ToPath DisassociateConnector where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateConnector where
+instance Data.ToQuery DisassociateConnector where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateConnectorResponse' smart constructor.

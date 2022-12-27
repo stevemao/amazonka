@@ -6,13 +6,90 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruProfiler.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.CodeGuruProfiler.Lens
   ( -- * Operations
+
+    -- ** AddNotificationChannels
+    addNotificationChannels_channels,
+    addNotificationChannels_profilingGroupName,
+    addNotificationChannelsResponse_notificationConfiguration,
+    addNotificationChannelsResponse_httpStatus,
+
+    -- ** BatchGetFrameMetricData
+    batchGetFrameMetricData_endTime,
+    batchGetFrameMetricData_frameMetrics,
+    batchGetFrameMetricData_period,
+    batchGetFrameMetricData_startTime,
+    batchGetFrameMetricData_targetResolution,
+    batchGetFrameMetricData_profilingGroupName,
+    batchGetFrameMetricDataResponse_httpStatus,
+    batchGetFrameMetricDataResponse_endTime,
+    batchGetFrameMetricDataResponse_endTimes,
+    batchGetFrameMetricDataResponse_frameMetricData,
+    batchGetFrameMetricDataResponse_resolution,
+    batchGetFrameMetricDataResponse_startTime,
+    batchGetFrameMetricDataResponse_unprocessedEndTimes,
+
+    -- ** ConfigureAgent
+    configureAgent_fleetInstanceId,
+    configureAgent_metadata,
+    configureAgent_profilingGroupName,
+    configureAgentResponse_httpStatus,
+    configureAgentResponse_configuration,
+
+    -- ** CreateProfilingGroup
+    createProfilingGroup_agentOrchestrationConfig,
+    createProfilingGroup_computePlatform,
+    createProfilingGroup_tags,
+    createProfilingGroup_clientToken,
+    createProfilingGroup_profilingGroupName,
+    createProfilingGroupResponse_httpStatus,
+    createProfilingGroupResponse_profilingGroup,
+
+    -- ** DeleteProfilingGroup
+    deleteProfilingGroup_profilingGroupName,
+    deleteProfilingGroupResponse_httpStatus,
+
+    -- ** DescribeProfilingGroup
+    describeProfilingGroup_profilingGroupName,
+    describeProfilingGroupResponse_httpStatus,
+    describeProfilingGroupResponse_profilingGroup,
+
+    -- ** GetFindingsReportAccountSummary
+    getFindingsReportAccountSummary_dailyReportsOnly,
+    getFindingsReportAccountSummary_maxResults,
+    getFindingsReportAccountSummary_nextToken,
+    getFindingsReportAccountSummaryResponse_nextToken,
+    getFindingsReportAccountSummaryResponse_httpStatus,
+    getFindingsReportAccountSummaryResponse_reportSummaries,
+
+    -- ** GetNotificationConfiguration
+    getNotificationConfiguration_profilingGroupName,
+    getNotificationConfigurationResponse_httpStatus,
+    getNotificationConfigurationResponse_notificationConfiguration,
+
+    -- ** GetPolicy
+    getPolicy_profilingGroupName,
+    getPolicyResponse_httpStatus,
+    getPolicyResponse_policy,
+    getPolicyResponse_revisionId,
+
+    -- ** GetProfile
+    getProfile_accept,
+    getProfile_endTime,
+    getProfile_maxDepth,
+    getProfile_period,
+    getProfile_startTime,
+    getProfile_profilingGroupName,
+    getProfileResponse_contentEncoding,
+    getProfileResponse_httpStatus,
+    getProfileResponse_contentType,
+    getProfileResponse_profile,
 
     -- ** GetRecommendations
     getRecommendations_locale,
@@ -26,16 +103,49 @@ module Amazonka.CodeGuruProfiler.Lens
     getRecommendationsResponse_profilingGroupName,
     getRecommendationsResponse_recommendations,
 
-    -- ** AddNotificationChannels
-    addNotificationChannels_channels,
-    addNotificationChannels_profilingGroupName,
-    addNotificationChannelsResponse_notificationConfiguration,
-    addNotificationChannelsResponse_httpStatus,
+    -- ** ListFindingsReports
+    listFindingsReports_dailyReportsOnly,
+    listFindingsReports_maxResults,
+    listFindingsReports_nextToken,
+    listFindingsReports_endTime,
+    listFindingsReports_profilingGroupName,
+    listFindingsReports_startTime,
+    listFindingsReportsResponse_nextToken,
+    listFindingsReportsResponse_httpStatus,
+    listFindingsReportsResponse_findingsReportSummaries,
 
-    -- ** DescribeProfilingGroup
-    describeProfilingGroup_profilingGroupName,
-    describeProfilingGroupResponse_httpStatus,
-    describeProfilingGroupResponse_profilingGroup,
+    -- ** ListProfileTimes
+    listProfileTimes_maxResults,
+    listProfileTimes_nextToken,
+    listProfileTimes_orderBy,
+    listProfileTimes_endTime,
+    listProfileTimes_period,
+    listProfileTimes_profilingGroupName,
+    listProfileTimes_startTime,
+    listProfileTimesResponse_nextToken,
+    listProfileTimesResponse_httpStatus,
+    listProfileTimesResponse_profileTimes,
+
+    -- ** ListProfilingGroups
+    listProfilingGroups_includeDescription,
+    listProfilingGroups_maxResults,
+    listProfilingGroups_nextToken,
+    listProfilingGroupsResponse_nextToken,
+    listProfilingGroupsResponse_profilingGroups,
+    listProfilingGroupsResponse_httpStatus,
+    listProfilingGroupsResponse_profilingGroupNames,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
+    -- ** PostAgentProfile
+    postAgentProfile_profileToken,
+    postAgentProfile_agentProfile,
+    postAgentProfile_contentType,
+    postAgentProfile_profilingGroupName,
+    postAgentProfileResponse_httpStatus,
 
     -- ** PutPermission
     putPermission_revisionId,
@@ -46,10 +156,11 @@ module Amazonka.CodeGuruProfiler.Lens
     putPermissionResponse_policy,
     putPermissionResponse_revisionId,
 
-    -- ** ListTagsForResource
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
+    -- ** RemoveNotificationChannel
+    removeNotificationChannel_channelId,
+    removeNotificationChannel_profilingGroupName,
+    removeNotificationChannelResponse_notificationConfiguration,
+    removeNotificationChannelResponse_httpStatus,
 
     -- ** RemovePermission
     removePermission_actionGroup,
@@ -66,132 +177,21 @@ module Amazonka.CodeGuruProfiler.Lens
     submitFeedback_type,
     submitFeedbackResponse_httpStatus,
 
-    -- ** CreateProfilingGroup
-    createProfilingGroup_computePlatform,
-    createProfilingGroup_agentOrchestrationConfig,
-    createProfilingGroup_tags,
-    createProfilingGroup_clientToken,
-    createProfilingGroup_profilingGroupName,
-    createProfilingGroupResponse_httpStatus,
-    createProfilingGroupResponse_profilingGroup,
-
-    -- ** RemoveNotificationChannel
-    removeNotificationChannel_channelId,
-    removeNotificationChannel_profilingGroupName,
-    removeNotificationChannelResponse_notificationConfiguration,
-    removeNotificationChannelResponse_httpStatus,
-
-    -- ** UpdateProfilingGroup
-    updateProfilingGroup_agentOrchestrationConfig,
-    updateProfilingGroup_profilingGroupName,
-    updateProfilingGroupResponse_httpStatus,
-    updateProfilingGroupResponse_profilingGroup,
-
-    -- ** DeleteProfilingGroup
-    deleteProfilingGroup_profilingGroupName,
-    deleteProfilingGroupResponse_httpStatus,
-
-    -- ** ListFindingsReports
-    listFindingsReports_nextToken,
-    listFindingsReports_dailyReportsOnly,
-    listFindingsReports_maxResults,
-    listFindingsReports_endTime,
-    listFindingsReports_profilingGroupName,
-    listFindingsReports_startTime,
-    listFindingsReportsResponse_nextToken,
-    listFindingsReportsResponse_httpStatus,
-    listFindingsReportsResponse_findingsReportSummaries,
-
-    -- ** ListProfileTimes
-    listProfileTimes_orderBy,
-    listProfileTimes_nextToken,
-    listProfileTimes_maxResults,
-    listProfileTimes_endTime,
-    listProfileTimes_period,
-    listProfileTimes_profilingGroupName,
-    listProfileTimes_startTime,
-    listProfileTimesResponse_nextToken,
-    listProfileTimesResponse_httpStatus,
-    listProfileTimesResponse_profileTimes,
-
-    -- ** PostAgentProfile
-    postAgentProfile_profileToken,
-    postAgentProfile_agentProfile,
-    postAgentProfile_contentType,
-    postAgentProfile_profilingGroupName,
-    postAgentProfileResponse_httpStatus,
-
-    -- ** GetProfile
-    getProfile_startTime,
-    getProfile_period,
-    getProfile_accept,
-    getProfile_endTime,
-    getProfile_maxDepth,
-    getProfile_profilingGroupName,
-    getProfileResponse_contentEncoding,
-    getProfileResponse_httpStatus,
-    getProfileResponse_contentType,
-    getProfileResponse_profile,
-
-    -- ** ListProfilingGroups
-    listProfilingGroups_includeDescription,
-    listProfilingGroups_nextToken,
-    listProfilingGroups_maxResults,
-    listProfilingGroupsResponse_nextToken,
-    listProfilingGroupsResponse_profilingGroups,
-    listProfilingGroupsResponse_httpStatus,
-    listProfilingGroupsResponse_profilingGroupNames,
-
     -- ** TagResource
     tagResource_resourceArn,
     tagResource_tags,
     tagResourceResponse_httpStatus,
-
-    -- ** GetNotificationConfiguration
-    getNotificationConfiguration_profilingGroupName,
-    getNotificationConfigurationResponse_httpStatus,
-    getNotificationConfigurationResponse_notificationConfiguration,
-
-    -- ** BatchGetFrameMetricData
-    batchGetFrameMetricData_targetResolution,
-    batchGetFrameMetricData_frameMetrics,
-    batchGetFrameMetricData_startTime,
-    batchGetFrameMetricData_period,
-    batchGetFrameMetricData_endTime,
-    batchGetFrameMetricData_profilingGroupName,
-    batchGetFrameMetricDataResponse_httpStatus,
-    batchGetFrameMetricDataResponse_endTime,
-    batchGetFrameMetricDataResponse_endTimes,
-    batchGetFrameMetricDataResponse_frameMetricData,
-    batchGetFrameMetricDataResponse_resolution,
-    batchGetFrameMetricDataResponse_startTime,
-    batchGetFrameMetricDataResponse_unprocessedEndTimes,
 
     -- ** UntagResource
     untagResource_resourceArn,
     untagResource_tagKeys,
     untagResourceResponse_httpStatus,
 
-    -- ** GetFindingsReportAccountSummary
-    getFindingsReportAccountSummary_nextToken,
-    getFindingsReportAccountSummary_dailyReportsOnly,
-    getFindingsReportAccountSummary_maxResults,
-    getFindingsReportAccountSummaryResponse_nextToken,
-    getFindingsReportAccountSummaryResponse_httpStatus,
-    getFindingsReportAccountSummaryResponse_reportSummaries,
-
-    -- ** GetPolicy
-    getPolicy_profilingGroupName,
-    getPolicyResponse_httpStatus,
-    getPolicyResponse_policy,
-    getPolicyResponse_revisionId,
-
-    -- ** ConfigureAgent
-    configureAgent_fleetInstanceId,
-    configureAgent_metadata,
-    configureAgent_profilingGroupName,
-    configureAgentResponse_httpStatus,
-    configureAgentResponse_configuration,
+    -- ** UpdateProfilingGroup
+    updateProfilingGroup_agentOrchestrationConfig,
+    updateProfilingGroup_profilingGroupName,
+    updateProfilingGroupResponse_httpStatus,
+    updateProfilingGroupResponse_profilingGroup,
 
     -- * Types
 
@@ -224,9 +224,9 @@ module Amazonka.CodeGuruProfiler.Lens
     channel_uri,
 
     -- ** FindingsReportSummary
-    findingsReportSummary_profileStartTime,
-    findingsReportSummary_profileEndTime,
     findingsReportSummary_id,
+    findingsReportSummary_profileEndTime,
+    findingsReportSummary_profileStartTime,
     findingsReportSummary_profilingGroupName,
     findingsReportSummary_totalNumberOfFindings,
 
@@ -240,9 +240,9 @@ module Amazonka.CodeGuruProfiler.Lens
     frameMetricDatum_values,
 
     -- ** Match
-    match_thresholdBreachValue,
     match_frameAddress,
     match_targetFramesIndex,
+    match_thresholdBreachValue,
 
     -- ** Metric
     metric_frameName,
@@ -253,26 +253,26 @@ module Amazonka.CodeGuruProfiler.Lens
     notificationConfiguration_channels,
 
     -- ** Pattern
-    pattern_thresholdPercent,
-    pattern_targetFrames,
     pattern_countersToAggregate,
+    pattern_description,
+    pattern_id,
     pattern_name,
     pattern_resolutionSteps,
-    pattern_id,
-    pattern_description,
+    pattern_targetFrames,
+    pattern_thresholdPercent,
 
     -- ** ProfileTime
     profileTime_start,
 
     -- ** ProfilingGroupDescription
-    profilingGroupDescription_computePlatform,
+    profilingGroupDescription_agentOrchestrationConfig,
     profilingGroupDescription_arn,
+    profilingGroupDescription_computePlatform,
     profilingGroupDescription_createdAt,
     profilingGroupDescription_name,
     profilingGroupDescription_profilingStatus,
-    profilingGroupDescription_updatedAt,
-    profilingGroupDescription_agentOrchestrationConfig,
     profilingGroupDescription_tags,
+    profilingGroupDescription_updatedAt,
 
     -- ** ProfilingStatus
     profilingStatus_latestAgentOrchestratedAt,

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Types.Address
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.NetworkFirewall.Types.Address where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A single IP address specification. This is used in the MatchAttributes
@@ -92,12 +93,12 @@ newAddress pAddressDefinition_ =
 address_addressDefinition :: Lens.Lens' Address Prelude.Text
 address_addressDefinition = Lens.lens (\Address' {addressDefinition} -> addressDefinition) (\s@Address' {} a -> s {addressDefinition = a} :: Address)
 
-instance Core.FromJSON Address where
+instance Data.FromJSON Address where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Address"
       ( \x ->
-          Address' Prelude.<$> (x Core..: "AddressDefinition")
+          Address' Prelude.<$> (x Data..: "AddressDefinition")
       )
 
 instance Prelude.Hashable Address where
@@ -107,11 +108,11 @@ instance Prelude.Hashable Address where
 instance Prelude.NFData Address where
   rnf Address' {..} = Prelude.rnf addressDefinition
 
-instance Core.ToJSON Address where
+instance Data.ToJSON Address where
   toJSON Address' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("AddressDefinition" Core..= addressDefinition)
+              ("AddressDefinition" Data..= addressDefinition)
           ]
       )

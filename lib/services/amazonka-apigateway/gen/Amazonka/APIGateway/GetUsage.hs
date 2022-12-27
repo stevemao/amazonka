@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetUsage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,17 +41,18 @@ module Amazonka.APIGateway.GetUsage
     newUsage,
 
     -- * Response Lenses
-    usage_usagePlanId,
     usage_endDate,
     usage_items,
-    usage_startDate,
     usage_position,
+    usage_startDate,
+    usage_usagePlanId,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,11 +69,11 @@ data GetUsage = GetUsage'
     limit :: Prelude.Maybe Prelude.Int,
     -- | The current pagination position in the paged result set.
     position :: Prelude.Maybe Prelude.Text,
-    -- | [Required] The Id of the usage plan associated with the usage data.
+    -- | The Id of the usage plan associated with the usage data.
     usagePlanId :: Prelude.Text,
-    -- | [Required] The starting date (e.g., 2016-01-01) of the usage data.
+    -- | The starting date (e.g., 2016-01-01) of the usage data.
     startDate :: Prelude.Text,
-    -- | [Required] The ending date (e.g., 2016-12-31) of the usage data.
+    -- | The ending date (e.g., 2016-12-31) of the usage data.
     endDate :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -92,11 +93,11 @@ data GetUsage = GetUsage'
 --
 -- 'position', 'getUsage_position' - The current pagination position in the paged result set.
 --
--- 'usagePlanId', 'getUsage_usagePlanId' - [Required] The Id of the usage plan associated with the usage data.
+-- 'usagePlanId', 'getUsage_usagePlanId' - The Id of the usage plan associated with the usage data.
 --
--- 'startDate', 'getUsage_startDate' - [Required] The starting date (e.g., 2016-01-01) of the usage data.
+-- 'startDate', 'getUsage_startDate' - The starting date (e.g., 2016-01-01) of the usage data.
 --
--- 'endDate', 'getUsage_endDate' - [Required] The ending date (e.g., 2016-12-31) of the usage data.
+-- 'endDate', 'getUsage_endDate' - The ending date (e.g., 2016-12-31) of the usage data.
 newGetUsage ::
   -- | 'usagePlanId'
   Prelude.Text ->
@@ -128,15 +129,15 @@ getUsage_limit = Lens.lens (\GetUsage' {limit} -> limit) (\s@GetUsage' {} a -> s
 getUsage_position :: Lens.Lens' GetUsage (Prelude.Maybe Prelude.Text)
 getUsage_position = Lens.lens (\GetUsage' {position} -> position) (\s@GetUsage' {} a -> s {position = a} :: GetUsage)
 
--- | [Required] The Id of the usage plan associated with the usage data.
+-- | The Id of the usage plan associated with the usage data.
 getUsage_usagePlanId :: Lens.Lens' GetUsage Prelude.Text
 getUsage_usagePlanId = Lens.lens (\GetUsage' {usagePlanId} -> usagePlanId) (\s@GetUsage' {} a -> s {usagePlanId = a} :: GetUsage)
 
--- | [Required] The starting date (e.g., 2016-01-01) of the usage data.
+-- | The starting date (e.g., 2016-01-01) of the usage data.
 getUsage_startDate :: Lens.Lens' GetUsage Prelude.Text
 getUsage_startDate = Lens.lens (\GetUsage' {startDate} -> startDate) (\s@GetUsage' {} a -> s {startDate = a} :: GetUsage)
 
--- | [Required] The ending date (e.g., 2016-12-31) of the usage data.
+-- | The ending date (e.g., 2016-12-31) of the usage data.
 getUsage_endDate :: Lens.Lens' GetUsage Prelude.Text
 getUsage_endDate = Lens.lens (\GetUsage' {endDate} -> endDate) (\s@GetUsage' {} a -> s {endDate = a} :: GetUsage)
 
@@ -156,10 +157,11 @@ instance Core.AWSPager GetUsage where
 
 instance Core.AWSRequest GetUsage where
   type AWSResponse GetUsage = Usage
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetUsage where
   hashWithSalt _salt GetUsage' {..} =
@@ -179,26 +181,26 @@ instance Prelude.NFData GetUsage where
       `Prelude.seq` Prelude.rnf startDate
       `Prelude.seq` Prelude.rnf endDate
 
-instance Core.ToHeaders GetUsage where
+instance Data.ToHeaders GetUsage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetUsage where
+instance Data.ToPath GetUsage where
   toPath GetUsage' {..} =
     Prelude.mconcat
-      ["/usageplans/", Core.toBS usagePlanId, "/usage"]
+      ["/usageplans/", Data.toBS usagePlanId, "/usage"]
 
-instance Core.ToQuery GetUsage where
+instance Data.ToQuery GetUsage where
   toQuery GetUsage' {..} =
     Prelude.mconcat
-      [ "keyId" Core.=: keyId,
-        "limit" Core.=: limit,
-        "position" Core.=: position,
-        "startDate" Core.=: startDate,
-        "endDate" Core.=: endDate
+      [ "keyId" Data.=: keyId,
+        "limit" Data.=: limit,
+        "position" Data.=: position,
+        "startDate" Data.=: startDate,
+        "endDate" Data.=: endDate
       ]

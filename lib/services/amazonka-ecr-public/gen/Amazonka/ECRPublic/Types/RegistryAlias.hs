@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECRPublic.Types.RegistryAlias
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ECRPublic.Types.RegistryAlias where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECRPublic.Types.RegistryAliasStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing the aliases for a public registry. A public
@@ -120,16 +121,16 @@ registryAlias_primaryRegistryAlias = Lens.lens (\RegistryAlias' {primaryRegistry
 registryAlias_defaultRegistryAlias :: Lens.Lens' RegistryAlias Prelude.Bool
 registryAlias_defaultRegistryAlias = Lens.lens (\RegistryAlias' {defaultRegistryAlias} -> defaultRegistryAlias) (\s@RegistryAlias' {} a -> s {defaultRegistryAlias = a} :: RegistryAlias)
 
-instance Core.FromJSON RegistryAlias where
+instance Data.FromJSON RegistryAlias where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RegistryAlias"
       ( \x ->
           RegistryAlias'
-            Prelude.<$> (x Core..: "name")
-            Prelude.<*> (x Core..: "status")
-            Prelude.<*> (x Core..: "primaryRegistryAlias")
-            Prelude.<*> (x Core..: "defaultRegistryAlias")
+            Prelude.<$> (x Data..: "name")
+            Prelude.<*> (x Data..: "status")
+            Prelude.<*> (x Data..: "primaryRegistryAlias")
+            Prelude.<*> (x Data..: "defaultRegistryAlias")
       )
 
 instance Prelude.Hashable RegistryAlias where

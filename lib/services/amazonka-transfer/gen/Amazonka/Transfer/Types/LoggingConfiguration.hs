@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.Types.LoggingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,22 @@
 module Amazonka.Transfer.Types.LoggingConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Consists of the logging role and the log group name.
 --
 -- /See:/ 'newLoggingConfiguration' smart constructor.
 data LoggingConfiguration = LoggingConfiguration'
-  { -- | Specifies the Amazon Resource Name (ARN) of the Amazon Web Services
-    -- Identity and Access Management (IAM) role that allows a server to turn
-    -- on Amazon CloudWatch logging for Amazon S3 or Amazon EFS events. When
-    -- set, user activity can be viewed in your CloudWatch logs.
-    loggingRole :: Prelude.Maybe Prelude.Text,
-    -- | The name of the CloudWatch logging group for the Amazon Web Services
-    -- Transfer server to which this workflow belongs.
-    logGroupName :: Prelude.Maybe Prelude.Text
+  { -- | The name of the CloudWatch logging group for the Transfer Family server
+    -- to which this workflow belongs.
+    logGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the Identity and Access Management
+    -- (IAM) role that allows a server to turn on Amazon CloudWatch logging for
+    -- Amazon S3 or Amazon EFSevents. When set, you can view user activity in
+    -- your CloudWatch logs.
+    loggingRole :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,50 +47,50 @@ data LoggingConfiguration = LoggingConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'loggingRole', 'loggingConfiguration_loggingRole' - Specifies the Amazon Resource Name (ARN) of the Amazon Web Services
--- Identity and Access Management (IAM) role that allows a server to turn
--- on Amazon CloudWatch logging for Amazon S3 or Amazon EFS events. When
--- set, user activity can be viewed in your CloudWatch logs.
+-- 'logGroupName', 'loggingConfiguration_logGroupName' - The name of the CloudWatch logging group for the Transfer Family server
+-- to which this workflow belongs.
 --
--- 'logGroupName', 'loggingConfiguration_logGroupName' - The name of the CloudWatch logging group for the Amazon Web Services
--- Transfer server to which this workflow belongs.
+-- 'loggingRole', 'loggingConfiguration_loggingRole' - The Amazon Resource Name (ARN) of the Identity and Access Management
+-- (IAM) role that allows a server to turn on Amazon CloudWatch logging for
+-- Amazon S3 or Amazon EFSevents. When set, you can view user activity in
+-- your CloudWatch logs.
 newLoggingConfiguration ::
   LoggingConfiguration
 newLoggingConfiguration =
   LoggingConfiguration'
-    { loggingRole =
+    { logGroupName =
         Prelude.Nothing,
-      logGroupName = Prelude.Nothing
+      loggingRole = Prelude.Nothing
     }
 
--- | Specifies the Amazon Resource Name (ARN) of the Amazon Web Services
--- Identity and Access Management (IAM) role that allows a server to turn
--- on Amazon CloudWatch logging for Amazon S3 or Amazon EFS events. When
--- set, user activity can be viewed in your CloudWatch logs.
-loggingConfiguration_loggingRole :: Lens.Lens' LoggingConfiguration (Prelude.Maybe Prelude.Text)
-loggingConfiguration_loggingRole = Lens.lens (\LoggingConfiguration' {loggingRole} -> loggingRole) (\s@LoggingConfiguration' {} a -> s {loggingRole = a} :: LoggingConfiguration)
-
--- | The name of the CloudWatch logging group for the Amazon Web Services
--- Transfer server to which this workflow belongs.
+-- | The name of the CloudWatch logging group for the Transfer Family server
+-- to which this workflow belongs.
 loggingConfiguration_logGroupName :: Lens.Lens' LoggingConfiguration (Prelude.Maybe Prelude.Text)
 loggingConfiguration_logGroupName = Lens.lens (\LoggingConfiguration' {logGroupName} -> logGroupName) (\s@LoggingConfiguration' {} a -> s {logGroupName = a} :: LoggingConfiguration)
 
-instance Core.FromJSON LoggingConfiguration where
+-- | The Amazon Resource Name (ARN) of the Identity and Access Management
+-- (IAM) role that allows a server to turn on Amazon CloudWatch logging for
+-- Amazon S3 or Amazon EFSevents. When set, you can view user activity in
+-- your CloudWatch logs.
+loggingConfiguration_loggingRole :: Lens.Lens' LoggingConfiguration (Prelude.Maybe Prelude.Text)
+loggingConfiguration_loggingRole = Lens.lens (\LoggingConfiguration' {loggingRole} -> loggingRole) (\s@LoggingConfiguration' {} a -> s {loggingRole = a} :: LoggingConfiguration)
+
+instance Data.FromJSON LoggingConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LoggingConfiguration"
       ( \x ->
           LoggingConfiguration'
-            Prelude.<$> (x Core..:? "LoggingRole")
-            Prelude.<*> (x Core..:? "LogGroupName")
+            Prelude.<$> (x Data..:? "LogGroupName")
+            Prelude.<*> (x Data..:? "LoggingRole")
       )
 
 instance Prelude.Hashable LoggingConfiguration where
   hashWithSalt _salt LoggingConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` loggingRole
-      `Prelude.hashWithSalt` logGroupName
+    _salt `Prelude.hashWithSalt` logGroupName
+      `Prelude.hashWithSalt` loggingRole
 
 instance Prelude.NFData LoggingConfiguration where
   rnf LoggingConfiguration' {..} =
-    Prelude.rnf loggingRole
-      `Prelude.seq` Prelude.rnf logGroupName
+    Prelude.rnf logGroupName
+      `Prelude.seq` Prelude.rnf loggingRole

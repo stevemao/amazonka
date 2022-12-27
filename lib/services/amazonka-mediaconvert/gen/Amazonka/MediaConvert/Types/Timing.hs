@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.Timing
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.Timing where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about when jobs are submitted, started, and finished is
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTiming' smart constructor.
 data Timing = Timing'
-  { -- | The time, in Unix epoch format, that transcoding for the job began.
-    startTime :: Prelude.Maybe Core.POSIX,
-    -- | The time, in Unix epoch format, that the transcoding job finished
-    finishTime :: Prelude.Maybe Core.POSIX,
+  { -- | The time, in Unix epoch format, that the transcoding job finished
+    finishTime :: Prelude.Maybe Data.POSIX,
+    -- | The time, in Unix epoch format, that transcoding for the job began.
+    startTime :: Prelude.Maybe Data.POSIX,
     -- | The time, in Unix epoch format, that you submitted the job.
-    submitTime :: Prelude.Maybe Core.POSIX
+    submitTime :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,51 +46,51 @@ data Timing = Timing'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'startTime', 'timing_startTime' - The time, in Unix epoch format, that transcoding for the job began.
---
 -- 'finishTime', 'timing_finishTime' - The time, in Unix epoch format, that the transcoding job finished
+--
+-- 'startTime', 'timing_startTime' - The time, in Unix epoch format, that transcoding for the job began.
 --
 -- 'submitTime', 'timing_submitTime' - The time, in Unix epoch format, that you submitted the job.
 newTiming ::
   Timing
 newTiming =
   Timing'
-    { startTime = Prelude.Nothing,
-      finishTime = Prelude.Nothing,
+    { finishTime = Prelude.Nothing,
+      startTime = Prelude.Nothing,
       submitTime = Prelude.Nothing
     }
 
--- | The time, in Unix epoch format, that transcoding for the job began.
-timing_startTime :: Lens.Lens' Timing (Prelude.Maybe Prelude.UTCTime)
-timing_startTime = Lens.lens (\Timing' {startTime} -> startTime) (\s@Timing' {} a -> s {startTime = a} :: Timing) Prelude.. Lens.mapping Core._Time
-
 -- | The time, in Unix epoch format, that the transcoding job finished
 timing_finishTime :: Lens.Lens' Timing (Prelude.Maybe Prelude.UTCTime)
-timing_finishTime = Lens.lens (\Timing' {finishTime} -> finishTime) (\s@Timing' {} a -> s {finishTime = a} :: Timing) Prelude.. Lens.mapping Core._Time
+timing_finishTime = Lens.lens (\Timing' {finishTime} -> finishTime) (\s@Timing' {} a -> s {finishTime = a} :: Timing) Prelude.. Lens.mapping Data._Time
+
+-- | The time, in Unix epoch format, that transcoding for the job began.
+timing_startTime :: Lens.Lens' Timing (Prelude.Maybe Prelude.UTCTime)
+timing_startTime = Lens.lens (\Timing' {startTime} -> startTime) (\s@Timing' {} a -> s {startTime = a} :: Timing) Prelude.. Lens.mapping Data._Time
 
 -- | The time, in Unix epoch format, that you submitted the job.
 timing_submitTime :: Lens.Lens' Timing (Prelude.Maybe Prelude.UTCTime)
-timing_submitTime = Lens.lens (\Timing' {submitTime} -> submitTime) (\s@Timing' {} a -> s {submitTime = a} :: Timing) Prelude.. Lens.mapping Core._Time
+timing_submitTime = Lens.lens (\Timing' {submitTime} -> submitTime) (\s@Timing' {} a -> s {submitTime = a} :: Timing) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON Timing where
+instance Data.FromJSON Timing where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Timing"
       ( \x ->
           Timing'
-            Prelude.<$> (x Core..:? "startTime")
-            Prelude.<*> (x Core..:? "finishTime")
-            Prelude.<*> (x Core..:? "submitTime")
+            Prelude.<$> (x Data..:? "finishTime")
+            Prelude.<*> (x Data..:? "startTime")
+            Prelude.<*> (x Data..:? "submitTime")
       )
 
 instance Prelude.Hashable Timing where
   hashWithSalt _salt Timing' {..} =
-    _salt `Prelude.hashWithSalt` startTime
-      `Prelude.hashWithSalt` finishTime
+    _salt `Prelude.hashWithSalt` finishTime
+      `Prelude.hashWithSalt` startTime
       `Prelude.hashWithSalt` submitTime
 
 instance Prelude.NFData Timing where
   rnf Timing' {..} =
-    Prelude.rnf startTime
-      `Prelude.seq` Prelude.rnf finishTime
+    Prelude.rnf finishTime
+      `Prelude.seq` Prelude.rnf startTime
       `Prelude.seq` Prelude.rnf submitTime

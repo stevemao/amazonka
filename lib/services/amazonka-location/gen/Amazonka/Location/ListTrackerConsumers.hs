@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.ListTrackerConsumers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.Location.ListTrackerConsumers
     newListTrackerConsumers,
 
     -- * Request Lenses
-    listTrackerConsumers_nextToken,
     listTrackerConsumers_maxResults,
+    listTrackerConsumers_nextToken,
     listTrackerConsumers_trackerName,
 
     -- * Destructuring the Response
@@ -46,7 +46,8 @@ module Amazonka.Location.ListTrackerConsumers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,15 +55,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTrackerConsumers' smart constructor.
 data ListTrackerConsumers = ListTrackerConsumers'
-  { -- | The pagination token specifying which page of results to return in the
+  { -- | An optional limit for the number of resources returned in a single call.
+    --
+    -- Default value: @100@
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token specifying which page of results to return in the
     -- response. If no token is provided, the default page is the first page.
     --
     -- Default value: @null@
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An optional limit for the number of resources returned in a single call.
-    --
-    -- Default value: @100@
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The tracker resource whose associated geofence collections you want to
     -- list.
     trackerName :: Prelude.Text
@@ -77,14 +78,14 @@ data ListTrackerConsumers = ListTrackerConsumers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listTrackerConsumers_maxResults' - An optional limit for the number of resources returned in a single call.
+--
+-- Default value: @100@
+--
 -- 'nextToken', 'listTrackerConsumers_nextToken' - The pagination token specifying which page of results to return in the
 -- response. If no token is provided, the default page is the first page.
 --
 -- Default value: @null@
---
--- 'maxResults', 'listTrackerConsumers_maxResults' - An optional limit for the number of resources returned in a single call.
---
--- Default value: @100@
 --
 -- 'trackerName', 'listTrackerConsumers_trackerName' - The tracker resource whose associated geofence collections you want to
 -- list.
@@ -94,10 +95,16 @@ newListTrackerConsumers ::
   ListTrackerConsumers
 newListTrackerConsumers pTrackerName_ =
   ListTrackerConsumers'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       trackerName = pTrackerName_
     }
+
+-- | An optional limit for the number of resources returned in a single call.
+--
+-- Default value: @100@
+listTrackerConsumers_maxResults :: Lens.Lens' ListTrackerConsumers (Prelude.Maybe Prelude.Natural)
+listTrackerConsumers_maxResults = Lens.lens (\ListTrackerConsumers' {maxResults} -> maxResults) (\s@ListTrackerConsumers' {} a -> s {maxResults = a} :: ListTrackerConsumers)
 
 -- | The pagination token specifying which page of results to return in the
 -- response. If no token is provided, the default page is the first page.
@@ -105,12 +112,6 @@ newListTrackerConsumers pTrackerName_ =
 -- Default value: @null@
 listTrackerConsumers_nextToken :: Lens.Lens' ListTrackerConsumers (Prelude.Maybe Prelude.Text)
 listTrackerConsumers_nextToken = Lens.lens (\ListTrackerConsumers' {nextToken} -> nextToken) (\s@ListTrackerConsumers' {} a -> s {nextToken = a} :: ListTrackerConsumers)
-
--- | An optional limit for the number of resources returned in a single call.
---
--- Default value: @100@
-listTrackerConsumers_maxResults :: Lens.Lens' ListTrackerConsumers (Prelude.Maybe Prelude.Natural)
-listTrackerConsumers_maxResults = Lens.lens (\ListTrackerConsumers' {maxResults} -> maxResults) (\s@ListTrackerConsumers' {} a -> s {maxResults = a} :: ListTrackerConsumers)
 
 -- | The tracker resource whose associated geofence collections you want to
 -- list.
@@ -142,57 +143,58 @@ instance Core.AWSRequest ListTrackerConsumers where
   type
     AWSResponse ListTrackerConsumers =
       ListTrackerConsumersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTrackerConsumersResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "ConsumerArns" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "ConsumerArns" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListTrackerConsumers where
   hashWithSalt _salt ListTrackerConsumers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` trackerName
 
 instance Prelude.NFData ListTrackerConsumers where
   rnf ListTrackerConsumers' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf trackerName
 
-instance Core.ToHeaders ListTrackerConsumers where
+instance Data.ToHeaders ListTrackerConsumers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTrackerConsumers where
+instance Data.ToJSON ListTrackerConsumers where
   toJSON ListTrackerConsumers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListTrackerConsumers where
+instance Data.ToPath ListTrackerConsumers where
   toPath ListTrackerConsumers' {..} =
     Prelude.mconcat
       [ "/tracking/v0/trackers/",
-        Core.toBS trackerName,
+        Data.toBS trackerName,
         "/list-consumers"
       ]
 
-instance Core.ToQuery ListTrackerConsumers where
+instance Data.ToQuery ListTrackerConsumers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTrackerConsumersResponse' smart constructor.

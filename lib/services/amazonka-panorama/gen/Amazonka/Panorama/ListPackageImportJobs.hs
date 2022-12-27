@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.ListPackageImportJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.Panorama.ListPackageImportJobs
     newListPackageImportJobs,
 
     -- * Request Lenses
-    listPackageImportJobs_nextToken,
     listPackageImportJobs_maxResults,
+    listPackageImportJobs_nextToken,
 
     -- * Destructuring the Response
     ListPackageImportJobsResponse (..),
@@ -42,7 +42,8 @@ module Amazonka.Panorama.ListPackageImportJobs
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Panorama.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -50,12 +51,12 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListPackageImportJobs' smart constructor.
 data ListPackageImportJobs = ListPackageImportJobs'
-  { -- | Specify the pagination token from a previous request to retrieve the
-    -- next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of package import jobs to return in one page of
+  { -- | The maximum number of package import jobs to return in one page of
     -- results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Specify the pagination token from a previous request to retrieve the
+    -- next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,74 +68,76 @@ data ListPackageImportJobs = ListPackageImportJobs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listPackageImportJobs_nextToken' - Specify the pagination token from a previous request to retrieve the
--- next page of results.
---
 -- 'maxResults', 'listPackageImportJobs_maxResults' - The maximum number of package import jobs to return in one page of
 -- results.
+--
+-- 'nextToken', 'listPackageImportJobs_nextToken' - Specify the pagination token from a previous request to retrieve the
+-- next page of results.
 newListPackageImportJobs ::
   ListPackageImportJobs
 newListPackageImportJobs =
   ListPackageImportJobs'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | Specify the pagination token from a previous request to retrieve the
--- next page of results.
-listPackageImportJobs_nextToken :: Lens.Lens' ListPackageImportJobs (Prelude.Maybe Prelude.Text)
-listPackageImportJobs_nextToken = Lens.lens (\ListPackageImportJobs' {nextToken} -> nextToken) (\s@ListPackageImportJobs' {} a -> s {nextToken = a} :: ListPackageImportJobs)
 
 -- | The maximum number of package import jobs to return in one page of
 -- results.
 listPackageImportJobs_maxResults :: Lens.Lens' ListPackageImportJobs (Prelude.Maybe Prelude.Natural)
 listPackageImportJobs_maxResults = Lens.lens (\ListPackageImportJobs' {maxResults} -> maxResults) (\s@ListPackageImportJobs' {} a -> s {maxResults = a} :: ListPackageImportJobs)
 
+-- | Specify the pagination token from a previous request to retrieve the
+-- next page of results.
+listPackageImportJobs_nextToken :: Lens.Lens' ListPackageImportJobs (Prelude.Maybe Prelude.Text)
+listPackageImportJobs_nextToken = Lens.lens (\ListPackageImportJobs' {nextToken} -> nextToken) (\s@ListPackageImportJobs' {} a -> s {nextToken = a} :: ListPackageImportJobs)
+
 instance Core.AWSRequest ListPackageImportJobs where
   type
     AWSResponse ListPackageImportJobs =
       ListPackageImportJobsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPackageImportJobsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "PackageImportJobs"
+            Prelude.<*> ( x Data..?> "PackageImportJobs"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListPackageImportJobs where
   hashWithSalt _salt ListPackageImportJobs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListPackageImportJobs where
   rnf ListPackageImportJobs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListPackageImportJobs where
+instance Data.ToHeaders ListPackageImportJobs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListPackageImportJobs where
+instance Data.ToPath ListPackageImportJobs where
   toPath = Prelude.const "/packages/import-jobs"
 
-instance Core.ToQuery ListPackageImportJobs where
+instance Data.ToQuery ListPackageImportJobs where
   toQuery ListPackageImportJobs' {..} =
     Prelude.mconcat
-      [ "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+      [ "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListPackageImportJobsResponse' smart constructor.

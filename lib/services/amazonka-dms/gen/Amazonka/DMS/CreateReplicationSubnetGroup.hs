@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.CreateReplicationSubnetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.DMS.CreateReplicationSubnetGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -141,12 +142,13 @@ instance Core.AWSRequest CreateReplicationSubnetGroup where
   type
     AWSResponse CreateReplicationSubnetGroup =
       CreateReplicationSubnetGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateReplicationSubnetGroupResponse'
-            Prelude.<$> (x Core..?> "ReplicationSubnetGroup")
+            Prelude.<$> (x Data..?> "ReplicationSubnetGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -167,42 +169,42 @@ instance Prelude.NFData CreateReplicationSubnetGroup where
       `Prelude.seq` Prelude.rnf replicationSubnetGroupDescription
       `Prelude.seq` Prelude.rnf subnetIds
 
-instance Core.ToHeaders CreateReplicationSubnetGroup where
+instance Data.ToHeaders CreateReplicationSubnetGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.CreateReplicationSubnetGroup" ::
+              Data.=# ( "AmazonDMSv20160101.CreateReplicationSubnetGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateReplicationSubnetGroup where
+instance Data.ToJSON CreateReplicationSubnetGroup where
   toJSON CreateReplicationSubnetGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
               ( "ReplicationSubnetGroupIdentifier"
-                  Core..= replicationSubnetGroupIdentifier
+                  Data..= replicationSubnetGroupIdentifier
               ),
             Prelude.Just
               ( "ReplicationSubnetGroupDescription"
-                  Core..= replicationSubnetGroupDescription
+                  Data..= replicationSubnetGroupDescription
               ),
-            Prelude.Just ("SubnetIds" Core..= subnetIds)
+            Prelude.Just ("SubnetIds" Data..= subnetIds)
           ]
       )
 
-instance Core.ToPath CreateReplicationSubnetGroup where
+instance Data.ToPath CreateReplicationSubnetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateReplicationSubnetGroup where
+instance Data.ToQuery CreateReplicationSubnetGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- |

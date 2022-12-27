@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.DeleteOrganizationalUnit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Organizations.DeleteOrganizationalUnit
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -105,7 +106,8 @@ instance Core.AWSRequest DeleteOrganizationalUnit where
   type
     AWSResponse DeleteOrganizationalUnit =
       DeleteOrganizationalUnitResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteOrganizationalUnitResponse'
@@ -118,36 +120,36 @@ instance Prelude.NFData DeleteOrganizationalUnit where
   rnf DeleteOrganizationalUnit' {..} =
     Prelude.rnf organizationalUnitId
 
-instance Core.ToHeaders DeleteOrganizationalUnit where
+instance Data.ToHeaders DeleteOrganizationalUnit where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.DeleteOrganizationalUnit" ::
+              Data.=# ( "AWSOrganizationsV20161128.DeleteOrganizationalUnit" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteOrganizationalUnit where
+instance Data.ToJSON DeleteOrganizationalUnit where
   toJSON DeleteOrganizationalUnit' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "OrganizationalUnitId"
-                  Core..= organizationalUnitId
+                  Data..= organizationalUnitId
               )
           ]
       )
 
-instance Core.ToPath DeleteOrganizationalUnit where
+instance Data.ToPath DeleteOrganizationalUnit where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteOrganizationalUnit where
+instance Data.ToQuery DeleteOrganizationalUnit where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteOrganizationalUnitResponse' smart constructor.

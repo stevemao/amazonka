@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.TagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,20 +40,19 @@ module Amazonka.Nimble.TagResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | The ARN for the role that manages access.
---
--- /See:/ 'newTagResource' smart constructor.
+-- | /See:/ 'newTagResource' smart constructor.
 data TagResource = TagResource'
   { -- | A collection of labels, in the form of key:value pairs, that apply to
     -- this resource.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The ARN of the target resource for tagging operations.
+    -- | The Amazon Resource Name (ARN) of the resource you want to add tags to.
     resourceArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -69,7 +68,7 @@ data TagResource = TagResource'
 -- 'tags', 'tagResource_tags' - A collection of labels, in the form of key:value pairs, that apply to
 -- this resource.
 --
--- 'resourceArn', 'tagResource_resourceArn' - The ARN of the target resource for tagging operations.
+-- 'resourceArn', 'tagResource_resourceArn' - The Amazon Resource Name (ARN) of the resource you want to add tags to.
 newTagResource ::
   -- | 'resourceArn'
   Prelude.Text ->
@@ -85,13 +84,14 @@ newTagResource pResourceArn_ =
 tagResource_tags :: Lens.Lens' TagResource (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} a -> s {tags = a} :: TagResource) Prelude.. Lens.mapping Lens.coerced
 
--- | The ARN of the target resource for tagging operations.
+-- | The Amazon Resource Name (ARN) of the resource you want to add tags to.
 tagResource_resourceArn :: Lens.Lens' TagResource Prelude.Text
 tagResource_resourceArn = Lens.lens (\TagResource' {resourceArn} -> resourceArn) (\s@TagResource' {} a -> s {resourceArn = a} :: TagResource)
 
 instance Core.AWSRequest TagResource where
   type AWSResponse TagResource = TagResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -109,30 +109,30 @@ instance Prelude.NFData TagResource where
     Prelude.rnf tags
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders TagResource where
+instance Data.ToHeaders TagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TagResource where
+instance Data.ToJSON TagResource where
   toJSON TagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("tags" Core..=) Prelude.<$> tags]
+          [("tags" Data..=) Prelude.<$> tags]
       )
 
-instance Core.ToPath TagResource where
+instance Data.ToPath TagResource where
   toPath TagResource' {..} =
     Prelude.mconcat
-      ["/2020-08-01/tags/", Core.toBS resourceArn]
+      ["/2020-08-01/tags/", Data.toBS resourceArn]
 
-instance Core.ToQuery TagResource where
+instance Data.ToQuery TagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTagResourceResponse' smart constructor.

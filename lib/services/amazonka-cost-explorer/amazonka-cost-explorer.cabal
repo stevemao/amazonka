@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -70,8 +70,13 @@ library
     Amazonka.CostExplorer.GetTags
     Amazonka.CostExplorer.GetUsageForecast
     Amazonka.CostExplorer.Lens
+    Amazonka.CostExplorer.ListCostAllocationTags
     Amazonka.CostExplorer.ListCostCategoryDefinitions
+    Amazonka.CostExplorer.ListSavingsPlansPurchaseRecommendationGeneration
+    Amazonka.CostExplorer.ListTagsForResource
     Amazonka.CostExplorer.ProvideAnomalyFeedback
+    Amazonka.CostExplorer.StartSavingsPlansPurchaseRecommendationGeneration
+    Amazonka.CostExplorer.TagResource
     Amazonka.CostExplorer.Types
     Amazonka.CostExplorer.Types.AccountScope
     Amazonka.CostExplorer.Types.Anomaly
@@ -82,6 +87,10 @@ library
     Amazonka.CostExplorer.Types.AnomalySubscription
     Amazonka.CostExplorer.Types.AnomalySubscriptionFrequency
     Amazonka.CostExplorer.Types.Context
+    Amazonka.CostExplorer.Types.CostAllocationTag
+    Amazonka.CostExplorer.Types.CostAllocationTagStatus
+    Amazonka.CostExplorer.Types.CostAllocationTagStatusEntry
+    Amazonka.CostExplorer.Types.CostAllocationTagType
     Amazonka.CostExplorer.Types.CostCategory
     Amazonka.CostExplorer.Types.CostCategoryInheritedValueDimension
     Amazonka.CostExplorer.Types.CostCategoryInheritedValueDimensionName
@@ -118,6 +127,8 @@ library
     Amazonka.CostExplorer.Types.Expression
     Amazonka.CostExplorer.Types.FindingReasonCode
     Amazonka.CostExplorer.Types.ForecastResult
+    Amazonka.CostExplorer.Types.GenerationStatus
+    Amazonka.CostExplorer.Types.GenerationSummary
     Amazonka.CostExplorer.Types.Granularity
     Amazonka.CostExplorer.Types.Group
     Amazonka.CostExplorer.Types.GroupDefinition
@@ -147,6 +158,7 @@ library
     Amazonka.CostExplorer.Types.ReservationPurchaseRecommendationSummary
     Amazonka.CostExplorer.Types.ReservationUtilizationGroup
     Amazonka.CostExplorer.Types.ResourceDetails
+    Amazonka.CostExplorer.Types.ResourceTag
     Amazonka.CostExplorer.Types.ResourceUtilization
     Amazonka.CostExplorer.Types.ResultByTime
     Amazonka.CostExplorer.Types.RightsizingRecommendation
@@ -181,14 +193,17 @@ library
     Amazonka.CostExplorer.Types.TerminateRecommendationDetail
     Amazonka.CostExplorer.Types.TermInYears
     Amazonka.CostExplorer.Types.TotalImpactFilter
+    Amazonka.CostExplorer.Types.UpdateCostAllocationTagsStatusError
     Amazonka.CostExplorer.Types.UtilizationByTime
+    Amazonka.CostExplorer.UntagResource
     Amazonka.CostExplorer.UpdateAnomalyMonitor
     Amazonka.CostExplorer.UpdateAnomalySubscription
+    Amazonka.CostExplorer.UpdateCostAllocationTagsStatus
     Amazonka.CostExplorer.UpdateCostCategoryDefinition
     Amazonka.CostExplorer.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-cost-explorer-test
@@ -207,9 +222,9 @@ test-suite amazonka-cost-explorer-test
     Test.Amazonka.Gen.CostExplorer
 
   build-depends:
-    , amazonka-core           ^>=2.0
+    , amazonka-core           >=2.0 && <2.1
     , amazonka-cost-explorer
-    , amazonka-test           ^>=2.0
+    , amazonka-test           >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

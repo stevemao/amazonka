@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointEmail.PutAccountDedicatedIpWarmupAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.PinpointEmail.PutAccountDedicatedIpWarmupAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.PinpointEmail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -93,7 +94,8 @@ instance
     AWSResponse
       PutAccountDedicatedIpWarmupAttributes =
       PutAccountDedicatedIpWarmupAttributesResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -118,33 +120,33 @@ instance
     Prelude.rnf autoWarmupEnabled
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PutAccountDedicatedIpWarmupAttributes
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     PutAccountDedicatedIpWarmupAttributes
   where
   toJSON PutAccountDedicatedIpWarmupAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AutoWarmupEnabled" Core..=)
+          [ ("AutoWarmupEnabled" Data..=)
               Prelude.<$> autoWarmupEnabled
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     PutAccountDedicatedIpWarmupAttributes
   where
   toPath =
@@ -152,7 +154,7 @@ instance
       "/v1/email/account/dedicated-ips/warmup"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     PutAccountDedicatedIpWarmupAttributes
   where
   toQuery = Prelude.const Prelude.mempty

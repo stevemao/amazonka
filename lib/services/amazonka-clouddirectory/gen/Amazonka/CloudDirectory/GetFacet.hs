@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.GetFacet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,12 +92,13 @@ getFacet_name = Lens.lens (\GetFacet' {name} -> name) (\s@GetFacet' {} a -> s {n
 
 instance Core.AWSRequest GetFacet where
   type AWSResponse GetFacet = GetFacetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetFacetResponse'
-            Prelude.<$> (x Core..?> "Facet")
+            Prelude.<$> (x Data..?> "Facet")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,24 +112,24 @@ instance Prelude.NFData GetFacet where
     Prelude.rnf schemaArn
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders GetFacet where
+instance Data.ToHeaders GetFacet where
   toHeaders GetFacet' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# schemaArn]
+      ["x-amz-data-partition" Data.=# schemaArn]
 
-instance Core.ToJSON GetFacet where
+instance Data.ToJSON GetFacet where
   toJSON GetFacet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath GetFacet where
+instance Data.ToPath GetFacet where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/facet"
 
-instance Core.ToQuery GetFacet where
+instance Data.ToQuery GetFacet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetFacetResponse' smart constructor.

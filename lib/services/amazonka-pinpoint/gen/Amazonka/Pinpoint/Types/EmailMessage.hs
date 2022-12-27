@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.EmailMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.EmailMessage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.RawEmail
 import Amazonka.Pinpoint.Types.SimpleEmail
 import qualified Amazonka.Prelude as Prelude
@@ -30,24 +31,24 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEmailMessage' smart constructor.
 data EmailMessage = EmailMessage'
-  { -- | The default message variables to use in the email message. You can
-    -- override the default variables with individual address variables.
-    substitutions :: Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]),
-    -- | The body of the email message.
+  { -- | The body of the email message.
     body :: Prelude.Maybe Prelude.Text,
+    -- | The email address to forward bounces and complaints to, if feedback
+    -- forwarding is enabled.
+    feedbackForwardingAddress :: Prelude.Maybe Prelude.Text,
     -- | The verified email address to send the email message from. The default
     -- value is the FromAddress specified for the email channel.
     fromAddress :: Prelude.Maybe Prelude.Text,
     -- | The email message, represented as a raw MIME message.
     rawEmail :: Prelude.Maybe RawEmail,
-    -- | The email address to forward bounces and complaints to, if feedback
-    -- forwarding is enabled.
-    feedbackForwardingAddress :: Prelude.Maybe Prelude.Text,
-    -- | The email message, composed of a subject, a text part, and an HTML part.
-    simpleEmail :: Prelude.Maybe SimpleEmail,
     -- | The reply-to email address(es) for the email message. If a recipient
     -- replies to the email, each reply-to address receives the reply.
-    replyToAddresses :: Prelude.Maybe [Prelude.Text]
+    replyToAddresses :: Prelude.Maybe [Prelude.Text],
+    -- | The email message, composed of a subject, a text part, and an HTML part.
+    simpleEmail :: Prelude.Maybe SimpleEmail,
+    -- | The default message variables to use in the email message. You can
+    -- override the default variables with individual address variables.
+    substitutions :: Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text])
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -59,44 +60,44 @@ data EmailMessage = EmailMessage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'substitutions', 'emailMessage_substitutions' - The default message variables to use in the email message. You can
--- override the default variables with individual address variables.
---
 -- 'body', 'emailMessage_body' - The body of the email message.
+--
+-- 'feedbackForwardingAddress', 'emailMessage_feedbackForwardingAddress' - The email address to forward bounces and complaints to, if feedback
+-- forwarding is enabled.
 --
 -- 'fromAddress', 'emailMessage_fromAddress' - The verified email address to send the email message from. The default
 -- value is the FromAddress specified for the email channel.
 --
 -- 'rawEmail', 'emailMessage_rawEmail' - The email message, represented as a raw MIME message.
 --
--- 'feedbackForwardingAddress', 'emailMessage_feedbackForwardingAddress' - The email address to forward bounces and complaints to, if feedback
--- forwarding is enabled.
+-- 'replyToAddresses', 'emailMessage_replyToAddresses' - The reply-to email address(es) for the email message. If a recipient
+-- replies to the email, each reply-to address receives the reply.
 --
 -- 'simpleEmail', 'emailMessage_simpleEmail' - The email message, composed of a subject, a text part, and an HTML part.
 --
--- 'replyToAddresses', 'emailMessage_replyToAddresses' - The reply-to email address(es) for the email message. If a recipient
--- replies to the email, each reply-to address receives the reply.
+-- 'substitutions', 'emailMessage_substitutions' - The default message variables to use in the email message. You can
+-- override the default variables with individual address variables.
 newEmailMessage ::
   EmailMessage
 newEmailMessage =
   EmailMessage'
-    { substitutions = Prelude.Nothing,
-      body = Prelude.Nothing,
+    { body = Prelude.Nothing,
+      feedbackForwardingAddress = Prelude.Nothing,
       fromAddress = Prelude.Nothing,
       rawEmail = Prelude.Nothing,
-      feedbackForwardingAddress = Prelude.Nothing,
+      replyToAddresses = Prelude.Nothing,
       simpleEmail = Prelude.Nothing,
-      replyToAddresses = Prelude.Nothing
+      substitutions = Prelude.Nothing
     }
-
--- | The default message variables to use in the email message. You can
--- override the default variables with individual address variables.
-emailMessage_substitutions :: Lens.Lens' EmailMessage (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
-emailMessage_substitutions = Lens.lens (\EmailMessage' {substitutions} -> substitutions) (\s@EmailMessage' {} a -> s {substitutions = a} :: EmailMessage) Prelude.. Lens.mapping Lens.coerced
 
 -- | The body of the email message.
 emailMessage_body :: Lens.Lens' EmailMessage (Prelude.Maybe Prelude.Text)
 emailMessage_body = Lens.lens (\EmailMessage' {body} -> body) (\s@EmailMessage' {} a -> s {body = a} :: EmailMessage)
+
+-- | The email address to forward bounces and complaints to, if feedback
+-- forwarding is enabled.
+emailMessage_feedbackForwardingAddress :: Lens.Lens' EmailMessage (Prelude.Maybe Prelude.Text)
+emailMessage_feedbackForwardingAddress = Lens.lens (\EmailMessage' {feedbackForwardingAddress} -> feedbackForwardingAddress) (\s@EmailMessage' {} a -> s {feedbackForwardingAddress = a} :: EmailMessage)
 
 -- | The verified email address to send the email message from. The default
 -- value is the FromAddress specified for the email channel.
@@ -107,52 +108,52 @@ emailMessage_fromAddress = Lens.lens (\EmailMessage' {fromAddress} -> fromAddres
 emailMessage_rawEmail :: Lens.Lens' EmailMessage (Prelude.Maybe RawEmail)
 emailMessage_rawEmail = Lens.lens (\EmailMessage' {rawEmail} -> rawEmail) (\s@EmailMessage' {} a -> s {rawEmail = a} :: EmailMessage)
 
--- | The email address to forward bounces and complaints to, if feedback
--- forwarding is enabled.
-emailMessage_feedbackForwardingAddress :: Lens.Lens' EmailMessage (Prelude.Maybe Prelude.Text)
-emailMessage_feedbackForwardingAddress = Lens.lens (\EmailMessage' {feedbackForwardingAddress} -> feedbackForwardingAddress) (\s@EmailMessage' {} a -> s {feedbackForwardingAddress = a} :: EmailMessage)
-
--- | The email message, composed of a subject, a text part, and an HTML part.
-emailMessage_simpleEmail :: Lens.Lens' EmailMessage (Prelude.Maybe SimpleEmail)
-emailMessage_simpleEmail = Lens.lens (\EmailMessage' {simpleEmail} -> simpleEmail) (\s@EmailMessage' {} a -> s {simpleEmail = a} :: EmailMessage)
-
 -- | The reply-to email address(es) for the email message. If a recipient
 -- replies to the email, each reply-to address receives the reply.
 emailMessage_replyToAddresses :: Lens.Lens' EmailMessage (Prelude.Maybe [Prelude.Text])
 emailMessage_replyToAddresses = Lens.lens (\EmailMessage' {replyToAddresses} -> replyToAddresses) (\s@EmailMessage' {} a -> s {replyToAddresses = a} :: EmailMessage) Prelude.. Lens.mapping Lens.coerced
 
+-- | The email message, composed of a subject, a text part, and an HTML part.
+emailMessage_simpleEmail :: Lens.Lens' EmailMessage (Prelude.Maybe SimpleEmail)
+emailMessage_simpleEmail = Lens.lens (\EmailMessage' {simpleEmail} -> simpleEmail) (\s@EmailMessage' {} a -> s {simpleEmail = a} :: EmailMessage)
+
+-- | The default message variables to use in the email message. You can
+-- override the default variables with individual address variables.
+emailMessage_substitutions :: Lens.Lens' EmailMessage (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
+emailMessage_substitutions = Lens.lens (\EmailMessage' {substitutions} -> substitutions) (\s@EmailMessage' {} a -> s {substitutions = a} :: EmailMessage) Prelude.. Lens.mapping Lens.coerced
+
 instance Prelude.Hashable EmailMessage where
   hashWithSalt _salt EmailMessage' {..} =
-    _salt `Prelude.hashWithSalt` substitutions
-      `Prelude.hashWithSalt` body
+    _salt `Prelude.hashWithSalt` body
+      `Prelude.hashWithSalt` feedbackForwardingAddress
       `Prelude.hashWithSalt` fromAddress
       `Prelude.hashWithSalt` rawEmail
-      `Prelude.hashWithSalt` feedbackForwardingAddress
-      `Prelude.hashWithSalt` simpleEmail
       `Prelude.hashWithSalt` replyToAddresses
+      `Prelude.hashWithSalt` simpleEmail
+      `Prelude.hashWithSalt` substitutions
 
 instance Prelude.NFData EmailMessage where
   rnf EmailMessage' {..} =
-    Prelude.rnf substitutions
-      `Prelude.seq` Prelude.rnf body
+    Prelude.rnf body
+      `Prelude.seq` Prelude.rnf feedbackForwardingAddress
       `Prelude.seq` Prelude.rnf fromAddress
       `Prelude.seq` Prelude.rnf rawEmail
-      `Prelude.seq` Prelude.rnf feedbackForwardingAddress
-      `Prelude.seq` Prelude.rnf simpleEmail
       `Prelude.seq` Prelude.rnf replyToAddresses
+      `Prelude.seq` Prelude.rnf simpleEmail
+      `Prelude.seq` Prelude.rnf substitutions
 
-instance Core.ToJSON EmailMessage where
+instance Data.ToJSON EmailMessage where
   toJSON EmailMessage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Substitutions" Core..=) Prelude.<$> substitutions,
-            ("Body" Core..=) Prelude.<$> body,
-            ("FromAddress" Core..=) Prelude.<$> fromAddress,
-            ("RawEmail" Core..=) Prelude.<$> rawEmail,
-            ("FeedbackForwardingAddress" Core..=)
+          [ ("Body" Data..=) Prelude.<$> body,
+            ("FeedbackForwardingAddress" Data..=)
               Prelude.<$> feedbackForwardingAddress,
-            ("SimpleEmail" Core..=) Prelude.<$> simpleEmail,
-            ("ReplyToAddresses" Core..=)
-              Prelude.<$> replyToAddresses
+            ("FromAddress" Data..=) Prelude.<$> fromAddress,
+            ("RawEmail" Data..=) Prelude.<$> rawEmail,
+            ("ReplyToAddresses" Data..=)
+              Prelude.<$> replyToAddresses,
+            ("SimpleEmail" Data..=) Prelude.<$> simpleEmail,
+            ("Substitutions" Data..=) Prelude.<$> substitutions
           ]
       )

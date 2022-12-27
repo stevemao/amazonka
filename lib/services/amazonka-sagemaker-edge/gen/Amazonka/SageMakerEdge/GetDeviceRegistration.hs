@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMakerEdge.GetDeviceRegistration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.SageMakerEdge.GetDeviceRegistration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,13 +98,14 @@ instance Core.AWSRequest GetDeviceRegistration where
   type
     AWSResponse GetDeviceRegistration =
       GetDeviceRegistrationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDeviceRegistrationResponse'
-            Prelude.<$> (x Core..?> "CacheTTL")
-            Prelude.<*> (x Core..?> "DeviceRegistration")
+            Prelude.<$> (x Data..?> "CacheTTL")
+            Prelude.<*> (x Data..?> "DeviceRegistration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,31 +119,31 @@ instance Prelude.NFData GetDeviceRegistration where
     Prelude.rnf deviceName
       `Prelude.seq` Prelude.rnf deviceFleetName
 
-instance Core.ToHeaders GetDeviceRegistration where
+instance Data.ToHeaders GetDeviceRegistration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetDeviceRegistration where
+instance Data.ToJSON GetDeviceRegistration where
   toJSON GetDeviceRegistration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DeviceName" Core..= deviceName),
+          [ Prelude.Just ("DeviceName" Data..= deviceName),
             Prelude.Just
-              ("DeviceFleetName" Core..= deviceFleetName)
+              ("DeviceFleetName" Data..= deviceFleetName)
           ]
       )
 
-instance Core.ToPath GetDeviceRegistration where
+instance Data.ToPath GetDeviceRegistration where
   toPath = Prelude.const "/GetDeviceRegistration"
 
-instance Core.ToQuery GetDeviceRegistration where
+instance Data.ToQuery GetDeviceRegistration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDeviceRegistrationResponse' smart constructor.

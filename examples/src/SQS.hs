@@ -13,6 +13,7 @@ import Control.Monad
 import Control.Monad.IO.Class
 import Data.Foldable (for_)
 import Data.Generics.Labels ()
+import Data.Text (Text)
 import qualified Data.Text as Text
 import qualified Data.Text.IO as Text
 import System.IO
@@ -25,15 +26,15 @@ roundTrip ::
   -- | Contents of the messages to send.
   [Text] ->
   IO ()
-roundTrip r name xs = do
+roundTrip reg queue xs = do
   lgr <- newLogger Debug stdout
-  env <- newEnv discover <&> set #envLogger lgr . within r
+  env <- newEnv discover <&> set #logger lgr . set #region reg
 
   let say = liftIO . Text.putStrLn
 
   runResourceT $ do
-    void $ send env (newCreateQueue name)
-    url <- view #queueUrl <$> send env (newGetQueueUrl name)
+    void $ send env (newCreateQueue queue)
+    url <- view #queueUrl <$> send env (newGetQueueUrl queue)
     say $ "Received Queue URL: " <> url
 
     forM_ xs $ \x -> do

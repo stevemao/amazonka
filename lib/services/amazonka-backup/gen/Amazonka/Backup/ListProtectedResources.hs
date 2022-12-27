@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.ListProtectedResources
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,42 +23,45 @@
 -- Returns an array of resources successfully backed up by Backup,
 -- including the time the resource was saved, an Amazon Resource Name (ARN)
 -- of the resource, and a resource type.
+--
+-- This operation returns paginated results.
 module Amazonka.Backup.ListProtectedResources
   ( -- * Creating a Request
     ListProtectedResources (..),
     newListProtectedResources,
 
     -- * Request Lenses
-    listProtectedResources_nextToken,
     listProtectedResources_maxResults,
+    listProtectedResources_nextToken,
 
     -- * Destructuring the Response
     ListProtectedResourcesResponse (..),
     newListProtectedResourcesResponse,
 
     -- * Response Lenses
-    listProtectedResourcesResponse_results,
     listProtectedResourcesResponse_nextToken,
+    listProtectedResourcesResponse_results,
     listProtectedResourcesResponse_httpStatus,
   )
 where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListProtectedResources' smart constructor.
 data ListProtectedResources = ListProtectedResources'
-  { -- | The next item following a partial list of returned items. For example,
+  { -- | The maximum number of items to be returned.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The next item following a partial list of returned items. For example,
     -- if a request is made to return @maxResults@ number of items, @NextToken@
     -- allows you to return more items in your list starting at the location
     -- pointed to by the next token.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to be returned.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,20 +73,24 @@ data ListProtectedResources = ListProtectedResources'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listProtectedResources_maxResults' - The maximum number of items to be returned.
+--
 -- 'nextToken', 'listProtectedResources_nextToken' - The next item following a partial list of returned items. For example,
 -- if a request is made to return @maxResults@ number of items, @NextToken@
 -- allows you to return more items in your list starting at the location
 -- pointed to by the next token.
---
--- 'maxResults', 'listProtectedResources_maxResults' - The maximum number of items to be returned.
 newListProtectedResources ::
   ListProtectedResources
 newListProtectedResources =
   ListProtectedResources'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of items to be returned.
+listProtectedResources_maxResults :: Lens.Lens' ListProtectedResources (Prelude.Maybe Prelude.Natural)
+listProtectedResources_maxResults = Lens.lens (\ListProtectedResources' {maxResults} -> maxResults) (\s@ListProtectedResources' {} a -> s {maxResults = a} :: ListProtectedResources)
 
 -- | The next item following a partial list of returned items. For example,
 -- if a request is made to return @maxResults@ number of items, @NextToken@
@@ -92,66 +99,85 @@ newListProtectedResources =
 listProtectedResources_nextToken :: Lens.Lens' ListProtectedResources (Prelude.Maybe Prelude.Text)
 listProtectedResources_nextToken = Lens.lens (\ListProtectedResources' {nextToken} -> nextToken) (\s@ListProtectedResources' {} a -> s {nextToken = a} :: ListProtectedResources)
 
--- | The maximum number of items to be returned.
-listProtectedResources_maxResults :: Lens.Lens' ListProtectedResources (Prelude.Maybe Prelude.Natural)
-listProtectedResources_maxResults = Lens.lens (\ListProtectedResources' {maxResults} -> maxResults) (\s@ListProtectedResources' {} a -> s {maxResults = a} :: ListProtectedResources)
+instance Core.AWSPager ListProtectedResources where
+  page rq rs
+    | Core.stop
+        ( rs
+            Lens.^? listProtectedResourcesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Core.stop
+        ( rs
+            Lens.^? listProtectedResourcesResponse_results
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Prelude.& listProtectedResources_nextToken
+          Lens..~ rs
+          Lens.^? listProtectedResourcesResponse_nextToken
+            Prelude.. Lens._Just
 
 instance Core.AWSRequest ListProtectedResources where
   type
     AWSResponse ListProtectedResources =
       ListProtectedResourcesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListProtectedResourcesResponse'
-            Prelude.<$> (x Core..?> "Results" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Results" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListProtectedResources where
   hashWithSalt _salt ListProtectedResources' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListProtectedResources where
   rnf ListProtectedResources' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListProtectedResources where
+instance Data.ToHeaders ListProtectedResources where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListProtectedResources where
+instance Data.ToPath ListProtectedResources where
   toPath = Prelude.const "/resources/"
 
-instance Core.ToQuery ListProtectedResources where
+instance Data.ToQuery ListProtectedResources where
   toQuery ListProtectedResources' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListProtectedResourcesResponse' smart constructor.
 data ListProtectedResourcesResponse = ListProtectedResourcesResponse'
-  { -- | An array of resources successfully backed up by Backup including the
-    -- time the resource was saved, an Amazon Resource Name (ARN) of the
-    -- resource, and a resource type.
-    results :: Prelude.Maybe [ProtectedResource],
-    -- | The next item following a partial list of returned items. For example,
+  { -- | The next item following a partial list of returned items. For example,
     -- if a request is made to return @maxResults@ number of items, @NextToken@
     -- allows you to return more items in your list starting at the location
     -- pointed to by the next token.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of resources successfully backed up by Backup including the
+    -- time the resource was saved, an Amazon Resource Name (ARN) of the
+    -- resource, and a resource type.
+    results :: Prelude.Maybe [ProtectedResource],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -165,14 +191,14 @@ data ListProtectedResourcesResponse = ListProtectedResourcesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'results', 'listProtectedResourcesResponse_results' - An array of resources successfully backed up by Backup including the
--- time the resource was saved, an Amazon Resource Name (ARN) of the
--- resource, and a resource type.
---
 -- 'nextToken', 'listProtectedResourcesResponse_nextToken' - The next item following a partial list of returned items. For example,
 -- if a request is made to return @maxResults@ number of items, @NextToken@
 -- allows you to return more items in your list starting at the location
 -- pointed to by the next token.
+--
+-- 'results', 'listProtectedResourcesResponse_results' - An array of resources successfully backed up by Backup including the
+-- time the resource was saved, an Amazon Resource Name (ARN) of the
+-- resource, and a resource type.
 --
 -- 'httpStatus', 'listProtectedResourcesResponse_httpStatus' - The response's http status code.
 newListProtectedResourcesResponse ::
@@ -181,17 +207,11 @@ newListProtectedResourcesResponse ::
   ListProtectedResourcesResponse
 newListProtectedResourcesResponse pHttpStatus_ =
   ListProtectedResourcesResponse'
-    { results =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      results = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | An array of resources successfully backed up by Backup including the
--- time the resource was saved, an Amazon Resource Name (ARN) of the
--- resource, and a resource type.
-listProtectedResourcesResponse_results :: Lens.Lens' ListProtectedResourcesResponse (Prelude.Maybe [ProtectedResource])
-listProtectedResourcesResponse_results = Lens.lens (\ListProtectedResourcesResponse' {results} -> results) (\s@ListProtectedResourcesResponse' {} a -> s {results = a} :: ListProtectedResourcesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The next item following a partial list of returned items. For example,
 -- if a request is made to return @maxResults@ number of items, @NextToken@
@@ -199,6 +219,12 @@ listProtectedResourcesResponse_results = Lens.lens (\ListProtectedResourcesRespo
 -- pointed to by the next token.
 listProtectedResourcesResponse_nextToken :: Lens.Lens' ListProtectedResourcesResponse (Prelude.Maybe Prelude.Text)
 listProtectedResourcesResponse_nextToken = Lens.lens (\ListProtectedResourcesResponse' {nextToken} -> nextToken) (\s@ListProtectedResourcesResponse' {} a -> s {nextToken = a} :: ListProtectedResourcesResponse)
+
+-- | An array of resources successfully backed up by Backup including the
+-- time the resource was saved, an Amazon Resource Name (ARN) of the
+-- resource, and a resource type.
+listProtectedResourcesResponse_results :: Lens.Lens' ListProtectedResourcesResponse (Prelude.Maybe [ProtectedResource])
+listProtectedResourcesResponse_results = Lens.lens (\ListProtectedResourcesResponse' {results} -> results) (\s@ListProtectedResourcesResponse' {} a -> s {results = a} :: ListProtectedResourcesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listProtectedResourcesResponse_httpStatus :: Lens.Lens' ListProtectedResourcesResponse Prelude.Int
@@ -209,6 +235,6 @@ instance
     ListProtectedResourcesResponse
   where
   rnf ListProtectedResourcesResponse' {..} =
-    Prelude.rnf results
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf results
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.UpdateImagePermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.AppStream.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,7 +109,8 @@ instance Core.AWSRequest UpdateImagePermissions where
   type
     AWSResponse UpdateImagePermissions =
       UpdateImagePermissionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -128,37 +130,37 @@ instance Prelude.NFData UpdateImagePermissions where
       `Prelude.seq` Prelude.rnf sharedAccountId
       `Prelude.seq` Prelude.rnf imagePermissions
 
-instance Core.ToHeaders UpdateImagePermissions where
+instance Data.ToHeaders UpdateImagePermissions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "PhotonAdminProxyService.UpdateImagePermissions" ::
+              Data.=# ( "PhotonAdminProxyService.UpdateImagePermissions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateImagePermissions where
+instance Data.ToJSON UpdateImagePermissions where
   toJSON UpdateImagePermissions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
+          [ Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("SharedAccountId" Core..= sharedAccountId),
+              ("SharedAccountId" Data..= sharedAccountId),
             Prelude.Just
-              ("ImagePermissions" Core..= imagePermissions)
+              ("ImagePermissions" Data..= imagePermissions)
           ]
       )
 
-instance Core.ToPath UpdateImagePermissions where
+instance Data.ToPath UpdateImagePermissions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateImagePermissions where
+instance Data.ToQuery UpdateImagePermissions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateImagePermissionsResponse' smart constructor.

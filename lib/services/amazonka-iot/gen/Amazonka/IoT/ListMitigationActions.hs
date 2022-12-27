@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListMitigationActions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,9 +34,9 @@ module Amazonka.IoT.ListMitigationActions
     newListMitigationActions,
 
     -- * Request Lenses
-    listMitigationActions_nextToken,
     listMitigationActions_actionType,
     listMitigationActions_maxResults,
+    listMitigationActions_nextToken,
 
     -- * Destructuring the Response
     ListMitigationActionsResponse (..),
@@ -50,21 +50,22 @@ module Amazonka.IoT.ListMitigationActions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListMitigationActions' smart constructor.
 data ListMitigationActions = ListMitigationActions'
-  { -- | The token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Specify a value to limit the result to mitigation actions with a
+  { -- | Specify a value to limit the result to mitigation actions with a
     -- specific action type.
     actionType :: Prelude.Maybe MitigationActionType,
     -- | The maximum number of results to return at one time. The default is 25.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -76,24 +77,21 @@ data ListMitigationActions = ListMitigationActions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listMitigationActions_nextToken' - The token for the next set of results.
---
 -- 'actionType', 'listMitigationActions_actionType' - Specify a value to limit the result to mitigation actions with a
 -- specific action type.
 --
 -- 'maxResults', 'listMitigationActions_maxResults' - The maximum number of results to return at one time. The default is 25.
+--
+-- 'nextToken', 'listMitigationActions_nextToken' - The token for the next set of results.
 newListMitigationActions ::
   ListMitigationActions
 newListMitigationActions =
   ListMitigationActions'
-    { nextToken = Prelude.Nothing,
-      actionType = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { actionType =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token for the next set of results.
-listMitigationActions_nextToken :: Lens.Lens' ListMitigationActions (Prelude.Maybe Prelude.Text)
-listMitigationActions_nextToken = Lens.lens (\ListMitigationActions' {nextToken} -> nextToken) (\s@ListMitigationActions' {} a -> s {nextToken = a} :: ListMitigationActions)
 
 -- | Specify a value to limit the result to mitigation actions with a
 -- specific action type.
@@ -103,6 +101,10 @@ listMitigationActions_actionType = Lens.lens (\ListMitigationActions' {actionTyp
 -- | The maximum number of results to return at one time. The default is 25.
 listMitigationActions_maxResults :: Lens.Lens' ListMitigationActions (Prelude.Maybe Prelude.Natural)
 listMitigationActions_maxResults = Lens.lens (\ListMitigationActions' {maxResults} -> maxResults) (\s@ListMitigationActions' {} a -> s {maxResults = a} :: ListMitigationActions)
+
+-- | The token for the next set of results.
+listMitigationActions_nextToken :: Lens.Lens' ListMitigationActions (Prelude.Maybe Prelude.Text)
+listMitigationActions_nextToken = Lens.lens (\ListMitigationActions' {nextToken} -> nextToken) (\s@ListMitigationActions' {} a -> s {nextToken = a} :: ListMitigationActions)
 
 instance Core.AWSPager ListMitigationActions where
   page rq rs
@@ -130,42 +132,43 @@ instance Core.AWSRequest ListMitigationActions where
   type
     AWSResponse ListMitigationActions =
       ListMitigationActionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListMitigationActionsResponse'
-            Prelude.<$> ( x Core..?> "actionIdentifiers"
+            Prelude.<$> ( x Data..?> "actionIdentifiers"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListMitigationActions where
   hashWithSalt _salt ListMitigationActions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` actionType
+    _salt `Prelude.hashWithSalt` actionType
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListMitigationActions where
   rnf ListMitigationActions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf actionType
+    Prelude.rnf actionType
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListMitigationActions where
+instance Data.ToHeaders ListMitigationActions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListMitigationActions where
+instance Data.ToPath ListMitigationActions where
   toPath = Prelude.const "/mitigationactions/actions"
 
-instance Core.ToQuery ListMitigationActions where
+instance Data.ToQuery ListMitigationActions where
   toQuery ListMitigationActions' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "actionType" Core.=: actionType,
-        "maxResults" Core.=: maxResults
+      [ "actionType" Data.=: actionType,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListMitigationActionsResponse' smart constructor.

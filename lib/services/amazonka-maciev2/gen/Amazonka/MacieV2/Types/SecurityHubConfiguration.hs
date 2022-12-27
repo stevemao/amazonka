@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.SecurityHubConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.SecurityHubConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies configuration settings that determine which findings are
@@ -91,14 +92,14 @@ securityHubConfiguration_publishPolicyFindings = Lens.lens (\SecurityHubConfigur
 securityHubConfiguration_publishClassificationFindings :: Lens.Lens' SecurityHubConfiguration Prelude.Bool
 securityHubConfiguration_publishClassificationFindings = Lens.lens (\SecurityHubConfiguration' {publishClassificationFindings} -> publishClassificationFindings) (\s@SecurityHubConfiguration' {} a -> s {publishClassificationFindings = a} :: SecurityHubConfiguration)
 
-instance Core.FromJSON SecurityHubConfiguration where
+instance Data.FromJSON SecurityHubConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SecurityHubConfiguration"
       ( \x ->
           SecurityHubConfiguration'
-            Prelude.<$> (x Core..: "publishPolicyFindings")
-            Prelude.<*> (x Core..: "publishClassificationFindings")
+            Prelude.<$> (x Data..: "publishPolicyFindings")
+            Prelude.<*> (x Data..: "publishClassificationFindings")
       )
 
 instance Prelude.Hashable SecurityHubConfiguration where
@@ -111,17 +112,17 @@ instance Prelude.NFData SecurityHubConfiguration where
     Prelude.rnf publishPolicyFindings
       `Prelude.seq` Prelude.rnf publishClassificationFindings
 
-instance Core.ToJSON SecurityHubConfiguration where
+instance Data.ToJSON SecurityHubConfiguration where
   toJSON SecurityHubConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "publishPolicyFindings"
-                  Core..= publishPolicyFindings
+                  Data..= publishPolicyFindings
               ),
             Prelude.Just
               ( "publishClassificationFindings"
-                  Core..= publishClassificationFindings
+                  Data..= publishClassificationFindings
               )
           ]
       )

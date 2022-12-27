@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.SegmentLocation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.SegmentLocation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.GPSPointDimension
 import Amazonka.Pinpoint.Types.SetDimension
 import qualified Amazonka.Prelude as Prelude
@@ -66,14 +67,14 @@ segmentLocation_country = Lens.lens (\SegmentLocation' {country} -> country) (\s
 segmentLocation_gPSPoint :: Lens.Lens' SegmentLocation (Prelude.Maybe GPSPointDimension)
 segmentLocation_gPSPoint = Lens.lens (\SegmentLocation' {gPSPoint} -> gPSPoint) (\s@SegmentLocation' {} a -> s {gPSPoint = a} :: SegmentLocation)
 
-instance Core.FromJSON SegmentLocation where
+instance Data.FromJSON SegmentLocation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SegmentLocation"
       ( \x ->
           SegmentLocation'
-            Prelude.<$> (x Core..:? "Country")
-            Prelude.<*> (x Core..:? "GPSPoint")
+            Prelude.<$> (x Data..:? "Country")
+            Prelude.<*> (x Data..:? "GPSPoint")
       )
 
 instance Prelude.Hashable SegmentLocation where
@@ -86,11 +87,11 @@ instance Prelude.NFData SegmentLocation where
     Prelude.rnf country
       `Prelude.seq` Prelude.rnf gPSPoint
 
-instance Core.ToJSON SegmentLocation where
+instance Data.ToJSON SegmentLocation where
   toJSON SegmentLocation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Country" Core..=) Prelude.<$> country,
-            ("GPSPoint" Core..=) Prelude.<$> gPSPoint
+          [ ("Country" Data..=) Prelude.<$> country,
+            ("GPSPoint" Data..=) Prelude.<$> gPSPoint
           ]
       )

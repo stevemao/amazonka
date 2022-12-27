@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.ContentReference
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.ContentReference where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Reference information about the content.
@@ -33,7 +34,7 @@ data ContentReference = ContentReference'
     contentId :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the knowledge base.
     knowledgeBaseArn :: Prelude.Maybe Prelude.Text,
-    -- | The the identifier of the knowledge base.
+    -- | The identifier of the knowledge base.
     knowledgeBaseId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -52,7 +53,7 @@ data ContentReference = ContentReference'
 --
 -- 'knowledgeBaseArn', 'contentReference_knowledgeBaseArn' - The Amazon Resource Name (ARN) of the knowledge base.
 --
--- 'knowledgeBaseId', 'contentReference_knowledgeBaseId' - The the identifier of the knowledge base.
+-- 'knowledgeBaseId', 'contentReference_knowledgeBaseId' - The identifier of the knowledge base.
 newContentReference ::
   ContentReference
 newContentReference =
@@ -75,20 +76,20 @@ contentReference_contentId = Lens.lens (\ContentReference' {contentId} -> conten
 contentReference_knowledgeBaseArn :: Lens.Lens' ContentReference (Prelude.Maybe Prelude.Text)
 contentReference_knowledgeBaseArn = Lens.lens (\ContentReference' {knowledgeBaseArn} -> knowledgeBaseArn) (\s@ContentReference' {} a -> s {knowledgeBaseArn = a} :: ContentReference)
 
--- | The the identifier of the knowledge base.
+-- | The identifier of the knowledge base.
 contentReference_knowledgeBaseId :: Lens.Lens' ContentReference (Prelude.Maybe Prelude.Text)
 contentReference_knowledgeBaseId = Lens.lens (\ContentReference' {knowledgeBaseId} -> knowledgeBaseId) (\s@ContentReference' {} a -> s {knowledgeBaseId = a} :: ContentReference)
 
-instance Core.FromJSON ContentReference where
+instance Data.FromJSON ContentReference where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContentReference"
       ( \x ->
           ContentReference'
-            Prelude.<$> (x Core..:? "contentArn")
-            Prelude.<*> (x Core..:? "contentId")
-            Prelude.<*> (x Core..:? "knowledgeBaseArn")
-            Prelude.<*> (x Core..:? "knowledgeBaseId")
+            Prelude.<$> (x Data..:? "contentArn")
+            Prelude.<*> (x Data..:? "contentId")
+            Prelude.<*> (x Data..:? "knowledgeBaseArn")
+            Prelude.<*> (x Data..:? "knowledgeBaseId")
       )
 
 instance Prelude.Hashable ContentReference where

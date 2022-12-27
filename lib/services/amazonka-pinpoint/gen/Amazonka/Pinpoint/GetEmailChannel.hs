@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetEmailChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Pinpoint.GetEmailChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -81,13 +82,14 @@ instance Core.AWSRequest GetEmailChannel where
   type
     AWSResponse GetEmailChannel =
       GetEmailChannelResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetEmailChannelResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetEmailChannel where
@@ -97,26 +99,26 @@ instance Prelude.Hashable GetEmailChannel where
 instance Prelude.NFData GetEmailChannel where
   rnf GetEmailChannel' {..} = Prelude.rnf applicationId
 
-instance Core.ToHeaders GetEmailChannel where
+instance Data.ToHeaders GetEmailChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetEmailChannel where
+instance Data.ToPath GetEmailChannel where
   toPath GetEmailChannel' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/channels/email"
       ]
 
-instance Core.ToQuery GetEmailChannel where
+instance Data.ToQuery GetEmailChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetEmailChannelResponse' smart constructor.

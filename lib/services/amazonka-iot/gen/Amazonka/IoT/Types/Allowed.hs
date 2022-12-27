@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.Allowed
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.Allowed where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.Policy
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information that allowed the authorization.
@@ -50,13 +51,13 @@ newAllowed = Allowed' {policies = Prelude.Nothing}
 allowed_policies :: Lens.Lens' Allowed (Prelude.Maybe [Policy])
 allowed_policies = Lens.lens (\Allowed' {policies} -> policies) (\s@Allowed' {} a -> s {policies = a} :: Allowed) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON Allowed where
+instance Data.FromJSON Allowed where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Allowed"
       ( \x ->
           Allowed'
-            Prelude.<$> (x Core..:? "policies" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "policies" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Allowed where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.FailedCreateAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.FailedCreateAssociation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.CreateAssociationBatchRequestEntry
 import Amazonka.SSM.Types.Fault
@@ -36,7 +37,7 @@ data FailedCreateAssociation = FailedCreateAssociation'
     -- | A description of the failure.
     message :: Prelude.Maybe Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'FailedCreateAssociation' with all optional fields omitted.
@@ -72,15 +73,15 @@ failedCreateAssociation_fault = Lens.lens (\FailedCreateAssociation' {fault} -> 
 failedCreateAssociation_message :: Lens.Lens' FailedCreateAssociation (Prelude.Maybe Prelude.Text)
 failedCreateAssociation_message = Lens.lens (\FailedCreateAssociation' {message} -> message) (\s@FailedCreateAssociation' {} a -> s {message = a} :: FailedCreateAssociation)
 
-instance Core.FromJSON FailedCreateAssociation where
+instance Data.FromJSON FailedCreateAssociation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FailedCreateAssociation"
       ( \x ->
           FailedCreateAssociation'
-            Prelude.<$> (x Core..:? "Entry")
-            Prelude.<*> (x Core..:? "Fault")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Entry")
+            Prelude.<*> (x Data..:? "Fault")
+            Prelude.<*> (x Data..:? "Message")
       )
 
 instance Prelude.Hashable FailedCreateAssociation where

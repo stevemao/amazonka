@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.Types.Identity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EKS.Types.Identity where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types.OIDC
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing an identity provider.
@@ -53,11 +54,11 @@ newIdentity = Identity' {oidc = Prelude.Nothing}
 identity_oidc :: Lens.Lens' Identity (Prelude.Maybe OIDC)
 identity_oidc = Lens.lens (\Identity' {oidc} -> oidc) (\s@Identity' {} a -> s {oidc = a} :: Identity)
 
-instance Core.FromJSON Identity where
+instance Data.FromJSON Identity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Identity"
-      (\x -> Identity' Prelude.<$> (x Core..:? "oidc"))
+      (\x -> Identity' Prelude.<$> (x Data..:? "oidc"))
 
 instance Prelude.Hashable Identity where
   hashWithSalt _salt Identity' {..} =

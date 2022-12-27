@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.FinalHyperParameterTuningJobObjectiveMetric
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.FinalHyperParameterTuningJobObjectiveMetric where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.HyperParameterTuningJobObjectiveType
 
@@ -85,17 +86,17 @@ finalHyperParameterTuningJobObjectiveMetric_value :: Lens.Lens' FinalHyperParame
 finalHyperParameterTuningJobObjectiveMetric_value = Lens.lens (\FinalHyperParameterTuningJobObjectiveMetric' {value} -> value) (\s@FinalHyperParameterTuningJobObjectiveMetric' {} a -> s {value = a} :: FinalHyperParameterTuningJobObjectiveMetric)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     FinalHyperParameterTuningJobObjectiveMetric
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FinalHyperParameterTuningJobObjectiveMetric"
       ( \x ->
           FinalHyperParameterTuningJobObjectiveMetric'
-            Prelude.<$> (x Core..:? "Type")
-              Prelude.<*> (x Core..: "MetricName")
-              Prelude.<*> (x Core..: "Value")
+            Prelude.<$> (x Data..:? "Type")
+              Prelude.<*> (x Data..: "MetricName")
+              Prelude.<*> (x Data..: "Value")
       )
 
 instance

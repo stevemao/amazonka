@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.GetLicense
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.LicenseManager.GetLicense
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -87,12 +88,13 @@ getLicense_licenseArn = Lens.lens (\GetLicense' {licenseArn} -> licenseArn) (\s@
 
 instance Core.AWSRequest GetLicense where
   type AWSResponse GetLicense = GetLicenseResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetLicenseResponse'
-            Prelude.<$> (x Core..?> "License")
+            Prelude.<$> (x Data..?> "License")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -106,34 +108,34 @@ instance Prelude.NFData GetLicense where
     Prelude.rnf version
       `Prelude.seq` Prelude.rnf licenseArn
 
-instance Core.ToHeaders GetLicense where
+instance Data.ToHeaders GetLicense where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLicenseManager.GetLicense" ::
+              Data.=# ( "AWSLicenseManager.GetLicense" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetLicense where
+instance Data.ToJSON GetLicense where
   toJSON GetLicense' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Version" Core..=) Prelude.<$> version,
-            Prelude.Just ("LicenseArn" Core..= licenseArn)
+          [ ("Version" Data..=) Prelude.<$> version,
+            Prelude.Just ("LicenseArn" Data..= licenseArn)
           ]
       )
 
-instance Core.ToPath GetLicense where
+instance Data.ToPath GetLicense where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetLicense where
+instance Data.ToQuery GetLicense where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetLicenseResponse' smart constructor.

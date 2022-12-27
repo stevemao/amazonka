@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.CreateBackup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -72,8 +72,9 @@ module Amazonka.DynamoDB.CreateBackup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -120,12 +121,13 @@ createBackup_backupName = Lens.lens (\CreateBackup' {backupName} -> backupName) 
 
 instance Core.AWSRequest CreateBackup where
   type AWSResponse CreateBackup = CreateBackupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateBackupResponse'
-            Prelude.<$> (x Core..?> "BackupDetails")
+            Prelude.<$> (x Data..?> "BackupDetails")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -139,34 +141,34 @@ instance Prelude.NFData CreateBackup where
     Prelude.rnf tableName
       `Prelude.seq` Prelude.rnf backupName
 
-instance Core.ToHeaders CreateBackup where
+instance Data.ToHeaders CreateBackup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.CreateBackup" ::
+              Data.=# ( "DynamoDB_20120810.CreateBackup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateBackup where
+instance Data.ToJSON CreateBackup where
   toJSON CreateBackup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("TableName" Core..= tableName),
-            Prelude.Just ("BackupName" Core..= backupName)
+          [ Prelude.Just ("TableName" Data..= tableName),
+            Prelude.Just ("BackupName" Data..= backupName)
           ]
       )
 
-instance Core.ToPath CreateBackup where
+instance Data.ToPath CreateBackup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateBackup where
+instance Data.ToQuery CreateBackup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateBackupResponse' smart constructor.

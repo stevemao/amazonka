@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryControlConfig.ListRoutingControls
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.Route53RecoveryControlConfig.ListRoutingControls
     newListRoutingControls,
 
     -- * Request Lenses
-    listRoutingControls_nextToken,
     listRoutingControls_maxResults,
+    listRoutingControls_nextToken,
     listRoutingControls_controlPanelArn,
 
     -- * Destructuring the Response
@@ -47,7 +47,8 @@ module Amazonka.Route53RecoveryControlConfig.ListRoutingControls
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,12 +56,11 @@ import Amazonka.Route53RecoveryControlConfig.Types
 
 -- | /See:/ 'newListRoutingControls' smart constructor.
 data ListRoutingControls = ListRoutingControls'
-  { -- | The token that identifies which batch of results you want to see.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of objects that you want to return with this call.
+  { -- | The number of objects that you want to return with this call.
     maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The Amazon Resource Name (ARN) of the control panel that you\'re getting
-    -- routing control details for.
+    -- | The token that identifies which batch of results you want to see.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the control panel.
     controlPanelArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -73,33 +73,31 @@ data ListRoutingControls = ListRoutingControls'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listRoutingControls_nextToken' - The token that identifies which batch of results you want to see.
---
 -- 'maxResults', 'listRoutingControls_maxResults' - The number of objects that you want to return with this call.
 --
--- 'controlPanelArn', 'listRoutingControls_controlPanelArn' - The Amazon Resource Name (ARN) of the control panel that you\'re getting
--- routing control details for.
+-- 'nextToken', 'listRoutingControls_nextToken' - The token that identifies which batch of results you want to see.
+--
+-- 'controlPanelArn', 'listRoutingControls_controlPanelArn' - The Amazon Resource Name (ARN) of the control panel.
 newListRoutingControls ::
   -- | 'controlPanelArn'
   Prelude.Text ->
   ListRoutingControls
 newListRoutingControls pControlPanelArn_ =
   ListRoutingControls'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       controlPanelArn = pControlPanelArn_
     }
-
--- | The token that identifies which batch of results you want to see.
-listRoutingControls_nextToken :: Lens.Lens' ListRoutingControls (Prelude.Maybe Prelude.Text)
-listRoutingControls_nextToken = Lens.lens (\ListRoutingControls' {nextToken} -> nextToken) (\s@ListRoutingControls' {} a -> s {nextToken = a} :: ListRoutingControls)
 
 -- | The number of objects that you want to return with this call.
 listRoutingControls_maxResults :: Lens.Lens' ListRoutingControls (Prelude.Maybe Prelude.Natural)
 listRoutingControls_maxResults = Lens.lens (\ListRoutingControls' {maxResults} -> maxResults) (\s@ListRoutingControls' {} a -> s {maxResults = a} :: ListRoutingControls)
 
--- | The Amazon Resource Name (ARN) of the control panel that you\'re getting
--- routing control details for.
+-- | The token that identifies which batch of results you want to see.
+listRoutingControls_nextToken :: Lens.Lens' ListRoutingControls (Prelude.Maybe Prelude.Text)
+listRoutingControls_nextToken = Lens.lens (\ListRoutingControls' {nextToken} -> nextToken) (\s@ListRoutingControls' {} a -> s {nextToken = a} :: ListRoutingControls)
+
+-- | The Amazon Resource Name (ARN) of the control panel.
 listRoutingControls_controlPanelArn :: Lens.Lens' ListRoutingControls Prelude.Text
 listRoutingControls_controlPanelArn = Lens.lens (\ListRoutingControls' {controlPanelArn} -> controlPanelArn) (\s@ListRoutingControls' {} a -> s {controlPanelArn = a} :: ListRoutingControls)
 
@@ -107,13 +105,14 @@ instance Core.AWSRequest ListRoutingControls where
   type
     AWSResponse ListRoutingControls =
       ListRoutingControlsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRoutingControlsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "RoutingControls"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "RoutingControls"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -121,40 +120,40 @@ instance Core.AWSRequest ListRoutingControls where
 
 instance Prelude.Hashable ListRoutingControls where
   hashWithSalt _salt ListRoutingControls' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` controlPanelArn
 
 instance Prelude.NFData ListRoutingControls where
   rnf ListRoutingControls' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf controlPanelArn
 
-instance Core.ToHeaders ListRoutingControls where
+instance Data.ToHeaders ListRoutingControls where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListRoutingControls where
+instance Data.ToPath ListRoutingControls where
   toPath ListRoutingControls' {..} =
     Prelude.mconcat
       [ "/controlpanel/",
-        Core.toBS controlPanelArn,
+        Data.toBS controlPanelArn,
         "/routingcontrols"
       ]
 
-instance Core.ToQuery ListRoutingControls where
+instance Data.ToQuery ListRoutingControls where
   toQuery ListRoutingControls' {..} =
     Prelude.mconcat
-      [ "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+      [ "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListRoutingControlsResponse' smart constructor.

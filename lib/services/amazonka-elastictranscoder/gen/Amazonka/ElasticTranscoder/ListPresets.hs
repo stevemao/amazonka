@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticTranscoder.ListPresets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.ElasticTranscoder.ListPresets
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticTranscoder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -125,13 +126,14 @@ instance Core.AWSPager ListPresets where
 
 instance Core.AWSRequest ListPresets where
   type AWSResponse ListPresets = ListPresetsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPresetsResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-            Prelude.<*> (x Core..?> "Presets" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextPageToken")
+            Prelude.<*> (x Data..?> "Presets" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -145,17 +147,17 @@ instance Prelude.NFData ListPresets where
     Prelude.rnf ascending
       `Prelude.seq` Prelude.rnf pageToken
 
-instance Core.ToHeaders ListPresets where
+instance Data.ToHeaders ListPresets where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListPresets where
+instance Data.ToPath ListPresets where
   toPath = Prelude.const "/2012-09-25/presets"
 
-instance Core.ToQuery ListPresets where
+instance Data.ToQuery ListPresets where
   toQuery ListPresets' {..} =
     Prelude.mconcat
-      [ "Ascending" Core.=: ascending,
-        "PageToken" Core.=: pageToken
+      [ "Ascending" Data.=: ascending,
+        "PageToken" Data.=: pageToken
       ]
 
 -- | The @ListPresetsResponse@ structure.

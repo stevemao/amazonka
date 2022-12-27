@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.EphemeralStorage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ECS.Types.EphemeralStorage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The amount of ephemeral storage to allocate for the task. This parameter
@@ -30,8 +31,9 @@ import qualified Amazonka.Prelude as Prelude
 -- <https://docs.aws.amazon.com/AmazonECS/latest/userguide/using_data_volumes.html Fargate task storage>
 -- in the /Amazon ECS User Guide for Fargate/.
 --
--- This parameter is only supported for tasks hosted on Fargate using
--- platform version @1.4.0@ or later.
+-- This parameter is only supported for tasks hosted on Fargate using Linux
+-- platform version @1.4.0@ or later. This parameter is not supported for
+-- Windows containers on Fargate.
 --
 -- /See:/ 'newEphemeralStorage' smart constructor.
 data EphemeralStorage = EphemeralStorage'
@@ -66,13 +68,13 @@ newEphemeralStorage pSizeInGiB_ =
 ephemeralStorage_sizeInGiB :: Lens.Lens' EphemeralStorage Prelude.Int
 ephemeralStorage_sizeInGiB = Lens.lens (\EphemeralStorage' {sizeInGiB} -> sizeInGiB) (\s@EphemeralStorage' {} a -> s {sizeInGiB = a} :: EphemeralStorage)
 
-instance Core.FromJSON EphemeralStorage where
+instance Data.FromJSON EphemeralStorage where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EphemeralStorage"
       ( \x ->
           EphemeralStorage'
-            Prelude.<$> (x Core..: "sizeInGiB")
+            Prelude.<$> (x Data..: "sizeInGiB")
       )
 
 instance Prelude.Hashable EphemeralStorage where
@@ -82,9 +84,9 @@ instance Prelude.Hashable EphemeralStorage where
 instance Prelude.NFData EphemeralStorage where
   rnf EphemeralStorage' {..} = Prelude.rnf sizeInGiB
 
-instance Core.ToJSON EphemeralStorage where
+instance Data.ToJSON EphemeralStorage where
   toJSON EphemeralStorage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("sizeInGiB" Core..= sizeInGiB)]
+          [Prelude.Just ("sizeInGiB" Data..= sizeInGiB)]
       )

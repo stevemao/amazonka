@@ -14,25 +14,26 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.TagStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Adds one or more tags to a stream. A /tag/ is a key-value pair (the
--- value is optional) that you can define and assign to AWS resources. If
--- you specify a tag that already exists, the tag value is replaced with
--- the value that you specify in the request. For more information, see
+-- value is optional) that you can define and assign to Amazon Web Services
+-- resources. If you specify a tag that already exists, the tag value is
+-- replaced with the value that you specify in the request. For more
+-- information, see
 -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html Using Cost Allocation Tags>
--- in the /AWS Billing and Cost Management User Guide/.
+-- in the /Billing and Cost Management and Cost Management User Guide/.
 --
 -- You must provide either the @StreamName@ or the @StreamARN@.
 --
 -- This operation requires permission for the @KinesisVideo:TagStream@
 -- action.
 --
--- Kinesis video streams support up to 50 tags.
+-- A Kinesis video stream can support up to 50 tags.
 module Amazonka.KinesisVideo.TagStream
   ( -- * Creating a Request
     TagStream (..),
@@ -53,8 +54,9 @@ module Amazonka.KinesisVideo.TagStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideo.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,7 +114,8 @@ tagStream_tags = Lens.lens (\TagStream' {tags} -> tags) (\s@TagStream' {} a -> s
 
 instance Core.AWSRequest TagStream where
   type AWSResponse TagStream = TagStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -132,23 +135,23 @@ instance Prelude.NFData TagStream where
       `Prelude.seq` Prelude.rnf streamName
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagStream where
+instance Data.ToHeaders TagStream where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON TagStream where
+instance Data.ToJSON TagStream where
   toJSON TagStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StreamARN" Core..=) Prelude.<$> streamARN,
-            ("StreamName" Core..=) Prelude.<$> streamName,
-            Prelude.Just ("Tags" Core..= tags)
+          [ ("StreamARN" Data..=) Prelude.<$> streamARN,
+            ("StreamName" Data..=) Prelude.<$> streamName,
+            Prelude.Just ("Tags" Data..= tags)
           ]
       )
 
-instance Core.ToPath TagStream where
+instance Data.ToPath TagStream where
   toPath = Prelude.const "/tagStream"
 
-instance Core.ToQuery TagStream where
+instance Data.ToQuery TagStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTagStreamResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.TestCustomDataIdentifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.MacieV2.TestCustomDataIdentifier
     newTestCustomDataIdentifier,
 
     -- * Request Lenses
-    testCustomDataIdentifier_keywords,
     testCustomDataIdentifier_ignoreWords,
+    testCustomDataIdentifier_keywords,
     testCustomDataIdentifier_maximumMatchDistance,
     testCustomDataIdentifier_regex,
     testCustomDataIdentifier_sampleText,
@@ -44,7 +44,8 @@ module Amazonka.MacieV2.TestCustomDataIdentifier
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,22 +53,23 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newTestCustomDataIdentifier' smart constructor.
 data TestCustomDataIdentifier = TestCustomDataIdentifier'
-  { -- | An array that lists specific character sequences (keywords), one of
-    -- which must be within proximity (maximumMatchDistance) of the regular
-    -- expression to match. The array can contain as many as 50 keywords. Each
-    -- keyword can contain 3-90 UTF-8 characters. Keywords aren\'t case
-    -- sensitive.
-    keywords :: Prelude.Maybe [Prelude.Text],
-    -- | An array that lists specific character sequences (ignore words) to
+  { -- | An array that lists specific character sequences (/ignore words/) to
     -- exclude from the results. If the text matched by the regular expression
-    -- is the same as any string in this array, Amazon Macie ignores it. The
-    -- array can contain as many as 10 ignore words. Each ignore word can
-    -- contain 4-90 UTF-8 characters. Ignore words are case sensitive.
+    -- contains any string in this array, Amazon Macie ignores it. The array
+    -- can contain as many as 10 ignore words. Each ignore word can contain
+    -- 4-90 UTF-8 characters. Ignore words are case sensitive.
     ignoreWords :: Prelude.Maybe [Prelude.Text],
-    -- | The maximum number of characters that can exist between text that
-    -- matches the regex pattern and the character sequences specified by the
-    -- keywords array. Amazon Macie includes or excludes a result based on the
-    -- proximity of a keyword to text that matches the regex pattern. The
+    -- | An array that lists specific character sequences (/keywords/), one of
+    -- which must precede and be within proximity (maximumMatchDistance) of the
+    -- regular expression to match. The array can contain as many as 50
+    -- keywords. Each keyword can contain 3-90 UTF-8 characters. Keywords
+    -- aren\'t case sensitive.
+    keywords :: Prelude.Maybe [Prelude.Text],
+    -- | The maximum number of characters that can exist between the end of at
+    -- least one complete character sequence specified by the keywords array
+    -- and the end of the text that matches the regex pattern. If a complete
+    -- keyword precedes all the text that matches the pattern and the keyword
+    -- is within the specified distance, Amazon Macie includes the result. The
     -- distance can be 1-300 characters. The default value is 50.
     maximumMatchDistance :: Prelude.Maybe Prelude.Int,
     -- | The regular expression (/regex/) that defines the pattern to match. The
@@ -87,22 +89,23 @@ data TestCustomDataIdentifier = TestCustomDataIdentifier'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'keywords', 'testCustomDataIdentifier_keywords' - An array that lists specific character sequences (keywords), one of
--- which must be within proximity (maximumMatchDistance) of the regular
--- expression to match. The array can contain as many as 50 keywords. Each
--- keyword can contain 3-90 UTF-8 characters. Keywords aren\'t case
--- sensitive.
---
--- 'ignoreWords', 'testCustomDataIdentifier_ignoreWords' - An array that lists specific character sequences (ignore words) to
+-- 'ignoreWords', 'testCustomDataIdentifier_ignoreWords' - An array that lists specific character sequences (/ignore words/) to
 -- exclude from the results. If the text matched by the regular expression
--- is the same as any string in this array, Amazon Macie ignores it. The
--- array can contain as many as 10 ignore words. Each ignore word can
--- contain 4-90 UTF-8 characters. Ignore words are case sensitive.
+-- contains any string in this array, Amazon Macie ignores it. The array
+-- can contain as many as 10 ignore words. Each ignore word can contain
+-- 4-90 UTF-8 characters. Ignore words are case sensitive.
 --
--- 'maximumMatchDistance', 'testCustomDataIdentifier_maximumMatchDistance' - The maximum number of characters that can exist between text that
--- matches the regex pattern and the character sequences specified by the
--- keywords array. Amazon Macie includes or excludes a result based on the
--- proximity of a keyword to text that matches the regex pattern. The
+-- 'keywords', 'testCustomDataIdentifier_keywords' - An array that lists specific character sequences (/keywords/), one of
+-- which must precede and be within proximity (maximumMatchDistance) of the
+-- regular expression to match. The array can contain as many as 50
+-- keywords. Each keyword can contain 3-90 UTF-8 characters. Keywords
+-- aren\'t case sensitive.
+--
+-- 'maximumMatchDistance', 'testCustomDataIdentifier_maximumMatchDistance' - The maximum number of characters that can exist between the end of at
+-- least one complete character sequence specified by the keywords array
+-- and the end of the text that matches the regex pattern. If a complete
+-- keyword precedes all the text that matches the pattern and the keyword
+-- is within the specified distance, Amazon Macie includes the result. The
 -- distance can be 1-300 characters. The default value is 50.
 --
 -- 'regex', 'testCustomDataIdentifier_regex' - The regular expression (/regex/) that defines the pattern to match. The
@@ -118,34 +121,35 @@ newTestCustomDataIdentifier ::
   TestCustomDataIdentifier
 newTestCustomDataIdentifier pRegex_ pSampleText_ =
   TestCustomDataIdentifier'
-    { keywords =
+    { ignoreWords =
         Prelude.Nothing,
-      ignoreWords = Prelude.Nothing,
+      keywords = Prelude.Nothing,
       maximumMatchDistance = Prelude.Nothing,
       regex = pRegex_,
       sampleText = pSampleText_
     }
 
--- | An array that lists specific character sequences (keywords), one of
--- which must be within proximity (maximumMatchDistance) of the regular
--- expression to match. The array can contain as many as 50 keywords. Each
--- keyword can contain 3-90 UTF-8 characters. Keywords aren\'t case
--- sensitive.
-testCustomDataIdentifier_keywords :: Lens.Lens' TestCustomDataIdentifier (Prelude.Maybe [Prelude.Text])
-testCustomDataIdentifier_keywords = Lens.lens (\TestCustomDataIdentifier' {keywords} -> keywords) (\s@TestCustomDataIdentifier' {} a -> s {keywords = a} :: TestCustomDataIdentifier) Prelude.. Lens.mapping Lens.coerced
-
--- | An array that lists specific character sequences (ignore words) to
+-- | An array that lists specific character sequences (/ignore words/) to
 -- exclude from the results. If the text matched by the regular expression
--- is the same as any string in this array, Amazon Macie ignores it. The
--- array can contain as many as 10 ignore words. Each ignore word can
--- contain 4-90 UTF-8 characters. Ignore words are case sensitive.
+-- contains any string in this array, Amazon Macie ignores it. The array
+-- can contain as many as 10 ignore words. Each ignore word can contain
+-- 4-90 UTF-8 characters. Ignore words are case sensitive.
 testCustomDataIdentifier_ignoreWords :: Lens.Lens' TestCustomDataIdentifier (Prelude.Maybe [Prelude.Text])
 testCustomDataIdentifier_ignoreWords = Lens.lens (\TestCustomDataIdentifier' {ignoreWords} -> ignoreWords) (\s@TestCustomDataIdentifier' {} a -> s {ignoreWords = a} :: TestCustomDataIdentifier) Prelude.. Lens.mapping Lens.coerced
 
--- | The maximum number of characters that can exist between text that
--- matches the regex pattern and the character sequences specified by the
--- keywords array. Amazon Macie includes or excludes a result based on the
--- proximity of a keyword to text that matches the regex pattern. The
+-- | An array that lists specific character sequences (/keywords/), one of
+-- which must precede and be within proximity (maximumMatchDistance) of the
+-- regular expression to match. The array can contain as many as 50
+-- keywords. Each keyword can contain 3-90 UTF-8 characters. Keywords
+-- aren\'t case sensitive.
+testCustomDataIdentifier_keywords :: Lens.Lens' TestCustomDataIdentifier (Prelude.Maybe [Prelude.Text])
+testCustomDataIdentifier_keywords = Lens.lens (\TestCustomDataIdentifier' {keywords} -> keywords) (\s@TestCustomDataIdentifier' {} a -> s {keywords = a} :: TestCustomDataIdentifier) Prelude.. Lens.mapping Lens.coerced
+
+-- | The maximum number of characters that can exist between the end of at
+-- least one complete character sequence specified by the keywords array
+-- and the end of the text that matches the regex pattern. If a complete
+-- keyword precedes all the text that matches the pattern and the keyword
+-- is within the specified distance, Amazon Macie includes the result. The
 -- distance can be 1-300 characters. The default value is 50.
 testCustomDataIdentifier_maximumMatchDistance :: Lens.Lens' TestCustomDataIdentifier (Prelude.Maybe Prelude.Int)
 testCustomDataIdentifier_maximumMatchDistance = Lens.lens (\TestCustomDataIdentifier' {maximumMatchDistance} -> maximumMatchDistance) (\s@TestCustomDataIdentifier' {} a -> s {maximumMatchDistance = a} :: TestCustomDataIdentifier)
@@ -164,66 +168,67 @@ instance Core.AWSRequest TestCustomDataIdentifier where
   type
     AWSResponse TestCustomDataIdentifier =
       TestCustomDataIdentifierResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           TestCustomDataIdentifierResponse'
-            Prelude.<$> (x Core..?> "matchCount")
+            Prelude.<$> (x Data..?> "matchCount")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable TestCustomDataIdentifier where
   hashWithSalt _salt TestCustomDataIdentifier' {..} =
-    _salt `Prelude.hashWithSalt` keywords
-      `Prelude.hashWithSalt` ignoreWords
+    _salt `Prelude.hashWithSalt` ignoreWords
+      `Prelude.hashWithSalt` keywords
       `Prelude.hashWithSalt` maximumMatchDistance
       `Prelude.hashWithSalt` regex
       `Prelude.hashWithSalt` sampleText
 
 instance Prelude.NFData TestCustomDataIdentifier where
   rnf TestCustomDataIdentifier' {..} =
-    Prelude.rnf keywords
-      `Prelude.seq` Prelude.rnf ignoreWords
+    Prelude.rnf ignoreWords
+      `Prelude.seq` Prelude.rnf keywords
       `Prelude.seq` Prelude.rnf maximumMatchDistance
       `Prelude.seq` Prelude.rnf regex
       `Prelude.seq` Prelude.rnf sampleText
 
-instance Core.ToHeaders TestCustomDataIdentifier where
+instance Data.ToHeaders TestCustomDataIdentifier where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TestCustomDataIdentifier where
+instance Data.ToJSON TestCustomDataIdentifier where
   toJSON TestCustomDataIdentifier' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("keywords" Core..=) Prelude.<$> keywords,
-            ("ignoreWords" Core..=) Prelude.<$> ignoreWords,
-            ("maximumMatchDistance" Core..=)
+          [ ("ignoreWords" Data..=) Prelude.<$> ignoreWords,
+            ("keywords" Data..=) Prelude.<$> keywords,
+            ("maximumMatchDistance" Data..=)
               Prelude.<$> maximumMatchDistance,
-            Prelude.Just ("regex" Core..= regex),
-            Prelude.Just ("sampleText" Core..= sampleText)
+            Prelude.Just ("regex" Data..= regex),
+            Prelude.Just ("sampleText" Data..= sampleText)
           ]
       )
 
-instance Core.ToPath TestCustomDataIdentifier where
+instance Data.ToPath TestCustomDataIdentifier where
   toPath =
     Prelude.const "/custom-data-identifiers/test"
 
-instance Core.ToQuery TestCustomDataIdentifier where
+instance Data.ToQuery TestCustomDataIdentifier where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTestCustomDataIdentifierResponse' smart constructor.
 data TestCustomDataIdentifierResponse = TestCustomDataIdentifierResponse'
-  { -- | The number of instances of sample text that matched the detection
-    -- criteria specified in the custom data identifier.
+  { -- | The number of occurrences of sample text that matched the criteria
+    -- specified by the custom data identifier.
     matchCount :: Prelude.Maybe Prelude.Int,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -238,8 +243,8 @@ data TestCustomDataIdentifierResponse = TestCustomDataIdentifierResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'matchCount', 'testCustomDataIdentifierResponse_matchCount' - The number of instances of sample text that matched the detection
--- criteria specified in the custom data identifier.
+-- 'matchCount', 'testCustomDataIdentifierResponse_matchCount' - The number of occurrences of sample text that matched the criteria
+-- specified by the custom data identifier.
 --
 -- 'httpStatus', 'testCustomDataIdentifierResponse_httpStatus' - The response's http status code.
 newTestCustomDataIdentifierResponse ::
@@ -253,8 +258,8 @@ newTestCustomDataIdentifierResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The number of instances of sample text that matched the detection
--- criteria specified in the custom data identifier.
+-- | The number of occurrences of sample text that matched the criteria
+-- specified by the custom data identifier.
 testCustomDataIdentifierResponse_matchCount :: Lens.Lens' TestCustomDataIdentifierResponse (Prelude.Maybe Prelude.Int)
 testCustomDataIdentifierResponse_matchCount = Lens.lens (\TestCustomDataIdentifierResponse' {matchCount} -> matchCount) (\s@TestCustomDataIdentifierResponse' {} a -> s {matchCount = a} :: TestCustomDataIdentifierResponse)
 

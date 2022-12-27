@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.ResourceIdentifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Config.Types.ResourceIdentifier where
 
 import Amazonka.Config.Types.ResourceType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details that identify a resource that is discovered by Config,
@@ -30,14 +31,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newResourceIdentifier' smart constructor.
 data ResourceIdentifier = ResourceIdentifier'
-  { -- | The ID of the resource (for example, @sg-xxxxxx@).
+  { -- | The time that the resource was deleted.
+    resourceDeletionTime :: Prelude.Maybe Data.POSIX,
+    -- | The ID of the resource (for example, @sg-xxxxxx@).
     resourceId :: Prelude.Maybe Prelude.Text,
-    -- | The type of resource.
-    resourceType :: Prelude.Maybe ResourceType,
     -- | The custom name of the resource (if available).
     resourceName :: Prelude.Maybe Prelude.Text,
-    -- | The time that the resource was deleted.
-    resourceDeletionTime :: Prelude.Maybe Core.POSIX
+    -- | The type of resource.
+    resourceType :: Prelude.Maybe ResourceType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,61 +50,62 @@ data ResourceIdentifier = ResourceIdentifier'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceId', 'resourceIdentifier_resourceId' - The ID of the resource (for example, @sg-xxxxxx@).
+-- 'resourceDeletionTime', 'resourceIdentifier_resourceDeletionTime' - The time that the resource was deleted.
 --
--- 'resourceType', 'resourceIdentifier_resourceType' - The type of resource.
+-- 'resourceId', 'resourceIdentifier_resourceId' - The ID of the resource (for example, @sg-xxxxxx@).
 --
 -- 'resourceName', 'resourceIdentifier_resourceName' - The custom name of the resource (if available).
 --
--- 'resourceDeletionTime', 'resourceIdentifier_resourceDeletionTime' - The time that the resource was deleted.
+-- 'resourceType', 'resourceIdentifier_resourceType' - The type of resource.
 newResourceIdentifier ::
   ResourceIdentifier
 newResourceIdentifier =
   ResourceIdentifier'
-    { resourceId = Prelude.Nothing,
-      resourceType = Prelude.Nothing,
+    { resourceDeletionTime =
+        Prelude.Nothing,
+      resourceId = Prelude.Nothing,
       resourceName = Prelude.Nothing,
-      resourceDeletionTime = Prelude.Nothing
+      resourceType = Prelude.Nothing
     }
+
+-- | The time that the resource was deleted.
+resourceIdentifier_resourceDeletionTime :: Lens.Lens' ResourceIdentifier (Prelude.Maybe Prelude.UTCTime)
+resourceIdentifier_resourceDeletionTime = Lens.lens (\ResourceIdentifier' {resourceDeletionTime} -> resourceDeletionTime) (\s@ResourceIdentifier' {} a -> s {resourceDeletionTime = a} :: ResourceIdentifier) Prelude.. Lens.mapping Data._Time
 
 -- | The ID of the resource (for example, @sg-xxxxxx@).
 resourceIdentifier_resourceId :: Lens.Lens' ResourceIdentifier (Prelude.Maybe Prelude.Text)
 resourceIdentifier_resourceId = Lens.lens (\ResourceIdentifier' {resourceId} -> resourceId) (\s@ResourceIdentifier' {} a -> s {resourceId = a} :: ResourceIdentifier)
 
--- | The type of resource.
-resourceIdentifier_resourceType :: Lens.Lens' ResourceIdentifier (Prelude.Maybe ResourceType)
-resourceIdentifier_resourceType = Lens.lens (\ResourceIdentifier' {resourceType} -> resourceType) (\s@ResourceIdentifier' {} a -> s {resourceType = a} :: ResourceIdentifier)
-
 -- | The custom name of the resource (if available).
 resourceIdentifier_resourceName :: Lens.Lens' ResourceIdentifier (Prelude.Maybe Prelude.Text)
 resourceIdentifier_resourceName = Lens.lens (\ResourceIdentifier' {resourceName} -> resourceName) (\s@ResourceIdentifier' {} a -> s {resourceName = a} :: ResourceIdentifier)
 
--- | The time that the resource was deleted.
-resourceIdentifier_resourceDeletionTime :: Lens.Lens' ResourceIdentifier (Prelude.Maybe Prelude.UTCTime)
-resourceIdentifier_resourceDeletionTime = Lens.lens (\ResourceIdentifier' {resourceDeletionTime} -> resourceDeletionTime) (\s@ResourceIdentifier' {} a -> s {resourceDeletionTime = a} :: ResourceIdentifier) Prelude.. Lens.mapping Core._Time
+-- | The type of resource.
+resourceIdentifier_resourceType :: Lens.Lens' ResourceIdentifier (Prelude.Maybe ResourceType)
+resourceIdentifier_resourceType = Lens.lens (\ResourceIdentifier' {resourceType} -> resourceType) (\s@ResourceIdentifier' {} a -> s {resourceType = a} :: ResourceIdentifier)
 
-instance Core.FromJSON ResourceIdentifier where
+instance Data.FromJSON ResourceIdentifier where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceIdentifier"
       ( \x ->
           ResourceIdentifier'
-            Prelude.<$> (x Core..:? "resourceId")
-            Prelude.<*> (x Core..:? "resourceType")
-            Prelude.<*> (x Core..:? "resourceName")
-            Prelude.<*> (x Core..:? "resourceDeletionTime")
+            Prelude.<$> (x Data..:? "resourceDeletionTime")
+            Prelude.<*> (x Data..:? "resourceId")
+            Prelude.<*> (x Data..:? "resourceName")
+            Prelude.<*> (x Data..:? "resourceType")
       )
 
 instance Prelude.Hashable ResourceIdentifier where
   hashWithSalt _salt ResourceIdentifier' {..} =
-    _salt `Prelude.hashWithSalt` resourceId
-      `Prelude.hashWithSalt` resourceType
+    _salt `Prelude.hashWithSalt` resourceDeletionTime
+      `Prelude.hashWithSalt` resourceId
       `Prelude.hashWithSalt` resourceName
-      `Prelude.hashWithSalt` resourceDeletionTime
+      `Prelude.hashWithSalt` resourceType
 
 instance Prelude.NFData ResourceIdentifier where
   rnf ResourceIdentifier' {..} =
-    Prelude.rnf resourceId
-      `Prelude.seq` Prelude.rnf resourceType
+    Prelude.rnf resourceDeletionTime
+      `Prelude.seq` Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf resourceName
-      `Prelude.seq` Prelude.rnf resourceDeletionTime
+      `Prelude.seq` Prelude.rnf resourceType

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEc2NetworkInterfaceDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEc2NetworkInterfaceDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsEc2NetworkInterfaceAttachment
 import Amazonka.SecurityHub.Types.AwsEc2NetworkInterfaceIpV6AddressDetail
@@ -31,22 +32,22 @@ import Amazonka.SecurityHub.Types.AwsEc2NetworkInterfaceSecurityGroup
 --
 -- /See:/ 'newAwsEc2NetworkInterfaceDetails' smart constructor.
 data AwsEc2NetworkInterfaceDetails = AwsEc2NetworkInterfaceDetails'
-  { -- | The private IPv4 addresses associated with the network interface.
+  { -- | The network interface attachment.
+    attachment :: Prelude.Maybe AwsEc2NetworkInterfaceAttachment,
+    -- | The IPv6 addresses associated with the network interface.
+    ipV6Addresses :: Prelude.Maybe [AwsEc2NetworkInterfaceIpV6AddressDetail],
+    -- | The ID of the network interface.
+    networkInterfaceId :: Prelude.Maybe Prelude.Text,
+    -- | The private IPv4 addresses associated with the network interface.
     privateIpAddresses :: Prelude.Maybe [AwsEc2NetworkInterfacePrivateIpAddressDetail],
     -- | The public DNS name of the network interface.
     publicDnsName :: Prelude.Maybe Prelude.Text,
+    -- | The address of the Elastic IP address bound to the network interface.
+    publicIp :: Prelude.Maybe Prelude.Text,
     -- | Security groups for the network interface.
     securityGroups :: Prelude.Maybe [AwsEc2NetworkInterfaceSecurityGroup],
     -- | Indicates whether traffic to or from the instance is validated.
-    sourceDestCheck :: Prelude.Maybe Prelude.Bool,
-    -- | The ID of the network interface.
-    networkInterfaceId :: Prelude.Maybe Prelude.Text,
-    -- | The network interface attachment.
-    attachment :: Prelude.Maybe AwsEc2NetworkInterfaceAttachment,
-    -- | The address of the Elastic IP address bound to the network interface.
-    publicIp :: Prelude.Maybe Prelude.Text,
-    -- | The IPv6 addresses associated with the network interface.
-    ipV6Addresses :: Prelude.Maybe [AwsEc2NetworkInterfaceIpV6AddressDetail]
+    sourceDestCheck :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,35 +59,47 @@ data AwsEc2NetworkInterfaceDetails = AwsEc2NetworkInterfaceDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'attachment', 'awsEc2NetworkInterfaceDetails_attachment' - The network interface attachment.
+--
+-- 'ipV6Addresses', 'awsEc2NetworkInterfaceDetails_ipV6Addresses' - The IPv6 addresses associated with the network interface.
+--
+-- 'networkInterfaceId', 'awsEc2NetworkInterfaceDetails_networkInterfaceId' - The ID of the network interface.
+--
 -- 'privateIpAddresses', 'awsEc2NetworkInterfaceDetails_privateIpAddresses' - The private IPv4 addresses associated with the network interface.
 --
 -- 'publicDnsName', 'awsEc2NetworkInterfaceDetails_publicDnsName' - The public DNS name of the network interface.
 --
+-- 'publicIp', 'awsEc2NetworkInterfaceDetails_publicIp' - The address of the Elastic IP address bound to the network interface.
+--
 -- 'securityGroups', 'awsEc2NetworkInterfaceDetails_securityGroups' - Security groups for the network interface.
 --
 -- 'sourceDestCheck', 'awsEc2NetworkInterfaceDetails_sourceDestCheck' - Indicates whether traffic to or from the instance is validated.
---
--- 'networkInterfaceId', 'awsEc2NetworkInterfaceDetails_networkInterfaceId' - The ID of the network interface.
---
--- 'attachment', 'awsEc2NetworkInterfaceDetails_attachment' - The network interface attachment.
---
--- 'publicIp', 'awsEc2NetworkInterfaceDetails_publicIp' - The address of the Elastic IP address bound to the network interface.
---
--- 'ipV6Addresses', 'awsEc2NetworkInterfaceDetails_ipV6Addresses' - The IPv6 addresses associated with the network interface.
 newAwsEc2NetworkInterfaceDetails ::
   AwsEc2NetworkInterfaceDetails
 newAwsEc2NetworkInterfaceDetails =
   AwsEc2NetworkInterfaceDetails'
-    { privateIpAddresses =
+    { attachment =
         Prelude.Nothing,
-      publicDnsName = Prelude.Nothing,
-      securityGroups = Prelude.Nothing,
-      sourceDestCheck = Prelude.Nothing,
+      ipV6Addresses = Prelude.Nothing,
       networkInterfaceId = Prelude.Nothing,
-      attachment = Prelude.Nothing,
+      privateIpAddresses = Prelude.Nothing,
+      publicDnsName = Prelude.Nothing,
       publicIp = Prelude.Nothing,
-      ipV6Addresses = Prelude.Nothing
+      securityGroups = Prelude.Nothing,
+      sourceDestCheck = Prelude.Nothing
     }
+
+-- | The network interface attachment.
+awsEc2NetworkInterfaceDetails_attachment :: Lens.Lens' AwsEc2NetworkInterfaceDetails (Prelude.Maybe AwsEc2NetworkInterfaceAttachment)
+awsEc2NetworkInterfaceDetails_attachment = Lens.lens (\AwsEc2NetworkInterfaceDetails' {attachment} -> attachment) (\s@AwsEc2NetworkInterfaceDetails' {} a -> s {attachment = a} :: AwsEc2NetworkInterfaceDetails)
+
+-- | The IPv6 addresses associated with the network interface.
+awsEc2NetworkInterfaceDetails_ipV6Addresses :: Lens.Lens' AwsEc2NetworkInterfaceDetails (Prelude.Maybe [AwsEc2NetworkInterfaceIpV6AddressDetail])
+awsEc2NetworkInterfaceDetails_ipV6Addresses = Lens.lens (\AwsEc2NetworkInterfaceDetails' {ipV6Addresses} -> ipV6Addresses) (\s@AwsEc2NetworkInterfaceDetails' {} a -> s {ipV6Addresses = a} :: AwsEc2NetworkInterfaceDetails) Prelude.. Lens.mapping Lens.coerced
+
+-- | The ID of the network interface.
+awsEc2NetworkInterfaceDetails_networkInterfaceId :: Lens.Lens' AwsEc2NetworkInterfaceDetails (Prelude.Maybe Prelude.Text)
+awsEc2NetworkInterfaceDetails_networkInterfaceId = Lens.lens (\AwsEc2NetworkInterfaceDetails' {networkInterfaceId} -> networkInterfaceId) (\s@AwsEc2NetworkInterfaceDetails' {} a -> s {networkInterfaceId = a} :: AwsEc2NetworkInterfaceDetails)
 
 -- | The private IPv4 addresses associated with the network interface.
 awsEc2NetworkInterfaceDetails_privateIpAddresses :: Lens.Lens' AwsEc2NetworkInterfaceDetails (Prelude.Maybe [AwsEc2NetworkInterfacePrivateIpAddressDetail])
@@ -96,6 +109,10 @@ awsEc2NetworkInterfaceDetails_privateIpAddresses = Lens.lens (\AwsEc2NetworkInte
 awsEc2NetworkInterfaceDetails_publicDnsName :: Lens.Lens' AwsEc2NetworkInterfaceDetails (Prelude.Maybe Prelude.Text)
 awsEc2NetworkInterfaceDetails_publicDnsName = Lens.lens (\AwsEc2NetworkInterfaceDetails' {publicDnsName} -> publicDnsName) (\s@AwsEc2NetworkInterfaceDetails' {} a -> s {publicDnsName = a} :: AwsEc2NetworkInterfaceDetails)
 
+-- | The address of the Elastic IP address bound to the network interface.
+awsEc2NetworkInterfaceDetails_publicIp :: Lens.Lens' AwsEc2NetworkInterfaceDetails (Prelude.Maybe Prelude.Text)
+awsEc2NetworkInterfaceDetails_publicIp = Lens.lens (\AwsEc2NetworkInterfaceDetails' {publicIp} -> publicIp) (\s@AwsEc2NetworkInterfaceDetails' {} a -> s {publicIp = a} :: AwsEc2NetworkInterfaceDetails)
+
 -- | Security groups for the network interface.
 awsEc2NetworkInterfaceDetails_securityGroups :: Lens.Lens' AwsEc2NetworkInterfaceDetails (Prelude.Maybe [AwsEc2NetworkInterfaceSecurityGroup])
 awsEc2NetworkInterfaceDetails_securityGroups = Lens.lens (\AwsEc2NetworkInterfaceDetails' {securityGroups} -> securityGroups) (\s@AwsEc2NetworkInterfaceDetails' {} a -> s {securityGroups = a} :: AwsEc2NetworkInterfaceDetails) Prelude.. Lens.mapping Lens.coerced
@@ -104,38 +121,22 @@ awsEc2NetworkInterfaceDetails_securityGroups = Lens.lens (\AwsEc2NetworkInterfac
 awsEc2NetworkInterfaceDetails_sourceDestCheck :: Lens.Lens' AwsEc2NetworkInterfaceDetails (Prelude.Maybe Prelude.Bool)
 awsEc2NetworkInterfaceDetails_sourceDestCheck = Lens.lens (\AwsEc2NetworkInterfaceDetails' {sourceDestCheck} -> sourceDestCheck) (\s@AwsEc2NetworkInterfaceDetails' {} a -> s {sourceDestCheck = a} :: AwsEc2NetworkInterfaceDetails)
 
--- | The ID of the network interface.
-awsEc2NetworkInterfaceDetails_networkInterfaceId :: Lens.Lens' AwsEc2NetworkInterfaceDetails (Prelude.Maybe Prelude.Text)
-awsEc2NetworkInterfaceDetails_networkInterfaceId = Lens.lens (\AwsEc2NetworkInterfaceDetails' {networkInterfaceId} -> networkInterfaceId) (\s@AwsEc2NetworkInterfaceDetails' {} a -> s {networkInterfaceId = a} :: AwsEc2NetworkInterfaceDetails)
-
--- | The network interface attachment.
-awsEc2NetworkInterfaceDetails_attachment :: Lens.Lens' AwsEc2NetworkInterfaceDetails (Prelude.Maybe AwsEc2NetworkInterfaceAttachment)
-awsEc2NetworkInterfaceDetails_attachment = Lens.lens (\AwsEc2NetworkInterfaceDetails' {attachment} -> attachment) (\s@AwsEc2NetworkInterfaceDetails' {} a -> s {attachment = a} :: AwsEc2NetworkInterfaceDetails)
-
--- | The address of the Elastic IP address bound to the network interface.
-awsEc2NetworkInterfaceDetails_publicIp :: Lens.Lens' AwsEc2NetworkInterfaceDetails (Prelude.Maybe Prelude.Text)
-awsEc2NetworkInterfaceDetails_publicIp = Lens.lens (\AwsEc2NetworkInterfaceDetails' {publicIp} -> publicIp) (\s@AwsEc2NetworkInterfaceDetails' {} a -> s {publicIp = a} :: AwsEc2NetworkInterfaceDetails)
-
--- | The IPv6 addresses associated with the network interface.
-awsEc2NetworkInterfaceDetails_ipV6Addresses :: Lens.Lens' AwsEc2NetworkInterfaceDetails (Prelude.Maybe [AwsEc2NetworkInterfaceIpV6AddressDetail])
-awsEc2NetworkInterfaceDetails_ipV6Addresses = Lens.lens (\AwsEc2NetworkInterfaceDetails' {ipV6Addresses} -> ipV6Addresses) (\s@AwsEc2NetworkInterfaceDetails' {} a -> s {ipV6Addresses = a} :: AwsEc2NetworkInterfaceDetails) Prelude.. Lens.mapping Lens.coerced
-
-instance Core.FromJSON AwsEc2NetworkInterfaceDetails where
+instance Data.FromJSON AwsEc2NetworkInterfaceDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEc2NetworkInterfaceDetails"
       ( \x ->
           AwsEc2NetworkInterfaceDetails'
-            Prelude.<$> ( x Core..:? "PrivateIpAddresses"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "Attachment")
+            Prelude.<*> (x Data..:? "IpV6Addresses" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "NetworkInterfaceId")
+            Prelude.<*> ( x Data..:? "PrivateIpAddresses"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "PublicDnsName")
-            Prelude.<*> (x Core..:? "SecurityGroups" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "SourceDestCheck")
-            Prelude.<*> (x Core..:? "NetworkInterfaceId")
-            Prelude.<*> (x Core..:? "Attachment")
-            Prelude.<*> (x Core..:? "PublicIp")
-            Prelude.<*> (x Core..:? "IpV6Addresses" Core..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "PublicDnsName")
+            Prelude.<*> (x Data..:? "PublicIp")
+            Prelude.<*> (x Data..:? "SecurityGroups" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "SourceDestCheck")
       )
 
 instance
@@ -143,41 +144,41 @@ instance
     AwsEc2NetworkInterfaceDetails
   where
   hashWithSalt _salt AwsEc2NetworkInterfaceDetails' {..} =
-    _salt `Prelude.hashWithSalt` privateIpAddresses
+    _salt `Prelude.hashWithSalt` attachment
+      `Prelude.hashWithSalt` ipV6Addresses
+      `Prelude.hashWithSalt` networkInterfaceId
+      `Prelude.hashWithSalt` privateIpAddresses
       `Prelude.hashWithSalt` publicDnsName
+      `Prelude.hashWithSalt` publicIp
       `Prelude.hashWithSalt` securityGroups
       `Prelude.hashWithSalt` sourceDestCheck
-      `Prelude.hashWithSalt` networkInterfaceId
-      `Prelude.hashWithSalt` attachment
-      `Prelude.hashWithSalt` publicIp
-      `Prelude.hashWithSalt` ipV6Addresses
 
 instance Prelude.NFData AwsEc2NetworkInterfaceDetails where
   rnf AwsEc2NetworkInterfaceDetails' {..} =
-    Prelude.rnf privateIpAddresses
+    Prelude.rnf attachment
+      `Prelude.seq` Prelude.rnf ipV6Addresses
+      `Prelude.seq` Prelude.rnf networkInterfaceId
+      `Prelude.seq` Prelude.rnf privateIpAddresses
       `Prelude.seq` Prelude.rnf publicDnsName
+      `Prelude.seq` Prelude.rnf publicIp
       `Prelude.seq` Prelude.rnf securityGroups
       `Prelude.seq` Prelude.rnf sourceDestCheck
-      `Prelude.seq` Prelude.rnf networkInterfaceId
-      `Prelude.seq` Prelude.rnf attachment
-      `Prelude.seq` Prelude.rnf publicIp
-      `Prelude.seq` Prelude.rnf ipV6Addresses
 
-instance Core.ToJSON AwsEc2NetworkInterfaceDetails where
+instance Data.ToJSON AwsEc2NetworkInterfaceDetails where
   toJSON AwsEc2NetworkInterfaceDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PrivateIpAddresses" Core..=)
-              Prelude.<$> privateIpAddresses,
-            ("PublicDnsName" Core..=) Prelude.<$> publicDnsName,
-            ("SecurityGroups" Core..=)
-              Prelude.<$> securityGroups,
-            ("SourceDestCheck" Core..=)
-              Prelude.<$> sourceDestCheck,
-            ("NetworkInterfaceId" Core..=)
+          [ ("Attachment" Data..=) Prelude.<$> attachment,
+            ("IpV6Addresses" Data..=) Prelude.<$> ipV6Addresses,
+            ("NetworkInterfaceId" Data..=)
               Prelude.<$> networkInterfaceId,
-            ("Attachment" Core..=) Prelude.<$> attachment,
-            ("PublicIp" Core..=) Prelude.<$> publicIp,
-            ("IpV6Addresses" Core..=) Prelude.<$> ipV6Addresses
+            ("PrivateIpAddresses" Data..=)
+              Prelude.<$> privateIpAddresses,
+            ("PublicDnsName" Data..=) Prelude.<$> publicDnsName,
+            ("PublicIp" Data..=) Prelude.<$> publicIp,
+            ("SecurityGroups" Data..=)
+              Prelude.<$> securityGroups,
+            ("SourceDestCheck" Data..=)
+              Prelude.<$> sourceDestCheck
           ]
       )

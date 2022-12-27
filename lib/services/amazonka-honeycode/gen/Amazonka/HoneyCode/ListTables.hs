@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.ListTables
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.HoneyCode.ListTables
     newListTables,
 
     -- * Request Lenses
-    listTables_nextToken,
     listTables_maxResults,
+    listTables_nextToken,
     listTables_workbookId,
 
     -- * Destructuring the Response
@@ -47,22 +47,23 @@ module Amazonka.HoneyCode.ListTables
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HoneyCode.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTables' smart constructor.
 data ListTables = ListTables'
-  { -- | This parameter is optional. If a nextToken is not specified, the API
+  { -- | The maximum number of tables to return in each page of the results.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | This parameter is optional. If a nextToken is not specified, the API
     -- returns the first page of data.
     --
     -- Pagination tokens expire after 1 hour. If you use a token that was
     -- returned more than an hour back, the API will throw ValidationException.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of tables to return in each page of the results.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the workbook whose tables are being retrieved.
     --
     -- If a workbook with the specified id could not be found, this API throws
@@ -79,13 +80,13 @@ data ListTables = ListTables'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listTables_maxResults' - The maximum number of tables to return in each page of the results.
+--
 -- 'nextToken', 'listTables_nextToken' - This parameter is optional. If a nextToken is not specified, the API
 -- returns the first page of data.
 --
 -- Pagination tokens expire after 1 hour. If you use a token that was
 -- returned more than an hour back, the API will throw ValidationException.
---
--- 'maxResults', 'listTables_maxResults' - The maximum number of tables to return in each page of the results.
 --
 -- 'workbookId', 'listTables_workbookId' - The ID of the workbook whose tables are being retrieved.
 --
@@ -97,10 +98,14 @@ newListTables ::
   ListTables
 newListTables pWorkbookId_ =
   ListTables'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       workbookId = pWorkbookId_
     }
+
+-- | The maximum number of tables to return in each page of the results.
+listTables_maxResults :: Lens.Lens' ListTables (Prelude.Maybe Prelude.Natural)
+listTables_maxResults = Lens.lens (\ListTables' {maxResults} -> maxResults) (\s@ListTables' {} a -> s {maxResults = a} :: ListTables)
 
 -- | This parameter is optional. If a nextToken is not specified, the API
 -- returns the first page of data.
@@ -109,10 +114,6 @@ newListTables pWorkbookId_ =
 -- returned more than an hour back, the API will throw ValidationException.
 listTables_nextToken :: Lens.Lens' ListTables (Prelude.Maybe Prelude.Text)
 listTables_nextToken = Lens.lens (\ListTables' {nextToken} -> nextToken) (\s@ListTables' {} a -> s {nextToken = a} :: ListTables)
-
--- | The maximum number of tables to return in each page of the results.
-listTables_maxResults :: Lens.Lens' ListTables (Prelude.Maybe Prelude.Natural)
-listTables_maxResults = Lens.lens (\ListTables' {maxResults} -> maxResults) (\s@ListTables' {} a -> s {maxResults = a} :: ListTables)
 
 -- | The ID of the workbook whose tables are being retrieved.
 --
@@ -139,50 +140,51 @@ instance Core.AWSPager ListTables where
 
 instance Core.AWSRequest ListTables where
   type AWSResponse ListTables = ListTablesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTablesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "workbookCursor")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "workbookCursor")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "tables" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "tables" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListTables where
   hashWithSalt _salt ListTables' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` workbookId
 
 instance Prelude.NFData ListTables where
   rnf ListTables' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf workbookId
 
-instance Core.ToHeaders ListTables where
+instance Data.ToHeaders ListTables where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListTables where
+instance Data.ToPath ListTables where
   toPath ListTables' {..} =
     Prelude.mconcat
-      ["/workbooks/", Core.toBS workbookId, "/tables"]
+      ["/workbooks/", Data.toBS workbookId, "/tables"]
 
-instance Core.ToQuery ListTables where
+instance Data.ToQuery ListTables where
   toQuery ListTables' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListTablesResponse' smart constructor.

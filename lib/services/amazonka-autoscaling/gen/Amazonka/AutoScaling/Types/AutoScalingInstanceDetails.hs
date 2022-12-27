@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.AutoScalingInstanceDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,25 +21,26 @@ module Amazonka.AutoScaling.Types.AutoScalingInstanceDetails where
 
 import Amazonka.AutoScaling.Types.LaunchTemplateSpecification
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an EC2 instance associated with an Auto Scaling group.
 --
 -- /See:/ 'newAutoScalingInstanceDetails' smart constructor.
 data AutoScalingInstanceDetails = AutoScalingInstanceDetails'
-  { -- | The number of capacity units contributed by the instance based on its
-    -- instance type.
-    --
-    -- Valid Range: Minimum value of 1. Maximum value of 999.
-    weightedCapacity :: Prelude.Maybe Prelude.Text,
-    -- | The instance type of the EC2 instance.
+  { -- | The instance type of the EC2 instance.
     instanceType :: Prelude.Maybe Prelude.Text,
     -- | The launch configuration used to launch the instance. This value is not
     -- available if you attached the instance to the Auto Scaling group.
     launchConfigurationName :: Prelude.Maybe Prelude.Text,
     -- | The launch template for the instance.
     launchTemplate :: Prelude.Maybe LaunchTemplateSpecification,
+    -- | The number of capacity units contributed by the instance based on its
+    -- instance type.
+    --
+    -- Valid Range: Minimum value of 1. Maximum value of 999.
+    weightedCapacity :: Prelude.Maybe Prelude.Text,
     -- | The ID of the instance.
     instanceId :: Prelude.Text,
     -- | The name of the Auto Scaling group for the instance.
@@ -51,7 +52,7 @@ data AutoScalingInstanceDetails = AutoScalingInstanceDetails'
     -- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroupLifecycle.html Instance lifecycle>
     -- in the /Amazon EC2 Auto Scaling User Guide/.
     --
-    -- Valid Values: @Pending@ | @Pending:Wait@ | @Pending:Proceed@ |
+    -- Valid values: @Pending@ | @Pending:Wait@ | @Pending:Proceed@ |
     -- @Quarantined@ | @InService@ | @Terminating@ | @Terminating:Wait@ |
     -- @Terminating:Proceed@ | @Terminated@ | @Detaching@ | @Detached@ |
     -- @EnteringStandby@ | @Standby@ | @Warmed:Pending@ | @Warmed:Pending:Wait@
@@ -78,17 +79,17 @@ data AutoScalingInstanceDetails = AutoScalingInstanceDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'weightedCapacity', 'autoScalingInstanceDetails_weightedCapacity' - The number of capacity units contributed by the instance based on its
--- instance type.
---
--- Valid Range: Minimum value of 1. Maximum value of 999.
---
 -- 'instanceType', 'autoScalingInstanceDetails_instanceType' - The instance type of the EC2 instance.
 --
 -- 'launchConfigurationName', 'autoScalingInstanceDetails_launchConfigurationName' - The launch configuration used to launch the instance. This value is not
 -- available if you attached the instance to the Auto Scaling group.
 --
 -- 'launchTemplate', 'autoScalingInstanceDetails_launchTemplate' - The launch template for the instance.
+--
+-- 'weightedCapacity', 'autoScalingInstanceDetails_weightedCapacity' - The number of capacity units contributed by the instance based on its
+-- instance type.
+--
+-- Valid Range: Minimum value of 1. Maximum value of 999.
 --
 -- 'instanceId', 'autoScalingInstanceDetails_instanceId' - The ID of the instance.
 --
@@ -101,7 +102,7 @@ data AutoScalingInstanceDetails = AutoScalingInstanceDetails'
 -- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroupLifecycle.html Instance lifecycle>
 -- in the /Amazon EC2 Auto Scaling User Guide/.
 --
--- Valid Values: @Pending@ | @Pending:Wait@ | @Pending:Proceed@ |
+-- Valid values: @Pending@ | @Pending:Wait@ | @Pending:Proceed@ |
 -- @Quarantined@ | @InService@ | @Terminating@ | @Terminating:Wait@ |
 -- @Terminating:Proceed@ | @Terminated@ | @Detaching@ | @Detached@ |
 -- @EnteringStandby@ | @Standby@ | @Warmed:Pending@ | @Warmed:Pending:Wait@
@@ -138,11 +139,11 @@ newAutoScalingInstanceDetails
   pHealthStatus_
   pProtectedFromScaleIn_ =
     AutoScalingInstanceDetails'
-      { weightedCapacity =
+      { instanceType =
           Prelude.Nothing,
-        instanceType = Prelude.Nothing,
         launchConfigurationName = Prelude.Nothing,
         launchTemplate = Prelude.Nothing,
+        weightedCapacity = Prelude.Nothing,
         instanceId = pInstanceId_,
         autoScalingGroupName = pAutoScalingGroupName_,
         availabilityZone = pAvailabilityZone_,
@@ -150,13 +151,6 @@ newAutoScalingInstanceDetails
         healthStatus = pHealthStatus_,
         protectedFromScaleIn = pProtectedFromScaleIn_
       }
-
--- | The number of capacity units contributed by the instance based on its
--- instance type.
---
--- Valid Range: Minimum value of 1. Maximum value of 999.
-autoScalingInstanceDetails_weightedCapacity :: Lens.Lens' AutoScalingInstanceDetails (Prelude.Maybe Prelude.Text)
-autoScalingInstanceDetails_weightedCapacity = Lens.lens (\AutoScalingInstanceDetails' {weightedCapacity} -> weightedCapacity) (\s@AutoScalingInstanceDetails' {} a -> s {weightedCapacity = a} :: AutoScalingInstanceDetails)
 
 -- | The instance type of the EC2 instance.
 autoScalingInstanceDetails_instanceType :: Lens.Lens' AutoScalingInstanceDetails (Prelude.Maybe Prelude.Text)
@@ -170,6 +164,13 @@ autoScalingInstanceDetails_launchConfigurationName = Lens.lens (\AutoScalingInst
 -- | The launch template for the instance.
 autoScalingInstanceDetails_launchTemplate :: Lens.Lens' AutoScalingInstanceDetails (Prelude.Maybe LaunchTemplateSpecification)
 autoScalingInstanceDetails_launchTemplate = Lens.lens (\AutoScalingInstanceDetails' {launchTemplate} -> launchTemplate) (\s@AutoScalingInstanceDetails' {} a -> s {launchTemplate = a} :: AutoScalingInstanceDetails)
+
+-- | The number of capacity units contributed by the instance based on its
+-- instance type.
+--
+-- Valid Range: Minimum value of 1. Maximum value of 999.
+autoScalingInstanceDetails_weightedCapacity :: Lens.Lens' AutoScalingInstanceDetails (Prelude.Maybe Prelude.Text)
+autoScalingInstanceDetails_weightedCapacity = Lens.lens (\AutoScalingInstanceDetails' {weightedCapacity} -> weightedCapacity) (\s@AutoScalingInstanceDetails' {} a -> s {weightedCapacity = a} :: AutoScalingInstanceDetails)
 
 -- | The ID of the instance.
 autoScalingInstanceDetails_instanceId :: Lens.Lens' AutoScalingInstanceDetails Prelude.Text
@@ -188,7 +189,7 @@ autoScalingInstanceDetails_availabilityZone = Lens.lens (\AutoScalingInstanceDet
 -- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroupLifecycle.html Instance lifecycle>
 -- in the /Amazon EC2 Auto Scaling User Guide/.
 --
--- Valid Values: @Pending@ | @Pending:Wait@ | @Pending:Proceed@ |
+-- Valid values: @Pending@ | @Pending:Wait@ | @Pending:Proceed@ |
 -- @Quarantined@ | @InService@ | @Terminating@ | @Terminating:Wait@ |
 -- @Terminating:Proceed@ | @Terminated@ | @Detaching@ | @Detached@ |
 -- @EnteringStandby@ | @Standby@ | @Warmed:Pending@ | @Warmed:Pending:Wait@
@@ -210,26 +211,26 @@ autoScalingInstanceDetails_healthStatus = Lens.lens (\AutoScalingInstanceDetails
 autoScalingInstanceDetails_protectedFromScaleIn :: Lens.Lens' AutoScalingInstanceDetails Prelude.Bool
 autoScalingInstanceDetails_protectedFromScaleIn = Lens.lens (\AutoScalingInstanceDetails' {protectedFromScaleIn} -> protectedFromScaleIn) (\s@AutoScalingInstanceDetails' {} a -> s {protectedFromScaleIn = a} :: AutoScalingInstanceDetails)
 
-instance Core.FromXML AutoScalingInstanceDetails where
+instance Data.FromXML AutoScalingInstanceDetails where
   parseXML x =
     AutoScalingInstanceDetails'
-      Prelude.<$> (x Core..@? "WeightedCapacity")
-      Prelude.<*> (x Core..@? "InstanceType")
-      Prelude.<*> (x Core..@? "LaunchConfigurationName")
-      Prelude.<*> (x Core..@? "LaunchTemplate")
-      Prelude.<*> (x Core..@ "InstanceId")
-      Prelude.<*> (x Core..@ "AutoScalingGroupName")
-      Prelude.<*> (x Core..@ "AvailabilityZone")
-      Prelude.<*> (x Core..@ "LifecycleState")
-      Prelude.<*> (x Core..@ "HealthStatus")
-      Prelude.<*> (x Core..@ "ProtectedFromScaleIn")
+      Prelude.<$> (x Data..@? "InstanceType")
+      Prelude.<*> (x Data..@? "LaunchConfigurationName")
+      Prelude.<*> (x Data..@? "LaunchTemplate")
+      Prelude.<*> (x Data..@? "WeightedCapacity")
+      Prelude.<*> (x Data..@ "InstanceId")
+      Prelude.<*> (x Data..@ "AutoScalingGroupName")
+      Prelude.<*> (x Data..@ "AvailabilityZone")
+      Prelude.<*> (x Data..@ "LifecycleState")
+      Prelude.<*> (x Data..@ "HealthStatus")
+      Prelude.<*> (x Data..@ "ProtectedFromScaleIn")
 
 instance Prelude.Hashable AutoScalingInstanceDetails where
   hashWithSalt _salt AutoScalingInstanceDetails' {..} =
-    _salt `Prelude.hashWithSalt` weightedCapacity
-      `Prelude.hashWithSalt` instanceType
+    _salt `Prelude.hashWithSalt` instanceType
       `Prelude.hashWithSalt` launchConfigurationName
       `Prelude.hashWithSalt` launchTemplate
+      `Prelude.hashWithSalt` weightedCapacity
       `Prelude.hashWithSalt` instanceId
       `Prelude.hashWithSalt` autoScalingGroupName
       `Prelude.hashWithSalt` availabilityZone
@@ -239,10 +240,10 @@ instance Prelude.Hashable AutoScalingInstanceDetails where
 
 instance Prelude.NFData AutoScalingInstanceDetails where
   rnf AutoScalingInstanceDetails' {..} =
-    Prelude.rnf weightedCapacity
-      `Prelude.seq` Prelude.rnf instanceType
+    Prelude.rnf instanceType
       `Prelude.seq` Prelude.rnf launchConfigurationName
       `Prelude.seq` Prelude.rnf launchTemplate
+      `Prelude.seq` Prelude.rnf weightedCapacity
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf autoScalingGroupName
       `Prelude.seq` Prelude.rnf availabilityZone

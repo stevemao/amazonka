@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.Types.BatchRestrictions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.CodeBuild.Types.BatchRestrictions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies restrictions for the batch build.
 --
 -- /See:/ 'newBatchRestrictions' smart constructor.
 data BatchRestrictions = BatchRestrictions'
-  { -- | Specifies the maximum number of builds allowed.
-    maximumBuildsAllowed :: Prelude.Maybe Prelude.Int,
-    -- | An array of strings that specify the compute types that are allowed for
+  { -- | An array of strings that specify the compute types that are allowed for
     -- the batch build. See
     -- <https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html Build environment compute types>
     -- in the /CodeBuild User Guide/ for these values.
-    computeTypesAllowed :: Prelude.Maybe [Prelude.Text]
+    computeTypesAllowed :: Prelude.Maybe [Prelude.Text],
+    -- | Specifies the maximum number of builds allowed.
+    maximumBuildsAllowed :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,24 +46,20 @@ data BatchRestrictions = BatchRestrictions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'maximumBuildsAllowed', 'batchRestrictions_maximumBuildsAllowed' - Specifies the maximum number of builds allowed.
---
 -- 'computeTypesAllowed', 'batchRestrictions_computeTypesAllowed' - An array of strings that specify the compute types that are allowed for
 -- the batch build. See
 -- <https://docs.aws.amazon.com/codebuild/latest/userguide/build-env-ref-compute-types.html Build environment compute types>
 -- in the /CodeBuild User Guide/ for these values.
+--
+-- 'maximumBuildsAllowed', 'batchRestrictions_maximumBuildsAllowed' - Specifies the maximum number of builds allowed.
 newBatchRestrictions ::
   BatchRestrictions
 newBatchRestrictions =
   BatchRestrictions'
-    { maximumBuildsAllowed =
+    { computeTypesAllowed =
         Prelude.Nothing,
-      computeTypesAllowed = Prelude.Nothing
+      maximumBuildsAllowed = Prelude.Nothing
     }
-
--- | Specifies the maximum number of builds allowed.
-batchRestrictions_maximumBuildsAllowed :: Lens.Lens' BatchRestrictions (Prelude.Maybe Prelude.Int)
-batchRestrictions_maximumBuildsAllowed = Lens.lens (\BatchRestrictions' {maximumBuildsAllowed} -> maximumBuildsAllowed) (\s@BatchRestrictions' {} a -> s {maximumBuildsAllowed = a} :: BatchRestrictions)
 
 -- | An array of strings that specify the compute types that are allowed for
 -- the batch build. See
@@ -71,35 +68,39 @@ batchRestrictions_maximumBuildsAllowed = Lens.lens (\BatchRestrictions' {maximum
 batchRestrictions_computeTypesAllowed :: Lens.Lens' BatchRestrictions (Prelude.Maybe [Prelude.Text])
 batchRestrictions_computeTypesAllowed = Lens.lens (\BatchRestrictions' {computeTypesAllowed} -> computeTypesAllowed) (\s@BatchRestrictions' {} a -> s {computeTypesAllowed = a} :: BatchRestrictions) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON BatchRestrictions where
+-- | Specifies the maximum number of builds allowed.
+batchRestrictions_maximumBuildsAllowed :: Lens.Lens' BatchRestrictions (Prelude.Maybe Prelude.Int)
+batchRestrictions_maximumBuildsAllowed = Lens.lens (\BatchRestrictions' {maximumBuildsAllowed} -> maximumBuildsAllowed) (\s@BatchRestrictions' {} a -> s {maximumBuildsAllowed = a} :: BatchRestrictions)
+
+instance Data.FromJSON BatchRestrictions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchRestrictions"
       ( \x ->
           BatchRestrictions'
-            Prelude.<$> (x Core..:? "maximumBuildsAllowed")
-            Prelude.<*> ( x Core..:? "computeTypesAllowed"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "computeTypesAllowed"
+                            Data..!= Prelude.mempty
                         )
+            Prelude.<*> (x Data..:? "maximumBuildsAllowed")
       )
 
 instance Prelude.Hashable BatchRestrictions where
   hashWithSalt _salt BatchRestrictions' {..} =
-    _salt `Prelude.hashWithSalt` maximumBuildsAllowed
-      `Prelude.hashWithSalt` computeTypesAllowed
+    _salt `Prelude.hashWithSalt` computeTypesAllowed
+      `Prelude.hashWithSalt` maximumBuildsAllowed
 
 instance Prelude.NFData BatchRestrictions where
   rnf BatchRestrictions' {..} =
-    Prelude.rnf maximumBuildsAllowed
-      `Prelude.seq` Prelude.rnf computeTypesAllowed
+    Prelude.rnf computeTypesAllowed
+      `Prelude.seq` Prelude.rnf maximumBuildsAllowed
 
-instance Core.ToJSON BatchRestrictions where
+instance Data.ToJSON BatchRestrictions where
   toJSON BatchRestrictions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("maximumBuildsAllowed" Core..=)
-              Prelude.<$> maximumBuildsAllowed,
-            ("computeTypesAllowed" Core..=)
-              Prelude.<$> computeTypesAllowed
+          [ ("computeTypesAllowed" Data..=)
+              Prelude.<$> computeTypesAllowed,
+            ("maximumBuildsAllowed" Data..=)
+              Prelude.<$> maximumBuildsAllowed
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.StopCrawlerSchedule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Glue.StopCrawlerSchedule
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,7 +78,8 @@ instance Core.AWSRequest StopCrawlerSchedule where
   type
     AWSResponse StopCrawlerSchedule =
       StopCrawlerScheduleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -93,32 +95,32 @@ instance Prelude.NFData StopCrawlerSchedule where
   rnf StopCrawlerSchedule' {..} =
     Prelude.rnf crawlerName
 
-instance Core.ToHeaders StopCrawlerSchedule where
+instance Data.ToHeaders StopCrawlerSchedule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSGlue.StopCrawlerSchedule" ::
+              Data.=# ( "AWSGlue.StopCrawlerSchedule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopCrawlerSchedule where
+instance Data.ToJSON StopCrawlerSchedule where
   toJSON StopCrawlerSchedule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("CrawlerName" Core..= crawlerName)]
+          [Prelude.Just ("CrawlerName" Data..= crawlerName)]
       )
 
-instance Core.ToPath StopCrawlerSchedule where
+instance Data.ToPath StopCrawlerSchedule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopCrawlerSchedule where
+instance Data.ToQuery StopCrawlerSchedule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopCrawlerScheduleResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Location.Types.ListTrackersResponseEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Location.Types.ListTrackersResponseEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types.PricingPlan
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,25 +29,22 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newListTrackersResponseEntry' smart constructor.
 data ListTrackersResponseEntry = ListTrackersResponseEntry'
-  { -- | The specified data provider for the tracker resource.
+  { -- | Always returns @RequestBasedUsage@.
+    pricingPlan :: Prelude.Maybe PricingPlan,
+    -- | No longer used. Always returns an empty string.
     pricingPlanDataSource :: Prelude.Maybe Prelude.Text,
     -- | The timestamp for when the tracker resource was created in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    createTime :: Core.POSIX,
+    createTime :: Data.POSIX,
     -- | The description for the tracker resource.
     description :: Prelude.Text,
-    -- | The pricing plan for the specified tracker resource.
-    --
-    -- For additional details and restrictions on each pricing plan option, see
-    -- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-    pricingPlan :: PricingPlan,
     -- | The name of the tracker resource.
     trackerName :: Prelude.Text,
     -- | The timestamp at which the device\'s position was determined. Uses
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    updateTime :: Core.POSIX
+    updateTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,18 +56,15 @@ data ListTrackersResponseEntry = ListTrackersResponseEntry'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'pricingPlanDataSource', 'listTrackersResponseEntry_pricingPlanDataSource' - The specified data provider for the tracker resource.
+-- 'pricingPlan', 'listTrackersResponseEntry_pricingPlan' - Always returns @RequestBasedUsage@.
+--
+-- 'pricingPlanDataSource', 'listTrackersResponseEntry_pricingPlanDataSource' - No longer used. Always returns an empty string.
 --
 -- 'createTime', 'listTrackersResponseEntry_createTime' - The timestamp for when the tracker resource was created in
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 --
 -- 'description', 'listTrackersResponseEntry_description' - The description for the tracker resource.
---
--- 'pricingPlan', 'listTrackersResponseEntry_pricingPlan' - The pricing plan for the specified tracker resource.
---
--- For additional details and restrictions on each pricing plan option, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
 --
 -- 'trackerName', 'listTrackersResponseEntry_trackerName' - The name of the tracker resource.
 --
@@ -81,8 +76,6 @@ newListTrackersResponseEntry ::
   Prelude.UTCTime ->
   -- | 'description'
   Prelude.Text ->
-  -- | 'pricingPlan'
-  PricingPlan ->
   -- | 'trackerName'
   Prelude.Text ->
   -- | 'updateTime'
@@ -91,20 +84,23 @@ newListTrackersResponseEntry ::
 newListTrackersResponseEntry
   pCreateTime_
   pDescription_
-  pPricingPlan_
   pTrackerName_
   pUpdateTime_ =
     ListTrackersResponseEntry'
-      { pricingPlanDataSource =
+      { pricingPlan =
           Prelude.Nothing,
-        createTime = Core._Time Lens.# pCreateTime_,
+        pricingPlanDataSource = Prelude.Nothing,
+        createTime = Data._Time Lens.# pCreateTime_,
         description = pDescription_,
-        pricingPlan = pPricingPlan_,
         trackerName = pTrackerName_,
-        updateTime = Core._Time Lens.# pUpdateTime_
+        updateTime = Data._Time Lens.# pUpdateTime_
       }
 
--- | The specified data provider for the tracker resource.
+-- | Always returns @RequestBasedUsage@.
+listTrackersResponseEntry_pricingPlan :: Lens.Lens' ListTrackersResponseEntry (Prelude.Maybe PricingPlan)
+listTrackersResponseEntry_pricingPlan = Lens.lens (\ListTrackersResponseEntry' {pricingPlan} -> pricingPlan) (\s@ListTrackersResponseEntry' {} a -> s {pricingPlan = a} :: ListTrackersResponseEntry)
+
+-- | No longer used. Always returns an empty string.
 listTrackersResponseEntry_pricingPlanDataSource :: Lens.Lens' ListTrackersResponseEntry (Prelude.Maybe Prelude.Text)
 listTrackersResponseEntry_pricingPlanDataSource = Lens.lens (\ListTrackersResponseEntry' {pricingPlanDataSource} -> pricingPlanDataSource) (\s@ListTrackersResponseEntry' {} a -> s {pricingPlanDataSource = a} :: ListTrackersResponseEntry)
 
@@ -112,18 +108,11 @@ listTrackersResponseEntry_pricingPlanDataSource = Lens.lens (\ListTrackersRespon
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 listTrackersResponseEntry_createTime :: Lens.Lens' ListTrackersResponseEntry Prelude.UTCTime
-listTrackersResponseEntry_createTime = Lens.lens (\ListTrackersResponseEntry' {createTime} -> createTime) (\s@ListTrackersResponseEntry' {} a -> s {createTime = a} :: ListTrackersResponseEntry) Prelude.. Core._Time
+listTrackersResponseEntry_createTime = Lens.lens (\ListTrackersResponseEntry' {createTime} -> createTime) (\s@ListTrackersResponseEntry' {} a -> s {createTime = a} :: ListTrackersResponseEntry) Prelude.. Data._Time
 
 -- | The description for the tracker resource.
 listTrackersResponseEntry_description :: Lens.Lens' ListTrackersResponseEntry Prelude.Text
 listTrackersResponseEntry_description = Lens.lens (\ListTrackersResponseEntry' {description} -> description) (\s@ListTrackersResponseEntry' {} a -> s {description = a} :: ListTrackersResponseEntry)
-
--- | The pricing plan for the specified tracker resource.
---
--- For additional details and restrictions on each pricing plan option, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-listTrackersResponseEntry_pricingPlan :: Lens.Lens' ListTrackersResponseEntry PricingPlan
-listTrackersResponseEntry_pricingPlan = Lens.lens (\ListTrackersResponseEntry' {pricingPlan} -> pricingPlan) (\s@ListTrackersResponseEntry' {} a -> s {pricingPlan = a} :: ListTrackersResponseEntry)
 
 -- | The name of the tracker resource.
 listTrackersResponseEntry_trackerName :: Lens.Lens' ListTrackersResponseEntry Prelude.Text
@@ -133,36 +122,36 @@ listTrackersResponseEntry_trackerName = Lens.lens (\ListTrackersResponseEntry' {
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 listTrackersResponseEntry_updateTime :: Lens.Lens' ListTrackersResponseEntry Prelude.UTCTime
-listTrackersResponseEntry_updateTime = Lens.lens (\ListTrackersResponseEntry' {updateTime} -> updateTime) (\s@ListTrackersResponseEntry' {} a -> s {updateTime = a} :: ListTrackersResponseEntry) Prelude.. Core._Time
+listTrackersResponseEntry_updateTime = Lens.lens (\ListTrackersResponseEntry' {updateTime} -> updateTime) (\s@ListTrackersResponseEntry' {} a -> s {updateTime = a} :: ListTrackersResponseEntry) Prelude.. Data._Time
 
-instance Core.FromJSON ListTrackersResponseEntry where
+instance Data.FromJSON ListTrackersResponseEntry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ListTrackersResponseEntry"
       ( \x ->
           ListTrackersResponseEntry'
-            Prelude.<$> (x Core..:? "PricingPlanDataSource")
-            Prelude.<*> (x Core..: "CreateTime")
-            Prelude.<*> (x Core..: "Description")
-            Prelude.<*> (x Core..: "PricingPlan")
-            Prelude.<*> (x Core..: "TrackerName")
-            Prelude.<*> (x Core..: "UpdateTime")
+            Prelude.<$> (x Data..:? "PricingPlan")
+            Prelude.<*> (x Data..:? "PricingPlanDataSource")
+            Prelude.<*> (x Data..: "CreateTime")
+            Prelude.<*> (x Data..: "Description")
+            Prelude.<*> (x Data..: "TrackerName")
+            Prelude.<*> (x Data..: "UpdateTime")
       )
 
 instance Prelude.Hashable ListTrackersResponseEntry where
   hashWithSalt _salt ListTrackersResponseEntry' {..} =
-    _salt `Prelude.hashWithSalt` pricingPlanDataSource
+    _salt `Prelude.hashWithSalt` pricingPlan
+      `Prelude.hashWithSalt` pricingPlanDataSource
       `Prelude.hashWithSalt` createTime
       `Prelude.hashWithSalt` description
-      `Prelude.hashWithSalt` pricingPlan
       `Prelude.hashWithSalt` trackerName
       `Prelude.hashWithSalt` updateTime
 
 instance Prelude.NFData ListTrackersResponseEntry where
   rnf ListTrackersResponseEntry' {..} =
-    Prelude.rnf pricingPlanDataSource
+    Prelude.rnf pricingPlan
+      `Prelude.seq` Prelude.rnf pricingPlanDataSource
       `Prelude.seq` Prelude.rnf createTime
       `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf pricingPlan
       `Prelude.seq` Prelude.rnf trackerName
       `Prelude.seq` Prelude.rnf updateTime

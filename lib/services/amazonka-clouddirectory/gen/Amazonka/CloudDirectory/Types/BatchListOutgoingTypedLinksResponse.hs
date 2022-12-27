@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchListOutgoingTypedLinksResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,17 +21,18 @@ module Amazonka.CloudDirectory.Types.BatchListOutgoingTypedLinksResponse where
 
 import Amazonka.CloudDirectory.Types.TypedLinkSpecifier
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output of a ListOutgoingTypedLinks response operation.
 --
 -- /See:/ 'newBatchListOutgoingTypedLinksResponse' smart constructor.
 data BatchListOutgoingTypedLinksResponse = BatchListOutgoingTypedLinksResponse'
-  { -- | Returns a typed link specifier as output.
-    typedLinkSpecifiers :: Prelude.Maybe [TypedLinkSpecifier],
-    -- | The pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text
+  { -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Returns a typed link specifier as output.
+    typedLinkSpecifiers :: Prelude.Maybe [TypedLinkSpecifier]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,39 +44,39 @@ data BatchListOutgoingTypedLinksResponse = BatchListOutgoingTypedLinksResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'typedLinkSpecifiers', 'batchListOutgoingTypedLinksResponse_typedLinkSpecifiers' - Returns a typed link specifier as output.
---
 -- 'nextToken', 'batchListOutgoingTypedLinksResponse_nextToken' - The pagination token.
+--
+-- 'typedLinkSpecifiers', 'batchListOutgoingTypedLinksResponse_typedLinkSpecifiers' - Returns a typed link specifier as output.
 newBatchListOutgoingTypedLinksResponse ::
   BatchListOutgoingTypedLinksResponse
 newBatchListOutgoingTypedLinksResponse =
   BatchListOutgoingTypedLinksResponse'
-    { typedLinkSpecifiers =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing
+      typedLinkSpecifiers = Prelude.Nothing
     }
-
--- | Returns a typed link specifier as output.
-batchListOutgoingTypedLinksResponse_typedLinkSpecifiers :: Lens.Lens' BatchListOutgoingTypedLinksResponse (Prelude.Maybe [TypedLinkSpecifier])
-batchListOutgoingTypedLinksResponse_typedLinkSpecifiers = Lens.lens (\BatchListOutgoingTypedLinksResponse' {typedLinkSpecifiers} -> typedLinkSpecifiers) (\s@BatchListOutgoingTypedLinksResponse' {} a -> s {typedLinkSpecifiers = a} :: BatchListOutgoingTypedLinksResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The pagination token.
 batchListOutgoingTypedLinksResponse_nextToken :: Lens.Lens' BatchListOutgoingTypedLinksResponse (Prelude.Maybe Prelude.Text)
 batchListOutgoingTypedLinksResponse_nextToken = Lens.lens (\BatchListOutgoingTypedLinksResponse' {nextToken} -> nextToken) (\s@BatchListOutgoingTypedLinksResponse' {} a -> s {nextToken = a} :: BatchListOutgoingTypedLinksResponse)
 
+-- | Returns a typed link specifier as output.
+batchListOutgoingTypedLinksResponse_typedLinkSpecifiers :: Lens.Lens' BatchListOutgoingTypedLinksResponse (Prelude.Maybe [TypedLinkSpecifier])
+batchListOutgoingTypedLinksResponse_typedLinkSpecifiers = Lens.lens (\BatchListOutgoingTypedLinksResponse' {typedLinkSpecifiers} -> typedLinkSpecifiers) (\s@BatchListOutgoingTypedLinksResponse' {} a -> s {typedLinkSpecifiers = a} :: BatchListOutgoingTypedLinksResponse) Prelude.. Lens.mapping Lens.coerced
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     BatchListOutgoingTypedLinksResponse
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchListOutgoingTypedLinksResponse"
       ( \x ->
           BatchListOutgoingTypedLinksResponse'
-            Prelude.<$> ( x Core..:? "TypedLinkSpecifiers"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "NextToken")
+            Prelude.<*> ( x Data..:? "TypedLinkSpecifiers"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "NextToken")
       )
 
 instance
@@ -85,13 +86,13 @@ instance
   hashWithSalt
     _salt
     BatchListOutgoingTypedLinksResponse' {..} =
-      _salt `Prelude.hashWithSalt` typedLinkSpecifiers
-        `Prelude.hashWithSalt` nextToken
+      _salt `Prelude.hashWithSalt` nextToken
+        `Prelude.hashWithSalt` typedLinkSpecifiers
 
 instance
   Prelude.NFData
     BatchListOutgoingTypedLinksResponse
   where
   rnf BatchListOutgoingTypedLinksResponse' {..} =
-    Prelude.rnf typedLinkSpecifiers
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf typedLinkSpecifiers

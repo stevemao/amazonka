@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.StartEngagement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.SSMContacts.StartEngagement
 
     -- * Request Lenses
     startEngagement_idempotencyToken,
-    startEngagement_publicSubject,
-    startEngagement_publicContent,
     startEngagement_incidentId,
+    startEngagement_publicContent,
+    startEngagement_publicSubject,
     startEngagement_contactId,
     startEngagement_sender,
     startEngagement_subject,
@@ -48,7 +48,8 @@ module Amazonka.SSMContacts.StartEngagement
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,14 +60,14 @@ data StartEngagement = StartEngagement'
   { -- | A token ensuring that the operation is called only once with the
     -- specified details.
     idempotencyToken :: Prelude.Maybe Prelude.Text,
-    -- | The insecure subject of the message that was sent to the contact. Use
-    -- this field for engagements to @SMS@.
-    publicSubject :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the incident that the engagement is part of.
+    incidentId :: Prelude.Maybe Prelude.Text,
     -- | The insecure content of the message that was sent to the contact. Use
     -- this field for engagements to @SMS@.
     publicContent :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the incident that the engagement is part of.
-    incidentId :: Prelude.Maybe Prelude.Text,
+    -- | The insecure subject of the message that was sent to the contact. Use
+    -- this field for engagements to @SMS@.
+    publicSubject :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the contact being engaged.
     contactId :: Prelude.Text,
     -- | The user that started the engagement.
@@ -91,13 +92,13 @@ data StartEngagement = StartEngagement'
 -- 'idempotencyToken', 'startEngagement_idempotencyToken' - A token ensuring that the operation is called only once with the
 -- specified details.
 --
--- 'publicSubject', 'startEngagement_publicSubject' - The insecure subject of the message that was sent to the contact. Use
--- this field for engagements to @SMS@.
+-- 'incidentId', 'startEngagement_incidentId' - The ARN of the incident that the engagement is part of.
 --
 -- 'publicContent', 'startEngagement_publicContent' - The insecure content of the message that was sent to the contact. Use
 -- this field for engagements to @SMS@.
 --
--- 'incidentId', 'startEngagement_incidentId' - The ARN of the incident that the engagement is part of.
+-- 'publicSubject', 'startEngagement_publicSubject' - The insecure subject of the message that was sent to the contact. Use
+-- this field for engagements to @SMS@.
 --
 -- 'contactId', 'startEngagement_contactId' - The Amazon Resource Name (ARN) of the contact being engaged.
 --
@@ -126,9 +127,9 @@ newStartEngagement
     StartEngagement'
       { idempotencyToken =
           Prelude.Nothing,
-        publicSubject = Prelude.Nothing,
-        publicContent = Prelude.Nothing,
         incidentId = Prelude.Nothing,
+        publicContent = Prelude.Nothing,
+        publicSubject = Prelude.Nothing,
         contactId = pContactId_,
         sender = pSender_,
         subject = pSubject_,
@@ -140,19 +141,19 @@ newStartEngagement
 startEngagement_idempotencyToken :: Lens.Lens' StartEngagement (Prelude.Maybe Prelude.Text)
 startEngagement_idempotencyToken = Lens.lens (\StartEngagement' {idempotencyToken} -> idempotencyToken) (\s@StartEngagement' {} a -> s {idempotencyToken = a} :: StartEngagement)
 
--- | The insecure subject of the message that was sent to the contact. Use
--- this field for engagements to @SMS@.
-startEngagement_publicSubject :: Lens.Lens' StartEngagement (Prelude.Maybe Prelude.Text)
-startEngagement_publicSubject = Lens.lens (\StartEngagement' {publicSubject} -> publicSubject) (\s@StartEngagement' {} a -> s {publicSubject = a} :: StartEngagement)
+-- | The ARN of the incident that the engagement is part of.
+startEngagement_incidentId :: Lens.Lens' StartEngagement (Prelude.Maybe Prelude.Text)
+startEngagement_incidentId = Lens.lens (\StartEngagement' {incidentId} -> incidentId) (\s@StartEngagement' {} a -> s {incidentId = a} :: StartEngagement)
 
 -- | The insecure content of the message that was sent to the contact. Use
 -- this field for engagements to @SMS@.
 startEngagement_publicContent :: Lens.Lens' StartEngagement (Prelude.Maybe Prelude.Text)
 startEngagement_publicContent = Lens.lens (\StartEngagement' {publicContent} -> publicContent) (\s@StartEngagement' {} a -> s {publicContent = a} :: StartEngagement)
 
--- | The ARN of the incident that the engagement is part of.
-startEngagement_incidentId :: Lens.Lens' StartEngagement (Prelude.Maybe Prelude.Text)
-startEngagement_incidentId = Lens.lens (\StartEngagement' {incidentId} -> incidentId) (\s@StartEngagement' {} a -> s {incidentId = a} :: StartEngagement)
+-- | The insecure subject of the message that was sent to the contact. Use
+-- this field for engagements to @SMS@.
+startEngagement_publicSubject :: Lens.Lens' StartEngagement (Prelude.Maybe Prelude.Text)
+startEngagement_publicSubject = Lens.lens (\StartEngagement' {publicSubject} -> publicSubject) (\s@StartEngagement' {} a -> s {publicSubject = a} :: StartEngagement)
 
 -- | The Amazon Resource Name (ARN) of the contact being engaged.
 startEngagement_contactId :: Lens.Lens' StartEngagement Prelude.Text
@@ -176,21 +177,22 @@ instance Core.AWSRequest StartEngagement where
   type
     AWSResponse StartEngagement =
       StartEngagementResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartEngagementResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "EngagementArn")
+            Prelude.<*> (x Data..:> "EngagementArn")
       )
 
 instance Prelude.Hashable StartEngagement where
   hashWithSalt _salt StartEngagement' {..} =
     _salt `Prelude.hashWithSalt` idempotencyToken
-      `Prelude.hashWithSalt` publicSubject
-      `Prelude.hashWithSalt` publicContent
       `Prelude.hashWithSalt` incidentId
+      `Prelude.hashWithSalt` publicContent
+      `Prelude.hashWithSalt` publicSubject
       `Prelude.hashWithSalt` contactId
       `Prelude.hashWithSalt` sender
       `Prelude.hashWithSalt` subject
@@ -199,49 +201,49 @@ instance Prelude.Hashable StartEngagement where
 instance Prelude.NFData StartEngagement where
   rnf StartEngagement' {..} =
     Prelude.rnf idempotencyToken
-      `Prelude.seq` Prelude.rnf publicSubject
-      `Prelude.seq` Prelude.rnf publicContent
       `Prelude.seq` Prelude.rnf incidentId
+      `Prelude.seq` Prelude.rnf publicContent
+      `Prelude.seq` Prelude.rnf publicSubject
       `Prelude.seq` Prelude.rnf contactId
       `Prelude.seq` Prelude.rnf sender
       `Prelude.seq` Prelude.rnf subject
       `Prelude.seq` Prelude.rnf content
 
-instance Core.ToHeaders StartEngagement where
+instance Data.ToHeaders StartEngagement where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SSMContacts.StartEngagement" ::
+              Data.=# ( "SSMContacts.StartEngagement" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartEngagement where
+instance Data.ToJSON StartEngagement where
   toJSON StartEngagement' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IdempotencyToken" Core..=)
+          [ ("IdempotencyToken" Data..=)
               Prelude.<$> idempotencyToken,
-            ("PublicSubject" Core..=) Prelude.<$> publicSubject,
-            ("PublicContent" Core..=) Prelude.<$> publicContent,
-            ("IncidentId" Core..=) Prelude.<$> incidentId,
-            Prelude.Just ("ContactId" Core..= contactId),
-            Prelude.Just ("Sender" Core..= sender),
-            Prelude.Just ("Subject" Core..= subject),
-            Prelude.Just ("Content" Core..= content)
+            ("IncidentId" Data..=) Prelude.<$> incidentId,
+            ("PublicContent" Data..=) Prelude.<$> publicContent,
+            ("PublicSubject" Data..=) Prelude.<$> publicSubject,
+            Prelude.Just ("ContactId" Data..= contactId),
+            Prelude.Just ("Sender" Data..= sender),
+            Prelude.Just ("Subject" Data..= subject),
+            Prelude.Just ("Content" Data..= content)
           ]
       )
 
-instance Core.ToPath StartEngagement where
+instance Data.ToPath StartEngagement where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartEngagement where
+instance Data.ToQuery StartEngagement where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartEngagementResponse' smart constructor.

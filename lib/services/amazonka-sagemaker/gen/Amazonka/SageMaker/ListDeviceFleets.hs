@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.ListDeviceFleets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,15 +29,15 @@ module Amazonka.SageMaker.ListDeviceFleets
     newListDeviceFleets,
 
     -- * Request Lenses
-    listDeviceFleets_nameContains,
-    listDeviceFleets_lastModifiedTimeBefore,
     listDeviceFleets_creationTimeAfter,
-    listDeviceFleets_nextToken,
-    listDeviceFleets_sortOrder,
-    listDeviceFleets_lastModifiedTimeAfter,
     listDeviceFleets_creationTimeBefore,
+    listDeviceFleets_lastModifiedTimeAfter,
+    listDeviceFleets_lastModifiedTimeBefore,
     listDeviceFleets_maxResults,
+    listDeviceFleets_nameContains,
+    listDeviceFleets_nextToken,
     listDeviceFleets_sortBy,
+    listDeviceFleets_sortOrder,
 
     -- * Destructuring the Response
     ListDeviceFleetsResponse (..),
@@ -51,7 +51,8 @@ module Amazonka.SageMaker.ListDeviceFleets
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,26 +60,26 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newListDeviceFleets' smart constructor.
 data ListDeviceFleets = ListDeviceFleets'
-  { -- | Filter for fleets containing this name in their fleet device name.
-    nameContains :: Prelude.Maybe Prelude.Text,
+  { -- | Filter fleets where packaging job was created after specified time.
+    creationTimeAfter :: Prelude.Maybe Data.POSIX,
+    -- | Filter fleets where the edge packaging job was created before specified
+    -- time.
+    creationTimeBefore :: Prelude.Maybe Data.POSIX,
+    -- | Select fleets where the job was updated after X
+    lastModifiedTimeAfter :: Prelude.Maybe Data.POSIX,
     -- | Select fleets where the job was updated before X
-    lastModifiedTimeBefore :: Prelude.Maybe Core.POSIX,
-    -- | Filter fleets where packaging job was created after specified time.
-    creationTimeAfter :: Prelude.Maybe Core.POSIX,
+    lastModifiedTimeBefore :: Prelude.Maybe Data.POSIX,
+    -- | The maximum number of results to select.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | Filter for fleets containing this name in their fleet device name.
+    nameContains :: Prelude.Maybe Prelude.Text,
     -- | The response from the last list when returning a list large enough to
     -- need tokening.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | What direction to sort in.
-    sortOrder :: Prelude.Maybe SortOrder,
-    -- | Select fleets where the job was updated after X
-    lastModifiedTimeAfter :: Prelude.Maybe Core.POSIX,
-    -- | Filter fleets where the edge packaging job was created before specified
-    -- time.
-    creationTimeBefore :: Prelude.Maybe Core.POSIX,
-    -- | The maximum number of results to select.
-    maxResults :: Prelude.Maybe Prelude.Int,
     -- | The column to sort by.
-    sortBy :: Prelude.Maybe ListDeviceFleetsSortBy
+    sortBy :: Prelude.Maybe ListDeviceFleetsSortBy,
+    -- | What direction to sort in.
+    sortOrder :: Prelude.Maybe SortOrder
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -90,77 +91,78 @@ data ListDeviceFleets = ListDeviceFleets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nameContains', 'listDeviceFleets_nameContains' - Filter for fleets containing this name in their fleet device name.
---
--- 'lastModifiedTimeBefore', 'listDeviceFleets_lastModifiedTimeBefore' - Select fleets where the job was updated before X
---
 -- 'creationTimeAfter', 'listDeviceFleets_creationTimeAfter' - Filter fleets where packaging job was created after specified time.
---
--- 'nextToken', 'listDeviceFleets_nextToken' - The response from the last list when returning a list large enough to
--- need tokening.
---
--- 'sortOrder', 'listDeviceFleets_sortOrder' - What direction to sort in.
---
--- 'lastModifiedTimeAfter', 'listDeviceFleets_lastModifiedTimeAfter' - Select fleets where the job was updated after X
 --
 -- 'creationTimeBefore', 'listDeviceFleets_creationTimeBefore' - Filter fleets where the edge packaging job was created before specified
 -- time.
 --
+-- 'lastModifiedTimeAfter', 'listDeviceFleets_lastModifiedTimeAfter' - Select fleets where the job was updated after X
+--
+-- 'lastModifiedTimeBefore', 'listDeviceFleets_lastModifiedTimeBefore' - Select fleets where the job was updated before X
+--
 -- 'maxResults', 'listDeviceFleets_maxResults' - The maximum number of results to select.
 --
+-- 'nameContains', 'listDeviceFleets_nameContains' - Filter for fleets containing this name in their fleet device name.
+--
+-- 'nextToken', 'listDeviceFleets_nextToken' - The response from the last list when returning a list large enough to
+-- need tokening.
+--
 -- 'sortBy', 'listDeviceFleets_sortBy' - The column to sort by.
+--
+-- 'sortOrder', 'listDeviceFleets_sortOrder' - What direction to sort in.
 newListDeviceFleets ::
   ListDeviceFleets
 newListDeviceFleets =
   ListDeviceFleets'
-    { nameContains = Prelude.Nothing,
-      lastModifiedTimeBefore = Prelude.Nothing,
-      creationTimeAfter = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      sortOrder = Prelude.Nothing,
-      lastModifiedTimeAfter = Prelude.Nothing,
+    { creationTimeAfter =
+        Prelude.Nothing,
       creationTimeBefore = Prelude.Nothing,
+      lastModifiedTimeAfter = Prelude.Nothing,
+      lastModifiedTimeBefore = Prelude.Nothing,
       maxResults = Prelude.Nothing,
-      sortBy = Prelude.Nothing
+      nameContains = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      sortOrder = Prelude.Nothing
     }
+
+-- | Filter fleets where packaging job was created after specified time.
+listDeviceFleets_creationTimeAfter :: Lens.Lens' ListDeviceFleets (Prelude.Maybe Prelude.UTCTime)
+listDeviceFleets_creationTimeAfter = Lens.lens (\ListDeviceFleets' {creationTimeAfter} -> creationTimeAfter) (\s@ListDeviceFleets' {} a -> s {creationTimeAfter = a} :: ListDeviceFleets) Prelude.. Lens.mapping Data._Time
+
+-- | Filter fleets where the edge packaging job was created before specified
+-- time.
+listDeviceFleets_creationTimeBefore :: Lens.Lens' ListDeviceFleets (Prelude.Maybe Prelude.UTCTime)
+listDeviceFleets_creationTimeBefore = Lens.lens (\ListDeviceFleets' {creationTimeBefore} -> creationTimeBefore) (\s@ListDeviceFleets' {} a -> s {creationTimeBefore = a} :: ListDeviceFleets) Prelude.. Lens.mapping Data._Time
+
+-- | Select fleets where the job was updated after X
+listDeviceFleets_lastModifiedTimeAfter :: Lens.Lens' ListDeviceFleets (Prelude.Maybe Prelude.UTCTime)
+listDeviceFleets_lastModifiedTimeAfter = Lens.lens (\ListDeviceFleets' {lastModifiedTimeAfter} -> lastModifiedTimeAfter) (\s@ListDeviceFleets' {} a -> s {lastModifiedTimeAfter = a} :: ListDeviceFleets) Prelude.. Lens.mapping Data._Time
+
+-- | Select fleets where the job was updated before X
+listDeviceFleets_lastModifiedTimeBefore :: Lens.Lens' ListDeviceFleets (Prelude.Maybe Prelude.UTCTime)
+listDeviceFleets_lastModifiedTimeBefore = Lens.lens (\ListDeviceFleets' {lastModifiedTimeBefore} -> lastModifiedTimeBefore) (\s@ListDeviceFleets' {} a -> s {lastModifiedTimeBefore = a} :: ListDeviceFleets) Prelude.. Lens.mapping Data._Time
+
+-- | The maximum number of results to select.
+listDeviceFleets_maxResults :: Lens.Lens' ListDeviceFleets (Prelude.Maybe Prelude.Int)
+listDeviceFleets_maxResults = Lens.lens (\ListDeviceFleets' {maxResults} -> maxResults) (\s@ListDeviceFleets' {} a -> s {maxResults = a} :: ListDeviceFleets)
 
 -- | Filter for fleets containing this name in their fleet device name.
 listDeviceFleets_nameContains :: Lens.Lens' ListDeviceFleets (Prelude.Maybe Prelude.Text)
 listDeviceFleets_nameContains = Lens.lens (\ListDeviceFleets' {nameContains} -> nameContains) (\s@ListDeviceFleets' {} a -> s {nameContains = a} :: ListDeviceFleets)
-
--- | Select fleets where the job was updated before X
-listDeviceFleets_lastModifiedTimeBefore :: Lens.Lens' ListDeviceFleets (Prelude.Maybe Prelude.UTCTime)
-listDeviceFleets_lastModifiedTimeBefore = Lens.lens (\ListDeviceFleets' {lastModifiedTimeBefore} -> lastModifiedTimeBefore) (\s@ListDeviceFleets' {} a -> s {lastModifiedTimeBefore = a} :: ListDeviceFleets) Prelude.. Lens.mapping Core._Time
-
--- | Filter fleets where packaging job was created after specified time.
-listDeviceFleets_creationTimeAfter :: Lens.Lens' ListDeviceFleets (Prelude.Maybe Prelude.UTCTime)
-listDeviceFleets_creationTimeAfter = Lens.lens (\ListDeviceFleets' {creationTimeAfter} -> creationTimeAfter) (\s@ListDeviceFleets' {} a -> s {creationTimeAfter = a} :: ListDeviceFleets) Prelude.. Lens.mapping Core._Time
 
 -- | The response from the last list when returning a list large enough to
 -- need tokening.
 listDeviceFleets_nextToken :: Lens.Lens' ListDeviceFleets (Prelude.Maybe Prelude.Text)
 listDeviceFleets_nextToken = Lens.lens (\ListDeviceFleets' {nextToken} -> nextToken) (\s@ListDeviceFleets' {} a -> s {nextToken = a} :: ListDeviceFleets)
 
--- | What direction to sort in.
-listDeviceFleets_sortOrder :: Lens.Lens' ListDeviceFleets (Prelude.Maybe SortOrder)
-listDeviceFleets_sortOrder = Lens.lens (\ListDeviceFleets' {sortOrder} -> sortOrder) (\s@ListDeviceFleets' {} a -> s {sortOrder = a} :: ListDeviceFleets)
-
--- | Select fleets where the job was updated after X
-listDeviceFleets_lastModifiedTimeAfter :: Lens.Lens' ListDeviceFleets (Prelude.Maybe Prelude.UTCTime)
-listDeviceFleets_lastModifiedTimeAfter = Lens.lens (\ListDeviceFleets' {lastModifiedTimeAfter} -> lastModifiedTimeAfter) (\s@ListDeviceFleets' {} a -> s {lastModifiedTimeAfter = a} :: ListDeviceFleets) Prelude.. Lens.mapping Core._Time
-
--- | Filter fleets where the edge packaging job was created before specified
--- time.
-listDeviceFleets_creationTimeBefore :: Lens.Lens' ListDeviceFleets (Prelude.Maybe Prelude.UTCTime)
-listDeviceFleets_creationTimeBefore = Lens.lens (\ListDeviceFleets' {creationTimeBefore} -> creationTimeBefore) (\s@ListDeviceFleets' {} a -> s {creationTimeBefore = a} :: ListDeviceFleets) Prelude.. Lens.mapping Core._Time
-
--- | The maximum number of results to select.
-listDeviceFleets_maxResults :: Lens.Lens' ListDeviceFleets (Prelude.Maybe Prelude.Int)
-listDeviceFleets_maxResults = Lens.lens (\ListDeviceFleets' {maxResults} -> maxResults) (\s@ListDeviceFleets' {} a -> s {maxResults = a} :: ListDeviceFleets)
-
 -- | The column to sort by.
 listDeviceFleets_sortBy :: Lens.Lens' ListDeviceFleets (Prelude.Maybe ListDeviceFleetsSortBy)
 listDeviceFleets_sortBy = Lens.lens (\ListDeviceFleets' {sortBy} -> sortBy) (\s@ListDeviceFleets' {} a -> s {sortBy = a} :: ListDeviceFleets)
+
+-- | What direction to sort in.
+listDeviceFleets_sortOrder :: Lens.Lens' ListDeviceFleets (Prelude.Maybe SortOrder)
+listDeviceFleets_sortOrder = Lens.lens (\ListDeviceFleets' {sortOrder} -> sortOrder) (\s@ListDeviceFleets' {} a -> s {sortOrder = a} :: ListDeviceFleets)
 
 instance Core.AWSPager ListDeviceFleets where
   page rq rs
@@ -187,79 +189,80 @@ instance Core.AWSRequest ListDeviceFleets where
   type
     AWSResponse ListDeviceFleets =
       ListDeviceFleetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDeviceFleetsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "DeviceFleetSummaries"
+            Prelude.<*> ( x Data..?> "DeviceFleetSummaries"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListDeviceFleets where
   hashWithSalt _salt ListDeviceFleets' {..} =
-    _salt `Prelude.hashWithSalt` nameContains
-      `Prelude.hashWithSalt` lastModifiedTimeBefore
-      `Prelude.hashWithSalt` creationTimeAfter
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` sortOrder
-      `Prelude.hashWithSalt` lastModifiedTimeAfter
+    _salt `Prelude.hashWithSalt` creationTimeAfter
       `Prelude.hashWithSalt` creationTimeBefore
+      `Prelude.hashWithSalt` lastModifiedTimeAfter
+      `Prelude.hashWithSalt` lastModifiedTimeBefore
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nameContains
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` sortBy
+      `Prelude.hashWithSalt` sortOrder
 
 instance Prelude.NFData ListDeviceFleets where
   rnf ListDeviceFleets' {..} =
-    Prelude.rnf nameContains
-      `Prelude.seq` Prelude.rnf lastModifiedTimeBefore
-      `Prelude.seq` Prelude.rnf creationTimeAfter
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf sortOrder
-      `Prelude.seq` Prelude.rnf lastModifiedTimeAfter
+    Prelude.rnf creationTimeAfter
       `Prelude.seq` Prelude.rnf creationTimeBefore
+      `Prelude.seq` Prelude.rnf lastModifiedTimeAfter
+      `Prelude.seq` Prelude.rnf lastModifiedTimeBefore
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nameContains
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf sortBy
+      `Prelude.seq` Prelude.rnf sortOrder
 
-instance Core.ToHeaders ListDeviceFleets where
+instance Data.ToHeaders ListDeviceFleets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.ListDeviceFleets" :: Prelude.ByteString),
+              Data.=# ("SageMaker.ListDeviceFleets" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDeviceFleets where
+instance Data.ToJSON ListDeviceFleets where
   toJSON ListDeviceFleets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NameContains" Core..=) Prelude.<$> nameContains,
-            ("LastModifiedTimeBefore" Core..=)
-              Prelude.<$> lastModifiedTimeBefore,
-            ("CreationTimeAfter" Core..=)
+          [ ("CreationTimeAfter" Data..=)
               Prelude.<$> creationTimeAfter,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("SortOrder" Core..=) Prelude.<$> sortOrder,
-            ("LastModifiedTimeAfter" Core..=)
-              Prelude.<$> lastModifiedTimeAfter,
-            ("CreationTimeBefore" Core..=)
+            ("CreationTimeBefore" Data..=)
               Prelude.<$> creationTimeBefore,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("SortBy" Core..=) Prelude.<$> sortBy
+            ("LastModifiedTimeAfter" Data..=)
+              Prelude.<$> lastModifiedTimeAfter,
+            ("LastModifiedTimeBefore" Data..=)
+              Prelude.<$> lastModifiedTimeBefore,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NameContains" Data..=) Prelude.<$> nameContains,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SortBy" Data..=) Prelude.<$> sortBy,
+            ("SortOrder" Data..=) Prelude.<$> sortOrder
           ]
       )
 
-instance Core.ToPath ListDeviceFleets where
+instance Data.ToPath ListDeviceFleets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDeviceFleets where
+instance Data.ToQuery ListDeviceFleets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDeviceFleetsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.CreateVoiceConnector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,12 +112,13 @@ instance Core.AWSRequest CreateVoiceConnector where
   type
     AWSResponse CreateVoiceConnector =
       CreateVoiceConnectorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateVoiceConnectorResponse'
-            Prelude.<$> (x Core..?> "VoiceConnector")
+            Prelude.<$> (x Data..?> "VoiceConnector")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -132,24 +134,24 @@ instance Prelude.NFData CreateVoiceConnector where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf requireEncryption
 
-instance Core.ToHeaders CreateVoiceConnector where
+instance Data.ToHeaders CreateVoiceConnector where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateVoiceConnector where
+instance Data.ToJSON CreateVoiceConnector where
   toJSON CreateVoiceConnector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AwsRegion" Core..=) Prelude.<$> awsRegion,
-            Prelude.Just ("Name" Core..= name),
+          [ ("AwsRegion" Data..=) Prelude.<$> awsRegion,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("RequireEncryption" Core..= requireEncryption)
+              ("RequireEncryption" Data..= requireEncryption)
           ]
       )
 
-instance Core.ToPath CreateVoiceConnector where
+instance Data.ToPath CreateVoiceConnector where
   toPath = Prelude.const "/voice-connectors"
 
-instance Core.ToQuery CreateVoiceConnector where
+instance Data.ToQuery CreateVoiceConnector where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateVoiceConnectorResponse' smart constructor.

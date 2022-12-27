@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.WeightedTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppMesh.Types.WeightedTarget where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a target and its relative weight. Traffic is
@@ -31,7 +32,9 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newWeightedTarget' smart constructor.
 data WeightedTarget = WeightedTarget'
-  { -- | The virtual node to associate with the weighted target.
+  { -- | The targeted port of the weighted object.
+    port :: Prelude.Maybe Prelude.Natural,
+    -- | The virtual node to associate with the weighted target.
     virtualNode :: Prelude.Text,
     -- | The relative weight of the weighted target.
     weight :: Prelude.Natural
@@ -46,6 +49,8 @@ data WeightedTarget = WeightedTarget'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'port', 'weightedTarget_port' - The targeted port of the weighted object.
+--
 -- 'virtualNode', 'weightedTarget_virtualNode' - The virtual node to associate with the weighted target.
 --
 -- 'weight', 'weightedTarget_weight' - The relative weight of the weighted target.
@@ -57,9 +62,14 @@ newWeightedTarget ::
   WeightedTarget
 newWeightedTarget pVirtualNode_ pWeight_ =
   WeightedTarget'
-    { virtualNode = pVirtualNode_,
+    { port = Prelude.Nothing,
+      virtualNode = pVirtualNode_,
       weight = pWeight_
     }
+
+-- | The targeted port of the weighted object.
+weightedTarget_port :: Lens.Lens' WeightedTarget (Prelude.Maybe Prelude.Natural)
+weightedTarget_port = Lens.lens (\WeightedTarget' {port} -> port) (\s@WeightedTarget' {} a -> s {port = a} :: WeightedTarget)
 
 -- | The virtual node to associate with the weighted target.
 weightedTarget_virtualNode :: Lens.Lens' WeightedTarget Prelude.Text
@@ -69,31 +79,35 @@ weightedTarget_virtualNode = Lens.lens (\WeightedTarget' {virtualNode} -> virtua
 weightedTarget_weight :: Lens.Lens' WeightedTarget Prelude.Natural
 weightedTarget_weight = Lens.lens (\WeightedTarget' {weight} -> weight) (\s@WeightedTarget' {} a -> s {weight = a} :: WeightedTarget)
 
-instance Core.FromJSON WeightedTarget where
+instance Data.FromJSON WeightedTarget where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WeightedTarget"
       ( \x ->
           WeightedTarget'
-            Prelude.<$> (x Core..: "virtualNode")
-            Prelude.<*> (x Core..: "weight")
+            Prelude.<$> (x Data..:? "port")
+            Prelude.<*> (x Data..: "virtualNode")
+            Prelude.<*> (x Data..: "weight")
       )
 
 instance Prelude.Hashable WeightedTarget where
   hashWithSalt _salt WeightedTarget' {..} =
-    _salt `Prelude.hashWithSalt` virtualNode
+    _salt `Prelude.hashWithSalt` port
+      `Prelude.hashWithSalt` virtualNode
       `Prelude.hashWithSalt` weight
 
 instance Prelude.NFData WeightedTarget where
   rnf WeightedTarget' {..} =
-    Prelude.rnf virtualNode
+    Prelude.rnf port
+      `Prelude.seq` Prelude.rnf virtualNode
       `Prelude.seq` Prelude.rnf weight
 
-instance Core.ToJSON WeightedTarget where
+instance Data.ToJSON WeightedTarget where
   toJSON WeightedTarget' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("virtualNode" Core..= virtualNode),
-            Prelude.Just ("weight" Core..= weight)
+          [ ("port" Data..=) Prelude.<$> port,
+            Prelude.Just ("virtualNode" Data..= virtualNode),
+            Prelude.Just ("weight" Data..= weight)
           ]
       )

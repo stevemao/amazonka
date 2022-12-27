@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetSegmentVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Pinpoint.GetSegmentVersions
     newGetSegmentVersions,
 
     -- * Request Lenses
-    getSegmentVersions_token,
     getSegmentVersions_pageSize,
+    getSegmentVersions_token,
     getSegmentVersions_segmentId,
     getSegmentVersions_applicationId,
 
@@ -45,7 +45,8 @@ module Amazonka.Pinpoint.GetSegmentVersions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,13 +54,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetSegmentVersions' smart constructor.
 data GetSegmentVersions = GetSegmentVersions'
-  { -- | The NextToken string that specifies which page of results to return in a
-    -- paginated response.
-    token :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to include in each page of a paginated
+  { -- | The maximum number of items to include in each page of a paginated
     -- response. This parameter is not supported for application, campaign, and
     -- journey metrics.
     pageSize :: Prelude.Maybe Prelude.Text,
+    -- | The NextToken string that specifies which page of results to return in a
+    -- paginated response.
+    token :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier for the segment.
     segmentId :: Prelude.Text,
     -- | The unique identifier for the application. This identifier is displayed
@@ -76,12 +77,12 @@ data GetSegmentVersions = GetSegmentVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'token', 'getSegmentVersions_token' - The NextToken string that specifies which page of results to return in a
--- paginated response.
---
 -- 'pageSize', 'getSegmentVersions_pageSize' - The maximum number of items to include in each page of a paginated
 -- response. This parameter is not supported for application, campaign, and
 -- journey metrics.
+--
+-- 'token', 'getSegmentVersions_token' - The NextToken string that specifies which page of results to return in a
+-- paginated response.
 --
 -- 'segmentId', 'getSegmentVersions_segmentId' - The unique identifier for the segment.
 --
@@ -95,22 +96,22 @@ newGetSegmentVersions ::
   GetSegmentVersions
 newGetSegmentVersions pSegmentId_ pApplicationId_ =
   GetSegmentVersions'
-    { token = Prelude.Nothing,
-      pageSize = Prelude.Nothing,
+    { pageSize = Prelude.Nothing,
+      token = Prelude.Nothing,
       segmentId = pSegmentId_,
       applicationId = pApplicationId_
     }
-
--- | The NextToken string that specifies which page of results to return in a
--- paginated response.
-getSegmentVersions_token :: Lens.Lens' GetSegmentVersions (Prelude.Maybe Prelude.Text)
-getSegmentVersions_token = Lens.lens (\GetSegmentVersions' {token} -> token) (\s@GetSegmentVersions' {} a -> s {token = a} :: GetSegmentVersions)
 
 -- | The maximum number of items to include in each page of a paginated
 -- response. This parameter is not supported for application, campaign, and
 -- journey metrics.
 getSegmentVersions_pageSize :: Lens.Lens' GetSegmentVersions (Prelude.Maybe Prelude.Text)
 getSegmentVersions_pageSize = Lens.lens (\GetSegmentVersions' {pageSize} -> pageSize) (\s@GetSegmentVersions' {} a -> s {pageSize = a} :: GetSegmentVersions)
+
+-- | The NextToken string that specifies which page of results to return in a
+-- paginated response.
+getSegmentVersions_token :: Lens.Lens' GetSegmentVersions (Prelude.Maybe Prelude.Text)
+getSegmentVersions_token = Lens.lens (\GetSegmentVersions' {token} -> token) (\s@GetSegmentVersions' {} a -> s {token = a} :: GetSegmentVersions)
 
 -- | The unique identifier for the segment.
 getSegmentVersions_segmentId :: Lens.Lens' GetSegmentVersions Prelude.Text
@@ -125,54 +126,55 @@ instance Core.AWSRequest GetSegmentVersions where
   type
     AWSResponse GetSegmentVersions =
       GetSegmentVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSegmentVersionsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetSegmentVersions where
   hashWithSalt _salt GetSegmentVersions' {..} =
-    _salt `Prelude.hashWithSalt` token
-      `Prelude.hashWithSalt` pageSize
+    _salt `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` token
       `Prelude.hashWithSalt` segmentId
       `Prelude.hashWithSalt` applicationId
 
 instance Prelude.NFData GetSegmentVersions where
   rnf GetSegmentVersions' {..} =
-    Prelude.rnf token
-      `Prelude.seq` Prelude.rnf pageSize
+    Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf token
       `Prelude.seq` Prelude.rnf segmentId
       `Prelude.seq` Prelude.rnf applicationId
 
-instance Core.ToHeaders GetSegmentVersions where
+instance Data.ToHeaders GetSegmentVersions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetSegmentVersions where
+instance Data.ToPath GetSegmentVersions where
   toPath GetSegmentVersions' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/segments/",
-        Core.toBS segmentId,
+        Data.toBS segmentId,
         "/versions"
       ]
 
-instance Core.ToQuery GetSegmentVersions where
+instance Data.ToQuery GetSegmentVersions where
   toQuery GetSegmentVersions' {..} =
     Prelude.mconcat
-      ["token" Core.=: token, "page-size" Core.=: pageSize]
+      ["page-size" Data.=: pageSize, "token" Data.=: token]
 
 -- | /See:/ 'newGetSegmentVersionsResponse' smart constructor.
 data GetSegmentVersionsResponse = GetSegmentVersionsResponse'

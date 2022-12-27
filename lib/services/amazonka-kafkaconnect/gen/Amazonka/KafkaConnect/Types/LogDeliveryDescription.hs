@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.LogDeliveryDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KafkaConnect.Types.LogDeliveryDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types.WorkerLogDeliveryDescription
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The description of the log delivery settings.
@@ -57,13 +58,13 @@ newLogDeliveryDescription =
 logDeliveryDescription_workerLogDelivery :: Lens.Lens' LogDeliveryDescription (Prelude.Maybe WorkerLogDeliveryDescription)
 logDeliveryDescription_workerLogDelivery = Lens.lens (\LogDeliveryDescription' {workerLogDelivery} -> workerLogDelivery) (\s@LogDeliveryDescription' {} a -> s {workerLogDelivery = a} :: LogDeliveryDescription)
 
-instance Core.FromJSON LogDeliveryDescription where
+instance Data.FromJSON LogDeliveryDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LogDeliveryDescription"
       ( \x ->
           LogDeliveryDescription'
-            Prelude.<$> (x Core..:? "workerLogDelivery")
+            Prelude.<$> (x Data..:? "workerLogDelivery")
       )
 
 instance Prelude.Hashable LogDeliveryDescription where

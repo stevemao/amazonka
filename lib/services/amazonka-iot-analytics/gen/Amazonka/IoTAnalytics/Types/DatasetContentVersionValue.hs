@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.DatasetContentVersionValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTAnalytics.Types.DatasetContentVersionValue where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The dataset whose latest contents are used as input to the notebook or
@@ -59,13 +60,13 @@ newDatasetContentVersionValue pDatasetName_ =
 datasetContentVersionValue_datasetName :: Lens.Lens' DatasetContentVersionValue Prelude.Text
 datasetContentVersionValue_datasetName = Lens.lens (\DatasetContentVersionValue' {datasetName} -> datasetName) (\s@DatasetContentVersionValue' {} a -> s {datasetName = a} :: DatasetContentVersionValue)
 
-instance Core.FromJSON DatasetContentVersionValue where
+instance Data.FromJSON DatasetContentVersionValue where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DatasetContentVersionValue"
       ( \x ->
           DatasetContentVersionValue'
-            Prelude.<$> (x Core..: "datasetName")
+            Prelude.<$> (x Data..: "datasetName")
       )
 
 instance Prelude.Hashable DatasetContentVersionValue where
@@ -76,9 +77,9 @@ instance Prelude.NFData DatasetContentVersionValue where
   rnf DatasetContentVersionValue' {..} =
     Prelude.rnf datasetName
 
-instance Core.ToJSON DatasetContentVersionValue where
+instance Data.ToJSON DatasetContentVersionValue where
   toJSON DatasetContentVersionValue' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("datasetName" Core..= datasetName)]
+          [Prelude.Just ("datasetName" Data..= datasetName)]
       )

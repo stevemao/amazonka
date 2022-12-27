@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.WorkflowExecutionInfos
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.WorkflowExecutionInfos where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SWF.Types.WorkflowExecutionInfo
 
@@ -81,15 +82,15 @@ workflowExecutionInfos_nextPageToken = Lens.lens (\WorkflowExecutionInfos' {next
 workflowExecutionInfos_executionInfos :: Lens.Lens' WorkflowExecutionInfos [WorkflowExecutionInfo]
 workflowExecutionInfos_executionInfos = Lens.lens (\WorkflowExecutionInfos' {executionInfos} -> executionInfos) (\s@WorkflowExecutionInfos' {} a -> s {executionInfos = a} :: WorkflowExecutionInfos) Prelude.. Lens.coerced
 
-instance Core.FromJSON WorkflowExecutionInfos where
+instance Data.FromJSON WorkflowExecutionInfos where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WorkflowExecutionInfos"
       ( \x ->
           WorkflowExecutionInfos'
-            Prelude.<$> (x Core..:? "nextPageToken")
-            Prelude.<*> ( x Core..:? "executionInfos"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "nextPageToken")
+            Prelude.<*> ( x Data..:? "executionInfos"
+                            Data..!= Prelude.mempty
                         )
       )
 

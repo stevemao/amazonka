@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.Country
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SecurityHub.Types.Country where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a country.
 --
 -- /See:/ 'newCountry' smart constructor.
 data Country = Country'
-  { -- | The name of the country.
-    countryName :: Prelude.Maybe Prelude.Text,
-    -- | The 2-letter ISO 3166 country code for the country.
-    countryCode :: Prelude.Maybe Prelude.Text
+  { -- | The 2-letter ISO 3166 country code for the country.
+    countryCode :: Prelude.Maybe Prelude.Text,
+    -- | The name of the country.
+    countryName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,50 +43,50 @@ data Country = Country'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'countryName', 'country_countryName' - The name of the country.
---
 -- 'countryCode', 'country_countryCode' - The 2-letter ISO 3166 country code for the country.
+--
+-- 'countryName', 'country_countryName' - The name of the country.
 newCountry ::
   Country
 newCountry =
   Country'
-    { countryName = Prelude.Nothing,
-      countryCode = Prelude.Nothing
+    { countryCode = Prelude.Nothing,
+      countryName = Prelude.Nothing
     }
-
--- | The name of the country.
-country_countryName :: Lens.Lens' Country (Prelude.Maybe Prelude.Text)
-country_countryName = Lens.lens (\Country' {countryName} -> countryName) (\s@Country' {} a -> s {countryName = a} :: Country)
 
 -- | The 2-letter ISO 3166 country code for the country.
 country_countryCode :: Lens.Lens' Country (Prelude.Maybe Prelude.Text)
 country_countryCode = Lens.lens (\Country' {countryCode} -> countryCode) (\s@Country' {} a -> s {countryCode = a} :: Country)
 
-instance Core.FromJSON Country where
+-- | The name of the country.
+country_countryName :: Lens.Lens' Country (Prelude.Maybe Prelude.Text)
+country_countryName = Lens.lens (\Country' {countryName} -> countryName) (\s@Country' {} a -> s {countryName = a} :: Country)
+
+instance Data.FromJSON Country where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Country"
       ( \x ->
           Country'
-            Prelude.<$> (x Core..:? "CountryName")
-            Prelude.<*> (x Core..:? "CountryCode")
+            Prelude.<$> (x Data..:? "CountryCode")
+            Prelude.<*> (x Data..:? "CountryName")
       )
 
 instance Prelude.Hashable Country where
   hashWithSalt _salt Country' {..} =
-    _salt `Prelude.hashWithSalt` countryName
-      `Prelude.hashWithSalt` countryCode
+    _salt `Prelude.hashWithSalt` countryCode
+      `Prelude.hashWithSalt` countryName
 
 instance Prelude.NFData Country where
   rnf Country' {..} =
-    Prelude.rnf countryName
-      `Prelude.seq` Prelude.rnf countryCode
+    Prelude.rnf countryCode
+      `Prelude.seq` Prelude.rnf countryName
 
-instance Core.ToJSON Country where
+instance Data.ToJSON Country where
   toJSON Country' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CountryName" Core..=) Prelude.<$> countryName,
-            ("CountryCode" Core..=) Prelude.<$> countryCode
+          [ ("CountryCode" Data..=) Prelude.<$> countryCode,
+            ("CountryName" Data..=) Prelude.<$> countryName
           ]
       )

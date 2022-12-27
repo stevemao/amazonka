@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.UpdateClusterSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.ECS.UpdateClusterSettings
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,9 +53,16 @@ data UpdateClusterSettings = UpdateClusterSettings'
   { -- | The name of the cluster to modify the settings for.
     cluster :: Prelude.Text,
     -- | The setting to use by default for a cluster. This parameter is used to
-    -- enable CloudWatch Container Insights for a cluster. If this value is
-    -- specified, it will override the @containerInsights@ value set with
+    -- turn on CloudWatch Container Insights for a cluster. If this value is
+    -- specified, it overrides the @containerInsights@ value set with
     -- PutAccountSetting or PutAccountSettingDefault.
+    --
+    -- Currently, if you delete an existing cluster that does not have
+    -- Container Insights turned on, and then create a new cluster with the
+    -- same name with Container Insights tuned on, Container Insights will not
+    -- actually be turned on. If you want to preserve the same name for your
+    -- existing cluster and turn on Container Insights, you must wait 7 days
+    -- before you can re-create it.
     settings :: [ClusterSetting]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -70,9 +78,16 @@ data UpdateClusterSettings = UpdateClusterSettings'
 -- 'cluster', 'updateClusterSettings_cluster' - The name of the cluster to modify the settings for.
 --
 -- 'settings', 'updateClusterSettings_settings' - The setting to use by default for a cluster. This parameter is used to
--- enable CloudWatch Container Insights for a cluster. If this value is
--- specified, it will override the @containerInsights@ value set with
+-- turn on CloudWatch Container Insights for a cluster. If this value is
+-- specified, it overrides the @containerInsights@ value set with
 -- PutAccountSetting or PutAccountSettingDefault.
+--
+-- Currently, if you delete an existing cluster that does not have
+-- Container Insights turned on, and then create a new cluster with the
+-- same name with Container Insights tuned on, Container Insights will not
+-- actually be turned on. If you want to preserve the same name for your
+-- existing cluster and turn on Container Insights, you must wait 7 days
+-- before you can re-create it.
 newUpdateClusterSettings ::
   -- | 'cluster'
   Prelude.Text ->
@@ -88,9 +103,16 @@ updateClusterSettings_cluster :: Lens.Lens' UpdateClusterSettings Prelude.Text
 updateClusterSettings_cluster = Lens.lens (\UpdateClusterSettings' {cluster} -> cluster) (\s@UpdateClusterSettings' {} a -> s {cluster = a} :: UpdateClusterSettings)
 
 -- | The setting to use by default for a cluster. This parameter is used to
--- enable CloudWatch Container Insights for a cluster. If this value is
--- specified, it will override the @containerInsights@ value set with
+-- turn on CloudWatch Container Insights for a cluster. If this value is
+-- specified, it overrides the @containerInsights@ value set with
 -- PutAccountSetting or PutAccountSettingDefault.
+--
+-- Currently, if you delete an existing cluster that does not have
+-- Container Insights turned on, and then create a new cluster with the
+-- same name with Container Insights tuned on, Container Insights will not
+-- actually be turned on. If you want to preserve the same name for your
+-- existing cluster and turn on Container Insights, you must wait 7 days
+-- before you can re-create it.
 updateClusterSettings_settings :: Lens.Lens' UpdateClusterSettings [ClusterSetting]
 updateClusterSettings_settings = Lens.lens (\UpdateClusterSettings' {settings} -> settings) (\s@UpdateClusterSettings' {} a -> s {settings = a} :: UpdateClusterSettings) Prelude.. Lens.coerced
 
@@ -98,12 +120,13 @@ instance Core.AWSRequest UpdateClusterSettings where
   type
     AWSResponse UpdateClusterSettings =
       UpdateClusterSettingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateClusterSettingsResponse'
-            Prelude.<$> (x Core..?> "cluster")
+            Prelude.<$> (x Data..?> "cluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,34 +140,34 @@ instance Prelude.NFData UpdateClusterSettings where
     Prelude.rnf cluster
       `Prelude.seq` Prelude.rnf settings
 
-instance Core.ToHeaders UpdateClusterSettings where
+instance Data.ToHeaders UpdateClusterSettings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.UpdateClusterSettings" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.UpdateClusterSettings" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateClusterSettings where
+instance Data.ToJSON UpdateClusterSettings where
   toJSON UpdateClusterSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("cluster" Core..= cluster),
-            Prelude.Just ("settings" Core..= settings)
+          [ Prelude.Just ("cluster" Data..= cluster),
+            Prelude.Just ("settings" Data..= settings)
           ]
       )
 
-instance Core.ToPath UpdateClusterSettings where
+instance Data.ToPath UpdateClusterSettings where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateClusterSettings where
+instance Data.ToQuery UpdateClusterSettings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateClusterSettingsResponse' smart constructor.

@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.ECRPublic
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,32 +29,11 @@ module Amazonka.ECRPublic
     -- * Errors
     -- $errors
 
-    -- ** ImageTagAlreadyExistsException
-    _ImageTagAlreadyExistsException,
+    -- ** EmptyUploadException
+    _EmptyUploadException,
 
-    -- ** LayersNotFoundException
-    _LayersNotFoundException,
-
-    -- ** ReferencedImagesNotFoundException
-    _ReferencedImagesNotFoundException,
-
-    -- ** InvalidParameterException
-    _InvalidParameterException,
-
-    -- ** LayerAlreadyExistsException
-    _LayerAlreadyExistsException,
-
-    -- ** ServerException
-    _ServerException,
-
-    -- ** UnsupportedCommandException
-    _UnsupportedCommandException,
-
-    -- ** InvalidLayerException
-    _InvalidLayerException,
-
-    -- ** LayerPartTooSmallException
-    _LayerPartTooSmallException,
+    -- ** ImageAlreadyExistsException
+    _ImageAlreadyExistsException,
 
     -- ** ImageDigestDoesNotMatchException
     _ImageDigestDoesNotMatchException,
@@ -62,41 +41,62 @@ module Amazonka.ECRPublic
     -- ** ImageNotFoundException
     _ImageNotFoundException,
 
-    -- ** ImageAlreadyExistsException
-    _ImageAlreadyExistsException,
+    -- ** ImageTagAlreadyExistsException
+    _ImageTagAlreadyExistsException,
 
-    -- ** RepositoryNotFoundException
-    _RepositoryNotFoundException,
-
-    -- ** TooManyTagsException
-    _TooManyTagsException,
-
-    -- ** UploadNotFoundException
-    _UploadNotFoundException,
+    -- ** InvalidLayerException
+    _InvalidLayerException,
 
     -- ** InvalidLayerPartException
     _InvalidLayerPartException,
 
+    -- ** InvalidParameterException
+    _InvalidParameterException,
+
     -- ** InvalidTagParameterException
     _InvalidTagParameterException,
 
-    -- ** RepositoryNotEmptyException
-    _RepositoryNotEmptyException,
+    -- ** LayerAlreadyExistsException
+    _LayerAlreadyExistsException,
 
-    -- ** RepositoryAlreadyExistsException
-    _RepositoryAlreadyExistsException,
+    -- ** LayerPartTooSmallException
+    _LayerPartTooSmallException,
 
-    -- ** RepositoryPolicyNotFoundException
-    _RepositoryPolicyNotFoundException,
-
-    -- ** EmptyUploadException
-    _EmptyUploadException,
+    -- ** LayersNotFoundException
+    _LayersNotFoundException,
 
     -- ** LimitExceededException
     _LimitExceededException,
 
+    -- ** ReferencedImagesNotFoundException
+    _ReferencedImagesNotFoundException,
+
     -- ** RegistryNotFoundException
     _RegistryNotFoundException,
+
+    -- ** RepositoryAlreadyExistsException
+    _RepositoryAlreadyExistsException,
+
+    -- ** RepositoryNotEmptyException
+    _RepositoryNotEmptyException,
+
+    -- ** RepositoryNotFoundException
+    _RepositoryNotFoundException,
+
+    -- ** RepositoryPolicyNotFoundException
+    _RepositoryPolicyNotFoundException,
+
+    -- ** ServerException
+    _ServerException,
+
+    -- ** TooManyTagsException
+    _TooManyTagsException,
+
+    -- ** UnsupportedCommandException
+    _UnsupportedCommandException,
+
+    -- ** UploadNotFoundException
+    _UploadNotFoundException,
 
     -- * Waiters
     -- $waiters
@@ -104,17 +104,11 @@ module Amazonka.ECRPublic
     -- * Operations
     -- $operations
 
-    -- ** GetRepositoryPolicy
-    GetRepositoryPolicy (GetRepositoryPolicy'),
-    newGetRepositoryPolicy,
-    GetRepositoryPolicyResponse (GetRepositoryPolicyResponse'),
-    newGetRepositoryPolicyResponse,
-
-    -- ** PutRegistryCatalogData
-    PutRegistryCatalogData (PutRegistryCatalogData'),
-    newPutRegistryCatalogData,
-    PutRegistryCatalogDataResponse (PutRegistryCatalogDataResponse'),
-    newPutRegistryCatalogDataResponse,
+    -- ** BatchCheckLayerAvailability
+    BatchCheckLayerAvailability (BatchCheckLayerAvailability'),
+    newBatchCheckLayerAvailability,
+    BatchCheckLayerAvailabilityResponse (BatchCheckLayerAvailabilityResponse'),
+    newBatchCheckLayerAvailabilityResponse,
 
     -- ** BatchDeleteImage
     BatchDeleteImage (BatchDeleteImage'),
@@ -122,29 +116,11 @@ module Amazonka.ECRPublic
     BatchDeleteImageResponse (BatchDeleteImageResponse'),
     newBatchDeleteImageResponse,
 
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** BatchCheckLayerAvailability
-    BatchCheckLayerAvailability (BatchCheckLayerAvailability'),
-    newBatchCheckLayerAvailability,
-    BatchCheckLayerAvailabilityResponse (BatchCheckLayerAvailabilityResponse'),
-    newBatchCheckLayerAvailabilityResponse,
-
-    -- ** PutRepositoryCatalogData
-    PutRepositoryCatalogData (PutRepositoryCatalogData'),
-    newPutRepositoryCatalogData,
-    PutRepositoryCatalogDataResponse (PutRepositoryCatalogDataResponse'),
-    newPutRepositoryCatalogDataResponse,
-
-    -- ** DeleteRepositoryPolicy
-    DeleteRepositoryPolicy (DeleteRepositoryPolicy'),
-    newDeleteRepositoryPolicy,
-    DeleteRepositoryPolicyResponse (DeleteRepositoryPolicyResponse'),
-    newDeleteRepositoryPolicyResponse,
+    -- ** CompleteLayerUpload
+    CompleteLayerUpload (CompleteLayerUpload'),
+    newCompleteLayerUpload,
+    CompleteLayerUploadResponse (CompleteLayerUploadResponse'),
+    newCompleteLayerUploadResponse,
 
     -- ** CreateRepository
     CreateRepository (CreateRepository'),
@@ -152,65 +128,17 @@ module Amazonka.ECRPublic
     CreateRepositoryResponse (CreateRepositoryResponse'),
     newCreateRepositoryResponse,
 
-    -- ** DescribeRegistries (Paginated)
-    DescribeRegistries (DescribeRegistries'),
-    newDescribeRegistries,
-    DescribeRegistriesResponse (DescribeRegistriesResponse'),
-    newDescribeRegistriesResponse,
+    -- ** DeleteRepository
+    DeleteRepository (DeleteRepository'),
+    newDeleteRepository,
+    DeleteRepositoryResponse (DeleteRepositoryResponse'),
+    newDeleteRepositoryResponse,
 
-    -- ** CompleteLayerUpload
-    CompleteLayerUpload (CompleteLayerUpload'),
-    newCompleteLayerUpload,
-    CompleteLayerUploadResponse (CompleteLayerUploadResponse'),
-    newCompleteLayerUploadResponse,
-
-    -- ** DescribeRepositories (Paginated)
-    DescribeRepositories (DescribeRepositories'),
-    newDescribeRepositories,
-    DescribeRepositoriesResponse (DescribeRepositoriesResponse'),
-    newDescribeRepositoriesResponse,
-
-    -- ** UploadLayerPart
-    UploadLayerPart (UploadLayerPart'),
-    newUploadLayerPart,
-    UploadLayerPartResponse (UploadLayerPartResponse'),
-    newUploadLayerPartResponse,
-
-    -- ** GetRepositoryCatalogData
-    GetRepositoryCatalogData (GetRepositoryCatalogData'),
-    newGetRepositoryCatalogData,
-    GetRepositoryCatalogDataResponse (GetRepositoryCatalogDataResponse'),
-    newGetRepositoryCatalogDataResponse,
-
-    -- ** GetRegistryCatalogData
-    GetRegistryCatalogData (GetRegistryCatalogData'),
-    newGetRegistryCatalogData,
-    GetRegistryCatalogDataResponse (GetRegistryCatalogDataResponse'),
-    newGetRegistryCatalogDataResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** SetRepositoryPolicy
-    SetRepositoryPolicy (SetRepositoryPolicy'),
-    newSetRepositoryPolicy,
-    SetRepositoryPolicyResponse (SetRepositoryPolicyResponse'),
-    newSetRepositoryPolicyResponse,
-
-    -- ** InitiateLayerUpload
-    InitiateLayerUpload (InitiateLayerUpload'),
-    newInitiateLayerUpload,
-    InitiateLayerUploadResponse (InitiateLayerUploadResponse'),
-    newInitiateLayerUploadResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** DeleteRepositoryPolicy
+    DeleteRepositoryPolicy (DeleteRepositoryPolicy'),
+    newDeleteRepositoryPolicy,
+    DeleteRepositoryPolicyResponse (DeleteRepositoryPolicyResponse'),
+    newDeleteRepositoryPolicyResponse,
 
     -- ** DescribeImageTags (Paginated)
     DescribeImageTags (DescribeImageTags'),
@@ -218,17 +146,23 @@ module Amazonka.ECRPublic
     DescribeImageTagsResponse (DescribeImageTagsResponse'),
     newDescribeImageTagsResponse,
 
-    -- ** DeleteRepository
-    DeleteRepository (DeleteRepository'),
-    newDeleteRepository,
-    DeleteRepositoryResponse (DeleteRepositoryResponse'),
-    newDeleteRepositoryResponse,
+    -- ** DescribeImages (Paginated)
+    DescribeImages (DescribeImages'),
+    newDescribeImages,
+    DescribeImagesResponse (DescribeImagesResponse'),
+    newDescribeImagesResponse,
 
-    -- ** PutImage
-    PutImage (PutImage'),
-    newPutImage,
-    PutImageResponse (PutImageResponse'),
-    newPutImageResponse,
+    -- ** DescribeRegistries (Paginated)
+    DescribeRegistries (DescribeRegistries'),
+    newDescribeRegistries,
+    DescribeRegistriesResponse (DescribeRegistriesResponse'),
+    newDescribeRegistriesResponse,
+
+    -- ** DescribeRepositories (Paginated)
+    DescribeRepositories (DescribeRepositories'),
+    newDescribeRepositories,
+    DescribeRepositoriesResponse (DescribeRepositoriesResponse'),
+    newDescribeRepositoriesResponse,
 
     -- ** GetAuthorizationToken
     GetAuthorizationToken (GetAuthorizationToken'),
@@ -236,11 +170,77 @@ module Amazonka.ECRPublic
     GetAuthorizationTokenResponse (GetAuthorizationTokenResponse'),
     newGetAuthorizationTokenResponse,
 
-    -- ** DescribeImages (Paginated)
-    DescribeImages (DescribeImages'),
-    newDescribeImages,
-    DescribeImagesResponse (DescribeImagesResponse'),
-    newDescribeImagesResponse,
+    -- ** GetRegistryCatalogData
+    GetRegistryCatalogData (GetRegistryCatalogData'),
+    newGetRegistryCatalogData,
+    GetRegistryCatalogDataResponse (GetRegistryCatalogDataResponse'),
+    newGetRegistryCatalogDataResponse,
+
+    -- ** GetRepositoryCatalogData
+    GetRepositoryCatalogData (GetRepositoryCatalogData'),
+    newGetRepositoryCatalogData,
+    GetRepositoryCatalogDataResponse (GetRepositoryCatalogDataResponse'),
+    newGetRepositoryCatalogDataResponse,
+
+    -- ** GetRepositoryPolicy
+    GetRepositoryPolicy (GetRepositoryPolicy'),
+    newGetRepositoryPolicy,
+    GetRepositoryPolicyResponse (GetRepositoryPolicyResponse'),
+    newGetRepositoryPolicyResponse,
+
+    -- ** InitiateLayerUpload
+    InitiateLayerUpload (InitiateLayerUpload'),
+    newInitiateLayerUpload,
+    InitiateLayerUploadResponse (InitiateLayerUploadResponse'),
+    newInitiateLayerUploadResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** PutImage
+    PutImage (PutImage'),
+    newPutImage,
+    PutImageResponse (PutImageResponse'),
+    newPutImageResponse,
+
+    -- ** PutRegistryCatalogData
+    PutRegistryCatalogData (PutRegistryCatalogData'),
+    newPutRegistryCatalogData,
+    PutRegistryCatalogDataResponse (PutRegistryCatalogDataResponse'),
+    newPutRegistryCatalogDataResponse,
+
+    -- ** PutRepositoryCatalogData
+    PutRepositoryCatalogData (PutRepositoryCatalogData'),
+    newPutRepositoryCatalogData,
+    PutRepositoryCatalogDataResponse (PutRepositoryCatalogDataResponse'),
+    newPutRepositoryCatalogDataResponse,
+
+    -- ** SetRepositoryPolicy
+    SetRepositoryPolicy (SetRepositoryPolicy'),
+    newSetRepositoryPolicy,
+    SetRepositoryPolicyResponse (SetRepositoryPolicyResponse'),
+    newSetRepositoryPolicyResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UploadLayerPart
+    UploadLayerPart (UploadLayerPart'),
+    newUploadLayerPart,
+    UploadLayerPartResponse (UploadLayerPartResponse'),
+    newUploadLayerPartResponse,
 
     -- * Types
 

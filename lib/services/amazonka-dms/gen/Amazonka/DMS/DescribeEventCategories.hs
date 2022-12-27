@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.DescribeEventCategories
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.DMS.DescribeEventCategories
     newDescribeEventCategories,
 
     -- * Request Lenses
-    describeEventCategories_sourceType,
     describeEventCategories_filters,
+    describeEventCategories_sourceType,
 
     -- * Destructuring the Response
     DescribeEventCategoriesResponse (..),
@@ -45,8 +45,9 @@ module Amazonka.DMS.DescribeEventCategories
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,12 +56,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeEventCategories' smart constructor.
 data DescribeEventCategories = DescribeEventCategories'
-  { -- | The type of DMS resource that generates events.
+  { -- | Filters applied to the event categories.
+    filters :: Prelude.Maybe [Filter],
+    -- | The type of DMS resource that generates events.
     --
     -- Valid values: replication-instance | replication-task
-    sourceType :: Prelude.Maybe Prelude.Text,
-    -- | Filters applied to the event categories.
-    filters :: Prelude.Maybe [Filter]
+    sourceType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,19 +73,22 @@ data DescribeEventCategories = DescribeEventCategories'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'filters', 'describeEventCategories_filters' - Filters applied to the event categories.
+--
 -- 'sourceType', 'describeEventCategories_sourceType' - The type of DMS resource that generates events.
 --
 -- Valid values: replication-instance | replication-task
---
--- 'filters', 'describeEventCategories_filters' - Filters applied to the event categories.
 newDescribeEventCategories ::
   DescribeEventCategories
 newDescribeEventCategories =
   DescribeEventCategories'
-    { sourceType =
-        Prelude.Nothing,
-      filters = Prelude.Nothing
+    { filters = Prelude.Nothing,
+      sourceType = Prelude.Nothing
     }
+
+-- | Filters applied to the event categories.
+describeEventCategories_filters :: Lens.Lens' DescribeEventCategories (Prelude.Maybe [Filter])
+describeEventCategories_filters = Lens.lens (\DescribeEventCategories' {filters} -> filters) (\s@DescribeEventCategories' {} a -> s {filters = a} :: DescribeEventCategories) Prelude.. Lens.mapping Lens.coerced
 
 -- | The type of DMS resource that generates events.
 --
@@ -92,20 +96,17 @@ newDescribeEventCategories =
 describeEventCategories_sourceType :: Lens.Lens' DescribeEventCategories (Prelude.Maybe Prelude.Text)
 describeEventCategories_sourceType = Lens.lens (\DescribeEventCategories' {sourceType} -> sourceType) (\s@DescribeEventCategories' {} a -> s {sourceType = a} :: DescribeEventCategories)
 
--- | Filters applied to the event categories.
-describeEventCategories_filters :: Lens.Lens' DescribeEventCategories (Prelude.Maybe [Filter])
-describeEventCategories_filters = Lens.lens (\DescribeEventCategories' {filters} -> filters) (\s@DescribeEventCategories' {} a -> s {filters = a} :: DescribeEventCategories) Prelude.. Lens.mapping Lens.coerced
-
 instance Core.AWSRequest DescribeEventCategories where
   type
     AWSResponse DescribeEventCategories =
       DescribeEventCategoriesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEventCategoriesResponse'
-            Prelude.<$> ( x Core..?> "EventCategoryGroupList"
+            Prelude.<$> ( x Data..?> "EventCategoryGroupList"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -113,42 +114,42 @@ instance Core.AWSRequest DescribeEventCategories where
 
 instance Prelude.Hashable DescribeEventCategories where
   hashWithSalt _salt DescribeEventCategories' {..} =
-    _salt `Prelude.hashWithSalt` sourceType
-      `Prelude.hashWithSalt` filters
+    _salt `Prelude.hashWithSalt` filters
+      `Prelude.hashWithSalt` sourceType
 
 instance Prelude.NFData DescribeEventCategories where
   rnf DescribeEventCategories' {..} =
-    Prelude.rnf sourceType
-      `Prelude.seq` Prelude.rnf filters
+    Prelude.rnf filters
+      `Prelude.seq` Prelude.rnf sourceType
 
-instance Core.ToHeaders DescribeEventCategories where
+instance Data.ToHeaders DescribeEventCategories where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.DescribeEventCategories" ::
+              Data.=# ( "AmazonDMSv20160101.DescribeEventCategories" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEventCategories where
+instance Data.ToJSON DescribeEventCategories where
   toJSON DescribeEventCategories' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SourceType" Core..=) Prelude.<$> sourceType,
-            ("Filters" Core..=) Prelude.<$> filters
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("SourceType" Data..=) Prelude.<$> sourceType
           ]
       )
 
-instance Core.ToPath DescribeEventCategories where
+instance Data.ToPath DescribeEventCategories where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEventCategories where
+instance Data.ToQuery DescribeEventCategories where
   toQuery = Prelude.const Prelude.mempty
 
 -- |

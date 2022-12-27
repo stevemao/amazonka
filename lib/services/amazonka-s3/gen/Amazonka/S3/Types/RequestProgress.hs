@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.RequestProgress
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.RequestProgress where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 
@@ -62,6 +63,6 @@ instance Prelude.Hashable RequestProgress where
 instance Prelude.NFData RequestProgress where
   rnf RequestProgress' {..} = Prelude.rnf enabled
 
-instance Core.ToXML RequestProgress where
+instance Data.ToXML RequestProgress where
   toXML RequestProgress' {..} =
-    Prelude.mconcat ["Enabled" Core.@= enabled]
+    Prelude.mconcat ["Enabled" Data.@= enabled]

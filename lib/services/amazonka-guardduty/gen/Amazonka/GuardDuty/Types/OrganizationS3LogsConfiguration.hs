@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.OrganizationS3LogsConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GuardDuty.Types.OrganizationS3LogsConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes whether S3 data event logs will be automatically enabled for
@@ -75,9 +76,9 @@ instance
   rnf OrganizationS3LogsConfiguration' {..} =
     Prelude.rnf autoEnable
 
-instance Core.ToJSON OrganizationS3LogsConfiguration where
+instance Data.ToJSON OrganizationS3LogsConfiguration where
   toJSON OrganizationS3LogsConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("autoEnable" Core..= autoEnable)]
+          [Prelude.Just ("autoEnable" Data..= autoEnable)]
       )

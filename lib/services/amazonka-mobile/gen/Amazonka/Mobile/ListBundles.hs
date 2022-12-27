@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Mobile.ListBundles
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Mobile.ListBundles
     newListBundles,
 
     -- * Request Lenses
-    listBundles_nextToken,
     listBundles_maxResults,
+    listBundles_nextToken,
 
     -- * Destructuring the Response
     ListBundlesResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.Mobile.ListBundles
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Mobile.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,12 +55,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListBundles' smart constructor.
 data ListBundles = ListBundles'
-  { -- | Pagination token. Set to null to start listing bundles from start. If
+  { -- | Maximum number of records to list in a single response.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | Pagination token. Set to null to start listing bundles from start. If
     -- non-null pagination token is returned in a result, then pass its value
     -- in here in another request to list more bundles.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of records to list in a single response.
-    maxResults :: Prelude.Maybe Prelude.Int
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,28 +72,28 @@ data ListBundles = ListBundles'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listBundles_maxResults' - Maximum number of records to list in a single response.
+--
 -- 'nextToken', 'listBundles_nextToken' - Pagination token. Set to null to start listing bundles from start. If
 -- non-null pagination token is returned in a result, then pass its value
 -- in here in another request to list more bundles.
---
--- 'maxResults', 'listBundles_maxResults' - Maximum number of records to list in a single response.
 newListBundles ::
   ListBundles
 newListBundles =
   ListBundles'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | Maximum number of records to list in a single response.
+listBundles_maxResults :: Lens.Lens' ListBundles (Prelude.Maybe Prelude.Int)
+listBundles_maxResults = Lens.lens (\ListBundles' {maxResults} -> maxResults) (\s@ListBundles' {} a -> s {maxResults = a} :: ListBundles)
 
 -- | Pagination token. Set to null to start listing bundles from start. If
 -- non-null pagination token is returned in a result, then pass its value
 -- in here in another request to list more bundles.
 listBundles_nextToken :: Lens.Lens' ListBundles (Prelude.Maybe Prelude.Text)
 listBundles_nextToken = Lens.lens (\ListBundles' {nextToken} -> nextToken) (\s@ListBundles' {} a -> s {nextToken = a} :: ListBundles)
-
--- | Maximum number of records to list in a single response.
-listBundles_maxResults :: Lens.Lens' ListBundles (Prelude.Maybe Prelude.Int)
-listBundles_maxResults = Lens.lens (\ListBundles' {maxResults} -> maxResults) (\s@ListBundles' {} a -> s {maxResults = a} :: ListBundles)
 
 instance Core.AWSPager ListBundles where
   page rq rs
@@ -115,45 +116,46 @@ instance Core.AWSPager ListBundles where
 
 instance Core.AWSRequest ListBundles where
   type AWSResponse ListBundles = ListBundlesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListBundlesResponse'
-            Prelude.<$> (x Core..?> "bundleList" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "bundleList" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListBundles where
   hashWithSalt _salt ListBundles' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListBundles where
   rnf ListBundles' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListBundles where
+instance Data.ToHeaders ListBundles where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListBundles where
+instance Data.ToPath ListBundles where
   toPath = Prelude.const "/bundles"
 
-instance Core.ToQuery ListBundles where
+instance Data.ToQuery ListBundles where
   toQuery ListBundles' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | Result structure contains a list of all available bundles with details.

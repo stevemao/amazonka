@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.EvaluationResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.Config.Types.EvaluationResult where
 import Amazonka.Config.Types.ComplianceType
 import Amazonka.Config.Types.EvaluationResultIdentifier
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of an Config evaluation. Provides the Amazon Web Services
@@ -31,20 +32,9 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEvaluationResult' smart constructor.
 data EvaluationResult = EvaluationResult'
-  { -- | Uniquely identifies the evaluation result.
-    evaluationResultIdentifier :: Prelude.Maybe EvaluationResultIdentifier,
-    -- | Supplementary information about how the evaluation determined the
+  { -- | Supplementary information about how the evaluation determined the
     -- compliance.
     annotation :: Prelude.Maybe Prelude.Text,
-    -- | The time when the Config rule evaluated the Amazon Web Services
-    -- resource.
-    configRuleInvokedTime :: Prelude.Maybe Core.POSIX,
-    -- | The time when Config recorded the evaluation result.
-    resultRecordedTime :: Prelude.Maybe Core.POSIX,
-    -- | An encrypted token that associates an evaluation with an Config rule.
-    -- The token identifies the rule, the Amazon Web Services resource being
-    -- evaluated, and the event that triggered the evaluation.
-    resultToken :: Prelude.Maybe Prelude.Text,
     -- | Indicates whether the Amazon Web Services resource complies with the
     -- Config rule that evaluated it.
     --
@@ -52,7 +42,18 @@ data EvaluationResult = EvaluationResult'
     -- @COMPLIANT@, @NON_COMPLIANT@, and @NOT_APPLICABLE@ values. Config does
     -- not support the @INSUFFICIENT_DATA@ value for the @EvaluationResult@
     -- data type.
-    complianceType :: Prelude.Maybe ComplianceType
+    complianceType :: Prelude.Maybe ComplianceType,
+    -- | The time when the Config rule evaluated the Amazon Web Services
+    -- resource.
+    configRuleInvokedTime :: Prelude.Maybe Data.POSIX,
+    -- | Uniquely identifies the evaluation result.
+    evaluationResultIdentifier :: Prelude.Maybe EvaluationResultIdentifier,
+    -- | The time when Config recorded the evaluation result.
+    resultRecordedTime :: Prelude.Maybe Data.POSIX,
+    -- | An encrypted token that associates an evaluation with an Config rule.
+    -- The token identifies the rule, the Amazon Web Services resource being
+    -- evaluated, and the event that triggered the evaluation.
+    resultToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -64,19 +65,8 @@ data EvaluationResult = EvaluationResult'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'evaluationResultIdentifier', 'evaluationResult_evaluationResultIdentifier' - Uniquely identifies the evaluation result.
---
 -- 'annotation', 'evaluationResult_annotation' - Supplementary information about how the evaluation determined the
 -- compliance.
---
--- 'configRuleInvokedTime', 'evaluationResult_configRuleInvokedTime' - The time when the Config rule evaluated the Amazon Web Services
--- resource.
---
--- 'resultRecordedTime', 'evaluationResult_resultRecordedTime' - The time when Config recorded the evaluation result.
---
--- 'resultToken', 'evaluationResult_resultToken' - An encrypted token that associates an evaluation with an Config rule.
--- The token identifies the rule, the Amazon Web Services resource being
--- evaluated, and the event that triggered the evaluation.
 --
 -- 'complianceType', 'evaluationResult_complianceType' - Indicates whether the Amazon Web Services resource complies with the
 -- Config rule that evaluated it.
@@ -85,42 +75,33 @@ data EvaluationResult = EvaluationResult'
 -- @COMPLIANT@, @NON_COMPLIANT@, and @NOT_APPLICABLE@ values. Config does
 -- not support the @INSUFFICIENT_DATA@ value for the @EvaluationResult@
 -- data type.
+--
+-- 'configRuleInvokedTime', 'evaluationResult_configRuleInvokedTime' - The time when the Config rule evaluated the Amazon Web Services
+-- resource.
+--
+-- 'evaluationResultIdentifier', 'evaluationResult_evaluationResultIdentifier' - Uniquely identifies the evaluation result.
+--
+-- 'resultRecordedTime', 'evaluationResult_resultRecordedTime' - The time when Config recorded the evaluation result.
+--
+-- 'resultToken', 'evaluationResult_resultToken' - An encrypted token that associates an evaluation with an Config rule.
+-- The token identifies the rule, the Amazon Web Services resource being
+-- evaluated, and the event that triggered the evaluation.
 newEvaluationResult ::
   EvaluationResult
 newEvaluationResult =
   EvaluationResult'
-    { evaluationResultIdentifier =
-        Prelude.Nothing,
-      annotation = Prelude.Nothing,
+    { annotation = Prelude.Nothing,
+      complianceType = Prelude.Nothing,
       configRuleInvokedTime = Prelude.Nothing,
+      evaluationResultIdentifier = Prelude.Nothing,
       resultRecordedTime = Prelude.Nothing,
-      resultToken = Prelude.Nothing,
-      complianceType = Prelude.Nothing
+      resultToken = Prelude.Nothing
     }
-
--- | Uniquely identifies the evaluation result.
-evaluationResult_evaluationResultIdentifier :: Lens.Lens' EvaluationResult (Prelude.Maybe EvaluationResultIdentifier)
-evaluationResult_evaluationResultIdentifier = Lens.lens (\EvaluationResult' {evaluationResultIdentifier} -> evaluationResultIdentifier) (\s@EvaluationResult' {} a -> s {evaluationResultIdentifier = a} :: EvaluationResult)
 
 -- | Supplementary information about how the evaluation determined the
 -- compliance.
 evaluationResult_annotation :: Lens.Lens' EvaluationResult (Prelude.Maybe Prelude.Text)
 evaluationResult_annotation = Lens.lens (\EvaluationResult' {annotation} -> annotation) (\s@EvaluationResult' {} a -> s {annotation = a} :: EvaluationResult)
-
--- | The time when the Config rule evaluated the Amazon Web Services
--- resource.
-evaluationResult_configRuleInvokedTime :: Lens.Lens' EvaluationResult (Prelude.Maybe Prelude.UTCTime)
-evaluationResult_configRuleInvokedTime = Lens.lens (\EvaluationResult' {configRuleInvokedTime} -> configRuleInvokedTime) (\s@EvaluationResult' {} a -> s {configRuleInvokedTime = a} :: EvaluationResult) Prelude.. Lens.mapping Core._Time
-
--- | The time when Config recorded the evaluation result.
-evaluationResult_resultRecordedTime :: Lens.Lens' EvaluationResult (Prelude.Maybe Prelude.UTCTime)
-evaluationResult_resultRecordedTime = Lens.lens (\EvaluationResult' {resultRecordedTime} -> resultRecordedTime) (\s@EvaluationResult' {} a -> s {resultRecordedTime = a} :: EvaluationResult) Prelude.. Lens.mapping Core._Time
-
--- | An encrypted token that associates an evaluation with an Config rule.
--- The token identifies the rule, the Amazon Web Services resource being
--- evaluated, and the event that triggered the evaluation.
-evaluationResult_resultToken :: Lens.Lens' EvaluationResult (Prelude.Maybe Prelude.Text)
-evaluationResult_resultToken = Lens.lens (\EvaluationResult' {resultToken} -> resultToken) (\s@EvaluationResult' {} a -> s {resultToken = a} :: EvaluationResult)
 
 -- | Indicates whether the Amazon Web Services resource complies with the
 -- Config rule that evaluated it.
@@ -132,35 +113,53 @@ evaluationResult_resultToken = Lens.lens (\EvaluationResult' {resultToken} -> re
 evaluationResult_complianceType :: Lens.Lens' EvaluationResult (Prelude.Maybe ComplianceType)
 evaluationResult_complianceType = Lens.lens (\EvaluationResult' {complianceType} -> complianceType) (\s@EvaluationResult' {} a -> s {complianceType = a} :: EvaluationResult)
 
-instance Core.FromJSON EvaluationResult where
+-- | The time when the Config rule evaluated the Amazon Web Services
+-- resource.
+evaluationResult_configRuleInvokedTime :: Lens.Lens' EvaluationResult (Prelude.Maybe Prelude.UTCTime)
+evaluationResult_configRuleInvokedTime = Lens.lens (\EvaluationResult' {configRuleInvokedTime} -> configRuleInvokedTime) (\s@EvaluationResult' {} a -> s {configRuleInvokedTime = a} :: EvaluationResult) Prelude.. Lens.mapping Data._Time
+
+-- | Uniquely identifies the evaluation result.
+evaluationResult_evaluationResultIdentifier :: Lens.Lens' EvaluationResult (Prelude.Maybe EvaluationResultIdentifier)
+evaluationResult_evaluationResultIdentifier = Lens.lens (\EvaluationResult' {evaluationResultIdentifier} -> evaluationResultIdentifier) (\s@EvaluationResult' {} a -> s {evaluationResultIdentifier = a} :: EvaluationResult)
+
+-- | The time when Config recorded the evaluation result.
+evaluationResult_resultRecordedTime :: Lens.Lens' EvaluationResult (Prelude.Maybe Prelude.UTCTime)
+evaluationResult_resultRecordedTime = Lens.lens (\EvaluationResult' {resultRecordedTime} -> resultRecordedTime) (\s@EvaluationResult' {} a -> s {resultRecordedTime = a} :: EvaluationResult) Prelude.. Lens.mapping Data._Time
+
+-- | An encrypted token that associates an evaluation with an Config rule.
+-- The token identifies the rule, the Amazon Web Services resource being
+-- evaluated, and the event that triggered the evaluation.
+evaluationResult_resultToken :: Lens.Lens' EvaluationResult (Prelude.Maybe Prelude.Text)
+evaluationResult_resultToken = Lens.lens (\EvaluationResult' {resultToken} -> resultToken) (\s@EvaluationResult' {} a -> s {resultToken = a} :: EvaluationResult)
+
+instance Data.FromJSON EvaluationResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EvaluationResult"
       ( \x ->
           EvaluationResult'
-            Prelude.<$> (x Core..:? "EvaluationResultIdentifier")
-            Prelude.<*> (x Core..:? "Annotation")
-            Prelude.<*> (x Core..:? "ConfigRuleInvokedTime")
-            Prelude.<*> (x Core..:? "ResultRecordedTime")
-            Prelude.<*> (x Core..:? "ResultToken")
-            Prelude.<*> (x Core..:? "ComplianceType")
+            Prelude.<$> (x Data..:? "Annotation")
+            Prelude.<*> (x Data..:? "ComplianceType")
+            Prelude.<*> (x Data..:? "ConfigRuleInvokedTime")
+            Prelude.<*> (x Data..:? "EvaluationResultIdentifier")
+            Prelude.<*> (x Data..:? "ResultRecordedTime")
+            Prelude.<*> (x Data..:? "ResultToken")
       )
 
 instance Prelude.Hashable EvaluationResult where
   hashWithSalt _salt EvaluationResult' {..} =
-    _salt
-      `Prelude.hashWithSalt` evaluationResultIdentifier
-      `Prelude.hashWithSalt` annotation
+    _salt `Prelude.hashWithSalt` annotation
+      `Prelude.hashWithSalt` complianceType
       `Prelude.hashWithSalt` configRuleInvokedTime
+      `Prelude.hashWithSalt` evaluationResultIdentifier
       `Prelude.hashWithSalt` resultRecordedTime
       `Prelude.hashWithSalt` resultToken
-      `Prelude.hashWithSalt` complianceType
 
 instance Prelude.NFData EvaluationResult where
   rnf EvaluationResult' {..} =
-    Prelude.rnf evaluationResultIdentifier
-      `Prelude.seq` Prelude.rnf annotation
+    Prelude.rnf annotation
+      `Prelude.seq` Prelude.rnf complianceType
       `Prelude.seq` Prelude.rnf configRuleInvokedTime
+      `Prelude.seq` Prelude.rnf evaluationResultIdentifier
       `Prelude.seq` Prelude.rnf resultRecordedTime
       `Prelude.seq` Prelude.rnf resultToken
-      `Prelude.seq` Prelude.rnf complianceType

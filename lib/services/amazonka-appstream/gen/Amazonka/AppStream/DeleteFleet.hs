@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.DeleteFleet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.AppStream.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,7 +74,8 @@ deleteFleet_name = Lens.lens (\DeleteFleet' {name} -> name) (\s@DeleteFleet' {} 
 
 instance Core.AWSRequest DeleteFleet where
   type AWSResponse DeleteFleet = DeleteFleetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -88,32 +90,32 @@ instance Prelude.Hashable DeleteFleet where
 instance Prelude.NFData DeleteFleet where
   rnf DeleteFleet' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteFleet where
+instance Data.ToHeaders DeleteFleet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "PhotonAdminProxyService.DeleteFleet" ::
+              Data.=# ( "PhotonAdminProxyService.DeleteFleet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteFleet where
+instance Data.ToJSON DeleteFleet where
   toJSON DeleteFleet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath DeleteFleet where
+instance Data.ToPath DeleteFleet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteFleet where
+instance Data.ToQuery DeleteFleet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFleetResponse' smart constructor.

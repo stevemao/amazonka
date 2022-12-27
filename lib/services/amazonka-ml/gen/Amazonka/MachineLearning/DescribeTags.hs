@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MachineLearning.DescribeTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.MachineLearning.DescribeTags
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MachineLearning.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -91,14 +92,15 @@ describeTags_resourceType = Lens.lens (\DescribeTags' {resourceType} -> resource
 
 instance Core.AWSRequest DescribeTags where
   type AWSResponse DescribeTags = DescribeTagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTagsResponse'
-            Prelude.<$> (x Core..?> "ResourceId")
-            Prelude.<*> (x Core..?> "ResourceType")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "ResourceId")
+            Prelude.<*> (x Data..?> "ResourceType")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,34 +114,34 @@ instance Prelude.NFData DescribeTags where
     Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf resourceType
 
-instance Core.ToHeaders DescribeTags where
+instance Data.ToHeaders DescribeTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonML_20141212.DescribeTags" ::
+              Data.=# ( "AmazonML_20141212.DescribeTags" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeTags where
+instance Data.ToJSON DescribeTags where
   toJSON DescribeTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceId" Core..= resourceId),
-            Prelude.Just ("ResourceType" Core..= resourceType)
+          [ Prelude.Just ("ResourceId" Data..= resourceId),
+            Prelude.Just ("ResourceType" Data..= resourceType)
           ]
       )
 
-instance Core.ToPath DescribeTags where
+instance Data.ToPath DescribeTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTags where
+instance Data.ToQuery DescribeTags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Amazon ML returns the following elements.

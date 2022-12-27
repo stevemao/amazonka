@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.AutoTuneOptionsInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.ElasticSearch.Types.AutoTuneOptionsInput where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types.AutoTuneDesiredState
 import Amazonka.ElasticSearch.Types.AutoTuneMaintenanceSchedule
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the Auto-Tune options: the Auto-Tune desired state for the
@@ -84,12 +85,12 @@ instance Prelude.NFData AutoTuneOptionsInput where
     Prelude.rnf desiredState
       `Prelude.seq` Prelude.rnf maintenanceSchedules
 
-instance Core.ToJSON AutoTuneOptionsInput where
+instance Data.ToJSON AutoTuneOptionsInput where
   toJSON AutoTuneOptionsInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DesiredState" Core..=) Prelude.<$> desiredState,
-            ("MaintenanceSchedules" Core..=)
+          [ ("DesiredState" Data..=) Prelude.<$> desiredState,
+            ("MaintenanceSchedules" Data..=)
               Prelude.<$> maintenanceSchedules
           ]
       )

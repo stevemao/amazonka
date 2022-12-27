@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.GetImagePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,15 +34,16 @@ module Amazonka.ImageBuilder.GetImagePolicy
     newGetImagePolicyResponse,
 
     -- * Response Lenses
-    getImagePolicyResponse_requestId,
     getImagePolicyResponse_policy,
+    getImagePolicyResponse_requestId,
     getImagePolicyResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,13 +82,14 @@ instance Core.AWSRequest GetImagePolicy where
   type
     AWSResponse GetImagePolicy =
       GetImagePolicyResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetImagePolicyResponse'
-            Prelude.<$> (x Core..?> "requestId")
-            Prelude.<*> (x Core..?> "policy")
+            Prelude.<$> (x Data..?> "policy")
+            Prelude.<*> (x Data..?> "requestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,30 +100,30 @@ instance Prelude.Hashable GetImagePolicy where
 instance Prelude.NFData GetImagePolicy where
   rnf GetImagePolicy' {..} = Prelude.rnf imageArn
 
-instance Core.ToHeaders GetImagePolicy where
+instance Data.ToHeaders GetImagePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetImagePolicy where
+instance Data.ToPath GetImagePolicy where
   toPath = Prelude.const "/GetImagePolicy"
 
-instance Core.ToQuery GetImagePolicy where
+instance Data.ToQuery GetImagePolicy where
   toQuery GetImagePolicy' {..} =
-    Prelude.mconcat ["imageArn" Core.=: imageArn]
+    Prelude.mconcat ["imageArn" Data.=: imageArn]
 
 -- | /See:/ 'newGetImagePolicyResponse' smart constructor.
 data GetImagePolicyResponse = GetImagePolicyResponse'
-  { -- | The request ID that uniquely identifies this request.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The image policy object.
+  { -- | The image policy object.
     policy :: Prelude.Maybe Prelude.Text,
+    -- | The request ID that uniquely identifies this request.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -135,9 +137,9 @@ data GetImagePolicyResponse = GetImagePolicyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'getImagePolicyResponse_requestId' - The request ID that uniquely identifies this request.
---
 -- 'policy', 'getImagePolicyResponse_policy' - The image policy object.
+--
+-- 'requestId', 'getImagePolicyResponse_requestId' - The request ID that uniquely identifies this request.
 --
 -- 'httpStatus', 'getImagePolicyResponse_httpStatus' - The response's http status code.
 newGetImagePolicyResponse ::
@@ -146,19 +148,18 @@ newGetImagePolicyResponse ::
   GetImagePolicyResponse
 newGetImagePolicyResponse pHttpStatus_ =
   GetImagePolicyResponse'
-    { requestId =
-        Prelude.Nothing,
-      policy = Prelude.Nothing,
+    { policy = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The request ID that uniquely identifies this request.
-getImagePolicyResponse_requestId :: Lens.Lens' GetImagePolicyResponse (Prelude.Maybe Prelude.Text)
-getImagePolicyResponse_requestId = Lens.lens (\GetImagePolicyResponse' {requestId} -> requestId) (\s@GetImagePolicyResponse' {} a -> s {requestId = a} :: GetImagePolicyResponse)
 
 -- | The image policy object.
 getImagePolicyResponse_policy :: Lens.Lens' GetImagePolicyResponse (Prelude.Maybe Prelude.Text)
 getImagePolicyResponse_policy = Lens.lens (\GetImagePolicyResponse' {policy} -> policy) (\s@GetImagePolicyResponse' {} a -> s {policy = a} :: GetImagePolicyResponse)
+
+-- | The request ID that uniquely identifies this request.
+getImagePolicyResponse_requestId :: Lens.Lens' GetImagePolicyResponse (Prelude.Maybe Prelude.Text)
+getImagePolicyResponse_requestId = Lens.lens (\GetImagePolicyResponse' {requestId} -> requestId) (\s@GetImagePolicyResponse' {} a -> s {requestId = a} :: GetImagePolicyResponse)
 
 -- | The response's http status code.
 getImagePolicyResponse_httpStatus :: Lens.Lens' GetImagePolicyResponse Prelude.Int
@@ -166,6 +167,6 @@ getImagePolicyResponse_httpStatus = Lens.lens (\GetImagePolicyResponse' {httpSta
 
 instance Prelude.NFData GetImagePolicyResponse where
   rnf GetImagePolicyResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf policy
+    Prelude.rnf policy
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf httpStatus

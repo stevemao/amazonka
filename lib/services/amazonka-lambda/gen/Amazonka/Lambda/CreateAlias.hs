@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.CreateAlias
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.Lambda.CreateAlias
     newCreateAlias,
 
     -- * Request Lenses
-    createAlias_routingConfig,
     createAlias_description,
+    createAlias_routingConfig,
     createAlias_functionName,
     createAlias_name,
     createAlias_functionVersion,
@@ -45,30 +45,31 @@ module Amazonka.Lambda.CreateAlias
     newAliasConfiguration,
 
     -- * Response Lenses
-    aliasConfiguration_routingConfig,
-    aliasConfiguration_name,
-    aliasConfiguration_functionVersion,
     aliasConfiguration_aliasArn,
     aliasConfiguration_description,
+    aliasConfiguration_functionVersion,
+    aliasConfiguration_name,
     aliasConfiguration_revisionId,
+    aliasConfiguration_routingConfig,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateAlias' smart constructor.
 data CreateAlias = CreateAlias'
-  { -- | The
+  { -- | A description of the alias.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The
     -- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing routing configuration>
     -- of the alias.
     routingConfig :: Prelude.Maybe AliasRoutingConfiguration,
-    -- | A description of the alias.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The name of the Lambda function.
     --
     -- __Name formats__
@@ -98,11 +99,11 @@ data CreateAlias = CreateAlias'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createAlias_description' - A description of the alias.
+--
 -- 'routingConfig', 'createAlias_routingConfig' - The
 -- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing routing configuration>
 -- of the alias.
---
--- 'description', 'createAlias_description' - A description of the alias.
 --
 -- 'functionName', 'createAlias_functionName' - The name of the Lambda function.
 --
@@ -134,22 +135,22 @@ newCreateAlias
   pName_
   pFunctionVersion_ =
     CreateAlias'
-      { routingConfig = Prelude.Nothing,
-        description = Prelude.Nothing,
+      { description = Prelude.Nothing,
+        routingConfig = Prelude.Nothing,
         functionName = pFunctionName_,
         name = pName_,
         functionVersion = pFunctionVersion_
       }
+
+-- | A description of the alias.
+createAlias_description :: Lens.Lens' CreateAlias (Prelude.Maybe Prelude.Text)
+createAlias_description = Lens.lens (\CreateAlias' {description} -> description) (\s@CreateAlias' {} a -> s {description = a} :: CreateAlias)
 
 -- | The
 -- <https://docs.aws.amazon.com/lambda/latest/dg/configuration-aliases.html#configuring-alias-routing routing configuration>
 -- of the alias.
 createAlias_routingConfig :: Lens.Lens' CreateAlias (Prelude.Maybe AliasRoutingConfiguration)
 createAlias_routingConfig = Lens.lens (\CreateAlias' {routingConfig} -> routingConfig) (\s@CreateAlias' {} a -> s {routingConfig = a} :: CreateAlias)
-
--- | A description of the alias.
-createAlias_description :: Lens.Lens' CreateAlias (Prelude.Maybe Prelude.Text)
-createAlias_description = Lens.lens (\CreateAlias' {description} -> description) (\s@CreateAlias' {} a -> s {description = a} :: CreateAlias)
 
 -- | The name of the Lambda function.
 --
@@ -177,49 +178,50 @@ createAlias_functionVersion = Lens.lens (\CreateAlias' {functionVersion} -> func
 
 instance Core.AWSRequest CreateAlias where
   type AWSResponse CreateAlias = AliasConfiguration
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable CreateAlias where
   hashWithSalt _salt CreateAlias' {..} =
-    _salt `Prelude.hashWithSalt` routingConfig
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` routingConfig
       `Prelude.hashWithSalt` functionName
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` functionVersion
 
 instance Prelude.NFData CreateAlias where
   rnf CreateAlias' {..} =
-    Prelude.rnf routingConfig
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf routingConfig
       `Prelude.seq` Prelude.rnf functionName
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf functionVersion
 
-instance Core.ToHeaders CreateAlias where
+instance Data.ToHeaders CreateAlias where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateAlias where
+instance Data.ToJSON CreateAlias where
   toJSON CreateAlias' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RoutingConfig" Core..=) Prelude.<$> routingConfig,
-            ("Description" Core..=) Prelude.<$> description,
-            Prelude.Just ("Name" Core..= name),
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("RoutingConfig" Data..=) Prelude.<$> routingConfig,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("FunctionVersion" Core..= functionVersion)
+              ("FunctionVersion" Data..= functionVersion)
           ]
       )
 
-instance Core.ToPath CreateAlias where
+instance Data.ToPath CreateAlias where
   toPath CreateAlias' {..} =
     Prelude.mconcat
       [ "/2015-03-31/functions/",
-        Core.toBS functionName,
+        Data.toBS functionName,
         "/aliases"
       ]
 
-instance Core.ToQuery CreateAlias where
+instance Data.ToQuery CreateAlias where
   toQuery = Prelude.const Prelude.mempty

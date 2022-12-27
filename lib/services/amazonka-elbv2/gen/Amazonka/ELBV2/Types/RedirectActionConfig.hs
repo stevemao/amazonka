@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.Types.RedirectActionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ELBV2.Types.RedirectActionConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types.RedirectActionStatusCodeEnum
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a redirect action.
@@ -49,9 +50,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newRedirectActionConfig' smart constructor.
 data RedirectActionConfig = RedirectActionConfig'
-  { -- | The absolute path, starting with the leading \"\/\". This component is
+  { -- | The hostname. This component is not percent-encoded. The hostname can
+    -- contain #{host}.
+    host :: Prelude.Maybe Prelude.Text,
+    -- | The absolute path, starting with the leading \"\/\". This component is
     -- not percent-encoded. The path can contain #{host}, #{path}, and #{port}.
     path :: Prelude.Maybe Prelude.Text,
+    -- | The port. You can specify a value from 1 to 65535 or #{port}.
+    port :: Prelude.Maybe Prelude.Text,
     -- | The protocol. You can specify HTTP, HTTPS, or #{protocol}. You can
     -- redirect HTTP to HTTP, HTTP to HTTPS, and HTTPS to HTTPS. You cannot
     -- redirect HTTPS to HTTP.
@@ -60,11 +66,6 @@ data RedirectActionConfig = RedirectActionConfig'
     -- percent-encoded. Do not include the leading \"?\", as it is
     -- automatically added. You can specify any of the reserved keywords.
     query :: Prelude.Maybe Prelude.Text,
-    -- | The hostname. This component is not percent-encoded. The hostname can
-    -- contain #{host}.
-    host :: Prelude.Maybe Prelude.Text,
-    -- | The port. You can specify a value from 1 to 65535 or #{port}.
-    port :: Prelude.Maybe Prelude.Text,
     -- | The HTTP redirect code. The redirect is either permanent (HTTP 301) or
     -- temporary (HTTP 302).
     statusCode :: RedirectActionStatusCodeEnum
@@ -79,8 +80,13 @@ data RedirectActionConfig = RedirectActionConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'host', 'redirectActionConfig_host' - The hostname. This component is not percent-encoded. The hostname can
+-- contain #{host}.
+--
 -- 'path', 'redirectActionConfig_path' - The absolute path, starting with the leading \"\/\". This component is
 -- not percent-encoded. The path can contain #{host}, #{path}, and #{port}.
+--
+-- 'port', 'redirectActionConfig_port' - The port. You can specify a value from 1 to 65535 or #{port}.
 --
 -- 'protocol', 'redirectActionConfig_protocol' - The protocol. You can specify HTTP, HTTPS, or #{protocol}. You can
 -- redirect HTTP to HTTP, HTTP to HTTPS, and HTTPS to HTTPS. You cannot
@@ -90,11 +96,6 @@ data RedirectActionConfig = RedirectActionConfig'
 -- percent-encoded. Do not include the leading \"?\", as it is
 -- automatically added. You can specify any of the reserved keywords.
 --
--- 'host', 'redirectActionConfig_host' - The hostname. This component is not percent-encoded. The hostname can
--- contain #{host}.
---
--- 'port', 'redirectActionConfig_port' - The port. You can specify a value from 1 to 65535 or #{port}.
---
 -- 'statusCode', 'redirectActionConfig_statusCode' - The HTTP redirect code. The redirect is either permanent (HTTP 301) or
 -- temporary (HTTP 302).
 newRedirectActionConfig ::
@@ -103,18 +104,27 @@ newRedirectActionConfig ::
   RedirectActionConfig
 newRedirectActionConfig pStatusCode_ =
   RedirectActionConfig'
-    { path = Prelude.Nothing,
+    { host = Prelude.Nothing,
+      path = Prelude.Nothing,
+      port = Prelude.Nothing,
       protocol = Prelude.Nothing,
       query = Prelude.Nothing,
-      host = Prelude.Nothing,
-      port = Prelude.Nothing,
       statusCode = pStatusCode_
     }
+
+-- | The hostname. This component is not percent-encoded. The hostname can
+-- contain #{host}.
+redirectActionConfig_host :: Lens.Lens' RedirectActionConfig (Prelude.Maybe Prelude.Text)
+redirectActionConfig_host = Lens.lens (\RedirectActionConfig' {host} -> host) (\s@RedirectActionConfig' {} a -> s {host = a} :: RedirectActionConfig)
 
 -- | The absolute path, starting with the leading \"\/\". This component is
 -- not percent-encoded. The path can contain #{host}, #{path}, and #{port}.
 redirectActionConfig_path :: Lens.Lens' RedirectActionConfig (Prelude.Maybe Prelude.Text)
 redirectActionConfig_path = Lens.lens (\RedirectActionConfig' {path} -> path) (\s@RedirectActionConfig' {} a -> s {path = a} :: RedirectActionConfig)
+
+-- | The port. You can specify a value from 1 to 65535 or #{port}.
+redirectActionConfig_port :: Lens.Lens' RedirectActionConfig (Prelude.Maybe Prelude.Text)
+redirectActionConfig_port = Lens.lens (\RedirectActionConfig' {port} -> port) (\s@RedirectActionConfig' {} a -> s {port = a} :: RedirectActionConfig)
 
 -- | The protocol. You can specify HTTP, HTTPS, or #{protocol}. You can
 -- redirect HTTP to HTTP, HTTP to HTTPS, and HTTPS to HTTPS. You cannot
@@ -128,55 +138,46 @@ redirectActionConfig_protocol = Lens.lens (\RedirectActionConfig' {protocol} -> 
 redirectActionConfig_query :: Lens.Lens' RedirectActionConfig (Prelude.Maybe Prelude.Text)
 redirectActionConfig_query = Lens.lens (\RedirectActionConfig' {query} -> query) (\s@RedirectActionConfig' {} a -> s {query = a} :: RedirectActionConfig)
 
--- | The hostname. This component is not percent-encoded. The hostname can
--- contain #{host}.
-redirectActionConfig_host :: Lens.Lens' RedirectActionConfig (Prelude.Maybe Prelude.Text)
-redirectActionConfig_host = Lens.lens (\RedirectActionConfig' {host} -> host) (\s@RedirectActionConfig' {} a -> s {host = a} :: RedirectActionConfig)
-
--- | The port. You can specify a value from 1 to 65535 or #{port}.
-redirectActionConfig_port :: Lens.Lens' RedirectActionConfig (Prelude.Maybe Prelude.Text)
-redirectActionConfig_port = Lens.lens (\RedirectActionConfig' {port} -> port) (\s@RedirectActionConfig' {} a -> s {port = a} :: RedirectActionConfig)
-
 -- | The HTTP redirect code. The redirect is either permanent (HTTP 301) or
 -- temporary (HTTP 302).
 redirectActionConfig_statusCode :: Lens.Lens' RedirectActionConfig RedirectActionStatusCodeEnum
 redirectActionConfig_statusCode = Lens.lens (\RedirectActionConfig' {statusCode} -> statusCode) (\s@RedirectActionConfig' {} a -> s {statusCode = a} :: RedirectActionConfig)
 
-instance Core.FromXML RedirectActionConfig where
+instance Data.FromXML RedirectActionConfig where
   parseXML x =
     RedirectActionConfig'
-      Prelude.<$> (x Core..@? "Path")
-      Prelude.<*> (x Core..@? "Protocol")
-      Prelude.<*> (x Core..@? "Query")
-      Prelude.<*> (x Core..@? "Host")
-      Prelude.<*> (x Core..@? "Port")
-      Prelude.<*> (x Core..@ "StatusCode")
+      Prelude.<$> (x Data..@? "Host")
+      Prelude.<*> (x Data..@? "Path")
+      Prelude.<*> (x Data..@? "Port")
+      Prelude.<*> (x Data..@? "Protocol")
+      Prelude.<*> (x Data..@? "Query")
+      Prelude.<*> (x Data..@ "StatusCode")
 
 instance Prelude.Hashable RedirectActionConfig where
   hashWithSalt _salt RedirectActionConfig' {..} =
-    _salt `Prelude.hashWithSalt` path
+    _salt `Prelude.hashWithSalt` host
+      `Prelude.hashWithSalt` path
+      `Prelude.hashWithSalt` port
       `Prelude.hashWithSalt` protocol
       `Prelude.hashWithSalt` query
-      `Prelude.hashWithSalt` host
-      `Prelude.hashWithSalt` port
       `Prelude.hashWithSalt` statusCode
 
 instance Prelude.NFData RedirectActionConfig where
   rnf RedirectActionConfig' {..} =
-    Prelude.rnf path
+    Prelude.rnf host
+      `Prelude.seq` Prelude.rnf path
+      `Prelude.seq` Prelude.rnf port
       `Prelude.seq` Prelude.rnf protocol
       `Prelude.seq` Prelude.rnf query
-      `Prelude.seq` Prelude.rnf host
-      `Prelude.seq` Prelude.rnf port
       `Prelude.seq` Prelude.rnf statusCode
 
-instance Core.ToQuery RedirectActionConfig where
+instance Data.ToQuery RedirectActionConfig where
   toQuery RedirectActionConfig' {..} =
     Prelude.mconcat
-      [ "Path" Core.=: path,
-        "Protocol" Core.=: protocol,
-        "Query" Core.=: query,
-        "Host" Core.=: host,
-        "Port" Core.=: port,
-        "StatusCode" Core.=: statusCode
+      [ "Host" Data.=: host,
+        "Path" Data.=: path,
+        "Port" Data.=: port,
+        "Protocol" Data.=: protocol,
+        "Query" Data.=: query,
+        "StatusCode" Data.=: statusCode
       ]

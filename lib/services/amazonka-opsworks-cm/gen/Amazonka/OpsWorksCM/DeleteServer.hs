@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorksCM.DeleteServer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ module Amazonka.OpsWorksCM.DeleteServer
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorksCM.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -85,7 +86,8 @@ deleteServer_serverName = Lens.lens (\DeleteServer' {serverName} -> serverName) 
 
 instance Core.AWSRequest DeleteServer where
   type AWSResponse DeleteServer = DeleteServerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -100,32 +102,32 @@ instance Prelude.Hashable DeleteServer where
 instance Prelude.NFData DeleteServer where
   rnf DeleteServer' {..} = Prelude.rnf serverName
 
-instance Core.ToHeaders DeleteServer where
+instance Data.ToHeaders DeleteServer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorksCM_V2016_11_01.DeleteServer" ::
+              Data.=# ( "OpsWorksCM_V2016_11_01.DeleteServer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteServer where
+instance Data.ToJSON DeleteServer where
   toJSON DeleteServer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ServerName" Core..= serverName)]
+          [Prelude.Just ("ServerName" Data..= serverName)]
       )
 
-instance Core.ToPath DeleteServer where
+instance Data.ToPath DeleteServer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteServer where
+instance Data.ToQuery DeleteServer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteServerResponse' smart constructor.

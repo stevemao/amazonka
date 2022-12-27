@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.Types.SecretsManagerSecretConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AccessAnalyzer.Types.SecretsManagerSecretConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration for a Secrets Manager secret. For more information,
@@ -35,16 +36,16 @@ import qualified Amazonka.Prelude as Prelude
 -- not specify the policy, the access preview assumes a secret without a
 -- policy. To propose deletion of an existing policy, you can specify an
 -- empty string. If the proposed configuration is for a new secret and you
--- do not specify the KMS key ID, the access preview uses the default CMK
--- of the Amazon Web Services account. If you specify an empty string for
--- the KMS key ID, the access preview uses the default CMK of the Amazon
--- Web Services account. For more information about secret policy limits,
--- see
+-- do not specify the KMS key ID, the access preview uses the Amazon Web
+-- Services managed key @aws\/secretsmanager@. If you specify an empty
+-- string for the KMS key ID, the access preview uses the Amazon Web
+-- Services managed key of the Amazon Web Services account. For more
+-- information about secret policy limits, see
 -- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_limits.html Quotas for Secrets Manager.>.
 --
 -- /See:/ 'newSecretsManagerSecretConfiguration' smart constructor.
 data SecretsManagerSecretConfiguration = SecretsManagerSecretConfiguration'
-  { -- | The proposed ARN, key ID, or alias of the KMS customer master key (CMK).
+  { -- | The proposed ARN, key ID, or alias of the KMS key.
     kmsKeyId :: Prelude.Maybe Prelude.Text,
     -- | The proposed resource policy defining who can access or manage the
     -- secret.
@@ -60,7 +61,7 @@ data SecretsManagerSecretConfiguration = SecretsManagerSecretConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'kmsKeyId', 'secretsManagerSecretConfiguration_kmsKeyId' - The proposed ARN, key ID, or alias of the KMS customer master key (CMK).
+-- 'kmsKeyId', 'secretsManagerSecretConfiguration_kmsKeyId' - The proposed ARN, key ID, or alias of the KMS key.
 --
 -- 'secretPolicy', 'secretsManagerSecretConfiguration_secretPolicy' - The proposed resource policy defining who can access or manage the
 -- secret.
@@ -73,7 +74,7 @@ newSecretsManagerSecretConfiguration =
       secretPolicy = Prelude.Nothing
     }
 
--- | The proposed ARN, key ID, or alias of the KMS customer master key (CMK).
+-- | The proposed ARN, key ID, or alias of the KMS key.
 secretsManagerSecretConfiguration_kmsKeyId :: Lens.Lens' SecretsManagerSecretConfiguration (Prelude.Maybe Prelude.Text)
 secretsManagerSecretConfiguration_kmsKeyId = Lens.lens (\SecretsManagerSecretConfiguration' {kmsKeyId} -> kmsKeyId) (\s@SecretsManagerSecretConfiguration' {} a -> s {kmsKeyId = a} :: SecretsManagerSecretConfiguration)
 
@@ -83,16 +84,16 @@ secretsManagerSecretConfiguration_secretPolicy :: Lens.Lens' SecretsManagerSecre
 secretsManagerSecretConfiguration_secretPolicy = Lens.lens (\SecretsManagerSecretConfiguration' {secretPolicy} -> secretPolicy) (\s@SecretsManagerSecretConfiguration' {} a -> s {secretPolicy = a} :: SecretsManagerSecretConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     SecretsManagerSecretConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SecretsManagerSecretConfiguration"
       ( \x ->
           SecretsManagerSecretConfiguration'
-            Prelude.<$> (x Core..:? "kmsKeyId")
-            Prelude.<*> (x Core..:? "secretPolicy")
+            Prelude.<$> (x Data..:? "kmsKeyId")
+            Prelude.<*> (x Data..:? "secretPolicy")
       )
 
 instance
@@ -114,13 +115,13 @@ instance
       `Prelude.seq` Prelude.rnf secretPolicy
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     SecretsManagerSecretConfiguration
   where
   toJSON SecretsManagerSecretConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("kmsKeyId" Core..=) Prelude.<$> kmsKeyId,
-            ("secretPolicy" Core..=) Prelude.<$> secretPolicy
+          [ ("kmsKeyId" Data..=) Prelude.<$> kmsKeyId,
+            ("secretPolicy" Data..=) Prelude.<$> secretPolicy
           ]
       )

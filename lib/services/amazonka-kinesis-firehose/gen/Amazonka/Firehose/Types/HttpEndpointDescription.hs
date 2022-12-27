@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.HttpEndpointDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.Firehose.Types.HttpEndpointDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the HTTP endpoint selected as the destination.
 --
 -- /See:/ 'newHttpEndpointDescription' smart constructor.
 data HttpEndpointDescription = HttpEndpointDescription'
-  { -- | The URL of the HTTP endpoint selected as the destination.
-    url :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The name of the HTTP endpoint selected as the destination.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | The name of the HTTP endpoint selected as the destination.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The URL of the HTTP endpoint selected as the destination.
+    url :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -42,39 +43,39 @@ data HttpEndpointDescription = HttpEndpointDescription'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'url', 'httpEndpointDescription_url' - The URL of the HTTP endpoint selected as the destination.
---
 -- 'name', 'httpEndpointDescription_name' - The name of the HTTP endpoint selected as the destination.
+--
+-- 'url', 'httpEndpointDescription_url' - The URL of the HTTP endpoint selected as the destination.
 newHttpEndpointDescription ::
   HttpEndpointDescription
 newHttpEndpointDescription =
   HttpEndpointDescription'
-    { url = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      url = Prelude.Nothing
     }
-
--- | The URL of the HTTP endpoint selected as the destination.
-httpEndpointDescription_url :: Lens.Lens' HttpEndpointDescription (Prelude.Maybe Prelude.Text)
-httpEndpointDescription_url = Lens.lens (\HttpEndpointDescription' {url} -> url) (\s@HttpEndpointDescription' {} a -> s {url = a} :: HttpEndpointDescription) Prelude.. Lens.mapping Core._Sensitive
 
 -- | The name of the HTTP endpoint selected as the destination.
 httpEndpointDescription_name :: Lens.Lens' HttpEndpointDescription (Prelude.Maybe Prelude.Text)
 httpEndpointDescription_name = Lens.lens (\HttpEndpointDescription' {name} -> name) (\s@HttpEndpointDescription' {} a -> s {name = a} :: HttpEndpointDescription)
 
-instance Core.FromJSON HttpEndpointDescription where
+-- | The URL of the HTTP endpoint selected as the destination.
+httpEndpointDescription_url :: Lens.Lens' HttpEndpointDescription (Prelude.Maybe Prelude.Text)
+httpEndpointDescription_url = Lens.lens (\HttpEndpointDescription' {url} -> url) (\s@HttpEndpointDescription' {} a -> s {url = a} :: HttpEndpointDescription) Prelude.. Lens.mapping Data._Sensitive
+
+instance Data.FromJSON HttpEndpointDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HttpEndpointDescription"
       ( \x ->
           HttpEndpointDescription'
-            Prelude.<$> (x Core..:? "Url") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name") Prelude.<*> (x Data..:? "Url")
       )
 
 instance Prelude.Hashable HttpEndpointDescription where
   hashWithSalt _salt HttpEndpointDescription' {..} =
-    _salt `Prelude.hashWithSalt` url
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` url
 
 instance Prelude.NFData HttpEndpointDescription where
   rnf HttpEndpointDescription' {..} =
-    Prelude.rnf url `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf url

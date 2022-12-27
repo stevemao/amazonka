@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.ArtifactLocation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CodePipeline.Types.ArtifactLocation where
 import Amazonka.CodePipeline.Types.ArtifactLocationType
 import Amazonka.CodePipeline.Types.S3ArtifactLocation
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents information about the location of an artifact.
@@ -63,14 +64,14 @@ artifactLocation_s3Location = Lens.lens (\ArtifactLocation' {s3Location} -> s3Lo
 artifactLocation_type :: Lens.Lens' ArtifactLocation (Prelude.Maybe ArtifactLocationType)
 artifactLocation_type = Lens.lens (\ArtifactLocation' {type'} -> type') (\s@ArtifactLocation' {} a -> s {type' = a} :: ArtifactLocation)
 
-instance Core.FromJSON ArtifactLocation where
+instance Data.FromJSON ArtifactLocation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ArtifactLocation"
       ( \x ->
           ArtifactLocation'
-            Prelude.<$> (x Core..:? "s3Location")
-            Prelude.<*> (x Core..:? "type")
+            Prelude.<$> (x Data..:? "s3Location")
+            Prelude.<*> (x Data..:? "type")
       )
 
 instance Prelude.Hashable ArtifactLocation where

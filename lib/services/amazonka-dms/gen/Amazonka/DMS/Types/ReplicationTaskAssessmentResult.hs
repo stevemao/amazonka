@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.Types.ReplicationTaskAssessmentResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DMS.Types.ReplicationTaskAssessmentResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The task assessment report in JSON format.
@@ -35,21 +36,21 @@ data ReplicationTaskAssessmentResult = ReplicationTaskAssessmentResult'
     assessmentResults :: Prelude.Maybe Prelude.Text,
     -- | The file containing the results of the task assessment.
     assessmentResultsFile :: Prelude.Maybe Prelude.Text,
+    -- | The status of the task assessment.
+    assessmentStatus :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the replication task.
+    replicationTaskArn :: Prelude.Maybe Prelude.Text,
     -- | The replication task identifier of the task on which the task assessment
     -- was run.
     replicationTaskIdentifier :: Prelude.Maybe Prelude.Text,
-    -- | The status of the task assessment.
-    assessmentStatus :: Prelude.Maybe Prelude.Text,
+    -- | The date the task assessment was completed.
+    replicationTaskLastAssessmentDate :: Prelude.Maybe Data.POSIX,
     -- | The URL of the S3 object containing the task assessment results.
     --
     -- The response object only contains this field if you provide
     -- DescribeReplicationTaskAssessmentResultsMessage$ReplicationTaskArn in
     -- the request.
-    s3ObjectUrl :: Prelude.Maybe Prelude.Text,
-    -- | The date the task assessment was completed.
-    replicationTaskLastAssessmentDate :: Prelude.Maybe Core.POSIX,
-    -- | The Amazon Resource Name (ARN) of the replication task.
-    replicationTaskArn :: Prelude.Maybe Prelude.Text
+    s3ObjectUrl :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,20 +70,20 @@ data ReplicationTaskAssessmentResult = ReplicationTaskAssessmentResult'
 --
 -- 'assessmentResultsFile', 'replicationTaskAssessmentResult_assessmentResultsFile' - The file containing the results of the task assessment.
 --
+-- 'assessmentStatus', 'replicationTaskAssessmentResult_assessmentStatus' - The status of the task assessment.
+--
+-- 'replicationTaskArn', 'replicationTaskAssessmentResult_replicationTaskArn' - The Amazon Resource Name (ARN) of the replication task.
+--
 -- 'replicationTaskIdentifier', 'replicationTaskAssessmentResult_replicationTaskIdentifier' - The replication task identifier of the task on which the task assessment
 -- was run.
 --
--- 'assessmentStatus', 'replicationTaskAssessmentResult_assessmentStatus' - The status of the task assessment.
+-- 'replicationTaskLastAssessmentDate', 'replicationTaskAssessmentResult_replicationTaskLastAssessmentDate' - The date the task assessment was completed.
 --
 -- 's3ObjectUrl', 'replicationTaskAssessmentResult_s3ObjectUrl' - The URL of the S3 object containing the task assessment results.
 --
 -- The response object only contains this field if you provide
 -- DescribeReplicationTaskAssessmentResultsMessage$ReplicationTaskArn in
 -- the request.
---
--- 'replicationTaskLastAssessmentDate', 'replicationTaskAssessmentResult_replicationTaskLastAssessmentDate' - The date the task assessment was completed.
---
--- 'replicationTaskArn', 'replicationTaskAssessmentResult_replicationTaskArn' - The Amazon Resource Name (ARN) of the replication task.
 newReplicationTaskAssessmentResult ::
   ReplicationTaskAssessmentResult
 newReplicationTaskAssessmentResult =
@@ -90,13 +91,13 @@ newReplicationTaskAssessmentResult =
     { assessmentResults =
         Prelude.Nothing,
       assessmentResultsFile = Prelude.Nothing,
+      assessmentStatus = Prelude.Nothing,
+      replicationTaskArn = Prelude.Nothing,
       replicationTaskIdentifier =
         Prelude.Nothing,
-      assessmentStatus = Prelude.Nothing,
-      s3ObjectUrl = Prelude.Nothing,
       replicationTaskLastAssessmentDate =
         Prelude.Nothing,
-      replicationTaskArn = Prelude.Nothing
+      s3ObjectUrl = Prelude.Nothing
     }
 
 -- | The task assessment results in JSON format.
@@ -111,14 +112,22 @@ replicationTaskAssessmentResult_assessmentResults = Lens.lens (\ReplicationTaskA
 replicationTaskAssessmentResult_assessmentResultsFile :: Lens.Lens' ReplicationTaskAssessmentResult (Prelude.Maybe Prelude.Text)
 replicationTaskAssessmentResult_assessmentResultsFile = Lens.lens (\ReplicationTaskAssessmentResult' {assessmentResultsFile} -> assessmentResultsFile) (\s@ReplicationTaskAssessmentResult' {} a -> s {assessmentResultsFile = a} :: ReplicationTaskAssessmentResult)
 
+-- | The status of the task assessment.
+replicationTaskAssessmentResult_assessmentStatus :: Lens.Lens' ReplicationTaskAssessmentResult (Prelude.Maybe Prelude.Text)
+replicationTaskAssessmentResult_assessmentStatus = Lens.lens (\ReplicationTaskAssessmentResult' {assessmentStatus} -> assessmentStatus) (\s@ReplicationTaskAssessmentResult' {} a -> s {assessmentStatus = a} :: ReplicationTaskAssessmentResult)
+
+-- | The Amazon Resource Name (ARN) of the replication task.
+replicationTaskAssessmentResult_replicationTaskArn :: Lens.Lens' ReplicationTaskAssessmentResult (Prelude.Maybe Prelude.Text)
+replicationTaskAssessmentResult_replicationTaskArn = Lens.lens (\ReplicationTaskAssessmentResult' {replicationTaskArn} -> replicationTaskArn) (\s@ReplicationTaskAssessmentResult' {} a -> s {replicationTaskArn = a} :: ReplicationTaskAssessmentResult)
+
 -- | The replication task identifier of the task on which the task assessment
 -- was run.
 replicationTaskAssessmentResult_replicationTaskIdentifier :: Lens.Lens' ReplicationTaskAssessmentResult (Prelude.Maybe Prelude.Text)
 replicationTaskAssessmentResult_replicationTaskIdentifier = Lens.lens (\ReplicationTaskAssessmentResult' {replicationTaskIdentifier} -> replicationTaskIdentifier) (\s@ReplicationTaskAssessmentResult' {} a -> s {replicationTaskIdentifier = a} :: ReplicationTaskAssessmentResult)
 
--- | The status of the task assessment.
-replicationTaskAssessmentResult_assessmentStatus :: Lens.Lens' ReplicationTaskAssessmentResult (Prelude.Maybe Prelude.Text)
-replicationTaskAssessmentResult_assessmentStatus = Lens.lens (\ReplicationTaskAssessmentResult' {assessmentStatus} -> assessmentStatus) (\s@ReplicationTaskAssessmentResult' {} a -> s {assessmentStatus = a} :: ReplicationTaskAssessmentResult)
+-- | The date the task assessment was completed.
+replicationTaskAssessmentResult_replicationTaskLastAssessmentDate :: Lens.Lens' ReplicationTaskAssessmentResult (Prelude.Maybe Prelude.UTCTime)
+replicationTaskAssessmentResult_replicationTaskLastAssessmentDate = Lens.lens (\ReplicationTaskAssessmentResult' {replicationTaskLastAssessmentDate} -> replicationTaskLastAssessmentDate) (\s@ReplicationTaskAssessmentResult' {} a -> s {replicationTaskLastAssessmentDate = a} :: ReplicationTaskAssessmentResult) Prelude.. Lens.mapping Data._Time
 
 -- | The URL of the S3 object containing the task assessment results.
 --
@@ -128,30 +137,22 @@ replicationTaskAssessmentResult_assessmentStatus = Lens.lens (\ReplicationTaskAs
 replicationTaskAssessmentResult_s3ObjectUrl :: Lens.Lens' ReplicationTaskAssessmentResult (Prelude.Maybe Prelude.Text)
 replicationTaskAssessmentResult_s3ObjectUrl = Lens.lens (\ReplicationTaskAssessmentResult' {s3ObjectUrl} -> s3ObjectUrl) (\s@ReplicationTaskAssessmentResult' {} a -> s {s3ObjectUrl = a} :: ReplicationTaskAssessmentResult)
 
--- | The date the task assessment was completed.
-replicationTaskAssessmentResult_replicationTaskLastAssessmentDate :: Lens.Lens' ReplicationTaskAssessmentResult (Prelude.Maybe Prelude.UTCTime)
-replicationTaskAssessmentResult_replicationTaskLastAssessmentDate = Lens.lens (\ReplicationTaskAssessmentResult' {replicationTaskLastAssessmentDate} -> replicationTaskLastAssessmentDate) (\s@ReplicationTaskAssessmentResult' {} a -> s {replicationTaskLastAssessmentDate = a} :: ReplicationTaskAssessmentResult) Prelude.. Lens.mapping Core._Time
-
--- | The Amazon Resource Name (ARN) of the replication task.
-replicationTaskAssessmentResult_replicationTaskArn :: Lens.Lens' ReplicationTaskAssessmentResult (Prelude.Maybe Prelude.Text)
-replicationTaskAssessmentResult_replicationTaskArn = Lens.lens (\ReplicationTaskAssessmentResult' {replicationTaskArn} -> replicationTaskArn) (\s@ReplicationTaskAssessmentResult' {} a -> s {replicationTaskArn = a} :: ReplicationTaskAssessmentResult)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     ReplicationTaskAssessmentResult
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReplicationTaskAssessmentResult"
       ( \x ->
           ReplicationTaskAssessmentResult'
-            Prelude.<$> (x Core..:? "AssessmentResults")
-            Prelude.<*> (x Core..:? "AssessmentResultsFile")
-            Prelude.<*> (x Core..:? "ReplicationTaskIdentifier")
-            Prelude.<*> (x Core..:? "AssessmentStatus")
-            Prelude.<*> (x Core..:? "S3ObjectUrl")
-            Prelude.<*> (x Core..:? "ReplicationTaskLastAssessmentDate")
-            Prelude.<*> (x Core..:? "ReplicationTaskArn")
+            Prelude.<$> (x Data..:? "AssessmentResults")
+            Prelude.<*> (x Data..:? "AssessmentResultsFile")
+            Prelude.<*> (x Data..:? "AssessmentStatus")
+            Prelude.<*> (x Data..:? "ReplicationTaskArn")
+            Prelude.<*> (x Data..:? "ReplicationTaskIdentifier")
+            Prelude.<*> (x Data..:? "ReplicationTaskLastAssessmentDate")
+            Prelude.<*> (x Data..:? "S3ObjectUrl")
       )
 
 instance
@@ -163,11 +164,11 @@ instance
     ReplicationTaskAssessmentResult' {..} =
       _salt `Prelude.hashWithSalt` assessmentResults
         `Prelude.hashWithSalt` assessmentResultsFile
-        `Prelude.hashWithSalt` replicationTaskIdentifier
         `Prelude.hashWithSalt` assessmentStatus
-        `Prelude.hashWithSalt` s3ObjectUrl
-        `Prelude.hashWithSalt` replicationTaskLastAssessmentDate
         `Prelude.hashWithSalt` replicationTaskArn
+        `Prelude.hashWithSalt` replicationTaskIdentifier
+        `Prelude.hashWithSalt` replicationTaskLastAssessmentDate
+        `Prelude.hashWithSalt` s3ObjectUrl
 
 instance
   Prelude.NFData
@@ -176,8 +177,8 @@ instance
   rnf ReplicationTaskAssessmentResult' {..} =
     Prelude.rnf assessmentResults
       `Prelude.seq` Prelude.rnf assessmentResultsFile
-      `Prelude.seq` Prelude.rnf replicationTaskIdentifier
       `Prelude.seq` Prelude.rnf assessmentStatus
-      `Prelude.seq` Prelude.rnf s3ObjectUrl
-      `Prelude.seq` Prelude.rnf replicationTaskLastAssessmentDate
       `Prelude.seq` Prelude.rnf replicationTaskArn
+      `Prelude.seq` Prelude.rnf replicationTaskIdentifier
+      `Prelude.seq` Prelude.rnf replicationTaskLastAssessmentDate
+      `Prelude.seq` Prelude.rnf s3ObjectUrl

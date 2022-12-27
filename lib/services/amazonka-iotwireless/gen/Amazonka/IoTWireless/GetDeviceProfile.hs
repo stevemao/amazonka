@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.GetDeviceProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,16 +35,17 @@ module Amazonka.IoTWireless.GetDeviceProfile
 
     -- * Response Lenses
     getDeviceProfileResponse_arn,
+    getDeviceProfileResponse_id,
     getDeviceProfileResponse_loRaWAN,
     getDeviceProfileResponse_name,
-    getDeviceProfileResponse_id,
     getDeviceProfileResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,15 +81,16 @@ instance Core.AWSRequest GetDeviceProfile where
   type
     AWSResponse GetDeviceProfile =
       GetDeviceProfileResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDeviceProfileResponse'
-            Prelude.<$> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "LoRaWAN")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "Id")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "Id")
+            Prelude.<*> (x Data..?> "LoRaWAN")
+            Prelude.<*> (x Data..?> "Name")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -99,26 +101,26 @@ instance Prelude.Hashable GetDeviceProfile where
 instance Prelude.NFData GetDeviceProfile where
   rnf GetDeviceProfile' {..} = Prelude.rnf id
 
-instance Core.ToHeaders GetDeviceProfile where
+instance Data.ToHeaders GetDeviceProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetDeviceProfile where
+instance Data.ToPath GetDeviceProfile where
   toPath GetDeviceProfile' {..} =
-    Prelude.mconcat ["/device-profiles/", Core.toBS id]
+    Prelude.mconcat ["/device-profiles/", Data.toBS id]
 
-instance Core.ToQuery GetDeviceProfile where
+instance Data.ToQuery GetDeviceProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDeviceProfileResponse' smart constructor.
 data GetDeviceProfileResponse = GetDeviceProfileResponse'
   { -- | The Amazon Resource Name of the resource.
     arn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the device profile.
+    id :: Prelude.Maybe Prelude.Text,
     -- | Information about the device profile.
     loRaWAN :: Prelude.Maybe LoRaWANDeviceProfile,
     -- | The name of the resource.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the device profile.
-    id :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -134,11 +136,11 @@ data GetDeviceProfileResponse = GetDeviceProfileResponse'
 --
 -- 'arn', 'getDeviceProfileResponse_arn' - The Amazon Resource Name of the resource.
 --
+-- 'id', 'getDeviceProfileResponse_id' - The ID of the device profile.
+--
 -- 'loRaWAN', 'getDeviceProfileResponse_loRaWAN' - Information about the device profile.
 --
 -- 'name', 'getDeviceProfileResponse_name' - The name of the resource.
---
--- 'id', 'getDeviceProfileResponse_id' - The ID of the device profile.
 --
 -- 'httpStatus', 'getDeviceProfileResponse_httpStatus' - The response's http status code.
 newGetDeviceProfileResponse ::
@@ -148,15 +150,19 @@ newGetDeviceProfileResponse ::
 newGetDeviceProfileResponse pHttpStatus_ =
   GetDeviceProfileResponse'
     { arn = Prelude.Nothing,
+      id = Prelude.Nothing,
       loRaWAN = Prelude.Nothing,
       name = Prelude.Nothing,
-      id = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
 -- | The Amazon Resource Name of the resource.
 getDeviceProfileResponse_arn :: Lens.Lens' GetDeviceProfileResponse (Prelude.Maybe Prelude.Text)
 getDeviceProfileResponse_arn = Lens.lens (\GetDeviceProfileResponse' {arn} -> arn) (\s@GetDeviceProfileResponse' {} a -> s {arn = a} :: GetDeviceProfileResponse)
+
+-- | The ID of the device profile.
+getDeviceProfileResponse_id :: Lens.Lens' GetDeviceProfileResponse (Prelude.Maybe Prelude.Text)
+getDeviceProfileResponse_id = Lens.lens (\GetDeviceProfileResponse' {id} -> id) (\s@GetDeviceProfileResponse' {} a -> s {id = a} :: GetDeviceProfileResponse)
 
 -- | Information about the device profile.
 getDeviceProfileResponse_loRaWAN :: Lens.Lens' GetDeviceProfileResponse (Prelude.Maybe LoRaWANDeviceProfile)
@@ -166,10 +172,6 @@ getDeviceProfileResponse_loRaWAN = Lens.lens (\GetDeviceProfileResponse' {loRaWA
 getDeviceProfileResponse_name :: Lens.Lens' GetDeviceProfileResponse (Prelude.Maybe Prelude.Text)
 getDeviceProfileResponse_name = Lens.lens (\GetDeviceProfileResponse' {name} -> name) (\s@GetDeviceProfileResponse' {} a -> s {name = a} :: GetDeviceProfileResponse)
 
--- | The ID of the device profile.
-getDeviceProfileResponse_id :: Lens.Lens' GetDeviceProfileResponse (Prelude.Maybe Prelude.Text)
-getDeviceProfileResponse_id = Lens.lens (\GetDeviceProfileResponse' {id} -> id) (\s@GetDeviceProfileResponse' {} a -> s {id = a} :: GetDeviceProfileResponse)
-
 -- | The response's http status code.
 getDeviceProfileResponse_httpStatus :: Lens.Lens' GetDeviceProfileResponse Prelude.Int
 getDeviceProfileResponse_httpStatus = Lens.lens (\GetDeviceProfileResponse' {httpStatus} -> httpStatus) (\s@GetDeviceProfileResponse' {} a -> s {httpStatus = a} :: GetDeviceProfileResponse)
@@ -177,7 +179,7 @@ getDeviceProfileResponse_httpStatus = Lens.lens (\GetDeviceProfileResponse' {htt
 instance Prelude.NFData GetDeviceProfileResponse where
   rnf GetDeviceProfileResponse' {..} =
     Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf loRaWAN
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf httpStatus

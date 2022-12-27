@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.GetContact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -75,12 +76,13 @@ getContact_contactArn = Lens.lens (\GetContact' {contactArn} -> contactArn) (\s@
 
 instance Core.AWSRequest GetContact where
   type AWSResponse GetContact = GetContactResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetContactResponse'
-            Prelude.<$> (x Core..?> "Contact")
+            Prelude.<$> (x Data..?> "Contact")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -91,32 +93,32 @@ instance Prelude.Hashable GetContact where
 instance Prelude.NFData GetContact where
   rnf GetContact' {..} = Prelude.rnf contactArn
 
-instance Core.ToHeaders GetContact where
+instance Data.ToHeaders GetContact where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.GetContact" ::
+              Data.=# ( "AlexaForBusiness.GetContact" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetContact where
+instance Data.ToJSON GetContact where
   toJSON GetContact' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ContactArn" Core..= contactArn)]
+          [Prelude.Just ("ContactArn" Data..= contactArn)]
       )
 
-instance Core.ToPath GetContact where
+instance Data.ToPath GetContact where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetContact where
+instance Data.ToQuery GetContact where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetContactResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetStages
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,7 +55,7 @@ import qualified Amazonka.Response as Response
 data GetStages = GetStages'
   { -- | The stages\' deployment identifiers.
     deploymentId :: Prelude.Maybe Prelude.Text,
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -69,7 +70,7 @@ data GetStages = GetStages'
 --
 -- 'deploymentId', 'getStages_deploymentId' - The stages\' deployment identifiers.
 --
--- 'restApiId', 'getStages_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getStages_restApiId' - The string identifier of the associated RestApi.
 newGetStages ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -84,18 +85,19 @@ newGetStages pRestApiId_ =
 getStages_deploymentId :: Lens.Lens' GetStages (Prelude.Maybe Prelude.Text)
 getStages_deploymentId = Lens.lens (\GetStages' {deploymentId} -> deploymentId) (\s@GetStages' {} a -> s {deploymentId = a} :: GetStages)
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getStages_restApiId :: Lens.Lens' GetStages Prelude.Text
 getStages_restApiId = Lens.lens (\GetStages' {restApiId} -> restApiId) (\s@GetStages' {} a -> s {restApiId = a} :: GetStages)
 
 instance Core.AWSRequest GetStages where
   type AWSResponse GetStages = GetStagesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetStagesResponse'
-            Prelude.<$> (x Core..?> "item" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "item" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,28 +111,26 @@ instance Prelude.NFData GetStages where
     Prelude.rnf deploymentId
       `Prelude.seq` Prelude.rnf restApiId
 
-instance Core.ToHeaders GetStages where
+instance Data.ToHeaders GetStages where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetStages where
+instance Data.ToPath GetStages where
   toPath GetStages' {..} =
     Prelude.mconcat
-      ["/restapis/", Core.toBS restApiId, "/stages"]
+      ["/restapis/", Data.toBS restApiId, "/stages"]
 
-instance Core.ToQuery GetStages where
+instance Data.ToQuery GetStages where
   toQuery GetStages' {..} =
     Prelude.mconcat
-      ["deploymentId" Core.=: deploymentId]
+      ["deploymentId" Data.=: deploymentId]
 
 -- | A list of Stage resources that are associated with the ApiKey resource.
---
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/stages.html Deploying API in Stages>
 --
 -- /See:/ 'newGetStagesResponse' smart constructor.
 data GetStagesResponse = GetStagesResponse'

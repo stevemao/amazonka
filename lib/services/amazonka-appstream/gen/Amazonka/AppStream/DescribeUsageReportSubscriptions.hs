@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.DescribeUsageReportSubscriptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,34 +27,35 @@ module Amazonka.AppStream.DescribeUsageReportSubscriptions
     newDescribeUsageReportSubscriptions,
 
     -- * Request Lenses
-    describeUsageReportSubscriptions_nextToken,
     describeUsageReportSubscriptions_maxResults,
+    describeUsageReportSubscriptions_nextToken,
 
     -- * Destructuring the Response
     DescribeUsageReportSubscriptionsResponse (..),
     newDescribeUsageReportSubscriptionsResponse,
 
     -- * Response Lenses
-    describeUsageReportSubscriptionsResponse_usageReportSubscriptions,
     describeUsageReportSubscriptionsResponse_nextToken,
+    describeUsageReportSubscriptionsResponse_usageReportSubscriptions,
     describeUsageReportSubscriptionsResponse_httpStatus,
   )
 where
 
 import Amazonka.AppStream.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeUsageReportSubscriptions' smart constructor.
 data DescribeUsageReportSubscriptions = DescribeUsageReportSubscriptions'
-  { -- | The pagination token to use to retrieve the next page of results for
+  { -- | The maximum size of each page of results.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The pagination token to use to retrieve the next page of results for
     -- this operation. If this value is null, it retrieves the first page.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum size of each page of results.
-    maxResults :: Prelude.Maybe Prelude.Int
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -66,27 +67,27 @@ data DescribeUsageReportSubscriptions = DescribeUsageReportSubscriptions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'describeUsageReportSubscriptions_maxResults' - The maximum size of each page of results.
+--
 -- 'nextToken', 'describeUsageReportSubscriptions_nextToken' - The pagination token to use to retrieve the next page of results for
 -- this operation. If this value is null, it retrieves the first page.
---
--- 'maxResults', 'describeUsageReportSubscriptions_maxResults' - The maximum size of each page of results.
 newDescribeUsageReportSubscriptions ::
   DescribeUsageReportSubscriptions
 newDescribeUsageReportSubscriptions =
   DescribeUsageReportSubscriptions'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum size of each page of results.
+describeUsageReportSubscriptions_maxResults :: Lens.Lens' DescribeUsageReportSubscriptions (Prelude.Maybe Prelude.Int)
+describeUsageReportSubscriptions_maxResults = Lens.lens (\DescribeUsageReportSubscriptions' {maxResults} -> maxResults) (\s@DescribeUsageReportSubscriptions' {} a -> s {maxResults = a} :: DescribeUsageReportSubscriptions)
 
 -- | The pagination token to use to retrieve the next page of results for
 -- this operation. If this value is null, it retrieves the first page.
 describeUsageReportSubscriptions_nextToken :: Lens.Lens' DescribeUsageReportSubscriptions (Prelude.Maybe Prelude.Text)
 describeUsageReportSubscriptions_nextToken = Lens.lens (\DescribeUsageReportSubscriptions' {nextToken} -> nextToken) (\s@DescribeUsageReportSubscriptions' {} a -> s {nextToken = a} :: DescribeUsageReportSubscriptions)
-
--- | The maximum size of each page of results.
-describeUsageReportSubscriptions_maxResults :: Lens.Lens' DescribeUsageReportSubscriptions (Prelude.Maybe Prelude.Int)
-describeUsageReportSubscriptions_maxResults = Lens.lens (\DescribeUsageReportSubscriptions' {maxResults} -> maxResults) (\s@DescribeUsageReportSubscriptions' {} a -> s {maxResults = a} :: DescribeUsageReportSubscriptions)
 
 instance
   Core.AWSRequest
@@ -95,15 +96,16 @@ instance
   type
     AWSResponse DescribeUsageReportSubscriptions =
       DescribeUsageReportSubscriptionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeUsageReportSubscriptionsResponse'
-            Prelude.<$> ( x Core..?> "UsageReportSubscriptions"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "UsageReportSubscriptions"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,60 +116,60 @@ instance
   hashWithSalt
     _salt
     DescribeUsageReportSubscriptions' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
 
 instance
   Prelude.NFData
     DescribeUsageReportSubscriptions
   where
   rnf DescribeUsageReportSubscriptions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeUsageReportSubscriptions
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "PhotonAdminProxyService.DescribeUsageReportSubscriptions" ::
+              Data.=# ( "PhotonAdminProxyService.DescribeUsageReportSubscriptions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeUsageReportSubscriptions where
+instance Data.ToJSON DescribeUsageReportSubscriptions where
   toJSON DescribeUsageReportSubscriptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath DescribeUsageReportSubscriptions where
+instance Data.ToPath DescribeUsageReportSubscriptions where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeUsageReportSubscriptions
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeUsageReportSubscriptionsResponse' smart constructor.
 data DescribeUsageReportSubscriptionsResponse = DescribeUsageReportSubscriptionsResponse'
-  { -- | Information about the usage report subscription.
-    usageReportSubscriptions :: Prelude.Maybe [UsageReportSubscription],
-    -- | The pagination token to use to retrieve the next page of results for
+  { -- | The pagination token to use to retrieve the next page of results for
     -- this operation. If there are no more pages, this value is null.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the usage report subscription.
+    usageReportSubscriptions :: Prelude.Maybe [UsageReportSubscription],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -181,10 +183,10 @@ data DescribeUsageReportSubscriptionsResponse = DescribeUsageReportSubscriptions
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'usageReportSubscriptions', 'describeUsageReportSubscriptionsResponse_usageReportSubscriptions' - Information about the usage report subscription.
---
 -- 'nextToken', 'describeUsageReportSubscriptionsResponse_nextToken' - The pagination token to use to retrieve the next page of results for
 -- this operation. If there are no more pages, this value is null.
+--
+-- 'usageReportSubscriptions', 'describeUsageReportSubscriptionsResponse_usageReportSubscriptions' - Information about the usage report subscription.
 --
 -- 'httpStatus', 'describeUsageReportSubscriptionsResponse_httpStatus' - The response's http status code.
 newDescribeUsageReportSubscriptionsResponse ::
@@ -194,20 +196,21 @@ newDescribeUsageReportSubscriptionsResponse ::
 newDescribeUsageReportSubscriptionsResponse
   pHttpStatus_ =
     DescribeUsageReportSubscriptionsResponse'
-      { usageReportSubscriptions =
+      { nextToken =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
+        usageReportSubscriptions =
+          Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | Information about the usage report subscription.
-describeUsageReportSubscriptionsResponse_usageReportSubscriptions :: Lens.Lens' DescribeUsageReportSubscriptionsResponse (Prelude.Maybe [UsageReportSubscription])
-describeUsageReportSubscriptionsResponse_usageReportSubscriptions = Lens.lens (\DescribeUsageReportSubscriptionsResponse' {usageReportSubscriptions} -> usageReportSubscriptions) (\s@DescribeUsageReportSubscriptionsResponse' {} a -> s {usageReportSubscriptions = a} :: DescribeUsageReportSubscriptionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The pagination token to use to retrieve the next page of results for
 -- this operation. If there are no more pages, this value is null.
 describeUsageReportSubscriptionsResponse_nextToken :: Lens.Lens' DescribeUsageReportSubscriptionsResponse (Prelude.Maybe Prelude.Text)
 describeUsageReportSubscriptionsResponse_nextToken = Lens.lens (\DescribeUsageReportSubscriptionsResponse' {nextToken} -> nextToken) (\s@DescribeUsageReportSubscriptionsResponse' {} a -> s {nextToken = a} :: DescribeUsageReportSubscriptionsResponse)
+
+-- | Information about the usage report subscription.
+describeUsageReportSubscriptionsResponse_usageReportSubscriptions :: Lens.Lens' DescribeUsageReportSubscriptionsResponse (Prelude.Maybe [UsageReportSubscription])
+describeUsageReportSubscriptionsResponse_usageReportSubscriptions = Lens.lens (\DescribeUsageReportSubscriptionsResponse' {usageReportSubscriptions} -> usageReportSubscriptions) (\s@DescribeUsageReportSubscriptionsResponse' {} a -> s {usageReportSubscriptions = a} :: DescribeUsageReportSubscriptionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeUsageReportSubscriptionsResponse_httpStatus :: Lens.Lens' DescribeUsageReportSubscriptionsResponse Prelude.Int
@@ -218,6 +221,6 @@ instance
     DescribeUsageReportSubscriptionsResponse
   where
   rnf DescribeUsageReportSubscriptionsResponse' {..} =
-    Prelude.rnf usageReportSubscriptions
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf usageReportSubscriptions
       `Prelude.seq` Prelude.rnf httpStatus

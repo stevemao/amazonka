@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.ObjectOwnership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,6 +20,7 @@
 module Amazonka.S3.Types.ObjectOwnership
   ( ObjectOwnership
       ( ..,
+        ObjectOwnership_BucketOwnerEnforced,
         ObjectOwnership_BucketOwnerPreferred,
         ObjectOwnership_ObjectWriter
       ),
@@ -27,6 +28,7 @@ module Amazonka.S3.Types.ObjectOwnership
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 
@@ -39,9 +41,16 @@ import Amazonka.S3.Internal
 --
 -- ObjectWriter - The uploading account will own the object if the object
 -- is uploaded with the @bucket-owner-full-control@ canned ACL.
+--
+-- BucketOwnerEnforced - Access control lists (ACLs) are disabled and no
+-- longer affect permissions. The bucket owner automatically owns and has
+-- full control over every object in the bucket. The bucket only accepts
+-- PUT requests that don\'t specify an ACL or bucket owner full control
+-- ACLs, such as the @bucket-owner-full-control@ canned ACL or an
+-- equivalent form of this ACL expressed in the XML format.
 newtype ObjectOwnership = ObjectOwnership'
   { fromObjectOwnership ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -53,19 +62,22 @@ newtype ObjectOwnership = ObjectOwnership'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern ObjectOwnership_BucketOwnerEnforced :: ObjectOwnership
+pattern ObjectOwnership_BucketOwnerEnforced = ObjectOwnership' "BucketOwnerEnforced"
 
 pattern ObjectOwnership_BucketOwnerPreferred :: ObjectOwnership
 pattern ObjectOwnership_BucketOwnerPreferred = ObjectOwnership' "BucketOwnerPreferred"
@@ -74,6 +86,7 @@ pattern ObjectOwnership_ObjectWriter :: ObjectOwnership
 pattern ObjectOwnership_ObjectWriter = ObjectOwnership' "ObjectWriter"
 
 {-# COMPLETE
+  ObjectOwnership_BucketOwnerEnforced,
   ObjectOwnership_BucketOwnerPreferred,
   ObjectOwnership_ObjectWriter,
   ObjectOwnership'

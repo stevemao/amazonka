@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutMetrics.Types.AnomalyGroupTimeSeries
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LookoutMetrics.Types.AnomalyGroupTimeSeries where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An anomalous metric in an anomaly group.
@@ -74,12 +75,12 @@ instance Prelude.NFData AnomalyGroupTimeSeries where
     Prelude.rnf timeSeriesId
       `Prelude.seq` Prelude.rnf anomalyGroupId
 
-instance Core.ToJSON AnomalyGroupTimeSeries where
+instance Data.ToJSON AnomalyGroupTimeSeries where
   toJSON AnomalyGroupTimeSeries' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TimeSeriesId" Core..=) Prelude.<$> timeSeriesId,
+          [ ("TimeSeriesId" Data..=) Prelude.<$> timeSeriesId,
             Prelude.Just
-              ("AnomalyGroupId" Core..= anomalyGroupId)
+              ("AnomalyGroupId" Data..= anomalyGroupId)
           ]
       )

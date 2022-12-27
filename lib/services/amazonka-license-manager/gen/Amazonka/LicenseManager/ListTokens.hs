@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.ListTokens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,24 +27,25 @@ module Amazonka.LicenseManager.ListTokens
     newListTokens,
 
     -- * Request Lenses
-    listTokens_tokenIds,
     listTokens_filters,
-    listTokens_nextToken,
     listTokens_maxResults,
+    listTokens_nextToken,
+    listTokens_tokenIds,
 
     -- * Destructuring the Response
     ListTokensResponse (..),
     newListTokensResponse,
 
     -- * Response Lenses
-    listTokensResponse_tokens,
     listTokensResponse_nextToken,
+    listTokensResponse_tokens,
     listTokensResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,16 +53,16 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTokens' smart constructor.
 data ListTokens = ListTokens'
-  { -- | Token IDs.
-    tokenIds :: Prelude.Maybe [Prelude.Text],
-    -- | Filters to scope the results. The following filter is supported:
+  { -- | Filters to scope the results. The following filter is supported:
     --
     -- -   @LicenseArns@
     filters :: Prelude.Maybe [Filter],
+    -- | Maximum number of results to return in a single call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | Token for the next set of results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of results to return in a single call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | Token IDs.
+    tokenIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,28 +74,24 @@ data ListTokens = ListTokens'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tokenIds', 'listTokens_tokenIds' - Token IDs.
---
 -- 'filters', 'listTokens_filters' - Filters to scope the results. The following filter is supported:
 --
 -- -   @LicenseArns@
 --
+-- 'maxResults', 'listTokens_maxResults' - Maximum number of results to return in a single call.
+--
 -- 'nextToken', 'listTokens_nextToken' - Token for the next set of results.
 --
--- 'maxResults', 'listTokens_maxResults' - Maximum number of results to return in a single call.
+-- 'tokenIds', 'listTokens_tokenIds' - Token IDs.
 newListTokens ::
   ListTokens
 newListTokens =
   ListTokens'
-    { tokenIds = Prelude.Nothing,
-      filters = Prelude.Nothing,
+    { filters = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      tokenIds = Prelude.Nothing
     }
-
--- | Token IDs.
-listTokens_tokenIds :: Lens.Lens' ListTokens (Prelude.Maybe [Prelude.Text])
-listTokens_tokenIds = Lens.lens (\ListTokens' {tokenIds} -> tokenIds) (\s@ListTokens' {} a -> s {tokenIds = a} :: ListTokens) Prelude.. Lens.mapping Lens.coerced
 
 -- | Filters to scope the results. The following filter is supported:
 --
@@ -102,78 +99,83 @@ listTokens_tokenIds = Lens.lens (\ListTokens' {tokenIds} -> tokenIds) (\s@ListTo
 listTokens_filters :: Lens.Lens' ListTokens (Prelude.Maybe [Filter])
 listTokens_filters = Lens.lens (\ListTokens' {filters} -> filters) (\s@ListTokens' {} a -> s {filters = a} :: ListTokens) Prelude.. Lens.mapping Lens.coerced
 
--- | Token for the next set of results.
-listTokens_nextToken :: Lens.Lens' ListTokens (Prelude.Maybe Prelude.Text)
-listTokens_nextToken = Lens.lens (\ListTokens' {nextToken} -> nextToken) (\s@ListTokens' {} a -> s {nextToken = a} :: ListTokens)
-
 -- | Maximum number of results to return in a single call.
 listTokens_maxResults :: Lens.Lens' ListTokens (Prelude.Maybe Prelude.Natural)
 listTokens_maxResults = Lens.lens (\ListTokens' {maxResults} -> maxResults) (\s@ListTokens' {} a -> s {maxResults = a} :: ListTokens)
 
+-- | Token for the next set of results.
+listTokens_nextToken :: Lens.Lens' ListTokens (Prelude.Maybe Prelude.Text)
+listTokens_nextToken = Lens.lens (\ListTokens' {nextToken} -> nextToken) (\s@ListTokens' {} a -> s {nextToken = a} :: ListTokens)
+
+-- | Token IDs.
+listTokens_tokenIds :: Lens.Lens' ListTokens (Prelude.Maybe [Prelude.Text])
+listTokens_tokenIds = Lens.lens (\ListTokens' {tokenIds} -> tokenIds) (\s@ListTokens' {} a -> s {tokenIds = a} :: ListTokens) Prelude.. Lens.mapping Lens.coerced
+
 instance Core.AWSRequest ListTokens where
   type AWSResponse ListTokens = ListTokensResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTokensResponse'
-            Prelude.<$> (x Core..?> "Tokens" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Tokens" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTokens where
   hashWithSalt _salt ListTokens' {..} =
-    _salt `Prelude.hashWithSalt` tokenIds
-      `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` tokenIds
 
 instance Prelude.NFData ListTokens where
   rnf ListTokens' {..} =
-    Prelude.rnf tokenIds
-      `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf filters
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf tokenIds
 
-instance Core.ToHeaders ListTokens where
+instance Data.ToHeaders ListTokens where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLicenseManager.ListTokens" ::
+              Data.=# ( "AWSLicenseManager.ListTokens" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTokens where
+instance Data.ToJSON ListTokens where
   toJSON ListTokens' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TokenIds" Core..=) Prelude.<$> tokenIds,
-            ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("TokenIds" Data..=) Prelude.<$> tokenIds
           ]
       )
 
-instance Core.ToPath ListTokens where
+instance Data.ToPath ListTokens where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTokens where
+instance Data.ToQuery ListTokens where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTokensResponse' smart constructor.
 data ListTokensResponse = ListTokensResponse'
-  { -- | Received token details.
-    tokens :: Prelude.Maybe [TokenData],
-    -- | Token for the next set of results.
+  { -- | Token for the next set of results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Received token details.
+    tokens :: Prelude.Maybe [TokenData],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -187,9 +189,9 @@ data ListTokensResponse = ListTokensResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tokens', 'listTokensResponse_tokens' - Received token details.
---
 -- 'nextToken', 'listTokensResponse_nextToken' - Token for the next set of results.
+--
+-- 'tokens', 'listTokensResponse_tokens' - Received token details.
 --
 -- 'httpStatus', 'listTokensResponse_httpStatus' - The response's http status code.
 newListTokensResponse ::
@@ -198,18 +200,18 @@ newListTokensResponse ::
   ListTokensResponse
 newListTokensResponse pHttpStatus_ =
   ListTokensResponse'
-    { tokens = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      tokens = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Received token details.
-listTokensResponse_tokens :: Lens.Lens' ListTokensResponse (Prelude.Maybe [TokenData])
-listTokensResponse_tokens = Lens.lens (\ListTokensResponse' {tokens} -> tokens) (\s@ListTokensResponse' {} a -> s {tokens = a} :: ListTokensResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Token for the next set of results.
 listTokensResponse_nextToken :: Lens.Lens' ListTokensResponse (Prelude.Maybe Prelude.Text)
 listTokensResponse_nextToken = Lens.lens (\ListTokensResponse' {nextToken} -> nextToken) (\s@ListTokensResponse' {} a -> s {nextToken = a} :: ListTokensResponse)
+
+-- | Received token details.
+listTokensResponse_tokens :: Lens.Lens' ListTokensResponse (Prelude.Maybe [TokenData])
+listTokensResponse_tokens = Lens.lens (\ListTokensResponse' {tokens} -> tokens) (\s@ListTokensResponse' {} a -> s {tokens = a} :: ListTokensResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listTokensResponse_httpStatus :: Lens.Lens' ListTokensResponse Prelude.Int
@@ -217,6 +219,6 @@ listTokensResponse_httpStatus = Lens.lens (\ListTokensResponse' {httpStatus} -> 
 
 instance Prelude.NFData ListTokensResponse where
   rnf ListTokensResponse' {..} =
-    Prelude.rnf tokens
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf tokens
       `Prelude.seq` Prelude.rnf httpStatus

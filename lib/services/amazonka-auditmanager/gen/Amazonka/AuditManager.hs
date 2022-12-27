@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,16 +16,16 @@
 -- data types, and errors.
 --
 -- Audit Manager is a service that provides automated evidence collection
--- so that you can continuously audit your Amazon Web Services usage, and
--- assess the effectiveness of your controls to better manage risk and
--- simplify compliance.
+-- so that you can continually audit your Amazon Web Services usage. You
+-- can use it to assess the effectiveness of your controls, manage risk,
+-- and simplify compliance.
 --
--- Audit Manager provides pre-built frameworks that structure and automate
+-- Audit Manager provides prebuilt frameworks that structure and automate
 -- assessments for a given compliance standard. Frameworks include a
--- pre-built collection of controls with descriptions and testing
--- procedures, which are grouped according to the requirements of the
--- specified compliance standard or regulation. You can also customize
--- frameworks and controls to support internal audits with unique
+-- prebuilt collection of controls with descriptions and testing
+-- procedures. These controls are grouped according to the requirements of
+-- the specified compliance standard or regulation. You can also customize
+-- frameworks and controls to support internal audits with specific
 -- requirements.
 --
 -- Use the following links to get started with the Audit Manager API:
@@ -51,9 +51,6 @@ module Amazonka.AuditManager
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
 
@@ -63,305 +60,20 @@ module Amazonka.AuditManager
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
+    -- ** ServiceQuotaExceededException
+    _ServiceQuotaExceededException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** ValidationException
+    _ValidationException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** CreateAssessmentReport
-    CreateAssessmentReport (CreateAssessmentReport'),
-    newCreateAssessmentReport,
-    CreateAssessmentReportResponse (CreateAssessmentReportResponse'),
-    newCreateAssessmentReportResponse,
-
-    -- ** RegisterOrganizationAdminAccount
-    RegisterOrganizationAdminAccount (RegisterOrganizationAdminAccount'),
-    newRegisterOrganizationAdminAccount,
-    RegisterOrganizationAdminAccountResponse (RegisterOrganizationAdminAccountResponse'),
-    newRegisterOrganizationAdminAccountResponse,
-
-    -- ** ListNotifications
-    ListNotifications (ListNotifications'),
-    newListNotifications,
-    ListNotificationsResponse (ListNotificationsResponse'),
-    newListNotificationsResponse,
-
-    -- ** BatchCreateDelegationByAssessment
-    BatchCreateDelegationByAssessment (BatchCreateDelegationByAssessment'),
-    newBatchCreateDelegationByAssessment,
-    BatchCreateDelegationByAssessmentResponse (BatchCreateDelegationByAssessmentResponse'),
-    newBatchCreateDelegationByAssessmentResponse,
-
-    -- ** GetEvidenceFoldersByAssessmentControl
-    GetEvidenceFoldersByAssessmentControl (GetEvidenceFoldersByAssessmentControl'),
-    newGetEvidenceFoldersByAssessmentControl,
-    GetEvidenceFoldersByAssessmentControlResponse (GetEvidenceFoldersByAssessmentControlResponse'),
-    newGetEvidenceFoldersByAssessmentControlResponse,
-
-    -- ** BatchDeleteDelegationByAssessment
-    BatchDeleteDelegationByAssessment (BatchDeleteDelegationByAssessment'),
-    newBatchDeleteDelegationByAssessment,
-    BatchDeleteDelegationByAssessmentResponse (BatchDeleteDelegationByAssessmentResponse'),
-    newBatchDeleteDelegationByAssessmentResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** GetEvidence
-    GetEvidence (GetEvidence'),
-    newGetEvidence,
-    GetEvidenceResponse (GetEvidenceResponse'),
-    newGetEvidenceResponse,
-
-    -- ** GetServicesInScope
-    GetServicesInScope (GetServicesInScope'),
-    newGetServicesInScope,
-    GetServicesInScopeResponse (GetServicesInScopeResponse'),
-    newGetServicesInScopeResponse,
-
-    -- ** BatchDisassociateAssessmentReportEvidence
-    BatchDisassociateAssessmentReportEvidence (BatchDisassociateAssessmentReportEvidence'),
-    newBatchDisassociateAssessmentReportEvidence,
-    BatchDisassociateAssessmentReportEvidenceResponse (BatchDisassociateAssessmentReportEvidenceResponse'),
-    newBatchDisassociateAssessmentReportEvidenceResponse,
-
-    -- ** DeregisterOrganizationAdminAccount
-    DeregisterOrganizationAdminAccount (DeregisterOrganizationAdminAccount'),
-    newDeregisterOrganizationAdminAccount,
-    DeregisterOrganizationAdminAccountResponse (DeregisterOrganizationAdminAccountResponse'),
-    newDeregisterOrganizationAdminAccountResponse,
-
-    -- ** GetAssessmentReportUrl
-    GetAssessmentReportUrl (GetAssessmentReportUrl'),
-    newGetAssessmentReportUrl,
-    GetAssessmentReportUrlResponse (GetAssessmentReportUrlResponse'),
-    newGetAssessmentReportUrlResponse,
-
-    -- ** UpdateAssessmentControl
-    UpdateAssessmentControl (UpdateAssessmentControl'),
-    newUpdateAssessmentControl,
-    UpdateAssessmentControlResponse (UpdateAssessmentControlResponse'),
-    newUpdateAssessmentControlResponse,
-
-    -- ** DeleteAssessmentFramework
-    DeleteAssessmentFramework (DeleteAssessmentFramework'),
-    newDeleteAssessmentFramework,
-    DeleteAssessmentFrameworkResponse (DeleteAssessmentFrameworkResponse'),
-    newDeleteAssessmentFrameworkResponse,
-
-    -- ** UpdateAssessmentFramework
-    UpdateAssessmentFramework (UpdateAssessmentFramework'),
-    newUpdateAssessmentFramework,
-    UpdateAssessmentFrameworkResponse (UpdateAssessmentFrameworkResponse'),
-    newUpdateAssessmentFrameworkResponse,
-
-    -- ** BatchAssociateAssessmentReportEvidence
-    BatchAssociateAssessmentReportEvidence (BatchAssociateAssessmentReportEvidence'),
-    newBatchAssociateAssessmentReportEvidence,
-    BatchAssociateAssessmentReportEvidenceResponse (BatchAssociateAssessmentReportEvidenceResponse'),
-    newBatchAssociateAssessmentReportEvidenceResponse,
-
-    -- ** GetEvidenceByEvidenceFolder
-    GetEvidenceByEvidenceFolder (GetEvidenceByEvidenceFolder'),
-    newGetEvidenceByEvidenceFolder,
-    GetEvidenceByEvidenceFolderResponse (GetEvidenceByEvidenceFolderResponse'),
-    newGetEvidenceByEvidenceFolderResponse,
-
-    -- ** CreateAssessmentFramework
-    CreateAssessmentFramework (CreateAssessmentFramework'),
-    newCreateAssessmentFramework,
-    CreateAssessmentFrameworkResponse (CreateAssessmentFrameworkResponse'),
-    newCreateAssessmentFrameworkResponse,
-
-    -- ** ListKeywordsForDataSource
-    ListKeywordsForDataSource (ListKeywordsForDataSource'),
-    newListKeywordsForDataSource,
-    ListKeywordsForDataSourceResponse (ListKeywordsForDataSourceResponse'),
-    newListKeywordsForDataSourceResponse,
-
-    -- ** ListAssessmentReports
-    ListAssessmentReports (ListAssessmentReports'),
-    newListAssessmentReports,
-    ListAssessmentReportsResponse (ListAssessmentReportsResponse'),
-    newListAssessmentReportsResponse,
-
-    -- ** ValidateAssessmentReportIntegrity
-    ValidateAssessmentReportIntegrity (ValidateAssessmentReportIntegrity'),
-    newValidateAssessmentReportIntegrity,
-    ValidateAssessmentReportIntegrityResponse (ValidateAssessmentReportIntegrityResponse'),
-    newValidateAssessmentReportIntegrityResponse,
-
-    -- ** DeregisterAccount
-    DeregisterAccount (DeregisterAccount'),
-    newDeregisterAccount,
-    DeregisterAccountResponse (DeregisterAccountResponse'),
-    newDeregisterAccountResponse,
-
-    -- ** DeleteAssessmentReport
-    DeleteAssessmentReport (DeleteAssessmentReport'),
-    newDeleteAssessmentReport,
-    DeleteAssessmentReportResponse (DeleteAssessmentReportResponse'),
-    newDeleteAssessmentReportResponse,
-
-    -- ** UpdateSettings
-    UpdateSettings (UpdateSettings'),
-    newUpdateSettings,
-    UpdateSettingsResponse (UpdateSettingsResponse'),
-    newUpdateSettingsResponse,
-
-    -- ** GetAssessmentFramework
-    GetAssessmentFramework (GetAssessmentFramework'),
-    newGetAssessmentFramework,
-    GetAssessmentFrameworkResponse (GetAssessmentFrameworkResponse'),
-    newGetAssessmentFrameworkResponse,
-
-    -- ** DeleteAssessment
-    DeleteAssessment (DeleteAssessment'),
-    newDeleteAssessment,
-    DeleteAssessmentResponse (DeleteAssessmentResponse'),
-    newDeleteAssessmentResponse,
-
-    -- ** GetChangeLogs
-    GetChangeLogs (GetChangeLogs'),
-    newGetChangeLogs,
-    GetChangeLogsResponse (GetChangeLogsResponse'),
-    newGetChangeLogsResponse,
-
-    -- ** UpdateAssessment
-    UpdateAssessment (UpdateAssessment'),
-    newUpdateAssessment,
-    UpdateAssessmentResponse (UpdateAssessmentResponse'),
-    newUpdateAssessmentResponse,
-
-    -- ** GetDelegations
-    GetDelegations (GetDelegations'),
-    newGetDelegations,
-    GetDelegationsResponse (GetDelegationsResponse'),
-    newGetDelegationsResponse,
-
-    -- ** DisassociateAssessmentReportEvidenceFolder
-    DisassociateAssessmentReportEvidenceFolder (DisassociateAssessmentReportEvidenceFolder'),
-    newDisassociateAssessmentReportEvidenceFolder,
-    DisassociateAssessmentReportEvidenceFolderResponse (DisassociateAssessmentReportEvidenceFolderResponse'),
-    newDisassociateAssessmentReportEvidenceFolderResponse,
-
-    -- ** ListAssessments
-    ListAssessments (ListAssessments'),
-    newListAssessments,
-    ListAssessmentsResponse (ListAssessmentsResponse'),
-    newListAssessmentsResponse,
-
-    -- ** CreateAssessment
-    CreateAssessment (CreateAssessment'),
-    newCreateAssessment,
-    CreateAssessmentResponse (CreateAssessmentResponse'),
-    newCreateAssessmentResponse,
-
-    -- ** GetEvidenceFoldersByAssessment
-    GetEvidenceFoldersByAssessment (GetEvidenceFoldersByAssessment'),
-    newGetEvidenceFoldersByAssessment,
-    GetEvidenceFoldersByAssessmentResponse (GetEvidenceFoldersByAssessmentResponse'),
-    newGetEvidenceFoldersByAssessmentResponse,
-
-    -- ** RegisterAccount
-    RegisterAccount (RegisterAccount'),
-    newRegisterAccount,
-    RegisterAccountResponse (RegisterAccountResponse'),
-    newRegisterAccountResponse,
-
-    -- ** GetAssessment
-    GetAssessment (GetAssessment'),
-    newGetAssessment,
-    GetAssessmentResponse (GetAssessmentResponse'),
-    newGetAssessmentResponse,
-
-    -- ** BatchImportEvidenceToAssessmentControl
-    BatchImportEvidenceToAssessmentControl (BatchImportEvidenceToAssessmentControl'),
-    newBatchImportEvidenceToAssessmentControl,
-    BatchImportEvidenceToAssessmentControlResponse (BatchImportEvidenceToAssessmentControlResponse'),
-    newBatchImportEvidenceToAssessmentControlResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** GetEvidenceFolder
-    GetEvidenceFolder (GetEvidenceFolder'),
-    newGetEvidenceFolder,
-    GetEvidenceFolderResponse (GetEvidenceFolderResponse'),
-    newGetEvidenceFolderResponse,
-
-    -- ** ListAssessmentFrameworks
-    ListAssessmentFrameworks (ListAssessmentFrameworks'),
-    newListAssessmentFrameworks,
-    ListAssessmentFrameworksResponse (ListAssessmentFrameworksResponse'),
-    newListAssessmentFrameworksResponse,
-
-    -- ** CreateControl
-    CreateControl (CreateControl'),
-    newCreateControl,
-    CreateControlResponse (CreateControlResponse'),
-    newCreateControlResponse,
-
-    -- ** UpdateAssessmentStatus
-    UpdateAssessmentStatus (UpdateAssessmentStatus'),
-    newUpdateAssessmentStatus,
-    UpdateAssessmentStatusResponse (UpdateAssessmentStatusResponse'),
-    newUpdateAssessmentStatusResponse,
-
-    -- ** GetAccountStatus
-    GetAccountStatus (GetAccountStatus'),
-    newGetAccountStatus,
-    GetAccountStatusResponse (GetAccountStatusResponse'),
-    newGetAccountStatusResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
-
-    -- ** GetSettings
-    GetSettings (GetSettings'),
-    newGetSettings,
-    GetSettingsResponse (GetSettingsResponse'),
-    newGetSettingsResponse,
-
-    -- ** GetOrganizationAdminAccount
-    GetOrganizationAdminAccount (GetOrganizationAdminAccount'),
-    newGetOrganizationAdminAccount,
-    GetOrganizationAdminAccountResponse (GetOrganizationAdminAccountResponse'),
-    newGetOrganizationAdminAccountResponse,
-
-    -- ** DeleteControl
-    DeleteControl (DeleteControl'),
-    newDeleteControl,
-    DeleteControlResponse (DeleteControlResponse'),
-    newDeleteControlResponse,
-
-    -- ** UpdateControl
-    UpdateControl (UpdateControl'),
-    newUpdateControl,
-    UpdateControlResponse (UpdateControlResponse'),
-    newUpdateControlResponse,
-
-    -- ** UpdateAssessmentControlSetStatus
-    UpdateAssessmentControlSetStatus (UpdateAssessmentControlSetStatus'),
-    newUpdateAssessmentControlSetStatus,
-    UpdateAssessmentControlSetStatusResponse (UpdateAssessmentControlSetStatusResponse'),
-    newUpdateAssessmentControlSetStatusResponse,
-
-    -- ** ListControls
-    ListControls (ListControls'),
-    newListControls,
-    ListControlsResponse (ListControlsResponse'),
-    newListControlsResponse,
 
     -- ** AssociateAssessmentReportEvidenceFolder
     AssociateAssessmentReportEvidenceFolder (AssociateAssessmentReportEvidenceFolder'),
@@ -369,11 +81,365 @@ module Amazonka.AuditManager
     AssociateAssessmentReportEvidenceFolderResponse (AssociateAssessmentReportEvidenceFolderResponse'),
     newAssociateAssessmentReportEvidenceFolderResponse,
 
+    -- ** BatchAssociateAssessmentReportEvidence
+    BatchAssociateAssessmentReportEvidence (BatchAssociateAssessmentReportEvidence'),
+    newBatchAssociateAssessmentReportEvidence,
+    BatchAssociateAssessmentReportEvidenceResponse (BatchAssociateAssessmentReportEvidenceResponse'),
+    newBatchAssociateAssessmentReportEvidenceResponse,
+
+    -- ** BatchCreateDelegationByAssessment
+    BatchCreateDelegationByAssessment (BatchCreateDelegationByAssessment'),
+    newBatchCreateDelegationByAssessment,
+    BatchCreateDelegationByAssessmentResponse (BatchCreateDelegationByAssessmentResponse'),
+    newBatchCreateDelegationByAssessmentResponse,
+
+    -- ** BatchDeleteDelegationByAssessment
+    BatchDeleteDelegationByAssessment (BatchDeleteDelegationByAssessment'),
+    newBatchDeleteDelegationByAssessment,
+    BatchDeleteDelegationByAssessmentResponse (BatchDeleteDelegationByAssessmentResponse'),
+    newBatchDeleteDelegationByAssessmentResponse,
+
+    -- ** BatchDisassociateAssessmentReportEvidence
+    BatchDisassociateAssessmentReportEvidence (BatchDisassociateAssessmentReportEvidence'),
+    newBatchDisassociateAssessmentReportEvidence,
+    BatchDisassociateAssessmentReportEvidenceResponse (BatchDisassociateAssessmentReportEvidenceResponse'),
+    newBatchDisassociateAssessmentReportEvidenceResponse,
+
+    -- ** BatchImportEvidenceToAssessmentControl
+    BatchImportEvidenceToAssessmentControl (BatchImportEvidenceToAssessmentControl'),
+    newBatchImportEvidenceToAssessmentControl,
+    BatchImportEvidenceToAssessmentControlResponse (BatchImportEvidenceToAssessmentControlResponse'),
+    newBatchImportEvidenceToAssessmentControlResponse,
+
+    -- ** CreateAssessment
+    CreateAssessment (CreateAssessment'),
+    newCreateAssessment,
+    CreateAssessmentResponse (CreateAssessmentResponse'),
+    newCreateAssessmentResponse,
+
+    -- ** CreateAssessmentFramework
+    CreateAssessmentFramework (CreateAssessmentFramework'),
+    newCreateAssessmentFramework,
+    CreateAssessmentFrameworkResponse (CreateAssessmentFrameworkResponse'),
+    newCreateAssessmentFrameworkResponse,
+
+    -- ** CreateAssessmentReport
+    CreateAssessmentReport (CreateAssessmentReport'),
+    newCreateAssessmentReport,
+    CreateAssessmentReportResponse (CreateAssessmentReportResponse'),
+    newCreateAssessmentReportResponse,
+
+    -- ** CreateControl
+    CreateControl (CreateControl'),
+    newCreateControl,
+    CreateControlResponse (CreateControlResponse'),
+    newCreateControlResponse,
+
+    -- ** DeleteAssessment
+    DeleteAssessment (DeleteAssessment'),
+    newDeleteAssessment,
+    DeleteAssessmentResponse (DeleteAssessmentResponse'),
+    newDeleteAssessmentResponse,
+
+    -- ** DeleteAssessmentFramework
+    DeleteAssessmentFramework (DeleteAssessmentFramework'),
+    newDeleteAssessmentFramework,
+    DeleteAssessmentFrameworkResponse (DeleteAssessmentFrameworkResponse'),
+    newDeleteAssessmentFrameworkResponse,
+
+    -- ** DeleteAssessmentFrameworkShare
+    DeleteAssessmentFrameworkShare (DeleteAssessmentFrameworkShare'),
+    newDeleteAssessmentFrameworkShare,
+    DeleteAssessmentFrameworkShareResponse (DeleteAssessmentFrameworkShareResponse'),
+    newDeleteAssessmentFrameworkShareResponse,
+
+    -- ** DeleteAssessmentReport
+    DeleteAssessmentReport (DeleteAssessmentReport'),
+    newDeleteAssessmentReport,
+    DeleteAssessmentReportResponse (DeleteAssessmentReportResponse'),
+    newDeleteAssessmentReportResponse,
+
+    -- ** DeleteControl
+    DeleteControl (DeleteControl'),
+    newDeleteControl,
+    DeleteControlResponse (DeleteControlResponse'),
+    newDeleteControlResponse,
+
+    -- ** DeregisterAccount
+    DeregisterAccount (DeregisterAccount'),
+    newDeregisterAccount,
+    DeregisterAccountResponse (DeregisterAccountResponse'),
+    newDeregisterAccountResponse,
+
+    -- ** DeregisterOrganizationAdminAccount
+    DeregisterOrganizationAdminAccount (DeregisterOrganizationAdminAccount'),
+    newDeregisterOrganizationAdminAccount,
+    DeregisterOrganizationAdminAccountResponse (DeregisterOrganizationAdminAccountResponse'),
+    newDeregisterOrganizationAdminAccountResponse,
+
+    -- ** DisassociateAssessmentReportEvidenceFolder
+    DisassociateAssessmentReportEvidenceFolder (DisassociateAssessmentReportEvidenceFolder'),
+    newDisassociateAssessmentReportEvidenceFolder,
+    DisassociateAssessmentReportEvidenceFolderResponse (DisassociateAssessmentReportEvidenceFolderResponse'),
+    newDisassociateAssessmentReportEvidenceFolderResponse,
+
+    -- ** GetAccountStatus
+    GetAccountStatus (GetAccountStatus'),
+    newGetAccountStatus,
+    GetAccountStatusResponse (GetAccountStatusResponse'),
+    newGetAccountStatusResponse,
+
+    -- ** GetAssessment
+    GetAssessment (GetAssessment'),
+    newGetAssessment,
+    GetAssessmentResponse (GetAssessmentResponse'),
+    newGetAssessmentResponse,
+
+    -- ** GetAssessmentFramework
+    GetAssessmentFramework (GetAssessmentFramework'),
+    newGetAssessmentFramework,
+    GetAssessmentFrameworkResponse (GetAssessmentFrameworkResponse'),
+    newGetAssessmentFrameworkResponse,
+
+    -- ** GetAssessmentReportUrl
+    GetAssessmentReportUrl (GetAssessmentReportUrl'),
+    newGetAssessmentReportUrl,
+    GetAssessmentReportUrlResponse (GetAssessmentReportUrlResponse'),
+    newGetAssessmentReportUrlResponse,
+
+    -- ** GetChangeLogs
+    GetChangeLogs (GetChangeLogs'),
+    newGetChangeLogs,
+    GetChangeLogsResponse (GetChangeLogsResponse'),
+    newGetChangeLogsResponse,
+
     -- ** GetControl
     GetControl (GetControl'),
     newGetControl,
     GetControlResponse (GetControlResponse'),
     newGetControlResponse,
+
+    -- ** GetDelegations
+    GetDelegations (GetDelegations'),
+    newGetDelegations,
+    GetDelegationsResponse (GetDelegationsResponse'),
+    newGetDelegationsResponse,
+
+    -- ** GetEvidence
+    GetEvidence (GetEvidence'),
+    newGetEvidence,
+    GetEvidenceResponse (GetEvidenceResponse'),
+    newGetEvidenceResponse,
+
+    -- ** GetEvidenceByEvidenceFolder
+    GetEvidenceByEvidenceFolder (GetEvidenceByEvidenceFolder'),
+    newGetEvidenceByEvidenceFolder,
+    GetEvidenceByEvidenceFolderResponse (GetEvidenceByEvidenceFolderResponse'),
+    newGetEvidenceByEvidenceFolderResponse,
+
+    -- ** GetEvidenceFolder
+    GetEvidenceFolder (GetEvidenceFolder'),
+    newGetEvidenceFolder,
+    GetEvidenceFolderResponse (GetEvidenceFolderResponse'),
+    newGetEvidenceFolderResponse,
+
+    -- ** GetEvidenceFoldersByAssessment
+    GetEvidenceFoldersByAssessment (GetEvidenceFoldersByAssessment'),
+    newGetEvidenceFoldersByAssessment,
+    GetEvidenceFoldersByAssessmentResponse (GetEvidenceFoldersByAssessmentResponse'),
+    newGetEvidenceFoldersByAssessmentResponse,
+
+    -- ** GetEvidenceFoldersByAssessmentControl
+    GetEvidenceFoldersByAssessmentControl (GetEvidenceFoldersByAssessmentControl'),
+    newGetEvidenceFoldersByAssessmentControl,
+    GetEvidenceFoldersByAssessmentControlResponse (GetEvidenceFoldersByAssessmentControlResponse'),
+    newGetEvidenceFoldersByAssessmentControlResponse,
+
+    -- ** GetInsights
+    GetInsights (GetInsights'),
+    newGetInsights,
+    GetInsightsResponse (GetInsightsResponse'),
+    newGetInsightsResponse,
+
+    -- ** GetInsightsByAssessment
+    GetInsightsByAssessment (GetInsightsByAssessment'),
+    newGetInsightsByAssessment,
+    GetInsightsByAssessmentResponse (GetInsightsByAssessmentResponse'),
+    newGetInsightsByAssessmentResponse,
+
+    -- ** GetOrganizationAdminAccount
+    GetOrganizationAdminAccount (GetOrganizationAdminAccount'),
+    newGetOrganizationAdminAccount,
+    GetOrganizationAdminAccountResponse (GetOrganizationAdminAccountResponse'),
+    newGetOrganizationAdminAccountResponse,
+
+    -- ** GetServicesInScope
+    GetServicesInScope (GetServicesInScope'),
+    newGetServicesInScope,
+    GetServicesInScopeResponse (GetServicesInScopeResponse'),
+    newGetServicesInScopeResponse,
+
+    -- ** GetSettings
+    GetSettings (GetSettings'),
+    newGetSettings,
+    GetSettingsResponse (GetSettingsResponse'),
+    newGetSettingsResponse,
+
+    -- ** ListAssessmentControlInsightsByControlDomain
+    ListAssessmentControlInsightsByControlDomain (ListAssessmentControlInsightsByControlDomain'),
+    newListAssessmentControlInsightsByControlDomain,
+    ListAssessmentControlInsightsByControlDomainResponse (ListAssessmentControlInsightsByControlDomainResponse'),
+    newListAssessmentControlInsightsByControlDomainResponse,
+
+    -- ** ListAssessmentFrameworkShareRequests
+    ListAssessmentFrameworkShareRequests (ListAssessmentFrameworkShareRequests'),
+    newListAssessmentFrameworkShareRequests,
+    ListAssessmentFrameworkShareRequestsResponse (ListAssessmentFrameworkShareRequestsResponse'),
+    newListAssessmentFrameworkShareRequestsResponse,
+
+    -- ** ListAssessmentFrameworks
+    ListAssessmentFrameworks (ListAssessmentFrameworks'),
+    newListAssessmentFrameworks,
+    ListAssessmentFrameworksResponse (ListAssessmentFrameworksResponse'),
+    newListAssessmentFrameworksResponse,
+
+    -- ** ListAssessmentReports
+    ListAssessmentReports (ListAssessmentReports'),
+    newListAssessmentReports,
+    ListAssessmentReportsResponse (ListAssessmentReportsResponse'),
+    newListAssessmentReportsResponse,
+
+    -- ** ListAssessments
+    ListAssessments (ListAssessments'),
+    newListAssessments,
+    ListAssessmentsResponse (ListAssessmentsResponse'),
+    newListAssessmentsResponse,
+
+    -- ** ListControlDomainInsights
+    ListControlDomainInsights (ListControlDomainInsights'),
+    newListControlDomainInsights,
+    ListControlDomainInsightsResponse (ListControlDomainInsightsResponse'),
+    newListControlDomainInsightsResponse,
+
+    -- ** ListControlDomainInsightsByAssessment
+    ListControlDomainInsightsByAssessment (ListControlDomainInsightsByAssessment'),
+    newListControlDomainInsightsByAssessment,
+    ListControlDomainInsightsByAssessmentResponse (ListControlDomainInsightsByAssessmentResponse'),
+    newListControlDomainInsightsByAssessmentResponse,
+
+    -- ** ListControlInsightsByControlDomain
+    ListControlInsightsByControlDomain (ListControlInsightsByControlDomain'),
+    newListControlInsightsByControlDomain,
+    ListControlInsightsByControlDomainResponse (ListControlInsightsByControlDomainResponse'),
+    newListControlInsightsByControlDomainResponse,
+
+    -- ** ListControls
+    ListControls (ListControls'),
+    newListControls,
+    ListControlsResponse (ListControlsResponse'),
+    newListControlsResponse,
+
+    -- ** ListKeywordsForDataSource
+    ListKeywordsForDataSource (ListKeywordsForDataSource'),
+    newListKeywordsForDataSource,
+    ListKeywordsForDataSourceResponse (ListKeywordsForDataSourceResponse'),
+    newListKeywordsForDataSourceResponse,
+
+    -- ** ListNotifications
+    ListNotifications (ListNotifications'),
+    newListNotifications,
+    ListNotificationsResponse (ListNotificationsResponse'),
+    newListNotificationsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** RegisterAccount
+    RegisterAccount (RegisterAccount'),
+    newRegisterAccount,
+    RegisterAccountResponse (RegisterAccountResponse'),
+    newRegisterAccountResponse,
+
+    -- ** RegisterOrganizationAdminAccount
+    RegisterOrganizationAdminAccount (RegisterOrganizationAdminAccount'),
+    newRegisterOrganizationAdminAccount,
+    RegisterOrganizationAdminAccountResponse (RegisterOrganizationAdminAccountResponse'),
+    newRegisterOrganizationAdminAccountResponse,
+
+    -- ** StartAssessmentFrameworkShare
+    StartAssessmentFrameworkShare (StartAssessmentFrameworkShare'),
+    newStartAssessmentFrameworkShare,
+    StartAssessmentFrameworkShareResponse (StartAssessmentFrameworkShareResponse'),
+    newStartAssessmentFrameworkShareResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateAssessment
+    UpdateAssessment (UpdateAssessment'),
+    newUpdateAssessment,
+    UpdateAssessmentResponse (UpdateAssessmentResponse'),
+    newUpdateAssessmentResponse,
+
+    -- ** UpdateAssessmentControl
+    UpdateAssessmentControl (UpdateAssessmentControl'),
+    newUpdateAssessmentControl,
+    UpdateAssessmentControlResponse (UpdateAssessmentControlResponse'),
+    newUpdateAssessmentControlResponse,
+
+    -- ** UpdateAssessmentControlSetStatus
+    UpdateAssessmentControlSetStatus (UpdateAssessmentControlSetStatus'),
+    newUpdateAssessmentControlSetStatus,
+    UpdateAssessmentControlSetStatusResponse (UpdateAssessmentControlSetStatusResponse'),
+    newUpdateAssessmentControlSetStatusResponse,
+
+    -- ** UpdateAssessmentFramework
+    UpdateAssessmentFramework (UpdateAssessmentFramework'),
+    newUpdateAssessmentFramework,
+    UpdateAssessmentFrameworkResponse (UpdateAssessmentFrameworkResponse'),
+    newUpdateAssessmentFrameworkResponse,
+
+    -- ** UpdateAssessmentFrameworkShare
+    UpdateAssessmentFrameworkShare (UpdateAssessmentFrameworkShare'),
+    newUpdateAssessmentFrameworkShare,
+    UpdateAssessmentFrameworkShareResponse (UpdateAssessmentFrameworkShareResponse'),
+    newUpdateAssessmentFrameworkShareResponse,
+
+    -- ** UpdateAssessmentStatus
+    UpdateAssessmentStatus (UpdateAssessmentStatus'),
+    newUpdateAssessmentStatus,
+    UpdateAssessmentStatusResponse (UpdateAssessmentStatusResponse'),
+    newUpdateAssessmentStatusResponse,
+
+    -- ** UpdateControl
+    UpdateControl (UpdateControl'),
+    newUpdateControl,
+    UpdateControlResponse (UpdateControlResponse'),
+    newUpdateControlResponse,
+
+    -- ** UpdateSettings
+    UpdateSettings (UpdateSettings'),
+    newUpdateSettings,
+    UpdateSettingsResponse (UpdateSettingsResponse'),
+    newUpdateSettingsResponse,
+
+    -- ** ValidateAssessmentReportIntegrity
+    ValidateAssessmentReportIntegrity (ValidateAssessmentReportIntegrity'),
+    newValidateAssessmentReportIntegrity,
+    ValidateAssessmentReportIntegrityResponse (ValidateAssessmentReportIntegrityResponse'),
+    newValidateAssessmentReportIntegrityResponse,
 
     -- * Types
 
@@ -407,6 +473,12 @@ module Amazonka.AuditManager
     -- ** DelegationStatus
     DelegationStatus (..),
 
+    -- ** EvidenceFinderBackfillStatus
+    EvidenceFinderBackfillStatus (..),
+
+    -- ** EvidenceFinderEnablementStatus
+    EvidenceFinderEnablementStatus (..),
+
     -- ** FrameworkType
     FrameworkType (..),
 
@@ -421,6 +493,15 @@ module Amazonka.AuditManager
 
     -- ** SettingAttribute
     SettingAttribute (..),
+
+    -- ** ShareRequestAction
+    ShareRequestAction (..),
+
+    -- ** ShareRequestStatus
+    ShareRequestStatus (..),
+
+    -- ** ShareRequestType
+    ShareRequestType (..),
 
     -- ** SourceFrequency
     SourceFrequency (..),
@@ -462,6 +543,10 @@ module Amazonka.AuditManager
     -- ** AssessmentFrameworkMetadata
     AssessmentFrameworkMetadata (AssessmentFrameworkMetadata'),
     newAssessmentFrameworkMetadata,
+
+    -- ** AssessmentFrameworkShareRequest
+    AssessmentFrameworkShareRequest (AssessmentFrameworkShareRequest'),
+    newAssessmentFrameworkShareRequest,
 
     -- ** AssessmentMetadata
     AssessmentMetadata (AssessmentMetadata'),
@@ -511,6 +596,18 @@ module Amazonka.AuditManager
     ControlComment (ControlComment'),
     newControlComment,
 
+    -- ** ControlDomainInsights
+    ControlDomainInsights (ControlDomainInsights'),
+    newControlDomainInsights,
+
+    -- ** ControlInsightsMetadataByAssessmentItem
+    ControlInsightsMetadataByAssessmentItem (ControlInsightsMetadataByAssessmentItem'),
+    newControlInsightsMetadataByAssessmentItem,
+
+    -- ** ControlInsightsMetadataItem
+    ControlInsightsMetadataItem (ControlInsightsMetadataItem'),
+    newControlInsightsMetadataItem,
+
     -- ** ControlMappingSource
     ControlMappingSource (ControlMappingSource'),
     newControlMappingSource,
@@ -551,6 +648,14 @@ module Amazonka.AuditManager
     Evidence (Evidence'),
     newEvidence,
 
+    -- ** EvidenceFinderEnablement
+    EvidenceFinderEnablement (EvidenceFinderEnablement'),
+    newEvidenceFinderEnablement,
+
+    -- ** EvidenceInsights
+    EvidenceInsights (EvidenceInsights'),
+    newEvidenceInsights,
+
     -- ** Framework
     Framework (Framework'),
     newFramework,
@@ -558,6 +663,14 @@ module Amazonka.AuditManager
     -- ** FrameworkMetadata
     FrameworkMetadata (FrameworkMetadata'),
     newFrameworkMetadata,
+
+    -- ** Insights
+    Insights (Insights'),
+    newInsights,
+
+    -- ** InsightsByAssessment
+    InsightsByAssessment (InsightsByAssessment'),
+    newInsightsByAssessment,
 
     -- ** ManualEvidence
     ManualEvidence (ManualEvidence'),
@@ -613,6 +726,7 @@ import Amazonka.AuditManager.CreateAssessmentReport
 import Amazonka.AuditManager.CreateControl
 import Amazonka.AuditManager.DeleteAssessment
 import Amazonka.AuditManager.DeleteAssessmentFramework
+import Amazonka.AuditManager.DeleteAssessmentFrameworkShare
 import Amazonka.AuditManager.DeleteAssessmentReport
 import Amazonka.AuditManager.DeleteControl
 import Amazonka.AuditManager.DeregisterAccount
@@ -630,19 +744,27 @@ import Amazonka.AuditManager.GetEvidenceByEvidenceFolder
 import Amazonka.AuditManager.GetEvidenceFolder
 import Amazonka.AuditManager.GetEvidenceFoldersByAssessment
 import Amazonka.AuditManager.GetEvidenceFoldersByAssessmentControl
+import Amazonka.AuditManager.GetInsights
+import Amazonka.AuditManager.GetInsightsByAssessment
 import Amazonka.AuditManager.GetOrganizationAdminAccount
 import Amazonka.AuditManager.GetServicesInScope
 import Amazonka.AuditManager.GetSettings
 import Amazonka.AuditManager.Lens
+import Amazonka.AuditManager.ListAssessmentControlInsightsByControlDomain
+import Amazonka.AuditManager.ListAssessmentFrameworkShareRequests
 import Amazonka.AuditManager.ListAssessmentFrameworks
 import Amazonka.AuditManager.ListAssessmentReports
 import Amazonka.AuditManager.ListAssessments
+import Amazonka.AuditManager.ListControlDomainInsights
+import Amazonka.AuditManager.ListControlDomainInsightsByAssessment
+import Amazonka.AuditManager.ListControlInsightsByControlDomain
 import Amazonka.AuditManager.ListControls
 import Amazonka.AuditManager.ListKeywordsForDataSource
 import Amazonka.AuditManager.ListNotifications
 import Amazonka.AuditManager.ListTagsForResource
 import Amazonka.AuditManager.RegisterAccount
 import Amazonka.AuditManager.RegisterOrganizationAdminAccount
+import Amazonka.AuditManager.StartAssessmentFrameworkShare
 import Amazonka.AuditManager.TagResource
 import Amazonka.AuditManager.Types
 import Amazonka.AuditManager.UntagResource
@@ -650,6 +772,7 @@ import Amazonka.AuditManager.UpdateAssessment
 import Amazonka.AuditManager.UpdateAssessmentControl
 import Amazonka.AuditManager.UpdateAssessmentControlSetStatus
 import Amazonka.AuditManager.UpdateAssessmentFramework
+import Amazonka.AuditManager.UpdateAssessmentFrameworkShare
 import Amazonka.AuditManager.UpdateAssessmentStatus
 import Amazonka.AuditManager.UpdateControl
 import Amazonka.AuditManager.UpdateSettings

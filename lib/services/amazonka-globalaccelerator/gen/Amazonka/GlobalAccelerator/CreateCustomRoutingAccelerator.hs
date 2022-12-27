@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.CreateCustomRoutingAccelerator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,9 @@
 -- operation.
 --
 -- Global Accelerator is a global service that supports endpoints in
--- multiple AWS Regions but you must specify the US West (Oregon) Region to
--- create or update accelerators.
+-- multiple Amazon Web Services Regions but you must specify the US West
+-- (Oregon) Region to create, update, or otherwise work with accelerators.
+-- That is, for example, specify @--region us-west-2@ on AWS CLI commands.
 module Amazonka.GlobalAccelerator.CreateCustomRoutingAccelerator
   ( -- * Creating a Request
     CreateCustomRoutingAccelerator (..),
@@ -43,8 +44,8 @@ module Amazonka.GlobalAccelerator.CreateCustomRoutingAccelerator
     -- * Request Lenses
     createCustomRoutingAccelerator_enabled,
     createCustomRoutingAccelerator_ipAddressType,
-    createCustomRoutingAccelerator_tags,
     createCustomRoutingAccelerator_ipAddresses,
+    createCustomRoutingAccelerator_tags,
     createCustomRoutingAccelerator_name,
     createCustomRoutingAccelerator_idempotencyToken,
 
@@ -59,8 +60,9 @@ module Amazonka.GlobalAccelerator.CreateCustomRoutingAccelerator
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,32 +75,39 @@ data CreateCustomRoutingAccelerator = CreateCustomRoutingAccelerator'
     -- If the value is set to true, an accelerator cannot be deleted. If set to
     -- false, the accelerator can be deleted.
     enabled :: Prelude.Maybe Prelude.Bool,
-    -- | The value for the address type must be IPv4.
+    -- | The IP address type that an accelerator supports. For a custom routing
+    -- accelerator, the value must be IPV4.
     ipAddressType :: Prelude.Maybe IpAddressType,
-    -- | Create tags for an accelerator.
-    --
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/tagging-in-global-accelerator.html Tagging in AWS Global Accelerator>
-    -- in the /AWS Global Accelerator Developer Guide/.
-    tags :: Prelude.Maybe [Tag],
     -- | Optionally, if you\'ve added your own IP address pool to Global
-    -- Accelerator (BYOIP), you can choose IP addresses from your own pool to
-    -- use for the accelerator\'s static IP addresses when you create an
-    -- accelerator. You can specify one or two addresses, separated by a space.
-    -- Do not include the \/32 suffix.
+    -- Accelerator (BYOIP), you can choose an IPv4 address from your own pool
+    -- to use for the accelerator\'s static IPv4 address when you create an
+    -- accelerator.
     --
-    -- Only one IP address from each of your IP address ranges can be used for
-    -- each accelerator. If you specify only one IP address from your IP
-    -- address range, Global Accelerator assigns a second static IP address for
-    -- the accelerator from the AWS IP address pool.
+    -- After you bring an address range to Amazon Web Services, it appears in
+    -- your account as an address pool. When you create an accelerator, you can
+    -- assign one IPv4 address from your range to it. Global Accelerator
+    -- assigns you a second static IPv4 address from an Amazon IP address
+    -- range. If you bring two IPv4 address ranges to Amazon Web Services, you
+    -- can assign one IPv4 address from each range to your accelerator. This
+    -- restriction is because Global Accelerator assigns each address range to
+    -- a different network zone, for high availability.
+    --
+    -- You can specify one or two addresses, separated by a space. Do not
+    -- include the \/32 suffix.
     --
     -- Note that you can\'t update IP addresses for an existing accelerator. To
     -- change them, you must create a new accelerator with the new addresses.
     --
     -- For more information, see
     -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring your own IP addresses (BYOIP)>
-    -- in the /AWS Global Accelerator Developer Guide/.
+    -- in the /Global Accelerator Developer Guide/.
     ipAddresses :: Prelude.Maybe [Prelude.Text],
+    -- | Create tags for an accelerator.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/tagging-in-global-accelerator.html Tagging in Global Accelerator>
+    -- in the /Global Accelerator Developer Guide/.
+    tags :: Prelude.Maybe [Tag],
     -- | The name of a custom routing accelerator. The name can have a maximum of
     -- 64 characters, must contain only alphanumeric characters or hyphens (-),
     -- and must not begin or end with a hyphen.
@@ -123,31 +132,38 @@ data CreateCustomRoutingAccelerator = CreateCustomRoutingAccelerator'
 -- If the value is set to true, an accelerator cannot be deleted. If set to
 -- false, the accelerator can be deleted.
 --
--- 'ipAddressType', 'createCustomRoutingAccelerator_ipAddressType' - The value for the address type must be IPv4.
---
--- 'tags', 'createCustomRoutingAccelerator_tags' - Create tags for an accelerator.
---
--- For more information, see
--- <https://docs.aws.amazon.com/global-accelerator/latest/dg/tagging-in-global-accelerator.html Tagging in AWS Global Accelerator>
--- in the /AWS Global Accelerator Developer Guide/.
+-- 'ipAddressType', 'createCustomRoutingAccelerator_ipAddressType' - The IP address type that an accelerator supports. For a custom routing
+-- accelerator, the value must be IPV4.
 --
 -- 'ipAddresses', 'createCustomRoutingAccelerator_ipAddresses' - Optionally, if you\'ve added your own IP address pool to Global
--- Accelerator (BYOIP), you can choose IP addresses from your own pool to
--- use for the accelerator\'s static IP addresses when you create an
--- accelerator. You can specify one or two addresses, separated by a space.
--- Do not include the \/32 suffix.
+-- Accelerator (BYOIP), you can choose an IPv4 address from your own pool
+-- to use for the accelerator\'s static IPv4 address when you create an
+-- accelerator.
 --
--- Only one IP address from each of your IP address ranges can be used for
--- each accelerator. If you specify only one IP address from your IP
--- address range, Global Accelerator assigns a second static IP address for
--- the accelerator from the AWS IP address pool.
+-- After you bring an address range to Amazon Web Services, it appears in
+-- your account as an address pool. When you create an accelerator, you can
+-- assign one IPv4 address from your range to it. Global Accelerator
+-- assigns you a second static IPv4 address from an Amazon IP address
+-- range. If you bring two IPv4 address ranges to Amazon Web Services, you
+-- can assign one IPv4 address from each range to your accelerator. This
+-- restriction is because Global Accelerator assigns each address range to
+-- a different network zone, for high availability.
+--
+-- You can specify one or two addresses, separated by a space. Do not
+-- include the \/32 suffix.
 --
 -- Note that you can\'t update IP addresses for an existing accelerator. To
 -- change them, you must create a new accelerator with the new addresses.
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring your own IP addresses (BYOIP)>
--- in the /AWS Global Accelerator Developer Guide/.
+-- in the /Global Accelerator Developer Guide/.
+--
+-- 'tags', 'createCustomRoutingAccelerator_tags' - Create tags for an accelerator.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/global-accelerator/latest/dg/tagging-in-global-accelerator.html Tagging in Global Accelerator>
+-- in the /Global Accelerator Developer Guide/.
 --
 -- 'name', 'createCustomRoutingAccelerator_name' - The name of a custom routing accelerator. The name can have a maximum of
 -- 64 characters, must contain only alphanumeric characters or hyphens (-),
@@ -168,8 +184,8 @@ newCreateCustomRoutingAccelerator
       { enabled =
           Prelude.Nothing,
         ipAddressType = Prelude.Nothing,
-        tags = Prelude.Nothing,
         ipAddresses = Prelude.Nothing,
+        tags = Prelude.Nothing,
         name = pName_,
         idempotencyToken = pIdempotencyToken_
       }
@@ -182,37 +198,44 @@ newCreateCustomRoutingAccelerator
 createCustomRoutingAccelerator_enabled :: Lens.Lens' CreateCustomRoutingAccelerator (Prelude.Maybe Prelude.Bool)
 createCustomRoutingAccelerator_enabled = Lens.lens (\CreateCustomRoutingAccelerator' {enabled} -> enabled) (\s@CreateCustomRoutingAccelerator' {} a -> s {enabled = a} :: CreateCustomRoutingAccelerator)
 
--- | The value for the address type must be IPv4.
+-- | The IP address type that an accelerator supports. For a custom routing
+-- accelerator, the value must be IPV4.
 createCustomRoutingAccelerator_ipAddressType :: Lens.Lens' CreateCustomRoutingAccelerator (Prelude.Maybe IpAddressType)
 createCustomRoutingAccelerator_ipAddressType = Lens.lens (\CreateCustomRoutingAccelerator' {ipAddressType} -> ipAddressType) (\s@CreateCustomRoutingAccelerator' {} a -> s {ipAddressType = a} :: CreateCustomRoutingAccelerator)
 
--- | Create tags for an accelerator.
---
--- For more information, see
--- <https://docs.aws.amazon.com/global-accelerator/latest/dg/tagging-in-global-accelerator.html Tagging in AWS Global Accelerator>
--- in the /AWS Global Accelerator Developer Guide/.
-createCustomRoutingAccelerator_tags :: Lens.Lens' CreateCustomRoutingAccelerator (Prelude.Maybe [Tag])
-createCustomRoutingAccelerator_tags = Lens.lens (\CreateCustomRoutingAccelerator' {tags} -> tags) (\s@CreateCustomRoutingAccelerator' {} a -> s {tags = a} :: CreateCustomRoutingAccelerator) Prelude.. Lens.mapping Lens.coerced
-
 -- | Optionally, if you\'ve added your own IP address pool to Global
--- Accelerator (BYOIP), you can choose IP addresses from your own pool to
--- use for the accelerator\'s static IP addresses when you create an
--- accelerator. You can specify one or two addresses, separated by a space.
--- Do not include the \/32 suffix.
+-- Accelerator (BYOIP), you can choose an IPv4 address from your own pool
+-- to use for the accelerator\'s static IPv4 address when you create an
+-- accelerator.
 --
--- Only one IP address from each of your IP address ranges can be used for
--- each accelerator. If you specify only one IP address from your IP
--- address range, Global Accelerator assigns a second static IP address for
--- the accelerator from the AWS IP address pool.
+-- After you bring an address range to Amazon Web Services, it appears in
+-- your account as an address pool. When you create an accelerator, you can
+-- assign one IPv4 address from your range to it. Global Accelerator
+-- assigns you a second static IPv4 address from an Amazon IP address
+-- range. If you bring two IPv4 address ranges to Amazon Web Services, you
+-- can assign one IPv4 address from each range to your accelerator. This
+-- restriction is because Global Accelerator assigns each address range to
+-- a different network zone, for high availability.
+--
+-- You can specify one or two addresses, separated by a space. Do not
+-- include the \/32 suffix.
 --
 -- Note that you can\'t update IP addresses for an existing accelerator. To
 -- change them, you must create a new accelerator with the new addresses.
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring your own IP addresses (BYOIP)>
--- in the /AWS Global Accelerator Developer Guide/.
+-- in the /Global Accelerator Developer Guide/.
 createCustomRoutingAccelerator_ipAddresses :: Lens.Lens' CreateCustomRoutingAccelerator (Prelude.Maybe [Prelude.Text])
 createCustomRoutingAccelerator_ipAddresses = Lens.lens (\CreateCustomRoutingAccelerator' {ipAddresses} -> ipAddresses) (\s@CreateCustomRoutingAccelerator' {} a -> s {ipAddresses = a} :: CreateCustomRoutingAccelerator) Prelude.. Lens.mapping Lens.coerced
+
+-- | Create tags for an accelerator.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/global-accelerator/latest/dg/tagging-in-global-accelerator.html Tagging in Global Accelerator>
+-- in the /Global Accelerator Developer Guide/.
+createCustomRoutingAccelerator_tags :: Lens.Lens' CreateCustomRoutingAccelerator (Prelude.Maybe [Tag])
+createCustomRoutingAccelerator_tags = Lens.lens (\CreateCustomRoutingAccelerator' {tags} -> tags) (\s@CreateCustomRoutingAccelerator' {} a -> s {tags = a} :: CreateCustomRoutingAccelerator) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of a custom routing accelerator. The name can have a maximum of
 -- 64 characters, must contain only alphanumeric characters or hyphens (-),
@@ -232,12 +255,13 @@ instance
   type
     AWSResponse CreateCustomRoutingAccelerator =
       CreateCustomRoutingAcceleratorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateCustomRoutingAcceleratorResponse'
-            Prelude.<$> (x Core..?> "Accelerator")
+            Prelude.<$> (x Data..?> "Accelerator")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -250,8 +274,8 @@ instance
     CreateCustomRoutingAccelerator' {..} =
       _salt `Prelude.hashWithSalt` enabled
         `Prelude.hashWithSalt` ipAddressType
-        `Prelude.hashWithSalt` tags
         `Prelude.hashWithSalt` ipAddresses
+        `Prelude.hashWithSalt` tags
         `Prelude.hashWithSalt` name
         `Prelude.hashWithSalt` idempotencyToken
 
@@ -262,47 +286,47 @@ instance
   rnf CreateCustomRoutingAccelerator' {..} =
     Prelude.rnf enabled
       `Prelude.seq` Prelude.rnf ipAddressType
-      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf ipAddresses
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf idempotencyToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateCustomRoutingAccelerator
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.CreateCustomRoutingAccelerator" ::
+              Data.=# ( "GlobalAccelerator_V20180706.CreateCustomRoutingAccelerator" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateCustomRoutingAccelerator where
+instance Data.ToJSON CreateCustomRoutingAccelerator where
   toJSON CreateCustomRoutingAccelerator' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Enabled" Core..=) Prelude.<$> enabled,
-            ("IpAddressType" Core..=) Prelude.<$> ipAddressType,
-            ("Tags" Core..=) Prelude.<$> tags,
-            ("IpAddresses" Core..=) Prelude.<$> ipAddresses,
-            Prelude.Just ("Name" Core..= name),
+          [ ("Enabled" Data..=) Prelude.<$> enabled,
+            ("IpAddressType" Data..=) Prelude.<$> ipAddressType,
+            ("IpAddresses" Data..=) Prelude.<$> ipAddresses,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("IdempotencyToken" Core..= idempotencyToken)
+              ("IdempotencyToken" Data..= idempotencyToken)
           ]
       )
 
-instance Core.ToPath CreateCustomRoutingAccelerator where
+instance Data.ToPath CreateCustomRoutingAccelerator where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateCustomRoutingAccelerator where
+instance Data.ToQuery CreateCustomRoutingAccelerator where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateCustomRoutingAcceleratorResponse' smart constructor.

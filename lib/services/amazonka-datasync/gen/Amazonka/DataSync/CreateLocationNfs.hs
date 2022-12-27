@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.CreateLocationNfs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.DataSync.CreateLocationNfs
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +91,7 @@ data CreateLocationNfs = CreateLocationNfs'
     subdirectory :: Prelude.Text,
     -- | The name of the NFS server. This value is the IP address or Domain Name
     -- Service (DNS) name of the NFS server. An agent that is installed
-    -- on-premises uses this host name to mount the NFS server in a network.
+    -- on-premises uses this hostname to mount the NFS server in a network.
     --
     -- If you are copying data to or from your Snowcone device, see
     -- <https://docs.aws.amazon.com/datasync/latest/userguide/create-nfs-location.html#nfs-on-snowcone NFS Server on Snowcone>
@@ -152,7 +153,7 @@ data CreateLocationNfs = CreateLocationNfs'
 --
 -- 'serverHostname', 'createLocationNfs_serverHostname' - The name of the NFS server. This value is the IP address or Domain Name
 -- Service (DNS) name of the NFS server. An agent that is installed
--- on-premises uses this host name to mount the NFS server in a network.
+-- on-premises uses this hostname to mount the NFS server in a network.
 --
 -- If you are copying data to or from your Snowcone device, see
 -- <https://docs.aws.amazon.com/datasync/latest/userguide/create-nfs-location.html#nfs-on-snowcone NFS Server on Snowcone>
@@ -228,7 +229,7 @@ createLocationNfs_subdirectory = Lens.lens (\CreateLocationNfs' {subdirectory} -
 
 -- | The name of the NFS server. This value is the IP address or Domain Name
 -- Service (DNS) name of the NFS server. An agent that is installed
--- on-premises uses this host name to mount the NFS server in a network.
+-- on-premises uses this hostname to mount the NFS server in a network.
 --
 -- If you are copying data to or from your Snowcone device, see
 -- <https://docs.aws.amazon.com/datasync/latest/userguide/create-nfs-location.html#nfs-on-snowcone NFS Server on Snowcone>
@@ -252,12 +253,13 @@ instance Core.AWSRequest CreateLocationNfs where
   type
     AWSResponse CreateLocationNfs =
       CreateLocationNfsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateLocationNfsResponse'
-            Prelude.<$> (x Core..?> "LocationArn")
+            Prelude.<$> (x Data..?> "LocationArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -277,38 +279,38 @@ instance Prelude.NFData CreateLocationNfs where
       `Prelude.seq` Prelude.rnf serverHostname
       `Prelude.seq` Prelude.rnf onPremConfig
 
-instance Core.ToHeaders CreateLocationNfs where
+instance Data.ToHeaders CreateLocationNfs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "FmrsService.CreateLocationNfs" ::
+              Data.=# ( "FmrsService.CreateLocationNfs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateLocationNfs where
+instance Data.ToJSON CreateLocationNfs where
   toJSON CreateLocationNfs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MountOptions" Core..=) Prelude.<$> mountOptions,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Subdirectory" Core..= subdirectory),
+          [ ("MountOptions" Data..=) Prelude.<$> mountOptions,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Subdirectory" Data..= subdirectory),
             Prelude.Just
-              ("ServerHostname" Core..= serverHostname),
-            Prelude.Just ("OnPremConfig" Core..= onPremConfig)
+              ("ServerHostname" Data..= serverHostname),
+            Prelude.Just ("OnPremConfig" Data..= onPremConfig)
           ]
       )
 
-instance Core.ToPath CreateLocationNfs where
+instance Data.ToPath CreateLocationNfs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateLocationNfs where
+instance Data.ToQuery CreateLocationNfs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | CreateLocationNfsResponse

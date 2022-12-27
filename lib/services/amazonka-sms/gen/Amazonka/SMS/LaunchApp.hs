@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.SMS.LaunchApp
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Launches the specified application as a stack in AWS CloudFormation.
+-- Launches the specified application as a stack in CloudFormation.
 module Amazonka.SMS.LaunchApp
   ( -- * Creating a Request
     LaunchApp (..),
@@ -39,7 +39,8 @@ module Amazonka.SMS.LaunchApp
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -71,7 +72,8 @@ launchApp_appId = Lens.lens (\LaunchApp' {appId} -> appId) (\s@LaunchApp' {} a -
 
 instance Core.AWSRequest LaunchApp where
   type AWSResponse LaunchApp = LaunchAppResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -86,32 +88,32 @@ instance Prelude.Hashable LaunchApp where
 instance Prelude.NFData LaunchApp where
   rnf LaunchApp' {..} = Prelude.rnf appId
 
-instance Core.ToHeaders LaunchApp where
+instance Data.ToHeaders LaunchApp where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.LaunchApp" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.LaunchApp" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON LaunchApp where
+instance Data.ToJSON LaunchApp where
   toJSON LaunchApp' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("appId" Core..=) Prelude.<$> appId]
+          [("appId" Data..=) Prelude.<$> appId]
       )
 
-instance Core.ToPath LaunchApp where
+instance Data.ToPath LaunchApp where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery LaunchApp where
+instance Data.ToQuery LaunchApp where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newLaunchAppResponse' smart constructor.

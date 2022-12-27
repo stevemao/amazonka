@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.AthenaIntegration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.EC2.Types.AthenaIntegration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.PartitionLoadFrequency
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes integration options for Amazon Athena.
 --
 -- /See:/ 'newAthenaIntegration' smart constructor.
 data AthenaIntegration = AthenaIntegration'
-  { -- | The start date for the partition.
-    partitionStartDate :: Prelude.Maybe Core.ISO8601,
-    -- | The end date for the partition.
-    partitionEndDate :: Prelude.Maybe Core.ISO8601,
+  { -- | The end date for the partition.
+    partitionEndDate :: Prelude.Maybe Data.ISO8601,
+    -- | The start date for the partition.
+    partitionStartDate :: Prelude.Maybe Data.ISO8601,
     -- | The location in Amazon S3 to store the generated CloudFormation
     -- template.
     integrationResultS3DestinationArn :: Prelude.Text,
@@ -49,9 +50,9 @@ data AthenaIntegration = AthenaIntegration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'partitionStartDate', 'athenaIntegration_partitionStartDate' - The start date for the partition.
---
 -- 'partitionEndDate', 'athenaIntegration_partitionEndDate' - The end date for the partition.
+--
+-- 'partitionStartDate', 'athenaIntegration_partitionStartDate' - The start date for the partition.
 --
 -- 'integrationResultS3DestinationArn', 'athenaIntegration_integrationResultS3DestinationArn' - The location in Amazon S3 to store the generated CloudFormation
 -- template.
@@ -67,21 +68,21 @@ newAthenaIntegration
   pIntegrationResultS3DestinationArn_
   pPartitionLoadFrequency_ =
     AthenaIntegration'
-      { partitionStartDate =
+      { partitionEndDate =
           Prelude.Nothing,
-        partitionEndDate = Prelude.Nothing,
+        partitionStartDate = Prelude.Nothing,
         integrationResultS3DestinationArn =
           pIntegrationResultS3DestinationArn_,
         partitionLoadFrequency = pPartitionLoadFrequency_
       }
 
--- | The start date for the partition.
-athenaIntegration_partitionStartDate :: Lens.Lens' AthenaIntegration (Prelude.Maybe Prelude.UTCTime)
-athenaIntegration_partitionStartDate = Lens.lens (\AthenaIntegration' {partitionStartDate} -> partitionStartDate) (\s@AthenaIntegration' {} a -> s {partitionStartDate = a} :: AthenaIntegration) Prelude.. Lens.mapping Core._Time
-
 -- | The end date for the partition.
 athenaIntegration_partitionEndDate :: Lens.Lens' AthenaIntegration (Prelude.Maybe Prelude.UTCTime)
-athenaIntegration_partitionEndDate = Lens.lens (\AthenaIntegration' {partitionEndDate} -> partitionEndDate) (\s@AthenaIntegration' {} a -> s {partitionEndDate = a} :: AthenaIntegration) Prelude.. Lens.mapping Core._Time
+athenaIntegration_partitionEndDate = Lens.lens (\AthenaIntegration' {partitionEndDate} -> partitionEndDate) (\s@AthenaIntegration' {} a -> s {partitionEndDate = a} :: AthenaIntegration) Prelude.. Lens.mapping Data._Time
+
+-- | The start date for the partition.
+athenaIntegration_partitionStartDate :: Lens.Lens' AthenaIntegration (Prelude.Maybe Prelude.UTCTime)
+athenaIntegration_partitionStartDate = Lens.lens (\AthenaIntegration' {partitionStartDate} -> partitionStartDate) (\s@AthenaIntegration' {} a -> s {partitionStartDate = a} :: AthenaIntegration) Prelude.. Lens.mapping Data._Time
 
 -- | The location in Amazon S3 to store the generated CloudFormation
 -- template.
@@ -94,25 +95,25 @@ athenaIntegration_partitionLoadFrequency = Lens.lens (\AthenaIntegration' {parti
 
 instance Prelude.Hashable AthenaIntegration where
   hashWithSalt _salt AthenaIntegration' {..} =
-    _salt `Prelude.hashWithSalt` partitionStartDate
-      `Prelude.hashWithSalt` partitionEndDate
+    _salt `Prelude.hashWithSalt` partitionEndDate
+      `Prelude.hashWithSalt` partitionStartDate
       `Prelude.hashWithSalt` integrationResultS3DestinationArn
       `Prelude.hashWithSalt` partitionLoadFrequency
 
 instance Prelude.NFData AthenaIntegration where
   rnf AthenaIntegration' {..} =
-    Prelude.rnf partitionStartDate
-      `Prelude.seq` Prelude.rnf partitionEndDate
+    Prelude.rnf partitionEndDate
+      `Prelude.seq` Prelude.rnf partitionStartDate
       `Prelude.seq` Prelude.rnf integrationResultS3DestinationArn
       `Prelude.seq` Prelude.rnf partitionLoadFrequency
 
-instance Core.ToQuery AthenaIntegration where
+instance Data.ToQuery AthenaIntegration where
   toQuery AthenaIntegration' {..} =
     Prelude.mconcat
-      [ "PartitionStartDate" Core.=: partitionStartDate,
-        "PartitionEndDate" Core.=: partitionEndDate,
+      [ "PartitionEndDate" Data.=: partitionEndDate,
+        "PartitionStartDate" Data.=: partitionStartDate,
         "IntegrationResultS3DestinationArn"
-          Core.=: integrationResultS3DestinationArn,
+          Data.=: integrationResultS3DestinationArn,
         "PartitionLoadFrequency"
-          Core.=: partitionLoadFrequency
+          Data.=: partitionLoadFrequency
       ]

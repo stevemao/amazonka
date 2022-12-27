@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pi.Types.ResponseResourceMetricKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pi.Types.ResponseResourceMetricKey where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object describing a Performance Insights metric and one or more
@@ -34,11 +35,15 @@ data ResponseResourceMetricKey = ResponseResourceMetricKey'
     --
     -- Valid values for @Metric@ are:
     --
-    -- -   @db.load.avg@ - a scaled representation of the number of active
+    -- -   @db.load.avg@ - A scaled representation of the number of active
     --     sessions for the database engine.
     --
-    -- -   @db.sampledload.avg@ - the raw number of active sessions for the
+    -- -   @db.sampledload.avg@ - The raw number of active sessions for the
     --     database engine.
+    --
+    -- -   The counter metrics listed in
+    --     <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS Performance Insights operating system counters>
+    --     in the /Amazon Aurora User Guide/.
     --
     -- If the number of active sessions is less than an internal Performance
     -- Insights threshold, @db.load.avg@ and @db.sampledload.avg@ are the same
@@ -65,11 +70,15 @@ data ResponseResourceMetricKey = ResponseResourceMetricKey'
 --
 -- Valid values for @Metric@ are:
 --
--- -   @db.load.avg@ - a scaled representation of the number of active
+-- -   @db.load.avg@ - A scaled representation of the number of active
 --     sessions for the database engine.
 --
--- -   @db.sampledload.avg@ - the raw number of active sessions for the
+-- -   @db.sampledload.avg@ - The raw number of active sessions for the
 --     database engine.
+--
+-- -   The counter metrics listed in
+--     <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS Performance Insights operating system counters>
+--     in the /Amazon Aurora User Guide/.
 --
 -- If the number of active sessions is less than an internal Performance
 -- Insights threshold, @db.load.avg@ and @db.sampledload.avg@ are the same
@@ -97,11 +106,15 @@ responseResourceMetricKey_dimensions = Lens.lens (\ResponseResourceMetricKey' {d
 --
 -- Valid values for @Metric@ are:
 --
--- -   @db.load.avg@ - a scaled representation of the number of active
+-- -   @db.load.avg@ - A scaled representation of the number of active
 --     sessions for the database engine.
 --
--- -   @db.sampledload.avg@ - the raw number of active sessions for the
+-- -   @db.sampledload.avg@ - The raw number of active sessions for the
 --     database engine.
+--
+-- -   The counter metrics listed in
+--     <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_PerfInsights_Counters.html#USER_PerfInsights_Counters.OS Performance Insights operating system counters>
+--     in the /Amazon Aurora User Guide/.
 --
 -- If the number of active sessions is less than an internal Performance
 -- Insights threshold, @db.load.avg@ and @db.sampledload.avg@ are the same
@@ -113,14 +126,14 @@ responseResourceMetricKey_dimensions = Lens.lens (\ResponseResourceMetricKey' {d
 responseResourceMetricKey_metric :: Lens.Lens' ResponseResourceMetricKey Prelude.Text
 responseResourceMetricKey_metric = Lens.lens (\ResponseResourceMetricKey' {metric} -> metric) (\s@ResponseResourceMetricKey' {} a -> s {metric = a} :: ResponseResourceMetricKey)
 
-instance Core.FromJSON ResponseResourceMetricKey where
+instance Data.FromJSON ResponseResourceMetricKey where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResponseResourceMetricKey"
       ( \x ->
           ResponseResourceMetricKey'
-            Prelude.<$> (x Core..:? "Dimensions" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "Metric")
+            Prelude.<$> (x Data..:? "Dimensions" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "Metric")
       )
 
 instance Prelude.Hashable ResponseResourceMetricKey where

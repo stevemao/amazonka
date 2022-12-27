@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -46,6 +46,7 @@ library
     Amazonka.IoTDeviceAdvisor
     Amazonka.IoTDeviceAdvisor.CreateSuiteDefinition
     Amazonka.IoTDeviceAdvisor.DeleteSuiteDefinition
+    Amazonka.IoTDeviceAdvisor.GetEndpoint
     Amazonka.IoTDeviceAdvisor.GetSuiteDefinition
     Amazonka.IoTDeviceAdvisor.GetSuiteRun
     Amazonka.IoTDeviceAdvisor.GetSuiteRunReport
@@ -59,6 +60,7 @@ library
     Amazonka.IoTDeviceAdvisor.Types
     Amazonka.IoTDeviceAdvisor.Types.DeviceUnderTest
     Amazonka.IoTDeviceAdvisor.Types.GroupResult
+    Amazonka.IoTDeviceAdvisor.Types.Protocol
     Amazonka.IoTDeviceAdvisor.Types.Status
     Amazonka.IoTDeviceAdvisor.Types.SuiteDefinitionConfiguration
     Amazonka.IoTDeviceAdvisor.Types.SuiteDefinitionInformation
@@ -66,13 +68,16 @@ library
     Amazonka.IoTDeviceAdvisor.Types.SuiteRunInformation
     Amazonka.IoTDeviceAdvisor.Types.SuiteRunStatus
     Amazonka.IoTDeviceAdvisor.Types.TestCaseRun
+    Amazonka.IoTDeviceAdvisor.Types.TestCaseScenario
+    Amazonka.IoTDeviceAdvisor.Types.TestCaseScenarioStatus
+    Amazonka.IoTDeviceAdvisor.Types.TestCaseScenarioType
     Amazonka.IoTDeviceAdvisor.Types.TestResult
     Amazonka.IoTDeviceAdvisor.UntagResource
     Amazonka.IoTDeviceAdvisor.UpdateSuiteDefinition
     Amazonka.IoTDeviceAdvisor.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-iotdeviceadvisor-test
@@ -91,9 +96,9 @@ test-suite amazonka-iotdeviceadvisor-test
     Test.Amazonka.IoTDeviceAdvisor.Internal
 
   build-depends:
-    , amazonka-core              ^>=2.0
+    , amazonka-core              >=2.0 && <2.1
     , amazonka-iotdeviceadvisor
-    , amazonka-test              ^>=2.0
+    , amazonka-test              >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

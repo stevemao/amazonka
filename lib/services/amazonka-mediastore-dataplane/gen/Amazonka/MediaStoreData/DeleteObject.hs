@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaStoreData.DeleteObject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.MediaStoreData.DeleteObject
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaStoreData.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -76,7 +77,8 @@ deleteObject_path = Lens.lens (\DeleteObject' {path} -> path) (\s@DeleteObject' 
 
 instance Core.AWSRequest DeleteObject where
   type AWSResponse DeleteObject = DeleteObjectResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,14 +93,14 @@ instance Prelude.Hashable DeleteObject where
 instance Prelude.NFData DeleteObject where
   rnf DeleteObject' {..} = Prelude.rnf path
 
-instance Core.ToHeaders DeleteObject where
+instance Data.ToHeaders DeleteObject where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteObject where
+instance Data.ToPath DeleteObject where
   toPath DeleteObject' {..} =
-    Prelude.mconcat ["/", Core.toBS path]
+    Prelude.mconcat ["/", Data.toBS path]
 
-instance Core.ToQuery DeleteObject where
+instance Data.ToQuery DeleteObject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteObjectResponse' smart constructor.

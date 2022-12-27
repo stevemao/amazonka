@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.UpdateDeployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,11 +36,11 @@ module Amazonka.ApiGatewayV2.UpdateDeployment
     newUpdateDeploymentResponse,
 
     -- * Response Lenses
-    updateDeploymentResponse_deploymentId,
     updateDeploymentResponse_autoDeployed,
-    updateDeploymentResponse_deploymentStatusMessage,
     updateDeploymentResponse_createdDate,
+    updateDeploymentResponse_deploymentId,
     updateDeploymentResponse_deploymentStatus,
+    updateDeploymentResponse_deploymentStatusMessage,
     updateDeploymentResponse_description,
     updateDeploymentResponse_httpStatus,
   )
@@ -48,7 +48,8 @@ where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,17 +109,18 @@ instance Core.AWSRequest UpdateDeployment where
   type
     AWSResponse UpdateDeployment =
       UpdateDeploymentResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDeploymentResponse'
-            Prelude.<$> (x Core..?> "deploymentId")
-            Prelude.<*> (x Core..?> "autoDeployed")
-            Prelude.<*> (x Core..?> "deploymentStatusMessage")
-            Prelude.<*> (x Core..?> "createdDate")
-            Prelude.<*> (x Core..?> "deploymentStatus")
-            Prelude.<*> (x Core..?> "description")
+            Prelude.<$> (x Data..?> "autoDeployed")
+            Prelude.<*> (x Data..?> "createdDate")
+            Prelude.<*> (x Data..?> "deploymentId")
+            Prelude.<*> (x Data..?> "deploymentStatus")
+            Prelude.<*> (x Data..?> "deploymentStatusMessage")
+            Prelude.<*> (x Data..?> "description")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,48 +136,48 @@ instance Prelude.NFData UpdateDeployment where
       `Prelude.seq` Prelude.rnf apiId
       `Prelude.seq` Prelude.rnf deploymentId
 
-instance Core.ToHeaders UpdateDeployment where
+instance Data.ToHeaders UpdateDeployment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDeployment where
+instance Data.ToJSON UpdateDeployment where
   toJSON UpdateDeployment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("description" Core..=) Prelude.<$> description]
+          [("description" Data..=) Prelude.<$> description]
       )
 
-instance Core.ToPath UpdateDeployment where
+instance Data.ToPath UpdateDeployment where
   toPath UpdateDeployment' {..} =
     Prelude.mconcat
       [ "/v2/apis/",
-        Core.toBS apiId,
+        Data.toBS apiId,
         "/deployments/",
-        Core.toBS deploymentId
+        Data.toBS deploymentId
       ]
 
-instance Core.ToQuery UpdateDeployment where
+instance Data.ToQuery UpdateDeployment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDeploymentResponse' smart constructor.
 data UpdateDeploymentResponse = UpdateDeploymentResponse'
-  { -- | The identifier for the deployment.
-    deploymentId :: Prelude.Maybe Prelude.Text,
-    -- | Specifies whether a deployment was automatically released.
+  { -- | Specifies whether a deployment was automatically released.
     autoDeployed :: Prelude.Maybe Prelude.Bool,
-    -- | May contain additional feedback on the status of an API deployment.
-    deploymentStatusMessage :: Prelude.Maybe Prelude.Text,
     -- | The date and time when the Deployment resource was created.
-    createdDate :: Prelude.Maybe Core.POSIX,
+    createdDate :: Prelude.Maybe Data.POSIX,
+    -- | The identifier for the deployment.
+    deploymentId :: Prelude.Maybe Prelude.Text,
     -- | The status of the deployment: PENDING, FAILED, or SUCCEEDED.
     deploymentStatus :: Prelude.Maybe DeploymentStatus,
+    -- | May contain additional feedback on the status of an API deployment.
+    deploymentStatusMessage :: Prelude.Maybe Prelude.Text,
     -- | The description for the deployment.
     description :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
@@ -191,15 +193,15 @@ data UpdateDeploymentResponse = UpdateDeploymentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'deploymentId', 'updateDeploymentResponse_deploymentId' - The identifier for the deployment.
---
 -- 'autoDeployed', 'updateDeploymentResponse_autoDeployed' - Specifies whether a deployment was automatically released.
---
--- 'deploymentStatusMessage', 'updateDeploymentResponse_deploymentStatusMessage' - May contain additional feedback on the status of an API deployment.
 --
 -- 'createdDate', 'updateDeploymentResponse_createdDate' - The date and time when the Deployment resource was created.
 --
+-- 'deploymentId', 'updateDeploymentResponse_deploymentId' - The identifier for the deployment.
+--
 -- 'deploymentStatus', 'updateDeploymentResponse_deploymentStatus' - The status of the deployment: PENDING, FAILED, or SUCCEEDED.
+--
+-- 'deploymentStatusMessage', 'updateDeploymentResponse_deploymentStatusMessage' - May contain additional feedback on the status of an API deployment.
 --
 -- 'description', 'updateDeploymentResponse_description' - The description for the deployment.
 --
@@ -210,35 +212,35 @@ newUpdateDeploymentResponse ::
   UpdateDeploymentResponse
 newUpdateDeploymentResponse pHttpStatus_ =
   UpdateDeploymentResponse'
-    { deploymentId =
+    { autoDeployed =
         Prelude.Nothing,
-      autoDeployed = Prelude.Nothing,
-      deploymentStatusMessage = Prelude.Nothing,
       createdDate = Prelude.Nothing,
+      deploymentId = Prelude.Nothing,
       deploymentStatus = Prelude.Nothing,
+      deploymentStatusMessage = Prelude.Nothing,
       description = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The identifier for the deployment.
-updateDeploymentResponse_deploymentId :: Lens.Lens' UpdateDeploymentResponse (Prelude.Maybe Prelude.Text)
-updateDeploymentResponse_deploymentId = Lens.lens (\UpdateDeploymentResponse' {deploymentId} -> deploymentId) (\s@UpdateDeploymentResponse' {} a -> s {deploymentId = a} :: UpdateDeploymentResponse)
 
 -- | Specifies whether a deployment was automatically released.
 updateDeploymentResponse_autoDeployed :: Lens.Lens' UpdateDeploymentResponse (Prelude.Maybe Prelude.Bool)
 updateDeploymentResponse_autoDeployed = Lens.lens (\UpdateDeploymentResponse' {autoDeployed} -> autoDeployed) (\s@UpdateDeploymentResponse' {} a -> s {autoDeployed = a} :: UpdateDeploymentResponse)
 
--- | May contain additional feedback on the status of an API deployment.
-updateDeploymentResponse_deploymentStatusMessage :: Lens.Lens' UpdateDeploymentResponse (Prelude.Maybe Prelude.Text)
-updateDeploymentResponse_deploymentStatusMessage = Lens.lens (\UpdateDeploymentResponse' {deploymentStatusMessage} -> deploymentStatusMessage) (\s@UpdateDeploymentResponse' {} a -> s {deploymentStatusMessage = a} :: UpdateDeploymentResponse)
-
 -- | The date and time when the Deployment resource was created.
 updateDeploymentResponse_createdDate :: Lens.Lens' UpdateDeploymentResponse (Prelude.Maybe Prelude.UTCTime)
-updateDeploymentResponse_createdDate = Lens.lens (\UpdateDeploymentResponse' {createdDate} -> createdDate) (\s@UpdateDeploymentResponse' {} a -> s {createdDate = a} :: UpdateDeploymentResponse) Prelude.. Lens.mapping Core._Time
+updateDeploymentResponse_createdDate = Lens.lens (\UpdateDeploymentResponse' {createdDate} -> createdDate) (\s@UpdateDeploymentResponse' {} a -> s {createdDate = a} :: UpdateDeploymentResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The identifier for the deployment.
+updateDeploymentResponse_deploymentId :: Lens.Lens' UpdateDeploymentResponse (Prelude.Maybe Prelude.Text)
+updateDeploymentResponse_deploymentId = Lens.lens (\UpdateDeploymentResponse' {deploymentId} -> deploymentId) (\s@UpdateDeploymentResponse' {} a -> s {deploymentId = a} :: UpdateDeploymentResponse)
 
 -- | The status of the deployment: PENDING, FAILED, or SUCCEEDED.
 updateDeploymentResponse_deploymentStatus :: Lens.Lens' UpdateDeploymentResponse (Prelude.Maybe DeploymentStatus)
 updateDeploymentResponse_deploymentStatus = Lens.lens (\UpdateDeploymentResponse' {deploymentStatus} -> deploymentStatus) (\s@UpdateDeploymentResponse' {} a -> s {deploymentStatus = a} :: UpdateDeploymentResponse)
+
+-- | May contain additional feedback on the status of an API deployment.
+updateDeploymentResponse_deploymentStatusMessage :: Lens.Lens' UpdateDeploymentResponse (Prelude.Maybe Prelude.Text)
+updateDeploymentResponse_deploymentStatusMessage = Lens.lens (\UpdateDeploymentResponse' {deploymentStatusMessage} -> deploymentStatusMessage) (\s@UpdateDeploymentResponse' {} a -> s {deploymentStatusMessage = a} :: UpdateDeploymentResponse)
 
 -- | The description for the deployment.
 updateDeploymentResponse_description :: Lens.Lens' UpdateDeploymentResponse (Prelude.Maybe Prelude.Text)
@@ -250,10 +252,10 @@ updateDeploymentResponse_httpStatus = Lens.lens (\UpdateDeploymentResponse' {htt
 
 instance Prelude.NFData UpdateDeploymentResponse where
   rnf UpdateDeploymentResponse' {..} =
-    Prelude.rnf deploymentId
-      `Prelude.seq` Prelude.rnf autoDeployed
-      `Prelude.seq` Prelude.rnf deploymentStatusMessage
+    Prelude.rnf autoDeployed
       `Prelude.seq` Prelude.rnf createdDate
+      `Prelude.seq` Prelude.rnf deploymentId
       `Prelude.seq` Prelude.rnf deploymentStatus
+      `Prelude.seq` Prelude.rnf deploymentStatusMessage
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf httpStatus

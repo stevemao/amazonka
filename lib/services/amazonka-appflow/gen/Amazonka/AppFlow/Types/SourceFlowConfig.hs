@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.SourceFlowConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.AppFlow.Types.ConnectorType
 import Amazonka.AppFlow.Types.IncrementalPullConfig
 import Amazonka.AppFlow.Types.SourceConnectorProperties
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the configuration of the source connector
@@ -31,7 +32,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSourceFlowConfig' smart constructor.
 data SourceFlowConfig = SourceFlowConfig'
-  { -- | The name of the connector profile. This name must be unique for each
+  { -- | The API version of the connector when it\'s used as a source in the
+    -- flow.
+    apiVersion :: Prelude.Maybe Prelude.Text,
+    -- | The name of the connector profile. This name must be unique for each
     -- connector profile in the Amazon Web Services account.
     connectorProfileName :: Prelude.Maybe Prelude.Text,
     -- | Defines the configuration for a scheduled incremental data pull. If a
@@ -54,6 +58,9 @@ data SourceFlowConfig = SourceFlowConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'apiVersion', 'sourceFlowConfig_apiVersion' - The API version of the connector when it\'s used as a source in the
+-- flow.
+--
 -- 'connectorProfileName', 'sourceFlowConfig_connectorProfileName' - The name of the connector profile. This name must be unique for each
 -- connector profile in the Amazon Web Services account.
 --
@@ -75,13 +82,18 @@ newSourceFlowConfig
   pConnectorType_
   pSourceConnectorProperties_ =
     SourceFlowConfig'
-      { connectorProfileName =
-          Prelude.Nothing,
+      { apiVersion = Prelude.Nothing,
+        connectorProfileName = Prelude.Nothing,
         incrementalPullConfig = Prelude.Nothing,
         connectorType = pConnectorType_,
         sourceConnectorProperties =
           pSourceConnectorProperties_
       }
+
+-- | The API version of the connector when it\'s used as a source in the
+-- flow.
+sourceFlowConfig_apiVersion :: Lens.Lens' SourceFlowConfig (Prelude.Maybe Prelude.Text)
+sourceFlowConfig_apiVersion = Lens.lens (\SourceFlowConfig' {apiVersion} -> apiVersion) (\s@SourceFlowConfig' {} a -> s {apiVersion = a} :: SourceFlowConfig)
 
 -- | The name of the connector profile. This name must be unique for each
 -- connector profile in the Amazon Web Services account.
@@ -103,44 +115,48 @@ sourceFlowConfig_connectorType = Lens.lens (\SourceFlowConfig' {connectorType} -
 sourceFlowConfig_sourceConnectorProperties :: Lens.Lens' SourceFlowConfig SourceConnectorProperties
 sourceFlowConfig_sourceConnectorProperties = Lens.lens (\SourceFlowConfig' {sourceConnectorProperties} -> sourceConnectorProperties) (\s@SourceFlowConfig' {} a -> s {sourceConnectorProperties = a} :: SourceFlowConfig)
 
-instance Core.FromJSON SourceFlowConfig where
+instance Data.FromJSON SourceFlowConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SourceFlowConfig"
       ( \x ->
           SourceFlowConfig'
-            Prelude.<$> (x Core..:? "connectorProfileName")
-            Prelude.<*> (x Core..:? "incrementalPullConfig")
-            Prelude.<*> (x Core..: "connectorType")
-            Prelude.<*> (x Core..: "sourceConnectorProperties")
+            Prelude.<$> (x Data..:? "apiVersion")
+            Prelude.<*> (x Data..:? "connectorProfileName")
+            Prelude.<*> (x Data..:? "incrementalPullConfig")
+            Prelude.<*> (x Data..: "connectorType")
+            Prelude.<*> (x Data..: "sourceConnectorProperties")
       )
 
 instance Prelude.Hashable SourceFlowConfig where
   hashWithSalt _salt SourceFlowConfig' {..} =
-    _salt `Prelude.hashWithSalt` connectorProfileName
+    _salt `Prelude.hashWithSalt` apiVersion
+      `Prelude.hashWithSalt` connectorProfileName
       `Prelude.hashWithSalt` incrementalPullConfig
       `Prelude.hashWithSalt` connectorType
       `Prelude.hashWithSalt` sourceConnectorProperties
 
 instance Prelude.NFData SourceFlowConfig where
   rnf SourceFlowConfig' {..} =
-    Prelude.rnf connectorProfileName
+    Prelude.rnf apiVersion
+      `Prelude.seq` Prelude.rnf connectorProfileName
       `Prelude.seq` Prelude.rnf incrementalPullConfig
       `Prelude.seq` Prelude.rnf connectorType
       `Prelude.seq` Prelude.rnf sourceConnectorProperties
 
-instance Core.ToJSON SourceFlowConfig where
+instance Data.ToJSON SourceFlowConfig where
   toJSON SourceFlowConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("connectorProfileName" Core..=)
+          [ ("apiVersion" Data..=) Prelude.<$> apiVersion,
+            ("connectorProfileName" Data..=)
               Prelude.<$> connectorProfileName,
-            ("incrementalPullConfig" Core..=)
+            ("incrementalPullConfig" Data..=)
               Prelude.<$> incrementalPullConfig,
-            Prelude.Just ("connectorType" Core..= connectorType),
+            Prelude.Just ("connectorType" Data..= connectorType),
             Prelude.Just
               ( "sourceConnectorProperties"
-                  Core..= sourceConnectorProperties
+                  Data..= sourceConnectorProperties
               )
           ]
       )

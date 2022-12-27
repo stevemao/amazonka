@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.CreateChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.IVS.CreateChannel
     createChannel_latencyMode,
     createChannel_name,
     createChannel_recordingConfigurationArn,
-    createChannel_type,
     createChannel_tags,
+    createChannel_type,
 
     -- * Destructuring the Response
     CreateChannelResponse (..),
@@ -46,8 +46,9 @@ module Amazonka.IVS.CreateChannel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,22 +68,30 @@ data CreateChannel = CreateChannel'
     -- | Recording-configuration ARN. Default: \"\" (empty string, recording is
     -- disabled).
     recordingConfigurationArn :: Prelude.Maybe Prelude.Text,
+    -- | Array of 1-50 maps, each of the form @string:string (key:value)@. See
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+    -- for more information, including restrictions that apply to tags and
+    -- \"Tag naming limits and requirements\"; Amazon IVS has no
+    -- service-specific constraints beyond what is documented there.
+    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | Channel type, which determines the allowable resolution and bitrate. /If
     -- you exceed the allowable resolution or bitrate, the stream probably will
     -- disconnect immediately./ Default: @STANDARD@. Valid values:
     --
-    -- -   @STANDARD@: Multiple qualities are generated from the original
-    --     input, to automatically give viewers the best experience for their
-    --     devices and network conditions. Resolution can be up to 1080p and
-    --     bitrate can be up to 8.5 Mbps. Audio is transcoded only for
-    --     renditions 360p and below; above that, audio is passed through.
+    -- -   @STANDARD@: Video is transcoded: multiple qualities are generated
+    --     from the original input, to automatically give viewers the best
+    --     experience for their devices and network conditions. Transcoding
+    --     allows higher playback quality across a range of download speeds.
+    --     Resolution can be up to 1080p and bitrate can be up to 8.5 Mbps.
+    --     Audio is transcoded only for renditions 360p and below; above that,
+    --     audio is passed through. This is the default.
     --
-    -- -   @BASIC@: Amazon IVS delivers the original input to viewers. The
-    --     viewer’s video-quality choice is limited to the original input.
-    --     Resolution can be up to 480p and bitrate can be up to 1.5 Mbps.
-    type' :: Prelude.Maybe ChannelType,
-    -- | Array of 1-50 maps, each of the form @string:string (key:value)@.
-    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
+    -- -   @BASIC@: Video is transmuxed: Amazon IVS delivers the original input
+    --     to viewers. The viewer’s video-quality choice is limited to the
+    --     original input. Resolution can be up to 1080p and bitrate can be up
+    --     to 1.5 Mbps for 480p and up to 3.5 Mbps for resolutions between 480p
+    --     and 1080p.
+    type' :: Prelude.Maybe ChannelType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -107,21 +116,29 @@ data CreateChannel = CreateChannel'
 -- 'recordingConfigurationArn', 'createChannel_recordingConfigurationArn' - Recording-configuration ARN. Default: \"\" (empty string, recording is
 -- disabled).
 --
+-- 'tags', 'createChannel_tags' - Array of 1-50 maps, each of the form @string:string (key:value)@. See
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- for more information, including restrictions that apply to tags and
+-- \"Tag naming limits and requirements\"; Amazon IVS has no
+-- service-specific constraints beyond what is documented there.
+--
 -- 'type'', 'createChannel_type' - Channel type, which determines the allowable resolution and bitrate. /If
 -- you exceed the allowable resolution or bitrate, the stream probably will
 -- disconnect immediately./ Default: @STANDARD@. Valid values:
 --
--- -   @STANDARD@: Multiple qualities are generated from the original
---     input, to automatically give viewers the best experience for their
---     devices and network conditions. Resolution can be up to 1080p and
---     bitrate can be up to 8.5 Mbps. Audio is transcoded only for
---     renditions 360p and below; above that, audio is passed through.
+-- -   @STANDARD@: Video is transcoded: multiple qualities are generated
+--     from the original input, to automatically give viewers the best
+--     experience for their devices and network conditions. Transcoding
+--     allows higher playback quality across a range of download speeds.
+--     Resolution can be up to 1080p and bitrate can be up to 8.5 Mbps.
+--     Audio is transcoded only for renditions 360p and below; above that,
+--     audio is passed through. This is the default.
 --
--- -   @BASIC@: Amazon IVS delivers the original input to viewers. The
---     viewer’s video-quality choice is limited to the original input.
---     Resolution can be up to 480p and bitrate can be up to 1.5 Mbps.
---
--- 'tags', 'createChannel_tags' - Array of 1-50 maps, each of the form @string:string (key:value)@.
+-- -   @BASIC@: Video is transmuxed: Amazon IVS delivers the original input
+--     to viewers. The viewer’s video-quality choice is limited to the
+--     original input. Resolution can be up to 1080p and bitrate can be up
+--     to 1.5 Mbps for 480p and up to 3.5 Mbps for resolutions between 480p
+--     and 1080p.
 newCreateChannel ::
   CreateChannel
 newCreateChannel =
@@ -130,8 +147,8 @@ newCreateChannel =
       latencyMode = Prelude.Nothing,
       name = Prelude.Nothing,
       recordingConfigurationArn = Prelude.Nothing,
-      type' = Prelude.Nothing,
-      tags = Prelude.Nothing
+      tags = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
 
 -- | Whether the channel is private (enabled for playback authorization).
@@ -155,37 +172,46 @@ createChannel_name = Lens.lens (\CreateChannel' {name} -> name) (\s@CreateChanne
 createChannel_recordingConfigurationArn :: Lens.Lens' CreateChannel (Prelude.Maybe Prelude.Text)
 createChannel_recordingConfigurationArn = Lens.lens (\CreateChannel' {recordingConfigurationArn} -> recordingConfigurationArn) (\s@CreateChannel' {} a -> s {recordingConfigurationArn = a} :: CreateChannel)
 
+-- | Array of 1-50 maps, each of the form @string:string (key:value)@. See
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- for more information, including restrictions that apply to tags and
+-- \"Tag naming limits and requirements\"; Amazon IVS has no
+-- service-specific constraints beyond what is documented there.
+createChannel_tags :: Lens.Lens' CreateChannel (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createChannel_tags = Lens.lens (\CreateChannel' {tags} -> tags) (\s@CreateChannel' {} a -> s {tags = a} :: CreateChannel) Prelude.. Lens.mapping Lens.coerced
+
 -- | Channel type, which determines the allowable resolution and bitrate. /If
 -- you exceed the allowable resolution or bitrate, the stream probably will
 -- disconnect immediately./ Default: @STANDARD@. Valid values:
 --
--- -   @STANDARD@: Multiple qualities are generated from the original
---     input, to automatically give viewers the best experience for their
---     devices and network conditions. Resolution can be up to 1080p and
---     bitrate can be up to 8.5 Mbps. Audio is transcoded only for
---     renditions 360p and below; above that, audio is passed through.
+-- -   @STANDARD@: Video is transcoded: multiple qualities are generated
+--     from the original input, to automatically give viewers the best
+--     experience for their devices and network conditions. Transcoding
+--     allows higher playback quality across a range of download speeds.
+--     Resolution can be up to 1080p and bitrate can be up to 8.5 Mbps.
+--     Audio is transcoded only for renditions 360p and below; above that,
+--     audio is passed through. This is the default.
 --
--- -   @BASIC@: Amazon IVS delivers the original input to viewers. The
---     viewer’s video-quality choice is limited to the original input.
---     Resolution can be up to 480p and bitrate can be up to 1.5 Mbps.
+-- -   @BASIC@: Video is transmuxed: Amazon IVS delivers the original input
+--     to viewers. The viewer’s video-quality choice is limited to the
+--     original input. Resolution can be up to 1080p and bitrate can be up
+--     to 1.5 Mbps for 480p and up to 3.5 Mbps for resolutions between 480p
+--     and 1080p.
 createChannel_type :: Lens.Lens' CreateChannel (Prelude.Maybe ChannelType)
 createChannel_type = Lens.lens (\CreateChannel' {type'} -> type') (\s@CreateChannel' {} a -> s {type' = a} :: CreateChannel)
-
--- | Array of 1-50 maps, each of the form @string:string (key:value)@.
-createChannel_tags :: Lens.Lens' CreateChannel (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-createChannel_tags = Lens.lens (\CreateChannel' {tags} -> tags) (\s@CreateChannel' {} a -> s {tags = a} :: CreateChannel) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSRequest CreateChannel where
   type
     AWSResponse CreateChannel =
       CreateChannelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateChannelResponse'
-            Prelude.<$> (x Core..?> "channel")
-            Prelude.<*> (x Core..?> "streamKey")
+            Prelude.<$> (x Data..?> "channel")
+            Prelude.<*> (x Data..?> "streamKey")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -195,8 +221,8 @@ instance Prelude.Hashable CreateChannel where
       `Prelude.hashWithSalt` latencyMode
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` recordingConfigurationArn
-      `Prelude.hashWithSalt` type'
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData CreateChannel where
   rnf CreateChannel' {..} =
@@ -204,38 +230,38 @@ instance Prelude.NFData CreateChannel where
       `Prelude.seq` Prelude.rnf latencyMode
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf recordingConfigurationArn
-      `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToHeaders CreateChannel where
+instance Data.ToHeaders CreateChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateChannel where
+instance Data.ToJSON CreateChannel where
   toJSON CreateChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("authorized" Core..=) Prelude.<$> authorized,
-            ("latencyMode" Core..=) Prelude.<$> latencyMode,
-            ("name" Core..=) Prelude.<$> name,
-            ("recordingConfigurationArn" Core..=)
+          [ ("authorized" Data..=) Prelude.<$> authorized,
+            ("latencyMode" Data..=) Prelude.<$> latencyMode,
+            ("name" Data..=) Prelude.<$> name,
+            ("recordingConfigurationArn" Data..=)
               Prelude.<$> recordingConfigurationArn,
-            ("type" Core..=) Prelude.<$> type',
-            ("tags" Core..=) Prelude.<$> tags
+            ("tags" Data..=) Prelude.<$> tags,
+            ("type" Data..=) Prelude.<$> type'
           ]
       )
 
-instance Core.ToPath CreateChannel where
+instance Data.ToPath CreateChannel where
   toPath = Prelude.const "/CreateChannel"
 
-instance Core.ToQuery CreateChannel where
+instance Data.ToQuery CreateChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateChannelResponse' smart constructor.

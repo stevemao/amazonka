@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.DeleteResourcePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.NetworkFirewall.DeleteResourcePolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -80,7 +81,8 @@ instance Core.AWSRequest DeleteResourcePolicy where
   type
     AWSResponse DeleteResourcePolicy =
       DeleteResourcePolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -96,32 +98,32 @@ instance Prelude.NFData DeleteResourcePolicy where
   rnf DeleteResourcePolicy' {..} =
     Prelude.rnf resourceArn
 
-instance Core.ToHeaders DeleteResourcePolicy where
+instance Data.ToHeaders DeleteResourcePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "NetworkFirewall_20201112.DeleteResourcePolicy" ::
+              Data.=# ( "NetworkFirewall_20201112.DeleteResourcePolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteResourcePolicy where
+instance Data.ToJSON DeleteResourcePolicy where
   toJSON DeleteResourcePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ResourceArn" Core..= resourceArn)]
+          [Prelude.Just ("ResourceArn" Data..= resourceArn)]
       )
 
-instance Core.ToPath DeleteResourcePolicy where
+instance Data.ToPath DeleteResourcePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteResourcePolicy where
+instance Data.ToQuery DeleteResourcePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteResourcePolicyResponse' smart constructor.

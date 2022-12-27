@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Organizations.CreateOrganization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an AWS organization. The account whose user is calling the
--- @CreateOrganization@ operation automatically becomes the
+-- Creates an Amazon Web Services organization. The account whose user is
+-- calling the @CreateOrganization@ operation automatically becomes the
 -- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html#account management account>
 -- of the new organization.
 --
@@ -55,7 +55,8 @@ module Amazonka.Organizations.CreateOrganization
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -70,17 +71,17 @@ data CreateOrganization = CreateOrganization'
     --     consolidated to and paid by the management account. For more
     --     information, see
     --     <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html#feature-set-cb-only Consolidated billing>
-    --     in the /AWS Organizations User Guide./
+    --     in the /Organizations User Guide./
     --
     --     The consolidated billing feature subset isn\'t available for
-    --     organizations in the AWS GovCloud (US) Region.
+    --     organizations in the Amazon Web Services GovCloud (US) Region.
     --
     -- -   @ALL@: In addition to all the features supported by the consolidated
     --     billing feature set, the management account can also apply any
     --     policy type to any member account in the organization. For more
     --     information, see
     --     <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html#feature-set-all All features>
-    --     in the /AWS Organizations User Guide./
+    --     in the /Organizations User Guide./
     featureSet :: Prelude.Maybe OrganizationFeatureSet
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -100,17 +101,17 @@ data CreateOrganization = CreateOrganization'
 --     consolidated to and paid by the management account. For more
 --     information, see
 --     <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html#feature-set-cb-only Consolidated billing>
---     in the /AWS Organizations User Guide./
+--     in the /Organizations User Guide./
 --
 --     The consolidated billing feature subset isn\'t available for
---     organizations in the AWS GovCloud (US) Region.
+--     organizations in the Amazon Web Services GovCloud (US) Region.
 --
 -- -   @ALL@: In addition to all the features supported by the consolidated
 --     billing feature set, the management account can also apply any
 --     policy type to any member account in the organization. For more
 --     information, see
 --     <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html#feature-set-all All features>
---     in the /AWS Organizations User Guide./
+--     in the /Organizations User Guide./
 newCreateOrganization ::
   CreateOrganization
 newCreateOrganization =
@@ -123,17 +124,17 @@ newCreateOrganization =
 --     consolidated to and paid by the management account. For more
 --     information, see
 --     <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html#feature-set-cb-only Consolidated billing>
---     in the /AWS Organizations User Guide./
+--     in the /Organizations User Guide./
 --
 --     The consolidated billing feature subset isn\'t available for
---     organizations in the AWS GovCloud (US) Region.
+--     organizations in the Amazon Web Services GovCloud (US) Region.
 --
 -- -   @ALL@: In addition to all the features supported by the consolidated
 --     billing feature set, the management account can also apply any
 --     policy type to any member account in the organization. For more
 --     information, see
 --     <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_getting-started_concepts.html#feature-set-all All features>
---     in the /AWS Organizations User Guide./
+--     in the /Organizations User Guide./
 createOrganization_featureSet :: Lens.Lens' CreateOrganization (Prelude.Maybe OrganizationFeatureSet)
 createOrganization_featureSet = Lens.lens (\CreateOrganization' {featureSet} -> featureSet) (\s@CreateOrganization' {} a -> s {featureSet = a} :: CreateOrganization)
 
@@ -141,12 +142,13 @@ instance Core.AWSRequest CreateOrganization where
   type
     AWSResponse CreateOrganization =
       CreateOrganizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateOrganizationResponse'
-            Prelude.<$> (x Core..?> "Organization")
+            Prelude.<$> (x Data..?> "Organization")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -157,32 +159,32 @@ instance Prelude.Hashable CreateOrganization where
 instance Prelude.NFData CreateOrganization where
   rnf CreateOrganization' {..} = Prelude.rnf featureSet
 
-instance Core.ToHeaders CreateOrganization where
+instance Data.ToHeaders CreateOrganization where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.CreateOrganization" ::
+              Data.=# ( "AWSOrganizationsV20161128.CreateOrganization" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateOrganization where
+instance Data.ToJSON CreateOrganization where
   toJSON CreateOrganization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("FeatureSet" Core..=) Prelude.<$> featureSet]
+          [("FeatureSet" Data..=) Prelude.<$> featureSet]
       )
 
-instance Core.ToPath CreateOrganization where
+instance Data.ToPath CreateOrganization where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateOrganization where
+instance Data.ToQuery CreateOrganization where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateOrganizationResponse' smart constructor.

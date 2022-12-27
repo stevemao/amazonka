@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.GetOfferingStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,16 +42,17 @@ module Amazonka.DeviceFarm.GetOfferingStatus
     newGetOfferingStatusResponse,
 
     -- * Response Lenses
-    getOfferingStatusResponse_nextPeriod,
     getOfferingStatusResponse_current,
+    getOfferingStatusResponse_nextPeriod,
     getOfferingStatusResponse_nextToken,
     getOfferingStatusResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -122,14 +123,15 @@ instance Core.AWSRequest GetOfferingStatus where
   type
     AWSResponse GetOfferingStatus =
       GetOfferingStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetOfferingStatusResponse'
-            Prelude.<$> (x Core..?> "nextPeriod" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "current" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "current" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextPeriod" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -140,42 +142,42 @@ instance Prelude.Hashable GetOfferingStatus where
 instance Prelude.NFData GetOfferingStatus where
   rnf GetOfferingStatus' {..} = Prelude.rnf nextToken
 
-instance Core.ToHeaders GetOfferingStatus where
+instance Data.ToHeaders GetOfferingStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.GetOfferingStatus" ::
+              Data.=# ( "DeviceFarm_20150623.GetOfferingStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetOfferingStatus where
+instance Data.ToJSON GetOfferingStatus where
   toJSON GetOfferingStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("nextToken" Core..=) Prelude.<$> nextToken]
+          [("nextToken" Data..=) Prelude.<$> nextToken]
       )
 
-instance Core.ToPath GetOfferingStatus where
+instance Data.ToPath GetOfferingStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetOfferingStatus where
+instance Data.ToQuery GetOfferingStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Returns the status result for a device offering.
 --
 -- /See:/ 'newGetOfferingStatusResponse' smart constructor.
 data GetOfferingStatusResponse = GetOfferingStatusResponse'
-  { -- | When specified, gets the offering status for the next period.
-    nextPeriod :: Prelude.Maybe (Prelude.HashMap Prelude.Text OfferingStatus),
-    -- | When specified, gets the offering status for the current period.
+  { -- | When specified, gets the offering status for the current period.
     current :: Prelude.Maybe (Prelude.HashMap Prelude.Text OfferingStatus),
+    -- | When specified, gets the offering status for the next period.
+    nextPeriod :: Prelude.Maybe (Prelude.HashMap Prelude.Text OfferingStatus),
     -- | An identifier that was returned from the previous call to this
     -- operation, which can be used to return the next set of items in the
     -- list.
@@ -193,9 +195,9 @@ data GetOfferingStatusResponse = GetOfferingStatusResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextPeriod', 'getOfferingStatusResponse_nextPeriod' - When specified, gets the offering status for the next period.
---
 -- 'current', 'getOfferingStatusResponse_current' - When specified, gets the offering status for the current period.
+--
+-- 'nextPeriod', 'getOfferingStatusResponse_nextPeriod' - When specified, gets the offering status for the next period.
 --
 -- 'nextToken', 'getOfferingStatusResponse_nextToken' - An identifier that was returned from the previous call to this
 -- operation, which can be used to return the next set of items in the
@@ -208,20 +210,20 @@ newGetOfferingStatusResponse ::
   GetOfferingStatusResponse
 newGetOfferingStatusResponse pHttpStatus_ =
   GetOfferingStatusResponse'
-    { nextPeriod =
+    { current =
         Prelude.Nothing,
-      current = Prelude.Nothing,
+      nextPeriod = Prelude.Nothing,
       nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | When specified, gets the offering status for the next period.
-getOfferingStatusResponse_nextPeriod :: Lens.Lens' GetOfferingStatusResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text OfferingStatus))
-getOfferingStatusResponse_nextPeriod = Lens.lens (\GetOfferingStatusResponse' {nextPeriod} -> nextPeriod) (\s@GetOfferingStatusResponse' {} a -> s {nextPeriod = a} :: GetOfferingStatusResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | When specified, gets the offering status for the current period.
 getOfferingStatusResponse_current :: Lens.Lens' GetOfferingStatusResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text OfferingStatus))
 getOfferingStatusResponse_current = Lens.lens (\GetOfferingStatusResponse' {current} -> current) (\s@GetOfferingStatusResponse' {} a -> s {current = a} :: GetOfferingStatusResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | When specified, gets the offering status for the next period.
+getOfferingStatusResponse_nextPeriod :: Lens.Lens' GetOfferingStatusResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text OfferingStatus))
+getOfferingStatusResponse_nextPeriod = Lens.lens (\GetOfferingStatusResponse' {nextPeriod} -> nextPeriod) (\s@GetOfferingStatusResponse' {} a -> s {nextPeriod = a} :: GetOfferingStatusResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | An identifier that was returned from the previous call to this
 -- operation, which can be used to return the next set of items in the
@@ -235,7 +237,7 @@ getOfferingStatusResponse_httpStatus = Lens.lens (\GetOfferingStatusResponse' {h
 
 instance Prelude.NFData GetOfferingStatusResponse where
   rnf GetOfferingStatusResponse' {..} =
-    Prelude.rnf nextPeriod
-      `Prelude.seq` Prelude.rnf current
+    Prelude.rnf current
+      `Prelude.seq` Prelude.rnf nextPeriod
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.Types.LoRaWANDeviceProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,52 +20,53 @@
 module Amazonka.IoTWireless.Types.LoRaWANDeviceProfile where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | LoRaWANDeviceProfile object.
 --
 -- /See:/ 'newLoRaWANDeviceProfile' smart constructor.
 data LoRaWANDeviceProfile = LoRaWANDeviceProfile'
-  { -- | The frequency band (RFRegion) value.
-    rfRegion :: Prelude.Maybe Prelude.Text,
-    -- | The PingSlotFreq value.
-    pingSlotFreq :: Prelude.Maybe Prelude.Natural,
-    -- | The ClassBTimeout value.
+  { -- | The ClassBTimeout value.
     classBTimeout :: Prelude.Maybe Prelude.Natural,
-    -- | The MaxEIRP value.
-    maxEirp :: Prelude.Maybe Prelude.Natural,
-    -- | The RXDataRate2 value.
-    rxDataRate2 :: Prelude.Maybe Prelude.Natural,
+    -- | The ClassCTimeout value.
+    classCTimeout :: Prelude.Maybe Prelude.Natural,
+    -- | The list of values that make up the FactoryPresetFreqs value.
+    factoryPresetFreqsList :: Prelude.Maybe [Prelude.Natural],
     -- | The MAC version (such as OTAA 1.1 or OTAA 1.0.3) to use with this device
     -- profile.
     macVersion :: Prelude.Maybe Prelude.Text,
-    -- | The list of values that make up the FactoryPresetFreqs value.
-    factoryPresetFreqsList :: Prelude.Maybe [Prelude.Natural],
-    -- | The RXFreq2 value.
-    rxFreq2 :: Prelude.Maybe Prelude.Natural,
-    -- | The ClassCTimeout value.
-    classCTimeout :: Prelude.Maybe Prelude.Natural,
-    -- | The version of regional parameters.
-    regParamsRevision :: Prelude.Maybe Prelude.Text,
-    -- | The PingSlotDR value.
-    pingSlotDr :: Prelude.Maybe Prelude.Natural,
-    -- | The Supports32BitFCnt value.
-    supports32BitFCnt :: Prelude.Maybe Prelude.Bool,
     -- | The MaxDutyCycle value.
     maxDutyCycle :: Prelude.Maybe Prelude.Natural,
-    -- | The RXDROffset1 value.
-    rxDrOffset1 :: Prelude.Maybe Prelude.Natural,
-    -- | The SupportsClassB value.
-    supportsClassB :: Prelude.Maybe Prelude.Bool,
-    -- | The SupportsJoin value.
-    supportsJoin :: Prelude.Maybe Prelude.Bool,
+    -- | The MaxEIRP value.
+    maxEirp :: Prelude.Maybe Prelude.Natural,
+    -- | The PingSlotDR value.
+    pingSlotDr :: Prelude.Maybe Prelude.Natural,
+    -- | The PingSlotFreq value.
+    pingSlotFreq :: Prelude.Maybe Prelude.Natural,
+    -- | The PingSlotPeriod value.
+    pingSlotPeriod :: Prelude.Maybe Prelude.Natural,
+    -- | The version of regional parameters.
+    regParamsRevision :: Prelude.Maybe Prelude.Text,
+    -- | The frequency band (RFRegion) value.
+    rfRegion :: Prelude.Maybe Prelude.Text,
+    -- | The RXDataRate2 value.
+    rxDataRate2 :: Prelude.Maybe Prelude.Natural,
     -- | The RXDelay1 value.
     rxDelay1 :: Prelude.Maybe Prelude.Natural,
+    -- | The RXDROffset1 value.
+    rxDrOffset1 :: Prelude.Maybe Prelude.Natural,
+    -- | The RXFreq2 value.
+    rxFreq2 :: Prelude.Maybe Prelude.Natural,
+    -- | The Supports32BitFCnt value.
+    supports32BitFCnt :: Prelude.Maybe Prelude.Bool,
+    -- | The SupportsClassB value.
+    supportsClassB :: Prelude.Maybe Prelude.Bool,
     -- | The SupportsClassC value.
     supportsClassC :: Prelude.Maybe Prelude.Bool,
-    -- | The PingSlotPeriod value.
-    pingSlotPeriod :: Prelude.Maybe Prelude.Natural
+    -- | The SupportsJoin value.
+    supportsJoin :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -77,247 +78,248 @@ data LoRaWANDeviceProfile = LoRaWANDeviceProfile'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'rfRegion', 'loRaWANDeviceProfile_rfRegion' - The frequency band (RFRegion) value.
---
--- 'pingSlotFreq', 'loRaWANDeviceProfile_pingSlotFreq' - The PingSlotFreq value.
---
 -- 'classBTimeout', 'loRaWANDeviceProfile_classBTimeout' - The ClassBTimeout value.
 --
--- 'maxEirp', 'loRaWANDeviceProfile_maxEirp' - The MaxEIRP value.
+-- 'classCTimeout', 'loRaWANDeviceProfile_classCTimeout' - The ClassCTimeout value.
 --
--- 'rxDataRate2', 'loRaWANDeviceProfile_rxDataRate2' - The RXDataRate2 value.
+-- 'factoryPresetFreqsList', 'loRaWANDeviceProfile_factoryPresetFreqsList' - The list of values that make up the FactoryPresetFreqs value.
 --
 -- 'macVersion', 'loRaWANDeviceProfile_macVersion' - The MAC version (such as OTAA 1.1 or OTAA 1.0.3) to use with this device
 -- profile.
 --
--- 'factoryPresetFreqsList', 'loRaWANDeviceProfile_factoryPresetFreqsList' - The list of values that make up the FactoryPresetFreqs value.
+-- 'maxDutyCycle', 'loRaWANDeviceProfile_maxDutyCycle' - The MaxDutyCycle value.
 --
--- 'rxFreq2', 'loRaWANDeviceProfile_rxFreq2' - The RXFreq2 value.
---
--- 'classCTimeout', 'loRaWANDeviceProfile_classCTimeout' - The ClassCTimeout value.
---
--- 'regParamsRevision', 'loRaWANDeviceProfile_regParamsRevision' - The version of regional parameters.
+-- 'maxEirp', 'loRaWANDeviceProfile_maxEirp' - The MaxEIRP value.
 --
 -- 'pingSlotDr', 'loRaWANDeviceProfile_pingSlotDr' - The PingSlotDR value.
 --
--- 'supports32BitFCnt', 'loRaWANDeviceProfile_supports32BitFCnt' - The Supports32BitFCnt value.
+-- 'pingSlotFreq', 'loRaWANDeviceProfile_pingSlotFreq' - The PingSlotFreq value.
 --
--- 'maxDutyCycle', 'loRaWANDeviceProfile_maxDutyCycle' - The MaxDutyCycle value.
+-- 'pingSlotPeriod', 'loRaWANDeviceProfile_pingSlotPeriod' - The PingSlotPeriod value.
 --
--- 'rxDrOffset1', 'loRaWANDeviceProfile_rxDrOffset1' - The RXDROffset1 value.
+-- 'regParamsRevision', 'loRaWANDeviceProfile_regParamsRevision' - The version of regional parameters.
 --
--- 'supportsClassB', 'loRaWANDeviceProfile_supportsClassB' - The SupportsClassB value.
+-- 'rfRegion', 'loRaWANDeviceProfile_rfRegion' - The frequency band (RFRegion) value.
 --
--- 'supportsJoin', 'loRaWANDeviceProfile_supportsJoin' - The SupportsJoin value.
+-- 'rxDataRate2', 'loRaWANDeviceProfile_rxDataRate2' - The RXDataRate2 value.
 --
 -- 'rxDelay1', 'loRaWANDeviceProfile_rxDelay1' - The RXDelay1 value.
 --
+-- 'rxDrOffset1', 'loRaWANDeviceProfile_rxDrOffset1' - The RXDROffset1 value.
+--
+-- 'rxFreq2', 'loRaWANDeviceProfile_rxFreq2' - The RXFreq2 value.
+--
+-- 'supports32BitFCnt', 'loRaWANDeviceProfile_supports32BitFCnt' - The Supports32BitFCnt value.
+--
+-- 'supportsClassB', 'loRaWANDeviceProfile_supportsClassB' - The SupportsClassB value.
+--
 -- 'supportsClassC', 'loRaWANDeviceProfile_supportsClassC' - The SupportsClassC value.
 --
--- 'pingSlotPeriod', 'loRaWANDeviceProfile_pingSlotPeriod' - The PingSlotPeriod value.
+-- 'supportsJoin', 'loRaWANDeviceProfile_supportsJoin' - The SupportsJoin value.
 newLoRaWANDeviceProfile ::
   LoRaWANDeviceProfile
 newLoRaWANDeviceProfile =
   LoRaWANDeviceProfile'
-    { rfRegion = Prelude.Nothing,
-      pingSlotFreq = Prelude.Nothing,
-      classBTimeout = Prelude.Nothing,
-      maxEirp = Prelude.Nothing,
-      rxDataRate2 = Prelude.Nothing,
-      macVersion = Prelude.Nothing,
-      factoryPresetFreqsList = Prelude.Nothing,
-      rxFreq2 = Prelude.Nothing,
+    { classBTimeout =
+        Prelude.Nothing,
       classCTimeout = Prelude.Nothing,
-      regParamsRevision = Prelude.Nothing,
-      pingSlotDr = Prelude.Nothing,
-      supports32BitFCnt = Prelude.Nothing,
+      factoryPresetFreqsList = Prelude.Nothing,
+      macVersion = Prelude.Nothing,
       maxDutyCycle = Prelude.Nothing,
-      rxDrOffset1 = Prelude.Nothing,
-      supportsClassB = Prelude.Nothing,
-      supportsJoin = Prelude.Nothing,
+      maxEirp = Prelude.Nothing,
+      pingSlotDr = Prelude.Nothing,
+      pingSlotFreq = Prelude.Nothing,
+      pingSlotPeriod = Prelude.Nothing,
+      regParamsRevision = Prelude.Nothing,
+      rfRegion = Prelude.Nothing,
+      rxDataRate2 = Prelude.Nothing,
       rxDelay1 = Prelude.Nothing,
+      rxDrOffset1 = Prelude.Nothing,
+      rxFreq2 = Prelude.Nothing,
+      supports32BitFCnt = Prelude.Nothing,
+      supportsClassB = Prelude.Nothing,
       supportsClassC = Prelude.Nothing,
-      pingSlotPeriod = Prelude.Nothing
+      supportsJoin = Prelude.Nothing
     }
-
--- | The frequency band (RFRegion) value.
-loRaWANDeviceProfile_rfRegion :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Text)
-loRaWANDeviceProfile_rfRegion = Lens.lens (\LoRaWANDeviceProfile' {rfRegion} -> rfRegion) (\s@LoRaWANDeviceProfile' {} a -> s {rfRegion = a} :: LoRaWANDeviceProfile)
-
--- | The PingSlotFreq value.
-loRaWANDeviceProfile_pingSlotFreq :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
-loRaWANDeviceProfile_pingSlotFreq = Lens.lens (\LoRaWANDeviceProfile' {pingSlotFreq} -> pingSlotFreq) (\s@LoRaWANDeviceProfile' {} a -> s {pingSlotFreq = a} :: LoRaWANDeviceProfile)
 
 -- | The ClassBTimeout value.
 loRaWANDeviceProfile_classBTimeout :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
 loRaWANDeviceProfile_classBTimeout = Lens.lens (\LoRaWANDeviceProfile' {classBTimeout} -> classBTimeout) (\s@LoRaWANDeviceProfile' {} a -> s {classBTimeout = a} :: LoRaWANDeviceProfile)
 
--- | The MaxEIRP value.
-loRaWANDeviceProfile_maxEirp :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
-loRaWANDeviceProfile_maxEirp = Lens.lens (\LoRaWANDeviceProfile' {maxEirp} -> maxEirp) (\s@LoRaWANDeviceProfile' {} a -> s {maxEirp = a} :: LoRaWANDeviceProfile)
+-- | The ClassCTimeout value.
+loRaWANDeviceProfile_classCTimeout :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
+loRaWANDeviceProfile_classCTimeout = Lens.lens (\LoRaWANDeviceProfile' {classCTimeout} -> classCTimeout) (\s@LoRaWANDeviceProfile' {} a -> s {classCTimeout = a} :: LoRaWANDeviceProfile)
 
--- | The RXDataRate2 value.
-loRaWANDeviceProfile_rxDataRate2 :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
-loRaWANDeviceProfile_rxDataRate2 = Lens.lens (\LoRaWANDeviceProfile' {rxDataRate2} -> rxDataRate2) (\s@LoRaWANDeviceProfile' {} a -> s {rxDataRate2 = a} :: LoRaWANDeviceProfile)
+-- | The list of values that make up the FactoryPresetFreqs value.
+loRaWANDeviceProfile_factoryPresetFreqsList :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe [Prelude.Natural])
+loRaWANDeviceProfile_factoryPresetFreqsList = Lens.lens (\LoRaWANDeviceProfile' {factoryPresetFreqsList} -> factoryPresetFreqsList) (\s@LoRaWANDeviceProfile' {} a -> s {factoryPresetFreqsList = a} :: LoRaWANDeviceProfile) Prelude.. Lens.mapping Lens.coerced
 
 -- | The MAC version (such as OTAA 1.1 or OTAA 1.0.3) to use with this device
 -- profile.
 loRaWANDeviceProfile_macVersion :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Text)
 loRaWANDeviceProfile_macVersion = Lens.lens (\LoRaWANDeviceProfile' {macVersion} -> macVersion) (\s@LoRaWANDeviceProfile' {} a -> s {macVersion = a} :: LoRaWANDeviceProfile)
 
--- | The list of values that make up the FactoryPresetFreqs value.
-loRaWANDeviceProfile_factoryPresetFreqsList :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe [Prelude.Natural])
-loRaWANDeviceProfile_factoryPresetFreqsList = Lens.lens (\LoRaWANDeviceProfile' {factoryPresetFreqsList} -> factoryPresetFreqsList) (\s@LoRaWANDeviceProfile' {} a -> s {factoryPresetFreqsList = a} :: LoRaWANDeviceProfile) Prelude.. Lens.mapping Lens.coerced
+-- | The MaxDutyCycle value.
+loRaWANDeviceProfile_maxDutyCycle :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
+loRaWANDeviceProfile_maxDutyCycle = Lens.lens (\LoRaWANDeviceProfile' {maxDutyCycle} -> maxDutyCycle) (\s@LoRaWANDeviceProfile' {} a -> s {maxDutyCycle = a} :: LoRaWANDeviceProfile)
 
--- | The RXFreq2 value.
-loRaWANDeviceProfile_rxFreq2 :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
-loRaWANDeviceProfile_rxFreq2 = Lens.lens (\LoRaWANDeviceProfile' {rxFreq2} -> rxFreq2) (\s@LoRaWANDeviceProfile' {} a -> s {rxFreq2 = a} :: LoRaWANDeviceProfile)
-
--- | The ClassCTimeout value.
-loRaWANDeviceProfile_classCTimeout :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
-loRaWANDeviceProfile_classCTimeout = Lens.lens (\LoRaWANDeviceProfile' {classCTimeout} -> classCTimeout) (\s@LoRaWANDeviceProfile' {} a -> s {classCTimeout = a} :: LoRaWANDeviceProfile)
-
--- | The version of regional parameters.
-loRaWANDeviceProfile_regParamsRevision :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Text)
-loRaWANDeviceProfile_regParamsRevision = Lens.lens (\LoRaWANDeviceProfile' {regParamsRevision} -> regParamsRevision) (\s@LoRaWANDeviceProfile' {} a -> s {regParamsRevision = a} :: LoRaWANDeviceProfile)
+-- | The MaxEIRP value.
+loRaWANDeviceProfile_maxEirp :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
+loRaWANDeviceProfile_maxEirp = Lens.lens (\LoRaWANDeviceProfile' {maxEirp} -> maxEirp) (\s@LoRaWANDeviceProfile' {} a -> s {maxEirp = a} :: LoRaWANDeviceProfile)
 
 -- | The PingSlotDR value.
 loRaWANDeviceProfile_pingSlotDr :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
 loRaWANDeviceProfile_pingSlotDr = Lens.lens (\LoRaWANDeviceProfile' {pingSlotDr} -> pingSlotDr) (\s@LoRaWANDeviceProfile' {} a -> s {pingSlotDr = a} :: LoRaWANDeviceProfile)
 
--- | The Supports32BitFCnt value.
-loRaWANDeviceProfile_supports32BitFCnt :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Bool)
-loRaWANDeviceProfile_supports32BitFCnt = Lens.lens (\LoRaWANDeviceProfile' {supports32BitFCnt} -> supports32BitFCnt) (\s@LoRaWANDeviceProfile' {} a -> s {supports32BitFCnt = a} :: LoRaWANDeviceProfile)
-
--- | The MaxDutyCycle value.
-loRaWANDeviceProfile_maxDutyCycle :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
-loRaWANDeviceProfile_maxDutyCycle = Lens.lens (\LoRaWANDeviceProfile' {maxDutyCycle} -> maxDutyCycle) (\s@LoRaWANDeviceProfile' {} a -> s {maxDutyCycle = a} :: LoRaWANDeviceProfile)
-
--- | The RXDROffset1 value.
-loRaWANDeviceProfile_rxDrOffset1 :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
-loRaWANDeviceProfile_rxDrOffset1 = Lens.lens (\LoRaWANDeviceProfile' {rxDrOffset1} -> rxDrOffset1) (\s@LoRaWANDeviceProfile' {} a -> s {rxDrOffset1 = a} :: LoRaWANDeviceProfile)
-
--- | The SupportsClassB value.
-loRaWANDeviceProfile_supportsClassB :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Bool)
-loRaWANDeviceProfile_supportsClassB = Lens.lens (\LoRaWANDeviceProfile' {supportsClassB} -> supportsClassB) (\s@LoRaWANDeviceProfile' {} a -> s {supportsClassB = a} :: LoRaWANDeviceProfile)
-
--- | The SupportsJoin value.
-loRaWANDeviceProfile_supportsJoin :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Bool)
-loRaWANDeviceProfile_supportsJoin = Lens.lens (\LoRaWANDeviceProfile' {supportsJoin} -> supportsJoin) (\s@LoRaWANDeviceProfile' {} a -> s {supportsJoin = a} :: LoRaWANDeviceProfile)
-
--- | The RXDelay1 value.
-loRaWANDeviceProfile_rxDelay1 :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
-loRaWANDeviceProfile_rxDelay1 = Lens.lens (\LoRaWANDeviceProfile' {rxDelay1} -> rxDelay1) (\s@LoRaWANDeviceProfile' {} a -> s {rxDelay1 = a} :: LoRaWANDeviceProfile)
-
--- | The SupportsClassC value.
-loRaWANDeviceProfile_supportsClassC :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Bool)
-loRaWANDeviceProfile_supportsClassC = Lens.lens (\LoRaWANDeviceProfile' {supportsClassC} -> supportsClassC) (\s@LoRaWANDeviceProfile' {} a -> s {supportsClassC = a} :: LoRaWANDeviceProfile)
+-- | The PingSlotFreq value.
+loRaWANDeviceProfile_pingSlotFreq :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
+loRaWANDeviceProfile_pingSlotFreq = Lens.lens (\LoRaWANDeviceProfile' {pingSlotFreq} -> pingSlotFreq) (\s@LoRaWANDeviceProfile' {} a -> s {pingSlotFreq = a} :: LoRaWANDeviceProfile)
 
 -- | The PingSlotPeriod value.
 loRaWANDeviceProfile_pingSlotPeriod :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
 loRaWANDeviceProfile_pingSlotPeriod = Lens.lens (\LoRaWANDeviceProfile' {pingSlotPeriod} -> pingSlotPeriod) (\s@LoRaWANDeviceProfile' {} a -> s {pingSlotPeriod = a} :: LoRaWANDeviceProfile)
 
-instance Core.FromJSON LoRaWANDeviceProfile where
+-- | The version of regional parameters.
+loRaWANDeviceProfile_regParamsRevision :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Text)
+loRaWANDeviceProfile_regParamsRevision = Lens.lens (\LoRaWANDeviceProfile' {regParamsRevision} -> regParamsRevision) (\s@LoRaWANDeviceProfile' {} a -> s {regParamsRevision = a} :: LoRaWANDeviceProfile)
+
+-- | The frequency band (RFRegion) value.
+loRaWANDeviceProfile_rfRegion :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Text)
+loRaWANDeviceProfile_rfRegion = Lens.lens (\LoRaWANDeviceProfile' {rfRegion} -> rfRegion) (\s@LoRaWANDeviceProfile' {} a -> s {rfRegion = a} :: LoRaWANDeviceProfile)
+
+-- | The RXDataRate2 value.
+loRaWANDeviceProfile_rxDataRate2 :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
+loRaWANDeviceProfile_rxDataRate2 = Lens.lens (\LoRaWANDeviceProfile' {rxDataRate2} -> rxDataRate2) (\s@LoRaWANDeviceProfile' {} a -> s {rxDataRate2 = a} :: LoRaWANDeviceProfile)
+
+-- | The RXDelay1 value.
+loRaWANDeviceProfile_rxDelay1 :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
+loRaWANDeviceProfile_rxDelay1 = Lens.lens (\LoRaWANDeviceProfile' {rxDelay1} -> rxDelay1) (\s@LoRaWANDeviceProfile' {} a -> s {rxDelay1 = a} :: LoRaWANDeviceProfile)
+
+-- | The RXDROffset1 value.
+loRaWANDeviceProfile_rxDrOffset1 :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
+loRaWANDeviceProfile_rxDrOffset1 = Lens.lens (\LoRaWANDeviceProfile' {rxDrOffset1} -> rxDrOffset1) (\s@LoRaWANDeviceProfile' {} a -> s {rxDrOffset1 = a} :: LoRaWANDeviceProfile)
+
+-- | The RXFreq2 value.
+loRaWANDeviceProfile_rxFreq2 :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Natural)
+loRaWANDeviceProfile_rxFreq2 = Lens.lens (\LoRaWANDeviceProfile' {rxFreq2} -> rxFreq2) (\s@LoRaWANDeviceProfile' {} a -> s {rxFreq2 = a} :: LoRaWANDeviceProfile)
+
+-- | The Supports32BitFCnt value.
+loRaWANDeviceProfile_supports32BitFCnt :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Bool)
+loRaWANDeviceProfile_supports32BitFCnt = Lens.lens (\LoRaWANDeviceProfile' {supports32BitFCnt} -> supports32BitFCnt) (\s@LoRaWANDeviceProfile' {} a -> s {supports32BitFCnt = a} :: LoRaWANDeviceProfile)
+
+-- | The SupportsClassB value.
+loRaWANDeviceProfile_supportsClassB :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Bool)
+loRaWANDeviceProfile_supportsClassB = Lens.lens (\LoRaWANDeviceProfile' {supportsClassB} -> supportsClassB) (\s@LoRaWANDeviceProfile' {} a -> s {supportsClassB = a} :: LoRaWANDeviceProfile)
+
+-- | The SupportsClassC value.
+loRaWANDeviceProfile_supportsClassC :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Bool)
+loRaWANDeviceProfile_supportsClassC = Lens.lens (\LoRaWANDeviceProfile' {supportsClassC} -> supportsClassC) (\s@LoRaWANDeviceProfile' {} a -> s {supportsClassC = a} :: LoRaWANDeviceProfile)
+
+-- | The SupportsJoin value.
+loRaWANDeviceProfile_supportsJoin :: Lens.Lens' LoRaWANDeviceProfile (Prelude.Maybe Prelude.Bool)
+loRaWANDeviceProfile_supportsJoin = Lens.lens (\LoRaWANDeviceProfile' {supportsJoin} -> supportsJoin) (\s@LoRaWANDeviceProfile' {} a -> s {supportsJoin = a} :: LoRaWANDeviceProfile)
+
+instance Data.FromJSON LoRaWANDeviceProfile where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LoRaWANDeviceProfile"
       ( \x ->
           LoRaWANDeviceProfile'
-            Prelude.<$> (x Core..:? "RfRegion")
-            Prelude.<*> (x Core..:? "PingSlotFreq")
-            Prelude.<*> (x Core..:? "ClassBTimeout")
-            Prelude.<*> (x Core..:? "MaxEirp")
-            Prelude.<*> (x Core..:? "RxDataRate2")
-            Prelude.<*> (x Core..:? "MacVersion")
-            Prelude.<*> ( x Core..:? "FactoryPresetFreqsList"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "ClassBTimeout")
+            Prelude.<*> (x Data..:? "ClassCTimeout")
+            Prelude.<*> ( x Data..:? "FactoryPresetFreqsList"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "RxFreq2")
-            Prelude.<*> (x Core..:? "ClassCTimeout")
-            Prelude.<*> (x Core..:? "RegParamsRevision")
-            Prelude.<*> (x Core..:? "PingSlotDr")
-            Prelude.<*> (x Core..:? "Supports32BitFCnt")
-            Prelude.<*> (x Core..:? "MaxDutyCycle")
-            Prelude.<*> (x Core..:? "RxDrOffset1")
-            Prelude.<*> (x Core..:? "SupportsClassB")
-            Prelude.<*> (x Core..:? "SupportsJoin")
-            Prelude.<*> (x Core..:? "RxDelay1")
-            Prelude.<*> (x Core..:? "SupportsClassC")
-            Prelude.<*> (x Core..:? "PingSlotPeriod")
+            Prelude.<*> (x Data..:? "MacVersion")
+            Prelude.<*> (x Data..:? "MaxDutyCycle")
+            Prelude.<*> (x Data..:? "MaxEirp")
+            Prelude.<*> (x Data..:? "PingSlotDr")
+            Prelude.<*> (x Data..:? "PingSlotFreq")
+            Prelude.<*> (x Data..:? "PingSlotPeriod")
+            Prelude.<*> (x Data..:? "RegParamsRevision")
+            Prelude.<*> (x Data..:? "RfRegion")
+            Prelude.<*> (x Data..:? "RxDataRate2")
+            Prelude.<*> (x Data..:? "RxDelay1")
+            Prelude.<*> (x Data..:? "RxDrOffset1")
+            Prelude.<*> (x Data..:? "RxFreq2")
+            Prelude.<*> (x Data..:? "Supports32BitFCnt")
+            Prelude.<*> (x Data..:? "SupportsClassB")
+            Prelude.<*> (x Data..:? "SupportsClassC")
+            Prelude.<*> (x Data..:? "SupportsJoin")
       )
 
 instance Prelude.Hashable LoRaWANDeviceProfile where
   hashWithSalt _salt LoRaWANDeviceProfile' {..} =
-    _salt `Prelude.hashWithSalt` rfRegion
-      `Prelude.hashWithSalt` pingSlotFreq
-      `Prelude.hashWithSalt` classBTimeout
-      `Prelude.hashWithSalt` maxEirp
-      `Prelude.hashWithSalt` rxDataRate2
-      `Prelude.hashWithSalt` macVersion
-      `Prelude.hashWithSalt` factoryPresetFreqsList
-      `Prelude.hashWithSalt` rxFreq2
+    _salt `Prelude.hashWithSalt` classBTimeout
       `Prelude.hashWithSalt` classCTimeout
-      `Prelude.hashWithSalt` regParamsRevision
-      `Prelude.hashWithSalt` pingSlotDr
-      `Prelude.hashWithSalt` supports32BitFCnt
+      `Prelude.hashWithSalt` factoryPresetFreqsList
+      `Prelude.hashWithSalt` macVersion
       `Prelude.hashWithSalt` maxDutyCycle
-      `Prelude.hashWithSalt` rxDrOffset1
-      `Prelude.hashWithSalt` supportsClassB
-      `Prelude.hashWithSalt` supportsJoin
-      `Prelude.hashWithSalt` rxDelay1
-      `Prelude.hashWithSalt` supportsClassC
+      `Prelude.hashWithSalt` maxEirp
+      `Prelude.hashWithSalt` pingSlotDr
+      `Prelude.hashWithSalt` pingSlotFreq
       `Prelude.hashWithSalt` pingSlotPeriod
+      `Prelude.hashWithSalt` regParamsRevision
+      `Prelude.hashWithSalt` rfRegion
+      `Prelude.hashWithSalt` rxDataRate2
+      `Prelude.hashWithSalt` rxDelay1
+      `Prelude.hashWithSalt` rxDrOffset1
+      `Prelude.hashWithSalt` rxFreq2
+      `Prelude.hashWithSalt` supports32BitFCnt
+      `Prelude.hashWithSalt` supportsClassB
+      `Prelude.hashWithSalt` supportsClassC
+      `Prelude.hashWithSalt` supportsJoin
 
 instance Prelude.NFData LoRaWANDeviceProfile where
   rnf LoRaWANDeviceProfile' {..} =
-    Prelude.rnf rfRegion
-      `Prelude.seq` Prelude.rnf pingSlotFreq
-      `Prelude.seq` Prelude.rnf classBTimeout
-      `Prelude.seq` Prelude.rnf maxEirp
-      `Prelude.seq` Prelude.rnf rxDataRate2
-      `Prelude.seq` Prelude.rnf macVersion
-      `Prelude.seq` Prelude.rnf factoryPresetFreqsList
-      `Prelude.seq` Prelude.rnf rxFreq2
+    Prelude.rnf classBTimeout
       `Prelude.seq` Prelude.rnf classCTimeout
-      `Prelude.seq` Prelude.rnf regParamsRevision
-      `Prelude.seq` Prelude.rnf pingSlotDr
-      `Prelude.seq` Prelude.rnf supports32BitFCnt
+      `Prelude.seq` Prelude.rnf factoryPresetFreqsList
+      `Prelude.seq` Prelude.rnf macVersion
       `Prelude.seq` Prelude.rnf maxDutyCycle
-      `Prelude.seq` Prelude.rnf rxDrOffset1
-      `Prelude.seq` Prelude.rnf supportsClassB
-      `Prelude.seq` Prelude.rnf supportsJoin
-      `Prelude.seq` Prelude.rnf rxDelay1
-      `Prelude.seq` Prelude.rnf supportsClassC
+      `Prelude.seq` Prelude.rnf maxEirp
+      `Prelude.seq` Prelude.rnf pingSlotDr
+      `Prelude.seq` Prelude.rnf pingSlotFreq
       `Prelude.seq` Prelude.rnf pingSlotPeriod
+      `Prelude.seq` Prelude.rnf regParamsRevision
+      `Prelude.seq` Prelude.rnf rfRegion
+      `Prelude.seq` Prelude.rnf rxDataRate2
+      `Prelude.seq` Prelude.rnf rxDelay1
+      `Prelude.seq` Prelude.rnf rxDrOffset1
+      `Prelude.seq` Prelude.rnf rxFreq2
+      `Prelude.seq` Prelude.rnf supports32BitFCnt
+      `Prelude.seq` Prelude.rnf supportsClassB
+      `Prelude.seq` Prelude.rnf supportsClassC
+      `Prelude.seq` Prelude.rnf supportsJoin
 
-instance Core.ToJSON LoRaWANDeviceProfile where
+instance Data.ToJSON LoRaWANDeviceProfile where
   toJSON LoRaWANDeviceProfile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RfRegion" Core..=) Prelude.<$> rfRegion,
-            ("PingSlotFreq" Core..=) Prelude.<$> pingSlotFreq,
-            ("ClassBTimeout" Core..=) Prelude.<$> classBTimeout,
-            ("MaxEirp" Core..=) Prelude.<$> maxEirp,
-            ("RxDataRate2" Core..=) Prelude.<$> rxDataRate2,
-            ("MacVersion" Core..=) Prelude.<$> macVersion,
-            ("FactoryPresetFreqsList" Core..=)
+          [ ("ClassBTimeout" Data..=) Prelude.<$> classBTimeout,
+            ("ClassCTimeout" Data..=) Prelude.<$> classCTimeout,
+            ("FactoryPresetFreqsList" Data..=)
               Prelude.<$> factoryPresetFreqsList,
-            ("RxFreq2" Core..=) Prelude.<$> rxFreq2,
-            ("ClassCTimeout" Core..=) Prelude.<$> classCTimeout,
-            ("RegParamsRevision" Core..=)
+            ("MacVersion" Data..=) Prelude.<$> macVersion,
+            ("MaxDutyCycle" Data..=) Prelude.<$> maxDutyCycle,
+            ("MaxEirp" Data..=) Prelude.<$> maxEirp,
+            ("PingSlotDr" Data..=) Prelude.<$> pingSlotDr,
+            ("PingSlotFreq" Data..=) Prelude.<$> pingSlotFreq,
+            ("PingSlotPeriod" Data..=)
+              Prelude.<$> pingSlotPeriod,
+            ("RegParamsRevision" Data..=)
               Prelude.<$> regParamsRevision,
-            ("PingSlotDr" Core..=) Prelude.<$> pingSlotDr,
-            ("Supports32BitFCnt" Core..=)
+            ("RfRegion" Data..=) Prelude.<$> rfRegion,
+            ("RxDataRate2" Data..=) Prelude.<$> rxDataRate2,
+            ("RxDelay1" Data..=) Prelude.<$> rxDelay1,
+            ("RxDrOffset1" Data..=) Prelude.<$> rxDrOffset1,
+            ("RxFreq2" Data..=) Prelude.<$> rxFreq2,
+            ("Supports32BitFCnt" Data..=)
               Prelude.<$> supports32BitFCnt,
-            ("MaxDutyCycle" Core..=) Prelude.<$> maxDutyCycle,
-            ("RxDrOffset1" Core..=) Prelude.<$> rxDrOffset1,
-            ("SupportsClassB" Core..=)
+            ("SupportsClassB" Data..=)
               Prelude.<$> supportsClassB,
-            ("SupportsJoin" Core..=) Prelude.<$> supportsJoin,
-            ("RxDelay1" Core..=) Prelude.<$> rxDelay1,
-            ("SupportsClassC" Core..=)
+            ("SupportsClassC" Data..=)
               Prelude.<$> supportsClassC,
-            ("PingSlotPeriod" Core..=)
-              Prelude.<$> pingSlotPeriod
+            ("SupportsJoin" Data..=) Prelude.<$> supportsJoin
           ]
       )

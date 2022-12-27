@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualGatewayLogging
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.VirtualGatewayLogging where
 
 import Amazonka.AppMesh.Types.VirtualGatewayAccessLog
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents logging information.
@@ -51,13 +52,13 @@ newVirtualGatewayLogging =
 virtualGatewayLogging_accessLog :: Lens.Lens' VirtualGatewayLogging (Prelude.Maybe VirtualGatewayAccessLog)
 virtualGatewayLogging_accessLog = Lens.lens (\VirtualGatewayLogging' {accessLog} -> accessLog) (\s@VirtualGatewayLogging' {} a -> s {accessLog = a} :: VirtualGatewayLogging)
 
-instance Core.FromJSON VirtualGatewayLogging where
+instance Data.FromJSON VirtualGatewayLogging where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualGatewayLogging"
       ( \x ->
           VirtualGatewayLogging'
-            Prelude.<$> (x Core..:? "accessLog")
+            Prelude.<$> (x Data..:? "accessLog")
       )
 
 instance Prelude.Hashable VirtualGatewayLogging where
@@ -68,9 +69,9 @@ instance Prelude.NFData VirtualGatewayLogging where
   rnf VirtualGatewayLogging' {..} =
     Prelude.rnf accessLog
 
-instance Core.ToJSON VirtualGatewayLogging where
+instance Data.ToJSON VirtualGatewayLogging where
   toJSON VirtualGatewayLogging' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("accessLog" Core..=) Prelude.<$> accessLog]
+          [("accessLog" Data..=) Prelude.<$> accessLog]
       )

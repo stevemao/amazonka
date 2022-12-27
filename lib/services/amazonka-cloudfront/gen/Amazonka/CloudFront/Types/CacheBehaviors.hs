@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.CacheBehaviors
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.CacheBehaviors where
 
 import Amazonka.CloudFront.Types.CacheBehavior
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A complex type that contains zero or more @CacheBehavior@ elements.
@@ -67,13 +68,13 @@ cacheBehaviors_items = Lens.lens (\CacheBehaviors' {items} -> items) (\s@CacheBe
 cacheBehaviors_quantity :: Lens.Lens' CacheBehaviors Prelude.Int
 cacheBehaviors_quantity = Lens.lens (\CacheBehaviors' {quantity} -> quantity) (\s@CacheBehaviors' {} a -> s {quantity = a} :: CacheBehaviors)
 
-instance Core.FromXML CacheBehaviors where
+instance Data.FromXML CacheBehaviors where
   parseXML x =
     CacheBehaviors'
-      Prelude.<$> ( x Core..@? "Items" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "CacheBehavior")
+      Prelude.<$> ( x Data..@? "Items" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "CacheBehavior")
                   )
-      Prelude.<*> (x Core..@ "Quantity")
+      Prelude.<*> (x Data..@ "Quantity")
 
 instance Prelude.Hashable CacheBehaviors where
   hashWithSalt _salt CacheBehaviors' {..} =
@@ -85,11 +86,11 @@ instance Prelude.NFData CacheBehaviors where
     Prelude.rnf items
       `Prelude.seq` Prelude.rnf quantity
 
-instance Core.ToXML CacheBehaviors where
+instance Data.ToXML CacheBehaviors where
   toXML CacheBehaviors' {..} =
     Prelude.mconcat
       [ "Items"
-          Core.@= Core.toXML
-            (Core.toXMLList "CacheBehavior" Prelude.<$> items),
-        "Quantity" Core.@= quantity
+          Data.@= Data.toXML
+            (Data.toXMLList "CacheBehavior" Prelude.<$> items),
+        "Quantity" Data.@= quantity
       ]

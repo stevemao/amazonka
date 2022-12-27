@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.GetSupportedResourceTypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,12 +63,13 @@ instance Core.AWSRequest GetSupportedResourceTypes where
   type
     AWSResponse GetSupportedResourceTypes =
       GetSupportedResourceTypesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSupportedResourceTypesResponse'
-            Prelude.<$> (x Core..?> "ResourceTypes" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "ResourceTypes" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -78,21 +80,21 @@ instance Prelude.Hashable GetSupportedResourceTypes where
 instance Prelude.NFData GetSupportedResourceTypes where
   rnf _ = ()
 
-instance Core.ToHeaders GetSupportedResourceTypes where
+instance Data.ToHeaders GetSupportedResourceTypes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetSupportedResourceTypes where
+instance Data.ToPath GetSupportedResourceTypes where
   toPath = Prelude.const "/supported-resource-types"
 
-instance Core.ToQuery GetSupportedResourceTypes where
+instance Data.ToQuery GetSupportedResourceTypes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSupportedResourceTypesResponse' smart constructor.
@@ -114,6 +116,10 @@ data GetSupportedResourceTypesResponse = GetSupportedResourceTypesResponse'
     -- -   @RDS@ for Amazon Relational Database Service
     --
     -- -   @Storage Gateway@ for Storage Gateway
+    --
+    -- -   @DocDB@ for Amazon DocumentDB (with MongoDB compatibility)
+    --
+    -- -   @Neptune@ for Amazon Neptune
     resourceTypes :: Prelude.Maybe [Prelude.Text],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -146,6 +152,10 @@ data GetSupportedResourceTypesResponse = GetSupportedResourceTypesResponse'
 --
 -- -   @Storage Gateway@ for Storage Gateway
 --
+-- -   @DocDB@ for Amazon DocumentDB (with MongoDB compatibility)
+--
+-- -   @Neptune@ for Amazon Neptune
+--
 -- 'httpStatus', 'getSupportedResourceTypesResponse_httpStatus' - The response's http status code.
 newGetSupportedResourceTypesResponse ::
   -- | 'httpStatus'
@@ -175,6 +185,10 @@ newGetSupportedResourceTypesResponse pHttpStatus_ =
 -- -   @RDS@ for Amazon Relational Database Service
 --
 -- -   @Storage Gateway@ for Storage Gateway
+--
+-- -   @DocDB@ for Amazon DocumentDB (with MongoDB compatibility)
+--
+-- -   @Neptune@ for Amazon Neptune
 getSupportedResourceTypesResponse_resourceTypes :: Lens.Lens' GetSupportedResourceTypesResponse (Prelude.Maybe [Prelude.Text])
 getSupportedResourceTypesResponse_resourceTypes = Lens.lens (\GetSupportedResourceTypesResponse' {resourceTypes} -> resourceTypes) (\s@GetSupportedResourceTypesResponse' {} a -> s {resourceTypes = a} :: GetSupportedResourceTypesResponse) Prelude.. Lens.mapping Lens.coerced
 

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.UsageType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,6 +20,8 @@
 module Amazonka.MacieV2.Types.UsageType
   ( UsageType
       ( ..,
+        UsageType_AUTOMATED_OBJECT_MONITORING,
+        UsageType_AUTOMATED_SENSITIVE_DATA_DISCOVERY,
         UsageType_DATA_INVENTORY_EVALUATION,
         UsageType_SENSITIVE_DATA_DISCOVERY
       ),
@@ -27,13 +29,14 @@ module Amazonka.MacieV2.Types.UsageType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The name of an Amazon Macie usage metric for an account. Possible values
 -- are:
 newtype UsageType = UsageType'
   { fromUsageType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -45,19 +48,25 @@ newtype UsageType = UsageType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern UsageType_AUTOMATED_OBJECT_MONITORING :: UsageType
+pattern UsageType_AUTOMATED_OBJECT_MONITORING = UsageType' "AUTOMATED_OBJECT_MONITORING"
+
+pattern UsageType_AUTOMATED_SENSITIVE_DATA_DISCOVERY :: UsageType
+pattern UsageType_AUTOMATED_SENSITIVE_DATA_DISCOVERY = UsageType' "AUTOMATED_SENSITIVE_DATA_DISCOVERY"
 
 pattern UsageType_DATA_INVENTORY_EVALUATION :: UsageType
 pattern UsageType_DATA_INVENTORY_EVALUATION = UsageType' "DATA_INVENTORY_EVALUATION"
@@ -66,6 +75,8 @@ pattern UsageType_SENSITIVE_DATA_DISCOVERY :: UsageType
 pattern UsageType_SENSITIVE_DATA_DISCOVERY = UsageType' "SENSITIVE_DATA_DISCOVERY"
 
 {-# COMPLETE
+  UsageType_AUTOMATED_OBJECT_MONITORING,
+  UsageType_AUTOMATED_SENSITIVE_DATA_DISCOVERY,
   UsageType_DATA_INVENTORY_EVALUATION,
   UsageType_SENSITIVE_DATA_DISCOVERY,
   UsageType'

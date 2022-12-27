@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.Types.CategoricalParameterRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Forecast.Types.CategoricalParameterRange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies a categorical hyperparameter and it\'s range of tunable
@@ -66,13 +67,13 @@ categoricalParameterRange_name = Lens.lens (\CategoricalParameterRange' {name} -
 categoricalParameterRange_values :: Lens.Lens' CategoricalParameterRange (Prelude.NonEmpty Prelude.Text)
 categoricalParameterRange_values = Lens.lens (\CategoricalParameterRange' {values} -> values) (\s@CategoricalParameterRange' {} a -> s {values = a} :: CategoricalParameterRange) Prelude.. Lens.coerced
 
-instance Core.FromJSON CategoricalParameterRange where
+instance Data.FromJSON CategoricalParameterRange where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CategoricalParameterRange"
       ( \x ->
           CategoricalParameterRange'
-            Prelude.<$> (x Core..: "Name") Prelude.<*> (x Core..: "Values")
+            Prelude.<$> (x Data..: "Name") Prelude.<*> (x Data..: "Values")
       )
 
 instance Prelude.Hashable CategoricalParameterRange where
@@ -84,11 +85,11 @@ instance Prelude.NFData CategoricalParameterRange where
   rnf CategoricalParameterRange' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON CategoricalParameterRange where
+instance Data.ToJSON CategoricalParameterRange where
   toJSON CategoricalParameterRange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Values" Core..= values)
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Values" Data..= values)
           ]
       )

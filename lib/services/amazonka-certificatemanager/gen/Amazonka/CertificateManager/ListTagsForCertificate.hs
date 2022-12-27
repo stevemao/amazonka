@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManager.ListTagsForCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CertificateManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,12 +102,13 @@ instance Core.AWSRequest ListTagsForCertificate where
   type
     AWSResponse ListTagsForCertificate =
       ListTagsForCertificateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForCertificateResponse'
-            Prelude.<$> (x Core..?> "Tags")
+            Prelude.<$> (x Data..?> "Tags")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,34 +120,34 @@ instance Prelude.NFData ListTagsForCertificate where
   rnf ListTagsForCertificate' {..} =
     Prelude.rnf certificateArn
 
-instance Core.ToHeaders ListTagsForCertificate where
+instance Data.ToHeaders ListTagsForCertificate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CertificateManager.ListTagsForCertificate" ::
+              Data.=# ( "CertificateManager.ListTagsForCertificate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTagsForCertificate where
+instance Data.ToJSON ListTagsForCertificate where
   toJSON ListTagsForCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("CertificateArn" Core..= certificateArn)
+              ("CertificateArn" Data..= certificateArn)
           ]
       )
 
-instance Core.ToPath ListTagsForCertificate where
+instance Data.ToPath ListTagsForCertificate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTagsForCertificate where
+instance Data.ToQuery ListTagsForCertificate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagsForCertificateResponse' smart constructor.

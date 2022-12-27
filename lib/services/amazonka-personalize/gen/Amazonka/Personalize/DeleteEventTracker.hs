@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.DeleteEventTracker
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@
 --
 -- Deletes the event tracker. Does not delete the event-interactions
 -- dataset from the associated dataset group. For more information on event
--- trackers, see CreateEventTracker.
+-- trackers, see
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateEventTracker.html CreateEventTracker>.
 module Amazonka.Personalize.DeleteEventTracker
   ( -- * Creating a Request
     DeleteEventTracker (..),
@@ -38,7 +39,8 @@ module Amazonka.Personalize.DeleteEventTracker
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -78,7 +80,8 @@ instance Core.AWSRequest DeleteEventTracker where
   type
     AWSResponse DeleteEventTracker =
       DeleteEventTrackerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteEventTrackerResponse'
 
@@ -90,34 +93,34 @@ instance Prelude.NFData DeleteEventTracker where
   rnf DeleteEventTracker' {..} =
     Prelude.rnf eventTrackerArn
 
-instance Core.ToHeaders DeleteEventTracker where
+instance Data.ToHeaders DeleteEventTracker where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.DeleteEventTracker" ::
+              Data.=# ( "AmazonPersonalize.DeleteEventTracker" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteEventTracker where
+instance Data.ToJSON DeleteEventTracker where
   toJSON DeleteEventTracker' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("eventTrackerArn" Core..= eventTrackerArn)
+              ("eventTrackerArn" Data..= eventTrackerArn)
           ]
       )
 
-instance Core.ToPath DeleteEventTracker where
+instance Data.ToPath DeleteEventTracker where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteEventTracker where
+instance Data.ToQuery DeleteEventTracker where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteEventTrackerResponse' smart constructor.

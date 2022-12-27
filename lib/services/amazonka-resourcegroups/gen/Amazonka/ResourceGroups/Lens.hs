@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroups.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,85 +14,10 @@
 module Amazonka.ResourceGroups.Lens
   ( -- * Operations
 
-    -- ** SearchResources
-    searchResources_nextToken,
-    searchResources_maxResults,
-    searchResources_resourceQuery,
-    searchResourcesResponse_queryErrors,
-    searchResourcesResponse_nextToken,
-    searchResourcesResponse_resourceIdentifiers,
-    searchResourcesResponse_httpStatus,
-
-    -- ** GetTags
-    getTags_arn,
-    getTagsResponse_arn,
-    getTagsResponse_tags,
-    getTagsResponse_httpStatus,
-
-    -- ** Tag
-    tag_arn,
-    tag_tags,
-    tagResponse_arn,
-    tagResponse_tags,
-    tagResponse_httpStatus,
-
-    -- ** UngroupResources
-    ungroupResources_group,
-    ungroupResources_resourceArns,
-    ungroupResourcesResponse_pending,
-    ungroupResourcesResponse_succeeded,
-    ungroupResourcesResponse_failed,
-    ungroupResourcesResponse_httpStatus,
-
-    -- ** GroupResources
-    groupResources_group,
-    groupResources_resourceArns,
-    groupResourcesResponse_pending,
-    groupResourcesResponse_succeeded,
-    groupResourcesResponse_failed,
-    groupResourcesResponse_httpStatus,
-
-    -- ** PutGroupConfiguration
-    putGroupConfiguration_group,
-    putGroupConfiguration_configuration,
-    putGroupConfigurationResponse_httpStatus,
-
-    -- ** Untag
-    untag_arn,
-    untag_keys,
-    untagResponse_arn,
-    untagResponse_keys,
-    untagResponse_httpStatus,
-
-    -- ** UpdateGroupQuery
-    updateGroupQuery_group,
-    updateGroupQuery_groupName,
-    updateGroupQuery_resourceQuery,
-    updateGroupQueryResponse_groupQuery,
-    updateGroupQueryResponse_httpStatus,
-
-    -- ** ListGroupResources
-    listGroupResources_group,
-    listGroupResources_filters,
-    listGroupResources_nextToken,
-    listGroupResources_groupName,
-    listGroupResources_maxResults,
-    listGroupResourcesResponse_resources,
-    listGroupResourcesResponse_queryErrors,
-    listGroupResourcesResponse_nextToken,
-    listGroupResourcesResponse_resourceIdentifiers,
-    listGroupResourcesResponse_httpStatus,
-
-    -- ** GetGroupQuery
-    getGroupQuery_group,
-    getGroupQuery_groupName,
-    getGroupQueryResponse_groupQuery,
-    getGroupQueryResponse_httpStatus,
-
     -- ** CreateGroup
-    createGroup_resourceQuery,
     createGroup_configuration,
     createGroup_description,
+    createGroup_resourceQuery,
     createGroup_tags,
     createGroup_name,
     createGroupResponse_group,
@@ -107,22 +32,6 @@ module Amazonka.ResourceGroups.Lens
     deleteGroupResponse_group,
     deleteGroupResponse_httpStatus,
 
-    -- ** UpdateGroup
-    updateGroup_group,
-    updateGroup_groupName,
-    updateGroup_description,
-    updateGroupResponse_group,
-    updateGroupResponse_httpStatus,
-
-    -- ** ListGroups
-    listGroups_filters,
-    listGroups_nextToken,
-    listGroups_maxResults,
-    listGroupsResponse_groups,
-    listGroupsResponse_nextToken,
-    listGroupsResponse_groupIdentifiers,
-    listGroupsResponse_httpStatus,
-
     -- ** GetGroup
     getGroup_group,
     getGroup_groupName,
@@ -134,12 +43,103 @@ module Amazonka.ResourceGroups.Lens
     getGroupConfigurationResponse_groupConfiguration,
     getGroupConfigurationResponse_httpStatus,
 
+    -- ** GetGroupQuery
+    getGroupQuery_group,
+    getGroupQuery_groupName,
+    getGroupQueryResponse_groupQuery,
+    getGroupQueryResponse_httpStatus,
+
+    -- ** GetTags
+    getTags_arn,
+    getTagsResponse_arn,
+    getTagsResponse_tags,
+    getTagsResponse_httpStatus,
+
+    -- ** GroupResources
+    groupResources_group,
+    groupResources_resourceArns,
+    groupResourcesResponse_failed,
+    groupResourcesResponse_pending,
+    groupResourcesResponse_succeeded,
+    groupResourcesResponse_httpStatus,
+
+    -- ** ListGroupResources
+    listGroupResources_filters,
+    listGroupResources_group,
+    listGroupResources_groupName,
+    listGroupResources_maxResults,
+    listGroupResources_nextToken,
+    listGroupResourcesResponse_nextToken,
+    listGroupResourcesResponse_queryErrors,
+    listGroupResourcesResponse_resourceIdentifiers,
+    listGroupResourcesResponse_resources,
+    listGroupResourcesResponse_httpStatus,
+
+    -- ** ListGroups
+    listGroups_filters,
+    listGroups_maxResults,
+    listGroups_nextToken,
+    listGroupsResponse_groupIdentifiers,
+    listGroupsResponse_groups,
+    listGroupsResponse_nextToken,
+    listGroupsResponse_httpStatus,
+
+    -- ** PutGroupConfiguration
+    putGroupConfiguration_configuration,
+    putGroupConfiguration_group,
+    putGroupConfigurationResponse_httpStatus,
+
+    -- ** SearchResources
+    searchResources_maxResults,
+    searchResources_nextToken,
+    searchResources_resourceQuery,
+    searchResourcesResponse_nextToken,
+    searchResourcesResponse_queryErrors,
+    searchResourcesResponse_resourceIdentifiers,
+    searchResourcesResponse_httpStatus,
+
+    -- ** Tag
+    tag_arn,
+    tag_tags,
+    tagResponse_arn,
+    tagResponse_tags,
+    tagResponse_httpStatus,
+
+    -- ** UngroupResources
+    ungroupResources_group,
+    ungroupResources_resourceArns,
+    ungroupResourcesResponse_failed,
+    ungroupResourcesResponse_pending,
+    ungroupResourcesResponse_succeeded,
+    ungroupResourcesResponse_httpStatus,
+
+    -- ** Untag
+    untag_arn,
+    untag_keys,
+    untagResponse_arn,
+    untagResponse_keys,
+    untagResponse_httpStatus,
+
+    -- ** UpdateGroup
+    updateGroup_description,
+    updateGroup_group,
+    updateGroup_groupName,
+    updateGroupResponse_group,
+    updateGroupResponse_httpStatus,
+
+    -- ** UpdateGroupQuery
+    updateGroupQuery_group,
+    updateGroupQuery_groupName,
+    updateGroupQuery_resourceQuery,
+    updateGroupQueryResponse_groupQuery,
+    updateGroupQueryResponse_httpStatus,
+
     -- * Types
 
     -- ** FailedResource
-    failedResource_resourceArn,
     failedResource_errorCode,
     failedResource_errorMessage,
+    failedResource_resourceArn,
 
     -- ** Group
     group_description,
@@ -147,10 +147,10 @@ module Amazonka.ResourceGroups.Lens
     group_name,
 
     -- ** GroupConfiguration
-    groupConfiguration_status,
+    groupConfiguration_configuration,
     groupConfiguration_failureReason,
     groupConfiguration_proposedConfiguration,
-    groupConfiguration_configuration,
+    groupConfiguration_status,
 
     -- ** GroupConfigurationItem
     groupConfigurationItem_parameters,
@@ -173,8 +173,8 @@ module Amazonka.ResourceGroups.Lens
     groupQuery_resourceQuery,
 
     -- ** ListGroupResourcesItem
-    listGroupResourcesItem_status,
     listGroupResourcesItem_identifier,
+    listGroupResourcesItem_status,
 
     -- ** PendingResource
     pendingResource_resourceArn,
@@ -188,8 +188,8 @@ module Amazonka.ResourceGroups.Lens
     resourceFilter_values,
 
     -- ** ResourceIdentifier
-    resourceIdentifier_resourceType,
     resourceIdentifier_resourceArn,
+    resourceIdentifier_resourceType,
 
     -- ** ResourceQuery
     resourceQuery_type,

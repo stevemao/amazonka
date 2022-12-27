@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.DeleteRecoveryPoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,6 +25,19 @@
 -- If the recovery point ID belongs to a continuous backup, calling this
 -- endpoint deletes the existing continuous backup and stops future
 -- continuous backup.
+--
+-- When an IAM role\'s permissions are insufficient to call this API, the
+-- service sends back an HTTP 200 response with an empty HTTP body, but the
+-- recovery point is not deleted. Instead, it enters an @EXPIRED@ state.
+--
+-- @EXPIRED@ recovery points can be deleted with this API once the IAM role
+-- has the @iam:CreateServiceLinkedRole@ action. To learn more about adding
+-- this role, see
+-- <https://docs.aws.amazon.com/aws-backup/latest/devguide/deleting-backups.html#deleting-backups-troubleshooting Troubleshooting manual deletions>.
+--
+-- If the user or role is deleted or the permission within the role is
+-- removed, the deletion will not be successful and will enter an @EXPIRED@
+-- state.
 module Amazonka.Backup.DeleteRecoveryPoint
   ( -- * Creating a Request
     DeleteRecoveryPoint (..),
@@ -42,7 +55,8 @@ where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,7 +123,8 @@ instance Core.AWSRequest DeleteRecoveryPoint where
   type
     AWSResponse DeleteRecoveryPoint =
       DeleteRecoveryPointResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteRecoveryPointResponse'
 
@@ -123,27 +138,27 @@ instance Prelude.NFData DeleteRecoveryPoint where
     Prelude.rnf backupVaultName
       `Prelude.seq` Prelude.rnf recoveryPointArn
 
-instance Core.ToHeaders DeleteRecoveryPoint where
+instance Data.ToHeaders DeleteRecoveryPoint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteRecoveryPoint where
+instance Data.ToPath DeleteRecoveryPoint where
   toPath DeleteRecoveryPoint' {..} =
     Prelude.mconcat
       [ "/backup-vaults/",
-        Core.toBS backupVaultName,
+        Data.toBS backupVaultName,
         "/recovery-points/",
-        Core.toBS recoveryPointArn
+        Data.toBS recoveryPointArn
       ]
 
-instance Core.ToQuery DeleteRecoveryPoint where
+instance Data.ToQuery DeleteRecoveryPoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRecoveryPointResponse' smart constructor.

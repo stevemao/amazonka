@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CostAndUsageReport.PutReportDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.CostAndUsageReport.PutReportDefinition
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostAndUsageReport.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,7 +85,8 @@ instance Core.AWSRequest PutReportDefinition where
   type
     AWSResponse PutReportDefinition =
       PutReportDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -100,34 +102,34 @@ instance Prelude.NFData PutReportDefinition where
   rnf PutReportDefinition' {..} =
     Prelude.rnf reportDefinition
 
-instance Core.ToHeaders PutReportDefinition where
+instance Data.ToHeaders PutReportDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrigamiServiceGatewayService.PutReportDefinition" ::
+              Data.=# ( "AWSOrigamiServiceGatewayService.PutReportDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutReportDefinition where
+instance Data.ToJSON PutReportDefinition where
   toJSON PutReportDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ReportDefinition" Core..= reportDefinition)
+              ("ReportDefinition" Data..= reportDefinition)
           ]
       )
 
-instance Core.ToPath PutReportDefinition where
+instance Data.ToPath PutReportDefinition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutReportDefinition where
+instance Data.ToQuery PutReportDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | If the action is successful, the service sends back an HTTP 200 response

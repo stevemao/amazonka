@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.StartFaceDetection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,7 +33,7 @@
 -- topic is @SUCCEEDED@. If so, call GetFaceDetection and pass the job
 -- identifier (@JobId@) from the initial call to @StartFaceDetection@.
 --
--- For more information, see Detecting Faces in a Stored Video in the
+-- For more information, see Detecting faces in a stored video in the
 -- Amazon Rekognition Developer Guide.
 module Amazonka.Rekognition.StartFaceDetection
   ( -- * Creating a Request
@@ -41,10 +41,10 @@ module Amazonka.Rekognition.StartFaceDetection
     newStartFaceDetection,
 
     -- * Request Lenses
-    startFaceDetection_jobTag,
-    startFaceDetection_notificationChannel,
     startFaceDetection_clientRequestToken,
     startFaceDetection_faceAttributes,
+    startFaceDetection_jobTag,
+    startFaceDetection_notificationChannel,
     startFaceDetection_video,
 
     -- * Destructuring the Response
@@ -58,7 +58,8 @@ module Amazonka.Rekognition.StartFaceDetection
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types
 import qualified Amazonka.Request as Request
@@ -66,18 +67,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newStartFaceDetection' smart constructor.
 data StartFaceDetection = StartFaceDetection'
-  { -- | An identifier you specify that\'s returned in the completion
-    -- notification that\'s published to your Amazon Simple Notification
-    -- Service topic. For example, you can use @JobTag@ to group related jobs
-    -- and identify them in the completion notification.
-    jobTag :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the Amazon SNS topic to which you want Amazon Rekognition
-    -- Video to publish the completion status of the face detection operation.
-    -- The Amazon SNS topic must have a topic name that begins with
-    -- /AmazonRekognition/ if you are using the AmazonRekognitionServiceRole
-    -- permissions policy.
-    notificationChannel :: Prelude.Maybe NotificationChannel,
-    -- | Idempotent token used to identify the start request. If you use the same
+  { -- | Idempotent token used to identify the start request. If you use the same
     -- token with multiple @StartFaceDetection@ requests, the same @JobId@ is
     -- returned. Use @ClientRequestToken@ to prevent the same job from being
     -- accidently started more than once.
@@ -89,6 +79,17 @@ data StartFaceDetection = StartFaceDetection'
     --
     -- @ALL@ - All facial attributes are returned.
     faceAttributes :: Prelude.Maybe FaceAttributes,
+    -- | An identifier you specify that\'s returned in the completion
+    -- notification that\'s published to your Amazon Simple Notification
+    -- Service topic. For example, you can use @JobTag@ to group related jobs
+    -- and identify them in the completion notification.
+    jobTag :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the Amazon SNS topic to which you want Amazon Rekognition
+    -- Video to publish the completion status of the face detection operation.
+    -- The Amazon SNS topic must have a topic name that begins with
+    -- /AmazonRekognition/ if you are using the AmazonRekognitionServiceRole
+    -- permissions policy.
+    notificationChannel :: Prelude.Maybe NotificationChannel,
     -- | The video in which you want to detect faces. The video must be stored in
     -- an Amazon S3 bucket.
     video :: Video
@@ -103,17 +104,6 @@ data StartFaceDetection = StartFaceDetection'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'jobTag', 'startFaceDetection_jobTag' - An identifier you specify that\'s returned in the completion
--- notification that\'s published to your Amazon Simple Notification
--- Service topic. For example, you can use @JobTag@ to group related jobs
--- and identify them in the completion notification.
---
--- 'notificationChannel', 'startFaceDetection_notificationChannel' - The ARN of the Amazon SNS topic to which you want Amazon Rekognition
--- Video to publish the completion status of the face detection operation.
--- The Amazon SNS topic must have a topic name that begins with
--- /AmazonRekognition/ if you are using the AmazonRekognitionServiceRole
--- permissions policy.
---
 -- 'clientRequestToken', 'startFaceDetection_clientRequestToken' - Idempotent token used to identify the start request. If you use the same
 -- token with multiple @StartFaceDetection@ requests, the same @JobId@ is
 -- returned. Use @ClientRequestToken@ to prevent the same job from being
@@ -126,6 +116,17 @@ data StartFaceDetection = StartFaceDetection'
 --
 -- @ALL@ - All facial attributes are returned.
 --
+-- 'jobTag', 'startFaceDetection_jobTag' - An identifier you specify that\'s returned in the completion
+-- notification that\'s published to your Amazon Simple Notification
+-- Service topic. For example, you can use @JobTag@ to group related jobs
+-- and identify them in the completion notification.
+--
+-- 'notificationChannel', 'startFaceDetection_notificationChannel' - The ARN of the Amazon SNS topic to which you want Amazon Rekognition
+-- Video to publish the completion status of the face detection operation.
+-- The Amazon SNS topic must have a topic name that begins with
+-- /AmazonRekognition/ if you are using the AmazonRekognitionServiceRole
+-- permissions policy.
+--
 -- 'video', 'startFaceDetection_video' - The video in which you want to detect faces. The video must be stored in
 -- an Amazon S3 bucket.
 newStartFaceDetection ::
@@ -134,27 +135,13 @@ newStartFaceDetection ::
   StartFaceDetection
 newStartFaceDetection pVideo_ =
   StartFaceDetection'
-    { jobTag = Prelude.Nothing,
-      notificationChannel = Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
+    { clientRequestToken =
+        Prelude.Nothing,
       faceAttributes = Prelude.Nothing,
+      jobTag = Prelude.Nothing,
+      notificationChannel = Prelude.Nothing,
       video = pVideo_
     }
-
--- | An identifier you specify that\'s returned in the completion
--- notification that\'s published to your Amazon Simple Notification
--- Service topic. For example, you can use @JobTag@ to group related jobs
--- and identify them in the completion notification.
-startFaceDetection_jobTag :: Lens.Lens' StartFaceDetection (Prelude.Maybe Prelude.Text)
-startFaceDetection_jobTag = Lens.lens (\StartFaceDetection' {jobTag} -> jobTag) (\s@StartFaceDetection' {} a -> s {jobTag = a} :: StartFaceDetection)
-
--- | The ARN of the Amazon SNS topic to which you want Amazon Rekognition
--- Video to publish the completion status of the face detection operation.
--- The Amazon SNS topic must have a topic name that begins with
--- /AmazonRekognition/ if you are using the AmazonRekognitionServiceRole
--- permissions policy.
-startFaceDetection_notificationChannel :: Lens.Lens' StartFaceDetection (Prelude.Maybe NotificationChannel)
-startFaceDetection_notificationChannel = Lens.lens (\StartFaceDetection' {notificationChannel} -> notificationChannel) (\s@StartFaceDetection' {} a -> s {notificationChannel = a} :: StartFaceDetection)
 
 -- | Idempotent token used to identify the start request. If you use the same
 -- token with multiple @StartFaceDetection@ requests, the same @JobId@ is
@@ -172,6 +159,21 @@ startFaceDetection_clientRequestToken = Lens.lens (\StartFaceDetection' {clientR
 startFaceDetection_faceAttributes :: Lens.Lens' StartFaceDetection (Prelude.Maybe FaceAttributes)
 startFaceDetection_faceAttributes = Lens.lens (\StartFaceDetection' {faceAttributes} -> faceAttributes) (\s@StartFaceDetection' {} a -> s {faceAttributes = a} :: StartFaceDetection)
 
+-- | An identifier you specify that\'s returned in the completion
+-- notification that\'s published to your Amazon Simple Notification
+-- Service topic. For example, you can use @JobTag@ to group related jobs
+-- and identify them in the completion notification.
+startFaceDetection_jobTag :: Lens.Lens' StartFaceDetection (Prelude.Maybe Prelude.Text)
+startFaceDetection_jobTag = Lens.lens (\StartFaceDetection' {jobTag} -> jobTag) (\s@StartFaceDetection' {} a -> s {jobTag = a} :: StartFaceDetection)
+
+-- | The ARN of the Amazon SNS topic to which you want Amazon Rekognition
+-- Video to publish the completion status of the face detection operation.
+-- The Amazon SNS topic must have a topic name that begins with
+-- /AmazonRekognition/ if you are using the AmazonRekognitionServiceRole
+-- permissions policy.
+startFaceDetection_notificationChannel :: Lens.Lens' StartFaceDetection (Prelude.Maybe NotificationChannel)
+startFaceDetection_notificationChannel = Lens.lens (\StartFaceDetection' {notificationChannel} -> notificationChannel) (\s@StartFaceDetection' {} a -> s {notificationChannel = a} :: StartFaceDetection)
+
 -- | The video in which you want to detect faces. The video must be stored in
 -- an Amazon S3 bucket.
 startFaceDetection_video :: Lens.Lens' StartFaceDetection Video
@@ -181,65 +183,66 @@ instance Core.AWSRequest StartFaceDetection where
   type
     AWSResponse StartFaceDetection =
       StartFaceDetectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartFaceDetectionResponse'
-            Prelude.<$> (x Core..?> "JobId")
+            Prelude.<$> (x Data..?> "JobId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable StartFaceDetection where
   hashWithSalt _salt StartFaceDetection' {..} =
-    _salt `Prelude.hashWithSalt` jobTag
-      `Prelude.hashWithSalt` notificationChannel
-      `Prelude.hashWithSalt` clientRequestToken
+    _salt `Prelude.hashWithSalt` clientRequestToken
       `Prelude.hashWithSalt` faceAttributes
+      `Prelude.hashWithSalt` jobTag
+      `Prelude.hashWithSalt` notificationChannel
       `Prelude.hashWithSalt` video
 
 instance Prelude.NFData StartFaceDetection where
   rnf StartFaceDetection' {..} =
-    Prelude.rnf jobTag
-      `Prelude.seq` Prelude.rnf notificationChannel
-      `Prelude.seq` Prelude.rnf clientRequestToken
+    Prelude.rnf clientRequestToken
       `Prelude.seq` Prelude.rnf faceAttributes
+      `Prelude.seq` Prelude.rnf jobTag
+      `Prelude.seq` Prelude.rnf notificationChannel
       `Prelude.seq` Prelude.rnf video
 
-instance Core.ToHeaders StartFaceDetection where
+instance Data.ToHeaders StartFaceDetection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "RekognitionService.StartFaceDetection" ::
+              Data.=# ( "RekognitionService.StartFaceDetection" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartFaceDetection where
+instance Data.ToJSON StartFaceDetection where
   toJSON StartFaceDetection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("JobTag" Core..=) Prelude.<$> jobTag,
-            ("NotificationChannel" Core..=)
-              Prelude.<$> notificationChannel,
-            ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("FaceAttributes" Core..=)
+            ("FaceAttributes" Data..=)
               Prelude.<$> faceAttributes,
-            Prelude.Just ("Video" Core..= video)
+            ("JobTag" Data..=) Prelude.<$> jobTag,
+            ("NotificationChannel" Data..=)
+              Prelude.<$> notificationChannel,
+            Prelude.Just ("Video" Data..= video)
           ]
       )
 
-instance Core.ToPath StartFaceDetection where
+instance Data.ToPath StartFaceDetection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartFaceDetection where
+instance Data.ToQuery StartFaceDetection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartFaceDetectionResponse' smart constructor.

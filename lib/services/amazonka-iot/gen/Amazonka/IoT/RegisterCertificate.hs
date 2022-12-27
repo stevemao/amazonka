@@ -14,16 +14,17 @@
 
 -- |
 -- Module      : Amazonka.IoT.RegisterCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Registers a device certificate with IoT. If you have more than one CA
--- certificate that has the same subject field, you must specify the CA
--- certificate that was used to sign the device certificate being
--- registered.
+-- Registers a device certificate with IoT in the same
+-- <https://docs.aws.amazon.com/iot/latest/apireference/API_CertificateDescription.html#iot-Type-CertificateDescription-certificateMode certificate mode>
+-- as the signing CA. If you have more than one CA certificate that has the
+-- same subject field, you must specify the CA certificate that was used to
+-- sign the device certificate being registered.
 --
 -- Requires permission to access the
 -- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions RegisterCertificate>
@@ -34,9 +35,9 @@ module Amazonka.IoT.RegisterCertificate
     newRegisterCertificate,
 
     -- * Request Lenses
-    registerCertificate_status,
     registerCertificate_caCertificatePem,
     registerCertificate_setAsActive,
+    registerCertificate_status,
     registerCertificate_certificatePem,
 
     -- * Destructuring the Response
@@ -51,8 +52,9 @@ module Amazonka.IoT.RegisterCertificate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,12 +63,15 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newRegisterCertificate' smart constructor.
 data RegisterCertificate = RegisterCertificate'
-  { -- | The status of the register certificate request.
-    status :: Prelude.Maybe CertificateStatus,
-    -- | The CA certificate used to sign the device certificate being registered.
+  { -- | The CA certificate used to sign the device certificate being registered.
     caCertificatePem :: Prelude.Maybe Prelude.Text,
     -- | A boolean value that specifies if the certificate is set to active.
+    --
+    -- Valid values: @ACTIVE | INACTIVE@
     setAsActive :: Prelude.Maybe Prelude.Bool,
+    -- | The status of the register certificate request. Valid values that you
+    -- can use include @ACTIVE@, @INACTIVE@, and @REVOKED@.
+    status :: Prelude.Maybe CertificateStatus,
     -- | The certificate data, in PEM format.
     certificatePem :: Prelude.Text
   }
@@ -80,11 +85,14 @@ data RegisterCertificate = RegisterCertificate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'registerCertificate_status' - The status of the register certificate request.
---
 -- 'caCertificatePem', 'registerCertificate_caCertificatePem' - The CA certificate used to sign the device certificate being registered.
 --
 -- 'setAsActive', 'registerCertificate_setAsActive' - A boolean value that specifies if the certificate is set to active.
+--
+-- Valid values: @ACTIVE | INACTIVE@
+--
+-- 'status', 'registerCertificate_status' - The status of the register certificate request. Valid values that you
+-- can use include @ACTIVE@, @INACTIVE@, and @REVOKED@.
 --
 -- 'certificatePem', 'registerCertificate_certificatePem' - The certificate data, in PEM format.
 newRegisterCertificate ::
@@ -93,23 +101,27 @@ newRegisterCertificate ::
   RegisterCertificate
 newRegisterCertificate pCertificatePem_ =
   RegisterCertificate'
-    { status = Prelude.Nothing,
-      caCertificatePem = Prelude.Nothing,
+    { caCertificatePem =
+        Prelude.Nothing,
       setAsActive = Prelude.Nothing,
+      status = Prelude.Nothing,
       certificatePem = pCertificatePem_
     }
-
--- | The status of the register certificate request.
-registerCertificate_status :: Lens.Lens' RegisterCertificate (Prelude.Maybe CertificateStatus)
-registerCertificate_status = Lens.lens (\RegisterCertificate' {status} -> status) (\s@RegisterCertificate' {} a -> s {status = a} :: RegisterCertificate)
 
 -- | The CA certificate used to sign the device certificate being registered.
 registerCertificate_caCertificatePem :: Lens.Lens' RegisterCertificate (Prelude.Maybe Prelude.Text)
 registerCertificate_caCertificatePem = Lens.lens (\RegisterCertificate' {caCertificatePem} -> caCertificatePem) (\s@RegisterCertificate' {} a -> s {caCertificatePem = a} :: RegisterCertificate)
 
 -- | A boolean value that specifies if the certificate is set to active.
+--
+-- Valid values: @ACTIVE | INACTIVE@
 registerCertificate_setAsActive :: Lens.Lens' RegisterCertificate (Prelude.Maybe Prelude.Bool)
 registerCertificate_setAsActive = Lens.lens (\RegisterCertificate' {setAsActive} -> setAsActive) (\s@RegisterCertificate' {} a -> s {setAsActive = a} :: RegisterCertificate)
+
+-- | The status of the register certificate request. Valid values that you
+-- can use include @ACTIVE@, @INACTIVE@, and @REVOKED@.
+registerCertificate_status :: Lens.Lens' RegisterCertificate (Prelude.Maybe CertificateStatus)
+registerCertificate_status = Lens.lens (\RegisterCertificate' {status} -> status) (\s@RegisterCertificate' {} a -> s {status = a} :: RegisterCertificate)
 
 -- | The certificate data, in PEM format.
 registerCertificate_certificatePem :: Lens.Lens' RegisterCertificate Prelude.Text
@@ -119,51 +131,52 @@ instance Core.AWSRequest RegisterCertificate where
   type
     AWSResponse RegisterCertificate =
       RegisterCertificateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RegisterCertificateResponse'
-            Prelude.<$> (x Core..?> "certificateArn")
-            Prelude.<*> (x Core..?> "certificateId")
+            Prelude.<$> (x Data..?> "certificateArn")
+            Prelude.<*> (x Data..?> "certificateId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable RegisterCertificate where
   hashWithSalt _salt RegisterCertificate' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` caCertificatePem
+    _salt `Prelude.hashWithSalt` caCertificatePem
       `Prelude.hashWithSalt` setAsActive
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` certificatePem
 
 instance Prelude.NFData RegisterCertificate where
   rnf RegisterCertificate' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf caCertificatePem
+    Prelude.rnf caCertificatePem
       `Prelude.seq` Prelude.rnf setAsActive
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf certificatePem
 
-instance Core.ToHeaders RegisterCertificate where
+instance Data.ToHeaders RegisterCertificate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON RegisterCertificate where
+instance Data.ToJSON RegisterCertificate where
   toJSON RegisterCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("status" Core..=) Prelude.<$> status,
-            ("caCertificatePem" Core..=)
+          [ ("caCertificatePem" Data..=)
               Prelude.<$> caCertificatePem,
+            ("status" Data..=) Prelude.<$> status,
             Prelude.Just
-              ("certificatePem" Core..= certificatePem)
+              ("certificatePem" Data..= certificatePem)
           ]
       )
 
-instance Core.ToPath RegisterCertificate where
+instance Data.ToPath RegisterCertificate where
   toPath = Prelude.const "/certificate/register"
 
-instance Core.ToQuery RegisterCertificate where
+instance Data.ToQuery RegisterCertificate where
   toQuery RegisterCertificate' {..} =
-    Prelude.mconcat ["setAsActive" Core.=: setAsActive]
+    Prelude.mconcat ["setAsActive" Data.=: setAsActive]
 
 -- | The output from the RegisterCertificate operation.
 --

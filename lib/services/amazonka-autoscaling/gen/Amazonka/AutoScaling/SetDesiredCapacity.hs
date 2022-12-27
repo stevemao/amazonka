@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.SetDesiredCapacity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,7 +122,8 @@ instance Core.AWSRequest SetDesiredCapacity where
   type
     AWSResponse SetDesiredCapacity =
       SetDesiredCapacityResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull SetDesiredCapacityResponse'
 
@@ -137,22 +139,22 @@ instance Prelude.NFData SetDesiredCapacity where
       `Prelude.seq` Prelude.rnf autoScalingGroupName
       `Prelude.seq` Prelude.rnf desiredCapacity
 
-instance Core.ToHeaders SetDesiredCapacity where
+instance Data.ToHeaders SetDesiredCapacity where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetDesiredCapacity where
+instance Data.ToPath SetDesiredCapacity where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetDesiredCapacity where
+instance Data.ToQuery SetDesiredCapacity where
   toQuery SetDesiredCapacity' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SetDesiredCapacity" :: Prelude.ByteString),
+          Data.=: ("SetDesiredCapacity" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "HonorCooldown" Core.=: honorCooldown,
-        "AutoScalingGroupName" Core.=: autoScalingGroupName,
-        "DesiredCapacity" Core.=: desiredCapacity
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "HonorCooldown" Data.=: honorCooldown,
+        "AutoScalingGroupName" Data.=: autoScalingGroupName,
+        "DesiredCapacity" Data.=: desiredCapacity
       ]
 
 -- | /See:/ 'newSetDesiredCapacityResponse' smart constructor.

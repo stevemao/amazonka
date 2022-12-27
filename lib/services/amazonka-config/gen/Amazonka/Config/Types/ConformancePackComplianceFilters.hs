@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.ConformancePackComplianceFilters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,20 +21,21 @@ module Amazonka.Config.Types.ConformancePackComplianceFilters where
 
 import Amazonka.Config.Types.ConformancePackComplianceType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Filters the conformance pack by compliance types and Config rule names.
 --
 -- /See:/ 'newConformancePackComplianceFilters' smart constructor.
 data ConformancePackComplianceFilters = ConformancePackComplianceFilters'
-  { -- | Filters the results by Config rule names.
-    configRuleNames :: Prelude.Maybe [Prelude.Text],
-    -- | Filters the results by compliance.
+  { -- | Filters the results by compliance.
     --
     -- The allowed values are @COMPLIANT@ and @NON_COMPLIANT@.
     -- @INSUFFICIENT_DATA@ is not supported.
-    complianceType :: Prelude.Maybe ConformancePackComplianceType
+    complianceType :: Prelude.Maybe ConformancePackComplianceType,
+    -- | Filters the results by Config rule names.
+    configRuleNames :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,24 +47,20 @@ data ConformancePackComplianceFilters = ConformancePackComplianceFilters'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'configRuleNames', 'conformancePackComplianceFilters_configRuleNames' - Filters the results by Config rule names.
---
 -- 'complianceType', 'conformancePackComplianceFilters_complianceType' - Filters the results by compliance.
 --
 -- The allowed values are @COMPLIANT@ and @NON_COMPLIANT@.
 -- @INSUFFICIENT_DATA@ is not supported.
+--
+-- 'configRuleNames', 'conformancePackComplianceFilters_configRuleNames' - Filters the results by Config rule names.
 newConformancePackComplianceFilters ::
   ConformancePackComplianceFilters
 newConformancePackComplianceFilters =
   ConformancePackComplianceFilters'
-    { configRuleNames =
+    { complianceType =
         Prelude.Nothing,
-      complianceType = Prelude.Nothing
+      configRuleNames = Prelude.Nothing
     }
-
--- | Filters the results by Config rule names.
-conformancePackComplianceFilters_configRuleNames :: Lens.Lens' ConformancePackComplianceFilters (Prelude.Maybe [Prelude.Text])
-conformancePackComplianceFilters_configRuleNames = Lens.lens (\ConformancePackComplianceFilters' {configRuleNames} -> configRuleNames) (\s@ConformancePackComplianceFilters' {} a -> s {configRuleNames = a} :: ConformancePackComplianceFilters) Prelude.. Lens.mapping Lens.coerced
 
 -- | Filters the results by compliance.
 --
@@ -72,6 +69,10 @@ conformancePackComplianceFilters_configRuleNames = Lens.lens (\ConformancePackCo
 conformancePackComplianceFilters_complianceType :: Lens.Lens' ConformancePackComplianceFilters (Prelude.Maybe ConformancePackComplianceType)
 conformancePackComplianceFilters_complianceType = Lens.lens (\ConformancePackComplianceFilters' {complianceType} -> complianceType) (\s@ConformancePackComplianceFilters' {} a -> s {complianceType = a} :: ConformancePackComplianceFilters)
 
+-- | Filters the results by Config rule names.
+conformancePackComplianceFilters_configRuleNames :: Lens.Lens' ConformancePackComplianceFilters (Prelude.Maybe [Prelude.Text])
+conformancePackComplianceFilters_configRuleNames = Lens.lens (\ConformancePackComplianceFilters' {configRuleNames} -> configRuleNames) (\s@ConformancePackComplianceFilters' {} a -> s {configRuleNames = a} :: ConformancePackComplianceFilters) Prelude.. Lens.mapping Lens.coerced
+
 instance
   Prelude.Hashable
     ConformancePackComplianceFilters
@@ -79,24 +80,24 @@ instance
   hashWithSalt
     _salt
     ConformancePackComplianceFilters' {..} =
-      _salt `Prelude.hashWithSalt` configRuleNames
-        `Prelude.hashWithSalt` complianceType
+      _salt `Prelude.hashWithSalt` complianceType
+        `Prelude.hashWithSalt` configRuleNames
 
 instance
   Prelude.NFData
     ConformancePackComplianceFilters
   where
   rnf ConformancePackComplianceFilters' {..} =
-    Prelude.rnf configRuleNames
-      `Prelude.seq` Prelude.rnf complianceType
+    Prelude.rnf complianceType
+      `Prelude.seq` Prelude.rnf configRuleNames
 
-instance Core.ToJSON ConformancePackComplianceFilters where
+instance Data.ToJSON ConformancePackComplianceFilters where
   toJSON ConformancePackComplianceFilters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ConfigRuleNames" Core..=)
-              Prelude.<$> configRuleNames,
-            ("ComplianceType" Core..=)
-              Prelude.<$> complianceType
+          [ ("ComplianceType" Data..=)
+              Prelude.<$> complianceType,
+            ("ConfigRuleNames" Data..=)
+              Prelude.<$> configRuleNames
           ]
       )

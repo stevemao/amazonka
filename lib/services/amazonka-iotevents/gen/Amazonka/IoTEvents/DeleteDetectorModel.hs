@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.DeleteDetectorModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IoTEvents.DeleteDetectorModel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +81,8 @@ instance Core.AWSRequest DeleteDetectorModel where
   type
     AWSResponse DeleteDetectorModel =
       DeleteDetectorModelResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -96,15 +98,15 @@ instance Prelude.NFData DeleteDetectorModel where
   rnf DeleteDetectorModel' {..} =
     Prelude.rnf detectorModelName
 
-instance Core.ToHeaders DeleteDetectorModel where
+instance Data.ToHeaders DeleteDetectorModel where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDetectorModel where
+instance Data.ToPath DeleteDetectorModel where
   toPath DeleteDetectorModel' {..} =
     Prelude.mconcat
-      ["/detector-models/", Core.toBS detectorModelName]
+      ["/detector-models/", Data.toBS detectorModelName]
 
-instance Core.ToQuery DeleteDetectorModel where
+instance Data.ToQuery DeleteDetectorModel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDetectorModelResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DescribeClusterSubnetGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,11 +42,11 @@ module Amazonka.Redshift.DescribeClusterSubnetGroups
     newDescribeClusterSubnetGroups,
 
     -- * Request Lenses
-    describeClusterSubnetGroups_tagValues,
-    describeClusterSubnetGroups_tagKeys,
     describeClusterSubnetGroups_clusterSubnetGroupName,
     describeClusterSubnetGroups_marker,
     describeClusterSubnetGroups_maxRecords,
+    describeClusterSubnetGroups_tagKeys,
+    describeClusterSubnetGroups_tagValues,
 
     -- * Destructuring the Response
     DescribeClusterSubnetGroupsResponse (..),
@@ -60,7 +60,8 @@ module Amazonka.Redshift.DescribeClusterSubnetGroups
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -70,22 +71,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeClusterSubnetGroups' smart constructor.
 data DescribeClusterSubnetGroups = DescribeClusterSubnetGroups'
-  { -- | A tag value or values for which you want to return all matching cluster
-    -- subnet groups that are associated with the specified tag value or
-    -- values. For example, suppose that you have subnet groups that are tagged
-    -- with values called @admin@ and @test@. If you specify both of these tag
-    -- values in the request, Amazon Redshift returns a response with the
-    -- subnet groups that have either or both of these tag values associated
-    -- with them.
-    tagValues :: Prelude.Maybe [Prelude.Text],
-    -- | A tag key or keys for which you want to return all matching cluster
-    -- subnet groups that are associated with the specified key or keys. For
-    -- example, suppose that you have subnet groups that are tagged with keys
-    -- called @owner@ and @environment@. If you specify both of these tag keys
-    -- in the request, Amazon Redshift returns a response with the subnet
-    -- groups that have either or both of these tag keys associated with them.
-    tagKeys :: Prelude.Maybe [Prelude.Text],
-    -- | The name of the cluster subnet group for which information is requested.
+  { -- | The name of the cluster subnet group for which information is requested.
     clusterSubnetGroupName :: Prelude.Maybe Prelude.Text,
     -- | An optional parameter that specifies the starting point to return a set
     -- of response records. When the results of a DescribeClusterSubnetGroups
@@ -103,7 +89,22 @@ data DescribeClusterSubnetGroups = DescribeClusterSubnetGroups'
     -- Default: @100@
     --
     -- Constraints: minimum 20, maximum 100.
-    maxRecords :: Prelude.Maybe Prelude.Int
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | A tag key or keys for which you want to return all matching cluster
+    -- subnet groups that are associated with the specified key or keys. For
+    -- example, suppose that you have subnet groups that are tagged with keys
+    -- called @owner@ and @environment@. If you specify both of these tag keys
+    -- in the request, Amazon Redshift returns a response with the subnet
+    -- groups that have either or both of these tag keys associated with them.
+    tagKeys :: Prelude.Maybe [Prelude.Text],
+    -- | A tag value or values for which you want to return all matching cluster
+    -- subnet groups that are associated with the specified tag value or
+    -- values. For example, suppose that you have subnet groups that are tagged
+    -- with values called @admin@ and @test@. If you specify both of these tag
+    -- values in the request, Amazon Redshift returns a response with the
+    -- subnet groups that have either or both of these tag values associated
+    -- with them.
+    tagValues :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -114,21 +115,6 @@ data DescribeClusterSubnetGroups = DescribeClusterSubnetGroups'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'tagValues', 'describeClusterSubnetGroups_tagValues' - A tag value or values for which you want to return all matching cluster
--- subnet groups that are associated with the specified tag value or
--- values. For example, suppose that you have subnet groups that are tagged
--- with values called @admin@ and @test@. If you specify both of these tag
--- values in the request, Amazon Redshift returns a response with the
--- subnet groups that have either or both of these tag values associated
--- with them.
---
--- 'tagKeys', 'describeClusterSubnetGroups_tagKeys' - A tag key or keys for which you want to return all matching cluster
--- subnet groups that are associated with the specified key or keys. For
--- example, suppose that you have subnet groups that are tagged with keys
--- called @owner@ and @environment@. If you specify both of these tag keys
--- in the request, Amazon Redshift returns a response with the subnet
--- groups that have either or both of these tag keys associated with them.
 --
 -- 'clusterSubnetGroupName', 'describeClusterSubnetGroups_clusterSubnetGroupName' - The name of the cluster subnet group for which information is requested.
 --
@@ -148,36 +134,32 @@ data DescribeClusterSubnetGroups = DescribeClusterSubnetGroups'
 -- Default: @100@
 --
 -- Constraints: minimum 20, maximum 100.
-newDescribeClusterSubnetGroups ::
-  DescribeClusterSubnetGroups
-newDescribeClusterSubnetGroups =
-  DescribeClusterSubnetGroups'
-    { tagValues =
-        Prelude.Nothing,
-      tagKeys = Prelude.Nothing,
-      clusterSubnetGroupName = Prelude.Nothing,
-      marker = Prelude.Nothing,
-      maxRecords = Prelude.Nothing
-    }
-
--- | A tag value or values for which you want to return all matching cluster
+--
+-- 'tagKeys', 'describeClusterSubnetGroups_tagKeys' - A tag key or keys for which you want to return all matching cluster
+-- subnet groups that are associated with the specified key or keys. For
+-- example, suppose that you have subnet groups that are tagged with keys
+-- called @owner@ and @environment@. If you specify both of these tag keys
+-- in the request, Amazon Redshift returns a response with the subnet
+-- groups that have either or both of these tag keys associated with them.
+--
+-- 'tagValues', 'describeClusterSubnetGroups_tagValues' - A tag value or values for which you want to return all matching cluster
 -- subnet groups that are associated with the specified tag value or
 -- values. For example, suppose that you have subnet groups that are tagged
 -- with values called @admin@ and @test@. If you specify both of these tag
 -- values in the request, Amazon Redshift returns a response with the
 -- subnet groups that have either or both of these tag values associated
 -- with them.
-describeClusterSubnetGroups_tagValues :: Lens.Lens' DescribeClusterSubnetGroups (Prelude.Maybe [Prelude.Text])
-describeClusterSubnetGroups_tagValues = Lens.lens (\DescribeClusterSubnetGroups' {tagValues} -> tagValues) (\s@DescribeClusterSubnetGroups' {} a -> s {tagValues = a} :: DescribeClusterSubnetGroups) Prelude.. Lens.mapping Lens.coerced
-
--- | A tag key or keys for which you want to return all matching cluster
--- subnet groups that are associated with the specified key or keys. For
--- example, suppose that you have subnet groups that are tagged with keys
--- called @owner@ and @environment@. If you specify both of these tag keys
--- in the request, Amazon Redshift returns a response with the subnet
--- groups that have either or both of these tag keys associated with them.
-describeClusterSubnetGroups_tagKeys :: Lens.Lens' DescribeClusterSubnetGroups (Prelude.Maybe [Prelude.Text])
-describeClusterSubnetGroups_tagKeys = Lens.lens (\DescribeClusterSubnetGroups' {tagKeys} -> tagKeys) (\s@DescribeClusterSubnetGroups' {} a -> s {tagKeys = a} :: DescribeClusterSubnetGroups) Prelude.. Lens.mapping Lens.coerced
+newDescribeClusterSubnetGroups ::
+  DescribeClusterSubnetGroups
+newDescribeClusterSubnetGroups =
+  DescribeClusterSubnetGroups'
+    { clusterSubnetGroupName =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing,
+      tagKeys = Prelude.Nothing,
+      tagValues = Prelude.Nothing
+    }
 
 -- | The name of the cluster subnet group for which information is requested.
 describeClusterSubnetGroups_clusterSubnetGroupName :: Lens.Lens' DescribeClusterSubnetGroups (Prelude.Maybe Prelude.Text)
@@ -203,6 +185,25 @@ describeClusterSubnetGroups_marker = Lens.lens (\DescribeClusterSubnetGroups' {m
 -- Constraints: minimum 20, maximum 100.
 describeClusterSubnetGroups_maxRecords :: Lens.Lens' DescribeClusterSubnetGroups (Prelude.Maybe Prelude.Int)
 describeClusterSubnetGroups_maxRecords = Lens.lens (\DescribeClusterSubnetGroups' {maxRecords} -> maxRecords) (\s@DescribeClusterSubnetGroups' {} a -> s {maxRecords = a} :: DescribeClusterSubnetGroups)
+
+-- | A tag key or keys for which you want to return all matching cluster
+-- subnet groups that are associated with the specified key or keys. For
+-- example, suppose that you have subnet groups that are tagged with keys
+-- called @owner@ and @environment@. If you specify both of these tag keys
+-- in the request, Amazon Redshift returns a response with the subnet
+-- groups that have either or both of these tag keys associated with them.
+describeClusterSubnetGroups_tagKeys :: Lens.Lens' DescribeClusterSubnetGroups (Prelude.Maybe [Prelude.Text])
+describeClusterSubnetGroups_tagKeys = Lens.lens (\DescribeClusterSubnetGroups' {tagKeys} -> tagKeys) (\s@DescribeClusterSubnetGroups' {} a -> s {tagKeys = a} :: DescribeClusterSubnetGroups) Prelude.. Lens.mapping Lens.coerced
+
+-- | A tag value or values for which you want to return all matching cluster
+-- subnet groups that are associated with the specified tag value or
+-- values. For example, suppose that you have subnet groups that are tagged
+-- with values called @admin@ and @test@. If you specify both of these tag
+-- values in the request, Amazon Redshift returns a response with the
+-- subnet groups that have either or both of these tag values associated
+-- with them.
+describeClusterSubnetGroups_tagValues :: Lens.Lens' DescribeClusterSubnetGroups (Prelude.Maybe [Prelude.Text])
+describeClusterSubnetGroups_tagValues = Lens.lens (\DescribeClusterSubnetGroups' {tagValues} -> tagValues) (\s@DescribeClusterSubnetGroups' {} a -> s {tagValues = a} :: DescribeClusterSubnetGroups) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSPager DescribeClusterSubnetGroups where
   page rq rs
@@ -230,61 +231,62 @@ instance Core.AWSRequest DescribeClusterSubnetGroups where
   type
     AWSResponse DescribeClusterSubnetGroups =
       DescribeClusterSubnetGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeClusterSubnetGroupsResult"
       ( \s h x ->
           DescribeClusterSubnetGroupsResponse'
-            Prelude.<$> ( x Core..@? "ClusterSubnetGroups"
+            Prelude.<$> ( x Data..@? "ClusterSubnetGroups"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "ClusterSubnetGroup")
+                            Prelude.>>= Core.may (Data.parseXMLList "ClusterSubnetGroup")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeClusterSubnetGroups where
   hashWithSalt _salt DescribeClusterSubnetGroups' {..} =
-    _salt `Prelude.hashWithSalt` tagValues
-      `Prelude.hashWithSalt` tagKeys
-      `Prelude.hashWithSalt` clusterSubnetGroupName
+    _salt `Prelude.hashWithSalt` clusterSubnetGroupName
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` tagKeys
+      `Prelude.hashWithSalt` tagValues
 
 instance Prelude.NFData DescribeClusterSubnetGroups where
   rnf DescribeClusterSubnetGroups' {..} =
-    Prelude.rnf tagValues
-      `Prelude.seq` Prelude.rnf tagKeys
-      `Prelude.seq` Prelude.rnf clusterSubnetGroupName
+    Prelude.rnf clusterSubnetGroupName
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf tagKeys
+      `Prelude.seq` Prelude.rnf tagValues
 
-instance Core.ToHeaders DescribeClusterSubnetGroups where
+instance Data.ToHeaders DescribeClusterSubnetGroups where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeClusterSubnetGroups where
+instance Data.ToPath DescribeClusterSubnetGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeClusterSubnetGroups where
+instance Data.ToQuery DescribeClusterSubnetGroups where
   toQuery DescribeClusterSubnetGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeClusterSubnetGroups" ::
+          Data.=: ( "DescribeClusterSubnetGroups" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "TagValues"
-          Core.=: Core.toQuery
-            (Core.toQueryList "TagValue" Prelude.<$> tagValues),
-        "TagKeys"
-          Core.=: Core.toQuery
-            (Core.toQueryList "TagKey" Prelude.<$> tagKeys),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
         "ClusterSubnetGroupName"
-          Core.=: clusterSubnetGroupName,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: clusterSubnetGroupName,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "TagKeys"
+          Data.=: Data.toQuery
+            (Data.toQueryList "TagKey" Prelude.<$> tagKeys),
+        "TagValues"
+          Data.=: Data.toQuery
+            (Data.toQueryList "TagValue" Prelude.<$> tagValues)
       ]
 
 -- | Contains the output from the DescribeClusterSubnetGroups action.

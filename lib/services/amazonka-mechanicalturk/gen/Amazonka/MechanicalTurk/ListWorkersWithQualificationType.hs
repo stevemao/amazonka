@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.ListWorkersWithQualificationType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.MechanicalTurk.ListWorkersWithQualificationType
     newListWorkersWithQualificationType,
 
     -- * Request Lenses
-    listWorkersWithQualificationType_status,
-    listWorkersWithQualificationType_nextToken,
     listWorkersWithQualificationType_maxResults,
+    listWorkersWithQualificationType_nextToken,
+    listWorkersWithQualificationType_status,
     listWorkersWithQualificationType_qualificationTypeId,
 
     -- * Destructuring the Response
@@ -48,7 +48,8 @@ module Amazonka.MechanicalTurk.ListWorkersWithQualificationType
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -56,12 +57,12 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListWorkersWithQualificationType' smart constructor.
 data ListWorkersWithQualificationType = ListWorkersWithQualificationType'
-  { -- | The status of the Qualifications to return. Can be @Granted | Revoked@.
-    status :: Prelude.Maybe QualificationStatus,
+  { -- | Limit the number of results returned.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | Pagination Token
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Limit the number of results returned.
-    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The status of the Qualifications to return. Can be @Granted | Revoked@.
+    status :: Prelude.Maybe QualificationStatus,
     -- | The ID of the Qualification type of the Qualifications to return.
     qualificationTypeId :: Prelude.Text
   }
@@ -75,11 +76,11 @@ data ListWorkersWithQualificationType = ListWorkersWithQualificationType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'listWorkersWithQualificationType_status' - The status of the Qualifications to return. Can be @Granted | Revoked@.
+-- 'maxResults', 'listWorkersWithQualificationType_maxResults' - Limit the number of results returned.
 --
 -- 'nextToken', 'listWorkersWithQualificationType_nextToken' - Pagination Token
 --
--- 'maxResults', 'listWorkersWithQualificationType_maxResults' - Limit the number of results returned.
+-- 'status', 'listWorkersWithQualificationType_status' - The status of the Qualifications to return. Can be @Granted | Revoked@.
 --
 -- 'qualificationTypeId', 'listWorkersWithQualificationType_qualificationTypeId' - The ID of the Qualification type of the Qualifications to return.
 newListWorkersWithQualificationType ::
@@ -89,25 +90,25 @@ newListWorkersWithQualificationType ::
 newListWorkersWithQualificationType
   pQualificationTypeId_ =
     ListWorkersWithQualificationType'
-      { status =
+      { maxResults =
           Prelude.Nothing,
         nextToken = Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        status = Prelude.Nothing,
         qualificationTypeId =
           pQualificationTypeId_
       }
 
--- | The status of the Qualifications to return. Can be @Granted | Revoked@.
-listWorkersWithQualificationType_status :: Lens.Lens' ListWorkersWithQualificationType (Prelude.Maybe QualificationStatus)
-listWorkersWithQualificationType_status = Lens.lens (\ListWorkersWithQualificationType' {status} -> status) (\s@ListWorkersWithQualificationType' {} a -> s {status = a} :: ListWorkersWithQualificationType)
+-- | Limit the number of results returned.
+listWorkersWithQualificationType_maxResults :: Lens.Lens' ListWorkersWithQualificationType (Prelude.Maybe Prelude.Natural)
+listWorkersWithQualificationType_maxResults = Lens.lens (\ListWorkersWithQualificationType' {maxResults} -> maxResults) (\s@ListWorkersWithQualificationType' {} a -> s {maxResults = a} :: ListWorkersWithQualificationType)
 
 -- | Pagination Token
 listWorkersWithQualificationType_nextToken :: Lens.Lens' ListWorkersWithQualificationType (Prelude.Maybe Prelude.Text)
 listWorkersWithQualificationType_nextToken = Lens.lens (\ListWorkersWithQualificationType' {nextToken} -> nextToken) (\s@ListWorkersWithQualificationType' {} a -> s {nextToken = a} :: ListWorkersWithQualificationType)
 
--- | Limit the number of results returned.
-listWorkersWithQualificationType_maxResults :: Lens.Lens' ListWorkersWithQualificationType (Prelude.Maybe Prelude.Natural)
-listWorkersWithQualificationType_maxResults = Lens.lens (\ListWorkersWithQualificationType' {maxResults} -> maxResults) (\s@ListWorkersWithQualificationType' {} a -> s {maxResults = a} :: ListWorkersWithQualificationType)
+-- | The status of the Qualifications to return. Can be @Granted | Revoked@.
+listWorkersWithQualificationType_status :: Lens.Lens' ListWorkersWithQualificationType (Prelude.Maybe QualificationStatus)
+listWorkersWithQualificationType_status = Lens.lens (\ListWorkersWithQualificationType' {status} -> status) (\s@ListWorkersWithQualificationType' {} a -> s {status = a} :: ListWorkersWithQualificationType)
 
 -- | The ID of the Qualification type of the Qualifications to return.
 listWorkersWithQualificationType_qualificationTypeId :: Lens.Lens' ListWorkersWithQualificationType Prelude.Text
@@ -145,14 +146,15 @@ instance
   type
     AWSResponse ListWorkersWithQualificationType =
       ListWorkersWithQualificationTypeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListWorkersWithQualificationTypeResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "NumResults")
-            Prelude.<*> (x Core..?> "Qualifications" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "NumResults")
+            Prelude.<*> (x Data..?> "Qualifications" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -163,9 +165,9 @@ instance
   hashWithSalt
     _salt
     ListWorkersWithQualificationType' {..} =
-      _salt `Prelude.hashWithSalt` status
+      _salt `Prelude.hashWithSalt` maxResults
         `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` status
         `Prelude.hashWithSalt` qualificationTypeId
 
 instance
@@ -173,46 +175,46 @@ instance
     ListWorkersWithQualificationType
   where
   rnf ListWorkersWithQualificationType' {..} =
-    Prelude.rnf status
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf qualificationTypeId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListWorkersWithQualificationType
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MTurkRequesterServiceV20170117.ListWorkersWithQualificationType" ::
+              Data.=# ( "MTurkRequesterServiceV20170117.ListWorkersWithQualificationType" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListWorkersWithQualificationType where
+instance Data.ToJSON ListWorkersWithQualificationType where
   toJSON ListWorkersWithQualificationType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Status" Core..=) Prelude.<$> status,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("Status" Data..=) Prelude.<$> status,
             Prelude.Just
-              ("QualificationTypeId" Core..= qualificationTypeId)
+              ("QualificationTypeId" Data..= qualificationTypeId)
           ]
       )
 
-instance Core.ToPath ListWorkersWithQualificationType where
+instance Data.ToPath ListWorkersWithQualificationType where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListWorkersWithQualificationType
   where
   toQuery = Prelude.const Prelude.mempty

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryControlConfig.DescribeRoutingControl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.Route53RecoveryControlConfig.DescribeRoutingControl
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,8 +56,7 @@ import Amazonka.Route53RecoveryControlConfig.Types
 
 -- | /See:/ 'newDescribeRoutingControl' smart constructor.
 data DescribeRoutingControl = DescribeRoutingControl'
-  { -- | The Amazon Resource Name (ARN) of the routing control that you\'re
-    -- getting details for.
+  { -- | The Amazon Resource Name (ARN) of the routing control.
     routingControlArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -69,8 +69,7 @@ data DescribeRoutingControl = DescribeRoutingControl'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'routingControlArn', 'describeRoutingControl_routingControlArn' - The Amazon Resource Name (ARN) of the routing control that you\'re
--- getting details for.
+-- 'routingControlArn', 'describeRoutingControl_routingControlArn' - The Amazon Resource Name (ARN) of the routing control.
 newDescribeRoutingControl ::
   -- | 'routingControlArn'
   Prelude.Text ->
@@ -81,8 +80,7 @@ newDescribeRoutingControl pRoutingControlArn_ =
         pRoutingControlArn_
     }
 
--- | The Amazon Resource Name (ARN) of the routing control that you\'re
--- getting details for.
+-- | The Amazon Resource Name (ARN) of the routing control.
 describeRoutingControl_routingControlArn :: Lens.Lens' DescribeRoutingControl Prelude.Text
 describeRoutingControl_routingControlArn = Lens.lens (\DescribeRoutingControl' {routingControlArn} -> routingControlArn) (\s@DescribeRoutingControl' {} a -> s {routingControlArn = a} :: DescribeRoutingControl)
 
@@ -90,12 +88,13 @@ instance Core.AWSRequest DescribeRoutingControl where
   type
     AWSResponse DescribeRoutingControl =
       DescribeRoutingControlResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRoutingControlResponse'
-            Prelude.<$> (x Core..?> "RoutingControl")
+            Prelude.<$> (x Data..?> "RoutingControl")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -107,23 +106,23 @@ instance Prelude.NFData DescribeRoutingControl where
   rnf DescribeRoutingControl' {..} =
     Prelude.rnf routingControlArn
 
-instance Core.ToHeaders DescribeRoutingControl where
+instance Data.ToHeaders DescribeRoutingControl where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeRoutingControl where
+instance Data.ToPath DescribeRoutingControl where
   toPath DescribeRoutingControl' {..} =
     Prelude.mconcat
-      ["/routingcontrol/", Core.toBS routingControlArn]
+      ["/routingcontrol/", Data.toBS routingControlArn]
 
-instance Core.ToQuery DescribeRoutingControl where
+instance Data.ToQuery DescribeRoutingControl where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeRoutingControlResponse' smart constructor.

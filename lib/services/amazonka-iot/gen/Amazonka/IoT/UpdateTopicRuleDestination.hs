@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.UpdateTopicRuleDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IoT.UpdateTopicRuleDestination
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -170,7 +171,8 @@ instance Core.AWSRequest UpdateTopicRuleDestination where
   type
     AWSResponse UpdateTopicRuleDestination =
       UpdateTopicRuleDestinationResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -187,22 +189,22 @@ instance Prelude.NFData UpdateTopicRuleDestination where
   rnf UpdateTopicRuleDestination' {..} =
     Prelude.rnf arn `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders UpdateTopicRuleDestination where
+instance Data.ToHeaders UpdateTopicRuleDestination where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateTopicRuleDestination where
+instance Data.ToJSON UpdateTopicRuleDestination where
   toJSON UpdateTopicRuleDestination' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("arn" Core..= arn),
-            Prelude.Just ("status" Core..= status)
+          [ Prelude.Just ("arn" Data..= arn),
+            Prelude.Just ("status" Data..= status)
           ]
       )
 
-instance Core.ToPath UpdateTopicRuleDestination where
+instance Data.ToPath UpdateTopicRuleDestination where
   toPath = Prelude.const "/destinations"
 
-instance Core.ToQuery UpdateTopicRuleDestination where
+instance Data.ToQuery UpdateTopicRuleDestination where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateTopicRuleDestinationResponse' smart constructor.

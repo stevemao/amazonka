@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.DescribeSimulationApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,24 +35,25 @@ module Amazonka.RobOMaker.DescribeSimulationApplication
     newDescribeSimulationApplicationResponse,
 
     -- * Response Lenses
-    describeSimulationApplicationResponse_renderingEngine,
-    describeSimulationApplicationResponse_lastUpdatedAt,
     describeSimulationApplicationResponse_arn,
     describeSimulationApplicationResponse_environment,
-    describeSimulationApplicationResponse_sources,
-    describeSimulationApplicationResponse_name,
     describeSimulationApplicationResponse_imageDigest,
-    describeSimulationApplicationResponse_version,
-    describeSimulationApplicationResponse_simulationSoftwareSuite,
-    describeSimulationApplicationResponse_robotSoftwareSuite,
+    describeSimulationApplicationResponse_lastUpdatedAt,
+    describeSimulationApplicationResponse_name,
+    describeSimulationApplicationResponse_renderingEngine,
     describeSimulationApplicationResponse_revisionId,
+    describeSimulationApplicationResponse_robotSoftwareSuite,
+    describeSimulationApplicationResponse_simulationSoftwareSuite,
+    describeSimulationApplicationResponse_sources,
     describeSimulationApplicationResponse_tags,
+    describeSimulationApplicationResponse_version,
     describeSimulationApplicationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,23 +105,24 @@ instance
   type
     AWSResponse DescribeSimulationApplication =
       DescribeSimulationApplicationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeSimulationApplicationResponse'
-            Prelude.<$> (x Core..?> "renderingEngine")
-            Prelude.<*> (x Core..?> "lastUpdatedAt")
-            Prelude.<*> (x Core..?> "arn")
-            Prelude.<*> (x Core..?> "environment")
-            Prelude.<*> (x Core..?> "sources" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "name")
-            Prelude.<*> (x Core..?> "imageDigest")
-            Prelude.<*> (x Core..?> "version")
-            Prelude.<*> (x Core..?> "simulationSoftwareSuite")
-            Prelude.<*> (x Core..?> "robotSoftwareSuite")
-            Prelude.<*> (x Core..?> "revisionId")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "arn")
+            Prelude.<*> (x Data..?> "environment")
+            Prelude.<*> (x Data..?> "imageDigest")
+            Prelude.<*> (x Data..?> "lastUpdatedAt")
+            Prelude.<*> (x Data..?> "name")
+            Prelude.<*> (x Data..?> "renderingEngine")
+            Prelude.<*> (x Data..?> "revisionId")
+            Prelude.<*> (x Data..?> "robotSoftwareSuite")
+            Prelude.<*> (x Data..?> "simulationSoftwareSuite")
+            Prelude.<*> (x Data..?> "sources" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "version")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -137,63 +139,63 @@ instance Prelude.NFData DescribeSimulationApplication where
     Prelude.rnf applicationVersion
       `Prelude.seq` Prelude.rnf application
 
-instance Core.ToHeaders DescribeSimulationApplication where
+instance Data.ToHeaders DescribeSimulationApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeSimulationApplication where
+instance Data.ToJSON DescribeSimulationApplication where
   toJSON DescribeSimulationApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("applicationVersion" Core..=)
+          [ ("applicationVersion" Data..=)
               Prelude.<$> applicationVersion,
-            Prelude.Just ("application" Core..= application)
+            Prelude.Just ("application" Data..= application)
           ]
       )
 
-instance Core.ToPath DescribeSimulationApplication where
+instance Data.ToPath DescribeSimulationApplication where
   toPath =
     Prelude.const "/describeSimulationApplication"
 
-instance Core.ToQuery DescribeSimulationApplication where
+instance Data.ToQuery DescribeSimulationApplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeSimulationApplicationResponse' smart constructor.
 data DescribeSimulationApplicationResponse = DescribeSimulationApplicationResponse'
-  { -- | The rendering engine for the simulation application.
-    renderingEngine :: Prelude.Maybe RenderingEngine,
-    -- | The time, in milliseconds since the epoch, when the simulation
-    -- application was last updated.
-    lastUpdatedAt :: Prelude.Maybe Core.POSIX,
-    -- | The Amazon Resource Name (ARN) of the robot simulation application.
+  { -- | The Amazon Resource Name (ARN) of the robot simulation application.
     arn :: Prelude.Maybe Prelude.Text,
     -- | The object that contains the Docker image URI used to create the
     -- simulation application.
     environment :: Prelude.Maybe Environment,
-    -- | The sources of the simulation application.
-    sources :: Prelude.Maybe [Source],
-    -- | The name of the simulation application.
-    name :: Prelude.Maybe Prelude.Text,
     -- | A SHA256 identifier for the Docker image that you use for your
     -- simulation application.
     imageDigest :: Prelude.Maybe Prelude.Text,
-    -- | The version of the simulation application.
-    version :: Prelude.Maybe Prelude.Text,
-    -- | The simulation software suite used by the simulation application.
-    simulationSoftwareSuite :: Prelude.Maybe SimulationSoftwareSuite,
-    -- | Information about the robot software suite (ROS distribution).
-    robotSoftwareSuite :: Prelude.Maybe RobotSoftwareSuite,
+    -- | The time, in milliseconds since the epoch, when the simulation
+    -- application was last updated.
+    lastUpdatedAt :: Prelude.Maybe Data.POSIX,
+    -- | The name of the simulation application.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The rendering engine for the simulation application.
+    renderingEngine :: Prelude.Maybe RenderingEngine,
     -- | The revision id of the simulation application.
     revisionId :: Prelude.Maybe Prelude.Text,
+    -- | Information about the robot software suite (ROS distribution).
+    robotSoftwareSuite :: Prelude.Maybe RobotSoftwareSuite,
+    -- | The simulation software suite used by the simulation application.
+    simulationSoftwareSuite :: Prelude.Maybe SimulationSoftwareSuite,
+    -- | The sources of the simulation application.
+    sources :: Prelude.Maybe [Source],
     -- | The list of all tags added to the specified simulation application.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The version of the simulation application.
+    version :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -207,32 +209,32 @@ data DescribeSimulationApplicationResponse = DescribeSimulationApplicationRespon
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'renderingEngine', 'describeSimulationApplicationResponse_renderingEngine' - The rendering engine for the simulation application.
---
--- 'lastUpdatedAt', 'describeSimulationApplicationResponse_lastUpdatedAt' - The time, in milliseconds since the epoch, when the simulation
--- application was last updated.
---
 -- 'arn', 'describeSimulationApplicationResponse_arn' - The Amazon Resource Name (ARN) of the robot simulation application.
 --
 -- 'environment', 'describeSimulationApplicationResponse_environment' - The object that contains the Docker image URI used to create the
 -- simulation application.
 --
--- 'sources', 'describeSimulationApplicationResponse_sources' - The sources of the simulation application.
---
--- 'name', 'describeSimulationApplicationResponse_name' - The name of the simulation application.
---
 -- 'imageDigest', 'describeSimulationApplicationResponse_imageDigest' - A SHA256 identifier for the Docker image that you use for your
 -- simulation application.
 --
--- 'version', 'describeSimulationApplicationResponse_version' - The version of the simulation application.
+-- 'lastUpdatedAt', 'describeSimulationApplicationResponse_lastUpdatedAt' - The time, in milliseconds since the epoch, when the simulation
+-- application was last updated.
 --
--- 'simulationSoftwareSuite', 'describeSimulationApplicationResponse_simulationSoftwareSuite' - The simulation software suite used by the simulation application.
+-- 'name', 'describeSimulationApplicationResponse_name' - The name of the simulation application.
 --
--- 'robotSoftwareSuite', 'describeSimulationApplicationResponse_robotSoftwareSuite' - Information about the robot software suite (ROS distribution).
+-- 'renderingEngine', 'describeSimulationApplicationResponse_renderingEngine' - The rendering engine for the simulation application.
 --
 -- 'revisionId', 'describeSimulationApplicationResponse_revisionId' - The revision id of the simulation application.
 --
+-- 'robotSoftwareSuite', 'describeSimulationApplicationResponse_robotSoftwareSuite' - Information about the robot software suite (ROS distribution).
+--
+-- 'simulationSoftwareSuite', 'describeSimulationApplicationResponse_simulationSoftwareSuite' - The simulation software suite used by the simulation application.
+--
+-- 'sources', 'describeSimulationApplicationResponse_sources' - The sources of the simulation application.
+--
 -- 'tags', 'describeSimulationApplicationResponse_tags' - The list of all tags added to the specified simulation application.
+--
+-- 'version', 'describeSimulationApplicationResponse_version' - The version of the simulation application.
 --
 -- 'httpStatus', 'describeSimulationApplicationResponse_httpStatus' - The response's http status code.
 newDescribeSimulationApplicationResponse ::
@@ -241,31 +243,22 @@ newDescribeSimulationApplicationResponse ::
   DescribeSimulationApplicationResponse
 newDescribeSimulationApplicationResponse pHttpStatus_ =
   DescribeSimulationApplicationResponse'
-    { renderingEngine =
+    { arn =
         Prelude.Nothing,
-      lastUpdatedAt = Prelude.Nothing,
-      arn = Prelude.Nothing,
       environment = Prelude.Nothing,
-      sources = Prelude.Nothing,
-      name = Prelude.Nothing,
       imageDigest = Prelude.Nothing,
-      version = Prelude.Nothing,
+      lastUpdatedAt = Prelude.Nothing,
+      name = Prelude.Nothing,
+      renderingEngine = Prelude.Nothing,
+      revisionId = Prelude.Nothing,
+      robotSoftwareSuite = Prelude.Nothing,
       simulationSoftwareSuite =
         Prelude.Nothing,
-      robotSoftwareSuite = Prelude.Nothing,
-      revisionId = Prelude.Nothing,
+      sources = Prelude.Nothing,
       tags = Prelude.Nothing,
+      version = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The rendering engine for the simulation application.
-describeSimulationApplicationResponse_renderingEngine :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe RenderingEngine)
-describeSimulationApplicationResponse_renderingEngine = Lens.lens (\DescribeSimulationApplicationResponse' {renderingEngine} -> renderingEngine) (\s@DescribeSimulationApplicationResponse' {} a -> s {renderingEngine = a} :: DescribeSimulationApplicationResponse)
-
--- | The time, in milliseconds since the epoch, when the simulation
--- application was last updated.
-describeSimulationApplicationResponse_lastUpdatedAt :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe Prelude.UTCTime)
-describeSimulationApplicationResponse_lastUpdatedAt = Lens.lens (\DescribeSimulationApplicationResponse' {lastUpdatedAt} -> lastUpdatedAt) (\s@DescribeSimulationApplicationResponse' {} a -> s {lastUpdatedAt = a} :: DescribeSimulationApplicationResponse) Prelude.. Lens.mapping Core._Time
 
 -- | The Amazon Resource Name (ARN) of the robot simulation application.
 describeSimulationApplicationResponse_arn :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe Prelude.Text)
@@ -276,38 +269,47 @@ describeSimulationApplicationResponse_arn = Lens.lens (\DescribeSimulationApplic
 describeSimulationApplicationResponse_environment :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe Environment)
 describeSimulationApplicationResponse_environment = Lens.lens (\DescribeSimulationApplicationResponse' {environment} -> environment) (\s@DescribeSimulationApplicationResponse' {} a -> s {environment = a} :: DescribeSimulationApplicationResponse)
 
--- | The sources of the simulation application.
-describeSimulationApplicationResponse_sources :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe [Source])
-describeSimulationApplicationResponse_sources = Lens.lens (\DescribeSimulationApplicationResponse' {sources} -> sources) (\s@DescribeSimulationApplicationResponse' {} a -> s {sources = a} :: DescribeSimulationApplicationResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The name of the simulation application.
-describeSimulationApplicationResponse_name :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe Prelude.Text)
-describeSimulationApplicationResponse_name = Lens.lens (\DescribeSimulationApplicationResponse' {name} -> name) (\s@DescribeSimulationApplicationResponse' {} a -> s {name = a} :: DescribeSimulationApplicationResponse)
-
 -- | A SHA256 identifier for the Docker image that you use for your
 -- simulation application.
 describeSimulationApplicationResponse_imageDigest :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe Prelude.Text)
 describeSimulationApplicationResponse_imageDigest = Lens.lens (\DescribeSimulationApplicationResponse' {imageDigest} -> imageDigest) (\s@DescribeSimulationApplicationResponse' {} a -> s {imageDigest = a} :: DescribeSimulationApplicationResponse)
 
--- | The version of the simulation application.
-describeSimulationApplicationResponse_version :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe Prelude.Text)
-describeSimulationApplicationResponse_version = Lens.lens (\DescribeSimulationApplicationResponse' {version} -> version) (\s@DescribeSimulationApplicationResponse' {} a -> s {version = a} :: DescribeSimulationApplicationResponse)
+-- | The time, in milliseconds since the epoch, when the simulation
+-- application was last updated.
+describeSimulationApplicationResponse_lastUpdatedAt :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe Prelude.UTCTime)
+describeSimulationApplicationResponse_lastUpdatedAt = Lens.lens (\DescribeSimulationApplicationResponse' {lastUpdatedAt} -> lastUpdatedAt) (\s@DescribeSimulationApplicationResponse' {} a -> s {lastUpdatedAt = a} :: DescribeSimulationApplicationResponse) Prelude.. Lens.mapping Data._Time
 
--- | The simulation software suite used by the simulation application.
-describeSimulationApplicationResponse_simulationSoftwareSuite :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe SimulationSoftwareSuite)
-describeSimulationApplicationResponse_simulationSoftwareSuite = Lens.lens (\DescribeSimulationApplicationResponse' {simulationSoftwareSuite} -> simulationSoftwareSuite) (\s@DescribeSimulationApplicationResponse' {} a -> s {simulationSoftwareSuite = a} :: DescribeSimulationApplicationResponse)
+-- | The name of the simulation application.
+describeSimulationApplicationResponse_name :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe Prelude.Text)
+describeSimulationApplicationResponse_name = Lens.lens (\DescribeSimulationApplicationResponse' {name} -> name) (\s@DescribeSimulationApplicationResponse' {} a -> s {name = a} :: DescribeSimulationApplicationResponse)
 
--- | Information about the robot software suite (ROS distribution).
-describeSimulationApplicationResponse_robotSoftwareSuite :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe RobotSoftwareSuite)
-describeSimulationApplicationResponse_robotSoftwareSuite = Lens.lens (\DescribeSimulationApplicationResponse' {robotSoftwareSuite} -> robotSoftwareSuite) (\s@DescribeSimulationApplicationResponse' {} a -> s {robotSoftwareSuite = a} :: DescribeSimulationApplicationResponse)
+-- | The rendering engine for the simulation application.
+describeSimulationApplicationResponse_renderingEngine :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe RenderingEngine)
+describeSimulationApplicationResponse_renderingEngine = Lens.lens (\DescribeSimulationApplicationResponse' {renderingEngine} -> renderingEngine) (\s@DescribeSimulationApplicationResponse' {} a -> s {renderingEngine = a} :: DescribeSimulationApplicationResponse)
 
 -- | The revision id of the simulation application.
 describeSimulationApplicationResponse_revisionId :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe Prelude.Text)
 describeSimulationApplicationResponse_revisionId = Lens.lens (\DescribeSimulationApplicationResponse' {revisionId} -> revisionId) (\s@DescribeSimulationApplicationResponse' {} a -> s {revisionId = a} :: DescribeSimulationApplicationResponse)
 
+-- | Information about the robot software suite (ROS distribution).
+describeSimulationApplicationResponse_robotSoftwareSuite :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe RobotSoftwareSuite)
+describeSimulationApplicationResponse_robotSoftwareSuite = Lens.lens (\DescribeSimulationApplicationResponse' {robotSoftwareSuite} -> robotSoftwareSuite) (\s@DescribeSimulationApplicationResponse' {} a -> s {robotSoftwareSuite = a} :: DescribeSimulationApplicationResponse)
+
+-- | The simulation software suite used by the simulation application.
+describeSimulationApplicationResponse_simulationSoftwareSuite :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe SimulationSoftwareSuite)
+describeSimulationApplicationResponse_simulationSoftwareSuite = Lens.lens (\DescribeSimulationApplicationResponse' {simulationSoftwareSuite} -> simulationSoftwareSuite) (\s@DescribeSimulationApplicationResponse' {} a -> s {simulationSoftwareSuite = a} :: DescribeSimulationApplicationResponse)
+
+-- | The sources of the simulation application.
+describeSimulationApplicationResponse_sources :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe [Source])
+describeSimulationApplicationResponse_sources = Lens.lens (\DescribeSimulationApplicationResponse' {sources} -> sources) (\s@DescribeSimulationApplicationResponse' {} a -> s {sources = a} :: DescribeSimulationApplicationResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The list of all tags added to the specified simulation application.
 describeSimulationApplicationResponse_tags :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 describeSimulationApplicationResponse_tags = Lens.lens (\DescribeSimulationApplicationResponse' {tags} -> tags) (\s@DescribeSimulationApplicationResponse' {} a -> s {tags = a} :: DescribeSimulationApplicationResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The version of the simulation application.
+describeSimulationApplicationResponse_version :: Lens.Lens' DescribeSimulationApplicationResponse (Prelude.Maybe Prelude.Text)
+describeSimulationApplicationResponse_version = Lens.lens (\DescribeSimulationApplicationResponse' {version} -> version) (\s@DescribeSimulationApplicationResponse' {} a -> s {version = a} :: DescribeSimulationApplicationResponse)
 
 -- | The response's http status code.
 describeSimulationApplicationResponse_httpStatus :: Lens.Lens' DescribeSimulationApplicationResponse Prelude.Int
@@ -318,16 +320,16 @@ instance
     DescribeSimulationApplicationResponse
   where
   rnf DescribeSimulationApplicationResponse' {..} =
-    Prelude.rnf renderingEngine
-      `Prelude.seq` Prelude.rnf lastUpdatedAt
-      `Prelude.seq` Prelude.rnf arn
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf environment
-      `Prelude.seq` Prelude.rnf sources
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf imageDigest
-      `Prelude.seq` Prelude.rnf version
-      `Prelude.seq` Prelude.rnf simulationSoftwareSuite
-      `Prelude.seq` Prelude.rnf robotSoftwareSuite
+      `Prelude.seq` Prelude.rnf lastUpdatedAt
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf renderingEngine
       `Prelude.seq` Prelude.rnf revisionId
+      `Prelude.seq` Prelude.rnf robotSoftwareSuite
+      `Prelude.seq` Prelude.rnf simulationSoftwareSuite
+      `Prelude.seq` Prelude.rnf sources
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.Types.ClusterParameterGroupStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Redshift.Types.ClusterParameterGroupStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Internal
 import Amazonka.Redshift.Types.ClusterParameterStatus
@@ -85,15 +86,15 @@ clusterParameterGroupStatus_parameterApplyStatus = Lens.lens (\ClusterParameterG
 clusterParameterGroupStatus_parameterGroupName :: Lens.Lens' ClusterParameterGroupStatus (Prelude.Maybe Prelude.Text)
 clusterParameterGroupStatus_parameterGroupName = Lens.lens (\ClusterParameterGroupStatus' {parameterGroupName} -> parameterGroupName) (\s@ClusterParameterGroupStatus' {} a -> s {parameterGroupName = a} :: ClusterParameterGroupStatus)
 
-instance Core.FromXML ClusterParameterGroupStatus where
+instance Data.FromXML ClusterParameterGroupStatus where
   parseXML x =
     ClusterParameterGroupStatus'
-      Prelude.<$> ( x Core..@? "ClusterParameterStatusList"
+      Prelude.<$> ( x Data..@? "ClusterParameterStatusList"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
-      Prelude.<*> (x Core..@? "ParameterApplyStatus")
-      Prelude.<*> (x Core..@? "ParameterGroupName")
+      Prelude.<*> (x Data..@? "ParameterApplyStatus")
+      Prelude.<*> (x Data..@? "ParameterGroupName")
 
 instance Prelude.Hashable ClusterParameterGroupStatus where
   hashWithSalt _salt ClusterParameterGroupStatus' {..} =

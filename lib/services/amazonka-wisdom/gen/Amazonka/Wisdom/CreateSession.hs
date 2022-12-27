@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.CreateSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.Wisdom.CreateSession
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -129,12 +130,13 @@ instance Core.AWSRequest CreateSession where
   type
     AWSResponse CreateSession =
       CreateSessionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateSessionResponse'
-            Prelude.<$> (x Core..?> "session")
+            Prelude.<$> (x Data..?> "session")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -154,34 +156,34 @@ instance Prelude.NFData CreateSession where
       `Prelude.seq` Prelude.rnf assistantId
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateSession where
+instance Data.ToHeaders CreateSession where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateSession where
+instance Data.ToJSON CreateSession where
   toJSON CreateSession' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("name" Core..= name)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("description" Data..=) Prelude.<$> description,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateSession where
+instance Data.ToPath CreateSession where
   toPath CreateSession' {..} =
     Prelude.mconcat
-      ["/assistants/", Core.toBS assistantId, "/sessions"]
+      ["/assistants/", Data.toBS assistantId, "/sessions"]
 
-instance Core.ToQuery CreateSession where
+instance Data.ToQuery CreateSession where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateSessionResponse' smart constructor.

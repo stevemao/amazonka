@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Schemas.ListRegistries
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,24 +29,25 @@ module Amazonka.Schemas.ListRegistries
     newListRegistries,
 
     -- * Request Lenses
-    listRegistries_registryNamePrefix,
-    listRegistries_nextToken,
-    listRegistries_scope,
     listRegistries_limit,
+    listRegistries_nextToken,
+    listRegistries_registryNamePrefix,
+    listRegistries_scope,
 
     -- * Destructuring the Response
     ListRegistriesResponse (..),
     newListRegistriesResponse,
 
     -- * Response Lenses
-    listRegistriesResponse_registries,
     listRegistriesResponse_nextToken,
+    listRegistriesResponse_registries,
     listRegistriesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,17 +55,17 @@ import Amazonka.Schemas.Types
 
 -- | /See:/ 'newListRegistries' smart constructor.
 data ListRegistries = ListRegistries'
-  { -- | Specifying this limits the results to only those registry names that
-    -- start with the specified prefix.
-    registryNamePrefix :: Prelude.Maybe Prelude.Text,
+  { limit :: Prelude.Maybe Prelude.Int,
     -- | The token that specifies the next page of results to return. To request
     -- the first page, leave NextToken empty. The token will expire in 24
     -- hours, and cannot be shared with other accounts.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Specifying this limits the results to only those registry names that
+    -- start with the specified prefix.
+    registryNamePrefix :: Prelude.Maybe Prelude.Text,
     -- | Can be set to Local or AWS to limit responses to your custom registries,
     -- or the ones provided by AWS.
-    scope :: Prelude.Maybe Prelude.Text,
-    limit :: Prelude.Maybe Prelude.Int
+    scope :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -76,32 +77,30 @@ data ListRegistries = ListRegistries'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'registryNamePrefix', 'listRegistries_registryNamePrefix' - Specifying this limits the results to only those registry names that
--- start with the specified prefix.
+-- 'limit', 'listRegistries_limit' - Undocumented member.
 --
 -- 'nextToken', 'listRegistries_nextToken' - The token that specifies the next page of results to return. To request
 -- the first page, leave NextToken empty. The token will expire in 24
 -- hours, and cannot be shared with other accounts.
 --
+-- 'registryNamePrefix', 'listRegistries_registryNamePrefix' - Specifying this limits the results to only those registry names that
+-- start with the specified prefix.
+--
 -- 'scope', 'listRegistries_scope' - Can be set to Local or AWS to limit responses to your custom registries,
 -- or the ones provided by AWS.
---
--- 'limit', 'listRegistries_limit' - Undocumented member.
 newListRegistries ::
   ListRegistries
 newListRegistries =
   ListRegistries'
-    { registryNamePrefix =
-        Prelude.Nothing,
+    { limit = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      scope = Prelude.Nothing,
-      limit = Prelude.Nothing
+      registryNamePrefix = Prelude.Nothing,
+      scope = Prelude.Nothing
     }
 
--- | Specifying this limits the results to only those registry names that
--- start with the specified prefix.
-listRegistries_registryNamePrefix :: Lens.Lens' ListRegistries (Prelude.Maybe Prelude.Text)
-listRegistries_registryNamePrefix = Lens.lens (\ListRegistries' {registryNamePrefix} -> registryNamePrefix) (\s@ListRegistries' {} a -> s {registryNamePrefix = a} :: ListRegistries)
+-- | Undocumented member.
+listRegistries_limit :: Lens.Lens' ListRegistries (Prelude.Maybe Prelude.Int)
+listRegistries_limit = Lens.lens (\ListRegistries' {limit} -> limit) (\s@ListRegistries' {} a -> s {limit = a} :: ListRegistries)
 
 -- | The token that specifies the next page of results to return. To request
 -- the first page, leave NextToken empty. The token will expire in 24
@@ -109,14 +108,15 @@ listRegistries_registryNamePrefix = Lens.lens (\ListRegistries' {registryNamePre
 listRegistries_nextToken :: Lens.Lens' ListRegistries (Prelude.Maybe Prelude.Text)
 listRegistries_nextToken = Lens.lens (\ListRegistries' {nextToken} -> nextToken) (\s@ListRegistries' {} a -> s {nextToken = a} :: ListRegistries)
 
+-- | Specifying this limits the results to only those registry names that
+-- start with the specified prefix.
+listRegistries_registryNamePrefix :: Lens.Lens' ListRegistries (Prelude.Maybe Prelude.Text)
+listRegistries_registryNamePrefix = Lens.lens (\ListRegistries' {registryNamePrefix} -> registryNamePrefix) (\s@ListRegistries' {} a -> s {registryNamePrefix = a} :: ListRegistries)
+
 -- | Can be set to Local or AWS to limit responses to your custom registries,
 -- or the ones provided by AWS.
 listRegistries_scope :: Lens.Lens' ListRegistries (Prelude.Maybe Prelude.Text)
 listRegistries_scope = Lens.lens (\ListRegistries' {scope} -> scope) (\s@ListRegistries' {} a -> s {scope = a} :: ListRegistries)
-
--- | Undocumented member.
-listRegistries_limit :: Lens.Lens' ListRegistries (Prelude.Maybe Prelude.Int)
-listRegistries_limit = Lens.lens (\ListRegistries' {limit} -> limit) (\s@ListRegistries' {} a -> s {limit = a} :: ListRegistries)
 
 instance Core.AWSPager ListRegistries where
   page rq rs
@@ -143,61 +143,62 @@ instance Core.AWSRequest ListRegistries where
   type
     AWSResponse ListRegistries =
       ListRegistriesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRegistriesResponse'
-            Prelude.<$> (x Core..?> "Registries" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Registries" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListRegistries where
   hashWithSalt _salt ListRegistries' {..} =
-    _salt `Prelude.hashWithSalt` registryNamePrefix
+    _salt `Prelude.hashWithSalt` limit
       `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` registryNamePrefix
       `Prelude.hashWithSalt` scope
-      `Prelude.hashWithSalt` limit
 
 instance Prelude.NFData ListRegistries where
   rnf ListRegistries' {..} =
-    Prelude.rnf registryNamePrefix
+    Prelude.rnf limit
       `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf registryNamePrefix
       `Prelude.seq` Prelude.rnf scope
-      `Prelude.seq` Prelude.rnf limit
 
-instance Core.ToHeaders ListRegistries where
+instance Data.ToHeaders ListRegistries where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListRegistries where
+instance Data.ToPath ListRegistries where
   toPath = Prelude.const "/v1/registries"
 
-instance Core.ToQuery ListRegistries where
+instance Data.ToQuery ListRegistries where
   toQuery ListRegistries' {..} =
     Prelude.mconcat
-      [ "registryNamePrefix" Core.=: registryNamePrefix,
-        "nextToken" Core.=: nextToken,
-        "scope" Core.=: scope,
-        "limit" Core.=: limit
+      [ "limit" Data.=: limit,
+        "nextToken" Data.=: nextToken,
+        "registryNamePrefix" Data.=: registryNamePrefix,
+        "scope" Data.=: scope
       ]
 
 -- | /See:/ 'newListRegistriesResponse' smart constructor.
 data ListRegistriesResponse = ListRegistriesResponse'
-  { -- | An array of registry summaries.
-    registries :: Prelude.Maybe [RegistrySummary],
-    -- | The token that specifies the next page of results to return. To request
+  { -- | The token that specifies the next page of results to return. To request
     -- the first page, leave NextToken empty. The token will expire in 24
     -- hours, and cannot be shared with other accounts.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of registry summaries.
+    registries :: Prelude.Maybe [RegistrySummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -211,11 +212,11 @@ data ListRegistriesResponse = ListRegistriesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'registries', 'listRegistriesResponse_registries' - An array of registry summaries.
---
 -- 'nextToken', 'listRegistriesResponse_nextToken' - The token that specifies the next page of results to return. To request
 -- the first page, leave NextToken empty. The token will expire in 24
 -- hours, and cannot be shared with other accounts.
+--
+-- 'registries', 'listRegistriesResponse_registries' - An array of registry summaries.
 --
 -- 'httpStatus', 'listRegistriesResponse_httpStatus' - The response's http status code.
 newListRegistriesResponse ::
@@ -224,15 +225,11 @@ newListRegistriesResponse ::
   ListRegistriesResponse
 newListRegistriesResponse pHttpStatus_ =
   ListRegistriesResponse'
-    { registries =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      registries = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | An array of registry summaries.
-listRegistriesResponse_registries :: Lens.Lens' ListRegistriesResponse (Prelude.Maybe [RegistrySummary])
-listRegistriesResponse_registries = Lens.lens (\ListRegistriesResponse' {registries} -> registries) (\s@ListRegistriesResponse' {} a -> s {registries = a} :: ListRegistriesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token that specifies the next page of results to return. To request
 -- the first page, leave NextToken empty. The token will expire in 24
@@ -240,12 +237,16 @@ listRegistriesResponse_registries = Lens.lens (\ListRegistriesResponse' {registr
 listRegistriesResponse_nextToken :: Lens.Lens' ListRegistriesResponse (Prelude.Maybe Prelude.Text)
 listRegistriesResponse_nextToken = Lens.lens (\ListRegistriesResponse' {nextToken} -> nextToken) (\s@ListRegistriesResponse' {} a -> s {nextToken = a} :: ListRegistriesResponse)
 
+-- | An array of registry summaries.
+listRegistriesResponse_registries :: Lens.Lens' ListRegistriesResponse (Prelude.Maybe [RegistrySummary])
+listRegistriesResponse_registries = Lens.lens (\ListRegistriesResponse' {registries} -> registries) (\s@ListRegistriesResponse' {} a -> s {registries = a} :: ListRegistriesResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 listRegistriesResponse_httpStatus :: Lens.Lens' ListRegistriesResponse Prelude.Int
 listRegistriesResponse_httpStatus = Lens.lens (\ListRegistriesResponse' {httpStatus} -> httpStatus) (\s@ListRegistriesResponse' {} a -> s {httpStatus = a} :: ListRegistriesResponse)
 
 instance Prelude.NFData ListRegistriesResponse where
   rnf ListRegistriesResponse' {..} =
-    Prelude.rnf registries
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf registries
       `Prelude.seq` Prelude.rnf httpStatus

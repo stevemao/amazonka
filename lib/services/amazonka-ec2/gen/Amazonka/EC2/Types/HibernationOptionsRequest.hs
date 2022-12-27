@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.HibernationOptionsRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.HibernationOptionsRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Indicates whether your instance is configured for hibernation. This
@@ -76,6 +77,6 @@ instance Prelude.NFData HibernationOptionsRequest where
   rnf HibernationOptionsRequest' {..} =
     Prelude.rnf configured
 
-instance Core.ToQuery HibernationOptionsRequest where
+instance Data.ToQuery HibernationOptionsRequest where
   toQuery HibernationOptionsRequest' {..} =
-    Prelude.mconcat ["Configured" Core.=: configured]
+    Prelude.mconcat ["Configured" Data.=: configured]

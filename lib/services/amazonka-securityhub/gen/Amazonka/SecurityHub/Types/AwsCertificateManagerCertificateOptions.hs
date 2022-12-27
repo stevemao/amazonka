@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsCertificateManagerCertificateOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsCertificateManagerCertificateOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains other options for the certificate.
@@ -60,16 +61,16 @@ awsCertificateManagerCertificateOptions_certificateTransparencyLoggingPreference
 awsCertificateManagerCertificateOptions_certificateTransparencyLoggingPreference = Lens.lens (\AwsCertificateManagerCertificateOptions' {certificateTransparencyLoggingPreference} -> certificateTransparencyLoggingPreference) (\s@AwsCertificateManagerCertificateOptions' {} a -> s {certificateTransparencyLoggingPreference = a} :: AwsCertificateManagerCertificateOptions)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsCertificateManagerCertificateOptions
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsCertificateManagerCertificateOptions"
       ( \x ->
           AwsCertificateManagerCertificateOptions'
             Prelude.<$> ( x
-                            Core..:? "CertificateTransparencyLoggingPreference"
+                            Data..:? "CertificateTransparencyLoggingPreference"
                         )
       )
 
@@ -92,13 +93,13 @@ instance
       certificateTransparencyLoggingPreference
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsCertificateManagerCertificateOptions
   where
   toJSON AwsCertificateManagerCertificateOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CertificateTransparencyLoggingPreference" Core..=)
+          [ ("CertificateTransparencyLoggingPreference" Data..=)
               Prelude.<$> certificateTransparencyLoggingPreference
           ]
       )

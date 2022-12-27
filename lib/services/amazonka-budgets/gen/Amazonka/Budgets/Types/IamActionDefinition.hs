@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.Types.IamActionDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.Budgets.Types.IamActionDefinition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The AWS Identity and Access Management (IAM) action definition details.
+-- | The Identity and Access Management (IAM) action definition details.
 --
 -- /See:/ 'newIamActionDefinition' smart constructor.
 data IamActionDefinition = IamActionDefinition'
@@ -81,16 +82,16 @@ iamActionDefinition_users = Lens.lens (\IamActionDefinition' {users} -> users) (
 iamActionDefinition_policyArn :: Lens.Lens' IamActionDefinition Prelude.Text
 iamActionDefinition_policyArn = Lens.lens (\IamActionDefinition' {policyArn} -> policyArn) (\s@IamActionDefinition' {} a -> s {policyArn = a} :: IamActionDefinition)
 
-instance Core.FromJSON IamActionDefinition where
+instance Data.FromJSON IamActionDefinition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IamActionDefinition"
       ( \x ->
           IamActionDefinition'
-            Prelude.<$> (x Core..:? "Groups")
-            Prelude.<*> (x Core..:? "Roles")
-            Prelude.<*> (x Core..:? "Users")
-            Prelude.<*> (x Core..: "PolicyArn")
+            Prelude.<$> (x Data..:? "Groups")
+            Prelude.<*> (x Data..:? "Roles")
+            Prelude.<*> (x Data..:? "Users")
+            Prelude.<*> (x Data..: "PolicyArn")
       )
 
 instance Prelude.Hashable IamActionDefinition where
@@ -107,13 +108,13 @@ instance Prelude.NFData IamActionDefinition where
       `Prelude.seq` Prelude.rnf users
       `Prelude.seq` Prelude.rnf policyArn
 
-instance Core.ToJSON IamActionDefinition where
+instance Data.ToJSON IamActionDefinition where
   toJSON IamActionDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Groups" Core..=) Prelude.<$> groups,
-            ("Roles" Core..=) Prelude.<$> roles,
-            ("Users" Core..=) Prelude.<$> users,
-            Prelude.Just ("PolicyArn" Core..= policyArn)
+          [ ("Groups" Data..=) Prelude.<$> groups,
+            ("Roles" Data..=) Prelude.<$> roles,
+            ("Users" Data..=) Prelude.<$> users,
+            Prelude.Just ("PolicyArn" Data..= policyArn)
           ]
       )

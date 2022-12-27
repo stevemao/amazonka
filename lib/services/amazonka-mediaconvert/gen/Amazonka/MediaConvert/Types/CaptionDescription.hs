@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.CaptionDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.CaptionDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.CaptionDestinationSettings
 import Amazonka.MediaConvert.Types.LanguageCode
 import qualified Amazonka.Prelude as Prelude
@@ -46,12 +47,6 @@ data CaptionDescription = CaptionDescription'
     -- outputs are those that are in one of the following output groups: CMAF,
     -- DASH ISO, Apple HLS, or Microsoft Smooth Streaming.
     customLanguageCode :: Prelude.Maybe Prelude.Text,
-    -- | Specify the language of this captions output track. For most captions
-    -- output formats, the encoder puts this language information in the output
-    -- captions metadata. If your output captions format is DVB-Sub or Burn in,
-    -- the encoder uses this language information to choose the font language
-    -- for rendering the captions text.
-    languageCode :: Prelude.Maybe LanguageCode,
     -- | Settings related to one captions tab on the MediaConvert console. In
     -- your job JSON, an instance of captions DestinationSettings is equivalent
     -- to one captions tab in the console. Usually, one captions tab
@@ -60,6 +55,12 @@ data CaptionDescription = CaptionDescription'
     -- tracks. For more information, see
     -- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/including-captions.html.
     destinationSettings :: Prelude.Maybe CaptionDestinationSettings,
+    -- | Specify the language of this captions output track. For most captions
+    -- output formats, the encoder puts this language information in the output
+    -- captions metadata. If your output captions format is DVB-Sub or Burn in,
+    -- the encoder uses this language information to choose the font language
+    -- for rendering the captions text.
+    languageCode :: Prelude.Maybe LanguageCode,
     -- | Specify a label for this set of output captions. For example,
     -- \"English\", \"Director commentary\", or \"track_2\". For streaming
     -- outputs, MediaConvert passes this information into destination manifests
@@ -92,12 +93,6 @@ data CaptionDescription = CaptionDescription'
 -- outputs are those that are in one of the following output groups: CMAF,
 -- DASH ISO, Apple HLS, or Microsoft Smooth Streaming.
 --
--- 'languageCode', 'captionDescription_languageCode' - Specify the language of this captions output track. For most captions
--- output formats, the encoder puts this language information in the output
--- captions metadata. If your output captions format is DVB-Sub or Burn in,
--- the encoder uses this language information to choose the font language
--- for rendering the captions text.
---
 -- 'destinationSettings', 'captionDescription_destinationSettings' - Settings related to one captions tab on the MediaConvert console. In
 -- your job JSON, an instance of captions DestinationSettings is equivalent
 -- to one captions tab in the console. Usually, one captions tab
@@ -105,6 +100,12 @@ data CaptionDescription = CaptionDescription'
 -- captions format, one tab might correspond to a set of output captions
 -- tracks. For more information, see
 -- https:\/\/docs.aws.amazon.com\/mediaconvert\/latest\/ug\/including-captions.html.
+--
+-- 'languageCode', 'captionDescription_languageCode' - Specify the language of this captions output track. For most captions
+-- output formats, the encoder puts this language information in the output
+-- captions metadata. If your output captions format is DVB-Sub or Burn in,
+-- the encoder uses this language information to choose the font language
+-- for rendering the captions text.
 --
 -- 'languageDescription', 'captionDescription_languageDescription' - Specify a label for this set of output captions. For example,
 -- \"English\", \"Director commentary\", or \"track_2\". For streaming
@@ -118,8 +119,8 @@ newCaptionDescription =
     { captionSelectorName =
         Prelude.Nothing,
       customLanguageCode = Prelude.Nothing,
-      languageCode = Prelude.Nothing,
       destinationSettings = Prelude.Nothing,
+      languageCode = Prelude.Nothing,
       languageDescription = Prelude.Nothing
     }
 
@@ -142,14 +143,6 @@ captionDescription_captionSelectorName = Lens.lens (\CaptionDescription' {captio
 captionDescription_customLanguageCode :: Lens.Lens' CaptionDescription (Prelude.Maybe Prelude.Text)
 captionDescription_customLanguageCode = Lens.lens (\CaptionDescription' {customLanguageCode} -> customLanguageCode) (\s@CaptionDescription' {} a -> s {customLanguageCode = a} :: CaptionDescription)
 
--- | Specify the language of this captions output track. For most captions
--- output formats, the encoder puts this language information in the output
--- captions metadata. If your output captions format is DVB-Sub or Burn in,
--- the encoder uses this language information to choose the font language
--- for rendering the captions text.
-captionDescription_languageCode :: Lens.Lens' CaptionDescription (Prelude.Maybe LanguageCode)
-captionDescription_languageCode = Lens.lens (\CaptionDescription' {languageCode} -> languageCode) (\s@CaptionDescription' {} a -> s {languageCode = a} :: CaptionDescription)
-
 -- | Settings related to one captions tab on the MediaConvert console. In
 -- your job JSON, an instance of captions DestinationSettings is equivalent
 -- to one captions tab in the console. Usually, one captions tab
@@ -160,6 +153,14 @@ captionDescription_languageCode = Lens.lens (\CaptionDescription' {languageCode}
 captionDescription_destinationSettings :: Lens.Lens' CaptionDescription (Prelude.Maybe CaptionDestinationSettings)
 captionDescription_destinationSettings = Lens.lens (\CaptionDescription' {destinationSettings} -> destinationSettings) (\s@CaptionDescription' {} a -> s {destinationSettings = a} :: CaptionDescription)
 
+-- | Specify the language of this captions output track. For most captions
+-- output formats, the encoder puts this language information in the output
+-- captions metadata. If your output captions format is DVB-Sub or Burn in,
+-- the encoder uses this language information to choose the font language
+-- for rendering the captions text.
+captionDescription_languageCode :: Lens.Lens' CaptionDescription (Prelude.Maybe LanguageCode)
+captionDescription_languageCode = Lens.lens (\CaptionDescription' {languageCode} -> languageCode) (\s@CaptionDescription' {} a -> s {languageCode = a} :: CaptionDescription)
+
 -- | Specify a label for this set of output captions. For example,
 -- \"English\", \"Director commentary\", or \"track_2\". For streaming
 -- outputs, MediaConvert passes this information into destination manifests
@@ -168,47 +169,47 @@ captionDescription_destinationSettings = Lens.lens (\CaptionDescription' {destin
 captionDescription_languageDescription :: Lens.Lens' CaptionDescription (Prelude.Maybe Prelude.Text)
 captionDescription_languageDescription = Lens.lens (\CaptionDescription' {languageDescription} -> languageDescription) (\s@CaptionDescription' {} a -> s {languageDescription = a} :: CaptionDescription)
 
-instance Core.FromJSON CaptionDescription where
+instance Data.FromJSON CaptionDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CaptionDescription"
       ( \x ->
           CaptionDescription'
-            Prelude.<$> (x Core..:? "captionSelectorName")
-            Prelude.<*> (x Core..:? "customLanguageCode")
-            Prelude.<*> (x Core..:? "languageCode")
-            Prelude.<*> (x Core..:? "destinationSettings")
-            Prelude.<*> (x Core..:? "languageDescription")
+            Prelude.<$> (x Data..:? "captionSelectorName")
+            Prelude.<*> (x Data..:? "customLanguageCode")
+            Prelude.<*> (x Data..:? "destinationSettings")
+            Prelude.<*> (x Data..:? "languageCode")
+            Prelude.<*> (x Data..:? "languageDescription")
       )
 
 instance Prelude.Hashable CaptionDescription where
   hashWithSalt _salt CaptionDescription' {..} =
     _salt `Prelude.hashWithSalt` captionSelectorName
       `Prelude.hashWithSalt` customLanguageCode
-      `Prelude.hashWithSalt` languageCode
       `Prelude.hashWithSalt` destinationSettings
+      `Prelude.hashWithSalt` languageCode
       `Prelude.hashWithSalt` languageDescription
 
 instance Prelude.NFData CaptionDescription where
   rnf CaptionDescription' {..} =
     Prelude.rnf captionSelectorName
       `Prelude.seq` Prelude.rnf customLanguageCode
-      `Prelude.seq` Prelude.rnf languageCode
       `Prelude.seq` Prelude.rnf destinationSettings
+      `Prelude.seq` Prelude.rnf languageCode
       `Prelude.seq` Prelude.rnf languageDescription
 
-instance Core.ToJSON CaptionDescription where
+instance Data.ToJSON CaptionDescription where
   toJSON CaptionDescription' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("captionSelectorName" Core..=)
+          [ ("captionSelectorName" Data..=)
               Prelude.<$> captionSelectorName,
-            ("customLanguageCode" Core..=)
+            ("customLanguageCode" Data..=)
               Prelude.<$> customLanguageCode,
-            ("languageCode" Core..=) Prelude.<$> languageCode,
-            ("destinationSettings" Core..=)
+            ("destinationSettings" Data..=)
               Prelude.<$> destinationSettings,
-            ("languageDescription" Core..=)
+            ("languageCode" Data..=) Prelude.<$> languageCode,
+            ("languageDescription" Data..=)
               Prelude.<$> languageDescription
           ]
       )

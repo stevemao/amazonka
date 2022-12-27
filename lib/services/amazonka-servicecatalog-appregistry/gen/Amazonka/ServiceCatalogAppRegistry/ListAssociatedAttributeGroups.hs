@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalogAppRegistry.ListAssociatedAttributeGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.ServiceCatalogAppRegistry.ListAssociatedAttributeGroups
     newListAssociatedAttributeGroups,
 
     -- * Request Lenses
-    listAssociatedAttributeGroups_nextToken,
     listAssociatedAttributeGroups_maxResults,
+    listAssociatedAttributeGroups_nextToken,
     listAssociatedAttributeGroups_application,
 
     -- * Destructuring the Response
@@ -46,7 +46,8 @@ module Amazonka.ServiceCatalogAppRegistry.ListAssociatedAttributeGroups
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,12 +55,12 @@ import Amazonka.ServiceCatalogAppRegistry.Types
 
 -- | /See:/ 'newListAssociatedAttributeGroups' smart constructor.
 data ListAssociatedAttributeGroups = ListAssociatedAttributeGroups'
-  { -- | The token to use to get the next page of results after a previous API
-    -- call.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The upper bound of the number of results to return (cannot exceed 25).
+  { -- | The upper bound of the number of results to return (cannot exceed 25).
     -- If this parameter is omitted, it defaults to 25. This value is optional.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to use to get the next page of results after a previous API
+    -- call.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name or ID of the application.
     application :: Prelude.Text
   }
@@ -73,11 +74,11 @@ data ListAssociatedAttributeGroups = ListAssociatedAttributeGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listAssociatedAttributeGroups_nextToken' - The token to use to get the next page of results after a previous API
--- call.
---
 -- 'maxResults', 'listAssociatedAttributeGroups_maxResults' - The upper bound of the number of results to return (cannot exceed 25).
 -- If this parameter is omitted, it defaults to 25. This value is optional.
+--
+-- 'nextToken', 'listAssociatedAttributeGroups_nextToken' - The token to use to get the next page of results after a previous API
+-- call.
 --
 -- 'application', 'listAssociatedAttributeGroups_application' - The name or ID of the application.
 newListAssociatedAttributeGroups ::
@@ -86,21 +87,21 @@ newListAssociatedAttributeGroups ::
   ListAssociatedAttributeGroups
 newListAssociatedAttributeGroups pApplication_ =
   ListAssociatedAttributeGroups'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       application = pApplication_
     }
-
--- | The token to use to get the next page of results after a previous API
--- call.
-listAssociatedAttributeGroups_nextToken :: Lens.Lens' ListAssociatedAttributeGroups (Prelude.Maybe Prelude.Text)
-listAssociatedAttributeGroups_nextToken = Lens.lens (\ListAssociatedAttributeGroups' {nextToken} -> nextToken) (\s@ListAssociatedAttributeGroups' {} a -> s {nextToken = a} :: ListAssociatedAttributeGroups)
 
 -- | The upper bound of the number of results to return (cannot exceed 25).
 -- If this parameter is omitted, it defaults to 25. This value is optional.
 listAssociatedAttributeGroups_maxResults :: Lens.Lens' ListAssociatedAttributeGroups (Prelude.Maybe Prelude.Natural)
 listAssociatedAttributeGroups_maxResults = Lens.lens (\ListAssociatedAttributeGroups' {maxResults} -> maxResults) (\s@ListAssociatedAttributeGroups' {} a -> s {maxResults = a} :: ListAssociatedAttributeGroups)
+
+-- | The token to use to get the next page of results after a previous API
+-- call.
+listAssociatedAttributeGroups_nextToken :: Lens.Lens' ListAssociatedAttributeGroups (Prelude.Maybe Prelude.Text)
+listAssociatedAttributeGroups_nextToken = Lens.lens (\ListAssociatedAttributeGroups' {nextToken} -> nextToken) (\s@ListAssociatedAttributeGroups' {} a -> s {nextToken = a} :: ListAssociatedAttributeGroups)
 
 -- | The name or ID of the application.
 listAssociatedAttributeGroups_application :: Lens.Lens' ListAssociatedAttributeGroups Prelude.Text
@@ -135,15 +136,16 @@ instance
   type
     AWSResponse ListAssociatedAttributeGroups =
       ListAssociatedAttributeGroupsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAssociatedAttributeGroupsResponse'
-            Prelude.<$> ( x Core..?> "attributeGroups"
+            Prelude.<$> ( x Data..?> "attributeGroups"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -152,40 +154,40 @@ instance
     ListAssociatedAttributeGroups
   where
   hashWithSalt _salt ListAssociatedAttributeGroups' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` application
 
 instance Prelude.NFData ListAssociatedAttributeGroups where
   rnf ListAssociatedAttributeGroups' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf application
 
-instance Core.ToHeaders ListAssociatedAttributeGroups where
+instance Data.ToHeaders ListAssociatedAttributeGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListAssociatedAttributeGroups where
+instance Data.ToPath ListAssociatedAttributeGroups where
   toPath ListAssociatedAttributeGroups' {..} =
     Prelude.mconcat
       [ "/applications/",
-        Core.toBS application,
+        Data.toBS application,
         "/attribute-groups"
       ]
 
-instance Core.ToQuery ListAssociatedAttributeGroups where
+instance Data.ToQuery ListAssociatedAttributeGroups where
   toQuery ListAssociatedAttributeGroups' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListAssociatedAttributeGroupsResponse' smart constructor.

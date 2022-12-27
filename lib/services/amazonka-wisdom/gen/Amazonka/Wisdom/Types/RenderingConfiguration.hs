@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.RenderingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.RenderingConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about how to render the content.
@@ -86,13 +87,13 @@ newRenderingConfiguration =
 renderingConfiguration_templateUri :: Lens.Lens' RenderingConfiguration (Prelude.Maybe Prelude.Text)
 renderingConfiguration_templateUri = Lens.lens (\RenderingConfiguration' {templateUri} -> templateUri) (\s@RenderingConfiguration' {} a -> s {templateUri = a} :: RenderingConfiguration)
 
-instance Core.FromJSON RenderingConfiguration where
+instance Data.FromJSON RenderingConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RenderingConfiguration"
       ( \x ->
           RenderingConfiguration'
-            Prelude.<$> (x Core..:? "templateUri")
+            Prelude.<$> (x Data..:? "templateUri")
       )
 
 instance Prelude.Hashable RenderingConfiguration where
@@ -103,9 +104,9 @@ instance Prelude.NFData RenderingConfiguration where
   rnf RenderingConfiguration' {..} =
     Prelude.rnf templateUri
 
-instance Core.ToJSON RenderingConfiguration where
+instance Data.ToJSON RenderingConfiguration where
   toJSON RenderingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("templateUri" Core..=) Prelude.<$> templateUri]
+          [("templateUri" Data..=) Prelude.<$> templateUri]
       )

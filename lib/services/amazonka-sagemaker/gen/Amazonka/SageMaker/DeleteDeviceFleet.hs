@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DeleteDeviceFleet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,7 +36,8 @@ module Amazonka.SageMaker.DeleteDeviceFleet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteDeviceFleet where
   type
     AWSResponse DeleteDeviceFleet =
       DeleteDeviceFleetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteDeviceFleetResponse'
 
@@ -88,34 +90,34 @@ instance Prelude.NFData DeleteDeviceFleet where
   rnf DeleteDeviceFleet' {..} =
     Prelude.rnf deviceFleetName
 
-instance Core.ToHeaders DeleteDeviceFleet where
+instance Data.ToHeaders DeleteDeviceFleet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DeleteDeviceFleet" ::
+              Data.=# ( "SageMaker.DeleteDeviceFleet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteDeviceFleet where
+instance Data.ToJSON DeleteDeviceFleet where
   toJSON DeleteDeviceFleet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("DeviceFleetName" Core..= deviceFleetName)
+              ("DeviceFleetName" Data..= deviceFleetName)
           ]
       )
 
-instance Core.ToPath DeleteDeviceFleet where
+instance Data.ToPath DeleteDeviceFleet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDeviceFleet where
+instance Data.ToQuery DeleteDeviceFleet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDeviceFleetResponse' smart constructor.

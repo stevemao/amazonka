@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.Types.BusinessReport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,24 +23,25 @@ import Amazonka.AlexaBusiness.Types.BusinessReportFailureCode
 import Amazonka.AlexaBusiness.Types.BusinessReportS3Location
 import Amazonka.AlexaBusiness.Types.BusinessReportStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Usage report with specified parameters.
 --
 -- /See:/ 'newBusinessReport' smart constructor.
 data BusinessReport = BusinessReport'
-  { -- | The status of the report generation execution (RUNNING, SUCCEEDED, or
-    -- FAILED).
-    status :: Prelude.Maybe BusinessReportStatus,
-    -- | The failure code.
-    failureCode :: Prelude.Maybe BusinessReportFailureCode,
-    -- | The time of report delivery.
-    deliveryTime :: Prelude.Maybe Core.POSIX,
+  { -- | The time of report delivery.
+    deliveryTime :: Prelude.Maybe Data.POSIX,
     -- | The download link where a user can download the report.
     downloadUrl :: Prelude.Maybe Prelude.Text,
+    -- | The failure code.
+    failureCode :: Prelude.Maybe BusinessReportFailureCode,
     -- | The S3 location of the output reports.
-    s3Location :: Prelude.Maybe BusinessReportS3Location
+    s3Location :: Prelude.Maybe BusinessReportS3Location,
+    -- | The status of the report generation execution (RUNNING, SUCCEEDED, or
+    -- FAILED).
+    status :: Prelude.Maybe BusinessReportStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,73 +53,73 @@ data BusinessReport = BusinessReport'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'businessReport_status' - The status of the report generation execution (RUNNING, SUCCEEDED, or
--- FAILED).
---
--- 'failureCode', 'businessReport_failureCode' - The failure code.
---
 -- 'deliveryTime', 'businessReport_deliveryTime' - The time of report delivery.
 --
 -- 'downloadUrl', 'businessReport_downloadUrl' - The download link where a user can download the report.
 --
+-- 'failureCode', 'businessReport_failureCode' - The failure code.
+--
 -- 's3Location', 'businessReport_s3Location' - The S3 location of the output reports.
+--
+-- 'status', 'businessReport_status' - The status of the report generation execution (RUNNING, SUCCEEDED, or
+-- FAILED).
 newBusinessReport ::
   BusinessReport
 newBusinessReport =
   BusinessReport'
-    { status = Prelude.Nothing,
-      failureCode = Prelude.Nothing,
-      deliveryTime = Prelude.Nothing,
+    { deliveryTime = Prelude.Nothing,
       downloadUrl = Prelude.Nothing,
-      s3Location = Prelude.Nothing
+      failureCode = Prelude.Nothing,
+      s3Location = Prelude.Nothing,
+      status = Prelude.Nothing
     }
+
+-- | The time of report delivery.
+businessReport_deliveryTime :: Lens.Lens' BusinessReport (Prelude.Maybe Prelude.UTCTime)
+businessReport_deliveryTime = Lens.lens (\BusinessReport' {deliveryTime} -> deliveryTime) (\s@BusinessReport' {} a -> s {deliveryTime = a} :: BusinessReport) Prelude.. Lens.mapping Data._Time
+
+-- | The download link where a user can download the report.
+businessReport_downloadUrl :: Lens.Lens' BusinessReport (Prelude.Maybe Prelude.Text)
+businessReport_downloadUrl = Lens.lens (\BusinessReport' {downloadUrl} -> downloadUrl) (\s@BusinessReport' {} a -> s {downloadUrl = a} :: BusinessReport)
+
+-- | The failure code.
+businessReport_failureCode :: Lens.Lens' BusinessReport (Prelude.Maybe BusinessReportFailureCode)
+businessReport_failureCode = Lens.lens (\BusinessReport' {failureCode} -> failureCode) (\s@BusinessReport' {} a -> s {failureCode = a} :: BusinessReport)
+
+-- | The S3 location of the output reports.
+businessReport_s3Location :: Lens.Lens' BusinessReport (Prelude.Maybe BusinessReportS3Location)
+businessReport_s3Location = Lens.lens (\BusinessReport' {s3Location} -> s3Location) (\s@BusinessReport' {} a -> s {s3Location = a} :: BusinessReport)
 
 -- | The status of the report generation execution (RUNNING, SUCCEEDED, or
 -- FAILED).
 businessReport_status :: Lens.Lens' BusinessReport (Prelude.Maybe BusinessReportStatus)
 businessReport_status = Lens.lens (\BusinessReport' {status} -> status) (\s@BusinessReport' {} a -> s {status = a} :: BusinessReport)
 
--- | The failure code.
-businessReport_failureCode :: Lens.Lens' BusinessReport (Prelude.Maybe BusinessReportFailureCode)
-businessReport_failureCode = Lens.lens (\BusinessReport' {failureCode} -> failureCode) (\s@BusinessReport' {} a -> s {failureCode = a} :: BusinessReport)
-
--- | The time of report delivery.
-businessReport_deliveryTime :: Lens.Lens' BusinessReport (Prelude.Maybe Prelude.UTCTime)
-businessReport_deliveryTime = Lens.lens (\BusinessReport' {deliveryTime} -> deliveryTime) (\s@BusinessReport' {} a -> s {deliveryTime = a} :: BusinessReport) Prelude.. Lens.mapping Core._Time
-
--- | The download link where a user can download the report.
-businessReport_downloadUrl :: Lens.Lens' BusinessReport (Prelude.Maybe Prelude.Text)
-businessReport_downloadUrl = Lens.lens (\BusinessReport' {downloadUrl} -> downloadUrl) (\s@BusinessReport' {} a -> s {downloadUrl = a} :: BusinessReport)
-
--- | The S3 location of the output reports.
-businessReport_s3Location :: Lens.Lens' BusinessReport (Prelude.Maybe BusinessReportS3Location)
-businessReport_s3Location = Lens.lens (\BusinessReport' {s3Location} -> s3Location) (\s@BusinessReport' {} a -> s {s3Location = a} :: BusinessReport)
-
-instance Core.FromJSON BusinessReport where
+instance Data.FromJSON BusinessReport where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BusinessReport"
       ( \x ->
           BusinessReport'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "FailureCode")
-            Prelude.<*> (x Core..:? "DeliveryTime")
-            Prelude.<*> (x Core..:? "DownloadUrl")
-            Prelude.<*> (x Core..:? "S3Location")
+            Prelude.<$> (x Data..:? "DeliveryTime")
+            Prelude.<*> (x Data..:? "DownloadUrl")
+            Prelude.<*> (x Data..:? "FailureCode")
+            Prelude.<*> (x Data..:? "S3Location")
+            Prelude.<*> (x Data..:? "Status")
       )
 
 instance Prelude.Hashable BusinessReport where
   hashWithSalt _salt BusinessReport' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` failureCode
-      `Prelude.hashWithSalt` deliveryTime
+    _salt `Prelude.hashWithSalt` deliveryTime
       `Prelude.hashWithSalt` downloadUrl
+      `Prelude.hashWithSalt` failureCode
       `Prelude.hashWithSalt` s3Location
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData BusinessReport where
   rnf BusinessReport' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf failureCode
-      `Prelude.seq` Prelude.rnf deliveryTime
+    Prelude.rnf deliveryTime
       `Prelude.seq` Prelude.rnf downloadUrl
+      `Prelude.seq` Prelude.rnf failureCode
       `Prelude.seq` Prelude.rnf s3Location
+      `Prelude.seq` Prelude.rnf status

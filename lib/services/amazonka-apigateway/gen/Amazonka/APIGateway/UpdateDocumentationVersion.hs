@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.UpdateDocumentationVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- -- | Undocumented operation.
+-- Updates a documentation version.
 module Amazonka.APIGateway.UpdateDocumentationVersion
   ( -- * Creating a Request
     UpdateDocumentationVersion (..),
@@ -37,14 +37,15 @@ module Amazonka.APIGateway.UpdateDocumentationVersion
 
     -- * Response Lenses
     documentationVersion_createdDate,
-    documentationVersion_version,
     documentationVersion_description,
+    documentationVersion_version,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,13 +54,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateDocumentationVersion' smart constructor.
 data UpdateDocumentationVersion = UpdateDocumentationVersion'
-  { -- | A list of update operations to be applied to the specified resource and
-    -- in the order specified in this list.
+  { -- | For more information about supported patch operations, see
+    -- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
     patchOperations :: Prelude.Maybe [PatchOperation],
-    -- | [Required] The string identifier of the associated RestApi..
+    -- | The string identifier of the associated RestApi..
     restApiId :: Prelude.Text,
-    -- | [Required] The version identifier of the to-be-updated documentation
-    -- version.
+    -- | The version identifier of the to-be-updated documentation version.
     documentationVersion :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -72,13 +72,12 @@ data UpdateDocumentationVersion = UpdateDocumentationVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'patchOperations', 'updateDocumentationVersion_patchOperations' - A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- 'patchOperations', 'updateDocumentationVersion_patchOperations' - For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 --
--- 'restApiId', 'updateDocumentationVersion_restApiId' - [Required] The string identifier of the associated RestApi..
+-- 'restApiId', 'updateDocumentationVersion_restApiId' - The string identifier of the associated RestApi..
 --
--- 'documentationVersion', 'updateDocumentationVersion_documentationVersion' - [Required] The version identifier of the to-be-updated documentation
--- version.
+-- 'documentationVersion', 'updateDocumentationVersion_documentationVersion' - The version identifier of the to-be-updated documentation version.
 newUpdateDocumentationVersion ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -95,17 +94,16 @@ newUpdateDocumentationVersion
         documentationVersion = pDocumentationVersion_
       }
 
--- | A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- | For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 updateDocumentationVersion_patchOperations :: Lens.Lens' UpdateDocumentationVersion (Prelude.Maybe [PatchOperation])
 updateDocumentationVersion_patchOperations = Lens.lens (\UpdateDocumentationVersion' {patchOperations} -> patchOperations) (\s@UpdateDocumentationVersion' {} a -> s {patchOperations = a} :: UpdateDocumentationVersion) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The string identifier of the associated RestApi..
+-- | The string identifier of the associated RestApi..
 updateDocumentationVersion_restApiId :: Lens.Lens' UpdateDocumentationVersion Prelude.Text
 updateDocumentationVersion_restApiId = Lens.lens (\UpdateDocumentationVersion' {restApiId} -> restApiId) (\s@UpdateDocumentationVersion' {} a -> s {restApiId = a} :: UpdateDocumentationVersion)
 
--- | [Required] The version identifier of the to-be-updated documentation
--- version.
+-- | The version identifier of the to-be-updated documentation version.
 updateDocumentationVersion_documentationVersion :: Lens.Lens' UpdateDocumentationVersion Prelude.Text
 updateDocumentationVersion_documentationVersion = Lens.lens (\UpdateDocumentationVersion' {documentationVersion} -> documentationVersion) (\s@UpdateDocumentationVersion' {} a -> s {documentationVersion = a} :: UpdateDocumentationVersion)
 
@@ -113,10 +111,11 @@ instance Core.AWSRequest UpdateDocumentationVersion where
   type
     AWSResponse UpdateDocumentationVersion =
       DocumentationVersion
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable UpdateDocumentationVersion where
   hashWithSalt _salt UpdateDocumentationVersion' {..} =
@@ -130,32 +129,32 @@ instance Prelude.NFData UpdateDocumentationVersion where
       `Prelude.seq` Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf documentationVersion
 
-instance Core.ToHeaders UpdateDocumentationVersion where
+instance Data.ToHeaders UpdateDocumentationVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON UpdateDocumentationVersion where
+instance Data.ToJSON UpdateDocumentationVersion where
   toJSON UpdateDocumentationVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("patchOperations" Core..=)
+          [ ("patchOperations" Data..=)
               Prelude.<$> patchOperations
           ]
       )
 
-instance Core.ToPath UpdateDocumentationVersion where
+instance Data.ToPath UpdateDocumentationVersion where
   toPath UpdateDocumentationVersion' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/documentation/versions/",
-        Core.toBS documentationVersion
+        Data.toBS documentationVersion
       ]
 
-instance Core.ToQuery UpdateDocumentationVersion where
+instance Data.ToQuery UpdateDocumentationVersion where
   toQuery = Prelude.const Prelude.mempty

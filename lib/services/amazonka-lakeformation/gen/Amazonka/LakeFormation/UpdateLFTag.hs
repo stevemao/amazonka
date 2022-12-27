@@ -14,18 +14,18 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.UpdateLFTag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the list of possible values for the specified tag key. If the
--- tag does not exist, the operation throws an EntityNotFoundException. The
--- values in the delete key values will be deleted from list of possible
--- values. If any value in the delete key values is attached to a resource,
--- then API errors out with a 400 Exception - \"Update not allowed\". Untag
--- the attribute before deleting the tag key\'s value.
+-- Updates the list of possible values for the specified LF-tag key. If the
+-- LF-tag does not exist, the operation throws an EntityNotFoundException.
+-- The values in the delete key values will be deleted from list of
+-- possible values. If any value in the delete key values is attached to a
+-- resource, then API errors out with a 400 Exception - \"Update not
+-- allowed\". Untag the attribute before deleting the LF-tag key\'s value.
 module Amazonka.LakeFormation.UpdateLFTag
   ( -- * Creating a Request
     UpdateLFTag (..),
@@ -47,8 +47,9 @@ module Amazonka.LakeFormation.UpdateLFTag
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LakeFormation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,13 +59,13 @@ data UpdateLFTag = UpdateLFTag'
   { -- | The identifier for the Data Catalog. By default, the account ID. The
     -- Data Catalog is the persistent metadata store. It contains database
     -- definitions, table definitions, and other control information to manage
-    -- your AWS Lake Formation environment.
+    -- your Lake Formation environment.
     catalogId :: Prelude.Maybe Prelude.Text,
-    -- | A list of tag values to add from the tag.
+    -- | A list of LF-tag values to add from the LF-tag.
     tagValuesToAdd :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | A list of tag values to delete from the tag.
+    -- | A list of LF-tag values to delete from the LF-tag.
     tagValuesToDelete :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | The key-name for the tag for which to add or delete values.
+    -- | The key-name for the LF-tag for which to add or delete values.
     tagKey :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -80,13 +81,13 @@ data UpdateLFTag = UpdateLFTag'
 -- 'catalogId', 'updateLFTag_catalogId' - The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 --
--- 'tagValuesToAdd', 'updateLFTag_tagValuesToAdd' - A list of tag values to add from the tag.
+-- 'tagValuesToAdd', 'updateLFTag_tagValuesToAdd' - A list of LF-tag values to add from the LF-tag.
 --
--- 'tagValuesToDelete', 'updateLFTag_tagValuesToDelete' - A list of tag values to delete from the tag.
+-- 'tagValuesToDelete', 'updateLFTag_tagValuesToDelete' - A list of LF-tag values to delete from the LF-tag.
 --
--- 'tagKey', 'updateLFTag_tagKey' - The key-name for the tag for which to add or delete values.
+-- 'tagKey', 'updateLFTag_tagKey' - The key-name for the LF-tag for which to add or delete values.
 newUpdateLFTag ::
   -- | 'tagKey'
   Prelude.Text ->
@@ -102,25 +103,26 @@ newUpdateLFTag pTagKey_ =
 -- | The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 updateLFTag_catalogId :: Lens.Lens' UpdateLFTag (Prelude.Maybe Prelude.Text)
 updateLFTag_catalogId = Lens.lens (\UpdateLFTag' {catalogId} -> catalogId) (\s@UpdateLFTag' {} a -> s {catalogId = a} :: UpdateLFTag)
 
--- | A list of tag values to add from the tag.
+-- | A list of LF-tag values to add from the LF-tag.
 updateLFTag_tagValuesToAdd :: Lens.Lens' UpdateLFTag (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 updateLFTag_tagValuesToAdd = Lens.lens (\UpdateLFTag' {tagValuesToAdd} -> tagValuesToAdd) (\s@UpdateLFTag' {} a -> s {tagValuesToAdd = a} :: UpdateLFTag) Prelude.. Lens.mapping Lens.coerced
 
--- | A list of tag values to delete from the tag.
+-- | A list of LF-tag values to delete from the LF-tag.
 updateLFTag_tagValuesToDelete :: Lens.Lens' UpdateLFTag (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 updateLFTag_tagValuesToDelete = Lens.lens (\UpdateLFTag' {tagValuesToDelete} -> tagValuesToDelete) (\s@UpdateLFTag' {} a -> s {tagValuesToDelete = a} :: UpdateLFTag) Prelude.. Lens.mapping Lens.coerced
 
--- | The key-name for the tag for which to add or delete values.
+-- | The key-name for the LF-tag for which to add or delete values.
 updateLFTag_tagKey :: Lens.Lens' UpdateLFTag Prelude.Text
 updateLFTag_tagKey = Lens.lens (\UpdateLFTag' {tagKey} -> tagKey) (\s@UpdateLFTag' {} a -> s {tagKey = a} :: UpdateLFTag)
 
 instance Core.AWSRequest UpdateLFTag where
   type AWSResponse UpdateLFTag = UpdateLFTagResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -142,38 +144,34 @@ instance Prelude.NFData UpdateLFTag where
       `Prelude.seq` Prelude.rnf tagValuesToDelete
       `Prelude.seq` Prelude.rnf tagKey
 
-instance Core.ToHeaders UpdateLFTag where
+instance Data.ToHeaders UpdateLFTag where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
-          [ "X-Amz-Target"
-              Core.=# ( "AWSLakeFormation.UpdateLFTag" ::
-                          Prelude.ByteString
-                      ),
-            "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+          [ "Content-Type"
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateLFTag where
+instance Data.ToJSON UpdateLFTag where
   toJSON UpdateLFTag' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            ("TagValuesToAdd" Core..=)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            ("TagValuesToAdd" Data..=)
               Prelude.<$> tagValuesToAdd,
-            ("TagValuesToDelete" Core..=)
+            ("TagValuesToDelete" Data..=)
               Prelude.<$> tagValuesToDelete,
-            Prelude.Just ("TagKey" Core..= tagKey)
+            Prelude.Just ("TagKey" Data..= tagKey)
           ]
       )
 
-instance Core.ToPath UpdateLFTag where
-  toPath = Prelude.const "/"
+instance Data.ToPath UpdateLFTag where
+  toPath = Prelude.const "/UpdateLFTag"
 
-instance Core.ToQuery UpdateLFTag where
+instance Data.ToQuery UpdateLFTag where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateLFTagResponse' smart constructor.

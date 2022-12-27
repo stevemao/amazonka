@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.ImportComponent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,12 +27,12 @@ module Amazonka.ImageBuilder.ImportComponent
     newImportComponent,
 
     -- * Request Lenses
-    importComponent_data,
-    importComponent_uri,
-    importComponent_kmsKeyId,
     importComponent_changeDescription,
+    importComponent_data,
     importComponent_description,
+    importComponent_kmsKeyId,
     importComponent_tags,
+    importComponent_uri,
     importComponent_name,
     importComponent_semanticVersion,
     importComponent_type,
@@ -45,41 +45,42 @@ module Amazonka.ImageBuilder.ImportComponent
     newImportComponentResponse,
 
     -- * Response Lenses
-    importComponentResponse_requestId,
     importComponentResponse_clientToken,
     importComponentResponse_componentBuildVersionArn,
+    importComponentResponse_requestId,
     importComponentResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newImportComponent' smart constructor.
 data ImportComponent = ImportComponent'
-  { -- | The data of the component. Used to specify the data inline. Either
+  { -- | The change description of the component. Describes what change has been
+    -- made in this version, or what makes this version different from other
+    -- versions of this component.
+    changeDescription :: Prelude.Maybe Prelude.Text,
+    -- | The data of the component. Used to specify the data inline. Either
     -- @data@ or @uri@ can be used to specify the data within the component.
     data' :: Prelude.Maybe Prelude.Text,
+    -- | The description of the component. Describes the contents of the
+    -- component.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the KMS key that should be used to encrypt this component.
+    kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The tags of the component.
+    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The uri of the component. Must be an Amazon S3 URL and the requester
     -- must have permission to access the Amazon S3 bucket. If you use Amazon
     -- S3, you can specify component content up to your service quota. Either
     -- @data@ or @uri@ can be used to specify the data within the component.
     uri :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the KMS key that should be used to encrypt this component.
-    kmsKeyId :: Prelude.Maybe Prelude.Text,
-    -- | The change description of the component. Describes what change has been
-    -- made in this version, or what makes this version different from other
-    -- versions of this component.
-    changeDescription :: Prelude.Maybe Prelude.Text,
-    -- | The description of the component. Describes the contents of the
-    -- component.
-    description :: Prelude.Maybe Prelude.Text,
-    -- | The tags of the component.
-    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The name of the component.
     name :: Prelude.Text,
     -- | The semantic version of the component. This version follows the semantic
@@ -115,24 +116,24 @@ data ImportComponent = ImportComponent'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'changeDescription', 'importComponent_changeDescription' - The change description of the component. Describes what change has been
+-- made in this version, or what makes this version different from other
+-- versions of this component.
+--
 -- 'data'', 'importComponent_data' - The data of the component. Used to specify the data inline. Either
 -- @data@ or @uri@ can be used to specify the data within the component.
+--
+-- 'description', 'importComponent_description' - The description of the component. Describes the contents of the
+-- component.
+--
+-- 'kmsKeyId', 'importComponent_kmsKeyId' - The ID of the KMS key that should be used to encrypt this component.
+--
+-- 'tags', 'importComponent_tags' - The tags of the component.
 --
 -- 'uri', 'importComponent_uri' - The uri of the component. Must be an Amazon S3 URL and the requester
 -- must have permission to access the Amazon S3 bucket. If you use Amazon
 -- S3, you can specify component content up to your service quota. Either
 -- @data@ or @uri@ can be used to specify the data within the component.
---
--- 'kmsKeyId', 'importComponent_kmsKeyId' - The ID of the KMS key that should be used to encrypt this component.
---
--- 'changeDescription', 'importComponent_changeDescription' - The change description of the component. Describes what change has been
--- made in this version, or what makes this version different from other
--- versions of this component.
---
--- 'description', 'importComponent_description' - The description of the component. Describes the contents of the
--- component.
---
--- 'tags', 'importComponent_tags' - The tags of the component.
 --
 -- 'name', 'importComponent_name' - The name of the component.
 --
@@ -179,12 +180,13 @@ newImportComponent
   pPlatform_
   pClientToken_ =
     ImportComponent'
-      { data' = Prelude.Nothing,
-        uri = Prelude.Nothing,
-        kmsKeyId = Prelude.Nothing,
-        changeDescription = Prelude.Nothing,
+      { changeDescription =
+          Prelude.Nothing,
+        data' = Prelude.Nothing,
         description = Prelude.Nothing,
+        kmsKeyId = Prelude.Nothing,
         tags = Prelude.Nothing,
+        uri = Prelude.Nothing,
         name = pName_,
         semanticVersion = pSemanticVersion_,
         type' = pType_,
@@ -193,10 +195,29 @@ newImportComponent
         clientToken = pClientToken_
       }
 
+-- | The change description of the component. Describes what change has been
+-- made in this version, or what makes this version different from other
+-- versions of this component.
+importComponent_changeDescription :: Lens.Lens' ImportComponent (Prelude.Maybe Prelude.Text)
+importComponent_changeDescription = Lens.lens (\ImportComponent' {changeDescription} -> changeDescription) (\s@ImportComponent' {} a -> s {changeDescription = a} :: ImportComponent)
+
 -- | The data of the component. Used to specify the data inline. Either
 -- @data@ or @uri@ can be used to specify the data within the component.
 importComponent_data :: Lens.Lens' ImportComponent (Prelude.Maybe Prelude.Text)
 importComponent_data = Lens.lens (\ImportComponent' {data'} -> data') (\s@ImportComponent' {} a -> s {data' = a} :: ImportComponent)
+
+-- | The description of the component. Describes the contents of the
+-- component.
+importComponent_description :: Lens.Lens' ImportComponent (Prelude.Maybe Prelude.Text)
+importComponent_description = Lens.lens (\ImportComponent' {description} -> description) (\s@ImportComponent' {} a -> s {description = a} :: ImportComponent)
+
+-- | The ID of the KMS key that should be used to encrypt this component.
+importComponent_kmsKeyId :: Lens.Lens' ImportComponent (Prelude.Maybe Prelude.Text)
+importComponent_kmsKeyId = Lens.lens (\ImportComponent' {kmsKeyId} -> kmsKeyId) (\s@ImportComponent' {} a -> s {kmsKeyId = a} :: ImportComponent)
+
+-- | The tags of the component.
+importComponent_tags :: Lens.Lens' ImportComponent (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+importComponent_tags = Lens.lens (\ImportComponent' {tags} -> tags) (\s@ImportComponent' {} a -> s {tags = a} :: ImportComponent) Prelude.. Lens.mapping Lens.coerced
 
 -- | The uri of the component. Must be an Amazon S3 URL and the requester
 -- must have permission to access the Amazon S3 bucket. If you use Amazon
@@ -204,25 +225,6 @@ importComponent_data = Lens.lens (\ImportComponent' {data'} -> data') (\s@Import
 -- @data@ or @uri@ can be used to specify the data within the component.
 importComponent_uri :: Lens.Lens' ImportComponent (Prelude.Maybe Prelude.Text)
 importComponent_uri = Lens.lens (\ImportComponent' {uri} -> uri) (\s@ImportComponent' {} a -> s {uri = a} :: ImportComponent)
-
--- | The ID of the KMS key that should be used to encrypt this component.
-importComponent_kmsKeyId :: Lens.Lens' ImportComponent (Prelude.Maybe Prelude.Text)
-importComponent_kmsKeyId = Lens.lens (\ImportComponent' {kmsKeyId} -> kmsKeyId) (\s@ImportComponent' {} a -> s {kmsKeyId = a} :: ImportComponent)
-
--- | The change description of the component. Describes what change has been
--- made in this version, or what makes this version different from other
--- versions of this component.
-importComponent_changeDescription :: Lens.Lens' ImportComponent (Prelude.Maybe Prelude.Text)
-importComponent_changeDescription = Lens.lens (\ImportComponent' {changeDescription} -> changeDescription) (\s@ImportComponent' {} a -> s {changeDescription = a} :: ImportComponent)
-
--- | The description of the component. Describes the contents of the
--- component.
-importComponent_description :: Lens.Lens' ImportComponent (Prelude.Maybe Prelude.Text)
-importComponent_description = Lens.lens (\ImportComponent' {description} -> description) (\s@ImportComponent' {} a -> s {description = a} :: ImportComponent)
-
--- | The tags of the component.
-importComponent_tags :: Lens.Lens' ImportComponent (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-importComponent_tags = Lens.lens (\ImportComponent' {tags} -> tags) (\s@ImportComponent' {} a -> s {tags = a} :: ImportComponent) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the component.
 importComponent_name :: Lens.Lens' ImportComponent Prelude.Text
@@ -264,25 +266,26 @@ instance Core.AWSRequest ImportComponent where
   type
     AWSResponse ImportComponent =
       ImportComponentResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ImportComponentResponse'
-            Prelude.<$> (x Core..?> "requestId")
-            Prelude.<*> (x Core..?> "clientToken")
-            Prelude.<*> (x Core..?> "componentBuildVersionArn")
+            Prelude.<$> (x Data..?> "clientToken")
+            Prelude.<*> (x Data..?> "componentBuildVersionArn")
+            Prelude.<*> (x Data..?> "requestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ImportComponent where
   hashWithSalt _salt ImportComponent' {..} =
-    _salt `Prelude.hashWithSalt` data'
-      `Prelude.hashWithSalt` uri
-      `Prelude.hashWithSalt` kmsKeyId
-      `Prelude.hashWithSalt` changeDescription
+    _salt `Prelude.hashWithSalt` changeDescription
+      `Prelude.hashWithSalt` data'
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` kmsKeyId
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` uri
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` semanticVersion
       `Prelude.hashWithSalt` type'
@@ -292,12 +295,12 @@ instance Prelude.Hashable ImportComponent where
 
 instance Prelude.NFData ImportComponent where
   rnf ImportComponent' {..} =
-    Prelude.rnf data'
-      `Prelude.seq` Prelude.rnf uri
-      `Prelude.seq` Prelude.rnf kmsKeyId
-      `Prelude.seq` Prelude.rnf changeDescription
+    Prelude.rnf changeDescription
+      `Prelude.seq` Prelude.rnf data'
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf kmsKeyId
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf uri
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf semanticVersion
       `Prelude.seq` Prelude.rnf type'
@@ -305,52 +308,52 @@ instance Prelude.NFData ImportComponent where
       `Prelude.seq` Prelude.rnf platform
       `Prelude.seq` Prelude.rnf clientToken
 
-instance Core.ToHeaders ImportComponent where
+instance Data.ToHeaders ImportComponent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ImportComponent where
+instance Data.ToJSON ImportComponent where
   toJSON ImportComponent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("data" Core..=) Prelude.<$> data',
-            ("uri" Core..=) Prelude.<$> uri,
-            ("kmsKeyId" Core..=) Prelude.<$> kmsKeyId,
-            ("changeDescription" Core..=)
+          [ ("changeDescription" Data..=)
               Prelude.<$> changeDescription,
-            ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("name" Core..= name),
+            ("data" Data..=) Prelude.<$> data',
+            ("description" Data..=) Prelude.<$> description,
+            ("kmsKeyId" Data..=) Prelude.<$> kmsKeyId,
+            ("tags" Data..=) Prelude.<$> tags,
+            ("uri" Data..=) Prelude.<$> uri,
+            Prelude.Just ("name" Data..= name),
             Prelude.Just
-              ("semanticVersion" Core..= semanticVersion),
-            Prelude.Just ("type" Core..= type'),
-            Prelude.Just ("format" Core..= format),
-            Prelude.Just ("platform" Core..= platform),
-            Prelude.Just ("clientToken" Core..= clientToken)
+              ("semanticVersion" Data..= semanticVersion),
+            Prelude.Just ("type" Data..= type'),
+            Prelude.Just ("format" Data..= format),
+            Prelude.Just ("platform" Data..= platform),
+            Prelude.Just ("clientToken" Data..= clientToken)
           ]
       )
 
-instance Core.ToPath ImportComponent where
+instance Data.ToPath ImportComponent where
   toPath = Prelude.const "/ImportComponent"
 
-instance Core.ToQuery ImportComponent where
+instance Data.ToQuery ImportComponent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newImportComponentResponse' smart constructor.
 data ImportComponentResponse = ImportComponentResponse'
-  { -- | The request ID that uniquely identifies this request.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The idempotency token used to make this request idempotent.
+  { -- | The idempotency token used to make this request idempotent.
     clientToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the imported component.
     componentBuildVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The request ID that uniquely identifies this request.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -364,11 +367,11 @@ data ImportComponentResponse = ImportComponentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'importComponentResponse_requestId' - The request ID that uniquely identifies this request.
---
 -- 'clientToken', 'importComponentResponse_clientToken' - The idempotency token used to make this request idempotent.
 --
 -- 'componentBuildVersionArn', 'importComponentResponse_componentBuildVersionArn' - The Amazon Resource Name (ARN) of the imported component.
+--
+-- 'requestId', 'importComponentResponse_requestId' - The request ID that uniquely identifies this request.
 --
 -- 'httpStatus', 'importComponentResponse_httpStatus' - The response's http status code.
 newImportComponentResponse ::
@@ -377,16 +380,12 @@ newImportComponentResponse ::
   ImportComponentResponse
 newImportComponentResponse pHttpStatus_ =
   ImportComponentResponse'
-    { requestId =
+    { clientToken =
         Prelude.Nothing,
-      clientToken = Prelude.Nothing,
       componentBuildVersionArn = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The request ID that uniquely identifies this request.
-importComponentResponse_requestId :: Lens.Lens' ImportComponentResponse (Prelude.Maybe Prelude.Text)
-importComponentResponse_requestId = Lens.lens (\ImportComponentResponse' {requestId} -> requestId) (\s@ImportComponentResponse' {} a -> s {requestId = a} :: ImportComponentResponse)
 
 -- | The idempotency token used to make this request idempotent.
 importComponentResponse_clientToken :: Lens.Lens' ImportComponentResponse (Prelude.Maybe Prelude.Text)
@@ -396,13 +395,17 @@ importComponentResponse_clientToken = Lens.lens (\ImportComponentResponse' {clie
 importComponentResponse_componentBuildVersionArn :: Lens.Lens' ImportComponentResponse (Prelude.Maybe Prelude.Text)
 importComponentResponse_componentBuildVersionArn = Lens.lens (\ImportComponentResponse' {componentBuildVersionArn} -> componentBuildVersionArn) (\s@ImportComponentResponse' {} a -> s {componentBuildVersionArn = a} :: ImportComponentResponse)
 
+-- | The request ID that uniquely identifies this request.
+importComponentResponse_requestId :: Lens.Lens' ImportComponentResponse (Prelude.Maybe Prelude.Text)
+importComponentResponse_requestId = Lens.lens (\ImportComponentResponse' {requestId} -> requestId) (\s@ImportComponentResponse' {} a -> s {requestId = a} :: ImportComponentResponse)
+
 -- | The response's http status code.
 importComponentResponse_httpStatus :: Lens.Lens' ImportComponentResponse Prelude.Int
 importComponentResponse_httpStatus = Lens.lens (\ImportComponentResponse' {httpStatus} -> httpStatus) (\s@ImportComponentResponse' {} a -> s {httpStatus = a} :: ImportComponentResponse)
 
 instance Prelude.NFData ImportComponentResponse where
   rnf ImportComponentResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf clientToken
+    Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf componentBuildVersionArn
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf httpStatus

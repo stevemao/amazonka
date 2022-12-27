@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.SchemaFacet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudDirectory.Types.SchemaFacet where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A facet.
@@ -73,14 +74,14 @@ schemaFacet_facetName = Lens.lens (\SchemaFacet' {facetName} -> facetName) (\s@S
 schemaFacet_schemaArn :: Lens.Lens' SchemaFacet (Prelude.Maybe Prelude.Text)
 schemaFacet_schemaArn = Lens.lens (\SchemaFacet' {schemaArn} -> schemaArn) (\s@SchemaFacet' {} a -> s {schemaArn = a} :: SchemaFacet)
 
-instance Core.FromJSON SchemaFacet where
+instance Data.FromJSON SchemaFacet where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SchemaFacet"
       ( \x ->
           SchemaFacet'
-            Prelude.<$> (x Core..:? "FacetName")
-            Prelude.<*> (x Core..:? "SchemaArn")
+            Prelude.<$> (x Data..:? "FacetName")
+            Prelude.<*> (x Data..:? "SchemaArn")
       )
 
 instance Prelude.Hashable SchemaFacet where
@@ -93,11 +94,11 @@ instance Prelude.NFData SchemaFacet where
     Prelude.rnf facetName
       `Prelude.seq` Prelude.rnf schemaArn
 
-instance Core.ToJSON SchemaFacet where
+instance Data.ToJSON SchemaFacet where
   toJSON SchemaFacet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FacetName" Core..=) Prelude.<$> facetName,
-            ("SchemaArn" Core..=) Prelude.<$> schemaArn
+          [ ("FacetName" Data..=) Prelude.<$> facetName,
+            ("SchemaArn" Data..=) Prelude.<$> schemaArn
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.ServiceEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,17 @@
 module Amazonka.ECS.Types.ServiceEvent where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Details on an event associated with a service.
+-- | The details for an event that\'s associated with a service.
 --
 -- /See:/ 'newServiceEvent' smart constructor.
 data ServiceEvent = ServiceEvent'
-  { -- | The Unix timestamp for when the event was triggered.
-    createdAt :: Prelude.Maybe Core.POSIX,
-    -- | The ID string of the event.
+  { -- | The Unix timestamp for the time when the event was triggered.
+    createdAt :: Prelude.Maybe Data.POSIX,
+    -- | The ID string for the event.
     id :: Prelude.Maybe Prelude.Text,
     -- | The event message.
     message :: Prelude.Maybe Prelude.Text
@@ -44,9 +45,9 @@ data ServiceEvent = ServiceEvent'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'createdAt', 'serviceEvent_createdAt' - The Unix timestamp for when the event was triggered.
+-- 'createdAt', 'serviceEvent_createdAt' - The Unix timestamp for the time when the event was triggered.
 --
--- 'id', 'serviceEvent_id' - The ID string of the event.
+-- 'id', 'serviceEvent_id' - The ID string for the event.
 --
 -- 'message', 'serviceEvent_message' - The event message.
 newServiceEvent ::
@@ -58,11 +59,11 @@ newServiceEvent =
       message = Prelude.Nothing
     }
 
--- | The Unix timestamp for when the event was triggered.
+-- | The Unix timestamp for the time when the event was triggered.
 serviceEvent_createdAt :: Lens.Lens' ServiceEvent (Prelude.Maybe Prelude.UTCTime)
-serviceEvent_createdAt = Lens.lens (\ServiceEvent' {createdAt} -> createdAt) (\s@ServiceEvent' {} a -> s {createdAt = a} :: ServiceEvent) Prelude.. Lens.mapping Core._Time
+serviceEvent_createdAt = Lens.lens (\ServiceEvent' {createdAt} -> createdAt) (\s@ServiceEvent' {} a -> s {createdAt = a} :: ServiceEvent) Prelude.. Lens.mapping Data._Time
 
--- | The ID string of the event.
+-- | The ID string for the event.
 serviceEvent_id :: Lens.Lens' ServiceEvent (Prelude.Maybe Prelude.Text)
 serviceEvent_id = Lens.lens (\ServiceEvent' {id} -> id) (\s@ServiceEvent' {} a -> s {id = a} :: ServiceEvent)
 
@@ -70,15 +71,15 @@ serviceEvent_id = Lens.lens (\ServiceEvent' {id} -> id) (\s@ServiceEvent' {} a -
 serviceEvent_message :: Lens.Lens' ServiceEvent (Prelude.Maybe Prelude.Text)
 serviceEvent_message = Lens.lens (\ServiceEvent' {message} -> message) (\s@ServiceEvent' {} a -> s {message = a} :: ServiceEvent)
 
-instance Core.FromJSON ServiceEvent where
+instance Data.FromJSON ServiceEvent where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServiceEvent"
       ( \x ->
           ServiceEvent'
-            Prelude.<$> (x Core..:? "createdAt")
-            Prelude.<*> (x Core..:? "id")
-            Prelude.<*> (x Core..:? "message")
+            Prelude.<$> (x Data..:? "createdAt")
+            Prelude.<*> (x Data..:? "id")
+            Prelude.<*> (x Data..:? "message")
       )
 
 instance Prelude.Hashable ServiceEvent where

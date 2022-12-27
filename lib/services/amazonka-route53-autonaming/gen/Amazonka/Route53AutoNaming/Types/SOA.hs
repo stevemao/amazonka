@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.Types.SOA
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53AutoNaming.Types.SOA where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Start of Authority (SOA) properties for a public or private DNS
@@ -52,11 +53,11 @@ newSOA pTTL_ = SOA' {ttl = pTTL_}
 soa_ttl :: Lens.Lens' SOA Prelude.Natural
 soa_ttl = Lens.lens (\SOA' {ttl} -> ttl) (\s@SOA' {} a -> s {ttl = a} :: SOA)
 
-instance Core.FromJSON SOA where
+instance Data.FromJSON SOA where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SOA"
-      (\x -> SOA' Prelude.<$> (x Core..: "TTL"))
+      (\x -> SOA' Prelude.<$> (x Data..: "TTL"))
 
 instance Prelude.Hashable SOA where
   hashWithSalt _salt SOA' {..} =
@@ -65,9 +66,9 @@ instance Prelude.Hashable SOA where
 instance Prelude.NFData SOA where
   rnf SOA' {..} = Prelude.rnf ttl
 
-instance Core.ToJSON SOA where
+instance Data.ToJSON SOA where
   toJSON SOA' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("TTL" Core..= ttl)]
+          [Prelude.Just ("TTL" Data..= ttl)]
       )

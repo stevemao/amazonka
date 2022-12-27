@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.UpdateModelVersionStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,9 +24,11 @@
 --
 -- You can perform the following status updates:
 --
--- 1.  Change the @TRAINING_COMPLETE@ status to @ACTIVE@.
+-- 1.  Change the @TRAINING_IN_PROGRESS@ status to @TRAINING_CANCELLED@.
 --
--- 2.  Change @ACTIVE@ to @INACTIVE@.
+-- 2.  Change the @TRAINING_COMPLETE@ status to @ACTIVE@.
+--
+-- 3.  Change @ACTIVE@ to @INACTIVE@.
 module Amazonka.FraudDetector.UpdateModelVersionStatus
   ( -- * Creating a Request
     UpdateModelVersionStatus (..),
@@ -48,8 +50,9 @@ module Amazonka.FraudDetector.UpdateModelVersionStatus
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -124,7 +127,8 @@ instance Core.AWSRequest UpdateModelVersionStatus where
   type
     AWSResponse UpdateModelVersionStatus =
       UpdateModelVersionStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -146,37 +150,37 @@ instance Prelude.NFData UpdateModelVersionStatus where
       `Prelude.seq` Prelude.rnf modelVersionNumber
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders UpdateModelVersionStatus where
+instance Data.ToHeaders UpdateModelVersionStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.UpdateModelVersionStatus" ::
+              Data.=# ( "AWSHawksNestServiceFacade.UpdateModelVersionStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateModelVersionStatus where
+instance Data.ToJSON UpdateModelVersionStatus where
   toJSON UpdateModelVersionStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("modelId" Core..= modelId),
-            Prelude.Just ("modelType" Core..= modelType),
+          [ Prelude.Just ("modelId" Data..= modelId),
+            Prelude.Just ("modelType" Data..= modelType),
             Prelude.Just
-              ("modelVersionNumber" Core..= modelVersionNumber),
-            Prelude.Just ("status" Core..= status)
+              ("modelVersionNumber" Data..= modelVersionNumber),
+            Prelude.Just ("status" Data..= status)
           ]
       )
 
-instance Core.ToPath UpdateModelVersionStatus where
+instance Data.ToPath UpdateModelVersionStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateModelVersionStatus where
+instance Data.ToQuery UpdateModelVersionStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateModelVersionStatusResponse' smart constructor.

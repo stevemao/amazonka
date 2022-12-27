@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackageVOD.Types.MssManifest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaPackageVOD.Types.MssManifest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaPackageVOD.Types.StreamSelection
 import qualified Amazonka.Prelude as Prelude
 
@@ -61,14 +62,14 @@ mssManifest_manifestName = Lens.lens (\MssManifest' {manifestName} -> manifestNa
 mssManifest_streamSelection :: Lens.Lens' MssManifest (Prelude.Maybe StreamSelection)
 mssManifest_streamSelection = Lens.lens (\MssManifest' {streamSelection} -> streamSelection) (\s@MssManifest' {} a -> s {streamSelection = a} :: MssManifest)
 
-instance Core.FromJSON MssManifest where
+instance Data.FromJSON MssManifest where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MssManifest"
       ( \x ->
           MssManifest'
-            Prelude.<$> (x Core..:? "manifestName")
-            Prelude.<*> (x Core..:? "streamSelection")
+            Prelude.<$> (x Data..:? "manifestName")
+            Prelude.<*> (x Data..:? "streamSelection")
       )
 
 instance Prelude.Hashable MssManifest where
@@ -81,12 +82,12 @@ instance Prelude.NFData MssManifest where
     Prelude.rnf manifestName
       `Prelude.seq` Prelude.rnf streamSelection
 
-instance Core.ToJSON MssManifest where
+instance Data.ToJSON MssManifest where
   toJSON MssManifest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("manifestName" Core..=) Prelude.<$> manifestName,
-            ("streamSelection" Core..=)
+          [ ("manifestName" Data..=) Prelude.<$> manifestName,
+            ("streamSelection" Data..=)
               Prelude.<$> streamSelection
           ]
       )

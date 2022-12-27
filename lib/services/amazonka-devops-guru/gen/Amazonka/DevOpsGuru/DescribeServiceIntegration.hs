@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.DescribeServiceIntegration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,8 +22,8 @@
 --
 -- Returns the integration status of services that are integrated with
 -- DevOps Guru. The one service that can be integrated with DevOps Guru is
--- AWS Systems Manager, which can be used to create an OpsItem for each
--- generated insight.
+-- Amazon Web Services Systems Manager, which can be used to create an
+-- OpsItem for each generated insight.
 module Amazonka.DevOpsGuru.DescribeServiceIntegration
   ( -- * Creating a Request
     DescribeServiceIntegration (..),
@@ -40,8 +40,9 @@ module Amazonka.DevOpsGuru.DescribeServiceIntegration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,12 +66,13 @@ instance Core.AWSRequest DescribeServiceIntegration where
   type
     AWSResponse DescribeServiceIntegration =
       DescribeServiceIntegrationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeServiceIntegrationResponse'
-            Prelude.<$> (x Core..?> "ServiceIntegration")
+            Prelude.<$> (x Data..?> "ServiceIntegration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -81,21 +83,21 @@ instance Prelude.Hashable DescribeServiceIntegration where
 instance Prelude.NFData DescribeServiceIntegration where
   rnf _ = ()
 
-instance Core.ToHeaders DescribeServiceIntegration where
+instance Data.ToHeaders DescribeServiceIntegration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeServiceIntegration where
+instance Data.ToPath DescribeServiceIntegration where
   toPath = Prelude.const "/service-integrations"
 
-instance Core.ToQuery DescribeServiceIntegration where
+instance Data.ToQuery DescribeServiceIntegration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeServiceIntegrationResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.DeleteInfrastructureConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,15 +34,16 @@ module Amazonka.ImageBuilder.DeleteInfrastructureConfiguration
     newDeleteInfrastructureConfigurationResponse,
 
     -- * Response Lenses
-    deleteInfrastructureConfigurationResponse_requestId,
     deleteInfrastructureConfigurationResponse_infrastructureConfigurationArn,
+    deleteInfrastructureConfigurationResponse_requestId,
     deleteInfrastructureConfigurationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,13 +89,14 @@ instance
   type
     AWSResponse DeleteInfrastructureConfiguration =
       DeleteInfrastructureConfigurationResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteInfrastructureConfigurationResponse'
-            Prelude.<$> (x Core..?> "requestId")
-              Prelude.<*> (x Core..?> "infrastructureConfigurationArn")
+            Prelude.<$> (x Data..?> "infrastructureConfigurationArn")
+              Prelude.<*> (x Data..?> "requestId")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,43 +118,43 @@ instance
     Prelude.rnf infrastructureConfigurationArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteInfrastructureConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeleteInfrastructureConfiguration
   where
   toPath =
     Prelude.const "/DeleteInfrastructureConfiguration"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteInfrastructureConfiguration
   where
   toQuery DeleteInfrastructureConfiguration' {..} =
     Prelude.mconcat
       [ "infrastructureConfigurationArn"
-          Core.=: infrastructureConfigurationArn
+          Data.=: infrastructureConfigurationArn
       ]
 
 -- | /See:/ 'newDeleteInfrastructureConfigurationResponse' smart constructor.
 data DeleteInfrastructureConfigurationResponse = DeleteInfrastructureConfigurationResponse'
-  { -- | The request ID that uniquely identifies this request.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the infrastructure configuration that
+  { -- | The Amazon Resource Name (ARN) of the infrastructure configuration that
     -- was deleted.
     infrastructureConfigurationArn :: Prelude.Maybe Prelude.Text,
+    -- | The request ID that uniquely identifies this request.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -166,10 +168,10 @@ data DeleteInfrastructureConfigurationResponse = DeleteInfrastructureConfigurati
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'deleteInfrastructureConfigurationResponse_requestId' - The request ID that uniquely identifies this request.
---
 -- 'infrastructureConfigurationArn', 'deleteInfrastructureConfigurationResponse_infrastructureConfigurationArn' - The Amazon Resource Name (ARN) of the infrastructure configuration that
 -- was deleted.
+--
+-- 'requestId', 'deleteInfrastructureConfigurationResponse_requestId' - The request ID that uniquely identifies this request.
 --
 -- 'httpStatus', 'deleteInfrastructureConfigurationResponse_httpStatus' - The response's http status code.
 newDeleteInfrastructureConfigurationResponse ::
@@ -179,21 +181,20 @@ newDeleteInfrastructureConfigurationResponse ::
 newDeleteInfrastructureConfigurationResponse
   pHttpStatus_ =
     DeleteInfrastructureConfigurationResponse'
-      { requestId =
+      { infrastructureConfigurationArn =
           Prelude.Nothing,
-        infrastructureConfigurationArn =
-          Prelude.Nothing,
+        requestId = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | The request ID that uniquely identifies this request.
-deleteInfrastructureConfigurationResponse_requestId :: Lens.Lens' DeleteInfrastructureConfigurationResponse (Prelude.Maybe Prelude.Text)
-deleteInfrastructureConfigurationResponse_requestId = Lens.lens (\DeleteInfrastructureConfigurationResponse' {requestId} -> requestId) (\s@DeleteInfrastructureConfigurationResponse' {} a -> s {requestId = a} :: DeleteInfrastructureConfigurationResponse)
 
 -- | The Amazon Resource Name (ARN) of the infrastructure configuration that
 -- was deleted.
 deleteInfrastructureConfigurationResponse_infrastructureConfigurationArn :: Lens.Lens' DeleteInfrastructureConfigurationResponse (Prelude.Maybe Prelude.Text)
 deleteInfrastructureConfigurationResponse_infrastructureConfigurationArn = Lens.lens (\DeleteInfrastructureConfigurationResponse' {infrastructureConfigurationArn} -> infrastructureConfigurationArn) (\s@DeleteInfrastructureConfigurationResponse' {} a -> s {infrastructureConfigurationArn = a} :: DeleteInfrastructureConfigurationResponse)
+
+-- | The request ID that uniquely identifies this request.
+deleteInfrastructureConfigurationResponse_requestId :: Lens.Lens' DeleteInfrastructureConfigurationResponse (Prelude.Maybe Prelude.Text)
+deleteInfrastructureConfigurationResponse_requestId = Lens.lens (\DeleteInfrastructureConfigurationResponse' {requestId} -> requestId) (\s@DeleteInfrastructureConfigurationResponse' {} a -> s {requestId = a} :: DeleteInfrastructureConfigurationResponse)
 
 -- | The response's http status code.
 deleteInfrastructureConfigurationResponse_httpStatus :: Lens.Lens' DeleteInfrastructureConfigurationResponse Prelude.Int
@@ -204,6 +205,6 @@ instance
     DeleteInfrastructureConfigurationResponse
   where
   rnf DeleteInfrastructureConfigurationResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf infrastructureConfigurationArn
+    Prelude.rnf infrastructureConfigurationArn
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf httpStatus

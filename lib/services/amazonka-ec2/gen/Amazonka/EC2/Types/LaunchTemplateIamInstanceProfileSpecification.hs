@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LaunchTemplateIamInstanceProfileSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.LaunchTemplateIamInstanceProfileSpecification where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an IAM instance profile.
@@ -64,12 +65,12 @@ launchTemplateIamInstanceProfileSpecification_name :: Lens.Lens' LaunchTemplateI
 launchTemplateIamInstanceProfileSpecification_name = Lens.lens (\LaunchTemplateIamInstanceProfileSpecification' {name} -> name) (\s@LaunchTemplateIamInstanceProfileSpecification' {} a -> s {name = a} :: LaunchTemplateIamInstanceProfileSpecification)
 
 instance
-  Core.FromXML
+  Data.FromXML
     LaunchTemplateIamInstanceProfileSpecification
   where
   parseXML x =
     LaunchTemplateIamInstanceProfileSpecification'
-      Prelude.<$> (x Core..@? "arn") Prelude.<*> (x Core..@? "name")
+      Prelude.<$> (x Data..@? "arn") Prelude.<*> (x Data..@? "name")
 
 instance
   Prelude.Hashable

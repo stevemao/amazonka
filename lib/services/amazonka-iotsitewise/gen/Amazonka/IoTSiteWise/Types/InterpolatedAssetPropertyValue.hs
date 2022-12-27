@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.InterpolatedAssetPropertyValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTSiteWise.Types.InterpolatedAssetPropertyValue where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.TimeInNanos
 import Amazonka.IoTSiteWise.Types.Variant
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about an interpolated asset property value.
@@ -66,14 +67,14 @@ interpolatedAssetPropertyValue_timestamp = Lens.lens (\InterpolatedAssetProperty
 interpolatedAssetPropertyValue_value :: Lens.Lens' InterpolatedAssetPropertyValue Variant
 interpolatedAssetPropertyValue_value = Lens.lens (\InterpolatedAssetPropertyValue' {value} -> value) (\s@InterpolatedAssetPropertyValue' {} a -> s {value = a} :: InterpolatedAssetPropertyValue)
 
-instance Core.FromJSON InterpolatedAssetPropertyValue where
+instance Data.FromJSON InterpolatedAssetPropertyValue where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InterpolatedAssetPropertyValue"
       ( \x ->
           InterpolatedAssetPropertyValue'
-            Prelude.<$> (x Core..: "timestamp")
-            Prelude.<*> (x Core..: "value")
+            Prelude.<$> (x Data..: "timestamp")
+            Prelude.<*> (x Data..: "value")
       )
 
 instance

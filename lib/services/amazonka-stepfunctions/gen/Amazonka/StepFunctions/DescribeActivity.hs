@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.DescribeActivity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.StepFunctions.DescribeActivity
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,15 +83,16 @@ instance Core.AWSRequest DescribeActivity where
   type
     AWSResponse DescribeActivity =
       DescribeActivityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeActivityResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "activityArn")
-            Prelude.<*> (x Core..:> "name")
-            Prelude.<*> (x Core..:> "creationDate")
+            Prelude.<*> (x Data..:> "activityArn")
+            Prelude.<*> (x Data..:> "name")
+            Prelude.<*> (x Data..:> "creationDate")
       )
 
 instance Prelude.Hashable DescribeActivity where
@@ -100,32 +102,32 @@ instance Prelude.Hashable DescribeActivity where
 instance Prelude.NFData DescribeActivity where
   rnf DescribeActivity' {..} = Prelude.rnf activityArn
 
-instance Core.ToHeaders DescribeActivity where
+instance Data.ToHeaders DescribeActivity where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSStepFunctions.DescribeActivity" ::
+              Data.=# ( "AWSStepFunctions.DescribeActivity" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeActivity where
+instance Data.ToJSON DescribeActivity where
   toJSON DescribeActivity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("activityArn" Core..= activityArn)]
+          [Prelude.Just ("activityArn" Data..= activityArn)]
       )
 
-instance Core.ToPath DescribeActivity where
+instance Data.ToPath DescribeActivity where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeActivity where
+instance Data.ToQuery DescribeActivity where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeActivityResponse' smart constructor.
@@ -152,7 +154,7 @@ data DescribeActivityResponse = DescribeActivityResponse'
     -- 0-9, A-Z, a-z, - and _.
     name :: Prelude.Text,
     -- | The date the activity is created.
-    creationDate :: Core.POSIX
+    creationDate :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -206,7 +208,7 @@ newDescribeActivityResponse
           pHttpStatus_,
         activityArn = pActivityArn_,
         name = pName_,
-        creationDate = Core._Time Lens.# pCreationDate_
+        creationDate = Data._Time Lens.# pCreationDate_
       }
 
 -- | The response's http status code.
@@ -238,7 +240,7 @@ describeActivityResponse_name = Lens.lens (\DescribeActivityResponse' {name} -> 
 
 -- | The date the activity is created.
 describeActivityResponse_creationDate :: Lens.Lens' DescribeActivityResponse Prelude.UTCTime
-describeActivityResponse_creationDate = Lens.lens (\DescribeActivityResponse' {creationDate} -> creationDate) (\s@DescribeActivityResponse' {} a -> s {creationDate = a} :: DescribeActivityResponse) Prelude.. Core._Time
+describeActivityResponse_creationDate = Lens.lens (\DescribeActivityResponse' {creationDate} -> creationDate) (\s@DescribeActivityResponse' {} a -> s {creationDate = a} :: DescribeActivityResponse) Prelude.. Data._Time
 
 instance Prelude.NFData DescribeActivityResponse where
   rnf DescribeActivityResponse' {..} =

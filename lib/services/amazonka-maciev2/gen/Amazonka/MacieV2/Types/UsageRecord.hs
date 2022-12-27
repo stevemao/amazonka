@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.UsageRecord
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.UsageRecord where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.UsageByAccount
 import qualified Amazonka.Prelude as Prelude
 
@@ -32,8 +33,14 @@ data UsageRecord = UsageRecord'
     -- applies to.
     accountId :: Prelude.Maybe Prelude.Text,
     -- | The date and time, in UTC and extended ISO 8601 format, when the free
-    -- trial started for the account.
-    freeTrialStartDate :: Prelude.Maybe Core.POSIX,
+    -- trial of automated sensitive data discovery started for the account. If
+    -- the account is a member account in an organization, this value is the
+    -- same as the value for the organization\'s Amazon Macie administrator
+    -- account.
+    automatedDiscoveryFreeTrialStartDate :: Prelude.Maybe Data.POSIX,
+    -- | The date and time, in UTC and extended ISO 8601 format, when the Amazon
+    -- Macie free trial started for the account.
+    freeTrialStartDate :: Prelude.Maybe Data.POSIX,
     -- | An array of objects that contains usage data and quotas for the account.
     -- Each object contains the data for a specific usage metric and the
     -- corresponding quota.
@@ -52,8 +59,14 @@ data UsageRecord = UsageRecord'
 -- 'accountId', 'usageRecord_accountId' - The unique identifier for the Amazon Web Services account that the data
 -- applies to.
 --
--- 'freeTrialStartDate', 'usageRecord_freeTrialStartDate' - The date and time, in UTC and extended ISO 8601 format, when the free
--- trial started for the account.
+-- 'automatedDiscoveryFreeTrialStartDate', 'usageRecord_automatedDiscoveryFreeTrialStartDate' - The date and time, in UTC and extended ISO 8601 format, when the free
+-- trial of automated sensitive data discovery started for the account. If
+-- the account is a member account in an organization, this value is the
+-- same as the value for the organization\'s Amazon Macie administrator
+-- account.
+--
+-- 'freeTrialStartDate', 'usageRecord_freeTrialStartDate' - The date and time, in UTC and extended ISO 8601 format, when the Amazon
+-- Macie free trial started for the account.
 --
 -- 'usage', 'usageRecord_usage' - An array of objects that contains usage data and quotas for the account.
 -- Each object contains the data for a specific usage metric and the
@@ -63,6 +76,8 @@ newUsageRecord ::
 newUsageRecord =
   UsageRecord'
     { accountId = Prelude.Nothing,
+      automatedDiscoveryFreeTrialStartDate =
+        Prelude.Nothing,
       freeTrialStartDate = Prelude.Nothing,
       usage = Prelude.Nothing
     }
@@ -73,9 +88,17 @@ usageRecord_accountId :: Lens.Lens' UsageRecord (Prelude.Maybe Prelude.Text)
 usageRecord_accountId = Lens.lens (\UsageRecord' {accountId} -> accountId) (\s@UsageRecord' {} a -> s {accountId = a} :: UsageRecord)
 
 -- | The date and time, in UTC and extended ISO 8601 format, when the free
--- trial started for the account.
+-- trial of automated sensitive data discovery started for the account. If
+-- the account is a member account in an organization, this value is the
+-- same as the value for the organization\'s Amazon Macie administrator
+-- account.
+usageRecord_automatedDiscoveryFreeTrialStartDate :: Lens.Lens' UsageRecord (Prelude.Maybe Prelude.UTCTime)
+usageRecord_automatedDiscoveryFreeTrialStartDate = Lens.lens (\UsageRecord' {automatedDiscoveryFreeTrialStartDate} -> automatedDiscoveryFreeTrialStartDate) (\s@UsageRecord' {} a -> s {automatedDiscoveryFreeTrialStartDate = a} :: UsageRecord) Prelude.. Lens.mapping Data._Time
+
+-- | The date and time, in UTC and extended ISO 8601 format, when the Amazon
+-- Macie free trial started for the account.
 usageRecord_freeTrialStartDate :: Lens.Lens' UsageRecord (Prelude.Maybe Prelude.UTCTime)
-usageRecord_freeTrialStartDate = Lens.lens (\UsageRecord' {freeTrialStartDate} -> freeTrialStartDate) (\s@UsageRecord' {} a -> s {freeTrialStartDate = a} :: UsageRecord) Prelude.. Lens.mapping Core._Time
+usageRecord_freeTrialStartDate = Lens.lens (\UsageRecord' {freeTrialStartDate} -> freeTrialStartDate) (\s@UsageRecord' {} a -> s {freeTrialStartDate = a} :: UsageRecord) Prelude.. Lens.mapping Data._Time
 
 -- | An array of objects that contains usage data and quotas for the account.
 -- Each object contains the data for a specific usage metric and the
@@ -83,25 +106,28 @@ usageRecord_freeTrialStartDate = Lens.lens (\UsageRecord' {freeTrialStartDate} -
 usageRecord_usage :: Lens.Lens' UsageRecord (Prelude.Maybe [UsageByAccount])
 usageRecord_usage = Lens.lens (\UsageRecord' {usage} -> usage) (\s@UsageRecord' {} a -> s {usage = a} :: UsageRecord) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON UsageRecord where
+instance Data.FromJSON UsageRecord where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UsageRecord"
       ( \x ->
           UsageRecord'
-            Prelude.<$> (x Core..:? "accountId")
-            Prelude.<*> (x Core..:? "freeTrialStartDate")
-            Prelude.<*> (x Core..:? "usage" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "accountId")
+            Prelude.<*> (x Data..:? "automatedDiscoveryFreeTrialStartDate")
+            Prelude.<*> (x Data..:? "freeTrialStartDate")
+            Prelude.<*> (x Data..:? "usage" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable UsageRecord where
   hashWithSalt _salt UsageRecord' {..} =
     _salt `Prelude.hashWithSalt` accountId
+      `Prelude.hashWithSalt` automatedDiscoveryFreeTrialStartDate
       `Prelude.hashWithSalt` freeTrialStartDate
       `Prelude.hashWithSalt` usage
 
 instance Prelude.NFData UsageRecord where
   rnf UsageRecord' {..} =
     Prelude.rnf accountId
+      `Prelude.seq` Prelude.rnf automatedDiscoveryFreeTrialStartDate
       `Prelude.seq` Prelude.rnf freeTrialStartDate
       `Prelude.seq` Prelude.rnf usage

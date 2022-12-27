@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.LogOddsMetric
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.FraudDetector.Types.LogOddsMetric where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The log odds metric details.
@@ -82,15 +83,15 @@ logOddsMetric_variableType = Lens.lens (\LogOddsMetric' {variableType} -> variab
 logOddsMetric_variableImportance :: Lens.Lens' LogOddsMetric Prelude.Double
 logOddsMetric_variableImportance = Lens.lens (\LogOddsMetric' {variableImportance} -> variableImportance) (\s@LogOddsMetric' {} a -> s {variableImportance = a} :: LogOddsMetric)
 
-instance Core.FromJSON LogOddsMetric where
+instance Data.FromJSON LogOddsMetric where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LogOddsMetric"
       ( \x ->
           LogOddsMetric'
-            Prelude.<$> (x Core..: "variableName")
-            Prelude.<*> (x Core..: "variableType")
-            Prelude.<*> (x Core..: "variableImportance")
+            Prelude.<$> (x Data..: "variableName")
+            Prelude.<*> (x Data..: "variableType")
+            Prelude.<*> (x Data..: "variableImportance")
       )
 
 instance Prelude.Hashable LogOddsMetric where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.Types.EntityDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IAM.Types.EntityDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types.EntityInfo
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that contains details about when the IAM entities (users or
@@ -40,8 +41,8 @@ data EntityDetails = EntityDetails'
     --
     -- This field is null if no IAM entities attempted to access the service
     -- within the
-    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
-    lastAuthenticated :: Prelude.Maybe Core.ISO8601,
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
+    lastAuthenticated :: Prelude.Maybe Data.ISO8601,
     -- | The @EntityInfo@ object that contains details about the entity (user or
     -- role).
     entityInfo :: EntityInfo
@@ -63,7 +64,7 @@ data EntityDetails = EntityDetails'
 --
 -- This field is null if no IAM entities attempted to access the service
 -- within the
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
 --
 -- 'entityInfo', 'entityDetails_entityInfo' - The @EntityInfo@ object that contains details about the entity (user or
 -- role).
@@ -84,20 +85,20 @@ newEntityDetails pEntityInfo_ =
 --
 -- This field is null if no IAM entities attempted to access the service
 -- within the
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period reporting period>.
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_access-advisor.html#service-last-accessed-reporting-period tracking period>.
 entityDetails_lastAuthenticated :: Lens.Lens' EntityDetails (Prelude.Maybe Prelude.UTCTime)
-entityDetails_lastAuthenticated = Lens.lens (\EntityDetails' {lastAuthenticated} -> lastAuthenticated) (\s@EntityDetails' {} a -> s {lastAuthenticated = a} :: EntityDetails) Prelude.. Lens.mapping Core._Time
+entityDetails_lastAuthenticated = Lens.lens (\EntityDetails' {lastAuthenticated} -> lastAuthenticated) (\s@EntityDetails' {} a -> s {lastAuthenticated = a} :: EntityDetails) Prelude.. Lens.mapping Data._Time
 
 -- | The @EntityInfo@ object that contains details about the entity (user or
 -- role).
 entityDetails_entityInfo :: Lens.Lens' EntityDetails EntityInfo
 entityDetails_entityInfo = Lens.lens (\EntityDetails' {entityInfo} -> entityInfo) (\s@EntityDetails' {} a -> s {entityInfo = a} :: EntityDetails)
 
-instance Core.FromXML EntityDetails where
+instance Data.FromXML EntityDetails where
   parseXML x =
     EntityDetails'
-      Prelude.<$> (x Core..@? "LastAuthenticated")
-      Prelude.<*> (x Core..@ "EntityInfo")
+      Prelude.<$> (x Data..@? "LastAuthenticated")
+      Prelude.<*> (x Data..@ "EntityInfo")
 
 instance Prelude.Hashable EntityDetails where
   hashWithSalt _salt EntityDetails' {..} =

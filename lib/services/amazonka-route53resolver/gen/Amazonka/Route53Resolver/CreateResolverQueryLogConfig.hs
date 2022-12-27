@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.CreateResolverQueryLogConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -56,7 +56,8 @@ module Amazonka.Route53Resolver.CreateResolverQueryLogConfig
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -199,12 +200,13 @@ instance Core.AWSRequest CreateResolverQueryLogConfig where
   type
     AWSResponse CreateResolverQueryLogConfig =
       CreateResolverQueryLogConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateResolverQueryLogConfigResponse'
-            Prelude.<$> (x Core..?> "ResolverQueryLogConfig")
+            Prelude.<$> (x Data..?> "ResolverQueryLogConfig")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -225,38 +227,38 @@ instance Prelude.NFData CreateResolverQueryLogConfig where
       `Prelude.seq` Prelude.rnf destinationArn
       `Prelude.seq` Prelude.rnf creatorRequestId
 
-instance Core.ToHeaders CreateResolverQueryLogConfig where
+instance Data.ToHeaders CreateResolverQueryLogConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Resolver.CreateResolverQueryLogConfig" ::
+              Data.=# ( "Route53Resolver.CreateResolverQueryLogConfig" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateResolverQueryLogConfig where
+instance Data.ToJSON CreateResolverQueryLogConfig where
   toJSON CreateResolverQueryLogConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
+          [ ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("DestinationArn" Core..= destinationArn),
+              ("DestinationArn" Data..= destinationArn),
             Prelude.Just
-              ("CreatorRequestId" Core..= creatorRequestId)
+              ("CreatorRequestId" Data..= creatorRequestId)
           ]
       )
 
-instance Core.ToPath CreateResolverQueryLogConfig where
+instance Data.ToPath CreateResolverQueryLogConfig where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateResolverQueryLogConfig where
+instance Data.ToQuery CreateResolverQueryLogConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateResolverQueryLogConfigResponse' smart constructor.

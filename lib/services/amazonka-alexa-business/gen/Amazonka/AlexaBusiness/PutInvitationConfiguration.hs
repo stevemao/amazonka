@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.PutInvitationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,7 +107,8 @@ instance Core.AWSRequest PutInvitationConfiguration where
   type
     AWSResponse PutInvitationConfiguration =
       PutInvitationConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -126,37 +128,37 @@ instance Prelude.NFData PutInvitationConfiguration where
       `Prelude.seq` Prelude.rnf privateSkillIds
       `Prelude.seq` Prelude.rnf organizationName
 
-instance Core.ToHeaders PutInvitationConfiguration where
+instance Data.ToHeaders PutInvitationConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.PutInvitationConfiguration" ::
+              Data.=# ( "AlexaForBusiness.PutInvitationConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutInvitationConfiguration where
+instance Data.ToJSON PutInvitationConfiguration where
   toJSON PutInvitationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ContactEmail" Core..=) Prelude.<$> contactEmail,
-            ("PrivateSkillIds" Core..=)
+          [ ("ContactEmail" Data..=) Prelude.<$> contactEmail,
+            ("PrivateSkillIds" Data..=)
               Prelude.<$> privateSkillIds,
             Prelude.Just
-              ("OrganizationName" Core..= organizationName)
+              ("OrganizationName" Data..= organizationName)
           ]
       )
 
-instance Core.ToPath PutInvitationConfiguration where
+instance Data.ToPath PutInvitationConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutInvitationConfiguration where
+instance Data.ToQuery PutInvitationConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutInvitationConfigurationResponse' smart constructor.

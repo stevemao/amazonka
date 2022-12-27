@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.StopActivityStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,15 +41,16 @@ module Amazonka.RDS.StopActivityStream
     newStopActivityStreamResponse,
 
     -- * Response Lenses
-    stopActivityStreamResponse_status,
     stopActivityStreamResponse_kinesisStreamName,
     stopActivityStreamResponse_kmsKeyId,
+    stopActivityStreamResponse_status,
     stopActivityStreamResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -107,15 +108,16 @@ instance Core.AWSRequest StopActivityStream where
   type
     AWSResponse StopActivityStream =
       StopActivityStreamResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "StopActivityStreamResult"
       ( \s h x ->
           StopActivityStreamResponse'
-            Prelude.<$> (x Core..@? "Status")
-            Prelude.<*> (x Core..@? "KinesisStreamName")
-            Prelude.<*> (x Core..@? "KmsKeyId")
+            Prelude.<$> (x Data..@? "KinesisStreamName")
+            Prelude.<*> (x Data..@? "KmsKeyId")
+            Prelude.<*> (x Data..@? "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,37 +131,36 @@ instance Prelude.NFData StopActivityStream where
     Prelude.rnf applyImmediately
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders StopActivityStream where
+instance Data.ToHeaders StopActivityStream where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath StopActivityStream where
+instance Data.ToPath StopActivityStream where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopActivityStream where
+instance Data.ToQuery StopActivityStream where
   toQuery StopActivityStream' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("StopActivityStream" :: Prelude.ByteString),
+          Data.=: ("StopActivityStream" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "ApplyImmediately" Core.=: applyImmediately,
-        "ResourceArn" Core.=: resourceArn
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "ApplyImmediately" Data.=: applyImmediately,
+        "ResourceArn" Data.=: resourceArn
       ]
 
 -- | /See:/ 'newStopActivityStreamResponse' smart constructor.
 data StopActivityStreamResponse = StopActivityStreamResponse'
-  { -- | The status of the database activity stream.
-    status :: Prelude.Maybe ActivityStreamStatus,
-    -- | The name of the Amazon Kinesis data stream used for the database
+  { -- | The name of the Amazon Kinesis data stream used for the database
     -- activity stream.
     kinesisStreamName :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Web Services KMS key identifier used for encrypting messages
     -- in the database activity stream.
     --
     -- The Amazon Web Services KMS key identifier is the key ARN, key ID, alias
-    -- ARN, or alias name for the Amazon Web Services KMS customer master key
-    -- (CMK).
+    -- ARN, or alias name for the KMS key.
     kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The status of the database activity stream.
+    status :: Prelude.Maybe ActivityStreamStatus,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -173,8 +174,6 @@ data StopActivityStreamResponse = StopActivityStreamResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'stopActivityStreamResponse_status' - The status of the database activity stream.
---
 -- 'kinesisStreamName', 'stopActivityStreamResponse_kinesisStreamName' - The name of the Amazon Kinesis data stream used for the database
 -- activity stream.
 --
@@ -182,8 +181,9 @@ data StopActivityStreamResponse = StopActivityStreamResponse'
 -- in the database activity stream.
 --
 -- The Amazon Web Services KMS key identifier is the key ARN, key ID, alias
--- ARN, or alias name for the Amazon Web Services KMS customer master key
--- (CMK).
+-- ARN, or alias name for the KMS key.
+--
+-- 'status', 'stopActivityStreamResponse_status' - The status of the database activity stream.
 --
 -- 'httpStatus', 'stopActivityStreamResponse_httpStatus' - The response's http status code.
 newStopActivityStreamResponse ::
@@ -192,16 +192,12 @@ newStopActivityStreamResponse ::
   StopActivityStreamResponse
 newStopActivityStreamResponse pHttpStatus_ =
   StopActivityStreamResponse'
-    { status =
+    { kinesisStreamName =
         Prelude.Nothing,
-      kinesisStreamName = Prelude.Nothing,
       kmsKeyId = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The status of the database activity stream.
-stopActivityStreamResponse_status :: Lens.Lens' StopActivityStreamResponse (Prelude.Maybe ActivityStreamStatus)
-stopActivityStreamResponse_status = Lens.lens (\StopActivityStreamResponse' {status} -> status) (\s@StopActivityStreamResponse' {} a -> s {status = a} :: StopActivityStreamResponse)
 
 -- | The name of the Amazon Kinesis data stream used for the database
 -- activity stream.
@@ -212,10 +208,13 @@ stopActivityStreamResponse_kinesisStreamName = Lens.lens (\StopActivityStreamRes
 -- in the database activity stream.
 --
 -- The Amazon Web Services KMS key identifier is the key ARN, key ID, alias
--- ARN, or alias name for the Amazon Web Services KMS customer master key
--- (CMK).
+-- ARN, or alias name for the KMS key.
 stopActivityStreamResponse_kmsKeyId :: Lens.Lens' StopActivityStreamResponse (Prelude.Maybe Prelude.Text)
 stopActivityStreamResponse_kmsKeyId = Lens.lens (\StopActivityStreamResponse' {kmsKeyId} -> kmsKeyId) (\s@StopActivityStreamResponse' {} a -> s {kmsKeyId = a} :: StopActivityStreamResponse)
+
+-- | The status of the database activity stream.
+stopActivityStreamResponse_status :: Lens.Lens' StopActivityStreamResponse (Prelude.Maybe ActivityStreamStatus)
+stopActivityStreamResponse_status = Lens.lens (\StopActivityStreamResponse' {status} -> status) (\s@StopActivityStreamResponse' {} a -> s {status = a} :: StopActivityStreamResponse)
 
 -- | The response's http status code.
 stopActivityStreamResponse_httpStatus :: Lens.Lens' StopActivityStreamResponse Prelude.Int
@@ -223,7 +222,7 @@ stopActivityStreamResponse_httpStatus = Lens.lens (\StopActivityStreamResponse' 
 
 instance Prelude.NFData StopActivityStreamResponse where
   rnf StopActivityStreamResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf kinesisStreamName
+    Prelude.rnf kinesisStreamName
       `Prelude.seq` Prelude.rnf kmsKeyId
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

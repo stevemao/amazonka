@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.CreateUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- For Redis engine version 6.x onwards: Creates a Redis user. For more
+-- For Redis engine version 6.0 onwards: Creates a Redis user. For more
 -- information, see
 -- <http://docs.aws.amazon.com/AmazonElastiCache/latest/red-ug/Clusters.RBAC.html Using Role Based Access Control (RBAC)>.
 module Amazonka.ElastiCache.CreateUser
@@ -29,8 +29,9 @@ module Amazonka.ElastiCache.CreateUser
     newCreateUser,
 
     -- * Request Lenses
-    createUser_passwords,
+    createUser_authenticationMode,
     createUser_noPasswordRequired,
+    createUser_passwords,
     createUser_tags,
     createUser_userId,
     createUser_userName,
@@ -42,31 +43,35 @@ module Amazonka.ElastiCache.CreateUser
     newUser,
 
     -- * Response Lenses
-    user_status,
     user_arn,
-    user_userGroupIds,
+    user_accessString,
     user_authentication,
     user_engine,
-    user_userName,
-    user_accessString,
+    user_minimumEngineVersion,
+    user_status,
+    user_userGroupIds,
     user_userId,
+    user_userName,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateUser' smart constructor.
 data CreateUser = CreateUser'
-  { -- | Passwords used for this user. You can create up to two passwords for
-    -- each user.
-    passwords :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+  { -- | Specifies how to authenticate the user.
+    authenticationMode :: Prelude.Maybe AuthenticationMode,
     -- | Indicates a password is not required for this user.
     noPasswordRequired :: Prelude.Maybe Prelude.Bool,
+    -- | Passwords used for this user. You can create up to two passwords for
+    -- each user.
+    passwords :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
     -- | A list of tags to be added to this resource. A tag is a key-value pair.
     -- A tag key must be accompanied by a tag value, although null is accepted.
     tags :: Prelude.Maybe [Tag],
@@ -89,10 +94,12 @@ data CreateUser = CreateUser'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'passwords', 'createUser_passwords' - Passwords used for this user. You can create up to two passwords for
--- each user.
+-- 'authenticationMode', 'createUser_authenticationMode' - Specifies how to authenticate the user.
 --
 -- 'noPasswordRequired', 'createUser_noPasswordRequired' - Indicates a password is not required for this user.
+--
+-- 'passwords', 'createUser_passwords' - Passwords used for this user. You can create up to two passwords for
+-- each user.
 --
 -- 'tags', 'createUser_tags' - A list of tags to be added to this resource. A tag is a key-value pair.
 -- A tag key must be accompanied by a tag value, although null is accepted.
@@ -120,8 +127,9 @@ newCreateUser
   pEngine_
   pAccessString_ =
     CreateUser'
-      { passwords = Prelude.Nothing,
+      { authenticationMode = Prelude.Nothing,
         noPasswordRequired = Prelude.Nothing,
+        passwords = Prelude.Nothing,
         tags = Prelude.Nothing,
         userId = pUserId_,
         userName = pUserName_,
@@ -129,14 +137,18 @@ newCreateUser
         accessString = pAccessString_
       }
 
--- | Passwords used for this user. You can create up to two passwords for
--- each user.
-createUser_passwords :: Lens.Lens' CreateUser (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-createUser_passwords = Lens.lens (\CreateUser' {passwords} -> passwords) (\s@CreateUser' {} a -> s {passwords = a} :: CreateUser) Prelude.. Lens.mapping Lens.coerced
+-- | Specifies how to authenticate the user.
+createUser_authenticationMode :: Lens.Lens' CreateUser (Prelude.Maybe AuthenticationMode)
+createUser_authenticationMode = Lens.lens (\CreateUser' {authenticationMode} -> authenticationMode) (\s@CreateUser' {} a -> s {authenticationMode = a} :: CreateUser)
 
 -- | Indicates a password is not required for this user.
 createUser_noPasswordRequired :: Lens.Lens' CreateUser (Prelude.Maybe Prelude.Bool)
 createUser_noPasswordRequired = Lens.lens (\CreateUser' {noPasswordRequired} -> noPasswordRequired) (\s@CreateUser' {} a -> s {noPasswordRequired = a} :: CreateUser)
+
+-- | Passwords used for this user. You can create up to two passwords for
+-- each user.
+createUser_passwords :: Lens.Lens' CreateUser (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+createUser_passwords = Lens.lens (\CreateUser' {passwords} -> passwords) (\s@CreateUser' {} a -> s {passwords = a} :: CreateUser) Prelude.. Lens.mapping Lens.coerced
 
 -- | A list of tags to be added to this resource. A tag is a key-value pair.
 -- A tag key must be accompanied by a tag value, although null is accepted.
@@ -161,16 +173,18 @@ createUser_accessString = Lens.lens (\CreateUser' {accessString} -> accessString
 
 instance Core.AWSRequest CreateUser where
   type AWSResponse CreateUser = User
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateUserResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable CreateUser where
   hashWithSalt _salt CreateUser' {..} =
-    _salt `Prelude.hashWithSalt` passwords
+    _salt `Prelude.hashWithSalt` authenticationMode
       `Prelude.hashWithSalt` noPasswordRequired
+      `Prelude.hashWithSalt` passwords
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` userId
       `Prelude.hashWithSalt` userName
@@ -179,36 +193,38 @@ instance Prelude.Hashable CreateUser where
 
 instance Prelude.NFData CreateUser where
   rnf CreateUser' {..} =
-    Prelude.rnf passwords
+    Prelude.rnf authenticationMode
       `Prelude.seq` Prelude.rnf noPasswordRequired
+      `Prelude.seq` Prelude.rnf passwords
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf userId
       `Prelude.seq` Prelude.rnf userName
       `Prelude.seq` Prelude.rnf engine
       `Prelude.seq` Prelude.rnf accessString
 
-instance Core.ToHeaders CreateUser where
+instance Data.ToHeaders CreateUser where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateUser where
+instance Data.ToPath CreateUser where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateUser where
+instance Data.ToQuery CreateUser where
   toQuery CreateUser' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateUser" :: Prelude.ByteString),
+          Data.=: ("CreateUser" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "AuthenticationMode" Data.=: authenticationMode,
+        "NoPasswordRequired" Data.=: noPasswordRequired,
         "Passwords"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> passwords),
-        "NoPasswordRequired" Core.=: noPasswordRequired,
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> passwords),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
-        "UserId" Core.=: userId,
-        "UserName" Core.=: userName,
-        "Engine" Core.=: engine,
-        "AccessString" Core.=: accessString
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
+        "UserId" Data.=: userId,
+        "UserName" Data.=: userName,
+        "Engine" Data.=: engine,
+        "AccessString" Data.=: accessString
       ]

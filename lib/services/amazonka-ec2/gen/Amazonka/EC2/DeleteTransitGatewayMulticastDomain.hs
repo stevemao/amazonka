@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteTransitGatewayMulticastDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.EC2.DeleteTransitGatewayMulticastDomain
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,12 +105,13 @@ instance
   type
     AWSResponse DeleteTransitGatewayMulticastDomain =
       DeleteTransitGatewayMulticastDomainResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DeleteTransitGatewayMulticastDomainResponse'
-            Prelude.<$> (x Core..@? "transitGatewayMulticastDomain")
+            Prelude.<$> (x Data..@? "transitGatewayMulticastDomain")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -132,32 +134,32 @@ instance
       `Prelude.seq` Prelude.rnf transitGatewayMulticastDomainId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteTransitGatewayMulticastDomain
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeleteTransitGatewayMulticastDomain
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteTransitGatewayMulticastDomain
   where
   toQuery DeleteTransitGatewayMulticastDomain' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteTransitGatewayMulticastDomain" ::
+          Data.=: ( "DeleteTransitGatewayMulticastDomain" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
         "TransitGatewayMulticastDomainId"
-          Core.=: transitGatewayMulticastDomainId
+          Data.=: transitGatewayMulticastDomainId
       ]
 
 -- | /See:/ 'newDeleteTransitGatewayMulticastDomainResponse' smart constructor.

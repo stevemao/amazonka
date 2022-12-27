@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.UpdateDimension
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,19 +40,20 @@ module Amazonka.IoT.UpdateDimension
     newUpdateDimensionResponse,
 
     -- * Response Lenses
-    updateDimensionResponse_lastModifiedDate,
     updateDimensionResponse_arn,
-    updateDimensionResponse_stringValues,
-    updateDimensionResponse_name,
     updateDimensionResponse_creationDate,
+    updateDimensionResponse_lastModifiedDate,
+    updateDimensionResponse_name,
+    updateDimensionResponse_stringValues,
     updateDimensionResponse_type,
     updateDimensionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,17 +111,18 @@ instance Core.AWSRequest UpdateDimension where
   type
     AWSResponse UpdateDimension =
       UpdateDimensionResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDimensionResponse'
-            Prelude.<$> (x Core..?> "lastModifiedDate")
-            Prelude.<*> (x Core..?> "arn")
-            Prelude.<*> (x Core..?> "stringValues")
-            Prelude.<*> (x Core..?> "name")
-            Prelude.<*> (x Core..?> "creationDate")
-            Prelude.<*> (x Core..?> "type")
+            Prelude.<$> (x Data..?> "arn")
+            Prelude.<*> (x Data..?> "creationDate")
+            Prelude.<*> (x Data..?> "lastModifiedDate")
+            Prelude.<*> (x Data..?> "name")
+            Prelude.<*> (x Data..?> "stringValues")
+            Prelude.<*> (x Data..?> "type")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,39 +136,39 @@ instance Prelude.NFData UpdateDimension where
     Prelude.rnf name
       `Prelude.seq` Prelude.rnf stringValues
 
-instance Core.ToHeaders UpdateDimension where
+instance Data.ToHeaders UpdateDimension where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateDimension where
+instance Data.ToJSON UpdateDimension where
   toJSON UpdateDimension' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("stringValues" Core..= stringValues)]
+          [Prelude.Just ("stringValues" Data..= stringValues)]
       )
 
-instance Core.ToPath UpdateDimension where
+instance Data.ToPath UpdateDimension where
   toPath UpdateDimension' {..} =
-    Prelude.mconcat ["/dimensions/", Core.toBS name]
+    Prelude.mconcat ["/dimensions/", Data.toBS name]
 
-instance Core.ToQuery UpdateDimension where
+instance Data.ToQuery UpdateDimension where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDimensionResponse' smart constructor.
 data UpdateDimensionResponse = UpdateDimensionResponse'
-  { -- | The date and time, in milliseconds since epoch, when the dimension was
-    -- most recently updated.
-    lastModifiedDate :: Prelude.Maybe Core.POSIX,
-    -- | The Amazon Resource Name (ARN)of the created dimension.
+  { -- | The Amazon Resource Name (ARN)of the created dimension.
     arn :: Prelude.Maybe Prelude.Text,
+    -- | The date and time, in milliseconds since epoch, when the dimension was
+    -- initially created.
+    creationDate :: Prelude.Maybe Data.POSIX,
+    -- | The date and time, in milliseconds since epoch, when the dimension was
+    -- most recently updated.
+    lastModifiedDate :: Prelude.Maybe Data.POSIX,
+    -- | A unique identifier for the dimension.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The value or list of values used to scope the dimension. For example,
     -- for topic filters, this is the pattern used to match the MQTT topic
     -- name.
     stringValues :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | A unique identifier for the dimension.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The date and time, in milliseconds since epoch, when the dimension was
-    -- initially created.
-    creationDate :: Prelude.Maybe Core.POSIX,
     -- | The type of the dimension.
     type' :: Prelude.Maybe DimensionType,
     -- | The response's http status code.
@@ -182,19 +184,19 @@ data UpdateDimensionResponse = UpdateDimensionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'arn', 'updateDimensionResponse_arn' - The Amazon Resource Name (ARN)of the created dimension.
+--
+-- 'creationDate', 'updateDimensionResponse_creationDate' - The date and time, in milliseconds since epoch, when the dimension was
+-- initially created.
+--
 -- 'lastModifiedDate', 'updateDimensionResponse_lastModifiedDate' - The date and time, in milliseconds since epoch, when the dimension was
 -- most recently updated.
 --
--- 'arn', 'updateDimensionResponse_arn' - The Amazon Resource Name (ARN)of the created dimension.
+-- 'name', 'updateDimensionResponse_name' - A unique identifier for the dimension.
 --
 -- 'stringValues', 'updateDimensionResponse_stringValues' - The value or list of values used to scope the dimension. For example,
 -- for topic filters, this is the pattern used to match the MQTT topic
 -- name.
---
--- 'name', 'updateDimensionResponse_name' - A unique identifier for the dimension.
---
--- 'creationDate', 'updateDimensionResponse_creationDate' - The date and time, in milliseconds since epoch, when the dimension was
--- initially created.
 --
 -- 'type'', 'updateDimensionResponse_type' - The type of the dimension.
 --
@@ -205,39 +207,38 @@ newUpdateDimensionResponse ::
   UpdateDimensionResponse
 newUpdateDimensionResponse pHttpStatus_ =
   UpdateDimensionResponse'
-    { lastModifiedDate =
-        Prelude.Nothing,
-      arn = Prelude.Nothing,
-      stringValues = Prelude.Nothing,
-      name = Prelude.Nothing,
+    { arn = Prelude.Nothing,
       creationDate = Prelude.Nothing,
+      lastModifiedDate = Prelude.Nothing,
+      name = Prelude.Nothing,
+      stringValues = Prelude.Nothing,
       type' = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The date and time, in milliseconds since epoch, when the dimension was
--- most recently updated.
-updateDimensionResponse_lastModifiedDate :: Lens.Lens' UpdateDimensionResponse (Prelude.Maybe Prelude.UTCTime)
-updateDimensionResponse_lastModifiedDate = Lens.lens (\UpdateDimensionResponse' {lastModifiedDate} -> lastModifiedDate) (\s@UpdateDimensionResponse' {} a -> s {lastModifiedDate = a} :: UpdateDimensionResponse) Prelude.. Lens.mapping Core._Time
-
 -- | The Amazon Resource Name (ARN)of the created dimension.
 updateDimensionResponse_arn :: Lens.Lens' UpdateDimensionResponse (Prelude.Maybe Prelude.Text)
 updateDimensionResponse_arn = Lens.lens (\UpdateDimensionResponse' {arn} -> arn) (\s@UpdateDimensionResponse' {} a -> s {arn = a} :: UpdateDimensionResponse)
+
+-- | The date and time, in milliseconds since epoch, when the dimension was
+-- initially created.
+updateDimensionResponse_creationDate :: Lens.Lens' UpdateDimensionResponse (Prelude.Maybe Prelude.UTCTime)
+updateDimensionResponse_creationDate = Lens.lens (\UpdateDimensionResponse' {creationDate} -> creationDate) (\s@UpdateDimensionResponse' {} a -> s {creationDate = a} :: UpdateDimensionResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The date and time, in milliseconds since epoch, when the dimension was
+-- most recently updated.
+updateDimensionResponse_lastModifiedDate :: Lens.Lens' UpdateDimensionResponse (Prelude.Maybe Prelude.UTCTime)
+updateDimensionResponse_lastModifiedDate = Lens.lens (\UpdateDimensionResponse' {lastModifiedDate} -> lastModifiedDate) (\s@UpdateDimensionResponse' {} a -> s {lastModifiedDate = a} :: UpdateDimensionResponse) Prelude.. Lens.mapping Data._Time
+
+-- | A unique identifier for the dimension.
+updateDimensionResponse_name :: Lens.Lens' UpdateDimensionResponse (Prelude.Maybe Prelude.Text)
+updateDimensionResponse_name = Lens.lens (\UpdateDimensionResponse' {name} -> name) (\s@UpdateDimensionResponse' {} a -> s {name = a} :: UpdateDimensionResponse)
 
 -- | The value or list of values used to scope the dimension. For example,
 -- for topic filters, this is the pattern used to match the MQTT topic
 -- name.
 updateDimensionResponse_stringValues :: Lens.Lens' UpdateDimensionResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 updateDimensionResponse_stringValues = Lens.lens (\UpdateDimensionResponse' {stringValues} -> stringValues) (\s@UpdateDimensionResponse' {} a -> s {stringValues = a} :: UpdateDimensionResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | A unique identifier for the dimension.
-updateDimensionResponse_name :: Lens.Lens' UpdateDimensionResponse (Prelude.Maybe Prelude.Text)
-updateDimensionResponse_name = Lens.lens (\UpdateDimensionResponse' {name} -> name) (\s@UpdateDimensionResponse' {} a -> s {name = a} :: UpdateDimensionResponse)
-
--- | The date and time, in milliseconds since epoch, when the dimension was
--- initially created.
-updateDimensionResponse_creationDate :: Lens.Lens' UpdateDimensionResponse (Prelude.Maybe Prelude.UTCTime)
-updateDimensionResponse_creationDate = Lens.lens (\UpdateDimensionResponse' {creationDate} -> creationDate) (\s@UpdateDimensionResponse' {} a -> s {creationDate = a} :: UpdateDimensionResponse) Prelude.. Lens.mapping Core._Time
 
 -- | The type of the dimension.
 updateDimensionResponse_type :: Lens.Lens' UpdateDimensionResponse (Prelude.Maybe DimensionType)
@@ -249,10 +250,10 @@ updateDimensionResponse_httpStatus = Lens.lens (\UpdateDimensionResponse' {httpS
 
 instance Prelude.NFData UpdateDimensionResponse where
   rnf UpdateDimensionResponse' {..} =
-    Prelude.rnf lastModifiedDate
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf stringValues
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf creationDate
+      `Prelude.seq` Prelude.rnf lastModifiedDate
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf stringValues
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.Types.TrafficPolicyInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53.Types.TrafficPolicyInstance where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53.Internal
 import Amazonka.Route53.Types.RRType
@@ -220,18 +221,18 @@ trafficPolicyInstance_trafficPolicyVersion = Lens.lens (\TrafficPolicyInstance' 
 trafficPolicyInstance_trafficPolicyType :: Lens.Lens' TrafficPolicyInstance RRType
 trafficPolicyInstance_trafficPolicyType = Lens.lens (\TrafficPolicyInstance' {trafficPolicyType} -> trafficPolicyType) (\s@TrafficPolicyInstance' {} a -> s {trafficPolicyType = a} :: TrafficPolicyInstance)
 
-instance Core.FromXML TrafficPolicyInstance where
+instance Data.FromXML TrafficPolicyInstance where
   parseXML x =
     TrafficPolicyInstance'
-      Prelude.<$> (x Core..@ "Id")
-      Prelude.<*> (x Core..@ "HostedZoneId")
-      Prelude.<*> (x Core..@ "Name")
-      Prelude.<*> (x Core..@ "TTL")
-      Prelude.<*> (x Core..@ "State")
-      Prelude.<*> (x Core..@ "Message")
-      Prelude.<*> (x Core..@ "TrafficPolicyId")
-      Prelude.<*> (x Core..@ "TrafficPolicyVersion")
-      Prelude.<*> (x Core..@ "TrafficPolicyType")
+      Prelude.<$> (x Data..@ "Id")
+      Prelude.<*> (x Data..@ "HostedZoneId")
+      Prelude.<*> (x Data..@ "Name")
+      Prelude.<*> (x Data..@ "TTL")
+      Prelude.<*> (x Data..@ "State")
+      Prelude.<*> (x Data..@ "Message")
+      Prelude.<*> (x Data..@ "TrafficPolicyId")
+      Prelude.<*> (x Data..@ "TrafficPolicyVersion")
+      Prelude.<*> (x Data..@ "TrafficPolicyType")
 
 instance Prelude.Hashable TrafficPolicyInstance where
   hashWithSalt _salt TrafficPolicyInstance' {..} =

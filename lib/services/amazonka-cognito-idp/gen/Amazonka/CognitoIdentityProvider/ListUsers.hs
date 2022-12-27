@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.ListUsers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.CognitoIdentityProvider.ListUsers
     newListUsers,
 
     -- * Request Lenses
-    listUsers_paginationToken,
     listUsers_attributesToGet,
-    listUsers_limit,
     listUsers_filter,
+    listUsers_limit,
+    listUsers_paginationToken,
     listUsers_userPoolId,
 
     -- * Destructuring the Response
@@ -48,7 +48,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,16 +58,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListUsers' smart constructor.
 data ListUsers = ListUsers'
-  { -- | An identifier that was returned from the previous call to this
-    -- operation, which can be used to return the next set of items in the
-    -- list.
-    paginationToken :: Prelude.Maybe Prelude.Text,
-    -- | An array of strings, where each string is the name of a user attribute
+  { -- | An array of strings, where each string is the name of a user attribute
     -- to be returned for each user in the search results. If the array is
     -- null, all attributes are returned.
     attributesToGet :: Prelude.Maybe [Prelude.Text],
-    -- | Maximum number of users to be returned.
-    limit :: Prelude.Maybe Prelude.Natural,
     -- | A filter string of the form \"/AttributeName/ /Filter-Type/
     -- \"/AttributeValue/\"\". Quotation marks within the filter string must be
     -- escaped using the backslash (\\) character. For example, \"@family_name@
@@ -108,7 +103,21 @@ data ListUsers = ListUsers'
     --
     -- -   @sub@
     --
-    -- Custom attributes are not searchable.
+    -- Custom attributes aren\'t searchable.
+    --
+    -- You can also list users with a client-side filter. The server-side
+    -- filter matches no more than one attribute. For an advanced search, use a
+    -- client-side filter with the @--query@ parameter of the @list-users@
+    -- action in the CLI. When you use a client-side filter, ListUsers returns
+    -- a paginated list of zero or more users. You can receive multiple pages
+    -- in a row with zero results. Repeat the query with each pagination token
+    -- that is returned until you receive a null pagination token value, and
+    -- then review the combined result.
+    --
+    -- For more information about server-side and client-side filtering, see
+    -- <https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-filter.html FilteringCLI output>
+    -- in the
+    -- <https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-filter.html Command Line Interface User Guide>.
     --
     -- For more information, see
     -- <https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-using-listusers-api Searching for Users Using the ListUsers API>
@@ -116,6 +125,12 @@ data ListUsers = ListUsers'
     -- <https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-listusers-api-examples Examples of Using the ListUsers API>
     -- in the /Amazon Cognito Developer Guide/.
     filter' :: Prelude.Maybe Prelude.Text,
+    -- | Maximum number of users to be returned.
+    limit :: Prelude.Maybe Prelude.Natural,
+    -- | An identifier that was returned from the previous call to this
+    -- operation, which can be used to return the next set of items in the
+    -- list.
+    paginationToken :: Prelude.Maybe Prelude.Text,
     -- | The user pool ID for the user pool on which the search should be
     -- performed.
     userPoolId :: Prelude.Text
@@ -130,15 +145,9 @@ data ListUsers = ListUsers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'paginationToken', 'listUsers_paginationToken' - An identifier that was returned from the previous call to this
--- operation, which can be used to return the next set of items in the
--- list.
---
 -- 'attributesToGet', 'listUsers_attributesToGet' - An array of strings, where each string is the name of a user attribute
 -- to be returned for each user in the search results. If the array is
 -- null, all attributes are returned.
---
--- 'limit', 'listUsers_limit' - Maximum number of users to be returned.
 --
 -- 'filter'', 'listUsers_filter' - A filter string of the form \"/AttributeName/ /Filter-Type/
 -- \"/AttributeValue/\"\". Quotation marks within the filter string must be
@@ -181,13 +190,33 @@ data ListUsers = ListUsers'
 --
 -- -   @sub@
 --
--- Custom attributes are not searchable.
+-- Custom attributes aren\'t searchable.
+--
+-- You can also list users with a client-side filter. The server-side
+-- filter matches no more than one attribute. For an advanced search, use a
+-- client-side filter with the @--query@ parameter of the @list-users@
+-- action in the CLI. When you use a client-side filter, ListUsers returns
+-- a paginated list of zero or more users. You can receive multiple pages
+-- in a row with zero results. Repeat the query with each pagination token
+-- that is returned until you receive a null pagination token value, and
+-- then review the combined result.
+--
+-- For more information about server-side and client-side filtering, see
+-- <https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-filter.html FilteringCLI output>
+-- in the
+-- <https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-filter.html Command Line Interface User Guide>.
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-using-listusers-api Searching for Users Using the ListUsers API>
 -- and
 -- <https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-listusers-api-examples Examples of Using the ListUsers API>
 -- in the /Amazon Cognito Developer Guide/.
+--
+-- 'limit', 'listUsers_limit' - Maximum number of users to be returned.
+--
+-- 'paginationToken', 'listUsers_paginationToken' - An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
 --
 -- 'userPoolId', 'listUsers_userPoolId' - The user pool ID for the user pool on which the search should be
 -- performed.
@@ -197,28 +226,18 @@ newListUsers ::
   ListUsers
 newListUsers pUserPoolId_ =
   ListUsers'
-    { paginationToken = Prelude.Nothing,
-      attributesToGet = Prelude.Nothing,
-      limit = Prelude.Nothing,
+    { attributesToGet = Prelude.Nothing,
       filter' = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      paginationToken = Prelude.Nothing,
       userPoolId = pUserPoolId_
     }
-
--- | An identifier that was returned from the previous call to this
--- operation, which can be used to return the next set of items in the
--- list.
-listUsers_paginationToken :: Lens.Lens' ListUsers (Prelude.Maybe Prelude.Text)
-listUsers_paginationToken = Lens.lens (\ListUsers' {paginationToken} -> paginationToken) (\s@ListUsers' {} a -> s {paginationToken = a} :: ListUsers)
 
 -- | An array of strings, where each string is the name of a user attribute
 -- to be returned for each user in the search results. If the array is
 -- null, all attributes are returned.
 listUsers_attributesToGet :: Lens.Lens' ListUsers (Prelude.Maybe [Prelude.Text])
 listUsers_attributesToGet = Lens.lens (\ListUsers' {attributesToGet} -> attributesToGet) (\s@ListUsers' {} a -> s {attributesToGet = a} :: ListUsers) Prelude.. Lens.mapping Lens.coerced
-
--- | Maximum number of users to be returned.
-listUsers_limit :: Lens.Lens' ListUsers (Prelude.Maybe Prelude.Natural)
-listUsers_limit = Lens.lens (\ListUsers' {limit} -> limit) (\s@ListUsers' {} a -> s {limit = a} :: ListUsers)
 
 -- | A filter string of the form \"/AttributeName/ /Filter-Type/
 -- \"/AttributeValue/\"\". Quotation marks within the filter string must be
@@ -261,7 +280,21 @@ listUsers_limit = Lens.lens (\ListUsers' {limit} -> limit) (\s@ListUsers' {} a -
 --
 -- -   @sub@
 --
--- Custom attributes are not searchable.
+-- Custom attributes aren\'t searchable.
+--
+-- You can also list users with a client-side filter. The server-side
+-- filter matches no more than one attribute. For an advanced search, use a
+-- client-side filter with the @--query@ parameter of the @list-users@
+-- action in the CLI. When you use a client-side filter, ListUsers returns
+-- a paginated list of zero or more users. You can receive multiple pages
+-- in a row with zero results. Repeat the query with each pagination token
+-- that is returned until you receive a null pagination token value, and
+-- then review the combined result.
+--
+-- For more information about server-side and client-side filtering, see
+-- <https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-filter.html FilteringCLI output>
+-- in the
+-- <https://docs.aws.amazon.com/cli/latest/userguide/cli-usage-filter.html Command Line Interface User Guide>.
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/cognito/latest/developerguide/how-to-manage-user-accounts.html#cognito-user-pools-searching-for-users-using-listusers-api Searching for Users Using the ListUsers API>
@@ -270,6 +303,16 @@ listUsers_limit = Lens.lens (\ListUsers' {limit} -> limit) (\s@ListUsers' {} a -
 -- in the /Amazon Cognito Developer Guide/.
 listUsers_filter :: Lens.Lens' ListUsers (Prelude.Maybe Prelude.Text)
 listUsers_filter = Lens.lens (\ListUsers' {filter'} -> filter') (\s@ListUsers' {} a -> s {filter' = a} :: ListUsers)
+
+-- | Maximum number of users to be returned.
+listUsers_limit :: Lens.Lens' ListUsers (Prelude.Maybe Prelude.Natural)
+listUsers_limit = Lens.lens (\ListUsers' {limit} -> limit) (\s@ListUsers' {} a -> s {limit = a} :: ListUsers)
+
+-- | An identifier that was returned from the previous call to this
+-- operation, which can be used to return the next set of items in the
+-- list.
+listUsers_paginationToken :: Lens.Lens' ListUsers (Prelude.Maybe Prelude.Text)
+listUsers_paginationToken = Lens.lens (\ListUsers' {paginationToken} -> paginationToken) (\s@ListUsers' {} a -> s {paginationToken = a} :: ListUsers)
 
 -- | The user pool ID for the user pool on which the search should be
 -- performed.
@@ -299,65 +342,66 @@ instance Core.AWSPager ListUsers where
 
 instance Core.AWSRequest ListUsers where
   type AWSResponse ListUsers = ListUsersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListUsersResponse'
-            Prelude.<$> (x Core..?> "PaginationToken")
-            Prelude.<*> (x Core..?> "Users" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "PaginationToken")
+            Prelude.<*> (x Data..?> "Users" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListUsers where
   hashWithSalt _salt ListUsers' {..} =
-    _salt `Prelude.hashWithSalt` paginationToken
-      `Prelude.hashWithSalt` attributesToGet
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` attributesToGet
       `Prelude.hashWithSalt` filter'
+      `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` paginationToken
       `Prelude.hashWithSalt` userPoolId
 
 instance Prelude.NFData ListUsers where
   rnf ListUsers' {..} =
-    Prelude.rnf paginationToken
-      `Prelude.seq` Prelude.rnf attributesToGet
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf attributesToGet
       `Prelude.seq` Prelude.rnf filter'
+      `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf paginationToken
       `Prelude.seq` Prelude.rnf userPoolId
 
-instance Core.ToHeaders ListUsers where
+instance Data.ToHeaders ListUsers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.ListUsers" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.ListUsers" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListUsers where
+instance Data.ToJSON ListUsers where
   toJSON ListUsers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PaginationToken" Core..=)
-              Prelude.<$> paginationToken,
-            ("AttributesToGet" Core..=)
+          [ ("AttributesToGet" Data..=)
               Prelude.<$> attributesToGet,
-            ("Limit" Core..=) Prelude.<$> limit,
-            ("Filter" Core..=) Prelude.<$> filter',
-            Prelude.Just ("UserPoolId" Core..= userPoolId)
+            ("Filter" Data..=) Prelude.<$> filter',
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("PaginationToken" Data..=)
+              Prelude.<$> paginationToken,
+            Prelude.Just ("UserPoolId" Data..= userPoolId)
           ]
       )
 
-instance Core.ToPath ListUsers where
+instance Data.ToPath ListUsers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListUsers where
+instance Data.ToQuery ListUsers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The response from the request to list users.

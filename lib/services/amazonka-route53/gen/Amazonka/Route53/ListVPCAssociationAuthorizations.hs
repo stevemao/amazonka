@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.ListVPCAssociationAuthorizations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.Route53.ListVPCAssociationAuthorizations
     newListVPCAssociationAuthorizations,
 
     -- * Request Lenses
-    listVPCAssociationAuthorizations_nextToken,
     listVPCAssociationAuthorizations_maxResults,
+    listVPCAssociationAuthorizations_nextToken,
     listVPCAssociationAuthorizations_hostedZoneId,
 
     -- * Destructuring the Response
@@ -51,7 +51,8 @@ module Amazonka.Route53.ListVPCAssociationAuthorizations
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,16 +63,16 @@ import Amazonka.Route53.Types
 --
 -- /See:/ 'newListVPCAssociationAuthorizations' smart constructor.
 data ListVPCAssociationAuthorizations = ListVPCAssociationAuthorizations'
-  { -- | /Optional/: If a response includes a @NextToken@ element, there are more
+  { -- | /Optional/: An integer that specifies the maximum number of VPCs that
+    -- you want Amazon Route 53 to return. If you don\'t specify a value for
+    -- @MaxResults@, Route 53 returns up to 50 VPCs per page.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | /Optional/: If a response includes a @NextToken@ element, there are more
     -- VPCs that can be associated with the specified hosted zone. To get the
     -- next page of results, submit another request, and include the value of
     -- @NextToken@ from the response in the @nexttoken@ parameter in another
     -- @ListVPCAssociationAuthorizations@ request.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | /Optional/: An integer that specifies the maximum number of VPCs that
-    -- you want Amazon Route 53 to return. If you don\'t specify a value for
-    -- @MaxResults@, Route 53 returns up to 50 VPCs per page.
-    maxResults :: Prelude.Maybe Prelude.Text,
     -- | The ID of the hosted zone for which you want a list of VPCs that can be
     -- associated with the hosted zone.
     hostedZoneId :: ResourceId
@@ -86,15 +87,15 @@ data ListVPCAssociationAuthorizations = ListVPCAssociationAuthorizations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listVPCAssociationAuthorizations_maxResults' - /Optional/: An integer that specifies the maximum number of VPCs that
+-- you want Amazon Route 53 to return. If you don\'t specify a value for
+-- @MaxResults@, Route 53 returns up to 50 VPCs per page.
+--
 -- 'nextToken', 'listVPCAssociationAuthorizations_nextToken' - /Optional/: If a response includes a @NextToken@ element, there are more
 -- VPCs that can be associated with the specified hosted zone. To get the
 -- next page of results, submit another request, and include the value of
 -- @NextToken@ from the response in the @nexttoken@ parameter in another
 -- @ListVPCAssociationAuthorizations@ request.
---
--- 'maxResults', 'listVPCAssociationAuthorizations_maxResults' - /Optional/: An integer that specifies the maximum number of VPCs that
--- you want Amazon Route 53 to return. If you don\'t specify a value for
--- @MaxResults@, Route 53 returns up to 50 VPCs per page.
 --
 -- 'hostedZoneId', 'listVPCAssociationAuthorizations_hostedZoneId' - The ID of the hosted zone for which you want a list of VPCs that can be
 -- associated with the hosted zone.
@@ -104,11 +105,17 @@ newListVPCAssociationAuthorizations ::
   ListVPCAssociationAuthorizations
 newListVPCAssociationAuthorizations pHostedZoneId_ =
   ListVPCAssociationAuthorizations'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       hostedZoneId = pHostedZoneId_
     }
+
+-- | /Optional/: An integer that specifies the maximum number of VPCs that
+-- you want Amazon Route 53 to return. If you don\'t specify a value for
+-- @MaxResults@, Route 53 returns up to 50 VPCs per page.
+listVPCAssociationAuthorizations_maxResults :: Lens.Lens' ListVPCAssociationAuthorizations (Prelude.Maybe Prelude.Text)
+listVPCAssociationAuthorizations_maxResults = Lens.lens (\ListVPCAssociationAuthorizations' {maxResults} -> maxResults) (\s@ListVPCAssociationAuthorizations' {} a -> s {maxResults = a} :: ListVPCAssociationAuthorizations)
 
 -- | /Optional/: If a response includes a @NextToken@ element, there are more
 -- VPCs that can be associated with the specified hosted zone. To get the
@@ -117,12 +124,6 @@ newListVPCAssociationAuthorizations pHostedZoneId_ =
 -- @ListVPCAssociationAuthorizations@ request.
 listVPCAssociationAuthorizations_nextToken :: Lens.Lens' ListVPCAssociationAuthorizations (Prelude.Maybe Prelude.Text)
 listVPCAssociationAuthorizations_nextToken = Lens.lens (\ListVPCAssociationAuthorizations' {nextToken} -> nextToken) (\s@ListVPCAssociationAuthorizations' {} a -> s {nextToken = a} :: ListVPCAssociationAuthorizations)
-
--- | /Optional/: An integer that specifies the maximum number of VPCs that
--- you want Amazon Route 53 to return. If you don\'t specify a value for
--- @MaxResults@, Route 53 returns up to 50 VPCs per page.
-listVPCAssociationAuthorizations_maxResults :: Lens.Lens' ListVPCAssociationAuthorizations (Prelude.Maybe Prelude.Text)
-listVPCAssociationAuthorizations_maxResults = Lens.lens (\ListVPCAssociationAuthorizations' {maxResults} -> maxResults) (\s@ListVPCAssociationAuthorizations' {} a -> s {maxResults = a} :: ListVPCAssociationAuthorizations)
 
 -- | The ID of the hosted zone for which you want a list of VPCs that can be
 -- associated with the hosted zone.
@@ -161,16 +162,17 @@ instance
   type
     AWSResponse ListVPCAssociationAuthorizations =
       ListVPCAssociationAuthorizationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ListVPCAssociationAuthorizationsResponse'
-            Prelude.<$> (x Core..@? "NextToken")
+            Prelude.<$> (x Data..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "HostedZoneId")
-            Prelude.<*> ( x Core..@? "VPCs" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList1 "VPC"
+            Prelude.<*> (x Data..@ "HostedZoneId")
+            Prelude.<*> ( x Data..@? "VPCs" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList1 "VPC"
                         )
       )
 
@@ -181,8 +183,8 @@ instance
   hashWithSalt
     _salt
     ListVPCAssociationAuthorizations' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` hostedZoneId
 
 instance
@@ -190,32 +192,32 @@ instance
     ListVPCAssociationAuthorizations
   where
   rnf ListVPCAssociationAuthorizations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf hostedZoneId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListVPCAssociationAuthorizations
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListVPCAssociationAuthorizations where
+instance Data.ToPath ListVPCAssociationAuthorizations where
   toPath ListVPCAssociationAuthorizations' {..} =
     Prelude.mconcat
       [ "/2013-04-01/hostedzone/",
-        Core.toBS hostedZoneId,
+        Data.toBS hostedZoneId,
         "/authorizevpcassociation"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListVPCAssociationAuthorizations
   where
   toQuery ListVPCAssociationAuthorizations' {..} =
     Prelude.mconcat
-      [ "nexttoken" Core.=: nextToken,
-        "maxresults" Core.=: maxResults
+      [ "maxresults" Data.=: maxResults,
+        "nexttoken" Data.=: nextToken
       ]
 
 -- | A complex type that contains the response information for the request.

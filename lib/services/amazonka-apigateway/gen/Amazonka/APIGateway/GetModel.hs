@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,17 +36,18 @@ module Amazonka.APIGateway.GetModel
     newModel,
 
     -- * Response Lenses
-    model_schema,
-    model_name,
-    model_id,
-    model_description,
     model_contentType,
+    model_description,
+    model_id,
+    model_name,
+    model_schema,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,9 +61,9 @@ data GetModel = GetModel'
     -- model references and returns a flattened model schema or not (@false@)
     -- The default is @false@.
     flatten :: Prelude.Maybe Prelude.Bool,
-    -- | [Required] The RestApi identifier under which the Model exists.
+    -- | The RestApi identifier under which the Model exists.
     restApiId :: Prelude.Text,
-    -- | [Required] The name of the model as an identifier.
+    -- | The name of the model as an identifier.
     modelName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -79,9 +80,9 @@ data GetModel = GetModel'
 -- model references and returns a flattened model schema or not (@false@)
 -- The default is @false@.
 --
--- 'restApiId', 'getModel_restApiId' - [Required] The RestApi identifier under which the Model exists.
+-- 'restApiId', 'getModel_restApiId' - The RestApi identifier under which the Model exists.
 --
--- 'modelName', 'getModel_modelName' - [Required] The name of the model as an identifier.
+-- 'modelName', 'getModel_modelName' - The name of the model as an identifier.
 newGetModel ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -101,20 +102,21 @@ newGetModel pRestApiId_ pModelName_ =
 getModel_flatten :: Lens.Lens' GetModel (Prelude.Maybe Prelude.Bool)
 getModel_flatten = Lens.lens (\GetModel' {flatten} -> flatten) (\s@GetModel' {} a -> s {flatten = a} :: GetModel)
 
--- | [Required] The RestApi identifier under which the Model exists.
+-- | The RestApi identifier under which the Model exists.
 getModel_restApiId :: Lens.Lens' GetModel Prelude.Text
 getModel_restApiId = Lens.lens (\GetModel' {restApiId} -> restApiId) (\s@GetModel' {} a -> s {restApiId = a} :: GetModel)
 
--- | [Required] The name of the model as an identifier.
+-- | The name of the model as an identifier.
 getModel_modelName :: Lens.Lens' GetModel Prelude.Text
 getModel_modelName = Lens.lens (\GetModel' {modelName} -> modelName) (\s@GetModel' {} a -> s {modelName = a} :: GetModel)
 
 instance Core.AWSRequest GetModel where
   type AWSResponse GetModel = Model
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetModel where
   hashWithSalt _salt GetModel' {..} =
@@ -128,24 +130,24 @@ instance Prelude.NFData GetModel where
       `Prelude.seq` Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf modelName
 
-instance Core.ToHeaders GetModel where
+instance Data.ToHeaders GetModel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetModel where
+instance Data.ToPath GetModel where
   toPath GetModel' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/models/",
-        Core.toBS modelName
+        Data.toBS modelName
       ]
 
-instance Core.ToQuery GetModel where
+instance Data.ToQuery GetModel where
   toQuery GetModel' {..} =
-    Prelude.mconcat ["flatten" Core.=: flatten]
+    Prelude.mconcat ["flatten" Data.=: flatten]

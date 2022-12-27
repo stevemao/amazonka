@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.Types.ErrorInformation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodeDeploy.Types.ErrorInformation where
 
 import Amazonka.CodeDeploy.Types.DeployErrorCode
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a deployment error.
@@ -29,9 +30,9 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newErrorInformation' smart constructor.
 data ErrorInformation = ErrorInformation'
   { -- | For more information, see
-    -- <https://docs.aws.amazon.com/codedeploy/latest/userguide/error-codes.html Error Codes for AWS CodeDeploy>
+    -- <https://docs.aws.amazon.com/codedeploy/latest/userguide/error-codes.html Error Codes for CodeDeploy>
     -- in the
-    -- <https://docs.aws.amazon.com/codedeploy/latest/userguide AWS CodeDeploy User Guide>.
+    -- <https://docs.aws.amazon.com/codedeploy/latest/userguide CodeDeploy User Guide>.
     --
     -- The error code:
     --
@@ -66,7 +67,8 @@ data ErrorInformation = ErrorInformation'
     -- -   OVER_MAX_INSTANCES: The maximum number of instances was exceeded.
     --
     -- -   THROTTLED: The operation was throttled because the calling account
-    --     exceeded the throttling limits of one or more AWS services.
+    --     exceeded the throttling limits of one or more Amazon Web Services
+    --     services.
     --
     -- -   TIMEOUT: The deployment has timed out.
     --
@@ -88,9 +90,9 @@ data ErrorInformation = ErrorInformation'
 -- for backwards compatibility:
 --
 -- 'code', 'errorInformation_code' - For more information, see
--- <https://docs.aws.amazon.com/codedeploy/latest/userguide/error-codes.html Error Codes for AWS CodeDeploy>
+-- <https://docs.aws.amazon.com/codedeploy/latest/userguide/error-codes.html Error Codes for CodeDeploy>
 -- in the
--- <https://docs.aws.amazon.com/codedeploy/latest/userguide AWS CodeDeploy User Guide>.
+-- <https://docs.aws.amazon.com/codedeploy/latest/userguide CodeDeploy User Guide>.
 --
 -- The error code:
 --
@@ -125,7 +127,8 @@ data ErrorInformation = ErrorInformation'
 -- -   OVER_MAX_INSTANCES: The maximum number of instances was exceeded.
 --
 -- -   THROTTLED: The operation was throttled because the calling account
---     exceeded the throttling limits of one or more AWS services.
+--     exceeded the throttling limits of one or more Amazon Web Services
+--     services.
 --
 -- -   TIMEOUT: The deployment has timed out.
 --
@@ -143,9 +146,9 @@ newErrorInformation =
     }
 
 -- | For more information, see
--- <https://docs.aws.amazon.com/codedeploy/latest/userguide/error-codes.html Error Codes for AWS CodeDeploy>
+-- <https://docs.aws.amazon.com/codedeploy/latest/userguide/error-codes.html Error Codes for CodeDeploy>
 -- in the
--- <https://docs.aws.amazon.com/codedeploy/latest/userguide AWS CodeDeploy User Guide>.
+-- <https://docs.aws.amazon.com/codedeploy/latest/userguide CodeDeploy User Guide>.
 --
 -- The error code:
 --
@@ -180,7 +183,8 @@ newErrorInformation =
 -- -   OVER_MAX_INSTANCES: The maximum number of instances was exceeded.
 --
 -- -   THROTTLED: The operation was throttled because the calling account
---     exceeded the throttling limits of one or more AWS services.
+--     exceeded the throttling limits of one or more Amazon Web Services
+--     services.
 --
 -- -   TIMEOUT: The deployment has timed out.
 --
@@ -194,14 +198,14 @@ errorInformation_code = Lens.lens (\ErrorInformation' {code} -> code) (\s@ErrorI
 errorInformation_message :: Lens.Lens' ErrorInformation (Prelude.Maybe Prelude.Text)
 errorInformation_message = Lens.lens (\ErrorInformation' {message} -> message) (\s@ErrorInformation' {} a -> s {message = a} :: ErrorInformation)
 
-instance Core.FromJSON ErrorInformation where
+instance Data.FromJSON ErrorInformation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ErrorInformation"
       ( \x ->
           ErrorInformation'
-            Prelude.<$> (x Core..:? "code")
-            Prelude.<*> (x Core..:? "message")
+            Prelude.<$> (x Data..:? "code")
+            Prelude.<*> (x Data..:? "message")
       )
 
 instance Prelude.Hashable ErrorInformation where

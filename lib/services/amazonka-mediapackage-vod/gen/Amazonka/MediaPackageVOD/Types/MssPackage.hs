@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackageVOD.Types.MssPackage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaPackageVOD.Types.MssPackage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaPackageVOD.Types.MssEncryption
 import Amazonka.MediaPackageVOD.Types.MssManifest
 import qualified Amazonka.Prelude as Prelude
@@ -29,9 +30,9 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMssPackage' smart constructor.
 data MssPackage = MssPackage'
-  { -- | The duration (in seconds) of each segment.
+  { encryption :: Prelude.Maybe MssEncryption,
+    -- | The duration (in seconds) of each segment.
     segmentDurationSeconds :: Prelude.Maybe Prelude.Int,
-    encryption :: Prelude.Maybe MssEncryption,
     -- | A list of MSS manifest configurations.
     mssManifests :: [MssManifest]
   }
@@ -45,63 +46,62 @@ data MssPackage = MssPackage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'segmentDurationSeconds', 'mssPackage_segmentDurationSeconds' - The duration (in seconds) of each segment.
---
 -- 'encryption', 'mssPackage_encryption' - Undocumented member.
+--
+-- 'segmentDurationSeconds', 'mssPackage_segmentDurationSeconds' - The duration (in seconds) of each segment.
 --
 -- 'mssManifests', 'mssPackage_mssManifests' - A list of MSS manifest configurations.
 newMssPackage ::
   MssPackage
 newMssPackage =
   MssPackage'
-    { segmentDurationSeconds =
-        Prelude.Nothing,
-      encryption = Prelude.Nothing,
+    { encryption = Prelude.Nothing,
+      segmentDurationSeconds = Prelude.Nothing,
       mssManifests = Prelude.mempty
     }
-
--- | The duration (in seconds) of each segment.
-mssPackage_segmentDurationSeconds :: Lens.Lens' MssPackage (Prelude.Maybe Prelude.Int)
-mssPackage_segmentDurationSeconds = Lens.lens (\MssPackage' {segmentDurationSeconds} -> segmentDurationSeconds) (\s@MssPackage' {} a -> s {segmentDurationSeconds = a} :: MssPackage)
 
 -- | Undocumented member.
 mssPackage_encryption :: Lens.Lens' MssPackage (Prelude.Maybe MssEncryption)
 mssPackage_encryption = Lens.lens (\MssPackage' {encryption} -> encryption) (\s@MssPackage' {} a -> s {encryption = a} :: MssPackage)
 
+-- | The duration (in seconds) of each segment.
+mssPackage_segmentDurationSeconds :: Lens.Lens' MssPackage (Prelude.Maybe Prelude.Int)
+mssPackage_segmentDurationSeconds = Lens.lens (\MssPackage' {segmentDurationSeconds} -> segmentDurationSeconds) (\s@MssPackage' {} a -> s {segmentDurationSeconds = a} :: MssPackage)
+
 -- | A list of MSS manifest configurations.
 mssPackage_mssManifests :: Lens.Lens' MssPackage [MssManifest]
 mssPackage_mssManifests = Lens.lens (\MssPackage' {mssManifests} -> mssManifests) (\s@MssPackage' {} a -> s {mssManifests = a} :: MssPackage) Prelude.. Lens.coerced
 
-instance Core.FromJSON MssPackage where
+instance Data.FromJSON MssPackage where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MssPackage"
       ( \x ->
           MssPackage'
-            Prelude.<$> (x Core..:? "segmentDurationSeconds")
-            Prelude.<*> (x Core..:? "encryption")
-            Prelude.<*> (x Core..:? "mssManifests" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "encryption")
+            Prelude.<*> (x Data..:? "segmentDurationSeconds")
+            Prelude.<*> (x Data..:? "mssManifests" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable MssPackage where
   hashWithSalt _salt MssPackage' {..} =
-    _salt `Prelude.hashWithSalt` segmentDurationSeconds
-      `Prelude.hashWithSalt` encryption
+    _salt `Prelude.hashWithSalt` encryption
+      `Prelude.hashWithSalt` segmentDurationSeconds
       `Prelude.hashWithSalt` mssManifests
 
 instance Prelude.NFData MssPackage where
   rnf MssPackage' {..} =
-    Prelude.rnf segmentDurationSeconds
-      `Prelude.seq` Prelude.rnf encryption
+    Prelude.rnf encryption
+      `Prelude.seq` Prelude.rnf segmentDurationSeconds
       `Prelude.seq` Prelude.rnf mssManifests
 
-instance Core.ToJSON MssPackage where
+instance Data.ToJSON MssPackage where
   toJSON MssPackage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("segmentDurationSeconds" Core..=)
+          [ ("encryption" Data..=) Prelude.<$> encryption,
+            ("segmentDurationSeconds" Data..=)
               Prelude.<$> segmentDurationSeconds,
-            ("encryption" Core..=) Prelude.<$> encryption,
-            Prelude.Just ("mssManifests" Core..= mssManifests)
+            Prelude.Just ("mssManifests" Data..= mssManifests)
           ]
       )

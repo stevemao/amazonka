@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.Types.CsrExtensions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CertificateManagerPCA.Types.CsrExtensions where
 import Amazonka.CertificateManagerPCA.Types.AccessDescription
 import Amazonka.CertificateManagerPCA.Types.KeyUsage
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the certificate extensions to be added to the certificate
@@ -30,15 +31,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCsrExtensions' smart constructor.
 data CsrExtensions = CsrExtensions'
-  { -- | For CA certificates, provides a path to additional information
+  { -- | Indicates the purpose of the certificate and of the key contained in the
+    -- certificate.
+    keyUsage :: Prelude.Maybe KeyUsage,
+    -- | For CA certificates, provides a path to additional information
     -- pertaining to the CA, such as revocation and policy. For more
     -- information, see
-    -- <https://tools.ietf.org/html/rfc5280#section-4.2.2.2 Subject Information Access>
+    -- <https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.2.2 Subject Information Access>
     -- in RFC 5280.
-    subjectInformationAccess :: Prelude.Maybe [AccessDescription],
-    -- | Indicates the purpose of the certificate and of the key contained in the
-    -- certificate.
-    keyUsage :: Prelude.Maybe KeyUsage
+    subjectInformationAccess :: Prelude.Maybe [AccessDescription]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,65 +51,63 @@ data CsrExtensions = CsrExtensions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'keyUsage', 'csrExtensions_keyUsage' - Indicates the purpose of the certificate and of the key contained in the
+-- certificate.
+--
 -- 'subjectInformationAccess', 'csrExtensions_subjectInformationAccess' - For CA certificates, provides a path to additional information
 -- pertaining to the CA, such as revocation and policy. For more
 -- information, see
--- <https://tools.ietf.org/html/rfc5280#section-4.2.2.2 Subject Information Access>
+-- <https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.2.2 Subject Information Access>
 -- in RFC 5280.
---
--- 'keyUsage', 'csrExtensions_keyUsage' - Indicates the purpose of the certificate and of the key contained in the
--- certificate.
 newCsrExtensions ::
   CsrExtensions
 newCsrExtensions =
   CsrExtensions'
-    { subjectInformationAccess =
-        Prelude.Nothing,
-      keyUsage = Prelude.Nothing
+    { keyUsage = Prelude.Nothing,
+      subjectInformationAccess = Prelude.Nothing
     }
-
--- | For CA certificates, provides a path to additional information
--- pertaining to the CA, such as revocation and policy. For more
--- information, see
--- <https://tools.ietf.org/html/rfc5280#section-4.2.2.2 Subject Information Access>
--- in RFC 5280.
-csrExtensions_subjectInformationAccess :: Lens.Lens' CsrExtensions (Prelude.Maybe [AccessDescription])
-csrExtensions_subjectInformationAccess = Lens.lens (\CsrExtensions' {subjectInformationAccess} -> subjectInformationAccess) (\s@CsrExtensions' {} a -> s {subjectInformationAccess = a} :: CsrExtensions) Prelude.. Lens.mapping Lens.coerced
 
 -- | Indicates the purpose of the certificate and of the key contained in the
 -- certificate.
 csrExtensions_keyUsage :: Lens.Lens' CsrExtensions (Prelude.Maybe KeyUsage)
 csrExtensions_keyUsage = Lens.lens (\CsrExtensions' {keyUsage} -> keyUsage) (\s@CsrExtensions' {} a -> s {keyUsage = a} :: CsrExtensions)
 
-instance Core.FromJSON CsrExtensions where
+-- | For CA certificates, provides a path to additional information
+-- pertaining to the CA, such as revocation and policy. For more
+-- information, see
+-- <https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.2.2 Subject Information Access>
+-- in RFC 5280.
+csrExtensions_subjectInformationAccess :: Lens.Lens' CsrExtensions (Prelude.Maybe [AccessDescription])
+csrExtensions_subjectInformationAccess = Lens.lens (\CsrExtensions' {subjectInformationAccess} -> subjectInformationAccess) (\s@CsrExtensions' {} a -> s {subjectInformationAccess = a} :: CsrExtensions) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON CsrExtensions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CsrExtensions"
       ( \x ->
           CsrExtensions'
-            Prelude.<$> ( x Core..:? "SubjectInformationAccess"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "KeyUsage")
+            Prelude.<*> ( x Data..:? "SubjectInformationAccess"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "KeyUsage")
       )
 
 instance Prelude.Hashable CsrExtensions where
   hashWithSalt _salt CsrExtensions' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` keyUsage
       `Prelude.hashWithSalt` subjectInformationAccess
-      `Prelude.hashWithSalt` keyUsage
 
 instance Prelude.NFData CsrExtensions where
   rnf CsrExtensions' {..} =
-    Prelude.rnf subjectInformationAccess
-      `Prelude.seq` Prelude.rnf keyUsage
+    Prelude.rnf keyUsage
+      `Prelude.seq` Prelude.rnf subjectInformationAccess
 
-instance Core.ToJSON CsrExtensions where
+instance Data.ToJSON CsrExtensions where
   toJSON CsrExtensions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SubjectInformationAccess" Core..=)
-              Prelude.<$> subjectInformationAccess,
-            ("KeyUsage" Core..=) Prelude.<$> keyUsage
+          [ ("KeyUsage" Data..=) Prelude.<$> keyUsage,
+            ("SubjectInformationAccess" Data..=)
+              Prelude.<$> subjectInformationAccess
           ]
       )

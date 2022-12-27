@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.Types.DatasetParameter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.DataBrew.Types.DatasetParameter where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types.DatetimeOptions
 import Amazonka.DataBrew.Types.FilterExpression
 import Amazonka.DataBrew.Types.ParameterType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | Represents a dataset paramater that defines type and conditions for a
+-- | Represents a dataset parameter that defines type and conditions for a
 -- parameter in the Amazon S3 path of the dataset.
 --
 -- /See:/ 'newDatasetParameter' smart constructor.
@@ -34,12 +35,12 @@ data DatasetParameter = DatasetParameter'
   { -- | Optional boolean value that defines whether the captured value of this
     -- parameter should be used to create a new column in a dataset.
     createColumn :: Prelude.Maybe Prelude.Bool,
-    -- | The optional filter expression structure to apply additional matching
-    -- criteria to the parameter.
-    filter' :: Prelude.Maybe FilterExpression,
     -- | Additional parameter options such as a format and a timezone. Required
     -- for datetime parameters.
     datetimeOptions :: Prelude.Maybe DatetimeOptions,
+    -- | The optional filter expression structure to apply additional matching
+    -- criteria to the parameter.
+    filter' :: Prelude.Maybe FilterExpression,
     -- | The name of the parameter that is used in the dataset\'s Amazon S3 path.
     name :: Prelude.Text,
     -- | The type of the dataset parameter, can be one of a \'String\',
@@ -59,11 +60,11 @@ data DatasetParameter = DatasetParameter'
 -- 'createColumn', 'datasetParameter_createColumn' - Optional boolean value that defines whether the captured value of this
 -- parameter should be used to create a new column in a dataset.
 --
--- 'filter'', 'datasetParameter_filter' - The optional filter expression structure to apply additional matching
--- criteria to the parameter.
---
 -- 'datetimeOptions', 'datasetParameter_datetimeOptions' - Additional parameter options such as a format and a timezone. Required
 -- for datetime parameters.
+--
+-- 'filter'', 'datasetParameter_filter' - The optional filter expression structure to apply additional matching
+-- criteria to the parameter.
 --
 -- 'name', 'datasetParameter_name' - The name of the parameter that is used in the dataset\'s Amazon S3 path.
 --
@@ -78,8 +79,8 @@ newDatasetParameter ::
 newDatasetParameter pName_ pType_ =
   DatasetParameter'
     { createColumn = Prelude.Nothing,
-      filter' = Prelude.Nothing,
       datetimeOptions = Prelude.Nothing,
+      filter' = Prelude.Nothing,
       name = pName_,
       type' = pType_
     }
@@ -89,15 +90,15 @@ newDatasetParameter pName_ pType_ =
 datasetParameter_createColumn :: Lens.Lens' DatasetParameter (Prelude.Maybe Prelude.Bool)
 datasetParameter_createColumn = Lens.lens (\DatasetParameter' {createColumn} -> createColumn) (\s@DatasetParameter' {} a -> s {createColumn = a} :: DatasetParameter)
 
--- | The optional filter expression structure to apply additional matching
--- criteria to the parameter.
-datasetParameter_filter :: Lens.Lens' DatasetParameter (Prelude.Maybe FilterExpression)
-datasetParameter_filter = Lens.lens (\DatasetParameter' {filter'} -> filter') (\s@DatasetParameter' {} a -> s {filter' = a} :: DatasetParameter)
-
 -- | Additional parameter options such as a format and a timezone. Required
 -- for datetime parameters.
 datasetParameter_datetimeOptions :: Lens.Lens' DatasetParameter (Prelude.Maybe DatetimeOptions)
 datasetParameter_datetimeOptions = Lens.lens (\DatasetParameter' {datetimeOptions} -> datetimeOptions) (\s@DatasetParameter' {} a -> s {datetimeOptions = a} :: DatasetParameter)
+
+-- | The optional filter expression structure to apply additional matching
+-- criteria to the parameter.
+datasetParameter_filter :: Lens.Lens' DatasetParameter (Prelude.Maybe FilterExpression)
+datasetParameter_filter = Lens.lens (\DatasetParameter' {filter'} -> filter') (\s@DatasetParameter' {} a -> s {filter' = a} :: DatasetParameter)
 
 -- | The name of the parameter that is used in the dataset\'s Amazon S3 path.
 datasetParameter_name :: Lens.Lens' DatasetParameter Prelude.Text
@@ -108,44 +109,44 @@ datasetParameter_name = Lens.lens (\DatasetParameter' {name} -> name) (\s@Datase
 datasetParameter_type :: Lens.Lens' DatasetParameter ParameterType
 datasetParameter_type = Lens.lens (\DatasetParameter' {type'} -> type') (\s@DatasetParameter' {} a -> s {type' = a} :: DatasetParameter)
 
-instance Core.FromJSON DatasetParameter where
+instance Data.FromJSON DatasetParameter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DatasetParameter"
       ( \x ->
           DatasetParameter'
-            Prelude.<$> (x Core..:? "CreateColumn")
-            Prelude.<*> (x Core..:? "Filter")
-            Prelude.<*> (x Core..:? "DatetimeOptions")
-            Prelude.<*> (x Core..: "Name")
-            Prelude.<*> (x Core..: "Type")
+            Prelude.<$> (x Data..:? "CreateColumn")
+            Prelude.<*> (x Data..:? "DatetimeOptions")
+            Prelude.<*> (x Data..:? "Filter")
+            Prelude.<*> (x Data..: "Name")
+            Prelude.<*> (x Data..: "Type")
       )
 
 instance Prelude.Hashable DatasetParameter where
   hashWithSalt _salt DatasetParameter' {..} =
     _salt `Prelude.hashWithSalt` createColumn
-      `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` datetimeOptions
+      `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData DatasetParameter where
   rnf DatasetParameter' {..} =
     Prelude.rnf createColumn
-      `Prelude.seq` Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf datetimeOptions
+      `Prelude.seq` Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON DatasetParameter where
+instance Data.ToJSON DatasetParameter where
   toJSON DatasetParameter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CreateColumn" Core..=) Prelude.<$> createColumn,
-            ("Filter" Core..=) Prelude.<$> filter',
-            ("DatetimeOptions" Core..=)
+          [ ("CreateColumn" Data..=) Prelude.<$> createColumn,
+            ("DatetimeOptions" Data..=)
               Prelude.<$> datetimeOptions,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Type" Core..= type')
+            ("Filter" Data..=) Prelude.<$> filter',
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Type" Data..= type')
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.GetWirelessGatewayStatistics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.IoTWireless.GetWirelessGatewayStatistics
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,14 +83,15 @@ instance Core.AWSRequest GetWirelessGatewayStatistics where
   type
     AWSResponse GetWirelessGatewayStatistics =
       GetWirelessGatewayStatisticsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetWirelessGatewayStatisticsResponse'
-            Prelude.<$> (x Core..?> "ConnectionStatus")
-            Prelude.<*> (x Core..?> "LastUplinkReceivedAt")
-            Prelude.<*> (x Core..?> "WirelessGatewayId")
+            Prelude.<$> (x Data..?> "ConnectionStatus")
+            Prelude.<*> (x Data..?> "LastUplinkReceivedAt")
+            Prelude.<*> (x Data..?> "WirelessGatewayId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -104,18 +106,18 @@ instance Prelude.NFData GetWirelessGatewayStatistics where
   rnf GetWirelessGatewayStatistics' {..} =
     Prelude.rnf wirelessGatewayId
 
-instance Core.ToHeaders GetWirelessGatewayStatistics where
+instance Data.ToHeaders GetWirelessGatewayStatistics where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetWirelessGatewayStatistics where
+instance Data.ToPath GetWirelessGatewayStatistics where
   toPath GetWirelessGatewayStatistics' {..} =
     Prelude.mconcat
       [ "/wireless-gateways/",
-        Core.toBS wirelessGatewayId,
+        Data.toBS wirelessGatewayId,
         "/statistics"
       ]
 
-instance Core.ToQuery GetWirelessGatewayStatistics where
+instance Data.ToQuery GetWirelessGatewayStatistics where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetWirelessGatewayStatisticsResponse' smart constructor.

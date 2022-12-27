@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AmplifyBackend.RemoveBackendConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AmplifyBackend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ instance Core.AWSRequest RemoveBackendConfig where
   type
     AWSResponse RemoveBackendConfig =
       RemoveBackendConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RemoveBackendConfigResponse'
-            Prelude.<$> (x Core..?> "error")
+            Prelude.<$> (x Data..?> "error")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,26 +95,26 @@ instance Prelude.Hashable RemoveBackendConfig where
 instance Prelude.NFData RemoveBackendConfig where
   rnf RemoveBackendConfig' {..} = Prelude.rnf appId
 
-instance Core.ToHeaders RemoveBackendConfig where
+instance Data.ToHeaders RemoveBackendConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RemoveBackendConfig where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON RemoveBackendConfig where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath RemoveBackendConfig where
+instance Data.ToPath RemoveBackendConfig where
   toPath RemoveBackendConfig' {..} =
     Prelude.mconcat
-      ["/backend/", Core.toBS appId, "/config/remove"]
+      ["/backend/", Data.toBS appId, "/config/remove"]
 
-instance Core.ToQuery RemoveBackendConfig where
+instance Data.ToQuery RemoveBackendConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveBackendConfigResponse' smart constructor.

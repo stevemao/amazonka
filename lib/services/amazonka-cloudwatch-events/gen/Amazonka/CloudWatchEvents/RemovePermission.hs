@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.RemovePermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,7 +105,8 @@ instance Core.AWSRequest RemovePermission where
   type
     AWSResponse RemovePermission =
       RemovePermissionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull RemovePermissionResponse'
 
@@ -120,34 +122,34 @@ instance Prelude.NFData RemovePermission where
       `Prelude.seq` Prelude.rnf removeAllPermissions
       `Prelude.seq` Prelude.rnf statementId
 
-instance Core.ToHeaders RemovePermission where
+instance Data.ToHeaders RemovePermission where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSEvents.RemovePermission" :: Prelude.ByteString),
+              Data.=# ("AWSEvents.RemovePermission" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RemovePermission where
+instance Data.ToJSON RemovePermission where
   toJSON RemovePermission' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EventBusName" Core..=) Prelude.<$> eventBusName,
-            ("RemoveAllPermissions" Core..=)
+          [ ("EventBusName" Data..=) Prelude.<$> eventBusName,
+            ("RemoveAllPermissions" Data..=)
               Prelude.<$> removeAllPermissions,
-            ("StatementId" Core..=) Prelude.<$> statementId
+            ("StatementId" Data..=) Prelude.<$> statementId
           ]
       )
 
-instance Core.ToPath RemovePermission where
+instance Data.ToPath RemovePermission where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemovePermission where
+instance Data.ToQuery RemovePermission where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemovePermissionResponse' smart constructor.

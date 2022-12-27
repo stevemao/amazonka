@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.CreateUsageLimit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Redshift.CreateUsageLimit
     newCreateUsageLimit,
 
     -- * Request Lenses
-    createUsageLimit_period,
     createUsageLimit_breachAction,
+    createUsageLimit_period,
     createUsageLimit_tags,
     createUsageLimit_clusterIdentifier,
     createUsageLimit_featureType,
@@ -43,18 +43,19 @@ module Amazonka.Redshift.CreateUsageLimit
 
     -- * Response Lenses
     usageLimit_amount,
-    usageLimit_limitType,
-    usageLimit_usageLimitId,
-    usageLimit_period,
-    usageLimit_clusterIdentifier,
     usageLimit_breachAction,
+    usageLimit_clusterIdentifier,
     usageLimit_featureType,
+    usageLimit_limitType,
+    usageLimit_period,
     usageLimit_tags,
+    usageLimit_usageLimitId,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -62,13 +63,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateUsageLimit' smart constructor.
 data CreateUsageLimit = CreateUsageLimit'
-  { -- | The time period that the amount applies to. A @weekly@ period begins on
-    -- Sunday. The default is @monthly@.
-    period :: Prelude.Maybe UsageLimitPeriod,
-    -- | The action that Amazon Redshift takes when the limit is reached. The
+  { -- | The action that Amazon Redshift takes when the limit is reached. The
     -- default is log. For more information about this parameter, see
     -- UsageLimit.
     breachAction :: Prelude.Maybe UsageLimitBreachAction,
+    -- | The time period that the amount applies to. A @weekly@ period begins on
+    -- Sunday. The default is @monthly@.
+    period :: Prelude.Maybe UsageLimitPeriod,
     -- | A list of tag instances.
     tags :: Prelude.Maybe [Tag],
     -- | The identifier of the cluster that you want to limit usage.
@@ -78,7 +79,8 @@ data CreateUsageLimit = CreateUsageLimit'
     -- | The type of limit. Depending on the feature type, this can be based on a
     -- time duration or data size. If @FeatureType@ is @spectrum@, then
     -- @LimitType@ must be @data-scanned@. If @FeatureType@ is
-    -- @concurrency-scaling@, then @LimitType@ must be @time@.
+    -- @concurrency-scaling@, then @LimitType@ must be @time@. If @FeatureType@
+    -- is @cross-region-datasharing@, then @LimitType@ must be @data-scanned@.
     limitType :: UsageLimitLimitType,
     -- | The limit amount. If time-based, this amount is in minutes. If
     -- data-based, this amount is in terabytes (TB). The value must be a
@@ -95,12 +97,12 @@ data CreateUsageLimit = CreateUsageLimit'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'period', 'createUsageLimit_period' - The time period that the amount applies to. A @weekly@ period begins on
--- Sunday. The default is @monthly@.
---
 -- 'breachAction', 'createUsageLimit_breachAction' - The action that Amazon Redshift takes when the limit is reached. The
 -- default is log. For more information about this parameter, see
 -- UsageLimit.
+--
+-- 'period', 'createUsageLimit_period' - The time period that the amount applies to. A @weekly@ period begins on
+-- Sunday. The default is @monthly@.
 --
 -- 'tags', 'createUsageLimit_tags' - A list of tag instances.
 --
@@ -111,7 +113,8 @@ data CreateUsageLimit = CreateUsageLimit'
 -- 'limitType', 'createUsageLimit_limitType' - The type of limit. Depending on the feature type, this can be based on a
 -- time duration or data size. If @FeatureType@ is @spectrum@, then
 -- @LimitType@ must be @data-scanned@. If @FeatureType@ is
--- @concurrency-scaling@, then @LimitType@ must be @time@.
+-- @concurrency-scaling@, then @LimitType@ must be @time@. If @FeatureType@
+-- is @cross-region-datasharing@, then @LimitType@ must be @data-scanned@.
 --
 -- 'amount', 'createUsageLimit_amount' - The limit amount. If time-based, this amount is in minutes. If
 -- data-based, this amount is in terabytes (TB). The value must be a
@@ -132,8 +135,8 @@ newCreateUsageLimit
   pLimitType_
   pAmount_ =
     CreateUsageLimit'
-      { period = Prelude.Nothing,
-        breachAction = Prelude.Nothing,
+      { breachAction = Prelude.Nothing,
+        period = Prelude.Nothing,
         tags = Prelude.Nothing,
         clusterIdentifier = pClusterIdentifier_,
         featureType = pFeatureType_,
@@ -141,16 +144,16 @@ newCreateUsageLimit
         amount = pAmount_
       }
 
--- | The time period that the amount applies to. A @weekly@ period begins on
--- Sunday. The default is @monthly@.
-createUsageLimit_period :: Lens.Lens' CreateUsageLimit (Prelude.Maybe UsageLimitPeriod)
-createUsageLimit_period = Lens.lens (\CreateUsageLimit' {period} -> period) (\s@CreateUsageLimit' {} a -> s {period = a} :: CreateUsageLimit)
-
 -- | The action that Amazon Redshift takes when the limit is reached. The
 -- default is log. For more information about this parameter, see
 -- UsageLimit.
 createUsageLimit_breachAction :: Lens.Lens' CreateUsageLimit (Prelude.Maybe UsageLimitBreachAction)
 createUsageLimit_breachAction = Lens.lens (\CreateUsageLimit' {breachAction} -> breachAction) (\s@CreateUsageLimit' {} a -> s {breachAction = a} :: CreateUsageLimit)
+
+-- | The time period that the amount applies to. A @weekly@ period begins on
+-- Sunday. The default is @monthly@.
+createUsageLimit_period :: Lens.Lens' CreateUsageLimit (Prelude.Maybe UsageLimitPeriod)
+createUsageLimit_period = Lens.lens (\CreateUsageLimit' {period} -> period) (\s@CreateUsageLimit' {} a -> s {period = a} :: CreateUsageLimit)
 
 -- | A list of tag instances.
 createUsageLimit_tags :: Lens.Lens' CreateUsageLimit (Prelude.Maybe [Tag])
@@ -167,7 +170,8 @@ createUsageLimit_featureType = Lens.lens (\CreateUsageLimit' {featureType} -> fe
 -- | The type of limit. Depending on the feature type, this can be based on a
 -- time duration or data size. If @FeatureType@ is @spectrum@, then
 -- @LimitType@ must be @data-scanned@. If @FeatureType@ is
--- @concurrency-scaling@, then @LimitType@ must be @time@.
+-- @concurrency-scaling@, then @LimitType@ must be @time@. If @FeatureType@
+-- is @cross-region-datasharing@, then @LimitType@ must be @data-scanned@.
 createUsageLimit_limitType :: Lens.Lens' CreateUsageLimit UsageLimitLimitType
 createUsageLimit_limitType = Lens.lens (\CreateUsageLimit' {limitType} -> limitType) (\s@CreateUsageLimit' {} a -> s {limitType = a} :: CreateUsageLimit)
 
@@ -179,16 +183,17 @@ createUsageLimit_amount = Lens.lens (\CreateUsageLimit' {amount} -> amount) (\s@
 
 instance Core.AWSRequest CreateUsageLimit where
   type AWSResponse CreateUsageLimit = UsageLimit
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateUsageLimitResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable CreateUsageLimit where
   hashWithSalt _salt CreateUsageLimit' {..} =
-    _salt `Prelude.hashWithSalt` period
-      `Prelude.hashWithSalt` breachAction
+    _salt `Prelude.hashWithSalt` breachAction
+      `Prelude.hashWithSalt` period
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` clusterIdentifier
       `Prelude.hashWithSalt` featureType
@@ -197,34 +202,34 @@ instance Prelude.Hashable CreateUsageLimit where
 
 instance Prelude.NFData CreateUsageLimit where
   rnf CreateUsageLimit' {..} =
-    Prelude.rnf period
-      `Prelude.seq` Prelude.rnf breachAction
+    Prelude.rnf breachAction
+      `Prelude.seq` Prelude.rnf period
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf clusterIdentifier
       `Prelude.seq` Prelude.rnf featureType
       `Prelude.seq` Prelude.rnf limitType
       `Prelude.seq` Prelude.rnf amount
 
-instance Core.ToHeaders CreateUsageLimit where
+instance Data.ToHeaders CreateUsageLimit where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateUsageLimit where
+instance Data.ToPath CreateUsageLimit where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateUsageLimit where
+instance Data.ToQuery CreateUsageLimit where
   toQuery CreateUsageLimit' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateUsageLimit" :: Prelude.ByteString),
+          Data.=: ("CreateUsageLimit" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "Period" Core.=: period,
-        "BreachAction" Core.=: breachAction,
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "BreachAction" Data.=: breachAction,
+        "Period" Data.=: period,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
-        "ClusterIdentifier" Core.=: clusterIdentifier,
-        "FeatureType" Core.=: featureType,
-        "LimitType" Core.=: limitType,
-        "Amount" Core.=: amount
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
+        "ClusterIdentifier" Data.=: clusterIdentifier,
+        "FeatureType" Data.=: featureType,
+        "LimitType" Data.=: limitType,
+        "Amount" Data.=: amount
       ]

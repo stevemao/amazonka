@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.DeleteResourceConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ instance Core.AWSRequest DeleteResourceConfig where
   type
     AWSResponse DeleteResourceConfig =
       DeleteResourceConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteResourceConfigResponse'
 
@@ -105,34 +107,34 @@ instance Prelude.NFData DeleteResourceConfig where
     Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf resourceId
 
-instance Core.ToHeaders DeleteResourceConfig where
+instance Data.ToHeaders DeleteResourceConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.DeleteResourceConfig" ::
+              Data.=# ( "StarlingDoveService.DeleteResourceConfig" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteResourceConfig where
+instance Data.ToJSON DeleteResourceConfig where
   toJSON DeleteResourceConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceType" Core..= resourceType),
-            Prelude.Just ("ResourceId" Core..= resourceId)
+          [ Prelude.Just ("ResourceType" Data..= resourceType),
+            Prelude.Just ("ResourceId" Data..= resourceId)
           ]
       )
 
-instance Core.ToPath DeleteResourceConfig where
+instance Data.ToPath DeleteResourceConfig where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteResourceConfig where
+instance Data.ToQuery DeleteResourceConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteResourceConfigResponse' smart constructor.

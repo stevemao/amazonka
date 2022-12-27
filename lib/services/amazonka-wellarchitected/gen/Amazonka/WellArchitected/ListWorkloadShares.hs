@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.ListWorkloadShares
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,10 @@ module Amazonka.WellArchitected.ListWorkloadShares
     newListWorkloadShares,
 
     -- * Request Lenses
-    listWorkloadShares_sharedWithPrefix,
-    listWorkloadShares_nextToken,
     listWorkloadShares_maxResults,
+    listWorkloadShares_nextToken,
+    listWorkloadShares_sharedWithPrefix,
+    listWorkloadShares_status,
     listWorkloadShares_workloadId,
 
     -- * Destructuring the Response
@@ -37,15 +38,16 @@ module Amazonka.WellArchitected.ListWorkloadShares
     newListWorkloadSharesResponse,
 
     -- * Response Lenses
-    listWorkloadSharesResponse_workloadShareSummaries,
     listWorkloadSharesResponse_nextToken,
     listWorkloadSharesResponse_workloadId,
+    listWorkloadSharesResponse_workloadShareSummaries,
     listWorkloadSharesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,11 +57,13 @@ import Amazonka.WellArchitected.Types
 --
 -- /See:/ 'newListWorkloadShares' smart constructor.
 data ListWorkloadShares = ListWorkloadShares'
-  { -- | The AWS account ID or IAM role with which the workload is shared.
-    sharedWithPrefix :: Prelude.Maybe Prelude.Text,
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return for this request.
+  { -- | The maximum number of results to return for this request.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services account ID, IAM role, organization ID, or
+    -- organizational unit (OU) ID with which the workload is shared.
+    sharedWithPrefix :: Prelude.Maybe Prelude.Text,
+    status :: Prelude.Maybe ShareStatus,
     workloadId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -72,11 +76,14 @@ data ListWorkloadShares = ListWorkloadShares'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sharedWithPrefix', 'listWorkloadShares_sharedWithPrefix' - The AWS account ID or IAM role with which the workload is shared.
+-- 'maxResults', 'listWorkloadShares_maxResults' - The maximum number of results to return for this request.
 --
 -- 'nextToken', 'listWorkloadShares_nextToken' - Undocumented member.
 --
--- 'maxResults', 'listWorkloadShares_maxResults' - The maximum number of results to return for this request.
+-- 'sharedWithPrefix', 'listWorkloadShares_sharedWithPrefix' - The Amazon Web Services account ID, IAM role, organization ID, or
+-- organizational unit (OU) ID with which the workload is shared.
+--
+-- 'status', 'listWorkloadShares_status' - Undocumented member.
 --
 -- 'workloadId', 'listWorkloadShares_workloadId' - Undocumented member.
 newListWorkloadShares ::
@@ -85,24 +92,29 @@ newListWorkloadShares ::
   ListWorkloadShares
 newListWorkloadShares pWorkloadId_ =
   ListWorkloadShares'
-    { sharedWithPrefix =
-        Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      sharedWithPrefix = Prelude.Nothing,
+      status = Prelude.Nothing,
       workloadId = pWorkloadId_
     }
 
--- | The AWS account ID or IAM role with which the workload is shared.
-listWorkloadShares_sharedWithPrefix :: Lens.Lens' ListWorkloadShares (Prelude.Maybe Prelude.Text)
-listWorkloadShares_sharedWithPrefix = Lens.lens (\ListWorkloadShares' {sharedWithPrefix} -> sharedWithPrefix) (\s@ListWorkloadShares' {} a -> s {sharedWithPrefix = a} :: ListWorkloadShares)
+-- | The maximum number of results to return for this request.
+listWorkloadShares_maxResults :: Lens.Lens' ListWorkloadShares (Prelude.Maybe Prelude.Natural)
+listWorkloadShares_maxResults = Lens.lens (\ListWorkloadShares' {maxResults} -> maxResults) (\s@ListWorkloadShares' {} a -> s {maxResults = a} :: ListWorkloadShares)
 
 -- | Undocumented member.
 listWorkloadShares_nextToken :: Lens.Lens' ListWorkloadShares (Prelude.Maybe Prelude.Text)
 listWorkloadShares_nextToken = Lens.lens (\ListWorkloadShares' {nextToken} -> nextToken) (\s@ListWorkloadShares' {} a -> s {nextToken = a} :: ListWorkloadShares)
 
--- | The maximum number of results to return for this request.
-listWorkloadShares_maxResults :: Lens.Lens' ListWorkloadShares (Prelude.Maybe Prelude.Natural)
-listWorkloadShares_maxResults = Lens.lens (\ListWorkloadShares' {maxResults} -> maxResults) (\s@ListWorkloadShares' {} a -> s {maxResults = a} :: ListWorkloadShares)
+-- | The Amazon Web Services account ID, IAM role, organization ID, or
+-- organizational unit (OU) ID with which the workload is shared.
+listWorkloadShares_sharedWithPrefix :: Lens.Lens' ListWorkloadShares (Prelude.Maybe Prelude.Text)
+listWorkloadShares_sharedWithPrefix = Lens.lens (\ListWorkloadShares' {sharedWithPrefix} -> sharedWithPrefix) (\s@ListWorkloadShares' {} a -> s {sharedWithPrefix = a} :: ListWorkloadShares)
+
+-- | Undocumented member.
+listWorkloadShares_status :: Lens.Lens' ListWorkloadShares (Prelude.Maybe ShareStatus)
+listWorkloadShares_status = Lens.lens (\ListWorkloadShares' {status} -> status) (\s@ListWorkloadShares' {} a -> s {status = a} :: ListWorkloadShares)
 
 -- | Undocumented member.
 listWorkloadShares_workloadId :: Lens.Lens' ListWorkloadShares Prelude.Text
@@ -112,64 +124,68 @@ instance Core.AWSRequest ListWorkloadShares where
   type
     AWSResponse ListWorkloadShares =
       ListWorkloadSharesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListWorkloadSharesResponse'
-            Prelude.<$> ( x Core..?> "WorkloadShareSummaries"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "WorkloadId")
+            Prelude.<*> ( x Data..?> "WorkloadShareSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "WorkloadId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListWorkloadShares where
   hashWithSalt _salt ListWorkloadShares' {..} =
-    _salt `Prelude.hashWithSalt` sharedWithPrefix
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` sharedWithPrefix
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` workloadId
 
 instance Prelude.NFData ListWorkloadShares where
   rnf ListWorkloadShares' {..} =
-    Prelude.rnf sharedWithPrefix
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf sharedWithPrefix
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf workloadId
 
-instance Core.ToHeaders ListWorkloadShares where
+instance Data.ToHeaders ListWorkloadShares where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListWorkloadShares where
+instance Data.ToPath ListWorkloadShares where
   toPath ListWorkloadShares' {..} =
     Prelude.mconcat
-      ["/workloads/", Core.toBS workloadId, "/shares"]
+      ["/workloads/", Data.toBS workloadId, "/shares"]
 
-instance Core.ToQuery ListWorkloadShares where
+instance Data.ToQuery ListWorkloadShares where
   toQuery ListWorkloadShares' {..} =
     Prelude.mconcat
-      [ "SharedWithPrefix" Core.=: sharedWithPrefix,
-        "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+      [ "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        "SharedWithPrefix" Data.=: sharedWithPrefix,
+        "Status" Data.=: status
       ]
 
 -- | Input for List Workload Share
 --
 -- /See:/ 'newListWorkloadSharesResponse' smart constructor.
 data ListWorkloadSharesResponse = ListWorkloadSharesResponse'
-  { workloadShareSummaries :: Prelude.Maybe [WorkloadShareSummary],
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { nextToken :: Prelude.Maybe Prelude.Text,
     workloadId :: Prelude.Maybe Prelude.Text,
+    workloadShareSummaries :: Prelude.Maybe [WorkloadShareSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -183,11 +199,11 @@ data ListWorkloadSharesResponse = ListWorkloadSharesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'workloadShareSummaries', 'listWorkloadSharesResponse_workloadShareSummaries' - Undocumented member.
---
 -- 'nextToken', 'listWorkloadSharesResponse_nextToken' - Undocumented member.
 --
 -- 'workloadId', 'listWorkloadSharesResponse_workloadId' - Undocumented member.
+--
+-- 'workloadShareSummaries', 'listWorkloadSharesResponse_workloadShareSummaries' - Undocumented member.
 --
 -- 'httpStatus', 'listWorkloadSharesResponse_httpStatus' - The response's http status code.
 newListWorkloadSharesResponse ::
@@ -196,16 +212,12 @@ newListWorkloadSharesResponse ::
   ListWorkloadSharesResponse
 newListWorkloadSharesResponse pHttpStatus_ =
   ListWorkloadSharesResponse'
-    { workloadShareSummaries =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       workloadId = Prelude.Nothing,
+      workloadShareSummaries = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Undocumented member.
-listWorkloadSharesResponse_workloadShareSummaries :: Lens.Lens' ListWorkloadSharesResponse (Prelude.Maybe [WorkloadShareSummary])
-listWorkloadSharesResponse_workloadShareSummaries = Lens.lens (\ListWorkloadSharesResponse' {workloadShareSummaries} -> workloadShareSummaries) (\s@ListWorkloadSharesResponse' {} a -> s {workloadShareSummaries = a} :: ListWorkloadSharesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Undocumented member.
 listWorkloadSharesResponse_nextToken :: Lens.Lens' ListWorkloadSharesResponse (Prelude.Maybe Prelude.Text)
@@ -215,13 +227,17 @@ listWorkloadSharesResponse_nextToken = Lens.lens (\ListWorkloadSharesResponse' {
 listWorkloadSharesResponse_workloadId :: Lens.Lens' ListWorkloadSharesResponse (Prelude.Maybe Prelude.Text)
 listWorkloadSharesResponse_workloadId = Lens.lens (\ListWorkloadSharesResponse' {workloadId} -> workloadId) (\s@ListWorkloadSharesResponse' {} a -> s {workloadId = a} :: ListWorkloadSharesResponse)
 
+-- | Undocumented member.
+listWorkloadSharesResponse_workloadShareSummaries :: Lens.Lens' ListWorkloadSharesResponse (Prelude.Maybe [WorkloadShareSummary])
+listWorkloadSharesResponse_workloadShareSummaries = Lens.lens (\ListWorkloadSharesResponse' {workloadShareSummaries} -> workloadShareSummaries) (\s@ListWorkloadSharesResponse' {} a -> s {workloadShareSummaries = a} :: ListWorkloadSharesResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 listWorkloadSharesResponse_httpStatus :: Lens.Lens' ListWorkloadSharesResponse Prelude.Int
 listWorkloadSharesResponse_httpStatus = Lens.lens (\ListWorkloadSharesResponse' {httpStatus} -> httpStatus) (\s@ListWorkloadSharesResponse' {} a -> s {httpStatus = a} :: ListWorkloadSharesResponse)
 
 instance Prelude.NFData ListWorkloadSharesResponse where
   rnf ListWorkloadSharesResponse' {..} =
-    Prelude.rnf workloadShareSummaries
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf workloadId
+      `Prelude.seq` Prelude.rnf workloadShareSummaries
       `Prelude.seq` Prelude.rnf httpStatus

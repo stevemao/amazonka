@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.GetIdentityMailFromDomainAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.SES.GetIdentityMailFromDomainAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,16 +91,17 @@ instance
   type
     AWSResponse GetIdentityMailFromDomainAttributes =
       GetIdentityMailFromDomainAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetIdentityMailFromDomainAttributesResult"
       ( \s h x ->
           GetIdentityMailFromDomainAttributesResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> ( x Core..@? "MailFromDomainAttributes"
+              Prelude.<*> ( x Data..@? "MailFromDomainAttributes"
                               Core..!@ Prelude.mempty
-                              Prelude.>>= Core.parseXMLMap "entry" "key" "value"
+                              Prelude.>>= Data.parseXMLMap "entry" "key" "value"
                           )
       )
 
@@ -120,31 +122,31 @@ instance
     Prelude.rnf identities
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetIdentityMailFromDomainAttributes
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetIdentityMailFromDomainAttributes
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetIdentityMailFromDomainAttributes
   where
   toQuery GetIdentityMailFromDomainAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "GetIdentityMailFromDomainAttributes" ::
+          Data.=: ( "GetIdentityMailFromDomainAttributes" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
         "Identities"
-          Core.=: Core.toQueryList "member" identities
+          Data.=: Data.toQueryList "member" identities
       ]
 
 -- | Represents the custom MAIL FROM attributes for a list of identities.

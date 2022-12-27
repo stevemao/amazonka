@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.RemoveLayerVersionPermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.Lambda.RemoveLayerVersionPermission
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,7 +122,8 @@ instance Core.AWSRequest RemoveLayerVersionPermission where
   type
     AWSResponse RemoveLayerVersionPermission =
       RemoveLayerVersionPermissionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       RemoveLayerVersionPermissionResponse'
@@ -143,23 +145,23 @@ instance Prelude.NFData RemoveLayerVersionPermission where
       `Prelude.seq` Prelude.rnf versionNumber
       `Prelude.seq` Prelude.rnf statementId
 
-instance Core.ToHeaders RemoveLayerVersionPermission where
+instance Data.ToHeaders RemoveLayerVersionPermission where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RemoveLayerVersionPermission where
+instance Data.ToPath RemoveLayerVersionPermission where
   toPath RemoveLayerVersionPermission' {..} =
     Prelude.mconcat
       [ "/2018-10-31/layers/",
-        Core.toBS layerName,
+        Data.toBS layerName,
         "/versions/",
-        Core.toBS versionNumber,
+        Data.toBS versionNumber,
         "/policy/",
-        Core.toBS statementId
+        Data.toBS statementId
       ]
 
-instance Core.ToQuery RemoveLayerVersionPermission where
+instance Data.ToQuery RemoveLayerVersionPermission where
   toQuery RemoveLayerVersionPermission' {..} =
-    Prelude.mconcat ["RevisionId" Core.=: revisionId]
+    Prelude.mconcat ["RevisionId" Data.=: revisionId]
 
 -- | /See:/ 'newRemoveLayerVersionPermissionResponse' smart constructor.
 data RemoveLayerVersionPermissionResponse = RemoveLayerVersionPermissionResponse'

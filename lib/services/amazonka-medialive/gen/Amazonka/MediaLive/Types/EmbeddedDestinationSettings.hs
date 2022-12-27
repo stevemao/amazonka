@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.EmbeddedDestinationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.EmbeddedDestinationSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Embedded Destination Settings
@@ -40,9 +41,9 @@ newEmbeddedDestinationSettings ::
 newEmbeddedDestinationSettings =
   EmbeddedDestinationSettings'
 
-instance Core.FromJSON EmbeddedDestinationSettings where
+instance Data.FromJSON EmbeddedDestinationSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EmbeddedDestinationSettings"
       (\x -> Prelude.pure EmbeddedDestinationSettings')
 
@@ -53,5 +54,5 @@ instance Prelude.Hashable EmbeddedDestinationSettings where
 instance Prelude.NFData EmbeddedDestinationSettings where
   rnf _ = ()
 
-instance Core.ToJSON EmbeddedDestinationSettings where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON EmbeddedDestinationSettings where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)

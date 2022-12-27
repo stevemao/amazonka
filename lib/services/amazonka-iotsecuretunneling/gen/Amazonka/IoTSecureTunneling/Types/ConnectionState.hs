@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSecureTunneling.Types.ConnectionState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.IoTSecureTunneling.Types.ConnectionState where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSecureTunneling.Types.ConnectionStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The state of a connection.
 --
 -- /See:/ 'newConnectionState' smart constructor.
 data ConnectionState = ConnectionState'
-  { -- | The connection status of the tunnel. Valid values are @CONNECTED@ and
+  { -- | The last time the connection status was updated.
+    lastUpdatedAt :: Prelude.Maybe Data.POSIX,
+    -- | The connection status of the tunnel. Valid values are @CONNECTED@ and
     -- @DISCONNECTED@.
-    status :: Prelude.Maybe ConnectionStatus,
-    -- | The last time the connection status was updated.
-    lastUpdatedAt :: Prelude.Maybe Core.POSIX
+    status :: Prelude.Maybe ConnectionStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,43 +45,43 @@ data ConnectionState = ConnectionState'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'lastUpdatedAt', 'connectionState_lastUpdatedAt' - The last time the connection status was updated.
+--
 -- 'status', 'connectionState_status' - The connection status of the tunnel. Valid values are @CONNECTED@ and
 -- @DISCONNECTED@.
---
--- 'lastUpdatedAt', 'connectionState_lastUpdatedAt' - The last time the connection status was updated.
 newConnectionState ::
   ConnectionState
 newConnectionState =
   ConnectionState'
-    { status = Prelude.Nothing,
-      lastUpdatedAt = Prelude.Nothing
+    { lastUpdatedAt = Prelude.Nothing,
+      status = Prelude.Nothing
     }
+
+-- | The last time the connection status was updated.
+connectionState_lastUpdatedAt :: Lens.Lens' ConnectionState (Prelude.Maybe Prelude.UTCTime)
+connectionState_lastUpdatedAt = Lens.lens (\ConnectionState' {lastUpdatedAt} -> lastUpdatedAt) (\s@ConnectionState' {} a -> s {lastUpdatedAt = a} :: ConnectionState) Prelude.. Lens.mapping Data._Time
 
 -- | The connection status of the tunnel. Valid values are @CONNECTED@ and
 -- @DISCONNECTED@.
 connectionState_status :: Lens.Lens' ConnectionState (Prelude.Maybe ConnectionStatus)
 connectionState_status = Lens.lens (\ConnectionState' {status} -> status) (\s@ConnectionState' {} a -> s {status = a} :: ConnectionState)
 
--- | The last time the connection status was updated.
-connectionState_lastUpdatedAt :: Lens.Lens' ConnectionState (Prelude.Maybe Prelude.UTCTime)
-connectionState_lastUpdatedAt = Lens.lens (\ConnectionState' {lastUpdatedAt} -> lastUpdatedAt) (\s@ConnectionState' {} a -> s {lastUpdatedAt = a} :: ConnectionState) Prelude.. Lens.mapping Core._Time
-
-instance Core.FromJSON ConnectionState where
+instance Data.FromJSON ConnectionState where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConnectionState"
       ( \x ->
           ConnectionState'
-            Prelude.<$> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "lastUpdatedAt")
+            Prelude.<$> (x Data..:? "lastUpdatedAt")
+            Prelude.<*> (x Data..:? "status")
       )
 
 instance Prelude.Hashable ConnectionState where
   hashWithSalt _salt ConnectionState' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` lastUpdatedAt
+    _salt `Prelude.hashWithSalt` lastUpdatedAt
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData ConnectionState where
   rnf ConnectionState' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf lastUpdatedAt
+    Prelude.rnf lastUpdatedAt
+      `Prelude.seq` Prelude.rnf status

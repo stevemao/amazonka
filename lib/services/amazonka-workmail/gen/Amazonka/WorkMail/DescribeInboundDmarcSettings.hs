@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.DescribeInboundDmarcSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.WorkMail.DescribeInboundDmarcSettings
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,12 +81,13 @@ instance Core.AWSRequest DescribeInboundDmarcSettings where
   type
     AWSResponse DescribeInboundDmarcSettings =
       DescribeInboundDmarcSettingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeInboundDmarcSettingsResponse'
-            Prelude.<$> (x Core..?> "Enforced")
+            Prelude.<$> (x Data..?> "Enforced")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,34 +102,34 @@ instance Prelude.NFData DescribeInboundDmarcSettings where
   rnf DescribeInboundDmarcSettings' {..} =
     Prelude.rnf organizationId
 
-instance Core.ToHeaders DescribeInboundDmarcSettings where
+instance Data.ToHeaders DescribeInboundDmarcSettings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.DescribeInboundDmarcSettings" ::
+              Data.=# ( "WorkMailService.DescribeInboundDmarcSettings" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeInboundDmarcSettings where
+instance Data.ToJSON DescribeInboundDmarcSettings where
   toJSON DescribeInboundDmarcSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId)
+              ("OrganizationId" Data..= organizationId)
           ]
       )
 
-instance Core.ToPath DescribeInboundDmarcSettings where
+instance Data.ToPath DescribeInboundDmarcSettings where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeInboundDmarcSettings where
+instance Data.ToQuery DescribeInboundDmarcSettings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeInboundDmarcSettingsResponse' smart constructor.

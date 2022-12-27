@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.GetMapStyleDescriptor
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.Location.GetMapStyleDescriptor
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -83,13 +84,14 @@ instance Core.AWSRequest GetMapStyleDescriptor where
   type
     AWSResponse GetMapStyleDescriptor =
       GetMapStyleDescriptorResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveBytes
       ( \s h x ->
           GetMapStyleDescriptorResponse'
             Prelude.<$> (Prelude.pure (Prelude.Just (Prelude.coerce x)))
-            Prelude.<*> (h Core..#? "Content-Type")
+            Prelude.<*> (h Data..#? "Content-Type")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,26 +102,26 @@ instance Prelude.Hashable GetMapStyleDescriptor where
 instance Prelude.NFData GetMapStyleDescriptor where
   rnf GetMapStyleDescriptor' {..} = Prelude.rnf mapName
 
-instance Core.ToHeaders GetMapStyleDescriptor where
+instance Data.ToHeaders GetMapStyleDescriptor where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetMapStyleDescriptor where
+instance Data.ToPath GetMapStyleDescriptor where
   toPath GetMapStyleDescriptor' {..} =
     Prelude.mconcat
       [ "/maps/v0/maps/",
-        Core.toBS mapName,
+        Data.toBS mapName,
         "/style-descriptor"
       ]
 
-instance Core.ToQuery GetMapStyleDescriptor where
+instance Data.ToQuery GetMapStyleDescriptor where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetMapStyleDescriptorResponse' smart constructor.

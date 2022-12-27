@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.Types.ChoiceUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WellArchitected.Types.ChoiceUpdate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WellArchitected.Types.ChoiceReason
 import Amazonka.WellArchitected.Types.ChoiceStatus
@@ -29,11 +30,11 @@ import Amazonka.WellArchitected.Types.ChoiceStatus
 --
 -- /See:/ 'newChoiceUpdate' smart constructor.
 data ChoiceUpdate = ChoiceUpdate'
-  { -- | The reason why a choice is non-applicable to a question in your
+  { -- | The notes associated with a choice.
+    notes :: Prelude.Maybe Prelude.Text,
+    -- | The reason why a choice is non-applicable to a question in your
     -- workload.
     reason :: Prelude.Maybe ChoiceReason,
-    -- | The notes associated with a choice.
-    notes :: Prelude.Maybe Prelude.Text,
     -- | The status of a choice.
     status :: ChoiceStatus
   }
@@ -47,10 +48,10 @@ data ChoiceUpdate = ChoiceUpdate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'notes', 'choiceUpdate_notes' - The notes associated with a choice.
+--
 -- 'reason', 'choiceUpdate_reason' - The reason why a choice is non-applicable to a question in your
 -- workload.
---
--- 'notes', 'choiceUpdate_notes' - The notes associated with a choice.
 --
 -- 'status', 'choiceUpdate_status' - The status of a choice.
 newChoiceUpdate ::
@@ -59,19 +60,19 @@ newChoiceUpdate ::
   ChoiceUpdate
 newChoiceUpdate pStatus_ =
   ChoiceUpdate'
-    { reason = Prelude.Nothing,
-      notes = Prelude.Nothing,
+    { notes = Prelude.Nothing,
+      reason = Prelude.Nothing,
       status = pStatus_
     }
+
+-- | The notes associated with a choice.
+choiceUpdate_notes :: Lens.Lens' ChoiceUpdate (Prelude.Maybe Prelude.Text)
+choiceUpdate_notes = Lens.lens (\ChoiceUpdate' {notes} -> notes) (\s@ChoiceUpdate' {} a -> s {notes = a} :: ChoiceUpdate)
 
 -- | The reason why a choice is non-applicable to a question in your
 -- workload.
 choiceUpdate_reason :: Lens.Lens' ChoiceUpdate (Prelude.Maybe ChoiceReason)
 choiceUpdate_reason = Lens.lens (\ChoiceUpdate' {reason} -> reason) (\s@ChoiceUpdate' {} a -> s {reason = a} :: ChoiceUpdate)
-
--- | The notes associated with a choice.
-choiceUpdate_notes :: Lens.Lens' ChoiceUpdate (Prelude.Maybe Prelude.Text)
-choiceUpdate_notes = Lens.lens (\ChoiceUpdate' {notes} -> notes) (\s@ChoiceUpdate' {} a -> s {notes = a} :: ChoiceUpdate)
 
 -- | The status of a choice.
 choiceUpdate_status :: Lens.Lens' ChoiceUpdate ChoiceStatus
@@ -79,22 +80,22 @@ choiceUpdate_status = Lens.lens (\ChoiceUpdate' {status} -> status) (\s@ChoiceUp
 
 instance Prelude.Hashable ChoiceUpdate where
   hashWithSalt _salt ChoiceUpdate' {..} =
-    _salt `Prelude.hashWithSalt` reason
-      `Prelude.hashWithSalt` notes
+    _salt `Prelude.hashWithSalt` notes
+      `Prelude.hashWithSalt` reason
       `Prelude.hashWithSalt` status
 
 instance Prelude.NFData ChoiceUpdate where
   rnf ChoiceUpdate' {..} =
-    Prelude.rnf reason
-      `Prelude.seq` Prelude.rnf notes
+    Prelude.rnf notes
+      `Prelude.seq` Prelude.rnf reason
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToJSON ChoiceUpdate where
+instance Data.ToJSON ChoiceUpdate where
   toJSON ChoiceUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Reason" Core..=) Prelude.<$> reason,
-            ("Notes" Core..=) Prelude.<$> notes,
-            Prelude.Just ("Status" Core..= status)
+          [ ("Notes" Data..=) Prelude.<$> notes,
+            ("Reason" Data..=) Prelude.<$> reason,
+            Prelude.Just ("Status" Data..= status)
           ]
       )

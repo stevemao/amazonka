@@ -14,17 +14,17 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.CreateApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- An application in AppConfig is a logical unit of code that provides
--- capabilities for your customers. For example, an application can be a
--- microservice that runs on Amazon EC2 instances, a mobile application
--- installed by your users, a serverless application using Amazon API
--- Gateway and AWS Lambda, or any system you run on behalf of others.
+-- Creates an application. In AppConfig, an application is simply an
+-- organizational construct like a folder. This organizational construct
+-- has a relationship with some unit of executable code. For example, you
+-- could create an application called MyMobileApp to organize and manage
+-- configuration data for a mobile application installed by your users.
 module Amazonka.AppConfig.CreateApplication
   ( -- * Creating a Request
     CreateApplication (..),
@@ -40,15 +40,16 @@ module Amazonka.AppConfig.CreateApplication
     newApplication,
 
     -- * Response Lenses
-    application_name,
-    application_id,
     application_description,
+    application_id,
+    application_name,
   )
 where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,10 +109,11 @@ createApplication_name = Lens.lens (\CreateApplication' {name} -> name) (\s@Crea
 
 instance Core.AWSRequest CreateApplication where
   type AWSResponse CreateApplication = Application
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable CreateApplication where
   hashWithSalt _salt CreateApplication' {..} =
@@ -125,29 +127,29 @@ instance Prelude.NFData CreateApplication where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateApplication where
+instance Data.ToHeaders CreateApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateApplication where
+instance Data.ToJSON CreateApplication where
   toJSON CreateApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateApplication where
+instance Data.ToPath CreateApplication where
   toPath = Prelude.const "/applications"
 
-instance Core.ToQuery CreateApplication where
+instance Data.ToQuery CreateApplication where
   toQuery = Prelude.const Prelude.mempty

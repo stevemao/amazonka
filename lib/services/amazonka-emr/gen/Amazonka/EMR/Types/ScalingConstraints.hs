@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.ScalingConstraints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EMR.Types.ScalingConstraints where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The upper and lower EC2 instance limits for an automatic scaling policy.
@@ -79,14 +80,14 @@ scalingConstraints_minCapacity = Lens.lens (\ScalingConstraints' {minCapacity} -
 scalingConstraints_maxCapacity :: Lens.Lens' ScalingConstraints Prelude.Int
 scalingConstraints_maxCapacity = Lens.lens (\ScalingConstraints' {maxCapacity} -> maxCapacity) (\s@ScalingConstraints' {} a -> s {maxCapacity = a} :: ScalingConstraints)
 
-instance Core.FromJSON ScalingConstraints where
+instance Data.FromJSON ScalingConstraints where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ScalingConstraints"
       ( \x ->
           ScalingConstraints'
-            Prelude.<$> (x Core..: "MinCapacity")
-            Prelude.<*> (x Core..: "MaxCapacity")
+            Prelude.<$> (x Data..: "MinCapacity")
+            Prelude.<*> (x Data..: "MaxCapacity")
       )
 
 instance Prelude.Hashable ScalingConstraints where
@@ -99,11 +100,11 @@ instance Prelude.NFData ScalingConstraints where
     Prelude.rnf minCapacity
       `Prelude.seq` Prelude.rnf maxCapacity
 
-instance Core.ToJSON ScalingConstraints where
+instance Data.ToJSON ScalingConstraints where
   toJSON ScalingConstraints' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("MinCapacity" Core..= minCapacity),
-            Prelude.Just ("MaxCapacity" Core..= maxCapacity)
+          [ Prelude.Just ("MinCapacity" Data..= minCapacity),
+            Prelude.Just ("MaxCapacity" Data..= maxCapacity)
           ]
       )

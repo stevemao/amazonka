@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.GetQualificationScore
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.MechanicalTurk.GetQualificationScore
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -102,12 +103,13 @@ instance Core.AWSRequest GetQualificationScore where
   type
     AWSResponse GetQualificationScore =
       GetQualificationScoreResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetQualificationScoreResponse'
-            Prelude.<$> (x Core..?> "Qualification")
+            Prelude.<$> (x Data..?> "Qualification")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,35 +123,35 @@ instance Prelude.NFData GetQualificationScore where
     Prelude.rnf qualificationTypeId
       `Prelude.seq` Prelude.rnf workerId
 
-instance Core.ToHeaders GetQualificationScore where
+instance Data.ToHeaders GetQualificationScore where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MTurkRequesterServiceV20170117.GetQualificationScore" ::
+              Data.=# ( "MTurkRequesterServiceV20170117.GetQualificationScore" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetQualificationScore where
+instance Data.ToJSON GetQualificationScore where
   toJSON GetQualificationScore' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("QualificationTypeId" Core..= qualificationTypeId),
-            Prelude.Just ("WorkerId" Core..= workerId)
+              ("QualificationTypeId" Data..= qualificationTypeId),
+            Prelude.Just ("WorkerId" Data..= workerId)
           ]
       )
 
-instance Core.ToPath GetQualificationScore where
+instance Data.ToPath GetQualificationScore where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetQualificationScore where
+instance Data.ToQuery GetQualificationScore where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetQualificationScoreResponse' smart constructor.

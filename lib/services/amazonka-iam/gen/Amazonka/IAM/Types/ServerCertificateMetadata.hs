@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.Types.ServerCertificateMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IAM.Types.ServerCertificateMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a server certificate without its certificate
@@ -31,10 +32,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newServerCertificateMetadata' smart constructor.
 data ServerCertificateMetadata = ServerCertificateMetadata'
-  { -- | The date when the server certificate was uploaded.
-    uploadDate :: Prelude.Maybe Core.ISO8601,
-    -- | The date on which the certificate is set to expire.
-    expiration :: Prelude.Maybe Core.ISO8601,
+  { -- | The date on which the certificate is set to expire.
+    expiration :: Prelude.Maybe Data.ISO8601,
+    -- | The date when the server certificate was uploaded.
+    uploadDate :: Prelude.Maybe Data.ISO8601,
     -- | The path to the server certificate. For more information about paths,
     -- see
     -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
@@ -63,9 +64,9 @@ data ServerCertificateMetadata = ServerCertificateMetadata'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'uploadDate', 'serverCertificateMetadata_uploadDate' - The date when the server certificate was uploaded.
---
 -- 'expiration', 'serverCertificateMetadata_expiration' - The date on which the certificate is set to expire.
+--
+-- 'uploadDate', 'serverCertificateMetadata_uploadDate' - The date when the server certificate was uploaded.
 --
 -- 'path', 'serverCertificateMetadata_path' - The path to the server certificate. For more information about paths,
 -- see
@@ -99,22 +100,22 @@ newServerCertificateMetadata
   pServerCertificateId_
   pArn_ =
     ServerCertificateMetadata'
-      { uploadDate =
+      { expiration =
           Prelude.Nothing,
-        expiration = Prelude.Nothing,
+        uploadDate = Prelude.Nothing,
         path = pPath_,
         serverCertificateName = pServerCertificateName_,
         serverCertificateId = pServerCertificateId_,
         arn = pArn_
       }
 
--- | The date when the server certificate was uploaded.
-serverCertificateMetadata_uploadDate :: Lens.Lens' ServerCertificateMetadata (Prelude.Maybe Prelude.UTCTime)
-serverCertificateMetadata_uploadDate = Lens.lens (\ServerCertificateMetadata' {uploadDate} -> uploadDate) (\s@ServerCertificateMetadata' {} a -> s {uploadDate = a} :: ServerCertificateMetadata) Prelude.. Lens.mapping Core._Time
-
 -- | The date on which the certificate is set to expire.
 serverCertificateMetadata_expiration :: Lens.Lens' ServerCertificateMetadata (Prelude.Maybe Prelude.UTCTime)
-serverCertificateMetadata_expiration = Lens.lens (\ServerCertificateMetadata' {expiration} -> expiration) (\s@ServerCertificateMetadata' {} a -> s {expiration = a} :: ServerCertificateMetadata) Prelude.. Lens.mapping Core._Time
+serverCertificateMetadata_expiration = Lens.lens (\ServerCertificateMetadata' {expiration} -> expiration) (\s@ServerCertificateMetadata' {} a -> s {expiration = a} :: ServerCertificateMetadata) Prelude.. Lens.mapping Data._Time
+
+-- | The date when the server certificate was uploaded.
+serverCertificateMetadata_uploadDate :: Lens.Lens' ServerCertificateMetadata (Prelude.Maybe Prelude.UTCTime)
+serverCertificateMetadata_uploadDate = Lens.lens (\ServerCertificateMetadata' {uploadDate} -> uploadDate) (\s@ServerCertificateMetadata' {} a -> s {uploadDate = a} :: ServerCertificateMetadata) Prelude.. Lens.mapping Data._Time
 
 -- | The path to the server certificate. For more information about paths,
 -- see
@@ -141,20 +142,20 @@ serverCertificateMetadata_serverCertificateId = Lens.lens (\ServerCertificateMet
 serverCertificateMetadata_arn :: Lens.Lens' ServerCertificateMetadata Prelude.Text
 serverCertificateMetadata_arn = Lens.lens (\ServerCertificateMetadata' {arn} -> arn) (\s@ServerCertificateMetadata' {} a -> s {arn = a} :: ServerCertificateMetadata)
 
-instance Core.FromXML ServerCertificateMetadata where
+instance Data.FromXML ServerCertificateMetadata where
   parseXML x =
     ServerCertificateMetadata'
-      Prelude.<$> (x Core..@? "UploadDate")
-      Prelude.<*> (x Core..@? "Expiration")
-      Prelude.<*> (x Core..@ "Path")
-      Prelude.<*> (x Core..@ "ServerCertificateName")
-      Prelude.<*> (x Core..@ "ServerCertificateId")
-      Prelude.<*> (x Core..@ "Arn")
+      Prelude.<$> (x Data..@? "Expiration")
+      Prelude.<*> (x Data..@? "UploadDate")
+      Prelude.<*> (x Data..@ "Path")
+      Prelude.<*> (x Data..@ "ServerCertificateName")
+      Prelude.<*> (x Data..@ "ServerCertificateId")
+      Prelude.<*> (x Data..@ "Arn")
 
 instance Prelude.Hashable ServerCertificateMetadata where
   hashWithSalt _salt ServerCertificateMetadata' {..} =
-    _salt `Prelude.hashWithSalt` uploadDate
-      `Prelude.hashWithSalt` expiration
+    _salt `Prelude.hashWithSalt` expiration
+      `Prelude.hashWithSalt` uploadDate
       `Prelude.hashWithSalt` path
       `Prelude.hashWithSalt` serverCertificateName
       `Prelude.hashWithSalt` serverCertificateId
@@ -162,8 +163,8 @@ instance Prelude.Hashable ServerCertificateMetadata where
 
 instance Prelude.NFData ServerCertificateMetadata where
   rnf ServerCertificateMetadata' {..} =
-    Prelude.rnf uploadDate
-      `Prelude.seq` Prelude.rnf expiration
+    Prelude.rnf expiration
+      `Prelude.seq` Prelude.rnf uploadDate
       `Prelude.seq` Prelude.rnf path
       `Prelude.seq` Prelude.rnf serverCertificateName
       `Prelude.seq` Prelude.rnf serverCertificateId

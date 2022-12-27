@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SES.Types.RecipientDsnFields
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SES.Types.RecipientDsnFields where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SES.Types.DsnAction
 import Amazonka.SES.Types.ExtensionField
@@ -38,11 +39,8 @@ data RecipientDsnFields = RecipientDsnFields'
     -- response. See <https://tools.ietf.org/html/rfc3463 RFC 3463> for the
     -- correct formatting of this parameter.
     diagnosticCode :: Prelude.Maybe Prelude.Text,
-    -- | The MTA to which the remote MTA attempted to deliver the message,
-    -- formatted as specified in <https://tools.ietf.org/html/rfc3464 RFC 3464>
-    -- (@mta-name-type; mta-name@). This parameter typically applies only to
-    -- propagating synchronous bounces.
-    remoteMta :: Prelude.Maybe Prelude.Text,
+    -- | Additional X-headers to include in the DSN.
+    extensionFields :: Prelude.Maybe [ExtensionField],
     -- | The email address that the message was ultimately delivered to. This
     -- corresponds to the @Final-Recipient@ in the DSN. If not specified,
     -- @FinalRecipient@ will be set to the @Recipient@ specified in the
@@ -53,11 +51,14 @@ data RecipientDsnFields = RecipientDsnFields'
     -- Do not prepend the @FinalRecipient@ email address with @rfc 822;@, as
     -- described in <https://tools.ietf.org/html/rfc3798 RFC 3798>.
     finalRecipient :: Prelude.Maybe Prelude.Text,
-    -- | Additional X-headers to include in the DSN.
-    extensionFields :: Prelude.Maybe [ExtensionField],
     -- | The time the final delivery attempt was made, in
     -- <https://www.ietf.org/rfc/rfc0822.txt RFC 822> date-time format.
-    lastAttemptDate :: Prelude.Maybe Core.ISO8601,
+    lastAttemptDate :: Prelude.Maybe Data.ISO8601,
+    -- | The MTA to which the remote MTA attempted to deliver the message,
+    -- formatted as specified in <https://tools.ietf.org/html/rfc3464 RFC 3464>
+    -- (@mta-name-type; mta-name@). This parameter typically applies only to
+    -- propagating synchronous bounces.
+    remoteMta :: Prelude.Maybe Prelude.Text,
     -- | The action performed by the reporting mail transfer agent (MTA) as a
     -- result of its attempt to deliver the message to the recipient address.
     -- This is required by <https://tools.ietf.org/html/rfc3464 RFC 3464>.
@@ -80,10 +81,7 @@ data RecipientDsnFields = RecipientDsnFields'
 -- response. See <https://tools.ietf.org/html/rfc3463 RFC 3463> for the
 -- correct formatting of this parameter.
 --
--- 'remoteMta', 'recipientDsnFields_remoteMta' - The MTA to which the remote MTA attempted to deliver the message,
--- formatted as specified in <https://tools.ietf.org/html/rfc3464 RFC 3464>
--- (@mta-name-type; mta-name@). This parameter typically applies only to
--- propagating synchronous bounces.
+-- 'extensionFields', 'recipientDsnFields_extensionFields' - Additional X-headers to include in the DSN.
 --
 -- 'finalRecipient', 'recipientDsnFields_finalRecipient' - The email address that the message was ultimately delivered to. This
 -- corresponds to the @Final-Recipient@ in the DSN. If not specified,
@@ -95,10 +93,13 @@ data RecipientDsnFields = RecipientDsnFields'
 -- Do not prepend the @FinalRecipient@ email address with @rfc 822;@, as
 -- described in <https://tools.ietf.org/html/rfc3798 RFC 3798>.
 --
--- 'extensionFields', 'recipientDsnFields_extensionFields' - Additional X-headers to include in the DSN.
---
 -- 'lastAttemptDate', 'recipientDsnFields_lastAttemptDate' - The time the final delivery attempt was made, in
 -- <https://www.ietf.org/rfc/rfc0822.txt RFC 822> date-time format.
+--
+-- 'remoteMta', 'recipientDsnFields_remoteMta' - The MTA to which the remote MTA attempted to deliver the message,
+-- formatted as specified in <https://tools.ietf.org/html/rfc3464 RFC 3464>
+-- (@mta-name-type; mta-name@). This parameter typically applies only to
+-- propagating synchronous bounces.
 --
 -- 'action', 'recipientDsnFields_action' - The action performed by the reporting mail transfer agent (MTA) as a
 -- result of its attempt to deliver the message to the recipient address.
@@ -116,10 +117,10 @@ newRecipientDsnFields pAction_ pStatus_ =
   RecipientDsnFields'
     { diagnosticCode =
         Prelude.Nothing,
-      remoteMta = Prelude.Nothing,
-      finalRecipient = Prelude.Nothing,
       extensionFields = Prelude.Nothing,
+      finalRecipient = Prelude.Nothing,
       lastAttemptDate = Prelude.Nothing,
+      remoteMta = Prelude.Nothing,
       action = pAction_,
       status = pStatus_
     }
@@ -130,12 +131,9 @@ newRecipientDsnFields pAction_ pStatus_ =
 recipientDsnFields_diagnosticCode :: Lens.Lens' RecipientDsnFields (Prelude.Maybe Prelude.Text)
 recipientDsnFields_diagnosticCode = Lens.lens (\RecipientDsnFields' {diagnosticCode} -> diagnosticCode) (\s@RecipientDsnFields' {} a -> s {diagnosticCode = a} :: RecipientDsnFields)
 
--- | The MTA to which the remote MTA attempted to deliver the message,
--- formatted as specified in <https://tools.ietf.org/html/rfc3464 RFC 3464>
--- (@mta-name-type; mta-name@). This parameter typically applies only to
--- propagating synchronous bounces.
-recipientDsnFields_remoteMta :: Lens.Lens' RecipientDsnFields (Prelude.Maybe Prelude.Text)
-recipientDsnFields_remoteMta = Lens.lens (\RecipientDsnFields' {remoteMta} -> remoteMta) (\s@RecipientDsnFields' {} a -> s {remoteMta = a} :: RecipientDsnFields)
+-- | Additional X-headers to include in the DSN.
+recipientDsnFields_extensionFields :: Lens.Lens' RecipientDsnFields (Prelude.Maybe [ExtensionField])
+recipientDsnFields_extensionFields = Lens.lens (\RecipientDsnFields' {extensionFields} -> extensionFields) (\s@RecipientDsnFields' {} a -> s {extensionFields = a} :: RecipientDsnFields) Prelude.. Lens.mapping Lens.coerced
 
 -- | The email address that the message was ultimately delivered to. This
 -- corresponds to the @Final-Recipient@ in the DSN. If not specified,
@@ -149,14 +147,17 @@ recipientDsnFields_remoteMta = Lens.lens (\RecipientDsnFields' {remoteMta} -> re
 recipientDsnFields_finalRecipient :: Lens.Lens' RecipientDsnFields (Prelude.Maybe Prelude.Text)
 recipientDsnFields_finalRecipient = Lens.lens (\RecipientDsnFields' {finalRecipient} -> finalRecipient) (\s@RecipientDsnFields' {} a -> s {finalRecipient = a} :: RecipientDsnFields)
 
--- | Additional X-headers to include in the DSN.
-recipientDsnFields_extensionFields :: Lens.Lens' RecipientDsnFields (Prelude.Maybe [ExtensionField])
-recipientDsnFields_extensionFields = Lens.lens (\RecipientDsnFields' {extensionFields} -> extensionFields) (\s@RecipientDsnFields' {} a -> s {extensionFields = a} :: RecipientDsnFields) Prelude.. Lens.mapping Lens.coerced
-
 -- | The time the final delivery attempt was made, in
 -- <https://www.ietf.org/rfc/rfc0822.txt RFC 822> date-time format.
 recipientDsnFields_lastAttemptDate :: Lens.Lens' RecipientDsnFields (Prelude.Maybe Prelude.UTCTime)
-recipientDsnFields_lastAttemptDate = Lens.lens (\RecipientDsnFields' {lastAttemptDate} -> lastAttemptDate) (\s@RecipientDsnFields' {} a -> s {lastAttemptDate = a} :: RecipientDsnFields) Prelude.. Lens.mapping Core._Time
+recipientDsnFields_lastAttemptDate = Lens.lens (\RecipientDsnFields' {lastAttemptDate} -> lastAttemptDate) (\s@RecipientDsnFields' {} a -> s {lastAttemptDate = a} :: RecipientDsnFields) Prelude.. Lens.mapping Data._Time
+
+-- | The MTA to which the remote MTA attempted to deliver the message,
+-- formatted as specified in <https://tools.ietf.org/html/rfc3464 RFC 3464>
+-- (@mta-name-type; mta-name@). This parameter typically applies only to
+-- propagating synchronous bounces.
+recipientDsnFields_remoteMta :: Lens.Lens' RecipientDsnFields (Prelude.Maybe Prelude.Text)
+recipientDsnFields_remoteMta = Lens.lens (\RecipientDsnFields' {remoteMta} -> remoteMta) (\s@RecipientDsnFields' {} a -> s {remoteMta = a} :: RecipientDsnFields)
 
 -- | The action performed by the reporting mail transfer agent (MTA) as a
 -- result of its attempt to deliver the message to the recipient address.
@@ -172,35 +173,35 @@ recipientDsnFields_status = Lens.lens (\RecipientDsnFields' {status} -> status) 
 instance Prelude.Hashable RecipientDsnFields where
   hashWithSalt _salt RecipientDsnFields' {..} =
     _salt `Prelude.hashWithSalt` diagnosticCode
-      `Prelude.hashWithSalt` remoteMta
-      `Prelude.hashWithSalt` finalRecipient
       `Prelude.hashWithSalt` extensionFields
+      `Prelude.hashWithSalt` finalRecipient
       `Prelude.hashWithSalt` lastAttemptDate
+      `Prelude.hashWithSalt` remoteMta
       `Prelude.hashWithSalt` action
       `Prelude.hashWithSalt` status
 
 instance Prelude.NFData RecipientDsnFields where
   rnf RecipientDsnFields' {..} =
     Prelude.rnf diagnosticCode
-      `Prelude.seq` Prelude.rnf remoteMta
-      `Prelude.seq` Prelude.rnf finalRecipient
       `Prelude.seq` Prelude.rnf extensionFields
+      `Prelude.seq` Prelude.rnf finalRecipient
       `Prelude.seq` Prelude.rnf lastAttemptDate
+      `Prelude.seq` Prelude.rnf remoteMta
       `Prelude.seq` Prelude.rnf action
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToQuery RecipientDsnFields where
+instance Data.ToQuery RecipientDsnFields where
   toQuery RecipientDsnFields' {..} =
     Prelude.mconcat
-      [ "DiagnosticCode" Core.=: diagnosticCode,
-        "RemoteMta" Core.=: remoteMta,
-        "FinalRecipient" Core.=: finalRecipient,
+      [ "DiagnosticCode" Data.=: diagnosticCode,
         "ExtensionFields"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> extensionFields
             ),
-        "LastAttemptDate" Core.=: lastAttemptDate,
-        "Action" Core.=: action,
-        "Status" Core.=: status
+        "FinalRecipient" Data.=: finalRecipient,
+        "LastAttemptDate" Data.=: lastAttemptDate,
+        "RemoteMta" Data.=: remoteMta,
+        "Action" Data.=: action,
+        "Status" Data.=: status
       ]

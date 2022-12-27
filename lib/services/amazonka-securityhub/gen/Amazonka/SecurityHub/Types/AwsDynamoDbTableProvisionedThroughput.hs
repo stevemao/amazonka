@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsDynamoDbTableProvisionedThroughput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsDynamoDbTableProvisionedThroughput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the provisioned throughput for the table or for a
@@ -28,29 +29,29 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAwsDynamoDbTableProvisionedThroughput' smart constructor.
 data AwsDynamoDbTableProvisionedThroughput = AwsDynamoDbTableProvisionedThroughput'
-  { -- | The maximum number of strongly consistent reads consumed per second
-    -- before DynamoDB returns a @ThrottlingException@.
-    readCapacityUnits :: Prelude.Maybe Prelude.Int,
-    -- | Indicates when the provisioned throughput was last decreased.
+  { -- | Indicates when the provisioned throughput was last decreased.
     --
     -- Uses the @date-time@ format specified in
     -- <https://tools.ietf.org/html/rfc3339#section-5.6 RFC 3339 section 5.6, Internet Date\/Time Format>.
     -- The value cannot contain spaces. For example,
     -- @2020-03-22T13:22:13.933Z@.
     lastDecreaseDateTime :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of writes consumed per second before DynamoDB returns
-    -- a @ThrottlingException@.
-    writeCapacityUnits :: Prelude.Maybe Prelude.Int,
-    -- | The number of times during the current UTC calendar day that the
-    -- provisioned throughput was decreased.
-    numberOfDecreasesToday :: Prelude.Maybe Prelude.Int,
     -- | Indicates when the provisioned throughput was last increased.
     --
     -- Uses the @date-time@ format specified in
     -- <https://tools.ietf.org/html/rfc3339#section-5.6 RFC 3339 section 5.6, Internet Date\/Time Format>.
     -- The value cannot contain spaces. For example,
     -- @2020-03-22T13:22:13.933Z@.
-    lastIncreaseDateTime :: Prelude.Maybe Prelude.Text
+    lastIncreaseDateTime :: Prelude.Maybe Prelude.Text,
+    -- | The number of times during the current UTC calendar day that the
+    -- provisioned throughput was decreased.
+    numberOfDecreasesToday :: Prelude.Maybe Prelude.Int,
+    -- | The maximum number of strongly consistent reads consumed per second
+    -- before DynamoDB returns a @ThrottlingException@.
+    readCapacityUnits :: Prelude.Maybe Prelude.Int,
+    -- | The maximum number of writes consumed per second before DynamoDB returns
+    -- a @ThrottlingException@.
+    writeCapacityUnits :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -62,9 +63,6 @@ data AwsDynamoDbTableProvisionedThroughput = AwsDynamoDbTableProvisionedThroughp
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'readCapacityUnits', 'awsDynamoDbTableProvisionedThroughput_readCapacityUnits' - The maximum number of strongly consistent reads consumed per second
--- before DynamoDB returns a @ThrottlingException@.
---
 -- 'lastDecreaseDateTime', 'awsDynamoDbTableProvisionedThroughput_lastDecreaseDateTime' - Indicates when the provisioned throughput was last decreased.
 --
 -- Uses the @date-time@ format specified in
@@ -72,37 +70,34 @@ data AwsDynamoDbTableProvisionedThroughput = AwsDynamoDbTableProvisionedThroughp
 -- The value cannot contain spaces. For example,
 -- @2020-03-22T13:22:13.933Z@.
 --
--- 'writeCapacityUnits', 'awsDynamoDbTableProvisionedThroughput_writeCapacityUnits' - The maximum number of writes consumed per second before DynamoDB returns
--- a @ThrottlingException@.
---
--- 'numberOfDecreasesToday', 'awsDynamoDbTableProvisionedThroughput_numberOfDecreasesToday' - The number of times during the current UTC calendar day that the
--- provisioned throughput was decreased.
---
 -- 'lastIncreaseDateTime', 'awsDynamoDbTableProvisionedThroughput_lastIncreaseDateTime' - Indicates when the provisioned throughput was last increased.
 --
 -- Uses the @date-time@ format specified in
 -- <https://tools.ietf.org/html/rfc3339#section-5.6 RFC 3339 section 5.6, Internet Date\/Time Format>.
 -- The value cannot contain spaces. For example,
 -- @2020-03-22T13:22:13.933Z@.
+--
+-- 'numberOfDecreasesToday', 'awsDynamoDbTableProvisionedThroughput_numberOfDecreasesToday' - The number of times during the current UTC calendar day that the
+-- provisioned throughput was decreased.
+--
+-- 'readCapacityUnits', 'awsDynamoDbTableProvisionedThroughput_readCapacityUnits' - The maximum number of strongly consistent reads consumed per second
+-- before DynamoDB returns a @ThrottlingException@.
+--
+-- 'writeCapacityUnits', 'awsDynamoDbTableProvisionedThroughput_writeCapacityUnits' - The maximum number of writes consumed per second before DynamoDB returns
+-- a @ThrottlingException@.
 newAwsDynamoDbTableProvisionedThroughput ::
   AwsDynamoDbTableProvisionedThroughput
 newAwsDynamoDbTableProvisionedThroughput =
   AwsDynamoDbTableProvisionedThroughput'
-    { readCapacityUnits =
-        Prelude.Nothing,
-      lastDecreaseDateTime =
-        Prelude.Nothing,
-      writeCapacityUnits = Prelude.Nothing,
-      numberOfDecreasesToday =
+    { lastDecreaseDateTime =
         Prelude.Nothing,
       lastIncreaseDateTime =
-        Prelude.Nothing
+        Prelude.Nothing,
+      numberOfDecreasesToday =
+        Prelude.Nothing,
+      readCapacityUnits = Prelude.Nothing,
+      writeCapacityUnits = Prelude.Nothing
     }
-
--- | The maximum number of strongly consistent reads consumed per second
--- before DynamoDB returns a @ThrottlingException@.
-awsDynamoDbTableProvisionedThroughput_readCapacityUnits :: Lens.Lens' AwsDynamoDbTableProvisionedThroughput (Prelude.Maybe Prelude.Int)
-awsDynamoDbTableProvisionedThroughput_readCapacityUnits = Lens.lens (\AwsDynamoDbTableProvisionedThroughput' {readCapacityUnits} -> readCapacityUnits) (\s@AwsDynamoDbTableProvisionedThroughput' {} a -> s {readCapacityUnits = a} :: AwsDynamoDbTableProvisionedThroughput)
 
 -- | Indicates when the provisioned throughput was last decreased.
 --
@@ -113,16 +108,6 @@ awsDynamoDbTableProvisionedThroughput_readCapacityUnits = Lens.lens (\AwsDynamoD
 awsDynamoDbTableProvisionedThroughput_lastDecreaseDateTime :: Lens.Lens' AwsDynamoDbTableProvisionedThroughput (Prelude.Maybe Prelude.Text)
 awsDynamoDbTableProvisionedThroughput_lastDecreaseDateTime = Lens.lens (\AwsDynamoDbTableProvisionedThroughput' {lastDecreaseDateTime} -> lastDecreaseDateTime) (\s@AwsDynamoDbTableProvisionedThroughput' {} a -> s {lastDecreaseDateTime = a} :: AwsDynamoDbTableProvisionedThroughput)
 
--- | The maximum number of writes consumed per second before DynamoDB returns
--- a @ThrottlingException@.
-awsDynamoDbTableProvisionedThroughput_writeCapacityUnits :: Lens.Lens' AwsDynamoDbTableProvisionedThroughput (Prelude.Maybe Prelude.Int)
-awsDynamoDbTableProvisionedThroughput_writeCapacityUnits = Lens.lens (\AwsDynamoDbTableProvisionedThroughput' {writeCapacityUnits} -> writeCapacityUnits) (\s@AwsDynamoDbTableProvisionedThroughput' {} a -> s {writeCapacityUnits = a} :: AwsDynamoDbTableProvisionedThroughput)
-
--- | The number of times during the current UTC calendar day that the
--- provisioned throughput was decreased.
-awsDynamoDbTableProvisionedThroughput_numberOfDecreasesToday :: Lens.Lens' AwsDynamoDbTableProvisionedThroughput (Prelude.Maybe Prelude.Int)
-awsDynamoDbTableProvisionedThroughput_numberOfDecreasesToday = Lens.lens (\AwsDynamoDbTableProvisionedThroughput' {numberOfDecreasesToday} -> numberOfDecreasesToday) (\s@AwsDynamoDbTableProvisionedThroughput' {} a -> s {numberOfDecreasesToday = a} :: AwsDynamoDbTableProvisionedThroughput)
-
 -- | Indicates when the provisioned throughput was last increased.
 --
 -- Uses the @date-time@ format specified in
@@ -132,20 +117,35 @@ awsDynamoDbTableProvisionedThroughput_numberOfDecreasesToday = Lens.lens (\AwsDy
 awsDynamoDbTableProvisionedThroughput_lastIncreaseDateTime :: Lens.Lens' AwsDynamoDbTableProvisionedThroughput (Prelude.Maybe Prelude.Text)
 awsDynamoDbTableProvisionedThroughput_lastIncreaseDateTime = Lens.lens (\AwsDynamoDbTableProvisionedThroughput' {lastIncreaseDateTime} -> lastIncreaseDateTime) (\s@AwsDynamoDbTableProvisionedThroughput' {} a -> s {lastIncreaseDateTime = a} :: AwsDynamoDbTableProvisionedThroughput)
 
+-- | The number of times during the current UTC calendar day that the
+-- provisioned throughput was decreased.
+awsDynamoDbTableProvisionedThroughput_numberOfDecreasesToday :: Lens.Lens' AwsDynamoDbTableProvisionedThroughput (Prelude.Maybe Prelude.Int)
+awsDynamoDbTableProvisionedThroughput_numberOfDecreasesToday = Lens.lens (\AwsDynamoDbTableProvisionedThroughput' {numberOfDecreasesToday} -> numberOfDecreasesToday) (\s@AwsDynamoDbTableProvisionedThroughput' {} a -> s {numberOfDecreasesToday = a} :: AwsDynamoDbTableProvisionedThroughput)
+
+-- | The maximum number of strongly consistent reads consumed per second
+-- before DynamoDB returns a @ThrottlingException@.
+awsDynamoDbTableProvisionedThroughput_readCapacityUnits :: Lens.Lens' AwsDynamoDbTableProvisionedThroughput (Prelude.Maybe Prelude.Int)
+awsDynamoDbTableProvisionedThroughput_readCapacityUnits = Lens.lens (\AwsDynamoDbTableProvisionedThroughput' {readCapacityUnits} -> readCapacityUnits) (\s@AwsDynamoDbTableProvisionedThroughput' {} a -> s {readCapacityUnits = a} :: AwsDynamoDbTableProvisionedThroughput)
+
+-- | The maximum number of writes consumed per second before DynamoDB returns
+-- a @ThrottlingException@.
+awsDynamoDbTableProvisionedThroughput_writeCapacityUnits :: Lens.Lens' AwsDynamoDbTableProvisionedThroughput (Prelude.Maybe Prelude.Int)
+awsDynamoDbTableProvisionedThroughput_writeCapacityUnits = Lens.lens (\AwsDynamoDbTableProvisionedThroughput' {writeCapacityUnits} -> writeCapacityUnits) (\s@AwsDynamoDbTableProvisionedThroughput' {} a -> s {writeCapacityUnits = a} :: AwsDynamoDbTableProvisionedThroughput)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsDynamoDbTableProvisionedThroughput
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsDynamoDbTableProvisionedThroughput"
       ( \x ->
           AwsDynamoDbTableProvisionedThroughput'
-            Prelude.<$> (x Core..:? "ReadCapacityUnits")
-            Prelude.<*> (x Core..:? "LastDecreaseDateTime")
-            Prelude.<*> (x Core..:? "WriteCapacityUnits")
-            Prelude.<*> (x Core..:? "NumberOfDecreasesToday")
-            Prelude.<*> (x Core..:? "LastIncreaseDateTime")
+            Prelude.<$> (x Data..:? "LastDecreaseDateTime")
+            Prelude.<*> (x Data..:? "LastIncreaseDateTime")
+            Prelude.<*> (x Data..:? "NumberOfDecreasesToday")
+            Prelude.<*> (x Data..:? "ReadCapacityUnits")
+            Prelude.<*> (x Data..:? "WriteCapacityUnits")
       )
 
 instance
@@ -155,39 +155,39 @@ instance
   hashWithSalt
     _salt
     AwsDynamoDbTableProvisionedThroughput' {..} =
-      _salt `Prelude.hashWithSalt` readCapacityUnits
-        `Prelude.hashWithSalt` lastDecreaseDateTime
-        `Prelude.hashWithSalt` writeCapacityUnits
-        `Prelude.hashWithSalt` numberOfDecreasesToday
+      _salt `Prelude.hashWithSalt` lastDecreaseDateTime
         `Prelude.hashWithSalt` lastIncreaseDateTime
+        `Prelude.hashWithSalt` numberOfDecreasesToday
+        `Prelude.hashWithSalt` readCapacityUnits
+        `Prelude.hashWithSalt` writeCapacityUnits
 
 instance
   Prelude.NFData
     AwsDynamoDbTableProvisionedThroughput
   where
   rnf AwsDynamoDbTableProvisionedThroughput' {..} =
-    Prelude.rnf readCapacityUnits
-      `Prelude.seq` Prelude.rnf lastDecreaseDateTime
-      `Prelude.seq` Prelude.rnf writeCapacityUnits
-      `Prelude.seq` Prelude.rnf numberOfDecreasesToday
+    Prelude.rnf lastDecreaseDateTime
       `Prelude.seq` Prelude.rnf lastIncreaseDateTime
+      `Prelude.seq` Prelude.rnf numberOfDecreasesToday
+      `Prelude.seq` Prelude.rnf readCapacityUnits
+      `Prelude.seq` Prelude.rnf writeCapacityUnits
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsDynamoDbTableProvisionedThroughput
   where
   toJSON AwsDynamoDbTableProvisionedThroughput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ReadCapacityUnits" Core..=)
-              Prelude.<$> readCapacityUnits,
-            ("LastDecreaseDateTime" Core..=)
+          [ ("LastDecreaseDateTime" Data..=)
               Prelude.<$> lastDecreaseDateTime,
-            ("WriteCapacityUnits" Core..=)
-              Prelude.<$> writeCapacityUnits,
-            ("NumberOfDecreasesToday" Core..=)
+            ("LastIncreaseDateTime" Data..=)
+              Prelude.<$> lastIncreaseDateTime,
+            ("NumberOfDecreasesToday" Data..=)
               Prelude.<$> numberOfDecreasesToday,
-            ("LastIncreaseDateTime" Core..=)
-              Prelude.<$> lastIncreaseDateTime
+            ("ReadCapacityUnits" Data..=)
+              Prelude.<$> readCapacityUnits,
+            ("WriteCapacityUnits" Data..=)
+              Prelude.<$> writeCapacityUnits
           ]
       )

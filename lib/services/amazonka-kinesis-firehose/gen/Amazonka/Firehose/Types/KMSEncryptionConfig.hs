@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.KMSEncryptionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Firehose.Types.KMSEncryptionConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an encryption key for a destination in Amazon S3.
@@ -28,9 +29,9 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newKMSEncryptionConfig' smart constructor.
 data KMSEncryptionConfig = KMSEncryptionConfig'
   { -- | The Amazon Resource Name (ARN) of the encryption key. Must belong to the
-    -- same AWS Region as the destination Amazon S3 bucket. For more
-    -- information, see
-    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+    -- same Amazon Web Services Region as the destination Amazon S3 bucket. For
+    -- more information, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>.
     aWSKMSKeyARN :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,9 +45,9 @@ data KMSEncryptionConfig = KMSEncryptionConfig'
 -- for backwards compatibility:
 --
 -- 'aWSKMSKeyARN', 'kmsEncryptionConfig_aWSKMSKeyARN' - The Amazon Resource Name (ARN) of the encryption key. Must belong to the
--- same AWS Region as the destination Amazon S3 bucket. For more
--- information, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+-- same Amazon Web Services Region as the destination Amazon S3 bucket. For
+-- more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>.
 newKMSEncryptionConfig ::
   -- | 'aWSKMSKeyARN'
   Prelude.Text ->
@@ -55,19 +56,19 @@ newKMSEncryptionConfig pAWSKMSKeyARN_ =
   KMSEncryptionConfig' {aWSKMSKeyARN = pAWSKMSKeyARN_}
 
 -- | The Amazon Resource Name (ARN) of the encryption key. Must belong to the
--- same AWS Region as the destination Amazon S3 bucket. For more
--- information, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+-- same Amazon Web Services Region as the destination Amazon S3 bucket. For
+-- more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>.
 kmsEncryptionConfig_aWSKMSKeyARN :: Lens.Lens' KMSEncryptionConfig Prelude.Text
 kmsEncryptionConfig_aWSKMSKeyARN = Lens.lens (\KMSEncryptionConfig' {aWSKMSKeyARN} -> aWSKMSKeyARN) (\s@KMSEncryptionConfig' {} a -> s {aWSKMSKeyARN = a} :: KMSEncryptionConfig)
 
-instance Core.FromJSON KMSEncryptionConfig where
+instance Data.FromJSON KMSEncryptionConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KMSEncryptionConfig"
       ( \x ->
           KMSEncryptionConfig'
-            Prelude.<$> (x Core..: "AWSKMSKeyARN")
+            Prelude.<$> (x Data..: "AWSKMSKeyARN")
       )
 
 instance Prelude.Hashable KMSEncryptionConfig where
@@ -78,9 +79,9 @@ instance Prelude.NFData KMSEncryptionConfig where
   rnf KMSEncryptionConfig' {..} =
     Prelude.rnf aWSKMSKeyARN
 
-instance Core.ToJSON KMSEncryptionConfig where
+instance Data.ToJSON KMSEncryptionConfig where
   toJSON KMSEncryptionConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("AWSKMSKeyARN" Core..= aWSKMSKeyARN)]
+          [Prelude.Just ("AWSKMSKeyARN" Data..= aWSKMSKeyARN)]
       )

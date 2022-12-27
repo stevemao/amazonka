@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.CreateSmsTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Pinpoint.CreateSmsTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -102,13 +103,14 @@ instance Core.AWSRequest CreateSmsTemplate where
   type
     AWSResponse CreateSmsTemplate =
       CreateSmsTemplateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateSmsTemplateResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable CreateSmsTemplate where
@@ -121,32 +123,27 @@ instance Prelude.NFData CreateSmsTemplate where
     Prelude.rnf templateName
       `Prelude.seq` Prelude.rnf sMSTemplateRequest
 
-instance Core.ToHeaders CreateSmsTemplate where
+instance Data.ToHeaders CreateSmsTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateSmsTemplate where
+instance Data.ToJSON CreateSmsTemplate where
   toJSON CreateSmsTemplate' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ Prelude.Just
-              ("SMSTemplateRequest" Core..= sMSTemplateRequest)
-          ]
-      )
+    Data.toJSON sMSTemplateRequest
 
-instance Core.ToPath CreateSmsTemplate where
+instance Data.ToPath CreateSmsTemplate where
   toPath CreateSmsTemplate' {..} =
     Prelude.mconcat
-      ["/v1/templates/", Core.toBS templateName, "/sms"]
+      ["/v1/templates/", Data.toBS templateName, "/sms"]
 
-instance Core.ToQuery CreateSmsTemplate where
+instance Data.ToQuery CreateSmsTemplate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateSmsTemplateResponse' smart constructor.

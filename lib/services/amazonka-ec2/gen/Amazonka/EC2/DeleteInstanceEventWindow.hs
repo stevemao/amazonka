@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteInstanceEventWindow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.EC2.DeleteInstanceEventWindow
     newDeleteInstanceEventWindow,
 
     -- * Request Lenses
-    deleteInstanceEventWindow_forceDelete,
     deleteInstanceEventWindow_dryRun,
+    deleteInstanceEventWindow_forceDelete,
     deleteInstanceEventWindow_instanceEventWindowId,
 
     -- * Destructuring the Response
@@ -46,22 +46,23 @@ module Amazonka.EC2.DeleteInstanceEventWindow
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteInstanceEventWindow' smart constructor.
 data DeleteInstanceEventWindow = DeleteInstanceEventWindow'
-  { -- | Specify @true@ to force delete the event window. Use the force delete
-    -- parameter if the event window is currently associated with targets.
-    forceDelete :: Prelude.Maybe Prelude.Bool,
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | Specify @true@ to force delete the event window. Use the force delete
+    -- parameter if the event window is currently associated with targets.
+    forceDelete :: Prelude.Maybe Prelude.Bool,
     -- | The ID of the event window.
     instanceEventWindowId :: Prelude.Text
   }
@@ -75,13 +76,13 @@ data DeleteInstanceEventWindow = DeleteInstanceEventWindow'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'forceDelete', 'deleteInstanceEventWindow_forceDelete' - Specify @true@ to force delete the event window. Use the force delete
--- parameter if the event window is currently associated with targets.
---
 -- 'dryRun', 'deleteInstanceEventWindow_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'forceDelete', 'deleteInstanceEventWindow_forceDelete' - Specify @true@ to force delete the event window. Use the force delete
+-- parameter if the event window is currently associated with targets.
 --
 -- 'instanceEventWindowId', 'deleteInstanceEventWindow_instanceEventWindowId' - The ID of the event window.
 newDeleteInstanceEventWindow ::
@@ -90,16 +91,11 @@ newDeleteInstanceEventWindow ::
   DeleteInstanceEventWindow
 newDeleteInstanceEventWindow pInstanceEventWindowId_ =
   DeleteInstanceEventWindow'
-    { forceDelete =
+    { dryRun =
         Prelude.Nothing,
-      dryRun = Prelude.Nothing,
+      forceDelete = Prelude.Nothing,
       instanceEventWindowId = pInstanceEventWindowId_
     }
-
--- | Specify @true@ to force delete the event window. Use the force delete
--- parameter if the event window is currently associated with targets.
-deleteInstanceEventWindow_forceDelete :: Lens.Lens' DeleteInstanceEventWindow (Prelude.Maybe Prelude.Bool)
-deleteInstanceEventWindow_forceDelete = Lens.lens (\DeleteInstanceEventWindow' {forceDelete} -> forceDelete) (\s@DeleteInstanceEventWindow' {} a -> s {forceDelete = a} :: DeleteInstanceEventWindow)
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -107,6 +103,11 @@ deleteInstanceEventWindow_forceDelete = Lens.lens (\DeleteInstanceEventWindow' {
 -- Otherwise, it is @UnauthorizedOperation@.
 deleteInstanceEventWindow_dryRun :: Lens.Lens' DeleteInstanceEventWindow (Prelude.Maybe Prelude.Bool)
 deleteInstanceEventWindow_dryRun = Lens.lens (\DeleteInstanceEventWindow' {dryRun} -> dryRun) (\s@DeleteInstanceEventWindow' {} a -> s {dryRun = a} :: DeleteInstanceEventWindow)
+
+-- | Specify @true@ to force delete the event window. Use the force delete
+-- parameter if the event window is currently associated with targets.
+deleteInstanceEventWindow_forceDelete :: Lens.Lens' DeleteInstanceEventWindow (Prelude.Maybe Prelude.Bool)
+deleteInstanceEventWindow_forceDelete = Lens.lens (\DeleteInstanceEventWindow' {forceDelete} -> forceDelete) (\s@DeleteInstanceEventWindow' {} a -> s {forceDelete = a} :: DeleteInstanceEventWindow)
 
 -- | The ID of the event window.
 deleteInstanceEventWindow_instanceEventWindowId :: Lens.Lens' DeleteInstanceEventWindow Prelude.Text
@@ -116,44 +117,45 @@ instance Core.AWSRequest DeleteInstanceEventWindow where
   type
     AWSResponse DeleteInstanceEventWindow =
       DeleteInstanceEventWindowResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DeleteInstanceEventWindowResponse'
-            Prelude.<$> (x Core..@? "instanceEventWindowState")
+            Prelude.<$> (x Data..@? "instanceEventWindowState")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DeleteInstanceEventWindow where
   hashWithSalt _salt DeleteInstanceEventWindow' {..} =
-    _salt `Prelude.hashWithSalt` forceDelete
-      `Prelude.hashWithSalt` dryRun
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` forceDelete
       `Prelude.hashWithSalt` instanceEventWindowId
 
 instance Prelude.NFData DeleteInstanceEventWindow where
   rnf DeleteInstanceEventWindow' {..} =
-    Prelude.rnf forceDelete
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf forceDelete
       `Prelude.seq` Prelude.rnf instanceEventWindowId
 
-instance Core.ToHeaders DeleteInstanceEventWindow where
+instance Data.ToHeaders DeleteInstanceEventWindow where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteInstanceEventWindow where
+instance Data.ToPath DeleteInstanceEventWindow where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteInstanceEventWindow where
+instance Data.ToQuery DeleteInstanceEventWindow where
   toQuery DeleteInstanceEventWindow' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteInstanceEventWindow" :: Prelude.ByteString),
+          Data.=: ("DeleteInstanceEventWindow" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "ForceDelete" Core.=: forceDelete,
-        "DryRun" Core.=: dryRun,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "ForceDelete" Data.=: forceDelete,
         "InstanceEventWindowId"
-          Core.=: instanceEventWindowId
+          Data.=: instanceEventWindowId
       ]
 
 -- | /See:/ 'newDeleteInstanceEventWindowResponse' smart constructor.

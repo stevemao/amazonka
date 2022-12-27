@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.UpdateCostCategoryDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,9 @@ module Amazonka.CostExplorer.UpdateCostCategoryDefinition
     newUpdateCostCategoryDefinition,
 
     -- * Request Lenses
-    updateCostCategoryDefinition_splitChargeRules,
     updateCostCategoryDefinition_defaultValue,
+    updateCostCategoryDefinition_effectiveStart,
+    updateCostCategoryDefinition_splitChargeRules,
     updateCostCategoryDefinition_costCategoryArn,
     updateCostCategoryDefinition_ruleVersion,
     updateCostCategoryDefinition_rules,
@@ -40,25 +41,31 @@ module Amazonka.CostExplorer.UpdateCostCategoryDefinition
     newUpdateCostCategoryDefinitionResponse,
 
     -- * Response Lenses
-    updateCostCategoryDefinitionResponse_effectiveStart,
     updateCostCategoryDefinitionResponse_costCategoryArn,
+    updateCostCategoryDefinitionResponse_effectiveStart,
     updateCostCategoryDefinitionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateCostCategoryDefinition' smart constructor.
 data UpdateCostCategoryDefinition = UpdateCostCategoryDefinition'
-  { -- | The split charge rules used to allocate your charges between your Cost
+  { defaultValue :: Prelude.Maybe Prelude.Text,
+    -- | The Cost Category\'s effective start date. It can only be a billing
+    -- start date (first day of the month). If the date isn\'t provided, it\'s
+    -- the first day of the current month. Dates can\'t be before the previous
+    -- twelve months, or in the future.
+    effectiveStart :: Prelude.Maybe Prelude.Text,
+    -- | The split charge rules used to allocate your charges between your Cost
     -- Category values.
     splitChargeRules :: Prelude.Maybe (Prelude.NonEmpty CostCategorySplitChargeRule),
-    defaultValue :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier for your Cost Category.
     costCategoryArn :: Prelude.Text,
     ruleVersion :: CostCategoryRuleVersion,
@@ -78,10 +85,15 @@ data UpdateCostCategoryDefinition = UpdateCostCategoryDefinition'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'defaultValue', 'updateCostCategoryDefinition_defaultValue' - Undocumented member.
+--
+-- 'effectiveStart', 'updateCostCategoryDefinition_effectiveStart' - The Cost Category\'s effective start date. It can only be a billing
+-- start date (first day of the month). If the date isn\'t provided, it\'s
+-- the first day of the current month. Dates can\'t be before the previous
+-- twelve months, or in the future.
+--
 -- 'splitChargeRules', 'updateCostCategoryDefinition_splitChargeRules' - The split charge rules used to allocate your charges between your Cost
 -- Category values.
---
--- 'defaultValue', 'updateCostCategoryDefinition_defaultValue' - Undocumented member.
 --
 -- 'costCategoryArn', 'updateCostCategoryDefinition_costCategoryArn' - The unique identifier for your Cost Category.
 --
@@ -104,22 +116,30 @@ newUpdateCostCategoryDefinition
   pRuleVersion_
   pRules_ =
     UpdateCostCategoryDefinition'
-      { splitChargeRules =
+      { defaultValue =
           Prelude.Nothing,
-        defaultValue = Prelude.Nothing,
+        effectiveStart = Prelude.Nothing,
+        splitChargeRules = Prelude.Nothing,
         costCategoryArn = pCostCategoryArn_,
         ruleVersion = pRuleVersion_,
         rules = Lens.coerced Lens.# pRules_
       }
 
+-- | Undocumented member.
+updateCostCategoryDefinition_defaultValue :: Lens.Lens' UpdateCostCategoryDefinition (Prelude.Maybe Prelude.Text)
+updateCostCategoryDefinition_defaultValue = Lens.lens (\UpdateCostCategoryDefinition' {defaultValue} -> defaultValue) (\s@UpdateCostCategoryDefinition' {} a -> s {defaultValue = a} :: UpdateCostCategoryDefinition)
+
+-- | The Cost Category\'s effective start date. It can only be a billing
+-- start date (first day of the month). If the date isn\'t provided, it\'s
+-- the first day of the current month. Dates can\'t be before the previous
+-- twelve months, or in the future.
+updateCostCategoryDefinition_effectiveStart :: Lens.Lens' UpdateCostCategoryDefinition (Prelude.Maybe Prelude.Text)
+updateCostCategoryDefinition_effectiveStart = Lens.lens (\UpdateCostCategoryDefinition' {effectiveStart} -> effectiveStart) (\s@UpdateCostCategoryDefinition' {} a -> s {effectiveStart = a} :: UpdateCostCategoryDefinition)
+
 -- | The split charge rules used to allocate your charges between your Cost
 -- Category values.
 updateCostCategoryDefinition_splitChargeRules :: Lens.Lens' UpdateCostCategoryDefinition (Prelude.Maybe (Prelude.NonEmpty CostCategorySplitChargeRule))
 updateCostCategoryDefinition_splitChargeRules = Lens.lens (\UpdateCostCategoryDefinition' {splitChargeRules} -> splitChargeRules) (\s@UpdateCostCategoryDefinition' {} a -> s {splitChargeRules = a} :: UpdateCostCategoryDefinition) Prelude.. Lens.mapping Lens.coerced
-
--- | Undocumented member.
-updateCostCategoryDefinition_defaultValue :: Lens.Lens' UpdateCostCategoryDefinition (Prelude.Maybe Prelude.Text)
-updateCostCategoryDefinition_defaultValue = Lens.lens (\UpdateCostCategoryDefinition' {defaultValue} -> defaultValue) (\s@UpdateCostCategoryDefinition' {} a -> s {defaultValue = a} :: UpdateCostCategoryDefinition)
 
 -- | The unique identifier for your Cost Category.
 updateCostCategoryDefinition_costCategoryArn :: Lens.Lens' UpdateCostCategoryDefinition Prelude.Text
@@ -140,13 +160,14 @@ instance Core.AWSRequest UpdateCostCategoryDefinition where
   type
     AWSResponse UpdateCostCategoryDefinition =
       UpdateCostCategoryDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateCostCategoryDefinitionResponse'
-            Prelude.<$> (x Core..?> "EffectiveStart")
-            Prelude.<*> (x Core..?> "CostCategoryArn")
+            Prelude.<$> (x Data..?> "CostCategoryArn")
+            Prelude.<*> (x Data..?> "EffectiveStart")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -155,61 +176,66 @@ instance
     UpdateCostCategoryDefinition
   where
   hashWithSalt _salt UpdateCostCategoryDefinition' {..} =
-    _salt `Prelude.hashWithSalt` splitChargeRules
-      `Prelude.hashWithSalt` defaultValue
+    _salt `Prelude.hashWithSalt` defaultValue
+      `Prelude.hashWithSalt` effectiveStart
+      `Prelude.hashWithSalt` splitChargeRules
       `Prelude.hashWithSalt` costCategoryArn
       `Prelude.hashWithSalt` ruleVersion
       `Prelude.hashWithSalt` rules
 
 instance Prelude.NFData UpdateCostCategoryDefinition where
   rnf UpdateCostCategoryDefinition' {..} =
-    Prelude.rnf splitChargeRules
-      `Prelude.seq` Prelude.rnf defaultValue
+    Prelude.rnf defaultValue
+      `Prelude.seq` Prelude.rnf effectiveStart
+      `Prelude.seq` Prelude.rnf splitChargeRules
       `Prelude.seq` Prelude.rnf costCategoryArn
       `Prelude.seq` Prelude.rnf ruleVersion
       `Prelude.seq` Prelude.rnf rules
 
-instance Core.ToHeaders UpdateCostCategoryDefinition where
+instance Data.ToHeaders UpdateCostCategoryDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSInsightsIndexService.UpdateCostCategoryDefinition" ::
+              Data.=# ( "AWSInsightsIndexService.UpdateCostCategoryDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateCostCategoryDefinition where
+instance Data.ToJSON UpdateCostCategoryDefinition where
   toJSON UpdateCostCategoryDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SplitChargeRules" Core..=)
+          [ ("DefaultValue" Data..=) Prelude.<$> defaultValue,
+            ("EffectiveStart" Data..=)
+              Prelude.<$> effectiveStart,
+            ("SplitChargeRules" Data..=)
               Prelude.<$> splitChargeRules,
-            ("DefaultValue" Core..=) Prelude.<$> defaultValue,
             Prelude.Just
-              ("CostCategoryArn" Core..= costCategoryArn),
-            Prelude.Just ("RuleVersion" Core..= ruleVersion),
-            Prelude.Just ("Rules" Core..= rules)
+              ("CostCategoryArn" Data..= costCategoryArn),
+            Prelude.Just ("RuleVersion" Data..= ruleVersion),
+            Prelude.Just ("Rules" Data..= rules)
           ]
       )
 
-instance Core.ToPath UpdateCostCategoryDefinition where
+instance Data.ToPath UpdateCostCategoryDefinition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateCostCategoryDefinition where
+instance Data.ToQuery UpdateCostCategoryDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateCostCategoryDefinitionResponse' smart constructor.
 data UpdateCostCategoryDefinitionResponse = UpdateCostCategoryDefinitionResponse'
-  { -- | The Cost Category\'s effective start date.
-    effectiveStart :: Prelude.Maybe Prelude.Text,
-    -- | The unique identifier for your Cost Category.
+  { -- | The unique identifier for your Cost Category.
     costCategoryArn :: Prelude.Maybe Prelude.Text,
+    -- | The Cost Category\'s effective start date. It can only be a billing
+    -- start date (first day of the month).
+    effectiveStart :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -223,9 +249,10 @@ data UpdateCostCategoryDefinitionResponse = UpdateCostCategoryDefinitionResponse
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'effectiveStart', 'updateCostCategoryDefinitionResponse_effectiveStart' - The Cost Category\'s effective start date.
---
 -- 'costCategoryArn', 'updateCostCategoryDefinitionResponse_costCategoryArn' - The unique identifier for your Cost Category.
+--
+-- 'effectiveStart', 'updateCostCategoryDefinitionResponse_effectiveStart' - The Cost Category\'s effective start date. It can only be a billing
+-- start date (first day of the month).
 --
 -- 'httpStatus', 'updateCostCategoryDefinitionResponse_httpStatus' - The response's http status code.
 newUpdateCostCategoryDefinitionResponse ::
@@ -234,19 +261,20 @@ newUpdateCostCategoryDefinitionResponse ::
   UpdateCostCategoryDefinitionResponse
 newUpdateCostCategoryDefinitionResponse pHttpStatus_ =
   UpdateCostCategoryDefinitionResponse'
-    { effectiveStart =
+    { costCategoryArn =
         Prelude.Nothing,
-      costCategoryArn = Prelude.Nothing,
+      effectiveStart = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The Cost Category\'s effective start date.
-updateCostCategoryDefinitionResponse_effectiveStart :: Lens.Lens' UpdateCostCategoryDefinitionResponse (Prelude.Maybe Prelude.Text)
-updateCostCategoryDefinitionResponse_effectiveStart = Lens.lens (\UpdateCostCategoryDefinitionResponse' {effectiveStart} -> effectiveStart) (\s@UpdateCostCategoryDefinitionResponse' {} a -> s {effectiveStart = a} :: UpdateCostCategoryDefinitionResponse)
 
 -- | The unique identifier for your Cost Category.
 updateCostCategoryDefinitionResponse_costCategoryArn :: Lens.Lens' UpdateCostCategoryDefinitionResponse (Prelude.Maybe Prelude.Text)
 updateCostCategoryDefinitionResponse_costCategoryArn = Lens.lens (\UpdateCostCategoryDefinitionResponse' {costCategoryArn} -> costCategoryArn) (\s@UpdateCostCategoryDefinitionResponse' {} a -> s {costCategoryArn = a} :: UpdateCostCategoryDefinitionResponse)
+
+-- | The Cost Category\'s effective start date. It can only be a billing
+-- start date (first day of the month).
+updateCostCategoryDefinitionResponse_effectiveStart :: Lens.Lens' UpdateCostCategoryDefinitionResponse (Prelude.Maybe Prelude.Text)
+updateCostCategoryDefinitionResponse_effectiveStart = Lens.lens (\UpdateCostCategoryDefinitionResponse' {effectiveStart} -> effectiveStart) (\s@UpdateCostCategoryDefinitionResponse' {} a -> s {effectiveStart = a} :: UpdateCostCategoryDefinitionResponse)
 
 -- | The response's http status code.
 updateCostCategoryDefinitionResponse_httpStatus :: Lens.Lens' UpdateCostCategoryDefinitionResponse Prelude.Int
@@ -257,6 +285,6 @@ instance
     UpdateCostCategoryDefinitionResponse
   where
   rnf UpdateCostCategoryDefinitionResponse' {..} =
-    Prelude.rnf effectiveStart
-      `Prelude.seq` Prelude.rnf costCategoryArn
+    Prelude.rnf costCategoryArn
+      `Prelude.seq` Prelude.rnf effectiveStart
       `Prelude.seq` Prelude.rnf httpStatus

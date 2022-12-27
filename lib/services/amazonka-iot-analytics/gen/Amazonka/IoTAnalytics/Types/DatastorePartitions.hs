@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.DatastorePartitions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTAnalytics.Types.DatastorePartitions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types.DatastorePartition
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the partition dimensions in a data store.
@@ -51,13 +52,13 @@ newDatastorePartitions =
 datastorePartitions_partitions :: Lens.Lens' DatastorePartitions (Prelude.Maybe [DatastorePartition])
 datastorePartitions_partitions = Lens.lens (\DatastorePartitions' {partitions} -> partitions) (\s@DatastorePartitions' {} a -> s {partitions = a} :: DatastorePartitions) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON DatastorePartitions where
+instance Data.FromJSON DatastorePartitions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DatastorePartitions"
       ( \x ->
           DatastorePartitions'
-            Prelude.<$> (x Core..:? "partitions" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "partitions" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable DatastorePartitions where
@@ -67,9 +68,9 @@ instance Prelude.Hashable DatastorePartitions where
 instance Prelude.NFData DatastorePartitions where
   rnf DatastorePartitions' {..} = Prelude.rnf partitions
 
-instance Core.ToJSON DatastorePartitions where
+instance Data.ToJSON DatastorePartitions where
   toJSON DatastorePartitions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("partitions" Core..=) Prelude.<$> partitions]
+          [("partitions" Data..=) Prelude.<$> partitions]
       )

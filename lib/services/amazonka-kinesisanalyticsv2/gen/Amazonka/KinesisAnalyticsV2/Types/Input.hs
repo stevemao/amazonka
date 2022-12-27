@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.Input
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,13 @@
 module Amazonka.KinesisAnalyticsV2.Types.Input where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.InputParallelism
 import Amazonka.KinesisAnalyticsV2.Types.InputProcessingConfiguration
 import Amazonka.KinesisAnalyticsV2.Types.KinesisFirehoseInput
 import Amazonka.KinesisAnalyticsV2.Types.KinesisStreamsInput
 import Amazonka.KinesisAnalyticsV2.Types.SourceSchema
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | When you configure the application input for a SQL-based Kinesis Data
@@ -42,12 +43,12 @@ data Input = Input'
     -- application\'s SQL code executes. Currently, the only input processing
     -- configuration available is InputLambdaProcessor.
     inputProcessingConfiguration :: Prelude.Maybe InputProcessingConfiguration,
-    -- | If the streaming source is an Amazon Kinesis data stream, identifies the
-    -- stream\'s Amazon Resource Name (ARN).
-    kinesisStreamsInput :: Prelude.Maybe KinesisStreamsInput,
     -- | If the streaming source is an Amazon Kinesis Data Firehose delivery
     -- stream, identifies the delivery stream\'s ARN.
     kinesisFirehoseInput :: Prelude.Maybe KinesisFirehoseInput,
+    -- | If the streaming source is an Amazon Kinesis data stream, identifies the
+    -- stream\'s Amazon Resource Name (ARN).
+    kinesisStreamsInput :: Prelude.Maybe KinesisStreamsInput,
     -- | The name prefix to use when creating an in-application stream. Suppose
     -- that you specify a prefix \"@MyInApplicationStream@.\" Kinesis Data
     -- Analytics then creates one or more (as per the @InputParallelism@ count
@@ -79,11 +80,11 @@ data Input = Input'
 -- application\'s SQL code executes. Currently, the only input processing
 -- configuration available is InputLambdaProcessor.
 --
--- 'kinesisStreamsInput', 'input_kinesisStreamsInput' - If the streaming source is an Amazon Kinesis data stream, identifies the
--- stream\'s Amazon Resource Name (ARN).
---
 -- 'kinesisFirehoseInput', 'input_kinesisFirehoseInput' - If the streaming source is an Amazon Kinesis Data Firehose delivery
 -- stream, identifies the delivery stream\'s ARN.
+--
+-- 'kinesisStreamsInput', 'input_kinesisStreamsInput' - If the streaming source is an Amazon Kinesis data stream, identifies the
+-- stream\'s Amazon Resource Name (ARN).
 --
 -- 'namePrefix', 'input_namePrefix' - The name prefix to use when creating an in-application stream. Suppose
 -- that you specify a prefix \"@MyInApplicationStream@.\" Kinesis Data
@@ -107,8 +108,8 @@ newInput pNamePrefix_ pInputSchema_ =
   Input'
     { inputParallelism = Prelude.Nothing,
       inputProcessingConfiguration = Prelude.Nothing,
-      kinesisStreamsInput = Prelude.Nothing,
       kinesisFirehoseInput = Prelude.Nothing,
+      kinesisStreamsInput = Prelude.Nothing,
       namePrefix = pNamePrefix_,
       inputSchema = pInputSchema_
     }
@@ -124,15 +125,15 @@ input_inputParallelism = Lens.lens (\Input' {inputParallelism} -> inputParalleli
 input_inputProcessingConfiguration :: Lens.Lens' Input (Prelude.Maybe InputProcessingConfiguration)
 input_inputProcessingConfiguration = Lens.lens (\Input' {inputProcessingConfiguration} -> inputProcessingConfiguration) (\s@Input' {} a -> s {inputProcessingConfiguration = a} :: Input)
 
--- | If the streaming source is an Amazon Kinesis data stream, identifies the
--- stream\'s Amazon Resource Name (ARN).
-input_kinesisStreamsInput :: Lens.Lens' Input (Prelude.Maybe KinesisStreamsInput)
-input_kinesisStreamsInput = Lens.lens (\Input' {kinesisStreamsInput} -> kinesisStreamsInput) (\s@Input' {} a -> s {kinesisStreamsInput = a} :: Input)
-
 -- | If the streaming source is an Amazon Kinesis Data Firehose delivery
 -- stream, identifies the delivery stream\'s ARN.
 input_kinesisFirehoseInput :: Lens.Lens' Input (Prelude.Maybe KinesisFirehoseInput)
 input_kinesisFirehoseInput = Lens.lens (\Input' {kinesisFirehoseInput} -> kinesisFirehoseInput) (\s@Input' {} a -> s {kinesisFirehoseInput = a} :: Input)
+
+-- | If the streaming source is an Amazon Kinesis data stream, identifies the
+-- stream\'s Amazon Resource Name (ARN).
+input_kinesisStreamsInput :: Lens.Lens' Input (Prelude.Maybe KinesisStreamsInput)
+input_kinesisStreamsInput = Lens.lens (\Input' {kinesisStreamsInput} -> kinesisStreamsInput) (\s@Input' {} a -> s {kinesisStreamsInput = a} :: Input)
 
 -- | The name prefix to use when creating an in-application stream. Suppose
 -- that you specify a prefix \"@MyInApplicationStream@.\" Kinesis Data
@@ -155,8 +156,8 @@ instance Prelude.Hashable Input where
   hashWithSalt _salt Input' {..} =
     _salt `Prelude.hashWithSalt` inputParallelism
       `Prelude.hashWithSalt` inputProcessingConfiguration
-      `Prelude.hashWithSalt` kinesisStreamsInput
       `Prelude.hashWithSalt` kinesisFirehoseInput
+      `Prelude.hashWithSalt` kinesisStreamsInput
       `Prelude.hashWithSalt` namePrefix
       `Prelude.hashWithSalt` inputSchema
 
@@ -164,24 +165,24 @@ instance Prelude.NFData Input where
   rnf Input' {..} =
     Prelude.rnf inputParallelism
       `Prelude.seq` Prelude.rnf inputProcessingConfiguration
-      `Prelude.seq` Prelude.rnf kinesisStreamsInput
       `Prelude.seq` Prelude.rnf kinesisFirehoseInput
+      `Prelude.seq` Prelude.rnf kinesisStreamsInput
       `Prelude.seq` Prelude.rnf namePrefix
       `Prelude.seq` Prelude.rnf inputSchema
 
-instance Core.ToJSON Input where
+instance Data.ToJSON Input where
   toJSON Input' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("InputParallelism" Core..=)
+          [ ("InputParallelism" Data..=)
               Prelude.<$> inputParallelism,
-            ("InputProcessingConfiguration" Core..=)
+            ("InputProcessingConfiguration" Data..=)
               Prelude.<$> inputProcessingConfiguration,
-            ("KinesisStreamsInput" Core..=)
-              Prelude.<$> kinesisStreamsInput,
-            ("KinesisFirehoseInput" Core..=)
+            ("KinesisFirehoseInput" Data..=)
               Prelude.<$> kinesisFirehoseInput,
-            Prelude.Just ("NamePrefix" Core..= namePrefix),
-            Prelude.Just ("InputSchema" Core..= inputSchema)
+            ("KinesisStreamsInput" Data..=)
+              Prelude.<$> kinesisStreamsInput,
+            Prelude.Just ("NamePrefix" Data..= namePrefix),
+            Prelude.Just ("InputSchema" Data..= inputSchema)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.FSxWindowsFileServerAuthorizationConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.ECS.Types.FSxWindowsFileServerAuthorizationConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The authorization configuration details for Amazon FSx for Windows File
 -- Server file system. See
 -- <https://docs.aws.amazon.com/AmazonECS/latest/APIReference/API_FSxWindowsFileServerVolumeConfiguration.html FSxWindowsFileServerVolumeConfiguration>
--- in the /Amazon Elastic Container Service API Reference/.
+-- in the /Amazon ECS API Reference/.
 --
 -- For more information and the input format, see
 -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/wfsx-volumes.html Amazon FSx for Windows File Server Volumes>
@@ -36,8 +37,8 @@ import qualified Amazonka.Prelude as Prelude
 data FSxWindowsFileServerAuthorizationConfig = FSxWindowsFileServerAuthorizationConfig'
   { -- | The authorization credential option to use. The authorization credential
     -- options can be provided using either the Amazon Resource Name (ARN) of
-    -- an Secrets Manager secret or SSM Parameter Store parameter. The ARNs
-    -- refer to the stored credentials.
+    -- an Secrets Manager secret or SSM Parameter Store parameter. The ARN
+    -- refers to the stored credentials.
     credentialsParameter :: Prelude.Text,
     -- | A fully qualified domain name hosted by an
     -- <https://docs.aws.amazon.com/directoryservice/latest/admin-guide/directory_microsoft_ad.html Directory Service>
@@ -56,8 +57,8 @@ data FSxWindowsFileServerAuthorizationConfig = FSxWindowsFileServerAuthorization
 --
 -- 'credentialsParameter', 'fSxWindowsFileServerAuthorizationConfig_credentialsParameter' - The authorization credential option to use. The authorization credential
 -- options can be provided using either the Amazon Resource Name (ARN) of
--- an Secrets Manager secret or SSM Parameter Store parameter. The ARNs
--- refer to the stored credentials.
+-- an Secrets Manager secret or SSM Parameter Store parameter. The ARN
+-- refers to the stored credentials.
 --
 -- 'domain', 'fSxWindowsFileServerAuthorizationConfig_domain' - A fully qualified domain name hosted by an
 -- <https://docs.aws.amazon.com/directoryservice/latest/admin-guide/directory_microsoft_ad.html Directory Service>
@@ -79,8 +80,8 @@ newFSxWindowsFileServerAuthorizationConfig
 
 -- | The authorization credential option to use. The authorization credential
 -- options can be provided using either the Amazon Resource Name (ARN) of
--- an Secrets Manager secret or SSM Parameter Store parameter. The ARNs
--- refer to the stored credentials.
+-- an Secrets Manager secret or SSM Parameter Store parameter. The ARN
+-- refers to the stored credentials.
 fSxWindowsFileServerAuthorizationConfig_credentialsParameter :: Lens.Lens' FSxWindowsFileServerAuthorizationConfig Prelude.Text
 fSxWindowsFileServerAuthorizationConfig_credentialsParameter = Lens.lens (\FSxWindowsFileServerAuthorizationConfig' {credentialsParameter} -> credentialsParameter) (\s@FSxWindowsFileServerAuthorizationConfig' {} a -> s {credentialsParameter = a} :: FSxWindowsFileServerAuthorizationConfig)
 
@@ -91,16 +92,16 @@ fSxWindowsFileServerAuthorizationConfig_domain :: Lens.Lens' FSxWindowsFileServe
 fSxWindowsFileServerAuthorizationConfig_domain = Lens.lens (\FSxWindowsFileServerAuthorizationConfig' {domain} -> domain) (\s@FSxWindowsFileServerAuthorizationConfig' {} a -> s {domain = a} :: FSxWindowsFileServerAuthorizationConfig)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     FSxWindowsFileServerAuthorizationConfig
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FSxWindowsFileServerAuthorizationConfig"
       ( \x ->
           FSxWindowsFileServerAuthorizationConfig'
-            Prelude.<$> (x Core..: "credentialsParameter")
-            Prelude.<*> (x Core..: "domain")
+            Prelude.<$> (x Data..: "credentialsParameter")
+            Prelude.<*> (x Data..: "domain")
       )
 
 instance
@@ -122,16 +123,16 @@ instance
       `Prelude.seq` Prelude.rnf domain
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     FSxWindowsFileServerAuthorizationConfig
   where
   toJSON FSxWindowsFileServerAuthorizationConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "credentialsParameter"
-                  Core..= credentialsParameter
+                  Data..= credentialsParameter
               ),
-            Prelude.Just ("domain" Core..= domain)
+            Prelude.Just ("domain" Data..= domain)
           ]
       )

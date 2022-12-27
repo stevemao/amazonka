@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Schemas.UpdateDiscoverer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,19 +36,20 @@ module Amazonka.Schemas.UpdateDiscoverer
     newUpdateDiscovererResponse,
 
     -- * Response Lenses
-    updateDiscovererResponse_state,
     updateDiscovererResponse_crossAccount,
-    updateDiscovererResponse_sourceArn,
-    updateDiscovererResponse_discovererId,
     updateDiscovererResponse_description,
-    updateDiscovererResponse_tags,
     updateDiscovererResponse_discovererArn,
+    updateDiscovererResponse_discovererId,
+    updateDiscovererResponse_sourceArn,
+    updateDiscovererResponse_state,
+    updateDiscovererResponse_tags,
     updateDiscovererResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,18 +109,19 @@ instance Core.AWSRequest UpdateDiscoverer where
   type
     AWSResponse UpdateDiscoverer =
       UpdateDiscovererResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDiscovererResponse'
-            Prelude.<$> (x Core..?> "State")
-            Prelude.<*> (x Core..?> "CrossAccount")
-            Prelude.<*> (x Core..?> "SourceArn")
-            Prelude.<*> (x Core..?> "DiscovererId")
-            Prelude.<*> (x Core..?> "Description")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "DiscovererArn")
+            Prelude.<$> (x Data..?> "CrossAccount")
+            Prelude.<*> (x Data..?> "Description")
+            Prelude.<*> (x Data..?> "DiscovererArn")
+            Prelude.<*> (x Data..?> "DiscovererId")
+            Prelude.<*> (x Data..?> "SourceArn")
+            Prelude.<*> (x Data..?> "State")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -135,51 +137,51 @@ instance Prelude.NFData UpdateDiscoverer where
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf discovererId
 
-instance Core.ToHeaders UpdateDiscoverer where
+instance Data.ToHeaders UpdateDiscoverer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDiscoverer where
+instance Data.ToJSON UpdateDiscoverer where
   toJSON UpdateDiscoverer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CrossAccount" Core..=) Prelude.<$> crossAccount,
-            ("Description" Core..=) Prelude.<$> description
+          [ ("CrossAccount" Data..=) Prelude.<$> crossAccount,
+            ("Description" Data..=) Prelude.<$> description
           ]
       )
 
-instance Core.ToPath UpdateDiscoverer where
+instance Data.ToPath UpdateDiscoverer where
   toPath UpdateDiscoverer' {..} =
     Prelude.mconcat
-      ["/v1/discoverers/id/", Core.toBS discovererId]
+      ["/v1/discoverers/id/", Data.toBS discovererId]
 
-instance Core.ToQuery UpdateDiscoverer where
+instance Data.ToQuery UpdateDiscoverer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDiscovererResponse' smart constructor.
 data UpdateDiscovererResponse = UpdateDiscovererResponse'
-  { -- | The state of the discoverer.
-    state :: Prelude.Maybe DiscovererState,
-    -- | The Status if the discoverer will discover schemas from events sent from
+  { -- | The Status if the discoverer will discover schemas from events sent from
     -- another account.
     crossAccount :: Prelude.Maybe Prelude.Bool,
-    -- | The ARN of the event bus.
-    sourceArn :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the discoverer.
-    discovererId :: Prelude.Maybe Prelude.Text,
     -- | The description of the discoverer.
     description :: Prelude.Maybe Prelude.Text,
-    -- | Tags associated with the resource.
-    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The ARN of the discoverer.
     discovererArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the discoverer.
+    discovererId :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the event bus.
+    sourceArn :: Prelude.Maybe Prelude.Text,
+    -- | The state of the discoverer.
+    state :: Prelude.Maybe DiscovererState,
+    -- | Tags associated with the resource.
+    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -193,20 +195,20 @@ data UpdateDiscovererResponse = UpdateDiscovererResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'updateDiscovererResponse_state' - The state of the discoverer.
---
 -- 'crossAccount', 'updateDiscovererResponse_crossAccount' - The Status if the discoverer will discover schemas from events sent from
 -- another account.
 --
--- 'sourceArn', 'updateDiscovererResponse_sourceArn' - The ARN of the event bus.
+-- 'description', 'updateDiscovererResponse_description' - The description of the discoverer.
+--
+-- 'discovererArn', 'updateDiscovererResponse_discovererArn' - The ARN of the discoverer.
 --
 -- 'discovererId', 'updateDiscovererResponse_discovererId' - The ID of the discoverer.
 --
--- 'description', 'updateDiscovererResponse_description' - The description of the discoverer.
+-- 'sourceArn', 'updateDiscovererResponse_sourceArn' - The ARN of the event bus.
+--
+-- 'state', 'updateDiscovererResponse_state' - The state of the discoverer.
 --
 -- 'tags', 'updateDiscovererResponse_tags' - Tags associated with the resource.
---
--- 'discovererArn', 'updateDiscovererResponse_discovererArn' - The ARN of the discoverer.
 --
 -- 'httpStatus', 'updateDiscovererResponse_httpStatus' - The response's http status code.
 newUpdateDiscovererResponse ::
@@ -215,44 +217,45 @@ newUpdateDiscovererResponse ::
   UpdateDiscovererResponse
 newUpdateDiscovererResponse pHttpStatus_ =
   UpdateDiscovererResponse'
-    { state = Prelude.Nothing,
-      crossAccount = Prelude.Nothing,
-      sourceArn = Prelude.Nothing,
-      discovererId = Prelude.Nothing,
+    { crossAccount =
+        Prelude.Nothing,
       description = Prelude.Nothing,
-      tags = Prelude.Nothing,
       discovererArn = Prelude.Nothing,
+      discovererId = Prelude.Nothing,
+      sourceArn = Prelude.Nothing,
+      state = Prelude.Nothing,
+      tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The state of the discoverer.
-updateDiscovererResponse_state :: Lens.Lens' UpdateDiscovererResponse (Prelude.Maybe DiscovererState)
-updateDiscovererResponse_state = Lens.lens (\UpdateDiscovererResponse' {state} -> state) (\s@UpdateDiscovererResponse' {} a -> s {state = a} :: UpdateDiscovererResponse)
 
 -- | The Status if the discoverer will discover schemas from events sent from
 -- another account.
 updateDiscovererResponse_crossAccount :: Lens.Lens' UpdateDiscovererResponse (Prelude.Maybe Prelude.Bool)
 updateDiscovererResponse_crossAccount = Lens.lens (\UpdateDiscovererResponse' {crossAccount} -> crossAccount) (\s@UpdateDiscovererResponse' {} a -> s {crossAccount = a} :: UpdateDiscovererResponse)
 
--- | The ARN of the event bus.
-updateDiscovererResponse_sourceArn :: Lens.Lens' UpdateDiscovererResponse (Prelude.Maybe Prelude.Text)
-updateDiscovererResponse_sourceArn = Lens.lens (\UpdateDiscovererResponse' {sourceArn} -> sourceArn) (\s@UpdateDiscovererResponse' {} a -> s {sourceArn = a} :: UpdateDiscovererResponse)
+-- | The description of the discoverer.
+updateDiscovererResponse_description :: Lens.Lens' UpdateDiscovererResponse (Prelude.Maybe Prelude.Text)
+updateDiscovererResponse_description = Lens.lens (\UpdateDiscovererResponse' {description} -> description) (\s@UpdateDiscovererResponse' {} a -> s {description = a} :: UpdateDiscovererResponse)
+
+-- | The ARN of the discoverer.
+updateDiscovererResponse_discovererArn :: Lens.Lens' UpdateDiscovererResponse (Prelude.Maybe Prelude.Text)
+updateDiscovererResponse_discovererArn = Lens.lens (\UpdateDiscovererResponse' {discovererArn} -> discovererArn) (\s@UpdateDiscovererResponse' {} a -> s {discovererArn = a} :: UpdateDiscovererResponse)
 
 -- | The ID of the discoverer.
 updateDiscovererResponse_discovererId :: Lens.Lens' UpdateDiscovererResponse (Prelude.Maybe Prelude.Text)
 updateDiscovererResponse_discovererId = Lens.lens (\UpdateDiscovererResponse' {discovererId} -> discovererId) (\s@UpdateDiscovererResponse' {} a -> s {discovererId = a} :: UpdateDiscovererResponse)
 
--- | The description of the discoverer.
-updateDiscovererResponse_description :: Lens.Lens' UpdateDiscovererResponse (Prelude.Maybe Prelude.Text)
-updateDiscovererResponse_description = Lens.lens (\UpdateDiscovererResponse' {description} -> description) (\s@UpdateDiscovererResponse' {} a -> s {description = a} :: UpdateDiscovererResponse)
+-- | The ARN of the event bus.
+updateDiscovererResponse_sourceArn :: Lens.Lens' UpdateDiscovererResponse (Prelude.Maybe Prelude.Text)
+updateDiscovererResponse_sourceArn = Lens.lens (\UpdateDiscovererResponse' {sourceArn} -> sourceArn) (\s@UpdateDiscovererResponse' {} a -> s {sourceArn = a} :: UpdateDiscovererResponse)
+
+-- | The state of the discoverer.
+updateDiscovererResponse_state :: Lens.Lens' UpdateDiscovererResponse (Prelude.Maybe DiscovererState)
+updateDiscovererResponse_state = Lens.lens (\UpdateDiscovererResponse' {state} -> state) (\s@UpdateDiscovererResponse' {} a -> s {state = a} :: UpdateDiscovererResponse)
 
 -- | Tags associated with the resource.
 updateDiscovererResponse_tags :: Lens.Lens' UpdateDiscovererResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 updateDiscovererResponse_tags = Lens.lens (\UpdateDiscovererResponse' {tags} -> tags) (\s@UpdateDiscovererResponse' {} a -> s {tags = a} :: UpdateDiscovererResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The ARN of the discoverer.
-updateDiscovererResponse_discovererArn :: Lens.Lens' UpdateDiscovererResponse (Prelude.Maybe Prelude.Text)
-updateDiscovererResponse_discovererArn = Lens.lens (\UpdateDiscovererResponse' {discovererArn} -> discovererArn) (\s@UpdateDiscovererResponse' {} a -> s {discovererArn = a} :: UpdateDiscovererResponse)
 
 -- | The response's http status code.
 updateDiscovererResponse_httpStatus :: Lens.Lens' UpdateDiscovererResponse Prelude.Int
@@ -260,11 +263,11 @@ updateDiscovererResponse_httpStatus = Lens.lens (\UpdateDiscovererResponse' {htt
 
 instance Prelude.NFData UpdateDiscovererResponse where
   rnf UpdateDiscovererResponse' {..} =
-    Prelude.rnf state
-      `Prelude.seq` Prelude.rnf crossAccount
-      `Prelude.seq` Prelude.rnf sourceArn
-      `Prelude.seq` Prelude.rnf discovererId
+    Prelude.rnf crossAccount
       `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf discovererArn
+      `Prelude.seq` Prelude.rnf discovererId
+      `Prelude.seq` Prelude.rnf sourceArn
+      `Prelude.seq` Prelude.rnf state
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

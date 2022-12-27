@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.RemoveAccountFromOrganization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,28 +35,29 @@
 -- -   You can remove an account from your organization only if the account
 --     is configured with the information required to operate as a
 --     standalone account. When you create an account in an organization
---     using the AWS Organizations console, API, or CLI commands, the
+--     using the Organizations console, API, or CLI commands, the
 --     information required of standalone accounts is /not/ automatically
 --     collected. For an account that you want to make standalone, you must
 --     choose a support plan, provide and verify the required contact
---     information, and provide a current payment method. AWS uses the
---     payment method to charge for any billable (not free tier) AWS
---     activity that occurs while the account isn\'t attached to an
---     organization. To remove an account that doesn\'t yet have this
---     information, you must sign in as the member account and follow the
---     steps at
---     <http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html#leave-without-all-info To leave an organization when all required account information has not yet been provided>
---     in the /AWS Organizations User Guide./
+--     information, and provide a current payment method. Amazon Web
+--     Services uses the payment method to charge for any billable (not
+--     free tier) Amazon Web Services activity that occurs while the
+--     account isn\'t attached to an organization. To remove an account
+--     that doesn\'t yet have this information, you must sign in as the
+--     member account and follow the steps at
+--     <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html#leave-without-all-info To leave an organization when all required account information has not yet been provided>
+--     in the /Organizations User Guide./
 --
 -- -   The account that you want to leave must not be a delegated
---     administrator account for any AWS service enabled for your
---     organization. If the account is a delegated administrator, you must
---     first change the delegated administrator account to another account
---     that is remaining in the organization.
+--     administrator account for any Amazon Web Services service enabled
+--     for your organization. If the account is a delegated administrator,
+--     you must first change the delegated administrator account to another
+--     account that is remaining in the organization.
 --
 -- -   After the account leaves the organization, all tags that were
---     attached to the account object in the organization are deleted. AWS
---     accounts outside of an organization do not support tags.
+--     attached to the account object in the organization are deleted.
+--     Amazon Web Services accounts outside of an organization do not
+--     support tags.
 module Amazonka.Organizations.RemoveAccountFromOrganization
   ( -- * Creating a Request
     RemoveAccountFromOrganization (..),
@@ -72,7 +73,8 @@ module Amazonka.Organizations.RemoveAccountFromOrganization
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -127,7 +129,8 @@ instance
   type
     AWSResponse RemoveAccountFromOrganization =
       RemoveAccountFromOrganizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       RemoveAccountFromOrganizationResponse'
@@ -143,32 +146,32 @@ instance Prelude.NFData RemoveAccountFromOrganization where
   rnf RemoveAccountFromOrganization' {..} =
     Prelude.rnf accountId
 
-instance Core.ToHeaders RemoveAccountFromOrganization where
+instance Data.ToHeaders RemoveAccountFromOrganization where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.RemoveAccountFromOrganization" ::
+              Data.=# ( "AWSOrganizationsV20161128.RemoveAccountFromOrganization" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RemoveAccountFromOrganization where
+instance Data.ToJSON RemoveAccountFromOrganization where
   toJSON RemoveAccountFromOrganization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("AccountId" Core..= accountId)]
+          [Prelude.Just ("AccountId" Data..= accountId)]
       )
 
-instance Core.ToPath RemoveAccountFromOrganization where
+instance Data.ToPath RemoveAccountFromOrganization where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemoveAccountFromOrganization where
+instance Data.ToQuery RemoveAccountFromOrganization where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveAccountFromOrganizationResponse' smart constructor.

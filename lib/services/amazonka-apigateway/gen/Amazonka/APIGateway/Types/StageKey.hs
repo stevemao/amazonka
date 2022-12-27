@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.Types.StageKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.APIGateway.Types.StageKey where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A reference to a unique stage identified in the format
@@ -72,11 +73,11 @@ instance Prelude.NFData StageKey where
     Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf stageName
 
-instance Core.ToJSON StageKey where
+instance Data.ToJSON StageKey where
   toJSON StageKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("restApiId" Core..=) Prelude.<$> restApiId,
-            ("stageName" Core..=) Prelude.<$> stageName
+          [ ("restApiId" Data..=) Prelude.<$> restApiId,
+            ("stageName" Data..=) Prelude.<$> stageName
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.StartJobRun
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DataBrew.StartJobRun
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,13 +75,14 @@ startJobRun_name = Lens.lens (\StartJobRun' {name} -> name) (\s@StartJobRun' {} 
 
 instance Core.AWSRequest StartJobRun where
   type AWSResponse StartJobRun = StartJobRunResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartJobRunResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "RunId")
+            Prelude.<*> (x Data..:> "RunId")
       )
 
 instance Prelude.Hashable StartJobRun where
@@ -90,26 +92,26 @@ instance Prelude.Hashable StartJobRun where
 instance Prelude.NFData StartJobRun where
   rnf StartJobRun' {..} = Prelude.rnf name
 
-instance Core.ToHeaders StartJobRun where
+instance Data.ToHeaders StartJobRun where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartJobRun where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON StartJobRun where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath StartJobRun where
+instance Data.ToPath StartJobRun where
   toPath StartJobRun' {..} =
     Prelude.mconcat
-      ["/jobs/", Core.toBS name, "/startJobRun"]
+      ["/jobs/", Data.toBS name, "/startJobRun"]
 
-instance Core.ToQuery StartJobRun where
+instance Data.ToQuery StartJobRun where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartJobRunResponse' smart constructor.

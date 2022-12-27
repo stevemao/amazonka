@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsCodeBuildProjectEnvironmentRegistryCredential
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsCodeBuildProjectEnvironmentRegistryCredential where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The credentials for access to a private registry.
@@ -82,16 +83,16 @@ awsCodeBuildProjectEnvironmentRegistryCredential_credentialProvider :: Lens.Lens
 awsCodeBuildProjectEnvironmentRegistryCredential_credentialProvider = Lens.lens (\AwsCodeBuildProjectEnvironmentRegistryCredential' {credentialProvider} -> credentialProvider) (\s@AwsCodeBuildProjectEnvironmentRegistryCredential' {} a -> s {credentialProvider = a} :: AwsCodeBuildProjectEnvironmentRegistryCredential)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsCodeBuildProjectEnvironmentRegistryCredential
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsCodeBuildProjectEnvironmentRegistryCredential"
       ( \x ->
           AwsCodeBuildProjectEnvironmentRegistryCredential'
-            Prelude.<$> (x Core..:? "Credential")
-              Prelude.<*> (x Core..:? "CredentialProvider")
+            Prelude.<$> (x Data..:? "Credential")
+              Prelude.<*> (x Data..:? "CredentialProvider")
       )
 
 instance
@@ -114,15 +115,15 @@ instance
         `Prelude.seq` Prelude.rnf credentialProvider
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsCodeBuildProjectEnvironmentRegistryCredential
   where
   toJSON
     AwsCodeBuildProjectEnvironmentRegistryCredential' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Credential" Core..=) Prelude.<$> credential,
-              ("CredentialProvider" Core..=)
+            [ ("Credential" Data..=) Prelude.<$> credential,
+              ("CredentialProvider" Data..=)
                 Prelude.<$> credentialProvider
             ]
         )

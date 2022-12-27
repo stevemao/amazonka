@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.PlacementStrategy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.ECS.Types.PlacementStrategy where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types.PlacementStrategyType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The task placement strategy for a task or service. For more information,
 -- see
--- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-strategies.html Task Placement Strategies>
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-strategies.html Task placement strategies>
 -- in the /Amazon Elastic Container Service Developer Guide/.
 --
 -- /See:/ 'newPlacementStrategy' smart constructor.
 data PlacementStrategy = PlacementStrategy'
   { -- | The field to apply the placement strategy against. For the @spread@
     -- placement strategy, valid values are @instanceId@ (or @host@, which has
-    -- the same effect), or any platform or custom attribute that is applied to
+    -- the same effect), or any platform or custom attribute that\'s applied to
     -- a container instance, such as @attribute:ecs.availability-zone@. For the
     -- @binpack@ placement strategy, valid values are @cpu@ and @memory@. For
     -- the @random@ placement strategy, this field is not used.
@@ -42,10 +43,10 @@ data PlacementStrategy = PlacementStrategy'
     -- places tasks on available candidates. The @spread@ placement strategy
     -- spreads placement across available candidates evenly based on the
     -- @field@ parameter. The @binpack@ strategy places tasks on available
-    -- candidates that have the least available amount of the resource that is
+    -- candidates that have the least available amount of the resource that\'s
     -- specified with the @field@ parameter. For example, if you binpack on
     -- memory, a task is placed on the instance with the least amount of
-    -- remaining memory (but still enough to run the task).
+    -- remaining memory but still enough to run the task.
     type' :: Prelude.Maybe PlacementStrategyType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,7 +61,7 @@ data PlacementStrategy = PlacementStrategy'
 --
 -- 'field', 'placementStrategy_field' - The field to apply the placement strategy against. For the @spread@
 -- placement strategy, valid values are @instanceId@ (or @host@, which has
--- the same effect), or any platform or custom attribute that is applied to
+-- the same effect), or any platform or custom attribute that\'s applied to
 -- a container instance, such as @attribute:ecs.availability-zone@. For the
 -- @binpack@ placement strategy, valid values are @cpu@ and @memory@. For
 -- the @random@ placement strategy, this field is not used.
@@ -69,10 +70,10 @@ data PlacementStrategy = PlacementStrategy'
 -- places tasks on available candidates. The @spread@ placement strategy
 -- spreads placement across available candidates evenly based on the
 -- @field@ parameter. The @binpack@ strategy places tasks on available
--- candidates that have the least available amount of the resource that is
+-- candidates that have the least available amount of the resource that\'s
 -- specified with the @field@ parameter. For example, if you binpack on
 -- memory, a task is placed on the instance with the least amount of
--- remaining memory (but still enough to run the task).
+-- remaining memory but still enough to run the task.
 newPlacementStrategy ::
   PlacementStrategy
 newPlacementStrategy =
@@ -83,7 +84,7 @@ newPlacementStrategy =
 
 -- | The field to apply the placement strategy against. For the @spread@
 -- placement strategy, valid values are @instanceId@ (or @host@, which has
--- the same effect), or any platform or custom attribute that is applied to
+-- the same effect), or any platform or custom attribute that\'s applied to
 -- a container instance, such as @attribute:ecs.availability-zone@. For the
 -- @binpack@ placement strategy, valid values are @cpu@ and @memory@. For
 -- the @random@ placement strategy, this field is not used.
@@ -94,20 +95,20 @@ placementStrategy_field = Lens.lens (\PlacementStrategy' {field} -> field) (\s@P
 -- places tasks on available candidates. The @spread@ placement strategy
 -- spreads placement across available candidates evenly based on the
 -- @field@ parameter. The @binpack@ strategy places tasks on available
--- candidates that have the least available amount of the resource that is
+-- candidates that have the least available amount of the resource that\'s
 -- specified with the @field@ parameter. For example, if you binpack on
 -- memory, a task is placed on the instance with the least amount of
--- remaining memory (but still enough to run the task).
+-- remaining memory but still enough to run the task.
 placementStrategy_type :: Lens.Lens' PlacementStrategy (Prelude.Maybe PlacementStrategyType)
 placementStrategy_type = Lens.lens (\PlacementStrategy' {type'} -> type') (\s@PlacementStrategy' {} a -> s {type' = a} :: PlacementStrategy)
 
-instance Core.FromJSON PlacementStrategy where
+instance Data.FromJSON PlacementStrategy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PlacementStrategy"
       ( \x ->
           PlacementStrategy'
-            Prelude.<$> (x Core..:? "field") Prelude.<*> (x Core..:? "type")
+            Prelude.<$> (x Data..:? "field") Prelude.<*> (x Data..:? "type")
       )
 
 instance Prelude.Hashable PlacementStrategy where
@@ -119,11 +120,11 @@ instance Prelude.NFData PlacementStrategy where
   rnf PlacementStrategy' {..} =
     Prelude.rnf field `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON PlacementStrategy where
+instance Data.ToJSON PlacementStrategy where
   toJSON PlacementStrategy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("field" Core..=) Prelude.<$> field,
-            ("type" Core..=) Prelude.<$> type'
+          [ ("field" Data..=) Prelude.<$> field,
+            ("type" Data..=) Prelude.<$> type'
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkManager.AssociateLink
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.NetworkManager.AssociateLink
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -108,12 +109,13 @@ instance Core.AWSRequest AssociateLink where
   type
     AWSResponse AssociateLink =
       AssociateLinkResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AssociateLinkResponse'
-            Prelude.<$> (x Core..?> "LinkAssociation")
+            Prelude.<$> (x Data..?> "LinkAssociation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,35 +131,35 @@ instance Prelude.NFData AssociateLink where
       `Prelude.seq` Prelude.rnf deviceId
       `Prelude.seq` Prelude.rnf linkId
 
-instance Core.ToHeaders AssociateLink where
+instance Data.ToHeaders AssociateLink where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateLink where
+instance Data.ToJSON AssociateLink where
   toJSON AssociateLink' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DeviceId" Core..= deviceId),
-            Prelude.Just ("LinkId" Core..= linkId)
+          [ Prelude.Just ("DeviceId" Data..= deviceId),
+            Prelude.Just ("LinkId" Data..= linkId)
           ]
       )
 
-instance Core.ToPath AssociateLink where
+instance Data.ToPath AssociateLink where
   toPath AssociateLink' {..} =
     Prelude.mconcat
       [ "/global-networks/",
-        Core.toBS globalNetworkId,
+        Data.toBS globalNetworkId,
         "/link-associations"
       ]
 
-instance Core.ToQuery AssociateLink where
+instance Data.ToQuery AssociateLink where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateLinkResponse' smart constructor.

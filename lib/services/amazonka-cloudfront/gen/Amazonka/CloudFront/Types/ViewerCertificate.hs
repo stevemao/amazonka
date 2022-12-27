@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.ViewerCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.CloudFront.Types.CertificateSource
 import Amazonka.CloudFront.Types.MinimumProtocolVersion
 import Amazonka.CloudFront.Types.SSLSupportMethod
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A complex type that determines the distribution’s SSL\/TLS configuration
@@ -84,28 +85,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newViewerCertificate' smart constructor.
 data ViewerCertificate = ViewerCertificate'
-  { -- | If the distribution uses @Aliases@ (alternate domain names or CNAMEs),
-    -- specify which viewers the distribution accepts HTTPS connections from.
-    --
-    -- -   @sni-only@ – The distribution accepts HTTPS connections from only
-    --     viewers that support
-    --     <https://en.wikipedia.org/wiki/Server_Name_Indication server name indication (SNI)>.
-    --     This is recommended. Most browsers and clients support SNI.
-    --
-    -- -   @vip@ – The distribution accepts HTTPS connections from all viewers
-    --     including those that don’t support SNI. This is not recommended, and
-    --     results in additional monthly charges from CloudFront.
-    --
-    -- -   @static-ip@ - Do not specify this value unless your distribution has
-    --     been enabled for this feature by the CloudFront team. If you have a
-    --     use case that requires static IP addresses for a distribution,
-    --     contact CloudFront through the
-    --     <https://console.aws.amazon.com/support/home Amazon Web Services Support Center>.
-    --
-    -- If the distribution uses the CloudFront domain name such as
-    -- @d111111abcdef8.cloudfront.net@, don’t set a value for this field.
-    sSLSupportMethod :: Prelude.Maybe SSLSupportMethod,
-    -- | If the distribution uses @Aliases@ (alternate domain names or CNAMEs)
+  { -- | If the distribution uses @Aliases@ (alternate domain names or CNAMEs)
     -- and the SSL\/TLS certificate is stored in
     -- <https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html Certificate Manager (ACM)>,
     -- provide the Amazon Resource Name (ARN) of the ACM certificate.
@@ -122,7 +102,36 @@ data ViewerCertificate = ViewerCertificate'
     -- -   @IAMCertificateId@
     --
     -- -   @CloudFrontDefaultCertificate@
+    certificate :: Prelude.Maybe Prelude.Text,
+    -- | This field is deprecated. Use one of the following fields instead:
+    --
+    -- -   @ACMCertificateArn@
+    --
+    -- -   @IAMCertificateId@
+    --
+    -- -   @CloudFrontDefaultCertificate@
     certificateSource :: Prelude.Maybe CertificateSource,
+    -- | If the distribution uses the CloudFront domain name such as
+    -- @d111111abcdef8.cloudfront.net@, set this field to @true@.
+    --
+    -- If the distribution uses @Aliases@ (alternate domain names or CNAMEs),
+    -- set this field to @false@ and specify values for the following fields:
+    --
+    -- -   @ACMCertificateArn@ or @IAMCertificateId@ (specify a value for one,
+    --     not both)
+    --
+    -- -   @MinimumProtocolVersion@
+    --
+    -- -   @SSLSupportMethod@
+    cloudFrontDefaultCertificate :: Prelude.Maybe Prelude.Bool,
+    -- | If the distribution uses @Aliases@ (alternate domain names or CNAMEs)
+    -- and the SSL\/TLS certificate is stored in
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html Identity and Access Management (IAM)>,
+    -- provide the ID of the IAM certificate.
+    --
+    -- If you specify an IAM certificate ID, you must also specify values for
+    -- @MinimumProtocolVersion@ and @SSLSupportMethod@.
+    iAMCertificateId :: Prelude.Maybe Prelude.Text,
     -- | If the distribution uses @Aliases@ (alternate domain names or CNAMEs),
     -- specify the security policy that you want CloudFront to use for HTTPS
     -- connections with viewers. The security policy determines two settings:
@@ -149,35 +158,27 @@ data ViewerCertificate = ViewerCertificate'
     -- to @true@), CloudFront automatically sets the security policy to @TLSv1@
     -- regardless of the value that you set here.
     minimumProtocolVersion :: Prelude.Maybe MinimumProtocolVersion,
-    -- | This field is deprecated. Use one of the following fields instead:
+    -- | If the distribution uses @Aliases@ (alternate domain names or CNAMEs),
+    -- specify which viewers the distribution accepts HTTPS connections from.
     --
-    -- -   @ACMCertificateArn@
+    -- -   @sni-only@ – The distribution accepts HTTPS connections from only
+    --     viewers that support
+    --     <https://en.wikipedia.org/wiki/Server_Name_Indication server name indication (SNI)>.
+    --     This is recommended. Most browsers and clients support SNI.
     --
-    -- -   @IAMCertificateId@
+    -- -   @vip@ – The distribution accepts HTTPS connections from all viewers
+    --     including those that don’t support SNI. This is not recommended, and
+    --     results in additional monthly charges from CloudFront.
     --
-    -- -   @CloudFrontDefaultCertificate@
-    certificate :: Prelude.Maybe Prelude.Text,
-    -- | If the distribution uses @Aliases@ (alternate domain names or CNAMEs)
-    -- and the SSL\/TLS certificate is stored in
-    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html Identity and Access Management (IAM)>,
-    -- provide the ID of the IAM certificate.
+    -- -   @static-ip@ - Do not specify this value unless your distribution has
+    --     been enabled for this feature by the CloudFront team. If you have a
+    --     use case that requires static IP addresses for a distribution,
+    --     contact CloudFront through the
+    --     <https://console.aws.amazon.com/support/home Amazon Web Services Support Center>.
     --
-    -- If you specify an IAM certificate ID, you must also specify values for
-    -- @MinimumProtocolVersion@ and @SSLSupportMethod@.
-    iAMCertificateId :: Prelude.Maybe Prelude.Text,
-    -- | If the distribution uses the CloudFront domain name such as
-    -- @d111111abcdef8.cloudfront.net@, set this field to @true@.
-    --
-    -- If the distribution uses @Aliases@ (alternate domain names or CNAMEs),
-    -- set this field to @false@ and specify values for the following fields:
-    --
-    -- -   @ACMCertificateArn@ or @IAMCertificateId@ (specify a value for one,
-    --     not both)
-    --
-    -- -   @MinimumProtocolVersion@
-    --
-    -- -   @SSLSupportMethod@
-    cloudFrontDefaultCertificate :: Prelude.Maybe Prelude.Bool
+    -- If the distribution uses the CloudFront domain name such as
+    -- @d111111abcdef8.cloudfront.net@, don’t set a value for this field.
+    sSLSupportMethod :: Prelude.Maybe SSLSupportMethod
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -189,27 +190,6 @@ data ViewerCertificate = ViewerCertificate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sSLSupportMethod', 'viewerCertificate_sSLSupportMethod' - If the distribution uses @Aliases@ (alternate domain names or CNAMEs),
--- specify which viewers the distribution accepts HTTPS connections from.
---
--- -   @sni-only@ – The distribution accepts HTTPS connections from only
---     viewers that support
---     <https://en.wikipedia.org/wiki/Server_Name_Indication server name indication (SNI)>.
---     This is recommended. Most browsers and clients support SNI.
---
--- -   @vip@ – The distribution accepts HTTPS connections from all viewers
---     including those that don’t support SNI. This is not recommended, and
---     results in additional monthly charges from CloudFront.
---
--- -   @static-ip@ - Do not specify this value unless your distribution has
---     been enabled for this feature by the CloudFront team. If you have a
---     use case that requires static IP addresses for a distribution,
---     contact CloudFront through the
---     <https://console.aws.amazon.com/support/home Amazon Web Services Support Center>.
---
--- If the distribution uses the CloudFront domain name such as
--- @d111111abcdef8.cloudfront.net@, don’t set a value for this field.
---
 -- 'aCMCertificateArn', 'viewerCertificate_aCMCertificateArn' - If the distribution uses @Aliases@ (alternate domain names or CNAMEs)
 -- and the SSL\/TLS certificate is stored in
 -- <https://docs.aws.amazon.com/acm/latest/userguide/acm-overview.html Certificate Manager (ACM)>,
@@ -220,6 +200,14 @@ data ViewerCertificate = ViewerCertificate'
 -- If you specify an ACM certificate ARN, you must also specify values for
 -- @MinimumProtocolVersion@ and @SSLSupportMethod@.
 --
+-- 'certificate', 'viewerCertificate_certificate' - This field is deprecated. Use one of the following fields instead:
+--
+-- -   @ACMCertificateArn@
+--
+-- -   @IAMCertificateId@
+--
+-- -   @CloudFrontDefaultCertificate@
+--
 -- 'certificateSource', 'viewerCertificate_certificateSource' - This field is deprecated. Use one of the following fields instead:
 --
 -- -   @ACMCertificateArn@
@@ -227,6 +215,27 @@ data ViewerCertificate = ViewerCertificate'
 -- -   @IAMCertificateId@
 --
 -- -   @CloudFrontDefaultCertificate@
+--
+-- 'cloudFrontDefaultCertificate', 'viewerCertificate_cloudFrontDefaultCertificate' - If the distribution uses the CloudFront domain name such as
+-- @d111111abcdef8.cloudfront.net@, set this field to @true@.
+--
+-- If the distribution uses @Aliases@ (alternate domain names or CNAMEs),
+-- set this field to @false@ and specify values for the following fields:
+--
+-- -   @ACMCertificateArn@ or @IAMCertificateId@ (specify a value for one,
+--     not both)
+--
+-- -   @MinimumProtocolVersion@
+--
+-- -   @SSLSupportMethod@
+--
+-- 'iAMCertificateId', 'viewerCertificate_iAMCertificateId' - If the distribution uses @Aliases@ (alternate domain names or CNAMEs)
+-- and the SSL\/TLS certificate is stored in
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html Identity and Access Management (IAM)>,
+-- provide the ID of the IAM certificate.
+--
+-- If you specify an IAM certificate ID, you must also specify values for
+-- @MinimumProtocolVersion@ and @SSLSupportMethod@.
 --
 -- 'minimumProtocolVersion', 'viewerCertificate_minimumProtocolVersion' - If the distribution uses @Aliases@ (alternate domain names or CNAMEs),
 -- specify the security policy that you want CloudFront to use for HTTPS
@@ -254,49 +263,7 @@ data ViewerCertificate = ViewerCertificate'
 -- to @true@), CloudFront automatically sets the security policy to @TLSv1@
 -- regardless of the value that you set here.
 --
--- 'certificate', 'viewerCertificate_certificate' - This field is deprecated. Use one of the following fields instead:
---
--- -   @ACMCertificateArn@
---
--- -   @IAMCertificateId@
---
--- -   @CloudFrontDefaultCertificate@
---
--- 'iAMCertificateId', 'viewerCertificate_iAMCertificateId' - If the distribution uses @Aliases@ (alternate domain names or CNAMEs)
--- and the SSL\/TLS certificate is stored in
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html Identity and Access Management (IAM)>,
--- provide the ID of the IAM certificate.
---
--- If you specify an IAM certificate ID, you must also specify values for
--- @MinimumProtocolVersion@ and @SSLSupportMethod@.
---
--- 'cloudFrontDefaultCertificate', 'viewerCertificate_cloudFrontDefaultCertificate' - If the distribution uses the CloudFront domain name such as
--- @d111111abcdef8.cloudfront.net@, set this field to @true@.
---
--- If the distribution uses @Aliases@ (alternate domain names or CNAMEs),
--- set this field to @false@ and specify values for the following fields:
---
--- -   @ACMCertificateArn@ or @IAMCertificateId@ (specify a value for one,
---     not both)
---
--- -   @MinimumProtocolVersion@
---
--- -   @SSLSupportMethod@
-newViewerCertificate ::
-  ViewerCertificate
-newViewerCertificate =
-  ViewerCertificate'
-    { sSLSupportMethod =
-        Prelude.Nothing,
-      aCMCertificateArn = Prelude.Nothing,
-      certificateSource = Prelude.Nothing,
-      minimumProtocolVersion = Prelude.Nothing,
-      certificate = Prelude.Nothing,
-      iAMCertificateId = Prelude.Nothing,
-      cloudFrontDefaultCertificate = Prelude.Nothing
-    }
-
--- | If the distribution uses @Aliases@ (alternate domain names or CNAMEs),
+-- 'sSLSupportMethod', 'viewerCertificate_sSLSupportMethod' - If the distribution uses @Aliases@ (alternate domain names or CNAMEs),
 -- specify which viewers the distribution accepts HTTPS connections from.
 --
 -- -   @sni-only@ – The distribution accepts HTTPS connections from only
@@ -316,8 +283,19 @@ newViewerCertificate =
 --
 -- If the distribution uses the CloudFront domain name such as
 -- @d111111abcdef8.cloudfront.net@, don’t set a value for this field.
-viewerCertificate_sSLSupportMethod :: Lens.Lens' ViewerCertificate (Prelude.Maybe SSLSupportMethod)
-viewerCertificate_sSLSupportMethod = Lens.lens (\ViewerCertificate' {sSLSupportMethod} -> sSLSupportMethod) (\s@ViewerCertificate' {} a -> s {sSLSupportMethod = a} :: ViewerCertificate)
+newViewerCertificate ::
+  ViewerCertificate
+newViewerCertificate =
+  ViewerCertificate'
+    { aCMCertificateArn =
+        Prelude.Nothing,
+      certificate = Prelude.Nothing,
+      certificateSource = Prelude.Nothing,
+      cloudFrontDefaultCertificate = Prelude.Nothing,
+      iAMCertificateId = Prelude.Nothing,
+      minimumProtocolVersion = Prelude.Nothing,
+      sSLSupportMethod = Prelude.Nothing
+    }
 
 -- | If the distribution uses @Aliases@ (alternate domain names or CNAMEs)
 -- and the SSL\/TLS certificate is stored in
@@ -338,8 +316,43 @@ viewerCertificate_aCMCertificateArn = Lens.lens (\ViewerCertificate' {aCMCertifi
 -- -   @IAMCertificateId@
 --
 -- -   @CloudFrontDefaultCertificate@
+viewerCertificate_certificate :: Lens.Lens' ViewerCertificate (Prelude.Maybe Prelude.Text)
+viewerCertificate_certificate = Lens.lens (\ViewerCertificate' {certificate} -> certificate) (\s@ViewerCertificate' {} a -> s {certificate = a} :: ViewerCertificate)
+
+-- | This field is deprecated. Use one of the following fields instead:
+--
+-- -   @ACMCertificateArn@
+--
+-- -   @IAMCertificateId@
+--
+-- -   @CloudFrontDefaultCertificate@
 viewerCertificate_certificateSource :: Lens.Lens' ViewerCertificate (Prelude.Maybe CertificateSource)
 viewerCertificate_certificateSource = Lens.lens (\ViewerCertificate' {certificateSource} -> certificateSource) (\s@ViewerCertificate' {} a -> s {certificateSource = a} :: ViewerCertificate)
+
+-- | If the distribution uses the CloudFront domain name such as
+-- @d111111abcdef8.cloudfront.net@, set this field to @true@.
+--
+-- If the distribution uses @Aliases@ (alternate domain names or CNAMEs),
+-- set this field to @false@ and specify values for the following fields:
+--
+-- -   @ACMCertificateArn@ or @IAMCertificateId@ (specify a value for one,
+--     not both)
+--
+-- -   @MinimumProtocolVersion@
+--
+-- -   @SSLSupportMethod@
+viewerCertificate_cloudFrontDefaultCertificate :: Lens.Lens' ViewerCertificate (Prelude.Maybe Prelude.Bool)
+viewerCertificate_cloudFrontDefaultCertificate = Lens.lens (\ViewerCertificate' {cloudFrontDefaultCertificate} -> cloudFrontDefaultCertificate) (\s@ViewerCertificate' {} a -> s {cloudFrontDefaultCertificate = a} :: ViewerCertificate)
+
+-- | If the distribution uses @Aliases@ (alternate domain names or CNAMEs)
+-- and the SSL\/TLS certificate is stored in
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html Identity and Access Management (IAM)>,
+-- provide the ID of the IAM certificate.
+--
+-- If you specify an IAM certificate ID, you must also specify values for
+-- @MinimumProtocolVersion@ and @SSLSupportMethod@.
+viewerCertificate_iAMCertificateId :: Lens.Lens' ViewerCertificate (Prelude.Maybe Prelude.Text)
+viewerCertificate_iAMCertificateId = Lens.lens (\ViewerCertificate' {iAMCertificateId} -> iAMCertificateId) (\s@ViewerCertificate' {} a -> s {iAMCertificateId = a} :: ViewerCertificate)
 
 -- | If the distribution uses @Aliases@ (alternate domain names or CNAMEs),
 -- specify the security policy that you want CloudFront to use for HTTPS
@@ -369,82 +382,70 @@ viewerCertificate_certificateSource = Lens.lens (\ViewerCertificate' {certificat
 viewerCertificate_minimumProtocolVersion :: Lens.Lens' ViewerCertificate (Prelude.Maybe MinimumProtocolVersion)
 viewerCertificate_minimumProtocolVersion = Lens.lens (\ViewerCertificate' {minimumProtocolVersion} -> minimumProtocolVersion) (\s@ViewerCertificate' {} a -> s {minimumProtocolVersion = a} :: ViewerCertificate)
 
--- | This field is deprecated. Use one of the following fields instead:
+-- | If the distribution uses @Aliases@ (alternate domain names or CNAMEs),
+-- specify which viewers the distribution accepts HTTPS connections from.
 --
--- -   @ACMCertificateArn@
+-- -   @sni-only@ – The distribution accepts HTTPS connections from only
+--     viewers that support
+--     <https://en.wikipedia.org/wiki/Server_Name_Indication server name indication (SNI)>.
+--     This is recommended. Most browsers and clients support SNI.
 --
--- -   @IAMCertificateId@
+-- -   @vip@ – The distribution accepts HTTPS connections from all viewers
+--     including those that don’t support SNI. This is not recommended, and
+--     results in additional monthly charges from CloudFront.
 --
--- -   @CloudFrontDefaultCertificate@
-viewerCertificate_certificate :: Lens.Lens' ViewerCertificate (Prelude.Maybe Prelude.Text)
-viewerCertificate_certificate = Lens.lens (\ViewerCertificate' {certificate} -> certificate) (\s@ViewerCertificate' {} a -> s {certificate = a} :: ViewerCertificate)
+-- -   @static-ip@ - Do not specify this value unless your distribution has
+--     been enabled for this feature by the CloudFront team. If you have a
+--     use case that requires static IP addresses for a distribution,
+--     contact CloudFront through the
+--     <https://console.aws.amazon.com/support/home Amazon Web Services Support Center>.
+--
+-- If the distribution uses the CloudFront domain name such as
+-- @d111111abcdef8.cloudfront.net@, don’t set a value for this field.
+viewerCertificate_sSLSupportMethod :: Lens.Lens' ViewerCertificate (Prelude.Maybe SSLSupportMethod)
+viewerCertificate_sSLSupportMethod = Lens.lens (\ViewerCertificate' {sSLSupportMethod} -> sSLSupportMethod) (\s@ViewerCertificate' {} a -> s {sSLSupportMethod = a} :: ViewerCertificate)
 
--- | If the distribution uses @Aliases@ (alternate domain names or CNAMEs)
--- and the SSL\/TLS certificate is stored in
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_server-certs.html Identity and Access Management (IAM)>,
--- provide the ID of the IAM certificate.
---
--- If you specify an IAM certificate ID, you must also specify values for
--- @MinimumProtocolVersion@ and @SSLSupportMethod@.
-viewerCertificate_iAMCertificateId :: Lens.Lens' ViewerCertificate (Prelude.Maybe Prelude.Text)
-viewerCertificate_iAMCertificateId = Lens.lens (\ViewerCertificate' {iAMCertificateId} -> iAMCertificateId) (\s@ViewerCertificate' {} a -> s {iAMCertificateId = a} :: ViewerCertificate)
-
--- | If the distribution uses the CloudFront domain name such as
--- @d111111abcdef8.cloudfront.net@, set this field to @true@.
---
--- If the distribution uses @Aliases@ (alternate domain names or CNAMEs),
--- set this field to @false@ and specify values for the following fields:
---
--- -   @ACMCertificateArn@ or @IAMCertificateId@ (specify a value for one,
---     not both)
---
--- -   @MinimumProtocolVersion@
---
--- -   @SSLSupportMethod@
-viewerCertificate_cloudFrontDefaultCertificate :: Lens.Lens' ViewerCertificate (Prelude.Maybe Prelude.Bool)
-viewerCertificate_cloudFrontDefaultCertificate = Lens.lens (\ViewerCertificate' {cloudFrontDefaultCertificate} -> cloudFrontDefaultCertificate) (\s@ViewerCertificate' {} a -> s {cloudFrontDefaultCertificate = a} :: ViewerCertificate)
-
-instance Core.FromXML ViewerCertificate where
+instance Data.FromXML ViewerCertificate where
   parseXML x =
     ViewerCertificate'
-      Prelude.<$> (x Core..@? "SSLSupportMethod")
-      Prelude.<*> (x Core..@? "ACMCertificateArn")
-      Prelude.<*> (x Core..@? "CertificateSource")
-      Prelude.<*> (x Core..@? "MinimumProtocolVersion")
-      Prelude.<*> (x Core..@? "Certificate")
-      Prelude.<*> (x Core..@? "IAMCertificateId")
-      Prelude.<*> (x Core..@? "CloudFrontDefaultCertificate")
+      Prelude.<$> (x Data..@? "ACMCertificateArn")
+      Prelude.<*> (x Data..@? "Certificate")
+      Prelude.<*> (x Data..@? "CertificateSource")
+      Prelude.<*> (x Data..@? "CloudFrontDefaultCertificate")
+      Prelude.<*> (x Data..@? "IAMCertificateId")
+      Prelude.<*> (x Data..@? "MinimumProtocolVersion")
+      Prelude.<*> (x Data..@? "SSLSupportMethod")
 
 instance Prelude.Hashable ViewerCertificate where
   hashWithSalt _salt ViewerCertificate' {..} =
-    _salt `Prelude.hashWithSalt` sSLSupportMethod
-      `Prelude.hashWithSalt` aCMCertificateArn
-      `Prelude.hashWithSalt` certificateSource
-      `Prelude.hashWithSalt` minimumProtocolVersion
+    _salt `Prelude.hashWithSalt` aCMCertificateArn
       `Prelude.hashWithSalt` certificate
-      `Prelude.hashWithSalt` iAMCertificateId
+      `Prelude.hashWithSalt` certificateSource
       `Prelude.hashWithSalt` cloudFrontDefaultCertificate
+      `Prelude.hashWithSalt` iAMCertificateId
+      `Prelude.hashWithSalt` minimumProtocolVersion
+      `Prelude.hashWithSalt` sSLSupportMethod
 
 instance Prelude.NFData ViewerCertificate where
   rnf ViewerCertificate' {..} =
-    Prelude.rnf sSLSupportMethod
-      `Prelude.seq` Prelude.rnf aCMCertificateArn
-      `Prelude.seq` Prelude.rnf certificateSource
-      `Prelude.seq` Prelude.rnf minimumProtocolVersion
+    Prelude.rnf aCMCertificateArn
       `Prelude.seq` Prelude.rnf certificate
-      `Prelude.seq` Prelude.rnf iAMCertificateId
+      `Prelude.seq` Prelude.rnf certificateSource
       `Prelude.seq` Prelude.rnf cloudFrontDefaultCertificate
+      `Prelude.seq` Prelude.rnf iAMCertificateId
+      `Prelude.seq` Prelude.rnf minimumProtocolVersion
+      `Prelude.seq` Prelude.rnf sSLSupportMethod
 
-instance Core.ToXML ViewerCertificate where
+instance Data.ToXML ViewerCertificate where
   toXML ViewerCertificate' {..} =
     Prelude.mconcat
-      [ "SSLSupportMethod" Core.@= sSLSupportMethod,
-        "ACMCertificateArn" Core.@= aCMCertificateArn,
-        "CertificateSource" Core.@= certificateSource,
-        "MinimumProtocolVersion"
-          Core.@= minimumProtocolVersion,
-        "Certificate" Core.@= certificate,
-        "IAMCertificateId" Core.@= iAMCertificateId,
+      [ "ACMCertificateArn" Data.@= aCMCertificateArn,
+        "Certificate" Data.@= certificate,
+        "CertificateSource" Data.@= certificateSource,
         "CloudFrontDefaultCertificate"
-          Core.@= cloudFrontDefaultCertificate
+          Data.@= cloudFrontDefaultCertificate,
+        "IAMCertificateId" Data.@= iAMCertificateId,
+        "MinimumProtocolVersion"
+          Data.@= minimumProtocolVersion,
+        "SSLSupportMethod" Data.@= sSLSupportMethod
       ]

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.Types.AntennaDownlinkDemodDecodeConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.GroundStation.Types.AntennaDownlinkDemodDecodeConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types.DecodeConfig
 import Amazonka.GroundStation.Types.DemodulationConfig
 import Amazonka.GroundStation.Types.SpectrumConfig
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about how AWS Ground Station should conﬁgure an antenna for
@@ -85,17 +86,17 @@ antennaDownlinkDemodDecodeConfig_spectrumConfig :: Lens.Lens' AntennaDownlinkDem
 antennaDownlinkDemodDecodeConfig_spectrumConfig = Lens.lens (\AntennaDownlinkDemodDecodeConfig' {spectrumConfig} -> spectrumConfig) (\s@AntennaDownlinkDemodDecodeConfig' {} a -> s {spectrumConfig = a} :: AntennaDownlinkDemodDecodeConfig)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AntennaDownlinkDemodDecodeConfig
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AntennaDownlinkDemodDecodeConfig"
       ( \x ->
           AntennaDownlinkDemodDecodeConfig'
-            Prelude.<$> (x Core..: "decodeConfig")
-            Prelude.<*> (x Core..: "demodulationConfig")
-            Prelude.<*> (x Core..: "spectrumConfig")
+            Prelude.<$> (x Data..: "decodeConfig")
+            Prelude.<*> (x Data..: "demodulationConfig")
+            Prelude.<*> (x Data..: "spectrumConfig")
       )
 
 instance
@@ -118,14 +119,14 @@ instance
       `Prelude.seq` Prelude.rnf demodulationConfig
       `Prelude.seq` Prelude.rnf spectrumConfig
 
-instance Core.ToJSON AntennaDownlinkDemodDecodeConfig where
+instance Data.ToJSON AntennaDownlinkDemodDecodeConfig where
   toJSON AntennaDownlinkDemodDecodeConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("decodeConfig" Core..= decodeConfig),
+          [ Prelude.Just ("decodeConfig" Data..= decodeConfig),
             Prelude.Just
-              ("demodulationConfig" Core..= demodulationConfig),
+              ("demodulationConfig" Data..= demodulationConfig),
             Prelude.Just
-              ("spectrumConfig" Core..= spectrumConfig)
+              ("spectrumConfig" Data..= spectrumConfig)
           ]
       )

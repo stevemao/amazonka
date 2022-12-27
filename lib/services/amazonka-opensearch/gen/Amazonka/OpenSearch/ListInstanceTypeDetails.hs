@@ -14,22 +14,23 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.ListInstanceTypeDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- -- | Undocumented operation.
+-- Lists all instance types and available features for a given OpenSearch
+-- or Elasticsearch version.
 module Amazonka.OpenSearch.ListInstanceTypeDetails
   ( -- * Creating a Request
     ListInstanceTypeDetails (..),
     newListInstanceTypeDetails,
 
     -- * Request Lenses
-    listInstanceTypeDetails_nextToken,
     listInstanceTypeDetails_domainName,
     listInstanceTypeDetails_maxResults,
+    listInstanceTypeDetails_nextToken,
     listInstanceTypeDetails_engineVersion,
 
     -- * Destructuring the Response
@@ -44,7 +45,8 @@ module Amazonka.OpenSearch.ListInstanceTypeDetails
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,9 +54,18 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListInstanceTypeDetails' smart constructor.
 data ListInstanceTypeDetails = ListInstanceTypeDetails'
-  { nextToken :: Prelude.Maybe Prelude.Text,
+  { -- | Name of the domain to list instance type details for.
     domainName :: Prelude.Maybe Prelude.Text,
+    -- | An optional parameter that specifies the maximum number of results to
+    -- return. You can use @nextToken@ to get the next page of results.
     maxResults :: Prelude.Maybe Prelude.Int,
+    -- | If your initial @ListInstanceTypeDetails@ operation returns a
+    -- @nextToken@, you can include the returned @nextToken@ in subsequent
+    -- @ListInstanceTypeDetails@ operations, which returns results in the next
+    -- page.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Version of OpenSearch or Elasticsearch, in the format Elasticsearch_X.Y
+    -- or OpenSearch_X.Y. Defaults to the latest version of OpenSearch.
     engineVersion :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -67,39 +78,49 @@ data ListInstanceTypeDetails = ListInstanceTypeDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listInstanceTypeDetails_nextToken' - Undocumented member.
+-- 'domainName', 'listInstanceTypeDetails_domainName' - Name of the domain to list instance type details for.
 --
--- 'domainName', 'listInstanceTypeDetails_domainName' - Undocumented member.
+-- 'maxResults', 'listInstanceTypeDetails_maxResults' - An optional parameter that specifies the maximum number of results to
+-- return. You can use @nextToken@ to get the next page of results.
 --
--- 'maxResults', 'listInstanceTypeDetails_maxResults' - Undocumented member.
+-- 'nextToken', 'listInstanceTypeDetails_nextToken' - If your initial @ListInstanceTypeDetails@ operation returns a
+-- @nextToken@, you can include the returned @nextToken@ in subsequent
+-- @ListInstanceTypeDetails@ operations, which returns results in the next
+-- page.
 --
--- 'engineVersion', 'listInstanceTypeDetails_engineVersion' - Undocumented member.
+-- 'engineVersion', 'listInstanceTypeDetails_engineVersion' - Version of OpenSearch or Elasticsearch, in the format Elasticsearch_X.Y
+-- or OpenSearch_X.Y. Defaults to the latest version of OpenSearch.
 newListInstanceTypeDetails ::
   -- | 'engineVersion'
   Prelude.Text ->
   ListInstanceTypeDetails
 newListInstanceTypeDetails pEngineVersion_ =
   ListInstanceTypeDetails'
-    { nextToken =
+    { domainName =
         Prelude.Nothing,
-      domainName = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       engineVersion = pEngineVersion_
     }
 
--- | Undocumented member.
-listInstanceTypeDetails_nextToken :: Lens.Lens' ListInstanceTypeDetails (Prelude.Maybe Prelude.Text)
-listInstanceTypeDetails_nextToken = Lens.lens (\ListInstanceTypeDetails' {nextToken} -> nextToken) (\s@ListInstanceTypeDetails' {} a -> s {nextToken = a} :: ListInstanceTypeDetails)
-
--- | Undocumented member.
+-- | Name of the domain to list instance type details for.
 listInstanceTypeDetails_domainName :: Lens.Lens' ListInstanceTypeDetails (Prelude.Maybe Prelude.Text)
 listInstanceTypeDetails_domainName = Lens.lens (\ListInstanceTypeDetails' {domainName} -> domainName) (\s@ListInstanceTypeDetails' {} a -> s {domainName = a} :: ListInstanceTypeDetails)
 
--- | Undocumented member.
+-- | An optional parameter that specifies the maximum number of results to
+-- return. You can use @nextToken@ to get the next page of results.
 listInstanceTypeDetails_maxResults :: Lens.Lens' ListInstanceTypeDetails (Prelude.Maybe Prelude.Int)
 listInstanceTypeDetails_maxResults = Lens.lens (\ListInstanceTypeDetails' {maxResults} -> maxResults) (\s@ListInstanceTypeDetails' {} a -> s {maxResults = a} :: ListInstanceTypeDetails)
 
--- | Undocumented member.
+-- | If your initial @ListInstanceTypeDetails@ operation returns a
+-- @nextToken@, you can include the returned @nextToken@ in subsequent
+-- @ListInstanceTypeDetails@ operations, which returns results in the next
+-- page.
+listInstanceTypeDetails_nextToken :: Lens.Lens' ListInstanceTypeDetails (Prelude.Maybe Prelude.Text)
+listInstanceTypeDetails_nextToken = Lens.lens (\ListInstanceTypeDetails' {nextToken} -> nextToken) (\s@ListInstanceTypeDetails' {} a -> s {nextToken = a} :: ListInstanceTypeDetails)
+
+-- | Version of OpenSearch or Elasticsearch, in the format Elasticsearch_X.Y
+-- or OpenSearch_X.Y. Defaults to the latest version of OpenSearch.
 listInstanceTypeDetails_engineVersion :: Lens.Lens' ListInstanceTypeDetails Prelude.Text
 listInstanceTypeDetails_engineVersion = Lens.lens (\ListInstanceTypeDetails' {engineVersion} -> engineVersion) (\s@ListInstanceTypeDetails' {} a -> s {engineVersion = a} :: ListInstanceTypeDetails)
 
@@ -107,53 +128,59 @@ instance Core.AWSRequest ListInstanceTypeDetails where
   type
     AWSResponse ListInstanceTypeDetails =
       ListInstanceTypeDetailsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListInstanceTypeDetailsResponse'
-            Prelude.<$> ( x Core..?> "InstanceTypeDetails"
+            Prelude.<$> ( x Data..?> "InstanceTypeDetails"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListInstanceTypeDetails where
   hashWithSalt _salt ListInstanceTypeDetails' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` domainName
+    _salt `Prelude.hashWithSalt` domainName
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` engineVersion
 
 instance Prelude.NFData ListInstanceTypeDetails where
   rnf ListInstanceTypeDetails' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf domainName
+    Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf engineVersion
 
-instance Core.ToHeaders ListInstanceTypeDetails where
+instance Data.ToHeaders ListInstanceTypeDetails where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListInstanceTypeDetails where
+instance Data.ToPath ListInstanceTypeDetails where
   toPath ListInstanceTypeDetails' {..} =
     Prelude.mconcat
       [ "/2021-01-01/opensearch/instanceTypeDetails/",
-        Core.toBS engineVersion
+        Data.toBS engineVersion
       ]
 
-instance Core.ToQuery ListInstanceTypeDetails where
+instance Data.ToQuery ListInstanceTypeDetails where
   toQuery ListInstanceTypeDetails' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "domainName" Core.=: domainName,
-        "maxResults" Core.=: maxResults
+      [ "domainName" Data.=: domainName,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListInstanceTypeDetailsResponse' smart constructor.
 data ListInstanceTypeDetailsResponse = ListInstanceTypeDetailsResponse'
-  { instanceTypeDetails :: Prelude.Maybe [InstanceTypeDetails],
+  { -- | Lists all supported instance types and features for the given OpenSearch
+    -- or Elasticsearch version.
+    instanceTypeDetails :: Prelude.Maybe [InstanceTypeDetails],
+    -- | When @nextToken@ is returned, there are more results available. The
+    -- value of @nextToken@ is a unique pagination token for each page. Make
+    -- the call again using the returned token to retrieve the next page.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -168,9 +195,12 @@ data ListInstanceTypeDetailsResponse = ListInstanceTypeDetailsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceTypeDetails', 'listInstanceTypeDetailsResponse_instanceTypeDetails' - Undocumented member.
+-- 'instanceTypeDetails', 'listInstanceTypeDetailsResponse_instanceTypeDetails' - Lists all supported instance types and features for the given OpenSearch
+-- or Elasticsearch version.
 --
--- 'nextToken', 'listInstanceTypeDetailsResponse_nextToken' - Undocumented member.
+-- 'nextToken', 'listInstanceTypeDetailsResponse_nextToken' - When @nextToken@ is returned, there are more results available. The
+-- value of @nextToken@ is a unique pagination token for each page. Make
+-- the call again using the returned token to retrieve the next page.
 --
 -- 'httpStatus', 'listInstanceTypeDetailsResponse_httpStatus' - The response's http status code.
 newListInstanceTypeDetailsResponse ::
@@ -185,11 +215,14 @@ newListInstanceTypeDetailsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Undocumented member.
+-- | Lists all supported instance types and features for the given OpenSearch
+-- or Elasticsearch version.
 listInstanceTypeDetailsResponse_instanceTypeDetails :: Lens.Lens' ListInstanceTypeDetailsResponse (Prelude.Maybe [InstanceTypeDetails])
 listInstanceTypeDetailsResponse_instanceTypeDetails = Lens.lens (\ListInstanceTypeDetailsResponse' {instanceTypeDetails} -> instanceTypeDetails) (\s@ListInstanceTypeDetailsResponse' {} a -> s {instanceTypeDetails = a} :: ListInstanceTypeDetailsResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | Undocumented member.
+-- | When @nextToken@ is returned, there are more results available. The
+-- value of @nextToken@ is a unique pagination token for each page. Make
+-- the call again using the returned token to retrieve the next page.
 listInstanceTypeDetailsResponse_nextToken :: Lens.Lens' ListInstanceTypeDetailsResponse (Prelude.Maybe Prelude.Text)
 listInstanceTypeDetailsResponse_nextToken = Lens.lens (\ListInstanceTypeDetailsResponse' {nextToken} -> nextToken) (\s@ListInstanceTypeDetailsResponse' {} a -> s {nextToken = a} :: ListInstanceTypeDetailsResponse)
 

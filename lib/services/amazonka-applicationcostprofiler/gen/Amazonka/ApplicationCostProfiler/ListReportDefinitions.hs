@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationCostProfiler.ListReportDefinitions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.ApplicationCostProfiler.ListReportDefinitions
     newListReportDefinitions,
 
     -- * Request Lenses
-    listReportDefinitions_nextToken,
     listReportDefinitions_maxResults,
+    listReportDefinitions_nextToken,
 
     -- * Destructuring the Response
     ListReportDefinitionsResponse (..),
@@ -48,17 +48,18 @@ where
 
 import Amazonka.ApplicationCostProfiler.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListReportDefinitions' smart constructor.
 data ListReportDefinitions = ListReportDefinitions'
-  { -- | The token value from a previous call to access the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of results to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token value from a previous call to access the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,24 +71,25 @@ data ListReportDefinitions = ListReportDefinitions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listReportDefinitions_nextToken' - The token value from a previous call to access the next page of results.
---
 -- 'maxResults', 'listReportDefinitions_maxResults' - The maximum number of results to return.
+--
+-- 'nextToken', 'listReportDefinitions_nextToken' - The token value from a previous call to access the next page of results.
 newListReportDefinitions ::
   ListReportDefinitions
 newListReportDefinitions =
   ListReportDefinitions'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token value from a previous call to access the next page of results.
-listReportDefinitions_nextToken :: Lens.Lens' ListReportDefinitions (Prelude.Maybe Prelude.Text)
-listReportDefinitions_nextToken = Lens.lens (\ListReportDefinitions' {nextToken} -> nextToken) (\s@ListReportDefinitions' {} a -> s {nextToken = a} :: ListReportDefinitions)
 
 -- | The maximum number of results to return.
 listReportDefinitions_maxResults :: Lens.Lens' ListReportDefinitions (Prelude.Maybe Prelude.Natural)
 listReportDefinitions_maxResults = Lens.lens (\ListReportDefinitions' {maxResults} -> maxResults) (\s@ListReportDefinitions' {} a -> s {maxResults = a} :: ListReportDefinitions)
+
+-- | The token value from a previous call to access the next page of results.
+listReportDefinitions_nextToken :: Lens.Lens' ListReportDefinitions (Prelude.Maybe Prelude.Text)
+listReportDefinitions_nextToken = Lens.lens (\ListReportDefinitions' {nextToken} -> nextToken) (\s@ListReportDefinitions' {} a -> s {nextToken = a} :: ListReportDefinitions)
 
 instance Core.AWSPager ListReportDefinitions where
   page rq rs
@@ -115,13 +117,14 @@ instance Core.AWSRequest ListReportDefinitions where
   type
     AWSResponse ListReportDefinitions =
       ListReportDefinitionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListReportDefinitionsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "reportDefinitions"
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> ( x Data..?> "reportDefinitions"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -129,33 +132,33 @@ instance Core.AWSRequest ListReportDefinitions where
 
 instance Prelude.Hashable ListReportDefinitions where
   hashWithSalt _salt ListReportDefinitions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListReportDefinitions where
   rnf ListReportDefinitions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListReportDefinitions where
+instance Data.ToHeaders ListReportDefinitions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListReportDefinitions where
+instance Data.ToPath ListReportDefinitions where
   toPath = Prelude.const "/reportDefinition"
 
-instance Core.ToQuery ListReportDefinitions where
+instance Data.ToQuery ListReportDefinitions where
   toQuery ListReportDefinitions' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListReportDefinitionsResponse' smart constructor.

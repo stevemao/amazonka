@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.TaskDefinitionPlacementConstraint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ECS.Types.TaskDefinitionPlacementConstraint where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types.TaskDefinitionPlacementConstraintType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing a constraint on task placement in the task
@@ -29,7 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 -- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task-placement-constraints.html Task placement constraints>
 -- in the /Amazon Elastic Container Service Developer Guide/.
 --
--- Task placement constraints are not supported for tasks run on Fargate.
+-- Task placement constraints aren\'t supported for tasks run on Fargate.
 --
 -- /See:/ 'newTaskDefinitionPlacementConstraint' smart constructor.
 data TaskDefinitionPlacementConstraint = TaskDefinitionPlacementConstraint'
@@ -81,16 +82,16 @@ taskDefinitionPlacementConstraint_type :: Lens.Lens' TaskDefinitionPlacementCons
 taskDefinitionPlacementConstraint_type = Lens.lens (\TaskDefinitionPlacementConstraint' {type'} -> type') (\s@TaskDefinitionPlacementConstraint' {} a -> s {type' = a} :: TaskDefinitionPlacementConstraint)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     TaskDefinitionPlacementConstraint
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TaskDefinitionPlacementConstraint"
       ( \x ->
           TaskDefinitionPlacementConstraint'
-            Prelude.<$> (x Core..:? "expression")
-            Prelude.<*> (x Core..:? "type")
+            Prelude.<$> (x Data..:? "expression")
+            Prelude.<*> (x Data..:? "type")
       )
 
 instance
@@ -112,13 +113,13 @@ instance
       `Prelude.seq` Prelude.rnf type'
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     TaskDefinitionPlacementConstraint
   where
   toJSON TaskDefinitionPlacementConstraint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("expression" Core..=) Prelude.<$> expression,
-            ("type" Core..=) Prelude.<$> type'
+          [ ("expression" Data..=) Prelude.<$> expression,
+            ("type" Data..=) Prelude.<$> type'
           ]
       )

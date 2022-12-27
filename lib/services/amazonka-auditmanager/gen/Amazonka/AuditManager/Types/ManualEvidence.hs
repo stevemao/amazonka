@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.Types.ManualEvidence
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.AuditManager.Types.ManualEvidence where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Evidence that is uploaded to Audit Manager manually.
+-- | Evidence that\'s uploaded to Audit Manager manually.
 --
 -- /See:/ 'newManualEvidence' smart constructor.
 data ManualEvidence = ManualEvidence'
@@ -50,13 +51,13 @@ newManualEvidence =
 manualEvidence_s3ResourcePath :: Lens.Lens' ManualEvidence (Prelude.Maybe Prelude.Text)
 manualEvidence_s3ResourcePath = Lens.lens (\ManualEvidence' {s3ResourcePath} -> s3ResourcePath) (\s@ManualEvidence' {} a -> s {s3ResourcePath = a} :: ManualEvidence)
 
-instance Core.FromJSON ManualEvidence where
+instance Data.FromJSON ManualEvidence where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ManualEvidence"
       ( \x ->
           ManualEvidence'
-            Prelude.<$> (x Core..:? "s3ResourcePath")
+            Prelude.<$> (x Data..:? "s3ResourcePath")
       )
 
 instance Prelude.Hashable ManualEvidence where
@@ -66,11 +67,11 @@ instance Prelude.Hashable ManualEvidence where
 instance Prelude.NFData ManualEvidence where
   rnf ManualEvidence' {..} = Prelude.rnf s3ResourcePath
 
-instance Core.ToJSON ManualEvidence where
+instance Data.ToJSON ManualEvidence where
   toJSON ManualEvidence' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("s3ResourcePath" Core..=)
+          [ ("s3ResourcePath" Data..=)
               Prelude.<$> s3ResourcePath
           ]
       )

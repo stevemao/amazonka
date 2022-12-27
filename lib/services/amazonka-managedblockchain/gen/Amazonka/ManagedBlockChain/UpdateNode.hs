@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.UpdateNode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.ManagedBlockChain.UpdateNode
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -117,7 +118,8 @@ updateNode_nodeId = Lens.lens (\UpdateNode' {nodeId} -> nodeId) (\s@UpdateNode' 
 
 instance Core.AWSRequest UpdateNode where
   type AWSResponse UpdateNode = UpdateNodeResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -140,37 +142,37 @@ instance Prelude.NFData UpdateNode where
       `Prelude.seq` Prelude.rnf networkId
       `Prelude.seq` Prelude.rnf nodeId
 
-instance Core.ToHeaders UpdateNode where
+instance Data.ToHeaders UpdateNode where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateNode where
+instance Data.ToJSON UpdateNode where
   toJSON UpdateNode' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LogPublishingConfiguration" Core..=)
+          [ ("LogPublishingConfiguration" Data..=)
               Prelude.<$> logPublishingConfiguration,
-            ("MemberId" Core..=) Prelude.<$> memberId
+            ("MemberId" Data..=) Prelude.<$> memberId
           ]
       )
 
-instance Core.ToPath UpdateNode where
+instance Data.ToPath UpdateNode where
   toPath UpdateNode' {..} =
     Prelude.mconcat
       [ "/networks/",
-        Core.toBS networkId,
+        Data.toBS networkId,
         "/nodes/",
-        Core.toBS nodeId
+        Data.toBS nodeId
       ]
 
-instance Core.ToQuery UpdateNode where
+instance Data.ToQuery UpdateNode where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateNodeResponse' smart constructor.

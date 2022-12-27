@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.Types.TargetHealth
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RDS.Types.TargetHealth where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types.TargetHealthReason
 import Amazonka.RDS.Types.TargetState
@@ -29,18 +30,18 @@ import Amazonka.RDS.Types.TargetState
 --
 -- /See:/ 'newTargetHealth' smart constructor.
 data TargetHealth = TargetHealth'
-  { -- | The current state of the connection health lifecycle for the RDS Proxy
+  { -- | A description of the health of the RDS Proxy target. If the @State@ is
+    -- @AVAILABLE@, a description is not included.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The reason for the current health @State@ of the RDS Proxy target.
+    reason :: Prelude.Maybe TargetHealthReason,
+    -- | The current state of the connection health lifecycle for the RDS Proxy
     -- target. The following is a typical lifecycle example for the states of
     -- an RDS Proxy target:
     --
     -- @registering@ > @unavailable@ > @available@ > @unavailable@ >
     -- @available@
-    state :: Prelude.Maybe TargetState,
-    -- | The reason for the current health @State@ of the RDS Proxy target.
-    reason :: Prelude.Maybe TargetHealthReason,
-    -- | A description of the health of the RDS Proxy target. If the @State@ is
-    -- @AVAILABLE@, a description is not included.
-    description :: Prelude.Maybe Prelude.Text
+    state :: Prelude.Maybe TargetState
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,25 +53,34 @@ data TargetHealth = TargetHealth'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'targetHealth_description' - A description of the health of the RDS Proxy target. If the @State@ is
+-- @AVAILABLE@, a description is not included.
+--
+-- 'reason', 'targetHealth_reason' - The reason for the current health @State@ of the RDS Proxy target.
+--
 -- 'state', 'targetHealth_state' - The current state of the connection health lifecycle for the RDS Proxy
 -- target. The following is a typical lifecycle example for the states of
 -- an RDS Proxy target:
 --
 -- @registering@ > @unavailable@ > @available@ > @unavailable@ >
 -- @available@
---
--- 'reason', 'targetHealth_reason' - The reason for the current health @State@ of the RDS Proxy target.
---
--- 'description', 'targetHealth_description' - A description of the health of the RDS Proxy target. If the @State@ is
--- @AVAILABLE@, a description is not included.
 newTargetHealth ::
   TargetHealth
 newTargetHealth =
   TargetHealth'
-    { state = Prelude.Nothing,
+    { description = Prelude.Nothing,
       reason = Prelude.Nothing,
-      description = Prelude.Nothing
+      state = Prelude.Nothing
     }
+
+-- | A description of the health of the RDS Proxy target. If the @State@ is
+-- @AVAILABLE@, a description is not included.
+targetHealth_description :: Lens.Lens' TargetHealth (Prelude.Maybe Prelude.Text)
+targetHealth_description = Lens.lens (\TargetHealth' {description} -> description) (\s@TargetHealth' {} a -> s {description = a} :: TargetHealth)
+
+-- | The reason for the current health @State@ of the RDS Proxy target.
+targetHealth_reason :: Lens.Lens' TargetHealth (Prelude.Maybe TargetHealthReason)
+targetHealth_reason = Lens.lens (\TargetHealth' {reason} -> reason) (\s@TargetHealth' {} a -> s {reason = a} :: TargetHealth)
 
 -- | The current state of the connection health lifecycle for the RDS Proxy
 -- target. The following is a typical lifecycle example for the states of
@@ -81,30 +91,21 @@ newTargetHealth =
 targetHealth_state :: Lens.Lens' TargetHealth (Prelude.Maybe TargetState)
 targetHealth_state = Lens.lens (\TargetHealth' {state} -> state) (\s@TargetHealth' {} a -> s {state = a} :: TargetHealth)
 
--- | The reason for the current health @State@ of the RDS Proxy target.
-targetHealth_reason :: Lens.Lens' TargetHealth (Prelude.Maybe TargetHealthReason)
-targetHealth_reason = Lens.lens (\TargetHealth' {reason} -> reason) (\s@TargetHealth' {} a -> s {reason = a} :: TargetHealth)
-
--- | A description of the health of the RDS Proxy target. If the @State@ is
--- @AVAILABLE@, a description is not included.
-targetHealth_description :: Lens.Lens' TargetHealth (Prelude.Maybe Prelude.Text)
-targetHealth_description = Lens.lens (\TargetHealth' {description} -> description) (\s@TargetHealth' {} a -> s {description = a} :: TargetHealth)
-
-instance Core.FromXML TargetHealth where
+instance Data.FromXML TargetHealth where
   parseXML x =
     TargetHealth'
-      Prelude.<$> (x Core..@? "State")
-      Prelude.<*> (x Core..@? "Reason")
-      Prelude.<*> (x Core..@? "Description")
+      Prelude.<$> (x Data..@? "Description")
+      Prelude.<*> (x Data..@? "Reason")
+      Prelude.<*> (x Data..@? "State")
 
 instance Prelude.Hashable TargetHealth where
   hashWithSalt _salt TargetHealth' {..} =
-    _salt `Prelude.hashWithSalt` state
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` reason
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData TargetHealth where
   rnf TargetHealth' {..} =
-    Prelude.rnf state
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf reason
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf state

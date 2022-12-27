@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.GetFunction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,8 @@ module Amazonka.Lambda.GetFunction
     newGetFunctionResponse,
 
     -- * Response Lenses
-    getFunctionResponse_concurrency,
     getFunctionResponse_code,
+    getFunctionResponse_concurrency,
     getFunctionResponse_configuration,
     getFunctionResponse_tags,
     getFunctionResponse_httpStatus,
@@ -47,8 +47,9 @@ module Amazonka.Lambda.GetFunction
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,13 +63,13 @@ data GetFunction = GetFunction'
     --
     -- __Name formats__
     --
-    -- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+    -- -   __Function name__ – @my-function@ (name-only), @my-function:v1@
     --     (with alias).
     --
-    -- -   __Function ARN__ -
+    -- -   __Function ARN__ –
     --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
     --
-    -- -   __Partial ARN__ - @123456789012:function:my-function@.
+    -- -   __Partial ARN__ – @123456789012:function:my-function@.
     --
     -- You can append a version number or alias to any of the formats. The
     -- length constraint applies only to the full ARN. If you specify only the
@@ -92,13 +93,13 @@ data GetFunction = GetFunction'
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+-- -   __Function name__ – @my-function@ (name-only), @my-function:v1@
 --     (with alias).
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- You can append a version number or alias to any of the formats. The
 -- length constraint applies only to the full ARN. If you specify only the
@@ -122,13 +123,13 @@ getFunction_qualifier = Lens.lens (\GetFunction' {qualifier} -> qualifier) (\s@G
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+-- -   __Function name__ – @my-function@ (name-only), @my-function:v1@
 --     (with alias).
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- You can append a version number or alias to any of the formats. The
 -- length constraint applies only to the full ARN. If you specify only the
@@ -138,15 +139,16 @@ getFunction_functionName = Lens.lens (\GetFunction' {functionName} -> functionNa
 
 instance Core.AWSRequest GetFunction where
   type AWSResponse GetFunction = GetFunctionResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetFunctionResponse'
-            Prelude.<$> (x Core..?> "Concurrency")
-            Prelude.<*> (x Core..?> "Code")
-            Prelude.<*> (x Core..?> "Configuration")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Code")
+            Prelude.<*> (x Data..?> "Concurrency")
+            Prelude.<*> (x Data..?> "Configuration")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -160,25 +162,25 @@ instance Prelude.NFData GetFunction where
     Prelude.rnf qualifier
       `Prelude.seq` Prelude.rnf functionName
 
-instance Core.ToHeaders GetFunction where
+instance Data.ToHeaders GetFunction where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetFunction where
+instance Data.ToPath GetFunction where
   toPath GetFunction' {..} =
     Prelude.mconcat
-      ["/2015-03-31/functions/", Core.toBS functionName]
+      ["/2015-03-31/functions/", Data.toBS functionName]
 
-instance Core.ToQuery GetFunction where
+instance Data.ToQuery GetFunction where
   toQuery GetFunction' {..} =
-    Prelude.mconcat ["Qualifier" Core.=: qualifier]
+    Prelude.mconcat ["Qualifier" Data.=: qualifier]
 
 -- | /See:/ 'newGetFunctionResponse' smart constructor.
 data GetFunctionResponse = GetFunctionResponse'
-  { -- | The function\'s
+  { -- | The deployment package of the function or version.
+    code :: Prelude.Maybe FunctionCodeLocation,
+    -- | The function\'s
     -- <https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html reserved concurrency>.
     concurrency :: Prelude.Maybe Concurrency,
-    -- | The deployment package of the function or version.
-    code :: Prelude.Maybe FunctionCodeLocation,
     -- | The configuration of the function or version.
     configuration :: Prelude.Maybe FunctionConfiguration,
     -- | The function\'s
@@ -197,10 +199,10 @@ data GetFunctionResponse = GetFunctionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'code', 'getFunctionResponse_code' - The deployment package of the function or version.
+--
 -- 'concurrency', 'getFunctionResponse_concurrency' - The function\'s
 -- <https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html reserved concurrency>.
---
--- 'code', 'getFunctionResponse_code' - The deployment package of the function or version.
 --
 -- 'configuration', 'getFunctionResponse_configuration' - The configuration of the function or version.
 --
@@ -214,21 +216,21 @@ newGetFunctionResponse ::
   GetFunctionResponse
 newGetFunctionResponse pHttpStatus_ =
   GetFunctionResponse'
-    { concurrency = Prelude.Nothing,
-      code = Prelude.Nothing,
+    { code = Prelude.Nothing,
+      concurrency = Prelude.Nothing,
       configuration = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
+-- | The deployment package of the function or version.
+getFunctionResponse_code :: Lens.Lens' GetFunctionResponse (Prelude.Maybe FunctionCodeLocation)
+getFunctionResponse_code = Lens.lens (\GetFunctionResponse' {code} -> code) (\s@GetFunctionResponse' {} a -> s {code = a} :: GetFunctionResponse)
+
 -- | The function\'s
 -- <https://docs.aws.amazon.com/lambda/latest/dg/concurrent-executions.html reserved concurrency>.
 getFunctionResponse_concurrency :: Lens.Lens' GetFunctionResponse (Prelude.Maybe Concurrency)
 getFunctionResponse_concurrency = Lens.lens (\GetFunctionResponse' {concurrency} -> concurrency) (\s@GetFunctionResponse' {} a -> s {concurrency = a} :: GetFunctionResponse)
-
--- | The deployment package of the function or version.
-getFunctionResponse_code :: Lens.Lens' GetFunctionResponse (Prelude.Maybe FunctionCodeLocation)
-getFunctionResponse_code = Lens.lens (\GetFunctionResponse' {code} -> code) (\s@GetFunctionResponse' {} a -> s {code = a} :: GetFunctionResponse)
 
 -- | The configuration of the function or version.
 getFunctionResponse_configuration :: Lens.Lens' GetFunctionResponse (Prelude.Maybe FunctionConfiguration)
@@ -245,8 +247,8 @@ getFunctionResponse_httpStatus = Lens.lens (\GetFunctionResponse' {httpStatus} -
 
 instance Prelude.NFData GetFunctionResponse where
   rnf GetFunctionResponse' {..} =
-    Prelude.rnf concurrency
-      `Prelude.seq` Prelude.rnf code
+    Prelude.rnf code
+      `Prelude.seq` Prelude.rnf concurrency
       `Prelude.seq` Prelude.rnf configuration
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

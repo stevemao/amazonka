@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.KeyPair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.KeyPair where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a key pair.
@@ -28,7 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newKeyPair' smart constructor.
 data KeyPair = KeyPair'
   { -- | The private key.
-    privateKey :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    privateKey :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The public key.
     publicKey :: Prelude.Maybe Prelude.Text
   }
@@ -55,20 +56,20 @@ newKeyPair =
 
 -- | The private key.
 keyPair_privateKey :: Lens.Lens' KeyPair (Prelude.Maybe Prelude.Text)
-keyPair_privateKey = Lens.lens (\KeyPair' {privateKey} -> privateKey) (\s@KeyPair' {} a -> s {privateKey = a} :: KeyPair) Prelude.. Lens.mapping Core._Sensitive
+keyPair_privateKey = Lens.lens (\KeyPair' {privateKey} -> privateKey) (\s@KeyPair' {} a -> s {privateKey = a} :: KeyPair) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The public key.
 keyPair_publicKey :: Lens.Lens' KeyPair (Prelude.Maybe Prelude.Text)
 keyPair_publicKey = Lens.lens (\KeyPair' {publicKey} -> publicKey) (\s@KeyPair' {} a -> s {publicKey = a} :: KeyPair)
 
-instance Core.FromJSON KeyPair where
+instance Data.FromJSON KeyPair where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KeyPair"
       ( \x ->
           KeyPair'
-            Prelude.<$> (x Core..:? "PrivateKey")
-            Prelude.<*> (x Core..:? "PublicKey")
+            Prelude.<$> (x Data..:? "PrivateKey")
+            Prelude.<*> (x Data..:? "PublicKey")
       )
 
 instance Prelude.Hashable KeyPair where

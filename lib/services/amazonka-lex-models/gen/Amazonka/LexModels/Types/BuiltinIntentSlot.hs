@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.Types.BuiltinIntentSlot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LexModels.Types.BuiltinIntentSlot where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about a slot used in a built-in intent.
@@ -50,12 +51,12 @@ newBuiltinIntentSlot =
 builtinIntentSlot_name :: Lens.Lens' BuiltinIntentSlot (Prelude.Maybe Prelude.Text)
 builtinIntentSlot_name = Lens.lens (\BuiltinIntentSlot' {name} -> name) (\s@BuiltinIntentSlot' {} a -> s {name = a} :: BuiltinIntentSlot)
 
-instance Core.FromJSON BuiltinIntentSlot where
+instance Data.FromJSON BuiltinIntentSlot where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BuiltinIntentSlot"
       ( \x ->
-          BuiltinIntentSlot' Prelude.<$> (x Core..:? "name")
+          BuiltinIntentSlot' Prelude.<$> (x Data..:? "name")
       )
 
 instance Prelude.Hashable BuiltinIntentSlot where

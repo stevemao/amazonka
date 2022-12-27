@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.RateIncreaseCriteria
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.RateIncreaseCriteria where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Allows you to define a criteria to initiate the increase in rate of
@@ -69,14 +70,14 @@ rateIncreaseCriteria_numberOfNotifiedThings = Lens.lens (\RateIncreaseCriteria' 
 rateIncreaseCriteria_numberOfSucceededThings :: Lens.Lens' RateIncreaseCriteria (Prelude.Maybe Prelude.Natural)
 rateIncreaseCriteria_numberOfSucceededThings = Lens.lens (\RateIncreaseCriteria' {numberOfSucceededThings} -> numberOfSucceededThings) (\s@RateIncreaseCriteria' {} a -> s {numberOfSucceededThings = a} :: RateIncreaseCriteria)
 
-instance Core.FromJSON RateIncreaseCriteria where
+instance Data.FromJSON RateIncreaseCriteria where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RateIncreaseCriteria"
       ( \x ->
           RateIncreaseCriteria'
-            Prelude.<$> (x Core..:? "numberOfNotifiedThings")
-            Prelude.<*> (x Core..:? "numberOfSucceededThings")
+            Prelude.<$> (x Data..:? "numberOfNotifiedThings")
+            Prelude.<*> (x Data..:? "numberOfSucceededThings")
       )
 
 instance Prelude.Hashable RateIncreaseCriteria where
@@ -89,13 +90,13 @@ instance Prelude.NFData RateIncreaseCriteria where
     Prelude.rnf numberOfNotifiedThings
       `Prelude.seq` Prelude.rnf numberOfSucceededThings
 
-instance Core.ToJSON RateIncreaseCriteria where
+instance Data.ToJSON RateIncreaseCriteria where
   toJSON RateIncreaseCriteria' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("numberOfNotifiedThings" Core..=)
+          [ ("numberOfNotifiedThings" Data..=)
               Prelude.<$> numberOfNotifiedThings,
-            ("numberOfSucceededThings" Core..=)
+            ("numberOfSucceededThings" Data..=)
               Prelude.<$> numberOfSucceededThings
           ]
       )

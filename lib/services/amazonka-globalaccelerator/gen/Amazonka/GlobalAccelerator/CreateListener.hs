@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.CreateListener
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.GlobalAccelerator.CreateListener
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,15 +60,14 @@ data CreateListener = CreateListener'
     -- protocol of the client request. Client affinity gives you control over
     -- whether to always route each client to the same specific endpoint.
     --
-    -- AWS Global Accelerator uses a consistent-flow hashing algorithm to
-    -- choose the optimal endpoint for a connection. If client affinity is
-    -- @NONE@, Global Accelerator uses the \"five-tuple\" (5-tuple)
-    -- properties—source IP address, source port, destination IP address,
-    -- destination port, and protocol—to select the hash value, and then
-    -- chooses the best endpoint. However, with this setting, if someone uses
-    -- different ports to connect to Global Accelerator, their connections
-    -- might not be always routed to the same endpoint because the hash value
-    -- changes.
+    -- Global Accelerator uses a consistent-flow hashing algorithm to choose
+    -- the optimal endpoint for a connection. If client affinity is @NONE@,
+    -- Global Accelerator uses the \"five-tuple\" (5-tuple) properties—source
+    -- IP address, source port, destination IP address, destination port, and
+    -- protocol—to select the hash value, and then chooses the best endpoint.
+    -- However, with this setting, if someone uses different ports to connect
+    -- to Global Accelerator, their connections might not be always routed to
+    -- the same endpoint because the hash value changes.
     --
     -- If you want a given client to always be routed to the same endpoint, set
     -- client affinity to @SOURCE_IP@ instead. When you use the @SOURCE_IP@
@@ -103,15 +103,14 @@ data CreateListener = CreateListener'
 -- protocol of the client request. Client affinity gives you control over
 -- whether to always route each client to the same specific endpoint.
 --
--- AWS Global Accelerator uses a consistent-flow hashing algorithm to
--- choose the optimal endpoint for a connection. If client affinity is
--- @NONE@, Global Accelerator uses the \"five-tuple\" (5-tuple)
--- properties—source IP address, source port, destination IP address,
--- destination port, and protocol—to select the hash value, and then
--- chooses the best endpoint. However, with this setting, if someone uses
--- different ports to connect to Global Accelerator, their connections
--- might not be always routed to the same endpoint because the hash value
--- changes.
+-- Global Accelerator uses a consistent-flow hashing algorithm to choose
+-- the optimal endpoint for a connection. If client affinity is @NONE@,
+-- Global Accelerator uses the \"five-tuple\" (5-tuple) properties—source
+-- IP address, source port, destination IP address, destination port, and
+-- protocol—to select the hash value, and then chooses the best endpoint.
+-- However, with this setting, if someone uses different ports to connect
+-- to Global Accelerator, their connections might not be always routed to
+-- the same endpoint because the hash value changes.
 --
 -- If you want a given client to always be routed to the same endpoint, set
 -- client affinity to @SOURCE_IP@ instead. When you use the @SOURCE_IP@
@@ -158,15 +157,14 @@ newCreateListener
 -- protocol of the client request. Client affinity gives you control over
 -- whether to always route each client to the same specific endpoint.
 --
--- AWS Global Accelerator uses a consistent-flow hashing algorithm to
--- choose the optimal endpoint for a connection. If client affinity is
--- @NONE@, Global Accelerator uses the \"five-tuple\" (5-tuple)
--- properties—source IP address, source port, destination IP address,
--- destination port, and protocol—to select the hash value, and then
--- chooses the best endpoint. However, with this setting, if someone uses
--- different ports to connect to Global Accelerator, their connections
--- might not be always routed to the same endpoint because the hash value
--- changes.
+-- Global Accelerator uses a consistent-flow hashing algorithm to choose
+-- the optimal endpoint for a connection. If client affinity is @NONE@,
+-- Global Accelerator uses the \"five-tuple\" (5-tuple) properties—source
+-- IP address, source port, destination IP address, destination port, and
+-- protocol—to select the hash value, and then chooses the best endpoint.
+-- However, with this setting, if someone uses different ports to connect
+-- to Global Accelerator, their connections might not be always routed to
+-- the same endpoint because the hash value changes.
 --
 -- If you want a given client to always be routed to the same endpoint, set
 -- client affinity to @SOURCE_IP@ instead. When you use the @SOURCE_IP@
@@ -200,12 +198,13 @@ instance Core.AWSRequest CreateListener where
   type
     AWSResponse CreateListener =
       CreateListenerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateListenerResponse'
-            Prelude.<$> (x Core..?> "Listener")
+            Prelude.<$> (x Data..?> "Listener")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -225,40 +224,40 @@ instance Prelude.NFData CreateListener where
       `Prelude.seq` Prelude.rnf protocol
       `Prelude.seq` Prelude.rnf idempotencyToken
 
-instance Core.ToHeaders CreateListener where
+instance Data.ToHeaders CreateListener where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.CreateListener" ::
+              Data.=# ( "GlobalAccelerator_V20180706.CreateListener" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateListener where
+instance Data.ToJSON CreateListener where
   toJSON CreateListener' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientAffinity" Core..=)
+          [ ("ClientAffinity" Data..=)
               Prelude.<$> clientAffinity,
             Prelude.Just
-              ("AcceleratorArn" Core..= acceleratorArn),
-            Prelude.Just ("PortRanges" Core..= portRanges),
-            Prelude.Just ("Protocol" Core..= protocol),
+              ("AcceleratorArn" Data..= acceleratorArn),
+            Prelude.Just ("PortRanges" Data..= portRanges),
+            Prelude.Just ("Protocol" Data..= protocol),
             Prelude.Just
-              ("IdempotencyToken" Core..= idempotencyToken)
+              ("IdempotencyToken" Data..= idempotencyToken)
           ]
       )
 
-instance Core.ToPath CreateListener where
+instance Data.ToPath CreateListener where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateListener where
+instance Data.ToQuery CreateListener where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateListenerResponse' smart constructor.

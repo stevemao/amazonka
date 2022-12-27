@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.Types.CalculatedLifecycle
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Backup.Types.CalculatedLifecycle where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains @DeleteAt@ and @MoveToColdStorageAt@ timestamps, which are used
@@ -31,20 +32,23 @@ import qualified Amazonka.Prelude as Prelude
 -- automatically according to the lifecycle that you define.
 --
 -- Backups transitioned to cold storage must be stored in cold storage for
--- a minimum of 90 days. Therefore, the “expire after days” setting must be
--- 90 days greater than the “transition to cold after days” setting. The
+-- a minimum of 90 days. Therefore, the “retention” setting must be 90 days
+-- greater than the “transition to cold after days” setting. The
 -- “transition to cold after days” setting cannot be changed after a backup
 -- has been transitioned to cold.
 --
--- Only Amazon EFS file system backups can be transitioned to cold storage.
+-- Resource types that are able to be transitioned to cold storage are
+-- listed in the \"Lifecycle to cold storage\" section of the
+-- <https://docs.aws.amazon.com/aws-backup/latest/devguide/whatisbackup.html#features-by-resource Feature availability by resource>
+-- table. Backup ignores this expression for other resource types.
 --
 -- /See:/ 'newCalculatedLifecycle' smart constructor.
 data CalculatedLifecycle = CalculatedLifecycle'
   { -- | A timestamp that specifies when to delete a recovery point.
-    deleteAt :: Prelude.Maybe Core.POSIX,
+    deleteAt :: Prelude.Maybe Data.POSIX,
     -- | A timestamp that specifies when to transition a recovery point to cold
     -- storage.
-    moveToColdStorageAt :: Prelude.Maybe Core.POSIX
+    moveToColdStorageAt :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,21 +74,21 @@ newCalculatedLifecycle =
 
 -- | A timestamp that specifies when to delete a recovery point.
 calculatedLifecycle_deleteAt :: Lens.Lens' CalculatedLifecycle (Prelude.Maybe Prelude.UTCTime)
-calculatedLifecycle_deleteAt = Lens.lens (\CalculatedLifecycle' {deleteAt} -> deleteAt) (\s@CalculatedLifecycle' {} a -> s {deleteAt = a} :: CalculatedLifecycle) Prelude.. Lens.mapping Core._Time
+calculatedLifecycle_deleteAt = Lens.lens (\CalculatedLifecycle' {deleteAt} -> deleteAt) (\s@CalculatedLifecycle' {} a -> s {deleteAt = a} :: CalculatedLifecycle) Prelude.. Lens.mapping Data._Time
 
 -- | A timestamp that specifies when to transition a recovery point to cold
 -- storage.
 calculatedLifecycle_moveToColdStorageAt :: Lens.Lens' CalculatedLifecycle (Prelude.Maybe Prelude.UTCTime)
-calculatedLifecycle_moveToColdStorageAt = Lens.lens (\CalculatedLifecycle' {moveToColdStorageAt} -> moveToColdStorageAt) (\s@CalculatedLifecycle' {} a -> s {moveToColdStorageAt = a} :: CalculatedLifecycle) Prelude.. Lens.mapping Core._Time
+calculatedLifecycle_moveToColdStorageAt = Lens.lens (\CalculatedLifecycle' {moveToColdStorageAt} -> moveToColdStorageAt) (\s@CalculatedLifecycle' {} a -> s {moveToColdStorageAt = a} :: CalculatedLifecycle) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON CalculatedLifecycle where
+instance Data.FromJSON CalculatedLifecycle where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CalculatedLifecycle"
       ( \x ->
           CalculatedLifecycle'
-            Prelude.<$> (x Core..:? "DeleteAt")
-            Prelude.<*> (x Core..:? "MoveToColdStorageAt")
+            Prelude.<$> (x Data..:? "DeleteAt")
+            Prelude.<*> (x Data..:? "MoveToColdStorageAt")
       )
 
 instance Prelude.Hashable CalculatedLifecycle where

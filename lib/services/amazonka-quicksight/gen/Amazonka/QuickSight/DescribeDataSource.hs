@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DescribeDataSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,14 +35,15 @@ module Amazonka.QuickSight.DescribeDataSource
     newDescribeDataSourceResponse,
 
     -- * Response Lenses
-    describeDataSourceResponse_requestId,
     describeDataSourceResponse_dataSource,
+    describeDataSourceResponse_requestId,
     describeDataSourceResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -95,13 +96,14 @@ instance Core.AWSRequest DescribeDataSource where
   type
     AWSResponse DescribeDataSource =
       DescribeDataSourceResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDataSourceResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "DataSource")
+            Prelude.<$> (x Data..?> "DataSource")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,35 +117,35 @@ instance Prelude.NFData DescribeDataSource where
     Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf dataSourceId
 
-instance Core.ToHeaders DescribeDataSource where
+instance Data.ToHeaders DescribeDataSource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeDataSource where
+instance Data.ToPath DescribeDataSource where
   toPath DescribeDataSource' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/data-sources/",
-        Core.toBS dataSourceId
+        Data.toBS dataSourceId
       ]
 
-instance Core.ToQuery DescribeDataSource where
+instance Data.ToQuery DescribeDataSource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeDataSourceResponse' smart constructor.
 data DescribeDataSourceResponse = DescribeDataSourceResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The information on the data source.
+  { -- | The information on the data source.
     dataSource :: Prelude.Maybe DataSource,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -157,9 +159,9 @@ data DescribeDataSourceResponse = DescribeDataSourceResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'describeDataSourceResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'dataSource', 'describeDataSourceResponse_dataSource' - The information on the data source.
+--
+-- 'requestId', 'describeDataSourceResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'describeDataSourceResponse_status' - The HTTP status of the request.
 newDescribeDataSourceResponse ::
@@ -168,19 +170,19 @@ newDescribeDataSourceResponse ::
   DescribeDataSourceResponse
 newDescribeDataSourceResponse pStatus_ =
   DescribeDataSourceResponse'
-    { requestId =
+    { dataSource =
         Prelude.Nothing,
-      dataSource = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-describeDataSourceResponse_requestId :: Lens.Lens' DescribeDataSourceResponse (Prelude.Maybe Prelude.Text)
-describeDataSourceResponse_requestId = Lens.lens (\DescribeDataSourceResponse' {requestId} -> requestId) (\s@DescribeDataSourceResponse' {} a -> s {requestId = a} :: DescribeDataSourceResponse)
 
 -- | The information on the data source.
 describeDataSourceResponse_dataSource :: Lens.Lens' DescribeDataSourceResponse (Prelude.Maybe DataSource)
 describeDataSourceResponse_dataSource = Lens.lens (\DescribeDataSourceResponse' {dataSource} -> dataSource) (\s@DescribeDataSourceResponse' {} a -> s {dataSource = a} :: DescribeDataSourceResponse)
+
+-- | The Amazon Web Services request ID for this operation.
+describeDataSourceResponse_requestId :: Lens.Lens' DescribeDataSourceResponse (Prelude.Maybe Prelude.Text)
+describeDataSourceResponse_requestId = Lens.lens (\DescribeDataSourceResponse' {requestId} -> requestId) (\s@DescribeDataSourceResponse' {} a -> s {requestId = a} :: DescribeDataSourceResponse)
 
 -- | The HTTP status of the request.
 describeDataSourceResponse_status :: Lens.Lens' DescribeDataSourceResponse Prelude.Int
@@ -188,6 +190,6 @@ describeDataSourceResponse_status = Lens.lens (\DescribeDataSourceResponse' {sta
 
 instance Prelude.NFData DescribeDataSourceResponse where
   rnf DescribeDataSourceResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf dataSource
+    Prelude.rnf dataSource
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DLM.Types.LifecyclePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,34 +20,36 @@
 module Amazonka.DLM.Types.LifecyclePolicy where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DLM.Types.GettablePolicyStateValues
 import Amazonka.DLM.Types.PolicyDetails
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Detailed information about a lifecycle policy.
+-- | __[All policy types]__ Detailed information about a snapshot, AMI, or
+-- event-based lifecycle policy.
 --
 -- /See:/ 'newLifecyclePolicy' smart constructor.
 data LifecyclePolicy = LifecyclePolicy'
-  { -- | The activation state of the lifecycle policy.
-    state :: Prelude.Maybe GettablePolicyStateValues,
+  { -- | The local date and time when the lifecycle policy was created.
+    dateCreated :: Prelude.Maybe Data.POSIX,
+    -- | The local date and time when the lifecycle policy was last modified.
+    dateModified :: Prelude.Maybe Data.POSIX,
+    -- | The description of the lifecycle policy.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the IAM role used to run the
+    -- operations specified by the lifecycle policy.
+    executionRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the policy.
+    policyArn :: Prelude.Maybe Prelude.Text,
     -- | The configuration of the lifecycle policy
     policyDetails :: Prelude.Maybe PolicyDetails,
     -- | The identifier of the lifecycle policy.
     policyId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the IAM role used to run the
-    -- operations specified by the lifecycle policy.
-    executionRoleArn :: Prelude.Maybe Prelude.Text,
-    -- | The local date and time when the lifecycle policy was created.
-    dateCreated :: Prelude.Maybe Core.POSIX,
+    -- | The activation state of the lifecycle policy.
+    state :: Prelude.Maybe GettablePolicyStateValues,
     -- | The description of the status.
     statusMessage :: Prelude.Maybe Prelude.Text,
-    -- | The local date and time when the lifecycle policy was last modified.
-    dateModified :: Prelude.Maybe Core.POSIX,
-    -- | The Amazon Resource Name (ARN) of the policy.
-    policyArn :: Prelude.Maybe Prelude.Text,
-    -- | The description of the lifecycle policy.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The tags.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
   }
@@ -61,45 +63,62 @@ data LifecyclePolicy = LifecyclePolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'lifecyclePolicy_state' - The activation state of the lifecycle policy.
+-- 'dateCreated', 'lifecyclePolicy_dateCreated' - The local date and time when the lifecycle policy was created.
+--
+-- 'dateModified', 'lifecyclePolicy_dateModified' - The local date and time when the lifecycle policy was last modified.
+--
+-- 'description', 'lifecyclePolicy_description' - The description of the lifecycle policy.
+--
+-- 'executionRoleArn', 'lifecyclePolicy_executionRoleArn' - The Amazon Resource Name (ARN) of the IAM role used to run the
+-- operations specified by the lifecycle policy.
+--
+-- 'policyArn', 'lifecyclePolicy_policyArn' - The Amazon Resource Name (ARN) of the policy.
 --
 -- 'policyDetails', 'lifecyclePolicy_policyDetails' - The configuration of the lifecycle policy
 --
 -- 'policyId', 'lifecyclePolicy_policyId' - The identifier of the lifecycle policy.
 --
--- 'executionRoleArn', 'lifecyclePolicy_executionRoleArn' - The Amazon Resource Name (ARN) of the IAM role used to run the
--- operations specified by the lifecycle policy.
---
--- 'dateCreated', 'lifecyclePolicy_dateCreated' - The local date and time when the lifecycle policy was created.
+-- 'state', 'lifecyclePolicy_state' - The activation state of the lifecycle policy.
 --
 -- 'statusMessage', 'lifecyclePolicy_statusMessage' - The description of the status.
---
--- 'dateModified', 'lifecyclePolicy_dateModified' - The local date and time when the lifecycle policy was last modified.
---
--- 'policyArn', 'lifecyclePolicy_policyArn' - The Amazon Resource Name (ARN) of the policy.
---
--- 'description', 'lifecyclePolicy_description' - The description of the lifecycle policy.
 --
 -- 'tags', 'lifecyclePolicy_tags' - The tags.
 newLifecyclePolicy ::
   LifecyclePolicy
 newLifecyclePolicy =
   LifecyclePolicy'
-    { state = Prelude.Nothing,
+    { dateCreated = Prelude.Nothing,
+      dateModified = Prelude.Nothing,
+      description = Prelude.Nothing,
+      executionRoleArn = Prelude.Nothing,
+      policyArn = Prelude.Nothing,
       policyDetails = Prelude.Nothing,
       policyId = Prelude.Nothing,
-      executionRoleArn = Prelude.Nothing,
-      dateCreated = Prelude.Nothing,
+      state = Prelude.Nothing,
       statusMessage = Prelude.Nothing,
-      dateModified = Prelude.Nothing,
-      policyArn = Prelude.Nothing,
-      description = Prelude.Nothing,
       tags = Prelude.Nothing
     }
 
--- | The activation state of the lifecycle policy.
-lifecyclePolicy_state :: Lens.Lens' LifecyclePolicy (Prelude.Maybe GettablePolicyStateValues)
-lifecyclePolicy_state = Lens.lens (\LifecyclePolicy' {state} -> state) (\s@LifecyclePolicy' {} a -> s {state = a} :: LifecyclePolicy)
+-- | The local date and time when the lifecycle policy was created.
+lifecyclePolicy_dateCreated :: Lens.Lens' LifecyclePolicy (Prelude.Maybe Prelude.UTCTime)
+lifecyclePolicy_dateCreated = Lens.lens (\LifecyclePolicy' {dateCreated} -> dateCreated) (\s@LifecyclePolicy' {} a -> s {dateCreated = a} :: LifecyclePolicy) Prelude.. Lens.mapping Data._Time
+
+-- | The local date and time when the lifecycle policy was last modified.
+lifecyclePolicy_dateModified :: Lens.Lens' LifecyclePolicy (Prelude.Maybe Prelude.UTCTime)
+lifecyclePolicy_dateModified = Lens.lens (\LifecyclePolicy' {dateModified} -> dateModified) (\s@LifecyclePolicy' {} a -> s {dateModified = a} :: LifecyclePolicy) Prelude.. Lens.mapping Data._Time
+
+-- | The description of the lifecycle policy.
+lifecyclePolicy_description :: Lens.Lens' LifecyclePolicy (Prelude.Maybe Prelude.Text)
+lifecyclePolicy_description = Lens.lens (\LifecyclePolicy' {description} -> description) (\s@LifecyclePolicy' {} a -> s {description = a} :: LifecyclePolicy)
+
+-- | The Amazon Resource Name (ARN) of the IAM role used to run the
+-- operations specified by the lifecycle policy.
+lifecyclePolicy_executionRoleArn :: Lens.Lens' LifecyclePolicy (Prelude.Maybe Prelude.Text)
+lifecyclePolicy_executionRoleArn = Lens.lens (\LifecyclePolicy' {executionRoleArn} -> executionRoleArn) (\s@LifecyclePolicy' {} a -> s {executionRoleArn = a} :: LifecyclePolicy)
+
+-- | The Amazon Resource Name (ARN) of the policy.
+lifecyclePolicy_policyArn :: Lens.Lens' LifecyclePolicy (Prelude.Maybe Prelude.Text)
+lifecyclePolicy_policyArn = Lens.lens (\LifecyclePolicy' {policyArn} -> policyArn) (\s@LifecyclePolicy' {} a -> s {policyArn = a} :: LifecyclePolicy)
 
 -- | The configuration of the lifecycle policy
 lifecyclePolicy_policyDetails :: Lens.Lens' LifecyclePolicy (Prelude.Maybe PolicyDetails)
@@ -109,75 +128,58 @@ lifecyclePolicy_policyDetails = Lens.lens (\LifecyclePolicy' {policyDetails} -> 
 lifecyclePolicy_policyId :: Lens.Lens' LifecyclePolicy (Prelude.Maybe Prelude.Text)
 lifecyclePolicy_policyId = Lens.lens (\LifecyclePolicy' {policyId} -> policyId) (\s@LifecyclePolicy' {} a -> s {policyId = a} :: LifecyclePolicy)
 
--- | The Amazon Resource Name (ARN) of the IAM role used to run the
--- operations specified by the lifecycle policy.
-lifecyclePolicy_executionRoleArn :: Lens.Lens' LifecyclePolicy (Prelude.Maybe Prelude.Text)
-lifecyclePolicy_executionRoleArn = Lens.lens (\LifecyclePolicy' {executionRoleArn} -> executionRoleArn) (\s@LifecyclePolicy' {} a -> s {executionRoleArn = a} :: LifecyclePolicy)
-
--- | The local date and time when the lifecycle policy was created.
-lifecyclePolicy_dateCreated :: Lens.Lens' LifecyclePolicy (Prelude.Maybe Prelude.UTCTime)
-lifecyclePolicy_dateCreated = Lens.lens (\LifecyclePolicy' {dateCreated} -> dateCreated) (\s@LifecyclePolicy' {} a -> s {dateCreated = a} :: LifecyclePolicy) Prelude.. Lens.mapping Core._Time
+-- | The activation state of the lifecycle policy.
+lifecyclePolicy_state :: Lens.Lens' LifecyclePolicy (Prelude.Maybe GettablePolicyStateValues)
+lifecyclePolicy_state = Lens.lens (\LifecyclePolicy' {state} -> state) (\s@LifecyclePolicy' {} a -> s {state = a} :: LifecyclePolicy)
 
 -- | The description of the status.
 lifecyclePolicy_statusMessage :: Lens.Lens' LifecyclePolicy (Prelude.Maybe Prelude.Text)
 lifecyclePolicy_statusMessage = Lens.lens (\LifecyclePolicy' {statusMessage} -> statusMessage) (\s@LifecyclePolicy' {} a -> s {statusMessage = a} :: LifecyclePolicy)
 
--- | The local date and time when the lifecycle policy was last modified.
-lifecyclePolicy_dateModified :: Lens.Lens' LifecyclePolicy (Prelude.Maybe Prelude.UTCTime)
-lifecyclePolicy_dateModified = Lens.lens (\LifecyclePolicy' {dateModified} -> dateModified) (\s@LifecyclePolicy' {} a -> s {dateModified = a} :: LifecyclePolicy) Prelude.. Lens.mapping Core._Time
-
--- | The Amazon Resource Name (ARN) of the policy.
-lifecyclePolicy_policyArn :: Lens.Lens' LifecyclePolicy (Prelude.Maybe Prelude.Text)
-lifecyclePolicy_policyArn = Lens.lens (\LifecyclePolicy' {policyArn} -> policyArn) (\s@LifecyclePolicy' {} a -> s {policyArn = a} :: LifecyclePolicy)
-
--- | The description of the lifecycle policy.
-lifecyclePolicy_description :: Lens.Lens' LifecyclePolicy (Prelude.Maybe Prelude.Text)
-lifecyclePolicy_description = Lens.lens (\LifecyclePolicy' {description} -> description) (\s@LifecyclePolicy' {} a -> s {description = a} :: LifecyclePolicy)
-
 -- | The tags.
 lifecyclePolicy_tags :: Lens.Lens' LifecyclePolicy (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 lifecyclePolicy_tags = Lens.lens (\LifecyclePolicy' {tags} -> tags) (\s@LifecyclePolicy' {} a -> s {tags = a} :: LifecyclePolicy) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON LifecyclePolicy where
+instance Data.FromJSON LifecyclePolicy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LifecyclePolicy"
       ( \x ->
           LifecyclePolicy'
-            Prelude.<$> (x Core..:? "State")
-            Prelude.<*> (x Core..:? "PolicyDetails")
-            Prelude.<*> (x Core..:? "PolicyId")
-            Prelude.<*> (x Core..:? "ExecutionRoleArn")
-            Prelude.<*> (x Core..:? "DateCreated")
-            Prelude.<*> (x Core..:? "StatusMessage")
-            Prelude.<*> (x Core..:? "DateModified")
-            Prelude.<*> (x Core..:? "PolicyArn")
-            Prelude.<*> (x Core..:? "Description")
-            Prelude.<*> (x Core..:? "Tags" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "DateCreated")
+            Prelude.<*> (x Data..:? "DateModified")
+            Prelude.<*> (x Data..:? "Description")
+            Prelude.<*> (x Data..:? "ExecutionRoleArn")
+            Prelude.<*> (x Data..:? "PolicyArn")
+            Prelude.<*> (x Data..:? "PolicyDetails")
+            Prelude.<*> (x Data..:? "PolicyId")
+            Prelude.<*> (x Data..:? "State")
+            Prelude.<*> (x Data..:? "StatusMessage")
+            Prelude.<*> (x Data..:? "Tags" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable LifecyclePolicy where
   hashWithSalt _salt LifecyclePolicy' {..} =
-    _salt `Prelude.hashWithSalt` state
+    _salt `Prelude.hashWithSalt` dateCreated
+      `Prelude.hashWithSalt` dateModified
+      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` executionRoleArn
+      `Prelude.hashWithSalt` policyArn
       `Prelude.hashWithSalt` policyDetails
       `Prelude.hashWithSalt` policyId
-      `Prelude.hashWithSalt` executionRoleArn
-      `Prelude.hashWithSalt` dateCreated
+      `Prelude.hashWithSalt` state
       `Prelude.hashWithSalt` statusMessage
-      `Prelude.hashWithSalt` dateModified
-      `Prelude.hashWithSalt` policyArn
-      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData LifecyclePolicy where
   rnf LifecyclePolicy' {..} =
-    Prelude.rnf state
+    Prelude.rnf dateCreated
+      `Prelude.seq` Prelude.rnf dateModified
+      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf executionRoleArn
+      `Prelude.seq` Prelude.rnf policyArn
       `Prelude.seq` Prelude.rnf policyDetails
       `Prelude.seq` Prelude.rnf policyId
-      `Prelude.seq` Prelude.rnf executionRoleArn
-      `Prelude.seq` Prelude.rnf dateCreated
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf statusMessage
-      `Prelude.seq` Prelude.rnf dateModified
-      `Prelude.seq` Prelude.rnf policyArn
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf tags

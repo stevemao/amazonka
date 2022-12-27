@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.DomainInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ElasticSearch.Types.DomainInfo where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types.EngineType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newDomainInfo' smart constructor.
@@ -60,14 +61,14 @@ domainInfo_domainName = Lens.lens (\DomainInfo' {domainName} -> domainName) (\s@
 domainInfo_engineType :: Lens.Lens' DomainInfo (Prelude.Maybe EngineType)
 domainInfo_engineType = Lens.lens (\DomainInfo' {engineType} -> engineType) (\s@DomainInfo' {} a -> s {engineType = a} :: DomainInfo)
 
-instance Core.FromJSON DomainInfo where
+instance Data.FromJSON DomainInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DomainInfo"
       ( \x ->
           DomainInfo'
-            Prelude.<$> (x Core..:? "DomainName")
-            Prelude.<*> (x Core..:? "EngineType")
+            Prelude.<$> (x Data..:? "DomainName")
+            Prelude.<*> (x Data..:? "EngineType")
       )
 
 instance Prelude.Hashable DomainInfo where

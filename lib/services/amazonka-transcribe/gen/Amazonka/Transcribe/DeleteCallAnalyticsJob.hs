@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.DeleteCallAnalyticsJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a call analytics job using its name.
+-- Deletes a Call Analytics job. To use this operation, specify the name of
+-- the job you want to delete using @CallAnalyticsJobName@. Job names are
+-- case sensitive.
 module Amazonka.Transcribe.DeleteCallAnalyticsJob
   ( -- * Creating a Request
     DeleteCallAnalyticsJob (..),
@@ -39,7 +41,8 @@ module Amazonka.Transcribe.DeleteCallAnalyticsJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -47,7 +50,8 @@ import Amazonka.Transcribe.Types
 
 -- | /See:/ 'newDeleteCallAnalyticsJob' smart constructor.
 data DeleteCallAnalyticsJob = DeleteCallAnalyticsJob'
-  { -- | The name of the call analytics job you want to delete.
+  { -- | The name of the Call Analytics job you want to delete. Job names are
+    -- case sensitive.
     callAnalyticsJobName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,7 +64,8 @@ data DeleteCallAnalyticsJob = DeleteCallAnalyticsJob'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'callAnalyticsJobName', 'deleteCallAnalyticsJob_callAnalyticsJobName' - The name of the call analytics job you want to delete.
+-- 'callAnalyticsJobName', 'deleteCallAnalyticsJob_callAnalyticsJobName' - The name of the Call Analytics job you want to delete. Job names are
+-- case sensitive.
 newDeleteCallAnalyticsJob ::
   -- | 'callAnalyticsJobName'
   Prelude.Text ->
@@ -71,7 +76,8 @@ newDeleteCallAnalyticsJob pCallAnalyticsJobName_ =
         pCallAnalyticsJobName_
     }
 
--- | The name of the call analytics job you want to delete.
+-- | The name of the Call Analytics job you want to delete. Job names are
+-- case sensitive.
 deleteCallAnalyticsJob_callAnalyticsJobName :: Lens.Lens' DeleteCallAnalyticsJob Prelude.Text
 deleteCallAnalyticsJob_callAnalyticsJobName = Lens.lens (\DeleteCallAnalyticsJob' {callAnalyticsJobName} -> callAnalyticsJobName) (\s@DeleteCallAnalyticsJob' {} a -> s {callAnalyticsJobName = a} :: DeleteCallAnalyticsJob)
 
@@ -79,7 +85,8 @@ instance Core.AWSRequest DeleteCallAnalyticsJob where
   type
     AWSResponse DeleteCallAnalyticsJob =
       DeleteCallAnalyticsJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,36 +102,36 @@ instance Prelude.NFData DeleteCallAnalyticsJob where
   rnf DeleteCallAnalyticsJob' {..} =
     Prelude.rnf callAnalyticsJobName
 
-instance Core.ToHeaders DeleteCallAnalyticsJob where
+instance Data.ToHeaders DeleteCallAnalyticsJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Transcribe.DeleteCallAnalyticsJob" ::
+              Data.=# ( "Transcribe.DeleteCallAnalyticsJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteCallAnalyticsJob where
+instance Data.ToJSON DeleteCallAnalyticsJob where
   toJSON DeleteCallAnalyticsJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "CallAnalyticsJobName"
-                  Core..= callAnalyticsJobName
+                  Data..= callAnalyticsJobName
               )
           ]
       )
 
-instance Core.ToPath DeleteCallAnalyticsJob where
+instance Data.ToPath DeleteCallAnalyticsJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCallAnalyticsJob where
+instance Data.ToQuery DeleteCallAnalyticsJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCallAnalyticsJobResponse' smart constructor.

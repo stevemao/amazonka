@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.UpdateDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,7 +85,8 @@ updateDevice_deviceName = Lens.lens (\UpdateDevice' {deviceName} -> deviceName) 
 
 instance Core.AWSRequest UpdateDevice where
   type AWSResponse UpdateDevice = UpdateDeviceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -102,34 +104,34 @@ instance Prelude.NFData UpdateDevice where
     Prelude.rnf deviceArn
       `Prelude.seq` Prelude.rnf deviceName
 
-instance Core.ToHeaders UpdateDevice where
+instance Data.ToHeaders UpdateDevice where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.UpdateDevice" ::
+              Data.=# ( "AlexaForBusiness.UpdateDevice" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDevice where
+instance Data.ToJSON UpdateDevice where
   toJSON UpdateDevice' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DeviceArn" Core..=) Prelude.<$> deviceArn,
-            ("DeviceName" Core..=) Prelude.<$> deviceName
+          [ ("DeviceArn" Data..=) Prelude.<$> deviceArn,
+            ("DeviceName" Data..=) Prelude.<$> deviceName
           ]
       )
 
-instance Core.ToPath UpdateDevice where
+instance Data.ToPath UpdateDevice where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateDevice where
+instance Data.ToQuery UpdateDevice where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDeviceResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.Types.AuthenticationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppRunner.Types.AuthenticationConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes resources needed to authenticate access to some source
@@ -75,14 +76,14 @@ authenticationConfiguration_accessRoleArn = Lens.lens (\AuthenticationConfigurat
 authenticationConfiguration_connectionArn :: Lens.Lens' AuthenticationConfiguration (Prelude.Maybe Prelude.Text)
 authenticationConfiguration_connectionArn = Lens.lens (\AuthenticationConfiguration' {connectionArn} -> connectionArn) (\s@AuthenticationConfiguration' {} a -> s {connectionArn = a} :: AuthenticationConfiguration)
 
-instance Core.FromJSON AuthenticationConfiguration where
+instance Data.FromJSON AuthenticationConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AuthenticationConfiguration"
       ( \x ->
           AuthenticationConfiguration'
-            Prelude.<$> (x Core..:? "AccessRoleArn")
-            Prelude.<*> (x Core..:? "ConnectionArn")
+            Prelude.<$> (x Data..:? "AccessRoleArn")
+            Prelude.<*> (x Data..:? "ConnectionArn")
       )
 
 instance Prelude.Hashable AuthenticationConfiguration where
@@ -95,11 +96,11 @@ instance Prelude.NFData AuthenticationConfiguration where
     Prelude.rnf accessRoleArn
       `Prelude.seq` Prelude.rnf connectionArn
 
-instance Core.ToJSON AuthenticationConfiguration where
+instance Data.ToJSON AuthenticationConfiguration where
   toJSON AuthenticationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AccessRoleArn" Core..=) Prelude.<$> accessRoleArn,
-            ("ConnectionArn" Core..=) Prelude.<$> connectionArn
+          [ ("AccessRoleArn" Data..=) Prelude.<$> accessRoleArn,
+            ("ConnectionArn" Data..=) Prelude.<$> connectionArn
           ]
       )

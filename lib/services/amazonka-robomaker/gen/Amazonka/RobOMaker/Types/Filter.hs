@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.Types.Filter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.RobOMaker.Types.Filter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a filter.
 --
 -- /See:/ 'newFilter' smart constructor.
 data Filter = Filter'
-  { -- | A list of values.
-    values :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | The name of the filter.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | The name of the filter.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A list of values.
+    values :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,39 +43,39 @@ data Filter = Filter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'values', 'filter_values' - A list of values.
---
 -- 'name', 'filter_name' - The name of the filter.
+--
+-- 'values', 'filter_values' - A list of values.
 newFilter ::
   Filter
 newFilter =
   Filter'
-    { values = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      values = Prelude.Nothing
     }
-
--- | A list of values.
-filter_values :: Lens.Lens' Filter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-filter_values = Lens.lens (\Filter' {values} -> values) (\s@Filter' {} a -> s {values = a} :: Filter) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the filter.
 filter_name :: Lens.Lens' Filter (Prelude.Maybe Prelude.Text)
 filter_name = Lens.lens (\Filter' {name} -> name) (\s@Filter' {} a -> s {name = a} :: Filter)
 
+-- | A list of values.
+filter_values :: Lens.Lens' Filter (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+filter_values = Lens.lens (\Filter' {values} -> values) (\s@Filter' {} a -> s {values = a} :: Filter) Prelude.. Lens.mapping Lens.coerced
+
 instance Prelude.Hashable Filter where
   hashWithSalt _salt Filter' {..} =
-    _salt `Prelude.hashWithSalt` values
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` values
 
 instance Prelude.NFData Filter where
   rnf Filter' {..} =
-    Prelude.rnf values `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON Filter where
+instance Data.ToJSON Filter where
   toJSON Filter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("values" Core..=) Prelude.<$> values,
-            ("name" Core..=) Prelude.<$> name
+          [ ("name" Data..=) Prelude.<$> name,
+            ("values" Data..=) Prelude.<$> values
           ]
       )

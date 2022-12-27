@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Textract.Types.EntityType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,6 +20,7 @@
 module Amazonka.Textract.Types.EntityType
   ( EntityType
       ( ..,
+        EntityType_COLUMN_HEADER,
         EntityType_KEY,
         EntityType_VALUE
       ),
@@ -27,11 +28,12 @@ module Amazonka.Textract.Types.EntityType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype EntityType = EntityType'
   { fromEntityType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -43,19 +45,22 @@ newtype EntityType = EntityType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern EntityType_COLUMN_HEADER :: EntityType
+pattern EntityType_COLUMN_HEADER = EntityType' "COLUMN_HEADER"
 
 pattern EntityType_KEY :: EntityType
 pattern EntityType_KEY = EntityType' "KEY"
@@ -64,6 +69,7 @@ pattern EntityType_VALUE :: EntityType
 pattern EntityType_VALUE = EntityType' "VALUE"
 
 {-# COMPLETE
+  EntityType_COLUMN_HEADER,
   EntityType_KEY,
   EntityType_VALUE,
   EntityType'

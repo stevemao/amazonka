@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualNodeStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.VirtualNodeStatus where
 
 import Amazonka.AppMesh.Types.VirtualNodeStatusCode
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the current status of the virtual node.
@@ -53,12 +54,12 @@ newVirtualNodeStatus pStatus_ =
 virtualNodeStatus_status :: Lens.Lens' VirtualNodeStatus VirtualNodeStatusCode
 virtualNodeStatus_status = Lens.lens (\VirtualNodeStatus' {status} -> status) (\s@VirtualNodeStatus' {} a -> s {status = a} :: VirtualNodeStatus)
 
-instance Core.FromJSON VirtualNodeStatus where
+instance Data.FromJSON VirtualNodeStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualNodeStatus"
       ( \x ->
-          VirtualNodeStatus' Prelude.<$> (x Core..: "status")
+          VirtualNodeStatus' Prelude.<$> (x Data..: "status")
       )
 
 instance Prelude.Hashable VirtualNodeStatus where

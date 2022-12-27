@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.DeprecateDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -64,7 +64,8 @@ module Amazonka.SWF.DeprecateDomain
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,7 +102,8 @@ instance Core.AWSRequest DeprecateDomain where
   type
     AWSResponse DeprecateDomain =
       DeprecateDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeprecateDomainResponse'
 
@@ -112,32 +114,32 @@ instance Prelude.Hashable DeprecateDomain where
 instance Prelude.NFData DeprecateDomain where
   rnf DeprecateDomain' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeprecateDomain where
+instance Data.ToHeaders DeprecateDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SimpleWorkflowService.DeprecateDomain" ::
+              Data.=# ( "SimpleWorkflowService.DeprecateDomain" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeprecateDomain where
+instance Data.ToJSON DeprecateDomain where
   toJSON DeprecateDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("name" Core..= name)]
+          [Prelude.Just ("name" Data..= name)]
       )
 
-instance Core.ToPath DeprecateDomain where
+instance Data.ToPath DeprecateDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeprecateDomain where
+instance Data.ToQuery DeprecateDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeprecateDomainResponse' smart constructor.

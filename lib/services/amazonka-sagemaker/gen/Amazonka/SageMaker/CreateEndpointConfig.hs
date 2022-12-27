@@ -14,30 +14,29 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateEndpointConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an endpoint configuration that Amazon SageMaker hosting services
--- uses to deploy models. In the configuration, you identify one or more
--- models, created using the @CreateModel@ API, to deploy and the resources
--- that you want Amazon SageMaker to provision. Then you call the
--- CreateEndpoint API.
+-- Creates an endpoint configuration that SageMaker hosting services uses
+-- to deploy models. In the configuration, you identify one or more models,
+-- created using the @CreateModel@ API, to deploy and the resources that
+-- you want SageMaker to provision. Then you call the CreateEndpoint API.
 --
--- Use this API if you want to use Amazon SageMaker hosting services to
--- deploy models into production.
+-- Use this API if you want to use SageMaker hosting services to deploy
+-- models into production.
 --
 -- In the request, you define a @ProductionVariant@, for each model that
 -- you want to deploy. Each @ProductionVariant@ parameter also describes
--- the resources that you want Amazon SageMaker to provision. This includes
--- the number and type of ML compute instances to deploy.
+-- the resources that you want SageMaker to provision. This includes the
+-- number and type of ML compute instances to deploy.
 --
 -- If you are hosting multiple models, you also assign a @VariantWeight@ to
 -- specify how much traffic you want to allocate to each model. For
 -- example, suppose that you want to host two models, A and B, and you
--- assign traffic weight 2 for model A and 1 for model B. Amazon SageMaker
+-- assign traffic weight 2 for model A and 1 for model B. SageMaker
 -- distributes two-thirds of the traffic to Model A, and one-third to model
 -- B.
 --
@@ -60,8 +59,10 @@ module Amazonka.SageMaker.CreateEndpointConfig
 
     -- * Request Lenses
     createEndpointConfig_asyncInferenceConfig,
-    createEndpointConfig_kmsKeyId,
     createEndpointConfig_dataCaptureConfig,
+    createEndpointConfig_explainerConfig,
+    createEndpointConfig_kmsKeyId,
+    createEndpointConfig_shadowProductionVariants,
     createEndpointConfig_tags,
     createEndpointConfig_endpointConfigName,
     createEndpointConfig_productionVariants,
@@ -77,7 +78,8 @@ module Amazonka.SageMaker.CreateEndpointConfig
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,12 +90,14 @@ data CreateEndpointConfig = CreateEndpointConfig'
   { -- | Specifies configuration for how an endpoint performs asynchronous
     -- inference. This is a required field in order for your Endpoint to be
     -- invoked using
-    -- <https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html InvokeEndpointAsync>
-    -- .
+    -- <https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpointAsync.html InvokeEndpointAsync>.
     asyncInferenceConfig :: Prelude.Maybe AsyncInferenceConfig,
+    dataCaptureConfig :: Prelude.Maybe DataCaptureConfig,
+    -- | A member of @CreateEndpointConfig@ that enables explainers.
+    explainerConfig :: Prelude.Maybe ExplainerConfig,
     -- | The Amazon Resource Name (ARN) of a Amazon Web Services Key Management
-    -- Service key that Amazon SageMaker uses to encrypt data on the storage
-    -- volume attached to the ML compute instance that hosts the endpoint.
+    -- Service key that SageMaker uses to encrypt data on the storage volume
+    -- attached to the ML compute instance that hosts the endpoint.
     --
     -- The KmsKeyId can be any of the following formats:
     --
@@ -128,7 +132,12 @@ data CreateEndpointConfig = CreateEndpointConfig'
     -- For more information about local instance storage encryption, see
     -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html SSD Instance Store Volumes>.
     kmsKeyId :: Prelude.Maybe Prelude.Text,
-    dataCaptureConfig :: Prelude.Maybe DataCaptureConfig,
+    -- | Array of @ProductionVariant@ objects. There is one for each model that
+    -- you want to host at this endpoint in shadow mode with production traffic
+    -- replicated from the model specified on @ProductionVariants@.If you use
+    -- this field, you can only specify one variant for @ProductionVariants@
+    -- and one variant for @ShadowProductionVariants@.
+    shadowProductionVariants :: Prelude.Maybe (Prelude.NonEmpty ProductionVariant),
     -- | An array of key-value pairs. You can use tags to categorize your Amazon
     -- Web Services resources in different ways, for example, by purpose,
     -- owner, or environment. For more information, see
@@ -154,12 +163,15 @@ data CreateEndpointConfig = CreateEndpointConfig'
 -- 'asyncInferenceConfig', 'createEndpointConfig_asyncInferenceConfig' - Specifies configuration for how an endpoint performs asynchronous
 -- inference. This is a required field in order for your Endpoint to be
 -- invoked using
--- <https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html InvokeEndpointAsync>
--- .
+-- <https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpointAsync.html InvokeEndpointAsync>.
+--
+-- 'dataCaptureConfig', 'createEndpointConfig_dataCaptureConfig' - Undocumented member.
+--
+-- 'explainerConfig', 'createEndpointConfig_explainerConfig' - A member of @CreateEndpointConfig@ that enables explainers.
 --
 -- 'kmsKeyId', 'createEndpointConfig_kmsKeyId' - The Amazon Resource Name (ARN) of a Amazon Web Services Key Management
--- Service key that Amazon SageMaker uses to encrypt data on the storage
--- volume attached to the ML compute instance that hosts the endpoint.
+-- Service key that SageMaker uses to encrypt data on the storage volume
+-- attached to the ML compute instance that hosts the endpoint.
 --
 -- The KmsKeyId can be any of the following formats:
 --
@@ -194,7 +206,11 @@ data CreateEndpointConfig = CreateEndpointConfig'
 -- For more information about local instance storage encryption, see
 -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ssd-instance-store.html SSD Instance Store Volumes>.
 --
--- 'dataCaptureConfig', 'createEndpointConfig_dataCaptureConfig' - Undocumented member.
+-- 'shadowProductionVariants', 'createEndpointConfig_shadowProductionVariants' - Array of @ProductionVariant@ objects. There is one for each model that
+-- you want to host at this endpoint in shadow mode with production traffic
+-- replicated from the model specified on @ProductionVariants@.If you use
+-- this field, you can only specify one variant for @ProductionVariants@
+-- and one variant for @ShadowProductionVariants@.
 --
 -- 'tags', 'createEndpointConfig_tags' - An array of key-value pairs. You can use tags to categorize your Amazon
 -- Web Services resources in different ways, for example, by purpose,
@@ -218,8 +234,10 @@ newCreateEndpointConfig
     CreateEndpointConfig'
       { asyncInferenceConfig =
           Prelude.Nothing,
-        kmsKeyId = Prelude.Nothing,
         dataCaptureConfig = Prelude.Nothing,
+        explainerConfig = Prelude.Nothing,
+        kmsKeyId = Prelude.Nothing,
+        shadowProductionVariants = Prelude.Nothing,
         tags = Prelude.Nothing,
         endpointConfigName = pEndpointConfigName_,
         productionVariants =
@@ -229,14 +247,21 @@ newCreateEndpointConfig
 -- | Specifies configuration for how an endpoint performs asynchronous
 -- inference. This is a required field in order for your Endpoint to be
 -- invoked using
--- <https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpoint.html InvokeEndpointAsync>
--- .
+-- <https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_runtime_InvokeEndpointAsync.html InvokeEndpointAsync>.
 createEndpointConfig_asyncInferenceConfig :: Lens.Lens' CreateEndpointConfig (Prelude.Maybe AsyncInferenceConfig)
 createEndpointConfig_asyncInferenceConfig = Lens.lens (\CreateEndpointConfig' {asyncInferenceConfig} -> asyncInferenceConfig) (\s@CreateEndpointConfig' {} a -> s {asyncInferenceConfig = a} :: CreateEndpointConfig)
 
+-- | Undocumented member.
+createEndpointConfig_dataCaptureConfig :: Lens.Lens' CreateEndpointConfig (Prelude.Maybe DataCaptureConfig)
+createEndpointConfig_dataCaptureConfig = Lens.lens (\CreateEndpointConfig' {dataCaptureConfig} -> dataCaptureConfig) (\s@CreateEndpointConfig' {} a -> s {dataCaptureConfig = a} :: CreateEndpointConfig)
+
+-- | A member of @CreateEndpointConfig@ that enables explainers.
+createEndpointConfig_explainerConfig :: Lens.Lens' CreateEndpointConfig (Prelude.Maybe ExplainerConfig)
+createEndpointConfig_explainerConfig = Lens.lens (\CreateEndpointConfig' {explainerConfig} -> explainerConfig) (\s@CreateEndpointConfig' {} a -> s {explainerConfig = a} :: CreateEndpointConfig)
+
 -- | The Amazon Resource Name (ARN) of a Amazon Web Services Key Management
--- Service key that Amazon SageMaker uses to encrypt data on the storage
--- volume attached to the ML compute instance that hosts the endpoint.
+-- Service key that SageMaker uses to encrypt data on the storage volume
+-- attached to the ML compute instance that hosts the endpoint.
 --
 -- The KmsKeyId can be any of the following formats:
 --
@@ -273,9 +298,13 @@ createEndpointConfig_asyncInferenceConfig = Lens.lens (\CreateEndpointConfig' {a
 createEndpointConfig_kmsKeyId :: Lens.Lens' CreateEndpointConfig (Prelude.Maybe Prelude.Text)
 createEndpointConfig_kmsKeyId = Lens.lens (\CreateEndpointConfig' {kmsKeyId} -> kmsKeyId) (\s@CreateEndpointConfig' {} a -> s {kmsKeyId = a} :: CreateEndpointConfig)
 
--- | Undocumented member.
-createEndpointConfig_dataCaptureConfig :: Lens.Lens' CreateEndpointConfig (Prelude.Maybe DataCaptureConfig)
-createEndpointConfig_dataCaptureConfig = Lens.lens (\CreateEndpointConfig' {dataCaptureConfig} -> dataCaptureConfig) (\s@CreateEndpointConfig' {} a -> s {dataCaptureConfig = a} :: CreateEndpointConfig)
+-- | Array of @ProductionVariant@ objects. There is one for each model that
+-- you want to host at this endpoint in shadow mode with production traffic
+-- replicated from the model specified on @ProductionVariants@.If you use
+-- this field, you can only specify one variant for @ProductionVariants@
+-- and one variant for @ShadowProductionVariants@.
+createEndpointConfig_shadowProductionVariants :: Lens.Lens' CreateEndpointConfig (Prelude.Maybe (Prelude.NonEmpty ProductionVariant))
+createEndpointConfig_shadowProductionVariants = Lens.lens (\CreateEndpointConfig' {shadowProductionVariants} -> shadowProductionVariants) (\s@CreateEndpointConfig' {} a -> s {shadowProductionVariants = a} :: CreateEndpointConfig) Prelude.. Lens.mapping Lens.coerced
 
 -- | An array of key-value pairs. You can use tags to categorize your Amazon
 -- Web Services resources in different ways, for example, by purpose,
@@ -298,20 +327,23 @@ instance Core.AWSRequest CreateEndpointConfig where
   type
     AWSResponse CreateEndpointConfig =
       CreateEndpointConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateEndpointConfigResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "EndpointConfigArn")
+            Prelude.<*> (x Data..:> "EndpointConfigArn")
       )
 
 instance Prelude.Hashable CreateEndpointConfig where
   hashWithSalt _salt CreateEndpointConfig' {..} =
     _salt `Prelude.hashWithSalt` asyncInferenceConfig
-      `Prelude.hashWithSalt` kmsKeyId
       `Prelude.hashWithSalt` dataCaptureConfig
+      `Prelude.hashWithSalt` explainerConfig
+      `Prelude.hashWithSalt` kmsKeyId
+      `Prelude.hashWithSalt` shadowProductionVariants
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` endpointConfigName
       `Prelude.hashWithSalt` productionVariants
@@ -319,48 +351,54 @@ instance Prelude.Hashable CreateEndpointConfig where
 instance Prelude.NFData CreateEndpointConfig where
   rnf CreateEndpointConfig' {..} =
     Prelude.rnf asyncInferenceConfig
-      `Prelude.seq` Prelude.rnf kmsKeyId
       `Prelude.seq` Prelude.rnf dataCaptureConfig
+      `Prelude.seq` Prelude.rnf explainerConfig
+      `Prelude.seq` Prelude.rnf kmsKeyId
+      `Prelude.seq` Prelude.rnf shadowProductionVariants
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf endpointConfigName
       `Prelude.seq` Prelude.rnf productionVariants
 
-instance Core.ToHeaders CreateEndpointConfig where
+instance Data.ToHeaders CreateEndpointConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.CreateEndpointConfig" ::
+              Data.=# ( "SageMaker.CreateEndpointConfig" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateEndpointConfig where
+instance Data.ToJSON CreateEndpointConfig where
   toJSON CreateEndpointConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AsyncInferenceConfig" Core..=)
+          [ ("AsyncInferenceConfig" Data..=)
               Prelude.<$> asyncInferenceConfig,
-            ("KmsKeyId" Core..=) Prelude.<$> kmsKeyId,
-            ("DataCaptureConfig" Core..=)
+            ("DataCaptureConfig" Data..=)
               Prelude.<$> dataCaptureConfig,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("ExplainerConfig" Data..=)
+              Prelude.<$> explainerConfig,
+            ("KmsKeyId" Data..=) Prelude.<$> kmsKeyId,
+            ("ShadowProductionVariants" Data..=)
+              Prelude.<$> shadowProductionVariants,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("EndpointConfigName" Core..= endpointConfigName),
+              ("EndpointConfigName" Data..= endpointConfigName),
             Prelude.Just
-              ("ProductionVariants" Core..= productionVariants)
+              ("ProductionVariants" Data..= productionVariants)
           ]
       )
 
-instance Core.ToPath CreateEndpointConfig where
+instance Data.ToPath CreateEndpointConfig where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateEndpointConfig where
+instance Data.ToQuery CreateEndpointConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateEndpointConfigResponse' smart constructor.

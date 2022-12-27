@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.PortMapping
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.PortMapping where
 
 import Amazonka.AppMesh.Types.PortProtocol
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a port mapping.
@@ -63,14 +64,14 @@ portMapping_port = Lens.lens (\PortMapping' {port} -> port) (\s@PortMapping' {} 
 portMapping_protocol :: Lens.Lens' PortMapping PortProtocol
 portMapping_protocol = Lens.lens (\PortMapping' {protocol} -> protocol) (\s@PortMapping' {} a -> s {protocol = a} :: PortMapping)
 
-instance Core.FromJSON PortMapping where
+instance Data.FromJSON PortMapping where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PortMapping"
       ( \x ->
           PortMapping'
-            Prelude.<$> (x Core..: "port")
-            Prelude.<*> (x Core..: "protocol")
+            Prelude.<$> (x Data..: "port")
+            Prelude.<*> (x Data..: "protocol")
       )
 
 instance Prelude.Hashable PortMapping where
@@ -82,11 +83,11 @@ instance Prelude.NFData PortMapping where
   rnf PortMapping' {..} =
     Prelude.rnf port `Prelude.seq` Prelude.rnf protocol
 
-instance Core.ToJSON PortMapping where
+instance Data.ToJSON PortMapping where
   toJSON PortMapping' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("port" Core..= port),
-            Prelude.Just ("protocol" Core..= protocol)
+          [ Prelude.Just ("port" Data..= port),
+            Prelude.Just ("protocol" Data..= protocol)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.Types.Page
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,22 @@
 module Amazonka.SSMContacts.Types.Page where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Incident Manager engaging a contact\'s contact channel.
 --
 -- /See:/ 'newPage' smart constructor.
 data Page = Page'
-  { -- | The time that the contact channel acknowledged engagement.
-    readTime :: Prelude.Maybe Core.POSIX,
-    -- | The time the message was delivered to the contact channel.
-    deliveryTime :: Prelude.Maybe Core.POSIX,
+  { -- | The time the message was delivered to the contact channel.
+    deliveryTime :: Prelude.Maybe Data.POSIX,
     -- | The ARN of the incident that\'s engaging the contact channel.
     incidentId :: Prelude.Maybe Prelude.Text,
+    -- | The time that the contact channel acknowledged engagement.
+    readTime :: Prelude.Maybe Data.POSIX,
     -- | The time that Incident Manager engaged the contact channel.
-    sentTime :: Prelude.Maybe Core.POSIX,
+    sentTime :: Prelude.Maybe Data.POSIX,
     -- | The Amazon Resource Name (ARN) of the page to the contact channel.
     pageArn :: Prelude.Text,
     -- | The ARN of the engagement that this page is part of.
@@ -54,11 +55,11 @@ data Page = Page'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'readTime', 'page_readTime' - The time that the contact channel acknowledged engagement.
---
 -- 'deliveryTime', 'page_deliveryTime' - The time the message was delivered to the contact channel.
 --
 -- 'incidentId', 'page_incidentId' - The ARN of the incident that\'s engaging the contact channel.
+--
+-- 'readTime', 'page_readTime' - The time that the contact channel acknowledged engagement.
 --
 -- 'sentTime', 'page_sentTime' - The time that Incident Manager engaged the contact channel.
 --
@@ -85,9 +86,9 @@ newPage
   pContactArn_
   pSender_ =
     Page'
-      { readTime = Prelude.Nothing,
-        deliveryTime = Prelude.Nothing,
+      { deliveryTime = Prelude.Nothing,
         incidentId = Prelude.Nothing,
+        readTime = Prelude.Nothing,
         sentTime = Prelude.Nothing,
         pageArn = pPageArn_,
         engagementArn = pEngagementArn_,
@@ -95,21 +96,21 @@ newPage
         sender = pSender_
       }
 
--- | The time that the contact channel acknowledged engagement.
-page_readTime :: Lens.Lens' Page (Prelude.Maybe Prelude.UTCTime)
-page_readTime = Lens.lens (\Page' {readTime} -> readTime) (\s@Page' {} a -> s {readTime = a} :: Page) Prelude.. Lens.mapping Core._Time
-
 -- | The time the message was delivered to the contact channel.
 page_deliveryTime :: Lens.Lens' Page (Prelude.Maybe Prelude.UTCTime)
-page_deliveryTime = Lens.lens (\Page' {deliveryTime} -> deliveryTime) (\s@Page' {} a -> s {deliveryTime = a} :: Page) Prelude.. Lens.mapping Core._Time
+page_deliveryTime = Lens.lens (\Page' {deliveryTime} -> deliveryTime) (\s@Page' {} a -> s {deliveryTime = a} :: Page) Prelude.. Lens.mapping Data._Time
 
 -- | The ARN of the incident that\'s engaging the contact channel.
 page_incidentId :: Lens.Lens' Page (Prelude.Maybe Prelude.Text)
 page_incidentId = Lens.lens (\Page' {incidentId} -> incidentId) (\s@Page' {} a -> s {incidentId = a} :: Page)
 
+-- | The time that the contact channel acknowledged engagement.
+page_readTime :: Lens.Lens' Page (Prelude.Maybe Prelude.UTCTime)
+page_readTime = Lens.lens (\Page' {readTime} -> readTime) (\s@Page' {} a -> s {readTime = a} :: Page) Prelude.. Lens.mapping Data._Time
+
 -- | The time that Incident Manager engaged the contact channel.
 page_sentTime :: Lens.Lens' Page (Prelude.Maybe Prelude.UTCTime)
-page_sentTime = Lens.lens (\Page' {sentTime} -> sentTime) (\s@Page' {} a -> s {sentTime = a} :: Page) Prelude.. Lens.mapping Core._Time
+page_sentTime = Lens.lens (\Page' {sentTime} -> sentTime) (\s@Page' {} a -> s {sentTime = a} :: Page) Prelude.. Lens.mapping Data._Time
 
 -- | The Amazon Resource Name (ARN) of the page to the contact channel.
 page_pageArn :: Lens.Lens' Page Prelude.Text
@@ -127,27 +128,27 @@ page_contactArn = Lens.lens (\Page' {contactArn} -> contactArn) (\s@Page' {} a -
 page_sender :: Lens.Lens' Page Prelude.Text
 page_sender = Lens.lens (\Page' {sender} -> sender) (\s@Page' {} a -> s {sender = a} :: Page)
 
-instance Core.FromJSON Page where
+instance Data.FromJSON Page where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Page"
       ( \x ->
           Page'
-            Prelude.<$> (x Core..:? "ReadTime")
-            Prelude.<*> (x Core..:? "DeliveryTime")
-            Prelude.<*> (x Core..:? "IncidentId")
-            Prelude.<*> (x Core..:? "SentTime")
-            Prelude.<*> (x Core..: "PageArn")
-            Prelude.<*> (x Core..: "EngagementArn")
-            Prelude.<*> (x Core..: "ContactArn")
-            Prelude.<*> (x Core..: "Sender")
+            Prelude.<$> (x Data..:? "DeliveryTime")
+            Prelude.<*> (x Data..:? "IncidentId")
+            Prelude.<*> (x Data..:? "ReadTime")
+            Prelude.<*> (x Data..:? "SentTime")
+            Prelude.<*> (x Data..: "PageArn")
+            Prelude.<*> (x Data..: "EngagementArn")
+            Prelude.<*> (x Data..: "ContactArn")
+            Prelude.<*> (x Data..: "Sender")
       )
 
 instance Prelude.Hashable Page where
   hashWithSalt _salt Page' {..} =
-    _salt `Prelude.hashWithSalt` readTime
-      `Prelude.hashWithSalt` deliveryTime
+    _salt `Prelude.hashWithSalt` deliveryTime
       `Prelude.hashWithSalt` incidentId
+      `Prelude.hashWithSalt` readTime
       `Prelude.hashWithSalt` sentTime
       `Prelude.hashWithSalt` pageArn
       `Prelude.hashWithSalt` engagementArn
@@ -156,9 +157,9 @@ instance Prelude.Hashable Page where
 
 instance Prelude.NFData Page where
   rnf Page' {..} =
-    Prelude.rnf readTime
-      `Prelude.seq` Prelude.rnf deliveryTime
+    Prelude.rnf deliveryTime
       `Prelude.seq` Prelude.rnf incidentId
+      `Prelude.seq` Prelude.rnf readTime
       `Prelude.seq` Prelude.rnf sentTime
       `Prelude.seq` Prelude.rnf pageArn
       `Prelude.seq` Prelude.rnf engagementArn

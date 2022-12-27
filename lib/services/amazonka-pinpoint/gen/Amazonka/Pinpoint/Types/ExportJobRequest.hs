@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.ExportJobRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.ExportJobRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the settings for a job that exports endpoint definitions to an
@@ -122,14 +123,14 @@ instance Prelude.NFData ExportJobRequest where
       `Prelude.seq` Prelude.rnf s3UrlPrefix
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToJSON ExportJobRequest where
+instance Data.ToJSON ExportJobRequest where
   toJSON ExportJobRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SegmentId" Core..=) Prelude.<$> segmentId,
-            ("SegmentVersion" Core..=)
+          [ ("SegmentId" Data..=) Prelude.<$> segmentId,
+            ("SegmentVersion" Data..=)
               Prelude.<$> segmentVersion,
-            Prelude.Just ("S3UrlPrefix" Core..= s3UrlPrefix),
-            Prelude.Just ("RoleArn" Core..= roleArn)
+            Prelude.Just ("S3UrlPrefix" Data..= s3UrlPrefix),
+            Prelude.Just ("RoleArn" Data..= roleArn)
           ]
       )

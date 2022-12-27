@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.ListImages
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,10 +36,10 @@ module Amazonka.ECR.ListImages
     newListImages,
 
     -- * Request Lenses
-    listImages_registryId,
-    listImages_nextToken,
     listImages_filter,
     listImages_maxResults,
+    listImages_nextToken,
+    listImages_registryId,
     listImages_repositoryName,
 
     -- * Destructuring the Response
@@ -54,29 +54,16 @@ module Amazonka.ECR.ListImages
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListImages' smart constructor.
 data ListImages = ListImages'
-  { -- | The Amazon Web Services account ID associated with the registry that
-    -- contains the repository in which to list images. If you do not specify a
-    -- registry, the default registry is assumed.
-    registryId :: Prelude.Maybe Prelude.Text,
-    -- | The @nextToken@ value returned from a previous paginated @ListImages@
-    -- request where @maxResults@ was used and the results exceeded the value
-    -- of that parameter. Pagination continues from the end of the previous
-    -- results that returned the @nextToken@ value. This value is @null@ when
-    -- there are no more results to return.
-    --
-    -- This token should be treated as an opaque identifier that is only used
-    -- to retrieve the next items in a list and not for other programmatic
-    -- purposes.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The filter key and value with which to filter your @ListImages@ results.
+  { -- | The filter key and value with which to filter your @ListImages@ results.
     filter' :: Prelude.Maybe ListImagesFilter,
     -- | The maximum number of image results returned by @ListImages@ in
     -- paginated output. When this parameter is used, @ListImages@ only returns
@@ -87,6 +74,20 @@ data ListImages = ListImages'
     -- used, then @ListImages@ returns up to 100 results and a @nextToken@
     -- value, if applicable.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The @nextToken@ value returned from a previous paginated @ListImages@
+    -- request where @maxResults@ was used and the results exceeded the value
+    -- of that parameter. Pagination continues from the end of the previous
+    -- results that returned the @nextToken@ value. This value is @null@ when
+    -- there are no more results to return.
+    --
+    -- This token should be treated as an opaque identifier that is only used
+    -- to retrieve the next items in a list and not for other programmatic
+    -- purposes.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services account ID associated with the registry that
+    -- contains the repository in which to list images. If you do not specify a
+    -- registry, the default registry is assumed.
+    registryId :: Prelude.Maybe Prelude.Text,
     -- | The repository with image IDs to be listed.
     repositoryName :: Prelude.Text
   }
@@ -100,20 +101,6 @@ data ListImages = ListImages'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'registryId', 'listImages_registryId' - The Amazon Web Services account ID associated with the registry that
--- contains the repository in which to list images. If you do not specify a
--- registry, the default registry is assumed.
---
--- 'nextToken', 'listImages_nextToken' - The @nextToken@ value returned from a previous paginated @ListImages@
--- request where @maxResults@ was used and the results exceeded the value
--- of that parameter. Pagination continues from the end of the previous
--- results that returned the @nextToken@ value. This value is @null@ when
--- there are no more results to return.
---
--- This token should be treated as an opaque identifier that is only used
--- to retrieve the next items in a list and not for other programmatic
--- purposes.
---
 -- 'filter'', 'listImages_filter' - The filter key and value with which to filter your @ListImages@ results.
 --
 -- 'maxResults', 'listImages_maxResults' - The maximum number of image results returned by @ListImages@ in
@@ -125,27 +112,7 @@ data ListImages = ListImages'
 -- used, then @ListImages@ returns up to 100 results and a @nextToken@
 -- value, if applicable.
 --
--- 'repositoryName', 'listImages_repositoryName' - The repository with image IDs to be listed.
-newListImages ::
-  -- | 'repositoryName'
-  Prelude.Text ->
-  ListImages
-newListImages pRepositoryName_ =
-  ListImages'
-    { registryId = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      filter' = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
-      repositoryName = pRepositoryName_
-    }
-
--- | The Amazon Web Services account ID associated with the registry that
--- contains the repository in which to list images. If you do not specify a
--- registry, the default registry is assumed.
-listImages_registryId :: Lens.Lens' ListImages (Prelude.Maybe Prelude.Text)
-listImages_registryId = Lens.lens (\ListImages' {registryId} -> registryId) (\s@ListImages' {} a -> s {registryId = a} :: ListImages)
-
--- | The @nextToken@ value returned from a previous paginated @ListImages@
+-- 'nextToken', 'listImages_nextToken' - The @nextToken@ value returned from a previous paginated @ListImages@
 -- request where @maxResults@ was used and the results exceeded the value
 -- of that parameter. Pagination continues from the end of the previous
 -- results that returned the @nextToken@ value. This value is @null@ when
@@ -154,8 +121,24 @@ listImages_registryId = Lens.lens (\ListImages' {registryId} -> registryId) (\s@
 -- This token should be treated as an opaque identifier that is only used
 -- to retrieve the next items in a list and not for other programmatic
 -- purposes.
-listImages_nextToken :: Lens.Lens' ListImages (Prelude.Maybe Prelude.Text)
-listImages_nextToken = Lens.lens (\ListImages' {nextToken} -> nextToken) (\s@ListImages' {} a -> s {nextToken = a} :: ListImages)
+--
+-- 'registryId', 'listImages_registryId' - The Amazon Web Services account ID associated with the registry that
+-- contains the repository in which to list images. If you do not specify a
+-- registry, the default registry is assumed.
+--
+-- 'repositoryName', 'listImages_repositoryName' - The repository with image IDs to be listed.
+newListImages ::
+  -- | 'repositoryName'
+  Prelude.Text ->
+  ListImages
+newListImages pRepositoryName_ =
+  ListImages'
+    { filter' = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      registryId = Prelude.Nothing,
+      repositoryName = pRepositoryName_
+    }
 
 -- | The filter key and value with which to filter your @ListImages@ results.
 listImages_filter :: Lens.Lens' ListImages (Prelude.Maybe ListImagesFilter)
@@ -171,6 +154,24 @@ listImages_filter = Lens.lens (\ListImages' {filter'} -> filter') (\s@ListImages
 -- value, if applicable.
 listImages_maxResults :: Lens.Lens' ListImages (Prelude.Maybe Prelude.Natural)
 listImages_maxResults = Lens.lens (\ListImages' {maxResults} -> maxResults) (\s@ListImages' {} a -> s {maxResults = a} :: ListImages)
+
+-- | The @nextToken@ value returned from a previous paginated @ListImages@
+-- request where @maxResults@ was used and the results exceeded the value
+-- of that parameter. Pagination continues from the end of the previous
+-- results that returned the @nextToken@ value. This value is @null@ when
+-- there are no more results to return.
+--
+-- This token should be treated as an opaque identifier that is only used
+-- to retrieve the next items in a list and not for other programmatic
+-- purposes.
+listImages_nextToken :: Lens.Lens' ListImages (Prelude.Maybe Prelude.Text)
+listImages_nextToken = Lens.lens (\ListImages' {nextToken} -> nextToken) (\s@ListImages' {} a -> s {nextToken = a} :: ListImages)
+
+-- | The Amazon Web Services account ID associated with the registry that
+-- contains the repository in which to list images. If you do not specify a
+-- registry, the default registry is assumed.
+listImages_registryId :: Lens.Lens' ListImages (Prelude.Maybe Prelude.Text)
+listImages_registryId = Lens.lens (\ListImages' {registryId} -> registryId) (\s@ListImages' {} a -> s {registryId = a} :: ListImages)
 
 -- | The repository with image IDs to be listed.
 listImages_repositoryName :: Lens.Lens' ListImages Prelude.Text
@@ -197,64 +198,65 @@ instance Core.AWSPager ListImages where
 
 instance Core.AWSRequest ListImages where
   type AWSResponse ListImages = ListImagesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListImagesResponse'
-            Prelude.<$> (x Core..?> "imageIds" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "imageIds" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListImages where
   hashWithSalt _salt ListImages' {..} =
-    _salt `Prelude.hashWithSalt` registryId
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` registryId
       `Prelude.hashWithSalt` repositoryName
 
 instance Prelude.NFData ListImages where
   rnf ListImages' {..} =
-    Prelude.rnf registryId
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf registryId
       `Prelude.seq` Prelude.rnf repositoryName
 
-instance Core.ToHeaders ListImages where
+instance Data.ToHeaders ListImages where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerRegistry_V20150921.ListImages" ::
+              Data.=# ( "AmazonEC2ContainerRegistry_V20150921.ListImages" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListImages where
+instance Data.ToJSON ListImages where
   toJSON ListImages' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("registryId" Core..=) Prelude.<$> registryId,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("filter" Core..=) Prelude.<$> filter',
-            ("maxResults" Core..=) Prelude.<$> maxResults,
+          [ ("filter" Data..=) Prelude.<$> filter',
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("registryId" Data..=) Prelude.<$> registryId,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName)
+              ("repositoryName" Data..= repositoryName)
           ]
       )
 
-instance Core.ToPath ListImages where
+instance Data.ToPath ListImages where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListImages where
+instance Data.ToQuery ListImages where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListImagesResponse' smart constructor.

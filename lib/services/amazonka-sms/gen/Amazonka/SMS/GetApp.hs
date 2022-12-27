@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.GetApp
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.SMS.GetApp
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,14 +75,15 @@ getApp_appId = Lens.lens (\GetApp' {appId} -> appId) (\s@GetApp' {} a -> s {appI
 
 instance Core.AWSRequest GetApp where
   type AWSResponse GetApp = GetAppResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAppResponse'
-            Prelude.<$> (x Core..?> "appSummary")
-            Prelude.<*> (x Core..?> "serverGroups" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "appSummary")
+            Prelude.<*> (x Data..?> "serverGroups" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -92,32 +94,32 @@ instance Prelude.Hashable GetApp where
 instance Prelude.NFData GetApp where
   rnf GetApp' {..} = Prelude.rnf appId
 
-instance Core.ToHeaders GetApp where
+instance Data.ToHeaders GetApp where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.GetApp" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.GetApp" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetApp where
+instance Data.ToJSON GetApp where
   toJSON GetApp' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("appId" Core..=) Prelude.<$> appId]
+          [("appId" Data..=) Prelude.<$> appId]
       )
 
-instance Core.ToPath GetApp where
+instance Data.ToPath GetApp where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetApp where
+instance Data.ToQuery GetApp where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAppResponse' smart constructor.

@@ -14,19 +14,18 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.DisassociateKmsKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disassociates the associated Key Management Service customer master key
--- (CMK) from the specified log group.
+-- Disassociates the associated KMS key from the specified log group.
 --
--- After the KMS CMK is disassociated from the log group, CloudWatch Logs
+-- After the KMS key is disassociated from the log group, CloudWatch Logs
 -- stops encrypting newly ingested data for the log group. All previously
 -- ingested data remains encrypted, and CloudWatch Logs requires
--- permissions for the CMK whenever the encrypted data is requested.
+-- permissions for the KMS key whenever the encrypted data is requested.
 --
 -- Note that it can take up to 5 minutes for this operation to take effect.
 module Amazonka.CloudWatchLogs.DisassociateKmsKey
@@ -45,7 +44,8 @@ where
 
 import Amazonka.CloudWatchLogs.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,7 +81,8 @@ instance Core.AWSRequest DisassociateKmsKey where
   type
     AWSResponse DisassociateKmsKey =
       DisassociateKmsKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DisassociateKmsKeyResponse'
 
@@ -93,32 +94,32 @@ instance Prelude.NFData DisassociateKmsKey where
   rnf DisassociateKmsKey' {..} =
     Prelude.rnf logGroupName
 
-instance Core.ToHeaders DisassociateKmsKey where
+instance Data.ToHeaders DisassociateKmsKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Logs_20140328.DisassociateKmsKey" ::
+              Data.=# ( "Logs_20140328.DisassociateKmsKey" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateKmsKey where
+instance Data.ToJSON DisassociateKmsKey where
   toJSON DisassociateKmsKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("logGroupName" Core..= logGroupName)]
+          [Prelude.Just ("logGroupName" Data..= logGroupName)]
       )
 
-instance Core.ToPath DisassociateKmsKey where
+instance Data.ToPath DisassociateKmsKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateKmsKey where
+instance Data.ToQuery DisassociateKmsKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateKmsKeyResponse' smart constructor.

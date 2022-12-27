@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.UpdateRoleDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IAM.UpdateRoleDescription
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,13 +96,14 @@ instance Core.AWSRequest UpdateRoleDescription where
   type
     AWSResponse UpdateRoleDescription =
       UpdateRoleDescriptionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "UpdateRoleDescriptionResult"
       ( \s h x ->
           UpdateRoleDescriptionResponse'
-            Prelude.<$> (x Core..@? "Role")
+            Prelude.<$> (x Data..@? "Role")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,21 +117,21 @@ instance Prelude.NFData UpdateRoleDescription where
     Prelude.rnf roleName
       `Prelude.seq` Prelude.rnf description
 
-instance Core.ToHeaders UpdateRoleDescription where
+instance Data.ToHeaders UpdateRoleDescription where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UpdateRoleDescription where
+instance Data.ToPath UpdateRoleDescription where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateRoleDescription where
+instance Data.ToQuery UpdateRoleDescription where
   toQuery UpdateRoleDescription' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("UpdateRoleDescription" :: Prelude.ByteString),
+          Data.=: ("UpdateRoleDescription" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "RoleName" Core.=: roleName,
-        "Description" Core.=: description
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "RoleName" Data.=: roleName,
+        "Description" Data.=: description
       ]
 
 -- | /See:/ 'newUpdateRoleDescriptionResponse' smart constructor.

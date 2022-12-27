@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchAttachTypedLinkResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudDirectory.Types.BatchAttachTypedLinkResponse where
 
 import Amazonka.CloudDirectory.Types.TypedLinkSpecifier
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output of a AttachTypedLink response operation.
@@ -54,13 +55,13 @@ newBatchAttachTypedLinkResponse =
 batchAttachTypedLinkResponse_typedLinkSpecifier :: Lens.Lens' BatchAttachTypedLinkResponse (Prelude.Maybe TypedLinkSpecifier)
 batchAttachTypedLinkResponse_typedLinkSpecifier = Lens.lens (\BatchAttachTypedLinkResponse' {typedLinkSpecifier} -> typedLinkSpecifier) (\s@BatchAttachTypedLinkResponse' {} a -> s {typedLinkSpecifier = a} :: BatchAttachTypedLinkResponse)
 
-instance Core.FromJSON BatchAttachTypedLinkResponse where
+instance Data.FromJSON BatchAttachTypedLinkResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchAttachTypedLinkResponse"
       ( \x ->
           BatchAttachTypedLinkResponse'
-            Prelude.<$> (x Core..:? "TypedLinkSpecifier")
+            Prelude.<$> (x Data..:? "TypedLinkSpecifier")
       )
 
 instance

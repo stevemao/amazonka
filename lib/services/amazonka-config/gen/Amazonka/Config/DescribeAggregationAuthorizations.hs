@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.DescribeAggregationAuthorizations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.Config.DescribeAggregationAuthorizations
     newDescribeAggregationAuthorizations,
 
     -- * Request Lenses
-    describeAggregationAuthorizations_nextToken,
     describeAggregationAuthorizations_limit,
+    describeAggregationAuthorizations_nextToken,
 
     -- * Destructuring the Response
     DescribeAggregationAuthorizationsResponse (..),
@@ -46,19 +46,20 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeAggregationAuthorizations' smart constructor.
 data DescribeAggregationAuthorizations = DescribeAggregationAuthorizations'
-  { -- | The @nextToken@ string returned on a previous page that you use to get
-    -- the next page of results in a paginated response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of AggregationAuthorizations returned on each page.
+  { -- | The maximum number of AggregationAuthorizations returned on each page.
     -- The default is maximum. If you specify 0, Config uses the default.
-    limit :: Prelude.Maybe Prelude.Natural
+    limit :: Prelude.Maybe Prelude.Natural,
+    -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,29 +71,29 @@ data DescribeAggregationAuthorizations = DescribeAggregationAuthorizations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeAggregationAuthorizations_nextToken' - The @nextToken@ string returned on a previous page that you use to get
--- the next page of results in a paginated response.
---
 -- 'limit', 'describeAggregationAuthorizations_limit' - The maximum number of AggregationAuthorizations returned on each page.
 -- The default is maximum. If you specify 0, Config uses the default.
+--
+-- 'nextToken', 'describeAggregationAuthorizations_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
 newDescribeAggregationAuthorizations ::
   DescribeAggregationAuthorizations
 newDescribeAggregationAuthorizations =
   DescribeAggregationAuthorizations'
-    { nextToken =
+    { limit =
         Prelude.Nothing,
-      limit = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | The @nextToken@ string returned on a previous page that you use to get
--- the next page of results in a paginated response.
-describeAggregationAuthorizations_nextToken :: Lens.Lens' DescribeAggregationAuthorizations (Prelude.Maybe Prelude.Text)
-describeAggregationAuthorizations_nextToken = Lens.lens (\DescribeAggregationAuthorizations' {nextToken} -> nextToken) (\s@DescribeAggregationAuthorizations' {} a -> s {nextToken = a} :: DescribeAggregationAuthorizations)
 
 -- | The maximum number of AggregationAuthorizations returned on each page.
 -- The default is maximum. If you specify 0, Config uses the default.
 describeAggregationAuthorizations_limit :: Lens.Lens' DescribeAggregationAuthorizations (Prelude.Maybe Prelude.Natural)
 describeAggregationAuthorizations_limit = Lens.lens (\DescribeAggregationAuthorizations' {limit} -> limit) (\s@DescribeAggregationAuthorizations' {} a -> s {limit = a} :: DescribeAggregationAuthorizations)
+
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+describeAggregationAuthorizations_nextToken :: Lens.Lens' DescribeAggregationAuthorizations (Prelude.Maybe Prelude.Text)
+describeAggregationAuthorizations_nextToken = Lens.lens (\DescribeAggregationAuthorizations' {nextToken} -> nextToken) (\s@DescribeAggregationAuthorizations' {} a -> s {nextToken = a} :: DescribeAggregationAuthorizations)
 
 instance
   Core.AWSPager
@@ -126,15 +127,16 @@ instance
   type
     AWSResponse DescribeAggregationAuthorizations =
       DescribeAggregationAuthorizationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAggregationAuthorizationsResponse'
-            Prelude.<$> ( x Core..?> "AggregationAuthorizations"
+            Prelude.<$> ( x Data..?> "AggregationAuthorizations"
                             Core..!@ Prelude.mempty
                         )
-              Prelude.<*> (x Core..?> "NextToken")
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -145,55 +147,55 @@ instance
   hashWithSalt
     _salt
     DescribeAggregationAuthorizations' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` limit
+      _salt `Prelude.hashWithSalt` limit
+        `Prelude.hashWithSalt` nextToken
 
 instance
   Prelude.NFData
     DescribeAggregationAuthorizations
   where
   rnf DescribeAggregationAuthorizations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeAggregationAuthorizations
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.DescribeAggregationAuthorizations" ::
+              Data.=# ( "StarlingDoveService.DescribeAggregationAuthorizations" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeAggregationAuthorizations
   where
   toJSON DescribeAggregationAuthorizations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeAggregationAuthorizations
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeAggregationAuthorizations
   where
   toQuery = Prelude.const Prelude.mempty

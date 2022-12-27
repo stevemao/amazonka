@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeLocalGatewayVirtualInterfaces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,47 +29,67 @@ module Amazonka.EC2.DescribeLocalGatewayVirtualInterfaces
     newDescribeLocalGatewayVirtualInterfaces,
 
     -- * Request Lenses
-    describeLocalGatewayVirtualInterfaces_filters,
-    describeLocalGatewayVirtualInterfaces_nextToken,
-    describeLocalGatewayVirtualInterfaces_localGatewayVirtualInterfaceIds,
     describeLocalGatewayVirtualInterfaces_dryRun,
+    describeLocalGatewayVirtualInterfaces_filters,
+    describeLocalGatewayVirtualInterfaces_localGatewayVirtualInterfaceIds,
     describeLocalGatewayVirtualInterfaces_maxResults,
+    describeLocalGatewayVirtualInterfaces_nextToken,
 
     -- * Destructuring the Response
     DescribeLocalGatewayVirtualInterfacesResponse (..),
     newDescribeLocalGatewayVirtualInterfacesResponse,
 
     -- * Response Lenses
-    describeLocalGatewayVirtualInterfacesResponse_nextToken,
     describeLocalGatewayVirtualInterfacesResponse_localGatewayVirtualInterfaces,
+    describeLocalGatewayVirtualInterfacesResponse_nextToken,
     describeLocalGatewayVirtualInterfacesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeLocalGatewayVirtualInterfaces' smart constructor.
 data DescribeLocalGatewayVirtualInterfaces = DescribeLocalGatewayVirtualInterfaces'
-  { -- | One or more filters.
-    filters :: Prelude.Maybe [Filter],
-    -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The IDs of the virtual interfaces.
-    localGatewayVirtualInterfaceIds :: Prelude.Maybe [Prelude.Text],
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters.
+    --
+    -- -   @local-address@ - The local address.
+    --
+    -- -   @local-bgp-asn@ - The Border Gateway Protocol (BGP) Autonomous
+    --     System Number (ASN) of the local gateway.
+    --
+    -- -   @local-gateway-id@ - The ID of the local gateway.
+    --
+    -- -   @local-gateway-virtual-interface-id@ - The ID of the virtual
+    --     interface.
+    --
+    -- -   @owner-id@ - The ID of the Amazon Web Services account that owns the
+    --     local gateway virtual interface.
+    --
+    -- -   @peer-address@ - The peer address.
+    --
+    -- -   @peer-bgp-asn@ - The peer BGP ASN.
+    --
+    -- -   @vlan@ - The ID of the VLAN.
+    filters :: Prelude.Maybe [Filter],
+    -- | The IDs of the virtual interfaces.
+    localGatewayVirtualInterfaceIds :: Prelude.Maybe [Prelude.Text],
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -81,44 +101,51 @@ data DescribeLocalGatewayVirtualInterfaces = DescribeLocalGatewayVirtualInterfac
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'filters', 'describeLocalGatewayVirtualInterfaces_filters' - One or more filters.
---
--- 'nextToken', 'describeLocalGatewayVirtualInterfaces_nextToken' - The token for the next page of results.
---
--- 'localGatewayVirtualInterfaceIds', 'describeLocalGatewayVirtualInterfaces_localGatewayVirtualInterfaceIds' - The IDs of the virtual interfaces.
---
 -- 'dryRun', 'describeLocalGatewayVirtualInterfaces_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
 --
+-- 'filters', 'describeLocalGatewayVirtualInterfaces_filters' - One or more filters.
+--
+-- -   @local-address@ - The local address.
+--
+-- -   @local-bgp-asn@ - The Border Gateway Protocol (BGP) Autonomous
+--     System Number (ASN) of the local gateway.
+--
+-- -   @local-gateway-id@ - The ID of the local gateway.
+--
+-- -   @local-gateway-virtual-interface-id@ - The ID of the virtual
+--     interface.
+--
+-- -   @owner-id@ - The ID of the Amazon Web Services account that owns the
+--     local gateway virtual interface.
+--
+-- -   @peer-address@ - The peer address.
+--
+-- -   @peer-bgp-asn@ - The peer BGP ASN.
+--
+-- -   @vlan@ - The ID of the VLAN.
+--
+-- 'localGatewayVirtualInterfaceIds', 'describeLocalGatewayVirtualInterfaces_localGatewayVirtualInterfaceIds' - The IDs of the virtual interfaces.
+--
 -- 'maxResults', 'describeLocalGatewayVirtualInterfaces_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'describeLocalGatewayVirtualInterfaces_nextToken' - The token for the next page of results.
 newDescribeLocalGatewayVirtualInterfaces ::
   DescribeLocalGatewayVirtualInterfaces
 newDescribeLocalGatewayVirtualInterfaces =
   DescribeLocalGatewayVirtualInterfaces'
-    { filters =
+    { dryRun =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      filters = Prelude.Nothing,
       localGatewayVirtualInterfaceIds =
         Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | One or more filters.
-describeLocalGatewayVirtualInterfaces_filters :: Lens.Lens' DescribeLocalGatewayVirtualInterfaces (Prelude.Maybe [Filter])
-describeLocalGatewayVirtualInterfaces_filters = Lens.lens (\DescribeLocalGatewayVirtualInterfaces' {filters} -> filters) (\s@DescribeLocalGatewayVirtualInterfaces' {} a -> s {filters = a} :: DescribeLocalGatewayVirtualInterfaces) Prelude.. Lens.mapping Lens.coerced
-
--- | The token for the next page of results.
-describeLocalGatewayVirtualInterfaces_nextToken :: Lens.Lens' DescribeLocalGatewayVirtualInterfaces (Prelude.Maybe Prelude.Text)
-describeLocalGatewayVirtualInterfaces_nextToken = Lens.lens (\DescribeLocalGatewayVirtualInterfaces' {nextToken} -> nextToken) (\s@DescribeLocalGatewayVirtualInterfaces' {} a -> s {nextToken = a} :: DescribeLocalGatewayVirtualInterfaces)
-
--- | The IDs of the virtual interfaces.
-describeLocalGatewayVirtualInterfaces_localGatewayVirtualInterfaceIds :: Lens.Lens' DescribeLocalGatewayVirtualInterfaces (Prelude.Maybe [Prelude.Text])
-describeLocalGatewayVirtualInterfaces_localGatewayVirtualInterfaceIds = Lens.lens (\DescribeLocalGatewayVirtualInterfaces' {localGatewayVirtualInterfaceIds} -> localGatewayVirtualInterfaceIds) (\s@DescribeLocalGatewayVirtualInterfaces' {} a -> s {localGatewayVirtualInterfaceIds = a} :: DescribeLocalGatewayVirtualInterfaces) Prelude.. Lens.mapping Lens.coerced
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -127,11 +154,42 @@ describeLocalGatewayVirtualInterfaces_localGatewayVirtualInterfaceIds = Lens.len
 describeLocalGatewayVirtualInterfaces_dryRun :: Lens.Lens' DescribeLocalGatewayVirtualInterfaces (Prelude.Maybe Prelude.Bool)
 describeLocalGatewayVirtualInterfaces_dryRun = Lens.lens (\DescribeLocalGatewayVirtualInterfaces' {dryRun} -> dryRun) (\s@DescribeLocalGatewayVirtualInterfaces' {} a -> s {dryRun = a} :: DescribeLocalGatewayVirtualInterfaces)
 
+-- | One or more filters.
+--
+-- -   @local-address@ - The local address.
+--
+-- -   @local-bgp-asn@ - The Border Gateway Protocol (BGP) Autonomous
+--     System Number (ASN) of the local gateway.
+--
+-- -   @local-gateway-id@ - The ID of the local gateway.
+--
+-- -   @local-gateway-virtual-interface-id@ - The ID of the virtual
+--     interface.
+--
+-- -   @owner-id@ - The ID of the Amazon Web Services account that owns the
+--     local gateway virtual interface.
+--
+-- -   @peer-address@ - The peer address.
+--
+-- -   @peer-bgp-asn@ - The peer BGP ASN.
+--
+-- -   @vlan@ - The ID of the VLAN.
+describeLocalGatewayVirtualInterfaces_filters :: Lens.Lens' DescribeLocalGatewayVirtualInterfaces (Prelude.Maybe [Filter])
+describeLocalGatewayVirtualInterfaces_filters = Lens.lens (\DescribeLocalGatewayVirtualInterfaces' {filters} -> filters) (\s@DescribeLocalGatewayVirtualInterfaces' {} a -> s {filters = a} :: DescribeLocalGatewayVirtualInterfaces) Prelude.. Lens.mapping Lens.coerced
+
+-- | The IDs of the virtual interfaces.
+describeLocalGatewayVirtualInterfaces_localGatewayVirtualInterfaceIds :: Lens.Lens' DescribeLocalGatewayVirtualInterfaces (Prelude.Maybe [Prelude.Text])
+describeLocalGatewayVirtualInterfaces_localGatewayVirtualInterfaceIds = Lens.lens (\DescribeLocalGatewayVirtualInterfaces' {localGatewayVirtualInterfaceIds} -> localGatewayVirtualInterfaceIds) (\s@DescribeLocalGatewayVirtualInterfaces' {} a -> s {localGatewayVirtualInterfaceIds = a} :: DescribeLocalGatewayVirtualInterfaces) Prelude.. Lens.mapping Lens.coerced
+
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 describeLocalGatewayVirtualInterfaces_maxResults :: Lens.Lens' DescribeLocalGatewayVirtualInterfaces (Prelude.Maybe Prelude.Natural)
 describeLocalGatewayVirtualInterfaces_maxResults = Lens.lens (\DescribeLocalGatewayVirtualInterfaces' {maxResults} -> maxResults) (\s@DescribeLocalGatewayVirtualInterfaces' {} a -> s {maxResults = a} :: DescribeLocalGatewayVirtualInterfaces)
+
+-- | The token for the next page of results.
+describeLocalGatewayVirtualInterfaces_nextToken :: Lens.Lens' DescribeLocalGatewayVirtualInterfaces (Prelude.Maybe Prelude.Text)
+describeLocalGatewayVirtualInterfaces_nextToken = Lens.lens (\DescribeLocalGatewayVirtualInterfaces' {nextToken} -> nextToken) (\s@DescribeLocalGatewayVirtualInterfaces' {} a -> s {nextToken = a} :: DescribeLocalGatewayVirtualInterfaces)
 
 instance
   Core.AWSPager
@@ -166,16 +224,17 @@ instance
     AWSResponse
       DescribeLocalGatewayVirtualInterfaces =
       DescribeLocalGatewayVirtualInterfacesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeLocalGatewayVirtualInterfacesResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-              Prelude.<*> ( x Core..@? "localGatewayVirtualInterfaceSet"
-                              Core..!@ Prelude.mempty
-                              Prelude.>>= Core.may (Core.parseXMLList "item")
-                          )
+            Prelude.<$> ( x Data..@? "localGatewayVirtualInterfaceSet"
+                            Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
+                        )
+              Prelude.<*> (x Data..@? "nextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -186,65 +245,65 @@ instance
   hashWithSalt
     _salt
     DescribeLocalGatewayVirtualInterfaces' {..} =
-      _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
+      _salt `Prelude.hashWithSalt` dryRun
+        `Prelude.hashWithSalt` filters
         `Prelude.hashWithSalt` localGatewayVirtualInterfaceIds
-        `Prelude.hashWithSalt` dryRun
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
 
 instance
   Prelude.NFData
     DescribeLocalGatewayVirtualInterfaces
   where
   rnf DescribeLocalGatewayVirtualInterfaces' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf localGatewayVirtualInterfaceIds
-      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeLocalGatewayVirtualInterfaces
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeLocalGatewayVirtualInterfaces
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeLocalGatewayVirtualInterfaces
   where
   toQuery DescribeLocalGatewayVirtualInterfaces' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeLocalGatewayVirtualInterfaces" ::
+          Data.=: ( "DescribeLocalGatewayVirtualInterfaces" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        Core.toQuery
-          ( Core.toQueryList "LocalGatewayVirtualInterfaceId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        Data.toQuery
+          ( Data.toQueryList "LocalGatewayVirtualInterfaceId"
               Prelude.<$> localGatewayVirtualInterfaceIds
           ),
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeLocalGatewayVirtualInterfacesResponse' smart constructor.
 data DescribeLocalGatewayVirtualInterfacesResponse = DescribeLocalGatewayVirtualInterfacesResponse'
-  { -- | The token to use to retrieve the next page of results. This value is
+  { -- | Information about the virtual interfaces.
+    localGatewayVirtualInterfaces :: Prelude.Maybe [LocalGatewayVirtualInterface],
+    -- | The token to use to retrieve the next page of results. This value is
     -- @null@ when there are no more results to return.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Information about the virtual interfaces.
-    localGatewayVirtualInterfaces :: Prelude.Maybe [LocalGatewayVirtualInterface],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -258,10 +317,10 @@ data DescribeLocalGatewayVirtualInterfacesResponse = DescribeLocalGatewayVirtual
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'localGatewayVirtualInterfaces', 'describeLocalGatewayVirtualInterfacesResponse_localGatewayVirtualInterfaces' - Information about the virtual interfaces.
+--
 -- 'nextToken', 'describeLocalGatewayVirtualInterfacesResponse_nextToken' - The token to use to retrieve the next page of results. This value is
 -- @null@ when there are no more results to return.
---
--- 'localGatewayVirtualInterfaces', 'describeLocalGatewayVirtualInterfacesResponse_localGatewayVirtualInterfaces' - Information about the virtual interfaces.
 --
 -- 'httpStatus', 'describeLocalGatewayVirtualInterfacesResponse_httpStatus' - The response's http status code.
 newDescribeLocalGatewayVirtualInterfacesResponse ::
@@ -271,21 +330,20 @@ newDescribeLocalGatewayVirtualInterfacesResponse ::
 newDescribeLocalGatewayVirtualInterfacesResponse
   pHttpStatus_ =
     DescribeLocalGatewayVirtualInterfacesResponse'
-      { nextToken =
+      { localGatewayVirtualInterfaces =
           Prelude.Nothing,
-        localGatewayVirtualInterfaces =
-          Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
+
+-- | Information about the virtual interfaces.
+describeLocalGatewayVirtualInterfacesResponse_localGatewayVirtualInterfaces :: Lens.Lens' DescribeLocalGatewayVirtualInterfacesResponse (Prelude.Maybe [LocalGatewayVirtualInterface])
+describeLocalGatewayVirtualInterfacesResponse_localGatewayVirtualInterfaces = Lens.lens (\DescribeLocalGatewayVirtualInterfacesResponse' {localGatewayVirtualInterfaces} -> localGatewayVirtualInterfaces) (\s@DescribeLocalGatewayVirtualInterfacesResponse' {} a -> s {localGatewayVirtualInterfaces = a} :: DescribeLocalGatewayVirtualInterfacesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to use to retrieve the next page of results. This value is
 -- @null@ when there are no more results to return.
 describeLocalGatewayVirtualInterfacesResponse_nextToken :: Lens.Lens' DescribeLocalGatewayVirtualInterfacesResponse (Prelude.Maybe Prelude.Text)
 describeLocalGatewayVirtualInterfacesResponse_nextToken = Lens.lens (\DescribeLocalGatewayVirtualInterfacesResponse' {nextToken} -> nextToken) (\s@DescribeLocalGatewayVirtualInterfacesResponse' {} a -> s {nextToken = a} :: DescribeLocalGatewayVirtualInterfacesResponse)
-
--- | Information about the virtual interfaces.
-describeLocalGatewayVirtualInterfacesResponse_localGatewayVirtualInterfaces :: Lens.Lens' DescribeLocalGatewayVirtualInterfacesResponse (Prelude.Maybe [LocalGatewayVirtualInterface])
-describeLocalGatewayVirtualInterfacesResponse_localGatewayVirtualInterfaces = Lens.lens (\DescribeLocalGatewayVirtualInterfacesResponse' {localGatewayVirtualInterfaces} -> localGatewayVirtualInterfaces) (\s@DescribeLocalGatewayVirtualInterfacesResponse' {} a -> s {localGatewayVirtualInterfaces = a} :: DescribeLocalGatewayVirtualInterfacesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeLocalGatewayVirtualInterfacesResponse_httpStatus :: Lens.Lens' DescribeLocalGatewayVirtualInterfacesResponse Prelude.Int
@@ -297,6 +355,6 @@ instance
   where
   rnf
     DescribeLocalGatewayVirtualInterfacesResponse' {..} =
-      Prelude.rnf nextToken
-        `Prelude.seq` Prelude.rnf localGatewayVirtualInterfaces
+      Prelude.rnf localGatewayVirtualInterfaces
+        `Prelude.seq` Prelude.rnf nextToken
         `Prelude.seq` Prelude.rnf httpStatus

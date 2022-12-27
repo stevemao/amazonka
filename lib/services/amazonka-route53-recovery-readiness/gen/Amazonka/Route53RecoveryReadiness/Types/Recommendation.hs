@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.Types.Recommendation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,17 @@
 module Amazonka.Route53RecoveryReadiness.Types.Recommendation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Guidance for improving Recovery Group resilliancy
+-- | Recommendations that are provided to make an application more recovery
+-- resilient.
 --
 -- /See:/ 'newRecommendation' smart constructor.
 data Recommendation = Recommendation'
-  { -- | Guidance text for recommendation
+  { -- | Text of the recommendations that are provided to make an application
+    -- more recovery resilient.
     recommendationText :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -40,7 +43,8 @@ data Recommendation = Recommendation'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'recommendationText', 'recommendation_recommendationText' - Guidance text for recommendation
+-- 'recommendationText', 'recommendation_recommendationText' - Text of the recommendations that are provided to make an application
+-- more recovery resilient.
 newRecommendation ::
   -- | 'recommendationText'
   Prelude.Text ->
@@ -51,17 +55,18 @@ newRecommendation pRecommendationText_ =
         pRecommendationText_
     }
 
--- | Guidance text for recommendation
+-- | Text of the recommendations that are provided to make an application
+-- more recovery resilient.
 recommendation_recommendationText :: Lens.Lens' Recommendation Prelude.Text
 recommendation_recommendationText = Lens.lens (\Recommendation' {recommendationText} -> recommendationText) (\s@Recommendation' {} a -> s {recommendationText = a} :: Recommendation)
 
-instance Core.FromJSON Recommendation where
+instance Data.FromJSON Recommendation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Recommendation"
       ( \x ->
           Recommendation'
-            Prelude.<$> (x Core..: "recommendationText")
+            Prelude.<$> (x Data..: "recommendationText")
       )
 
 instance Prelude.Hashable Recommendation where

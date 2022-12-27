@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.ActionTypeExecutor
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CodePipeline.Types.ActionTypeExecutor where
 import Amazonka.CodePipeline.Types.ExecutorConfiguration
 import Amazonka.CodePipeline.Types.ExecutorType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The action engine, or executor, for an action type created for a
@@ -127,16 +128,16 @@ actionTypeExecutor_configuration = Lens.lens (\ActionTypeExecutor' {configuratio
 actionTypeExecutor_type :: Lens.Lens' ActionTypeExecutor ExecutorType
 actionTypeExecutor_type = Lens.lens (\ActionTypeExecutor' {type'} -> type') (\s@ActionTypeExecutor' {} a -> s {type' = a} :: ActionTypeExecutor)
 
-instance Core.FromJSON ActionTypeExecutor where
+instance Data.FromJSON ActionTypeExecutor where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActionTypeExecutor"
       ( \x ->
           ActionTypeExecutor'
-            Prelude.<$> (x Core..:? "jobTimeout")
-            Prelude.<*> (x Core..:? "policyStatementsTemplate")
-            Prelude.<*> (x Core..: "configuration")
-            Prelude.<*> (x Core..: "type")
+            Prelude.<$> (x Data..:? "jobTimeout")
+            Prelude.<*> (x Data..:? "policyStatementsTemplate")
+            Prelude.<*> (x Data..: "configuration")
+            Prelude.<*> (x Data..: "type")
       )
 
 instance Prelude.Hashable ActionTypeExecutor where
@@ -153,14 +154,14 @@ instance Prelude.NFData ActionTypeExecutor where
       `Prelude.seq` Prelude.rnf configuration
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON ActionTypeExecutor where
+instance Data.ToJSON ActionTypeExecutor where
   toJSON ActionTypeExecutor' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("jobTimeout" Core..=) Prelude.<$> jobTimeout,
-            ("policyStatementsTemplate" Core..=)
+          [ ("jobTimeout" Data..=) Prelude.<$> jobTimeout,
+            ("policyStatementsTemplate" Data..=)
               Prelude.<$> policyStatementsTemplate,
-            Prelude.Just ("configuration" Core..= configuration),
-            Prelude.Just ("type" Core..= type')
+            Prelude.Just ("configuration" Data..= configuration),
+            Prelude.Just ("type" Data..= type')
           ]
       )

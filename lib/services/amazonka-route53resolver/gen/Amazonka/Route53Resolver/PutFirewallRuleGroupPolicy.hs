@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.PutFirewallRuleGroupPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.Route53Resolver.PutFirewallRuleGroupPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,12 +103,13 @@ instance Core.AWSRequest PutFirewallRuleGroupPolicy where
   type
     AWSResponse PutFirewallRuleGroupPolicy =
       PutFirewallRuleGroupPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutFirewallRuleGroupPolicyResponse'
-            Prelude.<$> (x Core..?> "ReturnValue")
+            Prelude.<$> (x Data..?> "ReturnValue")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,37 +123,37 @@ instance Prelude.NFData PutFirewallRuleGroupPolicy where
     Prelude.rnf arn
       `Prelude.seq` Prelude.rnf firewallRuleGroupPolicy
 
-instance Core.ToHeaders PutFirewallRuleGroupPolicy where
+instance Data.ToHeaders PutFirewallRuleGroupPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Resolver.PutFirewallRuleGroupPolicy" ::
+              Data.=# ( "Route53Resolver.PutFirewallRuleGroupPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutFirewallRuleGroupPolicy where
+instance Data.ToJSON PutFirewallRuleGroupPolicy where
   toJSON PutFirewallRuleGroupPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Arn" Core..= arn),
+          [ Prelude.Just ("Arn" Data..= arn),
             Prelude.Just
               ( "FirewallRuleGroupPolicy"
-                  Core..= firewallRuleGroupPolicy
+                  Data..= firewallRuleGroupPolicy
               )
           ]
       )
 
-instance Core.ToPath PutFirewallRuleGroupPolicy where
+instance Data.ToPath PutFirewallRuleGroupPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutFirewallRuleGroupPolicy where
+instance Data.ToQuery PutFirewallRuleGroupPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutFirewallRuleGroupPolicyResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.Types.ResourceARNDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.XRay.Types.ResourceARNDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of resources ARNs corresponding to the segments in a trace.
@@ -50,12 +51,12 @@ newResourceARNDetail =
 resourceARNDetail_arn :: Lens.Lens' ResourceARNDetail (Prelude.Maybe Prelude.Text)
 resourceARNDetail_arn = Lens.lens (\ResourceARNDetail' {arn} -> arn) (\s@ResourceARNDetail' {} a -> s {arn = a} :: ResourceARNDetail)
 
-instance Core.FromJSON ResourceARNDetail where
+instance Data.FromJSON ResourceARNDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceARNDetail"
       ( \x ->
-          ResourceARNDetail' Prelude.<$> (x Core..:? "ARN")
+          ResourceARNDetail' Prelude.<$> (x Data..:? "ARN")
       )
 
 instance Prelude.Hashable ResourceARNDetail where

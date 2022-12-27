@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.UpdateContactChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.SSMContacts.UpdateContactChannel
     newUpdateContactChannel,
 
     -- * Request Lenses
-    updateContactChannel_name,
     updateContactChannel_deliveryAddress,
+    updateContactChannel_name,
     updateContactChannel_contactChannelId,
 
     -- * Destructuring the Response
@@ -41,7 +41,8 @@ module Amazonka.SSMContacts.UpdateContactChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,11 +50,11 @@ import Amazonka.SSMContacts.Types
 
 -- | /See:/ 'newUpdateContactChannel' smart constructor.
 data UpdateContactChannel = UpdateContactChannel'
-  { -- | The name of the contact channel.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The details that Incident Manager uses when trying to engage the contact
+  { -- | The details that Incident Manager uses when trying to engage the contact
     -- channel.
     deliveryAddress :: Prelude.Maybe ContactChannelAddress,
+    -- | The name of the contact channel.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the contact channel you want to
     -- update.
     contactChannelId :: Prelude.Text
@@ -68,10 +69,10 @@ data UpdateContactChannel = UpdateContactChannel'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'updateContactChannel_name' - The name of the contact channel.
---
 -- 'deliveryAddress', 'updateContactChannel_deliveryAddress' - The details that Incident Manager uses when trying to engage the contact
 -- channel.
+--
+-- 'name', 'updateContactChannel_name' - The name of the contact channel.
 --
 -- 'contactChannelId', 'updateContactChannel_contactChannelId' - The Amazon Resource Name (ARN) of the contact channel you want to
 -- update.
@@ -81,19 +82,20 @@ newUpdateContactChannel ::
   UpdateContactChannel
 newUpdateContactChannel pContactChannelId_ =
   UpdateContactChannel'
-    { name = Prelude.Nothing,
-      deliveryAddress = Prelude.Nothing,
+    { deliveryAddress =
+        Prelude.Nothing,
+      name = Prelude.Nothing,
       contactChannelId = pContactChannelId_
     }
-
--- | The name of the contact channel.
-updateContactChannel_name :: Lens.Lens' UpdateContactChannel (Prelude.Maybe Prelude.Text)
-updateContactChannel_name = Lens.lens (\UpdateContactChannel' {name} -> name) (\s@UpdateContactChannel' {} a -> s {name = a} :: UpdateContactChannel)
 
 -- | The details that Incident Manager uses when trying to engage the contact
 -- channel.
 updateContactChannel_deliveryAddress :: Lens.Lens' UpdateContactChannel (Prelude.Maybe ContactChannelAddress)
 updateContactChannel_deliveryAddress = Lens.lens (\UpdateContactChannel' {deliveryAddress} -> deliveryAddress) (\s@UpdateContactChannel' {} a -> s {deliveryAddress = a} :: UpdateContactChannel)
+
+-- | The name of the contact channel.
+updateContactChannel_name :: Lens.Lens' UpdateContactChannel (Prelude.Maybe Prelude.Text)
+updateContactChannel_name = Lens.lens (\UpdateContactChannel' {name} -> name) (\s@UpdateContactChannel' {} a -> s {name = a} :: UpdateContactChannel)
 
 -- | The Amazon Resource Name (ARN) of the contact channel you want to
 -- update.
@@ -104,7 +106,8 @@ instance Core.AWSRequest UpdateContactChannel where
   type
     AWSResponse UpdateContactChannel =
       UpdateContactChannelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,47 +117,47 @@ instance Core.AWSRequest UpdateContactChannel where
 
 instance Prelude.Hashable UpdateContactChannel where
   hashWithSalt _salt UpdateContactChannel' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` deliveryAddress
+    _salt `Prelude.hashWithSalt` deliveryAddress
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` contactChannelId
 
 instance Prelude.NFData UpdateContactChannel where
   rnf UpdateContactChannel' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf deliveryAddress
+    Prelude.rnf deliveryAddress
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf contactChannelId
 
-instance Core.ToHeaders UpdateContactChannel where
+instance Data.ToHeaders UpdateContactChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SSMContacts.UpdateContactChannel" ::
+              Data.=# ( "SSMContacts.UpdateContactChannel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateContactChannel where
+instance Data.ToJSON UpdateContactChannel where
   toJSON UpdateContactChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Name" Core..=) Prelude.<$> name,
-            ("DeliveryAddress" Core..=)
+          [ ("DeliveryAddress" Data..=)
               Prelude.<$> deliveryAddress,
+            ("Name" Data..=) Prelude.<$> name,
             Prelude.Just
-              ("ContactChannelId" Core..= contactChannelId)
+              ("ContactChannelId" Data..= contactChannelId)
           ]
       )
 
-instance Core.ToPath UpdateContactChannel where
+instance Data.ToPath UpdateContactChannel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateContactChannel where
+instance Data.ToQuery UpdateContactChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateContactChannelResponse' smart constructor.

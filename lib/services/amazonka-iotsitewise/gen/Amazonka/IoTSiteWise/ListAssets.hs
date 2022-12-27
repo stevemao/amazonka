@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.ListAssets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,9 +42,9 @@ module Amazonka.IoTSiteWise.ListAssets
 
     -- * Request Lenses
     listAssets_assetModelId,
-    listAssets_nextToken,
     listAssets_filter,
     listAssets_maxResults,
+    listAssets_nextToken,
 
     -- * Destructuring the Response
     ListAssetsResponse (..),
@@ -58,8 +58,9 @@ module Amazonka.IoTSiteWise.ListAssets
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,8 +70,6 @@ data ListAssets = ListAssets'
   { -- | The ID of the asset model by which to filter the list of assets. This
     -- parameter is required if you choose @ALL@ for @filter@.
     assetModelId :: Prelude.Maybe Prelude.Text,
-    -- | The token to be used for the next set of paginated results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The filter for the requested list of assets. Choose one of the following
     -- options:
     --
@@ -85,7 +84,9 @@ data ListAssets = ListAssets'
     -- | The maximum number of results to return for each paginated request.
     --
     -- Default: 50
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to be used for the next set of paginated results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -99,8 +100,6 @@ data ListAssets = ListAssets'
 --
 -- 'assetModelId', 'listAssets_assetModelId' - The ID of the asset model by which to filter the list of assets. This
 -- parameter is required if you choose @ALL@ for @filter@.
---
--- 'nextToken', 'listAssets_nextToken' - The token to be used for the next set of paginated results.
 --
 -- 'filter'', 'listAssets_filter' - The filter for the requested list of assets. Choose one of the following
 -- options:
@@ -116,24 +115,22 @@ data ListAssets = ListAssets'
 -- 'maxResults', 'listAssets_maxResults' - The maximum number of results to return for each paginated request.
 --
 -- Default: 50
+--
+-- 'nextToken', 'listAssets_nextToken' - The token to be used for the next set of paginated results.
 newListAssets ::
   ListAssets
 newListAssets =
   ListAssets'
     { assetModelId = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       filter' = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | The ID of the asset model by which to filter the list of assets. This
 -- parameter is required if you choose @ALL@ for @filter@.
 listAssets_assetModelId :: Lens.Lens' ListAssets (Prelude.Maybe Prelude.Text)
 listAssets_assetModelId = Lens.lens (\ListAssets' {assetModelId} -> assetModelId) (\s@ListAssets' {} a -> s {assetModelId = a} :: ListAssets)
-
--- | The token to be used for the next set of paginated results.
-listAssets_nextToken :: Lens.Lens' ListAssets (Prelude.Maybe Prelude.Text)
-listAssets_nextToken = Lens.lens (\ListAssets' {nextToken} -> nextToken) (\s@ListAssets' {} a -> s {nextToken = a} :: ListAssets)
 
 -- | The filter for the requested list of assets. Choose one of the following
 -- options:
@@ -154,6 +151,10 @@ listAssets_filter = Lens.lens (\ListAssets' {filter'} -> filter') (\s@ListAssets
 listAssets_maxResults :: Lens.Lens' ListAssets (Prelude.Maybe Prelude.Natural)
 listAssets_maxResults = Lens.lens (\ListAssets' {maxResults} -> maxResults) (\s@ListAssets' {} a -> s {maxResults = a} :: ListAssets)
 
+-- | The token to be used for the next set of paginated results.
+listAssets_nextToken :: Lens.Lens' ListAssets (Prelude.Maybe Prelude.Text)
+listAssets_nextToken = Lens.lens (\ListAssets' {nextToken} -> nextToken) (\s@ListAssets' {} a -> s {nextToken = a} :: ListAssets)
+
 instance Core.AWSPager ListAssets where
   page rq rs
     | Core.stop
@@ -173,14 +174,15 @@ instance Core.AWSPager ListAssets where
 
 instance Core.AWSRequest ListAssets where
   type AWSResponse ListAssets = ListAssetsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAssetsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "assetSummaries"
+            Prelude.<*> ( x Data..?> "assetSummaries"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -188,38 +190,38 @@ instance Core.AWSRequest ListAssets where
 instance Prelude.Hashable ListAssets where
   hashWithSalt _salt ListAssets' {..} =
     _salt `Prelude.hashWithSalt` assetModelId
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListAssets where
   rnf ListAssets' {..} =
     Prelude.rnf assetModelId
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListAssets where
+instance Data.ToHeaders ListAssets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListAssets where
+instance Data.ToPath ListAssets where
   toPath = Prelude.const "/assets"
 
-instance Core.ToQuery ListAssets where
+instance Data.ToQuery ListAssets where
   toQuery ListAssets' {..} =
     Prelude.mconcat
-      [ "assetModelId" Core.=: assetModelId,
-        "nextToken" Core.=: nextToken,
-        "filter" Core.=: filter',
-        "maxResults" Core.=: maxResults
+      [ "assetModelId" Data.=: assetModelId,
+        "filter" Data.=: filter',
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListAssetsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.StopTrigger
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Glue.StopTrigger
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,12 +75,13 @@ stopTrigger_name = Lens.lens (\StopTrigger' {name} -> name) (\s@StopTrigger' {} 
 
 instance Core.AWSRequest StopTrigger where
   type AWSResponse StopTrigger = StopTriggerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StopTriggerResponse'
-            Prelude.<$> (x Core..?> "Name")
+            Prelude.<$> (x Data..?> "Name")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -90,30 +92,30 @@ instance Prelude.Hashable StopTrigger where
 instance Prelude.NFData StopTrigger where
   rnf StopTrigger' {..} = Prelude.rnf name
 
-instance Core.ToHeaders StopTrigger where
+instance Data.ToHeaders StopTrigger where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.StopTrigger" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.StopTrigger" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopTrigger where
+instance Data.ToJSON StopTrigger where
   toJSON StopTrigger' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath StopTrigger where
+instance Data.ToPath StopTrigger where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopTrigger where
+instance Data.ToQuery StopTrigger where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopTriggerResponse' smart constructor.

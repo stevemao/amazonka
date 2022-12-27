@@ -14,15 +14,13 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.GetComponent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the recipe for a version of a component. Core devices can call this
--- operation to identify the artifacts and requirements to install a
--- component.
+-- Gets the recipe for a version of a component.
 module Amazonka.GreengrassV2.GetComponent
   ( -- * Creating a Request
     GetComponent (..),
@@ -45,8 +43,9 @@ module Amazonka.GreengrassV2.GetComponent
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,15 +96,16 @@ getComponent_arn = Lens.lens (\GetComponent' {arn} -> arn) (\s@GetComponent' {} 
 
 instance Core.AWSRequest GetComponent where
   type AWSResponse GetComponent = GetComponentResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetComponentResponse'
-            Prelude.<$> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "recipeOutputFormat")
-            Prelude.<*> (x Core..:> "recipe")
+            Prelude.<*> (x Data..:> "recipeOutputFormat")
+            Prelude.<*> (x Data..:> "recipe")
       )
 
 instance Prelude.Hashable GetComponent where
@@ -118,26 +118,18 @@ instance Prelude.NFData GetComponent where
     Prelude.rnf recipeOutputFormat
       `Prelude.seq` Prelude.rnf arn
 
-instance Core.ToHeaders GetComponent where
-  toHeaders =
-    Prelude.const
-      ( Prelude.mconcat
-          [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
-                          Prelude.ByteString
-                      )
-          ]
-      )
+instance Data.ToHeaders GetComponent where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetComponent where
+instance Data.ToPath GetComponent where
   toPath GetComponent' {..} =
     Prelude.mconcat
-      ["/greengrass/v2/components/", Core.toBS arn]
+      ["/greengrass/v2/components/", Data.toBS arn]
 
-instance Core.ToQuery GetComponent where
+instance Data.ToQuery GetComponent where
   toQuery GetComponent' {..} =
     Prelude.mconcat
-      ["recipeOutputFormat" Core.=: recipeOutputFormat]
+      ["recipeOutputFormat" Data.=: recipeOutputFormat]
 
 -- | /See:/ 'newGetComponentResponse' smart constructor.
 data GetComponentResponse = GetComponentResponse'
@@ -151,7 +143,7 @@ data GetComponentResponse = GetComponentResponse'
     -- | The format of the recipe.
     recipeOutputFormat :: RecipeOutputFormat,
     -- | The recipe of the component version.
-    recipe :: Core.Base64
+    recipe :: Data.Base64
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -193,7 +185,7 @@ newGetComponentResponse
       { tags = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         recipeOutputFormat = pRecipeOutputFormat_,
-        recipe = Core._Base64 Lens.# pRecipe_
+        recipe = Data._Base64 Lens.# pRecipe_
       }
 
 -- | A list of key-value pairs that contain metadata for the resource. For
@@ -217,7 +209,7 @@ getComponentResponse_recipeOutputFormat = Lens.lens (\GetComponentResponse' {rec
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 getComponentResponse_recipe :: Lens.Lens' GetComponentResponse Prelude.ByteString
-getComponentResponse_recipe = Lens.lens (\GetComponentResponse' {recipe} -> recipe) (\s@GetComponentResponse' {} a -> s {recipe = a} :: GetComponentResponse) Prelude.. Core._Base64
+getComponentResponse_recipe = Lens.lens (\GetComponentResponse' {recipe} -> recipe) (\s@GetComponentResponse' {} a -> s {recipe = a} :: GetComponentResponse) Prelude.. Data._Base64
 
 instance Prelude.NFData GetComponentResponse where
   rnf GetComponentResponse' {..} =

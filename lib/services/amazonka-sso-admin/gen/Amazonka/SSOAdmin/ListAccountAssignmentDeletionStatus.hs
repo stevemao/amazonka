@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.ListAccountAssignmentDeletionStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the status of the Amazon Web Services account assignment deletion
--- requests for a specified SSO instance.
+-- Lists the status of the AWS account assignment deletion requests for a
+-- specified IAM Identity Center instance.
 --
 -- This operation returns paginated results.
 module Amazonka.SSOAdmin.ListAccountAssignmentDeletionStatus
@@ -30,9 +30,9 @@ module Amazonka.SSOAdmin.ListAccountAssignmentDeletionStatus
     newListAccountAssignmentDeletionStatus,
 
     -- * Request Lenses
-    listAccountAssignmentDeletionStatus_nextToken,
     listAccountAssignmentDeletionStatus_filter,
     listAccountAssignmentDeletionStatus_maxResults,
+    listAccountAssignmentDeletionStatus_nextToken,
     listAccountAssignmentDeletionStatus_instanceArn,
 
     -- * Destructuring the Response
@@ -47,7 +47,8 @@ module Amazonka.SSOAdmin.ListAccountAssignmentDeletionStatus
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,17 +56,17 @@ import Amazonka.SSOAdmin.Types
 
 -- | /See:/ 'newListAccountAssignmentDeletionStatus' smart constructor.
 data ListAccountAssignmentDeletionStatus = ListAccountAssignmentDeletionStatus'
-  { -- | The pagination token for the list API. Initially the value is null. Use
-    -- the output of previous API calls to make subsequent calls.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Filters results based on the passed attribute value.
+  { -- | Filters results based on the passed attribute value.
     filter' :: Prelude.Maybe OperationStatusFilter,
     -- | The maximum number of results to display for the assignment.
     maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The ARN of the SSO instance under which the operation will be executed.
-    -- For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
+    -- | The pagination token for the list API. Initially the value is null. Use
+    -- the output of previous API calls to make subsequent calls.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
     instanceArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -78,34 +79,29 @@ data ListAccountAssignmentDeletionStatus = ListAccountAssignmentDeletionStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listAccountAssignmentDeletionStatus_nextToken' - The pagination token for the list API. Initially the value is null. Use
--- the output of previous API calls to make subsequent calls.
---
 -- 'filter'', 'listAccountAssignmentDeletionStatus_filter' - Filters results based on the passed attribute value.
 --
 -- 'maxResults', 'listAccountAssignmentDeletionStatus_maxResults' - The maximum number of results to display for the assignment.
 --
--- 'instanceArn', 'listAccountAssignmentDeletionStatus_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- 'nextToken', 'listAccountAssignmentDeletionStatus_nextToken' - The pagination token for the list API. Initially the value is null. Use
+-- the output of previous API calls to make subsequent calls.
+--
+-- 'instanceArn', 'listAccountAssignmentDeletionStatus_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 newListAccountAssignmentDeletionStatus ::
   -- | 'instanceArn'
   Prelude.Text ->
   ListAccountAssignmentDeletionStatus
 newListAccountAssignmentDeletionStatus pInstanceArn_ =
   ListAccountAssignmentDeletionStatus'
-    { nextToken =
+    { filter' =
         Prelude.Nothing,
-      filter' = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       instanceArn = pInstanceArn_
     }
-
--- | The pagination token for the list API. Initially the value is null. Use
--- the output of previous API calls to make subsequent calls.
-listAccountAssignmentDeletionStatus_nextToken :: Lens.Lens' ListAccountAssignmentDeletionStatus (Prelude.Maybe Prelude.Text)
-listAccountAssignmentDeletionStatus_nextToken = Lens.lens (\ListAccountAssignmentDeletionStatus' {nextToken} -> nextToken) (\s@ListAccountAssignmentDeletionStatus' {} a -> s {nextToken = a} :: ListAccountAssignmentDeletionStatus)
 
 -- | Filters results based on the passed attribute value.
 listAccountAssignmentDeletionStatus_filter :: Lens.Lens' ListAccountAssignmentDeletionStatus (Prelude.Maybe OperationStatusFilter)
@@ -115,10 +111,15 @@ listAccountAssignmentDeletionStatus_filter = Lens.lens (\ListAccountAssignmentDe
 listAccountAssignmentDeletionStatus_maxResults :: Lens.Lens' ListAccountAssignmentDeletionStatus (Prelude.Maybe Prelude.Natural)
 listAccountAssignmentDeletionStatus_maxResults = Lens.lens (\ListAccountAssignmentDeletionStatus' {maxResults} -> maxResults) (\s@ListAccountAssignmentDeletionStatus' {} a -> s {maxResults = a} :: ListAccountAssignmentDeletionStatus)
 
--- | The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- | The pagination token for the list API. Initially the value is null. Use
+-- the output of previous API calls to make subsequent calls.
+listAccountAssignmentDeletionStatus_nextToken :: Lens.Lens' ListAccountAssignmentDeletionStatus (Prelude.Maybe Prelude.Text)
+listAccountAssignmentDeletionStatus_nextToken = Lens.lens (\ListAccountAssignmentDeletionStatus' {nextToken} -> nextToken) (\s@ListAccountAssignmentDeletionStatus' {} a -> s {nextToken = a} :: ListAccountAssignmentDeletionStatus)
+
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 listAccountAssignmentDeletionStatus_instanceArn :: Lens.Lens' ListAccountAssignmentDeletionStatus Prelude.Text
 listAccountAssignmentDeletionStatus_instanceArn = Lens.lens (\ListAccountAssignmentDeletionStatus' {instanceArn} -> instanceArn) (\s@ListAccountAssignmentDeletionStatus' {} a -> s {instanceArn = a} :: ListAccountAssignmentDeletionStatus)
 
@@ -154,15 +155,16 @@ instance
   type
     AWSResponse ListAccountAssignmentDeletionStatus =
       ListAccountAssignmentDeletionStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAccountAssignmentDeletionStatusResponse'
-            Prelude.<$> ( x Core..?> "AccountAssignmentsDeletionStatus"
+            Prelude.<$> ( x Data..?> "AccountAssignmentsDeletionStatus"
                             Core..!@ Prelude.mempty
                         )
-              Prelude.<*> (x Core..?> "NextToken")
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -173,9 +175,9 @@ instance
   hashWithSalt
     _salt
     ListAccountAssignmentDeletionStatus' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` filter'
+      _salt `Prelude.hashWithSalt` filter'
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` instanceArn
 
 instance
@@ -183,51 +185,51 @@ instance
     ListAccountAssignmentDeletionStatus
   where
   rnf ListAccountAssignmentDeletionStatus' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf instanceArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListAccountAssignmentDeletionStatus
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.ListAccountAssignmentDeletionStatus" ::
+              Data.=# ( "SWBExternalService.ListAccountAssignmentDeletionStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ListAccountAssignmentDeletionStatus
   where
   toJSON ListAccountAssignmentDeletionStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Filter" Core..=) Prelude.<$> filter',
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("InstanceArn" Core..= instanceArn)
+          [ ("Filter" Data..=) Prelude.<$> filter',
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("InstanceArn" Data..= instanceArn)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListAccountAssignmentDeletionStatus
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListAccountAssignmentDeletionStatus
   where
   toQuery = Prelude.const Prelude.mempty

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.DeleteToken
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.LicenseManager.DeleteToken
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -74,7 +75,8 @@ deleteToken_tokenId = Lens.lens (\DeleteToken' {tokenId} -> tokenId) (\s@DeleteT
 
 instance Core.AWSRequest DeleteToken where
   type AWSResponse DeleteToken = DeleteTokenResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -89,32 +91,32 @@ instance Prelude.Hashable DeleteToken where
 instance Prelude.NFData DeleteToken where
   rnf DeleteToken' {..} = Prelude.rnf tokenId
 
-instance Core.ToHeaders DeleteToken where
+instance Data.ToHeaders DeleteToken where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLicenseManager.DeleteToken" ::
+              Data.=# ( "AWSLicenseManager.DeleteToken" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteToken where
+instance Data.ToJSON DeleteToken where
   toJSON DeleteToken' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("TokenId" Core..= tokenId)]
+          [Prelude.Just ("TokenId" Data..= tokenId)]
       )
 
-instance Core.ToPath DeleteToken where
+instance Data.ToPath DeleteToken where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteToken where
+instance Data.ToQuery DeleteToken where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteTokenResponse' smart constructor.

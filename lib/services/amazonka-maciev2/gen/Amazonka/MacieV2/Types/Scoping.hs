@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.Scoping
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.Scoping where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.JobScopingBlock
 import qualified Amazonka.Prelude as Prelude
 
@@ -31,11 +32,11 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newScoping' smart constructor.
 data Scoping = Scoping'
   { -- | The property- and tag-based conditions that determine which objects to
-    -- include in the analysis.
-    includes :: Prelude.Maybe JobScopingBlock,
-    -- | The property- and tag-based conditions that determine which objects to
     -- exclude from the analysis.
-    excludes :: Prelude.Maybe JobScopingBlock
+    excludes :: Prelude.Maybe JobScopingBlock,
+    -- | The property- and tag-based conditions that determine which objects to
+    -- include in the analysis.
+    includes :: Prelude.Maybe JobScopingBlock
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,54 +48,54 @@ data Scoping = Scoping'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'includes', 'scoping_includes' - The property- and tag-based conditions that determine which objects to
--- include in the analysis.
---
 -- 'excludes', 'scoping_excludes' - The property- and tag-based conditions that determine which objects to
 -- exclude from the analysis.
+--
+-- 'includes', 'scoping_includes' - The property- and tag-based conditions that determine which objects to
+-- include in the analysis.
 newScoping ::
   Scoping
 newScoping =
   Scoping'
-    { includes = Prelude.Nothing,
-      excludes = Prelude.Nothing
+    { excludes = Prelude.Nothing,
+      includes = Prelude.Nothing
     }
-
--- | The property- and tag-based conditions that determine which objects to
--- include in the analysis.
-scoping_includes :: Lens.Lens' Scoping (Prelude.Maybe JobScopingBlock)
-scoping_includes = Lens.lens (\Scoping' {includes} -> includes) (\s@Scoping' {} a -> s {includes = a} :: Scoping)
 
 -- | The property- and tag-based conditions that determine which objects to
 -- exclude from the analysis.
 scoping_excludes :: Lens.Lens' Scoping (Prelude.Maybe JobScopingBlock)
 scoping_excludes = Lens.lens (\Scoping' {excludes} -> excludes) (\s@Scoping' {} a -> s {excludes = a} :: Scoping)
 
-instance Core.FromJSON Scoping where
+-- | The property- and tag-based conditions that determine which objects to
+-- include in the analysis.
+scoping_includes :: Lens.Lens' Scoping (Prelude.Maybe JobScopingBlock)
+scoping_includes = Lens.lens (\Scoping' {includes} -> includes) (\s@Scoping' {} a -> s {includes = a} :: Scoping)
+
+instance Data.FromJSON Scoping where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Scoping"
       ( \x ->
           Scoping'
-            Prelude.<$> (x Core..:? "includes")
-            Prelude.<*> (x Core..:? "excludes")
+            Prelude.<$> (x Data..:? "excludes")
+            Prelude.<*> (x Data..:? "includes")
       )
 
 instance Prelude.Hashable Scoping where
   hashWithSalt _salt Scoping' {..} =
-    _salt `Prelude.hashWithSalt` includes
-      `Prelude.hashWithSalt` excludes
+    _salt `Prelude.hashWithSalt` excludes
+      `Prelude.hashWithSalt` includes
 
 instance Prelude.NFData Scoping where
   rnf Scoping' {..} =
-    Prelude.rnf includes
-      `Prelude.seq` Prelude.rnf excludes
+    Prelude.rnf excludes
+      `Prelude.seq` Prelude.rnf includes
 
-instance Core.ToJSON Scoping where
+instance Data.ToJSON Scoping where
   toJSON Scoping' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("includes" Core..=) Prelude.<$> includes,
-            ("excludes" Core..=) Prelude.<$> excludes
+          [ ("excludes" Data..=) Prelude.<$> excludes,
+            ("includes" Data..=) Prelude.<$> includes
           ]
       )

@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,23 +29,14 @@ module Amazonka.SSMContacts
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
-
-    -- ** DataEncryptionException
-    _DataEncryptionException,
 
     -- ** ConflictException
     _ConflictException,
 
-    -- ** ServiceQuotaExceededException
-    _ServiceQuotaExceededException,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
+    -- ** DataEncryptionException
+    _DataEncryptionException,
 
     -- ** InternalServerException
     _InternalServerException,
@@ -53,53 +44,20 @@ module Amazonka.SSMContacts
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
+    -- ** ServiceQuotaExceededException
+    _ServiceQuotaExceededException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** ValidationException
+    _ValidationException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** ListPagesByEngagement (Paginated)
-    ListPagesByEngagement (ListPagesByEngagement'),
-    newListPagesByEngagement,
-    ListPagesByEngagementResponse (ListPagesByEngagementResponse'),
-    newListPagesByEngagementResponse,
-
-    -- ** ListEngagements (Paginated)
-    ListEngagements (ListEngagements'),
-    newListEngagements,
-    ListEngagementsResponse (ListEngagementsResponse'),
-    newListEngagementsResponse,
-
-    -- ** ListContactChannels (Paginated)
-    ListContactChannels (ListContactChannels'),
-    newListContactChannels,
-    ListContactChannelsResponse (ListContactChannelsResponse'),
-    newListContactChannelsResponse,
-
-    -- ** ActivateContactChannel
-    ActivateContactChannel (ActivateContactChannel'),
-    newActivateContactChannel,
-    ActivateContactChannelResponse (ActivateContactChannelResponse'),
-    newActivateContactChannelResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** StartEngagement
-    StartEngagement (StartEngagement'),
-    newStartEngagement,
-    StartEngagementResponse (StartEngagementResponse'),
-    newStartEngagementResponse,
-
-    -- ** DeactivateContactChannel
-    DeactivateContactChannel (DeactivateContactChannel'),
-    newDeactivateContactChannel,
-    DeactivateContactChannelResponse (DeactivateContactChannelResponse'),
-    newDeactivateContactChannelResponse,
 
     -- ** AcceptPage
     AcceptPage (AcceptPage'),
@@ -107,35 +65,11 @@ module Amazonka.SSMContacts
     AcceptPageResponse (AcceptPageResponse'),
     newAcceptPageResponse,
 
-    -- ** ListPageReceipts (Paginated)
-    ListPageReceipts (ListPageReceipts'),
-    newListPageReceipts,
-    ListPageReceiptsResponse (ListPageReceiptsResponse'),
-    newListPageReceiptsResponse,
-
-    -- ** GetContact
-    GetContact (GetContact'),
-    newGetContact,
-    GetContactResponse (GetContactResponse'),
-    newGetContactResponse,
-
-    -- ** DescribePage
-    DescribePage (DescribePage'),
-    newDescribePage,
-    DescribePageResponse (DescribePageResponse'),
-    newDescribePageResponse,
-
-    -- ** DeleteContact
-    DeleteContact (DeleteContact'),
-    newDeleteContact,
-    DeleteContactResponse (DeleteContactResponse'),
-    newDeleteContactResponse,
-
-    -- ** UpdateContact
-    UpdateContact (UpdateContact'),
-    newUpdateContact,
-    UpdateContactResponse (UpdateContactResponse'),
-    newUpdateContactResponse,
+    -- ** ActivateContactChannel
+    ActivateContactChannel (ActivateContactChannel'),
+    newActivateContactChannel,
+    ActivateContactChannelResponse (ActivateContactChannelResponse'),
+    newActivateContactChannelResponse,
 
     -- ** CreateContact
     CreateContact (CreateContact'),
@@ -149,17 +83,41 @@ module Amazonka.SSMContacts
     CreateContactChannelResponse (CreateContactChannelResponse'),
     newCreateContactChannelResponse,
 
+    -- ** DeactivateContactChannel
+    DeactivateContactChannel (DeactivateContactChannel'),
+    newDeactivateContactChannel,
+    DeactivateContactChannelResponse (DeactivateContactChannelResponse'),
+    newDeactivateContactChannelResponse,
+
+    -- ** DeleteContact
+    DeleteContact (DeleteContact'),
+    newDeleteContact,
+    DeleteContactResponse (DeleteContactResponse'),
+    newDeleteContactResponse,
+
     -- ** DeleteContactChannel
     DeleteContactChannel (DeleteContactChannel'),
     newDeleteContactChannel,
     DeleteContactChannelResponse (DeleteContactChannelResponse'),
     newDeleteContactChannelResponse,
 
-    -- ** UpdateContactChannel
-    UpdateContactChannel (UpdateContactChannel'),
-    newUpdateContactChannel,
-    UpdateContactChannelResponse (UpdateContactChannelResponse'),
-    newUpdateContactChannelResponse,
+    -- ** DescribeEngagement
+    DescribeEngagement (DescribeEngagement'),
+    newDescribeEngagement,
+    DescribeEngagementResponse (DescribeEngagementResponse'),
+    newDescribeEngagementResponse,
+
+    -- ** DescribePage
+    DescribePage (DescribePage'),
+    newDescribePage,
+    DescribePageResponse (DescribePageResponse'),
+    newDescribePageResponse,
+
+    -- ** GetContact
+    GetContact (GetContact'),
+    newGetContact,
+    GetContactResponse (GetContactResponse'),
+    newGetContactResponse,
 
     -- ** GetContactChannel
     GetContactChannel (GetContactChannel'),
@@ -167,23 +125,77 @@ module Amazonka.SSMContacts
     GetContactChannelResponse (GetContactChannelResponse'),
     newGetContactChannelResponse,
 
+    -- ** GetContactPolicy
+    GetContactPolicy (GetContactPolicy'),
+    newGetContactPolicy,
+    GetContactPolicyResponse (GetContactPolicyResponse'),
+    newGetContactPolicyResponse,
+
+    -- ** ListContactChannels (Paginated)
+    ListContactChannels (ListContactChannels'),
+    newListContactChannels,
+    ListContactChannelsResponse (ListContactChannelsResponse'),
+    newListContactChannelsResponse,
+
+    -- ** ListContacts (Paginated)
+    ListContacts (ListContacts'),
+    newListContacts,
+    ListContactsResponse (ListContactsResponse'),
+    newListContactsResponse,
+
+    -- ** ListEngagements (Paginated)
+    ListEngagements (ListEngagements'),
+    newListEngagements,
+    ListEngagementsResponse (ListEngagementsResponse'),
+    newListEngagementsResponse,
+
+    -- ** ListPageReceipts (Paginated)
+    ListPageReceipts (ListPageReceipts'),
+    newListPageReceipts,
+    ListPageReceiptsResponse (ListPageReceiptsResponse'),
+    newListPageReceiptsResponse,
+
+    -- ** ListPagesByContact (Paginated)
+    ListPagesByContact (ListPagesByContact'),
+    newListPagesByContact,
+    ListPagesByContactResponse (ListPagesByContactResponse'),
+    newListPagesByContactResponse,
+
+    -- ** ListPagesByEngagement (Paginated)
+    ListPagesByEngagement (ListPagesByEngagement'),
+    newListPagesByEngagement,
+    ListPagesByEngagementResponse (ListPagesByEngagementResponse'),
+    newListPagesByEngagementResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** PutContactPolicy
+    PutContactPolicy (PutContactPolicy'),
+    newPutContactPolicy,
+    PutContactPolicyResponse (PutContactPolicyResponse'),
+    newPutContactPolicyResponse,
+
     -- ** SendActivationCode
     SendActivationCode (SendActivationCode'),
     newSendActivationCode,
     SendActivationCodeResponse (SendActivationCodeResponse'),
     newSendActivationCodeResponse,
 
+    -- ** StartEngagement
+    StartEngagement (StartEngagement'),
+    newStartEngagement,
+    StartEngagementResponse (StartEngagementResponse'),
+    newStartEngagementResponse,
+
     -- ** StopEngagement
     StopEngagement (StopEngagement'),
     newStopEngagement,
     StopEngagementResponse (StopEngagementResponse'),
     newStopEngagementResponse,
-
-    -- ** DescribeEngagement
-    DescribeEngagement (DescribeEngagement'),
-    newDescribeEngagement,
-    DescribeEngagementResponse (DescribeEngagementResponse'),
-    newDescribeEngagementResponse,
 
     -- ** TagResource
     TagResource (TagResource'),
@@ -197,29 +209,17 @@ module Amazonka.SSMContacts
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** GetContactPolicy
-    GetContactPolicy (GetContactPolicy'),
-    newGetContactPolicy,
-    GetContactPolicyResponse (GetContactPolicyResponse'),
-    newGetContactPolicyResponse,
+    -- ** UpdateContact
+    UpdateContact (UpdateContact'),
+    newUpdateContact,
+    UpdateContactResponse (UpdateContactResponse'),
+    newUpdateContactResponse,
 
-    -- ** PutContactPolicy
-    PutContactPolicy (PutContactPolicy'),
-    newPutContactPolicy,
-    PutContactPolicyResponse (PutContactPolicyResponse'),
-    newPutContactPolicyResponse,
-
-    -- ** ListContacts (Paginated)
-    ListContacts (ListContacts'),
-    newListContacts,
-    ListContactsResponse (ListContactsResponse'),
-    newListContactsResponse,
-
-    -- ** ListPagesByContact (Paginated)
-    ListPagesByContact (ListPagesByContact'),
-    newListPagesByContact,
-    ListPagesByContactResponse (ListPagesByContactResponse'),
-    newListPagesByContactResponse,
+    -- ** UpdateContactChannel
+    UpdateContactChannel (UpdateContactChannel'),
+    newUpdateContactChannel,
+    UpdateContactChannelResponse (UpdateContactChannelResponse'),
+    newUpdateContactChannelResponse,
 
     -- * Types
 

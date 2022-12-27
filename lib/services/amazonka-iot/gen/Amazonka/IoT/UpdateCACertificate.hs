@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.UpdateCACertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,10 +31,10 @@ module Amazonka.IoT.UpdateCACertificate
     newUpdateCACertificate,
 
     -- * Request Lenses
-    updateCACertificate_removeAutoRegistration,
+    updateCACertificate_newAutoRegistrationStatus,
     updateCACertificate_newStatus,
     updateCACertificate_registrationConfig,
-    updateCACertificate_newAutoRegistrationStatus,
+    updateCACertificate_removeAutoRegistration,
     updateCACertificate_certificateId,
 
     -- * Destructuring the Response
@@ -44,8 +44,9 @@ module Amazonka.IoT.UpdateCACertificate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,8 +55,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateCACertificate' smart constructor.
 data UpdateCACertificate = UpdateCACertificate'
-  { -- | If true, removes auto registration.
-    removeAutoRegistration :: Prelude.Maybe Prelude.Bool,
+  { -- | The new value for the auto registration status. Valid values are:
+    -- \"ENABLE\" or \"DISABLE\".
+    newAutoRegistrationStatus' :: Prelude.Maybe AutoRegistrationStatus,
     -- | The updated status of the CA certificate.
     --
     -- __Note:__ The status value REGISTER_INACTIVE is deprecated and should
@@ -63,9 +65,8 @@ data UpdateCACertificate = UpdateCACertificate'
     newStatus' :: Prelude.Maybe CACertificateStatus,
     -- | Information about the registration configuration.
     registrationConfig :: Prelude.Maybe RegistrationConfig,
-    -- | The new value for the auto registration status. Valid values are:
-    -- \"ENABLE\" or \"DISABLE\".
-    newAutoRegistrationStatus' :: Prelude.Maybe AutoRegistrationStatus,
+    -- | If true, removes auto registration.
+    removeAutoRegistration :: Prelude.Maybe Prelude.Bool,
     -- | The CA certificate identifier.
     certificateId :: Prelude.Text
   }
@@ -79,7 +80,8 @@ data UpdateCACertificate = UpdateCACertificate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'removeAutoRegistration', 'updateCACertificate_removeAutoRegistration' - If true, removes auto registration.
+-- 'newAutoRegistrationStatus'', 'updateCACertificate_newAutoRegistrationStatus' - The new value for the auto registration status. Valid values are:
+-- \"ENABLE\" or \"DISABLE\".
 --
 -- 'newStatus'', 'updateCACertificate_newStatus' - The updated status of the CA certificate.
 --
@@ -88,8 +90,7 @@ data UpdateCACertificate = UpdateCACertificate'
 --
 -- 'registrationConfig', 'updateCACertificate_registrationConfig' - Information about the registration configuration.
 --
--- 'newAutoRegistrationStatus'', 'updateCACertificate_newAutoRegistrationStatus' - The new value for the auto registration status. Valid values are:
--- \"ENABLE\" or \"DISABLE\".
+-- 'removeAutoRegistration', 'updateCACertificate_removeAutoRegistration' - If true, removes auto registration.
 --
 -- 'certificateId', 'updateCACertificate_certificateId' - The CA certificate identifier.
 newUpdateCACertificate ::
@@ -98,17 +99,18 @@ newUpdateCACertificate ::
   UpdateCACertificate
 newUpdateCACertificate pCertificateId_ =
   UpdateCACertificate'
-    { removeAutoRegistration =
+    { newAutoRegistrationStatus' =
         Prelude.Nothing,
       newStatus' = Prelude.Nothing,
       registrationConfig = Prelude.Nothing,
-      newAutoRegistrationStatus' = Prelude.Nothing,
+      removeAutoRegistration = Prelude.Nothing,
       certificateId = pCertificateId_
     }
 
--- | If true, removes auto registration.
-updateCACertificate_removeAutoRegistration :: Lens.Lens' UpdateCACertificate (Prelude.Maybe Prelude.Bool)
-updateCACertificate_removeAutoRegistration = Lens.lens (\UpdateCACertificate' {removeAutoRegistration} -> removeAutoRegistration) (\s@UpdateCACertificate' {} a -> s {removeAutoRegistration = a} :: UpdateCACertificate)
+-- | The new value for the auto registration status. Valid values are:
+-- \"ENABLE\" or \"DISABLE\".
+updateCACertificate_newAutoRegistrationStatus :: Lens.Lens' UpdateCACertificate (Prelude.Maybe AutoRegistrationStatus)
+updateCACertificate_newAutoRegistrationStatus = Lens.lens (\UpdateCACertificate' {newAutoRegistrationStatus'} -> newAutoRegistrationStatus') (\s@UpdateCACertificate' {} a -> s {newAutoRegistrationStatus' = a} :: UpdateCACertificate)
 
 -- | The updated status of the CA certificate.
 --
@@ -121,10 +123,9 @@ updateCACertificate_newStatus = Lens.lens (\UpdateCACertificate' {newStatus'} ->
 updateCACertificate_registrationConfig :: Lens.Lens' UpdateCACertificate (Prelude.Maybe RegistrationConfig)
 updateCACertificate_registrationConfig = Lens.lens (\UpdateCACertificate' {registrationConfig} -> registrationConfig) (\s@UpdateCACertificate' {} a -> s {registrationConfig = a} :: UpdateCACertificate)
 
--- | The new value for the auto registration status. Valid values are:
--- \"ENABLE\" or \"DISABLE\".
-updateCACertificate_newAutoRegistrationStatus :: Lens.Lens' UpdateCACertificate (Prelude.Maybe AutoRegistrationStatus)
-updateCACertificate_newAutoRegistrationStatus = Lens.lens (\UpdateCACertificate' {newAutoRegistrationStatus'} -> newAutoRegistrationStatus') (\s@UpdateCACertificate' {} a -> s {newAutoRegistrationStatus' = a} :: UpdateCACertificate)
+-- | If true, removes auto registration.
+updateCACertificate_removeAutoRegistration :: Lens.Lens' UpdateCACertificate (Prelude.Maybe Prelude.Bool)
+updateCACertificate_removeAutoRegistration = Lens.lens (\UpdateCACertificate' {removeAutoRegistration} -> removeAutoRegistration) (\s@UpdateCACertificate' {} a -> s {removeAutoRegistration = a} :: UpdateCACertificate)
 
 -- | The CA certificate identifier.
 updateCACertificate_certificateId :: Lens.Lens' UpdateCACertificate Prelude.Text
@@ -134,51 +135,53 @@ instance Core.AWSRequest UpdateCACertificate where
   type
     AWSResponse UpdateCACertificate =
       UpdateCACertificateResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveNull UpdateCACertificateResponse'
 
 instance Prelude.Hashable UpdateCACertificate where
   hashWithSalt _salt UpdateCACertificate' {..} =
-    _salt `Prelude.hashWithSalt` removeAutoRegistration
+    _salt
+      `Prelude.hashWithSalt` newAutoRegistrationStatus'
       `Prelude.hashWithSalt` newStatus'
       `Prelude.hashWithSalt` registrationConfig
-      `Prelude.hashWithSalt` newAutoRegistrationStatus'
+      `Prelude.hashWithSalt` removeAutoRegistration
       `Prelude.hashWithSalt` certificateId
 
 instance Prelude.NFData UpdateCACertificate where
   rnf UpdateCACertificate' {..} =
-    Prelude.rnf removeAutoRegistration
+    Prelude.rnf newAutoRegistrationStatus'
       `Prelude.seq` Prelude.rnf newStatus'
       `Prelude.seq` Prelude.rnf registrationConfig
-      `Prelude.seq` Prelude.rnf newAutoRegistrationStatus'
+      `Prelude.seq` Prelude.rnf removeAutoRegistration
       `Prelude.seq` Prelude.rnf certificateId
 
-instance Core.ToHeaders UpdateCACertificate where
+instance Data.ToHeaders UpdateCACertificate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateCACertificate where
+instance Data.ToJSON UpdateCACertificate where
   toJSON UpdateCACertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("removeAutoRegistration" Core..=)
-              Prelude.<$> removeAutoRegistration,
-            ("registrationConfig" Core..=)
-              Prelude.<$> registrationConfig
+          [ ("registrationConfig" Data..=)
+              Prelude.<$> registrationConfig,
+            ("removeAutoRegistration" Data..=)
+              Prelude.<$> removeAutoRegistration
           ]
       )
 
-instance Core.ToPath UpdateCACertificate where
+instance Data.ToPath UpdateCACertificate where
   toPath UpdateCACertificate' {..} =
     Prelude.mconcat
-      ["/cacertificate/", Core.toBS certificateId]
+      ["/cacertificate/", Data.toBS certificateId]
 
-instance Core.ToQuery UpdateCACertificate where
+instance Data.ToQuery UpdateCACertificate where
   toQuery UpdateCACertificate' {..} =
     Prelude.mconcat
-      [ "newStatus" Core.=: newStatus',
-        "newAutoRegistrationStatus"
-          Core.=: newAutoRegistrationStatus'
+      [ "newAutoRegistrationStatus"
+          Data.=: newAutoRegistrationStatus',
+        "newStatus" Data.=: newStatus'
       ]
 
 -- | /See:/ 'newUpdateCACertificateResponse' smart constructor.

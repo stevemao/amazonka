@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudHSM.GetConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,8 +51,8 @@ module Amazonka.CloudHSM.GetConfig
     newGetConfigResponse,
 
     -- * Response Lenses
-    getConfigResponse_configFile,
     getConfigResponse_configCred,
+    getConfigResponse_configFile,
     getConfigResponse_configType,
     getConfigResponse_httpStatus,
   )
@@ -60,7 +60,8 @@ where
 
 import Amazonka.CloudHSM.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -119,14 +120,15 @@ getConfig_hapgList = Lens.lens (\GetConfig' {hapgList} -> hapgList) (\s@GetConfi
 
 instance Core.AWSRequest GetConfig where
   type AWSResponse GetConfig = GetConfigResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetConfigResponse'
-            Prelude.<$> (x Core..?> "ConfigFile")
-            Prelude.<*> (x Core..?> "ConfigCred")
-            Prelude.<*> (x Core..?> "ConfigType")
+            Prelude.<$> (x Data..?> "ConfigCred")
+            Prelude.<*> (x Data..?> "ConfigFile")
+            Prelude.<*> (x Data..?> "ConfigType")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -142,43 +144,43 @@ instance Prelude.NFData GetConfig where
       `Prelude.seq` Prelude.rnf clientVersion
       `Prelude.seq` Prelude.rnf hapgList
 
-instance Core.ToHeaders GetConfig where
+instance Data.ToHeaders GetConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CloudHsmFrontendService.GetConfig" ::
+              Data.=# ( "CloudHsmFrontendService.GetConfig" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetConfig where
+instance Data.ToJSON GetConfig where
   toJSON GetConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ClientArn" Core..= clientArn),
-            Prelude.Just ("ClientVersion" Core..= clientVersion),
-            Prelude.Just ("HapgList" Core..= hapgList)
+          [ Prelude.Just ("ClientArn" Data..= clientArn),
+            Prelude.Just ("ClientVersion" Data..= clientVersion),
+            Prelude.Just ("HapgList" Data..= hapgList)
           ]
       )
 
-instance Core.ToPath GetConfig where
+instance Data.ToPath GetConfig where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetConfig where
+instance Data.ToQuery GetConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetConfigResponse' smart constructor.
 data GetConfigResponse = GetConfigResponse'
-  { -- | The chrystoki.conf configuration file.
-    configFile :: Prelude.Maybe Prelude.Text,
-    -- | The certificate file containing the server.pem files of the HSMs.
+  { -- | The certificate file containing the server.pem files of the HSMs.
     configCred :: Prelude.Maybe Prelude.Text,
+    -- | The chrystoki.conf configuration file.
+    configFile :: Prelude.Maybe Prelude.Text,
     -- | The type of credentials.
     configType :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
@@ -194,9 +196,9 @@ data GetConfigResponse = GetConfigResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'configFile', 'getConfigResponse_configFile' - The chrystoki.conf configuration file.
---
 -- 'configCred', 'getConfigResponse_configCred' - The certificate file containing the server.pem files of the HSMs.
+--
+-- 'configFile', 'getConfigResponse_configFile' - The chrystoki.conf configuration file.
 --
 -- 'configType', 'getConfigResponse_configType' - The type of credentials.
 --
@@ -207,19 +209,19 @@ newGetConfigResponse ::
   GetConfigResponse
 newGetConfigResponse pHttpStatus_ =
   GetConfigResponse'
-    { configFile = Prelude.Nothing,
-      configCred = Prelude.Nothing,
+    { configCred = Prelude.Nothing,
+      configFile = Prelude.Nothing,
       configType = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The chrystoki.conf configuration file.
-getConfigResponse_configFile :: Lens.Lens' GetConfigResponse (Prelude.Maybe Prelude.Text)
-getConfigResponse_configFile = Lens.lens (\GetConfigResponse' {configFile} -> configFile) (\s@GetConfigResponse' {} a -> s {configFile = a} :: GetConfigResponse)
-
 -- | The certificate file containing the server.pem files of the HSMs.
 getConfigResponse_configCred :: Lens.Lens' GetConfigResponse (Prelude.Maybe Prelude.Text)
 getConfigResponse_configCred = Lens.lens (\GetConfigResponse' {configCred} -> configCred) (\s@GetConfigResponse' {} a -> s {configCred = a} :: GetConfigResponse)
+
+-- | The chrystoki.conf configuration file.
+getConfigResponse_configFile :: Lens.Lens' GetConfigResponse (Prelude.Maybe Prelude.Text)
+getConfigResponse_configFile = Lens.lens (\GetConfigResponse' {configFile} -> configFile) (\s@GetConfigResponse' {} a -> s {configFile = a} :: GetConfigResponse)
 
 -- | The type of credentials.
 getConfigResponse_configType :: Lens.Lens' GetConfigResponse (Prelude.Maybe Prelude.Text)
@@ -231,7 +233,7 @@ getConfigResponse_httpStatus = Lens.lens (\GetConfigResponse' {httpStatus} -> ht
 
 instance Prelude.NFData GetConfigResponse where
   rnf GetConfigResponse' {..} =
-    Prelude.rnf configFile
-      `Prelude.seq` Prelude.rnf configCred
+    Prelude.rnf configCred
+      `Prelude.seq` Prelude.rnf configFile
       `Prelude.seq` Prelude.rnf configType
       `Prelude.seq` Prelude.rnf httpStatus

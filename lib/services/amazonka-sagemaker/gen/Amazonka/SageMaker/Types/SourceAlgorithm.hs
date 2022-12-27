@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.SourceAlgorithm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,13 @@
 module Amazonka.SageMaker.Types.SourceAlgorithm where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies an algorithm that was used to create the model package. The
--- algorithm must be either an algorithm resource in your Amazon SageMaker
--- account or an algorithm in Amazon Web Services Marketplace that you are
+-- algorithm must be either an algorithm resource in your SageMaker account
+-- or an algorithm in Amazon Web Services Marketplace that you are
 -- subscribed to.
 --
 -- /See:/ 'newSourceAlgorithm' smart constructor.
@@ -38,8 +39,8 @@ data SourceAlgorithm = SourceAlgorithm'
     -- as the algorithm.
     modelDataUrl :: Prelude.Maybe Prelude.Text,
     -- | The name of an algorithm that was used to create the model package. The
-    -- algorithm must be either an algorithm resource in your Amazon SageMaker
-    -- account or an algorithm in Amazon Web Services Marketplace that you are
+    -- algorithm must be either an algorithm resource in your SageMaker account
+    -- or an algorithm in Amazon Web Services Marketplace that you are
     -- subscribed to.
     algorithmName :: Prelude.Text
   }
@@ -61,8 +62,8 @@ data SourceAlgorithm = SourceAlgorithm'
 -- as the algorithm.
 --
 -- 'algorithmName', 'sourceAlgorithm_algorithmName' - The name of an algorithm that was used to create the model package. The
--- algorithm must be either an algorithm resource in your Amazon SageMaker
--- account or an algorithm in Amazon Web Services Marketplace that you are
+-- algorithm must be either an algorithm resource in your SageMaker account
+-- or an algorithm in Amazon Web Services Marketplace that you are
 -- subscribed to.
 newSourceAlgorithm ::
   -- | 'algorithmName'
@@ -84,20 +85,20 @@ sourceAlgorithm_modelDataUrl :: Lens.Lens' SourceAlgorithm (Prelude.Maybe Prelud
 sourceAlgorithm_modelDataUrl = Lens.lens (\SourceAlgorithm' {modelDataUrl} -> modelDataUrl) (\s@SourceAlgorithm' {} a -> s {modelDataUrl = a} :: SourceAlgorithm)
 
 -- | The name of an algorithm that was used to create the model package. The
--- algorithm must be either an algorithm resource in your Amazon SageMaker
--- account or an algorithm in Amazon Web Services Marketplace that you are
+-- algorithm must be either an algorithm resource in your SageMaker account
+-- or an algorithm in Amazon Web Services Marketplace that you are
 -- subscribed to.
 sourceAlgorithm_algorithmName :: Lens.Lens' SourceAlgorithm Prelude.Text
 sourceAlgorithm_algorithmName = Lens.lens (\SourceAlgorithm' {algorithmName} -> algorithmName) (\s@SourceAlgorithm' {} a -> s {algorithmName = a} :: SourceAlgorithm)
 
-instance Core.FromJSON SourceAlgorithm where
+instance Data.FromJSON SourceAlgorithm where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SourceAlgorithm"
       ( \x ->
           SourceAlgorithm'
-            Prelude.<$> (x Core..:? "ModelDataUrl")
-            Prelude.<*> (x Core..: "AlgorithmName")
+            Prelude.<$> (x Data..:? "ModelDataUrl")
+            Prelude.<*> (x Data..: "AlgorithmName")
       )
 
 instance Prelude.Hashable SourceAlgorithm where
@@ -110,12 +111,12 @@ instance Prelude.NFData SourceAlgorithm where
     Prelude.rnf modelDataUrl
       `Prelude.seq` Prelude.rnf algorithmName
 
-instance Core.ToJSON SourceAlgorithm where
+instance Data.ToJSON SourceAlgorithm where
   toJSON SourceAlgorithm' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ModelDataUrl" Core..=) Prelude.<$> modelDataUrl,
+          [ ("ModelDataUrl" Data..=) Prelude.<$> modelDataUrl,
             Prelude.Just
-              ("AlgorithmName" Core..= algorithmName)
+              ("AlgorithmName" Data..= algorithmName)
           ]
       )

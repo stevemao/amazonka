@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.CreatePortfolio
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.ServiceCatalog.CreatePortfolio
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -163,13 +164,14 @@ instance Core.AWSRequest CreatePortfolio where
   type
     AWSResponse CreatePortfolio =
       CreatePortfolioResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreatePortfolioResponse'
-            Prelude.<$> (x Core..?> "PortfolioDetail")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "PortfolioDetail")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -191,40 +193,40 @@ instance Prelude.NFData CreatePortfolio where
       `Prelude.seq` Prelude.rnf providerName
       `Prelude.seq` Prelude.rnf idempotencyToken
 
-instance Core.ToHeaders CreatePortfolio where
+instance Data.ToHeaders CreatePortfolio where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.CreatePortfolio" ::
+              Data.=# ( "AWS242ServiceCatalogService.CreatePortfolio" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreatePortfolio where
+instance Data.ToJSON CreatePortfolio where
   toJSON CreatePortfolio' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("DisplayName" Core..= displayName),
-            Prelude.Just ("ProviderName" Core..= providerName),
+            ("Description" Data..=) Prelude.<$> description,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("DisplayName" Data..= displayName),
+            Prelude.Just ("ProviderName" Data..= providerName),
             Prelude.Just
-              ("IdempotencyToken" Core..= idempotencyToken)
+              ("IdempotencyToken" Data..= idempotencyToken)
           ]
       )
 
-instance Core.ToPath CreatePortfolio where
+instance Data.ToPath CreatePortfolio where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreatePortfolio where
+instance Data.ToQuery CreatePortfolio where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreatePortfolioResponse' smart constructor.

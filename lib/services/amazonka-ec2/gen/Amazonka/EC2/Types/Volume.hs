@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.Volume
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,43 +20,44 @@
 module Amazonka.EC2.Types.Volume where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.Tag
 import Amazonka.EC2.Types.VolumeAttachment
 import Amazonka.EC2.Types.VolumeState
 import Amazonka.EC2.Types.VolumeType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a volume.
 --
 -- /See:/ 'newVolume' smart constructor.
 data Volume = Volume'
-  { -- | Indicates whether the volume was created using fast snapshot restore.
-    fastRestored :: Prelude.Maybe Prelude.Bool,
-    -- | Indicates whether Amazon EBS Multi-Attach is enabled.
-    multiAttachEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | Information about the volume attachments.
+  { -- | Information about the volume attachments.
     attachments :: Prelude.Maybe [VolumeAttachment],
-    -- | The throughput that the volume supports, in MiB\/s.
-    throughput :: Prelude.Maybe Prelude.Int,
+    -- | Indicates whether the volume was created using fast snapshot restore.
+    fastRestored :: Prelude.Maybe Prelude.Bool,
     -- | The number of I\/O operations per second (IOPS). For @gp3@, @io1@, and
     -- @io2@ volumes, this represents the number of IOPS that are provisioned
     -- for the volume. For @gp2@ volumes, this represents the baseline
     -- performance of the volume and the rate at which the volume accumulates
     -- I\/O credits for bursting.
     iops :: Prelude.Maybe Prelude.Int,
-    -- | The Amazon Resource Name (ARN) of the Outpost.
-    outpostArn :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the Key Management Service (KMS) KMS
     -- key that was used to protect the volume encryption key for the volume.
     kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether Amazon EBS Multi-Attach is enabled.
+    multiAttachEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The Amazon Resource Name (ARN) of the Outpost.
+    outpostArn :: Prelude.Maybe Prelude.Text,
     -- | Any tags assigned to the volume.
     tags :: Prelude.Maybe [Tag],
+    -- | The throughput that the volume supports, in MiB\/s.
+    throughput :: Prelude.Maybe Prelude.Int,
     -- | The Availability Zone for the volume.
     availabilityZone :: Prelude.Text,
     -- | The time stamp when volume creation was initiated.
-    createTime :: Core.ISO8601,
+    createTime :: Data.ISO8601,
     -- | Indicates whether the volume is encrypted.
     encrypted :: Prelude.Bool,
     -- | The size of the volume, in GiBs.
@@ -80,13 +81,9 @@ data Volume = Volume'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'fastRestored', 'volume_fastRestored' - Indicates whether the volume was created using fast snapshot restore.
---
--- 'multiAttachEnabled', 'volume_multiAttachEnabled' - Indicates whether Amazon EBS Multi-Attach is enabled.
---
 -- 'attachments', 'volume_attachments' - Information about the volume attachments.
 --
--- 'throughput', 'volume_throughput' - The throughput that the volume supports, in MiB\/s.
+-- 'fastRestored', 'volume_fastRestored' - Indicates whether the volume was created using fast snapshot restore.
 --
 -- 'iops', 'volume_iops' - The number of I\/O operations per second (IOPS). For @gp3@, @io1@, and
 -- @io2@ volumes, this represents the number of IOPS that are provisioned
@@ -94,12 +91,16 @@ data Volume = Volume'
 -- performance of the volume and the rate at which the volume accumulates
 -- I\/O credits for bursting.
 --
--- 'outpostArn', 'volume_outpostArn' - The Amazon Resource Name (ARN) of the Outpost.
---
 -- 'kmsKeyId', 'volume_kmsKeyId' - The Amazon Resource Name (ARN) of the Key Management Service (KMS) KMS
 -- key that was used to protect the volume encryption key for the volume.
 --
+-- 'multiAttachEnabled', 'volume_multiAttachEnabled' - Indicates whether Amazon EBS Multi-Attach is enabled.
+--
+-- 'outpostArn', 'volume_outpostArn' - The Amazon Resource Name (ARN) of the Outpost.
+--
 -- 'tags', 'volume_tags' - Any tags assigned to the volume.
+--
+-- 'throughput', 'volume_throughput' - The throughput that the volume supports, in MiB\/s.
 --
 -- 'availabilityZone', 'volume_availabilityZone' - The Availability Zone for the volume.
 --
@@ -144,16 +145,16 @@ newVolume
   pVolumeId_
   pVolumeType_ =
     Volume'
-      { fastRestored = Prelude.Nothing,
-        multiAttachEnabled = Prelude.Nothing,
-        attachments = Prelude.Nothing,
-        throughput = Prelude.Nothing,
+      { attachments = Prelude.Nothing,
+        fastRestored = Prelude.Nothing,
         iops = Prelude.Nothing,
-        outpostArn = Prelude.Nothing,
         kmsKeyId = Prelude.Nothing,
+        multiAttachEnabled = Prelude.Nothing,
+        outpostArn = Prelude.Nothing,
         tags = Prelude.Nothing,
+        throughput = Prelude.Nothing,
         availabilityZone = pAvailabilityZone_,
-        createTime = Core._Time Lens.# pCreateTime_,
+        createTime = Data._Time Lens.# pCreateTime_,
         encrypted = pEncrypted_,
         size = pSize_,
         snapshotId = pSnapshotId_,
@@ -162,21 +163,13 @@ newVolume
         volumeType = pVolumeType_
       }
 
--- | Indicates whether the volume was created using fast snapshot restore.
-volume_fastRestored :: Lens.Lens' Volume (Prelude.Maybe Prelude.Bool)
-volume_fastRestored = Lens.lens (\Volume' {fastRestored} -> fastRestored) (\s@Volume' {} a -> s {fastRestored = a} :: Volume)
-
--- | Indicates whether Amazon EBS Multi-Attach is enabled.
-volume_multiAttachEnabled :: Lens.Lens' Volume (Prelude.Maybe Prelude.Bool)
-volume_multiAttachEnabled = Lens.lens (\Volume' {multiAttachEnabled} -> multiAttachEnabled) (\s@Volume' {} a -> s {multiAttachEnabled = a} :: Volume)
-
 -- | Information about the volume attachments.
 volume_attachments :: Lens.Lens' Volume (Prelude.Maybe [VolumeAttachment])
 volume_attachments = Lens.lens (\Volume' {attachments} -> attachments) (\s@Volume' {} a -> s {attachments = a} :: Volume) Prelude.. Lens.mapping Lens.coerced
 
--- | The throughput that the volume supports, in MiB\/s.
-volume_throughput :: Lens.Lens' Volume (Prelude.Maybe Prelude.Int)
-volume_throughput = Lens.lens (\Volume' {throughput} -> throughput) (\s@Volume' {} a -> s {throughput = a} :: Volume)
+-- | Indicates whether the volume was created using fast snapshot restore.
+volume_fastRestored :: Lens.Lens' Volume (Prelude.Maybe Prelude.Bool)
+volume_fastRestored = Lens.lens (\Volume' {fastRestored} -> fastRestored) (\s@Volume' {} a -> s {fastRestored = a} :: Volume)
 
 -- | The number of I\/O operations per second (IOPS). For @gp3@, @io1@, and
 -- @io2@ volumes, this represents the number of IOPS that are provisioned
@@ -186,18 +179,26 @@ volume_throughput = Lens.lens (\Volume' {throughput} -> throughput) (\s@Volume' 
 volume_iops :: Lens.Lens' Volume (Prelude.Maybe Prelude.Int)
 volume_iops = Lens.lens (\Volume' {iops} -> iops) (\s@Volume' {} a -> s {iops = a} :: Volume)
 
--- | The Amazon Resource Name (ARN) of the Outpost.
-volume_outpostArn :: Lens.Lens' Volume (Prelude.Maybe Prelude.Text)
-volume_outpostArn = Lens.lens (\Volume' {outpostArn} -> outpostArn) (\s@Volume' {} a -> s {outpostArn = a} :: Volume)
-
 -- | The Amazon Resource Name (ARN) of the Key Management Service (KMS) KMS
 -- key that was used to protect the volume encryption key for the volume.
 volume_kmsKeyId :: Lens.Lens' Volume (Prelude.Maybe Prelude.Text)
 volume_kmsKeyId = Lens.lens (\Volume' {kmsKeyId} -> kmsKeyId) (\s@Volume' {} a -> s {kmsKeyId = a} :: Volume)
 
+-- | Indicates whether Amazon EBS Multi-Attach is enabled.
+volume_multiAttachEnabled :: Lens.Lens' Volume (Prelude.Maybe Prelude.Bool)
+volume_multiAttachEnabled = Lens.lens (\Volume' {multiAttachEnabled} -> multiAttachEnabled) (\s@Volume' {} a -> s {multiAttachEnabled = a} :: Volume)
+
+-- | The Amazon Resource Name (ARN) of the Outpost.
+volume_outpostArn :: Lens.Lens' Volume (Prelude.Maybe Prelude.Text)
+volume_outpostArn = Lens.lens (\Volume' {outpostArn} -> outpostArn) (\s@Volume' {} a -> s {outpostArn = a} :: Volume)
+
 -- | Any tags assigned to the volume.
 volume_tags :: Lens.Lens' Volume (Prelude.Maybe [Tag])
 volume_tags = Lens.lens (\Volume' {tags} -> tags) (\s@Volume' {} a -> s {tags = a} :: Volume) Prelude.. Lens.mapping Lens.coerced
+
+-- | The throughput that the volume supports, in MiB\/s.
+volume_throughput :: Lens.Lens' Volume (Prelude.Maybe Prelude.Int)
+volume_throughput = Lens.lens (\Volume' {throughput} -> throughput) (\s@Volume' {} a -> s {throughput = a} :: Volume)
 
 -- | The Availability Zone for the volume.
 volume_availabilityZone :: Lens.Lens' Volume Prelude.Text
@@ -205,7 +206,7 @@ volume_availabilityZone = Lens.lens (\Volume' {availabilityZone} -> availability
 
 -- | The time stamp when volume creation was initiated.
 volume_createTime :: Lens.Lens' Volume Prelude.UTCTime
-volume_createTime = Lens.lens (\Volume' {createTime} -> createTime) (\s@Volume' {} a -> s {createTime = a} :: Volume) Prelude.. Core._Time
+volume_createTime = Lens.lens (\Volume' {createTime} -> createTime) (\s@Volume' {} a -> s {createTime = a} :: Volume) Prelude.. Data._Time
 
 -- | Indicates whether the volume is encrypted.
 volume_encrypted :: Lens.Lens' Volume Prelude.Bool
@@ -231,40 +232,40 @@ volume_volumeId = Lens.lens (\Volume' {volumeId} -> volumeId) (\s@Volume' {} a -
 volume_volumeType :: Lens.Lens' Volume VolumeType
 volume_volumeType = Lens.lens (\Volume' {volumeType} -> volumeType) (\s@Volume' {} a -> s {volumeType = a} :: Volume)
 
-instance Core.FromXML Volume where
+instance Data.FromXML Volume where
   parseXML x =
     Volume'
-      Prelude.<$> (x Core..@? "fastRestored")
-      Prelude.<*> (x Core..@? "multiAttachEnabled")
-      Prelude.<*> ( x Core..@? "attachmentSet" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<$> ( x Data..@? "attachmentSet" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@? "throughput")
-      Prelude.<*> (x Core..@? "iops")
-      Prelude.<*> (x Core..@? "outpostArn")
-      Prelude.<*> (x Core..@? "kmsKeyId")
-      Prelude.<*> ( x Core..@? "tagSet" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<*> (x Data..@? "fastRestored")
+      Prelude.<*> (x Data..@? "iops")
+      Prelude.<*> (x Data..@? "kmsKeyId")
+      Prelude.<*> (x Data..@? "multiAttachEnabled")
+      Prelude.<*> (x Data..@? "outpostArn")
+      Prelude.<*> ( x Data..@? "tagSet" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@ "availabilityZone")
-      Prelude.<*> (x Core..@ "createTime")
-      Prelude.<*> (x Core..@ "encrypted")
-      Prelude.<*> (x Core..@ "size")
-      Prelude.<*> (x Core..@ "snapshotId")
-      Prelude.<*> (x Core..@ "status")
-      Prelude.<*> (x Core..@ "volumeId")
-      Prelude.<*> (x Core..@ "volumeType")
+      Prelude.<*> (x Data..@? "throughput")
+      Prelude.<*> (x Data..@ "availabilityZone")
+      Prelude.<*> (x Data..@ "createTime")
+      Prelude.<*> (x Data..@ "encrypted")
+      Prelude.<*> (x Data..@ "size")
+      Prelude.<*> (x Data..@ "snapshotId")
+      Prelude.<*> (x Data..@ "status")
+      Prelude.<*> (x Data..@ "volumeId")
+      Prelude.<*> (x Data..@ "volumeType")
 
 instance Prelude.Hashable Volume where
   hashWithSalt _salt Volume' {..} =
-    _salt `Prelude.hashWithSalt` fastRestored
-      `Prelude.hashWithSalt` multiAttachEnabled
-      `Prelude.hashWithSalt` attachments
-      `Prelude.hashWithSalt` throughput
+    _salt `Prelude.hashWithSalt` attachments
+      `Prelude.hashWithSalt` fastRestored
       `Prelude.hashWithSalt` iops
-      `Prelude.hashWithSalt` outpostArn
       `Prelude.hashWithSalt` kmsKeyId
+      `Prelude.hashWithSalt` multiAttachEnabled
+      `Prelude.hashWithSalt` outpostArn
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` throughput
       `Prelude.hashWithSalt` availabilityZone
       `Prelude.hashWithSalt` createTime
       `Prelude.hashWithSalt` encrypted
@@ -276,14 +277,14 @@ instance Prelude.Hashable Volume where
 
 instance Prelude.NFData Volume where
   rnf Volume' {..} =
-    Prelude.rnf fastRestored
-      `Prelude.seq` Prelude.rnf multiAttachEnabled
-      `Prelude.seq` Prelude.rnf attachments
-      `Prelude.seq` Prelude.rnf throughput
+    Prelude.rnf attachments
+      `Prelude.seq` Prelude.rnf fastRestored
       `Prelude.seq` Prelude.rnf iops
-      `Prelude.seq` Prelude.rnf outpostArn
       `Prelude.seq` Prelude.rnf kmsKeyId
+      `Prelude.seq` Prelude.rnf multiAttachEnabled
+      `Prelude.seq` Prelude.rnf outpostArn
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf throughput
       `Prelude.seq` Prelude.rnf availabilityZone
       `Prelude.seq` Prelude.rnf createTime
       `Prelude.seq` Prelude.rnf encrypted

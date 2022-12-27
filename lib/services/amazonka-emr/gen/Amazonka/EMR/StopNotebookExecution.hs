@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.StopNotebookExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,9 @@ module Amazonka.EMR.StopNotebookExecution
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest StopNotebookExecution where
   type
     AWSResponse StopNotebookExecution =
       StopNotebookExecutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull StopNotebookExecutionResponse'
 
@@ -88,34 +90,34 @@ instance Prelude.NFData StopNotebookExecution where
   rnf StopNotebookExecution' {..} =
     Prelude.rnf notebookExecutionId
 
-instance Core.ToHeaders StopNotebookExecution where
+instance Data.ToHeaders StopNotebookExecution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ElasticMapReduce.StopNotebookExecution" ::
+              Data.=# ( "ElasticMapReduce.StopNotebookExecution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopNotebookExecution where
+instance Data.ToJSON StopNotebookExecution where
   toJSON StopNotebookExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("NotebookExecutionId" Core..= notebookExecutionId)
+              ("NotebookExecutionId" Data..= notebookExecutionId)
           ]
       )
 
-instance Core.ToPath StopNotebookExecution where
+instance Data.ToPath StopNotebookExecution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopNotebookExecution where
+instance Data.ToQuery StopNotebookExecution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopNotebookExecutionResponse' smart constructor.

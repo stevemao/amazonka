@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.DhcpOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.EC2.Types.DhcpOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.DhcpConfiguration
 import Amazonka.EC2.Types.Tag
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a set of DHCP options.
@@ -32,11 +33,11 @@ import qualified Amazonka.Prelude as Prelude
 data DhcpOptions = DhcpOptions'
   { -- | One or more DHCP options in the set.
     dhcpConfigurations :: Prelude.Maybe [DhcpConfiguration],
+    -- | The ID of the set of DHCP options.
+    dhcpOptionsId :: Prelude.Maybe Prelude.Text,
     -- | The ID of the Amazon Web Services account that owns the DHCP options
     -- set.
     ownerId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the set of DHCP options.
-    dhcpOptionsId :: Prelude.Maybe Prelude.Text,
     -- | Any tags assigned to the DHCP options set.
     tags :: Prelude.Maybe [Tag]
   }
@@ -52,10 +53,10 @@ data DhcpOptions = DhcpOptions'
 --
 -- 'dhcpConfigurations', 'dhcpOptions_dhcpConfigurations' - One or more DHCP options in the set.
 --
+-- 'dhcpOptionsId', 'dhcpOptions_dhcpOptionsId' - The ID of the set of DHCP options.
+--
 -- 'ownerId', 'dhcpOptions_ownerId' - The ID of the Amazon Web Services account that owns the DHCP options
 -- set.
---
--- 'dhcpOptionsId', 'dhcpOptions_dhcpOptionsId' - The ID of the set of DHCP options.
 --
 -- 'tags', 'dhcpOptions_tags' - Any tags assigned to the DHCP options set.
 newDhcpOptions ::
@@ -63,8 +64,8 @@ newDhcpOptions ::
 newDhcpOptions =
   DhcpOptions'
     { dhcpConfigurations = Prelude.Nothing,
-      ownerId = Prelude.Nothing,
       dhcpOptionsId = Prelude.Nothing,
+      ownerId = Prelude.Nothing,
       tags = Prelude.Nothing
     }
 
@@ -72,42 +73,42 @@ newDhcpOptions =
 dhcpOptions_dhcpConfigurations :: Lens.Lens' DhcpOptions (Prelude.Maybe [DhcpConfiguration])
 dhcpOptions_dhcpConfigurations = Lens.lens (\DhcpOptions' {dhcpConfigurations} -> dhcpConfigurations) (\s@DhcpOptions' {} a -> s {dhcpConfigurations = a} :: DhcpOptions) Prelude.. Lens.mapping Lens.coerced
 
+-- | The ID of the set of DHCP options.
+dhcpOptions_dhcpOptionsId :: Lens.Lens' DhcpOptions (Prelude.Maybe Prelude.Text)
+dhcpOptions_dhcpOptionsId = Lens.lens (\DhcpOptions' {dhcpOptionsId} -> dhcpOptionsId) (\s@DhcpOptions' {} a -> s {dhcpOptionsId = a} :: DhcpOptions)
+
 -- | The ID of the Amazon Web Services account that owns the DHCP options
 -- set.
 dhcpOptions_ownerId :: Lens.Lens' DhcpOptions (Prelude.Maybe Prelude.Text)
 dhcpOptions_ownerId = Lens.lens (\DhcpOptions' {ownerId} -> ownerId) (\s@DhcpOptions' {} a -> s {ownerId = a} :: DhcpOptions)
 
--- | The ID of the set of DHCP options.
-dhcpOptions_dhcpOptionsId :: Lens.Lens' DhcpOptions (Prelude.Maybe Prelude.Text)
-dhcpOptions_dhcpOptionsId = Lens.lens (\DhcpOptions' {dhcpOptionsId} -> dhcpOptionsId) (\s@DhcpOptions' {} a -> s {dhcpOptionsId = a} :: DhcpOptions)
-
 -- | Any tags assigned to the DHCP options set.
 dhcpOptions_tags :: Lens.Lens' DhcpOptions (Prelude.Maybe [Tag])
 dhcpOptions_tags = Lens.lens (\DhcpOptions' {tags} -> tags) (\s@DhcpOptions' {} a -> s {tags = a} :: DhcpOptions) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML DhcpOptions where
+instance Data.FromXML DhcpOptions where
   parseXML x =
     DhcpOptions'
-      Prelude.<$> ( x Core..@? "dhcpConfigurationSet"
+      Prelude.<$> ( x Data..@? "dhcpConfigurationSet"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@? "ownerId")
-      Prelude.<*> (x Core..@? "dhcpOptionsId")
-      Prelude.<*> ( x Core..@? "tagSet" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<*> (x Data..@? "dhcpOptionsId")
+      Prelude.<*> (x Data..@? "ownerId")
+      Prelude.<*> ( x Data..@? "tagSet" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
 
 instance Prelude.Hashable DhcpOptions where
   hashWithSalt _salt DhcpOptions' {..} =
     _salt `Prelude.hashWithSalt` dhcpConfigurations
-      `Prelude.hashWithSalt` ownerId
       `Prelude.hashWithSalt` dhcpOptionsId
+      `Prelude.hashWithSalt` ownerId
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData DhcpOptions where
   rnf DhcpOptions' {..} =
     Prelude.rnf dhcpConfigurations
-      `Prelude.seq` Prelude.rnf ownerId
       `Prelude.seq` Prelude.rnf dhcpOptionsId
+      `Prelude.seq` Prelude.rnf ownerId
       `Prelude.seq` Prelude.rnf tags

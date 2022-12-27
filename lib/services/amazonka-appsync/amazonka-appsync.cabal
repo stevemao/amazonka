@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -44,9 +44,11 @@ library
 
   exposed-modules:
     Amazonka.AppSync
+    Amazonka.AppSync.AssociateApi
     Amazonka.AppSync.CreateApiCache
     Amazonka.AppSync.CreateApiKey
     Amazonka.AppSync.CreateDataSource
+    Amazonka.AppSync.CreateDomainName
     Amazonka.AppSync.CreateFunction
     Amazonka.AppSync.CreateGraphqlApi
     Amazonka.AppSync.CreateResolver
@@ -54,13 +56,19 @@ library
     Amazonka.AppSync.DeleteApiCache
     Amazonka.AppSync.DeleteApiKey
     Amazonka.AppSync.DeleteDataSource
+    Amazonka.AppSync.DeleteDomainName
     Amazonka.AppSync.DeleteFunction
     Amazonka.AppSync.DeleteGraphqlApi
     Amazonka.AppSync.DeleteResolver
     Amazonka.AppSync.DeleteType
+    Amazonka.AppSync.DisassociateApi
+    Amazonka.AppSync.EvaluateCode
+    Amazonka.AppSync.EvaluateMappingTemplate
     Amazonka.AppSync.FlushApiCache
+    Amazonka.AppSync.GetApiAssociation
     Amazonka.AppSync.GetApiCache
     Amazonka.AppSync.GetDataSource
+    Amazonka.AppSync.GetDomainName
     Amazonka.AppSync.GetFunction
     Amazonka.AppSync.GetGraphqlApi
     Amazonka.AppSync.GetIntrospectionSchema
@@ -70,6 +78,7 @@ library
     Amazonka.AppSync.Lens
     Amazonka.AppSync.ListApiKeys
     Amazonka.AppSync.ListDataSources
+    Amazonka.AppSync.ListDomainNames
     Amazonka.AppSync.ListFunctions
     Amazonka.AppSync.ListGraphqlApis
     Amazonka.AppSync.ListResolvers
@@ -80,16 +89,21 @@ library
     Amazonka.AppSync.TagResource
     Amazonka.AppSync.Types
     Amazonka.AppSync.Types.AdditionalAuthenticationProvider
+    Amazonka.AppSync.Types.ApiAssociation
     Amazonka.AppSync.Types.ApiCache
     Amazonka.AppSync.Types.ApiCacheStatus
     Amazonka.AppSync.Types.ApiCacheType
     Amazonka.AppSync.Types.ApiCachingBehavior
     Amazonka.AppSync.Types.ApiKey
+    Amazonka.AppSync.Types.AppSyncRuntime
+    Amazonka.AppSync.Types.AssociationStatus
     Amazonka.AppSync.Types.AuthenticationType
     Amazonka.AppSync.Types.AuthorizationConfig
     Amazonka.AppSync.Types.AuthorizationType
     Amazonka.AppSync.Types.AwsIamConfig
     Amazonka.AppSync.Types.CachingConfig
+    Amazonka.AppSync.Types.CodeError
+    Amazonka.AppSync.Types.CodeErrorLocation
     Amazonka.AppSync.Types.CognitoUserPoolConfig
     Amazonka.AppSync.Types.ConflictDetectionType
     Amazonka.AppSync.Types.ConflictHandlerType
@@ -97,8 +111,11 @@ library
     Amazonka.AppSync.Types.DataSourceType
     Amazonka.AppSync.Types.DefaultAction
     Amazonka.AppSync.Types.DeltaSyncConfig
+    Amazonka.AppSync.Types.DomainNameConfig
     Amazonka.AppSync.Types.DynamodbDataSourceConfig
     Amazonka.AppSync.Types.ElasticsearchDataSourceConfig
+    Amazonka.AppSync.Types.ErrorDetail
+    Amazonka.AppSync.Types.EvaluateCodeErrorDetail
     Amazonka.AppSync.Types.FieldLogLevel
     Amazonka.AppSync.Types.FunctionConfiguration
     Amazonka.AppSync.Types.GraphqlApi
@@ -116,6 +133,7 @@ library
     Amazonka.AppSync.Types.RelationalDatabaseSourceType
     Amazonka.AppSync.Types.Resolver
     Amazonka.AppSync.Types.ResolverKind
+    Amazonka.AppSync.Types.RuntimeName
     Amazonka.AppSync.Types.SchemaStatus
     Amazonka.AppSync.Types.SyncConfig
     Amazonka.AppSync.Types.Type
@@ -125,6 +143,7 @@ library
     Amazonka.AppSync.UpdateApiCache
     Amazonka.AppSync.UpdateApiKey
     Amazonka.AppSync.UpdateDataSource
+    Amazonka.AppSync.UpdateDomainName
     Amazonka.AppSync.UpdateFunction
     Amazonka.AppSync.UpdateGraphqlApi
     Amazonka.AppSync.UpdateResolver
@@ -132,7 +151,7 @@ library
     Amazonka.AppSync.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-appsync-test
@@ -152,8 +171,8 @@ test-suite amazonka-appsync-test
 
   build-depends:
     , amazonka-appsync
-    , amazonka-core         ^>=2.0
-    , amazonka-test         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

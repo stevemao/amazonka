@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.AvailabilityZone
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.AvailabilityZone where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an Availability Zone.
@@ -64,14 +65,14 @@ availabilityZone_state = Lens.lens (\AvailabilityZone' {state} -> state) (\s@Ava
 availabilityZone_zoneName :: Lens.Lens' AvailabilityZone (Prelude.Maybe Prelude.Text)
 availabilityZone_zoneName = Lens.lens (\AvailabilityZone' {zoneName} -> zoneName) (\s@AvailabilityZone' {} a -> s {zoneName = a} :: AvailabilityZone)
 
-instance Core.FromJSON AvailabilityZone where
+instance Data.FromJSON AvailabilityZone where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AvailabilityZone"
       ( \x ->
           AvailabilityZone'
-            Prelude.<$> (x Core..:? "state")
-            Prelude.<*> (x Core..:? "zoneName")
+            Prelude.<$> (x Data..:? "state")
+            Prelude.<*> (x Data..:? "zoneName")
       )
 
 instance Prelude.Hashable AvailabilityZone where

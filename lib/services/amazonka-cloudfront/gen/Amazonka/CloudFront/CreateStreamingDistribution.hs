@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.CreateStreamingDistribution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,14 +90,15 @@ instance Core.AWSRequest CreateStreamingDistribution where
   type
     AWSResponse CreateStreamingDistribution =
       CreateStreamingDistributionResponse
-  request = Request.postXML defaultService
+  request overrides =
+    Request.postXML (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateStreamingDistributionResponse'
-            Prelude.<$> (h Core..#? "ETag")
-            Prelude.<*> (h Core..#? "Location")
-            Prelude.<*> (Core.parseXML x)
+            Prelude.<$> (h Data..#? "ETag")
+            Prelude.<*> (h Data..#? "Location")
+            Prelude.<*> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,20 +111,20 @@ instance Prelude.NFData CreateStreamingDistribution where
   rnf CreateStreamingDistribution' {..} =
     Prelude.rnf streamingDistributionConfig
 
-instance Core.ToElement CreateStreamingDistribution where
+instance Data.ToElement CreateStreamingDistribution where
   toElement CreateStreamingDistribution' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}StreamingDistributionConfig"
       streamingDistributionConfig
 
-instance Core.ToHeaders CreateStreamingDistribution where
+instance Data.ToHeaders CreateStreamingDistribution where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateStreamingDistribution where
+instance Data.ToPath CreateStreamingDistribution where
   toPath =
     Prelude.const "/2020-05-31/streaming-distribution"
 
-instance Core.ToQuery CreateStreamingDistribution where
+instance Data.ToQuery CreateStreamingDistribution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The returned result of the corresponding request.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryControlConfig.Types.RuleConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.Route53RecoveryControlConfig.Types.RuleConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53RecoveryControlConfig.Types.RuleType
 
 -- | The rule configuration for an assertion rule. That is, the criteria that
 -- you set for specific assertion controls (routing controls) that specify
--- how many controls must be enabled after a transaction completes.
+-- how many control states must be ON after a transaction completes.
 --
 -- /See:/ 'newRuleConfig' smart constructor.
 data RuleConfig = RuleConfig'
@@ -88,15 +89,15 @@ ruleConfig_inverted = Lens.lens (\RuleConfig' {inverted} -> inverted) (\s@RuleCo
 ruleConfig_threshold :: Lens.Lens' RuleConfig Prelude.Int
 ruleConfig_threshold = Lens.lens (\RuleConfig' {threshold} -> threshold) (\s@RuleConfig' {} a -> s {threshold = a} :: RuleConfig)
 
-instance Core.FromJSON RuleConfig where
+instance Data.FromJSON RuleConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RuleConfig"
       ( \x ->
           RuleConfig'
-            Prelude.<$> (x Core..: "Type")
-            Prelude.<*> (x Core..: "Inverted")
-            Prelude.<*> (x Core..: "Threshold")
+            Prelude.<$> (x Data..: "Type")
+            Prelude.<*> (x Data..: "Inverted")
+            Prelude.<*> (x Data..: "Threshold")
       )
 
 instance Prelude.Hashable RuleConfig where
@@ -111,12 +112,12 @@ instance Prelude.NFData RuleConfig where
       `Prelude.seq` Prelude.rnf inverted
       `Prelude.seq` Prelude.rnf threshold
 
-instance Core.ToJSON RuleConfig where
+instance Data.ToJSON RuleConfig where
   toJSON RuleConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Type" Core..= type'),
-            Prelude.Just ("Inverted" Core..= inverted),
-            Prelude.Just ("Threshold" Core..= threshold)
+          [ Prelude.Just ("Type" Data..= type'),
+            Prelude.Just ("Inverted" Data..= inverted),
+            Prelude.Just ("Threshold" Data..= threshold)
           ]
       )

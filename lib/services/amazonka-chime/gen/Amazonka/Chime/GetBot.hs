@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.GetBot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,12 +88,13 @@ getBot_botId = Lens.lens (\GetBot' {botId} -> botId) (\s@GetBot' {} a -> s {botI
 
 instance Core.AWSRequest GetBot where
   type AWSResponse GetBot = GetBotResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBotResponse'
-            Prelude.<$> (x Core..?> "Bot")
+            Prelude.<$> (x Data..?> "Bot")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -106,19 +108,19 @@ instance Prelude.NFData GetBot where
     Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf botId
 
-instance Core.ToHeaders GetBot where
+instance Data.ToHeaders GetBot where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetBot where
+instance Data.ToPath GetBot where
   toPath GetBot' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/bots/",
-        Core.toBS botId
+        Data.toBS botId
       ]
 
-instance Core.ToQuery GetBot where
+instance Data.ToQuery GetBot where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetBotResponse' smart constructor.

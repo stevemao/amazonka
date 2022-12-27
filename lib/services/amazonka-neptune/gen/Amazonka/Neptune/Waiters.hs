@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,7 +17,8 @@
 module Amazonka.Neptune.Waiters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.DescribeDBInstances
 import Amazonka.Neptune.Lens
 import Amazonka.Neptune.Types
@@ -26,10 +28,10 @@ import qualified Amazonka.Prelude as Prelude
 newDBInstanceAvailable :: Core.Wait DescribeDBInstances
 newDBInstanceAvailable =
   Core.Wait
-    { Core._waitName = "DBInstanceAvailable",
-      Core._waitAttempts = 60,
-      Core._waitDelay = 30,
-      Core._waitAcceptors =
+    { Core.name = "DBInstanceAvailable",
+      Core.attempts = 60,
+      Core.delay = 30,
+      Core.acceptors =
         [ Core.matchAll
             "available"
             Core.AcceptSuccess
@@ -41,7 +43,7 @@ newDBInstanceAvailable =
                 )
                 Prelude.. dbInstance_dbInstanceStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "deleted"
@@ -54,7 +56,7 @@ newDBInstanceAvailable =
                 )
                 Prelude.. dbInstance_dbInstanceStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "deleting"
@@ -67,7 +69,7 @@ newDBInstanceAvailable =
                 )
                 Prelude.. dbInstance_dbInstanceStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "failed"
@@ -80,7 +82,7 @@ newDBInstanceAvailable =
                 )
                 Prelude.. dbInstance_dbInstanceStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "incompatible-restore"
@@ -93,7 +95,7 @@ newDBInstanceAvailable =
                 )
                 Prelude.. dbInstance_dbInstanceStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "incompatible-parameters"
@@ -106,7 +108,7 @@ newDBInstanceAvailable =
                 )
                 Prelude.. dbInstance_dbInstanceStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
@@ -115,10 +117,10 @@ newDBInstanceAvailable =
 newDBInstanceDeleted :: Core.Wait DescribeDBInstances
 newDBInstanceDeleted =
   Core.Wait
-    { Core._waitName = "DBInstanceDeleted",
-      Core._waitAttempts = 60,
-      Core._waitDelay = 30,
-      Core._waitAcceptors =
+    { Core.name = "DBInstanceDeleted",
+      Core.attempts = 60,
+      Core.delay = 30,
+      Core.acceptors =
         [ Core.matchAll
             "deleted"
             Core.AcceptSuccess
@@ -130,7 +132,7 @@ newDBInstanceDeleted =
                 )
                 Prelude.. dbInstance_dbInstanceStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchError
             "DBInstanceNotFound"
@@ -146,7 +148,7 @@ newDBInstanceDeleted =
                 )
                 Prelude.. dbInstance_dbInstanceStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "modifying"
@@ -159,7 +161,7 @@ newDBInstanceDeleted =
                 )
                 Prelude.. dbInstance_dbInstanceStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "rebooting"
@@ -172,7 +174,7 @@ newDBInstanceDeleted =
                 )
                 Prelude.. dbInstance_dbInstanceStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "resetting-master-credentials"
@@ -185,7 +187,7 @@ newDBInstanceDeleted =
                 )
                 Prelude.. dbInstance_dbInstanceStatus
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.PutPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,7 @@
 -- -   An Network Firewall policy, which provides firewall rules to filter
 --     network traffic in specified Amazon VPCs.
 --
--- -   A DNS Firewall policy, which provides Route 53 Resolver DNS Firewall
+-- -   A DNS Firewall policy, which provides Route 53 Resolver DNS Firewall
 --     rules to filter DNS queries for specified VPCs.
 --
 -- Each policy is specific to one of the types. If you want to enforce more
@@ -63,15 +63,16 @@ module Amazonka.FMS.PutPolicy
     newPutPolicyResponse,
 
     -- * Response Lenses
-    putPolicyResponse_policyArn,
     putPolicyResponse_policy,
+    putPolicyResponse_policyArn,
     putPolicyResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,13 +117,14 @@ putPolicy_policy = Lens.lens (\PutPolicy' {policy} -> policy) (\s@PutPolicy' {} 
 
 instance Core.AWSRequest PutPolicy where
   type AWSResponse PutPolicy = PutPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutPolicyResponse'
-            Prelude.<$> (x Core..?> "PolicyArn")
-            Prelude.<*> (x Core..?> "Policy")
+            Prelude.<$> (x Data..?> "Policy")
+            Prelude.<*> (x Data..?> "PolicyArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,40 +138,40 @@ instance Prelude.NFData PutPolicy where
     Prelude.rnf tagList
       `Prelude.seq` Prelude.rnf policy
 
-instance Core.ToHeaders PutPolicy where
+instance Data.ToHeaders PutPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSFMS_20180101.PutPolicy" :: Prelude.ByteString),
+              Data.=# ("AWSFMS_20180101.PutPolicy" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutPolicy where
+instance Data.ToJSON PutPolicy where
   toJSON PutPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TagList" Core..=) Prelude.<$> tagList,
-            Prelude.Just ("Policy" Core..= policy)
+          [ ("TagList" Data..=) Prelude.<$> tagList,
+            Prelude.Just ("Policy" Data..= policy)
           ]
       )
 
-instance Core.ToPath PutPolicy where
+instance Data.ToPath PutPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutPolicy where
+instance Data.ToQuery PutPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutPolicyResponse' smart constructor.
 data PutPolicyResponse = PutPolicyResponse'
-  { -- | The Amazon Resource Name (ARN) of the policy.
-    policyArn :: Prelude.Maybe Prelude.Text,
-    -- | The details of the Firewall Manager policy.
+  { -- | The details of the Firewall Manager policy.
     policy :: Prelude.Maybe Policy,
+    -- | The Amazon Resource Name (ARN) of the policy.
+    policyArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -183,9 +185,9 @@ data PutPolicyResponse = PutPolicyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'policyArn', 'putPolicyResponse_policyArn' - The Amazon Resource Name (ARN) of the policy.
---
 -- 'policy', 'putPolicyResponse_policy' - The details of the Firewall Manager policy.
+--
+-- 'policyArn', 'putPolicyResponse_policyArn' - The Amazon Resource Name (ARN) of the policy.
 --
 -- 'httpStatus', 'putPolicyResponse_httpStatus' - The response's http status code.
 newPutPolicyResponse ::
@@ -194,18 +196,18 @@ newPutPolicyResponse ::
   PutPolicyResponse
 newPutPolicyResponse pHttpStatus_ =
   PutPolicyResponse'
-    { policyArn = Prelude.Nothing,
-      policy = Prelude.Nothing,
+    { policy = Prelude.Nothing,
+      policyArn = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The Amazon Resource Name (ARN) of the policy.
-putPolicyResponse_policyArn :: Lens.Lens' PutPolicyResponse (Prelude.Maybe Prelude.Text)
-putPolicyResponse_policyArn = Lens.lens (\PutPolicyResponse' {policyArn} -> policyArn) (\s@PutPolicyResponse' {} a -> s {policyArn = a} :: PutPolicyResponse)
 
 -- | The details of the Firewall Manager policy.
 putPolicyResponse_policy :: Lens.Lens' PutPolicyResponse (Prelude.Maybe Policy)
 putPolicyResponse_policy = Lens.lens (\PutPolicyResponse' {policy} -> policy) (\s@PutPolicyResponse' {} a -> s {policy = a} :: PutPolicyResponse)
+
+-- | The Amazon Resource Name (ARN) of the policy.
+putPolicyResponse_policyArn :: Lens.Lens' PutPolicyResponse (Prelude.Maybe Prelude.Text)
+putPolicyResponse_policyArn = Lens.lens (\PutPolicyResponse' {policyArn} -> policyArn) (\s@PutPolicyResponse' {} a -> s {policyArn = a} :: PutPolicyResponse)
 
 -- | The response's http status code.
 putPolicyResponse_httpStatus :: Lens.Lens' PutPolicyResponse Prelude.Int
@@ -213,6 +215,6 @@ putPolicyResponse_httpStatus = Lens.lens (\PutPolicyResponse' {httpStatus} -> ht
 
 instance Prelude.NFData PutPolicyResponse where
   rnf PutPolicyResponse' {..} =
-    Prelude.rnf policyArn
-      `Prelude.seq` Prelude.rnf policy
+    Prelude.rnf policy
+      `Prelude.seq` Prelude.rnf policyArn
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.ObjectCountByEncryptionType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.ObjectCountByEncryptionType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about the number of objects that are in an S3
@@ -29,23 +30,23 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newObjectCountByEncryptionType' smart constructor.
 data ObjectCountByEncryptionType = ObjectCountByEncryptionType'
-  { -- | The total number of objects that Amazon Macie doesn\'t have current
-    -- encryption metadata for. Macie can\'t provide current data about the
-    -- encryption settings for these objects.
-    unknown :: Prelude.Maybe Prelude.Integer,
+  { -- | The total number of objects that are encrypted with a customer-provided
+    -- key. The objects use customer-provided server-side encryption (SSE-C).
+    customerManaged :: Prelude.Maybe Prelude.Integer,
+    -- | The total number of objects that are encrypted with an KMS key, either
+    -- an Amazon Web Services managed key or a customer managed key. The
+    -- objects use KMS encryption (SSE-KMS).
+    kmsManaged :: Prelude.Maybe Prelude.Integer,
     -- | The total number of objects that are encrypted with an Amazon S3 managed
     -- key. The objects use Amazon S3 managed encryption (SSE-S3).
     s3Managed :: Prelude.Maybe Prelude.Integer,
     -- | The total number of objects that aren\'t encrypted or use client-side
     -- encryption.
     unencrypted :: Prelude.Maybe Prelude.Integer,
-    -- | The total number of objects that are encrypted with an KMS key, either
-    -- an Amazon Web Services managed key or a customer managed key. The
-    -- objects use KMS encryption (SSE-KMS).
-    kmsManaged :: Prelude.Maybe Prelude.Integer,
-    -- | The total number of objects that are encrypted with a customer-provided
-    -- key. The objects use customer-provided server-side encryption (SSE-C).
-    customerManaged :: Prelude.Maybe Prelude.Integer
+    -- | The total number of objects that Amazon Macie doesn\'t have current
+    -- encryption metadata for. Macie can\'t provide current data about the
+    -- encryption settings for these objects.
+    unknown :: Prelude.Maybe Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -57,9 +58,12 @@ data ObjectCountByEncryptionType = ObjectCountByEncryptionType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'unknown', 'objectCountByEncryptionType_unknown' - The total number of objects that Amazon Macie doesn\'t have current
--- encryption metadata for. Macie can\'t provide current data about the
--- encryption settings for these objects.
+-- 'customerManaged', 'objectCountByEncryptionType_customerManaged' - The total number of objects that are encrypted with a customer-provided
+-- key. The objects use customer-provided server-side encryption (SSE-C).
+--
+-- 'kmsManaged', 'objectCountByEncryptionType_kmsManaged' - The total number of objects that are encrypted with an KMS key, either
+-- an Amazon Web Services managed key or a customer managed key. The
+-- objects use KMS encryption (SSE-KMS).
 --
 -- 's3Managed', 'objectCountByEncryptionType_s3Managed' - The total number of objects that are encrypted with an Amazon S3 managed
 -- key. The objects use Amazon S3 managed encryption (SSE-S3).
@@ -67,29 +71,31 @@ data ObjectCountByEncryptionType = ObjectCountByEncryptionType'
 -- 'unencrypted', 'objectCountByEncryptionType_unencrypted' - The total number of objects that aren\'t encrypted or use client-side
 -- encryption.
 --
--- 'kmsManaged', 'objectCountByEncryptionType_kmsManaged' - The total number of objects that are encrypted with an KMS key, either
--- an Amazon Web Services managed key or a customer managed key. The
--- objects use KMS encryption (SSE-KMS).
---
--- 'customerManaged', 'objectCountByEncryptionType_customerManaged' - The total number of objects that are encrypted with a customer-provided
--- key. The objects use customer-provided server-side encryption (SSE-C).
+-- 'unknown', 'objectCountByEncryptionType_unknown' - The total number of objects that Amazon Macie doesn\'t have current
+-- encryption metadata for. Macie can\'t provide current data about the
+-- encryption settings for these objects.
 newObjectCountByEncryptionType ::
   ObjectCountByEncryptionType
 newObjectCountByEncryptionType =
   ObjectCountByEncryptionType'
-    { unknown =
+    { customerManaged =
         Prelude.Nothing,
+      kmsManaged = Prelude.Nothing,
       s3Managed = Prelude.Nothing,
       unencrypted = Prelude.Nothing,
-      kmsManaged = Prelude.Nothing,
-      customerManaged = Prelude.Nothing
+      unknown = Prelude.Nothing
     }
 
--- | The total number of objects that Amazon Macie doesn\'t have current
--- encryption metadata for. Macie can\'t provide current data about the
--- encryption settings for these objects.
-objectCountByEncryptionType_unknown :: Lens.Lens' ObjectCountByEncryptionType (Prelude.Maybe Prelude.Integer)
-objectCountByEncryptionType_unknown = Lens.lens (\ObjectCountByEncryptionType' {unknown} -> unknown) (\s@ObjectCountByEncryptionType' {} a -> s {unknown = a} :: ObjectCountByEncryptionType)
+-- | The total number of objects that are encrypted with a customer-provided
+-- key. The objects use customer-provided server-side encryption (SSE-C).
+objectCountByEncryptionType_customerManaged :: Lens.Lens' ObjectCountByEncryptionType (Prelude.Maybe Prelude.Integer)
+objectCountByEncryptionType_customerManaged = Lens.lens (\ObjectCountByEncryptionType' {customerManaged} -> customerManaged) (\s@ObjectCountByEncryptionType' {} a -> s {customerManaged = a} :: ObjectCountByEncryptionType)
+
+-- | The total number of objects that are encrypted with an KMS key, either
+-- an Amazon Web Services managed key or a customer managed key. The
+-- objects use KMS encryption (SSE-KMS).
+objectCountByEncryptionType_kmsManaged :: Lens.Lens' ObjectCountByEncryptionType (Prelude.Maybe Prelude.Integer)
+objectCountByEncryptionType_kmsManaged = Lens.lens (\ObjectCountByEncryptionType' {kmsManaged} -> kmsManaged) (\s@ObjectCountByEncryptionType' {} a -> s {kmsManaged = a} :: ObjectCountByEncryptionType)
 
 -- | The total number of objects that are encrypted with an Amazon S3 managed
 -- key. The objects use Amazon S3 managed encryption (SSE-S3).
@@ -101,42 +107,37 @@ objectCountByEncryptionType_s3Managed = Lens.lens (\ObjectCountByEncryptionType'
 objectCountByEncryptionType_unencrypted :: Lens.Lens' ObjectCountByEncryptionType (Prelude.Maybe Prelude.Integer)
 objectCountByEncryptionType_unencrypted = Lens.lens (\ObjectCountByEncryptionType' {unencrypted} -> unencrypted) (\s@ObjectCountByEncryptionType' {} a -> s {unencrypted = a} :: ObjectCountByEncryptionType)
 
--- | The total number of objects that are encrypted with an KMS key, either
--- an Amazon Web Services managed key or a customer managed key. The
--- objects use KMS encryption (SSE-KMS).
-objectCountByEncryptionType_kmsManaged :: Lens.Lens' ObjectCountByEncryptionType (Prelude.Maybe Prelude.Integer)
-objectCountByEncryptionType_kmsManaged = Lens.lens (\ObjectCountByEncryptionType' {kmsManaged} -> kmsManaged) (\s@ObjectCountByEncryptionType' {} a -> s {kmsManaged = a} :: ObjectCountByEncryptionType)
+-- | The total number of objects that Amazon Macie doesn\'t have current
+-- encryption metadata for. Macie can\'t provide current data about the
+-- encryption settings for these objects.
+objectCountByEncryptionType_unknown :: Lens.Lens' ObjectCountByEncryptionType (Prelude.Maybe Prelude.Integer)
+objectCountByEncryptionType_unknown = Lens.lens (\ObjectCountByEncryptionType' {unknown} -> unknown) (\s@ObjectCountByEncryptionType' {} a -> s {unknown = a} :: ObjectCountByEncryptionType)
 
--- | The total number of objects that are encrypted with a customer-provided
--- key. The objects use customer-provided server-side encryption (SSE-C).
-objectCountByEncryptionType_customerManaged :: Lens.Lens' ObjectCountByEncryptionType (Prelude.Maybe Prelude.Integer)
-objectCountByEncryptionType_customerManaged = Lens.lens (\ObjectCountByEncryptionType' {customerManaged} -> customerManaged) (\s@ObjectCountByEncryptionType' {} a -> s {customerManaged = a} :: ObjectCountByEncryptionType)
-
-instance Core.FromJSON ObjectCountByEncryptionType where
+instance Data.FromJSON ObjectCountByEncryptionType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ObjectCountByEncryptionType"
       ( \x ->
           ObjectCountByEncryptionType'
-            Prelude.<$> (x Core..:? "unknown")
-            Prelude.<*> (x Core..:? "s3Managed")
-            Prelude.<*> (x Core..:? "unencrypted")
-            Prelude.<*> (x Core..:? "kmsManaged")
-            Prelude.<*> (x Core..:? "customerManaged")
+            Prelude.<$> (x Data..:? "customerManaged")
+            Prelude.<*> (x Data..:? "kmsManaged")
+            Prelude.<*> (x Data..:? "s3Managed")
+            Prelude.<*> (x Data..:? "unencrypted")
+            Prelude.<*> (x Data..:? "unknown")
       )
 
 instance Prelude.Hashable ObjectCountByEncryptionType where
   hashWithSalt _salt ObjectCountByEncryptionType' {..} =
-    _salt `Prelude.hashWithSalt` unknown
+    _salt `Prelude.hashWithSalt` customerManaged
+      `Prelude.hashWithSalt` kmsManaged
       `Prelude.hashWithSalt` s3Managed
       `Prelude.hashWithSalt` unencrypted
-      `Prelude.hashWithSalt` kmsManaged
-      `Prelude.hashWithSalt` customerManaged
+      `Prelude.hashWithSalt` unknown
 
 instance Prelude.NFData ObjectCountByEncryptionType where
   rnf ObjectCountByEncryptionType' {..} =
-    Prelude.rnf unknown
+    Prelude.rnf customerManaged
+      `Prelude.seq` Prelude.rnf kmsManaged
       `Prelude.seq` Prelude.rnf s3Managed
       `Prelude.seq` Prelude.rnf unencrypted
-      `Prelude.seq` Prelude.rnf kmsManaged
-      `Prelude.seq` Prelude.rnf customerManaged
+      `Prelude.seq` Prelude.rnf unknown

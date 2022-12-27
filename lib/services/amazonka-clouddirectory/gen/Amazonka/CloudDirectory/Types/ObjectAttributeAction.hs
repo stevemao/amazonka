@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.ObjectAttributeAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudDirectory.Types.ObjectAttributeAction where
 import Amazonka.CloudDirectory.Types.TypedAttributeValue
 import Amazonka.CloudDirectory.Types.UpdateActionType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The action to take on the object attribute.
@@ -75,13 +76,13 @@ instance Prelude.NFData ObjectAttributeAction where
     Prelude.rnf objectAttributeActionType
       `Prelude.seq` Prelude.rnf objectAttributeUpdateValue
 
-instance Core.ToJSON ObjectAttributeAction where
+instance Data.ToJSON ObjectAttributeAction where
   toJSON ObjectAttributeAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ObjectAttributeActionType" Core..=)
+          [ ("ObjectAttributeActionType" Data..=)
               Prelude.<$> objectAttributeActionType,
-            ("ObjectAttributeUpdateValue" Core..=)
+            ("ObjectAttributeUpdateValue" Data..=)
               Prelude.<$> objectAttributeUpdateValue
           ]
       )

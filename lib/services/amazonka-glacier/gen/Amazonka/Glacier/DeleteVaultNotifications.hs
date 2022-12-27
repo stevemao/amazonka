@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.DeleteVaultNotifications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,8 +53,9 @@ module Amazonka.Glacier.DeleteVaultNotifications
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -118,9 +119,9 @@ instance Core.AWSRequest DeleteVaultNotifications where
   type
     AWSResponse DeleteVaultNotifications =
       DeleteVaultNotificationsResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.delete defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteVaultNotificationsResponse'
@@ -135,20 +136,20 @@ instance Prelude.NFData DeleteVaultNotifications where
     Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf vaultName
 
-instance Core.ToHeaders DeleteVaultNotifications where
+instance Data.ToHeaders DeleteVaultNotifications where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteVaultNotifications where
+instance Data.ToPath DeleteVaultNotifications where
   toPath DeleteVaultNotifications' {..} =
     Prelude.mconcat
       [ "/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/vaults/",
-        Core.toBS vaultName,
+        Data.toBS vaultName,
         "/notification-configuration"
       ]
 
-instance Core.ToQuery DeleteVaultNotifications where
+instance Data.ToQuery DeleteVaultNotifications where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteVaultNotificationsResponse' smart constructor.

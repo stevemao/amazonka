@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.UpdateTableReplicaAutoScaling
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.DynamoDB.UpdateTableReplicaAutoScaling
     newUpdateTableReplicaAutoScaling,
 
     -- * Request Lenses
-    updateTableReplicaAutoScaling_replicaUpdates,
-    updateTableReplicaAutoScaling_provisionedWriteCapacityAutoScalingUpdate,
     updateTableReplicaAutoScaling_globalSecondaryIndexUpdates,
+    updateTableReplicaAutoScaling_provisionedWriteCapacityAutoScalingUpdate,
+    updateTableReplicaAutoScaling_replicaUpdates,
     updateTableReplicaAutoScaling_tableName,
 
     -- * Destructuring the Response
@@ -47,21 +47,22 @@ module Amazonka.DynamoDB.UpdateTableReplicaAutoScaling
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateTableReplicaAutoScaling' smart constructor.
 data UpdateTableReplicaAutoScaling = UpdateTableReplicaAutoScaling'
-  { -- | Represents the auto scaling settings of replicas of the table that will
-    -- be modified.
-    replicaUpdates :: Prelude.Maybe (Prelude.NonEmpty ReplicaAutoScalingUpdate),
-    provisionedWriteCapacityAutoScalingUpdate :: Prelude.Maybe AutoScalingSettingsUpdate,
-    -- | Represents the auto scaling settings of the global secondary indexes of
+  { -- | Represents the auto scaling settings of the global secondary indexes of
     -- the replica to be updated.
     globalSecondaryIndexUpdates :: Prelude.Maybe (Prelude.NonEmpty GlobalSecondaryIndexAutoScalingUpdate),
+    provisionedWriteCapacityAutoScalingUpdate :: Prelude.Maybe AutoScalingSettingsUpdate,
+    -- | Represents the auto scaling settings of replicas of the table that will
+    -- be modified.
+    replicaUpdates :: Prelude.Maybe (Prelude.NonEmpty ReplicaAutoScalingUpdate),
     -- | The name of the global table to be updated.
     tableName :: Prelude.Text
   }
@@ -75,13 +76,13 @@ data UpdateTableReplicaAutoScaling = UpdateTableReplicaAutoScaling'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'replicaUpdates', 'updateTableReplicaAutoScaling_replicaUpdates' - Represents the auto scaling settings of replicas of the table that will
--- be modified.
+-- 'globalSecondaryIndexUpdates', 'updateTableReplicaAutoScaling_globalSecondaryIndexUpdates' - Represents the auto scaling settings of the global secondary indexes of
+-- the replica to be updated.
 --
 -- 'provisionedWriteCapacityAutoScalingUpdate', 'updateTableReplicaAutoScaling_provisionedWriteCapacityAutoScalingUpdate' - Undocumented member.
 --
--- 'globalSecondaryIndexUpdates', 'updateTableReplicaAutoScaling_globalSecondaryIndexUpdates' - Represents the auto scaling settings of the global secondary indexes of
--- the replica to be updated.
+-- 'replicaUpdates', 'updateTableReplicaAutoScaling_replicaUpdates' - Represents the auto scaling settings of replicas of the table that will
+-- be modified.
 --
 -- 'tableName', 'updateTableReplicaAutoScaling_tableName' - The name of the global table to be updated.
 newUpdateTableReplicaAutoScaling ::
@@ -90,28 +91,27 @@ newUpdateTableReplicaAutoScaling ::
   UpdateTableReplicaAutoScaling
 newUpdateTableReplicaAutoScaling pTableName_ =
   UpdateTableReplicaAutoScaling'
-    { replicaUpdates =
+    { globalSecondaryIndexUpdates =
         Prelude.Nothing,
       provisionedWriteCapacityAutoScalingUpdate =
         Prelude.Nothing,
-      globalSecondaryIndexUpdates =
-        Prelude.Nothing,
+      replicaUpdates = Prelude.Nothing,
       tableName = pTableName_
     }
-
--- | Represents the auto scaling settings of replicas of the table that will
--- be modified.
-updateTableReplicaAutoScaling_replicaUpdates :: Lens.Lens' UpdateTableReplicaAutoScaling (Prelude.Maybe (Prelude.NonEmpty ReplicaAutoScalingUpdate))
-updateTableReplicaAutoScaling_replicaUpdates = Lens.lens (\UpdateTableReplicaAutoScaling' {replicaUpdates} -> replicaUpdates) (\s@UpdateTableReplicaAutoScaling' {} a -> s {replicaUpdates = a} :: UpdateTableReplicaAutoScaling) Prelude.. Lens.mapping Lens.coerced
-
--- | Undocumented member.
-updateTableReplicaAutoScaling_provisionedWriteCapacityAutoScalingUpdate :: Lens.Lens' UpdateTableReplicaAutoScaling (Prelude.Maybe AutoScalingSettingsUpdate)
-updateTableReplicaAutoScaling_provisionedWriteCapacityAutoScalingUpdate = Lens.lens (\UpdateTableReplicaAutoScaling' {provisionedWriteCapacityAutoScalingUpdate} -> provisionedWriteCapacityAutoScalingUpdate) (\s@UpdateTableReplicaAutoScaling' {} a -> s {provisionedWriteCapacityAutoScalingUpdate = a} :: UpdateTableReplicaAutoScaling)
 
 -- | Represents the auto scaling settings of the global secondary indexes of
 -- the replica to be updated.
 updateTableReplicaAutoScaling_globalSecondaryIndexUpdates :: Lens.Lens' UpdateTableReplicaAutoScaling (Prelude.Maybe (Prelude.NonEmpty GlobalSecondaryIndexAutoScalingUpdate))
 updateTableReplicaAutoScaling_globalSecondaryIndexUpdates = Lens.lens (\UpdateTableReplicaAutoScaling' {globalSecondaryIndexUpdates} -> globalSecondaryIndexUpdates) (\s@UpdateTableReplicaAutoScaling' {} a -> s {globalSecondaryIndexUpdates = a} :: UpdateTableReplicaAutoScaling) Prelude.. Lens.mapping Lens.coerced
+
+-- | Undocumented member.
+updateTableReplicaAutoScaling_provisionedWriteCapacityAutoScalingUpdate :: Lens.Lens' UpdateTableReplicaAutoScaling (Prelude.Maybe AutoScalingSettingsUpdate)
+updateTableReplicaAutoScaling_provisionedWriteCapacityAutoScalingUpdate = Lens.lens (\UpdateTableReplicaAutoScaling' {provisionedWriteCapacityAutoScalingUpdate} -> provisionedWriteCapacityAutoScalingUpdate) (\s@UpdateTableReplicaAutoScaling' {} a -> s {provisionedWriteCapacityAutoScalingUpdate = a} :: UpdateTableReplicaAutoScaling)
+
+-- | Represents the auto scaling settings of replicas of the table that will
+-- be modified.
+updateTableReplicaAutoScaling_replicaUpdates :: Lens.Lens' UpdateTableReplicaAutoScaling (Prelude.Maybe (Prelude.NonEmpty ReplicaAutoScalingUpdate))
+updateTableReplicaAutoScaling_replicaUpdates = Lens.lens (\UpdateTableReplicaAutoScaling' {replicaUpdates} -> replicaUpdates) (\s@UpdateTableReplicaAutoScaling' {} a -> s {replicaUpdates = a} :: UpdateTableReplicaAutoScaling) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the global table to be updated.
 updateTableReplicaAutoScaling_tableName :: Lens.Lens' UpdateTableReplicaAutoScaling Prelude.Text
@@ -124,12 +124,13 @@ instance
   type
     AWSResponse UpdateTableReplicaAutoScaling =
       UpdateTableReplicaAutoScalingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateTableReplicaAutoScalingResponse'
-            Prelude.<$> (x Core..?> "TableAutoScalingDescription")
+            Prelude.<$> (x Data..?> "TableAutoScalingDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -138,51 +139,52 @@ instance
     UpdateTableReplicaAutoScaling
   where
   hashWithSalt _salt UpdateTableReplicaAutoScaling' {..} =
-    _salt `Prelude.hashWithSalt` replicaUpdates
-      `Prelude.hashWithSalt` provisionedWriteCapacityAutoScalingUpdate
+    _salt
       `Prelude.hashWithSalt` globalSecondaryIndexUpdates
+      `Prelude.hashWithSalt` provisionedWriteCapacityAutoScalingUpdate
+      `Prelude.hashWithSalt` replicaUpdates
       `Prelude.hashWithSalt` tableName
 
 instance Prelude.NFData UpdateTableReplicaAutoScaling where
   rnf UpdateTableReplicaAutoScaling' {..} =
-    Prelude.rnf replicaUpdates
+    Prelude.rnf globalSecondaryIndexUpdates
       `Prelude.seq` Prelude.rnf provisionedWriteCapacityAutoScalingUpdate
-      `Prelude.seq` Prelude.rnf globalSecondaryIndexUpdates
+      `Prelude.seq` Prelude.rnf replicaUpdates
       `Prelude.seq` Prelude.rnf tableName
 
-instance Core.ToHeaders UpdateTableReplicaAutoScaling where
+instance Data.ToHeaders UpdateTableReplicaAutoScaling where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.UpdateTableReplicaAutoScaling" ::
+              Data.=# ( "DynamoDB_20120810.UpdateTableReplicaAutoScaling" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateTableReplicaAutoScaling where
+instance Data.ToJSON UpdateTableReplicaAutoScaling where
   toJSON UpdateTableReplicaAutoScaling' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ReplicaUpdates" Core..=)
-              Prelude.<$> replicaUpdates,
-            ("ProvisionedWriteCapacityAutoScalingUpdate" Core..=)
-              Prelude.<$> provisionedWriteCapacityAutoScalingUpdate,
-            ("GlobalSecondaryIndexUpdates" Core..=)
+          [ ("GlobalSecondaryIndexUpdates" Data..=)
               Prelude.<$> globalSecondaryIndexUpdates,
-            Prelude.Just ("TableName" Core..= tableName)
+            ("ProvisionedWriteCapacityAutoScalingUpdate" Data..=)
+              Prelude.<$> provisionedWriteCapacityAutoScalingUpdate,
+            ("ReplicaUpdates" Data..=)
+              Prelude.<$> replicaUpdates,
+            Prelude.Just ("TableName" Data..= tableName)
           ]
       )
 
-instance Core.ToPath UpdateTableReplicaAutoScaling where
+instance Data.ToPath UpdateTableReplicaAutoScaling where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateTableReplicaAutoScaling where
+instance Data.ToQuery UpdateTableReplicaAutoScaling where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateTableReplicaAutoScalingResponse' smart constructor.

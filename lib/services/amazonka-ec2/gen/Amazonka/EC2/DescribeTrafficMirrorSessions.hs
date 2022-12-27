@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeTrafficMirrorSessions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,11 +31,11 @@ module Amazonka.EC2.DescribeTrafficMirrorSessions
     newDescribeTrafficMirrorSessions,
 
     -- * Request Lenses
+    describeTrafficMirrorSessions_dryRun,
     describeTrafficMirrorSessions_filters,
+    describeTrafficMirrorSessions_maxResults,
     describeTrafficMirrorSessions_nextToken,
     describeTrafficMirrorSessions_trafficMirrorSessionIds,
-    describeTrafficMirrorSessions_dryRun,
-    describeTrafficMirrorSessions_maxResults,
 
     -- * Destructuring the Response
     DescribeTrafficMirrorSessionsResponse (..),
@@ -49,15 +49,21 @@ module Amazonka.EC2.DescribeTrafficMirrorSessions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeTrafficMirrorSessions' smart constructor.
 data DescribeTrafficMirrorSessions = DescribeTrafficMirrorSessions'
-  { -- | One or more filters. The possible values are:
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters. The possible values are:
     --
     -- -   @description@: The Traffic Mirror session description.
     --
@@ -80,19 +86,14 @@ data DescribeTrafficMirrorSessions = DescribeTrafficMirrorSessions'
     -- -   @virtual-network-id@: The virtual network ID of the Traffic Mirror
     --     session.
     filters :: Prelude.Maybe [Filter],
-    -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the Traffic Mirror session.
-    trafficMirrorSessionIds :: Prelude.Maybe [Prelude.Text],
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Traffic Mirror session.
+    trafficMirrorSessionIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -103,6 +104,11 @@ data DescribeTrafficMirrorSessions = DescribeTrafficMirrorSessions'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dryRun', 'describeTrafficMirrorSessions_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeTrafficMirrorSessions_filters' - One or more filters. The possible values are:
 --
@@ -127,29 +133,31 @@ data DescribeTrafficMirrorSessions = DescribeTrafficMirrorSessions'
 -- -   @virtual-network-id@: The virtual network ID of the Traffic Mirror
 --     session.
 --
--- 'nextToken', 'describeTrafficMirrorSessions_nextToken' - The token for the next page of results.
---
--- 'trafficMirrorSessionIds', 'describeTrafficMirrorSessions_trafficMirrorSessionIds' - The ID of the Traffic Mirror session.
---
--- 'dryRun', 'describeTrafficMirrorSessions_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
 -- 'maxResults', 'describeTrafficMirrorSessions_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'describeTrafficMirrorSessions_nextToken' - The token for the next page of results.
+--
+-- 'trafficMirrorSessionIds', 'describeTrafficMirrorSessions_trafficMirrorSessionIds' - The ID of the Traffic Mirror session.
 newDescribeTrafficMirrorSessions ::
   DescribeTrafficMirrorSessions
 newDescribeTrafficMirrorSessions =
   DescribeTrafficMirrorSessions'
-    { filters =
+    { dryRun =
         Prelude.Nothing,
+      filters = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      trafficMirrorSessionIds = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      trafficMirrorSessionIds = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeTrafficMirrorSessions_dryRun :: Lens.Lens' DescribeTrafficMirrorSessions (Prelude.Maybe Prelude.Bool)
+describeTrafficMirrorSessions_dryRun = Lens.lens (\DescribeTrafficMirrorSessions' {dryRun} -> dryRun) (\s@DescribeTrafficMirrorSessions' {} a -> s {dryRun = a} :: DescribeTrafficMirrorSessions)
 
 -- | One or more filters. The possible values are:
 --
@@ -176,6 +184,12 @@ newDescribeTrafficMirrorSessions =
 describeTrafficMirrorSessions_filters :: Lens.Lens' DescribeTrafficMirrorSessions (Prelude.Maybe [Filter])
 describeTrafficMirrorSessions_filters = Lens.lens (\DescribeTrafficMirrorSessions' {filters} -> filters) (\s@DescribeTrafficMirrorSessions' {} a -> s {filters = a} :: DescribeTrafficMirrorSessions) Prelude.. Lens.mapping Lens.coerced
 
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeTrafficMirrorSessions_maxResults :: Lens.Lens' DescribeTrafficMirrorSessions (Prelude.Maybe Prelude.Natural)
+describeTrafficMirrorSessions_maxResults = Lens.lens (\DescribeTrafficMirrorSessions' {maxResults} -> maxResults) (\s@DescribeTrafficMirrorSessions' {} a -> s {maxResults = a} :: DescribeTrafficMirrorSessions)
+
 -- | The token for the next page of results.
 describeTrafficMirrorSessions_nextToken :: Lens.Lens' DescribeTrafficMirrorSessions (Prelude.Maybe Prelude.Text)
 describeTrafficMirrorSessions_nextToken = Lens.lens (\DescribeTrafficMirrorSessions' {nextToken} -> nextToken) (\s@DescribeTrafficMirrorSessions' {} a -> s {nextToken = a} :: DescribeTrafficMirrorSessions)
@@ -183,19 +197,6 @@ describeTrafficMirrorSessions_nextToken = Lens.lens (\DescribeTrafficMirrorSessi
 -- | The ID of the Traffic Mirror session.
 describeTrafficMirrorSessions_trafficMirrorSessionIds :: Lens.Lens' DescribeTrafficMirrorSessions (Prelude.Maybe [Prelude.Text])
 describeTrafficMirrorSessions_trafficMirrorSessionIds = Lens.lens (\DescribeTrafficMirrorSessions' {trafficMirrorSessionIds} -> trafficMirrorSessionIds) (\s@DescribeTrafficMirrorSessions' {} a -> s {trafficMirrorSessionIds = a} :: DescribeTrafficMirrorSessions) Prelude.. Lens.mapping Lens.coerced
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeTrafficMirrorSessions_dryRun :: Lens.Lens' DescribeTrafficMirrorSessions (Prelude.Maybe Prelude.Bool)
-describeTrafficMirrorSessions_dryRun = Lens.lens (\DescribeTrafficMirrorSessions' {dryRun} -> dryRun) (\s@DescribeTrafficMirrorSessions' {} a -> s {dryRun = a} :: DescribeTrafficMirrorSessions)
-
--- | The maximum number of results to return with a single call. To retrieve
--- the remaining results, make another call with the returned @nextToken@
--- value.
-describeTrafficMirrorSessions_maxResults :: Lens.Lens' DescribeTrafficMirrorSessions (Prelude.Maybe Prelude.Natural)
-describeTrafficMirrorSessions_maxResults = Lens.lens (\DescribeTrafficMirrorSessions' {maxResults} -> maxResults) (\s@DescribeTrafficMirrorSessions' {} a -> s {maxResults = a} :: DescribeTrafficMirrorSessions)
 
 instance Core.AWSPager DescribeTrafficMirrorSessions where
   page rq rs
@@ -226,15 +227,16 @@ instance
   type
     AWSResponse DescribeTrafficMirrorSessions =
       DescribeTrafficMirrorSessionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeTrafficMirrorSessionsResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-            Prelude.<*> ( x Core..@? "trafficMirrorSessionSet"
+            Prelude.<$> (x Data..@? "nextToken")
+            Prelude.<*> ( x Data..@? "trafficMirrorSessionSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -244,44 +246,44 @@ instance
     DescribeTrafficMirrorSessions
   where
   hashWithSalt _salt DescribeTrafficMirrorSessions' {..} =
-    _salt `Prelude.hashWithSalt` filters
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` trafficMirrorSessionIds
-      `Prelude.hashWithSalt` dryRun
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData DescribeTrafficMirrorSessions where
   rnf DescribeTrafficMirrorSessions' {..} =
-    Prelude.rnf filters
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf trafficMirrorSessionIds
-      `Prelude.seq` Prelude.rnf dryRun
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders DescribeTrafficMirrorSessions where
+instance Data.ToHeaders DescribeTrafficMirrorSessions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeTrafficMirrorSessions where
+instance Data.ToPath DescribeTrafficMirrorSessions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTrafficMirrorSessions where
+instance Data.ToQuery DescribeTrafficMirrorSessions where
   toQuery DescribeTrafficMirrorSessions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeTrafficMirrorSessions" ::
+          Data.=: ( "DescribeTrafficMirrorSessions" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        Core.toQuery
-          ( Core.toQueryList "TrafficMirrorSessionId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        Data.toQuery
+          ( Data.toQueryList "TrafficMirrorSessionId"
               Prelude.<$> trafficMirrorSessionIds
-          ),
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+          )
       ]
 
 -- | /See:/ 'newDescribeTrafficMirrorSessionsResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.Types.Http
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +20,24 @@
 module Amazonka.XRay.Types.Http where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an HTTP request.
 --
 -- /See:/ 'newHttp' smart constructor.
 data Http = Http'
-  { -- | The request method.
+  { -- | The IP address of the requestor.
+    clientIp :: Prelude.Maybe Prelude.Text,
+    -- | The request method.
     httpMethod :: Prelude.Maybe Prelude.Text,
     -- | The response status.
     httpStatus :: Prelude.Maybe Prelude.Int,
-    -- | The IP address of the requestor.
-    clientIp :: Prelude.Maybe Prelude.Text,
-    -- | The request\'s user agent string.
-    userAgent :: Prelude.Maybe Prelude.Text,
     -- | The request URL.
-    httpURL :: Prelude.Maybe Prelude.Text
+    httpURL :: Prelude.Maybe Prelude.Text,
+    -- | The request\'s user agent string.
+    userAgent :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,25 +49,29 @@ data Http = Http'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'clientIp', 'http_clientIp' - The IP address of the requestor.
+--
 -- 'httpMethod', 'http_httpMethod' - The request method.
 --
 -- 'httpStatus', 'http_httpStatus' - The response status.
 --
--- 'clientIp', 'http_clientIp' - The IP address of the requestor.
+-- 'httpURL', 'http_httpURL' - The request URL.
 --
 -- 'userAgent', 'http_userAgent' - The request\'s user agent string.
---
--- 'httpURL', 'http_httpURL' - The request URL.
 newHttp ::
   Http
 newHttp =
   Http'
-    { httpMethod = Prelude.Nothing,
+    { clientIp = Prelude.Nothing,
+      httpMethod = Prelude.Nothing,
       httpStatus = Prelude.Nothing,
-      clientIp = Prelude.Nothing,
-      userAgent = Prelude.Nothing,
-      httpURL = Prelude.Nothing
+      httpURL = Prelude.Nothing,
+      userAgent = Prelude.Nothing
     }
+
+-- | The IP address of the requestor.
+http_clientIp :: Lens.Lens' Http (Prelude.Maybe Prelude.Text)
+http_clientIp = Lens.lens (\Http' {clientIp} -> clientIp) (\s@Http' {} a -> s {clientIp = a} :: Http)
 
 -- | The request method.
 http_httpMethod :: Lens.Lens' Http (Prelude.Maybe Prelude.Text)
@@ -76,43 +81,39 @@ http_httpMethod = Lens.lens (\Http' {httpMethod} -> httpMethod) (\s@Http' {} a -
 http_httpStatus :: Lens.Lens' Http (Prelude.Maybe Prelude.Int)
 http_httpStatus = Lens.lens (\Http' {httpStatus} -> httpStatus) (\s@Http' {} a -> s {httpStatus = a} :: Http)
 
--- | The IP address of the requestor.
-http_clientIp :: Lens.Lens' Http (Prelude.Maybe Prelude.Text)
-http_clientIp = Lens.lens (\Http' {clientIp} -> clientIp) (\s@Http' {} a -> s {clientIp = a} :: Http)
+-- | The request URL.
+http_httpURL :: Lens.Lens' Http (Prelude.Maybe Prelude.Text)
+http_httpURL = Lens.lens (\Http' {httpURL} -> httpURL) (\s@Http' {} a -> s {httpURL = a} :: Http)
 
 -- | The request\'s user agent string.
 http_userAgent :: Lens.Lens' Http (Prelude.Maybe Prelude.Text)
 http_userAgent = Lens.lens (\Http' {userAgent} -> userAgent) (\s@Http' {} a -> s {userAgent = a} :: Http)
 
--- | The request URL.
-http_httpURL :: Lens.Lens' Http (Prelude.Maybe Prelude.Text)
-http_httpURL = Lens.lens (\Http' {httpURL} -> httpURL) (\s@Http' {} a -> s {httpURL = a} :: Http)
-
-instance Core.FromJSON Http where
+instance Data.FromJSON Http where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Http"
       ( \x ->
           Http'
-            Prelude.<$> (x Core..:? "HttpMethod")
-            Prelude.<*> (x Core..:? "HttpStatus")
-            Prelude.<*> (x Core..:? "ClientIp")
-            Prelude.<*> (x Core..:? "UserAgent")
-            Prelude.<*> (x Core..:? "HttpURL")
+            Prelude.<$> (x Data..:? "ClientIp")
+            Prelude.<*> (x Data..:? "HttpMethod")
+            Prelude.<*> (x Data..:? "HttpStatus")
+            Prelude.<*> (x Data..:? "HttpURL")
+            Prelude.<*> (x Data..:? "UserAgent")
       )
 
 instance Prelude.Hashable Http where
   hashWithSalt _salt Http' {..} =
-    _salt `Prelude.hashWithSalt` httpMethod
+    _salt `Prelude.hashWithSalt` clientIp
+      `Prelude.hashWithSalt` httpMethod
       `Prelude.hashWithSalt` httpStatus
-      `Prelude.hashWithSalt` clientIp
-      `Prelude.hashWithSalt` userAgent
       `Prelude.hashWithSalt` httpURL
+      `Prelude.hashWithSalt` userAgent
 
 instance Prelude.NFData Http where
   rnf Http' {..} =
-    Prelude.rnf httpMethod
+    Prelude.rnf clientIp
+      `Prelude.seq` Prelude.rnf httpMethod
       `Prelude.seq` Prelude.rnf httpStatus
-      `Prelude.seq` Prelude.rnf clientIp
-      `Prelude.seq` Prelude.rnf userAgent
       `Prelude.seq` Prelude.rnf httpURL
+      `Prelude.seq` Prelude.rnf userAgent

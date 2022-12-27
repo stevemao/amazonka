@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsDynamoDbTableProvisionedThroughputOverride
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsDynamoDbTableProvisionedThroughputOverride where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Replica-specific configuration for the provisioned throughput.
@@ -54,15 +55,15 @@ awsDynamoDbTableProvisionedThroughputOverride_readCapacityUnits :: Lens.Lens' Aw
 awsDynamoDbTableProvisionedThroughputOverride_readCapacityUnits = Lens.lens (\AwsDynamoDbTableProvisionedThroughputOverride' {readCapacityUnits} -> readCapacityUnits) (\s@AwsDynamoDbTableProvisionedThroughputOverride' {} a -> s {readCapacityUnits = a} :: AwsDynamoDbTableProvisionedThroughputOverride)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsDynamoDbTableProvisionedThroughputOverride
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsDynamoDbTableProvisionedThroughputOverride"
       ( \x ->
           AwsDynamoDbTableProvisionedThroughputOverride'
-            Prelude.<$> (x Core..:? "ReadCapacityUnits")
+            Prelude.<$> (x Data..:? "ReadCapacityUnits")
       )
 
 instance
@@ -83,14 +84,14 @@ instance
       Prelude.rnf readCapacityUnits
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsDynamoDbTableProvisionedThroughputOverride
   where
   toJSON
     AwsDynamoDbTableProvisionedThroughputOverride' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("ReadCapacityUnits" Core..=)
+            [ ("ReadCapacityUnits" Data..=)
                 Prelude.<$> readCapacityUnits
             ]
         )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.Types.CustomDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AppRunner.Types.CustomDomain where
 import Amazonka.AppRunner.Types.CertificateValidationRecord
 import Amazonka.AppRunner.Types.CustomDomainAssociationStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a custom domain that\'s associated with an App Runner service.
@@ -103,18 +104,18 @@ customDomain_enableWWWSubdomain = Lens.lens (\CustomDomain' {enableWWWSubdomain}
 customDomain_status :: Lens.Lens' CustomDomain CustomDomainAssociationStatus
 customDomain_status = Lens.lens (\CustomDomain' {status} -> status) (\s@CustomDomain' {} a -> s {status = a} :: CustomDomain)
 
-instance Core.FromJSON CustomDomain where
+instance Data.FromJSON CustomDomain where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CustomDomain"
       ( \x ->
           CustomDomain'
-            Prelude.<$> ( x Core..:? "CertificateValidationRecords"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "CertificateValidationRecords"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..: "DomainName")
-            Prelude.<*> (x Core..: "EnableWWWSubdomain")
-            Prelude.<*> (x Core..: "Status")
+            Prelude.<*> (x Data..: "DomainName")
+            Prelude.<*> (x Data..: "EnableWWWSubdomain")
+            Prelude.<*> (x Data..: "Status")
       )
 
 instance Prelude.Hashable CustomDomain where

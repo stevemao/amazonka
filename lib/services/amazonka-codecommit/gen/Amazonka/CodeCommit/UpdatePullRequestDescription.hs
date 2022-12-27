@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.UpdatePullRequestDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,13 +101,14 @@ instance Core.AWSRequest UpdatePullRequestDescription where
   type
     AWSResponse UpdatePullRequestDescription =
       UpdatePullRequestDescriptionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdatePullRequestDescriptionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "pullRequest")
+            Prelude.<*> (x Data..:> "pullRequest")
       )
 
 instance
@@ -122,35 +124,35 @@ instance Prelude.NFData UpdatePullRequestDescription where
     Prelude.rnf pullRequestId
       `Prelude.seq` Prelude.rnf description
 
-instance Core.ToHeaders UpdatePullRequestDescription where
+instance Data.ToHeaders UpdatePullRequestDescription where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.UpdatePullRequestDescription" ::
+              Data.=# ( "CodeCommit_20150413.UpdatePullRequestDescription" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdatePullRequestDescription where
+instance Data.ToJSON UpdatePullRequestDescription where
   toJSON UpdatePullRequestDescription' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("pullRequestId" Core..= pullRequestId),
-            Prelude.Just ("description" Core..= description)
+              ("pullRequestId" Data..= pullRequestId),
+            Prelude.Just ("description" Data..= description)
           ]
       )
 
-instance Core.ToPath UpdatePullRequestDescription where
+instance Data.ToPath UpdatePullRequestDescription where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdatePullRequestDescription where
+instance Data.ToQuery UpdatePullRequestDescription where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdatePullRequestDescriptionResponse' smart constructor.

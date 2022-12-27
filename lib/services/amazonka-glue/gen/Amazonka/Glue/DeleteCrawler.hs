@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.DeleteCrawler
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Glue.DeleteCrawler
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,7 +78,8 @@ instance Core.AWSRequest DeleteCrawler where
   type
     AWSResponse DeleteCrawler =
       DeleteCrawlerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -92,30 +94,30 @@ instance Prelude.Hashable DeleteCrawler where
 instance Prelude.NFData DeleteCrawler where
   rnf DeleteCrawler' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteCrawler where
+instance Data.ToHeaders DeleteCrawler where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.DeleteCrawler" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.DeleteCrawler" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteCrawler where
+instance Data.ToJSON DeleteCrawler where
   toJSON DeleteCrawler' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath DeleteCrawler where
+instance Data.ToPath DeleteCrawler where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCrawler where
+instance Data.ToQuery DeleteCrawler where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCrawlerResponse' smart constructor.

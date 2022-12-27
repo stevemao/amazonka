@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.StartUserImportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,12 +97,13 @@ instance Core.AWSRequest StartUserImportJob where
   type
     AWSResponse StartUserImportJob =
       StartUserImportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartUserImportJobResponse'
-            Prelude.<$> (x Core..?> "UserImportJob")
+            Prelude.<$> (x Data..?> "UserImportJob")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,34 +117,34 @@ instance Prelude.NFData StartUserImportJob where
     Prelude.rnf userPoolId
       `Prelude.seq` Prelude.rnf jobId
 
-instance Core.ToHeaders StartUserImportJob where
+instance Data.ToHeaders StartUserImportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.StartUserImportJob" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.StartUserImportJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartUserImportJob where
+instance Data.ToJSON StartUserImportJob where
   toJSON StartUserImportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("UserPoolId" Core..= userPoolId),
-            Prelude.Just ("JobId" Core..= jobId)
+          [ Prelude.Just ("UserPoolId" Data..= userPoolId),
+            Prelude.Just ("JobId" Data..= jobId)
           ]
       )
 
-instance Core.ToPath StartUserImportJob where
+instance Data.ToPath StartUserImportJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartUserImportJob where
+instance Data.ToQuery StartUserImportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the response from the server to the request to start the user

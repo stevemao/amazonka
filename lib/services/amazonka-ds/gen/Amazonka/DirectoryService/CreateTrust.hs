@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.CreateTrust
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,8 @@ module Amazonka.DirectoryService.CreateTrust
 
     -- * Request Lenses
     createTrust_conditionalForwarderIpAddrs,
-    createTrust_trustType,
     createTrust_selectiveAuth,
+    createTrust_trustType,
     createTrust_directoryId,
     createTrust_remoteDomainName,
     createTrust_trustPassword,
@@ -55,8 +55,9 @@ module Amazonka.DirectoryService.CreateTrust
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,10 +77,10 @@ data CreateTrust = CreateTrust'
   { -- | The IP addresses of the remote DNS server associated with
     -- RemoteDomainName.
     conditionalForwarderIpAddrs :: Prelude.Maybe [Prelude.Text],
-    -- | The trust relationship type. @Forest@ is the default.
-    trustType :: Prelude.Maybe TrustType,
     -- | Optional parameter to enable selective authentication for the trust.
     selectiveAuth :: Prelude.Maybe SelectiveAuth,
+    -- | The trust relationship type. @Forest@ is the default.
+    trustType :: Prelude.Maybe TrustType,
     -- | The Directory ID of the Managed Microsoft AD directory for which to
     -- establish the trust relationship.
     directoryId :: Prelude.Text,
@@ -88,7 +89,7 @@ data CreateTrust = CreateTrust'
     remoteDomainName :: Prelude.Text,
     -- | The trust password. The must be the same password that was used when
     -- creating the trust relationship on the external domain.
-    trustPassword :: Core.Sensitive Prelude.Text,
+    trustPassword :: Data.Sensitive Prelude.Text,
     -- | The direction of the trust relationship.
     trustDirection :: TrustDirection
   }
@@ -105,9 +106,9 @@ data CreateTrust = CreateTrust'
 -- 'conditionalForwarderIpAddrs', 'createTrust_conditionalForwarderIpAddrs' - The IP addresses of the remote DNS server associated with
 -- RemoteDomainName.
 --
--- 'trustType', 'createTrust_trustType' - The trust relationship type. @Forest@ is the default.
---
 -- 'selectiveAuth', 'createTrust_selectiveAuth' - Optional parameter to enable selective authentication for the trust.
+--
+-- 'trustType', 'createTrust_trustType' - The trust relationship type. @Forest@ is the default.
 --
 -- 'directoryId', 'createTrust_directoryId' - The Directory ID of the Managed Microsoft AD directory for which to
 -- establish the trust relationship.
@@ -137,12 +138,12 @@ newCreateTrust
     CreateTrust'
       { conditionalForwarderIpAddrs =
           Prelude.Nothing,
-        trustType = Prelude.Nothing,
         selectiveAuth = Prelude.Nothing,
+        trustType = Prelude.Nothing,
         directoryId = pDirectoryId_,
         remoteDomainName = pRemoteDomainName_,
         trustPassword =
-          Core._Sensitive Lens.# pTrustPassword_,
+          Data._Sensitive Lens.# pTrustPassword_,
         trustDirection = pTrustDirection_
       }
 
@@ -151,13 +152,13 @@ newCreateTrust
 createTrust_conditionalForwarderIpAddrs :: Lens.Lens' CreateTrust (Prelude.Maybe [Prelude.Text])
 createTrust_conditionalForwarderIpAddrs = Lens.lens (\CreateTrust' {conditionalForwarderIpAddrs} -> conditionalForwarderIpAddrs) (\s@CreateTrust' {} a -> s {conditionalForwarderIpAddrs = a} :: CreateTrust) Prelude.. Lens.mapping Lens.coerced
 
--- | The trust relationship type. @Forest@ is the default.
-createTrust_trustType :: Lens.Lens' CreateTrust (Prelude.Maybe TrustType)
-createTrust_trustType = Lens.lens (\CreateTrust' {trustType} -> trustType) (\s@CreateTrust' {} a -> s {trustType = a} :: CreateTrust)
-
 -- | Optional parameter to enable selective authentication for the trust.
 createTrust_selectiveAuth :: Lens.Lens' CreateTrust (Prelude.Maybe SelectiveAuth)
 createTrust_selectiveAuth = Lens.lens (\CreateTrust' {selectiveAuth} -> selectiveAuth) (\s@CreateTrust' {} a -> s {selectiveAuth = a} :: CreateTrust)
+
+-- | The trust relationship type. @Forest@ is the default.
+createTrust_trustType :: Lens.Lens' CreateTrust (Prelude.Maybe TrustType)
+createTrust_trustType = Lens.lens (\CreateTrust' {trustType} -> trustType) (\s@CreateTrust' {} a -> s {trustType = a} :: CreateTrust)
 
 -- | The Directory ID of the Managed Microsoft AD directory for which to
 -- establish the trust relationship.
@@ -172,7 +173,7 @@ createTrust_remoteDomainName = Lens.lens (\CreateTrust' {remoteDomainName} -> re
 -- | The trust password. The must be the same password that was used when
 -- creating the trust relationship on the external domain.
 createTrust_trustPassword :: Lens.Lens' CreateTrust Prelude.Text
-createTrust_trustPassword = Lens.lens (\CreateTrust' {trustPassword} -> trustPassword) (\s@CreateTrust' {} a -> s {trustPassword = a} :: CreateTrust) Prelude.. Core._Sensitive
+createTrust_trustPassword = Lens.lens (\CreateTrust' {trustPassword} -> trustPassword) (\s@CreateTrust' {} a -> s {trustPassword = a} :: CreateTrust) Prelude.. Data._Sensitive
 
 -- | The direction of the trust relationship.
 createTrust_trustDirection :: Lens.Lens' CreateTrust TrustDirection
@@ -180,12 +181,13 @@ createTrust_trustDirection = Lens.lens (\CreateTrust' {trustDirection} -> trustD
 
 instance Core.AWSRequest CreateTrust where
   type AWSResponse CreateTrust = CreateTrustResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateTrustResponse'
-            Prelude.<$> (x Core..?> "TrustId")
+            Prelude.<$> (x Data..?> "TrustId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -193,8 +195,8 @@ instance Prelude.Hashable CreateTrust where
   hashWithSalt _salt CreateTrust' {..} =
     _salt
       `Prelude.hashWithSalt` conditionalForwarderIpAddrs
-      `Prelude.hashWithSalt` trustType
       `Prelude.hashWithSalt` selectiveAuth
+      `Prelude.hashWithSalt` trustType
       `Prelude.hashWithSalt` directoryId
       `Prelude.hashWithSalt` remoteDomainName
       `Prelude.hashWithSalt` trustPassword
@@ -203,49 +205,49 @@ instance Prelude.Hashable CreateTrust where
 instance Prelude.NFData CreateTrust where
   rnf CreateTrust' {..} =
     Prelude.rnf conditionalForwarderIpAddrs
-      `Prelude.seq` Prelude.rnf trustType
       `Prelude.seq` Prelude.rnf selectiveAuth
+      `Prelude.seq` Prelude.rnf trustType
       `Prelude.seq` Prelude.rnf directoryId
       `Prelude.seq` Prelude.rnf remoteDomainName
       `Prelude.seq` Prelude.rnf trustPassword
       `Prelude.seq` Prelude.rnf trustDirection
 
-instance Core.ToHeaders CreateTrust where
+instance Data.ToHeaders CreateTrust where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.CreateTrust" ::
+              Data.=# ( "DirectoryService_20150416.CreateTrust" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateTrust where
+instance Data.ToJSON CreateTrust where
   toJSON CreateTrust' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ConditionalForwarderIpAddrs" Core..=)
+          [ ("ConditionalForwarderIpAddrs" Data..=)
               Prelude.<$> conditionalForwarderIpAddrs,
-            ("TrustType" Core..=) Prelude.<$> trustType,
-            ("SelectiveAuth" Core..=) Prelude.<$> selectiveAuth,
-            Prelude.Just ("DirectoryId" Core..= directoryId),
+            ("SelectiveAuth" Data..=) Prelude.<$> selectiveAuth,
+            ("TrustType" Data..=) Prelude.<$> trustType,
+            Prelude.Just ("DirectoryId" Data..= directoryId),
             Prelude.Just
-              ("RemoteDomainName" Core..= remoteDomainName),
-            Prelude.Just ("TrustPassword" Core..= trustPassword),
+              ("RemoteDomainName" Data..= remoteDomainName),
+            Prelude.Just ("TrustPassword" Data..= trustPassword),
             Prelude.Just
-              ("TrustDirection" Core..= trustDirection)
+              ("TrustDirection" Data..= trustDirection)
           ]
       )
 
-instance Core.ToPath CreateTrust where
+instance Data.ToPath CreateTrust where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateTrust where
+instance Data.ToQuery CreateTrust where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The result of a CreateTrust request.

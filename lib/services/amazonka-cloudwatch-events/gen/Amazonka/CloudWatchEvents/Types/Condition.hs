@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.Condition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchEvents.Types.Condition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A JSON string which you can use to limit the event bus permissions you
@@ -104,12 +105,12 @@ instance Prelude.NFData Condition where
       `Prelude.seq` Prelude.rnf key
       `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON Condition where
+instance Data.ToJSON Condition where
   toJSON Condition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Type" Core..= type'),
-            Prelude.Just ("Key" Core..= key),
-            Prelude.Just ("Value" Core..= value)
+          [ Prelude.Just ("Type" Data..= type'),
+            Prelude.Just ("Key" Data..= key),
+            Prelude.Just ("Value" Data..= value)
           ]
       )

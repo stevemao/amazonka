@@ -14,18 +14,22 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.CreateInstanceAccessControlAttributeConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Enables the attributes-based access control (ABAC) feature for the
--- specified Amazon Web Services SSO instance. You can also specify new
+-- specified IAM Identity Center instance. You can also specify new
 -- attributes to add to your ABAC configuration during the enabling
 -- process. For more information about ABAC, see
 -- </singlesignon/latest/userguide/abac.html Attribute-Based Access Control>
--- in the /Amazon Web Services SSO User Guide/.
+-- in the /IAM Identity Center User Guide/.
+--
+-- After a successful response, call
+-- @DescribeInstanceAccessControlAttributeConfiguration@ to validate that
+-- @InstanceAccessControlAttributeConfiguration@ was created.
 module Amazonka.SSOAdmin.CreateInstanceAccessControlAttributeConfiguration
   ( -- * Creating a Request
     CreateInstanceAccessControlAttributeConfiguration (..),
@@ -45,7 +49,8 @@ module Amazonka.SSOAdmin.CreateInstanceAccessControlAttributeConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,15 +58,16 @@ import Amazonka.SSOAdmin.Types
 
 -- | /See:/ 'newCreateInstanceAccessControlAttributeConfiguration' smart constructor.
 data CreateInstanceAccessControlAttributeConfiguration = CreateInstanceAccessControlAttributeConfiguration'
-  { -- | The ARN of the SSO instance under which the operation will be executed.
+  { -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed.
     instanceArn :: Prelude.Text,
-    -- | Specifies the Amazon Web Services SSO identity store attributes to add
-    -- to your ABAC configuration. When using an external identity provider as
-    -- an identity source, you can pass attributes through the SAML assertion.
-    -- Doing so provides an alternative to configuring attributes from the
-    -- Amazon Web Services SSO identity store. If a SAML assertion passes any
-    -- of these attributes, Amazon Web Services SSO will replace the attribute
-    -- value with the value from the Amazon Web Services SSO identity store.
+    -- | Specifies the IAM Identity Center identity store attributes to add to
+    -- your ABAC configuration. When using an external identity provider as an
+    -- identity source, you can pass attributes through the SAML assertion.
+    -- Doing so provides an alternative to configuring attributes from the IAM
+    -- Identity Center identity store. If a SAML assertion passes any of these
+    -- attributes, IAM Identity Center will replace the attribute value with
+    -- the value from the IAM Identity Center identity store.
     instanceAccessControlAttributeConfiguration :: InstanceAccessControlAttributeConfiguration
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -74,15 +80,16 @@ data CreateInstanceAccessControlAttributeConfiguration = CreateInstanceAccessCon
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceArn', 'createInstanceAccessControlAttributeConfiguration_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
+-- 'instanceArn', 'createInstanceAccessControlAttributeConfiguration_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed.
 --
--- 'instanceAccessControlAttributeConfiguration', 'createInstanceAccessControlAttributeConfiguration_instanceAccessControlAttributeConfiguration' - Specifies the Amazon Web Services SSO identity store attributes to add
--- to your ABAC configuration. When using an external identity provider as
--- an identity source, you can pass attributes through the SAML assertion.
--- Doing so provides an alternative to configuring attributes from the
--- Amazon Web Services SSO identity store. If a SAML assertion passes any
--- of these attributes, Amazon Web Services SSO will replace the attribute
--- value with the value from the Amazon Web Services SSO identity store.
+-- 'instanceAccessControlAttributeConfiguration', 'createInstanceAccessControlAttributeConfiguration_instanceAccessControlAttributeConfiguration' - Specifies the IAM Identity Center identity store attributes to add to
+-- your ABAC configuration. When using an external identity provider as an
+-- identity source, you can pass attributes through the SAML assertion.
+-- Doing so provides an alternative to configuring attributes from the IAM
+-- Identity Center identity store. If a SAML assertion passes any of these
+-- attributes, IAM Identity Center will replace the attribute value with
+-- the value from the IAM Identity Center identity store.
 newCreateInstanceAccessControlAttributeConfiguration ::
   -- | 'instanceArn'
   Prelude.Text ->
@@ -99,17 +106,18 @@ newCreateInstanceAccessControlAttributeConfiguration
           pInstanceAccessControlAttributeConfiguration_
       }
 
--- | The ARN of the SSO instance under which the operation will be executed.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed.
 createInstanceAccessControlAttributeConfiguration_instanceArn :: Lens.Lens' CreateInstanceAccessControlAttributeConfiguration Prelude.Text
 createInstanceAccessControlAttributeConfiguration_instanceArn = Lens.lens (\CreateInstanceAccessControlAttributeConfiguration' {instanceArn} -> instanceArn) (\s@CreateInstanceAccessControlAttributeConfiguration' {} a -> s {instanceArn = a} :: CreateInstanceAccessControlAttributeConfiguration)
 
--- | Specifies the Amazon Web Services SSO identity store attributes to add
--- to your ABAC configuration. When using an external identity provider as
--- an identity source, you can pass attributes through the SAML assertion.
--- Doing so provides an alternative to configuring attributes from the
--- Amazon Web Services SSO identity store. If a SAML assertion passes any
--- of these attributes, Amazon Web Services SSO will replace the attribute
--- value with the value from the Amazon Web Services SSO identity store.
+-- | Specifies the IAM Identity Center identity store attributes to add to
+-- your ABAC configuration. When using an external identity provider as an
+-- identity source, you can pass attributes through the SAML assertion.
+-- Doing so provides an alternative to configuring attributes from the IAM
+-- Identity Center identity store. If a SAML assertion passes any of these
+-- attributes, IAM Identity Center will replace the attribute value with
+-- the value from the IAM Identity Center identity store.
 createInstanceAccessControlAttributeConfiguration_instanceAccessControlAttributeConfiguration :: Lens.Lens' CreateInstanceAccessControlAttributeConfiguration InstanceAccessControlAttributeConfiguration
 createInstanceAccessControlAttributeConfiguration_instanceAccessControlAttributeConfiguration = Lens.lens (\CreateInstanceAccessControlAttributeConfiguration' {instanceAccessControlAttributeConfiguration} -> instanceAccessControlAttributeConfiguration) (\s@CreateInstanceAccessControlAttributeConfiguration' {} a -> s {instanceAccessControlAttributeConfiguration = a} :: CreateInstanceAccessControlAttributeConfiguration)
 
@@ -121,7 +129,8 @@ instance
     AWSResponse
       CreateInstanceAccessControlAttributeConfiguration =
       CreateInstanceAccessControlAttributeConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -150,47 +159,47 @@ instance
           instanceAccessControlAttributeConfiguration
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateInstanceAccessControlAttributeConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.CreateInstanceAccessControlAttributeConfiguration" ::
+              Data.=# ( "SWBExternalService.CreateInstanceAccessControlAttributeConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CreateInstanceAccessControlAttributeConfiguration
   where
   toJSON
     CreateInstanceAccessControlAttributeConfiguration' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ Prelude.Just ("InstanceArn" Core..= instanceArn),
+            [ Prelude.Just ("InstanceArn" Data..= instanceArn),
               Prelude.Just
                 ( "InstanceAccessControlAttributeConfiguration"
-                    Core..= instanceAccessControlAttributeConfiguration
+                    Data..= instanceAccessControlAttributeConfiguration
                 )
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     CreateInstanceAccessControlAttributeConfiguration
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CreateInstanceAccessControlAttributeConfiguration
   where
   toQuery = Prelude.const Prelude.mempty

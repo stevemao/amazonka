@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.BackupDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,12 @@
 module Amazonka.DynamoDB.Types.BackupDetails where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.BackupStatus
 import Amazonka.DynamoDB.Types.BackupType
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the details of the backup created for the table.
@@ -33,8 +35,9 @@ data BackupDetails = BackupDetails'
   { -- | Time at which the automatic on-demand backup created by DynamoDB will
     -- expire. This @SYSTEM@ on-demand backup expires automatically 35 days
     -- after its creation.
-    backupExpiryDateTime :: Prelude.Maybe Core.POSIX,
-    -- | Size of the backup in bytes.
+    backupExpiryDateTime :: Prelude.Maybe Data.POSIX,
+    -- | Size of the backup in bytes. DynamoDB updates this value approximately
+    -- every six hours. Recent changes might not be reflected in this value.
     backupSizeBytes :: Prelude.Maybe Prelude.Natural,
     -- | ARN associated with the backup.
     backupArn :: Prelude.Text,
@@ -53,12 +56,11 @@ data BackupDetails = BackupDetails'
     --     restore the deleted table to the state it was in just before the
     --     point of deletion.
     --
-    -- -   @AWS_BACKUP@ - On-demand backup created by you from AWS Backup
-    --     service.
+    -- -   @AWS_BACKUP@ - On-demand backup created by you from Backup service.
     backupType :: BackupType,
     -- | Time at which the backup was created. This is the request time of the
     -- backup.
-    backupCreationDateTime :: Core.POSIX
+    backupCreationDateTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -74,7 +76,8 @@ data BackupDetails = BackupDetails'
 -- expire. This @SYSTEM@ on-demand backup expires automatically 35 days
 -- after its creation.
 --
--- 'backupSizeBytes', 'backupDetails_backupSizeBytes' - Size of the backup in bytes.
+-- 'backupSizeBytes', 'backupDetails_backupSizeBytes' - Size of the backup in bytes. DynamoDB updates this value approximately
+-- every six hours. Recent changes might not be reflected in this value.
 --
 -- 'backupArn', 'backupDetails_backupArn' - ARN associated with the backup.
 --
@@ -93,8 +96,7 @@ data BackupDetails = BackupDetails'
 --     restore the deleted table to the state it was in just before the
 --     point of deletion.
 --
--- -   @AWS_BACKUP@ - On-demand backup created by you from AWS Backup
---     service.
+-- -   @AWS_BACKUP@ - On-demand backup created by you from Backup service.
 --
 -- 'backupCreationDateTime', 'backupDetails_backupCreationDateTime' - Time at which the backup was created. This is the request time of the
 -- backup.
@@ -125,16 +127,17 @@ newBackupDetails
         backupStatus = pBackupStatus_,
         backupType = pBackupType_,
         backupCreationDateTime =
-          Core._Time Lens.# pBackupCreationDateTime_
+          Data._Time Lens.# pBackupCreationDateTime_
       }
 
 -- | Time at which the automatic on-demand backup created by DynamoDB will
 -- expire. This @SYSTEM@ on-demand backup expires automatically 35 days
 -- after its creation.
 backupDetails_backupExpiryDateTime :: Lens.Lens' BackupDetails (Prelude.Maybe Prelude.UTCTime)
-backupDetails_backupExpiryDateTime = Lens.lens (\BackupDetails' {backupExpiryDateTime} -> backupExpiryDateTime) (\s@BackupDetails' {} a -> s {backupExpiryDateTime = a} :: BackupDetails) Prelude.. Lens.mapping Core._Time
+backupDetails_backupExpiryDateTime = Lens.lens (\BackupDetails' {backupExpiryDateTime} -> backupExpiryDateTime) (\s@BackupDetails' {} a -> s {backupExpiryDateTime = a} :: BackupDetails) Prelude.. Lens.mapping Data._Time
 
--- | Size of the backup in bytes.
+-- | Size of the backup in bytes. DynamoDB updates this value approximately
+-- every six hours. Recent changes might not be reflected in this value.
 backupDetails_backupSizeBytes :: Lens.Lens' BackupDetails (Prelude.Maybe Prelude.Natural)
 backupDetails_backupSizeBytes = Lens.lens (\BackupDetails' {backupSizeBytes} -> backupSizeBytes) (\s@BackupDetails' {} a -> s {backupSizeBytes = a} :: BackupDetails)
 
@@ -161,29 +164,28 @@ backupDetails_backupStatus = Lens.lens (\BackupDetails' {backupStatus} -> backup
 --     restore the deleted table to the state it was in just before the
 --     point of deletion.
 --
--- -   @AWS_BACKUP@ - On-demand backup created by you from AWS Backup
---     service.
+-- -   @AWS_BACKUP@ - On-demand backup created by you from Backup service.
 backupDetails_backupType :: Lens.Lens' BackupDetails BackupType
 backupDetails_backupType = Lens.lens (\BackupDetails' {backupType} -> backupType) (\s@BackupDetails' {} a -> s {backupType = a} :: BackupDetails)
 
 -- | Time at which the backup was created. This is the request time of the
 -- backup.
 backupDetails_backupCreationDateTime :: Lens.Lens' BackupDetails Prelude.UTCTime
-backupDetails_backupCreationDateTime = Lens.lens (\BackupDetails' {backupCreationDateTime} -> backupCreationDateTime) (\s@BackupDetails' {} a -> s {backupCreationDateTime = a} :: BackupDetails) Prelude.. Core._Time
+backupDetails_backupCreationDateTime = Lens.lens (\BackupDetails' {backupCreationDateTime} -> backupCreationDateTime) (\s@BackupDetails' {} a -> s {backupCreationDateTime = a} :: BackupDetails) Prelude.. Data._Time
 
-instance Core.FromJSON BackupDetails where
+instance Data.FromJSON BackupDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BackupDetails"
       ( \x ->
           BackupDetails'
-            Prelude.<$> (x Core..:? "BackupExpiryDateTime")
-            Prelude.<*> (x Core..:? "BackupSizeBytes")
-            Prelude.<*> (x Core..: "BackupArn")
-            Prelude.<*> (x Core..: "BackupName")
-            Prelude.<*> (x Core..: "BackupStatus")
-            Prelude.<*> (x Core..: "BackupType")
-            Prelude.<*> (x Core..: "BackupCreationDateTime")
+            Prelude.<$> (x Data..:? "BackupExpiryDateTime")
+            Prelude.<*> (x Data..:? "BackupSizeBytes")
+            Prelude.<*> (x Data..: "BackupArn")
+            Prelude.<*> (x Data..: "BackupName")
+            Prelude.<*> (x Data..: "BackupStatus")
+            Prelude.<*> (x Data..: "BackupType")
+            Prelude.<*> (x Data..: "BackupCreationDateTime")
       )
 
 instance Prelude.Hashable BackupDetails where

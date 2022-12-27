@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.AutoScaling
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.KafkaConnect.Types.AutoScaling where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types.ScaleInPolicy
 import Amazonka.KafkaConnect.Types.ScaleOutPolicy
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies how the connector scales.
@@ -118,17 +119,17 @@ instance Prelude.NFData AutoScaling where
       `Prelude.seq` Prelude.rnf mcuCount
       `Prelude.seq` Prelude.rnf minWorkerCount
 
-instance Core.ToJSON AutoScaling where
+instance Data.ToJSON AutoScaling where
   toJSON AutoScaling' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("scaleInPolicy" Core..=) Prelude.<$> scaleInPolicy,
-            ("scaleOutPolicy" Core..=)
+          [ ("scaleInPolicy" Data..=) Prelude.<$> scaleInPolicy,
+            ("scaleOutPolicy" Data..=)
               Prelude.<$> scaleOutPolicy,
             Prelude.Just
-              ("maxWorkerCount" Core..= maxWorkerCount),
-            Prelude.Just ("mcuCount" Core..= mcuCount),
+              ("maxWorkerCount" Data..= maxWorkerCount),
+            Prelude.Just ("mcuCount" Data..= mcuCount),
             Prelude.Just
-              ("minWorkerCount" Core..= minWorkerCount)
+              ("minWorkerCount" Data..= minWorkerCount)
           ]
       )

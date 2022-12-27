@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroupsTagging.Types.Tag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,15 @@
 module Amazonka.ResourceGroupsTagging.Types.Tag where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The metadata that you apply to AWS resources to help you categorize and
--- organize them. Each tag consists of a key and a value, both of which you
--- define. For more information, see
--- <http://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>
--- in the /AWS General Reference/.
+-- | The metadata that you apply to Amazon Web Services resources to help you
+-- categorize and organize them. Each tag consists of a key and a value,
+-- both of which you define. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- in the /Amazon Web Services General Reference/.
 --
 -- /See:/ 'newTag' smart constructor.
 data Tag = Tag'
@@ -72,13 +73,13 @@ tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 tag_value :: Lens.Lens' Tag Prelude.Text
 tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
 
-instance Core.FromJSON Tag where
+instance Data.FromJSON Tag where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Tag"
       ( \x ->
           Tag'
-            Prelude.<$> (x Core..: "Key") Prelude.<*> (x Core..: "Value")
+            Prelude.<$> (x Data..: "Key") Prelude.<*> (x Data..: "Value")
       )
 
 instance Prelude.Hashable Tag where

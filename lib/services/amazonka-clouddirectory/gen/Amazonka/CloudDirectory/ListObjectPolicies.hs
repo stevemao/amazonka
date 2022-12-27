@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.ListObjectPolicies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.CloudDirectory.ListObjectPolicies
 
     -- * Request Lenses
     listObjectPolicies_consistencyLevel,
-    listObjectPolicies_nextToken,
     listObjectPolicies_maxResults,
+    listObjectPolicies_nextToken,
     listObjectPolicies_directoryArn,
     listObjectPolicies_objectReference,
 
@@ -40,15 +40,16 @@ module Amazonka.CloudDirectory.ListObjectPolicies
     newListObjectPoliciesResponse,
 
     -- * Response Lenses
-    listObjectPoliciesResponse_nextToken,
     listObjectPoliciesResponse_attachedPolicyIds,
+    listObjectPoliciesResponse_nextToken,
     listObjectPoliciesResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,11 +60,11 @@ data ListObjectPolicies = ListObjectPolicies'
     -- of an object is reflected in a subsequent read operation of that same
     -- object.
     consistencyLevel :: Prelude.Maybe ConsistencyLevel,
-    -- | The pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of items to be retrieved in a single call. This is an
     -- approximate number.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) that is associated with the Directory
     -- where objects reside. For more information, see arns.
     directoryArn :: Prelude.Text,
@@ -84,10 +85,10 @@ data ListObjectPolicies = ListObjectPolicies'
 -- of an object is reflected in a subsequent read operation of that same
 -- object.
 --
--- 'nextToken', 'listObjectPolicies_nextToken' - The pagination token.
---
 -- 'maxResults', 'listObjectPolicies_maxResults' - The maximum number of items to be retrieved in a single call. This is an
 -- approximate number.
+--
+-- 'nextToken', 'listObjectPolicies_nextToken' - The pagination token.
 --
 -- 'directoryArn', 'listObjectPolicies_directoryArn' - The Amazon Resource Name (ARN) that is associated with the Directory
 -- where objects reside. For more information, see arns.
@@ -105,8 +106,8 @@ newListObjectPolicies
     ListObjectPolicies'
       { consistencyLevel =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
         maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         directoryArn = pDirectoryArn_,
         objectReference = pObjectReference_
       }
@@ -117,14 +118,14 @@ newListObjectPolicies
 listObjectPolicies_consistencyLevel :: Lens.Lens' ListObjectPolicies (Prelude.Maybe ConsistencyLevel)
 listObjectPolicies_consistencyLevel = Lens.lens (\ListObjectPolicies' {consistencyLevel} -> consistencyLevel) (\s@ListObjectPolicies' {} a -> s {consistencyLevel = a} :: ListObjectPolicies)
 
--- | The pagination token.
-listObjectPolicies_nextToken :: Lens.Lens' ListObjectPolicies (Prelude.Maybe Prelude.Text)
-listObjectPolicies_nextToken = Lens.lens (\ListObjectPolicies' {nextToken} -> nextToken) (\s@ListObjectPolicies' {} a -> s {nextToken = a} :: ListObjectPolicies)
-
 -- | The maximum number of items to be retrieved in a single call. This is an
 -- approximate number.
 listObjectPolicies_maxResults :: Lens.Lens' ListObjectPolicies (Prelude.Maybe Prelude.Natural)
 listObjectPolicies_maxResults = Lens.lens (\ListObjectPolicies' {maxResults} -> maxResults) (\s@ListObjectPolicies' {} a -> s {maxResults = a} :: ListObjectPolicies)
+
+-- | The pagination token.
+listObjectPolicies_nextToken :: Lens.Lens' ListObjectPolicies (Prelude.Maybe Prelude.Text)
+listObjectPolicies_nextToken = Lens.lens (\ListObjectPolicies' {nextToken} -> nextToken) (\s@ListObjectPolicies' {} a -> s {nextToken = a} :: ListObjectPolicies)
 
 -- | The Amazon Resource Name (ARN) that is associated with the Directory
 -- where objects reside. For more information, see arns.
@@ -161,66 +162,67 @@ instance Core.AWSRequest ListObjectPolicies where
   type
     AWSResponse ListObjectPolicies =
       ListObjectPoliciesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListObjectPoliciesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "AttachedPolicyIds"
+            Prelude.<$> ( x Data..?> "AttachedPolicyIds"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListObjectPolicies where
   hashWithSalt _salt ListObjectPolicies' {..} =
     _salt `Prelude.hashWithSalt` consistencyLevel
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` directoryArn
       `Prelude.hashWithSalt` objectReference
 
 instance Prelude.NFData ListObjectPolicies where
   rnf ListObjectPolicies' {..} =
     Prelude.rnf consistencyLevel
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf directoryArn
       `Prelude.seq` Prelude.rnf objectReference
 
-instance Core.ToHeaders ListObjectPolicies where
+instance Data.ToHeaders ListObjectPolicies where
   toHeaders ListObjectPolicies' {..} =
     Prelude.mconcat
-      [ "x-amz-consistency-level" Core.=# consistencyLevel,
-        "x-amz-data-partition" Core.=# directoryArn
+      [ "x-amz-consistency-level" Data.=# consistencyLevel,
+        "x-amz-data-partition" Data.=# directoryArn
       ]
 
-instance Core.ToJSON ListObjectPolicies where
+instance Data.ToJSON ListObjectPolicies where
   toJSON ListObjectPolicies' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("ObjectReference" Core..= objectReference)
+              ("ObjectReference" Data..= objectReference)
           ]
       )
 
-instance Core.ToPath ListObjectPolicies where
+instance Data.ToPath ListObjectPolicies where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/object/policy"
 
-instance Core.ToQuery ListObjectPolicies where
+instance Data.ToQuery ListObjectPolicies where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListObjectPoliciesResponse' smart constructor.
 data ListObjectPoliciesResponse = ListObjectPoliciesResponse'
-  { -- | The pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A list of policy @ObjectIdentifiers@, that are attached to the object.
+  { -- | A list of policy @ObjectIdentifiers@, that are attached to the object.
     attachedPolicyIds :: Prelude.Maybe [Prelude.Text],
+    -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -234,9 +236,9 @@ data ListObjectPoliciesResponse = ListObjectPoliciesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listObjectPoliciesResponse_nextToken' - The pagination token.
---
 -- 'attachedPolicyIds', 'listObjectPoliciesResponse_attachedPolicyIds' - A list of policy @ObjectIdentifiers@, that are attached to the object.
+--
+-- 'nextToken', 'listObjectPoliciesResponse_nextToken' - The pagination token.
 --
 -- 'httpStatus', 'listObjectPoliciesResponse_httpStatus' - The response's http status code.
 newListObjectPoliciesResponse ::
@@ -245,19 +247,19 @@ newListObjectPoliciesResponse ::
   ListObjectPoliciesResponse
 newListObjectPoliciesResponse pHttpStatus_ =
   ListObjectPoliciesResponse'
-    { nextToken =
+    { attachedPolicyIds =
         Prelude.Nothing,
-      attachedPolicyIds = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The pagination token.
-listObjectPoliciesResponse_nextToken :: Lens.Lens' ListObjectPoliciesResponse (Prelude.Maybe Prelude.Text)
-listObjectPoliciesResponse_nextToken = Lens.lens (\ListObjectPoliciesResponse' {nextToken} -> nextToken) (\s@ListObjectPoliciesResponse' {} a -> s {nextToken = a} :: ListObjectPoliciesResponse)
 
 -- | A list of policy @ObjectIdentifiers@, that are attached to the object.
 listObjectPoliciesResponse_attachedPolicyIds :: Lens.Lens' ListObjectPoliciesResponse (Prelude.Maybe [Prelude.Text])
 listObjectPoliciesResponse_attachedPolicyIds = Lens.lens (\ListObjectPoliciesResponse' {attachedPolicyIds} -> attachedPolicyIds) (\s@ListObjectPoliciesResponse' {} a -> s {attachedPolicyIds = a} :: ListObjectPoliciesResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The pagination token.
+listObjectPoliciesResponse_nextToken :: Lens.Lens' ListObjectPoliciesResponse (Prelude.Maybe Prelude.Text)
+listObjectPoliciesResponse_nextToken = Lens.lens (\ListObjectPoliciesResponse' {nextToken} -> nextToken) (\s@ListObjectPoliciesResponse' {} a -> s {nextToken = a} :: ListObjectPoliciesResponse)
 
 -- | The response's http status code.
 listObjectPoliciesResponse_httpStatus :: Lens.Lens' ListObjectPoliciesResponse Prelude.Int
@@ -265,6 +267,6 @@ listObjectPoliciesResponse_httpStatus = Lens.lens (\ListObjectPoliciesResponse' 
 
 instance Prelude.NFData ListObjectPoliciesResponse where
   rnf ListObjectPoliciesResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf attachedPolicyIds
+    Prelude.rnf attachedPolicyIds
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticInference.Types.MemoryInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticInference.Types.MemoryInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The memory information of an Elastic Inference Accelerator type.
@@ -50,12 +51,12 @@ newMemoryInfo =
 memoryInfo_sizeInMiB :: Lens.Lens' MemoryInfo (Prelude.Maybe Prelude.Int)
 memoryInfo_sizeInMiB = Lens.lens (\MemoryInfo' {sizeInMiB} -> sizeInMiB) (\s@MemoryInfo' {} a -> s {sizeInMiB = a} :: MemoryInfo)
 
-instance Core.FromJSON MemoryInfo where
+instance Data.FromJSON MemoryInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MemoryInfo"
       ( \x ->
-          MemoryInfo' Prelude.<$> (x Core..:? "sizeInMiB")
+          MemoryInfo' Prelude.<$> (x Data..:? "sizeInMiB")
       )
 
 instance Prelude.Hashable MemoryInfo where

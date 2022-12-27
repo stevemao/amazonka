@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.CountPendingDecisionTasks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -66,7 +66,8 @@ module Amazonka.SWF.CountPendingDecisionTasks
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,10 +117,11 @@ instance Core.AWSRequest CountPendingDecisionTasks where
   type
     AWSResponse CountPendingDecisionTasks =
       PendingTaskCount
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable CountPendingDecisionTasks where
   hashWithSalt _salt CountPendingDecisionTasks' {..} =
@@ -131,32 +133,32 @@ instance Prelude.NFData CountPendingDecisionTasks where
     Prelude.rnf domain
       `Prelude.seq` Prelude.rnf taskList
 
-instance Core.ToHeaders CountPendingDecisionTasks where
+instance Data.ToHeaders CountPendingDecisionTasks where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SimpleWorkflowService.CountPendingDecisionTasks" ::
+              Data.=# ( "SimpleWorkflowService.CountPendingDecisionTasks" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CountPendingDecisionTasks where
+instance Data.ToJSON CountPendingDecisionTasks where
   toJSON CountPendingDecisionTasks' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("domain" Core..= domain),
-            Prelude.Just ("taskList" Core..= taskList)
+          [ Prelude.Just ("domain" Data..= domain),
+            Prelude.Just ("taskList" Data..= taskList)
           ]
       )
 
-instance Core.ToPath CountPendingDecisionTasks where
+instance Data.ToPath CountPendingDecisionTasks where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CountPendingDecisionTasks where
+instance Data.ToQuery CountPendingDecisionTasks where
   toQuery = Prelude.const Prelude.mempty

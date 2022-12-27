@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DeleteAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,14 +35,15 @@ module Amazonka.SageMaker.DeleteAssociation
     newDeleteAssociationResponse,
 
     -- * Response Lenses
-    deleteAssociationResponse_sourceArn,
     deleteAssociationResponse_destinationArn,
+    deleteAssociationResponse_sourceArn,
     deleteAssociationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,13 +93,14 @@ instance Core.AWSRequest DeleteAssociation where
   type
     AWSResponse DeleteAssociation =
       DeleteAssociationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteAssociationResponse'
-            Prelude.<$> (x Core..?> "SourceArn")
-            Prelude.<*> (x Core..?> "DestinationArn")
+            Prelude.<$> (x Data..?> "DestinationArn")
+            Prelude.<*> (x Data..?> "SourceArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,43 +114,43 @@ instance Prelude.NFData DeleteAssociation where
     Prelude.rnf sourceArn
       `Prelude.seq` Prelude.rnf destinationArn
 
-instance Core.ToHeaders DeleteAssociation where
+instance Data.ToHeaders DeleteAssociation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DeleteAssociation" ::
+              Data.=# ( "SageMaker.DeleteAssociation" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteAssociation where
+instance Data.ToJSON DeleteAssociation where
   toJSON DeleteAssociation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("SourceArn" Core..= sourceArn),
+          [ Prelude.Just ("SourceArn" Data..= sourceArn),
             Prelude.Just
-              ("DestinationArn" Core..= destinationArn)
+              ("DestinationArn" Data..= destinationArn)
           ]
       )
 
-instance Core.ToPath DeleteAssociation where
+instance Data.ToPath DeleteAssociation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAssociation where
+instance Data.ToQuery DeleteAssociation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAssociationResponse' smart constructor.
 data DeleteAssociationResponse = DeleteAssociationResponse'
-  { -- | The ARN of the source.
-    sourceArn :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the destination.
+  { -- | The Amazon Resource Name (ARN) of the destination.
     destinationArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the source.
+    sourceArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -162,9 +164,9 @@ data DeleteAssociationResponse = DeleteAssociationResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sourceArn', 'deleteAssociationResponse_sourceArn' - The ARN of the source.
---
 -- 'destinationArn', 'deleteAssociationResponse_destinationArn' - The Amazon Resource Name (ARN) of the destination.
+--
+-- 'sourceArn', 'deleteAssociationResponse_sourceArn' - The ARN of the source.
 --
 -- 'httpStatus', 'deleteAssociationResponse_httpStatus' - The response's http status code.
 newDeleteAssociationResponse ::
@@ -173,19 +175,19 @@ newDeleteAssociationResponse ::
   DeleteAssociationResponse
 newDeleteAssociationResponse pHttpStatus_ =
   DeleteAssociationResponse'
-    { sourceArn =
+    { destinationArn =
         Prelude.Nothing,
-      destinationArn = Prelude.Nothing,
+      sourceArn = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The ARN of the source.
-deleteAssociationResponse_sourceArn :: Lens.Lens' DeleteAssociationResponse (Prelude.Maybe Prelude.Text)
-deleteAssociationResponse_sourceArn = Lens.lens (\DeleteAssociationResponse' {sourceArn} -> sourceArn) (\s@DeleteAssociationResponse' {} a -> s {sourceArn = a} :: DeleteAssociationResponse)
 
 -- | The Amazon Resource Name (ARN) of the destination.
 deleteAssociationResponse_destinationArn :: Lens.Lens' DeleteAssociationResponse (Prelude.Maybe Prelude.Text)
 deleteAssociationResponse_destinationArn = Lens.lens (\DeleteAssociationResponse' {destinationArn} -> destinationArn) (\s@DeleteAssociationResponse' {} a -> s {destinationArn = a} :: DeleteAssociationResponse)
+
+-- | The ARN of the source.
+deleteAssociationResponse_sourceArn :: Lens.Lens' DeleteAssociationResponse (Prelude.Maybe Prelude.Text)
+deleteAssociationResponse_sourceArn = Lens.lens (\DeleteAssociationResponse' {sourceArn} -> sourceArn) (\s@DeleteAssociationResponse' {} a -> s {sourceArn = a} :: DeleteAssociationResponse)
 
 -- | The response's http status code.
 deleteAssociationResponse_httpStatus :: Lens.Lens' DeleteAssociationResponse Prelude.Int
@@ -193,6 +195,6 @@ deleteAssociationResponse_httpStatus = Lens.lens (\DeleteAssociationResponse' {h
 
 instance Prelude.NFData DeleteAssociationResponse where
   rnf DeleteAssociationResponse' {..} =
-    Prelude.rnf sourceArn
-      `Prelude.seq` Prelude.rnf destinationArn
+    Prelude.rnf destinationArn
+      `Prelude.seq` Prelude.rnf sourceArn
       `Prelude.seq` Prelude.rnf httpStatus

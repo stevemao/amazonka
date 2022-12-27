@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.ConfigSnapshotDeliveryProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Config.Types.ConfigSnapshotDeliveryProperties where
 
 import Amazonka.Config.Types.MaximumExecutionFrequency
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides options for how often Config delivers configuration snapshots
@@ -93,15 +94,15 @@ configSnapshotDeliveryProperties_deliveryFrequency :: Lens.Lens' ConfigSnapshotD
 configSnapshotDeliveryProperties_deliveryFrequency = Lens.lens (\ConfigSnapshotDeliveryProperties' {deliveryFrequency} -> deliveryFrequency) (\s@ConfigSnapshotDeliveryProperties' {} a -> s {deliveryFrequency = a} :: ConfigSnapshotDeliveryProperties)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ConfigSnapshotDeliveryProperties
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConfigSnapshotDeliveryProperties"
       ( \x ->
           ConfigSnapshotDeliveryProperties'
-            Prelude.<$> (x Core..:? "deliveryFrequency")
+            Prelude.<$> (x Data..:? "deliveryFrequency")
       )
 
 instance
@@ -120,11 +121,11 @@ instance
   rnf ConfigSnapshotDeliveryProperties' {..} =
     Prelude.rnf deliveryFrequency
 
-instance Core.ToJSON ConfigSnapshotDeliveryProperties where
+instance Data.ToJSON ConfigSnapshotDeliveryProperties where
   toJSON ConfigSnapshotDeliveryProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("deliveryFrequency" Core..=)
+          [ ("deliveryFrequency" Data..=)
               Prelude.<$> deliveryFrequency
           ]
       )

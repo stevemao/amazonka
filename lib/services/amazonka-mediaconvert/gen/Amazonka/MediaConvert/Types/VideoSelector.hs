@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.VideoSelector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,16 @@
 module Amazonka.MediaConvert.Types.VideoSelector where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.AlphaBehavior
 import Amazonka.MediaConvert.Types.ColorSpace
 import Amazonka.MediaConvert.Types.ColorSpaceUsage
+import Amazonka.MediaConvert.Types.EmbeddedTimecodeOverride
 import Amazonka.MediaConvert.Types.Hdr10Metadata
 import Amazonka.MediaConvert.Types.InputRotate
 import Amazonka.MediaConvert.Types.InputSampleRange
+import Amazonka.MediaConvert.Types.PadVideo
 import qualified Amazonka.Prelude as Prelude
 
 -- | Input video selectors contain the video settings for the input. Each of
@@ -34,16 +37,27 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newVideoSelector' smart constructor.
 data VideoSelector = VideoSelector'
-  { -- | Selects a specific program from within a multi-program transport stream.
-    -- Note that Quad 4K is not currently supported.
-    programNumber :: Prelude.Maybe Prelude.Int,
-    -- | Ignore this setting unless this input is a QuickTime animation with an
+  { -- | Ignore this setting unless this input is a QuickTime animation with an
     -- alpha channel. Use this setting to create separate Key and Fill outputs.
     -- In each output, specify which part of the input MediaConvert uses. Leave
     -- this setting at the default value DISCARD to delete the alpha channel
     -- and preserve the video. Set it to REMAP_TO_LUMA to delete the video and
     -- map the alpha channel to the luma channel of your outputs.
     alphaBehavior :: Prelude.Maybe AlphaBehavior,
+    -- | If your input video has accurate color space metadata, or if you don\'t
+    -- know about color space, leave this set to the default value Follow. The
+    -- service will automatically detect your input color space. If your input
+    -- video has metadata indicating the wrong color space, specify the
+    -- accurate color space here. If your input video is HDR 10 and the SMPTE
+    -- ST 2086 Mastering Display Color Volume static metadata isn\'t present in
+    -- your video stream, or if that metadata is present but not accurate,
+    -- choose Force HDR 10 here and specify correct values in the input HDR 10
+    -- metadata settings. For more information about MediaConvert HDR jobs, see
+    -- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/hdr. Select P3D65
+    -- (SDR) to set the input color space metadata to the following: * Color
+    -- primaries: Display P3 * Transfer characteristics: SMPTE 428M * Matrix
+    -- coefficients: BT.709
+    colorSpace :: Prelude.Maybe ColorSpace,
     -- | There are two sources for color metadata, the input file and the job
     -- input settings Color space (ColorSpace) and HDR master display
     -- information settings(Hdr10Metadata). The Color space usage setting
@@ -55,6 +69,13 @@ data VideoSelector = VideoSelector'
     -- file, the service defaults to using values you specify in the input
     -- settings.
     colorSpaceUsage :: Prelude.Maybe ColorSpaceUsage,
+    -- | Set Embedded timecode override (embeddedTimecodeOverride) to Use MDPM
+    -- (USE_MDPM) when your AVCHD input contains timecode tag data in the
+    -- Modified Digital Video Pack Metadata (MDPM). When you do, we recommend
+    -- you also set Timecode source (inputTimecodeSource) to Embedded
+    -- (EMBEDDED). Leave Embedded timecode override blank, or set to None
+    -- (NONE), when your input does not contain MDPM timecode.
+    embeddedTimecodeOverride :: Prelude.Maybe EmbeddedTimecodeOverride,
     -- | Use these settings to provide HDR 10 metadata that is missing or
     -- inaccurate in your input video. Appropriate values vary depending on the
     -- input video and must be provided by a color grader. The color grader
@@ -69,12 +90,24 @@ data VideoSelector = VideoSelector'
     -- information about MediaConvert HDR jobs, see
     -- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/hdr.
     hdr10Metadata :: Prelude.Maybe Hdr10Metadata,
+    -- | Use this setting if your input has video and audio durations that don\'t
+    -- align, and your output or player has strict alignment requirements.
+    -- Examples: Input audio track has a delayed start. Input video track ends
+    -- before audio ends. When you set Pad video (padVideo) to Black (BLACK),
+    -- MediaConvert generates black video frames so that output video and audio
+    -- durations match. Black video frames are added at the beginning or end,
+    -- depending on your input. To keep the default behavior and not generate
+    -- black video, set Pad video to Disabled (DISABLED) or leave blank.
+    padVideo :: Prelude.Maybe PadVideo,
     -- | Use PID (Pid) to select specific video data from an input file. Specify
     -- this value as an integer; the system automatically converts it to the
     -- hexidecimal value. For example, 257 selects PID 0x101. A PID, or packet
     -- identifier, is an identifier for a set of data in an MPEG-2 transport
     -- stream container.
     pid :: Prelude.Maybe Prelude.Natural,
+    -- | Selects a specific program from within a multi-program transport stream.
+    -- Note that Quad 4K is not currently supported.
+    programNumber :: Prelude.Maybe Prelude.Int,
     -- | Use Rotate (InputRotate) to specify how the service rotates your video.
     -- You can choose automatic rotation or specify a rotation. You can specify
     -- a clockwise rotation of 0, 90, 180, or 270 degrees. If your input video
@@ -86,18 +119,6 @@ data VideoSelector = VideoSelector'
     -- the service does no rotation, even if your input video has rotation
     -- metadata. The service doesn\'t pass through rotation metadata.
     rotate :: Prelude.Maybe InputRotate,
-    -- | If your input video has accurate color space metadata, or if you don\'t
-    -- know about color space, leave this set to the default value Follow
-    -- (FOLLOW). The service will automatically detect your input color space.
-    -- If your input video has metadata indicating the wrong color space,
-    -- specify the accurate color space here. If your input video is HDR 10 and
-    -- the SMPTE ST 2086 Mastering Display Color Volume static metadata isn\'t
-    -- present in your video stream, or if that metadata is present but not
-    -- accurate, choose Force HDR 10 (FORCE_HDR10) here and specify correct
-    -- values in the input HDR 10 metadata (Hdr10Metadata) settings. For more
-    -- information about MediaConvert HDR jobs, see
-    -- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/hdr.
-    colorSpace :: Prelude.Maybe ColorSpace,
     -- | If the sample range metadata in your input video is accurate, or if you
     -- don\'t know about sample range, keep the default value, Follow (FOLLOW),
     -- for this setting. When you do, the service automatically detects your
@@ -119,15 +140,26 @@ data VideoSelector = VideoSelector'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'programNumber', 'videoSelector_programNumber' - Selects a specific program from within a multi-program transport stream.
--- Note that Quad 4K is not currently supported.
---
 -- 'alphaBehavior', 'videoSelector_alphaBehavior' - Ignore this setting unless this input is a QuickTime animation with an
 -- alpha channel. Use this setting to create separate Key and Fill outputs.
 -- In each output, specify which part of the input MediaConvert uses. Leave
 -- this setting at the default value DISCARD to delete the alpha channel
 -- and preserve the video. Set it to REMAP_TO_LUMA to delete the video and
 -- map the alpha channel to the luma channel of your outputs.
+--
+-- 'colorSpace', 'videoSelector_colorSpace' - If your input video has accurate color space metadata, or if you don\'t
+-- know about color space, leave this set to the default value Follow. The
+-- service will automatically detect your input color space. If your input
+-- video has metadata indicating the wrong color space, specify the
+-- accurate color space here. If your input video is HDR 10 and the SMPTE
+-- ST 2086 Mastering Display Color Volume static metadata isn\'t present in
+-- your video stream, or if that metadata is present but not accurate,
+-- choose Force HDR 10 here and specify correct values in the input HDR 10
+-- metadata settings. For more information about MediaConvert HDR jobs, see
+-- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/hdr. Select P3D65
+-- (SDR) to set the input color space metadata to the following: * Color
+-- primaries: Display P3 * Transfer characteristics: SMPTE 428M * Matrix
+-- coefficients: BT.709
 --
 -- 'colorSpaceUsage', 'videoSelector_colorSpaceUsage' - There are two sources for color metadata, the input file and the job
 -- input settings Color space (ColorSpace) and HDR master display
@@ -139,6 +171,13 @@ data VideoSelector = VideoSelector'
 -- source when it is present. If there\'s no color metadata in your input
 -- file, the service defaults to using values you specify in the input
 -- settings.
+--
+-- 'embeddedTimecodeOverride', 'videoSelector_embeddedTimecodeOverride' - Set Embedded timecode override (embeddedTimecodeOverride) to Use MDPM
+-- (USE_MDPM) when your AVCHD input contains timecode tag data in the
+-- Modified Digital Video Pack Metadata (MDPM). When you do, we recommend
+-- you also set Timecode source (inputTimecodeSource) to Embedded
+-- (EMBEDDED). Leave Embedded timecode override blank, or set to None
+-- (NONE), when your input does not contain MDPM timecode.
 --
 -- 'hdr10Metadata', 'videoSelector_hdr10Metadata' - Use these settings to provide HDR 10 metadata that is missing or
 -- inaccurate in your input video. Appropriate values vary depending on the
@@ -154,11 +193,23 @@ data VideoSelector = VideoSelector'
 -- information about MediaConvert HDR jobs, see
 -- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/hdr.
 --
+-- 'padVideo', 'videoSelector_padVideo' - Use this setting if your input has video and audio durations that don\'t
+-- align, and your output or player has strict alignment requirements.
+-- Examples: Input audio track has a delayed start. Input video track ends
+-- before audio ends. When you set Pad video (padVideo) to Black (BLACK),
+-- MediaConvert generates black video frames so that output video and audio
+-- durations match. Black video frames are added at the beginning or end,
+-- depending on your input. To keep the default behavior and not generate
+-- black video, set Pad video to Disabled (DISABLED) or leave blank.
+--
 -- 'pid', 'videoSelector_pid' - Use PID (Pid) to select specific video data from an input file. Specify
 -- this value as an integer; the system automatically converts it to the
 -- hexidecimal value. For example, 257 selects PID 0x101. A PID, or packet
 -- identifier, is an identifier for a set of data in an MPEG-2 transport
 -- stream container.
+--
+-- 'programNumber', 'videoSelector_programNumber' - Selects a specific program from within a multi-program transport stream.
+-- Note that Quad 4K is not currently supported.
 --
 -- 'rotate', 'videoSelector_rotate' - Use Rotate (InputRotate) to specify how the service rotates your video.
 -- You can choose automatic rotation or specify a rotation. You can specify
@@ -170,18 +221,6 @@ data VideoSelector = VideoSelector'
 -- any other rotation, the service will default to no rotation. By default,
 -- the service does no rotation, even if your input video has rotation
 -- metadata. The service doesn\'t pass through rotation metadata.
---
--- 'colorSpace', 'videoSelector_colorSpace' - If your input video has accurate color space metadata, or if you don\'t
--- know about color space, leave this set to the default value Follow
--- (FOLLOW). The service will automatically detect your input color space.
--- If your input video has metadata indicating the wrong color space,
--- specify the accurate color space here. If your input video is HDR 10 and
--- the SMPTE ST 2086 Mastering Display Color Volume static metadata isn\'t
--- present in your video stream, or if that metadata is present but not
--- accurate, choose Force HDR 10 (FORCE_HDR10) here and specify correct
--- values in the input HDR 10 metadata (Hdr10Metadata) settings. For more
--- information about MediaConvert HDR jobs, see
--- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/hdr.
 --
 -- 'sampleRange', 'videoSelector_sampleRange' - If the sample range metadata in your input video is accurate, or if you
 -- don\'t know about sample range, keep the default value, Follow (FOLLOW),
@@ -196,20 +235,17 @@ newVideoSelector ::
   VideoSelector
 newVideoSelector =
   VideoSelector'
-    { programNumber = Prelude.Nothing,
-      alphaBehavior = Prelude.Nothing,
-      colorSpaceUsage = Prelude.Nothing,
-      hdr10Metadata = Prelude.Nothing,
-      pid = Prelude.Nothing,
-      rotate = Prelude.Nothing,
+    { alphaBehavior = Prelude.Nothing,
       colorSpace = Prelude.Nothing,
+      colorSpaceUsage = Prelude.Nothing,
+      embeddedTimecodeOverride = Prelude.Nothing,
+      hdr10Metadata = Prelude.Nothing,
+      padVideo = Prelude.Nothing,
+      pid = Prelude.Nothing,
+      programNumber = Prelude.Nothing,
+      rotate = Prelude.Nothing,
       sampleRange = Prelude.Nothing
     }
-
--- | Selects a specific program from within a multi-program transport stream.
--- Note that Quad 4K is not currently supported.
-videoSelector_programNumber :: Lens.Lens' VideoSelector (Prelude.Maybe Prelude.Int)
-videoSelector_programNumber = Lens.lens (\VideoSelector' {programNumber} -> programNumber) (\s@VideoSelector' {} a -> s {programNumber = a} :: VideoSelector)
 
 -- | Ignore this setting unless this input is a QuickTime animation with an
 -- alpha channel. Use this setting to create separate Key and Fill outputs.
@@ -219,6 +255,22 @@ videoSelector_programNumber = Lens.lens (\VideoSelector' {programNumber} -> prog
 -- map the alpha channel to the luma channel of your outputs.
 videoSelector_alphaBehavior :: Lens.Lens' VideoSelector (Prelude.Maybe AlphaBehavior)
 videoSelector_alphaBehavior = Lens.lens (\VideoSelector' {alphaBehavior} -> alphaBehavior) (\s@VideoSelector' {} a -> s {alphaBehavior = a} :: VideoSelector)
+
+-- | If your input video has accurate color space metadata, or if you don\'t
+-- know about color space, leave this set to the default value Follow. The
+-- service will automatically detect your input color space. If your input
+-- video has metadata indicating the wrong color space, specify the
+-- accurate color space here. If your input video is HDR 10 and the SMPTE
+-- ST 2086 Mastering Display Color Volume static metadata isn\'t present in
+-- your video stream, or if that metadata is present but not accurate,
+-- choose Force HDR 10 here and specify correct values in the input HDR 10
+-- metadata settings. For more information about MediaConvert HDR jobs, see
+-- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/hdr. Select P3D65
+-- (SDR) to set the input color space metadata to the following: * Color
+-- primaries: Display P3 * Transfer characteristics: SMPTE 428M * Matrix
+-- coefficients: BT.709
+videoSelector_colorSpace :: Lens.Lens' VideoSelector (Prelude.Maybe ColorSpace)
+videoSelector_colorSpace = Lens.lens (\VideoSelector' {colorSpace} -> colorSpace) (\s@VideoSelector' {} a -> s {colorSpace = a} :: VideoSelector)
 
 -- | There are two sources for color metadata, the input file and the job
 -- input settings Color space (ColorSpace) and HDR master display
@@ -232,6 +284,15 @@ videoSelector_alphaBehavior = Lens.lens (\VideoSelector' {alphaBehavior} -> alph
 -- settings.
 videoSelector_colorSpaceUsage :: Lens.Lens' VideoSelector (Prelude.Maybe ColorSpaceUsage)
 videoSelector_colorSpaceUsage = Lens.lens (\VideoSelector' {colorSpaceUsage} -> colorSpaceUsage) (\s@VideoSelector' {} a -> s {colorSpaceUsage = a} :: VideoSelector)
+
+-- | Set Embedded timecode override (embeddedTimecodeOverride) to Use MDPM
+-- (USE_MDPM) when your AVCHD input contains timecode tag data in the
+-- Modified Digital Video Pack Metadata (MDPM). When you do, we recommend
+-- you also set Timecode source (inputTimecodeSource) to Embedded
+-- (EMBEDDED). Leave Embedded timecode override blank, or set to None
+-- (NONE), when your input does not contain MDPM timecode.
+videoSelector_embeddedTimecodeOverride :: Lens.Lens' VideoSelector (Prelude.Maybe EmbeddedTimecodeOverride)
+videoSelector_embeddedTimecodeOverride = Lens.lens (\VideoSelector' {embeddedTimecodeOverride} -> embeddedTimecodeOverride) (\s@VideoSelector' {} a -> s {embeddedTimecodeOverride = a} :: VideoSelector)
 
 -- | Use these settings to provide HDR 10 metadata that is missing or
 -- inaccurate in your input video. Appropriate values vary depending on the
@@ -249,6 +310,17 @@ videoSelector_colorSpaceUsage = Lens.lens (\VideoSelector' {colorSpaceUsage} -> 
 videoSelector_hdr10Metadata :: Lens.Lens' VideoSelector (Prelude.Maybe Hdr10Metadata)
 videoSelector_hdr10Metadata = Lens.lens (\VideoSelector' {hdr10Metadata} -> hdr10Metadata) (\s@VideoSelector' {} a -> s {hdr10Metadata = a} :: VideoSelector)
 
+-- | Use this setting if your input has video and audio durations that don\'t
+-- align, and your output or player has strict alignment requirements.
+-- Examples: Input audio track has a delayed start. Input video track ends
+-- before audio ends. When you set Pad video (padVideo) to Black (BLACK),
+-- MediaConvert generates black video frames so that output video and audio
+-- durations match. Black video frames are added at the beginning or end,
+-- depending on your input. To keep the default behavior and not generate
+-- black video, set Pad video to Disabled (DISABLED) or leave blank.
+videoSelector_padVideo :: Lens.Lens' VideoSelector (Prelude.Maybe PadVideo)
+videoSelector_padVideo = Lens.lens (\VideoSelector' {padVideo} -> padVideo) (\s@VideoSelector' {} a -> s {padVideo = a} :: VideoSelector)
+
 -- | Use PID (Pid) to select specific video data from an input file. Specify
 -- this value as an integer; the system automatically converts it to the
 -- hexidecimal value. For example, 257 selects PID 0x101. A PID, or packet
@@ -256,6 +328,11 @@ videoSelector_hdr10Metadata = Lens.lens (\VideoSelector' {hdr10Metadata} -> hdr1
 -- stream container.
 videoSelector_pid :: Lens.Lens' VideoSelector (Prelude.Maybe Prelude.Natural)
 videoSelector_pid = Lens.lens (\VideoSelector' {pid} -> pid) (\s@VideoSelector' {} a -> s {pid = a} :: VideoSelector)
+
+-- | Selects a specific program from within a multi-program transport stream.
+-- Note that Quad 4K is not currently supported.
+videoSelector_programNumber :: Lens.Lens' VideoSelector (Prelude.Maybe Prelude.Int)
+videoSelector_programNumber = Lens.lens (\VideoSelector' {programNumber} -> programNumber) (\s@VideoSelector' {} a -> s {programNumber = a} :: VideoSelector)
 
 -- | Use Rotate (InputRotate) to specify how the service rotates your video.
 -- You can choose automatic rotation or specify a rotation. You can specify
@@ -270,20 +347,6 @@ videoSelector_pid = Lens.lens (\VideoSelector' {pid} -> pid) (\s@VideoSelector' 
 videoSelector_rotate :: Lens.Lens' VideoSelector (Prelude.Maybe InputRotate)
 videoSelector_rotate = Lens.lens (\VideoSelector' {rotate} -> rotate) (\s@VideoSelector' {} a -> s {rotate = a} :: VideoSelector)
 
--- | If your input video has accurate color space metadata, or if you don\'t
--- know about color space, leave this set to the default value Follow
--- (FOLLOW). The service will automatically detect your input color space.
--- If your input video has metadata indicating the wrong color space,
--- specify the accurate color space here. If your input video is HDR 10 and
--- the SMPTE ST 2086 Mastering Display Color Volume static metadata isn\'t
--- present in your video stream, or if that metadata is present but not
--- accurate, choose Force HDR 10 (FORCE_HDR10) here and specify correct
--- values in the input HDR 10 metadata (Hdr10Metadata) settings. For more
--- information about MediaConvert HDR jobs, see
--- https:\/\/docs.aws.amazon.com\/console\/mediaconvert\/hdr.
-videoSelector_colorSpace :: Lens.Lens' VideoSelector (Prelude.Maybe ColorSpace)
-videoSelector_colorSpace = Lens.lens (\VideoSelector' {colorSpace} -> colorSpace) (\s@VideoSelector' {} a -> s {colorSpace = a} :: VideoSelector)
-
 -- | If the sample range metadata in your input video is accurate, or if you
 -- don\'t know about sample range, keep the default value, Follow (FOLLOW),
 -- for this setting. When you do, the service automatically detects your
@@ -296,56 +359,65 @@ videoSelector_colorSpace = Lens.lens (\VideoSelector' {colorSpace} -> colorSpace
 videoSelector_sampleRange :: Lens.Lens' VideoSelector (Prelude.Maybe InputSampleRange)
 videoSelector_sampleRange = Lens.lens (\VideoSelector' {sampleRange} -> sampleRange) (\s@VideoSelector' {} a -> s {sampleRange = a} :: VideoSelector)
 
-instance Core.FromJSON VideoSelector where
+instance Data.FromJSON VideoSelector where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VideoSelector"
       ( \x ->
           VideoSelector'
-            Prelude.<$> (x Core..:? "programNumber")
-            Prelude.<*> (x Core..:? "alphaBehavior")
-            Prelude.<*> (x Core..:? "colorSpaceUsage")
-            Prelude.<*> (x Core..:? "hdr10Metadata")
-            Prelude.<*> (x Core..:? "pid")
-            Prelude.<*> (x Core..:? "rotate")
-            Prelude.<*> (x Core..:? "colorSpace")
-            Prelude.<*> (x Core..:? "sampleRange")
+            Prelude.<$> (x Data..:? "alphaBehavior")
+            Prelude.<*> (x Data..:? "colorSpace")
+            Prelude.<*> (x Data..:? "colorSpaceUsage")
+            Prelude.<*> (x Data..:? "embeddedTimecodeOverride")
+            Prelude.<*> (x Data..:? "hdr10Metadata")
+            Prelude.<*> (x Data..:? "padVideo")
+            Prelude.<*> (x Data..:? "pid")
+            Prelude.<*> (x Data..:? "programNumber")
+            Prelude.<*> (x Data..:? "rotate")
+            Prelude.<*> (x Data..:? "sampleRange")
       )
 
 instance Prelude.Hashable VideoSelector where
   hashWithSalt _salt VideoSelector' {..} =
-    _salt `Prelude.hashWithSalt` programNumber
-      `Prelude.hashWithSalt` alphaBehavior
-      `Prelude.hashWithSalt` colorSpaceUsage
-      `Prelude.hashWithSalt` hdr10Metadata
-      `Prelude.hashWithSalt` pid
-      `Prelude.hashWithSalt` rotate
+    _salt `Prelude.hashWithSalt` alphaBehavior
       `Prelude.hashWithSalt` colorSpace
+      `Prelude.hashWithSalt` colorSpaceUsage
+      `Prelude.hashWithSalt` embeddedTimecodeOverride
+      `Prelude.hashWithSalt` hdr10Metadata
+      `Prelude.hashWithSalt` padVideo
+      `Prelude.hashWithSalt` pid
+      `Prelude.hashWithSalt` programNumber
+      `Prelude.hashWithSalt` rotate
       `Prelude.hashWithSalt` sampleRange
 
 instance Prelude.NFData VideoSelector where
   rnf VideoSelector' {..} =
-    Prelude.rnf programNumber
-      `Prelude.seq` Prelude.rnf alphaBehavior
-      `Prelude.seq` Prelude.rnf colorSpaceUsage
-      `Prelude.seq` Prelude.rnf hdr10Metadata
-      `Prelude.seq` Prelude.rnf pid
-      `Prelude.seq` Prelude.rnf rotate
+    Prelude.rnf alphaBehavior
       `Prelude.seq` Prelude.rnf colorSpace
+      `Prelude.seq` Prelude.rnf colorSpaceUsage
+      `Prelude.seq` Prelude.rnf embeddedTimecodeOverride
+      `Prelude.seq` Prelude.rnf hdr10Metadata
+      `Prelude.seq` Prelude.rnf padVideo
+      `Prelude.seq` Prelude.rnf pid
+      `Prelude.seq` Prelude.rnf programNumber
+      `Prelude.seq` Prelude.rnf rotate
       `Prelude.seq` Prelude.rnf sampleRange
 
-instance Core.ToJSON VideoSelector where
+instance Data.ToJSON VideoSelector where
   toJSON VideoSelector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("programNumber" Core..=) Prelude.<$> programNumber,
-            ("alphaBehavior" Core..=) Prelude.<$> alphaBehavior,
-            ("colorSpaceUsage" Core..=)
+          [ ("alphaBehavior" Data..=) Prelude.<$> alphaBehavior,
+            ("colorSpace" Data..=) Prelude.<$> colorSpace,
+            ("colorSpaceUsage" Data..=)
               Prelude.<$> colorSpaceUsage,
-            ("hdr10Metadata" Core..=) Prelude.<$> hdr10Metadata,
-            ("pid" Core..=) Prelude.<$> pid,
-            ("rotate" Core..=) Prelude.<$> rotate,
-            ("colorSpace" Core..=) Prelude.<$> colorSpace,
-            ("sampleRange" Core..=) Prelude.<$> sampleRange
+            ("embeddedTimecodeOverride" Data..=)
+              Prelude.<$> embeddedTimecodeOverride,
+            ("hdr10Metadata" Data..=) Prelude.<$> hdr10Metadata,
+            ("padVideo" Data..=) Prelude.<$> padVideo,
+            ("pid" Data..=) Prelude.<$> pid,
+            ("programNumber" Data..=) Prelude.<$> programNumber,
+            ("rotate" Data..=) Prelude.<$> rotate,
+            ("sampleRange" Data..=) Prelude.<$> sampleRange
           ]
       )

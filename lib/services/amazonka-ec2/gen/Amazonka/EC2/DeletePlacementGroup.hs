@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeletePlacementGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.EC2.DeletePlacementGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,7 +99,8 @@ instance Core.AWSRequest DeletePlacementGroup where
   type
     AWSResponse DeletePlacementGroup =
       DeletePlacementGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeletePlacementGroupResponse'
 
@@ -112,21 +114,21 @@ instance Prelude.NFData DeletePlacementGroup where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf groupName
 
-instance Core.ToHeaders DeletePlacementGroup where
+instance Data.ToHeaders DeletePlacementGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeletePlacementGroup where
+instance Data.ToPath DeletePlacementGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeletePlacementGroup where
+instance Data.ToQuery DeletePlacementGroup where
   toQuery DeletePlacementGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeletePlacementGroup" :: Prelude.ByteString),
+          Data.=: ("DeletePlacementGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "GroupName" Core.=: groupName
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "GroupName" Data.=: groupName
       ]
 
 -- | /See:/ 'newDeletePlacementGroupResponse' smart constructor.

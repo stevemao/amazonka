@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.Types.ImageConfigError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.Lambda.Types.ImageConfigError where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Error response to GetFunctionConfiguration.
+-- | Error response to @GetFunctionConfiguration@.
 --
 -- /See:/ 'newImageConfigError' smart constructor.
 data ImageConfigError = ImageConfigError'
   { -- | Error code.
     errorCode :: Prelude.Maybe Prelude.Text,
     -- | Error message.
-    message :: Prelude.Maybe (Core.Sensitive Prelude.Text)
+    message :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -59,16 +60,16 @@ imageConfigError_errorCode = Lens.lens (\ImageConfigError' {errorCode} -> errorC
 
 -- | Error message.
 imageConfigError_message :: Lens.Lens' ImageConfigError (Prelude.Maybe Prelude.Text)
-imageConfigError_message = Lens.lens (\ImageConfigError' {message} -> message) (\s@ImageConfigError' {} a -> s {message = a} :: ImageConfigError) Prelude.. Lens.mapping Core._Sensitive
+imageConfigError_message = Lens.lens (\ImageConfigError' {message} -> message) (\s@ImageConfigError' {} a -> s {message = a} :: ImageConfigError) Prelude.. Lens.mapping Data._Sensitive
 
-instance Core.FromJSON ImageConfigError where
+instance Data.FromJSON ImageConfigError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ImageConfigError"
       ( \x ->
           ImageConfigError'
-            Prelude.<$> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "Message")
       )
 
 instance Prelude.Hashable ImageConfigError where

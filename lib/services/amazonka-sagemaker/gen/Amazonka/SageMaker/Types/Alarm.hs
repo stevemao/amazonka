@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.Alarm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,16 @@
 module Amazonka.SageMaker.Types.Alarm where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | This API is not supported.
+-- | An Amazon CloudWatch alarm configured to monitor metrics on an endpoint.
 --
 -- /See:/ 'newAlarm' smart constructor.
 data Alarm = Alarm'
-  { alarmName :: Prelude.Maybe Prelude.Text
+  { -- | The name of a CloudWatch alarm in your account.
+    alarmName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -39,20 +41,20 @@ data Alarm = Alarm'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'alarmName', 'alarm_alarmName' -
+-- 'alarmName', 'alarm_alarmName' - The name of a CloudWatch alarm in your account.
 newAlarm ::
   Alarm
 newAlarm = Alarm' {alarmName = Prelude.Nothing}
 
--- |
+-- | The name of a CloudWatch alarm in your account.
 alarm_alarmName :: Lens.Lens' Alarm (Prelude.Maybe Prelude.Text)
 alarm_alarmName = Lens.lens (\Alarm' {alarmName} -> alarmName) (\s@Alarm' {} a -> s {alarmName = a} :: Alarm)
 
-instance Core.FromJSON Alarm where
+instance Data.FromJSON Alarm where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Alarm"
-      (\x -> Alarm' Prelude.<$> (x Core..:? "AlarmName"))
+      (\x -> Alarm' Prelude.<$> (x Data..:? "AlarmName"))
 
 instance Prelude.Hashable Alarm where
   hashWithSalt _salt Alarm' {..} =
@@ -61,9 +63,9 @@ instance Prelude.Hashable Alarm where
 instance Prelude.NFData Alarm where
   rnf Alarm' {..} = Prelude.rnf alarmName
 
-instance Core.ToJSON Alarm where
+instance Data.ToJSON Alarm where
   toJSON Alarm' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("AlarmName" Core..=) Prelude.<$> alarmName]
+          [("AlarmName" Data..=) Prelude.<$> alarmName]
       )

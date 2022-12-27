@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.Types.LogSettingsResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LexModels.Types.LogSettingsResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types.Destination
 import Amazonka.LexModels.Types.LogType
 import qualified Amazonka.Prelude as Prelude
@@ -105,17 +106,17 @@ logSettingsResponse_resourceArn = Lens.lens (\LogSettingsResponse' {resourceArn}
 logSettingsResponse_resourcePrefix :: Lens.Lens' LogSettingsResponse (Prelude.Maybe Prelude.Text)
 logSettingsResponse_resourcePrefix = Lens.lens (\LogSettingsResponse' {resourcePrefix} -> resourcePrefix) (\s@LogSettingsResponse' {} a -> s {resourcePrefix = a} :: LogSettingsResponse)
 
-instance Core.FromJSON LogSettingsResponse where
+instance Data.FromJSON LogSettingsResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LogSettingsResponse"
       ( \x ->
           LogSettingsResponse'
-            Prelude.<$> (x Core..:? "destination")
-            Prelude.<*> (x Core..:? "kmsKeyArn")
-            Prelude.<*> (x Core..:? "logType")
-            Prelude.<*> (x Core..:? "resourceArn")
-            Prelude.<*> (x Core..:? "resourcePrefix")
+            Prelude.<$> (x Data..:? "destination")
+            Prelude.<*> (x Data..:? "kmsKeyArn")
+            Prelude.<*> (x Data..:? "logType")
+            Prelude.<*> (x Data..:? "resourceArn")
+            Prelude.<*> (x Data..:? "resourcePrefix")
       )
 
 instance Prelude.Hashable LogSettingsResponse where

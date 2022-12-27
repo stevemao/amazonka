@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.RemoveKnowledgeBaseTemplateUri
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.Wisdom.RemoveKnowledgeBaseTemplateUri
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -47,8 +48,8 @@ import Amazonka.Wisdom.Types
 
 -- | /See:/ 'newRemoveKnowledgeBaseTemplateUri' smart constructor.
 data RemoveKnowledgeBaseTemplateUri = RemoveKnowledgeBaseTemplateUri'
-  { -- | The the identifier of the knowledge base. Can be either the ID or the
-    -- ARN. URLs cannot contain the ARN.
+  { -- | The identifier of the knowledge base. Can be either the ID or the ARN.
+    -- URLs cannot contain the ARN.
     knowledgeBaseId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -61,8 +62,8 @@ data RemoveKnowledgeBaseTemplateUri = RemoveKnowledgeBaseTemplateUri'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'knowledgeBaseId', 'removeKnowledgeBaseTemplateUri_knowledgeBaseId' - The the identifier of the knowledge base. Can be either the ID or the
--- ARN. URLs cannot contain the ARN.
+-- 'knowledgeBaseId', 'removeKnowledgeBaseTemplateUri_knowledgeBaseId' - The identifier of the knowledge base. Can be either the ID or the ARN.
+-- URLs cannot contain the ARN.
 newRemoveKnowledgeBaseTemplateUri ::
   -- | 'knowledgeBaseId'
   Prelude.Text ->
@@ -73,8 +74,8 @@ newRemoveKnowledgeBaseTemplateUri pKnowledgeBaseId_ =
         pKnowledgeBaseId_
     }
 
--- | The the identifier of the knowledge base. Can be either the ID or the
--- ARN. URLs cannot contain the ARN.
+-- | The identifier of the knowledge base. Can be either the ID or the ARN.
+-- URLs cannot contain the ARN.
 removeKnowledgeBaseTemplateUri_knowledgeBaseId :: Lens.Lens' RemoveKnowledgeBaseTemplateUri Prelude.Text
 removeKnowledgeBaseTemplateUri_knowledgeBaseId = Lens.lens (\RemoveKnowledgeBaseTemplateUri' {knowledgeBaseId} -> knowledgeBaseId) (\s@RemoveKnowledgeBaseTemplateUri' {} a -> s {knowledgeBaseId = a} :: RemoveKnowledgeBaseTemplateUri)
 
@@ -85,7 +86,8 @@ instance
   type
     AWSResponse RemoveKnowledgeBaseTemplateUri =
       RemoveKnowledgeBaseTemplateUriResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -110,28 +112,28 @@ instance
     Prelude.rnf knowledgeBaseId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     RemoveKnowledgeBaseTemplateUri
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath RemoveKnowledgeBaseTemplateUri where
+instance Data.ToPath RemoveKnowledgeBaseTemplateUri where
   toPath RemoveKnowledgeBaseTemplateUri' {..} =
     Prelude.mconcat
       [ "/knowledgeBases/",
-        Core.toBS knowledgeBaseId,
+        Data.toBS knowledgeBaseId,
         "/templateUri"
       ]
 
-instance Core.ToQuery RemoveKnowledgeBaseTemplateUri where
+instance Data.ToQuery RemoveKnowledgeBaseTemplateUri where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveKnowledgeBaseTemplateUriResponse' smart constructor.

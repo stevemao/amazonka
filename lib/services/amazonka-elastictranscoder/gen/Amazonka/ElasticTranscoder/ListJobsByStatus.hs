@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticTranscoder.ListJobsByStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,15 +40,16 @@ module Amazonka.ElasticTranscoder.ListJobsByStatus
     newListJobsByStatusResponse,
 
     -- * Response Lenses
-    listJobsByStatusResponse_nextPageToken,
     listJobsByStatusResponse_jobs,
+    listJobsByStatusResponse_nextPageToken,
     listJobsByStatusResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticTranscoder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -145,13 +146,14 @@ instance Core.AWSRequest ListJobsByStatus where
   type
     AWSResponse ListJobsByStatus =
       ListJobsByStatusResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListJobsByStatusResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-            Prelude.<*> (x Core..?> "Jobs" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Jobs" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextPageToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -167,32 +169,32 @@ instance Prelude.NFData ListJobsByStatus where
       `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders ListJobsByStatus where
+instance Data.ToHeaders ListJobsByStatus where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListJobsByStatus where
+instance Data.ToPath ListJobsByStatus where
   toPath ListJobsByStatus' {..} =
     Prelude.mconcat
-      ["/2012-09-25/jobsByStatus/", Core.toBS status]
+      ["/2012-09-25/jobsByStatus/", Data.toBS status]
 
-instance Core.ToQuery ListJobsByStatus where
+instance Data.ToQuery ListJobsByStatus where
   toQuery ListJobsByStatus' {..} =
     Prelude.mconcat
-      [ "Ascending" Core.=: ascending,
-        "PageToken" Core.=: pageToken
+      [ "Ascending" Data.=: ascending,
+        "PageToken" Data.=: pageToken
       ]
 
 -- | The @ListJobsByStatusResponse@ structure.
 --
 -- /See:/ 'newListJobsByStatusResponse' smart constructor.
 data ListJobsByStatusResponse = ListJobsByStatusResponse'
-  { -- | A value that you use to access the second and subsequent pages of
+  { -- | An array of @Job@ objects that have the specified status.
+    jobs :: Prelude.Maybe [Job],
+    -- | A value that you use to access the second and subsequent pages of
     -- results, if any. When the jobs in the specified pipeline fit on one page
     -- or when you\'ve reached the last page of results, the value of
     -- @NextPageToken@ is @null@.
     nextPageToken :: Prelude.Maybe Prelude.Text,
-    -- | An array of @Job@ objects that have the specified status.
-    jobs :: Prelude.Maybe [Job],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -206,12 +208,12 @@ data ListJobsByStatusResponse = ListJobsByStatusResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'jobs', 'listJobsByStatusResponse_jobs' - An array of @Job@ objects that have the specified status.
+--
 -- 'nextPageToken', 'listJobsByStatusResponse_nextPageToken' - A value that you use to access the second and subsequent pages of
 -- results, if any. When the jobs in the specified pipeline fit on one page
 -- or when you\'ve reached the last page of results, the value of
 -- @NextPageToken@ is @null@.
---
--- 'jobs', 'listJobsByStatusResponse_jobs' - An array of @Job@ objects that have the specified status.
 --
 -- 'httpStatus', 'listJobsByStatusResponse_httpStatus' - The response's http status code.
 newListJobsByStatusResponse ::
@@ -220,11 +222,14 @@ newListJobsByStatusResponse ::
   ListJobsByStatusResponse
 newListJobsByStatusResponse pHttpStatus_ =
   ListJobsByStatusResponse'
-    { nextPageToken =
-        Prelude.Nothing,
-      jobs = Prelude.Nothing,
+    { jobs = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | An array of @Job@ objects that have the specified status.
+listJobsByStatusResponse_jobs :: Lens.Lens' ListJobsByStatusResponse (Prelude.Maybe [Job])
+listJobsByStatusResponse_jobs = Lens.lens (\ListJobsByStatusResponse' {jobs} -> jobs) (\s@ListJobsByStatusResponse' {} a -> s {jobs = a} :: ListJobsByStatusResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A value that you use to access the second and subsequent pages of
 -- results, if any. When the jobs in the specified pipeline fit on one page
@@ -233,16 +238,12 @@ newListJobsByStatusResponse pHttpStatus_ =
 listJobsByStatusResponse_nextPageToken :: Lens.Lens' ListJobsByStatusResponse (Prelude.Maybe Prelude.Text)
 listJobsByStatusResponse_nextPageToken = Lens.lens (\ListJobsByStatusResponse' {nextPageToken} -> nextPageToken) (\s@ListJobsByStatusResponse' {} a -> s {nextPageToken = a} :: ListJobsByStatusResponse)
 
--- | An array of @Job@ objects that have the specified status.
-listJobsByStatusResponse_jobs :: Lens.Lens' ListJobsByStatusResponse (Prelude.Maybe [Job])
-listJobsByStatusResponse_jobs = Lens.lens (\ListJobsByStatusResponse' {jobs} -> jobs) (\s@ListJobsByStatusResponse' {} a -> s {jobs = a} :: ListJobsByStatusResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The response's http status code.
 listJobsByStatusResponse_httpStatus :: Lens.Lens' ListJobsByStatusResponse Prelude.Int
 listJobsByStatusResponse_httpStatus = Lens.lens (\ListJobsByStatusResponse' {httpStatus} -> httpStatus) (\s@ListJobsByStatusResponse' {} a -> s {httpStatus = a} :: ListJobsByStatusResponse)
 
 instance Prelude.NFData ListJobsByStatusResponse where
   rnf ListJobsByStatusResponse' {..} =
-    Prelude.rnf nextPageToken
-      `Prelude.seq` Prelude.rnf jobs
+    Prelude.rnf jobs
+      `Prelude.seq` Prelude.rnf nextPageToken
       `Prelude.seq` Prelude.rnf httpStatus

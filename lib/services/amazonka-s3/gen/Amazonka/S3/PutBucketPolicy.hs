@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.PutBucketPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,6 +50,7 @@ module Amazonka.S3.PutBucketPolicy
     newPutBucketPolicy,
 
     -- * Request Lenses
+    putBucketPolicy_checksumAlgorithm,
     putBucketPolicy_confirmRemoveSelfBucketAccess,
     putBucketPolicy_contentMD5,
     putBucketPolicy_expectedBucketOwner,
@@ -63,7 +64,8 @@ module Amazonka.S3.PutBucketPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -71,7 +73,19 @@ import Amazonka.S3.Types
 
 -- | /See:/ 'newPutBucketPolicy' smart constructor.
 data PutBucketPolicy = PutBucketPolicy'
-  { -- | Set this parameter to true to confirm that you want to remove your
+  { -- | Indicates the algorithm used to create the checksum for the object when
+    -- using the SDK. This header will not provide any additional functionality
+    -- if not using the SDK. When sending this header, there must be a
+    -- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+    -- Otherwise, Amazon S3 fails the request with the HTTP status code
+    -- @400 Bad Request@. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+    -- in the /Amazon S3 User Guide/.
+    --
+    -- If you provide an individual checksum, Amazon S3 ignores any provided
+    -- @ChecksumAlgorithm@ parameter.
+    checksumAlgorithm :: Prelude.Maybe ChecksumAlgorithm,
+    -- | Set this parameter to true to confirm that you want to remove your
     -- permissions to change this bucket policy in the future.
     confirmRemoveSelfBucketAccess :: Prelude.Maybe Prelude.Bool,
     -- | The MD5 hash of the request body.
@@ -81,8 +95,8 @@ data PutBucketPolicy = PutBucketPolicy'
     -- automatically.
     contentMD5 :: Prelude.Maybe Prelude.Text,
     -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket.
     bucket :: BucketName,
@@ -99,6 +113,18 @@ data PutBucketPolicy = PutBucketPolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'checksumAlgorithm', 'putBucketPolicy_checksumAlgorithm' - Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
+--
 -- 'confirmRemoveSelfBucketAccess', 'putBucketPolicy_confirmRemoveSelfBucketAccess' - Set this parameter to true to confirm that you want to remove your
 -- permissions to change this bucket policy in the future.
 --
@@ -109,8 +135,8 @@ data PutBucketPolicy = PutBucketPolicy'
 -- automatically.
 --
 -- 'expectedBucketOwner', 'putBucketPolicy_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'putBucketPolicy_bucket' - The name of the bucket.
 --
@@ -123,13 +149,28 @@ newPutBucketPolicy ::
   PutBucketPolicy
 newPutBucketPolicy pBucket_ pPolicy_ =
   PutBucketPolicy'
-    { confirmRemoveSelfBucketAccess =
+    { checksumAlgorithm =
         Prelude.Nothing,
+      confirmRemoveSelfBucketAccess = Prelude.Nothing,
       contentMD5 = Prelude.Nothing,
       expectedBucketOwner = Prelude.Nothing,
       bucket = pBucket_,
       policy = pPolicy_
     }
+
+-- | Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
+putBucketPolicy_checksumAlgorithm :: Lens.Lens' PutBucketPolicy (Prelude.Maybe ChecksumAlgorithm)
+putBucketPolicy_checksumAlgorithm = Lens.lens (\PutBucketPolicy' {checksumAlgorithm} -> checksumAlgorithm) (\s@PutBucketPolicy' {} a -> s {checksumAlgorithm = a} :: PutBucketPolicy)
 
 -- | Set this parameter to true to confirm that you want to remove your
 -- permissions to change this bucket policy in the future.
@@ -145,8 +186,8 @@ putBucketPolicy_contentMD5 :: Lens.Lens' PutBucketPolicy (Prelude.Maybe Prelude.
 putBucketPolicy_contentMD5 = Lens.lens (\PutBucketPolicy' {contentMD5} -> contentMD5) (\s@PutBucketPolicy' {} a -> s {contentMD5 = a} :: PutBucketPolicy)
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 putBucketPolicy_expectedBucketOwner :: Lens.Lens' PutBucketPolicy (Prelude.Maybe Prelude.Text)
 putBucketPolicy_expectedBucketOwner = Lens.lens (\PutBucketPolicy' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutBucketPolicy' {} a -> s {expectedBucketOwner = a} :: PutBucketPolicy)
 
@@ -162,16 +203,16 @@ instance Core.AWSRequest PutBucketPolicy where
   type
     AWSResponse PutBucketPolicy =
       PutBucketPolicyResponse
-  request =
+  request overrides =
     Request.contentMD5Header
       Prelude.. Request.s3vhost
-      Prelude.. Request.putBody defaultService
+      Prelude.. Request.putBody (overrides defaultService)
   response =
     Response.receiveNull PutBucketPolicyResponse'
 
 instance Prelude.Hashable PutBucketPolicy where
   hashWithSalt _salt PutBucketPolicy' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` checksumAlgorithm
       `Prelude.hashWithSalt` confirmRemoveSelfBucketAccess
       `Prelude.hashWithSalt` contentMD5
       `Prelude.hashWithSalt` expectedBucketOwner
@@ -180,30 +221,33 @@ instance Prelude.Hashable PutBucketPolicy where
 
 instance Prelude.NFData PutBucketPolicy where
   rnf PutBucketPolicy' {..} =
-    Prelude.rnf confirmRemoveSelfBucketAccess
+    Prelude.rnf checksumAlgorithm
+      `Prelude.seq` Prelude.rnf confirmRemoveSelfBucketAccess
       `Prelude.seq` Prelude.rnf contentMD5
       `Prelude.seq` Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
       `Prelude.seq` Prelude.rnf policy
 
-instance Core.ToBody PutBucketPolicy where
-  toBody PutBucketPolicy' {..} = Core.toBody policy
+instance Data.ToBody PutBucketPolicy where
+  toBody PutBucketPolicy' {..} = Data.toBody policy
 
-instance Core.ToHeaders PutBucketPolicy where
+instance Data.ToHeaders PutBucketPolicy where
   toHeaders PutBucketPolicy' {..} =
     Prelude.mconcat
-      [ "x-amz-confirm-remove-self-bucket-access"
-          Core.=# confirmRemoveSelfBucketAccess,
-        "Content-MD5" Core.=# contentMD5,
+      [ "x-amz-sdk-checksum-algorithm"
+          Data.=# checksumAlgorithm,
+        "x-amz-confirm-remove-self-bucket-access"
+          Data.=# confirmRemoveSelfBucketAccess,
+        "Content-MD5" Data.=# contentMD5,
         "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath PutBucketPolicy where
+instance Data.ToPath PutBucketPolicy where
   toPath PutBucketPolicy' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery PutBucketPolicy where
+instance Data.ToQuery PutBucketPolicy where
   toQuery = Prelude.const (Prelude.mconcat ["policy"])
 
 -- | /See:/ 'newPutBucketPolicyResponse' smart constructor.

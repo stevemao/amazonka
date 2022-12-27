@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.AwsJobAbortConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.AwsJobAbortConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.AwsJobAbortCriteria
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The criteria that determine when and how a job abort takes place.
@@ -64,11 +65,11 @@ instance Prelude.NFData AwsJobAbortConfig where
   rnf AwsJobAbortConfig' {..} =
     Prelude.rnf abortCriteriaList
 
-instance Core.ToJSON AwsJobAbortConfig where
+instance Data.ToJSON AwsJobAbortConfig where
   toJSON AwsJobAbortConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("abortCriteriaList" Core..= abortCriteriaList)
+              ("abortCriteriaList" Data..= abortCriteriaList)
           ]
       )

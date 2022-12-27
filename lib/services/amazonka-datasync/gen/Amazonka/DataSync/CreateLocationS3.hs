@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.DataSync.CreateLocationS3
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an endpoint for an Amazon S3 bucket.
+-- Creates an endpoint for an Amazon S3 bucket that DataSync can access for
+-- a transfer.
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/datasync/latest/userguide/create-locations-cli.html#create-location-s3-cli Create an Amazon S3 location>
@@ -49,8 +50,9 @@ module Amazonka.DataSync.CreateLocationS3
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,7 +61,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateLocationS3' smart constructor.
 data CreateLocationS3 = CreateLocationS3'
-  { -- | If you are using DataSync on an Amazon Web Services Outpost, specify the
+  { -- | If you\'re using DataSync on an Amazon Web Services Outpost, specify the
     -- Amazon Resource Names (ARNs) of the DataSync agents deployed on your
     -- Outpost. For more information about launching a DataSync agent on an
     -- Amazon Web Services Outpost, see
@@ -99,7 +101,7 @@ data CreateLocationS3 = CreateLocationS3'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'agentArns', 'createLocationS3_agentArns' - If you are using DataSync on an Amazon Web Services Outpost, specify the
+-- 'agentArns', 'createLocationS3_agentArns' - If you\'re using DataSync on an Amazon Web Services Outpost, specify the
 -- Amazon Resource Names (ARNs) of the DataSync agents deployed on your
 -- Outpost. For more information about launching a DataSync agent on an
 -- Amazon Web Services Outpost, see
@@ -144,7 +146,7 @@ newCreateLocationS3 pS3BucketArn_ pS3Config_ =
       s3Config = pS3Config_
     }
 
--- | If you are using DataSync on an Amazon Web Services Outpost, specify the
+-- | If you\'re using DataSync on an Amazon Web Services Outpost, specify the
 -- Amazon Resource Names (ARNs) of the DataSync agents deployed on your
 -- Outpost. For more information about launching a DataSync agent on an
 -- Amazon Web Services Outpost, see
@@ -190,12 +192,13 @@ instance Core.AWSRequest CreateLocationS3 where
   type
     AWSResponse CreateLocationS3 =
       CreateLocationS3Response
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateLocationS3Response'
-            Prelude.<$> (x Core..?> "LocationArn")
+            Prelude.<$> (x Data..?> "LocationArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -217,39 +220,39 @@ instance Prelude.NFData CreateLocationS3 where
       `Prelude.seq` Prelude.rnf s3BucketArn
       `Prelude.seq` Prelude.rnf s3Config
 
-instance Core.ToHeaders CreateLocationS3 where
+instance Data.ToHeaders CreateLocationS3 where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "FmrsService.CreateLocationS3" ::
+              Data.=# ( "FmrsService.CreateLocationS3" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateLocationS3 where
+instance Data.ToJSON CreateLocationS3 where
   toJSON CreateLocationS3' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AgentArns" Core..=) Prelude.<$> agentArns,
-            ("S3StorageClass" Core..=)
+          [ ("AgentArns" Data..=) Prelude.<$> agentArns,
+            ("S3StorageClass" Data..=)
               Prelude.<$> s3StorageClass,
-            ("Subdirectory" Core..=) Prelude.<$> subdirectory,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("S3BucketArn" Core..= s3BucketArn),
-            Prelude.Just ("S3Config" Core..= s3Config)
+            ("Subdirectory" Data..=) Prelude.<$> subdirectory,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("S3BucketArn" Data..= s3BucketArn),
+            Prelude.Just ("S3Config" Data..= s3Config)
           ]
       )
 
-instance Core.ToPath CreateLocationS3 where
+instance Data.ToPath CreateLocationS3 where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateLocationS3 where
+instance Data.ToQuery CreateLocationS3 where
   toQuery = Prelude.const Prelude.mempty
 
 -- | CreateLocationS3Response

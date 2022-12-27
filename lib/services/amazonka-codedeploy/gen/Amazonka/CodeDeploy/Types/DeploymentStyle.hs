@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.Types.DeploymentStyle
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CodeDeploy.Types.DeploymentStyle where
 import Amazonka.CodeDeploy.Types.DeploymentOption
 import Amazonka.CodeDeploy.Types.DeploymentType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the type of deployment, either in-place or
@@ -69,14 +70,14 @@ deploymentStyle_deploymentOption = Lens.lens (\DeploymentStyle' {deploymentOptio
 deploymentStyle_deploymentType :: Lens.Lens' DeploymentStyle (Prelude.Maybe DeploymentType)
 deploymentStyle_deploymentType = Lens.lens (\DeploymentStyle' {deploymentType} -> deploymentType) (\s@DeploymentStyle' {} a -> s {deploymentType = a} :: DeploymentStyle)
 
-instance Core.FromJSON DeploymentStyle where
+instance Data.FromJSON DeploymentStyle where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DeploymentStyle"
       ( \x ->
           DeploymentStyle'
-            Prelude.<$> (x Core..:? "deploymentOption")
-            Prelude.<*> (x Core..:? "deploymentType")
+            Prelude.<$> (x Data..:? "deploymentOption")
+            Prelude.<*> (x Data..:? "deploymentType")
       )
 
 instance Prelude.Hashable DeploymentStyle where
@@ -89,13 +90,13 @@ instance Prelude.NFData DeploymentStyle where
     Prelude.rnf deploymentOption
       `Prelude.seq` Prelude.rnf deploymentType
 
-instance Core.ToJSON DeploymentStyle where
+instance Data.ToJSON DeploymentStyle where
   toJSON DeploymentStyle' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("deploymentOption" Core..=)
+          [ ("deploymentOption" Data..=)
               Prelude.<$> deploymentOption,
-            ("deploymentType" Core..=)
+            ("deploymentType" Data..=)
               Prelude.<$> deploymentType
           ]
       )

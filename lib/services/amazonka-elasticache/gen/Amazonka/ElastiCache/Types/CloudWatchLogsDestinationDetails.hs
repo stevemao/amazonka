@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Types.CloudWatchLogsDestinationDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElastiCache.Types.CloudWatchLogsDestinationDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration details of the CloudWatch Logs destination.
@@ -54,12 +55,12 @@ cloudWatchLogsDestinationDetails_logGroup :: Lens.Lens' CloudWatchLogsDestinatio
 cloudWatchLogsDestinationDetails_logGroup = Lens.lens (\CloudWatchLogsDestinationDetails' {logGroup} -> logGroup) (\s@CloudWatchLogsDestinationDetails' {} a -> s {logGroup = a} :: CloudWatchLogsDestinationDetails)
 
 instance
-  Core.FromXML
+  Data.FromXML
     CloudWatchLogsDestinationDetails
   where
   parseXML x =
     CloudWatchLogsDestinationDetails'
-      Prelude.<$> (x Core..@? "LogGroup")
+      Prelude.<$> (x Data..@? "LogGroup")
 
 instance
   Prelude.Hashable
@@ -78,8 +79,8 @@ instance
     Prelude.rnf logGroup
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CloudWatchLogsDestinationDetails
   where
   toQuery CloudWatchLogsDestinationDetails' {..} =
-    Prelude.mconcat ["LogGroup" Core.=: logGroup]
+    Prelude.mconcat ["LogGroup" Data.=: logGroup]

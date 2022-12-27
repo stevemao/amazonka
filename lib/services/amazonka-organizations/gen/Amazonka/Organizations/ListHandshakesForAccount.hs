@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.ListHandshakesForAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,9 +23,9 @@
 -- Lists the current handshakes that are associated with the account of the
 -- requesting user.
 --
--- Handshakes that are @ACCEPTED@, @DECLINED@, or @CANCELED@ appear in the
--- results of this API for only 30 days after changing to that state. After
--- that, they\'re deleted and no longer accessible.
+-- Handshakes that are @ACCEPTED@, @DECLINED@, @CANCELED@, or @EXPIRED@
+-- appear in the results of this API for only 30 days after changing to
+-- that state. After that, they\'re deleted and no longer accessible.
 --
 -- Always check the @NextToken@ response parameter for a @null@ value when
 -- calling a @List*@ operation. These operations can occasionally return an
@@ -42,9 +42,9 @@ module Amazonka.Organizations.ListHandshakesForAccount
     newListHandshakesForAccount,
 
     -- * Request Lenses
-    listHandshakesForAccount_nextToken,
     listHandshakesForAccount_filter,
     listHandshakesForAccount_maxResults,
+    listHandshakesForAccount_nextToken,
 
     -- * Destructuring the Response
     ListHandshakesForAccountResponse (..),
@@ -58,7 +58,8 @@ module Amazonka.Organizations.ListHandshakesForAccount
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -66,13 +67,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListHandshakesForAccount' smart constructor.
 data ListHandshakesForAccount = ListHandshakesForAccount'
-  { -- | The parameter for receiving additional results if you receive a
-    -- @NextToken@ response in a previous request. A @NextToken@ response
-    -- indicates that more output is available. Set this parameter to the value
-    -- of the previous call\'s @NextToken@ response to indicate where the
-    -- output should continue from.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Filters the handshakes that you want included in the response. The
+  { -- | Filters the handshakes that you want included in the response. The
     -- default is all types. Use the @ActionType@ element to limit the output
     -- to only a specified type, such as @INVITE@, @ENABLE_ALL_FEATURES@, or
     -- @APPROVE_ALL_FEATURES@. Alternatively, for the @ENABLE_ALL_FEATURES@
@@ -90,7 +85,13 @@ data ListHandshakesForAccount = ListHandshakesForAccount'
     -- maximum even when there are more results available. You should check
     -- @NextToken@ after every operation to ensure that you receive all of the
     -- results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The parameter for receiving additional results if you receive a
+    -- @NextToken@ response in a previous request. A @NextToken@ response
+    -- indicates that more output is available. Set this parameter to the value
+    -- of the previous call\'s @NextToken@ response to indicate where the
+    -- output should continue from.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -101,12 +102,6 @@ data ListHandshakesForAccount = ListHandshakesForAccount'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'nextToken', 'listHandshakesForAccount_nextToken' - The parameter for receiving additional results if you receive a
--- @NextToken@ response in a previous request. A @NextToken@ response
--- indicates that more output is available. Set this parameter to the value
--- of the previous call\'s @NextToken@ response to indicate where the
--- output should continue from.
 --
 -- 'filter'', 'listHandshakesForAccount_filter' - Filters the handshakes that you want included in the response. The
 -- default is all types. Use the @ActionType@ element to limit the output
@@ -126,23 +121,21 @@ data ListHandshakesForAccount = ListHandshakesForAccount'
 -- maximum even when there are more results available. You should check
 -- @NextToken@ after every operation to ensure that you receive all of the
 -- results.
-newListHandshakesForAccount ::
-  ListHandshakesForAccount
-newListHandshakesForAccount =
-  ListHandshakesForAccount'
-    { nextToken =
-        Prelude.Nothing,
-      filter' = Prelude.Nothing,
-      maxResults = Prelude.Nothing
-    }
-
--- | The parameter for receiving additional results if you receive a
+--
+-- 'nextToken', 'listHandshakesForAccount_nextToken' - The parameter for receiving additional results if you receive a
 -- @NextToken@ response in a previous request. A @NextToken@ response
 -- indicates that more output is available. Set this parameter to the value
 -- of the previous call\'s @NextToken@ response to indicate where the
 -- output should continue from.
-listHandshakesForAccount_nextToken :: Lens.Lens' ListHandshakesForAccount (Prelude.Maybe Prelude.Text)
-listHandshakesForAccount_nextToken = Lens.lens (\ListHandshakesForAccount' {nextToken} -> nextToken) (\s@ListHandshakesForAccount' {} a -> s {nextToken = a} :: ListHandshakesForAccount)
+newListHandshakesForAccount ::
+  ListHandshakesForAccount
+newListHandshakesForAccount =
+  ListHandshakesForAccount'
+    { filter' =
+        Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
+    }
 
 -- | Filters the handshakes that you want included in the response. The
 -- default is all types. Use the @ActionType@ element to limit the output
@@ -166,6 +159,14 @@ listHandshakesForAccount_filter = Lens.lens (\ListHandshakesForAccount' {filter'
 -- results.
 listHandshakesForAccount_maxResults :: Lens.Lens' ListHandshakesForAccount (Prelude.Maybe Prelude.Natural)
 listHandshakesForAccount_maxResults = Lens.lens (\ListHandshakesForAccount' {maxResults} -> maxResults) (\s@ListHandshakesForAccount' {} a -> s {maxResults = a} :: ListHandshakesForAccount)
+
+-- | The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
+listHandshakesForAccount_nextToken :: Lens.Lens' ListHandshakesForAccount (Prelude.Maybe Prelude.Text)
+listHandshakesForAccount_nextToken = Lens.lens (\ListHandshakesForAccount' {nextToken} -> nextToken) (\s@ListHandshakesForAccount' {} a -> s {nextToken = a} :: ListHandshakesForAccount)
 
 instance Core.AWSPager ListHandshakesForAccount where
   page rq rs
@@ -193,57 +194,58 @@ instance Core.AWSRequest ListHandshakesForAccount where
   type
     AWSResponse ListHandshakesForAccount =
       ListHandshakesForAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListHandshakesForAccountResponse'
-            Prelude.<$> (x Core..?> "Handshakes" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Handshakes" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListHandshakesForAccount where
   hashWithSalt _salt ListHandshakesForAccount' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListHandshakesForAccount where
   rnf ListHandshakesForAccount' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListHandshakesForAccount where
+instance Data.ToHeaders ListHandshakesForAccount where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.ListHandshakesForAccount" ::
+              Data.=# ( "AWSOrganizationsV20161128.ListHandshakesForAccount" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListHandshakesForAccount where
+instance Data.ToJSON ListHandshakesForAccount where
   toJSON ListHandshakesForAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Filter" Core..=) Prelude.<$> filter',
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filter" Data..=) Prelude.<$> filter',
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListHandshakesForAccount where
+instance Data.ToPath ListHandshakesForAccount where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListHandshakesForAccount where
+instance Data.ToQuery ListHandshakesForAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListHandshakesForAccountResponse' smart constructor.

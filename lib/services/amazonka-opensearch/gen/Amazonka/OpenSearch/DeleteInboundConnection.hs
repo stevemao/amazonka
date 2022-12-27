@@ -14,14 +14,16 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.DeleteInboundConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Allows the remote domain owner to delete an existing inbound
--- cross-cluster connection.
+-- Allows the destination Amazon OpenSearch Service domain owner to delete
+-- an existing inbound cross-cluster search connection. For more
+-- information, see
+-- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cross-cluster-search.html Cross-cluster search for Amazon OpenSearch Service>.
 module Amazonka.OpenSearch.DeleteInboundConnection
   ( -- * Creating a Request
     DeleteInboundConnection (..),
@@ -41,14 +43,14 @@ module Amazonka.OpenSearch.DeleteInboundConnection
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Container for the parameters to the @ DeleteInboundConnection @
--- operation.
+-- | Container for the parameters to the @DeleteInboundConnection@ operation.
 --
 -- /See:/ 'newDeleteInboundConnection' smart constructor.
 data DeleteInboundConnection = DeleteInboundConnection'
@@ -84,12 +86,13 @@ instance Core.AWSRequest DeleteInboundConnection where
   type
     AWSResponse DeleteInboundConnection =
       DeleteInboundConnectionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteInboundConnectionResponse'
-            Prelude.<$> (x Core..?> "Connection")
+            Prelude.<$> (x Data..?> "Connection")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,25 +104,25 @@ instance Prelude.NFData DeleteInboundConnection where
   rnf DeleteInboundConnection' {..} =
     Prelude.rnf connectionId
 
-instance Core.ToHeaders DeleteInboundConnection where
+instance Data.ToHeaders DeleteInboundConnection where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteInboundConnection where
+instance Data.ToPath DeleteInboundConnection where
   toPath DeleteInboundConnection' {..} =
     Prelude.mconcat
       [ "/2021-01-01/opensearch/cc/inboundConnection/",
-        Core.toBS connectionId
+        Data.toBS connectionId
       ]
 
-instance Core.ToQuery DeleteInboundConnection where
+instance Data.ToQuery DeleteInboundConnection where
   toQuery = Prelude.const Prelude.mempty
 
--- | The result of a @ DeleteInboundConnection @ operation. Contains details
+-- | The results of a @DeleteInboundConnection@ operation. Contains details
 -- about the deleted inbound connection.
 --
 -- /See:/ 'newDeleteInboundConnectionResponse' smart constructor.
 data DeleteInboundConnectionResponse = DeleteInboundConnectionResponse'
-  { -- | The @ InboundConnection @ of the deleted inbound connection.
+  { -- | The deleted inbound connection.
     connection :: Prelude.Maybe InboundConnection,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -134,7 +137,7 @@ data DeleteInboundConnectionResponse = DeleteInboundConnectionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'connection', 'deleteInboundConnectionResponse_connection' - The @ InboundConnection @ of the deleted inbound connection.
+-- 'connection', 'deleteInboundConnectionResponse_connection' - The deleted inbound connection.
 --
 -- 'httpStatus', 'deleteInboundConnectionResponse_httpStatus' - The response's http status code.
 newDeleteInboundConnectionResponse ::
@@ -148,7 +151,7 @@ newDeleteInboundConnectionResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The @ InboundConnection @ of the deleted inbound connection.
+-- | The deleted inbound connection.
 deleteInboundConnectionResponse_connection :: Lens.Lens' DeleteInboundConnectionResponse (Prelude.Maybe InboundConnection)
 deleteInboundConnectionResponse_connection = Lens.lens (\DeleteInboundConnectionResponse' {connection} -> connection) (\s@DeleteInboundConnectionResponse' {} a -> s {connection = a} :: DeleteInboundConnectionResponse)
 

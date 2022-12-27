@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.ListPageReceipts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.SSMContacts.ListPageReceipts
     newListPageReceipts,
 
     -- * Request Lenses
-    listPageReceipts_nextToken,
     listPageReceipts_maxResults,
+    listPageReceipts_nextToken,
     listPageReceipts_pageId,
 
     -- * Destructuring the Response
@@ -46,7 +46,8 @@ module Amazonka.SSMContacts.ListPageReceipts
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,10 +55,10 @@ import Amazonka.SSMContacts.Types
 
 -- | /See:/ 'newListPageReceipts' smart constructor.
 data ListPageReceipts = ListPageReceipts'
-  { -- | The pagination token to continue to the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of acknowledgements per page of results.
+  { -- | The maximum number of acknowledgements per page of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token to continue to the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the engagement to a specific contact
     -- channel.
     pageId :: Prelude.Text
@@ -72,9 +73,9 @@ data ListPageReceipts = ListPageReceipts'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listPageReceipts_nextToken' - The pagination token to continue to the next page of results.
---
 -- 'maxResults', 'listPageReceipts_maxResults' - The maximum number of acknowledgements per page of results.
+--
+-- 'nextToken', 'listPageReceipts_nextToken' - The pagination token to continue to the next page of results.
 --
 -- 'pageId', 'listPageReceipts_pageId' - The Amazon Resource Name (ARN) of the engagement to a specific contact
 -- channel.
@@ -84,18 +85,18 @@ newListPageReceipts ::
   ListPageReceipts
 newListPageReceipts pPageId_ =
   ListPageReceipts'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       pageId = pPageId_
     }
-
--- | The pagination token to continue to the next page of results.
-listPageReceipts_nextToken :: Lens.Lens' ListPageReceipts (Prelude.Maybe Prelude.Text)
-listPageReceipts_nextToken = Lens.lens (\ListPageReceipts' {nextToken} -> nextToken) (\s@ListPageReceipts' {} a -> s {nextToken = a} :: ListPageReceipts)
 
 -- | The maximum number of acknowledgements per page of results.
 listPageReceipts_maxResults :: Lens.Lens' ListPageReceipts (Prelude.Maybe Prelude.Natural)
 listPageReceipts_maxResults = Lens.lens (\ListPageReceipts' {maxResults} -> maxResults) (\s@ListPageReceipts' {} a -> s {maxResults = a} :: ListPageReceipts)
+
+-- | The pagination token to continue to the next page of results.
+listPageReceipts_nextToken :: Lens.Lens' ListPageReceipts (Prelude.Maybe Prelude.Text)
+listPageReceipts_nextToken = Lens.lens (\ListPageReceipts' {nextToken} -> nextToken) (\s@ListPageReceipts' {} a -> s {nextToken = a} :: ListPageReceipts)
 
 -- | The Amazon Resource Name (ARN) of the engagement to a specific contact
 -- channel.
@@ -128,57 +129,58 @@ instance Core.AWSRequest ListPageReceipts where
   type
     AWSResponse ListPageReceipts =
       ListPageReceiptsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPageReceiptsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Receipts" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Receipts" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListPageReceipts where
   hashWithSalt _salt ListPageReceipts' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` pageId
 
 instance Prelude.NFData ListPageReceipts where
   rnf ListPageReceipts' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf pageId
 
-instance Core.ToHeaders ListPageReceipts where
+instance Data.ToHeaders ListPageReceipts where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SSMContacts.ListPageReceipts" ::
+              Data.=# ( "SSMContacts.ListPageReceipts" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPageReceipts where
+instance Data.ToJSON ListPageReceipts where
   toJSON ListPageReceipts' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("PageId" Core..= pageId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("PageId" Data..= pageId)
           ]
       )
 
-instance Core.ToPath ListPageReceipts where
+instance Data.ToPath ListPageReceipts where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPageReceipts where
+instance Data.ToQuery ListPageReceipts where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListPageReceiptsResponse' smart constructor.

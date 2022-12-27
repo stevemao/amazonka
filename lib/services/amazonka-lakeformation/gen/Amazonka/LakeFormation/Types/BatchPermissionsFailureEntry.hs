@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.Types.BatchPermissionsFailureEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.LakeFormation.Types.BatchPermissionsFailureEntry where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LakeFormation.Types.BatchPermissionsRequestEntry
 import Amazonka.LakeFormation.Types.ErrorDetail
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of failures when performing a batch grant or batch revoke
@@ -65,14 +66,14 @@ batchPermissionsFailureEntry_error = Lens.lens (\BatchPermissionsFailureEntry' {
 batchPermissionsFailureEntry_requestEntry :: Lens.Lens' BatchPermissionsFailureEntry (Prelude.Maybe BatchPermissionsRequestEntry)
 batchPermissionsFailureEntry_requestEntry = Lens.lens (\BatchPermissionsFailureEntry' {requestEntry} -> requestEntry) (\s@BatchPermissionsFailureEntry' {} a -> s {requestEntry = a} :: BatchPermissionsFailureEntry)
 
-instance Core.FromJSON BatchPermissionsFailureEntry where
+instance Data.FromJSON BatchPermissionsFailureEntry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchPermissionsFailureEntry"
       ( \x ->
           BatchPermissionsFailureEntry'
-            Prelude.<$> (x Core..:? "Error")
-            Prelude.<*> (x Core..:? "RequestEntry")
+            Prelude.<$> (x Data..:? "Error")
+            Prelude.<*> (x Data..:? "RequestEntry")
       )
 
 instance

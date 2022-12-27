@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.Types.ApplicationDescriptionMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ElasticBeanstalk.Types.ApplicationDescriptionMessage where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types.ApplicationDescription
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Result message containing a single description of an application.
@@ -54,10 +55,10 @@ newApplicationDescriptionMessage =
 applicationDescriptionMessage_application :: Lens.Lens' ApplicationDescriptionMessage (Prelude.Maybe ApplicationDescription)
 applicationDescriptionMessage_application = Lens.lens (\ApplicationDescriptionMessage' {application} -> application) (\s@ApplicationDescriptionMessage' {} a -> s {application = a} :: ApplicationDescriptionMessage)
 
-instance Core.FromXML ApplicationDescriptionMessage where
+instance Data.FromXML ApplicationDescriptionMessage where
   parseXML x =
     ApplicationDescriptionMessage'
-      Prelude.<$> (x Core..@? "Application")
+      Prelude.<$> (x Data..@? "Application")
 
 instance
   Prelude.Hashable

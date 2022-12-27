@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.ListTargetsByRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.CloudWatchEvents.ListTargetsByRule
     newListTargetsByRule,
 
     -- * Request Lenses
-    listTargetsByRule_nextToken,
     listTargetsByRule_eventBusName,
     listTargetsByRule_limit,
+    listTargetsByRule_nextToken,
     listTargetsByRule_rule,
 
     -- * Destructuring the Response
@@ -47,21 +47,22 @@ where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTargetsByRule' smart constructor.
 data ListTargetsByRule = ListTargetsByRule'
-  { -- | The token returned by a previous call to retrieve the next set of
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The name or ARN of the event bus associated with the rule. If you omit
+  { -- | The name or ARN of the event bus associated with the rule. If you omit
     -- this, the default event bus is used.
     eventBusName :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results to return.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | The token returned by a previous call to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the rule.
     rule :: Prelude.Text
   }
@@ -75,13 +76,13 @@ data ListTargetsByRule = ListTargetsByRule'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listTargetsByRule_nextToken' - The token returned by a previous call to retrieve the next set of
--- results.
---
 -- 'eventBusName', 'listTargetsByRule_eventBusName' - The name or ARN of the event bus associated with the rule. If you omit
 -- this, the default event bus is used.
 --
 -- 'limit', 'listTargetsByRule_limit' - The maximum number of results to return.
+--
+-- 'nextToken', 'listTargetsByRule_nextToken' - The token returned by a previous call to retrieve the next set of
+-- results.
 --
 -- 'rule', 'listTargetsByRule_rule' - The name of the rule.
 newListTargetsByRule ::
@@ -90,16 +91,11 @@ newListTargetsByRule ::
   ListTargetsByRule
 newListTargetsByRule pRule_ =
   ListTargetsByRule'
-    { nextToken = Prelude.Nothing,
-      eventBusName = Prelude.Nothing,
+    { eventBusName = Prelude.Nothing,
       limit = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       rule = pRule_
     }
-
--- | The token returned by a previous call to retrieve the next set of
--- results.
-listTargetsByRule_nextToken :: Lens.Lens' ListTargetsByRule (Prelude.Maybe Prelude.Text)
-listTargetsByRule_nextToken = Lens.lens (\ListTargetsByRule' {nextToken} -> nextToken) (\s@ListTargetsByRule' {} a -> s {nextToken = a} :: ListTargetsByRule)
 
 -- | The name or ARN of the event bus associated with the rule. If you omit
 -- this, the default event bus is used.
@@ -109,6 +105,11 @@ listTargetsByRule_eventBusName = Lens.lens (\ListTargetsByRule' {eventBusName} -
 -- | The maximum number of results to return.
 listTargetsByRule_limit :: Lens.Lens' ListTargetsByRule (Prelude.Maybe Prelude.Natural)
 listTargetsByRule_limit = Lens.lens (\ListTargetsByRule' {limit} -> limit) (\s@ListTargetsByRule' {} a -> s {limit = a} :: ListTargetsByRule)
+
+-- | The token returned by a previous call to retrieve the next set of
+-- results.
+listTargetsByRule_nextToken :: Lens.Lens' ListTargetsByRule (Prelude.Maybe Prelude.Text)
+listTargetsByRule_nextToken = Lens.lens (\ListTargetsByRule' {nextToken} -> nextToken) (\s@ListTargetsByRule' {} a -> s {nextToken = a} :: ListTargetsByRule)
 
 -- | The name of the rule.
 listTargetsByRule_rule :: Lens.Lens' ListTargetsByRule Prelude.Text
@@ -141,60 +142,61 @@ instance Core.AWSRequest ListTargetsByRule where
   type
     AWSResponse ListTargetsByRule =
       ListTargetsByRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTargetsByRuleResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Targets")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Targets")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTargetsByRule where
   hashWithSalt _salt ListTargetsByRule' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` eventBusName
+    _salt `Prelude.hashWithSalt` eventBusName
       `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` rule
 
 instance Prelude.NFData ListTargetsByRule where
   rnf ListTargetsByRule' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf eventBusName
+    Prelude.rnf eventBusName
       `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf rule
 
-instance Core.ToHeaders ListTargetsByRule where
+instance Data.ToHeaders ListTargetsByRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSEvents.ListTargetsByRule" ::
+              Data.=# ( "AWSEvents.ListTargetsByRule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTargetsByRule where
+instance Data.ToJSON ListTargetsByRule where
   toJSON ListTargetsByRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("EventBusName" Core..=) Prelude.<$> eventBusName,
-            ("Limit" Core..=) Prelude.<$> limit,
-            Prelude.Just ("Rule" Core..= rule)
+          [ ("EventBusName" Data..=) Prelude.<$> eventBusName,
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("Rule" Data..= rule)
           ]
       )
 
-instance Core.ToPath ListTargetsByRule where
+instance Data.ToPath ListTargetsByRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTargetsByRule where
+instance Data.ToQuery ListTargetsByRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTargetsByRuleResponse' smart constructor.

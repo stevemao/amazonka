@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.UpdateFirewallRuleGroupAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Route53Resolver.UpdateFirewallRuleGroupAssociation
 
     -- * Request Lenses
     updateFirewallRuleGroupAssociation_mutationProtection,
-    updateFirewallRuleGroupAssociation_priority,
     updateFirewallRuleGroupAssociation_name,
+    updateFirewallRuleGroupAssociation_priority,
     updateFirewallRuleGroupAssociation_firewallRuleGroupAssociationId,
 
     -- * Destructuring the Response
@@ -44,7 +44,8 @@ module Amazonka.Route53Resolver.UpdateFirewallRuleGroupAssociation
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,6 +57,8 @@ data UpdateFirewallRuleGroupAssociation = UpdateFirewallRuleGroupAssociation'
     -- association, to help prevent against accidentally altering DNS firewall
     -- protections.
     mutationProtection :: Prelude.Maybe MutationProtectionStatus,
+    -- | The name of the rule group association.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The setting that determines the processing order of the rule group among
     -- the rule groups that you associate with the specified VPC. DNS Firewall
     -- filters VPC traffic starting from the rule group with the lowest numeric
@@ -67,8 +70,6 @@ data UpdateFirewallRuleGroupAssociation = UpdateFirewallRuleGroupAssociation'
     -- so on. You can change the priority setting for a rule group association
     -- after you create it.
     priority :: Prelude.Maybe Prelude.Int,
-    -- | The name of the rule group association.
-    name :: Prelude.Maybe Prelude.Text,
     -- | The identifier of the FirewallRuleGroupAssociation.
     firewallRuleGroupAssociationId :: Prelude.Text
   }
@@ -86,6 +87,8 @@ data UpdateFirewallRuleGroupAssociation = UpdateFirewallRuleGroupAssociation'
 -- association, to help prevent against accidentally altering DNS firewall
 -- protections.
 --
+-- 'name', 'updateFirewallRuleGroupAssociation_name' - The name of the rule group association.
+--
 -- 'priority', 'updateFirewallRuleGroupAssociation_priority' - The setting that determines the processing order of the rule group among
 -- the rule groups that you associate with the specified VPC. DNS Firewall
 -- filters VPC traffic starting from the rule group with the lowest numeric
@@ -97,8 +100,6 @@ data UpdateFirewallRuleGroupAssociation = UpdateFirewallRuleGroupAssociation'
 -- so on. You can change the priority setting for a rule group association
 -- after you create it.
 --
--- 'name', 'updateFirewallRuleGroupAssociation_name' - The name of the rule group association.
---
 -- 'firewallRuleGroupAssociationId', 'updateFirewallRuleGroupAssociation_firewallRuleGroupAssociationId' - The identifier of the FirewallRuleGroupAssociation.
 newUpdateFirewallRuleGroupAssociation ::
   -- | 'firewallRuleGroupAssociationId'
@@ -109,8 +110,8 @@ newUpdateFirewallRuleGroupAssociation
     UpdateFirewallRuleGroupAssociation'
       { mutationProtection =
           Prelude.Nothing,
-        priority = Prelude.Nothing,
         name = Prelude.Nothing,
+        priority = Prelude.Nothing,
         firewallRuleGroupAssociationId =
           pFirewallRuleGroupAssociationId_
       }
@@ -120,6 +121,10 @@ newUpdateFirewallRuleGroupAssociation
 -- protections.
 updateFirewallRuleGroupAssociation_mutationProtection :: Lens.Lens' UpdateFirewallRuleGroupAssociation (Prelude.Maybe MutationProtectionStatus)
 updateFirewallRuleGroupAssociation_mutationProtection = Lens.lens (\UpdateFirewallRuleGroupAssociation' {mutationProtection} -> mutationProtection) (\s@UpdateFirewallRuleGroupAssociation' {} a -> s {mutationProtection = a} :: UpdateFirewallRuleGroupAssociation)
+
+-- | The name of the rule group association.
+updateFirewallRuleGroupAssociation_name :: Lens.Lens' UpdateFirewallRuleGroupAssociation (Prelude.Maybe Prelude.Text)
+updateFirewallRuleGroupAssociation_name = Lens.lens (\UpdateFirewallRuleGroupAssociation' {name} -> name) (\s@UpdateFirewallRuleGroupAssociation' {} a -> s {name = a} :: UpdateFirewallRuleGroupAssociation)
 
 -- | The setting that determines the processing order of the rule group among
 -- the rule groups that you associate with the specified VPC. DNS Firewall
@@ -134,10 +139,6 @@ updateFirewallRuleGroupAssociation_mutationProtection = Lens.lens (\UpdateFirewa
 updateFirewallRuleGroupAssociation_priority :: Lens.Lens' UpdateFirewallRuleGroupAssociation (Prelude.Maybe Prelude.Int)
 updateFirewallRuleGroupAssociation_priority = Lens.lens (\UpdateFirewallRuleGroupAssociation' {priority} -> priority) (\s@UpdateFirewallRuleGroupAssociation' {} a -> s {priority = a} :: UpdateFirewallRuleGroupAssociation)
 
--- | The name of the rule group association.
-updateFirewallRuleGroupAssociation_name :: Lens.Lens' UpdateFirewallRuleGroupAssociation (Prelude.Maybe Prelude.Text)
-updateFirewallRuleGroupAssociation_name = Lens.lens (\UpdateFirewallRuleGroupAssociation' {name} -> name) (\s@UpdateFirewallRuleGroupAssociation' {} a -> s {name = a} :: UpdateFirewallRuleGroupAssociation)
-
 -- | The identifier of the FirewallRuleGroupAssociation.
 updateFirewallRuleGroupAssociation_firewallRuleGroupAssociationId :: Lens.Lens' UpdateFirewallRuleGroupAssociation Prelude.Text
 updateFirewallRuleGroupAssociation_firewallRuleGroupAssociationId = Lens.lens (\UpdateFirewallRuleGroupAssociation' {firewallRuleGroupAssociationId} -> firewallRuleGroupAssociationId) (\s@UpdateFirewallRuleGroupAssociation' {} a -> s {firewallRuleGroupAssociationId = a} :: UpdateFirewallRuleGroupAssociation)
@@ -149,12 +150,13 @@ instance
   type
     AWSResponse UpdateFirewallRuleGroupAssociation =
       UpdateFirewallRuleGroupAssociationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateFirewallRuleGroupAssociationResponse'
-            Prelude.<$> (x Core..?> "FirewallRuleGroupAssociation")
+            Prelude.<$> (x Data..?> "FirewallRuleGroupAssociation")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -166,8 +168,8 @@ instance
     _salt
     UpdateFirewallRuleGroupAssociation' {..} =
       _salt `Prelude.hashWithSalt` mutationProtection
-        `Prelude.hashWithSalt` priority
         `Prelude.hashWithSalt` name
+        `Prelude.hashWithSalt` priority
         `Prelude.hashWithSalt` firewallRuleGroupAssociationId
 
 instance
@@ -176,54 +178,54 @@ instance
   where
   rnf UpdateFirewallRuleGroupAssociation' {..} =
     Prelude.rnf mutationProtection
-      `Prelude.seq` Prelude.rnf priority
       `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf priority
       `Prelude.seq` Prelude.rnf firewallRuleGroupAssociationId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateFirewallRuleGroupAssociation
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Resolver.UpdateFirewallRuleGroupAssociation" ::
+              Data.=# ( "Route53Resolver.UpdateFirewallRuleGroupAssociation" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     UpdateFirewallRuleGroupAssociation
   where
   toJSON UpdateFirewallRuleGroupAssociation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MutationProtection" Core..=)
+          [ ("MutationProtection" Data..=)
               Prelude.<$> mutationProtection,
-            ("Priority" Core..=) Prelude.<$> priority,
-            ("Name" Core..=) Prelude.<$> name,
+            ("Name" Data..=) Prelude.<$> name,
+            ("Priority" Data..=) Prelude.<$> priority,
             Prelude.Just
               ( "FirewallRuleGroupAssociationId"
-                  Core..= firewallRuleGroupAssociationId
+                  Data..= firewallRuleGroupAssociationId
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     UpdateFirewallRuleGroupAssociation
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateFirewallRuleGroupAssociation
   where
   toQuery = Prelude.const Prelude.mempty

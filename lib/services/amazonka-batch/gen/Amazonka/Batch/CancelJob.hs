@@ -14,17 +14,17 @@
 
 -- |
 -- Module      : Amazonka.Batch.CancelJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Cancels a job in an Batch job queue. Jobs that are in the @SUBMITTED@,
--- @PENDING@, or @RUNNABLE@ state are canceled. Jobs that have progressed
--- to @STARTING@ or @RUNNING@ aren\'t canceled, but the API operation still
--- succeeds, even if no job is canceled. These jobs must be terminated with
--- the TerminateJob operation.
+-- @PENDING@, or @RUNNABLE@ state are canceled. Jobs that progressed to the
+-- @STARTING@ or @RUNNING@ state aren\'t canceled. However, the API
+-- operation still succeeds, even if no job is canceled. These jobs must be
+-- terminated with the TerminateJob operation.
 module Amazonka.Batch.CancelJob
   ( -- * Creating a Request
     CancelJob (..),
@@ -45,7 +45,8 @@ where
 
 import Amazonka.Batch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ cancelJob_reason = Lens.lens (\CancelJob' {reason} -> reason) (\s@CancelJob' {} 
 
 instance Core.AWSRequest CancelJob where
   type AWSResponse CancelJob = CancelJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,30 +116,30 @@ instance Prelude.NFData CancelJob where
   rnf CancelJob' {..} =
     Prelude.rnf jobId `Prelude.seq` Prelude.rnf reason
 
-instance Core.ToHeaders CancelJob where
+instance Data.ToHeaders CancelJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CancelJob where
+instance Data.ToJSON CancelJob where
   toJSON CancelJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("jobId" Core..= jobId),
-            Prelude.Just ("reason" Core..= reason)
+          [ Prelude.Just ("jobId" Data..= jobId),
+            Prelude.Just ("reason" Data..= reason)
           ]
       )
 
-instance Core.ToPath CancelJob where
+instance Data.ToPath CancelJob where
   toPath = Prelude.const "/v1/canceljob"
 
-instance Core.ToQuery CancelJob where
+instance Data.ToQuery CancelJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCancelJobResponse' smart constructor.

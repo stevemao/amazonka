@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.Types.OutputLogEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchLogs.Types.OutputLogEvent where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a log event.
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newOutputLogEvent' smart constructor.
 data OutputLogEvent = OutputLogEvent'
   { -- | The time the event was ingested, expressed as the number of milliseconds
-    -- after Jan 1, 1970 00:00:00 UTC.
+    -- after @Jan 1, 1970 00:00:00 UTC@.
     ingestionTime :: Prelude.Maybe Prelude.Natural,
     -- | The data contained in the log event.
     message :: Prelude.Maybe Prelude.Text,
     -- | The time the event occurred, expressed as the number of milliseconds
-    -- after Jan 1, 1970 00:00:00 UTC.
+    -- after @Jan 1, 1970 00:00:00 UTC@.
     timestamp :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -47,12 +48,12 @@ data OutputLogEvent = OutputLogEvent'
 -- for backwards compatibility:
 --
 -- 'ingestionTime', 'outputLogEvent_ingestionTime' - The time the event was ingested, expressed as the number of milliseconds
--- after Jan 1, 1970 00:00:00 UTC.
+-- after @Jan 1, 1970 00:00:00 UTC@.
 --
 -- 'message', 'outputLogEvent_message' - The data contained in the log event.
 --
 -- 'timestamp', 'outputLogEvent_timestamp' - The time the event occurred, expressed as the number of milliseconds
--- after Jan 1, 1970 00:00:00 UTC.
+-- after @Jan 1, 1970 00:00:00 UTC@.
 newOutputLogEvent ::
   OutputLogEvent
 newOutputLogEvent =
@@ -63,7 +64,7 @@ newOutputLogEvent =
     }
 
 -- | The time the event was ingested, expressed as the number of milliseconds
--- after Jan 1, 1970 00:00:00 UTC.
+-- after @Jan 1, 1970 00:00:00 UTC@.
 outputLogEvent_ingestionTime :: Lens.Lens' OutputLogEvent (Prelude.Maybe Prelude.Natural)
 outputLogEvent_ingestionTime = Lens.lens (\OutputLogEvent' {ingestionTime} -> ingestionTime) (\s@OutputLogEvent' {} a -> s {ingestionTime = a} :: OutputLogEvent)
 
@@ -72,19 +73,19 @@ outputLogEvent_message :: Lens.Lens' OutputLogEvent (Prelude.Maybe Prelude.Text)
 outputLogEvent_message = Lens.lens (\OutputLogEvent' {message} -> message) (\s@OutputLogEvent' {} a -> s {message = a} :: OutputLogEvent)
 
 -- | The time the event occurred, expressed as the number of milliseconds
--- after Jan 1, 1970 00:00:00 UTC.
+-- after @Jan 1, 1970 00:00:00 UTC@.
 outputLogEvent_timestamp :: Lens.Lens' OutputLogEvent (Prelude.Maybe Prelude.Natural)
 outputLogEvent_timestamp = Lens.lens (\OutputLogEvent' {timestamp} -> timestamp) (\s@OutputLogEvent' {} a -> s {timestamp = a} :: OutputLogEvent)
 
-instance Core.FromJSON OutputLogEvent where
+instance Data.FromJSON OutputLogEvent where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OutputLogEvent"
       ( \x ->
           OutputLogEvent'
-            Prelude.<$> (x Core..:? "ingestionTime")
-            Prelude.<*> (x Core..:? "message")
-            Prelude.<*> (x Core..:? "timestamp")
+            Prelude.<$> (x Data..:? "ingestionTime")
+            Prelude.<*> (x Data..:? "message")
+            Prelude.<*> (x Data..:? "timestamp")
       )
 
 instance Prelude.Hashable OutputLogEvent where

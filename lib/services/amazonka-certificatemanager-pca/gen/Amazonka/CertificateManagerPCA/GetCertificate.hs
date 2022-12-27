@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.GetCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,7 +52,8 @@ where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -125,13 +126,14 @@ instance Core.AWSRequest GetCertificate where
   type
     AWSResponse GetCertificate =
       GetCertificateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCertificateResponse'
-            Prelude.<$> (x Core..?> "Certificate")
-            Prelude.<*> (x Core..?> "CertificateChain")
+            Prelude.<$> (x Data..?> "Certificate")
+            Prelude.<*> (x Data..?> "CertificateChain")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -146,38 +148,38 @@ instance Prelude.NFData GetCertificate where
     Prelude.rnf certificateAuthorityArn
       `Prelude.seq` Prelude.rnf certificateArn
 
-instance Core.ToHeaders GetCertificate where
+instance Data.ToHeaders GetCertificate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ACMPrivateCA.GetCertificate" ::
+              Data.=# ( "ACMPrivateCA.GetCertificate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetCertificate where
+instance Data.ToJSON GetCertificate where
   toJSON GetCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "CertificateAuthorityArn"
-                  Core..= certificateAuthorityArn
+                  Data..= certificateAuthorityArn
               ),
             Prelude.Just
-              ("CertificateArn" Core..= certificateArn)
+              ("CertificateArn" Data..= certificateArn)
           ]
       )
 
-instance Core.ToPath GetCertificate where
+instance Data.ToPath GetCertificate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetCertificate where
+instance Data.ToQuery GetCertificate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetCertificateResponse' smart constructor.

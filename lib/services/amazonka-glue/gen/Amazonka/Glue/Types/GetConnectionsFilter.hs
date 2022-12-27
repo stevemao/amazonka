@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.GetConnectionsFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Glue.Types.GetConnectionsFilter where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.ConnectionType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Filters the connection definitions that are returned by the
@@ -29,11 +30,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newGetConnectionsFilter' smart constructor.
 data GetConnectionsFilter = GetConnectionsFilter'
-  { -- | A criteria string that must match the criteria recorded in the
+  { -- | The type of connections to return. Currently, SFTP is not supported.
+    connectionType :: Prelude.Maybe ConnectionType,
+    -- | A criteria string that must match the criteria recorded in the
     -- connection definition for that connection definition to be returned.
-    matchCriteria :: Prelude.Maybe [Prelude.Text],
-    -- | The type of connections to return. Currently, SFTP is not supported.
-    connectionType :: Prelude.Maybe ConnectionType
+    matchCriteria :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,44 +46,44 @@ data GetConnectionsFilter = GetConnectionsFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'connectionType', 'getConnectionsFilter_connectionType' - The type of connections to return. Currently, SFTP is not supported.
+--
 -- 'matchCriteria', 'getConnectionsFilter_matchCriteria' - A criteria string that must match the criteria recorded in the
 -- connection definition for that connection definition to be returned.
---
--- 'connectionType', 'getConnectionsFilter_connectionType' - The type of connections to return. Currently, SFTP is not supported.
 newGetConnectionsFilter ::
   GetConnectionsFilter
 newGetConnectionsFilter =
   GetConnectionsFilter'
-    { matchCriteria =
+    { connectionType =
         Prelude.Nothing,
-      connectionType = Prelude.Nothing
+      matchCriteria = Prelude.Nothing
     }
+
+-- | The type of connections to return. Currently, SFTP is not supported.
+getConnectionsFilter_connectionType :: Lens.Lens' GetConnectionsFilter (Prelude.Maybe ConnectionType)
+getConnectionsFilter_connectionType = Lens.lens (\GetConnectionsFilter' {connectionType} -> connectionType) (\s@GetConnectionsFilter' {} a -> s {connectionType = a} :: GetConnectionsFilter)
 
 -- | A criteria string that must match the criteria recorded in the
 -- connection definition for that connection definition to be returned.
 getConnectionsFilter_matchCriteria :: Lens.Lens' GetConnectionsFilter (Prelude.Maybe [Prelude.Text])
 getConnectionsFilter_matchCriteria = Lens.lens (\GetConnectionsFilter' {matchCriteria} -> matchCriteria) (\s@GetConnectionsFilter' {} a -> s {matchCriteria = a} :: GetConnectionsFilter) Prelude.. Lens.mapping Lens.coerced
 
--- | The type of connections to return. Currently, SFTP is not supported.
-getConnectionsFilter_connectionType :: Lens.Lens' GetConnectionsFilter (Prelude.Maybe ConnectionType)
-getConnectionsFilter_connectionType = Lens.lens (\GetConnectionsFilter' {connectionType} -> connectionType) (\s@GetConnectionsFilter' {} a -> s {connectionType = a} :: GetConnectionsFilter)
-
 instance Prelude.Hashable GetConnectionsFilter where
   hashWithSalt _salt GetConnectionsFilter' {..} =
-    _salt `Prelude.hashWithSalt` matchCriteria
-      `Prelude.hashWithSalt` connectionType
+    _salt `Prelude.hashWithSalt` connectionType
+      `Prelude.hashWithSalt` matchCriteria
 
 instance Prelude.NFData GetConnectionsFilter where
   rnf GetConnectionsFilter' {..} =
-    Prelude.rnf matchCriteria
-      `Prelude.seq` Prelude.rnf connectionType
+    Prelude.rnf connectionType
+      `Prelude.seq` Prelude.rnf matchCriteria
 
-instance Core.ToJSON GetConnectionsFilter where
+instance Data.ToJSON GetConnectionsFilter where
   toJSON GetConnectionsFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MatchCriteria" Core..=) Prelude.<$> matchCriteria,
-            ("ConnectionType" Core..=)
-              Prelude.<$> connectionType
+          [ ("ConnectionType" Data..=)
+              Prelude.<$> connectionType,
+            ("MatchCriteria" Data..=) Prelude.<$> matchCriteria
           ]
       )

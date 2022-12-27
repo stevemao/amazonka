@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.GetBucketEncryption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -61,7 +61,8 @@ module Amazonka.S3.GetBucketEncryption
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -70,8 +71,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newGetBucketEncryption' smart constructor.
 data GetBucketEncryption = GetBucketEncryption'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket from which the server-side encryption
     -- configuration is retrieved.
@@ -88,8 +89,8 @@ data GetBucketEncryption = GetBucketEncryption'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'getBucketEncryption_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'getBucketEncryption_bucket' - The name of the bucket from which the server-side encryption
 -- configuration is retrieved.
@@ -105,8 +106,8 @@ newGetBucketEncryption pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 getBucketEncryption_expectedBucketOwner :: Lens.Lens' GetBucketEncryption (Prelude.Maybe Prelude.Text)
 getBucketEncryption_expectedBucketOwner = Lens.lens (\GetBucketEncryption' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetBucketEncryption' {} a -> s {expectedBucketOwner = a} :: GetBucketEncryption)
 
@@ -119,14 +120,14 @@ instance Core.AWSRequest GetBucketEncryption where
   type
     AWSResponse GetBucketEncryption =
       GetBucketEncryptionResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetBucketEncryptionResponse'
-            Prelude.<$> (Core.parseXML x)
+            Prelude.<$> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -140,18 +141,18 @@ instance Prelude.NFData GetBucketEncryption where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders GetBucketEncryption where
+instance Data.ToHeaders GetBucketEncryption where
   toHeaders GetBucketEncryption' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath GetBucketEncryption where
+instance Data.ToPath GetBucketEncryption where
   toPath GetBucketEncryption' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery GetBucketEncryption where
+instance Data.ToQuery GetBucketEncryption where
   toQuery =
     Prelude.const (Prelude.mconcat ["encryption"])
 

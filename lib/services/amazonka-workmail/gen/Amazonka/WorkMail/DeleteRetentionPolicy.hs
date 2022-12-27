@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.DeleteRetentionPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.WorkMail.DeleteRetentionPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ instance Core.AWSRequest DeleteRetentionPolicy where
   type
     AWSResponse DeleteRetentionPolicy =
       DeleteRetentionPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -109,35 +111,35 @@ instance Prelude.NFData DeleteRetentionPolicy where
     Prelude.rnf organizationId
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToHeaders DeleteRetentionPolicy where
+instance Data.ToHeaders DeleteRetentionPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.DeleteRetentionPolicy" ::
+              Data.=# ( "WorkMailService.DeleteRetentionPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteRetentionPolicy where
+instance Data.ToJSON DeleteRetentionPolicy where
   toJSON DeleteRetentionPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("Id" Core..= id)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("Id" Data..= id)
           ]
       )
 
-instance Core.ToPath DeleteRetentionPolicy where
+instance Data.ToPath DeleteRetentionPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteRetentionPolicy where
+instance Data.ToQuery DeleteRetentionPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRetentionPolicyResponse' smart constructor.

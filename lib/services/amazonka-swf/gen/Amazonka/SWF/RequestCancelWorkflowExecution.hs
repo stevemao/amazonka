@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.RequestCancelWorkflowExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -70,7 +70,8 @@ module Amazonka.SWF.RequestCancelWorkflowExecution
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -135,7 +136,8 @@ instance
   type
     AWSResponse RequestCancelWorkflowExecution =
       RequestCancelWorkflowExecutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       RequestCancelWorkflowExecutionResponse'
@@ -161,37 +163,37 @@ instance
       `Prelude.seq` Prelude.rnf workflowId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     RequestCancelWorkflowExecution
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SimpleWorkflowService.RequestCancelWorkflowExecution" ::
+              Data.=# ( "SimpleWorkflowService.RequestCancelWorkflowExecution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RequestCancelWorkflowExecution where
+instance Data.ToJSON RequestCancelWorkflowExecution where
   toJSON RequestCancelWorkflowExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("runId" Core..=) Prelude.<$> runId,
-            Prelude.Just ("domain" Core..= domain),
-            Prelude.Just ("workflowId" Core..= workflowId)
+          [ ("runId" Data..=) Prelude.<$> runId,
+            Prelude.Just ("domain" Data..= domain),
+            Prelude.Just ("workflowId" Data..= workflowId)
           ]
       )
 
-instance Core.ToPath RequestCancelWorkflowExecution where
+instance Data.ToPath RequestCancelWorkflowExecution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RequestCancelWorkflowExecution where
+instance Data.ToQuery RequestCancelWorkflowExecution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRequestCancelWorkflowExecutionResponse' smart constructor.

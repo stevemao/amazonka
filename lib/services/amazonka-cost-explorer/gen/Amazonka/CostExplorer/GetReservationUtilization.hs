@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.GetReservationUtilization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,11 +31,11 @@ module Amazonka.CostExplorer.GetReservationUtilization
     newGetReservationUtilization,
 
     -- * Request Lenses
-    getReservationUtilization_groupBy,
-    getReservationUtilization_nextPageToken,
-    getReservationUtilization_granularity,
     getReservationUtilization_filter,
+    getReservationUtilization_granularity,
+    getReservationUtilization_groupBy,
     getReservationUtilization_maxResults,
+    getReservationUtilization_nextPageToken,
     getReservationUtilization_sortBy,
     getReservationUtilization_timePeriod,
 
@@ -52,29 +52,16 @@ module Amazonka.CostExplorer.GetReservationUtilization
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetReservationUtilization' smart constructor.
 data GetReservationUtilization = GetReservationUtilization'
-  { -- | Groups only by @SUBSCRIPTION_ID@. Metadata is included.
-    groupBy :: Prelude.Maybe [GroupDefinition],
-    -- | The token to retrieve the next set of results. Amazon Web Services
-    -- provides the token when the response from a previous call has more
-    -- results than the maximum page size.
-    nextPageToken :: Prelude.Maybe Prelude.Text,
-    -- | If @GroupBy@ is set, @Granularity@ can\'t be set. If @Granularity@
-    -- isn\'t set, the response object doesn\'t include @Granularity@, either
-    -- @MONTHLY@ or @DAILY@. If both @GroupBy@ and @Granularity@ aren\'t set,
-    -- @GetReservationUtilization@ defaults to @DAILY@.
-    --
-    -- The @GetReservationUtilization@ operation supports only @DAILY@ and
-    -- @MONTHLY@ granularities.
-    granularity :: Prelude.Maybe Granularity,
-    -- | Filters utilization data by dimensions. You can filter by the following
+  { -- | Filters utilization data by dimensions. You can filter by the following
     -- dimensions:
     --
     -- -   AZ
@@ -105,12 +92,26 @@ data GetReservationUtilization = GetReservationUtilization'
     -- dimension, and nesting is supported up to only one level deep. If there
     -- are multiple values for a dimension, they are OR\'d together.
     filter' :: Prelude.Maybe Expression,
+    -- | If @GroupBy@ is set, @Granularity@ can\'t be set. If @Granularity@
+    -- isn\'t set, the response object doesn\'t include @Granularity@, either
+    -- @MONTHLY@ or @DAILY@. If both @GroupBy@ and @Granularity@ aren\'t set,
+    -- @GetReservationUtilization@ defaults to @DAILY@.
+    --
+    -- The @GetReservationUtilization@ operation supports only @DAILY@ and
+    -- @MONTHLY@ granularities.
+    granularity :: Prelude.Maybe Granularity,
+    -- | Groups only by @SUBSCRIPTION_ID@. Metadata is included.
+    groupBy :: Prelude.Maybe [GroupDefinition],
     -- | The maximum number of objects that you returned for this request. If
     -- more objects are available, in the response, Amazon Web Services
     -- provides a NextPageToken value that you can use in a subsequent call to
     -- get the next batch of objects.
     maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The value by which you want to sort the data.
+    -- | The token to retrieve the next set of results. Amazon Web Services
+    -- provides the token when the response from a previous call has more
+    -- results than the maximum page size.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
+    -- | The value that you want to sort the data by.
     --
     -- The following values are supported for @Key@:
     --
@@ -148,13 +149,13 @@ data GetReservationUtilization = GetReservationUtilization'
     --
     -- -   @UnrealizedSavings@
     --
-    -- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+    -- The supported values for @SortOrder@ are @ASCENDING@ and @DESCENDING@.
     sortBy :: Prelude.Maybe SortDefinition,
-    -- | Sets the start and end dates for retrieving RI utilization. The start
-    -- date is inclusive, but the end date is exclusive. For example, if
-    -- @start@ is @2017-01-01@ and @end@ is @2017-05-01@, then the cost and
-    -- usage data is retrieved from @2017-01-01@ up to and including
-    -- @2017-04-30@ but not including @2017-05-01@.
+    -- | Sets the start and end dates for retrieving Reserved Instance (RI)
+    -- utilization. The start date is inclusive, but the end date is exclusive.
+    -- For example, if @start@ is @2017-01-01@ and @end@ is @2017-05-01@, then
+    -- the cost and usage data is retrieved from @2017-01-01@ up to and
+    -- including @2017-04-30@ but not including @2017-05-01@.
     timePeriod :: DateInterval
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -166,20 +167,6 @@ data GetReservationUtilization = GetReservationUtilization'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'groupBy', 'getReservationUtilization_groupBy' - Groups only by @SUBSCRIPTION_ID@. Metadata is included.
---
--- 'nextPageToken', 'getReservationUtilization_nextPageToken' - The token to retrieve the next set of results. Amazon Web Services
--- provides the token when the response from a previous call has more
--- results than the maximum page size.
---
--- 'granularity', 'getReservationUtilization_granularity' - If @GroupBy@ is set, @Granularity@ can\'t be set. If @Granularity@
--- isn\'t set, the response object doesn\'t include @Granularity@, either
--- @MONTHLY@ or @DAILY@. If both @GroupBy@ and @Granularity@ aren\'t set,
--- @GetReservationUtilization@ defaults to @DAILY@.
---
--- The @GetReservationUtilization@ operation supports only @DAILY@ and
--- @MONTHLY@ granularities.
 --
 -- 'filter'', 'getReservationUtilization_filter' - Filters utilization data by dimensions. You can filter by the following
 -- dimensions:
@@ -212,12 +199,26 @@ data GetReservationUtilization = GetReservationUtilization'
 -- dimension, and nesting is supported up to only one level deep. If there
 -- are multiple values for a dimension, they are OR\'d together.
 --
+-- 'granularity', 'getReservationUtilization_granularity' - If @GroupBy@ is set, @Granularity@ can\'t be set. If @Granularity@
+-- isn\'t set, the response object doesn\'t include @Granularity@, either
+-- @MONTHLY@ or @DAILY@. If both @GroupBy@ and @Granularity@ aren\'t set,
+-- @GetReservationUtilization@ defaults to @DAILY@.
+--
+-- The @GetReservationUtilization@ operation supports only @DAILY@ and
+-- @MONTHLY@ granularities.
+--
+-- 'groupBy', 'getReservationUtilization_groupBy' - Groups only by @SUBSCRIPTION_ID@. Metadata is included.
+--
 -- 'maxResults', 'getReservationUtilization_maxResults' - The maximum number of objects that you returned for this request. If
 -- more objects are available, in the response, Amazon Web Services
 -- provides a NextPageToken value that you can use in a subsequent call to
 -- get the next batch of objects.
 --
--- 'sortBy', 'getReservationUtilization_sortBy' - The value by which you want to sort the data.
+-- 'nextPageToken', 'getReservationUtilization_nextPageToken' - The token to retrieve the next set of results. Amazon Web Services
+-- provides the token when the response from a previous call has more
+-- results than the maximum page size.
+--
+-- 'sortBy', 'getReservationUtilization_sortBy' - The value that you want to sort the data by.
 --
 -- The following values are supported for @Key@:
 --
@@ -255,48 +256,28 @@ data GetReservationUtilization = GetReservationUtilization'
 --
 -- -   @UnrealizedSavings@
 --
--- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+-- The supported values for @SortOrder@ are @ASCENDING@ and @DESCENDING@.
 --
--- 'timePeriod', 'getReservationUtilization_timePeriod' - Sets the start and end dates for retrieving RI utilization. The start
--- date is inclusive, but the end date is exclusive. For example, if
--- @start@ is @2017-01-01@ and @end@ is @2017-05-01@, then the cost and
--- usage data is retrieved from @2017-01-01@ up to and including
--- @2017-04-30@ but not including @2017-05-01@.
+-- 'timePeriod', 'getReservationUtilization_timePeriod' - Sets the start and end dates for retrieving Reserved Instance (RI)
+-- utilization. The start date is inclusive, but the end date is exclusive.
+-- For example, if @start@ is @2017-01-01@ and @end@ is @2017-05-01@, then
+-- the cost and usage data is retrieved from @2017-01-01@ up to and
+-- including @2017-04-30@ but not including @2017-05-01@.
 newGetReservationUtilization ::
   -- | 'timePeriod'
   DateInterval ->
   GetReservationUtilization
 newGetReservationUtilization pTimePeriod_ =
   GetReservationUtilization'
-    { groupBy =
+    { filter' =
         Prelude.Nothing,
-      nextPageToken = Prelude.Nothing,
       granularity = Prelude.Nothing,
-      filter' = Prelude.Nothing,
+      groupBy = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
       sortBy = Prelude.Nothing,
       timePeriod = pTimePeriod_
     }
-
--- | Groups only by @SUBSCRIPTION_ID@. Metadata is included.
-getReservationUtilization_groupBy :: Lens.Lens' GetReservationUtilization (Prelude.Maybe [GroupDefinition])
-getReservationUtilization_groupBy = Lens.lens (\GetReservationUtilization' {groupBy} -> groupBy) (\s@GetReservationUtilization' {} a -> s {groupBy = a} :: GetReservationUtilization) Prelude.. Lens.mapping Lens.coerced
-
--- | The token to retrieve the next set of results. Amazon Web Services
--- provides the token when the response from a previous call has more
--- results than the maximum page size.
-getReservationUtilization_nextPageToken :: Lens.Lens' GetReservationUtilization (Prelude.Maybe Prelude.Text)
-getReservationUtilization_nextPageToken = Lens.lens (\GetReservationUtilization' {nextPageToken} -> nextPageToken) (\s@GetReservationUtilization' {} a -> s {nextPageToken = a} :: GetReservationUtilization)
-
--- | If @GroupBy@ is set, @Granularity@ can\'t be set. If @Granularity@
--- isn\'t set, the response object doesn\'t include @Granularity@, either
--- @MONTHLY@ or @DAILY@. If both @GroupBy@ and @Granularity@ aren\'t set,
--- @GetReservationUtilization@ defaults to @DAILY@.
---
--- The @GetReservationUtilization@ operation supports only @DAILY@ and
--- @MONTHLY@ granularities.
-getReservationUtilization_granularity :: Lens.Lens' GetReservationUtilization (Prelude.Maybe Granularity)
-getReservationUtilization_granularity = Lens.lens (\GetReservationUtilization' {granularity} -> granularity) (\s@GetReservationUtilization' {} a -> s {granularity = a} :: GetReservationUtilization)
 
 -- | Filters utilization data by dimensions. You can filter by the following
 -- dimensions:
@@ -331,6 +312,20 @@ getReservationUtilization_granularity = Lens.lens (\GetReservationUtilization' {
 getReservationUtilization_filter :: Lens.Lens' GetReservationUtilization (Prelude.Maybe Expression)
 getReservationUtilization_filter = Lens.lens (\GetReservationUtilization' {filter'} -> filter') (\s@GetReservationUtilization' {} a -> s {filter' = a} :: GetReservationUtilization)
 
+-- | If @GroupBy@ is set, @Granularity@ can\'t be set. If @Granularity@
+-- isn\'t set, the response object doesn\'t include @Granularity@, either
+-- @MONTHLY@ or @DAILY@. If both @GroupBy@ and @Granularity@ aren\'t set,
+-- @GetReservationUtilization@ defaults to @DAILY@.
+--
+-- The @GetReservationUtilization@ operation supports only @DAILY@ and
+-- @MONTHLY@ granularities.
+getReservationUtilization_granularity :: Lens.Lens' GetReservationUtilization (Prelude.Maybe Granularity)
+getReservationUtilization_granularity = Lens.lens (\GetReservationUtilization' {granularity} -> granularity) (\s@GetReservationUtilization' {} a -> s {granularity = a} :: GetReservationUtilization)
+
+-- | Groups only by @SUBSCRIPTION_ID@. Metadata is included.
+getReservationUtilization_groupBy :: Lens.Lens' GetReservationUtilization (Prelude.Maybe [GroupDefinition])
+getReservationUtilization_groupBy = Lens.lens (\GetReservationUtilization' {groupBy} -> groupBy) (\s@GetReservationUtilization' {} a -> s {groupBy = a} :: GetReservationUtilization) Prelude.. Lens.mapping Lens.coerced
+
 -- | The maximum number of objects that you returned for this request. If
 -- more objects are available, in the response, Amazon Web Services
 -- provides a NextPageToken value that you can use in a subsequent call to
@@ -338,7 +333,13 @@ getReservationUtilization_filter = Lens.lens (\GetReservationUtilization' {filte
 getReservationUtilization_maxResults :: Lens.Lens' GetReservationUtilization (Prelude.Maybe Prelude.Natural)
 getReservationUtilization_maxResults = Lens.lens (\GetReservationUtilization' {maxResults} -> maxResults) (\s@GetReservationUtilization' {} a -> s {maxResults = a} :: GetReservationUtilization)
 
--- | The value by which you want to sort the data.
+-- | The token to retrieve the next set of results. Amazon Web Services
+-- provides the token when the response from a previous call has more
+-- results than the maximum page size.
+getReservationUtilization_nextPageToken :: Lens.Lens' GetReservationUtilization (Prelude.Maybe Prelude.Text)
+getReservationUtilization_nextPageToken = Lens.lens (\GetReservationUtilization' {nextPageToken} -> nextPageToken) (\s@GetReservationUtilization' {} a -> s {nextPageToken = a} :: GetReservationUtilization)
+
+-- | The value that you want to sort the data by.
 --
 -- The following values are supported for @Key@:
 --
@@ -376,15 +377,15 @@ getReservationUtilization_maxResults = Lens.lens (\GetReservationUtilization' {m
 --
 -- -   @UnrealizedSavings@
 --
--- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+-- The supported values for @SortOrder@ are @ASCENDING@ and @DESCENDING@.
 getReservationUtilization_sortBy :: Lens.Lens' GetReservationUtilization (Prelude.Maybe SortDefinition)
 getReservationUtilization_sortBy = Lens.lens (\GetReservationUtilization' {sortBy} -> sortBy) (\s@GetReservationUtilization' {} a -> s {sortBy = a} :: GetReservationUtilization)
 
--- | Sets the start and end dates for retrieving RI utilization. The start
--- date is inclusive, but the end date is exclusive. For example, if
--- @start@ is @2017-01-01@ and @end@ is @2017-05-01@, then the cost and
--- usage data is retrieved from @2017-01-01@ up to and including
--- @2017-04-30@ but not including @2017-05-01@.
+-- | Sets the start and end dates for retrieving Reserved Instance (RI)
+-- utilization. The start date is inclusive, but the end date is exclusive.
+-- For example, if @start@ is @2017-01-01@ and @end@ is @2017-05-01@, then
+-- the cost and usage data is retrieved from @2017-01-01@ up to and
+-- including @2017-04-30@ but not including @2017-05-01@.
 getReservationUtilization_timePeriod :: Lens.Lens' GetReservationUtilization DateInterval
 getReservationUtilization_timePeriod = Lens.lens (\GetReservationUtilization' {timePeriod} -> timePeriod) (\s@GetReservationUtilization' {} a -> s {timePeriod = a} :: GetReservationUtilization)
 
@@ -392,72 +393,73 @@ instance Core.AWSRequest GetReservationUtilization where
   type
     AWSResponse GetReservationUtilization =
       GetReservationUtilizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetReservationUtilizationResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-            Prelude.<*> (x Core..?> "Total")
+            Prelude.<$> (x Data..?> "NextPageToken")
+            Prelude.<*> (x Data..?> "Total")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "UtilizationsByTime"
+            Prelude.<*> ( x Data..?> "UtilizationsByTime"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable GetReservationUtilization where
   hashWithSalt _salt GetReservationUtilization' {..} =
-    _salt `Prelude.hashWithSalt` groupBy
-      `Prelude.hashWithSalt` nextPageToken
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` granularity
-      `Prelude.hashWithSalt` filter'
+      `Prelude.hashWithSalt` groupBy
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextPageToken
       `Prelude.hashWithSalt` sortBy
       `Prelude.hashWithSalt` timePeriod
 
 instance Prelude.NFData GetReservationUtilization where
   rnf GetReservationUtilization' {..} =
-    Prelude.rnf groupBy
-      `Prelude.seq` Prelude.rnf nextPageToken
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf granularity
-      `Prelude.seq` Prelude.rnf filter'
+      `Prelude.seq` Prelude.rnf groupBy
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextPageToken
       `Prelude.seq` Prelude.rnf sortBy
       `Prelude.seq` Prelude.rnf timePeriod
 
-instance Core.ToHeaders GetReservationUtilization where
+instance Data.ToHeaders GetReservationUtilization where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSInsightsIndexService.GetReservationUtilization" ::
+              Data.=# ( "AWSInsightsIndexService.GetReservationUtilization" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetReservationUtilization where
+instance Data.ToJSON GetReservationUtilization where
   toJSON GetReservationUtilization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GroupBy" Core..=) Prelude.<$> groupBy,
-            ("NextPageToken" Core..=) Prelude.<$> nextPageToken,
-            ("Granularity" Core..=) Prelude.<$> granularity,
-            ("Filter" Core..=) Prelude.<$> filter',
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("SortBy" Core..=) Prelude.<$> sortBy,
-            Prelude.Just ("TimePeriod" Core..= timePeriod)
+          [ ("Filter" Data..=) Prelude.<$> filter',
+            ("Granularity" Data..=) Prelude.<$> granularity,
+            ("GroupBy" Data..=) Prelude.<$> groupBy,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextPageToken" Data..=) Prelude.<$> nextPageToken,
+            ("SortBy" Data..=) Prelude.<$> sortBy,
+            Prelude.Just ("TimePeriod" Data..= timePeriod)
           ]
       )
 
-instance Core.ToPath GetReservationUtilization where
+instance Data.ToPath GetReservationUtilization where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetReservationUtilization where
+instance Data.ToQuery GetReservationUtilization where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetReservationUtilizationResponse' smart constructor.
@@ -466,11 +468,11 @@ data GetReservationUtilizationResponse = GetReservationUtilizationResponse'
     -- provides the token when the response from a previous call has more
     -- results than the maximum page size.
     nextPageToken :: Prelude.Maybe Prelude.Text,
-    -- | The total amount of time that you used your RIs.
+    -- | The total amount of time that you used your Reserved Instances (RIs).
     total :: Prelude.Maybe ReservationAggregates,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | The amount of time that you used your RIs.
+    -- | The amount of time that you used your Reserved Instances (RIs).
     utilizationsByTime :: [UtilizationByTime]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -487,11 +489,11 @@ data GetReservationUtilizationResponse = GetReservationUtilizationResponse'
 -- provides the token when the response from a previous call has more
 -- results than the maximum page size.
 --
--- 'total', 'getReservationUtilizationResponse_total' - The total amount of time that you used your RIs.
+-- 'total', 'getReservationUtilizationResponse_total' - The total amount of time that you used your Reserved Instances (RIs).
 --
 -- 'httpStatus', 'getReservationUtilizationResponse_httpStatus' - The response's http status code.
 --
--- 'utilizationsByTime', 'getReservationUtilizationResponse_utilizationsByTime' - The amount of time that you used your RIs.
+-- 'utilizationsByTime', 'getReservationUtilizationResponse_utilizationsByTime' - The amount of time that you used your Reserved Instances (RIs).
 newGetReservationUtilizationResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -511,7 +513,7 @@ newGetReservationUtilizationResponse pHttpStatus_ =
 getReservationUtilizationResponse_nextPageToken :: Lens.Lens' GetReservationUtilizationResponse (Prelude.Maybe Prelude.Text)
 getReservationUtilizationResponse_nextPageToken = Lens.lens (\GetReservationUtilizationResponse' {nextPageToken} -> nextPageToken) (\s@GetReservationUtilizationResponse' {} a -> s {nextPageToken = a} :: GetReservationUtilizationResponse)
 
--- | The total amount of time that you used your RIs.
+-- | The total amount of time that you used your Reserved Instances (RIs).
 getReservationUtilizationResponse_total :: Lens.Lens' GetReservationUtilizationResponse (Prelude.Maybe ReservationAggregates)
 getReservationUtilizationResponse_total = Lens.lens (\GetReservationUtilizationResponse' {total} -> total) (\s@GetReservationUtilizationResponse' {} a -> s {total = a} :: GetReservationUtilizationResponse)
 
@@ -519,7 +521,7 @@ getReservationUtilizationResponse_total = Lens.lens (\GetReservationUtilizationR
 getReservationUtilizationResponse_httpStatus :: Lens.Lens' GetReservationUtilizationResponse Prelude.Int
 getReservationUtilizationResponse_httpStatus = Lens.lens (\GetReservationUtilizationResponse' {httpStatus} -> httpStatus) (\s@GetReservationUtilizationResponse' {} a -> s {httpStatus = a} :: GetReservationUtilizationResponse)
 
--- | The amount of time that you used your RIs.
+-- | The amount of time that you used your Reserved Instances (RIs).
 getReservationUtilizationResponse_utilizationsByTime :: Lens.Lens' GetReservationUtilizationResponse [UtilizationByTime]
 getReservationUtilizationResponse_utilizationsByTime = Lens.lens (\GetReservationUtilizationResponse' {utilizationsByTime} -> utilizationsByTime) (\s@GetReservationUtilizationResponse' {} a -> s {utilizationsByTime = a} :: GetReservationUtilizationResponse) Prelude.. Lens.coerced
 

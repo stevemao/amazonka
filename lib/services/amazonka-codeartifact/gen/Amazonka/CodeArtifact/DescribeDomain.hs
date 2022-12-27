@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.DescribeDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,15 +44,16 @@ where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeDomain' smart constructor.
 data DescribeDomain = DescribeDomain'
-  { -- | The 12-digit account number of the AWS account that owns the domain. It
-    -- does not include dashes or spaces.
+  { -- | The 12-digit account number of the Amazon Web Services account that owns
+    -- the domain. It does not include dashes or spaces.
     domainOwner :: Prelude.Maybe Prelude.Text,
     -- | A string that specifies the name of the requested domain.
     domain :: Prelude.Text
@@ -67,8 +68,8 @@ data DescribeDomain = DescribeDomain'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainOwner', 'describeDomain_domainOwner' - The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- 'domainOwner', 'describeDomain_domainOwner' - The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 --
 -- 'domain', 'describeDomain_domain' - A string that specifies the name of the requested domain.
 newDescribeDomain ::
@@ -81,8 +82,8 @@ newDescribeDomain pDomain_ =
       domain = pDomain_
     }
 
--- | The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- | The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 describeDomain_domainOwner :: Lens.Lens' DescribeDomain (Prelude.Maybe Prelude.Text)
 describeDomain_domainOwner = Lens.lens (\DescribeDomain' {domainOwner} -> domainOwner) (\s@DescribeDomain' {} a -> s {domainOwner = a} :: DescribeDomain)
 
@@ -94,12 +95,13 @@ instance Core.AWSRequest DescribeDomain where
   type
     AWSResponse DescribeDomain =
       DescribeDomainResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDomainResponse'
-            Prelude.<$> (x Core..?> "domain")
+            Prelude.<$> (x Data..?> "domain")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,25 +115,25 @@ instance Prelude.NFData DescribeDomain where
     Prelude.rnf domainOwner
       `Prelude.seq` Prelude.rnf domain
 
-instance Core.ToHeaders DescribeDomain where
+instance Data.ToHeaders DescribeDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeDomain where
+instance Data.ToPath DescribeDomain where
   toPath = Prelude.const "/v1/domain"
 
-instance Core.ToQuery DescribeDomain where
+instance Data.ToQuery DescribeDomain where
   toQuery DescribeDomain' {..} =
     Prelude.mconcat
-      [ "domain-owner" Core.=: domainOwner,
-        "domain" Core.=: domain
+      [ "domain-owner" Data.=: domainOwner,
+        "domain" Data.=: domain
       ]
 
 -- | /See:/ 'newDescribeDomainResponse' smart constructor.

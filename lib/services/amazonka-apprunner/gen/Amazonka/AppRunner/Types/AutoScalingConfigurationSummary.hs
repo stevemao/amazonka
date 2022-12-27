@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.Types.AutoScalingConfigurationSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppRunner.Types.AutoScalingConfigurationSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides summary information about an App Runner automatic scaling
@@ -36,15 +37,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAutoScalingConfigurationSummary' smart constructor.
 data AutoScalingConfigurationSummary = AutoScalingConfigurationSummary'
-  { -- | The customer-provided auto scaling configuration name. It can be used in
+  { -- | The Amazon Resource Name (ARN) of this auto scaling configuration.
+    autoScalingConfigurationArn :: Prelude.Maybe Prelude.Text,
+    -- | The customer-provided auto scaling configuration name. It can be used in
     -- multiple revisions of a configuration.
     autoScalingConfigurationName :: Prelude.Maybe Prelude.Text,
     -- | The revision of this auto scaling configuration. It\'s unique among all
     -- the active configurations (@\"Status\": \"ACTIVE\"@) with the same
     -- @AutoScalingConfigurationName@.
-    autoScalingConfigurationRevision :: Prelude.Maybe Prelude.Int,
-    -- | The Amazon Resource Name (ARN) of this auto scaling configuration.
-    autoScalingConfigurationArn :: Prelude.Maybe Prelude.Text
+    autoScalingConfigurationRevision :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -56,25 +57,29 @@ data AutoScalingConfigurationSummary = AutoScalingConfigurationSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'autoScalingConfigurationArn', 'autoScalingConfigurationSummary_autoScalingConfigurationArn' - The Amazon Resource Name (ARN) of this auto scaling configuration.
+--
 -- 'autoScalingConfigurationName', 'autoScalingConfigurationSummary_autoScalingConfigurationName' - The customer-provided auto scaling configuration name. It can be used in
 -- multiple revisions of a configuration.
 --
 -- 'autoScalingConfigurationRevision', 'autoScalingConfigurationSummary_autoScalingConfigurationRevision' - The revision of this auto scaling configuration. It\'s unique among all
 -- the active configurations (@\"Status\": \"ACTIVE\"@) with the same
 -- @AutoScalingConfigurationName@.
---
--- 'autoScalingConfigurationArn', 'autoScalingConfigurationSummary_autoScalingConfigurationArn' - The Amazon Resource Name (ARN) of this auto scaling configuration.
 newAutoScalingConfigurationSummary ::
   AutoScalingConfigurationSummary
 newAutoScalingConfigurationSummary =
   AutoScalingConfigurationSummary'
-    { autoScalingConfigurationName =
+    { autoScalingConfigurationArn =
+        Prelude.Nothing,
+      autoScalingConfigurationName =
         Prelude.Nothing,
       autoScalingConfigurationRevision =
-        Prelude.Nothing,
-      autoScalingConfigurationArn =
         Prelude.Nothing
     }
+
+-- | The Amazon Resource Name (ARN) of this auto scaling configuration.
+autoScalingConfigurationSummary_autoScalingConfigurationArn :: Lens.Lens' AutoScalingConfigurationSummary (Prelude.Maybe Prelude.Text)
+autoScalingConfigurationSummary_autoScalingConfigurationArn = Lens.lens (\AutoScalingConfigurationSummary' {autoScalingConfigurationArn} -> autoScalingConfigurationArn) (\s@AutoScalingConfigurationSummary' {} a -> s {autoScalingConfigurationArn = a} :: AutoScalingConfigurationSummary)
 
 -- | The customer-provided auto scaling configuration name. It can be used in
 -- multiple revisions of a configuration.
@@ -87,22 +92,18 @@ autoScalingConfigurationSummary_autoScalingConfigurationName = Lens.lens (\AutoS
 autoScalingConfigurationSummary_autoScalingConfigurationRevision :: Lens.Lens' AutoScalingConfigurationSummary (Prelude.Maybe Prelude.Int)
 autoScalingConfigurationSummary_autoScalingConfigurationRevision = Lens.lens (\AutoScalingConfigurationSummary' {autoScalingConfigurationRevision} -> autoScalingConfigurationRevision) (\s@AutoScalingConfigurationSummary' {} a -> s {autoScalingConfigurationRevision = a} :: AutoScalingConfigurationSummary)
 
--- | The Amazon Resource Name (ARN) of this auto scaling configuration.
-autoScalingConfigurationSummary_autoScalingConfigurationArn :: Lens.Lens' AutoScalingConfigurationSummary (Prelude.Maybe Prelude.Text)
-autoScalingConfigurationSummary_autoScalingConfigurationArn = Lens.lens (\AutoScalingConfigurationSummary' {autoScalingConfigurationArn} -> autoScalingConfigurationArn) (\s@AutoScalingConfigurationSummary' {} a -> s {autoScalingConfigurationArn = a} :: AutoScalingConfigurationSummary)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     AutoScalingConfigurationSummary
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutoScalingConfigurationSummary"
       ( \x ->
           AutoScalingConfigurationSummary'
-            Prelude.<$> (x Core..:? "AutoScalingConfigurationName")
-            Prelude.<*> (x Core..:? "AutoScalingConfigurationRevision")
-            Prelude.<*> (x Core..:? "AutoScalingConfigurationArn")
+            Prelude.<$> (x Data..:? "AutoScalingConfigurationArn")
+            Prelude.<*> (x Data..:? "AutoScalingConfigurationName")
+            Prelude.<*> (x Data..:? "AutoScalingConfigurationRevision")
       )
 
 instance
@@ -113,15 +114,15 @@ instance
     _salt
     AutoScalingConfigurationSummary' {..} =
       _salt
+        `Prelude.hashWithSalt` autoScalingConfigurationArn
         `Prelude.hashWithSalt` autoScalingConfigurationName
         `Prelude.hashWithSalt` autoScalingConfigurationRevision
-        `Prelude.hashWithSalt` autoScalingConfigurationArn
 
 instance
   Prelude.NFData
     AutoScalingConfigurationSummary
   where
   rnf AutoScalingConfigurationSummary' {..} =
-    Prelude.rnf autoScalingConfigurationName
+    Prelude.rnf autoScalingConfigurationArn
+      `Prelude.seq` Prelude.rnf autoScalingConfigurationName
       `Prelude.seq` Prelude.rnf autoScalingConfigurationRevision
-      `Prelude.seq` Prelude.rnf autoScalingConfigurationArn

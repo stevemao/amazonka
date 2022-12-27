@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.ExpectedAttributeValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.DynamoDB.Types.ExpectedAttributeValue where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.ComparisonOperator
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a condition to be compared with an attribute value. This
@@ -68,42 +70,6 @@ data ExpectedAttributeValue = ExpectedAttributeValue'
     -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataFormat.html JSON Data Format>
     -- in the /Amazon DynamoDB Developer Guide/.
     attributeValueList :: Prelude.Maybe [AttributeValue],
-    -- | Causes DynamoDB to evaluate the value before attempting a conditional
-    -- operation:
-    --
-    -- -   If @Exists@ is @true@, DynamoDB will check to see if that attribute
-    --     value already exists in the table. If it is found, then the
-    --     operation succeeds. If it is not found, the operation fails with a
-    --     @ConditionCheckFailedException@.
-    --
-    -- -   If @Exists@ is @false@, DynamoDB assumes that the attribute value
-    --     does not exist in the table. If in fact the value does not exist,
-    --     then the assumption is valid and the operation succeeds. If the
-    --     value is found, despite the assumption that it does not exist, the
-    --     operation fails with a @ConditionCheckFailedException@.
-    --
-    -- The default setting for @Exists@ is @true@. If you supply a @Value@ all
-    -- by itself, DynamoDB assumes the attribute exists: You don\'t have to set
-    -- @Exists@ to @true@, because it is implied.
-    --
-    -- DynamoDB returns a @ValidationException@ if:
-    --
-    -- -   @Exists@ is @true@ but there is no @Value@ to check. (You expect a
-    --     value to exist, but don\'t specify what that value is.)
-    --
-    -- -   @Exists@ is @false@ but you also provide a @Value@. (You cannot
-    --     expect an attribute to have a value, while also expecting it not to
-    --     exist.)
-    exists :: Prelude.Maybe Prelude.Bool,
-    -- | Represents the data for the expected attribute.
-    --
-    -- Each attribute value is described as a name-value pair. The name is the
-    -- data type, and the value is the data itself.
-    --
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes Data Types>
-    -- in the /Amazon DynamoDB Developer Guide/.
-    value :: Prelude.Maybe AttributeValue,
     -- | A comparator for evaluating attributes in the @AttributeValueList@. For
     -- example, equals, greater than, less than, etc.
     --
@@ -251,7 +217,43 @@ data ExpectedAttributeValue = ExpectedAttributeValue'
     --     not match. For example, @{\"S\":\"6\"}@ does not compare to
     --     @{\"N\":\"6\"}@. Also, @{\"N\":\"6\"}@ does not compare to
     --     @{\"NS\":[\"6\", \"2\", \"1\"]}@
-    comparisonOperator :: Prelude.Maybe ComparisonOperator
+    comparisonOperator :: Prelude.Maybe ComparisonOperator,
+    -- | Causes DynamoDB to evaluate the value before attempting a conditional
+    -- operation:
+    --
+    -- -   If @Exists@ is @true@, DynamoDB will check to see if that attribute
+    --     value already exists in the table. If it is found, then the
+    --     operation succeeds. If it is not found, the operation fails with a
+    --     @ConditionCheckFailedException@.
+    --
+    -- -   If @Exists@ is @false@, DynamoDB assumes that the attribute value
+    --     does not exist in the table. If in fact the value does not exist,
+    --     then the assumption is valid and the operation succeeds. If the
+    --     value is found, despite the assumption that it does not exist, the
+    --     operation fails with a @ConditionCheckFailedException@.
+    --
+    -- The default setting for @Exists@ is @true@. If you supply a @Value@ all
+    -- by itself, DynamoDB assumes the attribute exists: You don\'t have to set
+    -- @Exists@ to @true@, because it is implied.
+    --
+    -- DynamoDB returns a @ValidationException@ if:
+    --
+    -- -   @Exists@ is @true@ but there is no @Value@ to check. (You expect a
+    --     value to exist, but don\'t specify what that value is.)
+    --
+    -- -   @Exists@ is @false@ but you also provide a @Value@. (You cannot
+    --     expect an attribute to have a value, while also expecting it not to
+    --     exist.)
+    exists :: Prelude.Maybe Prelude.Bool,
+    -- | Represents the data for the expected attribute.
+    --
+    -- Each attribute value is described as a name-value pair. The name is the
+    -- data type, and the value is the data itself.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes Data Types>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    value :: Prelude.Maybe AttributeValue
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -279,42 +281,6 @@ data ExpectedAttributeValue = ExpectedAttributeValue'
 --
 -- For information on specifying data types in JSON, see
 -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataFormat.html JSON Data Format>
--- in the /Amazon DynamoDB Developer Guide/.
---
--- 'exists', 'expectedAttributeValue_exists' - Causes DynamoDB to evaluate the value before attempting a conditional
--- operation:
---
--- -   If @Exists@ is @true@, DynamoDB will check to see if that attribute
---     value already exists in the table. If it is found, then the
---     operation succeeds. If it is not found, the operation fails with a
---     @ConditionCheckFailedException@.
---
--- -   If @Exists@ is @false@, DynamoDB assumes that the attribute value
---     does not exist in the table. If in fact the value does not exist,
---     then the assumption is valid and the operation succeeds. If the
---     value is found, despite the assumption that it does not exist, the
---     operation fails with a @ConditionCheckFailedException@.
---
--- The default setting for @Exists@ is @true@. If you supply a @Value@ all
--- by itself, DynamoDB assumes the attribute exists: You don\'t have to set
--- @Exists@ to @true@, because it is implied.
---
--- DynamoDB returns a @ValidationException@ if:
---
--- -   @Exists@ is @true@ but there is no @Value@ to check. (You expect a
---     value to exist, but don\'t specify what that value is.)
---
--- -   @Exists@ is @false@ but you also provide a @Value@. (You cannot
---     expect an attribute to have a value, while also expecting it not to
---     exist.)
---
--- 'value', 'expectedAttributeValue_value' - Represents the data for the expected attribute.
---
--- Each attribute value is described as a name-value pair. The name is the
--- data type, and the value is the data itself.
---
--- For more information, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes Data Types>
 -- in the /Amazon DynamoDB Developer Guide/.
 --
 -- 'comparisonOperator', 'expectedAttributeValue_comparisonOperator' - A comparator for evaluating attributes in the @AttributeValueList@. For
@@ -464,38 +430,8 @@ data ExpectedAttributeValue = ExpectedAttributeValue'
 --     not match. For example, @{\"S\":\"6\"}@ does not compare to
 --     @{\"N\":\"6\"}@. Also, @{\"N\":\"6\"}@ does not compare to
 --     @{\"NS\":[\"6\", \"2\", \"1\"]}@
-newExpectedAttributeValue ::
-  ExpectedAttributeValue
-newExpectedAttributeValue =
-  ExpectedAttributeValue'
-    { attributeValueList =
-        Prelude.Nothing,
-      exists = Prelude.Nothing,
-      value = Prelude.Nothing,
-      comparisonOperator = Prelude.Nothing
-    }
-
--- | One or more values to evaluate against the supplied attribute. The
--- number of values in the list depends on the @ComparisonOperator@ being
--- used.
 --
--- For type Number, value comparisons are numeric.
---
--- String value comparisons for greater than, equals, or less than are
--- based on ASCII character code values. For example, @a@ is greater than
--- @A@, and @a@ is greater than @B@. For a list of code values, see
--- <http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters>.
---
--- For Binary, DynamoDB treats each byte of the binary data as unsigned
--- when it compares binary values.
---
--- For information on specifying data types in JSON, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataFormat.html JSON Data Format>
--- in the /Amazon DynamoDB Developer Guide/.
-expectedAttributeValue_attributeValueList :: Lens.Lens' ExpectedAttributeValue (Prelude.Maybe [AttributeValue])
-expectedAttributeValue_attributeValueList = Lens.lens (\ExpectedAttributeValue' {attributeValueList} -> attributeValueList) (\s@ExpectedAttributeValue' {} a -> s {attributeValueList = a} :: ExpectedAttributeValue) Prelude.. Lens.mapping Lens.coerced
-
--- | Causes DynamoDB to evaluate the value before attempting a conditional
+-- 'exists', 'expectedAttributeValue_exists' - Causes DynamoDB to evaluate the value before attempting a conditional
 -- operation:
 --
 -- -   If @Exists@ is @true@, DynamoDB will check to see if that attribute
@@ -521,10 +457,8 @@ expectedAttributeValue_attributeValueList = Lens.lens (\ExpectedAttributeValue' 
 -- -   @Exists@ is @false@ but you also provide a @Value@. (You cannot
 --     expect an attribute to have a value, while also expecting it not to
 --     exist.)
-expectedAttributeValue_exists :: Lens.Lens' ExpectedAttributeValue (Prelude.Maybe Prelude.Bool)
-expectedAttributeValue_exists = Lens.lens (\ExpectedAttributeValue' {exists} -> exists) (\s@ExpectedAttributeValue' {} a -> s {exists = a} :: ExpectedAttributeValue)
-
--- | Represents the data for the expected attribute.
+--
+-- 'value', 'expectedAttributeValue_value' - Represents the data for the expected attribute.
 --
 -- Each attribute value is described as a name-value pair. The name is the
 -- data type, and the value is the data itself.
@@ -532,8 +466,36 @@ expectedAttributeValue_exists = Lens.lens (\ExpectedAttributeValue' {exists} -> 
 -- For more information, see
 -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes Data Types>
 -- in the /Amazon DynamoDB Developer Guide/.
-expectedAttributeValue_value :: Lens.Lens' ExpectedAttributeValue (Prelude.Maybe AttributeValue)
-expectedAttributeValue_value = Lens.lens (\ExpectedAttributeValue' {value} -> value) (\s@ExpectedAttributeValue' {} a -> s {value = a} :: ExpectedAttributeValue)
+newExpectedAttributeValue ::
+  ExpectedAttributeValue
+newExpectedAttributeValue =
+  ExpectedAttributeValue'
+    { attributeValueList =
+        Prelude.Nothing,
+      comparisonOperator = Prelude.Nothing,
+      exists = Prelude.Nothing,
+      value = Prelude.Nothing
+    }
+
+-- | One or more values to evaluate against the supplied attribute. The
+-- number of values in the list depends on the @ComparisonOperator@ being
+-- used.
+--
+-- For type Number, value comparisons are numeric.
+--
+-- String value comparisons for greater than, equals, or less than are
+-- based on ASCII character code values. For example, @a@ is greater than
+-- @A@, and @a@ is greater than @B@. For a list of code values, see
+-- <http://en.wikipedia.org/wiki/ASCII#ASCII_printable_characters>.
+--
+-- For Binary, DynamoDB treats each byte of the binary data as unsigned
+-- when it compares binary values.
+--
+-- For information on specifying data types in JSON, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DataFormat.html JSON Data Format>
+-- in the /Amazon DynamoDB Developer Guide/.
+expectedAttributeValue_attributeValueList :: Lens.Lens' ExpectedAttributeValue (Prelude.Maybe [AttributeValue])
+expectedAttributeValue_attributeValueList = Lens.lens (\ExpectedAttributeValue' {attributeValueList} -> attributeValueList) (\s@ExpectedAttributeValue' {} a -> s {attributeValueList = a} :: ExpectedAttributeValue) Prelude.. Lens.mapping Lens.coerced
 
 -- | A comparator for evaluating attributes in the @AttributeValueList@. For
 -- example, equals, greater than, less than, etc.
@@ -685,29 +647,69 @@ expectedAttributeValue_value = Lens.lens (\ExpectedAttributeValue' {value} -> va
 expectedAttributeValue_comparisonOperator :: Lens.Lens' ExpectedAttributeValue (Prelude.Maybe ComparisonOperator)
 expectedAttributeValue_comparisonOperator = Lens.lens (\ExpectedAttributeValue' {comparisonOperator} -> comparisonOperator) (\s@ExpectedAttributeValue' {} a -> s {comparisonOperator = a} :: ExpectedAttributeValue)
 
+-- | Causes DynamoDB to evaluate the value before attempting a conditional
+-- operation:
+--
+-- -   If @Exists@ is @true@, DynamoDB will check to see if that attribute
+--     value already exists in the table. If it is found, then the
+--     operation succeeds. If it is not found, the operation fails with a
+--     @ConditionCheckFailedException@.
+--
+-- -   If @Exists@ is @false@, DynamoDB assumes that the attribute value
+--     does not exist in the table. If in fact the value does not exist,
+--     then the assumption is valid and the operation succeeds. If the
+--     value is found, despite the assumption that it does not exist, the
+--     operation fails with a @ConditionCheckFailedException@.
+--
+-- The default setting for @Exists@ is @true@. If you supply a @Value@ all
+-- by itself, DynamoDB assumes the attribute exists: You don\'t have to set
+-- @Exists@ to @true@, because it is implied.
+--
+-- DynamoDB returns a @ValidationException@ if:
+--
+-- -   @Exists@ is @true@ but there is no @Value@ to check. (You expect a
+--     value to exist, but don\'t specify what that value is.)
+--
+-- -   @Exists@ is @false@ but you also provide a @Value@. (You cannot
+--     expect an attribute to have a value, while also expecting it not to
+--     exist.)
+expectedAttributeValue_exists :: Lens.Lens' ExpectedAttributeValue (Prelude.Maybe Prelude.Bool)
+expectedAttributeValue_exists = Lens.lens (\ExpectedAttributeValue' {exists} -> exists) (\s@ExpectedAttributeValue' {} a -> s {exists = a} :: ExpectedAttributeValue)
+
+-- | Represents the data for the expected attribute.
+--
+-- Each attribute value is described as a name-value pair. The name is the
+-- data type, and the value is the data itself.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.NamingRulesDataTypes.html#HowItWorks.DataTypes Data Types>
+-- in the /Amazon DynamoDB Developer Guide/.
+expectedAttributeValue_value :: Lens.Lens' ExpectedAttributeValue (Prelude.Maybe AttributeValue)
+expectedAttributeValue_value = Lens.lens (\ExpectedAttributeValue' {value} -> value) (\s@ExpectedAttributeValue' {} a -> s {value = a} :: ExpectedAttributeValue)
+
 instance Prelude.Hashable ExpectedAttributeValue where
   hashWithSalt _salt ExpectedAttributeValue' {..} =
     _salt `Prelude.hashWithSalt` attributeValueList
+      `Prelude.hashWithSalt` comparisonOperator
       `Prelude.hashWithSalt` exists
       `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` comparisonOperator
 
 instance Prelude.NFData ExpectedAttributeValue where
   rnf ExpectedAttributeValue' {..} =
     Prelude.rnf attributeValueList
+      `Prelude.seq` Prelude.rnf comparisonOperator
       `Prelude.seq` Prelude.rnf exists
       `Prelude.seq` Prelude.rnf value
-      `Prelude.seq` Prelude.rnf comparisonOperator
 
-instance Core.ToJSON ExpectedAttributeValue where
+instance Data.ToJSON ExpectedAttributeValue where
   toJSON ExpectedAttributeValue' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AttributeValueList" Core..=)
+          [ ("AttributeValueList" Data..=)
               Prelude.<$> attributeValueList,
-            ("Exists" Core..=) Prelude.<$> exists,
-            ("Value" Core..=) Prelude.<$> value,
-            ("ComparisonOperator" Core..=)
-              Prelude.<$> comparisonOperator
+            ("ComparisonOperator" Data..=)
+              Prelude.<$> comparisonOperator,
+            ("Exists" Data..=) Prelude.<$> exists,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.BackupDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,13 @@
 module Amazonka.DynamoDB.Types.BackupDescription where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.BackupDetails
 import Amazonka.DynamoDB.Types.SourceTableDetails
 import Amazonka.DynamoDB.Types.SourceTableFeatureDetails
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the description of the backup created for the table.
@@ -77,15 +79,15 @@ backupDescription_sourceTableDetails = Lens.lens (\BackupDescription' {sourceTab
 backupDescription_sourceTableFeatureDetails :: Lens.Lens' BackupDescription (Prelude.Maybe SourceTableFeatureDetails)
 backupDescription_sourceTableFeatureDetails = Lens.lens (\BackupDescription' {sourceTableFeatureDetails} -> sourceTableFeatureDetails) (\s@BackupDescription' {} a -> s {sourceTableFeatureDetails = a} :: BackupDescription)
 
-instance Core.FromJSON BackupDescription where
+instance Data.FromJSON BackupDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BackupDescription"
       ( \x ->
           BackupDescription'
-            Prelude.<$> (x Core..:? "BackupDetails")
-            Prelude.<*> (x Core..:? "SourceTableDetails")
-            Prelude.<*> (x Core..:? "SourceTableFeatureDetails")
+            Prelude.<$> (x Data..:? "BackupDetails")
+            Prelude.<*> (x Data..:? "SourceTableDetails")
+            Prelude.<*> (x Data..:? "SourceTableFeatureDetails")
       )
 
 instance Prelude.Hashable BackupDescription where

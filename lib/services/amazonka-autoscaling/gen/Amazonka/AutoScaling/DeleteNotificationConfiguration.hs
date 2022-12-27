@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.DeleteNotificationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -47,8 +48,7 @@ import qualified Amazonka.Response as Response
 data DeleteNotificationConfiguration = DeleteNotificationConfiguration'
   { -- | The name of the Auto Scaling group.
     autoScalingGroupName :: Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
-    -- (Amazon SNS) topic.
+    -- | The Amazon Resource Name (ARN) of the Amazon SNS topic.
     topicARN :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -63,8 +63,7 @@ data DeleteNotificationConfiguration = DeleteNotificationConfiguration'
 --
 -- 'autoScalingGroupName', 'deleteNotificationConfiguration_autoScalingGroupName' - The name of the Auto Scaling group.
 --
--- 'topicARN', 'deleteNotificationConfiguration_topicARN' - The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
--- (Amazon SNS) topic.
+-- 'topicARN', 'deleteNotificationConfiguration_topicARN' - The Amazon Resource Name (ARN) of the Amazon SNS topic.
 newDeleteNotificationConfiguration ::
   -- | 'autoScalingGroupName'
   Prelude.Text ->
@@ -84,8 +83,7 @@ newDeleteNotificationConfiguration
 deleteNotificationConfiguration_autoScalingGroupName :: Lens.Lens' DeleteNotificationConfiguration Prelude.Text
 deleteNotificationConfiguration_autoScalingGroupName = Lens.lens (\DeleteNotificationConfiguration' {autoScalingGroupName} -> autoScalingGroupName) (\s@DeleteNotificationConfiguration' {} a -> s {autoScalingGroupName = a} :: DeleteNotificationConfiguration)
 
--- | The Amazon Resource Name (ARN) of the Amazon Simple Notification Service
--- (Amazon SNS) topic.
+-- | The Amazon Resource Name (ARN) of the Amazon SNS topic.
 deleteNotificationConfiguration_topicARN :: Lens.Lens' DeleteNotificationConfiguration Prelude.Text
 deleteNotificationConfiguration_topicARN = Lens.lens (\DeleteNotificationConfiguration' {topicARN} -> topicARN) (\s@DeleteNotificationConfiguration' {} a -> s {topicARN = a} :: DeleteNotificationConfiguration)
 
@@ -96,7 +94,8 @@ instance
   type
     AWSResponse DeleteNotificationConfiguration =
       DeleteNotificationConfigurationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DeleteNotificationConfigurationResponse'
@@ -120,25 +119,25 @@ instance
       `Prelude.seq` Prelude.rnf topicARN
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteNotificationConfiguration
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteNotificationConfiguration where
+instance Data.ToPath DeleteNotificationConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteNotificationConfiguration where
+instance Data.ToQuery DeleteNotificationConfiguration where
   toQuery DeleteNotificationConfiguration' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteNotificationConfiguration" ::
+          Data.=: ( "DeleteNotificationConfiguration" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "AutoScalingGroupName" Core.=: autoScalingGroupName,
-        "TopicARN" Core.=: topicARN
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "AutoScalingGroupName" Data.=: autoScalingGroupName,
+        "TopicARN" Data.=: topicARN
       ]
 
 -- | /See:/ 'newDeleteNotificationConfigurationResponse' smart constructor.

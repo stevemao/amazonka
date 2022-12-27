@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.DeleteEnvironmentTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Proton.DeleteEnvironmentTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -78,12 +79,13 @@ instance Core.AWSRequest DeleteEnvironmentTemplate where
   type
     AWSResponse DeleteEnvironmentTemplate =
       DeleteEnvironmentTemplateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteEnvironmentTemplateResponse'
-            Prelude.<$> (x Core..?> "environmentTemplate")
+            Prelude.<$> (x Data..?> "environmentTemplate")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -94,37 +96,37 @@ instance Prelude.Hashable DeleteEnvironmentTemplate where
 instance Prelude.NFData DeleteEnvironmentTemplate where
   rnf DeleteEnvironmentTemplate' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteEnvironmentTemplate where
+instance Data.ToHeaders DeleteEnvironmentTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.DeleteEnvironmentTemplate" ::
+              Data.=# ( "AwsProton20200720.DeleteEnvironmentTemplate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteEnvironmentTemplate where
+instance Data.ToJSON DeleteEnvironmentTemplate where
   toJSON DeleteEnvironmentTemplate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("name" Core..= name)]
+          [Prelude.Just ("name" Data..= name)]
       )
 
-instance Core.ToPath DeleteEnvironmentTemplate where
+instance Data.ToPath DeleteEnvironmentTemplate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteEnvironmentTemplate where
+instance Data.ToQuery DeleteEnvironmentTemplate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteEnvironmentTemplateResponse' smart constructor.
 data DeleteEnvironmentTemplateResponse = DeleteEnvironmentTemplateResponse'
-  { -- | The environment template detail data that\'s returned by AWS Proton.
+  { -- | The detailed data of the environment template being deleted.
     environmentTemplate :: Prelude.Maybe EnvironmentTemplate,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -139,7 +141,7 @@ data DeleteEnvironmentTemplateResponse = DeleteEnvironmentTemplateResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'environmentTemplate', 'deleteEnvironmentTemplateResponse_environmentTemplate' - The environment template detail data that\'s returned by AWS Proton.
+-- 'environmentTemplate', 'deleteEnvironmentTemplateResponse_environmentTemplate' - The detailed data of the environment template being deleted.
 --
 -- 'httpStatus', 'deleteEnvironmentTemplateResponse_httpStatus' - The response's http status code.
 newDeleteEnvironmentTemplateResponse ::
@@ -153,7 +155,7 @@ newDeleteEnvironmentTemplateResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The environment template detail data that\'s returned by AWS Proton.
+-- | The detailed data of the environment template being deleted.
 deleteEnvironmentTemplateResponse_environmentTemplate :: Lens.Lens' DeleteEnvironmentTemplateResponse (Prelude.Maybe EnvironmentTemplate)
 deleteEnvironmentTemplateResponse_environmentTemplate = Lens.lens (\DeleteEnvironmentTemplateResponse' {environmentTemplate} -> environmentTemplate) (\s@DeleteEnvironmentTemplateResponse' {} a -> s {environmentTemplate = a} :: DeleteEnvironmentTemplateResponse)
 

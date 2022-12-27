@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.Types.StandardIdentifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,6 +24,7 @@ module Amazonka.CustomerProfiles.Types.StandardIdentifier
         StandardIdentifier_CASE,
         StandardIdentifier_LOOKUP_ONLY,
         StandardIdentifier_NEW_ONLY,
+        StandardIdentifier_ORDER,
         StandardIdentifier_PROFILE,
         StandardIdentifier_SECONDARY,
         StandardIdentifier_UNIQUE
@@ -32,11 +33,12 @@ module Amazonka.CustomerProfiles.Types.StandardIdentifier
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype StandardIdentifier = StandardIdentifier'
   { fromStandardIdentifier ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -48,18 +50,18 @@ newtype StandardIdentifier = StandardIdentifier'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern StandardIdentifier_ASSET :: StandardIdentifier
@@ -73,6 +75,9 @@ pattern StandardIdentifier_LOOKUP_ONLY = StandardIdentifier' "LOOKUP_ONLY"
 
 pattern StandardIdentifier_NEW_ONLY :: StandardIdentifier
 pattern StandardIdentifier_NEW_ONLY = StandardIdentifier' "NEW_ONLY"
+
+pattern StandardIdentifier_ORDER :: StandardIdentifier
+pattern StandardIdentifier_ORDER = StandardIdentifier' "ORDER"
 
 pattern StandardIdentifier_PROFILE :: StandardIdentifier
 pattern StandardIdentifier_PROFILE = StandardIdentifier' "PROFILE"
@@ -88,6 +93,7 @@ pattern StandardIdentifier_UNIQUE = StandardIdentifier' "UNIQUE"
   StandardIdentifier_CASE,
   StandardIdentifier_LOOKUP_ONLY,
   StandardIdentifier_NEW_ONLY,
+  StandardIdentifier_ORDER,
   StandardIdentifier_PROFILE,
   StandardIdentifier_SECONDARY,
   StandardIdentifier_UNIQUE,

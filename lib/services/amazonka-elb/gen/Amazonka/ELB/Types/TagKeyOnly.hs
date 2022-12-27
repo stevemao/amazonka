@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.Types.TagKeyOnly
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ELB.Types.TagKeyOnly where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The key of a tag.
@@ -57,6 +58,6 @@ instance Prelude.Hashable TagKeyOnly where
 instance Prelude.NFData TagKeyOnly where
   rnf TagKeyOnly' {..} = Prelude.rnf key
 
-instance Core.ToQuery TagKeyOnly where
+instance Data.ToQuery TagKeyOnly where
   toQuery TagKeyOnly' {..} =
-    Prelude.mconcat ["Key" Core.=: key]
+    Prelude.mconcat ["Key" Data.=: key]

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.CreateRoute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,7 +53,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,10 +67,10 @@ data CreateRoute = CreateRoute'
     -- idempotency of the request. Up to 36 letters, numbers, hyphens, and
     -- underscores are allowed.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then the account that you specify must share the mesh with
-    -- your account before you can create the resource in the service mesh. For
-    -- more information about mesh sharing, see
+    -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then the account that you specify must share
+    -- the mesh with your account before you can create the resource in the
+    -- service mesh. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Maybe Prelude.Text,
     -- | Optional metadata that you can apply to the route to assist with
@@ -103,10 +104,10 @@ data CreateRoute = CreateRoute'
 -- idempotency of the request. Up to 36 letters, numbers, hyphens, and
 -- underscores are allowed.
 --
--- 'meshOwner', 'createRoute_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then the account that you specify must share the mesh with
--- your account before you can create the resource in the service mesh. For
--- more information about mesh sharing, see
+-- 'meshOwner', 'createRoute_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then the account that you specify must share
+-- the mesh with your account before you can create the resource in the
+-- service mesh. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'tags', 'createRoute_tags' - Optional metadata that you can apply to the route to assist with
@@ -155,10 +156,10 @@ newCreateRoute
 createRoute_clientToken :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
 createRoute_clientToken = Lens.lens (\CreateRoute' {clientToken} -> clientToken) (\s@CreateRoute' {} a -> s {clientToken = a} :: CreateRoute)
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then the account that you specify must share the mesh with
--- your account before you can create the resource in the service mesh. For
--- more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then the account that you specify must share
+-- the mesh with your account before you can create the resource in the
+-- service mesh. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 createRoute_meshOwner :: Lens.Lens' CreateRoute (Prelude.Maybe Prelude.Text)
 createRoute_meshOwner = Lens.lens (\CreateRoute' {meshOwner} -> meshOwner) (\s@CreateRoute' {} a -> s {meshOwner = a} :: CreateRoute)
@@ -191,13 +192,14 @@ createRoute_virtualRouterName = Lens.lens (\CreateRoute' {virtualRouterName} -> 
 
 instance Core.AWSRequest CreateRoute where
   type AWSResponse CreateRoute = CreateRouteResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateRouteResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable CreateRoute where
@@ -220,41 +222,41 @@ instance Prelude.NFData CreateRoute where
       `Prelude.seq` Prelude.rnf spec
       `Prelude.seq` Prelude.rnf virtualRouterName
 
-instance Core.ToHeaders CreateRoute where
+instance Data.ToHeaders CreateRoute where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateRoute where
+instance Data.ToJSON CreateRoute where
   toJSON CreateRoute' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("routeName" Core..= routeName),
-            Prelude.Just ("spec" Core..= spec)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("routeName" Data..= routeName),
+            Prelude.Just ("spec" Data..= spec)
           ]
       )
 
-instance Core.ToPath CreateRoute where
+instance Data.ToPath CreateRoute where
   toPath CreateRoute' {..} =
     Prelude.mconcat
       [ "/v20190125/meshes/",
-        Core.toBS meshName,
+        Data.toBS meshName,
         "/virtualRouter/",
-        Core.toBS virtualRouterName,
+        Data.toBS virtualRouterName,
         "/routes"
       ]
 
-instance Core.ToQuery CreateRoute where
+instance Data.ToQuery CreateRoute where
   toQuery CreateRoute' {..} =
-    Prelude.mconcat ["meshOwner" Core.=: meshOwner]
+    Prelude.mconcat ["meshOwner" Data.=: meshOwner]
 
 -- |
 --

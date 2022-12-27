@@ -14,19 +14,19 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.DescribeInstanceAccessControlAttributeConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the list of Amazon Web Services SSO identity store attributes
--- that have been configured to work with attributes-based access control
--- (ABAC) for the specified Amazon Web Services SSO instance. This will not
--- return attributes configured and sent by an external identity provider.
--- For more information about ABAC, see
+-- Returns the list of IAM Identity Center identity store attributes that
+-- have been configured to work with attributes-based access control (ABAC)
+-- for the specified IAM Identity Center instance. This will not return
+-- attributes configured and sent by an external identity provider. For
+-- more information about ABAC, see
 -- </singlesignon/latest/userguide/abac.html Attribute-Based Access Control>
--- in the /Amazon Web Services SSO User Guide/.
+-- in the /IAM Identity Center User Guide/.
 module Amazonka.SSOAdmin.DescribeInstanceAccessControlAttributeConfiguration
   ( -- * Creating a Request
     DescribeInstanceAccessControlAttributeConfiguration (..),
@@ -40,15 +40,16 @@ module Amazonka.SSOAdmin.DescribeInstanceAccessControlAttributeConfiguration
     newDescribeInstanceAccessControlAttributeConfigurationResponse,
 
     -- * Response Lenses
-    describeInstanceAccessControlAttributeConfigurationResponse_status,
     describeInstanceAccessControlAttributeConfigurationResponse_instanceAccessControlAttributeConfiguration,
+    describeInstanceAccessControlAttributeConfigurationResponse_status,
     describeInstanceAccessControlAttributeConfigurationResponse_statusReason,
     describeInstanceAccessControlAttributeConfigurationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,7 +57,8 @@ import Amazonka.SSOAdmin.Types
 
 -- | /See:/ 'newDescribeInstanceAccessControlAttributeConfiguration' smart constructor.
 data DescribeInstanceAccessControlAttributeConfiguration = DescribeInstanceAccessControlAttributeConfiguration'
-  { -- | The ARN of the SSO instance under which the operation will be executed.
+  { -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed.
     instanceArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -69,7 +71,8 @@ data DescribeInstanceAccessControlAttributeConfiguration = DescribeInstanceAcces
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceArn', 'describeInstanceAccessControlAttributeConfiguration_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
+-- 'instanceArn', 'describeInstanceAccessControlAttributeConfiguration_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed.
 newDescribeInstanceAccessControlAttributeConfiguration ::
   -- | 'instanceArn'
   Prelude.Text ->
@@ -81,7 +84,8 @@ newDescribeInstanceAccessControlAttributeConfiguration
           pInstanceArn_
       }
 
--- | The ARN of the SSO instance under which the operation will be executed.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed.
 describeInstanceAccessControlAttributeConfiguration_instanceArn :: Lens.Lens' DescribeInstanceAccessControlAttributeConfiguration Prelude.Text
 describeInstanceAccessControlAttributeConfiguration_instanceArn = Lens.lens (\DescribeInstanceAccessControlAttributeConfiguration' {instanceArn} -> instanceArn) (\s@DescribeInstanceAccessControlAttributeConfiguration' {} a -> s {instanceArn = a} :: DescribeInstanceAccessControlAttributeConfiguration)
 
@@ -93,16 +97,17 @@ instance
     AWSResponse
       DescribeInstanceAccessControlAttributeConfiguration =
       DescribeInstanceAccessControlAttributeConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeInstanceAccessControlAttributeConfigurationResponse'
-            Prelude.<$> (x Core..?> "Status")
-              Prelude.<*> ( x
-                              Core..?> "InstanceAccessControlAttributeConfiguration"
-                          )
-              Prelude.<*> (x Core..?> "StatusReason")
+            Prelude.<$> ( x
+                            Data..?> "InstanceAccessControlAttributeConfiguration"
+                        )
+              Prelude.<*> (x Data..?> "Status")
+              Prelude.<*> (x Data..?> "StatusReason")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -124,53 +129,53 @@ instance
       Prelude.rnf instanceArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeInstanceAccessControlAttributeConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.DescribeInstanceAccessControlAttributeConfiguration" ::
+              Data.=# ( "SWBExternalService.DescribeInstanceAccessControlAttributeConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeInstanceAccessControlAttributeConfiguration
   where
   toJSON
     DescribeInstanceAccessControlAttributeConfiguration' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [Prelude.Just ("InstanceArn" Core..= instanceArn)]
+            [Prelude.Just ("InstanceArn" Data..= instanceArn)]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeInstanceAccessControlAttributeConfiguration
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeInstanceAccessControlAttributeConfiguration
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeInstanceAccessControlAttributeConfigurationResponse' smart constructor.
 data DescribeInstanceAccessControlAttributeConfigurationResponse = DescribeInstanceAccessControlAttributeConfigurationResponse'
-  { -- | The status of the attribute configuration process.
-    status :: Prelude.Maybe InstanceAccessControlAttributeConfigurationStatus,
-    -- | Gets the list of Amazon Web Services SSO identity store attributes that
-    -- have been added to your ABAC configuration.
+  { -- | Gets the list of IAM Identity Center identity store attributes that have
+    -- been added to your ABAC configuration.
     instanceAccessControlAttributeConfiguration :: Prelude.Maybe InstanceAccessControlAttributeConfiguration,
+    -- | The status of the attribute configuration process.
+    status :: Prelude.Maybe InstanceAccessControlAttributeConfigurationStatus,
     -- | Provides more details about the current status of the specified
     -- attribute.
     statusReason :: Prelude.Maybe Prelude.Text,
@@ -187,10 +192,10 @@ data DescribeInstanceAccessControlAttributeConfigurationResponse = DescribeInsta
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'describeInstanceAccessControlAttributeConfigurationResponse_status' - The status of the attribute configuration process.
+-- 'instanceAccessControlAttributeConfiguration', 'describeInstanceAccessControlAttributeConfigurationResponse_instanceAccessControlAttributeConfiguration' - Gets the list of IAM Identity Center identity store attributes that have
+-- been added to your ABAC configuration.
 --
--- 'instanceAccessControlAttributeConfiguration', 'describeInstanceAccessControlAttributeConfigurationResponse_instanceAccessControlAttributeConfiguration' - Gets the list of Amazon Web Services SSO identity store attributes that
--- have been added to your ABAC configuration.
+-- 'status', 'describeInstanceAccessControlAttributeConfigurationResponse_status' - The status of the attribute configuration process.
 --
 -- 'statusReason', 'describeInstanceAccessControlAttributeConfigurationResponse_statusReason' - Provides more details about the current status of the specified
 -- attribute.
@@ -203,9 +208,9 @@ newDescribeInstanceAccessControlAttributeConfigurationResponse ::
 newDescribeInstanceAccessControlAttributeConfigurationResponse
   pHttpStatus_ =
     DescribeInstanceAccessControlAttributeConfigurationResponse'
-      { status =
+      { instanceAccessControlAttributeConfiguration =
           Prelude.Nothing,
-        instanceAccessControlAttributeConfiguration =
+        status =
           Prelude.Nothing,
         statusReason =
           Prelude.Nothing,
@@ -213,14 +218,14 @@ newDescribeInstanceAccessControlAttributeConfigurationResponse
           pHttpStatus_
       }
 
+-- | Gets the list of IAM Identity Center identity store attributes that have
+-- been added to your ABAC configuration.
+describeInstanceAccessControlAttributeConfigurationResponse_instanceAccessControlAttributeConfiguration :: Lens.Lens' DescribeInstanceAccessControlAttributeConfigurationResponse (Prelude.Maybe InstanceAccessControlAttributeConfiguration)
+describeInstanceAccessControlAttributeConfigurationResponse_instanceAccessControlAttributeConfiguration = Lens.lens (\DescribeInstanceAccessControlAttributeConfigurationResponse' {instanceAccessControlAttributeConfiguration} -> instanceAccessControlAttributeConfiguration) (\s@DescribeInstanceAccessControlAttributeConfigurationResponse' {} a -> s {instanceAccessControlAttributeConfiguration = a} :: DescribeInstanceAccessControlAttributeConfigurationResponse)
+
 -- | The status of the attribute configuration process.
 describeInstanceAccessControlAttributeConfigurationResponse_status :: Lens.Lens' DescribeInstanceAccessControlAttributeConfigurationResponse (Prelude.Maybe InstanceAccessControlAttributeConfigurationStatus)
 describeInstanceAccessControlAttributeConfigurationResponse_status = Lens.lens (\DescribeInstanceAccessControlAttributeConfigurationResponse' {status} -> status) (\s@DescribeInstanceAccessControlAttributeConfigurationResponse' {} a -> s {status = a} :: DescribeInstanceAccessControlAttributeConfigurationResponse)
-
--- | Gets the list of Amazon Web Services SSO identity store attributes that
--- have been added to your ABAC configuration.
-describeInstanceAccessControlAttributeConfigurationResponse_instanceAccessControlAttributeConfiguration :: Lens.Lens' DescribeInstanceAccessControlAttributeConfigurationResponse (Prelude.Maybe InstanceAccessControlAttributeConfiguration)
-describeInstanceAccessControlAttributeConfigurationResponse_instanceAccessControlAttributeConfiguration = Lens.lens (\DescribeInstanceAccessControlAttributeConfigurationResponse' {instanceAccessControlAttributeConfiguration} -> instanceAccessControlAttributeConfiguration) (\s@DescribeInstanceAccessControlAttributeConfigurationResponse' {} a -> s {instanceAccessControlAttributeConfiguration = a} :: DescribeInstanceAccessControlAttributeConfigurationResponse)
 
 -- | Provides more details about the current status of the specified
 -- attribute.
@@ -237,8 +242,8 @@ instance
   where
   rnf
     DescribeInstanceAccessControlAttributeConfigurationResponse' {..} =
-      Prelude.rnf status
-        `Prelude.seq` Prelude.rnf
-          instanceAccessControlAttributeConfiguration
+      Prelude.rnf
+        instanceAccessControlAttributeConfiguration
+        `Prelude.seq` Prelude.rnf status
         `Prelude.seq` Prelude.rnf statusReason
         `Prelude.seq` Prelude.rnf httpStatus

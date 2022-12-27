@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.Types.SupplementaryFeature
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,14 @@
 module Amazonka.Forecast.Types.SupplementaryFeature where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Describes a supplementary feature of a dataset group. This object is
+-- | This object belongs to the CreatePredictor operation. If you created
+-- your predictor with CreateAutoPredictor, see AdditionalDataset.
+--
+-- Describes a supplementary feature of a dataset group. This object is
 -- part of the InputDataConfig object. Forecast supports the Weather Index
 -- and Holidays built-in featurizations.
 --
@@ -503,13 +507,13 @@ supplementaryFeature_name = Lens.lens (\SupplementaryFeature' {name} -> name) (\
 supplementaryFeature_value :: Lens.Lens' SupplementaryFeature Prelude.Text
 supplementaryFeature_value = Lens.lens (\SupplementaryFeature' {value} -> value) (\s@SupplementaryFeature' {} a -> s {value = a} :: SupplementaryFeature)
 
-instance Core.FromJSON SupplementaryFeature where
+instance Data.FromJSON SupplementaryFeature where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SupplementaryFeature"
       ( \x ->
           SupplementaryFeature'
-            Prelude.<$> (x Core..: "Name") Prelude.<*> (x Core..: "Value")
+            Prelude.<$> (x Data..: "Name") Prelude.<*> (x Data..: "Value")
       )
 
 instance Prelude.Hashable SupplementaryFeature where
@@ -521,11 +525,11 @@ instance Prelude.NFData SupplementaryFeature where
   rnf SupplementaryFeature' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON SupplementaryFeature where
+instance Data.ToJSON SupplementaryFeature where
   toJSON SupplementaryFeature' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Value" Core..= value)
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Value" Data..= value)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointEmail.Types.Destination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.PinpointEmail.Types.Destination where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that describes the recipients for an email.
@@ -91,12 +92,12 @@ instance Prelude.NFData Destination where
       `Prelude.seq` Prelude.rnf ccAddresses
       `Prelude.seq` Prelude.rnf toAddresses
 
-instance Core.ToJSON Destination where
+instance Data.ToJSON Destination where
   toJSON Destination' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BccAddresses" Core..=) Prelude.<$> bccAddresses,
-            ("CcAddresses" Core..=) Prelude.<$> ccAddresses,
-            ("ToAddresses" Core..=) Prelude.<$> toAddresses
+          [ ("BccAddresses" Data..=) Prelude.<$> bccAddresses,
+            ("CcAddresses" Data..=) Prelude.<$> ccAddresses,
+            ("ToAddresses" Data..=) Prelude.<$> toAddresses
           ]
       )

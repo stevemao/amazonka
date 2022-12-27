@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointEmail.Types.IdentityInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.PinpointEmail.Types.IdentityInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.PinpointEmail.Types.IdentityType
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,7 +29,9 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newIdentityInfo' smart constructor.
 data IdentityInfo = IdentityInfo'
-  { -- | The email identity type. The identity type can be one of the following:
+  { -- | The address or domain of the identity.
+    identityName :: Prelude.Maybe Prelude.Text,
+    -- | The email identity type. The identity type can be one of the following:
     --
     -- -   @EMAIL_ADDRESS@ – The identity is an email address.
     --
@@ -36,8 +39,6 @@ data IdentityInfo = IdentityInfo'
     --
     -- -   @MANAGED_DOMAIN@ – The identity is a domain that is managed by AWS.
     identityType :: Prelude.Maybe IdentityType,
-    -- | The address or domain of the identity.
-    identityName :: Prelude.Maybe Prelude.Text,
     -- | Indicates whether or not you can send email from the identity.
     --
     -- In Amazon Pinpoint, an identity is an email address or domain that you
@@ -56,6 +57,8 @@ data IdentityInfo = IdentityInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'identityName', 'identityInfo_identityName' - The address or domain of the identity.
+--
 -- 'identityType', 'identityInfo_identityType' - The email identity type. The identity type can be one of the following:
 --
 -- -   @EMAIL_ADDRESS@ – The identity is an email address.
@@ -63,8 +66,6 @@ data IdentityInfo = IdentityInfo'
 -- -   @DOMAIN@ – The identity is a domain.
 --
 -- -   @MANAGED_DOMAIN@ – The identity is a domain that is managed by AWS.
---
--- 'identityName', 'identityInfo_identityName' - The address or domain of the identity.
 --
 -- 'sendingEnabled', 'identityInfo_sendingEnabled' - Indicates whether or not you can send email from the identity.
 --
@@ -76,10 +77,14 @@ newIdentityInfo ::
   IdentityInfo
 newIdentityInfo =
   IdentityInfo'
-    { identityType = Prelude.Nothing,
-      identityName = Prelude.Nothing,
+    { identityName = Prelude.Nothing,
+      identityType = Prelude.Nothing,
       sendingEnabled = Prelude.Nothing
     }
+
+-- | The address or domain of the identity.
+identityInfo_identityName :: Lens.Lens' IdentityInfo (Prelude.Maybe Prelude.Text)
+identityInfo_identityName = Lens.lens (\IdentityInfo' {identityName} -> identityName) (\s@IdentityInfo' {} a -> s {identityName = a} :: IdentityInfo)
 
 -- | The email identity type. The identity type can be one of the following:
 --
@@ -91,10 +96,6 @@ newIdentityInfo =
 identityInfo_identityType :: Lens.Lens' IdentityInfo (Prelude.Maybe IdentityType)
 identityInfo_identityType = Lens.lens (\IdentityInfo' {identityType} -> identityType) (\s@IdentityInfo' {} a -> s {identityType = a} :: IdentityInfo)
 
--- | The address or domain of the identity.
-identityInfo_identityName :: Lens.Lens' IdentityInfo (Prelude.Maybe Prelude.Text)
-identityInfo_identityName = Lens.lens (\IdentityInfo' {identityName} -> identityName) (\s@IdentityInfo' {} a -> s {identityName = a} :: IdentityInfo)
-
 -- | Indicates whether or not you can send email from the identity.
 --
 -- In Amazon Pinpoint, an identity is an email address or domain that you
@@ -104,25 +105,25 @@ identityInfo_identityName = Lens.lens (\IdentityInfo' {identityName} -> identity
 identityInfo_sendingEnabled :: Lens.Lens' IdentityInfo (Prelude.Maybe Prelude.Bool)
 identityInfo_sendingEnabled = Lens.lens (\IdentityInfo' {sendingEnabled} -> sendingEnabled) (\s@IdentityInfo' {} a -> s {sendingEnabled = a} :: IdentityInfo)
 
-instance Core.FromJSON IdentityInfo where
+instance Data.FromJSON IdentityInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IdentityInfo"
       ( \x ->
           IdentityInfo'
-            Prelude.<$> (x Core..:? "IdentityType")
-            Prelude.<*> (x Core..:? "IdentityName")
-            Prelude.<*> (x Core..:? "SendingEnabled")
+            Prelude.<$> (x Data..:? "IdentityName")
+            Prelude.<*> (x Data..:? "IdentityType")
+            Prelude.<*> (x Data..:? "SendingEnabled")
       )
 
 instance Prelude.Hashable IdentityInfo where
   hashWithSalt _salt IdentityInfo' {..} =
-    _salt `Prelude.hashWithSalt` identityType
-      `Prelude.hashWithSalt` identityName
+    _salt `Prelude.hashWithSalt` identityName
+      `Prelude.hashWithSalt` identityType
       `Prelude.hashWithSalt` sendingEnabled
 
 instance Prelude.NFData IdentityInfo where
   rnf IdentityInfo' {..} =
-    Prelude.rnf identityType
-      `Prelude.seq` Prelude.rnf identityName
+    Prelude.rnf identityName
+      `Prelude.seq` Prelude.rnf identityType
       `Prelude.seq` Prelude.rnf sendingEnabled

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.NodeToNodeEncryptionOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,12 @@
 module Amazonka.OpenSearch.Types.NodeToNodeEncryptionOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The node-to-node encryption options.
+-- | Enables or disables node-to-node encryption. For more information, see
+-- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/ntn.html Node-to-node encryption for Amazon OpenSearch Service>.
 --
 -- /See:/ 'newNodeToNodeEncryptionOptions' smart constructor.
 data NodeToNodeEncryptionOptions = NodeToNodeEncryptionOptions'
@@ -53,13 +55,13 @@ newNodeToNodeEncryptionOptions =
 nodeToNodeEncryptionOptions_enabled :: Lens.Lens' NodeToNodeEncryptionOptions (Prelude.Maybe Prelude.Bool)
 nodeToNodeEncryptionOptions_enabled = Lens.lens (\NodeToNodeEncryptionOptions' {enabled} -> enabled) (\s@NodeToNodeEncryptionOptions' {} a -> s {enabled = a} :: NodeToNodeEncryptionOptions)
 
-instance Core.FromJSON NodeToNodeEncryptionOptions where
+instance Data.FromJSON NodeToNodeEncryptionOptions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NodeToNodeEncryptionOptions"
       ( \x ->
           NodeToNodeEncryptionOptions'
-            Prelude.<$> (x Core..:? "Enabled")
+            Prelude.<$> (x Data..:? "Enabled")
       )
 
 instance Prelude.Hashable NodeToNodeEncryptionOptions where
@@ -70,9 +72,9 @@ instance Prelude.NFData NodeToNodeEncryptionOptions where
   rnf NodeToNodeEncryptionOptions' {..} =
     Prelude.rnf enabled
 
-instance Core.ToJSON NodeToNodeEncryptionOptions where
+instance Data.ToJSON NodeToNodeEncryptionOptions where
   toJSON NodeToNodeEncryptionOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Enabled" Core..=) Prelude.<$> enabled]
+          [("Enabled" Data..=) Prelude.<$> enabled]
       )

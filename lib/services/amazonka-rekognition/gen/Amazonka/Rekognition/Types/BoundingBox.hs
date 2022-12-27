@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.BoundingBox
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,15 @@
 module Amazonka.Rekognition.Types.BoundingBox where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Identifies the bounding box around the label, face, text or personal
--- protective equipment. The @left@ (x-coordinate) and @top@ (y-coordinate)
--- are coordinates representing the top and left sides of the bounding box.
--- Note that the upper-left corner of the image is the origin (0,0).
+-- | Identifies the bounding box around the label, face, text, object of
+-- interest, or personal protective equipment. The @left@ (x-coordinate)
+-- and @top@ (y-coordinate) are coordinates representing the top and left
+-- sides of the bounding box. Note that the upper-left corner of the image
+-- is the origin (0,0).
 --
 -- The @top@ and @left@ values returned are ratios of the overall image
 -- size. For example, if the input image is 700x200 pixels, and the
@@ -52,10 +54,10 @@ data BoundingBox = BoundingBox'
     height :: Prelude.Maybe Prelude.Double,
     -- | Left coordinate of the bounding box as a ratio of overall image width.
     left :: Prelude.Maybe Prelude.Double,
-    -- | Width of the bounding box as a ratio of the overall image width.
-    width :: Prelude.Maybe Prelude.Double,
     -- | Top coordinate of the bounding box as a ratio of overall image height.
-    top :: Prelude.Maybe Prelude.Double
+    top :: Prelude.Maybe Prelude.Double,
+    -- | Width of the bounding box as a ratio of the overall image width.
+    width :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,17 +73,17 @@ data BoundingBox = BoundingBox'
 --
 -- 'left', 'boundingBox_left' - Left coordinate of the bounding box as a ratio of overall image width.
 --
--- 'width', 'boundingBox_width' - Width of the bounding box as a ratio of the overall image width.
---
 -- 'top', 'boundingBox_top' - Top coordinate of the bounding box as a ratio of overall image height.
+--
+-- 'width', 'boundingBox_width' - Width of the bounding box as a ratio of the overall image width.
 newBoundingBox ::
   BoundingBox
 newBoundingBox =
   BoundingBox'
     { height = Prelude.Nothing,
       left = Prelude.Nothing,
-      width = Prelude.Nothing,
-      top = Prelude.Nothing
+      top = Prelude.Nothing,
+      width = Prelude.Nothing
     }
 
 -- | Height of the bounding box as a ratio of the overall image height.
@@ -92,47 +94,47 @@ boundingBox_height = Lens.lens (\BoundingBox' {height} -> height) (\s@BoundingBo
 boundingBox_left :: Lens.Lens' BoundingBox (Prelude.Maybe Prelude.Double)
 boundingBox_left = Lens.lens (\BoundingBox' {left} -> left) (\s@BoundingBox' {} a -> s {left = a} :: BoundingBox)
 
--- | Width of the bounding box as a ratio of the overall image width.
-boundingBox_width :: Lens.Lens' BoundingBox (Prelude.Maybe Prelude.Double)
-boundingBox_width = Lens.lens (\BoundingBox' {width} -> width) (\s@BoundingBox' {} a -> s {width = a} :: BoundingBox)
-
 -- | Top coordinate of the bounding box as a ratio of overall image height.
 boundingBox_top :: Lens.Lens' BoundingBox (Prelude.Maybe Prelude.Double)
 boundingBox_top = Lens.lens (\BoundingBox' {top} -> top) (\s@BoundingBox' {} a -> s {top = a} :: BoundingBox)
 
-instance Core.FromJSON BoundingBox where
+-- | Width of the bounding box as a ratio of the overall image width.
+boundingBox_width :: Lens.Lens' BoundingBox (Prelude.Maybe Prelude.Double)
+boundingBox_width = Lens.lens (\BoundingBox' {width} -> width) (\s@BoundingBox' {} a -> s {width = a} :: BoundingBox)
+
+instance Data.FromJSON BoundingBox where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BoundingBox"
       ( \x ->
           BoundingBox'
-            Prelude.<$> (x Core..:? "Height")
-            Prelude.<*> (x Core..:? "Left")
-            Prelude.<*> (x Core..:? "Width")
-            Prelude.<*> (x Core..:? "Top")
+            Prelude.<$> (x Data..:? "Height")
+            Prelude.<*> (x Data..:? "Left")
+            Prelude.<*> (x Data..:? "Top")
+            Prelude.<*> (x Data..:? "Width")
       )
 
 instance Prelude.Hashable BoundingBox where
   hashWithSalt _salt BoundingBox' {..} =
     _salt `Prelude.hashWithSalt` height
       `Prelude.hashWithSalt` left
-      `Prelude.hashWithSalt` width
       `Prelude.hashWithSalt` top
+      `Prelude.hashWithSalt` width
 
 instance Prelude.NFData BoundingBox where
   rnf BoundingBox' {..} =
     Prelude.rnf height
       `Prelude.seq` Prelude.rnf left
-      `Prelude.seq` Prelude.rnf width
       `Prelude.seq` Prelude.rnf top
+      `Prelude.seq` Prelude.rnf width
 
-instance Core.ToJSON BoundingBox where
+instance Data.ToJSON BoundingBox where
   toJSON BoundingBox' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Height" Core..=) Prelude.<$> height,
-            ("Left" Core..=) Prelude.<$> left,
-            ("Width" Core..=) Prelude.<$> width,
-            ("Top" Core..=) Prelude.<$> top
+          [ ("Height" Data..=) Prelude.<$> height,
+            ("Left" Data..=) Prelude.<$> left,
+            ("Top" Data..=) Prelude.<$> top,
+            ("Width" Data..=) Prelude.<$> width
           ]
       )

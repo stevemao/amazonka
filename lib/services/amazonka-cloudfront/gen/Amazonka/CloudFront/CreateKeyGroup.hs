@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.CreateKeyGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,15 +48,16 @@ module Amazonka.CloudFront.CreateKeyGroup
 
     -- * Response Lenses
     createKeyGroupResponse_eTag,
-    createKeyGroupResponse_location,
     createKeyGroupResponse_keyGroup,
+    createKeyGroupResponse_location,
     createKeyGroupResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,14 +93,15 @@ instance Core.AWSRequest CreateKeyGroup where
   type
     AWSResponse CreateKeyGroup =
       CreateKeyGroupResponse
-  request = Request.postXML defaultService
+  request overrides =
+    Request.postXML (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateKeyGroupResponse'
-            Prelude.<$> (h Core..#? "ETag")
-            Prelude.<*> (h Core..#? "Location")
-            Prelude.<*> (Core.parseXML x)
+            Prelude.<$> (h Data..#? "ETag")
+            Prelude.<*> (Data.parseXML x)
+            Prelude.<*> (h Data..#? "Location")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,29 +112,29 @@ instance Prelude.Hashable CreateKeyGroup where
 instance Prelude.NFData CreateKeyGroup where
   rnf CreateKeyGroup' {..} = Prelude.rnf keyGroupConfig
 
-instance Core.ToElement CreateKeyGroup where
+instance Data.ToElement CreateKeyGroup where
   toElement CreateKeyGroup' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}KeyGroupConfig"
       keyGroupConfig
 
-instance Core.ToHeaders CreateKeyGroup where
+instance Data.ToHeaders CreateKeyGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateKeyGroup where
+instance Data.ToPath CreateKeyGroup where
   toPath = Prelude.const "/2020-05-31/key-group"
 
-instance Core.ToQuery CreateKeyGroup where
+instance Data.ToQuery CreateKeyGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateKeyGroupResponse' smart constructor.
 data CreateKeyGroupResponse = CreateKeyGroupResponse'
   { -- | The identifier for this version of the key group.
     eTag :: Prelude.Maybe Prelude.Text,
-    -- | The URL of the key group.
-    location :: Prelude.Maybe Prelude.Text,
     -- | The key group that was just created.
     keyGroup :: Prelude.Maybe KeyGroup,
+    -- | The URL of the key group.
+    location :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -148,9 +150,9 @@ data CreateKeyGroupResponse = CreateKeyGroupResponse'
 --
 -- 'eTag', 'createKeyGroupResponse_eTag' - The identifier for this version of the key group.
 --
--- 'location', 'createKeyGroupResponse_location' - The URL of the key group.
---
 -- 'keyGroup', 'createKeyGroupResponse_keyGroup' - The key group that was just created.
+--
+-- 'location', 'createKeyGroupResponse_location' - The URL of the key group.
 --
 -- 'httpStatus', 'createKeyGroupResponse_httpStatus' - The response's http status code.
 newCreateKeyGroupResponse ::
@@ -160,8 +162,8 @@ newCreateKeyGroupResponse ::
 newCreateKeyGroupResponse pHttpStatus_ =
   CreateKeyGroupResponse'
     { eTag = Prelude.Nothing,
-      location = Prelude.Nothing,
       keyGroup = Prelude.Nothing,
+      location = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -169,13 +171,13 @@ newCreateKeyGroupResponse pHttpStatus_ =
 createKeyGroupResponse_eTag :: Lens.Lens' CreateKeyGroupResponse (Prelude.Maybe Prelude.Text)
 createKeyGroupResponse_eTag = Lens.lens (\CreateKeyGroupResponse' {eTag} -> eTag) (\s@CreateKeyGroupResponse' {} a -> s {eTag = a} :: CreateKeyGroupResponse)
 
--- | The URL of the key group.
-createKeyGroupResponse_location :: Lens.Lens' CreateKeyGroupResponse (Prelude.Maybe Prelude.Text)
-createKeyGroupResponse_location = Lens.lens (\CreateKeyGroupResponse' {location} -> location) (\s@CreateKeyGroupResponse' {} a -> s {location = a} :: CreateKeyGroupResponse)
-
 -- | The key group that was just created.
 createKeyGroupResponse_keyGroup :: Lens.Lens' CreateKeyGroupResponse (Prelude.Maybe KeyGroup)
 createKeyGroupResponse_keyGroup = Lens.lens (\CreateKeyGroupResponse' {keyGroup} -> keyGroup) (\s@CreateKeyGroupResponse' {} a -> s {keyGroup = a} :: CreateKeyGroupResponse)
+
+-- | The URL of the key group.
+createKeyGroupResponse_location :: Lens.Lens' CreateKeyGroupResponse (Prelude.Maybe Prelude.Text)
+createKeyGroupResponse_location = Lens.lens (\CreateKeyGroupResponse' {location} -> location) (\s@CreateKeyGroupResponse' {} a -> s {location = a} :: CreateKeyGroupResponse)
 
 -- | The response's http status code.
 createKeyGroupResponse_httpStatus :: Lens.Lens' CreateKeyGroupResponse Prelude.Int
@@ -184,6 +186,6 @@ createKeyGroupResponse_httpStatus = Lens.lens (\CreateKeyGroupResponse' {httpSta
 instance Prelude.NFData CreateKeyGroupResponse where
   rnf CreateKeyGroupResponse' {..} =
     Prelude.rnf eTag
-      `Prelude.seq` Prelude.rnf location
       `Prelude.seq` Prelude.rnf keyGroup
+      `Prelude.seq` Prelude.rnf location
       `Prelude.seq` Prelude.rnf httpStatus

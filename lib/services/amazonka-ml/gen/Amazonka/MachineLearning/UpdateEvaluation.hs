@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MachineLearning.UpdateEvaluation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.MachineLearning.UpdateEvaluation
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MachineLearning.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -97,12 +98,13 @@ instance Core.AWSRequest UpdateEvaluation where
   type
     AWSResponse UpdateEvaluation =
       UpdateEvaluationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateEvaluationResponse'
-            Prelude.<$> (x Core..?> "EvaluationId")
+            Prelude.<$> (x Data..?> "EvaluationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,35 +118,35 @@ instance Prelude.NFData UpdateEvaluation where
     Prelude.rnf evaluationId
       `Prelude.seq` Prelude.rnf evaluationName
 
-instance Core.ToHeaders UpdateEvaluation where
+instance Data.ToHeaders UpdateEvaluation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonML_20141212.UpdateEvaluation" ::
+              Data.=# ( "AmazonML_20141212.UpdateEvaluation" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateEvaluation where
+instance Data.ToJSON UpdateEvaluation where
   toJSON UpdateEvaluation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("EvaluationId" Core..= evaluationId),
+          [ Prelude.Just ("EvaluationId" Data..= evaluationId),
             Prelude.Just
-              ("EvaluationName" Core..= evaluationName)
+              ("EvaluationName" Data..= evaluationName)
           ]
       )
 
-instance Core.ToPath UpdateEvaluation where
+instance Data.ToPath UpdateEvaluation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateEvaluation where
+instance Data.ToQuery UpdateEvaluation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of an @UpdateEvaluation@ operation.

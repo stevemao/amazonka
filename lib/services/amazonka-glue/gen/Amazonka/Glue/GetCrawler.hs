@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetCrawler
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Glue.GetCrawler
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,12 +75,13 @@ getCrawler_name = Lens.lens (\GetCrawler' {name} -> name) (\s@GetCrawler' {} a -
 
 instance Core.AWSRequest GetCrawler where
   type AWSResponse GetCrawler = GetCrawlerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCrawlerResponse'
-            Prelude.<$> (x Core..?> "Crawler")
+            Prelude.<$> (x Data..?> "Crawler")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -90,30 +92,30 @@ instance Prelude.Hashable GetCrawler where
 instance Prelude.NFData GetCrawler where
   rnf GetCrawler' {..} = Prelude.rnf name
 
-instance Core.ToHeaders GetCrawler where
+instance Data.ToHeaders GetCrawler where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetCrawler" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetCrawler" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetCrawler where
+instance Data.ToJSON GetCrawler where
   toJSON GetCrawler' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath GetCrawler where
+instance Data.ToPath GetCrawler where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetCrawler where
+instance Data.ToQuery GetCrawler where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetCrawlerResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.Types.ClusterVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Redshift.Types.ClusterVersion where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Internal
 
@@ -73,12 +74,12 @@ clusterVersion_clusterVersion = Lens.lens (\ClusterVersion' {clusterVersion} -> 
 clusterVersion_description :: Lens.Lens' ClusterVersion (Prelude.Maybe Prelude.Text)
 clusterVersion_description = Lens.lens (\ClusterVersion' {description} -> description) (\s@ClusterVersion' {} a -> s {description = a} :: ClusterVersion)
 
-instance Core.FromXML ClusterVersion where
+instance Data.FromXML ClusterVersion where
   parseXML x =
     ClusterVersion'
-      Prelude.<$> (x Core..@? "ClusterParameterGroupFamily")
-      Prelude.<*> (x Core..@? "ClusterVersion")
-      Prelude.<*> (x Core..@? "Description")
+      Prelude.<$> (x Data..@? "ClusterParameterGroupFamily")
+      Prelude.<*> (x Data..@? "ClusterVersion")
+      Prelude.<*> (x Data..@? "Description")
 
 instance Prelude.Hashable ClusterVersion where
   hashWithSalt _salt ClusterVersion' {..} =

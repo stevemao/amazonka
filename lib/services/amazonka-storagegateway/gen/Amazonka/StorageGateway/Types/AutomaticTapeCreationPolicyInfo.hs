@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.Types.AutomaticTapeCreationPolicyInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.StorageGateway.Types.AutomaticTapeCreationPolicyInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.StorageGateway.Types.AutomaticTapeCreationRule
 
@@ -30,11 +31,11 @@ import Amazonka.StorageGateway.Types.AutomaticTapeCreationRule
 --
 -- /See:/ 'newAutomaticTapeCreationPolicyInfo' smart constructor.
 data AutomaticTapeCreationPolicyInfo = AutomaticTapeCreationPolicyInfo'
-  { gatewayARN :: Prelude.Maybe Prelude.Text,
-    -- | An automatic tape creation policy consists of a list of automatic tape
+  { -- | An automatic tape creation policy consists of a list of automatic tape
     -- creation rules. This returns the rules that determine when and how to
     -- automatically create new tapes.
-    automaticTapeCreationRules :: Prelude.Maybe (Prelude.NonEmpty AutomaticTapeCreationRule)
+    automaticTapeCreationRules :: Prelude.Maybe (Prelude.NonEmpty AutomaticTapeCreationRule),
+    gatewayARN :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,24 +47,19 @@ data AutomaticTapeCreationPolicyInfo = AutomaticTapeCreationPolicyInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'gatewayARN', 'automaticTapeCreationPolicyInfo_gatewayARN' - Undocumented member.
---
 -- 'automaticTapeCreationRules', 'automaticTapeCreationPolicyInfo_automaticTapeCreationRules' - An automatic tape creation policy consists of a list of automatic tape
 -- creation rules. This returns the rules that determine when and how to
 -- automatically create new tapes.
+--
+-- 'gatewayARN', 'automaticTapeCreationPolicyInfo_gatewayARN' - Undocumented member.
 newAutomaticTapeCreationPolicyInfo ::
   AutomaticTapeCreationPolicyInfo
 newAutomaticTapeCreationPolicyInfo =
   AutomaticTapeCreationPolicyInfo'
-    { gatewayARN =
+    { automaticTapeCreationRules =
         Prelude.Nothing,
-      automaticTapeCreationRules =
-        Prelude.Nothing
+      gatewayARN = Prelude.Nothing
     }
-
--- | Undocumented member.
-automaticTapeCreationPolicyInfo_gatewayARN :: Lens.Lens' AutomaticTapeCreationPolicyInfo (Prelude.Maybe Prelude.Text)
-automaticTapeCreationPolicyInfo_gatewayARN = Lens.lens (\AutomaticTapeCreationPolicyInfo' {gatewayARN} -> gatewayARN) (\s@AutomaticTapeCreationPolicyInfo' {} a -> s {gatewayARN = a} :: AutomaticTapeCreationPolicyInfo)
 
 -- | An automatic tape creation policy consists of a list of automatic tape
 -- creation rules. This returns the rules that determine when and how to
@@ -71,17 +67,21 @@ automaticTapeCreationPolicyInfo_gatewayARN = Lens.lens (\AutomaticTapeCreationPo
 automaticTapeCreationPolicyInfo_automaticTapeCreationRules :: Lens.Lens' AutomaticTapeCreationPolicyInfo (Prelude.Maybe (Prelude.NonEmpty AutomaticTapeCreationRule))
 automaticTapeCreationPolicyInfo_automaticTapeCreationRules = Lens.lens (\AutomaticTapeCreationPolicyInfo' {automaticTapeCreationRules} -> automaticTapeCreationRules) (\s@AutomaticTapeCreationPolicyInfo' {} a -> s {automaticTapeCreationRules = a} :: AutomaticTapeCreationPolicyInfo) Prelude.. Lens.mapping Lens.coerced
 
+-- | Undocumented member.
+automaticTapeCreationPolicyInfo_gatewayARN :: Lens.Lens' AutomaticTapeCreationPolicyInfo (Prelude.Maybe Prelude.Text)
+automaticTapeCreationPolicyInfo_gatewayARN = Lens.lens (\AutomaticTapeCreationPolicyInfo' {gatewayARN} -> gatewayARN) (\s@AutomaticTapeCreationPolicyInfo' {} a -> s {gatewayARN = a} :: AutomaticTapeCreationPolicyInfo)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AutomaticTapeCreationPolicyInfo
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutomaticTapeCreationPolicyInfo"
       ( \x ->
           AutomaticTapeCreationPolicyInfo'
-            Prelude.<$> (x Core..:? "GatewayARN")
-            Prelude.<*> (x Core..:? "AutomaticTapeCreationRules")
+            Prelude.<$> (x Data..:? "AutomaticTapeCreationRules")
+            Prelude.<*> (x Data..:? "GatewayARN")
       )
 
 instance
@@ -91,13 +91,14 @@ instance
   hashWithSalt
     _salt
     AutomaticTapeCreationPolicyInfo' {..} =
-      _salt `Prelude.hashWithSalt` gatewayARN
+      _salt
         `Prelude.hashWithSalt` automaticTapeCreationRules
+        `Prelude.hashWithSalt` gatewayARN
 
 instance
   Prelude.NFData
     AutomaticTapeCreationPolicyInfo
   where
   rnf AutomaticTapeCreationPolicyInfo' {..} =
-    Prelude.rnf gatewayARN
-      `Prelude.seq` Prelude.rnf automaticTapeCreationRules
+    Prelude.rnf automaticTapeCreationRules
+      `Prelude.seq` Prelude.rnf gatewayARN

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.DescribeConfigurationAggregatorSourcesStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.Config.DescribeConfigurationAggregatorSourcesStatus
     newDescribeConfigurationAggregatorSourcesStatus,
 
     -- * Request Lenses
-    describeConfigurationAggregatorSourcesStatus_nextToken,
     describeConfigurationAggregatorSourcesStatus_limit,
+    describeConfigurationAggregatorSourcesStatus_nextToken,
     describeConfigurationAggregatorSourcesStatus_updateStatus,
     describeConfigurationAggregatorSourcesStatus_configurationAggregatorName,
 
@@ -50,19 +50,20 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeConfigurationAggregatorSourcesStatus' smart constructor.
 data DescribeConfigurationAggregatorSourcesStatus = DescribeConfigurationAggregatorSourcesStatus'
-  { -- | The @nextToken@ string returned on a previous page that you use to get
-    -- the next page of results in a paginated response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of AggregatorSourceStatus returned on each page. The
+  { -- | The maximum number of AggregatorSourceStatus returned on each page. The
     -- default is maximum. If you specify 0, Config uses the default.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Filters the status type.
     --
     -- -   Valid value FAILED indicates errors while moving data.
@@ -84,11 +85,11 @@ data DescribeConfigurationAggregatorSourcesStatus = DescribeConfigurationAggrega
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeConfigurationAggregatorSourcesStatus_nextToken' - The @nextToken@ string returned on a previous page that you use to get
--- the next page of results in a paginated response.
---
 -- 'limit', 'describeConfigurationAggregatorSourcesStatus_limit' - The maximum number of AggregatorSourceStatus returned on each page. The
 -- default is maximum. If you specify 0, Config uses the default.
+--
+-- 'nextToken', 'describeConfigurationAggregatorSourcesStatus_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
 --
 -- 'updateStatus', 'describeConfigurationAggregatorSourcesStatus_updateStatus' - Filters the status type.
 --
@@ -106,24 +107,24 @@ newDescribeConfigurationAggregatorSourcesStatus ::
 newDescribeConfigurationAggregatorSourcesStatus
   pConfigurationAggregatorName_ =
     DescribeConfigurationAggregatorSourcesStatus'
-      { nextToken =
+      { limit =
           Prelude.Nothing,
-        limit = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         updateStatus =
           Prelude.Nothing,
         configurationAggregatorName =
           pConfigurationAggregatorName_
       }
 
--- | The @nextToken@ string returned on a previous page that you use to get
--- the next page of results in a paginated response.
-describeConfigurationAggregatorSourcesStatus_nextToken :: Lens.Lens' DescribeConfigurationAggregatorSourcesStatus (Prelude.Maybe Prelude.Text)
-describeConfigurationAggregatorSourcesStatus_nextToken = Lens.lens (\DescribeConfigurationAggregatorSourcesStatus' {nextToken} -> nextToken) (\s@DescribeConfigurationAggregatorSourcesStatus' {} a -> s {nextToken = a} :: DescribeConfigurationAggregatorSourcesStatus)
-
 -- | The maximum number of AggregatorSourceStatus returned on each page. The
 -- default is maximum. If you specify 0, Config uses the default.
 describeConfigurationAggregatorSourcesStatus_limit :: Lens.Lens' DescribeConfigurationAggregatorSourcesStatus (Prelude.Maybe Prelude.Natural)
 describeConfigurationAggregatorSourcesStatus_limit = Lens.lens (\DescribeConfigurationAggregatorSourcesStatus' {limit} -> limit) (\s@DescribeConfigurationAggregatorSourcesStatus' {} a -> s {limit = a} :: DescribeConfigurationAggregatorSourcesStatus)
+
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+describeConfigurationAggregatorSourcesStatus_nextToken :: Lens.Lens' DescribeConfigurationAggregatorSourcesStatus (Prelude.Maybe Prelude.Text)
+describeConfigurationAggregatorSourcesStatus_nextToken = Lens.lens (\DescribeConfigurationAggregatorSourcesStatus' {nextToken} -> nextToken) (\s@DescribeConfigurationAggregatorSourcesStatus' {} a -> s {nextToken = a} :: DescribeConfigurationAggregatorSourcesStatus)
 
 -- | Filters the status type.
 --
@@ -172,15 +173,16 @@ instance
     AWSResponse
       DescribeConfigurationAggregatorSourcesStatus =
       DescribeConfigurationAggregatorSourcesStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeConfigurationAggregatorSourcesStatusResponse'
-            Prelude.<$> ( x Core..?> "AggregatedSourceStatusList"
+            Prelude.<$> ( x Data..?> "AggregatedSourceStatusList"
                             Core..!@ Prelude.mempty
                         )
-              Prelude.<*> (x Core..?> "NextToken")
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -191,8 +193,8 @@ instance
   hashWithSalt
     _salt
     DescribeConfigurationAggregatorSourcesStatus' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` limit
+      _salt `Prelude.hashWithSalt` limit
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` updateStatus
         `Prelude.hashWithSalt` configurationAggregatorName
 
@@ -201,55 +203,55 @@ instance
     DescribeConfigurationAggregatorSourcesStatus
   where
   rnf DescribeConfigurationAggregatorSourcesStatus' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf updateStatus
       `Prelude.seq` Prelude.rnf configurationAggregatorName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeConfigurationAggregatorSourcesStatus
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.DescribeConfigurationAggregatorSourcesStatus" ::
+              Data.=# ( "StarlingDoveService.DescribeConfigurationAggregatorSourcesStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeConfigurationAggregatorSourcesStatus
   where
   toJSON
     DescribeConfigurationAggregatorSourcesStatus' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("NextToken" Core..=) Prelude.<$> nextToken,
-              ("Limit" Core..=) Prelude.<$> limit,
-              ("UpdateStatus" Core..=) Prelude.<$> updateStatus,
+            [ ("Limit" Data..=) Prelude.<$> limit,
+              ("NextToken" Data..=) Prelude.<$> nextToken,
+              ("UpdateStatus" Data..=) Prelude.<$> updateStatus,
               Prelude.Just
                 ( "ConfigurationAggregatorName"
-                    Core..= configurationAggregatorName
+                    Data..= configurationAggregatorName
                 )
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeConfigurationAggregatorSourcesStatus
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeConfigurationAggregatorSourcesStatus
   where
   toQuery = Prelude.const Prelude.mempty

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.JsonConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTAnalytics.Types.JsonConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the configuration information of the JSON format.
@@ -39,9 +40,9 @@ newJsonConfiguration ::
   JsonConfiguration
 newJsonConfiguration = JsonConfiguration'
 
-instance Core.FromJSON JsonConfiguration where
+instance Data.FromJSON JsonConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "JsonConfiguration"
       (\x -> Prelude.pure JsonConfiguration')
 
@@ -52,5 +53,5 @@ instance Prelude.Hashable JsonConfiguration where
 instance Prelude.NFData JsonConfiguration where
   rnf _ = ()
 
-instance Core.ToJSON JsonConfiguration where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON JsonConfiguration where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)

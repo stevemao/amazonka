@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.Types.OrganizationalUnit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.Organizations.Types.OrganizationalUnit where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains details about an organizational unit (OU). An OU is a container
--- of AWS accounts within a root of an organization. Policies that are
--- attached to an OU apply to all accounts contained in that OU and in any
--- child OUs.
+-- of Amazon Web Services accounts within a root of an organization.
+-- Policies that are attached to an OU apply to all accounts contained in
+-- that OU and in any child OUs.
 --
 -- /See:/ 'newOrganizationalUnit' smart constructor.
 data OrganizationalUnit = OrganizationalUnit'
@@ -34,14 +35,8 @@ data OrganizationalUnit = OrganizationalUnit'
     --
     -- For more information about ARNs in Organizations, see
     -- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies ARN Formats Supported by Organizations>
-    -- in the /AWS Service Authorization Reference/.
+    -- in the /Amazon Web Services Service Authorization Reference/.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The friendly name of this OU.
-    --
-    -- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
-    -- validate this parameter is a string of any of the characters in the
-    -- ASCII character range.
-    name :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier (ID) associated with this OU.
     --
     -- The <http://wikipedia.org/wiki/regex regex pattern> for an
@@ -49,7 +44,13 @@ data OrganizationalUnit = OrganizationalUnit'
     -- lowercase letters or digits (the ID of the root that contains the OU).
     -- This string is followed by a second \"-\" dash and from 8 to 32
     -- additional lowercase letters or digits.
-    id :: Prelude.Maybe Prelude.Text
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The friendly name of this OU.
+    --
+    -- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
+    -- validate this parameter is a string of any of the characters in the
+    -- ASCII character range.
+    name :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -65,13 +66,7 @@ data OrganizationalUnit = OrganizationalUnit'
 --
 -- For more information about ARNs in Organizations, see
 -- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies ARN Formats Supported by Organizations>
--- in the /AWS Service Authorization Reference/.
---
--- 'name', 'organizationalUnit_name' - The friendly name of this OU.
---
--- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
--- validate this parameter is a string of any of the characters in the
--- ASCII character range.
+-- in the /Amazon Web Services Service Authorization Reference/.
 --
 -- 'id', 'organizationalUnit_id' - The unique identifier (ID) associated with this OU.
 --
@@ -80,30 +75,28 @@ data OrganizationalUnit = OrganizationalUnit'
 -- lowercase letters or digits (the ID of the root that contains the OU).
 -- This string is followed by a second \"-\" dash and from 8 to 32
 -- additional lowercase letters or digits.
+--
+-- 'name', 'organizationalUnit_name' - The friendly name of this OU.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
+-- validate this parameter is a string of any of the characters in the
+-- ASCII character range.
 newOrganizationalUnit ::
   OrganizationalUnit
 newOrganizationalUnit =
   OrganizationalUnit'
     { arn = Prelude.Nothing,
-      name = Prelude.Nothing,
-      id = Prelude.Nothing
+      id = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The Amazon Resource Name (ARN) of this OU.
 --
 -- For more information about ARNs in Organizations, see
 -- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsorganizations.html#awsorganizations-resources-for-iam-policies ARN Formats Supported by Organizations>
--- in the /AWS Service Authorization Reference/.
+-- in the /Amazon Web Services Service Authorization Reference/.
 organizationalUnit_arn :: Lens.Lens' OrganizationalUnit (Prelude.Maybe Prelude.Text)
 organizationalUnit_arn = Lens.lens (\OrganizationalUnit' {arn} -> arn) (\s@OrganizationalUnit' {} a -> s {arn = a} :: OrganizationalUnit)
-
--- | The friendly name of this OU.
---
--- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
--- validate this parameter is a string of any of the characters in the
--- ASCII character range.
-organizationalUnit_name :: Lens.Lens' OrganizationalUnit (Prelude.Maybe Prelude.Text)
-organizationalUnit_name = Lens.lens (\OrganizationalUnit' {name} -> name) (\s@OrganizationalUnit' {} a -> s {name = a} :: OrganizationalUnit)
 
 -- | The unique identifier (ID) associated with this OU.
 --
@@ -115,25 +108,33 @@ organizationalUnit_name = Lens.lens (\OrganizationalUnit' {name} -> name) (\s@Or
 organizationalUnit_id :: Lens.Lens' OrganizationalUnit (Prelude.Maybe Prelude.Text)
 organizationalUnit_id = Lens.lens (\OrganizationalUnit' {id} -> id) (\s@OrganizationalUnit' {} a -> s {id = a} :: OrganizationalUnit)
 
-instance Core.FromJSON OrganizationalUnit where
+-- | The friendly name of this OU.
+--
+-- The <http://wikipedia.org/wiki/regex regex pattern> that is used to
+-- validate this parameter is a string of any of the characters in the
+-- ASCII character range.
+organizationalUnit_name :: Lens.Lens' OrganizationalUnit (Prelude.Maybe Prelude.Text)
+organizationalUnit_name = Lens.lens (\OrganizationalUnit' {name} -> name) (\s@OrganizationalUnit' {} a -> s {name = a} :: OrganizationalUnit)
+
+instance Data.FromJSON OrganizationalUnit where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OrganizationalUnit"
       ( \x ->
           OrganizationalUnit'
-            Prelude.<$> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Id")
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "Id")
+            Prelude.<*> (x Data..:? "Name")
       )
 
 instance Prelude.Hashable OrganizationalUnit where
   hashWithSalt _salt OrganizationalUnit' {..} =
     _salt `Prelude.hashWithSalt` arn
-      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` name
 
 instance Prelude.NFData OrganizationalUnit where
   rnf OrganizationalUnit' {..} =
     Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf name

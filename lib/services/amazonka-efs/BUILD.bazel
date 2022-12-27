@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-efs/amazonka-efs.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-efs/amazonka-efs.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-efs",
     srcs = [
@@ -8,10 +8,12 @@ haskell_library(
         "gen/Amazonka/EFS/CreateAccessPoint.hs",
         "gen/Amazonka/EFS/CreateFileSystem.hs",
         "gen/Amazonka/EFS/CreateMountTarget.hs",
+        "gen/Amazonka/EFS/CreateReplicationConfiguration.hs",
         "gen/Amazonka/EFS/DeleteAccessPoint.hs",
         "gen/Amazonka/EFS/DeleteFileSystem.hs",
         "gen/Amazonka/EFS/DeleteFileSystemPolicy.hs",
         "gen/Amazonka/EFS/DeleteMountTarget.hs",
+        "gen/Amazonka/EFS/DeleteReplicationConfiguration.hs",
         "gen/Amazonka/EFS/DescribeAccessPoints.hs",
         "gen/Amazonka/EFS/DescribeAccountPreferences.hs",
         "gen/Amazonka/EFS/DescribeBackupPolicy.hs",
@@ -20,6 +22,7 @@ haskell_library(
         "gen/Amazonka/EFS/DescribeLifecycleConfiguration.hs",
         "gen/Amazonka/EFS/DescribeMountTargetSecurityGroups.hs",
         "gen/Amazonka/EFS/DescribeMountTargets.hs",
+        "gen/Amazonka/EFS/DescribeReplicationConfigurations.hs",
         "gen/Amazonka/EFS/Lens.hs",
         "gen/Amazonka/EFS/ListTagsForResource.hs",
         "gen/Amazonka/EFS/ModifyMountTargetSecurityGroups.hs",
@@ -34,6 +37,8 @@ haskell_library(
         "gen/Amazonka/EFS/Types/BackupPolicyDescription.hs",
         "gen/Amazonka/EFS/Types/BackupStatus.hs",
         "gen/Amazonka/EFS/Types/CreationInfo.hs",
+        "gen/Amazonka/EFS/Types/Destination.hs",
+        "gen/Amazonka/EFS/Types/DestinationToCreate.hs",
         "gen/Amazonka/EFS/Types/FileSystemDescription.hs",
         "gen/Amazonka/EFS/Types/FileSystemPolicyDescription.hs",
         "gen/Amazonka/EFS/Types/FileSystemSize.hs",
@@ -43,6 +48,8 @@ haskell_library(
         "gen/Amazonka/EFS/Types/MountTargetDescription.hs",
         "gen/Amazonka/EFS/Types/PerformanceMode.hs",
         "gen/Amazonka/EFS/Types/PosixUser.hs",
+        "gen/Amazonka/EFS/Types/ReplicationConfigurationDescription.hs",
+        "gen/Amazonka/EFS/Types/ReplicationStatus.hs",
         "gen/Amazonka/EFS/Types/Resource.hs",
         "gen/Amazonka/EFS/Types/ResourceIdPreference.hs",
         "gen/Amazonka/EFS/Types/ResourceIdType.hs",
@@ -55,14 +62,13 @@ haskell_library(
         "gen/Amazonka/EFS/UpdateFileSystem.hs",
         "gen/Amazonka/EFS/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_efs=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_efs=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -71,7 +77,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-efs/amazonka-efs.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-efs/amazonka-efs.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-efs-test",
     srcs = [
@@ -80,11 +86,12 @@ haskell_test(
         "test/Test/Amazonka/EFS/Internal.hs",
         "test/Test/Amazonka/Gen/EFS.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_efs=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_efs=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

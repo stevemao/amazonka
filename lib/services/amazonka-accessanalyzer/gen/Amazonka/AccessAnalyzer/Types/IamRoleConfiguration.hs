@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.Types.IamRoleConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AccessAnalyzer.Types.IamRoleConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The proposed access control configuration for an IAM role. You can
@@ -61,13 +62,13 @@ newIamRoleConfiguration =
 iamRoleConfiguration_trustPolicy :: Lens.Lens' IamRoleConfiguration (Prelude.Maybe Prelude.Text)
 iamRoleConfiguration_trustPolicy = Lens.lens (\IamRoleConfiguration' {trustPolicy} -> trustPolicy) (\s@IamRoleConfiguration' {} a -> s {trustPolicy = a} :: IamRoleConfiguration)
 
-instance Core.FromJSON IamRoleConfiguration where
+instance Data.FromJSON IamRoleConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IamRoleConfiguration"
       ( \x ->
           IamRoleConfiguration'
-            Prelude.<$> (x Core..:? "trustPolicy")
+            Prelude.<$> (x Data..:? "trustPolicy")
       )
 
 instance Prelude.Hashable IamRoleConfiguration where
@@ -78,9 +79,9 @@ instance Prelude.NFData IamRoleConfiguration where
   rnf IamRoleConfiguration' {..} =
     Prelude.rnf trustPolicy
 
-instance Core.ToJSON IamRoleConfiguration where
+instance Data.ToJSON IamRoleConfiguration where
   toJSON IamRoleConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("trustPolicy" Core..=) Prelude.<$> trustPolicy]
+          [("trustPolicy" Data..=) Prelude.<$> trustPolicy]
       )

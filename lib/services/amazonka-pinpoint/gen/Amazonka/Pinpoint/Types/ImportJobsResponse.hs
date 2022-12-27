@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.ImportJobsResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.ImportJobsResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.ImportJobResponse
 import qualified Amazonka.Prelude as Prelude
 
@@ -76,14 +77,14 @@ importJobsResponse_nextToken = Lens.lens (\ImportJobsResponse' {nextToken} -> ne
 importJobsResponse_item :: Lens.Lens' ImportJobsResponse [ImportJobResponse]
 importJobsResponse_item = Lens.lens (\ImportJobsResponse' {item} -> item) (\s@ImportJobsResponse' {} a -> s {item = a} :: ImportJobsResponse) Prelude.. Lens.coerced
 
-instance Core.FromJSON ImportJobsResponse where
+instance Data.FromJSON ImportJobsResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ImportJobsResponse"
       ( \x ->
           ImportJobsResponse'
-            Prelude.<$> (x Core..:? "NextToken")
-            Prelude.<*> (x Core..:? "Item" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "NextToken")
+            Prelude.<*> (x Data..:? "Item" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ImportJobsResponse where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.GetStreamingSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.Nimble.GetStreamingSession
     newGetStreamingSession,
 
     -- * Request Lenses
-    getStreamingSession_studioId,
     getStreamingSession_sessionId,
+    getStreamingSession_studioId,
 
     -- * Destructuring the Response
     GetStreamingSessionResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.Nimble.GetStreamingSession
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,10 +53,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetStreamingSession' smart constructor.
 data GetStreamingSession = GetStreamingSession'
-  { -- | The studio ID.
-    studioId :: Prelude.Text,
-    -- | The session ID.
-    sessionId :: Prelude.Text
+  { -- | The streaming session ID.
+    sessionId :: Prelude.Text,
+    -- | The studio ID.
+    studioId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,73 +68,74 @@ data GetStreamingSession = GetStreamingSession'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'studioId', 'getStreamingSession_studioId' - The studio ID.
+-- 'sessionId', 'getStreamingSession_sessionId' - The streaming session ID.
 --
--- 'sessionId', 'getStreamingSession_sessionId' - The session ID.
+-- 'studioId', 'getStreamingSession_studioId' - The studio ID.
 newGetStreamingSession ::
-  -- | 'studioId'
-  Prelude.Text ->
   -- | 'sessionId'
   Prelude.Text ->
+  -- | 'studioId'
+  Prelude.Text ->
   GetStreamingSession
-newGetStreamingSession pStudioId_ pSessionId_ =
+newGetStreamingSession pSessionId_ pStudioId_ =
   GetStreamingSession'
-    { studioId = pStudioId_,
-      sessionId = pSessionId_
+    { sessionId = pSessionId_,
+      studioId = pStudioId_
     }
+
+-- | The streaming session ID.
+getStreamingSession_sessionId :: Lens.Lens' GetStreamingSession Prelude.Text
+getStreamingSession_sessionId = Lens.lens (\GetStreamingSession' {sessionId} -> sessionId) (\s@GetStreamingSession' {} a -> s {sessionId = a} :: GetStreamingSession)
 
 -- | The studio ID.
 getStreamingSession_studioId :: Lens.Lens' GetStreamingSession Prelude.Text
 getStreamingSession_studioId = Lens.lens (\GetStreamingSession' {studioId} -> studioId) (\s@GetStreamingSession' {} a -> s {studioId = a} :: GetStreamingSession)
 
--- | The session ID.
-getStreamingSession_sessionId :: Lens.Lens' GetStreamingSession Prelude.Text
-getStreamingSession_sessionId = Lens.lens (\GetStreamingSession' {sessionId} -> sessionId) (\s@GetStreamingSession' {} a -> s {sessionId = a} :: GetStreamingSession)
-
 instance Core.AWSRequest GetStreamingSession where
   type
     AWSResponse GetStreamingSession =
       GetStreamingSessionResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetStreamingSessionResponse'
-            Prelude.<$> (x Core..?> "session")
+            Prelude.<$> (x Data..?> "session")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetStreamingSession where
   hashWithSalt _salt GetStreamingSession' {..} =
-    _salt `Prelude.hashWithSalt` studioId
-      `Prelude.hashWithSalt` sessionId
+    _salt `Prelude.hashWithSalt` sessionId
+      `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData GetStreamingSession where
   rnf GetStreamingSession' {..} =
-    Prelude.rnf studioId
-      `Prelude.seq` Prelude.rnf sessionId
+    Prelude.rnf sessionId
+      `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders GetStreamingSession where
+instance Data.ToHeaders GetStreamingSession where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetStreamingSession where
+instance Data.ToPath GetStreamingSession where
   toPath GetStreamingSession' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/streaming-sessions/",
-        Core.toBS sessionId
+        Data.toBS sessionId
       ]
 
-instance Core.ToQuery GetStreamingSession where
+instance Data.ToQuery GetStreamingSession where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetStreamingSessionResponse' smart constructor.

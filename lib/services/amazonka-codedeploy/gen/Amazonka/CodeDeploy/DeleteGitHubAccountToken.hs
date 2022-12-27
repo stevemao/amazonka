@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.DeleteGitHubAccountToken
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.CodeDeploy.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,12 +81,13 @@ instance Core.AWSRequest DeleteGitHubAccountToken where
   type
     AWSResponse DeleteGitHubAccountToken =
       DeleteGitHubAccountTokenResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteGitHubAccountTokenResponse'
-            Prelude.<$> (x Core..?> "tokenName")
+            Prelude.<$> (x Data..?> "tokenName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,32 +99,32 @@ instance Prelude.NFData DeleteGitHubAccountToken where
   rnf DeleteGitHubAccountToken' {..} =
     Prelude.rnf tokenName
 
-instance Core.ToHeaders DeleteGitHubAccountToken where
+instance Data.ToHeaders DeleteGitHubAccountToken where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeDeploy_20141006.DeleteGitHubAccountToken" ::
+              Data.=# ( "CodeDeploy_20141006.DeleteGitHubAccountToken" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteGitHubAccountToken where
+instance Data.ToJSON DeleteGitHubAccountToken where
   toJSON DeleteGitHubAccountToken' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("tokenName" Core..=) Prelude.<$> tokenName]
+          [("tokenName" Data..=) Prelude.<$> tokenName]
       )
 
-instance Core.ToPath DeleteGitHubAccountToken where
+instance Data.ToPath DeleteGitHubAccountToken where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteGitHubAccountToken where
+instance Data.ToQuery DeleteGitHubAccountToken where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @DeleteGitHubAccountToken@ operation.

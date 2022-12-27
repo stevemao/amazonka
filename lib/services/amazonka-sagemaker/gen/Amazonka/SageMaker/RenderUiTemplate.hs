@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.RenderUiTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.SageMaker.RenderUiTemplate
     newRenderUiTemplate,
 
     -- * Request Lenses
-    renderUiTemplate_uiTemplate,
     renderUiTemplate_humanTaskUiArn,
+    renderUiTemplate_uiTemplate,
     renderUiTemplate_task,
     renderUiTemplate_roleArn,
 
@@ -45,7 +45,8 @@ module Amazonka.SageMaker.RenderUiTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,14 +54,14 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newRenderUiTemplate' smart constructor.
 data RenderUiTemplate = RenderUiTemplate'
-  { -- | A @Template@ object containing the worker UI template to render.
-    uiTemplate :: Prelude.Maybe UiTemplate,
-    -- | The @HumanTaskUiArn@ of the worker UI that you want to render. Do not
+  { -- | The @HumanTaskUiArn@ of the worker UI that you want to render. Do not
     -- provide a @HumanTaskUiArn@ if you use the @UiTemplate@ parameter.
     --
     -- See a list of available Human Ui Amazon Resource Names (ARNs) in
     -- UiConfig.
     humanTaskUiArn :: Prelude.Maybe Prelude.Text,
+    -- | A @Template@ object containing the worker UI template to render.
+    uiTemplate :: Prelude.Maybe UiTemplate,
     -- | A @RenderableTask@ object containing a representative task to render.
     task :: RenderableTask,
     -- | The Amazon Resource Name (ARN) that has access to the S3 objects that
@@ -77,13 +78,13 @@ data RenderUiTemplate = RenderUiTemplate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'uiTemplate', 'renderUiTemplate_uiTemplate' - A @Template@ object containing the worker UI template to render.
---
 -- 'humanTaskUiArn', 'renderUiTemplate_humanTaskUiArn' - The @HumanTaskUiArn@ of the worker UI that you want to render. Do not
 -- provide a @HumanTaskUiArn@ if you use the @UiTemplate@ parameter.
 --
 -- See a list of available Human Ui Amazon Resource Names (ARNs) in
 -- UiConfig.
+--
+-- 'uiTemplate', 'renderUiTemplate_uiTemplate' - A @Template@ object containing the worker UI template to render.
 --
 -- 'task', 'renderUiTemplate_task' - A @RenderableTask@ object containing a representative task to render.
 --
@@ -97,15 +98,11 @@ newRenderUiTemplate ::
   RenderUiTemplate
 newRenderUiTemplate pTask_ pRoleArn_ =
   RenderUiTemplate'
-    { uiTemplate = Prelude.Nothing,
-      humanTaskUiArn = Prelude.Nothing,
+    { humanTaskUiArn = Prelude.Nothing,
+      uiTemplate = Prelude.Nothing,
       task = pTask_,
       roleArn = pRoleArn_
     }
-
--- | A @Template@ object containing the worker UI template to render.
-renderUiTemplate_uiTemplate :: Lens.Lens' RenderUiTemplate (Prelude.Maybe UiTemplate)
-renderUiTemplate_uiTemplate = Lens.lens (\RenderUiTemplate' {uiTemplate} -> uiTemplate) (\s@RenderUiTemplate' {} a -> s {uiTemplate = a} :: RenderUiTemplate)
 
 -- | The @HumanTaskUiArn@ of the worker UI that you want to render. Do not
 -- provide a @HumanTaskUiArn@ if you use the @UiTemplate@ parameter.
@@ -114,6 +111,10 @@ renderUiTemplate_uiTemplate = Lens.lens (\RenderUiTemplate' {uiTemplate} -> uiTe
 -- UiConfig.
 renderUiTemplate_humanTaskUiArn :: Lens.Lens' RenderUiTemplate (Prelude.Maybe Prelude.Text)
 renderUiTemplate_humanTaskUiArn = Lens.lens (\RenderUiTemplate' {humanTaskUiArn} -> humanTaskUiArn) (\s@RenderUiTemplate' {} a -> s {humanTaskUiArn = a} :: RenderUiTemplate)
+
+-- | A @Template@ object containing the worker UI template to render.
+renderUiTemplate_uiTemplate :: Lens.Lens' RenderUiTemplate (Prelude.Maybe UiTemplate)
+renderUiTemplate_uiTemplate = Lens.lens (\RenderUiTemplate' {uiTemplate} -> uiTemplate) (\s@RenderUiTemplate' {} a -> s {uiTemplate = a} :: RenderUiTemplate)
 
 -- | A @RenderableTask@ object containing a representative task to render.
 renderUiTemplate_task :: Lens.Lens' RenderUiTemplate RenderableTask
@@ -128,59 +129,60 @@ instance Core.AWSRequest RenderUiTemplate where
   type
     AWSResponse RenderUiTemplate =
       RenderUiTemplateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RenderUiTemplateResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "RenderedContent")
-            Prelude.<*> (x Core..?> "Errors" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "RenderedContent")
+            Prelude.<*> (x Data..?> "Errors" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable RenderUiTemplate where
   hashWithSalt _salt RenderUiTemplate' {..} =
-    _salt `Prelude.hashWithSalt` uiTemplate
-      `Prelude.hashWithSalt` humanTaskUiArn
+    _salt `Prelude.hashWithSalt` humanTaskUiArn
+      `Prelude.hashWithSalt` uiTemplate
       `Prelude.hashWithSalt` task
       `Prelude.hashWithSalt` roleArn
 
 instance Prelude.NFData RenderUiTemplate where
   rnf RenderUiTemplate' {..} =
-    Prelude.rnf uiTemplate
-      `Prelude.seq` Prelude.rnf humanTaskUiArn
+    Prelude.rnf humanTaskUiArn
+      `Prelude.seq` Prelude.rnf uiTemplate
       `Prelude.seq` Prelude.rnf task
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders RenderUiTemplate where
+instance Data.ToHeaders RenderUiTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.RenderUiTemplate" :: Prelude.ByteString),
+              Data.=# ("SageMaker.RenderUiTemplate" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RenderUiTemplate where
+instance Data.ToJSON RenderUiTemplate where
   toJSON RenderUiTemplate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("UiTemplate" Core..=) Prelude.<$> uiTemplate,
-            ("HumanTaskUiArn" Core..=)
+          [ ("HumanTaskUiArn" Data..=)
               Prelude.<$> humanTaskUiArn,
-            Prelude.Just ("Task" Core..= task),
-            Prelude.Just ("RoleArn" Core..= roleArn)
+            ("UiTemplate" Data..=) Prelude.<$> uiTemplate,
+            Prelude.Just ("Task" Data..= task),
+            Prelude.Just ("RoleArn" Data..= roleArn)
           ]
       )
 
-instance Core.ToPath RenderUiTemplate where
+instance Data.ToPath RenderUiTemplate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RenderUiTemplate where
+instance Data.ToQuery RenderUiTemplate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRenderUiTemplateResponse' smart constructor.

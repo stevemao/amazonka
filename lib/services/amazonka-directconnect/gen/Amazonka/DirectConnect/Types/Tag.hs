@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.Types.Tag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DirectConnect.Types.Tag where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a tag.
@@ -60,13 +61,13 @@ tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} ::
 tag_key :: Lens.Lens' Tag Prelude.Text
 tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 
-instance Core.FromJSON Tag where
+instance Data.FromJSON Tag where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Tag"
       ( \x ->
           Tag'
-            Prelude.<$> (x Core..:? "value") Prelude.<*> (x Core..: "key")
+            Prelude.<$> (x Data..:? "value") Prelude.<*> (x Data..: "key")
       )
 
 instance Prelude.Hashable Tag where
@@ -78,11 +79,11 @@ instance Prelude.NFData Tag where
   rnf Tag' {..} =
     Prelude.rnf value `Prelude.seq` Prelude.rnf key
 
-instance Core.ToJSON Tag where
+instance Data.ToJSON Tag where
   toJSON Tag' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("value" Core..=) Prelude.<$> value,
-            Prelude.Just ("key" Core..= key)
+          [ ("value" Data..=) Prelude.<$> value,
+            Prelude.Just ("key" Data..= key)
           ]
       )

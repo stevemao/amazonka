@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.Types.EntityInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IAM.Types.EntityInfo where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types.PolicyOwnerEntityType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains details about the specified entity (user or role).
@@ -107,14 +108,14 @@ entityInfo_type = Lens.lens (\EntityInfo' {type'} -> type') (\s@EntityInfo' {} a
 entityInfo_id :: Lens.Lens' EntityInfo Prelude.Text
 entityInfo_id = Lens.lens (\EntityInfo' {id} -> id) (\s@EntityInfo' {} a -> s {id = a} :: EntityInfo)
 
-instance Core.FromXML EntityInfo where
+instance Data.FromXML EntityInfo where
   parseXML x =
     EntityInfo'
-      Prelude.<$> (x Core..@? "Path")
-      Prelude.<*> (x Core..@ "Arn")
-      Prelude.<*> (x Core..@ "Name")
-      Prelude.<*> (x Core..@ "Type")
-      Prelude.<*> (x Core..@ "Id")
+      Prelude.<$> (x Data..@? "Path")
+      Prelude.<*> (x Data..@ "Arn")
+      Prelude.<*> (x Data..@ "Name")
+      Prelude.<*> (x Data..@ "Type")
+      Prelude.<*> (x Data..@ "Id")
 
 instance Prelude.Hashable EntityInfo where
   hashWithSalt _salt EntityInfo' {..} =

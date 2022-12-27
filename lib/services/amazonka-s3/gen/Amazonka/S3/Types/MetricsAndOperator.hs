@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.MetricsAndOperator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.MetricsAndOperator where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.Tag
@@ -32,10 +33,10 @@ import Amazonka.S3.Types.Tag
 --
 -- /See:/ 'newMetricsAndOperator' smart constructor.
 data MetricsAndOperator = MetricsAndOperator'
-  { -- | The prefix used when evaluating an AND predicate.
-    prefix :: Prelude.Maybe Prelude.Text,
-    -- | The access point ARN used when evaluating an AND predicate.
+  { -- | The access point ARN used when evaluating an @AND@ predicate.
     accessPointArn :: Prelude.Maybe Prelude.Text,
+    -- | The prefix used when evaluating an AND predicate.
+    prefix :: Prelude.Maybe Prelude.Text,
     -- | The list of tags used when evaluating an AND predicate.
     tags :: Prelude.Maybe [Tag]
   }
@@ -49,58 +50,59 @@ data MetricsAndOperator = MetricsAndOperator'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'prefix', 'metricsAndOperator_prefix' - The prefix used when evaluating an AND predicate.
+-- 'accessPointArn', 'metricsAndOperator_accessPointArn' - The access point ARN used when evaluating an @AND@ predicate.
 --
--- 'accessPointArn', 'metricsAndOperator_accessPointArn' - The access point ARN used when evaluating an AND predicate.
+-- 'prefix', 'metricsAndOperator_prefix' - The prefix used when evaluating an AND predicate.
 --
 -- 'tags', 'metricsAndOperator_tags' - The list of tags used when evaluating an AND predicate.
 newMetricsAndOperator ::
   MetricsAndOperator
 newMetricsAndOperator =
   MetricsAndOperator'
-    { prefix = Prelude.Nothing,
-      accessPointArn = Prelude.Nothing,
+    { accessPointArn =
+        Prelude.Nothing,
+      prefix = Prelude.Nothing,
       tags = Prelude.Nothing
     }
+
+-- | The access point ARN used when evaluating an @AND@ predicate.
+metricsAndOperator_accessPointArn :: Lens.Lens' MetricsAndOperator (Prelude.Maybe Prelude.Text)
+metricsAndOperator_accessPointArn = Lens.lens (\MetricsAndOperator' {accessPointArn} -> accessPointArn) (\s@MetricsAndOperator' {} a -> s {accessPointArn = a} :: MetricsAndOperator)
 
 -- | The prefix used when evaluating an AND predicate.
 metricsAndOperator_prefix :: Lens.Lens' MetricsAndOperator (Prelude.Maybe Prelude.Text)
 metricsAndOperator_prefix = Lens.lens (\MetricsAndOperator' {prefix} -> prefix) (\s@MetricsAndOperator' {} a -> s {prefix = a} :: MetricsAndOperator)
 
--- | The access point ARN used when evaluating an AND predicate.
-metricsAndOperator_accessPointArn :: Lens.Lens' MetricsAndOperator (Prelude.Maybe Prelude.Text)
-metricsAndOperator_accessPointArn = Lens.lens (\MetricsAndOperator' {accessPointArn} -> accessPointArn) (\s@MetricsAndOperator' {} a -> s {accessPointArn = a} :: MetricsAndOperator)
-
 -- | The list of tags used when evaluating an AND predicate.
 metricsAndOperator_tags :: Lens.Lens' MetricsAndOperator (Prelude.Maybe [Tag])
 metricsAndOperator_tags = Lens.lens (\MetricsAndOperator' {tags} -> tags) (\s@MetricsAndOperator' {} a -> s {tags = a} :: MetricsAndOperator) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML MetricsAndOperator where
+instance Data.FromXML MetricsAndOperator where
   parseXML x =
     MetricsAndOperator'
-      Prelude.<$> (x Core..@? "Prefix")
-      Prelude.<*> (x Core..@? "AccessPointArn")
-      Prelude.<*> ( x Core..@? "Tag" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "Tag")
+      Prelude.<$> (x Data..@? "AccessPointArn")
+      Prelude.<*> (x Data..@? "Prefix")
+      Prelude.<*> ( x Data..@? "Tag" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "Tag")
                   )
 
 instance Prelude.Hashable MetricsAndOperator where
   hashWithSalt _salt MetricsAndOperator' {..} =
-    _salt `Prelude.hashWithSalt` prefix
-      `Prelude.hashWithSalt` accessPointArn
+    _salt `Prelude.hashWithSalt` accessPointArn
+      `Prelude.hashWithSalt` prefix
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData MetricsAndOperator where
   rnf MetricsAndOperator' {..} =
-    Prelude.rnf prefix
-      `Prelude.seq` Prelude.rnf accessPointArn
+    Prelude.rnf accessPointArn
+      `Prelude.seq` Prelude.rnf prefix
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToXML MetricsAndOperator where
+instance Data.ToXML MetricsAndOperator where
   toXML MetricsAndOperator' {..} =
     Prelude.mconcat
-      [ "Prefix" Core.@= prefix,
-        "AccessPointArn" Core.@= accessPointArn,
+      [ "AccessPointArn" Data.@= accessPointArn,
+        "Prefix" Data.@= prefix,
         "Tag"
-          Core.@= Core.toXML (Core.toXMLList "Tag" Prelude.<$> tags)
+          Data.@= Data.toXML (Data.toXMLList "Tag" Prelude.<$> tags)
       ]

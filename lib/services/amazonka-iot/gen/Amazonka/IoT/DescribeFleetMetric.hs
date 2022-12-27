@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DescribeFleetMetric
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,26 +38,27 @@ module Amazonka.IoT.DescribeFleetMetric
     newDescribeFleetMetricResponse,
 
     -- * Response Lenses
-    describeFleetMetricResponse_aggregationType,
-    describeFleetMetricResponse_lastModifiedDate,
-    describeFleetMetricResponse_period,
-    describeFleetMetricResponse_queryVersion,
-    describeFleetMetricResponse_metricName,
     describeFleetMetricResponse_aggregationField,
-    describeFleetMetricResponse_queryString,
-    describeFleetMetricResponse_version,
+    describeFleetMetricResponse_aggregationType,
     describeFleetMetricResponse_creationDate,
     describeFleetMetricResponse_description,
-    describeFleetMetricResponse_unit,
     describeFleetMetricResponse_indexName,
+    describeFleetMetricResponse_lastModifiedDate,
     describeFleetMetricResponse_metricArn,
+    describeFleetMetricResponse_metricName,
+    describeFleetMetricResponse_period,
+    describeFleetMetricResponse_queryString,
+    describeFleetMetricResponse_queryVersion,
+    describeFleetMetricResponse_unit,
+    describeFleetMetricResponse_version,
     describeFleetMetricResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,24 +94,25 @@ instance Core.AWSRequest DescribeFleetMetric where
   type
     AWSResponse DescribeFleetMetric =
       DescribeFleetMetricResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeFleetMetricResponse'
-            Prelude.<$> (x Core..?> "aggregationType")
-            Prelude.<*> (x Core..?> "lastModifiedDate")
-            Prelude.<*> (x Core..?> "period")
-            Prelude.<*> (x Core..?> "queryVersion")
-            Prelude.<*> (x Core..?> "metricName")
-            Prelude.<*> (x Core..?> "aggregationField")
-            Prelude.<*> (x Core..?> "queryString")
-            Prelude.<*> (x Core..?> "version")
-            Prelude.<*> (x Core..?> "creationDate")
-            Prelude.<*> (x Core..?> "description")
-            Prelude.<*> (x Core..?> "unit")
-            Prelude.<*> (x Core..?> "indexName")
-            Prelude.<*> (x Core..?> "metricArn")
+            Prelude.<$> (x Data..?> "aggregationField")
+            Prelude.<*> (x Data..?> "aggregationType")
+            Prelude.<*> (x Data..?> "creationDate")
+            Prelude.<*> (x Data..?> "description")
+            Prelude.<*> (x Data..?> "indexName")
+            Prelude.<*> (x Data..?> "lastModifiedDate")
+            Prelude.<*> (x Data..?> "metricArn")
+            Prelude.<*> (x Data..?> "metricName")
+            Prelude.<*> (x Data..?> "period")
+            Prelude.<*> (x Data..?> "queryString")
+            Prelude.<*> (x Data..?> "queryVersion")
+            Prelude.<*> (x Data..?> "unit")
+            Prelude.<*> (x Data..?> "version")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,48 +123,48 @@ instance Prelude.Hashable DescribeFleetMetric where
 instance Prelude.NFData DescribeFleetMetric where
   rnf DescribeFleetMetric' {..} = Prelude.rnf metricName
 
-instance Core.ToHeaders DescribeFleetMetric where
+instance Data.ToHeaders DescribeFleetMetric where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeFleetMetric where
+instance Data.ToPath DescribeFleetMetric where
   toPath DescribeFleetMetric' {..} =
     Prelude.mconcat
-      ["/fleet-metric/", Core.toBS metricName]
+      ["/fleet-metric/", Data.toBS metricName]
 
-instance Core.ToQuery DescribeFleetMetric where
+instance Data.ToQuery DescribeFleetMetric where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeFleetMetricResponse' smart constructor.
 data DescribeFleetMetricResponse = DescribeFleetMetricResponse'
-  { -- | The type of the aggregation query.
+  { -- | The field to aggregate.
+    aggregationField :: Prelude.Maybe Prelude.Text,
+    -- | The type of the aggregation query.
     aggregationType :: Prelude.Maybe AggregationType,
+    -- | The date when the fleet metric is created.
+    creationDate :: Prelude.Maybe Data.POSIX,
+    -- | The fleet metric description.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the index to search.
+    indexName :: Prelude.Maybe Prelude.Text,
     -- | The date when the fleet metric is last modified.
-    lastModifiedDate :: Prelude.Maybe Core.POSIX,
+    lastModifiedDate :: Prelude.Maybe Data.POSIX,
+    -- | The ARN of the fleet metric to describe.
+    metricArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the fleet metric to describe.
+    metricName :: Prelude.Maybe Prelude.Text,
     -- | The time in seconds between fleet metric emissions. Range [60(1 min),
     -- 86400(1 day)] and must be multiple of 60.
     period :: Prelude.Maybe Prelude.Natural,
-    -- | The query version.
-    queryVersion :: Prelude.Maybe Prelude.Text,
-    -- | The name of the fleet metric to describe.
-    metricName :: Prelude.Maybe Prelude.Text,
-    -- | The field to aggregate.
-    aggregationField :: Prelude.Maybe Prelude.Text,
     -- | The search query string.
     queryString :: Prelude.Maybe Prelude.Text,
-    -- | The version of the fleet metric.
-    version :: Prelude.Maybe Prelude.Integer,
-    -- | The date when the fleet metric is created.
-    creationDate :: Prelude.Maybe Core.POSIX,
-    -- | The fleet metric description.
-    description :: Prelude.Maybe Prelude.Text,
+    -- | The query version.
+    queryVersion :: Prelude.Maybe Prelude.Text,
     -- | Used to support unit transformation such as milliseconds to seconds. The
     -- unit must be supported by
     -- <https://docs.aws.amazon.com/https:/docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html CW metric>.
     unit :: Prelude.Maybe FleetMetricUnit,
-    -- | The name of the index to search.
-    indexName :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the fleet metric to describe.
-    metricArn :: Prelude.Maybe Prelude.Text,
+    -- | The version of the fleet metric.
+    version :: Prelude.Maybe Prelude.Integer,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -176,34 +178,34 @@ data DescribeFleetMetricResponse = DescribeFleetMetricResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'aggregationType', 'describeFleetMetricResponse_aggregationType' - The type of the aggregation query.
---
--- 'lastModifiedDate', 'describeFleetMetricResponse_lastModifiedDate' - The date when the fleet metric is last modified.
---
--- 'period', 'describeFleetMetricResponse_period' - The time in seconds between fleet metric emissions. Range [60(1 min),
--- 86400(1 day)] and must be multiple of 60.
---
--- 'queryVersion', 'describeFleetMetricResponse_queryVersion' - The query version.
---
--- 'metricName', 'describeFleetMetricResponse_metricName' - The name of the fleet metric to describe.
---
 -- 'aggregationField', 'describeFleetMetricResponse_aggregationField' - The field to aggregate.
 --
--- 'queryString', 'describeFleetMetricResponse_queryString' - The search query string.
---
--- 'version', 'describeFleetMetricResponse_version' - The version of the fleet metric.
+-- 'aggregationType', 'describeFleetMetricResponse_aggregationType' - The type of the aggregation query.
 --
 -- 'creationDate', 'describeFleetMetricResponse_creationDate' - The date when the fleet metric is created.
 --
 -- 'description', 'describeFleetMetricResponse_description' - The fleet metric description.
 --
+-- 'indexName', 'describeFleetMetricResponse_indexName' - The name of the index to search.
+--
+-- 'lastModifiedDate', 'describeFleetMetricResponse_lastModifiedDate' - The date when the fleet metric is last modified.
+--
+-- 'metricArn', 'describeFleetMetricResponse_metricArn' - The ARN of the fleet metric to describe.
+--
+-- 'metricName', 'describeFleetMetricResponse_metricName' - The name of the fleet metric to describe.
+--
+-- 'period', 'describeFleetMetricResponse_period' - The time in seconds between fleet metric emissions. Range [60(1 min),
+-- 86400(1 day)] and must be multiple of 60.
+--
+-- 'queryString', 'describeFleetMetricResponse_queryString' - The search query string.
+--
+-- 'queryVersion', 'describeFleetMetricResponse_queryVersion' - The query version.
+--
 -- 'unit', 'describeFleetMetricResponse_unit' - Used to support unit transformation such as milliseconds to seconds. The
 -- unit must be supported by
 -- <https://docs.aws.amazon.com/https:/docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_MetricDatum.html CW metric>.
 --
--- 'indexName', 'describeFleetMetricResponse_indexName' - The name of the index to search.
---
--- 'metricArn', 'describeFleetMetricResponse_metricArn' - The ARN of the fleet metric to describe.
+-- 'version', 'describeFleetMetricResponse_version' - The version of the fleet metric.
 --
 -- 'httpStatus', 'describeFleetMetricResponse_httpStatus' - The response's http status code.
 newDescribeFleetMetricResponse ::
@@ -212,63 +214,67 @@ newDescribeFleetMetricResponse ::
   DescribeFleetMetricResponse
 newDescribeFleetMetricResponse pHttpStatus_ =
   DescribeFleetMetricResponse'
-    { aggregationType =
+    { aggregationField =
         Prelude.Nothing,
-      lastModifiedDate = Prelude.Nothing,
-      period = Prelude.Nothing,
-      queryVersion = Prelude.Nothing,
-      metricName = Prelude.Nothing,
-      aggregationField = Prelude.Nothing,
-      queryString = Prelude.Nothing,
-      version = Prelude.Nothing,
+      aggregationType = Prelude.Nothing,
       creationDate = Prelude.Nothing,
       description = Prelude.Nothing,
-      unit = Prelude.Nothing,
       indexName = Prelude.Nothing,
+      lastModifiedDate = Prelude.Nothing,
       metricArn = Prelude.Nothing,
+      metricName = Prelude.Nothing,
+      period = Prelude.Nothing,
+      queryString = Prelude.Nothing,
+      queryVersion = Prelude.Nothing,
+      unit = Prelude.Nothing,
+      version = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The field to aggregate.
+describeFleetMetricResponse_aggregationField :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.Text)
+describeFleetMetricResponse_aggregationField = Lens.lens (\DescribeFleetMetricResponse' {aggregationField} -> aggregationField) (\s@DescribeFleetMetricResponse' {} a -> s {aggregationField = a} :: DescribeFleetMetricResponse)
 
 -- | The type of the aggregation query.
 describeFleetMetricResponse_aggregationType :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe AggregationType)
 describeFleetMetricResponse_aggregationType = Lens.lens (\DescribeFleetMetricResponse' {aggregationType} -> aggregationType) (\s@DescribeFleetMetricResponse' {} a -> s {aggregationType = a} :: DescribeFleetMetricResponse)
 
+-- | The date when the fleet metric is created.
+describeFleetMetricResponse_creationDate :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.UTCTime)
+describeFleetMetricResponse_creationDate = Lens.lens (\DescribeFleetMetricResponse' {creationDate} -> creationDate) (\s@DescribeFleetMetricResponse' {} a -> s {creationDate = a} :: DescribeFleetMetricResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The fleet metric description.
+describeFleetMetricResponse_description :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.Text)
+describeFleetMetricResponse_description = Lens.lens (\DescribeFleetMetricResponse' {description} -> description) (\s@DescribeFleetMetricResponse' {} a -> s {description = a} :: DescribeFleetMetricResponse)
+
+-- | The name of the index to search.
+describeFleetMetricResponse_indexName :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.Text)
+describeFleetMetricResponse_indexName = Lens.lens (\DescribeFleetMetricResponse' {indexName} -> indexName) (\s@DescribeFleetMetricResponse' {} a -> s {indexName = a} :: DescribeFleetMetricResponse)
+
 -- | The date when the fleet metric is last modified.
 describeFleetMetricResponse_lastModifiedDate :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.UTCTime)
-describeFleetMetricResponse_lastModifiedDate = Lens.lens (\DescribeFleetMetricResponse' {lastModifiedDate} -> lastModifiedDate) (\s@DescribeFleetMetricResponse' {} a -> s {lastModifiedDate = a} :: DescribeFleetMetricResponse) Prelude.. Lens.mapping Core._Time
+describeFleetMetricResponse_lastModifiedDate = Lens.lens (\DescribeFleetMetricResponse' {lastModifiedDate} -> lastModifiedDate) (\s@DescribeFleetMetricResponse' {} a -> s {lastModifiedDate = a} :: DescribeFleetMetricResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The ARN of the fleet metric to describe.
+describeFleetMetricResponse_metricArn :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.Text)
+describeFleetMetricResponse_metricArn = Lens.lens (\DescribeFleetMetricResponse' {metricArn} -> metricArn) (\s@DescribeFleetMetricResponse' {} a -> s {metricArn = a} :: DescribeFleetMetricResponse)
+
+-- | The name of the fleet metric to describe.
+describeFleetMetricResponse_metricName :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.Text)
+describeFleetMetricResponse_metricName = Lens.lens (\DescribeFleetMetricResponse' {metricName} -> metricName) (\s@DescribeFleetMetricResponse' {} a -> s {metricName = a} :: DescribeFleetMetricResponse)
 
 -- | The time in seconds between fleet metric emissions. Range [60(1 min),
 -- 86400(1 day)] and must be multiple of 60.
 describeFleetMetricResponse_period :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.Natural)
 describeFleetMetricResponse_period = Lens.lens (\DescribeFleetMetricResponse' {period} -> period) (\s@DescribeFleetMetricResponse' {} a -> s {period = a} :: DescribeFleetMetricResponse)
 
--- | The query version.
-describeFleetMetricResponse_queryVersion :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.Text)
-describeFleetMetricResponse_queryVersion = Lens.lens (\DescribeFleetMetricResponse' {queryVersion} -> queryVersion) (\s@DescribeFleetMetricResponse' {} a -> s {queryVersion = a} :: DescribeFleetMetricResponse)
-
--- | The name of the fleet metric to describe.
-describeFleetMetricResponse_metricName :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.Text)
-describeFleetMetricResponse_metricName = Lens.lens (\DescribeFleetMetricResponse' {metricName} -> metricName) (\s@DescribeFleetMetricResponse' {} a -> s {metricName = a} :: DescribeFleetMetricResponse)
-
--- | The field to aggregate.
-describeFleetMetricResponse_aggregationField :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.Text)
-describeFleetMetricResponse_aggregationField = Lens.lens (\DescribeFleetMetricResponse' {aggregationField} -> aggregationField) (\s@DescribeFleetMetricResponse' {} a -> s {aggregationField = a} :: DescribeFleetMetricResponse)
-
 -- | The search query string.
 describeFleetMetricResponse_queryString :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.Text)
 describeFleetMetricResponse_queryString = Lens.lens (\DescribeFleetMetricResponse' {queryString} -> queryString) (\s@DescribeFleetMetricResponse' {} a -> s {queryString = a} :: DescribeFleetMetricResponse)
 
--- | The version of the fleet metric.
-describeFleetMetricResponse_version :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.Integer)
-describeFleetMetricResponse_version = Lens.lens (\DescribeFleetMetricResponse' {version} -> version) (\s@DescribeFleetMetricResponse' {} a -> s {version = a} :: DescribeFleetMetricResponse)
-
--- | The date when the fleet metric is created.
-describeFleetMetricResponse_creationDate :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.UTCTime)
-describeFleetMetricResponse_creationDate = Lens.lens (\DescribeFleetMetricResponse' {creationDate} -> creationDate) (\s@DescribeFleetMetricResponse' {} a -> s {creationDate = a} :: DescribeFleetMetricResponse) Prelude.. Lens.mapping Core._Time
-
--- | The fleet metric description.
-describeFleetMetricResponse_description :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.Text)
-describeFleetMetricResponse_description = Lens.lens (\DescribeFleetMetricResponse' {description} -> description) (\s@DescribeFleetMetricResponse' {} a -> s {description = a} :: DescribeFleetMetricResponse)
+-- | The query version.
+describeFleetMetricResponse_queryVersion :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.Text)
+describeFleetMetricResponse_queryVersion = Lens.lens (\DescribeFleetMetricResponse' {queryVersion} -> queryVersion) (\s@DescribeFleetMetricResponse' {} a -> s {queryVersion = a} :: DescribeFleetMetricResponse)
 
 -- | Used to support unit transformation such as milliseconds to seconds. The
 -- unit must be supported by
@@ -276,13 +282,9 @@ describeFleetMetricResponse_description = Lens.lens (\DescribeFleetMetricRespons
 describeFleetMetricResponse_unit :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe FleetMetricUnit)
 describeFleetMetricResponse_unit = Lens.lens (\DescribeFleetMetricResponse' {unit} -> unit) (\s@DescribeFleetMetricResponse' {} a -> s {unit = a} :: DescribeFleetMetricResponse)
 
--- | The name of the index to search.
-describeFleetMetricResponse_indexName :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.Text)
-describeFleetMetricResponse_indexName = Lens.lens (\DescribeFleetMetricResponse' {indexName} -> indexName) (\s@DescribeFleetMetricResponse' {} a -> s {indexName = a} :: DescribeFleetMetricResponse)
-
--- | The ARN of the fleet metric to describe.
-describeFleetMetricResponse_metricArn :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.Text)
-describeFleetMetricResponse_metricArn = Lens.lens (\DescribeFleetMetricResponse' {metricArn} -> metricArn) (\s@DescribeFleetMetricResponse' {} a -> s {metricArn = a} :: DescribeFleetMetricResponse)
+-- | The version of the fleet metric.
+describeFleetMetricResponse_version :: Lens.Lens' DescribeFleetMetricResponse (Prelude.Maybe Prelude.Integer)
+describeFleetMetricResponse_version = Lens.lens (\DescribeFleetMetricResponse' {version} -> version) (\s@DescribeFleetMetricResponse' {} a -> s {version = a} :: DescribeFleetMetricResponse)
 
 -- | The response's http status code.
 describeFleetMetricResponse_httpStatus :: Lens.Lens' DescribeFleetMetricResponse Prelude.Int
@@ -290,17 +292,17 @@ describeFleetMetricResponse_httpStatus = Lens.lens (\DescribeFleetMetricResponse
 
 instance Prelude.NFData DescribeFleetMetricResponse where
   rnf DescribeFleetMetricResponse' {..} =
-    Prelude.rnf aggregationType
-      `Prelude.seq` Prelude.rnf lastModifiedDate
-      `Prelude.seq` Prelude.rnf period
-      `Prelude.seq` Prelude.rnf queryVersion
-      `Prelude.seq` Prelude.rnf metricName
-      `Prelude.seq` Prelude.rnf aggregationField
-      `Prelude.seq` Prelude.rnf queryString
-      `Prelude.seq` Prelude.rnf version
+    Prelude.rnf aggregationField
+      `Prelude.seq` Prelude.rnf aggregationType
       `Prelude.seq` Prelude.rnf creationDate
       `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf unit
       `Prelude.seq` Prelude.rnf indexName
+      `Prelude.seq` Prelude.rnf lastModifiedDate
       `Prelude.seq` Prelude.rnf metricArn
+      `Prelude.seq` Prelude.rnf metricName
+      `Prelude.seq` Prelude.rnf period
+      `Prelude.seq` Prelude.rnf queryString
+      `Prelude.seq` Prelude.rnf queryVersion
+      `Prelude.seq` Prelude.rnf unit
+      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf httpStatus

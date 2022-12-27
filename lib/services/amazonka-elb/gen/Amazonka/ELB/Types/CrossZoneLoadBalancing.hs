@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.Types.CrossZoneLoadBalancing
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ELB.Types.CrossZoneLoadBalancing where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the @CrossZoneLoadBalancing@ attribute.
@@ -56,10 +57,10 @@ newCrossZoneLoadBalancing pEnabled_ =
 crossZoneLoadBalancing_enabled :: Lens.Lens' CrossZoneLoadBalancing Prelude.Bool
 crossZoneLoadBalancing_enabled = Lens.lens (\CrossZoneLoadBalancing' {enabled} -> enabled) (\s@CrossZoneLoadBalancing' {} a -> s {enabled = a} :: CrossZoneLoadBalancing)
 
-instance Core.FromXML CrossZoneLoadBalancing where
+instance Data.FromXML CrossZoneLoadBalancing where
   parseXML x =
     CrossZoneLoadBalancing'
-      Prelude.<$> (x Core..@ "Enabled")
+      Prelude.<$> (x Data..@ "Enabled")
 
 instance Prelude.Hashable CrossZoneLoadBalancing where
   hashWithSalt _salt CrossZoneLoadBalancing' {..} =
@@ -68,6 +69,6 @@ instance Prelude.Hashable CrossZoneLoadBalancing where
 instance Prelude.NFData CrossZoneLoadBalancing where
   rnf CrossZoneLoadBalancing' {..} = Prelude.rnf enabled
 
-instance Core.ToQuery CrossZoneLoadBalancing where
+instance Data.ToQuery CrossZoneLoadBalancing where
   toQuery CrossZoneLoadBalancing' {..} =
-    Prelude.mconcat ["Enabled" Core.=: enabled]
+    Prelude.mconcat ["Enabled" Data.=: enabled]

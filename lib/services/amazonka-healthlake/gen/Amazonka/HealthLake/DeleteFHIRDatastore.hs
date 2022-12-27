@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.HealthLake.DeleteFHIRDatastore
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.HealthLake.DeleteFHIRDatastore
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HealthLake.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,16 +79,17 @@ instance Core.AWSRequest DeleteFHIRDatastore where
   type
     AWSResponse DeleteFHIRDatastore =
       DeleteFHIRDatastoreResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteFHIRDatastoreResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "DatastoreId")
-            Prelude.<*> (x Core..:> "DatastoreArn")
-            Prelude.<*> (x Core..:> "DatastoreStatus")
-            Prelude.<*> (x Core..:> "DatastoreEndpoint")
+            Prelude.<*> (x Data..:> "DatastoreId")
+            Prelude.<*> (x Data..:> "DatastoreArn")
+            Prelude.<*> (x Data..:> "DatastoreStatus")
+            Prelude.<*> (x Data..:> "DatastoreEndpoint")
       )
 
 instance Prelude.Hashable DeleteFHIRDatastore where
@@ -98,32 +100,32 @@ instance Prelude.NFData DeleteFHIRDatastore where
   rnf DeleteFHIRDatastore' {..} =
     Prelude.rnf datastoreId
 
-instance Core.ToHeaders DeleteFHIRDatastore where
+instance Data.ToHeaders DeleteFHIRDatastore where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "HealthLake.DeleteFHIRDatastore" ::
+              Data.=# ( "HealthLake.DeleteFHIRDatastore" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteFHIRDatastore where
+instance Data.ToJSON DeleteFHIRDatastore where
   toJSON DeleteFHIRDatastore' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("DatastoreId" Core..=) Prelude.<$> datastoreId]
+          [("DatastoreId" Data..=) Prelude.<$> datastoreId]
       )
 
-instance Core.ToPath DeleteFHIRDatastore where
+instance Data.ToPath DeleteFHIRDatastore where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteFHIRDatastore where
+instance Data.ToQuery DeleteFHIRDatastore where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFHIRDatastoreResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Grafana.ListWorkspaces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.Grafana.ListWorkspaces
     newListWorkspaces,
 
     -- * Request Lenses
-    listWorkspaces_nextToken,
     listWorkspaces_maxResults,
+    listWorkspaces_nextToken,
 
     -- * Destructuring the Response
     ListWorkspacesResponse (..),
@@ -47,19 +47,20 @@ module Amazonka.Grafana.ListWorkspaces
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Grafana.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListWorkspaces' smart constructor.
 data ListWorkspaces = ListWorkspaces'
-  { -- | The token for the next set of workspaces to return. (You receive this
+  { -- | The maximum number of workspaces to include in the results.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of workspaces to return. (You receive this
     -- token from a previous @ListWorkspaces@ operation.)
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of workspaces to include in the results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,26 +72,26 @@ data ListWorkspaces = ListWorkspaces'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listWorkspaces_maxResults' - The maximum number of workspaces to include in the results.
+--
 -- 'nextToken', 'listWorkspaces_nextToken' - The token for the next set of workspaces to return. (You receive this
 -- token from a previous @ListWorkspaces@ operation.)
---
--- 'maxResults', 'listWorkspaces_maxResults' - The maximum number of workspaces to include in the results.
 newListWorkspaces ::
   ListWorkspaces
 newListWorkspaces =
   ListWorkspaces'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of workspaces to include in the results.
+listWorkspaces_maxResults :: Lens.Lens' ListWorkspaces (Prelude.Maybe Prelude.Natural)
+listWorkspaces_maxResults = Lens.lens (\ListWorkspaces' {maxResults} -> maxResults) (\s@ListWorkspaces' {} a -> s {maxResults = a} :: ListWorkspaces)
 
 -- | The token for the next set of workspaces to return. (You receive this
 -- token from a previous @ListWorkspaces@ operation.)
 listWorkspaces_nextToken :: Lens.Lens' ListWorkspaces (Prelude.Maybe Prelude.Text)
 listWorkspaces_nextToken = Lens.lens (\ListWorkspaces' {nextToken} -> nextToken) (\s@ListWorkspaces' {} a -> s {nextToken = a} :: ListWorkspaces)
-
--- | The maximum number of workspaces to include in the results.
-listWorkspaces_maxResults :: Lens.Lens' ListWorkspaces (Prelude.Maybe Prelude.Natural)
-listWorkspaces_maxResults = Lens.lens (\ListWorkspaces' {maxResults} -> maxResults) (\s@ListWorkspaces' {} a -> s {maxResults = a} :: ListWorkspaces)
 
 instance Core.AWSPager ListWorkspaces where
   page rq rs
@@ -114,45 +115,46 @@ instance Core.AWSRequest ListWorkspaces where
   type
     AWSResponse ListWorkspaces =
       ListWorkspacesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListWorkspacesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "workspaces" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "workspaces" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListWorkspaces where
   hashWithSalt _salt ListWorkspaces' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListWorkspaces where
   rnf ListWorkspaces' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListWorkspaces where
+instance Data.ToHeaders ListWorkspaces where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListWorkspaces where
+instance Data.ToPath ListWorkspaces where
   toPath = Prelude.const "/workspaces"
 
-instance Core.ToQuery ListWorkspaces where
+instance Data.ToQuery ListWorkspaces where
   toQuery ListWorkspaces' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListWorkspacesResponse' smart constructor.

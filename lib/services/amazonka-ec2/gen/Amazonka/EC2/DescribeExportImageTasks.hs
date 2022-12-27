@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeExportImageTasks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,11 +30,11 @@ module Amazonka.EC2.DescribeExportImageTasks
     newDescribeExportImageTasks,
 
     -- * Request Lenses
+    describeExportImageTasks_dryRun,
     describeExportImageTasks_exportImageTaskIds,
     describeExportImageTasks_filters,
-    describeExportImageTasks_nextToken,
-    describeExportImageTasks_dryRun,
     describeExportImageTasks_maxResults,
+    describeExportImageTasks_nextToken,
 
     -- * Destructuring the Response
     DescribeExportImageTasksResponse (..),
@@ -48,28 +48,29 @@ module Amazonka.EC2.DescribeExportImageTasks
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeExportImageTasks' smart constructor.
 data DescribeExportImageTasks = DescribeExportImageTasks'
-  { -- | The IDs of the export image tasks.
-    exportImageTaskIds :: Prelude.Maybe [Prelude.Text],
-    -- | Filter tasks using the @task-state@ filter and one of the following
-    -- values: @active@, @completed@, @deleting@, or @deleted@.
-    filters :: Prelude.Maybe [Filter],
-    -- | A token that indicates the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The IDs of the export image tasks.
+    exportImageTaskIds :: Prelude.Maybe [Prelude.Text],
+    -- | Filter tasks using the @task-state@ filter and one of the following
+    -- values: @active@, @completed@, @deleting@, or @deleted@.
+    filters :: Prelude.Maybe [Filter],
     -- | The maximum number of results to return in a single call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token that indicates the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -81,30 +82,36 @@ data DescribeExportImageTasks = DescribeExportImageTasks'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'exportImageTaskIds', 'describeExportImageTasks_exportImageTaskIds' - The IDs of the export image tasks.
---
--- 'filters', 'describeExportImageTasks_filters' - Filter tasks using the @task-state@ filter and one of the following
--- values: @active@, @completed@, @deleting@, or @deleted@.
---
--- 'nextToken', 'describeExportImageTasks_nextToken' - A token that indicates the next page of results.
---
 -- 'dryRun', 'describeExportImageTasks_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
 --
+-- 'exportImageTaskIds', 'describeExportImageTasks_exportImageTaskIds' - The IDs of the export image tasks.
+--
+-- 'filters', 'describeExportImageTasks_filters' - Filter tasks using the @task-state@ filter and one of the following
+-- values: @active@, @completed@, @deleting@, or @deleted@.
+--
 -- 'maxResults', 'describeExportImageTasks_maxResults' - The maximum number of results to return in a single call.
+--
+-- 'nextToken', 'describeExportImageTasks_nextToken' - A token that indicates the next page of results.
 newDescribeExportImageTasks ::
   DescribeExportImageTasks
 newDescribeExportImageTasks =
   DescribeExportImageTasks'
-    { exportImageTaskIds =
-        Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
+      exportImageTaskIds = Prelude.Nothing,
       filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeExportImageTasks_dryRun :: Lens.Lens' DescribeExportImageTasks (Prelude.Maybe Prelude.Bool)
+describeExportImageTasks_dryRun = Lens.lens (\DescribeExportImageTasks' {dryRun} -> dryRun) (\s@DescribeExportImageTasks' {} a -> s {dryRun = a} :: DescribeExportImageTasks)
 
 -- | The IDs of the export image tasks.
 describeExportImageTasks_exportImageTaskIds :: Lens.Lens' DescribeExportImageTasks (Prelude.Maybe [Prelude.Text])
@@ -115,20 +122,13 @@ describeExportImageTasks_exportImageTaskIds = Lens.lens (\DescribeExportImageTas
 describeExportImageTasks_filters :: Lens.Lens' DescribeExportImageTasks (Prelude.Maybe [Filter])
 describeExportImageTasks_filters = Lens.lens (\DescribeExportImageTasks' {filters} -> filters) (\s@DescribeExportImageTasks' {} a -> s {filters = a} :: DescribeExportImageTasks) Prelude.. Lens.mapping Lens.coerced
 
--- | A token that indicates the next page of results.
-describeExportImageTasks_nextToken :: Lens.Lens' DescribeExportImageTasks (Prelude.Maybe Prelude.Text)
-describeExportImageTasks_nextToken = Lens.lens (\DescribeExportImageTasks' {nextToken} -> nextToken) (\s@DescribeExportImageTasks' {} a -> s {nextToken = a} :: DescribeExportImageTasks)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeExportImageTasks_dryRun :: Lens.Lens' DescribeExportImageTasks (Prelude.Maybe Prelude.Bool)
-describeExportImageTasks_dryRun = Lens.lens (\DescribeExportImageTasks' {dryRun} -> dryRun) (\s@DescribeExportImageTasks' {} a -> s {dryRun = a} :: DescribeExportImageTasks)
-
 -- | The maximum number of results to return in a single call.
 describeExportImageTasks_maxResults :: Lens.Lens' DescribeExportImageTasks (Prelude.Maybe Prelude.Natural)
 describeExportImageTasks_maxResults = Lens.lens (\DescribeExportImageTasks' {maxResults} -> maxResults) (\s@DescribeExportImageTasks' {} a -> s {maxResults = a} :: DescribeExportImageTasks)
+
+-- | A token that indicates the next page of results.
+describeExportImageTasks_nextToken :: Lens.Lens' DescribeExportImageTasks (Prelude.Maybe Prelude.Text)
+describeExportImageTasks_nextToken = Lens.lens (\DescribeExportImageTasks' {nextToken} -> nextToken) (\s@DescribeExportImageTasks' {} a -> s {nextToken = a} :: DescribeExportImageTasks)
 
 instance Core.AWSPager DescribeExportImageTasks where
   page rq rs
@@ -156,57 +156,58 @@ instance Core.AWSRequest DescribeExportImageTasks where
   type
     AWSResponse DescribeExportImageTasks =
       DescribeExportImageTasksResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeExportImageTasksResponse'
-            Prelude.<$> ( x Core..@? "exportImageTaskSet"
+            Prelude.<$> ( x Data..@? "exportImageTaskSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> (x Core..@? "nextToken")
+            Prelude.<*> (x Data..@? "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeExportImageTasks where
   hashWithSalt _salt DescribeExportImageTasks' {..} =
-    _salt `Prelude.hashWithSalt` exportImageTaskIds
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` exportImageTaskIds
       `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeExportImageTasks where
   rnf DescribeExportImageTasks' {..} =
-    Prelude.rnf exportImageTaskIds
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf exportImageTaskIds
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeExportImageTasks where
+instance Data.ToHeaders DescribeExportImageTasks where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeExportImageTasks where
+instance Data.ToPath DescribeExportImageTasks where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeExportImageTasks where
+instance Data.ToQuery DescribeExportImageTasks where
   toQuery DescribeExportImageTasks' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeExportImageTasks" :: Prelude.ByteString),
+          Data.=: ("DescribeExportImageTasks" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          ( Core.toQueryList "ExportImageTaskId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          ( Data.toQueryList "ExportImageTaskId"
               Prelude.<$> exportImageTaskIds
           ),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeExportImageTasksResponse' smart constructor.

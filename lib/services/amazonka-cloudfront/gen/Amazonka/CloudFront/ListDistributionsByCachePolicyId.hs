@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.ListDistributionsByCachePolicyId
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -126,12 +127,13 @@ instance
   type
     AWSResponse ListDistributionsByCachePolicyId =
       ListDistributionsByCachePolicyIdResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ListDistributionsByCachePolicyIdResponse'
-            Prelude.<$> (Core.parseXML x)
+            Prelude.<$> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -156,26 +158,26 @@ instance
       `Prelude.seq` Prelude.rnf cachePolicyId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListDistributionsByCachePolicyId
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListDistributionsByCachePolicyId where
+instance Data.ToPath ListDistributionsByCachePolicyId where
   toPath ListDistributionsByCachePolicyId' {..} =
     Prelude.mconcat
       [ "/2020-05-31/distributionsByCachePolicyId/",
-        Core.toBS cachePolicyId
+        Data.toBS cachePolicyId
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListDistributionsByCachePolicyId
   where
   toQuery ListDistributionsByCachePolicyId' {..} =
     Prelude.mconcat
-      [ "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems
+      [ "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems
       ]
 
 -- | /See:/ 'newListDistributionsByCachePolicyIdResponse' smart constructor.

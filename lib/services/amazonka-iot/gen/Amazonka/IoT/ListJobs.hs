@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,13 +33,13 @@ module Amazonka.IoT.ListJobs
     newListJobs,
 
     -- * Request Lenses
-    listJobs_status,
-    listJobs_thingGroupId,
+    listJobs_maxResults,
     listJobs_namespaceId,
     listJobs_nextToken,
-    listJobs_thingGroupName,
-    listJobs_maxResults,
+    listJobs_status,
     listJobs_targetSelection,
+    listJobs_thingGroupId,
+    listJobs_thingGroupName,
 
     -- * Destructuring the Response
     ListJobsResponse (..),
@@ -53,19 +53,17 @@ module Amazonka.IoT.ListJobs
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListJobs' smart constructor.
 data ListJobs = ListJobs'
-  { -- | An optional filter that lets you search for jobs that have the specified
-    -- status.
-    status :: Prelude.Maybe JobStatus,
-    -- | A filter that limits the returned jobs to those for the specified group.
-    thingGroupId :: Prelude.Maybe Prelude.Text,
+  { -- | The maximum number of results to return per request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The namespace used to indicate that a job is a customer-managed job.
     --
     -- When you specify a value for this parameter, Amazon Web Services IoT
@@ -78,17 +76,24 @@ data ListJobs = ListJobs'
     namespaceId :: Prelude.Maybe Prelude.Text,
     -- | The token to retrieve the next set of results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A filter that limits the returned jobs to those for the specified group.
-    thingGroupName :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per request.
-    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | An optional filter that lets you search for jobs that have the specified
+    -- status.
+    status :: Prelude.Maybe JobStatus,
     -- | Specifies whether the job will continue to run (CONTINUOUS), or will be
     -- complete after all those things specified as targets have completed the
     -- job (SNAPSHOT). If continuous, the job may also be run on a thing when a
     -- change is detected in a target. For example, a job will run on a thing
     -- when the thing is added to a target group, even after the job was
     -- completed by all things originally in the group.
-    targetSelection :: Prelude.Maybe TargetSelection
+    --
+    -- We recommend that you use continuous jobs instead of snapshot jobs for
+    -- dynamic thing group targets. By using continuous jobs, devices that join
+    -- the group receive the job execution even after the job has been created.
+    targetSelection :: Prelude.Maybe TargetSelection,
+    -- | A filter that limits the returned jobs to those for the specified group.
+    thingGroupId :: Prelude.Maybe Prelude.Text,
+    -- | A filter that limits the returned jobs to those for the specified group.
+    thingGroupName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -100,10 +105,7 @@ data ListJobs = ListJobs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'listJobs_status' - An optional filter that lets you search for jobs that have the specified
--- status.
---
--- 'thingGroupId', 'listJobs_thingGroupId' - A filter that limits the returned jobs to those for the specified group.
+-- 'maxResults', 'listJobs_maxResults' - The maximum number of results to return per request.
 --
 -- 'namespaceId', 'listJobs_namespaceId' - The namespace used to indicate that a job is a customer-managed job.
 --
@@ -117,9 +119,8 @@ data ListJobs = ListJobs'
 --
 -- 'nextToken', 'listJobs_nextToken' - The token to retrieve the next set of results.
 --
--- 'thingGroupName', 'listJobs_thingGroupName' - A filter that limits the returned jobs to those for the specified group.
---
--- 'maxResults', 'listJobs_maxResults' - The maximum number of results to return per request.
+-- 'status', 'listJobs_status' - An optional filter that lets you search for jobs that have the specified
+-- status.
 --
 -- 'targetSelection', 'listJobs_targetSelection' - Specifies whether the job will continue to run (CONTINUOUS), or will be
 -- complete after all those things specified as targets have completed the
@@ -127,27 +128,30 @@ data ListJobs = ListJobs'
 -- change is detected in a target. For example, a job will run on a thing
 -- when the thing is added to a target group, even after the job was
 -- completed by all things originally in the group.
+--
+-- We recommend that you use continuous jobs instead of snapshot jobs for
+-- dynamic thing group targets. By using continuous jobs, devices that join
+-- the group receive the job execution even after the job has been created.
+--
+-- 'thingGroupId', 'listJobs_thingGroupId' - A filter that limits the returned jobs to those for the specified group.
+--
+-- 'thingGroupName', 'listJobs_thingGroupName' - A filter that limits the returned jobs to those for the specified group.
 newListJobs ::
   ListJobs
 newListJobs =
   ListJobs'
-    { status = Prelude.Nothing,
-      thingGroupId = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       namespaceId = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      thingGroupName = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
-      targetSelection = Prelude.Nothing
+      status = Prelude.Nothing,
+      targetSelection = Prelude.Nothing,
+      thingGroupId = Prelude.Nothing,
+      thingGroupName = Prelude.Nothing
     }
 
--- | An optional filter that lets you search for jobs that have the specified
--- status.
-listJobs_status :: Lens.Lens' ListJobs (Prelude.Maybe JobStatus)
-listJobs_status = Lens.lens (\ListJobs' {status} -> status) (\s@ListJobs' {} a -> s {status = a} :: ListJobs)
-
--- | A filter that limits the returned jobs to those for the specified group.
-listJobs_thingGroupId :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Text)
-listJobs_thingGroupId = Lens.lens (\ListJobs' {thingGroupId} -> thingGroupId) (\s@ListJobs' {} a -> s {thingGroupId = a} :: ListJobs)
+-- | The maximum number of results to return per request.
+listJobs_maxResults :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Natural)
+listJobs_maxResults = Lens.lens (\ListJobs' {maxResults} -> maxResults) (\s@ListJobs' {} a -> s {maxResults = a} :: ListJobs)
 
 -- | The namespace used to indicate that a job is a customer-managed job.
 --
@@ -165,13 +169,10 @@ listJobs_namespaceId = Lens.lens (\ListJobs' {namespaceId} -> namespaceId) (\s@L
 listJobs_nextToken :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Text)
 listJobs_nextToken = Lens.lens (\ListJobs' {nextToken} -> nextToken) (\s@ListJobs' {} a -> s {nextToken = a} :: ListJobs)
 
--- | A filter that limits the returned jobs to those for the specified group.
-listJobs_thingGroupName :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Text)
-listJobs_thingGroupName = Lens.lens (\ListJobs' {thingGroupName} -> thingGroupName) (\s@ListJobs' {} a -> s {thingGroupName = a} :: ListJobs)
-
--- | The maximum number of results to return per request.
-listJobs_maxResults :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Natural)
-listJobs_maxResults = Lens.lens (\ListJobs' {maxResults} -> maxResults) (\s@ListJobs' {} a -> s {maxResults = a} :: ListJobs)
+-- | An optional filter that lets you search for jobs that have the specified
+-- status.
+listJobs_status :: Lens.Lens' ListJobs (Prelude.Maybe JobStatus)
+listJobs_status = Lens.lens (\ListJobs' {status} -> status) (\s@ListJobs' {} a -> s {status = a} :: ListJobs)
 
 -- | Specifies whether the job will continue to run (CONTINUOUS), or will be
 -- complete after all those things specified as targets have completed the
@@ -179,8 +180,20 @@ listJobs_maxResults = Lens.lens (\ListJobs' {maxResults} -> maxResults) (\s@List
 -- change is detected in a target. For example, a job will run on a thing
 -- when the thing is added to a target group, even after the job was
 -- completed by all things originally in the group.
+--
+-- We recommend that you use continuous jobs instead of snapshot jobs for
+-- dynamic thing group targets. By using continuous jobs, devices that join
+-- the group receive the job execution even after the job has been created.
 listJobs_targetSelection :: Lens.Lens' ListJobs (Prelude.Maybe TargetSelection)
 listJobs_targetSelection = Lens.lens (\ListJobs' {targetSelection} -> targetSelection) (\s@ListJobs' {} a -> s {targetSelection = a} :: ListJobs)
+
+-- | A filter that limits the returned jobs to those for the specified group.
+listJobs_thingGroupId :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Text)
+listJobs_thingGroupId = Lens.lens (\ListJobs' {thingGroupId} -> thingGroupId) (\s@ListJobs' {} a -> s {thingGroupId = a} :: ListJobs)
+
+-- | A filter that limits the returned jobs to those for the specified group.
+listJobs_thingGroupName :: Lens.Lens' ListJobs (Prelude.Maybe Prelude.Text)
+listJobs_thingGroupName = Lens.lens (\ListJobs' {thingGroupName} -> thingGroupName) (\s@ListJobs' {} a -> s {thingGroupName = a} :: ListJobs)
 
 instance Core.AWSPager ListJobs where
   page rq rs
@@ -203,52 +216,53 @@ instance Core.AWSPager ListJobs where
 
 instance Core.AWSRequest ListJobs where
   type AWSResponse ListJobs = ListJobsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListJobsResponse'
-            Prelude.<$> (x Core..?> "jobs" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "jobs" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListJobs where
   hashWithSalt _salt ListJobs' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` thingGroupId
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` namespaceId
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` thingGroupName
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` targetSelection
+      `Prelude.hashWithSalt` thingGroupId
+      `Prelude.hashWithSalt` thingGroupName
 
 instance Prelude.NFData ListJobs where
   rnf ListJobs' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf thingGroupId
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf namespaceId
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf thingGroupName
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf targetSelection
+      `Prelude.seq` Prelude.rnf thingGroupId
+      `Prelude.seq` Prelude.rnf thingGroupName
 
-instance Core.ToHeaders ListJobs where
+instance Data.ToHeaders ListJobs where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListJobs where
+instance Data.ToPath ListJobs where
   toPath = Prelude.const "/jobs"
 
-instance Core.ToQuery ListJobs where
+instance Data.ToQuery ListJobs where
   toQuery ListJobs' {..} =
     Prelude.mconcat
-      [ "status" Core.=: status,
-        "thingGroupId" Core.=: thingGroupId,
-        "namespaceId" Core.=: namespaceId,
-        "nextToken" Core.=: nextToken,
-        "thingGroupName" Core.=: thingGroupName,
-        "maxResults" Core.=: maxResults,
-        "targetSelection" Core.=: targetSelection
+      [ "maxResults" Data.=: maxResults,
+        "namespaceId" Data.=: namespaceId,
+        "nextToken" Data.=: nextToken,
+        "status" Data.=: status,
+        "targetSelection" Data.=: targetSelection,
+        "thingGroupId" Data.=: thingGroupId,
+        "thingGroupName" Data.=: thingGroupName
       ]
 
 -- | /See:/ 'newListJobsResponse' smart constructor.

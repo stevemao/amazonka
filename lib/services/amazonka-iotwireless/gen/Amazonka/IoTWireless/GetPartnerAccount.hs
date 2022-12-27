@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.GetPartnerAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,15 +36,16 @@ module Amazonka.IoTWireless.GetPartnerAccount
     newGetPartnerAccountResponse,
 
     -- * Response Lenses
-    getPartnerAccountResponse_sidewalk,
     getPartnerAccountResponse_accountLinked,
+    getPartnerAccountResponse_sidewalk,
     getPartnerAccountResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,13 +95,14 @@ instance Core.AWSRequest GetPartnerAccount where
   type
     AWSResponse GetPartnerAccount =
       GetPartnerAccountResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPartnerAccountResponse'
-            Prelude.<$> (x Core..?> "Sidewalk")
-            Prelude.<*> (x Core..?> "AccountLinked")
+            Prelude.<$> (x Data..?> "AccountLinked")
+            Prelude.<*> (x Data..?> "Sidewalk")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,24 +116,24 @@ instance Prelude.NFData GetPartnerAccount where
     Prelude.rnf partnerAccountId
       `Prelude.seq` Prelude.rnf partnerType
 
-instance Core.ToHeaders GetPartnerAccount where
+instance Data.ToHeaders GetPartnerAccount where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetPartnerAccount where
+instance Data.ToPath GetPartnerAccount where
   toPath GetPartnerAccount' {..} =
     Prelude.mconcat
-      ["/partner-accounts/", Core.toBS partnerAccountId]
+      ["/partner-accounts/", Data.toBS partnerAccountId]
 
-instance Core.ToQuery GetPartnerAccount where
+instance Data.ToQuery GetPartnerAccount where
   toQuery GetPartnerAccount' {..} =
-    Prelude.mconcat ["partnerType" Core.=: partnerType]
+    Prelude.mconcat ["partnerType" Data.=: partnerType]
 
 -- | /See:/ 'newGetPartnerAccountResponse' smart constructor.
 data GetPartnerAccountResponse = GetPartnerAccountResponse'
-  { -- | The Sidewalk account credentials.
-    sidewalk :: Prelude.Maybe SidewalkAccountInfoWithFingerprint,
-    -- | Whether the partner account is linked to the AWS account.
+  { -- | Whether the partner account is linked to the AWS account.
     accountLinked :: Prelude.Maybe Prelude.Bool,
+    -- | The Sidewalk account credentials.
+    sidewalk :: Prelude.Maybe SidewalkAccountInfoWithFingerprint,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -145,9 +147,9 @@ data GetPartnerAccountResponse = GetPartnerAccountResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sidewalk', 'getPartnerAccountResponse_sidewalk' - The Sidewalk account credentials.
---
 -- 'accountLinked', 'getPartnerAccountResponse_accountLinked' - Whether the partner account is linked to the AWS account.
+--
+-- 'sidewalk', 'getPartnerAccountResponse_sidewalk' - The Sidewalk account credentials.
 --
 -- 'httpStatus', 'getPartnerAccountResponse_httpStatus' - The response's http status code.
 newGetPartnerAccountResponse ::
@@ -156,19 +158,19 @@ newGetPartnerAccountResponse ::
   GetPartnerAccountResponse
 newGetPartnerAccountResponse pHttpStatus_ =
   GetPartnerAccountResponse'
-    { sidewalk =
+    { accountLinked =
         Prelude.Nothing,
-      accountLinked = Prelude.Nothing,
+      sidewalk = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The Sidewalk account credentials.
-getPartnerAccountResponse_sidewalk :: Lens.Lens' GetPartnerAccountResponse (Prelude.Maybe SidewalkAccountInfoWithFingerprint)
-getPartnerAccountResponse_sidewalk = Lens.lens (\GetPartnerAccountResponse' {sidewalk} -> sidewalk) (\s@GetPartnerAccountResponse' {} a -> s {sidewalk = a} :: GetPartnerAccountResponse)
 
 -- | Whether the partner account is linked to the AWS account.
 getPartnerAccountResponse_accountLinked :: Lens.Lens' GetPartnerAccountResponse (Prelude.Maybe Prelude.Bool)
 getPartnerAccountResponse_accountLinked = Lens.lens (\GetPartnerAccountResponse' {accountLinked} -> accountLinked) (\s@GetPartnerAccountResponse' {} a -> s {accountLinked = a} :: GetPartnerAccountResponse)
+
+-- | The Sidewalk account credentials.
+getPartnerAccountResponse_sidewalk :: Lens.Lens' GetPartnerAccountResponse (Prelude.Maybe SidewalkAccountInfoWithFingerprint)
+getPartnerAccountResponse_sidewalk = Lens.lens (\GetPartnerAccountResponse' {sidewalk} -> sidewalk) (\s@GetPartnerAccountResponse' {} a -> s {sidewalk = a} :: GetPartnerAccountResponse)
 
 -- | The response's http status code.
 getPartnerAccountResponse_httpStatus :: Lens.Lens' GetPartnerAccountResponse Prelude.Int
@@ -176,6 +178,6 @@ getPartnerAccountResponse_httpStatus = Lens.lens (\GetPartnerAccountResponse' {h
 
 instance Prelude.NFData GetPartnerAccountResponse where
   rnf GetPartnerAccountResponse' {..} =
-    Prelude.rnf sidewalk
-      `Prelude.seq` Prelude.rnf accountLinked
+    Prelude.rnf accountLinked
+      `Prelude.seq` Prelude.rnf sidewalk
       `Prelude.seq` Prelude.rnf httpStatus

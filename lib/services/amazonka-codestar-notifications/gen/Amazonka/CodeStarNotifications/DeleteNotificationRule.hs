@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarNotifications.DeleteNotificationRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.CodeStarNotifications.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,12 +81,13 @@ instance Core.AWSRequest DeleteNotificationRule where
   type
     AWSResponse DeleteNotificationRule =
       DeleteNotificationRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteNotificationRuleResponse'
-            Prelude.<$> (x Core..?> "Arn")
+            Prelude.<$> (x Data..?> "Arn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -96,28 +98,28 @@ instance Prelude.Hashable DeleteNotificationRule where
 instance Prelude.NFData DeleteNotificationRule where
   rnf DeleteNotificationRule' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders DeleteNotificationRule where
+instance Data.ToHeaders DeleteNotificationRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteNotificationRule where
+instance Data.ToJSON DeleteNotificationRule where
   toJSON DeleteNotificationRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Arn" Core..= arn)]
+          [Prelude.Just ("Arn" Data..= arn)]
       )
 
-instance Core.ToPath DeleteNotificationRule where
+instance Data.ToPath DeleteNotificationRule where
   toPath = Prelude.const "/deleteNotificationRule"
 
-instance Core.ToQuery DeleteNotificationRule where
+instance Data.ToQuery DeleteNotificationRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteNotificationRuleResponse' smart constructor.

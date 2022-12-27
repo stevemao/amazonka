@@ -14,19 +14,24 @@
 
 -- |
 -- Module      : Amazonka.DataSync.CreateLocationEfs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an endpoint for an Amazon EFS file system.
+-- Creates an endpoint for an Amazon EFS file system that DataSync can
+-- access for a transfer. For more information, see
+-- <https://docs.aws.amazon.com/datasync/latest/userguide/create-efs-location.html Creating a location for Amazon EFS>.
 module Amazonka.DataSync.CreateLocationEfs
   ( -- * Creating a Request
     CreateLocationEfs (..),
     newCreateLocationEfs,
 
     -- * Request Lenses
+    createLocationEfs_accessPointArn,
+    createLocationEfs_fileSystemAccessRoleArn,
+    createLocationEfs_inTransitEncryption,
     createLocationEfs_subdirectory,
     createLocationEfs_tags,
     createLocationEfs_efsFilesystemArn,
@@ -43,8 +48,9 @@ module Amazonka.DataSync.CreateLocationEfs
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,41 +59,37 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateLocationEfs' smart constructor.
 data CreateLocationEfs = CreateLocationEfs'
-  { -- | A subdirectory in the location’s path. This subdirectory in the EFS file
-    -- system is used to read data from the EFS source location or write data
-    -- to the EFS destination. By default, DataSync uses the root directory.
+  { -- | Specifies the Amazon Resource Name (ARN) of the access point that
+    -- DataSync uses to access the Amazon EFS file system.
+    accessPointArn :: Prelude.Maybe Prelude.Text,
+    -- | Specifies an Identity and Access Management (IAM) role that DataSync
+    -- assumes when mounting the Amazon EFS file system.
+    fileSystemAccessRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether you want DataSync to use Transport Layer Security
+    -- (TLS) 1.2 encryption when it copies data to or from the Amazon EFS file
+    -- system.
     --
-    -- @Subdirectory@ must be specified with forward slashes. For example,
-    -- @\/path\/to\/folder@.
+    -- If you specify an access point using @AccessPointArn@ or an IAM role
+    -- using @FileSystemAccessRoleArn@, you must set this parameter to
+    -- @TLS1_2@.
+    inTransitEncryption :: Prelude.Maybe EfsInTransitEncryption,
+    -- | Specifies a mount path for your Amazon EFS file system. This is where
+    -- DataSync reads or writes data (depending on if this is a source or
+    -- destination location). By default, DataSync uses the root directory, but
+    -- you can also include subdirectories.
+    --
+    -- You must specify a value with forward slashes (for example,
+    -- @\/path\/to\/folder@).
     subdirectory :: Prelude.Maybe Prelude.Text,
-    -- | The key-value pair that represents a tag that you want to add to the
-    -- resource. The value can be an empty string. This value helps you manage,
-    -- filter, and search for your resources. We recommend that you create a
-    -- name tag for your location.
+    -- | Specifies the key-value pair that represents a tag that you want to add
+    -- to the resource. The value can be an empty string. This value helps you
+    -- manage, filter, and search for your resources. We recommend that you
+    -- create a name tag for your location.
     tags :: Prelude.Maybe [TagListEntry],
-    -- | The Amazon Resource Name (ARN) for the Amazon EFS file system.
+    -- | Specifies the ARN for the Amazon EFS file system.
     efsFilesystemArn :: Prelude.Text,
-    -- | The subnet and security group that the Amazon EFS file system uses. The
-    -- security group that you provide needs to be able to communicate with the
-    -- security group on the mount target in the subnet specified.
-    --
-    -- The exact relationship between security group M (of the mount target)
-    -- and security group S (which you provide for DataSync to use at this
-    -- stage) is as follows:
-    --
-    -- -   Security group M (which you associate with the mount target) must
-    --     allow inbound access for the Transmission Control Protocol (TCP) on
-    --     the NFS port (2049) from security group S. You can enable inbound
-    --     connections either by IP address (CIDR range) or security group.
-    --
-    -- -   Security group S (provided to DataSync to access EFS) should have a
-    --     rule that enables outbound connections to the NFS port on one of the
-    --     file system’s mount targets. You can enable outbound connections
-    --     either by IP address (CIDR range) or security group.
-    --
-    --     For information about security groups and mount targets, see
-    --     Security Groups for Amazon EC2 Instances and Mount Targets in the
-    --     /Amazon EFS User Guide./
+    -- | Specifies the subnet and security groups DataSync uses to access your
+    -- Amazon EFS file system.
     ec2Config :: Ec2Config
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -100,41 +102,37 @@ data CreateLocationEfs = CreateLocationEfs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subdirectory', 'createLocationEfs_subdirectory' - A subdirectory in the location’s path. This subdirectory in the EFS file
--- system is used to read data from the EFS source location or write data
--- to the EFS destination. By default, DataSync uses the root directory.
+-- 'accessPointArn', 'createLocationEfs_accessPointArn' - Specifies the Amazon Resource Name (ARN) of the access point that
+-- DataSync uses to access the Amazon EFS file system.
 --
--- @Subdirectory@ must be specified with forward slashes. For example,
--- @\/path\/to\/folder@.
+-- 'fileSystemAccessRoleArn', 'createLocationEfs_fileSystemAccessRoleArn' - Specifies an Identity and Access Management (IAM) role that DataSync
+-- assumes when mounting the Amazon EFS file system.
 --
--- 'tags', 'createLocationEfs_tags' - The key-value pair that represents a tag that you want to add to the
--- resource. The value can be an empty string. This value helps you manage,
--- filter, and search for your resources. We recommend that you create a
--- name tag for your location.
+-- 'inTransitEncryption', 'createLocationEfs_inTransitEncryption' - Specifies whether you want DataSync to use Transport Layer Security
+-- (TLS) 1.2 encryption when it copies data to or from the Amazon EFS file
+-- system.
 --
--- 'efsFilesystemArn', 'createLocationEfs_efsFilesystemArn' - The Amazon Resource Name (ARN) for the Amazon EFS file system.
+-- If you specify an access point using @AccessPointArn@ or an IAM role
+-- using @FileSystemAccessRoleArn@, you must set this parameter to
+-- @TLS1_2@.
 --
--- 'ec2Config', 'createLocationEfs_ec2Config' - The subnet and security group that the Amazon EFS file system uses. The
--- security group that you provide needs to be able to communicate with the
--- security group on the mount target in the subnet specified.
+-- 'subdirectory', 'createLocationEfs_subdirectory' - Specifies a mount path for your Amazon EFS file system. This is where
+-- DataSync reads or writes data (depending on if this is a source or
+-- destination location). By default, DataSync uses the root directory, but
+-- you can also include subdirectories.
 --
--- The exact relationship between security group M (of the mount target)
--- and security group S (which you provide for DataSync to use at this
--- stage) is as follows:
+-- You must specify a value with forward slashes (for example,
+-- @\/path\/to\/folder@).
 --
--- -   Security group M (which you associate with the mount target) must
---     allow inbound access for the Transmission Control Protocol (TCP) on
---     the NFS port (2049) from security group S. You can enable inbound
---     connections either by IP address (CIDR range) or security group.
+-- 'tags', 'createLocationEfs_tags' - Specifies the key-value pair that represents a tag that you want to add
+-- to the resource. The value can be an empty string. This value helps you
+-- manage, filter, and search for your resources. We recommend that you
+-- create a name tag for your location.
 --
--- -   Security group S (provided to DataSync to access EFS) should have a
---     rule that enables outbound connections to the NFS port on one of the
---     file system’s mount targets. You can enable outbound connections
---     either by IP address (CIDR range) or security group.
+-- 'efsFilesystemArn', 'createLocationEfs_efsFilesystemArn' - Specifies the ARN for the Amazon EFS file system.
 --
---     For information about security groups and mount targets, see
---     Security Groups for Amazon EC2 Instances and Mount Targets in the
---     /Amazon EFS User Guide./
+-- 'ec2Config', 'createLocationEfs_ec2Config' - Specifies the subnet and security groups DataSync uses to access your
+-- Amazon EFS file system.
 newCreateLocationEfs ::
   -- | 'efsFilesystemArn'
   Prelude.Text ->
@@ -143,53 +141,59 @@ newCreateLocationEfs ::
   CreateLocationEfs
 newCreateLocationEfs pEfsFilesystemArn_ pEc2Config_ =
   CreateLocationEfs'
-    { subdirectory = Prelude.Nothing,
+    { accessPointArn =
+        Prelude.Nothing,
+      fileSystemAccessRoleArn = Prelude.Nothing,
+      inTransitEncryption = Prelude.Nothing,
+      subdirectory = Prelude.Nothing,
       tags = Prelude.Nothing,
       efsFilesystemArn = pEfsFilesystemArn_,
       ec2Config = pEc2Config_
     }
 
--- | A subdirectory in the location’s path. This subdirectory in the EFS file
--- system is used to read data from the EFS source location or write data
--- to the EFS destination. By default, DataSync uses the root directory.
+-- | Specifies the Amazon Resource Name (ARN) of the access point that
+-- DataSync uses to access the Amazon EFS file system.
+createLocationEfs_accessPointArn :: Lens.Lens' CreateLocationEfs (Prelude.Maybe Prelude.Text)
+createLocationEfs_accessPointArn = Lens.lens (\CreateLocationEfs' {accessPointArn} -> accessPointArn) (\s@CreateLocationEfs' {} a -> s {accessPointArn = a} :: CreateLocationEfs)
+
+-- | Specifies an Identity and Access Management (IAM) role that DataSync
+-- assumes when mounting the Amazon EFS file system.
+createLocationEfs_fileSystemAccessRoleArn :: Lens.Lens' CreateLocationEfs (Prelude.Maybe Prelude.Text)
+createLocationEfs_fileSystemAccessRoleArn = Lens.lens (\CreateLocationEfs' {fileSystemAccessRoleArn} -> fileSystemAccessRoleArn) (\s@CreateLocationEfs' {} a -> s {fileSystemAccessRoleArn = a} :: CreateLocationEfs)
+
+-- | Specifies whether you want DataSync to use Transport Layer Security
+-- (TLS) 1.2 encryption when it copies data to or from the Amazon EFS file
+-- system.
 --
--- @Subdirectory@ must be specified with forward slashes. For example,
--- @\/path\/to\/folder@.
+-- If you specify an access point using @AccessPointArn@ or an IAM role
+-- using @FileSystemAccessRoleArn@, you must set this parameter to
+-- @TLS1_2@.
+createLocationEfs_inTransitEncryption :: Lens.Lens' CreateLocationEfs (Prelude.Maybe EfsInTransitEncryption)
+createLocationEfs_inTransitEncryption = Lens.lens (\CreateLocationEfs' {inTransitEncryption} -> inTransitEncryption) (\s@CreateLocationEfs' {} a -> s {inTransitEncryption = a} :: CreateLocationEfs)
+
+-- | Specifies a mount path for your Amazon EFS file system. This is where
+-- DataSync reads or writes data (depending on if this is a source or
+-- destination location). By default, DataSync uses the root directory, but
+-- you can also include subdirectories.
+--
+-- You must specify a value with forward slashes (for example,
+-- @\/path\/to\/folder@).
 createLocationEfs_subdirectory :: Lens.Lens' CreateLocationEfs (Prelude.Maybe Prelude.Text)
 createLocationEfs_subdirectory = Lens.lens (\CreateLocationEfs' {subdirectory} -> subdirectory) (\s@CreateLocationEfs' {} a -> s {subdirectory = a} :: CreateLocationEfs)
 
--- | The key-value pair that represents a tag that you want to add to the
--- resource. The value can be an empty string. This value helps you manage,
--- filter, and search for your resources. We recommend that you create a
--- name tag for your location.
+-- | Specifies the key-value pair that represents a tag that you want to add
+-- to the resource. The value can be an empty string. This value helps you
+-- manage, filter, and search for your resources. We recommend that you
+-- create a name tag for your location.
 createLocationEfs_tags :: Lens.Lens' CreateLocationEfs (Prelude.Maybe [TagListEntry])
 createLocationEfs_tags = Lens.lens (\CreateLocationEfs' {tags} -> tags) (\s@CreateLocationEfs' {} a -> s {tags = a} :: CreateLocationEfs) Prelude.. Lens.mapping Lens.coerced
 
--- | The Amazon Resource Name (ARN) for the Amazon EFS file system.
+-- | Specifies the ARN for the Amazon EFS file system.
 createLocationEfs_efsFilesystemArn :: Lens.Lens' CreateLocationEfs Prelude.Text
 createLocationEfs_efsFilesystemArn = Lens.lens (\CreateLocationEfs' {efsFilesystemArn} -> efsFilesystemArn) (\s@CreateLocationEfs' {} a -> s {efsFilesystemArn = a} :: CreateLocationEfs)
 
--- | The subnet and security group that the Amazon EFS file system uses. The
--- security group that you provide needs to be able to communicate with the
--- security group on the mount target in the subnet specified.
---
--- The exact relationship between security group M (of the mount target)
--- and security group S (which you provide for DataSync to use at this
--- stage) is as follows:
---
--- -   Security group M (which you associate with the mount target) must
---     allow inbound access for the Transmission Control Protocol (TCP) on
---     the NFS port (2049) from security group S. You can enable inbound
---     connections either by IP address (CIDR range) or security group.
---
--- -   Security group S (provided to DataSync to access EFS) should have a
---     rule that enables outbound connections to the NFS port on one of the
---     file system’s mount targets. You can enable outbound connections
---     either by IP address (CIDR range) or security group.
---
---     For information about security groups and mount targets, see
---     Security Groups for Amazon EC2 Instances and Mount Targets in the
---     /Amazon EFS User Guide./
+-- | Specifies the subnet and security groups DataSync uses to access your
+-- Amazon EFS file system.
 createLocationEfs_ec2Config :: Lens.Lens' CreateLocationEfs Ec2Config
 createLocationEfs_ec2Config = Lens.lens (\CreateLocationEfs' {ec2Config} -> ec2Config) (\s@CreateLocationEfs' {} a -> s {ec2Config = a} :: CreateLocationEfs)
 
@@ -197,60 +201,73 @@ instance Core.AWSRequest CreateLocationEfs where
   type
     AWSResponse CreateLocationEfs =
       CreateLocationEfsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateLocationEfsResponse'
-            Prelude.<$> (x Core..?> "LocationArn")
+            Prelude.<$> (x Data..?> "LocationArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateLocationEfs where
   hashWithSalt _salt CreateLocationEfs' {..} =
-    _salt `Prelude.hashWithSalt` subdirectory
+    _salt `Prelude.hashWithSalt` accessPointArn
+      `Prelude.hashWithSalt` fileSystemAccessRoleArn
+      `Prelude.hashWithSalt` inTransitEncryption
+      `Prelude.hashWithSalt` subdirectory
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` efsFilesystemArn
       `Prelude.hashWithSalt` ec2Config
 
 instance Prelude.NFData CreateLocationEfs where
   rnf CreateLocationEfs' {..} =
-    Prelude.rnf subdirectory
+    Prelude.rnf accessPointArn
+      `Prelude.seq` Prelude.rnf fileSystemAccessRoleArn
+      `Prelude.seq` Prelude.rnf inTransitEncryption
+      `Prelude.seq` Prelude.rnf subdirectory
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf efsFilesystemArn
       `Prelude.seq` Prelude.rnf ec2Config
 
-instance Core.ToHeaders CreateLocationEfs where
+instance Data.ToHeaders CreateLocationEfs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "FmrsService.CreateLocationEfs" ::
+              Data.=# ( "FmrsService.CreateLocationEfs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateLocationEfs where
+instance Data.ToJSON CreateLocationEfs where
   toJSON CreateLocationEfs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Subdirectory" Core..=) Prelude.<$> subdirectory,
-            ("Tags" Core..=) Prelude.<$> tags,
+          [ ("AccessPointArn" Data..=)
+              Prelude.<$> accessPointArn,
+            ("FileSystemAccessRoleArn" Data..=)
+              Prelude.<$> fileSystemAccessRoleArn,
+            ("InTransitEncryption" Data..=)
+              Prelude.<$> inTransitEncryption,
+            ("Subdirectory" Data..=) Prelude.<$> subdirectory,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("EfsFilesystemArn" Core..= efsFilesystemArn),
-            Prelude.Just ("Ec2Config" Core..= ec2Config)
+              ("EfsFilesystemArn" Data..= efsFilesystemArn),
+            Prelude.Just ("Ec2Config" Data..= ec2Config)
           ]
       )
 
-instance Core.ToPath CreateLocationEfs where
+instance Data.ToPath CreateLocationEfs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateLocationEfs where
+instance Data.ToQuery CreateLocationEfs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | CreateLocationEfs
@@ -258,7 +275,7 @@ instance Core.ToQuery CreateLocationEfs where
 -- /See:/ 'newCreateLocationEfsResponse' smart constructor.
 data CreateLocationEfsResponse = CreateLocationEfsResponse'
   { -- | The Amazon Resource Name (ARN) of the Amazon EFS file system location
-    -- that is created.
+    -- that you create.
     locationArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -274,7 +291,7 @@ data CreateLocationEfsResponse = CreateLocationEfsResponse'
 -- for backwards compatibility:
 --
 -- 'locationArn', 'createLocationEfsResponse_locationArn' - The Amazon Resource Name (ARN) of the Amazon EFS file system location
--- that is created.
+-- that you create.
 --
 -- 'httpStatus', 'createLocationEfsResponse_httpStatus' - The response's http status code.
 newCreateLocationEfsResponse ::
@@ -289,7 +306,7 @@ newCreateLocationEfsResponse pHttpStatus_ =
     }
 
 -- | The Amazon Resource Name (ARN) of the Amazon EFS file system location
--- that is created.
+-- that you create.
 createLocationEfsResponse_locationArn :: Lens.Lens' CreateLocationEfsResponse (Prelude.Maybe Prelude.Text)
 createLocationEfsResponse_locationArn = Lens.lens (\CreateLocationEfsResponse' {locationArn} -> locationArn) (\s@CreateLocationEfsResponse' {} a -> s {locationArn = a} :: CreateLocationEfsResponse)
 

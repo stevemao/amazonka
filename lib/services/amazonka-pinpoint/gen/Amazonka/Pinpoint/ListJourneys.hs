@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.ListJourneys
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Pinpoint.ListJourneys
     newListJourneys,
 
     -- * Request Lenses
-    listJourneys_token,
     listJourneys_pageSize,
+    listJourneys_token,
     listJourneys_applicationId,
 
     -- * Destructuring the Response
@@ -43,7 +43,8 @@ module Amazonka.Pinpoint.ListJourneys
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -51,13 +52,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListJourneys' smart constructor.
 data ListJourneys = ListJourneys'
-  { -- | The NextToken string that specifies which page of results to return in a
-    -- paginated response.
-    token :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to include in each page of a paginated
+  { -- | The maximum number of items to include in each page of a paginated
     -- response. This parameter is not supported for application, campaign, and
     -- journey metrics.
     pageSize :: Prelude.Maybe Prelude.Text,
+    -- | The NextToken string that specifies which page of results to return in a
+    -- paginated response.
+    token :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier for the application. This identifier is displayed
     -- as the __Project ID__ on the Amazon Pinpoint console.
     applicationId :: Prelude.Text
@@ -72,12 +73,12 @@ data ListJourneys = ListJourneys'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'token', 'listJourneys_token' - The NextToken string that specifies which page of results to return in a
--- paginated response.
---
 -- 'pageSize', 'listJourneys_pageSize' - The maximum number of items to include in each page of a paginated
 -- response. This parameter is not supported for application, campaign, and
 -- journey metrics.
+--
+-- 'token', 'listJourneys_token' - The NextToken string that specifies which page of results to return in a
+-- paginated response.
 --
 -- 'applicationId', 'listJourneys_applicationId' - The unique identifier for the application. This identifier is displayed
 -- as the __Project ID__ on the Amazon Pinpoint console.
@@ -87,21 +88,21 @@ newListJourneys ::
   ListJourneys
 newListJourneys pApplicationId_ =
   ListJourneys'
-    { token = Prelude.Nothing,
-      pageSize = Prelude.Nothing,
+    { pageSize = Prelude.Nothing,
+      token = Prelude.Nothing,
       applicationId = pApplicationId_
     }
-
--- | The NextToken string that specifies which page of results to return in a
--- paginated response.
-listJourneys_token :: Lens.Lens' ListJourneys (Prelude.Maybe Prelude.Text)
-listJourneys_token = Lens.lens (\ListJourneys' {token} -> token) (\s@ListJourneys' {} a -> s {token = a} :: ListJourneys)
 
 -- | The maximum number of items to include in each page of a paginated
 -- response. This parameter is not supported for application, campaign, and
 -- journey metrics.
 listJourneys_pageSize :: Lens.Lens' ListJourneys (Prelude.Maybe Prelude.Text)
 listJourneys_pageSize = Lens.lens (\ListJourneys' {pageSize} -> pageSize) (\s@ListJourneys' {} a -> s {pageSize = a} :: ListJourneys)
+
+-- | The NextToken string that specifies which page of results to return in a
+-- paginated response.
+listJourneys_token :: Lens.Lens' ListJourneys (Prelude.Maybe Prelude.Text)
+listJourneys_token = Lens.lens (\ListJourneys' {token} -> token) (\s@ListJourneys' {} a -> s {token = a} :: ListJourneys)
 
 -- | The unique identifier for the application. This identifier is displayed
 -- as the __Project ID__ on the Amazon Pinpoint console.
@@ -110,47 +111,48 @@ listJourneys_applicationId = Lens.lens (\ListJourneys' {applicationId} -> applic
 
 instance Core.AWSRequest ListJourneys where
   type AWSResponse ListJourneys = ListJourneysResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListJourneysResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable ListJourneys where
   hashWithSalt _salt ListJourneys' {..} =
-    _salt `Prelude.hashWithSalt` token
-      `Prelude.hashWithSalt` pageSize
+    _salt `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` token
       `Prelude.hashWithSalt` applicationId
 
 instance Prelude.NFData ListJourneys where
   rnf ListJourneys' {..} =
-    Prelude.rnf token
-      `Prelude.seq` Prelude.rnf pageSize
+    Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf token
       `Prelude.seq` Prelude.rnf applicationId
 
-instance Core.ToHeaders ListJourneys where
+instance Data.ToHeaders ListJourneys where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListJourneys where
+instance Data.ToPath ListJourneys where
   toPath ListJourneys' {..} =
     Prelude.mconcat
-      ["/v1/apps/", Core.toBS applicationId, "/journeys"]
+      ["/v1/apps/", Data.toBS applicationId, "/journeys"]
 
-instance Core.ToQuery ListJourneys where
+instance Data.ToQuery ListJourneys where
   toQuery ListJourneys' {..} =
     Prelude.mconcat
-      ["token" Core.=: token, "page-size" Core.=: pageSize]
+      ["page-size" Data.=: pageSize, "token" Data.=: token]
 
 -- | /See:/ 'newListJourneysResponse' smart constructor.
 data ListJourneysResponse = ListJourneysResponse'

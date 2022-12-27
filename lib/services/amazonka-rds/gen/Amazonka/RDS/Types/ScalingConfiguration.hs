@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.Types.ScalingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,39 +20,20 @@
 module Amazonka.RDS.Types.ScalingConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Contains the scaling configuration of an Aurora Serverless DB cluster.
+-- | Contains the scaling configuration of an Aurora Serverless v1 DB
+-- cluster.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html Using Amazon Aurora Serverless>
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.html Using Amazon Aurora Serverless v1>
 -- in the /Amazon Aurora User Guide/.
 --
 -- /See:/ 'newScalingConfiguration' smart constructor.
 data ScalingConfiguration = ScalingConfiguration'
-  { -- | The time, in seconds, before an Aurora DB cluster in @serverless@ mode
-    -- is paused.
-    --
-    -- Specify a value between 300 and 86,400 seconds.
-    secondsUntilAutoPause :: Prelude.Maybe Prelude.Int,
-    -- | The action to take when the timeout is reached, either
-    -- @ForceApplyCapacityChange@ or @RollbackCapacityChange@.
-    --
-    -- @ForceApplyCapacityChange@ sets the capacity to the specified value as
-    -- soon as possible.
-    --
-    -- @RollbackCapacityChange@, the default, ignores the capacity change if a
-    -- scaling point isn\'t found in the timeout period.
-    --
-    -- If you specify @ForceApplyCapacityChange@, connections that prevent
-    -- Aurora Serverless from finding a scaling point might be dropped.
-    --
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling Autoscaling for Aurora Serverless>
-    -- in the /Amazon Aurora User Guide/.
-    timeoutAction :: Prelude.Maybe Prelude.Text,
-    -- | A value that indicates whether to allow or disallow automatic pause for
+  { -- | A value that indicates whether to allow or disallow automatic pause for
     -- an Aurora DB cluster in @serverless@ DB engine mode. A DB cluster can be
     -- paused only when it\'s idle (it has no connections).
     --
@@ -83,12 +64,33 @@ data ScalingConfiguration = ScalingConfiguration'
     --
     -- The minimum capacity must be less than or equal to the maximum capacity.
     minCapacity :: Prelude.Maybe Prelude.Int,
-    -- | The amount of time, in seconds, that Aurora Serverless tries to find a
-    -- scaling point to perform seamless scaling before enforcing the timeout
+    -- | The amount of time, in seconds, that Aurora Serverless v1 tries to find
+    -- a scaling point to perform seamless scaling before enforcing the timeout
     -- action. The default is 300.
     --
     -- Specify a value between 60 and 600 seconds.
-    secondsBeforeTimeout :: Prelude.Maybe Prelude.Int
+    secondsBeforeTimeout :: Prelude.Maybe Prelude.Int,
+    -- | The time, in seconds, before an Aurora DB cluster in @serverless@ mode
+    -- is paused.
+    --
+    -- Specify a value between 300 and 86,400 seconds.
+    secondsUntilAutoPause :: Prelude.Maybe Prelude.Int,
+    -- | The action to take when the timeout is reached, either
+    -- @ForceApplyCapacityChange@ or @RollbackCapacityChange@.
+    --
+    -- @ForceApplyCapacityChange@ sets the capacity to the specified value as
+    -- soon as possible.
+    --
+    -- @RollbackCapacityChange@, the default, ignores the capacity change if a
+    -- scaling point isn\'t found in the timeout period.
+    --
+    -- If you specify @ForceApplyCapacityChange@, connections that prevent
+    -- Aurora Serverless v1 from finding a scaling point might be dropped.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling Autoscaling for Aurora Serverless v1>
+    -- in the /Amazon Aurora User Guide/.
+    timeoutAction :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -99,27 +101,6 @@ data ScalingConfiguration = ScalingConfiguration'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'secondsUntilAutoPause', 'scalingConfiguration_secondsUntilAutoPause' - The time, in seconds, before an Aurora DB cluster in @serverless@ mode
--- is paused.
---
--- Specify a value between 300 and 86,400 seconds.
---
--- 'timeoutAction', 'scalingConfiguration_timeoutAction' - The action to take when the timeout is reached, either
--- @ForceApplyCapacityChange@ or @RollbackCapacityChange@.
---
--- @ForceApplyCapacityChange@ sets the capacity to the specified value as
--- soon as possible.
---
--- @RollbackCapacityChange@, the default, ignores the capacity change if a
--- scaling point isn\'t found in the timeout period.
---
--- If you specify @ForceApplyCapacityChange@, connections that prevent
--- Aurora Serverless from finding a scaling point might be dropped.
---
--- For more information, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling Autoscaling for Aurora Serverless>
--- in the /Amazon Aurora User Guide/.
 --
 -- 'autoPause', 'scalingConfiguration_autoPause' - A value that indicates whether to allow or disallow automatic pause for
 -- an Aurora DB cluster in @serverless@ DB engine mode. A DB cluster can be
@@ -152,32 +133,18 @@ data ScalingConfiguration = ScalingConfiguration'
 --
 -- The minimum capacity must be less than or equal to the maximum capacity.
 --
--- 'secondsBeforeTimeout', 'scalingConfiguration_secondsBeforeTimeout' - The amount of time, in seconds, that Aurora Serverless tries to find a
--- scaling point to perform seamless scaling before enforcing the timeout
+-- 'secondsBeforeTimeout', 'scalingConfiguration_secondsBeforeTimeout' - The amount of time, in seconds, that Aurora Serverless v1 tries to find
+-- a scaling point to perform seamless scaling before enforcing the timeout
 -- action. The default is 300.
 --
 -- Specify a value between 60 and 600 seconds.
-newScalingConfiguration ::
-  ScalingConfiguration
-newScalingConfiguration =
-  ScalingConfiguration'
-    { secondsUntilAutoPause =
-        Prelude.Nothing,
-      timeoutAction = Prelude.Nothing,
-      autoPause = Prelude.Nothing,
-      maxCapacity = Prelude.Nothing,
-      minCapacity = Prelude.Nothing,
-      secondsBeforeTimeout = Prelude.Nothing
-    }
-
--- | The time, in seconds, before an Aurora DB cluster in @serverless@ mode
+--
+-- 'secondsUntilAutoPause', 'scalingConfiguration_secondsUntilAutoPause' - The time, in seconds, before an Aurora DB cluster in @serverless@ mode
 -- is paused.
 --
 -- Specify a value between 300 and 86,400 seconds.
-scalingConfiguration_secondsUntilAutoPause :: Lens.Lens' ScalingConfiguration (Prelude.Maybe Prelude.Int)
-scalingConfiguration_secondsUntilAutoPause = Lens.lens (\ScalingConfiguration' {secondsUntilAutoPause} -> secondsUntilAutoPause) (\s@ScalingConfiguration' {} a -> s {secondsUntilAutoPause = a} :: ScalingConfiguration)
-
--- | The action to take when the timeout is reached, either
+--
+-- 'timeoutAction', 'scalingConfiguration_timeoutAction' - The action to take when the timeout is reached, either
 -- @ForceApplyCapacityChange@ or @RollbackCapacityChange@.
 --
 -- @ForceApplyCapacityChange@ sets the capacity to the specified value as
@@ -187,13 +154,22 @@ scalingConfiguration_secondsUntilAutoPause = Lens.lens (\ScalingConfiguration' {
 -- scaling point isn\'t found in the timeout period.
 --
 -- If you specify @ForceApplyCapacityChange@, connections that prevent
--- Aurora Serverless from finding a scaling point might be dropped.
+-- Aurora Serverless v1 from finding a scaling point might be dropped.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling Autoscaling for Aurora Serverless>
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling Autoscaling for Aurora Serverless v1>
 -- in the /Amazon Aurora User Guide/.
-scalingConfiguration_timeoutAction :: Lens.Lens' ScalingConfiguration (Prelude.Maybe Prelude.Text)
-scalingConfiguration_timeoutAction = Lens.lens (\ScalingConfiguration' {timeoutAction} -> timeoutAction) (\s@ScalingConfiguration' {} a -> s {timeoutAction = a} :: ScalingConfiguration)
+newScalingConfiguration ::
+  ScalingConfiguration
+newScalingConfiguration =
+  ScalingConfiguration'
+    { autoPause = Prelude.Nothing,
+      maxCapacity = Prelude.Nothing,
+      minCapacity = Prelude.Nothing,
+      secondsBeforeTimeout = Prelude.Nothing,
+      secondsUntilAutoPause = Prelude.Nothing,
+      timeoutAction = Prelude.Nothing
+    }
 
 -- | A value that indicates whether to allow or disallow automatic pause for
 -- an Aurora DB cluster in @serverless@ DB engine mode. A DB cluster can be
@@ -232,40 +208,65 @@ scalingConfiguration_maxCapacity = Lens.lens (\ScalingConfiguration' {maxCapacit
 scalingConfiguration_minCapacity :: Lens.Lens' ScalingConfiguration (Prelude.Maybe Prelude.Int)
 scalingConfiguration_minCapacity = Lens.lens (\ScalingConfiguration' {minCapacity} -> minCapacity) (\s@ScalingConfiguration' {} a -> s {minCapacity = a} :: ScalingConfiguration)
 
--- | The amount of time, in seconds, that Aurora Serverless tries to find a
--- scaling point to perform seamless scaling before enforcing the timeout
+-- | The amount of time, in seconds, that Aurora Serverless v1 tries to find
+-- a scaling point to perform seamless scaling before enforcing the timeout
 -- action. The default is 300.
 --
 -- Specify a value between 60 and 600 seconds.
 scalingConfiguration_secondsBeforeTimeout :: Lens.Lens' ScalingConfiguration (Prelude.Maybe Prelude.Int)
 scalingConfiguration_secondsBeforeTimeout = Lens.lens (\ScalingConfiguration' {secondsBeforeTimeout} -> secondsBeforeTimeout) (\s@ScalingConfiguration' {} a -> s {secondsBeforeTimeout = a} :: ScalingConfiguration)
 
+-- | The time, in seconds, before an Aurora DB cluster in @serverless@ mode
+-- is paused.
+--
+-- Specify a value between 300 and 86,400 seconds.
+scalingConfiguration_secondsUntilAutoPause :: Lens.Lens' ScalingConfiguration (Prelude.Maybe Prelude.Int)
+scalingConfiguration_secondsUntilAutoPause = Lens.lens (\ScalingConfiguration' {secondsUntilAutoPause} -> secondsUntilAutoPause) (\s@ScalingConfiguration' {} a -> s {secondsUntilAutoPause = a} :: ScalingConfiguration)
+
+-- | The action to take when the timeout is reached, either
+-- @ForceApplyCapacityChange@ or @RollbackCapacityChange@.
+--
+-- @ForceApplyCapacityChange@ sets the capacity to the specified value as
+-- soon as possible.
+--
+-- @RollbackCapacityChange@, the default, ignores the capacity change if a
+-- scaling point isn\'t found in the timeout period.
+--
+-- If you specify @ForceApplyCapacityChange@, connections that prevent
+-- Aurora Serverless v1 from finding a scaling point might be dropped.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-serverless.how-it-works.html#aurora-serverless.how-it-works.auto-scaling Autoscaling for Aurora Serverless v1>
+-- in the /Amazon Aurora User Guide/.
+scalingConfiguration_timeoutAction :: Lens.Lens' ScalingConfiguration (Prelude.Maybe Prelude.Text)
+scalingConfiguration_timeoutAction = Lens.lens (\ScalingConfiguration' {timeoutAction} -> timeoutAction) (\s@ScalingConfiguration' {} a -> s {timeoutAction = a} :: ScalingConfiguration)
+
 instance Prelude.Hashable ScalingConfiguration where
   hashWithSalt _salt ScalingConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` secondsUntilAutoPause
-      `Prelude.hashWithSalt` timeoutAction
-      `Prelude.hashWithSalt` autoPause
+    _salt `Prelude.hashWithSalt` autoPause
       `Prelude.hashWithSalt` maxCapacity
       `Prelude.hashWithSalt` minCapacity
       `Prelude.hashWithSalt` secondsBeforeTimeout
+      `Prelude.hashWithSalt` secondsUntilAutoPause
+      `Prelude.hashWithSalt` timeoutAction
 
 instance Prelude.NFData ScalingConfiguration where
   rnf ScalingConfiguration' {..} =
-    Prelude.rnf secondsUntilAutoPause
-      `Prelude.seq` Prelude.rnf timeoutAction
-      `Prelude.seq` Prelude.rnf autoPause
+    Prelude.rnf autoPause
       `Prelude.seq` Prelude.rnf maxCapacity
       `Prelude.seq` Prelude.rnf minCapacity
       `Prelude.seq` Prelude.rnf secondsBeforeTimeout
+      `Prelude.seq` Prelude.rnf secondsUntilAutoPause
+      `Prelude.seq` Prelude.rnf timeoutAction
 
-instance Core.ToQuery ScalingConfiguration where
+instance Data.ToQuery ScalingConfiguration where
   toQuery ScalingConfiguration' {..} =
     Prelude.mconcat
-      [ "SecondsUntilAutoPause"
-          Core.=: secondsUntilAutoPause,
-        "TimeoutAction" Core.=: timeoutAction,
-        "AutoPause" Core.=: autoPause,
-        "MaxCapacity" Core.=: maxCapacity,
-        "MinCapacity" Core.=: minCapacity,
-        "SecondsBeforeTimeout" Core.=: secondsBeforeTimeout
+      [ "AutoPause" Data.=: autoPause,
+        "MaxCapacity" Data.=: maxCapacity,
+        "MinCapacity" Data.=: minCapacity,
+        "SecondsBeforeTimeout" Data.=: secondsBeforeTimeout,
+        "SecondsUntilAutoPause"
+          Data.=: secondsUntilAutoPause,
+        "TimeoutAction" Data.=: timeoutAction
       ]

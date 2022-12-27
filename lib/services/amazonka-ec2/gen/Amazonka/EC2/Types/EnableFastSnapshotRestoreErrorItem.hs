@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.EnableFastSnapshotRestoreErrorItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.EnableFastSnapshotRestoreErrorItem where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.EnableFastSnapshotRestoreStateErrorItem
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the errors that occurred when enabling fast
@@ -66,16 +67,16 @@ enableFastSnapshotRestoreErrorItem_snapshotId :: Lens.Lens' EnableFastSnapshotRe
 enableFastSnapshotRestoreErrorItem_snapshotId = Lens.lens (\EnableFastSnapshotRestoreErrorItem' {snapshotId} -> snapshotId) (\s@EnableFastSnapshotRestoreErrorItem' {} a -> s {snapshotId = a} :: EnableFastSnapshotRestoreErrorItem)
 
 instance
-  Core.FromXML
+  Data.FromXML
     EnableFastSnapshotRestoreErrorItem
   where
   parseXML x =
     EnableFastSnapshotRestoreErrorItem'
-      Prelude.<$> ( x Core..@? "fastSnapshotRestoreStateErrorSet"
+      Prelude.<$> ( x Data..@? "fastSnapshotRestoreStateErrorSet"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@? "snapshotId")
+      Prelude.<*> (x Data..@? "snapshotId")
 
 instance
   Prelude.Hashable

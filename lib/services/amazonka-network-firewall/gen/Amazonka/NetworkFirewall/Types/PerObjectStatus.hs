@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Types.PerObjectStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.NetworkFirewall.Types.PerObjectStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types.PerObjectSyncStatus
 import qualified Amazonka.Prelude as Prelude
 
@@ -33,12 +34,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPerObjectStatus' smart constructor.
 data PerObjectStatus = PerObjectStatus'
-  { -- | The current version of the object that is either in sync or pending
-    -- synchronization.
-    updateToken :: Prelude.Maybe Prelude.Text,
-    -- | Indicates whether this object is in sync with the version indicated in
+  { -- | Indicates whether this object is in sync with the version indicated in
     -- the update token.
-    syncStatus :: Prelude.Maybe PerObjectSyncStatus
+    syncStatus :: Prelude.Maybe PerObjectSyncStatus,
+    -- | The current version of the object that is either in sync or pending
+    -- synchronization.
+    updateToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,45 +51,45 @@ data PerObjectStatus = PerObjectStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'updateToken', 'perObjectStatus_updateToken' - The current version of the object that is either in sync or pending
--- synchronization.
---
 -- 'syncStatus', 'perObjectStatus_syncStatus' - Indicates whether this object is in sync with the version indicated in
 -- the update token.
+--
+-- 'updateToken', 'perObjectStatus_updateToken' - The current version of the object that is either in sync or pending
+-- synchronization.
 newPerObjectStatus ::
   PerObjectStatus
 newPerObjectStatus =
   PerObjectStatus'
-    { updateToken = Prelude.Nothing,
-      syncStatus = Prelude.Nothing
+    { syncStatus = Prelude.Nothing,
+      updateToken = Prelude.Nothing
     }
-
--- | The current version of the object that is either in sync or pending
--- synchronization.
-perObjectStatus_updateToken :: Lens.Lens' PerObjectStatus (Prelude.Maybe Prelude.Text)
-perObjectStatus_updateToken = Lens.lens (\PerObjectStatus' {updateToken} -> updateToken) (\s@PerObjectStatus' {} a -> s {updateToken = a} :: PerObjectStatus)
 
 -- | Indicates whether this object is in sync with the version indicated in
 -- the update token.
 perObjectStatus_syncStatus :: Lens.Lens' PerObjectStatus (Prelude.Maybe PerObjectSyncStatus)
 perObjectStatus_syncStatus = Lens.lens (\PerObjectStatus' {syncStatus} -> syncStatus) (\s@PerObjectStatus' {} a -> s {syncStatus = a} :: PerObjectStatus)
 
-instance Core.FromJSON PerObjectStatus where
+-- | The current version of the object that is either in sync or pending
+-- synchronization.
+perObjectStatus_updateToken :: Lens.Lens' PerObjectStatus (Prelude.Maybe Prelude.Text)
+perObjectStatus_updateToken = Lens.lens (\PerObjectStatus' {updateToken} -> updateToken) (\s@PerObjectStatus' {} a -> s {updateToken = a} :: PerObjectStatus)
+
+instance Data.FromJSON PerObjectStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PerObjectStatus"
       ( \x ->
           PerObjectStatus'
-            Prelude.<$> (x Core..:? "UpdateToken")
-            Prelude.<*> (x Core..:? "SyncStatus")
+            Prelude.<$> (x Data..:? "SyncStatus")
+            Prelude.<*> (x Data..:? "UpdateToken")
       )
 
 instance Prelude.Hashable PerObjectStatus where
   hashWithSalt _salt PerObjectStatus' {..} =
-    _salt `Prelude.hashWithSalt` updateToken
-      `Prelude.hashWithSalt` syncStatus
+    _salt `Prelude.hashWithSalt` syncStatus
+      `Prelude.hashWithSalt` updateToken
 
 instance Prelude.NFData PerObjectStatus where
   rnf PerObjectStatus' {..} =
-    Prelude.rnf updateToken
-      `Prelude.seq` Prelude.rnf syncStatus
+    Prelude.rnf syncStatus
+      `Prelude.seq` Prelude.rnf updateToken

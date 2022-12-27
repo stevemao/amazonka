@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.DeleteContent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Wisdom.DeleteContent
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,8 +52,8 @@ data DeleteContent = DeleteContent'
   { -- | The identifier of the content. Can be either the ID or the ARN. URLs
     -- cannot contain the ARN.
     contentId :: Prelude.Text,
-    -- | The the identifier of the knowledge base. Can be either the ID or the
-    -- ARN. URLs cannot contain the ARN.
+    -- | The identifier of the knowledge base. Can be either the ID or the ARN.
+    -- URLs cannot contain the ARN.
     knowledgeBaseId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -68,8 +69,8 @@ data DeleteContent = DeleteContent'
 -- 'contentId', 'deleteContent_contentId' - The identifier of the content. Can be either the ID or the ARN. URLs
 -- cannot contain the ARN.
 --
--- 'knowledgeBaseId', 'deleteContent_knowledgeBaseId' - The the identifier of the knowledge base. Can be either the ID or the
--- ARN. URLs cannot contain the ARN.
+-- 'knowledgeBaseId', 'deleteContent_knowledgeBaseId' - The identifier of the knowledge base. Can be either the ID or the ARN.
+-- URLs cannot contain the ARN.
 newDeleteContent ::
   -- | 'contentId'
   Prelude.Text ->
@@ -87,8 +88,8 @@ newDeleteContent pContentId_ pKnowledgeBaseId_ =
 deleteContent_contentId :: Lens.Lens' DeleteContent Prelude.Text
 deleteContent_contentId = Lens.lens (\DeleteContent' {contentId} -> contentId) (\s@DeleteContent' {} a -> s {contentId = a} :: DeleteContent)
 
--- | The the identifier of the knowledge base. Can be either the ID or the
--- ARN. URLs cannot contain the ARN.
+-- | The identifier of the knowledge base. Can be either the ID or the ARN.
+-- URLs cannot contain the ARN.
 deleteContent_knowledgeBaseId :: Lens.Lens' DeleteContent Prelude.Text
 deleteContent_knowledgeBaseId = Lens.lens (\DeleteContent' {knowledgeBaseId} -> knowledgeBaseId) (\s@DeleteContent' {} a -> s {knowledgeBaseId = a} :: DeleteContent)
 
@@ -96,7 +97,8 @@ instance Core.AWSRequest DeleteContent where
   type
     AWSResponse DeleteContent =
       DeleteContentResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,27 +116,27 @@ instance Prelude.NFData DeleteContent where
     Prelude.rnf contentId
       `Prelude.seq` Prelude.rnf knowledgeBaseId
 
-instance Core.ToHeaders DeleteContent where
+instance Data.ToHeaders DeleteContent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteContent where
+instance Data.ToPath DeleteContent where
   toPath DeleteContent' {..} =
     Prelude.mconcat
       [ "/knowledgeBases/",
-        Core.toBS knowledgeBaseId,
+        Data.toBS knowledgeBaseId,
         "/contents/",
-        Core.toBS contentId
+        Data.toBS contentId
       ]
 
-instance Core.ToQuery DeleteContent where
+instance Data.ToQuery DeleteContent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteContentResponse' smart constructor.

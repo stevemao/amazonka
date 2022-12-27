@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.ModelInputConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,25 +20,26 @@
 module Amazonka.FraudDetector.Types.ModelInputConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types.ModelInputDataFormat
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The Amazon SageMaker model input configuration.
 --
 -- /See:/ 'newModelInputConfiguration' smart constructor.
 data ModelInputConfiguration = ModelInputConfiguration'
-  { -- | The format of the model input configuration. The format differs
-    -- depending on if it is passed through to SageMaker or constructed by
-    -- Amazon Fraud Detector.
-    format :: Prelude.Maybe ModelInputDataFormat,
-    -- | The event type name.
-    eventTypeName :: Prelude.Maybe Prelude.Text,
-    -- | Template for constructing the CSV input-data sent to SageMaker. At
+  { -- | Template for constructing the CSV input-data sent to SageMaker. At
     -- event-evaluation, the placeholders for variable-names in the template
     -- will be replaced with the variable values before being sent to
     -- SageMaker.
     csvInputTemplate :: Prelude.Maybe Prelude.Text,
+    -- | The event type name.
+    eventTypeName :: Prelude.Maybe Prelude.Text,
+    -- | The format of the model input configuration. The format differs
+    -- depending on if it is passed through to SageMaker or constructed by
+    -- Amazon Fraud Detector.
+    format :: Prelude.Maybe ModelInputDataFormat,
     -- | Template for constructing the JSON input-data sent to SageMaker. At
     -- event-evaluation, the placeholders for variable names in the template
     -- will be replaced with the variable values before being sent to
@@ -57,16 +58,16 @@ data ModelInputConfiguration = ModelInputConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'format', 'modelInputConfiguration_format' - The format of the model input configuration. The format differs
--- depending on if it is passed through to SageMaker or constructed by
--- Amazon Fraud Detector.
---
--- 'eventTypeName', 'modelInputConfiguration_eventTypeName' - The event type name.
---
 -- 'csvInputTemplate', 'modelInputConfiguration_csvInputTemplate' - Template for constructing the CSV input-data sent to SageMaker. At
 -- event-evaluation, the placeholders for variable-names in the template
 -- will be replaced with the variable values before being sent to
 -- SageMaker.
+--
+-- 'eventTypeName', 'modelInputConfiguration_eventTypeName' - The event type name.
+--
+-- 'format', 'modelInputConfiguration_format' - The format of the model input configuration. The format differs
+-- depending on if it is passed through to SageMaker or constructed by
+-- Amazon Fraud Detector.
 --
 -- 'jsonInputTemplate', 'modelInputConfiguration_jsonInputTemplate' - Template for constructing the JSON input-data sent to SageMaker. At
 -- event-evaluation, the placeholders for variable names in the template
@@ -80,22 +81,13 @@ newModelInputConfiguration ::
   ModelInputConfiguration
 newModelInputConfiguration pUseEventVariables_ =
   ModelInputConfiguration'
-    { format = Prelude.Nothing,
+    { csvInputTemplate =
+        Prelude.Nothing,
       eventTypeName = Prelude.Nothing,
-      csvInputTemplate = Prelude.Nothing,
+      format = Prelude.Nothing,
       jsonInputTemplate = Prelude.Nothing,
       useEventVariables = pUseEventVariables_
     }
-
--- | The format of the model input configuration. The format differs
--- depending on if it is passed through to SageMaker or constructed by
--- Amazon Fraud Detector.
-modelInputConfiguration_format :: Lens.Lens' ModelInputConfiguration (Prelude.Maybe ModelInputDataFormat)
-modelInputConfiguration_format = Lens.lens (\ModelInputConfiguration' {format} -> format) (\s@ModelInputConfiguration' {} a -> s {format = a} :: ModelInputConfiguration)
-
--- | The event type name.
-modelInputConfiguration_eventTypeName :: Lens.Lens' ModelInputConfiguration (Prelude.Maybe Prelude.Text)
-modelInputConfiguration_eventTypeName = Lens.lens (\ModelInputConfiguration' {eventTypeName} -> eventTypeName) (\s@ModelInputConfiguration' {} a -> s {eventTypeName = a} :: ModelInputConfiguration)
 
 -- | Template for constructing the CSV input-data sent to SageMaker. At
 -- event-evaluation, the placeholders for variable-names in the template
@@ -103,6 +95,16 @@ modelInputConfiguration_eventTypeName = Lens.lens (\ModelInputConfiguration' {ev
 -- SageMaker.
 modelInputConfiguration_csvInputTemplate :: Lens.Lens' ModelInputConfiguration (Prelude.Maybe Prelude.Text)
 modelInputConfiguration_csvInputTemplate = Lens.lens (\ModelInputConfiguration' {csvInputTemplate} -> csvInputTemplate) (\s@ModelInputConfiguration' {} a -> s {csvInputTemplate = a} :: ModelInputConfiguration)
+
+-- | The event type name.
+modelInputConfiguration_eventTypeName :: Lens.Lens' ModelInputConfiguration (Prelude.Maybe Prelude.Text)
+modelInputConfiguration_eventTypeName = Lens.lens (\ModelInputConfiguration' {eventTypeName} -> eventTypeName) (\s@ModelInputConfiguration' {} a -> s {eventTypeName = a} :: ModelInputConfiguration)
+
+-- | The format of the model input configuration. The format differs
+-- depending on if it is passed through to SageMaker or constructed by
+-- Amazon Fraud Detector.
+modelInputConfiguration_format :: Lens.Lens' ModelInputConfiguration (Prelude.Maybe ModelInputDataFormat)
+modelInputConfiguration_format = Lens.lens (\ModelInputConfiguration' {format} -> format) (\s@ModelInputConfiguration' {} a -> s {format = a} :: ModelInputConfiguration)
 
 -- | Template for constructing the JSON input-data sent to SageMaker. At
 -- event-evaluation, the placeholders for variable names in the template
@@ -115,46 +117,46 @@ modelInputConfiguration_jsonInputTemplate = Lens.lens (\ModelInputConfiguration'
 modelInputConfiguration_useEventVariables :: Lens.Lens' ModelInputConfiguration Prelude.Bool
 modelInputConfiguration_useEventVariables = Lens.lens (\ModelInputConfiguration' {useEventVariables} -> useEventVariables) (\s@ModelInputConfiguration' {} a -> s {useEventVariables = a} :: ModelInputConfiguration)
 
-instance Core.FromJSON ModelInputConfiguration where
+instance Data.FromJSON ModelInputConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ModelInputConfiguration"
       ( \x ->
           ModelInputConfiguration'
-            Prelude.<$> (x Core..:? "format")
-            Prelude.<*> (x Core..:? "eventTypeName")
-            Prelude.<*> (x Core..:? "csvInputTemplate")
-            Prelude.<*> (x Core..:? "jsonInputTemplate")
-            Prelude.<*> (x Core..: "useEventVariables")
+            Prelude.<$> (x Data..:? "csvInputTemplate")
+            Prelude.<*> (x Data..:? "eventTypeName")
+            Prelude.<*> (x Data..:? "format")
+            Prelude.<*> (x Data..:? "jsonInputTemplate")
+            Prelude.<*> (x Data..: "useEventVariables")
       )
 
 instance Prelude.Hashable ModelInputConfiguration where
   hashWithSalt _salt ModelInputConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` format
+    _salt `Prelude.hashWithSalt` csvInputTemplate
       `Prelude.hashWithSalt` eventTypeName
-      `Prelude.hashWithSalt` csvInputTemplate
+      `Prelude.hashWithSalt` format
       `Prelude.hashWithSalt` jsonInputTemplate
       `Prelude.hashWithSalt` useEventVariables
 
 instance Prelude.NFData ModelInputConfiguration where
   rnf ModelInputConfiguration' {..} =
-    Prelude.rnf format
+    Prelude.rnf csvInputTemplate
       `Prelude.seq` Prelude.rnf eventTypeName
-      `Prelude.seq` Prelude.rnf csvInputTemplate
+      `Prelude.seq` Prelude.rnf format
       `Prelude.seq` Prelude.rnf jsonInputTemplate
       `Prelude.seq` Prelude.rnf useEventVariables
 
-instance Core.ToJSON ModelInputConfiguration where
+instance Data.ToJSON ModelInputConfiguration where
   toJSON ModelInputConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("format" Core..=) Prelude.<$> format,
-            ("eventTypeName" Core..=) Prelude.<$> eventTypeName,
-            ("csvInputTemplate" Core..=)
+          [ ("csvInputTemplate" Data..=)
               Prelude.<$> csvInputTemplate,
-            ("jsonInputTemplate" Core..=)
+            ("eventTypeName" Data..=) Prelude.<$> eventTypeName,
+            ("format" Data..=) Prelude.<$> format,
+            ("jsonInputTemplate" Data..=)
               Prelude.<$> jsonInputTemplate,
             Prelude.Just
-              ("useEventVariables" Core..= useEventVariables)
+              ("useEventVariables" Data..= useEventVariables)
           ]
       )

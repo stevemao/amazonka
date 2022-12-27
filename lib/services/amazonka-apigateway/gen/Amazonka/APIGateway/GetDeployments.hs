@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetDeployments
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,7 +61,7 @@ data GetDeployments = GetDeployments'
     limit :: Prelude.Maybe Prelude.Int,
     -- | The current pagination position in the paged result set.
     position :: Prelude.Maybe Prelude.Text,
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -78,7 +79,7 @@ data GetDeployments = GetDeployments'
 --
 -- 'position', 'getDeployments_position' - The current pagination position in the paged result set.
 --
--- 'restApiId', 'getDeployments_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getDeployments_restApiId' - The string identifier of the associated RestApi.
 newGetDeployments ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -99,7 +100,7 @@ getDeployments_limit = Lens.lens (\GetDeployments' {limit} -> limit) (\s@GetDepl
 getDeployments_position :: Lens.Lens' GetDeployments (Prelude.Maybe Prelude.Text)
 getDeployments_position = Lens.lens (\GetDeployments' {position} -> position) (\s@GetDeployments' {} a -> s {position = a} :: GetDeployments)
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getDeployments_restApiId :: Lens.Lens' GetDeployments Prelude.Text
 getDeployments_restApiId = Lens.lens (\GetDeployments' {restApiId} -> restApiId) (\s@GetDeployments' {} a -> s {restApiId = a} :: GetDeployments)
 
@@ -126,13 +127,14 @@ instance Core.AWSRequest GetDeployments where
   type
     AWSResponse GetDeployments =
       GetDeploymentsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDeploymentsResponse'
-            Prelude.<$> (x Core..?> "item" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "position")
+            Prelude.<$> (x Data..?> "item" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "position")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -148,38 +150,29 @@ instance Prelude.NFData GetDeployments where
       `Prelude.seq` Prelude.rnf position
       `Prelude.seq` Prelude.rnf restApiId
 
-instance Core.ToHeaders GetDeployments where
+instance Data.ToHeaders GetDeployments where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetDeployments where
+instance Data.ToPath GetDeployments where
   toPath GetDeployments' {..} =
     Prelude.mconcat
-      ["/restapis/", Core.toBS restApiId, "/deployments"]
+      ["/restapis/", Data.toBS restApiId, "/deployments"]
 
-instance Core.ToQuery GetDeployments where
+instance Data.ToQuery GetDeployments where
   toQuery GetDeployments' {..} =
     Prelude.mconcat
-      ["limit" Core.=: limit, "position" Core.=: position]
+      ["limit" Data.=: limit, "position" Data.=: position]
 
 -- | Represents a collection resource that contains zero or more references
 -- to your existing deployments, and links that guide you on how to
 -- interact with your collection. The collection offers a paginated view of
 -- the contained deployments.
---
--- To create a new deployment of a RestApi, make a @POST@ request against
--- this resource. To view, update, or delete an existing deployment, make a
--- @GET@, @PATCH@, or @DELETE@ request, respectively, on a specified
--- Deployment resource.
---
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-deploy-api.html Deploying an API>,
--- <https://docs.aws.amazon.com/cli/latest/reference/apigateway/get-deployment.html AWS CLI>,
--- <https://aws.amazon.com/tools/ AWS SDKs>
 --
 -- /See:/ 'newGetDeploymentsResponse' smart constructor.
 data GetDeploymentsResponse = GetDeploymentsResponse'

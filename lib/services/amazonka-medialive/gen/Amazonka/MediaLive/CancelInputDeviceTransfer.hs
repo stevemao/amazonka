@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.CancelInputDeviceTransfer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.MediaLive.CancelInputDeviceTransfer
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -84,7 +85,8 @@ instance Core.AWSRequest CancelInputDeviceTransfer where
   type
     AWSResponse CancelInputDeviceTransfer =
       CancelInputDeviceTransferResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -100,29 +102,29 @@ instance Prelude.NFData CancelInputDeviceTransfer where
   rnf CancelInputDeviceTransfer' {..} =
     Prelude.rnf inputDeviceId
 
-instance Core.ToHeaders CancelInputDeviceTransfer where
+instance Data.ToHeaders CancelInputDeviceTransfer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CancelInputDeviceTransfer where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON CancelInputDeviceTransfer where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath CancelInputDeviceTransfer where
+instance Data.ToPath CancelInputDeviceTransfer where
   toPath CancelInputDeviceTransfer' {..} =
     Prelude.mconcat
       [ "/prod/inputDevices/",
-        Core.toBS inputDeviceId,
+        Data.toBS inputDeviceId,
         "/cancel"
       ]
 
-instance Core.ToQuery CancelInputDeviceTransfer where
+instance Data.ToQuery CancelInputDeviceTransfer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for CancelInputDeviceTransferResponse

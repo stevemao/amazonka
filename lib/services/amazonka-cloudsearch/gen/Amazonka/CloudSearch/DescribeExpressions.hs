@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearch.DescribeExpressions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ where
 
 import Amazonka.CloudSearch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,15 +118,16 @@ instance Core.AWSRequest DescribeExpressions where
   type
     AWSResponse DescribeExpressions =
       DescribeExpressionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeExpressionsResult"
       ( \s h x ->
           DescribeExpressionsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "Expressions" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "member"
+            Prelude.<*> ( x Data..@? "Expressions" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "member"
                         )
       )
 
@@ -141,26 +143,26 @@ instance Prelude.NFData DescribeExpressions where
       `Prelude.seq` Prelude.rnf expressionNames
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders DescribeExpressions where
+instance Data.ToHeaders DescribeExpressions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeExpressions where
+instance Data.ToPath DescribeExpressions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeExpressions where
+instance Data.ToQuery DescribeExpressions where
   toQuery DescribeExpressions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeExpressions" :: Prelude.ByteString),
+          Data.=: ("DescribeExpressions" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2013-01-01" :: Prelude.ByteString),
-        "Deployed" Core.=: deployed,
+          Data.=: ("2013-01-01" :: Prelude.ByteString),
+        "Deployed" Data.=: deployed,
         "ExpressionNames"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> expressionNames
             ),
-        "DomainName" Core.=: domainName
+        "DomainName" Data.=: domainName
       ]
 
 -- | The result of a @DescribeExpressions@ request. Contains the expressions

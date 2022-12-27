@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Textract.Types.ExpenseDetection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Textract.Types.ExpenseDetection where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Textract.Types.Geometry
 
@@ -29,11 +30,11 @@ import Amazonka.Textract.Types.Geometry
 --
 -- /See:/ 'newExpenseDetection' smart constructor.
 data ExpenseDetection = ExpenseDetection'
-  { -- | The word or line of text recognized by Amazon Textract
-    text :: Prelude.Maybe Prelude.Text,
-    -- | The confidence in detection, as a percentage
+  { -- | The confidence in detection, as a percentage
     confidence :: Prelude.Maybe Prelude.Double,
-    geometry :: Prelude.Maybe Geometry
+    geometry :: Prelude.Maybe Geometry,
+    -- | The word or line of text recognized by Amazon Textract
+    text :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,23 +46,19 @@ data ExpenseDetection = ExpenseDetection'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'text', 'expenseDetection_text' - The word or line of text recognized by Amazon Textract
---
 -- 'confidence', 'expenseDetection_confidence' - The confidence in detection, as a percentage
 --
 -- 'geometry', 'expenseDetection_geometry' - Undocumented member.
+--
+-- 'text', 'expenseDetection_text' - The word or line of text recognized by Amazon Textract
 newExpenseDetection ::
   ExpenseDetection
 newExpenseDetection =
   ExpenseDetection'
-    { text = Prelude.Nothing,
-      confidence = Prelude.Nothing,
-      geometry = Prelude.Nothing
+    { confidence = Prelude.Nothing,
+      geometry = Prelude.Nothing,
+      text = Prelude.Nothing
     }
-
--- | The word or line of text recognized by Amazon Textract
-expenseDetection_text :: Lens.Lens' ExpenseDetection (Prelude.Maybe Prelude.Text)
-expenseDetection_text = Lens.lens (\ExpenseDetection' {text} -> text) (\s@ExpenseDetection' {} a -> s {text = a} :: ExpenseDetection)
 
 -- | The confidence in detection, as a percentage
 expenseDetection_confidence :: Lens.Lens' ExpenseDetection (Prelude.Maybe Prelude.Double)
@@ -71,25 +68,29 @@ expenseDetection_confidence = Lens.lens (\ExpenseDetection' {confidence} -> conf
 expenseDetection_geometry :: Lens.Lens' ExpenseDetection (Prelude.Maybe Geometry)
 expenseDetection_geometry = Lens.lens (\ExpenseDetection' {geometry} -> geometry) (\s@ExpenseDetection' {} a -> s {geometry = a} :: ExpenseDetection)
 
-instance Core.FromJSON ExpenseDetection where
+-- | The word or line of text recognized by Amazon Textract
+expenseDetection_text :: Lens.Lens' ExpenseDetection (Prelude.Maybe Prelude.Text)
+expenseDetection_text = Lens.lens (\ExpenseDetection' {text} -> text) (\s@ExpenseDetection' {} a -> s {text = a} :: ExpenseDetection)
+
+instance Data.FromJSON ExpenseDetection where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExpenseDetection"
       ( \x ->
           ExpenseDetection'
-            Prelude.<$> (x Core..:? "Text")
-            Prelude.<*> (x Core..:? "Confidence")
-            Prelude.<*> (x Core..:? "Geometry")
+            Prelude.<$> (x Data..:? "Confidence")
+            Prelude.<*> (x Data..:? "Geometry")
+            Prelude.<*> (x Data..:? "Text")
       )
 
 instance Prelude.Hashable ExpenseDetection where
   hashWithSalt _salt ExpenseDetection' {..} =
-    _salt `Prelude.hashWithSalt` text
-      `Prelude.hashWithSalt` confidence
+    _salt `Prelude.hashWithSalt` confidence
       `Prelude.hashWithSalt` geometry
+      `Prelude.hashWithSalt` text
 
 instance Prelude.NFData ExpenseDetection where
   rnf ExpenseDetection' {..} =
-    Prelude.rnf text
-      `Prelude.seq` Prelude.rnf confidence
+    Prelude.rnf confidence
       `Prelude.seq` Prelude.rnf geometry
+      `Prelude.seq` Prelude.rnf text

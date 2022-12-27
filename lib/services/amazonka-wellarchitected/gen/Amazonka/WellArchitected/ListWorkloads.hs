@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.ListWorkloads
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,23 +27,24 @@ module Amazonka.WellArchitected.ListWorkloads
     newListWorkloads,
 
     -- * Request Lenses
+    listWorkloads_maxResults,
     listWorkloads_nextToken,
     listWorkloads_workloadNamePrefix,
-    listWorkloads_maxResults,
 
     -- * Destructuring the Response
     ListWorkloadsResponse (..),
     newListWorkloadsResponse,
 
     -- * Response Lenses
-    listWorkloadsResponse_workloadSummaries,
     listWorkloadsResponse_nextToken,
+    listWorkloadsResponse_workloadSummaries,
     listWorkloadsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,10 +54,10 @@ import Amazonka.WellArchitected.Types
 --
 -- /See:/ 'newListWorkloads' smart constructor.
 data ListWorkloads = ListWorkloads'
-  { nextToken :: Prelude.Maybe Prelude.Text,
-    workloadNamePrefix :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return for this request.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of results to return for this request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    nextToken :: Prelude.Maybe Prelude.Text,
+    workloadNamePrefix :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,19 +69,23 @@ data ListWorkloads = ListWorkloads'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listWorkloads_maxResults' - The maximum number of results to return for this request.
+--
 -- 'nextToken', 'listWorkloads_nextToken' - Undocumented member.
 --
 -- 'workloadNamePrefix', 'listWorkloads_workloadNamePrefix' - Undocumented member.
---
--- 'maxResults', 'listWorkloads_maxResults' - The maximum number of results to return for this request.
 newListWorkloads ::
   ListWorkloads
 newListWorkloads =
   ListWorkloads'
-    { nextToken = Prelude.Nothing,
-      workloadNamePrefix = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      workloadNamePrefix = Prelude.Nothing
     }
+
+-- | The maximum number of results to return for this request.
+listWorkloads_maxResults :: Lens.Lens' ListWorkloads (Prelude.Maybe Prelude.Natural)
+listWorkloads_maxResults = Lens.lens (\ListWorkloads' {maxResults} -> maxResults) (\s@ListWorkloads' {} a -> s {maxResults = a} :: ListWorkloads)
 
 -- | Undocumented member.
 listWorkloads_nextToken :: Lens.Lens' ListWorkloads (Prelude.Maybe Prelude.Text)
@@ -90,72 +95,69 @@ listWorkloads_nextToken = Lens.lens (\ListWorkloads' {nextToken} -> nextToken) (
 listWorkloads_workloadNamePrefix :: Lens.Lens' ListWorkloads (Prelude.Maybe Prelude.Text)
 listWorkloads_workloadNamePrefix = Lens.lens (\ListWorkloads' {workloadNamePrefix} -> workloadNamePrefix) (\s@ListWorkloads' {} a -> s {workloadNamePrefix = a} :: ListWorkloads)
 
--- | The maximum number of results to return for this request.
-listWorkloads_maxResults :: Lens.Lens' ListWorkloads (Prelude.Maybe Prelude.Natural)
-listWorkloads_maxResults = Lens.lens (\ListWorkloads' {maxResults} -> maxResults) (\s@ListWorkloads' {} a -> s {maxResults = a} :: ListWorkloads)
-
 instance Core.AWSRequest ListWorkloads where
   type
     AWSResponse ListWorkloads =
       ListWorkloadsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListWorkloadsResponse'
-            Prelude.<$> ( x Core..?> "WorkloadSummaries"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "WorkloadSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListWorkloads where
   hashWithSalt _salt ListWorkloads' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` workloadNamePrefix
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData ListWorkloads where
   rnf ListWorkloads' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf workloadNamePrefix
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders ListWorkloads where
+instance Data.ToHeaders ListWorkloads where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListWorkloads where
+instance Data.ToJSON ListWorkloads where
   toJSON ListWorkloads' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("WorkloadNamePrefix" Core..=)
-              Prelude.<$> workloadNamePrefix,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("WorkloadNamePrefix" Data..=)
+              Prelude.<$> workloadNamePrefix
           ]
       )
 
-instance Core.ToPath ListWorkloads where
+instance Data.ToPath ListWorkloads where
   toPath = Prelude.const "/workloadsSummaries"
 
-instance Core.ToQuery ListWorkloads where
+instance Data.ToQuery ListWorkloads where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Output of a list workloads call.
 --
 -- /See:/ 'newListWorkloadsResponse' smart constructor.
 data ListWorkloadsResponse = ListWorkloadsResponse'
-  { workloadSummaries :: Prelude.Maybe [WorkloadSummary],
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { nextToken :: Prelude.Maybe Prelude.Text,
+    workloadSummaries :: Prelude.Maybe [WorkloadSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -169,9 +171,9 @@ data ListWorkloadsResponse = ListWorkloadsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'workloadSummaries', 'listWorkloadsResponse_workloadSummaries' - Undocumented member.
---
 -- 'nextToken', 'listWorkloadsResponse_nextToken' - Undocumented member.
+--
+-- 'workloadSummaries', 'listWorkloadsResponse_workloadSummaries' - Undocumented member.
 --
 -- 'httpStatus', 'listWorkloadsResponse_httpStatus' - The response's http status code.
 newListWorkloadsResponse ::
@@ -180,19 +182,18 @@ newListWorkloadsResponse ::
   ListWorkloadsResponse
 newListWorkloadsResponse pHttpStatus_ =
   ListWorkloadsResponse'
-    { workloadSummaries =
-        Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      workloadSummaries = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-listWorkloadsResponse_workloadSummaries :: Lens.Lens' ListWorkloadsResponse (Prelude.Maybe [WorkloadSummary])
-listWorkloadsResponse_workloadSummaries = Lens.lens (\ListWorkloadsResponse' {workloadSummaries} -> workloadSummaries) (\s@ListWorkloadsResponse' {} a -> s {workloadSummaries = a} :: ListWorkloadsResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | Undocumented member.
 listWorkloadsResponse_nextToken :: Lens.Lens' ListWorkloadsResponse (Prelude.Maybe Prelude.Text)
 listWorkloadsResponse_nextToken = Lens.lens (\ListWorkloadsResponse' {nextToken} -> nextToken) (\s@ListWorkloadsResponse' {} a -> s {nextToken = a} :: ListWorkloadsResponse)
+
+-- | Undocumented member.
+listWorkloadsResponse_workloadSummaries :: Lens.Lens' ListWorkloadsResponse (Prelude.Maybe [WorkloadSummary])
+listWorkloadsResponse_workloadSummaries = Lens.lens (\ListWorkloadsResponse' {workloadSummaries} -> workloadSummaries) (\s@ListWorkloadsResponse' {} a -> s {workloadSummaries = a} :: ListWorkloadsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listWorkloadsResponse_httpStatus :: Lens.Lens' ListWorkloadsResponse Prelude.Int
@@ -200,6 +201,6 @@ listWorkloadsResponse_httpStatus = Lens.lens (\ListWorkloadsResponse' {httpStatu
 
 instance Prelude.NFData ListWorkloadsResponse where
   rnf ListWorkloadsResponse' {..} =
-    Prelude.rnf workloadSummaries
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf workloadSummaries
       `Prelude.seq` Prelude.rnf httpStatus

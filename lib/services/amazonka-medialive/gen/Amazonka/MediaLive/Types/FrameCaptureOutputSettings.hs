@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.FrameCaptureOutputSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.FrameCaptureOutputSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Frame Capture Output Settings
@@ -56,13 +57,13 @@ newFrameCaptureOutputSettings =
 frameCaptureOutputSettings_nameModifier :: Lens.Lens' FrameCaptureOutputSettings (Prelude.Maybe Prelude.Text)
 frameCaptureOutputSettings_nameModifier = Lens.lens (\FrameCaptureOutputSettings' {nameModifier} -> nameModifier) (\s@FrameCaptureOutputSettings' {} a -> s {nameModifier = a} :: FrameCaptureOutputSettings)
 
-instance Core.FromJSON FrameCaptureOutputSettings where
+instance Data.FromJSON FrameCaptureOutputSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FrameCaptureOutputSettings"
       ( \x ->
           FrameCaptureOutputSettings'
-            Prelude.<$> (x Core..:? "nameModifier")
+            Prelude.<$> (x Data..:? "nameModifier")
       )
 
 instance Prelude.Hashable FrameCaptureOutputSettings where
@@ -73,9 +74,9 @@ instance Prelude.NFData FrameCaptureOutputSettings where
   rnf FrameCaptureOutputSettings' {..} =
     Prelude.rnf nameModifier
 
-instance Core.ToJSON FrameCaptureOutputSettings where
+instance Data.ToJSON FrameCaptureOutputSettings where
   toJSON FrameCaptureOutputSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("nameModifier" Core..=) Prelude.<$> nameModifier]
+          [("nameModifier" Data..=) Prelude.<$> nameModifier]
       )

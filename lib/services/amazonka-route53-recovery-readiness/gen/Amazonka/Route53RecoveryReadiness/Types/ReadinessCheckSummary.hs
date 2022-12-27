@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.Types.ReadinessCheckSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,19 @@
 module Amazonka.Route53RecoveryReadiness.Types.ReadinessCheckSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53RecoveryReadiness.Types.Readiness
 
--- | Summary of ReadinessCheck status, paginated in
--- GetRecoveryGroupReadinessSummary and GetCellReadinessSummary
+-- | Summary of all readiness check statuses in a recovery group, paginated
+-- in GetRecoveryGroupReadinessSummary and GetCellReadinessSummary.
 --
 -- /See:/ 'newReadinessCheckSummary' smart constructor.
 data ReadinessCheckSummary = ReadinessCheckSummary'
-  { -- | The readiness of this ReadinessCheck
+  { -- | The readiness status of this readiness check.
     readiness :: Prelude.Maybe Readiness,
-    -- | The name of a ReadinessCheck which is part of the given RecoveryGroup or
-    -- Cell
+    -- | The name of a readiness check.
     readinessCheckName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -45,10 +45,9 @@ data ReadinessCheckSummary = ReadinessCheckSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'readiness', 'readinessCheckSummary_readiness' - The readiness of this ReadinessCheck
+-- 'readiness', 'readinessCheckSummary_readiness' - The readiness status of this readiness check.
 --
--- 'readinessCheckName', 'readinessCheckSummary_readinessCheckName' - The name of a ReadinessCheck which is part of the given RecoveryGroup or
--- Cell
+-- 'readinessCheckName', 'readinessCheckSummary_readinessCheckName' - The name of a readiness check.
 newReadinessCheckSummary ::
   ReadinessCheckSummary
 newReadinessCheckSummary =
@@ -57,23 +56,22 @@ newReadinessCheckSummary =
       readinessCheckName = Prelude.Nothing
     }
 
--- | The readiness of this ReadinessCheck
+-- | The readiness status of this readiness check.
 readinessCheckSummary_readiness :: Lens.Lens' ReadinessCheckSummary (Prelude.Maybe Readiness)
 readinessCheckSummary_readiness = Lens.lens (\ReadinessCheckSummary' {readiness} -> readiness) (\s@ReadinessCheckSummary' {} a -> s {readiness = a} :: ReadinessCheckSummary)
 
--- | The name of a ReadinessCheck which is part of the given RecoveryGroup or
--- Cell
+-- | The name of a readiness check.
 readinessCheckSummary_readinessCheckName :: Lens.Lens' ReadinessCheckSummary (Prelude.Maybe Prelude.Text)
 readinessCheckSummary_readinessCheckName = Lens.lens (\ReadinessCheckSummary' {readinessCheckName} -> readinessCheckName) (\s@ReadinessCheckSummary' {} a -> s {readinessCheckName = a} :: ReadinessCheckSummary)
 
-instance Core.FromJSON ReadinessCheckSummary where
+instance Data.FromJSON ReadinessCheckSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReadinessCheckSummary"
       ( \x ->
           ReadinessCheckSummary'
-            Prelude.<$> (x Core..:? "readiness")
-            Prelude.<*> (x Core..:? "readinessCheckName")
+            Prelude.<$> (x Data..:? "readiness")
+            Prelude.<*> (x Data..:? "readinessCheckName")
       )
 
 instance Prelude.Hashable ReadinessCheckSummary where

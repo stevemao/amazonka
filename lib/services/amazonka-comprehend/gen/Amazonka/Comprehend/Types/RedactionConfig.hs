@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.Types.RedactionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.Comprehend.Types.RedactionConfig where
 import Amazonka.Comprehend.Types.PiiEntitiesDetectionMaskMode
 import Amazonka.Comprehend.Types.PiiEntityType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides configuration parameters for PII entity redaction.
@@ -78,16 +79,16 @@ redactionConfig_maskMode = Lens.lens (\RedactionConfig' {maskMode} -> maskMode) 
 redactionConfig_piiEntityTypes :: Lens.Lens' RedactionConfig (Prelude.Maybe [PiiEntityType])
 redactionConfig_piiEntityTypes = Lens.lens (\RedactionConfig' {piiEntityTypes} -> piiEntityTypes) (\s@RedactionConfig' {} a -> s {piiEntityTypes = a} :: RedactionConfig) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON RedactionConfig where
+instance Data.FromJSON RedactionConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RedactionConfig"
       ( \x ->
           RedactionConfig'
-            Prelude.<$> (x Core..:? "MaskCharacter")
-            Prelude.<*> (x Core..:? "MaskMode")
-            Prelude.<*> ( x Core..:? "PiiEntityTypes"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "MaskCharacter")
+            Prelude.<*> (x Data..:? "MaskMode")
+            Prelude.<*> ( x Data..:? "PiiEntityTypes"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -103,13 +104,13 @@ instance Prelude.NFData RedactionConfig where
       `Prelude.seq` Prelude.rnf maskMode
       `Prelude.seq` Prelude.rnf piiEntityTypes
 
-instance Core.ToJSON RedactionConfig where
+instance Data.ToJSON RedactionConfig where
   toJSON RedactionConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MaskCharacter" Core..=) Prelude.<$> maskCharacter,
-            ("MaskMode" Core..=) Prelude.<$> maskMode,
-            ("PiiEntityTypes" Core..=)
+          [ ("MaskCharacter" Data..=) Prelude.<$> maskCharacter,
+            ("MaskMode" Data..=) Prelude.<$> maskMode,
+            ("PiiEntityTypes" Data..=)
               Prelude.<$> piiEntityTypes
           ]
       )

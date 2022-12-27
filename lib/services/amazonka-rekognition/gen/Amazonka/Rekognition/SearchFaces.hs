@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.SearchFaces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,7 +35,7 @@
 -- face match, indicating the confidence that the specific face matches the
 -- input face.
 --
--- For an example, see Searching for a Face Using Its Face ID in the Amazon
+-- For an example, see Searching for a face using its face ID in the Amazon
 -- Rekognition Developer Guide.
 --
 -- This operation requires permissions to perform the
@@ -64,7 +64,8 @@ module Amazonka.Rekognition.SearchFaces
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types
 import qualified Amazonka.Request as Request
@@ -139,14 +140,15 @@ searchFaces_faceId = Lens.lens (\SearchFaces' {faceId} -> faceId) (\s@SearchFace
 
 instance Core.AWSRequest SearchFaces where
   type AWSResponse SearchFaces = SearchFacesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SearchFacesResponse'
-            Prelude.<$> (x Core..?> "FaceMatches" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "FaceModelVersion")
-            Prelude.<*> (x Core..?> "SearchedFaceId")
+            Prelude.<$> (x Data..?> "FaceMatches" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "FaceModelVersion")
+            Prelude.<*> (x Data..?> "SearchedFaceId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -164,37 +166,37 @@ instance Prelude.NFData SearchFaces where
       `Prelude.seq` Prelude.rnf collectionId
       `Prelude.seq` Prelude.rnf faceId
 
-instance Core.ToHeaders SearchFaces where
+instance Data.ToHeaders SearchFaces where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "RekognitionService.SearchFaces" ::
+              Data.=# ( "RekognitionService.SearchFaces" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SearchFaces where
+instance Data.ToJSON SearchFaces where
   toJSON SearchFaces' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FaceMatchThreshold" Core..=)
+          [ ("FaceMatchThreshold" Data..=)
               Prelude.<$> faceMatchThreshold,
-            ("MaxFaces" Core..=) Prelude.<$> maxFaces,
-            Prelude.Just ("CollectionId" Core..= collectionId),
-            Prelude.Just ("FaceId" Core..= faceId)
+            ("MaxFaces" Data..=) Prelude.<$> maxFaces,
+            Prelude.Just ("CollectionId" Data..= collectionId),
+            Prelude.Just ("FaceId" Data..= faceId)
           ]
       )
 
-instance Core.ToPath SearchFaces where
+instance Data.ToPath SearchFaces where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SearchFaces where
+instance Data.ToQuery SearchFaces where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSearchFacesResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.UpdatePlaceIndex
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.Location.UpdatePlaceIndex
     newUpdatePlaceIndex,
 
     -- * Request Lenses
-    updatePlaceIndex_pricingPlan,
     updatePlaceIndex_dataSourceConfiguration,
     updatePlaceIndex_description,
+    updatePlaceIndex_pricingPlan,
     updatePlaceIndex_indexName,
 
     -- * Destructuring the Response
@@ -45,7 +45,8 @@ module Amazonka.Location.UpdatePlaceIndex
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,15 +54,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdatePlaceIndex' smart constructor.
 data UpdatePlaceIndex = UpdatePlaceIndex'
-  { -- | Updates the pricing plan for the place index resource.
-    --
-    -- For more information about each pricing plan option restrictions, see
-    -- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-    pricingPlan :: Prelude.Maybe PricingPlan,
-    -- | Updates the data storage option for the place index resource.
+  { -- | Updates the data storage option for the place index resource.
     dataSourceConfiguration :: Prelude.Maybe DataSourceConfiguration,
     -- | Updates the description for the place index resource.
     description :: Prelude.Maybe Prelude.Text,
+    -- | No longer used. If included, the only allowed value is
+    -- @RequestBasedUsage@.
+    pricingPlan :: Prelude.Maybe PricingPlan,
     -- | The name of the place index resource to update.
     indexName :: Prelude.Text
   }
@@ -75,14 +74,12 @@ data UpdatePlaceIndex = UpdatePlaceIndex'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'pricingPlan', 'updatePlaceIndex_pricingPlan' - Updates the pricing plan for the place index resource.
---
--- For more information about each pricing plan option restrictions, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
---
 -- 'dataSourceConfiguration', 'updatePlaceIndex_dataSourceConfiguration' - Updates the data storage option for the place index resource.
 --
 -- 'description', 'updatePlaceIndex_description' - Updates the description for the place index resource.
+--
+-- 'pricingPlan', 'updatePlaceIndex_pricingPlan' - No longer used. If included, the only allowed value is
+-- @RequestBasedUsage@.
 --
 -- 'indexName', 'updatePlaceIndex_indexName' - The name of the place index resource to update.
 newUpdatePlaceIndex ::
@@ -91,18 +88,12 @@ newUpdatePlaceIndex ::
   UpdatePlaceIndex
 newUpdatePlaceIndex pIndexName_ =
   UpdatePlaceIndex'
-    { pricingPlan = Prelude.Nothing,
-      dataSourceConfiguration = Prelude.Nothing,
+    { dataSourceConfiguration =
+        Prelude.Nothing,
       description = Prelude.Nothing,
+      pricingPlan = Prelude.Nothing,
       indexName = pIndexName_
     }
-
--- | Updates the pricing plan for the place index resource.
---
--- For more information about each pricing plan option restrictions, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-updatePlaceIndex_pricingPlan :: Lens.Lens' UpdatePlaceIndex (Prelude.Maybe PricingPlan)
-updatePlaceIndex_pricingPlan = Lens.lens (\UpdatePlaceIndex' {pricingPlan} -> pricingPlan) (\s@UpdatePlaceIndex' {} a -> s {pricingPlan = a} :: UpdatePlaceIndex)
 
 -- | Updates the data storage option for the place index resource.
 updatePlaceIndex_dataSourceConfiguration :: Lens.Lens' UpdatePlaceIndex (Prelude.Maybe DataSourceConfiguration)
@@ -112,6 +103,11 @@ updatePlaceIndex_dataSourceConfiguration = Lens.lens (\UpdatePlaceIndex' {dataSo
 updatePlaceIndex_description :: Lens.Lens' UpdatePlaceIndex (Prelude.Maybe Prelude.Text)
 updatePlaceIndex_description = Lens.lens (\UpdatePlaceIndex' {description} -> description) (\s@UpdatePlaceIndex' {} a -> s {description = a} :: UpdatePlaceIndex)
 
+-- | No longer used. If included, the only allowed value is
+-- @RequestBasedUsage@.
+updatePlaceIndex_pricingPlan :: Lens.Lens' UpdatePlaceIndex (Prelude.Maybe PricingPlan)
+updatePlaceIndex_pricingPlan = Lens.lens (\UpdatePlaceIndex' {pricingPlan} -> pricingPlan) (\s@UpdatePlaceIndex' {} a -> s {pricingPlan = a} :: UpdatePlaceIndex)
+
 -- | The name of the place index resource to update.
 updatePlaceIndex_indexName :: Lens.Lens' UpdatePlaceIndex Prelude.Text
 updatePlaceIndex_indexName = Lens.lens (\UpdatePlaceIndex' {indexName} -> indexName) (\s@UpdatePlaceIndex' {} a -> s {indexName = a} :: UpdatePlaceIndex)
@@ -120,59 +116,61 @@ instance Core.AWSRequest UpdatePlaceIndex where
   type
     AWSResponse UpdatePlaceIndex =
       UpdatePlaceIndexResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdatePlaceIndexResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "IndexArn")
-            Prelude.<*> (x Core..:> "IndexName")
-            Prelude.<*> (x Core..:> "UpdateTime")
+            Prelude.<*> (x Data..:> "IndexArn")
+            Prelude.<*> (x Data..:> "IndexName")
+            Prelude.<*> (x Data..:> "UpdateTime")
       )
 
 instance Prelude.Hashable UpdatePlaceIndex where
   hashWithSalt _salt UpdatePlaceIndex' {..} =
-    _salt `Prelude.hashWithSalt` pricingPlan
+    _salt
       `Prelude.hashWithSalt` dataSourceConfiguration
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` pricingPlan
       `Prelude.hashWithSalt` indexName
 
 instance Prelude.NFData UpdatePlaceIndex where
   rnf UpdatePlaceIndex' {..} =
-    Prelude.rnf pricingPlan
-      `Prelude.seq` Prelude.rnf dataSourceConfiguration
+    Prelude.rnf dataSourceConfiguration
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf pricingPlan
       `Prelude.seq` Prelude.rnf indexName
 
-instance Core.ToHeaders UpdatePlaceIndex where
+instance Data.ToHeaders UpdatePlaceIndex where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdatePlaceIndex where
+instance Data.ToJSON UpdatePlaceIndex where
   toJSON UpdatePlaceIndex' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PricingPlan" Core..=) Prelude.<$> pricingPlan,
-            ("DataSourceConfiguration" Core..=)
+          [ ("DataSourceConfiguration" Data..=)
               Prelude.<$> dataSourceConfiguration,
-            ("Description" Core..=) Prelude.<$> description
+            ("Description" Data..=) Prelude.<$> description,
+            ("PricingPlan" Data..=) Prelude.<$> pricingPlan
           ]
       )
 
-instance Core.ToPath UpdatePlaceIndex where
+instance Data.ToPath UpdatePlaceIndex where
   toPath UpdatePlaceIndex' {..} =
     Prelude.mconcat
-      ["/places/v0/indexes/", Core.toBS indexName]
+      ["/places/v0/indexes/", Data.toBS indexName]
 
-instance Core.ToQuery UpdatePlaceIndex where
+instance Data.ToQuery UpdatePlaceIndex where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdatePlaceIndexResponse' smart constructor.
@@ -190,7 +188,7 @@ data UpdatePlaceIndexResponse = UpdatePlaceIndexResponse'
     -- | The timestamp for when the place index resource was last updated in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    updateTime :: Core.POSIX
+    updateTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -235,7 +233,7 @@ newUpdatePlaceIndexResponse
           pHttpStatus_,
         indexArn = pIndexArn_,
         indexName = pIndexName_,
-        updateTime = Core._Time Lens.# pUpdateTime_
+        updateTime = Data._Time Lens.# pUpdateTime_
       }
 
 -- | The response's http status code.
@@ -258,7 +256,7 @@ updatePlaceIndexResponse_indexName = Lens.lens (\UpdatePlaceIndexResponse' {inde
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 updatePlaceIndexResponse_updateTime :: Lens.Lens' UpdatePlaceIndexResponse Prelude.UTCTime
-updatePlaceIndexResponse_updateTime = Lens.lens (\UpdatePlaceIndexResponse' {updateTime} -> updateTime) (\s@UpdatePlaceIndexResponse' {} a -> s {updateTime = a} :: UpdatePlaceIndexResponse) Prelude.. Core._Time
+updatePlaceIndexResponse_updateTime = Lens.lens (\UpdatePlaceIndexResponse' {updateTime} -> updateTime) (\s@UpdatePlaceIndexResponse' {} a -> s {updateTime = a} :: UpdatePlaceIndexResponse) Prelude.. Data._Time
 
 instance Prelude.NFData UpdatePlaceIndexResponse where
   rnf UpdatePlaceIndexResponse' {..} =

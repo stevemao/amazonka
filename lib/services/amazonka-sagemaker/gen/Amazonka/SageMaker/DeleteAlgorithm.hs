@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DeleteAlgorithm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,7 +36,8 @@ module Amazonka.SageMaker.DeleteAlgorithm
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,7 +74,8 @@ instance Core.AWSRequest DeleteAlgorithm where
   type
     AWSResponse DeleteAlgorithm =
       DeleteAlgorithmResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteAlgorithmResponse'
 
@@ -84,32 +86,32 @@ instance Prelude.Hashable DeleteAlgorithm where
 instance Prelude.NFData DeleteAlgorithm where
   rnf DeleteAlgorithm' {..} = Prelude.rnf algorithmName
 
-instance Core.ToHeaders DeleteAlgorithm where
+instance Data.ToHeaders DeleteAlgorithm where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.DeleteAlgorithm" :: Prelude.ByteString),
+              Data.=# ("SageMaker.DeleteAlgorithm" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteAlgorithm where
+instance Data.ToJSON DeleteAlgorithm where
   toJSON DeleteAlgorithm' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("AlgorithmName" Core..= algorithmName)
+              ("AlgorithmName" Data..= algorithmName)
           ]
       )
 
-instance Core.ToPath DeleteAlgorithm where
+instance Data.ToPath DeleteAlgorithm where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAlgorithm where
+instance Data.ToQuery DeleteAlgorithm where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAlgorithmResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DAX.UpdateCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,12 +29,12 @@ module Amazonka.DAX.UpdateCluster
     newUpdateCluster,
 
     -- * Request Lenses
-    updateCluster_securityGroupIds,
-    updateCluster_preferredMaintenanceWindow,
-    updateCluster_notificationTopicStatus,
     updateCluster_description,
     updateCluster_notificationTopicArn,
+    updateCluster_notificationTopicStatus,
     updateCluster_parameterGroupName,
+    updateCluster_preferredMaintenanceWindow,
+    updateCluster_securityGroupIds,
     updateCluster_clusterName,
 
     -- * Destructuring the Response
@@ -48,33 +48,34 @@ module Amazonka.DAX.UpdateCluster
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DAX.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateCluster' smart constructor.
 data UpdateCluster = UpdateCluster'
-  { -- | A list of user-specified security group IDs to be assigned to each node
-    -- in the DAX cluster. If this parameter is not specified, DAX assigns the
-    -- default VPC security group to each node.
-    securityGroupIds :: Prelude.Maybe [Prelude.Text],
+  { -- | A description of the changes being made to the cluster.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) that identifies the topic.
+    notificationTopicArn :: Prelude.Maybe Prelude.Text,
+    -- | The current state of the topic. A value of “active” means that
+    -- notifications will be sent to the topic. A value of “inactive” means
+    -- that notifications will not be sent to the topic.
+    notificationTopicStatus :: Prelude.Maybe Prelude.Text,
+    -- | The name of a parameter group for this cluster.
+    parameterGroupName :: Prelude.Maybe Prelude.Text,
     -- | A range of time when maintenance of DAX cluster software will be
     -- performed. For example: @sun:01:00-sun:09:00@. Cluster maintenance
     -- normally takes less than 30 minutes, and is performed automatically
     -- within the maintenance window.
     preferredMaintenanceWindow :: Prelude.Maybe Prelude.Text,
-    -- | The current state of the topic. A value of “active” means that
-    -- notifications will be sent to the topic. A value of “inactive” means
-    -- that notifications will not be sent to the topic.
-    notificationTopicStatus :: Prelude.Maybe Prelude.Text,
-    -- | A description of the changes being made to the cluster.
-    description :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) that identifies the topic.
-    notificationTopicArn :: Prelude.Maybe Prelude.Text,
-    -- | The name of a parameter group for this cluster.
-    parameterGroupName :: Prelude.Maybe Prelude.Text,
+    -- | A list of user-specified security group IDs to be assigned to each node
+    -- in the DAX cluster. If this parameter is not specified, DAX assigns the
+    -- default VPC security group to each node.
+    securityGroupIds :: Prelude.Maybe [Prelude.Text],
     -- | The name of the DAX cluster to be modified.
     clusterName :: Prelude.Text
   }
@@ -88,24 +89,24 @@ data UpdateCluster = UpdateCluster'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'securityGroupIds', 'updateCluster_securityGroupIds' - A list of user-specified security group IDs to be assigned to each node
--- in the DAX cluster. If this parameter is not specified, DAX assigns the
--- default VPC security group to each node.
+-- 'description', 'updateCluster_description' - A description of the changes being made to the cluster.
+--
+-- 'notificationTopicArn', 'updateCluster_notificationTopicArn' - The Amazon Resource Name (ARN) that identifies the topic.
+--
+-- 'notificationTopicStatus', 'updateCluster_notificationTopicStatus' - The current state of the topic. A value of “active” means that
+-- notifications will be sent to the topic. A value of “inactive” means
+-- that notifications will not be sent to the topic.
+--
+-- 'parameterGroupName', 'updateCluster_parameterGroupName' - The name of a parameter group for this cluster.
 --
 -- 'preferredMaintenanceWindow', 'updateCluster_preferredMaintenanceWindow' - A range of time when maintenance of DAX cluster software will be
 -- performed. For example: @sun:01:00-sun:09:00@. Cluster maintenance
 -- normally takes less than 30 minutes, and is performed automatically
 -- within the maintenance window.
 --
--- 'notificationTopicStatus', 'updateCluster_notificationTopicStatus' - The current state of the topic. A value of “active” means that
--- notifications will be sent to the topic. A value of “inactive” means
--- that notifications will not be sent to the topic.
---
--- 'description', 'updateCluster_description' - A description of the changes being made to the cluster.
---
--- 'notificationTopicArn', 'updateCluster_notificationTopicArn' - The Amazon Resource Name (ARN) that identifies the topic.
---
--- 'parameterGroupName', 'updateCluster_parameterGroupName' - The name of a parameter group for this cluster.
+-- 'securityGroupIds', 'updateCluster_securityGroupIds' - A list of user-specified security group IDs to be assigned to each node
+-- in the DAX cluster. If this parameter is not specified, DAX assigns the
+-- default VPC security group to each node.
 --
 -- 'clusterName', 'updateCluster_clusterName' - The name of the DAX cluster to be modified.
 newUpdateCluster ::
@@ -114,33 +115,14 @@ newUpdateCluster ::
   UpdateCluster
 newUpdateCluster pClusterName_ =
   UpdateCluster'
-    { securityGroupIds = Prelude.Nothing,
-      preferredMaintenanceWindow = Prelude.Nothing,
-      notificationTopicStatus = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
       notificationTopicArn = Prelude.Nothing,
+      notificationTopicStatus = Prelude.Nothing,
       parameterGroupName = Prelude.Nothing,
+      preferredMaintenanceWindow = Prelude.Nothing,
+      securityGroupIds = Prelude.Nothing,
       clusterName = pClusterName_
     }
-
--- | A list of user-specified security group IDs to be assigned to each node
--- in the DAX cluster. If this parameter is not specified, DAX assigns the
--- default VPC security group to each node.
-updateCluster_securityGroupIds :: Lens.Lens' UpdateCluster (Prelude.Maybe [Prelude.Text])
-updateCluster_securityGroupIds = Lens.lens (\UpdateCluster' {securityGroupIds} -> securityGroupIds) (\s@UpdateCluster' {} a -> s {securityGroupIds = a} :: UpdateCluster) Prelude.. Lens.mapping Lens.coerced
-
--- | A range of time when maintenance of DAX cluster software will be
--- performed. For example: @sun:01:00-sun:09:00@. Cluster maintenance
--- normally takes less than 30 minutes, and is performed automatically
--- within the maintenance window.
-updateCluster_preferredMaintenanceWindow :: Lens.Lens' UpdateCluster (Prelude.Maybe Prelude.Text)
-updateCluster_preferredMaintenanceWindow = Lens.lens (\UpdateCluster' {preferredMaintenanceWindow} -> preferredMaintenanceWindow) (\s@UpdateCluster' {} a -> s {preferredMaintenanceWindow = a} :: UpdateCluster)
-
--- | The current state of the topic. A value of “active” means that
--- notifications will be sent to the topic. A value of “inactive” means
--- that notifications will not be sent to the topic.
-updateCluster_notificationTopicStatus :: Lens.Lens' UpdateCluster (Prelude.Maybe Prelude.Text)
-updateCluster_notificationTopicStatus = Lens.lens (\UpdateCluster' {notificationTopicStatus} -> notificationTopicStatus) (\s@UpdateCluster' {} a -> s {notificationTopicStatus = a} :: UpdateCluster)
 
 -- | A description of the changes being made to the cluster.
 updateCluster_description :: Lens.Lens' UpdateCluster (Prelude.Maybe Prelude.Text)
@@ -150,9 +132,28 @@ updateCluster_description = Lens.lens (\UpdateCluster' {description} -> descript
 updateCluster_notificationTopicArn :: Lens.Lens' UpdateCluster (Prelude.Maybe Prelude.Text)
 updateCluster_notificationTopicArn = Lens.lens (\UpdateCluster' {notificationTopicArn} -> notificationTopicArn) (\s@UpdateCluster' {} a -> s {notificationTopicArn = a} :: UpdateCluster)
 
+-- | The current state of the topic. A value of “active” means that
+-- notifications will be sent to the topic. A value of “inactive” means
+-- that notifications will not be sent to the topic.
+updateCluster_notificationTopicStatus :: Lens.Lens' UpdateCluster (Prelude.Maybe Prelude.Text)
+updateCluster_notificationTopicStatus = Lens.lens (\UpdateCluster' {notificationTopicStatus} -> notificationTopicStatus) (\s@UpdateCluster' {} a -> s {notificationTopicStatus = a} :: UpdateCluster)
+
 -- | The name of a parameter group for this cluster.
 updateCluster_parameterGroupName :: Lens.Lens' UpdateCluster (Prelude.Maybe Prelude.Text)
 updateCluster_parameterGroupName = Lens.lens (\UpdateCluster' {parameterGroupName} -> parameterGroupName) (\s@UpdateCluster' {} a -> s {parameterGroupName = a} :: UpdateCluster)
+
+-- | A range of time when maintenance of DAX cluster software will be
+-- performed. For example: @sun:01:00-sun:09:00@. Cluster maintenance
+-- normally takes less than 30 minutes, and is performed automatically
+-- within the maintenance window.
+updateCluster_preferredMaintenanceWindow :: Lens.Lens' UpdateCluster (Prelude.Maybe Prelude.Text)
+updateCluster_preferredMaintenanceWindow = Lens.lens (\UpdateCluster' {preferredMaintenanceWindow} -> preferredMaintenanceWindow) (\s@UpdateCluster' {} a -> s {preferredMaintenanceWindow = a} :: UpdateCluster)
+
+-- | A list of user-specified security group IDs to be assigned to each node
+-- in the DAX cluster. If this parameter is not specified, DAX assigns the
+-- default VPC security group to each node.
+updateCluster_securityGroupIds :: Lens.Lens' UpdateCluster (Prelude.Maybe [Prelude.Text])
+updateCluster_securityGroupIds = Lens.lens (\UpdateCluster' {securityGroupIds} -> securityGroupIds) (\s@UpdateCluster' {} a -> s {securityGroupIds = a} :: UpdateCluster) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the DAX cluster to be modified.
 updateCluster_clusterName :: Lens.Lens' UpdateCluster Prelude.Text
@@ -162,71 +163,72 @@ instance Core.AWSRequest UpdateCluster where
   type
     AWSResponse UpdateCluster =
       UpdateClusterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateClusterResponse'
-            Prelude.<$> (x Core..?> "Cluster")
+            Prelude.<$> (x Data..?> "Cluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateCluster where
   hashWithSalt _salt UpdateCluster' {..} =
-    _salt `Prelude.hashWithSalt` securityGroupIds
-      `Prelude.hashWithSalt` preferredMaintenanceWindow
-      `Prelude.hashWithSalt` notificationTopicStatus
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` notificationTopicArn
+      `Prelude.hashWithSalt` notificationTopicStatus
       `Prelude.hashWithSalt` parameterGroupName
+      `Prelude.hashWithSalt` preferredMaintenanceWindow
+      `Prelude.hashWithSalt` securityGroupIds
       `Prelude.hashWithSalt` clusterName
 
 instance Prelude.NFData UpdateCluster where
   rnf UpdateCluster' {..} =
-    Prelude.rnf securityGroupIds
-      `Prelude.seq` Prelude.rnf preferredMaintenanceWindow
-      `Prelude.seq` Prelude.rnf notificationTopicStatus
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf notificationTopicArn
+      `Prelude.seq` Prelude.rnf notificationTopicStatus
       `Prelude.seq` Prelude.rnf parameterGroupName
+      `Prelude.seq` Prelude.rnf preferredMaintenanceWindow
+      `Prelude.seq` Prelude.rnf securityGroupIds
       `Prelude.seq` Prelude.rnf clusterName
 
-instance Core.ToHeaders UpdateCluster where
+instance Data.ToHeaders UpdateCluster where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonDAXV3.UpdateCluster" :: Prelude.ByteString),
+              Data.=# ("AmazonDAXV3.UpdateCluster" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateCluster where
+instance Data.ToJSON UpdateCluster where
   toJSON UpdateCluster' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SecurityGroupIds" Core..=)
-              Prelude.<$> securityGroupIds,
-            ("PreferredMaintenanceWindow" Core..=)
-              Prelude.<$> preferredMaintenanceWindow,
-            ("NotificationTopicStatus" Core..=)
-              Prelude.<$> notificationTopicStatus,
-            ("Description" Core..=) Prelude.<$> description,
-            ("NotificationTopicArn" Core..=)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("NotificationTopicArn" Data..=)
               Prelude.<$> notificationTopicArn,
-            ("ParameterGroupName" Core..=)
+            ("NotificationTopicStatus" Data..=)
+              Prelude.<$> notificationTopicStatus,
+            ("ParameterGroupName" Data..=)
               Prelude.<$> parameterGroupName,
-            Prelude.Just ("ClusterName" Core..= clusterName)
+            ("PreferredMaintenanceWindow" Data..=)
+              Prelude.<$> preferredMaintenanceWindow,
+            ("SecurityGroupIds" Data..=)
+              Prelude.<$> securityGroupIds,
+            Prelude.Just ("ClusterName" Data..= clusterName)
           ]
       )
 
-instance Core.ToPath UpdateCluster where
+instance Data.ToPath UpdateCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateCluster where
+instance Data.ToQuery UpdateCluster where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateClusterResponse' smart constructor.

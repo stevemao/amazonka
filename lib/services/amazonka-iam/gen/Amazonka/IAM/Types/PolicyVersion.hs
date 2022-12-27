@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.Types.PolicyVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IAM.Types.PolicyVersion where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a version of a managed policy.
@@ -35,15 +36,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPolicyVersion' smart constructor.
 data PolicyVersion = PolicyVersion'
-  { -- | The identifier for the policy version.
-    --
-    -- Policy version identifiers always begin with @v@ (always lowercase).
-    -- When a policy is created, the first policy version is @v1@.
-    versionId :: Prelude.Maybe Prelude.Text,
-    -- | The date and time, in
+  { -- | The date and time, in
     -- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
     -- policy version was created.
-    createDate :: Prelude.Maybe Core.ISO8601,
+    createDate :: Prelude.Maybe Data.ISO8601,
     -- | The policy document.
     --
     -- The policy document is returned in the response to the GetPolicyVersion
@@ -59,7 +55,12 @@ data PolicyVersion = PolicyVersion'
     document :: Prelude.Maybe Prelude.Text,
     -- | Specifies whether the policy version is set as the policy\'s default
     -- version.
-    isDefaultVersion :: Prelude.Maybe Prelude.Bool
+    isDefaultVersion :: Prelude.Maybe Prelude.Bool,
+    -- | The identifier for the policy version.
+    --
+    -- Policy version identifiers always begin with @v@ (always lowercase).
+    -- When a policy is created, the first policy version is @v1@.
+    versionId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,11 +71,6 @@ data PolicyVersion = PolicyVersion'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'versionId', 'policyVersion_versionId' - The identifier for the policy version.
---
--- Policy version identifiers always begin with @v@ (always lowercase).
--- When a policy is created, the first policy version is @v1@.
 --
 -- 'createDate', 'policyVersion_createDate' - The date and time, in
 -- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
@@ -95,28 +91,26 @@ data PolicyVersion = PolicyVersion'
 --
 -- 'isDefaultVersion', 'policyVersion_isDefaultVersion' - Specifies whether the policy version is set as the policy\'s default
 -- version.
+--
+-- 'versionId', 'policyVersion_versionId' - The identifier for the policy version.
+--
+-- Policy version identifiers always begin with @v@ (always lowercase).
+-- When a policy is created, the first policy version is @v1@.
 newPolicyVersion ::
   PolicyVersion
 newPolicyVersion =
   PolicyVersion'
-    { versionId = Prelude.Nothing,
-      createDate = Prelude.Nothing,
+    { createDate = Prelude.Nothing,
       document = Prelude.Nothing,
-      isDefaultVersion = Prelude.Nothing
+      isDefaultVersion = Prelude.Nothing,
+      versionId = Prelude.Nothing
     }
-
--- | The identifier for the policy version.
---
--- Policy version identifiers always begin with @v@ (always lowercase).
--- When a policy is created, the first policy version is @v1@.
-policyVersion_versionId :: Lens.Lens' PolicyVersion (Prelude.Maybe Prelude.Text)
-policyVersion_versionId = Lens.lens (\PolicyVersion' {versionId} -> versionId) (\s@PolicyVersion' {} a -> s {versionId = a} :: PolicyVersion)
 
 -- | The date and time, in
 -- <http://www.iso.org/iso/iso8601 ISO 8601 date-time format>, when the
 -- policy version was created.
 policyVersion_createDate :: Lens.Lens' PolicyVersion (Prelude.Maybe Prelude.UTCTime)
-policyVersion_createDate = Lens.lens (\PolicyVersion' {createDate} -> createDate) (\s@PolicyVersion' {} a -> s {createDate = a} :: PolicyVersion) Prelude.. Lens.mapping Core._Time
+policyVersion_createDate = Lens.lens (\PolicyVersion' {createDate} -> createDate) (\s@PolicyVersion' {} a -> s {createDate = a} :: PolicyVersion) Prelude.. Lens.mapping Data._Time
 
 -- | The policy document.
 --
@@ -138,24 +132,31 @@ policyVersion_document = Lens.lens (\PolicyVersion' {document} -> document) (\s@
 policyVersion_isDefaultVersion :: Lens.Lens' PolicyVersion (Prelude.Maybe Prelude.Bool)
 policyVersion_isDefaultVersion = Lens.lens (\PolicyVersion' {isDefaultVersion} -> isDefaultVersion) (\s@PolicyVersion' {} a -> s {isDefaultVersion = a} :: PolicyVersion)
 
-instance Core.FromXML PolicyVersion where
+-- | The identifier for the policy version.
+--
+-- Policy version identifiers always begin with @v@ (always lowercase).
+-- When a policy is created, the first policy version is @v1@.
+policyVersion_versionId :: Lens.Lens' PolicyVersion (Prelude.Maybe Prelude.Text)
+policyVersion_versionId = Lens.lens (\PolicyVersion' {versionId} -> versionId) (\s@PolicyVersion' {} a -> s {versionId = a} :: PolicyVersion)
+
+instance Data.FromXML PolicyVersion where
   parseXML x =
     PolicyVersion'
-      Prelude.<$> (x Core..@? "VersionId")
-      Prelude.<*> (x Core..@? "CreateDate")
-      Prelude.<*> (x Core..@? "Document")
-      Prelude.<*> (x Core..@? "IsDefaultVersion")
+      Prelude.<$> (x Data..@? "CreateDate")
+      Prelude.<*> (x Data..@? "Document")
+      Prelude.<*> (x Data..@? "IsDefaultVersion")
+      Prelude.<*> (x Data..@? "VersionId")
 
 instance Prelude.Hashable PolicyVersion where
   hashWithSalt _salt PolicyVersion' {..} =
-    _salt `Prelude.hashWithSalt` versionId
-      `Prelude.hashWithSalt` createDate
+    _salt `Prelude.hashWithSalt` createDate
       `Prelude.hashWithSalt` document
       `Prelude.hashWithSalt` isDefaultVersion
+      `Prelude.hashWithSalt` versionId
 
 instance Prelude.NFData PolicyVersion where
   rnf PolicyVersion' {..} =
-    Prelude.rnf versionId
-      `Prelude.seq` Prelude.rnf createDate
+    Prelude.rnf createDate
       `Prelude.seq` Prelude.rnf document
       `Prelude.seq` Prelude.rnf isDefaultVersion
+      `Prelude.seq` Prelude.rnf versionId

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.AdHocFilteringOption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.QuickSight.Types.AdHocFilteringOption where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.DashboardBehavior
 
--- | Ad hoc (one-time) filtering option.
+-- | An ad hoc (one-time) filtering option.
 --
 -- /See:/ 'newAdHocFilteringOption' smart constructor.
 data AdHocFilteringOption = AdHocFilteringOption'
@@ -62,11 +63,11 @@ instance Prelude.NFData AdHocFilteringOption where
   rnf AdHocFilteringOption' {..} =
     Prelude.rnf availabilityStatus
 
-instance Core.ToJSON AdHocFilteringOption where
+instance Data.ToJSON AdHocFilteringOption where
   toJSON AdHocFilteringOption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AvailabilityStatus" Core..=)
+          [ ("AvailabilityStatus" Data..=)
               Prelude.<$> availabilityStatus
           ]
       )

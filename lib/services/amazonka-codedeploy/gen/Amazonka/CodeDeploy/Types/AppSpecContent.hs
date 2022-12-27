@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.Types.AppSpecContent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.CodeDeploy.Types.AppSpecContent where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | A revision for an AWS Lambda or Amazon ECS deployment that is a
--- YAML-formatted or JSON-formatted string. For AWS Lambda and Amazon ECS
+-- | A revision for an Lambda or Amazon ECS deployment that is a
+-- YAML-formatted or JSON-formatted string. For Lambda and Amazon ECS
 -- deployments, the revision is the same as the AppSpec file. This method
 -- replaces the deprecated @RawString@ data type.
 --
@@ -32,10 +33,10 @@ import qualified Amazonka.Prelude as Prelude
 data AppSpecContent = AppSpecContent'
   { -- | The YAML-formatted or JSON-formatted revision string.
     --
-    -- For an AWS Lambda deployment, the content includes a Lambda function
-    -- name, the alias for its original version, and the alias for its
-    -- replacement version. The deployment shifts traffic from the original
-    -- version of the Lambda function to the replacement version.
+    -- For an Lambda deployment, the content includes a Lambda function name,
+    -- the alias for its original version, and the alias for its replacement
+    -- version. The deployment shifts traffic from the original version of the
+    -- Lambda function to the replacement version.
     --
     -- For an Amazon ECS deployment, the content includes the task name,
     -- information about the load balancer that serves traffic to the
@@ -60,10 +61,10 @@ data AppSpecContent = AppSpecContent'
 --
 -- 'content', 'appSpecContent_content' - The YAML-formatted or JSON-formatted revision string.
 --
--- For an AWS Lambda deployment, the content includes a Lambda function
--- name, the alias for its original version, and the alias for its
--- replacement version. The deployment shifts traffic from the original
--- version of the Lambda function to the replacement version.
+-- For an Lambda deployment, the content includes a Lambda function name,
+-- the alias for its original version, and the alias for its replacement
+-- version. The deployment shifts traffic from the original version of the
+-- Lambda function to the replacement version.
 --
 -- For an Amazon ECS deployment, the content includes the task name,
 -- information about the load balancer that serves traffic to the
@@ -84,10 +85,10 @@ newAppSpecContent =
 
 -- | The YAML-formatted or JSON-formatted revision string.
 --
--- For an AWS Lambda deployment, the content includes a Lambda function
--- name, the alias for its original version, and the alias for its
--- replacement version. The deployment shifts traffic from the original
--- version of the Lambda function to the replacement version.
+-- For an Lambda deployment, the content includes a Lambda function name,
+-- the alias for its original version, and the alias for its replacement
+-- version. The deployment shifts traffic from the original version of the
+-- Lambda function to the replacement version.
 --
 -- For an Amazon ECS deployment, the content includes the task name,
 -- information about the load balancer that serves traffic to the
@@ -103,14 +104,14 @@ appSpecContent_content = Lens.lens (\AppSpecContent' {content} -> content) (\s@A
 appSpecContent_sha256 :: Lens.Lens' AppSpecContent (Prelude.Maybe Prelude.Text)
 appSpecContent_sha256 = Lens.lens (\AppSpecContent' {sha256} -> sha256) (\s@AppSpecContent' {} a -> s {sha256 = a} :: AppSpecContent)
 
-instance Core.FromJSON AppSpecContent where
+instance Data.FromJSON AppSpecContent where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AppSpecContent"
       ( \x ->
           AppSpecContent'
-            Prelude.<$> (x Core..:? "content")
-            Prelude.<*> (x Core..:? "sha256")
+            Prelude.<$> (x Data..:? "content")
+            Prelude.<*> (x Data..:? "sha256")
       )
 
 instance Prelude.Hashable AppSpecContent where
@@ -123,11 +124,11 @@ instance Prelude.NFData AppSpecContent where
     Prelude.rnf content
       `Prelude.seq` Prelude.rnf sha256
 
-instance Core.ToJSON AppSpecContent where
+instance Data.ToJSON AppSpecContent where
   toJSON AppSpecContent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("content" Core..=) Prelude.<$> content,
-            ("sha256" Core..=) Prelude.<$> sha256
+          [ ("content" Data..=) Prelude.<$> content,
+            ("sha256" Data..=) Prelude.<$> sha256
           ]
       )

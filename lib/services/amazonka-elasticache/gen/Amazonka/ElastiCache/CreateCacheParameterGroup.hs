@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.CreateCacheParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -57,8 +57,9 @@ module Amazonka.ElastiCache.CreateCacheParameterGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,7 +78,7 @@ data CreateCacheParameterGroup = CreateCacheParameterGroup'
     --
     -- Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ |
     -- @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ |
-    -- @redis6.x@ |
+    -- @redis6.x@
     cacheParameterGroupFamily :: Prelude.Text,
     -- | A user-specified description for the cache parameter group.
     description :: Prelude.Text
@@ -102,7 +103,7 @@ data CreateCacheParameterGroup = CreateCacheParameterGroup'
 --
 -- Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ |
 -- @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ |
--- @redis6.x@ |
+-- @redis6.x@
 --
 -- 'description', 'createCacheParameterGroup_description' - A user-specified description for the cache parameter group.
 newCreateCacheParameterGroup ::
@@ -140,7 +141,7 @@ createCacheParameterGroup_cacheParameterGroupName = Lens.lens (\CreateCacheParam
 --
 -- Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ |
 -- @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ |
--- @redis6.x@ |
+-- @redis6.x@
 createCacheParameterGroup_cacheParameterGroupFamily :: Lens.Lens' CreateCacheParameterGroup Prelude.Text
 createCacheParameterGroup_cacheParameterGroupFamily = Lens.lens (\CreateCacheParameterGroup' {cacheParameterGroupFamily} -> cacheParameterGroupFamily) (\s@CreateCacheParameterGroup' {} a -> s {cacheParameterGroupFamily = a} :: CreateCacheParameterGroup)
 
@@ -152,13 +153,14 @@ instance Core.AWSRequest CreateCacheParameterGroup where
   type
     AWSResponse CreateCacheParameterGroup =
       CreateCacheParameterGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateCacheParameterGroupResult"
       ( \s h x ->
           CreateCacheParameterGroupResponse'
-            Prelude.<$> (x Core..@? "CacheParameterGroup")
+            Prelude.<$> (x Data..@? "CacheParameterGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -176,27 +178,27 @@ instance Prelude.NFData CreateCacheParameterGroup where
       `Prelude.seq` Prelude.rnf cacheParameterGroupFamily
       `Prelude.seq` Prelude.rnf description
 
-instance Core.ToHeaders CreateCacheParameterGroup where
+instance Data.ToHeaders CreateCacheParameterGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateCacheParameterGroup where
+instance Data.ToPath CreateCacheParameterGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateCacheParameterGroup where
+instance Data.ToQuery CreateCacheParameterGroup where
   toQuery CreateCacheParameterGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateCacheParameterGroup" :: Prelude.ByteString),
+          Data.=: ("CreateCacheParameterGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
         "CacheParameterGroupName"
-          Core.=: cacheParameterGroupName,
+          Data.=: cacheParameterGroupName,
         "CacheParameterGroupFamily"
-          Core.=: cacheParameterGroupFamily,
-        "Description" Core.=: description
+          Data.=: cacheParameterGroupFamily,
+        "Description" Data.=: description
       ]
 
 -- | /See:/ 'newCreateCacheParameterGroupResponse' smart constructor.

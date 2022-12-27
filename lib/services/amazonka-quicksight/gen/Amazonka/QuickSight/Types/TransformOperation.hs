@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.TransformOperation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.TransformOperation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.CastColumnTypeOperation
 import Amazonka.QuickSight.Types.CreateColumnsOperation
@@ -38,21 +39,21 @@ import Amazonka.QuickSight.Types.UntagColumnOperation
 data TransformOperation = TransformOperation'
   { -- | A transform operation that casts a column to a different type.
     castColumnTypeOperation :: Prelude.Maybe CastColumnTypeOperation,
-    -- | An operation that tags a column with additional information.
-    tagColumnOperation :: Prelude.Maybe TagColumnOperation,
     -- | An operation that creates calculated columns. Columns created in one
     -- such operation form a lexical closure.
     createColumnsOperation :: Prelude.Maybe CreateColumnsOperation,
-    untagColumnOperation :: Prelude.Maybe UntagColumnOperation,
     -- | An operation that filters rows based on some condition.
     filterOperation :: Prelude.Maybe FilterOperation,
     -- | An operation that projects columns. Operations that come after a
     -- projection can only refer to projected columns.
     projectOperation :: Prelude.Maybe ProjectOperation,
     -- | An operation that renames a column.
-    renameColumnOperation :: Prelude.Maybe RenameColumnOperation
+    renameColumnOperation :: Prelude.Maybe RenameColumnOperation,
+    -- | An operation that tags a column with additional information.
+    tagColumnOperation :: Prelude.Maybe TagColumnOperation,
+    untagColumnOperation :: Prelude.Maybe UntagColumnOperation
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'TransformOperation' with all optional fields omitted.
@@ -64,12 +65,8 @@ data TransformOperation = TransformOperation'
 --
 -- 'castColumnTypeOperation', 'transformOperation_castColumnTypeOperation' - A transform operation that casts a column to a different type.
 --
--- 'tagColumnOperation', 'transformOperation_tagColumnOperation' - An operation that tags a column with additional information.
---
 -- 'createColumnsOperation', 'transformOperation_createColumnsOperation' - An operation that creates calculated columns. Columns created in one
 -- such operation form a lexical closure.
---
--- 'untagColumnOperation', 'transformOperation_untagColumnOperation' - Undocumented member.
 --
 -- 'filterOperation', 'transformOperation_filterOperation' - An operation that filters rows based on some condition.
 --
@@ -77,36 +74,32 @@ data TransformOperation = TransformOperation'
 -- projection can only refer to projected columns.
 --
 -- 'renameColumnOperation', 'transformOperation_renameColumnOperation' - An operation that renames a column.
+--
+-- 'tagColumnOperation', 'transformOperation_tagColumnOperation' - An operation that tags a column with additional information.
+--
+-- 'untagColumnOperation', 'transformOperation_untagColumnOperation' - Undocumented member.
 newTransformOperation ::
   TransformOperation
 newTransformOperation =
   TransformOperation'
     { castColumnTypeOperation =
         Prelude.Nothing,
-      tagColumnOperation = Prelude.Nothing,
       createColumnsOperation = Prelude.Nothing,
-      untagColumnOperation = Prelude.Nothing,
       filterOperation = Prelude.Nothing,
       projectOperation = Prelude.Nothing,
-      renameColumnOperation = Prelude.Nothing
+      renameColumnOperation = Prelude.Nothing,
+      tagColumnOperation = Prelude.Nothing,
+      untagColumnOperation = Prelude.Nothing
     }
 
 -- | A transform operation that casts a column to a different type.
 transformOperation_castColumnTypeOperation :: Lens.Lens' TransformOperation (Prelude.Maybe CastColumnTypeOperation)
 transformOperation_castColumnTypeOperation = Lens.lens (\TransformOperation' {castColumnTypeOperation} -> castColumnTypeOperation) (\s@TransformOperation' {} a -> s {castColumnTypeOperation = a} :: TransformOperation)
 
--- | An operation that tags a column with additional information.
-transformOperation_tagColumnOperation :: Lens.Lens' TransformOperation (Prelude.Maybe TagColumnOperation)
-transformOperation_tagColumnOperation = Lens.lens (\TransformOperation' {tagColumnOperation} -> tagColumnOperation) (\s@TransformOperation' {} a -> s {tagColumnOperation = a} :: TransformOperation)
-
 -- | An operation that creates calculated columns. Columns created in one
 -- such operation form a lexical closure.
 transformOperation_createColumnsOperation :: Lens.Lens' TransformOperation (Prelude.Maybe CreateColumnsOperation)
 transformOperation_createColumnsOperation = Lens.lens (\TransformOperation' {createColumnsOperation} -> createColumnsOperation) (\s@TransformOperation' {} a -> s {createColumnsOperation = a} :: TransformOperation)
-
--- | Undocumented member.
-transformOperation_untagColumnOperation :: Lens.Lens' TransformOperation (Prelude.Maybe UntagColumnOperation)
-transformOperation_untagColumnOperation = Lens.lens (\TransformOperation' {untagColumnOperation} -> untagColumnOperation) (\s@TransformOperation' {} a -> s {untagColumnOperation = a} :: TransformOperation)
 
 -- | An operation that filters rows based on some condition.
 transformOperation_filterOperation :: Lens.Lens' TransformOperation (Prelude.Maybe FilterOperation)
@@ -121,59 +114,67 @@ transformOperation_projectOperation = Lens.lens (\TransformOperation' {projectOp
 transformOperation_renameColumnOperation :: Lens.Lens' TransformOperation (Prelude.Maybe RenameColumnOperation)
 transformOperation_renameColumnOperation = Lens.lens (\TransformOperation' {renameColumnOperation} -> renameColumnOperation) (\s@TransformOperation' {} a -> s {renameColumnOperation = a} :: TransformOperation)
 
-instance Core.FromJSON TransformOperation where
+-- | An operation that tags a column with additional information.
+transformOperation_tagColumnOperation :: Lens.Lens' TransformOperation (Prelude.Maybe TagColumnOperation)
+transformOperation_tagColumnOperation = Lens.lens (\TransformOperation' {tagColumnOperation} -> tagColumnOperation) (\s@TransformOperation' {} a -> s {tagColumnOperation = a} :: TransformOperation)
+
+-- | Undocumented member.
+transformOperation_untagColumnOperation :: Lens.Lens' TransformOperation (Prelude.Maybe UntagColumnOperation)
+transformOperation_untagColumnOperation = Lens.lens (\TransformOperation' {untagColumnOperation} -> untagColumnOperation) (\s@TransformOperation' {} a -> s {untagColumnOperation = a} :: TransformOperation)
+
+instance Data.FromJSON TransformOperation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TransformOperation"
       ( \x ->
           TransformOperation'
-            Prelude.<$> (x Core..:? "CastColumnTypeOperation")
-            Prelude.<*> (x Core..:? "TagColumnOperation")
-            Prelude.<*> (x Core..:? "CreateColumnsOperation")
-            Prelude.<*> (x Core..:? "UntagColumnOperation")
-            Prelude.<*> (x Core..:? "FilterOperation")
-            Prelude.<*> (x Core..:? "ProjectOperation")
-            Prelude.<*> (x Core..:? "RenameColumnOperation")
+            Prelude.<$> (x Data..:? "CastColumnTypeOperation")
+            Prelude.<*> (x Data..:? "CreateColumnsOperation")
+            Prelude.<*> (x Data..:? "FilterOperation")
+            Prelude.<*> (x Data..:? "ProjectOperation")
+            Prelude.<*> (x Data..:? "RenameColumnOperation")
+            Prelude.<*> (x Data..:? "TagColumnOperation")
+            Prelude.<*> (x Data..:? "UntagColumnOperation")
       )
 
 instance Prelude.Hashable TransformOperation where
   hashWithSalt _salt TransformOperation' {..} =
     _salt
       `Prelude.hashWithSalt` castColumnTypeOperation
-      `Prelude.hashWithSalt` tagColumnOperation
       `Prelude.hashWithSalt` createColumnsOperation
-      `Prelude.hashWithSalt` untagColumnOperation
       `Prelude.hashWithSalt` filterOperation
       `Prelude.hashWithSalt` projectOperation
       `Prelude.hashWithSalt` renameColumnOperation
+      `Prelude.hashWithSalt` tagColumnOperation
+      `Prelude.hashWithSalt` untagColumnOperation
 
 instance Prelude.NFData TransformOperation where
   rnf TransformOperation' {..} =
     Prelude.rnf castColumnTypeOperation
-      `Prelude.seq` Prelude.rnf tagColumnOperation
       `Prelude.seq` Prelude.rnf createColumnsOperation
-      `Prelude.seq` Prelude.rnf untagColumnOperation
       `Prelude.seq` Prelude.rnf filterOperation
       `Prelude.seq` Prelude.rnf projectOperation
       `Prelude.seq` Prelude.rnf renameColumnOperation
+      `Prelude.seq` Prelude.rnf tagColumnOperation
+      `Prelude.seq` Prelude.rnf untagColumnOperation
 
-instance Core.ToJSON TransformOperation where
+instance Data.ToJSON TransformOperation where
   toJSON TransformOperation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CastColumnTypeOperation" Core..=)
+          [ ("CastColumnTypeOperation" Data..=)
               Prelude.<$> castColumnTypeOperation,
-            ("TagColumnOperation" Core..=)
-              Prelude.<$> tagColumnOperation,
-            ("CreateColumnsOperation" Core..=)
+            ("CreateColumnsOperation" Data..=)
               Prelude.<$> createColumnsOperation,
-            ("UntagColumnOperation" Core..=)
-              Prelude.<$> untagColumnOperation,
-            ("FilterOperation" Core..=)
+            ("FilterOperation" Data..=)
               Prelude.<$> filterOperation,
-            ("ProjectOperation" Core..=)
+            ("ProjectOperation" Data..=)
               Prelude.<$> projectOperation,
-            ("RenameColumnOperation" Core..=)
-              Prelude.<$> renameColumnOperation
+            ("RenameColumnOperation" Data..=)
+              Prelude.<$> renameColumnOperation,
+            ("TagColumnOperation" Data..=)
+              Prelude.<$> tagColumnOperation,
+            ("UntagColumnOperation" Data..=)
+              Prelude.<$> untagColumnOperation
           ]
       )

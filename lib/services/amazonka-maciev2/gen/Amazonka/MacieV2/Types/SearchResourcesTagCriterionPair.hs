@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.SearchResourcesTagCriterionPair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.SearchResourcesTagCriterionPair where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies a tag key, a tag value, or a tag key and value (as a pair) to
@@ -30,10 +31,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSearchResourcesTagCriterionPair' smart constructor.
 data SearchResourcesTagCriterionPair = SearchResourcesTagCriterionPair'
-  { -- | The tag value to use in the condition.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The value for the tag key to use in the condition.
-    key :: Prelude.Maybe Prelude.Text
+  { -- | The value for the tag key to use in the condition.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The tag value to use in the condition.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,25 +46,25 @@ data SearchResourcesTagCriterionPair = SearchResourcesTagCriterionPair'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'searchResourcesTagCriterionPair_value' - The tag value to use in the condition.
---
 -- 'key', 'searchResourcesTagCriterionPair_key' - The value for the tag key to use in the condition.
+--
+-- 'value', 'searchResourcesTagCriterionPair_value' - The tag value to use in the condition.
 newSearchResourcesTagCriterionPair ::
   SearchResourcesTagCriterionPair
 newSearchResourcesTagCriterionPair =
   SearchResourcesTagCriterionPair'
-    { value =
+    { key =
         Prelude.Nothing,
-      key = Prelude.Nothing
+      value = Prelude.Nothing
     }
-
--- | The tag value to use in the condition.
-searchResourcesTagCriterionPair_value :: Lens.Lens' SearchResourcesTagCriterionPair (Prelude.Maybe Prelude.Text)
-searchResourcesTagCriterionPair_value = Lens.lens (\SearchResourcesTagCriterionPair' {value} -> value) (\s@SearchResourcesTagCriterionPair' {} a -> s {value = a} :: SearchResourcesTagCriterionPair)
 
 -- | The value for the tag key to use in the condition.
 searchResourcesTagCriterionPair_key :: Lens.Lens' SearchResourcesTagCriterionPair (Prelude.Maybe Prelude.Text)
 searchResourcesTagCriterionPair_key = Lens.lens (\SearchResourcesTagCriterionPair' {key} -> key) (\s@SearchResourcesTagCriterionPair' {} a -> s {key = a} :: SearchResourcesTagCriterionPair)
+
+-- | The tag value to use in the condition.
+searchResourcesTagCriterionPair_value :: Lens.Lens' SearchResourcesTagCriterionPair (Prelude.Maybe Prelude.Text)
+searchResourcesTagCriterionPair_value = Lens.lens (\SearchResourcesTagCriterionPair' {value} -> value) (\s@SearchResourcesTagCriterionPair' {} a -> s {value = a} :: SearchResourcesTagCriterionPair)
 
 instance
   Prelude.Hashable
@@ -72,21 +73,21 @@ instance
   hashWithSalt
     _salt
     SearchResourcesTagCriterionPair' {..} =
-      _salt `Prelude.hashWithSalt` value
-        `Prelude.hashWithSalt` key
+      _salt `Prelude.hashWithSalt` key
+        `Prelude.hashWithSalt` value
 
 instance
   Prelude.NFData
     SearchResourcesTagCriterionPair
   where
   rnf SearchResourcesTagCriterionPair' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON SearchResourcesTagCriterionPair where
+instance Data.ToJSON SearchResourcesTagCriterionPair where
   toJSON SearchResourcesTagCriterionPair' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("value" Core..=) Prelude.<$> value,
-            ("key" Core..=) Prelude.<$> key
+          [ ("key" Data..=) Prelude.<$> key,
+            ("value" Data..=) Prelude.<$> value
           ]
       )

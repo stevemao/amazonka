@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.Pi
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,43 +27,49 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestGetDimensionKeyDetails $
+--         [ requestDescribeDimensionKeys $
+--             newDescribeDimensionKeys
+--
+--         , requestGetDimensionKeyDetails $
 --             newGetDimensionKeyDetails
+--
+--         , requestGetResourceMetadata $
+--             newGetResourceMetadata
 --
 --         , requestGetResourceMetrics $
 --             newGetResourceMetrics
 --
---         , requestDescribeDimensionKeys $
---             newDescribeDimensionKeys
+--         , requestListAvailableResourceDimensions $
+--             newListAvailableResourceDimensions
+--
+--         , requestListAvailableResourceMetrics $
+--             newListAvailableResourceMetrics
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseGetDimensionKeyDetails $
+--         [ responseDescribeDimensionKeys $
+--             newDescribeDimensionKeysResponse
+--
+--         , responseGetDimensionKeyDetails $
 --             newGetDimensionKeyDetailsResponse
+--
+--         , responseGetResourceMetadata $
+--             newGetResourceMetadataResponse
 --
 --         , responseGetResourceMetrics $
 --             newGetResourceMetricsResponse
 --
---         , responseDescribeDimensionKeys $
---             newDescribeDimensionKeysResponse
+--         , responseListAvailableResourceDimensions $
+--             newListAvailableResourceDimensionsResponse
+--
+--         , responseListAvailableResourceMetrics $
+--             newListAvailableResourceMetricsResponse
 --
 --           ]
 --     ]
 
 -- Requests
-
-requestGetDimensionKeyDetails :: GetDimensionKeyDetails -> TestTree
-requestGetDimensionKeyDetails =
-  req
-    "GetDimensionKeyDetails"
-    "fixture/GetDimensionKeyDetails.yaml"
-
-requestGetResourceMetrics :: GetResourceMetrics -> TestTree
-requestGetResourceMetrics =
-  req
-    "GetResourceMetrics"
-    "fixture/GetResourceMetrics.yaml"
 
 requestDescribeDimensionKeys :: DescribeDimensionKeys -> TestTree
 requestDescribeDimensionKeys =
@@ -71,7 +77,45 @@ requestDescribeDimensionKeys =
     "DescribeDimensionKeys"
     "fixture/DescribeDimensionKeys.yaml"
 
+requestGetDimensionKeyDetails :: GetDimensionKeyDetails -> TestTree
+requestGetDimensionKeyDetails =
+  req
+    "GetDimensionKeyDetails"
+    "fixture/GetDimensionKeyDetails.yaml"
+
+requestGetResourceMetadata :: GetResourceMetadata -> TestTree
+requestGetResourceMetadata =
+  req
+    "GetResourceMetadata"
+    "fixture/GetResourceMetadata.yaml"
+
+requestGetResourceMetrics :: GetResourceMetrics -> TestTree
+requestGetResourceMetrics =
+  req
+    "GetResourceMetrics"
+    "fixture/GetResourceMetrics.yaml"
+
+requestListAvailableResourceDimensions :: ListAvailableResourceDimensions -> TestTree
+requestListAvailableResourceDimensions =
+  req
+    "ListAvailableResourceDimensions"
+    "fixture/ListAvailableResourceDimensions.yaml"
+
+requestListAvailableResourceMetrics :: ListAvailableResourceMetrics -> TestTree
+requestListAvailableResourceMetrics =
+  req
+    "ListAvailableResourceMetrics"
+    "fixture/ListAvailableResourceMetrics.yaml"
+
 -- Responses
+
+responseDescribeDimensionKeys :: DescribeDimensionKeysResponse -> TestTree
+responseDescribeDimensionKeys =
+  res
+    "DescribeDimensionKeysResponse"
+    "fixture/DescribeDimensionKeysResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeDimensionKeys)
 
 responseGetDimensionKeyDetails :: GetDimensionKeyDetailsResponse -> TestTree
 responseGetDimensionKeyDetails =
@@ -81,6 +125,14 @@ responseGetDimensionKeyDetails =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetDimensionKeyDetails)
 
+responseGetResourceMetadata :: GetResourceMetadataResponse -> TestTree
+responseGetResourceMetadata =
+  res
+    "GetResourceMetadataResponse"
+    "fixture/GetResourceMetadataResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetResourceMetadata)
+
 responseGetResourceMetrics :: GetResourceMetricsResponse -> TestTree
 responseGetResourceMetrics =
   res
@@ -89,10 +141,18 @@ responseGetResourceMetrics =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetResourceMetrics)
 
-responseDescribeDimensionKeys :: DescribeDimensionKeysResponse -> TestTree
-responseDescribeDimensionKeys =
+responseListAvailableResourceDimensions :: ListAvailableResourceDimensionsResponse -> TestTree
+responseListAvailableResourceDimensions =
   res
-    "DescribeDimensionKeysResponse"
-    "fixture/DescribeDimensionKeysResponse.proto"
+    "ListAvailableResourceDimensionsResponse"
+    "fixture/ListAvailableResourceDimensionsResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeDimensionKeys)
+    (Proxy.Proxy :: Proxy.Proxy ListAvailableResourceDimensions)
+
+responseListAvailableResourceMetrics :: ListAvailableResourceMetricsResponse -> TestTree
+responseListAvailableResourceMetrics =
+  res
+    "ListAvailableResourceMetricsResponse"
+    "fixture/ListAvailableResourceMetricsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListAvailableResourceMetrics)

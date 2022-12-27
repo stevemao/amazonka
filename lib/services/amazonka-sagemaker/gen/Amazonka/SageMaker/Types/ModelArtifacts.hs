@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ModelArtifacts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ModelArtifacts where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about the location that is configured for storing
@@ -63,13 +64,13 @@ newModelArtifacts pS3ModelArtifacts_ =
 modelArtifacts_s3ModelArtifacts :: Lens.Lens' ModelArtifacts Prelude.Text
 modelArtifacts_s3ModelArtifacts = Lens.lens (\ModelArtifacts' {s3ModelArtifacts} -> s3ModelArtifacts) (\s@ModelArtifacts' {} a -> s {s3ModelArtifacts = a} :: ModelArtifacts)
 
-instance Core.FromJSON ModelArtifacts where
+instance Data.FromJSON ModelArtifacts where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ModelArtifacts"
       ( \x ->
           ModelArtifacts'
-            Prelude.<$> (x Core..: "S3ModelArtifacts")
+            Prelude.<$> (x Data..: "S3ModelArtifacts")
       )
 
 instance Prelude.Hashable ModelArtifacts where

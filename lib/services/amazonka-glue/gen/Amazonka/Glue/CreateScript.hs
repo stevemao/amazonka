@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.CreateScript
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Glue.CreateScript
 
     -- * Request Lenses
     createScript_dagEdges,
-    createScript_language,
     createScript_dagNodes,
+    createScript_language,
 
     -- * Destructuring the Response
     CreateScriptResponse (..),
@@ -43,8 +43,9 @@ module Amazonka.Glue.CreateScript
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,10 +54,10 @@ import qualified Amazonka.Response as Response
 data CreateScript = CreateScript'
   { -- | A list of the edges in the DAG.
     dagEdges :: Prelude.Maybe [CodeGenEdge],
-    -- | The programming language of the resulting code from the DAG.
-    language :: Prelude.Maybe Language,
     -- | A list of the nodes in the DAG.
-    dagNodes :: Prelude.Maybe [CodeGenNode]
+    dagNodes :: Prelude.Maybe [CodeGenNode],
+    -- | The programming language of the resulting code from the DAG.
+    language :: Prelude.Maybe Language
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,81 +71,82 @@ data CreateScript = CreateScript'
 --
 -- 'dagEdges', 'createScript_dagEdges' - A list of the edges in the DAG.
 --
--- 'language', 'createScript_language' - The programming language of the resulting code from the DAG.
---
 -- 'dagNodes', 'createScript_dagNodes' - A list of the nodes in the DAG.
+--
+-- 'language', 'createScript_language' - The programming language of the resulting code from the DAG.
 newCreateScript ::
   CreateScript
 newCreateScript =
   CreateScript'
     { dagEdges = Prelude.Nothing,
-      language = Prelude.Nothing,
-      dagNodes = Prelude.Nothing
+      dagNodes = Prelude.Nothing,
+      language = Prelude.Nothing
     }
 
 -- | A list of the edges in the DAG.
 createScript_dagEdges :: Lens.Lens' CreateScript (Prelude.Maybe [CodeGenEdge])
 createScript_dagEdges = Lens.lens (\CreateScript' {dagEdges} -> dagEdges) (\s@CreateScript' {} a -> s {dagEdges = a} :: CreateScript) Prelude.. Lens.mapping Lens.coerced
 
--- | The programming language of the resulting code from the DAG.
-createScript_language :: Lens.Lens' CreateScript (Prelude.Maybe Language)
-createScript_language = Lens.lens (\CreateScript' {language} -> language) (\s@CreateScript' {} a -> s {language = a} :: CreateScript)
-
 -- | A list of the nodes in the DAG.
 createScript_dagNodes :: Lens.Lens' CreateScript (Prelude.Maybe [CodeGenNode])
 createScript_dagNodes = Lens.lens (\CreateScript' {dagNodes} -> dagNodes) (\s@CreateScript' {} a -> s {dagNodes = a} :: CreateScript) Prelude.. Lens.mapping Lens.coerced
 
+-- | The programming language of the resulting code from the DAG.
+createScript_language :: Lens.Lens' CreateScript (Prelude.Maybe Language)
+createScript_language = Lens.lens (\CreateScript' {language} -> language) (\s@CreateScript' {} a -> s {language = a} :: CreateScript)
+
 instance Core.AWSRequest CreateScript where
   type AWSResponse CreateScript = CreateScriptResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateScriptResponse'
-            Prelude.<$> (x Core..?> "PythonScript")
-            Prelude.<*> (x Core..?> "ScalaCode")
+            Prelude.<$> (x Data..?> "PythonScript")
+            Prelude.<*> (x Data..?> "ScalaCode")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateScript where
   hashWithSalt _salt CreateScript' {..} =
     _salt `Prelude.hashWithSalt` dagEdges
-      `Prelude.hashWithSalt` language
       `Prelude.hashWithSalt` dagNodes
+      `Prelude.hashWithSalt` language
 
 instance Prelude.NFData CreateScript where
   rnf CreateScript' {..} =
     Prelude.rnf dagEdges
-      `Prelude.seq` Prelude.rnf language
       `Prelude.seq` Prelude.rnf dagNodes
+      `Prelude.seq` Prelude.rnf language
 
-instance Core.ToHeaders CreateScript where
+instance Data.ToHeaders CreateScript where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.CreateScript" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.CreateScript" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateScript where
+instance Data.ToJSON CreateScript where
   toJSON CreateScript' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DagEdges" Core..=) Prelude.<$> dagEdges,
-            ("Language" Core..=) Prelude.<$> language,
-            ("DagNodes" Core..=) Prelude.<$> dagNodes
+          [ ("DagEdges" Data..=) Prelude.<$> dagEdges,
+            ("DagNodes" Data..=) Prelude.<$> dagNodes,
+            ("Language" Data..=) Prelude.<$> language
           ]
       )
 
-instance Core.ToPath CreateScript where
+instance Data.ToPath CreateScript where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateScript where
+instance Data.ToQuery CreateScript where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateScriptResponse' smart constructor.

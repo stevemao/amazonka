@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.CapacityProviderStrategyItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchEvents.Types.CapacityProviderStrategyItem where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of a capacity provider strategy. To learn more, see
@@ -93,15 +94,15 @@ capacityProviderStrategyItem_weight = Lens.lens (\CapacityProviderStrategyItem' 
 capacityProviderStrategyItem_capacityProvider :: Lens.Lens' CapacityProviderStrategyItem Prelude.Text
 capacityProviderStrategyItem_capacityProvider = Lens.lens (\CapacityProviderStrategyItem' {capacityProvider} -> capacityProvider) (\s@CapacityProviderStrategyItem' {} a -> s {capacityProvider = a} :: CapacityProviderStrategyItem)
 
-instance Core.FromJSON CapacityProviderStrategyItem where
+instance Data.FromJSON CapacityProviderStrategyItem where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CapacityProviderStrategyItem"
       ( \x ->
           CapacityProviderStrategyItem'
-            Prelude.<$> (x Core..:? "base")
-            Prelude.<*> (x Core..:? "weight")
-            Prelude.<*> (x Core..: "capacityProvider")
+            Prelude.<$> (x Data..:? "base")
+            Prelude.<*> (x Data..:? "weight")
+            Prelude.<*> (x Data..: "capacityProvider")
       )
 
 instance
@@ -119,13 +120,13 @@ instance Prelude.NFData CapacityProviderStrategyItem where
       `Prelude.seq` Prelude.rnf weight
       `Prelude.seq` Prelude.rnf capacityProvider
 
-instance Core.ToJSON CapacityProviderStrategyItem where
+instance Data.ToJSON CapacityProviderStrategyItem where
   toJSON CapacityProviderStrategyItem' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("base" Core..=) Prelude.<$> base,
-            ("weight" Core..=) Prelude.<$> weight,
+          [ ("base" Data..=) Prelude.<$> base,
+            ("weight" Data..=) Prelude.<$> weight,
             Prelude.Just
-              ("capacityProvider" Core..= capacityProvider)
+              ("capacityProvider" Data..= capacityProvider)
           ]
       )

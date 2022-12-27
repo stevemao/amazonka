@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.CreateWorldExportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,20 +38,21 @@ module Amazonka.RobOMaker.CreateWorldExportJob
     newCreateWorldExportJobResponse,
 
     -- * Response Lenses
-    createWorldExportJobResponse_status,
     createWorldExportJobResponse_arn,
+    createWorldExportJobResponse_clientRequestToken,
     createWorldExportJobResponse_createdAt,
     createWorldExportJobResponse_failureCode,
-    createWorldExportJobResponse_outputLocation,
-    createWorldExportJobResponse_clientRequestToken,
     createWorldExportJobResponse_iamRole,
+    createWorldExportJobResponse_outputLocation,
+    createWorldExportJobResponse_status,
     createWorldExportJobResponse_tags,
     createWorldExportJobResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -145,19 +146,20 @@ instance Core.AWSRequest CreateWorldExportJob where
   type
     AWSResponse CreateWorldExportJob =
       CreateWorldExportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateWorldExportJobResponse'
-            Prelude.<$> (x Core..?> "status")
-            Prelude.<*> (x Core..?> "arn")
-            Prelude.<*> (x Core..?> "createdAt")
-            Prelude.<*> (x Core..?> "failureCode")
-            Prelude.<*> (x Core..?> "outputLocation")
-            Prelude.<*> (x Core..?> "clientRequestToken")
-            Prelude.<*> (x Core..?> "iamRole")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "arn")
+            Prelude.<*> (x Data..?> "clientRequestToken")
+            Prelude.<*> (x Data..?> "createdAt")
+            Prelude.<*> (x Data..?> "failureCode")
+            Prelude.<*> (x Data..?> "iamRole")
+            Prelude.<*> (x Data..?> "outputLocation")
+            Prelude.<*> (x Data..?> "status")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -177,64 +179,47 @@ instance Prelude.NFData CreateWorldExportJob where
       `Prelude.seq` Prelude.rnf outputLocation
       `Prelude.seq` Prelude.rnf iamRole
 
-instance Core.ToHeaders CreateWorldExportJob where
+instance Data.ToHeaders CreateWorldExportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateWorldExportJob where
+instance Data.ToJSON CreateWorldExportJob where
   toJSON CreateWorldExportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientRequestToken" Core..=)
+          [ ("clientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("worlds" Core..= worlds),
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("worlds" Data..= worlds),
             Prelude.Just
-              ("outputLocation" Core..= outputLocation),
-            Prelude.Just ("iamRole" Core..= iamRole)
+              ("outputLocation" Data..= outputLocation),
+            Prelude.Just ("iamRole" Data..= iamRole)
           ]
       )
 
-instance Core.ToPath CreateWorldExportJob where
+instance Data.ToPath CreateWorldExportJob where
   toPath = Prelude.const "/createWorldExportJob"
 
-instance Core.ToQuery CreateWorldExportJob where
+instance Data.ToQuery CreateWorldExportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateWorldExportJobResponse' smart constructor.
 data CreateWorldExportJobResponse = CreateWorldExportJobResponse'
-  { -- | The status of the world export job.
-    --
-    -- [Pending]
-    --     The world export job request is pending.
-    --
-    -- [Running]
-    --     The world export job is running.
-    --
-    -- [Completed]
-    --     The world export job completed.
-    --
-    -- [Failed]
-    --     The world export job failed. See @failureCode@ for more information.
-    --
-    -- [Canceled]
-    --     The world export job was cancelled.
-    --
-    -- [Canceling]
-    --     The world export job is being cancelled.
-    status :: Prelude.Maybe WorldExportJobStatus,
-    -- | The Amazon Resource Name (ARN) of the world export job.
+  { -- | The Amazon Resource Name (ARN) of the world export job.
     arn :: Prelude.Maybe Prelude.Text,
+    -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
     -- | The time, in milliseconds since the epoch, when the world export job was
     -- created.
-    createdAt :: Prelude.Maybe Core.POSIX,
+    createdAt :: Prelude.Maybe Data.POSIX,
     -- | The failure code of the world export job if it failed:
     --
     -- [InternalServiceError]
@@ -261,13 +246,30 @@ data CreateWorldExportJobResponse = CreateWorldExportJobResponse'
     -- For more information about troubleshooting WorldForge, see
     -- <https://docs.aws.amazon.com/robomaker/latest/dg/troubleshooting-worldforge.html Troubleshooting Simulation WorldForge>.
     failureCode :: Prelude.Maybe WorldExportJobErrorCode,
-    outputLocation :: Prelude.Maybe OutputLocation,
-    -- | Unique, case-sensitive identifier that you provide to ensure the
-    -- idempotency of the request.
-    clientRequestToken :: Prelude.Maybe Prelude.Text,
     -- | The IAM role that the world export process uses to access the Amazon S3
     -- bucket and put the export.
     iamRole :: Prelude.Maybe Prelude.Text,
+    outputLocation :: Prelude.Maybe OutputLocation,
+    -- | The status of the world export job.
+    --
+    -- [Pending]
+    --     The world export job request is pending.
+    --
+    -- [Running]
+    --     The world export job is running.
+    --
+    -- [Completed]
+    --     The world export job completed.
+    --
+    -- [Failed]
+    --     The world export job failed. See @failureCode@ for more information.
+    --
+    -- [Canceled]
+    --     The world export job was cancelled.
+    --
+    -- [Canceling]
+    --     The world export job is being cancelled.
+    status :: Prelude.Maybe WorldExportJobStatus,
     -- | A map that contains tag keys and tag values that are attached to the
     -- world export job.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
@@ -284,27 +286,10 @@ data CreateWorldExportJobResponse = CreateWorldExportJobResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'createWorldExportJobResponse_status' - The status of the world export job.
---
--- [Pending]
---     The world export job request is pending.
---
--- [Running]
---     The world export job is running.
---
--- [Completed]
---     The world export job completed.
---
--- [Failed]
---     The world export job failed. See @failureCode@ for more information.
---
--- [Canceled]
---     The world export job was cancelled.
---
--- [Canceling]
---     The world export job is being cancelled.
---
 -- 'arn', 'createWorldExportJobResponse_arn' - The Amazon Resource Name (ARN) of the world export job.
+--
+-- 'clientRequestToken', 'createWorldExportJobResponse_clientRequestToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request.
 --
 -- 'createdAt', 'createWorldExportJobResponse_createdAt' - The time, in milliseconds since the epoch, when the world export job was
 -- created.
@@ -335,37 +320,12 @@ data CreateWorldExportJobResponse = CreateWorldExportJobResponse'
 -- For more information about troubleshooting WorldForge, see
 -- <https://docs.aws.amazon.com/robomaker/latest/dg/troubleshooting-worldforge.html Troubleshooting Simulation WorldForge>.
 --
--- 'outputLocation', 'createWorldExportJobResponse_outputLocation' - Undocumented member.
---
--- 'clientRequestToken', 'createWorldExportJobResponse_clientRequestToken' - Unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
---
 -- 'iamRole', 'createWorldExportJobResponse_iamRole' - The IAM role that the world export process uses to access the Amazon S3
 -- bucket and put the export.
 --
--- 'tags', 'createWorldExportJobResponse_tags' - A map that contains tag keys and tag values that are attached to the
--- world export job.
+-- 'outputLocation', 'createWorldExportJobResponse_outputLocation' - Undocumented member.
 --
--- 'httpStatus', 'createWorldExportJobResponse_httpStatus' - The response's http status code.
-newCreateWorldExportJobResponse ::
-  -- | 'httpStatus'
-  Prelude.Int ->
-  CreateWorldExportJobResponse
-newCreateWorldExportJobResponse pHttpStatus_ =
-  CreateWorldExportJobResponse'
-    { status =
-        Prelude.Nothing,
-      arn = Prelude.Nothing,
-      createdAt = Prelude.Nothing,
-      failureCode = Prelude.Nothing,
-      outputLocation = Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
-      iamRole = Prelude.Nothing,
-      tags = Prelude.Nothing,
-      httpStatus = pHttpStatus_
-    }
-
--- | The status of the world export job.
+-- 'status', 'createWorldExportJobResponse_status' - The status of the world export job.
 --
 -- [Pending]
 --     The world export job request is pending.
@@ -384,17 +344,42 @@ newCreateWorldExportJobResponse pHttpStatus_ =
 --
 -- [Canceling]
 --     The world export job is being cancelled.
-createWorldExportJobResponse_status :: Lens.Lens' CreateWorldExportJobResponse (Prelude.Maybe WorldExportJobStatus)
-createWorldExportJobResponse_status = Lens.lens (\CreateWorldExportJobResponse' {status} -> status) (\s@CreateWorldExportJobResponse' {} a -> s {status = a} :: CreateWorldExportJobResponse)
+--
+-- 'tags', 'createWorldExportJobResponse_tags' - A map that contains tag keys and tag values that are attached to the
+-- world export job.
+--
+-- 'httpStatus', 'createWorldExportJobResponse_httpStatus' - The response's http status code.
+newCreateWorldExportJobResponse ::
+  -- | 'httpStatus'
+  Prelude.Int ->
+  CreateWorldExportJobResponse
+newCreateWorldExportJobResponse pHttpStatus_ =
+  CreateWorldExportJobResponse'
+    { arn =
+        Prelude.Nothing,
+      clientRequestToken = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      failureCode = Prelude.Nothing,
+      iamRole = Prelude.Nothing,
+      outputLocation = Prelude.Nothing,
+      status = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      httpStatus = pHttpStatus_
+    }
 
 -- | The Amazon Resource Name (ARN) of the world export job.
 createWorldExportJobResponse_arn :: Lens.Lens' CreateWorldExportJobResponse (Prelude.Maybe Prelude.Text)
 createWorldExportJobResponse_arn = Lens.lens (\CreateWorldExportJobResponse' {arn} -> arn) (\s@CreateWorldExportJobResponse' {} a -> s {arn = a} :: CreateWorldExportJobResponse)
 
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request.
+createWorldExportJobResponse_clientRequestToken :: Lens.Lens' CreateWorldExportJobResponse (Prelude.Maybe Prelude.Text)
+createWorldExportJobResponse_clientRequestToken = Lens.lens (\CreateWorldExportJobResponse' {clientRequestToken} -> clientRequestToken) (\s@CreateWorldExportJobResponse' {} a -> s {clientRequestToken = a} :: CreateWorldExportJobResponse)
+
 -- | The time, in milliseconds since the epoch, when the world export job was
 -- created.
 createWorldExportJobResponse_createdAt :: Lens.Lens' CreateWorldExportJobResponse (Prelude.Maybe Prelude.UTCTime)
-createWorldExportJobResponse_createdAt = Lens.lens (\CreateWorldExportJobResponse' {createdAt} -> createdAt) (\s@CreateWorldExportJobResponse' {} a -> s {createdAt = a} :: CreateWorldExportJobResponse) Prelude.. Lens.mapping Core._Time
+createWorldExportJobResponse_createdAt = Lens.lens (\CreateWorldExportJobResponse' {createdAt} -> createdAt) (\s@CreateWorldExportJobResponse' {} a -> s {createdAt = a} :: CreateWorldExportJobResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The failure code of the world export job if it failed:
 --
@@ -424,19 +409,36 @@ createWorldExportJobResponse_createdAt = Lens.lens (\CreateWorldExportJobRespons
 createWorldExportJobResponse_failureCode :: Lens.Lens' CreateWorldExportJobResponse (Prelude.Maybe WorldExportJobErrorCode)
 createWorldExportJobResponse_failureCode = Lens.lens (\CreateWorldExportJobResponse' {failureCode} -> failureCode) (\s@CreateWorldExportJobResponse' {} a -> s {failureCode = a} :: CreateWorldExportJobResponse)
 
--- | Undocumented member.
-createWorldExportJobResponse_outputLocation :: Lens.Lens' CreateWorldExportJobResponse (Prelude.Maybe OutputLocation)
-createWorldExportJobResponse_outputLocation = Lens.lens (\CreateWorldExportJobResponse' {outputLocation} -> outputLocation) (\s@CreateWorldExportJobResponse' {} a -> s {outputLocation = a} :: CreateWorldExportJobResponse)
-
--- | Unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
-createWorldExportJobResponse_clientRequestToken :: Lens.Lens' CreateWorldExportJobResponse (Prelude.Maybe Prelude.Text)
-createWorldExportJobResponse_clientRequestToken = Lens.lens (\CreateWorldExportJobResponse' {clientRequestToken} -> clientRequestToken) (\s@CreateWorldExportJobResponse' {} a -> s {clientRequestToken = a} :: CreateWorldExportJobResponse)
-
 -- | The IAM role that the world export process uses to access the Amazon S3
 -- bucket and put the export.
 createWorldExportJobResponse_iamRole :: Lens.Lens' CreateWorldExportJobResponse (Prelude.Maybe Prelude.Text)
 createWorldExportJobResponse_iamRole = Lens.lens (\CreateWorldExportJobResponse' {iamRole} -> iamRole) (\s@CreateWorldExportJobResponse' {} a -> s {iamRole = a} :: CreateWorldExportJobResponse)
+
+-- | Undocumented member.
+createWorldExportJobResponse_outputLocation :: Lens.Lens' CreateWorldExportJobResponse (Prelude.Maybe OutputLocation)
+createWorldExportJobResponse_outputLocation = Lens.lens (\CreateWorldExportJobResponse' {outputLocation} -> outputLocation) (\s@CreateWorldExportJobResponse' {} a -> s {outputLocation = a} :: CreateWorldExportJobResponse)
+
+-- | The status of the world export job.
+--
+-- [Pending]
+--     The world export job request is pending.
+--
+-- [Running]
+--     The world export job is running.
+--
+-- [Completed]
+--     The world export job completed.
+--
+-- [Failed]
+--     The world export job failed. See @failureCode@ for more information.
+--
+-- [Canceled]
+--     The world export job was cancelled.
+--
+-- [Canceling]
+--     The world export job is being cancelled.
+createWorldExportJobResponse_status :: Lens.Lens' CreateWorldExportJobResponse (Prelude.Maybe WorldExportJobStatus)
+createWorldExportJobResponse_status = Lens.lens (\CreateWorldExportJobResponse' {status} -> status) (\s@CreateWorldExportJobResponse' {} a -> s {status = a} :: CreateWorldExportJobResponse)
 
 -- | A map that contains tag keys and tag values that are attached to the
 -- world export job.
@@ -449,12 +451,12 @@ createWorldExportJobResponse_httpStatus = Lens.lens (\CreateWorldExportJobRespon
 
 instance Prelude.NFData CreateWorldExportJobResponse where
   rnf CreateWorldExportJobResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf arn
+    Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf clientRequestToken
       `Prelude.seq` Prelude.rnf createdAt
       `Prelude.seq` Prelude.rnf failureCode
-      `Prelude.seq` Prelude.rnf outputLocation
-      `Prelude.seq` Prelude.rnf clientRequestToken
       `Prelude.seq` Prelude.rnf iamRole
+      `Prelude.seq` Prelude.rnf outputLocation
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

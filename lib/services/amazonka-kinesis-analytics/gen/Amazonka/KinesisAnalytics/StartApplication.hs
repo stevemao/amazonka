@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.StartApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -63,8 +63,9 @@ module Amazonka.KinesisAnalytics.StartApplication
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,7 +124,8 @@ instance Core.AWSRequest StartApplication where
   type
     AWSResponse StartApplication =
       StartApplicationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -141,36 +143,36 @@ instance Prelude.NFData StartApplication where
     Prelude.rnf applicationName
       `Prelude.seq` Prelude.rnf inputConfigurations
 
-instance Core.ToHeaders StartApplication where
+instance Data.ToHeaders StartApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "KinesisAnalytics_20150814.StartApplication" ::
+              Data.=# ( "KinesisAnalytics_20150814.StartApplication" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartApplication where
+instance Data.ToJSON StartApplication where
   toJSON StartApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ApplicationName" Core..= applicationName),
+              ("ApplicationName" Data..= applicationName),
             Prelude.Just
-              ("InputConfigurations" Core..= inputConfigurations)
+              ("InputConfigurations" Data..= inputConfigurations)
           ]
       )
 
-instance Core.ToPath StartApplication where
+instance Data.ToPath StartApplication where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartApplication where
+instance Data.ToQuery StartApplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- |

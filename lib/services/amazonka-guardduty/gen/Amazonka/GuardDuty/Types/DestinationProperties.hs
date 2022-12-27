@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.DestinationProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GuardDuty.Types.DestinationProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the Amazon Resource Name (ARN) of the resource to publish to,
@@ -29,10 +30,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDestinationProperties' smart constructor.
 data DestinationProperties = DestinationProperties'
-  { -- | The ARN of the KMS key to use for encryption.
-    kmsKeyArn :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the resource to publish to.
-    destinationArn :: Prelude.Maybe Prelude.Text
+  { -- | The ARN of the resource to publish to.
+    --
+    -- To specify an S3 bucket folder use the following format:
+    -- @arn:aws:s3:::DOC-EXAMPLE-BUCKET\/myFolder\/@
+    destinationArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the KMS key to use for encryption.
+    kmsKeyArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,51 +48,58 @@ data DestinationProperties = DestinationProperties'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'kmsKeyArn', 'destinationProperties_kmsKeyArn' - The ARN of the KMS key to use for encryption.
---
 -- 'destinationArn', 'destinationProperties_destinationArn' - The ARN of the resource to publish to.
+--
+-- To specify an S3 bucket folder use the following format:
+-- @arn:aws:s3:::DOC-EXAMPLE-BUCKET\/myFolder\/@
+--
+-- 'kmsKeyArn', 'destinationProperties_kmsKeyArn' - The ARN of the KMS key to use for encryption.
 newDestinationProperties ::
   DestinationProperties
 newDestinationProperties =
   DestinationProperties'
-    { kmsKeyArn = Prelude.Nothing,
-      destinationArn = Prelude.Nothing
+    { destinationArn =
+        Prelude.Nothing,
+      kmsKeyArn = Prelude.Nothing
     }
+
+-- | The ARN of the resource to publish to.
+--
+-- To specify an S3 bucket folder use the following format:
+-- @arn:aws:s3:::DOC-EXAMPLE-BUCKET\/myFolder\/@
+destinationProperties_destinationArn :: Lens.Lens' DestinationProperties (Prelude.Maybe Prelude.Text)
+destinationProperties_destinationArn = Lens.lens (\DestinationProperties' {destinationArn} -> destinationArn) (\s@DestinationProperties' {} a -> s {destinationArn = a} :: DestinationProperties)
 
 -- | The ARN of the KMS key to use for encryption.
 destinationProperties_kmsKeyArn :: Lens.Lens' DestinationProperties (Prelude.Maybe Prelude.Text)
 destinationProperties_kmsKeyArn = Lens.lens (\DestinationProperties' {kmsKeyArn} -> kmsKeyArn) (\s@DestinationProperties' {} a -> s {kmsKeyArn = a} :: DestinationProperties)
 
--- | The ARN of the resource to publish to.
-destinationProperties_destinationArn :: Lens.Lens' DestinationProperties (Prelude.Maybe Prelude.Text)
-destinationProperties_destinationArn = Lens.lens (\DestinationProperties' {destinationArn} -> destinationArn) (\s@DestinationProperties' {} a -> s {destinationArn = a} :: DestinationProperties)
-
-instance Core.FromJSON DestinationProperties where
+instance Data.FromJSON DestinationProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DestinationProperties"
       ( \x ->
           DestinationProperties'
-            Prelude.<$> (x Core..:? "kmsKeyArn")
-            Prelude.<*> (x Core..:? "destinationArn")
+            Prelude.<$> (x Data..:? "destinationArn")
+            Prelude.<*> (x Data..:? "kmsKeyArn")
       )
 
 instance Prelude.Hashable DestinationProperties where
   hashWithSalt _salt DestinationProperties' {..} =
-    _salt `Prelude.hashWithSalt` kmsKeyArn
-      `Prelude.hashWithSalt` destinationArn
+    _salt `Prelude.hashWithSalt` destinationArn
+      `Prelude.hashWithSalt` kmsKeyArn
 
 instance Prelude.NFData DestinationProperties where
   rnf DestinationProperties' {..} =
-    Prelude.rnf kmsKeyArn
-      `Prelude.seq` Prelude.rnf destinationArn
+    Prelude.rnf destinationArn
+      `Prelude.seq` Prelude.rnf kmsKeyArn
 
-instance Core.ToJSON DestinationProperties where
+instance Data.ToJSON DestinationProperties where
   toJSON DestinationProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("kmsKeyArn" Core..=) Prelude.<$> kmsKeyArn,
-            ("destinationArn" Core..=)
-              Prelude.<$> destinationArn
+          [ ("destinationArn" Data..=)
+              Prelude.<$> destinationArn,
+            ("kmsKeyArn" Data..=) Prelude.<$> kmsKeyArn
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.CancelSchemaExtension
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.DirectoryService.CancelSchemaExtension
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,7 +97,8 @@ instance Core.AWSRequest CancelSchemaExtension where
   type
     AWSResponse CancelSchemaExtension =
       CancelSchemaExtensionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,35 +116,35 @@ instance Prelude.NFData CancelSchemaExtension where
     Prelude.rnf directoryId
       `Prelude.seq` Prelude.rnf schemaExtensionId
 
-instance Core.ToHeaders CancelSchemaExtension where
+instance Data.ToHeaders CancelSchemaExtension where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.CancelSchemaExtension" ::
+              Data.=# ( "DirectoryService_20150416.CancelSchemaExtension" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CancelSchemaExtension where
+instance Data.ToJSON CancelSchemaExtension where
   toJSON CancelSchemaExtension' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DirectoryId" Core..= directoryId),
+          [ Prelude.Just ("DirectoryId" Data..= directoryId),
             Prelude.Just
-              ("SchemaExtensionId" Core..= schemaExtensionId)
+              ("SchemaExtensionId" Data..= schemaExtensionId)
           ]
       )
 
-instance Core.ToPath CancelSchemaExtension where
+instance Data.ToPath CancelSchemaExtension where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelSchemaExtension where
+instance Data.ToQuery CancelSchemaExtension where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCancelSchemaExtensionResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.InboundCrossClusterSearchConnectionStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ElasticSearch.Types.InboundCrossClusterSearchConnectionStatus where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types.InboundCrossClusterSearchConnectionStatusCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the coonection status of an inbound cross-cluster search
@@ -92,16 +93,16 @@ inboundCrossClusterSearchConnectionStatus_statusCode :: Lens.Lens' InboundCrossC
 inboundCrossClusterSearchConnectionStatus_statusCode = Lens.lens (\InboundCrossClusterSearchConnectionStatus' {statusCode} -> statusCode) (\s@InboundCrossClusterSearchConnectionStatus' {} a -> s {statusCode = a} :: InboundCrossClusterSearchConnectionStatus)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     InboundCrossClusterSearchConnectionStatus
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InboundCrossClusterSearchConnectionStatus"
       ( \x ->
           InboundCrossClusterSearchConnectionStatus'
-            Prelude.<$> (x Core..:? "Message")
-              Prelude.<*> (x Core..:? "StatusCode")
+            Prelude.<$> (x Data..:? "Message")
+              Prelude.<*> (x Data..:? "StatusCode")
       )
 
 instance

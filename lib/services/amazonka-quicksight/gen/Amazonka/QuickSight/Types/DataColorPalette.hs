@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.DataColorPalette
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.DataColorPalette where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The theme colors that are used for data colors in charts. The colors
@@ -29,14 +30,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDataColorPalette' smart constructor.
 data DataColorPalette = DataColorPalette'
-  { -- | The minimum and maximum hexadecimal codes that describe a color
-    -- gradient.
-    minMaxGradient :: Prelude.Maybe [Prelude.Text],
+  { -- | The hexadecimal codes for the colors.
+    colors :: Prelude.Maybe [Prelude.Text],
     -- | The hexadecimal code of a color that applies to charts where a lack of
     -- data is highlighted.
     emptyFillColor :: Prelude.Maybe Prelude.Text,
-    -- | The hexadecimal codes for the colors.
-    colors :: Prelude.Maybe [Prelude.Text]
+    -- | The minimum and maximum hexadecimal codes that describe a color
+    -- gradient.
+    minMaxGradient :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,67 +49,69 @@ data DataColorPalette = DataColorPalette'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'minMaxGradient', 'dataColorPalette_minMaxGradient' - The minimum and maximum hexadecimal codes that describe a color
--- gradient.
+-- 'colors', 'dataColorPalette_colors' - The hexadecimal codes for the colors.
 --
 -- 'emptyFillColor', 'dataColorPalette_emptyFillColor' - The hexadecimal code of a color that applies to charts where a lack of
 -- data is highlighted.
 --
--- 'colors', 'dataColorPalette_colors' - The hexadecimal codes for the colors.
+-- 'minMaxGradient', 'dataColorPalette_minMaxGradient' - The minimum and maximum hexadecimal codes that describe a color
+-- gradient.
 newDataColorPalette ::
   DataColorPalette
 newDataColorPalette =
   DataColorPalette'
-    { minMaxGradient = Prelude.Nothing,
+    { colors = Prelude.Nothing,
       emptyFillColor = Prelude.Nothing,
-      colors = Prelude.Nothing
+      minMaxGradient = Prelude.Nothing
     }
 
--- | The minimum and maximum hexadecimal codes that describe a color
--- gradient.
-dataColorPalette_minMaxGradient :: Lens.Lens' DataColorPalette (Prelude.Maybe [Prelude.Text])
-dataColorPalette_minMaxGradient = Lens.lens (\DataColorPalette' {minMaxGradient} -> minMaxGradient) (\s@DataColorPalette' {} a -> s {minMaxGradient = a} :: DataColorPalette) Prelude.. Lens.mapping Lens.coerced
+-- | The hexadecimal codes for the colors.
+dataColorPalette_colors :: Lens.Lens' DataColorPalette (Prelude.Maybe [Prelude.Text])
+dataColorPalette_colors = Lens.lens (\DataColorPalette' {colors} -> colors) (\s@DataColorPalette' {} a -> s {colors = a} :: DataColorPalette) Prelude.. Lens.mapping Lens.coerced
 
 -- | The hexadecimal code of a color that applies to charts where a lack of
 -- data is highlighted.
 dataColorPalette_emptyFillColor :: Lens.Lens' DataColorPalette (Prelude.Maybe Prelude.Text)
 dataColorPalette_emptyFillColor = Lens.lens (\DataColorPalette' {emptyFillColor} -> emptyFillColor) (\s@DataColorPalette' {} a -> s {emptyFillColor = a} :: DataColorPalette)
 
--- | The hexadecimal codes for the colors.
-dataColorPalette_colors :: Lens.Lens' DataColorPalette (Prelude.Maybe [Prelude.Text])
-dataColorPalette_colors = Lens.lens (\DataColorPalette' {colors} -> colors) (\s@DataColorPalette' {} a -> s {colors = a} :: DataColorPalette) Prelude.. Lens.mapping Lens.coerced
+-- | The minimum and maximum hexadecimal codes that describe a color
+-- gradient.
+dataColorPalette_minMaxGradient :: Lens.Lens' DataColorPalette (Prelude.Maybe [Prelude.Text])
+dataColorPalette_minMaxGradient = Lens.lens (\DataColorPalette' {minMaxGradient} -> minMaxGradient) (\s@DataColorPalette' {} a -> s {minMaxGradient = a} :: DataColorPalette) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON DataColorPalette where
+instance Data.FromJSON DataColorPalette where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataColorPalette"
       ( \x ->
           DataColorPalette'
-            Prelude.<$> (x Core..:? "MinMaxGradient" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "EmptyFillColor")
-            Prelude.<*> (x Core..:? "Colors" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Colors" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "EmptyFillColor")
+            Prelude.<*> ( x Data..:? "MinMaxGradient"
+                            Data..!= Prelude.mempty
+                        )
       )
 
 instance Prelude.Hashable DataColorPalette where
   hashWithSalt _salt DataColorPalette' {..} =
-    _salt `Prelude.hashWithSalt` minMaxGradient
+    _salt `Prelude.hashWithSalt` colors
       `Prelude.hashWithSalt` emptyFillColor
-      `Prelude.hashWithSalt` colors
+      `Prelude.hashWithSalt` minMaxGradient
 
 instance Prelude.NFData DataColorPalette where
   rnf DataColorPalette' {..} =
-    Prelude.rnf minMaxGradient
+    Prelude.rnf colors
       `Prelude.seq` Prelude.rnf emptyFillColor
-      `Prelude.seq` Prelude.rnf colors
+      `Prelude.seq` Prelude.rnf minMaxGradient
 
-instance Core.ToJSON DataColorPalette where
+instance Data.ToJSON DataColorPalette where
   toJSON DataColorPalette' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MinMaxGradient" Core..=)
-              Prelude.<$> minMaxGradient,
-            ("EmptyFillColor" Core..=)
+          [ ("Colors" Data..=) Prelude.<$> colors,
+            ("EmptyFillColor" Data..=)
               Prelude.<$> emptyFillColor,
-            ("Colors" Core..=) Prelude.<$> colors
+            ("MinMaxGradient" Data..=)
+              Prelude.<$> minMaxGradient
           ]
       )

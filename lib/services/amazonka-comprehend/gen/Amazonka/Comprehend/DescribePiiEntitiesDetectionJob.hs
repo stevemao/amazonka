@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.DescribePiiEntitiesDetectionJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,12 +85,13 @@ instance
   type
     AWSResponse DescribePiiEntitiesDetectionJob =
       DescribePiiEntitiesDetectionJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePiiEntitiesDetectionJobResponse'
-            Prelude.<$> (x Core..?> "PiiEntitiesDetectionJobProperties")
+            Prelude.<$> (x Data..?> "PiiEntitiesDetectionJobProperties")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,34 +112,34 @@ instance
     Prelude.rnf jobId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribePiiEntitiesDetectionJob
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.DescribePiiEntitiesDetectionJob" ::
+              Data.=# ( "Comprehend_20171127.DescribePiiEntitiesDetectionJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribePiiEntitiesDetectionJob where
+instance Data.ToJSON DescribePiiEntitiesDetectionJob where
   toJSON DescribePiiEntitiesDetectionJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("JobId" Core..= jobId)]
+          [Prelude.Just ("JobId" Data..= jobId)]
       )
 
-instance Core.ToPath DescribePiiEntitiesDetectionJob where
+instance Data.ToPath DescribePiiEntitiesDetectionJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribePiiEntitiesDetectionJob where
+instance Data.ToQuery DescribePiiEntitiesDetectionJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribePiiEntitiesDetectionJobResponse' smart constructor.

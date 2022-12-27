@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.Types.BulkDeployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Greengrass.Types.BulkDeployment where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a bulk deployment. You cannot start a new bulk
@@ -73,15 +74,15 @@ bulkDeployment_bulkDeploymentId = Lens.lens (\BulkDeployment' {bulkDeploymentId}
 bulkDeployment_createdAt :: Lens.Lens' BulkDeployment (Prelude.Maybe Prelude.Text)
 bulkDeployment_createdAt = Lens.lens (\BulkDeployment' {createdAt} -> createdAt) (\s@BulkDeployment' {} a -> s {createdAt = a} :: BulkDeployment)
 
-instance Core.FromJSON BulkDeployment where
+instance Data.FromJSON BulkDeployment where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BulkDeployment"
       ( \x ->
           BulkDeployment'
-            Prelude.<$> (x Core..:? "BulkDeploymentArn")
-            Prelude.<*> (x Core..:? "BulkDeploymentId")
-            Prelude.<*> (x Core..:? "CreatedAt")
+            Prelude.<$> (x Data..:? "BulkDeploymentArn")
+            Prelude.<*> (x Data..:? "BulkDeploymentId")
+            Prelude.<*> (x Data..:? "CreatedAt")
       )
 
 instance Prelude.Hashable BulkDeployment where

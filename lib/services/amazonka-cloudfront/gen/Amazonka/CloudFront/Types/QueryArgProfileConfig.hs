@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.QueryArgProfileConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.QueryArgProfileConfig where
 
 import Amazonka.CloudFront.Types.QueryArgProfiles
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration for query argument-profile mapping for field-level
@@ -77,11 +78,11 @@ queryArgProfileConfig_queryArgProfiles = Lens.lens (\QueryArgProfileConfig' {que
 queryArgProfileConfig_forwardWhenQueryArgProfileIsUnknown :: Lens.Lens' QueryArgProfileConfig Prelude.Bool
 queryArgProfileConfig_forwardWhenQueryArgProfileIsUnknown = Lens.lens (\QueryArgProfileConfig' {forwardWhenQueryArgProfileIsUnknown} -> forwardWhenQueryArgProfileIsUnknown) (\s@QueryArgProfileConfig' {} a -> s {forwardWhenQueryArgProfileIsUnknown = a} :: QueryArgProfileConfig)
 
-instance Core.FromXML QueryArgProfileConfig where
+instance Data.FromXML QueryArgProfileConfig where
   parseXML x =
     QueryArgProfileConfig'
-      Prelude.<$> (x Core..@? "QueryArgProfiles")
-      Prelude.<*> (x Core..@ "ForwardWhenQueryArgProfileIsUnknown")
+      Prelude.<$> (x Data..@? "QueryArgProfiles")
+      Prelude.<*> (x Data..@ "ForwardWhenQueryArgProfileIsUnknown")
 
 instance Prelude.Hashable QueryArgProfileConfig where
   hashWithSalt _salt QueryArgProfileConfig' {..} =
@@ -93,10 +94,10 @@ instance Prelude.NFData QueryArgProfileConfig where
     Prelude.rnf queryArgProfiles
       `Prelude.seq` Prelude.rnf forwardWhenQueryArgProfileIsUnknown
 
-instance Core.ToXML QueryArgProfileConfig where
+instance Data.ToXML QueryArgProfileConfig where
   toXML QueryArgProfileConfig' {..} =
     Prelude.mconcat
-      [ "QueryArgProfiles" Core.@= queryArgProfiles,
+      [ "QueryArgProfiles" Data.@= queryArgProfiles,
         "ForwardWhenQueryArgProfileIsUnknown"
-          Core.@= forwardWhenQueryArgProfileIsUnknown
+          Data.@= forwardWhenQueryArgProfileIsUnknown
       ]

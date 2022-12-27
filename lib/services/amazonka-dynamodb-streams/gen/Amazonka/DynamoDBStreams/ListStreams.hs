@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDBStreams.ListStreams
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.DynamoDBStreams.ListStreams
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDBStreams.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,13 +113,14 @@ listStreams_tableName = Lens.lens (\ListStreams' {tableName} -> tableName) (\s@L
 
 instance Core.AWSRequest ListStreams where
   type AWSResponse ListStreams = ListStreamsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListStreamsResponse'
-            Prelude.<$> (x Core..?> "LastEvaluatedStreamArn")
-            Prelude.<*> (x Core..?> "Streams" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "LastEvaluatedStreamArn")
+            Prelude.<*> (x Data..?> "Streams" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -135,36 +137,36 @@ instance Prelude.NFData ListStreams where
       `Prelude.seq` Prelude.rnf limit
       `Prelude.seq` Prelude.rnf tableName
 
-instance Core.ToHeaders ListStreams where
+instance Data.ToHeaders ListStreams where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDBStreams_20120810.ListStreams" ::
+              Data.=# ( "DynamoDBStreams_20120810.ListStreams" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListStreams where
+instance Data.ToJSON ListStreams where
   toJSON ListStreams' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ExclusiveStartStreamArn" Core..=)
+          [ ("ExclusiveStartStreamArn" Data..=)
               Prelude.<$> exclusiveStartStreamArn,
-            ("Limit" Core..=) Prelude.<$> limit,
-            ("TableName" Core..=) Prelude.<$> tableName
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("TableName" Data..=) Prelude.<$> tableName
           ]
       )
 
-instance Core.ToPath ListStreams where
+instance Data.ToPath ListStreams where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListStreams where
+instance Data.ToQuery ListStreams where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @ListStreams@ operation.

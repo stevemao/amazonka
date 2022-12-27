@@ -14,14 +14,16 @@
 
 -- |
 -- Module      : Amazonka.Personalize.CreateSolutionVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Trains or retrains an active solution. A solution is created using the
--- CreateSolution operation and must be in the ACTIVE state before calling
+-- Trains or retrains an active solution in a Custom dataset group. A
+-- solution is created using the
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html CreateSolution>
+-- operation and must be in the ACTIVE state before calling
 -- @CreateSolutionVersion@. A new version of the solution is created every
 -- time you call this operation.
 --
@@ -41,31 +43,34 @@
 --
 -- -   CREATE STOPPED
 --
--- To get the status of the version, call DescribeSolutionVersion. Wait
--- until the status shows as ACTIVE before calling @CreateCampaign@.
+-- To get the status of the version, call
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeSolutionVersion.html DescribeSolutionVersion>.
+-- Wait until the status shows as ACTIVE before calling @CreateCampaign@.
 --
 -- If the status shows as CREATE FAILED, the response includes a
 -- @failureReason@ key, which describes why the job failed.
 --
 -- __Related APIs__
 --
--- -   ListSolutionVersions
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_ListSolutionVersions.html ListSolutionVersions>
 --
--- -   DescribeSolutionVersion
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeSolutionVersion.html DescribeSolutionVersion>
 --
--- -   ListSolutions
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_ListSolutions.html ListSolutions>
 --
--- -   CreateSolution
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html CreateSolution>
 --
--- -   DescribeSolution
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeSolution.html DescribeSolution>
 --
--- -   DeleteSolution
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_DeleteSolution.html DeleteSolution>
 module Amazonka.Personalize.CreateSolutionVersion
   ( -- * Creating a Request
     CreateSolutionVersion (..),
     newCreateSolutionVersion,
 
     -- * Request Lenses
+    createSolutionVersion_name,
+    createSolutionVersion_tags,
     createSolutionVersion_trainingMode,
     createSolutionVersion_solutionArn,
 
@@ -80,7 +85,8 @@ module Amazonka.Personalize.CreateSolutionVersion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -88,7 +94,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateSolutionVersion' smart constructor.
 data CreateSolutionVersion = CreateSolutionVersion'
-  { -- | The scope of training to be performed when creating the solution
+  { -- | The name of the solution version.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A list of
+    -- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+    -- to apply to the solution version.
+    tags :: Prelude.Maybe [Tag],
+    -- | The scope of training to be performed when creating the solution
     -- version. The @FULL@ option trains the solution version based on the
     -- entirety of the input solution\'s training data, while the @UPDATE@
     -- option processes only the data that has changed in comparison to the
@@ -117,6 +129,12 @@ data CreateSolutionVersion = CreateSolutionVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'name', 'createSolutionVersion_name' - The name of the solution version.
+--
+-- 'tags', 'createSolutionVersion_tags' - A list of
+-- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+-- to apply to the solution version.
+--
 -- 'trainingMode', 'createSolutionVersion_trainingMode' - The scope of training to be performed when creating the solution
 -- version. The @FULL@ option trains the solution version based on the
 -- entirety of the input solution\'s training data, while the @UPDATE@
@@ -140,10 +158,21 @@ newCreateSolutionVersion ::
   CreateSolutionVersion
 newCreateSolutionVersion pSolutionArn_ =
   CreateSolutionVersion'
-    { trainingMode =
-        Prelude.Nothing,
+    { name = Prelude.Nothing,
+      tags = Prelude.Nothing,
+      trainingMode = Prelude.Nothing,
       solutionArn = pSolutionArn_
     }
+
+-- | The name of the solution version.
+createSolutionVersion_name :: Lens.Lens' CreateSolutionVersion (Prelude.Maybe Prelude.Text)
+createSolutionVersion_name = Lens.lens (\CreateSolutionVersion' {name} -> name) (\s@CreateSolutionVersion' {} a -> s {name = a} :: CreateSolutionVersion)
+
+-- | A list of
+-- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+-- to apply to the solution version.
+createSolutionVersion_tags :: Lens.Lens' CreateSolutionVersion (Prelude.Maybe [Tag])
+createSolutionVersion_tags = Lens.lens (\CreateSolutionVersion' {tags} -> tags) (\s@CreateSolutionVersion' {} a -> s {tags = a} :: CreateSolutionVersion) Prelude.. Lens.mapping Lens.coerced
 
 -- | The scope of training to be performed when creating the solution
 -- version. The @FULL@ option trains the solution version based on the
@@ -171,53 +200,60 @@ instance Core.AWSRequest CreateSolutionVersion where
   type
     AWSResponse CreateSolutionVersion =
       CreateSolutionVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateSolutionVersionResponse'
-            Prelude.<$> (x Core..?> "solutionVersionArn")
+            Prelude.<$> (x Data..?> "solutionVersionArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateSolutionVersion where
   hashWithSalt _salt CreateSolutionVersion' {..} =
-    _salt `Prelude.hashWithSalt` trainingMode
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` trainingMode
       `Prelude.hashWithSalt` solutionArn
 
 instance Prelude.NFData CreateSolutionVersion where
   rnf CreateSolutionVersion' {..} =
-    Prelude.rnf trainingMode
+    Prelude.rnf name
+      `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf trainingMode
       `Prelude.seq` Prelude.rnf solutionArn
 
-instance Core.ToHeaders CreateSolutionVersion where
+instance Data.ToHeaders CreateSolutionVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.CreateSolutionVersion" ::
+              Data.=# ( "AmazonPersonalize.CreateSolutionVersion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateSolutionVersion where
+instance Data.ToJSON CreateSolutionVersion where
   toJSON CreateSolutionVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("trainingMode" Core..=) Prelude.<$> trainingMode,
-            Prelude.Just ("solutionArn" Core..= solutionArn)
+          [ ("name" Data..=) Prelude.<$> name,
+            ("tags" Data..=) Prelude.<$> tags,
+            ("trainingMode" Data..=) Prelude.<$> trainingMode,
+            Prelude.Just ("solutionArn" Data..= solutionArn)
           ]
       )
 
-instance Core.ToPath CreateSolutionVersion where
+instance Data.ToPath CreateSolutionVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateSolutionVersion where
+instance Data.ToQuery CreateSolutionVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateSolutionVersionResponse' smart constructor.

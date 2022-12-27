@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.TargetConfigurationRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.TargetConfigurationRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details about the target configuration.
@@ -81,9 +82,9 @@ instance Prelude.NFData TargetConfigurationRequest where
     Prelude.rnf instanceCount
       `Prelude.seq` Prelude.rnf offeringId
 
-instance Core.ToQuery TargetConfigurationRequest where
+instance Data.ToQuery TargetConfigurationRequest where
   toQuery TargetConfigurationRequest' {..} =
     Prelude.mconcat
-      [ "InstanceCount" Core.=: instanceCount,
-        "OfferingId" Core.=: offeringId
+      [ "InstanceCount" Data.=: instanceCount,
+        "OfferingId" Data.=: offeringId
       ]

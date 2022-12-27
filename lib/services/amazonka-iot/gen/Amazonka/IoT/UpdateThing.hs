@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.UpdateThing
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,10 +31,10 @@ module Amazonka.IoT.UpdateThing
     newUpdateThing,
 
     -- * Request Lenses
+    updateThing_attributePayload,
+    updateThing_expectedVersion,
     updateThing_removeThingType,
     updateThing_thingTypeName,
-    updateThing_expectedVersion,
-    updateThing_attributePayload,
     updateThing_thingName,
 
     -- * Destructuring the Response
@@ -47,8 +47,9 @@ module Amazonka.IoT.UpdateThing
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,23 +58,23 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateThing' smart constructor.
 data UpdateThing = UpdateThing'
-  { -- | Remove a thing type association. If __true__, the association is
-    -- removed.
-    removeThingType :: Prelude.Maybe Prelude.Bool,
-    -- | The name of the thing type.
-    thingTypeName :: Prelude.Maybe Prelude.Text,
-    -- | The expected version of the thing record in the registry. If the version
-    -- of the record in the registry does not match the expected version
-    -- specified in the request, the @UpdateThing@ request is rejected with a
-    -- @VersionConflictException@.
-    expectedVersion :: Prelude.Maybe Prelude.Integer,
-    -- | A list of thing attributes, a JSON string containing name-value pairs.
+  { -- | A list of thing attributes, a JSON string containing name-value pairs.
     -- For example:
     --
     -- @{\\\"attributes\\\":{\\\"name1\\\":\\\"value2\\\"}}@
     --
     -- This data is used to add new attributes or update existing attributes.
     attributePayload :: Prelude.Maybe AttributePayload,
+    -- | The expected version of the thing record in the registry. If the version
+    -- of the record in the registry does not match the expected version
+    -- specified in the request, the @UpdateThing@ request is rejected with a
+    -- @VersionConflictException@.
+    expectedVersion :: Prelude.Maybe Prelude.Integer,
+    -- | Remove a thing type association. If __true__, the association is
+    -- removed.
+    removeThingType :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the thing type.
+    thingTypeName :: Prelude.Maybe Prelude.Text,
     -- | The name of the thing to update.
     --
     -- You can\'t change a thing\'s name. To change a thing\'s name, you must
@@ -90,22 +91,22 @@ data UpdateThing = UpdateThing'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'removeThingType', 'updateThing_removeThingType' - Remove a thing type association. If __true__, the association is
--- removed.
---
--- 'thingTypeName', 'updateThing_thingTypeName' - The name of the thing type.
---
--- 'expectedVersion', 'updateThing_expectedVersion' - The expected version of the thing record in the registry. If the version
--- of the record in the registry does not match the expected version
--- specified in the request, the @UpdateThing@ request is rejected with a
--- @VersionConflictException@.
---
 -- 'attributePayload', 'updateThing_attributePayload' - A list of thing attributes, a JSON string containing name-value pairs.
 -- For example:
 --
 -- @{\\\"attributes\\\":{\\\"name1\\\":\\\"value2\\\"}}@
 --
 -- This data is used to add new attributes or update existing attributes.
+--
+-- 'expectedVersion', 'updateThing_expectedVersion' - The expected version of the thing record in the registry. If the version
+-- of the record in the registry does not match the expected version
+-- specified in the request, the @UpdateThing@ request is rejected with a
+-- @VersionConflictException@.
+--
+-- 'removeThingType', 'updateThing_removeThingType' - Remove a thing type association. If __true__, the association is
+-- removed.
+--
+-- 'thingTypeName', 'updateThing_thingTypeName' - The name of the thing type.
 --
 -- 'thingName', 'updateThing_thingName' - The name of the thing to update.
 --
@@ -117,28 +118,12 @@ newUpdateThing ::
   UpdateThing
 newUpdateThing pThingName_ =
   UpdateThing'
-    { removeThingType = Prelude.Nothing,
-      thingTypeName = Prelude.Nothing,
+    { attributePayload = Prelude.Nothing,
       expectedVersion = Prelude.Nothing,
-      attributePayload = Prelude.Nothing,
+      removeThingType = Prelude.Nothing,
+      thingTypeName = Prelude.Nothing,
       thingName = pThingName_
     }
-
--- | Remove a thing type association. If __true__, the association is
--- removed.
-updateThing_removeThingType :: Lens.Lens' UpdateThing (Prelude.Maybe Prelude.Bool)
-updateThing_removeThingType = Lens.lens (\UpdateThing' {removeThingType} -> removeThingType) (\s@UpdateThing' {} a -> s {removeThingType = a} :: UpdateThing)
-
--- | The name of the thing type.
-updateThing_thingTypeName :: Lens.Lens' UpdateThing (Prelude.Maybe Prelude.Text)
-updateThing_thingTypeName = Lens.lens (\UpdateThing' {thingTypeName} -> thingTypeName) (\s@UpdateThing' {} a -> s {thingTypeName = a} :: UpdateThing)
-
--- | The expected version of the thing record in the registry. If the version
--- of the record in the registry does not match the expected version
--- specified in the request, the @UpdateThing@ request is rejected with a
--- @VersionConflictException@.
-updateThing_expectedVersion :: Lens.Lens' UpdateThing (Prelude.Maybe Prelude.Integer)
-updateThing_expectedVersion = Lens.lens (\UpdateThing' {expectedVersion} -> expectedVersion) (\s@UpdateThing' {} a -> s {expectedVersion = a} :: UpdateThing)
 
 -- | A list of thing attributes, a JSON string containing name-value pairs.
 -- For example:
@@ -149,6 +134,22 @@ updateThing_expectedVersion = Lens.lens (\UpdateThing' {expectedVersion} -> expe
 updateThing_attributePayload :: Lens.Lens' UpdateThing (Prelude.Maybe AttributePayload)
 updateThing_attributePayload = Lens.lens (\UpdateThing' {attributePayload} -> attributePayload) (\s@UpdateThing' {} a -> s {attributePayload = a} :: UpdateThing)
 
+-- | The expected version of the thing record in the registry. If the version
+-- of the record in the registry does not match the expected version
+-- specified in the request, the @UpdateThing@ request is rejected with a
+-- @VersionConflictException@.
+updateThing_expectedVersion :: Lens.Lens' UpdateThing (Prelude.Maybe Prelude.Integer)
+updateThing_expectedVersion = Lens.lens (\UpdateThing' {expectedVersion} -> expectedVersion) (\s@UpdateThing' {} a -> s {expectedVersion = a} :: UpdateThing)
+
+-- | Remove a thing type association. If __true__, the association is
+-- removed.
+updateThing_removeThingType :: Lens.Lens' UpdateThing (Prelude.Maybe Prelude.Bool)
+updateThing_removeThingType = Lens.lens (\UpdateThing' {removeThingType} -> removeThingType) (\s@UpdateThing' {} a -> s {removeThingType = a} :: UpdateThing)
+
+-- | The name of the thing type.
+updateThing_thingTypeName :: Lens.Lens' UpdateThing (Prelude.Maybe Prelude.Text)
+updateThing_thingTypeName = Lens.lens (\UpdateThing' {thingTypeName} -> thingTypeName) (\s@UpdateThing' {} a -> s {thingTypeName = a} :: UpdateThing)
+
 -- | The name of the thing to update.
 --
 -- You can\'t change a thing\'s name. To change a thing\'s name, you must
@@ -158,7 +159,8 @@ updateThing_thingName = Lens.lens (\UpdateThing' {thingName} -> thingName) (\s@U
 
 instance Core.AWSRequest UpdateThing where
   type AWSResponse UpdateThing = UpdateThingResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -168,42 +170,42 @@ instance Core.AWSRequest UpdateThing where
 
 instance Prelude.Hashable UpdateThing where
   hashWithSalt _salt UpdateThing' {..} =
-    _salt `Prelude.hashWithSalt` removeThingType
-      `Prelude.hashWithSalt` thingTypeName
+    _salt `Prelude.hashWithSalt` attributePayload
       `Prelude.hashWithSalt` expectedVersion
-      `Prelude.hashWithSalt` attributePayload
+      `Prelude.hashWithSalt` removeThingType
+      `Prelude.hashWithSalt` thingTypeName
       `Prelude.hashWithSalt` thingName
 
 instance Prelude.NFData UpdateThing where
   rnf UpdateThing' {..} =
-    Prelude.rnf removeThingType
-      `Prelude.seq` Prelude.rnf thingTypeName
+    Prelude.rnf attributePayload
       `Prelude.seq` Prelude.rnf expectedVersion
-      `Prelude.seq` Prelude.rnf attributePayload
+      `Prelude.seq` Prelude.rnf removeThingType
+      `Prelude.seq` Prelude.rnf thingTypeName
       `Prelude.seq` Prelude.rnf thingName
 
-instance Core.ToHeaders UpdateThing where
+instance Data.ToHeaders UpdateThing where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateThing where
+instance Data.ToJSON UpdateThing where
   toJSON UpdateThing' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("removeThingType" Core..=)
-              Prelude.<$> removeThingType,
-            ("thingTypeName" Core..=) Prelude.<$> thingTypeName,
-            ("expectedVersion" Core..=)
+          [ ("attributePayload" Data..=)
+              Prelude.<$> attributePayload,
+            ("expectedVersion" Data..=)
               Prelude.<$> expectedVersion,
-            ("attributePayload" Core..=)
-              Prelude.<$> attributePayload
+            ("removeThingType" Data..=)
+              Prelude.<$> removeThingType,
+            ("thingTypeName" Data..=) Prelude.<$> thingTypeName
           ]
       )
 
-instance Core.ToPath UpdateThing where
+instance Data.ToPath UpdateThing where
   toPath UpdateThing' {..} =
-    Prelude.mconcat ["/things/", Core.toBS thingName]
+    Prelude.mconcat ["/things/", Data.toBS thingName]
 
-instance Core.ToQuery UpdateThing where
+instance Data.ToQuery UpdateThing where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The output from the UpdateThing operation.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.S3Location
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,19 @@
 module Amazonka.GameLift.Types.S3Location where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The location in Amazon S3 where build or script files are stored for
--- access by Amazon GameLift. This location is specified in CreateBuild,
--- CreateScript, and UpdateScript requests.
+-- access by Amazon GameLift.
 --
 -- /See:/ 'newS3Location' smart constructor.
 data S3Location = S3Location'
-  { -- | An Amazon S3 bucket identifier. This is the name of the S3 bucket.
+  { -- | An Amazon S3 bucket identifier. Thename of the S3 bucket.
     --
-    -- GameLift currently does not support uploading from Amazon S3 buckets
-    -- with names that contain a dot (.).
+    -- GameLift doesn\'t support uploading from Amazon S3 buckets with names
+    -- that contain a dot (.).
     bucket :: Prelude.Maybe Prelude.Text,
     -- | The name of the zip file that contains the build files or script files.
     key :: Prelude.Maybe Prelude.Text,
@@ -57,10 +57,10 @@ data S3Location = S3Location'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'bucket', 's3Location_bucket' - An Amazon S3 bucket identifier. This is the name of the S3 bucket.
+-- 'bucket', 's3Location_bucket' - An Amazon S3 bucket identifier. Thename of the S3 bucket.
 --
--- GameLift currently does not support uploading from Amazon S3 buckets
--- with names that contain a dot (.).
+-- GameLift doesn\'t support uploading from Amazon S3 buckets with names
+-- that contain a dot (.).
 --
 -- 'key', 's3Location_key' - The name of the zip file that contains the build files or script files.
 --
@@ -83,10 +83,10 @@ newS3Location =
       roleArn = Prelude.Nothing
     }
 
--- | An Amazon S3 bucket identifier. This is the name of the S3 bucket.
+-- | An Amazon S3 bucket identifier. Thename of the S3 bucket.
 --
--- GameLift currently does not support uploading from Amazon S3 buckets
--- with names that contain a dot (.).
+-- GameLift doesn\'t support uploading from Amazon S3 buckets with names
+-- that contain a dot (.).
 s3Location_bucket :: Lens.Lens' S3Location (Prelude.Maybe Prelude.Text)
 s3Location_bucket = Lens.lens (\S3Location' {bucket} -> bucket) (\s@S3Location' {} a -> s {bucket = a} :: S3Location)
 
@@ -108,16 +108,16 @@ s3Location_objectVersion = Lens.lens (\S3Location' {objectVersion} -> objectVers
 s3Location_roleArn :: Lens.Lens' S3Location (Prelude.Maybe Prelude.Text)
 s3Location_roleArn = Lens.lens (\S3Location' {roleArn} -> roleArn) (\s@S3Location' {} a -> s {roleArn = a} :: S3Location)
 
-instance Core.FromJSON S3Location where
+instance Data.FromJSON S3Location where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3Location"
       ( \x ->
           S3Location'
-            Prelude.<$> (x Core..:? "Bucket")
-            Prelude.<*> (x Core..:? "Key")
-            Prelude.<*> (x Core..:? "ObjectVersion")
-            Prelude.<*> (x Core..:? "RoleArn")
+            Prelude.<$> (x Data..:? "Bucket")
+            Prelude.<*> (x Data..:? "Key")
+            Prelude.<*> (x Data..:? "ObjectVersion")
+            Prelude.<*> (x Data..:? "RoleArn")
       )
 
 instance Prelude.Hashable S3Location where
@@ -134,13 +134,13 @@ instance Prelude.NFData S3Location where
       `Prelude.seq` Prelude.rnf objectVersion
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToJSON S3Location where
+instance Data.ToJSON S3Location where
   toJSON S3Location' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Bucket" Core..=) Prelude.<$> bucket,
-            ("Key" Core..=) Prelude.<$> key,
-            ("ObjectVersion" Core..=) Prelude.<$> objectVersion,
-            ("RoleArn" Core..=) Prelude.<$> roleArn
+          [ ("Bucket" Data..=) Prelude.<$> bucket,
+            ("Key" Data..=) Prelude.<$> key,
+            ("ObjectVersion" Data..=) Prelude.<$> objectVersion,
+            ("RoleArn" Data..=) Prelude.<$> roleArn
           ]
       )

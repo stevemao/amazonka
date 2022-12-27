@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.CreateConfigurationSetEventDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ module Amazonka.SES.CreateConfigurationSetEventDestination
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,7 +124,8 @@ instance
     AWSResponse
       CreateConfigurationSetEventDestination =
       CreateConfigurationSetEventDestinationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateConfigurationSetEventDestinationResult"
@@ -151,31 +153,31 @@ instance
       `Prelude.seq` Prelude.rnf eventDestination
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateConfigurationSetEventDestination
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     CreateConfigurationSetEventDestination
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CreateConfigurationSetEventDestination
   where
   toQuery CreateConfigurationSetEventDestination' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "CreateConfigurationSetEventDestination" ::
+          Data.=: ( "CreateConfigurationSetEventDestination" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "ConfigurationSetName" Core.=: configurationSetName,
-        "EventDestination" Core.=: eventDestination
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "ConfigurationSetName" Data.=: configurationSetName,
+        "EventDestination" Data.=: eventDestination
       ]
 
 -- | An empty element returned on a successful request.

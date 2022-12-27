@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.TrainingData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.TrainingData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.Asset
 
@@ -54,13 +55,13 @@ newTrainingData =
 trainingData_assets :: Lens.Lens' TrainingData (Prelude.Maybe [Asset])
 trainingData_assets = Lens.lens (\TrainingData' {assets} -> assets) (\s@TrainingData' {} a -> s {assets = a} :: TrainingData) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON TrainingData where
+instance Data.FromJSON TrainingData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrainingData"
       ( \x ->
           TrainingData'
-            Prelude.<$> (x Core..:? "Assets" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Assets" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable TrainingData where
@@ -70,9 +71,9 @@ instance Prelude.Hashable TrainingData where
 instance Prelude.NFData TrainingData where
   rnf TrainingData' {..} = Prelude.rnf assets
 
-instance Core.ToJSON TrainingData where
+instance Data.ToJSON TrainingData where
   toJSON TrainingData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Assets" Core..=) Prelude.<$> assets]
+          [("Assets" Data..=) Prelude.<$> assets]
       )

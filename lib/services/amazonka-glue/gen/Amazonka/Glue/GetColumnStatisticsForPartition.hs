@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetColumnStatisticsForPartition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,15 +41,16 @@ module Amazonka.Glue.GetColumnStatisticsForPartition
     newGetColumnStatisticsForPartitionResponse,
 
     -- * Response Lenses
-    getColumnStatisticsForPartitionResponse_errors,
     getColumnStatisticsForPartitionResponse_columnStatisticsList,
+    getColumnStatisticsForPartitionResponse_errors,
     getColumnStatisticsForPartitionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -134,15 +135,16 @@ instance
   type
     AWSResponse GetColumnStatisticsForPartition =
       GetColumnStatisticsForPartitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetColumnStatisticsForPartitionResponse'
-            Prelude.<$> (x Core..?> "Errors" Core..!@ Prelude.mempty)
-            Prelude.<*> ( x Core..?> "ColumnStatisticsList"
+            Prelude.<$> ( x Data..?> "ColumnStatisticsList"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "Errors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -171,48 +173,48 @@ instance
       `Prelude.seq` Prelude.rnf columnNames
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetColumnStatisticsForPartition
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSGlue.GetColumnStatisticsForPartition" ::
+              Data.=# ( "AWSGlue.GetColumnStatisticsForPartition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetColumnStatisticsForPartition where
+instance Data.ToJSON GetColumnStatisticsForPartition where
   toJSON GetColumnStatisticsForPartition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("DatabaseName" Core..= databaseName),
-            Prelude.Just ("TableName" Core..= tableName),
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            Prelude.Just ("DatabaseName" Data..= databaseName),
+            Prelude.Just ("TableName" Data..= tableName),
             Prelude.Just
-              ("PartitionValues" Core..= partitionValues),
-            Prelude.Just ("ColumnNames" Core..= columnNames)
+              ("PartitionValues" Data..= partitionValues),
+            Prelude.Just ("ColumnNames" Data..= columnNames)
           ]
       )
 
-instance Core.ToPath GetColumnStatisticsForPartition where
+instance Data.ToPath GetColumnStatisticsForPartition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetColumnStatisticsForPartition where
+instance Data.ToQuery GetColumnStatisticsForPartition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetColumnStatisticsForPartitionResponse' smart constructor.
 data GetColumnStatisticsForPartitionResponse = GetColumnStatisticsForPartitionResponse'
-  { -- | Error occurred during retrieving column statistics data.
-    errors :: Prelude.Maybe [ColumnError],
-    -- | List of ColumnStatistics that failed to be retrieved.
+  { -- | List of ColumnStatistics that failed to be retrieved.
     columnStatisticsList :: Prelude.Maybe [ColumnStatistics],
+    -- | Error occurred during retrieving column statistics data.
+    errors :: Prelude.Maybe [ColumnError],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -226,9 +228,9 @@ data GetColumnStatisticsForPartitionResponse = GetColumnStatisticsForPartitionRe
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'errors', 'getColumnStatisticsForPartitionResponse_errors' - Error occurred during retrieving column statistics data.
---
 -- 'columnStatisticsList', 'getColumnStatisticsForPartitionResponse_columnStatisticsList' - List of ColumnStatistics that failed to be retrieved.
+--
+-- 'errors', 'getColumnStatisticsForPartitionResponse_errors' - Error occurred during retrieving column statistics data.
 --
 -- 'httpStatus', 'getColumnStatisticsForPartitionResponse_httpStatus' - The response's http status code.
 newGetColumnStatisticsForPartitionResponse ::
@@ -238,20 +240,19 @@ newGetColumnStatisticsForPartitionResponse ::
 newGetColumnStatisticsForPartitionResponse
   pHttpStatus_ =
     GetColumnStatisticsForPartitionResponse'
-      { errors =
+      { columnStatisticsList =
           Prelude.Nothing,
-        columnStatisticsList =
-          Prelude.Nothing,
+        errors = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | Error occurred during retrieving column statistics data.
-getColumnStatisticsForPartitionResponse_errors :: Lens.Lens' GetColumnStatisticsForPartitionResponse (Prelude.Maybe [ColumnError])
-getColumnStatisticsForPartitionResponse_errors = Lens.lens (\GetColumnStatisticsForPartitionResponse' {errors} -> errors) (\s@GetColumnStatisticsForPartitionResponse' {} a -> s {errors = a} :: GetColumnStatisticsForPartitionResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | List of ColumnStatistics that failed to be retrieved.
 getColumnStatisticsForPartitionResponse_columnStatisticsList :: Lens.Lens' GetColumnStatisticsForPartitionResponse (Prelude.Maybe [ColumnStatistics])
 getColumnStatisticsForPartitionResponse_columnStatisticsList = Lens.lens (\GetColumnStatisticsForPartitionResponse' {columnStatisticsList} -> columnStatisticsList) (\s@GetColumnStatisticsForPartitionResponse' {} a -> s {columnStatisticsList = a} :: GetColumnStatisticsForPartitionResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Error occurred during retrieving column statistics data.
+getColumnStatisticsForPartitionResponse_errors :: Lens.Lens' GetColumnStatisticsForPartitionResponse (Prelude.Maybe [ColumnError])
+getColumnStatisticsForPartitionResponse_errors = Lens.lens (\GetColumnStatisticsForPartitionResponse' {errors} -> errors) (\s@GetColumnStatisticsForPartitionResponse' {} a -> s {errors = a} :: GetColumnStatisticsForPartitionResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 getColumnStatisticsForPartitionResponse_httpStatus :: Lens.Lens' GetColumnStatisticsForPartitionResponse Prelude.Int
@@ -262,6 +263,6 @@ instance
     GetColumnStatisticsForPartitionResponse
   where
   rnf GetColumnStatisticsForPartitionResponse' {..} =
-    Prelude.rnf errors
-      `Prelude.seq` Prelude.rnf columnStatisticsList
+    Prelude.rnf columnStatisticsList
+      `Prelude.seq` Prelude.rnf errors
       `Prelude.seq` Prelude.rnf httpStatus

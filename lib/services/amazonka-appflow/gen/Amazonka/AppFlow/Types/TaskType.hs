@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.TaskType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,6 +26,8 @@ module Amazonka.AppFlow.Types.TaskType
         TaskType_Map_all,
         TaskType_Mask,
         TaskType_Merge,
+        TaskType_Partition,
+        TaskType_Passthrough,
         TaskType_Truncate,
         TaskType_Validate
       ),
@@ -33,11 +35,12 @@ module Amazonka.AppFlow.Types.TaskType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype TaskType = TaskType'
   { fromTaskType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -49,18 +52,18 @@ newtype TaskType = TaskType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern TaskType_Arithmetic :: TaskType
@@ -81,6 +84,12 @@ pattern TaskType_Mask = TaskType' "Mask"
 pattern TaskType_Merge :: TaskType
 pattern TaskType_Merge = TaskType' "Merge"
 
+pattern TaskType_Partition :: TaskType
+pattern TaskType_Partition = TaskType' "Partition"
+
+pattern TaskType_Passthrough :: TaskType
+pattern TaskType_Passthrough = TaskType' "Passthrough"
+
 pattern TaskType_Truncate :: TaskType
 pattern TaskType_Truncate = TaskType' "Truncate"
 
@@ -94,6 +103,8 @@ pattern TaskType_Validate = TaskType' "Validate"
   TaskType_Map_all,
   TaskType_Mask,
   TaskType_Merge,
+  TaskType_Partition,
+  TaskType_Passthrough,
   TaskType_Truncate,
   TaskType_Validate,
   TaskType'

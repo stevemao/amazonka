@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.DeleteBackup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.DynamoDB.DeleteBackup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ deleteBackup_backupArn = Lens.lens (\DeleteBackup' {backupArn} -> backupArn) (\s
 
 instance Core.AWSRequest DeleteBackup where
   type AWSResponse DeleteBackup = DeleteBackupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteBackupResponse'
-            Prelude.<$> (x Core..?> "BackupDescription")
+            Prelude.<$> (x Data..?> "BackupDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,32 +95,32 @@ instance Prelude.Hashable DeleteBackup where
 instance Prelude.NFData DeleteBackup where
   rnf DeleteBackup' {..} = Prelude.rnf backupArn
 
-instance Core.ToHeaders DeleteBackup where
+instance Data.ToHeaders DeleteBackup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.DeleteBackup" ::
+              Data.=# ( "DynamoDB_20120810.DeleteBackup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteBackup where
+instance Data.ToJSON DeleteBackup where
   toJSON DeleteBackup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("BackupArn" Core..= backupArn)]
+          [Prelude.Just ("BackupArn" Data..= backupArn)]
       )
 
-instance Core.ToPath DeleteBackup where
+instance Data.ToPath DeleteBackup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteBackup where
+instance Data.ToQuery DeleteBackup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteBackupResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.Types.AddonIssue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.EKS.Types.AddonIssue where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types.AddonIssueCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An issue related to an add-on.
 --
 -- /See:/ 'newAddonIssue' smart constructor.
 data AddonIssue = AddonIssue'
-  { -- | The resource IDs of the issue.
-    resourceIds :: Prelude.Maybe [Prelude.Text],
-    -- | A code that describes the type of issue.
+  { -- | A code that describes the type of issue.
     code :: Prelude.Maybe AddonIssueCode,
     -- | A message that provides details about the issue and what might cause it.
-    message :: Prelude.Maybe Prelude.Text
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The resource IDs of the issue.
+    resourceIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,23 +46,19 @@ data AddonIssue = AddonIssue'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceIds', 'addonIssue_resourceIds' - The resource IDs of the issue.
---
 -- 'code', 'addonIssue_code' - A code that describes the type of issue.
 --
 -- 'message', 'addonIssue_message' - A message that provides details about the issue and what might cause it.
+--
+-- 'resourceIds', 'addonIssue_resourceIds' - The resource IDs of the issue.
 newAddonIssue ::
   AddonIssue
 newAddonIssue =
   AddonIssue'
-    { resourceIds = Prelude.Nothing,
-      code = Prelude.Nothing,
-      message = Prelude.Nothing
+    { code = Prelude.Nothing,
+      message = Prelude.Nothing,
+      resourceIds = Prelude.Nothing
     }
-
--- | The resource IDs of the issue.
-addonIssue_resourceIds :: Lens.Lens' AddonIssue (Prelude.Maybe [Prelude.Text])
-addonIssue_resourceIds = Lens.lens (\AddonIssue' {resourceIds} -> resourceIds) (\s@AddonIssue' {} a -> s {resourceIds = a} :: AddonIssue) Prelude.. Lens.mapping Lens.coerced
 
 -- | A code that describes the type of issue.
 addonIssue_code :: Lens.Lens' AddonIssue (Prelude.Maybe AddonIssueCode)
@@ -71,25 +68,29 @@ addonIssue_code = Lens.lens (\AddonIssue' {code} -> code) (\s@AddonIssue' {} a -
 addonIssue_message :: Lens.Lens' AddonIssue (Prelude.Maybe Prelude.Text)
 addonIssue_message = Lens.lens (\AddonIssue' {message} -> message) (\s@AddonIssue' {} a -> s {message = a} :: AddonIssue)
 
-instance Core.FromJSON AddonIssue where
+-- | The resource IDs of the issue.
+addonIssue_resourceIds :: Lens.Lens' AddonIssue (Prelude.Maybe [Prelude.Text])
+addonIssue_resourceIds = Lens.lens (\AddonIssue' {resourceIds} -> resourceIds) (\s@AddonIssue' {} a -> s {resourceIds = a} :: AddonIssue) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON AddonIssue where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AddonIssue"
       ( \x ->
           AddonIssue'
-            Prelude.<$> (x Core..:? "resourceIds" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "code")
-            Prelude.<*> (x Core..:? "message")
+            Prelude.<$> (x Data..:? "code")
+            Prelude.<*> (x Data..:? "message")
+            Prelude.<*> (x Data..:? "resourceIds" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable AddonIssue where
   hashWithSalt _salt AddonIssue' {..} =
-    _salt `Prelude.hashWithSalt` resourceIds
-      `Prelude.hashWithSalt` code
+    _salt `Prelude.hashWithSalt` code
       `Prelude.hashWithSalt` message
+      `Prelude.hashWithSalt` resourceIds
 
 instance Prelude.NFData AddonIssue where
   rnf AddonIssue' {..} =
-    Prelude.rnf resourceIds
-      `Prelude.seq` Prelude.rnf code
+    Prelude.rnf code
       `Prelude.seq` Prelude.rnf message
+      `Prelude.seq` Prelude.rnf resourceIds

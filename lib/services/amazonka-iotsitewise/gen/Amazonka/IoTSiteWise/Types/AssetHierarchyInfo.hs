@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.AssetHierarchyInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTSiteWise.Types.AssetHierarchyInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a parent asset and a child asset that are
@@ -62,14 +63,14 @@ assetHierarchyInfo_childAssetId = Lens.lens (\AssetHierarchyInfo' {childAssetId}
 assetHierarchyInfo_parentAssetId :: Lens.Lens' AssetHierarchyInfo (Prelude.Maybe Prelude.Text)
 assetHierarchyInfo_parentAssetId = Lens.lens (\AssetHierarchyInfo' {parentAssetId} -> parentAssetId) (\s@AssetHierarchyInfo' {} a -> s {parentAssetId = a} :: AssetHierarchyInfo)
 
-instance Core.FromJSON AssetHierarchyInfo where
+instance Data.FromJSON AssetHierarchyInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssetHierarchyInfo"
       ( \x ->
           AssetHierarchyInfo'
-            Prelude.<$> (x Core..:? "childAssetId")
-            Prelude.<*> (x Core..:? "parentAssetId")
+            Prelude.<$> (x Data..:? "childAssetId")
+            Prelude.<*> (x Data..:? "parentAssetId")
       )
 
 instance Prelude.Hashable AssetHierarchyInfo where

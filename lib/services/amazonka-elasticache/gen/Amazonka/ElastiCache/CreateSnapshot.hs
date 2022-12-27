@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.CreateSnapshot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.ElastiCache.CreateSnapshot
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -133,13 +134,14 @@ instance Core.AWSRequest CreateSnapshot where
   type
     AWSResponse CreateSnapshot =
       CreateSnapshotResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateSnapshotResult"
       ( \s h x ->
           CreateSnapshotResponse'
-            Prelude.<$> (x Core..@? "Snapshot")
+            Prelude.<$> (x Data..@? "Snapshot")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -159,26 +161,26 @@ instance Prelude.NFData CreateSnapshot where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf snapshotName
 
-instance Core.ToHeaders CreateSnapshot where
+instance Data.ToHeaders CreateSnapshot where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateSnapshot where
+instance Data.ToPath CreateSnapshot where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateSnapshot where
+instance Data.ToQuery CreateSnapshot where
   toQuery CreateSnapshot' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateSnapshot" :: Prelude.ByteString),
+          Data.=: ("CreateSnapshot" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "CacheClusterId" Core.=: cacheClusterId,
-        "KmsKeyId" Core.=: kmsKeyId,
-        "ReplicationGroupId" Core.=: replicationGroupId,
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "CacheClusterId" Data.=: cacheClusterId,
+        "KmsKeyId" Data.=: kmsKeyId,
+        "ReplicationGroupId" Data.=: replicationGroupId,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
-        "SnapshotName" Core.=: snapshotName
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
+        "SnapshotName" Data.=: snapshotName
       ]
 
 -- | /See:/ 'newCreateSnapshotResponse' smart constructor.

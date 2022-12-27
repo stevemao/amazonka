@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKIdentity.Types.Identity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ChimeSDKIdentity.Types.Identity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of a user.
@@ -30,7 +31,7 @@ data Identity = Identity'
   { -- | The ARN in an Identity.
     arn :: Prelude.Maybe Prelude.Text,
     -- | The name in an Identity.
-    name :: Prelude.Maybe (Core.Sensitive Prelude.Text)
+    name :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -59,15 +60,15 @@ identity_arn = Lens.lens (\Identity' {arn} -> arn) (\s@Identity' {} a -> s {arn 
 
 -- | The name in an Identity.
 identity_name :: Lens.Lens' Identity (Prelude.Maybe Prelude.Text)
-identity_name = Lens.lens (\Identity' {name} -> name) (\s@Identity' {} a -> s {name = a} :: Identity) Prelude.. Lens.mapping Core._Sensitive
+identity_name = Lens.lens (\Identity' {name} -> name) (\s@Identity' {} a -> s {name = a} :: Identity) Prelude.. Lens.mapping Data._Sensitive
 
-instance Core.FromJSON Identity where
+instance Data.FromJSON Identity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Identity"
       ( \x ->
           Identity'
-            Prelude.<$> (x Core..:? "Arn") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Arn") Prelude.<*> (x Data..:? "Name")
       )
 
 instance Prelude.Hashable Identity where

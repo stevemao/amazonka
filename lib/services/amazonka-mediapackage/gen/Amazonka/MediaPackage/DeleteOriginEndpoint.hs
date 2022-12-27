@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackage.DeleteOriginEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.MediaPackage.DeleteOriginEndpoint
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaPackage.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteOriginEndpoint where
   type
     AWSResponse DeleteOriginEndpoint =
       DeleteOriginEndpointResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,23 +93,23 @@ instance Prelude.Hashable DeleteOriginEndpoint where
 instance Prelude.NFData DeleteOriginEndpoint where
   rnf DeleteOriginEndpoint' {..} = Prelude.rnf id
 
-instance Core.ToHeaders DeleteOriginEndpoint where
+instance Data.ToHeaders DeleteOriginEndpoint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteOriginEndpoint where
+instance Data.ToPath DeleteOriginEndpoint where
   toPath DeleteOriginEndpoint' {..} =
     Prelude.mconcat
-      ["/origin_endpoints/", Core.toBS id]
+      ["/origin_endpoints/", Data.toBS id]
 
-instance Core.ToQuery DeleteOriginEndpoint where
+instance Data.ToQuery DeleteOriginEndpoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteOriginEndpointResponse' smart constructor.

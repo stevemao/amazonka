@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DescribeStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IoT.DescribeStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,12 +82,13 @@ instance Core.AWSRequest DescribeStream where
   type
     AWSResponse DescribeStream =
       DescribeStreamResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeStreamResponse'
-            Prelude.<$> (x Core..?> "streamInfo")
+            Prelude.<$> (x Data..?> "streamInfo")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,14 +99,14 @@ instance Prelude.Hashable DescribeStream where
 instance Prelude.NFData DescribeStream where
   rnf DescribeStream' {..} = Prelude.rnf streamId
 
-instance Core.ToHeaders DescribeStream where
+instance Data.ToHeaders DescribeStream where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeStream where
+instance Data.ToPath DescribeStream where
   toPath DescribeStream' {..} =
-    Prelude.mconcat ["/streams/", Core.toBS streamId]
+    Prelude.mconcat ["/streams/", Data.toBS streamId]
 
-instance Core.ToQuery DescribeStream where
+instance Data.ToQuery DescribeStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeStreamResponse' smart constructor.

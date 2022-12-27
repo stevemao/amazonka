@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.ListTypedLinkFacetAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.CloudDirectory.ListTypedLinkFacetAttributes
     newListTypedLinkFacetAttributes,
 
     -- * Request Lenses
-    listTypedLinkFacetAttributes_nextToken,
     listTypedLinkFacetAttributes_maxResults,
+    listTypedLinkFacetAttributes_nextToken,
     listTypedLinkFacetAttributes_schemaArn,
     listTypedLinkFacetAttributes_name,
 
@@ -41,25 +41,26 @@ module Amazonka.CloudDirectory.ListTypedLinkFacetAttributes
     newListTypedLinkFacetAttributesResponse,
 
     -- * Response Lenses
-    listTypedLinkFacetAttributesResponse_nextToken,
     listTypedLinkFacetAttributesResponse_attributes,
+    listTypedLinkFacetAttributesResponse_nextToken,
     listTypedLinkFacetAttributesResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTypedLinkFacetAttributes' smart constructor.
 data ListTypedLinkFacetAttributes = ListTypedLinkFacetAttributes'
-  { -- | The pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to retrieve.
+  { -- | The maximum number of results to retrieve.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) that is associated with the schema. For
     -- more information, see arns.
     schemaArn :: Prelude.Text,
@@ -76,9 +77,9 @@ data ListTypedLinkFacetAttributes = ListTypedLinkFacetAttributes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listTypedLinkFacetAttributes_nextToken' - The pagination token.
---
 -- 'maxResults', 'listTypedLinkFacetAttributes_maxResults' - The maximum number of results to retrieve.
+--
+-- 'nextToken', 'listTypedLinkFacetAttributes_nextToken' - The pagination token.
 --
 -- 'schemaArn', 'listTypedLinkFacetAttributes_schemaArn' - The Amazon Resource Name (ARN) that is associated with the schema. For
 -- more information, see arns.
@@ -92,20 +93,20 @@ newListTypedLinkFacetAttributes ::
   ListTypedLinkFacetAttributes
 newListTypedLinkFacetAttributes pSchemaArn_ pName_ =
   ListTypedLinkFacetAttributes'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       schemaArn = pSchemaArn_,
       name = pName_
     }
 
--- | The pagination token.
-listTypedLinkFacetAttributes_nextToken :: Lens.Lens' ListTypedLinkFacetAttributes (Prelude.Maybe Prelude.Text)
-listTypedLinkFacetAttributes_nextToken = Lens.lens (\ListTypedLinkFacetAttributes' {nextToken} -> nextToken) (\s@ListTypedLinkFacetAttributes' {} a -> s {nextToken = a} :: ListTypedLinkFacetAttributes)
-
 -- | The maximum number of results to retrieve.
 listTypedLinkFacetAttributes_maxResults :: Lens.Lens' ListTypedLinkFacetAttributes (Prelude.Maybe Prelude.Natural)
 listTypedLinkFacetAttributes_maxResults = Lens.lens (\ListTypedLinkFacetAttributes' {maxResults} -> maxResults) (\s@ListTypedLinkFacetAttributes' {} a -> s {maxResults = a} :: ListTypedLinkFacetAttributes)
+
+-- | The pagination token.
+listTypedLinkFacetAttributes_nextToken :: Lens.Lens' ListTypedLinkFacetAttributes (Prelude.Maybe Prelude.Text)
+listTypedLinkFacetAttributes_nextToken = Lens.lens (\ListTypedLinkFacetAttributes' {nextToken} -> nextToken) (\s@ListTypedLinkFacetAttributes' {} a -> s {nextToken = a} :: ListTypedLinkFacetAttributes)
 
 -- | The Amazon Resource Name (ARN) that is associated with the schema. For
 -- more information, see arns.
@@ -142,13 +143,14 @@ instance Core.AWSRequest ListTypedLinkFacetAttributes where
   type
     AWSResponse ListTypedLinkFacetAttributes =
       ListTypedLinkFacetAttributesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTypedLinkFacetAttributesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Attributes" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Attributes" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -157,47 +159,47 @@ instance
     ListTypedLinkFacetAttributes
   where
   hashWithSalt _salt ListTypedLinkFacetAttributes' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` schemaArn
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData ListTypedLinkFacetAttributes where
   rnf ListTypedLinkFacetAttributes' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf schemaArn
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders ListTypedLinkFacetAttributes where
+instance Data.ToHeaders ListTypedLinkFacetAttributes where
   toHeaders ListTypedLinkFacetAttributes' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# schemaArn]
+      ["x-amz-data-partition" Data.=# schemaArn]
 
-instance Core.ToJSON ListTypedLinkFacetAttributes where
+instance Data.ToJSON ListTypedLinkFacetAttributes where
   toJSON ListTypedLinkFacetAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("Name" Core..= name)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath ListTypedLinkFacetAttributes where
+instance Data.ToPath ListTypedLinkFacetAttributes where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/typedlink/facet/attributes"
 
-instance Core.ToQuery ListTypedLinkFacetAttributes where
+instance Data.ToQuery ListTypedLinkFacetAttributes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTypedLinkFacetAttributesResponse' smart constructor.
 data ListTypedLinkFacetAttributesResponse = ListTypedLinkFacetAttributesResponse'
-  { -- | The pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An ordered set of attributes associate with the typed link.
+  { -- | An ordered set of attributes associate with the typed link.
     attributes :: Prelude.Maybe [TypedLinkAttributeDefinition],
+    -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -211,9 +213,9 @@ data ListTypedLinkFacetAttributesResponse = ListTypedLinkFacetAttributesResponse
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listTypedLinkFacetAttributesResponse_nextToken' - The pagination token.
---
 -- 'attributes', 'listTypedLinkFacetAttributesResponse_attributes' - An ordered set of attributes associate with the typed link.
+--
+-- 'nextToken', 'listTypedLinkFacetAttributesResponse_nextToken' - The pagination token.
 --
 -- 'httpStatus', 'listTypedLinkFacetAttributesResponse_httpStatus' - The response's http status code.
 newListTypedLinkFacetAttributesResponse ::
@@ -222,19 +224,19 @@ newListTypedLinkFacetAttributesResponse ::
   ListTypedLinkFacetAttributesResponse
 newListTypedLinkFacetAttributesResponse pHttpStatus_ =
   ListTypedLinkFacetAttributesResponse'
-    { nextToken =
+    { attributes =
         Prelude.Nothing,
-      attributes = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The pagination token.
-listTypedLinkFacetAttributesResponse_nextToken :: Lens.Lens' ListTypedLinkFacetAttributesResponse (Prelude.Maybe Prelude.Text)
-listTypedLinkFacetAttributesResponse_nextToken = Lens.lens (\ListTypedLinkFacetAttributesResponse' {nextToken} -> nextToken) (\s@ListTypedLinkFacetAttributesResponse' {} a -> s {nextToken = a} :: ListTypedLinkFacetAttributesResponse)
 
 -- | An ordered set of attributes associate with the typed link.
 listTypedLinkFacetAttributesResponse_attributes :: Lens.Lens' ListTypedLinkFacetAttributesResponse (Prelude.Maybe [TypedLinkAttributeDefinition])
 listTypedLinkFacetAttributesResponse_attributes = Lens.lens (\ListTypedLinkFacetAttributesResponse' {attributes} -> attributes) (\s@ListTypedLinkFacetAttributesResponse' {} a -> s {attributes = a} :: ListTypedLinkFacetAttributesResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The pagination token.
+listTypedLinkFacetAttributesResponse_nextToken :: Lens.Lens' ListTypedLinkFacetAttributesResponse (Prelude.Maybe Prelude.Text)
+listTypedLinkFacetAttributesResponse_nextToken = Lens.lens (\ListTypedLinkFacetAttributesResponse' {nextToken} -> nextToken) (\s@ListTypedLinkFacetAttributesResponse' {} a -> s {nextToken = a} :: ListTypedLinkFacetAttributesResponse)
 
 -- | The response's http status code.
 listTypedLinkFacetAttributesResponse_httpStatus :: Lens.Lens' ListTypedLinkFacetAttributesResponse Prelude.Int
@@ -245,6 +247,6 @@ instance
     ListTypedLinkFacetAttributesResponse
   where
   rnf ListTypedLinkFacetAttributesResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf attributes
+    Prelude.rnf attributes
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.Types.Parent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Organizations.Types.Parent where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types.ParentType
 import qualified Amazonka.Prelude as Prelude
 
@@ -96,13 +97,13 @@ parent_id = Lens.lens (\Parent' {id} -> id) (\s@Parent' {} a -> s {id = a} :: Pa
 parent_type :: Lens.Lens' Parent (Prelude.Maybe ParentType)
 parent_type = Lens.lens (\Parent' {type'} -> type') (\s@Parent' {} a -> s {type' = a} :: Parent)
 
-instance Core.FromJSON Parent where
+instance Data.FromJSON Parent where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Parent"
       ( \x ->
           Parent'
-            Prelude.<$> (x Core..:? "Id") Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Id") Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable Parent where

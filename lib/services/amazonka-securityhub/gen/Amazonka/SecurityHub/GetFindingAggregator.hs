@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.GetFindingAggregator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,16 +34,17 @@ module Amazonka.SecurityHub.GetFindingAggregator
     newGetFindingAggregatorResponse,
 
     -- * Response Lenses
-    getFindingAggregatorResponse_regions,
+    getFindingAggregatorResponse_findingAggregationRegion,
     getFindingAggregatorResponse_findingAggregatorArn,
     getFindingAggregatorResponse_regionLinkingMode,
-    getFindingAggregatorResponse_findingAggregationRegion,
+    getFindingAggregatorResponse_regions,
     getFindingAggregatorResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,15 +87,16 @@ instance Core.AWSRequest GetFindingAggregator where
   type
     AWSResponse GetFindingAggregator =
       GetFindingAggregatorResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetFindingAggregatorResponse'
-            Prelude.<$> (x Core..?> "Regions" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "FindingAggregatorArn")
-            Prelude.<*> (x Core..?> "RegionLinkingMode")
-            Prelude.<*> (x Core..?> "FindingAggregationRegion")
+            Prelude.<$> (x Data..?> "FindingAggregationRegion")
+            Prelude.<*> (x Data..?> "FindingAggregatorArn")
+            Prelude.<*> (x Data..?> "RegionLinkingMode")
+            Prelude.<*> (x Data..?> "Regions" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -106,38 +108,38 @@ instance Prelude.NFData GetFindingAggregator where
   rnf GetFindingAggregator' {..} =
     Prelude.rnf findingAggregatorArn
 
-instance Core.ToHeaders GetFindingAggregator where
+instance Data.ToHeaders GetFindingAggregator where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetFindingAggregator where
+instance Data.ToPath GetFindingAggregator where
   toPath GetFindingAggregator' {..} =
     Prelude.mconcat
       [ "/findingAggregator/get/",
-        Core.toBS findingAggregatorArn
+        Data.toBS findingAggregatorArn
       ]
 
-instance Core.ToQuery GetFindingAggregator where
+instance Data.ToQuery GetFindingAggregator where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetFindingAggregatorResponse' smart constructor.
 data GetFindingAggregatorResponse = GetFindingAggregatorResponse'
-  { -- | The list of excluded Regions or included Regions.
-    regions :: Prelude.Maybe [Prelude.Text],
+  { -- | The aggregation Region.
+    findingAggregationRegion :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the finding aggregator.
     findingAggregatorArn :: Prelude.Maybe Prelude.Text,
     -- | Indicates whether to link all Regions, all Regions except for a list of
     -- excluded Regions, or a list of included Regions.
     regionLinkingMode :: Prelude.Maybe Prelude.Text,
-    -- | The aggregation Region.
-    findingAggregationRegion :: Prelude.Maybe Prelude.Text,
+    -- | The list of excluded Regions or included Regions.
+    regions :: Prelude.Maybe [Prelude.Text],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -151,14 +153,14 @@ data GetFindingAggregatorResponse = GetFindingAggregatorResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'regions', 'getFindingAggregatorResponse_regions' - The list of excluded Regions or included Regions.
+-- 'findingAggregationRegion', 'getFindingAggregatorResponse_findingAggregationRegion' - The aggregation Region.
 --
 -- 'findingAggregatorArn', 'getFindingAggregatorResponse_findingAggregatorArn' - The ARN of the finding aggregator.
 --
 -- 'regionLinkingMode', 'getFindingAggregatorResponse_regionLinkingMode' - Indicates whether to link all Regions, all Regions except for a list of
 -- excluded Regions, or a list of included Regions.
 --
--- 'findingAggregationRegion', 'getFindingAggregatorResponse_findingAggregationRegion' - The aggregation Region.
+-- 'regions', 'getFindingAggregatorResponse_regions' - The list of excluded Regions or included Regions.
 --
 -- 'httpStatus', 'getFindingAggregatorResponse_httpStatus' - The response's http status code.
 newGetFindingAggregatorResponse ::
@@ -167,17 +169,17 @@ newGetFindingAggregatorResponse ::
   GetFindingAggregatorResponse
 newGetFindingAggregatorResponse pHttpStatus_ =
   GetFindingAggregatorResponse'
-    { regions =
+    { findingAggregationRegion =
         Prelude.Nothing,
       findingAggregatorArn = Prelude.Nothing,
       regionLinkingMode = Prelude.Nothing,
-      findingAggregationRegion = Prelude.Nothing,
+      regions = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The list of excluded Regions or included Regions.
-getFindingAggregatorResponse_regions :: Lens.Lens' GetFindingAggregatorResponse (Prelude.Maybe [Prelude.Text])
-getFindingAggregatorResponse_regions = Lens.lens (\GetFindingAggregatorResponse' {regions} -> regions) (\s@GetFindingAggregatorResponse' {} a -> s {regions = a} :: GetFindingAggregatorResponse) Prelude.. Lens.mapping Lens.coerced
+-- | The aggregation Region.
+getFindingAggregatorResponse_findingAggregationRegion :: Lens.Lens' GetFindingAggregatorResponse (Prelude.Maybe Prelude.Text)
+getFindingAggregatorResponse_findingAggregationRegion = Lens.lens (\GetFindingAggregatorResponse' {findingAggregationRegion} -> findingAggregationRegion) (\s@GetFindingAggregatorResponse' {} a -> s {findingAggregationRegion = a} :: GetFindingAggregatorResponse)
 
 -- | The ARN of the finding aggregator.
 getFindingAggregatorResponse_findingAggregatorArn :: Lens.Lens' GetFindingAggregatorResponse (Prelude.Maybe Prelude.Text)
@@ -188,9 +190,9 @@ getFindingAggregatorResponse_findingAggregatorArn = Lens.lens (\GetFindingAggreg
 getFindingAggregatorResponse_regionLinkingMode :: Lens.Lens' GetFindingAggregatorResponse (Prelude.Maybe Prelude.Text)
 getFindingAggregatorResponse_regionLinkingMode = Lens.lens (\GetFindingAggregatorResponse' {regionLinkingMode} -> regionLinkingMode) (\s@GetFindingAggregatorResponse' {} a -> s {regionLinkingMode = a} :: GetFindingAggregatorResponse)
 
--- | The aggregation Region.
-getFindingAggregatorResponse_findingAggregationRegion :: Lens.Lens' GetFindingAggregatorResponse (Prelude.Maybe Prelude.Text)
-getFindingAggregatorResponse_findingAggregationRegion = Lens.lens (\GetFindingAggregatorResponse' {findingAggregationRegion} -> findingAggregationRegion) (\s@GetFindingAggregatorResponse' {} a -> s {findingAggregationRegion = a} :: GetFindingAggregatorResponse)
+-- | The list of excluded Regions or included Regions.
+getFindingAggregatorResponse_regions :: Lens.Lens' GetFindingAggregatorResponse (Prelude.Maybe [Prelude.Text])
+getFindingAggregatorResponse_regions = Lens.lens (\GetFindingAggregatorResponse' {regions} -> regions) (\s@GetFindingAggregatorResponse' {} a -> s {regions = a} :: GetFindingAggregatorResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 getFindingAggregatorResponse_httpStatus :: Lens.Lens' GetFindingAggregatorResponse Prelude.Int
@@ -198,8 +200,8 @@ getFindingAggregatorResponse_httpStatus = Lens.lens (\GetFindingAggregatorRespon
 
 instance Prelude.NFData GetFindingAggregatorResponse where
   rnf GetFindingAggregatorResponse' {..} =
-    Prelude.rnf regions
+    Prelude.rnf findingAggregationRegion
       `Prelude.seq` Prelude.rnf findingAggregatorArn
       `Prelude.seq` Prelude.rnf regionLinkingMode
-      `Prelude.seq` Prelude.rnf findingAggregationRegion
+      `Prelude.seq` Prelude.rnf regions
       `Prelude.seq` Prelude.rnf httpStatus

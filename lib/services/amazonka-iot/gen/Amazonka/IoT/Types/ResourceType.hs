@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.ResourceType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,17 +27,19 @@ module Amazonka.IoT.Types.ResourceType
         ResourceType_DEVICE_CERTIFICATE,
         ResourceType_IAM_ROLE,
         ResourceType_IOT_POLICY,
+        ResourceType_ISSUER_CERTIFICATE,
         ResourceType_ROLE_ALIAS
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype ResourceType = ResourceType'
   { fromResourceType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -49,18 +51,18 @@ newtype ResourceType = ResourceType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern ResourceType_ACCOUNT_SETTINGS :: ResourceType
@@ -84,6 +86,9 @@ pattern ResourceType_IAM_ROLE = ResourceType' "IAM_ROLE"
 pattern ResourceType_IOT_POLICY :: ResourceType
 pattern ResourceType_IOT_POLICY = ResourceType' "IOT_POLICY"
 
+pattern ResourceType_ISSUER_CERTIFICATE :: ResourceType
+pattern ResourceType_ISSUER_CERTIFICATE = ResourceType' "ISSUER_CERTIFICATE"
+
 pattern ResourceType_ROLE_ALIAS :: ResourceType
 pattern ResourceType_ROLE_ALIAS = ResourceType' "ROLE_ALIAS"
 
@@ -95,6 +100,7 @@ pattern ResourceType_ROLE_ALIAS = ResourceType' "ROLE_ALIAS"
   ResourceType_DEVICE_CERTIFICATE,
   ResourceType_IAM_ROLE,
   ResourceType_IOT_POLICY,
+  ResourceType_ISSUER_CERTIFICATE,
   ResourceType_ROLE_ALIAS,
   ResourceType'
   #-}

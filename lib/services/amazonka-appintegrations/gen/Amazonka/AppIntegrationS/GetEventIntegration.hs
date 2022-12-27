@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppIntegrationS.GetEventIntegration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,11 +34,11 @@ module Amazonka.AppIntegrationS.GetEventIntegration
     newGetEventIntegrationResponse,
 
     -- * Response Lenses
+    getEventIntegrationResponse_description,
     getEventIntegrationResponse_eventBridgeBus,
     getEventIntegrationResponse_eventFilter,
     getEventIntegrationResponse_eventIntegrationArn,
     getEventIntegrationResponse_name,
-    getEventIntegrationResponse_description,
     getEventIntegrationResponse_tags,
     getEventIntegrationResponse_httpStatus,
   )
@@ -46,7 +46,8 @@ where
 
 import Amazonka.AppIntegrationS.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,17 +83,18 @@ instance Core.AWSRequest GetEventIntegration where
   type
     AWSResponse GetEventIntegration =
       GetEventIntegrationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetEventIntegrationResponse'
-            Prelude.<$> (x Core..?> "EventBridgeBus")
-            Prelude.<*> (x Core..?> "EventFilter")
-            Prelude.<*> (x Core..?> "EventIntegrationArn")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "Description")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Description")
+            Prelude.<*> (x Data..?> "EventBridgeBus")
+            Prelude.<*> (x Data..?> "EventFilter")
+            Prelude.<*> (x Data..?> "EventIntegrationArn")
+            Prelude.<*> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -103,28 +105,30 @@ instance Prelude.Hashable GetEventIntegration where
 instance Prelude.NFData GetEventIntegration where
   rnf GetEventIntegration' {..} = Prelude.rnf name
 
-instance Core.ToHeaders GetEventIntegration where
+instance Data.ToHeaders GetEventIntegration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetEventIntegration where
+instance Data.ToPath GetEventIntegration where
   toPath GetEventIntegration' {..} =
     Prelude.mconcat
-      ["/eventIntegrations/", Core.toBS name]
+      ["/eventIntegrations/", Data.toBS name]
 
-instance Core.ToQuery GetEventIntegration where
+instance Data.ToQuery GetEventIntegration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetEventIntegrationResponse' smart constructor.
 data GetEventIntegrationResponse = GetEventIntegrationResponse'
-  { -- | The EventBridge bus.
+  { -- | The description of the event integration.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The EventBridge bus.
     eventBridgeBus :: Prelude.Maybe Prelude.Text,
     -- | The event filter.
     eventFilter :: Prelude.Maybe EventFilter,
@@ -132,8 +136,6 @@ data GetEventIntegrationResponse = GetEventIntegrationResponse'
     eventIntegrationArn :: Prelude.Maybe Prelude.Text,
     -- | The name of the event integration.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The description of the event integration.
-    description :: Prelude.Maybe Prelude.Text,
     -- | One or more tags.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
@@ -149,6 +151,8 @@ data GetEventIntegrationResponse = GetEventIntegrationResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'getEventIntegrationResponse_description' - The description of the event integration.
+--
 -- 'eventBridgeBus', 'getEventIntegrationResponse_eventBridgeBus' - The EventBridge bus.
 --
 -- 'eventFilter', 'getEventIntegrationResponse_eventFilter' - The event filter.
@@ -156,8 +160,6 @@ data GetEventIntegrationResponse = GetEventIntegrationResponse'
 -- 'eventIntegrationArn', 'getEventIntegrationResponse_eventIntegrationArn' - The Amazon Resource Name (ARN) for the event integration.
 --
 -- 'name', 'getEventIntegrationResponse_name' - The name of the event integration.
---
--- 'description', 'getEventIntegrationResponse_description' - The description of the event integration.
 --
 -- 'tags', 'getEventIntegrationResponse_tags' - One or more tags.
 --
@@ -168,15 +170,19 @@ newGetEventIntegrationResponse ::
   GetEventIntegrationResponse
 newGetEventIntegrationResponse pHttpStatus_ =
   GetEventIntegrationResponse'
-    { eventBridgeBus =
+    { description =
         Prelude.Nothing,
+      eventBridgeBus = Prelude.Nothing,
       eventFilter = Prelude.Nothing,
       eventIntegrationArn = Prelude.Nothing,
       name = Prelude.Nothing,
-      description = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The description of the event integration.
+getEventIntegrationResponse_description :: Lens.Lens' GetEventIntegrationResponse (Prelude.Maybe Prelude.Text)
+getEventIntegrationResponse_description = Lens.lens (\GetEventIntegrationResponse' {description} -> description) (\s@GetEventIntegrationResponse' {} a -> s {description = a} :: GetEventIntegrationResponse)
 
 -- | The EventBridge bus.
 getEventIntegrationResponse_eventBridgeBus :: Lens.Lens' GetEventIntegrationResponse (Prelude.Maybe Prelude.Text)
@@ -194,10 +200,6 @@ getEventIntegrationResponse_eventIntegrationArn = Lens.lens (\GetEventIntegratio
 getEventIntegrationResponse_name :: Lens.Lens' GetEventIntegrationResponse (Prelude.Maybe Prelude.Text)
 getEventIntegrationResponse_name = Lens.lens (\GetEventIntegrationResponse' {name} -> name) (\s@GetEventIntegrationResponse' {} a -> s {name = a} :: GetEventIntegrationResponse)
 
--- | The description of the event integration.
-getEventIntegrationResponse_description :: Lens.Lens' GetEventIntegrationResponse (Prelude.Maybe Prelude.Text)
-getEventIntegrationResponse_description = Lens.lens (\GetEventIntegrationResponse' {description} -> description) (\s@GetEventIntegrationResponse' {} a -> s {description = a} :: GetEventIntegrationResponse)
-
 -- | One or more tags.
 getEventIntegrationResponse_tags :: Lens.Lens' GetEventIntegrationResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 getEventIntegrationResponse_tags = Lens.lens (\GetEventIntegrationResponse' {tags} -> tags) (\s@GetEventIntegrationResponse' {} a -> s {tags = a} :: GetEventIntegrationResponse) Prelude.. Lens.mapping Lens.coerced
@@ -208,10 +210,10 @@ getEventIntegrationResponse_httpStatus = Lens.lens (\GetEventIntegrationResponse
 
 instance Prelude.NFData GetEventIntegrationResponse where
   rnf GetEventIntegrationResponse' {..} =
-    Prelude.rnf eventBridgeBus
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf eventBridgeBus
       `Prelude.seq` Prelude.rnf eventFilter
       `Prelude.seq` Prelude.rnf eventIntegrationArn
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

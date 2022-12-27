@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchAddFacetToObject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.CloudDirectory.Types.AttributeKeyAndValue
 import Amazonka.CloudDirectory.Types.ObjectReference
 import Amazonka.CloudDirectory.Types.SchemaFacet
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output of a batch add facet to object operation.
@@ -91,14 +92,14 @@ instance Prelude.NFData BatchAddFacetToObject where
       `Prelude.seq` Prelude.rnf objectAttributeList
       `Prelude.seq` Prelude.rnf objectReference
 
-instance Core.ToJSON BatchAddFacetToObject where
+instance Data.ToJSON BatchAddFacetToObject where
   toJSON BatchAddFacetToObject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("SchemaFacet" Core..= schemaFacet),
+          [ Prelude.Just ("SchemaFacet" Data..= schemaFacet),
             Prelude.Just
-              ("ObjectAttributeList" Core..= objectAttributeList),
+              ("ObjectAttributeList" Data..= objectAttributeList),
             Prelude.Just
-              ("ObjectReference" Core..= objectReference)
+              ("ObjectReference" Data..= objectReference)
           ]
       )

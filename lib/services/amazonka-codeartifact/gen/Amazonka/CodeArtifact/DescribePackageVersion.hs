@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.DescribePackageVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.CodeArtifact.DescribePackageVersion
     newDescribePackageVersion,
 
     -- * Request Lenses
-    describePackageVersion_namespace,
     describePackageVersion_domainOwner,
+    describePackageVersion_namespace,
     describePackageVersion_domain,
     describePackageVersion_repository,
     describePackageVersion_format,
@@ -49,39 +49,34 @@ where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribePackageVersion' smart constructor.
 data DescribePackageVersion = DescribePackageVersion'
-  { -- | The namespace of the package. The package component that specifies its
-    -- namespace depends on its type. For example:
-    --
-    -- -   The namespace of a Maven package is its @groupId@.
-    --
-    -- -   The namespace of an npm package is its @scope@.
-    --
-    -- -   A Python package does not contain a corresponding component, so
-    --     Python packages do not have a namespace.
-    namespace :: Prelude.Maybe Prelude.Text,
-    -- | The 12-digit account number of the AWS account that owns the domain. It
-    -- does not include dashes or spaces.
+  { -- | The 12-digit account number of the Amazon Web Services account that owns
+    -- the domain. It does not include dashes or spaces.
     domainOwner :: Prelude.Maybe Prelude.Text,
+    -- | The namespace of the requested package version. The package version
+    -- component that specifies its namespace depends on its type. For example:
+    --
+    -- -   The namespace of a Maven package version is its @groupId@.
+    --
+    -- -   The namespace of an npm package version is its @scope@.
+    --
+    -- -   Python and NuGet package versions do not contain a corresponding
+    --     component, package versions of those formats do not have a
+    --     namespace.
+    namespace :: Prelude.Maybe Prelude.Text,
     -- | The name of the domain that contains the repository that contains the
     -- package version.
     domain :: Prelude.Text,
     -- | The name of the repository that contains the package version.
     repository :: Prelude.Text,
-    -- | A format that specifies the type of the requested package version. The
-    -- valid values are:
-    --
-    -- -   @npm@
-    --
-    -- -   @pypi@
-    --
-    -- -   @maven@
+    -- | A format that specifies the type of the requested package version.
     format :: PackageFormat,
     -- | The name of the requested package version.
     package :: Prelude.Text,
@@ -98,32 +93,26 @@ data DescribePackageVersion = DescribePackageVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'namespace', 'describePackageVersion_namespace' - The namespace of the package. The package component that specifies its
--- namespace depends on its type. For example:
+-- 'domainOwner', 'describePackageVersion_domainOwner' - The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 --
--- -   The namespace of a Maven package is its @groupId@.
+-- 'namespace', 'describePackageVersion_namespace' - The namespace of the requested package version. The package version
+-- component that specifies its namespace depends on its type. For example:
 --
--- -   The namespace of an npm package is its @scope@.
+-- -   The namespace of a Maven package version is its @groupId@.
 --
--- -   A Python package does not contain a corresponding component, so
---     Python packages do not have a namespace.
+-- -   The namespace of an npm package version is its @scope@.
 --
--- 'domainOwner', 'describePackageVersion_domainOwner' - The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- -   Python and NuGet package versions do not contain a corresponding
+--     component, package versions of those formats do not have a
+--     namespace.
 --
 -- 'domain', 'describePackageVersion_domain' - The name of the domain that contains the repository that contains the
 -- package version.
 --
 -- 'repository', 'describePackageVersion_repository' - The name of the repository that contains the package version.
 --
--- 'format', 'describePackageVersion_format' - A format that specifies the type of the requested package version. The
--- valid values are:
---
--- -   @npm@
---
--- -   @pypi@
---
--- -   @maven@
+-- 'format', 'describePackageVersion_format' - A format that specifies the type of the requested package version.
 --
 -- 'package', 'describePackageVersion_package' - The name of the requested package version.
 --
@@ -147,9 +136,9 @@ newDescribePackageVersion
   pPackage_
   pPackageVersion_ =
     DescribePackageVersion'
-      { namespace =
+      { domainOwner =
           Prelude.Nothing,
-        domainOwner = Prelude.Nothing,
+        namespace = Prelude.Nothing,
         domain = pDomain_,
         repository = pRepository_,
         format = pFormat_,
@@ -157,22 +146,23 @@ newDescribePackageVersion
         packageVersion = pPackageVersion_
       }
 
--- | The namespace of the package. The package component that specifies its
--- namespace depends on its type. For example:
---
--- -   The namespace of a Maven package is its @groupId@.
---
--- -   The namespace of an npm package is its @scope@.
---
--- -   A Python package does not contain a corresponding component, so
---     Python packages do not have a namespace.
-describePackageVersion_namespace :: Lens.Lens' DescribePackageVersion (Prelude.Maybe Prelude.Text)
-describePackageVersion_namespace = Lens.lens (\DescribePackageVersion' {namespace} -> namespace) (\s@DescribePackageVersion' {} a -> s {namespace = a} :: DescribePackageVersion)
-
--- | The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- | The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 describePackageVersion_domainOwner :: Lens.Lens' DescribePackageVersion (Prelude.Maybe Prelude.Text)
 describePackageVersion_domainOwner = Lens.lens (\DescribePackageVersion' {domainOwner} -> domainOwner) (\s@DescribePackageVersion' {} a -> s {domainOwner = a} :: DescribePackageVersion)
+
+-- | The namespace of the requested package version. The package version
+-- component that specifies its namespace depends on its type. For example:
+--
+-- -   The namespace of a Maven package version is its @groupId@.
+--
+-- -   The namespace of an npm package version is its @scope@.
+--
+-- -   Python and NuGet package versions do not contain a corresponding
+--     component, package versions of those formats do not have a
+--     namespace.
+describePackageVersion_namespace :: Lens.Lens' DescribePackageVersion (Prelude.Maybe Prelude.Text)
+describePackageVersion_namespace = Lens.lens (\DescribePackageVersion' {namespace} -> namespace) (\s@DescribePackageVersion' {} a -> s {namespace = a} :: DescribePackageVersion)
 
 -- | The name of the domain that contains the repository that contains the
 -- package version.
@@ -183,14 +173,7 @@ describePackageVersion_domain = Lens.lens (\DescribePackageVersion' {domain} -> 
 describePackageVersion_repository :: Lens.Lens' DescribePackageVersion Prelude.Text
 describePackageVersion_repository = Lens.lens (\DescribePackageVersion' {repository} -> repository) (\s@DescribePackageVersion' {} a -> s {repository = a} :: DescribePackageVersion)
 
--- | A format that specifies the type of the requested package version. The
--- valid values are:
---
--- -   @npm@
---
--- -   @pypi@
---
--- -   @maven@
+-- | A format that specifies the type of the requested package version.
 describePackageVersion_format :: Lens.Lens' DescribePackageVersion PackageFormat
 describePackageVersion_format = Lens.lens (\DescribePackageVersion' {format} -> format) (\s@DescribePackageVersion' {} a -> s {format = a} :: DescribePackageVersion)
 
@@ -206,19 +189,20 @@ instance Core.AWSRequest DescribePackageVersion where
   type
     AWSResponse DescribePackageVersion =
       DescribePackageVersionResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePackageVersionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "packageVersion")
+            Prelude.<*> (x Data..:> "packageVersion")
       )
 
 instance Prelude.Hashable DescribePackageVersion where
   hashWithSalt _salt DescribePackageVersion' {..} =
-    _salt `Prelude.hashWithSalt` namespace
-      `Prelude.hashWithSalt` domainOwner
+    _salt `Prelude.hashWithSalt` domainOwner
+      `Prelude.hashWithSalt` namespace
       `Prelude.hashWithSalt` domain
       `Prelude.hashWithSalt` repository
       `Prelude.hashWithSalt` format
@@ -227,38 +211,38 @@ instance Prelude.Hashable DescribePackageVersion where
 
 instance Prelude.NFData DescribePackageVersion where
   rnf DescribePackageVersion' {..} =
-    Prelude.rnf namespace
-      `Prelude.seq` Prelude.rnf domainOwner
+    Prelude.rnf domainOwner
+      `Prelude.seq` Prelude.rnf namespace
       `Prelude.seq` Prelude.rnf domain
       `Prelude.seq` Prelude.rnf repository
       `Prelude.seq` Prelude.rnf format
       `Prelude.seq` Prelude.rnf package
       `Prelude.seq` Prelude.rnf packageVersion
 
-instance Core.ToHeaders DescribePackageVersion where
+instance Data.ToHeaders DescribePackageVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribePackageVersion where
+instance Data.ToPath DescribePackageVersion where
   toPath = Prelude.const "/v1/package/version"
 
-instance Core.ToQuery DescribePackageVersion where
+instance Data.ToQuery DescribePackageVersion where
   toQuery DescribePackageVersion' {..} =
     Prelude.mconcat
-      [ "namespace" Core.=: namespace,
-        "domain-owner" Core.=: domainOwner,
-        "domain" Core.=: domain,
-        "repository" Core.=: repository,
-        "format" Core.=: format,
-        "package" Core.=: package,
-        "version" Core.=: packageVersion
+      [ "domain-owner" Data.=: domainOwner,
+        "namespace" Data.=: namespace,
+        "domain" Data.=: domain,
+        "repository" Data.=: repository,
+        "format" Data.=: format,
+        "package" Data.=: package,
+        "version" Data.=: packageVersion
       ]
 
 -- | /See:/ 'newDescribePackageVersionResponse' smart constructor.

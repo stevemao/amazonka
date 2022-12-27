@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListActiveViolations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,13 +34,13 @@ module Amazonka.IoT.ListActiveViolations
     newListActiveViolations,
 
     -- * Request Lenses
-    listActiveViolations_nextToken,
-    listActiveViolations_listSuppressedAlerts,
     listActiveViolations_behaviorCriteriaType,
+    listActiveViolations_listSuppressedAlerts,
+    listActiveViolations_maxResults,
+    listActiveViolations_nextToken,
     listActiveViolations_securityProfileName,
     listActiveViolations_thingName,
     listActiveViolations_verificationState,
-    listActiveViolations_maxResults,
 
     -- * Destructuring the Response
     ListActiveViolationsResponse (..),
@@ -54,29 +54,30 @@ module Amazonka.IoT.ListActiveViolations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListActiveViolations' smart constructor.
 data ListActiveViolations = ListActiveViolations'
-  { -- | The token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { -- | The criteria for a behavior.
+    behaviorCriteriaType :: Prelude.Maybe BehaviorCriteriaType,
     -- | A list of all suppressed alerts.
     listSuppressedAlerts :: Prelude.Maybe Prelude.Bool,
-    -- | The criteria for a behavior.
-    behaviorCriteriaType :: Prelude.Maybe BehaviorCriteriaType,
+    -- | The maximum number of results to return at one time.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the Device Defender security profile for which violations
     -- are listed.
     securityProfileName :: Prelude.Maybe Prelude.Text,
     -- | The name of the thing whose active violations are listed.
     thingName :: Prelude.Maybe Prelude.Text,
     -- | The verification state of the violation (detect alarm).
-    verificationState :: Prelude.Maybe VerificationState,
-    -- | The maximum number of results to return at one time.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    verificationState :: Prelude.Maybe VerificationState
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -88,11 +89,13 @@ data ListActiveViolations = ListActiveViolations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listActiveViolations_nextToken' - The token for the next set of results.
+-- 'behaviorCriteriaType', 'listActiveViolations_behaviorCriteriaType' - The criteria for a behavior.
 --
 -- 'listSuppressedAlerts', 'listActiveViolations_listSuppressedAlerts' - A list of all suppressed alerts.
 --
--- 'behaviorCriteriaType', 'listActiveViolations_behaviorCriteriaType' - The criteria for a behavior.
+-- 'maxResults', 'listActiveViolations_maxResults' - The maximum number of results to return at one time.
+--
+-- 'nextToken', 'listActiveViolations_nextToken' - The token for the next set of results.
 --
 -- 'securityProfileName', 'listActiveViolations_securityProfileName' - The name of the Device Defender security profile for which violations
 -- are listed.
@@ -100,32 +103,35 @@ data ListActiveViolations = ListActiveViolations'
 -- 'thingName', 'listActiveViolations_thingName' - The name of the thing whose active violations are listed.
 --
 -- 'verificationState', 'listActiveViolations_verificationState' - The verification state of the violation (detect alarm).
---
--- 'maxResults', 'listActiveViolations_maxResults' - The maximum number of results to return at one time.
 newListActiveViolations ::
   ListActiveViolations
 newListActiveViolations =
   ListActiveViolations'
-    { nextToken = Prelude.Nothing,
+    { behaviorCriteriaType =
+        Prelude.Nothing,
       listSuppressedAlerts = Prelude.Nothing,
-      behaviorCriteriaType = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       securityProfileName = Prelude.Nothing,
       thingName = Prelude.Nothing,
-      verificationState = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      verificationState = Prelude.Nothing
     }
 
--- | The token for the next set of results.
-listActiveViolations_nextToken :: Lens.Lens' ListActiveViolations (Prelude.Maybe Prelude.Text)
-listActiveViolations_nextToken = Lens.lens (\ListActiveViolations' {nextToken} -> nextToken) (\s@ListActiveViolations' {} a -> s {nextToken = a} :: ListActiveViolations)
+-- | The criteria for a behavior.
+listActiveViolations_behaviorCriteriaType :: Lens.Lens' ListActiveViolations (Prelude.Maybe BehaviorCriteriaType)
+listActiveViolations_behaviorCriteriaType = Lens.lens (\ListActiveViolations' {behaviorCriteriaType} -> behaviorCriteriaType) (\s@ListActiveViolations' {} a -> s {behaviorCriteriaType = a} :: ListActiveViolations)
 
 -- | A list of all suppressed alerts.
 listActiveViolations_listSuppressedAlerts :: Lens.Lens' ListActiveViolations (Prelude.Maybe Prelude.Bool)
 listActiveViolations_listSuppressedAlerts = Lens.lens (\ListActiveViolations' {listSuppressedAlerts} -> listSuppressedAlerts) (\s@ListActiveViolations' {} a -> s {listSuppressedAlerts = a} :: ListActiveViolations)
 
--- | The criteria for a behavior.
-listActiveViolations_behaviorCriteriaType :: Lens.Lens' ListActiveViolations (Prelude.Maybe BehaviorCriteriaType)
-listActiveViolations_behaviorCriteriaType = Lens.lens (\ListActiveViolations' {behaviorCriteriaType} -> behaviorCriteriaType) (\s@ListActiveViolations' {} a -> s {behaviorCriteriaType = a} :: ListActiveViolations)
+-- | The maximum number of results to return at one time.
+listActiveViolations_maxResults :: Lens.Lens' ListActiveViolations (Prelude.Maybe Prelude.Natural)
+listActiveViolations_maxResults = Lens.lens (\ListActiveViolations' {maxResults} -> maxResults) (\s@ListActiveViolations' {} a -> s {maxResults = a} :: ListActiveViolations)
+
+-- | The token for the next set of results.
+listActiveViolations_nextToken :: Lens.Lens' ListActiveViolations (Prelude.Maybe Prelude.Text)
+listActiveViolations_nextToken = Lens.lens (\ListActiveViolations' {nextToken} -> nextToken) (\s@ListActiveViolations' {} a -> s {nextToken = a} :: ListActiveViolations)
 
 -- | The name of the Device Defender security profile for which violations
 -- are listed.
@@ -139,10 +145,6 @@ listActiveViolations_thingName = Lens.lens (\ListActiveViolations' {thingName} -
 -- | The verification state of the violation (detect alarm).
 listActiveViolations_verificationState :: Lens.Lens' ListActiveViolations (Prelude.Maybe VerificationState)
 listActiveViolations_verificationState = Lens.lens (\ListActiveViolations' {verificationState} -> verificationState) (\s@ListActiveViolations' {} a -> s {verificationState = a} :: ListActiveViolations)
-
--- | The maximum number of results to return at one time.
-listActiveViolations_maxResults :: Lens.Lens' ListActiveViolations (Prelude.Maybe Prelude.Natural)
-listActiveViolations_maxResults = Lens.lens (\ListActiveViolations' {maxResults} -> maxResults) (\s@ListActiveViolations' {} a -> s {maxResults = a} :: ListActiveViolations)
 
 instance Core.AWSPager ListActiveViolations where
   page rq rs
@@ -170,54 +172,55 @@ instance Core.AWSRequest ListActiveViolations where
   type
     AWSResponse ListActiveViolations =
       ListActiveViolationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListActiveViolationsResponse'
-            Prelude.<$> ( x Core..?> "activeViolations"
+            Prelude.<$> ( x Data..?> "activeViolations"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListActiveViolations where
   hashWithSalt _salt ListActiveViolations' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` behaviorCriteriaType
       `Prelude.hashWithSalt` listSuppressedAlerts
-      `Prelude.hashWithSalt` behaviorCriteriaType
+      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` securityProfileName
       `Prelude.hashWithSalt` thingName
       `Prelude.hashWithSalt` verificationState
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData ListActiveViolations where
   rnf ListActiveViolations' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf behaviorCriteriaType
       `Prelude.seq` Prelude.rnf listSuppressedAlerts
-      `Prelude.seq` Prelude.rnf behaviorCriteriaType
+      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf securityProfileName
       `Prelude.seq` Prelude.rnf thingName
       `Prelude.seq` Prelude.rnf verificationState
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders ListActiveViolations where
+instance Data.ToHeaders ListActiveViolations where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListActiveViolations where
+instance Data.ToPath ListActiveViolations where
   toPath = Prelude.const "/active-violations"
 
-instance Core.ToQuery ListActiveViolations where
+instance Data.ToQuery ListActiveViolations where
   toQuery ListActiveViolations' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "listSuppressedAlerts" Core.=: listSuppressedAlerts,
-        "behaviorCriteriaType" Core.=: behaviorCriteriaType,
-        "securityProfileName" Core.=: securityProfileName,
-        "thingName" Core.=: thingName,
-        "verificationState" Core.=: verificationState,
-        "maxResults" Core.=: maxResults
+      [ "behaviorCriteriaType" Data.=: behaviorCriteriaType,
+        "listSuppressedAlerts" Data.=: listSuppressedAlerts,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "securityProfileName" Data.=: securityProfileName,
+        "thingName" Data.=: thingName,
+        "verificationState" Data.=: verificationState
       ]
 
 -- | /See:/ 'newListActiveViolationsResponse' smart constructor.

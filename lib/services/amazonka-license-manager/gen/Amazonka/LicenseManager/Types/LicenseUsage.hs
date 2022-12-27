@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.Types.LicenseUsage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LicenseManager.Types.LicenseUsage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types.EntitlementUsage
 import qualified Amazonka.Prelude as Prelude
 
@@ -51,14 +52,14 @@ newLicenseUsage =
 licenseUsage_entitlementUsages :: Lens.Lens' LicenseUsage (Prelude.Maybe [EntitlementUsage])
 licenseUsage_entitlementUsages = Lens.lens (\LicenseUsage' {entitlementUsages} -> entitlementUsages) (\s@LicenseUsage' {} a -> s {entitlementUsages = a} :: LicenseUsage) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON LicenseUsage where
+instance Data.FromJSON LicenseUsage where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LicenseUsage"
       ( \x ->
           LicenseUsage'
-            Prelude.<$> ( x Core..:? "EntitlementUsages"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "EntitlementUsages"
+                            Data..!= Prelude.mempty
                         )
       )
 

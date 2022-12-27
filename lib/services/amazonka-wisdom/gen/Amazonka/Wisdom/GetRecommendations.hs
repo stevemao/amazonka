@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.GetRecommendations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.Wisdom.GetRecommendations
     newGetRecommendations,
 
     -- * Request Lenses
-    getRecommendations_waitTimeSeconds,
     getRecommendations_maxResults,
+    getRecommendations_waitTimeSeconds,
     getRecommendations_assistantId,
     getRecommendations_sessionId,
 
@@ -44,13 +44,15 @@ module Amazonka.Wisdom.GetRecommendations
     newGetRecommendationsResponse,
 
     -- * Response Lenses
+    getRecommendationsResponse_triggers,
     getRecommendationsResponse_httpStatus,
     getRecommendationsResponse_recommendations,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,14 +60,14 @@ import Amazonka.Wisdom.Types
 
 -- | /See:/ 'newGetRecommendations' smart constructor.
 data GetRecommendations = GetRecommendations'
-  { -- | The duration (in seconds) for which the call waits for a recommendation
+  { -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The duration (in seconds) for which the call waits for a recommendation
     -- to be made available before returning. If a recommendation is available,
     -- the call returns sooner than @WaitTimeSeconds@. If no messages are
     -- available and the wait time expires, the call returns successfully with
     -- an empty list.
     waitTimeSeconds :: Prelude.Maybe Prelude.Natural,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The identifier of the Wisdom assistant. Can be either the ID or the ARN.
     -- URLs cannot contain the ARN.
     assistantId :: Prelude.Text,
@@ -83,13 +85,13 @@ data GetRecommendations = GetRecommendations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getRecommendations_maxResults' - The maximum number of results to return per page.
+--
 -- 'waitTimeSeconds', 'getRecommendations_waitTimeSeconds' - The duration (in seconds) for which the call waits for a recommendation
 -- to be made available before returning. If a recommendation is available,
 -- the call returns sooner than @WaitTimeSeconds@. If no messages are
 -- available and the wait time expires, the call returns successfully with
 -- an empty list.
---
--- 'maxResults', 'getRecommendations_maxResults' - The maximum number of results to return per page.
 --
 -- 'assistantId', 'getRecommendations_assistantId' - The identifier of the Wisdom assistant. Can be either the ID or the ARN.
 -- URLs cannot contain the ARN.
@@ -104,12 +106,15 @@ newGetRecommendations ::
   GetRecommendations
 newGetRecommendations pAssistantId_ pSessionId_ =
   GetRecommendations'
-    { waitTimeSeconds =
-        Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      waitTimeSeconds = Prelude.Nothing,
       assistantId = pAssistantId_,
       sessionId = pSessionId_
     }
+
+-- | The maximum number of results to return per page.
+getRecommendations_maxResults :: Lens.Lens' GetRecommendations (Prelude.Maybe Prelude.Natural)
+getRecommendations_maxResults = Lens.lens (\GetRecommendations' {maxResults} -> maxResults) (\s@GetRecommendations' {} a -> s {maxResults = a} :: GetRecommendations)
 
 -- | The duration (in seconds) for which the call waits for a recommendation
 -- to be made available before returning. If a recommendation is available,
@@ -118,10 +123,6 @@ newGetRecommendations pAssistantId_ pSessionId_ =
 -- an empty list.
 getRecommendations_waitTimeSeconds :: Lens.Lens' GetRecommendations (Prelude.Maybe Prelude.Natural)
 getRecommendations_waitTimeSeconds = Lens.lens (\GetRecommendations' {waitTimeSeconds} -> waitTimeSeconds) (\s@GetRecommendations' {} a -> s {waitTimeSeconds = a} :: GetRecommendations)
-
--- | The maximum number of results to return per page.
-getRecommendations_maxResults :: Lens.Lens' GetRecommendations (Prelude.Maybe Prelude.Natural)
-getRecommendations_maxResults = Lens.lens (\GetRecommendations' {maxResults} -> maxResults) (\s@GetRecommendations' {} a -> s {maxResults = a} :: GetRecommendations)
 
 -- | The identifier of the Wisdom assistant. Can be either the ID or the ARN.
 -- URLs cannot contain the ARN.
@@ -137,62 +138,66 @@ instance Core.AWSRequest GetRecommendations where
   type
     AWSResponse GetRecommendations =
       GetRecommendationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRecommendationsResponse'
-            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "recommendations"
+            Prelude.<$> (x Data..?> "triggers" Core..!@ Prelude.mempty)
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> ( x Data..?> "recommendations"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable GetRecommendations where
   hashWithSalt _salt GetRecommendations' {..} =
-    _salt `Prelude.hashWithSalt` waitTimeSeconds
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` waitTimeSeconds
       `Prelude.hashWithSalt` assistantId
       `Prelude.hashWithSalt` sessionId
 
 instance Prelude.NFData GetRecommendations where
   rnf GetRecommendations' {..} =
-    Prelude.rnf waitTimeSeconds
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf waitTimeSeconds
       `Prelude.seq` Prelude.rnf assistantId
       `Prelude.seq` Prelude.rnf sessionId
 
-instance Core.ToHeaders GetRecommendations where
+instance Data.ToHeaders GetRecommendations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetRecommendations where
+instance Data.ToPath GetRecommendations where
   toPath GetRecommendations' {..} =
     Prelude.mconcat
       [ "/assistants/",
-        Core.toBS assistantId,
+        Data.toBS assistantId,
         "/sessions/",
-        Core.toBS sessionId,
+        Data.toBS sessionId,
         "/recommendations"
       ]
 
-instance Core.ToQuery GetRecommendations where
+instance Data.ToQuery GetRecommendations where
   toQuery GetRecommendations' {..} =
     Prelude.mconcat
-      [ "waitTimeSeconds" Core.=: waitTimeSeconds,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "waitTimeSeconds" Data.=: waitTimeSeconds
       ]
 
 -- | /See:/ 'newGetRecommendationsResponse' smart constructor.
 data GetRecommendationsResponse = GetRecommendationsResponse'
-  { -- | The response's http status code.
+  { -- | The triggers corresponding to recommendations.
+    triggers :: Prelude.Maybe [RecommendationTrigger],
+    -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The recommendations.
     recommendations :: [RecommendationData]
@@ -207,6 +212,8 @@ data GetRecommendationsResponse = GetRecommendationsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'triggers', 'getRecommendationsResponse_triggers' - The triggers corresponding to recommendations.
+--
 -- 'httpStatus', 'getRecommendationsResponse_httpStatus' - The response's http status code.
 --
 -- 'recommendations', 'getRecommendationsResponse_recommendations' - The recommendations.
@@ -216,10 +223,15 @@ newGetRecommendationsResponse ::
   GetRecommendationsResponse
 newGetRecommendationsResponse pHttpStatus_ =
   GetRecommendationsResponse'
-    { httpStatus =
-        pHttpStatus_,
+    { triggers =
+        Prelude.Nothing,
+      httpStatus = pHttpStatus_,
       recommendations = Prelude.mempty
     }
+
+-- | The triggers corresponding to recommendations.
+getRecommendationsResponse_triggers :: Lens.Lens' GetRecommendationsResponse (Prelude.Maybe [RecommendationTrigger])
+getRecommendationsResponse_triggers = Lens.lens (\GetRecommendationsResponse' {triggers} -> triggers) (\s@GetRecommendationsResponse' {} a -> s {triggers = a} :: GetRecommendationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 getRecommendationsResponse_httpStatus :: Lens.Lens' GetRecommendationsResponse Prelude.Int
@@ -231,5 +243,6 @@ getRecommendationsResponse_recommendations = Lens.lens (\GetRecommendationsRespo
 
 instance Prelude.NFData GetRecommendationsResponse where
   rnf GetRecommendationsResponse' {..} =
-    Prelude.rnf httpStatus
+    Prelude.rnf triggers
+      `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf recommendations

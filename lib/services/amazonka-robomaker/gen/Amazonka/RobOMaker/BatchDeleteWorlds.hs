@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.BatchDeleteWorlds
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.RobOMaker.BatchDeleteWorlds
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,12 +84,13 @@ instance Core.AWSRequest BatchDeleteWorlds where
   type
     AWSResponse BatchDeleteWorlds =
       BatchDeleteWorldsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDeleteWorldsResponse'
-            Prelude.<$> (x Core..?> "unprocessedWorlds")
+            Prelude.<$> (x Data..?> "unprocessedWorlds")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -99,28 +101,28 @@ instance Prelude.Hashable BatchDeleteWorlds where
 instance Prelude.NFData BatchDeleteWorlds where
   rnf BatchDeleteWorlds' {..} = Prelude.rnf worlds
 
-instance Core.ToHeaders BatchDeleteWorlds where
+instance Data.ToHeaders BatchDeleteWorlds where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchDeleteWorlds where
+instance Data.ToJSON BatchDeleteWorlds where
   toJSON BatchDeleteWorlds' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("worlds" Core..= worlds)]
+          [Prelude.Just ("worlds" Data..= worlds)]
       )
 
-instance Core.ToPath BatchDeleteWorlds where
+instance Data.ToPath BatchDeleteWorlds where
   toPath = Prelude.const "/batchDeleteWorlds"
 
-instance Core.ToQuery BatchDeleteWorlds where
+instance Data.ToQuery BatchDeleteWorlds where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchDeleteWorldsResponse' smart constructor.

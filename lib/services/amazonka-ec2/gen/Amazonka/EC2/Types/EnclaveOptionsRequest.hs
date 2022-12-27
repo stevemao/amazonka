@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.EnclaveOptionsRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.EnclaveOptionsRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Indicates whether the instance is enabled for Amazon Web Services Nitro
@@ -64,6 +65,6 @@ instance Prelude.Hashable EnclaveOptionsRequest where
 instance Prelude.NFData EnclaveOptionsRequest where
   rnf EnclaveOptionsRequest' {..} = Prelude.rnf enabled
 
-instance Core.ToQuery EnclaveOptionsRequest where
+instance Data.ToQuery EnclaveOptionsRequest where
   toQuery EnclaveOptionsRequest' {..} =
-    Prelude.mconcat ["Enabled" Core.=: enabled]
+    Prelude.mconcat ["Enabled" Data.=: enabled]

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.CreateInvalidation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,13 +98,14 @@ instance Core.AWSRequest CreateInvalidation where
   type
     AWSResponse CreateInvalidation =
       CreateInvalidationResponse
-  request = Request.postXML defaultService
+  request overrides =
+    Request.postXML (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateInvalidationResponse'
-            Prelude.<$> (Core.parseXML x)
-            Prelude.<*> (h Core..#? "Location")
+            Prelude.<$> (Data.parseXML x)
+            Prelude.<*> (h Data..#? "Location")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,24 +119,24 @@ instance Prelude.NFData CreateInvalidation where
     Prelude.rnf distributionId
       `Prelude.seq` Prelude.rnf invalidationBatch
 
-instance Core.ToElement CreateInvalidation where
+instance Data.ToElement CreateInvalidation where
   toElement CreateInvalidation' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}InvalidationBatch"
       invalidationBatch
 
-instance Core.ToHeaders CreateInvalidation where
+instance Data.ToHeaders CreateInvalidation where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateInvalidation where
+instance Data.ToPath CreateInvalidation where
   toPath CreateInvalidation' {..} =
     Prelude.mconcat
       [ "/2020-05-31/distribution/",
-        Core.toBS distributionId,
+        Data.toBS distributionId,
         "/invalidation"
       ]
 
-instance Core.ToQuery CreateInvalidation where
+instance Data.ToQuery CreateInvalidation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The returned result of the corresponding request.

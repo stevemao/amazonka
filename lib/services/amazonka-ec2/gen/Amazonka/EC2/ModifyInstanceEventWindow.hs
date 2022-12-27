@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyInstanceEventWindow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,9 +40,9 @@ module Amazonka.EC2.ModifyInstanceEventWindow
     newModifyInstanceEventWindow,
 
     -- * Request Lenses
-    modifyInstanceEventWindow_name,
     modifyInstanceEventWindow_cronExpression,
     modifyInstanceEventWindow_dryRun,
+    modifyInstanceEventWindow_name,
     modifyInstanceEventWindow_timeRanges,
     modifyInstanceEventWindow_instanceEventWindowId,
 
@@ -57,17 +57,16 @@ module Amazonka.EC2.ModifyInstanceEventWindow
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newModifyInstanceEventWindow' smart constructor.
 data ModifyInstanceEventWindow = ModifyInstanceEventWindow'
-  { -- | The name of the event window.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The cron expression of the event window, for example,
+  { -- | The cron expression of the event window, for example,
     -- @* 0-4,20-23 * * 1,5@.
     --
     -- Constraints:
@@ -95,6 +94,8 @@ data ModifyInstanceEventWindow = ModifyInstanceEventWindow'
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the event window.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The time ranges of the event window.
     timeRanges :: Prelude.Maybe [InstanceEventWindowTimeRangeRequest],
     -- | The ID of the event window.
@@ -109,8 +110,6 @@ data ModifyInstanceEventWindow = ModifyInstanceEventWindow'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'name', 'modifyInstanceEventWindow_name' - The name of the event window.
 --
 -- 'cronExpression', 'modifyInstanceEventWindow_cronExpression' - The cron expression of the event window, for example,
 -- @* 0-4,20-23 * * 1,5@.
@@ -140,6 +139,8 @@ data ModifyInstanceEventWindow = ModifyInstanceEventWindow'
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
 --
+-- 'name', 'modifyInstanceEventWindow_name' - The name of the event window.
+--
 -- 'timeRanges', 'modifyInstanceEventWindow_timeRanges' - The time ranges of the event window.
 --
 -- 'instanceEventWindowId', 'modifyInstanceEventWindow_instanceEventWindowId' - The ID of the event window.
@@ -149,16 +150,13 @@ newModifyInstanceEventWindow ::
   ModifyInstanceEventWindow
 newModifyInstanceEventWindow pInstanceEventWindowId_ =
   ModifyInstanceEventWindow'
-    { name = Prelude.Nothing,
-      cronExpression = Prelude.Nothing,
+    { cronExpression =
+        Prelude.Nothing,
       dryRun = Prelude.Nothing,
+      name = Prelude.Nothing,
       timeRanges = Prelude.Nothing,
       instanceEventWindowId = pInstanceEventWindowId_
     }
-
--- | The name of the event window.
-modifyInstanceEventWindow_name :: Lens.Lens' ModifyInstanceEventWindow (Prelude.Maybe Prelude.Text)
-modifyInstanceEventWindow_name = Lens.lens (\ModifyInstanceEventWindow' {name} -> name) (\s@ModifyInstanceEventWindow' {} a -> s {name = a} :: ModifyInstanceEventWindow)
 
 -- | The cron expression of the event window, for example,
 -- @* 0-4,20-23 * * 1,5@.
@@ -192,6 +190,10 @@ modifyInstanceEventWindow_cronExpression = Lens.lens (\ModifyInstanceEventWindow
 modifyInstanceEventWindow_dryRun :: Lens.Lens' ModifyInstanceEventWindow (Prelude.Maybe Prelude.Bool)
 modifyInstanceEventWindow_dryRun = Lens.lens (\ModifyInstanceEventWindow' {dryRun} -> dryRun) (\s@ModifyInstanceEventWindow' {} a -> s {dryRun = a} :: ModifyInstanceEventWindow)
 
+-- | The name of the event window.
+modifyInstanceEventWindow_name :: Lens.Lens' ModifyInstanceEventWindow (Prelude.Maybe Prelude.Text)
+modifyInstanceEventWindow_name = Lens.lens (\ModifyInstanceEventWindow' {name} -> name) (\s@ModifyInstanceEventWindow' {} a -> s {name = a} :: ModifyInstanceEventWindow)
+
 -- | The time ranges of the event window.
 modifyInstanceEventWindow_timeRanges :: Lens.Lens' ModifyInstanceEventWindow (Prelude.Maybe [InstanceEventWindowTimeRangeRequest])
 modifyInstanceEventWindow_timeRanges = Lens.lens (\ModifyInstanceEventWindow' {timeRanges} -> timeRanges) (\s@ModifyInstanceEventWindow' {} a -> s {timeRanges = a} :: ModifyInstanceEventWindow) Prelude.. Lens.mapping Lens.coerced
@@ -204,53 +206,54 @@ instance Core.AWSRequest ModifyInstanceEventWindow where
   type
     AWSResponse ModifyInstanceEventWindow =
       ModifyInstanceEventWindowResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ModifyInstanceEventWindowResponse'
-            Prelude.<$> (x Core..@? "instanceEventWindow")
+            Prelude.<$> (x Data..@? "instanceEventWindow")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ModifyInstanceEventWindow where
   hashWithSalt _salt ModifyInstanceEventWindow' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` cronExpression
+    _salt `Prelude.hashWithSalt` cronExpression
       `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` timeRanges
       `Prelude.hashWithSalt` instanceEventWindowId
 
 instance Prelude.NFData ModifyInstanceEventWindow where
   rnf ModifyInstanceEventWindow' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf cronExpression
+    Prelude.rnf cronExpression
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf timeRanges
       `Prelude.seq` Prelude.rnf instanceEventWindowId
 
-instance Core.ToHeaders ModifyInstanceEventWindow where
+instance Data.ToHeaders ModifyInstanceEventWindow where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyInstanceEventWindow where
+instance Data.ToPath ModifyInstanceEventWindow where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyInstanceEventWindow where
+instance Data.ToQuery ModifyInstanceEventWindow where
   toQuery ModifyInstanceEventWindow' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyInstanceEventWindow" :: Prelude.ByteString),
+          Data.=: ("ModifyInstanceEventWindow" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "Name" Core.=: name,
-        "CronExpression" Core.=: cronExpression,
-        "DryRun" Core.=: dryRun,
-        Core.toQuery
-          ( Core.toQueryList "TimeRange"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "CronExpression" Data.=: cronExpression,
+        "DryRun" Data.=: dryRun,
+        "Name" Data.=: name,
+        Data.toQuery
+          ( Data.toQueryList "TimeRange"
               Prelude.<$> timeRanges
           ),
         "InstanceEventWindowId"
-          Core.=: instanceEventWindowId
+          Data.=: instanceEventWindowId
       ]
 
 -- | /See:/ 'newModifyInstanceEventWindowResponse' smart constructor.

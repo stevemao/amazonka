@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.IndexAttachment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudDirectory.Types.IndexAttachment where
 
 import Amazonka.CloudDirectory.Types.AttributeKeyAndValue
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents an index and an attached object.
@@ -75,16 +76,16 @@ indexAttachment_indexedAttributes = Lens.lens (\IndexAttachment' {indexedAttribu
 indexAttachment_objectIdentifier :: Lens.Lens' IndexAttachment (Prelude.Maybe Prelude.Text)
 indexAttachment_objectIdentifier = Lens.lens (\IndexAttachment' {objectIdentifier} -> objectIdentifier) (\s@IndexAttachment' {} a -> s {objectIdentifier = a} :: IndexAttachment)
 
-instance Core.FromJSON IndexAttachment where
+instance Data.FromJSON IndexAttachment where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IndexAttachment"
       ( \x ->
           IndexAttachment'
-            Prelude.<$> ( x Core..:? "IndexedAttributes"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "IndexedAttributes"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "ObjectIdentifier")
+            Prelude.<*> (x Data..:? "ObjectIdentifier")
       )
 
 instance Prelude.Hashable IndexAttachment where

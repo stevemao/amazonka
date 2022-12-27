@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.UpdateGlobalSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +81,8 @@ instance Core.AWSRequest UpdateGlobalSettings where
   type
     AWSResponse UpdateGlobalSettings =
       UpdateGlobalSettingsResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveNull UpdateGlobalSettingsResponse'
 
@@ -92,30 +94,30 @@ instance Prelude.NFData UpdateGlobalSettings where
   rnf UpdateGlobalSettings' {..} =
     Prelude.rnf globalSettings
 
-instance Core.ToHeaders UpdateGlobalSettings where
+instance Data.ToHeaders UpdateGlobalSettings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateGlobalSettings where
+instance Data.ToJSON UpdateGlobalSettings where
   toJSON UpdateGlobalSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GlobalSettings" Core..=)
+          [ ("GlobalSettings" Data..=)
               Prelude.<$> globalSettings
           ]
       )
 
-instance Core.ToPath UpdateGlobalSettings where
+instance Data.ToPath UpdateGlobalSettings where
   toPath = Prelude.const "/global-settings"
 
-instance Core.ToQuery UpdateGlobalSettings where
+instance Data.ToQuery UpdateGlobalSettings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateGlobalSettingsResponse' smart constructor.

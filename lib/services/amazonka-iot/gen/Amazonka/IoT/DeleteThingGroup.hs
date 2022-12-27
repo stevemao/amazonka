@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeleteThingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IoT.DeleteThingGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,7 +94,8 @@ instance Core.AWSRequest DeleteThingGroup where
   type
     AWSResponse DeleteThingGroup =
       DeleteThingGroupResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -111,18 +113,18 @@ instance Prelude.NFData DeleteThingGroup where
     Prelude.rnf expectedVersion
       `Prelude.seq` Prelude.rnf thingGroupName
 
-instance Core.ToHeaders DeleteThingGroup where
+instance Data.ToHeaders DeleteThingGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteThingGroup where
+instance Data.ToPath DeleteThingGroup where
   toPath DeleteThingGroup' {..} =
     Prelude.mconcat
-      ["/thing-groups/", Core.toBS thingGroupName]
+      ["/thing-groups/", Data.toBS thingGroupName]
 
-instance Core.ToQuery DeleteThingGroup where
+instance Data.ToQuery DeleteThingGroup where
   toQuery DeleteThingGroup' {..} =
     Prelude.mconcat
-      ["expectedVersion" Core.=: expectedVersion]
+      ["expectedVersion" Data.=: expectedVersion]
 
 -- | /See:/ 'newDeleteThingGroupResponse' smart constructor.
 data DeleteThingGroupResponse = DeleteThingGroupResponse'

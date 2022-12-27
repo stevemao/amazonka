@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.DeleteCustomDataIdentifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.MacieV2.DeleteCustomDataIdentifier
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -47,8 +48,8 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteCustomDataIdentifier' smart constructor.
 data DeleteCustomDataIdentifier = DeleteCustomDataIdentifier'
-  { -- | The unique identifier for the Amazon Macie resource or account that the
-    -- request applies to.
+  { -- | The unique identifier for the Amazon Macie resource that the request
+    -- applies to.
     id :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -61,8 +62,8 @@ data DeleteCustomDataIdentifier = DeleteCustomDataIdentifier'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'id', 'deleteCustomDataIdentifier_id' - The unique identifier for the Amazon Macie resource or account that the
--- request applies to.
+-- 'id', 'deleteCustomDataIdentifier_id' - The unique identifier for the Amazon Macie resource that the request
+-- applies to.
 newDeleteCustomDataIdentifier ::
   -- | 'id'
   Prelude.Text ->
@@ -70,8 +71,8 @@ newDeleteCustomDataIdentifier ::
 newDeleteCustomDataIdentifier pId_ =
   DeleteCustomDataIdentifier' {id = pId_}
 
--- | The unique identifier for the Amazon Macie resource or account that the
--- request applies to.
+-- | The unique identifier for the Amazon Macie resource that the request
+-- applies to.
 deleteCustomDataIdentifier_id :: Lens.Lens' DeleteCustomDataIdentifier Prelude.Text
 deleteCustomDataIdentifier_id = Lens.lens (\DeleteCustomDataIdentifier' {id} -> id) (\s@DeleteCustomDataIdentifier' {} a -> s {id = a} :: DeleteCustomDataIdentifier)
 
@@ -79,7 +80,8 @@ instance Core.AWSRequest DeleteCustomDataIdentifier where
   type
     AWSResponse DeleteCustomDataIdentifier =
       DeleteCustomDataIdentifierResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -94,23 +96,23 @@ instance Prelude.Hashable DeleteCustomDataIdentifier where
 instance Prelude.NFData DeleteCustomDataIdentifier where
   rnf DeleteCustomDataIdentifier' {..} = Prelude.rnf id
 
-instance Core.ToHeaders DeleteCustomDataIdentifier where
+instance Data.ToHeaders DeleteCustomDataIdentifier where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteCustomDataIdentifier where
+instance Data.ToPath DeleteCustomDataIdentifier where
   toPath DeleteCustomDataIdentifier' {..} =
     Prelude.mconcat
-      ["/custom-data-identifiers/", Core.toBS id]
+      ["/custom-data-identifiers/", Data.toBS id]
 
-instance Core.ToQuery DeleteCustomDataIdentifier where
+instance Data.ToQuery DeleteCustomDataIdentifier where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCustomDataIdentifierResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.CreatePartition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.Glue.CreatePartition
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,7 +122,8 @@ instance Core.AWSRequest CreatePartition where
   type
     AWSResponse CreatePartition =
       CreatePartitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -143,35 +145,35 @@ instance Prelude.NFData CreatePartition where
       `Prelude.seq` Prelude.rnf tableName
       `Prelude.seq` Prelude.rnf partitionInput
 
-instance Core.ToHeaders CreatePartition where
+instance Data.ToHeaders CreatePartition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.CreatePartition" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.CreatePartition" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreatePartition where
+instance Data.ToJSON CreatePartition where
   toJSON CreatePartition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("DatabaseName" Core..= databaseName),
-            Prelude.Just ("TableName" Core..= tableName),
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            Prelude.Just ("DatabaseName" Data..= databaseName),
+            Prelude.Just ("TableName" Data..= tableName),
             Prelude.Just
-              ("PartitionInput" Core..= partitionInput)
+              ("PartitionInput" Data..= partitionInput)
           ]
       )
 
-instance Core.ToPath CreatePartition where
+instance Data.ToPath CreatePartition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreatePartition where
+instance Data.ToQuery CreatePartition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreatePartitionResponse' smart constructor.

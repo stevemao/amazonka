@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.MaintenanceWindowFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.MaintenanceWindowFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Filter used in the request. Supported filter keys depend on the API
@@ -41,10 +42,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMaintenanceWindowFilter' smart constructor.
 data MaintenanceWindowFilter = MaintenanceWindowFilter'
-  { -- | The filter values.
-    values :: Prelude.Maybe [Prelude.Text],
-    -- | The name of the filter.
-    key :: Prelude.Maybe Prelude.Text
+  { -- | The name of the filter.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The filter values.
+    values :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -56,39 +57,39 @@ data MaintenanceWindowFilter = MaintenanceWindowFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'values', 'maintenanceWindowFilter_values' - The filter values.
---
 -- 'key', 'maintenanceWindowFilter_key' - The name of the filter.
+--
+-- 'values', 'maintenanceWindowFilter_values' - The filter values.
 newMaintenanceWindowFilter ::
   MaintenanceWindowFilter
 newMaintenanceWindowFilter =
   MaintenanceWindowFilter'
-    { values = Prelude.Nothing,
-      key = Prelude.Nothing
+    { key = Prelude.Nothing,
+      values = Prelude.Nothing
     }
-
--- | The filter values.
-maintenanceWindowFilter_values :: Lens.Lens' MaintenanceWindowFilter (Prelude.Maybe [Prelude.Text])
-maintenanceWindowFilter_values = Lens.lens (\MaintenanceWindowFilter' {values} -> values) (\s@MaintenanceWindowFilter' {} a -> s {values = a} :: MaintenanceWindowFilter) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the filter.
 maintenanceWindowFilter_key :: Lens.Lens' MaintenanceWindowFilter (Prelude.Maybe Prelude.Text)
 maintenanceWindowFilter_key = Lens.lens (\MaintenanceWindowFilter' {key} -> key) (\s@MaintenanceWindowFilter' {} a -> s {key = a} :: MaintenanceWindowFilter)
 
+-- | The filter values.
+maintenanceWindowFilter_values :: Lens.Lens' MaintenanceWindowFilter (Prelude.Maybe [Prelude.Text])
+maintenanceWindowFilter_values = Lens.lens (\MaintenanceWindowFilter' {values} -> values) (\s@MaintenanceWindowFilter' {} a -> s {values = a} :: MaintenanceWindowFilter) Prelude.. Lens.mapping Lens.coerced
+
 instance Prelude.Hashable MaintenanceWindowFilter where
   hashWithSalt _salt MaintenanceWindowFilter' {..} =
-    _salt `Prelude.hashWithSalt` values
-      `Prelude.hashWithSalt` key
+    _salt `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` values
 
 instance Prelude.NFData MaintenanceWindowFilter where
   rnf MaintenanceWindowFilter' {..} =
-    Prelude.rnf values `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON MaintenanceWindowFilter where
+instance Data.ToJSON MaintenanceWindowFilter where
   toJSON MaintenanceWindowFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Values" Core..=) Prelude.<$> values,
-            ("Key" Core..=) Prelude.<$> key
+          [ ("Key" Data..=) Prelude.<$> key,
+            ("Values" Data..=) Prelude.<$> values
           ]
       )

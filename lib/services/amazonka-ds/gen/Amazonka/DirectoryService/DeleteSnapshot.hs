@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.DeleteSnapshot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DirectoryService.DeleteSnapshot
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,12 +80,13 @@ instance Core.AWSRequest DeleteSnapshot where
   type
     AWSResponse DeleteSnapshot =
       DeleteSnapshotResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteSnapshotResponse'
-            Prelude.<$> (x Core..?> "SnapshotId")
+            Prelude.<$> (x Data..?> "SnapshotId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,32 +97,32 @@ instance Prelude.Hashable DeleteSnapshot where
 instance Prelude.NFData DeleteSnapshot where
   rnf DeleteSnapshot' {..} = Prelude.rnf snapshotId
 
-instance Core.ToHeaders DeleteSnapshot where
+instance Data.ToHeaders DeleteSnapshot where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.DeleteSnapshot" ::
+              Data.=# ( "DirectoryService_20150416.DeleteSnapshot" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteSnapshot where
+instance Data.ToJSON DeleteSnapshot where
   toJSON DeleteSnapshot' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("SnapshotId" Core..= snapshotId)]
+          [Prelude.Just ("SnapshotId" Data..= snapshotId)]
       )
 
-instance Core.ToPath DeleteSnapshot where
+instance Data.ToPath DeleteSnapshot where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteSnapshot where
+instance Data.ToQuery DeleteSnapshot where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the results of the DeleteSnapshot operation.

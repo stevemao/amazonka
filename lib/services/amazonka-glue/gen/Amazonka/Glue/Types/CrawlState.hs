@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.CrawlState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,7 @@ module Amazonka.Glue.Types.CrawlState
       ( ..,
         CrawlState_CANCELLED,
         CrawlState_CANCELLING,
+        CrawlState_ERROR,
         CrawlState_FAILED,
         CrawlState_RUNNING,
         CrawlState_SUCCEEDED
@@ -30,11 +31,12 @@ module Amazonka.Glue.Types.CrawlState
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype CrawlState = CrawlState'
   { fromCrawlState ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -46,18 +48,18 @@ newtype CrawlState = CrawlState'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern CrawlState_CANCELLED :: CrawlState
@@ -65,6 +67,9 @@ pattern CrawlState_CANCELLED = CrawlState' "CANCELLED"
 
 pattern CrawlState_CANCELLING :: CrawlState
 pattern CrawlState_CANCELLING = CrawlState' "CANCELLING"
+
+pattern CrawlState_ERROR :: CrawlState
+pattern CrawlState_ERROR = CrawlState' "ERROR"
 
 pattern CrawlState_FAILED :: CrawlState
 pattern CrawlState_FAILED = CrawlState' "FAILED"
@@ -78,6 +83,7 @@ pattern CrawlState_SUCCEEDED = CrawlState' "SUCCEEDED"
 {-# COMPLETE
   CrawlState_CANCELLED,
   CrawlState_CANCELLING,
+  CrawlState_ERROR,
   CrawlState_FAILED,
   CrawlState_RUNNING,
   CrawlState_SUCCEEDED,

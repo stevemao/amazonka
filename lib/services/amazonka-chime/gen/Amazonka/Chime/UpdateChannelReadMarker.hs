@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.UpdateChannelReadMarker
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,12 +95,13 @@ instance Core.AWSRequest UpdateChannelReadMarker where
   type
     AWSResponse UpdateChannelReadMarker =
       UpdateChannelReadMarkerResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateChannelReadMarkerResponse'
-            Prelude.<$> (x Core..?> "ChannelArn")
+            Prelude.<$> (x Data..?> "ChannelArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,20 +115,20 @@ instance Prelude.NFData UpdateChannelReadMarker where
     Prelude.rnf chimeBearer
       `Prelude.seq` Prelude.rnf channelArn
 
-instance Core.ToHeaders UpdateChannelReadMarker where
+instance Data.ToHeaders UpdateChannelReadMarker where
   toHeaders UpdateChannelReadMarker' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToJSON UpdateChannelReadMarker where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON UpdateChannelReadMarker where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath UpdateChannelReadMarker where
+instance Data.ToPath UpdateChannelReadMarker where
   toPath UpdateChannelReadMarker' {..} =
     Prelude.mconcat
-      ["/channels/", Core.toBS channelArn, "/readMarker"]
+      ["/channels/", Data.toBS channelArn, "/readMarker"]
 
-instance Core.ToQuery UpdateChannelReadMarker where
+instance Data.ToQuery UpdateChannelReadMarker where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateChannelReadMarkerResponse' smart constructor.

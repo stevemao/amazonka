@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.EnvironmentPropertyDescriptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.EnvironmentPropertyDescriptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.PropertyGroup
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the execution properties for an Apache Flink runtime.
@@ -55,16 +56,16 @@ environmentPropertyDescriptions_propertyGroupDescriptions :: Lens.Lens' Environm
 environmentPropertyDescriptions_propertyGroupDescriptions = Lens.lens (\EnvironmentPropertyDescriptions' {propertyGroupDescriptions} -> propertyGroupDescriptions) (\s@EnvironmentPropertyDescriptions' {} a -> s {propertyGroupDescriptions = a} :: EnvironmentPropertyDescriptions) Prelude.. Lens.mapping Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     EnvironmentPropertyDescriptions
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EnvironmentPropertyDescriptions"
       ( \x ->
           EnvironmentPropertyDescriptions'
-            Prelude.<$> ( x Core..:? "PropertyGroupDescriptions"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "PropertyGroupDescriptions"
+                            Data..!= Prelude.mempty
                         )
       )
 

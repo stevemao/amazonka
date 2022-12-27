@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DescribeAuditMitigationActionsTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,20 +37,21 @@ module Amazonka.IoT.DescribeAuditMitigationActionsTask
     newDescribeAuditMitigationActionsTaskResponse,
 
     -- * Response Lenses
-    describeAuditMitigationActionsTaskResponse_startTime,
-    describeAuditMitigationActionsTaskResponse_taskStatistics,
     describeAuditMitigationActionsTaskResponse_actionsDefinition,
     describeAuditMitigationActionsTaskResponse_auditCheckToActionsMapping,
     describeAuditMitigationActionsTaskResponse_endTime,
+    describeAuditMitigationActionsTaskResponse_startTime,
     describeAuditMitigationActionsTaskResponse_target,
+    describeAuditMitigationActionsTaskResponse_taskStatistics,
     describeAuditMitigationActionsTaskResponse_taskStatus,
     describeAuditMitigationActionsTaskResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,22 +93,23 @@ instance
   type
     AWSResponse DescribeAuditMitigationActionsTask =
       DescribeAuditMitigationActionsTaskResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAuditMitigationActionsTaskResponse'
-            Prelude.<$> (x Core..?> "startTime")
-              Prelude.<*> (x Core..?> "taskStatistics" Core..!@ Prelude.mempty)
-              Prelude.<*> ( x Core..?> "actionsDefinition"
+            Prelude.<$> ( x Data..?> "actionsDefinition"
+                            Core..!@ Prelude.mempty
+                        )
+              Prelude.<*> ( x Data..?> "auditCheckToActionsMapping"
                               Core..!@ Prelude.mempty
                           )
-              Prelude.<*> ( x Core..?> "auditCheckToActionsMapping"
-                              Core..!@ Prelude.mempty
-                          )
-              Prelude.<*> (x Core..?> "endTime")
-              Prelude.<*> (x Core..?> "target")
-              Prelude.<*> (x Core..?> "taskStatus")
+              Prelude.<*> (x Data..?> "endTime")
+              Prelude.<*> (x Data..?> "startTime")
+              Prelude.<*> (x Data..?> "target")
+              Prelude.<*> (x Data..?> "taskStatistics" Core..!@ Prelude.mempty)
+              Prelude.<*> (x Data..?> "taskStatus")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,43 +130,43 @@ instance
     Prelude.rnf taskId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeAuditMitigationActionsTask
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeAuditMitigationActionsTask
   where
   toPath DescribeAuditMitigationActionsTask' {..} =
     Prelude.mconcat
-      ["/audit/mitigationactions/tasks/", Core.toBS taskId]
+      ["/audit/mitigationactions/tasks/", Data.toBS taskId]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeAuditMitigationActionsTask
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAuditMitigationActionsTaskResponse' smart constructor.
 data DescribeAuditMitigationActionsTaskResponse = DescribeAuditMitigationActionsTaskResponse'
-  { -- | The date and time when the task was started.
-    startTime :: Prelude.Maybe Core.POSIX,
-    -- | Aggregate counts of the results when the mitigation tasks were applied
-    -- to the findings for this audit mitigation actions task.
-    taskStatistics :: Prelude.Maybe (Prelude.HashMap Prelude.Text TaskStatisticsForAuditCheck),
-    -- | Specifies the mitigation actions and their parameters that are applied
+  { -- | Specifies the mitigation actions and their parameters that are applied
     -- as part of this task.
     actionsDefinition :: Prelude.Maybe [MitigationAction],
     -- | Specifies the mitigation actions that should be applied to specific
     -- audit checks.
     auditCheckToActionsMapping :: Prelude.Maybe (Prelude.HashMap Prelude.Text (Prelude.NonEmpty Prelude.Text)),
     -- | The date and time when the task was completed or canceled.
-    endTime :: Prelude.Maybe Core.POSIX,
+    endTime :: Prelude.Maybe Data.POSIX,
+    -- | The date and time when the task was started.
+    startTime :: Prelude.Maybe Data.POSIX,
     -- | Identifies the findings to which the mitigation actions are applied.
     -- This can be by audit checks, by audit task, or a set of findings.
     target :: Prelude.Maybe AuditMitigationActionsTaskTarget,
+    -- | Aggregate counts of the results when the mitigation tasks were applied
+    -- to the findings for this audit mitigation actions task.
+    taskStatistics :: Prelude.Maybe (Prelude.HashMap Prelude.Text TaskStatisticsForAuditCheck),
     -- | The current status of the task.
     taskStatus :: Prelude.Maybe AuditMitigationActionsTaskStatus,
     -- | The response's http status code.
@@ -180,11 +182,6 @@ data DescribeAuditMitigationActionsTaskResponse = DescribeAuditMitigationActions
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'startTime', 'describeAuditMitigationActionsTaskResponse_startTime' - The date and time when the task was started.
---
--- 'taskStatistics', 'describeAuditMitigationActionsTaskResponse_taskStatistics' - Aggregate counts of the results when the mitigation tasks were applied
--- to the findings for this audit mitigation actions task.
---
 -- 'actionsDefinition', 'describeAuditMitigationActionsTaskResponse_actionsDefinition' - Specifies the mitigation actions and their parameters that are applied
 -- as part of this task.
 --
@@ -193,8 +190,13 @@ data DescribeAuditMitigationActionsTaskResponse = DescribeAuditMitigationActions
 --
 -- 'endTime', 'describeAuditMitigationActionsTaskResponse_endTime' - The date and time when the task was completed or canceled.
 --
+-- 'startTime', 'describeAuditMitigationActionsTaskResponse_startTime' - The date and time when the task was started.
+--
 -- 'target', 'describeAuditMitigationActionsTaskResponse_target' - Identifies the findings to which the mitigation actions are applied.
 -- This can be by audit checks, by audit task, or a set of findings.
+--
+-- 'taskStatistics', 'describeAuditMitigationActionsTaskResponse_taskStatistics' - Aggregate counts of the results when the mitigation tasks were applied
+-- to the findings for this audit mitigation actions task.
 --
 -- 'taskStatus', 'describeAuditMitigationActionsTaskResponse_taskStatus' - The current status of the task.
 --
@@ -206,28 +208,18 @@ newDescribeAuditMitigationActionsTaskResponse ::
 newDescribeAuditMitigationActionsTaskResponse
   pHttpStatus_ =
     DescribeAuditMitigationActionsTaskResponse'
-      { startTime =
-          Prelude.Nothing,
-        taskStatistics =
-          Prelude.Nothing,
-        actionsDefinition =
+      { actionsDefinition =
           Prelude.Nothing,
         auditCheckToActionsMapping =
           Prelude.Nothing,
         endTime = Prelude.Nothing,
+        startTime = Prelude.Nothing,
         target = Prelude.Nothing,
+        taskStatistics =
+          Prelude.Nothing,
         taskStatus = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | The date and time when the task was started.
-describeAuditMitigationActionsTaskResponse_startTime :: Lens.Lens' DescribeAuditMitigationActionsTaskResponse (Prelude.Maybe Prelude.UTCTime)
-describeAuditMitigationActionsTaskResponse_startTime = Lens.lens (\DescribeAuditMitigationActionsTaskResponse' {startTime} -> startTime) (\s@DescribeAuditMitigationActionsTaskResponse' {} a -> s {startTime = a} :: DescribeAuditMitigationActionsTaskResponse) Prelude.. Lens.mapping Core._Time
-
--- | Aggregate counts of the results when the mitigation tasks were applied
--- to the findings for this audit mitigation actions task.
-describeAuditMitigationActionsTaskResponse_taskStatistics :: Lens.Lens' DescribeAuditMitigationActionsTaskResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text TaskStatisticsForAuditCheck))
-describeAuditMitigationActionsTaskResponse_taskStatistics = Lens.lens (\DescribeAuditMitigationActionsTaskResponse' {taskStatistics} -> taskStatistics) (\s@DescribeAuditMitigationActionsTaskResponse' {} a -> s {taskStatistics = a} :: DescribeAuditMitigationActionsTaskResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Specifies the mitigation actions and their parameters that are applied
 -- as part of this task.
@@ -241,12 +233,21 @@ describeAuditMitigationActionsTaskResponse_auditCheckToActionsMapping = Lens.len
 
 -- | The date and time when the task was completed or canceled.
 describeAuditMitigationActionsTaskResponse_endTime :: Lens.Lens' DescribeAuditMitigationActionsTaskResponse (Prelude.Maybe Prelude.UTCTime)
-describeAuditMitigationActionsTaskResponse_endTime = Lens.lens (\DescribeAuditMitigationActionsTaskResponse' {endTime} -> endTime) (\s@DescribeAuditMitigationActionsTaskResponse' {} a -> s {endTime = a} :: DescribeAuditMitigationActionsTaskResponse) Prelude.. Lens.mapping Core._Time
+describeAuditMitigationActionsTaskResponse_endTime = Lens.lens (\DescribeAuditMitigationActionsTaskResponse' {endTime} -> endTime) (\s@DescribeAuditMitigationActionsTaskResponse' {} a -> s {endTime = a} :: DescribeAuditMitigationActionsTaskResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The date and time when the task was started.
+describeAuditMitigationActionsTaskResponse_startTime :: Lens.Lens' DescribeAuditMitigationActionsTaskResponse (Prelude.Maybe Prelude.UTCTime)
+describeAuditMitigationActionsTaskResponse_startTime = Lens.lens (\DescribeAuditMitigationActionsTaskResponse' {startTime} -> startTime) (\s@DescribeAuditMitigationActionsTaskResponse' {} a -> s {startTime = a} :: DescribeAuditMitigationActionsTaskResponse) Prelude.. Lens.mapping Data._Time
 
 -- | Identifies the findings to which the mitigation actions are applied.
 -- This can be by audit checks, by audit task, or a set of findings.
 describeAuditMitigationActionsTaskResponse_target :: Lens.Lens' DescribeAuditMitigationActionsTaskResponse (Prelude.Maybe AuditMitigationActionsTaskTarget)
 describeAuditMitigationActionsTaskResponse_target = Lens.lens (\DescribeAuditMitigationActionsTaskResponse' {target} -> target) (\s@DescribeAuditMitigationActionsTaskResponse' {} a -> s {target = a} :: DescribeAuditMitigationActionsTaskResponse)
+
+-- | Aggregate counts of the results when the mitigation tasks were applied
+-- to the findings for this audit mitigation actions task.
+describeAuditMitigationActionsTaskResponse_taskStatistics :: Lens.Lens' DescribeAuditMitigationActionsTaskResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text TaskStatisticsForAuditCheck))
+describeAuditMitigationActionsTaskResponse_taskStatistics = Lens.lens (\DescribeAuditMitigationActionsTaskResponse' {taskStatistics} -> taskStatistics) (\s@DescribeAuditMitigationActionsTaskResponse' {} a -> s {taskStatistics = a} :: DescribeAuditMitigationActionsTaskResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The current status of the task.
 describeAuditMitigationActionsTaskResponse_taskStatus :: Lens.Lens' DescribeAuditMitigationActionsTaskResponse (Prelude.Maybe AuditMitigationActionsTaskStatus)
@@ -261,11 +262,11 @@ instance
     DescribeAuditMitigationActionsTaskResponse
   where
   rnf DescribeAuditMitigationActionsTaskResponse' {..} =
-    Prelude.rnf startTime
-      `Prelude.seq` Prelude.rnf taskStatistics
-      `Prelude.seq` Prelude.rnf actionsDefinition
+    Prelude.rnf actionsDefinition
       `Prelude.seq` Prelude.rnf auditCheckToActionsMapping
       `Prelude.seq` Prelude.rnf endTime
+      `Prelude.seq` Prelude.rnf startTime
       `Prelude.seq` Prelude.rnf target
+      `Prelude.seq` Prelude.rnf taskStatistics
       `Prelude.seq` Prelude.rnf taskStatus
       `Prelude.seq` Prelude.rnf httpStatus

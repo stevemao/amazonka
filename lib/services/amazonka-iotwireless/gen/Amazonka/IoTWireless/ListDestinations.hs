@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.ListDestinations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,35 +27,36 @@ module Amazonka.IoTWireless.ListDestinations
     newListDestinations,
 
     -- * Request Lenses
-    listDestinations_nextToken,
     listDestinations_maxResults,
+    listDestinations_nextToken,
 
     -- * Destructuring the Response
     ListDestinationsResponse (..),
     newListDestinationsResponse,
 
     -- * Response Lenses
-    listDestinationsResponse_nextToken,
     listDestinationsResponse_destinationList,
+    listDestinationsResponse_nextToken,
     listDestinationsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDestinations' smart constructor.
 data ListDestinations = ListDestinations'
-  { -- | To retrieve the next set of results, the @nextToken@ value from a
+  { -- | The maximum number of results to return in this operation.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | To retrieve the next set of results, the @nextToken@ value from a
     -- previous response; otherwise __null__ to receive the first set of
     -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in this operation.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,18 +68,22 @@ data ListDestinations = ListDestinations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listDestinations_maxResults' - The maximum number of results to return in this operation.
+--
 -- 'nextToken', 'listDestinations_nextToken' - To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
 -- results.
---
--- 'maxResults', 'listDestinations_maxResults' - The maximum number of results to return in this operation.
 newListDestinations ::
   ListDestinations
 newListDestinations =
   ListDestinations'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results to return in this operation.
+listDestinations_maxResults :: Lens.Lens' ListDestinations (Prelude.Maybe Prelude.Natural)
+listDestinations_maxResults = Lens.lens (\ListDestinations' {maxResults} -> maxResults) (\s@ListDestinations' {} a -> s {maxResults = a} :: ListDestinations)
 
 -- | To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
@@ -86,56 +91,53 @@ newListDestinations =
 listDestinations_nextToken :: Lens.Lens' ListDestinations (Prelude.Maybe Prelude.Text)
 listDestinations_nextToken = Lens.lens (\ListDestinations' {nextToken} -> nextToken) (\s@ListDestinations' {} a -> s {nextToken = a} :: ListDestinations)
 
--- | The maximum number of results to return in this operation.
-listDestinations_maxResults :: Lens.Lens' ListDestinations (Prelude.Maybe Prelude.Natural)
-listDestinations_maxResults = Lens.lens (\ListDestinations' {maxResults} -> maxResults) (\s@ListDestinations' {} a -> s {maxResults = a} :: ListDestinations)
-
 instance Core.AWSRequest ListDestinations where
   type
     AWSResponse ListDestinations =
       ListDestinationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDestinationsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "DestinationList"
+            Prelude.<$> ( x Data..?> "DestinationList"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDestinations where
   hashWithSalt _salt ListDestinations' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDestinations where
   rnf ListDestinations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDestinations where
+instance Data.ToHeaders ListDestinations where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListDestinations where
+instance Data.ToPath ListDestinations where
   toPath = Prelude.const "/destinations"
 
-instance Core.ToQuery ListDestinations where
+instance Data.ToQuery ListDestinations where
   toQuery ListDestinations' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListDestinationsResponse' smart constructor.
 data ListDestinationsResponse = ListDestinationsResponse'
-  { -- | The token to use to get the next set of results, or __null__ if there
+  { -- | The list of destinations.
+    destinationList :: Prelude.Maybe [Destinations],
+    -- | The token to use to get the next set of results, or __null__ if there
     -- are no additional results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The list of destinations.
-    destinationList :: Prelude.Maybe [Destinations],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -149,10 +151,10 @@ data ListDestinationsResponse = ListDestinationsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'destinationList', 'listDestinationsResponse_destinationList' - The list of destinations.
+--
 -- 'nextToken', 'listDestinationsResponse_nextToken' - The token to use to get the next set of results, or __null__ if there
 -- are no additional results.
---
--- 'destinationList', 'listDestinationsResponse_destinationList' - The list of destinations.
 --
 -- 'httpStatus', 'listDestinationsResponse_httpStatus' - The response's http status code.
 newListDestinationsResponse ::
@@ -161,20 +163,20 @@ newListDestinationsResponse ::
   ListDestinationsResponse
 newListDestinationsResponse pHttpStatus_ =
   ListDestinationsResponse'
-    { nextToken =
+    { destinationList =
         Prelude.Nothing,
-      destinationList = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The list of destinations.
+listDestinationsResponse_destinationList :: Lens.Lens' ListDestinationsResponse (Prelude.Maybe [Destinations])
+listDestinationsResponse_destinationList = Lens.lens (\ListDestinationsResponse' {destinationList} -> destinationList) (\s@ListDestinationsResponse' {} a -> s {destinationList = a} :: ListDestinationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to use to get the next set of results, or __null__ if there
 -- are no additional results.
 listDestinationsResponse_nextToken :: Lens.Lens' ListDestinationsResponse (Prelude.Maybe Prelude.Text)
 listDestinationsResponse_nextToken = Lens.lens (\ListDestinationsResponse' {nextToken} -> nextToken) (\s@ListDestinationsResponse' {} a -> s {nextToken = a} :: ListDestinationsResponse)
-
--- | The list of destinations.
-listDestinationsResponse_destinationList :: Lens.Lens' ListDestinationsResponse (Prelude.Maybe [Destinations])
-listDestinationsResponse_destinationList = Lens.lens (\ListDestinationsResponse' {destinationList} -> destinationList) (\s@ListDestinationsResponse' {} a -> s {destinationList = a} :: ListDestinationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listDestinationsResponse_httpStatus :: Lens.Lens' ListDestinationsResponse Prelude.Int
@@ -182,6 +184,6 @@ listDestinationsResponse_httpStatus = Lens.lens (\ListDestinationsResponse' {htt
 
 instance Prelude.NFData ListDestinationsResponse where
   rnf ListDestinationsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf destinationList
+    Prelude.rnf destinationList
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

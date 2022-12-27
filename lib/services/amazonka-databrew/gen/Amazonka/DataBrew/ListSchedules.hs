@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.ListSchedules
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.DataBrew.ListSchedules
 
     -- * Request Lenses
     listSchedules_jobName,
-    listSchedules_nextToken,
     listSchedules_maxResults,
+    listSchedules_nextToken,
 
     -- * Destructuring the Response
     ListSchedulesResponse (..),
@@ -45,8 +45,9 @@ module Amazonka.DataBrew.ListSchedules
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,11 +56,11 @@ import qualified Amazonka.Response as Response
 data ListSchedules = ListSchedules'
   { -- | The name of the job that these schedules apply to.
     jobName :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in this request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The token returned by a previous call to retrieve the next set of
     -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in this request.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,31 +74,31 @@ data ListSchedules = ListSchedules'
 --
 -- 'jobName', 'listSchedules_jobName' - The name of the job that these schedules apply to.
 --
+-- 'maxResults', 'listSchedules_maxResults' - The maximum number of results to return in this request.
+--
 -- 'nextToken', 'listSchedules_nextToken' - The token returned by a previous call to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listSchedules_maxResults' - The maximum number of results to return in this request.
 newListSchedules ::
   ListSchedules
 newListSchedules =
   ListSchedules'
     { jobName = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | The name of the job that these schedules apply to.
 listSchedules_jobName :: Lens.Lens' ListSchedules (Prelude.Maybe Prelude.Text)
 listSchedules_jobName = Lens.lens (\ListSchedules' {jobName} -> jobName) (\s@ListSchedules' {} a -> s {jobName = a} :: ListSchedules)
 
+-- | The maximum number of results to return in this request.
+listSchedules_maxResults :: Lens.Lens' ListSchedules (Prelude.Maybe Prelude.Natural)
+listSchedules_maxResults = Lens.lens (\ListSchedules' {maxResults} -> maxResults) (\s@ListSchedules' {} a -> s {maxResults = a} :: ListSchedules)
+
 -- | The token returned by a previous call to retrieve the next set of
 -- results.
 listSchedules_nextToken :: Lens.Lens' ListSchedules (Prelude.Maybe Prelude.Text)
 listSchedules_nextToken = Lens.lens (\ListSchedules' {nextToken} -> nextToken) (\s@ListSchedules' {} a -> s {nextToken = a} :: ListSchedules)
-
--- | The maximum number of results to return in this request.
-listSchedules_maxResults :: Lens.Lens' ListSchedules (Prelude.Maybe Prelude.Natural)
-listSchedules_maxResults = Lens.lens (\ListSchedules' {maxResults} -> maxResults) (\s@ListSchedules' {} a -> s {maxResults = a} :: ListSchedules)
 
 instance Core.AWSPager ListSchedules where
   page rq rs
@@ -120,48 +121,49 @@ instance Core.AWSRequest ListSchedules where
   type
     AWSResponse ListSchedules =
       ListSchedulesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSchedulesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Schedules" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Schedules" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListSchedules where
   hashWithSalt _salt ListSchedules' {..} =
     _salt `Prelude.hashWithSalt` jobName
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListSchedules where
   rnf ListSchedules' {..} =
     Prelude.rnf jobName
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListSchedules where
+instance Data.ToHeaders ListSchedules where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListSchedules where
+instance Data.ToPath ListSchedules where
   toPath = Prelude.const "/schedules"
 
-instance Core.ToQuery ListSchedules where
+instance Data.ToQuery ListSchedules where
   toQuery ListSchedules' {..} =
     Prelude.mconcat
-      [ "jobName" Core.=: jobName,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "jobName" Data.=: jobName,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListSchedulesResponse' smart constructor.

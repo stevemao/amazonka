@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsIamAccessKeySessionContextAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsIamAccessKeySessionContextAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Attributes of the session that the key was used for.
@@ -78,16 +79,16 @@ awsIamAccessKeySessionContextAttributes_mfaAuthenticated :: Lens.Lens' AwsIamAcc
 awsIamAccessKeySessionContextAttributes_mfaAuthenticated = Lens.lens (\AwsIamAccessKeySessionContextAttributes' {mfaAuthenticated} -> mfaAuthenticated) (\s@AwsIamAccessKeySessionContextAttributes' {} a -> s {mfaAuthenticated = a} :: AwsIamAccessKeySessionContextAttributes)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsIamAccessKeySessionContextAttributes
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsIamAccessKeySessionContextAttributes"
       ( \x ->
           AwsIamAccessKeySessionContextAttributes'
-            Prelude.<$> (x Core..:? "CreationDate")
-            Prelude.<*> (x Core..:? "MfaAuthenticated")
+            Prelude.<$> (x Data..:? "CreationDate")
+            Prelude.<*> (x Data..:? "MfaAuthenticated")
       )
 
 instance
@@ -109,14 +110,14 @@ instance
       `Prelude.seq` Prelude.rnf mfaAuthenticated
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsIamAccessKeySessionContextAttributes
   where
   toJSON AwsIamAccessKeySessionContextAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CreationDate" Core..=) Prelude.<$> creationDate,
-            ("MfaAuthenticated" Core..=)
+          [ ("CreationDate" Data..=) Prelude.<$> creationDate,
+            ("MfaAuthenticated" Data..=)
               Prelude.<$> mfaAuthenticated
           ]
       )

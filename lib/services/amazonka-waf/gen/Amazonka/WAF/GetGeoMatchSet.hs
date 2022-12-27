@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.GetGeoMatchSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.WAF.GetGeoMatchSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,12 +93,13 @@ instance Core.AWSRequest GetGeoMatchSet where
   type
     AWSResponse GetGeoMatchSet =
       GetGeoMatchSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetGeoMatchSetResponse'
-            Prelude.<$> (x Core..?> "GeoMatchSet")
+            Prelude.<$> (x Data..?> "GeoMatchSet")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,34 +110,34 @@ instance Prelude.Hashable GetGeoMatchSet where
 instance Prelude.NFData GetGeoMatchSet where
   rnf GetGeoMatchSet' {..} = Prelude.rnf geoMatchSetId
 
-instance Core.ToHeaders GetGeoMatchSet where
+instance Data.ToHeaders GetGeoMatchSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_20150824.GetGeoMatchSet" ::
+              Data.=# ( "AWSWAF_20150824.GetGeoMatchSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetGeoMatchSet where
+instance Data.ToJSON GetGeoMatchSet where
   toJSON GetGeoMatchSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("GeoMatchSetId" Core..= geoMatchSetId)
+              ("GeoMatchSetId" Data..= geoMatchSetId)
           ]
       )
 
-instance Core.ToPath GetGeoMatchSet where
+instance Data.ToPath GetGeoMatchSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetGeoMatchSet where
+instance Data.ToQuery GetGeoMatchSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetGeoMatchSetResponse' smart constructor.

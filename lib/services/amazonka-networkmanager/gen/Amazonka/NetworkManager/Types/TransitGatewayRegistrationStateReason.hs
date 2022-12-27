@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkManager.Types.TransitGatewayRegistrationStateReason
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.NetworkManager.Types.TransitGatewayRegistrationStateReason where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkManager.Types.TransitGatewayRegistrationState
 import qualified Amazonka.Prelude as Prelude
 
@@ -64,16 +65,16 @@ transitGatewayRegistrationStateReason_message :: Lens.Lens' TransitGatewayRegist
 transitGatewayRegistrationStateReason_message = Lens.lens (\TransitGatewayRegistrationStateReason' {message} -> message) (\s@TransitGatewayRegistrationStateReason' {} a -> s {message = a} :: TransitGatewayRegistrationStateReason)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     TransitGatewayRegistrationStateReason
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TransitGatewayRegistrationStateReason"
       ( \x ->
           TransitGatewayRegistrationStateReason'
-            Prelude.<$> (x Core..:? "Code")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Code")
+            Prelude.<*> (x Data..:? "Message")
       )
 
 instance

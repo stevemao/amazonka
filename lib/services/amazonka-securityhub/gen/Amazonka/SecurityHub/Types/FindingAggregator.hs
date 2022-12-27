@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.FindingAggregator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.FindingAggregator where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A finding aggregator. A finding aggregator contains the configuration
@@ -57,13 +58,13 @@ newFindingAggregator =
 findingAggregator_findingAggregatorArn :: Lens.Lens' FindingAggregator (Prelude.Maybe Prelude.Text)
 findingAggregator_findingAggregatorArn = Lens.lens (\FindingAggregator' {findingAggregatorArn} -> findingAggregatorArn) (\s@FindingAggregator' {} a -> s {findingAggregatorArn = a} :: FindingAggregator)
 
-instance Core.FromJSON FindingAggregator where
+instance Data.FromJSON FindingAggregator where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FindingAggregator"
       ( \x ->
           FindingAggregator'
-            Prelude.<$> (x Core..:? "FindingAggregatorArn")
+            Prelude.<$> (x Data..:? "FindingAggregatorArn")
       )
 
 instance Prelude.Hashable FindingAggregator where

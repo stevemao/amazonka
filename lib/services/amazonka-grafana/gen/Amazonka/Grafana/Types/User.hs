@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Grafana.Types.User
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Grafana.Types.User where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Grafana.Types.UserType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure that specifies one user or group in the workspace.
@@ -29,6 +30,9 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newUser' smart constructor.
 data User = User'
   { -- | The ID of the user or group.
+    --
+    -- Pattern:
+    -- @^([0-9a-fA-F]{10}-|)[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$@
     id :: Prelude.Text,
     -- | Specifies whether this is a single user or a group.
     type' :: UserType
@@ -45,6 +49,9 @@ data User = User'
 --
 -- 'id', 'user_id' - The ID of the user or group.
 --
+-- Pattern:
+-- @^([0-9a-fA-F]{10}-|)[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$@
+--
 -- 'type'', 'user_type' - Specifies whether this is a single user or a group.
 newUser ::
   -- | 'id'
@@ -56,6 +63,9 @@ newUser pId_ pType_ =
   User' {id = pId_, type' = pType_}
 
 -- | The ID of the user or group.
+--
+-- Pattern:
+-- @^([0-9a-fA-F]{10}-|)[A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12}$@
 user_id :: Lens.Lens' User Prelude.Text
 user_id = Lens.lens (\User' {id} -> id) (\s@User' {} a -> s {id = a} :: User)
 
@@ -63,13 +73,13 @@ user_id = Lens.lens (\User' {id} -> id) (\s@User' {} a -> s {id = a} :: User)
 user_type :: Lens.Lens' User UserType
 user_type = Lens.lens (\User' {type'} -> type') (\s@User' {} a -> s {type' = a} :: User)
 
-instance Core.FromJSON User where
+instance Data.FromJSON User where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "User"
       ( \x ->
           User'
-            Prelude.<$> (x Core..: "id") Prelude.<*> (x Core..: "type")
+            Prelude.<$> (x Data..: "id") Prelude.<*> (x Data..: "type")
       )
 
 instance Prelude.Hashable User where
@@ -81,11 +91,11 @@ instance Prelude.NFData User where
   rnf User' {..} =
     Prelude.rnf id `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON User where
+instance Data.ToJSON User where
   toJSON User' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("id" Core..= id),
-            Prelude.Just ("type" Core..= type')
+          [ Prelude.Just ("id" Data..= id),
+            Prelude.Just ("type" Data..= type')
           ]
       )

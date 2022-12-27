@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.DescribeDefaultEncryptionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IoTSiteWise.DescribeDefaultEncryptionConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -72,15 +73,16 @@ instance
     AWSResponse
       DescribeDefaultEncryptionConfiguration =
       DescribeDefaultEncryptionConfigurationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDefaultEncryptionConfigurationResponse'
-            Prelude.<$> (x Core..?> "kmsKeyArn")
+            Prelude.<$> (x Data..?> "kmsKeyArn")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> (x Core..:> "encryptionType")
-              Prelude.<*> (x Core..:> "configurationStatus")
+              Prelude.<*> (x Data..:> "encryptionType")
+              Prelude.<*> (x Data..:> "configurationStatus")
       )
 
 instance
@@ -97,36 +99,36 @@ instance
   rnf _ = ()
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeDefaultEncryptionConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeDefaultEncryptionConfiguration
   where
   toPath =
     Prelude.const "/configuration/account/encryption"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeDefaultEncryptionConfiguration
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeDefaultEncryptionConfigurationResponse' smart constructor.
 data DescribeDefaultEncryptionConfigurationResponse = DescribeDefaultEncryptionConfigurationResponse'
-  { -- | The key ARN of the customer managed customer master key (CMK) used for
-    -- KMS encryption if you use @KMS_BASED_ENCRYPTION@.
+  { -- | The key ARN of the customer managed key used for KMS encryption if you
+    -- use @KMS_BASED_ENCRYPTION@.
     kmsKeyArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
@@ -147,8 +149,8 @@ data DescribeDefaultEncryptionConfigurationResponse = DescribeDefaultEncryptionC
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'kmsKeyArn', 'describeDefaultEncryptionConfigurationResponse_kmsKeyArn' - The key ARN of the customer managed customer master key (CMK) used for
--- KMS encryption if you use @KMS_BASED_ENCRYPTION@.
+-- 'kmsKeyArn', 'describeDefaultEncryptionConfigurationResponse_kmsKeyArn' - The key ARN of the customer managed key used for KMS encryption if you
+-- use @KMS_BASED_ENCRYPTION@.
 --
 -- 'httpStatus', 'describeDefaultEncryptionConfigurationResponse_httpStatus' - The response's http status code.
 --
@@ -179,8 +181,8 @@ newDescribeDefaultEncryptionConfigurationResponse
           pConfigurationStatus_
       }
 
--- | The key ARN of the customer managed customer master key (CMK) used for
--- KMS encryption if you use @KMS_BASED_ENCRYPTION@.
+-- | The key ARN of the customer managed key used for KMS encryption if you
+-- use @KMS_BASED_ENCRYPTION@.
 describeDefaultEncryptionConfigurationResponse_kmsKeyArn :: Lens.Lens' DescribeDefaultEncryptionConfigurationResponse (Prelude.Maybe Prelude.Text)
 describeDefaultEncryptionConfigurationResponse_kmsKeyArn = Lens.lens (\DescribeDefaultEncryptionConfigurationResponse' {kmsKeyArn} -> kmsKeyArn) (\s@DescribeDefaultEncryptionConfigurationResponse' {} a -> s {kmsKeyArn = a} :: DescribeDefaultEncryptionConfigurationResponse)
 

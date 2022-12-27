@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.IotSiteWiseAssetModelPropertyIdentifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTEvents.Types.IotSiteWiseAssetModelPropertyIdentifier where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The asset model property identifer of the input routed from AWS IoT
@@ -88,13 +89,13 @@ instance
       `Prelude.seq` Prelude.rnf propertyId
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     IotSiteWiseAssetModelPropertyIdentifier
   where
   toJSON IotSiteWiseAssetModelPropertyIdentifier' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("assetModelId" Core..= assetModelId),
-            Prelude.Just ("propertyId" Core..= propertyId)
+          [ Prelude.Just ("assetModelId" Data..= assetModelId),
+            Prelude.Just ("propertyId" Data..= propertyId)
           ]
       )

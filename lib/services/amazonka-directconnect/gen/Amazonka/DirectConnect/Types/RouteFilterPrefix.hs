@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.Types.RouteFilterPrefix
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DirectConnect.Types.RouteFilterPrefix where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a route filter prefix that a customer can advertise
@@ -54,12 +55,12 @@ newRouteFilterPrefix =
 routeFilterPrefix_cidr :: Lens.Lens' RouteFilterPrefix (Prelude.Maybe Prelude.Text)
 routeFilterPrefix_cidr = Lens.lens (\RouteFilterPrefix' {cidr} -> cidr) (\s@RouteFilterPrefix' {} a -> s {cidr = a} :: RouteFilterPrefix)
 
-instance Core.FromJSON RouteFilterPrefix where
+instance Data.FromJSON RouteFilterPrefix where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RouteFilterPrefix"
       ( \x ->
-          RouteFilterPrefix' Prelude.<$> (x Core..:? "cidr")
+          RouteFilterPrefix' Prelude.<$> (x Data..:? "cidr")
       )
 
 instance Prelude.Hashable RouteFilterPrefix where
@@ -69,9 +70,9 @@ instance Prelude.Hashable RouteFilterPrefix where
 instance Prelude.NFData RouteFilterPrefix where
   rnf RouteFilterPrefix' {..} = Prelude.rnf cidr
 
-instance Core.ToJSON RouteFilterPrefix where
+instance Data.ToJSON RouteFilterPrefix where
   toJSON RouteFilterPrefix' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("cidr" Core..=) Prelude.<$> cidr]
+          [("cidr" Data..=) Prelude.<$> cidr]
       )

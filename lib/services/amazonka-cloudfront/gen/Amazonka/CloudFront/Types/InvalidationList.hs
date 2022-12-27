@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.InvalidationList
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.InvalidationList where
 
 import Amazonka.CloudFront.Types.InvalidationSummary
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The @InvalidationList@ complex type describes the list of invalidation
@@ -32,7 +33,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newInvalidationList' smart constructor.
 data InvalidationList = InvalidationList'
   { -- | A complex type that contains one @InvalidationSummary@ element for each
-    -- invalidation batch created by the current account.
+    -- invalidation batch created by the current Amazon Web Services account.
     items :: Prelude.Maybe [InvalidationSummary],
     -- | If @IsTruncated@ is @true@, this element is present and contains the
     -- value that you can use for the @Marker@ request parameter to continue
@@ -48,7 +49,7 @@ data InvalidationList = InvalidationList'
     -- invalidation batches in the list.
     isTruncated :: Prelude.Bool,
     -- | The number of invalidation batches that were created by the current
-    -- account.
+    -- Amazon Web Services account.
     quantity :: Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,7 +63,7 @@ data InvalidationList = InvalidationList'
 -- for backwards compatibility:
 --
 -- 'items', 'invalidationList_items' - A complex type that contains one @InvalidationSummary@ element for each
--- invalidation batch created by the current account.
+-- invalidation batch created by the current Amazon Web Services account.
 --
 -- 'nextMarker', 'invalidationList_nextMarker' - If @IsTruncated@ is @true@, this element is present and contains the
 -- value that you can use for the @Marker@ request parameter to continue
@@ -78,7 +79,7 @@ data InvalidationList = InvalidationList'
 -- invalidation batches in the list.
 --
 -- 'quantity', 'invalidationList_quantity' - The number of invalidation batches that were created by the current
--- account.
+-- Amazon Web Services account.
 newInvalidationList ::
   -- | 'marker'
   Prelude.Text ->
@@ -104,7 +105,7 @@ newInvalidationList
       }
 
 -- | A complex type that contains one @InvalidationSummary@ element for each
--- invalidation batch created by the current account.
+-- invalidation batch created by the current Amazon Web Services account.
 invalidationList_items :: Lens.Lens' InvalidationList (Prelude.Maybe [InvalidationSummary])
 invalidationList_items = Lens.lens (\InvalidationList' {items} -> items) (\s@InvalidationList' {} a -> s {items = a} :: InvalidationList) Prelude.. Lens.mapping Lens.coerced
 
@@ -130,21 +131,21 @@ invalidationList_isTruncated :: Lens.Lens' InvalidationList Prelude.Bool
 invalidationList_isTruncated = Lens.lens (\InvalidationList' {isTruncated} -> isTruncated) (\s@InvalidationList' {} a -> s {isTruncated = a} :: InvalidationList)
 
 -- | The number of invalidation batches that were created by the current
--- account.
+-- Amazon Web Services account.
 invalidationList_quantity :: Lens.Lens' InvalidationList Prelude.Int
 invalidationList_quantity = Lens.lens (\InvalidationList' {quantity} -> quantity) (\s@InvalidationList' {} a -> s {quantity = a} :: InvalidationList)
 
-instance Core.FromXML InvalidationList where
+instance Data.FromXML InvalidationList where
   parseXML x =
     InvalidationList'
-      Prelude.<$> ( x Core..@? "Items" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "InvalidationSummary")
+      Prelude.<$> ( x Data..@? "Items" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "InvalidationSummary")
                   )
-      Prelude.<*> (x Core..@? "NextMarker")
-      Prelude.<*> (x Core..@ "Marker")
-      Prelude.<*> (x Core..@ "MaxItems")
-      Prelude.<*> (x Core..@ "IsTruncated")
-      Prelude.<*> (x Core..@ "Quantity")
+      Prelude.<*> (x Data..@? "NextMarker")
+      Prelude.<*> (x Data..@ "Marker")
+      Prelude.<*> (x Data..@ "MaxItems")
+      Prelude.<*> (x Data..@ "IsTruncated")
+      Prelude.<*> (x Data..@ "Quantity")
 
 instance Prelude.Hashable InvalidationList where
   hashWithSalt _salt InvalidationList' {..} =

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.ListConfigurations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Kafka.ListConfigurations
     newListConfigurations,
 
     -- * Request Lenses
-    listConfigurations_nextToken,
     listConfigurations_maxResults,
+    listConfigurations_nextToken,
 
     -- * Destructuring the Response
     ListConfigurationsResponse (..),
@@ -44,21 +44,22 @@ module Amazonka.Kafka.ListConfigurations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListConfigurations' smart constructor.
 data ListConfigurations = ListConfigurations'
-  { -- | The paginated results marker. When the result of the operation is
+  { -- | The maximum number of results to return in the response. If there are
+    -- more results, the response includes a NextToken parameter.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The paginated results marker. When the result of the operation is
     -- truncated, the call returns NextToken in the response. To get the next
     -- batch, provide this token in your next request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in the response. If there are
-    -- more results, the response includes a NextToken parameter.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,30 +71,30 @@ data ListConfigurations = ListConfigurations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listConfigurations_maxResults' - The maximum number of results to return in the response. If there are
+-- more results, the response includes a NextToken parameter.
+--
 -- 'nextToken', 'listConfigurations_nextToken' - The paginated results marker. When the result of the operation is
 -- truncated, the call returns NextToken in the response. To get the next
 -- batch, provide this token in your next request.
---
--- 'maxResults', 'listConfigurations_maxResults' - The maximum number of results to return in the response. If there are
--- more results, the response includes a NextToken parameter.
 newListConfigurations ::
   ListConfigurations
 newListConfigurations =
   ListConfigurations'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results to return in the response. If there are
+-- more results, the response includes a NextToken parameter.
+listConfigurations_maxResults :: Lens.Lens' ListConfigurations (Prelude.Maybe Prelude.Natural)
+listConfigurations_maxResults = Lens.lens (\ListConfigurations' {maxResults} -> maxResults) (\s@ListConfigurations' {} a -> s {maxResults = a} :: ListConfigurations)
 
 -- | The paginated results marker. When the result of the operation is
 -- truncated, the call returns NextToken in the response. To get the next
 -- batch, provide this token in your next request.
 listConfigurations_nextToken :: Lens.Lens' ListConfigurations (Prelude.Maybe Prelude.Text)
 listConfigurations_nextToken = Lens.lens (\ListConfigurations' {nextToken} -> nextToken) (\s@ListConfigurations' {} a -> s {nextToken = a} :: ListConfigurations)
-
--- | The maximum number of results to return in the response. If there are
--- more results, the response includes a NextToken parameter.
-listConfigurations_maxResults :: Lens.Lens' ListConfigurations (Prelude.Maybe Prelude.Natural)
-listConfigurations_maxResults = Lens.lens (\ListConfigurations' {maxResults} -> maxResults) (\s@ListConfigurations' {} a -> s {maxResults = a} :: ListConfigurations)
 
 instance Core.AWSPager ListConfigurations where
   page rq rs
@@ -121,45 +122,46 @@ instance Core.AWSRequest ListConfigurations where
   type
     AWSResponse ListConfigurations =
       ListConfigurationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListConfigurationsResponse'
-            Prelude.<$> (x Core..?> "configurations" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "configurations" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListConfigurations where
   hashWithSalt _salt ListConfigurations' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListConfigurations where
   rnf ListConfigurations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListConfigurations where
+instance Data.ToHeaders ListConfigurations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListConfigurations where
+instance Data.ToPath ListConfigurations where
   toPath = Prelude.const "/v1/configurations"
 
-instance Core.ToQuery ListConfigurations where
+instance Data.ToQuery ListConfigurations where
   toQuery ListConfigurations' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListConfigurationsResponse' smart constructor.

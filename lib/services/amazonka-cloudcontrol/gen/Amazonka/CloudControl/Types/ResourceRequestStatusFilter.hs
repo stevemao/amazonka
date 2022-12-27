@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudControl.Types.ResourceRequestStatusFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudControl.Types.ResourceRequestStatusFilter where
 import Amazonka.CloudControl.Types.Operation
 import Amazonka.CloudControl.Types.OperationStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The filter criteria to use in determining the requests returned.
@@ -33,14 +34,14 @@ data ResourceRequestStatusFilter = ResourceRequestStatusFilter'
     --
     -- -   @PENDING@: The operation has been requested, but not yet initiated.
     --
-    -- -   @IN_PROGRESS@: The operation is currently in progress.
+    -- -   @IN_PROGRESS@: The operation is in progress.
     --
-    -- -   @SUCCESS@: The operation has successfully completed.
+    -- -   @SUCCESS@: The operation completed.
     --
-    -- -   @FAILED@: The operation has failed.
+    -- -   @FAILED@: The operation failed.
     --
-    -- -   @CANCEL_IN_PROGRESS@: The operation is currently in the process of
-    --     being canceled.
+    -- -   @CANCEL_IN_PROGRESS@: The operation is in the process of being
+    --     canceled.
     --
     -- -   @CANCEL_COMPLETE@: The operation has been canceled.
     operationStatuses :: Prelude.Maybe [OperationStatus],
@@ -61,14 +62,14 @@ data ResourceRequestStatusFilter = ResourceRequestStatusFilter'
 --
 -- -   @PENDING@: The operation has been requested, but not yet initiated.
 --
--- -   @IN_PROGRESS@: The operation is currently in progress.
+-- -   @IN_PROGRESS@: The operation is in progress.
 --
--- -   @SUCCESS@: The operation has successfully completed.
+-- -   @SUCCESS@: The operation completed.
 --
--- -   @FAILED@: The operation has failed.
+-- -   @FAILED@: The operation failed.
 --
--- -   @CANCEL_IN_PROGRESS@: The operation is currently in the process of
---     being canceled.
+-- -   @CANCEL_IN_PROGRESS@: The operation is in the process of being
+--     canceled.
 --
 -- -   @CANCEL_COMPLETE@: The operation has been canceled.
 --
@@ -86,14 +87,14 @@ newResourceRequestStatusFilter =
 --
 -- -   @PENDING@: The operation has been requested, but not yet initiated.
 --
--- -   @IN_PROGRESS@: The operation is currently in progress.
+-- -   @IN_PROGRESS@: The operation is in progress.
 --
--- -   @SUCCESS@: The operation has successfully completed.
+-- -   @SUCCESS@: The operation completed.
 --
--- -   @FAILED@: The operation has failed.
+-- -   @FAILED@: The operation failed.
 --
--- -   @CANCEL_IN_PROGRESS@: The operation is currently in the process of
---     being canceled.
+-- -   @CANCEL_IN_PROGRESS@: The operation is in the process of being
+--     canceled.
 --
 -- -   @CANCEL_COMPLETE@: The operation has been canceled.
 resourceRequestStatusFilter_operationStatuses :: Lens.Lens' ResourceRequestStatusFilter (Prelude.Maybe [OperationStatus])
@@ -113,12 +114,12 @@ instance Prelude.NFData ResourceRequestStatusFilter where
     Prelude.rnf operationStatuses
       `Prelude.seq` Prelude.rnf operations
 
-instance Core.ToJSON ResourceRequestStatusFilter where
+instance Data.ToJSON ResourceRequestStatusFilter where
   toJSON ResourceRequestStatusFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OperationStatuses" Core..=)
+          [ ("OperationStatuses" Data..=)
               Prelude.<$> operationStatuses,
-            ("Operations" Core..=) Prelude.<$> operations
+            ("Operations" Data..=) Prelude.<$> operations
           ]
       )

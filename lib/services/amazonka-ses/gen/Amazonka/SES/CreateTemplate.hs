@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.CreateTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.SES.CreateTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,7 +89,8 @@ instance Core.AWSRequest CreateTemplate where
   type
     AWSResponse CreateTemplate =
       CreateTemplateResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateTemplateResult"
@@ -104,20 +106,20 @@ instance Prelude.Hashable CreateTemplate where
 instance Prelude.NFData CreateTemplate where
   rnf CreateTemplate' {..} = Prelude.rnf template
 
-instance Core.ToHeaders CreateTemplate where
+instance Data.ToHeaders CreateTemplate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateTemplate where
+instance Data.ToPath CreateTemplate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateTemplate where
+instance Data.ToQuery CreateTemplate where
   toQuery CreateTemplate' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateTemplate" :: Prelude.ByteString),
+          Data.=: ("CreateTemplate" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "Template" Core.=: template
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "Template" Data.=: template
       ]
 
 -- | /See:/ 'newCreateTemplateResponse' smart constructor.

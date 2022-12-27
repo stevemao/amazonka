@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A mount point for the data volumes in the container.
@@ -29,11 +30,11 @@ import qualified Amazonka.Prelude as Prelude
 data AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails = AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails'
   { -- | The path on the container to mount the host volume at.
     containerPath :: Prelude.Maybe Prelude.Text,
+    -- | Whether the container has read-only access to the volume.
+    readOnly :: Prelude.Maybe Prelude.Bool,
     -- | The name of the volume to mount. Must match the name of a volume listed
     -- in @VolumeDetails@ for the task definition.
-    sourceVolume :: Prelude.Maybe Prelude.Text,
-    -- | Whether the container has read-only access to the volume.
-    readOnly :: Prelude.Maybe Prelude.Bool
+    sourceVolume :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,19 +48,19 @@ data AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails = AwsEcsTaskDefi
 --
 -- 'containerPath', 'awsEcsTaskDefinitionContainerDefinitionsMountPointsDetails_containerPath' - The path on the container to mount the host volume at.
 --
+-- 'readOnly', 'awsEcsTaskDefinitionContainerDefinitionsMountPointsDetails_readOnly' - Whether the container has read-only access to the volume.
+--
 -- 'sourceVolume', 'awsEcsTaskDefinitionContainerDefinitionsMountPointsDetails_sourceVolume' - The name of the volume to mount. Must match the name of a volume listed
 -- in @VolumeDetails@ for the task definition.
---
--- 'readOnly', 'awsEcsTaskDefinitionContainerDefinitionsMountPointsDetails_readOnly' - Whether the container has read-only access to the volume.
 newAwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails ::
   AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails
 newAwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails =
   AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails'
     { containerPath =
         Prelude.Nothing,
-      sourceVolume =
-        Prelude.Nothing,
       readOnly =
+        Prelude.Nothing,
+      sourceVolume =
         Prelude.Nothing
     }
 
@@ -67,27 +68,27 @@ newAwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails =
 awsEcsTaskDefinitionContainerDefinitionsMountPointsDetails_containerPath :: Lens.Lens' AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails (Prelude.Maybe Prelude.Text)
 awsEcsTaskDefinitionContainerDefinitionsMountPointsDetails_containerPath = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails' {containerPath} -> containerPath) (\s@AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails' {} a -> s {containerPath = a} :: AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails)
 
+-- | Whether the container has read-only access to the volume.
+awsEcsTaskDefinitionContainerDefinitionsMountPointsDetails_readOnly :: Lens.Lens' AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails (Prelude.Maybe Prelude.Bool)
+awsEcsTaskDefinitionContainerDefinitionsMountPointsDetails_readOnly = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails' {readOnly} -> readOnly) (\s@AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails' {} a -> s {readOnly = a} :: AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails)
+
 -- | The name of the volume to mount. Must match the name of a volume listed
 -- in @VolumeDetails@ for the task definition.
 awsEcsTaskDefinitionContainerDefinitionsMountPointsDetails_sourceVolume :: Lens.Lens' AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails (Prelude.Maybe Prelude.Text)
 awsEcsTaskDefinitionContainerDefinitionsMountPointsDetails_sourceVolume = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails' {sourceVolume} -> sourceVolume) (\s@AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails' {} a -> s {sourceVolume = a} :: AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails)
 
--- | Whether the container has read-only access to the volume.
-awsEcsTaskDefinitionContainerDefinitionsMountPointsDetails_readOnly :: Lens.Lens' AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails (Prelude.Maybe Prelude.Bool)
-awsEcsTaskDefinitionContainerDefinitionsMountPointsDetails_readOnly = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails' {readOnly} -> readOnly) (\s@AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails' {} a -> s {readOnly = a} :: AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails"
       ( \x ->
           AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails'
-            Prelude.<$> (x Core..:? "ContainerPath")
-              Prelude.<*> (x Core..:? "SourceVolume")
-              Prelude.<*> (x Core..:? "ReadOnly")
+            Prelude.<$> (x Data..:? "ContainerPath")
+              Prelude.<*> (x Data..:? "ReadOnly")
+              Prelude.<*> (x Data..:? "SourceVolume")
       )
 
 instance
@@ -98,8 +99,8 @@ instance
     _salt
     AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails' {..} =
       _salt `Prelude.hashWithSalt` containerPath
-        `Prelude.hashWithSalt` sourceVolume
         `Prelude.hashWithSalt` readOnly
+        `Prelude.hashWithSalt` sourceVolume
 
 instance
   Prelude.NFData
@@ -108,19 +109,19 @@ instance
   rnf
     AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails' {..} =
       Prelude.rnf containerPath
-        `Prelude.seq` Prelude.rnf sourceVolume
         `Prelude.seq` Prelude.rnf readOnly
+        `Prelude.seq` Prelude.rnf sourceVolume
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails
   where
   toJSON
     AwsEcsTaskDefinitionContainerDefinitionsMountPointsDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("ContainerPath" Core..=) Prelude.<$> containerPath,
-              ("SourceVolume" Core..=) Prelude.<$> sourceVolume,
-              ("ReadOnly" Core..=) Prelude.<$> readOnly
+            [ ("ContainerPath" Data..=) Prelude.<$> containerPath,
+              ("ReadOnly" Data..=) Prelude.<$> readOnly,
+              ("SourceVolume" Data..=) Prelude.<$> sourceVolume
             ]
         )

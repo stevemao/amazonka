@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.SetTerminationProtection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -56,8 +56,9 @@ module Amazonka.EMR.SetTerminationProtection
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -119,7 +120,8 @@ instance Core.AWSRequest SetTerminationProtection where
   type
     AWSResponse SetTerminationProtection =
       SetTerminationProtectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       SetTerminationProtectionResponse'
@@ -134,37 +136,37 @@ instance Prelude.NFData SetTerminationProtection where
     Prelude.rnf jobFlowIds
       `Prelude.seq` Prelude.rnf terminationProtected
 
-instance Core.ToHeaders SetTerminationProtection where
+instance Data.ToHeaders SetTerminationProtection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ElasticMapReduce.SetTerminationProtection" ::
+              Data.=# ( "ElasticMapReduce.SetTerminationProtection" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SetTerminationProtection where
+instance Data.ToJSON SetTerminationProtection where
   toJSON SetTerminationProtection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("JobFlowIds" Core..= jobFlowIds),
+          [ Prelude.Just ("JobFlowIds" Data..= jobFlowIds),
             Prelude.Just
               ( "TerminationProtected"
-                  Core..= terminationProtected
+                  Data..= terminationProtected
               )
           ]
       )
 
-instance Core.ToPath SetTerminationProtection where
+instance Data.ToPath SetTerminationProtection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetTerminationProtection where
+instance Data.ToQuery SetTerminationProtection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSetTerminationProtectionResponse' smart constructor.

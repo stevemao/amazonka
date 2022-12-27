@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.MachineLearningDetectionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.MachineLearningDetectionConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.ConfidenceLevel
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration of an ML Detect Security Profile.
@@ -59,13 +60,13 @@ newMachineLearningDetectionConfig pConfidenceLevel_ =
 machineLearningDetectionConfig_confidenceLevel :: Lens.Lens' MachineLearningDetectionConfig ConfidenceLevel
 machineLearningDetectionConfig_confidenceLevel = Lens.lens (\MachineLearningDetectionConfig' {confidenceLevel} -> confidenceLevel) (\s@MachineLearningDetectionConfig' {} a -> s {confidenceLevel = a} :: MachineLearningDetectionConfig)
 
-instance Core.FromJSON MachineLearningDetectionConfig where
+instance Data.FromJSON MachineLearningDetectionConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MachineLearningDetectionConfig"
       ( \x ->
           MachineLearningDetectionConfig'
-            Prelude.<$> (x Core..: "confidenceLevel")
+            Prelude.<$> (x Data..: "confidenceLevel")
       )
 
 instance
@@ -84,11 +85,11 @@ instance
   rnf MachineLearningDetectionConfig' {..} =
     Prelude.rnf confidenceLevel
 
-instance Core.ToJSON MachineLearningDetectionConfig where
+instance Data.ToJSON MachineLearningDetectionConfig where
   toJSON MachineLearningDetectionConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("confidenceLevel" Core..= confidenceLevel)
+              ("confidenceLevel" Data..= confidenceLevel)
           ]
       )

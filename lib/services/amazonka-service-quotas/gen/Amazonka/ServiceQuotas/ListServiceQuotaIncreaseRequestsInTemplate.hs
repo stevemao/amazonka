@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceQuotas.ListServiceQuotaIncreaseRequestsInTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,24 +30,25 @@ module Amazonka.ServiceQuotas.ListServiceQuotaIncreaseRequestsInTemplate
     newListServiceQuotaIncreaseRequestsInTemplate,
 
     -- * Request Lenses
-    listServiceQuotaIncreaseRequestsInTemplate_nextToken,
     listServiceQuotaIncreaseRequestsInTemplate_awsRegion,
-    listServiceQuotaIncreaseRequestsInTemplate_serviceCode,
     listServiceQuotaIncreaseRequestsInTemplate_maxResults,
+    listServiceQuotaIncreaseRequestsInTemplate_nextToken,
+    listServiceQuotaIncreaseRequestsInTemplate_serviceCode,
 
     -- * Destructuring the Response
     ListServiceQuotaIncreaseRequestsInTemplateResponse (..),
     newListServiceQuotaIncreaseRequestsInTemplateResponse,
 
     -- * Response Lenses
-    listServiceQuotaIncreaseRequestsInTemplateResponse_serviceQuotaIncreaseRequestInTemplateList,
     listServiceQuotaIncreaseRequestsInTemplateResponse_nextToken,
+    listServiceQuotaIncreaseRequestsInTemplateResponse_serviceQuotaIncreaseRequestInTemplateList,
     listServiceQuotaIncreaseRequestsInTemplateResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,16 +56,16 @@ import Amazonka.ServiceQuotas.Types
 
 -- | /See:/ 'newListServiceQuotaIncreaseRequestsInTemplate' smart constructor.
 data ListServiceQuotaIncreaseRequestsInTemplate = ListServiceQuotaIncreaseRequestsInTemplate'
-  { -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The AWS Region.
+  { -- | The AWS Region.
     awsRegion :: Prelude.Maybe Prelude.Text,
-    -- | The service identifier.
-    serviceCode :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, if any, make another call with the token returned
     -- from this call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The service identifier.
+    serviceCode :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -76,43 +77,43 @@ data ListServiceQuotaIncreaseRequestsInTemplate = ListServiceQuotaIncreaseReques
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listServiceQuotaIncreaseRequestsInTemplate_nextToken' - The token for the next page of results.
---
 -- 'awsRegion', 'listServiceQuotaIncreaseRequestsInTemplate_awsRegion' - The AWS Region.
---
--- 'serviceCode', 'listServiceQuotaIncreaseRequestsInTemplate_serviceCode' - The service identifier.
 --
 -- 'maxResults', 'listServiceQuotaIncreaseRequestsInTemplate_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, if any, make another call with the token returned
 -- from this call.
+--
+-- 'nextToken', 'listServiceQuotaIncreaseRequestsInTemplate_nextToken' - The token for the next page of results.
+--
+-- 'serviceCode', 'listServiceQuotaIncreaseRequestsInTemplate_serviceCode' - The service identifier.
 newListServiceQuotaIncreaseRequestsInTemplate ::
   ListServiceQuotaIncreaseRequestsInTemplate
 newListServiceQuotaIncreaseRequestsInTemplate =
   ListServiceQuotaIncreaseRequestsInTemplate'
-    { nextToken =
+    { awsRegion =
         Prelude.Nothing,
-      awsRegion = Prelude.Nothing,
-      serviceCode = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      serviceCode = Prelude.Nothing
     }
-
--- | The token for the next page of results.
-listServiceQuotaIncreaseRequestsInTemplate_nextToken :: Lens.Lens' ListServiceQuotaIncreaseRequestsInTemplate (Prelude.Maybe Prelude.Text)
-listServiceQuotaIncreaseRequestsInTemplate_nextToken = Lens.lens (\ListServiceQuotaIncreaseRequestsInTemplate' {nextToken} -> nextToken) (\s@ListServiceQuotaIncreaseRequestsInTemplate' {} a -> s {nextToken = a} :: ListServiceQuotaIncreaseRequestsInTemplate)
 
 -- | The AWS Region.
 listServiceQuotaIncreaseRequestsInTemplate_awsRegion :: Lens.Lens' ListServiceQuotaIncreaseRequestsInTemplate (Prelude.Maybe Prelude.Text)
 listServiceQuotaIncreaseRequestsInTemplate_awsRegion = Lens.lens (\ListServiceQuotaIncreaseRequestsInTemplate' {awsRegion} -> awsRegion) (\s@ListServiceQuotaIncreaseRequestsInTemplate' {} a -> s {awsRegion = a} :: ListServiceQuotaIncreaseRequestsInTemplate)
-
--- | The service identifier.
-listServiceQuotaIncreaseRequestsInTemplate_serviceCode :: Lens.Lens' ListServiceQuotaIncreaseRequestsInTemplate (Prelude.Maybe Prelude.Text)
-listServiceQuotaIncreaseRequestsInTemplate_serviceCode = Lens.lens (\ListServiceQuotaIncreaseRequestsInTemplate' {serviceCode} -> serviceCode) (\s@ListServiceQuotaIncreaseRequestsInTemplate' {} a -> s {serviceCode = a} :: ListServiceQuotaIncreaseRequestsInTemplate)
 
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, if any, make another call with the token returned
 -- from this call.
 listServiceQuotaIncreaseRequestsInTemplate_maxResults :: Lens.Lens' ListServiceQuotaIncreaseRequestsInTemplate (Prelude.Maybe Prelude.Natural)
 listServiceQuotaIncreaseRequestsInTemplate_maxResults = Lens.lens (\ListServiceQuotaIncreaseRequestsInTemplate' {maxResults} -> maxResults) (\s@ListServiceQuotaIncreaseRequestsInTemplate' {} a -> s {maxResults = a} :: ListServiceQuotaIncreaseRequestsInTemplate)
+
+-- | The token for the next page of results.
+listServiceQuotaIncreaseRequestsInTemplate_nextToken :: Lens.Lens' ListServiceQuotaIncreaseRequestsInTemplate (Prelude.Maybe Prelude.Text)
+listServiceQuotaIncreaseRequestsInTemplate_nextToken = Lens.lens (\ListServiceQuotaIncreaseRequestsInTemplate' {nextToken} -> nextToken) (\s@ListServiceQuotaIncreaseRequestsInTemplate' {} a -> s {nextToken = a} :: ListServiceQuotaIncreaseRequestsInTemplate)
+
+-- | The service identifier.
+listServiceQuotaIncreaseRequestsInTemplate_serviceCode :: Lens.Lens' ListServiceQuotaIncreaseRequestsInTemplate (Prelude.Maybe Prelude.Text)
+listServiceQuotaIncreaseRequestsInTemplate_serviceCode = Lens.lens (\ListServiceQuotaIncreaseRequestsInTemplate' {serviceCode} -> serviceCode) (\s@ListServiceQuotaIncreaseRequestsInTemplate' {} a -> s {serviceCode = a} :: ListServiceQuotaIncreaseRequestsInTemplate)
 
 instance
   Core.AWSPager
@@ -147,16 +148,17 @@ instance
     AWSResponse
       ListServiceQuotaIncreaseRequestsInTemplate =
       ListServiceQuotaIncreaseRequestsInTemplateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListServiceQuotaIncreaseRequestsInTemplateResponse'
-            Prelude.<$> ( x
-                            Core..?> "ServiceQuotaIncreaseRequestInTemplateList"
-                            Core..!@ Prelude.mempty
-                        )
-              Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+              Prelude.<*> ( x
+                              Data..?> "ServiceQuotaIncreaseRequestInTemplateList"
+                              Core..!@ Prelude.mempty
+                          )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -167,73 +169,73 @@ instance
   hashWithSalt
     _salt
     ListServiceQuotaIncreaseRequestsInTemplate' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` awsRegion
-        `Prelude.hashWithSalt` serviceCode
+      _salt `Prelude.hashWithSalt` awsRegion
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
+        `Prelude.hashWithSalt` serviceCode
 
 instance
   Prelude.NFData
     ListServiceQuotaIncreaseRequestsInTemplate
   where
   rnf ListServiceQuotaIncreaseRequestsInTemplate' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf awsRegion
-      `Prelude.seq` Prelude.rnf serviceCode
+    Prelude.rnf awsRegion
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf serviceCode
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListServiceQuotaIncreaseRequestsInTemplate
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ServiceQuotasV20190624.ListServiceQuotaIncreaseRequestsInTemplate" ::
+              Data.=# ( "ServiceQuotasV20190624.ListServiceQuotaIncreaseRequestsInTemplate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ListServiceQuotaIncreaseRequestsInTemplate
   where
   toJSON
     ListServiceQuotaIncreaseRequestsInTemplate' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("NextToken" Core..=) Prelude.<$> nextToken,
-              ("AwsRegion" Core..=) Prelude.<$> awsRegion,
-              ("ServiceCode" Core..=) Prelude.<$> serviceCode,
-              ("MaxResults" Core..=) Prelude.<$> maxResults
+            [ ("AwsRegion" Data..=) Prelude.<$> awsRegion,
+              ("MaxResults" Data..=) Prelude.<$> maxResults,
+              ("NextToken" Data..=) Prelude.<$> nextToken,
+              ("ServiceCode" Data..=) Prelude.<$> serviceCode
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListServiceQuotaIncreaseRequestsInTemplate
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListServiceQuotaIncreaseRequestsInTemplate
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListServiceQuotaIncreaseRequestsInTemplateResponse' smart constructor.
 data ListServiceQuotaIncreaseRequestsInTemplateResponse = ListServiceQuotaIncreaseRequestsInTemplateResponse'
-  { -- | Information about the quota increase requests.
-    serviceQuotaIncreaseRequestInTemplateList :: Prelude.Maybe [ServiceQuotaIncreaseRequestInTemplate],
-    -- | The token to use to retrieve the next page of results. This value is
+  { -- | The token to use to retrieve the next page of results. This value is
     -- null when there are no more results to return.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the quota increase requests.
+    serviceQuotaIncreaseRequestInTemplateList :: Prelude.Maybe [ServiceQuotaIncreaseRequestInTemplate],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -247,10 +249,10 @@ data ListServiceQuotaIncreaseRequestsInTemplateResponse = ListServiceQuotaIncrea
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'serviceQuotaIncreaseRequestInTemplateList', 'listServiceQuotaIncreaseRequestsInTemplateResponse_serviceQuotaIncreaseRequestInTemplateList' - Information about the quota increase requests.
---
 -- 'nextToken', 'listServiceQuotaIncreaseRequestsInTemplateResponse_nextToken' - The token to use to retrieve the next page of results. This value is
 -- null when there are no more results to return.
+--
+-- 'serviceQuotaIncreaseRequestInTemplateList', 'listServiceQuotaIncreaseRequestsInTemplateResponse_serviceQuotaIncreaseRequestInTemplateList' - Information about the quota increase requests.
 --
 -- 'httpStatus', 'listServiceQuotaIncreaseRequestsInTemplateResponse_httpStatus' - The response's http status code.
 newListServiceQuotaIncreaseRequestsInTemplateResponse ::
@@ -260,22 +262,22 @@ newListServiceQuotaIncreaseRequestsInTemplateResponse ::
 newListServiceQuotaIncreaseRequestsInTemplateResponse
   pHttpStatus_ =
     ListServiceQuotaIncreaseRequestsInTemplateResponse'
-      { serviceQuotaIncreaseRequestInTemplateList =
+      { nextToken =
           Prelude.Nothing,
-        nextToken =
+        serviceQuotaIncreaseRequestInTemplateList =
           Prelude.Nothing,
         httpStatus =
           pHttpStatus_
       }
 
--- | Information about the quota increase requests.
-listServiceQuotaIncreaseRequestsInTemplateResponse_serviceQuotaIncreaseRequestInTemplateList :: Lens.Lens' ListServiceQuotaIncreaseRequestsInTemplateResponse (Prelude.Maybe [ServiceQuotaIncreaseRequestInTemplate])
-listServiceQuotaIncreaseRequestsInTemplateResponse_serviceQuotaIncreaseRequestInTemplateList = Lens.lens (\ListServiceQuotaIncreaseRequestsInTemplateResponse' {serviceQuotaIncreaseRequestInTemplateList} -> serviceQuotaIncreaseRequestInTemplateList) (\s@ListServiceQuotaIncreaseRequestsInTemplateResponse' {} a -> s {serviceQuotaIncreaseRequestInTemplateList = a} :: ListServiceQuotaIncreaseRequestsInTemplateResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The token to use to retrieve the next page of results. This value is
 -- null when there are no more results to return.
 listServiceQuotaIncreaseRequestsInTemplateResponse_nextToken :: Lens.Lens' ListServiceQuotaIncreaseRequestsInTemplateResponse (Prelude.Maybe Prelude.Text)
 listServiceQuotaIncreaseRequestsInTemplateResponse_nextToken = Lens.lens (\ListServiceQuotaIncreaseRequestsInTemplateResponse' {nextToken} -> nextToken) (\s@ListServiceQuotaIncreaseRequestsInTemplateResponse' {} a -> s {nextToken = a} :: ListServiceQuotaIncreaseRequestsInTemplateResponse)
+
+-- | Information about the quota increase requests.
+listServiceQuotaIncreaseRequestsInTemplateResponse_serviceQuotaIncreaseRequestInTemplateList :: Lens.Lens' ListServiceQuotaIncreaseRequestsInTemplateResponse (Prelude.Maybe [ServiceQuotaIncreaseRequestInTemplate])
+listServiceQuotaIncreaseRequestsInTemplateResponse_serviceQuotaIncreaseRequestInTemplateList = Lens.lens (\ListServiceQuotaIncreaseRequestsInTemplateResponse' {serviceQuotaIncreaseRequestInTemplateList} -> serviceQuotaIncreaseRequestInTemplateList) (\s@ListServiceQuotaIncreaseRequestsInTemplateResponse' {} a -> s {serviceQuotaIncreaseRequestInTemplateList = a} :: ListServiceQuotaIncreaseRequestsInTemplateResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listServiceQuotaIncreaseRequestsInTemplateResponse_httpStatus :: Lens.Lens' ListServiceQuotaIncreaseRequestsInTemplateResponse Prelude.Int
@@ -287,7 +289,6 @@ instance
   where
   rnf
     ListServiceQuotaIncreaseRequestsInTemplateResponse' {..} =
-      Prelude.rnf
-        serviceQuotaIncreaseRequestInTemplateList
-        `Prelude.seq` Prelude.rnf nextToken
+      Prelude.rnf nextToken
+        `Prelude.seq` Prelude.rnf serviceQuotaIncreaseRequestInTemplateList
         `Prelude.seq` Prelude.rnf httpStatus

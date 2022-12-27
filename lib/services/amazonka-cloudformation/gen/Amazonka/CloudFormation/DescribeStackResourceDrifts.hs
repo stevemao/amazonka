@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.DescribeStackResourceDrifts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@
 --
 -- For a given stack, there will be one @StackResourceDrift@ for each stack
 -- resource that has been checked for drift. Resources that haven\'t yet
--- been checked for drift are not included. Resources that do not currently
--- support drift detection are not checked, and so not included. For a list
+-- been checked for drift aren\'t included. Resources that don\'t currently
+-- support drift detection aren\'t checked, and so not included. For a list
 -- of resources that support drift detection, see
 -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html Resources that Support Drift Detection>.
 --
@@ -41,8 +41,8 @@ module Amazonka.CloudFormation.DescribeStackResourceDrifts
     newDescribeStackResourceDrifts,
 
     -- * Request Lenses
-    describeStackResourceDrifts_nextToken,
     describeStackResourceDrifts_maxResults,
+    describeStackResourceDrifts_nextToken,
     describeStackResourceDrifts_stackResourceDriftStatusFilters,
     describeStackResourceDrifts_stackName,
 
@@ -59,20 +59,21 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeStackResourceDrifts' smart constructor.
 data DescribeStackResourceDrifts = DescribeStackResourceDrifts'
-  { -- | A string that identifies the next page of stack resource drift results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned with a single call. If the
+  { -- | The maximum number of results to be returned with a single call. If the
     -- number of available results exceeds this maximum, the response includes
     -- a @NextToken@ value that you can assign to the @NextToken@ request
     -- parameter to get the next set of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A string that identifies the next page of stack resource drift results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The resource drift status values to use as filters for the resource
     -- drift results returned.
     --
@@ -82,10 +83,10 @@ data DescribeStackResourceDrifts = DescribeStackResourceDrifts'
     -- -   @MODIFIED@: One or more resource properties differ from their
     --     expected template values.
     --
-    -- -   @IN_SYNC@: The resources\'s actual configuration matches its
-    --     expected template configuration.
+    -- -   @IN_SYNC@: The resource\'s actual configuration matches its expected
+    --     template configuration.
     --
-    -- -   @NOT_CHECKED@: CloudFormation does not currently return this value.
+    -- -   @NOT_CHECKED@: CloudFormation doesn\'t currently return this value.
     stackResourceDriftStatusFilters :: Prelude.Maybe (Prelude.NonEmpty StackResourceDriftStatus),
     -- | The name of the stack for which you want drift information.
     stackName :: Prelude.Text
@@ -100,12 +101,12 @@ data DescribeStackResourceDrifts = DescribeStackResourceDrifts'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeStackResourceDrifts_nextToken' - A string that identifies the next page of stack resource drift results.
---
 -- 'maxResults', 'describeStackResourceDrifts_maxResults' - The maximum number of results to be returned with a single call. If the
 -- number of available results exceeds this maximum, the response includes
 -- a @NextToken@ value that you can assign to the @NextToken@ request
 -- parameter to get the next set of results.
+--
+-- 'nextToken', 'describeStackResourceDrifts_nextToken' - A string that identifies the next page of stack resource drift results.
 --
 -- 'stackResourceDriftStatusFilters', 'describeStackResourceDrifts_stackResourceDriftStatusFilters' - The resource drift status values to use as filters for the resource
 -- drift results returned.
@@ -116,10 +117,10 @@ data DescribeStackResourceDrifts = DescribeStackResourceDrifts'
 -- -   @MODIFIED@: One or more resource properties differ from their
 --     expected template values.
 --
--- -   @IN_SYNC@: The resources\'s actual configuration matches its
---     expected template configuration.
+-- -   @IN_SYNC@: The resource\'s actual configuration matches its expected
+--     template configuration.
 --
--- -   @NOT_CHECKED@: CloudFormation does not currently return this value.
+-- -   @NOT_CHECKED@: CloudFormation doesn\'t currently return this value.
 --
 -- 'stackName', 'describeStackResourceDrifts_stackName' - The name of the stack for which you want drift information.
 newDescribeStackResourceDrifts ::
@@ -128,17 +129,13 @@ newDescribeStackResourceDrifts ::
   DescribeStackResourceDrifts
 newDescribeStackResourceDrifts pStackName_ =
   DescribeStackResourceDrifts'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       stackResourceDriftStatusFilters =
         Prelude.Nothing,
       stackName = pStackName_
     }
-
--- | A string that identifies the next page of stack resource drift results.
-describeStackResourceDrifts_nextToken :: Lens.Lens' DescribeStackResourceDrifts (Prelude.Maybe Prelude.Text)
-describeStackResourceDrifts_nextToken = Lens.lens (\DescribeStackResourceDrifts' {nextToken} -> nextToken) (\s@DescribeStackResourceDrifts' {} a -> s {nextToken = a} :: DescribeStackResourceDrifts)
 
 -- | The maximum number of results to be returned with a single call. If the
 -- number of available results exceeds this maximum, the response includes
@@ -146,6 +143,10 @@ describeStackResourceDrifts_nextToken = Lens.lens (\DescribeStackResourceDrifts'
 -- parameter to get the next set of results.
 describeStackResourceDrifts_maxResults :: Lens.Lens' DescribeStackResourceDrifts (Prelude.Maybe Prelude.Natural)
 describeStackResourceDrifts_maxResults = Lens.lens (\DescribeStackResourceDrifts' {maxResults} -> maxResults) (\s@DescribeStackResourceDrifts' {} a -> s {maxResults = a} :: DescribeStackResourceDrifts)
+
+-- | A string that identifies the next page of stack resource drift results.
+describeStackResourceDrifts_nextToken :: Lens.Lens' DescribeStackResourceDrifts (Prelude.Maybe Prelude.Text)
+describeStackResourceDrifts_nextToken = Lens.lens (\DescribeStackResourceDrifts' {nextToken} -> nextToken) (\s@DescribeStackResourceDrifts' {} a -> s {nextToken = a} :: DescribeStackResourceDrifts)
 
 -- | The resource drift status values to use as filters for the resource
 -- drift results returned.
@@ -156,10 +157,10 @@ describeStackResourceDrifts_maxResults = Lens.lens (\DescribeStackResourceDrifts
 -- -   @MODIFIED@: One or more resource properties differ from their
 --     expected template values.
 --
--- -   @IN_SYNC@: The resources\'s actual configuration matches its
---     expected template configuration.
+-- -   @IN_SYNC@: The resource\'s actual configuration matches its expected
+--     template configuration.
 --
--- -   @NOT_CHECKED@: CloudFormation does not currently return this value.
+-- -   @NOT_CHECKED@: CloudFormation doesn\'t currently return this value.
 describeStackResourceDrifts_stackResourceDriftStatusFilters :: Lens.Lens' DescribeStackResourceDrifts (Prelude.Maybe (Prelude.NonEmpty StackResourceDriftStatus))
 describeStackResourceDrifts_stackResourceDriftStatusFilters = Lens.lens (\DescribeStackResourceDrifts' {stackResourceDriftStatusFilters} -> stackResourceDriftStatusFilters) (\s@DescribeStackResourceDrifts' {} a -> s {stackResourceDriftStatusFilters = a} :: DescribeStackResourceDrifts) Prelude.. Lens.mapping Lens.coerced
 
@@ -171,63 +172,64 @@ instance Core.AWSRequest DescribeStackResourceDrifts where
   type
     AWSResponse DescribeStackResourceDrifts =
       DescribeStackResourceDriftsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeStackResourceDriftsResult"
       ( \s h x ->
           DescribeStackResourceDriftsResponse'
-            Prelude.<$> (x Core..@? "NextToken")
+            Prelude.<$> (x Data..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "StackResourceDrifts"
+            Prelude.<*> ( x Data..@? "StackResourceDrifts"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "member"
+                            Prelude.>>= Data.parseXMLList "member"
                         )
       )
 
 instance Prelude.Hashable DescribeStackResourceDrifts where
   hashWithSalt _salt DescribeStackResourceDrifts' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` stackResourceDriftStatusFilters
       `Prelude.hashWithSalt` stackName
 
 instance Prelude.NFData DescribeStackResourceDrifts where
   rnf DescribeStackResourceDrifts' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf stackResourceDriftStatusFilters
       `Prelude.seq` Prelude.rnf stackName
 
-instance Core.ToHeaders DescribeStackResourceDrifts where
+instance Data.ToHeaders DescribeStackResourceDrifts where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeStackResourceDrifts where
+instance Data.ToPath DescribeStackResourceDrifts where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeStackResourceDrifts where
+instance Data.ToQuery DescribeStackResourceDrifts where
   toQuery DescribeStackResourceDrifts' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeStackResourceDrifts" ::
+          Data.=: ( "DescribeStackResourceDrifts" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults,
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
         "StackResourceDriftStatusFilters"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> stackResourceDriftStatusFilters
             ),
-        "StackName" Core.=: stackName
+        "StackName" Data.=: stackName
       ]
 
 -- | /See:/ 'newDescribeStackResourceDriftsResponse' smart constructor.
 data DescribeStackResourceDriftsResponse = DescribeStackResourceDriftsResponse'
-  { -- | If the request doesn\'t return all of the remaining results, @NextToken@
-    -- is set to a token. To retrieve the next set of results, call
+  { -- | If the request doesn\'t return all the remaining results, @NextToken@ is
+    -- set to a token. To retrieve the next set of results, call
     -- @DescribeStackResourceDrifts@ again and assign that token to the request
     -- object\'s @NextToken@ parameter. If the request returns all results,
     -- @NextToken@ is set to @null@.
@@ -239,9 +241,9 @@ data DescribeStackResourceDriftsResponse = DescribeStackResourceDriftsResponse'
     -- values for resources where CloudFormation detects drift.
     --
     -- For a given stack, there will be one @StackResourceDrift@ for each stack
-    -- resource that has been checked for drift. Resources that have not yet
-    -- been checked for drift are not included. Resources that do not currently
-    -- support drift detection are not checked, and so not included. For a list
+    -- resource that has been checked for drift. Resources that haven\'t yet
+    -- been checked for drift aren\'t included. Resources that do not currently
+    -- support drift detection aren\'t checked, and so not included. For a list
     -- of resources that support drift detection, see
     -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html Resources that Support Drift Detection>.
     stackResourceDrifts :: [StackResourceDrift]
@@ -256,8 +258,8 @@ data DescribeStackResourceDriftsResponse = DescribeStackResourceDriftsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeStackResourceDriftsResponse_nextToken' - If the request doesn\'t return all of the remaining results, @NextToken@
--- is set to a token. To retrieve the next set of results, call
+-- 'nextToken', 'describeStackResourceDriftsResponse_nextToken' - If the request doesn\'t return all the remaining results, @NextToken@ is
+-- set to a token. To retrieve the next set of results, call
 -- @DescribeStackResourceDrifts@ again and assign that token to the request
 -- object\'s @NextToken@ parameter. If the request returns all results,
 -- @NextToken@ is set to @null@.
@@ -269,9 +271,9 @@ data DescribeStackResourceDriftsResponse = DescribeStackResourceDriftsResponse'
 -- values for resources where CloudFormation detects drift.
 --
 -- For a given stack, there will be one @StackResourceDrift@ for each stack
--- resource that has been checked for drift. Resources that have not yet
--- been checked for drift are not included. Resources that do not currently
--- support drift detection are not checked, and so not included. For a list
+-- resource that has been checked for drift. Resources that haven\'t yet
+-- been checked for drift aren\'t included. Resources that do not currently
+-- support drift detection aren\'t checked, and so not included. For a list
 -- of resources that support drift detection, see
 -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html Resources that Support Drift Detection>.
 newDescribeStackResourceDriftsResponse ::
@@ -286,8 +288,8 @@ newDescribeStackResourceDriftsResponse pHttpStatus_ =
       stackResourceDrifts = Prelude.mempty
     }
 
--- | If the request doesn\'t return all of the remaining results, @NextToken@
--- is set to a token. To retrieve the next set of results, call
+-- | If the request doesn\'t return all the remaining results, @NextToken@ is
+-- set to a token. To retrieve the next set of results, call
 -- @DescribeStackResourceDrifts@ again and assign that token to the request
 -- object\'s @NextToken@ parameter. If the request returns all results,
 -- @NextToken@ is set to @null@.
@@ -303,9 +305,9 @@ describeStackResourceDriftsResponse_httpStatus = Lens.lens (\DescribeStackResour
 -- values for resources where CloudFormation detects drift.
 --
 -- For a given stack, there will be one @StackResourceDrift@ for each stack
--- resource that has been checked for drift. Resources that have not yet
--- been checked for drift are not included. Resources that do not currently
--- support drift detection are not checked, and so not included. For a list
+-- resource that has been checked for drift. Resources that haven\'t yet
+-- been checked for drift aren\'t included. Resources that do not currently
+-- support drift detection aren\'t checked, and so not included. For a list
 -- of resources that support drift detection, see
 -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html Resources that Support Drift Detection>.
 describeStackResourceDriftsResponse_stackResourceDrifts :: Lens.Lens' DescribeStackResourceDriftsResponse [StackResourceDrift]

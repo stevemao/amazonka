@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.ListNamespaces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Lists summary information about the namespaces that were created by the
--- current account.
+-- current Amazon Web Services account.
 --
 -- This operation returns paginated results.
 module Amazonka.Route53AutoNaming.ListNamespaces
@@ -31,8 +31,8 @@ module Amazonka.Route53AutoNaming.ListNamespaces
 
     -- * Request Lenses
     listNamespaces_filters,
-    listNamespaces_nextToken,
     listNamespaces_maxResults,
+    listNamespaces_nextToken,
 
     -- * Destructuring the Response
     ListNamespacesResponse (..),
@@ -46,7 +46,8 @@ module Amazonka.Route53AutoNaming.ListNamespaces
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,6 +61,10 @@ data ListNamespaces = ListNamespaces'
     -- If you specify more than one filter, a namespace must match all filters
     -- to be returned by @ListNamespaces@.
     filters :: Prelude.Maybe [NamespaceFilter],
+    -- | The maximum number of namespaces that you want Cloud Map to return in
+    -- the response to a @ListNamespaces@ request. If you don\'t specify a
+    -- value for @MaxResults@, Cloud Map returns up to 100 namespaces.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | For the first @ListNamespaces@ request, omit this value.
     --
     -- If the response contains @NextToken@, submit another @ListNamespaces@
@@ -71,11 +76,7 @@ data ListNamespaces = ListNamespaces'
     -- @MaxResults@ namespaces matched the specified criteria but that
     -- subsequent groups of @MaxResults@ namespaces do contain namespaces that
     -- match the criteria.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of namespaces that you want Cloud Map to return in
-    -- the response to a @ListNamespaces@ request. If you don\'t specify a
-    -- value for @MaxResults@, Cloud Map returns up to 100 namespaces.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -93,6 +94,10 @@ data ListNamespaces = ListNamespaces'
 -- If you specify more than one filter, a namespace must match all filters
 -- to be returned by @ListNamespaces@.
 --
+-- 'maxResults', 'listNamespaces_maxResults' - The maximum number of namespaces that you want Cloud Map to return in
+-- the response to a @ListNamespaces@ request. If you don\'t specify a
+-- value for @MaxResults@, Cloud Map returns up to 100 namespaces.
+--
 -- 'nextToken', 'listNamespaces_nextToken' - For the first @ListNamespaces@ request, omit this value.
 --
 -- If the response contains @NextToken@, submit another @ListNamespaces@
@@ -104,17 +109,13 @@ data ListNamespaces = ListNamespaces'
 -- @MaxResults@ namespaces matched the specified criteria but that
 -- subsequent groups of @MaxResults@ namespaces do contain namespaces that
 -- match the criteria.
---
--- 'maxResults', 'listNamespaces_maxResults' - The maximum number of namespaces that you want Cloud Map to return in
--- the response to a @ListNamespaces@ request. If you don\'t specify a
--- value for @MaxResults@, Cloud Map returns up to 100 namespaces.
 newListNamespaces ::
   ListNamespaces
 newListNamespaces =
   ListNamespaces'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | A complex type that contains specifications for the namespaces that you
@@ -124,6 +125,12 @@ newListNamespaces =
 -- to be returned by @ListNamespaces@.
 listNamespaces_filters :: Lens.Lens' ListNamespaces (Prelude.Maybe [NamespaceFilter])
 listNamespaces_filters = Lens.lens (\ListNamespaces' {filters} -> filters) (\s@ListNamespaces' {} a -> s {filters = a} :: ListNamespaces) Prelude.. Lens.mapping Lens.coerced
+
+-- | The maximum number of namespaces that you want Cloud Map to return in
+-- the response to a @ListNamespaces@ request. If you don\'t specify a
+-- value for @MaxResults@, Cloud Map returns up to 100 namespaces.
+listNamespaces_maxResults :: Lens.Lens' ListNamespaces (Prelude.Maybe Prelude.Natural)
+listNamespaces_maxResults = Lens.lens (\ListNamespaces' {maxResults} -> maxResults) (\s@ListNamespaces' {} a -> s {maxResults = a} :: ListNamespaces)
 
 -- | For the first @ListNamespaces@ request, omit this value.
 --
@@ -138,12 +145,6 @@ listNamespaces_filters = Lens.lens (\ListNamespaces' {filters} -> filters) (\s@L
 -- match the criteria.
 listNamespaces_nextToken :: Lens.Lens' ListNamespaces (Prelude.Maybe Prelude.Text)
 listNamespaces_nextToken = Lens.lens (\ListNamespaces' {nextToken} -> nextToken) (\s@ListNamespaces' {} a -> s {nextToken = a} :: ListNamespaces)
-
--- | The maximum number of namespaces that you want Cloud Map to return in
--- the response to a @ListNamespaces@ request. If you don\'t specify a
--- value for @MaxResults@, Cloud Map returns up to 100 namespaces.
-listNamespaces_maxResults :: Lens.Lens' ListNamespaces (Prelude.Maybe Prelude.Natural)
-listNamespaces_maxResults = Lens.lens (\ListNamespaces' {maxResults} -> maxResults) (\s@ListNamespaces' {} a -> s {maxResults = a} :: ListNamespaces)
 
 instance Core.AWSPager ListNamespaces where
   page rq rs
@@ -170,57 +171,58 @@ instance Core.AWSRequest ListNamespaces where
   type
     AWSResponse ListNamespaces =
       ListNamespacesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListNamespacesResponse'
-            Prelude.<$> (x Core..?> "Namespaces" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Namespaces" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListNamespaces where
   hashWithSalt _salt ListNamespaces' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListNamespaces where
   rnf ListNamespaces' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListNamespaces where
+instance Data.ToHeaders ListNamespaces where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53AutoNaming_v20170314.ListNamespaces" ::
+              Data.=# ( "Route53AutoNaming_v20170314.ListNamespaces" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListNamespaces where
+instance Data.ToJSON ListNamespaces where
   toJSON ListNamespaces' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListNamespaces where
+instance Data.ToPath ListNamespaces where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListNamespaces where
+instance Data.ToQuery ListNamespaces where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListNamespacesResponse' smart constructor.

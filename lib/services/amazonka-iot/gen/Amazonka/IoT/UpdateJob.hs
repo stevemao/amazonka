@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.UpdateJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,11 +31,12 @@ module Amazonka.IoT.UpdateJob
     newUpdateJob,
 
     -- * Request Lenses
-    updateJob_jobExecutionsRolloutConfig,
     updateJob_abortConfig,
+    updateJob_description,
+    updateJob_jobExecutionsRetryConfig,
+    updateJob_jobExecutionsRolloutConfig,
     updateJob_namespaceId,
     updateJob_presignedUrlConfig,
-    updateJob_description,
     updateJob_timeoutConfig,
     updateJob_jobId,
 
@@ -46,18 +47,23 @@ module Amazonka.IoT.UpdateJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateJob' smart constructor.
 data UpdateJob = UpdateJob'
-  { -- | Allows you to create a staged rollout of the job.
-    jobExecutionsRolloutConfig :: Prelude.Maybe JobExecutionsRolloutConfig,
-    -- | Allows you to create criteria to abort a job.
+  { -- | Allows you to create criteria to abort a job.
     abortConfig :: Prelude.Maybe AbortConfig,
+    -- | A short text description of the job.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Allows you to create the criteria to retry a job.
+    jobExecutionsRetryConfig :: Prelude.Maybe JobExecutionsRetryConfig,
+    -- | Allows you to create a staged rollout of the job.
+    jobExecutionsRolloutConfig :: Prelude.Maybe JobExecutionsRolloutConfig,
     -- | The namespace used to indicate that a job is a customer-managed job.
     --
     -- When you specify a value for this parameter, Amazon Web Services IoT
@@ -70,8 +76,6 @@ data UpdateJob = UpdateJob'
     namespaceId :: Prelude.Maybe Prelude.Text,
     -- | Configuration information for pre-signed S3 URLs.
     presignedUrlConfig :: Prelude.Maybe PresignedUrlConfig,
-    -- | A short text description of the job.
-    description :: Prelude.Maybe Prelude.Text,
     -- | Specifies the amount of time each device has to finish its execution of
     -- the job. The timer is started when the job execution status is set to
     -- @IN_PROGRESS@. If the job execution status is not set to another
@@ -91,9 +95,13 @@ data UpdateJob = UpdateJob'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'jobExecutionsRolloutConfig', 'updateJob_jobExecutionsRolloutConfig' - Allows you to create a staged rollout of the job.
---
 -- 'abortConfig', 'updateJob_abortConfig' - Allows you to create criteria to abort a job.
+--
+-- 'description', 'updateJob_description' - A short text description of the job.
+--
+-- 'jobExecutionsRetryConfig', 'updateJob_jobExecutionsRetryConfig' - Allows you to create the criteria to retry a job.
+--
+-- 'jobExecutionsRolloutConfig', 'updateJob_jobExecutionsRolloutConfig' - Allows you to create a staged rollout of the job.
 --
 -- 'namespaceId', 'updateJob_namespaceId' - The namespace used to indicate that a job is a customer-managed job.
 --
@@ -106,8 +114,6 @@ data UpdateJob = UpdateJob'
 -- The @namespaceId@ feature is in public preview.
 --
 -- 'presignedUrlConfig', 'updateJob_presignedUrlConfig' - Configuration information for pre-signed S3 URLs.
---
--- 'description', 'updateJob_description' - A short text description of the job.
 --
 -- 'timeoutConfig', 'updateJob_timeoutConfig' - Specifies the amount of time each device has to finish its execution of
 -- the job. The timer is started when the job execution status is set to
@@ -122,23 +128,31 @@ newUpdateJob ::
   UpdateJob
 newUpdateJob pJobId_ =
   UpdateJob'
-    { jobExecutionsRolloutConfig =
-        Prelude.Nothing,
-      abortConfig = Prelude.Nothing,
+    { abortConfig = Prelude.Nothing,
+      description = Prelude.Nothing,
+      jobExecutionsRetryConfig = Prelude.Nothing,
+      jobExecutionsRolloutConfig = Prelude.Nothing,
       namespaceId = Prelude.Nothing,
       presignedUrlConfig = Prelude.Nothing,
-      description = Prelude.Nothing,
       timeoutConfig = Prelude.Nothing,
       jobId = pJobId_
     }
 
--- | Allows you to create a staged rollout of the job.
-updateJob_jobExecutionsRolloutConfig :: Lens.Lens' UpdateJob (Prelude.Maybe JobExecutionsRolloutConfig)
-updateJob_jobExecutionsRolloutConfig = Lens.lens (\UpdateJob' {jobExecutionsRolloutConfig} -> jobExecutionsRolloutConfig) (\s@UpdateJob' {} a -> s {jobExecutionsRolloutConfig = a} :: UpdateJob)
-
 -- | Allows you to create criteria to abort a job.
 updateJob_abortConfig :: Lens.Lens' UpdateJob (Prelude.Maybe AbortConfig)
 updateJob_abortConfig = Lens.lens (\UpdateJob' {abortConfig} -> abortConfig) (\s@UpdateJob' {} a -> s {abortConfig = a} :: UpdateJob)
+
+-- | A short text description of the job.
+updateJob_description :: Lens.Lens' UpdateJob (Prelude.Maybe Prelude.Text)
+updateJob_description = Lens.lens (\UpdateJob' {description} -> description) (\s@UpdateJob' {} a -> s {description = a} :: UpdateJob)
+
+-- | Allows you to create the criteria to retry a job.
+updateJob_jobExecutionsRetryConfig :: Lens.Lens' UpdateJob (Prelude.Maybe JobExecutionsRetryConfig)
+updateJob_jobExecutionsRetryConfig = Lens.lens (\UpdateJob' {jobExecutionsRetryConfig} -> jobExecutionsRetryConfig) (\s@UpdateJob' {} a -> s {jobExecutionsRetryConfig = a} :: UpdateJob)
+
+-- | Allows you to create a staged rollout of the job.
+updateJob_jobExecutionsRolloutConfig :: Lens.Lens' UpdateJob (Prelude.Maybe JobExecutionsRolloutConfig)
+updateJob_jobExecutionsRolloutConfig = Lens.lens (\UpdateJob' {jobExecutionsRolloutConfig} -> jobExecutionsRolloutConfig) (\s@UpdateJob' {} a -> s {jobExecutionsRolloutConfig = a} :: UpdateJob)
 
 -- | The namespace used to indicate that a job is a customer-managed job.
 --
@@ -156,10 +170,6 @@ updateJob_namespaceId = Lens.lens (\UpdateJob' {namespaceId} -> namespaceId) (\s
 updateJob_presignedUrlConfig :: Lens.Lens' UpdateJob (Prelude.Maybe PresignedUrlConfig)
 updateJob_presignedUrlConfig = Lens.lens (\UpdateJob' {presignedUrlConfig} -> presignedUrlConfig) (\s@UpdateJob' {} a -> s {presignedUrlConfig = a} :: UpdateJob)
 
--- | A short text description of the job.
-updateJob_description :: Lens.Lens' UpdateJob (Prelude.Maybe Prelude.Text)
-updateJob_description = Lens.lens (\UpdateJob' {description} -> description) (\s@UpdateJob' {} a -> s {description = a} :: UpdateJob)
-
 -- | Specifies the amount of time each device has to finish its execution of
 -- the job. The timer is started when the job execution status is set to
 -- @IN_PROGRESS@. If the job execution status is not set to another
@@ -174,54 +184,58 @@ updateJob_jobId = Lens.lens (\UpdateJob' {jobId} -> jobId) (\s@UpdateJob' {} a -
 
 instance Core.AWSRequest UpdateJob where
   type AWSResponse UpdateJob = UpdateJobResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response = Response.receiveNull UpdateJobResponse'
 
 instance Prelude.Hashable UpdateJob where
   hashWithSalt _salt UpdateJob' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` abortConfig
+      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` jobExecutionsRetryConfig
       `Prelude.hashWithSalt` jobExecutionsRolloutConfig
-      `Prelude.hashWithSalt` abortConfig
       `Prelude.hashWithSalt` namespaceId
       `Prelude.hashWithSalt` presignedUrlConfig
-      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` timeoutConfig
       `Prelude.hashWithSalt` jobId
 
 instance Prelude.NFData UpdateJob where
   rnf UpdateJob' {..} =
-    Prelude.rnf jobExecutionsRolloutConfig
-      `Prelude.seq` Prelude.rnf abortConfig
+    Prelude.rnf abortConfig
+      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf jobExecutionsRetryConfig
+      `Prelude.seq` Prelude.rnf jobExecutionsRolloutConfig
       `Prelude.seq` Prelude.rnf namespaceId
       `Prelude.seq` Prelude.rnf presignedUrlConfig
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf timeoutConfig
       `Prelude.seq` Prelude.rnf jobId
 
-instance Core.ToHeaders UpdateJob where
+instance Data.ToHeaders UpdateJob where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateJob where
+instance Data.ToJSON UpdateJob where
   toJSON UpdateJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("jobExecutionsRolloutConfig" Core..=)
+          [ ("abortConfig" Data..=) Prelude.<$> abortConfig,
+            ("description" Data..=) Prelude.<$> description,
+            ("jobExecutionsRetryConfig" Data..=)
+              Prelude.<$> jobExecutionsRetryConfig,
+            ("jobExecutionsRolloutConfig" Data..=)
               Prelude.<$> jobExecutionsRolloutConfig,
-            ("abortConfig" Core..=) Prelude.<$> abortConfig,
-            ("presignedUrlConfig" Core..=)
+            ("presignedUrlConfig" Data..=)
               Prelude.<$> presignedUrlConfig,
-            ("description" Core..=) Prelude.<$> description,
-            ("timeoutConfig" Core..=) Prelude.<$> timeoutConfig
+            ("timeoutConfig" Data..=) Prelude.<$> timeoutConfig
           ]
       )
 
-instance Core.ToPath UpdateJob where
+instance Data.ToPath UpdateJob where
   toPath UpdateJob' {..} =
-    Prelude.mconcat ["/jobs/", Core.toBS jobId]
+    Prelude.mconcat ["/jobs/", Data.toBS jobId]
 
-instance Core.ToQuery UpdateJob where
+instance Data.ToQuery UpdateJob where
   toQuery UpdateJob' {..} =
-    Prelude.mconcat ["namespaceId" Core.=: namespaceId]
+    Prelude.mconcat ["namespaceId" Data.=: namespaceId]
 
 -- | /See:/ 'newUpdateJobResponse' smart constructor.
 data UpdateJobResponse = UpdateJobResponse'

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.RebootBroker
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.Kafka.RebootBroker
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,13 +94,14 @@ rebootBroker_brokerIds = Lens.lens (\RebootBroker' {brokerIds} -> brokerIds) (\s
 
 instance Core.AWSRequest RebootBroker where
   type AWSResponse RebootBroker = RebootBrokerResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RebootBrokerResponse'
-            Prelude.<$> (x Core..?> "clusterArn")
-            Prelude.<*> (x Core..?> "clusterOperationArn")
+            Prelude.<$> (x Data..?> "clusterArn")
+            Prelude.<*> (x Data..?> "clusterOperationArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,33 +115,33 @@ instance Prelude.NFData RebootBroker where
     Prelude.rnf clusterArn
       `Prelude.seq` Prelude.rnf brokerIds
 
-instance Core.ToHeaders RebootBroker where
+instance Data.ToHeaders RebootBroker where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RebootBroker where
+instance Data.ToJSON RebootBroker where
   toJSON RebootBroker' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("brokerIds" Core..= brokerIds)]
+          [Prelude.Just ("brokerIds" Data..= brokerIds)]
       )
 
-instance Core.ToPath RebootBroker where
+instance Data.ToPath RebootBroker where
   toPath RebootBroker' {..} =
     Prelude.mconcat
       [ "/v1/clusters/",
-        Core.toBS clusterArn,
+        Data.toBS clusterArn,
         "/reboot-broker"
       ]
 
-instance Core.ToQuery RebootBroker where
+instance Data.ToQuery RebootBroker where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRebootBrokerResponse' smart constructor.

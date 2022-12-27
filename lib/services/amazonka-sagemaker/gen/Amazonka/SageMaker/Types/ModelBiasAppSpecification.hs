@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ModelBiasAppSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ModelBiasAppSpecification where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Docker container image configuration object for the model bias job.
@@ -33,7 +34,7 @@ data ModelBiasAppSpecification = ModelBiasAppSpecification'
     imageUri :: Prelude.Text,
     -- | JSON formatted S3 file that defines bias parameters. For more
     -- information on this JSON configuration file, see
-    -- <https://docs.aws.amazon.com/sagemaker/latest/json-bias-parameter-config.html Configure bias parameters>.
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-config-json-monitor-bias-parameters.html Configure bias parameters>.
     configUri :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -52,7 +53,7 @@ data ModelBiasAppSpecification = ModelBiasAppSpecification'
 --
 -- 'configUri', 'modelBiasAppSpecification_configUri' - JSON formatted S3 file that defines bias parameters. For more
 -- information on this JSON configuration file, see
--- <https://docs.aws.amazon.com/sagemaker/latest/json-bias-parameter-config.html Configure bias parameters>.
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-config-json-monitor-bias-parameters.html Configure bias parameters>.
 newModelBiasAppSpecification ::
   -- | 'imageUri'
   Prelude.Text ->
@@ -77,19 +78,19 @@ modelBiasAppSpecification_imageUri = Lens.lens (\ModelBiasAppSpecification' {ima
 
 -- | JSON formatted S3 file that defines bias parameters. For more
 -- information on this JSON configuration file, see
--- <https://docs.aws.amazon.com/sagemaker/latest/json-bias-parameter-config.html Configure bias parameters>.
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/clarify-config-json-monitor-bias-parameters.html Configure bias parameters>.
 modelBiasAppSpecification_configUri :: Lens.Lens' ModelBiasAppSpecification Prelude.Text
 modelBiasAppSpecification_configUri = Lens.lens (\ModelBiasAppSpecification' {configUri} -> configUri) (\s@ModelBiasAppSpecification' {} a -> s {configUri = a} :: ModelBiasAppSpecification)
 
-instance Core.FromJSON ModelBiasAppSpecification where
+instance Data.FromJSON ModelBiasAppSpecification where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ModelBiasAppSpecification"
       ( \x ->
           ModelBiasAppSpecification'
-            Prelude.<$> (x Core..:? "Environment" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "ImageUri")
-            Prelude.<*> (x Core..: "ConfigUri")
+            Prelude.<$> (x Data..:? "Environment" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "ImageUri")
+            Prelude.<*> (x Data..: "ConfigUri")
       )
 
 instance Prelude.Hashable ModelBiasAppSpecification where
@@ -104,12 +105,12 @@ instance Prelude.NFData ModelBiasAppSpecification where
       `Prelude.seq` Prelude.rnf imageUri
       `Prelude.seq` Prelude.rnf configUri
 
-instance Core.ToJSON ModelBiasAppSpecification where
+instance Data.ToJSON ModelBiasAppSpecification where
   toJSON ModelBiasAppSpecification' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Environment" Core..=) Prelude.<$> environment,
-            Prelude.Just ("ImageUri" Core..= imageUri),
-            Prelude.Just ("ConfigUri" Core..= configUri)
+          [ ("Environment" Data..=) Prelude.<$> environment,
+            Prelude.Just ("ImageUri" Data..= imageUri),
+            Prelude.Just ("ConfigUri" Data..= configUri)
           ]
       )

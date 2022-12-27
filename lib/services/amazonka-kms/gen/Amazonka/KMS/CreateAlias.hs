@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.CreateAlias
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,7 @@
 --
 -- Adding, deleting, or updating an alias can allow or deny permission to
 -- the KMS key. For details, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/abac.html Using ABAC in KMS>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/abac.html ABAC for KMS>
 -- in the /Key Management Service Developer Guide/.
 --
 -- You can use an alias to identify a KMS key in the KMS console, in the
@@ -51,7 +51,7 @@
 --
 -- The KMS key that you use for this operation must be in a compatible key
 -- state. For details, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key state: Effect on your KMS key>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key states of KMS keys>
 -- in the /Key Management Service Developer Guide/.
 --
 -- __Cross-account use__: No. You cannot perform this operation on an alias
@@ -92,8 +92,9 @@ module Amazonka.KMS.CreateAlias
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -224,7 +225,8 @@ createAlias_targetKeyId = Lens.lens (\CreateAlias' {targetKeyId} -> targetKeyId)
 
 instance Core.AWSRequest CreateAlias where
   type AWSResponse CreateAlias = CreateAliasResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull CreateAliasResponse'
 
 instance Prelude.Hashable CreateAlias where
@@ -237,32 +239,32 @@ instance Prelude.NFData CreateAlias where
     Prelude.rnf aliasName
       `Prelude.seq` Prelude.rnf targetKeyId
 
-instance Core.ToHeaders CreateAlias where
+instance Data.ToHeaders CreateAlias where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("TrentService.CreateAlias" :: Prelude.ByteString),
+              Data.=# ("TrentService.CreateAlias" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAlias where
+instance Data.ToJSON CreateAlias where
   toJSON CreateAlias' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("AliasName" Core..= aliasName),
-            Prelude.Just ("TargetKeyId" Core..= targetKeyId)
+          [ Prelude.Just ("AliasName" Data..= aliasName),
+            Prelude.Just ("TargetKeyId" Data..= targetKeyId)
           ]
       )
 
-instance Core.ToPath CreateAlias where
+instance Data.ToPath CreateAlias where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAlias where
+instance Data.ToQuery CreateAlias where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAliasResponse' smart constructor.

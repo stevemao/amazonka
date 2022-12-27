@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.ListAccessPreviews
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.AccessAnalyzer.ListAccessPreviews
     newListAccessPreviews,
 
     -- * Request Lenses
-    listAccessPreviews_nextToken,
     listAccessPreviews_maxResults,
+    listAccessPreviews_nextToken,
     listAccessPreviews_analyzerArn,
 
     -- * Destructuring the Response
@@ -46,17 +46,18 @@ where
 
 import Amazonka.AccessAnalyzer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListAccessPreviews' smart constructor.
 data ListAccessPreviews = ListAccessPreviews'
-  { -- | A token used for pagination of results returned.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in the response.
+  { -- | The maximum number of results to return in the response.
     maxResults :: Prelude.Maybe Prelude.Int,
+    -- | A token used for pagination of results returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The
     -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#permission-resources ARN of the analyzer>
     -- used to generate the access preview.
@@ -72,9 +73,9 @@ data ListAccessPreviews = ListAccessPreviews'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listAccessPreviews_nextToken' - A token used for pagination of results returned.
---
 -- 'maxResults', 'listAccessPreviews_maxResults' - The maximum number of results to return in the response.
+--
+-- 'nextToken', 'listAccessPreviews_nextToken' - A token used for pagination of results returned.
 --
 -- 'analyzerArn', 'listAccessPreviews_analyzerArn' - The
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#permission-resources ARN of the analyzer>
@@ -85,18 +86,18 @@ newListAccessPreviews ::
   ListAccessPreviews
 newListAccessPreviews pAnalyzerArn_ =
   ListAccessPreviews'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       analyzerArn = pAnalyzerArn_
     }
-
--- | A token used for pagination of results returned.
-listAccessPreviews_nextToken :: Lens.Lens' ListAccessPreviews (Prelude.Maybe Prelude.Text)
-listAccessPreviews_nextToken = Lens.lens (\ListAccessPreviews' {nextToken} -> nextToken) (\s@ListAccessPreviews' {} a -> s {nextToken = a} :: ListAccessPreviews)
 
 -- | The maximum number of results to return in the response.
 listAccessPreviews_maxResults :: Lens.Lens' ListAccessPreviews (Prelude.Maybe Prelude.Int)
 listAccessPreviews_maxResults = Lens.lens (\ListAccessPreviews' {maxResults} -> maxResults) (\s@ListAccessPreviews' {} a -> s {maxResults = a} :: ListAccessPreviews)
+
+-- | A token used for pagination of results returned.
+listAccessPreviews_nextToken :: Lens.Lens' ListAccessPreviews (Prelude.Maybe Prelude.Text)
+listAccessPreviews_nextToken = Lens.lens (\ListAccessPreviews' {nextToken} -> nextToken) (\s@ListAccessPreviews' {} a -> s {nextToken = a} :: ListAccessPreviews)
 
 -- | The
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access-analyzer-getting-started.html#permission-resources ARN of the analyzer>
@@ -129,50 +130,51 @@ instance Core.AWSRequest ListAccessPreviews where
   type
     AWSResponse ListAccessPreviews =
       ListAccessPreviewsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAccessPreviewsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "accessPreviews"
+            Prelude.<*> ( x Data..?> "accessPreviews"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListAccessPreviews where
   hashWithSalt _salt ListAccessPreviews' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` analyzerArn
 
 instance Prelude.NFData ListAccessPreviews where
   rnf ListAccessPreviews' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf analyzerArn
 
-instance Core.ToHeaders ListAccessPreviews where
+instance Data.ToHeaders ListAccessPreviews where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListAccessPreviews where
+instance Data.ToPath ListAccessPreviews where
   toPath = Prelude.const "/access-preview"
 
-instance Core.ToQuery ListAccessPreviews where
+instance Data.ToQuery ListAccessPreviews where
   toQuery ListAccessPreviews' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults,
-        "analyzerArn" Core.=: analyzerArn
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "analyzerArn" Data.=: analyzerArn
       ]
 
 -- | /See:/ 'newListAccessPreviewsResponse' smart constructor.

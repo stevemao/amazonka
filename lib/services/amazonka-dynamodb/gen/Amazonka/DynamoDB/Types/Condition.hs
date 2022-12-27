@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.Condition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.DynamoDB.Types.Condition where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.ComparisonOperator
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the selection criteria for a @Query@ or @Scan@ operation:
@@ -574,13 +576,13 @@ instance Prelude.NFData Condition where
     Prelude.rnf attributeValueList
       `Prelude.seq` Prelude.rnf comparisonOperator
 
-instance Core.ToJSON Condition where
+instance Data.ToJSON Condition where
   toJSON Condition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AttributeValueList" Core..=)
+          [ ("AttributeValueList" Data..=)
               Prelude.<$> attributeValueList,
             Prelude.Just
-              ("ComparisonOperator" Core..= comparisonOperator)
+              ("ComparisonOperator" Data..= comparisonOperator)
           ]
       )

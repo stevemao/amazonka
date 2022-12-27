@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaStoreData.ListItems
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.MediaStoreData.ListItems
     newListItems,
 
     -- * Request Lenses
-    listItems_path,
-    listItems_nextToken,
     listItems_maxResults,
+    listItems_nextToken,
+    listItems_path,
 
     -- * Destructuring the Response
     ListItemsResponse (..),
@@ -46,7 +46,8 @@ module Amazonka.MediaStoreData.ListItems
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaStoreData.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,18 +55,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListItems' smart constructor.
 data ListItems = ListItems'
-  { -- | The path in the container from which to retrieve items. Format: \<folder
-    -- name>\/\<folder name>\/\<file name>
-    path :: Prelude.Maybe Prelude.Text,
-    -- | The token that identifies which batch of results that you want to see.
-    -- For example, you submit a @ListItems@ request with @MaxResults@ set at
-    -- 500. The service returns the first batch of results (up to 500) and a
-    -- @NextToken@ value. To see the next batch of results, you can submit the
-    -- @ListItems@ request a second time and specify the @NextToken@ value.
-    --
-    -- Tokens expire after 15 minutes.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per API request. For example,
+  { -- | The maximum number of results to return per API request. For example,
     -- you submit a @ListItems@ request with @MaxResults@ set at 500. Although
     -- 2,000 items match your request, the service returns no more than the
     -- first 500 items. (The service also returns a @NextToken@ value that you
@@ -74,7 +64,18 @@ data ListItems = ListItems'
     --
     -- If @MaxResults@ is not included in the request, the service defaults to
     -- pagination with a maximum of 1,000 results per page.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that identifies which batch of results that you want to see.
+    -- For example, you submit a @ListItems@ request with @MaxResults@ set at
+    -- 500. The service returns the first batch of results (up to 500) and a
+    -- @NextToken@ value. To see the next batch of results, you can submit the
+    -- @ListItems@ request a second time and specify the @NextToken@ value.
+    --
+    -- Tokens expire after 15 minutes.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The path in the container from which to retrieve items. Format: \<folder
+    -- name>\/\<folder name>\/\<file name>
+    path :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -86,17 +87,6 @@ data ListItems = ListItems'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'path', 'listItems_path' - The path in the container from which to retrieve items. Format: \<folder
--- name>\/\<folder name>\/\<file name>
---
--- 'nextToken', 'listItems_nextToken' - The token that identifies which batch of results that you want to see.
--- For example, you submit a @ListItems@ request with @MaxResults@ set at
--- 500. The service returns the first batch of results (up to 500) and a
--- @NextToken@ value. To see the next batch of results, you can submit the
--- @ListItems@ request a second time and specify the @NextToken@ value.
---
--- Tokens expire after 15 minutes.
---
 -- 'maxResults', 'listItems_maxResults' - The maximum number of results to return per API request. For example,
 -- you submit a @ListItems@ request with @MaxResults@ set at 500. Although
 -- 2,000 items match your request, the service returns no more than the
@@ -106,29 +96,25 @@ data ListItems = ListItems'
 --
 -- If @MaxResults@ is not included in the request, the service defaults to
 -- pagination with a maximum of 1,000 results per page.
-newListItems ::
-  ListItems
-newListItems =
-  ListItems'
-    { path = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
-    }
-
--- | The path in the container from which to retrieve items. Format: \<folder
--- name>\/\<folder name>\/\<file name>
-listItems_path :: Lens.Lens' ListItems (Prelude.Maybe Prelude.Text)
-listItems_path = Lens.lens (\ListItems' {path} -> path) (\s@ListItems' {} a -> s {path = a} :: ListItems)
-
--- | The token that identifies which batch of results that you want to see.
+--
+-- 'nextToken', 'listItems_nextToken' - The token that identifies which batch of results that you want to see.
 -- For example, you submit a @ListItems@ request with @MaxResults@ set at
 -- 500. The service returns the first batch of results (up to 500) and a
 -- @NextToken@ value. To see the next batch of results, you can submit the
 -- @ListItems@ request a second time and specify the @NextToken@ value.
 --
 -- Tokens expire after 15 minutes.
-listItems_nextToken :: Lens.Lens' ListItems (Prelude.Maybe Prelude.Text)
-listItems_nextToken = Lens.lens (\ListItems' {nextToken} -> nextToken) (\s@ListItems' {} a -> s {nextToken = a} :: ListItems)
+--
+-- 'path', 'listItems_path' - The path in the container from which to retrieve items. Format: \<folder
+-- name>\/\<folder name>\/\<file name>
+newListItems ::
+  ListItems
+newListItems =
+  ListItems'
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      path = Prelude.Nothing
+    }
 
 -- | The maximum number of results to return per API request. For example,
 -- you submit a @ListItems@ request with @MaxResults@ set at 500. Although
@@ -141,6 +127,21 @@ listItems_nextToken = Lens.lens (\ListItems' {nextToken} -> nextToken) (\s@ListI
 -- pagination with a maximum of 1,000 results per page.
 listItems_maxResults :: Lens.Lens' ListItems (Prelude.Maybe Prelude.Natural)
 listItems_maxResults = Lens.lens (\ListItems' {maxResults} -> maxResults) (\s@ListItems' {} a -> s {maxResults = a} :: ListItems)
+
+-- | The token that identifies which batch of results that you want to see.
+-- For example, you submit a @ListItems@ request with @MaxResults@ set at
+-- 500. The service returns the first batch of results (up to 500) and a
+-- @NextToken@ value. To see the next batch of results, you can submit the
+-- @ListItems@ request a second time and specify the @NextToken@ value.
+--
+-- Tokens expire after 15 minutes.
+listItems_nextToken :: Lens.Lens' ListItems (Prelude.Maybe Prelude.Text)
+listItems_nextToken = Lens.lens (\ListItems' {nextToken} -> nextToken) (\s@ListItems' {} a -> s {nextToken = a} :: ListItems)
+
+-- | The path in the container from which to retrieve items. Format: \<folder
+-- name>\/\<folder name>\/\<file name>
+listItems_path :: Lens.Lens' ListItems (Prelude.Maybe Prelude.Text)
+listItems_path = Lens.lens (\ListItems' {path} -> path) (\s@ListItems' {} a -> s {path = a} :: ListItems)
 
 instance Core.AWSPager ListItems where
   page rq rs
@@ -163,40 +164,41 @@ instance Core.AWSPager ListItems where
 
 instance Core.AWSRequest ListItems where
   type AWSResponse ListItems = ListItemsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListItemsResponse'
-            Prelude.<$> (x Core..?> "Items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListItems where
   hashWithSalt _salt ListItems' {..} =
-    _salt `Prelude.hashWithSalt` path
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` path
 
 instance Prelude.NFData ListItems where
   rnf ListItems' {..} =
-    Prelude.rnf path
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf path
 
-instance Core.ToHeaders ListItems where
+instance Data.ToHeaders ListItems where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListItems where
+instance Data.ToPath ListItems where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListItems where
+instance Data.ToQuery ListItems where
   toQuery ListItems' {..} =
     Prelude.mconcat
-      [ "Path" Core.=: path,
-        "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+      [ "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        "Path" Data.=: path
       ]
 
 -- | /See:/ 'newListItemsResponse' smart constructor.

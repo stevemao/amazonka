@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.OrganizationResourceDetailedStatusFilters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Config.Types.OrganizationResourceDetailedStatusFilters where
 
 import Amazonka.Config.Types.OrganizationResourceDetailedStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Status filter object to filter results based on specific member account
@@ -29,12 +30,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newOrganizationResourceDetailedStatusFilters' smart constructor.
 data OrganizationResourceDetailedStatusFilters = OrganizationResourceDetailedStatusFilters'
-  { -- | Indicates deployment status for conformance pack in a member account.
-    -- When master account calls @PutOrganizationConformancePack@ action for
-    -- the first time, conformance pack status is created in the member
-    -- account. When master account calls @PutOrganizationConformancePack@
+  { -- | The 12-digit account ID of the member account within an organization.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | Indicates deployment status for conformance pack in a member account.
+    -- When management account calls @PutOrganizationConformancePack@ action
+    -- for the first time, conformance pack status is created in the member
+    -- account. When management account calls @PutOrganizationConformancePack@
     -- action for the second time, conformance pack status is updated in the
-    -- member account. Conformance pack status is deleted when the master
+    -- member account. Conformance pack status is deleted when the management
     -- account deletes @OrganizationConformancePack@ and disables service
     -- access for @config-multiaccountsetup.amazonaws.com@.
     --
@@ -66,9 +69,7 @@ data OrganizationResourceDetailedStatusFilters = OrganizationResourceDetailedSta
     --
     -- -   @UPDATE_FAILED@ when conformance pack deletion has failed in the
     --     member account.
-    status :: Prelude.Maybe OrganizationResourceDetailedStatus,
-    -- | The 12-digit account ID of the member account within an organization.
-    accountId :: Prelude.Maybe Prelude.Text
+    status :: Prelude.Maybe OrganizationResourceDetailedStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -80,12 +81,14 @@ data OrganizationResourceDetailedStatusFilters = OrganizationResourceDetailedSta
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'accountId', 'organizationResourceDetailedStatusFilters_accountId' - The 12-digit account ID of the member account within an organization.
+--
 -- 'status', 'organizationResourceDetailedStatusFilters_status' - Indicates deployment status for conformance pack in a member account.
--- When master account calls @PutOrganizationConformancePack@ action for
--- the first time, conformance pack status is created in the member
--- account. When master account calls @PutOrganizationConformancePack@
+-- When management account calls @PutOrganizationConformancePack@ action
+-- for the first time, conformance pack status is created in the member
+-- account. When management account calls @PutOrganizationConformancePack@
 -- action for the second time, conformance pack status is updated in the
--- member account. Conformance pack status is deleted when the master
+-- member account. Conformance pack status is deleted when the management
 -- account deletes @OrganizationConformancePack@ and disables service
 -- access for @config-multiaccountsetup.amazonaws.com@.
 --
@@ -117,23 +120,25 @@ data OrganizationResourceDetailedStatusFilters = OrganizationResourceDetailedSta
 --
 -- -   @UPDATE_FAILED@ when conformance pack deletion has failed in the
 --     member account.
---
--- 'accountId', 'organizationResourceDetailedStatusFilters_accountId' - The 12-digit account ID of the member account within an organization.
 newOrganizationResourceDetailedStatusFilters ::
   OrganizationResourceDetailedStatusFilters
 newOrganizationResourceDetailedStatusFilters =
   OrganizationResourceDetailedStatusFilters'
-    { status =
+    { accountId =
         Prelude.Nothing,
-      accountId = Prelude.Nothing
+      status = Prelude.Nothing
     }
 
+-- | The 12-digit account ID of the member account within an organization.
+organizationResourceDetailedStatusFilters_accountId :: Lens.Lens' OrganizationResourceDetailedStatusFilters (Prelude.Maybe Prelude.Text)
+organizationResourceDetailedStatusFilters_accountId = Lens.lens (\OrganizationResourceDetailedStatusFilters' {accountId} -> accountId) (\s@OrganizationResourceDetailedStatusFilters' {} a -> s {accountId = a} :: OrganizationResourceDetailedStatusFilters)
+
 -- | Indicates deployment status for conformance pack in a member account.
--- When master account calls @PutOrganizationConformancePack@ action for
--- the first time, conformance pack status is created in the member
--- account. When master account calls @PutOrganizationConformancePack@
+-- When management account calls @PutOrganizationConformancePack@ action
+-- for the first time, conformance pack status is created in the member
+-- account. When management account calls @PutOrganizationConformancePack@
 -- action for the second time, conformance pack status is updated in the
--- member account. Conformance pack status is deleted when the master
+-- member account. Conformance pack status is deleted when the management
 -- account deletes @OrganizationConformancePack@ and disables service
 -- access for @config-multiaccountsetup.amazonaws.com@.
 --
@@ -168,10 +173,6 @@ newOrganizationResourceDetailedStatusFilters =
 organizationResourceDetailedStatusFilters_status :: Lens.Lens' OrganizationResourceDetailedStatusFilters (Prelude.Maybe OrganizationResourceDetailedStatus)
 organizationResourceDetailedStatusFilters_status = Lens.lens (\OrganizationResourceDetailedStatusFilters' {status} -> status) (\s@OrganizationResourceDetailedStatusFilters' {} a -> s {status = a} :: OrganizationResourceDetailedStatusFilters)
 
--- | The 12-digit account ID of the member account within an organization.
-organizationResourceDetailedStatusFilters_accountId :: Lens.Lens' OrganizationResourceDetailedStatusFilters (Prelude.Maybe Prelude.Text)
-organizationResourceDetailedStatusFilters_accountId = Lens.lens (\OrganizationResourceDetailedStatusFilters' {accountId} -> accountId) (\s@OrganizationResourceDetailedStatusFilters' {} a -> s {accountId = a} :: OrganizationResourceDetailedStatusFilters)
-
 instance
   Prelude.Hashable
     OrganizationResourceDetailedStatusFilters
@@ -179,25 +180,25 @@ instance
   hashWithSalt
     _salt
     OrganizationResourceDetailedStatusFilters' {..} =
-      _salt `Prelude.hashWithSalt` status
-        `Prelude.hashWithSalt` accountId
+      _salt `Prelude.hashWithSalt` accountId
+        `Prelude.hashWithSalt` status
 
 instance
   Prelude.NFData
     OrganizationResourceDetailedStatusFilters
   where
   rnf OrganizationResourceDetailedStatusFilters' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf accountId
+    Prelude.rnf accountId
+      `Prelude.seq` Prelude.rnf status
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     OrganizationResourceDetailedStatusFilters
   where
   toJSON OrganizationResourceDetailedStatusFilters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Status" Core..=) Prelude.<$> status,
-            ("AccountId" Core..=) Prelude.<$> accountId
+          [ ("AccountId" Data..=) Prelude.<$> accountId,
+            ("Status" Data..=) Prelude.<$> status
           ]
       )

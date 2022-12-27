@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.DescribeConformancePackCompliance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.Config.DescribeConformancePackCompliance
 
     -- * Request Lenses
     describeConformancePackCompliance_filters,
-    describeConformancePackCompliance_nextToken,
     describeConformancePackCompliance_limit,
+    describeConformancePackCompliance_nextToken,
     describeConformancePackCompliance_conformancePackName,
 
     -- * Destructuring the Response
@@ -48,7 +48,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,12 +58,12 @@ import qualified Amazonka.Response as Response
 data DescribeConformancePackCompliance = DescribeConformancePackCompliance'
   { -- | A @ConformancePackComplianceFilters@ object.
     filters :: Prelude.Maybe ConformancePackComplianceFilters,
-    -- | The @nextToken@ string returned in a previous request that you use to
-    -- request the next page of results in a paginated response.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of Config rules within a conformance pack are
     -- returned on each page.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | The @nextToken@ string returned in a previous request that you use to
+    -- request the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Name of the conformance pack.
     conformancePackName :: Prelude.Text
   }
@@ -78,11 +79,11 @@ data DescribeConformancePackCompliance = DescribeConformancePackCompliance'
 --
 -- 'filters', 'describeConformancePackCompliance_filters' - A @ConformancePackComplianceFilters@ object.
 --
--- 'nextToken', 'describeConformancePackCompliance_nextToken' - The @nextToken@ string returned in a previous request that you use to
--- request the next page of results in a paginated response.
---
 -- 'limit', 'describeConformancePackCompliance_limit' - The maximum number of Config rules within a conformance pack are
 -- returned on each page.
+--
+-- 'nextToken', 'describeConformancePackCompliance_nextToken' - The @nextToken@ string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
 --
 -- 'conformancePackName', 'describeConformancePackCompliance_conformancePackName' - Name of the conformance pack.
 newDescribeConformancePackCompliance ::
@@ -94,8 +95,8 @@ newDescribeConformancePackCompliance
     DescribeConformancePackCompliance'
       { filters =
           Prelude.Nothing,
-        nextToken = Prelude.Nothing,
         limit = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         conformancePackName =
           pConformancePackName_
       }
@@ -104,15 +105,15 @@ newDescribeConformancePackCompliance
 describeConformancePackCompliance_filters :: Lens.Lens' DescribeConformancePackCompliance (Prelude.Maybe ConformancePackComplianceFilters)
 describeConformancePackCompliance_filters = Lens.lens (\DescribeConformancePackCompliance' {filters} -> filters) (\s@DescribeConformancePackCompliance' {} a -> s {filters = a} :: DescribeConformancePackCompliance)
 
--- | The @nextToken@ string returned in a previous request that you use to
--- request the next page of results in a paginated response.
-describeConformancePackCompliance_nextToken :: Lens.Lens' DescribeConformancePackCompliance (Prelude.Maybe Prelude.Text)
-describeConformancePackCompliance_nextToken = Lens.lens (\DescribeConformancePackCompliance' {nextToken} -> nextToken) (\s@DescribeConformancePackCompliance' {} a -> s {nextToken = a} :: DescribeConformancePackCompliance)
-
 -- | The maximum number of Config rules within a conformance pack are
 -- returned on each page.
 describeConformancePackCompliance_limit :: Lens.Lens' DescribeConformancePackCompliance (Prelude.Maybe Prelude.Natural)
 describeConformancePackCompliance_limit = Lens.lens (\DescribeConformancePackCompliance' {limit} -> limit) (\s@DescribeConformancePackCompliance' {} a -> s {limit = a} :: DescribeConformancePackCompliance)
+
+-- | The @nextToken@ string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
+describeConformancePackCompliance_nextToken :: Lens.Lens' DescribeConformancePackCompliance (Prelude.Maybe Prelude.Text)
+describeConformancePackCompliance_nextToken = Lens.lens (\DescribeConformancePackCompliance' {nextToken} -> nextToken) (\s@DescribeConformancePackCompliance' {} a -> s {nextToken = a} :: DescribeConformancePackCompliance)
 
 -- | Name of the conformance pack.
 describeConformancePackCompliance_conformancePackName :: Lens.Lens' DescribeConformancePackCompliance Prelude.Text
@@ -125,15 +126,16 @@ instance
   type
     AWSResponse DescribeConformancePackCompliance =
       DescribeConformancePackComplianceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeConformancePackComplianceResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> (x Core..:> "ConformancePackName")
-              Prelude.<*> ( x Core..?> "ConformancePackRuleComplianceList"
+              Prelude.<*> (x Data..:> "ConformancePackName")
+              Prelude.<*> ( x Data..?> "ConformancePackRuleComplianceList"
                               Core..!@ Prelude.mempty
                           )
       )
@@ -146,8 +148,8 @@ instance
     _salt
     DescribeConformancePackCompliance' {..} =
       _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` limit
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` conformancePackName
 
 instance
@@ -156,51 +158,51 @@ instance
   where
   rnf DescribeConformancePackCompliance' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf conformancePackName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeConformancePackCompliance
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.DescribeConformancePackCompliance" ::
+              Data.=# ( "StarlingDoveService.DescribeConformancePackCompliance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeConformancePackCompliance
   where
   toJSON DescribeConformancePackCompliance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit,
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("ConformancePackName" Core..= conformancePackName)
+              ("ConformancePackName" Data..= conformancePackName)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeConformancePackCompliance
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeConformancePackCompliance
   where
   toQuery = Prelude.const Prelude.mempty

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Grafana.DescribeWorkspaceAuthentication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.Grafana.DescribeWorkspaceAuthentication
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Grafana.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,13 +85,14 @@ instance
   type
     AWSResponse DescribeWorkspaceAuthentication =
       DescribeWorkspaceAuthenticationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeWorkspaceAuthenticationResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "authentication")
+            Prelude.<*> (x Data..:> "authentication")
       )
 
 instance
@@ -110,28 +112,28 @@ instance
     Prelude.rnf workspaceId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeWorkspaceAuthentication
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeWorkspaceAuthentication where
+instance Data.ToPath DescribeWorkspaceAuthentication where
   toPath DescribeWorkspaceAuthentication' {..} =
     Prelude.mconcat
       [ "/workspaces/",
-        Core.toBS workspaceId,
+        Data.toBS workspaceId,
         "/authentication"
       ]
 
-instance Core.ToQuery DescribeWorkspaceAuthentication where
+instance Data.ToQuery DescribeWorkspaceAuthentication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeWorkspaceAuthenticationResponse' smart constructor.

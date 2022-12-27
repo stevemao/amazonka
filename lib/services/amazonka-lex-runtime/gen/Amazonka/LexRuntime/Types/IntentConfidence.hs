@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LexRuntime.Types.IntentConfidence
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LexRuntime.Types.IntentConfidence where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides a score that indicates the confidence that Amazon Lex has that
@@ -57,12 +58,12 @@ newIntentConfidence =
 intentConfidence_score :: Lens.Lens' IntentConfidence (Prelude.Maybe Prelude.Double)
 intentConfidence_score = Lens.lens (\IntentConfidence' {score} -> score) (\s@IntentConfidence' {} a -> s {score = a} :: IntentConfidence)
 
-instance Core.FromJSON IntentConfidence where
+instance Data.FromJSON IntentConfidence where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IntentConfidence"
       ( \x ->
-          IntentConfidence' Prelude.<$> (x Core..:? "score")
+          IntentConfidence' Prelude.<$> (x Data..:? "score")
       )
 
 instance Prelude.Hashable IntentConfidence where

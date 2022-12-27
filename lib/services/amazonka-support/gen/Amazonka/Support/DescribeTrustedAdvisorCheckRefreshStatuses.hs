@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Support.DescribeTrustedAdvisorCheckRefreshStatuses
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the refresh status of the AWS Trusted Advisor checks that have
--- the specified check IDs. You can get the check IDs by calling the
+-- Returns the refresh status of the Trusted Advisor checks that have the
+-- specified check IDs. You can get the check IDs by calling the
 -- DescribeTrustedAdvisorChecks operation.
 --
 -- Some checks are refreshed automatically, and you can\'t return their
@@ -30,14 +30,14 @@
 -- operation for these checks, you might see an @InvalidParameterValue@
 -- error.
 --
--- -   You must have a Business or Enterprise Support plan to use the AWS
---     Support API.
+-- -   You must have a Business, Enterprise On-Ramp, or Enterprise Support
+--     plan to use the Amazon Web Services Support API.
 --
--- -   If you call the AWS Support API from an account that does not have a
---     Business or Enterprise Support plan, the
---     @SubscriptionRequiredException@ error message appears. For
+-- -   If you call the Amazon Web Services Support API from an account that
+--     does not have a Business, Enterprise On-Ramp, or Enterprise Support
+--     plan, the @SubscriptionRequiredException@ error message appears. For
 --     information about changing your support plan, see
---     <http://aws.amazon.com/premiumsupport/ AWS Support>.
+--     <http://aws.amazon.com/premiumsupport/ Amazon Web Services Support>.
 module Amazonka.Support.DescribeTrustedAdvisorCheckRefreshStatuses
   ( -- * Creating a Request
     DescribeTrustedAdvisorCheckRefreshStatuses (..),
@@ -57,7 +57,8 @@ module Amazonka.Support.DescribeTrustedAdvisorCheckRefreshStatuses
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,13 +109,14 @@ instance
     AWSResponse
       DescribeTrustedAdvisorCheckRefreshStatuses =
       DescribeTrustedAdvisorCheckRefreshStatusesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTrustedAdvisorCheckRefreshStatusesResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> (x Core..?> "statuses" Core..!@ Prelude.mempty)
+              Prelude.<*> (x Data..?> "statuses" Core..!@ Prelude.mempty)
       )
 
 instance
@@ -134,42 +136,42 @@ instance
     Prelude.rnf checkIds
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeTrustedAdvisorCheckRefreshStatuses
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSSupport_20130415.DescribeTrustedAdvisorCheckRefreshStatuses" ::
+              Data.=# ( "AWSSupport_20130415.DescribeTrustedAdvisorCheckRefreshStatuses" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeTrustedAdvisorCheckRefreshStatuses
   where
   toJSON
     DescribeTrustedAdvisorCheckRefreshStatuses' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [Prelude.Just ("checkIds" Core..= checkIds)]
+            [Prelude.Just ("checkIds" Data..= checkIds)]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeTrustedAdvisorCheckRefreshStatuses
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeTrustedAdvisorCheckRefreshStatuses
   where
   toQuery = Prelude.const Prelude.mempty

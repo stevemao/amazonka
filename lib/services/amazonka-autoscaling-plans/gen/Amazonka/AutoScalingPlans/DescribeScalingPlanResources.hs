@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScalingPlans.DescribeScalingPlanResources
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.AutoScalingPlans.DescribeScalingPlanResources
     newDescribeScalingPlanResources,
 
     -- * Request Lenses
-    describeScalingPlanResources_nextToken,
     describeScalingPlanResources_maxResults,
+    describeScalingPlanResources_nextToken,
     describeScalingPlanResources_scalingPlanName,
     describeScalingPlanResources_scalingPlanVersion,
 
@@ -47,18 +47,19 @@ where
 
 import Amazonka.AutoScalingPlans.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeScalingPlanResources' smart constructor.
 data DescribeScalingPlanResources = DescribeScalingPlanResources'
-  { -- | The token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of scalable resources to return. The value must be
+  { -- | The maximum number of scalable resources to return. The value must be
     -- between 1 and 50. The default value is 50.
     maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the scaling plan.
     scalingPlanName :: Prelude.Text,
     -- | The version number of the scaling plan. Currently, the only valid value
@@ -75,10 +76,10 @@ data DescribeScalingPlanResources = DescribeScalingPlanResources'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeScalingPlanResources_nextToken' - The token for the next set of results.
---
 -- 'maxResults', 'describeScalingPlanResources_maxResults' - The maximum number of scalable resources to return. The value must be
 -- between 1 and 50. The default value is 50.
+--
+-- 'nextToken', 'describeScalingPlanResources_nextToken' - The token for the next set of results.
 --
 -- 'scalingPlanName', 'describeScalingPlanResources_scalingPlanName' - The name of the scaling plan.
 --
@@ -94,21 +95,21 @@ newDescribeScalingPlanResources
   pScalingPlanName_
   pScalingPlanVersion_ =
     DescribeScalingPlanResources'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         scalingPlanName = pScalingPlanName_,
         scalingPlanVersion = pScalingPlanVersion_
       }
-
--- | The token for the next set of results.
-describeScalingPlanResources_nextToken :: Lens.Lens' DescribeScalingPlanResources (Prelude.Maybe Prelude.Text)
-describeScalingPlanResources_nextToken = Lens.lens (\DescribeScalingPlanResources' {nextToken} -> nextToken) (\s@DescribeScalingPlanResources' {} a -> s {nextToken = a} :: DescribeScalingPlanResources)
 
 -- | The maximum number of scalable resources to return. The value must be
 -- between 1 and 50. The default value is 50.
 describeScalingPlanResources_maxResults :: Lens.Lens' DescribeScalingPlanResources (Prelude.Maybe Prelude.Int)
 describeScalingPlanResources_maxResults = Lens.lens (\DescribeScalingPlanResources' {maxResults} -> maxResults) (\s@DescribeScalingPlanResources' {} a -> s {maxResults = a} :: DescribeScalingPlanResources)
+
+-- | The token for the next set of results.
+describeScalingPlanResources_nextToken :: Lens.Lens' DescribeScalingPlanResources (Prelude.Maybe Prelude.Text)
+describeScalingPlanResources_nextToken = Lens.lens (\DescribeScalingPlanResources' {nextToken} -> nextToken) (\s@DescribeScalingPlanResources' {} a -> s {nextToken = a} :: DescribeScalingPlanResources)
 
 -- | The name of the scaling plan.
 describeScalingPlanResources_scalingPlanName :: Lens.Lens' DescribeScalingPlanResources Prelude.Text
@@ -145,13 +146,14 @@ instance Core.AWSRequest DescribeScalingPlanResources where
   type
     AWSResponse DescribeScalingPlanResources =
       DescribeScalingPlanResourcesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeScalingPlanResourcesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "ScalingPlanResources"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "ScalingPlanResources"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -162,50 +164,50 @@ instance
     DescribeScalingPlanResources
   where
   hashWithSalt _salt DescribeScalingPlanResources' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` scalingPlanName
       `Prelude.hashWithSalt` scalingPlanVersion
 
 instance Prelude.NFData DescribeScalingPlanResources where
   rnf DescribeScalingPlanResources' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf scalingPlanName
       `Prelude.seq` Prelude.rnf scalingPlanVersion
 
-instance Core.ToHeaders DescribeScalingPlanResources where
+instance Data.ToHeaders DescribeScalingPlanResources where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AnyScaleScalingPlannerFrontendService.DescribeScalingPlanResources" ::
+              Data.=# ( "AnyScaleScalingPlannerFrontendService.DescribeScalingPlanResources" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeScalingPlanResources where
+instance Data.ToJSON DescribeScalingPlanResources where
   toJSON DescribeScalingPlanResources' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("ScalingPlanName" Core..= scalingPlanName),
+              ("ScalingPlanName" Data..= scalingPlanName),
             Prelude.Just
-              ("ScalingPlanVersion" Core..= scalingPlanVersion)
+              ("ScalingPlanVersion" Data..= scalingPlanVersion)
           ]
       )
 
-instance Core.ToPath DescribeScalingPlanResources where
+instance Data.ToPath DescribeScalingPlanResources where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeScalingPlanResources where
+instance Data.ToQuery DescribeScalingPlanResources where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeScalingPlanResourcesResponse' smart constructor.

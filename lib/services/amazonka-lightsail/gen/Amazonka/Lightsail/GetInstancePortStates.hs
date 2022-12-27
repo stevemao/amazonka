@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetInstancePortStates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Lightsail.GetInstancePortStates
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -82,12 +83,13 @@ instance Core.AWSRequest GetInstancePortStates where
   type
     AWSResponse GetInstancePortStates =
       GetInstancePortStatesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetInstancePortStatesResponse'
-            Prelude.<$> (x Core..?> "portStates" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "portStates" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -99,32 +101,32 @@ instance Prelude.NFData GetInstancePortStates where
   rnf GetInstancePortStates' {..} =
     Prelude.rnf instanceName
 
-instance Core.ToHeaders GetInstancePortStates where
+instance Data.ToHeaders GetInstancePortStates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetInstancePortStates" ::
+              Data.=# ( "Lightsail_20161128.GetInstancePortStates" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetInstancePortStates where
+instance Data.ToJSON GetInstancePortStates where
   toJSON GetInstancePortStates' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("instanceName" Core..= instanceName)]
+          [Prelude.Just ("instanceName" Data..= instanceName)]
       )
 
-instance Core.ToPath GetInstancePortStates where
+instance Data.ToPath GetInstancePortStates where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetInstancePortStates where
+instance Data.ToQuery GetInstancePortStates where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetInstancePortStatesResponse' smart constructor.

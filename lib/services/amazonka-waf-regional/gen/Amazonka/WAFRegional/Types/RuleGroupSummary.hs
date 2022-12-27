@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.Types.RuleGroupSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAFRegional.Types.RuleGroupSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This is __AWS WAF Classic__ documentation. For more information, see
@@ -96,14 +97,14 @@ ruleGroupSummary_ruleGroupId = Lens.lens (\RuleGroupSummary' {ruleGroupId} -> ru
 ruleGroupSummary_name :: Lens.Lens' RuleGroupSummary Prelude.Text
 ruleGroupSummary_name = Lens.lens (\RuleGroupSummary' {name} -> name) (\s@RuleGroupSummary' {} a -> s {name = a} :: RuleGroupSummary)
 
-instance Core.FromJSON RuleGroupSummary where
+instance Data.FromJSON RuleGroupSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RuleGroupSummary"
       ( \x ->
           RuleGroupSummary'
-            Prelude.<$> (x Core..: "RuleGroupId")
-            Prelude.<*> (x Core..: "Name")
+            Prelude.<$> (x Data..: "RuleGroupId")
+            Prelude.<*> (x Data..: "Name")
       )
 
 instance Prelude.Hashable RuleGroupSummary where

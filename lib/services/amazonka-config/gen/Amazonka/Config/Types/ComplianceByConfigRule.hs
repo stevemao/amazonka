@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.ComplianceByConfigRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Config.Types.ComplianceByConfigRule where
 
 import Amazonka.Config.Types.Compliance
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Indicates whether an Config rule is compliant. A rule is compliant if
@@ -65,14 +66,14 @@ complianceByConfigRule_compliance = Lens.lens (\ComplianceByConfigRule' {complia
 complianceByConfigRule_configRuleName :: Lens.Lens' ComplianceByConfigRule (Prelude.Maybe Prelude.Text)
 complianceByConfigRule_configRuleName = Lens.lens (\ComplianceByConfigRule' {configRuleName} -> configRuleName) (\s@ComplianceByConfigRule' {} a -> s {configRuleName = a} :: ComplianceByConfigRule)
 
-instance Core.FromJSON ComplianceByConfigRule where
+instance Data.FromJSON ComplianceByConfigRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ComplianceByConfigRule"
       ( \x ->
           ComplianceByConfigRule'
-            Prelude.<$> (x Core..:? "Compliance")
-            Prelude.<*> (x Core..:? "ConfigRuleName")
+            Prelude.<$> (x Data..:? "Compliance")
+            Prelude.<*> (x Data..:? "ConfigRuleName")
       )
 
 instance Prelude.Hashable ComplianceByConfigRule where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MarketplaceCatalog.ListEntities
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,10 +27,10 @@ module Amazonka.MarketplaceCatalog.ListEntities
     newListEntities,
 
     -- * Request Lenses
-    listEntities_nextToken,
     listEntities_filterList,
-    listEntities_sort,
     listEntities_maxResults,
+    listEntities_nextToken,
+    listEntities_sort,
     listEntities_catalog,
     listEntities_entityType,
 
@@ -46,7 +46,8 @@ module Amazonka.MarketplaceCatalog.ListEntities
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MarketplaceCatalog.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,17 +55,17 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListEntities' smart constructor.
 data ListEntities = ListEntities'
-  { -- | The value of the next token, if it exists. Null if there are no more
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An array of filter objects. Each filter object contains two attributes,
+  { -- | An array of filter objects. Each filter object contains two attributes,
     -- @filterName@ and @filterValues@.
     filterList :: Prelude.Maybe (Prelude.NonEmpty Filter),
-    -- | An object that contains two attributes, @SortBy@ and @SortOrder@.
-    sort :: Prelude.Maybe Sort,
     -- | Specifies the upper limit of the elements on a single page. If a value
     -- isn\'t provided, the default value is 20.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The value of the next token, if it exists. Null if there are no more
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An object that contains two attributes, @SortBy@ and @SortOrder@.
+    sort :: Prelude.Maybe Sort,
     -- | The catalog related to the request. Fixed value: @AWSMarketplace@
     catalog :: Prelude.Text,
     -- | The type of entities to retrieve.
@@ -80,16 +81,16 @@ data ListEntities = ListEntities'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listEntities_nextToken' - The value of the next token, if it exists. Null if there are no more
--- results.
---
 -- 'filterList', 'listEntities_filterList' - An array of filter objects. Each filter object contains two attributes,
 -- @filterName@ and @filterValues@.
 --
--- 'sort', 'listEntities_sort' - An object that contains two attributes, @SortBy@ and @SortOrder@.
---
 -- 'maxResults', 'listEntities_maxResults' - Specifies the upper limit of the elements on a single page. If a value
 -- isn\'t provided, the default value is 20.
+--
+-- 'nextToken', 'listEntities_nextToken' - The value of the next token, if it exists. Null if there are no more
+-- results.
+--
+-- 'sort', 'listEntities_sort' - An object that contains two attributes, @SortBy@ and @SortOrder@.
 --
 -- 'catalog', 'listEntities_catalog' - The catalog related to the request. Fixed value: @AWSMarketplace@
 --
@@ -102,32 +103,32 @@ newListEntities ::
   ListEntities
 newListEntities pCatalog_ pEntityType_ =
   ListEntities'
-    { nextToken = Prelude.Nothing,
-      filterList = Prelude.Nothing,
-      sort = Prelude.Nothing,
+    { filterList = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      sort = Prelude.Nothing,
       catalog = pCatalog_,
       entityType = pEntityType_
     }
-
--- | The value of the next token, if it exists. Null if there are no more
--- results.
-listEntities_nextToken :: Lens.Lens' ListEntities (Prelude.Maybe Prelude.Text)
-listEntities_nextToken = Lens.lens (\ListEntities' {nextToken} -> nextToken) (\s@ListEntities' {} a -> s {nextToken = a} :: ListEntities)
 
 -- | An array of filter objects. Each filter object contains two attributes,
 -- @filterName@ and @filterValues@.
 listEntities_filterList :: Lens.Lens' ListEntities (Prelude.Maybe (Prelude.NonEmpty Filter))
 listEntities_filterList = Lens.lens (\ListEntities' {filterList} -> filterList) (\s@ListEntities' {} a -> s {filterList = a} :: ListEntities) Prelude.. Lens.mapping Lens.coerced
 
--- | An object that contains two attributes, @SortBy@ and @SortOrder@.
-listEntities_sort :: Lens.Lens' ListEntities (Prelude.Maybe Sort)
-listEntities_sort = Lens.lens (\ListEntities' {sort} -> sort) (\s@ListEntities' {} a -> s {sort = a} :: ListEntities)
-
 -- | Specifies the upper limit of the elements on a single page. If a value
 -- isn\'t provided, the default value is 20.
 listEntities_maxResults :: Lens.Lens' ListEntities (Prelude.Maybe Prelude.Natural)
 listEntities_maxResults = Lens.lens (\ListEntities' {maxResults} -> maxResults) (\s@ListEntities' {} a -> s {maxResults = a} :: ListEntities)
+
+-- | The value of the next token, if it exists. Null if there are no more
+-- results.
+listEntities_nextToken :: Lens.Lens' ListEntities (Prelude.Maybe Prelude.Text)
+listEntities_nextToken = Lens.lens (\ListEntities' {nextToken} -> nextToken) (\s@ListEntities' {} a -> s {nextToken = a} :: ListEntities)
+
+-- | An object that contains two attributes, @SortBy@ and @SortOrder@.
+listEntities_sort :: Lens.Lens' ListEntities (Prelude.Maybe Sort)
+listEntities_sort = Lens.lens (\ListEntities' {sort} -> sort) (\s@ListEntities' {} a -> s {sort = a} :: ListEntities)
 
 -- | The catalog related to the request. Fixed value: @AWSMarketplace@
 listEntities_catalog :: Lens.Lens' ListEntities Prelude.Text
@@ -139,64 +140,65 @@ listEntities_entityType = Lens.lens (\ListEntities' {entityType} -> entityType) 
 
 instance Core.AWSRequest ListEntities where
   type AWSResponse ListEntities = ListEntitiesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEntitiesResponse'
-            Prelude.<$> ( x Core..?> "EntitySummaryList"
+            Prelude.<$> ( x Data..?> "EntitySummaryList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListEntities where
   hashWithSalt _salt ListEntities' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filterList
-      `Prelude.hashWithSalt` sort
+    _salt `Prelude.hashWithSalt` filterList
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sort
       `Prelude.hashWithSalt` catalog
       `Prelude.hashWithSalt` entityType
 
 instance Prelude.NFData ListEntities where
   rnf ListEntities' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filterList
-      `Prelude.seq` Prelude.rnf sort
+    Prelude.rnf filterList
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sort
       `Prelude.seq` Prelude.rnf catalog
       `Prelude.seq` Prelude.rnf entityType
 
-instance Core.ToHeaders ListEntities where
+instance Data.ToHeaders ListEntities where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListEntities where
+instance Data.ToJSON ListEntities where
   toJSON ListEntities' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("FilterList" Core..=) Prelude.<$> filterList,
-            ("Sort" Core..=) Prelude.<$> sort,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("Catalog" Core..= catalog),
-            Prelude.Just ("EntityType" Core..= entityType)
+          [ ("FilterList" Data..=) Prelude.<$> filterList,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("Sort" Data..=) Prelude.<$> sort,
+            Prelude.Just ("Catalog" Data..= catalog),
+            Prelude.Just ("EntityType" Data..= entityType)
           ]
       )
 
-instance Core.ToPath ListEntities where
+instance Data.ToPath ListEntities where
   toPath = Prelude.const "/ListEntities"
 
-instance Core.ToQuery ListEntities where
+instance Data.ToQuery ListEntities where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListEntitiesResponse' smart constructor.

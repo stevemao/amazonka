@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.ModifyGlobalReplicationGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,9 @@ module Amazonka.ElastiCache.ModifyGlobalReplicationGroup
 
     -- * Request Lenses
     modifyGlobalReplicationGroup_automaticFailoverEnabled,
-    modifyGlobalReplicationGroup_engineVersion,
     modifyGlobalReplicationGroup_cacheNodeType,
     modifyGlobalReplicationGroup_cacheParameterGroupName,
+    modifyGlobalReplicationGroup_engineVersion,
     modifyGlobalReplicationGroup_globalReplicationGroupDescription,
     modifyGlobalReplicationGroup_globalReplicationGroupId,
     modifyGlobalReplicationGroup_applyImmediately,
@@ -46,8 +46,9 @@ module Amazonka.ElastiCache.ModifyGlobalReplicationGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,15 +58,15 @@ data ModifyGlobalReplicationGroup = ModifyGlobalReplicationGroup'
   { -- | Determines whether a read replica is automatically promoted to
     -- read\/write primary if the existing primary encounters a failure.
     automaticFailoverEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | The upgraded version of the cache engine to be run on the clusters in
-    -- the Global datastore.
-    engineVersion :: Prelude.Maybe Prelude.Text,
     -- | A valid cache node type that you want to scale this Global datastore to.
     cacheNodeType :: Prelude.Maybe Prelude.Text,
     -- | The name of the cache parameter group to use with the Global datastore.
     -- It must be compatible with the major engine version used by the Global
     -- datastore.
     cacheParameterGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The upgraded version of the cache engine to be run on the clusters in
+    -- the Global datastore.
+    engineVersion :: Prelude.Maybe Prelude.Text,
     -- | A description of the Global datastore
     globalReplicationGroupDescription :: Prelude.Maybe Prelude.Text,
     -- | The name of the Global datastore
@@ -89,14 +90,14 @@ data ModifyGlobalReplicationGroup = ModifyGlobalReplicationGroup'
 -- 'automaticFailoverEnabled', 'modifyGlobalReplicationGroup_automaticFailoverEnabled' - Determines whether a read replica is automatically promoted to
 -- read\/write primary if the existing primary encounters a failure.
 --
--- 'engineVersion', 'modifyGlobalReplicationGroup_engineVersion' - The upgraded version of the cache engine to be run on the clusters in
--- the Global datastore.
---
 -- 'cacheNodeType', 'modifyGlobalReplicationGroup_cacheNodeType' - A valid cache node type that you want to scale this Global datastore to.
 --
 -- 'cacheParameterGroupName', 'modifyGlobalReplicationGroup_cacheParameterGroupName' - The name of the cache parameter group to use with the Global datastore.
 -- It must be compatible with the major engine version used by the Global
 -- datastore.
+--
+-- 'engineVersion', 'modifyGlobalReplicationGroup_engineVersion' - The upgraded version of the cache engine to be run on the clusters in
+-- the Global datastore.
 --
 -- 'globalReplicationGroupDescription', 'modifyGlobalReplicationGroup_globalReplicationGroupDescription' - A description of the Global datastore
 --
@@ -118,9 +119,9 @@ newModifyGlobalReplicationGroup
     ModifyGlobalReplicationGroup'
       { automaticFailoverEnabled =
           Prelude.Nothing,
-        engineVersion = Prelude.Nothing,
         cacheNodeType = Prelude.Nothing,
         cacheParameterGroupName = Prelude.Nothing,
+        engineVersion = Prelude.Nothing,
         globalReplicationGroupDescription =
           Prelude.Nothing,
         globalReplicationGroupId =
@@ -133,11 +134,6 @@ newModifyGlobalReplicationGroup
 modifyGlobalReplicationGroup_automaticFailoverEnabled :: Lens.Lens' ModifyGlobalReplicationGroup (Prelude.Maybe Prelude.Bool)
 modifyGlobalReplicationGroup_automaticFailoverEnabled = Lens.lens (\ModifyGlobalReplicationGroup' {automaticFailoverEnabled} -> automaticFailoverEnabled) (\s@ModifyGlobalReplicationGroup' {} a -> s {automaticFailoverEnabled = a} :: ModifyGlobalReplicationGroup)
 
--- | The upgraded version of the cache engine to be run on the clusters in
--- the Global datastore.
-modifyGlobalReplicationGroup_engineVersion :: Lens.Lens' ModifyGlobalReplicationGroup (Prelude.Maybe Prelude.Text)
-modifyGlobalReplicationGroup_engineVersion = Lens.lens (\ModifyGlobalReplicationGroup' {engineVersion} -> engineVersion) (\s@ModifyGlobalReplicationGroup' {} a -> s {engineVersion = a} :: ModifyGlobalReplicationGroup)
-
 -- | A valid cache node type that you want to scale this Global datastore to.
 modifyGlobalReplicationGroup_cacheNodeType :: Lens.Lens' ModifyGlobalReplicationGroup (Prelude.Maybe Prelude.Text)
 modifyGlobalReplicationGroup_cacheNodeType = Lens.lens (\ModifyGlobalReplicationGroup' {cacheNodeType} -> cacheNodeType) (\s@ModifyGlobalReplicationGroup' {} a -> s {cacheNodeType = a} :: ModifyGlobalReplicationGroup)
@@ -147,6 +143,11 @@ modifyGlobalReplicationGroup_cacheNodeType = Lens.lens (\ModifyGlobalReplication
 -- datastore.
 modifyGlobalReplicationGroup_cacheParameterGroupName :: Lens.Lens' ModifyGlobalReplicationGroup (Prelude.Maybe Prelude.Text)
 modifyGlobalReplicationGroup_cacheParameterGroupName = Lens.lens (\ModifyGlobalReplicationGroup' {cacheParameterGroupName} -> cacheParameterGroupName) (\s@ModifyGlobalReplicationGroup' {} a -> s {cacheParameterGroupName = a} :: ModifyGlobalReplicationGroup)
+
+-- | The upgraded version of the cache engine to be run on the clusters in
+-- the Global datastore.
+modifyGlobalReplicationGroup_engineVersion :: Lens.Lens' ModifyGlobalReplicationGroup (Prelude.Maybe Prelude.Text)
+modifyGlobalReplicationGroup_engineVersion = Lens.lens (\ModifyGlobalReplicationGroup' {engineVersion} -> engineVersion) (\s@ModifyGlobalReplicationGroup' {} a -> s {engineVersion = a} :: ModifyGlobalReplicationGroup)
 
 -- | A description of the Global datastore
 modifyGlobalReplicationGroup_globalReplicationGroupDescription :: Lens.Lens' ModifyGlobalReplicationGroup (Prelude.Maybe Prelude.Text)
@@ -167,13 +168,14 @@ instance Core.AWSRequest ModifyGlobalReplicationGroup where
   type
     AWSResponse ModifyGlobalReplicationGroup =
       ModifyGlobalReplicationGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyGlobalReplicationGroupResult"
       ( \s h x ->
           ModifyGlobalReplicationGroupResponse'
-            Prelude.<$> (x Core..@? "GlobalReplicationGroup")
+            Prelude.<$> (x Data..@? "GlobalReplicationGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -184,9 +186,9 @@ instance
   hashWithSalt _salt ModifyGlobalReplicationGroup' {..} =
     _salt
       `Prelude.hashWithSalt` automaticFailoverEnabled
-      `Prelude.hashWithSalt` engineVersion
       `Prelude.hashWithSalt` cacheNodeType
       `Prelude.hashWithSalt` cacheParameterGroupName
+      `Prelude.hashWithSalt` engineVersion
       `Prelude.hashWithSalt` globalReplicationGroupDescription
       `Prelude.hashWithSalt` globalReplicationGroupId
       `Prelude.hashWithSalt` applyImmediately
@@ -194,39 +196,39 @@ instance
 instance Prelude.NFData ModifyGlobalReplicationGroup where
   rnf ModifyGlobalReplicationGroup' {..} =
     Prelude.rnf automaticFailoverEnabled
-      `Prelude.seq` Prelude.rnf engineVersion
       `Prelude.seq` Prelude.rnf cacheNodeType
       `Prelude.seq` Prelude.rnf cacheParameterGroupName
+      `Prelude.seq` Prelude.rnf engineVersion
       `Prelude.seq` Prelude.rnf globalReplicationGroupDescription
       `Prelude.seq` Prelude.rnf globalReplicationGroupId
       `Prelude.seq` Prelude.rnf applyImmediately
 
-instance Core.ToHeaders ModifyGlobalReplicationGroup where
+instance Data.ToHeaders ModifyGlobalReplicationGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyGlobalReplicationGroup where
+instance Data.ToPath ModifyGlobalReplicationGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyGlobalReplicationGroup where
+instance Data.ToQuery ModifyGlobalReplicationGroup where
   toQuery ModifyGlobalReplicationGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ModifyGlobalReplicationGroup" ::
+          Data.=: ( "ModifyGlobalReplicationGroup" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
         "AutomaticFailoverEnabled"
-          Core.=: automaticFailoverEnabled,
-        "EngineVersion" Core.=: engineVersion,
-        "CacheNodeType" Core.=: cacheNodeType,
+          Data.=: automaticFailoverEnabled,
+        "CacheNodeType" Data.=: cacheNodeType,
         "CacheParameterGroupName"
-          Core.=: cacheParameterGroupName,
+          Data.=: cacheParameterGroupName,
+        "EngineVersion" Data.=: engineVersion,
         "GlobalReplicationGroupDescription"
-          Core.=: globalReplicationGroupDescription,
+          Data.=: globalReplicationGroupDescription,
         "GlobalReplicationGroupId"
-          Core.=: globalReplicationGroupId,
-        "ApplyImmediately" Core.=: applyImmediately
+          Data.=: globalReplicationGroupId,
+        "ApplyImmediately" Data.=: applyImmediately
       ]
 
 -- | /See:/ 'newModifyGlobalReplicationGroupResponse' smart constructor.

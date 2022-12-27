@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.GetFunctionConcurrency
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.Lambda.GetFunctionConcurrency
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,12 +55,12 @@ data GetFunctionConcurrency = GetFunctionConcurrency'
     --
     -- __Name formats__
     --
-    -- -   __Function name__ - @my-function@.
+    -- -   __Function name__ – @my-function@.
     --
-    -- -   __Function ARN__ -
+    -- -   __Function ARN__ –
     --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
     --
-    -- -   __Partial ARN__ - @123456789012:function:my-function@.
+    -- -   __Partial ARN__ – @123456789012:function:my-function@.
     --
     -- The length constraint applies only to the full ARN. If you specify only
     -- the function name, it is limited to 64 characters in length.
@@ -79,12 +80,12 @@ data GetFunctionConcurrency = GetFunctionConcurrency'
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@.
+-- -   __Function name__ – @my-function@.
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- The length constraint applies only to the full ARN. If you specify only
 -- the function name, it is limited to 64 characters in length.
@@ -102,12 +103,12 @@ newGetFunctionConcurrency pFunctionName_ =
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@.
+-- -   __Function name__ – @my-function@.
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- The length constraint applies only to the full ARN. If you specify only
 -- the function name, it is limited to 64 characters in length.
@@ -118,12 +119,13 @@ instance Core.AWSRequest GetFunctionConcurrency where
   type
     AWSResponse GetFunctionConcurrency =
       GetFunctionConcurrencyResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetFunctionConcurrencyResponse'
-            Prelude.<$> (x Core..?> "ReservedConcurrentExecutions")
+            Prelude.<$> (x Data..?> "ReservedConcurrentExecutions")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -135,18 +137,18 @@ instance Prelude.NFData GetFunctionConcurrency where
   rnf GetFunctionConcurrency' {..} =
     Prelude.rnf functionName
 
-instance Core.ToHeaders GetFunctionConcurrency where
+instance Data.ToHeaders GetFunctionConcurrency where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetFunctionConcurrency where
+instance Data.ToPath GetFunctionConcurrency where
   toPath GetFunctionConcurrency' {..} =
     Prelude.mconcat
       [ "/2019-09-30/functions/",
-        Core.toBS functionName,
+        Data.toBS functionName,
         "/concurrency"
       ]
 
-instance Core.ToQuery GetFunctionConcurrency where
+instance Data.ToQuery GetFunctionConcurrency where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetFunctionConcurrencyResponse' smart constructor.

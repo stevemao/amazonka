@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.CreateTapePool
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.StorageGateway.CreateTapePool
     newCreateTapePool,
 
     -- * Request Lenses
-    createTapePool_retentionLockType,
     createTapePool_retentionLockTimeInDays,
+    createTapePool_retentionLockType,
     createTapePool_tags,
     createTapePool_poolName,
     createTapePool_storageClass,
@@ -45,7 +45,8 @@ module Amazonka.StorageGateway.CreateTapePool
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,16 +54,16 @@ import Amazonka.StorageGateway.Types
 
 -- | /See:/ 'newCreateTapePool' smart constructor.
 data CreateTapePool = CreateTapePool'
-  { -- | Tape retention lock can be configured in two modes. When configured in
+  { -- | Tape retention lock time is set in days. Tape retention lock can be
+    -- enabled for up to 100 years (36,500 days).
+    retentionLockTimeInDays :: Prelude.Maybe Prelude.Natural,
+    -- | Tape retention lock can be configured in two modes. When configured in
     -- governance mode, Amazon Web Services accounts with specific IAM
     -- permissions are authorized to remove the tape retention lock from
     -- archived virtual tapes. When configured in compliance mode, the tape
     -- retention lock cannot be removed by any user, including the root Amazon
     -- Web Services account.
     retentionLockType :: Prelude.Maybe RetentionLockType,
-    -- | Tape retention lock time is set in days. Tape retention lock can be
-    -- enabled for up to 100 years (36,500 days).
-    retentionLockTimeInDays :: Prelude.Maybe Prelude.Natural,
     -- | A list of up to 50 tags that can be assigned to tape pool. Each tag is a
     -- key-value pair.
     --
@@ -89,15 +90,15 @@ data CreateTapePool = CreateTapePool'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'retentionLockTimeInDays', 'createTapePool_retentionLockTimeInDays' - Tape retention lock time is set in days. Tape retention lock can be
+-- enabled for up to 100 years (36,500 days).
+--
 -- 'retentionLockType', 'createTapePool_retentionLockType' - Tape retention lock can be configured in two modes. When configured in
 -- governance mode, Amazon Web Services accounts with specific IAM
 -- permissions are authorized to remove the tape retention lock from
 -- archived virtual tapes. When configured in compliance mode, the tape
 -- retention lock cannot be removed by any user, including the root Amazon
 -- Web Services account.
---
--- 'retentionLockTimeInDays', 'createTapePool_retentionLockTimeInDays' - Tape retention lock time is set in days. Tape retention lock can be
--- enabled for up to 100 years (36,500 days).
 --
 -- 'tags', 'createTapePool_tags' - A list of up to 50 tags that can be assigned to tape pool. Each tag is a
 -- key-value pair.
@@ -121,13 +122,18 @@ newCreateTapePool ::
   CreateTapePool
 newCreateTapePool pPoolName_ pStorageClass_ =
   CreateTapePool'
-    { retentionLockType =
+    { retentionLockTimeInDays =
         Prelude.Nothing,
-      retentionLockTimeInDays = Prelude.Nothing,
+      retentionLockType = Prelude.Nothing,
       tags = Prelude.Nothing,
       poolName = pPoolName_,
       storageClass = pStorageClass_
     }
+
+-- | Tape retention lock time is set in days. Tape retention lock can be
+-- enabled for up to 100 years (36,500 days).
+createTapePool_retentionLockTimeInDays :: Lens.Lens' CreateTapePool (Prelude.Maybe Prelude.Natural)
+createTapePool_retentionLockTimeInDays = Lens.lens (\CreateTapePool' {retentionLockTimeInDays} -> retentionLockTimeInDays) (\s@CreateTapePool' {} a -> s {retentionLockTimeInDays = a} :: CreateTapePool)
 
 -- | Tape retention lock can be configured in two modes. When configured in
 -- governance mode, Amazon Web Services accounts with specific IAM
@@ -137,11 +143,6 @@ newCreateTapePool pPoolName_ pStorageClass_ =
 -- Web Services account.
 createTapePool_retentionLockType :: Lens.Lens' CreateTapePool (Prelude.Maybe RetentionLockType)
 createTapePool_retentionLockType = Lens.lens (\CreateTapePool' {retentionLockType} -> retentionLockType) (\s@CreateTapePool' {} a -> s {retentionLockType = a} :: CreateTapePool)
-
--- | Tape retention lock time is set in days. Tape retention lock can be
--- enabled for up to 100 years (36,500 days).
-createTapePool_retentionLockTimeInDays :: Lens.Lens' CreateTapePool (Prelude.Maybe Prelude.Natural)
-createTapePool_retentionLockTimeInDays = Lens.lens (\CreateTapePool' {retentionLockTimeInDays} -> retentionLockTimeInDays) (\s@CreateTapePool' {} a -> s {retentionLockTimeInDays = a} :: CreateTapePool)
 
 -- | A list of up to 50 tags that can be assigned to tape pool. Each tag is a
 -- key-value pair.
@@ -168,64 +169,66 @@ instance Core.AWSRequest CreateTapePool where
   type
     AWSResponse CreateTapePool =
       CreateTapePoolResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateTapePoolResponse'
-            Prelude.<$> (x Core..?> "PoolARN")
+            Prelude.<$> (x Data..?> "PoolARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateTapePool where
   hashWithSalt _salt CreateTapePool' {..} =
-    _salt `Prelude.hashWithSalt` retentionLockType
+    _salt
       `Prelude.hashWithSalt` retentionLockTimeInDays
+      `Prelude.hashWithSalt` retentionLockType
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` poolName
       `Prelude.hashWithSalt` storageClass
 
 instance Prelude.NFData CreateTapePool where
   rnf CreateTapePool' {..} =
-    Prelude.rnf retentionLockType
-      `Prelude.seq` Prelude.rnf retentionLockTimeInDays
+    Prelude.rnf retentionLockTimeInDays
+      `Prelude.seq` Prelude.rnf retentionLockType
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf poolName
       `Prelude.seq` Prelude.rnf storageClass
 
-instance Core.ToHeaders CreateTapePool where
+instance Data.ToHeaders CreateTapePool where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.CreateTapePool" ::
+              Data.=# ( "StorageGateway_20130630.CreateTapePool" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateTapePool where
+instance Data.ToJSON CreateTapePool where
   toJSON CreateTapePool' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RetentionLockType" Core..=)
-              Prelude.<$> retentionLockType,
-            ("RetentionLockTimeInDays" Core..=)
+          [ ("RetentionLockTimeInDays" Data..=)
               Prelude.<$> retentionLockTimeInDays,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("PoolName" Core..= poolName),
-            Prelude.Just ("StorageClass" Core..= storageClass)
+            ("RetentionLockType" Data..=)
+              Prelude.<$> retentionLockType,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("PoolName" Data..= poolName),
+            Prelude.Just ("StorageClass" Data..= storageClass)
           ]
       )
 
-instance Core.ToPath CreateTapePool where
+instance Data.ToPath CreateTapePool where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateTapePool where
+instance Data.ToQuery CreateTapePool where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateTapePoolResponse' smart constructor.

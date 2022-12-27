@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsDynamoDbTableKeySchema
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsDynamoDbTableKeySchema where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A component of the key schema for the DynamoDB table, a global secondary
@@ -28,10 +29,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAwsDynamoDbTableKeySchema' smart constructor.
 data AwsDynamoDbTableKeySchema = AwsDynamoDbTableKeySchema'
-  { -- | The type of key used for the key schema attribute.
-    keyType :: Prelude.Maybe Prelude.Text,
-    -- | The name of the key schema attribute.
-    attributeName :: Prelude.Maybe Prelude.Text
+  { -- | The name of the key schema attribute.
+    attributeName :: Prelude.Maybe Prelude.Text,
+    -- | The type of key used for the key schema attribute. Valid values are
+    -- @HASH@ or @RANGE@.
+    keyType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,51 +45,53 @@ data AwsDynamoDbTableKeySchema = AwsDynamoDbTableKeySchema'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'keyType', 'awsDynamoDbTableKeySchema_keyType' - The type of key used for the key schema attribute.
---
 -- 'attributeName', 'awsDynamoDbTableKeySchema_attributeName' - The name of the key schema attribute.
+--
+-- 'keyType', 'awsDynamoDbTableKeySchema_keyType' - The type of key used for the key schema attribute. Valid values are
+-- @HASH@ or @RANGE@.
 newAwsDynamoDbTableKeySchema ::
   AwsDynamoDbTableKeySchema
 newAwsDynamoDbTableKeySchema =
   AwsDynamoDbTableKeySchema'
-    { keyType =
+    { attributeName =
         Prelude.Nothing,
-      attributeName = Prelude.Nothing
+      keyType = Prelude.Nothing
     }
-
--- | The type of key used for the key schema attribute.
-awsDynamoDbTableKeySchema_keyType :: Lens.Lens' AwsDynamoDbTableKeySchema (Prelude.Maybe Prelude.Text)
-awsDynamoDbTableKeySchema_keyType = Lens.lens (\AwsDynamoDbTableKeySchema' {keyType} -> keyType) (\s@AwsDynamoDbTableKeySchema' {} a -> s {keyType = a} :: AwsDynamoDbTableKeySchema)
 
 -- | The name of the key schema attribute.
 awsDynamoDbTableKeySchema_attributeName :: Lens.Lens' AwsDynamoDbTableKeySchema (Prelude.Maybe Prelude.Text)
 awsDynamoDbTableKeySchema_attributeName = Lens.lens (\AwsDynamoDbTableKeySchema' {attributeName} -> attributeName) (\s@AwsDynamoDbTableKeySchema' {} a -> s {attributeName = a} :: AwsDynamoDbTableKeySchema)
 
-instance Core.FromJSON AwsDynamoDbTableKeySchema where
+-- | The type of key used for the key schema attribute. Valid values are
+-- @HASH@ or @RANGE@.
+awsDynamoDbTableKeySchema_keyType :: Lens.Lens' AwsDynamoDbTableKeySchema (Prelude.Maybe Prelude.Text)
+awsDynamoDbTableKeySchema_keyType = Lens.lens (\AwsDynamoDbTableKeySchema' {keyType} -> keyType) (\s@AwsDynamoDbTableKeySchema' {} a -> s {keyType = a} :: AwsDynamoDbTableKeySchema)
+
+instance Data.FromJSON AwsDynamoDbTableKeySchema where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsDynamoDbTableKeySchema"
       ( \x ->
           AwsDynamoDbTableKeySchema'
-            Prelude.<$> (x Core..:? "KeyType")
-            Prelude.<*> (x Core..:? "AttributeName")
+            Prelude.<$> (x Data..:? "AttributeName")
+            Prelude.<*> (x Data..:? "KeyType")
       )
 
 instance Prelude.Hashable AwsDynamoDbTableKeySchema where
   hashWithSalt _salt AwsDynamoDbTableKeySchema' {..} =
-    _salt `Prelude.hashWithSalt` keyType
-      `Prelude.hashWithSalt` attributeName
+    _salt `Prelude.hashWithSalt` attributeName
+      `Prelude.hashWithSalt` keyType
 
 instance Prelude.NFData AwsDynamoDbTableKeySchema where
   rnf AwsDynamoDbTableKeySchema' {..} =
-    Prelude.rnf keyType
-      `Prelude.seq` Prelude.rnf attributeName
+    Prelude.rnf attributeName
+      `Prelude.seq` Prelude.rnf keyType
 
-instance Core.ToJSON AwsDynamoDbTableKeySchema where
+instance Data.ToJSON AwsDynamoDbTableKeySchema where
   toJSON AwsDynamoDbTableKeySchema' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KeyType" Core..=) Prelude.<$> keyType,
-            ("AttributeName" Core..=) Prelude.<$> attributeName
+          [ ("AttributeName" Data..=) Prelude.<$> attributeName,
+            ("KeyType" Data..=) Prelude.<$> keyType
           ]
       )

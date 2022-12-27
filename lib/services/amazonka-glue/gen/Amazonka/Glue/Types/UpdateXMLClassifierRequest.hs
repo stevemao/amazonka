@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.UpdateXMLClassifierRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.UpdateXMLClassifierRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies an XML classifier to be updated.
@@ -100,13 +101,13 @@ instance Prelude.NFData UpdateXMLClassifierRequest where
       `Prelude.seq` Prelude.rnf rowTag
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON UpdateXMLClassifierRequest where
+instance Data.ToJSON UpdateXMLClassifierRequest where
   toJSON UpdateXMLClassifierRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Classification" Core..=)
+          [ ("Classification" Data..=)
               Prelude.<$> classification,
-            ("RowTag" Core..=) Prelude.<$> rowTag,
-            Prelude.Just ("Name" Core..= name)
+            ("RowTag" Data..=) Prelude.<$> rowTag,
+            Prelude.Just ("Name" Data..= name)
           ]
       )

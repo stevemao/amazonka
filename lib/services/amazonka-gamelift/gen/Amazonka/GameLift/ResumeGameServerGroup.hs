@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.ResumeGameServerGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,8 @@
 -- server groups.__
 --
 -- Reinstates activity on a game server group after it has been suspended.
--- A game server group might be suspended by theSuspendGameServerGroup
+-- A game server group might be suspended by the
+-- <gamelift/latest/apireference/API_SuspendGameServerGroup.html SuspendGameServerGroup>
 -- operation, or it might be suspended involuntarily due to a configuration
 -- problem. In the second case, you can manually resume activity on the
 -- group once the configuration problem has been resolved. Refer to the
@@ -32,20 +33,13 @@
 -- group activity is suspended.
 --
 -- To resume activity, specify a game server group ARN and the type of
--- activity to be resumed. If successful, a GameServerGroup object is
+-- activity to be resumed. If successful, a @GameServerGroup@ object is
 -- returned showing that the resumed activity is no longer listed in
 -- @SuspendedActions@.
 --
 -- __Learn more__
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/fleetiqguide/gsg-intro.html GameLift FleetIQ Guide>
---
--- __Related actions__
---
--- CreateGameServerGroup | ListGameServerGroups | DescribeGameServerGroup |
--- UpdateGameServerGroup | DeleteGameServerGroup | ResumeGameServerGroup |
--- SuspendGameServerGroup | DescribeGameServerInstances |
--- <https://docs.aws.amazon.com/gamelift/latest/fleetiqguide/reference-awssdk-fleetiq.html All APIs by task>
 module Amazonka.GameLift.ResumeGameServerGroup
   ( -- * Creating a Request
     ResumeGameServerGroup (..),
@@ -66,16 +60,17 @@ module Amazonka.GameLift.ResumeGameServerGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newResumeGameServerGroup' smart constructor.
 data ResumeGameServerGroup = ResumeGameServerGroup'
-  { -- | A unique identifier for the game server group. Use either the
-    -- GameServerGroup name or ARN value.
+  { -- | A unique identifier for the game server group. Use either the name or
+    -- ARN value.
     gameServerGroupName :: Prelude.Text,
     -- | The activity to resume for this game server group.
     resumeActions :: Prelude.NonEmpty GameServerGroupAction
@@ -90,8 +85,8 @@ data ResumeGameServerGroup = ResumeGameServerGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'gameServerGroupName', 'resumeGameServerGroup_gameServerGroupName' - A unique identifier for the game server group. Use either the
--- GameServerGroup name or ARN value.
+-- 'gameServerGroupName', 'resumeGameServerGroup_gameServerGroupName' - A unique identifier for the game server group. Use either the name or
+-- ARN value.
 --
 -- 'resumeActions', 'resumeGameServerGroup_resumeActions' - The activity to resume for this game server group.
 newResumeGameServerGroup ::
@@ -109,8 +104,8 @@ newResumeGameServerGroup
         resumeActions = Lens.coerced Lens.# pResumeActions_
       }
 
--- | A unique identifier for the game server group. Use either the
--- GameServerGroup name or ARN value.
+-- | A unique identifier for the game server group. Use either the name or
+-- ARN value.
 resumeGameServerGroup_gameServerGroupName :: Lens.Lens' ResumeGameServerGroup Prelude.Text
 resumeGameServerGroup_gameServerGroupName = Lens.lens (\ResumeGameServerGroup' {gameServerGroupName} -> gameServerGroupName) (\s@ResumeGameServerGroup' {} a -> s {gameServerGroupName = a} :: ResumeGameServerGroup)
 
@@ -122,12 +117,13 @@ instance Core.AWSRequest ResumeGameServerGroup where
   type
     AWSResponse ResumeGameServerGroup =
       ResumeGameServerGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ResumeGameServerGroupResponse'
-            Prelude.<$> (x Core..?> "GameServerGroup")
+            Prelude.<$> (x Data..?> "GameServerGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -141,36 +137,36 @@ instance Prelude.NFData ResumeGameServerGroup where
     Prelude.rnf gameServerGroupName
       `Prelude.seq` Prelude.rnf resumeActions
 
-instance Core.ToHeaders ResumeGameServerGroup where
+instance Data.ToHeaders ResumeGameServerGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.ResumeGameServerGroup" ::
+              Data.=# ( "GameLift.ResumeGameServerGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ResumeGameServerGroup where
+instance Data.ToJSON ResumeGameServerGroup where
   toJSON ResumeGameServerGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("GameServerGroupName" Core..= gameServerGroupName),
+              ("GameServerGroupName" Data..= gameServerGroupName),
             Prelude.Just
-              ("ResumeActions" Core..= resumeActions)
+              ("ResumeActions" Data..= resumeActions)
           ]
       )
 
-instance Core.ToPath ResumeGameServerGroup where
+instance Data.ToPath ResumeGameServerGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ResumeGameServerGroup where
+instance Data.ToQuery ResumeGameServerGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newResumeGameServerGroupResponse' smart constructor.

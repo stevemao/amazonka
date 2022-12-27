@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.Types.LaunchConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticBeanstalk.Types.LaunchConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an Auto Scaling launch configuration.
@@ -50,10 +51,10 @@ newLaunchConfiguration =
 launchConfiguration_name :: Lens.Lens' LaunchConfiguration (Prelude.Maybe Prelude.Text)
 launchConfiguration_name = Lens.lens (\LaunchConfiguration' {name} -> name) (\s@LaunchConfiguration' {} a -> s {name = a} :: LaunchConfiguration)
 
-instance Core.FromXML LaunchConfiguration where
+instance Data.FromXML LaunchConfiguration where
   parseXML x =
     LaunchConfiguration'
-      Prelude.<$> (x Core..@? "Name")
+      Prelude.<$> (x Data..@? "Name")
 
 instance Prelude.Hashable LaunchConfiguration where
   hashWithSalt _salt LaunchConfiguration' {..} =

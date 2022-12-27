@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.Types.PackageDependency
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeArtifact.Types.PackageDependency where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details about a package dependency.
@@ -31,15 +32,15 @@ data PackageDependency = PackageDependency'
     -- package type. Example types are @compile@, @runtime@, and @test@ for
     -- Maven packages, and @dev@, @prod@, and @optional@ for npm packages.
     dependencyType :: Prelude.Maybe Prelude.Text,
-    -- | The namespace of the package. The package component that specifies its
-    -- namespace depends on its type. For example:
+    -- | The namespace of the package that this package depends on. The package
+    -- component that specifies its namespace depends on its type. For example:
     --
     -- -   The namespace of a Maven package is its @groupId@.
     --
     -- -   The namespace of an npm package is its @scope@.
     --
-    -- -   A Python package does not contain a corresponding component, so
-    --     Python packages do not have a namespace.
+    -- -   Python and NuGet packages do not contain a corresponding component,
+    --     packages of those formats do not have a namespace.
     namespace :: Prelude.Maybe Prelude.Text,
     -- | The name of the package that this package depends on.
     package :: Prelude.Maybe Prelude.Text,
@@ -63,15 +64,15 @@ data PackageDependency = PackageDependency'
 -- package type. Example types are @compile@, @runtime@, and @test@ for
 -- Maven packages, and @dev@, @prod@, and @optional@ for npm packages.
 --
--- 'namespace', 'packageDependency_namespace' - The namespace of the package. The package component that specifies its
--- namespace depends on its type. For example:
+-- 'namespace', 'packageDependency_namespace' - The namespace of the package that this package depends on. The package
+-- component that specifies its namespace depends on its type. For example:
 --
 -- -   The namespace of a Maven package is its @groupId@.
 --
 -- -   The namespace of an npm package is its @scope@.
 --
--- -   A Python package does not contain a corresponding component, so
---     Python packages do not have a namespace.
+-- -   Python and NuGet packages do not contain a corresponding component,
+--     packages of those formats do not have a namespace.
 --
 -- 'package', 'packageDependency_package' - The name of the package that this package depends on.
 --
@@ -96,15 +97,15 @@ newPackageDependency =
 packageDependency_dependencyType :: Lens.Lens' PackageDependency (Prelude.Maybe Prelude.Text)
 packageDependency_dependencyType = Lens.lens (\PackageDependency' {dependencyType} -> dependencyType) (\s@PackageDependency' {} a -> s {dependencyType = a} :: PackageDependency)
 
--- | The namespace of the package. The package component that specifies its
--- namespace depends on its type. For example:
+-- | The namespace of the package that this package depends on. The package
+-- component that specifies its namespace depends on its type. For example:
 --
 -- -   The namespace of a Maven package is its @groupId@.
 --
 -- -   The namespace of an npm package is its @scope@.
 --
--- -   A Python package does not contain a corresponding component, so
---     Python packages do not have a namespace.
+-- -   Python and NuGet packages do not contain a corresponding component,
+--     packages of those formats do not have a namespace.
 packageDependency_namespace :: Lens.Lens' PackageDependency (Prelude.Maybe Prelude.Text)
 packageDependency_namespace = Lens.lens (\PackageDependency' {namespace} -> namespace) (\s@PackageDependency' {} a -> s {namespace = a} :: PackageDependency)
 
@@ -119,16 +120,16 @@ packageDependency_package = Lens.lens (\PackageDependency' {package} -> package)
 packageDependency_versionRequirement :: Lens.Lens' PackageDependency (Prelude.Maybe Prelude.Text)
 packageDependency_versionRequirement = Lens.lens (\PackageDependency' {versionRequirement} -> versionRequirement) (\s@PackageDependency' {} a -> s {versionRequirement = a} :: PackageDependency)
 
-instance Core.FromJSON PackageDependency where
+instance Data.FromJSON PackageDependency where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PackageDependency"
       ( \x ->
           PackageDependency'
-            Prelude.<$> (x Core..:? "dependencyType")
-            Prelude.<*> (x Core..:? "namespace")
-            Prelude.<*> (x Core..:? "package")
-            Prelude.<*> (x Core..:? "versionRequirement")
+            Prelude.<$> (x Data..:? "dependencyType")
+            Prelude.<*> (x Data..:? "namespace")
+            Prelude.<*> (x Data..:? "package")
+            Prelude.<*> (x Data..:? "versionRequirement")
       )
 
 instance Prelude.Hashable PackageDependency where

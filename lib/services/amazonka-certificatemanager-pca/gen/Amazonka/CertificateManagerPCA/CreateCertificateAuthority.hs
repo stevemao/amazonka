@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.CreateCertificateAuthority
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,7 @@
 -- bucket that you specify. If the IAM principal making the call does not
 -- have permission to write to the bucket, then an exception is thrown. For
 -- more information, see
--- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaAuthAccess.html Configure Access to ACM Private CA>.
+-- <https://docs.aws.amazon.com/acm-pca/latest/userguide/crl-planning.html#s3-policies Access policies for CRLs in Amazon S3>.
 module Amazonka.CertificateManagerPCA.CreateCertificateAuthority
   ( -- * Creating a Request
     CreateCertificateAuthority (..),
@@ -53,6 +53,7 @@ module Amazonka.CertificateManagerPCA.CreateCertificateAuthority
     createCertificateAuthority_keyStorageSecurityStandard,
     createCertificateAuthority_revocationConfiguration,
     createCertificateAuthority_tags,
+    createCertificateAuthority_usageMode,
     createCertificateAuthority_certificateAuthorityConfiguration,
     createCertificateAuthority_certificateAuthorityType,
 
@@ -68,7 +69,8 @@ where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,9 +91,15 @@ data CreateCertificateAuthority = CreateCertificateAuthority'
     --
     -- Default: FIPS_140_2_LEVEL_3_OR_HIGHER
     --
-    -- Note: @FIPS_140_2_LEVEL_3_OR_HIGHER@ is not supported in Region
-    -- ap-northeast-3. When creating a CA in the ap-northeast-3, you must
-    -- provide @FIPS_140_2_LEVEL_2_OR_HIGHER@ as the argument for
+    -- /Note:/ @FIPS_140_2_LEVEL_3_OR_HIGHER@ is not supported in the following
+    -- Regions:
+    --
+    -- -   ap-northeast-3
+    --
+    -- -   ap-southeast-3
+    --
+    -- When creating a CA in these Regions, you must provide
+    -- @FIPS_140_2_LEVEL_2_OR_HIGHER@ as the argument for
     -- @KeyStorageSecurityStandard@. Failure to do this results in an
     -- @InvalidArgsException@ with the message, \"A certificate authority
     -- cannot be created in this region with the specified security standard.\"
@@ -110,6 +118,13 @@ data CreateCertificateAuthority = CreateCertificateAuthority'
     -- with IAM to manage permissions, see
     -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags>.
     tags :: Prelude.Maybe (Prelude.NonEmpty Tag),
+    -- | Specifies whether the CA issues general-purpose certificates that
+    -- typically require a revocation mechanism, or short-lived certificates
+    -- that may optionally omit revocation because they expire quickly.
+    -- Short-lived certificate validity is limited to seven days.
+    --
+    -- The default value is GENERAL_PURPOSE.
+    usageMode :: Prelude.Maybe CertificateAuthorityUsageMode,
     -- | Name and bit size of the private key algorithm, the name of the signing
     -- algorithm, and X.500 certificate subject information.
     certificateAuthorityConfiguration :: CertificateAuthorityConfiguration,
@@ -140,9 +155,15 @@ data CreateCertificateAuthority = CreateCertificateAuthority'
 --
 -- Default: FIPS_140_2_LEVEL_3_OR_HIGHER
 --
--- Note: @FIPS_140_2_LEVEL_3_OR_HIGHER@ is not supported in Region
--- ap-northeast-3. When creating a CA in the ap-northeast-3, you must
--- provide @FIPS_140_2_LEVEL_2_OR_HIGHER@ as the argument for
+-- /Note:/ @FIPS_140_2_LEVEL_3_OR_HIGHER@ is not supported in the following
+-- Regions:
+--
+-- -   ap-northeast-3
+--
+-- -   ap-southeast-3
+--
+-- When creating a CA in these Regions, you must provide
+-- @FIPS_140_2_LEVEL_2_OR_HIGHER@ as the argument for
 -- @KeyStorageSecurityStandard@. Failure to do this results in an
 -- @InvalidArgsException@ with the message, \"A certificate authority
 -- cannot be created in this region with the specified security standard.\"
@@ -160,6 +181,13 @@ data CreateCertificateAuthority = CreateCertificateAuthority'
 -- associate up to 50 tags with a private CA. For information using tags
 -- with IAM to manage permissions, see
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_iam-tags.html Controlling Access Using IAM Tags>.
+--
+-- 'usageMode', 'createCertificateAuthority_usageMode' - Specifies whether the CA issues general-purpose certificates that
+-- typically require a revocation mechanism, or short-lived certificates
+-- that may optionally omit revocation because they expire quickly.
+-- Short-lived certificate validity is limited to seven days.
+--
+-- The default value is GENERAL_PURPOSE.
 --
 -- 'certificateAuthorityConfiguration', 'createCertificateAuthority_certificateAuthorityConfiguration' - Name and bit size of the private key algorithm, the name of the signing
 -- algorithm, and X.500 certificate subject information.
@@ -180,6 +208,7 @@ newCreateCertificateAuthority
         keyStorageSecurityStandard = Prelude.Nothing,
         revocationConfiguration = Prelude.Nothing,
         tags = Prelude.Nothing,
+        usageMode = Prelude.Nothing,
         certificateAuthorityConfiguration =
           pCertificateAuthorityConfiguration_,
         certificateAuthorityType =
@@ -202,9 +231,15 @@ createCertificateAuthority_idempotencyToken = Lens.lens (\CreateCertificateAutho
 --
 -- Default: FIPS_140_2_LEVEL_3_OR_HIGHER
 --
--- Note: @FIPS_140_2_LEVEL_3_OR_HIGHER@ is not supported in Region
--- ap-northeast-3. When creating a CA in the ap-northeast-3, you must
--- provide @FIPS_140_2_LEVEL_2_OR_HIGHER@ as the argument for
+-- /Note:/ @FIPS_140_2_LEVEL_3_OR_HIGHER@ is not supported in the following
+-- Regions:
+--
+-- -   ap-northeast-3
+--
+-- -   ap-southeast-3
+--
+-- When creating a CA in these Regions, you must provide
+-- @FIPS_140_2_LEVEL_2_OR_HIGHER@ as the argument for
 -- @KeyStorageSecurityStandard@. Failure to do this results in an
 -- @InvalidArgsException@ with the message, \"A certificate authority
 -- cannot be created in this region with the specified security standard.\"
@@ -229,6 +264,15 @@ createCertificateAuthority_revocationConfiguration = Lens.lens (\CreateCertifica
 createCertificateAuthority_tags :: Lens.Lens' CreateCertificateAuthority (Prelude.Maybe (Prelude.NonEmpty Tag))
 createCertificateAuthority_tags = Lens.lens (\CreateCertificateAuthority' {tags} -> tags) (\s@CreateCertificateAuthority' {} a -> s {tags = a} :: CreateCertificateAuthority) Prelude.. Lens.mapping Lens.coerced
 
+-- | Specifies whether the CA issues general-purpose certificates that
+-- typically require a revocation mechanism, or short-lived certificates
+-- that may optionally omit revocation because they expire quickly.
+-- Short-lived certificate validity is limited to seven days.
+--
+-- The default value is GENERAL_PURPOSE.
+createCertificateAuthority_usageMode :: Lens.Lens' CreateCertificateAuthority (Prelude.Maybe CertificateAuthorityUsageMode)
+createCertificateAuthority_usageMode = Lens.lens (\CreateCertificateAuthority' {usageMode} -> usageMode) (\s@CreateCertificateAuthority' {} a -> s {usageMode = a} :: CreateCertificateAuthority)
+
 -- | Name and bit size of the private key algorithm, the name of the signing
 -- algorithm, and X.500 certificate subject information.
 createCertificateAuthority_certificateAuthorityConfiguration :: Lens.Lens' CreateCertificateAuthority CertificateAuthorityConfiguration
@@ -242,12 +286,13 @@ instance Core.AWSRequest CreateCertificateAuthority where
   type
     AWSResponse CreateCertificateAuthority =
       CreateCertificateAuthorityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateCertificateAuthorityResponse'
-            Prelude.<$> (x Core..?> "CertificateAuthorityArn")
+            Prelude.<$> (x Data..?> "CertificateAuthorityArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -257,6 +302,7 @@ instance Prelude.Hashable CreateCertificateAuthority where
       `Prelude.hashWithSalt` keyStorageSecurityStandard
       `Prelude.hashWithSalt` revocationConfiguration
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` usageMode
       `Prelude.hashWithSalt` certificateAuthorityConfiguration
       `Prelude.hashWithSalt` certificateAuthorityType
 
@@ -266,50 +312,52 @@ instance Prelude.NFData CreateCertificateAuthority where
       `Prelude.seq` Prelude.rnf keyStorageSecurityStandard
       `Prelude.seq` Prelude.rnf revocationConfiguration
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf usageMode
       `Prelude.seq` Prelude.rnf certificateAuthorityConfiguration
       `Prelude.seq` Prelude.rnf certificateAuthorityType
 
-instance Core.ToHeaders CreateCertificateAuthority where
+instance Data.ToHeaders CreateCertificateAuthority where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ACMPrivateCA.CreateCertificateAuthority" ::
+              Data.=# ( "ACMPrivateCA.CreateCertificateAuthority" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateCertificateAuthority where
+instance Data.ToJSON CreateCertificateAuthority where
   toJSON CreateCertificateAuthority' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IdempotencyToken" Core..=)
+          [ ("IdempotencyToken" Data..=)
               Prelude.<$> idempotencyToken,
-            ("KeyStorageSecurityStandard" Core..=)
+            ("KeyStorageSecurityStandard" Data..=)
               Prelude.<$> keyStorageSecurityStandard,
-            ("RevocationConfiguration" Core..=)
+            ("RevocationConfiguration" Data..=)
               Prelude.<$> revocationConfiguration,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("Tags" Data..=) Prelude.<$> tags,
+            ("UsageMode" Data..=) Prelude.<$> usageMode,
             Prelude.Just
               ( "CertificateAuthorityConfiguration"
-                  Core..= certificateAuthorityConfiguration
+                  Data..= certificateAuthorityConfiguration
               ),
             Prelude.Just
               ( "CertificateAuthorityType"
-                  Core..= certificateAuthorityType
+                  Data..= certificateAuthorityType
               )
           ]
       )
 
-instance Core.ToPath CreateCertificateAuthority where
+instance Data.ToPath CreateCertificateAuthority where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateCertificateAuthority where
+instance Data.ToQuery CreateCertificateAuthority where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateCertificateAuthorityResponse' smart constructor.

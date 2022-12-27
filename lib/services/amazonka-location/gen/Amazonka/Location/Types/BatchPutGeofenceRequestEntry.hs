@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Location.Types.BatchPutGeofenceRequestEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Location.Types.BatchPutGeofenceRequestEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types.GeofenceGeometry
 import qualified Amazonka.Prelude as Prelude
 
@@ -31,7 +32,8 @@ data BatchPutGeofenceRequestEntry = BatchPutGeofenceRequestEntry'
   { -- | The identifier for the geofence to be stored in a given geofence
     -- collection.
     geofenceId :: Prelude.Text,
-    -- | Contains the polygon details to specify the position of the geofence.
+    -- | Contains the details of the position of the geofence. Can be either a
+    -- polygon or a circle. Including both will return a validation error.
     --
     -- Each
     -- <https://docs.aws.amazon.com/location-geofences/latest/APIReference/API_GeofenceGeometry.html geofence polygon>
@@ -51,7 +53,8 @@ data BatchPutGeofenceRequestEntry = BatchPutGeofenceRequestEntry'
 -- 'geofenceId', 'batchPutGeofenceRequestEntry_geofenceId' - The identifier for the geofence to be stored in a given geofence
 -- collection.
 --
--- 'geometry', 'batchPutGeofenceRequestEntry_geometry' - Contains the polygon details to specify the position of the geofence.
+-- 'geometry', 'batchPutGeofenceRequestEntry_geometry' - Contains the details of the position of the geofence. Can be either a
+-- polygon or a circle. Including both will return a validation error.
 --
 -- Each
 -- <https://docs.aws.amazon.com/location-geofences/latest/APIReference/API_GeofenceGeometry.html geofence polygon>
@@ -76,7 +79,8 @@ newBatchPutGeofenceRequestEntry
 batchPutGeofenceRequestEntry_geofenceId :: Lens.Lens' BatchPutGeofenceRequestEntry Prelude.Text
 batchPutGeofenceRequestEntry_geofenceId = Lens.lens (\BatchPutGeofenceRequestEntry' {geofenceId} -> geofenceId) (\s@BatchPutGeofenceRequestEntry' {} a -> s {geofenceId = a} :: BatchPutGeofenceRequestEntry)
 
--- | Contains the polygon details to specify the position of the geofence.
+-- | Contains the details of the position of the geofence. Can be either a
+-- polygon or a circle. Including both will return a validation error.
 --
 -- Each
 -- <https://docs.aws.amazon.com/location-geofences/latest/APIReference/API_GeofenceGeometry.html geofence polygon>
@@ -97,11 +101,11 @@ instance Prelude.NFData BatchPutGeofenceRequestEntry where
     Prelude.rnf geofenceId
       `Prelude.seq` Prelude.rnf geometry
 
-instance Core.ToJSON BatchPutGeofenceRequestEntry where
+instance Data.ToJSON BatchPutGeofenceRequestEntry where
   toJSON BatchPutGeofenceRequestEntry' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("GeofenceId" Core..= geofenceId),
-            Prelude.Just ("Geometry" Core..= geometry)
+          [ Prelude.Just ("GeofenceId" Data..= geofenceId),
+            Prelude.Just ("Geometry" Data..= geometry)
           ]
       )

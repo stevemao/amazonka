@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.GetJobUnlockCode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,7 +27,10 @@
 -- The @UnlockCode@ value is a 29-character code with 25 alphanumeric
 -- characters and 4 hyphens. This code is used to decrypt the manifest file
 -- when it is passed along with the manifest to the Snow device through the
--- Snowball client when the client is started for the first time.
+-- Snowball client when the client is started for the first time. The only
+-- valid status for calling this API is @WithCustomer@ as the manifest and
+-- @Unlock@ code values are used for securing your device and should only
+-- be used when you have the device.
 --
 -- As a best practice, we recommend that you don\'t save a copy of the
 -- @UnlockCode@ in the same location as the manifest file for that job.
@@ -52,7 +55,8 @@ module Amazonka.Snowball.GetJobUnlockCode
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,12 +96,13 @@ instance Core.AWSRequest GetJobUnlockCode where
   type
     AWSResponse GetJobUnlockCode =
       GetJobUnlockCodeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetJobUnlockCodeResponse'
-            Prelude.<$> (x Core..?> "UnlockCode")
+            Prelude.<$> (x Data..?> "UnlockCode")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,32 +113,32 @@ instance Prelude.Hashable GetJobUnlockCode where
 instance Prelude.NFData GetJobUnlockCode where
   rnf GetJobUnlockCode' {..} = Prelude.rnf jobId
 
-instance Core.ToHeaders GetJobUnlockCode where
+instance Data.ToHeaders GetJobUnlockCode where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSIESnowballJobManagementService.GetJobUnlockCode" ::
+              Data.=# ( "AWSIESnowballJobManagementService.GetJobUnlockCode" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetJobUnlockCode where
+instance Data.ToJSON GetJobUnlockCode where
   toJSON GetJobUnlockCode' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("JobId" Core..= jobId)]
+          [Prelude.Just ("JobId" Data..= jobId)]
       )
 
-instance Core.ToPath GetJobUnlockCode where
+instance Data.ToPath GetJobUnlockCode where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetJobUnlockCode where
+instance Data.ToQuery GetJobUnlockCode where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetJobUnlockCodeResponse' smart constructor.

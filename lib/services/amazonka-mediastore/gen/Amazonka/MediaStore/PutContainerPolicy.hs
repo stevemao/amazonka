@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaStore.PutContainerPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.MediaStore.PutContainerPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaStore.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -110,7 +111,8 @@ instance Core.AWSRequest PutContainerPolicy where
   type
     AWSResponse PutContainerPolicy =
       PutContainerPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -128,35 +130,35 @@ instance Prelude.NFData PutContainerPolicy where
     Prelude.rnf containerName
       `Prelude.seq` Prelude.rnf policy
 
-instance Core.ToHeaders PutContainerPolicy where
+instance Data.ToHeaders PutContainerPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MediaStore_20170901.PutContainerPolicy" ::
+              Data.=# ( "MediaStore_20170901.PutContainerPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutContainerPolicy where
+instance Data.ToJSON PutContainerPolicy where
   toJSON PutContainerPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ContainerName" Core..= containerName),
-            Prelude.Just ("Policy" Core..= policy)
+              ("ContainerName" Data..= containerName),
+            Prelude.Just ("Policy" Data..= policy)
           ]
       )
 
-instance Core.ToPath PutContainerPolicy where
+instance Data.ToPath PutContainerPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutContainerPolicy where
+instance Data.ToQuery PutContainerPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutContainerPolicyResponse' smart constructor.

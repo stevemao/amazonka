@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.Types.QueryLoggingConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53.Types.QueryLoggingConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53.Internal
 
@@ -85,12 +86,12 @@ queryLoggingConfig_hostedZoneId = Lens.lens (\QueryLoggingConfig' {hostedZoneId}
 queryLoggingConfig_cloudWatchLogsLogGroupArn :: Lens.Lens' QueryLoggingConfig Prelude.Text
 queryLoggingConfig_cloudWatchLogsLogGroupArn = Lens.lens (\QueryLoggingConfig' {cloudWatchLogsLogGroupArn} -> cloudWatchLogsLogGroupArn) (\s@QueryLoggingConfig' {} a -> s {cloudWatchLogsLogGroupArn = a} :: QueryLoggingConfig)
 
-instance Core.FromXML QueryLoggingConfig where
+instance Data.FromXML QueryLoggingConfig where
   parseXML x =
     QueryLoggingConfig'
-      Prelude.<$> (x Core..@ "Id")
-      Prelude.<*> (x Core..@ "HostedZoneId")
-      Prelude.<*> (x Core..@ "CloudWatchLogsLogGroupArn")
+      Prelude.<$> (x Data..@ "Id")
+      Prelude.<*> (x Data..@ "HostedZoneId")
+      Prelude.<*> (x Data..@ "CloudWatchLogsLogGroupArn")
 
 instance Prelude.Hashable QueryLoggingConfig where
   hashWithSalt _salt QueryLoggingConfig' {..} =

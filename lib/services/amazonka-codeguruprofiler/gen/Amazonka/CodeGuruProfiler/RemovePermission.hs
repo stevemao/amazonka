@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruProfiler.RemovePermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,7 +53,8 @@ where
 
 import Amazonka.CodeGuruProfiler.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -130,14 +131,15 @@ instance Core.AWSRequest RemovePermission where
   type
     AWSResponse RemovePermission =
       RemovePermissionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RemovePermissionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "policy")
-            Prelude.<*> (x Core..:> "revisionId")
+            Prelude.<*> (x Data..:> "policy")
+            Prelude.<*> (x Data..:> "revisionId")
       )
 
 instance Prelude.Hashable RemovePermission where
@@ -152,29 +154,29 @@ instance Prelude.NFData RemovePermission where
       `Prelude.seq` Prelude.rnf profilingGroupName
       `Prelude.seq` Prelude.rnf revisionId
 
-instance Core.ToHeaders RemovePermission where
+instance Data.ToHeaders RemovePermission where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath RemovePermission where
+instance Data.ToPath RemovePermission where
   toPath RemovePermission' {..} =
     Prelude.mconcat
       [ "/profilingGroups/",
-        Core.toBS profilingGroupName,
+        Data.toBS profilingGroupName,
         "/policy/",
-        Core.toBS actionGroup
+        Data.toBS actionGroup
       ]
 
-instance Core.ToQuery RemovePermission where
+instance Data.ToQuery RemovePermission where
   toQuery RemovePermission' {..} =
-    Prelude.mconcat ["revisionId" Core.=: revisionId]
+    Prelude.mconcat ["revisionId" Data.=: revisionId]
 
 -- | The structure representing the @removePermissionResponse@.
 --

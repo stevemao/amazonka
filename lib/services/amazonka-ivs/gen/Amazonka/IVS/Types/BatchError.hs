@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.Types.BatchError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IVS.Types.BatchError where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Error related to a specific channel, specified by its ARN.
@@ -70,15 +71,15 @@ batchError_code = Lens.lens (\BatchError' {code} -> code) (\s@BatchError' {} a -
 batchError_message :: Lens.Lens' BatchError (Prelude.Maybe Prelude.Text)
 batchError_message = Lens.lens (\BatchError' {message} -> message) (\s@BatchError' {} a -> s {message = a} :: BatchError)
 
-instance Core.FromJSON BatchError where
+instance Data.FromJSON BatchError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchError"
       ( \x ->
           BatchError'
-            Prelude.<$> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "code")
-            Prelude.<*> (x Core..:? "message")
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "code")
+            Prelude.<*> (x Data..:? "message")
       )
 
 instance Prelude.Hashable BatchError where

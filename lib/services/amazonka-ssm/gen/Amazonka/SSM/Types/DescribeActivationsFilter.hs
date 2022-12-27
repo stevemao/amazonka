@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.DescribeActivationsFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.DescribeActivationsFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.DescribeActivationsFilterKeys
 
@@ -73,11 +74,11 @@ instance Prelude.NFData DescribeActivationsFilter where
     Prelude.rnf filterKey
       `Prelude.seq` Prelude.rnf filterValues
 
-instance Core.ToJSON DescribeActivationsFilter where
+instance Data.ToJSON DescribeActivationsFilter where
   toJSON DescribeActivationsFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FilterKey" Core..=) Prelude.<$> filterKey,
-            ("FilterValues" Core..=) Prelude.<$> filterValues
+          [ ("FilterKey" Data..=) Prelude.<$> filterKey,
+            ("FilterValues" Data..=) Prelude.<$> filterValues
           ]
       )

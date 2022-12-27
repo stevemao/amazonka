@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.ListWorkflows
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.Glue.ListWorkflows
     newListWorkflows,
 
     -- * Request Lenses
-    listWorkflows_nextToken,
     listWorkflows_maxResults,
+    listWorkflows_nextToken,
 
     -- * Destructuring the Response
     ListWorkflowsResponse (..),
@@ -42,18 +42,19 @@ module Amazonka.Glue.ListWorkflows
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListWorkflows' smart constructor.
 data ListWorkflows = ListWorkflows'
-  { -- | A continuation token, if this is a continuation request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum size of a list to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum size of a list to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A continuation token, if this is a continuation request.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -65,75 +66,76 @@ data ListWorkflows = ListWorkflows'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listWorkflows_nextToken' - A continuation token, if this is a continuation request.
---
 -- 'maxResults', 'listWorkflows_maxResults' - The maximum size of a list to return.
+--
+-- 'nextToken', 'listWorkflows_nextToken' - A continuation token, if this is a continuation request.
 newListWorkflows ::
   ListWorkflows
 newListWorkflows =
   ListWorkflows'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | A continuation token, if this is a continuation request.
-listWorkflows_nextToken :: Lens.Lens' ListWorkflows (Prelude.Maybe Prelude.Text)
-listWorkflows_nextToken = Lens.lens (\ListWorkflows' {nextToken} -> nextToken) (\s@ListWorkflows' {} a -> s {nextToken = a} :: ListWorkflows)
 
 -- | The maximum size of a list to return.
 listWorkflows_maxResults :: Lens.Lens' ListWorkflows (Prelude.Maybe Prelude.Natural)
 listWorkflows_maxResults = Lens.lens (\ListWorkflows' {maxResults} -> maxResults) (\s@ListWorkflows' {} a -> s {maxResults = a} :: ListWorkflows)
 
+-- | A continuation token, if this is a continuation request.
+listWorkflows_nextToken :: Lens.Lens' ListWorkflows (Prelude.Maybe Prelude.Text)
+listWorkflows_nextToken = Lens.lens (\ListWorkflows' {nextToken} -> nextToken) (\s@ListWorkflows' {} a -> s {nextToken = a} :: ListWorkflows)
+
 instance Core.AWSRequest ListWorkflows where
   type
     AWSResponse ListWorkflows =
       ListWorkflowsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListWorkflowsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Workflows")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Workflows")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListWorkflows where
   hashWithSalt _salt ListWorkflows' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListWorkflows where
   rnf ListWorkflows' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListWorkflows where
+instance Data.ToHeaders ListWorkflows where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.ListWorkflows" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.ListWorkflows" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListWorkflows where
+instance Data.ToJSON ListWorkflows where
   toJSON ListWorkflows' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListWorkflows where
+instance Data.ToPath ListWorkflows where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListWorkflows where
+instance Data.ToQuery ListWorkflows where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListWorkflowsResponse' smart constructor.

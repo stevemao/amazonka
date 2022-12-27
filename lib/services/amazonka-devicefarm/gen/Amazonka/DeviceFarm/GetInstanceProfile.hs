@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.GetInstanceProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DeviceFarm.GetInstanceProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ instance Core.AWSRequest GetInstanceProfile where
   type
     AWSResponse GetInstanceProfile =
       GetInstanceProfileResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetInstanceProfileResponse'
-            Prelude.<$> (x Core..?> "instanceProfile")
+            Prelude.<$> (x Data..?> "instanceProfile")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,32 +95,32 @@ instance Prelude.Hashable GetInstanceProfile where
 instance Prelude.NFData GetInstanceProfile where
   rnf GetInstanceProfile' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders GetInstanceProfile where
+instance Data.ToHeaders GetInstanceProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.GetInstanceProfile" ::
+              Data.=# ( "DeviceFarm_20150623.GetInstanceProfile" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetInstanceProfile where
+instance Data.ToJSON GetInstanceProfile where
   toJSON GetInstanceProfile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arn" Core..= arn)]
+          [Prelude.Just ("arn" Data..= arn)]
       )
 
-instance Core.ToPath GetInstanceProfile where
+instance Data.ToPath GetInstanceProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetInstanceProfile where
+instance Data.ToQuery GetInstanceProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetInstanceProfileResponse' smart constructor.

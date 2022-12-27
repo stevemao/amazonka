@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.LexBotConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.Connect.Types.LexBotConfig where
 import Amazonka.Connect.Types.LexBot
 import Amazonka.Connect.Types.LexV2Bot
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration information of an Amazon Lex or Amazon Lex V2 bot.
@@ -62,14 +63,14 @@ lexBotConfig_lexBot = Lens.lens (\LexBotConfig' {lexBot} -> lexBot) (\s@LexBotCo
 lexBotConfig_lexV2Bot :: Lens.Lens' LexBotConfig (Prelude.Maybe LexV2Bot)
 lexBotConfig_lexV2Bot = Lens.lens (\LexBotConfig' {lexV2Bot} -> lexV2Bot) (\s@LexBotConfig' {} a -> s {lexV2Bot = a} :: LexBotConfig)
 
-instance Core.FromJSON LexBotConfig where
+instance Data.FromJSON LexBotConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LexBotConfig"
       ( \x ->
           LexBotConfig'
-            Prelude.<$> (x Core..:? "LexBot")
-            Prelude.<*> (x Core..:? "LexV2Bot")
+            Prelude.<$> (x Data..:? "LexBot")
+            Prelude.<*> (x Data..:? "LexV2Bot")
       )
 
 instance Prelude.Hashable LexBotConfig where

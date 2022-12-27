@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.Types.AutoDeployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudFormation.Types.AutoDeployment where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | [Service-managed permissions] Describes whether StackSets automatically
@@ -81,11 +82,11 @@ autoDeployment_enabled = Lens.lens (\AutoDeployment' {enabled} -> enabled) (\s@A
 autoDeployment_retainStacksOnAccountRemoval :: Lens.Lens' AutoDeployment (Prelude.Maybe Prelude.Bool)
 autoDeployment_retainStacksOnAccountRemoval = Lens.lens (\AutoDeployment' {retainStacksOnAccountRemoval} -> retainStacksOnAccountRemoval) (\s@AutoDeployment' {} a -> s {retainStacksOnAccountRemoval = a} :: AutoDeployment)
 
-instance Core.FromXML AutoDeployment where
+instance Data.FromXML AutoDeployment where
   parseXML x =
     AutoDeployment'
-      Prelude.<$> (x Core..@? "Enabled")
-      Prelude.<*> (x Core..@? "RetainStacksOnAccountRemoval")
+      Prelude.<$> (x Data..@? "Enabled")
+      Prelude.<*> (x Data..@? "RetainStacksOnAccountRemoval")
 
 instance Prelude.Hashable AutoDeployment where
   hashWithSalt _salt AutoDeployment' {..} =
@@ -97,10 +98,10 @@ instance Prelude.NFData AutoDeployment where
     Prelude.rnf enabled
       `Prelude.seq` Prelude.rnf retainStacksOnAccountRemoval
 
-instance Core.ToQuery AutoDeployment where
+instance Data.ToQuery AutoDeployment where
   toQuery AutoDeployment' {..} =
     Prelude.mconcat
-      [ "Enabled" Core.=: enabled,
+      [ "Enabled" Data.=: enabled,
         "RetainStacksOnAccountRemoval"
-          Core.=: retainStacksOnAccountRemoval
+          Data.=: retainStacksOnAccountRemoval
       ]

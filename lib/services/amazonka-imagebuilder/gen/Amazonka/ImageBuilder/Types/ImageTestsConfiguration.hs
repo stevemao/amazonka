@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.Types.ImageTestsConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,22 @@
 module Amazonka.ImageBuilder.Types.ImageTestsConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Image tests configuration.
+-- | Configure image tests for your pipeline build. Tests run after building
+-- the image, to verify that the AMI or container image is valid before
+-- distributing it.
 --
 -- /See:/ 'newImageTestsConfiguration' smart constructor.
 data ImageTestsConfiguration = ImageTestsConfiguration'
-  { -- | The maximum time in minutes that tests are permitted to run.
-    timeoutMinutes :: Prelude.Maybe Prelude.Natural,
-    -- | Defines if tests should be executed when building this image.
-    imageTestsEnabled :: Prelude.Maybe Prelude.Bool
+  { -- | Determines if tests should run after building the image. Image Builder
+    -- defaults to enable tests to run following the image build, before image
+    -- distribution.
+    imageTestsEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum time in minutes that tests are permitted to run.
+    timeoutMinutes :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,53 +47,57 @@ data ImageTestsConfiguration = ImageTestsConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'timeoutMinutes', 'imageTestsConfiguration_timeoutMinutes' - The maximum time in minutes that tests are permitted to run.
+-- 'imageTestsEnabled', 'imageTestsConfiguration_imageTestsEnabled' - Determines if tests should run after building the image. Image Builder
+-- defaults to enable tests to run following the image build, before image
+-- distribution.
 --
--- 'imageTestsEnabled', 'imageTestsConfiguration_imageTestsEnabled' - Defines if tests should be executed when building this image.
+-- 'timeoutMinutes', 'imageTestsConfiguration_timeoutMinutes' - The maximum time in minutes that tests are permitted to run.
 newImageTestsConfiguration ::
   ImageTestsConfiguration
 newImageTestsConfiguration =
   ImageTestsConfiguration'
-    { timeoutMinutes =
+    { imageTestsEnabled =
         Prelude.Nothing,
-      imageTestsEnabled = Prelude.Nothing
+      timeoutMinutes = Prelude.Nothing
     }
+
+-- | Determines if tests should run after building the image. Image Builder
+-- defaults to enable tests to run following the image build, before image
+-- distribution.
+imageTestsConfiguration_imageTestsEnabled :: Lens.Lens' ImageTestsConfiguration (Prelude.Maybe Prelude.Bool)
+imageTestsConfiguration_imageTestsEnabled = Lens.lens (\ImageTestsConfiguration' {imageTestsEnabled} -> imageTestsEnabled) (\s@ImageTestsConfiguration' {} a -> s {imageTestsEnabled = a} :: ImageTestsConfiguration)
 
 -- | The maximum time in minutes that tests are permitted to run.
 imageTestsConfiguration_timeoutMinutes :: Lens.Lens' ImageTestsConfiguration (Prelude.Maybe Prelude.Natural)
 imageTestsConfiguration_timeoutMinutes = Lens.lens (\ImageTestsConfiguration' {timeoutMinutes} -> timeoutMinutes) (\s@ImageTestsConfiguration' {} a -> s {timeoutMinutes = a} :: ImageTestsConfiguration)
 
--- | Defines if tests should be executed when building this image.
-imageTestsConfiguration_imageTestsEnabled :: Lens.Lens' ImageTestsConfiguration (Prelude.Maybe Prelude.Bool)
-imageTestsConfiguration_imageTestsEnabled = Lens.lens (\ImageTestsConfiguration' {imageTestsEnabled} -> imageTestsEnabled) (\s@ImageTestsConfiguration' {} a -> s {imageTestsEnabled = a} :: ImageTestsConfiguration)
-
-instance Core.FromJSON ImageTestsConfiguration where
+instance Data.FromJSON ImageTestsConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ImageTestsConfiguration"
       ( \x ->
           ImageTestsConfiguration'
-            Prelude.<$> (x Core..:? "timeoutMinutes")
-            Prelude.<*> (x Core..:? "imageTestsEnabled")
+            Prelude.<$> (x Data..:? "imageTestsEnabled")
+            Prelude.<*> (x Data..:? "timeoutMinutes")
       )
 
 instance Prelude.Hashable ImageTestsConfiguration where
   hashWithSalt _salt ImageTestsConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` timeoutMinutes
-      `Prelude.hashWithSalt` imageTestsEnabled
+    _salt `Prelude.hashWithSalt` imageTestsEnabled
+      `Prelude.hashWithSalt` timeoutMinutes
 
 instance Prelude.NFData ImageTestsConfiguration where
   rnf ImageTestsConfiguration' {..} =
-    Prelude.rnf timeoutMinutes
-      `Prelude.seq` Prelude.rnf imageTestsEnabled
+    Prelude.rnf imageTestsEnabled
+      `Prelude.seq` Prelude.rnf timeoutMinutes
 
-instance Core.ToJSON ImageTestsConfiguration where
+instance Data.ToJSON ImageTestsConfiguration where
   toJSON ImageTestsConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("timeoutMinutes" Core..=)
-              Prelude.<$> timeoutMinutes,
-            ("imageTestsEnabled" Core..=)
-              Prelude.<$> imageTestsEnabled
+          [ ("imageTestsEnabled" Data..=)
+              Prelude.<$> imageTestsEnabled,
+            ("timeoutMinutes" Data..=)
+              Prelude.<$> timeoutMinutes
           ]
       )

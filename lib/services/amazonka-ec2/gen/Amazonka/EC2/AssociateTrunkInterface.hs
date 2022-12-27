@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.AssociateTrunkInterface
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,9 +37,9 @@ module Amazonka.EC2.AssociateTrunkInterface
 
     -- * Request Lenses
     associateTrunkInterface_clientToken,
+    associateTrunkInterface_dryRun,
     associateTrunkInterface_greKey,
     associateTrunkInterface_vlanId,
-    associateTrunkInterface_dryRun,
     associateTrunkInterface_branchInterfaceId,
     associateTrunkInterface_trunkInterfaceId,
 
@@ -55,8 +55,9 @@ module Amazonka.EC2.AssociateTrunkInterface
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,15 +68,15 @@ data AssociateTrunkInterface = AssociateTrunkInterface'
     -- idempotency of the request. For more information, see
     -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html How to Ensure Idempotency>.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The application key. This applies to the GRE protocol.
-    greKey :: Prelude.Maybe Prelude.Int,
-    -- | The ID of the VLAN. This applies to the VLAN protocol.
-    vlanId :: Prelude.Maybe Prelude.Int,
     -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The application key. This applies to the GRE protocol.
+    greKey :: Prelude.Maybe Prelude.Int,
+    -- | The ID of the VLAN. This applies to the VLAN protocol.
+    vlanId :: Prelude.Maybe Prelude.Int,
     -- | The ID of the branch network interface.
     branchInterfaceId :: Prelude.Text,
     -- | The ID of the trunk network interface.
@@ -95,14 +96,14 @@ data AssociateTrunkInterface = AssociateTrunkInterface'
 -- idempotency of the request. For more information, see
 -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Run_Instance_Idempotency.html How to Ensure Idempotency>.
 --
--- 'greKey', 'associateTrunkInterface_greKey' - The application key. This applies to the GRE protocol.
---
--- 'vlanId', 'associateTrunkInterface_vlanId' - The ID of the VLAN. This applies to the VLAN protocol.
---
 -- 'dryRun', 'associateTrunkInterface_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'greKey', 'associateTrunkInterface_greKey' - The application key. This applies to the GRE protocol.
+--
+-- 'vlanId', 'associateTrunkInterface_vlanId' - The ID of the VLAN. This applies to the VLAN protocol.
 --
 -- 'branchInterfaceId', 'associateTrunkInterface_branchInterfaceId' - The ID of the branch network interface.
 --
@@ -119,9 +120,9 @@ newAssociateTrunkInterface
     AssociateTrunkInterface'
       { clientToken =
           Prelude.Nothing,
+        dryRun = Prelude.Nothing,
         greKey = Prelude.Nothing,
         vlanId = Prelude.Nothing,
-        dryRun = Prelude.Nothing,
         branchInterfaceId = pBranchInterfaceId_,
         trunkInterfaceId = pTrunkInterfaceId_
       }
@@ -132,6 +133,13 @@ newAssociateTrunkInterface
 associateTrunkInterface_clientToken :: Lens.Lens' AssociateTrunkInterface (Prelude.Maybe Prelude.Text)
 associateTrunkInterface_clientToken = Lens.lens (\AssociateTrunkInterface' {clientToken} -> clientToken) (\s@AssociateTrunkInterface' {} a -> s {clientToken = a} :: AssociateTrunkInterface)
 
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+associateTrunkInterface_dryRun :: Lens.Lens' AssociateTrunkInterface (Prelude.Maybe Prelude.Bool)
+associateTrunkInterface_dryRun = Lens.lens (\AssociateTrunkInterface' {dryRun} -> dryRun) (\s@AssociateTrunkInterface' {} a -> s {dryRun = a} :: AssociateTrunkInterface)
+
 -- | The application key. This applies to the GRE protocol.
 associateTrunkInterface_greKey :: Lens.Lens' AssociateTrunkInterface (Prelude.Maybe Prelude.Int)
 associateTrunkInterface_greKey = Lens.lens (\AssociateTrunkInterface' {greKey} -> greKey) (\s@AssociateTrunkInterface' {} a -> s {greKey = a} :: AssociateTrunkInterface)
@@ -139,13 +147,6 @@ associateTrunkInterface_greKey = Lens.lens (\AssociateTrunkInterface' {greKey} -
 -- | The ID of the VLAN. This applies to the VLAN protocol.
 associateTrunkInterface_vlanId :: Lens.Lens' AssociateTrunkInterface (Prelude.Maybe Prelude.Int)
 associateTrunkInterface_vlanId = Lens.lens (\AssociateTrunkInterface' {vlanId} -> vlanId) (\s@AssociateTrunkInterface' {} a -> s {vlanId = a} :: AssociateTrunkInterface)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-associateTrunkInterface_dryRun :: Lens.Lens' AssociateTrunkInterface (Prelude.Maybe Prelude.Bool)
-associateTrunkInterface_dryRun = Lens.lens (\AssociateTrunkInterface' {dryRun} -> dryRun) (\s@AssociateTrunkInterface' {} a -> s {dryRun = a} :: AssociateTrunkInterface)
 
 -- | The ID of the branch network interface.
 associateTrunkInterface_branchInterfaceId :: Lens.Lens' AssociateTrunkInterface Prelude.Text
@@ -159,53 +160,54 @@ instance Core.AWSRequest AssociateTrunkInterface where
   type
     AWSResponse AssociateTrunkInterface =
       AssociateTrunkInterfaceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           AssociateTrunkInterfaceResponse'
-            Prelude.<$> (x Core..@? "clientToken")
-            Prelude.<*> (x Core..@? "interfaceAssociation")
+            Prelude.<$> (x Data..@? "clientToken")
+            Prelude.<*> (x Data..@? "interfaceAssociation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable AssociateTrunkInterface where
   hashWithSalt _salt AssociateTrunkInterface' {..} =
     _salt `Prelude.hashWithSalt` clientToken
+      `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` greKey
       `Prelude.hashWithSalt` vlanId
-      `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` branchInterfaceId
       `Prelude.hashWithSalt` trunkInterfaceId
 
 instance Prelude.NFData AssociateTrunkInterface where
   rnf AssociateTrunkInterface' {..} =
     Prelude.rnf clientToken
+      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf greKey
       `Prelude.seq` Prelude.rnf vlanId
-      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf branchInterfaceId
       `Prelude.seq` Prelude.rnf trunkInterfaceId
 
-instance Core.ToHeaders AssociateTrunkInterface where
+instance Data.ToHeaders AssociateTrunkInterface where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AssociateTrunkInterface where
+instance Data.ToPath AssociateTrunkInterface where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateTrunkInterface where
+instance Data.ToQuery AssociateTrunkInterface where
   toQuery AssociateTrunkInterface' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("AssociateTrunkInterface" :: Prelude.ByteString),
+          Data.=: ("AssociateTrunkInterface" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "ClientToken" Core.=: clientToken,
-        "GreKey" Core.=: greKey,
-        "VlanId" Core.=: vlanId,
-        "DryRun" Core.=: dryRun,
-        "BranchInterfaceId" Core.=: branchInterfaceId,
-        "TrunkInterfaceId" Core.=: trunkInterfaceId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "ClientToken" Data.=: clientToken,
+        "DryRun" Data.=: dryRun,
+        "GreKey" Data.=: greKey,
+        "VlanId" Data.=: vlanId,
+        "BranchInterfaceId" Data.=: branchInterfaceId,
+        "TrunkInterfaceId" Data.=: trunkInterfaceId
       ]
 
 -- | /See:/ 'newAssociateTrunkInterfaceResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.StartSigningJobParameter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoT.Types.StartSigningJobParameter where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.Destination
 import Amazonka.IoT.Types.SigningProfileParameter
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information required to start a signing job.
@@ -73,15 +74,15 @@ startSigningJobParameter_signingProfileName = Lens.lens (\StartSigningJobParamet
 startSigningJobParameter_signingProfileParameter :: Lens.Lens' StartSigningJobParameter (Prelude.Maybe SigningProfileParameter)
 startSigningJobParameter_signingProfileParameter = Lens.lens (\StartSigningJobParameter' {signingProfileParameter} -> signingProfileParameter) (\s@StartSigningJobParameter' {} a -> s {signingProfileParameter = a} :: StartSigningJobParameter)
 
-instance Core.FromJSON StartSigningJobParameter where
+instance Data.FromJSON StartSigningJobParameter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StartSigningJobParameter"
       ( \x ->
           StartSigningJobParameter'
-            Prelude.<$> (x Core..:? "destination")
-            Prelude.<*> (x Core..:? "signingProfileName")
-            Prelude.<*> (x Core..:? "signingProfileParameter")
+            Prelude.<$> (x Data..:? "destination")
+            Prelude.<*> (x Data..:? "signingProfileName")
+            Prelude.<*> (x Data..:? "signingProfileParameter")
       )
 
 instance Prelude.Hashable StartSigningJobParameter where
@@ -96,14 +97,14 @@ instance Prelude.NFData StartSigningJobParameter where
       `Prelude.seq` Prelude.rnf signingProfileName
       `Prelude.seq` Prelude.rnf signingProfileParameter
 
-instance Core.ToJSON StartSigningJobParameter where
+instance Data.ToJSON StartSigningJobParameter where
   toJSON StartSigningJobParameter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("destination" Core..=) Prelude.<$> destination,
-            ("signingProfileName" Core..=)
+          [ ("destination" Data..=) Prelude.<$> destination,
+            ("signingProfileName" Data..=)
               Prelude.<$> signingProfileName,
-            ("signingProfileParameter" Core..=)
+            ("signingProfileParameter" Data..=)
               Prelude.<$> signingProfileParameter
           ]
       )

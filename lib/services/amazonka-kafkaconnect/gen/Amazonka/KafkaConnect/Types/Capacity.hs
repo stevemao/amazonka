@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.Capacity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.KafkaConnect.Types.Capacity where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types.AutoScaling
 import Amazonka.KafkaConnect.Types.ProvisionedCapacity
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the capacity of the connector, whether it is auto
@@ -74,12 +75,12 @@ instance Prelude.NFData Capacity where
     Prelude.rnf autoScaling
       `Prelude.seq` Prelude.rnf provisionedCapacity
 
-instance Core.ToJSON Capacity where
+instance Data.ToJSON Capacity where
   toJSON Capacity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("autoScaling" Core..=) Prelude.<$> autoScaling,
-            ("provisionedCapacity" Core..=)
+          [ ("autoScaling" Data..=) Prelude.<$> autoScaling,
+            ("provisionedCapacity" Data..=)
               Prelude.<$> provisionedCapacity
           ]
       )

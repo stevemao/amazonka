@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,108 +14,14 @@
 module Amazonka.ElasticSearch.Lens
   ( -- * Operations
 
-    -- ** CreateOutboundCrossClusterSearchConnection
-    createOutboundCrossClusterSearchConnection_sourceDomainInfo,
-    createOutboundCrossClusterSearchConnection_destinationDomainInfo,
-    createOutboundCrossClusterSearchConnection_connectionAlias,
-    createOutboundCrossClusterSearchConnectionResponse_destinationDomainInfo,
-    createOutboundCrossClusterSearchConnectionResponse_connectionAlias,
-    createOutboundCrossClusterSearchConnectionResponse_crossClusterSearchConnectionId,
-    createOutboundCrossClusterSearchConnectionResponse_connectionStatus,
-    createOutboundCrossClusterSearchConnectionResponse_sourceDomainInfo,
-    createOutboundCrossClusterSearchConnectionResponse_httpStatus,
+    -- ** AcceptInboundCrossClusterSearchConnection
+    acceptInboundCrossClusterSearchConnection_crossClusterSearchConnectionId,
+    acceptInboundCrossClusterSearchConnectionResponse_crossClusterSearchConnection,
+    acceptInboundCrossClusterSearchConnectionResponse_httpStatus,
 
-    -- ** DescribeInboundCrossClusterSearchConnections
-    describeInboundCrossClusterSearchConnections_filters,
-    describeInboundCrossClusterSearchConnections_nextToken,
-    describeInboundCrossClusterSearchConnections_maxResults,
-    describeInboundCrossClusterSearchConnectionsResponse_crossClusterSearchConnections,
-    describeInboundCrossClusterSearchConnectionsResponse_nextToken,
-    describeInboundCrossClusterSearchConnectionsResponse_httpStatus,
-
-    -- ** CreateElasticsearchDomain
-    createElasticsearchDomain_eBSOptions,
-    createElasticsearchDomain_nodeToNodeEncryptionOptions,
-    createElasticsearchDomain_accessPolicies,
-    createElasticsearchDomain_autoTuneOptions,
-    createElasticsearchDomain_logPublishingOptions,
-    createElasticsearchDomain_advancedSecurityOptions,
-    createElasticsearchDomain_tagList,
-    createElasticsearchDomain_elasticsearchClusterConfig,
-    createElasticsearchDomain_snapshotOptions,
-    createElasticsearchDomain_cognitoOptions,
-    createElasticsearchDomain_encryptionAtRestOptions,
-    createElasticsearchDomain_vPCOptions,
-    createElasticsearchDomain_domainEndpointOptions,
-    createElasticsearchDomain_advancedOptions,
-    createElasticsearchDomain_elasticsearchVersion,
-    createElasticsearchDomain_domainName,
-    createElasticsearchDomainResponse_domainStatus,
-    createElasticsearchDomainResponse_httpStatus,
-
-    -- ** RemoveTags
-    removeTags_arn,
-    removeTags_tagKeys,
-
-    -- ** GetCompatibleElasticsearchVersions
-    getCompatibleElasticsearchVersions_domainName,
-    getCompatibleElasticsearchVersionsResponse_compatibleElasticsearchVersions,
-    getCompatibleElasticsearchVersionsResponse_httpStatus,
-
-    -- ** DescribeElasticsearchDomains
-    describeElasticsearchDomains_domainNames,
-    describeElasticsearchDomainsResponse_httpStatus,
-    describeElasticsearchDomainsResponse_domainStatusList,
-
-    -- ** ListDomainsForPackage
-    listDomainsForPackage_nextToken,
-    listDomainsForPackage_maxResults,
-    listDomainsForPackage_packageID,
-    listDomainsForPackageResponse_domainPackageDetailsList,
-    listDomainsForPackageResponse_nextToken,
-    listDomainsForPackageResponse_httpStatus,
-
-    -- ** ListPackagesForDomain
-    listPackagesForDomain_nextToken,
-    listPackagesForDomain_maxResults,
-    listPackagesForDomain_domainName,
-    listPackagesForDomainResponse_domainPackageDetailsList,
-    listPackagesForDomainResponse_nextToken,
-    listPackagesForDomainResponse_httpStatus,
-
-    -- ** StartElasticsearchServiceSoftwareUpdate
-    startElasticsearchServiceSoftwareUpdate_domainName,
-    startElasticsearchServiceSoftwareUpdateResponse_serviceSoftwareOptions,
-    startElasticsearchServiceSoftwareUpdateResponse_httpStatus,
-
-    -- ** DescribeDomainAutoTunes
-    describeDomainAutoTunes_nextToken,
-    describeDomainAutoTunes_maxResults,
-    describeDomainAutoTunes_domainName,
-    describeDomainAutoTunesResponse_nextToken,
-    describeDomainAutoTunesResponse_autoTunes,
-    describeDomainAutoTunesResponse_httpStatus,
-
-    -- ** ListElasticsearchInstanceTypes
-    listElasticsearchInstanceTypes_nextToken,
-    listElasticsearchInstanceTypes_domainName,
-    listElasticsearchInstanceTypes_maxResults,
-    listElasticsearchInstanceTypes_elasticsearchVersion,
-    listElasticsearchInstanceTypesResponse_elasticsearchInstanceTypes,
-    listElasticsearchInstanceTypesResponse_nextToken,
-    listElasticsearchInstanceTypesResponse_httpStatus,
-
-    -- ** DeleteElasticsearchServiceRole
-
-    -- ** DescribeElasticsearchDomain
-    describeElasticsearchDomain_domainName,
-    describeElasticsearchDomainResponse_httpStatus,
-    describeElasticsearchDomainResponse_domainStatus,
-
-    -- ** ListDomainNames
-    listDomainNames_engineType,
-    listDomainNamesResponse_domainNames,
-    listDomainNamesResponse_httpStatus,
+    -- ** AddTags
+    addTags_arn,
+    addTags_tagList,
 
     -- ** AssociatePackage
     associatePackage_packageID,
@@ -123,155 +29,47 @@ module Amazonka.ElasticSearch.Lens
     associatePackageResponse_domainPackageDetails,
     associatePackageResponse_httpStatus,
 
-    -- ** DeleteOutboundCrossClusterSearchConnection
-    deleteOutboundCrossClusterSearchConnection_crossClusterSearchConnectionId,
-    deleteOutboundCrossClusterSearchConnectionResponse_crossClusterSearchConnection,
-    deleteOutboundCrossClusterSearchConnectionResponse_httpStatus,
-
-    -- ** DescribeElasticsearchInstanceTypeLimits
-    describeElasticsearchInstanceTypeLimits_domainName,
-    describeElasticsearchInstanceTypeLimits_instanceType,
-    describeElasticsearchInstanceTypeLimits_elasticsearchVersion,
-    describeElasticsearchInstanceTypeLimitsResponse_limitsByRole,
-    describeElasticsearchInstanceTypeLimitsResponse_httpStatus,
-
-    -- ** GetPackageVersionHistory
-    getPackageVersionHistory_nextToken,
-    getPackageVersionHistory_maxResults,
-    getPackageVersionHistory_packageID,
-    getPackageVersionHistoryResponse_packageID,
-    getPackageVersionHistoryResponse_packageVersionHistoryList,
-    getPackageVersionHistoryResponse_nextToken,
-    getPackageVersionHistoryResponse_httpStatus,
-
-    -- ** GetUpgradeHistory
-    getUpgradeHistory_nextToken,
-    getUpgradeHistory_maxResults,
-    getUpgradeHistory_domainName,
-    getUpgradeHistoryResponse_nextToken,
-    getUpgradeHistoryResponse_upgradeHistories,
-    getUpgradeHistoryResponse_httpStatus,
-
-    -- ** DescribePackages
-    describePackages_filters,
-    describePackages_nextToken,
-    describePackages_maxResults,
-    describePackagesResponse_packageDetailsList,
-    describePackagesResponse_nextToken,
-    describePackagesResponse_httpStatus,
-
-    -- ** DescribeElasticsearchDomainConfig
-    describeElasticsearchDomainConfig_domainName,
-    describeElasticsearchDomainConfigResponse_httpStatus,
-    describeElasticsearchDomainConfigResponse_domainConfig,
-
-    -- ** GetUpgradeStatus
-    getUpgradeStatus_domainName,
-    getUpgradeStatusResponse_stepStatus,
-    getUpgradeStatusResponse_upgradeName,
-    getUpgradeStatusResponse_upgradeStep,
-    getUpgradeStatusResponse_httpStatus,
-
-    -- ** DeleteElasticsearchDomain
-    deleteElasticsearchDomain_domainName,
-    deleteElasticsearchDomainResponse_domainStatus,
-    deleteElasticsearchDomainResponse_httpStatus,
-
-    -- ** DissociatePackage
-    dissociatePackage_packageID,
-    dissociatePackage_domainName,
-    dissociatePackageResponse_domainPackageDetails,
-    dissociatePackageResponse_httpStatus,
-
-    -- ** PurchaseReservedElasticsearchInstanceOffering
-    purchaseReservedElasticsearchInstanceOffering_instanceCount,
-    purchaseReservedElasticsearchInstanceOffering_reservedElasticsearchInstanceOfferingId,
-    purchaseReservedElasticsearchInstanceOffering_reservationName,
-    purchaseReservedElasticsearchInstanceOfferingResponse_reservedElasticsearchInstanceId,
-    purchaseReservedElasticsearchInstanceOfferingResponse_reservationName,
-    purchaseReservedElasticsearchInstanceOfferingResponse_httpStatus,
-
-    -- ** DescribeReservedElasticsearchInstances
-    describeReservedElasticsearchInstances_reservedElasticsearchInstanceId,
-    describeReservedElasticsearchInstances_nextToken,
-    describeReservedElasticsearchInstances_maxResults,
-    describeReservedElasticsearchInstancesResponse_reservedElasticsearchInstances,
-    describeReservedElasticsearchInstancesResponse_nextToken,
-    describeReservedElasticsearchInstancesResponse_httpStatus,
-
-    -- ** UpdateElasticsearchDomainConfig
-    updateElasticsearchDomainConfig_eBSOptions,
-    updateElasticsearchDomainConfig_nodeToNodeEncryptionOptions,
-    updateElasticsearchDomainConfig_accessPolicies,
-    updateElasticsearchDomainConfig_autoTuneOptions,
-    updateElasticsearchDomainConfig_logPublishingOptions,
-    updateElasticsearchDomainConfig_advancedSecurityOptions,
-    updateElasticsearchDomainConfig_elasticsearchClusterConfig,
-    updateElasticsearchDomainConfig_snapshotOptions,
-    updateElasticsearchDomainConfig_cognitoOptions,
-    updateElasticsearchDomainConfig_encryptionAtRestOptions,
-    updateElasticsearchDomainConfig_vPCOptions,
-    updateElasticsearchDomainConfig_domainEndpointOptions,
-    updateElasticsearchDomainConfig_advancedOptions,
-    updateElasticsearchDomainConfig_domainName,
-    updateElasticsearchDomainConfigResponse_httpStatus,
-    updateElasticsearchDomainConfigResponse_domainConfig,
-
-    -- ** ListElasticsearchVersions
-    listElasticsearchVersions_nextToken,
-    listElasticsearchVersions_maxResults,
-    listElasticsearchVersionsResponse_nextToken,
-    listElasticsearchVersionsResponse_elasticsearchVersions,
-    listElasticsearchVersionsResponse_httpStatus,
-
-    -- ** AddTags
-    addTags_arn,
-    addTags_tagList,
-
-    -- ** DeleteInboundCrossClusterSearchConnection
-    deleteInboundCrossClusterSearchConnection_crossClusterSearchConnectionId,
-    deleteInboundCrossClusterSearchConnectionResponse_crossClusterSearchConnection,
-    deleteInboundCrossClusterSearchConnectionResponse_httpStatus,
-
-    -- ** DescribeReservedElasticsearchInstanceOfferings
-    describeReservedElasticsearchInstanceOfferings_reservedElasticsearchInstanceOfferingId,
-    describeReservedElasticsearchInstanceOfferings_nextToken,
-    describeReservedElasticsearchInstanceOfferings_maxResults,
-    describeReservedElasticsearchInstanceOfferingsResponse_reservedElasticsearchInstanceOfferings,
-    describeReservedElasticsearchInstanceOfferingsResponse_nextToken,
-    describeReservedElasticsearchInstanceOfferingsResponse_httpStatus,
-
-    -- ** UpgradeElasticsearchDomain
-    upgradeElasticsearchDomain_performCheckOnly,
-    upgradeElasticsearchDomain_domainName,
-    upgradeElasticsearchDomain_targetVersion,
-    upgradeElasticsearchDomainResponse_domainName,
-    upgradeElasticsearchDomainResponse_performCheckOnly,
-    upgradeElasticsearchDomainResponse_targetVersion,
-    upgradeElasticsearchDomainResponse_httpStatus,
-
-    -- ** ListTags
-    listTags_arn,
-    listTagsResponse_tagList,
-    listTagsResponse_httpStatus,
-
-    -- ** DeletePackage
-    deletePackage_packageID,
-    deletePackageResponse_packageDetails,
-    deletePackageResponse_httpStatus,
-
-    -- ** UpdatePackage
-    updatePackage_packageDescription,
-    updatePackage_commitMessage,
-    updatePackage_packageID,
-    updatePackage_packageSource,
-    updatePackageResponse_packageDetails,
-    updatePackageResponse_httpStatus,
+    -- ** AuthorizeVpcEndpointAccess
+    authorizeVpcEndpointAccess_domainName,
+    authorizeVpcEndpointAccess_account,
+    authorizeVpcEndpointAccessResponse_httpStatus,
+    authorizeVpcEndpointAccessResponse_authorizedPrincipal,
 
     -- ** CancelElasticsearchServiceSoftwareUpdate
     cancelElasticsearchServiceSoftwareUpdate_domainName,
     cancelElasticsearchServiceSoftwareUpdateResponse_serviceSoftwareOptions,
     cancelElasticsearchServiceSoftwareUpdateResponse_httpStatus,
+
+    -- ** CreateElasticsearchDomain
+    createElasticsearchDomain_accessPolicies,
+    createElasticsearchDomain_advancedOptions,
+    createElasticsearchDomain_advancedSecurityOptions,
+    createElasticsearchDomain_autoTuneOptions,
+    createElasticsearchDomain_cognitoOptions,
+    createElasticsearchDomain_domainEndpointOptions,
+    createElasticsearchDomain_eBSOptions,
+    createElasticsearchDomain_elasticsearchClusterConfig,
+    createElasticsearchDomain_elasticsearchVersion,
+    createElasticsearchDomain_encryptionAtRestOptions,
+    createElasticsearchDomain_logPublishingOptions,
+    createElasticsearchDomain_nodeToNodeEncryptionOptions,
+    createElasticsearchDomain_snapshotOptions,
+    createElasticsearchDomain_tagList,
+    createElasticsearchDomain_vPCOptions,
+    createElasticsearchDomain_domainName,
+    createElasticsearchDomainResponse_domainStatus,
+    createElasticsearchDomainResponse_httpStatus,
+
+    -- ** CreateOutboundCrossClusterSearchConnection
+    createOutboundCrossClusterSearchConnection_sourceDomainInfo,
+    createOutboundCrossClusterSearchConnection_destinationDomainInfo,
+    createOutboundCrossClusterSearchConnection_connectionAlias,
+    createOutboundCrossClusterSearchConnectionResponse_connectionAlias,
+    createOutboundCrossClusterSearchConnectionResponse_connectionStatus,
+    createOutboundCrossClusterSearchConnectionResponse_crossClusterSearchConnectionId,
+    createOutboundCrossClusterSearchConnectionResponse_destinationDomainInfo,
+    createOutboundCrossClusterSearchConnectionResponse_sourceDomainInfo,
+    createOutboundCrossClusterSearchConnectionResponse_httpStatus,
 
     -- ** CreatePackage
     createPackage_packageDescription,
@@ -281,23 +79,289 @@ module Amazonka.ElasticSearch.Lens
     createPackageResponse_packageDetails,
     createPackageResponse_httpStatus,
 
+    -- ** CreateVpcEndpoint
+    createVpcEndpoint_clientToken,
+    createVpcEndpoint_domainArn,
+    createVpcEndpoint_vpcOptions,
+    createVpcEndpointResponse_httpStatus,
+    createVpcEndpointResponse_vpcEndpoint,
+
+    -- ** DeleteElasticsearchDomain
+    deleteElasticsearchDomain_domainName,
+    deleteElasticsearchDomainResponse_domainStatus,
+    deleteElasticsearchDomainResponse_httpStatus,
+
+    -- ** DeleteElasticsearchServiceRole
+
+    -- ** DeleteInboundCrossClusterSearchConnection
+    deleteInboundCrossClusterSearchConnection_crossClusterSearchConnectionId,
+    deleteInboundCrossClusterSearchConnectionResponse_crossClusterSearchConnection,
+    deleteInboundCrossClusterSearchConnectionResponse_httpStatus,
+
+    -- ** DeleteOutboundCrossClusterSearchConnection
+    deleteOutboundCrossClusterSearchConnection_crossClusterSearchConnectionId,
+    deleteOutboundCrossClusterSearchConnectionResponse_crossClusterSearchConnection,
+    deleteOutboundCrossClusterSearchConnectionResponse_httpStatus,
+
+    -- ** DeletePackage
+    deletePackage_packageID,
+    deletePackageResponse_packageDetails,
+    deletePackageResponse_httpStatus,
+
+    -- ** DeleteVpcEndpoint
+    deleteVpcEndpoint_vpcEndpointId,
+    deleteVpcEndpointResponse_httpStatus,
+    deleteVpcEndpointResponse_vpcEndpointSummary,
+
+    -- ** DescribeDomainAutoTunes
+    describeDomainAutoTunes_maxResults,
+    describeDomainAutoTunes_nextToken,
+    describeDomainAutoTunes_domainName,
+    describeDomainAutoTunesResponse_autoTunes,
+    describeDomainAutoTunesResponse_nextToken,
+    describeDomainAutoTunesResponse_httpStatus,
+
+    -- ** DescribeDomainChangeProgress
+    describeDomainChangeProgress_changeId,
+    describeDomainChangeProgress_domainName,
+    describeDomainChangeProgressResponse_changeProgressStatus,
+    describeDomainChangeProgressResponse_httpStatus,
+
+    -- ** DescribeElasticsearchDomain
+    describeElasticsearchDomain_domainName,
+    describeElasticsearchDomainResponse_httpStatus,
+    describeElasticsearchDomainResponse_domainStatus,
+
+    -- ** DescribeElasticsearchDomainConfig
+    describeElasticsearchDomainConfig_domainName,
+    describeElasticsearchDomainConfigResponse_httpStatus,
+    describeElasticsearchDomainConfigResponse_domainConfig,
+
+    -- ** DescribeElasticsearchDomains
+    describeElasticsearchDomains_domainNames,
+    describeElasticsearchDomainsResponse_httpStatus,
+    describeElasticsearchDomainsResponse_domainStatusList,
+
+    -- ** DescribeElasticsearchInstanceTypeLimits
+    describeElasticsearchInstanceTypeLimits_domainName,
+    describeElasticsearchInstanceTypeLimits_instanceType,
+    describeElasticsearchInstanceTypeLimits_elasticsearchVersion,
+    describeElasticsearchInstanceTypeLimitsResponse_limitsByRole,
+    describeElasticsearchInstanceTypeLimitsResponse_httpStatus,
+
+    -- ** DescribeInboundCrossClusterSearchConnections
+    describeInboundCrossClusterSearchConnections_filters,
+    describeInboundCrossClusterSearchConnections_maxResults,
+    describeInboundCrossClusterSearchConnections_nextToken,
+    describeInboundCrossClusterSearchConnectionsResponse_crossClusterSearchConnections,
+    describeInboundCrossClusterSearchConnectionsResponse_nextToken,
+    describeInboundCrossClusterSearchConnectionsResponse_httpStatus,
+
+    -- ** DescribeOutboundCrossClusterSearchConnections
+    describeOutboundCrossClusterSearchConnections_filters,
+    describeOutboundCrossClusterSearchConnections_maxResults,
+    describeOutboundCrossClusterSearchConnections_nextToken,
+    describeOutboundCrossClusterSearchConnectionsResponse_crossClusterSearchConnections,
+    describeOutboundCrossClusterSearchConnectionsResponse_nextToken,
+    describeOutboundCrossClusterSearchConnectionsResponse_httpStatus,
+
+    -- ** DescribePackages
+    describePackages_filters,
+    describePackages_maxResults,
+    describePackages_nextToken,
+    describePackagesResponse_nextToken,
+    describePackagesResponse_packageDetailsList,
+    describePackagesResponse_httpStatus,
+
+    -- ** DescribeReservedElasticsearchInstanceOfferings
+    describeReservedElasticsearchInstanceOfferings_maxResults,
+    describeReservedElasticsearchInstanceOfferings_nextToken,
+    describeReservedElasticsearchInstanceOfferings_reservedElasticsearchInstanceOfferingId,
+    describeReservedElasticsearchInstanceOfferingsResponse_nextToken,
+    describeReservedElasticsearchInstanceOfferingsResponse_reservedElasticsearchInstanceOfferings,
+    describeReservedElasticsearchInstanceOfferingsResponse_httpStatus,
+
+    -- ** DescribeReservedElasticsearchInstances
+    describeReservedElasticsearchInstances_maxResults,
+    describeReservedElasticsearchInstances_nextToken,
+    describeReservedElasticsearchInstances_reservedElasticsearchInstanceId,
+    describeReservedElasticsearchInstancesResponse_nextToken,
+    describeReservedElasticsearchInstancesResponse_reservedElasticsearchInstances,
+    describeReservedElasticsearchInstancesResponse_httpStatus,
+
+    -- ** DescribeVpcEndpoints
+    describeVpcEndpoints_vpcEndpointIds,
+    describeVpcEndpointsResponse_httpStatus,
+    describeVpcEndpointsResponse_vpcEndpoints,
+    describeVpcEndpointsResponse_vpcEndpointErrors,
+
+    -- ** DissociatePackage
+    dissociatePackage_packageID,
+    dissociatePackage_domainName,
+    dissociatePackageResponse_domainPackageDetails,
+    dissociatePackageResponse_httpStatus,
+
+    -- ** GetCompatibleElasticsearchVersions
+    getCompatibleElasticsearchVersions_domainName,
+    getCompatibleElasticsearchVersionsResponse_compatibleElasticsearchVersions,
+    getCompatibleElasticsearchVersionsResponse_httpStatus,
+
+    -- ** GetPackageVersionHistory
+    getPackageVersionHistory_maxResults,
+    getPackageVersionHistory_nextToken,
+    getPackageVersionHistory_packageID,
+    getPackageVersionHistoryResponse_nextToken,
+    getPackageVersionHistoryResponse_packageID,
+    getPackageVersionHistoryResponse_packageVersionHistoryList,
+    getPackageVersionHistoryResponse_httpStatus,
+
+    -- ** GetUpgradeHistory
+    getUpgradeHistory_maxResults,
+    getUpgradeHistory_nextToken,
+    getUpgradeHistory_domainName,
+    getUpgradeHistoryResponse_nextToken,
+    getUpgradeHistoryResponse_upgradeHistories,
+    getUpgradeHistoryResponse_httpStatus,
+
+    -- ** GetUpgradeStatus
+    getUpgradeStatus_domainName,
+    getUpgradeStatusResponse_stepStatus,
+    getUpgradeStatusResponse_upgradeName,
+    getUpgradeStatusResponse_upgradeStep,
+    getUpgradeStatusResponse_httpStatus,
+
+    -- ** ListDomainNames
+    listDomainNames_engineType,
+    listDomainNamesResponse_domainNames,
+    listDomainNamesResponse_httpStatus,
+
+    -- ** ListDomainsForPackage
+    listDomainsForPackage_maxResults,
+    listDomainsForPackage_nextToken,
+    listDomainsForPackage_packageID,
+    listDomainsForPackageResponse_domainPackageDetailsList,
+    listDomainsForPackageResponse_nextToken,
+    listDomainsForPackageResponse_httpStatus,
+
+    -- ** ListElasticsearchInstanceTypes
+    listElasticsearchInstanceTypes_domainName,
+    listElasticsearchInstanceTypes_maxResults,
+    listElasticsearchInstanceTypes_nextToken,
+    listElasticsearchInstanceTypes_elasticsearchVersion,
+    listElasticsearchInstanceTypesResponse_elasticsearchInstanceTypes,
+    listElasticsearchInstanceTypesResponse_nextToken,
+    listElasticsearchInstanceTypesResponse_httpStatus,
+
+    -- ** ListElasticsearchVersions
+    listElasticsearchVersions_maxResults,
+    listElasticsearchVersions_nextToken,
+    listElasticsearchVersionsResponse_elasticsearchVersions,
+    listElasticsearchVersionsResponse_nextToken,
+    listElasticsearchVersionsResponse_httpStatus,
+
+    -- ** ListPackagesForDomain
+    listPackagesForDomain_maxResults,
+    listPackagesForDomain_nextToken,
+    listPackagesForDomain_domainName,
+    listPackagesForDomainResponse_domainPackageDetailsList,
+    listPackagesForDomainResponse_nextToken,
+    listPackagesForDomainResponse_httpStatus,
+
+    -- ** ListTags
+    listTags_arn,
+    listTagsResponse_tagList,
+    listTagsResponse_httpStatus,
+
+    -- ** ListVpcEndpointAccess
+    listVpcEndpointAccess_nextToken,
+    listVpcEndpointAccess_domainName,
+    listVpcEndpointAccessResponse_httpStatus,
+    listVpcEndpointAccessResponse_authorizedPrincipalList,
+    listVpcEndpointAccessResponse_nextToken,
+
+    -- ** ListVpcEndpoints
+    listVpcEndpoints_nextToken,
+    listVpcEndpointsResponse_httpStatus,
+    listVpcEndpointsResponse_vpcEndpointSummaryList,
+    listVpcEndpointsResponse_nextToken,
+
+    -- ** ListVpcEndpointsForDomain
+    listVpcEndpointsForDomain_nextToken,
+    listVpcEndpointsForDomain_domainName,
+    listVpcEndpointsForDomainResponse_httpStatus,
+    listVpcEndpointsForDomainResponse_vpcEndpointSummaryList,
+    listVpcEndpointsForDomainResponse_nextToken,
+
+    -- ** PurchaseReservedElasticsearchInstanceOffering
+    purchaseReservedElasticsearchInstanceOffering_instanceCount,
+    purchaseReservedElasticsearchInstanceOffering_reservedElasticsearchInstanceOfferingId,
+    purchaseReservedElasticsearchInstanceOffering_reservationName,
+    purchaseReservedElasticsearchInstanceOfferingResponse_reservationName,
+    purchaseReservedElasticsearchInstanceOfferingResponse_reservedElasticsearchInstanceId,
+    purchaseReservedElasticsearchInstanceOfferingResponse_httpStatus,
+
     -- ** RejectInboundCrossClusterSearchConnection
     rejectInboundCrossClusterSearchConnection_crossClusterSearchConnectionId,
     rejectInboundCrossClusterSearchConnectionResponse_crossClusterSearchConnection,
     rejectInboundCrossClusterSearchConnectionResponse_httpStatus,
 
-    -- ** DescribeOutboundCrossClusterSearchConnections
-    describeOutboundCrossClusterSearchConnections_filters,
-    describeOutboundCrossClusterSearchConnections_nextToken,
-    describeOutboundCrossClusterSearchConnections_maxResults,
-    describeOutboundCrossClusterSearchConnectionsResponse_crossClusterSearchConnections,
-    describeOutboundCrossClusterSearchConnectionsResponse_nextToken,
-    describeOutboundCrossClusterSearchConnectionsResponse_httpStatus,
+    -- ** RemoveTags
+    removeTags_arn,
+    removeTags_tagKeys,
 
-    -- ** AcceptInboundCrossClusterSearchConnection
-    acceptInboundCrossClusterSearchConnection_crossClusterSearchConnectionId,
-    acceptInboundCrossClusterSearchConnectionResponse_crossClusterSearchConnection,
-    acceptInboundCrossClusterSearchConnectionResponse_httpStatus,
+    -- ** RevokeVpcEndpointAccess
+    revokeVpcEndpointAccess_domainName,
+    revokeVpcEndpointAccess_account,
+    revokeVpcEndpointAccessResponse_httpStatus,
+
+    -- ** StartElasticsearchServiceSoftwareUpdate
+    startElasticsearchServiceSoftwareUpdate_domainName,
+    startElasticsearchServiceSoftwareUpdateResponse_serviceSoftwareOptions,
+    startElasticsearchServiceSoftwareUpdateResponse_httpStatus,
+
+    -- ** UpdateElasticsearchDomainConfig
+    updateElasticsearchDomainConfig_accessPolicies,
+    updateElasticsearchDomainConfig_advancedOptions,
+    updateElasticsearchDomainConfig_advancedSecurityOptions,
+    updateElasticsearchDomainConfig_autoTuneOptions,
+    updateElasticsearchDomainConfig_cognitoOptions,
+    updateElasticsearchDomainConfig_domainEndpointOptions,
+    updateElasticsearchDomainConfig_dryRun,
+    updateElasticsearchDomainConfig_eBSOptions,
+    updateElasticsearchDomainConfig_elasticsearchClusterConfig,
+    updateElasticsearchDomainConfig_encryptionAtRestOptions,
+    updateElasticsearchDomainConfig_logPublishingOptions,
+    updateElasticsearchDomainConfig_nodeToNodeEncryptionOptions,
+    updateElasticsearchDomainConfig_snapshotOptions,
+    updateElasticsearchDomainConfig_vPCOptions,
+    updateElasticsearchDomainConfig_domainName,
+    updateElasticsearchDomainConfigResponse_dryRunResults,
+    updateElasticsearchDomainConfigResponse_httpStatus,
+    updateElasticsearchDomainConfigResponse_domainConfig,
+
+    -- ** UpdatePackage
+    updatePackage_commitMessage,
+    updatePackage_packageDescription,
+    updatePackage_packageID,
+    updatePackage_packageSource,
+    updatePackageResponse_packageDetails,
+    updatePackageResponse_httpStatus,
+
+    -- ** UpdateVpcEndpoint
+    updateVpcEndpoint_vpcEndpointId,
+    updateVpcEndpoint_vpcOptions,
+    updateVpcEndpointResponse_httpStatus,
+    updateVpcEndpointResponse_vpcEndpoint,
+
+    -- ** UpgradeElasticsearchDomain
+    upgradeElasticsearchDomain_performCheckOnly,
+    upgradeElasticsearchDomain_domainName,
+    upgradeElasticsearchDomain_targetVersion,
+    upgradeElasticsearchDomainResponse_changeProgressDetails,
+    upgradeElasticsearchDomainResponse_domainName,
+    upgradeElasticsearchDomainResponse_performCheckOnly,
+    upgradeElasticsearchDomainResponse_targetVersion,
+    upgradeElasticsearchDomainResponse_httpStatus,
 
     -- * Types
 
@@ -314,11 +378,14 @@ module Amazonka.ElasticSearch.Lens
     advancedOptionsStatus_status,
 
     -- ** AdvancedSecurityOptions
+    advancedSecurityOptions_anonymousAuthDisableDate,
+    advancedSecurityOptions_anonymousAuthEnabled,
     advancedSecurityOptions_enabled,
     advancedSecurityOptions_internalUserDatabaseEnabled,
     advancedSecurityOptions_sAMLOptions,
 
     -- ** AdvancedSecurityOptionsInput
+    advancedSecurityOptionsInput_anonymousAuthEnabled,
     advancedSecurityOptionsInput_enabled,
     advancedSecurityOptionsInput_internalUserDatabaseEnabled,
     advancedSecurityOptionsInput_masterUserOptions,
@@ -328,6 +395,10 @@ module Amazonka.ElasticSearch.Lens
     advancedSecurityOptionsStatus_options,
     advancedSecurityOptionsStatus_status,
 
+    -- ** AuthorizedPrincipal
+    authorizedPrincipal_principal,
+    authorizedPrincipal_principalType,
+
     -- ** AutoTune
     autoTune_autoTuneDetails,
     autoTune_autoTuneType,
@@ -336,40 +407,59 @@ module Amazonka.ElasticSearch.Lens
     autoTuneDetails_scheduledAutoTuneDetails,
 
     -- ** AutoTuneMaintenanceSchedule
-    autoTuneMaintenanceSchedule_startAt,
     autoTuneMaintenanceSchedule_cronExpressionForRecurrence,
     autoTuneMaintenanceSchedule_duration,
+    autoTuneMaintenanceSchedule_startAt,
 
     -- ** AutoTuneOptions
     autoTuneOptions_desiredState,
-    autoTuneOptions_rollbackOnDisable,
     autoTuneOptions_maintenanceSchedules,
+    autoTuneOptions_rollbackOnDisable,
 
     -- ** AutoTuneOptionsInput
     autoTuneOptionsInput_desiredState,
     autoTuneOptionsInput_maintenanceSchedules,
 
     -- ** AutoTuneOptionsOutput
-    autoTuneOptionsOutput_state,
     autoTuneOptionsOutput_errorMessage,
+    autoTuneOptionsOutput_state,
 
     -- ** AutoTuneOptionsStatus
-    autoTuneOptionsStatus_status,
     autoTuneOptionsStatus_options,
+    autoTuneOptionsStatus_status,
 
     -- ** AutoTuneStatus
-    autoTuneStatus_pendingDeletion,
     autoTuneStatus_errorMessage,
+    autoTuneStatus_pendingDeletion,
     autoTuneStatus_updateVersion,
     autoTuneStatus_creationDate,
     autoTuneStatus_updateDate,
     autoTuneStatus_state,
 
+    -- ** ChangeProgressDetails
+    changeProgressDetails_changeId,
+    changeProgressDetails_message,
+
+    -- ** ChangeProgressStage
+    changeProgressStage_description,
+    changeProgressStage_lastUpdated,
+    changeProgressStage_name,
+    changeProgressStage_status,
+
+    -- ** ChangeProgressStatusDetails
+    changeProgressStatusDetails_changeId,
+    changeProgressStatusDetails_changeProgressStages,
+    changeProgressStatusDetails_completedProperties,
+    changeProgressStatusDetails_pendingProperties,
+    changeProgressStatusDetails_startTime,
+    changeProgressStatusDetails_status,
+    changeProgressStatusDetails_totalNumberOfStages,
+
     -- ** CognitoOptions
-    cognitoOptions_identityPoolId,
     cognitoOptions_enabled,
-    cognitoOptions_userPoolId,
+    cognitoOptions_identityPoolId,
     cognitoOptions_roleArn,
+    cognitoOptions_userPoolId,
 
     -- ** CognitoOptionsStatus
     cognitoOptionsStatus_options,
@@ -383,15 +473,15 @@ module Amazonka.ElasticSearch.Lens
     compatibleVersionsMap_targetVersions,
 
     -- ** DescribePackagesFilter
-    describePackagesFilter_value,
     describePackagesFilter_name,
+    describePackagesFilter_value,
 
     -- ** DomainEndpointOptions
-    domainEndpointOptions_enforceHTTPS,
-    domainEndpointOptions_tLSSecurityPolicy,
-    domainEndpointOptions_customEndpointEnabled,
     domainEndpointOptions_customEndpoint,
     domainEndpointOptions_customEndpointCertificateArn,
+    domainEndpointOptions_customEndpointEnabled,
+    domainEndpointOptions_enforceHTTPS,
+    domainEndpointOptions_tLSSecurityPolicy,
 
     -- ** DomainEndpointOptionsStatus
     domainEndpointOptionsStatus_options,
@@ -407,84 +497,91 @@ module Amazonka.ElasticSearch.Lens
     domainInformation_domainName,
 
     -- ** DomainPackageDetails
+    domainPackageDetails_domainName,
+    domainPackageDetails_domainPackageStatus,
+    domainPackageDetails_errorDetails,
     domainPackageDetails_lastUpdated,
     domainPackageDetails_packageID,
-    domainPackageDetails_packageType,
     domainPackageDetails_packageName,
+    domainPackageDetails_packageType,
     domainPackageDetails_packageVersion,
-    domainPackageDetails_domainPackageStatus,
-    domainPackageDetails_domainName,
-    domainPackageDetails_errorDetails,
     domainPackageDetails_referencePath,
 
+    -- ** DryRunResults
+    dryRunResults_deploymentType,
+    dryRunResults_message,
+
     -- ** Duration
-    duration_value,
     duration_unit,
+    duration_value,
 
     -- ** EBSOptions
-    eBSOptions_volumeSize,
-    eBSOptions_iops,
-    eBSOptions_volumeType,
     eBSOptions_eBSEnabled,
+    eBSOptions_iops,
+    eBSOptions_throughput,
+    eBSOptions_volumeSize,
+    eBSOptions_volumeType,
 
     -- ** EBSOptionsStatus
     eBSOptionsStatus_options,
     eBSOptionsStatus_status,
 
     -- ** ElasticsearchClusterConfig
-    elasticsearchClusterConfig_dedicatedMasterCount,
-    elasticsearchClusterConfig_dedicatedMasterType,
-    elasticsearchClusterConfig_dedicatedMasterEnabled,
-    elasticsearchClusterConfig_instanceCount,
     elasticsearchClusterConfig_coldStorageOptions,
-    elasticsearchClusterConfig_zoneAwarenessEnabled,
+    elasticsearchClusterConfig_dedicatedMasterCount,
+    elasticsearchClusterConfig_dedicatedMasterEnabled,
+    elasticsearchClusterConfig_dedicatedMasterType,
+    elasticsearchClusterConfig_instanceCount,
     elasticsearchClusterConfig_instanceType,
-    elasticsearchClusterConfig_warmEnabled,
-    elasticsearchClusterConfig_zoneAwarenessConfig,
     elasticsearchClusterConfig_warmCount,
+    elasticsearchClusterConfig_warmEnabled,
     elasticsearchClusterConfig_warmType,
+    elasticsearchClusterConfig_zoneAwarenessConfig,
+    elasticsearchClusterConfig_zoneAwarenessEnabled,
 
     -- ** ElasticsearchClusterConfigStatus
     elasticsearchClusterConfigStatus_options,
     elasticsearchClusterConfigStatus_status,
 
     -- ** ElasticsearchDomainConfig
-    elasticsearchDomainConfig_eBSOptions,
-    elasticsearchDomainConfig_nodeToNodeEncryptionOptions,
     elasticsearchDomainConfig_accessPolicies,
-    elasticsearchDomainConfig_autoTuneOptions,
-    elasticsearchDomainConfig_logPublishingOptions,
-    elasticsearchDomainConfig_advancedSecurityOptions,
-    elasticsearchDomainConfig_elasticsearchClusterConfig,
-    elasticsearchDomainConfig_snapshotOptions,
-    elasticsearchDomainConfig_cognitoOptions,
-    elasticsearchDomainConfig_encryptionAtRestOptions,
-    elasticsearchDomainConfig_vPCOptions,
-    elasticsearchDomainConfig_domainEndpointOptions,
     elasticsearchDomainConfig_advancedOptions,
+    elasticsearchDomainConfig_advancedSecurityOptions,
+    elasticsearchDomainConfig_autoTuneOptions,
+    elasticsearchDomainConfig_changeProgressDetails,
+    elasticsearchDomainConfig_cognitoOptions,
+    elasticsearchDomainConfig_domainEndpointOptions,
+    elasticsearchDomainConfig_eBSOptions,
+    elasticsearchDomainConfig_elasticsearchClusterConfig,
     elasticsearchDomainConfig_elasticsearchVersion,
+    elasticsearchDomainConfig_encryptionAtRestOptions,
+    elasticsearchDomainConfig_logPublishingOptions,
+    elasticsearchDomainConfig_nodeToNodeEncryptionOptions,
+    elasticsearchDomainConfig_snapshotOptions,
+    elasticsearchDomainConfig_vPCOptions,
 
     -- ** ElasticsearchDomainStatus
-    elasticsearchDomainStatus_eBSOptions,
-    elasticsearchDomainStatus_nodeToNodeEncryptionOptions,
     elasticsearchDomainStatus_accessPolicies,
-    elasticsearchDomainStatus_serviceSoftwareOptions,
-    elasticsearchDomainStatus_autoTuneOptions,
-    elasticsearchDomainStatus_logPublishingOptions,
-    elasticsearchDomainStatus_advancedSecurityOptions,
-    elasticsearchDomainStatus_created,
-    elasticsearchDomainStatus_snapshotOptions,
-    elasticsearchDomainStatus_cognitoOptions,
-    elasticsearchDomainStatus_encryptionAtRestOptions,
-    elasticsearchDomainStatus_deleted,
-    elasticsearchDomainStatus_vPCOptions,
-    elasticsearchDomainStatus_endpoints,
-    elasticsearchDomainStatus_domainEndpointOptions,
-    elasticsearchDomainStatus_processing,
-    elasticsearchDomainStatus_endpoint,
-    elasticsearchDomainStatus_upgradeProcessing,
     elasticsearchDomainStatus_advancedOptions,
+    elasticsearchDomainStatus_advancedSecurityOptions,
+    elasticsearchDomainStatus_autoTuneOptions,
+    elasticsearchDomainStatus_changeProgressDetails,
+    elasticsearchDomainStatus_cognitoOptions,
+    elasticsearchDomainStatus_created,
+    elasticsearchDomainStatus_deleted,
+    elasticsearchDomainStatus_domainEndpointOptions,
+    elasticsearchDomainStatus_eBSOptions,
     elasticsearchDomainStatus_elasticsearchVersion,
+    elasticsearchDomainStatus_encryptionAtRestOptions,
+    elasticsearchDomainStatus_endpoint,
+    elasticsearchDomainStatus_endpoints,
+    elasticsearchDomainStatus_logPublishingOptions,
+    elasticsearchDomainStatus_nodeToNodeEncryptionOptions,
+    elasticsearchDomainStatus_processing,
+    elasticsearchDomainStatus_serviceSoftwareOptions,
+    elasticsearchDomainStatus_snapshotOptions,
+    elasticsearchDomainStatus_upgradeProcessing,
+    elasticsearchDomainStatus_vPCOptions,
     elasticsearchDomainStatus_domainId,
     elasticsearchDomainStatus_domainName,
     elasticsearchDomainStatus_arn,
@@ -503,17 +600,17 @@ module Amazonka.ElasticSearch.Lens
     encryptionAtRestOptionsStatus_status,
 
     -- ** ErrorDetails
-    errorDetails_errorType,
     errorDetails_errorMessage,
+    errorDetails_errorType,
 
     -- ** Filter
-    filter_values,
     filter_name,
+    filter_values,
 
     -- ** InboundCrossClusterSearchConnection
-    inboundCrossClusterSearchConnection_destinationDomainInfo,
-    inboundCrossClusterSearchConnection_crossClusterSearchConnectionId,
     inboundCrossClusterSearchConnection_connectionStatus,
+    inboundCrossClusterSearchConnection_crossClusterSearchConnectionId,
+    inboundCrossClusterSearchConnection_destinationDomainInfo,
     inboundCrossClusterSearchConnection_sourceDomainInfo,
 
     -- ** InboundCrossClusterSearchConnectionStatus
@@ -528,22 +625,22 @@ module Amazonka.ElasticSearch.Lens
     instanceLimits_instanceCountLimits,
 
     -- ** Limits
-    limits_instanceLimits,
     limits_additionalLimits,
+    limits_instanceLimits,
     limits_storageTypes,
 
     -- ** LogPublishingOption
-    logPublishingOption_enabled,
     logPublishingOption_cloudWatchLogsLogGroupArn,
+    logPublishingOption_enabled,
 
     -- ** LogPublishingOptionsStatus
-    logPublishingOptionsStatus_status,
     logPublishingOptionsStatus_options,
+    logPublishingOptionsStatus_status,
 
     -- ** MasterUserOptions
-    masterUserOptions_masterUserPassword,
-    masterUserOptions_masterUserName,
     masterUserOptions_masterUserARN,
+    masterUserOptions_masterUserName,
+    masterUserOptions_masterUserPassword,
 
     -- ** NodeToNodeEncryptionOptions
     nodeToNodeEncryptionOptions_enabled,
@@ -560,10 +657,10 @@ module Amazonka.ElasticSearch.Lens
     optionStatus_state,
 
     -- ** OutboundCrossClusterSearchConnection
-    outboundCrossClusterSearchConnection_destinationDomainInfo,
     outboundCrossClusterSearchConnection_connectionAlias,
-    outboundCrossClusterSearchConnection_crossClusterSearchConnectionId,
     outboundCrossClusterSearchConnection_connectionStatus,
+    outboundCrossClusterSearchConnection_crossClusterSearchConnectionId,
+    outboundCrossClusterSearchConnection_destinationDomainInfo,
     outboundCrossClusterSearchConnection_sourceDomainInfo,
 
     -- ** OutboundCrossClusterSearchConnectionStatus
@@ -571,64 +668,64 @@ module Amazonka.ElasticSearch.Lens
     outboundCrossClusterSearchConnectionStatus_statusCode,
 
     -- ** PackageDetails
-    packageDetails_packageID,
-    packageDetails_packageType,
-    packageDetails_lastUpdatedAt,
+    packageDetails_availablePackageVersion,
     packageDetails_createdAt,
+    packageDetails_errorDetails,
+    packageDetails_lastUpdatedAt,
+    packageDetails_packageDescription,
+    packageDetails_packageID,
     packageDetails_packageName,
     packageDetails_packageStatus,
-    packageDetails_packageDescription,
-    packageDetails_errorDetails,
-    packageDetails_availablePackageVersion,
+    packageDetails_packageType,
 
     -- ** PackageSource
-    packageSource_s3Key,
     packageSource_s3BucketName,
+    packageSource_s3Key,
 
     -- ** PackageVersionHistory
+    packageVersionHistory_commitMessage,
     packageVersionHistory_createdAt,
     packageVersionHistory_packageVersion,
-    packageVersionHistory_commitMessage,
 
     -- ** RecurringCharge
-    recurringCharge_recurringChargeFrequency,
     recurringCharge_recurringChargeAmount,
+    recurringCharge_recurringChargeFrequency,
 
     -- ** ReservedElasticsearchInstance
-    reservedElasticsearchInstance_state,
     reservedElasticsearchInstance_currencyCode,
-    reservedElasticsearchInstance_startTime,
-    reservedElasticsearchInstance_reservedElasticsearchInstanceOfferingId,
-    reservedElasticsearchInstance_reservedElasticsearchInstanceId,
-    reservedElasticsearchInstance_elasticsearchInstanceCount,
-    reservedElasticsearchInstance_reservationName,
-    reservedElasticsearchInstance_elasticsearchInstanceType,
-    reservedElasticsearchInstance_recurringCharges,
-    reservedElasticsearchInstance_usagePrice,
-    reservedElasticsearchInstance_fixedPrice,
     reservedElasticsearchInstance_duration,
+    reservedElasticsearchInstance_elasticsearchInstanceCount,
+    reservedElasticsearchInstance_elasticsearchInstanceType,
+    reservedElasticsearchInstance_fixedPrice,
     reservedElasticsearchInstance_paymentOption,
+    reservedElasticsearchInstance_recurringCharges,
+    reservedElasticsearchInstance_reservationName,
+    reservedElasticsearchInstance_reservedElasticsearchInstanceId,
+    reservedElasticsearchInstance_reservedElasticsearchInstanceOfferingId,
+    reservedElasticsearchInstance_startTime,
+    reservedElasticsearchInstance_state,
+    reservedElasticsearchInstance_usagePrice,
 
     -- ** ReservedElasticsearchInstanceOffering
     reservedElasticsearchInstanceOffering_currencyCode,
-    reservedElasticsearchInstanceOffering_reservedElasticsearchInstanceOfferingId,
-    reservedElasticsearchInstanceOffering_elasticsearchInstanceType,
-    reservedElasticsearchInstanceOffering_recurringCharges,
-    reservedElasticsearchInstanceOffering_usagePrice,
-    reservedElasticsearchInstanceOffering_fixedPrice,
     reservedElasticsearchInstanceOffering_duration,
+    reservedElasticsearchInstanceOffering_elasticsearchInstanceType,
+    reservedElasticsearchInstanceOffering_fixedPrice,
     reservedElasticsearchInstanceOffering_paymentOption,
+    reservedElasticsearchInstanceOffering_recurringCharges,
+    reservedElasticsearchInstanceOffering_reservedElasticsearchInstanceOfferingId,
+    reservedElasticsearchInstanceOffering_usagePrice,
 
     -- ** SAMLIdp
     sAMLIdp_metadataContent,
     sAMLIdp_entityId,
 
     -- ** SAMLOptionsInput
-    sAMLOptionsInput_masterUserName,
     sAMLOptionsInput_enabled,
     sAMLOptionsInput_idp,
-    sAMLOptionsInput_rolesKey,
     sAMLOptionsInput_masterBackendRole,
+    sAMLOptionsInput_masterUserName,
+    sAMLOptionsInput_rolesKey,
     sAMLOptionsInput_sessionTimeoutMinutes,
     sAMLOptionsInput_subjectKey,
 
@@ -640,20 +737,20 @@ module Amazonka.ElasticSearch.Lens
     sAMLOptionsOutput_subjectKey,
 
     -- ** ScheduledAutoTuneDetails
-    scheduledAutoTuneDetails_severity,
     scheduledAutoTuneDetails_action,
-    scheduledAutoTuneDetails_date,
     scheduledAutoTuneDetails_actionType,
+    scheduledAutoTuneDetails_date,
+    scheduledAutoTuneDetails_severity,
 
     -- ** ServiceSoftwareOptions
     serviceSoftwareOptions_automatedUpdateDate,
-    serviceSoftwareOptions_currentVersion,
-    serviceSoftwareOptions_optionalDeployment,
-    serviceSoftwareOptions_updateStatus,
     serviceSoftwareOptions_cancellable,
-    serviceSoftwareOptions_updateAvailable,
+    serviceSoftwareOptions_currentVersion,
     serviceSoftwareOptions_description,
     serviceSoftwareOptions_newVersion,
+    serviceSoftwareOptions_optionalDeployment,
+    serviceSoftwareOptions_updateAvailable,
+    serviceSoftwareOptions_updateStatus,
 
     -- ** SnapshotOptions
     snapshotOptions_automatedSnapshotStartHour,
@@ -663,8 +760,8 @@ module Amazonka.ElasticSearch.Lens
     snapshotOptionsStatus_status,
 
     -- ** StorageType
-    storageType_storageTypeLimits,
     storageType_storageSubTypeName,
+    storageType_storageTypeLimits,
     storageType_storageTypeName,
 
     -- ** StorageTypeLimit
@@ -676,22 +773,22 @@ module Amazonka.ElasticSearch.Lens
     tag_value,
 
     -- ** UpgradeHistory
-    upgradeHistory_upgradeStatus,
+    upgradeHistory_startTimestamp,
     upgradeHistory_stepsList,
     upgradeHistory_upgradeName,
-    upgradeHistory_startTimestamp,
+    upgradeHistory_upgradeStatus,
 
     -- ** UpgradeStepItem
-    upgradeStepItem_upgradeStepStatus,
-    upgradeStepItem_progressPercent,
     upgradeStepItem_issues,
+    upgradeStepItem_progressPercent,
     upgradeStepItem_upgradeStep,
+    upgradeStepItem_upgradeStepStatus,
 
     -- ** VPCDerivedInfo
+    vPCDerivedInfo_availabilityZones,
     vPCDerivedInfo_securityGroupIds,
     vPCDerivedInfo_subnetIds,
     vPCDerivedInfo_vPCId,
-    vPCDerivedInfo_availabilityZones,
 
     -- ** VPCDerivedInfoStatus
     vPCDerivedInfoStatus_options,
@@ -701,6 +798,25 @@ module Amazonka.ElasticSearch.Lens
     vPCOptions_securityGroupIds,
     vPCOptions_subnetIds,
 
+    -- ** VpcEndpoint
+    vpcEndpoint_domainArn,
+    vpcEndpoint_endpoint,
+    vpcEndpoint_status,
+    vpcEndpoint_vpcEndpointId,
+    vpcEndpoint_vpcEndpointOwner,
+    vpcEndpoint_vpcOptions,
+
+    -- ** VpcEndpointError
+    vpcEndpointError_errorCode,
+    vpcEndpointError_errorMessage,
+    vpcEndpointError_vpcEndpointId,
+
+    -- ** VpcEndpointSummary
+    vpcEndpointSummary_domainArn,
+    vpcEndpointSummary_status,
+    vpcEndpointSummary_vpcEndpointId,
+    vpcEndpointSummary_vpcEndpointOwner,
+
     -- ** ZoneAwarenessConfig
     zoneAwarenessConfig_availabilityZoneCount,
   )
@@ -709,16 +825,20 @@ where
 import Amazonka.ElasticSearch.AcceptInboundCrossClusterSearchConnection
 import Amazonka.ElasticSearch.AddTags
 import Amazonka.ElasticSearch.AssociatePackage
+import Amazonka.ElasticSearch.AuthorizeVpcEndpointAccess
 import Amazonka.ElasticSearch.CancelElasticsearchServiceSoftwareUpdate
 import Amazonka.ElasticSearch.CreateElasticsearchDomain
 import Amazonka.ElasticSearch.CreateOutboundCrossClusterSearchConnection
 import Amazonka.ElasticSearch.CreatePackage
+import Amazonka.ElasticSearch.CreateVpcEndpoint
 import Amazonka.ElasticSearch.DeleteElasticsearchDomain
 import Amazonka.ElasticSearch.DeleteElasticsearchServiceRole
 import Amazonka.ElasticSearch.DeleteInboundCrossClusterSearchConnection
 import Amazonka.ElasticSearch.DeleteOutboundCrossClusterSearchConnection
 import Amazonka.ElasticSearch.DeletePackage
+import Amazonka.ElasticSearch.DeleteVpcEndpoint
 import Amazonka.ElasticSearch.DescribeDomainAutoTunes
+import Amazonka.ElasticSearch.DescribeDomainChangeProgress
 import Amazonka.ElasticSearch.DescribeElasticsearchDomain
 import Amazonka.ElasticSearch.DescribeElasticsearchDomainConfig
 import Amazonka.ElasticSearch.DescribeElasticsearchDomains
@@ -728,6 +848,7 @@ import Amazonka.ElasticSearch.DescribeOutboundCrossClusterSearchConnections
 import Amazonka.ElasticSearch.DescribePackages
 import Amazonka.ElasticSearch.DescribeReservedElasticsearchInstanceOfferings
 import Amazonka.ElasticSearch.DescribeReservedElasticsearchInstances
+import Amazonka.ElasticSearch.DescribeVpcEndpoints
 import Amazonka.ElasticSearch.DissociatePackage
 import Amazonka.ElasticSearch.GetCompatibleElasticsearchVersions
 import Amazonka.ElasticSearch.GetPackageVersionHistory
@@ -739,9 +860,13 @@ import Amazonka.ElasticSearch.ListElasticsearchInstanceTypes
 import Amazonka.ElasticSearch.ListElasticsearchVersions
 import Amazonka.ElasticSearch.ListPackagesForDomain
 import Amazonka.ElasticSearch.ListTags
+import Amazonka.ElasticSearch.ListVpcEndpointAccess
+import Amazonka.ElasticSearch.ListVpcEndpoints
+import Amazonka.ElasticSearch.ListVpcEndpointsForDomain
 import Amazonka.ElasticSearch.PurchaseReservedElasticsearchInstanceOffering
 import Amazonka.ElasticSearch.RejectInboundCrossClusterSearchConnection
 import Amazonka.ElasticSearch.RemoveTags
+import Amazonka.ElasticSearch.RevokeVpcEndpointAccess
 import Amazonka.ElasticSearch.StartElasticsearchServiceSoftwareUpdate
 import Amazonka.ElasticSearch.Types.AccessPoliciesStatus
 import Amazonka.ElasticSearch.Types.AdditionalLimit
@@ -749,6 +874,7 @@ import Amazonka.ElasticSearch.Types.AdvancedOptionsStatus
 import Amazonka.ElasticSearch.Types.AdvancedSecurityOptions
 import Amazonka.ElasticSearch.Types.AdvancedSecurityOptionsInput
 import Amazonka.ElasticSearch.Types.AdvancedSecurityOptionsStatus
+import Amazonka.ElasticSearch.Types.AuthorizedPrincipal
 import Amazonka.ElasticSearch.Types.AutoTune
 import Amazonka.ElasticSearch.Types.AutoTuneDetails
 import Amazonka.ElasticSearch.Types.AutoTuneMaintenanceSchedule
@@ -757,6 +883,9 @@ import Amazonka.ElasticSearch.Types.AutoTuneOptionsInput
 import Amazonka.ElasticSearch.Types.AutoTuneOptionsOutput
 import Amazonka.ElasticSearch.Types.AutoTuneOptionsStatus
 import Amazonka.ElasticSearch.Types.AutoTuneStatus
+import Amazonka.ElasticSearch.Types.ChangeProgressDetails
+import Amazonka.ElasticSearch.Types.ChangeProgressStage
+import Amazonka.ElasticSearch.Types.ChangeProgressStatusDetails
 import Amazonka.ElasticSearch.Types.CognitoOptions
 import Amazonka.ElasticSearch.Types.CognitoOptionsStatus
 import Amazonka.ElasticSearch.Types.ColdStorageOptions
@@ -767,6 +896,7 @@ import Amazonka.ElasticSearch.Types.DomainEndpointOptionsStatus
 import Amazonka.ElasticSearch.Types.DomainInfo
 import Amazonka.ElasticSearch.Types.DomainInformation
 import Amazonka.ElasticSearch.Types.DomainPackageDetails
+import Amazonka.ElasticSearch.Types.DryRunResults
 import Amazonka.ElasticSearch.Types.Duration
 import Amazonka.ElasticSearch.Types.EBSOptions
 import Amazonka.ElasticSearch.Types.EBSOptionsStatus
@@ -813,7 +943,11 @@ import Amazonka.ElasticSearch.Types.UpgradeStepItem
 import Amazonka.ElasticSearch.Types.VPCDerivedInfo
 import Amazonka.ElasticSearch.Types.VPCDerivedInfoStatus
 import Amazonka.ElasticSearch.Types.VPCOptions
+import Amazonka.ElasticSearch.Types.VpcEndpoint
+import Amazonka.ElasticSearch.Types.VpcEndpointError
+import Amazonka.ElasticSearch.Types.VpcEndpointSummary
 import Amazonka.ElasticSearch.Types.ZoneAwarenessConfig
 import Amazonka.ElasticSearch.UpdateElasticsearchDomainConfig
 import Amazonka.ElasticSearch.UpdatePackage
+import Amazonka.ElasticSearch.UpdateVpcEndpoint
 import Amazonka.ElasticSearch.UpgradeElasticsearchDomain

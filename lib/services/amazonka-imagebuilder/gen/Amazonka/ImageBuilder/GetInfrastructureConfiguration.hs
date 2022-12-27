@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.GetInfrastructureConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,15 +34,16 @@ module Amazonka.ImageBuilder.GetInfrastructureConfiguration
     newGetInfrastructureConfigurationResponse,
 
     -- * Response Lenses
-    getInfrastructureConfigurationResponse_requestId,
     getInfrastructureConfigurationResponse_infrastructureConfiguration,
+    getInfrastructureConfigurationResponse_requestId,
     getInfrastructureConfigurationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,13 +91,14 @@ instance
   type
     AWSResponse GetInfrastructureConfiguration =
       GetInfrastructureConfigurationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetInfrastructureConfigurationResponse'
-            Prelude.<$> (x Core..?> "requestId")
-            Prelude.<*> (x Core..?> "infrastructureConfiguration")
+            Prelude.<$> (x Data..?> "infrastructureConfiguration")
+            Prelude.<*> (x Data..?> "requestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,38 +120,38 @@ instance
     Prelude.rnf infrastructureConfigurationArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetInfrastructureConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetInfrastructureConfiguration where
+instance Data.ToPath GetInfrastructureConfiguration where
   toPath =
     Prelude.const "/GetInfrastructureConfiguration"
 
-instance Core.ToQuery GetInfrastructureConfiguration where
+instance Data.ToQuery GetInfrastructureConfiguration where
   toQuery GetInfrastructureConfiguration' {..} =
     Prelude.mconcat
       [ "infrastructureConfigurationArn"
-          Core.=: infrastructureConfigurationArn
+          Data.=: infrastructureConfigurationArn
       ]
 
 -- | GetInfrastructureConfiguration response object.
 --
 -- /See:/ 'newGetInfrastructureConfigurationResponse' smart constructor.
 data GetInfrastructureConfigurationResponse = GetInfrastructureConfigurationResponse'
-  { -- | The request ID that uniquely identifies this request.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The infrastructure configuration object.
+  { -- | The infrastructure configuration object.
     infrastructureConfiguration :: Prelude.Maybe InfrastructureConfiguration,
+    -- | The request ID that uniquely identifies this request.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -163,9 +165,9 @@ data GetInfrastructureConfigurationResponse = GetInfrastructureConfigurationResp
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'getInfrastructureConfigurationResponse_requestId' - The request ID that uniquely identifies this request.
---
 -- 'infrastructureConfiguration', 'getInfrastructureConfigurationResponse_infrastructureConfiguration' - The infrastructure configuration object.
+--
+-- 'requestId', 'getInfrastructureConfigurationResponse_requestId' - The request ID that uniquely identifies this request.
 --
 -- 'httpStatus', 'getInfrastructureConfigurationResponse_httpStatus' - The response's http status code.
 newGetInfrastructureConfigurationResponse ::
@@ -175,20 +177,19 @@ newGetInfrastructureConfigurationResponse ::
 newGetInfrastructureConfigurationResponse
   pHttpStatus_ =
     GetInfrastructureConfigurationResponse'
-      { requestId =
+      { infrastructureConfiguration =
           Prelude.Nothing,
-        infrastructureConfiguration =
-          Prelude.Nothing,
+        requestId = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | The request ID that uniquely identifies this request.
-getInfrastructureConfigurationResponse_requestId :: Lens.Lens' GetInfrastructureConfigurationResponse (Prelude.Maybe Prelude.Text)
-getInfrastructureConfigurationResponse_requestId = Lens.lens (\GetInfrastructureConfigurationResponse' {requestId} -> requestId) (\s@GetInfrastructureConfigurationResponse' {} a -> s {requestId = a} :: GetInfrastructureConfigurationResponse)
 
 -- | The infrastructure configuration object.
 getInfrastructureConfigurationResponse_infrastructureConfiguration :: Lens.Lens' GetInfrastructureConfigurationResponse (Prelude.Maybe InfrastructureConfiguration)
 getInfrastructureConfigurationResponse_infrastructureConfiguration = Lens.lens (\GetInfrastructureConfigurationResponse' {infrastructureConfiguration} -> infrastructureConfiguration) (\s@GetInfrastructureConfigurationResponse' {} a -> s {infrastructureConfiguration = a} :: GetInfrastructureConfigurationResponse)
+
+-- | The request ID that uniquely identifies this request.
+getInfrastructureConfigurationResponse_requestId :: Lens.Lens' GetInfrastructureConfigurationResponse (Prelude.Maybe Prelude.Text)
+getInfrastructureConfigurationResponse_requestId = Lens.lens (\GetInfrastructureConfigurationResponse' {requestId} -> requestId) (\s@GetInfrastructureConfigurationResponse' {} a -> s {requestId = a} :: GetInfrastructureConfigurationResponse)
 
 -- | The response's http status code.
 getInfrastructureConfigurationResponse_httpStatus :: Lens.Lens' GetInfrastructureConfigurationResponse Prelude.Int
@@ -199,6 +200,6 @@ instance
     GetInfrastructureConfigurationResponse
   where
   rnf GetInfrastructureConfigurationResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf infrastructureConfiguration
+    Prelude.rnf infrastructureConfiguration
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf httpStatus

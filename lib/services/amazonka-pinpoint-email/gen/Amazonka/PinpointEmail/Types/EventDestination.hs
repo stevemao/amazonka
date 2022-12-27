@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointEmail.Types.EventDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.PinpointEmail.Types.EventDestination where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.PinpointEmail.Types.CloudWatchDestination
 import Amazonka.PinpointEmail.Types.EventType
 import Amazonka.PinpointEmail.Types.KinesisFirehoseDestination
@@ -37,11 +38,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEventDestination' smart constructor.
 data EventDestination = EventDestination'
-  { -- | An object that defines a Amazon Pinpoint destination for email events.
-    -- You can use Amazon Pinpoint events to create attributes in Amazon
-    -- Pinpoint projects. You can use these attributes to create segments for
-    -- your campaigns.
-    pinpointDestination :: Prelude.Maybe PinpointDestination,
+  { -- | An object that defines an Amazon CloudWatch destination for email
+    -- events. You can use Amazon CloudWatch to monitor and gain insights on
+    -- your email sending metrics.
+    cloudWatchDestination :: Prelude.Maybe CloudWatchDestination,
     -- | If @true@, the event destination is enabled. When the event destination
     -- is enabled, the specified event types are sent to the destinations in
     -- this @EventDestinationDefinition@.
@@ -54,10 +54,11 @@ data EventDestination = EventDestination'
     -- email events. You can use Amazon Kinesis Data Firehose to stream data to
     -- other services, such as Amazon S3 and Amazon Redshift.
     kinesisFirehoseDestination :: Prelude.Maybe KinesisFirehoseDestination,
-    -- | An object that defines an Amazon CloudWatch destination for email
-    -- events. You can use Amazon CloudWatch to monitor and gain insights on
-    -- your email sending metrics.
-    cloudWatchDestination :: Prelude.Maybe CloudWatchDestination,
+    -- | An object that defines a Amazon Pinpoint destination for email events.
+    -- You can use Amazon Pinpoint events to create attributes in Amazon
+    -- Pinpoint projects. You can use these attributes to create segments for
+    -- your campaigns.
+    pinpointDestination :: Prelude.Maybe PinpointDestination,
     -- | An object that defines an Amazon SNS destination for email events. You
     -- can use Amazon SNS to send notification when certain email events occur.
     snsDestination :: Prelude.Maybe SnsDestination,
@@ -77,10 +78,9 @@ data EventDestination = EventDestination'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'pinpointDestination', 'eventDestination_pinpointDestination' - An object that defines a Amazon Pinpoint destination for email events.
--- You can use Amazon Pinpoint events to create attributes in Amazon
--- Pinpoint projects. You can use these attributes to create segments for
--- your campaigns.
+-- 'cloudWatchDestination', 'eventDestination_cloudWatchDestination' - An object that defines an Amazon CloudWatch destination for email
+-- events. You can use Amazon CloudWatch to monitor and gain insights on
+-- your email sending metrics.
 --
 -- 'enabled', 'eventDestination_enabled' - If @true@, the event destination is enabled. When the event destination
 -- is enabled, the specified event types are sent to the destinations in
@@ -94,9 +94,10 @@ data EventDestination = EventDestination'
 -- email events. You can use Amazon Kinesis Data Firehose to stream data to
 -- other services, such as Amazon S3 and Amazon Redshift.
 --
--- 'cloudWatchDestination', 'eventDestination_cloudWatchDestination' - An object that defines an Amazon CloudWatch destination for email
--- events. You can use Amazon CloudWatch to monitor and gain insights on
--- your email sending metrics.
+-- 'pinpointDestination', 'eventDestination_pinpointDestination' - An object that defines a Amazon Pinpoint destination for email events.
+-- You can use Amazon Pinpoint events to create attributes in Amazon
+-- Pinpoint projects. You can use these attributes to create segments for
+-- your campaigns.
 --
 -- 'snsDestination', 'eventDestination_snsDestination' - An object that defines an Amazon SNS destination for email events. You
 -- can use Amazon SNS to send notification when certain email events occur.
@@ -111,22 +112,21 @@ newEventDestination ::
   EventDestination
 newEventDestination pName_ =
   EventDestination'
-    { pinpointDestination =
+    { cloudWatchDestination =
         Prelude.Nothing,
       enabled = Prelude.Nothing,
       kinesisFirehoseDestination = Prelude.Nothing,
-      cloudWatchDestination = Prelude.Nothing,
+      pinpointDestination = Prelude.Nothing,
       snsDestination = Prelude.Nothing,
       name = pName_,
       matchingEventTypes = Prelude.mempty
     }
 
--- | An object that defines a Amazon Pinpoint destination for email events.
--- You can use Amazon Pinpoint events to create attributes in Amazon
--- Pinpoint projects. You can use these attributes to create segments for
--- your campaigns.
-eventDestination_pinpointDestination :: Lens.Lens' EventDestination (Prelude.Maybe PinpointDestination)
-eventDestination_pinpointDestination = Lens.lens (\EventDestination' {pinpointDestination} -> pinpointDestination) (\s@EventDestination' {} a -> s {pinpointDestination = a} :: EventDestination)
+-- | An object that defines an Amazon CloudWatch destination for email
+-- events. You can use Amazon CloudWatch to monitor and gain insights on
+-- your email sending metrics.
+eventDestination_cloudWatchDestination :: Lens.Lens' EventDestination (Prelude.Maybe CloudWatchDestination)
+eventDestination_cloudWatchDestination = Lens.lens (\EventDestination' {cloudWatchDestination} -> cloudWatchDestination) (\s@EventDestination' {} a -> s {cloudWatchDestination = a} :: EventDestination)
 
 -- | If @true@, the event destination is enabled. When the event destination
 -- is enabled, the specified event types are sent to the destinations in
@@ -144,11 +144,12 @@ eventDestination_enabled = Lens.lens (\EventDestination' {enabled} -> enabled) (
 eventDestination_kinesisFirehoseDestination :: Lens.Lens' EventDestination (Prelude.Maybe KinesisFirehoseDestination)
 eventDestination_kinesisFirehoseDestination = Lens.lens (\EventDestination' {kinesisFirehoseDestination} -> kinesisFirehoseDestination) (\s@EventDestination' {} a -> s {kinesisFirehoseDestination = a} :: EventDestination)
 
--- | An object that defines an Amazon CloudWatch destination for email
--- events. You can use Amazon CloudWatch to monitor and gain insights on
--- your email sending metrics.
-eventDestination_cloudWatchDestination :: Lens.Lens' EventDestination (Prelude.Maybe CloudWatchDestination)
-eventDestination_cloudWatchDestination = Lens.lens (\EventDestination' {cloudWatchDestination} -> cloudWatchDestination) (\s@EventDestination' {} a -> s {cloudWatchDestination = a} :: EventDestination)
+-- | An object that defines a Amazon Pinpoint destination for email events.
+-- You can use Amazon Pinpoint events to create attributes in Amazon
+-- Pinpoint projects. You can use these attributes to create segments for
+-- your campaigns.
+eventDestination_pinpointDestination :: Lens.Lens' EventDestination (Prelude.Maybe PinpointDestination)
+eventDestination_pinpointDestination = Lens.lens (\EventDestination' {pinpointDestination} -> pinpointDestination) (\s@EventDestination' {} a -> s {pinpointDestination = a} :: EventDestination)
 
 -- | An object that defines an Amazon SNS destination for email events. You
 -- can use Amazon SNS to send notification when certain email events occur.
@@ -164,39 +165,39 @@ eventDestination_name = Lens.lens (\EventDestination' {name} -> name) (\s@EventD
 eventDestination_matchingEventTypes :: Lens.Lens' EventDestination [EventType]
 eventDestination_matchingEventTypes = Lens.lens (\EventDestination' {matchingEventTypes} -> matchingEventTypes) (\s@EventDestination' {} a -> s {matchingEventTypes = a} :: EventDestination) Prelude.. Lens.coerced
 
-instance Core.FromJSON EventDestination where
+instance Data.FromJSON EventDestination where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EventDestination"
       ( \x ->
           EventDestination'
-            Prelude.<$> (x Core..:? "PinpointDestination")
-            Prelude.<*> (x Core..:? "Enabled")
-            Prelude.<*> (x Core..:? "KinesisFirehoseDestination")
-            Prelude.<*> (x Core..:? "CloudWatchDestination")
-            Prelude.<*> (x Core..:? "SnsDestination")
-            Prelude.<*> (x Core..: "Name")
-            Prelude.<*> ( x Core..:? "MatchingEventTypes"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "CloudWatchDestination")
+            Prelude.<*> (x Data..:? "Enabled")
+            Prelude.<*> (x Data..:? "KinesisFirehoseDestination")
+            Prelude.<*> (x Data..:? "PinpointDestination")
+            Prelude.<*> (x Data..:? "SnsDestination")
+            Prelude.<*> (x Data..: "Name")
+            Prelude.<*> ( x Data..:? "MatchingEventTypes"
+                            Data..!= Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable EventDestination where
   hashWithSalt _salt EventDestination' {..} =
-    _salt `Prelude.hashWithSalt` pinpointDestination
+    _salt `Prelude.hashWithSalt` cloudWatchDestination
       `Prelude.hashWithSalt` enabled
       `Prelude.hashWithSalt` kinesisFirehoseDestination
-      `Prelude.hashWithSalt` cloudWatchDestination
+      `Prelude.hashWithSalt` pinpointDestination
       `Prelude.hashWithSalt` snsDestination
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` matchingEventTypes
 
 instance Prelude.NFData EventDestination where
   rnf EventDestination' {..} =
-    Prelude.rnf pinpointDestination
+    Prelude.rnf cloudWatchDestination
       `Prelude.seq` Prelude.rnf enabled
       `Prelude.seq` Prelude.rnf kinesisFirehoseDestination
-      `Prelude.seq` Prelude.rnf cloudWatchDestination
+      `Prelude.seq` Prelude.rnf pinpointDestination
       `Prelude.seq` Prelude.rnf snsDestination
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf matchingEventTypes

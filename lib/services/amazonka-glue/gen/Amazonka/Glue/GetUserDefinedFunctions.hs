@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetUserDefinedFunctions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.Glue.GetUserDefinedFunctions
 
     -- * Request Lenses
     getUserDefinedFunctions_catalogId,
-    getUserDefinedFunctions_nextToken,
     getUserDefinedFunctions_databaseName,
     getUserDefinedFunctions_maxResults,
+    getUserDefinedFunctions_nextToken,
     getUserDefinedFunctions_pattern,
 
     -- * Destructuring the Response
@@ -47,8 +47,9 @@ module Amazonka.Glue.GetUserDefinedFunctions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,14 +60,14 @@ data GetUserDefinedFunctions = GetUserDefinedFunctions'
     -- located. If none is provided, the Amazon Web Services account ID is used
     -- by default.
     catalogId :: Prelude.Maybe Prelude.Text,
-    -- | A continuation token, if this is a continuation call.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the catalog database where the functions are located. If
     -- none is provided, functions from all the databases across the catalog
     -- will be returned.
     databaseName :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of functions to return in one response.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A continuation token, if this is a continuation call.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | An optional function-name pattern string that filters the function
     -- definitions returned.
     pattern' :: Prelude.Text
@@ -85,13 +86,13 @@ data GetUserDefinedFunctions = GetUserDefinedFunctions'
 -- located. If none is provided, the Amazon Web Services account ID is used
 -- by default.
 --
--- 'nextToken', 'getUserDefinedFunctions_nextToken' - A continuation token, if this is a continuation call.
---
 -- 'databaseName', 'getUserDefinedFunctions_databaseName' - The name of the catalog database where the functions are located. If
 -- none is provided, functions from all the databases across the catalog
 -- will be returned.
 --
 -- 'maxResults', 'getUserDefinedFunctions_maxResults' - The maximum number of functions to return in one response.
+--
+-- 'nextToken', 'getUserDefinedFunctions_nextToken' - A continuation token, if this is a continuation call.
 --
 -- 'pattern'', 'getUserDefinedFunctions_pattern' - An optional function-name pattern string that filters the function
 -- definitions returned.
@@ -103,9 +104,9 @@ newGetUserDefinedFunctions pPattern_ =
   GetUserDefinedFunctions'
     { catalogId =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       databaseName = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       pattern' = pPattern_
     }
 
@@ -114,10 +115,6 @@ newGetUserDefinedFunctions pPattern_ =
 -- by default.
 getUserDefinedFunctions_catalogId :: Lens.Lens' GetUserDefinedFunctions (Prelude.Maybe Prelude.Text)
 getUserDefinedFunctions_catalogId = Lens.lens (\GetUserDefinedFunctions' {catalogId} -> catalogId) (\s@GetUserDefinedFunctions' {} a -> s {catalogId = a} :: GetUserDefinedFunctions)
-
--- | A continuation token, if this is a continuation call.
-getUserDefinedFunctions_nextToken :: Lens.Lens' GetUserDefinedFunctions (Prelude.Maybe Prelude.Text)
-getUserDefinedFunctions_nextToken = Lens.lens (\GetUserDefinedFunctions' {nextToken} -> nextToken) (\s@GetUserDefinedFunctions' {} a -> s {nextToken = a} :: GetUserDefinedFunctions)
 
 -- | The name of the catalog database where the functions are located. If
 -- none is provided, functions from all the databases across the catalog
@@ -128,6 +125,10 @@ getUserDefinedFunctions_databaseName = Lens.lens (\GetUserDefinedFunctions' {dat
 -- | The maximum number of functions to return in one response.
 getUserDefinedFunctions_maxResults :: Lens.Lens' GetUserDefinedFunctions (Prelude.Maybe Prelude.Natural)
 getUserDefinedFunctions_maxResults = Lens.lens (\GetUserDefinedFunctions' {maxResults} -> maxResults) (\s@GetUserDefinedFunctions' {} a -> s {maxResults = a} :: GetUserDefinedFunctions)
+
+-- | A continuation token, if this is a continuation call.
+getUserDefinedFunctions_nextToken :: Lens.Lens' GetUserDefinedFunctions (Prelude.Maybe Prelude.Text)
+getUserDefinedFunctions_nextToken = Lens.lens (\GetUserDefinedFunctions' {nextToken} -> nextToken) (\s@GetUserDefinedFunctions' {} a -> s {nextToken = a} :: GetUserDefinedFunctions)
 
 -- | An optional function-name pattern string that filters the function
 -- definitions returned.
@@ -160,13 +161,14 @@ instance Core.AWSRequest GetUserDefinedFunctions where
   type
     AWSResponse GetUserDefinedFunctions =
       GetUserDefinedFunctionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetUserDefinedFunctionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "UserDefinedFunctions"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "UserDefinedFunctions"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -175,50 +177,50 @@ instance Core.AWSRequest GetUserDefinedFunctions where
 instance Prelude.Hashable GetUserDefinedFunctions where
   hashWithSalt _salt GetUserDefinedFunctions' {..} =
     _salt `Prelude.hashWithSalt` catalogId
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` databaseName
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` pattern'
 
 instance Prelude.NFData GetUserDefinedFunctions where
   rnf GetUserDefinedFunctions' {..} =
     Prelude.rnf catalogId
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf databaseName
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf pattern'
 
-instance Core.ToHeaders GetUserDefinedFunctions where
+instance Data.ToHeaders GetUserDefinedFunctions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSGlue.GetUserDefinedFunctions" ::
+              Data.=# ( "AWSGlue.GetUserDefinedFunctions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetUserDefinedFunctions where
+instance Data.ToJSON GetUserDefinedFunctions where
   toJSON GetUserDefinedFunctions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("DatabaseName" Core..=) Prelude.<$> databaseName,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("Pattern" Core..= pattern')
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            ("DatabaseName" Data..=) Prelude.<$> databaseName,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("Pattern" Data..= pattern')
           ]
       )
 
-instance Core.ToPath GetUserDefinedFunctions where
+instance Data.ToPath GetUserDefinedFunctions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetUserDefinedFunctions where
+instance Data.ToQuery GetUserDefinedFunctions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetUserDefinedFunctionsResponse' smart constructor.

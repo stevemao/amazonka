@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ModelPackageValidationProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ModelPackageValidationProfile where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.TransformJobDefinition
 
@@ -77,14 +78,14 @@ modelPackageValidationProfile_profileName = Lens.lens (\ModelPackageValidationPr
 modelPackageValidationProfile_transformJobDefinition :: Lens.Lens' ModelPackageValidationProfile TransformJobDefinition
 modelPackageValidationProfile_transformJobDefinition = Lens.lens (\ModelPackageValidationProfile' {transformJobDefinition} -> transformJobDefinition) (\s@ModelPackageValidationProfile' {} a -> s {transformJobDefinition = a} :: ModelPackageValidationProfile)
 
-instance Core.FromJSON ModelPackageValidationProfile where
+instance Data.FromJSON ModelPackageValidationProfile where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ModelPackageValidationProfile"
       ( \x ->
           ModelPackageValidationProfile'
-            Prelude.<$> (x Core..: "ProfileName")
-            Prelude.<*> (x Core..: "TransformJobDefinition")
+            Prelude.<$> (x Data..: "ProfileName")
+            Prelude.<*> (x Data..: "TransformJobDefinition")
       )
 
 instance
@@ -100,14 +101,14 @@ instance Prelude.NFData ModelPackageValidationProfile where
     Prelude.rnf profileName
       `Prelude.seq` Prelude.rnf transformJobDefinition
 
-instance Core.ToJSON ModelPackageValidationProfile where
+instance Data.ToJSON ModelPackageValidationProfile where
   toJSON ModelPackageValidationProfile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ProfileName" Core..= profileName),
+          [ Prelude.Just ("ProfileName" Data..= profileName),
             Prelude.Just
               ( "TransformJobDefinition"
-                  Core..= transformJobDefinition
+                  Data..= transformJobDefinition
               )
           ]
       )

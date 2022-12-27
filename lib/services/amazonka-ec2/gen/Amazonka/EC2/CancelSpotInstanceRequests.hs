@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CancelSpotInstanceRequests
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.EC2.CancelSpotInstanceRequests
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,14 +103,15 @@ instance Core.AWSRequest CancelSpotInstanceRequests where
   type
     AWSResponse CancelSpotInstanceRequests =
       CancelSpotInstanceRequestsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CancelSpotInstanceRequestsResponse'
-            Prelude.<$> ( x Core..@? "spotInstanceRequestSet"
+            Prelude.<$> ( x Data..@? "spotInstanceRequestSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -124,21 +126,21 @@ instance Prelude.NFData CancelSpotInstanceRequests where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf spotInstanceRequestIds
 
-instance Core.ToHeaders CancelSpotInstanceRequests where
+instance Data.ToHeaders CancelSpotInstanceRequests where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CancelSpotInstanceRequests where
+instance Data.ToPath CancelSpotInstanceRequests where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelSpotInstanceRequests where
+instance Data.ToQuery CancelSpotInstanceRequests where
   toQuery CancelSpotInstanceRequests' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CancelSpotInstanceRequests" :: Prelude.ByteString),
+          Data.=: ("CancelSpotInstanceRequests" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        Core.toQueryList
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQueryList
           "SpotInstanceRequestId"
           spotInstanceRequestIds
       ]

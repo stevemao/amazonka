@@ -14,13 +14,21 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetJobBookmark
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Returns information on a job bookmark entry.
+--
+-- For more information about enabling and using job bookmarks, see:
+--
+-- -   <https://docs.aws.amazon.com/glue/latest/dg/monitor-continuations.html Tracking processed data using job bookmarks>
+--
+-- -   <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-programming-etl-glue-arguments.html Job parameters used by Glue>
+--
+-- -   <https://docs.aws.amazon.com/glue/latest/dg/aws-glue-api-jobs-job.html#aws-glue-api-jobs-job-Job Job structure>
 module Amazonka.Glue.GetJobBookmark
   ( -- * Creating a Request
     GetJobBookmark (..),
@@ -41,8 +49,9 @@ module Amazonka.Glue.GetJobBookmark
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,12 +98,13 @@ instance Core.AWSRequest GetJobBookmark where
   type
     AWSResponse GetJobBookmark =
       GetJobBookmarkResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetJobBookmarkResponse'
-            Prelude.<$> (x Core..?> "JobBookmarkEntry")
+            Prelude.<$> (x Data..?> "JobBookmarkEntry")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -107,32 +117,32 @@ instance Prelude.NFData GetJobBookmark where
   rnf GetJobBookmark' {..} =
     Prelude.rnf runId `Prelude.seq` Prelude.rnf jobName
 
-instance Core.ToHeaders GetJobBookmark where
+instance Data.ToHeaders GetJobBookmark where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetJobBookmark" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetJobBookmark" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetJobBookmark where
+instance Data.ToJSON GetJobBookmark where
   toJSON GetJobBookmark' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RunId" Core..=) Prelude.<$> runId,
-            Prelude.Just ("JobName" Core..= jobName)
+          [ ("RunId" Data..=) Prelude.<$> runId,
+            Prelude.Just ("JobName" Data..= jobName)
           ]
       )
 
-instance Core.ToPath GetJobBookmark where
+instance Data.ToPath GetJobBookmark where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetJobBookmark where
+instance Data.ToQuery GetJobBookmark where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetJobBookmarkResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.UpdateAgent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DataSync.UpdateAgent
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,7 +89,8 @@ updateAgent_agentArn = Lens.lens (\UpdateAgent' {agentArn} -> agentArn) (\s@Upda
 
 instance Core.AWSRequest UpdateAgent where
   type AWSResponse UpdateAgent = UpdateAgentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -105,32 +107,32 @@ instance Prelude.NFData UpdateAgent where
   rnf UpdateAgent' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf agentArn
 
-instance Core.ToHeaders UpdateAgent where
+instance Data.ToHeaders UpdateAgent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("FmrsService.UpdateAgent" :: Prelude.ByteString),
+              Data.=# ("FmrsService.UpdateAgent" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAgent where
+instance Data.ToJSON UpdateAgent where
   toJSON UpdateAgent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Name" Core..=) Prelude.<$> name,
-            Prelude.Just ("AgentArn" Core..= agentArn)
+          [ ("Name" Data..=) Prelude.<$> name,
+            Prelude.Just ("AgentArn" Data..= agentArn)
           ]
       )
 
-instance Core.ToPath UpdateAgent where
+instance Data.ToPath UpdateAgent where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateAgent where
+instance Data.ToQuery UpdateAgent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAgentResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.AutoTuneOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.ElasticSearch.Types.AutoTuneOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types.AutoTuneDesiredState
 import Amazonka.ElasticSearch.Types.AutoTuneMaintenanceSchedule
 import Amazonka.ElasticSearch.Types.RollbackOnDisable
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the Auto-Tune options: the Auto-Tune desired state for the
@@ -35,13 +36,13 @@ data AutoTuneOptions = AutoTuneOptions'
   { -- | Specifies the Auto-Tune desired state. Valid values are ENABLED,
     -- DISABLED.
     desiredState :: Prelude.Maybe AutoTuneDesiredState,
-    -- | Specifies the rollback state while disabling Auto-Tune for the domain.
-    -- Valid values are NO_ROLLBACK, DEFAULT_ROLLBACK.
-    rollbackOnDisable :: Prelude.Maybe RollbackOnDisable,
     -- | Specifies list of maitenance schedules. See the
     -- <https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html Developer Guide>
     -- for more information.
-    maintenanceSchedules :: Prelude.Maybe [AutoTuneMaintenanceSchedule]
+    maintenanceSchedules :: Prelude.Maybe [AutoTuneMaintenanceSchedule],
+    -- | Specifies the rollback state while disabling Auto-Tune for the domain.
+    -- Valid values are NO_ROLLBACK, DEFAULT_ROLLBACK.
+    rollbackOnDisable :: Prelude.Maybe RollbackOnDisable
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -56,19 +57,19 @@ data AutoTuneOptions = AutoTuneOptions'
 -- 'desiredState', 'autoTuneOptions_desiredState' - Specifies the Auto-Tune desired state. Valid values are ENABLED,
 -- DISABLED.
 --
--- 'rollbackOnDisable', 'autoTuneOptions_rollbackOnDisable' - Specifies the rollback state while disabling Auto-Tune for the domain.
--- Valid values are NO_ROLLBACK, DEFAULT_ROLLBACK.
---
 -- 'maintenanceSchedules', 'autoTuneOptions_maintenanceSchedules' - Specifies list of maitenance schedules. See the
 -- <https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html Developer Guide>
 -- for more information.
+--
+-- 'rollbackOnDisable', 'autoTuneOptions_rollbackOnDisable' - Specifies the rollback state while disabling Auto-Tune for the domain.
+-- Valid values are NO_ROLLBACK, DEFAULT_ROLLBACK.
 newAutoTuneOptions ::
   AutoTuneOptions
 newAutoTuneOptions =
   AutoTuneOptions'
     { desiredState = Prelude.Nothing,
-      rollbackOnDisable = Prelude.Nothing,
-      maintenanceSchedules = Prelude.Nothing
+      maintenanceSchedules = Prelude.Nothing,
+      rollbackOnDisable = Prelude.Nothing
     }
 
 -- | Specifies the Auto-Tune desired state. Valid values are ENABLED,
@@ -76,50 +77,50 @@ newAutoTuneOptions =
 autoTuneOptions_desiredState :: Lens.Lens' AutoTuneOptions (Prelude.Maybe AutoTuneDesiredState)
 autoTuneOptions_desiredState = Lens.lens (\AutoTuneOptions' {desiredState} -> desiredState) (\s@AutoTuneOptions' {} a -> s {desiredState = a} :: AutoTuneOptions)
 
--- | Specifies the rollback state while disabling Auto-Tune for the domain.
--- Valid values are NO_ROLLBACK, DEFAULT_ROLLBACK.
-autoTuneOptions_rollbackOnDisable :: Lens.Lens' AutoTuneOptions (Prelude.Maybe RollbackOnDisable)
-autoTuneOptions_rollbackOnDisable = Lens.lens (\AutoTuneOptions' {rollbackOnDisable} -> rollbackOnDisable) (\s@AutoTuneOptions' {} a -> s {rollbackOnDisable = a} :: AutoTuneOptions)
-
 -- | Specifies list of maitenance schedules. See the
 -- <https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/auto-tune.html Developer Guide>
 -- for more information.
 autoTuneOptions_maintenanceSchedules :: Lens.Lens' AutoTuneOptions (Prelude.Maybe [AutoTuneMaintenanceSchedule])
 autoTuneOptions_maintenanceSchedules = Lens.lens (\AutoTuneOptions' {maintenanceSchedules} -> maintenanceSchedules) (\s@AutoTuneOptions' {} a -> s {maintenanceSchedules = a} :: AutoTuneOptions) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON AutoTuneOptions where
+-- | Specifies the rollback state while disabling Auto-Tune for the domain.
+-- Valid values are NO_ROLLBACK, DEFAULT_ROLLBACK.
+autoTuneOptions_rollbackOnDisable :: Lens.Lens' AutoTuneOptions (Prelude.Maybe RollbackOnDisable)
+autoTuneOptions_rollbackOnDisable = Lens.lens (\AutoTuneOptions' {rollbackOnDisable} -> rollbackOnDisable) (\s@AutoTuneOptions' {} a -> s {rollbackOnDisable = a} :: AutoTuneOptions)
+
+instance Data.FromJSON AutoTuneOptions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutoTuneOptions"
       ( \x ->
           AutoTuneOptions'
-            Prelude.<$> (x Core..:? "DesiredState")
-            Prelude.<*> (x Core..:? "RollbackOnDisable")
-            Prelude.<*> ( x Core..:? "MaintenanceSchedules"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "DesiredState")
+            Prelude.<*> ( x Data..:? "MaintenanceSchedules"
+                            Data..!= Prelude.mempty
                         )
+            Prelude.<*> (x Data..:? "RollbackOnDisable")
       )
 
 instance Prelude.Hashable AutoTuneOptions where
   hashWithSalt _salt AutoTuneOptions' {..} =
     _salt `Prelude.hashWithSalt` desiredState
-      `Prelude.hashWithSalt` rollbackOnDisable
       `Prelude.hashWithSalt` maintenanceSchedules
+      `Prelude.hashWithSalt` rollbackOnDisable
 
 instance Prelude.NFData AutoTuneOptions where
   rnf AutoTuneOptions' {..} =
     Prelude.rnf desiredState
-      `Prelude.seq` Prelude.rnf rollbackOnDisable
       `Prelude.seq` Prelude.rnf maintenanceSchedules
+      `Prelude.seq` Prelude.rnf rollbackOnDisable
 
-instance Core.ToJSON AutoTuneOptions where
+instance Data.ToJSON AutoTuneOptions where
   toJSON AutoTuneOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DesiredState" Core..=) Prelude.<$> desiredState,
-            ("RollbackOnDisable" Core..=)
-              Prelude.<$> rollbackOnDisable,
-            ("MaintenanceSchedules" Core..=)
-              Prelude.<$> maintenanceSchedules
+          [ ("DesiredState" Data..=) Prelude.<$> desiredState,
+            ("MaintenanceSchedules" Data..=)
+              Prelude.<$> maintenanceSchedules,
+            ("RollbackOnDisable" Data..=)
+              Prelude.<$> rollbackOnDisable
           ]
       )

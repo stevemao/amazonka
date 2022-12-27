@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.DescribeDataset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,15 +34,15 @@ module Amazonka.DataBrew.DescribeDataset
     newDescribeDatasetResponse,
 
     -- * Response Lenses
+    describeDatasetResponse_createDate,
+    describeDatasetResponse_createdBy,
+    describeDatasetResponse_format,
+    describeDatasetResponse_formatOptions,
+    describeDatasetResponse_lastModifiedBy,
     describeDatasetResponse_lastModifiedDate,
     describeDatasetResponse_pathOptions,
-    describeDatasetResponse_createDate,
-    describeDatasetResponse_formatOptions,
-    describeDatasetResponse_format,
-    describeDatasetResponse_createdBy,
     describeDatasetResponse_resourceArn,
     describeDatasetResponse_source,
-    describeDatasetResponse_lastModifiedBy,
     describeDatasetResponse_tags,
     describeDatasetResponse_httpStatus,
     describeDatasetResponse_name,
@@ -51,8 +51,9 @@ module Amazonka.DataBrew.DescribeDataset
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,24 +89,25 @@ instance Core.AWSRequest DescribeDataset where
   type
     AWSResponse DescribeDataset =
       DescribeDatasetResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDatasetResponse'
-            Prelude.<$> (x Core..?> "LastModifiedDate")
-            Prelude.<*> (x Core..?> "PathOptions")
-            Prelude.<*> (x Core..?> "CreateDate")
-            Prelude.<*> (x Core..?> "FormatOptions")
-            Prelude.<*> (x Core..?> "Format")
-            Prelude.<*> (x Core..?> "CreatedBy")
-            Prelude.<*> (x Core..?> "ResourceArn")
-            Prelude.<*> (x Core..?> "Source")
-            Prelude.<*> (x Core..?> "LastModifiedBy")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "CreateDate")
+            Prelude.<*> (x Data..?> "CreatedBy")
+            Prelude.<*> (x Data..?> "Format")
+            Prelude.<*> (x Data..?> "FormatOptions")
+            Prelude.<*> (x Data..?> "LastModifiedBy")
+            Prelude.<*> (x Data..?> "LastModifiedDate")
+            Prelude.<*> (x Data..?> "PathOptions")
+            Prelude.<*> (x Data..?> "ResourceArn")
+            Prelude.<*> (x Data..?> "Source")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Name")
-            Prelude.<*> (x Core..:> "Input")
+            Prelude.<*> (x Data..:> "Name")
+            Prelude.<*> (x Data..:> "Input")
       )
 
 instance Prelude.Hashable DescribeDataset where
@@ -115,46 +117,46 @@ instance Prelude.Hashable DescribeDataset where
 instance Prelude.NFData DescribeDataset where
   rnf DescribeDataset' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DescribeDataset where
+instance Data.ToHeaders DescribeDataset where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeDataset where
+instance Data.ToPath DescribeDataset where
   toPath DescribeDataset' {..} =
-    Prelude.mconcat ["/datasets/", Core.toBS name]
+    Prelude.mconcat ["/datasets/", Data.toBS name]
 
-instance Core.ToQuery DescribeDataset where
+instance Data.ToQuery DescribeDataset where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeDatasetResponse' smart constructor.
 data DescribeDatasetResponse = DescribeDatasetResponse'
-  { -- | The date and time that the dataset was last modified.
-    lastModifiedDate :: Prelude.Maybe Core.POSIX,
-    -- | A set of options that defines how DataBrew interprets an Amazon S3 path
-    -- of the dataset.
-    pathOptions :: Prelude.Maybe PathOptions,
-    -- | The date and time that the dataset was created.
-    createDate :: Prelude.Maybe Core.POSIX,
-    formatOptions :: Prelude.Maybe FormatOptions,
+  { -- | The date and time that the dataset was created.
+    createDate :: Prelude.Maybe Data.POSIX,
+    -- | The identifier (user name) of the user who created the dataset.
+    createdBy :: Prelude.Maybe Prelude.Text,
     -- | The file format of a dataset that is created from an Amazon S3 file or
     -- folder.
     format :: Prelude.Maybe InputFormat,
-    -- | The identifier (user name) of the user who created the dataset.
-    createdBy :: Prelude.Maybe Prelude.Text,
+    formatOptions :: Prelude.Maybe FormatOptions,
+    -- | The identifier (user name) of the user who last modified the dataset.
+    lastModifiedBy :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that the dataset was last modified.
+    lastModifiedDate :: Prelude.Maybe Data.POSIX,
+    -- | A set of options that defines how DataBrew interprets an Amazon S3 path
+    -- of the dataset.
+    pathOptions :: Prelude.Maybe PathOptions,
     -- | The Amazon Resource Name (ARN) of the dataset.
     resourceArn :: Prelude.Maybe Prelude.Text,
     -- | The location of the data for this dataset, Amazon S3 or the Glue Data
     -- Catalog.
     source :: Prelude.Maybe Source,
-    -- | The identifier (user name) of the user who last modified the dataset.
-    lastModifiedBy :: Prelude.Maybe Prelude.Text,
     -- | Metadata tags associated with this dataset.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
@@ -173,26 +175,26 @@ data DescribeDatasetResponse = DescribeDatasetResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'createDate', 'describeDatasetResponse_createDate' - The date and time that the dataset was created.
+--
+-- 'createdBy', 'describeDatasetResponse_createdBy' - The identifier (user name) of the user who created the dataset.
+--
+-- 'format', 'describeDatasetResponse_format' - The file format of a dataset that is created from an Amazon S3 file or
+-- folder.
+--
+-- 'formatOptions', 'describeDatasetResponse_formatOptions' - Undocumented member.
+--
+-- 'lastModifiedBy', 'describeDatasetResponse_lastModifiedBy' - The identifier (user name) of the user who last modified the dataset.
+--
 -- 'lastModifiedDate', 'describeDatasetResponse_lastModifiedDate' - The date and time that the dataset was last modified.
 --
 -- 'pathOptions', 'describeDatasetResponse_pathOptions' - A set of options that defines how DataBrew interprets an Amazon S3 path
 -- of the dataset.
 --
--- 'createDate', 'describeDatasetResponse_createDate' - The date and time that the dataset was created.
---
--- 'formatOptions', 'describeDatasetResponse_formatOptions' - Undocumented member.
---
--- 'format', 'describeDatasetResponse_format' - The file format of a dataset that is created from an Amazon S3 file or
--- folder.
---
--- 'createdBy', 'describeDatasetResponse_createdBy' - The identifier (user name) of the user who created the dataset.
---
 -- 'resourceArn', 'describeDatasetResponse_resourceArn' - The Amazon Resource Name (ARN) of the dataset.
 --
 -- 'source', 'describeDatasetResponse_source' - The location of the data for this dataset, Amazon S3 or the Glue Data
 -- Catalog.
---
--- 'lastModifiedBy', 'describeDatasetResponse_lastModifiedBy' - The identifier (user name) of the user who last modified the dataset.
 --
 -- 'tags', 'describeDatasetResponse_tags' - Metadata tags associated with this dataset.
 --
@@ -214,47 +216,51 @@ newDescribeDatasetResponse
   pName_
   pInput_ =
     DescribeDatasetResponse'
-      { lastModifiedDate =
+      { createDate =
           Prelude.Nothing,
-        pathOptions = Prelude.Nothing,
-        createDate = Prelude.Nothing,
-        formatOptions = Prelude.Nothing,
-        format = Prelude.Nothing,
         createdBy = Prelude.Nothing,
+        format = Prelude.Nothing,
+        formatOptions = Prelude.Nothing,
+        lastModifiedBy = Prelude.Nothing,
+        lastModifiedDate = Prelude.Nothing,
+        pathOptions = Prelude.Nothing,
         resourceArn = Prelude.Nothing,
         source = Prelude.Nothing,
-        lastModifiedBy = Prelude.Nothing,
         tags = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         name = pName_,
         input = pInput_
       }
 
--- | The date and time that the dataset was last modified.
-describeDatasetResponse_lastModifiedDate :: Lens.Lens' DescribeDatasetResponse (Prelude.Maybe Prelude.UTCTime)
-describeDatasetResponse_lastModifiedDate = Lens.lens (\DescribeDatasetResponse' {lastModifiedDate} -> lastModifiedDate) (\s@DescribeDatasetResponse' {} a -> s {lastModifiedDate = a} :: DescribeDatasetResponse) Prelude.. Lens.mapping Core._Time
-
--- | A set of options that defines how DataBrew interprets an Amazon S3 path
--- of the dataset.
-describeDatasetResponse_pathOptions :: Lens.Lens' DescribeDatasetResponse (Prelude.Maybe PathOptions)
-describeDatasetResponse_pathOptions = Lens.lens (\DescribeDatasetResponse' {pathOptions} -> pathOptions) (\s@DescribeDatasetResponse' {} a -> s {pathOptions = a} :: DescribeDatasetResponse)
-
 -- | The date and time that the dataset was created.
 describeDatasetResponse_createDate :: Lens.Lens' DescribeDatasetResponse (Prelude.Maybe Prelude.UTCTime)
-describeDatasetResponse_createDate = Lens.lens (\DescribeDatasetResponse' {createDate} -> createDate) (\s@DescribeDatasetResponse' {} a -> s {createDate = a} :: DescribeDatasetResponse) Prelude.. Lens.mapping Core._Time
+describeDatasetResponse_createDate = Lens.lens (\DescribeDatasetResponse' {createDate} -> createDate) (\s@DescribeDatasetResponse' {} a -> s {createDate = a} :: DescribeDatasetResponse) Prelude.. Lens.mapping Data._Time
 
--- | Undocumented member.
-describeDatasetResponse_formatOptions :: Lens.Lens' DescribeDatasetResponse (Prelude.Maybe FormatOptions)
-describeDatasetResponse_formatOptions = Lens.lens (\DescribeDatasetResponse' {formatOptions} -> formatOptions) (\s@DescribeDatasetResponse' {} a -> s {formatOptions = a} :: DescribeDatasetResponse)
+-- | The identifier (user name) of the user who created the dataset.
+describeDatasetResponse_createdBy :: Lens.Lens' DescribeDatasetResponse (Prelude.Maybe Prelude.Text)
+describeDatasetResponse_createdBy = Lens.lens (\DescribeDatasetResponse' {createdBy} -> createdBy) (\s@DescribeDatasetResponse' {} a -> s {createdBy = a} :: DescribeDatasetResponse)
 
 -- | The file format of a dataset that is created from an Amazon S3 file or
 -- folder.
 describeDatasetResponse_format :: Lens.Lens' DescribeDatasetResponse (Prelude.Maybe InputFormat)
 describeDatasetResponse_format = Lens.lens (\DescribeDatasetResponse' {format} -> format) (\s@DescribeDatasetResponse' {} a -> s {format = a} :: DescribeDatasetResponse)
 
--- | The identifier (user name) of the user who created the dataset.
-describeDatasetResponse_createdBy :: Lens.Lens' DescribeDatasetResponse (Prelude.Maybe Prelude.Text)
-describeDatasetResponse_createdBy = Lens.lens (\DescribeDatasetResponse' {createdBy} -> createdBy) (\s@DescribeDatasetResponse' {} a -> s {createdBy = a} :: DescribeDatasetResponse)
+-- | Undocumented member.
+describeDatasetResponse_formatOptions :: Lens.Lens' DescribeDatasetResponse (Prelude.Maybe FormatOptions)
+describeDatasetResponse_formatOptions = Lens.lens (\DescribeDatasetResponse' {formatOptions} -> formatOptions) (\s@DescribeDatasetResponse' {} a -> s {formatOptions = a} :: DescribeDatasetResponse)
+
+-- | The identifier (user name) of the user who last modified the dataset.
+describeDatasetResponse_lastModifiedBy :: Lens.Lens' DescribeDatasetResponse (Prelude.Maybe Prelude.Text)
+describeDatasetResponse_lastModifiedBy = Lens.lens (\DescribeDatasetResponse' {lastModifiedBy} -> lastModifiedBy) (\s@DescribeDatasetResponse' {} a -> s {lastModifiedBy = a} :: DescribeDatasetResponse)
+
+-- | The date and time that the dataset was last modified.
+describeDatasetResponse_lastModifiedDate :: Lens.Lens' DescribeDatasetResponse (Prelude.Maybe Prelude.UTCTime)
+describeDatasetResponse_lastModifiedDate = Lens.lens (\DescribeDatasetResponse' {lastModifiedDate} -> lastModifiedDate) (\s@DescribeDatasetResponse' {} a -> s {lastModifiedDate = a} :: DescribeDatasetResponse) Prelude.. Lens.mapping Data._Time
+
+-- | A set of options that defines how DataBrew interprets an Amazon S3 path
+-- of the dataset.
+describeDatasetResponse_pathOptions :: Lens.Lens' DescribeDatasetResponse (Prelude.Maybe PathOptions)
+describeDatasetResponse_pathOptions = Lens.lens (\DescribeDatasetResponse' {pathOptions} -> pathOptions) (\s@DescribeDatasetResponse' {} a -> s {pathOptions = a} :: DescribeDatasetResponse)
 
 -- | The Amazon Resource Name (ARN) of the dataset.
 describeDatasetResponse_resourceArn :: Lens.Lens' DescribeDatasetResponse (Prelude.Maybe Prelude.Text)
@@ -264,10 +270,6 @@ describeDatasetResponse_resourceArn = Lens.lens (\DescribeDatasetResponse' {reso
 -- Catalog.
 describeDatasetResponse_source :: Lens.Lens' DescribeDatasetResponse (Prelude.Maybe Source)
 describeDatasetResponse_source = Lens.lens (\DescribeDatasetResponse' {source} -> source) (\s@DescribeDatasetResponse' {} a -> s {source = a} :: DescribeDatasetResponse)
-
--- | The identifier (user name) of the user who last modified the dataset.
-describeDatasetResponse_lastModifiedBy :: Lens.Lens' DescribeDatasetResponse (Prelude.Maybe Prelude.Text)
-describeDatasetResponse_lastModifiedBy = Lens.lens (\DescribeDatasetResponse' {lastModifiedBy} -> lastModifiedBy) (\s@DescribeDatasetResponse' {} a -> s {lastModifiedBy = a} :: DescribeDatasetResponse)
 
 -- | Metadata tags associated with this dataset.
 describeDatasetResponse_tags :: Lens.Lens' DescribeDatasetResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -287,15 +289,15 @@ describeDatasetResponse_input = Lens.lens (\DescribeDatasetResponse' {input} -> 
 
 instance Prelude.NFData DescribeDatasetResponse where
   rnf DescribeDatasetResponse' {..} =
-    Prelude.rnf lastModifiedDate
-      `Prelude.seq` Prelude.rnf pathOptions
-      `Prelude.seq` Prelude.rnf createDate
-      `Prelude.seq` Prelude.rnf formatOptions
-      `Prelude.seq` Prelude.rnf format
+    Prelude.rnf createDate
       `Prelude.seq` Prelude.rnf createdBy
+      `Prelude.seq` Prelude.rnf format
+      `Prelude.seq` Prelude.rnf formatOptions
+      `Prelude.seq` Prelude.rnf lastModifiedBy
+      `Prelude.seq` Prelude.rnf lastModifiedDate
+      `Prelude.seq` Prelude.rnf pathOptions
       `Prelude.seq` Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf source
-      `Prelude.seq` Prelude.rnf lastModifiedBy
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf name

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DeleteCodeRepository
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,7 +36,8 @@ module Amazonka.SageMaker.DeleteCodeRepository
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteCodeRepository where
   type
     AWSResponse DeleteCodeRepository =
       DeleteCodeRepositoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteCodeRepositoryResponse'
 
@@ -88,34 +90,34 @@ instance Prelude.NFData DeleteCodeRepository where
   rnf DeleteCodeRepository' {..} =
     Prelude.rnf codeRepositoryName
 
-instance Core.ToHeaders DeleteCodeRepository where
+instance Data.ToHeaders DeleteCodeRepository where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DeleteCodeRepository" ::
+              Data.=# ( "SageMaker.DeleteCodeRepository" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteCodeRepository where
+instance Data.ToJSON DeleteCodeRepository where
   toJSON DeleteCodeRepository' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("CodeRepositoryName" Core..= codeRepositoryName)
+              ("CodeRepositoryName" Data..= codeRepositoryName)
           ]
       )
 
-instance Core.ToPath DeleteCodeRepository where
+instance Data.ToPath DeleteCodeRepository where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCodeRepository where
+instance Data.ToQuery DeleteCodeRepository where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCodeRepositoryResponse' smart constructor.

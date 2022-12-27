@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Discovery.Types.CustomerAgentInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Discovery.Types.CustomerAgentInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Inventory data for installed discovery agents.
@@ -127,19 +128,19 @@ customerAgentInfo_totalAgents = Lens.lens (\CustomerAgentInfo' {totalAgents} -> 
 customerAgentInfo_unknownAgents :: Lens.Lens' CustomerAgentInfo Prelude.Int
 customerAgentInfo_unknownAgents = Lens.lens (\CustomerAgentInfo' {unknownAgents} -> unknownAgents) (\s@CustomerAgentInfo' {} a -> s {unknownAgents = a} :: CustomerAgentInfo)
 
-instance Core.FromJSON CustomerAgentInfo where
+instance Data.FromJSON CustomerAgentInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CustomerAgentInfo"
       ( \x ->
           CustomerAgentInfo'
-            Prelude.<$> (x Core..: "activeAgents")
-            Prelude.<*> (x Core..: "healthyAgents")
-            Prelude.<*> (x Core..: "blackListedAgents")
-            Prelude.<*> (x Core..: "shutdownAgents")
-            Prelude.<*> (x Core..: "unhealthyAgents")
-            Prelude.<*> (x Core..: "totalAgents")
-            Prelude.<*> (x Core..: "unknownAgents")
+            Prelude.<$> (x Data..: "activeAgents")
+            Prelude.<*> (x Data..: "healthyAgents")
+            Prelude.<*> (x Data..: "blackListedAgents")
+            Prelude.<*> (x Data..: "shutdownAgents")
+            Prelude.<*> (x Data..: "unhealthyAgents")
+            Prelude.<*> (x Data..: "totalAgents")
+            Prelude.<*> (x Data..: "unknownAgents")
       )
 
 instance Prelude.Hashable CustomerAgentInfo where

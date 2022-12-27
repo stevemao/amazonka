@@ -14,19 +14,19 @@
 
 -- |
 -- Module      : Amazonka.Config.DeleteOrganizationConformancePack
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Deletes the specified organization conformance pack and all of the
--- config rules and remediation actions from all member accounts in that
+-- Config rules and remediation actions from all member accounts in that
 -- organization.
 --
--- Only a master account or a delegated administrator account can delete an
--- organization conformance pack. When calling this API with a delegated
--- administrator, you must ensure Organizations
+-- Only a management account or a delegated administrator account can
+-- delete an organization conformance pack. When calling this API with a
+-- delegated administrator, you must ensure Organizations
 -- @ListDelegatedAdministrator@ permissions are added.
 --
 -- Config sets the state of a conformance pack to DELETE_IN_PROGRESS until
@@ -48,7 +48,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ instance
   type
     AWSResponse DeleteOrganizationConformancePack =
       DeleteOrganizationConformancePackResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteOrganizationConformancePackResponse'
@@ -114,45 +116,45 @@ instance
     Prelude.rnf organizationConformancePackName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteOrganizationConformancePack
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.DeleteOrganizationConformancePack" ::
+              Data.=# ( "StarlingDoveService.DeleteOrganizationConformancePack" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DeleteOrganizationConformancePack
   where
   toJSON DeleteOrganizationConformancePack' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "OrganizationConformancePackName"
-                  Core..= organizationConformancePackName
+                  Data..= organizationConformancePackName
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeleteOrganizationConformancePack
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteOrganizationConformancePack
   where
   toQuery = Prelude.const Prelude.mempty

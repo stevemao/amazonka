@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.UpdateAlias
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,15 +27,14 @@
 --
 -- Adding, deleting, or updating an alias can allow or deny permission to
 -- the KMS key. For details, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/abac.html Using ABAC in KMS>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/abac.html ABAC for KMS>
 -- in the /Key Management Service Developer Guide/.
 --
 -- The current and new KMS key must be the same type (both symmetric or
--- both asymmetric), and they must have the same key usage
--- (@ENCRYPT_DECRYPT@ or @SIGN_VERIFY@). This restriction prevents errors
--- in code that uses aliases. If you must assign an alias to a different
--- type of KMS key, use DeleteAlias to delete the old alias and CreateAlias
--- to create a new alias.
+-- both asymmetric or both HMAC), and they must have the same key usage.
+-- This restriction prevents errors in code that uses aliases. If you must
+-- assign an alias to a different type of KMS key, use DeleteAlias to
+-- delete the old alias and CreateAlias to create a new alias.
 --
 -- You cannot use @UpdateAlias@ to change an alias name. To change an alias
 -- name, use DeleteAlias to delete the old alias and CreateAlias to create
@@ -49,7 +48,7 @@
 --
 -- The KMS key that you use for this operation must be in a compatible key
 -- state. For details, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key state: Effect on your KMS key>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key states of KMS keys>
 -- in the /Key Management Service Developer Guide/.
 --
 -- __Cross-account use__: No. You cannot perform this operation on a KMS
@@ -93,8 +92,9 @@ module Amazonka.KMS.UpdateAlias
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,7 +103,7 @@ import qualified Amazonka.Response as Response
 data UpdateAlias = UpdateAlias'
   { -- | Identifies the alias that is changing its KMS key. This value must begin
     -- with @alias\/@ followed by the alias name, such as
-    -- @alias\/ExampleAlias@. You cannot use UpdateAlias to change the alias
+    -- @alias\/ExampleAlias@. You cannot use @UpdateAlias@ to change the alias
     -- name.
     aliasName :: Prelude.Text,
     -- | Identifies the
@@ -114,8 +114,8 @@ data UpdateAlias = UpdateAlias'
     --
     -- The KMS key must be in the same Amazon Web Services account and Region
     -- as the alias. Also, the new target KMS key must be the same type as the
-    -- current target KMS key (both symmetric or both asymmetric) and they must
-    -- have the same key usage.
+    -- current target KMS key (both symmetric or both asymmetric or both HMAC)
+    -- and they must have the same key usage.
     --
     -- Specify the key ID or key ARN of the KMS key.
     --
@@ -145,7 +145,7 @@ data UpdateAlias = UpdateAlias'
 --
 -- 'aliasName', 'updateAlias_aliasName' - Identifies the alias that is changing its KMS key. This value must begin
 -- with @alias\/@ followed by the alias name, such as
--- @alias\/ExampleAlias@. You cannot use UpdateAlias to change the alias
+-- @alias\/ExampleAlias@. You cannot use @UpdateAlias@ to change the alias
 -- name.
 --
 -- 'targetKeyId', 'updateAlias_targetKeyId' - Identifies the
@@ -156,8 +156,8 @@ data UpdateAlias = UpdateAlias'
 --
 -- The KMS key must be in the same Amazon Web Services account and Region
 -- as the alias. Also, the new target KMS key must be the same type as the
--- current target KMS key (both symmetric or both asymmetric) and they must
--- have the same key usage.
+-- current target KMS key (both symmetric or both asymmetric or both HMAC)
+-- and they must have the same key usage.
 --
 -- Specify the key ID or key ARN of the KMS key.
 --
@@ -187,7 +187,7 @@ newUpdateAlias pAliasName_ pTargetKeyId_ =
 
 -- | Identifies the alias that is changing its KMS key. This value must begin
 -- with @alias\/@ followed by the alias name, such as
--- @alias\/ExampleAlias@. You cannot use UpdateAlias to change the alias
+-- @alias\/ExampleAlias@. You cannot use @UpdateAlias@ to change the alias
 -- name.
 updateAlias_aliasName :: Lens.Lens' UpdateAlias Prelude.Text
 updateAlias_aliasName = Lens.lens (\UpdateAlias' {aliasName} -> aliasName) (\s@UpdateAlias' {} a -> s {aliasName = a} :: UpdateAlias)
@@ -200,8 +200,8 @@ updateAlias_aliasName = Lens.lens (\UpdateAlias' {aliasName} -> aliasName) (\s@U
 --
 -- The KMS key must be in the same Amazon Web Services account and Region
 -- as the alias. Also, the new target KMS key must be the same type as the
--- current target KMS key (both symmetric or both asymmetric) and they must
--- have the same key usage.
+-- current target KMS key (both symmetric or both asymmetric or both HMAC)
+-- and they must have the same key usage.
 --
 -- Specify the key ID or key ARN of the KMS key.
 --
@@ -222,7 +222,8 @@ updateAlias_targetKeyId = Lens.lens (\UpdateAlias' {targetKeyId} -> targetKeyId)
 
 instance Core.AWSRequest UpdateAlias where
   type AWSResponse UpdateAlias = UpdateAliasResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull UpdateAliasResponse'
 
 instance Prelude.Hashable UpdateAlias where
@@ -235,32 +236,32 @@ instance Prelude.NFData UpdateAlias where
     Prelude.rnf aliasName
       `Prelude.seq` Prelude.rnf targetKeyId
 
-instance Core.ToHeaders UpdateAlias where
+instance Data.ToHeaders UpdateAlias where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("TrentService.UpdateAlias" :: Prelude.ByteString),
+              Data.=# ("TrentService.UpdateAlias" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAlias where
+instance Data.ToJSON UpdateAlias where
   toJSON UpdateAlias' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("AliasName" Core..= aliasName),
-            Prelude.Just ("TargetKeyId" Core..= targetKeyId)
+          [ Prelude.Just ("AliasName" Data..= aliasName),
+            Prelude.Just ("TargetKeyId" Data..= targetKeyId)
           ]
       )
 
-instance Core.ToPath UpdateAlias where
+instance Data.ToPath UpdateAlias where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateAlias where
+instance Data.ToQuery UpdateAlias where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAliasResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.BatchCreateTableRows
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,8 +54,9 @@ module Amazonka.HoneyCode.BatchCreateTableRows
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HoneyCode.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -191,17 +192,18 @@ instance Core.AWSRequest BatchCreateTableRows where
   type
     AWSResponse BatchCreateTableRows =
       BatchCreateTableRowsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchCreateTableRowsResponse'
-            Prelude.<$> ( x Core..?> "failedBatchItems"
+            Prelude.<$> ( x Data..?> "failedBatchItems"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "workbookCursor")
-            Prelude.<*> (x Core..?> "createdRows" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "workbookCursor")
+            Prelude.<*> (x Data..?> "createdRows" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable BatchCreateTableRows where
@@ -218,38 +220,38 @@ instance Prelude.NFData BatchCreateTableRows where
       `Prelude.seq` Prelude.rnf tableId
       `Prelude.seq` Prelude.rnf rowsToCreate
 
-instance Core.ToHeaders BatchCreateTableRows where
+instance Data.ToHeaders BatchCreateTableRows where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchCreateTableRows where
+instance Data.ToJSON BatchCreateTableRows where
   toJSON BatchCreateTableRows' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientRequestToken" Core..=)
+          [ ("clientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            Prelude.Just ("rowsToCreate" Core..= rowsToCreate)
+            Prelude.Just ("rowsToCreate" Data..= rowsToCreate)
           ]
       )
 
-instance Core.ToPath BatchCreateTableRows where
+instance Data.ToPath BatchCreateTableRows where
   toPath BatchCreateTableRows' {..} =
     Prelude.mconcat
       [ "/workbooks/",
-        Core.toBS workbookId,
+        Data.toBS workbookId,
         "/tables/",
-        Core.toBS tableId,
+        Data.toBS tableId,
         "/rows/batchcreate"
       ]
 
-instance Core.ToQuery BatchCreateTableRows where
+instance Data.ToQuery BatchCreateTableRows where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchCreateTableRowsResponse' smart constructor.

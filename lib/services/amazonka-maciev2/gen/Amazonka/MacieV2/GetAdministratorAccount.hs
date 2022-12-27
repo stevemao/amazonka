@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.GetAdministratorAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ module Amazonka.MacieV2.GetAdministratorAccount
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -62,12 +63,13 @@ instance Core.AWSRequest GetAdministratorAccount where
   type
     AWSResponse GetAdministratorAccount =
       GetAdministratorAccountResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAdministratorAccountResponse'
-            Prelude.<$> (x Core..?> "administrator")
+            Prelude.<$> (x Data..?> "administrator")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -78,29 +80,29 @@ instance Prelude.Hashable GetAdministratorAccount where
 instance Prelude.NFData GetAdministratorAccount where
   rnf _ = ()
 
-instance Core.ToHeaders GetAdministratorAccount where
+instance Data.ToHeaders GetAdministratorAccount where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetAdministratorAccount where
+instance Data.ToPath GetAdministratorAccount where
   toPath = Prelude.const "/administrator"
 
-instance Core.ToQuery GetAdministratorAccount where
+instance Data.ToQuery GetAdministratorAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAdministratorAccountResponse' smart constructor.
 data GetAdministratorAccountResponse = GetAdministratorAccountResponse'
   { -- | The Amazon Web Services account ID for the administrator account. If the
-    -- accounts are associated by a Macie membership invitation, this object
-    -- also provides details about the invitation that was sent to establish
-    -- the relationship between the accounts.
+    -- accounts are associated by an Amazon Macie membership invitation, this
+    -- object also provides details about the invitation that was sent to
+    -- establish the relationship between the accounts.
     administrator :: Prelude.Maybe Invitation,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -116,9 +118,9 @@ data GetAdministratorAccountResponse = GetAdministratorAccountResponse'
 -- for backwards compatibility:
 --
 -- 'administrator', 'getAdministratorAccountResponse_administrator' - The Amazon Web Services account ID for the administrator account. If the
--- accounts are associated by a Macie membership invitation, this object
--- also provides details about the invitation that was sent to establish
--- the relationship between the accounts.
+-- accounts are associated by an Amazon Macie membership invitation, this
+-- object also provides details about the invitation that was sent to
+-- establish the relationship between the accounts.
 --
 -- 'httpStatus', 'getAdministratorAccountResponse_httpStatus' - The response's http status code.
 newGetAdministratorAccountResponse ::
@@ -133,9 +135,9 @@ newGetAdministratorAccountResponse pHttpStatus_ =
     }
 
 -- | The Amazon Web Services account ID for the administrator account. If the
--- accounts are associated by a Macie membership invitation, this object
--- also provides details about the invitation that was sent to establish
--- the relationship between the accounts.
+-- accounts are associated by an Amazon Macie membership invitation, this
+-- object also provides details about the invitation that was sent to
+-- establish the relationship between the accounts.
 getAdministratorAccountResponse_administrator :: Lens.Lens' GetAdministratorAccountResponse (Prelude.Maybe Invitation)
 getAdministratorAccountResponse_administrator = Lens.lens (\GetAdministratorAccountResponse' {administrator} -> administrator) (\s@GetAdministratorAccountResponse' {} a -> s {administrator = a} :: GetAdministratorAccountResponse)
 

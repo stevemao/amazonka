@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.Types.LifecyclePolicyPreviewSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ECR.Types.LifecyclePolicyPreviewSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The summary of the lifecycle policy preview request.
@@ -53,13 +54,13 @@ newLifecyclePolicyPreviewSummary =
 lifecyclePolicyPreviewSummary_expiringImageTotalCount :: Lens.Lens' LifecyclePolicyPreviewSummary (Prelude.Maybe Prelude.Natural)
 lifecyclePolicyPreviewSummary_expiringImageTotalCount = Lens.lens (\LifecyclePolicyPreviewSummary' {expiringImageTotalCount} -> expiringImageTotalCount) (\s@LifecyclePolicyPreviewSummary' {} a -> s {expiringImageTotalCount = a} :: LifecyclePolicyPreviewSummary)
 
-instance Core.FromJSON LifecyclePolicyPreviewSummary where
+instance Data.FromJSON LifecyclePolicyPreviewSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LifecyclePolicyPreviewSummary"
       ( \x ->
           LifecyclePolicyPreviewSummary'
-            Prelude.<$> (x Core..:? "expiringImageTotalCount")
+            Prelude.<$> (x Data..:? "expiringImageTotalCount")
       )
 
 instance

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ConnectParticipant.CompleteAttachmentUpload
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,9 @@
 --
 -- Allows you to confirm that the attachment has been uploaded using the
 -- pre-signed URL provided in StartAttachmentUpload API.
+--
+-- The Amazon Connect Participant Service APIs do not use
+-- <https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html Signature Version 4 authentication>.
 module Amazonka.ConnectParticipant.CompleteAttachmentUpload
   ( -- * Creating a Request
     CompleteAttachmentUpload (..),
@@ -43,7 +46,8 @@ where
 
 import Amazonka.ConnectParticipant.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,7 +114,8 @@ instance Core.AWSRequest CompleteAttachmentUpload where
   type
     AWSResponse CompleteAttachmentUpload =
       CompleteAttachmentUploadResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -130,30 +135,30 @@ instance Prelude.NFData CompleteAttachmentUpload where
       `Prelude.seq` Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf connectionToken
 
-instance Core.ToHeaders CompleteAttachmentUpload where
+instance Data.ToHeaders CompleteAttachmentUpload where
   toHeaders CompleteAttachmentUpload' {..} =
     Prelude.mconcat
-      [ "X-Amz-Bearer" Core.=# connectionToken,
+      [ "X-Amz-Bearer" Data.=# connectionToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON CompleteAttachmentUpload where
+instance Data.ToJSON CompleteAttachmentUpload where
   toJSON CompleteAttachmentUpload' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("AttachmentIds" Core..= attachmentIds),
-            Prelude.Just ("ClientToken" Core..= clientToken)
+              ("AttachmentIds" Data..= attachmentIds),
+            Prelude.Just ("ClientToken" Data..= clientToken)
           ]
       )
 
-instance Core.ToPath CompleteAttachmentUpload where
+instance Data.ToPath CompleteAttachmentUpload where
   toPath =
     Prelude.const
       "/participant/complete-attachment-upload"
 
-instance Core.ToQuery CompleteAttachmentUpload where
+instance Data.ToQuery CompleteAttachmentUpload where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCompleteAttachmentUploadResponse' smart constructor.

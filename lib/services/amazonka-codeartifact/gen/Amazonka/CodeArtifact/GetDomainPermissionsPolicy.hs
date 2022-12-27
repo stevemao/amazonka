@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.GetDomainPermissionsPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,7 +25,7 @@
 -- The policy is a resource-based policy, not an identity-based policy. For
 -- more information, see
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies_identity-vs-resource.html Identity-based policies and resource-based policies>
--- in the /AWS Identity and Access Management User Guide/.
+-- in the /IAM User Guide/.
 module Amazonka.CodeArtifact.GetDomainPermissionsPolicy
   ( -- * Creating a Request
     GetDomainPermissionsPolicy (..),
@@ -47,15 +47,16 @@ where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetDomainPermissionsPolicy' smart constructor.
 data GetDomainPermissionsPolicy = GetDomainPermissionsPolicy'
-  { -- | The 12-digit account number of the AWS account that owns the domain. It
-    -- does not include dashes or spaces.
+  { -- | The 12-digit account number of the Amazon Web Services account that owns
+    -- the domain. It does not include dashes or spaces.
     domainOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the domain to which the resource policy is attached.
     domain :: Prelude.Text
@@ -70,8 +71,8 @@ data GetDomainPermissionsPolicy = GetDomainPermissionsPolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainOwner', 'getDomainPermissionsPolicy_domainOwner' - The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- 'domainOwner', 'getDomainPermissionsPolicy_domainOwner' - The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 --
 -- 'domain', 'getDomainPermissionsPolicy_domain' - The name of the domain to which the resource policy is attached.
 newGetDomainPermissionsPolicy ::
@@ -85,8 +86,8 @@ newGetDomainPermissionsPolicy pDomain_ =
       domain = pDomain_
     }
 
--- | The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- | The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 getDomainPermissionsPolicy_domainOwner :: Lens.Lens' GetDomainPermissionsPolicy (Prelude.Maybe Prelude.Text)
 getDomainPermissionsPolicy_domainOwner = Lens.lens (\GetDomainPermissionsPolicy' {domainOwner} -> domainOwner) (\s@GetDomainPermissionsPolicy' {} a -> s {domainOwner = a} :: GetDomainPermissionsPolicy)
 
@@ -98,12 +99,13 @@ instance Core.AWSRequest GetDomainPermissionsPolicy where
   type
     AWSResponse GetDomainPermissionsPolicy =
       GetDomainPermissionsPolicyResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDomainPermissionsPolicyResponse'
-            Prelude.<$> (x Core..?> "policy")
+            Prelude.<$> (x Data..?> "policy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,26 +119,26 @@ instance Prelude.NFData GetDomainPermissionsPolicy where
     Prelude.rnf domainOwner
       `Prelude.seq` Prelude.rnf domain
 
-instance Core.ToHeaders GetDomainPermissionsPolicy where
+instance Data.ToHeaders GetDomainPermissionsPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetDomainPermissionsPolicy where
+instance Data.ToPath GetDomainPermissionsPolicy where
   toPath =
     Prelude.const "/v1/domain/permissions/policy"
 
-instance Core.ToQuery GetDomainPermissionsPolicy where
+instance Data.ToQuery GetDomainPermissionsPolicy where
   toQuery GetDomainPermissionsPolicy' {..} =
     Prelude.mconcat
-      [ "domain-owner" Core.=: domainOwner,
-        "domain" Core.=: domain
+      [ "domain-owner" Data.=: domainOwner,
+        "domain" Data.=: domain
       ]
 
 -- | /See:/ 'newGetDomainPermissionsPolicyResponse' smart constructor.

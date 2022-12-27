@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.AutoScalingGroupProviderUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.ECS.Types.AutoScalingGroupProviderUpdate where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types.ManagedScaling
 import Amazonka.ECS.Types.ManagedTerminationProtection
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of the Auto Scaling group capacity provider to update.
@@ -37,18 +38,18 @@ data AutoScalingGroupProviderUpdate = AutoScalingGroupProviderUpdate'
     -- has managed termination protection.
     --
     -- When using managed termination protection, managed scaling must also be
-    -- used otherwise managed termination protection will not work.
+    -- used otherwise managed termination protection doesn\'t work.
     --
     -- When managed termination protection is enabled, Amazon ECS prevents the
     -- Amazon EC2 instances in an Auto Scaling group that contain tasks from
     -- being terminated during a scale-in action. The Auto Scaling group and
     -- each instance in the Auto Scaling group must have instance protection
-    -- from scale-in actions enabled as well. For more information, see
+    -- from scale-in actions enabled. For more information, see
     -- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection Instance Protection>
     -- in the /Auto Scaling User Guide/.
     --
     -- When managed termination protection is disabled, your Amazon EC2
-    -- instances are not protected from termination when the Auto Scaling group
+    -- instances aren\'t protected from termination when the Auto Scaling group
     -- scales in.
     managedTerminationProtection :: Prelude.Maybe ManagedTerminationProtection
   }
@@ -70,18 +71,18 @@ data AutoScalingGroupProviderUpdate = AutoScalingGroupProviderUpdate'
 -- has managed termination protection.
 --
 -- When using managed termination protection, managed scaling must also be
--- used otherwise managed termination protection will not work.
+-- used otherwise managed termination protection doesn\'t work.
 --
 -- When managed termination protection is enabled, Amazon ECS prevents the
 -- Amazon EC2 instances in an Auto Scaling group that contain tasks from
 -- being terminated during a scale-in action. The Auto Scaling group and
 -- each instance in the Auto Scaling group must have instance protection
--- from scale-in actions enabled as well. For more information, see
+-- from scale-in actions enabled. For more information, see
 -- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection Instance Protection>
 -- in the /Auto Scaling User Guide/.
 --
 -- When managed termination protection is disabled, your Amazon EC2
--- instances are not protected from termination when the Auto Scaling group
+-- instances aren\'t protected from termination when the Auto Scaling group
 -- scales in.
 newAutoScalingGroupProviderUpdate ::
   AutoScalingGroupProviderUpdate
@@ -103,18 +104,18 @@ autoScalingGroupProviderUpdate_managedScaling = Lens.lens (\AutoScalingGroupProv
 -- has managed termination protection.
 --
 -- When using managed termination protection, managed scaling must also be
--- used otherwise managed termination protection will not work.
+-- used otherwise managed termination protection doesn\'t work.
 --
 -- When managed termination protection is enabled, Amazon ECS prevents the
 -- Amazon EC2 instances in an Auto Scaling group that contain tasks from
 -- being terminated during a scale-in action. The Auto Scaling group and
 -- each instance in the Auto Scaling group must have instance protection
--- from scale-in actions enabled as well. For more information, see
+-- from scale-in actions enabled. For more information, see
 -- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-instance-termination.html#instance-protection Instance Protection>
 -- in the /Auto Scaling User Guide/.
 --
 -- When managed termination protection is disabled, your Amazon EC2
--- instances are not protected from termination when the Auto Scaling group
+-- instances aren\'t protected from termination when the Auto Scaling group
 -- scales in.
 autoScalingGroupProviderUpdate_managedTerminationProtection :: Lens.Lens' AutoScalingGroupProviderUpdate (Prelude.Maybe ManagedTerminationProtection)
 autoScalingGroupProviderUpdate_managedTerminationProtection = Lens.lens (\AutoScalingGroupProviderUpdate' {managedTerminationProtection} -> managedTerminationProtection) (\s@AutoScalingGroupProviderUpdate' {} a -> s {managedTerminationProtection = a} :: AutoScalingGroupProviderUpdate)
@@ -137,13 +138,13 @@ instance
     Prelude.rnf managedScaling
       `Prelude.seq` Prelude.rnf managedTerminationProtection
 
-instance Core.ToJSON AutoScalingGroupProviderUpdate where
+instance Data.ToJSON AutoScalingGroupProviderUpdate where
   toJSON AutoScalingGroupProviderUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("managedScaling" Core..=)
+          [ ("managedScaling" Data..=)
               Prelude.<$> managedScaling,
-            ("managedTerminationProtection" Core..=)
+            ("managedTerminationProtection" Data..=)
               Prelude.<$> managedTerminationProtection
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.Types.ApprovalStateChangedEventMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodeCommit.Types.ApprovalStateChangedEventMetadata where
 
 import Amazonka.CodeCommit.Types.ApprovalState
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Returns information about a change in the approval state for a pull
@@ -65,16 +66,16 @@ approvalStateChangedEventMetadata_revisionId :: Lens.Lens' ApprovalStateChangedE
 approvalStateChangedEventMetadata_revisionId = Lens.lens (\ApprovalStateChangedEventMetadata' {revisionId} -> revisionId) (\s@ApprovalStateChangedEventMetadata' {} a -> s {revisionId = a} :: ApprovalStateChangedEventMetadata)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ApprovalStateChangedEventMetadata
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ApprovalStateChangedEventMetadata"
       ( \x ->
           ApprovalStateChangedEventMetadata'
-            Prelude.<$> (x Core..:? "approvalStatus")
-            Prelude.<*> (x Core..:? "revisionId")
+            Prelude.<$> (x Data..:? "approvalStatus")
+            Prelude.<*> (x Data..:? "revisionId")
       )
 
 instance

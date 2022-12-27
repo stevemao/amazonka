@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListCertificatesByCA
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.IoT.ListCertificatesByCA
     newListCertificatesByCA,
 
     -- * Request Lenses
-    listCertificatesByCA_marker,
     listCertificatesByCA_ascendingOrder,
+    listCertificatesByCA_marker,
     listCertificatesByCA_pageSize,
     listCertificatesByCA_caCertificateId,
 
@@ -50,8 +50,9 @@ module Amazonka.IoT.ListCertificatesByCA
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,11 +61,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListCertificatesByCA' smart constructor.
 data ListCertificatesByCA = ListCertificatesByCA'
-  { -- | The marker for the next set of results.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the order for results. If True, the results are returned in
+  { -- | Specifies the order for results. If True, the results are returned in
     -- ascending order, based on the creation date.
     ascendingOrder :: Prelude.Maybe Prelude.Bool,
+    -- | The marker for the next set of results.
+    marker :: Prelude.Maybe Prelude.Text,
     -- | The result page size.
     pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the CA certificate. This operation will list all registered
@@ -81,10 +82,10 @@ data ListCertificatesByCA = ListCertificatesByCA'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'marker', 'listCertificatesByCA_marker' - The marker for the next set of results.
---
 -- 'ascendingOrder', 'listCertificatesByCA_ascendingOrder' - Specifies the order for results. If True, the results are returned in
 -- ascending order, based on the creation date.
+--
+-- 'marker', 'listCertificatesByCA_marker' - The marker for the next set of results.
 --
 -- 'pageSize', 'listCertificatesByCA_pageSize' - The result page size.
 --
@@ -96,20 +97,21 @@ newListCertificatesByCA ::
   ListCertificatesByCA
 newListCertificatesByCA pCaCertificateId_ =
   ListCertificatesByCA'
-    { marker = Prelude.Nothing,
-      ascendingOrder = Prelude.Nothing,
+    { ascendingOrder =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
       pageSize = Prelude.Nothing,
       caCertificateId = pCaCertificateId_
     }
-
--- | The marker for the next set of results.
-listCertificatesByCA_marker :: Lens.Lens' ListCertificatesByCA (Prelude.Maybe Prelude.Text)
-listCertificatesByCA_marker = Lens.lens (\ListCertificatesByCA' {marker} -> marker) (\s@ListCertificatesByCA' {} a -> s {marker = a} :: ListCertificatesByCA)
 
 -- | Specifies the order for results. If True, the results are returned in
 -- ascending order, based on the creation date.
 listCertificatesByCA_ascendingOrder :: Lens.Lens' ListCertificatesByCA (Prelude.Maybe Prelude.Bool)
 listCertificatesByCA_ascendingOrder = Lens.lens (\ListCertificatesByCA' {ascendingOrder} -> ascendingOrder) (\s@ListCertificatesByCA' {} a -> s {ascendingOrder = a} :: ListCertificatesByCA)
+
+-- | The marker for the next set of results.
+listCertificatesByCA_marker :: Lens.Lens' ListCertificatesByCA (Prelude.Maybe Prelude.Text)
+listCertificatesByCA_marker = Lens.lens (\ListCertificatesByCA' {marker} -> marker) (\s@ListCertificatesByCA' {} a -> s {marker = a} :: ListCertificatesByCA)
 
 -- | The result page size.
 listCertificatesByCA_pageSize :: Lens.Lens' ListCertificatesByCA (Prelude.Maybe Prelude.Natural)
@@ -146,44 +148,45 @@ instance Core.AWSRequest ListCertificatesByCA where
   type
     AWSResponse ListCertificatesByCA =
       ListCertificatesByCAResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListCertificatesByCAResponse'
-            Prelude.<$> (x Core..?> "certificates" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextMarker")
+            Prelude.<$> (x Data..?> "certificates" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListCertificatesByCA where
   hashWithSalt _salt ListCertificatesByCA' {..} =
-    _salt `Prelude.hashWithSalt` marker
-      `Prelude.hashWithSalt` ascendingOrder
+    _salt `Prelude.hashWithSalt` ascendingOrder
+      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` pageSize
       `Prelude.hashWithSalt` caCertificateId
 
 instance Prelude.NFData ListCertificatesByCA where
   rnf ListCertificatesByCA' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf ascendingOrder
+    Prelude.rnf ascendingOrder
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf pageSize
       `Prelude.seq` Prelude.rnf caCertificateId
 
-instance Core.ToHeaders ListCertificatesByCA where
+instance Data.ToHeaders ListCertificatesByCA where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListCertificatesByCA where
+instance Data.ToPath ListCertificatesByCA where
   toPath ListCertificatesByCA' {..} =
     Prelude.mconcat
-      ["/certificates-by-ca/", Core.toBS caCertificateId]
+      ["/certificates-by-ca/", Data.toBS caCertificateId]
 
-instance Core.ToQuery ListCertificatesByCA where
+instance Data.ToQuery ListCertificatesByCA where
   toQuery ListCertificatesByCA' {..} =
     Prelude.mconcat
-      [ "marker" Core.=: marker,
-        "isAscendingOrder" Core.=: ascendingOrder,
-        "pageSize" Core.=: pageSize
+      [ "isAscendingOrder" Data.=: ascendingOrder,
+        "marker" Data.=: marker,
+        "pageSize" Data.=: pageSize
       ]
 
 -- | The output of the ListCertificatesByCA operation.

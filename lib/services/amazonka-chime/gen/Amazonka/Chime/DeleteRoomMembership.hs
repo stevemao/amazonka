@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.DeleteRoomMembership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,7 +103,8 @@ instance Core.AWSRequest DeleteRoomMembership where
   type
     AWSResponse DeleteRoomMembership =
       DeleteRoomMembershipResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteRoomMembershipResponse'
 
@@ -118,21 +120,21 @@ instance Prelude.NFData DeleteRoomMembership where
       `Prelude.seq` Prelude.rnf roomId
       `Prelude.seq` Prelude.rnf memberId
 
-instance Core.ToHeaders DeleteRoomMembership where
+instance Data.ToHeaders DeleteRoomMembership where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteRoomMembership where
+instance Data.ToPath DeleteRoomMembership where
   toPath DeleteRoomMembership' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/rooms/",
-        Core.toBS roomId,
+        Data.toBS roomId,
         "/memberships/",
-        Core.toBS memberId
+        Data.toBS memberId
       ]
 
-instance Core.ToQuery DeleteRoomMembership where
+instance Data.ToQuery DeleteRoomMembership where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRoomMembershipResponse' smart constructor.

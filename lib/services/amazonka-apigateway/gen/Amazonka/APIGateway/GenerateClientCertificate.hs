@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GenerateClientCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,18 +35,19 @@ module Amazonka.APIGateway.GenerateClientCertificate
     newClientCertificate,
 
     -- * Response Lenses
-    clientCertificate_pemEncodedCertificate,
     clientCertificate_clientCertificateId,
     clientCertificate_createdDate,
-    clientCertificate_expirationDate,
     clientCertificate_description,
+    clientCertificate_expirationDate,
+    clientCertificate_pemEncodedCertificate,
     clientCertificate_tags,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,10 +101,11 @@ instance Core.AWSRequest GenerateClientCertificate where
   type
     AWSResponse GenerateClientCertificate =
       ClientCertificate
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GenerateClientCertificate where
   hashWithSalt _salt GenerateClientCertificate' {..} =
@@ -115,26 +117,26 @@ instance Prelude.NFData GenerateClientCertificate where
     Prelude.rnf description
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders GenerateClientCertificate where
+instance Data.ToHeaders GenerateClientCertificate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON GenerateClientCertificate where
+instance Data.ToJSON GenerateClientCertificate where
   toJSON GenerateClientCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags
+          [ ("description" Data..=) Prelude.<$> description,
+            ("tags" Data..=) Prelude.<$> tags
           ]
       )
 
-instance Core.ToPath GenerateClientCertificate where
+instance Data.ToPath GenerateClientCertificate where
   toPath = Prelude.const "/clientcertificates"
 
-instance Core.ToQuery GenerateClientCertificate where
+instance Data.ToQuery GenerateClientCertificate where
   toQuery = Prelude.const Prelude.mempty

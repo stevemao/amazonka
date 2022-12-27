@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.DescribeLoadBalancers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,9 +25,9 @@
 --
 -- This operation describes only Classic Load Balancers. If you have
 -- Application Load Balancers, Network Load Balancers, or Gateway Load
--- Balancers, use the DescribeLoadBalancerTargetGroups API instead.
+-- Balancer, use the DescribeLoadBalancerTargetGroups API instead.
 --
--- To determine the availability of registered instances, use the @State@
+-- To determine the attachment status of the load balancer, use the @State@
 -- element in the response. When you attach a load balancer to an Auto
 -- Scaling group, the initial @State@ value is @Adding@. The state
 -- transitions to @Added@ after all Auto Scaling instances are registered
@@ -48,7 +48,7 @@
 -- For help with failed health checks, see
 -- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/ts-as-healthchecks.html Troubleshooting Amazon EC2 Auto Scaling: Health checks>
 -- in the /Amazon EC2 Auto Scaling User Guide/. For more information, see
--- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html Elastic Load Balancing and Amazon EC2 Auto Scaling>
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html Use Elastic Load Balancing to distribute traffic across the instances in your Auto Scaling group>
 -- in the /Amazon EC2 Auto Scaling User Guide/.
 --
 -- This operation returns paginated results.
@@ -58,8 +58,8 @@ module Amazonka.AutoScaling.DescribeLoadBalancers
     newDescribeLoadBalancers,
 
     -- * Request Lenses
-    describeLoadBalancers_nextToken,
     describeLoadBalancers_maxRecords,
+    describeLoadBalancers_nextToken,
     describeLoadBalancers_autoScalingGroupName,
 
     -- * Destructuring the Response
@@ -75,19 +75,20 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeLoadBalancers' smart constructor.
 data DescribeLoadBalancers = DescribeLoadBalancers'
-  { -- | The token for the next set of items to return. (You received this token
-    -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call. The default value
+  { -- | The maximum number of items to return with this call. The default value
     -- is @100@ and the maximum value is @100@.
     maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the Auto Scaling group.
     autoScalingGroupName :: Prelude.Text
   }
@@ -101,11 +102,11 @@ data DescribeLoadBalancers = DescribeLoadBalancers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeLoadBalancers_nextToken' - The token for the next set of items to return. (You received this token
--- from a previous call.)
---
 -- 'maxRecords', 'describeLoadBalancers_maxRecords' - The maximum number of items to return with this call. The default value
 -- is @100@ and the maximum value is @100@.
+--
+-- 'nextToken', 'describeLoadBalancers_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
 -- 'autoScalingGroupName', 'describeLoadBalancers_autoScalingGroupName' - The name of the Auto Scaling group.
 newDescribeLoadBalancers ::
@@ -114,20 +115,21 @@ newDescribeLoadBalancers ::
   DescribeLoadBalancers
 newDescribeLoadBalancers pAutoScalingGroupName_ =
   DescribeLoadBalancers'
-    { nextToken = Prelude.Nothing,
-      maxRecords = Prelude.Nothing,
+    { maxRecords =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       autoScalingGroupName = pAutoScalingGroupName_
     }
-
--- | The token for the next set of items to return. (You received this token
--- from a previous call.)
-describeLoadBalancers_nextToken :: Lens.Lens' DescribeLoadBalancers (Prelude.Maybe Prelude.Text)
-describeLoadBalancers_nextToken = Lens.lens (\DescribeLoadBalancers' {nextToken} -> nextToken) (\s@DescribeLoadBalancers' {} a -> s {nextToken = a} :: DescribeLoadBalancers)
 
 -- | The maximum number of items to return with this call. The default value
 -- is @100@ and the maximum value is @100@.
 describeLoadBalancers_maxRecords :: Lens.Lens' DescribeLoadBalancers (Prelude.Maybe Prelude.Int)
 describeLoadBalancers_maxRecords = Lens.lens (\DescribeLoadBalancers' {maxRecords} -> maxRecords) (\s@DescribeLoadBalancers' {} a -> s {maxRecords = a} :: DescribeLoadBalancers)
+
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeLoadBalancers_nextToken :: Lens.Lens' DescribeLoadBalancers (Prelude.Maybe Prelude.Text)
+describeLoadBalancers_nextToken = Lens.lens (\DescribeLoadBalancers' {nextToken} -> nextToken) (\s@DescribeLoadBalancers' {} a -> s {nextToken = a} :: DescribeLoadBalancers)
 
 -- | The name of the Auto Scaling group.
 describeLoadBalancers_autoScalingGroupName :: Lens.Lens' DescribeLoadBalancers Prelude.Text
@@ -159,47 +161,48 @@ instance Core.AWSRequest DescribeLoadBalancers where
   type
     AWSResponse DescribeLoadBalancers =
       DescribeLoadBalancersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeLoadBalancersResult"
       ( \s h x ->
           DescribeLoadBalancersResponse'
-            Prelude.<$> ( x Core..@? "LoadBalancers" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "LoadBalancers" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "NextToken")
+            Prelude.<*> (x Data..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeLoadBalancers where
   hashWithSalt _salt DescribeLoadBalancers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxRecords
+    _salt `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` autoScalingGroupName
 
 instance Prelude.NFData DescribeLoadBalancers where
   rnf DescribeLoadBalancers' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxRecords
+    Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf autoScalingGroupName
 
-instance Core.ToHeaders DescribeLoadBalancers where
+instance Data.ToHeaders DescribeLoadBalancers where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeLoadBalancers where
+instance Data.ToPath DescribeLoadBalancers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeLoadBalancers where
+instance Data.ToQuery DescribeLoadBalancers where
   toQuery DescribeLoadBalancers' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeLoadBalancers" :: Prelude.ByteString),
+          Data.=: ("DescribeLoadBalancers" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "MaxRecords" Core.=: maxRecords,
-        "AutoScalingGroupName" Core.=: autoScalingGroupName
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "MaxRecords" Data.=: maxRecords,
+        "NextToken" Data.=: nextToken,
+        "AutoScalingGroupName" Data.=: autoScalingGroupName
       ]
 
 -- | /See:/ 'newDescribeLoadBalancersResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.DeleteTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,7 +69,8 @@ deleteTags_tags = Lens.lens (\DeleteTags' {tags} -> tags) (\s@DeleteTags' {} a -
 
 instance Core.AWSRequest DeleteTags where
   type AWSResponse DeleteTags = DeleteTagsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull DeleteTagsResponse'
 
 instance Prelude.Hashable DeleteTags where
@@ -78,20 +80,20 @@ instance Prelude.Hashable DeleteTags where
 instance Prelude.NFData DeleteTags where
   rnf DeleteTags' {..} = Prelude.rnf tags
 
-instance Core.ToHeaders DeleteTags where
+instance Data.ToHeaders DeleteTags where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteTags where
+instance Data.ToPath DeleteTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteTags where
+instance Data.ToQuery DeleteTags where
   toQuery DeleteTags' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteTags" :: Prelude.ByteString),
+          Data.=: ("DeleteTags" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "Tags" Core.=: Core.toQueryList "member" tags
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "Tags" Data.=: Data.toQueryList "member" tags
       ]
 
 -- | /See:/ 'newDeleteTagsResponse' smart constructor.

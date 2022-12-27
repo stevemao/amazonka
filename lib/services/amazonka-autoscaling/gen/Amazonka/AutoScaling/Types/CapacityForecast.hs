@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.CapacityForecast
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AutoScaling.Types.CapacityForecast where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A @GetPredictiveScalingForecast@ call returns the capacity forecast for
@@ -29,8 +30,8 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCapacityForecast' smart constructor.
 data CapacityForecast = CapacityForecast'
-  { -- | The time stamps for the data points, in UTC format.
-    timestamps :: [Core.ISO8601],
+  { -- | The timestamps for the data points, in UTC format.
+    timestamps :: [Data.ISO8601],
     -- | The values of the data points.
     values :: [Prelude.Double]
   }
@@ -44,7 +45,7 @@ data CapacityForecast = CapacityForecast'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'timestamps', 'capacityForecast_timestamps' - The time stamps for the data points, in UTC format.
+-- 'timestamps', 'capacityForecast_timestamps' - The timestamps for the data points, in UTC format.
 --
 -- 'values', 'capacityForecast_values' - The values of the data points.
 newCapacityForecast ::
@@ -55,7 +56,7 @@ newCapacityForecast =
       values = Prelude.mempty
     }
 
--- | The time stamps for the data points, in UTC format.
+-- | The timestamps for the data points, in UTC format.
 capacityForecast_timestamps :: Lens.Lens' CapacityForecast [Prelude.UTCTime]
 capacityForecast_timestamps = Lens.lens (\CapacityForecast' {timestamps} -> timestamps) (\s@CapacityForecast' {} a -> s {timestamps = a} :: CapacityForecast) Prelude.. Lens.coerced
 
@@ -63,14 +64,14 @@ capacityForecast_timestamps = Lens.lens (\CapacityForecast' {timestamps} -> time
 capacityForecast_values :: Lens.Lens' CapacityForecast [Prelude.Double]
 capacityForecast_values = Lens.lens (\CapacityForecast' {values} -> values) (\s@CapacityForecast' {} a -> s {values = a} :: CapacityForecast) Prelude.. Lens.coerced
 
-instance Core.FromXML CapacityForecast where
+instance Data.FromXML CapacityForecast where
   parseXML x =
     CapacityForecast'
-      Prelude.<$> ( x Core..@? "Timestamps" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.parseXMLList "member"
+      Prelude.<$> ( x Data..@? "Timestamps" Core..!@ Prelude.mempty
+                      Prelude.>>= Data.parseXMLList "member"
                   )
-      Prelude.<*> ( x Core..@? "Values" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.parseXMLList "member"
+      Prelude.<*> ( x Data..@? "Values" Core..!@ Prelude.mempty
+                      Prelude.>>= Data.parseXMLList "member"
                   )
 
 instance Prelude.Hashable CapacityForecast where

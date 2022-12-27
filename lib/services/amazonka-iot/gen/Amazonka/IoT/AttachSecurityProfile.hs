@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.AttachSecurityProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.IoT.AttachSecurityProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,7 +104,8 @@ instance Core.AWSRequest AttachSecurityProfile where
   type
     AWSResponse AttachSecurityProfile =
       AttachSecurityProfileResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -121,25 +123,25 @@ instance Prelude.NFData AttachSecurityProfile where
     Prelude.rnf securityProfileName
       `Prelude.seq` Prelude.rnf securityProfileTargetArn
 
-instance Core.ToHeaders AttachSecurityProfile where
+instance Data.ToHeaders AttachSecurityProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON AttachSecurityProfile where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON AttachSecurityProfile where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath AttachSecurityProfile where
+instance Data.ToPath AttachSecurityProfile where
   toPath AttachSecurityProfile' {..} =
     Prelude.mconcat
       [ "/security-profiles/",
-        Core.toBS securityProfileName,
+        Data.toBS securityProfileName,
         "/targets"
       ]
 
-instance Core.ToQuery AttachSecurityProfile where
+instance Data.ToQuery AttachSecurityProfile where
   toQuery AttachSecurityProfile' {..} =
     Prelude.mconcat
       [ "securityProfileTargetArn"
-          Core.=: securityProfileTargetArn
+          Data.=: securityProfileTargetArn
       ]
 
 -- | /See:/ 'newAttachSecurityProfileResponse' smart constructor.

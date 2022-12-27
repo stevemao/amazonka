@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.Types.HlsPlaylistSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,16 @@
 module Amazonka.MediaTailor.Types.HlsPlaylistSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | HLS playlist configuration parameters.
 --
 -- /See:/ 'newHlsPlaylistSettings' smart constructor.
 data HlsPlaylistSettings = HlsPlaylistSettings'
-  { -- | The total duration (in seconds) of each manifest. Minimum value: 30
-    -- seconds. Maximum value: 3600 seconds.
+  { -- | The total duration (in seconds) of each manifest. Minimum value: @30@
+    -- seconds. Maximum value: @3600@ seconds.
     manifestWindowSeconds :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -41,8 +42,8 @@ data HlsPlaylistSettings = HlsPlaylistSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'manifestWindowSeconds', 'hlsPlaylistSettings_manifestWindowSeconds' - The total duration (in seconds) of each manifest. Minimum value: 30
--- seconds. Maximum value: 3600 seconds.
+-- 'manifestWindowSeconds', 'hlsPlaylistSettings_manifestWindowSeconds' - The total duration (in seconds) of each manifest. Minimum value: @30@
+-- seconds. Maximum value: @3600@ seconds.
 newHlsPlaylistSettings ::
   HlsPlaylistSettings
 newHlsPlaylistSettings =
@@ -51,18 +52,18 @@ newHlsPlaylistSettings =
         Prelude.Nothing
     }
 
--- | The total duration (in seconds) of each manifest. Minimum value: 30
--- seconds. Maximum value: 3600 seconds.
+-- | The total duration (in seconds) of each manifest. Minimum value: @30@
+-- seconds. Maximum value: @3600@ seconds.
 hlsPlaylistSettings_manifestWindowSeconds :: Lens.Lens' HlsPlaylistSettings (Prelude.Maybe Prelude.Int)
 hlsPlaylistSettings_manifestWindowSeconds = Lens.lens (\HlsPlaylistSettings' {manifestWindowSeconds} -> manifestWindowSeconds) (\s@HlsPlaylistSettings' {} a -> s {manifestWindowSeconds = a} :: HlsPlaylistSettings)
 
-instance Core.FromJSON HlsPlaylistSettings where
+instance Data.FromJSON HlsPlaylistSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HlsPlaylistSettings"
       ( \x ->
           HlsPlaylistSettings'
-            Prelude.<$> (x Core..:? "ManifestWindowSeconds")
+            Prelude.<$> (x Data..:? "ManifestWindowSeconds")
       )
 
 instance Prelude.Hashable HlsPlaylistSettings where
@@ -73,11 +74,11 @@ instance Prelude.NFData HlsPlaylistSettings where
   rnf HlsPlaylistSettings' {..} =
     Prelude.rnf manifestWindowSeconds
 
-instance Core.ToJSON HlsPlaylistSettings where
+instance Data.ToJSON HlsPlaylistSettings where
   toJSON HlsPlaylistSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ManifestWindowSeconds" Core..=)
+          [ ("ManifestWindowSeconds" Data..=)
               Prelude.<$> manifestWindowSeconds
           ]
       )

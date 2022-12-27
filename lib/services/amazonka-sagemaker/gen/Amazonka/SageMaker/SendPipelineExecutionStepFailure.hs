@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.SendPipelineExecutionStepFailure
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.SageMaker.SendPipelineExecutionStepFailure
     newSendPipelineExecutionStepFailure,
 
     -- * Request Lenses
-    sendPipelineExecutionStepFailure_failureReason,
     sendPipelineExecutionStepFailure_clientRequestToken,
+    sendPipelineExecutionStepFailure_failureReason,
     sendPipelineExecutionStepFailure_callbackToken,
 
     -- * Destructuring the Response
@@ -45,7 +45,8 @@ module Amazonka.SageMaker.SendPipelineExecutionStepFailure
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,12 +54,12 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newSendPipelineExecutionStepFailure' smart constructor.
 data SendPipelineExecutionStepFailure = SendPipelineExecutionStepFailure'
-  { -- | A message describing why the step failed.
-    failureReason :: Prelude.Maybe Prelude.Text,
-    -- | A unique, case-sensitive identifier that you provide to ensure the
+  { -- | A unique, case-sensitive identifier that you provide to ensure the
     -- idempotency of the operation. An idempotent operation completes no more
     -- than one time.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | A message describing why the step failed.
+    failureReason :: Prelude.Maybe Prelude.Text,
     -- | The pipeline generated token from the Amazon SQS queue.
     callbackToken :: Prelude.Text
   }
@@ -72,11 +73,11 @@ data SendPipelineExecutionStepFailure = SendPipelineExecutionStepFailure'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'failureReason', 'sendPipelineExecutionStepFailure_failureReason' - A message describing why the step failed.
---
 -- 'clientRequestToken', 'sendPipelineExecutionStepFailure_clientRequestToken' - A unique, case-sensitive identifier that you provide to ensure the
 -- idempotency of the operation. An idempotent operation completes no more
 -- than one time.
+--
+-- 'failureReason', 'sendPipelineExecutionStepFailure_failureReason' - A message describing why the step failed.
 --
 -- 'callbackToken', 'sendPipelineExecutionStepFailure_callbackToken' - The pipeline generated token from the Amazon SQS queue.
 newSendPipelineExecutionStepFailure ::
@@ -85,21 +86,21 @@ newSendPipelineExecutionStepFailure ::
   SendPipelineExecutionStepFailure
 newSendPipelineExecutionStepFailure pCallbackToken_ =
   SendPipelineExecutionStepFailure'
-    { failureReason =
+    { clientRequestToken =
         Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
+      failureReason = Prelude.Nothing,
       callbackToken = pCallbackToken_
     }
-
--- | A message describing why the step failed.
-sendPipelineExecutionStepFailure_failureReason :: Lens.Lens' SendPipelineExecutionStepFailure (Prelude.Maybe Prelude.Text)
-sendPipelineExecutionStepFailure_failureReason = Lens.lens (\SendPipelineExecutionStepFailure' {failureReason} -> failureReason) (\s@SendPipelineExecutionStepFailure' {} a -> s {failureReason = a} :: SendPipelineExecutionStepFailure)
 
 -- | A unique, case-sensitive identifier that you provide to ensure the
 -- idempotency of the operation. An idempotent operation completes no more
 -- than one time.
 sendPipelineExecutionStepFailure_clientRequestToken :: Lens.Lens' SendPipelineExecutionStepFailure (Prelude.Maybe Prelude.Text)
 sendPipelineExecutionStepFailure_clientRequestToken = Lens.lens (\SendPipelineExecutionStepFailure' {clientRequestToken} -> clientRequestToken) (\s@SendPipelineExecutionStepFailure' {} a -> s {clientRequestToken = a} :: SendPipelineExecutionStepFailure)
+
+-- | A message describing why the step failed.
+sendPipelineExecutionStepFailure_failureReason :: Lens.Lens' SendPipelineExecutionStepFailure (Prelude.Maybe Prelude.Text)
+sendPipelineExecutionStepFailure_failureReason = Lens.lens (\SendPipelineExecutionStepFailure' {failureReason} -> failureReason) (\s@SendPipelineExecutionStepFailure' {} a -> s {failureReason = a} :: SendPipelineExecutionStepFailure)
 
 -- | The pipeline generated token from the Amazon SQS queue.
 sendPipelineExecutionStepFailure_callbackToken :: Lens.Lens' SendPipelineExecutionStepFailure Prelude.Text
@@ -112,12 +113,13 @@ instance
   type
     AWSResponse SendPipelineExecutionStepFailure =
       SendPipelineExecutionStepFailureResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SendPipelineExecutionStepFailureResponse'
-            Prelude.<$> (x Core..?> "PipelineExecutionArn")
+            Prelude.<$> (x Data..?> "PipelineExecutionArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,8 +130,8 @@ instance
   hashWithSalt
     _salt
     SendPipelineExecutionStepFailure' {..} =
-      _salt `Prelude.hashWithSalt` failureReason
-        `Prelude.hashWithSalt` clientRequestToken
+      _salt `Prelude.hashWithSalt` clientRequestToken
+        `Prelude.hashWithSalt` failureReason
         `Prelude.hashWithSalt` callbackToken
 
 instance
@@ -137,45 +139,45 @@ instance
     SendPipelineExecutionStepFailure
   where
   rnf SendPipelineExecutionStepFailure' {..} =
-    Prelude.rnf failureReason
-      `Prelude.seq` Prelude.rnf clientRequestToken
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf failureReason
       `Prelude.seq` Prelude.rnf callbackToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     SendPipelineExecutionStepFailure
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.SendPipelineExecutionStepFailure" ::
+              Data.=# ( "SageMaker.SendPipelineExecutionStepFailure" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SendPipelineExecutionStepFailure where
+instance Data.ToJSON SendPipelineExecutionStepFailure where
   toJSON SendPipelineExecutionStepFailure' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FailureReason" Core..=) Prelude.<$> failureReason,
-            ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
+            ("FailureReason" Data..=) Prelude.<$> failureReason,
             Prelude.Just
-              ("CallbackToken" Core..= callbackToken)
+              ("CallbackToken" Data..= callbackToken)
           ]
       )
 
-instance Core.ToPath SendPipelineExecutionStepFailure where
+instance Data.ToPath SendPipelineExecutionStepFailure where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     SendPipelineExecutionStepFailure
   where
   toQuery = Prelude.const Prelude.mempty

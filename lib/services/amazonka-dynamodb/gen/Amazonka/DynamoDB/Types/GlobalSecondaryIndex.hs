@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.GlobalSecondaryIndex
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,13 @@
 module Amazonka.DynamoDB.Types.GlobalSecondaryIndex where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.KeySchemaElement
 import Amazonka.DynamoDB.Types.Projection
 import Amazonka.DynamoDB.Types.ProvisionedThroughput
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the properties of a global secondary index.
@@ -162,6 +164,18 @@ globalSecondaryIndex_keySchema = Lens.lens (\GlobalSecondaryIndex' {keySchema} -
 globalSecondaryIndex_projection :: Lens.Lens' GlobalSecondaryIndex Projection
 globalSecondaryIndex_projection = Lens.lens (\GlobalSecondaryIndex' {projection} -> projection) (\s@GlobalSecondaryIndex' {} a -> s {projection = a} :: GlobalSecondaryIndex)
 
+instance Data.FromJSON GlobalSecondaryIndex where
+  parseJSON =
+    Data.withObject
+      "GlobalSecondaryIndex"
+      ( \x ->
+          GlobalSecondaryIndex'
+            Prelude.<$> (x Data..:? "ProvisionedThroughput")
+            Prelude.<*> (x Data..: "IndexName")
+            Prelude.<*> (x Data..: "KeySchema")
+            Prelude.<*> (x Data..: "Projection")
+      )
+
 instance Prelude.Hashable GlobalSecondaryIndex where
   hashWithSalt _salt GlobalSecondaryIndex' {..} =
     _salt `Prelude.hashWithSalt` provisionedThroughput
@@ -176,14 +190,14 @@ instance Prelude.NFData GlobalSecondaryIndex where
       `Prelude.seq` Prelude.rnf keySchema
       `Prelude.seq` Prelude.rnf projection
 
-instance Core.ToJSON GlobalSecondaryIndex where
+instance Data.ToJSON GlobalSecondaryIndex where
   toJSON GlobalSecondaryIndex' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ProvisionedThroughput" Core..=)
+          [ ("ProvisionedThroughput" Data..=)
               Prelude.<$> provisionedThroughput,
-            Prelude.Just ("IndexName" Core..= indexName),
-            Prelude.Just ("KeySchema" Core..= keySchema),
-            Prelude.Just ("Projection" Core..= projection)
+            Prelude.Just ("IndexName" Data..= indexName),
+            Prelude.Just ("KeySchema" Data..= keySchema),
+            Prelude.Just ("Projection" Data..= projection)
           ]
       )

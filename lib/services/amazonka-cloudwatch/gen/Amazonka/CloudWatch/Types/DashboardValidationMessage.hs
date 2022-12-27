@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.Types.DashboardValidationMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatch.Types.DashboardValidationMessage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An error or warning for the operation.
@@ -62,11 +63,11 @@ dashboardValidationMessage_dataPath = Lens.lens (\DashboardValidationMessage' {d
 dashboardValidationMessage_message :: Lens.Lens' DashboardValidationMessage (Prelude.Maybe Prelude.Text)
 dashboardValidationMessage_message = Lens.lens (\DashboardValidationMessage' {message} -> message) (\s@DashboardValidationMessage' {} a -> s {message = a} :: DashboardValidationMessage)
 
-instance Core.FromXML DashboardValidationMessage where
+instance Data.FromXML DashboardValidationMessage where
   parseXML x =
     DashboardValidationMessage'
-      Prelude.<$> (x Core..@? "DataPath")
-      Prelude.<*> (x Core..@? "Message")
+      Prelude.<$> (x Data..@? "DataPath")
+      Prelude.<*> (x Data..@? "Message")
 
 instance Prelude.Hashable DashboardValidationMessage where
   hashWithSalt _salt DashboardValidationMessage' {..} =

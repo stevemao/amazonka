@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudControl.UpdateResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,7 @@
 -- For more information about the properties of a specific resource, refer
 -- to the related topic for the resource in the
 -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html Resource and property types reference>
--- in the /Amazon Web Services CloudFormation Users Guide/.
+-- in the /CloudFormation Users Guide/.
 module Amazonka.CloudControl.UpdateResource
   ( -- * Creating a Request
     UpdateResource (..),
@@ -49,8 +49,8 @@ module Amazonka.CloudControl.UpdateResource
 
     -- * Request Lenses
     updateResource_clientToken,
-    updateResource_typeVersionId,
     updateResource_roleArn,
+    updateResource_typeVersionId,
     updateResource_typeName,
     updateResource_identifier,
     updateResource_patchDocument,
@@ -67,7 +67,8 @@ where
 
 import Amazonka.CloudControl.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,12 +91,8 @@ data UpdateResource = UpdateResource'
     -- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations.html#resource-operations-idempotency Ensuring resource operation requests are unique>
     -- in the /Amazon Web Services Cloud Control API User Guide/.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | For private resource types, the type version to use in this resource
-    -- operation. If you do not specify a resource version, CloudFormation uses
-    -- the default version.
-    typeVersionId :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the Identity and Access Management
-    -- (IAM) for Cloud Control API to use when performing this resource
+    -- (IAM) role for Cloud Control API to use when performing this resource
     -- operation. The role specified must have the permissions required for
     -- this operation. The necessary permissions for each event handler are
     -- defined in the @ handlers @ section of the
@@ -108,6 +105,10 @@ data UpdateResource = UpdateResource'
     -- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations.html#resource-operations-permissions Specifying credentials>
     -- in the /Amazon Web Services Cloud Control API User Guide/.
     roleArn :: Prelude.Maybe Prelude.Text,
+    -- | For private resource types, the type version to use in this resource
+    -- operation. If you do not specify a resource version, CloudFormation uses
+    -- the default version.
+    typeVersionId :: Prelude.Maybe Prelude.Text,
     -- | The name of the resource type.
     typeName :: Prelude.Text,
     -- | The identifier for the resource.
@@ -131,7 +132,7 @@ data UpdateResource = UpdateResource'
     -- properties. For details, see
     -- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations-update.html#resource-operations-update-patch Composing the patch document>
     -- in the /Amazon Web Services Cloud Control API User Guide/.
-    patchDocument :: Core.Sensitive Prelude.Text
+    patchDocument :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -159,12 +160,8 @@ data UpdateResource = UpdateResource'
 -- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations.html#resource-operations-idempotency Ensuring resource operation requests are unique>
 -- in the /Amazon Web Services Cloud Control API User Guide/.
 --
--- 'typeVersionId', 'updateResource_typeVersionId' - For private resource types, the type version to use in this resource
--- operation. If you do not specify a resource version, CloudFormation uses
--- the default version.
---
 -- 'roleArn', 'updateResource_roleArn' - The Amazon Resource Name (ARN) of the Identity and Access Management
--- (IAM) for Cloud Control API to use when performing this resource
+-- (IAM) role for Cloud Control API to use when performing this resource
 -- operation. The role specified must have the permissions required for
 -- this operation. The necessary permissions for each event handler are
 -- defined in the @ handlers @ section of the
@@ -176,6 +173,10 @@ data UpdateResource = UpdateResource'
 -- For more information, see
 -- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations.html#resource-operations-permissions Specifying credentials>
 -- in the /Amazon Web Services Cloud Control API User Guide/.
+--
+-- 'typeVersionId', 'updateResource_typeVersionId' - For private resource types, the type version to use in this resource
+-- operation. If you do not specify a resource version, CloudFormation uses
+-- the default version.
 --
 -- 'typeName', 'updateResource_typeName' - The name of the resource type.
 --
@@ -214,12 +215,12 @@ newUpdateResource
   pPatchDocument_ =
     UpdateResource'
       { clientToken = Prelude.Nothing,
-        typeVersionId = Prelude.Nothing,
         roleArn = Prelude.Nothing,
+        typeVersionId = Prelude.Nothing,
         typeName = pTypeName_,
         identifier = pIdentifier_,
         patchDocument =
-          Core._Sensitive Lens.# pPatchDocument_
+          Data._Sensitive Lens.# pPatchDocument_
       }
 
 -- | A unique identifier to ensure the idempotency of the resource request.
@@ -240,14 +241,8 @@ newUpdateResource
 updateResource_clientToken :: Lens.Lens' UpdateResource (Prelude.Maybe Prelude.Text)
 updateResource_clientToken = Lens.lens (\UpdateResource' {clientToken} -> clientToken) (\s@UpdateResource' {} a -> s {clientToken = a} :: UpdateResource)
 
--- | For private resource types, the type version to use in this resource
--- operation. If you do not specify a resource version, CloudFormation uses
--- the default version.
-updateResource_typeVersionId :: Lens.Lens' UpdateResource (Prelude.Maybe Prelude.Text)
-updateResource_typeVersionId = Lens.lens (\UpdateResource' {typeVersionId} -> typeVersionId) (\s@UpdateResource' {} a -> s {typeVersionId = a} :: UpdateResource)
-
 -- | The Amazon Resource Name (ARN) of the Identity and Access Management
--- (IAM) for Cloud Control API to use when performing this resource
+-- (IAM) role for Cloud Control API to use when performing this resource
 -- operation. The role specified must have the permissions required for
 -- this operation. The necessary permissions for each event handler are
 -- defined in the @ handlers @ section of the
@@ -261,6 +256,12 @@ updateResource_typeVersionId = Lens.lens (\UpdateResource' {typeVersionId} -> ty
 -- in the /Amazon Web Services Cloud Control API User Guide/.
 updateResource_roleArn :: Lens.Lens' UpdateResource (Prelude.Maybe Prelude.Text)
 updateResource_roleArn = Lens.lens (\UpdateResource' {roleArn} -> roleArn) (\s@UpdateResource' {} a -> s {roleArn = a} :: UpdateResource)
+
+-- | For private resource types, the type version to use in this resource
+-- operation. If you do not specify a resource version, CloudFormation uses
+-- the default version.
+updateResource_typeVersionId :: Lens.Lens' UpdateResource (Prelude.Maybe Prelude.Text)
+updateResource_typeVersionId = Lens.lens (\UpdateResource' {typeVersionId} -> typeVersionId) (\s@UpdateResource' {} a -> s {typeVersionId = a} :: UpdateResource)
 
 -- | The name of the resource type.
 updateResource_typeName :: Lens.Lens' UpdateResource Prelude.Text
@@ -290,26 +291,27 @@ updateResource_identifier = Lens.lens (\UpdateResource' {identifier} -> identifi
 -- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations-update.html#resource-operations-update-patch Composing the patch document>
 -- in the /Amazon Web Services Cloud Control API User Guide/.
 updateResource_patchDocument :: Lens.Lens' UpdateResource Prelude.Text
-updateResource_patchDocument = Lens.lens (\UpdateResource' {patchDocument} -> patchDocument) (\s@UpdateResource' {} a -> s {patchDocument = a} :: UpdateResource) Prelude.. Core._Sensitive
+updateResource_patchDocument = Lens.lens (\UpdateResource' {patchDocument} -> patchDocument) (\s@UpdateResource' {} a -> s {patchDocument = a} :: UpdateResource) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest UpdateResource where
   type
     AWSResponse UpdateResource =
       UpdateResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateResourceResponse'
-            Prelude.<$> (x Core..?> "ProgressEvent")
+            Prelude.<$> (x Data..?> "ProgressEvent")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateResource where
   hashWithSalt _salt UpdateResource' {..} =
     _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` typeVersionId
       `Prelude.hashWithSalt` roleArn
+      `Prelude.hashWithSalt` typeVersionId
       `Prelude.hashWithSalt` typeName
       `Prelude.hashWithSalt` identifier
       `Prelude.hashWithSalt` patchDocument
@@ -317,45 +319,45 @@ instance Prelude.Hashable UpdateResource where
 instance Prelude.NFData UpdateResource where
   rnf UpdateResource' {..} =
     Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf typeVersionId
       `Prelude.seq` Prelude.rnf roleArn
+      `Prelude.seq` Prelude.rnf typeVersionId
       `Prelude.seq` Prelude.rnf typeName
       `Prelude.seq` Prelude.rnf identifier
       `Prelude.seq` Prelude.rnf patchDocument
 
-instance Core.ToHeaders UpdateResource where
+instance Data.ToHeaders UpdateResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CloudApiService.UpdateResource" ::
+              Data.=# ( "CloudApiService.UpdateResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateResource where
+instance Data.ToJSON UpdateResource where
   toJSON UpdateResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientToken" Core..=) Prelude.<$> clientToken,
-            ("TypeVersionId" Core..=) Prelude.<$> typeVersionId,
-            ("RoleArn" Core..=) Prelude.<$> roleArn,
-            Prelude.Just ("TypeName" Core..= typeName),
-            Prelude.Just ("Identifier" Core..= identifier),
+          [ ("ClientToken" Data..=) Prelude.<$> clientToken,
+            ("RoleArn" Data..=) Prelude.<$> roleArn,
+            ("TypeVersionId" Data..=) Prelude.<$> typeVersionId,
+            Prelude.Just ("TypeName" Data..= typeName),
+            Prelude.Just ("Identifier" Data..= identifier),
             Prelude.Just
-              ("PatchDocument" Core..= patchDocument)
+              ("PatchDocument" Data..= patchDocument)
           ]
       )
 
-instance Core.ToPath UpdateResource where
+instance Data.ToPath UpdateResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateResource where
+instance Data.ToQuery UpdateResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateResourceResponse' smart constructor.

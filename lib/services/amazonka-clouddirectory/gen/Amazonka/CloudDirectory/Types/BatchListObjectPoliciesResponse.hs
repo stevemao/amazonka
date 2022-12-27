@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchListObjectPoliciesResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.CloudDirectory.Types.BatchListObjectPoliciesResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output of a ListObjectPolicies response operation.
 --
 -- /See:/ 'newBatchListObjectPoliciesResponse' smart constructor.
 data BatchListObjectPoliciesResponse = BatchListObjectPoliciesResponse'
-  { -- | The pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A list of policy @ObjectIdentifiers@, that are attached to the object.
-    attachedPolicyIds :: Prelude.Maybe [Prelude.Text]
+  { -- | A list of policy @ObjectIdentifiers@, that are attached to the object.
+    attachedPolicyIds :: Prelude.Maybe [Prelude.Text],
+    -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,39 +43,39 @@ data BatchListObjectPoliciesResponse = BatchListObjectPoliciesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'batchListObjectPoliciesResponse_nextToken' - The pagination token.
---
 -- 'attachedPolicyIds', 'batchListObjectPoliciesResponse_attachedPolicyIds' - A list of policy @ObjectIdentifiers@, that are attached to the object.
+--
+-- 'nextToken', 'batchListObjectPoliciesResponse_nextToken' - The pagination token.
 newBatchListObjectPoliciesResponse ::
   BatchListObjectPoliciesResponse
 newBatchListObjectPoliciesResponse =
   BatchListObjectPoliciesResponse'
-    { nextToken =
+    { attachedPolicyIds =
         Prelude.Nothing,
-      attachedPolicyIds = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | The pagination token.
-batchListObjectPoliciesResponse_nextToken :: Lens.Lens' BatchListObjectPoliciesResponse (Prelude.Maybe Prelude.Text)
-batchListObjectPoliciesResponse_nextToken = Lens.lens (\BatchListObjectPoliciesResponse' {nextToken} -> nextToken) (\s@BatchListObjectPoliciesResponse' {} a -> s {nextToken = a} :: BatchListObjectPoliciesResponse)
 
 -- | A list of policy @ObjectIdentifiers@, that are attached to the object.
 batchListObjectPoliciesResponse_attachedPolicyIds :: Lens.Lens' BatchListObjectPoliciesResponse (Prelude.Maybe [Prelude.Text])
 batchListObjectPoliciesResponse_attachedPolicyIds = Lens.lens (\BatchListObjectPoliciesResponse' {attachedPolicyIds} -> attachedPolicyIds) (\s@BatchListObjectPoliciesResponse' {} a -> s {attachedPolicyIds = a} :: BatchListObjectPoliciesResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | The pagination token.
+batchListObjectPoliciesResponse_nextToken :: Lens.Lens' BatchListObjectPoliciesResponse (Prelude.Maybe Prelude.Text)
+batchListObjectPoliciesResponse_nextToken = Lens.lens (\BatchListObjectPoliciesResponse' {nextToken} -> nextToken) (\s@BatchListObjectPoliciesResponse' {} a -> s {nextToken = a} :: BatchListObjectPoliciesResponse)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     BatchListObjectPoliciesResponse
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchListObjectPoliciesResponse"
       ( \x ->
           BatchListObjectPoliciesResponse'
-            Prelude.<$> (x Core..:? "NextToken")
-            Prelude.<*> ( x Core..:? "AttachedPolicyIds"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "AttachedPolicyIds"
+                            Data..!= Prelude.mempty
                         )
+            Prelude.<*> (x Data..:? "NextToken")
       )
 
 instance
@@ -84,13 +85,13 @@ instance
   hashWithSalt
     _salt
     BatchListObjectPoliciesResponse' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` attachedPolicyIds
+      _salt `Prelude.hashWithSalt` attachedPolicyIds
+        `Prelude.hashWithSalt` nextToken
 
 instance
   Prelude.NFData
     BatchListObjectPoliciesResponse
   where
   rnf BatchListObjectPoliciesResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf attachedPolicyIds
+    Prelude.rnf attachedPolicyIds
+      `Prelude.seq` Prelude.rnf nextToken

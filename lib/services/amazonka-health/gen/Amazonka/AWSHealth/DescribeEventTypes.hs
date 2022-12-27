@@ -14,16 +14,16 @@
 
 -- |
 -- Module      : Amazonka.AWSHealth.DescribeEventTypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Returns the event types that meet the specified filter criteria. You can
--- use this API operation to find information about the AWS Health event,
--- such as the category, AWS service, and event code. The metadata for each
--- event appears in the
+-- use this API operation to find information about the Health event, such
+-- as the category, Amazon Web Services service, and event code. The
+-- metadata for each event appears in the
 -- <https://docs.aws.amazon.com/health/latest/APIReference/API_EventType.html EventType>
 -- object.
 --
@@ -40,10 +40,10 @@ module Amazonka.AWSHealth.DescribeEventTypes
     newDescribeEventTypes,
 
     -- * Request Lenses
-    describeEventTypes_locale,
-    describeEventTypes_nextToken,
     describeEventTypes_filter,
+    describeEventTypes_locale,
     describeEventTypes_maxResults,
+    describeEventTypes_nextToken,
 
     -- * Destructuring the Response
     DescribeEventTypesResponse (..),
@@ -58,27 +58,28 @@ where
 
 import Amazonka.AWSHealth.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeEventTypes' smart constructor.
 data DescribeEventTypes = DescribeEventTypes'
-  { -- | The locale (language) to return information in. English (en) is the
+  { -- | Values to narrow the results returned.
+    filter' :: Prelude.Maybe EventTypeFilter,
+    -- | The locale (language) to return information in. English (en) is the
     -- default and the only supported value at this time.
     locale :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return in one batch, between 10 and 100,
+    -- inclusive.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | If the results of a search are large, only a portion of the results are
     -- returned, and a @nextToken@ pagination token is returned in the
     -- response. To retrieve the next batch of results, reissue the search
     -- request and include the returned token. When all results have been
     -- returned, the response does not contain a pagination token value.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Values to narrow the results returned.
-    filter' :: Prelude.Maybe EventTypeFilter,
-    -- | The maximum number of items to return in one batch, between 10 and 100,
-    -- inclusive.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -90,33 +91,42 @@ data DescribeEventTypes = DescribeEventTypes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'filter'', 'describeEventTypes_filter' - Values to narrow the results returned.
+--
 -- 'locale', 'describeEventTypes_locale' - The locale (language) to return information in. English (en) is the
 -- default and the only supported value at this time.
+--
+-- 'maxResults', 'describeEventTypes_maxResults' - The maximum number of items to return in one batch, between 10 and 100,
+-- inclusive.
 --
 -- 'nextToken', 'describeEventTypes_nextToken' - If the results of a search are large, only a portion of the results are
 -- returned, and a @nextToken@ pagination token is returned in the
 -- response. To retrieve the next batch of results, reissue the search
 -- request and include the returned token. When all results have been
 -- returned, the response does not contain a pagination token value.
---
--- 'filter'', 'describeEventTypes_filter' - Values to narrow the results returned.
---
--- 'maxResults', 'describeEventTypes_maxResults' - The maximum number of items to return in one batch, between 10 and 100,
--- inclusive.
 newDescribeEventTypes ::
   DescribeEventTypes
 newDescribeEventTypes =
   DescribeEventTypes'
-    { locale = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      filter' = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { filter' = Prelude.Nothing,
+      locale = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | Values to narrow the results returned.
+describeEventTypes_filter :: Lens.Lens' DescribeEventTypes (Prelude.Maybe EventTypeFilter)
+describeEventTypes_filter = Lens.lens (\DescribeEventTypes' {filter'} -> filter') (\s@DescribeEventTypes' {} a -> s {filter' = a} :: DescribeEventTypes)
 
 -- | The locale (language) to return information in. English (en) is the
 -- default and the only supported value at this time.
 describeEventTypes_locale :: Lens.Lens' DescribeEventTypes (Prelude.Maybe Prelude.Text)
 describeEventTypes_locale = Lens.lens (\DescribeEventTypes' {locale} -> locale) (\s@DescribeEventTypes' {} a -> s {locale = a} :: DescribeEventTypes)
+
+-- | The maximum number of items to return in one batch, between 10 and 100,
+-- inclusive.
+describeEventTypes_maxResults :: Lens.Lens' DescribeEventTypes (Prelude.Maybe Prelude.Natural)
+describeEventTypes_maxResults = Lens.lens (\DescribeEventTypes' {maxResults} -> maxResults) (\s@DescribeEventTypes' {} a -> s {maxResults = a} :: DescribeEventTypes)
 
 -- | If the results of a search are large, only a portion of the results are
 -- returned, and a @nextToken@ pagination token is returned in the
@@ -125,15 +135,6 @@ describeEventTypes_locale = Lens.lens (\DescribeEventTypes' {locale} -> locale) 
 -- returned, the response does not contain a pagination token value.
 describeEventTypes_nextToken :: Lens.Lens' DescribeEventTypes (Prelude.Maybe Prelude.Text)
 describeEventTypes_nextToken = Lens.lens (\DescribeEventTypes' {nextToken} -> nextToken) (\s@DescribeEventTypes' {} a -> s {nextToken = a} :: DescribeEventTypes)
-
--- | Values to narrow the results returned.
-describeEventTypes_filter :: Lens.Lens' DescribeEventTypes (Prelude.Maybe EventTypeFilter)
-describeEventTypes_filter = Lens.lens (\DescribeEventTypes' {filter'} -> filter') (\s@DescribeEventTypes' {} a -> s {filter' = a} :: DescribeEventTypes)
-
--- | The maximum number of items to return in one batch, between 10 and 100,
--- inclusive.
-describeEventTypes_maxResults :: Lens.Lens' DescribeEventTypes (Prelude.Maybe Prelude.Natural)
-describeEventTypes_maxResults = Lens.lens (\DescribeEventTypes' {maxResults} -> maxResults) (\s@DescribeEventTypes' {} a -> s {maxResults = a} :: DescribeEventTypes)
 
 instance Core.AWSPager DescribeEventTypes where
   page rq rs
@@ -161,60 +162,61 @@ instance Core.AWSRequest DescribeEventTypes where
   type
     AWSResponse DescribeEventTypes =
       DescribeEventTypesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEventTypesResponse'
-            Prelude.<$> (x Core..?> "eventTypes" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "eventTypes" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeEventTypes where
   hashWithSalt _salt DescribeEventTypes' {..} =
-    _salt `Prelude.hashWithSalt` locale
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
+      `Prelude.hashWithSalt` locale
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeEventTypes where
   rnf DescribeEventTypes' {..} =
-    Prelude.rnf locale
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
+      `Prelude.seq` Prelude.rnf locale
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeEventTypes where
+instance Data.ToHeaders DescribeEventTypes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHealth_20160804.DescribeEventTypes" ::
+              Data.=# ( "AWSHealth_20160804.DescribeEventTypes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEventTypes where
+instance Data.ToJSON DescribeEventTypes where
   toJSON DescribeEventTypes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("locale" Core..=) Prelude.<$> locale,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("filter" Core..=) Prelude.<$> filter',
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("filter" Data..=) Prelude.<$> filter',
+            ("locale" Data..=) Prelude.<$> locale,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath DescribeEventTypes where
+instance Data.ToPath DescribeEventTypes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEventTypes where
+instance Data.ToQuery DescribeEventTypes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeEventTypesResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.Member
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,20 @@
 module Amazonka.GuardDuty.Types.Member where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the member account.
 --
 -- /See:/ 'newMember' smart constructor.
 data Member = Member'
-  { -- | The timestamp when the invitation was sent.
-    invitedAt :: Prelude.Maybe Prelude.Text,
+  { -- | The administrator account ID.
+    administratorId :: Prelude.Maybe Prelude.Text,
     -- | The detector ID of the member account.
     detectorId :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp when the invitation was sent.
+    invitedAt :: Prelude.Maybe Prelude.Text,
     -- | The ID of the member account.
     accountId :: Prelude.Text,
     -- | The administrator account ID.
@@ -52,9 +55,11 @@ data Member = Member'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'invitedAt', 'member_invitedAt' - The timestamp when the invitation was sent.
+-- 'administratorId', 'member_administratorId' - The administrator account ID.
 --
 -- 'detectorId', 'member_detectorId' - The detector ID of the member account.
+--
+-- 'invitedAt', 'member_invitedAt' - The timestamp when the invitation was sent.
 --
 -- 'accountId', 'member_accountId' - The ID of the member account.
 --
@@ -84,8 +89,9 @@ newMember
   pRelationshipStatus_
   pUpdatedAt_ =
     Member'
-      { invitedAt = Prelude.Nothing,
+      { administratorId = Prelude.Nothing,
         detectorId = Prelude.Nothing,
+        invitedAt = Prelude.Nothing,
         accountId = pAccountId_,
         masterId = pMasterId_,
         email = pEmail_,
@@ -93,13 +99,17 @@ newMember
         updatedAt = pUpdatedAt_
       }
 
--- | The timestamp when the invitation was sent.
-member_invitedAt :: Lens.Lens' Member (Prelude.Maybe Prelude.Text)
-member_invitedAt = Lens.lens (\Member' {invitedAt} -> invitedAt) (\s@Member' {} a -> s {invitedAt = a} :: Member)
+-- | The administrator account ID.
+member_administratorId :: Lens.Lens' Member (Prelude.Maybe Prelude.Text)
+member_administratorId = Lens.lens (\Member' {administratorId} -> administratorId) (\s@Member' {} a -> s {administratorId = a} :: Member)
 
 -- | The detector ID of the member account.
 member_detectorId :: Lens.Lens' Member (Prelude.Maybe Prelude.Text)
 member_detectorId = Lens.lens (\Member' {detectorId} -> detectorId) (\s@Member' {} a -> s {detectorId = a} :: Member)
+
+-- | The timestamp when the invitation was sent.
+member_invitedAt :: Lens.Lens' Member (Prelude.Maybe Prelude.Text)
+member_invitedAt = Lens.lens (\Member' {invitedAt} -> invitedAt) (\s@Member' {} a -> s {invitedAt = a} :: Member)
 
 -- | The ID of the member account.
 member_accountId :: Lens.Lens' Member Prelude.Text
@@ -121,25 +131,27 @@ member_relationshipStatus = Lens.lens (\Member' {relationshipStatus} -> relation
 member_updatedAt :: Lens.Lens' Member Prelude.Text
 member_updatedAt = Lens.lens (\Member' {updatedAt} -> updatedAt) (\s@Member' {} a -> s {updatedAt = a} :: Member)
 
-instance Core.FromJSON Member where
+instance Data.FromJSON Member where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Member"
       ( \x ->
           Member'
-            Prelude.<$> (x Core..:? "invitedAt")
-            Prelude.<*> (x Core..:? "detectorId")
-            Prelude.<*> (x Core..: "accountId")
-            Prelude.<*> (x Core..: "masterId")
-            Prelude.<*> (x Core..: "email")
-            Prelude.<*> (x Core..: "relationshipStatus")
-            Prelude.<*> (x Core..: "updatedAt")
+            Prelude.<$> (x Data..:? "administratorId")
+            Prelude.<*> (x Data..:? "detectorId")
+            Prelude.<*> (x Data..:? "invitedAt")
+            Prelude.<*> (x Data..: "accountId")
+            Prelude.<*> (x Data..: "masterId")
+            Prelude.<*> (x Data..: "email")
+            Prelude.<*> (x Data..: "relationshipStatus")
+            Prelude.<*> (x Data..: "updatedAt")
       )
 
 instance Prelude.Hashable Member where
   hashWithSalt _salt Member' {..} =
-    _salt `Prelude.hashWithSalt` invitedAt
+    _salt `Prelude.hashWithSalt` administratorId
       `Prelude.hashWithSalt` detectorId
+      `Prelude.hashWithSalt` invitedAt
       `Prelude.hashWithSalt` accountId
       `Prelude.hashWithSalt` masterId
       `Prelude.hashWithSalt` email
@@ -148,8 +160,9 @@ instance Prelude.Hashable Member where
 
 instance Prelude.NFData Member where
   rnf Member' {..} =
-    Prelude.rnf invitedAt
+    Prelude.rnf administratorId
       `Prelude.seq` Prelude.rnf detectorId
+      `Prelude.seq` Prelude.rnf invitedAt
       `Prelude.seq` Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf masterId
       `Prelude.seq` Prelude.rnf email

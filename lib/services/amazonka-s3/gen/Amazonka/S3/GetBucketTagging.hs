@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.GetBucketTagging
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,7 +28,7 @@
 --
 -- @GetBucketTagging@ has the following special error:
 --
--- -   Error code: @NoSuchTagSetError@
+-- -   Error code: @NoSuchTagSet@
 --
 --     -   Description: There is no tag set associated with the bucket.
 --
@@ -57,7 +57,8 @@ module Amazonka.S3.GetBucketTagging
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,8 +67,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newGetBucketTagging' smart constructor.
 data GetBucketTagging = GetBucketTagging'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket for which to get the tagging information.
     bucket :: BucketName
@@ -83,8 +84,8 @@ data GetBucketTagging = GetBucketTagging'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'getBucketTagging_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'getBucketTagging_bucket' - The name of the bucket for which to get the tagging information.
 newGetBucketTagging ::
@@ -99,8 +100,8 @@ newGetBucketTagging pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 getBucketTagging_expectedBucketOwner :: Lens.Lens' GetBucketTagging (Prelude.Maybe Prelude.Text)
 getBucketTagging_expectedBucketOwner = Lens.lens (\GetBucketTagging' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetBucketTagging' {} a -> s {expectedBucketOwner = a} :: GetBucketTagging)
 
@@ -112,16 +113,16 @@ instance Core.AWSRequest GetBucketTagging where
   type
     AWSResponse GetBucketTagging =
       GetBucketTaggingResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetBucketTaggingResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "TagSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "Tag"
+            Prelude.<*> ( x Data..@? "TagSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "Tag"
                         )
       )
 
@@ -135,18 +136,18 @@ instance Prelude.NFData GetBucketTagging where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders GetBucketTagging where
+instance Data.ToHeaders GetBucketTagging where
   toHeaders GetBucketTagging' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath GetBucketTagging where
+instance Data.ToPath GetBucketTagging where
   toPath GetBucketTagging' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery GetBucketTagging where
+instance Data.ToQuery GetBucketTagging where
   toQuery = Prelude.const (Prelude.mconcat ["tagging"])
 
 -- | /See:/ 'newGetBucketTaggingResponse' smart constructor.

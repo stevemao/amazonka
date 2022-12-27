@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackage.Types.HlsIngest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaPackage.Types.HlsIngest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaPackage.Types.IngestEndpoint
 import qualified Amazonka.Prelude as Prelude
 
@@ -51,14 +52,14 @@ newHlsIngest =
 hlsIngest_ingestEndpoints :: Lens.Lens' HlsIngest (Prelude.Maybe [IngestEndpoint])
 hlsIngest_ingestEndpoints = Lens.lens (\HlsIngest' {ingestEndpoints} -> ingestEndpoints) (\s@HlsIngest' {} a -> s {ingestEndpoints = a} :: HlsIngest) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON HlsIngest where
+instance Data.FromJSON HlsIngest where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HlsIngest"
       ( \x ->
           HlsIngest'
-            Prelude.<$> ( x Core..:? "ingestEndpoints"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "ingestEndpoints"
+                            Data..!= Prelude.mempty
                         )
       )
 

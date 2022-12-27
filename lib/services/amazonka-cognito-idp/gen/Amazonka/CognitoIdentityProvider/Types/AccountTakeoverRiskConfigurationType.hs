@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.AccountTakeoverRiskConfigurationType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CognitoIdentityProvider.Types.AccountTakeoverRiskConfigurationTy
 import Amazonka.CognitoIdentityProvider.Types.AccountTakeoverActionsType
 import Amazonka.CognitoIdentityProvider.Types.NotifyConfigurationType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration for mitigation actions and notification for different
@@ -32,7 +33,7 @@ import qualified Amazonka.Prelude as Prelude
 data AccountTakeoverRiskConfigurationType = AccountTakeoverRiskConfigurationType'
   { -- | The notify configuration used to construct email notifications.
     notifyConfiguration :: Prelude.Maybe NotifyConfigurationType,
-    -- | Account takeover risk configuration actions
+    -- | Account takeover risk configuration actions.
     actions :: AccountTakeoverActionsType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -47,7 +48,7 @@ data AccountTakeoverRiskConfigurationType = AccountTakeoverRiskConfigurationType
 --
 -- 'notifyConfiguration', 'accountTakeoverRiskConfigurationType_notifyConfiguration' - The notify configuration used to construct email notifications.
 --
--- 'actions', 'accountTakeoverRiskConfigurationType_actions' - Account takeover risk configuration actions
+-- 'actions', 'accountTakeoverRiskConfigurationType_actions' - Account takeover risk configuration actions.
 newAccountTakeoverRiskConfigurationType ::
   -- | 'actions'
   AccountTakeoverActionsType ->
@@ -63,21 +64,21 @@ newAccountTakeoverRiskConfigurationType pActions_ =
 accountTakeoverRiskConfigurationType_notifyConfiguration :: Lens.Lens' AccountTakeoverRiskConfigurationType (Prelude.Maybe NotifyConfigurationType)
 accountTakeoverRiskConfigurationType_notifyConfiguration = Lens.lens (\AccountTakeoverRiskConfigurationType' {notifyConfiguration} -> notifyConfiguration) (\s@AccountTakeoverRiskConfigurationType' {} a -> s {notifyConfiguration = a} :: AccountTakeoverRiskConfigurationType)
 
--- | Account takeover risk configuration actions
+-- | Account takeover risk configuration actions.
 accountTakeoverRiskConfigurationType_actions :: Lens.Lens' AccountTakeoverRiskConfigurationType AccountTakeoverActionsType
 accountTakeoverRiskConfigurationType_actions = Lens.lens (\AccountTakeoverRiskConfigurationType' {actions} -> actions) (\s@AccountTakeoverRiskConfigurationType' {} a -> s {actions = a} :: AccountTakeoverRiskConfigurationType)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AccountTakeoverRiskConfigurationType
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AccountTakeoverRiskConfigurationType"
       ( \x ->
           AccountTakeoverRiskConfigurationType'
-            Prelude.<$> (x Core..:? "NotifyConfiguration")
-            Prelude.<*> (x Core..: "Actions")
+            Prelude.<$> (x Data..:? "NotifyConfiguration")
+            Prelude.<*> (x Data..: "Actions")
       )
 
 instance
@@ -99,14 +100,14 @@ instance
       `Prelude.seq` Prelude.rnf actions
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AccountTakeoverRiskConfigurationType
   where
   toJSON AccountTakeoverRiskConfigurationType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NotifyConfiguration" Core..=)
+          [ ("NotifyConfiguration" Data..=)
               Prelude.<$> notifyConfiguration,
-            Prelude.Just ("Actions" Core..= actions)
+            Prelude.Just ("Actions" Data..= actions)
           ]
       )

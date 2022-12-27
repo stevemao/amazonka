@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.GetManagedPrefixListEntries
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.EC2.GetManagedPrefixListEntries
     newGetManagedPrefixListEntries,
 
     -- * Request Lenses
-    getManagedPrefixListEntries_nextToken,
-    getManagedPrefixListEntries_targetVersion,
     getManagedPrefixListEntries_dryRun,
     getManagedPrefixListEntries_maxResults,
+    getManagedPrefixListEntries_nextToken,
+    getManagedPrefixListEntries_targetVersion,
     getManagedPrefixListEntries_prefixListId,
 
     -- * Destructuring the Response
@@ -47,20 +47,16 @@ module Amazonka.EC2.GetManagedPrefixListEntries
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetManagedPrefixListEntries' smart constructor.
 data GetManagedPrefixListEntries = GetManagedPrefixListEntries'
-  { -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The version of the prefix list for which to return the entries. The
-    -- default is the current version.
-    targetVersion :: Prelude.Maybe Prelude.Integer,
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
@@ -69,6 +65,11 @@ data GetManagedPrefixListEntries = GetManagedPrefixListEntries'
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The version of the prefix list for which to return the entries. The
+    -- default is the current version.
+    targetVersion :: Prelude.Maybe Prelude.Integer,
     -- | The ID of the prefix list.
     prefixListId :: Prelude.Text
   }
@@ -82,11 +83,6 @@ data GetManagedPrefixListEntries = GetManagedPrefixListEntries'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getManagedPrefixListEntries_nextToken' - The token for the next page of results.
---
--- 'targetVersion', 'getManagedPrefixListEntries_targetVersion' - The version of the prefix list for which to return the entries. The
--- default is the current version.
---
 -- 'dryRun', 'getManagedPrefixListEntries_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
@@ -96,6 +92,11 @@ data GetManagedPrefixListEntries = GetManagedPrefixListEntries'
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 --
+-- 'nextToken', 'getManagedPrefixListEntries_nextToken' - The token for the next page of results.
+--
+-- 'targetVersion', 'getManagedPrefixListEntries_targetVersion' - The version of the prefix list for which to return the entries. The
+-- default is the current version.
+--
 -- 'prefixListId', 'getManagedPrefixListEntries_prefixListId' - The ID of the prefix list.
 newGetManagedPrefixListEntries ::
   -- | 'prefixListId'
@@ -103,22 +104,13 @@ newGetManagedPrefixListEntries ::
   GetManagedPrefixListEntries
 newGetManagedPrefixListEntries pPrefixListId_ =
   GetManagedPrefixListEntries'
-    { nextToken =
+    { dryRun =
         Prelude.Nothing,
-      targetVersion = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      targetVersion = Prelude.Nothing,
       prefixListId = pPrefixListId_
     }
-
--- | The token for the next page of results.
-getManagedPrefixListEntries_nextToken :: Lens.Lens' GetManagedPrefixListEntries (Prelude.Maybe Prelude.Text)
-getManagedPrefixListEntries_nextToken = Lens.lens (\GetManagedPrefixListEntries' {nextToken} -> nextToken) (\s@GetManagedPrefixListEntries' {} a -> s {nextToken = a} :: GetManagedPrefixListEntries)
-
--- | The version of the prefix list for which to return the entries. The
--- default is the current version.
-getManagedPrefixListEntries_targetVersion :: Lens.Lens' GetManagedPrefixListEntries (Prelude.Maybe Prelude.Integer)
-getManagedPrefixListEntries_targetVersion = Lens.lens (\GetManagedPrefixListEntries' {targetVersion} -> targetVersion) (\s@GetManagedPrefixListEntries' {} a -> s {targetVersion = a} :: GetManagedPrefixListEntries)
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -132,6 +124,15 @@ getManagedPrefixListEntries_dryRun = Lens.lens (\GetManagedPrefixListEntries' {d
 -- value.
 getManagedPrefixListEntries_maxResults :: Lens.Lens' GetManagedPrefixListEntries (Prelude.Maybe Prelude.Natural)
 getManagedPrefixListEntries_maxResults = Lens.lens (\GetManagedPrefixListEntries' {maxResults} -> maxResults) (\s@GetManagedPrefixListEntries' {} a -> s {maxResults = a} :: GetManagedPrefixListEntries)
+
+-- | The token for the next page of results.
+getManagedPrefixListEntries_nextToken :: Lens.Lens' GetManagedPrefixListEntries (Prelude.Maybe Prelude.Text)
+getManagedPrefixListEntries_nextToken = Lens.lens (\GetManagedPrefixListEntries' {nextToken} -> nextToken) (\s@GetManagedPrefixListEntries' {} a -> s {nextToken = a} :: GetManagedPrefixListEntries)
+
+-- | The version of the prefix list for which to return the entries. The
+-- default is the current version.
+getManagedPrefixListEntries_targetVersion :: Lens.Lens' GetManagedPrefixListEntries (Prelude.Maybe Prelude.Integer)
+getManagedPrefixListEntries_targetVersion = Lens.lens (\GetManagedPrefixListEntries' {targetVersion} -> targetVersion) (\s@GetManagedPrefixListEntries' {} a -> s {targetVersion = a} :: GetManagedPrefixListEntries)
 
 -- | The ID of the prefix list.
 getManagedPrefixListEntries_prefixListId :: Lens.Lens' GetManagedPrefixListEntries Prelude.Text
@@ -163,54 +164,55 @@ instance Core.AWSRequest GetManagedPrefixListEntries where
   type
     AWSResponse GetManagedPrefixListEntries =
       GetManagedPrefixListEntriesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetManagedPrefixListEntriesResponse'
-            Prelude.<$> ( x Core..@? "entrySet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "entrySet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> (x Core..@? "nextToken")
+            Prelude.<*> (x Data..@? "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetManagedPrefixListEntries where
   hashWithSalt _salt GetManagedPrefixListEntries' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` targetVersion
-      `Prelude.hashWithSalt` dryRun
+    _salt `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` targetVersion
       `Prelude.hashWithSalt` prefixListId
 
 instance Prelude.NFData GetManagedPrefixListEntries where
   rnf GetManagedPrefixListEntries' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf targetVersion
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf targetVersion
       `Prelude.seq` Prelude.rnf prefixListId
 
-instance Core.ToHeaders GetManagedPrefixListEntries where
+instance Data.ToHeaders GetManagedPrefixListEntries where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetManagedPrefixListEntries where
+instance Data.ToPath GetManagedPrefixListEntries where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetManagedPrefixListEntries where
+instance Data.ToQuery GetManagedPrefixListEntries where
   toQuery GetManagedPrefixListEntries' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "GetManagedPrefixListEntries" ::
+          Data.=: ( "GetManagedPrefixListEntries" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "TargetVersion" Core.=: targetVersion,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults,
-        "PrefixListId" Core.=: prefixListId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        "TargetVersion" Data.=: targetVersion,
+        "PrefixListId" Data.=: prefixListId
       ]
 
 -- | /See:/ 'newGetManagedPrefixListEntriesResponse' smart constructor.

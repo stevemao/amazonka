@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.RejectQualificationRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.MechanicalTurk.RejectQualificationRequest
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -101,7 +102,8 @@ instance Core.AWSRequest RejectQualificationRequest where
   type
     AWSResponse RejectQualificationRequest =
       RejectQualificationRequestResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -119,37 +121,37 @@ instance Prelude.NFData RejectQualificationRequest where
     Prelude.rnf reason
       `Prelude.seq` Prelude.rnf qualificationRequestId
 
-instance Core.ToHeaders RejectQualificationRequest where
+instance Data.ToHeaders RejectQualificationRequest where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MTurkRequesterServiceV20170117.RejectQualificationRequest" ::
+              Data.=# ( "MTurkRequesterServiceV20170117.RejectQualificationRequest" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RejectQualificationRequest where
+instance Data.ToJSON RejectQualificationRequest where
   toJSON RejectQualificationRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Reason" Core..=) Prelude.<$> reason,
+          [ ("Reason" Data..=) Prelude.<$> reason,
             Prelude.Just
               ( "QualificationRequestId"
-                  Core..= qualificationRequestId
+                  Data..= qualificationRequestId
               )
           ]
       )
 
-instance Core.ToPath RejectQualificationRequest where
+instance Data.ToPath RejectQualificationRequest where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RejectQualificationRequest where
+instance Data.ToQuery RejectQualificationRequest where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRejectQualificationRequestResponse' smart constructor.

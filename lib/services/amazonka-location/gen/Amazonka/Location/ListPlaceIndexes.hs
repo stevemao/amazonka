@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.ListPlaceIndexes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Location.ListPlaceIndexes
     newListPlaceIndexes,
 
     -- * Request Lenses
-    listPlaceIndexes_nextToken,
     listPlaceIndexes_maxResults,
+    listPlaceIndexes_nextToken,
 
     -- * Destructuring the Response
     ListPlaceIndexesResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.Location.ListPlaceIndexes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,16 +53,16 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListPlaceIndexes' smart constructor.
 data ListPlaceIndexes = ListPlaceIndexes'
-  { -- | The pagination token specifying which page of results to return in the
-    -- response. If no token is provided, the default page is the first page.
-    --
-    -- Default value: @null@
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An optional limit for the maximum number of results returned in a single
+  { -- | An optional limit for the maximum number of results returned in a single
     -- call.
     --
     -- Default value: @100@
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token specifying which page of results to return in the
+    -- response. If no token is provided, the default page is the first page.
+    --
+    -- Default value: @null@
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,29 +74,22 @@ data ListPlaceIndexes = ListPlaceIndexes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listPlaceIndexes_nextToken' - The pagination token specifying which page of results to return in the
--- response. If no token is provided, the default page is the first page.
---
--- Default value: @null@
---
 -- 'maxResults', 'listPlaceIndexes_maxResults' - An optional limit for the maximum number of results returned in a single
 -- call.
 --
 -- Default value: @100@
+--
+-- 'nextToken', 'listPlaceIndexes_nextToken' - The pagination token specifying which page of results to return in the
+-- response. If no token is provided, the default page is the first page.
+--
+-- Default value: @null@
 newListPlaceIndexes ::
   ListPlaceIndexes
 newListPlaceIndexes =
   ListPlaceIndexes'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The pagination token specifying which page of results to return in the
--- response. If no token is provided, the default page is the first page.
---
--- Default value: @null@
-listPlaceIndexes_nextToken :: Lens.Lens' ListPlaceIndexes (Prelude.Maybe Prelude.Text)
-listPlaceIndexes_nextToken = Lens.lens (\ListPlaceIndexes' {nextToken} -> nextToken) (\s@ListPlaceIndexes' {} a -> s {nextToken = a} :: ListPlaceIndexes)
 
 -- | An optional limit for the maximum number of results returned in a single
 -- call.
@@ -103,6 +97,13 @@ listPlaceIndexes_nextToken = Lens.lens (\ListPlaceIndexes' {nextToken} -> nextTo
 -- Default value: @100@
 listPlaceIndexes_maxResults :: Lens.Lens' ListPlaceIndexes (Prelude.Maybe Prelude.Natural)
 listPlaceIndexes_maxResults = Lens.lens (\ListPlaceIndexes' {maxResults} -> maxResults) (\s@ListPlaceIndexes' {} a -> s {maxResults = a} :: ListPlaceIndexes)
+
+-- | The pagination token specifying which page of results to return in the
+-- response. If no token is provided, the default page is the first page.
+--
+-- Default value: @null@
+listPlaceIndexes_nextToken :: Lens.Lens' ListPlaceIndexes (Prelude.Maybe Prelude.Text)
+listPlaceIndexes_nextToken = Lens.lens (\ListPlaceIndexes' {nextToken} -> nextToken) (\s@ListPlaceIndexes' {} a -> s {nextToken = a} :: ListPlaceIndexes)
 
 instance Core.AWSPager ListPlaceIndexes where
   page rq rs
@@ -127,56 +128,57 @@ instance Core.AWSRequest ListPlaceIndexes where
   type
     AWSResponse ListPlaceIndexes =
       ListPlaceIndexesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPlaceIndexesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Entries" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Entries" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListPlaceIndexes where
   hashWithSalt _salt ListPlaceIndexes' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListPlaceIndexes where
   rnf ListPlaceIndexes' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListPlaceIndexes where
+instance Data.ToHeaders ListPlaceIndexes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPlaceIndexes where
+instance Data.ToJSON ListPlaceIndexes where
   toJSON ListPlaceIndexes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListPlaceIndexes where
+instance Data.ToPath ListPlaceIndexes where
   toPath = Prelude.const "/places/v0/list-indexes"
 
-instance Core.ToQuery ListPlaceIndexes where
+instance Data.ToQuery ListPlaceIndexes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListPlaceIndexesResponse' smart constructor.
 data ListPlaceIndexesResponse = ListPlaceIndexesResponse'
-  { -- | A pagination token indicating there are additional pages available. You
-    -- can use the token in a following request to fetch the next set of
+  { -- | A pagination token indicating that there are additional pages available.
+    -- You can use the token in a new request to fetch the next page of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
@@ -194,8 +196,8 @@ data ListPlaceIndexesResponse = ListPlaceIndexesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listPlaceIndexesResponse_nextToken' - A pagination token indicating there are additional pages available. You
--- can use the token in a following request to fetch the next set of
+-- 'nextToken', 'listPlaceIndexesResponse_nextToken' - A pagination token indicating that there are additional pages available.
+-- You can use the token in a new request to fetch the next page of
 -- results.
 --
 -- 'httpStatus', 'listPlaceIndexesResponse_httpStatus' - The response's http status code.
@@ -213,8 +215,8 @@ newListPlaceIndexesResponse pHttpStatus_ =
       entries = Prelude.mempty
     }
 
--- | A pagination token indicating there are additional pages available. You
--- can use the token in a following request to fetch the next set of
+-- | A pagination token indicating that there are additional pages available.
+-- You can use the token in a new request to fetch the next page of
 -- results.
 listPlaceIndexesResponse_nextToken :: Lens.Lens' ListPlaceIndexesResponse (Prelude.Maybe Prelude.Text)
 listPlaceIndexesResponse_nextToken = Lens.lens (\ListPlaceIndexesResponse' {nextToken} -> nextToken) (\s@ListPlaceIndexesResponse' {} a -> s {nextToken = a} :: ListPlaceIndexesResponse)

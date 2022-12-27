@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.DeleteCommentContent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,12 +82,13 @@ instance Core.AWSRequest DeleteCommentContent where
   type
     AWSResponse DeleteCommentContent =
       DeleteCommentContentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteCommentContentResponse'
-            Prelude.<$> (x Core..?> "comment")
+            Prelude.<$> (x Data..?> "comment")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,32 +99,32 @@ instance Prelude.Hashable DeleteCommentContent where
 instance Prelude.NFData DeleteCommentContent where
   rnf DeleteCommentContent' {..} = Prelude.rnf commentId
 
-instance Core.ToHeaders DeleteCommentContent where
+instance Data.ToHeaders DeleteCommentContent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.DeleteCommentContent" ::
+              Data.=# ( "CodeCommit_20150413.DeleteCommentContent" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteCommentContent where
+instance Data.ToJSON DeleteCommentContent where
   toJSON DeleteCommentContent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("commentId" Core..= commentId)]
+          [Prelude.Just ("commentId" Data..= commentId)]
       )
 
-instance Core.ToPath DeleteCommentContent where
+instance Data.ToPath DeleteCommentContent where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCommentContent where
+instance Data.ToQuery DeleteCommentContent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCommentContentResponse' smart constructor.

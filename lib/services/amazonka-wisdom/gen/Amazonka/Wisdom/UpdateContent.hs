@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.UpdateContent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,11 +27,11 @@ module Amazonka.Wisdom.UpdateContent
     newUpdateContent,
 
     -- * Request Lenses
+    updateContent_metadata,
     updateContent_overrideLinkOutUri,
     updateContent_removeOverrideLinkOutUri,
-    updateContent_metadata,
-    updateContent_title,
     updateContent_revisionId,
+    updateContent_title,
     updateContent_uploadId,
     updateContent_contentId,
     updateContent_knowledgeBaseId,
@@ -47,7 +47,8 @@ module Amazonka.Wisdom.UpdateContent
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,34 +56,33 @@ import Amazonka.Wisdom.Types
 
 -- | /See:/ 'newUpdateContent' smart constructor.
 data UpdateContent = UpdateContent'
-  { -- | The URI for the article. If the knowledge base has a templateUri,
+  { -- | A key\/value map to store attributes without affecting tagging or
+    -- recommendations. For example, when synchronizing data between an
+    -- external system and Wisdom, you can store an external version identifier
+    -- as metadata to utilize for determining drift.
+    metadata :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The URI for the article. If the knowledge base has a templateUri,
     -- setting this argument overrides it for this piece of content. To remove
     -- an existing @overrideLinkOurUri@, exclude this argument and set
     -- @removeOverrideLinkOutUri@ to true.
     overrideLinkOutUri :: Prelude.Maybe Prelude.Text,
     -- | Unset the existing @overrideLinkOutUri@ if it exists.
     removeOverrideLinkOutUri :: Prelude.Maybe Prelude.Bool,
-    -- | A key\/value map to store attributes without affecting tagging or
-    -- recommendations. For example, when synchronizing data between an
-    -- external system and Wisdom, you can store an external version identifier
-    -- as metadata to utilize for determining drift.
-    metadata :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The title of the content.
-    title :: Prelude.Maybe Prelude.Text,
     -- | The @revisionId@ of the content resource to update, taken from an
     -- earlier call to @GetContent@, @GetContentSummary@, @SearchContent@, or
     -- @ListContents@. If included, this argument acts as an optimistic lock to
     -- ensure content was not modified since it was last read. If it has been
     -- modified, this API throws a @PreconditionFailedException@.
     revisionId :: Prelude.Maybe Prelude.Text,
+    -- | The title of the content.
+    title :: Prelude.Maybe Prelude.Text,
     -- | A pointer to the uploaded asset. This value is returned by
     -- <https://docs.aws.amazon.com/wisdom/latest/APIReference/API_StartContentUpload.html StartContentUpload>.
     uploadId :: Prelude.Maybe Prelude.Text,
     -- | The identifier of the content. Can be either the ID or the ARN. URLs
     -- cannot contain the ARN.
     contentId :: Prelude.Text,
-    -- | The the identifier of the knowledge base. Can be either the ID or the
-    -- ARN
+    -- | The identifier of the knowledge base. Can be either the ID or the ARN
     knowledgeBaseId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -95,6 +95,11 @@ data UpdateContent = UpdateContent'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'metadata', 'updateContent_metadata' - A key\/value map to store attributes without affecting tagging or
+-- recommendations. For example, when synchronizing data between an
+-- external system and Wisdom, you can store an external version identifier
+-- as metadata to utilize for determining drift.
+--
 -- 'overrideLinkOutUri', 'updateContent_overrideLinkOutUri' - The URI for the article. If the knowledge base has a templateUri,
 -- setting this argument overrides it for this piece of content. To remove
 -- an existing @overrideLinkOurUri@, exclude this argument and set
@@ -102,18 +107,13 @@ data UpdateContent = UpdateContent'
 --
 -- 'removeOverrideLinkOutUri', 'updateContent_removeOverrideLinkOutUri' - Unset the existing @overrideLinkOutUri@ if it exists.
 --
--- 'metadata', 'updateContent_metadata' - A key\/value map to store attributes without affecting tagging or
--- recommendations. For example, when synchronizing data between an
--- external system and Wisdom, you can store an external version identifier
--- as metadata to utilize for determining drift.
---
--- 'title', 'updateContent_title' - The title of the content.
---
 -- 'revisionId', 'updateContent_revisionId' - The @revisionId@ of the content resource to update, taken from an
 -- earlier call to @GetContent@, @GetContentSummary@, @SearchContent@, or
 -- @ListContents@. If included, this argument acts as an optimistic lock to
 -- ensure content was not modified since it was last read. If it has been
 -- modified, this API throws a @PreconditionFailedException@.
+--
+-- 'title', 'updateContent_title' - The title of the content.
 --
 -- 'uploadId', 'updateContent_uploadId' - A pointer to the uploaded asset. This value is returned by
 -- <https://docs.aws.amazon.com/wisdom/latest/APIReference/API_StartContentUpload.html StartContentUpload>.
@@ -121,8 +121,7 @@ data UpdateContent = UpdateContent'
 -- 'contentId', 'updateContent_contentId' - The identifier of the content. Can be either the ID or the ARN. URLs
 -- cannot contain the ARN.
 --
--- 'knowledgeBaseId', 'updateContent_knowledgeBaseId' - The the identifier of the knowledge base. Can be either the ID or the
--- ARN
+-- 'knowledgeBaseId', 'updateContent_knowledgeBaseId' - The identifier of the knowledge base. Can be either the ID or the ARN
 newUpdateContent ::
   -- | 'contentId'
   Prelude.Text ->
@@ -131,16 +130,22 @@ newUpdateContent ::
   UpdateContent
 newUpdateContent pContentId_ pKnowledgeBaseId_ =
   UpdateContent'
-    { overrideLinkOutUri =
-        Prelude.Nothing,
+    { metadata = Prelude.Nothing,
+      overrideLinkOutUri = Prelude.Nothing,
       removeOverrideLinkOutUri = Prelude.Nothing,
-      metadata = Prelude.Nothing,
-      title = Prelude.Nothing,
       revisionId = Prelude.Nothing,
+      title = Prelude.Nothing,
       uploadId = Prelude.Nothing,
       contentId = pContentId_,
       knowledgeBaseId = pKnowledgeBaseId_
     }
+
+-- | A key\/value map to store attributes without affecting tagging or
+-- recommendations. For example, when synchronizing data between an
+-- external system and Wisdom, you can store an external version identifier
+-- as metadata to utilize for determining drift.
+updateContent_metadata :: Lens.Lens' UpdateContent (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+updateContent_metadata = Lens.lens (\UpdateContent' {metadata} -> metadata) (\s@UpdateContent' {} a -> s {metadata = a} :: UpdateContent) Prelude.. Lens.mapping Lens.coerced
 
 -- | The URI for the article. If the knowledge base has a templateUri,
 -- setting this argument overrides it for this piece of content. To remove
@@ -153,17 +158,6 @@ updateContent_overrideLinkOutUri = Lens.lens (\UpdateContent' {overrideLinkOutUr
 updateContent_removeOverrideLinkOutUri :: Lens.Lens' UpdateContent (Prelude.Maybe Prelude.Bool)
 updateContent_removeOverrideLinkOutUri = Lens.lens (\UpdateContent' {removeOverrideLinkOutUri} -> removeOverrideLinkOutUri) (\s@UpdateContent' {} a -> s {removeOverrideLinkOutUri = a} :: UpdateContent)
 
--- | A key\/value map to store attributes without affecting tagging or
--- recommendations. For example, when synchronizing data between an
--- external system and Wisdom, you can store an external version identifier
--- as metadata to utilize for determining drift.
-updateContent_metadata :: Lens.Lens' UpdateContent (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-updateContent_metadata = Lens.lens (\UpdateContent' {metadata} -> metadata) (\s@UpdateContent' {} a -> s {metadata = a} :: UpdateContent) Prelude.. Lens.mapping Lens.coerced
-
--- | The title of the content.
-updateContent_title :: Lens.Lens' UpdateContent (Prelude.Maybe Prelude.Text)
-updateContent_title = Lens.lens (\UpdateContent' {title} -> title) (\s@UpdateContent' {} a -> s {title = a} :: UpdateContent)
-
 -- | The @revisionId@ of the content resource to update, taken from an
 -- earlier call to @GetContent@, @GetContentSummary@, @SearchContent@, or
 -- @ListContents@. If included, this argument acts as an optimistic lock to
@@ -171,6 +165,10 @@ updateContent_title = Lens.lens (\UpdateContent' {title} -> title) (\s@UpdateCon
 -- modified, this API throws a @PreconditionFailedException@.
 updateContent_revisionId :: Lens.Lens' UpdateContent (Prelude.Maybe Prelude.Text)
 updateContent_revisionId = Lens.lens (\UpdateContent' {revisionId} -> revisionId) (\s@UpdateContent' {} a -> s {revisionId = a} :: UpdateContent)
+
+-- | The title of the content.
+updateContent_title :: Lens.Lens' UpdateContent (Prelude.Maybe Prelude.Text)
+updateContent_title = Lens.lens (\UpdateContent' {title} -> title) (\s@UpdateContent' {} a -> s {title = a} :: UpdateContent)
 
 -- | A pointer to the uploaded asset. This value is returned by
 -- <https://docs.aws.amazon.com/wisdom/latest/APIReference/API_StartContentUpload.html StartContentUpload>.
@@ -182,8 +180,7 @@ updateContent_uploadId = Lens.lens (\UpdateContent' {uploadId} -> uploadId) (\s@
 updateContent_contentId :: Lens.Lens' UpdateContent Prelude.Text
 updateContent_contentId = Lens.lens (\UpdateContent' {contentId} -> contentId) (\s@UpdateContent' {} a -> s {contentId = a} :: UpdateContent)
 
--- | The the identifier of the knowledge base. Can be either the ID or the
--- ARN
+-- | The identifier of the knowledge base. Can be either the ID or the ARN
 updateContent_knowledgeBaseId :: Lens.Lens' UpdateContent Prelude.Text
 updateContent_knowledgeBaseId = Lens.lens (\UpdateContent' {knowledgeBaseId} -> knowledgeBaseId) (\s@UpdateContent' {} a -> s {knowledgeBaseId = a} :: UpdateContent)
 
@@ -191,73 +188,74 @@ instance Core.AWSRequest UpdateContent where
   type
     AWSResponse UpdateContent =
       UpdateContentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateContentResponse'
-            Prelude.<$> (x Core..?> "content")
+            Prelude.<$> (x Data..?> "content")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateContent where
   hashWithSalt _salt UpdateContent' {..} =
-    _salt `Prelude.hashWithSalt` overrideLinkOutUri
+    _salt `Prelude.hashWithSalt` metadata
+      `Prelude.hashWithSalt` overrideLinkOutUri
       `Prelude.hashWithSalt` removeOverrideLinkOutUri
-      `Prelude.hashWithSalt` metadata
-      `Prelude.hashWithSalt` title
       `Prelude.hashWithSalt` revisionId
+      `Prelude.hashWithSalt` title
       `Prelude.hashWithSalt` uploadId
       `Prelude.hashWithSalt` contentId
       `Prelude.hashWithSalt` knowledgeBaseId
 
 instance Prelude.NFData UpdateContent where
   rnf UpdateContent' {..} =
-    Prelude.rnf overrideLinkOutUri
+    Prelude.rnf metadata
+      `Prelude.seq` Prelude.rnf overrideLinkOutUri
       `Prelude.seq` Prelude.rnf removeOverrideLinkOutUri
-      `Prelude.seq` Prelude.rnf metadata
-      `Prelude.seq` Prelude.rnf title
       `Prelude.seq` Prelude.rnf revisionId
+      `Prelude.seq` Prelude.rnf title
       `Prelude.seq` Prelude.rnf uploadId
       `Prelude.seq` Prelude.rnf contentId
       `Prelude.seq` Prelude.rnf knowledgeBaseId
 
-instance Core.ToHeaders UpdateContent where
+instance Data.ToHeaders UpdateContent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateContent where
+instance Data.ToJSON UpdateContent where
   toJSON UpdateContent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("overrideLinkOutUri" Core..=)
+          [ ("metadata" Data..=) Prelude.<$> metadata,
+            ("overrideLinkOutUri" Data..=)
               Prelude.<$> overrideLinkOutUri,
-            ("removeOverrideLinkOutUri" Core..=)
+            ("removeOverrideLinkOutUri" Data..=)
               Prelude.<$> removeOverrideLinkOutUri,
-            ("metadata" Core..=) Prelude.<$> metadata,
-            ("title" Core..=) Prelude.<$> title,
-            ("revisionId" Core..=) Prelude.<$> revisionId,
-            ("uploadId" Core..=) Prelude.<$> uploadId
+            ("revisionId" Data..=) Prelude.<$> revisionId,
+            ("title" Data..=) Prelude.<$> title,
+            ("uploadId" Data..=) Prelude.<$> uploadId
           ]
       )
 
-instance Core.ToPath UpdateContent where
+instance Data.ToPath UpdateContent where
   toPath UpdateContent' {..} =
     Prelude.mconcat
       [ "/knowledgeBases/",
-        Core.toBS knowledgeBaseId,
+        Data.toBS knowledgeBaseId,
         "/contents/",
-        Core.toBS contentId
+        Data.toBS contentId
       ]
 
-instance Core.ToQuery UpdateContent where
+instance Data.ToQuery UpdateContent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateContentResponse' smart constructor.

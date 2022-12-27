@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.ListFunctions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.AppSync.ListFunctions
     newListFunctions,
 
     -- * Request Lenses
-    listFunctions_nextToken,
     listFunctions_maxResults,
+    listFunctions_nextToken,
     listFunctions_apiId,
 
     -- * Destructuring the Response
@@ -38,27 +38,28 @@ module Amazonka.AppSync.ListFunctions
     newListFunctionsResponse,
 
     -- * Response Lenses
-    listFunctionsResponse_nextToken,
     listFunctionsResponse_functions,
+    listFunctionsResponse_nextToken,
     listFunctionsResponse_httpStatus,
   )
 where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListFunctions' smart constructor.
 data ListFunctions = ListFunctions'
-  { -- | An identifier that was returned from the previous call to this
-    -- operation, which can be used to return the next set of items in the
+  { -- | The maximum number of results that you want the request to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | An identifier that was returned from the previous call to this
+    -- operation, which you can use to return the next set of items in the
     -- list.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results you want the request to return.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The GraphQL API ID.
     apiId :: Prelude.Text
   }
@@ -72,11 +73,11 @@ data ListFunctions = ListFunctions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listFunctions_nextToken' - An identifier that was returned from the previous call to this
--- operation, which can be used to return the next set of items in the
--- list.
+-- 'maxResults', 'listFunctions_maxResults' - The maximum number of results that you want the request to return.
 --
--- 'maxResults', 'listFunctions_maxResults' - The maximum number of results you want the request to return.
+-- 'nextToken', 'listFunctions_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which you can use to return the next set of items in the
+-- list.
 --
 -- 'apiId', 'listFunctions_apiId' - The GraphQL API ID.
 newListFunctions ::
@@ -85,20 +86,20 @@ newListFunctions ::
   ListFunctions
 newListFunctions pApiId_ =
   ListFunctions'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       apiId = pApiId_
     }
 
+-- | The maximum number of results that you want the request to return.
+listFunctions_maxResults :: Lens.Lens' ListFunctions (Prelude.Maybe Prelude.Natural)
+listFunctions_maxResults = Lens.lens (\ListFunctions' {maxResults} -> maxResults) (\s@ListFunctions' {} a -> s {maxResults = a} :: ListFunctions)
+
 -- | An identifier that was returned from the previous call to this
--- operation, which can be used to return the next set of items in the
+-- operation, which you can use to return the next set of items in the
 -- list.
 listFunctions_nextToken :: Lens.Lens' ListFunctions (Prelude.Maybe Prelude.Text)
 listFunctions_nextToken = Lens.lens (\ListFunctions' {nextToken} -> nextToken) (\s@ListFunctions' {} a -> s {nextToken = a} :: ListFunctions)
-
--- | The maximum number of results you want the request to return.
-listFunctions_maxResults :: Lens.Lens' ListFunctions (Prelude.Maybe Prelude.Natural)
-listFunctions_maxResults = Lens.lens (\ListFunctions' {maxResults} -> maxResults) (\s@ListFunctions' {} a -> s {maxResults = a} :: ListFunctions)
 
 -- | The GraphQL API ID.
 listFunctions_apiId :: Lens.Lens' ListFunctions Prelude.Text
@@ -127,59 +128,60 @@ instance Core.AWSRequest ListFunctions where
   type
     AWSResponse ListFunctions =
       ListFunctionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListFunctionsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "functions" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "functions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListFunctions where
   hashWithSalt _salt ListFunctions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` apiId
 
 instance Prelude.NFData ListFunctions where
   rnf ListFunctions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf apiId
 
-instance Core.ToHeaders ListFunctions where
+instance Data.ToHeaders ListFunctions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListFunctions where
+instance Data.ToPath ListFunctions where
   toPath ListFunctions' {..} =
     Prelude.mconcat
-      ["/v1/apis/", Core.toBS apiId, "/functions"]
+      ["/v1/apis/", Data.toBS apiId, "/functions"]
 
-instance Core.ToQuery ListFunctions where
+instance Data.ToQuery ListFunctions where
   toQuery ListFunctions' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListFunctionsResponse' smart constructor.
 data ListFunctionsResponse = ListFunctionsResponse'
-  { -- | An identifier that was returned from the previous call to this
-    -- operation, which can be used to return the next set of items in the
+  { -- | A list of @Function@ objects.
+    functions :: Prelude.Maybe [FunctionConfiguration],
+    -- | An identifier that was returned from the previous call to this
+    -- operation, which you can use to return the next set of items in the
     -- list.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A list of @Function@ objects.
-    functions :: Prelude.Maybe [FunctionConfiguration],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -193,11 +195,11 @@ data ListFunctionsResponse = ListFunctionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listFunctionsResponse_nextToken' - An identifier that was returned from the previous call to this
--- operation, which can be used to return the next set of items in the
--- list.
---
 -- 'functions', 'listFunctionsResponse_functions' - A list of @Function@ objects.
+--
+-- 'nextToken', 'listFunctionsResponse_nextToken' - An identifier that was returned from the previous call to this
+-- operation, which you can use to return the next set of items in the
+-- list.
 --
 -- 'httpStatus', 'listFunctionsResponse_httpStatus' - The response's http status code.
 newListFunctionsResponse ::
@@ -206,20 +208,20 @@ newListFunctionsResponse ::
   ListFunctionsResponse
 newListFunctionsResponse pHttpStatus_ =
   ListFunctionsResponse'
-    { nextToken = Prelude.Nothing,
-      functions = Prelude.Nothing,
+    { functions = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | An identifier that was returned from the previous call to this
--- operation, which can be used to return the next set of items in the
--- list.
-listFunctionsResponse_nextToken :: Lens.Lens' ListFunctionsResponse (Prelude.Maybe Prelude.Text)
-listFunctionsResponse_nextToken = Lens.lens (\ListFunctionsResponse' {nextToken} -> nextToken) (\s@ListFunctionsResponse' {} a -> s {nextToken = a} :: ListFunctionsResponse)
 
 -- | A list of @Function@ objects.
 listFunctionsResponse_functions :: Lens.Lens' ListFunctionsResponse (Prelude.Maybe [FunctionConfiguration])
 listFunctionsResponse_functions = Lens.lens (\ListFunctionsResponse' {functions} -> functions) (\s@ListFunctionsResponse' {} a -> s {functions = a} :: ListFunctionsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | An identifier that was returned from the previous call to this
+-- operation, which you can use to return the next set of items in the
+-- list.
+listFunctionsResponse_nextToken :: Lens.Lens' ListFunctionsResponse (Prelude.Maybe Prelude.Text)
+listFunctionsResponse_nextToken = Lens.lens (\ListFunctionsResponse' {nextToken} -> nextToken) (\s@ListFunctionsResponse' {} a -> s {nextToken = a} :: ListFunctionsResponse)
 
 -- | The response's http status code.
 listFunctionsResponse_httpStatus :: Lens.Lens' ListFunctionsResponse Prelude.Int
@@ -227,6 +229,6 @@ listFunctionsResponse_httpStatus = Lens.lens (\ListFunctionsResponse' {httpStatu
 
 instance Prelude.NFData ListFunctionsResponse where
   rnf ListFunctionsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf functions
+    Prelude.rnf functions
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

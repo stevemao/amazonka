@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.DvbNitSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.DvbNitSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Use these settings to insert a DVB Network Information Table (NIT) in
@@ -80,15 +81,15 @@ dvbNitSettings_networkName = Lens.lens (\DvbNitSettings' {networkName} -> networ
 dvbNitSettings_nitInterval :: Lens.Lens' DvbNitSettings (Prelude.Maybe Prelude.Natural)
 dvbNitSettings_nitInterval = Lens.lens (\DvbNitSettings' {nitInterval} -> nitInterval) (\s@DvbNitSettings' {} a -> s {nitInterval = a} :: DvbNitSettings)
 
-instance Core.FromJSON DvbNitSettings where
+instance Data.FromJSON DvbNitSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DvbNitSettings"
       ( \x ->
           DvbNitSettings'
-            Prelude.<$> (x Core..:? "networkId")
-            Prelude.<*> (x Core..:? "networkName")
-            Prelude.<*> (x Core..:? "nitInterval")
+            Prelude.<$> (x Data..:? "networkId")
+            Prelude.<*> (x Data..:? "networkName")
+            Prelude.<*> (x Data..:? "nitInterval")
       )
 
 instance Prelude.Hashable DvbNitSettings where
@@ -103,12 +104,12 @@ instance Prelude.NFData DvbNitSettings where
       `Prelude.seq` Prelude.rnf networkName
       `Prelude.seq` Prelude.rnf nitInterval
 
-instance Core.ToJSON DvbNitSettings where
+instance Data.ToJSON DvbNitSettings where
   toJSON DvbNitSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("networkId" Core..=) Prelude.<$> networkId,
-            ("networkName" Core..=) Prelude.<$> networkName,
-            ("nitInterval" Core..=) Prelude.<$> nitInterval
+          [ ("networkId" Data..=) Prelude.<$> networkId,
+            ("networkName" Data..=) Prelude.<$> networkName,
+            ("nitInterval" Data..=) Prelude.<$> nitInterval
           ]
       )

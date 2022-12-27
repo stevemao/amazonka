@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.CreateAccessPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an access policy that grants the specified identity (Amazon Web
--- Services SSO user, Amazon Web Services SSO group, or IAM user) access to
+-- Creates an access policy that grants the specified identity (IAM
+-- Identity Center user, IAM Identity Center group, or IAM user) access to
 -- the specified IoT SiteWise Monitor portal or project resource.
 module Amazonka.IoTSiteWise.CreateAccessPolicy
   ( -- * Creating a Request
@@ -47,8 +47,9 @@ module Amazonka.IoTSiteWise.CreateAccessPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,8 +65,8 @@ data CreateAccessPolicy = CreateAccessPolicy'
     -- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html Tagging your IoT SiteWise resources>
     -- in the /IoT SiteWise User Guide/.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The identity for this access policy. Choose an Amazon Web Services SSO
-    -- user, an Amazon Web Services SSO group, or an IAM user.
+    -- | The identity for this access policy. Choose an IAM Identity Center user,
+    -- an IAM Identity Center group, or an IAM user.
     accessPolicyIdentity :: Identity,
     -- | The IoT SiteWise Monitor resource for this access policy. Choose either
     -- a portal or a project.
@@ -93,8 +94,8 @@ data CreateAccessPolicy = CreateAccessPolicy'
 -- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html Tagging your IoT SiteWise resources>
 -- in the /IoT SiteWise User Guide/.
 --
--- 'accessPolicyIdentity', 'createAccessPolicy_accessPolicyIdentity' - The identity for this access policy. Choose an Amazon Web Services SSO
--- user, an Amazon Web Services SSO group, or an IAM user.
+-- 'accessPolicyIdentity', 'createAccessPolicy_accessPolicyIdentity' - The identity for this access policy. Choose an IAM Identity Center user,
+-- an IAM Identity Center group, or an IAM user.
 --
 -- 'accessPolicyResource', 'createAccessPolicy_accessPolicyResource' - The IoT SiteWise Monitor resource for this access policy. Choose either
 -- a portal or a project.
@@ -134,8 +135,8 @@ createAccessPolicy_clientToken = Lens.lens (\CreateAccessPolicy' {clientToken} -
 createAccessPolicy_tags :: Lens.Lens' CreateAccessPolicy (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createAccessPolicy_tags = Lens.lens (\CreateAccessPolicy' {tags} -> tags) (\s@CreateAccessPolicy' {} a -> s {tags = a} :: CreateAccessPolicy) Prelude.. Lens.mapping Lens.coerced
 
--- | The identity for this access policy. Choose an Amazon Web Services SSO
--- user, an Amazon Web Services SSO group, or an IAM user.
+-- | The identity for this access policy. Choose an IAM Identity Center user,
+-- an IAM Identity Center group, or an IAM user.
 createAccessPolicy_accessPolicyIdentity :: Lens.Lens' CreateAccessPolicy Identity
 createAccessPolicy_accessPolicyIdentity = Lens.lens (\CreateAccessPolicy' {accessPolicyIdentity} -> accessPolicyIdentity) (\s@CreateAccessPolicy' {} a -> s {accessPolicyIdentity = a} :: CreateAccessPolicy)
 
@@ -153,14 +154,15 @@ instance Core.AWSRequest CreateAccessPolicy where
   type
     AWSResponse CreateAccessPolicy =
       CreateAccessPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAccessPolicyResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "accessPolicyId")
-            Prelude.<*> (x Core..:> "accessPolicyArn")
+            Prelude.<*> (x Data..:> "accessPolicyId")
+            Prelude.<*> (x Data..:> "accessPolicyArn")
       )
 
 instance Prelude.Hashable CreateAccessPolicy where
@@ -179,42 +181,42 @@ instance Prelude.NFData CreateAccessPolicy where
       `Prelude.seq` Prelude.rnf accessPolicyResource
       `Prelude.seq` Prelude.rnf accessPolicyPermission
 
-instance Core.ToHeaders CreateAccessPolicy where
+instance Data.ToHeaders CreateAccessPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAccessPolicy where
+instance Data.ToJSON CreateAccessPolicy where
   toJSON CreateAccessPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("tags" Core..=) Prelude.<$> tags,
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
               ( "accessPolicyIdentity"
-                  Core..= accessPolicyIdentity
+                  Data..= accessPolicyIdentity
               ),
             Prelude.Just
               ( "accessPolicyResource"
-                  Core..= accessPolicyResource
+                  Data..= accessPolicyResource
               ),
             Prelude.Just
               ( "accessPolicyPermission"
-                  Core..= accessPolicyPermission
+                  Data..= accessPolicyPermission
               )
           ]
       )
 
-instance Core.ToPath CreateAccessPolicy where
+instance Data.ToPath CreateAccessPolicy where
   toPath = Prelude.const "/access-policies"
 
-instance Core.ToQuery CreateAccessPolicy where
+instance Data.ToQuery CreateAccessPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAccessPolicyResponse' smart constructor.

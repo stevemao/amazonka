@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.GetManagedScalingPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.EMR.GetManagedScalingPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,12 +81,13 @@ instance Core.AWSRequest GetManagedScalingPolicy where
   type
     AWSResponse GetManagedScalingPolicy =
       GetManagedScalingPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetManagedScalingPolicyResponse'
-            Prelude.<$> (x Core..?> "ManagedScalingPolicy")
+            Prelude.<$> (x Data..?> "ManagedScalingPolicy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,32 +99,32 @@ instance Prelude.NFData GetManagedScalingPolicy where
   rnf GetManagedScalingPolicy' {..} =
     Prelude.rnf clusterId
 
-instance Core.ToHeaders GetManagedScalingPolicy where
+instance Data.ToHeaders GetManagedScalingPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ElasticMapReduce.GetManagedScalingPolicy" ::
+              Data.=# ( "ElasticMapReduce.GetManagedScalingPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetManagedScalingPolicy where
+instance Data.ToJSON GetManagedScalingPolicy where
   toJSON GetManagedScalingPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ClusterId" Core..= clusterId)]
+          [Prelude.Just ("ClusterId" Data..= clusterId)]
       )
 
-instance Core.ToPath GetManagedScalingPolicy where
+instance Data.ToPath GetManagedScalingPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetManagedScalingPolicy where
+instance Data.ToQuery GetManagedScalingPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetManagedScalingPolicyResponse' smart constructor.

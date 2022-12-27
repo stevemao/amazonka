@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.DescribeResourcePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.NetworkFirewall.DescribeResourcePolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -84,12 +85,13 @@ instance Core.AWSRequest DescribeResourcePolicy where
   type
     AWSResponse DescribeResourcePolicy =
       DescribeResourcePolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeResourcePolicyResponse'
-            Prelude.<$> (x Core..?> "Policy")
+            Prelude.<$> (x Data..?> "Policy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,37 +103,37 @@ instance Prelude.NFData DescribeResourcePolicy where
   rnf DescribeResourcePolicy' {..} =
     Prelude.rnf resourceArn
 
-instance Core.ToHeaders DescribeResourcePolicy where
+instance Data.ToHeaders DescribeResourcePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "NetworkFirewall_20201112.DescribeResourcePolicy" ::
+              Data.=# ( "NetworkFirewall_20201112.DescribeResourcePolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeResourcePolicy where
+instance Data.ToJSON DescribeResourcePolicy where
   toJSON DescribeResourcePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ResourceArn" Core..= resourceArn)]
+          [Prelude.Just ("ResourceArn" Data..= resourceArn)]
       )
 
-instance Core.ToPath DescribeResourcePolicy where
+instance Data.ToPath DescribeResourcePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeResourcePolicy where
+instance Data.ToQuery DescribeResourcePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeResourcePolicyResponse' smart constructor.
 data DescribeResourcePolicyResponse = DescribeResourcePolicyResponse'
-  { -- | The AWS Identity and Access Management policy for the resource.
+  { -- | The IAM policy for the resource.
     policy :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -146,7 +148,7 @@ data DescribeResourcePolicyResponse = DescribeResourcePolicyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'policy', 'describeResourcePolicyResponse_policy' - The AWS Identity and Access Management policy for the resource.
+-- 'policy', 'describeResourcePolicyResponse_policy' - The IAM policy for the resource.
 --
 -- 'httpStatus', 'describeResourcePolicyResponse_httpStatus' - The response's http status code.
 newDescribeResourcePolicyResponse ::
@@ -160,7 +162,7 @@ newDescribeResourcePolicyResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The AWS Identity and Access Management policy for the resource.
+-- | The IAM policy for the resource.
 describeResourcePolicyResponse_policy :: Lens.Lens' DescribeResourcePolicyResponse (Prelude.Maybe Prelude.Text)
 describeResourcePolicyResponse_policy = Lens.lens (\DescribeResourcePolicyResponse' {policy} -> policy) (\s@DescribeResourcePolicyResponse' {} a -> s {policy = a} :: DescribeResourcePolicyResponse)
 

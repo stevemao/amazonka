@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.UpdateAddressBook
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.AlexaBusiness.UpdateAddressBook
     newUpdateAddressBook,
 
     -- * Request Lenses
-    updateAddressBook_name,
     updateAddressBook_description,
+    updateAddressBook_name,
     updateAddressBook_addressBookArn,
 
     -- * Destructuring the Response
@@ -42,17 +42,18 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateAddressBook' smart constructor.
 data UpdateAddressBook = UpdateAddressBook'
-  { -- | The updated name of the room.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The updated description of the room.
+  { -- | The updated description of the room.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The updated name of the room.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the room to update.
     addressBookArn :: Prelude.Text
   }
@@ -66,9 +67,9 @@ data UpdateAddressBook = UpdateAddressBook'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'updateAddressBook_name' - The updated name of the room.
---
 -- 'description', 'updateAddressBook_description' - The updated description of the room.
+--
+-- 'name', 'updateAddressBook_name' - The updated name of the room.
 --
 -- 'addressBookArn', 'updateAddressBook_addressBookArn' - The ARN of the room to update.
 newUpdateAddressBook ::
@@ -77,18 +78,18 @@ newUpdateAddressBook ::
   UpdateAddressBook
 newUpdateAddressBook pAddressBookArn_ =
   UpdateAddressBook'
-    { name = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      name = Prelude.Nothing,
       addressBookArn = pAddressBookArn_
     }
-
--- | The updated name of the room.
-updateAddressBook_name :: Lens.Lens' UpdateAddressBook (Prelude.Maybe Prelude.Text)
-updateAddressBook_name = Lens.lens (\UpdateAddressBook' {name} -> name) (\s@UpdateAddressBook' {} a -> s {name = a} :: UpdateAddressBook)
 
 -- | The updated description of the room.
 updateAddressBook_description :: Lens.Lens' UpdateAddressBook (Prelude.Maybe Prelude.Text)
 updateAddressBook_description = Lens.lens (\UpdateAddressBook' {description} -> description) (\s@UpdateAddressBook' {} a -> s {description = a} :: UpdateAddressBook)
+
+-- | The updated name of the room.
+updateAddressBook_name :: Lens.Lens' UpdateAddressBook (Prelude.Maybe Prelude.Text)
+updateAddressBook_name = Lens.lens (\UpdateAddressBook' {name} -> name) (\s@UpdateAddressBook' {} a -> s {name = a} :: UpdateAddressBook)
 
 -- | The ARN of the room to update.
 updateAddressBook_addressBookArn :: Lens.Lens' UpdateAddressBook Prelude.Text
@@ -98,7 +99,8 @@ instance Core.AWSRequest UpdateAddressBook where
   type
     AWSResponse UpdateAddressBook =
       UpdateAddressBookResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -108,46 +110,46 @@ instance Core.AWSRequest UpdateAddressBook where
 
 instance Prelude.Hashable UpdateAddressBook where
   hashWithSalt _salt UpdateAddressBook' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` addressBookArn
 
 instance Prelude.NFData UpdateAddressBook where
   rnf UpdateAddressBook' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf addressBookArn
 
-instance Core.ToHeaders UpdateAddressBook where
+instance Data.ToHeaders UpdateAddressBook where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.UpdateAddressBook" ::
+              Data.=# ( "AlexaForBusiness.UpdateAddressBook" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAddressBook where
+instance Data.ToJSON UpdateAddressBook where
   toJSON UpdateAddressBook' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Name" Core..=) Prelude.<$> name,
-            ("Description" Core..=) Prelude.<$> description,
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Name" Data..=) Prelude.<$> name,
             Prelude.Just
-              ("AddressBookArn" Core..= addressBookArn)
+              ("AddressBookArn" Data..= addressBookArn)
           ]
       )
 
-instance Core.ToPath UpdateAddressBook where
+instance Data.ToPath UpdateAddressBook where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateAddressBook where
+instance Data.ToQuery UpdateAddressBook where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAddressBookResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.UpdateDashboard
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IoTSiteWise.UpdateDashboard
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -140,7 +141,8 @@ instance Core.AWSRequest UpdateDashboard where
   type
     AWSResponse UpdateDashboard =
       UpdateDashboardResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -164,36 +166,36 @@ instance Prelude.NFData UpdateDashboard where
       `Prelude.seq` Prelude.rnf dashboardName
       `Prelude.seq` Prelude.rnf dashboardDefinition
 
-instance Core.ToHeaders UpdateDashboard where
+instance Data.ToHeaders UpdateDashboard where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDashboard where
+instance Data.ToJSON UpdateDashboard where
   toJSON UpdateDashboard' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("dashboardDescription" Core..=)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("dashboardDescription" Data..=)
               Prelude.<$> dashboardDescription,
-            Prelude.Just ("dashboardName" Core..= dashboardName),
+            Prelude.Just ("dashboardName" Data..= dashboardName),
             Prelude.Just
-              ("dashboardDefinition" Core..= dashboardDefinition)
+              ("dashboardDefinition" Data..= dashboardDefinition)
           ]
       )
 
-instance Core.ToPath UpdateDashboard where
+instance Data.ToPath UpdateDashboard where
   toPath UpdateDashboard' {..} =
     Prelude.mconcat
-      ["/dashboards/", Core.toBS dashboardId]
+      ["/dashboards/", Data.toBS dashboardId]
 
-instance Core.ToQuery UpdateDashboard where
+instance Data.ToQuery UpdateDashboard where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDashboardResponse' smart constructor.

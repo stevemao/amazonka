@@ -14,14 +14,16 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.DescribeEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Gets the properties associated with a specific endpoint. Use this
--- operation to get the status of an endpoint.
+-- operation to get the status of an endpoint. For information about
+-- endpoints, see
+-- <https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html Managing endpoints>.
 module Amazonka.Comprehend.DescribeEndpoint
   ( -- * Creating a Request
     DescribeEndpoint (..),
@@ -42,7 +44,8 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,12 +81,13 @@ instance Core.AWSRequest DescribeEndpoint where
   type
     AWSResponse DescribeEndpoint =
       DescribeEndpointResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEndpointResponse'
-            Prelude.<$> (x Core..?> "EndpointProperties")
+            Prelude.<$> (x Data..?> "EndpointProperties")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -94,32 +98,32 @@ instance Prelude.Hashable DescribeEndpoint where
 instance Prelude.NFData DescribeEndpoint where
   rnf DescribeEndpoint' {..} = Prelude.rnf endpointArn
 
-instance Core.ToHeaders DescribeEndpoint where
+instance Data.ToHeaders DescribeEndpoint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.DescribeEndpoint" ::
+              Data.=# ( "Comprehend_20171127.DescribeEndpoint" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEndpoint where
+instance Data.ToJSON DescribeEndpoint where
   toJSON DescribeEndpoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("EndpointArn" Core..= endpointArn)]
+          [Prelude.Just ("EndpointArn" Data..= endpointArn)]
       )
 
-instance Core.ToPath DescribeEndpoint where
+instance Data.ToPath DescribeEndpoint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEndpoint where
+instance Data.ToQuery DescribeEndpoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeEndpointResponse' smart constructor.

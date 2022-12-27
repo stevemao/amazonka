@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SES.Types.KinesisFirehoseDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SES.Types.KinesisFirehoseDestination where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the delivery stream ARN and the IAM role ARN associated with an
@@ -80,11 +81,11 @@ kinesisFirehoseDestination_iAMRoleARN = Lens.lens (\KinesisFirehoseDestination' 
 kinesisFirehoseDestination_deliveryStreamARN :: Lens.Lens' KinesisFirehoseDestination Prelude.Text
 kinesisFirehoseDestination_deliveryStreamARN = Lens.lens (\KinesisFirehoseDestination' {deliveryStreamARN} -> deliveryStreamARN) (\s@KinesisFirehoseDestination' {} a -> s {deliveryStreamARN = a} :: KinesisFirehoseDestination)
 
-instance Core.FromXML KinesisFirehoseDestination where
+instance Data.FromXML KinesisFirehoseDestination where
   parseXML x =
     KinesisFirehoseDestination'
-      Prelude.<$> (x Core..@ "IAMRoleARN")
-      Prelude.<*> (x Core..@ "DeliveryStreamARN")
+      Prelude.<$> (x Data..@ "IAMRoleARN")
+      Prelude.<*> (x Data..@ "DeliveryStreamARN")
 
 instance Prelude.Hashable KinesisFirehoseDestination where
   hashWithSalt _salt KinesisFirehoseDestination' {..} =
@@ -96,9 +97,9 @@ instance Prelude.NFData KinesisFirehoseDestination where
     Prelude.rnf iAMRoleARN
       `Prelude.seq` Prelude.rnf deliveryStreamARN
 
-instance Core.ToQuery KinesisFirehoseDestination where
+instance Data.ToQuery KinesisFirehoseDestination where
   toQuery KinesisFirehoseDestination' {..} =
     Prelude.mconcat
-      [ "IAMRoleARN" Core.=: iAMRoleARN,
-        "DeliveryStreamARN" Core.=: deliveryStreamARN
+      [ "IAMRoleARN" Data.=: iAMRoleARN,
+        "DeliveryStreamARN" Data.=: deliveryStreamARN
       ]

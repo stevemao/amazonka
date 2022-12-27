@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.DetectStackResourceDrift
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,7 +33,7 @@
 -- or DetectStackDrift to detect drift on all resources in a given stack
 -- that support drift detection.
 --
--- Resources that do not currently support drift detection cannot be
+-- Resources that don\'t currently support drift detection can\'t be
 -- checked. For a list of resources that support drift detection, see
 -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html Resources that Support Drift Detection>.
 module Amazonka.CloudFormation.DetectStackResourceDrift
@@ -57,7 +57,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,14 +109,15 @@ instance Core.AWSRequest DetectStackResourceDrift where
   type
     AWSResponse DetectStackResourceDrift =
       DetectStackResourceDriftResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DetectStackResourceDriftResult"
       ( \s h x ->
           DetectStackResourceDriftResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "StackResourceDrift")
+            Prelude.<*> (x Data..@ "StackResourceDrift")
       )
 
 instance Prelude.Hashable DetectStackResourceDrift where
@@ -128,21 +130,21 @@ instance Prelude.NFData DetectStackResourceDrift where
     Prelude.rnf stackName
       `Prelude.seq` Prelude.rnf logicalResourceId
 
-instance Core.ToHeaders DetectStackResourceDrift where
+instance Data.ToHeaders DetectStackResourceDrift where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DetectStackResourceDrift where
+instance Data.ToPath DetectStackResourceDrift where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetectStackResourceDrift where
+instance Data.ToQuery DetectStackResourceDrift where
   toQuery DetectStackResourceDrift' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DetectStackResourceDrift" :: Prelude.ByteString),
+          Data.=: ("DetectStackResourceDrift" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "StackName" Core.=: stackName,
-        "LogicalResourceId" Core.=: logicalResourceId
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "StackName" Data.=: stackName,
+        "LogicalResourceId" Data.=: logicalResourceId
       ]
 
 -- | /See:/ 'newDetectStackResourceDriftResponse' smart constructor.

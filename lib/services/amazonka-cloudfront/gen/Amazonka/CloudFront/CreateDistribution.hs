@@ -14,26 +14,13 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.CreateDistribution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new web distribution. You create a CloudFront distribution to
--- tell CloudFront where you want content to be delivered from, and the
--- details about how to track and manage content delivery. Send a @POST@
--- request to the
--- @\/CloudFront API version\/distribution@\/@distribution ID@ resource.
---
--- When you update a distribution, there are more required fields than when
--- you create a distribution. When you update your distribution by using
--- <https://docs.aws.amazon.com/cloudfront/latest/APIReference/API_UpdateDistribution.html UpdateDistribution>,
--- follow the steps included in the documentation to get the current
--- configuration and then make your updates. This helps to make sure that
--- you include all of the required fields. To view a summary, see
--- <https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/distribution-overview-required-fields.html Required Fields for Create Distribution and Update Distribution>
--- in the /Amazon CloudFront Developer Guide/.
+-- Creates a CloudFront distribution.
 module Amazonka.CloudFront.CreateDistribution
   ( -- * Creating a Request
     CreateDistribution (..),
@@ -47,8 +34,8 @@ module Amazonka.CloudFront.CreateDistribution
     newCreateDistributionResponse,
 
     -- * Response Lenses
-    createDistributionResponse_eTag,
     createDistributionResponse_distribution,
+    createDistributionResponse_eTag,
     createDistributionResponse_location,
     createDistributionResponse_httpStatus,
   )
@@ -56,7 +43,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,14 +85,15 @@ instance Core.AWSRequest CreateDistribution where
   type
     AWSResponse CreateDistribution =
       CreateDistributionResponse
-  request = Request.postXML defaultService
+  request overrides =
+    Request.postXML (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateDistributionResponse'
-            Prelude.<$> (h Core..#? "ETag")
-            Prelude.<*> (Core.parseXML x)
-            Prelude.<*> (h Core..#? "Location")
+            Prelude.<$> (Data.parseXML x)
+            Prelude.<*> (h Data..#? "ETag")
+            Prelude.<*> (h Data..#? "Location")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,29 +105,29 @@ instance Prelude.NFData CreateDistribution where
   rnf CreateDistribution' {..} =
     Prelude.rnf distributionConfig
 
-instance Core.ToElement CreateDistribution where
+instance Data.ToElement CreateDistribution where
   toElement CreateDistribution' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}DistributionConfig"
       distributionConfig
 
-instance Core.ToHeaders CreateDistribution where
+instance Data.ToHeaders CreateDistribution where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateDistribution where
+instance Data.ToPath CreateDistribution where
   toPath = Prelude.const "/2020-05-31/distribution"
 
-instance Core.ToQuery CreateDistribution where
+instance Data.ToQuery CreateDistribution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The returned result of the corresponding request.
 --
 -- /See:/ 'newCreateDistributionResponse' smart constructor.
 data CreateDistributionResponse = CreateDistributionResponse'
-  { -- | The current version of the distribution created.
-    eTag :: Prelude.Maybe Prelude.Text,
-    -- | The distribution\'s information.
+  { -- | The distribution\'s information.
     distribution :: Prelude.Maybe Distribution,
+    -- | The current version of the distribution created.
+    eTag :: Prelude.Maybe Prelude.Text,
     -- | The fully qualified URI of the new distribution resource just created.
     location :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
@@ -154,9 +143,9 @@ data CreateDistributionResponse = CreateDistributionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'eTag', 'createDistributionResponse_eTag' - The current version of the distribution created.
---
 -- 'distribution', 'createDistributionResponse_distribution' - The distribution\'s information.
+--
+-- 'eTag', 'createDistributionResponse_eTag' - The current version of the distribution created.
 --
 -- 'location', 'createDistributionResponse_location' - The fully qualified URI of the new distribution resource just created.
 --
@@ -167,19 +156,20 @@ newCreateDistributionResponse ::
   CreateDistributionResponse
 newCreateDistributionResponse pHttpStatus_ =
   CreateDistributionResponse'
-    { eTag = Prelude.Nothing,
-      distribution = Prelude.Nothing,
+    { distribution =
+        Prelude.Nothing,
+      eTag = Prelude.Nothing,
       location = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The current version of the distribution created.
-createDistributionResponse_eTag :: Lens.Lens' CreateDistributionResponse (Prelude.Maybe Prelude.Text)
-createDistributionResponse_eTag = Lens.lens (\CreateDistributionResponse' {eTag} -> eTag) (\s@CreateDistributionResponse' {} a -> s {eTag = a} :: CreateDistributionResponse)
-
 -- | The distribution\'s information.
 createDistributionResponse_distribution :: Lens.Lens' CreateDistributionResponse (Prelude.Maybe Distribution)
 createDistributionResponse_distribution = Lens.lens (\CreateDistributionResponse' {distribution} -> distribution) (\s@CreateDistributionResponse' {} a -> s {distribution = a} :: CreateDistributionResponse)
+
+-- | The current version of the distribution created.
+createDistributionResponse_eTag :: Lens.Lens' CreateDistributionResponse (Prelude.Maybe Prelude.Text)
+createDistributionResponse_eTag = Lens.lens (\CreateDistributionResponse' {eTag} -> eTag) (\s@CreateDistributionResponse' {} a -> s {eTag = a} :: CreateDistributionResponse)
 
 -- | The fully qualified URI of the new distribution resource just created.
 createDistributionResponse_location :: Lens.Lens' CreateDistributionResponse (Prelude.Maybe Prelude.Text)
@@ -191,7 +181,7 @@ createDistributionResponse_httpStatus = Lens.lens (\CreateDistributionResponse' 
 
 instance Prelude.NFData CreateDistributionResponse where
   rnf CreateDistributionResponse' {..} =
-    Prelude.rnf eTag
-      `Prelude.seq` Prelude.rnf distribution
+    Prelude.rnf distribution
+      `Prelude.seq` Prelude.rnf eTag
       `Prelude.seq` Prelude.rnf location
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DAX.Types.SSESpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DAX.Types.SSESpecification where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the settings used to enable server-side encryption.
@@ -62,9 +63,9 @@ instance Prelude.Hashable SSESpecification where
 instance Prelude.NFData SSESpecification where
   rnf SSESpecification' {..} = Prelude.rnf enabled
 
-instance Core.ToJSON SSESpecification where
+instance Data.ToJSON SSESpecification where
   toJSON SSESpecification' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Enabled" Core..= enabled)]
+          [Prelude.Just ("Enabled" Data..= enabled)]
       )

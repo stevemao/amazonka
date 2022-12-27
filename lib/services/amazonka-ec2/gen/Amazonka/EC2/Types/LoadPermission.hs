@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LoadPermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.LoadPermission where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.PermissionGroup
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a load permission.
@@ -63,11 +64,11 @@ loadPermission_group = Lens.lens (\LoadPermission' {group'} -> group') (\s@LoadP
 loadPermission_userId :: Lens.Lens' LoadPermission (Prelude.Maybe Prelude.Text)
 loadPermission_userId = Lens.lens (\LoadPermission' {userId} -> userId) (\s@LoadPermission' {} a -> s {userId = a} :: LoadPermission)
 
-instance Core.FromXML LoadPermission where
+instance Data.FromXML LoadPermission where
   parseXML x =
     LoadPermission'
-      Prelude.<$> (x Core..@? "group")
-      Prelude.<*> (x Core..@? "userId")
+      Prelude.<$> (x Data..@? "group")
+      Prelude.<*> (x Data..@? "userId")
 
 instance Prelude.Hashable LoadPermission where
   hashWithSalt _salt LoadPermission' {..} =

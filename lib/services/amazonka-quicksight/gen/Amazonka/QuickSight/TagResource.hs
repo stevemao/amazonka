@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.TagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,13 +36,14 @@
 -- supports tagging on data set, data source, dashboard, and template.
 --
 -- Tagging for Amazon QuickSight works in a similar way to tagging for
--- other AWS services, except for the following:
+-- other Amazon Web Services services, except for the following:
 --
--- -   You can\'t use tags to track AWS costs for Amazon QuickSight. This
---     restriction is because Amazon QuickSight costs are based on users
---     and SPICE capacity, which aren\'t taggable resources.
+-- -   You can\'t use tags to track costs for Amazon QuickSight. This
+--     isn\'t possible because you can\'t tag the resources that Amazon
+--     QuickSight costs are based on, for example Amazon QuickSight storage
+--     capacity (SPICE), number of users, type of users, and usage metrics.
 --
--- -   Amazon QuickSight doesn\'t currently support the Tag Editor for
+-- -   Amazon QuickSight doesn\'t currently support the tag editor for
 --     Resource Groups.
 module Amazonka.QuickSight.TagResource
   ( -- * Creating a Request
@@ -64,7 +65,8 @@ module Amazonka.QuickSight.TagResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -115,12 +117,13 @@ tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} 
 
 instance Core.AWSRequest TagResource where
   type AWSResponse TagResource = TagResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           TagResourceResponse'
-            Prelude.<$> (x Core..?> "RequestId")
+            Prelude.<$> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,30 +137,30 @@ instance Prelude.NFData TagResource where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagResource where
+instance Data.ToHeaders TagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TagResource where
+instance Data.ToJSON TagResource where
   toJSON TagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Tags" Core..= tags)]
+          [Prelude.Just ("Tags" Data..= tags)]
       )
 
-instance Core.ToPath TagResource where
+instance Data.ToPath TagResource where
   toPath TagResource' {..} =
     Prelude.mconcat
-      ["/resources/", Core.toBS resourceArn, "/tags"]
+      ["/resources/", Data.toBS resourceArn, "/tags"]
 
-instance Core.ToQuery TagResource where
+instance Data.ToQuery TagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTagResourceResponse' smart constructor.

@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Athena
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,20 +37,23 @@ module Amazonka.Athena
     -- * Errors
     -- $errors
 
+    -- ** InternalServerException
+    _InternalServerException,
+
     -- ** InvalidRequestException
     _InvalidRequestException,
 
     -- ** MetadataException
     _MetadataException,
 
-    -- ** TooManyRequestsException
-    _TooManyRequestsException,
-
-    -- ** InternalServerException
-    _InternalServerException,
-
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
+
+    -- ** SessionAlreadyExistsException
+    _SessionAlreadyExistsException,
+
+    -- ** TooManyRequestsException
+    _TooManyRequestsException,
 
     -- * Waiters
     -- $waiters
@@ -58,125 +61,17 @@ module Amazonka.Athena
     -- * Operations
     -- $operations
 
-    -- ** ListDatabases (Paginated)
-    ListDatabases (ListDatabases'),
-    newListDatabases,
-    ListDatabasesResponse (ListDatabasesResponse'),
-    newListDatabasesResponse,
-
-    -- ** CreatePreparedStatement
-    CreatePreparedStatement (CreatePreparedStatement'),
-    newCreatePreparedStatement,
-    CreatePreparedStatementResponse (CreatePreparedStatementResponse'),
-    newCreatePreparedStatementResponse,
-
-    -- ** DeleteWorkGroup
-    DeleteWorkGroup (DeleteWorkGroup'),
-    newDeleteWorkGroup,
-    DeleteWorkGroupResponse (DeleteWorkGroupResponse'),
-    newDeleteWorkGroupResponse,
-
-    -- ** UpdateWorkGroup
-    UpdateWorkGroup (UpdateWorkGroup'),
-    newUpdateWorkGroup,
-    UpdateWorkGroupResponse (UpdateWorkGroupResponse'),
-    newUpdateWorkGroupResponse,
-
-    -- ** GetNamedQuery
-    GetNamedQuery (GetNamedQuery'),
-    newGetNamedQuery,
-    GetNamedQueryResponse (GetNamedQueryResponse'),
-    newGetNamedQueryResponse,
-
-    -- ** ListTagsForResource (Paginated)
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** DeleteDataCatalog
-    DeleteDataCatalog (DeleteDataCatalog'),
-    newDeleteDataCatalog,
-    DeleteDataCatalogResponse (DeleteDataCatalogResponse'),
-    newDeleteDataCatalogResponse,
-
-    -- ** UpdateDataCatalog
-    UpdateDataCatalog (UpdateDataCatalog'),
-    newUpdateDataCatalog,
-    UpdateDataCatalogResponse (UpdateDataCatalogResponse'),
-    newUpdateDataCatalogResponse,
-
-    -- ** ListDataCatalogs (Paginated)
-    ListDataCatalogs (ListDataCatalogs'),
-    newListDataCatalogs,
-    ListDataCatalogsResponse (ListDataCatalogsResponse'),
-    newListDataCatalogsResponse,
-
-    -- ** CreateNamedQuery
-    CreateNamedQuery (CreateNamedQuery'),
-    newCreateNamedQuery,
-    CreateNamedQueryResponse (CreateNamedQueryResponse'),
-    newCreateNamedQueryResponse,
-
-    -- ** GetTableMetadata
-    GetTableMetadata (GetTableMetadata'),
-    newGetTableMetadata,
-    GetTableMetadataResponse (GetTableMetadataResponse'),
-    newGetTableMetadataResponse,
-
-    -- ** ListNamedQueries (Paginated)
-    ListNamedQueries (ListNamedQueries'),
-    newListNamedQueries,
-    ListNamedQueriesResponse (ListNamedQueriesResponse'),
-    newListNamedQueriesResponse,
-
-    -- ** DeleteNamedQuery
-    DeleteNamedQuery (DeleteNamedQuery'),
-    newDeleteNamedQuery,
-    DeleteNamedQueryResponse (DeleteNamedQueryResponse'),
-    newDeleteNamedQueryResponse,
-
-    -- ** StartQueryExecution
-    StartQueryExecution (StartQueryExecution'),
-    newStartQueryExecution,
-    StartQueryExecutionResponse (StartQueryExecutionResponse'),
-    newStartQueryExecutionResponse,
-
     -- ** BatchGetNamedQuery
     BatchGetNamedQuery (BatchGetNamedQuery'),
     newBatchGetNamedQuery,
     BatchGetNamedQueryResponse (BatchGetNamedQueryResponse'),
     newBatchGetNamedQueryResponse,
 
-    -- ** GetQueryExecution
-    GetQueryExecution (GetQueryExecution'),
-    newGetQueryExecution,
-    GetQueryExecutionResponse (GetQueryExecutionResponse'),
-    newGetQueryExecutionResponse,
-
-    -- ** ListPreparedStatements
-    ListPreparedStatements (ListPreparedStatements'),
-    newListPreparedStatements,
-    ListPreparedStatementsResponse (ListPreparedStatementsResponse'),
-    newListPreparedStatementsResponse,
-
-    -- ** CreateDataCatalog
-    CreateDataCatalog (CreateDataCatalog'),
-    newCreateDataCatalog,
-    CreateDataCatalogResponse (CreateDataCatalogResponse'),
-    newCreateDataCatalogResponse,
-
-    -- ** ListWorkGroups
-    ListWorkGroups (ListWorkGroups'),
-    newListWorkGroups,
-    ListWorkGroupsResponse (ListWorkGroupsResponse'),
-    newListWorkGroupsResponse,
-
-    -- ** CreateWorkGroup
-    CreateWorkGroup (CreateWorkGroup'),
-    newCreateWorkGroup,
-    CreateWorkGroupResponse (CreateWorkGroupResponse'),
-    newCreateWorkGroupResponse,
+    -- ** BatchGetPreparedStatement
+    BatchGetPreparedStatement (BatchGetPreparedStatement'),
+    newBatchGetPreparedStatement,
+    BatchGetPreparedStatementResponse (BatchGetPreparedStatementResponse'),
+    newBatchGetPreparedStatementResponse,
 
     -- ** BatchGetQueryExecution
     BatchGetQueryExecution (BatchGetQueryExecution'),
@@ -184,17 +79,287 @@ module Amazonka.Athena
     BatchGetQueryExecutionResponse (BatchGetQueryExecutionResponse'),
     newBatchGetQueryExecutionResponse,
 
-    -- ** ListEngineVersions
-    ListEngineVersions (ListEngineVersions'),
-    newListEngineVersions,
-    ListEngineVersionsResponse (ListEngineVersionsResponse'),
-    newListEngineVersionsResponse,
+    -- ** CreateDataCatalog
+    CreateDataCatalog (CreateDataCatalog'),
+    newCreateDataCatalog,
+    CreateDataCatalogResponse (CreateDataCatalogResponse'),
+    newCreateDataCatalogResponse,
+
+    -- ** CreateNamedQuery
+    CreateNamedQuery (CreateNamedQuery'),
+    newCreateNamedQuery,
+    CreateNamedQueryResponse (CreateNamedQueryResponse'),
+    newCreateNamedQueryResponse,
+
+    -- ** CreateNotebook
+    CreateNotebook (CreateNotebook'),
+    newCreateNotebook,
+    CreateNotebookResponse (CreateNotebookResponse'),
+    newCreateNotebookResponse,
+
+    -- ** CreatePreparedStatement
+    CreatePreparedStatement (CreatePreparedStatement'),
+    newCreatePreparedStatement,
+    CreatePreparedStatementResponse (CreatePreparedStatementResponse'),
+    newCreatePreparedStatementResponse,
+
+    -- ** CreatePresignedNotebookUrl
+    CreatePresignedNotebookUrl (CreatePresignedNotebookUrl'),
+    newCreatePresignedNotebookUrl,
+    CreatePresignedNotebookUrlResponse (CreatePresignedNotebookUrlResponse'),
+    newCreatePresignedNotebookUrlResponse,
+
+    -- ** CreateWorkGroup
+    CreateWorkGroup (CreateWorkGroup'),
+    newCreateWorkGroup,
+    CreateWorkGroupResponse (CreateWorkGroupResponse'),
+    newCreateWorkGroupResponse,
+
+    -- ** DeleteDataCatalog
+    DeleteDataCatalog (DeleteDataCatalog'),
+    newDeleteDataCatalog,
+    DeleteDataCatalogResponse (DeleteDataCatalogResponse'),
+    newDeleteDataCatalogResponse,
+
+    -- ** DeleteNamedQuery
+    DeleteNamedQuery (DeleteNamedQuery'),
+    newDeleteNamedQuery,
+    DeleteNamedQueryResponse (DeleteNamedQueryResponse'),
+    newDeleteNamedQueryResponse,
+
+    -- ** DeleteNotebook
+    DeleteNotebook (DeleteNotebook'),
+    newDeleteNotebook,
+    DeleteNotebookResponse (DeleteNotebookResponse'),
+    newDeleteNotebookResponse,
+
+    -- ** DeletePreparedStatement
+    DeletePreparedStatement (DeletePreparedStatement'),
+    newDeletePreparedStatement,
+    DeletePreparedStatementResponse (DeletePreparedStatementResponse'),
+    newDeletePreparedStatementResponse,
+
+    -- ** DeleteWorkGroup
+    DeleteWorkGroup (DeleteWorkGroup'),
+    newDeleteWorkGroup,
+    DeleteWorkGroupResponse (DeleteWorkGroupResponse'),
+    newDeleteWorkGroupResponse,
+
+    -- ** ExportNotebook
+    ExportNotebook (ExportNotebook'),
+    newExportNotebook,
+    ExportNotebookResponse (ExportNotebookResponse'),
+    newExportNotebookResponse,
+
+    -- ** GetCalculationExecution
+    GetCalculationExecution (GetCalculationExecution'),
+    newGetCalculationExecution,
+    GetCalculationExecutionResponse (GetCalculationExecutionResponse'),
+    newGetCalculationExecutionResponse,
+
+    -- ** GetCalculationExecutionCode
+    GetCalculationExecutionCode (GetCalculationExecutionCode'),
+    newGetCalculationExecutionCode,
+    GetCalculationExecutionCodeResponse (GetCalculationExecutionCodeResponse'),
+    newGetCalculationExecutionCodeResponse,
+
+    -- ** GetCalculationExecutionStatus
+    GetCalculationExecutionStatus (GetCalculationExecutionStatus'),
+    newGetCalculationExecutionStatus,
+    GetCalculationExecutionStatusResponse (GetCalculationExecutionStatusResponse'),
+    newGetCalculationExecutionStatusResponse,
 
     -- ** GetDataCatalog
     GetDataCatalog (GetDataCatalog'),
     newGetDataCatalog,
     GetDataCatalogResponse (GetDataCatalogResponse'),
     newGetDataCatalogResponse,
+
+    -- ** GetDatabase
+    GetDatabase (GetDatabase'),
+    newGetDatabase,
+    GetDatabaseResponse (GetDatabaseResponse'),
+    newGetDatabaseResponse,
+
+    -- ** GetNamedQuery
+    GetNamedQuery (GetNamedQuery'),
+    newGetNamedQuery,
+    GetNamedQueryResponse (GetNamedQueryResponse'),
+    newGetNamedQueryResponse,
+
+    -- ** GetNotebookMetadata
+    GetNotebookMetadata (GetNotebookMetadata'),
+    newGetNotebookMetadata,
+    GetNotebookMetadataResponse (GetNotebookMetadataResponse'),
+    newGetNotebookMetadataResponse,
+
+    -- ** GetPreparedStatement
+    GetPreparedStatement (GetPreparedStatement'),
+    newGetPreparedStatement,
+    GetPreparedStatementResponse (GetPreparedStatementResponse'),
+    newGetPreparedStatementResponse,
+
+    -- ** GetQueryExecution
+    GetQueryExecution (GetQueryExecution'),
+    newGetQueryExecution,
+    GetQueryExecutionResponse (GetQueryExecutionResponse'),
+    newGetQueryExecutionResponse,
+
+    -- ** GetQueryResults (Paginated)
+    GetQueryResults (GetQueryResults'),
+    newGetQueryResults,
+    GetQueryResultsResponse (GetQueryResultsResponse'),
+    newGetQueryResultsResponse,
+
+    -- ** GetQueryRuntimeStatistics
+    GetQueryRuntimeStatistics (GetQueryRuntimeStatistics'),
+    newGetQueryRuntimeStatistics,
+    GetQueryRuntimeStatisticsResponse (GetQueryRuntimeStatisticsResponse'),
+    newGetQueryRuntimeStatisticsResponse,
+
+    -- ** GetSession
+    GetSession (GetSession'),
+    newGetSession,
+    GetSessionResponse (GetSessionResponse'),
+    newGetSessionResponse,
+
+    -- ** GetSessionStatus
+    GetSessionStatus (GetSessionStatus'),
+    newGetSessionStatus,
+    GetSessionStatusResponse (GetSessionStatusResponse'),
+    newGetSessionStatusResponse,
+
+    -- ** GetTableMetadata
+    GetTableMetadata (GetTableMetadata'),
+    newGetTableMetadata,
+    GetTableMetadataResponse (GetTableMetadataResponse'),
+    newGetTableMetadataResponse,
+
+    -- ** GetWorkGroup
+    GetWorkGroup (GetWorkGroup'),
+    newGetWorkGroup,
+    GetWorkGroupResponse (GetWorkGroupResponse'),
+    newGetWorkGroupResponse,
+
+    -- ** ImportNotebook
+    ImportNotebook (ImportNotebook'),
+    newImportNotebook,
+    ImportNotebookResponse (ImportNotebookResponse'),
+    newImportNotebookResponse,
+
+    -- ** ListApplicationDPUSizes
+    ListApplicationDPUSizes (ListApplicationDPUSizes'),
+    newListApplicationDPUSizes,
+    ListApplicationDPUSizesResponse (ListApplicationDPUSizesResponse'),
+    newListApplicationDPUSizesResponse,
+
+    -- ** ListCalculationExecutions
+    ListCalculationExecutions (ListCalculationExecutions'),
+    newListCalculationExecutions,
+    ListCalculationExecutionsResponse (ListCalculationExecutionsResponse'),
+    newListCalculationExecutionsResponse,
+
+    -- ** ListDataCatalogs (Paginated)
+    ListDataCatalogs (ListDataCatalogs'),
+    newListDataCatalogs,
+    ListDataCatalogsResponse (ListDataCatalogsResponse'),
+    newListDataCatalogsResponse,
+
+    -- ** ListDatabases (Paginated)
+    ListDatabases (ListDatabases'),
+    newListDatabases,
+    ListDatabasesResponse (ListDatabasesResponse'),
+    newListDatabasesResponse,
+
+    -- ** ListEngineVersions
+    ListEngineVersions (ListEngineVersions'),
+    newListEngineVersions,
+    ListEngineVersionsResponse (ListEngineVersionsResponse'),
+    newListEngineVersionsResponse,
+
+    -- ** ListExecutors
+    ListExecutors (ListExecutors'),
+    newListExecutors,
+    ListExecutorsResponse (ListExecutorsResponse'),
+    newListExecutorsResponse,
+
+    -- ** ListNamedQueries (Paginated)
+    ListNamedQueries (ListNamedQueries'),
+    newListNamedQueries,
+    ListNamedQueriesResponse (ListNamedQueriesResponse'),
+    newListNamedQueriesResponse,
+
+    -- ** ListNotebookMetadata
+    ListNotebookMetadata (ListNotebookMetadata'),
+    newListNotebookMetadata,
+    ListNotebookMetadataResponse (ListNotebookMetadataResponse'),
+    newListNotebookMetadataResponse,
+
+    -- ** ListNotebookSessions
+    ListNotebookSessions (ListNotebookSessions'),
+    newListNotebookSessions,
+    ListNotebookSessionsResponse (ListNotebookSessionsResponse'),
+    newListNotebookSessionsResponse,
+
+    -- ** ListPreparedStatements
+    ListPreparedStatements (ListPreparedStatements'),
+    newListPreparedStatements,
+    ListPreparedStatementsResponse (ListPreparedStatementsResponse'),
+    newListPreparedStatementsResponse,
+
+    -- ** ListQueryExecutions (Paginated)
+    ListQueryExecutions (ListQueryExecutions'),
+    newListQueryExecutions,
+    ListQueryExecutionsResponse (ListQueryExecutionsResponse'),
+    newListQueryExecutionsResponse,
+
+    -- ** ListSessions
+    ListSessions (ListSessions'),
+    newListSessions,
+    ListSessionsResponse (ListSessionsResponse'),
+    newListSessionsResponse,
+
+    -- ** ListTableMetadata (Paginated)
+    ListTableMetadata (ListTableMetadata'),
+    newListTableMetadata,
+    ListTableMetadataResponse (ListTableMetadataResponse'),
+    newListTableMetadataResponse,
+
+    -- ** ListTagsForResource (Paginated)
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** ListWorkGroups
+    ListWorkGroups (ListWorkGroups'),
+    newListWorkGroups,
+    ListWorkGroupsResponse (ListWorkGroupsResponse'),
+    newListWorkGroupsResponse,
+
+    -- ** StartCalculationExecution
+    StartCalculationExecution (StartCalculationExecution'),
+    newStartCalculationExecution,
+    StartCalculationExecutionResponse (StartCalculationExecutionResponse'),
+    newStartCalculationExecutionResponse,
+
+    -- ** StartQueryExecution
+    StartQueryExecution (StartQueryExecution'),
+    newStartQueryExecution,
+    StartQueryExecutionResponse (StartQueryExecutionResponse'),
+    newStartQueryExecutionResponse,
+
+    -- ** StartSession
+    StartSession (StartSession'),
+    newStartSession,
+    StartSessionResponse (StartSessionResponse'),
+    newStartSessionResponse,
+
+    -- ** StopCalculationExecution
+    StopCalculationExecution (StopCalculationExecution'),
+    newStopCalculationExecution,
+    StopCalculationExecutionResponse (StopCalculationExecutionResponse'),
+    newStopCalculationExecutionResponse,
 
     -- ** StopQueryExecution
     StopQueryExecution (StopQueryExecution'),
@@ -208,17 +373,11 @@ module Amazonka.Athena
     TagResourceResponse (TagResourceResponse'),
     newTagResourceResponse,
 
-    -- ** GetWorkGroup
-    GetWorkGroup (GetWorkGroup'),
-    newGetWorkGroup,
-    GetWorkGroupResponse (GetWorkGroupResponse'),
-    newGetWorkGroupResponse,
-
-    -- ** GetDatabase
-    GetDatabase (GetDatabase'),
-    newGetDatabase,
-    GetDatabaseResponse (GetDatabaseResponse'),
-    newGetDatabaseResponse,
+    -- ** TerminateSession
+    TerminateSession (TerminateSession'),
+    newTerminateSession,
+    TerminateSessionResponse (TerminateSessionResponse'),
+    newTerminateSessionResponse,
 
     -- ** UntagResource
     UntagResource (UntagResource'),
@@ -226,35 +385,29 @@ module Amazonka.Athena
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** GetPreparedStatement
-    GetPreparedStatement (GetPreparedStatement'),
-    newGetPreparedStatement,
-    GetPreparedStatementResponse (GetPreparedStatementResponse'),
-    newGetPreparedStatementResponse,
+    -- ** UpdateDataCatalog
+    UpdateDataCatalog (UpdateDataCatalog'),
+    newUpdateDataCatalog,
+    UpdateDataCatalogResponse (UpdateDataCatalogResponse'),
+    newUpdateDataCatalogResponse,
 
-    -- ** GetQueryResults (Paginated)
-    GetQueryResults (GetQueryResults'),
-    newGetQueryResults,
-    GetQueryResultsResponse (GetQueryResultsResponse'),
-    newGetQueryResultsResponse,
+    -- ** UpdateNamedQuery
+    UpdateNamedQuery (UpdateNamedQuery'),
+    newUpdateNamedQuery,
+    UpdateNamedQueryResponse (UpdateNamedQueryResponse'),
+    newUpdateNamedQueryResponse,
 
-    -- ** ListTableMetadata (Paginated)
-    ListTableMetadata (ListTableMetadata'),
-    newListTableMetadata,
-    ListTableMetadataResponse (ListTableMetadataResponse'),
-    newListTableMetadataResponse,
+    -- ** UpdateNotebook
+    UpdateNotebook (UpdateNotebook'),
+    newUpdateNotebook,
+    UpdateNotebookResponse (UpdateNotebookResponse'),
+    newUpdateNotebookResponse,
 
-    -- ** ListQueryExecutions (Paginated)
-    ListQueryExecutions (ListQueryExecutions'),
-    newListQueryExecutions,
-    ListQueryExecutionsResponse (ListQueryExecutionsResponse'),
-    newListQueryExecutionsResponse,
-
-    -- ** DeletePreparedStatement
-    DeletePreparedStatement (DeletePreparedStatement'),
-    newDeletePreparedStatement,
-    DeletePreparedStatementResponse (DeletePreparedStatementResponse'),
-    newDeletePreparedStatementResponse,
+    -- ** UpdateNotebookMetadata
+    UpdateNotebookMetadata (UpdateNotebookMetadata'),
+    newUpdateNotebookMetadata,
+    UpdateNotebookMetadataResponse (UpdateNotebookMetadataResponse'),
+    newUpdateNotebookMetadataResponse,
 
     -- ** UpdatePreparedStatement
     UpdatePreparedStatement (UpdatePreparedStatement'),
@@ -262,7 +415,16 @@ module Amazonka.Athena
     UpdatePreparedStatementResponse (UpdatePreparedStatementResponse'),
     newUpdatePreparedStatementResponse,
 
+    -- ** UpdateWorkGroup
+    UpdateWorkGroup (UpdateWorkGroup'),
+    newUpdateWorkGroup,
+    UpdateWorkGroupResponse (UpdateWorkGroupResponse'),
+    newUpdateWorkGroupResponse,
+
     -- * Types
+
+    -- ** CalculationExecutionState
+    CalculationExecutionState (..),
 
     -- ** ColumnNullable
     ColumnNullable (..),
@@ -273,14 +435,61 @@ module Amazonka.Athena
     -- ** EncryptionOption
     EncryptionOption (..),
 
+    -- ** ExecutorState
+    ExecutorState (..),
+
+    -- ** ExecutorType
+    ExecutorType (..),
+
+    -- ** NotebookType
+    NotebookType (..),
+
     -- ** QueryExecutionState
     QueryExecutionState (..),
+
+    -- ** S3AclOption
+    S3AclOption (..),
+
+    -- ** SessionState
+    SessionState (..),
 
     -- ** StatementType
     StatementType (..),
 
     -- ** WorkGroupState
     WorkGroupState (..),
+
+    -- ** AclConfiguration
+    AclConfiguration (AclConfiguration'),
+    newAclConfiguration,
+
+    -- ** ApplicationDPUSizes
+    ApplicationDPUSizes (ApplicationDPUSizes'),
+    newApplicationDPUSizes,
+
+    -- ** AthenaError
+    AthenaError (AthenaError'),
+    newAthenaError,
+
+    -- ** CalculationConfiguration
+    CalculationConfiguration (CalculationConfiguration'),
+    newCalculationConfiguration,
+
+    -- ** CalculationResult
+    CalculationResult (CalculationResult'),
+    newCalculationResult,
+
+    -- ** CalculationStatistics
+    CalculationStatistics (CalculationStatistics'),
+    newCalculationStatistics,
+
+    -- ** CalculationStatus
+    CalculationStatus (CalculationStatus'),
+    newCalculationStatus,
+
+    -- ** CalculationSummary
+    CalculationSummary (CalculationSummary'),
+    newCalculationSummary,
 
     -- ** Column
     Column (Column'),
@@ -289,6 +498,10 @@ module Amazonka.Athena
     -- ** ColumnInfo
     ColumnInfo (ColumnInfo'),
     newColumnInfo,
+
+    -- ** CustomerContentEncryptionConfiguration
+    CustomerContentEncryptionConfiguration (CustomerContentEncryptionConfiguration'),
+    newCustomerContentEncryptionConfiguration,
 
     -- ** DataCatalog
     DataCatalog (DataCatalog'),
@@ -310,13 +523,33 @@ module Amazonka.Athena
     EncryptionConfiguration (EncryptionConfiguration'),
     newEncryptionConfiguration,
 
+    -- ** EngineConfiguration
+    EngineConfiguration (EngineConfiguration'),
+    newEngineConfiguration,
+
     -- ** EngineVersion
     EngineVersion (EngineVersion'),
     newEngineVersion,
 
+    -- ** ExecutorsSummary
+    ExecutorsSummary (ExecutorsSummary'),
+    newExecutorsSummary,
+
+    -- ** FilterDefinition
+    FilterDefinition (FilterDefinition'),
+    newFilterDefinition,
+
     -- ** NamedQuery
     NamedQuery (NamedQuery'),
     newNamedQuery,
+
+    -- ** NotebookMetadata
+    NotebookMetadata (NotebookMetadata'),
+    newNotebookMetadata,
+
+    -- ** NotebookSessionSummary
+    NotebookSessionSummary (NotebookSessionSummary'),
+    newNotebookSessionSummary,
 
     -- ** PreparedStatement
     PreparedStatement (PreparedStatement'),
@@ -342,6 +575,26 @@ module Amazonka.Athena
     QueryExecutionStatus (QueryExecutionStatus'),
     newQueryExecutionStatus,
 
+    -- ** QueryRuntimeStatistics
+    QueryRuntimeStatistics (QueryRuntimeStatistics'),
+    newQueryRuntimeStatistics,
+
+    -- ** QueryRuntimeStatisticsRows
+    QueryRuntimeStatisticsRows (QueryRuntimeStatisticsRows'),
+    newQueryRuntimeStatisticsRows,
+
+    -- ** QueryRuntimeStatisticsTimeline
+    QueryRuntimeStatisticsTimeline (QueryRuntimeStatisticsTimeline'),
+    newQueryRuntimeStatisticsTimeline,
+
+    -- ** QueryStage
+    QueryStage (QueryStage'),
+    newQueryStage,
+
+    -- ** QueryStagePlanNode
+    QueryStagePlanNode (QueryStagePlanNode'),
+    newQueryStagePlanNode,
+
     -- ** ResultConfiguration
     ResultConfiguration (ResultConfiguration'),
     newResultConfiguration,
@@ -349,6 +602,18 @@ module Amazonka.Athena
     -- ** ResultConfigurationUpdates
     ResultConfigurationUpdates (ResultConfigurationUpdates'),
     newResultConfigurationUpdates,
+
+    -- ** ResultReuseByAgeConfiguration
+    ResultReuseByAgeConfiguration (ResultReuseByAgeConfiguration'),
+    newResultReuseByAgeConfiguration,
+
+    -- ** ResultReuseConfiguration
+    ResultReuseConfiguration (ResultReuseConfiguration'),
+    newResultReuseConfiguration,
+
+    -- ** ResultReuseInformation
+    ResultReuseInformation (ResultReuseInformation'),
+    newResultReuseInformation,
 
     -- ** ResultSet
     ResultSet (ResultSet'),
@@ -362,6 +627,22 @@ module Amazonka.Athena
     Row (Row'),
     newRow,
 
+    -- ** SessionConfiguration
+    SessionConfiguration (SessionConfiguration'),
+    newSessionConfiguration,
+
+    -- ** SessionStatistics
+    SessionStatistics (SessionStatistics'),
+    newSessionStatistics,
+
+    -- ** SessionStatus
+    SessionStatus (SessionStatus'),
+    newSessionStatus,
+
+    -- ** SessionSummary
+    SessionSummary (SessionSummary'),
+    newSessionSummary,
+
     -- ** TableMetadata
     TableMetadata (TableMetadata'),
     newTableMetadata,
@@ -373,6 +654,10 @@ module Amazonka.Athena
     -- ** UnprocessedNamedQueryId
     UnprocessedNamedQueryId (UnprocessedNamedQueryId'),
     newUnprocessedNamedQueryId,
+
+    -- ** UnprocessedPreparedStatementName
+    UnprocessedPreparedStatementName (UnprocessedPreparedStatementName'),
+    newUnprocessedPreparedStatementName,
 
     -- ** UnprocessedQueryExecutionId
     UnprocessedQueryExecutionId (UnprocessedQueryExecutionId'),
@@ -397,39 +682,65 @@ module Amazonka.Athena
 where
 
 import Amazonka.Athena.BatchGetNamedQuery
+import Amazonka.Athena.BatchGetPreparedStatement
 import Amazonka.Athena.BatchGetQueryExecution
 import Amazonka.Athena.CreateDataCatalog
 import Amazonka.Athena.CreateNamedQuery
+import Amazonka.Athena.CreateNotebook
 import Amazonka.Athena.CreatePreparedStatement
+import Amazonka.Athena.CreatePresignedNotebookUrl
 import Amazonka.Athena.CreateWorkGroup
 import Amazonka.Athena.DeleteDataCatalog
 import Amazonka.Athena.DeleteNamedQuery
+import Amazonka.Athena.DeleteNotebook
 import Amazonka.Athena.DeletePreparedStatement
 import Amazonka.Athena.DeleteWorkGroup
+import Amazonka.Athena.ExportNotebook
+import Amazonka.Athena.GetCalculationExecution
+import Amazonka.Athena.GetCalculationExecutionCode
+import Amazonka.Athena.GetCalculationExecutionStatus
 import Amazonka.Athena.GetDataCatalog
 import Amazonka.Athena.GetDatabase
 import Amazonka.Athena.GetNamedQuery
+import Amazonka.Athena.GetNotebookMetadata
 import Amazonka.Athena.GetPreparedStatement
 import Amazonka.Athena.GetQueryExecution
 import Amazonka.Athena.GetQueryResults
+import Amazonka.Athena.GetQueryRuntimeStatistics
+import Amazonka.Athena.GetSession
+import Amazonka.Athena.GetSessionStatus
 import Amazonka.Athena.GetTableMetadata
 import Amazonka.Athena.GetWorkGroup
+import Amazonka.Athena.ImportNotebook
 import Amazonka.Athena.Lens
+import Amazonka.Athena.ListApplicationDPUSizes
+import Amazonka.Athena.ListCalculationExecutions
 import Amazonka.Athena.ListDataCatalogs
 import Amazonka.Athena.ListDatabases
 import Amazonka.Athena.ListEngineVersions
+import Amazonka.Athena.ListExecutors
 import Amazonka.Athena.ListNamedQueries
+import Amazonka.Athena.ListNotebookMetadata
+import Amazonka.Athena.ListNotebookSessions
 import Amazonka.Athena.ListPreparedStatements
 import Amazonka.Athena.ListQueryExecutions
+import Amazonka.Athena.ListSessions
 import Amazonka.Athena.ListTableMetadata
 import Amazonka.Athena.ListTagsForResource
 import Amazonka.Athena.ListWorkGroups
+import Amazonka.Athena.StartCalculationExecution
 import Amazonka.Athena.StartQueryExecution
+import Amazonka.Athena.StartSession
+import Amazonka.Athena.StopCalculationExecution
 import Amazonka.Athena.StopQueryExecution
 import Amazonka.Athena.TagResource
+import Amazonka.Athena.TerminateSession
 import Amazonka.Athena.Types
 import Amazonka.Athena.UntagResource
 import Amazonka.Athena.UpdateDataCatalog
+import Amazonka.Athena.UpdateNamedQuery
+import Amazonka.Athena.UpdateNotebook
+import Amazonka.Athena.UpdateNotebookMetadata
 import Amazonka.Athena.UpdatePreparedStatement
 import Amazonka.Athena.UpdateWorkGroup
 import Amazonka.Athena.Waiters

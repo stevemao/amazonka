@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.UpdateChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,13 +27,14 @@ module Amazonka.MediaLive.UpdateChannel
     newUpdateChannel',
 
     -- * Request Lenses
-    updateChannel'_logLevel,
-    updateChannel'_inputSpecification,
-    updateChannel'_inputAttachments,
-    updateChannel'_destinations,
-    updateChannel'_name,
     updateChannel'_cdiInputSpecification,
+    updateChannel'_destinations,
     updateChannel'_encoderSettings,
+    updateChannel'_inputAttachments,
+    updateChannel'_inputSpecification,
+    updateChannel'_logLevel,
+    updateChannel'_maintenance,
+    updateChannel'_name,
     updateChannel'_roleArn,
     updateChannel'_channelId,
 
@@ -48,7 +49,8 @@ module Amazonka.MediaLive.UpdateChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -58,19 +60,21 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateChannel'' smart constructor.
 data UpdateChannel' = UpdateChannel''
-  { -- | The log level to write to CloudWatch Logs.
-    logLevel :: Prelude.Maybe LogLevel,
-    -- | Specification of network and file inputs for this channel
-    inputSpecification :: Prelude.Maybe InputSpecification,
-    inputAttachments :: Prelude.Maybe [InputAttachment],
+  { -- | Specification of CDI inputs for this channel
+    cdiInputSpecification :: Prelude.Maybe CdiInputSpecification,
     -- | A list of output destinations for this channel.
     destinations :: Prelude.Maybe [OutputDestination],
-    -- | The name of the channel.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | Specification of CDI inputs for this channel
-    cdiInputSpecification :: Prelude.Maybe CdiInputSpecification,
     -- | The encoder settings for this channel.
     encoderSettings :: Prelude.Maybe EncoderSettings,
+    inputAttachments :: Prelude.Maybe [InputAttachment],
+    -- | Specification of network and file inputs for this channel
+    inputSpecification :: Prelude.Maybe InputSpecification,
+    -- | The log level to write to CloudWatch Logs.
+    logLevel :: Prelude.Maybe LogLevel,
+    -- | Maintenance settings for this channel.
+    maintenance :: Prelude.Maybe MaintenanceUpdateSettings,
+    -- | The name of the channel.
+    name :: Prelude.Maybe Prelude.Text,
     -- | An optional Amazon Resource Name (ARN) of the role to assume when
     -- running the Channel. If you do not specify this on an update call but
     -- the role was previously set that role will be removed.
@@ -88,19 +92,21 @@ data UpdateChannel' = UpdateChannel''
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'logLevel', 'updateChannel'_logLevel' - The log level to write to CloudWatch Logs.
---
--- 'inputSpecification', 'updateChannel'_inputSpecification' - Specification of network and file inputs for this channel
---
--- 'inputAttachments', 'updateChannel'_inputAttachments' - Undocumented member.
+-- 'cdiInputSpecification', 'updateChannel'_cdiInputSpecification' - Specification of CDI inputs for this channel
 --
 -- 'destinations', 'updateChannel'_destinations' - A list of output destinations for this channel.
 --
--- 'name', 'updateChannel'_name' - The name of the channel.
---
--- 'cdiInputSpecification', 'updateChannel'_cdiInputSpecification' - Specification of CDI inputs for this channel
---
 -- 'encoderSettings', 'updateChannel'_encoderSettings' - The encoder settings for this channel.
+--
+-- 'inputAttachments', 'updateChannel'_inputAttachments' - Undocumented member.
+--
+-- 'inputSpecification', 'updateChannel'_inputSpecification' - Specification of network and file inputs for this channel
+--
+-- 'logLevel', 'updateChannel'_logLevel' - The log level to write to CloudWatch Logs.
+--
+-- 'maintenance', 'updateChannel'_maintenance' - Maintenance settings for this channel.
+--
+-- 'name', 'updateChannel'_name' - The name of the channel.
 --
 -- 'roleArn', 'updateChannel'_roleArn' - An optional Amazon Resource Name (ARN) of the role to assume when
 -- running the Channel. If you do not specify this on an update call but
@@ -113,44 +119,50 @@ newUpdateChannel' ::
   UpdateChannel'
 newUpdateChannel' pChannelId_ =
   UpdateChannel''
-    { logLevel = Prelude.Nothing,
-      inputSpecification = Prelude.Nothing,
-      inputAttachments = Prelude.Nothing,
+    { cdiInputSpecification =
+        Prelude.Nothing,
       destinations = Prelude.Nothing,
-      name = Prelude.Nothing,
-      cdiInputSpecification = Prelude.Nothing,
       encoderSettings = Prelude.Nothing,
+      inputAttachments = Prelude.Nothing,
+      inputSpecification = Prelude.Nothing,
+      logLevel = Prelude.Nothing,
+      maintenance = Prelude.Nothing,
+      name = Prelude.Nothing,
       roleArn = Prelude.Nothing,
       channelId = pChannelId_
     }
-
--- | The log level to write to CloudWatch Logs.
-updateChannel'_logLevel :: Lens.Lens' UpdateChannel' (Prelude.Maybe LogLevel)
-updateChannel'_logLevel = Lens.lens (\UpdateChannel'' {logLevel} -> logLevel) (\s@UpdateChannel'' {} a -> s {logLevel = a} :: UpdateChannel')
-
--- | Specification of network and file inputs for this channel
-updateChannel'_inputSpecification :: Lens.Lens' UpdateChannel' (Prelude.Maybe InputSpecification)
-updateChannel'_inputSpecification = Lens.lens (\UpdateChannel'' {inputSpecification} -> inputSpecification) (\s@UpdateChannel'' {} a -> s {inputSpecification = a} :: UpdateChannel')
-
--- | Undocumented member.
-updateChannel'_inputAttachments :: Lens.Lens' UpdateChannel' (Prelude.Maybe [InputAttachment])
-updateChannel'_inputAttachments = Lens.lens (\UpdateChannel'' {inputAttachments} -> inputAttachments) (\s@UpdateChannel'' {} a -> s {inputAttachments = a} :: UpdateChannel') Prelude.. Lens.mapping Lens.coerced
-
--- | A list of output destinations for this channel.
-updateChannel'_destinations :: Lens.Lens' UpdateChannel' (Prelude.Maybe [OutputDestination])
-updateChannel'_destinations = Lens.lens (\UpdateChannel'' {destinations} -> destinations) (\s@UpdateChannel'' {} a -> s {destinations = a} :: UpdateChannel') Prelude.. Lens.mapping Lens.coerced
-
--- | The name of the channel.
-updateChannel'_name :: Lens.Lens' UpdateChannel' (Prelude.Maybe Prelude.Text)
-updateChannel'_name = Lens.lens (\UpdateChannel'' {name} -> name) (\s@UpdateChannel'' {} a -> s {name = a} :: UpdateChannel')
 
 -- | Specification of CDI inputs for this channel
 updateChannel'_cdiInputSpecification :: Lens.Lens' UpdateChannel' (Prelude.Maybe CdiInputSpecification)
 updateChannel'_cdiInputSpecification = Lens.lens (\UpdateChannel'' {cdiInputSpecification} -> cdiInputSpecification) (\s@UpdateChannel'' {} a -> s {cdiInputSpecification = a} :: UpdateChannel')
 
+-- | A list of output destinations for this channel.
+updateChannel'_destinations :: Lens.Lens' UpdateChannel' (Prelude.Maybe [OutputDestination])
+updateChannel'_destinations = Lens.lens (\UpdateChannel'' {destinations} -> destinations) (\s@UpdateChannel'' {} a -> s {destinations = a} :: UpdateChannel') Prelude.. Lens.mapping Lens.coerced
+
 -- | The encoder settings for this channel.
 updateChannel'_encoderSettings :: Lens.Lens' UpdateChannel' (Prelude.Maybe EncoderSettings)
 updateChannel'_encoderSettings = Lens.lens (\UpdateChannel'' {encoderSettings} -> encoderSettings) (\s@UpdateChannel'' {} a -> s {encoderSettings = a} :: UpdateChannel')
+
+-- | Undocumented member.
+updateChannel'_inputAttachments :: Lens.Lens' UpdateChannel' (Prelude.Maybe [InputAttachment])
+updateChannel'_inputAttachments = Lens.lens (\UpdateChannel'' {inputAttachments} -> inputAttachments) (\s@UpdateChannel'' {} a -> s {inputAttachments = a} :: UpdateChannel') Prelude.. Lens.mapping Lens.coerced
+
+-- | Specification of network and file inputs for this channel
+updateChannel'_inputSpecification :: Lens.Lens' UpdateChannel' (Prelude.Maybe InputSpecification)
+updateChannel'_inputSpecification = Lens.lens (\UpdateChannel'' {inputSpecification} -> inputSpecification) (\s@UpdateChannel'' {} a -> s {inputSpecification = a} :: UpdateChannel')
+
+-- | The log level to write to CloudWatch Logs.
+updateChannel'_logLevel :: Lens.Lens' UpdateChannel' (Prelude.Maybe LogLevel)
+updateChannel'_logLevel = Lens.lens (\UpdateChannel'' {logLevel} -> logLevel) (\s@UpdateChannel'' {} a -> s {logLevel = a} :: UpdateChannel')
+
+-- | Maintenance settings for this channel.
+updateChannel'_maintenance :: Lens.Lens' UpdateChannel' (Prelude.Maybe MaintenanceUpdateSettings)
+updateChannel'_maintenance = Lens.lens (\UpdateChannel'' {maintenance} -> maintenance) (\s@UpdateChannel'' {} a -> s {maintenance = a} :: UpdateChannel')
+
+-- | The name of the channel.
+updateChannel'_name :: Lens.Lens' UpdateChannel' (Prelude.Maybe Prelude.Text)
+updateChannel'_name = Lens.lens (\UpdateChannel'' {name} -> name) (\s@UpdateChannel'' {} a -> s {name = a} :: UpdateChannel')
 
 -- | An optional Amazon Resource Name (ARN) of the role to assume when
 -- running the Channel. If you do not specify this on an update call but
@@ -166,75 +178,79 @@ instance Core.AWSRequest UpdateChannel' where
   type
     AWSResponse UpdateChannel' =
       UpdateChannelResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateChannelResponse'
-            Prelude.<$> (x Core..?> "channel")
+            Prelude.<$> (x Data..?> "channel")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateChannel' where
   hashWithSalt _salt UpdateChannel'' {..} =
-    _salt `Prelude.hashWithSalt` logLevel
-      `Prelude.hashWithSalt` inputSpecification
-      `Prelude.hashWithSalt` inputAttachments
+    _salt `Prelude.hashWithSalt` cdiInputSpecification
       `Prelude.hashWithSalt` destinations
-      `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` cdiInputSpecification
       `Prelude.hashWithSalt` encoderSettings
+      `Prelude.hashWithSalt` inputAttachments
+      `Prelude.hashWithSalt` inputSpecification
+      `Prelude.hashWithSalt` logLevel
+      `Prelude.hashWithSalt` maintenance
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` roleArn
       `Prelude.hashWithSalt` channelId
 
 instance Prelude.NFData UpdateChannel' where
   rnf UpdateChannel'' {..} =
-    Prelude.rnf logLevel
-      `Prelude.seq` Prelude.rnf inputSpecification
-      `Prelude.seq` Prelude.rnf inputAttachments
+    Prelude.rnf cdiInputSpecification
       `Prelude.seq` Prelude.rnf destinations
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf cdiInputSpecification
       `Prelude.seq` Prelude.rnf encoderSettings
+      `Prelude.seq` Prelude.rnf inputAttachments
+      `Prelude.seq` Prelude.rnf inputSpecification
+      `Prelude.seq` Prelude.rnf logLevel
+      `Prelude.seq` Prelude.rnf maintenance
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf channelId
 
-instance Core.ToHeaders UpdateChannel' where
+instance Data.ToHeaders UpdateChannel' where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateChannel' where
+instance Data.ToJSON UpdateChannel' where
   toJSON UpdateChannel'' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("logLevel" Core..=) Prelude.<$> logLevel,
-            ("inputSpecification" Core..=)
-              Prelude.<$> inputSpecification,
-            ("inputAttachments" Core..=)
-              Prelude.<$> inputAttachments,
-            ("destinations" Core..=) Prelude.<$> destinations,
-            ("name" Core..=) Prelude.<$> name,
-            ("cdiInputSpecification" Core..=)
+          [ ("cdiInputSpecification" Data..=)
               Prelude.<$> cdiInputSpecification,
-            ("encoderSettings" Core..=)
+            ("destinations" Data..=) Prelude.<$> destinations,
+            ("encoderSettings" Data..=)
               Prelude.<$> encoderSettings,
-            ("roleArn" Core..=) Prelude.<$> roleArn
+            ("inputAttachments" Data..=)
+              Prelude.<$> inputAttachments,
+            ("inputSpecification" Data..=)
+              Prelude.<$> inputSpecification,
+            ("logLevel" Data..=) Prelude.<$> logLevel,
+            ("maintenance" Data..=) Prelude.<$> maintenance,
+            ("name" Data..=) Prelude.<$> name,
+            ("roleArn" Data..=) Prelude.<$> roleArn
           ]
       )
 
-instance Core.ToPath UpdateChannel' where
+instance Data.ToPath UpdateChannel' where
   toPath UpdateChannel'' {..} =
     Prelude.mconcat
-      ["/prod/channels/", Core.toBS channelId]
+      ["/prod/channels/", Data.toBS channelId]
 
-instance Core.ToQuery UpdateChannel' where
+instance Data.ToQuery UpdateChannel' where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for UpdateChannelResponse

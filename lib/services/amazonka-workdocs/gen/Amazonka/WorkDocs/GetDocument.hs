@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.GetDocument
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.WorkDocs.GetDocument
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,7 +54,7 @@ import Amazonka.WorkDocs.Types
 data GetDocument = GetDocument'
   { -- | Amazon WorkDocs authentication token. Not required when using AWS
     -- administrator credentials to access the API.
-    authenticationToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    authenticationToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | Set this to @TRUE@ to include custom metadata in the response.
     includeCustomMetadata :: Prelude.Maybe Prelude.Bool,
     -- | The ID of the document.
@@ -89,7 +90,7 @@ newGetDocument pDocumentId_ =
 -- | Amazon WorkDocs authentication token. Not required when using AWS
 -- administrator credentials to access the API.
 getDocument_authenticationToken :: Lens.Lens' GetDocument (Prelude.Maybe Prelude.Text)
-getDocument_authenticationToken = Lens.lens (\GetDocument' {authenticationToken} -> authenticationToken) (\s@GetDocument' {} a -> s {authenticationToken = a} :: GetDocument) Prelude.. Lens.mapping Core._Sensitive
+getDocument_authenticationToken = Lens.lens (\GetDocument' {authenticationToken} -> authenticationToken) (\s@GetDocument' {} a -> s {authenticationToken = a} :: GetDocument) Prelude.. Lens.mapping Data._Sensitive
 
 -- | Set this to @TRUE@ to include custom metadata in the response.
 getDocument_includeCustomMetadata :: Lens.Lens' GetDocument (Prelude.Maybe Prelude.Bool)
@@ -101,13 +102,14 @@ getDocument_documentId = Lens.lens (\GetDocument' {documentId} -> documentId) (\
 
 instance Core.AWSRequest GetDocument where
   type AWSResponse GetDocument = GetDocumentResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDocumentResponse'
-            Prelude.<$> (x Core..?> "CustomMetadata" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Metadata")
+            Prelude.<$> (x Data..?> "CustomMetadata" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Metadata")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -123,24 +125,24 @@ instance Prelude.NFData GetDocument where
       `Prelude.seq` Prelude.rnf includeCustomMetadata
       `Prelude.seq` Prelude.rnf documentId
 
-instance Core.ToHeaders GetDocument where
+instance Data.ToHeaders GetDocument where
   toHeaders GetDocument' {..} =
     Prelude.mconcat
-      [ "Authentication" Core.=# authenticationToken,
+      [ "Authentication" Data.=# authenticationToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath GetDocument where
+instance Data.ToPath GetDocument where
   toPath GetDocument' {..} =
     Prelude.mconcat
-      ["/api/v1/documents/", Core.toBS documentId]
+      ["/api/v1/documents/", Data.toBS documentId]
 
-instance Core.ToQuery GetDocument where
+instance Data.ToQuery GetDocument where
   toQuery GetDocument' {..} =
     Prelude.mconcat
       [ "includeCustomMetadata"
-          Core.=: includeCustomMetadata
+          Data.=: includeCustomMetadata
       ]
 
 -- | /See:/ 'newGetDocumentResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.SearchExpression
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.SearchExpression where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Wisdom.Types.Filter
 
@@ -58,9 +59,9 @@ instance Prelude.Hashable SearchExpression where
 instance Prelude.NFData SearchExpression where
   rnf SearchExpression' {..} = Prelude.rnf filters
 
-instance Core.ToJSON SearchExpression where
+instance Data.ToJSON SearchExpression where
   toJSON SearchExpression' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("filters" Core..= filters)]
+          [Prelude.Just ("filters" Data..= filters)]
       )

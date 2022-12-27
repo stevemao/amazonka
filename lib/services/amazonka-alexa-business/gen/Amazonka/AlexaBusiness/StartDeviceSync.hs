@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.StartDeviceSync
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,7 +58,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,7 +116,8 @@ instance Core.AWSRequest StartDeviceSync where
   type
     AWSResponse StartDeviceSync =
       StartDeviceSyncResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -135,35 +137,35 @@ instance Prelude.NFData StartDeviceSync where
       `Prelude.seq` Prelude.rnf roomArn
       `Prelude.seq` Prelude.rnf features
 
-instance Core.ToHeaders StartDeviceSync where
+instance Data.ToHeaders StartDeviceSync where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.StartDeviceSync" ::
+              Data.=# ( "AlexaForBusiness.StartDeviceSync" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartDeviceSync where
+instance Data.ToJSON StartDeviceSync where
   toJSON StartDeviceSync' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DeviceArn" Core..=) Prelude.<$> deviceArn,
-            ("RoomArn" Core..=) Prelude.<$> roomArn,
-            Prelude.Just ("Features" Core..= features)
+          [ ("DeviceArn" Data..=) Prelude.<$> deviceArn,
+            ("RoomArn" Data..=) Prelude.<$> roomArn,
+            Prelude.Just ("Features" Data..= features)
           ]
       )
 
-instance Core.ToPath StartDeviceSync where
+instance Data.ToPath StartDeviceSync where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartDeviceSync where
+instance Data.ToQuery StartDeviceSync where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartDeviceSyncResponse' smart constructor.

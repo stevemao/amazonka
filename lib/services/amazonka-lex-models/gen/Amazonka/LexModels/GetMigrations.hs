@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.GetMigrations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,12 +27,12 @@ module Amazonka.LexModels.GetMigrations
     newGetMigrations,
 
     -- * Request Lenses
-    getMigrations_sortByOrder,
-    getMigrations_sortByAttribute,
-    getMigrations_nextToken,
-    getMigrations_migrationStatusEquals,
-    getMigrations_v1BotNameContains,
     getMigrations_maxResults,
+    getMigrations_migrationStatusEquals,
+    getMigrations_nextToken,
+    getMigrations_sortByAttribute,
+    getMigrations_sortByOrder,
+    getMigrations_v1BotNameContains,
 
     -- * Destructuring the Response
     GetMigrationsResponse (..),
@@ -46,7 +46,8 @@ module Amazonka.LexModels.GetMigrations
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,24 +55,24 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetMigrations' smart constructor.
 data GetMigrations = GetMigrations'
-  { -- | The order so sort the list.
-    sortByOrder :: Prelude.Maybe SortOrder,
-    -- | The field to sort the list of migrations by. You can sort by the Amazon
-    -- Lex V1 bot name or the date and time that the migration was started.
-    sortByAttribute :: Prelude.Maybe MigrationSortAttribute,
+  { -- | The maximum number of migrations to return in the response. The default
+    -- is 10.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Filters the list to contain only migrations in the specified state.
+    migrationStatusEquals :: Prelude.Maybe MigrationStatus,
     -- | A pagination token that fetches the next page of migrations. If the
     -- response to this operation is truncated, Amazon Lex returns a pagination
     -- token in the response. To fetch the next page of migrations, specify the
     -- pagination token in the request.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Filters the list to contain only migrations in the specified state.
-    migrationStatusEquals :: Prelude.Maybe MigrationStatus,
+    -- | The field to sort the list of migrations by. You can sort by the Amazon
+    -- Lex V1 bot name or the date and time that the migration was started.
+    sortByAttribute :: Prelude.Maybe MigrationSortAttribute,
+    -- | The order so sort the list.
+    sortByOrder :: Prelude.Maybe SortOrder,
     -- | Filters the list to contain only bots whose name contains the specified
     -- string. The string is matched anywhere in bot name.
-    v1BotNameContains :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of migrations to return in the response. The default
-    -- is 10.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    v1BotNameContains :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -83,43 +84,43 @@ data GetMigrations = GetMigrations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sortByOrder', 'getMigrations_sortByOrder' - The order so sort the list.
+-- 'maxResults', 'getMigrations_maxResults' - The maximum number of migrations to return in the response. The default
+-- is 10.
 --
--- 'sortByAttribute', 'getMigrations_sortByAttribute' - The field to sort the list of migrations by. You can sort by the Amazon
--- Lex V1 bot name or the date and time that the migration was started.
+-- 'migrationStatusEquals', 'getMigrations_migrationStatusEquals' - Filters the list to contain only migrations in the specified state.
 --
 -- 'nextToken', 'getMigrations_nextToken' - A pagination token that fetches the next page of migrations. If the
 -- response to this operation is truncated, Amazon Lex returns a pagination
 -- token in the response. To fetch the next page of migrations, specify the
 -- pagination token in the request.
 --
--- 'migrationStatusEquals', 'getMigrations_migrationStatusEquals' - Filters the list to contain only migrations in the specified state.
+-- 'sortByAttribute', 'getMigrations_sortByAttribute' - The field to sort the list of migrations by. You can sort by the Amazon
+-- Lex V1 bot name or the date and time that the migration was started.
+--
+-- 'sortByOrder', 'getMigrations_sortByOrder' - The order so sort the list.
 --
 -- 'v1BotNameContains', 'getMigrations_v1BotNameContains' - Filters the list to contain only bots whose name contains the specified
 -- string. The string is matched anywhere in bot name.
---
--- 'maxResults', 'getMigrations_maxResults' - The maximum number of migrations to return in the response. The default
--- is 10.
 newGetMigrations ::
   GetMigrations
 newGetMigrations =
   GetMigrations'
-    { sortByOrder = Prelude.Nothing,
-      sortByAttribute = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       migrationStatusEquals = Prelude.Nothing,
-      v1BotNameContains = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing,
+      sortByAttribute = Prelude.Nothing,
+      sortByOrder = Prelude.Nothing,
+      v1BotNameContains = Prelude.Nothing
     }
 
--- | The order so sort the list.
-getMigrations_sortByOrder :: Lens.Lens' GetMigrations (Prelude.Maybe SortOrder)
-getMigrations_sortByOrder = Lens.lens (\GetMigrations' {sortByOrder} -> sortByOrder) (\s@GetMigrations' {} a -> s {sortByOrder = a} :: GetMigrations)
+-- | The maximum number of migrations to return in the response. The default
+-- is 10.
+getMigrations_maxResults :: Lens.Lens' GetMigrations (Prelude.Maybe Prelude.Natural)
+getMigrations_maxResults = Lens.lens (\GetMigrations' {maxResults} -> maxResults) (\s@GetMigrations' {} a -> s {maxResults = a} :: GetMigrations)
 
--- | The field to sort the list of migrations by. You can sort by the Amazon
--- Lex V1 bot name or the date and time that the migration was started.
-getMigrations_sortByAttribute :: Lens.Lens' GetMigrations (Prelude.Maybe MigrationSortAttribute)
-getMigrations_sortByAttribute = Lens.lens (\GetMigrations' {sortByAttribute} -> sortByAttribute) (\s@GetMigrations' {} a -> s {sortByAttribute = a} :: GetMigrations)
+-- | Filters the list to contain only migrations in the specified state.
+getMigrations_migrationStatusEquals :: Lens.Lens' GetMigrations (Prelude.Maybe MigrationStatus)
+getMigrations_migrationStatusEquals = Lens.lens (\GetMigrations' {migrationStatusEquals} -> migrationStatusEquals) (\s@GetMigrations' {} a -> s {migrationStatusEquals = a} :: GetMigrations)
 
 -- | A pagination token that fetches the next page of migrations. If the
 -- response to this operation is truncated, Amazon Lex returns a pagination
@@ -128,78 +129,79 @@ getMigrations_sortByAttribute = Lens.lens (\GetMigrations' {sortByAttribute} -> 
 getMigrations_nextToken :: Lens.Lens' GetMigrations (Prelude.Maybe Prelude.Text)
 getMigrations_nextToken = Lens.lens (\GetMigrations' {nextToken} -> nextToken) (\s@GetMigrations' {} a -> s {nextToken = a} :: GetMigrations)
 
--- | Filters the list to contain only migrations in the specified state.
-getMigrations_migrationStatusEquals :: Lens.Lens' GetMigrations (Prelude.Maybe MigrationStatus)
-getMigrations_migrationStatusEquals = Lens.lens (\GetMigrations' {migrationStatusEquals} -> migrationStatusEquals) (\s@GetMigrations' {} a -> s {migrationStatusEquals = a} :: GetMigrations)
+-- | The field to sort the list of migrations by. You can sort by the Amazon
+-- Lex V1 bot name or the date and time that the migration was started.
+getMigrations_sortByAttribute :: Lens.Lens' GetMigrations (Prelude.Maybe MigrationSortAttribute)
+getMigrations_sortByAttribute = Lens.lens (\GetMigrations' {sortByAttribute} -> sortByAttribute) (\s@GetMigrations' {} a -> s {sortByAttribute = a} :: GetMigrations)
+
+-- | The order so sort the list.
+getMigrations_sortByOrder :: Lens.Lens' GetMigrations (Prelude.Maybe SortOrder)
+getMigrations_sortByOrder = Lens.lens (\GetMigrations' {sortByOrder} -> sortByOrder) (\s@GetMigrations' {} a -> s {sortByOrder = a} :: GetMigrations)
 
 -- | Filters the list to contain only bots whose name contains the specified
 -- string. The string is matched anywhere in bot name.
 getMigrations_v1BotNameContains :: Lens.Lens' GetMigrations (Prelude.Maybe Prelude.Text)
 getMigrations_v1BotNameContains = Lens.lens (\GetMigrations' {v1BotNameContains} -> v1BotNameContains) (\s@GetMigrations' {} a -> s {v1BotNameContains = a} :: GetMigrations)
 
--- | The maximum number of migrations to return in the response. The default
--- is 10.
-getMigrations_maxResults :: Lens.Lens' GetMigrations (Prelude.Maybe Prelude.Natural)
-getMigrations_maxResults = Lens.lens (\GetMigrations' {maxResults} -> maxResults) (\s@GetMigrations' {} a -> s {maxResults = a} :: GetMigrations)
-
 instance Core.AWSRequest GetMigrations where
   type
     AWSResponse GetMigrations =
       GetMigrationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetMigrationsResponse'
-            Prelude.<$> ( x Core..?> "migrationSummaries"
+            Prelude.<$> ( x Data..?> "migrationSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetMigrations where
   hashWithSalt _salt GetMigrations' {..} =
-    _salt `Prelude.hashWithSalt` sortByOrder
-      `Prelude.hashWithSalt` sortByAttribute
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` migrationStatusEquals
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sortByAttribute
+      `Prelude.hashWithSalt` sortByOrder
       `Prelude.hashWithSalt` v1BotNameContains
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData GetMigrations where
   rnf GetMigrations' {..} =
-    Prelude.rnf sortByOrder
-      `Prelude.seq` Prelude.rnf sortByAttribute
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf migrationStatusEquals
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sortByAttribute
+      `Prelude.seq` Prelude.rnf sortByOrder
       `Prelude.seq` Prelude.rnf v1BotNameContains
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders GetMigrations where
+instance Data.ToHeaders GetMigrations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetMigrations where
+instance Data.ToPath GetMigrations where
   toPath = Prelude.const "/migrations"
 
-instance Core.ToQuery GetMigrations where
+instance Data.ToQuery GetMigrations where
   toQuery GetMigrations' {..} =
     Prelude.mconcat
-      [ "sortByOrder" Core.=: sortByOrder,
-        "sortByAttribute" Core.=: sortByAttribute,
-        "nextToken" Core.=: nextToken,
+      [ "maxResults" Data.=: maxResults,
         "migrationStatusEquals"
-          Core.=: migrationStatusEquals,
-        "v1BotNameContains" Core.=: v1BotNameContains,
-        "maxResults" Core.=: maxResults
+          Data.=: migrationStatusEquals,
+        "nextToken" Data.=: nextToken,
+        "sortByAttribute" Data.=: sortByAttribute,
+        "sortByOrder" Data.=: sortByOrder,
+        "v1BotNameContains" Data.=: v1BotNameContains
       ]
 
 -- | /See:/ 'newGetMigrationsResponse' smart constructor.

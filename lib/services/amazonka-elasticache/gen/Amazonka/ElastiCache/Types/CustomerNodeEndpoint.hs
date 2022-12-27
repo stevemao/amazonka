@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Types.CustomerNodeEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElastiCache.Types.CustomerNodeEndpoint where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The endpoint from which data should be migrated.
@@ -70,7 +71,7 @@ instance Prelude.NFData CustomerNodeEndpoint where
   rnf CustomerNodeEndpoint' {..} =
     Prelude.rnf address `Prelude.seq` Prelude.rnf port
 
-instance Core.ToQuery CustomerNodeEndpoint where
+instance Data.ToQuery CustomerNodeEndpoint where
   toQuery CustomerNodeEndpoint' {..} =
     Prelude.mconcat
-      ["Address" Core.=: address, "Port" Core.=: port]
+      ["Address" Data.=: address, "Port" Data.=: port]

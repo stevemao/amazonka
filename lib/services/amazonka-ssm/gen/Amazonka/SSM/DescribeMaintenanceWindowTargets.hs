@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.DescribeMaintenanceWindowTargets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.SSM.DescribeMaintenanceWindowTargets
 
     -- * Request Lenses
     describeMaintenanceWindowTargets_filters,
-    describeMaintenanceWindowTargets_nextToken,
     describeMaintenanceWindowTargets_maxResults,
+    describeMaintenanceWindowTargets_nextToken,
     describeMaintenanceWindowTargets_windowId,
 
     -- * Destructuring the Response
@@ -46,7 +46,8 @@ module Amazonka.SSM.DescribeMaintenanceWindowTargets
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,13 +59,13 @@ data DescribeMaintenanceWindowTargets = DescribeMaintenanceWindowTargets'
     -- returned window targets. The supported filter keys are @Type@,
     -- @WindowTargetId@, and @OwnerInformation@.
     filters :: Prelude.Maybe [MaintenanceWindowFilter],
-    -- | The token for the next set of items to return. (You received this token
-    -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of items to return for this call. The call also
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the maintenance window whose targets should be retrieved.
     windowId :: Prelude.Text
   }
@@ -82,12 +83,12 @@ data DescribeMaintenanceWindowTargets = DescribeMaintenanceWindowTargets'
 -- returned window targets. The supported filter keys are @Type@,
 -- @WindowTargetId@, and @OwnerInformation@.
 --
--- 'nextToken', 'describeMaintenanceWindowTargets_nextToken' - The token for the next set of items to return. (You received this token
--- from a previous call.)
---
 -- 'maxResults', 'describeMaintenanceWindowTargets_maxResults' - The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
+--
+-- 'nextToken', 'describeMaintenanceWindowTargets_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
 -- 'windowId', 'describeMaintenanceWindowTargets_windowId' - The ID of the maintenance window whose targets should be retrieved.
 newDescribeMaintenanceWindowTargets ::
@@ -98,8 +99,8 @@ newDescribeMaintenanceWindowTargets pWindowId_ =
   DescribeMaintenanceWindowTargets'
     { filters =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       windowId = pWindowId_
     }
 
@@ -109,16 +110,16 @@ newDescribeMaintenanceWindowTargets pWindowId_ =
 describeMaintenanceWindowTargets_filters :: Lens.Lens' DescribeMaintenanceWindowTargets (Prelude.Maybe [MaintenanceWindowFilter])
 describeMaintenanceWindowTargets_filters = Lens.lens (\DescribeMaintenanceWindowTargets' {filters} -> filters) (\s@DescribeMaintenanceWindowTargets' {} a -> s {filters = a} :: DescribeMaintenanceWindowTargets) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next set of items to return. (You received this token
--- from a previous call.)
-describeMaintenanceWindowTargets_nextToken :: Lens.Lens' DescribeMaintenanceWindowTargets (Prelude.Maybe Prelude.Text)
-describeMaintenanceWindowTargets_nextToken = Lens.lens (\DescribeMaintenanceWindowTargets' {nextToken} -> nextToken) (\s@DescribeMaintenanceWindowTargets' {} a -> s {nextToken = a} :: DescribeMaintenanceWindowTargets)
-
 -- | The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
 describeMaintenanceWindowTargets_maxResults :: Lens.Lens' DescribeMaintenanceWindowTargets (Prelude.Maybe Prelude.Natural)
 describeMaintenanceWindowTargets_maxResults = Lens.lens (\DescribeMaintenanceWindowTargets' {maxResults} -> maxResults) (\s@DescribeMaintenanceWindowTargets' {} a -> s {maxResults = a} :: DescribeMaintenanceWindowTargets)
+
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeMaintenanceWindowTargets_nextToken :: Lens.Lens' DescribeMaintenanceWindowTargets (Prelude.Maybe Prelude.Text)
+describeMaintenanceWindowTargets_nextToken = Lens.lens (\DescribeMaintenanceWindowTargets' {nextToken} -> nextToken) (\s@DescribeMaintenanceWindowTargets' {} a -> s {nextToken = a} :: DescribeMaintenanceWindowTargets)
 
 -- | The ID of the maintenance window whose targets should be retrieved.
 describeMaintenanceWindowTargets_windowId :: Lens.Lens' DescribeMaintenanceWindowTargets Prelude.Text
@@ -156,13 +157,14 @@ instance
   type
     AWSResponse DescribeMaintenanceWindowTargets =
       DescribeMaintenanceWindowTargetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeMaintenanceWindowTargetsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Targets" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Targets" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -174,8 +176,8 @@ instance
     _salt
     DescribeMaintenanceWindowTargets' {..} =
       _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` windowId
 
 instance
@@ -184,44 +186,44 @@ instance
   where
   rnf DescribeMaintenanceWindowTargets' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf windowId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeMaintenanceWindowTargets
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.DescribeMaintenanceWindowTargets" ::
+              Data.=# ( "AmazonSSM.DescribeMaintenanceWindowTargets" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeMaintenanceWindowTargets where
+instance Data.ToJSON DescribeMaintenanceWindowTargets where
   toJSON DescribeMaintenanceWindowTargets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("WindowId" Core..= windowId)
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("WindowId" Data..= windowId)
           ]
       )
 
-instance Core.ToPath DescribeMaintenanceWindowTargets where
+instance Data.ToPath DescribeMaintenanceWindowTargets where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeMaintenanceWindowTargets
   where
   toQuery = Prelude.const Prelude.mempty

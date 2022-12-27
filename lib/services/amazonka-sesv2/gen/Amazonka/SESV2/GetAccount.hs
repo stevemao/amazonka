@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.GetAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,19 +32,21 @@ module Amazonka.SESV2.GetAccount
     newGetAccountResponse,
 
     -- * Response Lenses
-    getAccountResponse_enforcementStatus,
     getAccountResponse_dedicatedIpAutoWarmupEnabled,
-    getAccountResponse_sendQuota,
-    getAccountResponse_productionAccessEnabled,
     getAccountResponse_details,
-    getAccountResponse_suppressionAttributes,
+    getAccountResponse_enforcementStatus,
+    getAccountResponse_productionAccessEnabled,
+    getAccountResponse_sendQuota,
     getAccountResponse_sendingEnabled,
+    getAccountResponse_suppressionAttributes,
+    getAccountResponse_vdmAttributes,
     getAccountResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,18 +71,20 @@ newGetAccount = GetAccount'
 
 instance Core.AWSRequest GetAccount where
   type AWSResponse GetAccount = GetAccountResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAccountResponse'
-            Prelude.<$> (x Core..?> "EnforcementStatus")
-            Prelude.<*> (x Core..?> "DedicatedIpAutoWarmupEnabled")
-            Prelude.<*> (x Core..?> "SendQuota")
-            Prelude.<*> (x Core..?> "ProductionAccessEnabled")
-            Prelude.<*> (x Core..?> "Details")
-            Prelude.<*> (x Core..?> "SuppressionAttributes")
-            Prelude.<*> (x Core..?> "SendingEnabled")
+            Prelude.<$> (x Data..?> "DedicatedIpAutoWarmupEnabled")
+            Prelude.<*> (x Data..?> "Details")
+            Prelude.<*> (x Data..?> "EnforcementStatus")
+            Prelude.<*> (x Data..?> "ProductionAccessEnabled")
+            Prelude.<*> (x Data..?> "SendQuota")
+            Prelude.<*> (x Data..?> "SendingEnabled")
+            Prelude.<*> (x Data..?> "SuppressionAttributes")
+            Prelude.<*> (x Data..?> "VdmAttributes")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -91,21 +95,21 @@ instance Prelude.Hashable GetAccount where
 instance Prelude.NFData GetAccount where
   rnf _ = ()
 
-instance Core.ToHeaders GetAccount where
+instance Data.ToHeaders GetAccount where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetAccount where
+instance Data.ToPath GetAccount where
   toPath = Prelude.const "/v2/email/account"
 
-instance Core.ToQuery GetAccount where
+instance Data.ToQuery GetAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A list of details about the email-sending capabilities of your Amazon
@@ -113,7 +117,12 @@ instance Core.ToQuery GetAccount where
 --
 -- /See:/ 'newGetAccountResponse' smart constructor.
 data GetAccountResponse = GetAccountResponse'
-  { -- | The reputation status of your Amazon SES account. The status can be one
+  { -- | Indicates whether or not the automatic warm-up feature is enabled for
+    -- dedicated IP addresses that are associated with your account.
+    dedicatedIpAutoWarmupEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | An object that defines your account details.
+    details :: Prelude.Maybe AccountDetails,
+    -- | The reputation status of your Amazon SES account. The status can be one
     -- of the following:
     --
     -- -   @HEALTHY@ – There are no reputation-related issues that currently
@@ -128,13 +137,6 @@ data GetAccountResponse = GetAccountResponse'
     --     When you correct the issue, you can contact us and request that your
     --     account\'s ability to send email is resumed.
     enforcementStatus :: Prelude.Maybe Prelude.Text,
-    -- | Indicates whether or not the automatic warm-up feature is enabled for
-    -- dedicated IP addresses that are associated with your account.
-    dedicatedIpAutoWarmupEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | An object that contains information about the per-day and per-second
-    -- sending limits for your Amazon SES account in the current Amazon Web
-    -- Services Region.
-    sendQuota :: Prelude.Maybe SendQuota,
     -- | Indicates whether or not your account has production access in the
     -- current Amazon Web Services Region.
     --
@@ -149,14 +151,18 @@ data GetAccountResponse = GetAccountResponse'
     -- The sending quota and maximum sending rate for your account vary based
     -- on your specific use case.
     productionAccessEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | An object that defines your account details.
-    details :: Prelude.Maybe AccountDetails,
-    -- | An object that contains information about the email address suppression
-    -- preferences for your account in the current Amazon Web Services Region.
-    suppressionAttributes :: Prelude.Maybe SuppressionAttributes,
+    -- | An object that contains information about the per-day and per-second
+    -- sending limits for your Amazon SES account in the current Amazon Web
+    -- Services Region.
+    sendQuota :: Prelude.Maybe SendQuota,
     -- | Indicates whether or not email sending is enabled for your Amazon SES
     -- account in the current Amazon Web Services Region.
     sendingEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | An object that contains information about the email address suppression
+    -- preferences for your account in the current Amazon Web Services Region.
+    suppressionAttributes :: Prelude.Maybe SuppressionAttributes,
+    -- | The VDM attributes that apply to your Amazon SES account.
+    vdmAttributes :: Prelude.Maybe VdmAttributes,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -169,6 +175,11 @@ data GetAccountResponse = GetAccountResponse'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dedicatedIpAutoWarmupEnabled', 'getAccountResponse_dedicatedIpAutoWarmupEnabled' - Indicates whether or not the automatic warm-up feature is enabled for
+-- dedicated IP addresses that are associated with your account.
+--
+-- 'details', 'getAccountResponse_details' - An object that defines your account details.
 --
 -- 'enforcementStatus', 'getAccountResponse_enforcementStatus' - The reputation status of your Amazon SES account. The status can be one
 -- of the following:
@@ -185,13 +196,6 @@ data GetAccountResponse = GetAccountResponse'
 --     When you correct the issue, you can contact us and request that your
 --     account\'s ability to send email is resumed.
 --
--- 'dedicatedIpAutoWarmupEnabled', 'getAccountResponse_dedicatedIpAutoWarmupEnabled' - Indicates whether or not the automatic warm-up feature is enabled for
--- dedicated IP addresses that are associated with your account.
---
--- 'sendQuota', 'getAccountResponse_sendQuota' - An object that contains information about the per-day and per-second
--- sending limits for your Amazon SES account in the current Amazon Web
--- Services Region.
---
 -- 'productionAccessEnabled', 'getAccountResponse_productionAccessEnabled' - Indicates whether or not your account has production access in the
 -- current Amazon Web Services Region.
 --
@@ -206,13 +210,17 @@ data GetAccountResponse = GetAccountResponse'
 -- The sending quota and maximum sending rate for your account vary based
 -- on your specific use case.
 --
--- 'details', 'getAccountResponse_details' - An object that defines your account details.
+-- 'sendQuota', 'getAccountResponse_sendQuota' - An object that contains information about the per-day and per-second
+-- sending limits for your Amazon SES account in the current Amazon Web
+-- Services Region.
+--
+-- 'sendingEnabled', 'getAccountResponse_sendingEnabled' - Indicates whether or not email sending is enabled for your Amazon SES
+-- account in the current Amazon Web Services Region.
 --
 -- 'suppressionAttributes', 'getAccountResponse_suppressionAttributes' - An object that contains information about the email address suppression
 -- preferences for your account in the current Amazon Web Services Region.
 --
--- 'sendingEnabled', 'getAccountResponse_sendingEnabled' - Indicates whether or not email sending is enabled for your Amazon SES
--- account in the current Amazon Web Services Region.
+-- 'vdmAttributes', 'getAccountResponse_vdmAttributes' - The VDM attributes that apply to your Amazon SES account.
 --
 -- 'httpStatus', 'getAccountResponse_httpStatus' - The response's http status code.
 newGetAccountResponse ::
@@ -221,16 +229,26 @@ newGetAccountResponse ::
   GetAccountResponse
 newGetAccountResponse pHttpStatus_ =
   GetAccountResponse'
-    { enforcementStatus =
+    { dedicatedIpAutoWarmupEnabled =
         Prelude.Nothing,
-      dedicatedIpAutoWarmupEnabled = Prelude.Nothing,
-      sendQuota = Prelude.Nothing,
-      productionAccessEnabled = Prelude.Nothing,
       details = Prelude.Nothing,
-      suppressionAttributes = Prelude.Nothing,
+      enforcementStatus = Prelude.Nothing,
+      productionAccessEnabled = Prelude.Nothing,
+      sendQuota = Prelude.Nothing,
       sendingEnabled = Prelude.Nothing,
+      suppressionAttributes = Prelude.Nothing,
+      vdmAttributes = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Indicates whether or not the automatic warm-up feature is enabled for
+-- dedicated IP addresses that are associated with your account.
+getAccountResponse_dedicatedIpAutoWarmupEnabled :: Lens.Lens' GetAccountResponse (Prelude.Maybe Prelude.Bool)
+getAccountResponse_dedicatedIpAutoWarmupEnabled = Lens.lens (\GetAccountResponse' {dedicatedIpAutoWarmupEnabled} -> dedicatedIpAutoWarmupEnabled) (\s@GetAccountResponse' {} a -> s {dedicatedIpAutoWarmupEnabled = a} :: GetAccountResponse)
+
+-- | An object that defines your account details.
+getAccountResponse_details :: Lens.Lens' GetAccountResponse (Prelude.Maybe AccountDetails)
+getAccountResponse_details = Lens.lens (\GetAccountResponse' {details} -> details) (\s@GetAccountResponse' {} a -> s {details = a} :: GetAccountResponse)
 
 -- | The reputation status of your Amazon SES account. The status can be one
 -- of the following:
@@ -249,17 +267,6 @@ newGetAccountResponse pHttpStatus_ =
 getAccountResponse_enforcementStatus :: Lens.Lens' GetAccountResponse (Prelude.Maybe Prelude.Text)
 getAccountResponse_enforcementStatus = Lens.lens (\GetAccountResponse' {enforcementStatus} -> enforcementStatus) (\s@GetAccountResponse' {} a -> s {enforcementStatus = a} :: GetAccountResponse)
 
--- | Indicates whether or not the automatic warm-up feature is enabled for
--- dedicated IP addresses that are associated with your account.
-getAccountResponse_dedicatedIpAutoWarmupEnabled :: Lens.Lens' GetAccountResponse (Prelude.Maybe Prelude.Bool)
-getAccountResponse_dedicatedIpAutoWarmupEnabled = Lens.lens (\GetAccountResponse' {dedicatedIpAutoWarmupEnabled} -> dedicatedIpAutoWarmupEnabled) (\s@GetAccountResponse' {} a -> s {dedicatedIpAutoWarmupEnabled = a} :: GetAccountResponse)
-
--- | An object that contains information about the per-day and per-second
--- sending limits for your Amazon SES account in the current Amazon Web
--- Services Region.
-getAccountResponse_sendQuota :: Lens.Lens' GetAccountResponse (Prelude.Maybe SendQuota)
-getAccountResponse_sendQuota = Lens.lens (\GetAccountResponse' {sendQuota} -> sendQuota) (\s@GetAccountResponse' {} a -> s {sendQuota = a} :: GetAccountResponse)
-
 -- | Indicates whether or not your account has production access in the
 -- current Amazon Web Services Region.
 --
@@ -276,19 +283,25 @@ getAccountResponse_sendQuota = Lens.lens (\GetAccountResponse' {sendQuota} -> se
 getAccountResponse_productionAccessEnabled :: Lens.Lens' GetAccountResponse (Prelude.Maybe Prelude.Bool)
 getAccountResponse_productionAccessEnabled = Lens.lens (\GetAccountResponse' {productionAccessEnabled} -> productionAccessEnabled) (\s@GetAccountResponse' {} a -> s {productionAccessEnabled = a} :: GetAccountResponse)
 
--- | An object that defines your account details.
-getAccountResponse_details :: Lens.Lens' GetAccountResponse (Prelude.Maybe AccountDetails)
-getAccountResponse_details = Lens.lens (\GetAccountResponse' {details} -> details) (\s@GetAccountResponse' {} a -> s {details = a} :: GetAccountResponse)
+-- | An object that contains information about the per-day and per-second
+-- sending limits for your Amazon SES account in the current Amazon Web
+-- Services Region.
+getAccountResponse_sendQuota :: Lens.Lens' GetAccountResponse (Prelude.Maybe SendQuota)
+getAccountResponse_sendQuota = Lens.lens (\GetAccountResponse' {sendQuota} -> sendQuota) (\s@GetAccountResponse' {} a -> s {sendQuota = a} :: GetAccountResponse)
+
+-- | Indicates whether or not email sending is enabled for your Amazon SES
+-- account in the current Amazon Web Services Region.
+getAccountResponse_sendingEnabled :: Lens.Lens' GetAccountResponse (Prelude.Maybe Prelude.Bool)
+getAccountResponse_sendingEnabled = Lens.lens (\GetAccountResponse' {sendingEnabled} -> sendingEnabled) (\s@GetAccountResponse' {} a -> s {sendingEnabled = a} :: GetAccountResponse)
 
 -- | An object that contains information about the email address suppression
 -- preferences for your account in the current Amazon Web Services Region.
 getAccountResponse_suppressionAttributes :: Lens.Lens' GetAccountResponse (Prelude.Maybe SuppressionAttributes)
 getAccountResponse_suppressionAttributes = Lens.lens (\GetAccountResponse' {suppressionAttributes} -> suppressionAttributes) (\s@GetAccountResponse' {} a -> s {suppressionAttributes = a} :: GetAccountResponse)
 
--- | Indicates whether or not email sending is enabled for your Amazon SES
--- account in the current Amazon Web Services Region.
-getAccountResponse_sendingEnabled :: Lens.Lens' GetAccountResponse (Prelude.Maybe Prelude.Bool)
-getAccountResponse_sendingEnabled = Lens.lens (\GetAccountResponse' {sendingEnabled} -> sendingEnabled) (\s@GetAccountResponse' {} a -> s {sendingEnabled = a} :: GetAccountResponse)
+-- | The VDM attributes that apply to your Amazon SES account.
+getAccountResponse_vdmAttributes :: Lens.Lens' GetAccountResponse (Prelude.Maybe VdmAttributes)
+getAccountResponse_vdmAttributes = Lens.lens (\GetAccountResponse' {vdmAttributes} -> vdmAttributes) (\s@GetAccountResponse' {} a -> s {vdmAttributes = a} :: GetAccountResponse)
 
 -- | The response's http status code.
 getAccountResponse_httpStatus :: Lens.Lens' GetAccountResponse Prelude.Int
@@ -296,11 +309,12 @@ getAccountResponse_httpStatus = Lens.lens (\GetAccountResponse' {httpStatus} -> 
 
 instance Prelude.NFData GetAccountResponse where
   rnf GetAccountResponse' {..} =
-    Prelude.rnf enforcementStatus
-      `Prelude.seq` Prelude.rnf dedicatedIpAutoWarmupEnabled
-      `Prelude.seq` Prelude.rnf sendQuota
-      `Prelude.seq` Prelude.rnf productionAccessEnabled
+    Prelude.rnf dedicatedIpAutoWarmupEnabled
       `Prelude.seq` Prelude.rnf details
-      `Prelude.seq` Prelude.rnf suppressionAttributes
+      `Prelude.seq` Prelude.rnf enforcementStatus
+      `Prelude.seq` Prelude.rnf productionAccessEnabled
+      `Prelude.seq` Prelude.rnf sendQuota
       `Prelude.seq` Prelude.rnf sendingEnabled
+      `Prelude.seq` Prelude.rnf suppressionAttributes
+      `Prelude.seq` Prelude.rnf vdmAttributes
       `Prelude.seq` Prelude.rnf httpStatus

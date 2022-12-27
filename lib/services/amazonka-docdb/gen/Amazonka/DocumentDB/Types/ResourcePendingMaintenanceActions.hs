@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.Types.ResourcePendingMaintenanceActions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DocumentDB.Types.ResourcePendingMaintenanceActions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types.PendingMaintenanceAction
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output of ApplyPendingMaintenanceAction.
@@ -70,17 +71,17 @@ resourcePendingMaintenanceActions_resourceIdentifier :: Lens.Lens' ResourcePendi
 resourcePendingMaintenanceActions_resourceIdentifier = Lens.lens (\ResourcePendingMaintenanceActions' {resourceIdentifier} -> resourceIdentifier) (\s@ResourcePendingMaintenanceActions' {} a -> s {resourceIdentifier = a} :: ResourcePendingMaintenanceActions)
 
 instance
-  Core.FromXML
+  Data.FromXML
     ResourcePendingMaintenanceActions
   where
   parseXML x =
     ResourcePendingMaintenanceActions'
-      Prelude.<$> ( x Core..@? "PendingMaintenanceActionDetails"
+      Prelude.<$> ( x Data..@? "PendingMaintenanceActionDetails"
                       Core..!@ Prelude.mempty
                       Prelude.>>= Core.may
-                        (Core.parseXMLList "PendingMaintenanceAction")
+                        (Data.parseXMLList "PendingMaintenanceAction")
                   )
-      Prelude.<*> (x Core..@? "ResourceIdentifier")
+      Prelude.<*> (x Data..@? "ResourceIdentifier")
 
 instance
   Prelude.Hashable

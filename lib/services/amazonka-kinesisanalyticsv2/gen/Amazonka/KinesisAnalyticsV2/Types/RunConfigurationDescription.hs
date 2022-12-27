@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.RunConfigurationDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.KinesisAnalyticsV2.Types.RunConfigurationDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.ApplicationRestoreConfiguration
 import Amazonka.KinesisAnalyticsV2.Types.FlinkRunConfiguration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the starting properties for a Kinesis Data Analytics
@@ -65,16 +66,16 @@ runConfigurationDescription_applicationRestoreConfigurationDescription = Lens.le
 runConfigurationDescription_flinkRunConfigurationDescription :: Lens.Lens' RunConfigurationDescription (Prelude.Maybe FlinkRunConfiguration)
 runConfigurationDescription_flinkRunConfigurationDescription = Lens.lens (\RunConfigurationDescription' {flinkRunConfigurationDescription} -> flinkRunConfigurationDescription) (\s@RunConfigurationDescription' {} a -> s {flinkRunConfigurationDescription = a} :: RunConfigurationDescription)
 
-instance Core.FromJSON RunConfigurationDescription where
+instance Data.FromJSON RunConfigurationDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RunConfigurationDescription"
       ( \x ->
           RunConfigurationDescription'
             Prelude.<$> ( x
-                            Core..:? "ApplicationRestoreConfigurationDescription"
+                            Data..:? "ApplicationRestoreConfigurationDescription"
                         )
-            Prelude.<*> (x Core..:? "FlinkRunConfigurationDescription")
+            Prelude.<*> (x Data..:? "FlinkRunConfigurationDescription")
       )
 
 instance Prelude.Hashable RunConfigurationDescription where

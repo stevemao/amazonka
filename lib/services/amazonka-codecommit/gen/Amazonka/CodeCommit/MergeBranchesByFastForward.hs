@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.MergeBranchesByFastForward
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -125,13 +126,14 @@ instance Core.AWSRequest MergeBranchesByFastForward where
   type
     AWSResponse MergeBranchesByFastForward =
       MergeBranchesByFastForwardResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           MergeBranchesByFastForwardResponse'
-            Prelude.<$> (x Core..?> "commitId")
-            Prelude.<*> (x Core..?> "treeId")
+            Prelude.<$> (x Data..?> "commitId")
+            Prelude.<*> (x Data..?> "treeId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -149,43 +151,43 @@ instance Prelude.NFData MergeBranchesByFastForward where
       `Prelude.seq` Prelude.rnf sourceCommitSpecifier
       `Prelude.seq` Prelude.rnf destinationCommitSpecifier
 
-instance Core.ToHeaders MergeBranchesByFastForward where
+instance Data.ToHeaders MergeBranchesByFastForward where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.MergeBranchesByFastForward" ::
+              Data.=# ( "CodeCommit_20150413.MergeBranchesByFastForward" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON MergeBranchesByFastForward where
+instance Data.ToJSON MergeBranchesByFastForward where
   toJSON MergeBranchesByFastForward' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("targetBranch" Core..=) Prelude.<$> targetBranch,
+          [ ("targetBranch" Data..=) Prelude.<$> targetBranch,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
+              ("repositoryName" Data..= repositoryName),
             Prelude.Just
               ( "sourceCommitSpecifier"
-                  Core..= sourceCommitSpecifier
+                  Data..= sourceCommitSpecifier
               ),
             Prelude.Just
               ( "destinationCommitSpecifier"
-                  Core..= destinationCommitSpecifier
+                  Data..= destinationCommitSpecifier
               )
           ]
       )
 
-instance Core.ToPath MergeBranchesByFastForward where
+instance Data.ToPath MergeBranchesByFastForward where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery MergeBranchesByFastForward where
+instance Data.ToQuery MergeBranchesByFastForward where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newMergeBranchesByFastForwardResponse' smart constructor.

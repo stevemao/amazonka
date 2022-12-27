@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.GrpcGatewayRouteAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AppMesh.Types.GrpcGatewayRouteAction where
 import Amazonka.AppMesh.Types.GatewayRouteTarget
 import Amazonka.AppMesh.Types.GrpcGatewayRouteRewrite
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the action to take if a match is determined.
@@ -68,14 +69,14 @@ grpcGatewayRouteAction_rewrite = Lens.lens (\GrpcGatewayRouteAction' {rewrite} -
 grpcGatewayRouteAction_target :: Lens.Lens' GrpcGatewayRouteAction GatewayRouteTarget
 grpcGatewayRouteAction_target = Lens.lens (\GrpcGatewayRouteAction' {target} -> target) (\s@GrpcGatewayRouteAction' {} a -> s {target = a} :: GrpcGatewayRouteAction)
 
-instance Core.FromJSON GrpcGatewayRouteAction where
+instance Data.FromJSON GrpcGatewayRouteAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GrpcGatewayRouteAction"
       ( \x ->
           GrpcGatewayRouteAction'
-            Prelude.<$> (x Core..:? "rewrite")
-            Prelude.<*> (x Core..: "target")
+            Prelude.<$> (x Data..:? "rewrite")
+            Prelude.<*> (x Data..: "target")
       )
 
 instance Prelude.Hashable GrpcGatewayRouteAction where
@@ -88,11 +89,11 @@ instance Prelude.NFData GrpcGatewayRouteAction where
     Prelude.rnf rewrite
       `Prelude.seq` Prelude.rnf target
 
-instance Core.ToJSON GrpcGatewayRouteAction where
+instance Data.ToJSON GrpcGatewayRouteAction where
   toJSON GrpcGatewayRouteAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("rewrite" Core..=) Prelude.<$> rewrite,
-            Prelude.Just ("target" Core..= target)
+          [ ("rewrite" Data..=) Prelude.<$> rewrite,
+            Prelude.Just ("target" Data..= target)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.ViolationEventAdditionalInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.ViolationEventAdditionalInfo where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.ConfidenceLevel
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of a violation event.
@@ -57,13 +58,13 @@ newViolationEventAdditionalInfo =
 violationEventAdditionalInfo_confidenceLevel :: Lens.Lens' ViolationEventAdditionalInfo (Prelude.Maybe ConfidenceLevel)
 violationEventAdditionalInfo_confidenceLevel = Lens.lens (\ViolationEventAdditionalInfo' {confidenceLevel} -> confidenceLevel) (\s@ViolationEventAdditionalInfo' {} a -> s {confidenceLevel = a} :: ViolationEventAdditionalInfo)
 
-instance Core.FromJSON ViolationEventAdditionalInfo where
+instance Data.FromJSON ViolationEventAdditionalInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ViolationEventAdditionalInfo"
       ( \x ->
           ViolationEventAdditionalInfo'
-            Prelude.<$> (x Core..:? "confidenceLevel")
+            Prelude.<$> (x Data..:? "confidenceLevel")
       )
 
 instance

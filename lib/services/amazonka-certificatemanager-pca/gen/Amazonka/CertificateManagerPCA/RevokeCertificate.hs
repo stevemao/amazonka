@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.RevokeCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,7 +35,7 @@
 -- bucket that you specify. If the IAM principal making the call does not
 -- have permission to write to the bucket, then an exception is thrown. For
 -- more information, see
--- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaAuthAccess.html Configure Access to ACM Private CA>.
+-- <https://docs.aws.amazon.com/acm-pca/latest/userguide/crl-planning.html#s3-policies Access policies for CRLs in Amazon S3>.
 --
 -- ACM Private CA also writes revocation information to the audit report.
 -- For more information, see
@@ -60,7 +60,8 @@ where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,7 +86,7 @@ data RevokeCertificate = RevokeCertificate'
     --
     -- You can also copy the serial number from the console or use the
     -- <https://docs.aws.amazon.com/acm/latest/APIReference/API_DescribeCertificate.html DescribeCertificate>
-    -- action in the /AWS Certificate Manager API Reference/.
+    -- action in the /Certificate Manager API Reference/.
     certificateSerial :: Prelude.Text,
     -- | Specifies why you revoked the certificate.
     revocationReason :: RevocationReason
@@ -118,7 +119,7 @@ data RevokeCertificate = RevokeCertificate'
 --
 -- You can also copy the serial number from the console or use the
 -- <https://docs.aws.amazon.com/acm/latest/APIReference/API_DescribeCertificate.html DescribeCertificate>
--- action in the /AWS Certificate Manager API Reference/.
+-- action in the /Certificate Manager API Reference/.
 --
 -- 'revocationReason', 'revokeCertificate_revocationReason' - Specifies why you revoked the certificate.
 newRevokeCertificate ::
@@ -160,7 +161,7 @@ revokeCertificate_certificateAuthorityArn = Lens.lens (\RevokeCertificate' {cert
 --
 -- You can also copy the serial number from the console or use the
 -- <https://docs.aws.amazon.com/acm/latest/APIReference/API_DescribeCertificate.html DescribeCertificate>
--- action in the /AWS Certificate Manager API Reference/.
+-- action in the /Certificate Manager API Reference/.
 revokeCertificate_certificateSerial :: Lens.Lens' RevokeCertificate Prelude.Text
 revokeCertificate_certificateSerial = Lens.lens (\RevokeCertificate' {certificateSerial} -> certificateSerial) (\s@RevokeCertificate' {} a -> s {certificateSerial = a} :: RevokeCertificate)
 
@@ -172,7 +173,8 @@ instance Core.AWSRequest RevokeCertificate where
   type
     AWSResponse RevokeCertificate =
       RevokeCertificateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull RevokeCertificateResponse'
 
@@ -189,40 +191,40 @@ instance Prelude.NFData RevokeCertificate where
       `Prelude.seq` Prelude.rnf certificateSerial
       `Prelude.seq` Prelude.rnf revocationReason
 
-instance Core.ToHeaders RevokeCertificate where
+instance Data.ToHeaders RevokeCertificate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ACMPrivateCA.RevokeCertificate" ::
+              Data.=# ( "ACMPrivateCA.RevokeCertificate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RevokeCertificate where
+instance Data.ToJSON RevokeCertificate where
   toJSON RevokeCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "CertificateAuthorityArn"
-                  Core..= certificateAuthorityArn
+                  Data..= certificateAuthorityArn
               ),
             Prelude.Just
-              ("CertificateSerial" Core..= certificateSerial),
+              ("CertificateSerial" Data..= certificateSerial),
             Prelude.Just
-              ("RevocationReason" Core..= revocationReason)
+              ("RevocationReason" Data..= revocationReason)
           ]
       )
 
-instance Core.ToPath RevokeCertificate where
+instance Data.ToPath RevokeCertificate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RevokeCertificate where
+instance Data.ToQuery RevokeCertificate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRevokeCertificateResponse' smart constructor.

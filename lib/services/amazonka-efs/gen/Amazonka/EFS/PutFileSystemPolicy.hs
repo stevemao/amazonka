@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.PutFileSystemPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -55,22 +55,24 @@ module Amazonka.EFS.PutFileSystemPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EFS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newPutFileSystemPolicy' smart constructor.
 data PutFileSystemPolicy = PutFileSystemPolicy'
-  { -- | (Optional) A flag to indicate whether to bypass the @FileSystemPolicy@
-    -- lockout safety check. The policy lockout safety check determines whether
-    -- the policy in the request will prevent the principal making the request
-    -- will be locked out from making future @PutFileSystemPolicy@ requests on
-    -- the file system. Set @BypassPolicyLockoutSafetyCheck@ to @True@ only
-    -- when you intend to prevent the principal that is making the request from
-    -- making a subsequent @PutFileSystemPolicy@ request on the file system.
-    -- The default value is False.
+  { -- | (Optional) A boolean that specifies whether or not to bypass the
+    -- @FileSystemPolicy@ lockout safety check. The lockout safety check
+    -- determines whether the policy in the request will lock out, or prevent,
+    -- the IAM principal that is making the request from making future
+    -- @PutFileSystemPolicy@ requests on this file system. Set
+    -- @BypassPolicyLockoutSafetyCheck@ to @True@ only when you intend to
+    -- prevent the IAM principal that is making the request from making
+    -- subsequent @PutFileSystemPolicy@ requests on this file system. The
+    -- default value is @False@.
     bypassPolicyLockoutSafetyCheck :: Prelude.Maybe Prelude.Bool,
     -- | The ID of the EFS file system that you want to create or update the
     -- @FileSystemPolicy@ for.
@@ -92,14 +94,15 @@ data PutFileSystemPolicy = PutFileSystemPolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'bypassPolicyLockoutSafetyCheck', 'putFileSystemPolicy_bypassPolicyLockoutSafetyCheck' - (Optional) A flag to indicate whether to bypass the @FileSystemPolicy@
--- lockout safety check. The policy lockout safety check determines whether
--- the policy in the request will prevent the principal making the request
--- will be locked out from making future @PutFileSystemPolicy@ requests on
--- the file system. Set @BypassPolicyLockoutSafetyCheck@ to @True@ only
--- when you intend to prevent the principal that is making the request from
--- making a subsequent @PutFileSystemPolicy@ request on the file system.
--- The default value is False.
+-- 'bypassPolicyLockoutSafetyCheck', 'putFileSystemPolicy_bypassPolicyLockoutSafetyCheck' - (Optional) A boolean that specifies whether or not to bypass the
+-- @FileSystemPolicy@ lockout safety check. The lockout safety check
+-- determines whether the policy in the request will lock out, or prevent,
+-- the IAM principal that is making the request from making future
+-- @PutFileSystemPolicy@ requests on this file system. Set
+-- @BypassPolicyLockoutSafetyCheck@ to @True@ only when you intend to
+-- prevent the IAM principal that is making the request from making
+-- subsequent @PutFileSystemPolicy@ requests on this file system. The
+-- default value is @False@.
 --
 -- 'fileSystemId', 'putFileSystemPolicy_fileSystemId' - The ID of the EFS file system that you want to create or update the
 -- @FileSystemPolicy@ for.
@@ -123,14 +126,15 @@ newPutFileSystemPolicy pFileSystemId_ pPolicy_ =
       policy = pPolicy_
     }
 
--- | (Optional) A flag to indicate whether to bypass the @FileSystemPolicy@
--- lockout safety check. The policy lockout safety check determines whether
--- the policy in the request will prevent the principal making the request
--- will be locked out from making future @PutFileSystemPolicy@ requests on
--- the file system. Set @BypassPolicyLockoutSafetyCheck@ to @True@ only
--- when you intend to prevent the principal that is making the request from
--- making a subsequent @PutFileSystemPolicy@ request on the file system.
--- The default value is False.
+-- | (Optional) A boolean that specifies whether or not to bypass the
+-- @FileSystemPolicy@ lockout safety check. The lockout safety check
+-- determines whether the policy in the request will lock out, or prevent,
+-- the IAM principal that is making the request from making future
+-- @PutFileSystemPolicy@ requests on this file system. Set
+-- @BypassPolicyLockoutSafetyCheck@ to @True@ only when you intend to
+-- prevent the IAM principal that is making the request from making
+-- subsequent @PutFileSystemPolicy@ requests on this file system. The
+-- default value is @False@.
 putFileSystemPolicy_bypassPolicyLockoutSafetyCheck :: Lens.Lens' PutFileSystemPolicy (Prelude.Maybe Prelude.Bool)
 putFileSystemPolicy_bypassPolicyLockoutSafetyCheck = Lens.lens (\PutFileSystemPolicy' {bypassPolicyLockoutSafetyCheck} -> bypassPolicyLockoutSafetyCheck) (\s@PutFileSystemPolicy' {} a -> s {bypassPolicyLockoutSafetyCheck = a} :: PutFileSystemPolicy)
 
@@ -151,10 +155,11 @@ instance Core.AWSRequest PutFileSystemPolicy where
   type
     AWSResponse PutFileSystemPolicy =
       FileSystemPolicyDescription
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable PutFileSystemPolicy where
   hashWithSalt _salt PutFileSystemPolicy' {..} =
@@ -169,26 +174,26 @@ instance Prelude.NFData PutFileSystemPolicy where
       `Prelude.seq` Prelude.rnf fileSystemId
       `Prelude.seq` Prelude.rnf policy
 
-instance Core.ToHeaders PutFileSystemPolicy where
+instance Data.ToHeaders PutFileSystemPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON PutFileSystemPolicy where
+instance Data.ToJSON PutFileSystemPolicy where
   toJSON PutFileSystemPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BypassPolicyLockoutSafetyCheck" Core..=)
+          [ ("BypassPolicyLockoutSafetyCheck" Data..=)
               Prelude.<$> bypassPolicyLockoutSafetyCheck,
-            Prelude.Just ("Policy" Core..= policy)
+            Prelude.Just ("Policy" Data..= policy)
           ]
       )
 
-instance Core.ToPath PutFileSystemPolicy where
+instance Data.ToPath PutFileSystemPolicy where
   toPath PutFileSystemPolicy' {..} =
     Prelude.mconcat
       [ "/2015-02-01/file-systems/",
-        Core.toBS fileSystemId,
+        Data.toBS fileSystemId,
         "/policy"
       ]
 
-instance Core.ToQuery PutFileSystemPolicy where
+instance Data.ToQuery PutFileSystemPolicy where
   toQuery = Prelude.const Prelude.mempty

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.TlsValidationContext
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AppMesh.Types.TlsValidationContext where
 import Amazonka.AppMesh.Types.SubjectAlternativeNames
 import Amazonka.AppMesh.Types.TlsValidationContextTrust
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents how the proxy will validate its peer during
@@ -31,7 +32,14 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newTlsValidationContext' smart constructor.
 data TlsValidationContext = TlsValidationContext'
   { -- | A reference to an object that represents the SANs for a Transport Layer
-    -- Security (TLS) validation context.
+    -- Security (TLS) validation context. If you don\'t specify SANs on the
+    -- /terminating/ mesh endpoint, the Envoy proxy for that node doesn\'t
+    -- verify the SAN on a peer client certificate. If you don\'t specify SANs
+    -- on the /originating/ mesh endpoint, the SAN on the certificate provided
+    -- by the terminating endpoint must match the mesh endpoint service
+    -- discovery configuration. Since SPIRE vended certificates have a SPIFFE
+    -- ID as a name, you must set the SAN since the name doesn\'t match the
+    -- service discovery name.
     subjectAlternativeNames :: Prelude.Maybe SubjectAlternativeNames,
     -- | A reference to where to retrieve the trust chain when validating a
     -- peer’s Transport Layer Security (TLS) certificate.
@@ -48,7 +56,14 @@ data TlsValidationContext = TlsValidationContext'
 -- for backwards compatibility:
 --
 -- 'subjectAlternativeNames', 'tlsValidationContext_subjectAlternativeNames' - A reference to an object that represents the SANs for a Transport Layer
--- Security (TLS) validation context.
+-- Security (TLS) validation context. If you don\'t specify SANs on the
+-- /terminating/ mesh endpoint, the Envoy proxy for that node doesn\'t
+-- verify the SAN on a peer client certificate. If you don\'t specify SANs
+-- on the /originating/ mesh endpoint, the SAN on the certificate provided
+-- by the terminating endpoint must match the mesh endpoint service
+-- discovery configuration. Since SPIRE vended certificates have a SPIFFE
+-- ID as a name, you must set the SAN since the name doesn\'t match the
+-- service discovery name.
 --
 -- 'trust', 'tlsValidationContext_trust' - A reference to where to retrieve the trust chain when validating a
 -- peer’s Transport Layer Security (TLS) certificate.
@@ -64,7 +79,14 @@ newTlsValidationContext pTrust_ =
     }
 
 -- | A reference to an object that represents the SANs for a Transport Layer
--- Security (TLS) validation context.
+-- Security (TLS) validation context. If you don\'t specify SANs on the
+-- /terminating/ mesh endpoint, the Envoy proxy for that node doesn\'t
+-- verify the SAN on a peer client certificate. If you don\'t specify SANs
+-- on the /originating/ mesh endpoint, the SAN on the certificate provided
+-- by the terminating endpoint must match the mesh endpoint service
+-- discovery configuration. Since SPIRE vended certificates have a SPIFFE
+-- ID as a name, you must set the SAN since the name doesn\'t match the
+-- service discovery name.
 tlsValidationContext_subjectAlternativeNames :: Lens.Lens' TlsValidationContext (Prelude.Maybe SubjectAlternativeNames)
 tlsValidationContext_subjectAlternativeNames = Lens.lens (\TlsValidationContext' {subjectAlternativeNames} -> subjectAlternativeNames) (\s@TlsValidationContext' {} a -> s {subjectAlternativeNames = a} :: TlsValidationContext)
 
@@ -73,14 +95,14 @@ tlsValidationContext_subjectAlternativeNames = Lens.lens (\TlsValidationContext'
 tlsValidationContext_trust :: Lens.Lens' TlsValidationContext TlsValidationContextTrust
 tlsValidationContext_trust = Lens.lens (\TlsValidationContext' {trust} -> trust) (\s@TlsValidationContext' {} a -> s {trust = a} :: TlsValidationContext)
 
-instance Core.FromJSON TlsValidationContext where
+instance Data.FromJSON TlsValidationContext where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TlsValidationContext"
       ( \x ->
           TlsValidationContext'
-            Prelude.<$> (x Core..:? "subjectAlternativeNames")
-            Prelude.<*> (x Core..: "trust")
+            Prelude.<$> (x Data..:? "subjectAlternativeNames")
+            Prelude.<*> (x Data..: "trust")
       )
 
 instance Prelude.Hashable TlsValidationContext where
@@ -94,12 +116,12 @@ instance Prelude.NFData TlsValidationContext where
     Prelude.rnf subjectAlternativeNames
       `Prelude.seq` Prelude.rnf trust
 
-instance Core.ToJSON TlsValidationContext where
+instance Data.ToJSON TlsValidationContext where
   toJSON TlsValidationContext' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("subjectAlternativeNames" Core..=)
+          [ ("subjectAlternativeNames" Data..=)
               Prelude.<$> subjectAlternativeNames,
-            Prelude.Just ("trust" Core..= trust)
+            Prelude.Just ("trust" Data..= trust)
           ]
       )

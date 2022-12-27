@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.GetAnomalySubscriptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.CostExplorer.GetAnomalySubscriptions
     newGetAnomalySubscriptions,
 
     -- * Request Lenses
-    getAnomalySubscriptions_subscriptionArnList,
-    getAnomalySubscriptions_nextPageToken,
     getAnomalySubscriptions_maxResults,
     getAnomalySubscriptions_monitorArn,
+    getAnomalySubscriptions_nextPageToken,
+    getAnomalySubscriptions_subscriptionArnList,
 
     -- * Destructuring the Response
     GetAnomalySubscriptionsResponse (..),
@@ -46,24 +46,25 @@ module Amazonka.CostExplorer.GetAnomalySubscriptions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetAnomalySubscriptions' smart constructor.
 data GetAnomalySubscriptions = GetAnomalySubscriptions'
-  { -- | A list of cost anomaly subscription ARNs.
-    subscriptionArnList :: Prelude.Maybe [Prelude.Text],
+  { -- | The number of entries a paginated response contains.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | Cost anomaly monitor ARNs.
+    monitorArn :: Prelude.Maybe Prelude.Text,
     -- | The token to retrieve the next set of results. Amazon Web Services
     -- provides the token when the response from a previous call has more
     -- results than the maximum page size.
     nextPageToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of entries a paginated response contains.
-    maxResults :: Prelude.Maybe Prelude.Int,
-    -- | Cost anomaly monitor ARNs.
-    monitorArn :: Prelude.Maybe Prelude.Text
+    -- | A list of cost anomaly subscription ARNs.
+    subscriptionArnList :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,35 +76,25 @@ data GetAnomalySubscriptions = GetAnomalySubscriptions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subscriptionArnList', 'getAnomalySubscriptions_subscriptionArnList' - A list of cost anomaly subscription ARNs.
+-- 'maxResults', 'getAnomalySubscriptions_maxResults' - The number of entries a paginated response contains.
+--
+-- 'monitorArn', 'getAnomalySubscriptions_monitorArn' - Cost anomaly monitor ARNs.
 --
 -- 'nextPageToken', 'getAnomalySubscriptions_nextPageToken' - The token to retrieve the next set of results. Amazon Web Services
 -- provides the token when the response from a previous call has more
 -- results than the maximum page size.
 --
--- 'maxResults', 'getAnomalySubscriptions_maxResults' - The number of entries a paginated response contains.
---
--- 'monitorArn', 'getAnomalySubscriptions_monitorArn' - Cost anomaly monitor ARNs.
+-- 'subscriptionArnList', 'getAnomalySubscriptions_subscriptionArnList' - A list of cost anomaly subscription ARNs.
 newGetAnomalySubscriptions ::
   GetAnomalySubscriptions
 newGetAnomalySubscriptions =
   GetAnomalySubscriptions'
-    { subscriptionArnList =
+    { maxResults =
         Prelude.Nothing,
+      monitorArn = Prelude.Nothing,
       nextPageToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
-      monitorArn = Prelude.Nothing
+      subscriptionArnList = Prelude.Nothing
     }
-
--- | A list of cost anomaly subscription ARNs.
-getAnomalySubscriptions_subscriptionArnList :: Lens.Lens' GetAnomalySubscriptions (Prelude.Maybe [Prelude.Text])
-getAnomalySubscriptions_subscriptionArnList = Lens.lens (\GetAnomalySubscriptions' {subscriptionArnList} -> subscriptionArnList) (\s@GetAnomalySubscriptions' {} a -> s {subscriptionArnList = a} :: GetAnomalySubscriptions) Prelude.. Lens.mapping Lens.coerced
-
--- | The token to retrieve the next set of results. Amazon Web Services
--- provides the token when the response from a previous call has more
--- results than the maximum page size.
-getAnomalySubscriptions_nextPageToken :: Lens.Lens' GetAnomalySubscriptions (Prelude.Maybe Prelude.Text)
-getAnomalySubscriptions_nextPageToken = Lens.lens (\GetAnomalySubscriptions' {nextPageToken} -> nextPageToken) (\s@GetAnomalySubscriptions' {} a -> s {nextPageToken = a} :: GetAnomalySubscriptions)
 
 -- | The number of entries a paginated response contains.
 getAnomalySubscriptions_maxResults :: Lens.Lens' GetAnomalySubscriptions (Prelude.Maybe Prelude.Int)
@@ -113,67 +104,78 @@ getAnomalySubscriptions_maxResults = Lens.lens (\GetAnomalySubscriptions' {maxRe
 getAnomalySubscriptions_monitorArn :: Lens.Lens' GetAnomalySubscriptions (Prelude.Maybe Prelude.Text)
 getAnomalySubscriptions_monitorArn = Lens.lens (\GetAnomalySubscriptions' {monitorArn} -> monitorArn) (\s@GetAnomalySubscriptions' {} a -> s {monitorArn = a} :: GetAnomalySubscriptions)
 
+-- | The token to retrieve the next set of results. Amazon Web Services
+-- provides the token when the response from a previous call has more
+-- results than the maximum page size.
+getAnomalySubscriptions_nextPageToken :: Lens.Lens' GetAnomalySubscriptions (Prelude.Maybe Prelude.Text)
+getAnomalySubscriptions_nextPageToken = Lens.lens (\GetAnomalySubscriptions' {nextPageToken} -> nextPageToken) (\s@GetAnomalySubscriptions' {} a -> s {nextPageToken = a} :: GetAnomalySubscriptions)
+
+-- | A list of cost anomaly subscription ARNs.
+getAnomalySubscriptions_subscriptionArnList :: Lens.Lens' GetAnomalySubscriptions (Prelude.Maybe [Prelude.Text])
+getAnomalySubscriptions_subscriptionArnList = Lens.lens (\GetAnomalySubscriptions' {subscriptionArnList} -> subscriptionArnList) (\s@GetAnomalySubscriptions' {} a -> s {subscriptionArnList = a} :: GetAnomalySubscriptions) Prelude.. Lens.mapping Lens.coerced
+
 instance Core.AWSRequest GetAnomalySubscriptions where
   type
     AWSResponse GetAnomalySubscriptions =
       GetAnomalySubscriptionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAnomalySubscriptionsResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
+            Prelude.<$> (x Data..?> "NextPageToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "AnomalySubscriptions"
+            Prelude.<*> ( x Data..?> "AnomalySubscriptions"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable GetAnomalySubscriptions where
   hashWithSalt _salt GetAnomalySubscriptions' {..} =
-    _salt `Prelude.hashWithSalt` subscriptionArnList
-      `Prelude.hashWithSalt` nextPageToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` monitorArn
+      `Prelude.hashWithSalt` nextPageToken
+      `Prelude.hashWithSalt` subscriptionArnList
 
 instance Prelude.NFData GetAnomalySubscriptions where
   rnf GetAnomalySubscriptions' {..} =
-    Prelude.rnf subscriptionArnList
-      `Prelude.seq` Prelude.rnf nextPageToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf monitorArn
+      `Prelude.seq` Prelude.rnf nextPageToken
+      `Prelude.seq` Prelude.rnf subscriptionArnList
 
-instance Core.ToHeaders GetAnomalySubscriptions where
+instance Data.ToHeaders GetAnomalySubscriptions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSInsightsIndexService.GetAnomalySubscriptions" ::
+              Data.=# ( "AWSInsightsIndexService.GetAnomalySubscriptions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetAnomalySubscriptions where
+instance Data.ToJSON GetAnomalySubscriptions where
   toJSON GetAnomalySubscriptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SubscriptionArnList" Core..=)
-              Prelude.<$> subscriptionArnList,
-            ("NextPageToken" Core..=) Prelude.<$> nextPageToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("MonitorArn" Core..=) Prelude.<$> monitorArn
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("MonitorArn" Data..=) Prelude.<$> monitorArn,
+            ("NextPageToken" Data..=) Prelude.<$> nextPageToken,
+            ("SubscriptionArnList" Data..=)
+              Prelude.<$> subscriptionArnList
           ]
       )
 
-instance Core.ToPath GetAnomalySubscriptions where
+instance Data.ToPath GetAnomalySubscriptions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetAnomalySubscriptions where
+instance Data.ToQuery GetAnomalySubscriptions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAnomalySubscriptionsResponse' smart constructor.

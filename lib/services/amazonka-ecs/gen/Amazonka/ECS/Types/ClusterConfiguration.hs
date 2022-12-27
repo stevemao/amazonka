@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.ClusterConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ECS.Types.ClusterConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types.ExecuteCommandConfiguration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The execute command configuration for the cluster.
@@ -54,13 +55,13 @@ newClusterConfiguration =
 clusterConfiguration_executeCommandConfiguration :: Lens.Lens' ClusterConfiguration (Prelude.Maybe ExecuteCommandConfiguration)
 clusterConfiguration_executeCommandConfiguration = Lens.lens (\ClusterConfiguration' {executeCommandConfiguration} -> executeCommandConfiguration) (\s@ClusterConfiguration' {} a -> s {executeCommandConfiguration = a} :: ClusterConfiguration)
 
-instance Core.FromJSON ClusterConfiguration where
+instance Data.FromJSON ClusterConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ClusterConfiguration"
       ( \x ->
           ClusterConfiguration'
-            Prelude.<$> (x Core..:? "executeCommandConfiguration")
+            Prelude.<$> (x Data..:? "executeCommandConfiguration")
       )
 
 instance Prelude.Hashable ClusterConfiguration where
@@ -72,11 +73,11 @@ instance Prelude.NFData ClusterConfiguration where
   rnf ClusterConfiguration' {..} =
     Prelude.rnf executeCommandConfiguration
 
-instance Core.ToJSON ClusterConfiguration where
+instance Data.ToJSON ClusterConfiguration where
   toJSON ClusterConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("executeCommandConfiguration" Core..=)
+          [ ("executeCommandConfiguration" Data..=)
               Prelude.<$> executeCommandConfiguration
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.DescribeBackup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.DynamoDB.DescribeBackup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,12 +80,13 @@ instance Core.AWSRequest DescribeBackup where
   type
     AWSResponse DescribeBackup =
       DescribeBackupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeBackupResponse'
-            Prelude.<$> (x Core..?> "BackupDescription")
+            Prelude.<$> (x Data..?> "BackupDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,32 +97,32 @@ instance Prelude.Hashable DescribeBackup where
 instance Prelude.NFData DescribeBackup where
   rnf DescribeBackup' {..} = Prelude.rnf backupArn
 
-instance Core.ToHeaders DescribeBackup where
+instance Data.ToHeaders DescribeBackup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.DescribeBackup" ::
+              Data.=# ( "DynamoDB_20120810.DescribeBackup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeBackup where
+instance Data.ToJSON DescribeBackup where
   toJSON DescribeBackup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("BackupArn" Core..= backupArn)]
+          [Prelude.Just ("BackupArn" Data..= backupArn)]
       )
 
-instance Core.ToPath DescribeBackup where
+instance Data.ToPath DescribeBackup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeBackup where
+instance Data.ToQuery DescribeBackup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeBackupResponse' smart constructor.

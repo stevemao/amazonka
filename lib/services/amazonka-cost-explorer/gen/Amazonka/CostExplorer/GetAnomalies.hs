@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.GetAnomalies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,11 +28,11 @@ module Amazonka.CostExplorer.GetAnomalies
     newGetAnomalies,
 
     -- * Request Lenses
+    getAnomalies_feedback,
+    getAnomalies_maxResults,
+    getAnomalies_monitorArn,
     getAnomalies_nextPageToken,
     getAnomalies_totalImpact,
-    getAnomalies_maxResults,
-    getAnomalies_feedback,
-    getAnomalies_monitorArn,
     getAnomalies_dateInterval,
 
     -- * Destructuring the Response
@@ -47,15 +47,23 @@ module Amazonka.CostExplorer.GetAnomalies
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetAnomalies' smart constructor.
 data GetAnomalies = GetAnomalies'
-  { -- | The token to retrieve the next set of results. Amazon Web Services
+  { -- | Filters anomaly results by the feedback field on the anomaly object.
+    feedback :: Prelude.Maybe AnomalyFeedbackType,
+    -- | The number of entries a paginated response contains.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | Retrieves all of the cost anomalies detected for a specific cost anomaly
+    -- monitor Amazon Resource Name (ARN).
+    monitorArn :: Prelude.Maybe Prelude.Text,
+    -- | The token to retrieve the next set of results. Amazon Web Services
     -- provides the token when the response from a previous call has more
     -- results than the maximum page size.
     nextPageToken :: Prelude.Maybe Prelude.Text,
@@ -63,13 +71,6 @@ data GetAnomalies = GetAnomalies'
     -- For example, you can filter anomalies @GREATER_THAN 200.00@ to retrieve
     -- anomalies, with an estimated dollar impact greater than 200.
     totalImpact :: Prelude.Maybe TotalImpactFilter,
-    -- | The number of entries a paginated response contains.
-    maxResults :: Prelude.Maybe Prelude.Int,
-    -- | Filters anomaly results by the feedback field on the anomaly object.
-    feedback :: Prelude.Maybe AnomalyFeedbackType,
-    -- | Retrieves all of the cost anomalies detected for a specific cost anomaly
-    -- monitor Amazon Resource Name (ARN).
-    monitorArn :: Prelude.Maybe Prelude.Text,
     -- | Assigns the start and end dates for retrieving cost anomalies. The
     -- returned anomaly object will have an @AnomalyEndDate@ in the specified
     -- time range.
@@ -85,6 +86,13 @@ data GetAnomalies = GetAnomalies'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'feedback', 'getAnomalies_feedback' - Filters anomaly results by the feedback field on the anomaly object.
+--
+-- 'maxResults', 'getAnomalies_maxResults' - The number of entries a paginated response contains.
+--
+-- 'monitorArn', 'getAnomalies_monitorArn' - Retrieves all of the cost anomalies detected for a specific cost anomaly
+-- monitor Amazon Resource Name (ARN).
+--
 -- 'nextPageToken', 'getAnomalies_nextPageToken' - The token to retrieve the next set of results. Amazon Web Services
 -- provides the token when the response from a previous call has more
 -- results than the maximum page size.
@@ -92,13 +100,6 @@ data GetAnomalies = GetAnomalies'
 -- 'totalImpact', 'getAnomalies_totalImpact' - Filters anomaly results by the total impact field on the anomaly object.
 -- For example, you can filter anomalies @GREATER_THAN 200.00@ to retrieve
 -- anomalies, with an estimated dollar impact greater than 200.
---
--- 'maxResults', 'getAnomalies_maxResults' - The number of entries a paginated response contains.
---
--- 'feedback', 'getAnomalies_feedback' - Filters anomaly results by the feedback field on the anomaly object.
---
--- 'monitorArn', 'getAnomalies_monitorArn' - Retrieves all of the cost anomalies detected for a specific cost anomaly
--- monitor Amazon Resource Name (ARN).
 --
 -- 'dateInterval', 'getAnomalies_dateInterval' - Assigns the start and end dates for retrieving cost anomalies. The
 -- returned anomaly object will have an @AnomalyEndDate@ in the specified
@@ -109,13 +110,26 @@ newGetAnomalies ::
   GetAnomalies
 newGetAnomalies pDateInterval_ =
   GetAnomalies'
-    { nextPageToken = Prelude.Nothing,
-      totalImpact = Prelude.Nothing,
+    { feedback = Prelude.Nothing,
       maxResults = Prelude.Nothing,
-      feedback = Prelude.Nothing,
       monitorArn = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      totalImpact = Prelude.Nothing,
       dateInterval = pDateInterval_
     }
+
+-- | Filters anomaly results by the feedback field on the anomaly object.
+getAnomalies_feedback :: Lens.Lens' GetAnomalies (Prelude.Maybe AnomalyFeedbackType)
+getAnomalies_feedback = Lens.lens (\GetAnomalies' {feedback} -> feedback) (\s@GetAnomalies' {} a -> s {feedback = a} :: GetAnomalies)
+
+-- | The number of entries a paginated response contains.
+getAnomalies_maxResults :: Lens.Lens' GetAnomalies (Prelude.Maybe Prelude.Int)
+getAnomalies_maxResults = Lens.lens (\GetAnomalies' {maxResults} -> maxResults) (\s@GetAnomalies' {} a -> s {maxResults = a} :: GetAnomalies)
+
+-- | Retrieves all of the cost anomalies detected for a specific cost anomaly
+-- monitor Amazon Resource Name (ARN).
+getAnomalies_monitorArn :: Lens.Lens' GetAnomalies (Prelude.Maybe Prelude.Text)
+getAnomalies_monitorArn = Lens.lens (\GetAnomalies' {monitorArn} -> monitorArn) (\s@GetAnomalies' {} a -> s {monitorArn = a} :: GetAnomalies)
 
 -- | The token to retrieve the next set of results. Amazon Web Services
 -- provides the token when the response from a previous call has more
@@ -129,19 +143,6 @@ getAnomalies_nextPageToken = Lens.lens (\GetAnomalies' {nextPageToken} -> nextPa
 getAnomalies_totalImpact :: Lens.Lens' GetAnomalies (Prelude.Maybe TotalImpactFilter)
 getAnomalies_totalImpact = Lens.lens (\GetAnomalies' {totalImpact} -> totalImpact) (\s@GetAnomalies' {} a -> s {totalImpact = a} :: GetAnomalies)
 
--- | The number of entries a paginated response contains.
-getAnomalies_maxResults :: Lens.Lens' GetAnomalies (Prelude.Maybe Prelude.Int)
-getAnomalies_maxResults = Lens.lens (\GetAnomalies' {maxResults} -> maxResults) (\s@GetAnomalies' {} a -> s {maxResults = a} :: GetAnomalies)
-
--- | Filters anomaly results by the feedback field on the anomaly object.
-getAnomalies_feedback :: Lens.Lens' GetAnomalies (Prelude.Maybe AnomalyFeedbackType)
-getAnomalies_feedback = Lens.lens (\GetAnomalies' {feedback} -> feedback) (\s@GetAnomalies' {} a -> s {feedback = a} :: GetAnomalies)
-
--- | Retrieves all of the cost anomalies detected for a specific cost anomaly
--- monitor Amazon Resource Name (ARN).
-getAnomalies_monitorArn :: Lens.Lens' GetAnomalies (Prelude.Maybe Prelude.Text)
-getAnomalies_monitorArn = Lens.lens (\GetAnomalies' {monitorArn} -> monitorArn) (\s@GetAnomalies' {} a -> s {monitorArn = a} :: GetAnomalies)
-
 -- | Assigns the start and end dates for retrieving cost anomalies. The
 -- returned anomaly object will have an @AnomalyEndDate@ in the specified
 -- time range.
@@ -150,66 +151,67 @@ getAnomalies_dateInterval = Lens.lens (\GetAnomalies' {dateInterval} -> dateInte
 
 instance Core.AWSRequest GetAnomalies where
   type AWSResponse GetAnomalies = GetAnomaliesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAnomaliesResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
+            Prelude.<$> (x Data..?> "NextPageToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Anomalies" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Anomalies" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable GetAnomalies where
   hashWithSalt _salt GetAnomalies' {..} =
-    _salt `Prelude.hashWithSalt` nextPageToken
-      `Prelude.hashWithSalt` totalImpact
+    _salt `Prelude.hashWithSalt` feedback
       `Prelude.hashWithSalt` maxResults
-      `Prelude.hashWithSalt` feedback
       `Prelude.hashWithSalt` monitorArn
+      `Prelude.hashWithSalt` nextPageToken
+      `Prelude.hashWithSalt` totalImpact
       `Prelude.hashWithSalt` dateInterval
 
 instance Prelude.NFData GetAnomalies where
   rnf GetAnomalies' {..} =
-    Prelude.rnf nextPageToken
-      `Prelude.seq` Prelude.rnf totalImpact
+    Prelude.rnf feedback
       `Prelude.seq` Prelude.rnf maxResults
-      `Prelude.seq` Prelude.rnf feedback
       `Prelude.seq` Prelude.rnf monitorArn
+      `Prelude.seq` Prelude.rnf nextPageToken
+      `Prelude.seq` Prelude.rnf totalImpact
       `Prelude.seq` Prelude.rnf dateInterval
 
-instance Core.ToHeaders GetAnomalies where
+instance Data.ToHeaders GetAnomalies where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSInsightsIndexService.GetAnomalies" ::
+              Data.=# ( "AWSInsightsIndexService.GetAnomalies" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetAnomalies where
+instance Data.ToJSON GetAnomalies where
   toJSON GetAnomalies' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextPageToken" Core..=) Prelude.<$> nextPageToken,
-            ("TotalImpact" Core..=) Prelude.<$> totalImpact,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("Feedback" Core..=) Prelude.<$> feedback,
-            ("MonitorArn" Core..=) Prelude.<$> monitorArn,
-            Prelude.Just ("DateInterval" Core..= dateInterval)
+          [ ("Feedback" Data..=) Prelude.<$> feedback,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("MonitorArn" Data..=) Prelude.<$> monitorArn,
+            ("NextPageToken" Data..=) Prelude.<$> nextPageToken,
+            ("TotalImpact" Data..=) Prelude.<$> totalImpact,
+            Prelude.Just ("DateInterval" Data..= dateInterval)
           ]
       )
 
-instance Core.ToPath GetAnomalies where
+instance Data.ToPath GetAnomalies where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetAnomalies where
+instance Data.ToQuery GetAnomalies where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAnomaliesResponse' smart constructor.

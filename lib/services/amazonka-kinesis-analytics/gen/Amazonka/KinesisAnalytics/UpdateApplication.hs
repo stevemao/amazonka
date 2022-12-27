@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.UpdateApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,8 +54,9 @@ module Amazonka.KinesisAnalytics.UpdateApplication
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -126,7 +127,8 @@ instance Core.AWSRequest UpdateApplication where
   type
     AWSResponse UpdateApplication =
       UpdateApplicationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -146,40 +148,40 @@ instance Prelude.NFData UpdateApplication where
       `Prelude.seq` Prelude.rnf currentApplicationVersionId
       `Prelude.seq` Prelude.rnf applicationUpdate
 
-instance Core.ToHeaders UpdateApplication where
+instance Data.ToHeaders UpdateApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "KinesisAnalytics_20150814.UpdateApplication" ::
+              Data.=# ( "KinesisAnalytics_20150814.UpdateApplication" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateApplication where
+instance Data.ToJSON UpdateApplication where
   toJSON UpdateApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ApplicationName" Core..= applicationName),
+              ("ApplicationName" Data..= applicationName),
             Prelude.Just
               ( "CurrentApplicationVersionId"
-                  Core..= currentApplicationVersionId
+                  Data..= currentApplicationVersionId
               ),
             Prelude.Just
-              ("ApplicationUpdate" Core..= applicationUpdate)
+              ("ApplicationUpdate" Data..= applicationUpdate)
           ]
       )
 
-instance Core.ToPath UpdateApplication where
+instance Data.ToPath UpdateApplication where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateApplication where
+instance Data.ToQuery UpdateApplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateApplicationResponse' smart constructor.

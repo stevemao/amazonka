@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.Types.ResourcePathComponent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.WorkDocs.Types.ResourcePathComponent where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the resource path.
 --
 -- /See:/ 'newResourcePathComponent' smart constructor.
 data ResourcePathComponent = ResourcePathComponent'
-  { -- | The name of the resource path.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the resource path.
-    id :: Prelude.Maybe Prelude.Text
+  { -- | The ID of the resource path.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the resource path.
+    name :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,39 +43,39 @@ data ResourcePathComponent = ResourcePathComponent'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'resourcePathComponent_name' - The name of the resource path.
---
 -- 'id', 'resourcePathComponent_id' - The ID of the resource path.
+--
+-- 'name', 'resourcePathComponent_name' - The name of the resource path.
 newResourcePathComponent ::
   ResourcePathComponent
 newResourcePathComponent =
   ResourcePathComponent'
-    { name = Prelude.Nothing,
-      id = Prelude.Nothing
+    { id = Prelude.Nothing,
+      name = Prelude.Nothing
     }
-
--- | The name of the resource path.
-resourcePathComponent_name :: Lens.Lens' ResourcePathComponent (Prelude.Maybe Prelude.Text)
-resourcePathComponent_name = Lens.lens (\ResourcePathComponent' {name} -> name) (\s@ResourcePathComponent' {} a -> s {name = a} :: ResourcePathComponent)
 
 -- | The ID of the resource path.
 resourcePathComponent_id :: Lens.Lens' ResourcePathComponent (Prelude.Maybe Prelude.Text)
 resourcePathComponent_id = Lens.lens (\ResourcePathComponent' {id} -> id) (\s@ResourcePathComponent' {} a -> s {id = a} :: ResourcePathComponent)
 
-instance Core.FromJSON ResourcePathComponent where
+-- | The name of the resource path.
+resourcePathComponent_name :: Lens.Lens' ResourcePathComponent (Prelude.Maybe Prelude.Text)
+resourcePathComponent_name = Lens.lens (\ResourcePathComponent' {name} -> name) (\s@ResourcePathComponent' {} a -> s {name = a} :: ResourcePathComponent)
+
+instance Data.FromJSON ResourcePathComponent where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourcePathComponent"
       ( \x ->
           ResourcePathComponent'
-            Prelude.<$> (x Core..:? "Name") Prelude.<*> (x Core..:? "Id")
+            Prelude.<$> (x Data..:? "Id") Prelude.<*> (x Data..:? "Name")
       )
 
 instance Prelude.Hashable ResourcePathComponent where
   hashWithSalt _salt ResourcePathComponent' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` id
+    _salt `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` name
 
 instance Prelude.NFData ResourcePathComponent where
   rnf ResourcePathComponent' {..} =
-    Prelude.rnf name `Prelude.seq` Prelude.rnf id
+    Prelude.rnf id `Prelude.seq` Prelude.rnf name

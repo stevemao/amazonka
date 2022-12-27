@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.DeleteGlobalReplicationGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -59,8 +59,9 @@ module Amazonka.ElastiCache.DeleteGlobalReplicationGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,13 +117,14 @@ instance Core.AWSRequest DeleteGlobalReplicationGroup where
   type
     AWSResponse DeleteGlobalReplicationGroup =
       DeleteGlobalReplicationGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteGlobalReplicationGroupResult"
       ( \s h x ->
           DeleteGlobalReplicationGroupResponse'
-            Prelude.<$> (x Core..@? "GlobalReplicationGroup")
+            Prelude.<$> (x Data..@? "GlobalReplicationGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -140,25 +142,25 @@ instance Prelude.NFData DeleteGlobalReplicationGroup where
     Prelude.rnf globalReplicationGroupId
       `Prelude.seq` Prelude.rnf retainPrimaryReplicationGroup
 
-instance Core.ToHeaders DeleteGlobalReplicationGroup where
+instance Data.ToHeaders DeleteGlobalReplicationGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteGlobalReplicationGroup where
+instance Data.ToPath DeleteGlobalReplicationGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteGlobalReplicationGroup where
+instance Data.ToQuery DeleteGlobalReplicationGroup where
   toQuery DeleteGlobalReplicationGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteGlobalReplicationGroup" ::
+          Data.=: ( "DeleteGlobalReplicationGroup" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
         "GlobalReplicationGroupId"
-          Core.=: globalReplicationGroupId,
+          Data.=: globalReplicationGroupId,
         "RetainPrimaryReplicationGroup"
-          Core.=: retainPrimaryReplicationGroup
+          Data.=: retainPrimaryReplicationGroup
       ]
 
 -- | /See:/ 'newDeleteGlobalReplicationGroupResponse' smart constructor.

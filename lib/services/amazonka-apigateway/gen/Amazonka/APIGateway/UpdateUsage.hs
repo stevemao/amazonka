@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.UpdateUsage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,17 +37,18 @@ module Amazonka.APIGateway.UpdateUsage
     newUsage,
 
     -- * Response Lenses
-    usage_usagePlanId,
     usage_endDate,
     usage_items,
-    usage_startDate,
     usage_position,
+    usage_startDate,
+    usage_usagePlanId,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,13 +58,13 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateUsage' smart constructor.
 data UpdateUsage = UpdateUsage'
-  { -- | A list of update operations to be applied to the specified resource and
-    -- in the order specified in this list.
+  { -- | For more information about supported patch operations, see
+    -- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
     patchOperations :: Prelude.Maybe [PatchOperation],
-    -- | [Required] The Id of the usage plan associated with the usage data.
+    -- | The Id of the usage plan associated with the usage data.
     usagePlanId :: Prelude.Text,
-    -- | [Required] The identifier of the API key associated with the usage plan
-    -- in which a temporary extension is granted to the remaining quota.
+    -- | The identifier of the API key associated with the usage plan in which a
+    -- temporary extension is granted to the remaining quota.
     keyId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -76,13 +77,13 @@ data UpdateUsage = UpdateUsage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'patchOperations', 'updateUsage_patchOperations' - A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- 'patchOperations', 'updateUsage_patchOperations' - For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 --
--- 'usagePlanId', 'updateUsage_usagePlanId' - [Required] The Id of the usage plan associated with the usage data.
+-- 'usagePlanId', 'updateUsage_usagePlanId' - The Id of the usage plan associated with the usage data.
 --
--- 'keyId', 'updateUsage_keyId' - [Required] The identifier of the API key associated with the usage plan
--- in which a temporary extension is granted to the remaining quota.
+-- 'keyId', 'updateUsage_keyId' - The identifier of the API key associated with the usage plan in which a
+-- temporary extension is granted to the remaining quota.
 newUpdateUsage ::
   -- | 'usagePlanId'
   Prelude.Text ->
@@ -96,26 +97,27 @@ newUpdateUsage pUsagePlanId_ pKeyId_ =
       keyId = pKeyId_
     }
 
--- | A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- | For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 updateUsage_patchOperations :: Lens.Lens' UpdateUsage (Prelude.Maybe [PatchOperation])
 updateUsage_patchOperations = Lens.lens (\UpdateUsage' {patchOperations} -> patchOperations) (\s@UpdateUsage' {} a -> s {patchOperations = a} :: UpdateUsage) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The Id of the usage plan associated with the usage data.
+-- | The Id of the usage plan associated with the usage data.
 updateUsage_usagePlanId :: Lens.Lens' UpdateUsage Prelude.Text
 updateUsage_usagePlanId = Lens.lens (\UpdateUsage' {usagePlanId} -> usagePlanId) (\s@UpdateUsage' {} a -> s {usagePlanId = a} :: UpdateUsage)
 
--- | [Required] The identifier of the API key associated with the usage plan
--- in which a temporary extension is granted to the remaining quota.
+-- | The identifier of the API key associated with the usage plan in which a
+-- temporary extension is granted to the remaining quota.
 updateUsage_keyId :: Lens.Lens' UpdateUsage Prelude.Text
 updateUsage_keyId = Lens.lens (\UpdateUsage' {keyId} -> keyId) (\s@UpdateUsage' {} a -> s {keyId = a} :: UpdateUsage)
 
 instance Core.AWSRequest UpdateUsage where
   type AWSResponse UpdateUsage = Usage
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable UpdateUsage where
   hashWithSalt _salt UpdateUsage' {..} =
@@ -129,33 +131,33 @@ instance Prelude.NFData UpdateUsage where
       `Prelude.seq` Prelude.rnf usagePlanId
       `Prelude.seq` Prelude.rnf keyId
 
-instance Core.ToHeaders UpdateUsage where
+instance Data.ToHeaders UpdateUsage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON UpdateUsage where
+instance Data.ToJSON UpdateUsage where
   toJSON UpdateUsage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("patchOperations" Core..=)
+          [ ("patchOperations" Data..=)
               Prelude.<$> patchOperations
           ]
       )
 
-instance Core.ToPath UpdateUsage where
+instance Data.ToPath UpdateUsage where
   toPath UpdateUsage' {..} =
     Prelude.mconcat
       [ "/usageplans/",
-        Core.toBS usagePlanId,
+        Data.toBS usagePlanId,
         "/keys/",
-        Core.toBS keyId,
+        Data.toBS keyId,
         "/usage"
       ]
 
-instance Core.ToQuery UpdateUsage where
+instance Data.ToQuery UpdateUsage where
   toQuery = Prelude.const Prelude.mempty

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ScheduleConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ScheduleConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration details about the monitoring schedule.
@@ -160,13 +161,13 @@ newScheduleConfig pScheduleExpression_ =
 scheduleConfig_scheduleExpression :: Lens.Lens' ScheduleConfig Prelude.Text
 scheduleConfig_scheduleExpression = Lens.lens (\ScheduleConfig' {scheduleExpression} -> scheduleExpression) (\s@ScheduleConfig' {} a -> s {scheduleExpression = a} :: ScheduleConfig)
 
-instance Core.FromJSON ScheduleConfig where
+instance Data.FromJSON ScheduleConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ScheduleConfig"
       ( \x ->
           ScheduleConfig'
-            Prelude.<$> (x Core..: "ScheduleExpression")
+            Prelude.<$> (x Data..: "ScheduleExpression")
       )
 
 instance Prelude.Hashable ScheduleConfig where
@@ -177,11 +178,11 @@ instance Prelude.NFData ScheduleConfig where
   rnf ScheduleConfig' {..} =
     Prelude.rnf scheduleExpression
 
-instance Core.ToJSON ScheduleConfig where
+instance Data.ToJSON ScheduleConfig where
   toJSON ScheduleConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ScheduleExpression" Core..= scheduleExpression)
+              ("ScheduleExpression" Data..= scheduleExpression)
           ]
       )

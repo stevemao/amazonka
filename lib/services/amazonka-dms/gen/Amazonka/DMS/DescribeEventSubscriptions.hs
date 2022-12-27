@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.DescribeEventSubscriptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,10 +35,10 @@ module Amazonka.DMS.DescribeEventSubscriptions
     newDescribeEventSubscriptions,
 
     -- * Request Lenses
-    describeEventSubscriptions_subscriptionName,
     describeEventSubscriptions_filters,
     describeEventSubscriptions_marker,
     describeEventSubscriptions_maxRecords,
+    describeEventSubscriptions_subscriptionName,
 
     -- * Destructuring the Response
     DescribeEventSubscriptionsResponse (..),
@@ -52,8 +52,9 @@ module Amazonka.DMS.DescribeEventSubscriptions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,9 +63,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeEventSubscriptions' smart constructor.
 data DescribeEventSubscriptions = DescribeEventSubscriptions'
-  { -- | The name of the DMS event subscription to be described.
-    subscriptionName :: Prelude.Maybe Prelude.Text,
-    -- | Filters applied to event subscriptions.
+  { -- | Filters applied to event subscriptions.
+    --
+    -- Valid filter names: event-subscription-arn | event-subscription-id
     filters :: Prelude.Maybe [Filter],
     -- | An optional pagination token provided by a previous request. If this
     -- parameter is specified, the response includes only records beyond the
@@ -78,7 +79,9 @@ data DescribeEventSubscriptions = DescribeEventSubscriptions'
     -- Default: 100
     --
     -- Constraints: Minimum 20, maximum 100.
-    maxRecords :: Prelude.Maybe Prelude.Int
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The name of the DMS event subscription to be described.
+    subscriptionName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -90,9 +93,9 @@ data DescribeEventSubscriptions = DescribeEventSubscriptions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subscriptionName', 'describeEventSubscriptions_subscriptionName' - The name of the DMS event subscription to be described.
---
 -- 'filters', 'describeEventSubscriptions_filters' - Filters applied to event subscriptions.
+--
+-- Valid filter names: event-subscription-arn | event-subscription-id
 --
 -- 'marker', 'describeEventSubscriptions_marker' - An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
@@ -106,22 +109,22 @@ data DescribeEventSubscriptions = DescribeEventSubscriptions'
 -- Default: 100
 --
 -- Constraints: Minimum 20, maximum 100.
+--
+-- 'subscriptionName', 'describeEventSubscriptions_subscriptionName' - The name of the DMS event subscription to be described.
 newDescribeEventSubscriptions ::
   DescribeEventSubscriptions
 newDescribeEventSubscriptions =
   DescribeEventSubscriptions'
-    { subscriptionName =
+    { filters =
         Prelude.Nothing,
-      filters = Prelude.Nothing,
       marker = Prelude.Nothing,
-      maxRecords = Prelude.Nothing
+      maxRecords = Prelude.Nothing,
+      subscriptionName = Prelude.Nothing
     }
 
--- | The name of the DMS event subscription to be described.
-describeEventSubscriptions_subscriptionName :: Lens.Lens' DescribeEventSubscriptions (Prelude.Maybe Prelude.Text)
-describeEventSubscriptions_subscriptionName = Lens.lens (\DescribeEventSubscriptions' {subscriptionName} -> subscriptionName) (\s@DescribeEventSubscriptions' {} a -> s {subscriptionName = a} :: DescribeEventSubscriptions)
-
 -- | Filters applied to event subscriptions.
+--
+-- Valid filter names: event-subscription-arn | event-subscription-id
 describeEventSubscriptions_filters :: Lens.Lens' DescribeEventSubscriptions (Prelude.Maybe [Filter])
 describeEventSubscriptions_filters = Lens.lens (\DescribeEventSubscriptions' {filters} -> filters) (\s@DescribeEventSubscriptions' {} a -> s {filters = a} :: DescribeEventSubscriptions) Prelude.. Lens.mapping Lens.coerced
 
@@ -141,6 +144,10 @@ describeEventSubscriptions_marker = Lens.lens (\DescribeEventSubscriptions' {mar
 -- Constraints: Minimum 20, maximum 100.
 describeEventSubscriptions_maxRecords :: Lens.Lens' DescribeEventSubscriptions (Prelude.Maybe Prelude.Int)
 describeEventSubscriptions_maxRecords = Lens.lens (\DescribeEventSubscriptions' {maxRecords} -> maxRecords) (\s@DescribeEventSubscriptions' {} a -> s {maxRecords = a} :: DescribeEventSubscriptions)
+
+-- | The name of the DMS event subscription to be described.
+describeEventSubscriptions_subscriptionName :: Lens.Lens' DescribeEventSubscriptions (Prelude.Maybe Prelude.Text)
+describeEventSubscriptions_subscriptionName = Lens.lens (\DescribeEventSubscriptions' {subscriptionName} -> subscriptionName) (\s@DescribeEventSubscriptions' {} a -> s {subscriptionName = a} :: DescribeEventSubscriptions)
 
 instance Core.AWSPager DescribeEventSubscriptions where
   page rq rs
@@ -168,63 +175,64 @@ instance Core.AWSRequest DescribeEventSubscriptions where
   type
     AWSResponse DescribeEventSubscriptions =
       DescribeEventSubscriptionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEventSubscriptionsResponse'
-            Prelude.<$> ( x Core..?> "EventSubscriptionsList"
+            Prelude.<$> ( x Data..?> "EventSubscriptionsList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "Marker")
+            Prelude.<*> (x Data..?> "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeEventSubscriptions where
   hashWithSalt _salt DescribeEventSubscriptions' {..} =
-    _salt `Prelude.hashWithSalt` subscriptionName
-      `Prelude.hashWithSalt` filters
+    _salt `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` subscriptionName
 
 instance Prelude.NFData DescribeEventSubscriptions where
   rnf DescribeEventSubscriptions' {..} =
-    Prelude.rnf subscriptionName
-      `Prelude.seq` Prelude.rnf filters
+    Prelude.rnf filters
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf subscriptionName
 
-instance Core.ToHeaders DescribeEventSubscriptions where
+instance Data.ToHeaders DescribeEventSubscriptions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.DescribeEventSubscriptions" ::
+              Data.=# ( "AmazonDMSv20160101.DescribeEventSubscriptions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEventSubscriptions where
+instance Data.ToJSON DescribeEventSubscriptions where
   toJSON DescribeEventSubscriptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SubscriptionName" Core..=)
-              Prelude.<$> subscriptionName,
-            ("Filters" Core..=) Prelude.<$> filters,
-            ("Marker" Core..=) Prelude.<$> marker,
-            ("MaxRecords" Core..=) Prelude.<$> maxRecords
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("Marker" Data..=) Prelude.<$> marker,
+            ("MaxRecords" Data..=) Prelude.<$> maxRecords,
+            ("SubscriptionName" Data..=)
+              Prelude.<$> subscriptionName
           ]
       )
 
-instance Core.ToPath DescribeEventSubscriptions where
+instance Data.ToPath DescribeEventSubscriptions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEventSubscriptions where
+instance Data.ToQuery DescribeEventSubscriptions where
   toQuery = Prelude.const Prelude.mempty
 
 -- |

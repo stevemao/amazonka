@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.ChallengeResponseType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,14 +22,15 @@ module Amazonka.CognitoIdentityProvider.Types.ChallengeResponseType where
 import Amazonka.CognitoIdentityProvider.Types.ChallengeName
 import Amazonka.CognitoIdentityProvider.Types.ChallengeResponse
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The challenge response type.
 --
 -- /See:/ 'newChallengeResponseType' smart constructor.
 data ChallengeResponseType = ChallengeResponseType'
-  { -- | The challenge name
+  { -- | The challenge name.
     challengeName :: Prelude.Maybe ChallengeName,
     -- | The challenge response.
     challengeResponse :: Prelude.Maybe ChallengeResponse
@@ -44,7 +45,7 @@ data ChallengeResponseType = ChallengeResponseType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'challengeName', 'challengeResponseType_challengeName' - The challenge name
+-- 'challengeName', 'challengeResponseType_challengeName' - The challenge name.
 --
 -- 'challengeResponse', 'challengeResponseType_challengeResponse' - The challenge response.
 newChallengeResponseType ::
@@ -56,7 +57,7 @@ newChallengeResponseType =
       challengeResponse = Prelude.Nothing
     }
 
--- | The challenge name
+-- | The challenge name.
 challengeResponseType_challengeName :: Lens.Lens' ChallengeResponseType (Prelude.Maybe ChallengeName)
 challengeResponseType_challengeName = Lens.lens (\ChallengeResponseType' {challengeName} -> challengeName) (\s@ChallengeResponseType' {} a -> s {challengeName = a} :: ChallengeResponseType)
 
@@ -64,14 +65,14 @@ challengeResponseType_challengeName = Lens.lens (\ChallengeResponseType' {challe
 challengeResponseType_challengeResponse :: Lens.Lens' ChallengeResponseType (Prelude.Maybe ChallengeResponse)
 challengeResponseType_challengeResponse = Lens.lens (\ChallengeResponseType' {challengeResponse} -> challengeResponse) (\s@ChallengeResponseType' {} a -> s {challengeResponse = a} :: ChallengeResponseType)
 
-instance Core.FromJSON ChallengeResponseType where
+instance Data.FromJSON ChallengeResponseType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ChallengeResponseType"
       ( \x ->
           ChallengeResponseType'
-            Prelude.<$> (x Core..:? "ChallengeName")
-            Prelude.<*> (x Core..:? "ChallengeResponse")
+            Prelude.<$> (x Data..:? "ChallengeName")
+            Prelude.<*> (x Data..:? "ChallengeResponse")
       )
 
 instance Prelude.Hashable ChallengeResponseType where

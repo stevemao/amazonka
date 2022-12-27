@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -52,6 +52,7 @@ library
     Amazonka.Location.BatchPutGeofence
     Amazonka.Location.BatchUpdateDevicePosition
     Amazonka.Location.CalculateRoute
+    Amazonka.Location.CalculateRouteMatrix
     Amazonka.Location.CreateGeofenceCollection
     Amazonka.Location.CreateMap
     Amazonka.Location.CreatePlaceIndex
@@ -75,6 +76,7 @@ library
     Amazonka.Location.GetMapSprites
     Amazonka.Location.GetMapStyleDescriptor
     Amazonka.Location.GetMapTile
+    Amazonka.Location.GetPlace
     Amazonka.Location.Lens
     Amazonka.Location.ListDevicePositions
     Amazonka.Location.ListGeofenceCollections
@@ -87,6 +89,7 @@ library
     Amazonka.Location.ListTrackers
     Amazonka.Location.PutGeofence
     Amazonka.Location.SearchPlaceIndexForPosition
+    Amazonka.Location.SearchPlaceIndexForSuggestions
     Amazonka.Location.SearchPlaceIndexForText
     Amazonka.Location.TagResource
     Amazonka.Location.Types
@@ -101,8 +104,10 @@ library
     Amazonka.Location.Types.BatchPutGeofenceSuccess
     Amazonka.Location.Types.BatchUpdateDevicePositionError
     Amazonka.Location.Types.CalculateRouteCarModeOptions
+    Amazonka.Location.Types.CalculateRouteMatrixSummary
     Amazonka.Location.Types.CalculateRouteSummary
     Amazonka.Location.Types.CalculateRouteTruckModeOptions
+    Amazonka.Location.Types.Circle
     Amazonka.Location.Types.DataSourceConfiguration
     Amazonka.Location.Types.DevicePosition
     Amazonka.Location.Types.DevicePositionUpdate
@@ -122,13 +127,20 @@ library
     Amazonka.Location.Types.MapConfiguration
     Amazonka.Location.Types.Place
     Amazonka.Location.Types.PlaceGeometry
+    Amazonka.Location.Types.PositionalAccuracy
     Amazonka.Location.Types.PositionFiltering
     Amazonka.Location.Types.PricingPlan
+    Amazonka.Location.Types.RouteMatrixEntry
+    Amazonka.Location.Types.RouteMatrixEntryError
+    Amazonka.Location.Types.RouteMatrixErrorCode
     Amazonka.Location.Types.SearchForPositionResult
+    Amazonka.Location.Types.SearchForSuggestionsResult
     Amazonka.Location.Types.SearchForTextResult
     Amazonka.Location.Types.SearchPlaceIndexForPositionSummary
+    Amazonka.Location.Types.SearchPlaceIndexForSuggestionsSummary
     Amazonka.Location.Types.SearchPlaceIndexForTextSummary
     Amazonka.Location.Types.Step
+    Amazonka.Location.Types.TimeZone
     Amazonka.Location.Types.TravelMode
     Amazonka.Location.Types.TruckDimensions
     Amazonka.Location.Types.TruckWeight
@@ -142,7 +154,7 @@ library
     Amazonka.Location.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-location-test
@@ -161,9 +173,9 @@ test-suite amazonka-location-test
     Test.Amazonka.Location.Internal
 
   build-depends:
-    , amazonka-core         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
     , amazonka-location
-    , amazonka-test         ^>=2.0
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

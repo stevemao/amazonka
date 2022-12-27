@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -11,15 +11,15 @@
 --
 -- Derived from API version @2020-03-31@ of the AWS service descriptions, licensed under Apache 2.0.
 --
--- AWS Well-Architected Tool
+-- Well-Architected Tool
 --
--- This is the /AWS Well-Architected Tool API Reference/. The AWS
--- Well-Architected Tool API provides programmatic access to the
--- <http://aws.amazon.com/well-architected-tool AWS Well-Architected Tool>
--- in the
--- <https://console.aws.amazon.com/wellarchitected AWS Management Console>.
--- For information about the AWS Well-Architected Tool, see the
--- <https://docs.aws.amazon.com/wellarchitected/latest/userguide/intro.html AWS Well-Architected Tool User Guide>.
+-- This is the /Well-Architected Tool API Reference/. The WA Tool API
+-- provides programmatic access to the
+-- <http://aws.amazon.com/well-architected-tool Well-Architected Tool> in
+-- the
+-- <https://console.aws.amazon.com/wellarchitected Amazon Web Services Management Console>.
+-- For information about the Well-Architected Tool, see the
+-- <https://docs.aws.amazon.com/wellarchitected/latest/userguide/intro.html Well-Architected Tool User Guide>.
 module Amazonka.WellArchitected
   ( -- * Service Configuration
     defaultService,
@@ -27,20 +27,11 @@ module Amazonka.WellArchitected
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
 
     -- ** ConflictException
     _ConflictException,
-
-    -- ** ServiceQuotaExceededException
-    _ServiceQuotaExceededException,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
 
     -- ** InternalServerException
     _InternalServerException,
@@ -48,161 +39,20 @@ module Amazonka.WellArchitected
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
+    -- ** ServiceQuotaExceededException
+    _ServiceQuotaExceededException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** ValidationException
+    _ValidationException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** ListNotifications
-    ListNotifications (ListNotifications'),
-    newListNotifications,
-    ListNotificationsResponse (ListNotificationsResponse'),
-    newListNotificationsResponse,
-
-    -- ** GetLensVersionDifference
-    GetLensVersionDifference (GetLensVersionDifference'),
-    newGetLensVersionDifference,
-    GetLensVersionDifferenceResponse (GetLensVersionDifferenceResponse'),
-    newGetLensVersionDifferenceResponse,
-
-    -- ** ListLensReviewImprovements
-    ListLensReviewImprovements (ListLensReviewImprovements'),
-    newListLensReviewImprovements,
-    ListLensReviewImprovementsResponse (ListLensReviewImprovementsResponse'),
-    newListLensReviewImprovementsResponse,
-
-    -- ** ListMilestones
-    ListMilestones (ListMilestones'),
-    newListMilestones,
-    ListMilestonesResponse (ListMilestonesResponse'),
-    newListMilestonesResponse,
-
-    -- ** CreateMilestone
-    CreateMilestone (CreateMilestone'),
-    newCreateMilestone,
-    CreateMilestoneResponse (CreateMilestoneResponse'),
-    newCreateMilestoneResponse,
-
-    -- ** GetAnswer
-    GetAnswer (GetAnswer'),
-    newGetAnswer,
-    GetAnswerResponse (GetAnswerResponse'),
-    newGetAnswerResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** UpdateAnswer
-    UpdateAnswer (UpdateAnswer'),
-    newUpdateAnswer,
-    UpdateAnswerResponse (UpdateAnswerResponse'),
-    newUpdateAnswerResponse,
-
-    -- ** UpdateShareInvitation
-    UpdateShareInvitation (UpdateShareInvitation'),
-    newUpdateShareInvitation,
-    UpdateShareInvitationResponse (UpdateShareInvitationResponse'),
-    newUpdateShareInvitationResponse,
-
-    -- ** ListAnswers
-    ListAnswers (ListAnswers'),
-    newListAnswers,
-    ListAnswersResponse (ListAnswersResponse'),
-    newListAnswersResponse,
-
-    -- ** DisassociateLenses
-    DisassociateLenses (DisassociateLenses'),
-    newDisassociateLenses,
-    DisassociateLensesResponse (DisassociateLensesResponse'),
-    newDisassociateLensesResponse,
-
-    -- ** GetMilestone
-    GetMilestone (GetMilestone'),
-    newGetMilestone,
-    GetMilestoneResponse (GetMilestoneResponse'),
-    newGetMilestoneResponse,
-
-    -- ** ListLenses
-    ListLenses (ListLenses'),
-    newListLenses,
-    ListLensesResponse (ListLensesResponse'),
-    newListLensesResponse,
-
-    -- ** ListWorkloadShares
-    ListWorkloadShares (ListWorkloadShares'),
-    newListWorkloadShares,
-    ListWorkloadSharesResponse (ListWorkloadSharesResponse'),
-    newListWorkloadSharesResponse,
-
-    -- ** UpdateWorkload
-    UpdateWorkload (UpdateWorkload'),
-    newUpdateWorkload,
-    UpdateWorkloadResponse (UpdateWorkloadResponse'),
-    newUpdateWorkloadResponse,
-
-    -- ** DeleteWorkload
-    DeleteWorkload (DeleteWorkload'),
-    newDeleteWorkload,
-    DeleteWorkloadResponse (DeleteWorkloadResponse'),
-    newDeleteWorkloadResponse,
-
-    -- ** ListLensReviews
-    ListLensReviews (ListLensReviews'),
-    newListLensReviews,
-    ListLensReviewsResponse (ListLensReviewsResponse'),
-    newListLensReviewsResponse,
-
-    -- ** UpdateLensReview
-    UpdateLensReview (UpdateLensReview'),
-    newUpdateLensReview,
-    UpdateLensReviewResponse (UpdateLensReviewResponse'),
-    newUpdateLensReviewResponse,
-
-    -- ** ListShareInvitations
-    ListShareInvitations (ListShareInvitations'),
-    newListShareInvitations,
-    ListShareInvitationsResponse (ListShareInvitationsResponse'),
-    newListShareInvitationsResponse,
-
-    -- ** GetLensReview
-    GetLensReview (GetLensReview'),
-    newGetLensReview,
-    GetLensReviewResponse (GetLensReviewResponse'),
-    newGetLensReviewResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** CreateWorkload
-    CreateWorkload (CreateWorkload'),
-    newCreateWorkload,
-    CreateWorkloadResponse (CreateWorkloadResponse'),
-    newCreateWorkloadResponse,
-
-    -- ** DeleteWorkloadShare
-    DeleteWorkloadShare (DeleteWorkloadShare'),
-    newDeleteWorkloadShare,
-    DeleteWorkloadShareResponse (DeleteWorkloadShareResponse'),
-    newDeleteWorkloadShareResponse,
-
-    -- ** UpdateWorkloadShare
-    UpdateWorkloadShare (UpdateWorkloadShare'),
-    newUpdateWorkloadShare,
-    UpdateWorkloadShareResponse (UpdateWorkloadShareResponse'),
-    newUpdateWorkloadShareResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
 
     -- ** AssociateLenses
     AssociateLenses (AssociateLenses'),
@@ -210,11 +60,29 @@ module Amazonka.WellArchitected
     AssociateLensesResponse (AssociateLensesResponse'),
     newAssociateLensesResponse,
 
-    -- ** ListWorkloads
-    ListWorkloads (ListWorkloads'),
-    newListWorkloads,
-    ListWorkloadsResponse (ListWorkloadsResponse'),
-    newListWorkloadsResponse,
+    -- ** CreateLensShare
+    CreateLensShare (CreateLensShare'),
+    newCreateLensShare,
+    CreateLensShareResponse (CreateLensShareResponse'),
+    newCreateLensShareResponse,
+
+    -- ** CreateLensVersion
+    CreateLensVersion (CreateLensVersion'),
+    newCreateLensVersion,
+    CreateLensVersionResponse (CreateLensVersionResponse'),
+    newCreateLensVersionResponse,
+
+    -- ** CreateMilestone
+    CreateMilestone (CreateMilestone'),
+    newCreateMilestone,
+    CreateMilestoneResponse (CreateMilestoneResponse'),
+    newCreateMilestoneResponse,
+
+    -- ** CreateWorkload
+    CreateWorkload (CreateWorkload'),
+    newCreateWorkload,
+    CreateWorkloadResponse (CreateWorkloadResponse'),
+    newCreateWorkloadResponse,
 
     -- ** CreateWorkloadShare
     CreateWorkloadShare (CreateWorkloadShare'),
@@ -222,17 +90,77 @@ module Amazonka.WellArchitected
     CreateWorkloadShareResponse (CreateWorkloadShareResponse'),
     newCreateWorkloadShareResponse,
 
+    -- ** DeleteLens
+    DeleteLens (DeleteLens'),
+    newDeleteLens,
+    DeleteLensResponse (DeleteLensResponse'),
+    newDeleteLensResponse,
+
+    -- ** DeleteLensShare
+    DeleteLensShare (DeleteLensShare'),
+    newDeleteLensShare,
+    DeleteLensShareResponse (DeleteLensShareResponse'),
+    newDeleteLensShareResponse,
+
+    -- ** DeleteWorkload
+    DeleteWorkload (DeleteWorkload'),
+    newDeleteWorkload,
+    DeleteWorkloadResponse (DeleteWorkloadResponse'),
+    newDeleteWorkloadResponse,
+
+    -- ** DeleteWorkloadShare
+    DeleteWorkloadShare (DeleteWorkloadShare'),
+    newDeleteWorkloadShare,
+    DeleteWorkloadShareResponse (DeleteWorkloadShareResponse'),
+    newDeleteWorkloadShareResponse,
+
+    -- ** DisassociateLenses
+    DisassociateLenses (DisassociateLenses'),
+    newDisassociateLenses,
+    DisassociateLensesResponse (DisassociateLensesResponse'),
+    newDisassociateLensesResponse,
+
+    -- ** ExportLens
+    ExportLens (ExportLens'),
+    newExportLens,
+    ExportLensResponse (ExportLensResponse'),
+    newExportLensResponse,
+
+    -- ** GetAnswer
+    GetAnswer (GetAnswer'),
+    newGetAnswer,
+    GetAnswerResponse (GetAnswerResponse'),
+    newGetAnswerResponse,
+
+    -- ** GetLens
+    GetLens (GetLens'),
+    newGetLens,
+    GetLensResponse (GetLensResponse'),
+    newGetLensResponse,
+
+    -- ** GetLensReview
+    GetLensReview (GetLensReview'),
+    newGetLensReview,
+    GetLensReviewResponse (GetLensReviewResponse'),
+    newGetLensReviewResponse,
+
     -- ** GetLensReviewReport
     GetLensReviewReport (GetLensReviewReport'),
     newGetLensReviewReport,
     GetLensReviewReportResponse (GetLensReviewReportResponse'),
     newGetLensReviewReportResponse,
 
-    -- ** UpgradeLensReview
-    UpgradeLensReview (UpgradeLensReview'),
-    newUpgradeLensReview,
-    UpgradeLensReviewResponse (UpgradeLensReviewResponse'),
-    newUpgradeLensReviewResponse,
+    -- ** GetLensVersionDifference
+    GetLensVersionDifference (GetLensVersionDifference'),
+    newGetLensVersionDifference,
+    GetLensVersionDifferenceResponse (GetLensVersionDifferenceResponse'),
+    newGetLensVersionDifferenceResponse,
+
+    -- ** GetMilestone
+    GetMilestone (GetMilestone'),
+    newGetMilestone,
+    GetMilestoneResponse (GetMilestoneResponse'),
+    newGetMilestoneResponse,
 
     -- ** GetWorkload
     GetWorkload (GetWorkload'),
@@ -240,10 +168,160 @@ module Amazonka.WellArchitected
     GetWorkloadResponse (GetWorkloadResponse'),
     newGetWorkloadResponse,
 
+    -- ** ImportLens
+    ImportLens (ImportLens'),
+    newImportLens,
+    ImportLensResponse (ImportLensResponse'),
+    newImportLensResponse,
+
+    -- ** ListAnswers
+    ListAnswers (ListAnswers'),
+    newListAnswers,
+    ListAnswersResponse (ListAnswersResponse'),
+    newListAnswersResponse,
+
+    -- ** ListCheckDetails
+    ListCheckDetails (ListCheckDetails'),
+    newListCheckDetails,
+    ListCheckDetailsResponse (ListCheckDetailsResponse'),
+    newListCheckDetailsResponse,
+
+    -- ** ListCheckSummaries
+    ListCheckSummaries (ListCheckSummaries'),
+    newListCheckSummaries,
+    ListCheckSummariesResponse (ListCheckSummariesResponse'),
+    newListCheckSummariesResponse,
+
+    -- ** ListLensReviewImprovements
+    ListLensReviewImprovements (ListLensReviewImprovements'),
+    newListLensReviewImprovements,
+    ListLensReviewImprovementsResponse (ListLensReviewImprovementsResponse'),
+    newListLensReviewImprovementsResponse,
+
+    -- ** ListLensReviews
+    ListLensReviews (ListLensReviews'),
+    newListLensReviews,
+    ListLensReviewsResponse (ListLensReviewsResponse'),
+    newListLensReviewsResponse,
+
+    -- ** ListLensShares
+    ListLensShares (ListLensShares'),
+    newListLensShares,
+    ListLensSharesResponse (ListLensSharesResponse'),
+    newListLensSharesResponse,
+
+    -- ** ListLenses
+    ListLenses (ListLenses'),
+    newListLenses,
+    ListLensesResponse (ListLensesResponse'),
+    newListLensesResponse,
+
+    -- ** ListMilestones
+    ListMilestones (ListMilestones'),
+    newListMilestones,
+    ListMilestonesResponse (ListMilestonesResponse'),
+    newListMilestonesResponse,
+
+    -- ** ListNotifications
+    ListNotifications (ListNotifications'),
+    newListNotifications,
+    ListNotificationsResponse (ListNotificationsResponse'),
+    newListNotificationsResponse,
+
+    -- ** ListShareInvitations
+    ListShareInvitations (ListShareInvitations'),
+    newListShareInvitations,
+    ListShareInvitationsResponse (ListShareInvitationsResponse'),
+    newListShareInvitationsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** ListWorkloadShares
+    ListWorkloadShares (ListWorkloadShares'),
+    newListWorkloadShares,
+    ListWorkloadSharesResponse (ListWorkloadSharesResponse'),
+    newListWorkloadSharesResponse,
+
+    -- ** ListWorkloads
+    ListWorkloads (ListWorkloads'),
+    newListWorkloads,
+    ListWorkloadsResponse (ListWorkloadsResponse'),
+    newListWorkloadsResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateAnswer
+    UpdateAnswer (UpdateAnswer'),
+    newUpdateAnswer,
+    UpdateAnswerResponse (UpdateAnswerResponse'),
+    newUpdateAnswerResponse,
+
+    -- ** UpdateGlobalSettings
+    UpdateGlobalSettings (UpdateGlobalSettings'),
+    newUpdateGlobalSettings,
+    UpdateGlobalSettingsResponse (UpdateGlobalSettingsResponse'),
+    newUpdateGlobalSettingsResponse,
+
+    -- ** UpdateLensReview
+    UpdateLensReview (UpdateLensReview'),
+    newUpdateLensReview,
+    UpdateLensReviewResponse (UpdateLensReviewResponse'),
+    newUpdateLensReviewResponse,
+
+    -- ** UpdateShareInvitation
+    UpdateShareInvitation (UpdateShareInvitation'),
+    newUpdateShareInvitation,
+    UpdateShareInvitationResponse (UpdateShareInvitationResponse'),
+    newUpdateShareInvitationResponse,
+
+    -- ** UpdateWorkload
+    UpdateWorkload (UpdateWorkload'),
+    newUpdateWorkload,
+    UpdateWorkloadResponse (UpdateWorkloadResponse'),
+    newUpdateWorkloadResponse,
+
+    -- ** UpdateWorkloadShare
+    UpdateWorkloadShare (UpdateWorkloadShare'),
+    newUpdateWorkloadShare,
+    UpdateWorkloadShareResponse (UpdateWorkloadShareResponse'),
+    newUpdateWorkloadShareResponse,
+
+    -- ** UpgradeLensReview
+    UpgradeLensReview (UpgradeLensReview'),
+    newUpgradeLensReview,
+    UpgradeLensReviewResponse (UpgradeLensReviewResponse'),
+    newUpgradeLensReviewResponse,
+
     -- * Types
+
+    -- ** AdditionalResourceType
+    AdditionalResourceType (..),
 
     -- ** AnswerReason
     AnswerReason (..),
+
+    -- ** CheckFailureReason
+    CheckFailureReason (..),
+
+    -- ** CheckProvider
+    CheckProvider (..),
+
+    -- ** CheckStatus
+    CheckStatus (..),
 
     -- ** ChoiceReason
     ChoiceReason (..),
@@ -254,11 +332,23 @@ module Amazonka.WellArchitected
     -- ** DifferenceStatus
     DifferenceStatus (..),
 
+    -- ** ImportLensStatus
+    ImportLensStatus (..),
+
     -- ** LensStatus
     LensStatus (..),
 
+    -- ** LensStatusType
+    LensStatusType (..),
+
+    -- ** LensType
+    LensType (..),
+
     -- ** NotificationType
     NotificationType (..),
+
+    -- ** OrganizationSharingStatus
+    OrganizationSharingStatus (..),
 
     -- ** PermissionType
     PermissionType (..),
@@ -269,14 +359,24 @@ module Amazonka.WellArchitected
     -- ** ShareInvitationAction
     ShareInvitationAction (..),
 
+    -- ** ShareResourceType
+    ShareResourceType (..),
+
     -- ** ShareStatus
     ShareStatus (..),
+
+    -- ** TrustedAdvisorIntegrationStatus
+    TrustedAdvisorIntegrationStatus (..),
 
     -- ** WorkloadEnvironment
     WorkloadEnvironment (..),
 
     -- ** WorkloadImprovementStatus
     WorkloadImprovementStatus (..),
+
+    -- ** AdditionalResources
+    AdditionalResources (AdditionalResources'),
+    newAdditionalResources,
 
     -- ** Answer
     Answer (Answer'),
@@ -285,6 +385,14 @@ module Amazonka.WellArchitected
     -- ** AnswerSummary
     AnswerSummary (AnswerSummary'),
     newAnswerSummary,
+
+    -- ** CheckDetail
+    CheckDetail (CheckDetail'),
+    newCheckDetail,
+
+    -- ** CheckSummary
+    CheckSummary (CheckSummary'),
+    newCheckSummary,
 
     -- ** Choice
     Choice (Choice'),
@@ -298,6 +406,14 @@ module Amazonka.WellArchitected
     ChoiceAnswerSummary (ChoiceAnswerSummary'),
     newChoiceAnswerSummary,
 
+    -- ** ChoiceContent
+    ChoiceContent (ChoiceContent'),
+    newChoiceContent,
+
+    -- ** ChoiceImprovementPlan
+    ChoiceImprovementPlan (ChoiceImprovementPlan'),
+    newChoiceImprovementPlan,
+
     -- ** ChoiceUpdate
     ChoiceUpdate (ChoiceUpdate'),
     newChoiceUpdate,
@@ -305,6 +421,10 @@ module Amazonka.WellArchitected
     -- ** ImprovementSummary
     ImprovementSummary (ImprovementSummary'),
     newImprovementSummary,
+
+    -- ** Lens
+    Lens (Lens'),
+    newLens,
 
     -- ** LensReview
     LensReview (LensReview'),
@@ -317,6 +437,10 @@ module Amazonka.WellArchitected
     -- ** LensReviewSummary
     LensReviewSummary (LensReviewSummary'),
     newLensReviewSummary,
+
+    -- ** LensShareSummary
+    LensShareSummary (LensShareSummary'),
+    newLensShareSummary,
 
     -- ** LensSummary
     LensSummary (LensSummary'),
@@ -366,6 +490,10 @@ module Amazonka.WellArchitected
     Workload (Workload'),
     newWorkload,
 
+    -- ** WorkloadDiscoveryConfig
+    WorkloadDiscoveryConfig (WorkloadDiscoveryConfig'),
+    newWorkloadDiscoveryConfig,
+
     -- ** WorkloadShare
     WorkloadShare (WorkloadShare'),
     newWorkloadShare,
@@ -381,22 +509,32 @@ module Amazonka.WellArchitected
 where
 
 import Amazonka.WellArchitected.AssociateLenses
+import Amazonka.WellArchitected.CreateLensShare
+import Amazonka.WellArchitected.CreateLensVersion
 import Amazonka.WellArchitected.CreateMilestone
 import Amazonka.WellArchitected.CreateWorkload
 import Amazonka.WellArchitected.CreateWorkloadShare
+import Amazonka.WellArchitected.DeleteLens
+import Amazonka.WellArchitected.DeleteLensShare
 import Amazonka.WellArchitected.DeleteWorkload
 import Amazonka.WellArchitected.DeleteWorkloadShare
 import Amazonka.WellArchitected.DisassociateLenses
+import Amazonka.WellArchitected.ExportLens
 import Amazonka.WellArchitected.GetAnswer
+import Amazonka.WellArchitected.GetLens
 import Amazonka.WellArchitected.GetLensReview
 import Amazonka.WellArchitected.GetLensReviewReport
 import Amazonka.WellArchitected.GetLensVersionDifference
 import Amazonka.WellArchitected.GetMilestone
 import Amazonka.WellArchitected.GetWorkload
+import Amazonka.WellArchitected.ImportLens
 import Amazonka.WellArchitected.Lens
 import Amazonka.WellArchitected.ListAnswers
+import Amazonka.WellArchitected.ListCheckDetails
+import Amazonka.WellArchitected.ListCheckSummaries
 import Amazonka.WellArchitected.ListLensReviewImprovements
 import Amazonka.WellArchitected.ListLensReviews
+import Amazonka.WellArchitected.ListLensShares
 import Amazonka.WellArchitected.ListLenses
 import Amazonka.WellArchitected.ListMilestones
 import Amazonka.WellArchitected.ListNotifications
@@ -408,6 +546,7 @@ import Amazonka.WellArchitected.TagResource
 import Amazonka.WellArchitected.Types
 import Amazonka.WellArchitected.UntagResource
 import Amazonka.WellArchitected.UpdateAnswer
+import Amazonka.WellArchitected.UpdateGlobalSettings
 import Amazonka.WellArchitected.UpdateLensReview
 import Amazonka.WellArchitected.UpdateShareInvitation
 import Amazonka.WellArchitected.UpdateWorkload

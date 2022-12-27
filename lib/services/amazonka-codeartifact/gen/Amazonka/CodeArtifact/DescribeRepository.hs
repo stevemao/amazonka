@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.DescribeRepository
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,15 +44,16 @@ where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeRepository' smart constructor.
 data DescribeRepository = DescribeRepository'
-  { -- | The 12-digit account number of the AWS account that owns the domain. It
-    -- does not include dashes or spaces.
+  { -- | The 12-digit account number of the Amazon Web Services account that owns
+    -- the domain. It does not include dashes or spaces.
     domainOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the domain that contains the repository to describe.
     domain :: Prelude.Text,
@@ -69,8 +70,8 @@ data DescribeRepository = DescribeRepository'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainOwner', 'describeRepository_domainOwner' - The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- 'domainOwner', 'describeRepository_domainOwner' - The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 --
 -- 'domain', 'describeRepository_domain' - The name of the domain that contains the repository to describe.
 --
@@ -88,8 +89,8 @@ newDescribeRepository pDomain_ pRepository_ =
       repository = pRepository_
     }
 
--- | The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- | The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 describeRepository_domainOwner :: Lens.Lens' DescribeRepository (Prelude.Maybe Prelude.Text)
 describeRepository_domainOwner = Lens.lens (\DescribeRepository' {domainOwner} -> domainOwner) (\s@DescribeRepository' {} a -> s {domainOwner = a} :: DescribeRepository)
 
@@ -105,12 +106,13 @@ instance Core.AWSRequest DescribeRepository where
   type
     AWSResponse DescribeRepository =
       DescribeRepositoryResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRepositoryResponse'
-            Prelude.<$> (x Core..?> "repository")
+            Prelude.<$> (x Data..?> "repository")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,26 +128,26 @@ instance Prelude.NFData DescribeRepository where
       `Prelude.seq` Prelude.rnf domain
       `Prelude.seq` Prelude.rnf repository
 
-instance Core.ToHeaders DescribeRepository where
+instance Data.ToHeaders DescribeRepository where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeRepository where
+instance Data.ToPath DescribeRepository where
   toPath = Prelude.const "/v1/repository"
 
-instance Core.ToQuery DescribeRepository where
+instance Data.ToQuery DescribeRepository where
   toQuery DescribeRepository' {..} =
     Prelude.mconcat
-      [ "domain-owner" Core.=: domainOwner,
-        "domain" Core.=: domain,
-        "repository" Core.=: repository
+      [ "domain-owner" Data.=: domainOwner,
+        "domain" Data.=: domain,
+        "repository" Data.=: repository
       ]
 
 -- | /See:/ 'newDescribeRepositoryResponse' smart constructor.

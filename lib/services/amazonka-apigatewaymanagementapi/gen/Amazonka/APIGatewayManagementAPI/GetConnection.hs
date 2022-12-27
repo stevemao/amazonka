@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGatewayManagementAPI.GetConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,15 +35,16 @@ module Amazonka.APIGatewayManagementAPI.GetConnection
 
     -- * Response Lenses
     getConnectionResponse_connectedAt,
-    getConnectionResponse_lastActiveAt,
     getConnectionResponse_identity,
+    getConnectionResponse_lastActiveAt,
     getConnectionResponse_httpStatus,
   )
 where
 
 import Amazonka.APIGatewayManagementAPI.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,14 +79,15 @@ instance Core.AWSRequest GetConnection where
   type
     AWSResponse GetConnection =
       GetConnectionResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetConnectionResponse'
-            Prelude.<$> (x Core..?> "connectedAt")
-            Prelude.<*> (x Core..?> "lastActiveAt")
-            Prelude.<*> (x Core..?> "identity")
+            Prelude.<$> (x Data..?> "connectedAt")
+            Prelude.<*> (x Data..?> "identity")
+            Prelude.<*> (x Data..?> "lastActiveAt")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -96,32 +98,32 @@ instance Prelude.Hashable GetConnection where
 instance Prelude.NFData GetConnection where
   rnf GetConnection' {..} = Prelude.rnf connectionId
 
-instance Core.ToHeaders GetConnection where
+instance Data.ToHeaders GetConnection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetConnection where
+instance Data.ToPath GetConnection where
   toPath GetConnection' {..} =
     Prelude.mconcat
-      ["/@connections/", Core.toBS connectionId]
+      ["/@connections/", Data.toBS connectionId]
 
-instance Core.ToQuery GetConnection where
+instance Data.ToQuery GetConnection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetConnectionResponse' smart constructor.
 data GetConnectionResponse = GetConnectionResponse'
   { -- | The time in ISO 8601 format for when the connection was established.
-    connectedAt :: Prelude.Maybe Core.POSIX,
-    -- | The time in ISO 8601 format for when the connection was last active.
-    lastActiveAt :: Prelude.Maybe Core.POSIX,
+    connectedAt :: Prelude.Maybe Data.POSIX,
     identity :: Prelude.Maybe Identity,
+    -- | The time in ISO 8601 format for when the connection was last active.
+    lastActiveAt :: Prelude.Maybe Data.POSIX,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -137,9 +139,9 @@ data GetConnectionResponse = GetConnectionResponse'
 --
 -- 'connectedAt', 'getConnectionResponse_connectedAt' - The time in ISO 8601 format for when the connection was established.
 --
--- 'lastActiveAt', 'getConnectionResponse_lastActiveAt' - The time in ISO 8601 format for when the connection was last active.
---
 -- 'identity', 'getConnectionResponse_identity' - Undocumented member.
+--
+-- 'lastActiveAt', 'getConnectionResponse_lastActiveAt' - The time in ISO 8601 format for when the connection was last active.
 --
 -- 'httpStatus', 'getConnectionResponse_httpStatus' - The response's http status code.
 newGetConnectionResponse ::
@@ -150,22 +152,22 @@ newGetConnectionResponse pHttpStatus_ =
   GetConnectionResponse'
     { connectedAt =
         Prelude.Nothing,
-      lastActiveAt = Prelude.Nothing,
       identity = Prelude.Nothing,
+      lastActiveAt = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
 -- | The time in ISO 8601 format for when the connection was established.
 getConnectionResponse_connectedAt :: Lens.Lens' GetConnectionResponse (Prelude.Maybe Prelude.UTCTime)
-getConnectionResponse_connectedAt = Lens.lens (\GetConnectionResponse' {connectedAt} -> connectedAt) (\s@GetConnectionResponse' {} a -> s {connectedAt = a} :: GetConnectionResponse) Prelude.. Lens.mapping Core._Time
-
--- | The time in ISO 8601 format for when the connection was last active.
-getConnectionResponse_lastActiveAt :: Lens.Lens' GetConnectionResponse (Prelude.Maybe Prelude.UTCTime)
-getConnectionResponse_lastActiveAt = Lens.lens (\GetConnectionResponse' {lastActiveAt} -> lastActiveAt) (\s@GetConnectionResponse' {} a -> s {lastActiveAt = a} :: GetConnectionResponse) Prelude.. Lens.mapping Core._Time
+getConnectionResponse_connectedAt = Lens.lens (\GetConnectionResponse' {connectedAt} -> connectedAt) (\s@GetConnectionResponse' {} a -> s {connectedAt = a} :: GetConnectionResponse) Prelude.. Lens.mapping Data._Time
 
 -- | Undocumented member.
 getConnectionResponse_identity :: Lens.Lens' GetConnectionResponse (Prelude.Maybe Identity)
 getConnectionResponse_identity = Lens.lens (\GetConnectionResponse' {identity} -> identity) (\s@GetConnectionResponse' {} a -> s {identity = a} :: GetConnectionResponse)
+
+-- | The time in ISO 8601 format for when the connection was last active.
+getConnectionResponse_lastActiveAt :: Lens.Lens' GetConnectionResponse (Prelude.Maybe Prelude.UTCTime)
+getConnectionResponse_lastActiveAt = Lens.lens (\GetConnectionResponse' {lastActiveAt} -> lastActiveAt) (\s@GetConnectionResponse' {} a -> s {lastActiveAt = a} :: GetConnectionResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The response's http status code.
 getConnectionResponse_httpStatus :: Lens.Lens' GetConnectionResponse Prelude.Int
@@ -174,6 +176,6 @@ getConnectionResponse_httpStatus = Lens.lens (\GetConnectionResponse' {httpStatu
 instance Prelude.NFData GetConnectionResponse where
   rnf GetConnectionResponse' {..} =
     Prelude.rnf connectedAt
-      `Prelude.seq` Prelude.rnf lastActiveAt
       `Prelude.seq` Prelude.rnf identity
+      `Prelude.seq` Prelude.rnf lastActiveAt
       `Prelude.seq` Prelude.rnf httpStatus

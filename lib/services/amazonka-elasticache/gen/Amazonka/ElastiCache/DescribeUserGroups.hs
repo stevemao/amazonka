@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.DescribeUserGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,33 +29,32 @@ module Amazonka.ElastiCache.DescribeUserGroups
     newDescribeUserGroups,
 
     -- * Request Lenses
-    describeUserGroups_userGroupId,
     describeUserGroups_marker,
     describeUserGroups_maxRecords,
+    describeUserGroups_userGroupId,
 
     -- * Destructuring the Response
     DescribeUserGroupsResponse (..),
     newDescribeUserGroupsResponse,
 
     -- * Response Lenses
-    describeUserGroupsResponse_userGroups,
     describeUserGroupsResponse_marker,
+    describeUserGroupsResponse_userGroups,
     describeUserGroupsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeUserGroups' smart constructor.
 data DescribeUserGroups = DescribeUserGroups'
-  { -- | The ID of the user group.
-    userGroupId :: Prelude.Maybe Prelude.Text,
-    -- | An optional marker returned from a prior request. Use this marker for
+  { -- | An optional marker returned from a prior request. Use this marker for
     -- pagination of results from this operation. If this parameter is
     -- specified, the response includes only records beyond the marker, up to
     -- the value specified by MaxRecords. >
@@ -63,7 +62,9 @@ data DescribeUserGroups = DescribeUserGroups'
     -- | The maximum number of records to include in the response. If more
     -- records exist than the specified MaxRecords value, a marker is included
     -- in the response so that the remaining results can be retrieved.
-    maxRecords :: Prelude.Maybe Prelude.Int
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The ID of the user group.
+    userGroupId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,8 +76,6 @@ data DescribeUserGroups = DescribeUserGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'userGroupId', 'describeUserGroups_userGroupId' - The ID of the user group.
---
 -- 'marker', 'describeUserGroups_marker' - An optional marker returned from a prior request. Use this marker for
 -- pagination of results from this operation. If this parameter is
 -- specified, the response includes only records beyond the marker, up to
@@ -85,18 +84,16 @@ data DescribeUserGroups = DescribeUserGroups'
 -- 'maxRecords', 'describeUserGroups_maxRecords' - The maximum number of records to include in the response. If more
 -- records exist than the specified MaxRecords value, a marker is included
 -- in the response so that the remaining results can be retrieved.
+--
+-- 'userGroupId', 'describeUserGroups_userGroupId' - The ID of the user group.
 newDescribeUserGroups ::
   DescribeUserGroups
 newDescribeUserGroups =
   DescribeUserGroups'
-    { userGroupId = Prelude.Nothing,
-      marker = Prelude.Nothing,
-      maxRecords = Prelude.Nothing
+    { marker = Prelude.Nothing,
+      maxRecords = Prelude.Nothing,
+      userGroupId = Prelude.Nothing
     }
-
--- | The ID of the user group.
-describeUserGroups_userGroupId :: Lens.Lens' DescribeUserGroups (Prelude.Maybe Prelude.Text)
-describeUserGroups_userGroupId = Lens.lens (\DescribeUserGroups' {userGroupId} -> userGroupId) (\s@DescribeUserGroups' {} a -> s {userGroupId = a} :: DescribeUserGroups)
 
 -- | An optional marker returned from a prior request. Use this marker for
 -- pagination of results from this operation. If this parameter is
@@ -110,6 +107,10 @@ describeUserGroups_marker = Lens.lens (\DescribeUserGroups' {marker} -> marker) 
 -- in the response so that the remaining results can be retrieved.
 describeUserGroups_maxRecords :: Lens.Lens' DescribeUserGroups (Prelude.Maybe Prelude.Int)
 describeUserGroups_maxRecords = Lens.lens (\DescribeUserGroups' {maxRecords} -> maxRecords) (\s@DescribeUserGroups' {} a -> s {maxRecords = a} :: DescribeUserGroups)
+
+-- | The ID of the user group.
+describeUserGroups_userGroupId :: Lens.Lens' DescribeUserGroups (Prelude.Maybe Prelude.Text)
+describeUserGroups_userGroupId = Lens.lens (\DescribeUserGroups' {userGroupId} -> userGroupId) (\s@DescribeUserGroups' {} a -> s {userGroupId = a} :: DescribeUserGroups)
 
 instance Core.AWSPager DescribeUserGroups where
   page rq rs
@@ -137,58 +138,59 @@ instance Core.AWSRequest DescribeUserGroups where
   type
     AWSResponse DescribeUserGroups =
       DescribeUserGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeUserGroupsResult"
       ( \s h x ->
           DescribeUserGroupsResponse'
-            Prelude.<$> ( x Core..@? "UserGroups" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "Marker")
+            Prelude.<*> ( x Data..@? "UserGroups" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeUserGroups where
   hashWithSalt _salt DescribeUserGroups' {..} =
-    _salt `Prelude.hashWithSalt` userGroupId
-      `Prelude.hashWithSalt` marker
+    _salt `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` userGroupId
 
 instance Prelude.NFData DescribeUserGroups where
   rnf DescribeUserGroups' {..} =
-    Prelude.rnf userGroupId
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf userGroupId
 
-instance Core.ToHeaders DescribeUserGroups where
+instance Data.ToHeaders DescribeUserGroups where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeUserGroups where
+instance Data.ToPath DescribeUserGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeUserGroups where
+instance Data.ToQuery DescribeUserGroups where
   toQuery DescribeUserGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeUserGroups" :: Prelude.ByteString),
+          Data.=: ("DescribeUserGroups" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "UserGroupId" Core.=: userGroupId,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "UserGroupId" Data.=: userGroupId
       ]
 
 -- | /See:/ 'newDescribeUserGroupsResponse' smart constructor.
 data DescribeUserGroupsResponse = DescribeUserGroupsResponse'
-  { -- | Returns a list of user groups.
-    userGroups :: Prelude.Maybe [UserGroup],
-    -- | An optional marker returned from a prior request. Use this marker for
+  { -- | An optional marker returned from a prior request. Use this marker for
     -- pagination of results from this operation. If this parameter is
     -- specified, the response includes only records beyond the marker, up to
     -- the value specified by MaxRecords. >
     marker :: Prelude.Maybe Prelude.Text,
+    -- | Returns a list of user groups.
+    userGroups :: Prelude.Maybe [UserGroup],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -202,12 +204,12 @@ data DescribeUserGroupsResponse = DescribeUserGroupsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'userGroups', 'describeUserGroupsResponse_userGroups' - Returns a list of user groups.
---
 -- 'marker', 'describeUserGroupsResponse_marker' - An optional marker returned from a prior request. Use this marker for
 -- pagination of results from this operation. If this parameter is
 -- specified, the response includes only records beyond the marker, up to
 -- the value specified by MaxRecords. >
+--
+-- 'userGroups', 'describeUserGroupsResponse_userGroups' - Returns a list of user groups.
 --
 -- 'httpStatus', 'describeUserGroupsResponse_httpStatus' - The response's http status code.
 newDescribeUserGroupsResponse ::
@@ -216,15 +218,11 @@ newDescribeUserGroupsResponse ::
   DescribeUserGroupsResponse
 newDescribeUserGroupsResponse pHttpStatus_ =
   DescribeUserGroupsResponse'
-    { userGroups =
+    { marker =
         Prelude.Nothing,
-      marker = Prelude.Nothing,
+      userGroups = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Returns a list of user groups.
-describeUserGroupsResponse_userGroups :: Lens.Lens' DescribeUserGroupsResponse (Prelude.Maybe [UserGroup])
-describeUserGroupsResponse_userGroups = Lens.lens (\DescribeUserGroupsResponse' {userGroups} -> userGroups) (\s@DescribeUserGroupsResponse' {} a -> s {userGroups = a} :: DescribeUserGroupsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | An optional marker returned from a prior request. Use this marker for
 -- pagination of results from this operation. If this parameter is
@@ -233,12 +231,16 @@ describeUserGroupsResponse_userGroups = Lens.lens (\DescribeUserGroupsResponse' 
 describeUserGroupsResponse_marker :: Lens.Lens' DescribeUserGroupsResponse (Prelude.Maybe Prelude.Text)
 describeUserGroupsResponse_marker = Lens.lens (\DescribeUserGroupsResponse' {marker} -> marker) (\s@DescribeUserGroupsResponse' {} a -> s {marker = a} :: DescribeUserGroupsResponse)
 
+-- | Returns a list of user groups.
+describeUserGroupsResponse_userGroups :: Lens.Lens' DescribeUserGroupsResponse (Prelude.Maybe [UserGroup])
+describeUserGroupsResponse_userGroups = Lens.lens (\DescribeUserGroupsResponse' {userGroups} -> userGroups) (\s@DescribeUserGroupsResponse' {} a -> s {userGroups = a} :: DescribeUserGroupsResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 describeUserGroupsResponse_httpStatus :: Lens.Lens' DescribeUserGroupsResponse Prelude.Int
 describeUserGroupsResponse_httpStatus = Lens.lens (\DescribeUserGroupsResponse' {httpStatus} -> httpStatus) (\s@DescribeUserGroupsResponse' {} a -> s {httpStatus = a} :: DescribeUserGroupsResponse)
 
 instance Prelude.NFData DescribeUserGroupsResponse where
   rnf DescribeUserGroupsResponse' {..} =
-    Prelude.rnf userGroups
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
+      `Prelude.seq` Prelude.rnf userGroups
       `Prelude.seq` Prelude.rnf httpStatus

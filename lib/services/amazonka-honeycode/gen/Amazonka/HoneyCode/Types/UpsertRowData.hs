@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.Types.UpsertRowData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.HoneyCode.Types.UpsertRowData where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HoneyCode.Types.CellInput
 import Amazonka.HoneyCode.Types.Filter
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Data needed to upsert rows in a table as part of a single item in the
@@ -137,13 +138,13 @@ instance Prelude.NFData UpsertRowData where
       `Prelude.seq` Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf cellsToUpdate
 
-instance Core.ToJSON UpsertRowData where
+instance Data.ToJSON UpsertRowData where
   toJSON UpsertRowData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("batchItemId" Core..= batchItemId),
-            Prelude.Just ("filter" Core..= filter'),
+          [ Prelude.Just ("batchItemId" Data..= batchItemId),
+            Prelude.Just ("filter" Data..= filter'),
             Prelude.Just
-              ("cellsToUpdate" Core..= cellsToUpdate)
+              ("cellsToUpdate" Data..= cellsToUpdate)
           ]
       )

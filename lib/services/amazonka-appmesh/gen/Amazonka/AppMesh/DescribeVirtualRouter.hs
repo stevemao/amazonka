@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.DescribeVirtualRouter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,9 +53,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeVirtualRouter' smart constructor.
 data DescribeVirtualRouter = DescribeVirtualRouter'
-  { -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then it\'s the ID of the account that shared the mesh with
-    -- your account. For more information about mesh sharing, see
+  { -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then it\'s the ID of the account that shared
+    -- the mesh with your account. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the service mesh that the virtual router resides in.
@@ -72,9 +73,9 @@ data DescribeVirtualRouter = DescribeVirtualRouter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'meshOwner', 'describeVirtualRouter_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- 'meshOwner', 'describeVirtualRouter_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'meshName', 'describeVirtualRouter_meshName' - The name of the service mesh that the virtual router resides in.
@@ -95,9 +96,9 @@ newDescribeVirtualRouter
         virtualRouterName = pVirtualRouterName_
       }
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 describeVirtualRouter_meshOwner :: Lens.Lens' DescribeVirtualRouter (Prelude.Maybe Prelude.Text)
 describeVirtualRouter_meshOwner = Lens.lens (\DescribeVirtualRouter' {meshOwner} -> meshOwner) (\s@DescribeVirtualRouter' {} a -> s {meshOwner = a} :: DescribeVirtualRouter)
@@ -114,13 +115,14 @@ instance Core.AWSRequest DescribeVirtualRouter where
   type
     AWSResponse DescribeVirtualRouter =
       DescribeVirtualRouterResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeVirtualRouterResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable DescribeVirtualRouter where
@@ -135,29 +137,29 @@ instance Prelude.NFData DescribeVirtualRouter where
       `Prelude.seq` Prelude.rnf meshName
       `Prelude.seq` Prelude.rnf virtualRouterName
 
-instance Core.ToHeaders DescribeVirtualRouter where
+instance Data.ToHeaders DescribeVirtualRouter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeVirtualRouter where
+instance Data.ToPath DescribeVirtualRouter where
   toPath DescribeVirtualRouter' {..} =
     Prelude.mconcat
       [ "/v20190125/meshes/",
-        Core.toBS meshName,
+        Data.toBS meshName,
         "/virtualRouters/",
-        Core.toBS virtualRouterName
+        Data.toBS virtualRouterName
       ]
 
-instance Core.ToQuery DescribeVirtualRouter where
+instance Data.ToQuery DescribeVirtualRouter where
   toQuery DescribeVirtualRouter' {..} =
-    Prelude.mconcat ["meshOwner" Core.=: meshOwner]
+    Prelude.mconcat ["meshOwner" Data.=: meshOwner]
 
 -- |
 --

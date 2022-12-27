@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Textract.Types.Warning
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Textract.Types.Warning where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A warning about an issue that occurred during asynchronous text analysis
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newWarning' smart constructor.
 data Warning = Warning'
-  { -- | A list of the pages that the warning applies to.
-    pages :: Prelude.Maybe [Prelude.Natural],
-    -- | The error code for the warning.
-    errorCode :: Prelude.Maybe Prelude.Text
+  { -- | The error code for the warning.
+    errorCode :: Prelude.Maybe Prelude.Text,
+    -- | A list of the pages that the warning applies to.
+    pages :: Prelude.Maybe [Prelude.Natural]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,41 +45,41 @@ data Warning = Warning'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'pages', 'warning_pages' - A list of the pages that the warning applies to.
---
 -- 'errorCode', 'warning_errorCode' - The error code for the warning.
+--
+-- 'pages', 'warning_pages' - A list of the pages that the warning applies to.
 newWarning ::
   Warning
 newWarning =
   Warning'
-    { pages = Prelude.Nothing,
-      errorCode = Prelude.Nothing
+    { errorCode = Prelude.Nothing,
+      pages = Prelude.Nothing
     }
-
--- | A list of the pages that the warning applies to.
-warning_pages :: Lens.Lens' Warning (Prelude.Maybe [Prelude.Natural])
-warning_pages = Lens.lens (\Warning' {pages} -> pages) (\s@Warning' {} a -> s {pages = a} :: Warning) Prelude.. Lens.mapping Lens.coerced
 
 -- | The error code for the warning.
 warning_errorCode :: Lens.Lens' Warning (Prelude.Maybe Prelude.Text)
 warning_errorCode = Lens.lens (\Warning' {errorCode} -> errorCode) (\s@Warning' {} a -> s {errorCode = a} :: Warning)
 
-instance Core.FromJSON Warning where
+-- | A list of the pages that the warning applies to.
+warning_pages :: Lens.Lens' Warning (Prelude.Maybe [Prelude.Natural])
+warning_pages = Lens.lens (\Warning' {pages} -> pages) (\s@Warning' {} a -> s {pages = a} :: Warning) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON Warning where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Warning"
       ( \x ->
           Warning'
-            Prelude.<$> (x Core..:? "Pages" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "ErrorCode")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "Pages" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Warning where
   hashWithSalt _salt Warning' {..} =
-    _salt `Prelude.hashWithSalt` pages
-      `Prelude.hashWithSalt` errorCode
+    _salt `Prelude.hashWithSalt` errorCode
+      `Prelude.hashWithSalt` pages
 
 instance Prelude.NFData Warning where
   rnf Warning' {..} =
-    Prelude.rnf pages
-      `Prelude.seq` Prelude.rnf errorCode
+    Prelude.rnf errorCode
+      `Prelude.seq` Prelude.rnf pages

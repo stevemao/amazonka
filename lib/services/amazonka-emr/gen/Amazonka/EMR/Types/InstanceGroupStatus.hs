@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.InstanceGroupStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.EMR.Types.InstanceGroupStatus where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types.InstanceGroupState
 import Amazonka.EMR.Types.InstanceGroupStateChangeReason
 import Amazonka.EMR.Types.InstanceGroupTimeline
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of the instance group status.
@@ -73,15 +74,15 @@ instanceGroupStatus_stateChangeReason = Lens.lens (\InstanceGroupStatus' {stateC
 instanceGroupStatus_timeline :: Lens.Lens' InstanceGroupStatus (Prelude.Maybe InstanceGroupTimeline)
 instanceGroupStatus_timeline = Lens.lens (\InstanceGroupStatus' {timeline} -> timeline) (\s@InstanceGroupStatus' {} a -> s {timeline = a} :: InstanceGroupStatus)
 
-instance Core.FromJSON InstanceGroupStatus where
+instance Data.FromJSON InstanceGroupStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstanceGroupStatus"
       ( \x ->
           InstanceGroupStatus'
-            Prelude.<$> (x Core..:? "State")
-            Prelude.<*> (x Core..:? "StateChangeReason")
-            Prelude.<*> (x Core..:? "Timeline")
+            Prelude.<$> (x Data..:? "State")
+            Prelude.<*> (x Data..:? "StateChangeReason")
+            Prelude.<*> (x Data..:? "Timeline")
       )
 
 instance Prelude.Hashable InstanceGroupStatus where

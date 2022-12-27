@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.TemplateSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,27 +20,28 @@
 module Amazonka.QuickSight.Types.TemplateSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The template summary.
 --
 -- /See:/ 'newTemplateSummary' smart constructor.
 data TemplateSummary = TemplateSummary'
-  { -- | The last time that this template was updated.
-    lastUpdatedTime :: Prelude.Maybe Core.POSIX,
+  { -- | A summary of a template.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The last time that this template was created.
+    createdTime :: Prelude.Maybe Data.POSIX,
+    -- | The last time that this template was updated.
+    lastUpdatedTime :: Prelude.Maybe Data.POSIX,
     -- | A structure containing a list of version numbers for the template
     -- summary.
     latestVersionNumber :: Prelude.Maybe Prelude.Natural,
-    -- | A summary of a template.
-    arn :: Prelude.Maybe Prelude.Text,
-    -- | The last time that this template was created.
-    createdTime :: Prelude.Maybe Core.POSIX,
+    -- | A display name for the template.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The ID of the template. This ID is unique per Amazon Web Services Region
     -- for each Amazon Web Services account.
-    templateId :: Prelude.Maybe Prelude.Text,
-    -- | A display name for the template.
-    name :: Prelude.Maybe Prelude.Text
+    templateId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,39 +53,30 @@ data TemplateSummary = TemplateSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'arn', 'templateSummary_arn' - A summary of a template.
+--
+-- 'createdTime', 'templateSummary_createdTime' - The last time that this template was created.
+--
 -- 'lastUpdatedTime', 'templateSummary_lastUpdatedTime' - The last time that this template was updated.
 --
 -- 'latestVersionNumber', 'templateSummary_latestVersionNumber' - A structure containing a list of version numbers for the template
 -- summary.
 --
--- 'arn', 'templateSummary_arn' - A summary of a template.
---
--- 'createdTime', 'templateSummary_createdTime' - The last time that this template was created.
+-- 'name', 'templateSummary_name' - A display name for the template.
 --
 -- 'templateId', 'templateSummary_templateId' - The ID of the template. This ID is unique per Amazon Web Services Region
 -- for each Amazon Web Services account.
---
--- 'name', 'templateSummary_name' - A display name for the template.
 newTemplateSummary ::
   TemplateSummary
 newTemplateSummary =
   TemplateSummary'
-    { lastUpdatedTime = Prelude.Nothing,
-      latestVersionNumber = Prelude.Nothing,
-      arn = Prelude.Nothing,
+    { arn = Prelude.Nothing,
       createdTime = Prelude.Nothing,
-      templateId = Prelude.Nothing,
-      name = Prelude.Nothing
+      lastUpdatedTime = Prelude.Nothing,
+      latestVersionNumber = Prelude.Nothing,
+      name = Prelude.Nothing,
+      templateId = Prelude.Nothing
     }
-
--- | The last time that this template was updated.
-templateSummary_lastUpdatedTime :: Lens.Lens' TemplateSummary (Prelude.Maybe Prelude.UTCTime)
-templateSummary_lastUpdatedTime = Lens.lens (\TemplateSummary' {lastUpdatedTime} -> lastUpdatedTime) (\s@TemplateSummary' {} a -> s {lastUpdatedTime = a} :: TemplateSummary) Prelude.. Lens.mapping Core._Time
-
--- | A structure containing a list of version numbers for the template
--- summary.
-templateSummary_latestVersionNumber :: Lens.Lens' TemplateSummary (Prelude.Maybe Prelude.Natural)
-templateSummary_latestVersionNumber = Lens.lens (\TemplateSummary' {latestVersionNumber} -> latestVersionNumber) (\s@TemplateSummary' {} a -> s {latestVersionNumber = a} :: TemplateSummary)
 
 -- | A summary of a template.
 templateSummary_arn :: Lens.Lens' TemplateSummary (Prelude.Maybe Prelude.Text)
@@ -92,45 +84,54 @@ templateSummary_arn = Lens.lens (\TemplateSummary' {arn} -> arn) (\s@TemplateSum
 
 -- | The last time that this template was created.
 templateSummary_createdTime :: Lens.Lens' TemplateSummary (Prelude.Maybe Prelude.UTCTime)
-templateSummary_createdTime = Lens.lens (\TemplateSummary' {createdTime} -> createdTime) (\s@TemplateSummary' {} a -> s {createdTime = a} :: TemplateSummary) Prelude.. Lens.mapping Core._Time
+templateSummary_createdTime = Lens.lens (\TemplateSummary' {createdTime} -> createdTime) (\s@TemplateSummary' {} a -> s {createdTime = a} :: TemplateSummary) Prelude.. Lens.mapping Data._Time
+
+-- | The last time that this template was updated.
+templateSummary_lastUpdatedTime :: Lens.Lens' TemplateSummary (Prelude.Maybe Prelude.UTCTime)
+templateSummary_lastUpdatedTime = Lens.lens (\TemplateSummary' {lastUpdatedTime} -> lastUpdatedTime) (\s@TemplateSummary' {} a -> s {lastUpdatedTime = a} :: TemplateSummary) Prelude.. Lens.mapping Data._Time
+
+-- | A structure containing a list of version numbers for the template
+-- summary.
+templateSummary_latestVersionNumber :: Lens.Lens' TemplateSummary (Prelude.Maybe Prelude.Natural)
+templateSummary_latestVersionNumber = Lens.lens (\TemplateSummary' {latestVersionNumber} -> latestVersionNumber) (\s@TemplateSummary' {} a -> s {latestVersionNumber = a} :: TemplateSummary)
+
+-- | A display name for the template.
+templateSummary_name :: Lens.Lens' TemplateSummary (Prelude.Maybe Prelude.Text)
+templateSummary_name = Lens.lens (\TemplateSummary' {name} -> name) (\s@TemplateSummary' {} a -> s {name = a} :: TemplateSummary)
 
 -- | The ID of the template. This ID is unique per Amazon Web Services Region
 -- for each Amazon Web Services account.
 templateSummary_templateId :: Lens.Lens' TemplateSummary (Prelude.Maybe Prelude.Text)
 templateSummary_templateId = Lens.lens (\TemplateSummary' {templateId} -> templateId) (\s@TemplateSummary' {} a -> s {templateId = a} :: TemplateSummary)
 
--- | A display name for the template.
-templateSummary_name :: Lens.Lens' TemplateSummary (Prelude.Maybe Prelude.Text)
-templateSummary_name = Lens.lens (\TemplateSummary' {name} -> name) (\s@TemplateSummary' {} a -> s {name = a} :: TemplateSummary)
-
-instance Core.FromJSON TemplateSummary where
+instance Data.FromJSON TemplateSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TemplateSummary"
       ( \x ->
           TemplateSummary'
-            Prelude.<$> (x Core..:? "LastUpdatedTime")
-            Prelude.<*> (x Core..:? "LatestVersionNumber")
-            Prelude.<*> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "CreatedTime")
-            Prelude.<*> (x Core..:? "TemplateId")
-            Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "CreatedTime")
+            Prelude.<*> (x Data..:? "LastUpdatedTime")
+            Prelude.<*> (x Data..:? "LatestVersionNumber")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "TemplateId")
       )
 
 instance Prelude.Hashable TemplateSummary where
   hashWithSalt _salt TemplateSummary' {..} =
-    _salt `Prelude.hashWithSalt` lastUpdatedTime
-      `Prelude.hashWithSalt` latestVersionNumber
-      `Prelude.hashWithSalt` arn
+    _salt `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` createdTime
-      `Prelude.hashWithSalt` templateId
+      `Prelude.hashWithSalt` lastUpdatedTime
+      `Prelude.hashWithSalt` latestVersionNumber
       `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` templateId
 
 instance Prelude.NFData TemplateSummary where
   rnf TemplateSummary' {..} =
-    Prelude.rnf lastUpdatedTime
-      `Prelude.seq` Prelude.rnf latestVersionNumber
-      `Prelude.seq` Prelude.rnf arn
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf createdTime
-      `Prelude.seq` Prelude.rnf templateId
+      `Prelude.seq` Prelude.rnf lastUpdatedTime
+      `Prelude.seq` Prelude.rnf latestVersionNumber
       `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf templateId

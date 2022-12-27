@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MemoryDb.CreateSubnetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.MemoryDb.CreateSubnetGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MemoryDb.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -118,12 +119,13 @@ instance Core.AWSRequest CreateSubnetGroup where
   type
     AWSResponse CreateSubnetGroup =
       CreateSubnetGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateSubnetGroupResponse'
-            Prelude.<$> (x Core..?> "SubnetGroup")
+            Prelude.<$> (x Data..?> "SubnetGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -141,37 +143,37 @@ instance Prelude.NFData CreateSubnetGroup where
       `Prelude.seq` Prelude.rnf subnetGroupName
       `Prelude.seq` Prelude.rnf subnetIds
 
-instance Core.ToHeaders CreateSubnetGroup where
+instance Data.ToHeaders CreateSubnetGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonMemoryDB.CreateSubnetGroup" ::
+              Data.=# ( "AmazonMemoryDB.CreateSubnetGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateSubnetGroup where
+instance Data.ToJSON CreateSubnetGroup where
   toJSON CreateSubnetGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("SubnetGroupName" Core..= subnetGroupName),
-            Prelude.Just ("SubnetIds" Core..= subnetIds)
+              ("SubnetGroupName" Data..= subnetGroupName),
+            Prelude.Just ("SubnetIds" Data..= subnetIds)
           ]
       )
 
-instance Core.ToPath CreateSubnetGroup where
+instance Data.ToPath CreateSubnetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateSubnetGroup where
+instance Data.ToQuery CreateSubnetGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateSubnetGroupResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AMP.ListRuleGroupsNamespaces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.AMP.ListRuleGroupsNamespaces
     newListRuleGroupsNamespaces,
 
     -- * Request Lenses
-    listRuleGroupsNamespaces_nextToken,
-    listRuleGroupsNamespaces_name,
     listRuleGroupsNamespaces_maxResults,
+    listRuleGroupsNamespaces_name,
+    listRuleGroupsNamespaces_nextToken,
     listRuleGroupsNamespaces_workspaceId,
 
     -- * Destructuring the Response
@@ -47,7 +47,8 @@ where
 
 import Amazonka.AMP.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,15 +57,15 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListRuleGroupsNamespaces' smart constructor.
 data ListRuleGroupsNamespaces = ListRuleGroupsNamespaces'
-  { -- | Pagination token to request the next page in a paginated list. This
-    -- token is obtained from the output of the previous
-    -- ListRuleGroupsNamespaces request.
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { -- | Maximum results to return in response (default=100, maximum=1000).
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | Optional filter for rule groups namespace name. Only the rule groups
     -- namespace that begin with this value will be returned.
     name :: Prelude.Maybe Prelude.Text,
-    -- | Maximum results to return in response (default=100, maximum=1000).
-    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Pagination token to request the next page in a paginated list. This
+    -- token is obtained from the output of the previous
+    -- ListRuleGroupsNamespaces request.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the workspace.
     workspaceId :: Prelude.Text
   }
@@ -78,14 +79,14 @@ data ListRuleGroupsNamespaces = ListRuleGroupsNamespaces'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listRuleGroupsNamespaces_nextToken' - Pagination token to request the next page in a paginated list. This
--- token is obtained from the output of the previous
--- ListRuleGroupsNamespaces request.
+-- 'maxResults', 'listRuleGroupsNamespaces_maxResults' - Maximum results to return in response (default=100, maximum=1000).
 --
 -- 'name', 'listRuleGroupsNamespaces_name' - Optional filter for rule groups namespace name. Only the rule groups
 -- namespace that begin with this value will be returned.
 --
--- 'maxResults', 'listRuleGroupsNamespaces_maxResults' - Maximum results to return in response (default=100, maximum=1000).
+-- 'nextToken', 'listRuleGroupsNamespaces_nextToken' - Pagination token to request the next page in a paginated list. This
+-- token is obtained from the output of the previous
+-- ListRuleGroupsNamespaces request.
 --
 -- 'workspaceId', 'listRuleGroupsNamespaces_workspaceId' - The ID of the workspace.
 newListRuleGroupsNamespaces ::
@@ -94,27 +95,27 @@ newListRuleGroupsNamespaces ::
   ListRuleGroupsNamespaces
 newListRuleGroupsNamespaces pWorkspaceId_ =
   ListRuleGroupsNamespaces'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
       name = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       workspaceId = pWorkspaceId_
     }
 
--- | Pagination token to request the next page in a paginated list. This
--- token is obtained from the output of the previous
--- ListRuleGroupsNamespaces request.
-listRuleGroupsNamespaces_nextToken :: Lens.Lens' ListRuleGroupsNamespaces (Prelude.Maybe Prelude.Text)
-listRuleGroupsNamespaces_nextToken = Lens.lens (\ListRuleGroupsNamespaces' {nextToken} -> nextToken) (\s@ListRuleGroupsNamespaces' {} a -> s {nextToken = a} :: ListRuleGroupsNamespaces)
+-- | Maximum results to return in response (default=100, maximum=1000).
+listRuleGroupsNamespaces_maxResults :: Lens.Lens' ListRuleGroupsNamespaces (Prelude.Maybe Prelude.Natural)
+listRuleGroupsNamespaces_maxResults = Lens.lens (\ListRuleGroupsNamespaces' {maxResults} -> maxResults) (\s@ListRuleGroupsNamespaces' {} a -> s {maxResults = a} :: ListRuleGroupsNamespaces)
 
 -- | Optional filter for rule groups namespace name. Only the rule groups
 -- namespace that begin with this value will be returned.
 listRuleGroupsNamespaces_name :: Lens.Lens' ListRuleGroupsNamespaces (Prelude.Maybe Prelude.Text)
 listRuleGroupsNamespaces_name = Lens.lens (\ListRuleGroupsNamespaces' {name} -> name) (\s@ListRuleGroupsNamespaces' {} a -> s {name = a} :: ListRuleGroupsNamespaces)
 
--- | Maximum results to return in response (default=100, maximum=1000).
-listRuleGroupsNamespaces_maxResults :: Lens.Lens' ListRuleGroupsNamespaces (Prelude.Maybe Prelude.Natural)
-listRuleGroupsNamespaces_maxResults = Lens.lens (\ListRuleGroupsNamespaces' {maxResults} -> maxResults) (\s@ListRuleGroupsNamespaces' {} a -> s {maxResults = a} :: ListRuleGroupsNamespaces)
+-- | Pagination token to request the next page in a paginated list. This
+-- token is obtained from the output of the previous
+-- ListRuleGroupsNamespaces request.
+listRuleGroupsNamespaces_nextToken :: Lens.Lens' ListRuleGroupsNamespaces (Prelude.Maybe Prelude.Text)
+listRuleGroupsNamespaces_nextToken = Lens.lens (\ListRuleGroupsNamespaces' {nextToken} -> nextToken) (\s@ListRuleGroupsNamespaces' {} a -> s {nextToken = a} :: ListRuleGroupsNamespaces)
 
 -- | The ID of the workspace.
 listRuleGroupsNamespaces_workspaceId :: Lens.Lens' ListRuleGroupsNamespaces Prelude.Text
@@ -145,57 +146,58 @@ instance Core.AWSRequest ListRuleGroupsNamespaces where
   type
     AWSResponse ListRuleGroupsNamespaces =
       ListRuleGroupsNamespacesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRuleGroupsNamespacesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "ruleGroupsNamespaces"
+            Prelude.<*> ( x Data..?> "ruleGroupsNamespaces"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable ListRuleGroupsNamespaces where
   hashWithSalt _salt ListRuleGroupsNamespaces' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` workspaceId
 
 instance Prelude.NFData ListRuleGroupsNamespaces where
   rnf ListRuleGroupsNamespaces' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf workspaceId
 
-instance Core.ToHeaders ListRuleGroupsNamespaces where
+instance Data.ToHeaders ListRuleGroupsNamespaces where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListRuleGroupsNamespaces where
+instance Data.ToPath ListRuleGroupsNamespaces where
   toPath ListRuleGroupsNamespaces' {..} =
     Prelude.mconcat
       [ "/workspaces/",
-        Core.toBS workspaceId,
+        Data.toBS workspaceId,
         "/rulegroupsnamespaces"
       ]
 
-instance Core.ToQuery ListRuleGroupsNamespaces where
+instance Data.ToQuery ListRuleGroupsNamespaces where
   toQuery ListRuleGroupsNamespaces' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "name" Core.=: name,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "name" Data.=: name,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | Represents the output of a ListRuleGroupsNamespaces operation.

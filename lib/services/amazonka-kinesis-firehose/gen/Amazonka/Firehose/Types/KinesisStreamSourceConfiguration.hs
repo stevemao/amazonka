@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.KinesisStreamSourceConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Firehose.Types.KinesisStreamSourceConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The stream and role Amazon Resource Names (ARNs) for a Kinesis data
@@ -33,7 +34,7 @@ data KinesisStreamSourceConfiguration = KinesisStreamSourceConfiguration'
     kinesisStreamARN :: Prelude.Text,
     -- | The ARN of the role that provides access to the source Kinesis data
     -- stream. For more information, see
-    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam AWS Identity and Access Management (IAM) ARN Format>.
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam Amazon Web Services Identity and Access Management (IAM) ARN Format>.
     roleARN :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -51,7 +52,7 @@ data KinesisStreamSourceConfiguration = KinesisStreamSourceConfiguration'
 --
 -- 'roleARN', 'kinesisStreamSourceConfiguration_roleARN' - The ARN of the role that provides access to the source Kinesis data
 -- stream. For more information, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam AWS Identity and Access Management (IAM) ARN Format>.
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam Amazon Web Services Identity and Access Management (IAM) ARN Format>.
 newKinesisStreamSourceConfiguration ::
   -- | 'kinesisStreamARN'
   Prelude.Text ->
@@ -74,7 +75,7 @@ kinesisStreamSourceConfiguration_kinesisStreamARN = Lens.lens (\KinesisStreamSou
 
 -- | The ARN of the role that provides access to the source Kinesis data
 -- stream. For more information, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam AWS Identity and Access Management (IAM) ARN Format>.
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html#arn-syntax-iam Amazon Web Services Identity and Access Management (IAM) ARN Format>.
 kinesisStreamSourceConfiguration_roleARN :: Lens.Lens' KinesisStreamSourceConfiguration Prelude.Text
 kinesisStreamSourceConfiguration_roleARN = Lens.lens (\KinesisStreamSourceConfiguration' {roleARN} -> roleARN) (\s@KinesisStreamSourceConfiguration' {} a -> s {roleARN = a} :: KinesisStreamSourceConfiguration)
 
@@ -96,12 +97,12 @@ instance
     Prelude.rnf kinesisStreamARN
       `Prelude.seq` Prelude.rnf roleARN
 
-instance Core.ToJSON KinesisStreamSourceConfiguration where
+instance Data.ToJSON KinesisStreamSourceConfiguration where
   toJSON KinesisStreamSourceConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("KinesisStreamARN" Core..= kinesisStreamARN),
-            Prelude.Just ("RoleARN" Core..= roleARN)
+              ("KinesisStreamARN" Data..= kinesisStreamARN),
+            Prelude.Just ("RoleARN" Data..= roleARN)
           ]
       )

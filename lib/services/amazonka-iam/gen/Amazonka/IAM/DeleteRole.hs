@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.DeleteRole
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IAM.DeleteRole
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,7 +94,8 @@ deleteRole_roleName = Lens.lens (\DeleteRole' {roleName} -> roleName) (\s@Delete
 
 instance Core.AWSRequest DeleteRole where
   type AWSResponse DeleteRole = DeleteRoleResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull DeleteRoleResponse'
 
 instance Prelude.Hashable DeleteRole where
@@ -103,20 +105,20 @@ instance Prelude.Hashable DeleteRole where
 instance Prelude.NFData DeleteRole where
   rnf DeleteRole' {..} = Prelude.rnf roleName
 
-instance Core.ToHeaders DeleteRole where
+instance Data.ToHeaders DeleteRole where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteRole where
+instance Data.ToPath DeleteRole where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteRole where
+instance Data.ToQuery DeleteRole where
   toQuery DeleteRole' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteRole" :: Prelude.ByteString),
+          Data.=: ("DeleteRole" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "RoleName" Core.=: roleName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "RoleName" Data.=: roleName
       ]
 
 -- | /See:/ 'newDeleteRoleResponse' smart constructor.

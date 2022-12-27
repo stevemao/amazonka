@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteRestApi
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -46,7 +47,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteRestApi' smart constructor.
 data DeleteRestApi = DeleteRestApi'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -59,7 +60,7 @@ data DeleteRestApi = DeleteRestApi'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'deleteRestApi_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'deleteRestApi_restApiId' - The string identifier of the associated RestApi.
 newDeleteRestApi ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -67,7 +68,7 @@ newDeleteRestApi ::
 newDeleteRestApi pRestApiId_ =
   DeleteRestApi' {restApiId = pRestApiId_}
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 deleteRestApi_restApiId :: Lens.Lens' DeleteRestApi Prelude.Text
 deleteRestApi_restApiId = Lens.lens (\DeleteRestApi' {restApiId} -> restApiId) (\s@DeleteRestApi' {} a -> s {restApiId = a} :: DeleteRestApi)
 
@@ -75,7 +76,8 @@ instance Core.AWSRequest DeleteRestApi where
   type
     AWSResponse DeleteRestApi =
       DeleteRestApiResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteRestApiResponse'
 
@@ -86,20 +88,20 @@ instance Prelude.Hashable DeleteRestApi where
 instance Prelude.NFData DeleteRestApi where
   rnf DeleteRestApi' {..} = Prelude.rnf restApiId
 
-instance Core.ToHeaders DeleteRestApi where
+instance Data.ToHeaders DeleteRestApi where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteRestApi where
+instance Data.ToPath DeleteRestApi where
   toPath DeleteRestApi' {..} =
-    Prelude.mconcat ["/restapis/", Core.toBS restApiId]
+    Prelude.mconcat ["/restapis/", Data.toBS restApiId]
 
-instance Core.ToQuery DeleteRestApi where
+instance Data.ToQuery DeleteRestApi where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRestApiResponse' smart constructor.

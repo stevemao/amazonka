@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.Severity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.Severity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.SeverityLabel
 
@@ -37,13 +38,7 @@ import Amazonka.SecurityHub.Types.SeverityLabel
 --
 -- /See:/ 'newSeverity' smart constructor.
 data Severity = Severity'
-  { -- | Deprecated. This attribute is being deprecated. Instead of providing
-    -- @Product@, provide @Original@.
-    --
-    -- The native severity as defined by the Amazon Web Services service or
-    -- integrated partner product that generated the finding.
-    product :: Prelude.Maybe Prelude.Double,
-    -- | The severity value of the finding. The allowed values are the following.
+  { -- | The severity value of the finding. The allowed values are the following.
     --
     -- -   @INFORMATIONAL@ - No issue was found.
     --
@@ -69,8 +64,6 @@ data Severity = Severity'
     --
     -- -   90–100 - @CRITICAL@
     label :: Prelude.Maybe SeverityLabel,
-    -- | The native severity from the finding product that generated the finding.
-    original :: Prelude.Maybe Prelude.Text,
     -- | Deprecated. The normalized severity of a finding. This attribute is
     -- being deprecated. Instead of providing @Normalized@, provide @Label@.
     --
@@ -86,7 +79,15 @@ data Severity = Severity'
     -- -   @HIGH@ - 70
     --
     -- -   @CRITICAL@ - 90
-    normalized :: Prelude.Maybe Prelude.Int
+    normalized :: Prelude.Maybe Prelude.Int,
+    -- | The native severity from the finding product that generated the finding.
+    original :: Prelude.Maybe Prelude.Text,
+    -- | Deprecated. This attribute is being deprecated. Instead of providing
+    -- @Product@, provide @Original@.
+    --
+    -- The native severity as defined by the Amazon Web Services service or
+    -- integrated partner product that generated the finding.
+    product :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -97,12 +98,6 @@ data Severity = Severity'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'product', 'severity_product' - Deprecated. This attribute is being deprecated. Instead of providing
--- @Product@, provide @Original@.
---
--- The native severity as defined by the Amazon Web Services service or
--- integrated partner product that generated the finding.
 --
 -- 'label', 'severity_label' - The severity value of the finding. The allowed values are the following.
 --
@@ -130,8 +125,6 @@ data Severity = Severity'
 --
 -- -   90–100 - @CRITICAL@
 --
--- 'original', 'severity_original' - The native severity from the finding product that generated the finding.
---
 -- 'normalized', 'severity_normalized' - Deprecated. The normalized severity of a finding. This attribute is
 -- being deprecated. Instead of providing @Normalized@, provide @Label@.
 --
@@ -147,23 +140,23 @@ data Severity = Severity'
 -- -   @HIGH@ - 70
 --
 -- -   @CRITICAL@ - 90
-newSeverity ::
-  Severity
-newSeverity =
-  Severity'
-    { product = Prelude.Nothing,
-      label = Prelude.Nothing,
-      original = Prelude.Nothing,
-      normalized = Prelude.Nothing
-    }
-
--- | Deprecated. This attribute is being deprecated. Instead of providing
+--
+-- 'original', 'severity_original' - The native severity from the finding product that generated the finding.
+--
+-- 'product', 'severity_product' - Deprecated. This attribute is being deprecated. Instead of providing
 -- @Product@, provide @Original@.
 --
 -- The native severity as defined by the Amazon Web Services service or
 -- integrated partner product that generated the finding.
-severity_product :: Lens.Lens' Severity (Prelude.Maybe Prelude.Double)
-severity_product = Lens.lens (\Severity' {product} -> product) (\s@Severity' {} a -> s {product = a} :: Severity)
+newSeverity ::
+  Severity
+newSeverity =
+  Severity'
+    { label = Prelude.Nothing,
+      normalized = Prelude.Nothing,
+      original = Prelude.Nothing,
+      product = Prelude.Nothing
+    }
 
 -- | The severity value of the finding. The allowed values are the following.
 --
@@ -193,10 +186,6 @@ severity_product = Lens.lens (\Severity' {product} -> product) (\s@Severity' {} 
 severity_label :: Lens.Lens' Severity (Prelude.Maybe SeverityLabel)
 severity_label = Lens.lens (\Severity' {label} -> label) (\s@Severity' {} a -> s {label = a} :: Severity)
 
--- | The native severity from the finding product that generated the finding.
-severity_original :: Lens.Lens' Severity (Prelude.Maybe Prelude.Text)
-severity_original = Lens.lens (\Severity' {original} -> original) (\s@Severity' {} a -> s {original = a} :: Severity)
-
 -- | Deprecated. The normalized severity of a finding. This attribute is
 -- being deprecated. Instead of providing @Normalized@, provide @Label@.
 --
@@ -215,39 +204,51 @@ severity_original = Lens.lens (\Severity' {original} -> original) (\s@Severity' 
 severity_normalized :: Lens.Lens' Severity (Prelude.Maybe Prelude.Int)
 severity_normalized = Lens.lens (\Severity' {normalized} -> normalized) (\s@Severity' {} a -> s {normalized = a} :: Severity)
 
-instance Core.FromJSON Severity where
+-- | The native severity from the finding product that generated the finding.
+severity_original :: Lens.Lens' Severity (Prelude.Maybe Prelude.Text)
+severity_original = Lens.lens (\Severity' {original} -> original) (\s@Severity' {} a -> s {original = a} :: Severity)
+
+-- | Deprecated. This attribute is being deprecated. Instead of providing
+-- @Product@, provide @Original@.
+--
+-- The native severity as defined by the Amazon Web Services service or
+-- integrated partner product that generated the finding.
+severity_product :: Lens.Lens' Severity (Prelude.Maybe Prelude.Double)
+severity_product = Lens.lens (\Severity' {product} -> product) (\s@Severity' {} a -> s {product = a} :: Severity)
+
+instance Data.FromJSON Severity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Severity"
       ( \x ->
           Severity'
-            Prelude.<$> (x Core..:? "Product")
-            Prelude.<*> (x Core..:? "Label")
-            Prelude.<*> (x Core..:? "Original")
-            Prelude.<*> (x Core..:? "Normalized")
+            Prelude.<$> (x Data..:? "Label")
+            Prelude.<*> (x Data..:? "Normalized")
+            Prelude.<*> (x Data..:? "Original")
+            Prelude.<*> (x Data..:? "Product")
       )
 
 instance Prelude.Hashable Severity where
   hashWithSalt _salt Severity' {..} =
-    _salt `Prelude.hashWithSalt` product
-      `Prelude.hashWithSalt` label
-      `Prelude.hashWithSalt` original
+    _salt `Prelude.hashWithSalt` label
       `Prelude.hashWithSalt` normalized
+      `Prelude.hashWithSalt` original
+      `Prelude.hashWithSalt` product
 
 instance Prelude.NFData Severity where
   rnf Severity' {..} =
-    Prelude.rnf product
-      `Prelude.seq` Prelude.rnf label
-      `Prelude.seq` Prelude.rnf original
+    Prelude.rnf label
       `Prelude.seq` Prelude.rnf normalized
+      `Prelude.seq` Prelude.rnf original
+      `Prelude.seq` Prelude.rnf product
 
-instance Core.ToJSON Severity where
+instance Data.ToJSON Severity where
   toJSON Severity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Product" Core..=) Prelude.<$> product,
-            ("Label" Core..=) Prelude.<$> label,
-            ("Original" Core..=) Prelude.<$> original,
-            ("Normalized" Core..=) Prelude.<$> normalized
+          [ ("Label" Data..=) Prelude.<$> label,
+            ("Normalized" Data..=) Prelude.<$> normalized,
+            ("Original" Data..=) Prelude.<$> original,
+            ("Product" Data..=) Prelude.<$> product
           ]
       )

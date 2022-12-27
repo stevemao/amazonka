@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryCluster.UpdateRoutingControlStates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,17 +22,43 @@
 --
 -- Set multiple routing control states. You can set the value for each
 -- state to be On or Off. When the state is On, traffic flows to a cell.
--- When it\'s off, traffic does not flow.
+-- When it\'s Off, traffic does not flow.
 --
--- For more information about working with routing controls, see
--- <https://docs.aws.amazon.com/r53recovery/latest/dg/routing-control.html Routing control>
--- in the Route 53 Application Recovery Controller Developer Guide.
+-- With Route 53 ARC, you can add safety rules for routing controls, which
+-- are safeguards for routing control state updates that help prevent
+-- unexpected outcomes, like fail open traffic routing. However, there are
+-- scenarios when you might want to bypass the routing control safeguards
+-- that are enforced with safety rules that you\'ve configured. For
+-- example, you might want to fail over quickly for disaster recovery, and
+-- one or more safety rules might be unexpectedly preventing you from
+-- updating a routing control state to reroute traffic. In a \"break
+-- glass\" scenario like this, you can override one or more safety rules to
+-- change a routing control state and fail over your application.
+--
+-- The @SafetyRulesToOverride@ property enables you override one or more
+-- safety rules and update routing control states. For more information,
+-- see
+-- <https://docs.aws.amazon.com/r53recovery/latest/dg/routing-control.override-safety-rule.html Override safety rules to reroute traffic>
+-- in the Amazon Route 53 Application Recovery Controller Developer Guide.
+--
+-- /You must specify Regional endpoints when you work with API cluster
+-- operations to get or update routing control states in Route 53 ARC./
+--
+-- To see a code example for getting a routing control state, including
+-- accessing Regional cluster endpoints in sequence, see
+-- <https://docs.aws.amazon.com/r53recovery/latest/dg/service_code_examples_actions.html API examples>
+-- in the Amazon Route 53 Application Recovery Controller Developer Guide.
+--
+-- -   <https://docs.aws.amazon.com/r53recovery/latest/dg/routing-control.update.html Viewing and updating routing control states>
+--
+-- -   <https://docs.aws.amazon.com/r53recovery/latest/dg/routing-control.html Working with routing controls overall>
 module Amazonka.Route53RecoveryCluster.UpdateRoutingControlStates
   ( -- * Creating a Request
     UpdateRoutingControlStates (..),
     newUpdateRoutingControlStates,
 
     -- * Request Lenses
+    updateRoutingControlStates_safetyRulesToOverride,
     updateRoutingControlStates_updateRoutingControlStateEntries,
 
     -- * Destructuring the Response
@@ -45,7 +71,8 @@ module Amazonka.Route53RecoveryCluster.UpdateRoutingControlStates
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,7 +80,16 @@ import Amazonka.Route53RecoveryCluster.Types
 
 -- | /See:/ 'newUpdateRoutingControlStates' smart constructor.
 data UpdateRoutingControlStates = UpdateRoutingControlStates'
-  { -- | A set of routing control entries that you want to update.
+  { -- | The Amazon Resource Names (ARNs) for the safety rules that you want to
+    -- override when you\'re updating routing control states. You can override
+    -- one safety rule or multiple safety rules by including one or more ARNs,
+    -- separated by commas.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/r53recovery/latest/dg/routing-control.override-safety-rule.html Override safety rules to reroute traffic>
+    -- in the Amazon Route 53 Application Recovery Controller Developer Guide.
+    safetyRulesToOverride :: Prelude.Maybe [Prelude.Text],
+    -- | A set of routing control entries that you want to update.
     updateRoutingControlStateEntries :: [UpdateRoutingControlStateEntry]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -66,14 +102,36 @@ data UpdateRoutingControlStates = UpdateRoutingControlStates'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'safetyRulesToOverride', 'updateRoutingControlStates_safetyRulesToOverride' - The Amazon Resource Names (ARNs) for the safety rules that you want to
+-- override when you\'re updating routing control states. You can override
+-- one safety rule or multiple safety rules by including one or more ARNs,
+-- separated by commas.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/r53recovery/latest/dg/routing-control.override-safety-rule.html Override safety rules to reroute traffic>
+-- in the Amazon Route 53 Application Recovery Controller Developer Guide.
+--
 -- 'updateRoutingControlStateEntries', 'updateRoutingControlStates_updateRoutingControlStateEntries' - A set of routing control entries that you want to update.
 newUpdateRoutingControlStates ::
   UpdateRoutingControlStates
 newUpdateRoutingControlStates =
   UpdateRoutingControlStates'
-    { updateRoutingControlStateEntries =
+    { safetyRulesToOverride =
+        Prelude.Nothing,
+      updateRoutingControlStateEntries =
         Prelude.mempty
     }
+
+-- | The Amazon Resource Names (ARNs) for the safety rules that you want to
+-- override when you\'re updating routing control states. You can override
+-- one safety rule or multiple safety rules by including one or more ARNs,
+-- separated by commas.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/r53recovery/latest/dg/routing-control.override-safety-rule.html Override safety rules to reroute traffic>
+-- in the Amazon Route 53 Application Recovery Controller Developer Guide.
+updateRoutingControlStates_safetyRulesToOverride :: Lens.Lens' UpdateRoutingControlStates (Prelude.Maybe [Prelude.Text])
+updateRoutingControlStates_safetyRulesToOverride = Lens.lens (\UpdateRoutingControlStates' {safetyRulesToOverride} -> safetyRulesToOverride) (\s@UpdateRoutingControlStates' {} a -> s {safetyRulesToOverride = a} :: UpdateRoutingControlStates) Prelude.. Lens.mapping Lens.coerced
 
 -- | A set of routing control entries that you want to update.
 updateRoutingControlStates_updateRoutingControlStateEntries :: Lens.Lens' UpdateRoutingControlStates [UpdateRoutingControlStateEntry]
@@ -83,7 +141,8 @@ instance Core.AWSRequest UpdateRoutingControlStates where
   type
     AWSResponse UpdateRoutingControlStates =
       UpdateRoutingControlStatesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -93,43 +152,46 @@ instance Core.AWSRequest UpdateRoutingControlStates where
 
 instance Prelude.Hashable UpdateRoutingControlStates where
   hashWithSalt _salt UpdateRoutingControlStates' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` safetyRulesToOverride
       `Prelude.hashWithSalt` updateRoutingControlStateEntries
 
 instance Prelude.NFData UpdateRoutingControlStates where
   rnf UpdateRoutingControlStates' {..} =
-    Prelude.rnf updateRoutingControlStateEntries
+    Prelude.rnf safetyRulesToOverride
+      `Prelude.seq` Prelude.rnf updateRoutingControlStateEntries
 
-instance Core.ToHeaders UpdateRoutingControlStates where
+instance Data.ToHeaders UpdateRoutingControlStates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ToggleCustomerAPI.UpdateRoutingControlStates" ::
+              Data.=# ( "ToggleCustomerAPI.UpdateRoutingControlStates" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRoutingControlStates where
+instance Data.ToJSON UpdateRoutingControlStates where
   toJSON UpdateRoutingControlStates' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just
+          [ ("SafetyRulesToOverride" Data..=)
+              Prelude.<$> safetyRulesToOverride,
+            Prelude.Just
               ( "UpdateRoutingControlStateEntries"
-                  Core..= updateRoutingControlStateEntries
+                  Data..= updateRoutingControlStateEntries
               )
           ]
       )
 
-instance Core.ToPath UpdateRoutingControlStates where
+instance Data.ToPath UpdateRoutingControlStates where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateRoutingControlStates where
+instance Data.ToQuery UpdateRoutingControlStates where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateRoutingControlStatesResponse' smart constructor.

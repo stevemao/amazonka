@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.DeleteChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,6 +32,7 @@ module Amazonka.ChimeSDKMessaging.DeleteChannel
     newDeleteChannel,
 
     -- * Request Lenses
+    deleteChannel_subChannelId,
     deleteChannel_channelArn,
     deleteChannel_chimeBearer,
 
@@ -43,14 +44,17 @@ where
 
 import Amazonka.ChimeSDKMessaging.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteChannel' smart constructor.
 data DeleteChannel = DeleteChannel'
-  { -- | The ARN of the channel being deleted.
+  { -- | The ID of the SubChannel in the request.
+    subChannelId :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the channel being deleted.
     channelArn :: Prelude.Text,
     -- | The @AppInstanceUserArn@ of the user that makes the API call.
     chimeBearer :: Prelude.Text
@@ -65,6 +69,8 @@ data DeleteChannel = DeleteChannel'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'subChannelId', 'deleteChannel_subChannelId' - The ID of the SubChannel in the request.
+--
 -- 'channelArn', 'deleteChannel_channelArn' - The ARN of the channel being deleted.
 --
 -- 'chimeBearer', 'deleteChannel_chimeBearer' - The @AppInstanceUserArn@ of the user that makes the API call.
@@ -76,9 +82,14 @@ newDeleteChannel ::
   DeleteChannel
 newDeleteChannel pChannelArn_ pChimeBearer_ =
   DeleteChannel'
-    { channelArn = pChannelArn_,
+    { subChannelId = Prelude.Nothing,
+      channelArn = pChannelArn_,
       chimeBearer = pChimeBearer_
     }
+
+-- | The ID of the SubChannel in the request.
+deleteChannel_subChannelId :: Lens.Lens' DeleteChannel (Prelude.Maybe Prelude.Text)
+deleteChannel_subChannelId = Lens.lens (\DeleteChannel' {subChannelId} -> subChannelId) (\s@DeleteChannel' {} a -> s {subChannelId = a} :: DeleteChannel)
 
 -- | The ARN of the channel being deleted.
 deleteChannel_channelArn :: Lens.Lens' DeleteChannel Prelude.Text
@@ -92,32 +103,37 @@ instance Core.AWSRequest DeleteChannel where
   type
     AWSResponse DeleteChannel =
       DeleteChannelResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteChannelResponse'
 
 instance Prelude.Hashable DeleteChannel where
   hashWithSalt _salt DeleteChannel' {..} =
-    _salt `Prelude.hashWithSalt` channelArn
+    _salt `Prelude.hashWithSalt` subChannelId
+      `Prelude.hashWithSalt` channelArn
       `Prelude.hashWithSalt` chimeBearer
 
 instance Prelude.NFData DeleteChannel where
   rnf DeleteChannel' {..} =
-    Prelude.rnf channelArn
+    Prelude.rnf subChannelId
+      `Prelude.seq` Prelude.rnf channelArn
       `Prelude.seq` Prelude.rnf chimeBearer
 
-instance Core.ToHeaders DeleteChannel where
+instance Data.ToHeaders DeleteChannel where
   toHeaders DeleteChannel' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToPath DeleteChannel where
+instance Data.ToPath DeleteChannel where
   toPath DeleteChannel' {..} =
     Prelude.mconcat
-      ["/channels/", Core.toBS channelArn]
+      ["/channels/", Data.toBS channelArn]
 
-instance Core.ToQuery DeleteChannel where
-  toQuery = Prelude.const Prelude.mempty
+instance Data.ToQuery DeleteChannel where
+  toQuery DeleteChannel' {..} =
+    Prelude.mconcat
+      ["sub-channel-id" Data.=: subChannelId]
 
 -- | /See:/ 'newDeleteChannelResponse' smart constructor.
 data DeleteChannelResponse = DeleteChannelResponse'

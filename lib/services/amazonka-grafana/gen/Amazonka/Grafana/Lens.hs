@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.Grafana.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,29 +14,126 @@
 module Amazonka.Grafana.Lens
   ( -- * Operations
 
-    -- ** ListWorkspaces
-    listWorkspaces_nextToken,
-    listWorkspaces_maxResults,
-    listWorkspacesResponse_nextToken,
-    listWorkspacesResponse_httpStatus,
-    listWorkspacesResponse_workspaces,
+    -- ** AssociateLicense
+    associateLicense_licenseType,
+    associateLicense_workspaceId,
+    associateLicenseResponse_httpStatus,
+    associateLicenseResponse_workspace,
+
+    -- ** CreateWorkspace
+    createWorkspace_clientToken,
+    createWorkspace_configuration,
+    createWorkspace_organizationRoleName,
+    createWorkspace_stackSetName,
+    createWorkspace_tags,
+    createWorkspace_vpcConfiguration,
+    createWorkspace_workspaceDataSources,
+    createWorkspace_workspaceDescription,
+    createWorkspace_workspaceName,
+    createWorkspace_workspaceNotificationDestinations,
+    createWorkspace_workspaceOrganizationalUnits,
+    createWorkspace_workspaceRoleArn,
+    createWorkspace_accountAccessType,
+    createWorkspace_authenticationProviders,
+    createWorkspace_permissionType,
+    createWorkspaceResponse_httpStatus,
+    createWorkspaceResponse_workspace,
+
+    -- ** CreateWorkspaceApiKey
+    createWorkspaceApiKey_keyName,
+    createWorkspaceApiKey_keyRole,
+    createWorkspaceApiKey_secondsToLive,
+    createWorkspaceApiKey_workspaceId,
+    createWorkspaceApiKeyResponse_httpStatus,
+    createWorkspaceApiKeyResponse_key,
+    createWorkspaceApiKeyResponse_keyName,
+    createWorkspaceApiKeyResponse_workspaceId,
 
     -- ** DeleteWorkspace
     deleteWorkspace_workspaceId,
     deleteWorkspaceResponse_httpStatus,
     deleteWorkspaceResponse_workspace,
 
+    -- ** DeleteWorkspaceApiKey
+    deleteWorkspaceApiKey_keyName,
+    deleteWorkspaceApiKey_workspaceId,
+    deleteWorkspaceApiKeyResponse_httpStatus,
+    deleteWorkspaceApiKeyResponse_keyName,
+    deleteWorkspaceApiKeyResponse_workspaceId,
+
+    -- ** DescribeWorkspace
+    describeWorkspace_workspaceId,
+    describeWorkspaceResponse_httpStatus,
+    describeWorkspaceResponse_workspace,
+
+    -- ** DescribeWorkspaceAuthentication
+    describeWorkspaceAuthentication_workspaceId,
+    describeWorkspaceAuthenticationResponse_httpStatus,
+    describeWorkspaceAuthenticationResponse_authentication,
+
+    -- ** DescribeWorkspaceConfiguration
+    describeWorkspaceConfiguration_workspaceId,
+    describeWorkspaceConfigurationResponse_httpStatus,
+    describeWorkspaceConfigurationResponse_configuration,
+
+    -- ** DisassociateLicense
+    disassociateLicense_licenseType,
+    disassociateLicense_workspaceId,
+    disassociateLicenseResponse_httpStatus,
+    disassociateLicenseResponse_workspace,
+
+    -- ** ListPermissions
+    listPermissions_groupId,
+    listPermissions_maxResults,
+    listPermissions_nextToken,
+    listPermissions_userId,
+    listPermissions_userType,
+    listPermissions_workspaceId,
+    listPermissionsResponse_nextToken,
+    listPermissionsResponse_httpStatus,
+    listPermissionsResponse_permissions,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
+    -- ** ListWorkspaces
+    listWorkspaces_maxResults,
+    listWorkspaces_nextToken,
+    listWorkspacesResponse_nextToken,
+    listWorkspacesResponse_httpStatus,
+    listWorkspacesResponse_workspaces,
+
+    -- ** TagResource
+    tagResource_resourceArn,
+    tagResource_tags,
+    tagResourceResponse_httpStatus,
+
+    -- ** UntagResource
+    untagResource_resourceArn,
+    untagResource_tagKeys,
+    untagResourceResponse_httpStatus,
+
+    -- ** UpdatePermissions
+    updatePermissions_updateInstructionBatch,
+    updatePermissions_workspaceId,
+    updatePermissionsResponse_httpStatus,
+    updatePermissionsResponse_errors,
+
     -- ** UpdateWorkspace
-    updateWorkspace_workspaceRoleArn,
-    updateWorkspace_workspaceDataSources,
-    updateWorkspace_permissionType,
-    updateWorkspace_workspaceNotificationDestinations,
-    updateWorkspace_workspaceName,
     updateWorkspace_accountAccessType,
     updateWorkspace_organizationRoleName,
-    updateWorkspace_workspaceDescription,
+    updateWorkspace_permissionType,
+    updateWorkspace_removeVpcConfiguration,
     updateWorkspace_stackSetName,
+    updateWorkspace_vpcConfiguration,
+    updateWorkspace_workspaceDataSources,
+    updateWorkspace_workspaceDescription,
+    updateWorkspace_workspaceName,
+    updateWorkspace_workspaceNotificationDestinations,
     updateWorkspace_workspaceOrganizationalUnits,
+    updateWorkspace_workspaceRoleArn,
     updateWorkspace_workspaceId,
     updateWorkspaceResponse_httpStatus,
     updateWorkspaceResponse_workspace,
@@ -48,70 +145,20 @@ module Amazonka.Grafana.Lens
     updateWorkspaceAuthenticationResponse_httpStatus,
     updateWorkspaceAuthenticationResponse_authentication,
 
-    -- ** DescribeWorkspaceAuthentication
-    describeWorkspaceAuthentication_workspaceId,
-    describeWorkspaceAuthenticationResponse_httpStatus,
-    describeWorkspaceAuthenticationResponse_authentication,
-
-    -- ** DescribeWorkspace
-    describeWorkspace_workspaceId,
-    describeWorkspaceResponse_httpStatus,
-    describeWorkspaceResponse_workspace,
-
-    -- ** AssociateLicense
-    associateLicense_licenseType,
-    associateLicense_workspaceId,
-    associateLicenseResponse_httpStatus,
-    associateLicenseResponse_workspace,
-
-    -- ** ListPermissions
-    listPermissions_userId,
-    listPermissions_nextToken,
-    listPermissions_groupId,
-    listPermissions_maxResults,
-    listPermissions_userType,
-    listPermissions_workspaceId,
-    listPermissionsResponse_nextToken,
-    listPermissionsResponse_httpStatus,
-    listPermissionsResponse_permissions,
-
-    -- ** UpdatePermissions
-    updatePermissions_updateInstructionBatch,
-    updatePermissions_workspaceId,
-    updatePermissionsResponse_httpStatus,
-    updatePermissionsResponse_errors,
-
-    -- ** DisassociateLicense
-    disassociateLicense_licenseType,
-    disassociateLicense_workspaceId,
-    disassociateLicenseResponse_httpStatus,
-    disassociateLicenseResponse_workspace,
-
-    -- ** CreateWorkspace
-    createWorkspace_workspaceRoleArn,
-    createWorkspace_clientToken,
-    createWorkspace_workspaceDataSources,
-    createWorkspace_workspaceNotificationDestinations,
-    createWorkspace_workspaceName,
-    createWorkspace_organizationRoleName,
-    createWorkspace_workspaceDescription,
-    createWorkspace_stackSetName,
-    createWorkspace_workspaceOrganizationalUnits,
-    createWorkspace_accountAccessType,
-    createWorkspace_authenticationProviders,
-    createWorkspace_permissionType,
-    createWorkspaceResponse_httpStatus,
-    createWorkspaceResponse_workspace,
+    -- ** UpdateWorkspaceConfiguration
+    updateWorkspaceConfiguration_configuration,
+    updateWorkspaceConfiguration_workspaceId,
+    updateWorkspaceConfigurationResponse_httpStatus,
 
     -- * Types
 
     -- ** AssertionAttributes
     assertionAttributes_email,
     assertionAttributes_groups,
+    assertionAttributes_login,
+    assertionAttributes_name,
     assertionAttributes_org,
     assertionAttributes_role,
-    assertionAttributes_name,
-    assertionAttributes_login,
 
     -- ** AuthenticationDescription
     authenticationDescription_awsSso,
@@ -142,9 +189,9 @@ module Amazonka.Grafana.Lens
     samlAuthentication_status,
 
     -- ** SamlConfiguration
-    samlConfiguration_loginValidityDuration,
-    samlConfiguration_assertionAttributes,
     samlConfiguration_allowedOrganizations,
+    samlConfiguration_assertionAttributes,
+    samlConfiguration_loginValidityDuration,
     samlConfiguration_roleValues,
     samlConfiguration_idpMetadata,
 
@@ -162,20 +209,26 @@ module Amazonka.Grafana.Lens
     user_id,
     user_type,
 
+    -- ** VpcConfiguration
+    vpcConfiguration_securityGroupIds,
+    vpcConfiguration_subnetIds,
+
     -- ** WorkspaceDescription
-    workspaceDescription_workspaceRoleArn,
-    workspaceDescription_freeTrialExpiration,
-    workspaceDescription_licenseType,
-    workspaceDescription_permissionType,
-    workspaceDescription_name,
-    workspaceDescription_notificationDestinations,
     workspaceDescription_accountAccessType,
-    workspaceDescription_licenseExpiration,
-    workspaceDescription_organizationRoleName,
-    workspaceDescription_stackSetName,
-    workspaceDescription_organizationalUnits,
     workspaceDescription_description,
     workspaceDescription_freeTrialConsumed,
+    workspaceDescription_freeTrialExpiration,
+    workspaceDescription_licenseExpiration,
+    workspaceDescription_licenseType,
+    workspaceDescription_name,
+    workspaceDescription_notificationDestinations,
+    workspaceDescription_organizationRoleName,
+    workspaceDescription_organizationalUnits,
+    workspaceDescription_permissionType,
+    workspaceDescription_stackSetName,
+    workspaceDescription_tags,
+    workspaceDescription_vpcConfiguration,
+    workspaceDescription_workspaceRoleArn,
     workspaceDescription_authentication,
     workspaceDescription_created,
     workspaceDescription_dataSources,
@@ -186,9 +239,10 @@ module Amazonka.Grafana.Lens
     workspaceDescription_status,
 
     -- ** WorkspaceSummary
+    workspaceSummary_description,
     workspaceSummary_name,
     workspaceSummary_notificationDestinations,
-    workspaceSummary_description,
+    workspaceSummary_tags,
     workspaceSummary_authentication,
     workspaceSummary_created,
     workspaceSummary_endpoint,
@@ -201,12 +255,17 @@ where
 
 import Amazonka.Grafana.AssociateLicense
 import Amazonka.Grafana.CreateWorkspace
+import Amazonka.Grafana.CreateWorkspaceApiKey
 import Amazonka.Grafana.DeleteWorkspace
+import Amazonka.Grafana.DeleteWorkspaceApiKey
 import Amazonka.Grafana.DescribeWorkspace
 import Amazonka.Grafana.DescribeWorkspaceAuthentication
+import Amazonka.Grafana.DescribeWorkspaceConfiguration
 import Amazonka.Grafana.DisassociateLicense
 import Amazonka.Grafana.ListPermissions
+import Amazonka.Grafana.ListTagsForResource
 import Amazonka.Grafana.ListWorkspaces
+import Amazonka.Grafana.TagResource
 import Amazonka.Grafana.Types.AssertionAttributes
 import Amazonka.Grafana.Types.AuthenticationDescription
 import Amazonka.Grafana.Types.AuthenticationSummary
@@ -219,8 +278,11 @@ import Amazonka.Grafana.Types.SamlConfiguration
 import Amazonka.Grafana.Types.UpdateError
 import Amazonka.Grafana.Types.UpdateInstruction
 import Amazonka.Grafana.Types.User
+import Amazonka.Grafana.Types.VpcConfiguration
 import Amazonka.Grafana.Types.WorkspaceDescription
 import Amazonka.Grafana.Types.WorkspaceSummary
+import Amazonka.Grafana.UntagResource
 import Amazonka.Grafana.UpdatePermissions
 import Amazonka.Grafana.UpdateWorkspace
 import Amazonka.Grafana.UpdateWorkspaceAuthentication
+import Amazonka.Grafana.UpdateWorkspaceConfiguration

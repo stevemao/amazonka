@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.IncreaseNodeGroupsInGlobalReplicationGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.ElastiCache.IncreaseNodeGroupsInGlobalReplicationGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -133,13 +134,14 @@ instance
     AWSResponse
       IncreaseNodeGroupsInGlobalReplicationGroup =
       IncreaseNodeGroupsInGlobalReplicationGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "IncreaseNodeGroupsInGlobalReplicationGroupResult"
       ( \s h x ->
           IncreaseNodeGroupsInGlobalReplicationGroupResponse'
-            Prelude.<$> (x Core..@? "GlobalReplicationGroup")
+            Prelude.<$> (x Data..@? "GlobalReplicationGroup")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -166,39 +168,39 @@ instance
       `Prelude.seq` Prelude.rnf applyImmediately
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     IncreaseNodeGroupsInGlobalReplicationGroup
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     IncreaseNodeGroupsInGlobalReplicationGroup
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     IncreaseNodeGroupsInGlobalReplicationGroup
   where
   toQuery
     IncreaseNodeGroupsInGlobalReplicationGroup' {..} =
       Prelude.mconcat
         [ "Action"
-            Core.=: ( "IncreaseNodeGroupsInGlobalReplicationGroup" ::
+            Data.=: ( "IncreaseNodeGroupsInGlobalReplicationGroup" ::
                         Prelude.ByteString
                     ),
           "Version"
-            Core.=: ("2015-02-02" :: Prelude.ByteString),
+            Data.=: ("2015-02-02" :: Prelude.ByteString),
           "RegionalConfigurations"
-            Core.=: Core.toQuery
-              ( Core.toQueryList "RegionalConfiguration"
+            Data.=: Data.toQuery
+              ( Data.toQueryList "RegionalConfiguration"
                   Prelude.<$> regionalConfigurations
               ),
           "GlobalReplicationGroupId"
-            Core.=: globalReplicationGroupId,
-          "NodeGroupCount" Core.=: nodeGroupCount,
-          "ApplyImmediately" Core.=: applyImmediately
+            Data.=: globalReplicationGroupId,
+          "NodeGroupCount" Data.=: nodeGroupCount,
+          "ApplyImmediately" Data.=: applyImmediately
         ]
 
 -- | /See:/ 'newIncreaseNodeGroupsInGlobalReplicationGroupResponse' smart constructor.

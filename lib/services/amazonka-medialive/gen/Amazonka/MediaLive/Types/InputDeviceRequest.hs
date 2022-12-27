@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.InputDeviceRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.InputDeviceRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Settings for an input device.
@@ -57,7 +58,7 @@ instance Prelude.Hashable InputDeviceRequest where
 instance Prelude.NFData InputDeviceRequest where
   rnf InputDeviceRequest' {..} = Prelude.rnf id
 
-instance Core.ToJSON InputDeviceRequest where
+instance Data.ToJSON InputDeviceRequest where
   toJSON InputDeviceRequest' {..} =
-    Core.object
-      (Prelude.catMaybes [("id" Core..=) Prelude.<$> id])
+    Data.object
+      (Prelude.catMaybes [("id" Data..=) Prelude.<$> id])

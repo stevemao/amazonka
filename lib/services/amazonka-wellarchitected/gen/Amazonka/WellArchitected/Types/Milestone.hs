@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.Types.Milestone
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WellArchitected.Types.Milestone where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WellArchitected.Types.Workload
 
@@ -28,10 +29,10 @@ import Amazonka.WellArchitected.Types.Workload
 --
 -- /See:/ 'newMilestone' smart constructor.
 data Milestone = Milestone'
-  { workload :: Prelude.Maybe Workload,
+  { milestoneName :: Prelude.Maybe Prelude.Text,
     milestoneNumber :: Prelude.Maybe Prelude.Natural,
-    milestoneName :: Prelude.Maybe Prelude.Text,
-    recordedAt :: Prelude.Maybe Core.POSIX
+    recordedAt :: Prelude.Maybe Data.POSIX,
+    workload :: Prelude.Maybe Workload
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,61 +44,61 @@ data Milestone = Milestone'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'workload', 'milestone_workload' - Undocumented member.
+-- 'milestoneName', 'milestone_milestoneName' - Undocumented member.
 --
 -- 'milestoneNumber', 'milestone_milestoneNumber' - Undocumented member.
 --
--- 'milestoneName', 'milestone_milestoneName' - Undocumented member.
---
 -- 'recordedAt', 'milestone_recordedAt' - Undocumented member.
+--
+-- 'workload', 'milestone_workload' - Undocumented member.
 newMilestone ::
   Milestone
 newMilestone =
   Milestone'
-    { workload = Prelude.Nothing,
+    { milestoneName = Prelude.Nothing,
       milestoneNumber = Prelude.Nothing,
-      milestoneName = Prelude.Nothing,
-      recordedAt = Prelude.Nothing
+      recordedAt = Prelude.Nothing,
+      workload = Prelude.Nothing
     }
-
--- | Undocumented member.
-milestone_workload :: Lens.Lens' Milestone (Prelude.Maybe Workload)
-milestone_workload = Lens.lens (\Milestone' {workload} -> workload) (\s@Milestone' {} a -> s {workload = a} :: Milestone)
-
--- | Undocumented member.
-milestone_milestoneNumber :: Lens.Lens' Milestone (Prelude.Maybe Prelude.Natural)
-milestone_milestoneNumber = Lens.lens (\Milestone' {milestoneNumber} -> milestoneNumber) (\s@Milestone' {} a -> s {milestoneNumber = a} :: Milestone)
 
 -- | Undocumented member.
 milestone_milestoneName :: Lens.Lens' Milestone (Prelude.Maybe Prelude.Text)
 milestone_milestoneName = Lens.lens (\Milestone' {milestoneName} -> milestoneName) (\s@Milestone' {} a -> s {milestoneName = a} :: Milestone)
 
 -- | Undocumented member.
-milestone_recordedAt :: Lens.Lens' Milestone (Prelude.Maybe Prelude.UTCTime)
-milestone_recordedAt = Lens.lens (\Milestone' {recordedAt} -> recordedAt) (\s@Milestone' {} a -> s {recordedAt = a} :: Milestone) Prelude.. Lens.mapping Core._Time
+milestone_milestoneNumber :: Lens.Lens' Milestone (Prelude.Maybe Prelude.Natural)
+milestone_milestoneNumber = Lens.lens (\Milestone' {milestoneNumber} -> milestoneNumber) (\s@Milestone' {} a -> s {milestoneNumber = a} :: Milestone)
 
-instance Core.FromJSON Milestone where
+-- | Undocumented member.
+milestone_recordedAt :: Lens.Lens' Milestone (Prelude.Maybe Prelude.UTCTime)
+milestone_recordedAt = Lens.lens (\Milestone' {recordedAt} -> recordedAt) (\s@Milestone' {} a -> s {recordedAt = a} :: Milestone) Prelude.. Lens.mapping Data._Time
+
+-- | Undocumented member.
+milestone_workload :: Lens.Lens' Milestone (Prelude.Maybe Workload)
+milestone_workload = Lens.lens (\Milestone' {workload} -> workload) (\s@Milestone' {} a -> s {workload = a} :: Milestone)
+
+instance Data.FromJSON Milestone where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Milestone"
       ( \x ->
           Milestone'
-            Prelude.<$> (x Core..:? "Workload")
-            Prelude.<*> (x Core..:? "MilestoneNumber")
-            Prelude.<*> (x Core..:? "MilestoneName")
-            Prelude.<*> (x Core..:? "RecordedAt")
+            Prelude.<$> (x Data..:? "MilestoneName")
+            Prelude.<*> (x Data..:? "MilestoneNumber")
+            Prelude.<*> (x Data..:? "RecordedAt")
+            Prelude.<*> (x Data..:? "Workload")
       )
 
 instance Prelude.Hashable Milestone where
   hashWithSalt _salt Milestone' {..} =
-    _salt `Prelude.hashWithSalt` workload
+    _salt `Prelude.hashWithSalt` milestoneName
       `Prelude.hashWithSalt` milestoneNumber
-      `Prelude.hashWithSalt` milestoneName
       `Prelude.hashWithSalt` recordedAt
+      `Prelude.hashWithSalt` workload
 
 instance Prelude.NFData Milestone where
   rnf Milestone' {..} =
-    Prelude.rnf workload
+    Prelude.rnf milestoneName
       `Prelude.seq` Prelude.rnf milestoneNumber
-      `Prelude.seq` Prelude.rnf milestoneName
       `Prelude.seq` Prelude.rnf recordedAt
+      `Prelude.seq` Prelude.rnf workload

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MachineLearning.CreateDataSourceFromRDS
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,8 @@ module Amazonka.MachineLearning.CreateDataSourceFromRDS
     newCreateDataSourceFromRDS,
 
     -- * Request Lenses
-    createDataSourceFromRDS_dataSourceName,
     createDataSourceFromRDS_computeStatistics,
+    createDataSourceFromRDS_dataSourceName,
     createDataSourceFromRDS_dataSourceId,
     createDataSourceFromRDS_rDSData,
     createDataSourceFromRDS_roleARN,
@@ -60,7 +60,8 @@ module Amazonka.MachineLearning.CreateDataSourceFromRDS
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MachineLearning.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -68,14 +69,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateDataSourceFromRDS' smart constructor.
 data CreateDataSourceFromRDS = CreateDataSourceFromRDS'
-  { -- | A user-supplied name or description of the @DataSource@.
-    dataSourceName :: Prelude.Maybe Prelude.Text,
-    -- | The compute statistics for a @DataSource@. The statistics are generated
+  { -- | The compute statistics for a @DataSource@. The statistics are generated
     -- from the observation data referenced by a @DataSource@. Amazon ML uses
     -- the statistics internally during @MLModel@ training. This parameter must
     -- be set to @true@ if the @@DataSource@@ needs to be used for @MLModel@
     -- training.
     computeStatistics :: Prelude.Maybe Prelude.Bool,
+    -- | A user-supplied name or description of the @DataSource@.
+    dataSourceName :: Prelude.Maybe Prelude.Text,
     -- | A user-supplied ID that uniquely identifies the @DataSource@. Typically,
     -- an Amazon Resource Number (ARN) becomes the ID for a @DataSource@.
     dataSourceId :: Prelude.Text,
@@ -142,13 +143,13 @@ data CreateDataSourceFromRDS = CreateDataSourceFromRDS'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'dataSourceName', 'createDataSourceFromRDS_dataSourceName' - A user-supplied name or description of the @DataSource@.
---
 -- 'computeStatistics', 'createDataSourceFromRDS_computeStatistics' - The compute statistics for a @DataSource@. The statistics are generated
 -- from the observation data referenced by a @DataSource@. Amazon ML uses
 -- the statistics internally during @MLModel@ training. This parameter must
 -- be set to @true@ if the @@DataSource@@ needs to be used for @MLModel@
 -- training.
+--
+-- 'dataSourceName', 'createDataSourceFromRDS_dataSourceName' - A user-supplied name or description of the @DataSource@.
 --
 -- 'dataSourceId', 'createDataSourceFromRDS_dataSourceId' - A user-supplied ID that uniquely identifies the @DataSource@. Typically,
 -- an Amazon Resource Number (ARN) becomes the ID for a @DataSource@.
@@ -217,17 +218,13 @@ newCreateDataSourceFromRDS
   pRDSData_
   pRoleARN_ =
     CreateDataSourceFromRDS'
-      { dataSourceName =
+      { computeStatistics =
           Prelude.Nothing,
-        computeStatistics = Prelude.Nothing,
+        dataSourceName = Prelude.Nothing,
         dataSourceId = pDataSourceId_,
         rDSData = pRDSData_,
         roleARN = pRoleARN_
       }
-
--- | A user-supplied name or description of the @DataSource@.
-createDataSourceFromRDS_dataSourceName :: Lens.Lens' CreateDataSourceFromRDS (Prelude.Maybe Prelude.Text)
-createDataSourceFromRDS_dataSourceName = Lens.lens (\CreateDataSourceFromRDS' {dataSourceName} -> dataSourceName) (\s@CreateDataSourceFromRDS' {} a -> s {dataSourceName = a} :: CreateDataSourceFromRDS)
 
 -- | The compute statistics for a @DataSource@. The statistics are generated
 -- from the observation data referenced by a @DataSource@. Amazon ML uses
@@ -236,6 +233,10 @@ createDataSourceFromRDS_dataSourceName = Lens.lens (\CreateDataSourceFromRDS' {d
 -- training.
 createDataSourceFromRDS_computeStatistics :: Lens.Lens' CreateDataSourceFromRDS (Prelude.Maybe Prelude.Bool)
 createDataSourceFromRDS_computeStatistics = Lens.lens (\CreateDataSourceFromRDS' {computeStatistics} -> computeStatistics) (\s@CreateDataSourceFromRDS' {} a -> s {computeStatistics = a} :: CreateDataSourceFromRDS)
+
+-- | A user-supplied name or description of the @DataSource@.
+createDataSourceFromRDS_dataSourceName :: Lens.Lens' CreateDataSourceFromRDS (Prelude.Maybe Prelude.Text)
+createDataSourceFromRDS_dataSourceName = Lens.lens (\CreateDataSourceFromRDS' {dataSourceName} -> dataSourceName) (\s@CreateDataSourceFromRDS' {} a -> s {dataSourceName = a} :: CreateDataSourceFromRDS)
 
 -- | A user-supplied ID that uniquely identifies the @DataSource@. Typically,
 -- an Amazon Resource Number (ARN) becomes the ID for a @DataSource@.
@@ -302,64 +303,65 @@ instance Core.AWSRequest CreateDataSourceFromRDS where
   type
     AWSResponse CreateDataSourceFromRDS =
       CreateDataSourceFromRDSResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDataSourceFromRDSResponse'
-            Prelude.<$> (x Core..?> "DataSourceId")
+            Prelude.<$> (x Data..?> "DataSourceId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateDataSourceFromRDS where
   hashWithSalt _salt CreateDataSourceFromRDS' {..} =
-    _salt `Prelude.hashWithSalt` dataSourceName
-      `Prelude.hashWithSalt` computeStatistics
+    _salt `Prelude.hashWithSalt` computeStatistics
+      `Prelude.hashWithSalt` dataSourceName
       `Prelude.hashWithSalt` dataSourceId
       `Prelude.hashWithSalt` rDSData
       `Prelude.hashWithSalt` roleARN
 
 instance Prelude.NFData CreateDataSourceFromRDS where
   rnf CreateDataSourceFromRDS' {..} =
-    Prelude.rnf dataSourceName
-      `Prelude.seq` Prelude.rnf computeStatistics
+    Prelude.rnf computeStatistics
+      `Prelude.seq` Prelude.rnf dataSourceName
       `Prelude.seq` Prelude.rnf dataSourceId
       `Prelude.seq` Prelude.rnf rDSData
       `Prelude.seq` Prelude.rnf roleARN
 
-instance Core.ToHeaders CreateDataSourceFromRDS where
+instance Data.ToHeaders CreateDataSourceFromRDS where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonML_20141212.CreateDataSourceFromRDS" ::
+              Data.=# ( "AmazonML_20141212.CreateDataSourceFromRDS" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDataSourceFromRDS where
+instance Data.ToJSON CreateDataSourceFromRDS where
   toJSON CreateDataSourceFromRDS' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DataSourceName" Core..=)
-              Prelude.<$> dataSourceName,
-            ("ComputeStatistics" Core..=)
+          [ ("ComputeStatistics" Data..=)
               Prelude.<$> computeStatistics,
-            Prelude.Just ("DataSourceId" Core..= dataSourceId),
-            Prelude.Just ("RDSData" Core..= rDSData),
-            Prelude.Just ("RoleARN" Core..= roleARN)
+            ("DataSourceName" Data..=)
+              Prelude.<$> dataSourceName,
+            Prelude.Just ("DataSourceId" Data..= dataSourceId),
+            Prelude.Just ("RDSData" Data..= rDSData),
+            Prelude.Just ("RoleARN" Data..= roleARN)
           ]
       )
 
-instance Core.ToPath CreateDataSourceFromRDS where
+instance Data.ToPath CreateDataSourceFromRDS where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDataSourceFromRDS where
+instance Data.ToQuery CreateDataSourceFromRDS where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @CreateDataSourceFromRDS@ operation, and is

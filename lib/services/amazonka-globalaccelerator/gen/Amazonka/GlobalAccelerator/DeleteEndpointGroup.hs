@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.DeleteEndpointGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,9 @@ module Amazonka.GlobalAccelerator.DeleteEndpointGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteEndpointGroup where
   type
     AWSResponse DeleteEndpointGroup =
       DeleteEndpointGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteEndpointGroupResponse'
 
@@ -88,34 +90,34 @@ instance Prelude.NFData DeleteEndpointGroup where
   rnf DeleteEndpointGroup' {..} =
     Prelude.rnf endpointGroupArn
 
-instance Core.ToHeaders DeleteEndpointGroup where
+instance Data.ToHeaders DeleteEndpointGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.DeleteEndpointGroup" ::
+              Data.=# ( "GlobalAccelerator_V20180706.DeleteEndpointGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteEndpointGroup where
+instance Data.ToJSON DeleteEndpointGroup where
   toJSON DeleteEndpointGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("EndpointGroupArn" Core..= endpointGroupArn)
+              ("EndpointGroupArn" Data..= endpointGroupArn)
           ]
       )
 
-instance Core.ToPath DeleteEndpointGroup where
+instance Data.ToPath DeleteEndpointGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteEndpointGroup where
+instance Data.ToQuery DeleteEndpointGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteEndpointGroupResponse' smart constructor.

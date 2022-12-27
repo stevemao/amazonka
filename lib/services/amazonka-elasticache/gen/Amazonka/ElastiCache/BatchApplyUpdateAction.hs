@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.BatchApplyUpdateAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,14 +38,15 @@ module Amazonka.ElastiCache.BatchApplyUpdateAction
     newUpdateActionResultsMessage,
 
     -- * Response Lenses
-    updateActionResultsMessage_unprocessedUpdateActions,
     updateActionResultsMessage_processedUpdateActions,
+    updateActionResultsMessage_unprocessedUpdateActions,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,11 +103,12 @@ instance Core.AWSRequest BatchApplyUpdateAction where
   type
     AWSResponse BatchApplyUpdateAction =
       UpdateActionResultsMessage
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "BatchApplyUpdateActionResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable BatchApplyUpdateAction where
   hashWithSalt _salt BatchApplyUpdateAction' {..} =
@@ -120,28 +122,28 @@ instance Prelude.NFData BatchApplyUpdateAction where
       `Prelude.seq` Prelude.rnf replicationGroupIds
       `Prelude.seq` Prelude.rnf serviceUpdateName
 
-instance Core.ToHeaders BatchApplyUpdateAction where
+instance Data.ToHeaders BatchApplyUpdateAction where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath BatchApplyUpdateAction where
+instance Data.ToPath BatchApplyUpdateAction where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchApplyUpdateAction where
+instance Data.ToQuery BatchApplyUpdateAction where
   toQuery BatchApplyUpdateAction' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("BatchApplyUpdateAction" :: Prelude.ByteString),
+          Data.=: ("BatchApplyUpdateAction" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
         "CacheClusterIds"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> cacheClusterIds
             ),
         "ReplicationGroupIds"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> replicationGroupIds
             ),
-        "ServiceUpdateName" Core.=: serviceUpdateName
+        "ServiceUpdateName" Data.=: serviceUpdateName
       ]

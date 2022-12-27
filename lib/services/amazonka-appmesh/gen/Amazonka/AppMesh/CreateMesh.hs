@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.CreateMesh
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,7 +53,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -136,13 +137,14 @@ createMesh_meshName = Lens.lens (\CreateMesh' {meshName} -> meshName) (\s@Create
 
 instance Core.AWSRequest CreateMesh where
   type AWSResponse CreateMesh = CreateMeshResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateMeshResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable CreateMesh where
@@ -159,32 +161,32 @@ instance Prelude.NFData CreateMesh where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf meshName
 
-instance Core.ToHeaders CreateMesh where
+instance Data.ToHeaders CreateMesh where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateMesh where
+instance Data.ToJSON CreateMesh where
   toJSON CreateMesh' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("spec" Core..=) Prelude.<$> spec,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("meshName" Core..= meshName)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("spec" Data..=) Prelude.<$> spec,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("meshName" Data..= meshName)
           ]
       )
 
-instance Core.ToPath CreateMesh where
+instance Data.ToPath CreateMesh where
   toPath = Prelude.const "/v20190125/meshes"
 
-instance Core.ToQuery CreateMesh where
+instance Data.ToQuery CreateMesh where
   toQuery = Prelude.const Prelude.mempty
 
 -- |

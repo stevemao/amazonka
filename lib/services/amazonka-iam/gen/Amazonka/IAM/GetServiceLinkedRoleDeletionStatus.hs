@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.GetServiceLinkedRoleDeletionStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.IAM.GetServiceLinkedRoleDeletionStatus
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,15 +97,16 @@ instance
   type
     AWSResponse GetServiceLinkedRoleDeletionStatus =
       GetServiceLinkedRoleDeletionStatusResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetServiceLinkedRoleDeletionStatusResult"
       ( \s h x ->
           GetServiceLinkedRoleDeletionStatusResponse'
-            Prelude.<$> (x Core..@? "Reason")
+            Prelude.<$> (x Data..@? "Reason")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> (x Core..@ "Status")
+              Prelude.<*> (x Data..@ "Status")
       )
 
 instance
@@ -124,30 +126,30 @@ instance
     Prelude.rnf deletionTaskId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetServiceLinkedRoleDeletionStatus
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetServiceLinkedRoleDeletionStatus
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetServiceLinkedRoleDeletionStatus
   where
   toQuery GetServiceLinkedRoleDeletionStatus' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "GetServiceLinkedRoleDeletionStatus" ::
+          Data.=: ( "GetServiceLinkedRoleDeletionStatus" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "DeletionTaskId" Core.=: deletionTaskId
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "DeletionTaskId" Data.=: deletionTaskId
       ]
 
 -- | /See:/ 'newGetServiceLinkedRoleDeletionStatusResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationInsights.ListComponents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.ApplicationInsights.ListComponents
     newListComponents,
 
     -- * Request Lenses
-    listComponents_nextToken,
     listComponents_maxResults,
+    listComponents_nextToken,
     listComponents_resourceGroupName,
 
     -- * Destructuring the Response
@@ -45,19 +45,20 @@ where
 
 import Amazonka.ApplicationInsights.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListComponents' smart constructor.
 data ListComponents = ListComponents'
-  { -- | The token to request the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call. To retrieve
+  { -- | The maximum number of results to return in a single call. To retrieve
     -- the remaining results, make another call with the returned @NextToken@
     -- value.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the resource group.
     resourceGroupName :: Prelude.Text
   }
@@ -71,11 +72,11 @@ data ListComponents = ListComponents'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listComponents_nextToken' - The token to request the next page of results.
---
 -- 'maxResults', 'listComponents_maxResults' - The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned @NextToken@
 -- value.
+--
+-- 'nextToken', 'listComponents_nextToken' - The token to request the next page of results.
 --
 -- 'resourceGroupName', 'listComponents_resourceGroupName' - The name of the resource group.
 newListComponents ::
@@ -84,20 +85,20 @@ newListComponents ::
   ListComponents
 newListComponents pResourceGroupName_ =
   ListComponents'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       resourceGroupName = pResourceGroupName_
     }
-
--- | The token to request the next page of results.
-listComponents_nextToken :: Lens.Lens' ListComponents (Prelude.Maybe Prelude.Text)
-listComponents_nextToken = Lens.lens (\ListComponents' {nextToken} -> nextToken) (\s@ListComponents' {} a -> s {nextToken = a} :: ListComponents)
 
 -- | The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned @NextToken@
 -- value.
 listComponents_maxResults :: Lens.Lens' ListComponents (Prelude.Maybe Prelude.Natural)
 listComponents_maxResults = Lens.lens (\ListComponents' {maxResults} -> maxResults) (\s@ListComponents' {} a -> s {maxResults = a} :: ListComponents)
+
+-- | The token to request the next page of results.
+listComponents_nextToken :: Lens.Lens' ListComponents (Prelude.Maybe Prelude.Text)
+listComponents_nextToken = Lens.lens (\ListComponents' {nextToken} -> nextToken) (\s@ListComponents' {} a -> s {nextToken = a} :: ListComponents)
 
 -- | The name of the resource group.
 listComponents_resourceGroupName :: Lens.Lens' ListComponents Prelude.Text
@@ -107,60 +108,61 @@ instance Core.AWSRequest ListComponents where
   type
     AWSResponse ListComponents =
       ListComponentsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListComponentsResponse'
-            Prelude.<$> ( x Core..?> "ApplicationComponentList"
+            Prelude.<$> ( x Data..?> "ApplicationComponentList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListComponents where
   hashWithSalt _salt ListComponents' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` resourceGroupName
 
 instance Prelude.NFData ListComponents where
   rnf ListComponents' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceGroupName
 
-instance Core.ToHeaders ListComponents where
+instance Data.ToHeaders ListComponents where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "EC2WindowsBarleyService.ListComponents" ::
+              Data.=# ( "EC2WindowsBarleyService.ListComponents" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListComponents where
+instance Data.ToJSON ListComponents where
   toJSON ListComponents' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("ResourceGroupName" Core..= resourceGroupName)
+              ("ResourceGroupName" Data..= resourceGroupName)
           ]
       )
 
-instance Core.ToPath ListComponents where
+instance Data.ToPath ListComponents where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListComponents where
+instance Data.ToQuery ListComponents where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListComponentsResponse' smart constructor.

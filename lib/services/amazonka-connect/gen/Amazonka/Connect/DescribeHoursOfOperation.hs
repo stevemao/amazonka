@@ -14,11 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Connect.DescribeHoursOfOperation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
+--
+-- This API is in preview release for Amazon Connect and is subject to
+-- change.
 --
 -- Describes the hours of operation.
 module Amazonka.Connect.DescribeHoursOfOperation
@@ -42,7 +45,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,12 +101,13 @@ instance Core.AWSRequest DescribeHoursOfOperation where
   type
     AWSResponse DescribeHoursOfOperation =
       DescribeHoursOfOperationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeHoursOfOperationResponse'
-            Prelude.<$> (x Core..?> "HoursOfOperation")
+            Prelude.<$> (x Data..?> "HoursOfOperation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,27 +121,27 @@ instance Prelude.NFData DescribeHoursOfOperation where
     Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf hoursOfOperationId
 
-instance Core.ToHeaders DescribeHoursOfOperation where
+instance Data.ToHeaders DescribeHoursOfOperation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeHoursOfOperation where
+instance Data.ToPath DescribeHoursOfOperation where
   toPath DescribeHoursOfOperation' {..} =
     Prelude.mconcat
       [ "/hours-of-operations/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/",
-        Core.toBS hoursOfOperationId
+        Data.toBS hoursOfOperationId
       ]
 
-instance Core.ToQuery DescribeHoursOfOperation where
+instance Data.ToQuery DescribeHoursOfOperation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeHoursOfOperationResponse' smart constructor.

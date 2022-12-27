@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.StartWorkflowRun
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,6 +27,7 @@ module Amazonka.Glue.StartWorkflowRun
     newStartWorkflowRun,
 
     -- * Request Lenses
+    startWorkflowRun_runProperties,
     startWorkflowRun_name,
 
     -- * Destructuring the Response
@@ -40,15 +41,18 @@ module Amazonka.Glue.StartWorkflowRun
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newStartWorkflowRun' smart constructor.
 data StartWorkflowRun = StartWorkflowRun'
-  { -- | The name of the workflow to start.
+  { -- | The workflow run properties for the new workflow run.
+    runProperties :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The name of the workflow to start.
     name :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -61,13 +65,22 @@ data StartWorkflowRun = StartWorkflowRun'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'runProperties', 'startWorkflowRun_runProperties' - The workflow run properties for the new workflow run.
+--
 -- 'name', 'startWorkflowRun_name' - The name of the workflow to start.
 newStartWorkflowRun ::
   -- | 'name'
   Prelude.Text ->
   StartWorkflowRun
 newStartWorkflowRun pName_ =
-  StartWorkflowRun' {name = pName_}
+  StartWorkflowRun'
+    { runProperties = Prelude.Nothing,
+      name = pName_
+    }
+
+-- | The workflow run properties for the new workflow run.
+startWorkflowRun_runProperties :: Lens.Lens' StartWorkflowRun (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+startWorkflowRun_runProperties = Lens.lens (\StartWorkflowRun' {runProperties} -> runProperties) (\s@StartWorkflowRun' {} a -> s {runProperties = a} :: StartWorkflowRun) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the workflow to start.
 startWorkflowRun_name :: Lens.Lens' StartWorkflowRun Prelude.Text
@@ -77,46 +90,52 @@ instance Core.AWSRequest StartWorkflowRun where
   type
     AWSResponse StartWorkflowRun =
       StartWorkflowRunResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartWorkflowRunResponse'
-            Prelude.<$> (x Core..?> "RunId")
+            Prelude.<$> (x Data..?> "RunId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable StartWorkflowRun where
   hashWithSalt _salt StartWorkflowRun' {..} =
-    _salt `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` runProperties
+      `Prelude.hashWithSalt` name
 
 instance Prelude.NFData StartWorkflowRun where
-  rnf StartWorkflowRun' {..} = Prelude.rnf name
+  rnf StartWorkflowRun' {..} =
+    Prelude.rnf runProperties
+      `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders StartWorkflowRun where
+instance Data.ToHeaders StartWorkflowRun where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.StartWorkflowRun" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.StartWorkflowRun" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartWorkflowRun where
+instance Data.ToJSON StartWorkflowRun where
   toJSON StartWorkflowRun' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [ ("RunProperties" Data..=) Prelude.<$> runProperties,
+            Prelude.Just ("Name" Data..= name)
+          ]
       )
 
-instance Core.ToPath StartWorkflowRun where
+instance Data.ToPath StartWorkflowRun where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartWorkflowRun where
+instance Data.ToQuery StartWorkflowRun where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartWorkflowRunResponse' smart constructor.

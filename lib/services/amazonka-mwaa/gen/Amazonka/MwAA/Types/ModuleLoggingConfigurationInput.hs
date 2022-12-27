@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MwAA.Types.ModuleLoggingConfigurationInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,22 +20,21 @@
 module Amazonka.MwAA.Types.ModuleLoggingConfigurationInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MwAA.Types.LoggingLevel
 import qualified Amazonka.Prelude as Prelude
 
--- | Defines the type of logs to send for the Apache Airflow log type (e.g.
--- @DagProcessingLogs@). Valid values: @CloudWatchLogGroupArn@, @Enabled@,
--- @LogLevel@.
+-- | Enables the Apache Airflow log type (e.g. @DagProcessingLogs@) and
+-- defines the log level to send to CloudWatch Logs (e.g. @INFO@).
 --
 -- /See:/ 'newModuleLoggingConfigurationInput' smart constructor.
 data ModuleLoggingConfigurationInput = ModuleLoggingConfigurationInput'
   { -- | Indicates whether to enable the Apache Airflow log type (e.g.
-    -- @DagProcessingLogs@) in CloudWatch Logs.
+    -- @DagProcessingLogs@).
     enabled :: Prelude.Bool,
-    -- | Defines the Apache Airflow logs to send for the log type (e.g.
-    -- @DagProcessingLogs@) to CloudWatch Logs. Valid values: @CRITICAL@,
-    -- @ERROR@, @WARNING@, @INFO@.
+    -- | Defines the Apache Airflow log level (e.g. @INFO@) to send to CloudWatch
+    -- Logs.
     logLevel :: LoggingLevel
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -49,11 +48,10 @@ data ModuleLoggingConfigurationInput = ModuleLoggingConfigurationInput'
 -- for backwards compatibility:
 --
 -- 'enabled', 'moduleLoggingConfigurationInput_enabled' - Indicates whether to enable the Apache Airflow log type (e.g.
--- @DagProcessingLogs@) in CloudWatch Logs.
+-- @DagProcessingLogs@).
 --
--- 'logLevel', 'moduleLoggingConfigurationInput_logLevel' - Defines the Apache Airflow logs to send for the log type (e.g.
--- @DagProcessingLogs@) to CloudWatch Logs. Valid values: @CRITICAL@,
--- @ERROR@, @WARNING@, @INFO@.
+-- 'logLevel', 'moduleLoggingConfigurationInput_logLevel' - Defines the Apache Airflow log level (e.g. @INFO@) to send to CloudWatch
+-- Logs.
 newModuleLoggingConfigurationInput ::
   -- | 'enabled'
   Prelude.Bool ->
@@ -70,13 +68,12 @@ newModuleLoggingConfigurationInput
       }
 
 -- | Indicates whether to enable the Apache Airflow log type (e.g.
--- @DagProcessingLogs@) in CloudWatch Logs.
+-- @DagProcessingLogs@).
 moduleLoggingConfigurationInput_enabled :: Lens.Lens' ModuleLoggingConfigurationInput Prelude.Bool
 moduleLoggingConfigurationInput_enabled = Lens.lens (\ModuleLoggingConfigurationInput' {enabled} -> enabled) (\s@ModuleLoggingConfigurationInput' {} a -> s {enabled = a} :: ModuleLoggingConfigurationInput)
 
--- | Defines the Apache Airflow logs to send for the log type (e.g.
--- @DagProcessingLogs@) to CloudWatch Logs. Valid values: @CRITICAL@,
--- @ERROR@, @WARNING@, @INFO@.
+-- | Defines the Apache Airflow log level (e.g. @INFO@) to send to CloudWatch
+-- Logs.
 moduleLoggingConfigurationInput_logLevel :: Lens.Lens' ModuleLoggingConfigurationInput LoggingLevel
 moduleLoggingConfigurationInput_logLevel = Lens.lens (\ModuleLoggingConfigurationInput' {logLevel} -> logLevel) (\s@ModuleLoggingConfigurationInput' {} a -> s {logLevel = a} :: ModuleLoggingConfigurationInput)
 
@@ -98,11 +95,11 @@ instance
     Prelude.rnf enabled
       `Prelude.seq` Prelude.rnf logLevel
 
-instance Core.ToJSON ModuleLoggingConfigurationInput where
+instance Data.ToJSON ModuleLoggingConfigurationInput where
   toJSON ModuleLoggingConfigurationInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Enabled" Core..= enabled),
-            Prelude.Just ("LogLevel" Core..= logLevel)
+          [ Prelude.Just ("Enabled" Data..= enabled),
+            Prelude.Just ("LogLevel" Data..= logLevel)
           ]
       )

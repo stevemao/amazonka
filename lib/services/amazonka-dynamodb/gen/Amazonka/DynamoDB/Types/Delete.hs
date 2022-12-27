@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.Delete
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,21 @@
 module Amazonka.DynamoDB.Types.Delete where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.ReturnValuesOnConditionCheckFailure
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a request to perform a @DeleteItem@ operation.
 --
 -- /See:/ 'newDelete' smart constructor.
 data Delete = Delete'
-  { -- | One or more substitution tokens for attribute names in an expression.
+  { -- | A condition that must be satisfied in order for a conditional delete to
+    -- succeed.
+    conditionExpression :: Prelude.Maybe Prelude.Text,
+    -- | One or more substitution tokens for attribute names in an expression.
     expressionAttributeNames :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | One or more values that can be substituted in an expression.
     expressionAttributeValues :: Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue),
@@ -37,9 +42,6 @@ data Delete = Delete'
     -- the @Delete@ condition fails. For @ReturnValuesOnConditionCheckFailure@,
     -- the valid values are: NONE and ALL_OLD.
     returnValuesOnConditionCheckFailure :: Prelude.Maybe ReturnValuesOnConditionCheckFailure,
-    -- | A condition that must be satisfied in order for a conditional delete to
-    -- succeed.
-    conditionExpression :: Prelude.Maybe Prelude.Text,
     -- | The primary key of the item to be deleted. Each element consists of an
     -- attribute name and a value for that attribute.
     key :: Prelude.HashMap Prelude.Text AttributeValue,
@@ -56,6 +58,9 @@ data Delete = Delete'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'conditionExpression', 'delete_conditionExpression' - A condition that must be satisfied in order for a conditional delete to
+-- succeed.
+--
 -- 'expressionAttributeNames', 'delete_expressionAttributeNames' - One or more substitution tokens for attribute names in an expression.
 --
 -- 'expressionAttributeValues', 'delete_expressionAttributeValues' - One or more values that can be substituted in an expression.
@@ -63,9 +68,6 @@ data Delete = Delete'
 -- 'returnValuesOnConditionCheckFailure', 'delete_returnValuesOnConditionCheckFailure' - Use @ReturnValuesOnConditionCheckFailure@ to get the item attributes if
 -- the @Delete@ condition fails. For @ReturnValuesOnConditionCheckFailure@,
 -- the valid values are: NONE and ALL_OLD.
---
--- 'conditionExpression', 'delete_conditionExpression' - A condition that must be satisfied in order for a conditional delete to
--- succeed.
 --
 -- 'key', 'delete_key' - The primary key of the item to be deleted. Each element consists of an
 -- attribute name and a value for that attribute.
@@ -77,14 +79,19 @@ newDelete ::
   Delete
 newDelete pTableName_ =
   Delete'
-    { expressionAttributeNames = Prelude.Nothing,
+    { conditionExpression = Prelude.Nothing,
+      expressionAttributeNames = Prelude.Nothing,
       expressionAttributeValues = Prelude.Nothing,
       returnValuesOnConditionCheckFailure =
         Prelude.Nothing,
-      conditionExpression = Prelude.Nothing,
       key = Prelude.mempty,
       tableName = pTableName_
     }
+
+-- | A condition that must be satisfied in order for a conditional delete to
+-- succeed.
+delete_conditionExpression :: Lens.Lens' Delete (Prelude.Maybe Prelude.Text)
+delete_conditionExpression = Lens.lens (\Delete' {conditionExpression} -> conditionExpression) (\s@Delete' {} a -> s {conditionExpression = a} :: Delete)
 
 -- | One or more substitution tokens for attribute names in an expression.
 delete_expressionAttributeNames :: Lens.Lens' Delete (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -100,11 +107,6 @@ delete_expressionAttributeValues = Lens.lens (\Delete' {expressionAttributeValue
 delete_returnValuesOnConditionCheckFailure :: Lens.Lens' Delete (Prelude.Maybe ReturnValuesOnConditionCheckFailure)
 delete_returnValuesOnConditionCheckFailure = Lens.lens (\Delete' {returnValuesOnConditionCheckFailure} -> returnValuesOnConditionCheckFailure) (\s@Delete' {} a -> s {returnValuesOnConditionCheckFailure = a} :: Delete)
 
--- | A condition that must be satisfied in order for a conditional delete to
--- succeed.
-delete_conditionExpression :: Lens.Lens' Delete (Prelude.Maybe Prelude.Text)
-delete_conditionExpression = Lens.lens (\Delete' {conditionExpression} -> conditionExpression) (\s@Delete' {} a -> s {conditionExpression = a} :: Delete)
-
 -- | The primary key of the item to be deleted. Each element consists of an
 -- attribute name and a value for that attribute.
 delete_key :: Lens.Lens' Delete (Prelude.HashMap Prelude.Text AttributeValue)
@@ -116,36 +118,35 @@ delete_tableName = Lens.lens (\Delete' {tableName} -> tableName) (\s@Delete' {} 
 
 instance Prelude.Hashable Delete where
   hashWithSalt _salt Delete' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` conditionExpression
       `Prelude.hashWithSalt` expressionAttributeNames
       `Prelude.hashWithSalt` expressionAttributeValues
       `Prelude.hashWithSalt` returnValuesOnConditionCheckFailure
-      `Prelude.hashWithSalt` conditionExpression
       `Prelude.hashWithSalt` key
       `Prelude.hashWithSalt` tableName
 
 instance Prelude.NFData Delete where
   rnf Delete' {..} =
-    Prelude.rnf expressionAttributeNames
+    Prelude.rnf conditionExpression
+      `Prelude.seq` Prelude.rnf expressionAttributeNames
       `Prelude.seq` Prelude.rnf expressionAttributeValues
       `Prelude.seq` Prelude.rnf returnValuesOnConditionCheckFailure
-      `Prelude.seq` Prelude.rnf conditionExpression
       `Prelude.seq` Prelude.rnf key
       `Prelude.seq` Prelude.rnf tableName
 
-instance Core.ToJSON Delete where
+instance Data.ToJSON Delete where
   toJSON Delete' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ExpressionAttributeNames" Core..=)
-              Prelude.<$> expressionAttributeNames,
-            ("ExpressionAttributeValues" Core..=)
-              Prelude.<$> expressionAttributeValues,
-            ("ReturnValuesOnConditionCheckFailure" Core..=)
-              Prelude.<$> returnValuesOnConditionCheckFailure,
-            ("ConditionExpression" Core..=)
+          [ ("ConditionExpression" Data..=)
               Prelude.<$> conditionExpression,
-            Prelude.Just ("Key" Core..= key),
-            Prelude.Just ("TableName" Core..= tableName)
+            ("ExpressionAttributeNames" Data..=)
+              Prelude.<$> expressionAttributeNames,
+            ("ExpressionAttributeValues" Data..=)
+              Prelude.<$> expressionAttributeValues,
+            ("ReturnValuesOnConditionCheckFailure" Data..=)
+              Prelude.<$> returnValuesOnConditionCheckFailure,
+            Prelude.Just ("Key" Data..= key),
+            Prelude.Just ("TableName" Data..= tableName)
           ]
       )

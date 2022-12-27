@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.GetLogRecord
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,6 +32,7 @@ module Amazonka.CloudWatchLogs.GetLogRecord
     newGetLogRecord,
 
     -- * Request Lenses
+    getLogRecord_unmask,
     getLogRecord_logRecordPointer,
 
     -- * Destructuring the Response
@@ -46,14 +47,21 @@ where
 
 import Amazonka.CloudWatchLogs.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetLogRecord' smart constructor.
 data GetLogRecord = GetLogRecord'
-  { -- | The pointer corresponding to the log event record you want to retrieve.
+  { -- | Specify @true@ to display the log event fields with all sensitive data
+    -- unmasked and visible. The default is @false@.
+    --
+    -- To use this operation with this parameter, you must be signed into an
+    -- account with the @logs:Unmask@ permission.
+    unmask :: Prelude.Maybe Prelude.Bool,
+    -- | The pointer corresponding to the log event record you want to retrieve.
     -- You get this from the response of a @GetQueryResults@ operation. In that
     -- response, the value of the @\@ptr@ field for a log event is the value to
     -- use as @logRecordPointer@ to retrieve that complete log event record.
@@ -69,6 +77,12 @@ data GetLogRecord = GetLogRecord'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'unmask', 'getLogRecord_unmask' - Specify @true@ to display the log event fields with all sensitive data
+-- unmasked and visible. The default is @false@.
+--
+-- To use this operation with this parameter, you must be signed into an
+-- account with the @logs:Unmask@ permission.
+--
 -- 'logRecordPointer', 'getLogRecord_logRecordPointer' - The pointer corresponding to the log event record you want to retrieve.
 -- You get this from the response of a @GetQueryResults@ operation. In that
 -- response, the value of the @\@ptr@ field for a log event is the value to
@@ -79,9 +93,17 @@ newGetLogRecord ::
   GetLogRecord
 newGetLogRecord pLogRecordPointer_ =
   GetLogRecord'
-    { logRecordPointer =
-        pLogRecordPointer_
+    { unmask = Prelude.Nothing,
+      logRecordPointer = pLogRecordPointer_
     }
+
+-- | Specify @true@ to display the log event fields with all sensitive data
+-- unmasked and visible. The default is @false@.
+--
+-- To use this operation with this parameter, you must be signed into an
+-- account with the @logs:Unmask@ permission.
+getLogRecord_unmask :: Lens.Lens' GetLogRecord (Prelude.Maybe Prelude.Bool)
+getLogRecord_unmask = Lens.lens (\GetLogRecord' {unmask} -> unmask) (\s@GetLogRecord' {} a -> s {unmask = a} :: GetLogRecord)
 
 -- | The pointer corresponding to the log event record you want to retrieve.
 -- You get this from the response of a @GetQueryResults@ operation. In that
@@ -92,48 +114,53 @@ getLogRecord_logRecordPointer = Lens.lens (\GetLogRecord' {logRecordPointer} -> 
 
 instance Core.AWSRequest GetLogRecord where
   type AWSResponse GetLogRecord = GetLogRecordResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetLogRecordResponse'
-            Prelude.<$> (x Core..?> "logRecord" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "logRecord" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetLogRecord where
   hashWithSalt _salt GetLogRecord' {..} =
-    _salt `Prelude.hashWithSalt` logRecordPointer
+    _salt `Prelude.hashWithSalt` unmask
+      `Prelude.hashWithSalt` logRecordPointer
 
 instance Prelude.NFData GetLogRecord where
-  rnf GetLogRecord' {..} = Prelude.rnf logRecordPointer
+  rnf GetLogRecord' {..} =
+    Prelude.rnf unmask
+      `Prelude.seq` Prelude.rnf logRecordPointer
 
-instance Core.ToHeaders GetLogRecord where
+instance Data.ToHeaders GetLogRecord where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("Logs_20140328.GetLogRecord" :: Prelude.ByteString),
+              Data.=# ("Logs_20140328.GetLogRecord" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetLogRecord where
+instance Data.ToJSON GetLogRecord where
   toJSON GetLogRecord' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just
-              ("logRecordPointer" Core..= logRecordPointer)
+          [ ("unmask" Data..=) Prelude.<$> unmask,
+            Prelude.Just
+              ("logRecordPointer" Data..= logRecordPointer)
           ]
       )
 
-instance Core.ToPath GetLogRecord where
+instance Data.ToPath GetLogRecord where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetLogRecord where
+instance Data.ToQuery GetLogRecord where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetLogRecordResponse' smart constructor.

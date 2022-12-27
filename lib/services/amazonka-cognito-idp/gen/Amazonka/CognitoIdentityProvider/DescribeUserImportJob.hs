@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.DescribeUserImportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,12 +97,13 @@ instance Core.AWSRequest DescribeUserImportJob where
   type
     AWSResponse DescribeUserImportJob =
       DescribeUserImportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeUserImportJobResponse'
-            Prelude.<$> (x Core..?> "UserImportJob")
+            Prelude.<$> (x Data..?> "UserImportJob")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,34 +117,34 @@ instance Prelude.NFData DescribeUserImportJob where
     Prelude.rnf userPoolId
       `Prelude.seq` Prelude.rnf jobId
 
-instance Core.ToHeaders DescribeUserImportJob where
+instance Data.ToHeaders DescribeUserImportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.DescribeUserImportJob" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.DescribeUserImportJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeUserImportJob where
+instance Data.ToJSON DescribeUserImportJob where
   toJSON DescribeUserImportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("UserPoolId" Core..= userPoolId),
-            Prelude.Just ("JobId" Core..= jobId)
+          [ Prelude.Just ("UserPoolId" Data..= userPoolId),
+            Prelude.Just ("JobId" Data..= jobId)
           ]
       )
 
-instance Core.ToPath DescribeUserImportJob where
+instance Data.ToPath DescribeUserImportJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeUserImportJob where
+instance Data.ToQuery DescribeUserImportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the response from the server to the request to describe the

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorksCM.DisassociateNode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,7 +52,8 @@ module Amazonka.OpsWorksCM.DisassociateNode
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorksCM.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -133,12 +134,13 @@ instance Core.AWSRequest DisassociateNode where
   type
     AWSResponse DisassociateNode =
       DisassociateNodeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DisassociateNodeResponse'
-            Prelude.<$> (x Core..?> "NodeAssociationStatusToken")
+            Prelude.<$> (x Data..?> "NodeAssociationStatusToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -154,36 +156,36 @@ instance Prelude.NFData DisassociateNode where
       `Prelude.seq` Prelude.rnf serverName
       `Prelude.seq` Prelude.rnf nodeName
 
-instance Core.ToHeaders DisassociateNode where
+instance Data.ToHeaders DisassociateNode where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorksCM_V2016_11_01.DisassociateNode" ::
+              Data.=# ( "OpsWorksCM_V2016_11_01.DisassociateNode" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateNode where
+instance Data.ToJSON DisassociateNode where
   toJSON DisassociateNode' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EngineAttributes" Core..=)
+          [ ("EngineAttributes" Data..=)
               Prelude.<$> engineAttributes,
-            Prelude.Just ("ServerName" Core..= serverName),
-            Prelude.Just ("NodeName" Core..= nodeName)
+            Prelude.Just ("ServerName" Data..= serverName),
+            Prelude.Just ("NodeName" Data..= nodeName)
           ]
       )
 
-instance Core.ToPath DisassociateNode where
+instance Data.ToPath DisassociateNode where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateNode where
+instance Data.ToQuery DisassociateNode where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateNodeResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.ResetAllResourceLogLevels
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,9 @@ module Amazonka.IoTWireless.ResetAllResourceLogLevels
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,7 +63,8 @@ instance Core.AWSRequest ResetAllResourceLogLevels where
   type
     AWSResponse ResetAllResourceLogLevels =
       ResetAllResourceLogLevelsResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -77,13 +79,13 @@ instance Prelude.Hashable ResetAllResourceLogLevels where
 instance Prelude.NFData ResetAllResourceLogLevels where
   rnf _ = ()
 
-instance Core.ToHeaders ResetAllResourceLogLevels where
+instance Data.ToHeaders ResetAllResourceLogLevels where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ResetAllResourceLogLevels where
+instance Data.ToPath ResetAllResourceLogLevels where
   toPath = Prelude.const "/log-levels"
 
-instance Core.ToQuery ResetAllResourceLogLevels where
+instance Data.ToQuery ResetAllResourceLogLevels where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newResetAllResourceLogLevelsResponse' smart constructor.

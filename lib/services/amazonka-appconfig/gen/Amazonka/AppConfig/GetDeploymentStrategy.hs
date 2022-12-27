@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.GetDeploymentStrategy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieve information about a deployment strategy. A deployment strategy
+-- Retrieves information about a deployment strategy. A deployment strategy
 -- defines important criteria for rolling out your configuration to the
--- designated targets. A deployment strategy includes: the overall duration
+-- designated targets. A deployment strategy includes the overall duration
 -- required, a percentage of targets to receive the deployment during each
 -- interval, an algorithm that defines how percentage grows, and bake time.
 module Amazonka.AppConfig.GetDeploymentStrategy
@@ -38,20 +38,21 @@ module Amazonka.AppConfig.GetDeploymentStrategy
     newDeploymentStrategy,
 
     -- * Response Lenses
-    deploymentStrategy_growthFactor,
-    deploymentStrategy_replicateTo,
-    deploymentStrategy_name,
-    deploymentStrategy_id,
     deploymentStrategy_deploymentDurationInMinutes,
-    deploymentStrategy_finalBakeTimeInMinutes,
     deploymentStrategy_description,
+    deploymentStrategy_finalBakeTimeInMinutes,
+    deploymentStrategy_growthFactor,
     deploymentStrategy_growthType,
+    deploymentStrategy_id,
+    deploymentStrategy_name,
+    deploymentStrategy_replicateTo,
   )
 where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,10 +91,11 @@ instance Core.AWSRequest GetDeploymentStrategy where
   type
     AWSResponse GetDeploymentStrategy =
       DeploymentStrategy
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetDeploymentStrategy where
   hashWithSalt _salt GetDeploymentStrategy' {..} =
@@ -103,23 +105,23 @@ instance Prelude.NFData GetDeploymentStrategy where
   rnf GetDeploymentStrategy' {..} =
     Prelude.rnf deploymentStrategyId
 
-instance Core.ToHeaders GetDeploymentStrategy where
+instance Data.ToHeaders GetDeploymentStrategy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetDeploymentStrategy where
+instance Data.ToPath GetDeploymentStrategy where
   toPath GetDeploymentStrategy' {..} =
     Prelude.mconcat
       [ "/deploymentstrategies/",
-        Core.toBS deploymentStrategyId
+        Data.toBS deploymentStrategyId
       ]
 
-instance Core.ToQuery GetDeploymentStrategy where
+instance Data.ToQuery GetDeploymentStrategy where
   toQuery = Prelude.const Prelude.mempty

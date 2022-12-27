@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.CreateApp
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.SMS.CreateApp
 
     -- * Request Lenses
     createApp_clientToken,
-    createApp_roleName,
-    createApp_name,
     createApp_description,
+    createApp_name,
+    createApp_roleName,
     createApp_serverGroups,
     createApp_tags,
 
@@ -48,7 +48,8 @@ module Amazonka.SMS.CreateApp
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,13 +60,13 @@ data CreateApp = CreateApp'
   { -- | A unique, case-sensitive identifier that you provide to ensure the
     -- idempotency of application creation.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The name of the service role in the customer\'s account to be used by
-    -- AWS SMS.
-    roleName :: Prelude.Maybe Prelude.Text,
-    -- | The name of the new application.
-    name :: Prelude.Maybe Prelude.Text,
     -- | The description of the new application
     description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the new application.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The name of the service role in the customer\'s account to be used by
+    -- Server Migration Service.
+    roleName :: Prelude.Maybe Prelude.Text,
     -- | The server groups to include in the application.
     serverGroups :: Prelude.Maybe [ServerGroup],
     -- | The tags to be associated with the application.
@@ -84,12 +85,12 @@ data CreateApp = CreateApp'
 -- 'clientToken', 'createApp_clientToken' - A unique, case-sensitive identifier that you provide to ensure the
 -- idempotency of application creation.
 --
--- 'roleName', 'createApp_roleName' - The name of the service role in the customer\'s account to be used by
--- AWS SMS.
+-- 'description', 'createApp_description' - The description of the new application
 --
 -- 'name', 'createApp_name' - The name of the new application.
 --
--- 'description', 'createApp_description' - The description of the new application
+-- 'roleName', 'createApp_roleName' - The name of the service role in the customer\'s account to be used by
+-- Server Migration Service.
 --
 -- 'serverGroups', 'createApp_serverGroups' - The server groups to include in the application.
 --
@@ -99,9 +100,9 @@ newCreateApp ::
 newCreateApp =
   CreateApp'
     { clientToken = Prelude.Nothing,
-      roleName = Prelude.Nothing,
-      name = Prelude.Nothing,
       description = Prelude.Nothing,
+      name = Prelude.Nothing,
+      roleName = Prelude.Nothing,
       serverGroups = Prelude.Nothing,
       tags = Prelude.Nothing
     }
@@ -111,18 +112,18 @@ newCreateApp =
 createApp_clientToken :: Lens.Lens' CreateApp (Prelude.Maybe Prelude.Text)
 createApp_clientToken = Lens.lens (\CreateApp' {clientToken} -> clientToken) (\s@CreateApp' {} a -> s {clientToken = a} :: CreateApp)
 
--- | The name of the service role in the customer\'s account to be used by
--- AWS SMS.
-createApp_roleName :: Lens.Lens' CreateApp (Prelude.Maybe Prelude.Text)
-createApp_roleName = Lens.lens (\CreateApp' {roleName} -> roleName) (\s@CreateApp' {} a -> s {roleName = a} :: CreateApp)
+-- | The description of the new application
+createApp_description :: Lens.Lens' CreateApp (Prelude.Maybe Prelude.Text)
+createApp_description = Lens.lens (\CreateApp' {description} -> description) (\s@CreateApp' {} a -> s {description = a} :: CreateApp)
 
 -- | The name of the new application.
 createApp_name :: Lens.Lens' CreateApp (Prelude.Maybe Prelude.Text)
 createApp_name = Lens.lens (\CreateApp' {name} -> name) (\s@CreateApp' {} a -> s {name = a} :: CreateApp)
 
--- | The description of the new application
-createApp_description :: Lens.Lens' CreateApp (Prelude.Maybe Prelude.Text)
-createApp_description = Lens.lens (\CreateApp' {description} -> description) (\s@CreateApp' {} a -> s {description = a} :: CreateApp)
+-- | The name of the service role in the customer\'s account to be used by
+-- Server Migration Service.
+createApp_roleName :: Lens.Lens' CreateApp (Prelude.Maybe Prelude.Text)
+createApp_roleName = Lens.lens (\CreateApp' {roleName} -> roleName) (\s@CreateApp' {} a -> s {roleName = a} :: CreateApp)
 
 -- | The server groups to include in the application.
 createApp_serverGroups :: Lens.Lens' CreateApp (Prelude.Maybe [ServerGroup])
@@ -134,67 +135,68 @@ createApp_tags = Lens.lens (\CreateApp' {tags} -> tags) (\s@CreateApp' {} a -> s
 
 instance Core.AWSRequest CreateApp where
   type AWSResponse CreateApp = CreateAppResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAppResponse'
-            Prelude.<$> (x Core..?> "appSummary")
-            Prelude.<*> (x Core..?> "serverGroups" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "appSummary")
+            Prelude.<*> (x Data..?> "serverGroups" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateApp where
   hashWithSalt _salt CreateApp' {..} =
     _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` roleName
-      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` roleName
       `Prelude.hashWithSalt` serverGroups
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData CreateApp where
   rnf CreateApp' {..} =
     Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf roleName
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf roleName
       `Prelude.seq` Prelude.rnf serverGroups
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders CreateApp where
+instance Data.ToHeaders CreateApp where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.CreateApp" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.CreateApp" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateApp where
+instance Data.ToJSON CreateApp where
   toJSON CreateApp' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("roleName" Core..=) Prelude.<$> roleName,
-            ("name" Core..=) Prelude.<$> name,
-            ("description" Core..=) Prelude.<$> description,
-            ("serverGroups" Core..=) Prelude.<$> serverGroups,
-            ("tags" Core..=) Prelude.<$> tags
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("description" Data..=) Prelude.<$> description,
+            ("name" Data..=) Prelude.<$> name,
+            ("roleName" Data..=) Prelude.<$> roleName,
+            ("serverGroups" Data..=) Prelude.<$> serverGroups,
+            ("tags" Data..=) Prelude.<$> tags
           ]
       )
 
-instance Core.ToPath CreateApp where
+instance Data.ToPath CreateApp where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateApp where
+instance Data.ToQuery CreateApp where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAppResponse' smart constructor.

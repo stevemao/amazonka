@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackageVOD.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,12 +18,12 @@ module Amazonka.MediaPackageVOD.Types
     defaultService,
 
     -- * Errors
-    _UnprocessableEntityException,
     _ForbiddenException,
-    _NotFoundException,
-    _TooManyRequestsException,
     _InternalServerErrorException,
+    _NotFoundException,
     _ServiceUnavailableException,
+    _TooManyRequestsException,
+    _UnprocessableEntityException,
 
     -- * AdMarkers
     AdMarkers (..),
@@ -36,8 +37,17 @@ module Amazonka.MediaPackageVOD.Types
     -- * PeriodTriggersElement
     PeriodTriggersElement (..),
 
+    -- * PresetSpeke20Audio
+    PresetSpeke20Audio (..),
+
+    -- * PresetSpeke20Video
+    PresetSpeke20Video (..),
+
     -- * Profile
     Profile (..),
+
+    -- * ScteMarkersSource
+    ScteMarkersSource (..),
 
     -- * SegmentTemplateFormat
     SegmentTemplateFormat (..),
@@ -48,13 +58,13 @@ module Amazonka.MediaPackageVOD.Types
     -- * AssetShallow
     AssetShallow (..),
     newAssetShallow,
-    assetShallow_resourceId,
     assetShallow_arn,
     assetShallow_createdAt,
+    assetShallow_id,
     assetShallow_packagingGroupId,
+    assetShallow_resourceId,
     assetShallow_sourceArn,
     assetShallow_sourceRoleArn,
-    assetShallow_id,
     assetShallow_tags,
 
     -- * Authorization
@@ -72,9 +82,9 @@ module Amazonka.MediaPackageVOD.Types
     -- * CmafPackage
     CmafPackage (..),
     newCmafPackage,
+    cmafPackage_encryption,
     cmafPackage_includeEncoderConfigurationInSegments,
     cmafPackage_segmentDurationSeconds,
-    cmafPackage_encryption,
     cmafPackage_hlsManifests,
 
     -- * DashEncryption
@@ -85,20 +95,22 @@ module Amazonka.MediaPackageVOD.Types
     -- * DashManifest
     DashManifest (..),
     newDashManifest,
-    dashManifest_minBufferTimeSeconds,
-    dashManifest_manifestName,
-    dashManifest_profile,
-    dashManifest_streamSelection,
     dashManifest_manifestLayout,
+    dashManifest_manifestName,
+    dashManifest_minBufferTimeSeconds,
+    dashManifest_profile,
+    dashManifest_scteMarkersSource,
+    dashManifest_streamSelection,
 
     -- * DashPackage
     DashPackage (..),
     newDashPackage,
-    dashPackage_includeEncoderConfigurationInSegments,
-    dashPackage_segmentTemplateFormat,
-    dashPackage_segmentDurationSeconds,
     dashPackage_encryption,
+    dashPackage_includeEncoderConfigurationInSegments,
+    dashPackage_includeIframeOnlyStream,
     dashPackage_periodTriggers,
+    dashPackage_segmentDurationSeconds,
+    dashPackage_segmentTemplateFormat,
     dashPackage_dashManifests,
 
     -- * EgressAccessLogs
@@ -109,34 +121,40 @@ module Amazonka.MediaPackageVOD.Types
     -- * EgressEndpoint
     EgressEndpoint (..),
     newEgressEndpoint,
+    egressEndpoint_packagingConfigurationId,
     egressEndpoint_status,
     egressEndpoint_url,
-    egressEndpoint_packagingConfigurationId,
+
+    -- * EncryptionContractConfiguration
+    EncryptionContractConfiguration (..),
+    newEncryptionContractConfiguration,
+    encryptionContractConfiguration_presetSpeke20Audio,
+    encryptionContractConfiguration_presetSpeke20Video,
 
     -- * HlsEncryption
     HlsEncryption (..),
     newHlsEncryption,
-    hlsEncryption_encryptionMethod,
     hlsEncryption_constantInitializationVector,
+    hlsEncryption_encryptionMethod,
     hlsEncryption_spekeKeyProvider,
 
     -- * HlsManifest
     HlsManifest (..),
     newHlsManifest,
-    hlsManifest_manifestName,
-    hlsManifest_programDateTimeIntervalSeconds,
-    hlsManifest_streamSelection,
     hlsManifest_adMarkers,
     hlsManifest_includeIframeOnlyStream,
+    hlsManifest_manifestName,
+    hlsManifest_programDateTimeIntervalSeconds,
     hlsManifest_repeatExtXKey,
+    hlsManifest_streamSelection,
 
     -- * HlsPackage
     HlsPackage (..),
     newHlsPackage,
-    hlsPackage_useAudioRenditionGroup,
+    hlsPackage_encryption,
     hlsPackage_includeDvbSubtitles,
     hlsPackage_segmentDurationSeconds,
-    hlsPackage_encryption,
+    hlsPackage_useAudioRenditionGroup,
     hlsPackage_hlsManifests,
 
     -- * MssEncryption
@@ -153,20 +171,20 @@ module Amazonka.MediaPackageVOD.Types
     -- * MssPackage
     MssPackage (..),
     newMssPackage,
-    mssPackage_segmentDurationSeconds,
     mssPackage_encryption,
+    mssPackage_segmentDurationSeconds,
     mssPackage_mssManifests,
 
     -- * PackagingConfiguration
     PackagingConfiguration (..),
     newPackagingConfiguration,
-    packagingConfiguration_hlsPackage,
     packagingConfiguration_arn,
-    packagingConfiguration_packagingGroupId,
-    packagingConfiguration_dashPackage,
-    packagingConfiguration_mssPackage,
-    packagingConfiguration_id,
     packagingConfiguration_cmafPackage,
+    packagingConfiguration_dashPackage,
+    packagingConfiguration_hlsPackage,
+    packagingConfiguration_id,
+    packagingConfiguration_mssPackage,
+    packagingConfiguration_packagingGroupId,
     packagingConfiguration_tags,
 
     -- * PackagingGroup
@@ -175,13 +193,14 @@ module Amazonka.MediaPackageVOD.Types
     packagingGroup_arn,
     packagingGroup_authorization,
     packagingGroup_domainName,
-    packagingGroup_id,
     packagingGroup_egressAccessLogs,
+    packagingGroup_id,
     packagingGroup_tags,
 
     -- * SpekeKeyProvider
     SpekeKeyProvider (..),
     newSpekeKeyProvider,
+    spekeKeyProvider_encryptionContractConfiguration,
     spekeKeyProvider_systemIds,
     spekeKeyProvider_url,
     spekeKeyProvider_roleArn,
@@ -189,14 +208,14 @@ module Amazonka.MediaPackageVOD.Types
     -- * StreamSelection
     StreamSelection (..),
     newStreamSelection,
-    streamSelection_streamOrder,
-    streamSelection_minVideoBitsPerSecond,
     streamSelection_maxVideoBitsPerSecond,
+    streamSelection_minVideoBitsPerSecond,
+    streamSelection_streamOrder,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.MediaPackageVOD.Types.AdMarkers
 import Amazonka.MediaPackageVOD.Types.AssetShallow
 import Amazonka.MediaPackageVOD.Types.Authorization
@@ -207,6 +226,7 @@ import Amazonka.MediaPackageVOD.Types.DashManifest
 import Amazonka.MediaPackageVOD.Types.DashPackage
 import Amazonka.MediaPackageVOD.Types.EgressAccessLogs
 import Amazonka.MediaPackageVOD.Types.EgressEndpoint
+import Amazonka.MediaPackageVOD.Types.EncryptionContractConfiguration
 import Amazonka.MediaPackageVOD.Types.EncryptionMethod
 import Amazonka.MediaPackageVOD.Types.HlsEncryption
 import Amazonka.MediaPackageVOD.Types.HlsManifest
@@ -218,7 +238,10 @@ import Amazonka.MediaPackageVOD.Types.MssPackage
 import Amazonka.MediaPackageVOD.Types.PackagingConfiguration
 import Amazonka.MediaPackageVOD.Types.PackagingGroup
 import Amazonka.MediaPackageVOD.Types.PeriodTriggersElement
+import Amazonka.MediaPackageVOD.Types.PresetSpeke20Audio
+import Amazonka.MediaPackageVOD.Types.PresetSpeke20Video
 import Amazonka.MediaPackageVOD.Types.Profile
+import Amazonka.MediaPackageVOD.Types.ScteMarkersSource
 import Amazonka.MediaPackageVOD.Types.SegmentTemplateFormat
 import Amazonka.MediaPackageVOD.Types.SpekeKeyProvider
 import Amazonka.MediaPackageVOD.Types.StreamOrder
@@ -230,43 +253,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev =
-        "MediaPackageVOD",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "mediapackage-vod",
-      Core._serviceSigningName = "mediapackage-vod",
-      Core._serviceVersion = "2018-11-07",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "MediaPackageVOD",
-      Core._serviceRetry = retry
+    { Core.abbrev = "MediaPackageVOD",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "mediapackage-vod",
+      Core.signingName = "mediapackage-vod",
+      Core.version = "2018-11-07",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "MediaPackageVOD",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -274,37 +303,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | The parameters sent in the request are not valid.
-_UnprocessableEntityException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_UnprocessableEntityException =
-  Core._MatchServiceError
-    defaultService
-    "UnprocessableEntityException"
-    Prelude.. Core.hasStatus 422
 
 -- | The client is not authorized to access the requested resource.
 _ForbiddenException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -314,6 +327,14 @@ _ForbiddenException =
     "ForbiddenException"
     Prelude.. Core.hasStatus 403
 
+-- | An unexpected error occurred.
+_InternalServerErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InternalServerErrorException =
+  Core._MatchServiceError
+    defaultService
+    "InternalServerErrorException"
+    Prelude.. Core.hasStatus 500
+
 -- | The requested resource does not exist.
 _NotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _NotFoundException =
@@ -321,6 +342,14 @@ _NotFoundException =
     defaultService
     "NotFoundException"
     Prelude.. Core.hasStatus 404
+
+-- | An unexpected error occurred.
+_ServiceUnavailableException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ServiceUnavailableException =
+  Core._MatchServiceError
+    defaultService
+    "ServiceUnavailableException"
+    Prelude.. Core.hasStatus 503
 
 -- | The client has exceeded their resource or throttling limits.
 _TooManyRequestsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -330,18 +359,10 @@ _TooManyRequestsException =
     "TooManyRequestsException"
     Prelude.. Core.hasStatus 429
 
--- | An unexpected error occurred.
-_InternalServerErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InternalServerErrorException =
+-- | The parameters sent in the request are not valid.
+_UnprocessableEntityException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_UnprocessableEntityException =
   Core._MatchServiceError
     defaultService
-    "InternalServerErrorException"
-    Prelude.. Core.hasStatus 500
-
--- | An unexpected error occurred.
-_ServiceUnavailableException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ServiceUnavailableException =
-  Core._MatchServiceError
-    defaultService
-    "ServiceUnavailableException"
-    Prelude.. Core.hasStatus 503
+    "UnprocessableEntityException"
+    Prelude.. Core.hasStatus 422

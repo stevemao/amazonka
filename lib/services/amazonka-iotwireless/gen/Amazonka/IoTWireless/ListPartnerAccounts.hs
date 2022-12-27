@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.ListPartnerAccounts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,35 +27,36 @@ module Amazonka.IoTWireless.ListPartnerAccounts
     newListPartnerAccounts,
 
     -- * Request Lenses
-    listPartnerAccounts_nextToken,
     listPartnerAccounts_maxResults,
+    listPartnerAccounts_nextToken,
 
     -- * Destructuring the Response
     ListPartnerAccountsResponse (..),
     newListPartnerAccountsResponse,
 
     -- * Response Lenses
-    listPartnerAccountsResponse_sidewalk,
     listPartnerAccountsResponse_nextToken,
+    listPartnerAccountsResponse_sidewalk,
     listPartnerAccountsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListPartnerAccounts' smart constructor.
 data ListPartnerAccounts = ListPartnerAccounts'
-  { -- | To retrieve the next set of results, the @nextToken@ value from a
+  { -- | The maximum number of results to return in this operation.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | To retrieve the next set of results, the @nextToken@ value from a
     -- previous response; otherwise __null__ to receive the first set of
     -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in this operation.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,18 +68,22 @@ data ListPartnerAccounts = ListPartnerAccounts'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listPartnerAccounts_maxResults' - The maximum number of results to return in this operation.
+--
 -- 'nextToken', 'listPartnerAccounts_nextToken' - To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
 -- results.
---
--- 'maxResults', 'listPartnerAccounts_maxResults' - The maximum number of results to return in this operation.
 newListPartnerAccounts ::
   ListPartnerAccounts
 newListPartnerAccounts =
   ListPartnerAccounts'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results to return in this operation.
+listPartnerAccounts_maxResults :: Lens.Lens' ListPartnerAccounts (Prelude.Maybe Prelude.Natural)
+listPartnerAccounts_maxResults = Lens.lens (\ListPartnerAccounts' {maxResults} -> maxResults) (\s@ListPartnerAccounts' {} a -> s {maxResults = a} :: ListPartnerAccounts)
 
 -- | To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
@@ -86,54 +91,51 @@ newListPartnerAccounts =
 listPartnerAccounts_nextToken :: Lens.Lens' ListPartnerAccounts (Prelude.Maybe Prelude.Text)
 listPartnerAccounts_nextToken = Lens.lens (\ListPartnerAccounts' {nextToken} -> nextToken) (\s@ListPartnerAccounts' {} a -> s {nextToken = a} :: ListPartnerAccounts)
 
--- | The maximum number of results to return in this operation.
-listPartnerAccounts_maxResults :: Lens.Lens' ListPartnerAccounts (Prelude.Maybe Prelude.Natural)
-listPartnerAccounts_maxResults = Lens.lens (\ListPartnerAccounts' {maxResults} -> maxResults) (\s@ListPartnerAccounts' {} a -> s {maxResults = a} :: ListPartnerAccounts)
-
 instance Core.AWSRequest ListPartnerAccounts where
   type
     AWSResponse ListPartnerAccounts =
       ListPartnerAccountsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPartnerAccountsResponse'
-            Prelude.<$> (x Core..?> "Sidewalk" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Sidewalk" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListPartnerAccounts where
   hashWithSalt _salt ListPartnerAccounts' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListPartnerAccounts where
   rnf ListPartnerAccounts' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListPartnerAccounts where
+instance Data.ToHeaders ListPartnerAccounts where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListPartnerAccounts where
+instance Data.ToPath ListPartnerAccounts where
   toPath = Prelude.const "/partner-accounts"
 
-instance Core.ToQuery ListPartnerAccounts where
+instance Data.ToQuery ListPartnerAccounts where
   toQuery ListPartnerAccounts' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListPartnerAccountsResponse' smart constructor.
 data ListPartnerAccountsResponse = ListPartnerAccountsResponse'
-  { -- | The Sidewalk account credentials.
-    sidewalk :: Prelude.Maybe [SidewalkAccountInfoWithFingerprint],
-    -- | The token to use to get the next set of results, or __null__ if there
+  { -- | The token to use to get the next set of results, or __null__ if there
     -- are no additional results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Sidewalk account credentials.
+    sidewalk :: Prelude.Maybe [SidewalkAccountInfoWithFingerprint],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -147,10 +149,10 @@ data ListPartnerAccountsResponse = ListPartnerAccountsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sidewalk', 'listPartnerAccountsResponse_sidewalk' - The Sidewalk account credentials.
---
 -- 'nextToken', 'listPartnerAccountsResponse_nextToken' - The token to use to get the next set of results, or __null__ if there
 -- are no additional results.
+--
+-- 'sidewalk', 'listPartnerAccountsResponse_sidewalk' - The Sidewalk account credentials.
 --
 -- 'httpStatus', 'listPartnerAccountsResponse_httpStatus' - The response's http status code.
 newListPartnerAccountsResponse ::
@@ -159,20 +161,20 @@ newListPartnerAccountsResponse ::
   ListPartnerAccountsResponse
 newListPartnerAccountsResponse pHttpStatus_ =
   ListPartnerAccountsResponse'
-    { sidewalk =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      sidewalk = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The Sidewalk account credentials.
-listPartnerAccountsResponse_sidewalk :: Lens.Lens' ListPartnerAccountsResponse (Prelude.Maybe [SidewalkAccountInfoWithFingerprint])
-listPartnerAccountsResponse_sidewalk = Lens.lens (\ListPartnerAccountsResponse' {sidewalk} -> sidewalk) (\s@ListPartnerAccountsResponse' {} a -> s {sidewalk = a} :: ListPartnerAccountsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to use to get the next set of results, or __null__ if there
 -- are no additional results.
 listPartnerAccountsResponse_nextToken :: Lens.Lens' ListPartnerAccountsResponse (Prelude.Maybe Prelude.Text)
 listPartnerAccountsResponse_nextToken = Lens.lens (\ListPartnerAccountsResponse' {nextToken} -> nextToken) (\s@ListPartnerAccountsResponse' {} a -> s {nextToken = a} :: ListPartnerAccountsResponse)
+
+-- | The Sidewalk account credentials.
+listPartnerAccountsResponse_sidewalk :: Lens.Lens' ListPartnerAccountsResponse (Prelude.Maybe [SidewalkAccountInfoWithFingerprint])
+listPartnerAccountsResponse_sidewalk = Lens.lens (\ListPartnerAccountsResponse' {sidewalk} -> sidewalk) (\s@ListPartnerAccountsResponse' {} a -> s {sidewalk = a} :: ListPartnerAccountsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listPartnerAccountsResponse_httpStatus :: Lens.Lens' ListPartnerAccountsResponse Prelude.Int
@@ -180,6 +182,6 @@ listPartnerAccountsResponse_httpStatus = Lens.lens (\ListPartnerAccountsResponse
 
 instance Prelude.NFData ListPartnerAccountsResponse where
   rnf ListPartnerAccountsResponse' {..} =
-    Prelude.rnf sidewalk
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sidewalk
       `Prelude.seq` Prelude.rnf httpStatus

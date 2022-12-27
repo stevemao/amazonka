@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.SecretsManager.UntagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes one or more tags from the specified secret.
+-- Removes specific tags from a secret.
 --
 -- This operation is idempotent. If a requested tag is not attached to the
 -- secret, no error is returned and the secret metadata is unchanged.
@@ -30,18 +30,16 @@
 -- result in you losing your permissions for this secret, then the
 -- operation is blocked and returns an Access Denied error.
 --
--- __Minimum permissions__
+-- Secrets Manager generates a CloudTrail log entry when you call this
+-- action. Do not include sensitive information in request parameters
+-- because it might be logged. For more information, see
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html Logging Secrets Manager events with CloudTrail>.
 --
--- To run this command, you must have the following permissions:
---
--- -   secretsmanager:UntagResource
---
--- __Related operations__
---
--- -   To add one or more tags to the collection attached to a secret, use
---     TagResource.
---
--- -   To view the list of tags attached to a secret, use DescribeSecret.
+-- __Required permissions:__ @secretsmanager:UntagResource@. For more
+-- information, see
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions IAM policy actions for Secrets Manager>
+-- and
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html Authentication and access control in Secrets Manager>.
 module Amazonka.SecretsManager.UntagResource
   ( -- * Creating a Request
     UntagResource (..),
@@ -58,7 +56,8 @@ module Amazonka.SecretsManager.UntagResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,17 +65,16 @@ import Amazonka.SecretsManager.Types
 
 -- | /See:/ 'newUntagResource' smart constructor.
 data UntagResource = UntagResource'
-  { -- | The identifier for the secret that you want to remove tags from. You can
-    -- specify either the Amazon Resource Name (ARN) or the friendly name of
-    -- the secret.
+  { -- | The ARN or name of the secret.
     --
     -- For an ARN, we recommend that you specify a complete ARN rather than a
-    -- partial ARN.
+    -- partial ARN. See
+    -- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen Finding a secret from a partial ARN>.
     secretId :: Prelude.Text,
     -- | A list of tag key names to remove from the secret. You don\'t specify
     -- the value. Both the key and its associated value are removed.
     --
-    -- This parameter to the API requires a JSON text string argument.
+    -- This parameter requires a JSON text string argument.
     --
     -- For storing multiple values, we recommend that you use a JSON text
     -- string argument and specify key\/value pairs. For more information, see
@@ -94,17 +92,16 @@ data UntagResource = UntagResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'secretId', 'untagResource_secretId' - The identifier for the secret that you want to remove tags from. You can
--- specify either the Amazon Resource Name (ARN) or the friendly name of
--- the secret.
+-- 'secretId', 'untagResource_secretId' - The ARN or name of the secret.
 --
 -- For an ARN, we recommend that you specify a complete ARN rather than a
--- partial ARN.
+-- partial ARN. See
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen Finding a secret from a partial ARN>.
 --
 -- 'tagKeys', 'untagResource_tagKeys' - A list of tag key names to remove from the secret. You don\'t specify
 -- the value. Both the key and its associated value are removed.
 --
--- This parameter to the API requires a JSON text string argument.
+-- This parameter requires a JSON text string argument.
 --
 -- For storing multiple values, we recommend that you use a JSON text
 -- string argument and specify key\/value pairs. For more information, see
@@ -120,19 +117,18 @@ newUntagResource pSecretId_ =
       tagKeys = Prelude.mempty
     }
 
--- | The identifier for the secret that you want to remove tags from. You can
--- specify either the Amazon Resource Name (ARN) or the friendly name of
--- the secret.
+-- | The ARN or name of the secret.
 --
 -- For an ARN, we recommend that you specify a complete ARN rather than a
--- partial ARN.
+-- partial ARN. See
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen Finding a secret from a partial ARN>.
 untagResource_secretId :: Lens.Lens' UntagResource Prelude.Text
 untagResource_secretId = Lens.lens (\UntagResource' {secretId} -> secretId) (\s@UntagResource' {} a -> s {secretId = a} :: UntagResource)
 
 -- | A list of tag key names to remove from the secret. You don\'t specify
 -- the value. Both the key and its associated value are removed.
 --
--- This parameter to the API requires a JSON text string argument.
+-- This parameter requires a JSON text string argument.
 --
 -- For storing multiple values, we recommend that you use a JSON text
 -- string argument and specify key\/value pairs. For more information, see
@@ -145,7 +141,8 @@ instance Core.AWSRequest UntagResource where
   type
     AWSResponse UntagResource =
       UntagResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull UntagResourceResponse'
 
@@ -159,34 +156,34 @@ instance Prelude.NFData UntagResource where
     Prelude.rnf secretId
       `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagResource where
+instance Data.ToHeaders UntagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "secretsmanager.UntagResource" ::
+              Data.=# ( "secretsmanager.UntagResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UntagResource where
+instance Data.ToJSON UntagResource where
   toJSON UntagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("SecretId" Core..= secretId),
-            Prelude.Just ("TagKeys" Core..= tagKeys)
+          [ Prelude.Just ("SecretId" Data..= secretId),
+            Prelude.Just ("TagKeys" Data..= tagKeys)
           ]
       )
 
-instance Core.ToPath UntagResource where
+instance Data.ToPath UntagResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UntagResource where
+instance Data.ToQuery UntagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUntagResourceResponse' smart constructor.

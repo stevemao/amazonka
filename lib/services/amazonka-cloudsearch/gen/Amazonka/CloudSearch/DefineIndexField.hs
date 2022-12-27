@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearch.DefineIndexField
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ where
 
 import Amazonka.CloudSearch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,14 +103,15 @@ instance Core.AWSRequest DefineIndexField where
   type
     AWSResponse DefineIndexField =
       DefineIndexFieldResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DefineIndexFieldResult"
       ( \s h x ->
           DefineIndexFieldResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "IndexField")
+            Prelude.<*> (x Data..@ "IndexField")
       )
 
 instance Prelude.Hashable DefineIndexField where
@@ -122,21 +124,21 @@ instance Prelude.NFData DefineIndexField where
     Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf indexField
 
-instance Core.ToHeaders DefineIndexField where
+instance Data.ToHeaders DefineIndexField where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DefineIndexField where
+instance Data.ToPath DefineIndexField where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DefineIndexField where
+instance Data.ToQuery DefineIndexField where
   toQuery DefineIndexField' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DefineIndexField" :: Prelude.ByteString),
+          Data.=: ("DefineIndexField" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2013-01-01" :: Prelude.ByteString),
-        "DomainName" Core.=: domainName,
-        "IndexField" Core.=: indexField
+          Data.=: ("2013-01-01" :: Prelude.ByteString),
+        "DomainName" Data.=: domainName,
+        "IndexField" Data.=: indexField
       ]
 
 -- | The result of a @DefineIndexField@ request. Contains the status of the

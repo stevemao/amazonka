@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.UntagAttendee
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,7 +50,7 @@ data UntagAttendee = UntagAttendee'
   { -- | The Amazon Chime SDK meeting ID.
     meetingId :: Prelude.Text,
     -- | The tag keys.
-    tagKeys :: Prelude.NonEmpty (Core.Sensitive Prelude.Text),
+    tagKeys :: Prelude.NonEmpty (Data.Sensitive Prelude.Text),
     -- | The Amazon Chime SDK attendee ID.
     attendeeId :: Prelude.Text
   }
@@ -99,7 +100,8 @@ instance Core.AWSRequest UntagAttendee where
   type
     AWSResponse UntagAttendee =
       UntagAttendeeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull UntagAttendeeResponse'
 
@@ -115,27 +117,27 @@ instance Prelude.NFData UntagAttendee where
       `Prelude.seq` Prelude.rnf tagKeys
       `Prelude.seq` Prelude.rnf attendeeId
 
-instance Core.ToHeaders UntagAttendee where
+instance Data.ToHeaders UntagAttendee where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UntagAttendee where
+instance Data.ToJSON UntagAttendee where
   toJSON UntagAttendee' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("TagKeys" Core..= tagKeys)]
+          [Prelude.Just ("TagKeys" Data..= tagKeys)]
       )
 
-instance Core.ToPath UntagAttendee where
+instance Data.ToPath UntagAttendee where
   toPath UntagAttendee' {..} =
     Prelude.mconcat
       [ "/meetings/",
-        Core.toBS meetingId,
+        Data.toBS meetingId,
         "/attendees/",
-        Core.toBS attendeeId,
+        Data.toBS attendeeId,
         "/tags"
       ]
 
-instance Core.ToQuery UntagAttendee where
+instance Data.ToQuery UntagAttendee where
   toQuery =
     Prelude.const
       (Prelude.mconcat ["operation=delete"])

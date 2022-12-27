@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.Types.EncryptionAlgorithmSpec
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,17 +22,19 @@ module Amazonka.KMS.Types.EncryptionAlgorithmSpec
       ( ..,
         EncryptionAlgorithmSpec_RSAES_OAEP_SHA_1,
         EncryptionAlgorithmSpec_RSAES_OAEP_SHA_256,
+        EncryptionAlgorithmSpec_SM2PKE,
         EncryptionAlgorithmSpec_SYMMETRIC_DEFAULT
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype EncryptionAlgorithmSpec = EncryptionAlgorithmSpec'
   { fromEncryptionAlgorithmSpec ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -44,18 +46,18 @@ newtype EncryptionAlgorithmSpec = EncryptionAlgorithmSpec'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern EncryptionAlgorithmSpec_RSAES_OAEP_SHA_1 :: EncryptionAlgorithmSpec
@@ -64,12 +66,16 @@ pattern EncryptionAlgorithmSpec_RSAES_OAEP_SHA_1 = EncryptionAlgorithmSpec' "RSA
 pattern EncryptionAlgorithmSpec_RSAES_OAEP_SHA_256 :: EncryptionAlgorithmSpec
 pattern EncryptionAlgorithmSpec_RSAES_OAEP_SHA_256 = EncryptionAlgorithmSpec' "RSAES_OAEP_SHA_256"
 
+pattern EncryptionAlgorithmSpec_SM2PKE :: EncryptionAlgorithmSpec
+pattern EncryptionAlgorithmSpec_SM2PKE = EncryptionAlgorithmSpec' "SM2PKE"
+
 pattern EncryptionAlgorithmSpec_SYMMETRIC_DEFAULT :: EncryptionAlgorithmSpec
 pattern EncryptionAlgorithmSpec_SYMMETRIC_DEFAULT = EncryptionAlgorithmSpec' "SYMMETRIC_DEFAULT"
 
 {-# COMPLETE
   EncryptionAlgorithmSpec_RSAES_OAEP_SHA_1,
   EncryptionAlgorithmSpec_RSAES_OAEP_SHA_256,
+  EncryptionAlgorithmSpec_SM2PKE,
   EncryptionAlgorithmSpec_SYMMETRIC_DEFAULT,
   EncryptionAlgorithmSpec'
   #-}

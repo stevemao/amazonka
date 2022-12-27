@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.InstanceHardware
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.InstanceHardware where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.Disk
 import qualified Amazonka.Prelude as Prelude
 
@@ -71,15 +72,15 @@ instanceHardware_disks = Lens.lens (\InstanceHardware' {disks} -> disks) (\s@Ins
 instanceHardware_ramSizeInGb :: Lens.Lens' InstanceHardware (Prelude.Maybe Prelude.Double)
 instanceHardware_ramSizeInGb = Lens.lens (\InstanceHardware' {ramSizeInGb} -> ramSizeInGb) (\s@InstanceHardware' {} a -> s {ramSizeInGb = a} :: InstanceHardware)
 
-instance Core.FromJSON InstanceHardware where
+instance Data.FromJSON InstanceHardware where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstanceHardware"
       ( \x ->
           InstanceHardware'
-            Prelude.<$> (x Core..:? "cpuCount")
-            Prelude.<*> (x Core..:? "disks" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "ramSizeInGb")
+            Prelude.<$> (x Data..:? "cpuCount")
+            Prelude.<*> (x Data..:? "disks" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "ramSizeInGb")
       )
 
 instance Prelude.Hashable InstanceHardware where

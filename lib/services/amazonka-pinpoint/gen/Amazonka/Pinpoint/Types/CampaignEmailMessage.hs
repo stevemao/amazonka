@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.CampaignEmailMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.CampaignEmailMessage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the content and \"From\" address for an email message that\'s
@@ -89,16 +90,16 @@ campaignEmailMessage_htmlBody = Lens.lens (\CampaignEmailMessage' {htmlBody} -> 
 campaignEmailMessage_title :: Lens.Lens' CampaignEmailMessage (Prelude.Maybe Prelude.Text)
 campaignEmailMessage_title = Lens.lens (\CampaignEmailMessage' {title} -> title) (\s@CampaignEmailMessage' {} a -> s {title = a} :: CampaignEmailMessage)
 
-instance Core.FromJSON CampaignEmailMessage where
+instance Data.FromJSON CampaignEmailMessage where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CampaignEmailMessage"
       ( \x ->
           CampaignEmailMessage'
-            Prelude.<$> (x Core..:? "Body")
-            Prelude.<*> (x Core..:? "FromAddress")
-            Prelude.<*> (x Core..:? "HtmlBody")
-            Prelude.<*> (x Core..:? "Title")
+            Prelude.<$> (x Data..:? "Body")
+            Prelude.<*> (x Data..:? "FromAddress")
+            Prelude.<*> (x Data..:? "HtmlBody")
+            Prelude.<*> (x Data..:? "Title")
       )
 
 instance Prelude.Hashable CampaignEmailMessage where
@@ -115,13 +116,13 @@ instance Prelude.NFData CampaignEmailMessage where
       `Prelude.seq` Prelude.rnf htmlBody
       `Prelude.seq` Prelude.rnf title
 
-instance Core.ToJSON CampaignEmailMessage where
+instance Data.ToJSON CampaignEmailMessage where
   toJSON CampaignEmailMessage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Body" Core..=) Prelude.<$> body,
-            ("FromAddress" Core..=) Prelude.<$> fromAddress,
-            ("HtmlBody" Core..=) Prelude.<$> htmlBody,
-            ("Title" Core..=) Prelude.<$> title
+          [ ("Body" Data..=) Prelude.<$> body,
+            ("FromAddress" Data..=) Prelude.<$> fromAddress,
+            ("HtmlBody" Data..=) Prelude.<$> htmlBody,
+            ("Title" Data..=) Prelude.<$> title
           ]
       )

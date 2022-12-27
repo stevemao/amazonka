@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.DestinationFlowConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AppFlow.Types.DestinationFlowConfig where
 import Amazonka.AppFlow.Types.ConnectorType
 import Amazonka.AppFlow.Types.DestinationConnectorProperties
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the configuration of destination connectors
@@ -30,7 +31,9 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newDestinationFlowConfig' smart constructor.
 data DestinationFlowConfig = DestinationFlowConfig'
-  { -- | The name of the connector profile. This name must be unique for each
+  { -- | The API version that the destination connector uses.
+    apiVersion :: Prelude.Maybe Prelude.Text,
+    -- | The name of the connector profile. This name must be unique for each
     -- connector profile in the Amazon Web Services account.
     connectorProfileName :: Prelude.Maybe Prelude.Text,
     -- | The type of connector, such as Salesforce, Amplitude, and so on.
@@ -49,6 +52,8 @@ data DestinationFlowConfig = DestinationFlowConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'apiVersion', 'destinationFlowConfig_apiVersion' - The API version that the destination connector uses.
+--
 -- 'connectorProfileName', 'destinationFlowConfig_connectorProfileName' - The name of the connector profile. This name must be unique for each
 -- connector profile in the Amazon Web Services account.
 --
@@ -66,12 +71,17 @@ newDestinationFlowConfig
   pConnectorType_
   pDestinationConnectorProperties_ =
     DestinationFlowConfig'
-      { connectorProfileName =
+      { apiVersion =
           Prelude.Nothing,
+        connectorProfileName = Prelude.Nothing,
         connectorType = pConnectorType_,
         destinationConnectorProperties =
           pDestinationConnectorProperties_
       }
+
+-- | The API version that the destination connector uses.
+destinationFlowConfig_apiVersion :: Lens.Lens' DestinationFlowConfig (Prelude.Maybe Prelude.Text)
+destinationFlowConfig_apiVersion = Lens.lens (\DestinationFlowConfig' {apiVersion} -> apiVersion) (\s@DestinationFlowConfig' {} a -> s {apiVersion = a} :: DestinationFlowConfig)
 
 -- | The name of the connector profile. This name must be unique for each
 -- connector profile in the Amazon Web Services account.
@@ -87,39 +97,43 @@ destinationFlowConfig_connectorType = Lens.lens (\DestinationFlowConfig' {connec
 destinationFlowConfig_destinationConnectorProperties :: Lens.Lens' DestinationFlowConfig DestinationConnectorProperties
 destinationFlowConfig_destinationConnectorProperties = Lens.lens (\DestinationFlowConfig' {destinationConnectorProperties} -> destinationConnectorProperties) (\s@DestinationFlowConfig' {} a -> s {destinationConnectorProperties = a} :: DestinationFlowConfig)
 
-instance Core.FromJSON DestinationFlowConfig where
+instance Data.FromJSON DestinationFlowConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DestinationFlowConfig"
       ( \x ->
           DestinationFlowConfig'
-            Prelude.<$> (x Core..:? "connectorProfileName")
-            Prelude.<*> (x Core..: "connectorType")
-            Prelude.<*> (x Core..: "destinationConnectorProperties")
+            Prelude.<$> (x Data..:? "apiVersion")
+            Prelude.<*> (x Data..:? "connectorProfileName")
+            Prelude.<*> (x Data..: "connectorType")
+            Prelude.<*> (x Data..: "destinationConnectorProperties")
       )
 
 instance Prelude.Hashable DestinationFlowConfig where
   hashWithSalt _salt DestinationFlowConfig' {..} =
-    _salt `Prelude.hashWithSalt` connectorProfileName
+    _salt `Prelude.hashWithSalt` apiVersion
+      `Prelude.hashWithSalt` connectorProfileName
       `Prelude.hashWithSalt` connectorType
       `Prelude.hashWithSalt` destinationConnectorProperties
 
 instance Prelude.NFData DestinationFlowConfig where
   rnf DestinationFlowConfig' {..} =
-    Prelude.rnf connectorProfileName
+    Prelude.rnf apiVersion
+      `Prelude.seq` Prelude.rnf connectorProfileName
       `Prelude.seq` Prelude.rnf connectorType
       `Prelude.seq` Prelude.rnf destinationConnectorProperties
 
-instance Core.ToJSON DestinationFlowConfig where
+instance Data.ToJSON DestinationFlowConfig where
   toJSON DestinationFlowConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("connectorProfileName" Core..=)
+          [ ("apiVersion" Data..=) Prelude.<$> apiVersion,
+            ("connectorProfileName" Data..=)
               Prelude.<$> connectorProfileName,
-            Prelude.Just ("connectorType" Core..= connectorType),
+            Prelude.Just ("connectorType" Data..= connectorType),
             Prelude.Just
               ( "destinationConnectorProperties"
-                  Core..= destinationConnectorProperties
+                  Data..= destinationConnectorProperties
               )
           ]
       )

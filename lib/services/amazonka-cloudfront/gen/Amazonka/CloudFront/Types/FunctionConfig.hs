@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.FunctionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.FunctionConfig where
 
 import Amazonka.CloudFront.Types.FunctionRuntime
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains configuration information about a CloudFront function.
@@ -69,11 +70,11 @@ functionConfig_comment = Lens.lens (\FunctionConfig' {comment} -> comment) (\s@F
 functionConfig_runtime :: Lens.Lens' FunctionConfig FunctionRuntime
 functionConfig_runtime = Lens.lens (\FunctionConfig' {runtime} -> runtime) (\s@FunctionConfig' {} a -> s {runtime = a} :: FunctionConfig)
 
-instance Core.FromXML FunctionConfig where
+instance Data.FromXML FunctionConfig where
   parseXML x =
     FunctionConfig'
-      Prelude.<$> (x Core..@ "Comment")
-      Prelude.<*> (x Core..@ "Runtime")
+      Prelude.<$> (x Data..@ "Comment")
+      Prelude.<*> (x Data..@ "Runtime")
 
 instance Prelude.Hashable FunctionConfig where
   hashWithSalt _salt FunctionConfig' {..} =
@@ -85,9 +86,9 @@ instance Prelude.NFData FunctionConfig where
     Prelude.rnf comment
       `Prelude.seq` Prelude.rnf runtime
 
-instance Core.ToXML FunctionConfig where
+instance Data.ToXML FunctionConfig where
   toXML FunctionConfig' {..} =
     Prelude.mconcat
-      [ "Comment" Core.@= comment,
-        "Runtime" Core.@= runtime
+      [ "Comment" Data.@= comment,
+        "Runtime" Data.@= runtime
       ]

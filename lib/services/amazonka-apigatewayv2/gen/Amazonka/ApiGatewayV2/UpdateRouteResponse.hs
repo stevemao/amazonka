@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.UpdateRouteResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.ApiGatewayV2.UpdateRouteResponse
     -- * Request Lenses
     updateRouteResponse_modelSelectionExpression,
     updateRouteResponse_responseModels,
-    updateRouteResponse_routeResponseKey,
     updateRouteResponse_responseParameters,
+    updateRouteResponse_routeResponseKey,
     updateRouteResponse_routeResponseId,
     updateRouteResponse_apiId,
     updateRouteResponse_routeId,
@@ -42,16 +42,17 @@ module Amazonka.ApiGatewayV2.UpdateRouteResponse
     -- * Response Lenses
     updateRouteResponseResponse_modelSelectionExpression,
     updateRouteResponseResponse_responseModels,
+    updateRouteResponseResponse_responseParameters,
     updateRouteResponseResponse_routeResponseId,
     updateRouteResponseResponse_routeResponseKey,
-    updateRouteResponseResponse_responseParameters,
     updateRouteResponseResponse_httpStatus,
   )
 where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,10 +66,10 @@ data UpdateRouteResponse = UpdateRouteResponse'
     modelSelectionExpression :: Prelude.Maybe Prelude.Text,
     -- | The response models for the route response.
     responseModels :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The route response key.
-    routeResponseKey :: Prelude.Maybe Prelude.Text,
     -- | The route response parameters.
     responseParameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text ParameterConstraints),
+    -- | The route response key.
+    routeResponseKey :: Prelude.Maybe Prelude.Text,
     -- | The route response ID.
     routeResponseId :: Prelude.Text,
     -- | The API identifier.
@@ -91,9 +92,9 @@ data UpdateRouteResponse = UpdateRouteResponse'
 --
 -- 'responseModels', 'updateRouteResponse_responseModels' - The response models for the route response.
 --
--- 'routeResponseKey', 'updateRouteResponse_routeResponseKey' - The route response key.
---
 -- 'responseParameters', 'updateRouteResponse_responseParameters' - The route response parameters.
+--
+-- 'routeResponseKey', 'updateRouteResponse_routeResponseKey' - The route response key.
 --
 -- 'routeResponseId', 'updateRouteResponse_routeResponseId' - The route response ID.
 --
@@ -116,8 +117,8 @@ newUpdateRouteResponse
       { modelSelectionExpression =
           Prelude.Nothing,
         responseModels = Prelude.Nothing,
-        routeResponseKey = Prelude.Nothing,
         responseParameters = Prelude.Nothing,
+        routeResponseKey = Prelude.Nothing,
         routeResponseId = pRouteResponseId_,
         apiId = pApiId_,
         routeId = pRouteId_
@@ -132,13 +133,13 @@ updateRouteResponse_modelSelectionExpression = Lens.lens (\UpdateRouteResponse' 
 updateRouteResponse_responseModels :: Lens.Lens' UpdateRouteResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 updateRouteResponse_responseModels = Lens.lens (\UpdateRouteResponse' {responseModels} -> responseModels) (\s@UpdateRouteResponse' {} a -> s {responseModels = a} :: UpdateRouteResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The route response key.
-updateRouteResponse_routeResponseKey :: Lens.Lens' UpdateRouteResponse (Prelude.Maybe Prelude.Text)
-updateRouteResponse_routeResponseKey = Lens.lens (\UpdateRouteResponse' {routeResponseKey} -> routeResponseKey) (\s@UpdateRouteResponse' {} a -> s {routeResponseKey = a} :: UpdateRouteResponse)
-
 -- | The route response parameters.
 updateRouteResponse_responseParameters :: Lens.Lens' UpdateRouteResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text ParameterConstraints))
 updateRouteResponse_responseParameters = Lens.lens (\UpdateRouteResponse' {responseParameters} -> responseParameters) (\s@UpdateRouteResponse' {} a -> s {responseParameters = a} :: UpdateRouteResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The route response key.
+updateRouteResponse_routeResponseKey :: Lens.Lens' UpdateRouteResponse (Prelude.Maybe Prelude.Text)
+updateRouteResponse_routeResponseKey = Lens.lens (\UpdateRouteResponse' {routeResponseKey} -> routeResponseKey) (\s@UpdateRouteResponse' {} a -> s {routeResponseKey = a} :: UpdateRouteResponse)
 
 -- | The route response ID.
 updateRouteResponse_routeResponseId :: Lens.Lens' UpdateRouteResponse Prelude.Text
@@ -156,18 +157,19 @@ instance Core.AWSRequest UpdateRouteResponse where
   type
     AWSResponse UpdateRouteResponse =
       UpdateRouteResponseResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateRouteResponseResponse'
-            Prelude.<$> (x Core..?> "modelSelectionExpression")
-            Prelude.<*> (x Core..?> "responseModels" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "routeResponseId")
-            Prelude.<*> (x Core..?> "routeResponseKey")
-            Prelude.<*> ( x Core..?> "responseParameters"
+            Prelude.<$> (x Data..?> "modelSelectionExpression")
+            Prelude.<*> (x Data..?> "responseModels" Core..!@ Prelude.mempty)
+            Prelude.<*> ( x Data..?> "responseParameters"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "routeResponseId")
+            Prelude.<*> (x Data..?> "routeResponseKey")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -176,8 +178,8 @@ instance Prelude.Hashable UpdateRouteResponse where
     _salt
       `Prelude.hashWithSalt` modelSelectionExpression
       `Prelude.hashWithSalt` responseModels
-      `Prelude.hashWithSalt` routeResponseKey
       `Prelude.hashWithSalt` responseParameters
+      `Prelude.hashWithSalt` routeResponseKey
       `Prelude.hashWithSalt` routeResponseId
       `Prelude.hashWithSalt` apiId
       `Prelude.hashWithSalt` routeId
@@ -186,50 +188,50 @@ instance Prelude.NFData UpdateRouteResponse where
   rnf UpdateRouteResponse' {..} =
     Prelude.rnf modelSelectionExpression
       `Prelude.seq` Prelude.rnf responseModels
-      `Prelude.seq` Prelude.rnf routeResponseKey
       `Prelude.seq` Prelude.rnf responseParameters
+      `Prelude.seq` Prelude.rnf routeResponseKey
       `Prelude.seq` Prelude.rnf routeResponseId
       `Prelude.seq` Prelude.rnf apiId
       `Prelude.seq` Prelude.rnf routeId
 
-instance Core.ToHeaders UpdateRouteResponse where
+instance Data.ToHeaders UpdateRouteResponse where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRouteResponse where
+instance Data.ToJSON UpdateRouteResponse where
   toJSON UpdateRouteResponse' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("modelSelectionExpression" Core..=)
+          [ ("modelSelectionExpression" Data..=)
               Prelude.<$> modelSelectionExpression,
-            ("responseModels" Core..=)
+            ("responseModels" Data..=)
               Prelude.<$> responseModels,
-            ("routeResponseKey" Core..=)
-              Prelude.<$> routeResponseKey,
-            ("responseParameters" Core..=)
-              Prelude.<$> responseParameters
+            ("responseParameters" Data..=)
+              Prelude.<$> responseParameters,
+            ("routeResponseKey" Data..=)
+              Prelude.<$> routeResponseKey
           ]
       )
 
-instance Core.ToPath UpdateRouteResponse where
+instance Data.ToPath UpdateRouteResponse where
   toPath UpdateRouteResponse' {..} =
     Prelude.mconcat
       [ "/v2/apis/",
-        Core.toBS apiId,
+        Data.toBS apiId,
         "/routes/",
-        Core.toBS routeId,
+        Data.toBS routeId,
         "/routeresponses/",
-        Core.toBS routeResponseId
+        Data.toBS routeResponseId
       ]
 
-instance Core.ToQuery UpdateRouteResponse where
+instance Data.ToQuery UpdateRouteResponse where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateRouteResponseResponse' smart constructor.
@@ -239,12 +241,12 @@ data UpdateRouteResponseResponse = UpdateRouteResponseResponse'
     modelSelectionExpression :: Prelude.Maybe Prelude.Text,
     -- | Represents the response models of a route response.
     responseModels :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | Represents the response parameters of a route response.
+    responseParameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text ParameterConstraints),
     -- | Represents the identifier of a route response.
     routeResponseId :: Prelude.Maybe Prelude.Text,
     -- | Represents the route response key of a route response.
     routeResponseKey :: Prelude.Maybe Prelude.Text,
-    -- | Represents the response parameters of a route response.
-    responseParameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text ParameterConstraints),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -263,11 +265,11 @@ data UpdateRouteResponseResponse = UpdateRouteResponseResponse'
 --
 -- 'responseModels', 'updateRouteResponseResponse_responseModels' - Represents the response models of a route response.
 --
+-- 'responseParameters', 'updateRouteResponseResponse_responseParameters' - Represents the response parameters of a route response.
+--
 -- 'routeResponseId', 'updateRouteResponseResponse_routeResponseId' - Represents the identifier of a route response.
 --
 -- 'routeResponseKey', 'updateRouteResponseResponse_routeResponseKey' - Represents the route response key of a route response.
---
--- 'responseParameters', 'updateRouteResponseResponse_responseParameters' - Represents the response parameters of a route response.
 --
 -- 'httpStatus', 'updateRouteResponseResponse_httpStatus' - The response's http status code.
 newUpdateRouteResponseResponse ::
@@ -279,9 +281,9 @@ newUpdateRouteResponseResponse pHttpStatus_ =
     { modelSelectionExpression =
         Prelude.Nothing,
       responseModels = Prelude.Nothing,
+      responseParameters = Prelude.Nothing,
       routeResponseId = Prelude.Nothing,
       routeResponseKey = Prelude.Nothing,
-      responseParameters = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -294,6 +296,10 @@ updateRouteResponseResponse_modelSelectionExpression = Lens.lens (\UpdateRouteRe
 updateRouteResponseResponse_responseModels :: Lens.Lens' UpdateRouteResponseResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 updateRouteResponseResponse_responseModels = Lens.lens (\UpdateRouteResponseResponse' {responseModels} -> responseModels) (\s@UpdateRouteResponseResponse' {} a -> s {responseModels = a} :: UpdateRouteResponseResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | Represents the response parameters of a route response.
+updateRouteResponseResponse_responseParameters :: Lens.Lens' UpdateRouteResponseResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text ParameterConstraints))
+updateRouteResponseResponse_responseParameters = Lens.lens (\UpdateRouteResponseResponse' {responseParameters} -> responseParameters) (\s@UpdateRouteResponseResponse' {} a -> s {responseParameters = a} :: UpdateRouteResponseResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | Represents the identifier of a route response.
 updateRouteResponseResponse_routeResponseId :: Lens.Lens' UpdateRouteResponseResponse (Prelude.Maybe Prelude.Text)
 updateRouteResponseResponse_routeResponseId = Lens.lens (\UpdateRouteResponseResponse' {routeResponseId} -> routeResponseId) (\s@UpdateRouteResponseResponse' {} a -> s {routeResponseId = a} :: UpdateRouteResponseResponse)
@@ -301,10 +307,6 @@ updateRouteResponseResponse_routeResponseId = Lens.lens (\UpdateRouteResponseRes
 -- | Represents the route response key of a route response.
 updateRouteResponseResponse_routeResponseKey :: Lens.Lens' UpdateRouteResponseResponse (Prelude.Maybe Prelude.Text)
 updateRouteResponseResponse_routeResponseKey = Lens.lens (\UpdateRouteResponseResponse' {routeResponseKey} -> routeResponseKey) (\s@UpdateRouteResponseResponse' {} a -> s {routeResponseKey = a} :: UpdateRouteResponseResponse)
-
--- | Represents the response parameters of a route response.
-updateRouteResponseResponse_responseParameters :: Lens.Lens' UpdateRouteResponseResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text ParameterConstraints))
-updateRouteResponseResponse_responseParameters = Lens.lens (\UpdateRouteResponseResponse' {responseParameters} -> responseParameters) (\s@UpdateRouteResponseResponse' {} a -> s {responseParameters = a} :: UpdateRouteResponseResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 updateRouteResponseResponse_httpStatus :: Lens.Lens' UpdateRouteResponseResponse Prelude.Int
@@ -314,7 +316,7 @@ instance Prelude.NFData UpdateRouteResponseResponse where
   rnf UpdateRouteResponseResponse' {..} =
     Prelude.rnf modelSelectionExpression
       `Prelude.seq` Prelude.rnf responseModels
+      `Prelude.seq` Prelude.rnf responseParameters
       `Prelude.seq` Prelude.rnf routeResponseId
       `Prelude.seq` Prelude.rnf routeResponseKey
-      `Prelude.seq` Prelude.rnf responseParameters
       `Prelude.seq` Prelude.rnf httpStatus

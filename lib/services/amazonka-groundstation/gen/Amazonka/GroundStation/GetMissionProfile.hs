@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.GetMissionProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,23 +34,24 @@ module Amazonka.GroundStation.GetMissionProfile
     newGetMissionProfileResponse,
 
     -- * Response Lenses
-    getMissionProfileResponse_missionProfileId,
-    getMissionProfileResponse_missionProfileArn,
-    getMissionProfileResponse_trackingConfigArn,
-    getMissionProfileResponse_contactPrePassDurationSeconds,
     getMissionProfileResponse_contactPostPassDurationSeconds,
-    getMissionProfileResponse_name,
+    getMissionProfileResponse_contactPrePassDurationSeconds,
     getMissionProfileResponse_dataflowEdges,
-    getMissionProfileResponse_region,
     getMissionProfileResponse_minimumViableContactDurationSeconds,
+    getMissionProfileResponse_missionProfileArn,
+    getMissionProfileResponse_missionProfileId,
+    getMissionProfileResponse_name,
+    getMissionProfileResponse_region,
     getMissionProfileResponse_tags,
+    getMissionProfileResponse_trackingConfigArn,
     getMissionProfileResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,21 +92,22 @@ instance Core.AWSRequest GetMissionProfile where
   type
     AWSResponse GetMissionProfile =
       GetMissionProfileResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetMissionProfileResponse'
-            Prelude.<$> (x Core..?> "missionProfileId")
-            Prelude.<*> (x Core..?> "missionProfileArn")
-            Prelude.<*> (x Core..?> "trackingConfigArn")
-            Prelude.<*> (x Core..?> "contactPrePassDurationSeconds")
-            Prelude.<*> (x Core..?> "contactPostPassDurationSeconds")
-            Prelude.<*> (x Core..?> "name")
-            Prelude.<*> (x Core..?> "dataflowEdges" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "region")
-            Prelude.<*> (x Core..?> "minimumViableContactDurationSeconds")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "contactPostPassDurationSeconds")
+            Prelude.<*> (x Data..?> "contactPrePassDurationSeconds")
+            Prelude.<*> (x Data..?> "dataflowEdges" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "minimumViableContactDurationSeconds")
+            Prelude.<*> (x Data..?> "missionProfileArn")
+            Prelude.<*> (x Data..?> "missionProfileId")
+            Prelude.<*> (x Data..?> "name")
+            Prelude.<*> (x Data..?> "region")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "trackingConfigArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,54 +119,54 @@ instance Prelude.NFData GetMissionProfile where
   rnf GetMissionProfile' {..} =
     Prelude.rnf missionProfileId
 
-instance Core.ToHeaders GetMissionProfile where
+instance Data.ToHeaders GetMissionProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetMissionProfile where
+instance Data.ToPath GetMissionProfile where
   toPath GetMissionProfile' {..} =
     Prelude.mconcat
-      ["/missionprofile/", Core.toBS missionProfileId]
+      ["/missionprofile/", Data.toBS missionProfileId]
 
-instance Core.ToQuery GetMissionProfile where
+instance Data.ToQuery GetMissionProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
 -- /See:/ 'newGetMissionProfileResponse' smart constructor.
 data GetMissionProfileResponse = GetMissionProfileResponse'
-  { -- | UUID of a mission profile.
-    missionProfileId :: Prelude.Maybe Prelude.Text,
-    -- | ARN of a mission profile.
-    missionProfileArn :: Prelude.Maybe Prelude.Text,
-    -- | ARN of a tracking @Config@.
-    trackingConfigArn :: Prelude.Maybe Prelude.Text,
+  { -- | Amount of time after a contact ends that you’d like to receive a
+    -- CloudWatch event indicating the pass has finished.
+    contactPostPassDurationSeconds :: Prelude.Maybe Prelude.Natural,
     -- | Amount of time prior to contact start you’d like to receive a CloudWatch
     -- event indicating an upcoming pass.
     contactPrePassDurationSeconds :: Prelude.Maybe Prelude.Natural,
-    -- | Amount of time after a contact ends that you’d like to receive a
-    -- CloudWatch event indicating the pass has finished.
-    contactPostPassDurationSeconds :: Prelude.Maybe Prelude.Natural,
-    -- | Name of a mission profile.
-    name :: Prelude.Maybe Prelude.Text,
     -- | A list of lists of ARNs. Each list of ARNs is an edge, with a /from/
     -- @Config@ and a /to/ @Config@.
     dataflowEdges :: Prelude.Maybe [Prelude.NonEmpty Prelude.Text],
-    -- | Region of a mission profile.
-    region :: Prelude.Maybe Prelude.Text,
     -- | Smallest amount of time in seconds that you’d like to see for an
     -- available contact. AWS Ground Station will not present you with contacts
     -- shorter than this duration.
     minimumViableContactDurationSeconds :: Prelude.Maybe Prelude.Natural,
+    -- | ARN of a mission profile.
+    missionProfileArn :: Prelude.Maybe Prelude.Text,
+    -- | UUID of a mission profile.
+    missionProfileId :: Prelude.Maybe Prelude.Text,
+    -- | Name of a mission profile.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Region of a mission profile.
+    region :: Prelude.Maybe Prelude.Text,
     -- | Tags assigned to a mission profile.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | ARN of a tracking @Config@.
+    trackingConfigArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -178,30 +180,30 @@ data GetMissionProfileResponse = GetMissionProfileResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'missionProfileId', 'getMissionProfileResponse_missionProfileId' - UUID of a mission profile.
---
--- 'missionProfileArn', 'getMissionProfileResponse_missionProfileArn' - ARN of a mission profile.
---
--- 'trackingConfigArn', 'getMissionProfileResponse_trackingConfigArn' - ARN of a tracking @Config@.
+-- 'contactPostPassDurationSeconds', 'getMissionProfileResponse_contactPostPassDurationSeconds' - Amount of time after a contact ends that you’d like to receive a
+-- CloudWatch event indicating the pass has finished.
 --
 -- 'contactPrePassDurationSeconds', 'getMissionProfileResponse_contactPrePassDurationSeconds' - Amount of time prior to contact start you’d like to receive a CloudWatch
 -- event indicating an upcoming pass.
 --
--- 'contactPostPassDurationSeconds', 'getMissionProfileResponse_contactPostPassDurationSeconds' - Amount of time after a contact ends that you’d like to receive a
--- CloudWatch event indicating the pass has finished.
---
--- 'name', 'getMissionProfileResponse_name' - Name of a mission profile.
---
 -- 'dataflowEdges', 'getMissionProfileResponse_dataflowEdges' - A list of lists of ARNs. Each list of ARNs is an edge, with a /from/
 -- @Config@ and a /to/ @Config@.
---
--- 'region', 'getMissionProfileResponse_region' - Region of a mission profile.
 --
 -- 'minimumViableContactDurationSeconds', 'getMissionProfileResponse_minimumViableContactDurationSeconds' - Smallest amount of time in seconds that you’d like to see for an
 -- available contact. AWS Ground Station will not present you with contacts
 -- shorter than this duration.
 --
+-- 'missionProfileArn', 'getMissionProfileResponse_missionProfileArn' - ARN of a mission profile.
+--
+-- 'missionProfileId', 'getMissionProfileResponse_missionProfileId' - UUID of a mission profile.
+--
+-- 'name', 'getMissionProfileResponse_name' - Name of a mission profile.
+--
+-- 'region', 'getMissionProfileResponse_region' - Region of a mission profile.
+--
 -- 'tags', 'getMissionProfileResponse_tags' - Tags assigned to a mission profile.
+--
+-- 'trackingConfigArn', 'getMissionProfileResponse_trackingConfigArn' - ARN of a tracking @Config@.
 --
 -- 'httpStatus', 'getMissionProfileResponse_httpStatus' - The response's http status code.
 newGetMissionProfileResponse ::
@@ -210,55 +212,35 @@ newGetMissionProfileResponse ::
   GetMissionProfileResponse
 newGetMissionProfileResponse pHttpStatus_ =
   GetMissionProfileResponse'
-    { missionProfileId =
+    { contactPostPassDurationSeconds =
         Prelude.Nothing,
-      missionProfileArn = Prelude.Nothing,
-      trackingConfigArn = Prelude.Nothing,
       contactPrePassDurationSeconds = Prelude.Nothing,
-      contactPostPassDurationSeconds = Prelude.Nothing,
-      name = Prelude.Nothing,
       dataflowEdges = Prelude.Nothing,
-      region = Prelude.Nothing,
       minimumViableContactDurationSeconds =
         Prelude.Nothing,
+      missionProfileArn = Prelude.Nothing,
+      missionProfileId = Prelude.Nothing,
+      name = Prelude.Nothing,
+      region = Prelude.Nothing,
       tags = Prelude.Nothing,
+      trackingConfigArn = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | UUID of a mission profile.
-getMissionProfileResponse_missionProfileId :: Lens.Lens' GetMissionProfileResponse (Prelude.Maybe Prelude.Text)
-getMissionProfileResponse_missionProfileId = Lens.lens (\GetMissionProfileResponse' {missionProfileId} -> missionProfileId) (\s@GetMissionProfileResponse' {} a -> s {missionProfileId = a} :: GetMissionProfileResponse)
-
--- | ARN of a mission profile.
-getMissionProfileResponse_missionProfileArn :: Lens.Lens' GetMissionProfileResponse (Prelude.Maybe Prelude.Text)
-getMissionProfileResponse_missionProfileArn = Lens.lens (\GetMissionProfileResponse' {missionProfileArn} -> missionProfileArn) (\s@GetMissionProfileResponse' {} a -> s {missionProfileArn = a} :: GetMissionProfileResponse)
-
--- | ARN of a tracking @Config@.
-getMissionProfileResponse_trackingConfigArn :: Lens.Lens' GetMissionProfileResponse (Prelude.Maybe Prelude.Text)
-getMissionProfileResponse_trackingConfigArn = Lens.lens (\GetMissionProfileResponse' {trackingConfigArn} -> trackingConfigArn) (\s@GetMissionProfileResponse' {} a -> s {trackingConfigArn = a} :: GetMissionProfileResponse)
-
--- | Amount of time prior to contact start you’d like to receive a CloudWatch
--- event indicating an upcoming pass.
-getMissionProfileResponse_contactPrePassDurationSeconds :: Lens.Lens' GetMissionProfileResponse (Prelude.Maybe Prelude.Natural)
-getMissionProfileResponse_contactPrePassDurationSeconds = Lens.lens (\GetMissionProfileResponse' {contactPrePassDurationSeconds} -> contactPrePassDurationSeconds) (\s@GetMissionProfileResponse' {} a -> s {contactPrePassDurationSeconds = a} :: GetMissionProfileResponse)
 
 -- | Amount of time after a contact ends that you’d like to receive a
 -- CloudWatch event indicating the pass has finished.
 getMissionProfileResponse_contactPostPassDurationSeconds :: Lens.Lens' GetMissionProfileResponse (Prelude.Maybe Prelude.Natural)
 getMissionProfileResponse_contactPostPassDurationSeconds = Lens.lens (\GetMissionProfileResponse' {contactPostPassDurationSeconds} -> contactPostPassDurationSeconds) (\s@GetMissionProfileResponse' {} a -> s {contactPostPassDurationSeconds = a} :: GetMissionProfileResponse)
 
--- | Name of a mission profile.
-getMissionProfileResponse_name :: Lens.Lens' GetMissionProfileResponse (Prelude.Maybe Prelude.Text)
-getMissionProfileResponse_name = Lens.lens (\GetMissionProfileResponse' {name} -> name) (\s@GetMissionProfileResponse' {} a -> s {name = a} :: GetMissionProfileResponse)
+-- | Amount of time prior to contact start you’d like to receive a CloudWatch
+-- event indicating an upcoming pass.
+getMissionProfileResponse_contactPrePassDurationSeconds :: Lens.Lens' GetMissionProfileResponse (Prelude.Maybe Prelude.Natural)
+getMissionProfileResponse_contactPrePassDurationSeconds = Lens.lens (\GetMissionProfileResponse' {contactPrePassDurationSeconds} -> contactPrePassDurationSeconds) (\s@GetMissionProfileResponse' {} a -> s {contactPrePassDurationSeconds = a} :: GetMissionProfileResponse)
 
 -- | A list of lists of ARNs. Each list of ARNs is an edge, with a /from/
 -- @Config@ and a /to/ @Config@.
 getMissionProfileResponse_dataflowEdges :: Lens.Lens' GetMissionProfileResponse (Prelude.Maybe [Prelude.NonEmpty Prelude.Text])
 getMissionProfileResponse_dataflowEdges = Lens.lens (\GetMissionProfileResponse' {dataflowEdges} -> dataflowEdges) (\s@GetMissionProfileResponse' {} a -> s {dataflowEdges = a} :: GetMissionProfileResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | Region of a mission profile.
-getMissionProfileResponse_region :: Lens.Lens' GetMissionProfileResponse (Prelude.Maybe Prelude.Text)
-getMissionProfileResponse_region = Lens.lens (\GetMissionProfileResponse' {region} -> region) (\s@GetMissionProfileResponse' {} a -> s {region = a} :: GetMissionProfileResponse)
 
 -- | Smallest amount of time in seconds that you’d like to see for an
 -- available contact. AWS Ground Station will not present you with contacts
@@ -266,9 +248,29 @@ getMissionProfileResponse_region = Lens.lens (\GetMissionProfileResponse' {regio
 getMissionProfileResponse_minimumViableContactDurationSeconds :: Lens.Lens' GetMissionProfileResponse (Prelude.Maybe Prelude.Natural)
 getMissionProfileResponse_minimumViableContactDurationSeconds = Lens.lens (\GetMissionProfileResponse' {minimumViableContactDurationSeconds} -> minimumViableContactDurationSeconds) (\s@GetMissionProfileResponse' {} a -> s {minimumViableContactDurationSeconds = a} :: GetMissionProfileResponse)
 
+-- | ARN of a mission profile.
+getMissionProfileResponse_missionProfileArn :: Lens.Lens' GetMissionProfileResponse (Prelude.Maybe Prelude.Text)
+getMissionProfileResponse_missionProfileArn = Lens.lens (\GetMissionProfileResponse' {missionProfileArn} -> missionProfileArn) (\s@GetMissionProfileResponse' {} a -> s {missionProfileArn = a} :: GetMissionProfileResponse)
+
+-- | UUID of a mission profile.
+getMissionProfileResponse_missionProfileId :: Lens.Lens' GetMissionProfileResponse (Prelude.Maybe Prelude.Text)
+getMissionProfileResponse_missionProfileId = Lens.lens (\GetMissionProfileResponse' {missionProfileId} -> missionProfileId) (\s@GetMissionProfileResponse' {} a -> s {missionProfileId = a} :: GetMissionProfileResponse)
+
+-- | Name of a mission profile.
+getMissionProfileResponse_name :: Lens.Lens' GetMissionProfileResponse (Prelude.Maybe Prelude.Text)
+getMissionProfileResponse_name = Lens.lens (\GetMissionProfileResponse' {name} -> name) (\s@GetMissionProfileResponse' {} a -> s {name = a} :: GetMissionProfileResponse)
+
+-- | Region of a mission profile.
+getMissionProfileResponse_region :: Lens.Lens' GetMissionProfileResponse (Prelude.Maybe Prelude.Text)
+getMissionProfileResponse_region = Lens.lens (\GetMissionProfileResponse' {region} -> region) (\s@GetMissionProfileResponse' {} a -> s {region = a} :: GetMissionProfileResponse)
+
 -- | Tags assigned to a mission profile.
 getMissionProfileResponse_tags :: Lens.Lens' GetMissionProfileResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 getMissionProfileResponse_tags = Lens.lens (\GetMissionProfileResponse' {tags} -> tags) (\s@GetMissionProfileResponse' {} a -> s {tags = a} :: GetMissionProfileResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | ARN of a tracking @Config@.
+getMissionProfileResponse_trackingConfigArn :: Lens.Lens' GetMissionProfileResponse (Prelude.Maybe Prelude.Text)
+getMissionProfileResponse_trackingConfigArn = Lens.lens (\GetMissionProfileResponse' {trackingConfigArn} -> trackingConfigArn) (\s@GetMissionProfileResponse' {} a -> s {trackingConfigArn = a} :: GetMissionProfileResponse)
 
 -- | The response's http status code.
 getMissionProfileResponse_httpStatus :: Lens.Lens' GetMissionProfileResponse Prelude.Int
@@ -276,14 +278,14 @@ getMissionProfileResponse_httpStatus = Lens.lens (\GetMissionProfileResponse' {h
 
 instance Prelude.NFData GetMissionProfileResponse where
   rnf GetMissionProfileResponse' {..} =
-    Prelude.rnf missionProfileId
-      `Prelude.seq` Prelude.rnf missionProfileArn
-      `Prelude.seq` Prelude.rnf trackingConfigArn
+    Prelude.rnf contactPostPassDurationSeconds
       `Prelude.seq` Prelude.rnf contactPrePassDurationSeconds
-      `Prelude.seq` Prelude.rnf contactPostPassDurationSeconds
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf dataflowEdges
-      `Prelude.seq` Prelude.rnf region
       `Prelude.seq` Prelude.rnf minimumViableContactDurationSeconds
+      `Prelude.seq` Prelude.rnf missionProfileArn
+      `Prelude.seq` Prelude.rnf missionProfileId
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf region
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf trackingConfigArn
       `Prelude.seq` Prelude.rnf httpStatus

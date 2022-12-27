@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetContactMethods
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,9 +26,10 @@
 --
 -- A contact method is used to send you notifications about your Amazon
 -- Lightsail resources. You can add one email address and one mobile phone
--- number contact method in each AWS Region. However, SMS text messaging is
--- not supported in some AWS Regions, and SMS text messages cannot be sent
--- to some countries\/regions. For more information, see
+-- number contact method in each Amazon Web Services Region. However, SMS
+-- text messaging is not supported in some Amazon Web Services Regions, and
+-- SMS text messages cannot be sent to some countries\/regions. For more
+-- information, see
 -- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-notifications Notifications in Amazon Lightsail>.
 module Amazonka.Lightsail.GetContactMethods
   ( -- * Creating a Request
@@ -49,7 +50,8 @@ module Amazonka.Lightsail.GetContactMethods
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -96,12 +98,13 @@ instance Core.AWSRequest GetContactMethods where
   type
     AWSResponse GetContactMethods =
       GetContactMethodsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetContactMethodsResponse'
-            Prelude.<$> (x Core..?> "contactMethods" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "contactMethods" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,32 +115,32 @@ instance Prelude.Hashable GetContactMethods where
 instance Prelude.NFData GetContactMethods where
   rnf GetContactMethods' {..} = Prelude.rnf protocols
 
-instance Core.ToHeaders GetContactMethods where
+instance Data.ToHeaders GetContactMethods where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetContactMethods" ::
+              Data.=# ( "Lightsail_20161128.GetContactMethods" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetContactMethods where
+instance Data.ToJSON GetContactMethods where
   toJSON GetContactMethods' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("protocols" Core..=) Prelude.<$> protocols]
+          [("protocols" Data..=) Prelude.<$> protocols]
       )
 
-instance Core.ToPath GetContactMethods where
+instance Data.ToPath GetContactMethods where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetContactMethods where
+instance Data.ToQuery GetContactMethods where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetContactMethodsResponse' smart constructor.

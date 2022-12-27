@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.ListInputSecurityGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,22 +29,23 @@ module Amazonka.MediaLive.ListInputSecurityGroups
     newListInputSecurityGroups,
 
     -- * Request Lenses
-    listInputSecurityGroups_nextToken,
     listInputSecurityGroups_maxResults,
+    listInputSecurityGroups_nextToken,
 
     -- * Destructuring the Response
     ListInputSecurityGroupsResponse (..),
     newListInputSecurityGroupsResponse,
 
     -- * Response Lenses
-    listInputSecurityGroupsResponse_nextToken,
     listInputSecurityGroupsResponse_inputSecurityGroups,
+    listInputSecurityGroupsResponse_nextToken,
     listInputSecurityGroupsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,8 +55,8 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListInputSecurityGroups' smart constructor.
 data ListInputSecurityGroups = ListInputSecurityGroups'
-  { nextToken :: Prelude.Maybe Prelude.Text,
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { maxResults :: Prelude.Maybe Prelude.Natural,
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,25 +68,25 @@ data ListInputSecurityGroups = ListInputSecurityGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listInputSecurityGroups_nextToken' - Undocumented member.
---
 -- 'maxResults', 'listInputSecurityGroups_maxResults' - Undocumented member.
+--
+-- 'nextToken', 'listInputSecurityGroups_nextToken' - Undocumented member.
 newListInputSecurityGroups ::
   ListInputSecurityGroups
 newListInputSecurityGroups =
   ListInputSecurityGroups'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | Undocumented member.
-listInputSecurityGroups_nextToken :: Lens.Lens' ListInputSecurityGroups (Prelude.Maybe Prelude.Text)
-listInputSecurityGroups_nextToken = Lens.lens (\ListInputSecurityGroups' {nextToken} -> nextToken) (\s@ListInputSecurityGroups' {} a -> s {nextToken = a} :: ListInputSecurityGroups)
 
 -- | Undocumented member.
 listInputSecurityGroups_maxResults :: Lens.Lens' ListInputSecurityGroups (Prelude.Maybe Prelude.Natural)
 listInputSecurityGroups_maxResults = Lens.lens (\ListInputSecurityGroups' {maxResults} -> maxResults) (\s@ListInputSecurityGroups' {} a -> s {maxResults = a} :: ListInputSecurityGroups)
+
+-- | Undocumented member.
+listInputSecurityGroups_nextToken :: Lens.Lens' ListInputSecurityGroups (Prelude.Maybe Prelude.Text)
+listInputSecurityGroups_nextToken = Lens.lens (\ListInputSecurityGroups' {nextToken} -> nextToken) (\s@ListInputSecurityGroups' {} a -> s {nextToken = a} :: ListInputSecurityGroups)
 
 instance Core.AWSPager ListInputSecurityGroups where
   page rq rs
@@ -113,56 +114,57 @@ instance Core.AWSRequest ListInputSecurityGroups where
   type
     AWSResponse ListInputSecurityGroups =
       ListInputSecurityGroupsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListInputSecurityGroupsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "inputSecurityGroups"
+            Prelude.<$> ( x Data..?> "inputSecurityGroups"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListInputSecurityGroups where
   hashWithSalt _salt ListInputSecurityGroups' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListInputSecurityGroups where
   rnf ListInputSecurityGroups' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListInputSecurityGroups where
+instance Data.ToHeaders ListInputSecurityGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListInputSecurityGroups where
+instance Data.ToPath ListInputSecurityGroups where
   toPath = Prelude.const "/prod/inputSecurityGroups"
 
-instance Core.ToQuery ListInputSecurityGroups where
+instance Data.ToQuery ListInputSecurityGroups where
   toQuery ListInputSecurityGroups' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | Placeholder documentation for ListInputSecurityGroupsResponse
 --
 -- /See:/ 'newListInputSecurityGroupsResponse' smart constructor.
 data ListInputSecurityGroupsResponse = ListInputSecurityGroupsResponse'
-  { nextToken :: Prelude.Maybe Prelude.Text,
-    -- | List of input security groups
+  { -- | List of input security groups
     inputSecurityGroups :: Prelude.Maybe [InputSecurityGroup],
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -176,9 +178,9 @@ data ListInputSecurityGroupsResponse = ListInputSecurityGroupsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listInputSecurityGroupsResponse_nextToken' - Undocumented member.
---
 -- 'inputSecurityGroups', 'listInputSecurityGroupsResponse_inputSecurityGroups' - List of input security groups
+--
+-- 'nextToken', 'listInputSecurityGroupsResponse_nextToken' - Undocumented member.
 --
 -- 'httpStatus', 'listInputSecurityGroupsResponse_httpStatus' - The response's http status code.
 newListInputSecurityGroupsResponse ::
@@ -187,19 +189,19 @@ newListInputSecurityGroupsResponse ::
   ListInputSecurityGroupsResponse
 newListInputSecurityGroupsResponse pHttpStatus_ =
   ListInputSecurityGroupsResponse'
-    { nextToken =
+    { inputSecurityGroups =
         Prelude.Nothing,
-      inputSecurityGroups = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Undocumented member.
-listInputSecurityGroupsResponse_nextToken :: Lens.Lens' ListInputSecurityGroupsResponse (Prelude.Maybe Prelude.Text)
-listInputSecurityGroupsResponse_nextToken = Lens.lens (\ListInputSecurityGroupsResponse' {nextToken} -> nextToken) (\s@ListInputSecurityGroupsResponse' {} a -> s {nextToken = a} :: ListInputSecurityGroupsResponse)
 
 -- | List of input security groups
 listInputSecurityGroupsResponse_inputSecurityGroups :: Lens.Lens' ListInputSecurityGroupsResponse (Prelude.Maybe [InputSecurityGroup])
 listInputSecurityGroupsResponse_inputSecurityGroups = Lens.lens (\ListInputSecurityGroupsResponse' {inputSecurityGroups} -> inputSecurityGroups) (\s@ListInputSecurityGroupsResponse' {} a -> s {inputSecurityGroups = a} :: ListInputSecurityGroupsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Undocumented member.
+listInputSecurityGroupsResponse_nextToken :: Lens.Lens' ListInputSecurityGroupsResponse (Prelude.Maybe Prelude.Text)
+listInputSecurityGroupsResponse_nextToken = Lens.lens (\ListInputSecurityGroupsResponse' {nextToken} -> nextToken) (\s@ListInputSecurityGroupsResponse' {} a -> s {nextToken = a} :: ListInputSecurityGroupsResponse)
 
 -- | The response's http status code.
 listInputSecurityGroupsResponse_httpStatus :: Lens.Lens' ListInputSecurityGroupsResponse Prelude.Int
@@ -210,6 +212,6 @@ instance
     ListInputSecurityGroupsResponse
   where
   rnf ListInputSecurityGroupsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf inputSecurityGroups
+    Prelude.rnf inputSecurityGroups
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

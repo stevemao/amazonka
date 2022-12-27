@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.UpdateVoiceConnector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,12 +108,13 @@ instance Core.AWSRequest UpdateVoiceConnector where
   type
     AWSResponse UpdateVoiceConnector =
       UpdateVoiceConnectorResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateVoiceConnectorResponse'
-            Prelude.<$> (x Core..?> "VoiceConnector")
+            Prelude.<$> (x Data..?> "VoiceConnector")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,25 +130,25 @@ instance Prelude.NFData UpdateVoiceConnector where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf requireEncryption
 
-instance Core.ToHeaders UpdateVoiceConnector where
+instance Data.ToHeaders UpdateVoiceConnector where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateVoiceConnector where
+instance Data.ToJSON UpdateVoiceConnector where
   toJSON UpdateVoiceConnector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
+          [ Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("RequireEncryption" Core..= requireEncryption)
+              ("RequireEncryption" Data..= requireEncryption)
           ]
       )
 
-instance Core.ToPath UpdateVoiceConnector where
+instance Data.ToPath UpdateVoiceConnector where
   toPath UpdateVoiceConnector' {..} =
     Prelude.mconcat
-      ["/voice-connectors/", Core.toBS voiceConnectorId]
+      ["/voice-connectors/", Data.toBS voiceConnectorId]
 
-instance Core.ToQuery UpdateVoiceConnector where
+instance Data.ToQuery UpdateVoiceConnector where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateVoiceConnectorResponse' smart constructor.

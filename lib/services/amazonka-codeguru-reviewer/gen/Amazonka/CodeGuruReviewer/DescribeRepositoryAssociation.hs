@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruReviewer.DescribeRepositoryAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CodeGuruReviewer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,8 +56,7 @@ data DescribeRepositoryAssociation = DescribeRepositoryAssociation'
   { -- | The Amazon Resource Name (ARN) of the
     -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociation.html RepositoryAssociation>
     -- object. You can retrieve this ARN by calling
-    -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_ListRepositoryAssociations.html ListRepositoryAssociations>
-    -- .
+    -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_ListRepositoryAssociations.html ListRepositoryAssociations>.
     associationArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -72,8 +72,7 @@ data DescribeRepositoryAssociation = DescribeRepositoryAssociation'
 -- 'associationArn', 'describeRepositoryAssociation_associationArn' - The Amazon Resource Name (ARN) of the
 -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociation.html RepositoryAssociation>
 -- object. You can retrieve this ARN by calling
--- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_ListRepositoryAssociations.html ListRepositoryAssociations>
--- .
+-- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_ListRepositoryAssociations.html ListRepositoryAssociations>.
 newDescribeRepositoryAssociation ::
   -- | 'associationArn'
   Prelude.Text ->
@@ -87,8 +86,7 @@ newDescribeRepositoryAssociation pAssociationArn_ =
 -- | The Amazon Resource Name (ARN) of the
 -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociation.html RepositoryAssociation>
 -- object. You can retrieve this ARN by calling
--- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_ListRepositoryAssociations.html ListRepositoryAssociations>
--- .
+-- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_ListRepositoryAssociations.html ListRepositoryAssociations>.
 describeRepositoryAssociation_associationArn :: Lens.Lens' DescribeRepositoryAssociation Prelude.Text
 describeRepositoryAssociation_associationArn = Lens.lens (\DescribeRepositoryAssociation' {associationArn} -> associationArn) (\s@DescribeRepositoryAssociation' {} a -> s {associationArn = a} :: DescribeRepositoryAssociation)
 
@@ -99,13 +97,14 @@ instance
   type
     AWSResponse DescribeRepositoryAssociation =
       DescribeRepositoryAssociationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRepositoryAssociationResponse'
-            Prelude.<$> (x Core..?> "RepositoryAssociation")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "RepositoryAssociation")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,23 +119,23 @@ instance Prelude.NFData DescribeRepositoryAssociation where
   rnf DescribeRepositoryAssociation' {..} =
     Prelude.rnf associationArn
 
-instance Core.ToHeaders DescribeRepositoryAssociation where
+instance Data.ToHeaders DescribeRepositoryAssociation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeRepositoryAssociation where
+instance Data.ToPath DescribeRepositoryAssociation where
   toPath DescribeRepositoryAssociation' {..} =
     Prelude.mconcat
-      ["/associations/", Core.toBS associationArn]
+      ["/associations/", Data.toBS associationArn]
 
-instance Core.ToQuery DescribeRepositoryAssociation where
+instance Data.ToQuery DescribeRepositoryAssociation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeRepositoryAssociationResponse' smart constructor.

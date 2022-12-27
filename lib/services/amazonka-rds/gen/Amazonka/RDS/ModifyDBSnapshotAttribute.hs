@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.ModifyDBSnapshotAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,8 @@
 --
 -- To view which Amazon Web Services accounts have access to copy or
 -- restore a manual DB snapshot, or whether a manual DB snapshot public or
--- private, use the DescribeDBSnapshotAttributes API action. The accounts
--- are returned as values for the @restore@ attribute.
+-- private, use the DescribeDBSnapshotAttributes API operation. The
+-- accounts are returned as values for the @restore@ attribute.
 module Amazonka.RDS.ModifyDBSnapshotAttribute
   ( -- * Creating a Request
     ModifyDBSnapshotAttribute (..),
@@ -65,7 +65,8 @@ module Amazonka.RDS.ModifyDBSnapshotAttribute
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -104,7 +105,7 @@ data ModifyDBSnapshotAttribute = ModifyDBSnapshotAttribute'
     -- or restore a manual DB snapshot, set this value to @restore@.
     --
     -- To view the list of attributes available to modify, use the
-    -- DescribeDBSnapshotAttributes API action.
+    -- DescribeDBSnapshotAttributes API operation.
     attributeName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -146,7 +147,7 @@ data ModifyDBSnapshotAttribute = ModifyDBSnapshotAttribute'
 -- or restore a manual DB snapshot, set this value to @restore@.
 --
 -- To view the list of attributes available to modify, use the
--- DescribeDBSnapshotAttributes API action.
+-- DescribeDBSnapshotAttributes API operation.
 newModifyDBSnapshotAttribute ::
   -- | 'dbSnapshotIdentifier'
   Prelude.Text ->
@@ -199,7 +200,7 @@ modifyDBSnapshotAttribute_dbSnapshotIdentifier = Lens.lens (\ModifyDBSnapshotAtt
 -- or restore a manual DB snapshot, set this value to @restore@.
 --
 -- To view the list of attributes available to modify, use the
--- DescribeDBSnapshotAttributes API action.
+-- DescribeDBSnapshotAttributes API operation.
 modifyDBSnapshotAttribute_attributeName :: Lens.Lens' ModifyDBSnapshotAttribute Prelude.Text
 modifyDBSnapshotAttribute_attributeName = Lens.lens (\ModifyDBSnapshotAttribute' {attributeName} -> attributeName) (\s@ModifyDBSnapshotAttribute' {} a -> s {attributeName = a} :: ModifyDBSnapshotAttribute)
 
@@ -207,13 +208,14 @@ instance Core.AWSRequest ModifyDBSnapshotAttribute where
   type
     AWSResponse ModifyDBSnapshotAttribute =
       ModifyDBSnapshotAttributeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyDBSnapshotAttributeResult"
       ( \s h x ->
           ModifyDBSnapshotAttributeResponse'
-            Prelude.<$> (x Core..@? "DBSnapshotAttributesResult")
+            Prelude.<$> (x Data..@? "DBSnapshotAttributesResult")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -231,31 +233,31 @@ instance Prelude.NFData ModifyDBSnapshotAttribute where
       `Prelude.seq` Prelude.rnf dbSnapshotIdentifier
       `Prelude.seq` Prelude.rnf attributeName
 
-instance Core.ToHeaders ModifyDBSnapshotAttribute where
+instance Data.ToHeaders ModifyDBSnapshotAttribute where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyDBSnapshotAttribute where
+instance Data.ToPath ModifyDBSnapshotAttribute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyDBSnapshotAttribute where
+instance Data.ToQuery ModifyDBSnapshotAttribute where
   toQuery ModifyDBSnapshotAttribute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyDBSnapshotAttribute" :: Prelude.ByteString),
+          Data.=: ("ModifyDBSnapshotAttribute" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "ValuesToAdd"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "AttributeValue"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "AttributeValue"
                 Prelude.<$> valuesToAdd
             ),
         "ValuesToRemove"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "AttributeValue"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "AttributeValue"
                 Prelude.<$> valuesToRemove
             ),
-        "DBSnapshotIdentifier" Core.=: dbSnapshotIdentifier,
-        "AttributeName" Core.=: attributeName
+        "DBSnapshotIdentifier" Data.=: dbSnapshotIdentifier,
+        "AttributeName" Data.=: attributeName
       ]
 
 -- | /See:/ 'newModifyDBSnapshotAttributeResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.NetworkConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudWatchEvents.Types.NetworkConfiguration where
 
 import Amazonka.CloudWatchEvents.Types.AwsVpcConfiguration
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This structure specifies the network configuration for an ECS task.
@@ -60,13 +61,13 @@ newNetworkConfiguration =
 networkConfiguration_awsvpcConfiguration :: Lens.Lens' NetworkConfiguration (Prelude.Maybe AwsVpcConfiguration)
 networkConfiguration_awsvpcConfiguration = Lens.lens (\NetworkConfiguration' {awsvpcConfiguration} -> awsvpcConfiguration) (\s@NetworkConfiguration' {} a -> s {awsvpcConfiguration = a} :: NetworkConfiguration)
 
-instance Core.FromJSON NetworkConfiguration where
+instance Data.FromJSON NetworkConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NetworkConfiguration"
       ( \x ->
           NetworkConfiguration'
-            Prelude.<$> (x Core..:? "awsvpcConfiguration")
+            Prelude.<$> (x Data..:? "awsvpcConfiguration")
       )
 
 instance Prelude.Hashable NetworkConfiguration where
@@ -77,11 +78,11 @@ instance Prelude.NFData NetworkConfiguration where
   rnf NetworkConfiguration' {..} =
     Prelude.rnf awsvpcConfiguration
 
-instance Core.ToJSON NetworkConfiguration where
+instance Data.ToJSON NetworkConfiguration where
   toJSON NetworkConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("awsvpcConfiguration" Core..=)
+          [ ("awsvpcConfiguration" Data..=)
               Prelude.<$> awsvpcConfiguration
           ]
       )

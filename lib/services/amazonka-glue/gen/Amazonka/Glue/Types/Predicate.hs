@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.Predicate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.Glue.Types.Predicate where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.Condition
 import Amazonka.Glue.Types.Logical
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Defines the predicate of the trigger, which determines when it fires.
 --
 -- /See:/ 'newPredicate' smart constructor.
 data Predicate = Predicate'
-  { -- | An optional field if only one condition is listed. If multiple
+  { -- | A list of the conditions that determine when the trigger will fire.
+    conditions :: Prelude.Maybe [Condition],
+    -- | An optional field if only one condition is listed. If multiple
     -- conditions are listed, then this field is required.
-    logical :: Prelude.Maybe Logical,
-    -- | A list of the conditions that determine when the trigger will fire.
-    conditions :: Prelude.Maybe [Condition]
+    logical :: Prelude.Maybe Logical
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,52 +46,52 @@ data Predicate = Predicate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'conditions', 'predicate_conditions' - A list of the conditions that determine when the trigger will fire.
+--
 -- 'logical', 'predicate_logical' - An optional field if only one condition is listed. If multiple
 -- conditions are listed, then this field is required.
---
--- 'conditions', 'predicate_conditions' - A list of the conditions that determine when the trigger will fire.
 newPredicate ::
   Predicate
 newPredicate =
   Predicate'
-    { logical = Prelude.Nothing,
-      conditions = Prelude.Nothing
+    { conditions = Prelude.Nothing,
+      logical = Prelude.Nothing
     }
+
+-- | A list of the conditions that determine when the trigger will fire.
+predicate_conditions :: Lens.Lens' Predicate (Prelude.Maybe [Condition])
+predicate_conditions = Lens.lens (\Predicate' {conditions} -> conditions) (\s@Predicate' {} a -> s {conditions = a} :: Predicate) Prelude.. Lens.mapping Lens.coerced
 
 -- | An optional field if only one condition is listed. If multiple
 -- conditions are listed, then this field is required.
 predicate_logical :: Lens.Lens' Predicate (Prelude.Maybe Logical)
 predicate_logical = Lens.lens (\Predicate' {logical} -> logical) (\s@Predicate' {} a -> s {logical = a} :: Predicate)
 
--- | A list of the conditions that determine when the trigger will fire.
-predicate_conditions :: Lens.Lens' Predicate (Prelude.Maybe [Condition])
-predicate_conditions = Lens.lens (\Predicate' {conditions} -> conditions) (\s@Predicate' {} a -> s {conditions = a} :: Predicate) Prelude.. Lens.mapping Lens.coerced
-
-instance Core.FromJSON Predicate where
+instance Data.FromJSON Predicate where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Predicate"
       ( \x ->
           Predicate'
-            Prelude.<$> (x Core..:? "Logical")
-            Prelude.<*> (x Core..:? "Conditions" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Conditions" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Logical")
       )
 
 instance Prelude.Hashable Predicate where
   hashWithSalt _salt Predicate' {..} =
-    _salt `Prelude.hashWithSalt` logical
-      `Prelude.hashWithSalt` conditions
+    _salt `Prelude.hashWithSalt` conditions
+      `Prelude.hashWithSalt` logical
 
 instance Prelude.NFData Predicate where
   rnf Predicate' {..} =
-    Prelude.rnf logical
-      `Prelude.seq` Prelude.rnf conditions
+    Prelude.rnf conditions
+      `Prelude.seq` Prelude.rnf logical
 
-instance Core.ToJSON Predicate where
+instance Data.ToJSON Predicate where
   toJSON Predicate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Logical" Core..=) Prelude.<$> logical,
-            ("Conditions" Core..=) Prelude.<$> conditions
+          [ ("Conditions" Data..=) Prelude.<$> conditions,
+            ("Logical" Data..=) Prelude.<$> logical
           ]
       )

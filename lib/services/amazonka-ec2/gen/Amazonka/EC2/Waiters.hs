@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,6 +17,8 @@
 module Amazonka.EC2.Waiters where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.DescribeBundleTasks
 import Amazonka.EC2.DescribeConversionTasks
 import Amazonka.EC2.DescribeCustomerGateways
@@ -23,6 +26,7 @@ import Amazonka.EC2.DescribeExportTasks
 import Amazonka.EC2.DescribeImages
 import Amazonka.EC2.DescribeInstanceStatus
 import Amazonka.EC2.DescribeInstances
+import Amazonka.EC2.DescribeInternetGateways
 import Amazonka.EC2.DescribeKeyPairs
 import Amazonka.EC2.DescribeNatGateways
 import Amazonka.EC2.DescribeNetworkInterfaces
@@ -37,102 +41,261 @@ import Amazonka.EC2.DescribeVpnConnections
 import Amazonka.EC2.GetPasswordData
 import Amazonka.EC2.Lens
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | Polls 'Amazonka.EC2.DescribeInstances' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newInstanceTerminated :: Core.Wait DescribeInstances
-newInstanceTerminated =
+-- | Polls 'Amazonka.EC2.DescribeBundleTasks' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newBundleTaskComplete :: Core.Wait DescribeBundleTasks
+newBundleTaskComplete =
   Core.Wait
-    { Core._waitName = "InstanceTerminated",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "BundleTaskComplete",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
-            "terminated"
+            "complete"
             Core.AcceptSuccess
             ( Lens.folding
                 ( Lens.concatOf
-                    ( describeInstancesResponse_reservations
+                    ( describeBundleTasksResponse_bundleTasks
                         Prelude.. Lens._Just
                     )
                 )
-                Prelude.. Lens.folding
-                  ( Lens.concatOf
-                      (reservation_instances Prelude.. Lens._Just)
-                  )
-                Prelude.. instance_state
-                Prelude.. instanceState_name
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. bundleTask_state
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
-            "pending"
+            "failed"
             Core.AcceptFailure
             ( Lens.folding
                 ( Lens.concatOf
-                    ( describeInstancesResponse_reservations
+                    ( describeBundleTasksResponse_bundleTasks
                         Prelude.. Lens._Just
                     )
                 )
-                Prelude.. Lens.folding
-                  ( Lens.concatOf
-                      (reservation_instances Prelude.. Lens._Just)
-                  )
-                Prelude.. instance_state
-                Prelude.. instanceState_name
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "stopping"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeInstancesResponse_reservations
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. Lens.folding
-                  ( Lens.concatOf
-                      (reservation_instances Prelude.. Lens._Just)
-                  )
-                Prelude.. instance_state
-                Prelude.. instanceState_name
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. bundleTask_state
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
 
--- | Polls 'Amazonka.EC2.DescribeVolumes' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newVolumeInUse :: Core.Wait DescribeVolumes
-newVolumeInUse =
+-- | Polls 'Amazonka.EC2.DescribeConversionTasks' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newConversionTaskCancelled :: Core.Wait DescribeConversionTasks
+newConversionTaskCancelled =
   Core.Wait
-    { Core._waitName = "VolumeInUse",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "ConversionTaskCancelled",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
-            "in-use"
+            "cancelled"
             Core.AcceptSuccess
             ( Lens.folding
                 ( Lens.concatOf
-                    ( describeVolumesResponse_volumes
+                    ( describeConversionTasksResponse_conversionTasks
                         Prelude.. Lens._Just
                     )
                 )
-                Prelude.. volume_state
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. conversionTask_state
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
+            )
+        ]
+    }
+
+-- | Polls 'Amazonka.EC2.DescribeConversionTasks' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newConversionTaskCompleted :: Core.Wait DescribeConversionTasks
+newConversionTaskCompleted =
+  Core.Wait
+    { Core.name = "ConversionTaskCompleted",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
+        [ Core.matchAll
+            "completed"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeConversionTasksResponse_conversionTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. conversionTask_state
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "cancelled"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeConversionTasksResponse_conversionTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. conversionTask_state
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "cancelling"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeConversionTasksResponse_conversionTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. conversionTask_state
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
+            )
+        ]
+    }
+
+-- | Polls 'Amazonka.EC2.DescribeConversionTasks' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newConversionTaskDeleted :: Core.Wait DescribeConversionTasks
+newConversionTaskDeleted =
+  Core.Wait
+    { Core.name = "ConversionTaskDeleted",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
+        [ Core.matchAll
+            "deleted"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeConversionTasksResponse_conversionTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. conversionTask_state
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
+            )
+        ]
+    }
+
+-- | Polls 'Amazonka.EC2.DescribeCustomerGateways' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newCustomerGatewayAvailable :: Core.Wait DescribeCustomerGateways
+newCustomerGatewayAvailable =
+  Core.Wait
+    { Core.name = "CustomerGatewayAvailable",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
+        [ Core.matchAll
+            "available"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeCustomerGatewaysResponse_customerGateways
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. customerGateway_state
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "deleted"
             Core.AcceptFailure
             ( Lens.folding
                 ( Lens.concatOf
-                    ( describeVolumesResponse_volumes
+                    ( describeCustomerGatewaysResponse_customerGateways
                         Prelude.. Lens._Just
                     )
                 )
-                Prelude.. volume_state
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. customerGateway_state
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "deleting"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeCustomerGatewaysResponse_customerGateways
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. customerGateway_state
+                Prelude.. Lens.to Data.toTextCI
+            )
+        ]
+    }
+
+-- | Polls 'Amazonka.EC2.DescribeExportTasks' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newExportTaskCancelled :: Core.Wait DescribeExportTasks
+newExportTaskCancelled =
+  Core.Wait
+    { Core.name = "ExportTaskCancelled",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
+        [ Core.matchAll
+            "cancelled"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeExportTasksResponse_exportTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. exportTask_state
+                Prelude.. Lens.to Data.toTextCI
+            )
+        ]
+    }
+
+-- | Polls 'Amazonka.EC2.DescribeExportTasks' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newExportTaskCompleted :: Core.Wait DescribeExportTasks
+newExportTaskCompleted =
+  Core.Wait
+    { Core.name = "ExportTaskCompleted",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
+        [ Core.matchAll
+            "completed"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeExportTasksResponse_exportTasks
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. exportTask_state
+                Prelude.. Lens.to Data.toTextCI
+            )
+        ]
+    }
+
+-- | Polls 'Amazonka.EC2.DescribeImages' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newImageAvailable :: Core.Wait DescribeImages
+newImageAvailable =
+  Core.Wait
+    { Core.name = "ImageAvailable",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
+        [ Core.matchAll
+            "available"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeImagesResponse_images Prelude.. Lens._Just)
+                )
+                Prelude.. image_state
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "deregistered"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    (describeImagesResponse_images Prelude.. Lens._Just)
+                )
+                Prelude.. image_state
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
@@ -141,10 +304,10 @@ newVolumeInUse =
 newImageExists :: Core.Wait DescribeImages
 newImageExists =
   Core.Wait
-    { Core._waitName = "ImageExists",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "ImageExists",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchNonEmpty
             Prelude.True
             Core.AcceptSuccess
@@ -161,120 +324,277 @@ newImageExists =
         ]
     }
 
--- | Polls 'Amazonka.EC2.DescribeNatGateways' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newNatGatewayAvailable :: Core.Wait DescribeNatGateways
-newNatGatewayAvailable =
+-- | Polls 'Amazonka.EC2.DescribeInstances' every 5 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newInstanceExists :: Core.Wait DescribeInstances
+newInstanceExists =
   Core.Wait
-    { Core._waitName = "NatGatewayAvailable",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "available"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeNatGatewaysResponse_natGateways
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. natGateway_state
-                Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "failed"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeNatGatewaysResponse_natGateways
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. natGateway_state
-                Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "deleting"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeNatGatewaysResponse_natGateways
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. natGateway_state
-                Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "deleted"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeNatGatewaysResponse_natGateways
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. natGateway_state
-                Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
-            ),
+    { Core.name = "InstanceExists",
+      Core.attempts = 40,
+      Core.delay = 5,
+      Core.acceptors =
+        [ Core.matchStatus 200 Core.AcceptSuccess,
           Core.matchError
-            "NatGatewayNotFound"
+            "InvalidInstanceIDNotFound"
             Core.AcceptRetry
         ]
     }
 
--- | Polls 'Amazonka.EC2.DescribeSubnets' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newSubnetAvailable :: Core.Wait DescribeSubnets
-newSubnetAvailable =
+-- | Polls 'Amazonka.EC2.DescribeInstances' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newInstanceRunning :: Core.Wait DescribeInstances
+newInstanceRunning =
   Core.Wait
-    { Core._waitName = "SubnetAvailable",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "InstanceRunning",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
-            "available"
+            "running"
             Core.AcceptSuccess
             ( Lens.folding
                 ( Lens.concatOf
-                    ( describeSubnetsResponse_subnets
+                    ( describeInstancesResponse_reservations
                         Prelude.. Lens._Just
                     )
                 )
-                Prelude.. subnet_state
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.folding
+                  ( Lens.concatOf
+                      (reservation_instances Prelude.. Lens._Just)
+                  )
+                Prelude.. instance_state
+                Prelude.. instanceState_name
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "shutting-down"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_reservations
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. Lens.folding
+                  ( Lens.concatOf
+                      (reservation_instances Prelude.. Lens._Just)
+                  )
+                Prelude.. instance_state
+                Prelude.. instanceState_name
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "terminated"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_reservations
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. Lens.folding
+                  ( Lens.concatOf
+                      (reservation_instances Prelude.. Lens._Just)
+                  )
+                Prelude.. instance_state
+                Prelude.. instanceState_name
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "stopping"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_reservations
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. Lens.folding
+                  ( Lens.concatOf
+                      (reservation_instances Prelude.. Lens._Just)
+                  )
+                Prelude.. instance_state
+                Prelude.. instanceState_name
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchError
+            "InvalidInstanceID.NotFound"
+            Core.AcceptRetry
+        ]
+    }
+
+-- | Polls 'Amazonka.EC2.DescribeInstanceStatus' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newInstanceStatusOk :: Core.Wait DescribeInstanceStatus
+newInstanceStatusOk =
+  Core.Wait
+    { Core.name = "InstanceStatusOk",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
+        [ Core.matchAll
+            "ok"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstanceStatusResponse_instanceStatuses
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instanceStatus_instanceStatus
+                Prelude.. Lens._Just
+                Prelude.. instanceStatusSummary_status
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchError
+            "InvalidInstanceID.NotFound"
+            Core.AcceptRetry
+        ]
+    }
+
+-- | Polls 'Amazonka.EC2.DescribeInstances' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newInstanceStopped :: Core.Wait DescribeInstances
+newInstanceStopped =
+  Core.Wait
+    { Core.name = "InstanceStopped",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
+        [ Core.matchAll
+            "stopped"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_reservations
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. Lens.folding
+                  ( Lens.concatOf
+                      (reservation_instances Prelude.. Lens._Just)
+                  )
+                Prelude.. instance_state
+                Prelude.. instanceState_name
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "pending"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_reservations
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. Lens.folding
+                  ( Lens.concatOf
+                      (reservation_instances Prelude.. Lens._Just)
+                  )
+                Prelude.. instance_state
+                Prelude.. instanceState_name
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "terminated"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_reservations
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. Lens.folding
+                  ( Lens.concatOf
+                      (reservation_instances Prelude.. Lens._Just)
+                  )
+                Prelude.. instance_state
+                Prelude.. instanceState_name
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
 
--- | Polls 'Amazonka.EC2.DescribeNetworkInterfaces' every 20 seconds until a successful state is reached. An error is returned after 10 failed checks.
-newNetworkInterfaceAvailable :: Core.Wait DescribeNetworkInterfaces
-newNetworkInterfaceAvailable =
+-- | Polls 'Amazonka.EC2.DescribeInstances' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newInstanceTerminated :: Core.Wait DescribeInstances
+newInstanceTerminated =
   Core.Wait
-    { Core._waitName =
-        "NetworkInterfaceAvailable",
-      Core._waitAttempts = 10,
-      Core._waitDelay = 20,
-      Core._waitAcceptors =
+    { Core.name = "InstanceTerminated",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
-            "available"
+            "terminated"
             Core.AcceptSuccess
             ( Lens.folding
                 ( Lens.concatOf
-                    ( describeNetworkInterfacesResponse_networkInterfaces
+                    ( describeInstancesResponse_reservations
                         Prelude.. Lens._Just
                     )
                 )
-                Prelude.. networkInterface_status
-                Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.folding
+                  ( Lens.concatOf
+                      (reservation_instances Prelude.. Lens._Just)
+                  )
+                Prelude.. instance_state
+                Prelude.. instanceState_name
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "pending"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_reservations
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. Lens.folding
+                  ( Lens.concatOf
+                      (reservation_instances Prelude.. Lens._Just)
+                  )
+                Prelude.. instance_state
+                Prelude.. instanceState_name
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "stopping"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstancesResponse_reservations
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. Lens.folding
+                  ( Lens.concatOf
+                      (reservation_instances Prelude.. Lens._Just)
+                  )
+                Prelude.. instance_state
+                Prelude.. instanceState_name
+                Prelude.. Lens.to Data.toTextCI
+            )
+        ]
+    }
+
+-- | Polls 'Amazonka.EC2.DescribeInternetGateways' every 5 seconds until a successful state is reached. An error is returned after 6 failed checks.
+newInternetGatewayExists :: Core.Wait DescribeInternetGateways
+newInternetGatewayExists =
+  Core.Wait
+    { Core.name = "InternetGatewayExists",
+      Core.attempts = 6,
+      Core.delay = 5,
+      Core.acceptors =
+        [ Core.matchNonEmpty
+            Prelude.True
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInternetGatewaysResponse_internetGateways
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. internetGateway_internetGatewayId
             ),
           Core.matchError
-            "InvalidNetworkInterfaceID.NotFound"
-            Core.AcceptFailure
+            "InvalidInternetGateway.NotFound"
+            Core.AcceptRetry
         ]
     }
 
@@ -282,10 +602,10 @@ newNetworkInterfaceAvailable =
 newKeyPairExists :: Core.Wait DescribeKeyPairs
 newKeyPairExists =
   Core.Wait
-    { Core._waitName = "KeyPairExists",
-      Core._waitAttempts = 6,
-      Core._waitDelay = 5,
-      Core._waitAcceptors =
+    { Core.name = "KeyPairExists",
+      Core.attempts = 6,
+      Core.delay = 5,
+      Core.acceptors =
         [ Core.matchNonEmpty
             Prelude.True
             Core.AcceptSuccess
@@ -304,213 +624,123 @@ newKeyPairExists =
         ]
     }
 
--- | Polls 'Amazonka.EC2.DescribeInstanceStatus' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newSystemStatusOk :: Core.Wait DescribeInstanceStatus
-newSystemStatusOk =
+-- | Polls 'Amazonka.EC2.DescribeNatGateways' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newNatGatewayAvailable :: Core.Wait DescribeNatGateways
+newNatGatewayAvailable =
   Core.Wait
-    { Core._waitName = "SystemStatusOk",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "ok"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeInstanceStatusResponse_instanceStatuses
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. instanceStatus_systemStatus
-                Prelude.. Lens._Just
-                Prelude.. instanceStatusSummary_status
-                Prelude.. Lens.to Core.toTextCI
-            )
-        ]
-    }
-
--- | Polls 'Amazonka.EC2.DescribeCustomerGateways' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newCustomerGatewayAvailable :: Core.Wait DescribeCustomerGateways
-newCustomerGatewayAvailable =
-  Core.Wait
-    { Core._waitName =
-        "CustomerGatewayAvailable",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "NatGatewayAvailable",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
             "available"
             Core.AcceptSuccess
             ( Lens.folding
                 ( Lens.concatOf
-                    ( describeCustomerGatewaysResponse_customerGateways
+                    ( describeNatGatewaysResponse_natGateways
                         Prelude.. Lens._Just
                     )
                 )
-                Prelude.. customerGateway_state
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. natGateway_state
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
-            "deleted"
+            "failed"
             Core.AcceptFailure
             ( Lens.folding
                 ( Lens.concatOf
-                    ( describeCustomerGatewaysResponse_customerGateways
+                    ( describeNatGatewaysResponse_natGateways
                         Prelude.. Lens._Just
                     )
                 )
-                Prelude.. customerGateway_state
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. natGateway_state
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "deleting"
             Core.AcceptFailure
             ( Lens.folding
                 ( Lens.concatOf
-                    ( describeCustomerGatewaysResponse_customerGateways
+                    ( describeNatGatewaysResponse_natGateways
                         Prelude.. Lens._Just
                     )
                 )
-                Prelude.. customerGateway_state
-                Prelude.. Lens.to Core.toTextCI
-            )
+                Prelude.. natGateway_state
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "deleted"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeNatGatewaysResponse_natGateways
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. natGateway_state
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchError
+            "NatGatewayNotFound"
+            Core.AcceptRetry
         ]
     }
 
--- | Polls 'Amazonka.EC2.DescribeConversionTasks' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newConversionTaskCompleted :: Core.Wait DescribeConversionTasks
-newConversionTaskCompleted =
+-- | Polls 'Amazonka.EC2.DescribeNatGateways' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newNatGatewayDeleted :: Core.Wait DescribeNatGateways
+newNatGatewayDeleted =
   Core.Wait
-    { Core._waitName =
-        "ConversionTaskCompleted",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "completed"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeConversionTasksResponse_conversionTasks
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. conversionTask_state
-                Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "cancelled"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeConversionTasksResponse_conversionTasks
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. conversionTask_state
-                Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "cancelling"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeConversionTasksResponse_conversionTasks
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. conversionTask_state
-                Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
-            )
-        ]
-    }
-
--- | Polls 'Amazonka.EC2.DescribeInstances' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newInstanceStopped :: Core.Wait DescribeInstances
-newInstanceStopped =
-  Core.Wait
-    { Core._waitName = "InstanceStopped",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "stopped"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeInstancesResponse_reservations
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. Lens.folding
-                  ( Lens.concatOf
-                      (reservation_instances Prelude.. Lens._Just)
-                  )
-                Prelude.. instance_state
-                Prelude.. instanceState_name
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "pending"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeInstancesResponse_reservations
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. Lens.folding
-                  ( Lens.concatOf
-                      (reservation_instances Prelude.. Lens._Just)
-                  )
-                Prelude.. instance_state
-                Prelude.. instanceState_name
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "terminated"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeInstancesResponse_reservations
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. Lens.folding
-                  ( Lens.concatOf
-                      (reservation_instances Prelude.. Lens._Just)
-                  )
-                Prelude.. instance_state
-                Prelude.. instanceState_name
-                Prelude.. Lens.to Core.toTextCI
-            )
-        ]
-    }
-
--- | Polls 'Amazonka.EC2.DescribeConversionTasks' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newConversionTaskDeleted :: Core.Wait DescribeConversionTasks
-newConversionTaskDeleted =
-  Core.Wait
-    { Core._waitName = "ConversionTaskDeleted",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "NatGatewayDeleted",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
             "deleted"
             Core.AcceptSuccess
             ( Lens.folding
                 ( Lens.concatOf
-                    ( describeConversionTasksResponse_conversionTasks
+                    ( describeNatGatewaysResponse_natGateways
                         Prelude.. Lens._Just
                     )
                 )
-                Prelude.. conversionTask_state
+                Prelude.. natGateway_state
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
-            )
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchError
+            "NatGatewayNotFound"
+            Core.AcceptSuccess
+        ]
+    }
+
+-- | Polls 'Amazonka.EC2.DescribeNetworkInterfaces' every 20 seconds until a successful state is reached. An error is returned after 10 failed checks.
+newNetworkInterfaceAvailable :: Core.Wait DescribeNetworkInterfaces
+newNetworkInterfaceAvailable =
+  Core.Wait
+    { Core.name = "NetworkInterfaceAvailable",
+      Core.attempts = 10,
+      Core.delay = 20,
+      Core.acceptors =
+        [ Core.matchAll
+            "available"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeNetworkInterfacesResponse_networkInterfaces
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. networkInterface_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchError
+            "InvalidNetworkInterfaceID.NotFound"
+            Core.AcceptFailure
         ]
     }
 
@@ -518,10 +748,10 @@ newConversionTaskDeleted =
 newPasswordDataAvailable :: Core.Wait GetPasswordData
 newPasswordDataAvailable =
   Core.Wait
-    { Core._waitName = "PasswordDataAvailable",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "PasswordDataAvailable",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
             Prelude.True
             Core.AcceptSuccess
@@ -531,96 +761,14 @@ newPasswordDataAvailable =
         ]
     }
 
--- | Polls 'Amazonka.EC2.DescribeInstances' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newInstanceRunning :: Core.Wait DescribeInstances
-newInstanceRunning =
-  Core.Wait
-    { Core._waitName = "InstanceRunning",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "running"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeInstancesResponse_reservations
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. Lens.folding
-                  ( Lens.concatOf
-                      (reservation_instances Prelude.. Lens._Just)
-                  )
-                Prelude.. instance_state
-                Prelude.. instanceState_name
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "shutting-down"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeInstancesResponse_reservations
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. Lens.folding
-                  ( Lens.concatOf
-                      (reservation_instances Prelude.. Lens._Just)
-                  )
-                Prelude.. instance_state
-                Prelude.. instanceState_name
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "terminated"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeInstancesResponse_reservations
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. Lens.folding
-                  ( Lens.concatOf
-                      (reservation_instances Prelude.. Lens._Just)
-                  )
-                Prelude.. instance_state
-                Prelude.. instanceState_name
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "stopping"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeInstancesResponse_reservations
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. Lens.folding
-                  ( Lens.concatOf
-                      (reservation_instances Prelude.. Lens._Just)
-                  )
-                Prelude.. instance_state
-                Prelude.. instanceState_name
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchError
-            "InvalidInstanceID.NotFound"
-            Core.AcceptRetry
-        ]
-    }
-
 -- | Polls 'Amazonka.EC2.DescribeSecurityGroups' every 5 seconds until a successful state is reached. An error is returned after 6 failed checks.
 newSecurityGroupExists :: Core.Wait DescribeSecurityGroups
 newSecurityGroupExists =
   Core.Wait
-    { Core._waitName = "SecurityGroupExists",
-      Core._waitAttempts = 6,
-      Core._waitDelay = 5,
-      Core._waitAcceptors =
+    { Core.name = "SecurityGroupExists",
+      Core.attempts = 6,
+      Core.delay = 5,
+      Core.acceptors =
         [ Core.matchNonEmpty
             Prelude.True
             Core.AcceptSuccess
@@ -638,15 +786,50 @@ newSecurityGroupExists =
         ]
     }
 
+-- | Polls 'Amazonka.EC2.DescribeSnapshots' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newSnapshotCompleted :: Core.Wait DescribeSnapshots
+newSnapshotCompleted =
+  Core.Wait
+    { Core.name = "SnapshotCompleted",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
+        [ Core.matchAll
+            "completed"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeSnapshotsResponse_snapshots
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. snapshot_state
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "error"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeSnapshotsResponse_snapshots
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. snapshot_state
+                Prelude.. Lens.to Data.toTextCI
+            )
+        ]
+    }
+
 -- | Polls 'Amazonka.EC2.DescribeSpotInstanceRequests' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
 newSpotInstanceRequestFulfilled :: Core.Wait DescribeSpotInstanceRequests
 newSpotInstanceRequestFulfilled =
   Core.Wait
-    { Core._waitName =
+    { Core.name =
         "SpotInstanceRequestFulfilled",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
             "fulfilled"
             Core.AcceptSuccess
@@ -660,7 +843,7 @@ newSpotInstanceRequestFulfilled =
                 Prelude.. Lens._Just
                 Prelude.. spotInstanceStatus_code
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "request-canceled-and-instance-running"
@@ -675,7 +858,7 @@ newSpotInstanceRequestFulfilled =
                 Prelude.. Lens._Just
                 Prelude.. spotInstanceStatus_code
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "schedule-expired"
@@ -690,7 +873,7 @@ newSpotInstanceRequestFulfilled =
                 Prelude.. Lens._Just
                 Prelude.. spotInstanceStatus_code
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "canceled-before-fulfillment"
@@ -705,7 +888,7 @@ newSpotInstanceRequestFulfilled =
                 Prelude.. Lens._Just
                 Prelude.. spotInstanceStatus_code
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "bad-parameters"
@@ -720,7 +903,7 @@ newSpotInstanceRequestFulfilled =
                 Prelude.. Lens._Just
                 Prelude.. spotInstanceStatus_code
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "system-error"
@@ -735,7 +918,7 @@ newSpotInstanceRequestFulfilled =
                 Prelude.. Lens._Just
                 Prelude.. spotInstanceStatus_code
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchError
             "InvalidSpotInstanceRequestID.NotFound"
@@ -743,14 +926,158 @@ newSpotInstanceRequestFulfilled =
         ]
     }
 
+-- | Polls 'Amazonka.EC2.DescribeSubnets' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newSubnetAvailable :: Core.Wait DescribeSubnets
+newSubnetAvailable =
+  Core.Wait
+    { Core.name = "SubnetAvailable",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
+        [ Core.matchAll
+            "available"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeSubnetsResponse_subnets
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. subnet_state
+                Prelude.. Lens.to Data.toTextCI
+            )
+        ]
+    }
+
+-- | Polls 'Amazonka.EC2.DescribeInstanceStatus' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newSystemStatusOk :: Core.Wait DescribeInstanceStatus
+newSystemStatusOk =
+  Core.Wait
+    { Core.name = "SystemStatusOk",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
+        [ Core.matchAll
+            "ok"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeInstanceStatusResponse_instanceStatuses
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. instanceStatus_systemStatus
+                Prelude.. Lens._Just
+                Prelude.. instanceStatusSummary_status
+                Prelude.. Lens.to Data.toTextCI
+            )
+        ]
+    }
+
+-- | Polls 'Amazonka.EC2.DescribeVolumes' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newVolumeAvailable :: Core.Wait DescribeVolumes
+newVolumeAvailable =
+  Core.Wait
+    { Core.name = "VolumeAvailable",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
+        [ Core.matchAll
+            "available"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeVolumesResponse_volumes
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. volume_state
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "deleted"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeVolumesResponse_volumes
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. volume_state
+                Prelude.. Lens.to Data.toTextCI
+            )
+        ]
+    }
+
+-- | Polls 'Amazonka.EC2.DescribeVolumes' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newVolumeDeleted :: Core.Wait DescribeVolumes
+newVolumeDeleted =
+  Core.Wait
+    { Core.name = "VolumeDeleted",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
+        [ Core.matchAll
+            "deleted"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeVolumesResponse_volumes
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. volume_state
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchError
+            "InvalidVolume.NotFound"
+            Core.AcceptSuccess
+        ]
+    }
+
+-- | Polls 'Amazonka.EC2.DescribeVolumes' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newVolumeInUse :: Core.Wait DescribeVolumes
+newVolumeInUse =
+  Core.Wait
+    { Core.name = "VolumeInUse",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
+        [ Core.matchAll
+            "in-use"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeVolumesResponse_volumes
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. volume_state
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "deleted"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeVolumesResponse_volumes
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. volume_state
+                Prelude.. Lens.to Data.toTextCI
+            )
+        ]
+    }
+
 -- | Polls 'Amazonka.EC2.DescribeVpcs' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
 newVpcAvailable :: Core.Wait DescribeVpcs
 newVpcAvailable =
   Core.Wait
-    { Core._waitName = "VpcAvailable",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "VpcAvailable",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
             "available"
             Core.AcceptSuccess
@@ -759,31 +1086,23 @@ newVpcAvailable =
                     (describeVpcsResponse_vpcs Prelude.. Lens._Just)
                 )
                 Prelude.. vpc_state
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
 
--- | Polls 'Amazonka.EC2.DescribeExportTasks' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newExportTaskCompleted :: Core.Wait DescribeExportTasks
-newExportTaskCompleted =
+-- | Polls 'Amazonka.EC2.DescribeVpcs' every 1 seconds until a successful state is reached. An error is returned after 5 failed checks.
+newVpcExists :: Core.Wait DescribeVpcs
+newVpcExists =
   Core.Wait
-    { Core._waitName = "ExportTaskCompleted",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "completed"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeExportTasksResponse_exportTasks
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. exportTask_state
-                Prelude.. Lens.to Core.toTextCI
-            )
+    { Core.name = "VpcExists",
+      Core.attempts = 5,
+      Core.delay = 1,
+      Core.acceptors =
+        [ Core.matchStatus 200 Core.AcceptSuccess,
+          Core.matchError
+            "InvalidVpcID.NotFound"
+            Core.AcceptRetry
         ]
     }
 
@@ -791,11 +1110,11 @@ newExportTaskCompleted =
 newVpcPeeringConnectionDeleted :: Core.Wait DescribeVpcPeeringConnections
 newVpcPeeringConnectionDeleted =
   Core.Wait
-    { Core._waitName =
+    { Core.name =
         "VpcPeeringConnectionDeleted",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
             "deleted"
             Core.AcceptSuccess
@@ -809,7 +1128,7 @@ newVpcPeeringConnectionDeleted =
                 Prelude.. Lens._Just
                 Prelude.. vpcPeeringConnectionStateReason_code
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchError
             "InvalidVpcPeeringConnectionID.NotFound"
@@ -817,15 +1136,29 @@ newVpcPeeringConnectionDeleted =
         ]
     }
 
+-- | Polls 'Amazonka.EC2.DescribeVpcPeeringConnections' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
+newVpcPeeringConnectionExists :: Core.Wait DescribeVpcPeeringConnections
+newVpcPeeringConnectionExists =
+  Core.Wait
+    { Core.name = "VpcPeeringConnectionExists",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
+        [ Core.matchStatus 200 Core.AcceptSuccess,
+          Core.matchError
+            "InvalidVpcPeeringConnectionID.NotFound"
+            Core.AcceptRetry
+        ]
+    }
+
 -- | Polls 'Amazonka.EC2.DescribeVpnConnections' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
 newVpnConnectionAvailable :: Core.Wait DescribeVpnConnections
 newVpnConnectionAvailable =
   Core.Wait
-    { Core._waitName =
-        "VpnConnectionAvailable",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "VpnConnectionAvailable",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
             "available"
             Core.AcceptSuccess
@@ -836,7 +1169,7 @@ newVpnConnectionAvailable =
                     )
                 )
                 Prelude.. vpnConnection_state
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "deleting"
@@ -848,7 +1181,7 @@ newVpnConnectionAvailable =
                     )
                 )
                 Prelude.. vpnConnection_state
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "deleted"
@@ -860,106 +1193,7 @@ newVpnConnectionAvailable =
                     )
                 )
                 Prelude.. vpnConnection_state
-                Prelude.. Lens.to Core.toTextCI
-            )
-        ]
-    }
-
--- | Polls 'Amazonka.EC2.DescribeExportTasks' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newExportTaskCancelled :: Core.Wait DescribeExportTasks
-newExportTaskCancelled =
-  Core.Wait
-    { Core._waitName = "ExportTaskCancelled",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "cancelled"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeExportTasksResponse_exportTasks
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. exportTask_state
-                Prelude.. Lens.to Core.toTextCI
-            )
-        ]
-    }
-
--- | Polls 'Amazonka.EC2.DescribeVolumes' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newVolumeDeleted :: Core.Wait DescribeVolumes
-newVolumeDeleted =
-  Core.Wait
-    { Core._waitName = "VolumeDeleted",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "deleted"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeVolumesResponse_volumes
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. volume_state
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchError
-            "InvalidVolume.NotFound"
-            Core.AcceptSuccess
-        ]
-    }
-
--- | Polls 'Amazonka.EC2.DescribeVpcs' every 1 seconds until a successful state is reached. An error is returned after 5 failed checks.
-newVpcExists :: Core.Wait DescribeVpcs
-newVpcExists =
-  Core.Wait
-    { Core._waitName = "VpcExists",
-      Core._waitAttempts = 5,
-      Core._waitDelay = 1,
-      Core._waitAcceptors =
-        [ Core.matchStatus 200 Core.AcceptSuccess,
-          Core.matchError
-            "InvalidVpcID.NotFound"
-            Core.AcceptRetry
-        ]
-    }
-
--- | Polls 'Amazonka.EC2.DescribeBundleTasks' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newBundleTaskComplete :: Core.Wait DescribeBundleTasks
-newBundleTaskComplete =
-  Core.Wait
-    { Core._waitName = "BundleTaskComplete",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "complete"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeBundleTasksResponse_bundleTasks
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. bundleTask_state
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "failed"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeBundleTasksResponse_bundleTasks
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. bundleTask_state
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
@@ -968,10 +1202,10 @@ newBundleTaskComplete =
 newVpnConnectionDeleted :: Core.Wait DescribeVpnConnections
 newVpnConnectionDeleted =
   Core.Wait
-    { Core._waitName = "VpnConnectionDeleted",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
+    { Core.name = "VpnConnectionDeleted",
+      Core.attempts = 40,
+      Core.delay = 15,
+      Core.acceptors =
         [ Core.matchAll
             "deleted"
             Core.AcceptSuccess
@@ -982,7 +1216,7 @@ newVpnConnectionDeleted =
                     )
                 )
                 Prelude.. vpnConnection_state
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "pending"
@@ -994,192 +1228,7 @@ newVpnConnectionDeleted =
                     )
                 )
                 Prelude.. vpnConnection_state
-                Prelude.. Lens.to Core.toTextCI
-            )
-        ]
-    }
-
--- | Polls 'Amazonka.EC2.DescribeConversionTasks' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newConversionTaskCancelled :: Core.Wait DescribeConversionTasks
-newConversionTaskCancelled =
-  Core.Wait
-    { Core._waitName =
-        "ConversionTaskCancelled",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "cancelled"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeConversionTasksResponse_conversionTasks
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. conversionTask_state
-                Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
-            )
-        ]
-    }
-
--- | Polls 'Amazonka.EC2.DescribeImages' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newImageAvailable :: Core.Wait DescribeImages
-newImageAvailable =
-  Core.Wait
-    { Core._waitName = "ImageAvailable",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "available"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    (describeImagesResponse_images Prelude.. Lens._Just)
-                )
-                Prelude.. image_state
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "deregistered"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    (describeImagesResponse_images Prelude.. Lens._Just)
-                )
-                Prelude.. image_state
-                Prelude.. Lens.to Core.toTextCI
-            )
-        ]
-    }
-
--- | Polls 'Amazonka.EC2.DescribeVpcPeeringConnections' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newVpcPeeringConnectionExists :: Core.Wait DescribeVpcPeeringConnections
-newVpcPeeringConnectionExists =
-  Core.Wait
-    { Core._waitName =
-        "VpcPeeringConnectionExists",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
-        [ Core.matchStatus 200 Core.AcceptSuccess,
-          Core.matchError
-            "InvalidVpcPeeringConnectionID.NotFound"
-            Core.AcceptRetry
-        ]
-    }
-
--- | Polls 'Amazonka.EC2.DescribeSnapshots' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newSnapshotCompleted :: Core.Wait DescribeSnapshots
-newSnapshotCompleted =
-  Core.Wait
-    { Core._waitName = "SnapshotCompleted",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "completed"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeSnapshotsResponse_snapshots
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. snapshot_state
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "error"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeSnapshotsResponse_snapshots
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. snapshot_state
-                Prelude.. Lens.to Core.toTextCI
-            )
-        ]
-    }
-
--- | Polls 'Amazonka.EC2.DescribeInstances' every 5 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newInstanceExists :: Core.Wait DescribeInstances
-newInstanceExists =
-  Core.Wait
-    { Core._waitName = "InstanceExists",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 5,
-      Core._waitAcceptors =
-        [ Core.matchStatus 200 Core.AcceptSuccess,
-          Core.matchError
-            "InvalidInstanceIDNotFound"
-            Core.AcceptRetry
-        ]
-    }
-
--- | Polls 'Amazonka.EC2.DescribeInstanceStatus' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newInstanceStatusOk :: Core.Wait DescribeInstanceStatus
-newInstanceStatusOk =
-  Core.Wait
-    { Core._waitName = "InstanceStatusOk",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "ok"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeInstanceStatusResponse_instanceStatuses
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. instanceStatus_instanceStatus
-                Prelude.. Lens._Just
-                Prelude.. instanceStatusSummary_status
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchError
-            "InvalidInstanceID.NotFound"
-            Core.AcceptRetry
-        ]
-    }
-
--- | Polls 'Amazonka.EC2.DescribeVolumes' every 15 seconds until a successful state is reached. An error is returned after 40 failed checks.
-newVolumeAvailable :: Core.Wait DescribeVolumes
-newVolumeAvailable =
-  Core.Wait
-    { Core._waitName = "VolumeAvailable",
-      Core._waitAttempts = 40,
-      Core._waitDelay = 15,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "available"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeVolumesResponse_volumes
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. volume_state
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "deleted"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeVolumesResponse_volumes
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. volume_state
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }

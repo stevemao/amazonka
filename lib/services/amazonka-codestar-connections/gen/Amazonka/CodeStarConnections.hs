@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarConnections
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -81,20 +81,20 @@ module Amazonka.CodeStarConnections
     -- * Errors
     -- $errors
 
+    -- ** ConflictException
+    _ConflictException,
+
+    -- ** LimitExceededException
+    _LimitExceededException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
+
     -- ** ResourceUnavailableException
     _ResourceUnavailableException,
 
     -- ** UnsupportedOperationException
     _UnsupportedOperationException,
-
-    -- ** ConflictException
-    _ConflictException,
-
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
-
-    -- ** LimitExceededException
-    _LimitExceededException,
 
     -- * Waiters
     -- $waiters
@@ -102,17 +102,17 @@ module Amazonka.CodeStarConnections
     -- * Operations
     -- $operations
 
+    -- ** CreateConnection
+    CreateConnection (CreateConnection'),
+    newCreateConnection,
+    CreateConnectionResponse (CreateConnectionResponse'),
+    newCreateConnectionResponse,
+
     -- ** CreateHost
     CreateHost (CreateHost'),
     newCreateHost,
     CreateHostResponse (CreateHostResponse'),
     newCreateHostResponse,
-
-    -- ** ListConnections
-    ListConnections (ListConnections'),
-    newListConnections,
-    ListConnectionsResponse (ListConnectionsResponse'),
-    newListConnectionsResponse,
 
     -- ** DeleteConnection
     DeleteConnection (DeleteConnection'),
@@ -120,17 +120,11 @@ module Amazonka.CodeStarConnections
     DeleteConnectionResponse (DeleteConnectionResponse'),
     newDeleteConnectionResponse,
 
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** CreateConnection
-    CreateConnection (CreateConnection'),
-    newCreateConnection,
-    CreateConnectionResponse (CreateConnectionResponse'),
-    newCreateConnectionResponse,
+    -- ** DeleteHost
+    DeleteHost (DeleteHost'),
+    newDeleteHost,
+    DeleteHostResponse (DeleteHostResponse'),
+    newDeleteHostResponse,
 
     -- ** GetConnection
     GetConnection (GetConnection'),
@@ -138,23 +132,29 @@ module Amazonka.CodeStarConnections
     GetConnectionResponse (GetConnectionResponse'),
     newGetConnectionResponse,
 
-    -- ** DeleteHost
-    DeleteHost (DeleteHost'),
-    newDeleteHost,
-    DeleteHostResponse (DeleteHostResponse'),
-    newDeleteHostResponse,
+    -- ** GetHost
+    GetHost (GetHost'),
+    newGetHost,
+    GetHostResponse (GetHostResponse'),
+    newGetHostResponse,
 
-    -- ** UpdateHost
-    UpdateHost (UpdateHost'),
-    newUpdateHost,
-    UpdateHostResponse (UpdateHostResponse'),
-    newUpdateHostResponse,
+    -- ** ListConnections
+    ListConnections (ListConnections'),
+    newListConnections,
+    ListConnectionsResponse (ListConnectionsResponse'),
+    newListConnectionsResponse,
 
     -- ** ListHosts
     ListHosts (ListHosts'),
     newListHosts,
     ListHostsResponse (ListHostsResponse'),
     newListHostsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** TagResource
     TagResource (TagResource'),
@@ -168,11 +168,11 @@ module Amazonka.CodeStarConnections
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** GetHost
-    GetHost (GetHost'),
-    newGetHost,
-    GetHostResponse (GetHostResponse'),
-    newGetHostResponse,
+    -- ** UpdateHost
+    UpdateHost (UpdateHost'),
+    newUpdateHost,
+    UpdateHostResponse (UpdateHostResponse'),
+    newUpdateHostResponse,
 
     -- * Types
 

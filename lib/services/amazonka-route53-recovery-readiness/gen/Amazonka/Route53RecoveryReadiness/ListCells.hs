@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.ListCells
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a collection of Cells.
+-- Lists the cells for an account.
 --
 -- This operation returns paginated results.
 module Amazonka.Route53RecoveryReadiness.ListCells
@@ -29,8 +29,8 @@ module Amazonka.Route53RecoveryReadiness.ListCells
     newListCells,
 
     -- * Request Lenses
-    listCells_nextToken,
     listCells_maxResults,
+    listCells_nextToken,
 
     -- * Destructuring the Response
     ListCellsResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.Route53RecoveryReadiness.ListCells
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,10 +53,10 @@ import Amazonka.Route53RecoveryReadiness.Types
 
 -- | /See:/ 'newListCells' smart constructor.
 data ListCells = ListCells'
-  { -- | A token used to resume pagination from the end of a previous request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Upper bound on number of records to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The number of objects that you want to return with this call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that identifies which batch of results you want to see.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,24 +68,24 @@ data ListCells = ListCells'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listCells_nextToken' - A token used to resume pagination from the end of a previous request.
+-- 'maxResults', 'listCells_maxResults' - The number of objects that you want to return with this call.
 --
--- 'maxResults', 'listCells_maxResults' - Upper bound on number of records to return.
+-- 'nextToken', 'listCells_nextToken' - The token that identifies which batch of results you want to see.
 newListCells ::
   ListCells
 newListCells =
   ListCells'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
--- | A token used to resume pagination from the end of a previous request.
-listCells_nextToken :: Lens.Lens' ListCells (Prelude.Maybe Prelude.Text)
-listCells_nextToken = Lens.lens (\ListCells' {nextToken} -> nextToken) (\s@ListCells' {} a -> s {nextToken = a} :: ListCells)
-
--- | Upper bound on number of records to return.
+-- | The number of objects that you want to return with this call.
 listCells_maxResults :: Lens.Lens' ListCells (Prelude.Maybe Prelude.Natural)
 listCells_maxResults = Lens.lens (\ListCells' {maxResults} -> maxResults) (\s@ListCells' {} a -> s {maxResults = a} :: ListCells)
+
+-- | The token that identifies which batch of results you want to see.
+listCells_nextToken :: Lens.Lens' ListCells (Prelude.Maybe Prelude.Text)
+listCells_nextToken = Lens.lens (\ListCells' {nextToken} -> nextToken) (\s@ListCells' {} a -> s {nextToken = a} :: ListCells)
 
 instance Core.AWSPager ListCells where
   page rq rs
@@ -107,53 +108,53 @@ instance Core.AWSPager ListCells where
 
 instance Core.AWSRequest ListCells where
   type AWSResponse ListCells = ListCellsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListCellsResponse'
-            Prelude.<$> (x Core..?> "cells" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "cells" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListCells where
   hashWithSalt _salt ListCells' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListCells where
   rnf ListCells' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListCells where
+instance Data.ToHeaders ListCells where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListCells where
+instance Data.ToPath ListCells where
   toPath = Prelude.const "/cells"
 
-instance Core.ToQuery ListCells where
+instance Data.ToQuery ListCells where
   toQuery ListCells' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListCellsResponse' smart constructor.
 data ListCellsResponse = ListCellsResponse'
-  { -- | A list of Cells
+  { -- | A list of cells.
     cells :: Prelude.Maybe [CellOutput],
-    -- | A token that can be used to resume pagination from the end of the
-    -- collection.
+    -- | The token that identifies which batch of results you want to see.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -168,10 +169,9 @@ data ListCellsResponse = ListCellsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'cells', 'listCellsResponse_cells' - A list of Cells
+-- 'cells', 'listCellsResponse_cells' - A list of cells.
 --
--- 'nextToken', 'listCellsResponse_nextToken' - A token that can be used to resume pagination from the end of the
--- collection.
+-- 'nextToken', 'listCellsResponse_nextToken' - The token that identifies which batch of results you want to see.
 --
 -- 'httpStatus', 'listCellsResponse_httpStatus' - The response's http status code.
 newListCellsResponse ::
@@ -185,12 +185,11 @@ newListCellsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | A list of Cells
+-- | A list of cells.
 listCellsResponse_cells :: Lens.Lens' ListCellsResponse (Prelude.Maybe [CellOutput])
 listCellsResponse_cells = Lens.lens (\ListCellsResponse' {cells} -> cells) (\s@ListCellsResponse' {} a -> s {cells = a} :: ListCellsResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | A token that can be used to resume pagination from the end of the
--- collection.
+-- | The token that identifies which batch of results you want to see.
 listCellsResponse_nextToken :: Lens.Lens' ListCellsResponse (Prelude.Maybe Prelude.Text)
 listCellsResponse_nextToken = Lens.lens (\ListCellsResponse' {nextToken} -> nextToken) (\s@ListCellsResponse' {} a -> s {nextToken = a} :: ListCellsResponse)
 

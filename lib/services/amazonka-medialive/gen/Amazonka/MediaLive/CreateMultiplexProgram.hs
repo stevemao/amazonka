@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.CreateMultiplexProgram
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.MediaLive.CreateMultiplexProgram
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -126,12 +127,13 @@ instance Core.AWSRequest CreateMultiplexProgram' where
   type
     AWSResponse CreateMultiplexProgram' =
       CreateMultiplexProgramResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateMultiplexProgramResponse'
-            Prelude.<$> (x Core..?> "multiplexProgram")
+            Prelude.<$> (x Data..?> "multiplexProgram")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -149,39 +151,39 @@ instance Prelude.NFData CreateMultiplexProgram' where
       `Prelude.seq` Prelude.rnf multiplexProgramSettings
       `Prelude.seq` Prelude.rnf programName
 
-instance Core.ToHeaders CreateMultiplexProgram' where
+instance Data.ToHeaders CreateMultiplexProgram' where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateMultiplexProgram' where
+instance Data.ToJSON CreateMultiplexProgram' where
   toJSON CreateMultiplexProgram'' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("requestId" Core..= requestId),
+          [ Prelude.Just ("requestId" Data..= requestId),
             Prelude.Just
               ( "multiplexProgramSettings"
-                  Core..= multiplexProgramSettings
+                  Data..= multiplexProgramSettings
               ),
-            Prelude.Just ("programName" Core..= programName)
+            Prelude.Just ("programName" Data..= programName)
           ]
       )
 
-instance Core.ToPath CreateMultiplexProgram' where
+instance Data.ToPath CreateMultiplexProgram' where
   toPath CreateMultiplexProgram'' {..} =
     Prelude.mconcat
       [ "/prod/multiplexes/",
-        Core.toBS multiplexId,
+        Data.toBS multiplexId,
         "/programs"
       ]
 
-instance Core.ToQuery CreateMultiplexProgram' where
+instance Data.ToQuery CreateMultiplexProgram' where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for CreateMultiplexProgramResponse

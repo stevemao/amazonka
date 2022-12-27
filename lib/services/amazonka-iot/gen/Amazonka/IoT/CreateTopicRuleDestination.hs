@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.CreateTopicRuleDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IoT.CreateTopicRuleDestination
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,12 +87,13 @@ instance Core.AWSRequest CreateTopicRuleDestination where
   type
     AWSResponse CreateTopicRuleDestination =
       CreateTopicRuleDestinationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateTopicRuleDestinationResponse'
-            Prelude.<$> (x Core..?> "topicRuleDestination")
+            Prelude.<$> (x Data..?> "topicRuleDestination")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -104,24 +106,24 @@ instance Prelude.NFData CreateTopicRuleDestination where
   rnf CreateTopicRuleDestination' {..} =
     Prelude.rnf destinationConfiguration
 
-instance Core.ToHeaders CreateTopicRuleDestination where
+instance Data.ToHeaders CreateTopicRuleDestination where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateTopicRuleDestination where
+instance Data.ToJSON CreateTopicRuleDestination where
   toJSON CreateTopicRuleDestination' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "destinationConfiguration"
-                  Core..= destinationConfiguration
+                  Data..= destinationConfiguration
               )
           ]
       )
 
-instance Core.ToPath CreateTopicRuleDestination where
+instance Data.ToPath CreateTopicRuleDestination where
   toPath = Prelude.const "/destinations"
 
-instance Core.ToQuery CreateTopicRuleDestination where
+instance Data.ToQuery CreateTopicRuleDestination where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateTopicRuleDestinationResponse' smart constructor.

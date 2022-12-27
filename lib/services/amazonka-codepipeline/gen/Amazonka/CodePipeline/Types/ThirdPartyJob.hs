@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.ThirdPartyJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodePipeline.Types.ThirdPartyJob where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A response to a @PollForThirdPartyJobs@ request returned by AWS
@@ -68,14 +69,14 @@ thirdPartyJob_clientId = Lens.lens (\ThirdPartyJob' {clientId} -> clientId) (\s@
 thirdPartyJob_jobId :: Lens.Lens' ThirdPartyJob (Prelude.Maybe Prelude.Text)
 thirdPartyJob_jobId = Lens.lens (\ThirdPartyJob' {jobId} -> jobId) (\s@ThirdPartyJob' {} a -> s {jobId = a} :: ThirdPartyJob)
 
-instance Core.FromJSON ThirdPartyJob where
+instance Data.FromJSON ThirdPartyJob where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ThirdPartyJob"
       ( \x ->
           ThirdPartyJob'
-            Prelude.<$> (x Core..:? "clientId")
-            Prelude.<*> (x Core..:? "jobId")
+            Prelude.<$> (x Data..:? "clientId")
+            Prelude.<*> (x Data..:? "jobId")
       )
 
 instance Prelude.Hashable ThirdPartyJob where

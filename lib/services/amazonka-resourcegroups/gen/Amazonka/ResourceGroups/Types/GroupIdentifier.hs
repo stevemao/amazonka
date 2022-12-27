@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroups.Types.GroupIdentifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ResourceGroups.Types.GroupIdentifier where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The unique identifiers for a resource group.
@@ -61,14 +62,14 @@ groupIdentifier_groupArn = Lens.lens (\GroupIdentifier' {groupArn} -> groupArn) 
 groupIdentifier_groupName :: Lens.Lens' GroupIdentifier (Prelude.Maybe Prelude.Text)
 groupIdentifier_groupName = Lens.lens (\GroupIdentifier' {groupName} -> groupName) (\s@GroupIdentifier' {} a -> s {groupName = a} :: GroupIdentifier)
 
-instance Core.FromJSON GroupIdentifier where
+instance Data.FromJSON GroupIdentifier where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GroupIdentifier"
       ( \x ->
           GroupIdentifier'
-            Prelude.<$> (x Core..:? "GroupArn")
-            Prelude.<*> (x Core..:? "GroupName")
+            Prelude.<$> (x Data..:? "GroupArn")
+            Prelude.<*> (x Data..:? "GroupName")
       )
 
 instance Prelude.Hashable GroupIdentifier where

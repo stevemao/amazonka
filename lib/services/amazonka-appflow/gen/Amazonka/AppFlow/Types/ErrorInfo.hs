@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.ErrorInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.ErrorInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides details in the event of a failed flow, including the failure
@@ -62,14 +63,14 @@ errorInfo_executionMessage = Lens.lens (\ErrorInfo' {executionMessage} -> execut
 errorInfo_putFailuresCount :: Lens.Lens' ErrorInfo (Prelude.Maybe Prelude.Integer)
 errorInfo_putFailuresCount = Lens.lens (\ErrorInfo' {putFailuresCount} -> putFailuresCount) (\s@ErrorInfo' {} a -> s {putFailuresCount = a} :: ErrorInfo)
 
-instance Core.FromJSON ErrorInfo where
+instance Data.FromJSON ErrorInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ErrorInfo"
       ( \x ->
           ErrorInfo'
-            Prelude.<$> (x Core..:? "executionMessage")
-            Prelude.<*> (x Core..:? "putFailuresCount")
+            Prelude.<$> (x Data..:? "executionMessage")
+            Prelude.<*> (x Data..:? "putFailuresCount")
       )
 
 instance Prelude.Hashable ErrorInfo where

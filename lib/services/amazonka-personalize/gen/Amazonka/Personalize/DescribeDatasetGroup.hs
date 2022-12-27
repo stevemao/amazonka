@@ -14,14 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Personalize.DescribeDatasetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Describes the given dataset group. For more information on dataset
--- groups, see CreateDatasetGroup.
+-- groups, see
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetGroup.html CreateDatasetGroup>.
 module Amazonka.Personalize.DescribeDatasetGroup
   ( -- * Creating a Request
     DescribeDatasetGroup (..),
@@ -41,7 +42,8 @@ module Amazonka.Personalize.DescribeDatasetGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -81,12 +83,13 @@ instance Core.AWSRequest DescribeDatasetGroup where
   type
     AWSResponse DescribeDatasetGroup =
       DescribeDatasetGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDatasetGroupResponse'
-            Prelude.<$> (x Core..?> "datasetGroup")
+            Prelude.<$> (x Data..?> "datasetGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,34 +101,34 @@ instance Prelude.NFData DescribeDatasetGroup where
   rnf DescribeDatasetGroup' {..} =
     Prelude.rnf datasetGroupArn
 
-instance Core.ToHeaders DescribeDatasetGroup where
+instance Data.ToHeaders DescribeDatasetGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.DescribeDatasetGroup" ::
+              Data.=# ( "AmazonPersonalize.DescribeDatasetGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeDatasetGroup where
+instance Data.ToJSON DescribeDatasetGroup where
   toJSON DescribeDatasetGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("datasetGroupArn" Core..= datasetGroupArn)
+              ("datasetGroupArn" Data..= datasetGroupArn)
           ]
       )
 
-instance Core.ToPath DescribeDatasetGroup where
+instance Data.ToPath DescribeDatasetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDatasetGroup where
+instance Data.ToQuery DescribeDatasetGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeDatasetGroupResponse' smart constructor.

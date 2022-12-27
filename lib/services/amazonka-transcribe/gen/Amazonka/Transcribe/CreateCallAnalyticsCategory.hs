@@ -14,25 +14,43 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.CreateCallAnalyticsCategory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates an analytics category. Amazon Transcribe applies the conditions
--- specified by your analytics categories to your call analytics jobs. For
--- each analytics category, you specify one or more rules. For example, you
--- can specify a rule that the customer sentiment was neutral or negative
--- within that category. If you start a call analytics job, Amazon
--- Transcribe applies the category to the analytics job that you\'ve
--- specified.
+-- Creates a new Call Analytics category.
+--
+-- All categories are automatically applied to your Call Analytics
+-- transcriptions. Note that in order to apply categories to your
+-- transcriptions, you must create them before submitting your
+-- transcription request, as categories cannot be applied retroactively.
+--
+-- When creating a new category, you can use the @InputType@ parameter to
+-- label the category as a batch category (@POST_CALL@) or a streaming
+-- category (@REAL_TIME@). Batch categories can only be applied to batch
+-- transcriptions and streaming categories can only be applied to streaming
+-- transcriptions. If you do not include @InputType@, your category is
+-- created as a batch category by default.
+--
+-- Call Analytics categories are composed of rules. For each category, you
+-- must create between 1 and 20 rules. Rules can include these parameters:
+-- , , , and .
+--
+-- To update an existing category, see .
+--
+-- To learn more about Call Analytics categories, see
+-- <https://docs.aws.amazon.com/transcribe/latest/dg/tca-categories-batch.html Creating categories for batch transcriptions>
+-- and
+-- <https://docs.aws.amazon.com/transcribe/latest/dg/tca-categories-stream.html Creating categories for streaming transcriptions>.
 module Amazonka.Transcribe.CreateCallAnalyticsCategory
   ( -- * Creating a Request
     CreateCallAnalyticsCategory (..),
     newCreateCallAnalyticsCategory,
 
     -- * Request Lenses
+    createCallAnalyticsCategory_inputType,
     createCallAnalyticsCategory_categoryName,
     createCallAnalyticsCategory_rules,
 
@@ -47,7 +65,8 @@ module Amazonka.Transcribe.CreateCallAnalyticsCategory
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,12 +74,33 @@ import Amazonka.Transcribe.Types
 
 -- | /See:/ 'newCreateCallAnalyticsCategory' smart constructor.
 data CreateCallAnalyticsCategory = CreateCallAnalyticsCategory'
-  { -- | The name that you choose for your category when you create it.
+  { -- | Choose whether you want to create a streaming or a batch category for
+    -- your Call Analytics transcription.
+    --
+    -- Specifying @POST_CALL@ assigns your category to batch transcriptions;
+    -- categories with this input type cannot be applied to streaming
+    -- (real-time) transcriptions.
+    --
+    -- Specifying @REAL_TIME@ assigns your category to streaming
+    -- transcriptions; categories with this input type cannot be applied to
+    -- batch (post-call) transcriptions.
+    --
+    -- If you do not include @InputType@, your category is created as a batch
+    -- category by default.
+    inputType :: Prelude.Maybe InputType,
+    -- | A unique name, chosen by you, for your Call Analytics category. It\'s
+    -- helpful to use a detailed naming system that will make sense to you in
+    -- the future. For example, it\'s better to use
+    -- @sentiment-positive-last30seconds@ for a category over a generic name
+    -- like @test-category@.
+    --
+    -- Category names are case sensitive.
     categoryName :: Prelude.Text,
-    -- | To create a category, you must specify between 1 and 20 rules. For each
-    -- rule, you specify a filter to be applied to the attributes of the call.
-    -- For example, you can specify a sentiment filter to detect if the
-    -- customer\'s sentiment was negative or neutral.
+    -- | Rules define a Call Analytics category. When creating a new category,
+    -- you must create between 1 and 20 rules for that category. For each rule,
+    -- you specify a filter you want applied to the attributes of a call. For
+    -- example, you can choose a sentiment filter that detects if a customer\'s
+    -- sentiment was positive during the last 30 seconds of the call.
     rules :: Prelude.NonEmpty Rule
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -73,12 +113,33 @@ data CreateCallAnalyticsCategory = CreateCallAnalyticsCategory'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'categoryName', 'createCallAnalyticsCategory_categoryName' - The name that you choose for your category when you create it.
+-- 'inputType', 'createCallAnalyticsCategory_inputType' - Choose whether you want to create a streaming or a batch category for
+-- your Call Analytics transcription.
 --
--- 'rules', 'createCallAnalyticsCategory_rules' - To create a category, you must specify between 1 and 20 rules. For each
--- rule, you specify a filter to be applied to the attributes of the call.
--- For example, you can specify a sentiment filter to detect if the
--- customer\'s sentiment was negative or neutral.
+-- Specifying @POST_CALL@ assigns your category to batch transcriptions;
+-- categories with this input type cannot be applied to streaming
+-- (real-time) transcriptions.
+--
+-- Specifying @REAL_TIME@ assigns your category to streaming
+-- transcriptions; categories with this input type cannot be applied to
+-- batch (post-call) transcriptions.
+--
+-- If you do not include @InputType@, your category is created as a batch
+-- category by default.
+--
+-- 'categoryName', 'createCallAnalyticsCategory_categoryName' - A unique name, chosen by you, for your Call Analytics category. It\'s
+-- helpful to use a detailed naming system that will make sense to you in
+-- the future. For example, it\'s better to use
+-- @sentiment-positive-last30seconds@ for a category over a generic name
+-- like @test-category@.
+--
+-- Category names are case sensitive.
+--
+-- 'rules', 'createCallAnalyticsCategory_rules' - Rules define a Call Analytics category. When creating a new category,
+-- you must create between 1 and 20 rules for that category. For each rule,
+-- you specify a filter you want applied to the attributes of a call. For
+-- example, you can choose a sentiment filter that detects if a customer\'s
+-- sentiment was positive during the last 30 seconds of the call.
 newCreateCallAnalyticsCategory ::
   -- | 'categoryName'
   Prelude.Text ->
@@ -87,19 +148,43 @@ newCreateCallAnalyticsCategory ::
   CreateCallAnalyticsCategory
 newCreateCallAnalyticsCategory pCategoryName_ pRules_ =
   CreateCallAnalyticsCategory'
-    { categoryName =
-        pCategoryName_,
+    { inputType =
+        Prelude.Nothing,
+      categoryName = pCategoryName_,
       rules = Lens.coerced Lens.# pRules_
     }
 
--- | The name that you choose for your category when you create it.
+-- | Choose whether you want to create a streaming or a batch category for
+-- your Call Analytics transcription.
+--
+-- Specifying @POST_CALL@ assigns your category to batch transcriptions;
+-- categories with this input type cannot be applied to streaming
+-- (real-time) transcriptions.
+--
+-- Specifying @REAL_TIME@ assigns your category to streaming
+-- transcriptions; categories with this input type cannot be applied to
+-- batch (post-call) transcriptions.
+--
+-- If you do not include @InputType@, your category is created as a batch
+-- category by default.
+createCallAnalyticsCategory_inputType :: Lens.Lens' CreateCallAnalyticsCategory (Prelude.Maybe InputType)
+createCallAnalyticsCategory_inputType = Lens.lens (\CreateCallAnalyticsCategory' {inputType} -> inputType) (\s@CreateCallAnalyticsCategory' {} a -> s {inputType = a} :: CreateCallAnalyticsCategory)
+
+-- | A unique name, chosen by you, for your Call Analytics category. It\'s
+-- helpful to use a detailed naming system that will make sense to you in
+-- the future. For example, it\'s better to use
+-- @sentiment-positive-last30seconds@ for a category over a generic name
+-- like @test-category@.
+--
+-- Category names are case sensitive.
 createCallAnalyticsCategory_categoryName :: Lens.Lens' CreateCallAnalyticsCategory Prelude.Text
 createCallAnalyticsCategory_categoryName = Lens.lens (\CreateCallAnalyticsCategory' {categoryName} -> categoryName) (\s@CreateCallAnalyticsCategory' {} a -> s {categoryName = a} :: CreateCallAnalyticsCategory)
 
--- | To create a category, you must specify between 1 and 20 rules. For each
--- rule, you specify a filter to be applied to the attributes of the call.
--- For example, you can specify a sentiment filter to detect if the
--- customer\'s sentiment was negative or neutral.
+-- | Rules define a Call Analytics category. When creating a new category,
+-- you must create between 1 and 20 rules for that category. For each rule,
+-- you specify a filter you want applied to the attributes of a call. For
+-- example, you can choose a sentiment filter that detects if a customer\'s
+-- sentiment was positive during the last 30 seconds of the call.
 createCallAnalyticsCategory_rules :: Lens.Lens' CreateCallAnalyticsCategory (Prelude.NonEmpty Rule)
 createCallAnalyticsCategory_rules = Lens.lens (\CreateCallAnalyticsCategory' {rules} -> rules) (\s@CreateCallAnalyticsCategory' {} a -> s {rules = a} :: CreateCallAnalyticsCategory) Prelude.. Lens.coerced
 
@@ -107,58 +192,63 @@ instance Core.AWSRequest CreateCallAnalyticsCategory where
   type
     AWSResponse CreateCallAnalyticsCategory =
       CreateCallAnalyticsCategoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateCallAnalyticsCategoryResponse'
-            Prelude.<$> (x Core..?> "CategoryProperties")
+            Prelude.<$> (x Data..?> "CategoryProperties")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateCallAnalyticsCategory where
   hashWithSalt _salt CreateCallAnalyticsCategory' {..} =
-    _salt `Prelude.hashWithSalt` categoryName
+    _salt `Prelude.hashWithSalt` inputType
+      `Prelude.hashWithSalt` categoryName
       `Prelude.hashWithSalt` rules
 
 instance Prelude.NFData CreateCallAnalyticsCategory where
   rnf CreateCallAnalyticsCategory' {..} =
-    Prelude.rnf categoryName
+    Prelude.rnf inputType
+      `Prelude.seq` Prelude.rnf categoryName
       `Prelude.seq` Prelude.rnf rules
 
-instance Core.ToHeaders CreateCallAnalyticsCategory where
+instance Data.ToHeaders CreateCallAnalyticsCategory where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Transcribe.CreateCallAnalyticsCategory" ::
+              Data.=# ( "Transcribe.CreateCallAnalyticsCategory" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateCallAnalyticsCategory where
+instance Data.ToJSON CreateCallAnalyticsCategory where
   toJSON CreateCallAnalyticsCategory' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("CategoryName" Core..= categoryName),
-            Prelude.Just ("Rules" Core..= rules)
+          [ ("InputType" Data..=) Prelude.<$> inputType,
+            Prelude.Just ("CategoryName" Data..= categoryName),
+            Prelude.Just ("Rules" Data..= rules)
           ]
       )
 
-instance Core.ToPath CreateCallAnalyticsCategory where
+instance Data.ToPath CreateCallAnalyticsCategory where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateCallAnalyticsCategory where
+instance Data.ToQuery CreateCallAnalyticsCategory where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateCallAnalyticsCategoryResponse' smart constructor.
 data CreateCallAnalyticsCategoryResponse = CreateCallAnalyticsCategoryResponse'
-  { -- | The rules and associated metadata used to create a category.
+  { -- | Provides you with the properties of your new category, including its
+    -- associated rules.
     categoryProperties :: Prelude.Maybe CategoryProperties,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -173,7 +263,8 @@ data CreateCallAnalyticsCategoryResponse = CreateCallAnalyticsCategoryResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'categoryProperties', 'createCallAnalyticsCategoryResponse_categoryProperties' - The rules and associated metadata used to create a category.
+-- 'categoryProperties', 'createCallAnalyticsCategoryResponse_categoryProperties' - Provides you with the properties of your new category, including its
+-- associated rules.
 --
 -- 'httpStatus', 'createCallAnalyticsCategoryResponse_httpStatus' - The response's http status code.
 newCreateCallAnalyticsCategoryResponse ::
@@ -187,7 +278,8 @@ newCreateCallAnalyticsCategoryResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The rules and associated metadata used to create a category.
+-- | Provides you with the properties of your new category, including its
+-- associated rules.
 createCallAnalyticsCategoryResponse_categoryProperties :: Lens.Lens' CreateCallAnalyticsCategoryResponse (Prelude.Maybe CategoryProperties)
 createCallAnalyticsCategoryResponse_categoryProperties = Lens.lens (\CreateCallAnalyticsCategoryResponse' {categoryProperties} -> categoryProperties) (\s@CreateCallAnalyticsCategoryResponse' {} a -> s {categoryProperties = a} :: CreateCallAnalyticsCategoryResponse)
 

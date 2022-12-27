@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.Types.SidewalkAccountInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTWireless.Types.SidewalkAccountInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a Sidewalk account.
@@ -30,7 +31,7 @@ data SidewalkAccountInfo = SidewalkAccountInfo'
   { -- | The Sidewalk Amazon ID.
     amazonId :: Prelude.Maybe Prelude.Text,
     -- | The Sidewalk application server private key.
-    appServerPrivateKey :: Prelude.Maybe (Core.Sensitive Prelude.Text)
+    appServerPrivateKey :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -59,16 +60,16 @@ sidewalkAccountInfo_amazonId = Lens.lens (\SidewalkAccountInfo' {amazonId} -> am
 
 -- | The Sidewalk application server private key.
 sidewalkAccountInfo_appServerPrivateKey :: Lens.Lens' SidewalkAccountInfo (Prelude.Maybe Prelude.Text)
-sidewalkAccountInfo_appServerPrivateKey = Lens.lens (\SidewalkAccountInfo' {appServerPrivateKey} -> appServerPrivateKey) (\s@SidewalkAccountInfo' {} a -> s {appServerPrivateKey = a} :: SidewalkAccountInfo) Prelude.. Lens.mapping Core._Sensitive
+sidewalkAccountInfo_appServerPrivateKey = Lens.lens (\SidewalkAccountInfo' {appServerPrivateKey} -> appServerPrivateKey) (\s@SidewalkAccountInfo' {} a -> s {appServerPrivateKey = a} :: SidewalkAccountInfo) Prelude.. Lens.mapping Data._Sensitive
 
-instance Core.FromJSON SidewalkAccountInfo where
+instance Data.FromJSON SidewalkAccountInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SidewalkAccountInfo"
       ( \x ->
           SidewalkAccountInfo'
-            Prelude.<$> (x Core..:? "AmazonId")
-            Prelude.<*> (x Core..:? "AppServerPrivateKey")
+            Prelude.<$> (x Data..:? "AmazonId")
+            Prelude.<*> (x Data..:? "AppServerPrivateKey")
       )
 
 instance Prelude.Hashable SidewalkAccountInfo where
@@ -81,12 +82,12 @@ instance Prelude.NFData SidewalkAccountInfo where
     Prelude.rnf amazonId
       `Prelude.seq` Prelude.rnf appServerPrivateKey
 
-instance Core.ToJSON SidewalkAccountInfo where
+instance Data.ToJSON SidewalkAccountInfo where
   toJSON SidewalkAccountInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AmazonId" Core..=) Prelude.<$> amazonId,
-            ("AppServerPrivateKey" Core..=)
+          [ ("AmazonId" Data..=) Prelude.<$> amazonId,
+            ("AppServerPrivateKey" Data..=)
               Prelude.<$> appServerPrivateKey
           ]
       )

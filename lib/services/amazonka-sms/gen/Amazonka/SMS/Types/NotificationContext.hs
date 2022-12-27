@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.Types.NotificationContext
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SMS.Types.NotificationContext where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SMS.Types.ValidationStatus
 
@@ -83,12 +84,12 @@ instance Prelude.NFData NotificationContext where
       `Prelude.seq` Prelude.rnf statusMessage
       `Prelude.seq` Prelude.rnf validationId
 
-instance Core.ToJSON NotificationContext where
+instance Data.ToJSON NotificationContext where
   toJSON NotificationContext' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("status" Core..=) Prelude.<$> status,
-            ("statusMessage" Core..=) Prelude.<$> statusMessage,
-            ("validationId" Core..=) Prelude.<$> validationId
+          [ ("status" Data..=) Prelude.<$> status,
+            ("statusMessage" Data..=) Prelude.<$> statusMessage,
+            ("validationId" Data..=) Prelude.<$> validationId
           ]
       )

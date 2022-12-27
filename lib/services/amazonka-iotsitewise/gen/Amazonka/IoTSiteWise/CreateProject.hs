@@ -14,13 +14,16 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.CreateProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates a project in the specified portal.
+--
+-- Make sure that the project name and description don\'t contain
+-- confidential information.
 module Amazonka.IoTSiteWise.CreateProject
   ( -- * Creating a Request
     CreateProject (..),
@@ -45,8 +48,9 @@ module Amazonka.IoTSiteWise.CreateProject
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -137,14 +141,15 @@ instance Core.AWSRequest CreateProject where
   type
     AWSResponse CreateProject =
       CreateProjectResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateProjectResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "projectId")
-            Prelude.<*> (x Core..:> "projectArn")
+            Prelude.<*> (x Data..:> "projectId")
+            Prelude.<*> (x Data..:> "projectArn")
       )
 
 instance Prelude.Hashable CreateProject where
@@ -163,34 +168,34 @@ instance Prelude.NFData CreateProject where
       `Prelude.seq` Prelude.rnf portalId
       `Prelude.seq` Prelude.rnf projectName
 
-instance Core.ToHeaders CreateProject where
+instance Data.ToHeaders CreateProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateProject where
+instance Data.ToJSON CreateProject where
   toJSON CreateProject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("projectDescription" Core..=)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("projectDescription" Data..=)
               Prelude.<$> projectDescription,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("portalId" Core..= portalId),
-            Prelude.Just ("projectName" Core..= projectName)
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("portalId" Data..= portalId),
+            Prelude.Just ("projectName" Data..= projectName)
           ]
       )
 
-instance Core.ToPath CreateProject where
+instance Data.ToPath CreateProject where
   toPath = Prelude.const "/projects"
 
-instance Core.ToQuery CreateProject where
+instance Data.ToQuery CreateProject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateProjectResponse' smart constructor.

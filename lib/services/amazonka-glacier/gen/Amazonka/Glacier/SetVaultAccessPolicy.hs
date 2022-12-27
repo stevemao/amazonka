@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.SetVaultAccessPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.Glacier.SetVaultAccessPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,9 +118,9 @@ instance Core.AWSRequest SetVaultAccessPolicy where
   type
     AWSResponse SetVaultAccessPolicy =
       SetVaultAccessPolicyResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.putJSON defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.putJSON (overrides defaultService)
   response =
     Response.receiveNull SetVaultAccessPolicyResponse'
 
@@ -135,27 +136,23 @@ instance Prelude.NFData SetVaultAccessPolicy where
       `Prelude.seq` Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf vaultName
 
-instance Core.ToHeaders SetVaultAccessPolicy where
+instance Data.ToHeaders SetVaultAccessPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON SetVaultAccessPolicy where
-  toJSON SetVaultAccessPolicy' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [("policy" Core..=) Prelude.<$> policy]
-      )
+instance Data.ToJSON SetVaultAccessPolicy where
+  toJSON SetVaultAccessPolicy' {..} = Data.toJSON policy
 
-instance Core.ToPath SetVaultAccessPolicy where
+instance Data.ToPath SetVaultAccessPolicy where
   toPath SetVaultAccessPolicy' {..} =
     Prelude.mconcat
       [ "/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/vaults/",
-        Core.toBS vaultName,
+        Data.toBS vaultName,
         "/access-policy"
       ]
 
-instance Core.ToQuery SetVaultAccessPolicy where
+instance Data.ToQuery SetVaultAccessPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSetVaultAccessPolicyResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.GetWirelessGatewayFirmwareInformation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IoTWireless.GetWirelessGatewayFirmwareInformation
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,12 +83,13 @@ instance
     AWSResponse
       GetWirelessGatewayFirmwareInformation =
       GetWirelessGatewayFirmwareInformationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetWirelessGatewayFirmwareInformationResponse'
-            Prelude.<$> (x Core..?> "LoRaWAN")
+            Prelude.<$> (x Data..?> "LoRaWAN")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,24 +110,24 @@ instance
     Prelude.rnf id
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetWirelessGatewayFirmwareInformation
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetWirelessGatewayFirmwareInformation
   where
   toPath GetWirelessGatewayFirmwareInformation' {..} =
     Prelude.mconcat
       [ "/wireless-gateways/",
-        Core.toBS id,
+        Data.toBS id,
         "/firmware-information"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetWirelessGatewayFirmwareInformation
   where
   toQuery = Prelude.const Prelude.mempty

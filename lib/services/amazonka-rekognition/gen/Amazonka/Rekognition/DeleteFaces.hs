@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.DeleteFaces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.Rekognition.DeleteFaces
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types
 import qualified Amazonka.Request as Request
@@ -93,12 +94,13 @@ deleteFaces_faceIds = Lens.lens (\DeleteFaces' {faceIds} -> faceIds) (\s@DeleteF
 
 instance Core.AWSRequest DeleteFaces where
   type AWSResponse DeleteFaces = DeleteFacesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteFacesResponse'
-            Prelude.<$> (x Core..?> "DeletedFaces")
+            Prelude.<$> (x Data..?> "DeletedFaces")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,34 +114,34 @@ instance Prelude.NFData DeleteFaces where
     Prelude.rnf collectionId
       `Prelude.seq` Prelude.rnf faceIds
 
-instance Core.ToHeaders DeleteFaces where
+instance Data.ToHeaders DeleteFaces where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "RekognitionService.DeleteFaces" ::
+              Data.=# ( "RekognitionService.DeleteFaces" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteFaces where
+instance Data.ToJSON DeleteFaces where
   toJSON DeleteFaces' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("CollectionId" Core..= collectionId),
-            Prelude.Just ("FaceIds" Core..= faceIds)
+          [ Prelude.Just ("CollectionId" Data..= collectionId),
+            Prelude.Just ("FaceIds" Data..= faceIds)
           ]
       )
 
-instance Core.ToPath DeleteFaces where
+instance Data.ToPath DeleteFaces where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteFaces where
+instance Data.ToQuery DeleteFaces where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFacesResponse' smart constructor.

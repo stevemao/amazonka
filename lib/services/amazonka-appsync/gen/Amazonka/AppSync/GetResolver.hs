@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.GetResolver
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,12 +102,13 @@ getResolver_fieldName = Lens.lens (\GetResolver' {fieldName} -> fieldName) (\s@G
 
 instance Core.AWSRequest GetResolver where
   type AWSResponse GetResolver = GetResolverResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetResolverResponse'
-            Prelude.<$> (x Core..?> "resolver")
+            Prelude.<$> (x Data..?> "resolver")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -122,29 +124,29 @@ instance Prelude.NFData GetResolver where
       `Prelude.seq` Prelude.rnf typeName
       `Prelude.seq` Prelude.rnf fieldName
 
-instance Core.ToHeaders GetResolver where
+instance Data.ToHeaders GetResolver where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetResolver where
+instance Data.ToPath GetResolver where
   toPath GetResolver' {..} =
     Prelude.mconcat
       [ "/v1/apis/",
-        Core.toBS apiId,
+        Data.toBS apiId,
         "/types/",
-        Core.toBS typeName,
+        Data.toBS typeName,
         "/resolvers/",
-        Core.toBS fieldName
+        Data.toBS fieldName
       ]
 
-instance Core.ToQuery GetResolver where
+instance Data.ToQuery GetResolver where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetResolverResponse' smart constructor.

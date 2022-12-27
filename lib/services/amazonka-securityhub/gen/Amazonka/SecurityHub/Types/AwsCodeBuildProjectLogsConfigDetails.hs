@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsCodeBuildProjectLogsConfigDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsCodeBuildProjectLogsConfigDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsCodeBuildProjectLogsConfigCloudWatchLogsDetails
 import Amazonka.SecurityHub.Types.AwsCodeBuildProjectLogsConfigS3LogsDetails
@@ -29,10 +30,10 @@ import Amazonka.SecurityHub.Types.AwsCodeBuildProjectLogsConfigS3LogsDetails
 --
 -- /See:/ 'newAwsCodeBuildProjectLogsConfigDetails' smart constructor.
 data AwsCodeBuildProjectLogsConfigDetails = AwsCodeBuildProjectLogsConfigDetails'
-  { -- | Information about logs built to an S3 bucket for a build project.
-    s3Logs :: Prelude.Maybe AwsCodeBuildProjectLogsConfigS3LogsDetails,
-    -- | Information about CloudWatch Logs for the build project.
-    cloudWatchLogs :: Prelude.Maybe AwsCodeBuildProjectLogsConfigCloudWatchLogsDetails
+  { -- | Information about CloudWatch Logs for the build project.
+    cloudWatchLogs :: Prelude.Maybe AwsCodeBuildProjectLogsConfigCloudWatchLogsDetails,
+    -- | Information about logs built to an S3 bucket for a build project.
+    s3Logs :: Prelude.Maybe AwsCodeBuildProjectLogsConfigS3LogsDetails
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,37 +45,37 @@ data AwsCodeBuildProjectLogsConfigDetails = AwsCodeBuildProjectLogsConfigDetails
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 's3Logs', 'awsCodeBuildProjectLogsConfigDetails_s3Logs' - Information about logs built to an S3 bucket for a build project.
---
 -- 'cloudWatchLogs', 'awsCodeBuildProjectLogsConfigDetails_cloudWatchLogs' - Information about CloudWatch Logs for the build project.
+--
+-- 's3Logs', 'awsCodeBuildProjectLogsConfigDetails_s3Logs' - Information about logs built to an S3 bucket for a build project.
 newAwsCodeBuildProjectLogsConfigDetails ::
   AwsCodeBuildProjectLogsConfigDetails
 newAwsCodeBuildProjectLogsConfigDetails =
   AwsCodeBuildProjectLogsConfigDetails'
-    { s3Logs =
+    { cloudWatchLogs =
         Prelude.Nothing,
-      cloudWatchLogs = Prelude.Nothing
+      s3Logs = Prelude.Nothing
     }
-
--- | Information about logs built to an S3 bucket for a build project.
-awsCodeBuildProjectLogsConfigDetails_s3Logs :: Lens.Lens' AwsCodeBuildProjectLogsConfigDetails (Prelude.Maybe AwsCodeBuildProjectLogsConfigS3LogsDetails)
-awsCodeBuildProjectLogsConfigDetails_s3Logs = Lens.lens (\AwsCodeBuildProjectLogsConfigDetails' {s3Logs} -> s3Logs) (\s@AwsCodeBuildProjectLogsConfigDetails' {} a -> s {s3Logs = a} :: AwsCodeBuildProjectLogsConfigDetails)
 
 -- | Information about CloudWatch Logs for the build project.
 awsCodeBuildProjectLogsConfigDetails_cloudWatchLogs :: Lens.Lens' AwsCodeBuildProjectLogsConfigDetails (Prelude.Maybe AwsCodeBuildProjectLogsConfigCloudWatchLogsDetails)
 awsCodeBuildProjectLogsConfigDetails_cloudWatchLogs = Lens.lens (\AwsCodeBuildProjectLogsConfigDetails' {cloudWatchLogs} -> cloudWatchLogs) (\s@AwsCodeBuildProjectLogsConfigDetails' {} a -> s {cloudWatchLogs = a} :: AwsCodeBuildProjectLogsConfigDetails)
 
+-- | Information about logs built to an S3 bucket for a build project.
+awsCodeBuildProjectLogsConfigDetails_s3Logs :: Lens.Lens' AwsCodeBuildProjectLogsConfigDetails (Prelude.Maybe AwsCodeBuildProjectLogsConfigS3LogsDetails)
+awsCodeBuildProjectLogsConfigDetails_s3Logs = Lens.lens (\AwsCodeBuildProjectLogsConfigDetails' {s3Logs} -> s3Logs) (\s@AwsCodeBuildProjectLogsConfigDetails' {} a -> s {s3Logs = a} :: AwsCodeBuildProjectLogsConfigDetails)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsCodeBuildProjectLogsConfigDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsCodeBuildProjectLogsConfigDetails"
       ( \x ->
           AwsCodeBuildProjectLogsConfigDetails'
-            Prelude.<$> (x Core..:? "S3Logs")
-            Prelude.<*> (x Core..:? "CloudWatchLogs")
+            Prelude.<$> (x Data..:? "CloudWatchLogs")
+            Prelude.<*> (x Data..:? "S3Logs")
       )
 
 instance
@@ -84,26 +85,26 @@ instance
   hashWithSalt
     _salt
     AwsCodeBuildProjectLogsConfigDetails' {..} =
-      _salt `Prelude.hashWithSalt` s3Logs
-        `Prelude.hashWithSalt` cloudWatchLogs
+      _salt `Prelude.hashWithSalt` cloudWatchLogs
+        `Prelude.hashWithSalt` s3Logs
 
 instance
   Prelude.NFData
     AwsCodeBuildProjectLogsConfigDetails
   where
   rnf AwsCodeBuildProjectLogsConfigDetails' {..} =
-    Prelude.rnf s3Logs
-      `Prelude.seq` Prelude.rnf cloudWatchLogs
+    Prelude.rnf cloudWatchLogs
+      `Prelude.seq` Prelude.rnf s3Logs
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsCodeBuildProjectLogsConfigDetails
   where
   toJSON AwsCodeBuildProjectLogsConfigDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("S3Logs" Core..=) Prelude.<$> s3Logs,
-            ("CloudWatchLogs" Core..=)
-              Prelude.<$> cloudWatchLogs
+          [ ("CloudWatchLogs" Data..=)
+              Prelude.<$> cloudWatchLogs,
+            ("S3Logs" Data..=) Prelude.<$> s3Logs
           ]
       )

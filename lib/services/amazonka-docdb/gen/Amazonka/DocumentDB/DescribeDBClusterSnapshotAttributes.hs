@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.DescribeDBClusterSnapshotAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,12 +23,13 @@
 -- Returns a list of cluster snapshot attribute names and values for a
 -- manual DB cluster snapshot.
 --
--- When you share snapshots with other accounts,
+-- When you share snapshots with other Amazon Web Services accounts,
 -- @DescribeDBClusterSnapshotAttributes@ returns the @restore@ attribute
--- and a list of IDs for the accounts that are authorized to copy or
--- restore the manual cluster snapshot. If @all@ is included in the list of
--- values for the @restore@ attribute, then the manual cluster snapshot is
--- public and can be copied or restored by all accounts.
+-- and a list of IDs for the Amazon Web Services accounts that are
+-- authorized to copy or restore the manual cluster snapshot. If @all@ is
+-- included in the list of values for the @restore@ attribute, then the
+-- manual cluster snapshot is public and can be copied or restored by all
+-- Amazon Web Services accounts.
 module Amazonka.DocumentDB.DescribeDBClusterSnapshotAttributes
   ( -- * Creating a Request
     DescribeDBClusterSnapshotAttributes (..),
@@ -48,8 +49,9 @@ module Amazonka.DocumentDB.DescribeDBClusterSnapshotAttributes
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,13 +96,14 @@ instance
   type
     AWSResponse DescribeDBClusterSnapshotAttributes =
       DescribeDBClusterSnapshotAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeDBClusterSnapshotAttributesResult"
       ( \s h x ->
           DescribeDBClusterSnapshotAttributesResponse'
-            Prelude.<$> (x Core..@? "DBClusterSnapshotAttributesResult")
+            Prelude.<$> (x Data..@? "DBClusterSnapshotAttributesResult")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -122,31 +125,31 @@ instance
     Prelude.rnf dbClusterSnapshotIdentifier
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeDBClusterSnapshotAttributes
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeDBClusterSnapshotAttributes
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeDBClusterSnapshotAttributes
   where
   toQuery DescribeDBClusterSnapshotAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeDBClusterSnapshotAttributes" ::
+          Data.=: ( "DescribeDBClusterSnapshotAttributes" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "DBClusterSnapshotIdentifier"
-          Core.=: dbClusterSnapshotIdentifier
+          Data.=: dbClusterSnapshotIdentifier
       ]
 
 -- | /See:/ 'newDescribeDBClusterSnapshotAttributesResponse' smart constructor.

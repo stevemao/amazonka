@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.PutBucketAccelerateConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,7 +25,7 @@
 -- perform faster data transfers to Amazon S3.
 --
 -- To use this operation, you must have permission to perform the
--- s3:PutAccelerateConfiguration action. The bucket owner has this
+-- @s3:PutAccelerateConfiguration@ action. The bucket owner has this
 -- permission by default. The bucket owner can grant this permission to
 -- others. For more information about permissions, see
 -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html#using-with-s3-actions-related-to-bucket-subresources Permissions Related to Bucket Subresource Operations>
@@ -65,6 +65,7 @@ module Amazonka.S3.PutBucketAccelerateConfiguration
     newPutBucketAccelerateConfiguration,
 
     -- * Request Lenses
+    putBucketAccelerateConfiguration_checksumAlgorithm,
     putBucketAccelerateConfiguration_expectedBucketOwner,
     putBucketAccelerateConfiguration_bucket,
     putBucketAccelerateConfiguration_accelerateConfiguration,
@@ -76,7 +77,8 @@ module Amazonka.S3.PutBucketAccelerateConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,9 +86,21 @@ import Amazonka.S3.Types
 
 -- | /See:/ 'newPutBucketAccelerateConfiguration' smart constructor.
 data PutBucketAccelerateConfiguration = PutBucketAccelerateConfiguration'
-  { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+  { -- | Indicates the algorithm used to create the checksum for the object when
+    -- using the SDK. This header will not provide any additional functionality
+    -- if not using the SDK. When sending this header, there must be a
+    -- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+    -- Otherwise, Amazon S3 fails the request with the HTTP status code
+    -- @400 Bad Request@. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+    -- in the /Amazon S3 User Guide/.
+    --
+    -- If you provide an individual checksum, Amazon S3 ignores any provided
+    -- @ChecksumAlgorithm@ parameter.
+    checksumAlgorithm :: Prelude.Maybe ChecksumAlgorithm,
+    -- | The account ID of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket for which the accelerate configuration is set.
     bucket :: BucketName,
@@ -103,9 +117,21 @@ data PutBucketAccelerateConfiguration = PutBucketAccelerateConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'checksumAlgorithm', 'putBucketAccelerateConfiguration_checksumAlgorithm' - Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
+--
 -- 'expectedBucketOwner', 'putBucketAccelerateConfiguration_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'putBucketAccelerateConfiguration_bucket' - The name of the bucket for which the accelerate configuration is set.
 --
@@ -120,16 +146,31 @@ newPutBucketAccelerateConfiguration
   pBucket_
   pAccelerateConfiguration_ =
     PutBucketAccelerateConfiguration'
-      { expectedBucketOwner =
+      { checksumAlgorithm =
           Prelude.Nothing,
+        expectedBucketOwner = Prelude.Nothing,
         bucket = pBucket_,
         accelerateConfiguration =
           pAccelerateConfiguration_
       }
 
+-- | Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
+putBucketAccelerateConfiguration_checksumAlgorithm :: Lens.Lens' PutBucketAccelerateConfiguration (Prelude.Maybe ChecksumAlgorithm)
+putBucketAccelerateConfiguration_checksumAlgorithm = Lens.lens (\PutBucketAccelerateConfiguration' {checksumAlgorithm} -> checksumAlgorithm) (\s@PutBucketAccelerateConfiguration' {} a -> s {checksumAlgorithm = a} :: PutBucketAccelerateConfiguration)
+
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 putBucketAccelerateConfiguration_expectedBucketOwner :: Lens.Lens' PutBucketAccelerateConfiguration (Prelude.Maybe Prelude.Text)
 putBucketAccelerateConfiguration_expectedBucketOwner = Lens.lens (\PutBucketAccelerateConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutBucketAccelerateConfiguration' {} a -> s {expectedBucketOwner = a} :: PutBucketAccelerateConfiguration)
 
@@ -148,9 +189,9 @@ instance
   type
     AWSResponse PutBucketAccelerateConfiguration =
       PutBucketAccelerateConfigurationResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.putXML defaultService
+      Prelude.. Request.putXML (overrides defaultService)
   response =
     Response.receiveNull
       PutBucketAccelerateConfigurationResponse'
@@ -162,7 +203,8 @@ instance
   hashWithSalt
     _salt
     PutBucketAccelerateConfiguration' {..} =
-      _salt `Prelude.hashWithSalt` expectedBucketOwner
+      _salt `Prelude.hashWithSalt` checksumAlgorithm
+        `Prelude.hashWithSalt` expectedBucketOwner
         `Prelude.hashWithSalt` bucket
         `Prelude.hashWithSalt` accelerateConfiguration
 
@@ -171,35 +213,38 @@ instance
     PutBucketAccelerateConfiguration
   where
   rnf PutBucketAccelerateConfiguration' {..} =
-    Prelude.rnf expectedBucketOwner
+    Prelude.rnf checksumAlgorithm
+      `Prelude.seq` Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
       `Prelude.seq` Prelude.rnf accelerateConfiguration
 
 instance
-  Core.ToElement
+  Data.ToElement
     PutBucketAccelerateConfiguration
   where
   toElement PutBucketAccelerateConfiguration' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}AccelerateConfiguration"
       accelerateConfiguration
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PutBucketAccelerateConfiguration
   where
   toHeaders PutBucketAccelerateConfiguration' {..} =
     Prelude.mconcat
-      [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+      [ "x-amz-sdk-checksum-algorithm"
+          Data.=# checksumAlgorithm,
+        "x-amz-expected-bucket-owner"
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath PutBucketAccelerateConfiguration where
+instance Data.ToPath PutBucketAccelerateConfiguration where
   toPath PutBucketAccelerateConfiguration' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     PutBucketAccelerateConfiguration
   where
   toQuery =

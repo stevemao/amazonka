@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.MsSmoothAdditionalManifest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.MsSmoothAdditionalManifest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specify the details for each additional Microsoft Smooth Streaming
@@ -82,15 +83,15 @@ msSmoothAdditionalManifest_manifestNameModifier = Lens.lens (\MsSmoothAdditional
 msSmoothAdditionalManifest_selectedOutputs :: Lens.Lens' MsSmoothAdditionalManifest (Prelude.Maybe [Prelude.Text])
 msSmoothAdditionalManifest_selectedOutputs = Lens.lens (\MsSmoothAdditionalManifest' {selectedOutputs} -> selectedOutputs) (\s@MsSmoothAdditionalManifest' {} a -> s {selectedOutputs = a} :: MsSmoothAdditionalManifest) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON MsSmoothAdditionalManifest where
+instance Data.FromJSON MsSmoothAdditionalManifest where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MsSmoothAdditionalManifest"
       ( \x ->
           MsSmoothAdditionalManifest'
-            Prelude.<$> (x Core..:? "manifestNameModifier")
-            Prelude.<*> ( x Core..:? "selectedOutputs"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "manifestNameModifier")
+            Prelude.<*> ( x Data..:? "selectedOutputs"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -104,13 +105,13 @@ instance Prelude.NFData MsSmoothAdditionalManifest where
     Prelude.rnf manifestNameModifier
       `Prelude.seq` Prelude.rnf selectedOutputs
 
-instance Core.ToJSON MsSmoothAdditionalManifest where
+instance Data.ToJSON MsSmoothAdditionalManifest where
   toJSON MsSmoothAdditionalManifest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("manifestNameModifier" Core..=)
+          [ ("manifestNameModifier" Data..=)
               Prelude.<$> manifestNameModifier,
-            ("selectedOutputs" Core..=)
+            ("selectedOutputs" Data..=)
               Prelude.<$> selectedOutputs
           ]
       )

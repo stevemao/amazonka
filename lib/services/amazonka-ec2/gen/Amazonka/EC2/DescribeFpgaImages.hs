@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeFpgaImages
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,12 +31,12 @@ module Amazonka.EC2.DescribeFpgaImages
     newDescribeFpgaImages,
 
     -- * Request Lenses
-    describeFpgaImages_owners,
-    describeFpgaImages_filters,
-    describeFpgaImages_nextToken,
     describeFpgaImages_dryRun,
-    describeFpgaImages_maxResults,
+    describeFpgaImages_filters,
     describeFpgaImages_fpgaImageIds,
+    describeFpgaImages_maxResults,
+    describeFpgaImages_nextToken,
+    describeFpgaImages_owners,
 
     -- * Destructuring the Response
     DescribeFpgaImagesResponse (..),
@@ -50,18 +50,20 @@ module Amazonka.EC2.DescribeFpgaImages
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeFpgaImages' smart constructor.
 data DescribeFpgaImages = DescribeFpgaImages'
-  { -- | Filters the AFI by owner. Specify an Amazon Web Services account ID,
-    -- @self@ (owner is the sender of the request), or an Amazon Web Services
-    -- owner alias (valid values are @amazon@ | @aws-marketplace@).
-    owners :: Prelude.Maybe [Prelude.Text],
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The filters.
     --
     -- -   @create-time@ - The creation time of the AFI.
@@ -94,17 +96,16 @@ data DescribeFpgaImages = DescribeFpgaImages'
     --
     -- -   @update-time@ - The time of the most recent update.
     filters :: Prelude.Maybe [Filter],
-    -- | The token to retrieve the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The AFI IDs.
+    fpgaImageIds :: Prelude.Maybe [Prelude.Text],
     -- | The maximum number of results to return in a single call.
     maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The AFI IDs.
-    fpgaImageIds :: Prelude.Maybe [Prelude.Text]
+    -- | The token to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Filters the AFI by owner. Specify an Amazon Web Services account ID,
+    -- @self@ (owner is the sender of the request), or an Amazon Web Services
+    -- owner alias (valid values are @amazon@ | @aws-marketplace@).
+    owners :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -116,9 +117,10 @@ data DescribeFpgaImages = DescribeFpgaImages'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'owners', 'describeFpgaImages_owners' - Filters the AFI by owner. Specify an Amazon Web Services account ID,
--- @self@ (owner is the sender of the request), or an Amazon Web Services
--- owner alias (valid values are @amazon@ | @aws-marketplace@).
+-- 'dryRun', 'describeFpgaImages_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeFpgaImages_filters' - The filters.
 --
@@ -152,33 +154,33 @@ data DescribeFpgaImages = DescribeFpgaImages'
 --
 -- -   @update-time@ - The time of the most recent update.
 --
--- 'nextToken', 'describeFpgaImages_nextToken' - The token to retrieve the next page of results.
---
--- 'dryRun', 'describeFpgaImages_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
+-- 'fpgaImageIds', 'describeFpgaImages_fpgaImageIds' - The AFI IDs.
 --
 -- 'maxResults', 'describeFpgaImages_maxResults' - The maximum number of results to return in a single call.
 --
--- 'fpgaImageIds', 'describeFpgaImages_fpgaImageIds' - The AFI IDs.
+-- 'nextToken', 'describeFpgaImages_nextToken' - The token to retrieve the next page of results.
+--
+-- 'owners', 'describeFpgaImages_owners' - Filters the AFI by owner. Specify an Amazon Web Services account ID,
+-- @self@ (owner is the sender of the request), or an Amazon Web Services
+-- owner alias (valid values are @amazon@ | @aws-marketplace@).
 newDescribeFpgaImages ::
   DescribeFpgaImages
 newDescribeFpgaImages =
   DescribeFpgaImages'
-    { owners = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
       filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
+      fpgaImageIds = Prelude.Nothing,
       maxResults = Prelude.Nothing,
-      fpgaImageIds = Prelude.Nothing
+      nextToken = Prelude.Nothing,
+      owners = Prelude.Nothing
     }
 
--- | Filters the AFI by owner. Specify an Amazon Web Services account ID,
--- @self@ (owner is the sender of the request), or an Amazon Web Services
--- owner alias (valid values are @amazon@ | @aws-marketplace@).
-describeFpgaImages_owners :: Lens.Lens' DescribeFpgaImages (Prelude.Maybe [Prelude.Text])
-describeFpgaImages_owners = Lens.lens (\DescribeFpgaImages' {owners} -> owners) (\s@DescribeFpgaImages' {} a -> s {owners = a} :: DescribeFpgaImages) Prelude.. Lens.mapping Lens.coerced
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeFpgaImages_dryRun :: Lens.Lens' DescribeFpgaImages (Prelude.Maybe Prelude.Bool)
+describeFpgaImages_dryRun = Lens.lens (\DescribeFpgaImages' {dryRun} -> dryRun) (\s@DescribeFpgaImages' {} a -> s {dryRun = a} :: DescribeFpgaImages)
 
 -- | The filters.
 --
@@ -214,24 +216,23 @@ describeFpgaImages_owners = Lens.lens (\DescribeFpgaImages' {owners} -> owners) 
 describeFpgaImages_filters :: Lens.Lens' DescribeFpgaImages (Prelude.Maybe [Filter])
 describeFpgaImages_filters = Lens.lens (\DescribeFpgaImages' {filters} -> filters) (\s@DescribeFpgaImages' {} a -> s {filters = a} :: DescribeFpgaImages) Prelude.. Lens.mapping Lens.coerced
 
--- | The token to retrieve the next page of results.
-describeFpgaImages_nextToken :: Lens.Lens' DescribeFpgaImages (Prelude.Maybe Prelude.Text)
-describeFpgaImages_nextToken = Lens.lens (\DescribeFpgaImages' {nextToken} -> nextToken) (\s@DescribeFpgaImages' {} a -> s {nextToken = a} :: DescribeFpgaImages)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeFpgaImages_dryRun :: Lens.Lens' DescribeFpgaImages (Prelude.Maybe Prelude.Bool)
-describeFpgaImages_dryRun = Lens.lens (\DescribeFpgaImages' {dryRun} -> dryRun) (\s@DescribeFpgaImages' {} a -> s {dryRun = a} :: DescribeFpgaImages)
+-- | The AFI IDs.
+describeFpgaImages_fpgaImageIds :: Lens.Lens' DescribeFpgaImages (Prelude.Maybe [Prelude.Text])
+describeFpgaImages_fpgaImageIds = Lens.lens (\DescribeFpgaImages' {fpgaImageIds} -> fpgaImageIds) (\s@DescribeFpgaImages' {} a -> s {fpgaImageIds = a} :: DescribeFpgaImages) Prelude.. Lens.mapping Lens.coerced
 
 -- | The maximum number of results to return in a single call.
 describeFpgaImages_maxResults :: Lens.Lens' DescribeFpgaImages (Prelude.Maybe Prelude.Natural)
 describeFpgaImages_maxResults = Lens.lens (\DescribeFpgaImages' {maxResults} -> maxResults) (\s@DescribeFpgaImages' {} a -> s {maxResults = a} :: DescribeFpgaImages)
 
--- | The AFI IDs.
-describeFpgaImages_fpgaImageIds :: Lens.Lens' DescribeFpgaImages (Prelude.Maybe [Prelude.Text])
-describeFpgaImages_fpgaImageIds = Lens.lens (\DescribeFpgaImages' {fpgaImageIds} -> fpgaImageIds) (\s@DescribeFpgaImages' {} a -> s {fpgaImageIds = a} :: DescribeFpgaImages) Prelude.. Lens.mapping Lens.coerced
+-- | The token to retrieve the next page of results.
+describeFpgaImages_nextToken :: Lens.Lens' DescribeFpgaImages (Prelude.Maybe Prelude.Text)
+describeFpgaImages_nextToken = Lens.lens (\DescribeFpgaImages' {nextToken} -> nextToken) (\s@DescribeFpgaImages' {} a -> s {nextToken = a} :: DescribeFpgaImages)
+
+-- | Filters the AFI by owner. Specify an Amazon Web Services account ID,
+-- @self@ (owner is the sender of the request), or an Amazon Web Services
+-- owner alias (valid values are @amazon@ | @aws-marketplace@).
+describeFpgaImages_owners :: Lens.Lens' DescribeFpgaImages (Prelude.Maybe [Prelude.Text])
+describeFpgaImages_owners = Lens.lens (\DescribeFpgaImages' {owners} -> owners) (\s@DescribeFpgaImages' {} a -> s {owners = a} :: DescribeFpgaImages) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSPager DescribeFpgaImages where
   page rq rs
@@ -259,60 +260,61 @@ instance Core.AWSRequest DescribeFpgaImages where
   type
     AWSResponse DescribeFpgaImages =
       DescribeFpgaImagesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeFpgaImagesResponse'
-            Prelude.<$> ( x Core..@? "fpgaImageSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "fpgaImageSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> (x Core..@? "nextToken")
+            Prelude.<*> (x Data..@? "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeFpgaImages where
   hashWithSalt _salt DescribeFpgaImages' {..} =
-    _salt `Prelude.hashWithSalt` owners
+    _salt `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` dryRun
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` fpgaImageIds
+      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` owners
 
 instance Prelude.NFData DescribeFpgaImages where
   rnf DescribeFpgaImages' {..} =
-    Prelude.rnf owners
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf fpgaImageIds
+      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf owners
 
-instance Core.ToHeaders DescribeFpgaImages where
+instance Data.ToHeaders DescribeFpgaImages where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeFpgaImages where
+instance Data.ToPath DescribeFpgaImages where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeFpgaImages where
+instance Data.ToQuery DescribeFpgaImages where
   toQuery DescribeFpgaImages' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeFpgaImages" :: Prelude.ByteString),
+          Data.=: ("DescribeFpgaImages" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Owner" Prelude.<$> owners),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults,
-        Core.toQuery
-          ( Core.toQueryList "FpgaImageId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        Data.toQuery
+          ( Data.toQueryList "FpgaImageId"
               Prelude.<$> fpgaImageIds
-          )
+          ),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        Data.toQuery
+          (Data.toQueryList "Owner" Prelude.<$> owners)
       ]
 
 -- | /See:/ 'newDescribeFpgaImagesResponse' smart constructor.

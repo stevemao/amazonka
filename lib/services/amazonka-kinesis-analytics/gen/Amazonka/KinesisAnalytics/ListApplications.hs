@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.ListApplications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,8 @@ module Amazonka.KinesisAnalytics.ListApplications
     newListApplications,
 
     -- * Request Lenses
-    listApplications_limit,
     listApplications_exclusiveStartApplicationName,
+    listApplications_limit,
 
     -- * Destructuring the Response
     ListApplicationsResponse (..),
@@ -59,8 +59,9 @@ module Amazonka.KinesisAnalytics.ListApplications
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,14 +70,14 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListApplications' smart constructor.
 data ListApplications = ListApplications'
-  { -- | Maximum number of applications to list.
-    limit :: Prelude.Maybe Prelude.Natural,
-    -- | Name of the application to start the list with. When using pagination to
+  { -- | Name of the application to start the list with. When using pagination to
     -- retrieve the list, you don\'t need to specify this parameter in the
     -- first request. However, in subsequent requests, you add the last
     -- application name from the previous response to get the next page of
     -- applications.
-    exclusiveStartApplicationName :: Prelude.Maybe Prelude.Text
+    exclusiveStartApplicationName :: Prelude.Maybe Prelude.Text,
+    -- | Maximum number of applications to list.
+    limit :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -88,24 +89,21 @@ data ListApplications = ListApplications'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'limit', 'listApplications_limit' - Maximum number of applications to list.
---
 -- 'exclusiveStartApplicationName', 'listApplications_exclusiveStartApplicationName' - Name of the application to start the list with. When using pagination to
 -- retrieve the list, you don\'t need to specify this parameter in the
 -- first request. However, in subsequent requests, you add the last
 -- application name from the previous response to get the next page of
 -- applications.
+--
+-- 'limit', 'listApplications_limit' - Maximum number of applications to list.
 newListApplications ::
   ListApplications
 newListApplications =
   ListApplications'
-    { limit = Prelude.Nothing,
-      exclusiveStartApplicationName = Prelude.Nothing
+    { exclusiveStartApplicationName =
+        Prelude.Nothing,
+      limit = Prelude.Nothing
     }
-
--- | Maximum number of applications to list.
-listApplications_limit :: Lens.Lens' ListApplications (Prelude.Maybe Prelude.Natural)
-listApplications_limit = Lens.lens (\ListApplications' {limit} -> limit) (\s@ListApplications' {} a -> s {limit = a} :: ListApplications)
 
 -- | Name of the application to start the list with. When using pagination to
 -- retrieve the list, you don\'t need to specify this parameter in the
@@ -115,61 +113,67 @@ listApplications_limit = Lens.lens (\ListApplications' {limit} -> limit) (\s@Lis
 listApplications_exclusiveStartApplicationName :: Lens.Lens' ListApplications (Prelude.Maybe Prelude.Text)
 listApplications_exclusiveStartApplicationName = Lens.lens (\ListApplications' {exclusiveStartApplicationName} -> exclusiveStartApplicationName) (\s@ListApplications' {} a -> s {exclusiveStartApplicationName = a} :: ListApplications)
 
+-- | Maximum number of applications to list.
+listApplications_limit :: Lens.Lens' ListApplications (Prelude.Maybe Prelude.Natural)
+listApplications_limit = Lens.lens (\ListApplications' {limit} -> limit) (\s@ListApplications' {} a -> s {limit = a} :: ListApplications)
+
 instance Core.AWSRequest ListApplications where
   type
     AWSResponse ListApplications =
       ListApplicationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListApplicationsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "ApplicationSummaries"
+            Prelude.<*> ( x Data..?> "ApplicationSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..:> "HasMoreApplications")
+            Prelude.<*> (x Data..:> "HasMoreApplications")
       )
 
 instance Prelude.Hashable ListApplications where
   hashWithSalt _salt ListApplications' {..} =
-    _salt `Prelude.hashWithSalt` limit
+    _salt
       `Prelude.hashWithSalt` exclusiveStartApplicationName
+      `Prelude.hashWithSalt` limit
 
 instance Prelude.NFData ListApplications where
   rnf ListApplications' {..} =
-    Prelude.rnf limit
-      `Prelude.seq` Prelude.rnf exclusiveStartApplicationName
+    Prelude.rnf exclusiveStartApplicationName
+      `Prelude.seq` Prelude.rnf limit
 
-instance Core.ToHeaders ListApplications where
+instance Data.ToHeaders ListApplications where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "KinesisAnalytics_20150814.ListApplications" ::
+              Data.=# ( "KinesisAnalytics_20150814.ListApplications" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListApplications where
+instance Data.ToJSON ListApplications where
   toJSON ListApplications' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Limit" Core..=) Prelude.<$> limit,
-            ("ExclusiveStartApplicationName" Core..=)
-              Prelude.<$> exclusiveStartApplicationName
+          [ ("ExclusiveStartApplicationName" Data..=)
+              Prelude.<$> exclusiveStartApplicationName,
+            ("Limit" Data..=) Prelude.<$> limit
           ]
       )
 
-instance Core.ToPath ListApplications where
+instance Data.ToPath ListApplications where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListApplications where
+instance Data.ToQuery ListApplications where
   toQuery = Prelude.const Prelude.mempty
 
 -- |

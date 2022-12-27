@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyInstanceCapacityReservationAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.EC2.ModifyInstanceCapacityReservationAttributes
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,12 +122,13 @@ instance
     AWSResponse
       ModifyInstanceCapacityReservationAttributes =
       ModifyInstanceCapacityReservationAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ModifyInstanceCapacityReservationAttributesResponse'
-            Prelude.<$> (x Core..@? "return")
+            Prelude.<$> (x Data..@? "return")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -151,34 +153,34 @@ instance
       `Prelude.seq` Prelude.rnf capacityReservationSpecification
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ModifyInstanceCapacityReservationAttributes
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     ModifyInstanceCapacityReservationAttributes
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ModifyInstanceCapacityReservationAttributes
   where
   toQuery
     ModifyInstanceCapacityReservationAttributes' {..} =
       Prelude.mconcat
         [ "Action"
-            Core.=: ( "ModifyInstanceCapacityReservationAttributes" ::
+            Data.=: ( "ModifyInstanceCapacityReservationAttributes" ::
                         Prelude.ByteString
                     ),
           "Version"
-            Core.=: ("2016-11-15" :: Prelude.ByteString),
-          "DryRun" Core.=: dryRun,
-          "InstanceId" Core.=: instanceId,
+            Data.=: ("2016-11-15" :: Prelude.ByteString),
+          "DryRun" Data.=: dryRun,
+          "InstanceId" Data.=: instanceId,
           "CapacityReservationSpecification"
-            Core.=: capacityReservationSpecification
+            Data.=: capacityReservationSpecification
         ]
 
 -- | /See:/ 'newModifyInstanceCapacityReservationAttributesResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Detective.GetMembers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.Detective.GetMembers
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Detective.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,9 +54,9 @@ import qualified Amazonka.Response as Response
 data GetMembers = GetMembers'
   { -- | The ARN of the behavior graph for which to request the member details.
     graphArn :: Prelude.Text,
-    -- | The list of AWS account identifiers for the member account for which to
-    -- return member details. You can request details for up to 50 member
-    -- accounts at a time.
+    -- | The list of Amazon Web Services account identifiers for the member
+    -- account for which to return member details. You can request details for
+    -- up to 50 member accounts at a time.
     --
     -- You cannot use @GetMembers@ to retrieve information about member
     -- accounts that were removed from the behavior graph.
@@ -73,9 +74,9 @@ data GetMembers = GetMembers'
 --
 -- 'graphArn', 'getMembers_graphArn' - The ARN of the behavior graph for which to request the member details.
 --
--- 'accountIds', 'getMembers_accountIds' - The list of AWS account identifiers for the member account for which to
--- return member details. You can request details for up to 50 member
--- accounts at a time.
+-- 'accountIds', 'getMembers_accountIds' - The list of Amazon Web Services account identifiers for the member
+-- account for which to return member details. You can request details for
+-- up to 50 member accounts at a time.
 --
 -- You cannot use @GetMembers@ to retrieve information about member
 -- accounts that were removed from the behavior graph.
@@ -95,9 +96,9 @@ newGetMembers pGraphArn_ pAccountIds_ =
 getMembers_graphArn :: Lens.Lens' GetMembers Prelude.Text
 getMembers_graphArn = Lens.lens (\GetMembers' {graphArn} -> graphArn) (\s@GetMembers' {} a -> s {graphArn = a} :: GetMembers)
 
--- | The list of AWS account identifiers for the member account for which to
--- return member details. You can request details for up to 50 member
--- accounts at a time.
+-- | The list of Amazon Web Services account identifiers for the member
+-- account for which to return member details. You can request details for
+-- up to 50 member accounts at a time.
 --
 -- You cannot use @GetMembers@ to retrieve information about member
 -- accounts that were removed from the behavior graph.
@@ -106,13 +107,14 @@ getMembers_accountIds = Lens.lens (\GetMembers' {accountIds} -> accountIds) (\s@
 
 instance Core.AWSRequest GetMembers where
   type AWSResponse GetMembers = GetMembersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetMembersResponse'
-            Prelude.<$> (x Core..?> "MemberDetails" Core..!@ Prelude.mempty)
-            Prelude.<*> ( x Core..?> "UnprocessedAccounts"
+            Prelude.<$> (x Data..?> "MemberDetails" Core..!@ Prelude.mempty)
+            Prelude.<*> ( x Data..?> "UnprocessedAccounts"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -128,30 +130,30 @@ instance Prelude.NFData GetMembers where
     Prelude.rnf graphArn
       `Prelude.seq` Prelude.rnf accountIds
 
-instance Core.ToHeaders GetMembers where
+instance Data.ToHeaders GetMembers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetMembers where
+instance Data.ToJSON GetMembers where
   toJSON GetMembers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("GraphArn" Core..= graphArn),
-            Prelude.Just ("AccountIds" Core..= accountIds)
+          [ Prelude.Just ("GraphArn" Data..= graphArn),
+            Prelude.Just ("AccountIds" Data..= accountIds)
           ]
       )
 
-instance Core.ToPath GetMembers where
+instance Data.ToPath GetMembers where
   toPath = Prelude.const "/graph/members/get"
 
-instance Core.ToQuery GetMembers where
+instance Data.ToQuery GetMembers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetMembersResponse' smart constructor.

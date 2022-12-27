@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.CreateDBClusterSnapshot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.DocumentDB.CreateDBClusterSnapshot
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -160,13 +161,14 @@ instance Core.AWSRequest CreateDBClusterSnapshot where
   type
     AWSResponse CreateDBClusterSnapshot =
       CreateDBClusterSnapshotResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateDBClusterSnapshotResult"
       ( \s h x ->
           CreateDBClusterSnapshotResponse'
-            Prelude.<$> (x Core..@? "DBClusterSnapshot")
+            Prelude.<$> (x Data..@? "DBClusterSnapshot")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -182,25 +184,25 @@ instance Prelude.NFData CreateDBClusterSnapshot where
       `Prelude.seq` Prelude.rnf dbClusterSnapshotIdentifier
       `Prelude.seq` Prelude.rnf dbClusterIdentifier
 
-instance Core.ToHeaders CreateDBClusterSnapshot where
+instance Data.ToHeaders CreateDBClusterSnapshot where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateDBClusterSnapshot where
+instance Data.ToPath CreateDBClusterSnapshot where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDBClusterSnapshot where
+instance Data.ToQuery CreateDBClusterSnapshot where
   toQuery CreateDBClusterSnapshot' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateDBClusterSnapshot" :: Prelude.ByteString),
+          Data.=: ("CreateDBClusterSnapshot" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
         "DBClusterSnapshotIdentifier"
-          Core.=: dbClusterSnapshotIdentifier,
-        "DBClusterIdentifier" Core.=: dbClusterIdentifier
+          Data.=: dbClusterSnapshotIdentifier,
+        "DBClusterIdentifier" Data.=: dbClusterIdentifier
       ]
 
 -- | /See:/ 'newCreateDBClusterSnapshotResponse' smart constructor.

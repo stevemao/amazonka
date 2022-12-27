@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeSnapshots
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -84,13 +84,13 @@ module Amazonka.EC2.DescribeSnapshots
     newDescribeSnapshots,
 
     -- * Request Lenses
-    describeSnapshots_ownerIds,
-    describeSnapshots_filters,
-    describeSnapshots_nextToken,
-    describeSnapshots_snapshotIds,
-    describeSnapshots_restorableByUserIds,
     describeSnapshots_dryRun,
+    describeSnapshots_filters,
     describeSnapshots_maxResults,
+    describeSnapshots_nextToken,
+    describeSnapshots_ownerIds,
+    describeSnapshots_restorableByUserIds,
+    describeSnapshots_snapshotIds,
 
     -- * Destructuring the Response
     DescribeSnapshotsResponse (..),
@@ -104,18 +104,20 @@ module Amazonka.EC2.DescribeSnapshots
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeSnapshots' smart constructor.
 data DescribeSnapshots = DescribeSnapshots'
-  { -- | Scopes the results to snapshots with the specified owners. You can
-    -- specify a combination of Amazon Web Services account IDs, @self@, and
-    -- @amazon@.
-    ownerIds :: Prelude.Maybe [Prelude.Text],
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The filters.
     --
     -- -   @description@ - A description of the snapshot.
@@ -141,6 +143,9 @@ data DescribeSnapshots = DescribeSnapshots'
     -- -   @status@ - The status of the snapshot (@pending@ | @completed@ |
     --     @error@).
     --
+    -- -   @storage-tier@ - The storage tier of the snapshot (@archive@ |
+    --     @standard@).
+    --
     -- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
     --     resource. Use the tag key in the filter name and the tag value as
     --     the filter value. For example, to find all resources that have a tag
@@ -155,25 +160,6 @@ data DescribeSnapshots = DescribeSnapshots'
     --
     -- -   @volume-size@ - The size of the volume, in GiB.
     filters :: Prelude.Maybe [Filter],
-    -- | The @NextToken@ value returned from a previous paginated
-    -- @DescribeSnapshots@ request where @MaxResults@ was used and the results
-    -- exceeded the value of that parameter. Pagination continues from the end
-    -- of the previous results that returned the @NextToken@ value. This value
-    -- is @null@ when there are no more results to return.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The snapshot IDs.
-    --
-    -- Default: Describes the snapshots for which you have create volume
-    -- permissions.
-    snapshotIds :: Prelude.Maybe [Prelude.Text],
-    -- | The IDs of the Amazon Web Services accounts that can create volumes from
-    -- the snapshot.
-    restorableByUserIds :: Prelude.Maybe [Prelude.Text],
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of snapshot results returned by @DescribeSnapshots@
     -- in paginated output. When this parameter is used, @DescribeSnapshots@
     -- only returns @MaxResults@ results in a single page along with a
@@ -184,7 +170,25 @@ data DescribeSnapshots = DescribeSnapshots'
     -- are returned. If this parameter is not used, then @DescribeSnapshots@
     -- returns all results. You cannot specify this parameter and the snapshot
     -- IDs parameter in the same request.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The @NextToken@ value returned from a previous paginated
+    -- @DescribeSnapshots@ request where @MaxResults@ was used and the results
+    -- exceeded the value of that parameter. Pagination continues from the end
+    -- of the previous results that returned the @NextToken@ value. This value
+    -- is @null@ when there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Scopes the results to snapshots with the specified owners. You can
+    -- specify a combination of Amazon Web Services account IDs, @self@, and
+    -- @amazon@.
+    ownerIds :: Prelude.Maybe [Prelude.Text],
+    -- | The IDs of the Amazon Web Services accounts that can create volumes from
+    -- the snapshot.
+    restorableByUserIds :: Prelude.Maybe [Prelude.Text],
+    -- | The snapshot IDs.
+    --
+    -- Default: Describes the snapshots for which you have create volume
+    -- permissions.
+    snapshotIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -196,9 +200,10 @@ data DescribeSnapshots = DescribeSnapshots'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ownerIds', 'describeSnapshots_ownerIds' - Scopes the results to snapshots with the specified owners. You can
--- specify a combination of Amazon Web Services account IDs, @self@, and
--- @amazon@.
+-- 'dryRun', 'describeSnapshots_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeSnapshots_filters' - The filters.
 --
@@ -225,6 +230,9 @@ data DescribeSnapshots = DescribeSnapshots'
 -- -   @status@ - The status of the snapshot (@pending@ | @completed@ |
 --     @error@).
 --
+-- -   @storage-tier@ - The storage tier of the snapshot (@archive@ |
+--     @standard@).
+--
 -- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
 --     resource. Use the tag key in the filter name and the tag value as
 --     the filter value. For example, to find all resources that have a tag
@@ -239,25 +247,6 @@ data DescribeSnapshots = DescribeSnapshots'
 --
 -- -   @volume-size@ - The size of the volume, in GiB.
 --
--- 'nextToken', 'describeSnapshots_nextToken' - The @NextToken@ value returned from a previous paginated
--- @DescribeSnapshots@ request where @MaxResults@ was used and the results
--- exceeded the value of that parameter. Pagination continues from the end
--- of the previous results that returned the @NextToken@ value. This value
--- is @null@ when there are no more results to return.
---
--- 'snapshotIds', 'describeSnapshots_snapshotIds' - The snapshot IDs.
---
--- Default: Describes the snapshots for which you have create volume
--- permissions.
---
--- 'restorableByUserIds', 'describeSnapshots_restorableByUserIds' - The IDs of the Amazon Web Services accounts that can create volumes from
--- the snapshot.
---
--- 'dryRun', 'describeSnapshots_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
 -- 'maxResults', 'describeSnapshots_maxResults' - The maximum number of snapshot results returned by @DescribeSnapshots@
 -- in paginated output. When this parameter is used, @DescribeSnapshots@
 -- only returns @MaxResults@ results in a single page along with a
@@ -268,24 +257,43 @@ data DescribeSnapshots = DescribeSnapshots'
 -- are returned. If this parameter is not used, then @DescribeSnapshots@
 -- returns all results. You cannot specify this parameter and the snapshot
 -- IDs parameter in the same request.
+--
+-- 'nextToken', 'describeSnapshots_nextToken' - The @NextToken@ value returned from a previous paginated
+-- @DescribeSnapshots@ request where @MaxResults@ was used and the results
+-- exceeded the value of that parameter. Pagination continues from the end
+-- of the previous results that returned the @NextToken@ value. This value
+-- is @null@ when there are no more results to return.
+--
+-- 'ownerIds', 'describeSnapshots_ownerIds' - Scopes the results to snapshots with the specified owners. You can
+-- specify a combination of Amazon Web Services account IDs, @self@, and
+-- @amazon@.
+--
+-- 'restorableByUserIds', 'describeSnapshots_restorableByUserIds' - The IDs of the Amazon Web Services accounts that can create volumes from
+-- the snapshot.
+--
+-- 'snapshotIds', 'describeSnapshots_snapshotIds' - The snapshot IDs.
+--
+-- Default: Describes the snapshots for which you have create volume
+-- permissions.
 newDescribeSnapshots ::
   DescribeSnapshots
 newDescribeSnapshots =
   DescribeSnapshots'
-    { ownerIds = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
       filters = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      snapshotIds = Prelude.Nothing,
+      ownerIds = Prelude.Nothing,
       restorableByUserIds = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      snapshotIds = Prelude.Nothing
     }
 
--- | Scopes the results to snapshots with the specified owners. You can
--- specify a combination of Amazon Web Services account IDs, @self@, and
--- @amazon@.
-describeSnapshots_ownerIds :: Lens.Lens' DescribeSnapshots (Prelude.Maybe [Prelude.Text])
-describeSnapshots_ownerIds = Lens.lens (\DescribeSnapshots' {ownerIds} -> ownerIds) (\s@DescribeSnapshots' {} a -> s {ownerIds = a} :: DescribeSnapshots) Prelude.. Lens.mapping Lens.coerced
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeSnapshots_dryRun :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Bool)
+describeSnapshots_dryRun = Lens.lens (\DescribeSnapshots' {dryRun} -> dryRun) (\s@DescribeSnapshots' {} a -> s {dryRun = a} :: DescribeSnapshots)
 
 -- | The filters.
 --
@@ -312,6 +320,9 @@ describeSnapshots_ownerIds = Lens.lens (\DescribeSnapshots' {ownerIds} -> ownerI
 -- -   @status@ - The status of the snapshot (@pending@ | @completed@ |
 --     @error@).
 --
+-- -   @storage-tier@ - The storage tier of the snapshot (@archive@ |
+--     @standard@).
+--
 -- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
 --     resource. Use the tag key in the filter name and the tag value as
 --     the filter value. For example, to find all resources that have a tag
@@ -328,33 +339,6 @@ describeSnapshots_ownerIds = Lens.lens (\DescribeSnapshots' {ownerIds} -> ownerI
 describeSnapshots_filters :: Lens.Lens' DescribeSnapshots (Prelude.Maybe [Filter])
 describeSnapshots_filters = Lens.lens (\DescribeSnapshots' {filters} -> filters) (\s@DescribeSnapshots' {} a -> s {filters = a} :: DescribeSnapshots) Prelude.. Lens.mapping Lens.coerced
 
--- | The @NextToken@ value returned from a previous paginated
--- @DescribeSnapshots@ request where @MaxResults@ was used and the results
--- exceeded the value of that parameter. Pagination continues from the end
--- of the previous results that returned the @NextToken@ value. This value
--- is @null@ when there are no more results to return.
-describeSnapshots_nextToken :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Text)
-describeSnapshots_nextToken = Lens.lens (\DescribeSnapshots' {nextToken} -> nextToken) (\s@DescribeSnapshots' {} a -> s {nextToken = a} :: DescribeSnapshots)
-
--- | The snapshot IDs.
---
--- Default: Describes the snapshots for which you have create volume
--- permissions.
-describeSnapshots_snapshotIds :: Lens.Lens' DescribeSnapshots (Prelude.Maybe [Prelude.Text])
-describeSnapshots_snapshotIds = Lens.lens (\DescribeSnapshots' {snapshotIds} -> snapshotIds) (\s@DescribeSnapshots' {} a -> s {snapshotIds = a} :: DescribeSnapshots) Prelude.. Lens.mapping Lens.coerced
-
--- | The IDs of the Amazon Web Services accounts that can create volumes from
--- the snapshot.
-describeSnapshots_restorableByUserIds :: Lens.Lens' DescribeSnapshots (Prelude.Maybe [Prelude.Text])
-describeSnapshots_restorableByUserIds = Lens.lens (\DescribeSnapshots' {restorableByUserIds} -> restorableByUserIds) (\s@DescribeSnapshots' {} a -> s {restorableByUserIds = a} :: DescribeSnapshots) Prelude.. Lens.mapping Lens.coerced
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeSnapshots_dryRun :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Bool)
-describeSnapshots_dryRun = Lens.lens (\DescribeSnapshots' {dryRun} -> dryRun) (\s@DescribeSnapshots' {} a -> s {dryRun = a} :: DescribeSnapshots)
-
 -- | The maximum number of snapshot results returned by @DescribeSnapshots@
 -- in paginated output. When this parameter is used, @DescribeSnapshots@
 -- only returns @MaxResults@ results in a single page along with a
@@ -367,6 +351,32 @@ describeSnapshots_dryRun = Lens.lens (\DescribeSnapshots' {dryRun} -> dryRun) (\
 -- IDs parameter in the same request.
 describeSnapshots_maxResults :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Int)
 describeSnapshots_maxResults = Lens.lens (\DescribeSnapshots' {maxResults} -> maxResults) (\s@DescribeSnapshots' {} a -> s {maxResults = a} :: DescribeSnapshots)
+
+-- | The @NextToken@ value returned from a previous paginated
+-- @DescribeSnapshots@ request where @MaxResults@ was used and the results
+-- exceeded the value of that parameter. Pagination continues from the end
+-- of the previous results that returned the @NextToken@ value. This value
+-- is @null@ when there are no more results to return.
+describeSnapshots_nextToken :: Lens.Lens' DescribeSnapshots (Prelude.Maybe Prelude.Text)
+describeSnapshots_nextToken = Lens.lens (\DescribeSnapshots' {nextToken} -> nextToken) (\s@DescribeSnapshots' {} a -> s {nextToken = a} :: DescribeSnapshots)
+
+-- | Scopes the results to snapshots with the specified owners. You can
+-- specify a combination of Amazon Web Services account IDs, @self@, and
+-- @amazon@.
+describeSnapshots_ownerIds :: Lens.Lens' DescribeSnapshots (Prelude.Maybe [Prelude.Text])
+describeSnapshots_ownerIds = Lens.lens (\DescribeSnapshots' {ownerIds} -> ownerIds) (\s@DescribeSnapshots' {} a -> s {ownerIds = a} :: DescribeSnapshots) Prelude.. Lens.mapping Lens.coerced
+
+-- | The IDs of the Amazon Web Services accounts that can create volumes from
+-- the snapshot.
+describeSnapshots_restorableByUserIds :: Lens.Lens' DescribeSnapshots (Prelude.Maybe [Prelude.Text])
+describeSnapshots_restorableByUserIds = Lens.lens (\DescribeSnapshots' {restorableByUserIds} -> restorableByUserIds) (\s@DescribeSnapshots' {} a -> s {restorableByUserIds = a} :: DescribeSnapshots) Prelude.. Lens.mapping Lens.coerced
+
+-- | The snapshot IDs.
+--
+-- Default: Describes the snapshots for which you have create volume
+-- permissions.
+describeSnapshots_snapshotIds :: Lens.Lens' DescribeSnapshots (Prelude.Maybe [Prelude.Text])
+describeSnapshots_snapshotIds = Lens.lens (\DescribeSnapshots' {snapshotIds} -> snapshotIds) (\s@DescribeSnapshots' {} a -> s {snapshotIds = a} :: DescribeSnapshots) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSPager DescribeSnapshots where
   page rq rs
@@ -394,66 +404,67 @@ instance Core.AWSRequest DescribeSnapshots where
   type
     AWSResponse DescribeSnapshots =
       DescribeSnapshotsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeSnapshotsResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-            Prelude.<*> ( x Core..@? "snapshotSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> (x Data..@? "nextToken")
+            Prelude.<*> ( x Data..@? "snapshotSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeSnapshots where
   hashWithSalt _salt DescribeSnapshots' {..} =
-    _salt `Prelude.hashWithSalt` ownerIds
+    _salt `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` snapshotIds
-      `Prelude.hashWithSalt` restorableByUserIds
-      `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` ownerIds
+      `Prelude.hashWithSalt` restorableByUserIds
+      `Prelude.hashWithSalt` snapshotIds
 
 instance Prelude.NFData DescribeSnapshots where
   rnf DescribeSnapshots' {..} =
-    Prelude.rnf ownerIds
+    Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf snapshotIds
-      `Prelude.seq` Prelude.rnf restorableByUserIds
-      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf ownerIds
+      `Prelude.seq` Prelude.rnf restorableByUserIds
+      `Prelude.seq` Prelude.rnf snapshotIds
 
-instance Core.ToHeaders DescribeSnapshots where
+instance Data.ToHeaders DescribeSnapshots where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeSnapshots where
+instance Data.ToPath DescribeSnapshots where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeSnapshots where
+instance Data.ToQuery DescribeSnapshots where
   toQuery DescribeSnapshots' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeSnapshots" :: Prelude.ByteString),
+          Data.=: ("DescribeSnapshots" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Owner" Prelude.<$> ownerIds),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        Core.toQuery
-          ( Core.toQueryList "SnapshotId"
-              Prelude.<$> snapshotIds
-          ),
-        Core.toQuery
-          ( Core.toQueryList "RestorableBy"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        Data.toQuery
+          (Data.toQueryList "Owner" Prelude.<$> ownerIds),
+        Data.toQuery
+          ( Data.toQueryList "RestorableBy"
               Prelude.<$> restorableByUserIds
           ),
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+        Data.toQuery
+          ( Data.toQueryList "SnapshotId"
+              Prelude.<$> snapshotIds
+          )
       ]
 
 -- | /See:/ 'newDescribeSnapshotsResponse' smart constructor.

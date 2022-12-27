@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.DescribeTestCases
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.CodeBuild.DescribeTestCases
     newDescribeTestCases,
 
     -- * Request Lenses
-    describeTestCases_nextToken,
     describeTestCases_filter,
     describeTestCases_maxResults,
+    describeTestCases_nextToken,
     describeTestCases_reportArn,
 
     -- * Destructuring the Response
@@ -47,14 +47,21 @@ where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeTestCases' smart constructor.
 data DescribeTestCases = DescribeTestCases'
-  { -- | During a previous call, the maximum number of items that can be returned
+  { -- | A @TestCaseFilter@ object used to filter the returned reports.
+    filter' :: Prelude.Maybe TestCaseFilter,
+    -- | The maximum number of paginated test cases returned per response. Use
+    -- @nextToken@ to iterate pages in the list of returned @TestCase@ objects.
+    -- The default value is 100.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | During a previous call, the maximum number of items that can be returned
     -- is the value specified in @maxResults@. If there more items in the list,
     -- then a unique string called a /nextToken/ is returned. To get the next
     -- batch of items in the list, call this operation again, adding the next
@@ -62,12 +69,6 @@ data DescribeTestCases = DescribeTestCases'
     -- this operation with each subsequent next token that is returned, until
     -- no more next tokens are returned.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A @TestCaseFilter@ object used to filter the returned reports.
-    filter' :: Prelude.Maybe TestCaseFilter,
-    -- | The maximum number of paginated test cases returned per response. Use
-    -- @nextToken@ to iterate pages in the list of returned @TestCase@ objects.
-    -- The default value is 100.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ARN of the report for which test cases are returned.
     reportArn :: Prelude.Text
   }
@@ -81,6 +82,12 @@ data DescribeTestCases = DescribeTestCases'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'filter'', 'describeTestCases_filter' - A @TestCaseFilter@ object used to filter the returned reports.
+--
+-- 'maxResults', 'describeTestCases_maxResults' - The maximum number of paginated test cases returned per response. Use
+-- @nextToken@ to iterate pages in the list of returned @TestCase@ objects.
+-- The default value is 100.
+--
 -- 'nextToken', 'describeTestCases_nextToken' - During a previous call, the maximum number of items that can be returned
 -- is the value specified in @maxResults@. If there more items in the list,
 -- then a unique string called a /nextToken/ is returned. To get the next
@@ -89,12 +96,6 @@ data DescribeTestCases = DescribeTestCases'
 -- this operation with each subsequent next token that is returned, until
 -- no more next tokens are returned.
 --
--- 'filter'', 'describeTestCases_filter' - A @TestCaseFilter@ object used to filter the returned reports.
---
--- 'maxResults', 'describeTestCases_maxResults' - The maximum number of paginated test cases returned per response. Use
--- @nextToken@ to iterate pages in the list of returned @TestCase@ objects.
--- The default value is 100.
---
 -- 'reportArn', 'describeTestCases_reportArn' - The ARN of the report for which test cases are returned.
 newDescribeTestCases ::
   -- | 'reportArn'
@@ -102,21 +103,11 @@ newDescribeTestCases ::
   DescribeTestCases
 newDescribeTestCases pReportArn_ =
   DescribeTestCases'
-    { nextToken = Prelude.Nothing,
-      filter' = Prelude.Nothing,
+    { filter' = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       reportArn = pReportArn_
     }
-
--- | During a previous call, the maximum number of items that can be returned
--- is the value specified in @maxResults@. If there more items in the list,
--- then a unique string called a /nextToken/ is returned. To get the next
--- batch of items in the list, call this operation again, adding the next
--- token to the call. To get all of the items in the list, keep calling
--- this operation with each subsequent next token that is returned, until
--- no more next tokens are returned.
-describeTestCases_nextToken :: Lens.Lens' DescribeTestCases (Prelude.Maybe Prelude.Text)
-describeTestCases_nextToken = Lens.lens (\DescribeTestCases' {nextToken} -> nextToken) (\s@DescribeTestCases' {} a -> s {nextToken = a} :: DescribeTestCases)
 
 -- | A @TestCaseFilter@ object used to filter the returned reports.
 describeTestCases_filter :: Lens.Lens' DescribeTestCases (Prelude.Maybe TestCaseFilter)
@@ -127,6 +118,16 @@ describeTestCases_filter = Lens.lens (\DescribeTestCases' {filter'} -> filter') 
 -- The default value is 100.
 describeTestCases_maxResults :: Lens.Lens' DescribeTestCases (Prelude.Maybe Prelude.Natural)
 describeTestCases_maxResults = Lens.lens (\DescribeTestCases' {maxResults} -> maxResults) (\s@DescribeTestCases' {} a -> s {maxResults = a} :: DescribeTestCases)
+
+-- | During a previous call, the maximum number of items that can be returned
+-- is the value specified in @maxResults@. If there more items in the list,
+-- then a unique string called a /nextToken/ is returned. To get the next
+-- batch of items in the list, call this operation again, adding the next
+-- token to the call. To get all of the items in the list, keep calling
+-- this operation with each subsequent next token that is returned, until
+-- no more next tokens are returned.
+describeTestCases_nextToken :: Lens.Lens' DescribeTestCases (Prelude.Maybe Prelude.Text)
+describeTestCases_nextToken = Lens.lens (\DescribeTestCases' {nextToken} -> nextToken) (\s@DescribeTestCases' {} a -> s {nextToken = a} :: DescribeTestCases)
 
 -- | The ARN of the report for which test cases are returned.
 describeTestCases_reportArn :: Lens.Lens' DescribeTestCases Prelude.Text
@@ -158,60 +159,61 @@ instance Core.AWSRequest DescribeTestCases where
   type
     AWSResponse DescribeTestCases =
       DescribeTestCasesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTestCasesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "testCases" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "testCases" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeTestCases where
   hashWithSalt _salt DescribeTestCases' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` reportArn
 
 instance Prelude.NFData DescribeTestCases where
   rnf DescribeTestCases' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf reportArn
 
-instance Core.ToHeaders DescribeTestCases where
+instance Data.ToHeaders DescribeTestCases where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.DescribeTestCases" ::
+              Data.=# ( "CodeBuild_20161006.DescribeTestCases" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeTestCases where
+instance Data.ToJSON DescribeTestCases where
   toJSON DescribeTestCases' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("filter" Core..=) Prelude.<$> filter',
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("reportArn" Core..= reportArn)
+          [ ("filter" Data..=) Prelude.<$> filter',
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("reportArn" Data..= reportArn)
           ]
       )
 
-instance Core.ToPath DescribeTestCases where
+instance Data.ToPath DescribeTestCases where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTestCases where
+instance Data.ToQuery DescribeTestCases where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeTestCasesResponse' smart constructor.

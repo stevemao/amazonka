@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.CaptureContentTypeHeader
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,21 @@
 module Amazonka.SageMaker.Types.CaptureContentTypeHeader where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- |
+-- | Configuration specifying how to treat different headers. If no headers
+-- are specified SageMaker will by default base64 encode when capturing the
+-- data.
 --
 -- /See:/ 'newCaptureContentTypeHeader' smart constructor.
 data CaptureContentTypeHeader = CaptureContentTypeHeader'
-  { csvContentTypes :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+  { -- | The list of all content type headers that SageMaker will treat as CSV
+    -- and capture accordingly.
+    csvContentTypes :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | The list of all content type headers that SageMaker will treat as JSON
+    -- and capture accordingly.
     jsonContentTypes :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -40,9 +47,11 @@ data CaptureContentTypeHeader = CaptureContentTypeHeader'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'csvContentTypes', 'captureContentTypeHeader_csvContentTypes' -
+-- 'csvContentTypes', 'captureContentTypeHeader_csvContentTypes' - The list of all content type headers that SageMaker will treat as CSV
+-- and capture accordingly.
 --
--- 'jsonContentTypes', 'captureContentTypeHeader_jsonContentTypes' -
+-- 'jsonContentTypes', 'captureContentTypeHeader_jsonContentTypes' - The list of all content type headers that SageMaker will treat as JSON
+-- and capture accordingly.
 newCaptureContentTypeHeader ::
   CaptureContentTypeHeader
 newCaptureContentTypeHeader =
@@ -52,22 +61,24 @@ newCaptureContentTypeHeader =
       jsonContentTypes = Prelude.Nothing
     }
 
--- |
+-- | The list of all content type headers that SageMaker will treat as CSV
+-- and capture accordingly.
 captureContentTypeHeader_csvContentTypes :: Lens.Lens' CaptureContentTypeHeader (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 captureContentTypeHeader_csvContentTypes = Lens.lens (\CaptureContentTypeHeader' {csvContentTypes} -> csvContentTypes) (\s@CaptureContentTypeHeader' {} a -> s {csvContentTypes = a} :: CaptureContentTypeHeader) Prelude.. Lens.mapping Lens.coerced
 
--- |
+-- | The list of all content type headers that SageMaker will treat as JSON
+-- and capture accordingly.
 captureContentTypeHeader_jsonContentTypes :: Lens.Lens' CaptureContentTypeHeader (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 captureContentTypeHeader_jsonContentTypes = Lens.lens (\CaptureContentTypeHeader' {jsonContentTypes} -> jsonContentTypes) (\s@CaptureContentTypeHeader' {} a -> s {jsonContentTypes = a} :: CaptureContentTypeHeader) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON CaptureContentTypeHeader where
+instance Data.FromJSON CaptureContentTypeHeader where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CaptureContentTypeHeader"
       ( \x ->
           CaptureContentTypeHeader'
-            Prelude.<$> (x Core..:? "CsvContentTypes")
-            Prelude.<*> (x Core..:? "JsonContentTypes")
+            Prelude.<$> (x Data..:? "CsvContentTypes")
+            Prelude.<*> (x Data..:? "JsonContentTypes")
       )
 
 instance Prelude.Hashable CaptureContentTypeHeader where
@@ -80,13 +91,13 @@ instance Prelude.NFData CaptureContentTypeHeader where
     Prelude.rnf csvContentTypes
       `Prelude.seq` Prelude.rnf jsonContentTypes
 
-instance Core.ToJSON CaptureContentTypeHeader where
+instance Data.ToJSON CaptureContentTypeHeader where
   toJSON CaptureContentTypeHeader' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CsvContentTypes" Core..=)
+          [ ("CsvContentTypes" Data..=)
               Prelude.<$> csvContentTypes,
-            ("JsonContentTypes" Core..=)
+            ("JsonContentTypes" Data..=)
               Prelude.<$> jsonContentTypes
           ]
       )

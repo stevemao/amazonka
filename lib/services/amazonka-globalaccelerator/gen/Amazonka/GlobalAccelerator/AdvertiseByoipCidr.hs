@@ -14,23 +14,24 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.AdvertiseByoipCidr
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Advertises an IPv4 address range that is provisioned for use with your
--- AWS resources through bring your own IP addresses (BYOIP). It can take a
--- few minutes before traffic to the specified addresses starts routing to
--- AWS because of propagation delays.
+-- Amazon Web Services resources through bring your own IP addresses
+-- (BYOIP). It can take a few minutes before traffic to the specified
+-- addresses starts routing to Amazon Web Services because of propagation
+-- delays.
 --
 -- To stop advertising the BYOIP address range, use
 -- <https://docs.aws.amazon.com/global-accelerator/latest/api/WithdrawByoipCidr.html WithdrawByoipCidr>.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring Your Own IP Addresses (BYOIP)>
--- in the /AWS Global Accelerator Developer Guide/.
+-- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring your own IP addresses (BYOIP)>
+-- in the /Global Accelerator Developer Guide/.
 module Amazonka.GlobalAccelerator.AdvertiseByoipCidr
   ( -- * Creating a Request
     AdvertiseByoipCidr (..),
@@ -50,8 +51,9 @@ module Amazonka.GlobalAccelerator.AdvertiseByoipCidr
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,12 +95,13 @@ instance Core.AWSRequest AdvertiseByoipCidr where
   type
     AWSResponse AdvertiseByoipCidr =
       AdvertiseByoipCidrResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AdvertiseByoipCidrResponse'
-            Prelude.<$> (x Core..?> "ByoipCidr")
+            Prelude.<$> (x Data..?> "ByoipCidr")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,32 +112,32 @@ instance Prelude.Hashable AdvertiseByoipCidr where
 instance Prelude.NFData AdvertiseByoipCidr where
   rnf AdvertiseByoipCidr' {..} = Prelude.rnf cidr
 
-instance Core.ToHeaders AdvertiseByoipCidr where
+instance Data.ToHeaders AdvertiseByoipCidr where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.AdvertiseByoipCidr" ::
+              Data.=# ( "GlobalAccelerator_V20180706.AdvertiseByoipCidr" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AdvertiseByoipCidr where
+instance Data.ToJSON AdvertiseByoipCidr where
   toJSON AdvertiseByoipCidr' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Cidr" Core..= cidr)]
+          [Prelude.Just ("Cidr" Data..= cidr)]
       )
 
-instance Core.ToPath AdvertiseByoipCidr where
+instance Data.ToPath AdvertiseByoipCidr where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AdvertiseByoipCidr where
+instance Data.ToQuery AdvertiseByoipCidr where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAdvertiseByoipCidrResponse' smart constructor.

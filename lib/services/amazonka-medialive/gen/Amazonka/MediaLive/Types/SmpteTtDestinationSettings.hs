@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.SmpteTtDestinationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.SmpteTtDestinationSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Smpte Tt Destination Settings
@@ -40,9 +41,9 @@ newSmpteTtDestinationSettings ::
 newSmpteTtDestinationSettings =
   SmpteTtDestinationSettings'
 
-instance Core.FromJSON SmpteTtDestinationSettings where
+instance Data.FromJSON SmpteTtDestinationSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SmpteTtDestinationSettings"
       (\x -> Prelude.pure SmpteTtDestinationSettings')
 
@@ -53,5 +54,5 @@ instance Prelude.Hashable SmpteTtDestinationSettings where
 instance Prelude.NFData SmpteTtDestinationSettings where
   rnf _ = ()
 
-instance Core.ToJSON SmpteTtDestinationSettings where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON SmpteTtDestinationSettings where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.UpdateReportPlan
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.Backup.UpdateReportPlan
 
     -- * Request Lenses
     updateReportPlan_idempotencyToken,
-    updateReportPlan_reportSetting,
-    updateReportPlan_reportPlanDescription,
     updateReportPlan_reportDeliveryChannel,
+    updateReportPlan_reportPlanDescription,
+    updateReportPlan_reportSetting,
     updateReportPlan_reportPlanName,
 
     -- * Destructuring the Response
@@ -40,15 +40,16 @@ module Amazonka.Backup.UpdateReportPlan
 
     -- * Response Lenses
     updateReportPlanResponse_creationTime,
-    updateReportPlanResponse_reportPlanName,
     updateReportPlanResponse_reportPlanArn,
+    updateReportPlanResponse_reportPlanName,
     updateReportPlanResponse_httpStatus,
   )
 where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,6 +61,13 @@ data UpdateReportPlan = UpdateReportPlan'
     -- successful request with the same idempotency token results in a success
     -- message with no action taken.
     idempotencyToken :: Prelude.Maybe Prelude.Text,
+    -- | A structure that contains information about where to deliver your
+    -- reports, specifically your Amazon S3 bucket name, S3 key prefix, and the
+    -- formats of your reports.
+    reportDeliveryChannel :: Prelude.Maybe ReportDeliveryChannel,
+    -- | An optional description of the report plan with a maximum 1,024
+    -- characters.
+    reportPlanDescription :: Prelude.Maybe Prelude.Text,
     -- | Identifies the report template for the report. Reports are built using a
     -- report template. The report templates are:
     --
@@ -69,13 +77,6 @@ data UpdateReportPlan = UpdateReportPlan'
     -- @CONTROL_COMPLIANCE_REPORT@, this API resource also describes the report
     -- coverage by Amazon Web Services Regions and frameworks.
     reportSetting :: Prelude.Maybe ReportSetting,
-    -- | An optional description of the report plan with a maximum 1,024
-    -- characters.
-    reportPlanDescription :: Prelude.Maybe Prelude.Text,
-    -- | A structure that contains information about where to deliver your
-    -- reports, specifically your Amazon S3 bucket name, S3 key prefix, and the
-    -- formats of your reports.
-    reportDeliveryChannel :: Prelude.Maybe ReportDeliveryChannel,
     -- | The unique name of the report plan. This name is between 1 and 256
     -- characters, starting with a letter, and consisting of letters (a-z,
     -- A-Z), numbers (0-9), and underscores (_).
@@ -96,6 +97,13 @@ data UpdateReportPlan = UpdateReportPlan'
 -- successful request with the same idempotency token results in a success
 -- message with no action taken.
 --
+-- 'reportDeliveryChannel', 'updateReportPlan_reportDeliveryChannel' - A structure that contains information about where to deliver your
+-- reports, specifically your Amazon S3 bucket name, S3 key prefix, and the
+-- formats of your reports.
+--
+-- 'reportPlanDescription', 'updateReportPlan_reportPlanDescription' - An optional description of the report plan with a maximum 1,024
+-- characters.
+--
 -- 'reportSetting', 'updateReportPlan_reportSetting' - Identifies the report template for the report. Reports are built using a
 -- report template. The report templates are:
 --
@@ -104,13 +112,6 @@ data UpdateReportPlan = UpdateReportPlan'
 -- If the report template is @RESOURCE_COMPLIANCE_REPORT@ or
 -- @CONTROL_COMPLIANCE_REPORT@, this API resource also describes the report
 -- coverage by Amazon Web Services Regions and frameworks.
---
--- 'reportPlanDescription', 'updateReportPlan_reportPlanDescription' - An optional description of the report plan with a maximum 1,024
--- characters.
---
--- 'reportDeliveryChannel', 'updateReportPlan_reportDeliveryChannel' - A structure that contains information about where to deliver your
--- reports, specifically your Amazon S3 bucket name, S3 key prefix, and the
--- formats of your reports.
 --
 -- 'reportPlanName', 'updateReportPlan_reportPlanName' - The unique name of the report plan. This name is between 1 and 256
 -- characters, starting with a letter, and consisting of letters (a-z,
@@ -123,9 +124,9 @@ newUpdateReportPlan pReportPlanName_ =
   UpdateReportPlan'
     { idempotencyToken =
         Prelude.Nothing,
-      reportSetting = Prelude.Nothing,
-      reportPlanDescription = Prelude.Nothing,
       reportDeliveryChannel = Prelude.Nothing,
+      reportPlanDescription = Prelude.Nothing,
+      reportSetting = Prelude.Nothing,
       reportPlanName = pReportPlanName_
     }
 
@@ -135,6 +136,17 @@ newUpdateReportPlan pReportPlanName_ =
 -- message with no action taken.
 updateReportPlan_idempotencyToken :: Lens.Lens' UpdateReportPlan (Prelude.Maybe Prelude.Text)
 updateReportPlan_idempotencyToken = Lens.lens (\UpdateReportPlan' {idempotencyToken} -> idempotencyToken) (\s@UpdateReportPlan' {} a -> s {idempotencyToken = a} :: UpdateReportPlan)
+
+-- | A structure that contains information about where to deliver your
+-- reports, specifically your Amazon S3 bucket name, S3 key prefix, and the
+-- formats of your reports.
+updateReportPlan_reportDeliveryChannel :: Lens.Lens' UpdateReportPlan (Prelude.Maybe ReportDeliveryChannel)
+updateReportPlan_reportDeliveryChannel = Lens.lens (\UpdateReportPlan' {reportDeliveryChannel} -> reportDeliveryChannel) (\s@UpdateReportPlan' {} a -> s {reportDeliveryChannel = a} :: UpdateReportPlan)
+
+-- | An optional description of the report plan with a maximum 1,024
+-- characters.
+updateReportPlan_reportPlanDescription :: Lens.Lens' UpdateReportPlan (Prelude.Maybe Prelude.Text)
+updateReportPlan_reportPlanDescription = Lens.lens (\UpdateReportPlan' {reportPlanDescription} -> reportPlanDescription) (\s@UpdateReportPlan' {} a -> s {reportPlanDescription = a} :: UpdateReportPlan)
 
 -- | Identifies the report template for the report. Reports are built using a
 -- report template. The report templates are:
@@ -147,17 +159,6 @@ updateReportPlan_idempotencyToken = Lens.lens (\UpdateReportPlan' {idempotencyTo
 updateReportPlan_reportSetting :: Lens.Lens' UpdateReportPlan (Prelude.Maybe ReportSetting)
 updateReportPlan_reportSetting = Lens.lens (\UpdateReportPlan' {reportSetting} -> reportSetting) (\s@UpdateReportPlan' {} a -> s {reportSetting = a} :: UpdateReportPlan)
 
--- | An optional description of the report plan with a maximum 1,024
--- characters.
-updateReportPlan_reportPlanDescription :: Lens.Lens' UpdateReportPlan (Prelude.Maybe Prelude.Text)
-updateReportPlan_reportPlanDescription = Lens.lens (\UpdateReportPlan' {reportPlanDescription} -> reportPlanDescription) (\s@UpdateReportPlan' {} a -> s {reportPlanDescription = a} :: UpdateReportPlan)
-
--- | A structure that contains information about where to deliver your
--- reports, specifically your Amazon S3 bucket name, S3 key prefix, and the
--- formats of your reports.
-updateReportPlan_reportDeliveryChannel :: Lens.Lens' UpdateReportPlan (Prelude.Maybe ReportDeliveryChannel)
-updateReportPlan_reportDeliveryChannel = Lens.lens (\UpdateReportPlan' {reportDeliveryChannel} -> reportDeliveryChannel) (\s@UpdateReportPlan' {} a -> s {reportDeliveryChannel = a} :: UpdateReportPlan)
-
 -- | The unique name of the report plan. This name is between 1 and 256
 -- characters, starting with a letter, and consisting of letters (a-z,
 -- A-Z), numbers (0-9), and underscores (_).
@@ -168,64 +169,65 @@ instance Core.AWSRequest UpdateReportPlan where
   type
     AWSResponse UpdateReportPlan =
       UpdateReportPlanResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateReportPlanResponse'
-            Prelude.<$> (x Core..?> "CreationTime")
-            Prelude.<*> (x Core..?> "ReportPlanName")
-            Prelude.<*> (x Core..?> "ReportPlanArn")
+            Prelude.<$> (x Data..?> "CreationTime")
+            Prelude.<*> (x Data..?> "ReportPlanArn")
+            Prelude.<*> (x Data..?> "ReportPlanName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateReportPlan where
   hashWithSalt _salt UpdateReportPlan' {..} =
     _salt `Prelude.hashWithSalt` idempotencyToken
-      `Prelude.hashWithSalt` reportSetting
-      `Prelude.hashWithSalt` reportPlanDescription
       `Prelude.hashWithSalt` reportDeliveryChannel
+      `Prelude.hashWithSalt` reportPlanDescription
+      `Prelude.hashWithSalt` reportSetting
       `Prelude.hashWithSalt` reportPlanName
 
 instance Prelude.NFData UpdateReportPlan where
   rnf UpdateReportPlan' {..} =
     Prelude.rnf idempotencyToken
-      `Prelude.seq` Prelude.rnf reportSetting
-      `Prelude.seq` Prelude.rnf reportPlanDescription
       `Prelude.seq` Prelude.rnf reportDeliveryChannel
+      `Prelude.seq` Prelude.rnf reportPlanDescription
+      `Prelude.seq` Prelude.rnf reportSetting
       `Prelude.seq` Prelude.rnf reportPlanName
 
-instance Core.ToHeaders UpdateReportPlan where
+instance Data.ToHeaders UpdateReportPlan where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateReportPlan where
+instance Data.ToJSON UpdateReportPlan where
   toJSON UpdateReportPlan' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IdempotencyToken" Core..=)
+          [ ("IdempotencyToken" Data..=)
               Prelude.<$> idempotencyToken,
-            ("ReportSetting" Core..=) Prelude.<$> reportSetting,
-            ("ReportPlanDescription" Core..=)
+            ("ReportDeliveryChannel" Data..=)
+              Prelude.<$> reportDeliveryChannel,
+            ("ReportPlanDescription" Data..=)
               Prelude.<$> reportPlanDescription,
-            ("ReportDeliveryChannel" Core..=)
-              Prelude.<$> reportDeliveryChannel
+            ("ReportSetting" Data..=) Prelude.<$> reportSetting
           ]
       )
 
-instance Core.ToPath UpdateReportPlan where
+instance Data.ToPath UpdateReportPlan where
   toPath UpdateReportPlan' {..} =
     Prelude.mconcat
-      ["/audit/report-plans/", Core.toBS reportPlanName]
+      ["/audit/report-plans/", Data.toBS reportPlanName]
 
-instance Core.ToQuery UpdateReportPlan where
+instance Data.ToQuery UpdateReportPlan where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateReportPlanResponse' smart constructor.
@@ -234,12 +236,12 @@ data UpdateReportPlanResponse = UpdateReportPlanResponse'
     -- Coordinated Universal Time (UTC). The value of @CreationTime@ is
     -- accurate to milliseconds. For example, the value 1516925490.087
     -- represents Friday, January 26, 2018 12:11:30.087 AM.
-    creationTime :: Prelude.Maybe Core.POSIX,
-    -- | The unique name of the report plan.
-    reportPlanName :: Prelude.Maybe Prelude.Text,
+    creationTime :: Prelude.Maybe Data.POSIX,
     -- | An Amazon Resource Name (ARN) that uniquely identifies a resource. The
     -- format of the ARN depends on the resource type.
     reportPlanArn :: Prelude.Maybe Prelude.Text,
+    -- | The unique name of the report plan.
+    reportPlanName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -258,10 +260,10 @@ data UpdateReportPlanResponse = UpdateReportPlanResponse'
 -- accurate to milliseconds. For example, the value 1516925490.087
 -- represents Friday, January 26, 2018 12:11:30.087 AM.
 --
--- 'reportPlanName', 'updateReportPlanResponse_reportPlanName' - The unique name of the report plan.
---
 -- 'reportPlanArn', 'updateReportPlanResponse_reportPlanArn' - An Amazon Resource Name (ARN) that uniquely identifies a resource. The
 -- format of the ARN depends on the resource type.
+--
+-- 'reportPlanName', 'updateReportPlanResponse_reportPlanName' - The unique name of the report plan.
 --
 -- 'httpStatus', 'updateReportPlanResponse_httpStatus' - The response's http status code.
 newUpdateReportPlanResponse ::
@@ -272,8 +274,8 @@ newUpdateReportPlanResponse pHttpStatus_ =
   UpdateReportPlanResponse'
     { creationTime =
         Prelude.Nothing,
-      reportPlanName = Prelude.Nothing,
       reportPlanArn = Prelude.Nothing,
+      reportPlanName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -282,16 +284,16 @@ newUpdateReportPlanResponse pHttpStatus_ =
 -- accurate to milliseconds. For example, the value 1516925490.087
 -- represents Friday, January 26, 2018 12:11:30.087 AM.
 updateReportPlanResponse_creationTime :: Lens.Lens' UpdateReportPlanResponse (Prelude.Maybe Prelude.UTCTime)
-updateReportPlanResponse_creationTime = Lens.lens (\UpdateReportPlanResponse' {creationTime} -> creationTime) (\s@UpdateReportPlanResponse' {} a -> s {creationTime = a} :: UpdateReportPlanResponse) Prelude.. Lens.mapping Core._Time
-
--- | The unique name of the report plan.
-updateReportPlanResponse_reportPlanName :: Lens.Lens' UpdateReportPlanResponse (Prelude.Maybe Prelude.Text)
-updateReportPlanResponse_reportPlanName = Lens.lens (\UpdateReportPlanResponse' {reportPlanName} -> reportPlanName) (\s@UpdateReportPlanResponse' {} a -> s {reportPlanName = a} :: UpdateReportPlanResponse)
+updateReportPlanResponse_creationTime = Lens.lens (\UpdateReportPlanResponse' {creationTime} -> creationTime) (\s@UpdateReportPlanResponse' {} a -> s {creationTime = a} :: UpdateReportPlanResponse) Prelude.. Lens.mapping Data._Time
 
 -- | An Amazon Resource Name (ARN) that uniquely identifies a resource. The
 -- format of the ARN depends on the resource type.
 updateReportPlanResponse_reportPlanArn :: Lens.Lens' UpdateReportPlanResponse (Prelude.Maybe Prelude.Text)
 updateReportPlanResponse_reportPlanArn = Lens.lens (\UpdateReportPlanResponse' {reportPlanArn} -> reportPlanArn) (\s@UpdateReportPlanResponse' {} a -> s {reportPlanArn = a} :: UpdateReportPlanResponse)
+
+-- | The unique name of the report plan.
+updateReportPlanResponse_reportPlanName :: Lens.Lens' UpdateReportPlanResponse (Prelude.Maybe Prelude.Text)
+updateReportPlanResponse_reportPlanName = Lens.lens (\UpdateReportPlanResponse' {reportPlanName} -> reportPlanName) (\s@UpdateReportPlanResponse' {} a -> s {reportPlanName = a} :: UpdateReportPlanResponse)
 
 -- | The response's http status code.
 updateReportPlanResponse_httpStatus :: Lens.Lens' UpdateReportPlanResponse Prelude.Int
@@ -300,6 +302,6 @@ updateReportPlanResponse_httpStatus = Lens.lens (\UpdateReportPlanResponse' {htt
 instance Prelude.NFData UpdateReportPlanResponse where
   rnf UpdateReportPlanResponse' {..} =
     Prelude.rnf creationTime
-      `Prelude.seq` Prelude.rnf reportPlanName
       `Prelude.seq` Prelude.rnf reportPlanArn
+      `Prelude.seq` Prelude.rnf reportPlanName
       `Prelude.seq` Prelude.rnf httpStatus

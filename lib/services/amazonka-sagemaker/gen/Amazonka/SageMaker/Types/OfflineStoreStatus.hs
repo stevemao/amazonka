@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.OfflineStoreStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.OfflineStoreStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.OfflineStoreStatusValue
 
@@ -68,14 +69,14 @@ offlineStoreStatus_blockedReason = Lens.lens (\OfflineStoreStatus' {blockedReaso
 offlineStoreStatus_status :: Lens.Lens' OfflineStoreStatus OfflineStoreStatusValue
 offlineStoreStatus_status = Lens.lens (\OfflineStoreStatus' {status} -> status) (\s@OfflineStoreStatus' {} a -> s {status = a} :: OfflineStoreStatus)
 
-instance Core.FromJSON OfflineStoreStatus where
+instance Data.FromJSON OfflineStoreStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OfflineStoreStatus"
       ( \x ->
           OfflineStoreStatus'
-            Prelude.<$> (x Core..:? "BlockedReason")
-            Prelude.<*> (x Core..: "Status")
+            Prelude.<$> (x Data..:? "BlockedReason")
+            Prelude.<*> (x Data..: "Status")
       )
 
 instance Prelude.Hashable OfflineStoreStatus where

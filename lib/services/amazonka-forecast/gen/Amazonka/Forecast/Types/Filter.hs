@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.Types.Filter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Forecast.Types.Filter where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types.FilterConditionString
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a filter for choosing a subset of objects. Each filter
@@ -96,12 +97,12 @@ instance Prelude.NFData Filter where
       `Prelude.seq` Prelude.rnf value
       `Prelude.seq` Prelude.rnf condition
 
-instance Core.ToJSON Filter where
+instance Data.ToJSON Filter where
   toJSON Filter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Key" Core..= key),
-            Prelude.Just ("Value" Core..= value),
-            Prelude.Just ("Condition" Core..= condition)
+          [ Prelude.Just ("Key" Data..= key),
+            Prelude.Just ("Value" Data..= value),
+            Prelude.Just ("Condition" Data..= condition)
           ]
       )

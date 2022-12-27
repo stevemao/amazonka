@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentity.DescribeIdentityPool
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,13 +37,13 @@ module Amazonka.CognitoIdentity.DescribeIdentityPool
     newIdentityPool,
 
     -- * Response Lenses
-    identityPool_samlProviderARNs,
-    identityPool_supportedLoginProviders,
     identityPool_allowClassicFlow,
+    identityPool_cognitoIdentityProviders,
     identityPool_developerProviderName,
     identityPool_identityPoolTags,
     identityPool_openIdConnectProviderARNs,
-    identityPool_cognitoIdentityProviders,
+    identityPool_samlProviderARNs,
+    identityPool_supportedLoginProviders,
     identityPool_identityPoolId,
     identityPool_identityPoolName,
     identityPool_allowUnauthenticatedIdentities,
@@ -52,7 +52,8 @@ where
 
 import Amazonka.CognitoIdentity.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,10 +92,11 @@ describeIdentityPool_identityPoolId = Lens.lens (\DescribeIdentityPool' {identit
 
 instance Core.AWSRequest DescribeIdentityPool where
   type AWSResponse DescribeIdentityPool = IdentityPool
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable DescribeIdentityPool where
   hashWithSalt _salt DescribeIdentityPool' {..} =
@@ -104,32 +106,32 @@ instance Prelude.NFData DescribeIdentityPool where
   rnf DescribeIdentityPool' {..} =
     Prelude.rnf identityPoolId
 
-instance Core.ToHeaders DescribeIdentityPool where
+instance Data.ToHeaders DescribeIdentityPool where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityService.DescribeIdentityPool" ::
+              Data.=# ( "AWSCognitoIdentityService.DescribeIdentityPool" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeIdentityPool where
+instance Data.ToJSON DescribeIdentityPool where
   toJSON DescribeIdentityPool' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("IdentityPoolId" Core..= identityPoolId)
+              ("IdentityPoolId" Data..= identityPoolId)
           ]
       )
 
-instance Core.ToPath DescribeIdentityPool where
+instance Data.ToPath DescribeIdentityPool where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeIdentityPool where
+instance Data.ToQuery DescribeIdentityPool where
   toQuery = Prelude.const Prelude.mempty

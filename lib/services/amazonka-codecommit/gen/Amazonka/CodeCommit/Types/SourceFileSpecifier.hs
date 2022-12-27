@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.Types.SourceFileSpecifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeCommit.Types.SourceFileSpecifier where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a source file that is part of changes made in a
@@ -74,11 +75,11 @@ instance Prelude.NFData SourceFileSpecifier where
     Prelude.rnf isMove
       `Prelude.seq` Prelude.rnf filePath
 
-instance Core.ToJSON SourceFileSpecifier where
+instance Data.ToJSON SourceFileSpecifier where
   toJSON SourceFileSpecifier' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("isMove" Core..=) Prelude.<$> isMove,
-            Prelude.Just ("filePath" Core..= filePath)
+          [ ("isMove" Data..=) Prelude.<$> isMove,
+            Prelude.Just ("filePath" Data..= filePath)
           ]
       )

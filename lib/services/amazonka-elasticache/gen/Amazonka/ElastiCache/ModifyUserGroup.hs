@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.ModifyUserGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,19 +36,21 @@ module Amazonka.ElastiCache.ModifyUserGroup
     newUserGroup,
 
     -- * Response Lenses
-    userGroup_status,
-    userGroup_userIds,
     userGroup_arn,
-    userGroup_userGroupId,
     userGroup_engine,
+    userGroup_minimumEngineVersion,
     userGroup_pendingChanges,
     userGroup_replicationGroups,
+    userGroup_status,
+    userGroup_userGroupId,
+    userGroup_userIds,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,11 +104,12 @@ modifyUserGroup_userGroupId = Lens.lens (\ModifyUserGroup' {userGroupId} -> user
 
 instance Core.AWSRequest ModifyUserGroup where
   type AWSResponse ModifyUserGroup = UserGroup
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyUserGroupResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable ModifyUserGroup where
   hashWithSalt _salt ModifyUserGroup' {..} =
@@ -120,26 +123,26 @@ instance Prelude.NFData ModifyUserGroup where
       `Prelude.seq` Prelude.rnf userIdsToRemove
       `Prelude.seq` Prelude.rnf userGroupId
 
-instance Core.ToHeaders ModifyUserGroup where
+instance Data.ToHeaders ModifyUserGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyUserGroup where
+instance Data.ToPath ModifyUserGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyUserGroup where
+instance Data.ToQuery ModifyUserGroup where
   toQuery ModifyUserGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyUserGroup" :: Prelude.ByteString),
+          Data.=: ("ModifyUserGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
         "UserIdsToAdd"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> userIdsToAdd),
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> userIdsToAdd),
         "UserIdsToRemove"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> userIdsToRemove
             ),
-        "UserGroupId" Core.=: userGroupId
+        "UserGroupId" Data.=: userGroupId
       ]

@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.KMS
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,7 +19,7 @@
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/ Key Management Service Developer Guide>
 -- .
 --
--- KMS is replacing the term /customer master key (CMK)/ with /KMS key/ and
+-- KMS has replaced the term /customer master key (CMK)/ with /KMS key/ and
 -- /KMS key/. The concept has not changed. To prevent breaking changes, KMS
 -- is keeping some variations of this term.
 --
@@ -36,19 +36,28 @@
 -- We recommend that you use the Amazon Web Services SDKs to make
 -- programmatic API calls to KMS.
 --
--- Clients must support TLS (Transport Layer Security) 1.0. We recommend
--- TLS 1.2. Clients must also support cipher suites with Perfect Forward
--- Secrecy (PFS) such as Ephemeral Diffie-Hellman (DHE) or Elliptic Curve
--- Ephemeral Diffie-Hellman (ECDHE). Most modern systems such as Java 7 and
--- later support these modes.
+-- If you need to use FIPS 140-2 validated cryptographic modules when
+-- communicating with Amazon Web Services, use the FIPS endpoint in your
+-- preferred Amazon Web Services Region. For more information about the
+-- available FIPS endpoints, see
+-- <https://docs.aws.amazon.com/general/latest/gr/kms.html#kms_region Service endpoints>
+-- in the Key Management Service topic of the /Amazon Web Services General
+-- Reference/.
+--
+-- All KMS API calls must be signed and be transmitted using Transport
+-- Layer Security (TLS). KMS recommends you always use the latest supported
+-- TLS version. Clients must also support cipher suites with Perfect
+-- Forward Secrecy (PFS) such as Ephemeral Diffie-Hellman (DHE) or Elliptic
+-- Curve Ephemeral Diffie-Hellman (ECDHE). Most modern systems such as Java
+-- 7 and later support these modes.
 --
 -- __Signing Requests__
 --
 -- Requests must be signed by using an access key ID and a secret access
 -- key. We strongly recommend that you /do not/ use your Amazon Web
--- Services account (root) access key ID and secret key for everyday work
--- with KMS. Instead, use the access key ID and secret access key for an
--- IAM user. You can also use the Amazon Web Services Security Token
+-- Services account (root) access key ID and secret access key for everyday
+-- work with KMS. Instead, use the access key ID and secret access key for
+-- an IAM user. You can also use the Amazon Web Services Security Token
 -- Service to generate temporary security credentials that you can use to
 -- sign requests.
 --
@@ -104,50 +113,11 @@ module Amazonka.KMS
     -- * Errors
     -- $errors
 
-    -- ** InvalidMarkerException
-    _InvalidMarkerException,
+    -- ** AlreadyExistsException
+    _AlreadyExistsException,
 
-    -- ** KMSInvalidStateException
-    _KMSInvalidStateException,
-
-    -- ** InvalidKeyUsageException
-    _InvalidKeyUsageException,
-
-    -- ** MalformedPolicyDocumentException
-    _MalformedPolicyDocumentException,
-
-    -- ** CustomKeyStoreNameInUseException
-    _CustomKeyStoreNameInUseException,
-
-    -- ** UnsupportedOperationException
-    _UnsupportedOperationException,
-
-    -- ** DisabledException
-    _DisabledException,
-
-    -- ** KeyUnavailableException
-    _KeyUnavailableException,
-
-    -- ** IncorrectKeyMaterialException
-    _IncorrectKeyMaterialException,
-
-    -- ** KMSInternalException
-    _KMSInternalException,
-
-    -- ** TagException
-    _TagException,
-
-    -- ** CustomKeyStoreHasCMKsException
-    _CustomKeyStoreHasCMKsException,
-
-    -- ** InvalidImportTokenException
-    _InvalidImportTokenException,
-
-    -- ** CloudHsmClusterNotRelatedException
-    _CloudHsmClusterNotRelatedException,
-
-    -- ** IncorrectTrustAnchorException
-    _IncorrectTrustAnchorException,
+    -- ** CloudHsmClusterInUseException
+    _CloudHsmClusterInUseException,
 
     -- ** CloudHsmClusterInvalidConfigurationException
     _CloudHsmClusterInvalidConfigurationException,
@@ -158,20 +128,47 @@ module Amazonka.KMS
     -- ** CloudHsmClusterNotFoundException
     _CloudHsmClusterNotFoundException,
 
-    -- ** NotFoundException
-    _NotFoundException,
+    -- ** CloudHsmClusterNotRelatedException
+    _CloudHsmClusterNotRelatedException,
 
-    -- ** KMSInvalidSignatureException
-    _KMSInvalidSignatureException,
+    -- ** CustomKeyStoreHasCMKsException
+    _CustomKeyStoreHasCMKsException,
 
-    -- ** InvalidAliasNameException
-    _InvalidAliasNameException,
+    -- ** CustomKeyStoreInvalidStateException
+    _CustomKeyStoreInvalidStateException,
+
+    -- ** CustomKeyStoreNameInUseException
+    _CustomKeyStoreNameInUseException,
 
     -- ** CustomKeyStoreNotFoundException
     _CustomKeyStoreNotFoundException,
 
-    -- ** CustomKeyStoreInvalidStateException
-    _CustomKeyStoreInvalidStateException,
+    -- ** DependencyTimeoutException
+    _DependencyTimeoutException,
+
+    -- ** DisabledException
+    _DisabledException,
+
+    -- ** ExpiredImportTokenException
+    _ExpiredImportTokenException,
+
+    -- ** IncorrectKeyException
+    _IncorrectKeyException,
+
+    -- ** IncorrectKeyMaterialException
+    _IncorrectKeyMaterialException,
+
+    -- ** IncorrectTrustAnchorException
+    _IncorrectTrustAnchorException,
+
+    -- ** InvalidAliasNameException
+    _InvalidAliasNameException,
+
+    -- ** InvalidArnException
+    _InvalidArnException,
+
+    -- ** InvalidCiphertextException
+    _InvalidCiphertextException,
 
     -- ** InvalidGrantIdException
     _InvalidGrantIdException,
@@ -179,29 +176,80 @@ module Amazonka.KMS
     -- ** InvalidGrantTokenException
     _InvalidGrantTokenException,
 
-    -- ** InvalidArnException
-    _InvalidArnException,
+    -- ** InvalidImportTokenException
+    _InvalidImportTokenException,
 
-    -- ** DependencyTimeoutException
-    _DependencyTimeoutException,
+    -- ** InvalidKeyUsageException
+    _InvalidKeyUsageException,
 
-    -- ** ExpiredImportTokenException
-    _ExpiredImportTokenException,
+    -- ** InvalidMarkerException
+    _InvalidMarkerException,
 
-    -- ** InvalidCiphertextException
-    _InvalidCiphertextException,
+    -- ** KMSInternalException
+    _KMSInternalException,
 
-    -- ** CloudHsmClusterInUseException
-    _CloudHsmClusterInUseException,
+    -- ** KMSInvalidMacException
+    _KMSInvalidMacException,
 
-    -- ** IncorrectKeyException
-    _IncorrectKeyException,
+    -- ** KMSInvalidSignatureException
+    _KMSInvalidSignatureException,
 
-    -- ** AlreadyExistsException
-    _AlreadyExistsException,
+    -- ** KMSInvalidStateException
+    _KMSInvalidStateException,
+
+    -- ** KeyUnavailableException
+    _KeyUnavailableException,
 
     -- ** LimitExceededException
     _LimitExceededException,
+
+    -- ** MalformedPolicyDocumentException
+    _MalformedPolicyDocumentException,
+
+    -- ** NotFoundException
+    _NotFoundException,
+
+    -- ** TagException
+    _TagException,
+
+    -- ** UnsupportedOperationException
+    _UnsupportedOperationException,
+
+    -- ** XksKeyAlreadyInUseException
+    _XksKeyAlreadyInUseException,
+
+    -- ** XksKeyInvalidConfigurationException
+    _XksKeyInvalidConfigurationException,
+
+    -- ** XksKeyNotFoundException
+    _XksKeyNotFoundException,
+
+    -- ** XksProxyIncorrectAuthenticationCredentialException
+    _XksProxyIncorrectAuthenticationCredentialException,
+
+    -- ** XksProxyInvalidConfigurationException
+    _XksProxyInvalidConfigurationException,
+
+    -- ** XksProxyInvalidResponseException
+    _XksProxyInvalidResponseException,
+
+    -- ** XksProxyUriEndpointInUseException
+    _XksProxyUriEndpointInUseException,
+
+    -- ** XksProxyUriInUseException
+    _XksProxyUriInUseException,
+
+    -- ** XksProxyUriUnreachableException
+    _XksProxyUriUnreachableException,
+
+    -- ** XksProxyVpcEndpointServiceInUseException
+    _XksProxyVpcEndpointServiceInUseException,
+
+    -- ** XksProxyVpcEndpointServiceInvalidConfigurationException
+    _XksProxyVpcEndpointServiceInvalidConfigurationException,
+
+    -- ** XksProxyVpcEndpointServiceNotFoundException
+    _XksProxyVpcEndpointServiceNotFoundException,
 
     -- * Waiters
     -- $waiters
@@ -209,89 +257,11 @@ module Amazonka.KMS
     -- * Operations
     -- $operations
 
-    -- ** Encrypt
-    Encrypt (Encrypt'),
-    newEncrypt,
-    EncryptResponse (EncryptResponse'),
-    newEncryptResponse,
-
-    -- ** CreateCustomKeyStore
-    CreateCustomKeyStore (CreateCustomKeyStore'),
-    newCreateCustomKeyStore,
-    CreateCustomKeyStoreResponse (CreateCustomKeyStoreResponse'),
-    newCreateCustomKeyStoreResponse,
-
-    -- ** ListGrants (Paginated)
-    ListGrants (ListGrants'),
-    newListGrants,
-    ListGrantsResponse (ListGrantsResponse'),
-    newListGrantsResponse,
-
-    -- ** DisableKeyRotation
-    DisableKeyRotation (DisableKeyRotation'),
-    newDisableKeyRotation,
-    DisableKeyRotationResponse (DisableKeyRotationResponse'),
-    newDisableKeyRotationResponse,
-
-    -- ** Verify
-    Verify (Verify'),
-    newVerify,
-    VerifyResponse (VerifyResponse'),
-    newVerifyResponse,
-
-    -- ** GenerateDataKeyWithoutPlaintext
-    GenerateDataKeyWithoutPlaintext (GenerateDataKeyWithoutPlaintext'),
-    newGenerateDataKeyWithoutPlaintext,
-    GenerateDataKeyWithoutPlaintextResponse (GenerateDataKeyWithoutPlaintextResponse'),
-    newGenerateDataKeyWithoutPlaintextResponse,
-
-    -- ** UpdateCustomKeyStore
-    UpdateCustomKeyStore (UpdateCustomKeyStore'),
-    newUpdateCustomKeyStore,
-    UpdateCustomKeyStoreResponse (UpdateCustomKeyStoreResponse'),
-    newUpdateCustomKeyStoreResponse,
-
-    -- ** GetParametersForImport
-    GetParametersForImport (GetParametersForImport'),
-    newGetParametersForImport,
-    GetParametersForImportResponse (GetParametersForImportResponse'),
-    newGetParametersForImportResponse,
-
-    -- ** EnableKeyRotation
-    EnableKeyRotation (EnableKeyRotation'),
-    newEnableKeyRotation,
-    EnableKeyRotationResponse (EnableKeyRotationResponse'),
-    newEnableKeyRotationResponse,
-
-    -- ** DeleteCustomKeyStore
-    DeleteCustomKeyStore (DeleteCustomKeyStore'),
-    newDeleteCustomKeyStore,
-    DeleteCustomKeyStoreResponse (DeleteCustomKeyStoreResponse'),
-    newDeleteCustomKeyStoreResponse,
-
-    -- ** CreateAlias
-    CreateAlias (CreateAlias'),
-    newCreateAlias,
-    CreateAliasResponse (CreateAliasResponse'),
-    newCreateAliasResponse,
-
-    -- ** CreateGrant
-    CreateGrant (CreateGrant'),
-    newCreateGrant,
-    CreateGrantResponse (CreateGrantResponse'),
-    newCreateGrantResponse,
-
-    -- ** ListAliases (Paginated)
-    ListAliases (ListAliases'),
-    newListAliases,
-    ListAliasesResponse (ListAliasesResponse'),
-    newListAliasesResponse,
-
-    -- ** UpdatePrimaryRegion
-    UpdatePrimaryRegion (UpdatePrimaryRegion'),
-    newUpdatePrimaryRegion,
-    UpdatePrimaryRegionResponse (UpdatePrimaryRegionResponse'),
-    newUpdatePrimaryRegionResponse,
+    -- ** CancelKeyDeletion
+    CancelKeyDeletion (CancelKeyDeletion'),
+    newCancelKeyDeletion,
+    CancelKeyDeletionResponse (CancelKeyDeletionResponse'),
+    newCancelKeyDeletionResponse,
 
     -- ** ConnectCustomKeyStore
     ConnectCustomKeyStore (ConnectCustomKeyStore'),
@@ -299,23 +269,23 @@ module Amazonka.KMS
     ConnectCustomKeyStoreResponse (ConnectCustomKeyStoreResponse'),
     newConnectCustomKeyStoreResponse,
 
-    -- ** ListRetirableGrants
-    ListRetirableGrants (ListRetirableGrants'),
-    newListRetirableGrants,
-    ListGrantsResponse (ListGrantsResponse'),
-    newListGrantsResponse,
+    -- ** CreateAlias
+    CreateAlias (CreateAlias'),
+    newCreateAlias,
+    CreateAliasResponse (CreateAliasResponse'),
+    newCreateAliasResponse,
 
-    -- ** GetPublicKey
-    GetPublicKey (GetPublicKey'),
-    newGetPublicKey,
-    GetPublicKeyResponse (GetPublicKeyResponse'),
-    newGetPublicKeyResponse,
+    -- ** CreateCustomKeyStore
+    CreateCustomKeyStore (CreateCustomKeyStore'),
+    newCreateCustomKeyStore,
+    CreateCustomKeyStoreResponse (CreateCustomKeyStoreResponse'),
+    newCreateCustomKeyStoreResponse,
 
-    -- ** GenerateRandom
-    GenerateRandom (GenerateRandom'),
-    newGenerateRandom,
-    GenerateRandomResponse (GenerateRandomResponse'),
-    newGenerateRandomResponse,
+    -- ** CreateGrant
+    CreateGrant (CreateGrant'),
+    newCreateGrant,
+    CreateGrantResponse (CreateGrantResponse'),
+    newCreateGrantResponse,
 
     -- ** CreateKey
     CreateKey (CreateKey'),
@@ -323,47 +293,11 @@ module Amazonka.KMS
     CreateKeyResponse (CreateKeyResponse'),
     newCreateKeyResponse,
 
-    -- ** DisableKey
-    DisableKey (DisableKey'),
-    newDisableKey,
-    DisableKeyResponse (DisableKeyResponse'),
-    newDisableKeyResponse,
-
-    -- ** DisconnectCustomKeyStore
-    DisconnectCustomKeyStore (DisconnectCustomKeyStore'),
-    newDisconnectCustomKeyStore,
-    DisconnectCustomKeyStoreResponse (DisconnectCustomKeyStoreResponse'),
-    newDisconnectCustomKeyStoreResponse,
-
-    -- ** RetireGrant
-    RetireGrant (RetireGrant'),
-    newRetireGrant,
-    RetireGrantResponse (RetireGrantResponse'),
-    newRetireGrantResponse,
-
-    -- ** ListKeys (Paginated)
-    ListKeys (ListKeys'),
-    newListKeys,
-    ListKeysResponse (ListKeysResponse'),
-    newListKeysResponse,
-
-    -- ** ListResourceTags
-    ListResourceTags (ListResourceTags'),
-    newListResourceTags,
-    ListResourceTagsResponse (ListResourceTagsResponse'),
-    newListResourceTagsResponse,
-
-    -- ** GetKeyRotationStatus
-    GetKeyRotationStatus (GetKeyRotationStatus'),
-    newGetKeyRotationStatus,
-    GetKeyRotationStatusResponse (GetKeyRotationStatusResponse'),
-    newGetKeyRotationStatusResponse,
-
-    -- ** GenerateDataKey
-    GenerateDataKey (GenerateDataKey'),
-    newGenerateDataKey,
-    GenerateDataKeyResponse (GenerateDataKeyResponse'),
-    newGenerateDataKeyResponse,
+    -- ** Decrypt
+    Decrypt (Decrypt'),
+    newDecrypt,
+    DecryptResponse (DecryptResponse'),
+    newDecryptResponse,
 
     -- ** DeleteAlias
     DeleteAlias (DeleteAlias'),
@@ -371,11 +305,23 @@ module Amazonka.KMS
     DeleteAliasResponse (DeleteAliasResponse'),
     newDeleteAliasResponse,
 
-    -- ** UpdateAlias
-    UpdateAlias (UpdateAlias'),
-    newUpdateAlias,
-    UpdateAliasResponse (UpdateAliasResponse'),
-    newUpdateAliasResponse,
+    -- ** DeleteCustomKeyStore
+    DeleteCustomKeyStore (DeleteCustomKeyStore'),
+    newDeleteCustomKeyStore,
+    DeleteCustomKeyStoreResponse (DeleteCustomKeyStoreResponse'),
+    newDeleteCustomKeyStoreResponse,
+
+    -- ** DeleteImportedKeyMaterial
+    DeleteImportedKeyMaterial (DeleteImportedKeyMaterial'),
+    newDeleteImportedKeyMaterial,
+    DeleteImportedKeyMaterialResponse (DeleteImportedKeyMaterialResponse'),
+    newDeleteImportedKeyMaterialResponse,
+
+    -- ** DescribeCustomKeyStores (Paginated)
+    DescribeCustomKeyStores (DescribeCustomKeyStores'),
+    newDescribeCustomKeyStores,
+    DescribeCustomKeyStoresResponse (DescribeCustomKeyStoresResponse'),
+    newDescribeCustomKeyStoresResponse,
 
     -- ** DescribeKey
     DescribeKey (DescribeKey'),
@@ -383,89 +329,23 @@ module Amazonka.KMS
     DescribeKeyResponse (DescribeKeyResponse'),
     newDescribeKeyResponse,
 
-    -- ** DescribeCustomKeyStores
-    DescribeCustomKeyStores (DescribeCustomKeyStores'),
-    newDescribeCustomKeyStores,
-    DescribeCustomKeyStoresResponse (DescribeCustomKeyStoresResponse'),
-    newDescribeCustomKeyStoresResponse,
+    -- ** DisableKey
+    DisableKey (DisableKey'),
+    newDisableKey,
+    DisableKeyResponse (DisableKeyResponse'),
+    newDisableKeyResponse,
 
-    -- ** CancelKeyDeletion
-    CancelKeyDeletion (CancelKeyDeletion'),
-    newCancelKeyDeletion,
-    CancelKeyDeletionResponse (CancelKeyDeletionResponse'),
-    newCancelKeyDeletionResponse,
+    -- ** DisableKeyRotation
+    DisableKeyRotation (DisableKeyRotation'),
+    newDisableKeyRotation,
+    DisableKeyRotationResponse (DisableKeyRotationResponse'),
+    newDisableKeyRotationResponse,
 
-    -- ** Decrypt
-    Decrypt (Decrypt'),
-    newDecrypt,
-    DecryptResponse (DecryptResponse'),
-    newDecryptResponse,
-
-    -- ** GenerateDataKeyPairWithoutPlaintext
-    GenerateDataKeyPairWithoutPlaintext (GenerateDataKeyPairWithoutPlaintext'),
-    newGenerateDataKeyPairWithoutPlaintext,
-    GenerateDataKeyPairWithoutPlaintextResponse (GenerateDataKeyPairWithoutPlaintextResponse'),
-    newGenerateDataKeyPairWithoutPlaintextResponse,
-
-    -- ** UpdateKeyDescription
-    UpdateKeyDescription (UpdateKeyDescription'),
-    newUpdateKeyDescription,
-    UpdateKeyDescriptionResponse (UpdateKeyDescriptionResponse'),
-    newUpdateKeyDescriptionResponse,
-
-    -- ** ReEncrypt
-    ReEncrypt (ReEncrypt'),
-    newReEncrypt,
-    ReEncryptResponse (ReEncryptResponse'),
-    newReEncryptResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** ListKeyPolicies (Paginated)
-    ListKeyPolicies (ListKeyPolicies'),
-    newListKeyPolicies,
-    ListKeyPoliciesResponse (ListKeyPoliciesResponse'),
-    newListKeyPoliciesResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
-
-    -- ** Sign
-    Sign (Sign'),
-    newSign,
-    SignResponse (SignResponse'),
-    newSignResponse,
-
-    -- ** ScheduleKeyDeletion
-    ScheduleKeyDeletion (ScheduleKeyDeletion'),
-    newScheduleKeyDeletion,
-    ScheduleKeyDeletionResponse (ScheduleKeyDeletionResponse'),
-    newScheduleKeyDeletionResponse,
-
-    -- ** GenerateDataKeyPair
-    GenerateDataKeyPair (GenerateDataKeyPair'),
-    newGenerateDataKeyPair,
-    GenerateDataKeyPairResponse (GenerateDataKeyPairResponse'),
-    newGenerateDataKeyPairResponse,
-
-    -- ** ReplicateKey
-    ReplicateKey (ReplicateKey'),
-    newReplicateKey,
-    ReplicateKeyResponse (ReplicateKeyResponse'),
-    newReplicateKeyResponse,
-
-    -- ** PutKeyPolicy
-    PutKeyPolicy (PutKeyPolicy'),
-    newPutKeyPolicy,
-    PutKeyPolicyResponse (PutKeyPolicyResponse'),
-    newPutKeyPolicyResponse,
+    -- ** DisconnectCustomKeyStore
+    DisconnectCustomKeyStore (DisconnectCustomKeyStore'),
+    newDisconnectCustomKeyStore,
+    DisconnectCustomKeyStoreResponse (DisconnectCustomKeyStoreResponse'),
+    newDisconnectCustomKeyStoreResponse,
 
     -- ** EnableKey
     EnableKey (EnableKey'),
@@ -473,11 +353,53 @@ module Amazonka.KMS
     EnableKeyResponse (EnableKeyResponse'),
     newEnableKeyResponse,
 
-    -- ** RevokeGrant
-    RevokeGrant (RevokeGrant'),
-    newRevokeGrant,
-    RevokeGrantResponse (RevokeGrantResponse'),
-    newRevokeGrantResponse,
+    -- ** EnableKeyRotation
+    EnableKeyRotation (EnableKeyRotation'),
+    newEnableKeyRotation,
+    EnableKeyRotationResponse (EnableKeyRotationResponse'),
+    newEnableKeyRotationResponse,
+
+    -- ** Encrypt
+    Encrypt (Encrypt'),
+    newEncrypt,
+    EncryptResponse (EncryptResponse'),
+    newEncryptResponse,
+
+    -- ** GenerateDataKey
+    GenerateDataKey (GenerateDataKey'),
+    newGenerateDataKey,
+    GenerateDataKeyResponse (GenerateDataKeyResponse'),
+    newGenerateDataKeyResponse,
+
+    -- ** GenerateDataKeyPair
+    GenerateDataKeyPair (GenerateDataKeyPair'),
+    newGenerateDataKeyPair,
+    GenerateDataKeyPairResponse (GenerateDataKeyPairResponse'),
+    newGenerateDataKeyPairResponse,
+
+    -- ** GenerateDataKeyPairWithoutPlaintext
+    GenerateDataKeyPairWithoutPlaintext (GenerateDataKeyPairWithoutPlaintext'),
+    newGenerateDataKeyPairWithoutPlaintext,
+    GenerateDataKeyPairWithoutPlaintextResponse (GenerateDataKeyPairWithoutPlaintextResponse'),
+    newGenerateDataKeyPairWithoutPlaintextResponse,
+
+    -- ** GenerateDataKeyWithoutPlaintext
+    GenerateDataKeyWithoutPlaintext (GenerateDataKeyWithoutPlaintext'),
+    newGenerateDataKeyWithoutPlaintext,
+    GenerateDataKeyWithoutPlaintextResponse (GenerateDataKeyWithoutPlaintextResponse'),
+    newGenerateDataKeyWithoutPlaintextResponse,
+
+    -- ** GenerateMac
+    GenerateMac (GenerateMac'),
+    newGenerateMac,
+    GenerateMacResponse (GenerateMacResponse'),
+    newGenerateMacResponse,
+
+    -- ** GenerateRandom
+    GenerateRandom (GenerateRandom'),
+    newGenerateRandom,
+    GenerateRandomResponse (GenerateRandomResponse'),
+    newGenerateRandomResponse,
 
     -- ** GetKeyPolicy
     GetKeyPolicy (GetKeyPolicy'),
@@ -485,17 +407,155 @@ module Amazonka.KMS
     GetKeyPolicyResponse (GetKeyPolicyResponse'),
     newGetKeyPolicyResponse,
 
+    -- ** GetKeyRotationStatus
+    GetKeyRotationStatus (GetKeyRotationStatus'),
+    newGetKeyRotationStatus,
+    GetKeyRotationStatusResponse (GetKeyRotationStatusResponse'),
+    newGetKeyRotationStatusResponse,
+
+    -- ** GetParametersForImport
+    GetParametersForImport (GetParametersForImport'),
+    newGetParametersForImport,
+    GetParametersForImportResponse (GetParametersForImportResponse'),
+    newGetParametersForImportResponse,
+
+    -- ** GetPublicKey
+    GetPublicKey (GetPublicKey'),
+    newGetPublicKey,
+    GetPublicKeyResponse (GetPublicKeyResponse'),
+    newGetPublicKeyResponse,
+
     -- ** ImportKeyMaterial
     ImportKeyMaterial (ImportKeyMaterial'),
     newImportKeyMaterial,
     ImportKeyMaterialResponse (ImportKeyMaterialResponse'),
     newImportKeyMaterialResponse,
 
-    -- ** DeleteImportedKeyMaterial
-    DeleteImportedKeyMaterial (DeleteImportedKeyMaterial'),
-    newDeleteImportedKeyMaterial,
-    DeleteImportedKeyMaterialResponse (DeleteImportedKeyMaterialResponse'),
-    newDeleteImportedKeyMaterialResponse,
+    -- ** ListAliases (Paginated)
+    ListAliases (ListAliases'),
+    newListAliases,
+    ListAliasesResponse (ListAliasesResponse'),
+    newListAliasesResponse,
+
+    -- ** ListGrants (Paginated)
+    ListGrants (ListGrants'),
+    newListGrants,
+    ListGrantsResponse (ListGrantsResponse'),
+    newListGrantsResponse,
+
+    -- ** ListKeyPolicies (Paginated)
+    ListKeyPolicies (ListKeyPolicies'),
+    newListKeyPolicies,
+    ListKeyPoliciesResponse (ListKeyPoliciesResponse'),
+    newListKeyPoliciesResponse,
+
+    -- ** ListKeys (Paginated)
+    ListKeys (ListKeys'),
+    newListKeys,
+    ListKeysResponse (ListKeysResponse'),
+    newListKeysResponse,
+
+    -- ** ListResourceTags (Paginated)
+    ListResourceTags (ListResourceTags'),
+    newListResourceTags,
+    ListResourceTagsResponse (ListResourceTagsResponse'),
+    newListResourceTagsResponse,
+
+    -- ** ListRetirableGrants (Paginated)
+    ListRetirableGrants (ListRetirableGrants'),
+    newListRetirableGrants,
+    ListGrantsResponse (ListGrantsResponse'),
+    newListGrantsResponse,
+
+    -- ** PutKeyPolicy
+    PutKeyPolicy (PutKeyPolicy'),
+    newPutKeyPolicy,
+    PutKeyPolicyResponse (PutKeyPolicyResponse'),
+    newPutKeyPolicyResponse,
+
+    -- ** ReEncrypt
+    ReEncrypt (ReEncrypt'),
+    newReEncrypt,
+    ReEncryptResponse (ReEncryptResponse'),
+    newReEncryptResponse,
+
+    -- ** ReplicateKey
+    ReplicateKey (ReplicateKey'),
+    newReplicateKey,
+    ReplicateKeyResponse (ReplicateKeyResponse'),
+    newReplicateKeyResponse,
+
+    -- ** RetireGrant
+    RetireGrant (RetireGrant'),
+    newRetireGrant,
+    RetireGrantResponse (RetireGrantResponse'),
+    newRetireGrantResponse,
+
+    -- ** RevokeGrant
+    RevokeGrant (RevokeGrant'),
+    newRevokeGrant,
+    RevokeGrantResponse (RevokeGrantResponse'),
+    newRevokeGrantResponse,
+
+    -- ** ScheduleKeyDeletion
+    ScheduleKeyDeletion (ScheduleKeyDeletion'),
+    newScheduleKeyDeletion,
+    ScheduleKeyDeletionResponse (ScheduleKeyDeletionResponse'),
+    newScheduleKeyDeletionResponse,
+
+    -- ** Sign
+    Sign (Sign'),
+    newSign,
+    SignResponse (SignResponse'),
+    newSignResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateAlias
+    UpdateAlias (UpdateAlias'),
+    newUpdateAlias,
+    UpdateAliasResponse (UpdateAliasResponse'),
+    newUpdateAliasResponse,
+
+    -- ** UpdateCustomKeyStore
+    UpdateCustomKeyStore (UpdateCustomKeyStore'),
+    newUpdateCustomKeyStore,
+    UpdateCustomKeyStoreResponse (UpdateCustomKeyStoreResponse'),
+    newUpdateCustomKeyStoreResponse,
+
+    -- ** UpdateKeyDescription
+    UpdateKeyDescription (UpdateKeyDescription'),
+    newUpdateKeyDescription,
+    UpdateKeyDescriptionResponse (UpdateKeyDescriptionResponse'),
+    newUpdateKeyDescriptionResponse,
+
+    -- ** UpdatePrimaryRegion
+    UpdatePrimaryRegion (UpdatePrimaryRegion'),
+    newUpdatePrimaryRegion,
+    UpdatePrimaryRegionResponse (UpdatePrimaryRegionResponse'),
+    newUpdatePrimaryRegionResponse,
+
+    -- ** Verify
+    Verify (Verify'),
+    newVerify,
+    VerifyResponse (VerifyResponse'),
+    newVerifyResponse,
+
+    -- ** VerifyMac
+    VerifyMac (VerifyMac'),
+    newVerifyMac,
+    VerifyMacResponse (VerifyMacResponse'),
+    newVerifyMacResponse,
 
     -- * Types
 
@@ -507,6 +567,9 @@ module Amazonka.KMS
 
     -- ** ConnectionStateType
     ConnectionStateType (..),
+
+    -- ** CustomKeyStoreType
+    CustomKeyStoreType (..),
 
     -- ** CustomerMasterKeySpec
     CustomerMasterKeySpec (..),
@@ -538,6 +601,9 @@ module Amazonka.KMS
     -- ** KeyUsageType
     KeyUsageType (..),
 
+    -- ** MacAlgorithmSpec
+    MacAlgorithmSpec (..),
+
     -- ** MessageType
     MessageType (..),
 
@@ -552,6 +618,9 @@ module Amazonka.KMS
 
     -- ** WrappingKeySpec
     WrappingKeySpec (..),
+
+    -- ** XksProxyConnectivityType
+    XksProxyConnectivityType (..),
 
     -- ** AliasListEntry
     AliasListEntry (AliasListEntry'),
@@ -592,6 +661,18 @@ module Amazonka.KMS
     -- ** Tag
     Tag (Tag'),
     newTag,
+
+    -- ** XksKeyConfigurationType
+    XksKeyConfigurationType (XksKeyConfigurationType'),
+    newXksKeyConfigurationType,
+
+    -- ** XksProxyAuthenticationCredentialType
+    XksProxyAuthenticationCredentialType (XksProxyAuthenticationCredentialType'),
+    newXksProxyAuthenticationCredentialType,
+
+    -- ** XksProxyConfigurationType
+    XksProxyConfigurationType (XksProxyConfigurationType'),
+    newXksProxyConfigurationType,
   )
 where
 
@@ -617,6 +698,7 @@ import Amazonka.KMS.GenerateDataKey
 import Amazonka.KMS.GenerateDataKeyPair
 import Amazonka.KMS.GenerateDataKeyPairWithoutPlaintext
 import Amazonka.KMS.GenerateDataKeyWithoutPlaintext
+import Amazonka.KMS.GenerateMac
 import Amazonka.KMS.GenerateRandom
 import Amazonka.KMS.GetKeyPolicy
 import Amazonka.KMS.GetKeyRotationStatus
@@ -645,6 +727,7 @@ import Amazonka.KMS.UpdateCustomKeyStore
 import Amazonka.KMS.UpdateKeyDescription
 import Amazonka.KMS.UpdatePrimaryRegion
 import Amazonka.KMS.Verify
+import Amazonka.KMS.VerifyMac
 import Amazonka.KMS.Waiters
 
 -- $errors

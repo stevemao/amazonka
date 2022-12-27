@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.CustomerGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.CustomerGateway where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.Tag
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a customer gateway.
@@ -40,8 +41,7 @@ data CustomerGateway = CustomerGateway'
     bgpAsn :: Prelude.Text,
     -- | The ID of the customer gateway.
     customerGatewayId :: Prelude.Text,
-    -- | The Internet-routable IP address of the customer gateway\'s outside
-    -- interface.
+    -- | The IP address of the customer gateway device\'s outside interface.
     ipAddress :: Prelude.Text,
     -- | The current state of the customer gateway
     -- (@pending | available | deleting | deleted@).
@@ -70,8 +70,7 @@ data CustomerGateway = CustomerGateway'
 --
 -- 'customerGatewayId', 'customerGateway_customerGatewayId' - The ID of the customer gateway.
 --
--- 'ipAddress', 'customerGateway_ipAddress' - The Internet-routable IP address of the customer gateway\'s outside
--- interface.
+-- 'ipAddress', 'customerGateway_ipAddress' - The IP address of the customer gateway device\'s outside interface.
 --
 -- 'state', 'customerGateway_state' - The current state of the customer gateway
 -- (@pending | available | deleting | deleted@).
@@ -127,8 +126,7 @@ customerGateway_bgpAsn = Lens.lens (\CustomerGateway' {bgpAsn} -> bgpAsn) (\s@Cu
 customerGateway_customerGatewayId :: Lens.Lens' CustomerGateway Prelude.Text
 customerGateway_customerGatewayId = Lens.lens (\CustomerGateway' {customerGatewayId} -> customerGatewayId) (\s@CustomerGateway' {} a -> s {customerGatewayId = a} :: CustomerGateway)
 
--- | The Internet-routable IP address of the customer gateway\'s outside
--- interface.
+-- | The IP address of the customer gateway device\'s outside interface.
 customerGateway_ipAddress :: Lens.Lens' CustomerGateway Prelude.Text
 customerGateway_ipAddress = Lens.lens (\CustomerGateway' {ipAddress} -> ipAddress) (\s@CustomerGateway' {} a -> s {ipAddress = a} :: CustomerGateway)
 
@@ -141,19 +139,19 @@ customerGateway_state = Lens.lens (\CustomerGateway' {state} -> state) (\s@Custo
 customerGateway_type :: Lens.Lens' CustomerGateway Prelude.Text
 customerGateway_type = Lens.lens (\CustomerGateway' {type'} -> type') (\s@CustomerGateway' {} a -> s {type' = a} :: CustomerGateway)
 
-instance Core.FromXML CustomerGateway where
+instance Data.FromXML CustomerGateway where
   parseXML x =
     CustomerGateway'
-      Prelude.<$> (x Core..@? "certificateArn")
-      Prelude.<*> (x Core..@? "deviceName")
-      Prelude.<*> ( x Core..@? "tagSet" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<$> (x Data..@? "certificateArn")
+      Prelude.<*> (x Data..@? "deviceName")
+      Prelude.<*> ( x Data..@? "tagSet" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@ "bgpAsn")
-      Prelude.<*> (x Core..@ "customerGatewayId")
-      Prelude.<*> (x Core..@ "ipAddress")
-      Prelude.<*> (x Core..@ "state")
-      Prelude.<*> (x Core..@ "type")
+      Prelude.<*> (x Data..@ "bgpAsn")
+      Prelude.<*> (x Data..@ "customerGatewayId")
+      Prelude.<*> (x Data..@ "ipAddress")
+      Prelude.<*> (x Data..@ "state")
+      Prelude.<*> (x Data..@ "type")
 
 instance Prelude.Hashable CustomerGateway where
   hashWithSalt _salt CustomerGateway' {..} =

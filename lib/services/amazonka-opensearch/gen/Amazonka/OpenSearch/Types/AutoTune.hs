@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.AutoTune
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,20 @@
 module Amazonka.OpenSearch.Types.AutoTune where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types.AutoTuneDetails
 import Amazonka.OpenSearch.Types.AutoTuneType
 import qualified Amazonka.Prelude as Prelude
 
--- | Specifies the Auto-Tune type and Auto-Tune action details.
+-- | Information about an Auto-Tune action. For more information, see
+-- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html Auto-Tune for Amazon OpenSearch Service>.
 --
 -- /See:/ 'newAutoTune' smart constructor.
 data AutoTune = AutoTune'
-  { -- | Specifies details about the Auto-Tune action. See
-    -- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html Auto-Tune for Amazon OpenSearch Service>
-    -- for more information.
+  { -- | Details about an Auto-Tune action.
     autoTuneDetails :: Prelude.Maybe AutoTuneDetails,
-    -- | Specifies the Auto-Tune type. Valid value is SCHEDULED_ACTION.
+    -- | The type of Auto-Tune action.
     autoTuneType :: Prelude.Maybe AutoTuneType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -46,11 +46,9 @@ data AutoTune = AutoTune'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'autoTuneDetails', 'autoTune_autoTuneDetails' - Specifies details about the Auto-Tune action. See
--- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html Auto-Tune for Amazon OpenSearch Service>
--- for more information.
+-- 'autoTuneDetails', 'autoTune_autoTuneDetails' - Details about an Auto-Tune action.
 --
--- 'autoTuneType', 'autoTune_autoTuneType' - Specifies the Auto-Tune type. Valid value is SCHEDULED_ACTION.
+-- 'autoTuneType', 'autoTune_autoTuneType' - The type of Auto-Tune action.
 newAutoTune ::
   AutoTune
 newAutoTune =
@@ -59,24 +57,22 @@ newAutoTune =
       autoTuneType = Prelude.Nothing
     }
 
--- | Specifies details about the Auto-Tune action. See
--- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/auto-tune.html Auto-Tune for Amazon OpenSearch Service>
--- for more information.
+-- | Details about an Auto-Tune action.
 autoTune_autoTuneDetails :: Lens.Lens' AutoTune (Prelude.Maybe AutoTuneDetails)
 autoTune_autoTuneDetails = Lens.lens (\AutoTune' {autoTuneDetails} -> autoTuneDetails) (\s@AutoTune' {} a -> s {autoTuneDetails = a} :: AutoTune)
 
--- | Specifies the Auto-Tune type. Valid value is SCHEDULED_ACTION.
+-- | The type of Auto-Tune action.
 autoTune_autoTuneType :: Lens.Lens' AutoTune (Prelude.Maybe AutoTuneType)
 autoTune_autoTuneType = Lens.lens (\AutoTune' {autoTuneType} -> autoTuneType) (\s@AutoTune' {} a -> s {autoTuneType = a} :: AutoTune)
 
-instance Core.FromJSON AutoTune where
+instance Data.FromJSON AutoTune where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutoTune"
       ( \x ->
           AutoTune'
-            Prelude.<$> (x Core..:? "AutoTuneDetails")
-            Prelude.<*> (x Core..:? "AutoTuneType")
+            Prelude.<$> (x Data..:? "AutoTuneDetails")
+            Prelude.<*> (x Data..:? "AutoTuneType")
       )
 
 instance Prelude.Hashable AutoTune where

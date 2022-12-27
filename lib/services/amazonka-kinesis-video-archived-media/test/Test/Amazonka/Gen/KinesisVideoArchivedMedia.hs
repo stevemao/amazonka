@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.KinesisVideoArchivedMedia
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,11 +27,17 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestGetHLSStreamingSessionURL $
+--         [ requestGetClip $
+--             newGetClip
+--
+--         , requestGetDASHStreamingSessionURL $
+--             newGetDASHStreamingSessionURL
+--
+--         , requestGetHLSStreamingSessionURL $
 --             newGetHLSStreamingSessionURL
 --
---         , requestGetClip $
---             newGetClip
+--         , requestGetImages $
+--             newGetImages
 --
 --         , requestGetMediaForFragmentList $
 --             newGetMediaForFragmentList
@@ -39,17 +45,20 @@ import Test.Tasty
 --         , requestListFragments $
 --             newListFragments
 --
---         , requestGetDASHStreamingSessionURL $
---             newGetDASHStreamingSessionURL
---
 --           ]
 
 --     , testGroup "response"
---         [ responseGetHLSStreamingSessionURL $
+--         [ responseGetClip $
+--             newGetClipResponse
+--
+--         , responseGetDASHStreamingSessionURL $
+--             newGetDASHStreamingSessionURLResponse
+--
+--         , responseGetHLSStreamingSessionURL $
 --             newGetHLSStreamingSessionURLResponse
 --
---         , responseGetClip $
---             newGetClipResponse
+--         , responseGetImages $
+--             newGetImagesResponse
 --
 --         , responseGetMediaForFragmentList $
 --             newGetMediaForFragmentListResponse
@@ -57,13 +66,22 @@ import Test.Tasty
 --         , responseListFragments $
 --             newListFragmentsResponse
 --
---         , responseGetDASHStreamingSessionURL $
---             newGetDASHStreamingSessionURLResponse
---
 --           ]
 --     ]
 
 -- Requests
+
+requestGetClip :: GetClip -> TestTree
+requestGetClip =
+  req
+    "GetClip"
+    "fixture/GetClip.yaml"
+
+requestGetDASHStreamingSessionURL :: GetDASHStreamingSessionURL -> TestTree
+requestGetDASHStreamingSessionURL =
+  req
+    "GetDASHStreamingSessionURL"
+    "fixture/GetDASHStreamingSessionURL.yaml"
 
 requestGetHLSStreamingSessionURL :: GetHLSStreamingSessionURL -> TestTree
 requestGetHLSStreamingSessionURL =
@@ -71,11 +89,11 @@ requestGetHLSStreamingSessionURL =
     "GetHLSStreamingSessionURL"
     "fixture/GetHLSStreamingSessionURL.yaml"
 
-requestGetClip :: GetClip -> TestTree
-requestGetClip =
+requestGetImages :: GetImages -> TestTree
+requestGetImages =
   req
-    "GetClip"
-    "fixture/GetClip.yaml"
+    "GetImages"
+    "fixture/GetImages.yaml"
 
 requestGetMediaForFragmentList :: GetMediaForFragmentList -> TestTree
 requestGetMediaForFragmentList =
@@ -89,13 +107,15 @@ requestListFragments =
     "ListFragments"
     "fixture/ListFragments.yaml"
 
-requestGetDASHStreamingSessionURL :: GetDASHStreamingSessionURL -> TestTree
-requestGetDASHStreamingSessionURL =
-  req
-    "GetDASHStreamingSessionURL"
-    "fixture/GetDASHStreamingSessionURL.yaml"
-
 -- Responses
+
+responseGetDASHStreamingSessionURL :: GetDASHStreamingSessionURLResponse -> TestTree
+responseGetDASHStreamingSessionURL =
+  res
+    "GetDASHStreamingSessionURLResponse"
+    "fixture/GetDASHStreamingSessionURLResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetDASHStreamingSessionURL)
 
 responseGetHLSStreamingSessionURL :: GetHLSStreamingSessionURLResponse -> TestTree
 responseGetHLSStreamingSessionURL =
@@ -105,6 +125,14 @@ responseGetHLSStreamingSessionURL =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetHLSStreamingSessionURL)
 
+responseGetImages :: GetImagesResponse -> TestTree
+responseGetImages =
+  res
+    "GetImagesResponse"
+    "fixture/GetImagesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetImages)
+
 responseListFragments :: ListFragmentsResponse -> TestTree
 responseListFragments =
   res
@@ -112,11 +140,3 @@ responseListFragments =
     "fixture/ListFragmentsResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy ListFragments)
-
-responseGetDASHStreamingSessionURL :: GetDASHStreamingSessionURLResponse -> TestTree
-responseGetDASHStreamingSessionURL =
-  res
-    "GetDASHStreamingSessionURLResponse"
-    "fixture/GetDASHStreamingSessionURLResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetDASHStreamingSessionURL)

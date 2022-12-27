@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.SMS.GenerateTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Generates an AWS CloudFormation template based on the current launch
+-- Generates an CloudFormation template based on the current launch
 -- configuration and writes it to an Amazon S3 object in the customer’s
 -- Amazon S3 bucket.
 module Amazonka.SMS.GenerateTemplate
@@ -43,7 +43,8 @@ module Amazonka.SMS.GenerateTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,10 +52,9 @@ import Amazonka.SMS.Types
 
 -- | /See:/ 'newGenerateTemplate' smart constructor.
 data GenerateTemplate = GenerateTemplate'
-  { -- | The ID of the application associated with the AWS CloudFormation
-    -- template.
+  { -- | The ID of the application associated with the CloudFormation template.
     appId :: Prelude.Maybe Prelude.Text,
-    -- | The format for generating the AWS CloudFormation template.
+    -- | The format for generating the CloudFormation template.
     templateFormat :: Prelude.Maybe OutputFormat
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -67,10 +67,9 @@ data GenerateTemplate = GenerateTemplate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'appId', 'generateTemplate_appId' - The ID of the application associated with the AWS CloudFormation
--- template.
+-- 'appId', 'generateTemplate_appId' - The ID of the application associated with the CloudFormation template.
 --
--- 'templateFormat', 'generateTemplate_templateFormat' - The format for generating the AWS CloudFormation template.
+-- 'templateFormat', 'generateTemplate_templateFormat' - The format for generating the CloudFormation template.
 newGenerateTemplate ::
   GenerateTemplate
 newGenerateTemplate =
@@ -79,12 +78,11 @@ newGenerateTemplate =
       templateFormat = Prelude.Nothing
     }
 
--- | The ID of the application associated with the AWS CloudFormation
--- template.
+-- | The ID of the application associated with the CloudFormation template.
 generateTemplate_appId :: Lens.Lens' GenerateTemplate (Prelude.Maybe Prelude.Text)
 generateTemplate_appId = Lens.lens (\GenerateTemplate' {appId} -> appId) (\s@GenerateTemplate' {} a -> s {appId = a} :: GenerateTemplate)
 
--- | The format for generating the AWS CloudFormation template.
+-- | The format for generating the CloudFormation template.
 generateTemplate_templateFormat :: Lens.Lens' GenerateTemplate (Prelude.Maybe OutputFormat)
 generateTemplate_templateFormat = Lens.lens (\GenerateTemplate' {templateFormat} -> templateFormat) (\s@GenerateTemplate' {} a -> s {templateFormat = a} :: GenerateTemplate)
 
@@ -92,12 +90,13 @@ instance Core.AWSRequest GenerateTemplate where
   type
     AWSResponse GenerateTemplate =
       GenerateTemplateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GenerateTemplateResponse'
-            Prelude.<$> (x Core..?> "s3Location")
+            Prelude.<$> (x Data..?> "s3Location")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,35 +110,35 @@ instance Prelude.NFData GenerateTemplate where
     Prelude.rnf appId
       `Prelude.seq` Prelude.rnf templateFormat
 
-instance Core.ToHeaders GenerateTemplate where
+instance Data.ToHeaders GenerateTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.GenerateTemplate" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.GenerateTemplate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GenerateTemplate where
+instance Data.ToJSON GenerateTemplate where
   toJSON GenerateTemplate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("appId" Core..=) Prelude.<$> appId,
-            ("templateFormat" Core..=)
+          [ ("appId" Data..=) Prelude.<$> appId,
+            ("templateFormat" Data..=)
               Prelude.<$> templateFormat
           ]
       )
 
-instance Core.ToPath GenerateTemplate where
+instance Data.ToPath GenerateTemplate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GenerateTemplate where
+instance Data.ToQuery GenerateTemplate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGenerateTemplateResponse' smart constructor.

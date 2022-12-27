@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.Types.Logging
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EKS.Types.Logging where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types.LogSetup
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing the logging configuration for resources in your
@@ -52,14 +53,14 @@ newLogging =
 logging_clusterLogging :: Lens.Lens' Logging (Prelude.Maybe [LogSetup])
 logging_clusterLogging = Lens.lens (\Logging' {clusterLogging} -> clusterLogging) (\s@Logging' {} a -> s {clusterLogging = a} :: Logging) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON Logging where
+instance Data.FromJSON Logging where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Logging"
       ( \x ->
           Logging'
-            Prelude.<$> ( x Core..:? "clusterLogging"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "clusterLogging"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -70,11 +71,11 @@ instance Prelude.Hashable Logging where
 instance Prelude.NFData Logging where
   rnf Logging' {..} = Prelude.rnf clusterLogging
 
-instance Core.ToJSON Logging where
+instance Data.ToJSON Logging where
   toJSON Logging' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clusterLogging" Core..=)
+          [ ("clusterLogging" Data..=)
               Prelude.<$> clusterLogging
           ]
       )

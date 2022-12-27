@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualGatewayListenerTlsCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.AppMesh.Types.VirtualGatewayListenerTlsAcmCertificate
 import Amazonka.AppMesh.Types.VirtualGatewayListenerTlsFileCertificate
 import Amazonka.AppMesh.Types.VirtualGatewayListenerTlsSdsCertificate
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a listener\'s Transport Layer Security (TLS)
@@ -34,11 +35,11 @@ data VirtualGatewayListenerTlsCertificate = VirtualGatewayListenerTlsCertificate
   { -- | A reference to an object that represents an Certificate Manager
     -- certificate.
     acm :: Prelude.Maybe VirtualGatewayListenerTlsAcmCertificate,
+    -- | A reference to an object that represents a local file certificate.
+    file :: Prelude.Maybe VirtualGatewayListenerTlsFileCertificate,
     -- | A reference to an object that represents a virtual gateway\'s
     -- listener\'s Secret Discovery Service certificate.
-    sds :: Prelude.Maybe VirtualGatewayListenerTlsSdsCertificate,
-    -- | A reference to an object that represents a local file certificate.
-    file :: Prelude.Maybe VirtualGatewayListenerTlsFileCertificate
+    sds :: Prelude.Maybe VirtualGatewayListenerTlsSdsCertificate
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -53,18 +54,18 @@ data VirtualGatewayListenerTlsCertificate = VirtualGatewayListenerTlsCertificate
 -- 'acm', 'virtualGatewayListenerTlsCertificate_acm' - A reference to an object that represents an Certificate Manager
 -- certificate.
 --
+-- 'file', 'virtualGatewayListenerTlsCertificate_file' - A reference to an object that represents a local file certificate.
+--
 -- 'sds', 'virtualGatewayListenerTlsCertificate_sds' - A reference to an object that represents a virtual gateway\'s
 -- listener\'s Secret Discovery Service certificate.
---
--- 'file', 'virtualGatewayListenerTlsCertificate_file' - A reference to an object that represents a local file certificate.
 newVirtualGatewayListenerTlsCertificate ::
   VirtualGatewayListenerTlsCertificate
 newVirtualGatewayListenerTlsCertificate =
   VirtualGatewayListenerTlsCertificate'
     { acm =
         Prelude.Nothing,
-      sds = Prelude.Nothing,
-      file = Prelude.Nothing
+      file = Prelude.Nothing,
+      sds = Prelude.Nothing
     }
 
 -- | A reference to an object that represents an Certificate Manager
@@ -72,27 +73,27 @@ newVirtualGatewayListenerTlsCertificate =
 virtualGatewayListenerTlsCertificate_acm :: Lens.Lens' VirtualGatewayListenerTlsCertificate (Prelude.Maybe VirtualGatewayListenerTlsAcmCertificate)
 virtualGatewayListenerTlsCertificate_acm = Lens.lens (\VirtualGatewayListenerTlsCertificate' {acm} -> acm) (\s@VirtualGatewayListenerTlsCertificate' {} a -> s {acm = a} :: VirtualGatewayListenerTlsCertificate)
 
+-- | A reference to an object that represents a local file certificate.
+virtualGatewayListenerTlsCertificate_file :: Lens.Lens' VirtualGatewayListenerTlsCertificate (Prelude.Maybe VirtualGatewayListenerTlsFileCertificate)
+virtualGatewayListenerTlsCertificate_file = Lens.lens (\VirtualGatewayListenerTlsCertificate' {file} -> file) (\s@VirtualGatewayListenerTlsCertificate' {} a -> s {file = a} :: VirtualGatewayListenerTlsCertificate)
+
 -- | A reference to an object that represents a virtual gateway\'s
 -- listener\'s Secret Discovery Service certificate.
 virtualGatewayListenerTlsCertificate_sds :: Lens.Lens' VirtualGatewayListenerTlsCertificate (Prelude.Maybe VirtualGatewayListenerTlsSdsCertificate)
 virtualGatewayListenerTlsCertificate_sds = Lens.lens (\VirtualGatewayListenerTlsCertificate' {sds} -> sds) (\s@VirtualGatewayListenerTlsCertificate' {} a -> s {sds = a} :: VirtualGatewayListenerTlsCertificate)
 
--- | A reference to an object that represents a local file certificate.
-virtualGatewayListenerTlsCertificate_file :: Lens.Lens' VirtualGatewayListenerTlsCertificate (Prelude.Maybe VirtualGatewayListenerTlsFileCertificate)
-virtualGatewayListenerTlsCertificate_file = Lens.lens (\VirtualGatewayListenerTlsCertificate' {file} -> file) (\s@VirtualGatewayListenerTlsCertificate' {} a -> s {file = a} :: VirtualGatewayListenerTlsCertificate)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     VirtualGatewayListenerTlsCertificate
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualGatewayListenerTlsCertificate"
       ( \x ->
           VirtualGatewayListenerTlsCertificate'
-            Prelude.<$> (x Core..:? "acm")
-            Prelude.<*> (x Core..:? "sds")
-            Prelude.<*> (x Core..:? "file")
+            Prelude.<$> (x Data..:? "acm")
+            Prelude.<*> (x Data..:? "file")
+            Prelude.<*> (x Data..:? "sds")
       )
 
 instance
@@ -103,8 +104,8 @@ instance
     _salt
     VirtualGatewayListenerTlsCertificate' {..} =
       _salt `Prelude.hashWithSalt` acm
-        `Prelude.hashWithSalt` sds
         `Prelude.hashWithSalt` file
+        `Prelude.hashWithSalt` sds
 
 instance
   Prelude.NFData
@@ -112,18 +113,18 @@ instance
   where
   rnf VirtualGatewayListenerTlsCertificate' {..} =
     Prelude.rnf acm
-      `Prelude.seq` Prelude.rnf sds
       `Prelude.seq` Prelude.rnf file
+      `Prelude.seq` Prelude.rnf sds
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     VirtualGatewayListenerTlsCertificate
   where
   toJSON VirtualGatewayListenerTlsCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("acm" Core..=) Prelude.<$> acm,
-            ("sds" Core..=) Prelude.<$> sds,
-            ("file" Core..=) Prelude.<$> file
+          [ ("acm" Data..=) Prelude.<$> acm,
+            ("file" Data..=) Prelude.<$> file,
+            ("sds" Data..=) Prelude.<$> sds
           ]
       )

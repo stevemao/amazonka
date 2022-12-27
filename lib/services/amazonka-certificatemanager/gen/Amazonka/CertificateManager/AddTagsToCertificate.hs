@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManager.AddTagsToCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -56,7 +56,8 @@ where
 
 import Amazonka.CertificateManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -124,7 +125,8 @@ instance Core.AWSRequest AddTagsToCertificate where
   type
     AWSResponse AddTagsToCertificate =
       AddTagsToCertificateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull AddTagsToCertificateResponse'
 
@@ -138,35 +140,35 @@ instance Prelude.NFData AddTagsToCertificate where
     Prelude.rnf certificateArn
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders AddTagsToCertificate where
+instance Data.ToHeaders AddTagsToCertificate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CertificateManager.AddTagsToCertificate" ::
+              Data.=# ( "CertificateManager.AddTagsToCertificate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddTagsToCertificate where
+instance Data.ToJSON AddTagsToCertificate where
   toJSON AddTagsToCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("CertificateArn" Core..= certificateArn),
-            Prelude.Just ("Tags" Core..= tags)
+              ("CertificateArn" Data..= certificateArn),
+            Prelude.Just ("Tags" Data..= tags)
           ]
       )
 
-instance Core.ToPath AddTagsToCertificate where
+instance Data.ToPath AddTagsToCertificate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddTagsToCertificate where
+instance Data.ToQuery AddTagsToCertificate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddTagsToCertificateResponse' smart constructor.

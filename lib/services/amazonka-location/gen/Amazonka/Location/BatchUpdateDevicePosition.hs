@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.BatchUpdateDevicePosition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,10 +30,21 @@
 -- are evaluated against linked geofence collections, and location data is
 -- stored at a maximum of one position per 30 second interval. If your
 -- update frequency is more often than every 30 seconds, only one update
--- per 30 seconds is stored for each unique device ID. When
--- @PositionFiltering@ is set to @DistanceBased@ filtering, location data
--- is stored and evaluated against linked geofence collections only if the
--- device has moved more than 30 m (98.4 ft).
+-- per 30 seconds is stored for each unique device ID.
+--
+-- When @PositionFiltering@ is set to @DistanceBased@ filtering, location
+-- data is stored and evaluated against linked geofence collections only if
+-- the device has moved more than 30 m (98.4 ft).
+--
+-- When @PositionFiltering@ is set to @AccuracyBased@ filtering, location
+-- data is stored and evaluated against linked geofence collections only if
+-- the device has moved more than the measured accuracy. For example, if
+-- two consecutive updates from a device have a horizontal accuracy of 5 m
+-- and 10 m, the second update is neither stored or evaluated if the device
+-- has moved less than 15 m. If @PositionFiltering@ is set to
+-- @AccuracyBased@ filtering, Amazon Location uses the default value
+-- @{ \"Horizontal\": 0}@ when accuracy is not provided on a
+-- @DevicePositionUpdate@.
 module Amazonka.Location.BatchUpdateDevicePosition
   ( -- * Creating a Request
     BatchUpdateDevicePosition (..),
@@ -54,7 +65,8 @@ module Amazonka.Location.BatchUpdateDevicePosition
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -105,13 +117,14 @@ instance Core.AWSRequest BatchUpdateDevicePosition where
   type
     AWSResponse BatchUpdateDevicePosition =
       BatchUpdateDevicePositionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchUpdateDevicePositionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Errors" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Errors" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable BatchUpdateDevicePosition where
@@ -124,33 +137,33 @@ instance Prelude.NFData BatchUpdateDevicePosition where
     Prelude.rnf trackerName
       `Prelude.seq` Prelude.rnf updates
 
-instance Core.ToHeaders BatchUpdateDevicePosition where
+instance Data.ToHeaders BatchUpdateDevicePosition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchUpdateDevicePosition where
+instance Data.ToJSON BatchUpdateDevicePosition where
   toJSON BatchUpdateDevicePosition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Updates" Core..= updates)]
+          [Prelude.Just ("Updates" Data..= updates)]
       )
 
-instance Core.ToPath BatchUpdateDevicePosition where
+instance Data.ToPath BatchUpdateDevicePosition where
   toPath BatchUpdateDevicePosition' {..} =
     Prelude.mconcat
       [ "/tracking/v0/trackers/",
-        Core.toBS trackerName,
+        Data.toBS trackerName,
         "/positions"
       ]
 
-instance Core.ToQuery BatchUpdateDevicePosition where
+instance Data.ToQuery BatchUpdateDevicePosition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchUpdateDevicePositionResponse' smart constructor.

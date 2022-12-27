@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.Types.BuiltinIntentMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LexModels.Types.BuiltinIntentMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types.Locale
 import qualified Amazonka.Prelude as Prelude
 
@@ -71,15 +72,15 @@ builtinIntentMetadata_signature = Lens.lens (\BuiltinIntentMetadata' {signature}
 builtinIntentMetadata_supportedLocales :: Lens.Lens' BuiltinIntentMetadata (Prelude.Maybe [Locale])
 builtinIntentMetadata_supportedLocales = Lens.lens (\BuiltinIntentMetadata' {supportedLocales} -> supportedLocales) (\s@BuiltinIntentMetadata' {} a -> s {supportedLocales = a} :: BuiltinIntentMetadata) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON BuiltinIntentMetadata where
+instance Data.FromJSON BuiltinIntentMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BuiltinIntentMetadata"
       ( \x ->
           BuiltinIntentMetadata'
-            Prelude.<$> (x Core..:? "signature")
-            Prelude.<*> ( x Core..:? "supportedLocales"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "signature")
+            Prelude.<*> ( x Data..:? "supportedLocales"
+                            Data..!= Prelude.mempty
                         )
       )
 

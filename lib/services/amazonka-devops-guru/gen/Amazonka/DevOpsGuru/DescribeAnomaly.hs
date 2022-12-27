@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.DescribeAnomaly
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,6 +27,7 @@ module Amazonka.DevOpsGuru.DescribeAnomaly
     newDescribeAnomaly,
 
     -- * Request Lenses
+    describeAnomaly_accountId,
     describeAnomaly_id,
 
     -- * Destructuring the Response
@@ -34,22 +35,25 @@ module Amazonka.DevOpsGuru.DescribeAnomaly
     newDescribeAnomalyResponse,
 
     -- * Response Lenses
-    describeAnomalyResponse_reactiveAnomaly,
     describeAnomalyResponse_proactiveAnomaly,
+    describeAnomalyResponse_reactiveAnomaly,
     describeAnomalyResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeAnomaly' smart constructor.
 data DescribeAnomaly = DescribeAnomaly'
-  { -- | The ID of the anomaly.
+  { -- | The ID of the member account.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the anomaly.
     id :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,12 +66,22 @@ data DescribeAnomaly = DescribeAnomaly'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'accountId', 'describeAnomaly_accountId' - The ID of the member account.
+--
 -- 'id', 'describeAnomaly_id' - The ID of the anomaly.
 newDescribeAnomaly ::
   -- | 'id'
   Prelude.Text ->
   DescribeAnomaly
-newDescribeAnomaly pId_ = DescribeAnomaly' {id = pId_}
+newDescribeAnomaly pId_ =
+  DescribeAnomaly'
+    { accountId = Prelude.Nothing,
+      id = pId_
+    }
+
+-- | The ID of the member account.
+describeAnomaly_accountId :: Lens.Lens' DescribeAnomaly (Prelude.Maybe Prelude.Text)
+describeAnomaly_accountId = Lens.lens (\DescribeAnomaly' {accountId} -> accountId) (\s@DescribeAnomaly' {} a -> s {accountId = a} :: DescribeAnomaly)
 
 -- | The ID of the anomaly.
 describeAnomaly_id :: Lens.Lens' DescribeAnomaly Prelude.Text
@@ -77,47 +91,51 @@ instance Core.AWSRequest DescribeAnomaly where
   type
     AWSResponse DescribeAnomaly =
       DescribeAnomalyResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAnomalyResponse'
-            Prelude.<$> (x Core..?> "ReactiveAnomaly")
-            Prelude.<*> (x Core..?> "ProactiveAnomaly")
+            Prelude.<$> (x Data..?> "ProactiveAnomaly")
+            Prelude.<*> (x Data..?> "ReactiveAnomaly")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeAnomaly where
   hashWithSalt _salt DescribeAnomaly' {..} =
-    _salt `Prelude.hashWithSalt` id
+    _salt `Prelude.hashWithSalt` accountId
+      `Prelude.hashWithSalt` id
 
 instance Prelude.NFData DescribeAnomaly where
-  rnf DescribeAnomaly' {..} = Prelude.rnf id
+  rnf DescribeAnomaly' {..} =
+    Prelude.rnf accountId `Prelude.seq` Prelude.rnf id
 
-instance Core.ToHeaders DescribeAnomaly where
+instance Data.ToHeaders DescribeAnomaly where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeAnomaly where
+instance Data.ToPath DescribeAnomaly where
   toPath DescribeAnomaly' {..} =
-    Prelude.mconcat ["/anomalies/", Core.toBS id]
+    Prelude.mconcat ["/anomalies/", Data.toBS id]
 
-instance Core.ToQuery DescribeAnomaly where
-  toQuery = Prelude.const Prelude.mempty
+instance Data.ToQuery DescribeAnomaly where
+  toQuery DescribeAnomaly' {..} =
+    Prelude.mconcat ["AccountId" Data.=: accountId]
 
 -- | /See:/ 'newDescribeAnomalyResponse' smart constructor.
 data DescribeAnomalyResponse = DescribeAnomalyResponse'
   { -- | A @ProactiveAnomaly@ object that represents the requested anomaly.
-    reactiveAnomaly :: Prelude.Maybe ReactiveAnomaly,
-    -- | A @ReactiveAnomaly@ object that represents the requested anomaly.
     proactiveAnomaly :: Prelude.Maybe ProactiveAnomaly,
+    -- | A @ReactiveAnomaly@ object that represents the requested anomaly.
+    reactiveAnomaly :: Prelude.Maybe ReactiveAnomaly,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -131,9 +149,9 @@ data DescribeAnomalyResponse = DescribeAnomalyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'reactiveAnomaly', 'describeAnomalyResponse_reactiveAnomaly' - A @ProactiveAnomaly@ object that represents the requested anomaly.
+-- 'proactiveAnomaly', 'describeAnomalyResponse_proactiveAnomaly' - A @ProactiveAnomaly@ object that represents the requested anomaly.
 --
--- 'proactiveAnomaly', 'describeAnomalyResponse_proactiveAnomaly' - A @ReactiveAnomaly@ object that represents the requested anomaly.
+-- 'reactiveAnomaly', 'describeAnomalyResponse_reactiveAnomaly' - A @ReactiveAnomaly@ object that represents the requested anomaly.
 --
 -- 'httpStatus', 'describeAnomalyResponse_httpStatus' - The response's http status code.
 newDescribeAnomalyResponse ::
@@ -142,19 +160,19 @@ newDescribeAnomalyResponse ::
   DescribeAnomalyResponse
 newDescribeAnomalyResponse pHttpStatus_ =
   DescribeAnomalyResponse'
-    { reactiveAnomaly =
+    { proactiveAnomaly =
         Prelude.Nothing,
-      proactiveAnomaly = Prelude.Nothing,
+      reactiveAnomaly = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
 -- | A @ProactiveAnomaly@ object that represents the requested anomaly.
-describeAnomalyResponse_reactiveAnomaly :: Lens.Lens' DescribeAnomalyResponse (Prelude.Maybe ReactiveAnomaly)
-describeAnomalyResponse_reactiveAnomaly = Lens.lens (\DescribeAnomalyResponse' {reactiveAnomaly} -> reactiveAnomaly) (\s@DescribeAnomalyResponse' {} a -> s {reactiveAnomaly = a} :: DescribeAnomalyResponse)
-
--- | A @ReactiveAnomaly@ object that represents the requested anomaly.
 describeAnomalyResponse_proactiveAnomaly :: Lens.Lens' DescribeAnomalyResponse (Prelude.Maybe ProactiveAnomaly)
 describeAnomalyResponse_proactiveAnomaly = Lens.lens (\DescribeAnomalyResponse' {proactiveAnomaly} -> proactiveAnomaly) (\s@DescribeAnomalyResponse' {} a -> s {proactiveAnomaly = a} :: DescribeAnomalyResponse)
+
+-- | A @ReactiveAnomaly@ object that represents the requested anomaly.
+describeAnomalyResponse_reactiveAnomaly :: Lens.Lens' DescribeAnomalyResponse (Prelude.Maybe ReactiveAnomaly)
+describeAnomalyResponse_reactiveAnomaly = Lens.lens (\DescribeAnomalyResponse' {reactiveAnomaly} -> reactiveAnomaly) (\s@DescribeAnomalyResponse' {} a -> s {reactiveAnomaly = a} :: DescribeAnomalyResponse)
 
 -- | The response's http status code.
 describeAnomalyResponse_httpStatus :: Lens.Lens' DescribeAnomalyResponse Prelude.Int
@@ -162,6 +180,6 @@ describeAnomalyResponse_httpStatus = Lens.lens (\DescribeAnomalyResponse' {httpS
 
 instance Prelude.NFData DescribeAnomalyResponse where
   rnf DescribeAnomalyResponse' {..} =
-    Prelude.rnf reactiveAnomaly
-      `Prelude.seq` Prelude.rnf proactiveAnomaly
+    Prelude.rnf proactiveAnomaly
+      `Prelude.seq` Prelude.rnf reactiveAnomaly
       `Prelude.seq` Prelude.rnf httpStatus

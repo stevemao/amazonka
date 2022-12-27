@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroupsTagging.TagResources
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,13 +25,16 @@
 -- -   Not all resources can have tags. For a list of services with
 --     resources that support tagging using this operation, see
 --     <https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/supported-services.html Services that support the Resource Groups Tagging API>.
+--     If the resource doesn\'t yet support this operation, the resource\'s
+--     service might support tagging using its own API operations. For more
+--     information, refer to the documentation for that service.
 --
 -- -   Each resource can have up to 50 tags. For other limits, see
 --     <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html#tag-conventions Tag Naming and Usage Conventions>
---     in the /AWS General Reference./
+--     in the /Amazon Web Services General Reference./
 --
--- -   You can only tag resources that are located in the specified AWS
---     Region for the AWS account.
+-- -   You can only tag resources that are located in the specified Amazon
+--     Web Services Region for the Amazon Web Services account.
 --
 -- -   To add tags to a resource, you need the necessary permissions for
 --     the service that the resource belongs to as well as permissions for
@@ -42,6 +45,18 @@
 -- confidential or sensitive information in tags. We use tags to provide
 -- you with billing and administration services. Tags are not intended to
 -- be used for private or sensitive data.
+--
+-- __Minimum permissions__
+--
+-- In addition to the @tag:TagResources@ permission required by this
+-- operation, you must also have the tagging permission defined by the
+-- service that created the resource. For example, to tag an Amazon EC2
+-- instance using the @TagResources@ operation, you must have both of the
+-- following permissions:
+--
+-- -   @tag:TagResource@
+--
+-- -   @ec2:CreateTags@
 module Amazonka.ResourceGroupsTagging.TagResources
   ( -- * Creating a Request
     TagResources (..),
@@ -62,7 +77,8 @@ module Amazonka.ResourceGroupsTagging.TagResources
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import Amazonka.ResourceGroupsTagging.Types
@@ -75,8 +91,8 @@ data TagResources = TagResources'
     --
     -- An ARN (Amazon Resource Name) uniquely identifies a resource. For more
     -- information, see
-    -- <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
-    -- in the /AWS General Reference/.
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
+    -- in the /Amazon Web Services General Reference/.
     resourceARNList :: Prelude.NonEmpty Prelude.Text,
     -- | Specifies a list of tags that you want to add to the specified
     -- resources. A tag consists of a key and a value that you define.
@@ -97,8 +113,8 @@ data TagResources = TagResources'
 --
 -- An ARN (Amazon Resource Name) uniquely identifies a resource. For more
 -- information, see
--- <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
--- in the /AWS General Reference/.
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
+-- in the /Amazon Web Services General Reference/.
 --
 -- 'tags', 'tagResources_tags' - Specifies a list of tags that you want to add to the specified
 -- resources. A tag consists of a key and a value that you define.
@@ -118,8 +134,8 @@ newTagResources pResourceARNList_ =
 --
 -- An ARN (Amazon Resource Name) uniquely identifies a resource. For more
 -- information, see
--- <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
--- in the /AWS General Reference/.
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
+-- in the /Amazon Web Services General Reference/.
 tagResources_resourceARNList :: Lens.Lens' TagResources (Prelude.NonEmpty Prelude.Text)
 tagResources_resourceARNList = Lens.lens (\TagResources' {resourceARNList} -> resourceARNList) (\s@TagResources' {} a -> s {resourceARNList = a} :: TagResources) Prelude.. Lens.coerced
 
@@ -130,12 +146,13 @@ tagResources_tags = Lens.lens (\TagResources' {tags} -> tags) (\s@TagResources' 
 
 instance Core.AWSRequest TagResources where
   type AWSResponse TagResources = TagResourcesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           TagResourcesResponse'
-            Prelude.<$> ( x Core..?> "FailedResourcesMap"
+            Prelude.<$> ( x Data..?> "FailedResourcesMap"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -151,35 +168,35 @@ instance Prelude.NFData TagResources where
     Prelude.rnf resourceARNList
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagResources where
+instance Data.ToHeaders TagResources where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ResourceGroupsTaggingAPI_20170126.TagResources" ::
+              Data.=# ( "ResourceGroupsTaggingAPI_20170126.TagResources" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TagResources where
+instance Data.ToJSON TagResources where
   toJSON TagResources' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ResourceARNList" Core..= resourceARNList),
-            Prelude.Just ("Tags" Core..= tags)
+              ("ResourceARNList" Data..= resourceARNList),
+            Prelude.Just ("Tags" Data..= tags)
           ]
       )
 
-instance Core.ToPath TagResources where
+instance Data.ToPath TagResources where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TagResources where
+instance Data.ToQuery TagResources where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTagResourcesResponse' smart constructor.

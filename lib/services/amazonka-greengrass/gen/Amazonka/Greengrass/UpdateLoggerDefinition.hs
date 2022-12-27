@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.UpdateLoggerDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Greengrass.UpdateLoggerDefinition
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,7 +89,8 @@ instance Core.AWSRequest UpdateLoggerDefinition where
   type
     AWSResponse UpdateLoggerDefinition =
       UpdateLoggerDefinitionResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -106,32 +108,32 @@ instance Prelude.NFData UpdateLoggerDefinition where
     Prelude.rnf name
       `Prelude.seq` Prelude.rnf loggerDefinitionId
 
-instance Core.ToHeaders UpdateLoggerDefinition where
+instance Data.ToHeaders UpdateLoggerDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateLoggerDefinition where
+instance Data.ToJSON UpdateLoggerDefinition where
   toJSON UpdateLoggerDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Name" Core..=) Prelude.<$> name]
+          [("Name" Data..=) Prelude.<$> name]
       )
 
-instance Core.ToPath UpdateLoggerDefinition where
+instance Data.ToPath UpdateLoggerDefinition where
   toPath UpdateLoggerDefinition' {..} =
     Prelude.mconcat
       [ "/greengrass/definition/loggers/",
-        Core.toBS loggerDefinitionId
+        Data.toBS loggerDefinitionId
       ]
 
-instance Core.ToQuery UpdateLoggerDefinition where
+instance Data.ToQuery UpdateLoggerDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateLoggerDefinitionResponse' smart constructor.

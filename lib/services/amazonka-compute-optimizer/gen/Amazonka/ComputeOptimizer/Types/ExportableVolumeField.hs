@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ComputeOptimizer.Types.ExportableVolumeField
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,6 +28,7 @@ module Amazonka.ComputeOptimizer.Types.ExportableVolumeField
         ExportableVolumeField_CurrentConfigurationVolumeSize,
         ExportableVolumeField_CurrentConfigurationVolumeType,
         ExportableVolumeField_CurrentMonthlyPrice,
+        ExportableVolumeField_CurrentPerformanceRisk,
         ExportableVolumeField_Finding,
         ExportableVolumeField_LastRefreshTimestamp,
         ExportableVolumeField_LookbackPeriodInDays,
@@ -37,8 +38,11 @@ module Amazonka.ComputeOptimizer.Types.ExportableVolumeField
         ExportableVolumeField_RecommendationOptionsConfigurationVolumeBurstThroughput,
         ExportableVolumeField_RecommendationOptionsConfigurationVolumeSize,
         ExportableVolumeField_RecommendationOptionsConfigurationVolumeType,
+        ExportableVolumeField_RecommendationOptionsEstimatedMonthlySavingsCurrency,
+        ExportableVolumeField_RecommendationOptionsEstimatedMonthlySavingsValue,
         ExportableVolumeField_RecommendationOptionsMonthlyPrice,
         ExportableVolumeField_RecommendationOptionsPerformanceRisk,
+        ExportableVolumeField_RecommendationOptionsSavingsOpportunityPercentage,
         ExportableVolumeField_UtilizationMetricsVolumeReadBytesPerSecondMaximum,
         ExportableVolumeField_UtilizationMetricsVolumeReadOpsPerSecondMaximum,
         ExportableVolumeField_UtilizationMetricsVolumeWriteBytesPerSecondMaximum,
@@ -49,11 +53,12 @@ module Amazonka.ComputeOptimizer.Types.ExportableVolumeField
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype ExportableVolumeField = ExportableVolumeField'
   { fromExportableVolumeField ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -65,18 +70,18 @@ newtype ExportableVolumeField = ExportableVolumeField'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern ExportableVolumeField_AccountId :: ExportableVolumeField
@@ -102,6 +107,9 @@ pattern ExportableVolumeField_CurrentConfigurationVolumeType = ExportableVolumeF
 
 pattern ExportableVolumeField_CurrentMonthlyPrice :: ExportableVolumeField
 pattern ExportableVolumeField_CurrentMonthlyPrice = ExportableVolumeField' "CurrentMonthlyPrice"
+
+pattern ExportableVolumeField_CurrentPerformanceRisk :: ExportableVolumeField
+pattern ExportableVolumeField_CurrentPerformanceRisk = ExportableVolumeField' "CurrentPerformanceRisk"
 
 pattern ExportableVolumeField_Finding :: ExportableVolumeField
 pattern ExportableVolumeField_Finding = ExportableVolumeField' "Finding"
@@ -130,11 +138,20 @@ pattern ExportableVolumeField_RecommendationOptionsConfigurationVolumeSize = Exp
 pattern ExportableVolumeField_RecommendationOptionsConfigurationVolumeType :: ExportableVolumeField
 pattern ExportableVolumeField_RecommendationOptionsConfigurationVolumeType = ExportableVolumeField' "RecommendationOptionsConfigurationVolumeType"
 
+pattern ExportableVolumeField_RecommendationOptionsEstimatedMonthlySavingsCurrency :: ExportableVolumeField
+pattern ExportableVolumeField_RecommendationOptionsEstimatedMonthlySavingsCurrency = ExportableVolumeField' "RecommendationOptionsEstimatedMonthlySavingsCurrency"
+
+pattern ExportableVolumeField_RecommendationOptionsEstimatedMonthlySavingsValue :: ExportableVolumeField
+pattern ExportableVolumeField_RecommendationOptionsEstimatedMonthlySavingsValue = ExportableVolumeField' "RecommendationOptionsEstimatedMonthlySavingsValue"
+
 pattern ExportableVolumeField_RecommendationOptionsMonthlyPrice :: ExportableVolumeField
 pattern ExportableVolumeField_RecommendationOptionsMonthlyPrice = ExportableVolumeField' "RecommendationOptionsMonthlyPrice"
 
 pattern ExportableVolumeField_RecommendationOptionsPerformanceRisk :: ExportableVolumeField
 pattern ExportableVolumeField_RecommendationOptionsPerformanceRisk = ExportableVolumeField' "RecommendationOptionsPerformanceRisk"
+
+pattern ExportableVolumeField_RecommendationOptionsSavingsOpportunityPercentage :: ExportableVolumeField
+pattern ExportableVolumeField_RecommendationOptionsSavingsOpportunityPercentage = ExportableVolumeField' "RecommendationOptionsSavingsOpportunityPercentage"
 
 pattern ExportableVolumeField_UtilizationMetricsVolumeReadBytesPerSecondMaximum :: ExportableVolumeField
 pattern ExportableVolumeField_UtilizationMetricsVolumeReadBytesPerSecondMaximum = ExportableVolumeField' "UtilizationMetricsVolumeReadBytesPerSecondMaximum"
@@ -160,6 +177,7 @@ pattern ExportableVolumeField_VolumeArn = ExportableVolumeField' "VolumeArn"
   ExportableVolumeField_CurrentConfigurationVolumeSize,
   ExportableVolumeField_CurrentConfigurationVolumeType,
   ExportableVolumeField_CurrentMonthlyPrice,
+  ExportableVolumeField_CurrentPerformanceRisk,
   ExportableVolumeField_Finding,
   ExportableVolumeField_LastRefreshTimestamp,
   ExportableVolumeField_LookbackPeriodInDays,
@@ -169,8 +187,11 @@ pattern ExportableVolumeField_VolumeArn = ExportableVolumeField' "VolumeArn"
   ExportableVolumeField_RecommendationOptionsConfigurationVolumeBurstThroughput,
   ExportableVolumeField_RecommendationOptionsConfigurationVolumeSize,
   ExportableVolumeField_RecommendationOptionsConfigurationVolumeType,
+  ExportableVolumeField_RecommendationOptionsEstimatedMonthlySavingsCurrency,
+  ExportableVolumeField_RecommendationOptionsEstimatedMonthlySavingsValue,
   ExportableVolumeField_RecommendationOptionsMonthlyPrice,
   ExportableVolumeField_RecommendationOptionsPerformanceRisk,
+  ExportableVolumeField_RecommendationOptionsSavingsOpportunityPercentage,
   ExportableVolumeField_UtilizationMetricsVolumeReadBytesPerSecondMaximum,
   ExportableVolumeField_UtilizationMetricsVolumeReadOpsPerSecondMaximum,
   ExportableVolumeField_UtilizationMetricsVolumeWriteBytesPerSecondMaximum,

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.ImportRestApi
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,25 +37,26 @@ module Amazonka.APIGateway.ImportRestApi
     newRestApi,
 
     -- * Response Lenses
-    restApi_minimumCompressionSize,
-    restApi_disableExecuteApiEndpoint,
-    restApi_binaryMediaTypes,
-    restApi_warnings,
-    restApi_createdDate,
-    restApi_name,
-    restApi_version,
     restApi_apiKeySource,
-    restApi_id,
-    restApi_policy,
-    restApi_endpointConfiguration,
+    restApi_binaryMediaTypes,
+    restApi_createdDate,
     restApi_description,
+    restApi_disableExecuteApiEndpoint,
+    restApi_endpointConfiguration,
+    restApi_id,
+    restApi_minimumCompressionSize,
+    restApi_name,
+    restApi_policy,
     restApi_tags,
+    restApi_version,
+    restApi_warnings,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,15 +89,11 @@ data ImportRestApi = ImportRestApi'
     -- For example, the AWS CLI command to exclude documentation from the
     -- imported API is:
     --
-    -- > aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'
-    --
     -- The AWS CLI command to set the regional endpoint on the imported API is:
-    --
-    -- > aws apigateway import-rest-api --parameters endpointConfigurationTypes=REGIONAL --body 'file:///path/to/imported-api-body.json'
     parameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | [Required] The POST request body containing external API definitions.
-    -- Currently, only OpenAPI definition JSON\/YAML files are supported. The
-    -- maximum size of the API definition file is 6MB.
+    -- | The POST request body containing external API definitions. Currently,
+    -- only OpenAPI definition JSON\/YAML files are supported. The maximum size
+    -- of the API definition file is 6MB.
     body :: Prelude.ByteString
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -132,15 +129,11 @@ data ImportRestApi = ImportRestApi'
 -- For example, the AWS CLI command to exclude documentation from the
 -- imported API is:
 --
--- > aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'
---
 -- The AWS CLI command to set the regional endpoint on the imported API is:
 --
--- > aws apigateway import-rest-api --parameters endpointConfigurationTypes=REGIONAL --body 'file:///path/to/imported-api-body.json'
---
--- 'body', 'importRestApi_body' - [Required] The POST request body containing external API definitions.
--- Currently, only OpenAPI definition JSON\/YAML files are supported. The
--- maximum size of the API definition file is 6MB.
+-- 'body', 'importRestApi_body' - The POST request body containing external API definitions. Currently,
+-- only OpenAPI definition JSON\/YAML files are supported. The maximum size
+-- of the API definition file is 6MB.
 newImportRestApi ::
   -- | 'body'
   Prelude.ByteString ->
@@ -177,26 +170,23 @@ importRestApi_failOnWarnings = Lens.lens (\ImportRestApi' {failOnWarnings} -> fa
 -- For example, the AWS CLI command to exclude documentation from the
 -- imported API is:
 --
--- > aws apigateway import-rest-api --parameters ignore=documentation --body 'file:///path/to/imported-api-body.json'
---
 -- The AWS CLI command to set the regional endpoint on the imported API is:
---
--- > aws apigateway import-rest-api --parameters endpointConfigurationTypes=REGIONAL --body 'file:///path/to/imported-api-body.json'
 importRestApi_parameters :: Lens.Lens' ImportRestApi (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 importRestApi_parameters = Lens.lens (\ImportRestApi' {parameters} -> parameters) (\s@ImportRestApi' {} a -> s {parameters = a} :: ImportRestApi) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The POST request body containing external API definitions.
--- Currently, only OpenAPI definition JSON\/YAML files are supported. The
--- maximum size of the API definition file is 6MB.
+-- | The POST request body containing external API definitions. Currently,
+-- only OpenAPI definition JSON\/YAML files are supported. The maximum size
+-- of the API definition file is 6MB.
 importRestApi_body :: Lens.Lens' ImportRestApi Prelude.ByteString
 importRestApi_body = Lens.lens (\ImportRestApi' {body} -> body) (\s@ImportRestApi' {} a -> s {body = a} :: ImportRestApi)
 
 instance Core.AWSRequest ImportRestApi where
   type AWSResponse ImportRestApi = RestApi
-  request = Request.postBody defaultService
+  request overrides =
+    Request.postBody (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable ImportRestApi where
   hashWithSalt _salt ImportRestApi' {..} =
@@ -210,28 +200,28 @@ instance Prelude.NFData ImportRestApi where
       `Prelude.seq` Prelude.rnf parameters
       `Prelude.seq` Prelude.rnf body
 
-instance Core.ToBody ImportRestApi where
-  toBody ImportRestApi' {..} = Core.toBody body
+instance Data.ToBody ImportRestApi where
+  toBody ImportRestApi' {..} = Data.toBody body
 
-instance Core.ToHeaders ImportRestApi where
+instance Data.ToHeaders ImportRestApi where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath ImportRestApi where
+instance Data.ToPath ImportRestApi where
   toPath = Prelude.const "/restapis"
 
-instance Core.ToQuery ImportRestApi where
+instance Data.ToQuery ImportRestApi where
   toQuery ImportRestApi' {..} =
     Prelude.mconcat
-      [ "failonwarnings" Core.=: failOnWarnings,
+      [ "failonwarnings" Data.=: failOnWarnings,
         "parameters"
-          Core.=: Core.toQuery
-            ( Core.toQueryMap "entry" "key" "value"
+          Data.=: Data.toQuery
+            ( Data.toQueryMap "entry" "key" "value"
                 Prelude.<$> parameters
             ),
         "mode=import"

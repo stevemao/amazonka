@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticInference.Types.KeyValuePair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.ElasticInference.Types.KeyValuePair where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A throughput entry for an Elastic Inference Accelerator type.
 --
 -- /See:/ 'newKeyValuePair' smart constructor.
 data KeyValuePair = KeyValuePair'
-  { -- | The throughput value of the Elastic Inference Accelerator type.
-    value :: Prelude.Maybe Prelude.Int,
-    -- | The throughput value of the Elastic Inference Accelerator type. It can
+  { -- | The throughput value of the Elastic Inference Accelerator type. It can
     -- assume the following values: TFLOPS16bit: the throughput expressed in
     -- 16bit TeraFLOPS. TFLOPS32bit: the throughput expressed in 32bit
     -- TeraFLOPS.
-    key :: Prelude.Maybe Prelude.Text
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The throughput value of the Elastic Inference Accelerator type.
+    value :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,23 +46,19 @@ data KeyValuePair = KeyValuePair'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'keyValuePair_value' - The throughput value of the Elastic Inference Accelerator type.
---
 -- 'key', 'keyValuePair_key' - The throughput value of the Elastic Inference Accelerator type. It can
 -- assume the following values: TFLOPS16bit: the throughput expressed in
 -- 16bit TeraFLOPS. TFLOPS32bit: the throughput expressed in 32bit
 -- TeraFLOPS.
+--
+-- 'value', 'keyValuePair_value' - The throughput value of the Elastic Inference Accelerator type.
 newKeyValuePair ::
   KeyValuePair
 newKeyValuePair =
   KeyValuePair'
-    { value = Prelude.Nothing,
-      key = Prelude.Nothing
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The throughput value of the Elastic Inference Accelerator type.
-keyValuePair_value :: Lens.Lens' KeyValuePair (Prelude.Maybe Prelude.Int)
-keyValuePair_value = Lens.lens (\KeyValuePair' {value} -> value) (\s@KeyValuePair' {} a -> s {value = a} :: KeyValuePair)
 
 -- | The throughput value of the Elastic Inference Accelerator type. It can
 -- assume the following values: TFLOPS16bit: the throughput expressed in
@@ -70,20 +67,24 @@ keyValuePair_value = Lens.lens (\KeyValuePair' {value} -> value) (\s@KeyValuePai
 keyValuePair_key :: Lens.Lens' KeyValuePair (Prelude.Maybe Prelude.Text)
 keyValuePair_key = Lens.lens (\KeyValuePair' {key} -> key) (\s@KeyValuePair' {} a -> s {key = a} :: KeyValuePair)
 
-instance Core.FromJSON KeyValuePair where
+-- | The throughput value of the Elastic Inference Accelerator type.
+keyValuePair_value :: Lens.Lens' KeyValuePair (Prelude.Maybe Prelude.Int)
+keyValuePair_value = Lens.lens (\KeyValuePair' {value} -> value) (\s@KeyValuePair' {} a -> s {value = a} :: KeyValuePair)
+
+instance Data.FromJSON KeyValuePair where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KeyValuePair"
       ( \x ->
           KeyValuePair'
-            Prelude.<$> (x Core..:? "value") Prelude.<*> (x Core..:? "key")
+            Prelude.<$> (x Data..:? "key") Prelude.<*> (x Data..:? "value")
       )
 
 instance Prelude.Hashable KeyValuePair where
   hashWithSalt _salt KeyValuePair' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` key
+    _salt `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData KeyValuePair where
   rnf KeyValuePair' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf value

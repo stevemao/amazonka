@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.DeleteXssMatchSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -66,7 +66,8 @@ module Amazonka.WAFRegional.DeleteXssMatchSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -124,12 +125,13 @@ instance Core.AWSRequest DeleteXssMatchSet where
   type
     AWSResponse DeleteXssMatchSet =
       DeleteXssMatchSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteXssMatchSetResponse'
-            Prelude.<$> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -143,35 +145,35 @@ instance Prelude.NFData DeleteXssMatchSet where
     Prelude.rnf xssMatchSetId
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders DeleteXssMatchSet where
+instance Data.ToHeaders DeleteXssMatchSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.DeleteXssMatchSet" ::
+              Data.=# ( "AWSWAF_Regional_20161128.DeleteXssMatchSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteXssMatchSet where
+instance Data.ToJSON DeleteXssMatchSet where
   toJSON DeleteXssMatchSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("XssMatchSetId" Core..= xssMatchSetId),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+              ("XssMatchSetId" Data..= xssMatchSetId),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath DeleteXssMatchSet where
+instance Data.ToPath DeleteXssMatchSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteXssMatchSet where
+instance Data.ToQuery DeleteXssMatchSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The response to a request to delete an XssMatchSet from AWS WAF.

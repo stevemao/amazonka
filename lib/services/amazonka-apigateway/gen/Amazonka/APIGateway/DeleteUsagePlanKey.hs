@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteUsagePlanKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,11 +50,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteUsagePlanKey' smart constructor.
 data DeleteUsagePlanKey = DeleteUsagePlanKey'
-  { -- | [Required] The Id of the UsagePlan resource representing the usage plan
-    -- containing the to-be-deleted UsagePlanKey resource representing a plan
-    -- customer.
+  { -- | The Id of the UsagePlan resource representing the usage plan containing
+    -- the to-be-deleted UsagePlanKey resource representing a plan customer.
     usagePlanId :: Prelude.Text,
-    -- | [Required] The Id of the UsagePlanKey resource to be deleted.
+    -- | The Id of the UsagePlanKey resource to be deleted.
     keyId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -66,11 +66,10 @@ data DeleteUsagePlanKey = DeleteUsagePlanKey'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'usagePlanId', 'deleteUsagePlanKey_usagePlanId' - [Required] The Id of the UsagePlan resource representing the usage plan
--- containing the to-be-deleted UsagePlanKey resource representing a plan
--- customer.
+-- 'usagePlanId', 'deleteUsagePlanKey_usagePlanId' - The Id of the UsagePlan resource representing the usage plan containing
+-- the to-be-deleted UsagePlanKey resource representing a plan customer.
 --
--- 'keyId', 'deleteUsagePlanKey_keyId' - [Required] The Id of the UsagePlanKey resource to be deleted.
+-- 'keyId', 'deleteUsagePlanKey_keyId' - The Id of the UsagePlanKey resource to be deleted.
 newDeleteUsagePlanKey ::
   -- | 'usagePlanId'
   Prelude.Text ->
@@ -83,13 +82,12 @@ newDeleteUsagePlanKey pUsagePlanId_ pKeyId_ =
       keyId = pKeyId_
     }
 
--- | [Required] The Id of the UsagePlan resource representing the usage plan
--- containing the to-be-deleted UsagePlanKey resource representing a plan
--- customer.
+-- | The Id of the UsagePlan resource representing the usage plan containing
+-- the to-be-deleted UsagePlanKey resource representing a plan customer.
 deleteUsagePlanKey_usagePlanId :: Lens.Lens' DeleteUsagePlanKey Prelude.Text
 deleteUsagePlanKey_usagePlanId = Lens.lens (\DeleteUsagePlanKey' {usagePlanId} -> usagePlanId) (\s@DeleteUsagePlanKey' {} a -> s {usagePlanId = a} :: DeleteUsagePlanKey)
 
--- | [Required] The Id of the UsagePlanKey resource to be deleted.
+-- | The Id of the UsagePlanKey resource to be deleted.
 deleteUsagePlanKey_keyId :: Lens.Lens' DeleteUsagePlanKey Prelude.Text
 deleteUsagePlanKey_keyId = Lens.lens (\DeleteUsagePlanKey' {keyId} -> keyId) (\s@DeleteUsagePlanKey' {} a -> s {keyId = a} :: DeleteUsagePlanKey)
 
@@ -97,7 +95,8 @@ instance Core.AWSRequest DeleteUsagePlanKey where
   type
     AWSResponse DeleteUsagePlanKey =
       DeleteUsagePlanKeyResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteUsagePlanKeyResponse'
 
@@ -111,25 +110,25 @@ instance Prelude.NFData DeleteUsagePlanKey where
     Prelude.rnf usagePlanId
       `Prelude.seq` Prelude.rnf keyId
 
-instance Core.ToHeaders DeleteUsagePlanKey where
+instance Data.ToHeaders DeleteUsagePlanKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteUsagePlanKey where
+instance Data.ToPath DeleteUsagePlanKey where
   toPath DeleteUsagePlanKey' {..} =
     Prelude.mconcat
       [ "/usageplans/",
-        Core.toBS usagePlanId,
+        Data.toBS usagePlanId,
         "/keys/",
-        Core.toBS keyId
+        Data.toBS keyId
       ]
 
-instance Core.ToQuery DeleteUsagePlanKey where
+instance Data.ToQuery DeleteUsagePlanKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteUsagePlanKeyResponse' smart constructor.

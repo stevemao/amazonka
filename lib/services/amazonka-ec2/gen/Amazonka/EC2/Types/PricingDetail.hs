@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.PricingDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.PricingDetail where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a Reserved Instance offering.
@@ -62,10 +63,10 @@ pricingDetail_count = Lens.lens (\PricingDetail' {count} -> count) (\s@PricingDe
 pricingDetail_price :: Lens.Lens' PricingDetail (Prelude.Maybe Prelude.Double)
 pricingDetail_price = Lens.lens (\PricingDetail' {price} -> price) (\s@PricingDetail' {} a -> s {price = a} :: PricingDetail)
 
-instance Core.FromXML PricingDetail where
+instance Data.FromXML PricingDetail where
   parseXML x =
     PricingDetail'
-      Prelude.<$> (x Core..@? "count") Prelude.<*> (x Core..@? "price")
+      Prelude.<$> (x Data..@? "count") Prelude.<*> (x Data..@? "price")
 
 instance Prelude.Hashable PricingDetail where
   hashWithSalt _salt PricingDetail' {..} =

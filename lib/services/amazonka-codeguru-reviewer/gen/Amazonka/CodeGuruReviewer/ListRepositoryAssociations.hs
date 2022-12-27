@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruReviewer.ListRepositoryAssociations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,14 +24,11 @@
 -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociationSummary.html RepositoryAssociationSummary>
 -- objects that contain summary information about a repository association.
 -- You can filter the returned list by
--- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociationSummary.html#reviewer-Type-RepositoryAssociationSummary-ProviderType ProviderType>
--- ,
--- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociationSummary.html#reviewer-Type-RepositoryAssociationSummary-Name Name>
--- ,
--- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociationSummary.html#reviewer-Type-RepositoryAssociationSummary-State State>
--- , and
--- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociationSummary.html#reviewer-Type-RepositoryAssociationSummary-Owner Owner>
--- .
+-- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociationSummary.html#reviewer-Type-RepositoryAssociationSummary-ProviderType ProviderType>,
+-- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociationSummary.html#reviewer-Type-RepositoryAssociationSummary-Name Name>,
+-- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociationSummary.html#reviewer-Type-RepositoryAssociationSummary-State State>,
+-- and
+-- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociationSummary.html#reviewer-Type-RepositoryAssociationSummary-Owner Owner>.
 --
 -- This operation returns paginated results.
 module Amazonka.CodeGuruReviewer.ListRepositoryAssociations
@@ -40,12 +37,12 @@ module Amazonka.CodeGuruReviewer.ListRepositoryAssociations
     newListRepositoryAssociations,
 
     -- * Request Lenses
-    listRepositoryAssociations_states,
+    listRepositoryAssociations_maxResults,
+    listRepositoryAssociations_names,
+    listRepositoryAssociations_nextToken,
     listRepositoryAssociations_owners,
     listRepositoryAssociations_providerTypes,
-    listRepositoryAssociations_nextToken,
-    listRepositoryAssociations_names,
-    listRepositoryAssociations_maxResults,
+    listRepositoryAssociations_states,
 
     -- * Destructuring the Response
     ListRepositoryAssociationsResponse (..),
@@ -60,14 +57,43 @@ where
 
 import Amazonka.CodeGuruReviewer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListRepositoryAssociations' smart constructor.
 data ListRepositoryAssociations = ListRepositoryAssociations'
-  { -- | List of repository association states to use as a filter.
+  { -- | The maximum number of repository association results returned by
+    -- @ListRepositoryAssociations@ in paginated output. When this parameter is
+    -- used, @ListRepositoryAssociations@ only returns @maxResults@ results in
+    -- a single page with a @nextToken@ response element. The remaining results
+    -- of the initial request can be seen by sending another
+    -- @ListRepositoryAssociations@ request with the returned @nextToken@
+    -- value. This value can be between 1 and 100. If this parameter is not
+    -- used, @ListRepositoryAssociations@ returns up to 100 results and a
+    -- @nextToken@ value if applicable.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | List of repository names to use as a filter.
+    names :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | The @nextToken@ value returned from a previous paginated
+    -- @ListRepositoryAssociations@ request where @maxResults@ was used and the
+    -- results exceeded the value of that parameter. Pagination continues from
+    -- the end of the previous results that returned the @nextToken@ value.
+    --
+    -- Treat this token as an opaque identifier that is only used to retrieve
+    -- the next items in a list and not for other programmatic purposes.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | List of owners to use as a filter. For Amazon Web Services CodeCommit,
+    -- it is the name of the CodeCommit account that was used to associate the
+    -- repository. For other repository source providers, such as Bitbucket and
+    -- GitHub Enterprise Server, this is name of the account that was used to
+    -- associate the repository.
+    owners :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | List of provider types to use as a filter.
+    providerTypes :: Prelude.Maybe (Prelude.NonEmpty ProviderType),
+    -- | List of repository association states to use as a filter.
     --
     -- The valid repository association states are:
     --
@@ -95,39 +121,11 @@ data ListRepositoryAssociations = ListRepositoryAssociations'
     -- -   __Disassociated__: CodeGuru Reviewer successfully disassociated the
     --     repository. You can create a new association with this repository if
     --     you want to review source code in it later. You can control access
-    --     to code reviews created in an associated repository with tags after
+    --     to code reviews created in anassociated repository with tags after
     --     it has been disassociated. For more information, see
     --     <https://docs.aws.amazon.com/codeguru/latest/reviewer-ug/auth-and-access-control-using-tags.html Using tags to control access to associated repositories>
     --     in the /Amazon CodeGuru Reviewer User Guide/.
-    states :: Prelude.Maybe (Prelude.NonEmpty RepositoryAssociationState),
-    -- | List of owners to use as a filter. For Amazon Web Services CodeCommit,
-    -- it is the name of the CodeCommit account that was used to associate the
-    -- repository. For other repository source providers, such as Bitbucket and
-    -- GitHub Enterprise Server, this is name of the account that was used to
-    -- associate the repository.
-    owners :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | List of provider types to use as a filter.
-    providerTypes :: Prelude.Maybe (Prelude.NonEmpty ProviderType),
-    -- | The @nextToken@ value returned from a previous paginated
-    -- @ListRepositoryAssociations@ request where @maxResults@ was used and the
-    -- results exceeded the value of that parameter. Pagination continues from
-    -- the end of the previous results that returned the @nextToken@ value.
-    --
-    -- Treat this token as an opaque identifier that is only used to retrieve
-    -- the next items in a list and not for other programmatic purposes.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | List of repository names to use as a filter.
-    names :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | The maximum number of repository association results returned by
-    -- @ListRepositoryAssociations@ in paginated output. When this parameter is
-    -- used, @ListRepositoryAssociations@ only returns @maxResults@ results in
-    -- a single page with a @nextToken@ response element. The remaining results
-    -- of the initial request can be seen by sending another
-    -- @ListRepositoryAssociations@ request with the returned @nextToken@
-    -- value. This value can be between 1 and 100. If this parameter is not
-    -- used, @ListRepositoryAssociations@ returns up to 100 results and a
-    -- @nextToken@ value if applicable.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    states :: Prelude.Maybe (Prelude.NonEmpty RepositoryAssociationState)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -138,6 +136,34 @@ data ListRepositoryAssociations = ListRepositoryAssociations'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'maxResults', 'listRepositoryAssociations_maxResults' - The maximum number of repository association results returned by
+-- @ListRepositoryAssociations@ in paginated output. When this parameter is
+-- used, @ListRepositoryAssociations@ only returns @maxResults@ results in
+-- a single page with a @nextToken@ response element. The remaining results
+-- of the initial request can be seen by sending another
+-- @ListRepositoryAssociations@ request with the returned @nextToken@
+-- value. This value can be between 1 and 100. If this parameter is not
+-- used, @ListRepositoryAssociations@ returns up to 100 results and a
+-- @nextToken@ value if applicable.
+--
+-- 'names', 'listRepositoryAssociations_names' - List of repository names to use as a filter.
+--
+-- 'nextToken', 'listRepositoryAssociations_nextToken' - The @nextToken@ value returned from a previous paginated
+-- @ListRepositoryAssociations@ request where @maxResults@ was used and the
+-- results exceeded the value of that parameter. Pagination continues from
+-- the end of the previous results that returned the @nextToken@ value.
+--
+-- Treat this token as an opaque identifier that is only used to retrieve
+-- the next items in a list and not for other programmatic purposes.
+--
+-- 'owners', 'listRepositoryAssociations_owners' - List of owners to use as a filter. For Amazon Web Services CodeCommit,
+-- it is the name of the CodeCommit account that was used to associate the
+-- repository. For other repository source providers, such as Bitbucket and
+-- GitHub Enterprise Server, this is name of the account that was used to
+-- associate the repository.
+--
+-- 'providerTypes', 'listRepositoryAssociations_providerTypes' - List of provider types to use as a filter.
 --
 -- 'states', 'listRepositoryAssociations_states' - List of repository association states to use as a filter.
 --
@@ -167,30 +193,24 @@ data ListRepositoryAssociations = ListRepositoryAssociations'
 -- -   __Disassociated__: CodeGuru Reviewer successfully disassociated the
 --     repository. You can create a new association with this repository if
 --     you want to review source code in it later. You can control access
---     to code reviews created in an associated repository with tags after
+--     to code reviews created in anassociated repository with tags after
 --     it has been disassociated. For more information, see
 --     <https://docs.aws.amazon.com/codeguru/latest/reviewer-ug/auth-and-access-control-using-tags.html Using tags to control access to associated repositories>
 --     in the /Amazon CodeGuru Reviewer User Guide/.
---
--- 'owners', 'listRepositoryAssociations_owners' - List of owners to use as a filter. For Amazon Web Services CodeCommit,
--- it is the name of the CodeCommit account that was used to associate the
--- repository. For other repository source providers, such as Bitbucket and
--- GitHub Enterprise Server, this is name of the account that was used to
--- associate the repository.
---
--- 'providerTypes', 'listRepositoryAssociations_providerTypes' - List of provider types to use as a filter.
---
--- 'nextToken', 'listRepositoryAssociations_nextToken' - The @nextToken@ value returned from a previous paginated
--- @ListRepositoryAssociations@ request where @maxResults@ was used and the
--- results exceeded the value of that parameter. Pagination continues from
--- the end of the previous results that returned the @nextToken@ value.
---
--- Treat this token as an opaque identifier that is only used to retrieve
--- the next items in a list and not for other programmatic purposes.
---
--- 'names', 'listRepositoryAssociations_names' - List of repository names to use as a filter.
---
--- 'maxResults', 'listRepositoryAssociations_maxResults' - The maximum number of repository association results returned by
+newListRepositoryAssociations ::
+  ListRepositoryAssociations
+newListRepositoryAssociations =
+  ListRepositoryAssociations'
+    { maxResults =
+        Prelude.Nothing,
+      names = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      owners = Prelude.Nothing,
+      providerTypes = Prelude.Nothing,
+      states = Prelude.Nothing
+    }
+
+-- | The maximum number of repository association results returned by
 -- @ListRepositoryAssociations@ in paginated output. When this parameter is
 -- used, @ListRepositoryAssociations@ only returns @maxResults@ results in
 -- a single page with a @nextToken@ response element. The remaining results
@@ -199,18 +219,34 @@ data ListRepositoryAssociations = ListRepositoryAssociations'
 -- value. This value can be between 1 and 100. If this parameter is not
 -- used, @ListRepositoryAssociations@ returns up to 100 results and a
 -- @nextToken@ value if applicable.
-newListRepositoryAssociations ::
-  ListRepositoryAssociations
-newListRepositoryAssociations =
-  ListRepositoryAssociations'
-    { states =
-        Prelude.Nothing,
-      owners = Prelude.Nothing,
-      providerTypes = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      names = Prelude.Nothing,
-      maxResults = Prelude.Nothing
-    }
+listRepositoryAssociations_maxResults :: Lens.Lens' ListRepositoryAssociations (Prelude.Maybe Prelude.Natural)
+listRepositoryAssociations_maxResults = Lens.lens (\ListRepositoryAssociations' {maxResults} -> maxResults) (\s@ListRepositoryAssociations' {} a -> s {maxResults = a} :: ListRepositoryAssociations)
+
+-- | List of repository names to use as a filter.
+listRepositoryAssociations_names :: Lens.Lens' ListRepositoryAssociations (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+listRepositoryAssociations_names = Lens.lens (\ListRepositoryAssociations' {names} -> names) (\s@ListRepositoryAssociations' {} a -> s {names = a} :: ListRepositoryAssociations) Prelude.. Lens.mapping Lens.coerced
+
+-- | The @nextToken@ value returned from a previous paginated
+-- @ListRepositoryAssociations@ request where @maxResults@ was used and the
+-- results exceeded the value of that parameter. Pagination continues from
+-- the end of the previous results that returned the @nextToken@ value.
+--
+-- Treat this token as an opaque identifier that is only used to retrieve
+-- the next items in a list and not for other programmatic purposes.
+listRepositoryAssociations_nextToken :: Lens.Lens' ListRepositoryAssociations (Prelude.Maybe Prelude.Text)
+listRepositoryAssociations_nextToken = Lens.lens (\ListRepositoryAssociations' {nextToken} -> nextToken) (\s@ListRepositoryAssociations' {} a -> s {nextToken = a} :: ListRepositoryAssociations)
+
+-- | List of owners to use as a filter. For Amazon Web Services CodeCommit,
+-- it is the name of the CodeCommit account that was used to associate the
+-- repository. For other repository source providers, such as Bitbucket and
+-- GitHub Enterprise Server, this is name of the account that was used to
+-- associate the repository.
+listRepositoryAssociations_owners :: Lens.Lens' ListRepositoryAssociations (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+listRepositoryAssociations_owners = Lens.lens (\ListRepositoryAssociations' {owners} -> owners) (\s@ListRepositoryAssociations' {} a -> s {owners = a} :: ListRepositoryAssociations) Prelude.. Lens.mapping Lens.coerced
+
+-- | List of provider types to use as a filter.
+listRepositoryAssociations_providerTypes :: Lens.Lens' ListRepositoryAssociations (Prelude.Maybe (Prelude.NonEmpty ProviderType))
+listRepositoryAssociations_providerTypes = Lens.lens (\ListRepositoryAssociations' {providerTypes} -> providerTypes) (\s@ListRepositoryAssociations' {} a -> s {providerTypes = a} :: ListRepositoryAssociations) Prelude.. Lens.mapping Lens.coerced
 
 -- | List of repository association states to use as a filter.
 --
@@ -240,50 +276,12 @@ newListRepositoryAssociations =
 -- -   __Disassociated__: CodeGuru Reviewer successfully disassociated the
 --     repository. You can create a new association with this repository if
 --     you want to review source code in it later. You can control access
---     to code reviews created in an associated repository with tags after
+--     to code reviews created in anassociated repository with tags after
 --     it has been disassociated. For more information, see
 --     <https://docs.aws.amazon.com/codeguru/latest/reviewer-ug/auth-and-access-control-using-tags.html Using tags to control access to associated repositories>
 --     in the /Amazon CodeGuru Reviewer User Guide/.
 listRepositoryAssociations_states :: Lens.Lens' ListRepositoryAssociations (Prelude.Maybe (Prelude.NonEmpty RepositoryAssociationState))
 listRepositoryAssociations_states = Lens.lens (\ListRepositoryAssociations' {states} -> states) (\s@ListRepositoryAssociations' {} a -> s {states = a} :: ListRepositoryAssociations) Prelude.. Lens.mapping Lens.coerced
-
--- | List of owners to use as a filter. For Amazon Web Services CodeCommit,
--- it is the name of the CodeCommit account that was used to associate the
--- repository. For other repository source providers, such as Bitbucket and
--- GitHub Enterprise Server, this is name of the account that was used to
--- associate the repository.
-listRepositoryAssociations_owners :: Lens.Lens' ListRepositoryAssociations (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-listRepositoryAssociations_owners = Lens.lens (\ListRepositoryAssociations' {owners} -> owners) (\s@ListRepositoryAssociations' {} a -> s {owners = a} :: ListRepositoryAssociations) Prelude.. Lens.mapping Lens.coerced
-
--- | List of provider types to use as a filter.
-listRepositoryAssociations_providerTypes :: Lens.Lens' ListRepositoryAssociations (Prelude.Maybe (Prelude.NonEmpty ProviderType))
-listRepositoryAssociations_providerTypes = Lens.lens (\ListRepositoryAssociations' {providerTypes} -> providerTypes) (\s@ListRepositoryAssociations' {} a -> s {providerTypes = a} :: ListRepositoryAssociations) Prelude.. Lens.mapping Lens.coerced
-
--- | The @nextToken@ value returned from a previous paginated
--- @ListRepositoryAssociations@ request where @maxResults@ was used and the
--- results exceeded the value of that parameter. Pagination continues from
--- the end of the previous results that returned the @nextToken@ value.
---
--- Treat this token as an opaque identifier that is only used to retrieve
--- the next items in a list and not for other programmatic purposes.
-listRepositoryAssociations_nextToken :: Lens.Lens' ListRepositoryAssociations (Prelude.Maybe Prelude.Text)
-listRepositoryAssociations_nextToken = Lens.lens (\ListRepositoryAssociations' {nextToken} -> nextToken) (\s@ListRepositoryAssociations' {} a -> s {nextToken = a} :: ListRepositoryAssociations)
-
--- | List of repository names to use as a filter.
-listRepositoryAssociations_names :: Lens.Lens' ListRepositoryAssociations (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-listRepositoryAssociations_names = Lens.lens (\ListRepositoryAssociations' {names} -> names) (\s@ListRepositoryAssociations' {} a -> s {names = a} :: ListRepositoryAssociations) Prelude.. Lens.mapping Lens.coerced
-
--- | The maximum number of repository association results returned by
--- @ListRepositoryAssociations@ in paginated output. When this parameter is
--- used, @ListRepositoryAssociations@ only returns @maxResults@ results in
--- a single page with a @nextToken@ response element. The remaining results
--- of the initial request can be seen by sending another
--- @ListRepositoryAssociations@ request with the returned @nextToken@
--- value. This value can be between 1 and 100. If this parameter is not
--- used, @ListRepositoryAssociations@ returns up to 100 results and a
--- @nextToken@ value if applicable.
-listRepositoryAssociations_maxResults :: Lens.Lens' ListRepositoryAssociations (Prelude.Maybe Prelude.Natural)
-listRepositoryAssociations_maxResults = Lens.lens (\ListRepositoryAssociations' {maxResults} -> maxResults) (\s@ListRepositoryAssociations' {} a -> s {maxResults = a} :: ListRepositoryAssociations)
 
 instance Core.AWSPager ListRepositoryAssociations where
   page rq rs
@@ -311,13 +309,14 @@ instance Core.AWSRequest ListRepositoryAssociations where
   type
     AWSResponse ListRepositoryAssociations =
       ListRepositoryAssociationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRepositoryAssociationsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "RepositoryAssociationSummaries"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "RepositoryAssociationSummaries"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -325,55 +324,55 @@ instance Core.AWSRequest ListRepositoryAssociations where
 
 instance Prelude.Hashable ListRepositoryAssociations where
   hashWithSalt _salt ListRepositoryAssociations' {..} =
-    _salt `Prelude.hashWithSalt` states
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` names
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` owners
       `Prelude.hashWithSalt` providerTypes
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` names
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` states
 
 instance Prelude.NFData ListRepositoryAssociations where
   rnf ListRepositoryAssociations' {..} =
-    Prelude.rnf states
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf names
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf owners
       `Prelude.seq` Prelude.rnf providerTypes
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf names
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf states
 
-instance Core.ToHeaders ListRepositoryAssociations where
+instance Data.ToHeaders ListRepositoryAssociations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListRepositoryAssociations where
+instance Data.ToPath ListRepositoryAssociations where
   toPath = Prelude.const "/associations"
 
-instance Core.ToQuery ListRepositoryAssociations where
+instance Data.ToQuery ListRepositoryAssociations where
   toQuery ListRepositoryAssociations' {..} =
     Prelude.mconcat
-      [ "State"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> states),
+      [ "MaxResults" Data.=: maxResults,
+        "Name"
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> names),
+        "NextToken" Data.=: nextToken,
         "Owner"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> owners),
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> owners),
         "ProviderType"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> providerTypes
             ),
-        "NextToken" Core.=: nextToken,
-        "Name"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> names),
-        "MaxResults" Core.=: maxResults
+        "State"
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> states)
       ]
 
 -- | /See:/ 'newListRepositoryAssociationsResponse' smart constructor.

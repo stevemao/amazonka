@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.LookoutVision
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,20 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestListProjects $
---             newListProjects
+--         [ requestCreateDataset $
+--             newCreateDataset
+--
+--         , requestCreateModel $
+--             newCreateModel
+--
+--         , requestCreateProject $
+--             newCreateProject
+--
+--         , requestDeleteDataset $
+--             newDeleteDataset
+--
+--         , requestDeleteModel $
+--             newDeleteModel
 --
 --         , requestDeleteProject $
 --             newDeleteProject
@@ -36,41 +48,41 @@ import Test.Tasty
 --         , requestDescribeDataset $
 --             newDescribeDataset
 --
---         , requestStopModel $
---             newStopModel
+--         , requestDescribeModel $
+--             newDescribeModel
 --
---         , requestListDatasetEntries $
---             newListDatasetEntries
---
---         , requestListTagsForResource $
---             newListTagsForResource
+--         , requestDescribeModelPackagingJob $
+--             newDescribeModelPackagingJob
 --
 --         , requestDescribeProject $
 --             newDescribeProject
 --
---         , requestCreateModel $
---             newCreateModel
+--         , requestDetectAnomalies $
+--             newDetectAnomalies
 --
---         , requestDeleteDataset $
---             newDeleteDataset
+--         , requestListDatasetEntries $
+--             newListDatasetEntries
 --
---         , requestCreateDataset $
---             newCreateDataset
---
---         , requestDeleteModel $
---             newDeleteModel
+--         , requestListModelPackagingJobs $
+--             newListModelPackagingJobs
 --
 --         , requestListModels $
 --             newListModels
 --
+--         , requestListProjects $
+--             newListProjects
+--
+--         , requestListTagsForResource $
+--             newListTagsForResource
+--
 --         , requestStartModel $
 --             newStartModel
 --
---         , requestDescribeModel $
---             newDescribeModel
+--         , requestStartModelPackagingJob $
+--             newStartModelPackagingJob
 --
---         , requestDetectAnomalies $
---             newDetectAnomalies
+--         , requestStopModel $
+--             newStopModel
 --
 --         , requestTagResource $
 --             newTagResource
@@ -78,17 +90,26 @@ import Test.Tasty
 --         , requestUntagResource $
 --             newUntagResource
 --
---         , requestCreateProject $
---             newCreateProject
---
 --         , requestUpdateDatasetEntries $
 --             newUpdateDatasetEntries
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseListProjects $
---             newListProjectsResponse
+--         [ responseCreateDataset $
+--             newCreateDatasetResponse
+--
+--         , responseCreateModel $
+--             newCreateModelResponse
+--
+--         , responseCreateProject $
+--             newCreateProjectResponse
+--
+--         , responseDeleteDataset $
+--             newDeleteDatasetResponse
+--
+--         , responseDeleteModel $
+--             newDeleteModelResponse
 --
 --         , responseDeleteProject $
 --             newDeleteProjectResponse
@@ -96,50 +117,47 @@ import Test.Tasty
 --         , responseDescribeDataset $
 --             newDescribeDatasetResponse
 --
---         , responseStopModel $
---             newStopModelResponse
+--         , responseDescribeModel $
+--             newDescribeModelResponse
 --
---         , responseListDatasetEntries $
---             newListDatasetEntriesResponse
---
---         , responseListTagsForResource $
---             newListTagsForResourceResponse
+--         , responseDescribeModelPackagingJob $
+--             newDescribeModelPackagingJobResponse
 --
 --         , responseDescribeProject $
 --             newDescribeProjectResponse
 --
---         , responseCreateModel $
---             newCreateModelResponse
+--         , responseDetectAnomalies $
+--             newDetectAnomaliesResponse
 --
---         , responseDeleteDataset $
---             newDeleteDatasetResponse
+--         , responseListDatasetEntries $
+--             newListDatasetEntriesResponse
 --
---         , responseCreateDataset $
---             newCreateDatasetResponse
---
---         , responseDeleteModel $
---             newDeleteModelResponse
+--         , responseListModelPackagingJobs $
+--             newListModelPackagingJobsResponse
 --
 --         , responseListModels $
 --             newListModelsResponse
 --
+--         , responseListProjects $
+--             newListProjectsResponse
+--
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
+--
 --         , responseStartModel $
 --             newStartModelResponse
 --
---         , responseDescribeModel $
---             newDescribeModelResponse
+--         , responseStartModelPackagingJob $
+--             newStartModelPackagingJobResponse
 --
---         , responseDetectAnomalies $
---             newDetectAnomaliesResponse
+--         , responseStopModel $
+--             newStopModelResponse
 --
 --         , responseTagResource $
 --             newTagResourceResponse
 --
 --         , responseUntagResource $
 --             newUntagResourceResponse
---
---         , responseCreateProject $
---             newCreateProjectResponse
 --
 --         , responseUpdateDatasetEntries $
 --             newUpdateDatasetEntriesResponse
@@ -149,11 +167,35 @@ import Test.Tasty
 
 -- Requests
 
-requestListProjects :: ListProjects -> TestTree
-requestListProjects =
+requestCreateDataset :: CreateDataset -> TestTree
+requestCreateDataset =
   req
-    "ListProjects"
-    "fixture/ListProjects.yaml"
+    "CreateDataset"
+    "fixture/CreateDataset.yaml"
+
+requestCreateModel :: CreateModel -> TestTree
+requestCreateModel =
+  req
+    "CreateModel"
+    "fixture/CreateModel.yaml"
+
+requestCreateProject :: CreateProject -> TestTree
+requestCreateProject =
+  req
+    "CreateProject"
+    "fixture/CreateProject.yaml"
+
+requestDeleteDataset :: DeleteDataset -> TestTree
+requestDeleteDataset =
+  req
+    "DeleteDataset"
+    "fixture/DeleteDataset.yaml"
+
+requestDeleteModel :: DeleteModel -> TestTree
+requestDeleteModel =
+  req
+    "DeleteModel"
+    "fixture/DeleteModel.yaml"
 
 requestDeleteProject :: DeleteProject -> TestTree
 requestDeleteProject =
@@ -167,23 +209,17 @@ requestDescribeDataset =
     "DescribeDataset"
     "fixture/DescribeDataset.yaml"
 
-requestStopModel :: StopModel -> TestTree
-requestStopModel =
+requestDescribeModel :: DescribeModel -> TestTree
+requestDescribeModel =
   req
-    "StopModel"
-    "fixture/StopModel.yaml"
+    "DescribeModel"
+    "fixture/DescribeModel.yaml"
 
-requestListDatasetEntries :: ListDatasetEntries -> TestTree
-requestListDatasetEntries =
+requestDescribeModelPackagingJob :: DescribeModelPackagingJob -> TestTree
+requestDescribeModelPackagingJob =
   req
-    "ListDatasetEntries"
-    "fixture/ListDatasetEntries.yaml"
-
-requestListTagsForResource :: ListTagsForResource -> TestTree
-requestListTagsForResource =
-  req
-    "ListTagsForResource"
-    "fixture/ListTagsForResource.yaml"
+    "DescribeModelPackagingJob"
+    "fixture/DescribeModelPackagingJob.yaml"
 
 requestDescribeProject :: DescribeProject -> TestTree
 requestDescribeProject =
@@ -191,29 +227,17 @@ requestDescribeProject =
     "DescribeProject"
     "fixture/DescribeProject.yaml"
 
-requestCreateModel :: CreateModel -> TestTree
-requestCreateModel =
+requestListDatasetEntries :: ListDatasetEntries -> TestTree
+requestListDatasetEntries =
   req
-    "CreateModel"
-    "fixture/CreateModel.yaml"
+    "ListDatasetEntries"
+    "fixture/ListDatasetEntries.yaml"
 
-requestDeleteDataset :: DeleteDataset -> TestTree
-requestDeleteDataset =
+requestListModelPackagingJobs :: ListModelPackagingJobs -> TestTree
+requestListModelPackagingJobs =
   req
-    "DeleteDataset"
-    "fixture/DeleteDataset.yaml"
-
-requestCreateDataset :: CreateDataset -> TestTree
-requestCreateDataset =
-  req
-    "CreateDataset"
-    "fixture/CreateDataset.yaml"
-
-requestDeleteModel :: DeleteModel -> TestTree
-requestDeleteModel =
-  req
-    "DeleteModel"
-    "fixture/DeleteModel.yaml"
+    "ListModelPackagingJobs"
+    "fixture/ListModelPackagingJobs.yaml"
 
 requestListModels :: ListModels -> TestTree
 requestListModels =
@@ -221,17 +245,35 @@ requestListModels =
     "ListModels"
     "fixture/ListModels.yaml"
 
+requestListProjects :: ListProjects -> TestTree
+requestListProjects =
+  req
+    "ListProjects"
+    "fixture/ListProjects.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
 requestStartModel :: StartModel -> TestTree
 requestStartModel =
   req
     "StartModel"
     "fixture/StartModel.yaml"
 
-requestDescribeModel :: DescribeModel -> TestTree
-requestDescribeModel =
+requestStartModelPackagingJob :: StartModelPackagingJob -> TestTree
+requestStartModelPackagingJob =
   req
-    "DescribeModel"
-    "fixture/DescribeModel.yaml"
+    "StartModelPackagingJob"
+    "fixture/StartModelPackagingJob.yaml"
+
+requestStopModel :: StopModel -> TestTree
+requestStopModel =
+  req
+    "StopModel"
+    "fixture/StopModel.yaml"
 
 requestTagResource :: TagResource -> TestTree
 requestTagResource =
@@ -245,12 +287,6 @@ requestUntagResource =
     "UntagResource"
     "fixture/UntagResource.yaml"
 
-requestCreateProject :: CreateProject -> TestTree
-requestCreateProject =
-  req
-    "CreateProject"
-    "fixture/CreateProject.yaml"
-
 requestUpdateDatasetEntries :: UpdateDatasetEntries -> TestTree
 requestUpdateDatasetEntries =
   req
@@ -259,13 +295,45 @@ requestUpdateDatasetEntries =
 
 -- Responses
 
-responseListProjects :: ListProjectsResponse -> TestTree
-responseListProjects =
+responseCreateDataset :: CreateDatasetResponse -> TestTree
+responseCreateDataset =
   res
-    "ListProjectsResponse"
-    "fixture/ListProjectsResponse.proto"
+    "CreateDatasetResponse"
+    "fixture/CreateDatasetResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListProjects)
+    (Proxy.Proxy :: Proxy.Proxy CreateDataset)
+
+responseCreateModel :: CreateModelResponse -> TestTree
+responseCreateModel =
+  res
+    "CreateModelResponse"
+    "fixture/CreateModelResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy CreateModel)
+
+responseCreateProject :: CreateProjectResponse -> TestTree
+responseCreateProject =
+  res
+    "CreateProjectResponse"
+    "fixture/CreateProjectResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy CreateProject)
+
+responseDeleteDataset :: DeleteDatasetResponse -> TestTree
+responseDeleteDataset =
+  res
+    "DeleteDatasetResponse"
+    "fixture/DeleteDatasetResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteDataset)
+
+responseDeleteModel :: DeleteModelResponse -> TestTree
+responseDeleteModel =
+  res
+    "DeleteModelResponse"
+    "fixture/DeleteModelResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteModel)
 
 responseDeleteProject :: DeleteProjectResponse -> TestTree
 responseDeleteProject =
@@ -283,29 +351,21 @@ responseDescribeDataset =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DescribeDataset)
 
-responseStopModel :: StopModelResponse -> TestTree
-responseStopModel =
+responseDescribeModel :: DescribeModelResponse -> TestTree
+responseDescribeModel =
   res
-    "StopModelResponse"
-    "fixture/StopModelResponse.proto"
+    "DescribeModelResponse"
+    "fixture/DescribeModelResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy StopModel)
+    (Proxy.Proxy :: Proxy.Proxy DescribeModel)
 
-responseListDatasetEntries :: ListDatasetEntriesResponse -> TestTree
-responseListDatasetEntries =
+responseDescribeModelPackagingJob :: DescribeModelPackagingJobResponse -> TestTree
+responseDescribeModelPackagingJob =
   res
-    "ListDatasetEntriesResponse"
-    "fixture/ListDatasetEntriesResponse.proto"
+    "DescribeModelPackagingJobResponse"
+    "fixture/DescribeModelPackagingJobResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListDatasetEntries)
-
-responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
-responseListTagsForResource =
-  res
-    "ListTagsForResourceResponse"
-    "fixture/ListTagsForResourceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+    (Proxy.Proxy :: Proxy.Proxy DescribeModelPackagingJob)
 
 responseDescribeProject :: DescribeProjectResponse -> TestTree
 responseDescribeProject =
@@ -315,37 +375,29 @@ responseDescribeProject =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DescribeProject)
 
-responseCreateModel :: CreateModelResponse -> TestTree
-responseCreateModel =
+responseDetectAnomalies :: DetectAnomaliesResponse -> TestTree
+responseDetectAnomalies =
   res
-    "CreateModelResponse"
-    "fixture/CreateModelResponse.proto"
+    "DetectAnomaliesResponse"
+    "fixture/DetectAnomaliesResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateModel)
+    (Proxy.Proxy :: Proxy.Proxy DetectAnomalies)
 
-responseDeleteDataset :: DeleteDatasetResponse -> TestTree
-responseDeleteDataset =
+responseListDatasetEntries :: ListDatasetEntriesResponse -> TestTree
+responseListDatasetEntries =
   res
-    "DeleteDatasetResponse"
-    "fixture/DeleteDatasetResponse.proto"
+    "ListDatasetEntriesResponse"
+    "fixture/ListDatasetEntriesResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteDataset)
+    (Proxy.Proxy :: Proxy.Proxy ListDatasetEntries)
 
-responseCreateDataset :: CreateDatasetResponse -> TestTree
-responseCreateDataset =
+responseListModelPackagingJobs :: ListModelPackagingJobsResponse -> TestTree
+responseListModelPackagingJobs =
   res
-    "CreateDatasetResponse"
-    "fixture/CreateDatasetResponse.proto"
+    "ListModelPackagingJobsResponse"
+    "fixture/ListModelPackagingJobsResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateDataset)
-
-responseDeleteModel :: DeleteModelResponse -> TestTree
-responseDeleteModel =
-  res
-    "DeleteModelResponse"
-    "fixture/DeleteModelResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteModel)
+    (Proxy.Proxy :: Proxy.Proxy ListModelPackagingJobs)
 
 responseListModels :: ListModelsResponse -> TestTree
 responseListModels =
@@ -355,6 +407,22 @@ responseListModels =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy ListModels)
 
+responseListProjects :: ListProjectsResponse -> TestTree
+responseListProjects =
+  res
+    "ListProjectsResponse"
+    "fixture/ListProjectsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListProjects)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+
 responseStartModel :: StartModelResponse -> TestTree
 responseStartModel =
   res
@@ -363,21 +431,21 @@ responseStartModel =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy StartModel)
 
-responseDescribeModel :: DescribeModelResponse -> TestTree
-responseDescribeModel =
+responseStartModelPackagingJob :: StartModelPackagingJobResponse -> TestTree
+responseStartModelPackagingJob =
   res
-    "DescribeModelResponse"
-    "fixture/DescribeModelResponse.proto"
+    "StartModelPackagingJobResponse"
+    "fixture/StartModelPackagingJobResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeModel)
+    (Proxy.Proxy :: Proxy.Proxy StartModelPackagingJob)
 
-responseDetectAnomalies :: DetectAnomaliesResponse -> TestTree
-responseDetectAnomalies =
+responseStopModel :: StopModelResponse -> TestTree
+responseStopModel =
   res
-    "DetectAnomaliesResponse"
-    "fixture/DetectAnomaliesResponse.proto"
+    "StopModelResponse"
+    "fixture/StopModelResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DetectAnomalies)
+    (Proxy.Proxy :: Proxy.Proxy StopModel)
 
 responseTagResource :: TagResourceResponse -> TestTree
 responseTagResource =
@@ -394,14 +462,6 @@ responseUntagResource =
     "fixture/UntagResourceResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy UntagResource)
-
-responseCreateProject :: CreateProjectResponse -> TestTree
-responseCreateProject =
-  res
-    "CreateProjectResponse"
-    "fixture/CreateProjectResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateProject)
 
 responseUpdateDatasetEntries :: UpdateDatasetEntriesResponse -> TestTree
 responseUpdateDatasetEntries =

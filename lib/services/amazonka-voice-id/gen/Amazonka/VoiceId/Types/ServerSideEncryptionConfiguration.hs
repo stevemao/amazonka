@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.VoiceId.Types.ServerSideEncryptionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,17 @@
 module Amazonka.VoiceId.Types.ServerSideEncryptionConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The configuration containing information about the customer-managed KMS
--- Key used for encrypting customer data.
+-- | The configuration containing information about the customer managed key
+-- used for encrypting customer data.
 --
 -- /See:/ 'newServerSideEncryptionConfiguration' smart constructor.
 data ServerSideEncryptionConfiguration = ServerSideEncryptionConfiguration'
-  { -- | The identifier of the KMS Key you want Voice ID to use to encrypt your
-    -- data.
+  { -- | The identifier of the KMS key to use to encrypt data stored by Voice ID.
+    -- Voice ID doesn\'t support asymmetric customer managed keys.
     kmsKeyId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -42,8 +43,8 @@ data ServerSideEncryptionConfiguration = ServerSideEncryptionConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'kmsKeyId', 'serverSideEncryptionConfiguration_kmsKeyId' - The identifier of the KMS Key you want Voice ID to use to encrypt your
--- data.
+-- 'kmsKeyId', 'serverSideEncryptionConfiguration_kmsKeyId' - The identifier of the KMS key to use to encrypt data stored by Voice ID.
+-- Voice ID doesn\'t support asymmetric customer managed keys.
 newServerSideEncryptionConfiguration ::
   -- | 'kmsKeyId'
   Prelude.Text ->
@@ -54,21 +55,21 @@ newServerSideEncryptionConfiguration pKmsKeyId_ =
         pKmsKeyId_
     }
 
--- | The identifier of the KMS Key you want Voice ID to use to encrypt your
--- data.
+-- | The identifier of the KMS key to use to encrypt data stored by Voice ID.
+-- Voice ID doesn\'t support asymmetric customer managed keys.
 serverSideEncryptionConfiguration_kmsKeyId :: Lens.Lens' ServerSideEncryptionConfiguration Prelude.Text
 serverSideEncryptionConfiguration_kmsKeyId = Lens.lens (\ServerSideEncryptionConfiguration' {kmsKeyId} -> kmsKeyId) (\s@ServerSideEncryptionConfiguration' {} a -> s {kmsKeyId = a} :: ServerSideEncryptionConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ServerSideEncryptionConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServerSideEncryptionConfiguration"
       ( \x ->
           ServerSideEncryptionConfiguration'
-            Prelude.<$> (x Core..: "KmsKeyId")
+            Prelude.<$> (x Data..: "KmsKeyId")
       )
 
 instance
@@ -88,11 +89,11 @@ instance
     Prelude.rnf kmsKeyId
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ServerSideEncryptionConfiguration
   where
   toJSON ServerSideEncryptionConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("KmsKeyId" Core..= kmsKeyId)]
+          [Prelude.Just ("KmsKeyId" Data..= kmsKeyId)]
       )

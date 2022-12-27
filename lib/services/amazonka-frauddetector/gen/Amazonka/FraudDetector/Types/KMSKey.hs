@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.KMSKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.FraudDetector.Types.KMSKey where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The KMS key details.
@@ -50,13 +51,13 @@ newKMSKey =
 kmsKey_kmsEncryptionKeyArn :: Lens.Lens' KMSKey (Prelude.Maybe Prelude.Text)
 kmsKey_kmsEncryptionKeyArn = Lens.lens (\KMSKey' {kmsEncryptionKeyArn} -> kmsEncryptionKeyArn) (\s@KMSKey' {} a -> s {kmsEncryptionKeyArn = a} :: KMSKey)
 
-instance Core.FromJSON KMSKey where
+instance Data.FromJSON KMSKey where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KMSKey"
       ( \x ->
           KMSKey'
-            Prelude.<$> (x Core..:? "kmsEncryptionKeyArn")
+            Prelude.<$> (x Data..:? "kmsEncryptionKeyArn")
       )
 
 instance Prelude.Hashable KMSKey where

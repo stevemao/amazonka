@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Textract.Types.Relationship
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Textract.Types.Relationship where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Textract.Types.RelationshipType
 
@@ -88,14 +89,14 @@ relationship_ids = Lens.lens (\Relationship' {ids} -> ids) (\s@Relationship' {} 
 relationship_type :: Lens.Lens' Relationship (Prelude.Maybe RelationshipType)
 relationship_type = Lens.lens (\Relationship' {type'} -> type') (\s@Relationship' {} a -> s {type' = a} :: Relationship)
 
-instance Core.FromJSON Relationship where
+instance Data.FromJSON Relationship where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Relationship"
       ( \x ->
           Relationship'
-            Prelude.<$> (x Core..:? "Ids" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Ids" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable Relationship where

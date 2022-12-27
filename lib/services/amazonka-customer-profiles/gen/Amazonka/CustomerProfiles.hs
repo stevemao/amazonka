@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -13,21 +13,14 @@
 --
 -- Amazon Connect Customer Profiles
 --
--- Welcome to the Amazon Connect Customer Profiles API Reference. This
--- guide provides information about the Amazon Connect Customer Profiles
--- API, including supported operations, data types, parameters, and
--- schemas.
---
 -- Amazon Connect Customer Profiles is a unified customer profile for your
 -- contact center that has pre-built connectors powered by AppFlow that
 -- make it easy to combine customer information from third party
 -- applications, such as Salesforce (CRM), ServiceNow (ITSM), and your
 -- enterprise resource planning (ERP), with contact history from your
--- Amazon Connect contact center.
---
--- If you\'re new to Amazon Connect , you might find it helpful to also
--- review the
--- <https://docs.aws.amazon.com/connect/latest/adminguide/what-is-amazon-connect.html Amazon Connect Administrator Guide>.
+-- Amazon Connect contact center. If you\'re new to Amazon Connect, you
+-- might find it helpful to review the
+-- <https://docs.aws.amazon.com/connect/latest/adminguide/ Amazon Connect Administrator Guide>.
 module Amazonka.CustomerProfiles
   ( -- * Service Configuration
     defaultService,
@@ -38,8 +31,8 @@ module Amazonka.CustomerProfiles
     -- ** AccessDeniedException
     _AccessDeniedException,
 
-    -- ** ThrottlingException
-    _ThrottlingException,
+    -- ** BadRequestException
+    _BadRequestException,
 
     -- ** InternalServerException
     _InternalServerException,
@@ -47,8 +40,8 @@ module Amazonka.CustomerProfiles
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
-    -- ** BadRequestException
-    _BadRequestException,
+    -- ** ThrottlingException
+    _ThrottlingException,
 
     -- * Waiters
     -- $waiters
@@ -56,77 +49,11 @@ module Amazonka.CustomerProfiles
     -- * Operations
     -- $operations
 
-    -- ** DeleteProfileObjectType
-    DeleteProfileObjectType (DeleteProfileObjectType'),
-    newDeleteProfileObjectType,
-    DeleteProfileObjectTypeResponse (DeleteProfileObjectTypeResponse'),
-    newDeleteProfileObjectTypeResponse,
-
-    -- ** ListIntegrations
-    ListIntegrations (ListIntegrations'),
-    newListIntegrations,
-    ListIntegrationsResponse (ListIntegrationsResponse'),
-    newListIntegrationsResponse,
-
-    -- ** PutProfileObjectType
-    PutProfileObjectType (PutProfileObjectType'),
-    newPutProfileObjectType,
-    PutProfileObjectTypeResponse (PutProfileObjectTypeResponse'),
-    newPutProfileObjectTypeResponse,
-
-    -- ** ListProfileObjects
-    ListProfileObjects (ListProfileObjects'),
-    newListProfileObjects,
-    ListProfileObjectsResponse (ListProfileObjectsResponse'),
-    newListProfileObjectsResponse,
-
-    -- ** ListProfileObjectTypeTemplates
-    ListProfileObjectTypeTemplates (ListProfileObjectTypeTemplates'),
-    newListProfileObjectTypeTemplates,
-    ListProfileObjectTypeTemplatesResponse (ListProfileObjectTypeTemplatesResponse'),
-    newListProfileObjectTypeTemplatesResponse,
-
-    -- ** DeleteProfile
-    DeleteProfile (DeleteProfile'),
-    newDeleteProfile,
-    DeleteProfileResponse (DeleteProfileResponse'),
-    newDeleteProfileResponse,
-
-    -- ** UpdateProfile
-    UpdateProfile (UpdateProfile'),
-    newUpdateProfile,
-    UpdateProfileResponse (UpdateProfileResponse'),
-    newUpdateProfileResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
     -- ** AddProfileKey
     AddProfileKey (AddProfileKey'),
     newAddProfileKey,
     AddProfileKeyResponse (AddProfileKeyResponse'),
     newAddProfileKeyResponse,
-
-    -- ** GetProfileObjectTypeTemplate
-    GetProfileObjectTypeTemplate (GetProfileObjectTypeTemplate'),
-    newGetProfileObjectTypeTemplate,
-    GetProfileObjectTypeTemplateResponse (GetProfileObjectTypeTemplateResponse'),
-    newGetProfileObjectTypeTemplateResponse,
-
-    -- ** GetIntegration
-    GetIntegration (GetIntegration'),
-    newGetIntegration,
-    GetIntegrationResponse (GetIntegrationResponse'),
-    newGetIntegrationResponse,
-
-    -- ** GetDomain
-    GetDomain (GetDomain'),
-    newGetDomain,
-    GetDomainResponse (GetDomainResponse'),
-    newGetDomainResponse,
 
     -- ** CreateDomain
     CreateDomain (CreateDomain'),
@@ -134,11 +61,11 @@ module Amazonka.CustomerProfiles
     CreateDomainResponse (CreateDomainResponse'),
     newCreateDomainResponse,
 
-    -- ** DeleteIntegration
-    DeleteIntegration (DeleteIntegration'),
-    newDeleteIntegration,
-    DeleteIntegrationResponse (DeleteIntegrationResponse'),
-    newDeleteIntegrationResponse,
+    -- ** CreateIntegrationWorkflow
+    CreateIntegrationWorkflow (CreateIntegrationWorkflow'),
+    newCreateIntegrationWorkflow,
+    CreateIntegrationWorkflowResponse (CreateIntegrationWorkflowResponse'),
+    newCreateIntegrationWorkflowResponse,
 
     -- ** CreateProfile
     CreateProfile (CreateProfile'),
@@ -146,29 +73,23 @@ module Amazonka.CustomerProfiles
     CreateProfileResponse (CreateProfileResponse'),
     newCreateProfileResponse,
 
-    -- ** PutProfileObject
-    PutProfileObject (PutProfileObject'),
-    newPutProfileObject,
-    PutProfileObjectResponse (PutProfileObjectResponse'),
-    newPutProfileObjectResponse,
+    -- ** DeleteDomain
+    DeleteDomain (DeleteDomain'),
+    newDeleteDomain,
+    DeleteDomainResponse (DeleteDomainResponse'),
+    newDeleteDomainResponse,
 
-    -- ** PutIntegration
-    PutIntegration (PutIntegration'),
-    newPutIntegration,
-    PutIntegrationResponse (PutIntegrationResponse'),
-    newPutIntegrationResponse,
+    -- ** DeleteIntegration
+    DeleteIntegration (DeleteIntegration'),
+    newDeleteIntegration,
+    DeleteIntegrationResponse (DeleteIntegrationResponse'),
+    newDeleteIntegrationResponse,
 
-    -- ** DeleteProfileObject
-    DeleteProfileObject (DeleteProfileObject'),
-    newDeleteProfileObject,
-    DeleteProfileObjectResponse (DeleteProfileObjectResponse'),
-    newDeleteProfileObjectResponse,
-
-    -- ** ListProfileObjectTypes
-    ListProfileObjectTypes (ListProfileObjectTypes'),
-    newListProfileObjectTypes,
-    ListProfileObjectTypesResponse (ListProfileObjectTypesResponse'),
-    newListProfileObjectTypesResponse,
+    -- ** DeleteProfile
+    DeleteProfile (DeleteProfile'),
+    newDeleteProfile,
+    DeleteProfileResponse (DeleteProfileResponse'),
+    newDeleteProfileResponse,
 
     -- ** DeleteProfileKey
     DeleteProfileKey (DeleteProfileKey'),
@@ -176,23 +97,47 @@ module Amazonka.CustomerProfiles
     DeleteProfileKeyResponse (DeleteProfileKeyResponse'),
     newDeleteProfileKeyResponse,
 
-    -- ** GetProfileObjectType
-    GetProfileObjectType (GetProfileObjectType'),
-    newGetProfileObjectType,
-    GetProfileObjectTypeResponse (GetProfileObjectTypeResponse'),
-    newGetProfileObjectTypeResponse,
+    -- ** DeleteProfileObject
+    DeleteProfileObject (DeleteProfileObject'),
+    newDeleteProfileObject,
+    DeleteProfileObjectResponse (DeleteProfileObjectResponse'),
+    newDeleteProfileObjectResponse,
 
-    -- ** MergeProfiles
-    MergeProfiles (MergeProfiles'),
-    newMergeProfiles,
-    MergeProfilesResponse (MergeProfilesResponse'),
-    newMergeProfilesResponse,
+    -- ** DeleteProfileObjectType
+    DeleteProfileObjectType (DeleteProfileObjectType'),
+    newDeleteProfileObjectType,
+    DeleteProfileObjectTypeResponse (DeleteProfileObjectTypeResponse'),
+    newDeleteProfileObjectTypeResponse,
 
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
+    -- ** DeleteWorkflow
+    DeleteWorkflow (DeleteWorkflow'),
+    newDeleteWorkflow,
+    DeleteWorkflowResponse (DeleteWorkflowResponse'),
+    newDeleteWorkflowResponse,
+
+    -- ** GetAutoMergingPreview
+    GetAutoMergingPreview (GetAutoMergingPreview'),
+    newGetAutoMergingPreview,
+    GetAutoMergingPreviewResponse (GetAutoMergingPreviewResponse'),
+    newGetAutoMergingPreviewResponse,
+
+    -- ** GetDomain
+    GetDomain (GetDomain'),
+    newGetDomain,
+    GetDomainResponse (GetDomainResponse'),
+    newGetDomainResponse,
+
+    -- ** GetIdentityResolutionJob
+    GetIdentityResolutionJob (GetIdentityResolutionJob'),
+    newGetIdentityResolutionJob,
+    GetIdentityResolutionJobResponse (GetIdentityResolutionJobResponse'),
+    newGetIdentityResolutionJobResponse,
+
+    -- ** GetIntegration
+    GetIntegration (GetIntegration'),
+    newGetIntegration,
+    GetIntegrationResponse (GetIntegrationResponse'),
+    newGetIntegrationResponse,
 
     -- ** GetMatches
     GetMatches (GetMatches'),
@@ -200,17 +145,29 @@ module Amazonka.CustomerProfiles
     GetMatchesResponse (GetMatchesResponse'),
     newGetMatchesResponse,
 
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** GetProfileObjectType
+    GetProfileObjectType (GetProfileObjectType'),
+    newGetProfileObjectType,
+    GetProfileObjectTypeResponse (GetProfileObjectTypeResponse'),
+    newGetProfileObjectTypeResponse,
 
-    -- ** SearchProfiles
-    SearchProfiles (SearchProfiles'),
-    newSearchProfiles,
-    SearchProfilesResponse (SearchProfilesResponse'),
-    newSearchProfilesResponse,
+    -- ** GetProfileObjectTypeTemplate
+    GetProfileObjectTypeTemplate (GetProfileObjectTypeTemplate'),
+    newGetProfileObjectTypeTemplate,
+    GetProfileObjectTypeTemplateResponse (GetProfileObjectTypeTemplateResponse'),
+    newGetProfileObjectTypeTemplateResponse,
+
+    -- ** GetWorkflow
+    GetWorkflow (GetWorkflow'),
+    newGetWorkflow,
+    GetWorkflowResponse (GetWorkflowResponse'),
+    newGetWorkflowResponse,
+
+    -- ** GetWorkflowSteps
+    GetWorkflowSteps (GetWorkflowSteps'),
+    newGetWorkflowSteps,
+    GetWorkflowStepsResponse (GetWorkflowStepsResponse'),
+    newGetWorkflowStepsResponse,
 
     -- ** ListAccountIntegrations
     ListAccountIntegrations (ListAccountIntegrations'),
@@ -218,11 +175,95 @@ module Amazonka.CustomerProfiles
     ListAccountIntegrationsResponse (ListAccountIntegrationsResponse'),
     newListAccountIntegrationsResponse,
 
-    -- ** DeleteDomain
-    DeleteDomain (DeleteDomain'),
-    newDeleteDomain,
-    DeleteDomainResponse (DeleteDomainResponse'),
-    newDeleteDomainResponse,
+    -- ** ListDomains
+    ListDomains (ListDomains'),
+    newListDomains,
+    ListDomainsResponse (ListDomainsResponse'),
+    newListDomainsResponse,
+
+    -- ** ListIdentityResolutionJobs
+    ListIdentityResolutionJobs (ListIdentityResolutionJobs'),
+    newListIdentityResolutionJobs,
+    ListIdentityResolutionJobsResponse (ListIdentityResolutionJobsResponse'),
+    newListIdentityResolutionJobsResponse,
+
+    -- ** ListIntegrations
+    ListIntegrations (ListIntegrations'),
+    newListIntegrations,
+    ListIntegrationsResponse (ListIntegrationsResponse'),
+    newListIntegrationsResponse,
+
+    -- ** ListProfileObjectTypeTemplates
+    ListProfileObjectTypeTemplates (ListProfileObjectTypeTemplates'),
+    newListProfileObjectTypeTemplates,
+    ListProfileObjectTypeTemplatesResponse (ListProfileObjectTypeTemplatesResponse'),
+    newListProfileObjectTypeTemplatesResponse,
+
+    -- ** ListProfileObjectTypes
+    ListProfileObjectTypes (ListProfileObjectTypes'),
+    newListProfileObjectTypes,
+    ListProfileObjectTypesResponse (ListProfileObjectTypesResponse'),
+    newListProfileObjectTypesResponse,
+
+    -- ** ListProfileObjects
+    ListProfileObjects (ListProfileObjects'),
+    newListProfileObjects,
+    ListProfileObjectsResponse (ListProfileObjectsResponse'),
+    newListProfileObjectsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** ListWorkflows
+    ListWorkflows (ListWorkflows'),
+    newListWorkflows,
+    ListWorkflowsResponse (ListWorkflowsResponse'),
+    newListWorkflowsResponse,
+
+    -- ** MergeProfiles
+    MergeProfiles (MergeProfiles'),
+    newMergeProfiles,
+    MergeProfilesResponse (MergeProfilesResponse'),
+    newMergeProfilesResponse,
+
+    -- ** PutIntegration
+    PutIntegration (PutIntegration'),
+    newPutIntegration,
+    PutIntegrationResponse (PutIntegrationResponse'),
+    newPutIntegrationResponse,
+
+    -- ** PutProfileObject
+    PutProfileObject (PutProfileObject'),
+    newPutProfileObject,
+    PutProfileObjectResponse (PutProfileObjectResponse'),
+    newPutProfileObjectResponse,
+
+    -- ** PutProfileObjectType
+    PutProfileObjectType (PutProfileObjectType'),
+    newPutProfileObjectType,
+    PutProfileObjectTypeResponse (PutProfileObjectTypeResponse'),
+    newPutProfileObjectTypeResponse,
+
+    -- ** SearchProfiles
+    SearchProfiles (SearchProfiles'),
+    newSearchProfiles,
+    SearchProfilesResponse (SearchProfilesResponse'),
+    newSearchProfilesResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** UpdateDomain
     UpdateDomain (UpdateDomain'),
@@ -230,13 +271,16 @@ module Amazonka.CustomerProfiles
     UpdateDomainResponse (UpdateDomainResponse'),
     newUpdateDomainResponse,
 
-    -- ** ListDomains
-    ListDomains (ListDomains'),
-    newListDomains,
-    ListDomainsResponse (ListDomainsResponse'),
-    newListDomainsResponse,
+    -- ** UpdateProfile
+    UpdateProfile (UpdateProfile'),
+    newUpdateProfile,
+    UpdateProfileResponse (UpdateProfileResponse'),
+    newUpdateProfileResponse,
 
     -- * Types
+
+    -- ** ConflictResolvingModel
+    ConflictResolvingModel (..),
 
     -- ** DataPullMode
     DataPullMode (..),
@@ -246,6 +290,15 @@ module Amazonka.CustomerProfiles
 
     -- ** Gender
     Gender (..),
+
+    -- ** IdentityResolutionJobStatus
+    IdentityResolutionJobStatus (..),
+
+    -- ** JobScheduleDayOfTheWeek
+    JobScheduleDayOfTheWeek (..),
+
+    -- ** LogicalOperator
+    LogicalOperator (..),
 
     -- ** MarketoConnectorOperator
     MarketoConnectorOperator (..),
@@ -271,26 +324,76 @@ module Amazonka.CustomerProfiles
     -- ** StandardIdentifier
     StandardIdentifier (..),
 
+    -- ** Status
+    Status (..),
+
     -- ** TaskType
     TaskType (..),
 
     -- ** TriggerType
     TriggerType (..),
 
+    -- ** WorkflowType
+    WorkflowType (..),
+
     -- ** ZendeskConnectorOperator
     ZendeskConnectorOperator (..),
+
+    -- ** AdditionalSearchKey
+    AdditionalSearchKey (AdditionalSearchKey'),
+    newAdditionalSearchKey,
 
     -- ** Address
     Address (Address'),
     newAddress,
 
+    -- ** AppflowIntegration
+    AppflowIntegration (AppflowIntegration'),
+    newAppflowIntegration,
+
+    -- ** AppflowIntegrationWorkflowAttributes
+    AppflowIntegrationWorkflowAttributes (AppflowIntegrationWorkflowAttributes'),
+    newAppflowIntegrationWorkflowAttributes,
+
+    -- ** AppflowIntegrationWorkflowMetrics
+    AppflowIntegrationWorkflowMetrics (AppflowIntegrationWorkflowMetrics'),
+    newAppflowIntegrationWorkflowMetrics,
+
+    -- ** AppflowIntegrationWorkflowStep
+    AppflowIntegrationWorkflowStep (AppflowIntegrationWorkflowStep'),
+    newAppflowIntegrationWorkflowStep,
+
+    -- ** AutoMerging
+    AutoMerging (AutoMerging'),
+    newAutoMerging,
+
+    -- ** Batch
+    Batch (Batch'),
+    newBatch,
+
+    -- ** ConflictResolution
+    ConflictResolution (ConflictResolution'),
+    newConflictResolution,
+
     -- ** ConnectorOperator
     ConnectorOperator (ConnectorOperator'),
     newConnectorOperator,
 
+    -- ** Consolidation
+    Consolidation (Consolidation'),
+    newConsolidation,
+
     -- ** DomainStats
     DomainStats (DomainStats'),
     newDomainStats,
+
+    -- ** ExportingConfig
+    ExportingConfig (ExportingConfig'),
+    newExportingConfig,
+
+    -- ** ExportingLocation
+    ExportingLocation (ExportingLocation'),
+    newExportingLocation,
 
     -- ** FieldSourceProfileIds
     FieldSourceProfileIds (FieldSourceProfileIds'),
@@ -300,9 +403,29 @@ module Amazonka.CustomerProfiles
     FlowDefinition (FlowDefinition'),
     newFlowDefinition,
 
+    -- ** FoundByKeyValue
+    FoundByKeyValue (FoundByKeyValue'),
+    newFoundByKeyValue,
+
+    -- ** IdentityResolutionJob
+    IdentityResolutionJob (IdentityResolutionJob'),
+    newIdentityResolutionJob,
+
     -- ** IncrementalPullConfig
     IncrementalPullConfig (IncrementalPullConfig'),
     newIncrementalPullConfig,
+
+    -- ** IntegrationConfig
+    IntegrationConfig (IntegrationConfig'),
+    newIntegrationConfig,
+
+    -- ** JobSchedule
+    JobSchedule (JobSchedule'),
+    newJobSchedule,
+
+    -- ** JobStats
+    JobStats (JobStats'),
+    newJobStats,
 
     -- ** ListDomainItem
     ListDomainItem (ListDomainItem'),
@@ -323,6 +446,10 @@ module Amazonka.CustomerProfiles
     -- ** ListProfileObjectsItem
     ListProfileObjectsItem (ListProfileObjectsItem'),
     newListProfileObjectsItem,
+
+    -- ** ListWorkflowsItem
+    ListWorkflowsItem (ListWorkflowsItem'),
+    newListWorkflowsItem,
 
     -- ** MarketoSourceProperties
     MarketoSourceProperties (MarketoSourceProperties'),
@@ -355,6 +482,14 @@ module Amazonka.CustomerProfiles
     -- ** Profile
     Profile (Profile'),
     newProfile,
+
+    -- ** S3ExportingConfig
+    S3ExportingConfig (S3ExportingConfig'),
+    newS3ExportingConfig,
+
+    -- ** S3ExportingLocation
+    S3ExportingLocation (S3ExportingLocation'),
+    newS3ExportingLocation,
 
     -- ** S3SourceProperties
     S3SourceProperties (S3SourceProperties'),
@@ -396,6 +531,18 @@ module Amazonka.CustomerProfiles
     UpdateAddress (UpdateAddress'),
     newUpdateAddress,
 
+    -- ** WorkflowAttributes
+    WorkflowAttributes (WorkflowAttributes'),
+    newWorkflowAttributes,
+
+    -- ** WorkflowMetrics
+    WorkflowMetrics (WorkflowMetrics'),
+    newWorkflowMetrics,
+
+    -- ** WorkflowStepItem
+    WorkflowStepItem (WorkflowStepItem'),
+    newWorkflowStepItem,
+
     -- ** ZendeskSourceProperties
     ZendeskSourceProperties (ZendeskSourceProperties'),
     newZendeskSourceProperties,
@@ -404,6 +551,7 @@ where
 
 import Amazonka.CustomerProfiles.AddProfileKey
 import Amazonka.CustomerProfiles.CreateDomain
+import Amazonka.CustomerProfiles.CreateIntegrationWorkflow
 import Amazonka.CustomerProfiles.CreateProfile
 import Amazonka.CustomerProfiles.DeleteDomain
 import Amazonka.CustomerProfiles.DeleteIntegration
@@ -411,19 +559,26 @@ import Amazonka.CustomerProfiles.DeleteProfile
 import Amazonka.CustomerProfiles.DeleteProfileKey
 import Amazonka.CustomerProfiles.DeleteProfileObject
 import Amazonka.CustomerProfiles.DeleteProfileObjectType
+import Amazonka.CustomerProfiles.DeleteWorkflow
+import Amazonka.CustomerProfiles.GetAutoMergingPreview
 import Amazonka.CustomerProfiles.GetDomain
+import Amazonka.CustomerProfiles.GetIdentityResolutionJob
 import Amazonka.CustomerProfiles.GetIntegration
 import Amazonka.CustomerProfiles.GetMatches
 import Amazonka.CustomerProfiles.GetProfileObjectType
 import Amazonka.CustomerProfiles.GetProfileObjectTypeTemplate
+import Amazonka.CustomerProfiles.GetWorkflow
+import Amazonka.CustomerProfiles.GetWorkflowSteps
 import Amazonka.CustomerProfiles.Lens
 import Amazonka.CustomerProfiles.ListAccountIntegrations
 import Amazonka.CustomerProfiles.ListDomains
+import Amazonka.CustomerProfiles.ListIdentityResolutionJobs
 import Amazonka.CustomerProfiles.ListIntegrations
 import Amazonka.CustomerProfiles.ListProfileObjectTypeTemplates
 import Amazonka.CustomerProfiles.ListProfileObjectTypes
 import Amazonka.CustomerProfiles.ListProfileObjects
 import Amazonka.CustomerProfiles.ListTagsForResource
+import Amazonka.CustomerProfiles.ListWorkflows
 import Amazonka.CustomerProfiles.MergeProfiles
 import Amazonka.CustomerProfiles.PutIntegration
 import Amazonka.CustomerProfiles.PutProfileObject

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTData.GetThingShadow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,8 +49,9 @@ module Amazonka.IoTData.GetThingShadow
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTData.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,7 +100,8 @@ instance Core.AWSRequest GetThingShadow where
   type
     AWSResponse GetThingShadow =
       GetThingShadowResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveBytes
       ( \s h x ->
@@ -118,17 +120,17 @@ instance Prelude.NFData GetThingShadow where
     Prelude.rnf shadowName
       `Prelude.seq` Prelude.rnf thingName
 
-instance Core.ToHeaders GetThingShadow where
+instance Data.ToHeaders GetThingShadow where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetThingShadow where
+instance Data.ToPath GetThingShadow where
   toPath GetThingShadow' {..} =
     Prelude.mconcat
-      ["/things/", Core.toBS thingName, "/shadow"]
+      ["/things/", Data.toBS thingName, "/shadow"]
 
-instance Core.ToQuery GetThingShadow where
+instance Data.ToQuery GetThingShadow where
   toQuery GetThingShadow' {..} =
-    Prelude.mconcat ["name" Core.=: shadowName]
+    Prelude.mconcat ["name" Data.=: shadowName]
 
 -- | The output from the GetThingShadow operation.
 --

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.Types.Offering
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConnect.Types.Offering where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types.DurationUnits
 import Amazonka.MediaConnect.Types.PriceUnits
 import Amazonka.MediaConnect.Types.ResourceSpecification
@@ -158,20 +159,20 @@ offering_resourceSpecification = Lens.lens (\Offering' {resourceSpecification} -
 offering_priceUnits :: Lens.Lens' Offering PriceUnits
 offering_priceUnits = Lens.lens (\Offering' {priceUnits} -> priceUnits) (\s@Offering' {} a -> s {priceUnits = a} :: Offering)
 
-instance Core.FromJSON Offering where
+instance Data.FromJSON Offering where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Offering"
       ( \x ->
           Offering'
-            Prelude.<$> (x Core..: "currencyCode")
-            Prelude.<*> (x Core..: "offeringArn")
-            Prelude.<*> (x Core..: "offeringDescription")
-            Prelude.<*> (x Core..: "durationUnits")
-            Prelude.<*> (x Core..: "duration")
-            Prelude.<*> (x Core..: "pricePerUnit")
-            Prelude.<*> (x Core..: "resourceSpecification")
-            Prelude.<*> (x Core..: "priceUnits")
+            Prelude.<$> (x Data..: "currencyCode")
+            Prelude.<*> (x Data..: "offeringArn")
+            Prelude.<*> (x Data..: "offeringDescription")
+            Prelude.<*> (x Data..: "durationUnits")
+            Prelude.<*> (x Data..: "duration")
+            Prelude.<*> (x Data..: "pricePerUnit")
+            Prelude.<*> (x Data..: "resourceSpecification")
+            Prelude.<*> (x Data..: "priceUnits")
       )
 
 instance Prelude.Hashable Offering where

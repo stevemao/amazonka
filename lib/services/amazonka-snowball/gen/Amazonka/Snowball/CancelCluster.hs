@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.CancelCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Snowball.CancelCluster
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,7 +82,8 @@ instance Core.AWSRequest CancelCluster where
   type
     AWSResponse CancelCluster =
       CancelClusterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -96,32 +98,32 @@ instance Prelude.Hashable CancelCluster where
 instance Prelude.NFData CancelCluster where
   rnf CancelCluster' {..} = Prelude.rnf clusterId
 
-instance Core.ToHeaders CancelCluster where
+instance Data.ToHeaders CancelCluster where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSIESnowballJobManagementService.CancelCluster" ::
+              Data.=# ( "AWSIESnowballJobManagementService.CancelCluster" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CancelCluster where
+instance Data.ToJSON CancelCluster where
   toJSON CancelCluster' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ClusterId" Core..= clusterId)]
+          [Prelude.Just ("ClusterId" Data..= clusterId)]
       )
 
-instance Core.ToPath CancelCluster where
+instance Data.ToPath CancelCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelCluster where
+instance Data.ToQuery CancelCluster where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCancelClusterResponse' smart constructor.

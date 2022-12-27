@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.Types.ExecutionSucceededEventDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.StepFunctions.Types.ExecutionSucceededEventDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.StepFunctions.Types.HistoryEventExecutionDataDetails
 
@@ -30,7 +31,7 @@ import Amazonka.StepFunctions.Types.HistoryEventExecutionDataDetails
 data ExecutionSucceededEventDetails = ExecutionSucceededEventDetails'
   { -- | The JSON data output by the execution. Length constraints apply to the
     -- payload size, and are expressed as bytes in UTF-8 encoding.
-    output :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    output :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | Contains details about the output of an execution history event.
     outputDetails :: Prelude.Maybe HistoryEventExecutionDataDetails
   }
@@ -60,20 +61,20 @@ newExecutionSucceededEventDetails =
 -- | The JSON data output by the execution. Length constraints apply to the
 -- payload size, and are expressed as bytes in UTF-8 encoding.
 executionSucceededEventDetails_output :: Lens.Lens' ExecutionSucceededEventDetails (Prelude.Maybe Prelude.Text)
-executionSucceededEventDetails_output = Lens.lens (\ExecutionSucceededEventDetails' {output} -> output) (\s@ExecutionSucceededEventDetails' {} a -> s {output = a} :: ExecutionSucceededEventDetails) Prelude.. Lens.mapping Core._Sensitive
+executionSucceededEventDetails_output = Lens.lens (\ExecutionSucceededEventDetails' {output} -> output) (\s@ExecutionSucceededEventDetails' {} a -> s {output = a} :: ExecutionSucceededEventDetails) Prelude.. Lens.mapping Data._Sensitive
 
 -- | Contains details about the output of an execution history event.
 executionSucceededEventDetails_outputDetails :: Lens.Lens' ExecutionSucceededEventDetails (Prelude.Maybe HistoryEventExecutionDataDetails)
 executionSucceededEventDetails_outputDetails = Lens.lens (\ExecutionSucceededEventDetails' {outputDetails} -> outputDetails) (\s@ExecutionSucceededEventDetails' {} a -> s {outputDetails = a} :: ExecutionSucceededEventDetails)
 
-instance Core.FromJSON ExecutionSucceededEventDetails where
+instance Data.FromJSON ExecutionSucceededEventDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExecutionSucceededEventDetails"
       ( \x ->
           ExecutionSucceededEventDetails'
-            Prelude.<$> (x Core..:? "output")
-            Prelude.<*> (x Core..:? "outputDetails")
+            Prelude.<$> (x Data..:? "output")
+            Prelude.<*> (x Data..:? "outputDetails")
       )
 
 instance

@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -46,13 +46,18 @@ library
     Amazonka.Grafana
     Amazonka.Grafana.AssociateLicense
     Amazonka.Grafana.CreateWorkspace
+    Amazonka.Grafana.CreateWorkspaceApiKey
     Amazonka.Grafana.DeleteWorkspace
+    Amazonka.Grafana.DeleteWorkspaceApiKey
     Amazonka.Grafana.DescribeWorkspace
     Amazonka.Grafana.DescribeWorkspaceAuthentication
+    Amazonka.Grafana.DescribeWorkspaceConfiguration
     Amazonka.Grafana.DisassociateLicense
     Amazonka.Grafana.Lens
     Amazonka.Grafana.ListPermissions
+    Amazonka.Grafana.ListTagsForResource
     Amazonka.Grafana.ListWorkspaces
+    Amazonka.Grafana.TagResource
     Amazonka.Grafana.Types
     Amazonka.Grafana.Types.AccountAccessType
     Amazonka.Grafana.Types.AssertionAttributes
@@ -76,16 +81,19 @@ library
     Amazonka.Grafana.Types.UpdateInstruction
     Amazonka.Grafana.Types.User
     Amazonka.Grafana.Types.UserType
+    Amazonka.Grafana.Types.VpcConfiguration
     Amazonka.Grafana.Types.WorkspaceDescription
     Amazonka.Grafana.Types.WorkspaceStatus
     Amazonka.Grafana.Types.WorkspaceSummary
+    Amazonka.Grafana.UntagResource
     Amazonka.Grafana.UpdatePermissions
     Amazonka.Grafana.UpdateWorkspace
     Amazonka.Grafana.UpdateWorkspaceAuthentication
+    Amazonka.Grafana.UpdateWorkspaceConfiguration
     Amazonka.Grafana.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-grafana-test
@@ -104,9 +112,9 @@ test-suite amazonka-grafana-test
     Test.Amazonka.Grafana.Internal
 
   build-depends:
-    , amazonka-core         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
     , amazonka-grafana
-    , amazonka-test         ^>=2.0
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

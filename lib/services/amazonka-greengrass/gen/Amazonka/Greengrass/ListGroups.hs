@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.ListGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Greengrass.ListGroups
     newListGroups,
 
     -- * Request Lenses
-    listGroups_nextToken,
     listGroups_maxResults,
+    listGroups_nextToken,
 
     -- * Destructuring the Response
     ListGroupsResponse (..),
@@ -44,19 +44,20 @@ module Amazonka.Greengrass.ListGroups
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListGroups' smart constructor.
 data ListGroups = ListGroups'
-  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+  { -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | The token for the next set of results, or \'\'null\'\' if there are no
     -- additional results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
-    maxResults :: Prelude.Maybe Prelude.Text
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,26 +69,26 @@ data ListGroups = ListGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listGroups_maxResults' - The maximum number of results to be returned per request.
+--
 -- 'nextToken', 'listGroups_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
 -- additional results.
---
--- 'maxResults', 'listGroups_maxResults' - The maximum number of results to be returned per request.
 newListGroups ::
   ListGroups
 newListGroups =
   ListGroups'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results to be returned per request.
+listGroups_maxResults :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Text)
+listGroups_maxResults = Lens.lens (\ListGroups' {maxResults} -> maxResults) (\s@ListGroups' {} a -> s {maxResults = a} :: ListGroups)
 
 -- | The token for the next set of results, or \'\'null\'\' if there are no
 -- additional results.
 listGroups_nextToken :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Text)
 listGroups_nextToken = Lens.lens (\ListGroups' {nextToken} -> nextToken) (\s@ListGroups' {} a -> s {nextToken = a} :: ListGroups)
-
--- | The maximum number of results to be returned per request.
-listGroups_maxResults :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Text)
-listGroups_maxResults = Lens.lens (\ListGroups' {maxResults} -> maxResults) (\s@ListGroups' {} a -> s {maxResults = a} :: ListGroups)
 
 instance Core.AWSPager ListGroups where
   page rq rs
@@ -110,45 +111,46 @@ instance Core.AWSPager ListGroups where
 
 instance Core.AWSRequest ListGroups where
   type AWSResponse ListGroups = ListGroupsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListGroupsResponse'
-            Prelude.<$> (x Core..?> "Groups" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Groups" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListGroups where
   hashWithSalt _salt ListGroups' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListGroups where
   rnf ListGroups' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListGroups where
+instance Data.ToHeaders ListGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListGroups where
+instance Data.ToPath ListGroups where
   toPath = Prelude.const "/greengrass/groups"
 
-instance Core.ToQuery ListGroups where
+instance Data.ToQuery ListGroups where
   toQuery ListGroups' {..} =
     Prelude.mconcat
-      [ "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+      [ "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListGroupsResponse' smart constructor.

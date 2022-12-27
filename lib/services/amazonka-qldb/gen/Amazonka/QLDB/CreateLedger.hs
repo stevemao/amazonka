@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.QLDB.CreateLedger
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a new ledger in your account in the current Region.
+-- Creates a new ledger in your Amazon Web Services account in the current
+-- Region.
 module Amazonka.QLDB.CreateLedger
   ( -- * Creating a Request
     CreateLedger (..),
@@ -38,19 +39,20 @@ module Amazonka.QLDB.CreateLedger
     newCreateLedgerResponse,
 
     -- * Response Lenses
-    createLedgerResponse_state,
+    createLedgerResponse_arn,
+    createLedgerResponse_creationDateTime,
     createLedgerResponse_deletionProtection,
     createLedgerResponse_kmsKeyArn,
-    createLedgerResponse_arn,
     createLedgerResponse_name,
-    createLedgerResponse_creationDateTime,
     createLedgerResponse_permissionsMode,
+    createLedgerResponse_state,
     createLedgerResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QLDB.Types
 import qualified Amazonka.Request as Request
@@ -88,8 +90,8 @@ data CreateLedger = CreateLedger'
     --
     -- To specify a customer managed KMS key, you can use its key ID, Amazon
     -- Resource Name (ARN), alias name, or alias ARN. When using an alias name,
-    -- prefix it with @\"alias\/\"@. To specify a key in a different account,
-    -- you must use the key ARN or alias ARN.
+    -- prefix it with @\"alias\/\"@. To specify a key in a different Amazon Web
+    -- Services account, you must use the key ARN or alias ARN.
     --
     -- For example:
     --
@@ -111,7 +113,8 @@ data CreateLedger = CreateLedger'
     -- can be null.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The name of the ledger that you want to create. The name must be unique
-    -- among all of the ledgers in your account in the current Region.
+    -- among all of the ledgers in your Amazon Web Services account in the
+    -- current Region.
     --
     -- Naming constraints for ledger names are defined in
     -- <https://docs.aws.amazon.com/qldb/latest/developerguide/limits.html#limits.naming Quotas in Amazon QLDB>
@@ -185,8 +188,8 @@ data CreateLedger = CreateLedger'
 --
 -- To specify a customer managed KMS key, you can use its key ID, Amazon
 -- Resource Name (ARN), alias name, or alias ARN. When using an alias name,
--- prefix it with @\"alias\/\"@. To specify a key in a different account,
--- you must use the key ARN or alias ARN.
+-- prefix it with @\"alias\/\"@. To specify a key in a different Amazon Web
+-- Services account, you must use the key ARN or alias ARN.
 --
 -- For example:
 --
@@ -208,7 +211,8 @@ data CreateLedger = CreateLedger'
 -- can be null.
 --
 -- 'name', 'createLedger_name' - The name of the ledger that you want to create. The name must be unique
--- among all of the ledgers in your account in the current Region.
+-- among all of the ledgers in your Amazon Web Services account in the
+-- current Region.
 --
 -- Naming constraints for ledger names are defined in
 -- <https://docs.aws.amazon.com/qldb/latest/developerguide/limits.html#limits.naming Quotas in Amazon QLDB>
@@ -287,8 +291,8 @@ createLedger_deletionProtection = Lens.lens (\CreateLedger' {deletionProtection}
 --
 -- To specify a customer managed KMS key, you can use its key ID, Amazon
 -- Resource Name (ARN), alias name, or alias ARN. When using an alias name,
--- prefix it with @\"alias\/\"@. To specify a key in a different account,
--- you must use the key ARN or alias ARN.
+-- prefix it with @\"alias\/\"@. To specify a key in a different Amazon Web
+-- Services account, you must use the key ARN or alias ARN.
 --
 -- For example:
 --
@@ -314,7 +318,8 @@ createLedger_tags :: Lens.Lens' CreateLedger (Prelude.Maybe (Prelude.HashMap Pre
 createLedger_tags = Lens.lens (\CreateLedger' {tags} -> tags) (\s@CreateLedger' {} a -> s {tags = a} :: CreateLedger) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the ledger that you want to create. The name must be unique
--- among all of the ledgers in your account in the current Region.
+-- among all of the ledgers in your Amazon Web Services account in the
+-- current Region.
 --
 -- Naming constraints for ledger names are defined in
 -- <https://docs.aws.amazon.com/qldb/latest/developerguide/limits.html#limits.naming Quotas in Amazon QLDB>
@@ -353,18 +358,19 @@ createLedger_permissionsMode = Lens.lens (\CreateLedger' {permissionsMode} -> pe
 
 instance Core.AWSRequest CreateLedger where
   type AWSResponse CreateLedger = CreateLedgerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateLedgerResponse'
-            Prelude.<$> (x Core..?> "State")
-            Prelude.<*> (x Core..?> "DeletionProtection")
-            Prelude.<*> (x Core..?> "KmsKeyArn")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "CreationDateTime")
-            Prelude.<*> (x Core..?> "PermissionsMode")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "CreationDateTime")
+            Prelude.<*> (x Data..?> "DeletionProtection")
+            Prelude.<*> (x Data..?> "KmsKeyArn")
+            Prelude.<*> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "PermissionsMode")
+            Prelude.<*> (x Data..?> "State")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -384,41 +390,45 @@ instance Prelude.NFData CreateLedger where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf permissionsMode
 
-instance Core.ToHeaders CreateLedger where
+instance Data.ToHeaders CreateLedger where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateLedger where
+instance Data.ToJSON CreateLedger where
   toJSON CreateLedger' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DeletionProtection" Core..=)
+          [ ("DeletionProtection" Data..=)
               Prelude.<$> deletionProtection,
-            ("KmsKey" Core..=) Prelude.<$> kmsKey,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
+            ("KmsKey" Data..=) Prelude.<$> kmsKey,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("PermissionsMode" Core..= permissionsMode)
+              ("PermissionsMode" Data..= permissionsMode)
           ]
       )
 
-instance Core.ToPath CreateLedger where
+instance Data.ToPath CreateLedger where
   toPath = Prelude.const "/ledgers"
 
-instance Core.ToQuery CreateLedger where
+instance Data.ToQuery CreateLedger where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateLedgerResponse' smart constructor.
 data CreateLedgerResponse = CreateLedgerResponse'
-  { -- | The current status of the ledger.
-    state :: Prelude.Maybe LedgerState,
+  { -- | The Amazon Resource Name (ARN) for the ledger.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The date and time, in epoch time format, when the ledger was created.
+    -- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
+    -- January 1, 1970 UTC.)
+    creationDateTime :: Prelude.Maybe Data.POSIX,
     -- | The flag that prevents a ledger from being deleted by any user. If not
     -- provided on ledger creation, this feature is enabled (@true@) by
     -- default.
@@ -431,16 +441,12 @@ data CreateLedgerResponse = CreateLedgerResponse'
     -- encryption at rest. If this parameter is undefined, the ledger uses an
     -- Amazon Web Services owned KMS key for encryption.
     kmsKeyArn :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) for the ledger.
-    arn :: Prelude.Maybe Prelude.Text,
     -- | The name of the ledger.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The date and time, in epoch time format, when the ledger was created.
-    -- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
-    -- January 1, 1970 UTC.)
-    creationDateTime :: Prelude.Maybe Core.POSIX,
     -- | The permissions mode of the ledger that you created.
     permissionsMode :: Prelude.Maybe PermissionsMode,
+    -- | The current status of the ledger.
+    state :: Prelude.Maybe LedgerState,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -454,7 +460,11 @@ data CreateLedgerResponse = CreateLedgerResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'createLedgerResponse_state' - The current status of the ledger.
+-- 'arn', 'createLedgerResponse_arn' - The Amazon Resource Name (ARN) for the ledger.
+--
+-- 'creationDateTime', 'createLedgerResponse_creationDateTime' - The date and time, in epoch time format, when the ledger was created.
+-- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
+-- January 1, 1970 UTC.)
 --
 -- 'deletionProtection', 'createLedgerResponse_deletionProtection' - The flag that prevents a ledger from being deleted by any user. If not
 -- provided on ledger creation, this feature is enabled (@true@) by
@@ -468,15 +478,11 @@ data CreateLedgerResponse = CreateLedgerResponse'
 -- encryption at rest. If this parameter is undefined, the ledger uses an
 -- Amazon Web Services owned KMS key for encryption.
 --
--- 'arn', 'createLedgerResponse_arn' - The Amazon Resource Name (ARN) for the ledger.
---
 -- 'name', 'createLedgerResponse_name' - The name of the ledger.
 --
--- 'creationDateTime', 'createLedgerResponse_creationDateTime' - The date and time, in epoch time format, when the ledger was created.
--- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
--- January 1, 1970 UTC.)
---
 -- 'permissionsMode', 'createLedgerResponse_permissionsMode' - The permissions mode of the ledger that you created.
+--
+-- 'state', 'createLedgerResponse_state' - The current status of the ledger.
 --
 -- 'httpStatus', 'createLedgerResponse_httpStatus' - The response's http status code.
 newCreateLedgerResponse ::
@@ -485,19 +491,25 @@ newCreateLedgerResponse ::
   CreateLedgerResponse
 newCreateLedgerResponse pHttpStatus_ =
   CreateLedgerResponse'
-    { state = Prelude.Nothing,
+    { arn = Prelude.Nothing,
+      creationDateTime = Prelude.Nothing,
       deletionProtection = Prelude.Nothing,
       kmsKeyArn = Prelude.Nothing,
-      arn = Prelude.Nothing,
       name = Prelude.Nothing,
-      creationDateTime = Prelude.Nothing,
       permissionsMode = Prelude.Nothing,
+      state = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The current status of the ledger.
-createLedgerResponse_state :: Lens.Lens' CreateLedgerResponse (Prelude.Maybe LedgerState)
-createLedgerResponse_state = Lens.lens (\CreateLedgerResponse' {state} -> state) (\s@CreateLedgerResponse' {} a -> s {state = a} :: CreateLedgerResponse)
+-- | The Amazon Resource Name (ARN) for the ledger.
+createLedgerResponse_arn :: Lens.Lens' CreateLedgerResponse (Prelude.Maybe Prelude.Text)
+createLedgerResponse_arn = Lens.lens (\CreateLedgerResponse' {arn} -> arn) (\s@CreateLedgerResponse' {} a -> s {arn = a} :: CreateLedgerResponse)
+
+-- | The date and time, in epoch time format, when the ledger was created.
+-- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
+-- January 1, 1970 UTC.)
+createLedgerResponse_creationDateTime :: Lens.Lens' CreateLedgerResponse (Prelude.Maybe Prelude.UTCTime)
+createLedgerResponse_creationDateTime = Lens.lens (\CreateLedgerResponse' {creationDateTime} -> creationDateTime) (\s@CreateLedgerResponse' {} a -> s {creationDateTime = a} :: CreateLedgerResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The flag that prevents a ledger from being deleted by any user. If not
 -- provided on ledger creation, this feature is enabled (@true@) by
@@ -515,23 +527,17 @@ createLedgerResponse_deletionProtection = Lens.lens (\CreateLedgerResponse' {del
 createLedgerResponse_kmsKeyArn :: Lens.Lens' CreateLedgerResponse (Prelude.Maybe Prelude.Text)
 createLedgerResponse_kmsKeyArn = Lens.lens (\CreateLedgerResponse' {kmsKeyArn} -> kmsKeyArn) (\s@CreateLedgerResponse' {} a -> s {kmsKeyArn = a} :: CreateLedgerResponse)
 
--- | The Amazon Resource Name (ARN) for the ledger.
-createLedgerResponse_arn :: Lens.Lens' CreateLedgerResponse (Prelude.Maybe Prelude.Text)
-createLedgerResponse_arn = Lens.lens (\CreateLedgerResponse' {arn} -> arn) (\s@CreateLedgerResponse' {} a -> s {arn = a} :: CreateLedgerResponse)
-
 -- | The name of the ledger.
 createLedgerResponse_name :: Lens.Lens' CreateLedgerResponse (Prelude.Maybe Prelude.Text)
 createLedgerResponse_name = Lens.lens (\CreateLedgerResponse' {name} -> name) (\s@CreateLedgerResponse' {} a -> s {name = a} :: CreateLedgerResponse)
 
--- | The date and time, in epoch time format, when the ledger was created.
--- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
--- January 1, 1970 UTC.)
-createLedgerResponse_creationDateTime :: Lens.Lens' CreateLedgerResponse (Prelude.Maybe Prelude.UTCTime)
-createLedgerResponse_creationDateTime = Lens.lens (\CreateLedgerResponse' {creationDateTime} -> creationDateTime) (\s@CreateLedgerResponse' {} a -> s {creationDateTime = a} :: CreateLedgerResponse) Prelude.. Lens.mapping Core._Time
-
 -- | The permissions mode of the ledger that you created.
 createLedgerResponse_permissionsMode :: Lens.Lens' CreateLedgerResponse (Prelude.Maybe PermissionsMode)
 createLedgerResponse_permissionsMode = Lens.lens (\CreateLedgerResponse' {permissionsMode} -> permissionsMode) (\s@CreateLedgerResponse' {} a -> s {permissionsMode = a} :: CreateLedgerResponse)
+
+-- | The current status of the ledger.
+createLedgerResponse_state :: Lens.Lens' CreateLedgerResponse (Prelude.Maybe LedgerState)
+createLedgerResponse_state = Lens.lens (\CreateLedgerResponse' {state} -> state) (\s@CreateLedgerResponse' {} a -> s {state = a} :: CreateLedgerResponse)
 
 -- | The response's http status code.
 createLedgerResponse_httpStatus :: Lens.Lens' CreateLedgerResponse Prelude.Int
@@ -539,11 +545,11 @@ createLedgerResponse_httpStatus = Lens.lens (\CreateLedgerResponse' {httpStatus}
 
 instance Prelude.NFData CreateLedgerResponse where
   rnf CreateLedgerResponse' {..} =
-    Prelude.rnf state
+    Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf creationDateTime
       `Prelude.seq` Prelude.rnf deletionProtection
       `Prelude.seq` Prelude.rnf kmsKeyArn
-      `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf creationDateTime
       `Prelude.seq` Prelude.rnf permissionsMode
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf httpStatus

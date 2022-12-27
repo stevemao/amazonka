@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.AssociateCustomDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,12 +50,14 @@ module Amazonka.AppRunner.AssociateCustomDomain
     associateCustomDomainResponse_dNSTarget,
     associateCustomDomainResponse_serviceArn,
     associateCustomDomainResponse_customDomain,
+    associateCustomDomainResponse_vpcDNSTargets,
   )
 where
 
 import Amazonka.AppRunner.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -135,15 +137,17 @@ instance Core.AWSRequest AssociateCustomDomain where
   type
     AWSResponse AssociateCustomDomain =
       AssociateCustomDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AssociateCustomDomainResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "DNSTarget")
-            Prelude.<*> (x Core..:> "ServiceArn")
-            Prelude.<*> (x Core..:> "CustomDomain")
+            Prelude.<*> (x Data..:> "DNSTarget")
+            Prelude.<*> (x Data..:> "ServiceArn")
+            Prelude.<*> (x Data..:> "CustomDomain")
+            Prelude.<*> (x Data..?> "VpcDNSTargets" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable AssociateCustomDomain where
@@ -158,36 +162,36 @@ instance Prelude.NFData AssociateCustomDomain where
       `Prelude.seq` Prelude.rnf serviceArn
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders AssociateCustomDomain where
+instance Data.ToHeaders AssociateCustomDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AppRunner.AssociateCustomDomain" ::
+              Data.=# ( "AppRunner.AssociateCustomDomain" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateCustomDomain where
+instance Data.ToJSON AssociateCustomDomain where
   toJSON AssociateCustomDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EnableWWWSubdomain" Core..=)
+          [ ("EnableWWWSubdomain" Data..=)
               Prelude.<$> enableWWWSubdomain,
-            Prelude.Just ("ServiceArn" Core..= serviceArn),
-            Prelude.Just ("DomainName" Core..= domainName)
+            Prelude.Just ("ServiceArn" Data..= serviceArn),
+            Prelude.Just ("DomainName" Data..= domainName)
           ]
       )
 
-instance Core.ToPath AssociateCustomDomain where
+instance Data.ToPath AssociateCustomDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateCustomDomain where
+instance Data.ToQuery AssociateCustomDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateCustomDomainResponse' smart constructor.
@@ -201,7 +205,9 @@ data AssociateCustomDomainResponse = AssociateCustomDomainResponse'
     -- custom domain name is associated.
     serviceArn :: Prelude.Text,
     -- | A description of the domain name that\'s being associated.
-    customDomain :: CustomDomain
+    customDomain :: CustomDomain,
+    -- | DNS Target records for the custom domains of this Amazon VPC.
+    vpcDNSTargets :: [VpcDNSTarget]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -222,6 +228,8 @@ data AssociateCustomDomainResponse = AssociateCustomDomainResponse'
 -- custom domain name is associated.
 --
 -- 'customDomain', 'associateCustomDomainResponse_customDomain' - A description of the domain name that\'s being associated.
+--
+-- 'vpcDNSTargets', 'associateCustomDomainResponse_vpcDNSTargets' - DNS Target records for the custom domains of this Amazon VPC.
 newAssociateCustomDomainResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -242,7 +250,8 @@ newAssociateCustomDomainResponse
           pHttpStatus_,
         dNSTarget = pDNSTarget_,
         serviceArn = pServiceArn_,
-        customDomain = pCustomDomain_
+        customDomain = pCustomDomain_,
+        vpcDNSTargets = Prelude.mempty
       }
 
 -- | The response's http status code.
@@ -263,9 +272,14 @@ associateCustomDomainResponse_serviceArn = Lens.lens (\AssociateCustomDomainResp
 associateCustomDomainResponse_customDomain :: Lens.Lens' AssociateCustomDomainResponse CustomDomain
 associateCustomDomainResponse_customDomain = Lens.lens (\AssociateCustomDomainResponse' {customDomain} -> customDomain) (\s@AssociateCustomDomainResponse' {} a -> s {customDomain = a} :: AssociateCustomDomainResponse)
 
+-- | DNS Target records for the custom domains of this Amazon VPC.
+associateCustomDomainResponse_vpcDNSTargets :: Lens.Lens' AssociateCustomDomainResponse [VpcDNSTarget]
+associateCustomDomainResponse_vpcDNSTargets = Lens.lens (\AssociateCustomDomainResponse' {vpcDNSTargets} -> vpcDNSTargets) (\s@AssociateCustomDomainResponse' {} a -> s {vpcDNSTargets = a} :: AssociateCustomDomainResponse) Prelude.. Lens.coerced
+
 instance Prelude.NFData AssociateCustomDomainResponse where
   rnf AssociateCustomDomainResponse' {..} =
     Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf dNSTarget
       `Prelude.seq` Prelude.rnf serviceArn
       `Prelude.seq` Prelude.rnf customDomain
+      `Prelude.seq` Prelude.rnf vpcDNSTargets

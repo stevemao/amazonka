@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.Types.DeploymentComponentUpdatePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GreengrassV2.Types.DeploymentComponentUpdatePolicy where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types.DeploymentComponentUpdatePolicyAction
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a deployment\'s policy that defines when
@@ -132,16 +133,16 @@ deploymentComponentUpdatePolicy_timeoutInSeconds :: Lens.Lens' DeploymentCompone
 deploymentComponentUpdatePolicy_timeoutInSeconds = Lens.lens (\DeploymentComponentUpdatePolicy' {timeoutInSeconds} -> timeoutInSeconds) (\s@DeploymentComponentUpdatePolicy' {} a -> s {timeoutInSeconds = a} :: DeploymentComponentUpdatePolicy)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     DeploymentComponentUpdatePolicy
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DeploymentComponentUpdatePolicy"
       ( \x ->
           DeploymentComponentUpdatePolicy'
-            Prelude.<$> (x Core..:? "action")
-            Prelude.<*> (x Core..:? "timeoutInSeconds")
+            Prelude.<$> (x Data..:? "action")
+            Prelude.<*> (x Data..:? "timeoutInSeconds")
       )
 
 instance
@@ -162,12 +163,12 @@ instance
     Prelude.rnf action
       `Prelude.seq` Prelude.rnf timeoutInSeconds
 
-instance Core.ToJSON DeploymentComponentUpdatePolicy where
+instance Data.ToJSON DeploymentComponentUpdatePolicy where
   toJSON DeploymentComponentUpdatePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("action" Core..=) Prelude.<$> action,
-            ("timeoutInSeconds" Core..=)
+          [ ("action" Data..=) Prelude.<$> action,
+            ("timeoutInSeconds" Data..=)
               Prelude.<$> timeoutInSeconds
           ]
       )

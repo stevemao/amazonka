@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.ListClusters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.Snowball.ListClusters
     newListClusters,
 
     -- * Request Lenses
-    listClusters_nextToken,
     listClusters_maxResults,
+    listClusters_nextToken,
 
     -- * Destructuring the Response
     ListClustersResponse (..),
@@ -46,7 +46,8 @@ module Amazonka.Snowball.ListClusters
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,12 +55,12 @@ import Amazonka.Snowball.Types
 
 -- | /See:/ 'newListClusters' smart constructor.
 data ListClusters = ListClusters'
-  { -- | HTTP requests are stateless. To identify what object comes \"next\" in
+  { -- | The number of @ClusterListEntry@ objects to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | HTTP requests are stateless. To identify what object comes \"next\" in
     -- the list of @ClusterListEntry@ objects, you have the option of
     -- specifying @NextToken@ as the starting point for your returned list.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of @ClusterListEntry@ objects to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,28 +72,28 @@ data ListClusters = ListClusters'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listClusters_maxResults' - The number of @ClusterListEntry@ objects to return.
+--
 -- 'nextToken', 'listClusters_nextToken' - HTTP requests are stateless. To identify what object comes \"next\" in
 -- the list of @ClusterListEntry@ objects, you have the option of
 -- specifying @NextToken@ as the starting point for your returned list.
---
--- 'maxResults', 'listClusters_maxResults' - The number of @ClusterListEntry@ objects to return.
 newListClusters ::
   ListClusters
 newListClusters =
   ListClusters'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The number of @ClusterListEntry@ objects to return.
+listClusters_maxResults :: Lens.Lens' ListClusters (Prelude.Maybe Prelude.Natural)
+listClusters_maxResults = Lens.lens (\ListClusters' {maxResults} -> maxResults) (\s@ListClusters' {} a -> s {maxResults = a} :: ListClusters)
 
 -- | HTTP requests are stateless. To identify what object comes \"next\" in
 -- the list of @ClusterListEntry@ objects, you have the option of
 -- specifying @NextToken@ as the starting point for your returned list.
 listClusters_nextToken :: Lens.Lens' ListClusters (Prelude.Maybe Prelude.Text)
 listClusters_nextToken = Lens.lens (\ListClusters' {nextToken} -> nextToken) (\s@ListClusters' {} a -> s {nextToken = a} :: ListClusters)
-
--- | The number of @ClusterListEntry@ objects to return.
-listClusters_maxResults :: Lens.Lens' ListClusters (Prelude.Maybe Prelude.Natural)
-listClusters_maxResults = Lens.lens (\ListClusters' {maxResults} -> maxResults) (\s@ListClusters' {} a -> s {maxResults = a} :: ListClusters)
 
 instance Core.AWSPager ListClusters where
   page rq rs
@@ -116,56 +117,57 @@ instance Core.AWSPager ListClusters where
 
 instance Core.AWSRequest ListClusters where
   type AWSResponse ListClusters = ListClustersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListClustersResponse'
-            Prelude.<$> ( x Core..?> "ClusterListEntries"
+            Prelude.<$> ( x Data..?> "ClusterListEntries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListClusters where
   hashWithSalt _salt ListClusters' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListClusters where
   rnf ListClusters' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListClusters where
+instance Data.ToHeaders ListClusters where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSIESnowballJobManagementService.ListClusters" ::
+              Data.=# ( "AWSIESnowballJobManagementService.ListClusters" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListClusters where
+instance Data.ToJSON ListClusters where
   toJSON ListClusters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListClusters where
+instance Data.ToPath ListClusters where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListClusters where
+instance Data.ToQuery ListClusters where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListClustersResponse' smart constructor.

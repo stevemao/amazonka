@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.RemixSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.RemixSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.ChannelMapping
 import qualified Amazonka.Prelude as Prelude
 
@@ -134,15 +135,15 @@ remixSettings_channelsIn = Lens.lens (\RemixSettings' {channelsIn} -> channelsIn
 remixSettings_channelsOut :: Lens.Lens' RemixSettings (Prelude.Maybe Prelude.Natural)
 remixSettings_channelsOut = Lens.lens (\RemixSettings' {channelsOut} -> channelsOut) (\s@RemixSettings' {} a -> s {channelsOut = a} :: RemixSettings)
 
-instance Core.FromJSON RemixSettings where
+instance Data.FromJSON RemixSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RemixSettings"
       ( \x ->
           RemixSettings'
-            Prelude.<$> (x Core..:? "channelMapping")
-            Prelude.<*> (x Core..:? "channelsIn")
-            Prelude.<*> (x Core..:? "channelsOut")
+            Prelude.<$> (x Data..:? "channelMapping")
+            Prelude.<*> (x Data..:? "channelsIn")
+            Prelude.<*> (x Data..:? "channelsOut")
       )
 
 instance Prelude.Hashable RemixSettings where
@@ -157,13 +158,13 @@ instance Prelude.NFData RemixSettings where
       `Prelude.seq` Prelude.rnf channelsIn
       `Prelude.seq` Prelude.rnf channelsOut
 
-instance Core.ToJSON RemixSettings where
+instance Data.ToJSON RemixSettings where
   toJSON RemixSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("channelMapping" Core..=)
+          [ ("channelMapping" Data..=)
               Prelude.<$> channelMapping,
-            ("channelsIn" Core..=) Prelude.<$> channelsIn,
-            ("channelsOut" Core..=) Prelude.<$> channelsOut
+            ("channelsIn" Data..=) Prelude.<$> channelsIn,
+            ("channelsOut" Data..=) Prelude.<$> channelsOut
           ]
       )

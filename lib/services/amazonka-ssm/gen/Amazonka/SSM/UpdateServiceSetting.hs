@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.UpdateServiceSetting
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -57,7 +57,8 @@ module Amazonka.SSM.UpdateServiceSetting
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,21 +79,16 @@ data UpdateServiceSetting = UpdateServiceSetting'
     --
     -- -   @\/ssm\/documents\/console\/public-sharing-permission@
     --
+    -- -   @\/ssm\/managed-instance\/activation-tier@
+    --
+    -- -   @\/ssm\/opsinsights\/opscenter@
+    --
     -- -   @\/ssm\/parameter-store\/default-parameter-tier@
     --
     -- -   @\/ssm\/parameter-store\/high-throughput-enabled@
-    --
-    -- -   @\/ssm\/managed-instance\/activation-tier@
     settingId :: Prelude.Text,
     -- | The new value to specify for the service setting. The following list
     -- specifies the available values for each setting.
-    --
-    -- -   @\/ssm\/parameter-store\/default-parameter-tier@: @Standard@,
-    --     @Advanced@, @Intelligent-Tiering@
-    --
-    -- -   @\/ssm\/parameter-store\/high-throughput-enabled@: @true@ or @false@
-    --
-    -- -   @\/ssm\/managed-instance\/activation-tier@: @true@ or @false@
     --
     -- -   @\/ssm\/automation\/customer-script-log-destination@: @CloudWatch@
     --
@@ -103,6 +99,13 @@ data UpdateServiceSetting = UpdateServiceSetting'
     --     @Disable@
     --
     -- -   @\/ssm\/managed-instance\/activation-tier@: @standard@ or @advanced@
+    --
+    -- -   @\/ssm\/opsinsights\/opscenter@: @Enabled@ or @Disabled@
+    --
+    -- -   @\/ssm\/parameter-store\/default-parameter-tier@: @Standard@,
+    --     @Advanced@, @Intelligent-Tiering@
+    --
+    -- -   @\/ssm\/parameter-store\/high-throughput-enabled@: @true@ or @false@
     settingValue :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -126,21 +129,16 @@ data UpdateServiceSetting = UpdateServiceSetting'
 --
 -- -   @\/ssm\/documents\/console\/public-sharing-permission@
 --
+-- -   @\/ssm\/managed-instance\/activation-tier@
+--
+-- -   @\/ssm\/opsinsights\/opscenter@
+--
 -- -   @\/ssm\/parameter-store\/default-parameter-tier@
 --
 -- -   @\/ssm\/parameter-store\/high-throughput-enabled@
 --
--- -   @\/ssm\/managed-instance\/activation-tier@
---
 -- 'settingValue', 'updateServiceSetting_settingValue' - The new value to specify for the service setting. The following list
 -- specifies the available values for each setting.
---
--- -   @\/ssm\/parameter-store\/default-parameter-tier@: @Standard@,
---     @Advanced@, @Intelligent-Tiering@
---
--- -   @\/ssm\/parameter-store\/high-throughput-enabled@: @true@ or @false@
---
--- -   @\/ssm\/managed-instance\/activation-tier@: @true@ or @false@
 --
 -- -   @\/ssm\/automation\/customer-script-log-destination@: @CloudWatch@
 --
@@ -151,6 +149,13 @@ data UpdateServiceSetting = UpdateServiceSetting'
 --     @Disable@
 --
 -- -   @\/ssm\/managed-instance\/activation-tier@: @standard@ or @advanced@
+--
+-- -   @\/ssm\/opsinsights\/opscenter@: @Enabled@ or @Disabled@
+--
+-- -   @\/ssm\/parameter-store\/default-parameter-tier@: @Standard@,
+--     @Advanced@, @Intelligent-Tiering@
+--
+-- -   @\/ssm\/parameter-store\/high-throughput-enabled@: @true@ or @false@
 newUpdateServiceSetting ::
   -- | 'settingId'
   Prelude.Text ->
@@ -174,23 +179,18 @@ newUpdateServiceSetting pSettingId_ pSettingValue_ =
 --
 -- -   @\/ssm\/documents\/console\/public-sharing-permission@
 --
+-- -   @\/ssm\/managed-instance\/activation-tier@
+--
+-- -   @\/ssm\/opsinsights\/opscenter@
+--
 -- -   @\/ssm\/parameter-store\/default-parameter-tier@
 --
 -- -   @\/ssm\/parameter-store\/high-throughput-enabled@
---
--- -   @\/ssm\/managed-instance\/activation-tier@
 updateServiceSetting_settingId :: Lens.Lens' UpdateServiceSetting Prelude.Text
 updateServiceSetting_settingId = Lens.lens (\UpdateServiceSetting' {settingId} -> settingId) (\s@UpdateServiceSetting' {} a -> s {settingId = a} :: UpdateServiceSetting)
 
 -- | The new value to specify for the service setting. The following list
 -- specifies the available values for each setting.
---
--- -   @\/ssm\/parameter-store\/default-parameter-tier@: @Standard@,
---     @Advanced@, @Intelligent-Tiering@
---
--- -   @\/ssm\/parameter-store\/high-throughput-enabled@: @true@ or @false@
---
--- -   @\/ssm\/managed-instance\/activation-tier@: @true@ or @false@
 --
 -- -   @\/ssm\/automation\/customer-script-log-destination@: @CloudWatch@
 --
@@ -201,6 +201,13 @@ updateServiceSetting_settingId = Lens.lens (\UpdateServiceSetting' {settingId} -
 --     @Disable@
 --
 -- -   @\/ssm\/managed-instance\/activation-tier@: @standard@ or @advanced@
+--
+-- -   @\/ssm\/opsinsights\/opscenter@: @Enabled@ or @Disabled@
+--
+-- -   @\/ssm\/parameter-store\/default-parameter-tier@: @Standard@,
+--     @Advanced@, @Intelligent-Tiering@
+--
+-- -   @\/ssm\/parameter-store\/high-throughput-enabled@: @true@ or @false@
 updateServiceSetting_settingValue :: Lens.Lens' UpdateServiceSetting Prelude.Text
 updateServiceSetting_settingValue = Lens.lens (\UpdateServiceSetting' {settingValue} -> settingValue) (\s@UpdateServiceSetting' {} a -> s {settingValue = a} :: UpdateServiceSetting)
 
@@ -208,7 +215,8 @@ instance Core.AWSRequest UpdateServiceSetting where
   type
     AWSResponse UpdateServiceSetting =
       UpdateServiceSettingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -226,34 +234,34 @@ instance Prelude.NFData UpdateServiceSetting where
     Prelude.rnf settingId
       `Prelude.seq` Prelude.rnf settingValue
 
-instance Core.ToHeaders UpdateServiceSetting where
+instance Data.ToHeaders UpdateServiceSetting where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.UpdateServiceSetting" ::
+              Data.=# ( "AmazonSSM.UpdateServiceSetting" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateServiceSetting where
+instance Data.ToJSON UpdateServiceSetting where
   toJSON UpdateServiceSetting' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("SettingId" Core..= settingId),
-            Prelude.Just ("SettingValue" Core..= settingValue)
+          [ Prelude.Just ("SettingId" Data..= settingId),
+            Prelude.Just ("SettingValue" Data..= settingValue)
           ]
       )
 
-instance Core.ToPath UpdateServiceSetting where
+instance Data.ToPath UpdateServiceSetting where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateServiceSetting where
+instance Data.ToQuery UpdateServiceSetting where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The result body of the UpdateServiceSetting API operation.

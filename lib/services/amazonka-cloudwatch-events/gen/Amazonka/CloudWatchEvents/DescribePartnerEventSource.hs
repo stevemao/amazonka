@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.DescribePartnerEventSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,13 +83,14 @@ instance Core.AWSRequest DescribePartnerEventSource where
   type
     AWSResponse DescribePartnerEventSource =
       DescribePartnerEventSourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePartnerEventSourceResponse'
-            Prelude.<$> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "Name")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "Name")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,32 +102,32 @@ instance Prelude.NFData DescribePartnerEventSource where
   rnf DescribePartnerEventSource' {..} =
     Prelude.rnf name
 
-instance Core.ToHeaders DescribePartnerEventSource where
+instance Data.ToHeaders DescribePartnerEventSource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSEvents.DescribePartnerEventSource" ::
+              Data.=# ( "AWSEvents.DescribePartnerEventSource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribePartnerEventSource where
+instance Data.ToJSON DescribePartnerEventSource where
   toJSON DescribePartnerEventSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath DescribePartnerEventSource where
+instance Data.ToPath DescribePartnerEventSource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribePartnerEventSource where
+instance Data.ToQuery DescribePartnerEventSource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribePartnerEventSourceResponse' smart constructor.

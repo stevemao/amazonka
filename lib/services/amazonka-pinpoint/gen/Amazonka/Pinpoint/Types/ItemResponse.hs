@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.ItemResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.ItemResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.EndpointItemResponse
 import Amazonka.Pinpoint.Types.EventItemResponse
 import qualified Amazonka.Prelude as Prelude
@@ -71,15 +72,15 @@ itemResponse_endpointItemResponse = Lens.lens (\ItemResponse' {endpointItemRespo
 itemResponse_eventsItemResponse :: Lens.Lens' ItemResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text EventItemResponse))
 itemResponse_eventsItemResponse = Lens.lens (\ItemResponse' {eventsItemResponse} -> eventsItemResponse) (\s@ItemResponse' {} a -> s {eventsItemResponse = a} :: ItemResponse) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ItemResponse where
+instance Data.FromJSON ItemResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ItemResponse"
       ( \x ->
           ItemResponse'
-            Prelude.<$> (x Core..:? "EndpointItemResponse")
-            Prelude.<*> ( x Core..:? "EventsItemResponse"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "EndpointItemResponse")
+            Prelude.<*> ( x Data..:? "EventsItemResponse"
+                            Data..!= Prelude.mempty
                         )
       )
 

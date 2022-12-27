@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.RemoveTargetsResultEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,22 @@
 module Amazonka.CloudWatchEvents.Types.RemoveTargetsResultEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a target that failed to be removed from a rule.
 --
 -- /See:/ 'newRemoveTargetsResultEntry' smart constructor.
 data RemoveTargetsResultEntry = RemoveTargetsResultEntry'
-  { -- | The ID of the target.
-    targetId :: Prelude.Maybe Prelude.Text,
-    -- | The error code that indicates why the target removal failed. If the
+  { -- | The error code that indicates why the target removal failed. If the
     -- value is @ConcurrentModificationException@, too many requests were made
     -- at the same time.
     errorCode :: Prelude.Maybe Prelude.Text,
     -- | The error message that explains why the target removal failed.
-    errorMessage :: Prelude.Maybe Prelude.Text
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the target.
+    targetId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,26 +47,22 @@ data RemoveTargetsResultEntry = RemoveTargetsResultEntry'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'targetId', 'removeTargetsResultEntry_targetId' - The ID of the target.
---
 -- 'errorCode', 'removeTargetsResultEntry_errorCode' - The error code that indicates why the target removal failed. If the
 -- value is @ConcurrentModificationException@, too many requests were made
 -- at the same time.
 --
 -- 'errorMessage', 'removeTargetsResultEntry_errorMessage' - The error message that explains why the target removal failed.
+--
+-- 'targetId', 'removeTargetsResultEntry_targetId' - The ID of the target.
 newRemoveTargetsResultEntry ::
   RemoveTargetsResultEntry
 newRemoveTargetsResultEntry =
   RemoveTargetsResultEntry'
-    { targetId =
+    { errorCode =
         Prelude.Nothing,
-      errorCode = Prelude.Nothing,
-      errorMessage = Prelude.Nothing
+      errorMessage = Prelude.Nothing,
+      targetId = Prelude.Nothing
     }
-
--- | The ID of the target.
-removeTargetsResultEntry_targetId :: Lens.Lens' RemoveTargetsResultEntry (Prelude.Maybe Prelude.Text)
-removeTargetsResultEntry_targetId = Lens.lens (\RemoveTargetsResultEntry' {targetId} -> targetId) (\s@RemoveTargetsResultEntry' {} a -> s {targetId = a} :: RemoveTargetsResultEntry)
 
 -- | The error code that indicates why the target removal failed. If the
 -- value is @ConcurrentModificationException@, too many requests were made
@@ -77,25 +74,29 @@ removeTargetsResultEntry_errorCode = Lens.lens (\RemoveTargetsResultEntry' {erro
 removeTargetsResultEntry_errorMessage :: Lens.Lens' RemoveTargetsResultEntry (Prelude.Maybe Prelude.Text)
 removeTargetsResultEntry_errorMessage = Lens.lens (\RemoveTargetsResultEntry' {errorMessage} -> errorMessage) (\s@RemoveTargetsResultEntry' {} a -> s {errorMessage = a} :: RemoveTargetsResultEntry)
 
-instance Core.FromJSON RemoveTargetsResultEntry where
+-- | The ID of the target.
+removeTargetsResultEntry_targetId :: Lens.Lens' RemoveTargetsResultEntry (Prelude.Maybe Prelude.Text)
+removeTargetsResultEntry_targetId = Lens.lens (\RemoveTargetsResultEntry' {targetId} -> targetId) (\s@RemoveTargetsResultEntry' {} a -> s {targetId = a} :: RemoveTargetsResultEntry)
+
+instance Data.FromJSON RemoveTargetsResultEntry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RemoveTargetsResultEntry"
       ( \x ->
           RemoveTargetsResultEntry'
-            Prelude.<$> (x Core..:? "TargetId")
-            Prelude.<*> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "ErrorMessage")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "ErrorMessage")
+            Prelude.<*> (x Data..:? "TargetId")
       )
 
 instance Prelude.Hashable RemoveTargetsResultEntry where
   hashWithSalt _salt RemoveTargetsResultEntry' {..} =
-    _salt `Prelude.hashWithSalt` targetId
-      `Prelude.hashWithSalt` errorCode
+    _salt `Prelude.hashWithSalt` errorCode
       `Prelude.hashWithSalt` errorMessage
+      `Prelude.hashWithSalt` targetId
 
 instance Prelude.NFData RemoveTargetsResultEntry where
   rnf RemoveTargetsResultEntry' {..} =
-    Prelude.rnf targetId
-      `Prelude.seq` Prelude.rnf errorCode
+    Prelude.rnf errorCode
       `Prelude.seq` Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf targetId

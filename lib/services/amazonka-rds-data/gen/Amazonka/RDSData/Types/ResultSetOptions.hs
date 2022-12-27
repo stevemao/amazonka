@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RDSData.Types.ResultSetOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.RDSData.Types.ResultSetOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDSData.Types.DecimalReturnType
+import Amazonka.RDSData.Types.LongReturnType
 
 -- | Options that control how the result set is returned.
 --
@@ -37,7 +39,12 @@ data ResultSetOptions = ResultSetOptions'
     -- Conversion to Double or Long can result in roundoff errors due to
     -- precision loss. We recommend converting to String, especially when
     -- working with currency values.
-    decimalReturnType :: Prelude.Maybe DecimalReturnType
+    decimalReturnType :: Prelude.Maybe DecimalReturnType,
+    -- | A value that indicates how a field of @LONG@ type is represented.
+    -- Allowed values are @LONG@ and @STRING@. The default is @LONG@. Specify
+    -- @STRING@ if the length or precision of numeric values might cause
+    -- truncation or rounding errors.
+    longReturnType :: Prelude.Maybe LongReturnType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,12 +65,18 @@ data ResultSetOptions = ResultSetOptions'
 -- Conversion to Double or Long can result in roundoff errors due to
 -- precision loss. We recommend converting to String, especially when
 -- working with currency values.
+--
+-- 'longReturnType', 'resultSetOptions_longReturnType' - A value that indicates how a field of @LONG@ type is represented.
+-- Allowed values are @LONG@ and @STRING@. The default is @LONG@. Specify
+-- @STRING@ if the length or precision of numeric values might cause
+-- truncation or rounding errors.
 newResultSetOptions ::
   ResultSetOptions
 newResultSetOptions =
   ResultSetOptions'
     { decimalReturnType =
-        Prelude.Nothing
+        Prelude.Nothing,
+      longReturnType = Prelude.Nothing
     }
 
 -- | A value that indicates how a field of @DECIMAL@ type is represented in
@@ -78,19 +91,30 @@ newResultSetOptions =
 resultSetOptions_decimalReturnType :: Lens.Lens' ResultSetOptions (Prelude.Maybe DecimalReturnType)
 resultSetOptions_decimalReturnType = Lens.lens (\ResultSetOptions' {decimalReturnType} -> decimalReturnType) (\s@ResultSetOptions' {} a -> s {decimalReturnType = a} :: ResultSetOptions)
 
+-- | A value that indicates how a field of @LONG@ type is represented.
+-- Allowed values are @LONG@ and @STRING@. The default is @LONG@. Specify
+-- @STRING@ if the length or precision of numeric values might cause
+-- truncation or rounding errors.
+resultSetOptions_longReturnType :: Lens.Lens' ResultSetOptions (Prelude.Maybe LongReturnType)
+resultSetOptions_longReturnType = Lens.lens (\ResultSetOptions' {longReturnType} -> longReturnType) (\s@ResultSetOptions' {} a -> s {longReturnType = a} :: ResultSetOptions)
+
 instance Prelude.Hashable ResultSetOptions where
   hashWithSalt _salt ResultSetOptions' {..} =
     _salt `Prelude.hashWithSalt` decimalReturnType
+      `Prelude.hashWithSalt` longReturnType
 
 instance Prelude.NFData ResultSetOptions where
   rnf ResultSetOptions' {..} =
     Prelude.rnf decimalReturnType
+      `Prelude.seq` Prelude.rnf longReturnType
 
-instance Core.ToJSON ResultSetOptions where
+instance Data.ToJSON ResultSetOptions where
   toJSON ResultSetOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("decimalReturnType" Core..=)
-              Prelude.<$> decimalReturnType
+          [ ("decimalReturnType" Data..=)
+              Prelude.<$> decimalReturnType,
+            ("longReturnType" Data..=)
+              Prelude.<$> longReturnType
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.VolumeStatusInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.EC2.Types.VolumeStatusInfo where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.VolumeStatusDetails
 import Amazonka.EC2.Types.VolumeStatusInfoStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the status of a volume.
 --
 -- /See:/ 'newVolumeStatusInfo' smart constructor.
 data VolumeStatusInfo = VolumeStatusInfo'
-  { -- | The status of the volume.
-    status :: Prelude.Maybe VolumeStatusInfoStatus,
-    -- | The details of the volume status.
-    details :: Prelude.Maybe [VolumeStatusDetails]
+  { -- | The details of the volume status.
+    details :: Prelude.Maybe [VolumeStatusDetails],
+    -- | The status of the volume.
+    status :: Prelude.Maybe VolumeStatusInfoStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,39 +46,39 @@ data VolumeStatusInfo = VolumeStatusInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'volumeStatusInfo_status' - The status of the volume.
---
 -- 'details', 'volumeStatusInfo_details' - The details of the volume status.
+--
+-- 'status', 'volumeStatusInfo_status' - The status of the volume.
 newVolumeStatusInfo ::
   VolumeStatusInfo
 newVolumeStatusInfo =
   VolumeStatusInfo'
-    { status = Prelude.Nothing,
-      details = Prelude.Nothing
+    { details = Prelude.Nothing,
+      status = Prelude.Nothing
     }
-
--- | The status of the volume.
-volumeStatusInfo_status :: Lens.Lens' VolumeStatusInfo (Prelude.Maybe VolumeStatusInfoStatus)
-volumeStatusInfo_status = Lens.lens (\VolumeStatusInfo' {status} -> status) (\s@VolumeStatusInfo' {} a -> s {status = a} :: VolumeStatusInfo)
 
 -- | The details of the volume status.
 volumeStatusInfo_details :: Lens.Lens' VolumeStatusInfo (Prelude.Maybe [VolumeStatusDetails])
 volumeStatusInfo_details = Lens.lens (\VolumeStatusInfo' {details} -> details) (\s@VolumeStatusInfo' {} a -> s {details = a} :: VolumeStatusInfo) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML VolumeStatusInfo where
+-- | The status of the volume.
+volumeStatusInfo_status :: Lens.Lens' VolumeStatusInfo (Prelude.Maybe VolumeStatusInfoStatus)
+volumeStatusInfo_status = Lens.lens (\VolumeStatusInfo' {status} -> status) (\s@VolumeStatusInfo' {} a -> s {status = a} :: VolumeStatusInfo)
+
+instance Data.FromXML VolumeStatusInfo where
   parseXML x =
     VolumeStatusInfo'
-      Prelude.<$> (x Core..@? "status")
-      Prelude.<*> ( x Core..@? "details" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<$> ( x Data..@? "details" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
+      Prelude.<*> (x Data..@? "status")
 
 instance Prelude.Hashable VolumeStatusInfo where
   hashWithSalt _salt VolumeStatusInfo' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` details
+    _salt `Prelude.hashWithSalt` details
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData VolumeStatusInfo where
   rnf VolumeStatusInfo' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf details
+    Prelude.rnf details
+      `Prelude.seq` Prelude.rnf status

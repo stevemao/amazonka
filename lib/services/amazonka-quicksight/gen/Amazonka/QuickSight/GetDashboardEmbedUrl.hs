@@ -14,20 +14,20 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.GetDashboardEmbedUrl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Generates a session URL and authorization code that you can use to embed
--- an Amazon Amazon QuickSight read-only dashboard in your web server code.
--- Before you use this command, make sure that you have configured the
--- dashboards and permissions.
+-- Generates a temporary session URL and authorization code(bearer token)
+-- that you can use to embed an Amazon QuickSight read-only dashboard in
+-- your website or application. Before you use this command, make sure that
+-- you have configured the dashboards and permissions.
 --
 -- Currently, you can use @GetDashboardEmbedURL@ only from the server, not
--- from the user\'s browser. The following rules apply to the combination
--- of URL and authorization code:
+-- from the user\'s browser. The following rules apply to the generated
+-- URL:
 --
 -- -   They must be used together.
 --
@@ -35,7 +35,12 @@
 --
 -- -   They are valid for 5 minutes after you run this command.
 --
--- -   The resulting user session is valid for 10 hours.
+-- -   You are charged only when the URL is used or there is interaction
+--     with Amazon QuickSight.
+--
+-- -   The resulting user session is valid for 15 minutes (default) up to
+--     10 hours (maximum). You can use the optional
+--     @SessionLifetimeInMinutes@ parameter to customize session duration.
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/quicksight/latest/user/embedded-analytics-deprecated.html Embedding Analytics Using GetDashboardEmbedUrl>
@@ -50,13 +55,13 @@ module Amazonka.QuickSight.GetDashboardEmbedUrl
     newGetDashboardEmbedUrl,
 
     -- * Request Lenses
+    getDashboardEmbedUrl_additionalDashboardIds,
+    getDashboardEmbedUrl_namespace,
+    getDashboardEmbedUrl_resetDisabled,
     getDashboardEmbedUrl_sessionLifetimeInMinutes,
     getDashboardEmbedUrl_statePersistenceEnabled,
-    getDashboardEmbedUrl_namespace,
-    getDashboardEmbedUrl_additionalDashboardIds,
     getDashboardEmbedUrl_undoRedoDisabled,
     getDashboardEmbedUrl_userArn,
-    getDashboardEmbedUrl_resetDisabled,
     getDashboardEmbedUrl_awsAccountId,
     getDashboardEmbedUrl_dashboardId,
     getDashboardEmbedUrl_identityType,
@@ -66,14 +71,15 @@ module Amazonka.QuickSight.GetDashboardEmbedUrl
     newGetDashboardEmbedUrlResponse,
 
     -- * Response Lenses
-    getDashboardEmbedUrlResponse_requestId,
     getDashboardEmbedUrlResponse_embedUrl,
+    getDashboardEmbedUrlResponse_requestId,
     getDashboardEmbedUrlResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -81,7 +87,21 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetDashboardEmbedUrl' smart constructor.
 data GetDashboardEmbedUrl = GetDashboardEmbedUrl'
-  { -- | How many minutes the session is valid. The session lifetime must be
+  { -- | A list of one or more dashboard IDs that you want anonymous users to
+    -- have tempporary access to. Currently, the @IdentityType@ parameter must
+    -- be set to @ANONYMOUS@ because other identity types authenticate as
+    -- Amazon QuickSight or IAM users. For example, if you set
+    -- \"@--dashboard-id dash_id1 --dashboard-id dash_id2 dash_id3 identity-type ANONYMOUS@\",
+    -- the session can access all three dashboards.
+    additionalDashboardIds :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | The Amazon QuickSight namespace that contains the dashboard IDs in this
+    -- request. If you\'re not using a custom namespace, set
+    -- @Namespace = default@.
+    namespace :: Prelude.Maybe Prelude.Text,
+    -- | Remove the reset button on the embedded dashboard. The default is FALSE,
+    -- which enables the reset button.
+    resetDisabled :: Prelude.Maybe Prelude.Bool,
+    -- | How many minutes the session is valid. The session lifetime must be
     -- 15-600 minutes.
     sessionLifetimeInMinutes :: Prelude.Maybe Prelude.Natural,
     -- | Adds persistence of state for the user session in an embedded dashboard.
@@ -93,17 +113,6 @@ data GetDashboardEmbedUrl = GetDashboardEmbedUrl'
     -- If this is set to FALSE, the state of the user session is not persisted.
     -- The default is @FALSE@.
     statePersistenceEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | The Amazon QuickSight namespace that contains the dashboard IDs in this
-    -- request. If you\'re not using a custom namespace, set
-    -- @Namespace = default@.
-    namespace :: Prelude.Maybe Prelude.Text,
-    -- | A list of one or more dashboard IDs that you want to add to a session
-    -- that includes anonymous users. The @IdentityType@ parameter must be set
-    -- to @ANONYMOUS@ for this to work, because other identity types
-    -- authenticate as Amazon QuickSight or IAMusers. For example, if you set
-    -- \"@--dashboard-id dash_id1 --dashboard-id dash_id2 dash_id3 identity-type ANONYMOUS@\",
-    -- the session can access all three dashboards.
-    additionalDashboardIds :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
     -- | Remove the undo\/redo button on the embedded dashboard. The default is
     -- FALSE, which enables the undo\/redo button.
     undoRedoDisabled :: Prelude.Maybe Prelude.Bool,
@@ -116,15 +125,13 @@ data GetDashboardEmbedUrl = GetDashboardEmbedUrl'
     --
     -- -   Invited nonfederated users
     --
-    -- -   IAMusers and IAMrole-based sessions authenticated through Federated
-    --     Single Sign-On using SAML, OpenID Connect, or IAMfederation.
+    -- -   IAM users and IAM role-based sessions authenticated through
+    --     Federated Single Sign-On using SAML, OpenID Connect, or IAM
+    --     federation.
     --
-    -- Omit this parameter for users in the third group – IAMusers and IAM
+    -- Omit this parameter for users in the third group – IAM users and IAM
     -- role-based sessions.
     userArn :: Prelude.Maybe Prelude.Text,
-    -- | Remove the reset button on the embedded dashboard. The default is FALSE,
-    -- which enables the reset button.
-    resetDisabled :: Prelude.Maybe Prelude.Bool,
     -- | The ID for the Amazon Web Services account that contains the dashboard
     -- that you\'re embedding.
     awsAccountId :: Prelude.Text,
@@ -144,6 +151,20 @@ data GetDashboardEmbedUrl = GetDashboardEmbedUrl'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'additionalDashboardIds', 'getDashboardEmbedUrl_additionalDashboardIds' - A list of one or more dashboard IDs that you want anonymous users to
+-- have tempporary access to. Currently, the @IdentityType@ parameter must
+-- be set to @ANONYMOUS@ because other identity types authenticate as
+-- Amazon QuickSight or IAM users. For example, if you set
+-- \"@--dashboard-id dash_id1 --dashboard-id dash_id2 dash_id3 identity-type ANONYMOUS@\",
+-- the session can access all three dashboards.
+--
+-- 'namespace', 'getDashboardEmbedUrl_namespace' - The Amazon QuickSight namespace that contains the dashboard IDs in this
+-- request. If you\'re not using a custom namespace, set
+-- @Namespace = default@.
+--
+-- 'resetDisabled', 'getDashboardEmbedUrl_resetDisabled' - Remove the reset button on the embedded dashboard. The default is FALSE,
+-- which enables the reset button.
+--
 -- 'sessionLifetimeInMinutes', 'getDashboardEmbedUrl_sessionLifetimeInMinutes' - How many minutes the session is valid. The session lifetime must be
 -- 15-600 minutes.
 --
@@ -155,17 +176,6 @@ data GetDashboardEmbedUrl = GetDashboardEmbedUrl'
 -- URL. The state is stored in Amazon QuickSight, not in a browser cookie.
 -- If this is set to FALSE, the state of the user session is not persisted.
 -- The default is @FALSE@.
---
--- 'namespace', 'getDashboardEmbedUrl_namespace' - The Amazon QuickSight namespace that contains the dashboard IDs in this
--- request. If you\'re not using a custom namespace, set
--- @Namespace = default@.
---
--- 'additionalDashboardIds', 'getDashboardEmbedUrl_additionalDashboardIds' - A list of one or more dashboard IDs that you want to add to a session
--- that includes anonymous users. The @IdentityType@ parameter must be set
--- to @ANONYMOUS@ for this to work, because other identity types
--- authenticate as Amazon QuickSight or IAMusers. For example, if you set
--- \"@--dashboard-id dash_id1 --dashboard-id dash_id2 dash_id3 identity-type ANONYMOUS@\",
--- the session can access all three dashboards.
 --
 -- 'undoRedoDisabled', 'getDashboardEmbedUrl_undoRedoDisabled' - Remove the undo\/redo button on the embedded dashboard. The default is
 -- FALSE, which enables the undo\/redo button.
@@ -179,14 +189,12 @@ data GetDashboardEmbedUrl = GetDashboardEmbedUrl'
 --
 -- -   Invited nonfederated users
 --
--- -   IAMusers and IAMrole-based sessions authenticated through Federated
---     Single Sign-On using SAML, OpenID Connect, or IAMfederation.
+-- -   IAM users and IAM role-based sessions authenticated through
+--     Federated Single Sign-On using SAML, OpenID Connect, or IAM
+--     federation.
 --
--- Omit this parameter for users in the third group – IAMusers and IAM
+-- Omit this parameter for users in the third group – IAM users and IAM
 -- role-based sessions.
---
--- 'resetDisabled', 'getDashboardEmbedUrl_resetDisabled' - Remove the reset button on the embedded dashboard. The default is FALSE,
--- which enables the reset button.
 --
 -- 'awsAccountId', 'getDashboardEmbedUrl_awsAccountId' - The ID for the Amazon Web Services account that contains the dashboard
 -- that you\'re embedding.
@@ -208,18 +216,38 @@ newGetDashboardEmbedUrl
   pDashboardId_
   pIdentityType_ =
     GetDashboardEmbedUrl'
-      { sessionLifetimeInMinutes =
+      { additionalDashboardIds =
           Prelude.Nothing,
-        statePersistenceEnabled = Prelude.Nothing,
         namespace = Prelude.Nothing,
-        additionalDashboardIds = Prelude.Nothing,
+        resetDisabled = Prelude.Nothing,
+        sessionLifetimeInMinutes = Prelude.Nothing,
+        statePersistenceEnabled = Prelude.Nothing,
         undoRedoDisabled = Prelude.Nothing,
         userArn = Prelude.Nothing,
-        resetDisabled = Prelude.Nothing,
         awsAccountId = pAwsAccountId_,
         dashboardId = pDashboardId_,
         identityType = pIdentityType_
       }
+
+-- | A list of one or more dashboard IDs that you want anonymous users to
+-- have tempporary access to. Currently, the @IdentityType@ parameter must
+-- be set to @ANONYMOUS@ because other identity types authenticate as
+-- Amazon QuickSight or IAM users. For example, if you set
+-- \"@--dashboard-id dash_id1 --dashboard-id dash_id2 dash_id3 identity-type ANONYMOUS@\",
+-- the session can access all three dashboards.
+getDashboardEmbedUrl_additionalDashboardIds :: Lens.Lens' GetDashboardEmbedUrl (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+getDashboardEmbedUrl_additionalDashboardIds = Lens.lens (\GetDashboardEmbedUrl' {additionalDashboardIds} -> additionalDashboardIds) (\s@GetDashboardEmbedUrl' {} a -> s {additionalDashboardIds = a} :: GetDashboardEmbedUrl) Prelude.. Lens.mapping Lens.coerced
+
+-- | The Amazon QuickSight namespace that contains the dashboard IDs in this
+-- request. If you\'re not using a custom namespace, set
+-- @Namespace = default@.
+getDashboardEmbedUrl_namespace :: Lens.Lens' GetDashboardEmbedUrl (Prelude.Maybe Prelude.Text)
+getDashboardEmbedUrl_namespace = Lens.lens (\GetDashboardEmbedUrl' {namespace} -> namespace) (\s@GetDashboardEmbedUrl' {} a -> s {namespace = a} :: GetDashboardEmbedUrl)
+
+-- | Remove the reset button on the embedded dashboard. The default is FALSE,
+-- which enables the reset button.
+getDashboardEmbedUrl_resetDisabled :: Lens.Lens' GetDashboardEmbedUrl (Prelude.Maybe Prelude.Bool)
+getDashboardEmbedUrl_resetDisabled = Lens.lens (\GetDashboardEmbedUrl' {resetDisabled} -> resetDisabled) (\s@GetDashboardEmbedUrl' {} a -> s {resetDisabled = a} :: GetDashboardEmbedUrl)
 
 -- | How many minutes the session is valid. The session lifetime must be
 -- 15-600 minutes.
@@ -237,21 +265,6 @@ getDashboardEmbedUrl_sessionLifetimeInMinutes = Lens.lens (\GetDashboardEmbedUrl
 getDashboardEmbedUrl_statePersistenceEnabled :: Lens.Lens' GetDashboardEmbedUrl (Prelude.Maybe Prelude.Bool)
 getDashboardEmbedUrl_statePersistenceEnabled = Lens.lens (\GetDashboardEmbedUrl' {statePersistenceEnabled} -> statePersistenceEnabled) (\s@GetDashboardEmbedUrl' {} a -> s {statePersistenceEnabled = a} :: GetDashboardEmbedUrl)
 
--- | The Amazon QuickSight namespace that contains the dashboard IDs in this
--- request. If you\'re not using a custom namespace, set
--- @Namespace = default@.
-getDashboardEmbedUrl_namespace :: Lens.Lens' GetDashboardEmbedUrl (Prelude.Maybe Prelude.Text)
-getDashboardEmbedUrl_namespace = Lens.lens (\GetDashboardEmbedUrl' {namespace} -> namespace) (\s@GetDashboardEmbedUrl' {} a -> s {namespace = a} :: GetDashboardEmbedUrl)
-
--- | A list of one or more dashboard IDs that you want to add to a session
--- that includes anonymous users. The @IdentityType@ parameter must be set
--- to @ANONYMOUS@ for this to work, because other identity types
--- authenticate as Amazon QuickSight or IAMusers. For example, if you set
--- \"@--dashboard-id dash_id1 --dashboard-id dash_id2 dash_id3 identity-type ANONYMOUS@\",
--- the session can access all three dashboards.
-getDashboardEmbedUrl_additionalDashboardIds :: Lens.Lens' GetDashboardEmbedUrl (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-getDashboardEmbedUrl_additionalDashboardIds = Lens.lens (\GetDashboardEmbedUrl' {additionalDashboardIds} -> additionalDashboardIds) (\s@GetDashboardEmbedUrl' {} a -> s {additionalDashboardIds = a} :: GetDashboardEmbedUrl) Prelude.. Lens.mapping Lens.coerced
-
 -- | Remove the undo\/redo button on the embedded dashboard. The default is
 -- FALSE, which enables the undo\/redo button.
 getDashboardEmbedUrl_undoRedoDisabled :: Lens.Lens' GetDashboardEmbedUrl (Prelude.Maybe Prelude.Bool)
@@ -266,18 +279,14 @@ getDashboardEmbedUrl_undoRedoDisabled = Lens.lens (\GetDashboardEmbedUrl' {undoR
 --
 -- -   Invited nonfederated users
 --
--- -   IAMusers and IAMrole-based sessions authenticated through Federated
---     Single Sign-On using SAML, OpenID Connect, or IAMfederation.
+-- -   IAM users and IAM role-based sessions authenticated through
+--     Federated Single Sign-On using SAML, OpenID Connect, or IAM
+--     federation.
 --
--- Omit this parameter for users in the third group – IAMusers and IAM
+-- Omit this parameter for users in the third group – IAM users and IAM
 -- role-based sessions.
 getDashboardEmbedUrl_userArn :: Lens.Lens' GetDashboardEmbedUrl (Prelude.Maybe Prelude.Text)
 getDashboardEmbedUrl_userArn = Lens.lens (\GetDashboardEmbedUrl' {userArn} -> userArn) (\s@GetDashboardEmbedUrl' {} a -> s {userArn = a} :: GetDashboardEmbedUrl)
-
--- | Remove the reset button on the embedded dashboard. The default is FALSE,
--- which enables the reset button.
-getDashboardEmbedUrl_resetDisabled :: Lens.Lens' GetDashboardEmbedUrl (Prelude.Maybe Prelude.Bool)
-getDashboardEmbedUrl_resetDisabled = Lens.lens (\GetDashboardEmbedUrl' {resetDisabled} -> resetDisabled) (\s@GetDashboardEmbedUrl' {} a -> s {resetDisabled = a} :: GetDashboardEmbedUrl)
 
 -- | The ID for the Amazon Web Services account that contains the dashboard
 -- that you\'re embedding.
@@ -297,93 +306,93 @@ instance Core.AWSRequest GetDashboardEmbedUrl where
   type
     AWSResponse GetDashboardEmbedUrl =
       GetDashboardEmbedUrlResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDashboardEmbedUrlResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "EmbedUrl")
+            Prelude.<$> (x Data..?> "EmbedUrl")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetDashboardEmbedUrl where
   hashWithSalt _salt GetDashboardEmbedUrl' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` additionalDashboardIds
+      `Prelude.hashWithSalt` namespace
+      `Prelude.hashWithSalt` resetDisabled
       `Prelude.hashWithSalt` sessionLifetimeInMinutes
       `Prelude.hashWithSalt` statePersistenceEnabled
-      `Prelude.hashWithSalt` namespace
-      `Prelude.hashWithSalt` additionalDashboardIds
       `Prelude.hashWithSalt` undoRedoDisabled
       `Prelude.hashWithSalt` userArn
-      `Prelude.hashWithSalt` resetDisabled
       `Prelude.hashWithSalt` awsAccountId
       `Prelude.hashWithSalt` dashboardId
       `Prelude.hashWithSalt` identityType
 
 instance Prelude.NFData GetDashboardEmbedUrl where
   rnf GetDashboardEmbedUrl' {..} =
-    Prelude.rnf sessionLifetimeInMinutes
-      `Prelude.seq` Prelude.rnf statePersistenceEnabled
+    Prelude.rnf additionalDashboardIds
       `Prelude.seq` Prelude.rnf namespace
-      `Prelude.seq` Prelude.rnf additionalDashboardIds
+      `Prelude.seq` Prelude.rnf resetDisabled
+      `Prelude.seq` Prelude.rnf sessionLifetimeInMinutes
+      `Prelude.seq` Prelude.rnf statePersistenceEnabled
       `Prelude.seq` Prelude.rnf undoRedoDisabled
       `Prelude.seq` Prelude.rnf userArn
-      `Prelude.seq` Prelude.rnf resetDisabled
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf dashboardId
       `Prelude.seq` Prelude.rnf identityType
 
-instance Core.ToHeaders GetDashboardEmbedUrl where
+instance Data.ToHeaders GetDashboardEmbedUrl where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetDashboardEmbedUrl where
+instance Data.ToPath GetDashboardEmbedUrl where
   toPath GetDashboardEmbedUrl' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/dashboards/",
-        Core.toBS dashboardId,
+        Data.toBS dashboardId,
         "/embed-url"
       ]
 
-instance Core.ToQuery GetDashboardEmbedUrl where
+instance Data.ToQuery GetDashboardEmbedUrl where
   toQuery GetDashboardEmbedUrl' {..} =
     Prelude.mconcat
-      [ "session-lifetime" Core.=: sessionLifetimeInMinutes,
-        "state-persistence-enabled"
-          Core.=: statePersistenceEnabled,
-        "namespace" Core.=: namespace,
-        "additional-dashboard-ids"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+      [ "additional-dashboard-ids"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> additionalDashboardIds
             ),
-        "undo-redo-disabled" Core.=: undoRedoDisabled,
-        "user-arn" Core.=: userArn,
-        "reset-disabled" Core.=: resetDisabled,
-        "creds-type" Core.=: identityType
+        "namespace" Data.=: namespace,
+        "reset-disabled" Data.=: resetDisabled,
+        "session-lifetime" Data.=: sessionLifetimeInMinutes,
+        "state-persistence-enabled"
+          Data.=: statePersistenceEnabled,
+        "undo-redo-disabled" Data.=: undoRedoDisabled,
+        "user-arn" Data.=: userArn,
+        "creds-type" Data.=: identityType
       ]
 
 -- | Output returned from the @GetDashboardEmbedUrl@ operation.
 --
 -- /See:/ 'newGetDashboardEmbedUrlResponse' smart constructor.
 data GetDashboardEmbedUrlResponse = GetDashboardEmbedUrlResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | A single-use URL that you can put into your server-side webpage to embed
+  { -- | A single-use URL that you can put into your server-side webpage to embed
     -- your dashboard. This URL is valid for 5 minutes. The API operation
     -- provides the URL with an @auth_code@ value that enables one (and only
     -- one) sign-on to a user session that is valid for 10 hours.
-    embedUrl :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    embedUrl :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -397,12 +406,12 @@ data GetDashboardEmbedUrlResponse = GetDashboardEmbedUrlResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'getDashboardEmbedUrlResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'embedUrl', 'getDashboardEmbedUrlResponse_embedUrl' - A single-use URL that you can put into your server-side webpage to embed
 -- your dashboard. This URL is valid for 5 minutes. The API operation
 -- provides the URL with an @auth_code@ value that enables one (and only
 -- one) sign-on to a user session that is valid for 10 hours.
+--
+-- 'requestId', 'getDashboardEmbedUrlResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'getDashboardEmbedUrlResponse_status' - The HTTP status of the request.
 newGetDashboardEmbedUrlResponse ::
@@ -411,22 +420,22 @@ newGetDashboardEmbedUrlResponse ::
   GetDashboardEmbedUrlResponse
 newGetDashboardEmbedUrlResponse pStatus_ =
   GetDashboardEmbedUrlResponse'
-    { requestId =
+    { embedUrl =
         Prelude.Nothing,
-      embedUrl = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-getDashboardEmbedUrlResponse_requestId :: Lens.Lens' GetDashboardEmbedUrlResponse (Prelude.Maybe Prelude.Text)
-getDashboardEmbedUrlResponse_requestId = Lens.lens (\GetDashboardEmbedUrlResponse' {requestId} -> requestId) (\s@GetDashboardEmbedUrlResponse' {} a -> s {requestId = a} :: GetDashboardEmbedUrlResponse)
 
 -- | A single-use URL that you can put into your server-side webpage to embed
 -- your dashboard. This URL is valid for 5 minutes. The API operation
 -- provides the URL with an @auth_code@ value that enables one (and only
 -- one) sign-on to a user session that is valid for 10 hours.
 getDashboardEmbedUrlResponse_embedUrl :: Lens.Lens' GetDashboardEmbedUrlResponse (Prelude.Maybe Prelude.Text)
-getDashboardEmbedUrlResponse_embedUrl = Lens.lens (\GetDashboardEmbedUrlResponse' {embedUrl} -> embedUrl) (\s@GetDashboardEmbedUrlResponse' {} a -> s {embedUrl = a} :: GetDashboardEmbedUrlResponse) Prelude.. Lens.mapping Core._Sensitive
+getDashboardEmbedUrlResponse_embedUrl = Lens.lens (\GetDashboardEmbedUrlResponse' {embedUrl} -> embedUrl) (\s@GetDashboardEmbedUrlResponse' {} a -> s {embedUrl = a} :: GetDashboardEmbedUrlResponse) Prelude.. Lens.mapping Data._Sensitive
+
+-- | The Amazon Web Services request ID for this operation.
+getDashboardEmbedUrlResponse_requestId :: Lens.Lens' GetDashboardEmbedUrlResponse (Prelude.Maybe Prelude.Text)
+getDashboardEmbedUrlResponse_requestId = Lens.lens (\GetDashboardEmbedUrlResponse' {requestId} -> requestId) (\s@GetDashboardEmbedUrlResponse' {} a -> s {requestId = a} :: GetDashboardEmbedUrlResponse)
 
 -- | The HTTP status of the request.
 getDashboardEmbedUrlResponse_status :: Lens.Lens' GetDashboardEmbedUrlResponse Prelude.Int
@@ -434,6 +443,6 @@ getDashboardEmbedUrlResponse_status = Lens.lens (\GetDashboardEmbedUrlResponse' 
 
 instance Prelude.NFData GetDashboardEmbedUrlResponse where
   rnf GetDashboardEmbedUrlResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf embedUrl
+    Prelude.rnf embedUrl
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

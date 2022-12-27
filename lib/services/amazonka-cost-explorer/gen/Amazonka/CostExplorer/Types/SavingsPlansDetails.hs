@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.SavingsPlansDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CostExplorer.Types.SavingsPlansDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The attribute details on a specific Savings Plan.
@@ -80,15 +81,15 @@ savingsPlansDetails_offeringId = Lens.lens (\SavingsPlansDetails' {offeringId} -
 savingsPlansDetails_region :: Lens.Lens' SavingsPlansDetails (Prelude.Maybe Prelude.Text)
 savingsPlansDetails_region = Lens.lens (\SavingsPlansDetails' {region} -> region) (\s@SavingsPlansDetails' {} a -> s {region = a} :: SavingsPlansDetails)
 
-instance Core.FromJSON SavingsPlansDetails where
+instance Data.FromJSON SavingsPlansDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SavingsPlansDetails"
       ( \x ->
           SavingsPlansDetails'
-            Prelude.<$> (x Core..:? "InstanceFamily")
-            Prelude.<*> (x Core..:? "OfferingId")
-            Prelude.<*> (x Core..:? "Region")
+            Prelude.<$> (x Data..:? "InstanceFamily")
+            Prelude.<*> (x Data..:? "OfferingId")
+            Prelude.<*> (x Data..:? "Region")
       )
 
 instance Prelude.Hashable SavingsPlansDetails where

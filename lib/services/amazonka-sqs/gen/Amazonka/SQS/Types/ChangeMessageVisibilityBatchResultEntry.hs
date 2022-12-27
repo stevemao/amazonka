@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.Types.ChangeMessageVisibilityBatchResultEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SQS.Types.ChangeMessageVisibilityBatchResultEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Encloses the @Id@ of an entry in @ ChangeMessageVisibilityBatch.@
@@ -56,12 +57,12 @@ changeMessageVisibilityBatchResultEntry_id :: Lens.Lens' ChangeMessageVisibility
 changeMessageVisibilityBatchResultEntry_id = Lens.lens (\ChangeMessageVisibilityBatchResultEntry' {id} -> id) (\s@ChangeMessageVisibilityBatchResultEntry' {} a -> s {id = a} :: ChangeMessageVisibilityBatchResultEntry)
 
 instance
-  Core.FromXML
+  Data.FromXML
     ChangeMessageVisibilityBatchResultEntry
   where
   parseXML x =
     ChangeMessageVisibilityBatchResultEntry'
-      Prelude.<$> (x Core..@ "Id")
+      Prelude.<$> (x Data..@ "Id")
 
 instance
   Prelude.Hashable

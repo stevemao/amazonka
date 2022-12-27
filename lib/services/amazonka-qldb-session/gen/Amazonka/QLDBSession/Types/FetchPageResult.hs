@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QLDBSession.Types.FetchPageResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QLDBSession.Types.FetchPageResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QLDBSession.Types.IOUsage
 import Amazonka.QLDBSession.Types.Page
@@ -30,12 +31,12 @@ import Amazonka.QLDBSession.Types.TimingInformation
 --
 -- /See:/ 'newFetchPageResult' smart constructor.
 data FetchPageResult = FetchPageResult'
-  { -- | Contains server-side performance information for the command.
-    timingInformation :: Prelude.Maybe TimingInformation,
-    -- | Contains metrics about the number of I\/O requests that were consumed.
+  { -- | Contains metrics about the number of I\/O requests that were consumed.
     consumedIOs :: Prelude.Maybe IOUsage,
     -- | Contains details of the fetched page.
-    page :: Prelude.Maybe Page
+    page :: Prelude.Maybe Page,
+    -- | Contains server-side performance information for the command.
+    timingInformation :: Prelude.Maybe TimingInformation
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,24 +48,19 @@ data FetchPageResult = FetchPageResult'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'timingInformation', 'fetchPageResult_timingInformation' - Contains server-side performance information for the command.
---
 -- 'consumedIOs', 'fetchPageResult_consumedIOs' - Contains metrics about the number of I\/O requests that were consumed.
 --
 -- 'page', 'fetchPageResult_page' - Contains details of the fetched page.
+--
+-- 'timingInformation', 'fetchPageResult_timingInformation' - Contains server-side performance information for the command.
 newFetchPageResult ::
   FetchPageResult
 newFetchPageResult =
   FetchPageResult'
-    { timingInformation =
-        Prelude.Nothing,
-      consumedIOs = Prelude.Nothing,
-      page = Prelude.Nothing
+    { consumedIOs = Prelude.Nothing,
+      page = Prelude.Nothing,
+      timingInformation = Prelude.Nothing
     }
-
--- | Contains server-side performance information for the command.
-fetchPageResult_timingInformation :: Lens.Lens' FetchPageResult (Prelude.Maybe TimingInformation)
-fetchPageResult_timingInformation = Lens.lens (\FetchPageResult' {timingInformation} -> timingInformation) (\s@FetchPageResult' {} a -> s {timingInformation = a} :: FetchPageResult)
 
 -- | Contains metrics about the number of I\/O requests that were consumed.
 fetchPageResult_consumedIOs :: Lens.Lens' FetchPageResult (Prelude.Maybe IOUsage)
@@ -74,25 +70,29 @@ fetchPageResult_consumedIOs = Lens.lens (\FetchPageResult' {consumedIOs} -> cons
 fetchPageResult_page :: Lens.Lens' FetchPageResult (Prelude.Maybe Page)
 fetchPageResult_page = Lens.lens (\FetchPageResult' {page} -> page) (\s@FetchPageResult' {} a -> s {page = a} :: FetchPageResult)
 
-instance Core.FromJSON FetchPageResult where
+-- | Contains server-side performance information for the command.
+fetchPageResult_timingInformation :: Lens.Lens' FetchPageResult (Prelude.Maybe TimingInformation)
+fetchPageResult_timingInformation = Lens.lens (\FetchPageResult' {timingInformation} -> timingInformation) (\s@FetchPageResult' {} a -> s {timingInformation = a} :: FetchPageResult)
+
+instance Data.FromJSON FetchPageResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FetchPageResult"
       ( \x ->
           FetchPageResult'
-            Prelude.<$> (x Core..:? "TimingInformation")
-            Prelude.<*> (x Core..:? "ConsumedIOs")
-            Prelude.<*> (x Core..:? "Page")
+            Prelude.<$> (x Data..:? "ConsumedIOs")
+            Prelude.<*> (x Data..:? "Page")
+            Prelude.<*> (x Data..:? "TimingInformation")
       )
 
 instance Prelude.Hashable FetchPageResult where
   hashWithSalt _salt FetchPageResult' {..} =
-    _salt `Prelude.hashWithSalt` timingInformation
-      `Prelude.hashWithSalt` consumedIOs
+    _salt `Prelude.hashWithSalt` consumedIOs
       `Prelude.hashWithSalt` page
+      `Prelude.hashWithSalt` timingInformation
 
 instance Prelude.NFData FetchPageResult where
   rnf FetchPageResult' {..} =
-    Prelude.rnf timingInformation
-      `Prelude.seq` Prelude.rnf consumedIOs
+    Prelude.rnf consumedIOs
       `Prelude.seq` Prelude.rnf page
+      `Prelude.seq` Prelude.rnf timingInformation

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.CloudWatchDimensionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SESV2.Types.CloudWatchDimensionConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SESV2.Types.DimensionValueSource
 
@@ -48,8 +49,8 @@ data CloudWatchDimensionConfiguration = CloudWatchDimensionConfiguration'
     -- CloudWatch if you don\'t provide the value of the dimension when you
     -- send an email. This value has to meet the following criteria:
     --
-    -- -   It can only contain ASCII letters (a–z, A–Z), numbers (0–9),
-    --     underscores (_), or dashes (-).
+    -- -   Can only contain ASCII letters (a–z, A–Z), numbers (0–9),
+    --     underscores (_), or dashes (-), at signs (\@), and periods (.).
     --
     -- -   It can contain no more than 256 characters.
     defaultDimensionValue :: Prelude.Text
@@ -83,8 +84,8 @@ data CloudWatchDimensionConfiguration = CloudWatchDimensionConfiguration'
 -- CloudWatch if you don\'t provide the value of the dimension when you
 -- send an email. This value has to meet the following criteria:
 --
--- -   It can only contain ASCII letters (a–z, A–Z), numbers (0–9),
---     underscores (_), or dashes (-).
+-- -   Can only contain ASCII letters (a–z, A–Z), numbers (0–9),
+--     underscores (_), or dashes (-), at signs (\@), and periods (.).
 --
 -- -   It can contain no more than 256 characters.
 newCloudWatchDimensionConfiguration ::
@@ -131,25 +132,25 @@ cloudWatchDimensionConfiguration_dimensionValueSource = Lens.lens (\CloudWatchDi
 -- CloudWatch if you don\'t provide the value of the dimension when you
 -- send an email. This value has to meet the following criteria:
 --
--- -   It can only contain ASCII letters (a–z, A–Z), numbers (0–9),
---     underscores (_), or dashes (-).
+-- -   Can only contain ASCII letters (a–z, A–Z), numbers (0–9),
+--     underscores (_), or dashes (-), at signs (\@), and periods (.).
 --
 -- -   It can contain no more than 256 characters.
 cloudWatchDimensionConfiguration_defaultDimensionValue :: Lens.Lens' CloudWatchDimensionConfiguration Prelude.Text
 cloudWatchDimensionConfiguration_defaultDimensionValue = Lens.lens (\CloudWatchDimensionConfiguration' {defaultDimensionValue} -> defaultDimensionValue) (\s@CloudWatchDimensionConfiguration' {} a -> s {defaultDimensionValue = a} :: CloudWatchDimensionConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     CloudWatchDimensionConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CloudWatchDimensionConfiguration"
       ( \x ->
           CloudWatchDimensionConfiguration'
-            Prelude.<$> (x Core..: "DimensionName")
-            Prelude.<*> (x Core..: "DimensionValueSource")
-            Prelude.<*> (x Core..: "DefaultDimensionValue")
+            Prelude.<$> (x Data..: "DimensionName")
+            Prelude.<*> (x Data..: "DimensionValueSource")
+            Prelude.<*> (x Data..: "DefaultDimensionValue")
       )
 
 instance
@@ -172,19 +173,19 @@ instance
       `Prelude.seq` Prelude.rnf dimensionValueSource
       `Prelude.seq` Prelude.rnf defaultDimensionValue
 
-instance Core.ToJSON CloudWatchDimensionConfiguration where
+instance Data.ToJSON CloudWatchDimensionConfiguration where
   toJSON CloudWatchDimensionConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("DimensionName" Core..= dimensionName),
+              ("DimensionName" Data..= dimensionName),
             Prelude.Just
               ( "DimensionValueSource"
-                  Core..= dimensionValueSource
+                  Data..= dimensionValueSource
               ),
             Prelude.Just
               ( "DefaultDimensionValue"
-                  Core..= defaultDimensionValue
+                  Data..= defaultDimensionValue
               )
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.Types.SourceIpConditionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ELBV2.Types.SourceIpConditionConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a source IP condition.
@@ -32,8 +33,8 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSourceIpConditionConfig' smart constructor.
 data SourceIpConditionConfig = SourceIpConditionConfig'
-  { -- | One or more source IP addresses, in CIDR format. You can use both IPv4
-    -- and IPv6 addresses. Wildcards are not supported.
+  { -- | The source IP addresses, in CIDR format. You can use both IPv4 and IPv6
+    -- addresses. Wildcards are not supported.
     --
     -- If you specify multiple addresses, the condition is satisfied if the
     -- source IP address of the request matches one of the CIDR blocks. This
@@ -52,8 +53,8 @@ data SourceIpConditionConfig = SourceIpConditionConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'values', 'sourceIpConditionConfig_values' - One or more source IP addresses, in CIDR format. You can use both IPv4
--- and IPv6 addresses. Wildcards are not supported.
+-- 'values', 'sourceIpConditionConfig_values' - The source IP addresses, in CIDR format. You can use both IPv4 and IPv6
+-- addresses. Wildcards are not supported.
 --
 -- If you specify multiple addresses, the condition is satisfied if the
 -- source IP address of the request matches one of the CIDR blocks. This
@@ -65,8 +66,8 @@ newSourceIpConditionConfig ::
 newSourceIpConditionConfig =
   SourceIpConditionConfig' {values = Prelude.Nothing}
 
--- | One or more source IP addresses, in CIDR format. You can use both IPv4
--- and IPv6 addresses. Wildcards are not supported.
+-- | The source IP addresses, in CIDR format. You can use both IPv4 and IPv6
+-- addresses. Wildcards are not supported.
 --
 -- If you specify multiple addresses, the condition is satisfied if the
 -- source IP address of the request matches one of the CIDR blocks. This
@@ -76,11 +77,11 @@ newSourceIpConditionConfig =
 sourceIpConditionConfig_values :: Lens.Lens' SourceIpConditionConfig (Prelude.Maybe [Prelude.Text])
 sourceIpConditionConfig_values = Lens.lens (\SourceIpConditionConfig' {values} -> values) (\s@SourceIpConditionConfig' {} a -> s {values = a} :: SourceIpConditionConfig) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML SourceIpConditionConfig where
+instance Data.FromXML SourceIpConditionConfig where
   parseXML x =
     SourceIpConditionConfig'
-      Prelude.<$> ( x Core..@? "Values" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+      Prelude.<$> ( x Data..@? "Values" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
 
 instance Prelude.Hashable SourceIpConditionConfig where
@@ -90,10 +91,10 @@ instance Prelude.Hashable SourceIpConditionConfig where
 instance Prelude.NFData SourceIpConditionConfig where
   rnf SourceIpConditionConfig' {..} = Prelude.rnf values
 
-instance Core.ToQuery SourceIpConditionConfig where
+instance Data.ToQuery SourceIpConditionConfig where
   toQuery SourceIpConditionConfig' {..} =
     Prelude.mconcat
       [ "Values"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> values)
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> values)
       ]

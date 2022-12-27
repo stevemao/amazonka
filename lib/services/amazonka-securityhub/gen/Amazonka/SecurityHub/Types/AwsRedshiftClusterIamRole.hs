@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsRedshiftClusterIamRole
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsRedshiftClusterIamRole where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An IAM role that the cluster can use to access other Amazon Web Services
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAwsRedshiftClusterIamRole' smart constructor.
 data AwsRedshiftClusterIamRole = AwsRedshiftClusterIamRole'
-  { -- | The ARN of the IAM role.
-    iamRoleArn :: Prelude.Maybe Prelude.Text,
-    -- | The status of the IAM role\'s association with the cluster.
+  { -- | The status of the IAM role\'s association with the cluster.
     --
     -- Valid values: @in-sync@ | @adding@ | @removing@
-    applyStatus :: Prelude.Maybe Prelude.Text
+    applyStatus :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the IAM role.
+    iamRoleArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,23 +46,19 @@ data AwsRedshiftClusterIamRole = AwsRedshiftClusterIamRole'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'iamRoleArn', 'awsRedshiftClusterIamRole_iamRoleArn' - The ARN of the IAM role.
---
 -- 'applyStatus', 'awsRedshiftClusterIamRole_applyStatus' - The status of the IAM role\'s association with the cluster.
 --
 -- Valid values: @in-sync@ | @adding@ | @removing@
+--
+-- 'iamRoleArn', 'awsRedshiftClusterIamRole_iamRoleArn' - The ARN of the IAM role.
 newAwsRedshiftClusterIamRole ::
   AwsRedshiftClusterIamRole
 newAwsRedshiftClusterIamRole =
   AwsRedshiftClusterIamRole'
-    { iamRoleArn =
+    { applyStatus =
         Prelude.Nothing,
-      applyStatus = Prelude.Nothing
+      iamRoleArn = Prelude.Nothing
     }
-
--- | The ARN of the IAM role.
-awsRedshiftClusterIamRole_iamRoleArn :: Lens.Lens' AwsRedshiftClusterIamRole (Prelude.Maybe Prelude.Text)
-awsRedshiftClusterIamRole_iamRoleArn = Lens.lens (\AwsRedshiftClusterIamRole' {iamRoleArn} -> iamRoleArn) (\s@AwsRedshiftClusterIamRole' {} a -> s {iamRoleArn = a} :: AwsRedshiftClusterIamRole)
 
 -- | The status of the IAM role\'s association with the cluster.
 --
@@ -69,31 +66,35 @@ awsRedshiftClusterIamRole_iamRoleArn = Lens.lens (\AwsRedshiftClusterIamRole' {i
 awsRedshiftClusterIamRole_applyStatus :: Lens.Lens' AwsRedshiftClusterIamRole (Prelude.Maybe Prelude.Text)
 awsRedshiftClusterIamRole_applyStatus = Lens.lens (\AwsRedshiftClusterIamRole' {applyStatus} -> applyStatus) (\s@AwsRedshiftClusterIamRole' {} a -> s {applyStatus = a} :: AwsRedshiftClusterIamRole)
 
-instance Core.FromJSON AwsRedshiftClusterIamRole where
+-- | The ARN of the IAM role.
+awsRedshiftClusterIamRole_iamRoleArn :: Lens.Lens' AwsRedshiftClusterIamRole (Prelude.Maybe Prelude.Text)
+awsRedshiftClusterIamRole_iamRoleArn = Lens.lens (\AwsRedshiftClusterIamRole' {iamRoleArn} -> iamRoleArn) (\s@AwsRedshiftClusterIamRole' {} a -> s {iamRoleArn = a} :: AwsRedshiftClusterIamRole)
+
+instance Data.FromJSON AwsRedshiftClusterIamRole where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsRedshiftClusterIamRole"
       ( \x ->
           AwsRedshiftClusterIamRole'
-            Prelude.<$> (x Core..:? "IamRoleArn")
-            Prelude.<*> (x Core..:? "ApplyStatus")
+            Prelude.<$> (x Data..:? "ApplyStatus")
+            Prelude.<*> (x Data..:? "IamRoleArn")
       )
 
 instance Prelude.Hashable AwsRedshiftClusterIamRole where
   hashWithSalt _salt AwsRedshiftClusterIamRole' {..} =
-    _salt `Prelude.hashWithSalt` iamRoleArn
-      `Prelude.hashWithSalt` applyStatus
+    _salt `Prelude.hashWithSalt` applyStatus
+      `Prelude.hashWithSalt` iamRoleArn
 
 instance Prelude.NFData AwsRedshiftClusterIamRole where
   rnf AwsRedshiftClusterIamRole' {..} =
-    Prelude.rnf iamRoleArn
-      `Prelude.seq` Prelude.rnf applyStatus
+    Prelude.rnf applyStatus
+      `Prelude.seq` Prelude.rnf iamRoleArn
 
-instance Core.ToJSON AwsRedshiftClusterIamRole where
+instance Data.ToJSON AwsRedshiftClusterIamRole where
   toJSON AwsRedshiftClusterIamRole' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IamRoleArn" Core..=) Prelude.<$> iamRoleArn,
-            ("ApplyStatus" Core..=) Prelude.<$> applyStatus
+          [ ("ApplyStatus" Data..=) Prelude.<$> applyStatus,
+            ("IamRoleArn" Data..=) Prelude.<$> iamRoleArn
           ]
       )

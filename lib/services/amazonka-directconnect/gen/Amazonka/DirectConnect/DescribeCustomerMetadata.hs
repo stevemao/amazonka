@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.DescribeCustomerMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,15 +33,16 @@ module Amazonka.DirectConnect.DescribeCustomerMetadata
     newDescribeCustomerMetadataResponse,
 
     -- * Response Lenses
-    describeCustomerMetadataResponse_nniPartnerType,
     describeCustomerMetadataResponse_agreements,
+    describeCustomerMetadataResponse_nniPartnerType,
     describeCustomerMetadataResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,13 +66,14 @@ instance Core.AWSRequest DescribeCustomerMetadata where
   type
     AWSResponse DescribeCustomerMetadata =
       DescribeCustomerMetadataResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeCustomerMetadataResponse'
-            Prelude.<$> (x Core..?> "nniPartnerType")
-            Prelude.<*> (x Core..?> "agreements" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "agreements" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nniPartnerType")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -82,33 +84,35 @@ instance Prelude.Hashable DescribeCustomerMetadata where
 instance Prelude.NFData DescribeCustomerMetadata where
   rnf _ = ()
 
-instance Core.ToHeaders DescribeCustomerMetadata where
+instance Data.ToHeaders DescribeCustomerMetadata where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.DescribeCustomerMetadata" ::
+              Data.=# ( "OvertureService.DescribeCustomerMetadata" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeCustomerMetadata where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DescribeCustomerMetadata where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DescribeCustomerMetadata where
+instance Data.ToPath DescribeCustomerMetadata where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeCustomerMetadata where
+instance Data.ToQuery DescribeCustomerMetadata where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeCustomerMetadataResponse' smart constructor.
 data DescribeCustomerMetadataResponse = DescribeCustomerMetadataResponse'
-  { -- | The type of network-to-network interface (NNI) partner. The partner type
+  { -- | The list of customer agreements.
+    agreements :: Prelude.Maybe [CustomerAgreement],
+    -- | The type of network-to-network interface (NNI) partner. The partner type
     -- will be one of the following:
     --
     -- -   V1: This partner can only allocate 50Mbps, 100Mbps, 200Mbps,
@@ -119,8 +123,6 @@ data DescribeCustomerMetadataResponse = DescribeCustomerMetadataResponse'
     --
     -- -   nonPartner: The customer is not a partner.
     nniPartnerType :: Prelude.Maybe NniPartnerType,
-    -- | The list of customer agreements.
-    agreements :: Prelude.Maybe [CustomerAgreement],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -134,6 +136,8 @@ data DescribeCustomerMetadataResponse = DescribeCustomerMetadataResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'agreements', 'describeCustomerMetadataResponse_agreements' - The list of customer agreements.
+--
 -- 'nniPartnerType', 'describeCustomerMetadataResponse_nniPartnerType' - The type of network-to-network interface (NNI) partner. The partner type
 -- will be one of the following:
 --
@@ -145,8 +149,6 @@ data DescribeCustomerMetadataResponse = DescribeCustomerMetadataResponse'
 --
 -- -   nonPartner: The customer is not a partner.
 --
--- 'agreements', 'describeCustomerMetadataResponse_agreements' - The list of customer agreements.
---
 -- 'httpStatus', 'describeCustomerMetadataResponse_httpStatus' - The response's http status code.
 newDescribeCustomerMetadataResponse ::
   -- | 'httpStatus'
@@ -154,11 +156,15 @@ newDescribeCustomerMetadataResponse ::
   DescribeCustomerMetadataResponse
 newDescribeCustomerMetadataResponse pHttpStatus_ =
   DescribeCustomerMetadataResponse'
-    { nniPartnerType =
+    { agreements =
         Prelude.Nothing,
-      agreements = Prelude.Nothing,
+      nniPartnerType = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The list of customer agreements.
+describeCustomerMetadataResponse_agreements :: Lens.Lens' DescribeCustomerMetadataResponse (Prelude.Maybe [CustomerAgreement])
+describeCustomerMetadataResponse_agreements = Lens.lens (\DescribeCustomerMetadataResponse' {agreements} -> agreements) (\s@DescribeCustomerMetadataResponse' {} a -> s {agreements = a} :: DescribeCustomerMetadataResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The type of network-to-network interface (NNI) partner. The partner type
 -- will be one of the following:
@@ -173,10 +179,6 @@ newDescribeCustomerMetadataResponse pHttpStatus_ =
 describeCustomerMetadataResponse_nniPartnerType :: Lens.Lens' DescribeCustomerMetadataResponse (Prelude.Maybe NniPartnerType)
 describeCustomerMetadataResponse_nniPartnerType = Lens.lens (\DescribeCustomerMetadataResponse' {nniPartnerType} -> nniPartnerType) (\s@DescribeCustomerMetadataResponse' {} a -> s {nniPartnerType = a} :: DescribeCustomerMetadataResponse)
 
--- | The list of customer agreements.
-describeCustomerMetadataResponse_agreements :: Lens.Lens' DescribeCustomerMetadataResponse (Prelude.Maybe [CustomerAgreement])
-describeCustomerMetadataResponse_agreements = Lens.lens (\DescribeCustomerMetadataResponse' {agreements} -> agreements) (\s@DescribeCustomerMetadataResponse' {} a -> s {agreements = a} :: DescribeCustomerMetadataResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The response's http status code.
 describeCustomerMetadataResponse_httpStatus :: Lens.Lens' DescribeCustomerMetadataResponse Prelude.Int
 describeCustomerMetadataResponse_httpStatus = Lens.lens (\DescribeCustomerMetadataResponse' {httpStatus} -> httpStatus) (\s@DescribeCustomerMetadataResponse' {} a -> s {httpStatus = a} :: DescribeCustomerMetadataResponse)
@@ -186,6 +188,6 @@ instance
     DescribeCustomerMetadataResponse
   where
   rnf DescribeCustomerMetadataResponse' {..} =
-    Prelude.rnf nniPartnerType
-      `Prelude.seq` Prelude.rnf agreements
+    Prelude.rnf agreements
+      `Prelude.seq` Prelude.rnf nniPartnerType
       `Prelude.seq` Prelude.rnf httpStatus

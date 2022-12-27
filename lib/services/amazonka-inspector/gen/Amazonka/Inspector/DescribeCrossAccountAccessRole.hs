@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.DescribeCrossAccountAccessRole
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Inspector.DescribeCrossAccountAccessRole
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,15 +69,16 @@ instance
   type
     AWSResponse DescribeCrossAccountAccessRole =
       DescribeCrossAccountAccessRoleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeCrossAccountAccessRoleResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "roleArn")
-            Prelude.<*> (x Core..:> "valid")
-            Prelude.<*> (x Core..:> "registeredAt")
+            Prelude.<*> (x Data..:> "roleArn")
+            Prelude.<*> (x Data..:> "valid")
+            Prelude.<*> (x Data..:> "registeredAt")
       )
 
 instance
@@ -93,30 +95,30 @@ instance
   rnf _ = ()
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeCrossAccountAccessRole
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.DescribeCrossAccountAccessRole" ::
+              Data.=# ( "InspectorService.DescribeCrossAccountAccessRole" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeCrossAccountAccessRole where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DescribeCrossAccountAccessRole where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DescribeCrossAccountAccessRole where
+instance Data.ToPath DescribeCrossAccountAccessRole where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeCrossAccountAccessRole where
+instance Data.ToQuery DescribeCrossAccountAccessRole where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeCrossAccountAccessRoleResponse' smart constructor.
@@ -130,7 +132,7 @@ data DescribeCrossAccountAccessRoleResponse = DescribeCrossAccountAccessRoleResp
     -- policies attached to enable Amazon Inspector to access your AWS account.
     valid :: Prelude.Bool,
     -- | The date when the cross-account access role was registered.
-    registeredAt :: Core.POSIX
+    registeredAt :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -172,7 +174,7 @@ newDescribeCrossAccountAccessRoleResponse
         roleArn = pRoleArn_,
         valid = pValid_,
         registeredAt =
-          Core._Time Lens.# pRegisteredAt_
+          Data._Time Lens.# pRegisteredAt_
       }
 
 -- | The response's http status code.
@@ -191,7 +193,7 @@ describeCrossAccountAccessRoleResponse_valid = Lens.lens (\DescribeCrossAccountA
 
 -- | The date when the cross-account access role was registered.
 describeCrossAccountAccessRoleResponse_registeredAt :: Lens.Lens' DescribeCrossAccountAccessRoleResponse Prelude.UTCTime
-describeCrossAccountAccessRoleResponse_registeredAt = Lens.lens (\DescribeCrossAccountAccessRoleResponse' {registeredAt} -> registeredAt) (\s@DescribeCrossAccountAccessRoleResponse' {} a -> s {registeredAt = a} :: DescribeCrossAccountAccessRoleResponse) Prelude.. Core._Time
+describeCrossAccountAccessRoleResponse_registeredAt = Lens.lens (\DescribeCrossAccountAccessRoleResponse' {registeredAt} -> registeredAt) (\s@DescribeCrossAccountAccessRoleResponse' {} a -> s {registeredAt = a} :: DescribeCrossAccountAccessRoleResponse) Prelude.. Data._Time
 
 instance
   Prelude.NFData

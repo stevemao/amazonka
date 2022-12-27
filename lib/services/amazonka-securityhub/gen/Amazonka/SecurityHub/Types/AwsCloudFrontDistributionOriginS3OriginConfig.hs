@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsCloudFrontDistributionOriginS3OriginConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.SecurityHub.Types.AwsCloudFrontDistributionOriginS3OriginConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Information about an origin that is an S3 bucket that is not configured
--- with static website hosting.
+-- | Information about an origin that is an Amazon S3 bucket that is not
+-- configured with static website hosting.
 --
 -- /See:/ 'newAwsCloudFrontDistributionOriginS3OriginConfig' smart constructor.
 data AwsCloudFrontDistributionOriginS3OriginConfig = AwsCloudFrontDistributionOriginS3OriginConfig'
@@ -55,15 +56,15 @@ awsCloudFrontDistributionOriginS3OriginConfig_originAccessIdentity :: Lens.Lens'
 awsCloudFrontDistributionOriginS3OriginConfig_originAccessIdentity = Lens.lens (\AwsCloudFrontDistributionOriginS3OriginConfig' {originAccessIdentity} -> originAccessIdentity) (\s@AwsCloudFrontDistributionOriginS3OriginConfig' {} a -> s {originAccessIdentity = a} :: AwsCloudFrontDistributionOriginS3OriginConfig)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsCloudFrontDistributionOriginS3OriginConfig
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsCloudFrontDistributionOriginS3OriginConfig"
       ( \x ->
           AwsCloudFrontDistributionOriginS3OriginConfig'
-            Prelude.<$> (x Core..:? "OriginAccessIdentity")
+            Prelude.<$> (x Data..:? "OriginAccessIdentity")
       )
 
 instance
@@ -84,14 +85,14 @@ instance
       Prelude.rnf originAccessIdentity
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsCloudFrontDistributionOriginS3OriginConfig
   where
   toJSON
     AwsCloudFrontDistributionOriginS3OriginConfig' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("OriginAccessIdentity" Core..=)
+            [ ("OriginAccessIdentity" Data..=)
                 Prelude.<$> originAccessIdentity
             ]
         )

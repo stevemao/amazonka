@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.AssociateIamInstanceProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.EC2.AssociateIamInstanceProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,12 +97,13 @@ instance Core.AWSRequest AssociateIamInstanceProfile where
   type
     AWSResponse AssociateIamInstanceProfile =
       AssociateIamInstanceProfileResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           AssociateIamInstanceProfileResponse'
-            Prelude.<$> (x Core..@? "iamInstanceProfileAssociation")
+            Prelude.<$> (x Data..@? "iamInstanceProfileAssociation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,23 +117,23 @@ instance Prelude.NFData AssociateIamInstanceProfile where
     Prelude.rnf iamInstanceProfile
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders AssociateIamInstanceProfile where
+instance Data.ToHeaders AssociateIamInstanceProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AssociateIamInstanceProfile where
+instance Data.ToPath AssociateIamInstanceProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateIamInstanceProfile where
+instance Data.ToQuery AssociateIamInstanceProfile where
   toQuery AssociateIamInstanceProfile' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "AssociateIamInstanceProfile" ::
+          Data.=: ( "AssociateIamInstanceProfile" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "IamInstanceProfile" Core.=: iamInstanceProfile,
-        "InstanceId" Core.=: instanceId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "IamInstanceProfile" Data.=: iamInstanceProfile,
+        "InstanceId" Data.=: instanceId
       ]
 
 -- | /See:/ 'newAssociateIamInstanceProfileResponse' smart constructor.

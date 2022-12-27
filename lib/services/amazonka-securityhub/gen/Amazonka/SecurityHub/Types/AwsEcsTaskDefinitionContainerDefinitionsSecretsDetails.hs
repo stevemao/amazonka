@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsSecretsDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsSecretsDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A secret to pass to the container.
@@ -70,16 +71,16 @@ awsEcsTaskDefinitionContainerDefinitionsSecretsDetails_valueFrom :: Lens.Lens' A
 awsEcsTaskDefinitionContainerDefinitionsSecretsDetails_valueFrom = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsSecretsDetails' {valueFrom} -> valueFrom) (\s@AwsEcsTaskDefinitionContainerDefinitionsSecretsDetails' {} a -> s {valueFrom = a} :: AwsEcsTaskDefinitionContainerDefinitionsSecretsDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsTaskDefinitionContainerDefinitionsSecretsDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsTaskDefinitionContainerDefinitionsSecretsDetails"
       ( \x ->
           AwsEcsTaskDefinitionContainerDefinitionsSecretsDetails'
-            Prelude.<$> (x Core..:? "Name")
-              Prelude.<*> (x Core..:? "ValueFrom")
+            Prelude.<$> (x Data..:? "Name")
+              Prelude.<*> (x Data..:? "ValueFrom")
       )
 
 instance
@@ -102,14 +103,14 @@ instance
         `Prelude.seq` Prelude.rnf valueFrom
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsTaskDefinitionContainerDefinitionsSecretsDetails
   where
   toJSON
     AwsEcsTaskDefinitionContainerDefinitionsSecretsDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Name" Core..=) Prelude.<$> name,
-              ("ValueFrom" Core..=) Prelude.<$> valueFrom
+            [ ("Name" Data..=) Prelude.<$> name,
+              ("ValueFrom" Data..=) Prelude.<$> valueFrom
             ]
         )

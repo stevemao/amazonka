@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.InstanceEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.InstanceEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.PortInfoSourceType
 import qualified Amazonka.Prelude as Prelude
 
@@ -239,16 +240,16 @@ instance Prelude.NFData InstanceEntry where
       `Prelude.seq` Prelude.rnf portInfoSource
       `Prelude.seq` Prelude.rnf availabilityZone
 
-instance Core.ToJSON InstanceEntry where
+instance Data.ToJSON InstanceEntry where
   toJSON InstanceEntry' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("userData" Core..=) Prelude.<$> userData,
-            Prelude.Just ("sourceName" Core..= sourceName),
-            Prelude.Just ("instanceType" Core..= instanceType),
+          [ ("userData" Data..=) Prelude.<$> userData,
+            Prelude.Just ("sourceName" Data..= sourceName),
+            Prelude.Just ("instanceType" Data..= instanceType),
             Prelude.Just
-              ("portInfoSource" Core..= portInfoSource),
+              ("portInfoSource" Data..= portInfoSource),
             Prelude.Just
-              ("availabilityZone" Core..= availabilityZone)
+              ("availabilityZone" Data..= availabilityZone)
           ]
       )

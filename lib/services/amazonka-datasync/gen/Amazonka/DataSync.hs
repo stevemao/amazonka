@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,12 +14,14 @@
 -- DataSync
 --
 -- DataSync is a managed data transfer service that makes it simpler for
--- you to automate moving data between on-premises storage and Amazon
--- Simple Storage Service (Amazon S3) or Amazon Elastic File System (Amazon
--- EFS).
+-- you to automate moving data between on-premises storage and Amazon Web
+-- Services storage services. You also can use DataSync to transfer data
+-- between other cloud providers and Amazon Web Services storage services.
 --
--- This API interface reference for DataSync contains documentation for a
--- programming interface that you can use to manage DataSync.
+-- This API interface reference includes documentation for using DataSync
+-- programmatically. For complete information, see the
+-- /<https://docs.aws.amazon.com/datasync/latest/userguide/what-is-datasync.html DataSync User Guide>/
+-- .
 module Amazonka.DataSync
   ( -- * Service Configuration
     defaultService,
@@ -27,11 +29,11 @@ module Amazonka.DataSync
     -- * Errors
     -- $errors
 
-    -- ** InvalidRequestException
-    _InvalidRequestException,
-
     -- ** InternalException
     _InternalException,
+
+    -- ** InvalidRequestException
+    _InvalidRequestException,
 
     -- * Waiters
     -- $waiters
@@ -39,125 +41,17 @@ module Amazonka.DataSync
     -- * Operations
     -- $operations
 
-    -- ** UpdateTask
-    UpdateTask (UpdateTask'),
-    newUpdateTask,
-    UpdateTaskResponse (UpdateTaskResponse'),
-    newUpdateTaskResponse,
+    -- ** CancelTaskExecution
+    CancelTaskExecution (CancelTaskExecution'),
+    newCancelTaskExecution,
+    CancelTaskExecutionResponse (CancelTaskExecutionResponse'),
+    newCancelTaskExecutionResponse,
 
-    -- ** DescribeAgent
-    DescribeAgent (DescribeAgent'),
-    newDescribeAgent,
-    DescribeAgentResponse (DescribeAgentResponse'),
-    newDescribeAgentResponse,
-
-    -- ** DeleteTask
-    DeleteTask (DeleteTask'),
-    newDeleteTask,
-    DeleteTaskResponse (DeleteTaskResponse'),
-    newDeleteTaskResponse,
-
-    -- ** DescribeLocationSmb
-    DescribeLocationSmb (DescribeLocationSmb'),
-    newDescribeLocationSmb,
-    DescribeLocationSmbResponse (DescribeLocationSmbResponse'),
-    newDescribeLocationSmbResponse,
-
-    -- ** ListLocations (Paginated)
-    ListLocations (ListLocations'),
-    newListLocations,
-    ListLocationsResponse (ListLocationsResponse'),
-    newListLocationsResponse,
-
-    -- ** CreateLocationNfs
-    CreateLocationNfs (CreateLocationNfs'),
-    newCreateLocationNfs,
-    CreateLocationNfsResponse (CreateLocationNfsResponse'),
-    newCreateLocationNfsResponse,
-
-    -- ** ListTagsForResource (Paginated)
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** DescribeLocationFsxWindows
-    DescribeLocationFsxWindows (DescribeLocationFsxWindows'),
-    newDescribeLocationFsxWindows,
-    DescribeLocationFsxWindowsResponse (DescribeLocationFsxWindowsResponse'),
-    newDescribeLocationFsxWindowsResponse,
-
-    -- ** CreateLocationObjectStorage
-    CreateLocationObjectStorage (CreateLocationObjectStorage'),
-    newCreateLocationObjectStorage,
-    CreateLocationObjectStorageResponse (CreateLocationObjectStorageResponse'),
-    newCreateLocationObjectStorageResponse,
-
-    -- ** DescribeTask
-    DescribeTask (DescribeTask'),
-    newDescribeTask,
-    DescribeTaskResponse (DescribeTaskResponse'),
-    newDescribeTaskResponse,
-
-    -- ** DescribeLocationS3
-    DescribeLocationS3 (DescribeLocationS3'),
-    newDescribeLocationS3,
-    DescribeLocationS3Response (DescribeLocationS3Response'),
-    newDescribeLocationS3Response,
-
-    -- ** ListAgents (Paginated)
-    ListAgents (ListAgents'),
-    newListAgents,
-    ListAgentsResponse (ListAgentsResponse'),
-    newListAgentsResponse,
-
-    -- ** UpdateLocationSmb
-    UpdateLocationSmb (UpdateLocationSmb'),
-    newUpdateLocationSmb,
-    UpdateLocationSmbResponse (UpdateLocationSmbResponse'),
-    newUpdateLocationSmbResponse,
-
-    -- ** DeleteAgent
-    DeleteAgent (DeleteAgent'),
-    newDeleteAgent,
-    DeleteAgentResponse (DeleteAgentResponse'),
-    newDeleteAgentResponse,
-
-    -- ** UpdateAgent
-    UpdateAgent (UpdateAgent'),
-    newUpdateAgent,
-    UpdateAgentResponse (UpdateAgentResponse'),
-    newUpdateAgentResponse,
-
-    -- ** CreateLocationFsxWindows
-    CreateLocationFsxWindows (CreateLocationFsxWindows'),
-    newCreateLocationFsxWindows,
-    CreateLocationFsxWindowsResponse (CreateLocationFsxWindowsResponse'),
-    newCreateLocationFsxWindowsResponse,
-
-    -- ** ListTaskExecutions (Paginated)
-    ListTaskExecutions (ListTaskExecutions'),
-    newListTaskExecutions,
-    ListTaskExecutionsResponse (ListTaskExecutionsResponse'),
-    newListTaskExecutionsResponse,
-
-    -- ** UpdateTaskExecution
-    UpdateTaskExecution (UpdateTaskExecution'),
-    newUpdateTaskExecution,
-    UpdateTaskExecutionResponse (UpdateTaskExecutionResponse'),
-    newUpdateTaskExecutionResponse,
-
-    -- ** CreateLocationS3
-    CreateLocationS3 (CreateLocationS3'),
-    newCreateLocationS3,
-    CreateLocationS3Response (CreateLocationS3Response'),
-    newCreateLocationS3Response,
-
-    -- ** CreateTask
-    CreateTask (CreateTask'),
-    newCreateTask,
-    CreateTaskResponse (CreateTaskResponse'),
-    newCreateTaskResponse,
+    -- ** CreateAgent
+    CreateAgent (CreateAgent'),
+    newCreateAgent,
+    CreateAgentResponse (CreateAgentResponse'),
+    newCreateAgentResponse,
 
     -- ** CreateLocationEfs
     CreateLocationEfs (CreateLocationEfs'),
@@ -165,17 +59,185 @@ module Amazonka.DataSync
     CreateLocationEfsResponse (CreateLocationEfsResponse'),
     newCreateLocationEfsResponse,
 
-    -- ** DescribeLocationObjectStorage
-    DescribeLocationObjectStorage (DescribeLocationObjectStorage'),
-    newDescribeLocationObjectStorage,
-    DescribeLocationObjectStorageResponse (DescribeLocationObjectStorageResponse'),
-    newDescribeLocationObjectStorageResponse,
+    -- ** CreateLocationFsxLustre
+    CreateLocationFsxLustre (CreateLocationFsxLustre'),
+    newCreateLocationFsxLustre,
+    CreateLocationFsxLustreResponse (CreateLocationFsxLustreResponse'),
+    newCreateLocationFsxLustreResponse,
+
+    -- ** CreateLocationFsxOntap
+    CreateLocationFsxOntap (CreateLocationFsxOntap'),
+    newCreateLocationFsxOntap,
+    CreateLocationFsxOntapResponse (CreateLocationFsxOntapResponse'),
+    newCreateLocationFsxOntapResponse,
+
+    -- ** CreateLocationFsxOpenZfs
+    CreateLocationFsxOpenZfs (CreateLocationFsxOpenZfs'),
+    newCreateLocationFsxOpenZfs,
+    CreateLocationFsxOpenZfsResponse (CreateLocationFsxOpenZfsResponse'),
+    newCreateLocationFsxOpenZfsResponse,
+
+    -- ** CreateLocationFsxWindows
+    CreateLocationFsxWindows (CreateLocationFsxWindows'),
+    newCreateLocationFsxWindows,
+    CreateLocationFsxWindowsResponse (CreateLocationFsxWindowsResponse'),
+    newCreateLocationFsxWindowsResponse,
+
+    -- ** CreateLocationHdfs
+    CreateLocationHdfs (CreateLocationHdfs'),
+    newCreateLocationHdfs,
+    CreateLocationHdfsResponse (CreateLocationHdfsResponse'),
+    newCreateLocationHdfsResponse,
+
+    -- ** CreateLocationNfs
+    CreateLocationNfs (CreateLocationNfs'),
+    newCreateLocationNfs,
+    CreateLocationNfsResponse (CreateLocationNfsResponse'),
+    newCreateLocationNfsResponse,
+
+    -- ** CreateLocationObjectStorage
+    CreateLocationObjectStorage (CreateLocationObjectStorage'),
+    newCreateLocationObjectStorage,
+    CreateLocationObjectStorageResponse (CreateLocationObjectStorageResponse'),
+    newCreateLocationObjectStorageResponse,
+
+    -- ** CreateLocationS3
+    CreateLocationS3 (CreateLocationS3'),
+    newCreateLocationS3,
+    CreateLocationS3Response (CreateLocationS3Response'),
+    newCreateLocationS3Response,
+
+    -- ** CreateLocationSmb
+    CreateLocationSmb (CreateLocationSmb'),
+    newCreateLocationSmb,
+    CreateLocationSmbResponse (CreateLocationSmbResponse'),
+    newCreateLocationSmbResponse,
+
+    -- ** CreateTask
+    CreateTask (CreateTask'),
+    newCreateTask,
+    CreateTaskResponse (CreateTaskResponse'),
+    newCreateTaskResponse,
+
+    -- ** DeleteAgent
+    DeleteAgent (DeleteAgent'),
+    newDeleteAgent,
+    DeleteAgentResponse (DeleteAgentResponse'),
+    newDeleteAgentResponse,
 
     -- ** DeleteLocation
     DeleteLocation (DeleteLocation'),
     newDeleteLocation,
     DeleteLocationResponse (DeleteLocationResponse'),
     newDeleteLocationResponse,
+
+    -- ** DeleteTask
+    DeleteTask (DeleteTask'),
+    newDeleteTask,
+    DeleteTaskResponse (DeleteTaskResponse'),
+    newDeleteTaskResponse,
+
+    -- ** DescribeAgent
+    DescribeAgent (DescribeAgent'),
+    newDescribeAgent,
+    DescribeAgentResponse (DescribeAgentResponse'),
+    newDescribeAgentResponse,
+
+    -- ** DescribeLocationEfs
+    DescribeLocationEfs (DescribeLocationEfs'),
+    newDescribeLocationEfs,
+    DescribeLocationEfsResponse (DescribeLocationEfsResponse'),
+    newDescribeLocationEfsResponse,
+
+    -- ** DescribeLocationFsxLustre
+    DescribeLocationFsxLustre (DescribeLocationFsxLustre'),
+    newDescribeLocationFsxLustre,
+    DescribeLocationFsxLustreResponse (DescribeLocationFsxLustreResponse'),
+    newDescribeLocationFsxLustreResponse,
+
+    -- ** DescribeLocationFsxOntap
+    DescribeLocationFsxOntap (DescribeLocationFsxOntap'),
+    newDescribeLocationFsxOntap,
+    DescribeLocationFsxOntapResponse (DescribeLocationFsxOntapResponse'),
+    newDescribeLocationFsxOntapResponse,
+
+    -- ** DescribeLocationFsxOpenZfs
+    DescribeLocationFsxOpenZfs (DescribeLocationFsxOpenZfs'),
+    newDescribeLocationFsxOpenZfs,
+    DescribeLocationFsxOpenZfsResponse (DescribeLocationFsxOpenZfsResponse'),
+    newDescribeLocationFsxOpenZfsResponse,
+
+    -- ** DescribeLocationFsxWindows
+    DescribeLocationFsxWindows (DescribeLocationFsxWindows'),
+    newDescribeLocationFsxWindows,
+    DescribeLocationFsxWindowsResponse (DescribeLocationFsxWindowsResponse'),
+    newDescribeLocationFsxWindowsResponse,
+
+    -- ** DescribeLocationHdfs
+    DescribeLocationHdfs (DescribeLocationHdfs'),
+    newDescribeLocationHdfs,
+    DescribeLocationHdfsResponse (DescribeLocationHdfsResponse'),
+    newDescribeLocationHdfsResponse,
+
+    -- ** DescribeLocationNfs
+    DescribeLocationNfs (DescribeLocationNfs'),
+    newDescribeLocationNfs,
+    DescribeLocationNfsResponse (DescribeLocationNfsResponse'),
+    newDescribeLocationNfsResponse,
+
+    -- ** DescribeLocationObjectStorage
+    DescribeLocationObjectStorage (DescribeLocationObjectStorage'),
+    newDescribeLocationObjectStorage,
+    DescribeLocationObjectStorageResponse (DescribeLocationObjectStorageResponse'),
+    newDescribeLocationObjectStorageResponse,
+
+    -- ** DescribeLocationS3
+    DescribeLocationS3 (DescribeLocationS3'),
+    newDescribeLocationS3,
+    DescribeLocationS3Response (DescribeLocationS3Response'),
+    newDescribeLocationS3Response,
+
+    -- ** DescribeLocationSmb
+    DescribeLocationSmb (DescribeLocationSmb'),
+    newDescribeLocationSmb,
+    DescribeLocationSmbResponse (DescribeLocationSmbResponse'),
+    newDescribeLocationSmbResponse,
+
+    -- ** DescribeTask
+    DescribeTask (DescribeTask'),
+    newDescribeTask,
+    DescribeTaskResponse (DescribeTaskResponse'),
+    newDescribeTaskResponse,
+
+    -- ** DescribeTaskExecution
+    DescribeTaskExecution (DescribeTaskExecution'),
+    newDescribeTaskExecution,
+    DescribeTaskExecutionResponse (DescribeTaskExecutionResponse'),
+    newDescribeTaskExecutionResponse,
+
+    -- ** ListAgents (Paginated)
+    ListAgents (ListAgents'),
+    newListAgents,
+    ListAgentsResponse (ListAgentsResponse'),
+    newListAgentsResponse,
+
+    -- ** ListLocations (Paginated)
+    ListLocations (ListLocations'),
+    newListLocations,
+    ListLocationsResponse (ListLocationsResponse'),
+    newListLocationsResponse,
+
+    -- ** ListTagsForResource (Paginated)
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** ListTaskExecutions (Paginated)
+    ListTaskExecutions (ListTaskExecutions'),
+    newListTaskExecutions,
+    ListTaskExecutionsResponse (ListTaskExecutionsResponse'),
+    newListTaskExecutionsResponse,
 
     -- ** ListTasks (Paginated)
     ListTasks (ListTasks'),
@@ -189,42 +251,6 @@ module Amazonka.DataSync
     StartTaskExecutionResponse (StartTaskExecutionResponse'),
     newStartTaskExecutionResponse,
 
-    -- ** UpdateLocationNfs
-    UpdateLocationNfs (UpdateLocationNfs'),
-    newUpdateLocationNfs,
-    UpdateLocationNfsResponse (UpdateLocationNfsResponse'),
-    newUpdateLocationNfsResponse,
-
-    -- ** DescribeTaskExecution
-    DescribeTaskExecution (DescribeTaskExecution'),
-    newDescribeTaskExecution,
-    DescribeTaskExecutionResponse (DescribeTaskExecutionResponse'),
-    newDescribeTaskExecutionResponse,
-
-    -- ** CreateLocationSmb
-    CreateLocationSmb (CreateLocationSmb'),
-    newCreateLocationSmb,
-    CreateLocationSmbResponse (CreateLocationSmbResponse'),
-    newCreateLocationSmbResponse,
-
-    -- ** CreateAgent
-    CreateAgent (CreateAgent'),
-    newCreateAgent,
-    CreateAgentResponse (CreateAgentResponse'),
-    newCreateAgentResponse,
-
-    -- ** UpdateLocationObjectStorage
-    UpdateLocationObjectStorage (UpdateLocationObjectStorage'),
-    newUpdateLocationObjectStorage,
-    UpdateLocationObjectStorageResponse (UpdateLocationObjectStorageResponse'),
-    newUpdateLocationObjectStorageResponse,
-
-    -- ** DescribeLocationEfs
-    DescribeLocationEfs (DescribeLocationEfs'),
-    newDescribeLocationEfs,
-    DescribeLocationEfsResponse (DescribeLocationEfsResponse'),
-    newDescribeLocationEfsResponse,
-
     -- ** TagResource
     TagResource (TagResource'),
     newTagResource,
@@ -237,17 +263,47 @@ module Amazonka.DataSync
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** DescribeLocationNfs
-    DescribeLocationNfs (DescribeLocationNfs'),
-    newDescribeLocationNfs,
-    DescribeLocationNfsResponse (DescribeLocationNfsResponse'),
-    newDescribeLocationNfsResponse,
+    -- ** UpdateAgent
+    UpdateAgent (UpdateAgent'),
+    newUpdateAgent,
+    UpdateAgentResponse (UpdateAgentResponse'),
+    newUpdateAgentResponse,
 
-    -- ** CancelTaskExecution
-    CancelTaskExecution (CancelTaskExecution'),
-    newCancelTaskExecution,
-    CancelTaskExecutionResponse (CancelTaskExecutionResponse'),
-    newCancelTaskExecutionResponse,
+    -- ** UpdateLocationHdfs
+    UpdateLocationHdfs (UpdateLocationHdfs'),
+    newUpdateLocationHdfs,
+    UpdateLocationHdfsResponse (UpdateLocationHdfsResponse'),
+    newUpdateLocationHdfsResponse,
+
+    -- ** UpdateLocationNfs
+    UpdateLocationNfs (UpdateLocationNfs'),
+    newUpdateLocationNfs,
+    UpdateLocationNfsResponse (UpdateLocationNfsResponse'),
+    newUpdateLocationNfsResponse,
+
+    -- ** UpdateLocationObjectStorage
+    UpdateLocationObjectStorage (UpdateLocationObjectStorage'),
+    newUpdateLocationObjectStorage,
+    UpdateLocationObjectStorageResponse (UpdateLocationObjectStorageResponse'),
+    newUpdateLocationObjectStorageResponse,
+
+    -- ** UpdateLocationSmb
+    UpdateLocationSmb (UpdateLocationSmb'),
+    newUpdateLocationSmb,
+    UpdateLocationSmbResponse (UpdateLocationSmbResponse'),
+    newUpdateLocationSmbResponse,
+
+    -- ** UpdateTask
+    UpdateTask (UpdateTask'),
+    newUpdateTask,
+    UpdateTaskResponse (UpdateTaskResponse'),
+    newUpdateTaskResponse,
+
+    -- ** UpdateTaskExecution
+    UpdateTaskExecution (UpdateTaskExecution'),
+    newUpdateTaskExecution,
+    UpdateTaskExecutionResponse (UpdateTaskExecutionResponse'),
+    newUpdateTaskExecutionResponse,
 
     -- * Types
 
@@ -257,6 +313,9 @@ module Amazonka.DataSync
     -- ** Atime
     Atime (..),
 
+    -- ** EfsInTransitEncryption
+    EfsInTransitEncryption (..),
+
     -- ** EndpointType
     EndpointType (..),
 
@@ -265,6 +324,15 @@ module Amazonka.DataSync
 
     -- ** Gid
     Gid (..),
+
+    -- ** HdfsAuthenticationType
+    HdfsAuthenticationType (..),
+
+    -- ** HdfsDataTransferProtection
+    HdfsDataTransferProtection (..),
+
+    -- ** HdfsRpcProtection
+    HdfsRpcProtection (..),
 
     -- ** LocationFilterName
     LocationFilterName (..),
@@ -280,6 +348,9 @@ module Amazonka.DataSync
 
     -- ** ObjectStorageServerProtocol
     ObjectStorageServerProtocol (..),
+
+    -- ** ObjectTags
+    ObjectTags (..),
 
     -- ** Operator
     Operator (..),
@@ -341,6 +412,22 @@ module Amazonka.DataSync
     FilterRule (FilterRule'),
     newFilterRule,
 
+    -- ** FsxProtocol
+    FsxProtocol (FsxProtocol'),
+    newFsxProtocol,
+
+    -- ** FsxProtocolNfs
+    FsxProtocolNfs (FsxProtocolNfs'),
+    newFsxProtocolNfs,
+
+    -- ** FsxProtocolSmb
+    FsxProtocolSmb (FsxProtocolSmb'),
+    newFsxProtocolSmb,
+
+    -- ** HdfsNameNode
+    HdfsNameNode (HdfsNameNode'),
+    newHdfsNameNode,
+
     -- ** LocationFilter
     LocationFilter (LocationFilter'),
     newLocationFilter,
@@ -364,6 +451,10 @@ module Amazonka.DataSync
     -- ** PrivateLinkConfig
     PrivateLinkConfig (PrivateLinkConfig'),
     newPrivateLinkConfig,
+
+    -- ** QopConfiguration
+    QopConfiguration (QopConfiguration'),
+    newQopConfiguration,
 
     -- ** S3Config
     S3Config (S3Config'),
@@ -402,7 +493,11 @@ where
 import Amazonka.DataSync.CancelTaskExecution
 import Amazonka.DataSync.CreateAgent
 import Amazonka.DataSync.CreateLocationEfs
+import Amazonka.DataSync.CreateLocationFsxLustre
+import Amazonka.DataSync.CreateLocationFsxOntap
+import Amazonka.DataSync.CreateLocationFsxOpenZfs
 import Amazonka.DataSync.CreateLocationFsxWindows
+import Amazonka.DataSync.CreateLocationHdfs
 import Amazonka.DataSync.CreateLocationNfs
 import Amazonka.DataSync.CreateLocationObjectStorage
 import Amazonka.DataSync.CreateLocationS3
@@ -413,7 +508,11 @@ import Amazonka.DataSync.DeleteLocation
 import Amazonka.DataSync.DeleteTask
 import Amazonka.DataSync.DescribeAgent
 import Amazonka.DataSync.DescribeLocationEfs
+import Amazonka.DataSync.DescribeLocationFsxLustre
+import Amazonka.DataSync.DescribeLocationFsxOntap
+import Amazonka.DataSync.DescribeLocationFsxOpenZfs
 import Amazonka.DataSync.DescribeLocationFsxWindows
+import Amazonka.DataSync.DescribeLocationHdfs
 import Amazonka.DataSync.DescribeLocationNfs
 import Amazonka.DataSync.DescribeLocationObjectStorage
 import Amazonka.DataSync.DescribeLocationS3
@@ -431,6 +530,7 @@ import Amazonka.DataSync.TagResource
 import Amazonka.DataSync.Types
 import Amazonka.DataSync.UntagResource
 import Amazonka.DataSync.UpdateAgent
+import Amazonka.DataSync.UpdateLocationHdfs
 import Amazonka.DataSync.UpdateLocationNfs
 import Amazonka.DataSync.UpdateLocationObjectStorage
 import Amazonka.DataSync.UpdateLocationSmb

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.GatewayRouteVirtualService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppMesh.Types.GatewayRouteVirtualService where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the virtual service that traffic is routed to.
@@ -55,13 +56,13 @@ newGatewayRouteVirtualService pVirtualServiceName_ =
 gatewayRouteVirtualService_virtualServiceName :: Lens.Lens' GatewayRouteVirtualService Prelude.Text
 gatewayRouteVirtualService_virtualServiceName = Lens.lens (\GatewayRouteVirtualService' {virtualServiceName} -> virtualServiceName) (\s@GatewayRouteVirtualService' {} a -> s {virtualServiceName = a} :: GatewayRouteVirtualService)
 
-instance Core.FromJSON GatewayRouteVirtualService where
+instance Data.FromJSON GatewayRouteVirtualService where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GatewayRouteVirtualService"
       ( \x ->
           GatewayRouteVirtualService'
-            Prelude.<$> (x Core..: "virtualServiceName")
+            Prelude.<$> (x Data..: "virtualServiceName")
       )
 
 instance Prelude.Hashable GatewayRouteVirtualService where
@@ -72,11 +73,11 @@ instance Prelude.NFData GatewayRouteVirtualService where
   rnf GatewayRouteVirtualService' {..} =
     Prelude.rnf virtualServiceName
 
-instance Core.ToJSON GatewayRouteVirtualService where
+instance Data.ToJSON GatewayRouteVirtualService where
   toJSON GatewayRouteVirtualService' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("virtualServiceName" Core..= virtualServiceName)
+              ("virtualServiceName" Data..= virtualServiceName)
           ]
       )

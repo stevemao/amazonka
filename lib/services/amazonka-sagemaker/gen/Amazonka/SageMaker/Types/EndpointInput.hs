@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.EndpointInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.EndpointInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.ProcessingS3DataDistributionType
 import Amazonka.SageMaker.Types.ProcessingS3InputMode
@@ -29,8 +30,20 @@ import Amazonka.SageMaker.Types.ProcessingS3InputMode
 --
 -- /See:/ 'newEndpointInput' smart constructor.
 data EndpointInput = EndpointInput'
-  { -- | The attribute of the input data that represents the ground truth label.
+  { -- | If specified, monitoring jobs substract this time from the end time. For
+    -- information about using offsets for scheduling monitoring jobs, see
+    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-model-quality-schedule.html Schedule Model Quality Monitoring Jobs>.
+    endTimeOffset :: Prelude.Maybe Prelude.Text,
+    -- | The attributes of the input data that are the input features.
+    featuresAttribute :: Prelude.Maybe Prelude.Text,
+    -- | The attribute of the input data that represents the ground truth label.
     inferenceAttribute :: Prelude.Maybe Prelude.Text,
+    -- | In a classification problem, the attribute that represents the class
+    -- probability.
+    probabilityAttribute :: Prelude.Maybe Prelude.Text,
+    -- | The threshold for the class probability to be evaluated as a positive
+    -- result.
+    probabilityThresholdAttribute :: Prelude.Maybe Prelude.Double,
     -- | Whether input data distributed in Amazon S3 is fully replicated or
     -- sharded by an S3 key. Defaults to @FullyReplicated@
     s3DataDistributionType :: Prelude.Maybe ProcessingS3DataDistributionType,
@@ -43,18 +56,6 @@ data EndpointInput = EndpointInput'
     -- For information about using offsets for scheduling monitoring jobs, see
     -- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-model-quality-schedule.html Schedule Model Quality Monitoring Jobs>.
     startTimeOffset :: Prelude.Maybe Prelude.Text,
-    -- | The attributes of the input data that are the input features.
-    featuresAttribute :: Prelude.Maybe Prelude.Text,
-    -- | If specified, monitoring jobs substract this time from the end time. For
-    -- information about using offsets for scheduling monitoring jobs, see
-    -- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-model-quality-schedule.html Schedule Model Quality Monitoring Jobs>.
-    endTimeOffset :: Prelude.Maybe Prelude.Text,
-    -- | The threshold for the class probability to be evaluated as a positive
-    -- result.
-    probabilityThresholdAttribute :: Prelude.Maybe Prelude.Double,
-    -- | In a classification problem, the attribute that represents the class
-    -- probability.
-    probabilityAttribute :: Prelude.Maybe Prelude.Text,
     -- | An endpoint in customer\'s account which has enabled @DataCaptureConfig@
     -- enabled.
     endpointName :: Prelude.Text,
@@ -72,7 +73,19 @@ data EndpointInput = EndpointInput'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'endTimeOffset', 'endpointInput_endTimeOffset' - If specified, monitoring jobs substract this time from the end time. For
+-- information about using offsets for scheduling monitoring jobs, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-model-quality-schedule.html Schedule Model Quality Monitoring Jobs>.
+--
+-- 'featuresAttribute', 'endpointInput_featuresAttribute' - The attributes of the input data that are the input features.
+--
 -- 'inferenceAttribute', 'endpointInput_inferenceAttribute' - The attribute of the input data that represents the ground truth label.
+--
+-- 'probabilityAttribute', 'endpointInput_probabilityAttribute' - In a classification problem, the attribute that represents the class
+-- probability.
+--
+-- 'probabilityThresholdAttribute', 'endpointInput_probabilityThresholdAttribute' - The threshold for the class probability to be evaluated as a positive
+-- result.
 --
 -- 's3DataDistributionType', 'endpointInput_s3DataDistributionType' - Whether input data distributed in Amazon S3 is fully replicated or
 -- sharded by an S3 key. Defaults to @FullyReplicated@
@@ -85,18 +98,6 @@ data EndpointInput = EndpointInput'
 -- 'startTimeOffset', 'endpointInput_startTimeOffset' - If specified, monitoring jobs substract this time from the start time.
 -- For information about using offsets for scheduling monitoring jobs, see
 -- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-model-quality-schedule.html Schedule Model Quality Monitoring Jobs>.
---
--- 'featuresAttribute', 'endpointInput_featuresAttribute' - The attributes of the input data that are the input features.
---
--- 'endTimeOffset', 'endpointInput_endTimeOffset' - If specified, monitoring jobs substract this time from the end time. For
--- information about using offsets for scheduling monitoring jobs, see
--- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-model-quality-schedule.html Schedule Model Quality Monitoring Jobs>.
---
--- 'probabilityThresholdAttribute', 'endpointInput_probabilityThresholdAttribute' - The threshold for the class probability to be evaluated as a positive
--- result.
---
--- 'probabilityAttribute', 'endpointInput_probabilityAttribute' - In a classification problem, the attribute that represents the class
--- probability.
 --
 -- 'endpointName', 'endpointInput_endpointName' - An endpoint in customer\'s account which has enabled @DataCaptureConfig@
 -- enabled.
@@ -111,22 +112,41 @@ newEndpointInput ::
   EndpointInput
 newEndpointInput pEndpointName_ pLocalPath_ =
   EndpointInput'
-    { inferenceAttribute =
-        Prelude.Nothing,
+    { endTimeOffset = Prelude.Nothing,
+      featuresAttribute = Prelude.Nothing,
+      inferenceAttribute = Prelude.Nothing,
+      probabilityAttribute = Prelude.Nothing,
+      probabilityThresholdAttribute = Prelude.Nothing,
       s3DataDistributionType = Prelude.Nothing,
       s3InputMode = Prelude.Nothing,
       startTimeOffset = Prelude.Nothing,
-      featuresAttribute = Prelude.Nothing,
-      endTimeOffset = Prelude.Nothing,
-      probabilityThresholdAttribute = Prelude.Nothing,
-      probabilityAttribute = Prelude.Nothing,
       endpointName = pEndpointName_,
       localPath = pLocalPath_
     }
 
+-- | If specified, monitoring jobs substract this time from the end time. For
+-- information about using offsets for scheduling monitoring jobs, see
+-- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-model-quality-schedule.html Schedule Model Quality Monitoring Jobs>.
+endpointInput_endTimeOffset :: Lens.Lens' EndpointInput (Prelude.Maybe Prelude.Text)
+endpointInput_endTimeOffset = Lens.lens (\EndpointInput' {endTimeOffset} -> endTimeOffset) (\s@EndpointInput' {} a -> s {endTimeOffset = a} :: EndpointInput)
+
+-- | The attributes of the input data that are the input features.
+endpointInput_featuresAttribute :: Lens.Lens' EndpointInput (Prelude.Maybe Prelude.Text)
+endpointInput_featuresAttribute = Lens.lens (\EndpointInput' {featuresAttribute} -> featuresAttribute) (\s@EndpointInput' {} a -> s {featuresAttribute = a} :: EndpointInput)
+
 -- | The attribute of the input data that represents the ground truth label.
 endpointInput_inferenceAttribute :: Lens.Lens' EndpointInput (Prelude.Maybe Prelude.Text)
 endpointInput_inferenceAttribute = Lens.lens (\EndpointInput' {inferenceAttribute} -> inferenceAttribute) (\s@EndpointInput' {} a -> s {inferenceAttribute = a} :: EndpointInput)
+
+-- | In a classification problem, the attribute that represents the class
+-- probability.
+endpointInput_probabilityAttribute :: Lens.Lens' EndpointInput (Prelude.Maybe Prelude.Text)
+endpointInput_probabilityAttribute = Lens.lens (\EndpointInput' {probabilityAttribute} -> probabilityAttribute) (\s@EndpointInput' {} a -> s {probabilityAttribute = a} :: EndpointInput)
+
+-- | The threshold for the class probability to be evaluated as a positive
+-- result.
+endpointInput_probabilityThresholdAttribute :: Lens.Lens' EndpointInput (Prelude.Maybe Prelude.Double)
+endpointInput_probabilityThresholdAttribute = Lens.lens (\EndpointInput' {probabilityThresholdAttribute} -> probabilityThresholdAttribute) (\s@EndpointInput' {} a -> s {probabilityThresholdAttribute = a} :: EndpointInput)
 
 -- | Whether input data distributed in Amazon S3 is fully replicated or
 -- sharded by an S3 key. Defaults to @FullyReplicated@
@@ -146,26 +166,6 @@ endpointInput_s3InputMode = Lens.lens (\EndpointInput' {s3InputMode} -> s3InputM
 endpointInput_startTimeOffset :: Lens.Lens' EndpointInput (Prelude.Maybe Prelude.Text)
 endpointInput_startTimeOffset = Lens.lens (\EndpointInput' {startTimeOffset} -> startTimeOffset) (\s@EndpointInput' {} a -> s {startTimeOffset = a} :: EndpointInput)
 
--- | The attributes of the input data that are the input features.
-endpointInput_featuresAttribute :: Lens.Lens' EndpointInput (Prelude.Maybe Prelude.Text)
-endpointInput_featuresAttribute = Lens.lens (\EndpointInput' {featuresAttribute} -> featuresAttribute) (\s@EndpointInput' {} a -> s {featuresAttribute = a} :: EndpointInput)
-
--- | If specified, monitoring jobs substract this time from the end time. For
--- information about using offsets for scheduling monitoring jobs, see
--- <https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor-model-quality-schedule.html Schedule Model Quality Monitoring Jobs>.
-endpointInput_endTimeOffset :: Lens.Lens' EndpointInput (Prelude.Maybe Prelude.Text)
-endpointInput_endTimeOffset = Lens.lens (\EndpointInput' {endTimeOffset} -> endTimeOffset) (\s@EndpointInput' {} a -> s {endTimeOffset = a} :: EndpointInput)
-
--- | The threshold for the class probability to be evaluated as a positive
--- result.
-endpointInput_probabilityThresholdAttribute :: Lens.Lens' EndpointInput (Prelude.Maybe Prelude.Double)
-endpointInput_probabilityThresholdAttribute = Lens.lens (\EndpointInput' {probabilityThresholdAttribute} -> probabilityThresholdAttribute) (\s@EndpointInput' {} a -> s {probabilityThresholdAttribute = a} :: EndpointInput)
-
--- | In a classification problem, the attribute that represents the class
--- probability.
-endpointInput_probabilityAttribute :: Lens.Lens' EndpointInput (Prelude.Maybe Prelude.Text)
-endpointInput_probabilityAttribute = Lens.lens (\EndpointInput' {probabilityAttribute} -> probabilityAttribute) (\s@EndpointInput' {} a -> s {probabilityAttribute = a} :: EndpointInput)
-
 -- | An endpoint in customer\'s account which has enabled @DataCaptureConfig@
 -- enabled.
 endpointInput_endpointName :: Lens.Lens' EndpointInput Prelude.Text
@@ -176,69 +176,69 @@ endpointInput_endpointName = Lens.lens (\EndpointInput' {endpointName} -> endpoi
 endpointInput_localPath :: Lens.Lens' EndpointInput Prelude.Text
 endpointInput_localPath = Lens.lens (\EndpointInput' {localPath} -> localPath) (\s@EndpointInput' {} a -> s {localPath = a} :: EndpointInput)
 
-instance Core.FromJSON EndpointInput where
+instance Data.FromJSON EndpointInput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EndpointInput"
       ( \x ->
           EndpointInput'
-            Prelude.<$> (x Core..:? "InferenceAttribute")
-            Prelude.<*> (x Core..:? "S3DataDistributionType")
-            Prelude.<*> (x Core..:? "S3InputMode")
-            Prelude.<*> (x Core..:? "StartTimeOffset")
-            Prelude.<*> (x Core..:? "FeaturesAttribute")
-            Prelude.<*> (x Core..:? "EndTimeOffset")
-            Prelude.<*> (x Core..:? "ProbabilityThresholdAttribute")
-            Prelude.<*> (x Core..:? "ProbabilityAttribute")
-            Prelude.<*> (x Core..: "EndpointName")
-            Prelude.<*> (x Core..: "LocalPath")
+            Prelude.<$> (x Data..:? "EndTimeOffset")
+            Prelude.<*> (x Data..:? "FeaturesAttribute")
+            Prelude.<*> (x Data..:? "InferenceAttribute")
+            Prelude.<*> (x Data..:? "ProbabilityAttribute")
+            Prelude.<*> (x Data..:? "ProbabilityThresholdAttribute")
+            Prelude.<*> (x Data..:? "S3DataDistributionType")
+            Prelude.<*> (x Data..:? "S3InputMode")
+            Prelude.<*> (x Data..:? "StartTimeOffset")
+            Prelude.<*> (x Data..: "EndpointName")
+            Prelude.<*> (x Data..: "LocalPath")
       )
 
 instance Prelude.Hashable EndpointInput where
   hashWithSalt _salt EndpointInput' {..} =
-    _salt `Prelude.hashWithSalt` inferenceAttribute
+    _salt `Prelude.hashWithSalt` endTimeOffset
+      `Prelude.hashWithSalt` featuresAttribute
+      `Prelude.hashWithSalt` inferenceAttribute
+      `Prelude.hashWithSalt` probabilityAttribute
+      `Prelude.hashWithSalt` probabilityThresholdAttribute
       `Prelude.hashWithSalt` s3DataDistributionType
       `Prelude.hashWithSalt` s3InputMode
       `Prelude.hashWithSalt` startTimeOffset
-      `Prelude.hashWithSalt` featuresAttribute
-      `Prelude.hashWithSalt` endTimeOffset
-      `Prelude.hashWithSalt` probabilityThresholdAttribute
-      `Prelude.hashWithSalt` probabilityAttribute
       `Prelude.hashWithSalt` endpointName
       `Prelude.hashWithSalt` localPath
 
 instance Prelude.NFData EndpointInput where
   rnf EndpointInput' {..} =
-    Prelude.rnf inferenceAttribute
+    Prelude.rnf endTimeOffset
+      `Prelude.seq` Prelude.rnf featuresAttribute
+      `Prelude.seq` Prelude.rnf inferenceAttribute
+      `Prelude.seq` Prelude.rnf probabilityAttribute
+      `Prelude.seq` Prelude.rnf probabilityThresholdAttribute
       `Prelude.seq` Prelude.rnf s3DataDistributionType
       `Prelude.seq` Prelude.rnf s3InputMode
       `Prelude.seq` Prelude.rnf startTimeOffset
-      `Prelude.seq` Prelude.rnf featuresAttribute
-      `Prelude.seq` Prelude.rnf endTimeOffset
-      `Prelude.seq` Prelude.rnf probabilityThresholdAttribute
-      `Prelude.seq` Prelude.rnf probabilityAttribute
       `Prelude.seq` Prelude.rnf endpointName
       `Prelude.seq` Prelude.rnf localPath
 
-instance Core.ToJSON EndpointInput where
+instance Data.ToJSON EndpointInput where
   toJSON EndpointInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("InferenceAttribute" Core..=)
-              Prelude.<$> inferenceAttribute,
-            ("S3DataDistributionType" Core..=)
-              Prelude.<$> s3DataDistributionType,
-            ("S3InputMode" Core..=) Prelude.<$> s3InputMode,
-            ("StartTimeOffset" Core..=)
-              Prelude.<$> startTimeOffset,
-            ("FeaturesAttribute" Core..=)
+          [ ("EndTimeOffset" Data..=) Prelude.<$> endTimeOffset,
+            ("FeaturesAttribute" Data..=)
               Prelude.<$> featuresAttribute,
-            ("EndTimeOffset" Core..=) Prelude.<$> endTimeOffset,
-            ("ProbabilityThresholdAttribute" Core..=)
-              Prelude.<$> probabilityThresholdAttribute,
-            ("ProbabilityAttribute" Core..=)
+            ("InferenceAttribute" Data..=)
+              Prelude.<$> inferenceAttribute,
+            ("ProbabilityAttribute" Data..=)
               Prelude.<$> probabilityAttribute,
-            Prelude.Just ("EndpointName" Core..= endpointName),
-            Prelude.Just ("LocalPath" Core..= localPath)
+            ("ProbabilityThresholdAttribute" Data..=)
+              Prelude.<$> probabilityThresholdAttribute,
+            ("S3DataDistributionType" Data..=)
+              Prelude.<$> s3DataDistributionType,
+            ("S3InputMode" Data..=) Prelude.<$> s3InputMode,
+            ("StartTimeOffset" Data..=)
+              Prelude.<$> startTimeOffset,
+            Prelude.Just ("EndpointName" Data..= endpointName),
+            Prelude.Just ("LocalPath" Data..= localPath)
           ]
       )

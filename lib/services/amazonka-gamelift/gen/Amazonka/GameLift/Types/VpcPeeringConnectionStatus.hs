@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.VpcPeeringConnectionStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,14 @@
 module Amazonka.GameLift.Types.VpcPeeringConnectionStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Represents status information for a VPC peering connection. Status is
--- associated with a VpcPeeringConnection object. Status codes and messages
--- are provided from EC2 (see
+-- | Represents status information for a VPC peering connection. Status codes
+-- and messages are provided from EC2 (see
 -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_VpcPeeringConnectionStateReason.html VpcPeeringConnectionStateReason>).
--- Connection status information is also communicated as a fleet Event.
+-- Connection status information is also communicated as a fleet event.
 --
 -- /See:/ 'newVpcPeeringConnectionStatus' smart constructor.
 data VpcPeeringConnectionStatus = VpcPeeringConnectionStatus'
@@ -65,14 +65,14 @@ vpcPeeringConnectionStatus_code = Lens.lens (\VpcPeeringConnectionStatus' {code}
 vpcPeeringConnectionStatus_message :: Lens.Lens' VpcPeeringConnectionStatus (Prelude.Maybe Prelude.Text)
 vpcPeeringConnectionStatus_message = Lens.lens (\VpcPeeringConnectionStatus' {message} -> message) (\s@VpcPeeringConnectionStatus' {} a -> s {message = a} :: VpcPeeringConnectionStatus)
 
-instance Core.FromJSON VpcPeeringConnectionStatus where
+instance Data.FromJSON VpcPeeringConnectionStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VpcPeeringConnectionStatus"
       ( \x ->
           VpcPeeringConnectionStatus'
-            Prelude.<$> (x Core..:? "Code")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Code")
+            Prelude.<*> (x Data..:? "Message")
       )
 
 instance Prelude.Hashable VpcPeeringConnectionStatus where

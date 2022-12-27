@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMRContainers.Types.MonitoringConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,22 +20,23 @@
 module Amazonka.EMRContainers.Types.MonitoringConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMRContainers.Types.CloudWatchMonitoringConfiguration
 import Amazonka.EMRContainers.Types.PersistentAppUI
 import Amazonka.EMRContainers.Types.S3MonitoringConfiguration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration setting for monitoring.
 --
 -- /See:/ 'newMonitoringConfiguration' smart constructor.
 data MonitoringConfiguration = MonitoringConfiguration'
-  { -- | Monitoring configurations for the persistent application UI.
+  { -- | Monitoring configurations for CloudWatch.
+    cloudWatchMonitoringConfiguration :: Prelude.Maybe CloudWatchMonitoringConfiguration,
+    -- | Monitoring configurations for the persistent application UI.
     persistentAppUI :: Prelude.Maybe PersistentAppUI,
     -- | Amazon S3 configuration for monitoring log publishing.
-    s3MonitoringConfiguration :: Prelude.Maybe S3MonitoringConfiguration,
-    -- | Monitoring configurations for CloudWatch.
-    cloudWatchMonitoringConfiguration :: Prelude.Maybe CloudWatchMonitoringConfiguration
+    s3MonitoringConfiguration :: Prelude.Maybe S3MonitoringConfiguration
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,21 +48,24 @@ data MonitoringConfiguration = MonitoringConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'cloudWatchMonitoringConfiguration', 'monitoringConfiguration_cloudWatchMonitoringConfiguration' - Monitoring configurations for CloudWatch.
+--
 -- 'persistentAppUI', 'monitoringConfiguration_persistentAppUI' - Monitoring configurations for the persistent application UI.
 --
 -- 's3MonitoringConfiguration', 'monitoringConfiguration_s3MonitoringConfiguration' - Amazon S3 configuration for monitoring log publishing.
---
--- 'cloudWatchMonitoringConfiguration', 'monitoringConfiguration_cloudWatchMonitoringConfiguration' - Monitoring configurations for CloudWatch.
 newMonitoringConfiguration ::
   MonitoringConfiguration
 newMonitoringConfiguration =
   MonitoringConfiguration'
-    { persistentAppUI =
+    { cloudWatchMonitoringConfiguration =
         Prelude.Nothing,
-      s3MonitoringConfiguration = Prelude.Nothing,
-      cloudWatchMonitoringConfiguration =
-        Prelude.Nothing
+      persistentAppUI = Prelude.Nothing,
+      s3MonitoringConfiguration = Prelude.Nothing
     }
+
+-- | Monitoring configurations for CloudWatch.
+monitoringConfiguration_cloudWatchMonitoringConfiguration :: Lens.Lens' MonitoringConfiguration (Prelude.Maybe CloudWatchMonitoringConfiguration)
+monitoringConfiguration_cloudWatchMonitoringConfiguration = Lens.lens (\MonitoringConfiguration' {cloudWatchMonitoringConfiguration} -> cloudWatchMonitoringConfiguration) (\s@MonitoringConfiguration' {} a -> s {cloudWatchMonitoringConfiguration = a} :: MonitoringConfiguration)
 
 -- | Monitoring configurations for the persistent application UI.
 monitoringConfiguration_persistentAppUI :: Lens.Lens' MonitoringConfiguration (Prelude.Maybe PersistentAppUI)
@@ -71,42 +75,39 @@ monitoringConfiguration_persistentAppUI = Lens.lens (\MonitoringConfiguration' {
 monitoringConfiguration_s3MonitoringConfiguration :: Lens.Lens' MonitoringConfiguration (Prelude.Maybe S3MonitoringConfiguration)
 monitoringConfiguration_s3MonitoringConfiguration = Lens.lens (\MonitoringConfiguration' {s3MonitoringConfiguration} -> s3MonitoringConfiguration) (\s@MonitoringConfiguration' {} a -> s {s3MonitoringConfiguration = a} :: MonitoringConfiguration)
 
--- | Monitoring configurations for CloudWatch.
-monitoringConfiguration_cloudWatchMonitoringConfiguration :: Lens.Lens' MonitoringConfiguration (Prelude.Maybe CloudWatchMonitoringConfiguration)
-monitoringConfiguration_cloudWatchMonitoringConfiguration = Lens.lens (\MonitoringConfiguration' {cloudWatchMonitoringConfiguration} -> cloudWatchMonitoringConfiguration) (\s@MonitoringConfiguration' {} a -> s {cloudWatchMonitoringConfiguration = a} :: MonitoringConfiguration)
-
-instance Core.FromJSON MonitoringConfiguration where
+instance Data.FromJSON MonitoringConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MonitoringConfiguration"
       ( \x ->
           MonitoringConfiguration'
-            Prelude.<$> (x Core..:? "persistentAppUI")
-            Prelude.<*> (x Core..:? "s3MonitoringConfiguration")
-            Prelude.<*> (x Core..:? "cloudWatchMonitoringConfiguration")
+            Prelude.<$> (x Data..:? "cloudWatchMonitoringConfiguration")
+            Prelude.<*> (x Data..:? "persistentAppUI")
+            Prelude.<*> (x Data..:? "s3MonitoringConfiguration")
       )
 
 instance Prelude.Hashable MonitoringConfiguration where
   hashWithSalt _salt MonitoringConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` persistentAppUI
-      `Prelude.hashWithSalt` s3MonitoringConfiguration
+    _salt
       `Prelude.hashWithSalt` cloudWatchMonitoringConfiguration
+      `Prelude.hashWithSalt` persistentAppUI
+      `Prelude.hashWithSalt` s3MonitoringConfiguration
 
 instance Prelude.NFData MonitoringConfiguration where
   rnf MonitoringConfiguration' {..} =
-    Prelude.rnf persistentAppUI
+    Prelude.rnf cloudWatchMonitoringConfiguration
+      `Prelude.seq` Prelude.rnf persistentAppUI
       `Prelude.seq` Prelude.rnf s3MonitoringConfiguration
-      `Prelude.seq` Prelude.rnf cloudWatchMonitoringConfiguration
 
-instance Core.ToJSON MonitoringConfiguration where
+instance Data.ToJSON MonitoringConfiguration where
   toJSON MonitoringConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("persistentAppUI" Core..=)
+          [ ("cloudWatchMonitoringConfiguration" Data..=)
+              Prelude.<$> cloudWatchMonitoringConfiguration,
+            ("persistentAppUI" Data..=)
               Prelude.<$> persistentAppUI,
-            ("s3MonitoringConfiguration" Core..=)
-              Prelude.<$> s3MonitoringConfiguration,
-            ("cloudWatchMonitoringConfiguration" Core..=)
-              Prelude.<$> cloudWatchMonitoringConfiguration
+            ("s3MonitoringConfiguration" Data..=)
+              Prelude.<$> s3MonitoringConfiguration
           ]
       )

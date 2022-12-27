@@ -21,15 +21,14 @@ module Amazonka
     Env.EnvNoAuth,
     Env.newEnv,
     Env.newEnvNoAuth,
-    Env.envAuthMaybe,
+    Env.authMaybe,
 
     -- ** Service Configuration
     -- $service
-    Env.override,
-    Env.configure,
-    Env.within,
+    Env.overrideService,
+    Env.configureService,
+    Env.globalTimeout,
     Env.once,
-    Env.timeout,
 
     -- ** Running AWS Actions
     runResourceT,
@@ -139,14 +138,14 @@ module Amazonka
 where
 
 import Amazonka.Auth
-import Amazonka.Core
+import Amazonka.Core hiding (presign)
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Crypto as Crypto
 import qualified Amazonka.Data.Body as Body
 import qualified Amazonka.EC2.Metadata as EC2
 import qualified Amazonka.Endpoint as Endpoint
 import qualified Amazonka.Env as Env
 import qualified Amazonka.Error as Error
-import qualified Amazonka.Lens as Lens
 import Amazonka.Logger
 import Amazonka.Prelude
 import qualified Amazonka.Presign as Presign
@@ -206,8 +205,8 @@ import Data.Monoid (Dual (..), Endo (..))
 --
 --     let env =
 --             discoveredEnv
---                 { AWS.envLogger = logger
---                 , AWS.envRegion = AWS.Frankfurt
+--                 { AWS.logger = logger
+--                 , AWS.region = AWS.Frankfurt
 --                 }
 --
 --     -- The payload (and hash) for the S3 object is retrieved from a 'FilePath',
@@ -216,8 +215,7 @@ import Data.Monoid (Dual (..), Endo (..))
 --     body <- AWS.chunkedFile AWS.defaultChunkSize "local\/path\/to\/object-payload"
 --
 --     -- We now run the 'AWS' computation with the overriden logger, performing the
---     -- 'PutObject' request. 'envRegion' or 'within' can be used to set the
---     -- remote AWS 'Region':
+--     -- 'PutObject' request.
 --     AWS.runResourceT $
 --         AWS.send env (S3.newPutObject "bucket-name" "object-key" body)
 -- @
@@ -282,7 +280,7 @@ import Data.Monoid (Dual (..), Endo (..))
 -- configuration when sending 'PutItem', 'Query' and all other operations.
 --
 -- You can modify a specific 'Service''s default configuration by using
--- 'configure' or 'reconfigure'. To modify all configurations simultaneously, see 'override'.
+-- 'configure'. To modify all configurations simultaneously, see 'override'.
 --
 -- An example of how you might alter default configuration using these mechanisms
 -- is demonstrated below. Firstly, the default 'dynamoDB' service is configured to
@@ -290,7 +288,7 @@ import Data.Monoid (Dual (..), Endo (..))
 --
 --
 -- > import qualified Amazonka as AWS
--- > import qualified Amazonka.DynamoDB as Dynamo
+-- > import qualified Amazonka.DynamoDB as DynamoDB
 -- >
 -- > let dynamo :: AWS.Service
 -- >     dynamo = AWS.setEndpoint False "localhost" 8000 DynamoDB.defaultService
@@ -320,8 +318,9 @@ import Data.Monoid (Dual (..), Endo (..))
 -- >     -- Here DynamoDB operations will communicate with localhost:8000.
 -- >     y <- AWS.send (AWS.configure dynamo env) Dynamo.newListTables
 --
--- Functions such as 'within', 'once', and 'timeout' can also be used to modify
--- service configuration for all (or specific) requests.
+-- Functions such as 'within', 'once', and 'globalTimeout' can also be
+-- used to modify service configuration for all (or specific)
+-- requests.
 
 -- $streaming
 -- Streaming comes in two flavours. 'HashedBody' represents a request
@@ -441,22 +440,22 @@ presign ::
   m ClientRequest
 presign env time expires rq =
   Presign.presignWith
-    (appEndo (getDual (Env.envOverride env)))
-    (runIdentity $ Env.envAuth env)
-    (Env.envRegion env)
+    (appEndo (getDual (Env.override env)))
+    (runIdentity $ Env.auth env)
+    (Env.region env)
     time
     expires
     rq
 
 -- | Retrieve the specified 'Dynamic' data.
 dynamic :: MonadIO m => Env -> EC2.Dynamic -> m ByteString
-dynamic env = EC2.dynamic (Env.envManager env)
+dynamic env = EC2.dynamic (Env.manager env)
 
 -- | Retrieve the specified 'Metadata'.
 metadata :: MonadIO m => Env -> EC2.Metadata -> m ByteString
-metadata env = EC2.metadata (Env.envManager env)
+metadata env = EC2.metadata (Env.manager env)
 
 -- | Retrieve the user data. Returns 'Nothing' if no user data is assigned
 -- to the instance.
 userdata :: MonadIO m => Env -> m (Maybe ByteString)
-userdata = EC2.userdata . Env.envManager
+userdata = EC2.userdata . Env.manager

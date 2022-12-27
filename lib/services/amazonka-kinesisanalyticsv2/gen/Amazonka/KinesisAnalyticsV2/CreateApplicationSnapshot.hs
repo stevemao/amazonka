@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.CreateApplicationSnapshot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.KinesisAnalyticsV2.CreateApplicationSnapshot
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,7 +94,8 @@ instance Core.AWSRequest CreateApplicationSnapshot where
   type
     AWSResponse CreateApplicationSnapshot =
       CreateApplicationSnapshotResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -111,35 +113,35 @@ instance Prelude.NFData CreateApplicationSnapshot where
     Prelude.rnf applicationName
       `Prelude.seq` Prelude.rnf snapshotName
 
-instance Core.ToHeaders CreateApplicationSnapshot where
+instance Data.ToHeaders CreateApplicationSnapshot where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "KinesisAnalytics_20180523.CreateApplicationSnapshot" ::
+              Data.=# ( "KinesisAnalytics_20180523.CreateApplicationSnapshot" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateApplicationSnapshot where
+instance Data.ToJSON CreateApplicationSnapshot where
   toJSON CreateApplicationSnapshot' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ApplicationName" Core..= applicationName),
-            Prelude.Just ("SnapshotName" Core..= snapshotName)
+              ("ApplicationName" Data..= applicationName),
+            Prelude.Just ("SnapshotName" Data..= snapshotName)
           ]
       )
 
-instance Core.ToPath CreateApplicationSnapshot where
+instance Data.ToPath CreateApplicationSnapshot where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateApplicationSnapshot where
+instance Data.ToQuery CreateApplicationSnapshot where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateApplicationSnapshotResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.UpdateAcceleratorAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.GlobalAccelerator.UpdateAcceleratorAttributes
     newUpdateAcceleratorAttributes,
 
     -- * Request Lenses
-    updateAcceleratorAttributes_flowLogsS3Prefix,
     updateAcceleratorAttributes_flowLogsEnabled,
     updateAcceleratorAttributes_flowLogsS3Bucket,
+    updateAcceleratorAttributes_flowLogsS3Prefix,
     updateAcceleratorAttributes_acceleratorArn,
 
     -- * Destructuring the Response
@@ -43,37 +43,36 @@ module Amazonka.GlobalAccelerator.UpdateAcceleratorAttributes
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateAcceleratorAttributes' smart constructor.
 data UpdateAcceleratorAttributes = UpdateAcceleratorAttributes'
-  { -- | Update the prefix for the location in the Amazon S3 bucket for the flow
-    -- logs. Attribute is required if @FlowLogsEnabled@ is @true@.
-    --
-    -- If you don’t specify a prefix, the flow logs are stored in the root of
-    -- the bucket. If you specify slash (\/) for the S3 bucket prefix, the log
-    -- file bucket folder structure will include a double slash (\/\/), like
-    -- the following:
-    --
-    -- s3-bucket_name\/\/AWSLogs\/aws_account_id
-    flowLogsS3Prefix :: Prelude.Maybe Prelude.Text,
-    -- | Update whether flow logs are enabled. The default value is false. If the
+  { -- | Update whether flow logs are enabled. The default value is false. If the
     -- value is true, @FlowLogsS3Bucket@ and @FlowLogsS3Prefix@ must be
     -- specified.
     --
     -- For more information, see
     -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/monitoring-global-accelerator.flow-logs.html Flow Logs>
-    -- in the /AWS Global Accelerator Developer Guide/.
+    -- in the /Global Accelerator Developer Guide/.
     flowLogsEnabled :: Prelude.Maybe Prelude.Bool,
     -- | The name of the Amazon S3 bucket for the flow logs. Attribute is
     -- required if @FlowLogsEnabled@ is @true@. The bucket must exist and have
-    -- a bucket policy that grants AWS Global Accelerator permission to write
-    -- to the bucket.
+    -- a bucket policy that grants Global Accelerator permission to write to
+    -- the bucket.
     flowLogsS3Bucket :: Prelude.Maybe Prelude.Text,
+    -- | Update the prefix for the location in the Amazon S3 bucket for the flow
+    -- logs. Attribute is required if @FlowLogsEnabled@ is @true@.
+    --
+    -- If you specify slash (\/) for the S3 bucket prefix, the log file bucket
+    -- folder structure will include a double slash (\/\/), like the following:
+    --
+    -- s3-bucket_name\/\/AWSLogs\/aws_account_id
+    flowLogsS3Prefix :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the accelerator that you want to
     -- update.
     acceleratorArn :: Prelude.Text
@@ -88,28 +87,26 @@ data UpdateAcceleratorAttributes = UpdateAcceleratorAttributes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'flowLogsS3Prefix', 'updateAcceleratorAttributes_flowLogsS3Prefix' - Update the prefix for the location in the Amazon S3 bucket for the flow
--- logs. Attribute is required if @FlowLogsEnabled@ is @true@.
---
--- If you don’t specify a prefix, the flow logs are stored in the root of
--- the bucket. If you specify slash (\/) for the S3 bucket prefix, the log
--- file bucket folder structure will include a double slash (\/\/), like
--- the following:
---
--- s3-bucket_name\/\/AWSLogs\/aws_account_id
---
 -- 'flowLogsEnabled', 'updateAcceleratorAttributes_flowLogsEnabled' - Update whether flow logs are enabled. The default value is false. If the
 -- value is true, @FlowLogsS3Bucket@ and @FlowLogsS3Prefix@ must be
 -- specified.
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/monitoring-global-accelerator.flow-logs.html Flow Logs>
--- in the /AWS Global Accelerator Developer Guide/.
+-- in the /Global Accelerator Developer Guide/.
 --
 -- 'flowLogsS3Bucket', 'updateAcceleratorAttributes_flowLogsS3Bucket' - The name of the Amazon S3 bucket for the flow logs. Attribute is
 -- required if @FlowLogsEnabled@ is @true@. The bucket must exist and have
--- a bucket policy that grants AWS Global Accelerator permission to write
--- to the bucket.
+-- a bucket policy that grants Global Accelerator permission to write to
+-- the bucket.
+--
+-- 'flowLogsS3Prefix', 'updateAcceleratorAttributes_flowLogsS3Prefix' - Update the prefix for the location in the Amazon S3 bucket for the flow
+-- logs. Attribute is required if @FlowLogsEnabled@ is @true@.
+--
+-- If you specify slash (\/) for the S3 bucket prefix, the log file bucket
+-- folder structure will include a double slash (\/\/), like the following:
+--
+-- s3-bucket_name\/\/AWSLogs\/aws_account_id
 --
 -- 'acceleratorArn', 'updateAcceleratorAttributes_acceleratorArn' - The Amazon Resource Name (ARN) of the accelerator that you want to
 -- update.
@@ -119,24 +116,12 @@ newUpdateAcceleratorAttributes ::
   UpdateAcceleratorAttributes
 newUpdateAcceleratorAttributes pAcceleratorArn_ =
   UpdateAcceleratorAttributes'
-    { flowLogsS3Prefix =
+    { flowLogsEnabled =
         Prelude.Nothing,
-      flowLogsEnabled = Prelude.Nothing,
       flowLogsS3Bucket = Prelude.Nothing,
+      flowLogsS3Prefix = Prelude.Nothing,
       acceleratorArn = pAcceleratorArn_
     }
-
--- | Update the prefix for the location in the Amazon S3 bucket for the flow
--- logs. Attribute is required if @FlowLogsEnabled@ is @true@.
---
--- If you don’t specify a prefix, the flow logs are stored in the root of
--- the bucket. If you specify slash (\/) for the S3 bucket prefix, the log
--- file bucket folder structure will include a double slash (\/\/), like
--- the following:
---
--- s3-bucket_name\/\/AWSLogs\/aws_account_id
-updateAcceleratorAttributes_flowLogsS3Prefix :: Lens.Lens' UpdateAcceleratorAttributes (Prelude.Maybe Prelude.Text)
-updateAcceleratorAttributes_flowLogsS3Prefix = Lens.lens (\UpdateAcceleratorAttributes' {flowLogsS3Prefix} -> flowLogsS3Prefix) (\s@UpdateAcceleratorAttributes' {} a -> s {flowLogsS3Prefix = a} :: UpdateAcceleratorAttributes)
 
 -- | Update whether flow logs are enabled. The default value is false. If the
 -- value is true, @FlowLogsS3Bucket@ and @FlowLogsS3Prefix@ must be
@@ -144,16 +129,26 @@ updateAcceleratorAttributes_flowLogsS3Prefix = Lens.lens (\UpdateAcceleratorAttr
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/monitoring-global-accelerator.flow-logs.html Flow Logs>
--- in the /AWS Global Accelerator Developer Guide/.
+-- in the /Global Accelerator Developer Guide/.
 updateAcceleratorAttributes_flowLogsEnabled :: Lens.Lens' UpdateAcceleratorAttributes (Prelude.Maybe Prelude.Bool)
 updateAcceleratorAttributes_flowLogsEnabled = Lens.lens (\UpdateAcceleratorAttributes' {flowLogsEnabled} -> flowLogsEnabled) (\s@UpdateAcceleratorAttributes' {} a -> s {flowLogsEnabled = a} :: UpdateAcceleratorAttributes)
 
 -- | The name of the Amazon S3 bucket for the flow logs. Attribute is
 -- required if @FlowLogsEnabled@ is @true@. The bucket must exist and have
--- a bucket policy that grants AWS Global Accelerator permission to write
--- to the bucket.
+-- a bucket policy that grants Global Accelerator permission to write to
+-- the bucket.
 updateAcceleratorAttributes_flowLogsS3Bucket :: Lens.Lens' UpdateAcceleratorAttributes (Prelude.Maybe Prelude.Text)
 updateAcceleratorAttributes_flowLogsS3Bucket = Lens.lens (\UpdateAcceleratorAttributes' {flowLogsS3Bucket} -> flowLogsS3Bucket) (\s@UpdateAcceleratorAttributes' {} a -> s {flowLogsS3Bucket = a} :: UpdateAcceleratorAttributes)
+
+-- | Update the prefix for the location in the Amazon S3 bucket for the flow
+-- logs. Attribute is required if @FlowLogsEnabled@ is @true@.
+--
+-- If you specify slash (\/) for the S3 bucket prefix, the log file bucket
+-- folder structure will include a double slash (\/\/), like the following:
+--
+-- s3-bucket_name\/\/AWSLogs\/aws_account_id
+updateAcceleratorAttributes_flowLogsS3Prefix :: Lens.Lens' UpdateAcceleratorAttributes (Prelude.Maybe Prelude.Text)
+updateAcceleratorAttributes_flowLogsS3Prefix = Lens.lens (\UpdateAcceleratorAttributes' {flowLogsS3Prefix} -> flowLogsS3Prefix) (\s@UpdateAcceleratorAttributes' {} a -> s {flowLogsS3Prefix = a} :: UpdateAcceleratorAttributes)
 
 -- | The Amazon Resource Name (ARN) of the accelerator that you want to
 -- update.
@@ -164,63 +159,64 @@ instance Core.AWSRequest UpdateAcceleratorAttributes where
   type
     AWSResponse UpdateAcceleratorAttributes =
       UpdateAcceleratorAttributesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateAcceleratorAttributesResponse'
-            Prelude.<$> (x Core..?> "AcceleratorAttributes")
+            Prelude.<$> (x Data..?> "AcceleratorAttributes")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateAcceleratorAttributes where
   hashWithSalt _salt UpdateAcceleratorAttributes' {..} =
-    _salt `Prelude.hashWithSalt` flowLogsS3Prefix
-      `Prelude.hashWithSalt` flowLogsEnabled
+    _salt `Prelude.hashWithSalt` flowLogsEnabled
       `Prelude.hashWithSalt` flowLogsS3Bucket
+      `Prelude.hashWithSalt` flowLogsS3Prefix
       `Prelude.hashWithSalt` acceleratorArn
 
 instance Prelude.NFData UpdateAcceleratorAttributes where
   rnf UpdateAcceleratorAttributes' {..} =
-    Prelude.rnf flowLogsS3Prefix
-      `Prelude.seq` Prelude.rnf flowLogsEnabled
+    Prelude.rnf flowLogsEnabled
       `Prelude.seq` Prelude.rnf flowLogsS3Bucket
+      `Prelude.seq` Prelude.rnf flowLogsS3Prefix
       `Prelude.seq` Prelude.rnf acceleratorArn
 
-instance Core.ToHeaders UpdateAcceleratorAttributes where
+instance Data.ToHeaders UpdateAcceleratorAttributes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.UpdateAcceleratorAttributes" ::
+              Data.=# ( "GlobalAccelerator_V20180706.UpdateAcceleratorAttributes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAcceleratorAttributes where
+instance Data.ToJSON UpdateAcceleratorAttributes where
   toJSON UpdateAcceleratorAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FlowLogsS3Prefix" Core..=)
-              Prelude.<$> flowLogsS3Prefix,
-            ("FlowLogsEnabled" Core..=)
+          [ ("FlowLogsEnabled" Data..=)
               Prelude.<$> flowLogsEnabled,
-            ("FlowLogsS3Bucket" Core..=)
+            ("FlowLogsS3Bucket" Data..=)
               Prelude.<$> flowLogsS3Bucket,
+            ("FlowLogsS3Prefix" Data..=)
+              Prelude.<$> flowLogsS3Prefix,
             Prelude.Just
-              ("AcceleratorArn" Core..= acceleratorArn)
+              ("AcceleratorArn" Data..= acceleratorArn)
           ]
       )
 
-instance Core.ToPath UpdateAcceleratorAttributes where
+instance Data.ToPath UpdateAcceleratorAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateAcceleratorAttributes where
+instance Data.ToQuery UpdateAcceleratorAttributes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAcceleratorAttributesResponse' smart constructor.

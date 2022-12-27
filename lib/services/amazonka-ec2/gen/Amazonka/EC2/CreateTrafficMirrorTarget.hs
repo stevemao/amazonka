@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateTrafficMirrorTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@
 -- appliances) can be in the same VPC, or in different VPCs connected via
 -- VPC peering or a transit gateway.
 --
--- A Traffic Mirror target can be a network interface, or a Network Load
--- Balancer.
+-- A Traffic Mirror target can be a network interface, a Network Load
+-- Balancer, or a Gateway Load Balancer endpoint.
 --
 -- To use the target in a Traffic Mirror session, use
 -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateTrafficMirrorSession.htm CreateTrafficMirrorSession>.
@@ -39,11 +39,12 @@ module Amazonka.EC2.CreateTrafficMirrorTarget
 
     -- * Request Lenses
     createTrafficMirrorTarget_clientToken,
+    createTrafficMirrorTarget_description,
+    createTrafficMirrorTarget_dryRun,
+    createTrafficMirrorTarget_gatewayLoadBalancerEndpointId,
     createTrafficMirrorTarget_networkInterfaceId,
     createTrafficMirrorTarget_networkLoadBalancerArn,
     createTrafficMirrorTarget_tagSpecifications,
-    createTrafficMirrorTarget_description,
-    createTrafficMirrorTarget_dryRun,
 
     -- * Destructuring the Response
     CreateTrafficMirrorTargetResponse (..),
@@ -57,8 +58,9 @@ module Amazonka.EC2.CreateTrafficMirrorTarget
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,20 +71,22 @@ data CreateTrafficMirrorTarget = CreateTrafficMirrorTarget'
     -- idempotency of the request. For more information, see
     -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to ensure idempotency>.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The network interface ID that is associated with the target.
-    networkInterfaceId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the Network Load Balancer that is
-    -- associated with the target.
-    networkLoadBalancerArn :: Prelude.Maybe Prelude.Text,
-    -- | The tags to assign to the Traffic Mirror target.
-    tagSpecifications :: Prelude.Maybe [TagSpecification],
     -- | The description of the Traffic Mirror target.
     description :: Prelude.Maybe Prelude.Text,
     -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the Gateway Load Balancer endpoint.
+    gatewayLoadBalancerEndpointId :: Prelude.Maybe Prelude.Text,
+    -- | The network interface ID that is associated with the target.
+    networkInterfaceId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the Network Load Balancer that is
+    -- associated with the target.
+    networkLoadBalancerArn :: Prelude.Maybe Prelude.Text,
+    -- | The tags to assign to the Traffic Mirror target.
+    tagSpecifications :: Prelude.Maybe [TagSpecification]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -98,30 +102,33 @@ data CreateTrafficMirrorTarget = CreateTrafficMirrorTarget'
 -- idempotency of the request. For more information, see
 -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to ensure idempotency>.
 --
--- 'networkInterfaceId', 'createTrafficMirrorTarget_networkInterfaceId' - The network interface ID that is associated with the target.
---
--- 'networkLoadBalancerArn', 'createTrafficMirrorTarget_networkLoadBalancerArn' - The Amazon Resource Name (ARN) of the Network Load Balancer that is
--- associated with the target.
---
--- 'tagSpecifications', 'createTrafficMirrorTarget_tagSpecifications' - The tags to assign to the Traffic Mirror target.
---
 -- 'description', 'createTrafficMirrorTarget_description' - The description of the Traffic Mirror target.
 --
 -- 'dryRun', 'createTrafficMirrorTarget_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'gatewayLoadBalancerEndpointId', 'createTrafficMirrorTarget_gatewayLoadBalancerEndpointId' - The ID of the Gateway Load Balancer endpoint.
+--
+-- 'networkInterfaceId', 'createTrafficMirrorTarget_networkInterfaceId' - The network interface ID that is associated with the target.
+--
+-- 'networkLoadBalancerArn', 'createTrafficMirrorTarget_networkLoadBalancerArn' - The Amazon Resource Name (ARN) of the Network Load Balancer that is
+-- associated with the target.
+--
+-- 'tagSpecifications', 'createTrafficMirrorTarget_tagSpecifications' - The tags to assign to the Traffic Mirror target.
 newCreateTrafficMirrorTarget ::
   CreateTrafficMirrorTarget
 newCreateTrafficMirrorTarget =
   CreateTrafficMirrorTarget'
     { clientToken =
         Prelude.Nothing,
+      description = Prelude.Nothing,
+      dryRun = Prelude.Nothing,
+      gatewayLoadBalancerEndpointId = Prelude.Nothing,
       networkInterfaceId = Prelude.Nothing,
       networkLoadBalancerArn = Prelude.Nothing,
-      tagSpecifications = Prelude.Nothing,
-      description = Prelude.Nothing,
-      dryRun = Prelude.Nothing
+      tagSpecifications = Prelude.Nothing
     }
 
 -- | Unique, case-sensitive identifier that you provide to ensure the
@@ -129,6 +136,21 @@ newCreateTrafficMirrorTarget =
 -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/Run_Instance_Idempotency.html How to ensure idempotency>.
 createTrafficMirrorTarget_clientToken :: Lens.Lens' CreateTrafficMirrorTarget (Prelude.Maybe Prelude.Text)
 createTrafficMirrorTarget_clientToken = Lens.lens (\CreateTrafficMirrorTarget' {clientToken} -> clientToken) (\s@CreateTrafficMirrorTarget' {} a -> s {clientToken = a} :: CreateTrafficMirrorTarget)
+
+-- | The description of the Traffic Mirror target.
+createTrafficMirrorTarget_description :: Lens.Lens' CreateTrafficMirrorTarget (Prelude.Maybe Prelude.Text)
+createTrafficMirrorTarget_description = Lens.lens (\CreateTrafficMirrorTarget' {description} -> description) (\s@CreateTrafficMirrorTarget' {} a -> s {description = a} :: CreateTrafficMirrorTarget)
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+createTrafficMirrorTarget_dryRun :: Lens.Lens' CreateTrafficMirrorTarget (Prelude.Maybe Prelude.Bool)
+createTrafficMirrorTarget_dryRun = Lens.lens (\CreateTrafficMirrorTarget' {dryRun} -> dryRun) (\s@CreateTrafficMirrorTarget' {} a -> s {dryRun = a} :: CreateTrafficMirrorTarget)
+
+-- | The ID of the Gateway Load Balancer endpoint.
+createTrafficMirrorTarget_gatewayLoadBalancerEndpointId :: Lens.Lens' CreateTrafficMirrorTarget (Prelude.Maybe Prelude.Text)
+createTrafficMirrorTarget_gatewayLoadBalancerEndpointId = Lens.lens (\CreateTrafficMirrorTarget' {gatewayLoadBalancerEndpointId} -> gatewayLoadBalancerEndpointId) (\s@CreateTrafficMirrorTarget' {} a -> s {gatewayLoadBalancerEndpointId = a} :: CreateTrafficMirrorTarget)
 
 -- | The network interface ID that is associated with the target.
 createTrafficMirrorTarget_networkInterfaceId :: Lens.Lens' CreateTrafficMirrorTarget (Prelude.Maybe Prelude.Text)
@@ -143,72 +165,66 @@ createTrafficMirrorTarget_networkLoadBalancerArn = Lens.lens (\CreateTrafficMirr
 createTrafficMirrorTarget_tagSpecifications :: Lens.Lens' CreateTrafficMirrorTarget (Prelude.Maybe [TagSpecification])
 createTrafficMirrorTarget_tagSpecifications = Lens.lens (\CreateTrafficMirrorTarget' {tagSpecifications} -> tagSpecifications) (\s@CreateTrafficMirrorTarget' {} a -> s {tagSpecifications = a} :: CreateTrafficMirrorTarget) Prelude.. Lens.mapping Lens.coerced
 
--- | The description of the Traffic Mirror target.
-createTrafficMirrorTarget_description :: Lens.Lens' CreateTrafficMirrorTarget (Prelude.Maybe Prelude.Text)
-createTrafficMirrorTarget_description = Lens.lens (\CreateTrafficMirrorTarget' {description} -> description) (\s@CreateTrafficMirrorTarget' {} a -> s {description = a} :: CreateTrafficMirrorTarget)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-createTrafficMirrorTarget_dryRun :: Lens.Lens' CreateTrafficMirrorTarget (Prelude.Maybe Prelude.Bool)
-createTrafficMirrorTarget_dryRun = Lens.lens (\CreateTrafficMirrorTarget' {dryRun} -> dryRun) (\s@CreateTrafficMirrorTarget' {} a -> s {dryRun = a} :: CreateTrafficMirrorTarget)
-
 instance Core.AWSRequest CreateTrafficMirrorTarget where
   type
     AWSResponse CreateTrafficMirrorTarget =
       CreateTrafficMirrorTargetResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateTrafficMirrorTargetResponse'
-            Prelude.<$> (x Core..@? "clientToken")
-            Prelude.<*> (x Core..@? "trafficMirrorTarget")
+            Prelude.<$> (x Data..@? "clientToken")
+            Prelude.<*> (x Data..@? "trafficMirrorTarget")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateTrafficMirrorTarget where
   hashWithSalt _salt CreateTrafficMirrorTarget' {..} =
     _salt `Prelude.hashWithSalt` clientToken
+      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` gatewayLoadBalancerEndpointId
       `Prelude.hashWithSalt` networkInterfaceId
       `Prelude.hashWithSalt` networkLoadBalancerArn
       `Prelude.hashWithSalt` tagSpecifications
-      `Prelude.hashWithSalt` description
-      `Prelude.hashWithSalt` dryRun
 
 instance Prelude.NFData CreateTrafficMirrorTarget where
   rnf CreateTrafficMirrorTarget' {..} =
     Prelude.rnf clientToken
+      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf gatewayLoadBalancerEndpointId
       `Prelude.seq` Prelude.rnf networkInterfaceId
       `Prelude.seq` Prelude.rnf networkLoadBalancerArn
       `Prelude.seq` Prelude.rnf tagSpecifications
-      `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf dryRun
 
-instance Core.ToHeaders CreateTrafficMirrorTarget where
+instance Data.ToHeaders CreateTrafficMirrorTarget where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateTrafficMirrorTarget where
+instance Data.ToPath CreateTrafficMirrorTarget where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateTrafficMirrorTarget where
+instance Data.ToQuery CreateTrafficMirrorTarget where
   toQuery CreateTrafficMirrorTarget' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateTrafficMirrorTarget" :: Prelude.ByteString),
+          Data.=: ("CreateTrafficMirrorTarget" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "ClientToken" Core.=: clientToken,
-        "NetworkInterfaceId" Core.=: networkInterfaceId,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "ClientToken" Data.=: clientToken,
+        "Description" Data.=: description,
+        "DryRun" Data.=: dryRun,
+        "GatewayLoadBalancerEndpointId"
+          Data.=: gatewayLoadBalancerEndpointId,
+        "NetworkInterfaceId" Data.=: networkInterfaceId,
         "NetworkLoadBalancerArn"
-          Core.=: networkLoadBalancerArn,
-        Core.toQuery
-          ( Core.toQueryList "TagSpecification"
+          Data.=: networkLoadBalancerArn,
+        Data.toQuery
+          ( Data.toQueryList "TagSpecification"
               Prelude.<$> tagSpecifications
-          ),
-        "Description" Core.=: description,
-        "DryRun" Core.=: dryRun
+          )
       ]
 
 -- | /See:/ 'newCreateTrafficMirrorTargetResponse' smart constructor.

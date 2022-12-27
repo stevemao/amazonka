@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -48,6 +48,8 @@ library
     Amazonka.KinesisVideo.CreateStream
     Amazonka.KinesisVideo.DeleteSignalingChannel
     Amazonka.KinesisVideo.DeleteStream
+    Amazonka.KinesisVideo.DescribeImageGenerationConfiguration
+    Amazonka.KinesisVideo.DescribeNotificationConfiguration
     Amazonka.KinesisVideo.DescribeSignalingChannel
     Amazonka.KinesisVideo.DescribeStream
     Amazonka.KinesisVideo.GetDataEndpoint
@@ -67,6 +69,14 @@ library
     Amazonka.KinesisVideo.Types.ChannelRole
     Amazonka.KinesisVideo.Types.ChannelType
     Amazonka.KinesisVideo.Types.ComparisonOperator
+    Amazonka.KinesisVideo.Types.ConfigurationStatus
+    Amazonka.KinesisVideo.Types.Format
+    Amazonka.KinesisVideo.Types.FormatConfigKey
+    Amazonka.KinesisVideo.Types.ImageGenerationConfiguration
+    Amazonka.KinesisVideo.Types.ImageGenerationDestinationConfig
+    Amazonka.KinesisVideo.Types.ImageSelectorType
+    Amazonka.KinesisVideo.Types.NotificationConfiguration
+    Amazonka.KinesisVideo.Types.NotificationDestinationConfig
     Amazonka.KinesisVideo.Types.ResourceEndpointListItem
     Amazonka.KinesisVideo.Types.SingleMasterChannelEndpointConfiguration
     Amazonka.KinesisVideo.Types.SingleMasterConfiguration
@@ -78,12 +88,14 @@ library
     Amazonka.KinesisVideo.UntagResource
     Amazonka.KinesisVideo.UntagStream
     Amazonka.KinesisVideo.UpdateDataRetention
+    Amazonka.KinesisVideo.UpdateImageGenerationConfiguration
+    Amazonka.KinesisVideo.UpdateNotificationConfiguration
     Amazonka.KinesisVideo.UpdateSignalingChannel
     Amazonka.KinesisVideo.UpdateStream
     Amazonka.KinesisVideo.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-kinesis-video-test
@@ -102,9 +114,9 @@ test-suite amazonka-kinesis-video-test
     Test.Amazonka.KinesisVideo.Internal
 
   build-depends:
-    , amazonka-core           ^>=2.0
+    , amazonka-core           >=2.0 && <2.1
     , amazonka-kinesis-video
-    , amazonka-test           ^>=2.0
+    , amazonka-test           >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

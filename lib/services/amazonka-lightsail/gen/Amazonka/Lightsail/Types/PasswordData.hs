@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.PasswordData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.PasswordData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The password data for the Windows Server-based instance, including the
@@ -28,16 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPasswordData' smart constructor.
 data PasswordData = PasswordData'
-  { -- | The name of the key pair that you used when creating your instance. If
-    -- no key pair name was specified when creating the instance, Lightsail
-    -- uses the default key pair (@LightsailDefaultKeyPair@).
-    --
-    -- If you are using a custom key pair, you need to use your own means of
-    -- decrypting your password using the @ciphertext@. Lightsail creates the
-    -- ciphertext by encrypting your password with the public key part of this
-    -- key pair.
-    keyPairName :: Prelude.Maybe Prelude.Text,
-    -- | The encrypted password. Ciphertext will be an empty string if access to
+  { -- | The encrypted password. Ciphertext will be an empty string if access to
     -- your new instance is not ready yet. When you create an instance, it can
     -- take up to 15 minutes for the instance to be ready.
     --
@@ -51,7 +43,16 @@ data PasswordData = PasswordData'
     -- continue to return the original ciphertext value. When accessing the
     -- instance using RDP, you need to manually enter the Administrator
     -- password after changing it from the default.
-    ciphertext :: Prelude.Maybe Prelude.Text
+    ciphertext :: Prelude.Maybe Prelude.Text,
+    -- | The name of the key pair that you used when creating your instance. If
+    -- no key pair name was specified when creating the instance, Lightsail
+    -- uses the default key pair (@LightsailDefaultKeyPair@).
+    --
+    -- If you are using a custom key pair, you need to use your own means of
+    -- decrypting your password using the @ciphertext@. Lightsail creates the
+    -- ciphertext by encrypting your password with the public key part of this
+    -- key pair.
+    keyPairName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -62,15 +63,6 @@ data PasswordData = PasswordData'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'keyPairName', 'passwordData_keyPairName' - The name of the key pair that you used when creating your instance. If
--- no key pair name was specified when creating the instance, Lightsail
--- uses the default key pair (@LightsailDefaultKeyPair@).
---
--- If you are using a custom key pair, you need to use your own means of
--- decrypting your password using the @ciphertext@. Lightsail creates the
--- ciphertext by encrypting your password with the public key part of this
--- key pair.
 --
 -- 'ciphertext', 'passwordData_ciphertext' - The encrypted password. Ciphertext will be an empty string if access to
 -- your new instance is not ready yet. When you create an instance, it can
@@ -86,15 +78,8 @@ data PasswordData = PasswordData'
 -- continue to return the original ciphertext value. When accessing the
 -- instance using RDP, you need to manually enter the Administrator
 -- password after changing it from the default.
-newPasswordData ::
-  PasswordData
-newPasswordData =
-  PasswordData'
-    { keyPairName = Prelude.Nothing,
-      ciphertext = Prelude.Nothing
-    }
-
--- | The name of the key pair that you used when creating your instance. If
+--
+-- 'keyPairName', 'passwordData_keyPairName' - The name of the key pair that you used when creating your instance. If
 -- no key pair name was specified when creating the instance, Lightsail
 -- uses the default key pair (@LightsailDefaultKeyPair@).
 --
@@ -102,8 +87,13 @@ newPasswordData =
 -- decrypting your password using the @ciphertext@. Lightsail creates the
 -- ciphertext by encrypting your password with the public key part of this
 -- key pair.
-passwordData_keyPairName :: Lens.Lens' PasswordData (Prelude.Maybe Prelude.Text)
-passwordData_keyPairName = Lens.lens (\PasswordData' {keyPairName} -> keyPairName) (\s@PasswordData' {} a -> s {keyPairName = a} :: PasswordData)
+newPasswordData ::
+  PasswordData
+newPasswordData =
+  PasswordData'
+    { ciphertext = Prelude.Nothing,
+      keyPairName = Prelude.Nothing
+    }
 
 -- | The encrypted password. Ciphertext will be an empty string if access to
 -- your new instance is not ready yet. When you create an instance, it can
@@ -122,22 +112,33 @@ passwordData_keyPairName = Lens.lens (\PasswordData' {keyPairName} -> keyPairNam
 passwordData_ciphertext :: Lens.Lens' PasswordData (Prelude.Maybe Prelude.Text)
 passwordData_ciphertext = Lens.lens (\PasswordData' {ciphertext} -> ciphertext) (\s@PasswordData' {} a -> s {ciphertext = a} :: PasswordData)
 
-instance Core.FromJSON PasswordData where
+-- | The name of the key pair that you used when creating your instance. If
+-- no key pair name was specified when creating the instance, Lightsail
+-- uses the default key pair (@LightsailDefaultKeyPair@).
+--
+-- If you are using a custom key pair, you need to use your own means of
+-- decrypting your password using the @ciphertext@. Lightsail creates the
+-- ciphertext by encrypting your password with the public key part of this
+-- key pair.
+passwordData_keyPairName :: Lens.Lens' PasswordData (Prelude.Maybe Prelude.Text)
+passwordData_keyPairName = Lens.lens (\PasswordData' {keyPairName} -> keyPairName) (\s@PasswordData' {} a -> s {keyPairName = a} :: PasswordData)
+
+instance Data.FromJSON PasswordData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PasswordData"
       ( \x ->
           PasswordData'
-            Prelude.<$> (x Core..:? "keyPairName")
-            Prelude.<*> (x Core..:? "ciphertext")
+            Prelude.<$> (x Data..:? "ciphertext")
+            Prelude.<*> (x Data..:? "keyPairName")
       )
 
 instance Prelude.Hashable PasswordData where
   hashWithSalt _salt PasswordData' {..} =
-    _salt `Prelude.hashWithSalt` keyPairName
-      `Prelude.hashWithSalt` ciphertext
+    _salt `Prelude.hashWithSalt` ciphertext
+      `Prelude.hashWithSalt` keyPairName
 
 instance Prelude.NFData PasswordData where
   rnf PasswordData' {..} =
-    Prelude.rnf keyPairName
-      `Prelude.seq` Prelude.rnf ciphertext
+    Prelude.rnf ciphertext
+      `Prelude.seq` Prelude.rnf keyPairName

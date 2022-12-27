@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.CreateFacet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,9 @@ module Amazonka.CloudDirectory.CreateFacet
     newCreateFacet,
 
     -- * Request Lenses
+    createFacet_attributes,
     createFacet_facetStyle,
     createFacet_objectType,
-    createFacet_attributes,
     createFacet_schemaArn,
     createFacet_name,
 
@@ -45,14 +45,17 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateFacet' smart constructor.
 data CreateFacet = CreateFacet'
-  { -- | There are two different styles that you can define on any given facet,
+  { -- | The attributes that are associated with the Facet.
+    attributes :: Prelude.Maybe [FacetAttribute],
+    -- | There are two different styles that you can define on any given facet,
     -- @Static@ and @Dynamic@. For static facets, all attributes must be
     -- defined in the schema. For dynamic facets, attributes can be defined
     -- during data plane operations.
@@ -70,8 +73,6 @@ data CreateFacet = CreateFacet'
     --
     -- -   Index: Can be created with the Index API.
     objectType :: Prelude.Maybe ObjectType,
-    -- | The attributes that are associated with the Facet.
-    attributes :: Prelude.Maybe [FacetAttribute],
     -- | The schema ARN in which the new Facet will be created. For more
     -- information, see arns.
     schemaArn :: Prelude.Text,
@@ -87,6 +88,8 @@ data CreateFacet = CreateFacet'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'attributes', 'createFacet_attributes' - The attributes that are associated with the Facet.
 --
 -- 'facetStyle', 'createFacet_facetStyle' - There are two different styles that you can define on any given facet,
 -- @Static@ and @Dynamic@. For static facets, all attributes must be
@@ -106,8 +109,6 @@ data CreateFacet = CreateFacet'
 --
 -- -   Index: Can be created with the Index API.
 --
--- 'attributes', 'createFacet_attributes' - The attributes that are associated with the Facet.
---
 -- 'schemaArn', 'createFacet_schemaArn' - The schema ARN in which the new Facet will be created. For more
 -- information, see arns.
 --
@@ -120,12 +121,16 @@ newCreateFacet ::
   CreateFacet
 newCreateFacet pSchemaArn_ pName_ =
   CreateFacet'
-    { facetStyle = Prelude.Nothing,
+    { attributes = Prelude.Nothing,
+      facetStyle = Prelude.Nothing,
       objectType = Prelude.Nothing,
-      attributes = Prelude.Nothing,
       schemaArn = pSchemaArn_,
       name = pName_
     }
+
+-- | The attributes that are associated with the Facet.
+createFacet_attributes :: Lens.Lens' CreateFacet (Prelude.Maybe [FacetAttribute])
+createFacet_attributes = Lens.lens (\CreateFacet' {attributes} -> attributes) (\s@CreateFacet' {} a -> s {attributes = a} :: CreateFacet) Prelude.. Lens.mapping Lens.coerced
 
 -- | There are two different styles that you can define on any given facet,
 -- @Static@ and @Dynamic@. For static facets, all attributes must be
@@ -149,10 +154,6 @@ createFacet_facetStyle = Lens.lens (\CreateFacet' {facetStyle} -> facetStyle) (\
 createFacet_objectType :: Lens.Lens' CreateFacet (Prelude.Maybe ObjectType)
 createFacet_objectType = Lens.lens (\CreateFacet' {objectType} -> objectType) (\s@CreateFacet' {} a -> s {objectType = a} :: CreateFacet)
 
--- | The attributes that are associated with the Facet.
-createFacet_attributes :: Lens.Lens' CreateFacet (Prelude.Maybe [FacetAttribute])
-createFacet_attributes = Lens.lens (\CreateFacet' {attributes} -> attributes) (\s@CreateFacet' {} a -> s {attributes = a} :: CreateFacet) Prelude.. Lens.mapping Lens.coerced
-
 -- | The schema ARN in which the new Facet will be created. For more
 -- information, see arns.
 createFacet_schemaArn :: Lens.Lens' CreateFacet Prelude.Text
@@ -164,7 +165,8 @@ createFacet_name = Lens.lens (\CreateFacet' {name} -> name) (\s@CreateFacet' {} 
 
 instance Core.AWSRequest CreateFacet where
   type AWSResponse CreateFacet = CreateFacetResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -174,42 +176,42 @@ instance Core.AWSRequest CreateFacet where
 
 instance Prelude.Hashable CreateFacet where
   hashWithSalt _salt CreateFacet' {..} =
-    _salt `Prelude.hashWithSalt` facetStyle
+    _salt `Prelude.hashWithSalt` attributes
+      `Prelude.hashWithSalt` facetStyle
       `Prelude.hashWithSalt` objectType
-      `Prelude.hashWithSalt` attributes
       `Prelude.hashWithSalt` schemaArn
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData CreateFacet where
   rnf CreateFacet' {..} =
-    Prelude.rnf facetStyle
+    Prelude.rnf attributes
+      `Prelude.seq` Prelude.rnf facetStyle
       `Prelude.seq` Prelude.rnf objectType
-      `Prelude.seq` Prelude.rnf attributes
       `Prelude.seq` Prelude.rnf schemaArn
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateFacet where
+instance Data.ToHeaders CreateFacet where
   toHeaders CreateFacet' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# schemaArn]
+      ["x-amz-data-partition" Data.=# schemaArn]
 
-instance Core.ToJSON CreateFacet where
+instance Data.ToJSON CreateFacet where
   toJSON CreateFacet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FacetStyle" Core..=) Prelude.<$> facetStyle,
-            ("ObjectType" Core..=) Prelude.<$> objectType,
-            ("Attributes" Core..=) Prelude.<$> attributes,
-            Prelude.Just ("Name" Core..= name)
+          [ ("Attributes" Data..=) Prelude.<$> attributes,
+            ("FacetStyle" Data..=) Prelude.<$> facetStyle,
+            ("ObjectType" Data..=) Prelude.<$> objectType,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateFacet where
+instance Data.ToPath CreateFacet where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/facet/create"
 
-instance Core.ToQuery CreateFacet where
+instance Data.ToQuery CreateFacet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateFacetResponse' smart constructor.

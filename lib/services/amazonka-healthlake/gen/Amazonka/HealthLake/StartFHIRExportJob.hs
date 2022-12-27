@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.HealthLake.StartFHIRExportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.HealthLake.StartFHIRExportJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HealthLake.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -137,15 +138,16 @@ instance Core.AWSRequest StartFHIRExportJob where
   type
     AWSResponse StartFHIRExportJob =
       StartFHIRExportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartFHIRExportJobResponse'
-            Prelude.<$> (x Core..?> "DatastoreId")
+            Prelude.<$> (x Data..?> "DatastoreId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "JobId")
-            Prelude.<*> (x Core..:> "JobStatus")
+            Prelude.<*> (x Data..:> "JobId")
+            Prelude.<*> (x Data..:> "JobStatus")
       )
 
 instance Prelude.Hashable StartFHIRExportJob where
@@ -164,39 +166,39 @@ instance Prelude.NFData StartFHIRExportJob where
       `Prelude.seq` Prelude.rnf dataAccessRoleArn
       `Prelude.seq` Prelude.rnf clientToken
 
-instance Core.ToHeaders StartFHIRExportJob where
+instance Data.ToHeaders StartFHIRExportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "HealthLake.StartFHIRExportJob" ::
+              Data.=# ( "HealthLake.StartFHIRExportJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartFHIRExportJob where
+instance Data.ToJSON StartFHIRExportJob where
   toJSON StartFHIRExportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("JobName" Core..=) Prelude.<$> jobName,
+          [ ("JobName" Data..=) Prelude.<$> jobName,
             Prelude.Just
-              ("OutputDataConfig" Core..= outputDataConfig),
-            Prelude.Just ("DatastoreId" Core..= datastoreId),
+              ("OutputDataConfig" Data..= outputDataConfig),
+            Prelude.Just ("DatastoreId" Data..= datastoreId),
             Prelude.Just
-              ("DataAccessRoleArn" Core..= dataAccessRoleArn),
-            Prelude.Just ("ClientToken" Core..= clientToken)
+              ("DataAccessRoleArn" Data..= dataAccessRoleArn),
+            Prelude.Just ("ClientToken" Data..= clientToken)
           ]
       )
 
-instance Core.ToPath StartFHIRExportJob where
+instance Data.ToPath StartFHIRExportJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartFHIRExportJob where
+instance Data.ToQuery StartFHIRExportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartFHIRExportJobResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.GetType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,12 +102,13 @@ getType_format = Lens.lens (\GetType' {format} -> format) (\s@GetType' {} a -> s
 
 instance Core.AWSRequest GetType where
   type AWSResponse GetType = GetTypeResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetTypeResponse'
-            Prelude.<$> (x Core..?> "type")
+            Prelude.<$> (x Data..?> "type")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -122,29 +124,29 @@ instance Prelude.NFData GetType where
       `Prelude.seq` Prelude.rnf typeName
       `Prelude.seq` Prelude.rnf format
 
-instance Core.ToHeaders GetType where
+instance Data.ToHeaders GetType where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetType where
+instance Data.ToPath GetType where
   toPath GetType' {..} =
     Prelude.mconcat
       [ "/v1/apis/",
-        Core.toBS apiId,
+        Data.toBS apiId,
         "/types/",
-        Core.toBS typeName
+        Data.toBS typeName
       ]
 
-instance Core.ToQuery GetType where
+instance Data.ToQuery GetType where
   toQuery GetType' {..} =
-    Prelude.mconcat ["format" Core.=: format]
+    Prelude.mconcat ["format" Data.=: format]
 
 -- | /See:/ 'newGetTypeResponse' smart constructor.
 data GetTypeResponse = GetTypeResponse'

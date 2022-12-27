@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.AssociateResolverEndpointIpAddress
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.Route53Resolver.AssociateResolverEndpointIpAddress
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,12 +112,13 @@ instance
   type
     AWSResponse AssociateResolverEndpointIpAddress =
       AssociateResolverEndpointIpAddressResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AssociateResolverEndpointIpAddressResponse'
-            Prelude.<$> (x Core..?> "ResolverEndpoint")
+            Prelude.<$> (x Data..?> "ResolverEndpoint")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -139,44 +141,44 @@ instance
       `Prelude.seq` Prelude.rnf ipAddress
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AssociateResolverEndpointIpAddress
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Resolver.AssociateResolverEndpointIpAddress" ::
+              Data.=# ( "Route53Resolver.AssociateResolverEndpointIpAddress" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AssociateResolverEndpointIpAddress
   where
   toJSON AssociateResolverEndpointIpAddress' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ResolverEndpointId" Core..= resolverEndpointId),
-            Prelude.Just ("IpAddress" Core..= ipAddress)
+              ("ResolverEndpointId" Data..= resolverEndpointId),
+            Prelude.Just ("IpAddress" Data..= ipAddress)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     AssociateResolverEndpointIpAddress
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     AssociateResolverEndpointIpAddress
   where
   toQuery = Prelude.const Prelude.mempty

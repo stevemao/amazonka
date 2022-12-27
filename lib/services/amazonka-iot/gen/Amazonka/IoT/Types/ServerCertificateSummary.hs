@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.ServerCertificateSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.IoT.Types.ServerCertificateSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.ServerCertificateStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that contains information about a server certificate.
 --
 -- /See:/ 'newServerCertificateSummary' smart constructor.
 data ServerCertificateSummary = ServerCertificateSummary'
-  { -- | Details that explain the status of the server certificate.
-    serverCertificateStatusDetail :: Prelude.Maybe Prelude.Text,
+  { -- | The ARN of the server certificate.
+    serverCertificateArn :: Prelude.Maybe Prelude.Text,
     -- | The status of the server certificate.
     serverCertificateStatus :: Prelude.Maybe ServerCertificateStatus,
-    -- | The ARN of the server certificate.
-    serverCertificateArn :: Prelude.Maybe Prelude.Text
+    -- | Details that explain the status of the server certificate.
+    serverCertificateStatusDetail :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,53 +46,52 @@ data ServerCertificateSummary = ServerCertificateSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'serverCertificateStatusDetail', 'serverCertificateSummary_serverCertificateStatusDetail' - Details that explain the status of the server certificate.
+-- 'serverCertificateArn', 'serverCertificateSummary_serverCertificateArn' - The ARN of the server certificate.
 --
 -- 'serverCertificateStatus', 'serverCertificateSummary_serverCertificateStatus' - The status of the server certificate.
 --
--- 'serverCertificateArn', 'serverCertificateSummary_serverCertificateArn' - The ARN of the server certificate.
+-- 'serverCertificateStatusDetail', 'serverCertificateSummary_serverCertificateStatusDetail' - Details that explain the status of the server certificate.
 newServerCertificateSummary ::
   ServerCertificateSummary
 newServerCertificateSummary =
   ServerCertificateSummary'
-    { serverCertificateStatusDetail =
+    { serverCertificateArn =
         Prelude.Nothing,
       serverCertificateStatus = Prelude.Nothing,
-      serverCertificateArn = Prelude.Nothing
+      serverCertificateStatusDetail = Prelude.Nothing
     }
-
--- | Details that explain the status of the server certificate.
-serverCertificateSummary_serverCertificateStatusDetail :: Lens.Lens' ServerCertificateSummary (Prelude.Maybe Prelude.Text)
-serverCertificateSummary_serverCertificateStatusDetail = Lens.lens (\ServerCertificateSummary' {serverCertificateStatusDetail} -> serverCertificateStatusDetail) (\s@ServerCertificateSummary' {} a -> s {serverCertificateStatusDetail = a} :: ServerCertificateSummary)
-
--- | The status of the server certificate.
-serverCertificateSummary_serverCertificateStatus :: Lens.Lens' ServerCertificateSummary (Prelude.Maybe ServerCertificateStatus)
-serverCertificateSummary_serverCertificateStatus = Lens.lens (\ServerCertificateSummary' {serverCertificateStatus} -> serverCertificateStatus) (\s@ServerCertificateSummary' {} a -> s {serverCertificateStatus = a} :: ServerCertificateSummary)
 
 -- | The ARN of the server certificate.
 serverCertificateSummary_serverCertificateArn :: Lens.Lens' ServerCertificateSummary (Prelude.Maybe Prelude.Text)
 serverCertificateSummary_serverCertificateArn = Lens.lens (\ServerCertificateSummary' {serverCertificateArn} -> serverCertificateArn) (\s@ServerCertificateSummary' {} a -> s {serverCertificateArn = a} :: ServerCertificateSummary)
 
-instance Core.FromJSON ServerCertificateSummary where
+-- | The status of the server certificate.
+serverCertificateSummary_serverCertificateStatus :: Lens.Lens' ServerCertificateSummary (Prelude.Maybe ServerCertificateStatus)
+serverCertificateSummary_serverCertificateStatus = Lens.lens (\ServerCertificateSummary' {serverCertificateStatus} -> serverCertificateStatus) (\s@ServerCertificateSummary' {} a -> s {serverCertificateStatus = a} :: ServerCertificateSummary)
+
+-- | Details that explain the status of the server certificate.
+serverCertificateSummary_serverCertificateStatusDetail :: Lens.Lens' ServerCertificateSummary (Prelude.Maybe Prelude.Text)
+serverCertificateSummary_serverCertificateStatusDetail = Lens.lens (\ServerCertificateSummary' {serverCertificateStatusDetail} -> serverCertificateStatusDetail) (\s@ServerCertificateSummary' {} a -> s {serverCertificateStatusDetail = a} :: ServerCertificateSummary)
+
+instance Data.FromJSON ServerCertificateSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServerCertificateSummary"
       ( \x ->
           ServerCertificateSummary'
-            Prelude.<$> (x Core..:? "serverCertificateStatusDetail")
-            Prelude.<*> (x Core..:? "serverCertificateStatus")
-            Prelude.<*> (x Core..:? "serverCertificateArn")
+            Prelude.<$> (x Data..:? "serverCertificateArn")
+            Prelude.<*> (x Data..:? "serverCertificateStatus")
+            Prelude.<*> (x Data..:? "serverCertificateStatusDetail")
       )
 
 instance Prelude.Hashable ServerCertificateSummary where
   hashWithSalt _salt ServerCertificateSummary' {..} =
-    _salt
-      `Prelude.hashWithSalt` serverCertificateStatusDetail
+    _salt `Prelude.hashWithSalt` serverCertificateArn
       `Prelude.hashWithSalt` serverCertificateStatus
-      `Prelude.hashWithSalt` serverCertificateArn
+      `Prelude.hashWithSalt` serverCertificateStatusDetail
 
 instance Prelude.NFData ServerCertificateSummary where
   rnf ServerCertificateSummary' {..} =
-    Prelude.rnf serverCertificateStatusDetail
+    Prelude.rnf serverCertificateArn
       `Prelude.seq` Prelude.rnf serverCertificateStatus
-      `Prelude.seq` Prelude.rnf serverCertificateArn
+      `Prelude.seq` Prelude.rnf serverCertificateStatusDetail

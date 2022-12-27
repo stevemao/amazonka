@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CostAndUsageReport.ModifyReportDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.CostAndUsageReport.ModifyReportDefinition
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostAndUsageReport.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +91,8 @@ instance Core.AWSRequest ModifyReportDefinition where
   type
     AWSResponse ModifyReportDefinition =
       ModifyReportDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -108,35 +110,35 @@ instance Prelude.NFData ModifyReportDefinition where
     Prelude.rnf reportName
       `Prelude.seq` Prelude.rnf reportDefinition
 
-instance Core.ToHeaders ModifyReportDefinition where
+instance Data.ToHeaders ModifyReportDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrigamiServiceGatewayService.ModifyReportDefinition" ::
+              Data.=# ( "AWSOrigamiServiceGatewayService.ModifyReportDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ModifyReportDefinition where
+instance Data.ToJSON ModifyReportDefinition where
   toJSON ModifyReportDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ReportName" Core..= reportName),
+          [ Prelude.Just ("ReportName" Data..= reportName),
             Prelude.Just
-              ("ReportDefinition" Core..= reportDefinition)
+              ("ReportDefinition" Data..= reportDefinition)
           ]
       )
 
-instance Core.ToPath ModifyReportDefinition where
+instance Data.ToPath ModifyReportDefinition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyReportDefinition where
+instance Data.ToQuery ModifyReportDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newModifyReportDefinitionResponse' smart constructor.

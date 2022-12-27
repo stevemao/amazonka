@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.AutoRollbackConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,20 @@
 module Amazonka.SageMaker.Types.AutoRollbackConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.Alarm
 
--- | Currently, the @AutoRollbackConfig@ API is not supported.
+-- | Automatic rollback configuration for handling endpoint deployment
+-- failures and recovery.
 --
 -- /See:/ 'newAutoRollbackConfig' smart constructor.
 data AutoRollbackConfig = AutoRollbackConfig'
-  { alarms :: Prelude.Maybe (Prelude.NonEmpty Alarm)
+  { -- | List of CloudWatch alarms in your account that are configured to monitor
+    -- metrics on an endpoint. If any alarms are tripped during a deployment,
+    -- SageMaker rolls back the deployment.
+    alarms :: Prelude.Maybe (Prelude.NonEmpty Alarm)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -40,23 +45,27 @@ data AutoRollbackConfig = AutoRollbackConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'alarms', 'autoRollbackConfig_alarms' -
+-- 'alarms', 'autoRollbackConfig_alarms' - List of CloudWatch alarms in your account that are configured to monitor
+-- metrics on an endpoint. If any alarms are tripped during a deployment,
+-- SageMaker rolls back the deployment.
 newAutoRollbackConfig ::
   AutoRollbackConfig
 newAutoRollbackConfig =
   AutoRollbackConfig' {alarms = Prelude.Nothing}
 
--- |
+-- | List of CloudWatch alarms in your account that are configured to monitor
+-- metrics on an endpoint. If any alarms are tripped during a deployment,
+-- SageMaker rolls back the deployment.
 autoRollbackConfig_alarms :: Lens.Lens' AutoRollbackConfig (Prelude.Maybe (Prelude.NonEmpty Alarm))
 autoRollbackConfig_alarms = Lens.lens (\AutoRollbackConfig' {alarms} -> alarms) (\s@AutoRollbackConfig' {} a -> s {alarms = a} :: AutoRollbackConfig) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON AutoRollbackConfig where
+instance Data.FromJSON AutoRollbackConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutoRollbackConfig"
       ( \x ->
           AutoRollbackConfig'
-            Prelude.<$> (x Core..:? "Alarms")
+            Prelude.<$> (x Data..:? "Alarms")
       )
 
 instance Prelude.Hashable AutoRollbackConfig where
@@ -66,9 +75,9 @@ instance Prelude.Hashable AutoRollbackConfig where
 instance Prelude.NFData AutoRollbackConfig where
   rnf AutoRollbackConfig' {..} = Prelude.rnf alarms
 
-instance Core.ToJSON AutoRollbackConfig where
+instance Data.ToJSON AutoRollbackConfig where
   toJSON AutoRollbackConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Alarms" Core..=) Prelude.<$> alarms]
+          [("Alarms" Data..=) Prelude.<$> alarms]
       )

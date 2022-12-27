@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.ListTagsForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Route53Resolver.ListTagsForResource
     newListTagsForResource,
 
     -- * Request Lenses
-    listTagsForResource_nextToken,
     listTagsForResource_maxResults,
+    listTagsForResource_nextToken,
     listTagsForResource_resourceArn,
 
     -- * Destructuring the Response
@@ -45,7 +45,8 @@ module Amazonka.Route53Resolver.ListTagsForResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,17 +54,17 @@ import Amazonka.Route53Resolver.Types
 
 -- | /See:/ 'newListTagsForResource' smart constructor.
 data ListTagsForResource = ListTagsForResource'
-  { -- | For the first @ListTagsForResource@ request, omit this value.
+  { -- | The maximum number of tags that you want to return in the response to a
+    -- @ListTagsForResource@ request. If you don\'t specify a value for
+    -- @MaxResults@, Resolver returns up to 100 tags.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | For the first @ListTagsForResource@ request, omit this value.
     --
     -- If you have more than @MaxResults@ tags, you can submit another
     -- @ListTagsForResource@ request to get the next group of tags for the
     -- resource. In the next request, specify the value of @NextToken@ from the
     -- previous response.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of tags that you want to return in the response to a
-    -- @ListTagsForResource@ request. If you don\'t specify a value for
-    -- @MaxResults@, Resolver returns up to 100 tags.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The Amazon Resource Name (ARN) for the resource that you want to list
     -- tags for.
     resourceArn :: Prelude.Text
@@ -78,16 +79,16 @@ data ListTagsForResource = ListTagsForResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listTagsForResource_maxResults' - The maximum number of tags that you want to return in the response to a
+-- @ListTagsForResource@ request. If you don\'t specify a value for
+-- @MaxResults@, Resolver returns up to 100 tags.
+--
 -- 'nextToken', 'listTagsForResource_nextToken' - For the first @ListTagsForResource@ request, omit this value.
 --
 -- If you have more than @MaxResults@ tags, you can submit another
 -- @ListTagsForResource@ request to get the next group of tags for the
 -- resource. In the next request, specify the value of @NextToken@ from the
 -- previous response.
---
--- 'maxResults', 'listTagsForResource_maxResults' - The maximum number of tags that you want to return in the response to a
--- @ListTagsForResource@ request. If you don\'t specify a value for
--- @MaxResults@, Resolver returns up to 100 tags.
 --
 -- 'resourceArn', 'listTagsForResource_resourceArn' - The Amazon Resource Name (ARN) for the resource that you want to list
 -- tags for.
@@ -97,10 +98,16 @@ newListTagsForResource ::
   ListTagsForResource
 newListTagsForResource pResourceArn_ =
   ListTagsForResource'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       resourceArn = pResourceArn_
     }
+
+-- | The maximum number of tags that you want to return in the response to a
+-- @ListTagsForResource@ request. If you don\'t specify a value for
+-- @MaxResults@, Resolver returns up to 100 tags.
+listTagsForResource_maxResults :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Natural)
+listTagsForResource_maxResults = Lens.lens (\ListTagsForResource' {maxResults} -> maxResults) (\s@ListTagsForResource' {} a -> s {maxResults = a} :: ListTagsForResource)
 
 -- | For the first @ListTagsForResource@ request, omit this value.
 --
@@ -110,12 +117,6 @@ newListTagsForResource pResourceArn_ =
 -- previous response.
 listTagsForResource_nextToken :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Text)
 listTagsForResource_nextToken = Lens.lens (\ListTagsForResource' {nextToken} -> nextToken) (\s@ListTagsForResource' {} a -> s {nextToken = a} :: ListTagsForResource)
-
--- | The maximum number of tags that you want to return in the response to a
--- @ListTagsForResource@ request. If you don\'t specify a value for
--- @MaxResults@, Resolver returns up to 100 tags.
-listTagsForResource_maxResults :: Lens.Lens' ListTagsForResource (Prelude.Maybe Prelude.Natural)
-listTagsForResource_maxResults = Lens.lens (\ListTagsForResource' {maxResults} -> maxResults) (\s@ListTagsForResource' {} a -> s {maxResults = a} :: ListTagsForResource)
 
 -- | The Amazon Resource Name (ARN) for the resource that you want to list
 -- tags for.
@@ -148,57 +149,58 @@ instance Core.AWSRequest ListTagsForResource where
   type
     AWSResponse ListTagsForResource =
       ListTagsForResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForResourceResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTagsForResource where
   hashWithSalt _salt ListTagsForResource' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` resourceArn
 
 instance Prelude.NFData ListTagsForResource where
   rnf ListTagsForResource' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders ListTagsForResource where
+instance Data.ToHeaders ListTagsForResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Resolver.ListTagsForResource" ::
+              Data.=# ( "Route53Resolver.ListTagsForResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTagsForResource where
+instance Data.ToJSON ListTagsForResource where
   toJSON ListTagsForResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("ResourceArn" Core..= resourceArn)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ResourceArn" Data..= resourceArn)
           ]
       )
 
-instance Core.ToPath ListTagsForResource where
+instance Data.ToPath ListTagsForResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTagsForResource where
+instance Data.ToQuery ListTagsForResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagsForResourceResponse' smart constructor.

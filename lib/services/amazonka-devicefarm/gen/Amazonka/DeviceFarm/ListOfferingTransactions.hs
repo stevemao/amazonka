@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.ListOfferingTransactions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,15 +41,16 @@ module Amazonka.DeviceFarm.ListOfferingTransactions
     newListOfferingTransactionsResponse,
 
     -- * Response Lenses
-    listOfferingTransactionsResponse_offeringTransactions,
     listOfferingTransactionsResponse_nextToken,
+    listOfferingTransactionsResponse_offeringTransactions,
     listOfferingTransactionsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,15 +117,16 @@ instance Core.AWSRequest ListOfferingTransactions where
   type
     AWSResponse ListOfferingTransactions =
       ListOfferingTransactionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListOfferingTransactionsResponse'
-            Prelude.<$> ( x Core..?> "offeringTransactions"
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> ( x Data..?> "offeringTransactions"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,45 +138,45 @@ instance Prelude.NFData ListOfferingTransactions where
   rnf ListOfferingTransactions' {..} =
     Prelude.rnf nextToken
 
-instance Core.ToHeaders ListOfferingTransactions where
+instance Data.ToHeaders ListOfferingTransactions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.ListOfferingTransactions" ::
+              Data.=# ( "DeviceFarm_20150623.ListOfferingTransactions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListOfferingTransactions where
+instance Data.ToJSON ListOfferingTransactions where
   toJSON ListOfferingTransactions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("nextToken" Core..=) Prelude.<$> nextToken]
+          [("nextToken" Data..=) Prelude.<$> nextToken]
       )
 
-instance Core.ToPath ListOfferingTransactions where
+instance Data.ToPath ListOfferingTransactions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListOfferingTransactions where
+instance Data.ToQuery ListOfferingTransactions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Returns the transaction log of the specified offerings.
 --
 -- /See:/ 'newListOfferingTransactionsResponse' smart constructor.
 data ListOfferingTransactionsResponse = ListOfferingTransactionsResponse'
-  { -- | The audit log of subscriptions you have purchased and modified through
-    -- AWS Device Farm.
-    offeringTransactions :: Prelude.Maybe [OfferingTransaction],
-    -- | An identifier that was returned from the previous call to this
+  { -- | An identifier that was returned from the previous call to this
     -- operation, which can be used to return the next set of items in the
     -- list.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The audit log of subscriptions you have purchased and modified through
+    -- AWS Device Farm.
+    offeringTransactions :: Prelude.Maybe [OfferingTransaction],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -188,12 +190,12 @@ data ListOfferingTransactionsResponse = ListOfferingTransactionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'offeringTransactions', 'listOfferingTransactionsResponse_offeringTransactions' - The audit log of subscriptions you have purchased and modified through
--- AWS Device Farm.
---
 -- 'nextToken', 'listOfferingTransactionsResponse_nextToken' - An identifier that was returned from the previous call to this
 -- operation, which can be used to return the next set of items in the
 -- list.
+--
+-- 'offeringTransactions', 'listOfferingTransactionsResponse_offeringTransactions' - The audit log of subscriptions you have purchased and modified through
+-- AWS Device Farm.
 --
 -- 'httpStatus', 'listOfferingTransactionsResponse_httpStatus' - The response's http status code.
 newListOfferingTransactionsResponse ::
@@ -202,22 +204,22 @@ newListOfferingTransactionsResponse ::
   ListOfferingTransactionsResponse
 newListOfferingTransactionsResponse pHttpStatus_ =
   ListOfferingTransactionsResponse'
-    { offeringTransactions =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      offeringTransactions = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The audit log of subscriptions you have purchased and modified through
--- AWS Device Farm.
-listOfferingTransactionsResponse_offeringTransactions :: Lens.Lens' ListOfferingTransactionsResponse (Prelude.Maybe [OfferingTransaction])
-listOfferingTransactionsResponse_offeringTransactions = Lens.lens (\ListOfferingTransactionsResponse' {offeringTransactions} -> offeringTransactions) (\s@ListOfferingTransactionsResponse' {} a -> s {offeringTransactions = a} :: ListOfferingTransactionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | An identifier that was returned from the previous call to this
 -- operation, which can be used to return the next set of items in the
 -- list.
 listOfferingTransactionsResponse_nextToken :: Lens.Lens' ListOfferingTransactionsResponse (Prelude.Maybe Prelude.Text)
 listOfferingTransactionsResponse_nextToken = Lens.lens (\ListOfferingTransactionsResponse' {nextToken} -> nextToken) (\s@ListOfferingTransactionsResponse' {} a -> s {nextToken = a} :: ListOfferingTransactionsResponse)
+
+-- | The audit log of subscriptions you have purchased and modified through
+-- AWS Device Farm.
+listOfferingTransactionsResponse_offeringTransactions :: Lens.Lens' ListOfferingTransactionsResponse (Prelude.Maybe [OfferingTransaction])
+listOfferingTransactionsResponse_offeringTransactions = Lens.lens (\ListOfferingTransactionsResponse' {offeringTransactions} -> offeringTransactions) (\s@ListOfferingTransactionsResponse' {} a -> s {offeringTransactions = a} :: ListOfferingTransactionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listOfferingTransactionsResponse_httpStatus :: Lens.Lens' ListOfferingTransactionsResponse Prelude.Int
@@ -228,6 +230,6 @@ instance
     ListOfferingTransactionsResponse
   where
   rnf ListOfferingTransactionsResponse' {..} =
-    Prelude.rnf offeringTransactions
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf offeringTransactions
       `Prelude.seq` Prelude.rnf httpStatus

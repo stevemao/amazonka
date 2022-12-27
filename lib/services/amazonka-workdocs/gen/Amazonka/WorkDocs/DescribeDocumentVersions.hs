@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.DescribeDocumentVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,11 +31,11 @@ module Amazonka.WorkDocs.DescribeDocumentVersions
     newDescribeDocumentVersions,
 
     -- * Request Lenses
-    describeDocumentVersions_include,
     describeDocumentVersions_authenticationToken,
-    describeDocumentVersions_marker,
-    describeDocumentVersions_limit,
     describeDocumentVersions_fields,
+    describeDocumentVersions_include,
+    describeDocumentVersions_limit,
+    describeDocumentVersions_marker,
     describeDocumentVersions_documentId,
 
     -- * Destructuring the Response
@@ -50,7 +50,8 @@ module Amazonka.WorkDocs.DescribeDocumentVersions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,20 +59,20 @@ import Amazonka.WorkDocs.Types
 
 -- | /See:/ 'newDescribeDocumentVersions' smart constructor.
 data DescribeDocumentVersions = DescribeDocumentVersions'
-  { -- | A comma-separated list of values. Specify \"INITIALIZED\" to include
-    -- incomplete versions.
-    include :: Prelude.Maybe Prelude.Text,
-    -- | Amazon WorkDocs authentication token. Not required when using AWS
+  { -- | Amazon WorkDocs authentication token. Not required when using AWS
     -- administrator credentials to access the API.
-    authenticationToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The marker for the next set of results. (You received this marker from a
-    -- previous call.)
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of versions to return with this call.
-    limit :: Prelude.Maybe Prelude.Natural,
+    authenticationToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | Specify \"SOURCE\" to include initialized versions and a URL for the
     -- source document.
     fields :: Prelude.Maybe Prelude.Text,
+    -- | A comma-separated list of values. Specify \"INITIALIZED\" to include
+    -- incomplete versions.
+    include :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of versions to return with this call.
+    limit :: Prelude.Maybe Prelude.Natural,
+    -- | The marker for the next set of results. (You received this marker from a
+    -- previous call.)
+    marker :: Prelude.Maybe Prelude.Text,
     -- | The ID of the document.
     documentId :: Prelude.Text
   }
@@ -85,19 +86,19 @@ data DescribeDocumentVersions = DescribeDocumentVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'include', 'describeDocumentVersions_include' - A comma-separated list of values. Specify \"INITIALIZED\" to include
--- incomplete versions.
---
 -- 'authenticationToken', 'describeDocumentVersions_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
 -- administrator credentials to access the API.
 --
--- 'marker', 'describeDocumentVersions_marker' - The marker for the next set of results. (You received this marker from a
--- previous call.)
+-- 'fields', 'describeDocumentVersions_fields' - Specify \"SOURCE\" to include initialized versions and a URL for the
+-- source document.
+--
+-- 'include', 'describeDocumentVersions_include' - A comma-separated list of values. Specify \"INITIALIZED\" to include
+-- incomplete versions.
 --
 -- 'limit', 'describeDocumentVersions_limit' - The maximum number of versions to return with this call.
 --
--- 'fields', 'describeDocumentVersions_fields' - Specify \"SOURCE\" to include initialized versions and a URL for the
--- source document.
+-- 'marker', 'describeDocumentVersions_marker' - The marker for the next set of results. (You received this marker from a
+-- previous call.)
 --
 -- 'documentId', 'describeDocumentVersions_documentId' - The ID of the document.
 newDescribeDocumentVersions ::
@@ -106,38 +107,38 @@ newDescribeDocumentVersions ::
   DescribeDocumentVersions
 newDescribeDocumentVersions pDocumentId_ =
   DescribeDocumentVersions'
-    { include =
+    { authenticationToken =
         Prelude.Nothing,
-      authenticationToken = Prelude.Nothing,
-      marker = Prelude.Nothing,
-      limit = Prelude.Nothing,
       fields = Prelude.Nothing,
+      include = Prelude.Nothing,
+      limit = Prelude.Nothing,
+      marker = Prelude.Nothing,
       documentId = pDocumentId_
     }
+
+-- | Amazon WorkDocs authentication token. Not required when using AWS
+-- administrator credentials to access the API.
+describeDocumentVersions_authenticationToken :: Lens.Lens' DescribeDocumentVersions (Prelude.Maybe Prelude.Text)
+describeDocumentVersions_authenticationToken = Lens.lens (\DescribeDocumentVersions' {authenticationToken} -> authenticationToken) (\s@DescribeDocumentVersions' {} a -> s {authenticationToken = a} :: DescribeDocumentVersions) Prelude.. Lens.mapping Data._Sensitive
+
+-- | Specify \"SOURCE\" to include initialized versions and a URL for the
+-- source document.
+describeDocumentVersions_fields :: Lens.Lens' DescribeDocumentVersions (Prelude.Maybe Prelude.Text)
+describeDocumentVersions_fields = Lens.lens (\DescribeDocumentVersions' {fields} -> fields) (\s@DescribeDocumentVersions' {} a -> s {fields = a} :: DescribeDocumentVersions)
 
 -- | A comma-separated list of values. Specify \"INITIALIZED\" to include
 -- incomplete versions.
 describeDocumentVersions_include :: Lens.Lens' DescribeDocumentVersions (Prelude.Maybe Prelude.Text)
 describeDocumentVersions_include = Lens.lens (\DescribeDocumentVersions' {include} -> include) (\s@DescribeDocumentVersions' {} a -> s {include = a} :: DescribeDocumentVersions)
 
--- | Amazon WorkDocs authentication token. Not required when using AWS
--- administrator credentials to access the API.
-describeDocumentVersions_authenticationToken :: Lens.Lens' DescribeDocumentVersions (Prelude.Maybe Prelude.Text)
-describeDocumentVersions_authenticationToken = Lens.lens (\DescribeDocumentVersions' {authenticationToken} -> authenticationToken) (\s@DescribeDocumentVersions' {} a -> s {authenticationToken = a} :: DescribeDocumentVersions) Prelude.. Lens.mapping Core._Sensitive
+-- | The maximum number of versions to return with this call.
+describeDocumentVersions_limit :: Lens.Lens' DescribeDocumentVersions (Prelude.Maybe Prelude.Natural)
+describeDocumentVersions_limit = Lens.lens (\DescribeDocumentVersions' {limit} -> limit) (\s@DescribeDocumentVersions' {} a -> s {limit = a} :: DescribeDocumentVersions)
 
 -- | The marker for the next set of results. (You received this marker from a
 -- previous call.)
 describeDocumentVersions_marker :: Lens.Lens' DescribeDocumentVersions (Prelude.Maybe Prelude.Text)
 describeDocumentVersions_marker = Lens.lens (\DescribeDocumentVersions' {marker} -> marker) (\s@DescribeDocumentVersions' {} a -> s {marker = a} :: DescribeDocumentVersions)
-
--- | The maximum number of versions to return with this call.
-describeDocumentVersions_limit :: Lens.Lens' DescribeDocumentVersions (Prelude.Maybe Prelude.Natural)
-describeDocumentVersions_limit = Lens.lens (\DescribeDocumentVersions' {limit} -> limit) (\s@DescribeDocumentVersions' {} a -> s {limit = a} :: DescribeDocumentVersions)
-
--- | Specify \"SOURCE\" to include initialized versions and a URL for the
--- source document.
-describeDocumentVersions_fields :: Lens.Lens' DescribeDocumentVersions (Prelude.Maybe Prelude.Text)
-describeDocumentVersions_fields = Lens.lens (\DescribeDocumentVersions' {fields} -> fields) (\s@DescribeDocumentVersions' {} a -> s {fields = a} :: DescribeDocumentVersions)
 
 -- | The ID of the document.
 describeDocumentVersions_documentId :: Lens.Lens' DescribeDocumentVersions Prelude.Text
@@ -169,59 +170,60 @@ instance Core.AWSRequest DescribeDocumentVersions where
   type
     AWSResponse DescribeDocumentVersions =
       DescribeDocumentVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDocumentVersionsResponse'
-            Prelude.<$> ( x Core..?> "DocumentVersions"
+            Prelude.<$> ( x Data..?> "DocumentVersions"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "Marker")
+            Prelude.<*> (x Data..?> "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeDocumentVersions where
   hashWithSalt _salt DescribeDocumentVersions' {..} =
-    _salt `Prelude.hashWithSalt` include
-      `Prelude.hashWithSalt` authenticationToken
-      `Prelude.hashWithSalt` marker
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` authenticationToken
       `Prelude.hashWithSalt` fields
+      `Prelude.hashWithSalt` include
+      `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` documentId
 
 instance Prelude.NFData DescribeDocumentVersions where
   rnf DescribeDocumentVersions' {..} =
-    Prelude.rnf include
-      `Prelude.seq` Prelude.rnf authenticationToken
-      `Prelude.seq` Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf authenticationToken
       `Prelude.seq` Prelude.rnf fields
+      `Prelude.seq` Prelude.rnf include
+      `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf documentId
 
-instance Core.ToHeaders DescribeDocumentVersions where
+instance Data.ToHeaders DescribeDocumentVersions where
   toHeaders DescribeDocumentVersions' {..} =
     Prelude.mconcat
-      [ "Authentication" Core.=# authenticationToken,
+      [ "Authentication" Data.=# authenticationToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath DescribeDocumentVersions where
+instance Data.ToPath DescribeDocumentVersions where
   toPath DescribeDocumentVersions' {..} =
     Prelude.mconcat
       [ "/api/v1/documents/",
-        Core.toBS documentId,
+        Data.toBS documentId,
         "/versions"
       ]
 
-instance Core.ToQuery DescribeDocumentVersions where
+instance Data.ToQuery DescribeDocumentVersions where
   toQuery DescribeDocumentVersions' {..} =
     Prelude.mconcat
-      [ "include" Core.=: include,
-        "marker" Core.=: marker,
-        "limit" Core.=: limit,
-        "fields" Core.=: fields
+      [ "fields" Data.=: fields,
+        "include" Data.=: include,
+        "limit" Data.=: limit,
+        "marker" Data.=: marker
       ]
 
 -- | /See:/ 'newDescribeDocumentVersionsResponse' smart constructor.

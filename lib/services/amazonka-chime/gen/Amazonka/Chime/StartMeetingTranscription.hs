@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.StartMeetingTranscription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,7 +97,8 @@ instance Core.AWSRequest StartMeetingTranscription where
   type
     AWSResponse StartMeetingTranscription =
       StartMeetingTranscriptionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,26 +116,26 @@ instance Prelude.NFData StartMeetingTranscription where
     Prelude.rnf meetingId
       `Prelude.seq` Prelude.rnf transcriptionConfiguration
 
-instance Core.ToHeaders StartMeetingTranscription where
+instance Data.ToHeaders StartMeetingTranscription where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON StartMeetingTranscription where
+instance Data.ToJSON StartMeetingTranscription where
   toJSON StartMeetingTranscription' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "TranscriptionConfiguration"
-                  Core..= transcriptionConfiguration
+                  Data..= transcriptionConfiguration
               )
           ]
       )
 
-instance Core.ToPath StartMeetingTranscription where
+instance Data.ToPath StartMeetingTranscription where
   toPath StartMeetingTranscription' {..} =
     Prelude.mconcat
-      ["/meetings/", Core.toBS meetingId, "/transcription"]
+      ["/meetings/", Data.toBS meetingId, "/transcription"]
 
-instance Core.ToQuery StartMeetingTranscription where
+instance Data.ToQuery StartMeetingTranscription where
   toQuery =
     Prelude.const (Prelude.mconcat ["operation=start"])
 

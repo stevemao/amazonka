@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.RDSInstanceDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CostExplorer.Types.RDSInstanceDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details about the Amazon RDS instances that Amazon Web Services
@@ -31,6 +32,10 @@ data RDSInstanceDetails = RDSInstanceDetails'
   { -- | Determines whether the recommendation is for a current-generation
     -- instance.
     currentGeneration :: Prelude.Maybe Prelude.Bool,
+    -- | The database edition that the recommended reservation supports.
+    databaseEdition :: Prelude.Maybe Prelude.Text,
+    -- | The database engine that the recommended reservation supports.
+    databaseEngine :: Prelude.Maybe Prelude.Text,
     -- | Determines whether the recommendation is for a reservation in a single
     -- Availability Zone or a reservation with a backup in a second
     -- Availability Zone.
@@ -41,14 +46,10 @@ data RDSInstanceDetails = RDSInstanceDetails'
     instanceType :: Prelude.Maybe Prelude.Text,
     -- | The license model that the recommended reservation supports.
     licenseModel :: Prelude.Maybe Prelude.Text,
-    -- | Determines whether the recommended reservation is size flexible.
-    sizeFlexEligible :: Prelude.Maybe Prelude.Bool,
     -- | The Amazon Web Services Region of the recommended reservation.
     region :: Prelude.Maybe Prelude.Text,
-    -- | The database engine that the recommended reservation supports.
-    databaseEngine :: Prelude.Maybe Prelude.Text,
-    -- | The database edition that the recommended reservation supports.
-    databaseEdition :: Prelude.Maybe Prelude.Text
+    -- | Determines whether the recommended reservation is size flexible.
+    sizeFlexEligible :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -63,6 +64,10 @@ data RDSInstanceDetails = RDSInstanceDetails'
 -- 'currentGeneration', 'rDSInstanceDetails_currentGeneration' - Determines whether the recommendation is for a current-generation
 -- instance.
 --
+-- 'databaseEdition', 'rDSInstanceDetails_databaseEdition' - The database edition that the recommended reservation supports.
+--
+-- 'databaseEngine', 'rDSInstanceDetails_databaseEngine' - The database engine that the recommended reservation supports.
+--
 -- 'deploymentOption', 'rDSInstanceDetails_deploymentOption' - Determines whether the recommendation is for a reservation in a single
 -- Availability Zone or a reservation with a backup in a second
 -- Availability Zone.
@@ -73,33 +78,37 @@ data RDSInstanceDetails = RDSInstanceDetails'
 --
 -- 'licenseModel', 'rDSInstanceDetails_licenseModel' - The license model that the recommended reservation supports.
 --
--- 'sizeFlexEligible', 'rDSInstanceDetails_sizeFlexEligible' - Determines whether the recommended reservation is size flexible.
---
 -- 'region', 'rDSInstanceDetails_region' - The Amazon Web Services Region of the recommended reservation.
 --
--- 'databaseEngine', 'rDSInstanceDetails_databaseEngine' - The database engine that the recommended reservation supports.
---
--- 'databaseEdition', 'rDSInstanceDetails_databaseEdition' - The database edition that the recommended reservation supports.
+-- 'sizeFlexEligible', 'rDSInstanceDetails_sizeFlexEligible' - Determines whether the recommended reservation is size flexible.
 newRDSInstanceDetails ::
   RDSInstanceDetails
 newRDSInstanceDetails =
   RDSInstanceDetails'
     { currentGeneration =
         Prelude.Nothing,
+      databaseEdition = Prelude.Nothing,
+      databaseEngine = Prelude.Nothing,
       deploymentOption = Prelude.Nothing,
       family = Prelude.Nothing,
       instanceType = Prelude.Nothing,
       licenseModel = Prelude.Nothing,
-      sizeFlexEligible = Prelude.Nothing,
       region = Prelude.Nothing,
-      databaseEngine = Prelude.Nothing,
-      databaseEdition = Prelude.Nothing
+      sizeFlexEligible = Prelude.Nothing
     }
 
 -- | Determines whether the recommendation is for a current-generation
 -- instance.
 rDSInstanceDetails_currentGeneration :: Lens.Lens' RDSInstanceDetails (Prelude.Maybe Prelude.Bool)
 rDSInstanceDetails_currentGeneration = Lens.lens (\RDSInstanceDetails' {currentGeneration} -> currentGeneration) (\s@RDSInstanceDetails' {} a -> s {currentGeneration = a} :: RDSInstanceDetails)
+
+-- | The database edition that the recommended reservation supports.
+rDSInstanceDetails_databaseEdition :: Lens.Lens' RDSInstanceDetails (Prelude.Maybe Prelude.Text)
+rDSInstanceDetails_databaseEdition = Lens.lens (\RDSInstanceDetails' {databaseEdition} -> databaseEdition) (\s@RDSInstanceDetails' {} a -> s {databaseEdition = a} :: RDSInstanceDetails)
+
+-- | The database engine that the recommended reservation supports.
+rDSInstanceDetails_databaseEngine :: Lens.Lens' RDSInstanceDetails (Prelude.Maybe Prelude.Text)
+rDSInstanceDetails_databaseEngine = Lens.lens (\RDSInstanceDetails' {databaseEngine} -> databaseEngine) (\s@RDSInstanceDetails' {} a -> s {databaseEngine = a} :: RDSInstanceDetails)
 
 -- | Determines whether the recommendation is for a reservation in a single
 -- Availability Zone or a reservation with a backup in a second
@@ -119,59 +128,51 @@ rDSInstanceDetails_instanceType = Lens.lens (\RDSInstanceDetails' {instanceType}
 rDSInstanceDetails_licenseModel :: Lens.Lens' RDSInstanceDetails (Prelude.Maybe Prelude.Text)
 rDSInstanceDetails_licenseModel = Lens.lens (\RDSInstanceDetails' {licenseModel} -> licenseModel) (\s@RDSInstanceDetails' {} a -> s {licenseModel = a} :: RDSInstanceDetails)
 
--- | Determines whether the recommended reservation is size flexible.
-rDSInstanceDetails_sizeFlexEligible :: Lens.Lens' RDSInstanceDetails (Prelude.Maybe Prelude.Bool)
-rDSInstanceDetails_sizeFlexEligible = Lens.lens (\RDSInstanceDetails' {sizeFlexEligible} -> sizeFlexEligible) (\s@RDSInstanceDetails' {} a -> s {sizeFlexEligible = a} :: RDSInstanceDetails)
-
 -- | The Amazon Web Services Region of the recommended reservation.
 rDSInstanceDetails_region :: Lens.Lens' RDSInstanceDetails (Prelude.Maybe Prelude.Text)
 rDSInstanceDetails_region = Lens.lens (\RDSInstanceDetails' {region} -> region) (\s@RDSInstanceDetails' {} a -> s {region = a} :: RDSInstanceDetails)
 
--- | The database engine that the recommended reservation supports.
-rDSInstanceDetails_databaseEngine :: Lens.Lens' RDSInstanceDetails (Prelude.Maybe Prelude.Text)
-rDSInstanceDetails_databaseEngine = Lens.lens (\RDSInstanceDetails' {databaseEngine} -> databaseEngine) (\s@RDSInstanceDetails' {} a -> s {databaseEngine = a} :: RDSInstanceDetails)
+-- | Determines whether the recommended reservation is size flexible.
+rDSInstanceDetails_sizeFlexEligible :: Lens.Lens' RDSInstanceDetails (Prelude.Maybe Prelude.Bool)
+rDSInstanceDetails_sizeFlexEligible = Lens.lens (\RDSInstanceDetails' {sizeFlexEligible} -> sizeFlexEligible) (\s@RDSInstanceDetails' {} a -> s {sizeFlexEligible = a} :: RDSInstanceDetails)
 
--- | The database edition that the recommended reservation supports.
-rDSInstanceDetails_databaseEdition :: Lens.Lens' RDSInstanceDetails (Prelude.Maybe Prelude.Text)
-rDSInstanceDetails_databaseEdition = Lens.lens (\RDSInstanceDetails' {databaseEdition} -> databaseEdition) (\s@RDSInstanceDetails' {} a -> s {databaseEdition = a} :: RDSInstanceDetails)
-
-instance Core.FromJSON RDSInstanceDetails where
+instance Data.FromJSON RDSInstanceDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RDSInstanceDetails"
       ( \x ->
           RDSInstanceDetails'
-            Prelude.<$> (x Core..:? "CurrentGeneration")
-            Prelude.<*> (x Core..:? "DeploymentOption")
-            Prelude.<*> (x Core..:? "Family")
-            Prelude.<*> (x Core..:? "InstanceType")
-            Prelude.<*> (x Core..:? "LicenseModel")
-            Prelude.<*> (x Core..:? "SizeFlexEligible")
-            Prelude.<*> (x Core..:? "Region")
-            Prelude.<*> (x Core..:? "DatabaseEngine")
-            Prelude.<*> (x Core..:? "DatabaseEdition")
+            Prelude.<$> (x Data..:? "CurrentGeneration")
+            Prelude.<*> (x Data..:? "DatabaseEdition")
+            Prelude.<*> (x Data..:? "DatabaseEngine")
+            Prelude.<*> (x Data..:? "DeploymentOption")
+            Prelude.<*> (x Data..:? "Family")
+            Prelude.<*> (x Data..:? "InstanceType")
+            Prelude.<*> (x Data..:? "LicenseModel")
+            Prelude.<*> (x Data..:? "Region")
+            Prelude.<*> (x Data..:? "SizeFlexEligible")
       )
 
 instance Prelude.Hashable RDSInstanceDetails where
   hashWithSalt _salt RDSInstanceDetails' {..} =
     _salt `Prelude.hashWithSalt` currentGeneration
+      `Prelude.hashWithSalt` databaseEdition
+      `Prelude.hashWithSalt` databaseEngine
       `Prelude.hashWithSalt` deploymentOption
       `Prelude.hashWithSalt` family
       `Prelude.hashWithSalt` instanceType
       `Prelude.hashWithSalt` licenseModel
-      `Prelude.hashWithSalt` sizeFlexEligible
       `Prelude.hashWithSalt` region
-      `Prelude.hashWithSalt` databaseEngine
-      `Prelude.hashWithSalt` databaseEdition
+      `Prelude.hashWithSalt` sizeFlexEligible
 
 instance Prelude.NFData RDSInstanceDetails where
   rnf RDSInstanceDetails' {..} =
     Prelude.rnf currentGeneration
+      `Prelude.seq` Prelude.rnf databaseEdition
+      `Prelude.seq` Prelude.rnf databaseEngine
       `Prelude.seq` Prelude.rnf deploymentOption
       `Prelude.seq` Prelude.rnf family
       `Prelude.seq` Prelude.rnf instanceType
       `Prelude.seq` Prelude.rnf licenseModel
-      `Prelude.seq` Prelude.rnf sizeFlexEligible
       `Prelude.seq` Prelude.rnf region
-      `Prelude.seq` Prelude.rnf databaseEngine
-      `Prelude.seq` Prelude.rnf databaseEdition
+      `Prelude.seq` Prelude.rnf sizeFlexEligible

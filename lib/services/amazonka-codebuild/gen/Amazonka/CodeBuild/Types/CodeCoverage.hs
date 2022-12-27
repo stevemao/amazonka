@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.Types.CodeCoverage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeBuild.Types.CodeCoverage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains code coverage report information.
@@ -33,24 +34,24 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCodeCoverage' smart constructor.
 data CodeCoverage = CodeCoverage'
-  { -- | The date and time that the tests were run.
-    expired :: Prelude.Maybe Core.POSIX,
-    -- | The number of conditional branches that are not covered by your tests.
-    branchesMissed :: Prelude.Maybe Prelude.Natural,
-    -- | The number of lines that are not covered by your tests.
-    linesMissed :: Prelude.Maybe Prelude.Natural,
-    -- | The path of the test report file.
-    filePath :: Prelude.Maybe Prelude.Text,
+  { -- | The percentage of branches that are covered by your tests.
+    branchCoveragePercentage :: Prelude.Maybe Prelude.Double,
     -- | The number of conditional branches that are covered by your tests.
     branchesCovered :: Prelude.Maybe Prelude.Natural,
-    -- | The number of lines that are covered by your tests.
-    linesCovered :: Prelude.Maybe Prelude.Natural,
-    -- | The percentage of branches that are covered by your tests.
-    branchCoveragePercentage :: Prelude.Maybe Prelude.Double,
+    -- | The number of conditional branches that are not covered by your tests.
+    branchesMissed :: Prelude.Maybe Prelude.Natural,
+    -- | The date and time that the tests were run.
+    expired :: Prelude.Maybe Data.POSIX,
+    -- | The path of the test report file.
+    filePath :: Prelude.Maybe Prelude.Text,
     -- | The identifier of the code coverage report.
     id :: Prelude.Maybe Prelude.Text,
     -- | The percentage of lines that are covered by your tests.
     lineCoveragePercentage :: Prelude.Maybe Prelude.Double,
+    -- | The number of lines that are covered by your tests.
+    linesCovered :: Prelude.Maybe Prelude.Natural,
+    -- | The number of lines that are not covered by your tests.
+    linesMissed :: Prelude.Maybe Prelude.Natural,
     -- | The ARN of the report.
     reportARN :: Prelude.Maybe Prelude.Text
   }
@@ -64,68 +65,61 @@ data CodeCoverage = CodeCoverage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'expired', 'codeCoverage_expired' - The date and time that the tests were run.
---
--- 'branchesMissed', 'codeCoverage_branchesMissed' - The number of conditional branches that are not covered by your tests.
---
--- 'linesMissed', 'codeCoverage_linesMissed' - The number of lines that are not covered by your tests.
---
--- 'filePath', 'codeCoverage_filePath' - The path of the test report file.
+-- 'branchCoveragePercentage', 'codeCoverage_branchCoveragePercentage' - The percentage of branches that are covered by your tests.
 --
 -- 'branchesCovered', 'codeCoverage_branchesCovered' - The number of conditional branches that are covered by your tests.
 --
--- 'linesCovered', 'codeCoverage_linesCovered' - The number of lines that are covered by your tests.
+-- 'branchesMissed', 'codeCoverage_branchesMissed' - The number of conditional branches that are not covered by your tests.
 --
--- 'branchCoveragePercentage', 'codeCoverage_branchCoveragePercentage' - The percentage of branches that are covered by your tests.
+-- 'expired', 'codeCoverage_expired' - The date and time that the tests were run.
+--
+-- 'filePath', 'codeCoverage_filePath' - The path of the test report file.
 --
 -- 'id', 'codeCoverage_id' - The identifier of the code coverage report.
 --
 -- 'lineCoveragePercentage', 'codeCoverage_lineCoveragePercentage' - The percentage of lines that are covered by your tests.
+--
+-- 'linesCovered', 'codeCoverage_linesCovered' - The number of lines that are covered by your tests.
+--
+-- 'linesMissed', 'codeCoverage_linesMissed' - The number of lines that are not covered by your tests.
 --
 -- 'reportARN', 'codeCoverage_reportARN' - The ARN of the report.
 newCodeCoverage ::
   CodeCoverage
 newCodeCoverage =
   CodeCoverage'
-    { expired = Prelude.Nothing,
-      branchesMissed = Prelude.Nothing,
-      linesMissed = Prelude.Nothing,
-      filePath = Prelude.Nothing,
+    { branchCoveragePercentage =
+        Prelude.Nothing,
       branchesCovered = Prelude.Nothing,
-      linesCovered = Prelude.Nothing,
-      branchCoveragePercentage = Prelude.Nothing,
+      branchesMissed = Prelude.Nothing,
+      expired = Prelude.Nothing,
+      filePath = Prelude.Nothing,
       id = Prelude.Nothing,
       lineCoveragePercentage = Prelude.Nothing,
+      linesCovered = Prelude.Nothing,
+      linesMissed = Prelude.Nothing,
       reportARN = Prelude.Nothing
     }
 
--- | The date and time that the tests were run.
-codeCoverage_expired :: Lens.Lens' CodeCoverage (Prelude.Maybe Prelude.UTCTime)
-codeCoverage_expired = Lens.lens (\CodeCoverage' {expired} -> expired) (\s@CodeCoverage' {} a -> s {expired = a} :: CodeCoverage) Prelude.. Lens.mapping Core._Time
-
--- | The number of conditional branches that are not covered by your tests.
-codeCoverage_branchesMissed :: Lens.Lens' CodeCoverage (Prelude.Maybe Prelude.Natural)
-codeCoverage_branchesMissed = Lens.lens (\CodeCoverage' {branchesMissed} -> branchesMissed) (\s@CodeCoverage' {} a -> s {branchesMissed = a} :: CodeCoverage)
-
--- | The number of lines that are not covered by your tests.
-codeCoverage_linesMissed :: Lens.Lens' CodeCoverage (Prelude.Maybe Prelude.Natural)
-codeCoverage_linesMissed = Lens.lens (\CodeCoverage' {linesMissed} -> linesMissed) (\s@CodeCoverage' {} a -> s {linesMissed = a} :: CodeCoverage)
-
--- | The path of the test report file.
-codeCoverage_filePath :: Lens.Lens' CodeCoverage (Prelude.Maybe Prelude.Text)
-codeCoverage_filePath = Lens.lens (\CodeCoverage' {filePath} -> filePath) (\s@CodeCoverage' {} a -> s {filePath = a} :: CodeCoverage)
+-- | The percentage of branches that are covered by your tests.
+codeCoverage_branchCoveragePercentage :: Lens.Lens' CodeCoverage (Prelude.Maybe Prelude.Double)
+codeCoverage_branchCoveragePercentage = Lens.lens (\CodeCoverage' {branchCoveragePercentage} -> branchCoveragePercentage) (\s@CodeCoverage' {} a -> s {branchCoveragePercentage = a} :: CodeCoverage)
 
 -- | The number of conditional branches that are covered by your tests.
 codeCoverage_branchesCovered :: Lens.Lens' CodeCoverage (Prelude.Maybe Prelude.Natural)
 codeCoverage_branchesCovered = Lens.lens (\CodeCoverage' {branchesCovered} -> branchesCovered) (\s@CodeCoverage' {} a -> s {branchesCovered = a} :: CodeCoverage)
 
--- | The number of lines that are covered by your tests.
-codeCoverage_linesCovered :: Lens.Lens' CodeCoverage (Prelude.Maybe Prelude.Natural)
-codeCoverage_linesCovered = Lens.lens (\CodeCoverage' {linesCovered} -> linesCovered) (\s@CodeCoverage' {} a -> s {linesCovered = a} :: CodeCoverage)
+-- | The number of conditional branches that are not covered by your tests.
+codeCoverage_branchesMissed :: Lens.Lens' CodeCoverage (Prelude.Maybe Prelude.Natural)
+codeCoverage_branchesMissed = Lens.lens (\CodeCoverage' {branchesMissed} -> branchesMissed) (\s@CodeCoverage' {} a -> s {branchesMissed = a} :: CodeCoverage)
 
--- | The percentage of branches that are covered by your tests.
-codeCoverage_branchCoveragePercentage :: Lens.Lens' CodeCoverage (Prelude.Maybe Prelude.Double)
-codeCoverage_branchCoveragePercentage = Lens.lens (\CodeCoverage' {branchCoveragePercentage} -> branchCoveragePercentage) (\s@CodeCoverage' {} a -> s {branchCoveragePercentage = a} :: CodeCoverage)
+-- | The date and time that the tests were run.
+codeCoverage_expired :: Lens.Lens' CodeCoverage (Prelude.Maybe Prelude.UTCTime)
+codeCoverage_expired = Lens.lens (\CodeCoverage' {expired} -> expired) (\s@CodeCoverage' {} a -> s {expired = a} :: CodeCoverage) Prelude.. Lens.mapping Data._Time
+
+-- | The path of the test report file.
+codeCoverage_filePath :: Lens.Lens' CodeCoverage (Prelude.Maybe Prelude.Text)
+codeCoverage_filePath = Lens.lens (\CodeCoverage' {filePath} -> filePath) (\s@CodeCoverage' {} a -> s {filePath = a} :: CodeCoverage)
 
 -- | The identifier of the code coverage report.
 codeCoverage_id :: Lens.Lens' CodeCoverage (Prelude.Maybe Prelude.Text)
@@ -135,50 +129,59 @@ codeCoverage_id = Lens.lens (\CodeCoverage' {id} -> id) (\s@CodeCoverage' {} a -
 codeCoverage_lineCoveragePercentage :: Lens.Lens' CodeCoverage (Prelude.Maybe Prelude.Double)
 codeCoverage_lineCoveragePercentage = Lens.lens (\CodeCoverage' {lineCoveragePercentage} -> lineCoveragePercentage) (\s@CodeCoverage' {} a -> s {lineCoveragePercentage = a} :: CodeCoverage)
 
+-- | The number of lines that are covered by your tests.
+codeCoverage_linesCovered :: Lens.Lens' CodeCoverage (Prelude.Maybe Prelude.Natural)
+codeCoverage_linesCovered = Lens.lens (\CodeCoverage' {linesCovered} -> linesCovered) (\s@CodeCoverage' {} a -> s {linesCovered = a} :: CodeCoverage)
+
+-- | The number of lines that are not covered by your tests.
+codeCoverage_linesMissed :: Lens.Lens' CodeCoverage (Prelude.Maybe Prelude.Natural)
+codeCoverage_linesMissed = Lens.lens (\CodeCoverage' {linesMissed} -> linesMissed) (\s@CodeCoverage' {} a -> s {linesMissed = a} :: CodeCoverage)
+
 -- | The ARN of the report.
 codeCoverage_reportARN :: Lens.Lens' CodeCoverage (Prelude.Maybe Prelude.Text)
 codeCoverage_reportARN = Lens.lens (\CodeCoverage' {reportARN} -> reportARN) (\s@CodeCoverage' {} a -> s {reportARN = a} :: CodeCoverage)
 
-instance Core.FromJSON CodeCoverage where
+instance Data.FromJSON CodeCoverage where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CodeCoverage"
       ( \x ->
           CodeCoverage'
-            Prelude.<$> (x Core..:? "expired")
-            Prelude.<*> (x Core..:? "branchesMissed")
-            Prelude.<*> (x Core..:? "linesMissed")
-            Prelude.<*> (x Core..:? "filePath")
-            Prelude.<*> (x Core..:? "branchesCovered")
-            Prelude.<*> (x Core..:? "linesCovered")
-            Prelude.<*> (x Core..:? "branchCoveragePercentage")
-            Prelude.<*> (x Core..:? "id")
-            Prelude.<*> (x Core..:? "lineCoveragePercentage")
-            Prelude.<*> (x Core..:? "reportARN")
+            Prelude.<$> (x Data..:? "branchCoveragePercentage")
+            Prelude.<*> (x Data..:? "branchesCovered")
+            Prelude.<*> (x Data..:? "branchesMissed")
+            Prelude.<*> (x Data..:? "expired")
+            Prelude.<*> (x Data..:? "filePath")
+            Prelude.<*> (x Data..:? "id")
+            Prelude.<*> (x Data..:? "lineCoveragePercentage")
+            Prelude.<*> (x Data..:? "linesCovered")
+            Prelude.<*> (x Data..:? "linesMissed")
+            Prelude.<*> (x Data..:? "reportARN")
       )
 
 instance Prelude.Hashable CodeCoverage where
   hashWithSalt _salt CodeCoverage' {..} =
-    _salt `Prelude.hashWithSalt` expired
-      `Prelude.hashWithSalt` branchesMissed
-      `Prelude.hashWithSalt` linesMissed
-      `Prelude.hashWithSalt` filePath
-      `Prelude.hashWithSalt` branchesCovered
-      `Prelude.hashWithSalt` linesCovered
+    _salt
       `Prelude.hashWithSalt` branchCoveragePercentage
+      `Prelude.hashWithSalt` branchesCovered
+      `Prelude.hashWithSalt` branchesMissed
+      `Prelude.hashWithSalt` expired
+      `Prelude.hashWithSalt` filePath
       `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` lineCoveragePercentage
+      `Prelude.hashWithSalt` linesCovered
+      `Prelude.hashWithSalt` linesMissed
       `Prelude.hashWithSalt` reportARN
 
 instance Prelude.NFData CodeCoverage where
   rnf CodeCoverage' {..} =
-    Prelude.rnf expired
-      `Prelude.seq` Prelude.rnf branchesMissed
-      `Prelude.seq` Prelude.rnf linesMissed
-      `Prelude.seq` Prelude.rnf filePath
+    Prelude.rnf branchCoveragePercentage
       `Prelude.seq` Prelude.rnf branchesCovered
-      `Prelude.seq` Prelude.rnf linesCovered
-      `Prelude.seq` Prelude.rnf branchCoveragePercentage
+      `Prelude.seq` Prelude.rnf branchesMissed
+      `Prelude.seq` Prelude.rnf expired
+      `Prelude.seq` Prelude.rnf filePath
       `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf lineCoveragePercentage
+      `Prelude.seq` Prelude.rnf linesCovered
+      `Prelude.seq` Prelude.rnf linesMissed
       `Prelude.seq` Prelude.rnf reportARN

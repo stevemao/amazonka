@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DescribeTableRestoreStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,10 +35,10 @@ module Amazonka.Redshift.DescribeTableRestoreStatus
     newDescribeTableRestoreStatus,
 
     -- * Request Lenses
-    describeTableRestoreStatus_tableRestoreRequestId,
     describeTableRestoreStatus_clusterIdentifier,
     describeTableRestoreStatus_marker,
     describeTableRestoreStatus_maxRecords,
+    describeTableRestoreStatus_tableRestoreRequestId,
 
     -- * Destructuring the Response
     DescribeTableRestoreStatusResponse (..),
@@ -52,7 +52,8 @@ module Amazonka.Redshift.DescribeTableRestoreStatus
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -62,12 +63,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeTableRestoreStatus' smart constructor.
 data DescribeTableRestoreStatus = DescribeTableRestoreStatus'
-  { -- | The identifier of the table restore request to return status for. If you
-    -- don\'t specify a @TableRestoreRequestId@ value, then
-    -- @DescribeTableRestoreStatus@ returns the status of all in-progress table
-    -- restore requests.
-    tableRestoreRequestId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Redshift cluster that the table is being restored to.
+  { -- | The Amazon Redshift cluster that the table is being restored to.
     clusterIdentifier :: Prelude.Maybe Prelude.Text,
     -- | An optional pagination token provided by a previous
     -- @DescribeTableRestoreStatus@ request. If this parameter is specified,
@@ -78,7 +74,12 @@ data DescribeTableRestoreStatus = DescribeTableRestoreStatus'
     -- records exist than the specified @MaxRecords@ value, a pagination token
     -- called a marker is included in the response so that the remaining
     -- results can be retrieved.
-    maxRecords :: Prelude.Maybe Prelude.Int
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The identifier of the table restore request to return status for. If you
+    -- don\'t specify a @TableRestoreRequestId@ value, then
+    -- @DescribeTableRestoreStatus@ returns the status of all in-progress table
+    -- restore requests.
+    tableRestoreRequestId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -89,11 +90,6 @@ data DescribeTableRestoreStatus = DescribeTableRestoreStatus'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'tableRestoreRequestId', 'describeTableRestoreStatus_tableRestoreRequestId' - The identifier of the table restore request to return status for. If you
--- don\'t specify a @TableRestoreRequestId@ value, then
--- @DescribeTableRestoreStatus@ returns the status of all in-progress table
--- restore requests.
 --
 -- 'clusterIdentifier', 'describeTableRestoreStatus_clusterIdentifier' - The Amazon Redshift cluster that the table is being restored to.
 --
@@ -106,23 +102,21 @@ data DescribeTableRestoreStatus = DescribeTableRestoreStatus'
 -- records exist than the specified @MaxRecords@ value, a pagination token
 -- called a marker is included in the response so that the remaining
 -- results can be retrieved.
+--
+-- 'tableRestoreRequestId', 'describeTableRestoreStatus_tableRestoreRequestId' - The identifier of the table restore request to return status for. If you
+-- don\'t specify a @TableRestoreRequestId@ value, then
+-- @DescribeTableRestoreStatus@ returns the status of all in-progress table
+-- restore requests.
 newDescribeTableRestoreStatus ::
   DescribeTableRestoreStatus
 newDescribeTableRestoreStatus =
   DescribeTableRestoreStatus'
-    { tableRestoreRequestId =
+    { clusterIdentifier =
         Prelude.Nothing,
-      clusterIdentifier = Prelude.Nothing,
       marker = Prelude.Nothing,
-      maxRecords = Prelude.Nothing
+      maxRecords = Prelude.Nothing,
+      tableRestoreRequestId = Prelude.Nothing
     }
-
--- | The identifier of the table restore request to return status for. If you
--- don\'t specify a @TableRestoreRequestId@ value, then
--- @DescribeTableRestoreStatus@ returns the status of all in-progress table
--- restore requests.
-describeTableRestoreStatus_tableRestoreRequestId :: Lens.Lens' DescribeTableRestoreStatus (Prelude.Maybe Prelude.Text)
-describeTableRestoreStatus_tableRestoreRequestId = Lens.lens (\DescribeTableRestoreStatus' {tableRestoreRequestId} -> tableRestoreRequestId) (\s@DescribeTableRestoreStatus' {} a -> s {tableRestoreRequestId = a} :: DescribeTableRestoreStatus)
 
 -- | The Amazon Redshift cluster that the table is being restored to.
 describeTableRestoreStatus_clusterIdentifier :: Lens.Lens' DescribeTableRestoreStatus (Prelude.Maybe Prelude.Text)
@@ -141,6 +135,13 @@ describeTableRestoreStatus_marker = Lens.lens (\DescribeTableRestoreStatus' {mar
 -- results can be retrieved.
 describeTableRestoreStatus_maxRecords :: Lens.Lens' DescribeTableRestoreStatus (Prelude.Maybe Prelude.Int)
 describeTableRestoreStatus_maxRecords = Lens.lens (\DescribeTableRestoreStatus' {maxRecords} -> maxRecords) (\s@DescribeTableRestoreStatus' {} a -> s {maxRecords = a} :: DescribeTableRestoreStatus)
+
+-- | The identifier of the table restore request to return status for. If you
+-- don\'t specify a @TableRestoreRequestId@ value, then
+-- @DescribeTableRestoreStatus@ returns the status of all in-progress table
+-- restore requests.
+describeTableRestoreStatus_tableRestoreRequestId :: Lens.Lens' DescribeTableRestoreStatus (Prelude.Maybe Prelude.Text)
+describeTableRestoreStatus_tableRestoreRequestId = Lens.lens (\DescribeTableRestoreStatus' {tableRestoreRequestId} -> tableRestoreRequestId) (\s@DescribeTableRestoreStatus' {} a -> s {tableRestoreRequestId = a} :: DescribeTableRestoreStatus)
 
 instance Core.AWSPager DescribeTableRestoreStatus where
   page rq rs
@@ -168,52 +169,53 @@ instance Core.AWSRequest DescribeTableRestoreStatus where
   type
     AWSResponse DescribeTableRestoreStatus =
       DescribeTableRestoreStatusResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeTableRestoreStatusResult"
       ( \s h x ->
           DescribeTableRestoreStatusResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> ( x Core..@? "TableRestoreStatusDetails"
+            Prelude.<$> (x Data..@? "Marker")
+            Prelude.<*> ( x Data..@? "TableRestoreStatusDetails"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "TableRestoreStatus")
+                            Prelude.>>= Core.may (Data.parseXMLList "TableRestoreStatus")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeTableRestoreStatus where
   hashWithSalt _salt DescribeTableRestoreStatus' {..} =
-    _salt `Prelude.hashWithSalt` tableRestoreRequestId
-      `Prelude.hashWithSalt` clusterIdentifier
+    _salt `Prelude.hashWithSalt` clusterIdentifier
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` tableRestoreRequestId
 
 instance Prelude.NFData DescribeTableRestoreStatus where
   rnf DescribeTableRestoreStatus' {..} =
-    Prelude.rnf tableRestoreRequestId
-      `Prelude.seq` Prelude.rnf clusterIdentifier
+    Prelude.rnf clusterIdentifier
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf tableRestoreRequestId
 
-instance Core.ToHeaders DescribeTableRestoreStatus where
+instance Data.ToHeaders DescribeTableRestoreStatus where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeTableRestoreStatus where
+instance Data.ToPath DescribeTableRestoreStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTableRestoreStatus where
+instance Data.ToQuery DescribeTableRestoreStatus where
   toQuery DescribeTableRestoreStatus' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeTableRestoreStatus" :: Prelude.ByteString),
+          Data.=: ("DescribeTableRestoreStatus" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "ClusterIdentifier" Data.=: clusterIdentifier,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
         "TableRestoreRequestId"
-          Core.=: tableRestoreRequestId,
-        "ClusterIdentifier" Core.=: clusterIdentifier,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: tableRestoreRequestId
       ]
 
 -- |

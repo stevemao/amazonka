@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.CreateWorldTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,11 +27,11 @@ module Amazonka.RobOMaker.CreateWorldTemplate
     newCreateWorldTemplate,
 
     -- * Request Lenses
-    createWorldTemplate_name,
-    createWorldTemplate_templateLocation,
-    createWorldTemplate_templateBody,
     createWorldTemplate_clientRequestToken,
+    createWorldTemplate_name,
     createWorldTemplate_tags,
+    createWorldTemplate_templateBody,
+    createWorldTemplate_templateLocation,
 
     -- * Destructuring the Response
     CreateWorldTemplateResponse (..),
@@ -39,16 +39,17 @@ module Amazonka.RobOMaker.CreateWorldTemplate
 
     -- * Response Lenses
     createWorldTemplateResponse_arn,
+    createWorldTemplateResponse_clientRequestToken,
     createWorldTemplateResponse_createdAt,
     createWorldTemplateResponse_name,
-    createWorldTemplateResponse_clientRequestToken,
     createWorldTemplateResponse_tags,
     createWorldTemplateResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,18 +57,18 @@ import Amazonka.RobOMaker.Types
 
 -- | /See:/ 'newCreateWorldTemplate' smart constructor.
 data CreateWorldTemplate = CreateWorldTemplate'
-  { -- | The name of the world template.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The location of the world template.
-    templateLocation :: Prelude.Maybe TemplateLocation,
-    -- | The world template body.
-    templateBody :: Prelude.Maybe Prelude.Text,
-    -- | Unique, case-sensitive identifier that you provide to ensure the
+  { -- | Unique, case-sensitive identifier that you provide to ensure the
     -- idempotency of the request.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the world template.
+    name :: Prelude.Maybe Prelude.Text,
     -- | A map that contains tag keys and tag values that are attached to the
     -- world template.
-    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
+    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The world template body.
+    templateBody :: Prelude.Maybe Prelude.Text,
+    -- | The location of the world template.
+    templateLocation :: Prelude.Maybe TemplateLocation
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -79,126 +80,128 @@ data CreateWorldTemplate = CreateWorldTemplate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'createWorldTemplate_name' - The name of the world template.
---
--- 'templateLocation', 'createWorldTemplate_templateLocation' - The location of the world template.
---
--- 'templateBody', 'createWorldTemplate_templateBody' - The world template body.
---
 -- 'clientRequestToken', 'createWorldTemplate_clientRequestToken' - Unique, case-sensitive identifier that you provide to ensure the
 -- idempotency of the request.
 --
+-- 'name', 'createWorldTemplate_name' - The name of the world template.
+--
 -- 'tags', 'createWorldTemplate_tags' - A map that contains tag keys and tag values that are attached to the
 -- world template.
+--
+-- 'templateBody', 'createWorldTemplate_templateBody' - The world template body.
+--
+-- 'templateLocation', 'createWorldTemplate_templateLocation' - The location of the world template.
 newCreateWorldTemplate ::
   CreateWorldTemplate
 newCreateWorldTemplate =
   CreateWorldTemplate'
-    { name = Prelude.Nothing,
-      templateLocation = Prelude.Nothing,
+    { clientRequestToken =
+        Prelude.Nothing,
+      name = Prelude.Nothing,
+      tags = Prelude.Nothing,
       templateBody = Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
-      tags = Prelude.Nothing
+      templateLocation = Prelude.Nothing
     }
-
--- | The name of the world template.
-createWorldTemplate_name :: Lens.Lens' CreateWorldTemplate (Prelude.Maybe Prelude.Text)
-createWorldTemplate_name = Lens.lens (\CreateWorldTemplate' {name} -> name) (\s@CreateWorldTemplate' {} a -> s {name = a} :: CreateWorldTemplate)
-
--- | The location of the world template.
-createWorldTemplate_templateLocation :: Lens.Lens' CreateWorldTemplate (Prelude.Maybe TemplateLocation)
-createWorldTemplate_templateLocation = Lens.lens (\CreateWorldTemplate' {templateLocation} -> templateLocation) (\s@CreateWorldTemplate' {} a -> s {templateLocation = a} :: CreateWorldTemplate)
-
--- | The world template body.
-createWorldTemplate_templateBody :: Lens.Lens' CreateWorldTemplate (Prelude.Maybe Prelude.Text)
-createWorldTemplate_templateBody = Lens.lens (\CreateWorldTemplate' {templateBody} -> templateBody) (\s@CreateWorldTemplate' {} a -> s {templateBody = a} :: CreateWorldTemplate)
 
 -- | Unique, case-sensitive identifier that you provide to ensure the
 -- idempotency of the request.
 createWorldTemplate_clientRequestToken :: Lens.Lens' CreateWorldTemplate (Prelude.Maybe Prelude.Text)
 createWorldTemplate_clientRequestToken = Lens.lens (\CreateWorldTemplate' {clientRequestToken} -> clientRequestToken) (\s@CreateWorldTemplate' {} a -> s {clientRequestToken = a} :: CreateWorldTemplate)
 
+-- | The name of the world template.
+createWorldTemplate_name :: Lens.Lens' CreateWorldTemplate (Prelude.Maybe Prelude.Text)
+createWorldTemplate_name = Lens.lens (\CreateWorldTemplate' {name} -> name) (\s@CreateWorldTemplate' {} a -> s {name = a} :: CreateWorldTemplate)
+
 -- | A map that contains tag keys and tag values that are attached to the
 -- world template.
 createWorldTemplate_tags :: Lens.Lens' CreateWorldTemplate (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createWorldTemplate_tags = Lens.lens (\CreateWorldTemplate' {tags} -> tags) (\s@CreateWorldTemplate' {} a -> s {tags = a} :: CreateWorldTemplate) Prelude.. Lens.mapping Lens.coerced
 
+-- | The world template body.
+createWorldTemplate_templateBody :: Lens.Lens' CreateWorldTemplate (Prelude.Maybe Prelude.Text)
+createWorldTemplate_templateBody = Lens.lens (\CreateWorldTemplate' {templateBody} -> templateBody) (\s@CreateWorldTemplate' {} a -> s {templateBody = a} :: CreateWorldTemplate)
+
+-- | The location of the world template.
+createWorldTemplate_templateLocation :: Lens.Lens' CreateWorldTemplate (Prelude.Maybe TemplateLocation)
+createWorldTemplate_templateLocation = Lens.lens (\CreateWorldTemplate' {templateLocation} -> templateLocation) (\s@CreateWorldTemplate' {} a -> s {templateLocation = a} :: CreateWorldTemplate)
+
 instance Core.AWSRequest CreateWorldTemplate where
   type
     AWSResponse CreateWorldTemplate =
       CreateWorldTemplateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateWorldTemplateResponse'
-            Prelude.<$> (x Core..?> "arn")
-            Prelude.<*> (x Core..?> "createdAt")
-            Prelude.<*> (x Core..?> "name")
-            Prelude.<*> (x Core..?> "clientRequestToken")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "arn")
+            Prelude.<*> (x Data..?> "clientRequestToken")
+            Prelude.<*> (x Data..?> "createdAt")
+            Prelude.<*> (x Data..?> "name")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateWorldTemplate where
   hashWithSalt _salt CreateWorldTemplate' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` templateLocation
-      `Prelude.hashWithSalt` templateBody
-      `Prelude.hashWithSalt` clientRequestToken
+    _salt `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` templateBody
+      `Prelude.hashWithSalt` templateLocation
 
 instance Prelude.NFData CreateWorldTemplate where
   rnf CreateWorldTemplate' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf templateLocation
-      `Prelude.seq` Prelude.rnf templateBody
-      `Prelude.seq` Prelude.rnf clientRequestToken
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf templateBody
+      `Prelude.seq` Prelude.rnf templateLocation
 
-instance Core.ToHeaders CreateWorldTemplate where
+instance Data.ToHeaders CreateWorldTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateWorldTemplate where
+instance Data.ToJSON CreateWorldTemplate where
   toJSON CreateWorldTemplate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("name" Core..=) Prelude.<$> name,
-            ("templateLocation" Core..=)
-              Prelude.<$> templateLocation,
-            ("templateBody" Core..=) Prelude.<$> templateBody,
-            ("clientRequestToken" Core..=)
+          [ ("clientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("tags" Core..=) Prelude.<$> tags
+            ("name" Data..=) Prelude.<$> name,
+            ("tags" Data..=) Prelude.<$> tags,
+            ("templateBody" Data..=) Prelude.<$> templateBody,
+            ("templateLocation" Data..=)
+              Prelude.<$> templateLocation
           ]
       )
 
-instance Core.ToPath CreateWorldTemplate where
+instance Data.ToPath CreateWorldTemplate where
   toPath = Prelude.const "/createWorldTemplate"
 
-instance Core.ToQuery CreateWorldTemplate where
+instance Data.ToQuery CreateWorldTemplate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateWorldTemplateResponse' smart constructor.
 data CreateWorldTemplateResponse = CreateWorldTemplateResponse'
   { -- | The Amazon Resource Name (ARN) of the world template.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The time, in milliseconds since the epoch, when the world template was
-    -- created.
-    createdAt :: Prelude.Maybe Core.POSIX,
-    -- | The name of the world template.
-    name :: Prelude.Maybe Prelude.Text,
     -- | Unique, case-sensitive identifier that you provide to ensure the
     -- idempotency of the request.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The time, in milliseconds since the epoch, when the world template was
+    -- created.
+    createdAt :: Prelude.Maybe Data.POSIX,
+    -- | The name of the world template.
+    name :: Prelude.Maybe Prelude.Text,
     -- | A map that contains tag keys and tag values that are attached to the
     -- world template.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
@@ -217,13 +220,13 @@ data CreateWorldTemplateResponse = CreateWorldTemplateResponse'
 --
 -- 'arn', 'createWorldTemplateResponse_arn' - The Amazon Resource Name (ARN) of the world template.
 --
+-- 'clientRequestToken', 'createWorldTemplateResponse_clientRequestToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request.
+--
 -- 'createdAt', 'createWorldTemplateResponse_createdAt' - The time, in milliseconds since the epoch, when the world template was
 -- created.
 --
 -- 'name', 'createWorldTemplateResponse_name' - The name of the world template.
---
--- 'clientRequestToken', 'createWorldTemplateResponse_clientRequestToken' - Unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
 --
 -- 'tags', 'createWorldTemplateResponse_tags' - A map that contains tag keys and tag values that are attached to the
 -- world template.
@@ -236,9 +239,9 @@ newCreateWorldTemplateResponse ::
 newCreateWorldTemplateResponse pHttpStatus_ =
   CreateWorldTemplateResponse'
     { arn = Prelude.Nothing,
+      clientRequestToken = Prelude.Nothing,
       createdAt = Prelude.Nothing,
       name = Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
@@ -247,19 +250,19 @@ newCreateWorldTemplateResponse pHttpStatus_ =
 createWorldTemplateResponse_arn :: Lens.Lens' CreateWorldTemplateResponse (Prelude.Maybe Prelude.Text)
 createWorldTemplateResponse_arn = Lens.lens (\CreateWorldTemplateResponse' {arn} -> arn) (\s@CreateWorldTemplateResponse' {} a -> s {arn = a} :: CreateWorldTemplateResponse)
 
--- | The time, in milliseconds since the epoch, when the world template was
--- created.
-createWorldTemplateResponse_createdAt :: Lens.Lens' CreateWorldTemplateResponse (Prelude.Maybe Prelude.UTCTime)
-createWorldTemplateResponse_createdAt = Lens.lens (\CreateWorldTemplateResponse' {createdAt} -> createdAt) (\s@CreateWorldTemplateResponse' {} a -> s {createdAt = a} :: CreateWorldTemplateResponse) Prelude.. Lens.mapping Core._Time
-
--- | The name of the world template.
-createWorldTemplateResponse_name :: Lens.Lens' CreateWorldTemplateResponse (Prelude.Maybe Prelude.Text)
-createWorldTemplateResponse_name = Lens.lens (\CreateWorldTemplateResponse' {name} -> name) (\s@CreateWorldTemplateResponse' {} a -> s {name = a} :: CreateWorldTemplateResponse)
-
 -- | Unique, case-sensitive identifier that you provide to ensure the
 -- idempotency of the request.
 createWorldTemplateResponse_clientRequestToken :: Lens.Lens' CreateWorldTemplateResponse (Prelude.Maybe Prelude.Text)
 createWorldTemplateResponse_clientRequestToken = Lens.lens (\CreateWorldTemplateResponse' {clientRequestToken} -> clientRequestToken) (\s@CreateWorldTemplateResponse' {} a -> s {clientRequestToken = a} :: CreateWorldTemplateResponse)
+
+-- | The time, in milliseconds since the epoch, when the world template was
+-- created.
+createWorldTemplateResponse_createdAt :: Lens.Lens' CreateWorldTemplateResponse (Prelude.Maybe Prelude.UTCTime)
+createWorldTemplateResponse_createdAt = Lens.lens (\CreateWorldTemplateResponse' {createdAt} -> createdAt) (\s@CreateWorldTemplateResponse' {} a -> s {createdAt = a} :: CreateWorldTemplateResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The name of the world template.
+createWorldTemplateResponse_name :: Lens.Lens' CreateWorldTemplateResponse (Prelude.Maybe Prelude.Text)
+createWorldTemplateResponse_name = Lens.lens (\CreateWorldTemplateResponse' {name} -> name) (\s@CreateWorldTemplateResponse' {} a -> s {name = a} :: CreateWorldTemplateResponse)
 
 -- | A map that contains tag keys and tag values that are attached to the
 -- world template.
@@ -273,8 +276,8 @@ createWorldTemplateResponse_httpStatus = Lens.lens (\CreateWorldTemplateResponse
 instance Prelude.NFData CreateWorldTemplateResponse where
   rnf CreateWorldTemplateResponse' {..} =
     Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf clientRequestToken
       `Prelude.seq` Prelude.rnf createdAt
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf clientRequestToken
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

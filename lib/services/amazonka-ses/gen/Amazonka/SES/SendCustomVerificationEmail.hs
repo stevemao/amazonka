@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.SendCustomVerificationEmail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,7 +53,8 @@ module Amazonka.SES.SendCustomVerificationEmail
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,13 +122,14 @@ instance Core.AWSRequest SendCustomVerificationEmail where
   type
     AWSResponse SendCustomVerificationEmail =
       SendCustomVerificationEmailResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SendCustomVerificationEmailResult"
       ( \s h x ->
           SendCustomVerificationEmailResponse'
-            Prelude.<$> (x Core..@? "MessageId")
+            Prelude.<$> (x Data..@? "MessageId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -143,24 +145,24 @@ instance Prelude.NFData SendCustomVerificationEmail where
       `Prelude.seq` Prelude.rnf emailAddress
       `Prelude.seq` Prelude.rnf templateName
 
-instance Core.ToHeaders SendCustomVerificationEmail where
+instance Data.ToHeaders SendCustomVerificationEmail where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SendCustomVerificationEmail where
+instance Data.ToPath SendCustomVerificationEmail where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SendCustomVerificationEmail where
+instance Data.ToQuery SendCustomVerificationEmail where
   toQuery SendCustomVerificationEmail' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "SendCustomVerificationEmail" ::
+          Data.=: ( "SendCustomVerificationEmail" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "ConfigurationSetName" Core.=: configurationSetName,
-        "EmailAddress" Core.=: emailAddress,
-        "TemplateName" Core.=: templateName
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "ConfigurationSetName" Data.=: configurationSetName,
+        "EmailAddress" Data.=: emailAddress,
+        "TemplateName" Data.=: templateName
       ]
 
 -- | The response received when attempting to send the custom verification

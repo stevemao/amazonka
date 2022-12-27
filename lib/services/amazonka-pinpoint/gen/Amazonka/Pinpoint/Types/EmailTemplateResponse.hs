@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.EmailTemplateResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.EmailTemplateResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.TemplateType
 import qualified Amazonka.Prelude as Prelude
 
@@ -30,31 +31,31 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEmailTemplateResponse' smart constructor.
 data EmailTemplateResponse = EmailTemplateResponse'
-  { -- | The subject line, or title, that\'s used in email messages that are
-    -- based on the message template.
-    subject :: Prelude.Maybe Prelude.Text,
-    -- | The message body, in plain text format, that\'s used in email messages
-    -- that are based on the message template.
-    textPart :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the message template.
+  { -- | The Amazon Resource Name (ARN) of the message template.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The custom description of the message template.
-    templateDescription :: Prelude.Maybe Prelude.Text,
     -- | The JSON object that specifies the default values that are used for
     -- message variables in the message template. This object is a set of
     -- key-value pairs. Each key defines a message variable in the template.
     -- The corresponding value defines the default value for that variable.
     defaultSubstitutions :: Prelude.Maybe Prelude.Text,
-    -- | The unique identifier, as an integer, for the active version of the
-    -- message template, or the version of the template that you specified by
-    -- using the version parameter in your request.
-    version :: Prelude.Maybe Prelude.Text,
     -- | The message body, in HTML format, that\'s used in email messages that
     -- are based on the message template.
     htmlPart :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier for the recommender model that\'s used by the
     -- message template.
     recommenderId :: Prelude.Maybe Prelude.Text,
+    -- | The subject line, or title, that\'s used in email messages that are
+    -- based on the message template.
+    subject :: Prelude.Maybe Prelude.Text,
+    -- | The custom description of the message template.
+    templateDescription :: Prelude.Maybe Prelude.Text,
+    -- | The message body, in plain text format, that\'s used in email messages
+    -- that are based on the message template.
+    textPart :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier, as an integer, for the active version of the
+    -- message template, or the version of the template that you specified by
+    -- using the version parameter in your request.
+    version :: Prelude.Maybe Prelude.Text,
     -- | A string-to-string map of key-value pairs that identifies the tags that
     -- are associated with the message template. Each tag consists of a
     -- required tag key and an associated tag value.
@@ -80,30 +81,30 @@ data EmailTemplateResponse = EmailTemplateResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subject', 'emailTemplateResponse_subject' - The subject line, or title, that\'s used in email messages that are
--- based on the message template.
---
--- 'textPart', 'emailTemplateResponse_textPart' - The message body, in plain text format, that\'s used in email messages
--- that are based on the message template.
---
 -- 'arn', 'emailTemplateResponse_arn' - The Amazon Resource Name (ARN) of the message template.
---
--- 'templateDescription', 'emailTemplateResponse_templateDescription' - The custom description of the message template.
 --
 -- 'defaultSubstitutions', 'emailTemplateResponse_defaultSubstitutions' - The JSON object that specifies the default values that are used for
 -- message variables in the message template. This object is a set of
 -- key-value pairs. Each key defines a message variable in the template.
 -- The corresponding value defines the default value for that variable.
 --
--- 'version', 'emailTemplateResponse_version' - The unique identifier, as an integer, for the active version of the
--- message template, or the version of the template that you specified by
--- using the version parameter in your request.
---
 -- 'htmlPart', 'emailTemplateResponse_htmlPart' - The message body, in HTML format, that\'s used in email messages that
 -- are based on the message template.
 --
 -- 'recommenderId', 'emailTemplateResponse_recommenderId' - The unique identifier for the recommender model that\'s used by the
 -- message template.
+--
+-- 'subject', 'emailTemplateResponse_subject' - The subject line, or title, that\'s used in email messages that are
+-- based on the message template.
+--
+-- 'templateDescription', 'emailTemplateResponse_templateDescription' - The custom description of the message template.
+--
+-- 'textPart', 'emailTemplateResponse_textPart' - The message body, in plain text format, that\'s used in email messages
+-- that are based on the message template.
+--
+-- 'version', 'emailTemplateResponse_version' - The unique identifier, as an integer, for the active version of the
+-- message template, or the version of the template that you specified by
+-- using the version parameter in your request.
 --
 -- 'tags', 'emailTemplateResponse_tags' - A string-to-string map of key-value pairs that identifies the tags that
 -- are associated with the message template. Each tag consists of a
@@ -134,14 +135,14 @@ newEmailTemplateResponse
   pTemplateName_
   pTemplateType_ =
     EmailTemplateResponse'
-      { subject = Prelude.Nothing,
-        textPart = Prelude.Nothing,
-        arn = Prelude.Nothing,
-        templateDescription = Prelude.Nothing,
+      { arn = Prelude.Nothing,
         defaultSubstitutions = Prelude.Nothing,
-        version = Prelude.Nothing,
         htmlPart = Prelude.Nothing,
         recommenderId = Prelude.Nothing,
+        subject = Prelude.Nothing,
+        templateDescription = Prelude.Nothing,
+        textPart = Prelude.Nothing,
+        version = Prelude.Nothing,
         tags = Prelude.Nothing,
         lastModifiedDate = pLastModifiedDate_,
         creationDate = pCreationDate_,
@@ -149,23 +150,9 @@ newEmailTemplateResponse
         templateType = pTemplateType_
       }
 
--- | The subject line, or title, that\'s used in email messages that are
--- based on the message template.
-emailTemplateResponse_subject :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
-emailTemplateResponse_subject = Lens.lens (\EmailTemplateResponse' {subject} -> subject) (\s@EmailTemplateResponse' {} a -> s {subject = a} :: EmailTemplateResponse)
-
--- | The message body, in plain text format, that\'s used in email messages
--- that are based on the message template.
-emailTemplateResponse_textPart :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
-emailTemplateResponse_textPart = Lens.lens (\EmailTemplateResponse' {textPart} -> textPart) (\s@EmailTemplateResponse' {} a -> s {textPart = a} :: EmailTemplateResponse)
-
 -- | The Amazon Resource Name (ARN) of the message template.
 emailTemplateResponse_arn :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
 emailTemplateResponse_arn = Lens.lens (\EmailTemplateResponse' {arn} -> arn) (\s@EmailTemplateResponse' {} a -> s {arn = a} :: EmailTemplateResponse)
-
--- | The custom description of the message template.
-emailTemplateResponse_templateDescription :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
-emailTemplateResponse_templateDescription = Lens.lens (\EmailTemplateResponse' {templateDescription} -> templateDescription) (\s@EmailTemplateResponse' {} a -> s {templateDescription = a} :: EmailTemplateResponse)
 
 -- | The JSON object that specifies the default values that are used for
 -- message variables in the message template. This object is a set of
@@ -173,12 +160,6 @@ emailTemplateResponse_templateDescription = Lens.lens (\EmailTemplateResponse' {
 -- The corresponding value defines the default value for that variable.
 emailTemplateResponse_defaultSubstitutions :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
 emailTemplateResponse_defaultSubstitutions = Lens.lens (\EmailTemplateResponse' {defaultSubstitutions} -> defaultSubstitutions) (\s@EmailTemplateResponse' {} a -> s {defaultSubstitutions = a} :: EmailTemplateResponse)
-
--- | The unique identifier, as an integer, for the active version of the
--- message template, or the version of the template that you specified by
--- using the version parameter in your request.
-emailTemplateResponse_version :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
-emailTemplateResponse_version = Lens.lens (\EmailTemplateResponse' {version} -> version) (\s@EmailTemplateResponse' {} a -> s {version = a} :: EmailTemplateResponse)
 
 -- | The message body, in HTML format, that\'s used in email messages that
 -- are based on the message template.
@@ -189,6 +170,26 @@ emailTemplateResponse_htmlPart = Lens.lens (\EmailTemplateResponse' {htmlPart} -
 -- message template.
 emailTemplateResponse_recommenderId :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
 emailTemplateResponse_recommenderId = Lens.lens (\EmailTemplateResponse' {recommenderId} -> recommenderId) (\s@EmailTemplateResponse' {} a -> s {recommenderId = a} :: EmailTemplateResponse)
+
+-- | The subject line, or title, that\'s used in email messages that are
+-- based on the message template.
+emailTemplateResponse_subject :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
+emailTemplateResponse_subject = Lens.lens (\EmailTemplateResponse' {subject} -> subject) (\s@EmailTemplateResponse' {} a -> s {subject = a} :: EmailTemplateResponse)
+
+-- | The custom description of the message template.
+emailTemplateResponse_templateDescription :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
+emailTemplateResponse_templateDescription = Lens.lens (\EmailTemplateResponse' {templateDescription} -> templateDescription) (\s@EmailTemplateResponse' {} a -> s {templateDescription = a} :: EmailTemplateResponse)
+
+-- | The message body, in plain text format, that\'s used in email messages
+-- that are based on the message template.
+emailTemplateResponse_textPart :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
+emailTemplateResponse_textPart = Lens.lens (\EmailTemplateResponse' {textPart} -> textPart) (\s@EmailTemplateResponse' {} a -> s {textPart = a} :: EmailTemplateResponse)
+
+-- | The unique identifier, as an integer, for the active version of the
+-- message template, or the version of the template that you specified by
+-- using the version parameter in your request.
+emailTemplateResponse_version :: Lens.Lens' EmailTemplateResponse (Prelude.Maybe Prelude.Text)
+emailTemplateResponse_version = Lens.lens (\EmailTemplateResponse' {version} -> version) (\s@EmailTemplateResponse' {} a -> s {version = a} :: EmailTemplateResponse)
 
 -- | A string-to-string map of key-value pairs that identifies the tags that
 -- are associated with the message template. Each tag consists of a
@@ -214,37 +215,37 @@ emailTemplateResponse_templateName = Lens.lens (\EmailTemplateResponse' {templat
 emailTemplateResponse_templateType :: Lens.Lens' EmailTemplateResponse TemplateType
 emailTemplateResponse_templateType = Lens.lens (\EmailTemplateResponse' {templateType} -> templateType) (\s@EmailTemplateResponse' {} a -> s {templateType = a} :: EmailTemplateResponse)
 
-instance Core.FromJSON EmailTemplateResponse where
+instance Data.FromJSON EmailTemplateResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EmailTemplateResponse"
       ( \x ->
           EmailTemplateResponse'
-            Prelude.<$> (x Core..:? "Subject")
-            Prelude.<*> (x Core..:? "TextPart")
-            Prelude.<*> (x Core..:? "Arn")
-            Prelude.<*> (x Core..:? "TemplateDescription")
-            Prelude.<*> (x Core..:? "DefaultSubstitutions")
-            Prelude.<*> (x Core..:? "Version")
-            Prelude.<*> (x Core..:? "HtmlPart")
-            Prelude.<*> (x Core..:? "RecommenderId")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "LastModifiedDate")
-            Prelude.<*> (x Core..: "CreationDate")
-            Prelude.<*> (x Core..: "TemplateName")
-            Prelude.<*> (x Core..: "TemplateType")
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> (x Data..:? "DefaultSubstitutions")
+            Prelude.<*> (x Data..:? "HtmlPart")
+            Prelude.<*> (x Data..:? "RecommenderId")
+            Prelude.<*> (x Data..:? "Subject")
+            Prelude.<*> (x Data..:? "TemplateDescription")
+            Prelude.<*> (x Data..:? "TextPart")
+            Prelude.<*> (x Data..:? "Version")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "LastModifiedDate")
+            Prelude.<*> (x Data..: "CreationDate")
+            Prelude.<*> (x Data..: "TemplateName")
+            Prelude.<*> (x Data..: "TemplateType")
       )
 
 instance Prelude.Hashable EmailTemplateResponse where
   hashWithSalt _salt EmailTemplateResponse' {..} =
-    _salt `Prelude.hashWithSalt` subject
-      `Prelude.hashWithSalt` textPart
-      `Prelude.hashWithSalt` arn
-      `Prelude.hashWithSalt` templateDescription
+    _salt `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` defaultSubstitutions
-      `Prelude.hashWithSalt` version
       `Prelude.hashWithSalt` htmlPart
       `Prelude.hashWithSalt` recommenderId
+      `Prelude.hashWithSalt` subject
+      `Prelude.hashWithSalt` templateDescription
+      `Prelude.hashWithSalt` textPart
+      `Prelude.hashWithSalt` version
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` lastModifiedDate
       `Prelude.hashWithSalt` creationDate
@@ -253,14 +254,14 @@ instance Prelude.Hashable EmailTemplateResponse where
 
 instance Prelude.NFData EmailTemplateResponse where
   rnf EmailTemplateResponse' {..} =
-    Prelude.rnf subject
-      `Prelude.seq` Prelude.rnf textPart
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf templateDescription
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf defaultSubstitutions
-      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf htmlPart
       `Prelude.seq` Prelude.rnf recommenderId
+      `Prelude.seq` Prelude.rnf subject
+      `Prelude.seq` Prelude.rnf templateDescription
+      `Prelude.seq` Prelude.rnf textPart
+      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf lastModifiedDate
       `Prelude.seq` Prelude.rnf creationDate

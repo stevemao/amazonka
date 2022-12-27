@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.FailureDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Firehose.Types.FailureDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Firehose.Types.DeliveryStreamFailureType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides details in case one of the following operations fails due to an
@@ -68,13 +69,13 @@ failureDescription_type = Lens.lens (\FailureDescription' {type'} -> type') (\s@
 failureDescription_details :: Lens.Lens' FailureDescription Prelude.Text
 failureDescription_details = Lens.lens (\FailureDescription' {details} -> details) (\s@FailureDescription' {} a -> s {details = a} :: FailureDescription)
 
-instance Core.FromJSON FailureDescription where
+instance Data.FromJSON FailureDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FailureDescription"
       ( \x ->
           FailureDescription'
-            Prelude.<$> (x Core..: "Type") Prelude.<*> (x Core..: "Details")
+            Prelude.<$> (x Data..: "Type") Prelude.<*> (x Data..: "Details")
       )
 
 instance Prelude.Hashable FailureDescription where

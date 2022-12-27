@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.DeleteSourceServer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.MGN.DeleteSourceServer
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -79,7 +80,8 @@ instance Core.AWSRequest DeleteSourceServer where
   type
     AWSResponse DeleteSourceServer =
       DeleteSourceServerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,30 +97,30 @@ instance Prelude.NFData DeleteSourceServer where
   rnf DeleteSourceServer' {..} =
     Prelude.rnf sourceServerID
 
-instance Core.ToHeaders DeleteSourceServer where
+instance Data.ToHeaders DeleteSourceServer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteSourceServer where
+instance Data.ToJSON DeleteSourceServer where
   toJSON DeleteSourceServer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("sourceServerID" Core..= sourceServerID)
+              ("sourceServerID" Data..= sourceServerID)
           ]
       )
 
-instance Core.ToPath DeleteSourceServer where
+instance Data.ToPath DeleteSourceServer where
   toPath = Prelude.const "/DeleteSourceServer"
 
-instance Core.ToQuery DeleteSourceServer where
+instance Data.ToQuery DeleteSourceServer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteSourceServerResponse' smart constructor.

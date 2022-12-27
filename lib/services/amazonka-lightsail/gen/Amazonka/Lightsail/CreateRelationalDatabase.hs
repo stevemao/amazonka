@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.CreateRelationalDatabase
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,11 +31,11 @@ module Amazonka.Lightsail.CreateRelationalDatabase
     newCreateRelationalDatabase,
 
     -- * Request Lenses
-    createRelationalDatabase_masterUserPassword,
-    createRelationalDatabase_publiclyAccessible,
-    createRelationalDatabase_preferredMaintenanceWindow,
-    createRelationalDatabase_preferredBackupWindow,
     createRelationalDatabase_availabilityZone,
+    createRelationalDatabase_masterUserPassword,
+    createRelationalDatabase_preferredBackupWindow,
+    createRelationalDatabase_preferredMaintenanceWindow,
+    createRelationalDatabase_publiclyAccessible,
     createRelationalDatabase_tags,
     createRelationalDatabase_relationalDatabaseName,
     createRelationalDatabase_relationalDatabaseBlueprintId,
@@ -54,7 +54,8 @@ module Amazonka.Lightsail.CreateRelationalDatabase
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -62,7 +63,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateRelationalDatabase' smart constructor.
 data CreateRelationalDatabase = CreateRelationalDatabase'
-  { -- | The password for the master user. The password can include any printable
+  { -- | The Availability Zone in which to create your new database. Use the
+    -- @us-east-2a@ case-sensitive format.
+    --
+    -- You can get a list of Availability Zones by using the @get regions@
+    -- operation. Be sure to add the
+    -- @include relational database Availability Zones@ parameter to your
+    -- request.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | The password for the master user. The password can include any printable
     -- ASCII character except \"\/\", \"\"\", or \"\@\". It cannot contain
     -- spaces.
     --
@@ -73,13 +82,28 @@ data CreateRelationalDatabase = CreateRelationalDatabase'
     -- __PostgreSQL__
     --
     -- Constraints: Must contain from 8 to 128 characters.
-    masterUserPassword :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | Specifies the accessibility options for your new database. A value of
-    -- @true@ specifies a database that is available to resources outside of
-    -- your Lightsail account. A value of @false@ specifies a database that is
-    -- available only to your Lightsail resources in the same region as your
-    -- database.
-    publiclyAccessible :: Prelude.Maybe Prelude.Bool,
+    masterUserPassword :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The daily time range during which automated backups are created for your
+    -- new database if automated backups are enabled.
+    --
+    -- The default is a 30-minute window selected at random from an 8-hour
+    -- block of time for each AWS Region. For more information about the
+    -- preferred backup window time blocks for each region, see the
+    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow Working With Backups>
+    -- guide in the Amazon Relational Database Service documentation.
+    --
+    -- Constraints:
+    --
+    -- -   Must be in the @hh24:mi-hh24:mi@ format.
+    --
+    --     Example: @16:00-16:30@
+    --
+    -- -   Specified in Coordinated Universal Time (UTC).
+    --
+    -- -   Must not conflict with the preferred maintenance window.
+    --
+    -- -   Must be at least 30 minutes.
+    preferredBackupWindow :: Prelude.Maybe Prelude.Text,
     -- | The weekly time range during which system maintenance can occur on your
     -- new database.
     --
@@ -99,36 +123,12 @@ data CreateRelationalDatabase = CreateRelationalDatabase'
     --
     -- -   Example: @Tue:17:00-Tue:17:30@
     preferredMaintenanceWindow :: Prelude.Maybe Prelude.Text,
-    -- | The daily time range during which automated backups are created for your
-    -- new database if automated backups are enabled.
-    --
-    -- The default is a 30-minute window selected at random from an 8-hour
-    -- block of time for each AWS Region. For more information about the
-    -- preferred backup window time blocks for each region, see the
-    -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow Working With Backups>
-    -- guide in the Amazon Relational Database Service (Amazon RDS)
-    -- documentation.
-    --
-    -- Constraints:
-    --
-    -- -   Must be in the @hh24:mi-hh24:mi@ format.
-    --
-    --     Example: @16:00-16:30@
-    --
-    -- -   Specified in Coordinated Universal Time (UTC).
-    --
-    -- -   Must not conflict with the preferred maintenance window.
-    --
-    -- -   Must be at least 30 minutes.
-    preferredBackupWindow :: Prelude.Maybe Prelude.Text,
-    -- | The Availability Zone in which to create your new database. Use the
-    -- @us-east-2a@ case-sensitive format.
-    --
-    -- You can get a list of Availability Zones by using the @get regions@
-    -- operation. Be sure to add the
-    -- @include relational database Availability Zones@ parameter to your
-    -- request.
-    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the accessibility options for your new database. A value of
+    -- @true@ specifies a database that is available to resources outside of
+    -- your Lightsail account. A value of @false@ specifies a database that is
+    -- available only to your Lightsail resources in the same region as your
+    -- database.
+    publiclyAccessible :: Prelude.Maybe Prelude.Bool,
     -- | The tag keys and optional values to add to the resource during create.
     --
     -- Use the @TagResource@ action to tag a resource after it\'s created.
@@ -253,6 +253,14 @@ data CreateRelationalDatabase = CreateRelationalDatabase'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'availabilityZone', 'createRelationalDatabase_availabilityZone' - The Availability Zone in which to create your new database. Use the
+-- @us-east-2a@ case-sensitive format.
+--
+-- You can get a list of Availability Zones by using the @get regions@
+-- operation. Be sure to add the
+-- @include relational database Availability Zones@ parameter to your
+-- request.
+--
 -- 'masterUserPassword', 'createRelationalDatabase_masterUserPassword' - The password for the master user. The password can include any printable
 -- ASCII character except \"\/\", \"\"\", or \"\@\". It cannot contain
 -- spaces.
@@ -265,11 +273,26 @@ data CreateRelationalDatabase = CreateRelationalDatabase'
 --
 -- Constraints: Must contain from 8 to 128 characters.
 --
--- 'publiclyAccessible', 'createRelationalDatabase_publiclyAccessible' - Specifies the accessibility options for your new database. A value of
--- @true@ specifies a database that is available to resources outside of
--- your Lightsail account. A value of @false@ specifies a database that is
--- available only to your Lightsail resources in the same region as your
--- database.
+-- 'preferredBackupWindow', 'createRelationalDatabase_preferredBackupWindow' - The daily time range during which automated backups are created for your
+-- new database if automated backups are enabled.
+--
+-- The default is a 30-minute window selected at random from an 8-hour
+-- block of time for each AWS Region. For more information about the
+-- preferred backup window time blocks for each region, see the
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow Working With Backups>
+-- guide in the Amazon Relational Database Service documentation.
+--
+-- Constraints:
+--
+-- -   Must be in the @hh24:mi-hh24:mi@ format.
+--
+--     Example: @16:00-16:30@
+--
+-- -   Specified in Coordinated Universal Time (UTC).
+--
+-- -   Must not conflict with the preferred maintenance window.
+--
+-- -   Must be at least 30 minutes.
 --
 -- 'preferredMaintenanceWindow', 'createRelationalDatabase_preferredMaintenanceWindow' - The weekly time range during which system maintenance can occur on your
 -- new database.
@@ -290,35 +313,11 @@ data CreateRelationalDatabase = CreateRelationalDatabase'
 --
 -- -   Example: @Tue:17:00-Tue:17:30@
 --
--- 'preferredBackupWindow', 'createRelationalDatabase_preferredBackupWindow' - The daily time range during which automated backups are created for your
--- new database if automated backups are enabled.
---
--- The default is a 30-minute window selected at random from an 8-hour
--- block of time for each AWS Region. For more information about the
--- preferred backup window time blocks for each region, see the
--- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow Working With Backups>
--- guide in the Amazon Relational Database Service (Amazon RDS)
--- documentation.
---
--- Constraints:
---
--- -   Must be in the @hh24:mi-hh24:mi@ format.
---
---     Example: @16:00-16:30@
---
--- -   Specified in Coordinated Universal Time (UTC).
---
--- -   Must not conflict with the preferred maintenance window.
---
--- -   Must be at least 30 minutes.
---
--- 'availabilityZone', 'createRelationalDatabase_availabilityZone' - The Availability Zone in which to create your new database. Use the
--- @us-east-2a@ case-sensitive format.
---
--- You can get a list of Availability Zones by using the @get regions@
--- operation. Be sure to add the
--- @include relational database Availability Zones@ parameter to your
--- request.
+-- 'publiclyAccessible', 'createRelationalDatabase_publiclyAccessible' - Specifies the accessibility options for your new database. A value of
+-- @true@ specifies a database that is available to resources outside of
+-- your Lightsail account. A value of @false@ specifies a database that is
+-- available only to your Lightsail resources in the same region as your
+-- database.
 --
 -- 'tags', 'createRelationalDatabase_tags' - The tag keys and optional values to add to the resource during create.
 --
@@ -451,12 +450,12 @@ newCreateRelationalDatabase
   pMasterDatabaseName_
   pMasterUsername_ =
     CreateRelationalDatabase'
-      { masterUserPassword =
+      { availabilityZone =
           Prelude.Nothing,
-        publiclyAccessible = Prelude.Nothing,
-        preferredMaintenanceWindow = Prelude.Nothing,
+        masterUserPassword = Prelude.Nothing,
         preferredBackupWindow = Prelude.Nothing,
-        availabilityZone = Prelude.Nothing,
+        preferredMaintenanceWindow = Prelude.Nothing,
+        publiclyAccessible = Prelude.Nothing,
         tags = Prelude.Nothing,
         relationalDatabaseName = pRelationalDatabaseName_,
         relationalDatabaseBlueprintId =
@@ -466,6 +465,16 @@ newCreateRelationalDatabase
         masterDatabaseName = pMasterDatabaseName_,
         masterUsername = pMasterUsername_
       }
+
+-- | The Availability Zone in which to create your new database. Use the
+-- @us-east-2a@ case-sensitive format.
+--
+-- You can get a list of Availability Zones by using the @get regions@
+-- operation. Be sure to add the
+-- @include relational database Availability Zones@ parameter to your
+-- request.
+createRelationalDatabase_availabilityZone :: Lens.Lens' CreateRelationalDatabase (Prelude.Maybe Prelude.Text)
+createRelationalDatabase_availabilityZone = Lens.lens (\CreateRelationalDatabase' {availabilityZone} -> availabilityZone) (\s@CreateRelationalDatabase' {} a -> s {availabilityZone = a} :: CreateRelationalDatabase)
 
 -- | The password for the master user. The password can include any printable
 -- ASCII character except \"\/\", \"\"\", or \"\@\". It cannot contain
@@ -479,15 +488,30 @@ newCreateRelationalDatabase
 --
 -- Constraints: Must contain from 8 to 128 characters.
 createRelationalDatabase_masterUserPassword :: Lens.Lens' CreateRelationalDatabase (Prelude.Maybe Prelude.Text)
-createRelationalDatabase_masterUserPassword = Lens.lens (\CreateRelationalDatabase' {masterUserPassword} -> masterUserPassword) (\s@CreateRelationalDatabase' {} a -> s {masterUserPassword = a} :: CreateRelationalDatabase) Prelude.. Lens.mapping Core._Sensitive
+createRelationalDatabase_masterUserPassword = Lens.lens (\CreateRelationalDatabase' {masterUserPassword} -> masterUserPassword) (\s@CreateRelationalDatabase' {} a -> s {masterUserPassword = a} :: CreateRelationalDatabase) Prelude.. Lens.mapping Data._Sensitive
 
--- | Specifies the accessibility options for your new database. A value of
--- @true@ specifies a database that is available to resources outside of
--- your Lightsail account. A value of @false@ specifies a database that is
--- available only to your Lightsail resources in the same region as your
--- database.
-createRelationalDatabase_publiclyAccessible :: Lens.Lens' CreateRelationalDatabase (Prelude.Maybe Prelude.Bool)
-createRelationalDatabase_publiclyAccessible = Lens.lens (\CreateRelationalDatabase' {publiclyAccessible} -> publiclyAccessible) (\s@CreateRelationalDatabase' {} a -> s {publiclyAccessible = a} :: CreateRelationalDatabase)
+-- | The daily time range during which automated backups are created for your
+-- new database if automated backups are enabled.
+--
+-- The default is a 30-minute window selected at random from an 8-hour
+-- block of time for each AWS Region. For more information about the
+-- preferred backup window time blocks for each region, see the
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow Working With Backups>
+-- guide in the Amazon Relational Database Service documentation.
+--
+-- Constraints:
+--
+-- -   Must be in the @hh24:mi-hh24:mi@ format.
+--
+--     Example: @16:00-16:30@
+--
+-- -   Specified in Coordinated Universal Time (UTC).
+--
+-- -   Must not conflict with the preferred maintenance window.
+--
+-- -   Must be at least 30 minutes.
+createRelationalDatabase_preferredBackupWindow :: Lens.Lens' CreateRelationalDatabase (Prelude.Maybe Prelude.Text)
+createRelationalDatabase_preferredBackupWindow = Lens.lens (\CreateRelationalDatabase' {preferredBackupWindow} -> preferredBackupWindow) (\s@CreateRelationalDatabase' {} a -> s {preferredBackupWindow = a} :: CreateRelationalDatabase)
 
 -- | The weekly time range during which system maintenance can occur on your
 -- new database.
@@ -510,39 +534,13 @@ createRelationalDatabase_publiclyAccessible = Lens.lens (\CreateRelationalDataba
 createRelationalDatabase_preferredMaintenanceWindow :: Lens.Lens' CreateRelationalDatabase (Prelude.Maybe Prelude.Text)
 createRelationalDatabase_preferredMaintenanceWindow = Lens.lens (\CreateRelationalDatabase' {preferredMaintenanceWindow} -> preferredMaintenanceWindow) (\s@CreateRelationalDatabase' {} a -> s {preferredMaintenanceWindow = a} :: CreateRelationalDatabase)
 
--- | The daily time range during which automated backups are created for your
--- new database if automated backups are enabled.
---
--- The default is a 30-minute window selected at random from an 8-hour
--- block of time for each AWS Region. For more information about the
--- preferred backup window time blocks for each region, see the
--- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_WorkingWithAutomatedBackups.html#USER_WorkingWithAutomatedBackups.BackupWindow Working With Backups>
--- guide in the Amazon Relational Database Service (Amazon RDS)
--- documentation.
---
--- Constraints:
---
--- -   Must be in the @hh24:mi-hh24:mi@ format.
---
---     Example: @16:00-16:30@
---
--- -   Specified in Coordinated Universal Time (UTC).
---
--- -   Must not conflict with the preferred maintenance window.
---
--- -   Must be at least 30 minutes.
-createRelationalDatabase_preferredBackupWindow :: Lens.Lens' CreateRelationalDatabase (Prelude.Maybe Prelude.Text)
-createRelationalDatabase_preferredBackupWindow = Lens.lens (\CreateRelationalDatabase' {preferredBackupWindow} -> preferredBackupWindow) (\s@CreateRelationalDatabase' {} a -> s {preferredBackupWindow = a} :: CreateRelationalDatabase)
-
--- | The Availability Zone in which to create your new database. Use the
--- @us-east-2a@ case-sensitive format.
---
--- You can get a list of Availability Zones by using the @get regions@
--- operation. Be sure to add the
--- @include relational database Availability Zones@ parameter to your
--- request.
-createRelationalDatabase_availabilityZone :: Lens.Lens' CreateRelationalDatabase (Prelude.Maybe Prelude.Text)
-createRelationalDatabase_availabilityZone = Lens.lens (\CreateRelationalDatabase' {availabilityZone} -> availabilityZone) (\s@CreateRelationalDatabase' {} a -> s {availabilityZone = a} :: CreateRelationalDatabase)
+-- | Specifies the accessibility options for your new database. A value of
+-- @true@ specifies a database that is available to resources outside of
+-- your Lightsail account. A value of @false@ specifies a database that is
+-- available only to your Lightsail resources in the same region as your
+-- database.
+createRelationalDatabase_publiclyAccessible :: Lens.Lens' CreateRelationalDatabase (Prelude.Maybe Prelude.Bool)
+createRelationalDatabase_publiclyAccessible = Lens.lens (\CreateRelationalDatabase' {publiclyAccessible} -> publiclyAccessible) (\s@CreateRelationalDatabase' {} a -> s {publiclyAccessible = a} :: CreateRelationalDatabase)
 
 -- | The tag keys and optional values to add to the resource during create.
 --
@@ -673,22 +671,23 @@ instance Core.AWSRequest CreateRelationalDatabase where
   type
     AWSResponse CreateRelationalDatabase =
       CreateRelationalDatabaseResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateRelationalDatabaseResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateRelationalDatabase where
   hashWithSalt _salt CreateRelationalDatabase' {..} =
-    _salt `Prelude.hashWithSalt` masterUserPassword
-      `Prelude.hashWithSalt` publiclyAccessible
-      `Prelude.hashWithSalt` preferredMaintenanceWindow
+    _salt `Prelude.hashWithSalt` availabilityZone
+      `Prelude.hashWithSalt` masterUserPassword
       `Prelude.hashWithSalt` preferredBackupWindow
-      `Prelude.hashWithSalt` availabilityZone
+      `Prelude.hashWithSalt` preferredMaintenanceWindow
+      `Prelude.hashWithSalt` publiclyAccessible
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` relationalDatabaseName
       `Prelude.hashWithSalt` relationalDatabaseBlueprintId
@@ -698,11 +697,11 @@ instance Prelude.Hashable CreateRelationalDatabase where
 
 instance Prelude.NFData CreateRelationalDatabase where
   rnf CreateRelationalDatabase' {..} =
-    Prelude.rnf masterUserPassword
-      `Prelude.seq` Prelude.rnf publiclyAccessible
-      `Prelude.seq` Prelude.rnf preferredMaintenanceWindow
+    Prelude.rnf availabilityZone
+      `Prelude.seq` Prelude.rnf masterUserPassword
       `Prelude.seq` Prelude.rnf preferredBackupWindow
-      `Prelude.seq` Prelude.rnf availabilityZone
+      `Prelude.seq` Prelude.rnf preferredMaintenanceWindow
+      `Prelude.seq` Prelude.rnf publiclyAccessible
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf relationalDatabaseName
       `Prelude.seq` Prelude.rnf relationalDatabaseBlueprintId
@@ -710,59 +709,59 @@ instance Prelude.NFData CreateRelationalDatabase where
       `Prelude.seq` Prelude.rnf masterDatabaseName
       `Prelude.seq` Prelude.rnf masterUsername
 
-instance Core.ToHeaders CreateRelationalDatabase where
+instance Data.ToHeaders CreateRelationalDatabase where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.CreateRelationalDatabase" ::
+              Data.=# ( "Lightsail_20161128.CreateRelationalDatabase" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateRelationalDatabase where
+instance Data.ToJSON CreateRelationalDatabase where
   toJSON CreateRelationalDatabase' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("masterUserPassword" Core..=)
-              Prelude.<$> masterUserPassword,
-            ("publiclyAccessible" Core..=)
-              Prelude.<$> publiclyAccessible,
-            ("preferredMaintenanceWindow" Core..=)
-              Prelude.<$> preferredMaintenanceWindow,
-            ("preferredBackupWindow" Core..=)
-              Prelude.<$> preferredBackupWindow,
-            ("availabilityZone" Core..=)
+          [ ("availabilityZone" Data..=)
               Prelude.<$> availabilityZone,
-            ("tags" Core..=) Prelude.<$> tags,
+            ("masterUserPassword" Data..=)
+              Prelude.<$> masterUserPassword,
+            ("preferredBackupWindow" Data..=)
+              Prelude.<$> preferredBackupWindow,
+            ("preferredMaintenanceWindow" Data..=)
+              Prelude.<$> preferredMaintenanceWindow,
+            ("publiclyAccessible" Data..=)
+              Prelude.<$> publiclyAccessible,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
               ( "relationalDatabaseName"
-                  Core..= relationalDatabaseName
+                  Data..= relationalDatabaseName
               ),
             Prelude.Just
               ( "relationalDatabaseBlueprintId"
-                  Core..= relationalDatabaseBlueprintId
+                  Data..= relationalDatabaseBlueprintId
               ),
             Prelude.Just
               ( "relationalDatabaseBundleId"
-                  Core..= relationalDatabaseBundleId
+                  Data..= relationalDatabaseBundleId
               ),
             Prelude.Just
-              ("masterDatabaseName" Core..= masterDatabaseName),
+              ("masterDatabaseName" Data..= masterDatabaseName),
             Prelude.Just
-              ("masterUsername" Core..= masterUsername)
+              ("masterUsername" Data..= masterUsername)
           ]
       )
 
-instance Core.ToPath CreateRelationalDatabase where
+instance Data.ToPath CreateRelationalDatabase where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateRelationalDatabase where
+instance Data.ToQuery CreateRelationalDatabase where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateRelationalDatabaseResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.GetBuiltinIntent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.LexModels.GetBuiltinIntent
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -91,14 +92,15 @@ instance Core.AWSRequest GetBuiltinIntent where
   type
     AWSResponse GetBuiltinIntent =
       GetBuiltinIntentResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBuiltinIntentResponse'
-            Prelude.<$> (x Core..?> "signature")
-            Prelude.<*> (x Core..?> "slots" Core..!@ Prelude.mempty)
-            Prelude.<*> ( x Core..?> "supportedLocales"
+            Prelude.<$> (x Data..?> "signature")
+            Prelude.<*> (x Data..?> "slots" Core..!@ Prelude.mempty)
+            Prelude.<*> ( x Data..?> "supportedLocales"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -111,23 +113,23 @@ instance Prelude.Hashable GetBuiltinIntent where
 instance Prelude.NFData GetBuiltinIntent where
   rnf GetBuiltinIntent' {..} = Prelude.rnf signature
 
-instance Core.ToHeaders GetBuiltinIntent where
+instance Data.ToHeaders GetBuiltinIntent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetBuiltinIntent where
+instance Data.ToPath GetBuiltinIntent where
   toPath GetBuiltinIntent' {..} =
     Prelude.mconcat
-      ["/builtins/intents/", Core.toBS signature]
+      ["/builtins/intents/", Data.toBS signature]
 
-instance Core.ToQuery GetBuiltinIntent where
+instance Data.ToQuery GetBuiltinIntent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetBuiltinIntentResponse' smart constructor.

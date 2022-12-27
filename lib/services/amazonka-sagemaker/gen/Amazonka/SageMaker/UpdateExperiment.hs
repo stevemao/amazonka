@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.UpdateExperiment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.SageMaker.UpdateExperiment
     newUpdateExperiment,
 
     -- * Request Lenses
-    updateExperiment_displayName,
     updateExperiment_description,
+    updateExperiment_displayName,
     updateExperiment_experimentName,
 
     -- * Destructuring the Response
@@ -43,7 +43,8 @@ module Amazonka.SageMaker.UpdateExperiment
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,12 +52,12 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newUpdateExperiment' smart constructor.
 data UpdateExperiment = UpdateExperiment'
-  { -- | The name of the experiment as displayed. The name doesn\'t need to be
+  { -- | The description of the experiment.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the experiment as displayed. The name doesn\'t need to be
     -- unique. If @DisplayName@ isn\'t specified, @ExperimentName@ is
     -- displayed.
     displayName :: Prelude.Maybe Prelude.Text,
-    -- | The description of the experiment.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The name of the experiment to update.
     experimentName :: Prelude.Text
   }
@@ -70,11 +71,11 @@ data UpdateExperiment = UpdateExperiment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'updateExperiment_description' - The description of the experiment.
+--
 -- 'displayName', 'updateExperiment_displayName' - The name of the experiment as displayed. The name doesn\'t need to be
 -- unique. If @DisplayName@ isn\'t specified, @ExperimentName@ is
 -- displayed.
---
--- 'description', 'updateExperiment_description' - The description of the experiment.
 --
 -- 'experimentName', 'updateExperiment_experimentName' - The name of the experiment to update.
 newUpdateExperiment ::
@@ -83,20 +84,20 @@ newUpdateExperiment ::
   UpdateExperiment
 newUpdateExperiment pExperimentName_ =
   UpdateExperiment'
-    { displayName = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      displayName = Prelude.Nothing,
       experimentName = pExperimentName_
     }
+
+-- | The description of the experiment.
+updateExperiment_description :: Lens.Lens' UpdateExperiment (Prelude.Maybe Prelude.Text)
+updateExperiment_description = Lens.lens (\UpdateExperiment' {description} -> description) (\s@UpdateExperiment' {} a -> s {description = a} :: UpdateExperiment)
 
 -- | The name of the experiment as displayed. The name doesn\'t need to be
 -- unique. If @DisplayName@ isn\'t specified, @ExperimentName@ is
 -- displayed.
 updateExperiment_displayName :: Lens.Lens' UpdateExperiment (Prelude.Maybe Prelude.Text)
 updateExperiment_displayName = Lens.lens (\UpdateExperiment' {displayName} -> displayName) (\s@UpdateExperiment' {} a -> s {displayName = a} :: UpdateExperiment)
-
--- | The description of the experiment.
-updateExperiment_description :: Lens.Lens' UpdateExperiment (Prelude.Maybe Prelude.Text)
-updateExperiment_description = Lens.lens (\UpdateExperiment' {description} -> description) (\s@UpdateExperiment' {} a -> s {description = a} :: UpdateExperiment)
 
 -- | The name of the experiment to update.
 updateExperiment_experimentName :: Lens.Lens' UpdateExperiment Prelude.Text
@@ -106,55 +107,56 @@ instance Core.AWSRequest UpdateExperiment where
   type
     AWSResponse UpdateExperiment =
       UpdateExperimentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateExperimentResponse'
-            Prelude.<$> (x Core..?> "ExperimentArn")
+            Prelude.<$> (x Data..?> "ExperimentArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateExperiment where
   hashWithSalt _salt UpdateExperiment' {..} =
-    _salt `Prelude.hashWithSalt` displayName
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` displayName
       `Prelude.hashWithSalt` experimentName
 
 instance Prelude.NFData UpdateExperiment where
   rnf UpdateExperiment' {..} =
-    Prelude.rnf displayName
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf displayName
       `Prelude.seq` Prelude.rnf experimentName
 
-instance Core.ToHeaders UpdateExperiment where
+instance Data.ToHeaders UpdateExperiment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.UpdateExperiment" :: Prelude.ByteString),
+              Data.=# ("SageMaker.UpdateExperiment" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateExperiment where
+instance Data.ToJSON UpdateExperiment where
   toJSON UpdateExperiment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DisplayName" Core..=) Prelude.<$> displayName,
-            ("Description" Core..=) Prelude.<$> description,
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("DisplayName" Data..=) Prelude.<$> displayName,
             Prelude.Just
-              ("ExperimentName" Core..= experimentName)
+              ("ExperimentName" Data..= experimentName)
           ]
       )
 
-instance Core.ToPath UpdateExperiment where
+instance Data.ToPath UpdateExperiment where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateExperiment where
+instance Data.ToQuery UpdateExperiment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateExperimentResponse' smart constructor.

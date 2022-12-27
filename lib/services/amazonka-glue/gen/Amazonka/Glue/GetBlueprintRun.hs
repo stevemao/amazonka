@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetBlueprintRun
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.Glue.GetBlueprintRun
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,12 +92,13 @@ instance Core.AWSRequest GetBlueprintRun where
   type
     AWSResponse GetBlueprintRun =
       GetBlueprintRunResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBlueprintRunResponse'
-            Prelude.<$> (x Core..?> "BlueprintRun")
+            Prelude.<$> (x Data..?> "BlueprintRun")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,33 +112,33 @@ instance Prelude.NFData GetBlueprintRun where
     Prelude.rnf blueprintName
       `Prelude.seq` Prelude.rnf runId
 
-instance Core.ToHeaders GetBlueprintRun where
+instance Data.ToHeaders GetBlueprintRun where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetBlueprintRun" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetBlueprintRun" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetBlueprintRun where
+instance Data.ToJSON GetBlueprintRun where
   toJSON GetBlueprintRun' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("BlueprintName" Core..= blueprintName),
-            Prelude.Just ("RunId" Core..= runId)
+              ("BlueprintName" Data..= blueprintName),
+            Prelude.Just ("RunId" Data..= runId)
           ]
       )
 
-instance Core.ToPath GetBlueprintRun where
+instance Data.ToPath GetBlueprintRun where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetBlueprintRun where
+instance Data.ToQuery GetBlueprintRun where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetBlueprintRunResponse' smart constructor.

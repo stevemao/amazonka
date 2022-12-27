@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.UtilizationByTime
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.CostExplorer.Types.UtilizationByTime where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types.DateInterval
 import Amazonka.CostExplorer.Types.ReservationAggregates
 import Amazonka.CostExplorer.Types.ReservationUtilizationGroup
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The amount of utilization, in hours.
@@ -73,15 +74,15 @@ utilizationByTime_timePeriod = Lens.lens (\UtilizationByTime' {timePeriod} -> ti
 utilizationByTime_total :: Lens.Lens' UtilizationByTime (Prelude.Maybe ReservationAggregates)
 utilizationByTime_total = Lens.lens (\UtilizationByTime' {total} -> total) (\s@UtilizationByTime' {} a -> s {total = a} :: UtilizationByTime)
 
-instance Core.FromJSON UtilizationByTime where
+instance Data.FromJSON UtilizationByTime where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UtilizationByTime"
       ( \x ->
           UtilizationByTime'
-            Prelude.<$> (x Core..:? "Groups" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "TimePeriod")
-            Prelude.<*> (x Core..:? "Total")
+            Prelude.<$> (x Data..:? "Groups" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "TimePeriod")
+            Prelude.<*> (x Data..:? "Total")
       )
 
 instance Prelude.Hashable UtilizationByTime where

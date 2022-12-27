@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.DescribeGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.WorkDocs.DescribeGroups
 
     -- * Request Lenses
     describeGroups_authenticationToken,
-    describeGroups_marker,
     describeGroups_limit,
+    describeGroups_marker,
     describeGroups_organizationId,
     describeGroups_searchQuery,
 
@@ -48,7 +48,8 @@ module Amazonka.WorkDocs.DescribeGroups
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,16 +59,16 @@ import Amazonka.WorkDocs.Types
 data DescribeGroups = DescribeGroups'
   { -- | Amazon WorkDocs authentication token. Not required when using AWS
     -- administrator credentials to access the API.
-    authenticationToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    authenticationToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The maximum number of items to return with this call.
+    limit :: Prelude.Maybe Prelude.Natural,
     -- | The marker for the next set of results. (You received this marker from a
     -- previous call.)
     marker :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call.
-    limit :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the organization.
     organizationId :: Prelude.Maybe Prelude.Text,
     -- | A query to describe groups by group name.
-    searchQuery :: Core.Sensitive Prelude.Text
+    searchQuery :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -82,10 +83,10 @@ data DescribeGroups = DescribeGroups'
 -- 'authenticationToken', 'describeGroups_authenticationToken' - Amazon WorkDocs authentication token. Not required when using AWS
 -- administrator credentials to access the API.
 --
+-- 'limit', 'describeGroups_limit' - The maximum number of items to return with this call.
+--
 -- 'marker', 'describeGroups_marker' - The marker for the next set of results. (You received this marker from a
 -- previous call.)
---
--- 'limit', 'describeGroups_limit' - The maximum number of items to return with this call.
 --
 -- 'organizationId', 'describeGroups_organizationId' - The ID of the organization.
 --
@@ -98,25 +99,25 @@ newDescribeGroups pSearchQuery_ =
   DescribeGroups'
     { authenticationToken =
         Prelude.Nothing,
-      marker = Prelude.Nothing,
       limit = Prelude.Nothing,
+      marker = Prelude.Nothing,
       organizationId = Prelude.Nothing,
-      searchQuery = Core._Sensitive Lens.# pSearchQuery_
+      searchQuery = Data._Sensitive Lens.# pSearchQuery_
     }
 
 -- | Amazon WorkDocs authentication token. Not required when using AWS
 -- administrator credentials to access the API.
 describeGroups_authenticationToken :: Lens.Lens' DescribeGroups (Prelude.Maybe Prelude.Text)
-describeGroups_authenticationToken = Lens.lens (\DescribeGroups' {authenticationToken} -> authenticationToken) (\s@DescribeGroups' {} a -> s {authenticationToken = a} :: DescribeGroups) Prelude.. Lens.mapping Core._Sensitive
+describeGroups_authenticationToken = Lens.lens (\DescribeGroups' {authenticationToken} -> authenticationToken) (\s@DescribeGroups' {} a -> s {authenticationToken = a} :: DescribeGroups) Prelude.. Lens.mapping Data._Sensitive
+
+-- | The maximum number of items to return with this call.
+describeGroups_limit :: Lens.Lens' DescribeGroups (Prelude.Maybe Prelude.Natural)
+describeGroups_limit = Lens.lens (\DescribeGroups' {limit} -> limit) (\s@DescribeGroups' {} a -> s {limit = a} :: DescribeGroups)
 
 -- | The marker for the next set of results. (You received this marker from a
 -- previous call.)
 describeGroups_marker :: Lens.Lens' DescribeGroups (Prelude.Maybe Prelude.Text)
 describeGroups_marker = Lens.lens (\DescribeGroups' {marker} -> marker) (\s@DescribeGroups' {} a -> s {marker = a} :: DescribeGroups)
-
--- | The maximum number of items to return with this call.
-describeGroups_limit :: Lens.Lens' DescribeGroups (Prelude.Maybe Prelude.Natural)
-describeGroups_limit = Lens.lens (\DescribeGroups' {limit} -> limit) (\s@DescribeGroups' {} a -> s {limit = a} :: DescribeGroups)
 
 -- | The ID of the organization.
 describeGroups_organizationId :: Lens.Lens' DescribeGroups (Prelude.Maybe Prelude.Text)
@@ -124,7 +125,7 @@ describeGroups_organizationId = Lens.lens (\DescribeGroups' {organizationId} -> 
 
 -- | A query to describe groups by group name.
 describeGroups_searchQuery :: Lens.Lens' DescribeGroups Prelude.Text
-describeGroups_searchQuery = Lens.lens (\DescribeGroups' {searchQuery} -> searchQuery) (\s@DescribeGroups' {} a -> s {searchQuery = a} :: DescribeGroups) Prelude.. Core._Sensitive
+describeGroups_searchQuery = Lens.lens (\DescribeGroups' {searchQuery} -> searchQuery) (\s@DescribeGroups' {} a -> s {searchQuery = a} :: DescribeGroups) Prelude.. Data._Sensitive
 
 instance Core.AWSPager DescribeGroups where
   page rq rs
@@ -149,50 +150,51 @@ instance Core.AWSRequest DescribeGroups where
   type
     AWSResponse DescribeGroups =
       DescribeGroupsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeGroupsResponse'
-            Prelude.<$> (x Core..?> "Groups" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Marker")
+            Prelude.<$> (x Data..?> "Groups" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeGroups where
   hashWithSalt _salt DescribeGroups' {..} =
     _salt `Prelude.hashWithSalt` authenticationToken
-      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` organizationId
       `Prelude.hashWithSalt` searchQuery
 
 instance Prelude.NFData DescribeGroups where
   rnf DescribeGroups' {..} =
     Prelude.rnf authenticationToken
-      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf organizationId
       `Prelude.seq` Prelude.rnf searchQuery
 
-instance Core.ToHeaders DescribeGroups where
+instance Data.ToHeaders DescribeGroups where
   toHeaders DescribeGroups' {..} =
     Prelude.mconcat
-      [ "Authentication" Core.=# authenticationToken,
+      [ "Authentication" Data.=# authenticationToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath DescribeGroups where
+instance Data.ToPath DescribeGroups where
   toPath = Prelude.const "/api/v1/groups"
 
-instance Core.ToQuery DescribeGroups where
+instance Data.ToQuery DescribeGroups where
   toQuery DescribeGroups' {..} =
     Prelude.mconcat
-      [ "marker" Core.=: marker,
-        "limit" Core.=: limit,
-        "organizationId" Core.=: organizationId,
-        "searchQuery" Core.=: searchQuery
+      [ "limit" Data.=: limit,
+        "marker" Data.=: marker,
+        "organizationId" Data.=: organizationId,
+        "searchQuery" Data.=: searchQuery
       ]
 
 -- | /See:/ 'newDescribeGroupsResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.PossibleRemediationActions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.FMS.Types.PossibleRemediationActions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types.PossibleRemediationAction
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of possible remediation action lists. Each individual possible
@@ -64,14 +65,14 @@ possibleRemediationActions_actions = Lens.lens (\PossibleRemediationActions' {ac
 possibleRemediationActions_description :: Lens.Lens' PossibleRemediationActions (Prelude.Maybe Prelude.Text)
 possibleRemediationActions_description = Lens.lens (\PossibleRemediationActions' {description} -> description) (\s@PossibleRemediationActions' {} a -> s {description = a} :: PossibleRemediationActions)
 
-instance Core.FromJSON PossibleRemediationActions where
+instance Data.FromJSON PossibleRemediationActions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PossibleRemediationActions"
       ( \x ->
           PossibleRemediationActions'
-            Prelude.<$> (x Core..:? "Actions" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Description")
+            Prelude.<$> (x Data..:? "Actions" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Description")
       )
 
 instance Prelude.Hashable PossibleRemediationActions where

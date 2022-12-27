@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.Types.ReactionValueFormats
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeCommit.Types.ReactionValueFormats where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the values for reactions to a comment. AWS CodeCommit
@@ -77,15 +78,15 @@ reactionValueFormats_shortCode = Lens.lens (\ReactionValueFormats' {shortCode} -
 reactionValueFormats_unicode :: Lens.Lens' ReactionValueFormats (Prelude.Maybe Prelude.Text)
 reactionValueFormats_unicode = Lens.lens (\ReactionValueFormats' {unicode} -> unicode) (\s@ReactionValueFormats' {} a -> s {unicode = a} :: ReactionValueFormats)
 
-instance Core.FromJSON ReactionValueFormats where
+instance Data.FromJSON ReactionValueFormats where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReactionValueFormats"
       ( \x ->
           ReactionValueFormats'
-            Prelude.<$> (x Core..:? "emoji")
-            Prelude.<*> (x Core..:? "shortCode")
-            Prelude.<*> (x Core..:? "unicode")
+            Prelude.<$> (x Data..:? "emoji")
+            Prelude.<*> (x Data..:? "shortCode")
+            Prelude.<*> (x Data..:? "unicode")
       )
 
 instance Prelude.Hashable ReactionValueFormats where

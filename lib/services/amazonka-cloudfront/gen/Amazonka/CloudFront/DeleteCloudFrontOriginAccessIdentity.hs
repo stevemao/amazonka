@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.DeleteCloudFrontOriginAccessIdentity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,7 +95,8 @@ instance
   type
     AWSResponse DeleteCloudFrontOriginAccessIdentity =
       DeleteCloudFrontOriginAccessIdentityResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteCloudFrontOriginAccessIdentityResponse'
@@ -117,24 +119,24 @@ instance
     Prelude.rnf ifMatch `Prelude.seq` Prelude.rnf id
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteCloudFrontOriginAccessIdentity
   where
   toHeaders DeleteCloudFrontOriginAccessIdentity' {..} =
-    Prelude.mconcat ["If-Match" Core.=# ifMatch]
+    Prelude.mconcat ["If-Match" Data.=# ifMatch]
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeleteCloudFrontOriginAccessIdentity
   where
   toPath DeleteCloudFrontOriginAccessIdentity' {..} =
     Prelude.mconcat
       [ "/2020-05-31/origin-access-identity/cloudfront/",
-        Core.toBS id
+        Data.toBS id
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteCloudFrontOriginAccessIdentity
   where
   toQuery = Prelude.const Prelude.mempty

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.GetPlaybackKeyPair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IVS.GetPlaybackKeyPair
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,12 +83,13 @@ instance Core.AWSRequest GetPlaybackKeyPair where
   type
     AWSResponse GetPlaybackKeyPair =
       GetPlaybackKeyPairResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPlaybackKeyPairResponse'
-            Prelude.<$> (x Core..?> "keyPair")
+            Prelude.<$> (x Data..?> "keyPair")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,28 +100,28 @@ instance Prelude.Hashable GetPlaybackKeyPair where
 instance Prelude.NFData GetPlaybackKeyPair where
   rnf GetPlaybackKeyPair' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders GetPlaybackKeyPair where
+instance Data.ToHeaders GetPlaybackKeyPair where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetPlaybackKeyPair where
+instance Data.ToJSON GetPlaybackKeyPair where
   toJSON GetPlaybackKeyPair' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arn" Core..= arn)]
+          [Prelude.Just ("arn" Data..= arn)]
       )
 
-instance Core.ToPath GetPlaybackKeyPair where
+instance Data.ToPath GetPlaybackKeyPair where
   toPath = Prelude.const "/GetPlaybackKeyPair"
 
-instance Core.ToQuery GetPlaybackKeyPair where
+instance Data.ToQuery GetPlaybackKeyPair where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetPlaybackKeyPairResponse' smart constructor.

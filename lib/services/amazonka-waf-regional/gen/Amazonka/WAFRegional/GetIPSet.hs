@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.GetIPSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.WAFRegional.GetIPSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,12 +88,13 @@ getIPSet_iPSetId = Lens.lens (\GetIPSet' {iPSetId} -> iPSetId) (\s@GetIPSet' {} 
 
 instance Core.AWSRequest GetIPSet where
   type AWSResponse GetIPSet = GetIPSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetIPSetResponse'
-            Prelude.<$> (x Core..?> "IPSet")
+            Prelude.<$> (x Data..?> "IPSet")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -103,32 +105,32 @@ instance Prelude.Hashable GetIPSet where
 instance Prelude.NFData GetIPSet where
   rnf GetIPSet' {..} = Prelude.rnf iPSetId
 
-instance Core.ToHeaders GetIPSet where
+instance Data.ToHeaders GetIPSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.GetIPSet" ::
+              Data.=# ( "AWSWAF_Regional_20161128.GetIPSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetIPSet where
+instance Data.ToJSON GetIPSet where
   toJSON GetIPSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("IPSetId" Core..= iPSetId)]
+          [Prelude.Just ("IPSetId" Data..= iPSetId)]
       )
 
-instance Core.ToPath GetIPSet where
+instance Data.ToPath GetIPSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetIPSet where
+instance Data.ToQuery GetIPSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetIPSetResponse' smart constructor.

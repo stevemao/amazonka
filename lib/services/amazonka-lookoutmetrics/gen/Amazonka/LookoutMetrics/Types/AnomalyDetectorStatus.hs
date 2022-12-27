@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutMetrics.Types.AnomalyDetectorStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,6 +25,8 @@ module Amazonka.LookoutMetrics.Types.AnomalyDetectorStatus
         AnomalyDetectorStatus_BACK_TEST_ACTIVATING,
         AnomalyDetectorStatus_BACK_TEST_ACTIVE,
         AnomalyDetectorStatus_BACK_TEST_COMPLETE,
+        AnomalyDetectorStatus_DEACTIVATED,
+        AnomalyDetectorStatus_DEACTIVATING,
         AnomalyDetectorStatus_DELETING,
         AnomalyDetectorStatus_FAILED,
         AnomalyDetectorStatus_INACTIVE,
@@ -34,11 +36,12 @@ module Amazonka.LookoutMetrics.Types.AnomalyDetectorStatus
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype AnomalyDetectorStatus = AnomalyDetectorStatus'
   { fromAnomalyDetectorStatus ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -50,18 +53,18 @@ newtype AnomalyDetectorStatus = AnomalyDetectorStatus'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern AnomalyDetectorStatus_ACTIVATING :: AnomalyDetectorStatus
@@ -78,6 +81,12 @@ pattern AnomalyDetectorStatus_BACK_TEST_ACTIVE = AnomalyDetectorStatus' "BACK_TE
 
 pattern AnomalyDetectorStatus_BACK_TEST_COMPLETE :: AnomalyDetectorStatus
 pattern AnomalyDetectorStatus_BACK_TEST_COMPLETE = AnomalyDetectorStatus' "BACK_TEST_COMPLETE"
+
+pattern AnomalyDetectorStatus_DEACTIVATED :: AnomalyDetectorStatus
+pattern AnomalyDetectorStatus_DEACTIVATED = AnomalyDetectorStatus' "DEACTIVATED"
+
+pattern AnomalyDetectorStatus_DEACTIVATING :: AnomalyDetectorStatus
+pattern AnomalyDetectorStatus_DEACTIVATING = AnomalyDetectorStatus' "DEACTIVATING"
 
 pattern AnomalyDetectorStatus_DELETING :: AnomalyDetectorStatus
 pattern AnomalyDetectorStatus_DELETING = AnomalyDetectorStatus' "DELETING"
@@ -97,6 +106,8 @@ pattern AnomalyDetectorStatus_LEARNING = AnomalyDetectorStatus' "LEARNING"
   AnomalyDetectorStatus_BACK_TEST_ACTIVATING,
   AnomalyDetectorStatus_BACK_TEST_ACTIVE,
   AnomalyDetectorStatus_BACK_TEST_COMPLETE,
+  AnomalyDetectorStatus_DEACTIVATED,
+  AnomalyDetectorStatus_DEACTIVATING,
   AnomalyDetectorStatus_DELETING,
   AnomalyDetectorStatus_FAILED,
   AnomalyDetectorStatus_INACTIVE,

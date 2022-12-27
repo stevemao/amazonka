@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.MGN
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,271 +27,367 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestUpdateLaunchConfiguration $
---             newUpdateLaunchConfiguration
+--         [ requestArchiveApplication $
+--             newArchiveApplication
 --
---         , requestDescribeReplicationConfigurationTemplates $
---             newDescribeReplicationConfigurationTemplates
+--         , requestArchiveWave $
+--             newArchiveWave
 --
---         , requestListTagsForResource $
---             newListTagsForResource
+--         , requestAssociateApplications $
+--             newAssociateApplications
 --
---         , requestInitializeService $
---             newInitializeService
---
---         , requestUpdateReplicationConfigurationTemplate $
---             newUpdateReplicationConfigurationTemplate
---
---         , requestDeleteReplicationConfigurationTemplate $
---             newDeleteReplicationConfigurationTemplate
---
---         , requestCreateReplicationConfigurationTemplate $
---             newCreateReplicationConfigurationTemplate
---
---         , requestDescribeJobLogItems $
---             newDescribeJobLogItems
---
---         , requestDisconnectFromService $
---             newDisconnectFromService
---
---         , requestStartTest $
---             newStartTest
---
---         , requestDescribeSourceServers $
---             newDescribeSourceServers
---
---         , requestDeleteJob $
---             newDeleteJob
---
---         , requestFinalizeCutover $
---             newFinalizeCutover
---
---         , requestDescribeJobs $
---             newDescribeJobs
---
---         , requestMarkAsArchived $
---             newMarkAsArchived
---
---         , requestStartCutover $
---             newStartCutover
---
---         , requestRetryDataReplication $
---             newRetryDataReplication
---
---         , requestGetReplicationConfiguration $
---             newGetReplicationConfiguration
+--         , requestAssociateSourceServers $
+--             newAssociateSourceServers
 --
 --         , requestChangeServerLifeCycleState $
 --             newChangeServerLifeCycleState
 --
---         , requestTerminateTargetInstances $
---             newTerminateTargetInstances
+--         , requestCreateApplication $
+--             newCreateApplication
 --
---         , requestUpdateReplicationConfiguration $
---             newUpdateReplicationConfiguration
+--         , requestCreateLaunchConfigurationTemplate $
+--             newCreateLaunchConfigurationTemplate
 --
---         , requestTagResource $
---             newTagResource
+--         , requestCreateReplicationConfigurationTemplate $
+--             newCreateReplicationConfigurationTemplate
 --
---         , requestGetLaunchConfiguration $
---             newGetLaunchConfiguration
+--         , requestCreateWave $
+--             newCreateWave
 --
---         , requestUntagResource $
---             newUntagResource
+--         , requestDeleteApplication $
+--             newDeleteApplication
+--
+--         , requestDeleteJob $
+--             newDeleteJob
+--
+--         , requestDeleteLaunchConfigurationTemplate $
+--             newDeleteLaunchConfigurationTemplate
+--
+--         , requestDeleteReplicationConfigurationTemplate $
+--             newDeleteReplicationConfigurationTemplate
 --
 --         , requestDeleteSourceServer $
 --             newDeleteSourceServer
 --
+--         , requestDeleteVcenterClient $
+--             newDeleteVcenterClient
+--
+--         , requestDeleteWave $
+--             newDeleteWave
+--
+--         , requestDescribeJobLogItems $
+--             newDescribeJobLogItems
+--
+--         , requestDescribeJobs $
+--             newDescribeJobs
+--
+--         , requestDescribeLaunchConfigurationTemplates $
+--             newDescribeLaunchConfigurationTemplates
+--
+--         , requestDescribeReplicationConfigurationTemplates $
+--             newDescribeReplicationConfigurationTemplates
+--
+--         , requestDescribeSourceServers $
+--             newDescribeSourceServers
+--
+--         , requestDescribeVcenterClients $
+--             newDescribeVcenterClients
+--
+--         , requestDisassociateApplications $
+--             newDisassociateApplications
+--
+--         , requestDisassociateSourceServers $
+--             newDisassociateSourceServers
+--
+--         , requestDisconnectFromService $
+--             newDisconnectFromService
+--
+--         , requestFinalizeCutover $
+--             newFinalizeCutover
+--
+--         , requestGetLaunchConfiguration $
+--             newGetLaunchConfiguration
+--
+--         , requestGetReplicationConfiguration $
+--             newGetReplicationConfiguration
+--
+--         , requestInitializeService $
+--             newInitializeService
+--
+--         , requestListApplications $
+--             newListApplications
+--
+--         , requestListSourceServerActions $
+--             newListSourceServerActions
+--
+--         , requestListTagsForResource $
+--             newListTagsForResource
+--
+--         , requestListTemplateActions $
+--             newListTemplateActions
+--
+--         , requestListWaves $
+--             newListWaves
+--
+--         , requestMarkAsArchived $
+--             newMarkAsArchived
+--
+--         , requestPutSourceServerAction $
+--             newPutSourceServerAction
+--
+--         , requestPutTemplateAction $
+--             newPutTemplateAction
+--
+--         , requestRemoveSourceServerAction $
+--             newRemoveSourceServerAction
+--
+--         , requestRemoveTemplateAction $
+--             newRemoveTemplateAction
+--
+--         , requestRetryDataReplication $
+--             newRetryDataReplication
+--
+--         , requestStartCutover $
+--             newStartCutover
+--
+--         , requestStartReplication $
+--             newStartReplication
+--
+--         , requestStartTest $
+--             newStartTest
+--
+--         , requestTagResource $
+--             newTagResource
+--
+--         , requestTerminateTargetInstances $
+--             newTerminateTargetInstances
+--
+--         , requestUnarchiveApplication $
+--             newUnarchiveApplication
+--
+--         , requestUnarchiveWave $
+--             newUnarchiveWave
+--
+--         , requestUntagResource $
+--             newUntagResource
+--
+--         , requestUpdateApplication $
+--             newUpdateApplication
+--
+--         , requestUpdateLaunchConfiguration $
+--             newUpdateLaunchConfiguration
+--
+--         , requestUpdateLaunchConfigurationTemplate $
+--             newUpdateLaunchConfigurationTemplate
+--
+--         , requestUpdateReplicationConfiguration $
+--             newUpdateReplicationConfiguration
+--
+--         , requestUpdateReplicationConfigurationTemplate $
+--             newUpdateReplicationConfigurationTemplate
+--
+--         , requestUpdateSourceServerReplicationType $
+--             newUpdateSourceServerReplicationType
+--
+--         , requestUpdateWave $
+--             newUpdateWave
+--
 --           ]
 
 --     , testGroup "response"
---         [ responseUpdateLaunchConfiguration $
---             newLaunchConfiguration
+--         [ responseArchiveApplication $
+--             newApplication
 --
---         , responseDescribeReplicationConfigurationTemplates $
---             newDescribeReplicationConfigurationTemplatesResponse
+--         , responseArchiveWave $
+--             newWave
 --
---         , responseListTagsForResource $
---             newListTagsForResourceResponse
+--         , responseAssociateApplications $
+--             newAssociateApplicationsResponse
 --
---         , responseInitializeService $
---             newInitializeServiceResponse
+--         , responseAssociateSourceServers $
+--             newAssociateSourceServersResponse
 --
---         , responseUpdateReplicationConfigurationTemplate $
---             newReplicationConfigurationTemplate
+--         , responseChangeServerLifeCycleState $
+--             newSourceServer
 --
---         , responseDeleteReplicationConfigurationTemplate $
---             newDeleteReplicationConfigurationTemplateResponse
+--         , responseCreateApplication $
+--             newApplication
+--
+--         , responseCreateLaunchConfigurationTemplate $
+--             newLaunchConfigurationTemplate
 --
 --         , responseCreateReplicationConfigurationTemplate $
 --             newReplicationConfigurationTemplate
 --
---         , responseDescribeJobLogItems $
---             newDescribeJobLogItemsResponse
+--         , responseCreateWave $
+--             newWave
 --
---         , responseDisconnectFromService $
---             newSourceServer
---
---         , responseStartTest $
---             newStartTestResponse
---
---         , responseDescribeSourceServers $
---             newDescribeSourceServersResponse
+--         , responseDeleteApplication $
+--             newDeleteApplicationResponse
 --
 --         , responseDeleteJob $
 --             newDeleteJobResponse
 --
---         , responseFinalizeCutover $
---             newSourceServer
+--         , responseDeleteLaunchConfigurationTemplate $
+--             newDeleteLaunchConfigurationTemplateResponse
+--
+--         , responseDeleteReplicationConfigurationTemplate $
+--             newDeleteReplicationConfigurationTemplateResponse
+--
+--         , responseDeleteSourceServer $
+--             newDeleteSourceServerResponse
+--
+--         , responseDeleteVcenterClient $
+--             newDeleteVcenterClientResponse
+--
+--         , responseDeleteWave $
+--             newDeleteWaveResponse
+--
+--         , responseDescribeJobLogItems $
+--             newDescribeJobLogItemsResponse
 --
 --         , responseDescribeJobs $
 --             newDescribeJobsResponse
 --
+--         , responseDescribeLaunchConfigurationTemplates $
+--             newDescribeLaunchConfigurationTemplatesResponse
+--
+--         , responseDescribeReplicationConfigurationTemplates $
+--             newDescribeReplicationConfigurationTemplatesResponse
+--
+--         , responseDescribeSourceServers $
+--             newDescribeSourceServersResponse
+--
+--         , responseDescribeVcenterClients $
+--             newDescribeVcenterClientsResponse
+--
+--         , responseDisassociateApplications $
+--             newDisassociateApplicationsResponse
+--
+--         , responseDisassociateSourceServers $
+--             newDisassociateSourceServersResponse
+--
+--         , responseDisconnectFromService $
+--             newSourceServer
+--
+--         , responseFinalizeCutover $
+--             newSourceServer
+--
+--         , responseGetLaunchConfiguration $
+--             newLaunchConfiguration
+--
+--         , responseGetReplicationConfiguration $
+--             newReplicationConfiguration
+--
+--         , responseInitializeService $
+--             newInitializeServiceResponse
+--
+--         , responseListApplications $
+--             newListApplicationsResponse
+--
+--         , responseListSourceServerActions $
+--             newListSourceServerActionsResponse
+--
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
+--
+--         , responseListTemplateActions $
+--             newListTemplateActionsResponse
+--
+--         , responseListWaves $
+--             newListWavesResponse
+--
 --         , responseMarkAsArchived $
+--             newSourceServer
+--
+--         , responsePutSourceServerAction $
+--             newSourceServerActionDocument
+--
+--         , responsePutTemplateAction $
+--             newTemplateActionDocument
+--
+--         , responseRemoveSourceServerAction $
+--             newRemoveSourceServerActionResponse
+--
+--         , responseRemoveTemplateAction $
+--             newRemoveTemplateActionResponse
+--
+--         , responseRetryDataReplication $
 --             newSourceServer
 --
 --         , responseStartCutover $
 --             newStartCutoverResponse
 --
---         , responseRetryDataReplication $
+--         , responseStartReplication $
 --             newSourceServer
 --
---         , responseGetReplicationConfiguration $
---             newReplicationConfiguration
---
---         , responseChangeServerLifeCycleState $
---             newSourceServer
---
---         , responseTerminateTargetInstances $
---             newTerminateTargetInstancesResponse
---
---         , responseUpdateReplicationConfiguration $
---             newReplicationConfiguration
+--         , responseStartTest $
+--             newStartTestResponse
 --
 --         , responseTagResource $
 --             newTagResourceResponse
 --
---         , responseGetLaunchConfiguration $
---             newLaunchConfiguration
+--         , responseTerminateTargetInstances $
+--             newTerminateTargetInstancesResponse
+--
+--         , responseUnarchiveApplication $
+--             newApplication
+--
+--         , responseUnarchiveWave $
+--             newWave
 --
 --         , responseUntagResource $
 --             newUntagResourceResponse
 --
---         , responseDeleteSourceServer $
---             newDeleteSourceServerResponse
+--         , responseUpdateApplication $
+--             newApplication
+--
+--         , responseUpdateLaunchConfiguration $
+--             newLaunchConfiguration
+--
+--         , responseUpdateLaunchConfigurationTemplate $
+--             newLaunchConfigurationTemplate
+--
+--         , responseUpdateReplicationConfiguration $
+--             newReplicationConfiguration
+--
+--         , responseUpdateReplicationConfigurationTemplate $
+--             newReplicationConfigurationTemplate
+--
+--         , responseUpdateSourceServerReplicationType $
+--             newSourceServer
+--
+--         , responseUpdateWave $
+--             newWave
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestUpdateLaunchConfiguration :: UpdateLaunchConfiguration -> TestTree
-requestUpdateLaunchConfiguration =
+requestArchiveApplication :: ArchiveApplication -> TestTree
+requestArchiveApplication =
   req
-    "UpdateLaunchConfiguration"
-    "fixture/UpdateLaunchConfiguration.yaml"
+    "ArchiveApplication"
+    "fixture/ArchiveApplication.yaml"
 
-requestDescribeReplicationConfigurationTemplates :: DescribeReplicationConfigurationTemplates -> TestTree
-requestDescribeReplicationConfigurationTemplates =
+requestArchiveWave :: ArchiveWave -> TestTree
+requestArchiveWave =
   req
-    "DescribeReplicationConfigurationTemplates"
-    "fixture/DescribeReplicationConfigurationTemplates.yaml"
+    "ArchiveWave"
+    "fixture/ArchiveWave.yaml"
 
-requestListTagsForResource :: ListTagsForResource -> TestTree
-requestListTagsForResource =
+requestAssociateApplications :: AssociateApplications -> TestTree
+requestAssociateApplications =
   req
-    "ListTagsForResource"
-    "fixture/ListTagsForResource.yaml"
+    "AssociateApplications"
+    "fixture/AssociateApplications.yaml"
 
-requestInitializeService :: InitializeService -> TestTree
-requestInitializeService =
+requestAssociateSourceServers :: AssociateSourceServers -> TestTree
+requestAssociateSourceServers =
   req
-    "InitializeService"
-    "fixture/InitializeService.yaml"
-
-requestUpdateReplicationConfigurationTemplate :: UpdateReplicationConfigurationTemplate -> TestTree
-requestUpdateReplicationConfigurationTemplate =
-  req
-    "UpdateReplicationConfigurationTemplate"
-    "fixture/UpdateReplicationConfigurationTemplate.yaml"
-
-requestDeleteReplicationConfigurationTemplate :: DeleteReplicationConfigurationTemplate -> TestTree
-requestDeleteReplicationConfigurationTemplate =
-  req
-    "DeleteReplicationConfigurationTemplate"
-    "fixture/DeleteReplicationConfigurationTemplate.yaml"
-
-requestCreateReplicationConfigurationTemplate :: CreateReplicationConfigurationTemplate -> TestTree
-requestCreateReplicationConfigurationTemplate =
-  req
-    "CreateReplicationConfigurationTemplate"
-    "fixture/CreateReplicationConfigurationTemplate.yaml"
-
-requestDescribeJobLogItems :: DescribeJobLogItems -> TestTree
-requestDescribeJobLogItems =
-  req
-    "DescribeJobLogItems"
-    "fixture/DescribeJobLogItems.yaml"
-
-requestDisconnectFromService :: DisconnectFromService -> TestTree
-requestDisconnectFromService =
-  req
-    "DisconnectFromService"
-    "fixture/DisconnectFromService.yaml"
-
-requestStartTest :: StartTest -> TestTree
-requestStartTest =
-  req
-    "StartTest"
-    "fixture/StartTest.yaml"
-
-requestDescribeSourceServers :: DescribeSourceServers -> TestTree
-requestDescribeSourceServers =
-  req
-    "DescribeSourceServers"
-    "fixture/DescribeSourceServers.yaml"
-
-requestDeleteJob :: DeleteJob -> TestTree
-requestDeleteJob =
-  req
-    "DeleteJob"
-    "fixture/DeleteJob.yaml"
-
-requestFinalizeCutover :: FinalizeCutover -> TestTree
-requestFinalizeCutover =
-  req
-    "FinalizeCutover"
-    "fixture/FinalizeCutover.yaml"
-
-requestDescribeJobs :: DescribeJobs -> TestTree
-requestDescribeJobs =
-  req
-    "DescribeJobs"
-    "fixture/DescribeJobs.yaml"
-
-requestMarkAsArchived :: MarkAsArchived -> TestTree
-requestMarkAsArchived =
-  req
-    "MarkAsArchived"
-    "fixture/MarkAsArchived.yaml"
-
-requestStartCutover :: StartCutover -> TestTree
-requestStartCutover =
-  req
-    "StartCutover"
-    "fixture/StartCutover.yaml"
-
-requestRetryDataReplication :: RetryDataReplication -> TestTree
-requestRetryDataReplication =
-  req
-    "RetryDataReplication"
-    "fixture/RetryDataReplication.yaml"
-
-requestGetReplicationConfiguration :: GetReplicationConfiguration -> TestTree
-requestGetReplicationConfiguration =
-  req
-    "GetReplicationConfiguration"
-    "fixture/GetReplicationConfiguration.yaml"
+    "AssociateSourceServers"
+    "fixture/AssociateSourceServers.yaml"
 
 requestChangeServerLifeCycleState :: ChangeServerLifeCycleState -> TestTree
 requestChangeServerLifeCycleState =
@@ -299,35 +395,53 @@ requestChangeServerLifeCycleState =
     "ChangeServerLifeCycleState"
     "fixture/ChangeServerLifeCycleState.yaml"
 
-requestTerminateTargetInstances :: TerminateTargetInstances -> TestTree
-requestTerminateTargetInstances =
+requestCreateApplication :: CreateApplication -> TestTree
+requestCreateApplication =
   req
-    "TerminateTargetInstances"
-    "fixture/TerminateTargetInstances.yaml"
+    "CreateApplication"
+    "fixture/CreateApplication.yaml"
 
-requestUpdateReplicationConfiguration :: UpdateReplicationConfiguration -> TestTree
-requestUpdateReplicationConfiguration =
+requestCreateLaunchConfigurationTemplate :: CreateLaunchConfigurationTemplate -> TestTree
+requestCreateLaunchConfigurationTemplate =
   req
-    "UpdateReplicationConfiguration"
-    "fixture/UpdateReplicationConfiguration.yaml"
+    "CreateLaunchConfigurationTemplate"
+    "fixture/CreateLaunchConfigurationTemplate.yaml"
 
-requestTagResource :: TagResource -> TestTree
-requestTagResource =
+requestCreateReplicationConfigurationTemplate :: CreateReplicationConfigurationTemplate -> TestTree
+requestCreateReplicationConfigurationTemplate =
   req
-    "TagResource"
-    "fixture/TagResource.yaml"
+    "CreateReplicationConfigurationTemplate"
+    "fixture/CreateReplicationConfigurationTemplate.yaml"
 
-requestGetLaunchConfiguration :: GetLaunchConfiguration -> TestTree
-requestGetLaunchConfiguration =
+requestCreateWave :: CreateWave -> TestTree
+requestCreateWave =
   req
-    "GetLaunchConfiguration"
-    "fixture/GetLaunchConfiguration.yaml"
+    "CreateWave"
+    "fixture/CreateWave.yaml"
 
-requestUntagResource :: UntagResource -> TestTree
-requestUntagResource =
+requestDeleteApplication :: DeleteApplication -> TestTree
+requestDeleteApplication =
   req
-    "UntagResource"
-    "fixture/UntagResource.yaml"
+    "DeleteApplication"
+    "fixture/DeleteApplication.yaml"
+
+requestDeleteJob :: DeleteJob -> TestTree
+requestDeleteJob =
+  req
+    "DeleteJob"
+    "fixture/DeleteJob.yaml"
+
+requestDeleteLaunchConfigurationTemplate :: DeleteLaunchConfigurationTemplate -> TestTree
+requestDeleteLaunchConfigurationTemplate =
+  req
+    "DeleteLaunchConfigurationTemplate"
+    "fixture/DeleteLaunchConfigurationTemplate.yaml"
+
+requestDeleteReplicationConfigurationTemplate :: DeleteReplicationConfigurationTemplate -> TestTree
+requestDeleteReplicationConfigurationTemplate =
+  req
+    "DeleteReplicationConfigurationTemplate"
+    "fixture/DeleteReplicationConfigurationTemplate.yaml"
 
 requestDeleteSourceServer :: DeleteSourceServer -> TestTree
 requestDeleteSourceServer =
@@ -335,151 +449,285 @@ requestDeleteSourceServer =
     "DeleteSourceServer"
     "fixture/DeleteSourceServer.yaml"
 
+requestDeleteVcenterClient :: DeleteVcenterClient -> TestTree
+requestDeleteVcenterClient =
+  req
+    "DeleteVcenterClient"
+    "fixture/DeleteVcenterClient.yaml"
+
+requestDeleteWave :: DeleteWave -> TestTree
+requestDeleteWave =
+  req
+    "DeleteWave"
+    "fixture/DeleteWave.yaml"
+
+requestDescribeJobLogItems :: DescribeJobLogItems -> TestTree
+requestDescribeJobLogItems =
+  req
+    "DescribeJobLogItems"
+    "fixture/DescribeJobLogItems.yaml"
+
+requestDescribeJobs :: DescribeJobs -> TestTree
+requestDescribeJobs =
+  req
+    "DescribeJobs"
+    "fixture/DescribeJobs.yaml"
+
+requestDescribeLaunchConfigurationTemplates :: DescribeLaunchConfigurationTemplates -> TestTree
+requestDescribeLaunchConfigurationTemplates =
+  req
+    "DescribeLaunchConfigurationTemplates"
+    "fixture/DescribeLaunchConfigurationTemplates.yaml"
+
+requestDescribeReplicationConfigurationTemplates :: DescribeReplicationConfigurationTemplates -> TestTree
+requestDescribeReplicationConfigurationTemplates =
+  req
+    "DescribeReplicationConfigurationTemplates"
+    "fixture/DescribeReplicationConfigurationTemplates.yaml"
+
+requestDescribeSourceServers :: DescribeSourceServers -> TestTree
+requestDescribeSourceServers =
+  req
+    "DescribeSourceServers"
+    "fixture/DescribeSourceServers.yaml"
+
+requestDescribeVcenterClients :: DescribeVcenterClients -> TestTree
+requestDescribeVcenterClients =
+  req
+    "DescribeVcenterClients"
+    "fixture/DescribeVcenterClients.yaml"
+
+requestDisassociateApplications :: DisassociateApplications -> TestTree
+requestDisassociateApplications =
+  req
+    "DisassociateApplications"
+    "fixture/DisassociateApplications.yaml"
+
+requestDisassociateSourceServers :: DisassociateSourceServers -> TestTree
+requestDisassociateSourceServers =
+  req
+    "DisassociateSourceServers"
+    "fixture/DisassociateSourceServers.yaml"
+
+requestDisconnectFromService :: DisconnectFromService -> TestTree
+requestDisconnectFromService =
+  req
+    "DisconnectFromService"
+    "fixture/DisconnectFromService.yaml"
+
+requestFinalizeCutover :: FinalizeCutover -> TestTree
+requestFinalizeCutover =
+  req
+    "FinalizeCutover"
+    "fixture/FinalizeCutover.yaml"
+
+requestGetLaunchConfiguration :: GetLaunchConfiguration -> TestTree
+requestGetLaunchConfiguration =
+  req
+    "GetLaunchConfiguration"
+    "fixture/GetLaunchConfiguration.yaml"
+
+requestGetReplicationConfiguration :: GetReplicationConfiguration -> TestTree
+requestGetReplicationConfiguration =
+  req
+    "GetReplicationConfiguration"
+    "fixture/GetReplicationConfiguration.yaml"
+
+requestInitializeService :: InitializeService -> TestTree
+requestInitializeService =
+  req
+    "InitializeService"
+    "fixture/InitializeService.yaml"
+
+requestListApplications :: ListApplications -> TestTree
+requestListApplications =
+  req
+    "ListApplications"
+    "fixture/ListApplications.yaml"
+
+requestListSourceServerActions :: ListSourceServerActions -> TestTree
+requestListSourceServerActions =
+  req
+    "ListSourceServerActions"
+    "fixture/ListSourceServerActions.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
+requestListTemplateActions :: ListTemplateActions -> TestTree
+requestListTemplateActions =
+  req
+    "ListTemplateActions"
+    "fixture/ListTemplateActions.yaml"
+
+requestListWaves :: ListWaves -> TestTree
+requestListWaves =
+  req
+    "ListWaves"
+    "fixture/ListWaves.yaml"
+
+requestMarkAsArchived :: MarkAsArchived -> TestTree
+requestMarkAsArchived =
+  req
+    "MarkAsArchived"
+    "fixture/MarkAsArchived.yaml"
+
+requestPutSourceServerAction :: PutSourceServerAction -> TestTree
+requestPutSourceServerAction =
+  req
+    "PutSourceServerAction"
+    "fixture/PutSourceServerAction.yaml"
+
+requestPutTemplateAction :: PutTemplateAction -> TestTree
+requestPutTemplateAction =
+  req
+    "PutTemplateAction"
+    "fixture/PutTemplateAction.yaml"
+
+requestRemoveSourceServerAction :: RemoveSourceServerAction -> TestTree
+requestRemoveSourceServerAction =
+  req
+    "RemoveSourceServerAction"
+    "fixture/RemoveSourceServerAction.yaml"
+
+requestRemoveTemplateAction :: RemoveTemplateAction -> TestTree
+requestRemoveTemplateAction =
+  req
+    "RemoveTemplateAction"
+    "fixture/RemoveTemplateAction.yaml"
+
+requestRetryDataReplication :: RetryDataReplication -> TestTree
+requestRetryDataReplication =
+  req
+    "RetryDataReplication"
+    "fixture/RetryDataReplication.yaml"
+
+requestStartCutover :: StartCutover -> TestTree
+requestStartCutover =
+  req
+    "StartCutover"
+    "fixture/StartCutover.yaml"
+
+requestStartReplication :: StartReplication -> TestTree
+requestStartReplication =
+  req
+    "StartReplication"
+    "fixture/StartReplication.yaml"
+
+requestStartTest :: StartTest -> TestTree
+requestStartTest =
+  req
+    "StartTest"
+    "fixture/StartTest.yaml"
+
+requestTagResource :: TagResource -> TestTree
+requestTagResource =
+  req
+    "TagResource"
+    "fixture/TagResource.yaml"
+
+requestTerminateTargetInstances :: TerminateTargetInstances -> TestTree
+requestTerminateTargetInstances =
+  req
+    "TerminateTargetInstances"
+    "fixture/TerminateTargetInstances.yaml"
+
+requestUnarchiveApplication :: UnarchiveApplication -> TestTree
+requestUnarchiveApplication =
+  req
+    "UnarchiveApplication"
+    "fixture/UnarchiveApplication.yaml"
+
+requestUnarchiveWave :: UnarchiveWave -> TestTree
+requestUnarchiveWave =
+  req
+    "UnarchiveWave"
+    "fixture/UnarchiveWave.yaml"
+
+requestUntagResource :: UntagResource -> TestTree
+requestUntagResource =
+  req
+    "UntagResource"
+    "fixture/UntagResource.yaml"
+
+requestUpdateApplication :: UpdateApplication -> TestTree
+requestUpdateApplication =
+  req
+    "UpdateApplication"
+    "fixture/UpdateApplication.yaml"
+
+requestUpdateLaunchConfiguration :: UpdateLaunchConfiguration -> TestTree
+requestUpdateLaunchConfiguration =
+  req
+    "UpdateLaunchConfiguration"
+    "fixture/UpdateLaunchConfiguration.yaml"
+
+requestUpdateLaunchConfigurationTemplate :: UpdateLaunchConfigurationTemplate -> TestTree
+requestUpdateLaunchConfigurationTemplate =
+  req
+    "UpdateLaunchConfigurationTemplate"
+    "fixture/UpdateLaunchConfigurationTemplate.yaml"
+
+requestUpdateReplicationConfiguration :: UpdateReplicationConfiguration -> TestTree
+requestUpdateReplicationConfiguration =
+  req
+    "UpdateReplicationConfiguration"
+    "fixture/UpdateReplicationConfiguration.yaml"
+
+requestUpdateReplicationConfigurationTemplate :: UpdateReplicationConfigurationTemplate -> TestTree
+requestUpdateReplicationConfigurationTemplate =
+  req
+    "UpdateReplicationConfigurationTemplate"
+    "fixture/UpdateReplicationConfigurationTemplate.yaml"
+
+requestUpdateSourceServerReplicationType :: UpdateSourceServerReplicationType -> TestTree
+requestUpdateSourceServerReplicationType =
+  req
+    "UpdateSourceServerReplicationType"
+    "fixture/UpdateSourceServerReplicationType.yaml"
+
+requestUpdateWave :: UpdateWave -> TestTree
+requestUpdateWave =
+  req
+    "UpdateWave"
+    "fixture/UpdateWave.yaml"
+
 -- Responses
 
-responseUpdateLaunchConfiguration :: LaunchConfiguration -> TestTree
-responseUpdateLaunchConfiguration =
+responseArchiveApplication :: Application -> TestTree
+responseArchiveApplication =
   res
-    "UpdateLaunchConfigurationResponse"
-    "fixture/UpdateLaunchConfigurationResponse.proto"
+    "ArchiveApplicationResponse"
+    "fixture/ArchiveApplicationResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateLaunchConfiguration)
+    (Proxy.Proxy :: Proxy.Proxy ArchiveApplication)
 
-responseDescribeReplicationConfigurationTemplates :: DescribeReplicationConfigurationTemplatesResponse -> TestTree
-responseDescribeReplicationConfigurationTemplates =
+responseArchiveWave :: Wave -> TestTree
+responseArchiveWave =
   res
-    "DescribeReplicationConfigurationTemplatesResponse"
-    "fixture/DescribeReplicationConfigurationTemplatesResponse.proto"
+    "ArchiveWaveResponse"
+    "fixture/ArchiveWaveResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeReplicationConfigurationTemplates)
+    (Proxy.Proxy :: Proxy.Proxy ArchiveWave)
 
-responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
-responseListTagsForResource =
+responseAssociateApplications :: AssociateApplicationsResponse -> TestTree
+responseAssociateApplications =
   res
-    "ListTagsForResourceResponse"
-    "fixture/ListTagsForResourceResponse.proto"
+    "AssociateApplicationsResponse"
+    "fixture/AssociateApplicationsResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+    (Proxy.Proxy :: Proxy.Proxy AssociateApplications)
 
-responseInitializeService :: InitializeServiceResponse -> TestTree
-responseInitializeService =
+responseAssociateSourceServers :: AssociateSourceServersResponse -> TestTree
+responseAssociateSourceServers =
   res
-    "InitializeServiceResponse"
-    "fixture/InitializeServiceResponse.proto"
+    "AssociateSourceServersResponse"
+    "fixture/AssociateSourceServersResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy InitializeService)
-
-responseUpdateReplicationConfigurationTemplate :: ReplicationConfigurationTemplate -> TestTree
-responseUpdateReplicationConfigurationTemplate =
-  res
-    "UpdateReplicationConfigurationTemplateResponse"
-    "fixture/UpdateReplicationConfigurationTemplateResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateReplicationConfigurationTemplate)
-
-responseDeleteReplicationConfigurationTemplate :: DeleteReplicationConfigurationTemplateResponse -> TestTree
-responseDeleteReplicationConfigurationTemplate =
-  res
-    "DeleteReplicationConfigurationTemplateResponse"
-    "fixture/DeleteReplicationConfigurationTemplateResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteReplicationConfigurationTemplate)
-
-responseCreateReplicationConfigurationTemplate :: ReplicationConfigurationTemplate -> TestTree
-responseCreateReplicationConfigurationTemplate =
-  res
-    "CreateReplicationConfigurationTemplateResponse"
-    "fixture/CreateReplicationConfigurationTemplateResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateReplicationConfigurationTemplate)
-
-responseDescribeJobLogItems :: DescribeJobLogItemsResponse -> TestTree
-responseDescribeJobLogItems =
-  res
-    "DescribeJobLogItemsResponse"
-    "fixture/DescribeJobLogItemsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeJobLogItems)
-
-responseDisconnectFromService :: SourceServer -> TestTree
-responseDisconnectFromService =
-  res
-    "DisconnectFromServiceResponse"
-    "fixture/DisconnectFromServiceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DisconnectFromService)
-
-responseStartTest :: StartTestResponse -> TestTree
-responseStartTest =
-  res
-    "StartTestResponse"
-    "fixture/StartTestResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy StartTest)
-
-responseDescribeSourceServers :: DescribeSourceServersResponse -> TestTree
-responseDescribeSourceServers =
-  res
-    "DescribeSourceServersResponse"
-    "fixture/DescribeSourceServersResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeSourceServers)
-
-responseDeleteJob :: DeleteJobResponse -> TestTree
-responseDeleteJob =
-  res
-    "DeleteJobResponse"
-    "fixture/DeleteJobResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteJob)
-
-responseFinalizeCutover :: SourceServer -> TestTree
-responseFinalizeCutover =
-  res
-    "FinalizeCutoverResponse"
-    "fixture/FinalizeCutoverResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy FinalizeCutover)
-
-responseDescribeJobs :: DescribeJobsResponse -> TestTree
-responseDescribeJobs =
-  res
-    "DescribeJobsResponse"
-    "fixture/DescribeJobsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeJobs)
-
-responseMarkAsArchived :: SourceServer -> TestTree
-responseMarkAsArchived =
-  res
-    "MarkAsArchivedResponse"
-    "fixture/MarkAsArchivedResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy MarkAsArchived)
-
-responseStartCutover :: StartCutoverResponse -> TestTree
-responseStartCutover =
-  res
-    "StartCutoverResponse"
-    "fixture/StartCutoverResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy StartCutover)
-
-responseRetryDataReplication :: SourceServer -> TestTree
-responseRetryDataReplication =
-  res
-    "RetryDataReplicationResponse"
-    "fixture/RetryDataReplicationResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy RetryDataReplication)
-
-responseGetReplicationConfiguration :: ReplicationConfiguration -> TestTree
-responseGetReplicationConfiguration =
-  res
-    "GetReplicationConfigurationResponse"
-    "fixture/GetReplicationConfigurationResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetReplicationConfiguration)
+    (Proxy.Proxy :: Proxy.Proxy AssociateSourceServers)
 
 responseChangeServerLifeCycleState :: SourceServer -> TestTree
 responseChangeServerLifeCycleState =
@@ -489,29 +737,173 @@ responseChangeServerLifeCycleState =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy ChangeServerLifeCycleState)
 
-responseTerminateTargetInstances :: TerminateTargetInstancesResponse -> TestTree
-responseTerminateTargetInstances =
+responseCreateApplication :: Application -> TestTree
+responseCreateApplication =
   res
-    "TerminateTargetInstancesResponse"
-    "fixture/TerminateTargetInstancesResponse.proto"
+    "CreateApplicationResponse"
+    "fixture/CreateApplicationResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy TerminateTargetInstances)
+    (Proxy.Proxy :: Proxy.Proxy CreateApplication)
 
-responseUpdateReplicationConfiguration :: ReplicationConfiguration -> TestTree
-responseUpdateReplicationConfiguration =
+responseCreateLaunchConfigurationTemplate :: LaunchConfigurationTemplate -> TestTree
+responseCreateLaunchConfigurationTemplate =
   res
-    "UpdateReplicationConfigurationResponse"
-    "fixture/UpdateReplicationConfigurationResponse.proto"
+    "CreateLaunchConfigurationTemplateResponse"
+    "fixture/CreateLaunchConfigurationTemplateResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateReplicationConfiguration)
+    (Proxy.Proxy :: Proxy.Proxy CreateLaunchConfigurationTemplate)
 
-responseTagResource :: TagResourceResponse -> TestTree
-responseTagResource =
+responseCreateReplicationConfigurationTemplate :: ReplicationConfigurationTemplate -> TestTree
+responseCreateReplicationConfigurationTemplate =
   res
-    "TagResourceResponse"
-    "fixture/TagResourceResponse.proto"
+    "CreateReplicationConfigurationTemplateResponse"
+    "fixture/CreateReplicationConfigurationTemplateResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy TagResource)
+    (Proxy.Proxy :: Proxy.Proxy CreateReplicationConfigurationTemplate)
+
+responseCreateWave :: Wave -> TestTree
+responseCreateWave =
+  res
+    "CreateWaveResponse"
+    "fixture/CreateWaveResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy CreateWave)
+
+responseDeleteApplication :: DeleteApplicationResponse -> TestTree
+responseDeleteApplication =
+  res
+    "DeleteApplicationResponse"
+    "fixture/DeleteApplicationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteApplication)
+
+responseDeleteJob :: DeleteJobResponse -> TestTree
+responseDeleteJob =
+  res
+    "DeleteJobResponse"
+    "fixture/DeleteJobResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteJob)
+
+responseDeleteLaunchConfigurationTemplate :: DeleteLaunchConfigurationTemplateResponse -> TestTree
+responseDeleteLaunchConfigurationTemplate =
+  res
+    "DeleteLaunchConfigurationTemplateResponse"
+    "fixture/DeleteLaunchConfigurationTemplateResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteLaunchConfigurationTemplate)
+
+responseDeleteReplicationConfigurationTemplate :: DeleteReplicationConfigurationTemplateResponse -> TestTree
+responseDeleteReplicationConfigurationTemplate =
+  res
+    "DeleteReplicationConfigurationTemplateResponse"
+    "fixture/DeleteReplicationConfigurationTemplateResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteReplicationConfigurationTemplate)
+
+responseDeleteSourceServer :: DeleteSourceServerResponse -> TestTree
+responseDeleteSourceServer =
+  res
+    "DeleteSourceServerResponse"
+    "fixture/DeleteSourceServerResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteSourceServer)
+
+responseDeleteVcenterClient :: DeleteVcenterClientResponse -> TestTree
+responseDeleteVcenterClient =
+  res
+    "DeleteVcenterClientResponse"
+    "fixture/DeleteVcenterClientResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteVcenterClient)
+
+responseDeleteWave :: DeleteWaveResponse -> TestTree
+responseDeleteWave =
+  res
+    "DeleteWaveResponse"
+    "fixture/DeleteWaveResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteWave)
+
+responseDescribeJobLogItems :: DescribeJobLogItemsResponse -> TestTree
+responseDescribeJobLogItems =
+  res
+    "DescribeJobLogItemsResponse"
+    "fixture/DescribeJobLogItemsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeJobLogItems)
+
+responseDescribeJobs :: DescribeJobsResponse -> TestTree
+responseDescribeJobs =
+  res
+    "DescribeJobsResponse"
+    "fixture/DescribeJobsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeJobs)
+
+responseDescribeLaunchConfigurationTemplates :: DescribeLaunchConfigurationTemplatesResponse -> TestTree
+responseDescribeLaunchConfigurationTemplates =
+  res
+    "DescribeLaunchConfigurationTemplatesResponse"
+    "fixture/DescribeLaunchConfigurationTemplatesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeLaunchConfigurationTemplates)
+
+responseDescribeReplicationConfigurationTemplates :: DescribeReplicationConfigurationTemplatesResponse -> TestTree
+responseDescribeReplicationConfigurationTemplates =
+  res
+    "DescribeReplicationConfigurationTemplatesResponse"
+    "fixture/DescribeReplicationConfigurationTemplatesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeReplicationConfigurationTemplates)
+
+responseDescribeSourceServers :: DescribeSourceServersResponse -> TestTree
+responseDescribeSourceServers =
+  res
+    "DescribeSourceServersResponse"
+    "fixture/DescribeSourceServersResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeSourceServers)
+
+responseDescribeVcenterClients :: DescribeVcenterClientsResponse -> TestTree
+responseDescribeVcenterClients =
+  res
+    "DescribeVcenterClientsResponse"
+    "fixture/DescribeVcenterClientsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeVcenterClients)
+
+responseDisassociateApplications :: DisassociateApplicationsResponse -> TestTree
+responseDisassociateApplications =
+  res
+    "DisassociateApplicationsResponse"
+    "fixture/DisassociateApplicationsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DisassociateApplications)
+
+responseDisassociateSourceServers :: DisassociateSourceServersResponse -> TestTree
+responseDisassociateSourceServers =
+  res
+    "DisassociateSourceServersResponse"
+    "fixture/DisassociateSourceServersResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DisassociateSourceServers)
+
+responseDisconnectFromService :: SourceServer -> TestTree
+responseDisconnectFromService =
+  res
+    "DisconnectFromServiceResponse"
+    "fixture/DisconnectFromServiceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DisconnectFromService)
+
+responseFinalizeCutover :: SourceServer -> TestTree
+responseFinalizeCutover =
+  res
+    "FinalizeCutoverResponse"
+    "fixture/FinalizeCutoverResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy FinalizeCutover)
 
 responseGetLaunchConfiguration :: LaunchConfiguration -> TestTree
 responseGetLaunchConfiguration =
@@ -521,6 +913,166 @@ responseGetLaunchConfiguration =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetLaunchConfiguration)
 
+responseGetReplicationConfiguration :: ReplicationConfiguration -> TestTree
+responseGetReplicationConfiguration =
+  res
+    "GetReplicationConfigurationResponse"
+    "fixture/GetReplicationConfigurationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetReplicationConfiguration)
+
+responseInitializeService :: InitializeServiceResponse -> TestTree
+responseInitializeService =
+  res
+    "InitializeServiceResponse"
+    "fixture/InitializeServiceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy InitializeService)
+
+responseListApplications :: ListApplicationsResponse -> TestTree
+responseListApplications =
+  res
+    "ListApplicationsResponse"
+    "fixture/ListApplicationsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListApplications)
+
+responseListSourceServerActions :: ListSourceServerActionsResponse -> TestTree
+responseListSourceServerActions =
+  res
+    "ListSourceServerActionsResponse"
+    "fixture/ListSourceServerActionsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListSourceServerActions)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+
+responseListTemplateActions :: ListTemplateActionsResponse -> TestTree
+responseListTemplateActions =
+  res
+    "ListTemplateActionsResponse"
+    "fixture/ListTemplateActionsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTemplateActions)
+
+responseListWaves :: ListWavesResponse -> TestTree
+responseListWaves =
+  res
+    "ListWavesResponse"
+    "fixture/ListWavesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListWaves)
+
+responseMarkAsArchived :: SourceServer -> TestTree
+responseMarkAsArchived =
+  res
+    "MarkAsArchivedResponse"
+    "fixture/MarkAsArchivedResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy MarkAsArchived)
+
+responsePutSourceServerAction :: SourceServerActionDocument -> TestTree
+responsePutSourceServerAction =
+  res
+    "PutSourceServerActionResponse"
+    "fixture/PutSourceServerActionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy PutSourceServerAction)
+
+responsePutTemplateAction :: TemplateActionDocument -> TestTree
+responsePutTemplateAction =
+  res
+    "PutTemplateActionResponse"
+    "fixture/PutTemplateActionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy PutTemplateAction)
+
+responseRemoveSourceServerAction :: RemoveSourceServerActionResponse -> TestTree
+responseRemoveSourceServerAction =
+  res
+    "RemoveSourceServerActionResponse"
+    "fixture/RemoveSourceServerActionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy RemoveSourceServerAction)
+
+responseRemoveTemplateAction :: RemoveTemplateActionResponse -> TestTree
+responseRemoveTemplateAction =
+  res
+    "RemoveTemplateActionResponse"
+    "fixture/RemoveTemplateActionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy RemoveTemplateAction)
+
+responseRetryDataReplication :: SourceServer -> TestTree
+responseRetryDataReplication =
+  res
+    "RetryDataReplicationResponse"
+    "fixture/RetryDataReplicationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy RetryDataReplication)
+
+responseStartCutover :: StartCutoverResponse -> TestTree
+responseStartCutover =
+  res
+    "StartCutoverResponse"
+    "fixture/StartCutoverResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StartCutover)
+
+responseStartReplication :: SourceServer -> TestTree
+responseStartReplication =
+  res
+    "StartReplicationResponse"
+    "fixture/StartReplicationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StartReplication)
+
+responseStartTest :: StartTestResponse -> TestTree
+responseStartTest =
+  res
+    "StartTestResponse"
+    "fixture/StartTestResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StartTest)
+
+responseTagResource :: TagResourceResponse -> TestTree
+responseTagResource =
+  res
+    "TagResourceResponse"
+    "fixture/TagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy TagResource)
+
+responseTerminateTargetInstances :: TerminateTargetInstancesResponse -> TestTree
+responseTerminateTargetInstances =
+  res
+    "TerminateTargetInstancesResponse"
+    "fixture/TerminateTargetInstancesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy TerminateTargetInstances)
+
+responseUnarchiveApplication :: Application -> TestTree
+responseUnarchiveApplication =
+  res
+    "UnarchiveApplicationResponse"
+    "fixture/UnarchiveApplicationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UnarchiveApplication)
+
+responseUnarchiveWave :: Wave -> TestTree
+responseUnarchiveWave =
+  res
+    "UnarchiveWaveResponse"
+    "fixture/UnarchiveWaveResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UnarchiveWave)
+
 responseUntagResource :: UntagResourceResponse -> TestTree
 responseUntagResource =
   res
@@ -529,10 +1081,58 @@ responseUntagResource =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy UntagResource)
 
-responseDeleteSourceServer :: DeleteSourceServerResponse -> TestTree
-responseDeleteSourceServer =
+responseUpdateApplication :: Application -> TestTree
+responseUpdateApplication =
   res
-    "DeleteSourceServerResponse"
-    "fixture/DeleteSourceServerResponse.proto"
+    "UpdateApplicationResponse"
+    "fixture/UpdateApplicationResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteSourceServer)
+    (Proxy.Proxy :: Proxy.Proxy UpdateApplication)
+
+responseUpdateLaunchConfiguration :: LaunchConfiguration -> TestTree
+responseUpdateLaunchConfiguration =
+  res
+    "UpdateLaunchConfigurationResponse"
+    "fixture/UpdateLaunchConfigurationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateLaunchConfiguration)
+
+responseUpdateLaunchConfigurationTemplate :: LaunchConfigurationTemplate -> TestTree
+responseUpdateLaunchConfigurationTemplate =
+  res
+    "UpdateLaunchConfigurationTemplateResponse"
+    "fixture/UpdateLaunchConfigurationTemplateResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateLaunchConfigurationTemplate)
+
+responseUpdateReplicationConfiguration :: ReplicationConfiguration -> TestTree
+responseUpdateReplicationConfiguration =
+  res
+    "UpdateReplicationConfigurationResponse"
+    "fixture/UpdateReplicationConfigurationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateReplicationConfiguration)
+
+responseUpdateReplicationConfigurationTemplate :: ReplicationConfigurationTemplate -> TestTree
+responseUpdateReplicationConfigurationTemplate =
+  res
+    "UpdateReplicationConfigurationTemplateResponse"
+    "fixture/UpdateReplicationConfigurationTemplateResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateReplicationConfigurationTemplate)
+
+responseUpdateSourceServerReplicationType :: SourceServer -> TestTree
+responseUpdateSourceServerReplicationType =
+  res
+    "UpdateSourceServerReplicationTypeResponse"
+    "fixture/UpdateSourceServerReplicationTypeResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateSourceServerReplicationType)
+
+responseUpdateWave :: Wave -> TestTree
+responseUpdateWave =
+  res
+    "UpdateWaveResponse"
+    "fixture/UpdateWaveResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateWave)

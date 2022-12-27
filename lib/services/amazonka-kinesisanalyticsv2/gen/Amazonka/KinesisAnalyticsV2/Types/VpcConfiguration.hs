@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.VpcConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalyticsV2.Types.VpcConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the parameters of a VPC used by the application.
@@ -89,12 +90,12 @@ instance Prelude.NFData VpcConfiguration where
     Prelude.rnf subnetIds
       `Prelude.seq` Prelude.rnf securityGroupIds
 
-instance Core.ToJSON VpcConfiguration where
+instance Data.ToJSON VpcConfiguration where
   toJSON VpcConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("SubnetIds" Core..= subnetIds),
+          [ Prelude.Just ("SubnetIds" Data..= subnetIds),
             Prelude.Just
-              ("SecurityGroupIds" Core..= securityGroupIds)
+              ("SecurityGroupIds" Data..= securityGroupIds)
           ]
       )

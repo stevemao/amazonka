@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarNotifications.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -15,8 +15,8 @@ module Amazonka.CodeStarNotifications.Lens
   ( -- * Operations
 
     -- ** CreateNotificationRule
-    createNotificationRule_status,
     createNotificationRule_clientRequestToken,
+    createNotificationRule_status,
     createNotificationRule_tags,
     createNotificationRule_name,
     createNotificationRule_eventTypeIds,
@@ -26,59 +26,59 @@ module Amazonka.CodeStarNotifications.Lens
     createNotificationRuleResponse_arn,
     createNotificationRuleResponse_httpStatus,
 
-    -- ** UpdateNotificationRule
-    updateNotificationRule_status,
-    updateNotificationRule_eventTypeIds,
-    updateNotificationRule_detailType,
-    updateNotificationRule_name,
-    updateNotificationRule_targets,
-    updateNotificationRule_arn,
-    updateNotificationRuleResponse_httpStatus,
-
     -- ** DeleteNotificationRule
     deleteNotificationRule_arn,
     deleteNotificationRuleResponse_arn,
     deleteNotificationRuleResponse_httpStatus,
-
-    -- ** ListTagsForResource
-    listTagsForResource_arn,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** ListEventTypes
-    listEventTypes_filters,
-    listEventTypes_nextToken,
-    listEventTypes_maxResults,
-    listEventTypesResponse_eventTypes,
-    listEventTypesResponse_nextToken,
-    listEventTypesResponse_httpStatus,
 
     -- ** DeleteTarget
     deleteTarget_forceUnsubscribeAll,
     deleteTarget_targetAddress,
     deleteTargetResponse_httpStatus,
 
+    -- ** DescribeNotificationRule
+    describeNotificationRule_arn,
+    describeNotificationRuleResponse_createdBy,
+    describeNotificationRuleResponse_createdTimestamp,
+    describeNotificationRuleResponse_detailType,
+    describeNotificationRuleResponse_eventTypes,
+    describeNotificationRuleResponse_lastModifiedTimestamp,
+    describeNotificationRuleResponse_name,
+    describeNotificationRuleResponse_resource,
+    describeNotificationRuleResponse_status,
+    describeNotificationRuleResponse_tags,
+    describeNotificationRuleResponse_targets,
+    describeNotificationRuleResponse_httpStatus,
+    describeNotificationRuleResponse_arn,
+
+    -- ** ListEventTypes
+    listEventTypes_filters,
+    listEventTypes_maxResults,
+    listEventTypes_nextToken,
+    listEventTypesResponse_eventTypes,
+    listEventTypesResponse_nextToken,
+    listEventTypesResponse_httpStatus,
+
     -- ** ListNotificationRules
     listNotificationRules_filters,
-    listNotificationRules_nextToken,
     listNotificationRules_maxResults,
+    listNotificationRules_nextToken,
     listNotificationRulesResponse_nextToken,
     listNotificationRulesResponse_notificationRules,
     listNotificationRulesResponse_httpStatus,
 
+    -- ** ListTagsForResource
+    listTagsForResource_arn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
     -- ** ListTargets
     listTargets_filters,
-    listTargets_nextToken,
     listTargets_maxResults,
+    listTargets_nextToken,
     listTargetsResponse_nextToken,
     listTargetsResponse_targets,
     listTargetsResponse_httpStatus,
-
-    -- ** TagResource
-    tagResource_arn,
-    tagResource_tags,
-    tagResourceResponse_tags,
-    tagResourceResponse_httpStatus,
 
     -- ** Subscribe
     subscribe_clientRequestToken,
@@ -87,10 +87,11 @@ module Amazonka.CodeStarNotifications.Lens
     subscribeResponse_arn,
     subscribeResponse_httpStatus,
 
-    -- ** UntagResource
-    untagResource_arn,
-    untagResource_tagKeys,
-    untagResourceResponse_httpStatus,
+    -- ** TagResource
+    tagResource_arn,
+    tagResource_tags,
+    tagResourceResponse_tags,
+    tagResourceResponse_httpStatus,
 
     -- ** Unsubscribe
     unsubscribe_arn,
@@ -98,27 +99,26 @@ module Amazonka.CodeStarNotifications.Lens
     unsubscribeResponse_httpStatus,
     unsubscribeResponse_arn,
 
-    -- ** DescribeNotificationRule
-    describeNotificationRule_arn,
-    describeNotificationRuleResponse_status,
-    describeNotificationRuleResponse_eventTypes,
-    describeNotificationRuleResponse_lastModifiedTimestamp,
-    describeNotificationRuleResponse_createdBy,
-    describeNotificationRuleResponse_detailType,
-    describeNotificationRuleResponse_name,
-    describeNotificationRuleResponse_targets,
-    describeNotificationRuleResponse_resource,
-    describeNotificationRuleResponse_createdTimestamp,
-    describeNotificationRuleResponse_tags,
-    describeNotificationRuleResponse_httpStatus,
-    describeNotificationRuleResponse_arn,
+    -- ** UntagResource
+    untagResource_arn,
+    untagResource_tagKeys,
+    untagResourceResponse_httpStatus,
+
+    -- ** UpdateNotificationRule
+    updateNotificationRule_detailType,
+    updateNotificationRule_eventTypeIds,
+    updateNotificationRule_name,
+    updateNotificationRule_status,
+    updateNotificationRule_targets,
+    updateNotificationRule_arn,
+    updateNotificationRuleResponse_httpStatus,
 
     -- * Types
 
     -- ** EventTypeSummary
-    eventTypeSummary_resourceType,
-    eventTypeSummary_eventTypeName,
     eventTypeSummary_eventTypeId,
+    eventTypeSummary_eventTypeName,
+    eventTypeSummary_resourceType,
     eventTypeSummary_serviceName,
 
     -- ** ListEventTypesFilter
@@ -138,13 +138,13 @@ module Amazonka.CodeStarNotifications.Lens
     notificationRuleSummary_id,
 
     -- ** Target
-    target_targetType,
     target_targetAddress,
+    target_targetType,
 
     -- ** TargetSummary
-    targetSummary_targetType,
     targetSummary_targetAddress,
     targetSummary_targetStatus,
+    targetSummary_targetType,
   )
 where
 

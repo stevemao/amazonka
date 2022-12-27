@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.ListTagOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.ServiceCatalog.ListTagOptions
 
     -- * Request Lenses
     listTagOptions_filters,
-    listTagOptions_pageToken,
     listTagOptions_pageSize,
+    listTagOptions_pageToken,
 
     -- * Destructuring the Response
     ListTagOptionsResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.ServiceCatalog.ListTagOptions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,11 +57,11 @@ data ListTagOptions = ListTagOptions'
   { -- | The search filters. If no search filters are specified, the output
     -- includes all TagOptions.
     filters :: Prelude.Maybe ListTagOptionsFilters,
+    -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The page token for the next set of results. To retrieve the first set of
     -- results, use null.
-    pageToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call.
-    pageSize :: Prelude.Maybe Prelude.Natural
+    pageToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,17 +76,17 @@ data ListTagOptions = ListTagOptions'
 -- 'filters', 'listTagOptions_filters' - The search filters. If no search filters are specified, the output
 -- includes all TagOptions.
 --
+-- 'pageSize', 'listTagOptions_pageSize' - The maximum number of items to return with this call.
+--
 -- 'pageToken', 'listTagOptions_pageToken' - The page token for the next set of results. To retrieve the first set of
 -- results, use null.
---
--- 'pageSize', 'listTagOptions_pageSize' - The maximum number of items to return with this call.
 newListTagOptions ::
   ListTagOptions
 newListTagOptions =
   ListTagOptions'
     { filters = Prelude.Nothing,
-      pageToken = Prelude.Nothing,
-      pageSize = Prelude.Nothing
+      pageSize = Prelude.Nothing,
+      pageToken = Prelude.Nothing
     }
 
 -- | The search filters. If no search filters are specified, the output
@@ -93,14 +94,14 @@ newListTagOptions =
 listTagOptions_filters :: Lens.Lens' ListTagOptions (Prelude.Maybe ListTagOptionsFilters)
 listTagOptions_filters = Lens.lens (\ListTagOptions' {filters} -> filters) (\s@ListTagOptions' {} a -> s {filters = a} :: ListTagOptions)
 
+-- | The maximum number of items to return with this call.
+listTagOptions_pageSize :: Lens.Lens' ListTagOptions (Prelude.Maybe Prelude.Natural)
+listTagOptions_pageSize = Lens.lens (\ListTagOptions' {pageSize} -> pageSize) (\s@ListTagOptions' {} a -> s {pageSize = a} :: ListTagOptions)
+
 -- | The page token for the next set of results. To retrieve the first set of
 -- results, use null.
 listTagOptions_pageToken :: Lens.Lens' ListTagOptions (Prelude.Maybe Prelude.Text)
 listTagOptions_pageToken = Lens.lens (\ListTagOptions' {pageToken} -> pageToken) (\s@ListTagOptions' {} a -> s {pageToken = a} :: ListTagOptions)
-
--- | The maximum number of items to return with this call.
-listTagOptions_pageSize :: Lens.Lens' ListTagOptions (Prelude.Maybe Prelude.Natural)
-listTagOptions_pageSize = Lens.lens (\ListTagOptions' {pageSize} -> pageSize) (\s@ListTagOptions' {} a -> s {pageSize = a} :: ListTagOptions)
 
 instance Core.AWSPager ListTagOptions where
   page rq rs
@@ -127,13 +128,14 @@ instance Core.AWSRequest ListTagOptions where
   type
     AWSResponse ListTagOptions =
       ListTagOptionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagOptionsResponse'
-            Prelude.<$> (x Core..?> "PageToken")
-            Prelude.<*> ( x Core..?> "TagOptionDetails"
+            Prelude.<$> (x Data..?> "PageToken")
+            Prelude.<*> ( x Data..?> "TagOptionDetails"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -142,44 +144,44 @@ instance Core.AWSRequest ListTagOptions where
 instance Prelude.Hashable ListTagOptions where
   hashWithSalt _salt ListTagOptions' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` pageToken
       `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` pageToken
 
 instance Prelude.NFData ListTagOptions where
   rnf ListTagOptions' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf pageToken
 
-instance Core.ToHeaders ListTagOptions where
+instance Data.ToHeaders ListTagOptions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.ListTagOptions" ::
+              Data.=# ( "AWS242ServiceCatalogService.ListTagOptions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTagOptions where
+instance Data.ToJSON ListTagOptions where
   toJSON ListTagOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("PageToken" Core..=) Prelude.<$> pageToken,
-            ("PageSize" Core..=) Prelude.<$> pageSize
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("PageSize" Data..=) Prelude.<$> pageSize,
+            ("PageToken" Data..=) Prelude.<$> pageToken
           ]
       )
 
-instance Core.ToPath ListTagOptions where
+instance Data.ToPath ListTagOptions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTagOptions where
+instance Data.ToQuery ListTagOptions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagOptionsResponse' smart constructor.

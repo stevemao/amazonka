@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.LoadBalancerTlsCertificateDomainValidationOption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.LoadBalancerTlsCertificateDomainValidationOption where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.LoadBalancerTlsCertificateDomainStatus
 import qualified Amazonka.Prelude as Prelude
 
@@ -66,16 +67,16 @@ loadBalancerTlsCertificateDomainValidationOption_validationStatus :: Lens.Lens' 
 loadBalancerTlsCertificateDomainValidationOption_validationStatus = Lens.lens (\LoadBalancerTlsCertificateDomainValidationOption' {validationStatus} -> validationStatus) (\s@LoadBalancerTlsCertificateDomainValidationOption' {} a -> s {validationStatus = a} :: LoadBalancerTlsCertificateDomainValidationOption)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     LoadBalancerTlsCertificateDomainValidationOption
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LoadBalancerTlsCertificateDomainValidationOption"
       ( \x ->
           LoadBalancerTlsCertificateDomainValidationOption'
-            Prelude.<$> (x Core..:? "domainName")
-              Prelude.<*> (x Core..:? "validationStatus")
+            Prelude.<$> (x Data..:? "domainName")
+              Prelude.<*> (x Data..:? "validationStatus")
       )
 
 instance

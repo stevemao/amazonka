@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.ResendContactReachabilityEmail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.Route53Domains.ResendContactReachabilityEmail
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,14 +90,15 @@ instance
   type
     AWSResponse ResendContactReachabilityEmail =
       ResendContactReachabilityEmailResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ResendContactReachabilityEmailResponse'
-            Prelude.<$> (x Core..?> "domainName")
-            Prelude.<*> (x Core..?> "emailAddress")
-            Prelude.<*> (x Core..?> "isAlreadyVerified")
+            Prelude.<$> (x Data..?> "domainName")
+            Prelude.<*> (x Data..?> "emailAddress")
+            Prelude.<*> (x Data..?> "isAlreadyVerified")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,34 +119,34 @@ instance
     Prelude.rnf domainName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ResendContactReachabilityEmail
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Domains_v20140515.ResendContactReachabilityEmail" ::
+              Data.=# ( "Route53Domains_v20140515.ResendContactReachabilityEmail" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ResendContactReachabilityEmail where
+instance Data.ToJSON ResendContactReachabilityEmail where
   toJSON ResendContactReachabilityEmail' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("domainName" Core..=) Prelude.<$> domainName]
+          [("domainName" Data..=) Prelude.<$> domainName]
       )
 
-instance Core.ToPath ResendContactReachabilityEmail where
+instance Data.ToPath ResendContactReachabilityEmail where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ResendContactReachabilityEmail where
+instance Data.ToQuery ResendContactReachabilityEmail where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newResendContactReachabilityEmailResponse' smart constructor.

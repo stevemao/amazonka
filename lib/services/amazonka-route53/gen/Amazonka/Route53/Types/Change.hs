@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.Types.Change
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53.Types.Change where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53.Internal
 import Amazonka.Route53.Types.ChangeAction
@@ -132,9 +133,9 @@ instance Prelude.NFData Change where
     Prelude.rnf action
       `Prelude.seq` Prelude.rnf resourceRecordSet
 
-instance Core.ToXML Change where
+instance Data.ToXML Change where
   toXML Change' {..} =
     Prelude.mconcat
-      [ "Action" Core.@= action,
-        "ResourceRecordSet" Core.@= resourceRecordSet
+      [ "Action" Data.@= action,
+        "ResourceRecordSet" Data.@= resourceRecordSet
       ]

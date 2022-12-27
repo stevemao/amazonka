@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.PutRemediationConfigurations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,6 +33,15 @@
 -- service-linked Config Rules such as Organization Config rules, the rules
 -- deployed by conformance packs, and rules deployed by Amazon Web Services
 -- Security Hub.
+--
+-- For manual remediation configuration, you need to provide a value for
+-- @automationAssumeRole@ or use a value in the @assumeRole@field to
+-- remediate your resources. The SSM automation document can use either as
+-- long as it maps to a valid parameter.
+--
+-- However, for automatic remediation configuration, the only valid
+-- @assumeRole@ field value is @AutomationAssumeRole@ and you need to
+-- provide a value for @AutomationAssumeRole@ to remediate your resources.
 module Amazonka.Config.PutRemediationConfigurations
   ( -- * Creating a Request
     PutRemediationConfigurations (..),
@@ -53,7 +62,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,12 +100,13 @@ instance Core.AWSRequest PutRemediationConfigurations where
   type
     AWSResponse PutRemediationConfigurations =
       PutRemediationConfigurationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutRemediationConfigurationsResponse'
-            Prelude.<$> (x Core..?> "FailedBatches" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "FailedBatches" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,36 +122,36 @@ instance Prelude.NFData PutRemediationConfigurations where
   rnf PutRemediationConfigurations' {..} =
     Prelude.rnf remediationConfigurations
 
-instance Core.ToHeaders PutRemediationConfigurations where
+instance Data.ToHeaders PutRemediationConfigurations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.PutRemediationConfigurations" ::
+              Data.=# ( "StarlingDoveService.PutRemediationConfigurations" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutRemediationConfigurations where
+instance Data.ToJSON PutRemediationConfigurations where
   toJSON PutRemediationConfigurations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "RemediationConfigurations"
-                  Core..= remediationConfigurations
+                  Data..= remediationConfigurations
               )
           ]
       )
 
-instance Core.ToPath PutRemediationConfigurations where
+instance Data.ToPath PutRemediationConfigurations where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutRemediationConfigurations where
+instance Data.ToQuery PutRemediationConfigurations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutRemediationConfigurationsResponse' smart constructor.

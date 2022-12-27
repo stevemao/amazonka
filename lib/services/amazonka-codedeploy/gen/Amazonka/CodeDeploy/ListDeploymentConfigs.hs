@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.ListDeploymentConfigs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the deployment configurations with the IAM user or AWS account.
+-- Lists the deployment configurations with the IAM user or Amazon Web
+-- Services account.
 --
 -- This operation returns paginated results.
 module Amazonka.CodeDeploy.ListDeploymentConfigs
@@ -36,15 +37,16 @@ module Amazonka.CodeDeploy.ListDeploymentConfigs
     newListDeploymentConfigsResponse,
 
     -- * Response Lenses
-    listDeploymentConfigsResponse_nextToken,
     listDeploymentConfigsResponse_deploymentConfigsList,
+    listDeploymentConfigsResponse_nextToken,
     listDeploymentConfigsResponse_httpStatus,
   )
 where
 
 import Amazonka.CodeDeploy.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,15 +110,16 @@ instance Core.AWSRequest ListDeploymentConfigs where
   type
     AWSResponse ListDeploymentConfigs =
       ListDeploymentConfigsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDeploymentConfigsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "deploymentConfigsList"
+            Prelude.<$> ( x Data..?> "deploymentConfigsList"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,45 +131,45 @@ instance Prelude.NFData ListDeploymentConfigs where
   rnf ListDeploymentConfigs' {..} =
     Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDeploymentConfigs where
+instance Data.ToHeaders ListDeploymentConfigs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeDeploy_20141006.ListDeploymentConfigs" ::
+              Data.=# ( "CodeDeploy_20141006.ListDeploymentConfigs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDeploymentConfigs where
+instance Data.ToJSON ListDeploymentConfigs where
   toJSON ListDeploymentConfigs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("nextToken" Core..=) Prelude.<$> nextToken]
+          [("nextToken" Data..=) Prelude.<$> nextToken]
       )
 
-instance Core.ToPath ListDeploymentConfigs where
+instance Data.ToPath ListDeploymentConfigs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDeploymentConfigs where
+instance Data.ToQuery ListDeploymentConfigs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @ListDeploymentConfigs@ operation.
 --
 -- /See:/ 'newListDeploymentConfigsResponse' smart constructor.
 data ListDeploymentConfigsResponse = ListDeploymentConfigsResponse'
-  { -- | If a large amount of information is returned, an identifier is also
+  { -- | A list of deployment configurations, including built-in configurations
+    -- such as @CodeDeployDefault.OneAtATime@.
+    deploymentConfigsList :: Prelude.Maybe [Prelude.Text],
+    -- | If a large amount of information is returned, an identifier is also
     -- returned. It can be used in a subsequent list deployment configurations
     -- call to return the next set of deployment configurations in the list.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A list of deployment configurations, including built-in configurations
-    -- such as @CodeDeployDefault.OneAtATime@.
-    deploymentConfigsList :: Prelude.Maybe [Prelude.Text],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -180,12 +183,12 @@ data ListDeploymentConfigsResponse = ListDeploymentConfigsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'deploymentConfigsList', 'listDeploymentConfigsResponse_deploymentConfigsList' - A list of deployment configurations, including built-in configurations
+-- such as @CodeDeployDefault.OneAtATime@.
+--
 -- 'nextToken', 'listDeploymentConfigsResponse_nextToken' - If a large amount of information is returned, an identifier is also
 -- returned. It can be used in a subsequent list deployment configurations
 -- call to return the next set of deployment configurations in the list.
---
--- 'deploymentConfigsList', 'listDeploymentConfigsResponse_deploymentConfigsList' - A list of deployment configurations, including built-in configurations
--- such as @CodeDeployDefault.OneAtATime@.
 --
 -- 'httpStatus', 'listDeploymentConfigsResponse_httpStatus' - The response's http status code.
 newListDeploymentConfigsResponse ::
@@ -194,11 +197,16 @@ newListDeploymentConfigsResponse ::
   ListDeploymentConfigsResponse
 newListDeploymentConfigsResponse pHttpStatus_ =
   ListDeploymentConfigsResponse'
-    { nextToken =
+    { deploymentConfigsList =
         Prelude.Nothing,
-      deploymentConfigsList = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | A list of deployment configurations, including built-in configurations
+-- such as @CodeDeployDefault.OneAtATime@.
+listDeploymentConfigsResponse_deploymentConfigsList :: Lens.Lens' ListDeploymentConfigsResponse (Prelude.Maybe [Prelude.Text])
+listDeploymentConfigsResponse_deploymentConfigsList = Lens.lens (\ListDeploymentConfigsResponse' {deploymentConfigsList} -> deploymentConfigsList) (\s@ListDeploymentConfigsResponse' {} a -> s {deploymentConfigsList = a} :: ListDeploymentConfigsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If a large amount of information is returned, an identifier is also
 -- returned. It can be used in a subsequent list deployment configurations
@@ -206,17 +214,12 @@ newListDeploymentConfigsResponse pHttpStatus_ =
 listDeploymentConfigsResponse_nextToken :: Lens.Lens' ListDeploymentConfigsResponse (Prelude.Maybe Prelude.Text)
 listDeploymentConfigsResponse_nextToken = Lens.lens (\ListDeploymentConfigsResponse' {nextToken} -> nextToken) (\s@ListDeploymentConfigsResponse' {} a -> s {nextToken = a} :: ListDeploymentConfigsResponse)
 
--- | A list of deployment configurations, including built-in configurations
--- such as @CodeDeployDefault.OneAtATime@.
-listDeploymentConfigsResponse_deploymentConfigsList :: Lens.Lens' ListDeploymentConfigsResponse (Prelude.Maybe [Prelude.Text])
-listDeploymentConfigsResponse_deploymentConfigsList = Lens.lens (\ListDeploymentConfigsResponse' {deploymentConfigsList} -> deploymentConfigsList) (\s@ListDeploymentConfigsResponse' {} a -> s {deploymentConfigsList = a} :: ListDeploymentConfigsResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The response's http status code.
 listDeploymentConfigsResponse_httpStatus :: Lens.Lens' ListDeploymentConfigsResponse Prelude.Int
 listDeploymentConfigsResponse_httpStatus = Lens.lens (\ListDeploymentConfigsResponse' {httpStatus} -> httpStatus) (\s@ListDeploymentConfigsResponse' {} a -> s {httpStatus = a} :: ListDeploymentConfigsResponse)
 
 instance Prelude.NFData ListDeploymentConfigsResponse where
   rnf ListDeploymentConfigsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf deploymentConfigsList
+    Prelude.rnf deploymentConfigsList
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

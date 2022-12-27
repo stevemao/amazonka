@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LaunchTemplateTagSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.EC2.Types.LaunchTemplateTagSpecification where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ResourceType
 import Amazonka.EC2.Types.Tag
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | The tag specification for the launch template.
+-- | The tags specification for the launch template.
 --
 -- /See:/ 'newLaunchTemplateTagSpecification' smart constructor.
 data LaunchTemplateTagSpecification = LaunchTemplateTagSpecification'
-  { -- | The type of resource.
+  { -- | The type of resource to tag.
     resourceType :: Prelude.Maybe ResourceType,
     -- | The tags for the resource.
     tags :: Prelude.Maybe [Tag]
@@ -45,7 +46,7 @@ data LaunchTemplateTagSpecification = LaunchTemplateTagSpecification'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceType', 'launchTemplateTagSpecification_resourceType' - The type of resource.
+-- 'resourceType', 'launchTemplateTagSpecification_resourceType' - The type of resource to tag.
 --
 -- 'tags', 'launchTemplateTagSpecification_tags' - The tags for the resource.
 newLaunchTemplateTagSpecification ::
@@ -57,7 +58,7 @@ newLaunchTemplateTagSpecification =
       tags = Prelude.Nothing
     }
 
--- | The type of resource.
+-- | The type of resource to tag.
 launchTemplateTagSpecification_resourceType :: Lens.Lens' LaunchTemplateTagSpecification (Prelude.Maybe ResourceType)
 launchTemplateTagSpecification_resourceType = Lens.lens (\LaunchTemplateTagSpecification' {resourceType} -> resourceType) (\s@LaunchTemplateTagSpecification' {} a -> s {resourceType = a} :: LaunchTemplateTagSpecification)
 
@@ -65,12 +66,12 @@ launchTemplateTagSpecification_resourceType = Lens.lens (\LaunchTemplateTagSpeci
 launchTemplateTagSpecification_tags :: Lens.Lens' LaunchTemplateTagSpecification (Prelude.Maybe [Tag])
 launchTemplateTagSpecification_tags = Lens.lens (\LaunchTemplateTagSpecification' {tags} -> tags) (\s@LaunchTemplateTagSpecification' {} a -> s {tags = a} :: LaunchTemplateTagSpecification) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML LaunchTemplateTagSpecification where
+instance Data.FromXML LaunchTemplateTagSpecification where
   parseXML x =
     LaunchTemplateTagSpecification'
-      Prelude.<$> (x Core..@? "resourceType")
-      Prelude.<*> ( x Core..@? "tagSet" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<$> (x Data..@? "resourceType")
+      Prelude.<*> ( x Data..@? "tagSet" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
 
 instance

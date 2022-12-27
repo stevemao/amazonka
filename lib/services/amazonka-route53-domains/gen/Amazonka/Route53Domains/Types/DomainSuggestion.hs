@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.Types.DomainSuggestion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53Domains.Types.DomainSuggestion where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about one suggested domain name.
@@ -172,14 +173,14 @@ domainSuggestion_availability = Lens.lens (\DomainSuggestion' {availability} -> 
 domainSuggestion_domainName :: Lens.Lens' DomainSuggestion (Prelude.Maybe Prelude.Text)
 domainSuggestion_domainName = Lens.lens (\DomainSuggestion' {domainName} -> domainName) (\s@DomainSuggestion' {} a -> s {domainName = a} :: DomainSuggestion)
 
-instance Core.FromJSON DomainSuggestion where
+instance Data.FromJSON DomainSuggestion where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DomainSuggestion"
       ( \x ->
           DomainSuggestion'
-            Prelude.<$> (x Core..:? "Availability")
-            Prelude.<*> (x Core..:? "DomainName")
+            Prelude.<$> (x Data..:? "Availability")
+            Prelude.<*> (x Data..:? "DomainName")
       )
 
 instance Prelude.Hashable DomainSuggestion where

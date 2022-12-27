@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.DisconnectCustomKeyStore
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,10 +22,20 @@
 --
 -- Disconnects the
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html custom key store>
--- from its associated CloudHSM cluster. While a custom key store is
--- disconnected, you can manage the custom key store and its KMS keys, but
--- you cannot create or use KMS keys in the custom key store. You can
--- reconnect the custom key store at any time.
+-- from its backing key store. This operation disconnects an CloudHSM key
+-- store from its associated CloudHSM cluster or disconnects an external
+-- key store from the external key store proxy that communicates with your
+-- external key manager.
+--
+-- This operation is part of the
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html custom key stores>
+-- feature in KMS, which combines the convenience and extensive integration
+-- of KMS with the isolation and control of a key store that you own and
+-- manage.
+--
+-- While a custom key store is disconnected, you can manage the custom key
+-- store and its KMS keys, but you cannot create or use its KMS keys. You
+-- can reconnect the custom key store at any time.
 --
 -- While a custom key store is disconnected, all attempts to create KMS
 -- keys in the custom key store or to use existing KMS keys in
@@ -33,16 +43,12 @@
 -- will fail. This action can prevent users from storing and accessing
 -- sensitive data.
 --
--- To find the connection state of a custom key store, use the
--- DescribeCustomKeyStores operation. To reconnect a custom key store, use
--- the ConnectCustomKeyStore operation.
+-- When you disconnect a custom key store, its @ConnectionState@ changes to
+-- @Disconnected@. To find the connection state of a custom key store, use
+-- the DescribeCustomKeyStores operation. To reconnect a custom key store,
+-- use the ConnectCustomKeyStore operation.
 --
 -- If the operation succeeds, it returns a JSON object with no properties.
---
--- This operation is part of the
--- <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html Custom Key Store feature>
--- feature in KMS, which combines the convenience and extensive integration
--- of KMS with the isolation and control of a single-tenant key store.
 --
 -- __Cross-account use__: No. You cannot perform this operation on a custom
 -- key store in a different Amazon Web Services account.
@@ -80,8 +86,9 @@ module Amazonka.KMS.DisconnectCustomKeyStore
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,7 +130,8 @@ instance Core.AWSRequest DisconnectCustomKeyStore where
   type
     AWSResponse DisconnectCustomKeyStore =
       DisconnectCustomKeyStoreResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -139,34 +147,34 @@ instance Prelude.NFData DisconnectCustomKeyStore where
   rnf DisconnectCustomKeyStore' {..} =
     Prelude.rnf customKeyStoreId
 
-instance Core.ToHeaders DisconnectCustomKeyStore where
+instance Data.ToHeaders DisconnectCustomKeyStore where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "TrentService.DisconnectCustomKeyStore" ::
+              Data.=# ( "TrentService.DisconnectCustomKeyStore" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisconnectCustomKeyStore where
+instance Data.ToJSON DisconnectCustomKeyStore where
   toJSON DisconnectCustomKeyStore' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("CustomKeyStoreId" Core..= customKeyStoreId)
+              ("CustomKeyStoreId" Data..= customKeyStoreId)
           ]
       )
 
-instance Core.ToPath DisconnectCustomKeyStore where
+instance Data.ToPath DisconnectCustomKeyStore where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisconnectCustomKeyStore where
+instance Data.ToQuery DisconnectCustomKeyStore where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisconnectCustomKeyStoreResponse' smart constructor.

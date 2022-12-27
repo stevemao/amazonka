@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.StorageTypeLimit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticSearch.Types.StorageTypeLimit where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Limits that are applicable for given storage type.
@@ -34,6 +35,8 @@ data StorageTypeLimit = StorageTypeLimit'
     -- 2.  MaximumVolumeSize
     -- 3.  MaximumIops
     -- 4.  MinimumIops
+    -- 5.  MaximumThroughput
+    -- 6.  MinimumThroughput
     limitName :: Prelude.Maybe Prelude.Text,
     -- | Values for the @ StorageTypeLimit$LimitName @ .
     limitValues :: Prelude.Maybe [Prelude.Text]
@@ -55,6 +58,8 @@ data StorageTypeLimit = StorageTypeLimit'
 -- 2.  MaximumVolumeSize
 -- 3.  MaximumIops
 -- 4.  MinimumIops
+-- 5.  MaximumThroughput
+-- 6.  MinimumThroughput
 --
 -- 'limitValues', 'storageTypeLimit_limitValues' - Values for the @ StorageTypeLimit$LimitName @ .
 newStorageTypeLimit ::
@@ -72,6 +77,8 @@ newStorageTypeLimit =
 -- 2.  MaximumVolumeSize
 -- 3.  MaximumIops
 -- 4.  MinimumIops
+-- 5.  MaximumThroughput
+-- 6.  MinimumThroughput
 storageTypeLimit_limitName :: Lens.Lens' StorageTypeLimit (Prelude.Maybe Prelude.Text)
 storageTypeLimit_limitName = Lens.lens (\StorageTypeLimit' {limitName} -> limitName) (\s@StorageTypeLimit' {} a -> s {limitName = a} :: StorageTypeLimit)
 
@@ -79,14 +86,14 @@ storageTypeLimit_limitName = Lens.lens (\StorageTypeLimit' {limitName} -> limitN
 storageTypeLimit_limitValues :: Lens.Lens' StorageTypeLimit (Prelude.Maybe [Prelude.Text])
 storageTypeLimit_limitValues = Lens.lens (\StorageTypeLimit' {limitValues} -> limitValues) (\s@StorageTypeLimit' {} a -> s {limitValues = a} :: StorageTypeLimit) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON StorageTypeLimit where
+instance Data.FromJSON StorageTypeLimit where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StorageTypeLimit"
       ( \x ->
           StorageTypeLimit'
-            Prelude.<$> (x Core..:? "LimitName")
-            Prelude.<*> (x Core..:? "LimitValues" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "LimitName")
+            Prelude.<*> (x Data..:? "LimitValues" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable StorageTypeLimit where

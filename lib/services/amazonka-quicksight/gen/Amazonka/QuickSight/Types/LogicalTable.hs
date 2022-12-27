@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.LogicalTable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.LogicalTable where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.LogicalTableSource
 import Amazonka.QuickSight.Types.TransformOperation
@@ -40,7 +41,7 @@ data LogicalTable = LogicalTable'
     -- | Source of this logical table.
     source :: LogicalTableSource
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'LogicalTable' with all optional fields omitted.
@@ -80,15 +81,15 @@ logicalTable_alias = Lens.lens (\LogicalTable' {alias} -> alias) (\s@LogicalTabl
 logicalTable_source :: Lens.Lens' LogicalTable LogicalTableSource
 logicalTable_source = Lens.lens (\LogicalTable' {source} -> source) (\s@LogicalTable' {} a -> s {source = a} :: LogicalTable)
 
-instance Core.FromJSON LogicalTable where
+instance Data.FromJSON LogicalTable where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LogicalTable"
       ( \x ->
           LogicalTable'
-            Prelude.<$> (x Core..:? "DataTransforms")
-            Prelude.<*> (x Core..: "Alias")
-            Prelude.<*> (x Core..: "Source")
+            Prelude.<$> (x Data..:? "DataTransforms")
+            Prelude.<*> (x Data..: "Alias")
+            Prelude.<*> (x Data..: "Source")
       )
 
 instance Prelude.Hashable LogicalTable where
@@ -103,13 +104,13 @@ instance Prelude.NFData LogicalTable where
       `Prelude.seq` Prelude.rnf alias
       `Prelude.seq` Prelude.rnf source
 
-instance Core.ToJSON LogicalTable where
+instance Data.ToJSON LogicalTable where
   toJSON LogicalTable' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DataTransforms" Core..=)
+          [ ("DataTransforms" Data..=)
               Prelude.<$> dataTransforms,
-            Prelude.Just ("Alias" Core..= alias),
-            Prelude.Just ("Source" Core..= source)
+            Prelude.Just ("Alias" Data..= alias),
+            Prelude.Just ("Source" Data..= source)
           ]
       )

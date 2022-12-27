@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Textract.Types.S3Object
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Textract.Types.S3Object where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The S3 bucket name and file name that identifies the document.
@@ -38,7 +39,7 @@ data S3Object = S3Object'
     bucket :: Prelude.Maybe Prelude.Text,
     -- | The file name of the input document. Synchronous operations can use
     -- image files that are in JPEG or PNG format. Asynchronous operations also
-    -- support PDF format files.
+    -- support PDF and TIFF format files.
     name :: Prelude.Maybe Prelude.Text,
     -- | If the bucket has versioning enabled, you can specify the object
     -- version.
@@ -59,7 +60,7 @@ data S3Object = S3Object'
 --
 -- 'name', 's3Object_name' - The file name of the input document. Synchronous operations can use
 -- image files that are in JPEG or PNG format. Asynchronous operations also
--- support PDF format files.
+-- support PDF and TIFF format files.
 --
 -- 'version', 's3Object_version' - If the bucket has versioning enabled, you can specify the object
 -- version.
@@ -79,7 +80,7 @@ s3Object_bucket = Lens.lens (\S3Object' {bucket} -> bucket) (\s@S3Object' {} a -
 
 -- | The file name of the input document. Synchronous operations can use
 -- image files that are in JPEG or PNG format. Asynchronous operations also
--- support PDF format files.
+-- support PDF and TIFF format files.
 s3Object_name :: Lens.Lens' S3Object (Prelude.Maybe Prelude.Text)
 s3Object_name = Lens.lens (\S3Object' {name} -> name) (\s@S3Object' {} a -> s {name = a} :: S3Object)
 
@@ -100,12 +101,12 @@ instance Prelude.NFData S3Object where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf version
 
-instance Core.ToJSON S3Object where
+instance Data.ToJSON S3Object where
   toJSON S3Object' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Bucket" Core..=) Prelude.<$> bucket,
-            ("Name" Core..=) Prelude.<$> name,
-            ("Version" Core..=) Prelude.<$> version
+          [ ("Bucket" Data..=) Prelude.<$> bucket,
+            ("Name" Data..=) Prelude.<$> name,
+            ("Version" Data..=) Prelude.<$> version
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.Types.SourceAccessType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,8 +21,10 @@ module Amazonka.Lambda.Types.SourceAccessType
   ( SourceAccessType
       ( ..,
         SourceAccessType_BASIC_AUTH,
+        SourceAccessType_CLIENT_CERTIFICATE_TLS_AUTH,
         SourceAccessType_SASL_SCRAM_256_AUTH,
         SourceAccessType_SASL_SCRAM_512_AUTH,
+        SourceAccessType_SERVER_ROOT_CA_CERTIFICATE,
         SourceAccessType_VIRTUAL_HOST,
         SourceAccessType_VPC_SECURITY_GROUP,
         SourceAccessType_VPC_SUBNET
@@ -31,11 +33,12 @@ module Amazonka.Lambda.Types.SourceAccessType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype SourceAccessType = SourceAccessType'
   { fromSourceAccessType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -47,28 +50,34 @@ newtype SourceAccessType = SourceAccessType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern SourceAccessType_BASIC_AUTH :: SourceAccessType
 pattern SourceAccessType_BASIC_AUTH = SourceAccessType' "BASIC_AUTH"
+
+pattern SourceAccessType_CLIENT_CERTIFICATE_TLS_AUTH :: SourceAccessType
+pattern SourceAccessType_CLIENT_CERTIFICATE_TLS_AUTH = SourceAccessType' "CLIENT_CERTIFICATE_TLS_AUTH"
 
 pattern SourceAccessType_SASL_SCRAM_256_AUTH :: SourceAccessType
 pattern SourceAccessType_SASL_SCRAM_256_AUTH = SourceAccessType' "SASL_SCRAM_256_AUTH"
 
 pattern SourceAccessType_SASL_SCRAM_512_AUTH :: SourceAccessType
 pattern SourceAccessType_SASL_SCRAM_512_AUTH = SourceAccessType' "SASL_SCRAM_512_AUTH"
+
+pattern SourceAccessType_SERVER_ROOT_CA_CERTIFICATE :: SourceAccessType
+pattern SourceAccessType_SERVER_ROOT_CA_CERTIFICATE = SourceAccessType' "SERVER_ROOT_CA_CERTIFICATE"
 
 pattern SourceAccessType_VIRTUAL_HOST :: SourceAccessType
 pattern SourceAccessType_VIRTUAL_HOST = SourceAccessType' "VIRTUAL_HOST"
@@ -81,8 +90,10 @@ pattern SourceAccessType_VPC_SUBNET = SourceAccessType' "VPC_SUBNET"
 
 {-# COMPLETE
   SourceAccessType_BASIC_AUTH,
+  SourceAccessType_CLIENT_CERTIFICATE_TLS_AUTH,
   SourceAccessType_SASL_SCRAM_256_AUTH,
   SourceAccessType_SASL_SCRAM_512_AUTH,
+  SourceAccessType_SERVER_ROOT_CA_CERTIFICATE,
   SourceAccessType_VIRTUAL_HOST,
   SourceAccessType_VPC_SECURITY_GROUP,
   SourceAccessType_VPC_SUBNET,

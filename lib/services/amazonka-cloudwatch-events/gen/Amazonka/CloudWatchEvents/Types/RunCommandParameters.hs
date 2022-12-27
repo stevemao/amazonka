@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.RunCommandParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudWatchEvents.Types.RunCommandParameters where
 
 import Amazonka.CloudWatchEvents.Types.RunCommandTarget
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This parameter contains the criteria (either InstanceIds or a tag) used
@@ -60,13 +61,13 @@ newRunCommandParameters pRunCommandTargets_ =
 runCommandParameters_runCommandTargets :: Lens.Lens' RunCommandParameters (Prelude.NonEmpty RunCommandTarget)
 runCommandParameters_runCommandTargets = Lens.lens (\RunCommandParameters' {runCommandTargets} -> runCommandTargets) (\s@RunCommandParameters' {} a -> s {runCommandTargets = a} :: RunCommandParameters) Prelude.. Lens.coerced
 
-instance Core.FromJSON RunCommandParameters where
+instance Data.FromJSON RunCommandParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RunCommandParameters"
       ( \x ->
           RunCommandParameters'
-            Prelude.<$> (x Core..: "RunCommandTargets")
+            Prelude.<$> (x Data..: "RunCommandTargets")
       )
 
 instance Prelude.Hashable RunCommandParameters where
@@ -77,11 +78,11 @@ instance Prelude.NFData RunCommandParameters where
   rnf RunCommandParameters' {..} =
     Prelude.rnf runCommandTargets
 
-instance Core.ToJSON RunCommandParameters where
+instance Data.ToJSON RunCommandParameters where
   toJSON RunCommandParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("RunCommandTargets" Core..= runCommandTargets)
+              ("RunCommandTargets" Data..= runCommandTargets)
           ]
       )

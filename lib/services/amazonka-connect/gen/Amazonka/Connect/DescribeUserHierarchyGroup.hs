@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.DescribeUserHierarchyGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,12 +98,13 @@ instance Core.AWSRequest DescribeUserHierarchyGroup where
   type
     AWSResponse DescribeUserHierarchyGroup =
       DescribeUserHierarchyGroupResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeUserHierarchyGroupResponse'
-            Prelude.<$> (x Core..?> "HierarchyGroup")
+            Prelude.<$> (x Data..?> "HierarchyGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,27 +118,27 @@ instance Prelude.NFData DescribeUserHierarchyGroup where
     Prelude.rnf hierarchyGroupId
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders DescribeUserHierarchyGroup where
+instance Data.ToHeaders DescribeUserHierarchyGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeUserHierarchyGroup where
+instance Data.ToPath DescribeUserHierarchyGroup where
   toPath DescribeUserHierarchyGroup' {..} =
     Prelude.mconcat
       [ "/user-hierarchy-groups/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/",
-        Core.toBS hierarchyGroupId
+        Data.toBS hierarchyGroupId
       ]
 
-instance Core.ToQuery DescribeUserHierarchyGroup where
+instance Data.ToQuery DescribeUserHierarchyGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeUserHierarchyGroupResponse' smart constructor.

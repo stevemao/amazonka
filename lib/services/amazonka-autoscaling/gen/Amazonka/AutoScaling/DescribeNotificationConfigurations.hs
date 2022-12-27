@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.DescribeNotificationConfigurations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.AutoScaling.DescribeNotificationConfigurations
 
     -- * Request Lenses
     describeNotificationConfigurations_autoScalingGroupNames,
-    describeNotificationConfigurations_nextToken,
     describeNotificationConfigurations_maxRecords,
+    describeNotificationConfigurations_nextToken,
 
     -- * Destructuring the Response
     DescribeNotificationConfigurationsResponse (..),
@@ -47,7 +47,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,12 +57,12 @@ import qualified Amazonka.Response as Response
 data DescribeNotificationConfigurations = DescribeNotificationConfigurations'
   { -- | The name of the Auto Scaling group.
     autoScalingGroupNames :: Prelude.Maybe [Prelude.Text],
-    -- | The token for the next set of items to return. (You received this token
-    -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of items to return with this call. The default value
     -- is @50@ and the maximum value is @100@.
-    maxRecords :: Prelude.Maybe Prelude.Int
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,34 +76,34 @@ data DescribeNotificationConfigurations = DescribeNotificationConfigurations'
 --
 -- 'autoScalingGroupNames', 'describeNotificationConfigurations_autoScalingGroupNames' - The name of the Auto Scaling group.
 --
--- 'nextToken', 'describeNotificationConfigurations_nextToken' - The token for the next set of items to return. (You received this token
--- from a previous call.)
---
 -- 'maxRecords', 'describeNotificationConfigurations_maxRecords' - The maximum number of items to return with this call. The default value
 -- is @50@ and the maximum value is @100@.
+--
+-- 'nextToken', 'describeNotificationConfigurations_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 newDescribeNotificationConfigurations ::
   DescribeNotificationConfigurations
 newDescribeNotificationConfigurations =
   DescribeNotificationConfigurations'
     { autoScalingGroupNames =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxRecords = Prelude.Nothing
+      maxRecords = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | The name of the Auto Scaling group.
 describeNotificationConfigurations_autoScalingGroupNames :: Lens.Lens' DescribeNotificationConfigurations (Prelude.Maybe [Prelude.Text])
 describeNotificationConfigurations_autoScalingGroupNames = Lens.lens (\DescribeNotificationConfigurations' {autoScalingGroupNames} -> autoScalingGroupNames) (\s@DescribeNotificationConfigurations' {} a -> s {autoScalingGroupNames = a} :: DescribeNotificationConfigurations) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next set of items to return. (You received this token
--- from a previous call.)
-describeNotificationConfigurations_nextToken :: Lens.Lens' DescribeNotificationConfigurations (Prelude.Maybe Prelude.Text)
-describeNotificationConfigurations_nextToken = Lens.lens (\DescribeNotificationConfigurations' {nextToken} -> nextToken) (\s@DescribeNotificationConfigurations' {} a -> s {nextToken = a} :: DescribeNotificationConfigurations)
-
 -- | The maximum number of items to return with this call. The default value
 -- is @50@ and the maximum value is @100@.
 describeNotificationConfigurations_maxRecords :: Lens.Lens' DescribeNotificationConfigurations (Prelude.Maybe Prelude.Int)
 describeNotificationConfigurations_maxRecords = Lens.lens (\DescribeNotificationConfigurations' {maxRecords} -> maxRecords) (\s@DescribeNotificationConfigurations' {} a -> s {maxRecords = a} :: DescribeNotificationConfigurations)
+
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeNotificationConfigurations_nextToken :: Lens.Lens' DescribeNotificationConfigurations (Prelude.Maybe Prelude.Text)
+describeNotificationConfigurations_nextToken = Lens.lens (\DescribeNotificationConfigurations' {nextToken} -> nextToken) (\s@DescribeNotificationConfigurations' {} a -> s {nextToken = a} :: DescribeNotificationConfigurations)
 
 instance
   Core.AWSPager
@@ -135,17 +136,18 @@ instance
   type
     AWSResponse DescribeNotificationConfigurations =
       DescribeNotificationConfigurationsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeNotificationConfigurationsResult"
       ( \s h x ->
           DescribeNotificationConfigurationsResponse'
-            Prelude.<$> (x Core..@? "NextToken")
+            Prelude.<$> (x Data..@? "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> ( x Core..@? "NotificationConfigurations"
+              Prelude.<*> ( x Data..@? "NotificationConfigurations"
                               Core..!@ Prelude.mempty
-                              Prelude.>>= Core.parseXMLList "member"
+                              Prelude.>>= Data.parseXMLList "member"
                           )
       )
 
@@ -157,8 +159,8 @@ instance
     _salt
     DescribeNotificationConfigurations' {..} =
       _salt `Prelude.hashWithSalt` autoScalingGroupNames
-        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` maxRecords
+        `Prelude.hashWithSalt` nextToken
 
 instance
   Prelude.NFData
@@ -166,40 +168,40 @@ instance
   where
   rnf DescribeNotificationConfigurations' {..} =
     Prelude.rnf autoScalingGroupNames
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf nextToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeNotificationConfigurations
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeNotificationConfigurations
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeNotificationConfigurations
   where
   toQuery DescribeNotificationConfigurations' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeNotificationConfigurations" ::
+          Data.=: ( "DescribeNotificationConfigurations" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
         "AutoScalingGroupNames"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> autoScalingGroupNames
             ),
-        "NextToken" Core.=: nextToken,
-        "MaxRecords" Core.=: maxRecords
+        "MaxRecords" Data.=: maxRecords,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeNotificationConfigurationsResponse' smart constructor.

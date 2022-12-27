@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.Types.BudgetedAndActualAmounts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.Budgets.Types.BudgetedAndActualAmounts where
 import Amazonka.Budgets.Types.Spend
 import Amazonka.Budgets.Types.TimePeriod
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The amount of cost or usage that you created the budget for, compared to
@@ -30,12 +31,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newBudgetedAndActualAmounts' smart constructor.
 data BudgetedAndActualAmounts = BudgetedAndActualAmounts'
-  { -- | The time period covered by this budget comparison.
-    timePeriod :: Prelude.Maybe TimePeriod,
-    -- | Your actual costs or usage for a budget period.
+  { -- | Your actual costs or usage for a budget period.
     actualAmount :: Prelude.Maybe Spend,
     -- | The amount of cost or usage that you created the budget for.
-    budgetedAmount :: Prelude.Maybe Spend
+    budgetedAmount :: Prelude.Maybe Spend,
+    -- | The time period that\'s covered by this budget comparison.
+    timePeriod :: Prelude.Maybe TimePeriod
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,24 +48,20 @@ data BudgetedAndActualAmounts = BudgetedAndActualAmounts'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'timePeriod', 'budgetedAndActualAmounts_timePeriod' - The time period covered by this budget comparison.
---
 -- 'actualAmount', 'budgetedAndActualAmounts_actualAmount' - Your actual costs or usage for a budget period.
 --
 -- 'budgetedAmount', 'budgetedAndActualAmounts_budgetedAmount' - The amount of cost or usage that you created the budget for.
+--
+-- 'timePeriod', 'budgetedAndActualAmounts_timePeriod' - The time period that\'s covered by this budget comparison.
 newBudgetedAndActualAmounts ::
   BudgetedAndActualAmounts
 newBudgetedAndActualAmounts =
   BudgetedAndActualAmounts'
-    { timePeriod =
+    { actualAmount =
         Prelude.Nothing,
-      actualAmount = Prelude.Nothing,
-      budgetedAmount = Prelude.Nothing
+      budgetedAmount = Prelude.Nothing,
+      timePeriod = Prelude.Nothing
     }
-
--- | The time period covered by this budget comparison.
-budgetedAndActualAmounts_timePeriod :: Lens.Lens' BudgetedAndActualAmounts (Prelude.Maybe TimePeriod)
-budgetedAndActualAmounts_timePeriod = Lens.lens (\BudgetedAndActualAmounts' {timePeriod} -> timePeriod) (\s@BudgetedAndActualAmounts' {} a -> s {timePeriod = a} :: BudgetedAndActualAmounts)
 
 -- | Your actual costs or usage for a budget period.
 budgetedAndActualAmounts_actualAmount :: Lens.Lens' BudgetedAndActualAmounts (Prelude.Maybe Spend)
@@ -74,25 +71,29 @@ budgetedAndActualAmounts_actualAmount = Lens.lens (\BudgetedAndActualAmounts' {a
 budgetedAndActualAmounts_budgetedAmount :: Lens.Lens' BudgetedAndActualAmounts (Prelude.Maybe Spend)
 budgetedAndActualAmounts_budgetedAmount = Lens.lens (\BudgetedAndActualAmounts' {budgetedAmount} -> budgetedAmount) (\s@BudgetedAndActualAmounts' {} a -> s {budgetedAmount = a} :: BudgetedAndActualAmounts)
 
-instance Core.FromJSON BudgetedAndActualAmounts where
+-- | The time period that\'s covered by this budget comparison.
+budgetedAndActualAmounts_timePeriod :: Lens.Lens' BudgetedAndActualAmounts (Prelude.Maybe TimePeriod)
+budgetedAndActualAmounts_timePeriod = Lens.lens (\BudgetedAndActualAmounts' {timePeriod} -> timePeriod) (\s@BudgetedAndActualAmounts' {} a -> s {timePeriod = a} :: BudgetedAndActualAmounts)
+
+instance Data.FromJSON BudgetedAndActualAmounts where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BudgetedAndActualAmounts"
       ( \x ->
           BudgetedAndActualAmounts'
-            Prelude.<$> (x Core..:? "TimePeriod")
-            Prelude.<*> (x Core..:? "ActualAmount")
-            Prelude.<*> (x Core..:? "BudgetedAmount")
+            Prelude.<$> (x Data..:? "ActualAmount")
+            Prelude.<*> (x Data..:? "BudgetedAmount")
+            Prelude.<*> (x Data..:? "TimePeriod")
       )
 
 instance Prelude.Hashable BudgetedAndActualAmounts where
   hashWithSalt _salt BudgetedAndActualAmounts' {..} =
-    _salt `Prelude.hashWithSalt` timePeriod
-      `Prelude.hashWithSalt` actualAmount
+    _salt `Prelude.hashWithSalt` actualAmount
       `Prelude.hashWithSalt` budgetedAmount
+      `Prelude.hashWithSalt` timePeriod
 
 instance Prelude.NFData BudgetedAndActualAmounts where
   rnf BudgetedAndActualAmounts' {..} =
-    Prelude.rnf timePeriod
-      `Prelude.seq` Prelude.rnf actualAmount
+    Prelude.rnf actualAmount
       `Prelude.seq` Prelude.rnf budgetedAmount
+      `Prelude.seq` Prelude.rnf timePeriod

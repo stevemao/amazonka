@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.GetAuthorizationToken
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,7 @@
 -- the domain. This API requires the @codeartifact:GetAuthorizationToken@
 -- and @sts:GetServiceBearerToken@ permissions. For more information about
 -- authorization tokens, see
--- <https://docs.aws.amazon.com/codeartifact/latest/ug/tokens-authentication.html AWS CodeArtifact authentication and tokens>.
+-- <https://docs.aws.amazon.com/codeartifact/latest/ug/tokens-authentication.html CodeArtifact authentication and tokens>.
 --
 -- CodeArtifact authorization tokens are valid for a period of 12 hours
 -- when created with the @login@ command. You can call @login@ periodically
@@ -59,23 +59,24 @@ module Amazonka.CodeArtifact.GetAuthorizationToken
     newGetAuthorizationTokenResponse,
 
     -- * Response Lenses
-    getAuthorizationTokenResponse_expiration,
     getAuthorizationTokenResponse_authorizationToken,
+    getAuthorizationTokenResponse_expiration,
     getAuthorizationTokenResponse_httpStatus,
   )
 where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetAuthorizationToken' smart constructor.
 data GetAuthorizationToken = GetAuthorizationToken'
-  { -- | The 12-digit account number of the AWS account that owns the domain. It
-    -- does not include dashes or spaces.
+  { -- | The 12-digit account number of the Amazon Web Services account that owns
+    -- the domain. It does not include dashes or spaces.
     domainOwner :: Prelude.Maybe Prelude.Text,
     -- | The time, in seconds, that the generated authorization token is valid.
     -- Valid values are @0@ and any number between @900@ (15 minutes) and
@@ -97,8 +98,8 @@ data GetAuthorizationToken = GetAuthorizationToken'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainOwner', 'getAuthorizationToken_domainOwner' - The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- 'domainOwner', 'getAuthorizationToken_domainOwner' - The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 --
 -- 'durationSeconds', 'getAuthorizationToken_durationSeconds' - The time, in seconds, that the generated authorization token is valid.
 -- Valid values are @0@ and any number between @900@ (15 minutes) and
@@ -120,8 +121,8 @@ newGetAuthorizationToken pDomain_ =
       domain = pDomain_
     }
 
--- | The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- | The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 getAuthorizationToken_domainOwner :: Lens.Lens' GetAuthorizationToken (Prelude.Maybe Prelude.Text)
 getAuthorizationToken_domainOwner = Lens.lens (\GetAuthorizationToken' {domainOwner} -> domainOwner) (\s@GetAuthorizationToken' {} a -> s {domainOwner = a} :: GetAuthorizationToken)
 
@@ -142,13 +143,14 @@ instance Core.AWSRequest GetAuthorizationToken where
   type
     AWSResponse GetAuthorizationToken =
       GetAuthorizationTokenResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAuthorizationTokenResponse'
-            Prelude.<$> (x Core..?> "expiration")
-            Prelude.<*> (x Core..?> "authorizationToken")
+            Prelude.<$> (x Data..?> "authorizationToken")
+            Prelude.<*> (x Data..?> "expiration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -164,38 +166,38 @@ instance Prelude.NFData GetAuthorizationToken where
       `Prelude.seq` Prelude.rnf durationSeconds
       `Prelude.seq` Prelude.rnf domain
 
-instance Core.ToHeaders GetAuthorizationToken where
+instance Data.ToHeaders GetAuthorizationToken where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetAuthorizationToken where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON GetAuthorizationToken where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath GetAuthorizationToken where
+instance Data.ToPath GetAuthorizationToken where
   toPath = Prelude.const "/v1/authorization-token"
 
-instance Core.ToQuery GetAuthorizationToken where
+instance Data.ToQuery GetAuthorizationToken where
   toQuery GetAuthorizationToken' {..} =
     Prelude.mconcat
-      [ "domain-owner" Core.=: domainOwner,
-        "duration" Core.=: durationSeconds,
-        "domain" Core.=: domain
+      [ "domain-owner" Data.=: domainOwner,
+        "duration" Data.=: durationSeconds,
+        "domain" Data.=: domain
       ]
 
 -- | /See:/ 'newGetAuthorizationTokenResponse' smart constructor.
 data GetAuthorizationTokenResponse = GetAuthorizationTokenResponse'
-  { -- | A timestamp that specifies the date and time the authorization token
-    -- expires.
-    expiration :: Prelude.Maybe Core.POSIX,
-    -- | The returned authentication token.
+  { -- | The returned authentication token.
     authorizationToken :: Prelude.Maybe Prelude.Text,
+    -- | A timestamp that specifies the date and time the authorization token
+    -- expires.
+    expiration :: Prelude.Maybe Data.POSIX,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -209,10 +211,10 @@ data GetAuthorizationTokenResponse = GetAuthorizationTokenResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'authorizationToken', 'getAuthorizationTokenResponse_authorizationToken' - The returned authentication token.
+--
 -- 'expiration', 'getAuthorizationTokenResponse_expiration' - A timestamp that specifies the date and time the authorization token
 -- expires.
---
--- 'authorizationToken', 'getAuthorizationTokenResponse_authorizationToken' - The returned authentication token.
 --
 -- 'httpStatus', 'getAuthorizationTokenResponse_httpStatus' - The response's http status code.
 newGetAuthorizationTokenResponse ::
@@ -221,20 +223,20 @@ newGetAuthorizationTokenResponse ::
   GetAuthorizationTokenResponse
 newGetAuthorizationTokenResponse pHttpStatus_ =
   GetAuthorizationTokenResponse'
-    { expiration =
+    { authorizationToken =
         Prelude.Nothing,
-      authorizationToken = Prelude.Nothing,
+      expiration = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A timestamp that specifies the date and time the authorization token
--- expires.
-getAuthorizationTokenResponse_expiration :: Lens.Lens' GetAuthorizationTokenResponse (Prelude.Maybe Prelude.UTCTime)
-getAuthorizationTokenResponse_expiration = Lens.lens (\GetAuthorizationTokenResponse' {expiration} -> expiration) (\s@GetAuthorizationTokenResponse' {} a -> s {expiration = a} :: GetAuthorizationTokenResponse) Prelude.. Lens.mapping Core._Time
 
 -- | The returned authentication token.
 getAuthorizationTokenResponse_authorizationToken :: Lens.Lens' GetAuthorizationTokenResponse (Prelude.Maybe Prelude.Text)
 getAuthorizationTokenResponse_authorizationToken = Lens.lens (\GetAuthorizationTokenResponse' {authorizationToken} -> authorizationToken) (\s@GetAuthorizationTokenResponse' {} a -> s {authorizationToken = a} :: GetAuthorizationTokenResponse)
+
+-- | A timestamp that specifies the date and time the authorization token
+-- expires.
+getAuthorizationTokenResponse_expiration :: Lens.Lens' GetAuthorizationTokenResponse (Prelude.Maybe Prelude.UTCTime)
+getAuthorizationTokenResponse_expiration = Lens.lens (\GetAuthorizationTokenResponse' {expiration} -> expiration) (\s@GetAuthorizationTokenResponse' {} a -> s {expiration = a} :: GetAuthorizationTokenResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The response's http status code.
 getAuthorizationTokenResponse_httpStatus :: Lens.Lens' GetAuthorizationTokenResponse Prelude.Int
@@ -242,6 +244,6 @@ getAuthorizationTokenResponse_httpStatus = Lens.lens (\GetAuthorizationTokenResp
 
 instance Prelude.NFData GetAuthorizationTokenResponse where
   rnf GetAuthorizationTokenResponse' {..} =
-    Prelude.rnf expiration
-      `Prelude.seq` Prelude.rnf authorizationToken
+    Prelude.rnf authorizationToken
+      `Prelude.seq` Prelude.rnf expiration
       `Prelude.seq` Prelude.rnf httpStatus

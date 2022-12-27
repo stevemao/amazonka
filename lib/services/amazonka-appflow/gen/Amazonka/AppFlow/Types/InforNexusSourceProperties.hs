@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.InforNexusSourceProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.InforNexusSourceProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The properties that are applied when Infor Nexus is being used as a
@@ -53,13 +54,13 @@ newInforNexusSourceProperties pObject_ =
 inforNexusSourceProperties_object :: Lens.Lens' InforNexusSourceProperties Prelude.Text
 inforNexusSourceProperties_object = Lens.lens (\InforNexusSourceProperties' {object'} -> object') (\s@InforNexusSourceProperties' {} a -> s {object' = a} :: InforNexusSourceProperties)
 
-instance Core.FromJSON InforNexusSourceProperties where
+instance Data.FromJSON InforNexusSourceProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InforNexusSourceProperties"
       ( \x ->
           InforNexusSourceProperties'
-            Prelude.<$> (x Core..: "object")
+            Prelude.<$> (x Data..: "object")
       )
 
 instance Prelude.Hashable InforNexusSourceProperties where
@@ -70,9 +71,9 @@ instance Prelude.NFData InforNexusSourceProperties where
   rnf InforNexusSourceProperties' {..} =
     Prelude.rnf object'
 
-instance Core.ToJSON InforNexusSourceProperties where
+instance Data.ToJSON InforNexusSourceProperties where
   toJSON InforNexusSourceProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("object" Core..= object')]
+          [Prelude.Just ("object" Data..= object')]
       )

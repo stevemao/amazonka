@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.DeletePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,7 +93,8 @@ deletePolicy_policyName = Lens.lens (\DeletePolicy' {policyName} -> policyName) 
 
 instance Core.AWSRequest DeletePolicy where
   type AWSResponse DeletePolicy = DeletePolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull DeletePolicyResponse'
 
 instance Prelude.Hashable DeletePolicy where
@@ -105,21 +107,21 @@ instance Prelude.NFData DeletePolicy where
     Prelude.rnf autoScalingGroupName
       `Prelude.seq` Prelude.rnf policyName
 
-instance Core.ToHeaders DeletePolicy where
+instance Data.ToHeaders DeletePolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeletePolicy where
+instance Data.ToPath DeletePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeletePolicy where
+instance Data.ToQuery DeletePolicy where
   toQuery DeletePolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeletePolicy" :: Prelude.ByteString),
+          Data.=: ("DeletePolicy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "AutoScalingGroupName" Core.=: autoScalingGroupName,
-        "PolicyName" Core.=: policyName
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "AutoScalingGroupName" Data.=: autoScalingGroupName,
+        "PolicyName" Data.=: policyName
       ]
 
 -- | /See:/ 'newDeletePolicyResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.ListInvalidations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -148,13 +149,14 @@ instance Core.AWSRequest ListInvalidations where
   type
     AWSResponse ListInvalidations =
       ListInvalidationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ListInvalidationsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.parseXML x)
+            Prelude.<*> (Data.parseXML x)
       )
 
 instance Prelude.Hashable ListInvalidations where
@@ -169,22 +171,22 @@ instance Prelude.NFData ListInvalidations where
       `Prelude.seq` Prelude.rnf maxItems
       `Prelude.seq` Prelude.rnf distributionId
 
-instance Core.ToHeaders ListInvalidations where
+instance Data.ToHeaders ListInvalidations where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListInvalidations where
+instance Data.ToPath ListInvalidations where
   toPath ListInvalidations' {..} =
     Prelude.mconcat
       [ "/2020-05-31/distribution/",
-        Core.toBS distributionId,
+        Data.toBS distributionId,
         "/invalidation"
       ]
 
-instance Core.ToQuery ListInvalidations where
+instance Data.ToQuery ListInvalidations where
   toQuery ListInvalidations' {..} =
     Prelude.mconcat
-      [ "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems
+      [ "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems
       ]
 
 -- | The returned result of the corresponding request.

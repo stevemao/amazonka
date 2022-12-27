@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsRedshiftClusterClusterParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsRedshiftClusterClusterParameterGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsRedshiftClusterClusterParameterStatus
 
@@ -76,19 +77,19 @@ awsRedshiftClusterClusterParameterGroup_parameterGroupName :: Lens.Lens' AwsReds
 awsRedshiftClusterClusterParameterGroup_parameterGroupName = Lens.lens (\AwsRedshiftClusterClusterParameterGroup' {parameterGroupName} -> parameterGroupName) (\s@AwsRedshiftClusterClusterParameterGroup' {} a -> s {parameterGroupName = a} :: AwsRedshiftClusterClusterParameterGroup)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsRedshiftClusterClusterParameterGroup
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsRedshiftClusterClusterParameterGroup"
       ( \x ->
           AwsRedshiftClusterClusterParameterGroup'
-            Prelude.<$> ( x Core..:? "ClusterParameterStatusList"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "ClusterParameterStatusList"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "ParameterApplyStatus")
-            Prelude.<*> (x Core..:? "ParameterGroupName")
+            Prelude.<*> (x Data..:? "ParameterApplyStatus")
+            Prelude.<*> (x Data..:? "ParameterGroupName")
       )
 
 instance
@@ -113,17 +114,17 @@ instance
       `Prelude.seq` Prelude.rnf parameterGroupName
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsRedshiftClusterClusterParameterGroup
   where
   toJSON AwsRedshiftClusterClusterParameterGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClusterParameterStatusList" Core..=)
+          [ ("ClusterParameterStatusList" Data..=)
               Prelude.<$> clusterParameterStatusList,
-            ("ParameterApplyStatus" Core..=)
+            ("ParameterApplyStatus" Data..=)
               Prelude.<$> parameterApplyStatus,
-            ("ParameterGroupName" Core..=)
+            ("ParameterGroupName" Data..=)
               Prelude.<$> parameterGroupName
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Athena.DeleteNamedQuery
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.Athena.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,7 +82,8 @@ instance Core.AWSRequest DeleteNamedQuery where
   type
     AWSResponse DeleteNamedQuery =
       DeleteNamedQueryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -96,32 +98,32 @@ instance Prelude.Hashable DeleteNamedQuery where
 instance Prelude.NFData DeleteNamedQuery where
   rnf DeleteNamedQuery' {..} = Prelude.rnf namedQueryId
 
-instance Core.ToHeaders DeleteNamedQuery where
+instance Data.ToHeaders DeleteNamedQuery where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonAthena.DeleteNamedQuery" ::
+              Data.=# ( "AmazonAthena.DeleteNamedQuery" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteNamedQuery where
+instance Data.ToJSON DeleteNamedQuery where
   toJSON DeleteNamedQuery' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("NamedQueryId" Core..= namedQueryId)]
+          [Prelude.Just ("NamedQueryId" Data..= namedQueryId)]
       )
 
-instance Core.ToPath DeleteNamedQuery where
+instance Data.ToPath DeleteNamedQuery where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteNamedQuery where
+instance Data.ToQuery DeleteNamedQuery where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteNamedQueryResponse' smart constructor.

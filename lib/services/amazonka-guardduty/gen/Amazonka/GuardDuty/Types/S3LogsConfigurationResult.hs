@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.S3LogsConfigurationResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GuardDuty.Types.S3LogsConfigurationResult where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types.DataSourceStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes whether S3 data event logs will be enabled as a data source.
@@ -56,13 +57,13 @@ newS3LogsConfigurationResult pStatus_ =
 s3LogsConfigurationResult_status :: Lens.Lens' S3LogsConfigurationResult DataSourceStatus
 s3LogsConfigurationResult_status = Lens.lens (\S3LogsConfigurationResult' {status} -> status) (\s@S3LogsConfigurationResult' {} a -> s {status = a} :: S3LogsConfigurationResult)
 
-instance Core.FromJSON S3LogsConfigurationResult where
+instance Data.FromJSON S3LogsConfigurationResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3LogsConfigurationResult"
       ( \x ->
           S3LogsConfigurationResult'
-            Prelude.<$> (x Core..: "status")
+            Prelude.<$> (x Data..: "status")
       )
 
 instance Prelude.Hashable S3LogsConfigurationResult where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.Types.PlaybackKeyPair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IVS.Types.PlaybackKeyPair where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A key pair used to sign and validate a playback authorization token.
@@ -33,7 +34,11 @@ data PlaybackKeyPair = PlaybackKeyPair'
     fingerprint :: Prelude.Maybe Prelude.Text,
     -- | Playback-key-pair name. The value does not need to be unique.
     name :: Prelude.Maybe Prelude.Text,
-    -- | Array of 1-50 maps, each of the form @string:string (key:value)@.
+    -- | Array of 1-50 maps, each of the form @string:string (key:value)@. See
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+    -- for more information, including restrictions that apply to tags and
+    -- \"Tag naming limits and requirements\"; Amazon IVS has no
+    -- service-specific constraints beyond what is documented there.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -52,7 +57,11 @@ data PlaybackKeyPair = PlaybackKeyPair'
 --
 -- 'name', 'playbackKeyPair_name' - Playback-key-pair name. The value does not need to be unique.
 --
--- 'tags', 'playbackKeyPair_tags' - Array of 1-50 maps, each of the form @string:string (key:value)@.
+-- 'tags', 'playbackKeyPair_tags' - Array of 1-50 maps, each of the form @string:string (key:value)@. See
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- for more information, including restrictions that apply to tags and
+-- \"Tag naming limits and requirements\"; Amazon IVS has no
+-- service-specific constraints beyond what is documented there.
 newPlaybackKeyPair ::
   PlaybackKeyPair
 newPlaybackKeyPair =
@@ -75,20 +84,24 @@ playbackKeyPair_fingerprint = Lens.lens (\PlaybackKeyPair' {fingerprint} -> fing
 playbackKeyPair_name :: Lens.Lens' PlaybackKeyPair (Prelude.Maybe Prelude.Text)
 playbackKeyPair_name = Lens.lens (\PlaybackKeyPair' {name} -> name) (\s@PlaybackKeyPair' {} a -> s {name = a} :: PlaybackKeyPair)
 
--- | Array of 1-50 maps, each of the form @string:string (key:value)@.
+-- | Array of 1-50 maps, each of the form @string:string (key:value)@. See
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- for more information, including restrictions that apply to tags and
+-- \"Tag naming limits and requirements\"; Amazon IVS has no
+-- service-specific constraints beyond what is documented there.
 playbackKeyPair_tags :: Lens.Lens' PlaybackKeyPair (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 playbackKeyPair_tags = Lens.lens (\PlaybackKeyPair' {tags} -> tags) (\s@PlaybackKeyPair' {} a -> s {tags = a} :: PlaybackKeyPair) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON PlaybackKeyPair where
+instance Data.FromJSON PlaybackKeyPair where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PlaybackKeyPair"
       ( \x ->
           PlaybackKeyPair'
-            Prelude.<$> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "fingerprint")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "fingerprint")
+            Prelude.<*> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable PlaybackKeyPair where

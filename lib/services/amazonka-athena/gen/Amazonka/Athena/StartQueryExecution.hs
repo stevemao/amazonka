@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Athena.StartQueryExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,9 +33,11 @@ module Amazonka.Athena.StartQueryExecution
     newStartQueryExecution,
 
     -- * Request Lenses
+    startQueryExecution_clientRequestToken,
+    startQueryExecution_executionParameters,
     startQueryExecution_queryExecutionContext,
     startQueryExecution_resultConfiguration,
-    startQueryExecution_clientRequestToken,
+    startQueryExecution_resultReuseConfiguration,
     startQueryExecution_workGroup,
     startQueryExecution_queryString,
 
@@ -51,24 +53,15 @@ where
 
 import Amazonka.Athena.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newStartQueryExecution' smart constructor.
 data StartQueryExecution = StartQueryExecution'
-  { -- | The database within which the query executes.
-    queryExecutionContext :: Prelude.Maybe QueryExecutionContext,
-    -- | Specifies information about where and how to save the results of the
-    -- query execution. If the query runs in a workgroup, then workgroup\'s
-    -- settings may override query settings. This affects the query results
-    -- location. The workgroup settings override is specified in
-    -- EnforceWorkGroupConfiguration (true\/false) in the
-    -- WorkGroupConfiguration. See
-    -- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
-    resultConfiguration :: Prelude.Maybe ResultConfiguration,
-    -- | A unique case-sensitive string used to ensure the request to create the
+  { -- | A unique case-sensitive string used to ensure the request to create the
     -- query is idempotent (executes only once). If another
     -- @StartQueryExecution@ request is received, the same response is returned
     -- and another query is not created. If a parameter has changed, for
@@ -80,6 +73,22 @@ data StartQueryExecution = StartQueryExecution'
     -- Amazon Web Services CLI, you must provide this token or the action will
     -- fail.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of values for the parameters in a query. The values are applied
+    -- sequentially to the parameters in the query in the order in which the
+    -- parameters occur.
+    executionParameters :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | The database within which the query executes.
+    queryExecutionContext :: Prelude.Maybe QueryExecutionContext,
+    -- | Specifies information about where and how to save the results of the
+    -- query execution. If the query runs in a workgroup, then workgroup\'s
+    -- settings may override query settings. This affects the query results
+    -- location. The workgroup settings override is specified in
+    -- EnforceWorkGroupConfiguration (true\/false) in the
+    -- WorkGroupConfiguration. See
+    -- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
+    resultConfiguration :: Prelude.Maybe ResultConfiguration,
+    -- | Specifies the query result reuse behavior for the query.
+    resultReuseConfiguration :: Prelude.Maybe ResultReuseConfiguration,
     -- | The name of the workgroup in which the query is being started.
     workGroup :: Prelude.Maybe Prelude.Text,
     -- | The SQL query statements to be executed.
@@ -95,16 +104,6 @@ data StartQueryExecution = StartQueryExecution'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'queryExecutionContext', 'startQueryExecution_queryExecutionContext' - The database within which the query executes.
---
--- 'resultConfiguration', 'startQueryExecution_resultConfiguration' - Specifies information about where and how to save the results of the
--- query execution. If the query runs in a workgroup, then workgroup\'s
--- settings may override query settings. This affects the query results
--- location. The workgroup settings override is specified in
--- EnforceWorkGroupConfiguration (true\/false) in the
--- WorkGroupConfiguration. See
--- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
---
 -- 'clientRequestToken', 'startQueryExecution_clientRequestToken' - A unique case-sensitive string used to ensure the request to create the
 -- query is idempotent (executes only once). If another
 -- @StartQueryExecution@ request is received, the same response is returned
@@ -117,6 +116,22 @@ data StartQueryExecution = StartQueryExecution'
 -- Amazon Web Services CLI, you must provide this token or the action will
 -- fail.
 --
+-- 'executionParameters', 'startQueryExecution_executionParameters' - A list of values for the parameters in a query. The values are applied
+-- sequentially to the parameters in the query in the order in which the
+-- parameters occur.
+--
+-- 'queryExecutionContext', 'startQueryExecution_queryExecutionContext' - The database within which the query executes.
+--
+-- 'resultConfiguration', 'startQueryExecution_resultConfiguration' - Specifies information about where and how to save the results of the
+-- query execution. If the query runs in a workgroup, then workgroup\'s
+-- settings may override query settings. This affects the query results
+-- location. The workgroup settings override is specified in
+-- EnforceWorkGroupConfiguration (true\/false) in the
+-- WorkGroupConfiguration. See
+-- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
+--
+-- 'resultReuseConfiguration', 'startQueryExecution_resultReuseConfiguration' - Specifies the query result reuse behavior for the query.
+--
 -- 'workGroup', 'startQueryExecution_workGroup' - The name of the workgroup in which the query is being started.
 --
 -- 'queryString', 'startQueryExecution_queryString' - The SQL query statements to be executed.
@@ -126,27 +141,15 @@ newStartQueryExecution ::
   StartQueryExecution
 newStartQueryExecution pQueryString_ =
   StartQueryExecution'
-    { queryExecutionContext =
+    { clientRequestToken =
         Prelude.Nothing,
+      executionParameters = Prelude.Nothing,
+      queryExecutionContext = Prelude.Nothing,
       resultConfiguration = Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
+      resultReuseConfiguration = Prelude.Nothing,
       workGroup = Prelude.Nothing,
       queryString = pQueryString_
     }
-
--- | The database within which the query executes.
-startQueryExecution_queryExecutionContext :: Lens.Lens' StartQueryExecution (Prelude.Maybe QueryExecutionContext)
-startQueryExecution_queryExecutionContext = Lens.lens (\StartQueryExecution' {queryExecutionContext} -> queryExecutionContext) (\s@StartQueryExecution' {} a -> s {queryExecutionContext = a} :: StartQueryExecution)
-
--- | Specifies information about where and how to save the results of the
--- query execution. If the query runs in a workgroup, then workgroup\'s
--- settings may override query settings. This affects the query results
--- location. The workgroup settings override is specified in
--- EnforceWorkGroupConfiguration (true\/false) in the
--- WorkGroupConfiguration. See
--- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
-startQueryExecution_resultConfiguration :: Lens.Lens' StartQueryExecution (Prelude.Maybe ResultConfiguration)
-startQueryExecution_resultConfiguration = Lens.lens (\StartQueryExecution' {resultConfiguration} -> resultConfiguration) (\s@StartQueryExecution' {} a -> s {resultConfiguration = a} :: StartQueryExecution)
 
 -- | A unique case-sensitive string used to ensure the request to create the
 -- query is idempotent (executes only once). If another
@@ -162,6 +165,30 @@ startQueryExecution_resultConfiguration = Lens.lens (\StartQueryExecution' {resu
 startQueryExecution_clientRequestToken :: Lens.Lens' StartQueryExecution (Prelude.Maybe Prelude.Text)
 startQueryExecution_clientRequestToken = Lens.lens (\StartQueryExecution' {clientRequestToken} -> clientRequestToken) (\s@StartQueryExecution' {} a -> s {clientRequestToken = a} :: StartQueryExecution)
 
+-- | A list of values for the parameters in a query. The values are applied
+-- sequentially to the parameters in the query in the order in which the
+-- parameters occur.
+startQueryExecution_executionParameters :: Lens.Lens' StartQueryExecution (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+startQueryExecution_executionParameters = Lens.lens (\StartQueryExecution' {executionParameters} -> executionParameters) (\s@StartQueryExecution' {} a -> s {executionParameters = a} :: StartQueryExecution) Prelude.. Lens.mapping Lens.coerced
+
+-- | The database within which the query executes.
+startQueryExecution_queryExecutionContext :: Lens.Lens' StartQueryExecution (Prelude.Maybe QueryExecutionContext)
+startQueryExecution_queryExecutionContext = Lens.lens (\StartQueryExecution' {queryExecutionContext} -> queryExecutionContext) (\s@StartQueryExecution' {} a -> s {queryExecutionContext = a} :: StartQueryExecution)
+
+-- | Specifies information about where and how to save the results of the
+-- query execution. If the query runs in a workgroup, then workgroup\'s
+-- settings may override query settings. This affects the query results
+-- location. The workgroup settings override is specified in
+-- EnforceWorkGroupConfiguration (true\/false) in the
+-- WorkGroupConfiguration. See
+-- WorkGroupConfiguration$EnforceWorkGroupConfiguration.
+startQueryExecution_resultConfiguration :: Lens.Lens' StartQueryExecution (Prelude.Maybe ResultConfiguration)
+startQueryExecution_resultConfiguration = Lens.lens (\StartQueryExecution' {resultConfiguration} -> resultConfiguration) (\s@StartQueryExecution' {} a -> s {resultConfiguration = a} :: StartQueryExecution)
+
+-- | Specifies the query result reuse behavior for the query.
+startQueryExecution_resultReuseConfiguration :: Lens.Lens' StartQueryExecution (Prelude.Maybe ResultReuseConfiguration)
+startQueryExecution_resultReuseConfiguration = Lens.lens (\StartQueryExecution' {resultReuseConfiguration} -> resultReuseConfiguration) (\s@StartQueryExecution' {} a -> s {resultReuseConfiguration = a} :: StartQueryExecution)
+
 -- | The name of the workgroup in which the query is being started.
 startQueryExecution_workGroup :: Lens.Lens' StartQueryExecution (Prelude.Maybe Prelude.Text)
 startQueryExecution_workGroup = Lens.lens (\StartQueryExecution' {workGroup} -> workGroup) (\s@StartQueryExecution' {} a -> s {workGroup = a} :: StartQueryExecution)
@@ -174,65 +201,74 @@ instance Core.AWSRequest StartQueryExecution where
   type
     AWSResponse StartQueryExecution =
       StartQueryExecutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartQueryExecutionResponse'
-            Prelude.<$> (x Core..?> "QueryExecutionId")
+            Prelude.<$> (x Data..?> "QueryExecutionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable StartQueryExecution where
   hashWithSalt _salt StartQueryExecution' {..} =
-    _salt `Prelude.hashWithSalt` queryExecutionContext
+    _salt `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` executionParameters
+      `Prelude.hashWithSalt` queryExecutionContext
       `Prelude.hashWithSalt` resultConfiguration
-      `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` resultReuseConfiguration
       `Prelude.hashWithSalt` workGroup
       `Prelude.hashWithSalt` queryString
 
 instance Prelude.NFData StartQueryExecution where
   rnf StartQueryExecution' {..} =
-    Prelude.rnf queryExecutionContext
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf executionParameters
+      `Prelude.seq` Prelude.rnf queryExecutionContext
       `Prelude.seq` Prelude.rnf resultConfiguration
-      `Prelude.seq` Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf resultReuseConfiguration
       `Prelude.seq` Prelude.rnf workGroup
       `Prelude.seq` Prelude.rnf queryString
 
-instance Core.ToHeaders StartQueryExecution where
+instance Data.ToHeaders StartQueryExecution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonAthena.StartQueryExecution" ::
+              Data.=# ( "AmazonAthena.StartQueryExecution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartQueryExecution where
+instance Data.ToJSON StartQueryExecution where
   toJSON StartQueryExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("QueryExecutionContext" Core..=)
-              Prelude.<$> queryExecutionContext,
-            ("ResultConfiguration" Core..=)
-              Prelude.<$> resultConfiguration,
-            ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("WorkGroup" Core..=) Prelude.<$> workGroup,
-            Prelude.Just ("QueryString" Core..= queryString)
+            ("ExecutionParameters" Data..=)
+              Prelude.<$> executionParameters,
+            ("QueryExecutionContext" Data..=)
+              Prelude.<$> queryExecutionContext,
+            ("ResultConfiguration" Data..=)
+              Prelude.<$> resultConfiguration,
+            ("ResultReuseConfiguration" Data..=)
+              Prelude.<$> resultReuseConfiguration,
+            ("WorkGroup" Data..=) Prelude.<$> workGroup,
+            Prelude.Just ("QueryString" Data..= queryString)
           ]
       )
 
-instance Core.ToPath StartQueryExecution where
+instance Data.ToPath StartQueryExecution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartQueryExecution where
+instance Data.ToQuery StartQueryExecution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartQueryExecutionResponse' smart constructor.

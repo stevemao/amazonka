@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.SMS.GetConnectors
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the connectors registered with the AWS SMS.
+-- Describes the connectors registered with the Server Migration Service.
 --
 -- This operation returns paginated results.
 module Amazonka.SMS.GetConnectors
@@ -29,8 +29,8 @@ module Amazonka.SMS.GetConnectors
     newGetConnectors,
 
     -- * Request Lenses
-    getConnectors_nextToken,
     getConnectors_maxResults,
+    getConnectors_nextToken,
 
     -- * Destructuring the Response
     GetConnectorsResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.SMS.GetConnectors
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,12 +53,12 @@ import Amazonka.SMS.Types
 
 -- | /See:/ 'newGetConnectors' smart constructor.
 data GetConnectors = GetConnectors'
-  { -- | The token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call. The default
+  { -- | The maximum number of results to return in a single call. The default
     -- value is 50. To retrieve the remaining results, make another call with
     -- the returned @NextToken@ value.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,28 +70,28 @@ data GetConnectors = GetConnectors'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getConnectors_nextToken' - The token for the next set of results.
---
 -- 'maxResults', 'getConnectors_maxResults' - The maximum number of results to return in a single call. The default
 -- value is 50. To retrieve the remaining results, make another call with
 -- the returned @NextToken@ value.
+--
+-- 'nextToken', 'getConnectors_nextToken' - The token for the next set of results.
 newGetConnectors ::
   GetConnectors
 newGetConnectors =
   GetConnectors'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token for the next set of results.
-getConnectors_nextToken :: Lens.Lens' GetConnectors (Prelude.Maybe Prelude.Text)
-getConnectors_nextToken = Lens.lens (\GetConnectors' {nextToken} -> nextToken) (\s@GetConnectors' {} a -> s {nextToken = a} :: GetConnectors)
 
 -- | The maximum number of results to return in a single call. The default
 -- value is 50. To retrieve the remaining results, make another call with
 -- the returned @NextToken@ value.
 getConnectors_maxResults :: Lens.Lens' GetConnectors (Prelude.Maybe Prelude.Int)
 getConnectors_maxResults = Lens.lens (\GetConnectors' {maxResults} -> maxResults) (\s@GetConnectors' {} a -> s {maxResults = a} :: GetConnectors)
+
+-- | The token for the next set of results.
+getConnectors_nextToken :: Lens.Lens' GetConnectors (Prelude.Maybe Prelude.Text)
+getConnectors_nextToken = Lens.lens (\GetConnectors' {nextToken} -> nextToken) (\s@GetConnectors' {} a -> s {nextToken = a} :: GetConnectors)
 
 instance Core.AWSPager GetConnectors where
   page rq rs
@@ -116,54 +117,55 @@ instance Core.AWSRequest GetConnectors where
   type
     AWSResponse GetConnectors =
       GetConnectorsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetConnectorsResponse'
-            Prelude.<$> (x Core..?> "connectorList" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "connectorList" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetConnectors where
   hashWithSalt _salt GetConnectors' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData GetConnectors where
   rnf GetConnectors' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders GetConnectors where
+instance Data.ToHeaders GetConnectors where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.GetConnectors" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.GetConnectors" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetConnectors where
+instance Data.ToJSON GetConnectors where
   toJSON GetConnectors' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath GetConnectors where
+instance Data.ToPath GetConnectors where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetConnectors where
+instance Data.ToQuery GetConnectors where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetConnectorsResponse' smart constructor.

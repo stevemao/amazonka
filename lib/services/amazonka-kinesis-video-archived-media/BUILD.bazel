@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-kinesis-video-archived-media/amazonka-kinesis-video-archived-media.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-kinesis-video-archived-media/amazonka-kinesis-video-archived-media.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-kinesis-video-archived-media",
     srcs = [
@@ -8,6 +8,7 @@ haskell_library(
         "gen/Amazonka/KinesisVideoArchivedMedia/GetClip.hs",
         "gen/Amazonka/KinesisVideoArchivedMedia/GetDASHStreamingSessionURL.hs",
         "gen/Amazonka/KinesisVideoArchivedMedia/GetHLSStreamingSessionURL.hs",
+        "gen/Amazonka/KinesisVideoArchivedMedia/GetImages.hs",
         "gen/Amazonka/KinesisVideoArchivedMedia/GetMediaForFragmentList.hs",
         "gen/Amazonka/KinesisVideoArchivedMedia/Lens.hs",
         "gen/Amazonka/KinesisVideoArchivedMedia/ListFragments.hs",
@@ -22,6 +23,8 @@ haskell_library(
         "gen/Amazonka/KinesisVideoArchivedMedia/Types/DASHFragmentSelectorType.hs",
         "gen/Amazonka/KinesisVideoArchivedMedia/Types/DASHPlaybackMode.hs",
         "gen/Amazonka/KinesisVideoArchivedMedia/Types/DASHTimestampRange.hs",
+        "gen/Amazonka/KinesisVideoArchivedMedia/Types/Format.hs",
+        "gen/Amazonka/KinesisVideoArchivedMedia/Types/FormatConfigKey.hs",
         "gen/Amazonka/KinesisVideoArchivedMedia/Types/Fragment.hs",
         "gen/Amazonka/KinesisVideoArchivedMedia/Types/FragmentSelector.hs",
         "gen/Amazonka/KinesisVideoArchivedMedia/Types/FragmentSelectorType.hs",
@@ -31,17 +34,19 @@ haskell_library(
         "gen/Amazonka/KinesisVideoArchivedMedia/Types/HLSFragmentSelectorType.hs",
         "gen/Amazonka/KinesisVideoArchivedMedia/Types/HLSPlaybackMode.hs",
         "gen/Amazonka/KinesisVideoArchivedMedia/Types/HLSTimestampRange.hs",
+        "gen/Amazonka/KinesisVideoArchivedMedia/Types/Image.hs",
+        "gen/Amazonka/KinesisVideoArchivedMedia/Types/ImageError.hs",
+        "gen/Amazonka/KinesisVideoArchivedMedia/Types/ImageSelectorType.hs",
         "gen/Amazonka/KinesisVideoArchivedMedia/Types/TimestampRange.hs",
         "gen/Amazonka/KinesisVideoArchivedMedia/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_kinesis_video_archived_media=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_kinesis_video_archived_media=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -50,7 +55,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-kinesis-video-archived-media/amazonka-kinesis-video-archived-media.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-kinesis-video-archived-media/amazonka-kinesis-video-archived-media.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-kinesis-video-archived-media-test",
     srcs = [
@@ -59,11 +64,12 @@ haskell_test(
         "test/Test/Amazonka/KinesisVideoArchivedMedia.hs",
         "test/Test/Amazonka/KinesisVideoArchivedMedia/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_kinesis_video_archived_media=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_kinesis_video_archived_media=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

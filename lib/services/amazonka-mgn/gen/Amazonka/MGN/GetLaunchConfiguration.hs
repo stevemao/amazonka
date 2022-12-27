@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.GetLaunchConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,19 +34,24 @@ module Amazonka.MGN.GetLaunchConfiguration
     newLaunchConfiguration,
 
     -- * Response Lenses
-    launchConfiguration_ec2LaunchTemplateID,
-    launchConfiguration_targetInstanceTypeRightSizingMethod,
-    launchConfiguration_launchDisposition,
-    launchConfiguration_copyTags,
-    launchConfiguration_name,
-    launchConfiguration_sourceServerID,
-    launchConfiguration_licensing,
+    launchConfiguration_bootMode,
     launchConfiguration_copyPrivateIp,
+    launchConfiguration_copyTags,
+    launchConfiguration_ec2LaunchTemplateID,
+    launchConfiguration_enableMapAutoTagging,
+    launchConfiguration_launchDisposition,
+    launchConfiguration_licensing,
+    launchConfiguration_mapAutoTaggingMpeID,
+    launchConfiguration_name,
+    launchConfiguration_postLaunchActions,
+    launchConfiguration_sourceServerID,
+    launchConfiguration_targetInstanceTypeRightSizingMethod,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -86,10 +91,11 @@ instance Core.AWSRequest GetLaunchConfiguration where
   type
     AWSResponse GetLaunchConfiguration =
       LaunchConfiguration
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetLaunchConfiguration where
   hashWithSalt _salt GetLaunchConfiguration' {..} =
@@ -99,28 +105,28 @@ instance Prelude.NFData GetLaunchConfiguration where
   rnf GetLaunchConfiguration' {..} =
     Prelude.rnf sourceServerID
 
-instance Core.ToHeaders GetLaunchConfiguration where
+instance Data.ToHeaders GetLaunchConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetLaunchConfiguration where
+instance Data.ToJSON GetLaunchConfiguration where
   toJSON GetLaunchConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("sourceServerID" Core..= sourceServerID)
+              ("sourceServerID" Data..= sourceServerID)
           ]
       )
 
-instance Core.ToPath GetLaunchConfiguration where
+instance Data.ToPath GetLaunchConfiguration where
   toPath = Prelude.const "/GetLaunchConfiguration"
 
-instance Core.ToQuery GetLaunchConfiguration where
+instance Data.ToQuery GetLaunchConfiguration where
   toQuery = Prelude.const Prelude.mempty

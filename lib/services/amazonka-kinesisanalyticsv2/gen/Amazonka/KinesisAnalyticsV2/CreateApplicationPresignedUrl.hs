@@ -14,15 +14,14 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.CreateApplicationPresignedUrl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates and returns a URL that you can use to connect to an
--- application\'s extension. Currently, the only available extension is the
--- Apache Flink dashboard.
+-- application\'s extension.
 --
 -- The IAM role or user used to call this API defines the permissions to
 -- access the extension. After the presigned URL is created, no additional
@@ -59,8 +58,9 @@ module Amazonka.KinesisAnalyticsV2.CreateApplicationPresignedUrl
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -127,12 +127,13 @@ instance
   type
     AWSResponse CreateApplicationPresignedUrl =
       CreateApplicationPresignedUrlResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateApplicationPresignedUrlResponse'
-            Prelude.<$> (x Core..?> "AuthorizedUrl")
+            Prelude.<$> (x Data..?> "AuthorizedUrl")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -152,37 +153,37 @@ instance Prelude.NFData CreateApplicationPresignedUrl where
       `Prelude.seq` Prelude.rnf applicationName
       `Prelude.seq` Prelude.rnf urlType
 
-instance Core.ToHeaders CreateApplicationPresignedUrl where
+instance Data.ToHeaders CreateApplicationPresignedUrl where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "KinesisAnalytics_20180523.CreateApplicationPresignedUrl" ::
+              Data.=# ( "KinesisAnalytics_20180523.CreateApplicationPresignedUrl" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateApplicationPresignedUrl where
+instance Data.ToJSON CreateApplicationPresignedUrl where
   toJSON CreateApplicationPresignedUrl' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SessionExpirationDurationInSeconds" Core..=)
+          [ ("SessionExpirationDurationInSeconds" Data..=)
               Prelude.<$> sessionExpirationDurationInSeconds,
             Prelude.Just
-              ("ApplicationName" Core..= applicationName),
-            Prelude.Just ("UrlType" Core..= urlType)
+              ("ApplicationName" Data..= applicationName),
+            Prelude.Just ("UrlType" Data..= urlType)
           ]
       )
 
-instance Core.ToPath CreateApplicationPresignedUrl where
+instance Data.ToPath CreateApplicationPresignedUrl where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateApplicationPresignedUrl where
+instance Data.ToQuery CreateApplicationPresignedUrl where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateApplicationPresignedUrlResponse' smart constructor.

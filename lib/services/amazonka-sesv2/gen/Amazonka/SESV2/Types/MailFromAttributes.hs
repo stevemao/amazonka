@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.MailFromAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SESV2.Types.MailFromAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SESV2.Types.BehaviorOnMxFailure
 import Amazonka.SESV2.Types.MailFromDomainStatus
@@ -48,9 +49,9 @@ data MailFromAttributes = MailFromAttributes'
     --     Amazon SES from determining the status of the MAIL FROM domain.
     mailFromDomainStatus :: MailFromDomainStatus,
     -- | The action to take if the required MX record can\'t be found when you
-    -- send an email. When you set this value to @UseDefaultValue@, the mail is
-    -- sent using /amazonses.com/ as the MAIL FROM domain. When you set this
-    -- value to @RejectMessage@, the Amazon SES API v2 returns a
+    -- send an email. When you set this value to @USE_DEFAULT_VALUE@, the mail
+    -- is sent using /amazonses.com/ as the MAIL FROM domain. When you set this
+    -- value to @REJECT_MESSAGE@, the Amazon SES API v2 returns a
     -- @MailFromDomainNotVerified@ error, and doesn\'t attempt to deliver the
     -- email.
     --
@@ -87,9 +88,9 @@ data MailFromAttributes = MailFromAttributes'
 --     Amazon SES from determining the status of the MAIL FROM domain.
 --
 -- 'behaviorOnMxFailure', 'mailFromAttributes_behaviorOnMxFailure' - The action to take if the required MX record can\'t be found when you
--- send an email. When you set this value to @UseDefaultValue@, the mail is
--- sent using /amazonses.com/ as the MAIL FROM domain. When you set this
--- value to @RejectMessage@, the Amazon SES API v2 returns a
+-- send an email. When you set this value to @USE_DEFAULT_VALUE@, the mail
+-- is sent using /amazonses.com/ as the MAIL FROM domain. When you set this
+-- value to @REJECT_MESSAGE@, the Amazon SES API v2 returns a
 -- @MailFromDomainNotVerified@ error, and doesn\'t attempt to deliver the
 -- email.
 --
@@ -137,9 +138,9 @@ mailFromAttributes_mailFromDomainStatus :: Lens.Lens' MailFromAttributes MailFro
 mailFromAttributes_mailFromDomainStatus = Lens.lens (\MailFromAttributes' {mailFromDomainStatus} -> mailFromDomainStatus) (\s@MailFromAttributes' {} a -> s {mailFromDomainStatus = a} :: MailFromAttributes)
 
 -- | The action to take if the required MX record can\'t be found when you
--- send an email. When you set this value to @UseDefaultValue@, the mail is
--- sent using /amazonses.com/ as the MAIL FROM domain. When you set this
--- value to @RejectMessage@, the Amazon SES API v2 returns a
+-- send an email. When you set this value to @USE_DEFAULT_VALUE@, the mail
+-- is sent using /amazonses.com/ as the MAIL FROM domain. When you set this
+-- value to @REJECT_MESSAGE@, the Amazon SES API v2 returns a
 -- @MailFromDomainNotVerified@ error, and doesn\'t attempt to deliver the
 -- email.
 --
@@ -148,15 +149,15 @@ mailFromAttributes_mailFromDomainStatus = Lens.lens (\MailFromAttributes' {mailF
 mailFromAttributes_behaviorOnMxFailure :: Lens.Lens' MailFromAttributes BehaviorOnMxFailure
 mailFromAttributes_behaviorOnMxFailure = Lens.lens (\MailFromAttributes' {behaviorOnMxFailure} -> behaviorOnMxFailure) (\s@MailFromAttributes' {} a -> s {behaviorOnMxFailure = a} :: MailFromAttributes)
 
-instance Core.FromJSON MailFromAttributes where
+instance Data.FromJSON MailFromAttributes where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MailFromAttributes"
       ( \x ->
           MailFromAttributes'
-            Prelude.<$> (x Core..: "MailFromDomain")
-            Prelude.<*> (x Core..: "MailFromDomainStatus")
-            Prelude.<*> (x Core..: "BehaviorOnMxFailure")
+            Prelude.<$> (x Data..: "MailFromDomain")
+            Prelude.<*> (x Data..: "MailFromDomainStatus")
+            Prelude.<*> (x Data..: "BehaviorOnMxFailure")
       )
 
 instance Prelude.Hashable MailFromAttributes where

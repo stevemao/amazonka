@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.GameServerGroupInstanceType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,6 +41,14 @@ module Amazonka.GameLift.Types.GameServerGroupInstanceType
         GameServerGroupInstanceType_C5a_8xlarge,
         GameServerGroupInstanceType_C5a_large,
         GameServerGroupInstanceType_C5a_xlarge,
+        GameServerGroupInstanceType_C6g_12xlarge,
+        GameServerGroupInstanceType_C6g_16xlarge,
+        GameServerGroupInstanceType_C6g_2xlarge,
+        GameServerGroupInstanceType_C6g_4xlarge,
+        GameServerGroupInstanceType_C6g_8xlarge,
+        GameServerGroupInstanceType_C6g_large,
+        GameServerGroupInstanceType_C6g_medium,
+        GameServerGroupInstanceType_C6g_xlarge,
         GameServerGroupInstanceType_M4_10xlarge,
         GameServerGroupInstanceType_M4_2xlarge,
         GameServerGroupInstanceType_M4_4xlarge,
@@ -62,6 +70,14 @@ module Amazonka.GameLift.Types.GameServerGroupInstanceType
         GameServerGroupInstanceType_M5a_8xlarge,
         GameServerGroupInstanceType_M5a_large,
         GameServerGroupInstanceType_M5a_xlarge,
+        GameServerGroupInstanceType_M6g_12xlarge,
+        GameServerGroupInstanceType_M6g_16xlarge,
+        GameServerGroupInstanceType_M6g_2xlarge,
+        GameServerGroupInstanceType_M6g_4xlarge,
+        GameServerGroupInstanceType_M6g_8xlarge,
+        GameServerGroupInstanceType_M6g_large,
+        GameServerGroupInstanceType_M6g_medium,
+        GameServerGroupInstanceType_M6g_xlarge,
         GameServerGroupInstanceType_R4_16xlarge,
         GameServerGroupInstanceType_R4_2xlarge,
         GameServerGroupInstanceType_R4_4xlarge,
@@ -83,17 +99,26 @@ module Amazonka.GameLift.Types.GameServerGroupInstanceType
         GameServerGroupInstanceType_R5a_4xlarge,
         GameServerGroupInstanceType_R5a_8xlarge,
         GameServerGroupInstanceType_R5a_large,
-        GameServerGroupInstanceType_R5a_xlarge
+        GameServerGroupInstanceType_R5a_xlarge,
+        GameServerGroupInstanceType_R6g_12xlarge,
+        GameServerGroupInstanceType_R6g_16xlarge,
+        GameServerGroupInstanceType_R6g_2xlarge,
+        GameServerGroupInstanceType_R6g_4xlarge,
+        GameServerGroupInstanceType_R6g_8xlarge,
+        GameServerGroupInstanceType_R6g_large,
+        GameServerGroupInstanceType_R6g_medium,
+        GameServerGroupInstanceType_R6g_xlarge
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype GameServerGroupInstanceType = GameServerGroupInstanceType'
   { fromGameServerGroupInstanceType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -105,18 +130,18 @@ newtype GameServerGroupInstanceType = GameServerGroupInstanceType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern GameServerGroupInstanceType_C4_2xlarge :: GameServerGroupInstanceType
@@ -182,6 +207,30 @@ pattern GameServerGroupInstanceType_C5a_large = GameServerGroupInstanceType' "c5
 pattern GameServerGroupInstanceType_C5a_xlarge :: GameServerGroupInstanceType
 pattern GameServerGroupInstanceType_C5a_xlarge = GameServerGroupInstanceType' "c5a.xlarge"
 
+pattern GameServerGroupInstanceType_C6g_12xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_C6g_12xlarge = GameServerGroupInstanceType' "c6g.12xlarge"
+
+pattern GameServerGroupInstanceType_C6g_16xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_C6g_16xlarge = GameServerGroupInstanceType' "c6g.16xlarge"
+
+pattern GameServerGroupInstanceType_C6g_2xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_C6g_2xlarge = GameServerGroupInstanceType' "c6g.2xlarge"
+
+pattern GameServerGroupInstanceType_C6g_4xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_C6g_4xlarge = GameServerGroupInstanceType' "c6g.4xlarge"
+
+pattern GameServerGroupInstanceType_C6g_8xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_C6g_8xlarge = GameServerGroupInstanceType' "c6g.8xlarge"
+
+pattern GameServerGroupInstanceType_C6g_large :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_C6g_large = GameServerGroupInstanceType' "c6g.large"
+
+pattern GameServerGroupInstanceType_C6g_medium :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_C6g_medium = GameServerGroupInstanceType' "c6g.medium"
+
+pattern GameServerGroupInstanceType_C6g_xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_C6g_xlarge = GameServerGroupInstanceType' "c6g.xlarge"
+
 pattern GameServerGroupInstanceType_M4_10xlarge :: GameServerGroupInstanceType
 pattern GameServerGroupInstanceType_M4_10xlarge = GameServerGroupInstanceType' "m4.10xlarge"
 
@@ -244,6 +293,30 @@ pattern GameServerGroupInstanceType_M5a_large = GameServerGroupInstanceType' "m5
 
 pattern GameServerGroupInstanceType_M5a_xlarge :: GameServerGroupInstanceType
 pattern GameServerGroupInstanceType_M5a_xlarge = GameServerGroupInstanceType' "m5a.xlarge"
+
+pattern GameServerGroupInstanceType_M6g_12xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_M6g_12xlarge = GameServerGroupInstanceType' "m6g.12xlarge"
+
+pattern GameServerGroupInstanceType_M6g_16xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_M6g_16xlarge = GameServerGroupInstanceType' "m6g.16xlarge"
+
+pattern GameServerGroupInstanceType_M6g_2xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_M6g_2xlarge = GameServerGroupInstanceType' "m6g.2xlarge"
+
+pattern GameServerGroupInstanceType_M6g_4xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_M6g_4xlarge = GameServerGroupInstanceType' "m6g.4xlarge"
+
+pattern GameServerGroupInstanceType_M6g_8xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_M6g_8xlarge = GameServerGroupInstanceType' "m6g.8xlarge"
+
+pattern GameServerGroupInstanceType_M6g_large :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_M6g_large = GameServerGroupInstanceType' "m6g.large"
+
+pattern GameServerGroupInstanceType_M6g_medium :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_M6g_medium = GameServerGroupInstanceType' "m6g.medium"
+
+pattern GameServerGroupInstanceType_M6g_xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_M6g_xlarge = GameServerGroupInstanceType' "m6g.xlarge"
 
 pattern GameServerGroupInstanceType_R4_16xlarge :: GameServerGroupInstanceType
 pattern GameServerGroupInstanceType_R4_16xlarge = GameServerGroupInstanceType' "r4.16xlarge"
@@ -311,6 +384,30 @@ pattern GameServerGroupInstanceType_R5a_large = GameServerGroupInstanceType' "r5
 pattern GameServerGroupInstanceType_R5a_xlarge :: GameServerGroupInstanceType
 pattern GameServerGroupInstanceType_R5a_xlarge = GameServerGroupInstanceType' "r5a.xlarge"
 
+pattern GameServerGroupInstanceType_R6g_12xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_R6g_12xlarge = GameServerGroupInstanceType' "r6g.12xlarge"
+
+pattern GameServerGroupInstanceType_R6g_16xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_R6g_16xlarge = GameServerGroupInstanceType' "r6g.16xlarge"
+
+pattern GameServerGroupInstanceType_R6g_2xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_R6g_2xlarge = GameServerGroupInstanceType' "r6g.2xlarge"
+
+pattern GameServerGroupInstanceType_R6g_4xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_R6g_4xlarge = GameServerGroupInstanceType' "r6g.4xlarge"
+
+pattern GameServerGroupInstanceType_R6g_8xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_R6g_8xlarge = GameServerGroupInstanceType' "r6g.8xlarge"
+
+pattern GameServerGroupInstanceType_R6g_large :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_R6g_large = GameServerGroupInstanceType' "r6g.large"
+
+pattern GameServerGroupInstanceType_R6g_medium :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_R6g_medium = GameServerGroupInstanceType' "r6g.medium"
+
+pattern GameServerGroupInstanceType_R6g_xlarge :: GameServerGroupInstanceType
+pattern GameServerGroupInstanceType_R6g_xlarge = GameServerGroupInstanceType' "r6g.xlarge"
+
 {-# COMPLETE
   GameServerGroupInstanceType_C4_2xlarge,
   GameServerGroupInstanceType_C4_4xlarge,
@@ -333,6 +430,14 @@ pattern GameServerGroupInstanceType_R5a_xlarge = GameServerGroupInstanceType' "r
   GameServerGroupInstanceType_C5a_8xlarge,
   GameServerGroupInstanceType_C5a_large,
   GameServerGroupInstanceType_C5a_xlarge,
+  GameServerGroupInstanceType_C6g_12xlarge,
+  GameServerGroupInstanceType_C6g_16xlarge,
+  GameServerGroupInstanceType_C6g_2xlarge,
+  GameServerGroupInstanceType_C6g_4xlarge,
+  GameServerGroupInstanceType_C6g_8xlarge,
+  GameServerGroupInstanceType_C6g_large,
+  GameServerGroupInstanceType_C6g_medium,
+  GameServerGroupInstanceType_C6g_xlarge,
   GameServerGroupInstanceType_M4_10xlarge,
   GameServerGroupInstanceType_M4_2xlarge,
   GameServerGroupInstanceType_M4_4xlarge,
@@ -354,6 +459,14 @@ pattern GameServerGroupInstanceType_R5a_xlarge = GameServerGroupInstanceType' "r
   GameServerGroupInstanceType_M5a_8xlarge,
   GameServerGroupInstanceType_M5a_large,
   GameServerGroupInstanceType_M5a_xlarge,
+  GameServerGroupInstanceType_M6g_12xlarge,
+  GameServerGroupInstanceType_M6g_16xlarge,
+  GameServerGroupInstanceType_M6g_2xlarge,
+  GameServerGroupInstanceType_M6g_4xlarge,
+  GameServerGroupInstanceType_M6g_8xlarge,
+  GameServerGroupInstanceType_M6g_large,
+  GameServerGroupInstanceType_M6g_medium,
+  GameServerGroupInstanceType_M6g_xlarge,
   GameServerGroupInstanceType_R4_16xlarge,
   GameServerGroupInstanceType_R4_2xlarge,
   GameServerGroupInstanceType_R4_4xlarge,
@@ -376,5 +489,13 @@ pattern GameServerGroupInstanceType_R5a_xlarge = GameServerGroupInstanceType' "r
   GameServerGroupInstanceType_R5a_8xlarge,
   GameServerGroupInstanceType_R5a_large,
   GameServerGroupInstanceType_R5a_xlarge,
+  GameServerGroupInstanceType_R6g_12xlarge,
+  GameServerGroupInstanceType_R6g_16xlarge,
+  GameServerGroupInstanceType_R6g_2xlarge,
+  GameServerGroupInstanceType_R6g_4xlarge,
+  GameServerGroupInstanceType_R6g_8xlarge,
+  GameServerGroupInstanceType_R6g_large,
+  GameServerGroupInstanceType_R6g_medium,
+  GameServerGroupInstanceType_R6g_xlarge,
   GameServerGroupInstanceType'
   #-}

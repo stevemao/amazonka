@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,23 +14,25 @@
 -- You can use Amazon CloudWatch Logs to monitor, store, and access your
 -- log files from EC2 instances, CloudTrail, and other sources. You can
 -- then retrieve the associated log data from CloudWatch Logs using the
--- CloudWatch console, CloudWatch Logs commands in the Amazon Web Services
--- CLI, CloudWatch Logs API, or CloudWatch Logs SDK.
+-- CloudWatch console. Alternatively, you can use CloudWatch Logs commands
+-- in the Amazon Web Services CLI, CloudWatch Logs API, or CloudWatch Logs
+-- SDK.
 --
 -- You can use CloudWatch Logs to:
 --
--- -   __Monitor logs from EC2 instances in real-time__: You can use
+-- -   __Monitor logs from EC2 instances in real time__: You can use
 --     CloudWatch Logs to monitor applications and systems using log data.
 --     For example, CloudWatch Logs can track the number of errors that
---     occur in your application logs and send you a notification whenever
---     the rate of errors exceeds a threshold that you specify. CloudWatch
---     Logs uses your log data for monitoring so no code changes are
---     required. For example, you can monitor application logs for specific
---     literal terms (such as \"NullReferenceException\") or count the
---     number of occurrences of a literal term at a particular position in
---     log data (such as \"404\" status codes in an Apache access log).
---     When the term you are searching for is found, CloudWatch Logs
---     reports the data to a CloudWatch metric that you specify.
+--     occur in your application logs. Then, it can send you a notification
+--     whenever the rate of errors exceeds a threshold that you specify.
+--     CloudWatch Logs uses your log data for monitoring so no code changes
+--     are required. For example, you can monitor application logs for
+--     specific literal terms (such as \"NullReferenceException\"). You can
+--     also count the number of occurrences of a literal term at a
+--     particular position in log data (such as \"404\" status codes in an
+--     Apache access log). When the term you are searching for is found,
+--     CloudWatch Logs reports the data to a CloudWatch metric that you
+--     specify.
 --
 -- -   __Monitor CloudTrail logged events__: You can create alarms in
 --     CloudWatch and receive notifications of particular API activity as
@@ -39,11 +41,11 @@
 --
 -- -   __Archive log data__: You can use CloudWatch Logs to store your log
 --     data in highly durable storage. You can change the log retention
---     setting so that any log events older than this setting are
---     automatically deleted. The CloudWatch Logs agent makes it easy to
---     quickly send both rotated and non-rotated log data off of a host and
---     into the log service. You can then access the raw log data when you
---     need it.
+--     setting so that any log events earlier than this setting are
+--     automatically deleted. The CloudWatch Logs agent helps to quickly
+--     send both rotated and non-rotated log data off of a host and into
+--     the log service. You can then access the raw log data when you need
+--     it.
 module Amazonka.CloudWatchLogs
   ( -- * Service Configuration
     defaultService,
@@ -51,38 +53,41 @@ module Amazonka.CloudWatchLogs
     -- * Errors
     -- $errors
 
-    -- ** InvalidParameterException
-    _InvalidParameterException,
-
-    -- ** InvalidSequenceTokenException
-    _InvalidSequenceTokenException,
-
-    -- ** UnrecognizedClientException
-    _UnrecognizedClientException,
-
-    -- ** ResourceAlreadyExistsException
-    _ResourceAlreadyExistsException,
-
-    -- ** OperationAbortedException
-    _OperationAbortedException,
-
-    -- ** MalformedQueryException
-    _MalformedQueryException,
-
-    -- ** ServiceUnavailableException
-    _ServiceUnavailableException,
-
     -- ** DataAlreadyAcceptedException
     _DataAlreadyAcceptedException,
 
     -- ** InvalidOperationException
     _InvalidOperationException,
 
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
+    -- ** InvalidParameterException
+    _InvalidParameterException,
+
+    -- ** InvalidSequenceTokenException
+    _InvalidSequenceTokenException,
 
     -- ** LimitExceededException
     _LimitExceededException,
+
+    -- ** MalformedQueryException
+    _MalformedQueryException,
+
+    -- ** OperationAbortedException
+    _OperationAbortedException,
+
+    -- ** ResourceAlreadyExistsException
+    _ResourceAlreadyExistsException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
+
+    -- ** ServiceUnavailableException
+    _ServiceUnavailableException,
+
+    -- ** TooManyTagsException
+    _TooManyTagsException,
+
+    -- ** UnrecognizedClientException
+    _UnrecognizedClientException,
 
     -- * Waiters
     -- $waiters
@@ -90,35 +95,17 @@ module Amazonka.CloudWatchLogs
     -- * Operations
     -- $operations
 
-    -- ** GetLogGroupFields
-    GetLogGroupFields (GetLogGroupFields'),
-    newGetLogGroupFields,
-    GetLogGroupFieldsResponse (GetLogGroupFieldsResponse'),
-    newGetLogGroupFieldsResponse,
+    -- ** AssociateKmsKey
+    AssociateKmsKey (AssociateKmsKey'),
+    newAssociateKmsKey,
+    AssociateKmsKeyResponse (AssociateKmsKeyResponse'),
+    newAssociateKmsKeyResponse,
 
-    -- ** GetLogRecord
-    GetLogRecord (GetLogRecord'),
-    newGetLogRecord,
-    GetLogRecordResponse (GetLogRecordResponse'),
-    newGetLogRecordResponse,
-
-    -- ** DescribeDestinations (Paginated)
-    DescribeDestinations (DescribeDestinations'),
-    newDescribeDestinations,
-    DescribeDestinationsResponse (DescribeDestinationsResponse'),
-    newDescribeDestinationsResponse,
-
-    -- ** UntagLogGroup
-    UntagLogGroup (UntagLogGroup'),
-    newUntagLogGroup,
-    UntagLogGroupResponse (UntagLogGroupResponse'),
-    newUntagLogGroupResponse,
-
-    -- ** StopQuery
-    StopQuery (StopQuery'),
-    newStopQuery,
-    StopQueryResponse (StopQueryResponse'),
-    newStopQueryResponse,
+    -- ** CancelExportTask
+    CancelExportTask (CancelExportTask'),
+    newCancelExportTask,
+    CancelExportTaskResponse (CancelExportTaskResponse'),
+    newCancelExportTaskResponse,
 
     -- ** CreateExportTask
     CreateExportTask (CreateExportTask'),
@@ -126,23 +113,83 @@ module Amazonka.CloudWatchLogs
     CreateExportTaskResponse (CreateExportTaskResponse'),
     newCreateExportTaskResponse,
 
-    -- ** PutDestination
-    PutDestination (PutDestination'),
-    newPutDestination,
-    PutDestinationResponse (PutDestinationResponse'),
-    newPutDestinationResponse,
+    -- ** CreateLogGroup
+    CreateLogGroup (CreateLogGroup'),
+    newCreateLogGroup,
+    CreateLogGroupResponse (CreateLogGroupResponse'),
+    newCreateLogGroupResponse,
 
-    -- ** DescribeSubscriptionFilters (Paginated)
-    DescribeSubscriptionFilters (DescribeSubscriptionFilters'),
-    newDescribeSubscriptionFilters,
-    DescribeSubscriptionFiltersResponse (DescribeSubscriptionFiltersResponse'),
-    newDescribeSubscriptionFiltersResponse,
+    -- ** CreateLogStream
+    CreateLogStream (CreateLogStream'),
+    newCreateLogStream,
+    CreateLogStreamResponse (CreateLogStreamResponse'),
+    newCreateLogStreamResponse,
 
-    -- ** GetLogEvents
-    GetLogEvents (GetLogEvents'),
-    newGetLogEvents,
-    GetLogEventsResponse (GetLogEventsResponse'),
-    newGetLogEventsResponse,
+    -- ** DeleteDataProtectionPolicy
+    DeleteDataProtectionPolicy (DeleteDataProtectionPolicy'),
+    newDeleteDataProtectionPolicy,
+    DeleteDataProtectionPolicyResponse (DeleteDataProtectionPolicyResponse'),
+    newDeleteDataProtectionPolicyResponse,
+
+    -- ** DeleteDestination
+    DeleteDestination (DeleteDestination'),
+    newDeleteDestination,
+    DeleteDestinationResponse (DeleteDestinationResponse'),
+    newDeleteDestinationResponse,
+
+    -- ** DeleteLogGroup
+    DeleteLogGroup (DeleteLogGroup'),
+    newDeleteLogGroup,
+    DeleteLogGroupResponse (DeleteLogGroupResponse'),
+    newDeleteLogGroupResponse,
+
+    -- ** DeleteLogStream
+    DeleteLogStream (DeleteLogStream'),
+    newDeleteLogStream,
+    DeleteLogStreamResponse (DeleteLogStreamResponse'),
+    newDeleteLogStreamResponse,
+
+    -- ** DeleteMetricFilter
+    DeleteMetricFilter (DeleteMetricFilter'),
+    newDeleteMetricFilter,
+    DeleteMetricFilterResponse (DeleteMetricFilterResponse'),
+    newDeleteMetricFilterResponse,
+
+    -- ** DeleteQueryDefinition
+    DeleteQueryDefinition (DeleteQueryDefinition'),
+    newDeleteQueryDefinition,
+    DeleteQueryDefinitionResponse (DeleteQueryDefinitionResponse'),
+    newDeleteQueryDefinitionResponse,
+
+    -- ** DeleteResourcePolicy
+    DeleteResourcePolicy (DeleteResourcePolicy'),
+    newDeleteResourcePolicy,
+    DeleteResourcePolicyResponse (DeleteResourcePolicyResponse'),
+    newDeleteResourcePolicyResponse,
+
+    -- ** DeleteRetentionPolicy
+    DeleteRetentionPolicy (DeleteRetentionPolicy'),
+    newDeleteRetentionPolicy,
+    DeleteRetentionPolicyResponse (DeleteRetentionPolicyResponse'),
+    newDeleteRetentionPolicyResponse,
+
+    -- ** DeleteSubscriptionFilter
+    DeleteSubscriptionFilter (DeleteSubscriptionFilter'),
+    newDeleteSubscriptionFilter,
+    DeleteSubscriptionFilterResponse (DeleteSubscriptionFilterResponse'),
+    newDeleteSubscriptionFilterResponse,
+
+    -- ** DescribeDestinations (Paginated)
+    DescribeDestinations (DescribeDestinations'),
+    newDescribeDestinations,
+    DescribeDestinationsResponse (DescribeDestinationsResponse'),
+    newDescribeDestinationsResponse,
+
+    -- ** DescribeExportTasks (Paginated)
+    DescribeExportTasks (DescribeExportTasks'),
+    newDescribeExportTasks,
+    DescribeExportTasksResponse (DescribeExportTasksResponse'),
+    newDescribeExportTasksResponse,
 
     -- ** DescribeLogGroups (Paginated)
     DescribeLogGroups (DescribeLogGroups'),
@@ -150,11 +197,41 @@ module Amazonka.CloudWatchLogs
     DescribeLogGroupsResponse (DescribeLogGroupsResponse'),
     newDescribeLogGroupsResponse,
 
-    -- ** DeleteDestination
-    DeleteDestination (DeleteDestination'),
-    newDeleteDestination,
-    DeleteDestinationResponse (DeleteDestinationResponse'),
-    newDeleteDestinationResponse,
+    -- ** DescribeLogStreams (Paginated)
+    DescribeLogStreams (DescribeLogStreams'),
+    newDescribeLogStreams,
+    DescribeLogStreamsResponse (DescribeLogStreamsResponse'),
+    newDescribeLogStreamsResponse,
+
+    -- ** DescribeMetricFilters (Paginated)
+    DescribeMetricFilters (DescribeMetricFilters'),
+    newDescribeMetricFilters,
+    DescribeMetricFiltersResponse (DescribeMetricFiltersResponse'),
+    newDescribeMetricFiltersResponse,
+
+    -- ** DescribeQueries (Paginated)
+    DescribeQueries (DescribeQueries'),
+    newDescribeQueries,
+    DescribeQueriesResponse (DescribeQueriesResponse'),
+    newDescribeQueriesResponse,
+
+    -- ** DescribeQueryDefinitions
+    DescribeQueryDefinitions (DescribeQueryDefinitions'),
+    newDescribeQueryDefinitions,
+    DescribeQueryDefinitionsResponse (DescribeQueryDefinitionsResponse'),
+    newDescribeQueryDefinitionsResponse,
+
+    -- ** DescribeResourcePolicies (Paginated)
+    DescribeResourcePolicies (DescribeResourcePolicies'),
+    newDescribeResourcePolicies,
+    DescribeResourcePoliciesResponse (DescribeResourcePoliciesResponse'),
+    newDescribeResourcePoliciesResponse,
+
+    -- ** DescribeSubscriptionFilters (Paginated)
+    DescribeSubscriptionFilters (DescribeSubscriptionFilters'),
+    newDescribeSubscriptionFilters,
+    DescribeSubscriptionFiltersResponse (DescribeSubscriptionFiltersResponse'),
+    newDescribeSubscriptionFiltersResponse,
 
     -- ** DisassociateKmsKey
     DisassociateKmsKey (DisassociateKmsKey'),
@@ -168,11 +245,71 @@ module Amazonka.CloudWatchLogs
     FilterLogEventsResponse (FilterLogEventsResponse'),
     newFilterLogEventsResponse,
 
-    -- ** DeleteQueryDefinition
-    DeleteQueryDefinition (DeleteQueryDefinition'),
-    newDeleteQueryDefinition,
-    DeleteQueryDefinitionResponse (DeleteQueryDefinitionResponse'),
-    newDeleteQueryDefinitionResponse,
+    -- ** GetDataProtectionPolicy
+    GetDataProtectionPolicy (GetDataProtectionPolicy'),
+    newGetDataProtectionPolicy,
+    GetDataProtectionPolicyResponse (GetDataProtectionPolicyResponse'),
+    newGetDataProtectionPolicyResponse,
+
+    -- ** GetLogEvents
+    GetLogEvents (GetLogEvents'),
+    newGetLogEvents,
+    GetLogEventsResponse (GetLogEventsResponse'),
+    newGetLogEventsResponse,
+
+    -- ** GetLogGroupFields
+    GetLogGroupFields (GetLogGroupFields'),
+    newGetLogGroupFields,
+    GetLogGroupFieldsResponse (GetLogGroupFieldsResponse'),
+    newGetLogGroupFieldsResponse,
+
+    -- ** GetLogRecord
+    GetLogRecord (GetLogRecord'),
+    newGetLogRecord,
+    GetLogRecordResponse (GetLogRecordResponse'),
+    newGetLogRecordResponse,
+
+    -- ** GetQueryResults
+    GetQueryResults (GetQueryResults'),
+    newGetQueryResults,
+    GetQueryResultsResponse (GetQueryResultsResponse'),
+    newGetQueryResultsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** PutDataProtectionPolicy
+    PutDataProtectionPolicy (PutDataProtectionPolicy'),
+    newPutDataProtectionPolicy,
+    PutDataProtectionPolicyResponse (PutDataProtectionPolicyResponse'),
+    newPutDataProtectionPolicyResponse,
+
+    -- ** PutDestination
+    PutDestination (PutDestination'),
+    newPutDestination,
+    PutDestinationResponse (PutDestinationResponse'),
+    newPutDestinationResponse,
+
+    -- ** PutDestinationPolicy
+    PutDestinationPolicy (PutDestinationPolicy'),
+    newPutDestinationPolicy,
+    PutDestinationPolicyResponse (PutDestinationPolicyResponse'),
+    newPutDestinationPolicyResponse,
+
+    -- ** PutLogEvents
+    PutLogEvents (PutLogEvents'),
+    newPutLogEvents,
+    PutLogEventsResponse (PutLogEventsResponse'),
+    newPutLogEventsResponse,
+
+    -- ** PutMetricFilter
+    PutMetricFilter (PutMetricFilter'),
+    newPutMetricFilter,
+    PutMetricFilterResponse (PutMetricFilterResponse'),
+    newPutMetricFilterResponse,
 
     -- ** PutQueryDefinition
     PutQueryDefinition (PutQueryDefinition'),
@@ -180,59 +317,17 @@ module Amazonka.CloudWatchLogs
     PutQueryDefinitionResponse (PutQueryDefinitionResponse'),
     newPutQueryDefinitionResponse,
 
-    -- ** TagLogGroup
-    TagLogGroup (TagLogGroup'),
-    newTagLogGroup,
-    TagLogGroupResponse (TagLogGroupResponse'),
-    newTagLogGroupResponse,
+    -- ** PutResourcePolicy
+    PutResourcePolicy (PutResourcePolicy'),
+    newPutResourcePolicy,
+    PutResourcePolicyResponse (PutResourcePolicyResponse'),
+    newPutResourcePolicyResponse,
 
-    -- ** DescribeResourcePolicies (Paginated)
-    DescribeResourcePolicies (DescribeResourcePolicies'),
-    newDescribeResourcePolicies,
-    DescribeResourcePoliciesResponse (DescribeResourcePoliciesResponse'),
-    newDescribeResourcePoliciesResponse,
-
-    -- ** DescribeQueryDefinitions
-    DescribeQueryDefinitions (DescribeQueryDefinitions'),
-    newDescribeQueryDefinitions,
-    DescribeQueryDefinitionsResponse (DescribeQueryDefinitionsResponse'),
-    newDescribeQueryDefinitionsResponse,
-
-    -- ** DeleteLogStream
-    DeleteLogStream (DeleteLogStream'),
-    newDeleteLogStream,
-    DeleteLogStreamResponse (DeleteLogStreamResponse'),
-    newDeleteLogStreamResponse,
-
-    -- ** DescribeQueries (Paginated)
-    DescribeQueries (DescribeQueries'),
-    newDescribeQueries,
-    DescribeQueriesResponse (DescribeQueriesResponse'),
-    newDescribeQueriesResponse,
-
-    -- ** CreateLogStream
-    CreateLogStream (CreateLogStream'),
-    newCreateLogStream,
-    CreateLogStreamResponse (CreateLogStreamResponse'),
-    newCreateLogStreamResponse,
-
-    -- ** CreateLogGroup
-    CreateLogGroup (CreateLogGroup'),
-    newCreateLogGroup,
-    CreateLogGroupResponse (CreateLogGroupResponse'),
-    newCreateLogGroupResponse,
-
-    -- ** DescribeExportTasks (Paginated)
-    DescribeExportTasks (DescribeExportTasks'),
-    newDescribeExportTasks,
-    DescribeExportTasksResponse (DescribeExportTasksResponse'),
-    newDescribeExportTasksResponse,
-
-    -- ** CancelExportTask
-    CancelExportTask (CancelExportTask'),
-    newCancelExportTask,
-    CancelExportTaskResponse (CancelExportTaskResponse'),
-    newCancelExportTaskResponse,
+    -- ** PutRetentionPolicy
+    PutRetentionPolicy (PutRetentionPolicy'),
+    newPutRetentionPolicy,
+    PutRetentionPolicyResponse (PutRetentionPolicyResponse'),
+    newPutRetentionPolicyResponse,
 
     -- ** PutSubscriptionFilter
     PutSubscriptionFilter (PutSubscriptionFilter'),
@@ -246,29 +341,17 @@ module Amazonka.CloudWatchLogs
     StartQueryResponse (StartQueryResponse'),
     newStartQueryResponse,
 
-    -- ** DeleteLogGroup
-    DeleteLogGroup (DeleteLogGroup'),
-    newDeleteLogGroup,
-    DeleteLogGroupResponse (DeleteLogGroupResponse'),
-    newDeleteLogGroupResponse,
+    -- ** StopQuery
+    StopQuery (StopQuery'),
+    newStopQuery,
+    StopQueryResponse (StopQueryResponse'),
+    newStopQueryResponse,
 
-    -- ** DeleteSubscriptionFilter
-    DeleteSubscriptionFilter (DeleteSubscriptionFilter'),
-    newDeleteSubscriptionFilter,
-    DeleteSubscriptionFilterResponse (DeleteSubscriptionFilterResponse'),
-    newDeleteSubscriptionFilterResponse,
-
-    -- ** PutLogEvents
-    PutLogEvents (PutLogEvents'),
-    newPutLogEvents,
-    PutLogEventsResponse (PutLogEventsResponse'),
-    newPutLogEventsResponse,
-
-    -- ** DescribeMetricFilters (Paginated)
-    DescribeMetricFilters (DescribeMetricFilters'),
-    newDescribeMetricFilters,
-    DescribeMetricFiltersResponse (DescribeMetricFiltersResponse'),
-    newDescribeMetricFiltersResponse,
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** TestMetricFilter
     TestMetricFilter (TestMetricFilter'),
@@ -276,73 +359,16 @@ module Amazonka.CloudWatchLogs
     TestMetricFilterResponse (TestMetricFilterResponse'),
     newTestMetricFilterResponse,
 
-    -- ** PutDestinationPolicy
-    PutDestinationPolicy (PutDestinationPolicy'),
-    newPutDestinationPolicy,
-    PutDestinationPolicyResponse (PutDestinationPolicyResponse'),
-    newPutDestinationPolicyResponse,
-
-    -- ** PutMetricFilter
-    PutMetricFilter (PutMetricFilter'),
-    newPutMetricFilter,
-    PutMetricFilterResponse (PutMetricFilterResponse'),
-    newPutMetricFilterResponse,
-
-    -- ** DeleteRetentionPolicy
-    DeleteRetentionPolicy (DeleteRetentionPolicy'),
-    newDeleteRetentionPolicy,
-    DeleteRetentionPolicyResponse (DeleteRetentionPolicyResponse'),
-    newDeleteRetentionPolicyResponse,
-
-    -- ** DeleteMetricFilter
-    DeleteMetricFilter (DeleteMetricFilter'),
-    newDeleteMetricFilter,
-    DeleteMetricFilterResponse (DeleteMetricFilterResponse'),
-    newDeleteMetricFilterResponse,
-
-    -- ** PutRetentionPolicy
-    PutRetentionPolicy (PutRetentionPolicy'),
-    newPutRetentionPolicy,
-    PutRetentionPolicyResponse (PutRetentionPolicyResponse'),
-    newPutRetentionPolicyResponse,
-
-    -- ** ListTagsLogGroup
-    ListTagsLogGroup (ListTagsLogGroup'),
-    newListTagsLogGroup,
-    ListTagsLogGroupResponse (ListTagsLogGroupResponse'),
-    newListTagsLogGroupResponse,
-
-    -- ** PutResourcePolicy
-    PutResourcePolicy (PutResourcePolicy'),
-    newPutResourcePolicy,
-    PutResourcePolicyResponse (PutResourcePolicyResponse'),
-    newPutResourcePolicyResponse,
-
-    -- ** DeleteResourcePolicy
-    DeleteResourcePolicy (DeleteResourcePolicy'),
-    newDeleteResourcePolicy,
-    DeleteResourcePolicyResponse (DeleteResourcePolicyResponse'),
-    newDeleteResourcePolicyResponse,
-
-    -- ** AssociateKmsKey
-    AssociateKmsKey (AssociateKmsKey'),
-    newAssociateKmsKey,
-    AssociateKmsKeyResponse (AssociateKmsKeyResponse'),
-    newAssociateKmsKeyResponse,
-
-    -- ** GetQueryResults
-    GetQueryResults (GetQueryResults'),
-    newGetQueryResults,
-    GetQueryResultsResponse (GetQueryResultsResponse'),
-    newGetQueryResultsResponse,
-
-    -- ** DescribeLogStreams (Paginated)
-    DescribeLogStreams (DescribeLogStreams'),
-    newDescribeLogStreams,
-    DescribeLogStreamsResponse (DescribeLogStreamsResponse'),
-    newDescribeLogStreamsResponse,
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- * Types
+
+    -- ** DataProtectionStatus
+    DataProtectionStatus (..),
 
     -- ** Distribution
     Distribution (..),
@@ -450,6 +476,7 @@ import Amazonka.CloudWatchLogs.CancelExportTask
 import Amazonka.CloudWatchLogs.CreateExportTask
 import Amazonka.CloudWatchLogs.CreateLogGroup
 import Amazonka.CloudWatchLogs.CreateLogStream
+import Amazonka.CloudWatchLogs.DeleteDataProtectionPolicy
 import Amazonka.CloudWatchLogs.DeleteDestination
 import Amazonka.CloudWatchLogs.DeleteLogGroup
 import Amazonka.CloudWatchLogs.DeleteLogStream
@@ -469,12 +496,14 @@ import Amazonka.CloudWatchLogs.DescribeResourcePolicies
 import Amazonka.CloudWatchLogs.DescribeSubscriptionFilters
 import Amazonka.CloudWatchLogs.DisassociateKmsKey
 import Amazonka.CloudWatchLogs.FilterLogEvents
+import Amazonka.CloudWatchLogs.GetDataProtectionPolicy
 import Amazonka.CloudWatchLogs.GetLogEvents
 import Amazonka.CloudWatchLogs.GetLogGroupFields
 import Amazonka.CloudWatchLogs.GetLogRecord
 import Amazonka.CloudWatchLogs.GetQueryResults
 import Amazonka.CloudWatchLogs.Lens
-import Amazonka.CloudWatchLogs.ListTagsLogGroup
+import Amazonka.CloudWatchLogs.ListTagsForResource
+import Amazonka.CloudWatchLogs.PutDataProtectionPolicy
 import Amazonka.CloudWatchLogs.PutDestination
 import Amazonka.CloudWatchLogs.PutDestinationPolicy
 import Amazonka.CloudWatchLogs.PutLogEvents
@@ -485,10 +514,10 @@ import Amazonka.CloudWatchLogs.PutRetentionPolicy
 import Amazonka.CloudWatchLogs.PutSubscriptionFilter
 import Amazonka.CloudWatchLogs.StartQuery
 import Amazonka.CloudWatchLogs.StopQuery
-import Amazonka.CloudWatchLogs.TagLogGroup
+import Amazonka.CloudWatchLogs.TagResource
 import Amazonka.CloudWatchLogs.TestMetricFilter
 import Amazonka.CloudWatchLogs.Types
-import Amazonka.CloudWatchLogs.UntagLogGroup
+import Amazonka.CloudWatchLogs.UntagResource
 import Amazonka.CloudWatchLogs.Waiters
 
 -- $errors

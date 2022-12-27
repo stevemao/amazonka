@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.RegisterInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,12 +49,12 @@ module Amazonka.OpsWorks.RegisterInstance
     newRegisterInstance,
 
     -- * Request Lenses
-    registerInstance_privateIp,
     registerInstance_hostname,
     registerInstance_instanceIdentity,
+    registerInstance_privateIp,
     registerInstance_publicIp,
-    registerInstance_rsaPublicKeyFingerprint,
     registerInstance_rsaPublicKey,
+    registerInstance_rsaPublicKeyFingerprint,
     registerInstance_stackId,
 
     -- * Destructuring the Response
@@ -68,7 +68,8 @@ module Amazonka.OpsWorks.RegisterInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -76,19 +77,19 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newRegisterInstance' smart constructor.
 data RegisterInstance = RegisterInstance'
-  { -- | The instance\'s private IP address.
-    privateIp :: Prelude.Maybe Prelude.Text,
-    -- | The instance\'s hostname.
+  { -- | The instance\'s hostname.
     hostname :: Prelude.Maybe Prelude.Text,
     -- | An InstanceIdentity object that contains the instance\'s identity.
     instanceIdentity :: Prelude.Maybe InstanceIdentity,
+    -- | The instance\'s private IP address.
+    privateIp :: Prelude.Maybe Prelude.Text,
     -- | The instance\'s public IP address.
     publicIp :: Prelude.Maybe Prelude.Text,
-    -- | The instances public RSA key fingerprint.
-    rsaPublicKeyFingerprint :: Prelude.Maybe Prelude.Text,
     -- | The instances public RSA key. This key is used to encrypt communication
     -- between the instance and the service.
     rsaPublicKey :: Prelude.Maybe Prelude.Text,
+    -- | The instances public RSA key fingerprint.
+    rsaPublicKeyFingerprint :: Prelude.Maybe Prelude.Text,
     -- | The ID of the stack that the instance is to be registered with.
     stackId :: Prelude.Text
   }
@@ -102,18 +103,18 @@ data RegisterInstance = RegisterInstance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'privateIp', 'registerInstance_privateIp' - The instance\'s private IP address.
---
 -- 'hostname', 'registerInstance_hostname' - The instance\'s hostname.
 --
 -- 'instanceIdentity', 'registerInstance_instanceIdentity' - An InstanceIdentity object that contains the instance\'s identity.
 --
--- 'publicIp', 'registerInstance_publicIp' - The instance\'s public IP address.
+-- 'privateIp', 'registerInstance_privateIp' - The instance\'s private IP address.
 --
--- 'rsaPublicKeyFingerprint', 'registerInstance_rsaPublicKeyFingerprint' - The instances public RSA key fingerprint.
+-- 'publicIp', 'registerInstance_publicIp' - The instance\'s public IP address.
 --
 -- 'rsaPublicKey', 'registerInstance_rsaPublicKey' - The instances public RSA key. This key is used to encrypt communication
 -- between the instance and the service.
+--
+-- 'rsaPublicKeyFingerprint', 'registerInstance_rsaPublicKeyFingerprint' - The instances public RSA key fingerprint.
 --
 -- 'stackId', 'registerInstance_stackId' - The ID of the stack that the instance is to be registered with.
 newRegisterInstance ::
@@ -122,18 +123,14 @@ newRegisterInstance ::
   RegisterInstance
 newRegisterInstance pStackId_ =
   RegisterInstance'
-    { privateIp = Prelude.Nothing,
-      hostname = Prelude.Nothing,
+    { hostname = Prelude.Nothing,
       instanceIdentity = Prelude.Nothing,
+      privateIp = Prelude.Nothing,
       publicIp = Prelude.Nothing,
-      rsaPublicKeyFingerprint = Prelude.Nothing,
       rsaPublicKey = Prelude.Nothing,
+      rsaPublicKeyFingerprint = Prelude.Nothing,
       stackId = pStackId_
     }
-
--- | The instance\'s private IP address.
-registerInstance_privateIp :: Lens.Lens' RegisterInstance (Prelude.Maybe Prelude.Text)
-registerInstance_privateIp = Lens.lens (\RegisterInstance' {privateIp} -> privateIp) (\s@RegisterInstance' {} a -> s {privateIp = a} :: RegisterInstance)
 
 -- | The instance\'s hostname.
 registerInstance_hostname :: Lens.Lens' RegisterInstance (Prelude.Maybe Prelude.Text)
@@ -143,18 +140,22 @@ registerInstance_hostname = Lens.lens (\RegisterInstance' {hostname} -> hostname
 registerInstance_instanceIdentity :: Lens.Lens' RegisterInstance (Prelude.Maybe InstanceIdentity)
 registerInstance_instanceIdentity = Lens.lens (\RegisterInstance' {instanceIdentity} -> instanceIdentity) (\s@RegisterInstance' {} a -> s {instanceIdentity = a} :: RegisterInstance)
 
+-- | The instance\'s private IP address.
+registerInstance_privateIp :: Lens.Lens' RegisterInstance (Prelude.Maybe Prelude.Text)
+registerInstance_privateIp = Lens.lens (\RegisterInstance' {privateIp} -> privateIp) (\s@RegisterInstance' {} a -> s {privateIp = a} :: RegisterInstance)
+
 -- | The instance\'s public IP address.
 registerInstance_publicIp :: Lens.Lens' RegisterInstance (Prelude.Maybe Prelude.Text)
 registerInstance_publicIp = Lens.lens (\RegisterInstance' {publicIp} -> publicIp) (\s@RegisterInstance' {} a -> s {publicIp = a} :: RegisterInstance)
-
--- | The instances public RSA key fingerprint.
-registerInstance_rsaPublicKeyFingerprint :: Lens.Lens' RegisterInstance (Prelude.Maybe Prelude.Text)
-registerInstance_rsaPublicKeyFingerprint = Lens.lens (\RegisterInstance' {rsaPublicKeyFingerprint} -> rsaPublicKeyFingerprint) (\s@RegisterInstance' {} a -> s {rsaPublicKeyFingerprint = a} :: RegisterInstance)
 
 -- | The instances public RSA key. This key is used to encrypt communication
 -- between the instance and the service.
 registerInstance_rsaPublicKey :: Lens.Lens' RegisterInstance (Prelude.Maybe Prelude.Text)
 registerInstance_rsaPublicKey = Lens.lens (\RegisterInstance' {rsaPublicKey} -> rsaPublicKey) (\s@RegisterInstance' {} a -> s {rsaPublicKey = a} :: RegisterInstance)
+
+-- | The instances public RSA key fingerprint.
+registerInstance_rsaPublicKeyFingerprint :: Lens.Lens' RegisterInstance (Prelude.Maybe Prelude.Text)
+registerInstance_rsaPublicKeyFingerprint = Lens.lens (\RegisterInstance' {rsaPublicKeyFingerprint} -> rsaPublicKeyFingerprint) (\s@RegisterInstance' {} a -> s {rsaPublicKeyFingerprint = a} :: RegisterInstance)
 
 -- | The ID of the stack that the instance is to be registered with.
 registerInstance_stackId :: Lens.Lens' RegisterInstance Prelude.Text
@@ -164,70 +165,71 @@ instance Core.AWSRequest RegisterInstance where
   type
     AWSResponse RegisterInstance =
       RegisterInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RegisterInstanceResponse'
-            Prelude.<$> (x Core..?> "InstanceId")
+            Prelude.<$> (x Data..?> "InstanceId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable RegisterInstance where
   hashWithSalt _salt RegisterInstance' {..} =
-    _salt `Prelude.hashWithSalt` privateIp
-      `Prelude.hashWithSalt` hostname
+    _salt `Prelude.hashWithSalt` hostname
       `Prelude.hashWithSalt` instanceIdentity
+      `Prelude.hashWithSalt` privateIp
       `Prelude.hashWithSalt` publicIp
-      `Prelude.hashWithSalt` rsaPublicKeyFingerprint
       `Prelude.hashWithSalt` rsaPublicKey
+      `Prelude.hashWithSalt` rsaPublicKeyFingerprint
       `Prelude.hashWithSalt` stackId
 
 instance Prelude.NFData RegisterInstance where
   rnf RegisterInstance' {..} =
-    Prelude.rnf privateIp
-      `Prelude.seq` Prelude.rnf hostname
+    Prelude.rnf hostname
       `Prelude.seq` Prelude.rnf instanceIdentity
+      `Prelude.seq` Prelude.rnf privateIp
       `Prelude.seq` Prelude.rnf publicIp
-      `Prelude.seq` Prelude.rnf rsaPublicKeyFingerprint
       `Prelude.seq` Prelude.rnf rsaPublicKey
+      `Prelude.seq` Prelude.rnf rsaPublicKeyFingerprint
       `Prelude.seq` Prelude.rnf stackId
 
-instance Core.ToHeaders RegisterInstance where
+instance Data.ToHeaders RegisterInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.RegisterInstance" ::
+              Data.=# ( "OpsWorks_20130218.RegisterInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterInstance where
+instance Data.ToJSON RegisterInstance where
   toJSON RegisterInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PrivateIp" Core..=) Prelude.<$> privateIp,
-            ("Hostname" Core..=) Prelude.<$> hostname,
-            ("InstanceIdentity" Core..=)
+          [ ("Hostname" Data..=) Prelude.<$> hostname,
+            ("InstanceIdentity" Data..=)
               Prelude.<$> instanceIdentity,
-            ("PublicIp" Core..=) Prelude.<$> publicIp,
-            ("RsaPublicKeyFingerprint" Core..=)
+            ("PrivateIp" Data..=) Prelude.<$> privateIp,
+            ("PublicIp" Data..=) Prelude.<$> publicIp,
+            ("RsaPublicKey" Data..=) Prelude.<$> rsaPublicKey,
+            ("RsaPublicKeyFingerprint" Data..=)
               Prelude.<$> rsaPublicKeyFingerprint,
-            ("RsaPublicKey" Core..=) Prelude.<$> rsaPublicKey,
-            Prelude.Just ("StackId" Core..= stackId)
+            Prelude.Just ("StackId" Data..= stackId)
           ]
       )
 
-instance Core.ToPath RegisterInstance where
+instance Data.ToPath RegisterInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterInstance where
+instance Data.ToQuery RegisterInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @RegisterInstanceResult@ request.

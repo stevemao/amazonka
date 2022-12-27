@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.CreateRobotApplicationVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.RobOMaker.CreateRobotApplicationVersion
 
     -- * Request Lenses
     createRobotApplicationVersion_currentRevisionId,
-    createRobotApplicationVersion_s3Etags,
     createRobotApplicationVersion_imageDigest,
+    createRobotApplicationVersion_s3Etags,
     createRobotApplicationVersion_application,
 
     -- * Destructuring the Response
@@ -37,20 +37,21 @@ module Amazonka.RobOMaker.CreateRobotApplicationVersion
     newCreateRobotApplicationVersionResponse,
 
     -- * Response Lenses
-    createRobotApplicationVersionResponse_lastUpdatedAt,
     createRobotApplicationVersionResponse_arn,
     createRobotApplicationVersionResponse_environment,
-    createRobotApplicationVersionResponse_sources,
+    createRobotApplicationVersionResponse_lastUpdatedAt,
     createRobotApplicationVersionResponse_name,
-    createRobotApplicationVersionResponse_version,
-    createRobotApplicationVersionResponse_robotSoftwareSuite,
     createRobotApplicationVersionResponse_revisionId,
+    createRobotApplicationVersionResponse_robotSoftwareSuite,
+    createRobotApplicationVersionResponse_sources,
+    createRobotApplicationVersionResponse_version,
     createRobotApplicationVersionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,12 +63,12 @@ data CreateRobotApplicationVersion = CreateRobotApplicationVersion'
     -- value and it matches the latest revision ID, a new version will be
     -- created.
     currentRevisionId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon S3 identifier for the zip file bundle that you use for your
-    -- robot application.
-    s3Etags :: Prelude.Maybe [Prelude.Text],
     -- | A SHA256 identifier for the Docker image that you use for your robot
     -- application.
     imageDigest :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon S3 identifier for the zip file bundle that you use for your
+    -- robot application.
+    s3Etags :: Prelude.Maybe [Prelude.Text],
     -- | The application information for the robot application.
     application :: Prelude.Text
   }
@@ -85,11 +86,11 @@ data CreateRobotApplicationVersion = CreateRobotApplicationVersion'
 -- value and it matches the latest revision ID, a new version will be
 -- created.
 --
--- 's3Etags', 'createRobotApplicationVersion_s3Etags' - The Amazon S3 identifier for the zip file bundle that you use for your
--- robot application.
---
 -- 'imageDigest', 'createRobotApplicationVersion_imageDigest' - A SHA256 identifier for the Docker image that you use for your robot
 -- application.
+--
+-- 's3Etags', 'createRobotApplicationVersion_s3Etags' - The Amazon S3 identifier for the zip file bundle that you use for your
+-- robot application.
 --
 -- 'application', 'createRobotApplicationVersion_application' - The application information for the robot application.
 newCreateRobotApplicationVersion ::
@@ -100,8 +101,8 @@ newCreateRobotApplicationVersion pApplication_ =
   CreateRobotApplicationVersion'
     { currentRevisionId =
         Prelude.Nothing,
-      s3Etags = Prelude.Nothing,
       imageDigest = Prelude.Nothing,
+      s3Etags = Prelude.Nothing,
       application = pApplication_
     }
 
@@ -111,15 +112,15 @@ newCreateRobotApplicationVersion pApplication_ =
 createRobotApplicationVersion_currentRevisionId :: Lens.Lens' CreateRobotApplicationVersion (Prelude.Maybe Prelude.Text)
 createRobotApplicationVersion_currentRevisionId = Lens.lens (\CreateRobotApplicationVersion' {currentRevisionId} -> currentRevisionId) (\s@CreateRobotApplicationVersion' {} a -> s {currentRevisionId = a} :: CreateRobotApplicationVersion)
 
--- | The Amazon S3 identifier for the zip file bundle that you use for your
--- robot application.
-createRobotApplicationVersion_s3Etags :: Lens.Lens' CreateRobotApplicationVersion (Prelude.Maybe [Prelude.Text])
-createRobotApplicationVersion_s3Etags = Lens.lens (\CreateRobotApplicationVersion' {s3Etags} -> s3Etags) (\s@CreateRobotApplicationVersion' {} a -> s {s3Etags = a} :: CreateRobotApplicationVersion) Prelude.. Lens.mapping Lens.coerced
-
 -- | A SHA256 identifier for the Docker image that you use for your robot
 -- application.
 createRobotApplicationVersion_imageDigest :: Lens.Lens' CreateRobotApplicationVersion (Prelude.Maybe Prelude.Text)
 createRobotApplicationVersion_imageDigest = Lens.lens (\CreateRobotApplicationVersion' {imageDigest} -> imageDigest) (\s@CreateRobotApplicationVersion' {} a -> s {imageDigest = a} :: CreateRobotApplicationVersion)
+
+-- | The Amazon S3 identifier for the zip file bundle that you use for your
+-- robot application.
+createRobotApplicationVersion_s3Etags :: Lens.Lens' CreateRobotApplicationVersion (Prelude.Maybe [Prelude.Text])
+createRobotApplicationVersion_s3Etags = Lens.lens (\CreateRobotApplicationVersion' {s3Etags} -> s3Etags) (\s@CreateRobotApplicationVersion' {} a -> s {s3Etags = a} :: CreateRobotApplicationVersion) Prelude.. Lens.mapping Lens.coerced
 
 -- | The application information for the robot application.
 createRobotApplicationVersion_application :: Lens.Lens' CreateRobotApplicationVersion Prelude.Text
@@ -132,19 +133,20 @@ instance
   type
     AWSResponse CreateRobotApplicationVersion =
       CreateRobotApplicationVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateRobotApplicationVersionResponse'
-            Prelude.<$> (x Core..?> "lastUpdatedAt")
-            Prelude.<*> (x Core..?> "arn")
-            Prelude.<*> (x Core..?> "environment")
-            Prelude.<*> (x Core..?> "sources" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "name")
-            Prelude.<*> (x Core..?> "version")
-            Prelude.<*> (x Core..?> "robotSoftwareSuite")
-            Prelude.<*> (x Core..?> "revisionId")
+            Prelude.<$> (x Data..?> "arn")
+            Prelude.<*> (x Data..?> "environment")
+            Prelude.<*> (x Data..?> "lastUpdatedAt")
+            Prelude.<*> (x Data..?> "name")
+            Prelude.<*> (x Data..?> "revisionId")
+            Prelude.<*> (x Data..?> "robotSoftwareSuite")
+            Prelude.<*> (x Data..?> "sources" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "version")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -154,68 +156,68 @@ instance
   where
   hashWithSalt _salt CreateRobotApplicationVersion' {..} =
     _salt `Prelude.hashWithSalt` currentRevisionId
-      `Prelude.hashWithSalt` s3Etags
       `Prelude.hashWithSalt` imageDigest
+      `Prelude.hashWithSalt` s3Etags
       `Prelude.hashWithSalt` application
 
 instance Prelude.NFData CreateRobotApplicationVersion where
   rnf CreateRobotApplicationVersion' {..} =
     Prelude.rnf currentRevisionId
-      `Prelude.seq` Prelude.rnf s3Etags
       `Prelude.seq` Prelude.rnf imageDigest
+      `Prelude.seq` Prelude.rnf s3Etags
       `Prelude.seq` Prelude.rnf application
 
-instance Core.ToHeaders CreateRobotApplicationVersion where
+instance Data.ToHeaders CreateRobotApplicationVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateRobotApplicationVersion where
+instance Data.ToJSON CreateRobotApplicationVersion where
   toJSON CreateRobotApplicationVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("currentRevisionId" Core..=)
+          [ ("currentRevisionId" Data..=)
               Prelude.<$> currentRevisionId,
-            ("s3Etags" Core..=) Prelude.<$> s3Etags,
-            ("imageDigest" Core..=) Prelude.<$> imageDigest,
-            Prelude.Just ("application" Core..= application)
+            ("imageDigest" Data..=) Prelude.<$> imageDigest,
+            ("s3Etags" Data..=) Prelude.<$> s3Etags,
+            Prelude.Just ("application" Data..= application)
           ]
       )
 
-instance Core.ToPath CreateRobotApplicationVersion where
+instance Data.ToPath CreateRobotApplicationVersion where
   toPath =
     Prelude.const "/createRobotApplicationVersion"
 
-instance Core.ToQuery CreateRobotApplicationVersion where
+instance Data.ToQuery CreateRobotApplicationVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateRobotApplicationVersionResponse' smart constructor.
 data CreateRobotApplicationVersionResponse = CreateRobotApplicationVersionResponse'
-  { -- | The time, in milliseconds since the epoch, when the robot application
-    -- was last updated.
-    lastUpdatedAt :: Prelude.Maybe Core.POSIX,
-    -- | The Amazon Resource Name (ARN) of the robot application.
+  { -- | The Amazon Resource Name (ARN) of the robot application.
     arn :: Prelude.Maybe Prelude.Text,
     -- | The object that contains the Docker image URI used to create your robot
     -- application.
     environment :: Prelude.Maybe Environment,
-    -- | The sources of the robot application.
-    sources :: Prelude.Maybe [Source],
+    -- | The time, in milliseconds since the epoch, when the robot application
+    -- was last updated.
+    lastUpdatedAt :: Prelude.Maybe Data.POSIX,
     -- | The name of the robot application.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The version of the robot application.
-    version :: Prelude.Maybe Prelude.Text,
+    -- | The revision id of the robot application.
+    revisionId :: Prelude.Maybe Prelude.Text,
     -- | The robot software suite (ROS distribution) used by the robot
     -- application.
     robotSoftwareSuite :: Prelude.Maybe RobotSoftwareSuite,
-    -- | The revision id of the robot application.
-    revisionId :: Prelude.Maybe Prelude.Text,
+    -- | The sources of the robot application.
+    sources :: Prelude.Maybe [Source],
+    -- | The version of the robot application.
+    version :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -229,24 +231,24 @@ data CreateRobotApplicationVersionResponse = CreateRobotApplicationVersionRespon
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'lastUpdatedAt', 'createRobotApplicationVersionResponse_lastUpdatedAt' - The time, in milliseconds since the epoch, when the robot application
--- was last updated.
---
 -- 'arn', 'createRobotApplicationVersionResponse_arn' - The Amazon Resource Name (ARN) of the robot application.
 --
 -- 'environment', 'createRobotApplicationVersionResponse_environment' - The object that contains the Docker image URI used to create your robot
 -- application.
 --
--- 'sources', 'createRobotApplicationVersionResponse_sources' - The sources of the robot application.
+-- 'lastUpdatedAt', 'createRobotApplicationVersionResponse_lastUpdatedAt' - The time, in milliseconds since the epoch, when the robot application
+-- was last updated.
 --
 -- 'name', 'createRobotApplicationVersionResponse_name' - The name of the robot application.
 --
--- 'version', 'createRobotApplicationVersionResponse_version' - The version of the robot application.
+-- 'revisionId', 'createRobotApplicationVersionResponse_revisionId' - The revision id of the robot application.
 --
 -- 'robotSoftwareSuite', 'createRobotApplicationVersionResponse_robotSoftwareSuite' - The robot software suite (ROS distribution) used by the robot
 -- application.
 --
--- 'revisionId', 'createRobotApplicationVersionResponse_revisionId' - The revision id of the robot application.
+-- 'sources', 'createRobotApplicationVersionResponse_sources' - The sources of the robot application.
+--
+-- 'version', 'createRobotApplicationVersionResponse_version' - The version of the robot application.
 --
 -- 'httpStatus', 'createRobotApplicationVersionResponse_httpStatus' - The response's http status code.
 newCreateRobotApplicationVersionResponse ::
@@ -255,22 +257,17 @@ newCreateRobotApplicationVersionResponse ::
   CreateRobotApplicationVersionResponse
 newCreateRobotApplicationVersionResponse pHttpStatus_ =
   CreateRobotApplicationVersionResponse'
-    { lastUpdatedAt =
+    { arn =
         Prelude.Nothing,
-      arn = Prelude.Nothing,
       environment = Prelude.Nothing,
-      sources = Prelude.Nothing,
+      lastUpdatedAt = Prelude.Nothing,
       name = Prelude.Nothing,
-      version = Prelude.Nothing,
-      robotSoftwareSuite = Prelude.Nothing,
       revisionId = Prelude.Nothing,
+      robotSoftwareSuite = Prelude.Nothing,
+      sources = Prelude.Nothing,
+      version = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The time, in milliseconds since the epoch, when the robot application
--- was last updated.
-createRobotApplicationVersionResponse_lastUpdatedAt :: Lens.Lens' CreateRobotApplicationVersionResponse (Prelude.Maybe Prelude.UTCTime)
-createRobotApplicationVersionResponse_lastUpdatedAt = Lens.lens (\CreateRobotApplicationVersionResponse' {lastUpdatedAt} -> lastUpdatedAt) (\s@CreateRobotApplicationVersionResponse' {} a -> s {lastUpdatedAt = a} :: CreateRobotApplicationVersionResponse) Prelude.. Lens.mapping Core._Time
 
 -- | The Amazon Resource Name (ARN) of the robot application.
 createRobotApplicationVersionResponse_arn :: Lens.Lens' CreateRobotApplicationVersionResponse (Prelude.Maybe Prelude.Text)
@@ -281,26 +278,31 @@ createRobotApplicationVersionResponse_arn = Lens.lens (\CreateRobotApplicationVe
 createRobotApplicationVersionResponse_environment :: Lens.Lens' CreateRobotApplicationVersionResponse (Prelude.Maybe Environment)
 createRobotApplicationVersionResponse_environment = Lens.lens (\CreateRobotApplicationVersionResponse' {environment} -> environment) (\s@CreateRobotApplicationVersionResponse' {} a -> s {environment = a} :: CreateRobotApplicationVersionResponse)
 
--- | The sources of the robot application.
-createRobotApplicationVersionResponse_sources :: Lens.Lens' CreateRobotApplicationVersionResponse (Prelude.Maybe [Source])
-createRobotApplicationVersionResponse_sources = Lens.lens (\CreateRobotApplicationVersionResponse' {sources} -> sources) (\s@CreateRobotApplicationVersionResponse' {} a -> s {sources = a} :: CreateRobotApplicationVersionResponse) Prelude.. Lens.mapping Lens.coerced
+-- | The time, in milliseconds since the epoch, when the robot application
+-- was last updated.
+createRobotApplicationVersionResponse_lastUpdatedAt :: Lens.Lens' CreateRobotApplicationVersionResponse (Prelude.Maybe Prelude.UTCTime)
+createRobotApplicationVersionResponse_lastUpdatedAt = Lens.lens (\CreateRobotApplicationVersionResponse' {lastUpdatedAt} -> lastUpdatedAt) (\s@CreateRobotApplicationVersionResponse' {} a -> s {lastUpdatedAt = a} :: CreateRobotApplicationVersionResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The name of the robot application.
 createRobotApplicationVersionResponse_name :: Lens.Lens' CreateRobotApplicationVersionResponse (Prelude.Maybe Prelude.Text)
 createRobotApplicationVersionResponse_name = Lens.lens (\CreateRobotApplicationVersionResponse' {name} -> name) (\s@CreateRobotApplicationVersionResponse' {} a -> s {name = a} :: CreateRobotApplicationVersionResponse)
 
--- | The version of the robot application.
-createRobotApplicationVersionResponse_version :: Lens.Lens' CreateRobotApplicationVersionResponse (Prelude.Maybe Prelude.Text)
-createRobotApplicationVersionResponse_version = Lens.lens (\CreateRobotApplicationVersionResponse' {version} -> version) (\s@CreateRobotApplicationVersionResponse' {} a -> s {version = a} :: CreateRobotApplicationVersionResponse)
+-- | The revision id of the robot application.
+createRobotApplicationVersionResponse_revisionId :: Lens.Lens' CreateRobotApplicationVersionResponse (Prelude.Maybe Prelude.Text)
+createRobotApplicationVersionResponse_revisionId = Lens.lens (\CreateRobotApplicationVersionResponse' {revisionId} -> revisionId) (\s@CreateRobotApplicationVersionResponse' {} a -> s {revisionId = a} :: CreateRobotApplicationVersionResponse)
 
 -- | The robot software suite (ROS distribution) used by the robot
 -- application.
 createRobotApplicationVersionResponse_robotSoftwareSuite :: Lens.Lens' CreateRobotApplicationVersionResponse (Prelude.Maybe RobotSoftwareSuite)
 createRobotApplicationVersionResponse_robotSoftwareSuite = Lens.lens (\CreateRobotApplicationVersionResponse' {robotSoftwareSuite} -> robotSoftwareSuite) (\s@CreateRobotApplicationVersionResponse' {} a -> s {robotSoftwareSuite = a} :: CreateRobotApplicationVersionResponse)
 
--- | The revision id of the robot application.
-createRobotApplicationVersionResponse_revisionId :: Lens.Lens' CreateRobotApplicationVersionResponse (Prelude.Maybe Prelude.Text)
-createRobotApplicationVersionResponse_revisionId = Lens.lens (\CreateRobotApplicationVersionResponse' {revisionId} -> revisionId) (\s@CreateRobotApplicationVersionResponse' {} a -> s {revisionId = a} :: CreateRobotApplicationVersionResponse)
+-- | The sources of the robot application.
+createRobotApplicationVersionResponse_sources :: Lens.Lens' CreateRobotApplicationVersionResponse (Prelude.Maybe [Source])
+createRobotApplicationVersionResponse_sources = Lens.lens (\CreateRobotApplicationVersionResponse' {sources} -> sources) (\s@CreateRobotApplicationVersionResponse' {} a -> s {sources = a} :: CreateRobotApplicationVersionResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The version of the robot application.
+createRobotApplicationVersionResponse_version :: Lens.Lens' CreateRobotApplicationVersionResponse (Prelude.Maybe Prelude.Text)
+createRobotApplicationVersionResponse_version = Lens.lens (\CreateRobotApplicationVersionResponse' {version} -> version) (\s@CreateRobotApplicationVersionResponse' {} a -> s {version = a} :: CreateRobotApplicationVersionResponse)
 
 -- | The response's http status code.
 createRobotApplicationVersionResponse_httpStatus :: Lens.Lens' CreateRobotApplicationVersionResponse Prelude.Int
@@ -311,12 +313,12 @@ instance
     CreateRobotApplicationVersionResponse
   where
   rnf CreateRobotApplicationVersionResponse' {..} =
-    Prelude.rnf lastUpdatedAt
-      `Prelude.seq` Prelude.rnf arn
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf environment
-      `Prelude.seq` Prelude.rnf sources
+      `Prelude.seq` Prelude.rnf lastUpdatedAt
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf version
-      `Prelude.seq` Prelude.rnf robotSoftwareSuite
       `Prelude.seq` Prelude.rnf revisionId
+      `Prelude.seq` Prelude.rnf robotSoftwareSuite
+      `Prelude.seq` Prelude.rnf sources
+      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.RemoveThingFromThingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,8 +35,8 @@ module Amazonka.IoT.RemoveThingFromThingGroup
     newRemoveThingFromThingGroup,
 
     -- * Request Lenses
-    removeThingFromThingGroup_thingGroupArn,
     removeThingFromThingGroup_thingArn,
+    removeThingFromThingGroup_thingGroupArn,
     removeThingFromThingGroup_thingGroupName,
     removeThingFromThingGroup_thingName,
 
@@ -50,18 +50,19 @@ module Amazonka.IoT.RemoveThingFromThingGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newRemoveThingFromThingGroup' smart constructor.
 data RemoveThingFromThingGroup = RemoveThingFromThingGroup'
-  { -- | The group ARN.
-    thingGroupArn :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the thing to remove from the group.
+  { -- | The ARN of the thing to remove from the group.
     thingArn :: Prelude.Maybe Prelude.Text,
+    -- | The group ARN.
+    thingGroupArn :: Prelude.Maybe Prelude.Text,
     -- | The group name.
     thingGroupName :: Prelude.Maybe Prelude.Text,
     -- | The name of the thing to remove from the group.
@@ -77,9 +78,9 @@ data RemoveThingFromThingGroup = RemoveThingFromThingGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'thingGroupArn', 'removeThingFromThingGroup_thingGroupArn' - The group ARN.
---
 -- 'thingArn', 'removeThingFromThingGroup_thingArn' - The ARN of the thing to remove from the group.
+--
+-- 'thingGroupArn', 'removeThingFromThingGroup_thingGroupArn' - The group ARN.
 --
 -- 'thingGroupName', 'removeThingFromThingGroup_thingGroupName' - The group name.
 --
@@ -88,20 +89,20 @@ newRemoveThingFromThingGroup ::
   RemoveThingFromThingGroup
 newRemoveThingFromThingGroup =
   RemoveThingFromThingGroup'
-    { thingGroupArn =
+    { thingArn =
         Prelude.Nothing,
-      thingArn = Prelude.Nothing,
+      thingGroupArn = Prelude.Nothing,
       thingGroupName = Prelude.Nothing,
       thingName = Prelude.Nothing
     }
 
--- | The group ARN.
-removeThingFromThingGroup_thingGroupArn :: Lens.Lens' RemoveThingFromThingGroup (Prelude.Maybe Prelude.Text)
-removeThingFromThingGroup_thingGroupArn = Lens.lens (\RemoveThingFromThingGroup' {thingGroupArn} -> thingGroupArn) (\s@RemoveThingFromThingGroup' {} a -> s {thingGroupArn = a} :: RemoveThingFromThingGroup)
-
 -- | The ARN of the thing to remove from the group.
 removeThingFromThingGroup_thingArn :: Lens.Lens' RemoveThingFromThingGroup (Prelude.Maybe Prelude.Text)
 removeThingFromThingGroup_thingArn = Lens.lens (\RemoveThingFromThingGroup' {thingArn} -> thingArn) (\s@RemoveThingFromThingGroup' {} a -> s {thingArn = a} :: RemoveThingFromThingGroup)
+
+-- | The group ARN.
+removeThingFromThingGroup_thingGroupArn :: Lens.Lens' RemoveThingFromThingGroup (Prelude.Maybe Prelude.Text)
+removeThingFromThingGroup_thingGroupArn = Lens.lens (\RemoveThingFromThingGroup' {thingGroupArn} -> thingGroupArn) (\s@RemoveThingFromThingGroup' {} a -> s {thingGroupArn = a} :: RemoveThingFromThingGroup)
 
 -- | The group name.
 removeThingFromThingGroup_thingGroupName :: Lens.Lens' RemoveThingFromThingGroup (Prelude.Maybe Prelude.Text)
@@ -115,7 +116,8 @@ instance Core.AWSRequest RemoveThingFromThingGroup where
   type
     AWSResponse RemoveThingFromThingGroup =
       RemoveThingFromThingGroupResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -125,39 +127,39 @@ instance Core.AWSRequest RemoveThingFromThingGroup where
 
 instance Prelude.Hashable RemoveThingFromThingGroup where
   hashWithSalt _salt RemoveThingFromThingGroup' {..} =
-    _salt `Prelude.hashWithSalt` thingGroupArn
-      `Prelude.hashWithSalt` thingArn
+    _salt `Prelude.hashWithSalt` thingArn
+      `Prelude.hashWithSalt` thingGroupArn
       `Prelude.hashWithSalt` thingGroupName
       `Prelude.hashWithSalt` thingName
 
 instance Prelude.NFData RemoveThingFromThingGroup where
   rnf RemoveThingFromThingGroup' {..} =
-    Prelude.rnf thingGroupArn
-      `Prelude.seq` Prelude.rnf thingArn
+    Prelude.rnf thingArn
+      `Prelude.seq` Prelude.rnf thingGroupArn
       `Prelude.seq` Prelude.rnf thingGroupName
       `Prelude.seq` Prelude.rnf thingName
 
-instance Core.ToHeaders RemoveThingFromThingGroup where
+instance Data.ToHeaders RemoveThingFromThingGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON RemoveThingFromThingGroup where
+instance Data.ToJSON RemoveThingFromThingGroup where
   toJSON RemoveThingFromThingGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("thingGroupArn" Core..=) Prelude.<$> thingGroupArn,
-            ("thingArn" Core..=) Prelude.<$> thingArn,
-            ("thingGroupName" Core..=)
+          [ ("thingArn" Data..=) Prelude.<$> thingArn,
+            ("thingGroupArn" Data..=) Prelude.<$> thingGroupArn,
+            ("thingGroupName" Data..=)
               Prelude.<$> thingGroupName,
-            ("thingName" Core..=) Prelude.<$> thingName
+            ("thingName" Data..=) Prelude.<$> thingName
           ]
       )
 
-instance Core.ToPath RemoveThingFromThingGroup where
+instance Data.ToPath RemoveThingFromThingGroup where
   toPath =
     Prelude.const
       "/thing-groups/removeThingFromThingGroup"
 
-instance Core.ToQuery RemoveThingFromThingGroup where
+instance Data.ToQuery RemoveThingFromThingGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveThingFromThingGroupResponse' smart constructor.

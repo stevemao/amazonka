@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.Scram
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Kafka.Types.Scram where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details for SASL\/SCRAM client authentication.
@@ -49,11 +50,11 @@ newScram = Scram' {enabled = Prelude.Nothing}
 scram_enabled :: Lens.Lens' Scram (Prelude.Maybe Prelude.Bool)
 scram_enabled = Lens.lens (\Scram' {enabled} -> enabled) (\s@Scram' {} a -> s {enabled = a} :: Scram)
 
-instance Core.FromJSON Scram where
+instance Data.FromJSON Scram where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Scram"
-      (\x -> Scram' Prelude.<$> (x Core..:? "enabled"))
+      (\x -> Scram' Prelude.<$> (x Data..:? "enabled"))
 
 instance Prelude.Hashable Scram where
   hashWithSalt _salt Scram' {..} =
@@ -62,9 +63,9 @@ instance Prelude.Hashable Scram where
 instance Prelude.NFData Scram where
   rnf Scram' {..} = Prelude.rnf enabled
 
-instance Core.ToJSON Scram where
+instance Data.ToJSON Scram where
   toJSON Scram' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("enabled" Core..=) Prelude.<$> enabled]
+          [("enabled" Data..=) Prelude.<$> enabled]
       )

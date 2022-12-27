@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.UpdateLoginProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.IAM.UpdateLoginProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -71,7 +72,7 @@ data UpdateLoginProfile = UpdateLoginProfile'
     -- However, the format can be further restricted by the account
     -- administrator by setting a password policy on the Amazon Web Services
     -- account. For more information, see UpdateAccountPasswordPolicy.
-    password :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    password :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | Allows this new password to be used only once by requiring the specified
     -- IAM user to set a new password on next sign-in.
     passwordResetRequired :: Prelude.Maybe Prelude.Bool,
@@ -149,7 +150,7 @@ newUpdateLoginProfile pUserName_ =
 -- administrator by setting a password policy on the Amazon Web Services
 -- account. For more information, see UpdateAccountPasswordPolicy.
 updateLoginProfile_password :: Lens.Lens' UpdateLoginProfile (Prelude.Maybe Prelude.Text)
-updateLoginProfile_password = Lens.lens (\UpdateLoginProfile' {password} -> password) (\s@UpdateLoginProfile' {} a -> s {password = a} :: UpdateLoginProfile) Prelude.. Lens.mapping Core._Sensitive
+updateLoginProfile_password = Lens.lens (\UpdateLoginProfile' {password} -> password) (\s@UpdateLoginProfile' {} a -> s {password = a} :: UpdateLoginProfile) Prelude.. Lens.mapping Data._Sensitive
 
 -- | Allows this new password to be used only once by requiring the specified
 -- IAM user to set a new password on next sign-in.
@@ -169,7 +170,8 @@ instance Core.AWSRequest UpdateLoginProfile where
   type
     AWSResponse UpdateLoginProfile =
       UpdateLoginProfileResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull UpdateLoginProfileResponse'
 
@@ -185,23 +187,23 @@ instance Prelude.NFData UpdateLoginProfile where
       `Prelude.seq` Prelude.rnf passwordResetRequired
       `Prelude.seq` Prelude.rnf userName
 
-instance Core.ToHeaders UpdateLoginProfile where
+instance Data.ToHeaders UpdateLoginProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UpdateLoginProfile where
+instance Data.ToPath UpdateLoginProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateLoginProfile where
+instance Data.ToQuery UpdateLoginProfile where
   toQuery UpdateLoginProfile' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("UpdateLoginProfile" :: Prelude.ByteString),
+          Data.=: ("UpdateLoginProfile" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "Password" Core.=: password,
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "Password" Data.=: password,
         "PasswordResetRequired"
-          Core.=: passwordResetRequired,
-        "UserName" Core.=: userName
+          Data.=: passwordResetRequired,
+        "UserName" Data.=: userName
       ]
 
 -- | /See:/ 'newUpdateLoginProfileResponse' smart constructor.

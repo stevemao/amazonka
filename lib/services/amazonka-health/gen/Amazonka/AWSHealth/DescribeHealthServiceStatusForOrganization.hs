@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.AWSHealth.DescribeHealthServiceStatusForOrganization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- This operation provides status information on enabling or disabling AWS
+-- This operation provides status information on enabling or disabling
 -- Health to work with your organization. To call this operation, you must
 -- sign in as an IAM user, assume an IAM role, or sign in as the root user
 -- (not recommended) in the organization\'s management account.
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AWSHealth.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,13 +70,14 @@ instance
     AWSResponse
       DescribeHealthServiceStatusForOrganization =
       DescribeHealthServiceStatusForOrganizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeHealthServiceStatusForOrganizationResponse'
             Prelude.<$> ( x
-                            Core..?> "healthServiceAccessStatusForOrganization"
+                            Data..?> "healthServiceAccessStatusForOrganization"
                         )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -94,45 +96,45 @@ instance
   rnf _ = ()
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeHealthServiceStatusForOrganization
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHealth_20160804.DescribeHealthServiceStatusForOrganization" ::
+              Data.=# ( "AWSHealth_20160804.DescribeHealthServiceStatusForOrganization" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeHealthServiceStatusForOrganization
   where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeHealthServiceStatusForOrganization
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeHealthServiceStatusForOrganization
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeHealthServiceStatusForOrganizationResponse' smart constructor.
 data DescribeHealthServiceStatusForOrganizationResponse = DescribeHealthServiceStatusForOrganizationResponse'
-  { -- | Information about the status of enabling or disabling AWS Health
-    -- Organizational View in your organization.
+  { -- | Information about the status of enabling or disabling the Health
+    -- organizational view feature in your organization.
     --
     -- Valid values are @ENABLED | DISABLED | PENDING@.
     healthServiceAccessStatusForOrganization :: Prelude.Maybe Prelude.Text,
@@ -149,8 +151,8 @@ data DescribeHealthServiceStatusForOrganizationResponse = DescribeHealthServiceS
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'healthServiceAccessStatusForOrganization', 'describeHealthServiceStatusForOrganizationResponse_healthServiceAccessStatusForOrganization' - Information about the status of enabling or disabling AWS Health
--- Organizational View in your organization.
+-- 'healthServiceAccessStatusForOrganization', 'describeHealthServiceStatusForOrganizationResponse_healthServiceAccessStatusForOrganization' - Information about the status of enabling or disabling the Health
+-- organizational view feature in your organization.
 --
 -- Valid values are @ENABLED | DISABLED | PENDING@.
 --
@@ -168,8 +170,8 @@ newDescribeHealthServiceStatusForOrganizationResponse
           pHttpStatus_
       }
 
--- | Information about the status of enabling or disabling AWS Health
--- Organizational View in your organization.
+-- | Information about the status of enabling or disabling the Health
+-- organizational view feature in your organization.
 --
 -- Valid values are @ENABLED | DISABLED | PENDING@.
 describeHealthServiceStatusForOrganizationResponse_healthServiceAccessStatusForOrganization :: Lens.Lens' DescribeHealthServiceStatusForOrganizationResponse (Prelude.Maybe Prelude.Text)

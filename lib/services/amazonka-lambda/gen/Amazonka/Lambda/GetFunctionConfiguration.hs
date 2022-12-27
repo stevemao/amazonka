@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.GetFunctionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,44 +40,47 @@ module Amazonka.Lambda.GetFunctionConfiguration
     newFunctionConfiguration,
 
     -- * Response Lenses
-    functionConfiguration_memorySize,
-    functionConfiguration_runtime,
-    functionConfiguration_state,
-    functionConfiguration_signingProfileVersionArn,
-    functionConfiguration_lastUpdateStatus,
-    functionConfiguration_functionArn,
-    functionConfiguration_kmsKeyArn,
-    functionConfiguration_packageType,
-    functionConfiguration_fileSystemConfigs,
-    functionConfiguration_environment,
-    functionConfiguration_deadLetterConfig,
     functionConfiguration_architectures,
-    functionConfiguration_signingJobArn,
-    functionConfiguration_role,
-    functionConfiguration_vpcConfig,
-    functionConfiguration_version,
-    functionConfiguration_functionName,
-    functionConfiguration_layers,
-    functionConfiguration_codeSize,
-    functionConfiguration_handler,
-    functionConfiguration_timeout,
-    functionConfiguration_lastUpdateStatusReason,
-    functionConfiguration_stateReason,
-    functionConfiguration_lastModified,
     functionConfiguration_codeSha256,
-    functionConfiguration_tracingConfig,
-    functionConfiguration_stateReasonCode,
-    functionConfiguration_imageConfigResponse,
+    functionConfiguration_codeSize,
+    functionConfiguration_deadLetterConfig,
     functionConfiguration_description,
+    functionConfiguration_environment,
+    functionConfiguration_ephemeralStorage,
+    functionConfiguration_fileSystemConfigs,
+    functionConfiguration_functionArn,
+    functionConfiguration_functionName,
+    functionConfiguration_handler,
+    functionConfiguration_imageConfigResponse,
+    functionConfiguration_kmsKeyArn,
+    functionConfiguration_lastModified,
+    functionConfiguration_lastUpdateStatus,
+    functionConfiguration_lastUpdateStatusReason,
     functionConfiguration_lastUpdateStatusReasonCode,
-    functionConfiguration_revisionId,
+    functionConfiguration_layers,
     functionConfiguration_masterArn,
+    functionConfiguration_memorySize,
+    functionConfiguration_packageType,
+    functionConfiguration_revisionId,
+    functionConfiguration_role,
+    functionConfiguration_runtime,
+    functionConfiguration_signingJobArn,
+    functionConfiguration_signingProfileVersionArn,
+    functionConfiguration_snapStart,
+    functionConfiguration_state,
+    functionConfiguration_stateReason,
+    functionConfiguration_stateReasonCode,
+    functionConfiguration_timeout,
+    functionConfiguration_tracingConfig,
+    functionConfiguration_version,
+    functionConfiguration_vpcConfig,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,13 +94,13 @@ data GetFunctionConfiguration = GetFunctionConfiguration'
     --
     -- __Name formats__
     --
-    -- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+    -- -   __Function name__ – @my-function@ (name-only), @my-function:v1@
     --     (with alias).
     --
-    -- -   __Function ARN__ -
+    -- -   __Function ARN__ –
     --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
     --
-    -- -   __Partial ARN__ - @123456789012:function:my-function@.
+    -- -   __Partial ARN__ – @123456789012:function:my-function@.
     --
     -- You can append a version number or alias to any of the formats. The
     -- length constraint applies only to the full ARN. If you specify only the
@@ -121,13 +124,13 @@ data GetFunctionConfiguration = GetFunctionConfiguration'
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+-- -   __Function name__ – @my-function@ (name-only), @my-function:v1@
 --     (with alias).
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- You can append a version number or alias to any of the formats. The
 -- length constraint applies only to the full ARN. If you specify only the
@@ -152,13 +155,13 @@ getFunctionConfiguration_qualifier = Lens.lens (\GetFunctionConfiguration' {qual
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@ (name-only), @my-function:v1@
+-- -   __Function name__ – @my-function@ (name-only), @my-function:v1@
 --     (with alias).
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- You can append a version number or alias to any of the formats. The
 -- length constraint applies only to the full ARN. If you specify only the
@@ -170,10 +173,11 @@ instance Core.AWSRequest GetFunctionConfiguration where
   type
     AWSResponse GetFunctionConfiguration =
       FunctionConfiguration
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetFunctionConfiguration where
   hashWithSalt _salt GetFunctionConfiguration' {..} =
@@ -185,17 +189,17 @@ instance Prelude.NFData GetFunctionConfiguration where
     Prelude.rnf qualifier
       `Prelude.seq` Prelude.rnf functionName
 
-instance Core.ToHeaders GetFunctionConfiguration where
+instance Data.ToHeaders GetFunctionConfiguration where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetFunctionConfiguration where
+instance Data.ToPath GetFunctionConfiguration where
   toPath GetFunctionConfiguration' {..} =
     Prelude.mconcat
       [ "/2015-03-31/functions/",
-        Core.toBS functionName,
+        Data.toBS functionName,
         "/configuration"
       ]
 
-instance Core.ToQuery GetFunctionConfiguration where
+instance Data.ToQuery GetFunctionConfiguration where
   toQuery GetFunctionConfiguration' {..} =
-    Prelude.mconcat ["Qualifier" Core.=: qualifier]
+    Prelude.mconcat ["Qualifier" Data.=: qualifier]

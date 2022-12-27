@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.DisassociateCustomDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,12 +46,14 @@ module Amazonka.AppRunner.DisassociateCustomDomain
     disassociateCustomDomainResponse_dNSTarget,
     disassociateCustomDomainResponse_serviceArn,
     disassociateCustomDomainResponse_customDomain,
+    disassociateCustomDomainResponse_vpcDNSTargets,
   )
 where
 
 import Amazonka.AppRunner.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,15 +109,17 @@ instance Core.AWSRequest DisassociateCustomDomain where
   type
     AWSResponse DisassociateCustomDomain =
       DisassociateCustomDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DisassociateCustomDomainResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "DNSTarget")
-            Prelude.<*> (x Core..:> "ServiceArn")
-            Prelude.<*> (x Core..:> "CustomDomain")
+            Prelude.<*> (x Data..:> "DNSTarget")
+            Prelude.<*> (x Data..:> "ServiceArn")
+            Prelude.<*> (x Data..:> "CustomDomain")
+            Prelude.<*> (x Data..?> "VpcDNSTargets" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable DisassociateCustomDomain where
@@ -128,34 +132,34 @@ instance Prelude.NFData DisassociateCustomDomain where
     Prelude.rnf serviceArn
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders DisassociateCustomDomain where
+instance Data.ToHeaders DisassociateCustomDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AppRunner.DisassociateCustomDomain" ::
+              Data.=# ( "AppRunner.DisassociateCustomDomain" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateCustomDomain where
+instance Data.ToJSON DisassociateCustomDomain where
   toJSON DisassociateCustomDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ServiceArn" Core..= serviceArn),
-            Prelude.Just ("DomainName" Core..= domainName)
+          [ Prelude.Just ("ServiceArn" Data..= serviceArn),
+            Prelude.Just ("DomainName" Data..= domainName)
           ]
       )
 
-instance Core.ToPath DisassociateCustomDomain where
+instance Data.ToPath DisassociateCustomDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateCustomDomain where
+instance Data.ToQuery DisassociateCustomDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateCustomDomainResponse' smart constructor.
@@ -169,7 +173,9 @@ data DisassociateCustomDomainResponse = DisassociateCustomDomainResponse'
     -- domain name is disassociated from.
     serviceArn :: Prelude.Text,
     -- | A description of the domain name that\'s being disassociated.
-    customDomain :: CustomDomain
+    customDomain :: CustomDomain,
+    -- | DNS Target records for the custom domains of this Amazon VPC.
+    vpcDNSTargets :: [VpcDNSTarget]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -190,6 +196,8 @@ data DisassociateCustomDomainResponse = DisassociateCustomDomainResponse'
 -- domain name is disassociated from.
 --
 -- 'customDomain', 'disassociateCustomDomainResponse_customDomain' - A description of the domain name that\'s being disassociated.
+--
+-- 'vpcDNSTargets', 'disassociateCustomDomainResponse_vpcDNSTargets' - DNS Target records for the custom domains of this Amazon VPC.
 newDisassociateCustomDomainResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -210,7 +218,8 @@ newDisassociateCustomDomainResponse
           pHttpStatus_,
         dNSTarget = pDNSTarget_,
         serviceArn = pServiceArn_,
-        customDomain = pCustomDomain_
+        customDomain = pCustomDomain_,
+        vpcDNSTargets = Prelude.mempty
       }
 
 -- | The response's http status code.
@@ -231,6 +240,10 @@ disassociateCustomDomainResponse_serviceArn = Lens.lens (\DisassociateCustomDoma
 disassociateCustomDomainResponse_customDomain :: Lens.Lens' DisassociateCustomDomainResponse CustomDomain
 disassociateCustomDomainResponse_customDomain = Lens.lens (\DisassociateCustomDomainResponse' {customDomain} -> customDomain) (\s@DisassociateCustomDomainResponse' {} a -> s {customDomain = a} :: DisassociateCustomDomainResponse)
 
+-- | DNS Target records for the custom domains of this Amazon VPC.
+disassociateCustomDomainResponse_vpcDNSTargets :: Lens.Lens' DisassociateCustomDomainResponse [VpcDNSTarget]
+disassociateCustomDomainResponse_vpcDNSTargets = Lens.lens (\DisassociateCustomDomainResponse' {vpcDNSTargets} -> vpcDNSTargets) (\s@DisassociateCustomDomainResponse' {} a -> s {vpcDNSTargets = a} :: DisassociateCustomDomainResponse) Prelude.. Lens.coerced
+
 instance
   Prelude.NFData
     DisassociateCustomDomainResponse
@@ -240,3 +253,4 @@ instance
       `Prelude.seq` Prelude.rnf dNSTarget
       `Prelude.seq` Prelude.rnf serviceArn
       `Prelude.seq` Prelude.rnf customDomain
+      `Prelude.seq` Prelude.rnf vpcDNSTargets

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.DeleteDetector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.FraudDetector.DeleteDetector
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +81,8 @@ instance Core.AWSRequest DeleteDetector where
   type
     AWSResponse DeleteDetector =
       DeleteDetectorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,32 +97,32 @@ instance Prelude.Hashable DeleteDetector where
 instance Prelude.NFData DeleteDetector where
   rnf DeleteDetector' {..} = Prelude.rnf detectorId
 
-instance Core.ToHeaders DeleteDetector where
+instance Data.ToHeaders DeleteDetector where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.DeleteDetector" ::
+              Data.=# ( "AWSHawksNestServiceFacade.DeleteDetector" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteDetector where
+instance Data.ToJSON DeleteDetector where
   toJSON DeleteDetector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("detectorId" Core..= detectorId)]
+          [Prelude.Just ("detectorId" Data..= detectorId)]
       )
 
-instance Core.ToPath DeleteDetector where
+instance Data.ToPath DeleteDetector where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDetector where
+instance Data.ToQuery DeleteDetector where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDetectorResponse' smart constructor.

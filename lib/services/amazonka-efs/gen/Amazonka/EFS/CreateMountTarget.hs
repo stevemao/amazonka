@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.CreateMountTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -156,12 +156,12 @@ module Amazonka.EFS.CreateMountTarget
     newMountTargetDescription,
 
     -- * Response Lenses
-    mountTargetDescription_ipAddress,
     mountTargetDescription_availabilityZoneId,
-    mountTargetDescription_vpcId,
     mountTargetDescription_availabilityZoneName,
+    mountTargetDescription_ipAddress,
     mountTargetDescription_networkInterfaceId,
     mountTargetDescription_ownerId,
+    mountTargetDescription_vpcId,
     mountTargetDescription_mountTargetId,
     mountTargetDescription_fileSystemId,
     mountTargetDescription_subnetId,
@@ -170,8 +170,9 @@ module Amazonka.EFS.CreateMountTarget
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EFS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -249,10 +250,11 @@ instance Core.AWSRequest CreateMountTarget where
   type
     AWSResponse CreateMountTarget =
       MountTargetDescription
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable CreateMountTarget where
   hashWithSalt _salt CreateMountTarget' {..} =
@@ -268,23 +270,23 @@ instance Prelude.NFData CreateMountTarget where
       `Prelude.seq` Prelude.rnf fileSystemId
       `Prelude.seq` Prelude.rnf subnetId
 
-instance Core.ToHeaders CreateMountTarget where
+instance Data.ToHeaders CreateMountTarget where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateMountTarget where
+instance Data.ToJSON CreateMountTarget where
   toJSON CreateMountTarget' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IpAddress" Core..=) Prelude.<$> ipAddress,
-            ("SecurityGroups" Core..=)
+          [ ("IpAddress" Data..=) Prelude.<$> ipAddress,
+            ("SecurityGroups" Data..=)
               Prelude.<$> securityGroups,
-            Prelude.Just ("FileSystemId" Core..= fileSystemId),
-            Prelude.Just ("SubnetId" Core..= subnetId)
+            Prelude.Just ("FileSystemId" Data..= fileSystemId),
+            Prelude.Just ("SubnetId" Data..= subnetId)
           ]
       )
 
-instance Core.ToPath CreateMountTarget where
+instance Data.ToPath CreateMountTarget where
   toPath = Prelude.const "/2015-02-01/mount-targets"
 
-instance Core.ToQuery CreateMountTarget where
+instance Data.ToQuery CreateMountTarget where
   toQuery = Prelude.const Prelude.mempty

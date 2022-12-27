@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MachineLearning.CreateDataSourceFromS3
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -58,8 +58,8 @@ module Amazonka.MachineLearning.CreateDataSourceFromS3
     newCreateDataSourceFromS3,
 
     -- * Request Lenses
-    createDataSourceFromS3_dataSourceName,
     createDataSourceFromS3_computeStatistics,
+    createDataSourceFromS3_dataSourceName,
     createDataSourceFromS3_dataSourceId,
     createDataSourceFromS3_dataSpec,
 
@@ -74,7 +74,8 @@ module Amazonka.MachineLearning.CreateDataSourceFromS3
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MachineLearning.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -82,14 +83,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateDataSourceFromS3' smart constructor.
 data CreateDataSourceFromS3 = CreateDataSourceFromS3'
-  { -- | A user-supplied name or description of the @DataSource@.
-    dataSourceName :: Prelude.Maybe Prelude.Text,
-    -- | The compute statistics for a @DataSource@. The statistics are generated
+  { -- | The compute statistics for a @DataSource@. The statistics are generated
     -- from the observation data referenced by a @DataSource@. Amazon ML uses
     -- the statistics internally during @MLModel@ training. This parameter must
     -- be set to @true@ if the @@DataSource@@ needs to be used for @MLModel@
     -- training.
     computeStatistics :: Prelude.Maybe Prelude.Bool,
+    -- | A user-supplied name or description of the @DataSource@.
+    dataSourceName :: Prelude.Maybe Prelude.Text,
     -- | A user-supplied identifier that uniquely identifies the @DataSource@.
     dataSourceId :: Prelude.Text,
     -- | The data specification of a @DataSource@:
@@ -118,13 +119,13 @@ data CreateDataSourceFromS3 = CreateDataSourceFromS3'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'dataSourceName', 'createDataSourceFromS3_dataSourceName' - A user-supplied name or description of the @DataSource@.
---
 -- 'computeStatistics', 'createDataSourceFromS3_computeStatistics' - The compute statistics for a @DataSource@. The statistics are generated
 -- from the observation data referenced by a @DataSource@. Amazon ML uses
 -- the statistics internally during @MLModel@ training. This parameter must
 -- be set to @true@ if the @@DataSource@@ needs to be used for @MLModel@
 -- training.
+--
+-- 'dataSourceName', 'createDataSourceFromS3_dataSourceName' - A user-supplied name or description of the @DataSource@.
 --
 -- 'dataSourceId', 'createDataSourceFromS3_dataSourceId' - A user-supplied identifier that uniquely identifies the @DataSource@.
 --
@@ -150,16 +151,12 @@ newCreateDataSourceFromS3 ::
   CreateDataSourceFromS3
 newCreateDataSourceFromS3 pDataSourceId_ pDataSpec_ =
   CreateDataSourceFromS3'
-    { dataSourceName =
+    { computeStatistics =
         Prelude.Nothing,
-      computeStatistics = Prelude.Nothing,
+      dataSourceName = Prelude.Nothing,
       dataSourceId = pDataSourceId_,
       dataSpec = pDataSpec_
     }
-
--- | A user-supplied name or description of the @DataSource@.
-createDataSourceFromS3_dataSourceName :: Lens.Lens' CreateDataSourceFromS3 (Prelude.Maybe Prelude.Text)
-createDataSourceFromS3_dataSourceName = Lens.lens (\CreateDataSourceFromS3' {dataSourceName} -> dataSourceName) (\s@CreateDataSourceFromS3' {} a -> s {dataSourceName = a} :: CreateDataSourceFromS3)
 
 -- | The compute statistics for a @DataSource@. The statistics are generated
 -- from the observation data referenced by a @DataSource@. Amazon ML uses
@@ -168,6 +165,10 @@ createDataSourceFromS3_dataSourceName = Lens.lens (\CreateDataSourceFromS3' {dat
 -- training.
 createDataSourceFromS3_computeStatistics :: Lens.Lens' CreateDataSourceFromS3 (Prelude.Maybe Prelude.Bool)
 createDataSourceFromS3_computeStatistics = Lens.lens (\CreateDataSourceFromS3' {computeStatistics} -> computeStatistics) (\s@CreateDataSourceFromS3' {} a -> s {computeStatistics = a} :: CreateDataSourceFromS3)
+
+-- | A user-supplied name or description of the @DataSource@.
+createDataSourceFromS3_dataSourceName :: Lens.Lens' CreateDataSourceFromS3 (Prelude.Maybe Prelude.Text)
+createDataSourceFromS3_dataSourceName = Lens.lens (\CreateDataSourceFromS3' {dataSourceName} -> dataSourceName) (\s@CreateDataSourceFromS3' {} a -> s {dataSourceName = a} :: CreateDataSourceFromS3)
 
 -- | A user-supplied identifier that uniquely identifies the @DataSource@.
 createDataSourceFromS3_dataSourceId :: Lens.Lens' CreateDataSourceFromS3 Prelude.Text
@@ -194,61 +195,62 @@ instance Core.AWSRequest CreateDataSourceFromS3 where
   type
     AWSResponse CreateDataSourceFromS3 =
       CreateDataSourceFromS3Response
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDataSourceFromS3Response'
-            Prelude.<$> (x Core..?> "DataSourceId")
+            Prelude.<$> (x Data..?> "DataSourceId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateDataSourceFromS3 where
   hashWithSalt _salt CreateDataSourceFromS3' {..} =
-    _salt `Prelude.hashWithSalt` dataSourceName
-      `Prelude.hashWithSalt` computeStatistics
+    _salt `Prelude.hashWithSalt` computeStatistics
+      `Prelude.hashWithSalt` dataSourceName
       `Prelude.hashWithSalt` dataSourceId
       `Prelude.hashWithSalt` dataSpec
 
 instance Prelude.NFData CreateDataSourceFromS3 where
   rnf CreateDataSourceFromS3' {..} =
-    Prelude.rnf dataSourceName
-      `Prelude.seq` Prelude.rnf computeStatistics
+    Prelude.rnf computeStatistics
+      `Prelude.seq` Prelude.rnf dataSourceName
       `Prelude.seq` Prelude.rnf dataSourceId
       `Prelude.seq` Prelude.rnf dataSpec
 
-instance Core.ToHeaders CreateDataSourceFromS3 where
+instance Data.ToHeaders CreateDataSourceFromS3 where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonML_20141212.CreateDataSourceFromS3" ::
+              Data.=# ( "AmazonML_20141212.CreateDataSourceFromS3" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDataSourceFromS3 where
+instance Data.ToJSON CreateDataSourceFromS3 where
   toJSON CreateDataSourceFromS3' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DataSourceName" Core..=)
-              Prelude.<$> dataSourceName,
-            ("ComputeStatistics" Core..=)
+          [ ("ComputeStatistics" Data..=)
               Prelude.<$> computeStatistics,
-            Prelude.Just ("DataSourceId" Core..= dataSourceId),
-            Prelude.Just ("DataSpec" Core..= dataSpec)
+            ("DataSourceName" Data..=)
+              Prelude.<$> dataSourceName,
+            Prelude.Just ("DataSourceId" Data..= dataSourceId),
+            Prelude.Just ("DataSpec" Data..= dataSpec)
           ]
       )
 
-instance Core.ToPath CreateDataSourceFromS3 where
+instance Data.ToPath CreateDataSourceFromS3 where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDataSourceFromS3 where
+instance Data.ToQuery CreateDataSourceFromS3 where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @CreateDataSourceFromS3@ operation, and is an

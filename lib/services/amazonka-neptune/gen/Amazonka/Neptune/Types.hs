@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,69 +18,73 @@ module Amazonka.Neptune.Types
     defaultService,
 
     -- * Errors
-    _InvalidDBParameterGroupStateFault,
-    _SourceNotFoundFault,
+    _AuthorizationNotFoundFault,
     _CertificateNotFoundFault,
-    _DBClusterSnapshotAlreadyExistsFault,
-    _DBParameterGroupAlreadyExistsFault,
-    _DBParameterGroupQuotaExceededFault,
-    _InsufficientDBClusterCapacityFault,
-    _ProvisionedIopsNotAvailableInAZFault,
-    _SubscriptionCategoryNotFoundFault,
-    _SubscriptionNotFoundFault,
-    _InvalidSubnet,
-    _SharedSnapshotQuotaExceededFault,
-    _DBSubnetQuotaExceededFault,
-    _OptionGroupNotFoundFault,
-    _DBClusterNotFoundFault,
     _DBClusterAlreadyExistsFault,
-    _StorageTypeNotSupportedFault,
-    _SNSTopicArnNotFoundFault,
-    _InvalidDBClusterEndpointStateFault,
-    _InvalidEventSubscriptionStateFault,
-    _KMSKeyNotAccessibleFault,
-    _DBSnapshotNotFoundFault,
+    _DBClusterEndpointAlreadyExistsFault,
+    _DBClusterEndpointNotFoundFault,
+    _DBClusterEndpointQuotaExceededFault,
+    _DBClusterNotFoundFault,
     _DBClusterParameterGroupNotFoundFault,
     _DBClusterQuotaExceededFault,
-    _SnapshotQuotaExceededFault,
-    _DBSubnetGroupAlreadyExistsFault,
-    _SNSNoAuthorizationFault,
-    _DBSecurityGroupNotFoundFault,
-    _InstanceQuotaExceededFault,
-    _DomainNotFoundFault,
-    _DBParameterGroupNotFoundFault,
-    _InvalidDBSubnetStateFault,
-    _DBClusterSnapshotNotFoundFault,
-    _SNSInvalidTopicFault,
-    _InsufficientDBInstanceCapacityFault,
-    _InvalidDBClusterSnapshotStateFault,
-    _SubscriptionAlreadyExistFault,
     _DBClusterRoleAlreadyExistsFault,
+    _DBClusterRoleNotFoundFault,
     _DBClusterRoleQuotaExceededFault,
-    _InvalidVPCNetworkStateFault,
-    _AuthorizationNotFoundFault,
-    _DBSubnetGroupQuotaExceededFault,
-    _EventSubscriptionQuotaExceededFault,
-    _InsufficientStorageClusterCapacityFault,
-    _DBClusterEndpointQuotaExceededFault,
-    _InvalidDBClusterStateFault,
+    _DBClusterSnapshotAlreadyExistsFault,
+    _DBClusterSnapshotNotFoundFault,
     _DBInstanceAlreadyExistsFault,
-    _InvalidRestoreFault,
-    _InvalidDBSecurityGroupStateFault,
-    _ResourceNotFoundFault,
-    _DBSubnetGroupNotFoundFault,
-    _DBUpgradeDependencyFailureFault,
-    _InvalidDBInstanceStateFault,
-    _DBClusterEndpointAlreadyExistsFault,
-    _DBSnapshotAlreadyExistsFault,
     _DBInstanceNotFoundFault,
-    _StorageQuotaExceededFault,
+    _DBParameterGroupAlreadyExistsFault,
+    _DBParameterGroupNotFoundFault,
+    _DBParameterGroupQuotaExceededFault,
+    _DBSecurityGroupNotFoundFault,
+    _DBSnapshotAlreadyExistsFault,
+    _DBSnapshotNotFoundFault,
+    _DBSubnetGroupAlreadyExistsFault,
+    _DBSubnetGroupDoesNotCoverEnoughAZs,
+    _DBSubnetGroupNotFoundFault,
+    _DBSubnetGroupQuotaExceededFault,
+    _DBSubnetQuotaExceededFault,
+    _DBUpgradeDependencyFailureFault,
+    _DomainNotFoundFault,
+    _EventSubscriptionQuotaExceededFault,
+    _GlobalClusterAlreadyExistsFault,
+    _GlobalClusterNotFoundFault,
+    _GlobalClusterQuotaExceededFault,
+    _InstanceQuotaExceededFault,
+    _InsufficientDBClusterCapacityFault,
+    _InsufficientDBInstanceCapacityFault,
+    _InsufficientStorageClusterCapacityFault,
+    _InvalidDBClusterEndpointStateFault,
+    _InvalidDBClusterSnapshotStateFault,
+    _InvalidDBClusterStateFault,
+    _InvalidDBInstanceStateFault,
+    _InvalidDBParameterGroupStateFault,
+    _InvalidDBSecurityGroupStateFault,
     _InvalidDBSnapshotStateFault,
     _InvalidDBSubnetGroupStateFault,
-    _DBClusterEndpointNotFoundFault,
-    _DBSubnetGroupDoesNotCoverEnoughAZs,
+    _InvalidDBSubnetStateFault,
+    _InvalidEventSubscriptionStateFault,
+    _InvalidGlobalClusterStateFault,
+    _InvalidRestoreFault,
+    _InvalidSubnet,
+    _InvalidVPCNetworkStateFault,
+    _KMSKeyNotAccessibleFault,
+    _OptionGroupNotFoundFault,
+    _ProvisionedIopsNotAvailableInAZFault,
+    _ResourceNotFoundFault,
+    _SNSInvalidTopicFault,
+    _SNSNoAuthorizationFault,
+    _SNSTopicArnNotFoundFault,
+    _SharedSnapshotQuotaExceededFault,
+    _SnapshotQuotaExceededFault,
+    _SourceNotFoundFault,
+    _StorageQuotaExceededFault,
+    _StorageTypeNotSupportedFault,
     _SubnetAlreadyInUse,
-    _DBClusterRoleNotFoundFault,
+    _SubscriptionAlreadyExistFault,
+    _SubscriptionCategoryNotFoundFault,
+    _SubscriptionNotFoundFault,
 
     -- * ApplyMethod
     ApplyMethod (..),
@@ -95,8 +100,8 @@ module Amazonka.Neptune.Types
     -- * CharacterSet
     CharacterSet (..),
     newCharacterSet,
-    characterSet_characterSetName,
     characterSet_characterSetDescription,
+    characterSet_characterSetName,
 
     -- * CloudwatchLogsExportConfiguration
     CloudwatchLogsExportConfiguration (..),
@@ -107,81 +112,82 @@ module Amazonka.Neptune.Types
     -- * DBCluster
     DBCluster (..),
     newDBCluster,
-    dbCluster_engineVersion,
-    dbCluster_status,
-    dbCluster_deletionProtection,
+    dbCluster_allocatedStorage,
+    dbCluster_associatedRoles,
     dbCluster_automaticRestartTime,
-    dbCluster_storageEncrypted,
+    dbCluster_availabilityZones,
+    dbCluster_backupRetentionPeriod,
+    dbCluster_characterSetName,
+    dbCluster_cloneGroupId,
+    dbCluster_clusterCreateTime,
+    dbCluster_copyTagsToSnapshot,
+    dbCluster_crossAccountClone,
+    dbCluster_dbClusterArn,
     dbCluster_dbClusterIdentifier,
     dbCluster_dbClusterMembers,
-    dbCluster_readReplicaIdentifiers,
-    dbCluster_replicationSourceIdentifier,
-    dbCluster_hostedZoneId,
+    dbCluster_dbClusterOptionGroupMemberships,
     dbCluster_dbClusterParameterGroup,
-    dbCluster_masterUsername,
-    dbCluster_iAMDatabaseAuthenticationEnabled,
-    dbCluster_dbClusterResourceId,
-    dbCluster_earliestRestorableTime,
-    dbCluster_engine,
-    dbCluster_dbClusterArn,
-    dbCluster_cloneGroupId,
-    dbCluster_latestRestorableTime,
-    dbCluster_crossAccountClone,
-    dbCluster_preferredMaintenanceWindow,
-    dbCluster_availabilityZones,
-    dbCluster_characterSetName,
-    dbCluster_kmsKeyId,
-    dbCluster_preferredBackupWindow,
-    dbCluster_associatedRoles,
-    dbCluster_vpcSecurityGroups,
-    dbCluster_backupRetentionPeriod,
     dbCluster_dbSubnetGroup,
     dbCluster_databaseName,
-    dbCluster_multiAZ,
+    dbCluster_dbClusterResourceId,
+    dbCluster_deletionProtection,
+    dbCluster_earliestRestorableTime,
     dbCluster_enabledCloudwatchLogsExports,
-    dbCluster_allocatedStorage,
-    dbCluster_copyTagsToSnapshot,
-    dbCluster_clusterCreateTime,
     dbCluster_endpoint,
+    dbCluster_engine,
+    dbCluster_engineVersion,
+    dbCluster_hostedZoneId,
+    dbCluster_iAMDatabaseAuthenticationEnabled,
+    dbCluster_kmsKeyId,
+    dbCluster_latestRestorableTime,
+    dbCluster_masterUsername,
+    dbCluster_multiAZ,
     dbCluster_percentProgress,
-    dbCluster_readerEndpoint,
     dbCluster_port,
-    dbCluster_dbClusterOptionGroupMemberships,
+    dbCluster_preferredBackupWindow,
+    dbCluster_preferredMaintenanceWindow,
+    dbCluster_readReplicaIdentifiers,
+    dbCluster_readerEndpoint,
+    dbCluster_replicationSourceIdentifier,
+    dbCluster_serverlessV2ScalingConfiguration,
+    dbCluster_status,
+    dbCluster_storageEncrypted,
+    dbCluster_vpcSecurityGroups,
 
     -- * DBClusterEndpoint
     DBClusterEndpoint (..),
     newDBClusterEndpoint,
-    dbClusterEndpoint_status,
-    dbClusterEndpoint_dbClusterIdentifier,
-    dbClusterEndpoint_dbClusterEndpointArn,
     dbClusterEndpoint_customEndpointType,
-    dbClusterEndpoint_staticMembers,
-    dbClusterEndpoint_endpointType,
+    dbClusterEndpoint_dbClusterEndpointArn,
     dbClusterEndpoint_dbClusterEndpointIdentifier,
-    dbClusterEndpoint_endpoint,
     dbClusterEndpoint_dbClusterEndpointResourceIdentifier,
+    dbClusterEndpoint_dbClusterIdentifier,
+    dbClusterEndpoint_endpoint,
+    dbClusterEndpoint_endpointType,
     dbClusterEndpoint_excludedMembers,
+    dbClusterEndpoint_staticMembers,
+    dbClusterEndpoint_status,
 
     -- * DBClusterMember
     DBClusterMember (..),
     newDBClusterMember,
-    dbClusterMember_promotionTier,
+    dbClusterMember_dbClusterParameterGroupStatus,
     dbClusterMember_dbInstanceIdentifier,
     dbClusterMember_isClusterWriter,
-    dbClusterMember_dbClusterParameterGroupStatus,
+    dbClusterMember_promotionTier,
 
     -- * DBClusterOptionGroupStatus
     DBClusterOptionGroupStatus (..),
     newDBClusterOptionGroupStatus,
-    dbClusterOptionGroupStatus_status,
     dbClusterOptionGroupStatus_dbClusterOptionGroupName,
+    dbClusterOptionGroupStatus_status,
 
     -- * DBClusterParameterGroup
     DBClusterParameterGroup (..),
     newDBClusterParameterGroup,
     dbClusterParameterGroup_dbClusterParameterGroupArn,
-    dbClusterParameterGroup_dbParameterGroupFamily,
     dbClusterParameterGroup_dbClusterParameterGroupName,
+    dbClusterParameterGroup_dbParameterGroupFamily,
     dbClusterParameterGroup_description,
 
     -- * DBClusterParameterGroupNameMessage
@@ -192,126 +198,127 @@ module Amazonka.Neptune.Types
     -- * DBClusterRole
     DBClusterRole (..),
     newDBClusterRole,
-    dbClusterRole_status,
     dbClusterRole_featureName,
     dbClusterRole_roleArn,
+    dbClusterRole_status,
 
     -- * DBClusterSnapshot
     DBClusterSnapshot (..),
     newDBClusterSnapshot,
-    dbClusterSnapshot_engineVersion,
-    dbClusterSnapshot_status,
-    dbClusterSnapshot_storageEncrypted,
+    dbClusterSnapshot_allocatedStorage,
+    dbClusterSnapshot_availabilityZones,
+    dbClusterSnapshot_clusterCreateTime,
     dbClusterSnapshot_dbClusterIdentifier,
-    dbClusterSnapshot_masterUsername,
-    dbClusterSnapshot_iAMDatabaseAuthenticationEnabled,
     dbClusterSnapshot_dbClusterSnapshotArn,
-    dbClusterSnapshot_vpcId,
     dbClusterSnapshot_dbClusterSnapshotIdentifier,
     dbClusterSnapshot_engine,
-    dbClusterSnapshot_licenseModel,
-    dbClusterSnapshot_availabilityZones,
-    dbClusterSnapshot_snapshotType,
+    dbClusterSnapshot_engineVersion,
+    dbClusterSnapshot_iAMDatabaseAuthenticationEnabled,
     dbClusterSnapshot_kmsKeyId,
-    dbClusterSnapshot_snapshotCreateTime,
-    dbClusterSnapshot_allocatedStorage,
-    dbClusterSnapshot_sourceDBClusterSnapshotArn,
-    dbClusterSnapshot_clusterCreateTime,
+    dbClusterSnapshot_licenseModel,
+    dbClusterSnapshot_masterUsername,
     dbClusterSnapshot_percentProgress,
     dbClusterSnapshot_port,
+    dbClusterSnapshot_snapshotCreateTime,
+    dbClusterSnapshot_snapshotType,
+    dbClusterSnapshot_sourceDBClusterSnapshotArn,
+    dbClusterSnapshot_status,
+    dbClusterSnapshot_storageEncrypted,
+    dbClusterSnapshot_vpcId,
 
     -- * DBClusterSnapshotAttribute
     DBClusterSnapshotAttribute (..),
     newDBClusterSnapshotAttribute,
-    dbClusterSnapshotAttribute_attributeValues,
     dbClusterSnapshotAttribute_attributeName,
+    dbClusterSnapshotAttribute_attributeValues,
 
     -- * DBClusterSnapshotAttributesResult
     DBClusterSnapshotAttributesResult (..),
     newDBClusterSnapshotAttributesResult,
-    dbClusterSnapshotAttributesResult_dbClusterSnapshotIdentifier,
     dbClusterSnapshotAttributesResult_dbClusterSnapshotAttributes,
+    dbClusterSnapshotAttributesResult_dbClusterSnapshotIdentifier,
 
     -- * DBEngineVersion
     DBEngineVersion (..),
     newDBEngineVersion,
-    dbEngineVersion_engineVersion,
+    dbEngineVersion_dbEngineDescription,
     dbEngineVersion_dbEngineVersionDescription,
+    dbEngineVersion_dbParameterGroupFamily,
     dbEngineVersion_defaultCharacterSet,
     dbEngineVersion_engine,
-    dbEngineVersion_dbParameterGroupFamily,
+    dbEngineVersion_engineVersion,
+    dbEngineVersion_exportableLogTypes,
     dbEngineVersion_supportedCharacterSets,
-    dbEngineVersion_dbEngineDescription,
-    dbEngineVersion_validUpgradeTarget,
+    dbEngineVersion_supportedTimezones,
+    dbEngineVersion_supportsGlobalDatabases,
     dbEngineVersion_supportsLogExportsToCloudwatchLogs,
     dbEngineVersion_supportsReadReplica,
-    dbEngineVersion_supportedTimezones,
-    dbEngineVersion_exportableLogTypes,
+    dbEngineVersion_validUpgradeTarget,
 
     -- * DBInstance
     DBInstance (..),
     newDBInstance,
-    dbInstance_engineVersion,
-    dbInstance_dbSecurityGroups,
-    dbInstance_deletionProtection,
-    dbInstance_storageEncrypted,
-    dbInstance_dbClusterIdentifier,
-    dbInstance_publiclyAccessible,
+    dbInstance_allocatedStorage,
     dbInstance_autoMinorVersionUpgrade,
-    dbInstance_dbInstanceArn,
-    dbInstance_masterUsername,
-    dbInstance_readReplicaDBInstanceIdentifiers,
-    dbInstance_iAMDatabaseAuthenticationEnabled,
-    dbInstance_monitoringRoleArn,
-    dbInstance_iops,
-    dbInstance_instanceCreateTime,
-    dbInstance_readReplicaSourceDBInstanceIdentifier,
-    dbInstance_monitoringInterval,
-    dbInstance_engine,
-    dbInstance_latestRestorableTime,
-    dbInstance_dbInstanceClass,
-    dbInstance_promotionTier,
-    dbInstance_licenseModel,
-    dbInstance_preferredMaintenanceWindow,
-    dbInstance_cACertificateIdentifier,
-    dbInstance_dbInstanceIdentifier,
-    dbInstance_characterSetName,
-    dbInstance_kmsKeyId,
-    dbInstance_preferredBackupWindow,
     dbInstance_availabilityZone,
-    dbInstance_vpcSecurityGroups,
     dbInstance_backupRetentionPeriod,
-    dbInstance_performanceInsightsKMSKeyId,
+    dbInstance_cACertificateIdentifier,
+    dbInstance_characterSetName,
+    dbInstance_copyTagsToSnapshot,
+    dbInstance_dbClusterIdentifier,
+    dbInstance_dbInstanceArn,
+    dbInstance_dbInstanceClass,
+    dbInstance_dbInstanceIdentifier,
+    dbInstance_dbInstanceStatus,
+    dbInstance_dbName,
+    dbInstance_dbParameterGroups,
+    dbInstance_dbSecurityGroups,
     dbInstance_dbSubnetGroup,
+    dbInstance_dbInstancePort,
+    dbInstance_dbiResourceId,
+    dbInstance_deletionProtection,
+    dbInstance_domainMemberships,
+    dbInstance_enabledCloudwatchLogsExports,
+    dbInstance_endpoint,
+    dbInstance_engine,
+    dbInstance_engineVersion,
+    dbInstance_enhancedMonitoringResourceArn,
+    dbInstance_iAMDatabaseAuthenticationEnabled,
+    dbInstance_instanceCreateTime,
+    dbInstance_iops,
+    dbInstance_kmsKeyId,
+    dbInstance_latestRestorableTime,
+    dbInstance_licenseModel,
+    dbInstance_masterUsername,
+    dbInstance_monitoringInterval,
+    dbInstance_monitoringRoleArn,
     dbInstance_multiAZ,
     dbInstance_optionGroupMemberships,
-    dbInstance_enabledCloudwatchLogsExports,
-    dbInstance_enhancedMonitoringResourceArn,
-    dbInstance_secondaryAvailabilityZone,
-    dbInstance_performanceInsightsEnabled,
-    dbInstance_allocatedStorage,
-    dbInstance_dbiResourceId,
-    dbInstance_dbParameterGroups,
-    dbInstance_copyTagsToSnapshot,
-    dbInstance_timezone,
-    dbInstance_tdeCredentialArn,
-    dbInstance_endpoint,
-    dbInstance_dbInstanceStatus,
-    dbInstance_dbInstancePort,
     dbInstance_pendingModifiedValues,
+    dbInstance_performanceInsightsEnabled,
+    dbInstance_performanceInsightsKMSKeyId,
+    dbInstance_preferredBackupWindow,
+    dbInstance_preferredMaintenanceWindow,
+    dbInstance_promotionTier,
+    dbInstance_publiclyAccessible,
     dbInstance_readReplicaDBClusterIdentifiers,
-    dbInstance_storageType,
+    dbInstance_readReplicaDBInstanceIdentifiers,
+    dbInstance_readReplicaSourceDBInstanceIdentifier,
+    dbInstance_secondaryAvailabilityZone,
     dbInstance_statusInfos,
-    dbInstance_domainMemberships,
-    dbInstance_dbName,
+    dbInstance_storageEncrypted,
+    dbInstance_storageType,
+    dbInstance_tdeCredentialArn,
+    dbInstance_timezone,
+    dbInstance_vpcSecurityGroups,
 
     -- * DBInstanceStatusInfo
     DBInstanceStatusInfo (..),
     newDBInstanceStatusInfo,
-    dbInstanceStatusInfo_status,
-    dbInstanceStatusInfo_normal,
-    dbInstanceStatusInfo_statusType,
     dbInstanceStatusInfo_message,
+    dbInstanceStatusInfo_normal,
+    dbInstanceStatusInfo_status,
+    dbInstanceStatusInfo_statusType,
 
     -- * DBParameterGroup
     DBParameterGroup (..),
@@ -335,38 +342,38 @@ module Amazonka.Neptune.Types
     -- * DBSecurityGroupMembership
     DBSecurityGroupMembership (..),
     newDBSecurityGroupMembership,
-    dbSecurityGroupMembership_status,
     dbSecurityGroupMembership_dbSecurityGroupName,
+    dbSecurityGroupMembership_status,
 
     -- * DBSubnetGroup
     DBSubnetGroup (..),
     newDBSubnetGroup,
-    dbSubnetGroup_dbSubnetGroupName,
-    dbSubnetGroup_vpcId,
-    dbSubnetGroup_subnets,
-    dbSubnetGroup_dbSubnetGroupDescription,
     dbSubnetGroup_dbSubnetGroupArn,
+    dbSubnetGroup_dbSubnetGroupDescription,
+    dbSubnetGroup_dbSubnetGroupName,
     dbSubnetGroup_subnetGroupStatus,
+    dbSubnetGroup_subnets,
+    dbSubnetGroup_vpcId,
 
     -- * DomainMembership
     DomainMembership (..),
     newDomainMembership,
-    domainMembership_status,
-    domainMembership_fqdn,
     domainMembership_domain,
+    domainMembership_fqdn,
     domainMembership_iAMRoleName,
+    domainMembership_status,
 
     -- * DoubleRange
     DoubleRange (..),
     newDoubleRange,
-    doubleRange_to,
     doubleRange_from,
+    doubleRange_to,
 
     -- * Endpoint
     Endpoint (..),
     newEndpoint,
-    endpoint_hostedZoneId,
     endpoint_address,
+    endpoint_hostedZoneId,
     endpoint_port,
 
     -- * EngineDefaults
@@ -379,32 +386,32 @@ module Amazonka.Neptune.Types
     -- * Event
     Event (..),
     newEvent,
-    event_sourceType,
-    event_sourceArn,
-    event_sourceIdentifier,
     event_date,
     event_eventCategories,
     event_message,
+    event_sourceArn,
+    event_sourceIdentifier,
+    event_sourceType,
 
     -- * EventCategoriesMap
     EventCategoriesMap (..),
     newEventCategoriesMap,
-    eventCategoriesMap_sourceType,
     eventCategoriesMap_eventCategories,
+    eventCategoriesMap_sourceType,
 
     -- * EventSubscription
     EventSubscription (..),
     newEventSubscription,
-    eventSubscription_status,
-    eventSubscription_customerAwsId,
     eventSubscription_custSubscriptionId,
-    eventSubscription_snsTopicArn,
-    eventSubscription_eventSubscriptionArn,
+    eventSubscription_customerAwsId,
     eventSubscription_enabled,
-    eventSubscription_sourceType,
-    eventSubscription_subscriptionCreationTime,
     eventSubscription_eventCategoriesList,
+    eventSubscription_eventSubscriptionArn,
+    eventSubscription_snsTopicArn,
     eventSubscription_sourceIdsList,
+    eventSubscription_sourceType,
+    eventSubscription_status,
+    eventSubscription_subscriptionCreationTime,
 
     -- * Filter
     Filter (..),
@@ -412,90 +419,111 @@ module Amazonka.Neptune.Types
     filter_name,
     filter_values,
 
+    -- * GlobalCluster
+    GlobalCluster (..),
+    newGlobalCluster,
+    globalCluster_deletionProtection,
+    globalCluster_engine,
+    globalCluster_engineVersion,
+    globalCluster_globalClusterArn,
+    globalCluster_globalClusterIdentifier,
+    globalCluster_globalClusterMembers,
+    globalCluster_globalClusterResourceId,
+    globalCluster_status,
+    globalCluster_storageEncrypted,
+
+    -- * GlobalClusterMember
+    GlobalClusterMember (..),
+    newGlobalClusterMember,
+    globalClusterMember_dbClusterArn,
+    globalClusterMember_isWriter,
+    globalClusterMember_readers,
+
     -- * OptionGroupMembership
     OptionGroupMembership (..),
     newOptionGroupMembership,
-    optionGroupMembership_status,
     optionGroupMembership_optionGroupName,
+    optionGroupMembership_status,
 
     -- * OrderableDBInstanceOption
     OrderableDBInstanceOption (..),
     newOrderableDBInstanceOption,
-    orderableDBInstanceOption_engineVersion,
-    orderableDBInstanceOption_minIopsPerGib,
-    orderableDBInstanceOption_supportsIAMDatabaseAuthentication,
-    orderableDBInstanceOption_minIopsPerDbInstance,
-    orderableDBInstanceOption_multiAZCapable,
-    orderableDBInstanceOption_maxStorageSize,
+    orderableDBInstanceOption_availabilityZones,
+    orderableDBInstanceOption_dbInstanceClass,
     orderableDBInstanceOption_engine,
+    orderableDBInstanceOption_engineVersion,
+    orderableDBInstanceOption_licenseModel,
+    orderableDBInstanceOption_maxIopsPerDbInstance,
+    orderableDBInstanceOption_maxIopsPerGib,
+    orderableDBInstanceOption_maxStorageSize,
+    orderableDBInstanceOption_minIopsPerDbInstance,
+    orderableDBInstanceOption_minIopsPerGib,
     orderableDBInstanceOption_minStorageSize,
+    orderableDBInstanceOption_multiAZCapable,
+    orderableDBInstanceOption_readReplicaCapable,
+    orderableDBInstanceOption_storageType,
+    orderableDBInstanceOption_supportsEnhancedMonitoring,
+    orderableDBInstanceOption_supportsGlobalDatabases,
+    orderableDBInstanceOption_supportsIAMDatabaseAuthentication,
     orderableDBInstanceOption_supportsIops,
     orderableDBInstanceOption_supportsPerformanceInsights,
-    orderableDBInstanceOption_dbInstanceClass,
-    orderableDBInstanceOption_licenseModel,
-    orderableDBInstanceOption_availabilityZones,
     orderableDBInstanceOption_supportsStorageEncryption,
-    orderableDBInstanceOption_readReplicaCapable,
-    orderableDBInstanceOption_maxIopsPerGib,
     orderableDBInstanceOption_vpc,
-    orderableDBInstanceOption_supportsEnhancedMonitoring,
-    orderableDBInstanceOption_maxIopsPerDbInstance,
-    orderableDBInstanceOption_storageType,
 
     -- * Parameter
     Parameter (..),
     newParameter,
-    parameter_applyType,
-    parameter_parameterValue,
-    parameter_applyMethod,
-    parameter_minimumEngineVersion,
-    parameter_source,
-    parameter_isModifiable,
-    parameter_dataType,
     parameter_allowedValues,
-    parameter_parameterName,
+    parameter_applyMethod,
+    parameter_applyType,
+    parameter_dataType,
     parameter_description,
+    parameter_isModifiable,
+    parameter_minimumEngineVersion,
+    parameter_parameterName,
+    parameter_parameterValue,
+    parameter_source,
 
     -- * PendingCloudwatchLogsExports
     PendingCloudwatchLogsExports (..),
     newPendingCloudwatchLogsExports,
-    pendingCloudwatchLogsExports_logTypesToEnable,
     pendingCloudwatchLogsExports_logTypesToDisable,
+    pendingCloudwatchLogsExports_logTypesToEnable,
 
     -- * PendingMaintenanceAction
     PendingMaintenanceAction (..),
     newPendingMaintenanceAction,
-    pendingMaintenanceAction_autoAppliedAfterDate,
     pendingMaintenanceAction_action,
-    pendingMaintenanceAction_optInStatus,
+    pendingMaintenanceAction_autoAppliedAfterDate,
+    pendingMaintenanceAction_currentApplyDate,
     pendingMaintenanceAction_description,
     pendingMaintenanceAction_forcedApplyDate,
-    pendingMaintenanceAction_currentApplyDate,
+    pendingMaintenanceAction_optInStatus,
 
     -- * PendingModifiedValues
     PendingModifiedValues (..),
     newPendingModifiedValues,
-    pendingModifiedValues_engineVersion,
-    pendingModifiedValues_masterUserPassword,
-    pendingModifiedValues_dbSubnetGroupName,
-    pendingModifiedValues_iops,
-    pendingModifiedValues_dbInstanceClass,
-    pendingModifiedValues_licenseModel,
-    pendingModifiedValues_cACertificateIdentifier,
-    pendingModifiedValues_dbInstanceIdentifier,
-    pendingModifiedValues_pendingCloudwatchLogsExports,
-    pendingModifiedValues_backupRetentionPeriod,
-    pendingModifiedValues_multiAZ,
     pendingModifiedValues_allocatedStorage,
+    pendingModifiedValues_backupRetentionPeriod,
+    pendingModifiedValues_cACertificateIdentifier,
+    pendingModifiedValues_dbInstanceClass,
+    pendingModifiedValues_dbInstanceIdentifier,
+    pendingModifiedValues_dbSubnetGroupName,
+    pendingModifiedValues_engineVersion,
+    pendingModifiedValues_iops,
+    pendingModifiedValues_licenseModel,
+    pendingModifiedValues_masterUserPassword,
+    pendingModifiedValues_multiAZ,
+    pendingModifiedValues_pendingCloudwatchLogsExports,
     pendingModifiedValues_port,
     pendingModifiedValues_storageType,
 
     -- * Range
     Range (..),
     newRange,
-    range_to,
     range_from,
     range_step,
+    range_to,
 
     -- * ResourcePendingMaintenanceActions
     ResourcePendingMaintenanceActions (..),
@@ -503,18 +531,30 @@ module Amazonka.Neptune.Types
     resourcePendingMaintenanceActions_pendingMaintenanceActionDetails,
     resourcePendingMaintenanceActions_resourceIdentifier,
 
+    -- * ServerlessV2ScalingConfiguration
+    ServerlessV2ScalingConfiguration (..),
+    newServerlessV2ScalingConfiguration,
+    serverlessV2ScalingConfiguration_maxCapacity,
+    serverlessV2ScalingConfiguration_minCapacity,
+
+    -- * ServerlessV2ScalingConfigurationInfo
+    ServerlessV2ScalingConfigurationInfo (..),
+    newServerlessV2ScalingConfigurationInfo,
+    serverlessV2ScalingConfigurationInfo_maxCapacity,
+    serverlessV2ScalingConfigurationInfo_minCapacity,
+
     -- * Subnet
     Subnet (..),
     newSubnet,
-    subnet_subnetStatus,
-    subnet_subnetIdentifier,
     subnet_subnetAvailabilityZone,
+    subnet_subnetIdentifier,
+    subnet_subnetStatus,
 
     -- * Tag
     Tag (..),
     newTag,
-    tag_value,
     tag_key,
+    tag_value,
 
     -- * Timezone
     Timezone (..),
@@ -524,11 +564,12 @@ module Amazonka.Neptune.Types
     -- * UpgradeTarget
     UpgradeTarget (..),
     newUpgradeTarget,
-    upgradeTarget_engineVersion,
-    upgradeTarget_isMajorVersionUpgrade,
-    upgradeTarget_engine,
     upgradeTarget_autoUpgrade,
     upgradeTarget_description,
+    upgradeTarget_engine,
+    upgradeTarget_engineVersion,
+    upgradeTarget_isMajorVersionUpgrade,
+    upgradeTarget_supportsGlobalDatabases,
 
     -- * ValidDBInstanceModificationsMessage
     ValidDBInstanceModificationsMessage (..),
@@ -538,9 +579,9 @@ module Amazonka.Neptune.Types
     -- * ValidStorageOptions
     ValidStorageOptions (..),
     newValidStorageOptions,
-    validStorageOptions_storageSize,
-    validStorageOptions_provisionedIops,
     validStorageOptions_iopsToStorageRatio,
+    validStorageOptions_provisionedIops,
+    validStorageOptions_storageSize,
     validStorageOptions_storageType,
 
     -- * VpcSecurityGroupMembership
@@ -552,7 +593,7 @@ module Amazonka.Neptune.Types
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.Neptune.Types.ApplyMethod
 import Amazonka.Neptune.Types.AvailabilityZone
 import Amazonka.Neptune.Types.CharacterSet
@@ -583,6 +624,8 @@ import Amazonka.Neptune.Types.Event
 import Amazonka.Neptune.Types.EventCategoriesMap
 import Amazonka.Neptune.Types.EventSubscription
 import Amazonka.Neptune.Types.Filter
+import Amazonka.Neptune.Types.GlobalCluster
+import Amazonka.Neptune.Types.GlobalClusterMember
 import Amazonka.Neptune.Types.OptionGroupMembership
 import Amazonka.Neptune.Types.OrderableDBInstanceOption
 import Amazonka.Neptune.Types.Parameter
@@ -591,6 +634,8 @@ import Amazonka.Neptune.Types.PendingMaintenanceAction
 import Amazonka.Neptune.Types.PendingModifiedValues
 import Amazonka.Neptune.Types.Range
 import Amazonka.Neptune.Types.ResourcePendingMaintenanceActions
+import Amazonka.Neptune.Types.ServerlessV2ScalingConfiguration
+import Amazonka.Neptune.Types.ServerlessV2ScalingConfigurationInfo
 import Amazonka.Neptune.Types.SourceType
 import Amazonka.Neptune.Types.Subnet
 import Amazonka.Neptune.Types.Tag
@@ -606,41 +651,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "Neptune",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "rds",
-      Core._serviceSigningName = "rds",
-      Core._serviceVersion = "2014-10-31",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseXMLError "Neptune",
-      Core._serviceRetry = retry
+    { Core.abbrev = "Neptune",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "rds",
+      Core.signingName = "rds",
+      Core.version = "2014-10-31",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseXMLError "Neptune",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -648,46 +701,32 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
--- | The DB parameter group is in use or is in an invalid state. If you are
--- attempting to delete the parameter group, you cannot delete it when the
--- parameter group is in this state.
-_InvalidDBParameterGroupStateFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidDBParameterGroupStateFault =
+-- | Specified CIDRIP or EC2 security group is not authorized for the
+-- specified DB security group.
+--
+-- Neptune may not also be authorized via IAM to perform necessary actions
+-- on your behalf.
+_AuthorizationNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_AuthorizationNotFoundFault =
   Core._MatchServiceError
     defaultService
-    "InvalidDBParameterGroupState"
-    Prelude.. Core.hasStatus 400
-
--- | The source could not be found.
-_SourceNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_SourceNotFoundFault =
-  Core._MatchServiceError
-    defaultService
-    "SourceNotFound"
+    "AuthorizationNotFound"
     Prelude.. Core.hasStatus 404
 
 -- | /CertificateIdentifier/ does not refer to an existing certificate.
@@ -698,106 +737,6 @@ _CertificateNotFoundFault =
     "CertificateNotFound"
     Prelude.. Core.hasStatus 404
 
--- | User already has a DB cluster snapshot with the given identifier.
-_DBClusterSnapshotAlreadyExistsFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBClusterSnapshotAlreadyExistsFault =
-  Core._MatchServiceError
-    defaultService
-    "DBClusterSnapshotAlreadyExistsFault"
-    Prelude.. Core.hasStatus 400
-
--- | A DB parameter group with the same name exists.
-_DBParameterGroupAlreadyExistsFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBParameterGroupAlreadyExistsFault =
-  Core._MatchServiceError
-    defaultService
-    "DBParameterGroupAlreadyExists"
-    Prelude.. Core.hasStatus 400
-
--- | Request would result in user exceeding the allowed number of DB
--- parameter groups.
-_DBParameterGroupQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBParameterGroupQuotaExceededFault =
-  Core._MatchServiceError
-    defaultService
-    "DBParameterGroupQuotaExceeded"
-    Prelude.. Core.hasStatus 400
-
--- | The DB cluster does not have enough capacity for the current operation.
-_InsufficientDBClusterCapacityFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InsufficientDBClusterCapacityFault =
-  Core._MatchServiceError
-    defaultService
-    "InsufficientDBClusterCapacityFault"
-    Prelude.. Core.hasStatus 403
-
--- | Provisioned IOPS not available in the specified Availability Zone.
-_ProvisionedIopsNotAvailableInAZFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ProvisionedIopsNotAvailableInAZFault =
-  Core._MatchServiceError
-    defaultService
-    "ProvisionedIopsNotAvailableInAZFault"
-    Prelude.. Core.hasStatus 400
-
--- | The designated subscription category could not be found.
-_SubscriptionCategoryNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_SubscriptionCategoryNotFoundFault =
-  Core._MatchServiceError
-    defaultService
-    "SubscriptionCategoryNotFound"
-    Prelude.. Core.hasStatus 404
-
--- | The designated subscription could not be found.
-_SubscriptionNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_SubscriptionNotFoundFault =
-  Core._MatchServiceError
-    defaultService
-    "SubscriptionNotFound"
-    Prelude.. Core.hasStatus 404
-
--- | The requested subnet is invalid, or multiple subnets were requested that
--- are not all in a common VPC.
-_InvalidSubnet :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidSubnet =
-  Core._MatchServiceError
-    defaultService
-    "InvalidSubnet"
-    Prelude.. Core.hasStatus 400
-
--- | You have exceeded the maximum number of accounts that you can share a
--- manual DB snapshot with.
-_SharedSnapshotQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_SharedSnapshotQuotaExceededFault =
-  Core._MatchServiceError
-    defaultService
-    "SharedSnapshotQuotaExceeded"
-    Prelude.. Core.hasStatus 400
-
--- | Request would result in user exceeding the allowed number of subnets in
--- a DB subnet groups.
-_DBSubnetQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBSubnetQuotaExceededFault =
-  Core._MatchServiceError
-    defaultService
-    "DBSubnetQuotaExceededFault"
-    Prelude.. Core.hasStatus 400
-
--- | The designated option group could not be found.
-_OptionGroupNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_OptionGroupNotFoundFault =
-  Core._MatchServiceError
-    defaultService
-    "OptionGroupNotFoundFault"
-    Prelude.. Core.hasStatus 404
-
--- | /DBClusterIdentifier/ does not refer to an existing DB cluster.
-_DBClusterNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBClusterNotFoundFault =
-  Core._MatchServiceError
-    defaultService
-    "DBClusterNotFoundFault"
-    Prelude.. Core.hasStatus 404
-
 -- | User already has a DB cluster with the given identifier.
 _DBClusterAlreadyExistsFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _DBClusterAlreadyExistsFault =
@@ -806,53 +745,37 @@ _DBClusterAlreadyExistsFault =
     "DBClusterAlreadyExistsFault"
     Prelude.. Core.hasStatus 400
 
--- | /StorageType/ specified cannot be associated with the DB Instance.
-_StorageTypeNotSupportedFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_StorageTypeNotSupportedFault =
+-- | The specified custom endpoint cannot be created because it already
+-- exists.
+_DBClusterEndpointAlreadyExistsFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBClusterEndpointAlreadyExistsFault =
   Core._MatchServiceError
     defaultService
-    "StorageTypeNotSupported"
+    "DBClusterEndpointAlreadyExistsFault"
     Prelude.. Core.hasStatus 400
 
--- | The ARN of the SNS topic could not be found.
-_SNSTopicArnNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_SNSTopicArnNotFoundFault =
+-- | The specified custom endpoint doesn\'t exist.
+_DBClusterEndpointNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBClusterEndpointNotFoundFault =
   Core._MatchServiceError
     defaultService
-    "SNSTopicArnNotFound"
-    Prelude.. Core.hasStatus 404
-
--- | The requested operation cannot be performed on the endpoint while the
--- endpoint is in this state.
-_InvalidDBClusterEndpointStateFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidDBClusterEndpointStateFault =
-  Core._MatchServiceError
-    defaultService
-    "InvalidDBClusterEndpointStateFault"
+    "DBClusterEndpointNotFoundFault"
     Prelude.. Core.hasStatus 400
 
--- | The event subscription is in an invalid state.
-_InvalidEventSubscriptionStateFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidEventSubscriptionStateFault =
+-- | The cluster already has the maximum number of custom endpoints.
+_DBClusterEndpointQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBClusterEndpointQuotaExceededFault =
   Core._MatchServiceError
     defaultService
-    "InvalidEventSubscriptionState"
-    Prelude.. Core.hasStatus 400
+    "DBClusterEndpointQuotaExceededFault"
+    Prelude.. Core.hasStatus 403
 
--- | Error accessing KMS key.
-_KMSKeyNotAccessibleFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_KMSKeyNotAccessibleFault =
+-- | /DBClusterIdentifier/ does not refer to an existing DB cluster.
+_DBClusterNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBClusterNotFoundFault =
   Core._MatchServiceError
     defaultService
-    "KMSKeyNotAccessibleFault"
-    Prelude.. Core.hasStatus 400
-
--- | /DBSnapshotIdentifier/ does not refer to an existing DB snapshot.
-_DBSnapshotNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBSnapshotNotFoundFault =
-  Core._MatchServiceError
-    defaultService
-    "DBSnapshotNotFound"
+    "DBClusterNotFoundFault"
     Prelude.. Core.hasStatus 404
 
 -- | /DBClusterParameterGroupName/ does not refer to an existing DB Cluster
@@ -873,70 +796,39 @@ _DBClusterQuotaExceededFault =
     "DBClusterQuotaExceededFault"
     Prelude.. Core.hasStatus 403
 
--- | Request would result in user exceeding the allowed number of DB
--- snapshots.
-_SnapshotQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_SnapshotQuotaExceededFault =
+-- | The specified IAM role Amazon Resource Name (ARN) is already associated
+-- with the specified DB cluster.
+_DBClusterRoleAlreadyExistsFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBClusterRoleAlreadyExistsFault =
   Core._MatchServiceError
     defaultService
-    "SnapshotQuotaExceeded"
+    "DBClusterRoleAlreadyExists"
     Prelude.. Core.hasStatus 400
 
--- | /DBSubnetGroupName/ is already used by an existing DB subnet group.
-_DBSubnetGroupAlreadyExistsFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBSubnetGroupAlreadyExistsFault =
+-- | The specified IAM role Amazon Resource Name (ARN) is not associated with
+-- the specified DB cluster.
+_DBClusterRoleNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBClusterRoleNotFoundFault =
   Core._MatchServiceError
     defaultService
-    "DBSubnetGroupAlreadyExists"
-    Prelude.. Core.hasStatus 400
-
--- | There is no SNS authorization.
-_SNSNoAuthorizationFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_SNSNoAuthorizationFault =
-  Core._MatchServiceError
-    defaultService
-    "SNSNoAuthorization"
-    Prelude.. Core.hasStatus 400
-
--- | /DBSecurityGroupName/ does not refer to an existing DB security group.
-_DBSecurityGroupNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBSecurityGroupNotFoundFault =
-  Core._MatchServiceError
-    defaultService
-    "DBSecurityGroupNotFound"
+    "DBClusterRoleNotFound"
     Prelude.. Core.hasStatus 404
 
--- | Request would result in user exceeding the allowed number of DB
--- instances.
-_InstanceQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InstanceQuotaExceededFault =
+-- | You have exceeded the maximum number of IAM roles that can be associated
+-- with the specified DB cluster.
+_DBClusterRoleQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBClusterRoleQuotaExceededFault =
   Core._MatchServiceError
     defaultService
-    "InstanceQuotaExceeded"
+    "DBClusterRoleQuotaExceeded"
     Prelude.. Core.hasStatus 400
 
--- | /Domain/ does not refer to an existing Active Directory Domain.
-_DomainNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DomainNotFoundFault =
+-- | User already has a DB cluster snapshot with the given identifier.
+_DBClusterSnapshotAlreadyExistsFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBClusterSnapshotAlreadyExistsFault =
   Core._MatchServiceError
     defaultService
-    "DomainNotFoundFault"
-    Prelude.. Core.hasStatus 404
-
--- | /DBParameterGroupName/ does not refer to an existing DB parameter group.
-_DBParameterGroupNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBParameterGroupNotFoundFault =
-  Core._MatchServiceError
-    defaultService
-    "DBParameterGroupNotFound"
-    Prelude.. Core.hasStatus 404
-
--- | The DB subnet is not in the /available/ state.
-_InvalidDBSubnetStateFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidDBSubnetStateFault =
-  Core._MatchServiceError
-    defaultService
-    "InvalidDBSubnetStateFault"
+    "DBClusterSnapshotAlreadyExistsFault"
     Prelude.. Core.hasStatus 400
 
 -- | /DBClusterSnapshotIdentifier/ does not refer to an existing DB cluster
@@ -948,76 +840,94 @@ _DBClusterSnapshotNotFoundFault =
     "DBClusterSnapshotNotFoundFault"
     Prelude.. Core.hasStatus 404
 
--- | The SNS topic is invalid.
-_SNSInvalidTopicFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_SNSInvalidTopicFault =
+-- | User already has a DB instance with the given identifier.
+_DBInstanceAlreadyExistsFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBInstanceAlreadyExistsFault =
   Core._MatchServiceError
     defaultService
-    "SNSInvalidTopic"
+    "DBInstanceAlreadyExists"
     Prelude.. Core.hasStatus 400
 
--- | Specified DB instance class is not available in the specified
--- Availability Zone.
-_InsufficientDBInstanceCapacityFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InsufficientDBInstanceCapacityFault =
+-- | /DBInstanceIdentifier/ does not refer to an existing DB instance.
+_DBInstanceNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBInstanceNotFoundFault =
   Core._MatchServiceError
     defaultService
-    "InsufficientDBInstanceCapacity"
+    "DBInstanceNotFound"
+    Prelude.. Core.hasStatus 404
+
+-- | A DB parameter group with the same name exists.
+_DBParameterGroupAlreadyExistsFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBParameterGroupAlreadyExistsFault =
+  Core._MatchServiceError
+    defaultService
+    "DBParameterGroupAlreadyExists"
     Prelude.. Core.hasStatus 400
 
--- | The supplied value is not a valid DB cluster snapshot state.
-_InvalidDBClusterSnapshotStateFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidDBClusterSnapshotStateFault =
+-- | /DBParameterGroupName/ does not refer to an existing DB parameter group.
+_DBParameterGroupNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBParameterGroupNotFoundFault =
   Core._MatchServiceError
     defaultService
-    "InvalidDBClusterSnapshotStateFault"
+    "DBParameterGroupNotFound"
+    Prelude.. Core.hasStatus 404
+
+-- | Request would result in user exceeding the allowed number of DB
+-- parameter groups.
+_DBParameterGroupQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBParameterGroupQuotaExceededFault =
+  Core._MatchServiceError
+    defaultService
+    "DBParameterGroupQuotaExceeded"
     Prelude.. Core.hasStatus 400
 
--- | This subscription already exists.
-_SubscriptionAlreadyExistFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_SubscriptionAlreadyExistFault =
+-- | /DBSecurityGroupName/ does not refer to an existing DB security group.
+_DBSecurityGroupNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBSecurityGroupNotFoundFault =
   Core._MatchServiceError
     defaultService
-    "SubscriptionAlreadyExist"
+    "DBSecurityGroupNotFound"
+    Prelude.. Core.hasStatus 404
+
+-- | /DBSnapshotIdentifier/ is already used by an existing snapshot.
+_DBSnapshotAlreadyExistsFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBSnapshotAlreadyExistsFault =
+  Core._MatchServiceError
+    defaultService
+    "DBSnapshotAlreadyExists"
     Prelude.. Core.hasStatus 400
 
--- | The specified IAM role Amazon Resource Name (ARN) is already associated
--- with the specified DB cluster.
-_DBClusterRoleAlreadyExistsFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBClusterRoleAlreadyExistsFault =
+-- | /DBSnapshotIdentifier/ does not refer to an existing DB snapshot.
+_DBSnapshotNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBSnapshotNotFoundFault =
   Core._MatchServiceError
     defaultService
-    "DBClusterRoleAlreadyExists"
+    "DBSnapshotNotFound"
+    Prelude.. Core.hasStatus 404
+
+-- | /DBSubnetGroupName/ is already used by an existing DB subnet group.
+_DBSubnetGroupAlreadyExistsFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBSubnetGroupAlreadyExistsFault =
+  Core._MatchServiceError
+    defaultService
+    "DBSubnetGroupAlreadyExists"
     Prelude.. Core.hasStatus 400
 
--- | You have exceeded the maximum number of IAM roles that can be associated
--- with the specified DB cluster.
-_DBClusterRoleQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBClusterRoleQuotaExceededFault =
+-- | Subnets in the DB subnet group should cover at least two Availability
+-- Zones unless there is only one Availability Zone.
+_DBSubnetGroupDoesNotCoverEnoughAZs :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBSubnetGroupDoesNotCoverEnoughAZs =
   Core._MatchServiceError
     defaultService
-    "DBClusterRoleQuotaExceeded"
+    "DBSubnetGroupDoesNotCoverEnoughAZs"
     Prelude.. Core.hasStatus 400
 
--- | DB subnet group does not cover all Availability Zones after it is
--- created because users\' change.
-_InvalidVPCNetworkStateFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidVPCNetworkStateFault =
+-- | /DBSubnetGroupName/ does not refer to an existing DB subnet group.
+_DBSubnetGroupNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBSubnetGroupNotFoundFault =
   Core._MatchServiceError
     defaultService
-    "InvalidVPCNetworkStateFault"
-    Prelude.. Core.hasStatus 400
-
--- | Specified CIDRIP or EC2 security group is not authorized for the
--- specified DB security group.
---
--- Neptune may not also be authorized via IAM to perform necessary actions
--- on your behalf.
-_AuthorizationNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_AuthorizationNotFoundFault =
-  Core._MatchServiceError
-    defaultService
-    "AuthorizationNotFound"
+    "DBSubnetGroupNotFoundFault"
     Prelude.. Core.hasStatus 404
 
 -- | Request would result in user exceeding the allowed number of DB subnet
@@ -1029,12 +939,92 @@ _DBSubnetGroupQuotaExceededFault =
     "DBSubnetGroupQuotaExceeded"
     Prelude.. Core.hasStatus 400
 
+-- | Request would result in user exceeding the allowed number of subnets in
+-- a DB subnet groups.
+_DBSubnetQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBSubnetQuotaExceededFault =
+  Core._MatchServiceError
+    defaultService
+    "DBSubnetQuotaExceededFault"
+    Prelude.. Core.hasStatus 400
+
+-- | The DB upgrade failed because a resource the DB depends on could not be
+-- modified.
+_DBUpgradeDependencyFailureFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DBUpgradeDependencyFailureFault =
+  Core._MatchServiceError
+    defaultService
+    "DBUpgradeDependencyFailure"
+    Prelude.. Core.hasStatus 400
+
+-- | /Domain/ does not refer to an existing Active Directory Domain.
+_DomainNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DomainNotFoundFault =
+  Core._MatchServiceError
+    defaultService
+    "DomainNotFoundFault"
+    Prelude.. Core.hasStatus 404
+
 -- | You have exceeded the number of events you can subscribe to.
 _EventSubscriptionQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _EventSubscriptionQuotaExceededFault =
   Core._MatchServiceError
     defaultService
     "EventSubscriptionQuotaExceeded"
+    Prelude.. Core.hasStatus 400
+
+-- | The @GlobalClusterIdentifier@ already exists. Choose a new global
+-- database identifier (unique name) to create a new global database
+-- cluster.
+_GlobalClusterAlreadyExistsFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_GlobalClusterAlreadyExistsFault =
+  Core._MatchServiceError
+    defaultService
+    "GlobalClusterAlreadyExistsFault"
+    Prelude.. Core.hasStatus 400
+
+-- | The @GlobalClusterIdentifier@ doesn\'t refer to an existing global
+-- database cluster.
+_GlobalClusterNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_GlobalClusterNotFoundFault =
+  Core._MatchServiceError
+    defaultService
+    "GlobalClusterNotFoundFault"
+    Prelude.. Core.hasStatus 404
+
+-- | The number of global database clusters for this account is already at
+-- the maximum allowed.
+_GlobalClusterQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_GlobalClusterQuotaExceededFault =
+  Core._MatchServiceError
+    defaultService
+    "GlobalClusterQuotaExceededFault"
+    Prelude.. Core.hasStatus 400
+
+-- | Request would result in user exceeding the allowed number of DB
+-- instances.
+_InstanceQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InstanceQuotaExceededFault =
+  Core._MatchServiceError
+    defaultService
+    "InstanceQuotaExceeded"
+    Prelude.. Core.hasStatus 400
+
+-- | The DB cluster does not have enough capacity for the current operation.
+_InsufficientDBClusterCapacityFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InsufficientDBClusterCapacityFault =
+  Core._MatchServiceError
+    defaultService
+    "InsufficientDBClusterCapacityFault"
+    Prelude.. Core.hasStatus 403
+
+-- | Specified DB instance class is not available in the specified
+-- Availability Zone.
+_InsufficientDBInstanceCapacityFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InsufficientDBInstanceCapacityFault =
+  Core._MatchServiceError
+    defaultService
+    "InsufficientDBInstanceCapacity"
     Prelude.. Core.hasStatus 400
 
 -- | There is insufficient storage available for the current action. You may
@@ -1047,13 +1037,22 @@ _InsufficientStorageClusterCapacityFault =
     "InsufficientStorageClusterCapacity"
     Prelude.. Core.hasStatus 400
 
--- | The cluster already has the maximum number of custom endpoints.
-_DBClusterEndpointQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBClusterEndpointQuotaExceededFault =
+-- | The requested operation cannot be performed on the endpoint while the
+-- endpoint is in this state.
+_InvalidDBClusterEndpointStateFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidDBClusterEndpointStateFault =
   Core._MatchServiceError
     defaultService
-    "DBClusterEndpointQuotaExceededFault"
-    Prelude.. Core.hasStatus 403
+    "InvalidDBClusterEndpointStateFault"
+    Prelude.. Core.hasStatus 400
+
+-- | The supplied value is not a valid DB cluster snapshot state.
+_InvalidDBClusterSnapshotStateFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidDBClusterSnapshotStateFault =
+  Core._MatchServiceError
+    defaultService
+    "InvalidDBClusterSnapshotStateFault"
+    Prelude.. Core.hasStatus 400
 
 -- | The DB cluster is not in a valid state.
 _InvalidDBClusterStateFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -1061,55 +1060,6 @@ _InvalidDBClusterStateFault =
   Core._MatchServiceError
     defaultService
     "InvalidDBClusterStateFault"
-    Prelude.. Core.hasStatus 400
-
--- | User already has a DB instance with the given identifier.
-_DBInstanceAlreadyExistsFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBInstanceAlreadyExistsFault =
-  Core._MatchServiceError
-    defaultService
-    "DBInstanceAlreadyExists"
-    Prelude.. Core.hasStatus 400
-
--- | Cannot restore from vpc backup to non-vpc DB instance.
-_InvalidRestoreFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidRestoreFault =
-  Core._MatchServiceError
-    defaultService
-    "InvalidRestoreFault"
-    Prelude.. Core.hasStatus 400
-
--- | The state of the DB security group does not allow deletion.
-_InvalidDBSecurityGroupStateFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidDBSecurityGroupStateFault =
-  Core._MatchServiceError
-    defaultService
-    "InvalidDBSecurityGroupState"
-    Prelude.. Core.hasStatus 400
-
--- | The specified resource ID was not found.
-_ResourceNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceNotFoundFault =
-  Core._MatchServiceError
-    defaultService
-    "ResourceNotFoundFault"
-    Prelude.. Core.hasStatus 404
-
--- | /DBSubnetGroupName/ does not refer to an existing DB subnet group.
-_DBSubnetGroupNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBSubnetGroupNotFoundFault =
-  Core._MatchServiceError
-    defaultService
-    "DBSubnetGroupNotFoundFault"
-    Prelude.. Core.hasStatus 404
-
--- | The DB upgrade failed because a resource the DB depends on could not be
--- modified.
-_DBUpgradeDependencyFailureFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBUpgradeDependencyFailureFault =
-  Core._MatchServiceError
-    defaultService
-    "DBUpgradeDependencyFailure"
     Prelude.. Core.hasStatus 400
 
 -- | The specified DB instance is not in the /available/ state.
@@ -1120,38 +1070,22 @@ _InvalidDBInstanceStateFault =
     "InvalidDBInstanceState"
     Prelude.. Core.hasStatus 400
 
--- | The specified custom endpoint cannot be created because it already
--- exists.
-_DBClusterEndpointAlreadyExistsFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBClusterEndpointAlreadyExistsFault =
+-- | The DB parameter group is in use or is in an invalid state. If you are
+-- attempting to delete the parameter group, you cannot delete it when the
+-- parameter group is in this state.
+_InvalidDBParameterGroupStateFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidDBParameterGroupStateFault =
   Core._MatchServiceError
     defaultService
-    "DBClusterEndpointAlreadyExistsFault"
+    "InvalidDBParameterGroupState"
     Prelude.. Core.hasStatus 400
 
--- | /DBSnapshotIdentifier/ is already used by an existing snapshot.
-_DBSnapshotAlreadyExistsFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBSnapshotAlreadyExistsFault =
+-- | The state of the DB security group does not allow deletion.
+_InvalidDBSecurityGroupStateFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidDBSecurityGroupStateFault =
   Core._MatchServiceError
     defaultService
-    "DBSnapshotAlreadyExists"
-    Prelude.. Core.hasStatus 400
-
--- | /DBInstanceIdentifier/ does not refer to an existing DB instance.
-_DBInstanceNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBInstanceNotFoundFault =
-  Core._MatchServiceError
-    defaultService
-    "DBInstanceNotFound"
-    Prelude.. Core.hasStatus 404
-
--- | Request would result in user exceeding the allowed amount of storage
--- available across all DB instances.
-_StorageQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_StorageQuotaExceededFault =
-  Core._MatchServiceError
-    defaultService
-    "StorageQuotaExceeded"
+    "InvalidDBSecurityGroupState"
     Prelude.. Core.hasStatus 400
 
 -- | The state of the DB snapshot does not allow deletion.
@@ -1170,21 +1104,154 @@ _InvalidDBSubnetGroupStateFault =
     "InvalidDBSubnetGroupStateFault"
     Prelude.. Core.hasStatus 400
 
--- | The specified custom endpoint doesn\'t exist.
-_DBClusterEndpointNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBClusterEndpointNotFoundFault =
+-- | The DB subnet is not in the /available/ state.
+_InvalidDBSubnetStateFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidDBSubnetStateFault =
   Core._MatchServiceError
     defaultService
-    "DBClusterEndpointNotFoundFault"
+    "InvalidDBSubnetStateFault"
     Prelude.. Core.hasStatus 400
 
--- | Subnets in the DB subnet group should cover at least two Availability
--- Zones unless there is only one Availability Zone.
-_DBSubnetGroupDoesNotCoverEnoughAZs :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBSubnetGroupDoesNotCoverEnoughAZs =
+-- | The event subscription is in an invalid state.
+_InvalidEventSubscriptionStateFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidEventSubscriptionStateFault =
   Core._MatchServiceError
     defaultService
-    "DBSubnetGroupDoesNotCoverEnoughAZs"
+    "InvalidEventSubscriptionState"
+    Prelude.. Core.hasStatus 400
+
+-- | The global cluster is in an invalid state and can\'t perform the
+-- requested operation.
+_InvalidGlobalClusterStateFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidGlobalClusterStateFault =
+  Core._MatchServiceError
+    defaultService
+    "InvalidGlobalClusterStateFault"
+    Prelude.. Core.hasStatus 400
+
+-- | Cannot restore from vpc backup to non-vpc DB instance.
+_InvalidRestoreFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidRestoreFault =
+  Core._MatchServiceError
+    defaultService
+    "InvalidRestoreFault"
+    Prelude.. Core.hasStatus 400
+
+-- | The requested subnet is invalid, or multiple subnets were requested that
+-- are not all in a common VPC.
+_InvalidSubnet :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidSubnet =
+  Core._MatchServiceError
+    defaultService
+    "InvalidSubnet"
+    Prelude.. Core.hasStatus 400
+
+-- | DB subnet group does not cover all Availability Zones after it is
+-- created because users\' change.
+_InvalidVPCNetworkStateFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidVPCNetworkStateFault =
+  Core._MatchServiceError
+    defaultService
+    "InvalidVPCNetworkStateFault"
+    Prelude.. Core.hasStatus 400
+
+-- | Error accessing KMS key.
+_KMSKeyNotAccessibleFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_KMSKeyNotAccessibleFault =
+  Core._MatchServiceError
+    defaultService
+    "KMSKeyNotAccessibleFault"
+    Prelude.. Core.hasStatus 400
+
+-- | The designated option group could not be found.
+_OptionGroupNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_OptionGroupNotFoundFault =
+  Core._MatchServiceError
+    defaultService
+    "OptionGroupNotFoundFault"
+    Prelude.. Core.hasStatus 404
+
+-- | Provisioned IOPS not available in the specified Availability Zone.
+_ProvisionedIopsNotAvailableInAZFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ProvisionedIopsNotAvailableInAZFault =
+  Core._MatchServiceError
+    defaultService
+    "ProvisionedIopsNotAvailableInAZFault"
+    Prelude.. Core.hasStatus 400
+
+-- | The specified resource ID was not found.
+_ResourceNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceNotFoundFault =
+  Core._MatchServiceError
+    defaultService
+    "ResourceNotFoundFault"
+    Prelude.. Core.hasStatus 404
+
+-- | The SNS topic is invalid.
+_SNSInvalidTopicFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_SNSInvalidTopicFault =
+  Core._MatchServiceError
+    defaultService
+    "SNSInvalidTopic"
+    Prelude.. Core.hasStatus 400
+
+-- | There is no SNS authorization.
+_SNSNoAuthorizationFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_SNSNoAuthorizationFault =
+  Core._MatchServiceError
+    defaultService
+    "SNSNoAuthorization"
+    Prelude.. Core.hasStatus 400
+
+-- | The ARN of the SNS topic could not be found.
+_SNSTopicArnNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_SNSTopicArnNotFoundFault =
+  Core._MatchServiceError
+    defaultService
+    "SNSTopicArnNotFound"
+    Prelude.. Core.hasStatus 404
+
+-- | You have exceeded the maximum number of accounts that you can share a
+-- manual DB snapshot with.
+_SharedSnapshotQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_SharedSnapshotQuotaExceededFault =
+  Core._MatchServiceError
+    defaultService
+    "SharedSnapshotQuotaExceeded"
+    Prelude.. Core.hasStatus 400
+
+-- | Request would result in user exceeding the allowed number of DB
+-- snapshots.
+_SnapshotQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_SnapshotQuotaExceededFault =
+  Core._MatchServiceError
+    defaultService
+    "SnapshotQuotaExceeded"
+    Prelude.. Core.hasStatus 400
+
+-- | The source could not be found.
+_SourceNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_SourceNotFoundFault =
+  Core._MatchServiceError
+    defaultService
+    "SourceNotFound"
+    Prelude.. Core.hasStatus 404
+
+-- | Request would result in user exceeding the allowed amount of storage
+-- available across all DB instances.
+_StorageQuotaExceededFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_StorageQuotaExceededFault =
+  Core._MatchServiceError
+    defaultService
+    "StorageQuotaExceeded"
+    Prelude.. Core.hasStatus 400
+
+-- | /StorageType/ specified cannot be associated with the DB Instance.
+_StorageTypeNotSupportedFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_StorageTypeNotSupportedFault =
+  Core._MatchServiceError
+    defaultService
+    "StorageTypeNotSupported"
     Prelude.. Core.hasStatus 400
 
 -- | The DB subnet is already in use in the Availability Zone.
@@ -1195,11 +1262,26 @@ _SubnetAlreadyInUse =
     "SubnetAlreadyInUse"
     Prelude.. Core.hasStatus 400
 
--- | The specified IAM role Amazon Resource Name (ARN) is not associated with
--- the specified DB cluster.
-_DBClusterRoleNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DBClusterRoleNotFoundFault =
+-- | This subscription already exists.
+_SubscriptionAlreadyExistFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_SubscriptionAlreadyExistFault =
   Core._MatchServiceError
     defaultService
-    "DBClusterRoleNotFound"
+    "SubscriptionAlreadyExist"
+    Prelude.. Core.hasStatus 400
+
+-- | The designated subscription category could not be found.
+_SubscriptionCategoryNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_SubscriptionCategoryNotFoundFault =
+  Core._MatchServiceError
+    defaultService
+    "SubscriptionCategoryNotFound"
+    Prelude.. Core.hasStatus 404
+
+-- | The designated subscription could not be found.
+_SubscriptionNotFoundFault :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_SubscriptionNotFoundFault =
+  Core._MatchServiceError
+    defaultService
+    "SubscriptionNotFound"
     Prelude.. Core.hasStatus 404

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ProcessorInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.ProcessorInfo where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ArchitectureType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the processor used by the instance type.
@@ -64,14 +65,14 @@ processorInfo_supportedArchitectures = Lens.lens (\ProcessorInfo' {supportedArch
 processorInfo_sustainedClockSpeedInGhz :: Lens.Lens' ProcessorInfo (Prelude.Maybe Prelude.Double)
 processorInfo_sustainedClockSpeedInGhz = Lens.lens (\ProcessorInfo' {sustainedClockSpeedInGhz} -> sustainedClockSpeedInGhz) (\s@ProcessorInfo' {} a -> s {sustainedClockSpeedInGhz = a} :: ProcessorInfo)
 
-instance Core.FromXML ProcessorInfo where
+instance Data.FromXML ProcessorInfo where
   parseXML x =
     ProcessorInfo'
-      Prelude.<$> ( x Core..@? "supportedArchitectures"
+      Prelude.<$> ( x Data..@? "supportedArchitectures"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@? "sustainedClockSpeedInGhz")
+      Prelude.<*> (x Data..@? "sustainedClockSpeedInGhz")
 
 instance Prelude.Hashable ProcessorInfo where
   hashWithSalt _salt ProcessorInfo' {..} =

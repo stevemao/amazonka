@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.DeclineInvitations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.SecurityHub.DeclineInvitations
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,12 +82,13 @@ instance Core.AWSRequest DeclineInvitations where
   type
     AWSResponse DeclineInvitations =
       DeclineInvitationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeclineInvitationsResponse'
-            Prelude.<$> ( x Core..?> "UnprocessedAccounts"
+            Prelude.<$> ( x Data..?> "UnprocessedAccounts"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -99,28 +101,28 @@ instance Prelude.Hashable DeclineInvitations where
 instance Prelude.NFData DeclineInvitations where
   rnf DeclineInvitations' {..} = Prelude.rnf accountIds
 
-instance Core.ToHeaders DeclineInvitations where
+instance Data.ToHeaders DeclineInvitations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeclineInvitations where
+instance Data.ToJSON DeclineInvitations where
   toJSON DeclineInvitations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("AccountIds" Core..= accountIds)]
+          [Prelude.Just ("AccountIds" Data..= accountIds)]
       )
 
-instance Core.ToPath DeclineInvitations where
+instance Data.ToPath DeclineInvitations where
   toPath = Prelude.const "/invitations/decline"
 
-instance Core.ToQuery DeclineInvitations where
+instance Data.ToQuery DeclineInvitations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeclineInvitationsResponse' smart constructor.

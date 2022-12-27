@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.SendCustomVerificationEmail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,7 +28,7 @@
 -- To use this operation, you must first create a custom verification email
 -- template. For more information about creating and using custom
 -- verification email templates, see
--- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-verify-address-custom.html Using Custom Verification Email Templates>
+-- <https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#send-email-verify-address-custom Using custom verification email templates>
 -- in the /Amazon SES Developer Guide/.
 --
 -- You can execute this operation no more than once per second.
@@ -53,7 +53,8 @@ module Amazonka.SESV2.SendCustomVerificationEmail
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,12 +122,13 @@ instance Core.AWSRequest SendCustomVerificationEmail where
   type
     AWSResponse SendCustomVerificationEmail =
       SendCustomVerificationEmailResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SendCustomVerificationEmailResponse'
-            Prelude.<$> (x Core..?> "MessageId")
+            Prelude.<$> (x Data..?> "MessageId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -142,34 +144,34 @@ instance Prelude.NFData SendCustomVerificationEmail where
       `Prelude.seq` Prelude.rnf emailAddress
       `Prelude.seq` Prelude.rnf templateName
 
-instance Core.ToHeaders SendCustomVerificationEmail where
+instance Data.ToHeaders SendCustomVerificationEmail where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SendCustomVerificationEmail where
+instance Data.ToJSON SendCustomVerificationEmail where
   toJSON SendCustomVerificationEmail' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ConfigurationSetName" Core..=)
+          [ ("ConfigurationSetName" Data..=)
               Prelude.<$> configurationSetName,
-            Prelude.Just ("EmailAddress" Core..= emailAddress),
-            Prelude.Just ("TemplateName" Core..= templateName)
+            Prelude.Just ("EmailAddress" Data..= emailAddress),
+            Prelude.Just ("TemplateName" Data..= templateName)
           ]
       )
 
-instance Core.ToPath SendCustomVerificationEmail where
+instance Data.ToPath SendCustomVerificationEmail where
   toPath =
     Prelude.const
       "/v2/email/outbound-custom-verification-emails"
 
-instance Core.ToQuery SendCustomVerificationEmail where
+instance Data.ToQuery SendCustomVerificationEmail where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The following element is returned by the service.

@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.IAM.DeleteLoginProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the password for the specified IAM user, which terminates the
--- user\'s ability to access Amazon Web Services services through the
--- Amazon Web Services Management Console.
+-- Deletes the password for the specified IAM user, For more information,
+-- see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_passwords_admin-change-user.html Managing passwords for IAM users>.
 --
 -- You can use the CLI, the Amazon Web Services API, or the __Users__ page
 -- in the IAM console to delete a password for any IAM user. You can use
@@ -50,8 +50,9 @@ module Amazonka.IAM.DeleteLoginProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,7 +103,8 @@ instance Core.AWSRequest DeleteLoginProfile where
   type
     AWSResponse DeleteLoginProfile =
       DeleteLoginProfileResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteLoginProfileResponse'
 
@@ -113,20 +115,20 @@ instance Prelude.Hashable DeleteLoginProfile where
 instance Prelude.NFData DeleteLoginProfile where
   rnf DeleteLoginProfile' {..} = Prelude.rnf userName
 
-instance Core.ToHeaders DeleteLoginProfile where
+instance Data.ToHeaders DeleteLoginProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteLoginProfile where
+instance Data.ToPath DeleteLoginProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteLoginProfile where
+instance Data.ToQuery DeleteLoginProfile where
   toQuery DeleteLoginProfile' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteLoginProfile" :: Prelude.ByteString),
+          Data.=: ("DeleteLoginProfile" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "UserName" Core.=: userName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Data.=: userName
       ]
 
 -- | /See:/ 'newDeleteLoginProfileResponse' smart constructor.

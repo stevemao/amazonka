@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.TagKeys
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudFront.Types.TagKeys where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A complex type that contains zero or more @Tag@ elements.
@@ -56,9 +57,9 @@ instance Prelude.Hashable TagKeys where
 instance Prelude.NFData TagKeys where
   rnf TagKeys' {..} = Prelude.rnf items
 
-instance Core.ToXML TagKeys where
+instance Data.ToXML TagKeys where
   toXML TagKeys' {..} =
     Prelude.mconcat
       [ "Items"
-          Core.@= Core.toXML (Core.toXMLList "Key" Prelude.<$> items)
+          Data.@= Data.toXML (Data.toXMLList "Key" Prelude.<$> items)
       ]

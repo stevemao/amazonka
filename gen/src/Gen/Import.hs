@@ -1,3 +1,5 @@
+{-# LANGUAGE LambdaCase #-}
+
 module Gen.Import where
 
 import qualified Control.Lens as Lens
@@ -8,11 +10,12 @@ import Gen.Types
 
 operationImports :: Library -> Operation Identity SData a -> [NS]
 operationImports l _o =
-  Set.toList . Set.fromList $
+  Set.toAscList . Set.fromList $
     "qualified Amazonka.Request as Request" :
     "qualified Amazonka.Response as Response" :
-    "qualified Amazonka.Lens as Lens" :
     "qualified Amazonka.Core as Core" :
+    "qualified Amazonka.Core.Lens.Internal as Lens" :
+    "qualified Amazonka.Data as Data" :
     "qualified Amazonka.Prelude as Prelude" :
     l ^. typesNS :
     l ^. operationModules
@@ -20,8 +23,8 @@ operationImports l _o =
 typeImports :: Library -> [NS]
 typeImports l =
   List.sort $
-    "qualified Amazonka.Lens as Lens" :
     "qualified Amazonka.Core as Core" :
+    "qualified Amazonka.Core.Lens.Internal as Lens" :
     "qualified Amazonka.Prelude as Prelude" :
     signatureImport (l ^. signatureVersion) :
     l ^. typeModules
@@ -34,35 +37,45 @@ sumImports :: Library -> [NS]
 sumImports l =
   List.sort $
     "qualified Amazonka.Core as Core" :
+    "qualified Amazonka.Data as Data" :
     "qualified Amazonka.Prelude as Prelude" :
     l ^. typeModules
 
 productImports :: Library -> Prod -> [NS]
 productImports l p =
   List.sort $
-    "qualified Amazonka.Lens as Lens" :
     "qualified Amazonka.Core as Core" :
+    "qualified Amazonka.Core.Lens.Internal as Lens" :
+    "qualified Amazonka.Data as Data" :
     "qualified Amazonka.Prelude as Prelude" :
-    l ^. typeModules
-      ++ productDependencies l p
+    l ^. typeModules ++ productDependencies l p
 
 productDependencies :: Library -> Prod -> [NS]
 productDependencies l p =
-  Set.toList (Set.map (l ^. typesNS <>) moduleDependencies)
+  Set.toList (Set.map buildImport moduleDependencies)
   where
-    moduleDependencies = Set.intersection dependencies (moduleShapes l)
-    dependencies = Set.map mkNS (_prodDeps p)
+    buildImport t
+      | (_prodName p, t) `elem` (l ^. cuts') = addSource t'
+      | otherwise = t'
+      where
+        t' = l ^. typesNS <> mkNS t
+        addSource = \case
+          NS (n : ns) -> NS $ "{-# SOURCE #-} " <> n : ns
+          NS [] -> NS []
 
-moduleShapes :: Library -> Set.Set NS
-moduleShapes l =
-  Set.fromList $
-    map (mkNS . typeId . identifier) (l ^.. shapes . Lens.each)
+    moduleDependencies =
+      Set.intersection dependencies (Set.map typeId moduleShapes)
+    dependencies = _prodDeps p
+
+    moduleShapes =
+      Set.fromList $ l ^.. shapes . traverse . Lens.to identifier
 
 waiterImports :: Library -> [NS]
 waiterImports l =
   List.sort $
-    "qualified Amazonka.Lens as Lens" :
     "qualified Amazonka.Core as Core" :
+    "qualified Amazonka.Core.Lens.Internal as Lens" :
+    "qualified Amazonka.Data as Data" :
     "qualified Amazonka.Prelude as Prelude" :
     l ^. typesNS :
     l ^. lensNS :

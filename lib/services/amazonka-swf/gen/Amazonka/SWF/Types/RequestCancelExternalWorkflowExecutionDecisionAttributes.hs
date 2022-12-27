@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.RequestCancelExternalWorkflowExecutionDecisionAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.RequestCancelExternalWorkflowExecutionDecisionAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides the details of the @RequestCancelExternalWorkflowExecution@
@@ -122,15 +123,15 @@ instance
         `Prelude.seq` Prelude.rnf workflowId
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     RequestCancelExternalWorkflowExecutionDecisionAttributes
   where
   toJSON
     RequestCancelExternalWorkflowExecutionDecisionAttributes' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("control" Core..=) Prelude.<$> control,
-              ("runId" Core..=) Prelude.<$> runId,
-              Prelude.Just ("workflowId" Core..= workflowId)
+            [ ("control" Data..=) Prelude.<$> control,
+              ("runId" Data..=) Prelude.<$> runId,
+              Prelude.Just ("workflowId" Data..= workflowId)
             ]
         )

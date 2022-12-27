@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.InventoryResultEntity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.InventoryResultEntity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.InventoryResultItem
 
@@ -30,8 +31,8 @@ import Amazonka.SSM.Types.InventoryResultItem
 data InventoryResultEntity = InventoryResultEntity'
   { -- | The data section in the inventory result entity JSON.
     data' :: Prelude.Maybe (Prelude.HashMap Prelude.Text InventoryResultItem),
-    -- | ID of the inventory result entity. For example, for managed instance
-    -- inventory the result will be the managed instance ID. For EC2 instance
+    -- | ID of the inventory result entity. For example, for managed node
+    -- inventory the result will be the managed node ID. For EC2 instance
     -- inventory, the result will be the instance ID.
     id :: Prelude.Maybe Prelude.Text
   }
@@ -47,8 +48,8 @@ data InventoryResultEntity = InventoryResultEntity'
 --
 -- 'data'', 'inventoryResultEntity_data' - The data section in the inventory result entity JSON.
 --
--- 'id', 'inventoryResultEntity_id' - ID of the inventory result entity. For example, for managed instance
--- inventory the result will be the managed instance ID. For EC2 instance
+-- 'id', 'inventoryResultEntity_id' - ID of the inventory result entity. For example, for managed node
+-- inventory the result will be the managed node ID. For EC2 instance
 -- inventory, the result will be the instance ID.
 newInventoryResultEntity ::
   InventoryResultEntity
@@ -62,20 +63,20 @@ newInventoryResultEntity =
 inventoryResultEntity_data :: Lens.Lens' InventoryResultEntity (Prelude.Maybe (Prelude.HashMap Prelude.Text InventoryResultItem))
 inventoryResultEntity_data = Lens.lens (\InventoryResultEntity' {data'} -> data') (\s@InventoryResultEntity' {} a -> s {data' = a} :: InventoryResultEntity) Prelude.. Lens.mapping Lens.coerced
 
--- | ID of the inventory result entity. For example, for managed instance
--- inventory the result will be the managed instance ID. For EC2 instance
+-- | ID of the inventory result entity. For example, for managed node
+-- inventory the result will be the managed node ID. For EC2 instance
 -- inventory, the result will be the instance ID.
 inventoryResultEntity_id :: Lens.Lens' InventoryResultEntity (Prelude.Maybe Prelude.Text)
 inventoryResultEntity_id = Lens.lens (\InventoryResultEntity' {id} -> id) (\s@InventoryResultEntity' {} a -> s {id = a} :: InventoryResultEntity)
 
-instance Core.FromJSON InventoryResultEntity where
+instance Data.FromJSON InventoryResultEntity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InventoryResultEntity"
       ( \x ->
           InventoryResultEntity'
-            Prelude.<$> (x Core..:? "Data" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Id")
+            Prelude.<$> (x Data..:? "Data" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Id")
       )
 
 instance Prelude.Hashable InventoryResultEntity where

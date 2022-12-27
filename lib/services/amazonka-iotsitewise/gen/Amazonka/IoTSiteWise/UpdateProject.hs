@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.UpdateProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.IoTSiteWise.UpdateProject
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,7 +117,8 @@ instance Core.AWSRequest UpdateProject where
   type
     AWSResponse UpdateProject =
       UpdateProjectResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -138,33 +140,33 @@ instance Prelude.NFData UpdateProject where
       `Prelude.seq` Prelude.rnf projectId
       `Prelude.seq` Prelude.rnf projectName
 
-instance Core.ToHeaders UpdateProject where
+instance Data.ToHeaders UpdateProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateProject where
+instance Data.ToJSON UpdateProject where
   toJSON UpdateProject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("projectDescription" Core..=)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("projectDescription" Data..=)
               Prelude.<$> projectDescription,
-            Prelude.Just ("projectName" Core..= projectName)
+            Prelude.Just ("projectName" Data..= projectName)
           ]
       )
 
-instance Core.ToPath UpdateProject where
+instance Data.ToPath UpdateProject where
   toPath UpdateProject' {..} =
-    Prelude.mconcat ["/projects/", Core.toBS projectId]
+    Prelude.mconcat ["/projects/", Data.toBS projectId]
 
-instance Core.ToQuery UpdateProject where
+instance Data.ToQuery UpdateProject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateProjectResponse' smart constructor.

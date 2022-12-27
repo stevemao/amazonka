@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.GetProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DeviceFarm.GetProject
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,12 +77,13 @@ getProject_arn = Lens.lens (\GetProject' {arn} -> arn) (\s@GetProject' {} a -> s
 
 instance Core.AWSRequest GetProject where
   type AWSResponse GetProject = GetProjectResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetProjectResponse'
-            Prelude.<$> (x Core..?> "project")
+            Prelude.<$> (x Data..?> "project")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -92,32 +94,32 @@ instance Prelude.Hashable GetProject where
 instance Prelude.NFData GetProject where
   rnf GetProject' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders GetProject where
+instance Data.ToHeaders GetProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.GetProject" ::
+              Data.=# ( "DeviceFarm_20150623.GetProject" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetProject where
+instance Data.ToJSON GetProject where
   toJSON GetProject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arn" Core..= arn)]
+          [Prelude.Just ("arn" Data..= arn)]
       )
 
-instance Core.ToPath GetProject where
+instance Data.ToPath GetProject where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetProject where
+instance Data.ToQuery GetProject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a get project request.

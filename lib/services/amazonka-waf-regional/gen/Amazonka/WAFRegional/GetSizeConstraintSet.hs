@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.GetSizeConstraintSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.WAFRegional.GetSizeConstraintSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,12 +96,13 @@ instance Core.AWSRequest GetSizeConstraintSet where
   type
     AWSResponse GetSizeConstraintSet =
       GetSizeConstraintSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSizeConstraintSetResponse'
-            Prelude.<$> (x Core..?> "SizeConstraintSet")
+            Prelude.<$> (x Data..?> "SizeConstraintSet")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,34 +114,34 @@ instance Prelude.NFData GetSizeConstraintSet where
   rnf GetSizeConstraintSet' {..} =
     Prelude.rnf sizeConstraintSetId
 
-instance Core.ToHeaders GetSizeConstraintSet where
+instance Data.ToHeaders GetSizeConstraintSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.GetSizeConstraintSet" ::
+              Data.=# ( "AWSWAF_Regional_20161128.GetSizeConstraintSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetSizeConstraintSet where
+instance Data.ToJSON GetSizeConstraintSet where
   toJSON GetSizeConstraintSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("SizeConstraintSetId" Core..= sizeConstraintSetId)
+              ("SizeConstraintSetId" Data..= sizeConstraintSetId)
           ]
       )
 
-instance Core.ToPath GetSizeConstraintSet where
+instance Data.ToPath GetSizeConstraintSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetSizeConstraintSet where
+instance Data.ToQuery GetSizeConstraintSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSizeConstraintSetResponse' smart constructor.

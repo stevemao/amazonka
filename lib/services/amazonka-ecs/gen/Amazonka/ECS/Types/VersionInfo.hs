@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.VersionInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ECS.Types.VersionInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The Docker and Amazon ECS container agent version information about a
@@ -34,7 +35,7 @@ data VersionInfo = VersionInfo'
     agentHash :: Prelude.Maybe Prelude.Text,
     -- | The version number of the Amazon ECS container agent.
     agentVersion :: Prelude.Maybe Prelude.Text,
-    -- | The Docker version running on the container instance.
+    -- | The Docker version that\'s running on the container instance.
     dockerVersion :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -53,7 +54,7 @@ data VersionInfo = VersionInfo'
 --
 -- 'agentVersion', 'versionInfo_agentVersion' - The version number of the Amazon ECS container agent.
 --
--- 'dockerVersion', 'versionInfo_dockerVersion' - The Docker version running on the container instance.
+-- 'dockerVersion', 'versionInfo_dockerVersion' - The Docker version that\'s running on the container instance.
 newVersionInfo ::
   VersionInfo
 newVersionInfo =
@@ -73,19 +74,19 @@ versionInfo_agentHash = Lens.lens (\VersionInfo' {agentHash} -> agentHash) (\s@V
 versionInfo_agentVersion :: Lens.Lens' VersionInfo (Prelude.Maybe Prelude.Text)
 versionInfo_agentVersion = Lens.lens (\VersionInfo' {agentVersion} -> agentVersion) (\s@VersionInfo' {} a -> s {agentVersion = a} :: VersionInfo)
 
--- | The Docker version running on the container instance.
+-- | The Docker version that\'s running on the container instance.
 versionInfo_dockerVersion :: Lens.Lens' VersionInfo (Prelude.Maybe Prelude.Text)
 versionInfo_dockerVersion = Lens.lens (\VersionInfo' {dockerVersion} -> dockerVersion) (\s@VersionInfo' {} a -> s {dockerVersion = a} :: VersionInfo)
 
-instance Core.FromJSON VersionInfo where
+instance Data.FromJSON VersionInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VersionInfo"
       ( \x ->
           VersionInfo'
-            Prelude.<$> (x Core..:? "agentHash")
-            Prelude.<*> (x Core..:? "agentVersion")
-            Prelude.<*> (x Core..:? "dockerVersion")
+            Prelude.<$> (x Data..:? "agentHash")
+            Prelude.<*> (x Data..:? "agentVersion")
+            Prelude.<*> (x Data..:? "dockerVersion")
       )
 
 instance Prelude.Hashable VersionInfo where
@@ -100,12 +101,12 @@ instance Prelude.NFData VersionInfo where
       `Prelude.seq` Prelude.rnf agentVersion
       `Prelude.seq` Prelude.rnf dockerVersion
 
-instance Core.ToJSON VersionInfo where
+instance Data.ToJSON VersionInfo where
   toJSON VersionInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("agentHash" Core..=) Prelude.<$> agentHash,
-            ("agentVersion" Core..=) Prelude.<$> agentVersion,
-            ("dockerVersion" Core..=) Prelude.<$> dockerVersion
+          [ ("agentHash" Data..=) Prelude.<$> agentHash,
+            ("agentVersion" Data..=) Prelude.<$> agentVersion,
+            ("dockerVersion" Data..=) Prelude.<$> dockerVersion
           ]
       )

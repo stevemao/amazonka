@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,15 +23,16 @@
 -- With DynamoDB, you can create database tables that can store and
 -- retrieve any amount of data, and serve any level of request traffic. You
 -- can scale up or scale down your tables\' throughput capacity without
--- downtime or performance degradation, and use the AWS Management Console
--- to monitor resource utilization and performance metrics.
+-- downtime or performance degradation, and use the Amazon Web Services
+-- Management Console to monitor resource utilization and performance
+-- metrics.
 --
 -- DynamoDB automatically spreads the data and traffic for your tables over
 -- a sufficient number of servers to handle your throughput and storage
 -- requirements, while maintaining consistent and fast performance. All of
 -- your data is stored on solid state disks (SSDs) and automatically
--- replicated across multiple Availability Zones in an AWS region,
--- providing built-in high availability and data durability.
+-- replicated across multiple Availability Zones in an Amazon Web Services
+-- Region, providing built-in high availability and data durability.
 module Amazonka.DynamoDB
   ( -- * Service Configuration
     defaultService,
@@ -39,230 +40,110 @@ module Amazonka.DynamoDB
     -- * Errors
     -- $errors
 
-    -- ** InvalidExportTimeException
-    _InvalidExportTimeException,
+    -- ** BackupInUseException
+    _BackupInUseException,
 
     -- ** BackupNotFoundException
     _BackupNotFoundException,
 
-    -- ** TableInUseException
-    _TableInUseException,
-
-    -- ** ExportConflictException
-    _ExportConflictException,
+    -- ** ConditionalCheckFailedException
+    _ConditionalCheckFailedException,
 
     -- ** ContinuousBackupsUnavailableException
     _ContinuousBackupsUnavailableException,
 
-    -- ** ProvisionedThroughputExceededException
-    _ProvisionedThroughputExceededException,
-
-    -- ** GlobalTableNotFoundException
-    _GlobalTableNotFoundException,
-
-    -- ** TransactionInProgressException
-    _TransactionInProgressException,
-
-    -- ** TransactionCanceledException
-    _TransactionCanceledException,
-
-    -- ** ConditionalCheckFailedException
-    _ConditionalCheckFailedException,
-
-    -- ** GlobalTableAlreadyExistsException
-    _GlobalTableAlreadyExistsException,
-
-    -- ** ReplicaNotFoundException
-    _ReplicaNotFoundException,
-
-    -- ** TableAlreadyExistsException
-    _TableAlreadyExistsException,
-
-    -- ** RequestLimitExceeded
-    _RequestLimitExceeded,
-
-    -- ** ItemCollectionSizeLimitExceededException
-    _ItemCollectionSizeLimitExceededException,
-
-    -- ** InternalServerError
-    _InternalServerError,
-
-    -- ** TableNotFoundException
-    _TableNotFoundException,
-
-    -- ** IndexNotFoundException
-    _IndexNotFoundException,
-
-    -- ** TransactionConflictException
-    _TransactionConflictException,
-
-    -- ** BackupInUseException
-    _BackupInUseException,
-
     -- ** DuplicateItemException
     _DuplicateItemException,
+
+    -- ** ExportConflictException
+    _ExportConflictException,
 
     -- ** ExportNotFoundException
     _ExportNotFoundException,
 
-    -- ** PointInTimeRecoveryUnavailableException
-    _PointInTimeRecoveryUnavailableException,
+    -- ** GlobalTableAlreadyExistsException
+    _GlobalTableAlreadyExistsException,
+
+    -- ** GlobalTableNotFoundException
+    _GlobalTableNotFoundException,
 
     -- ** IdempotentParameterMismatchException
     _IdempotentParameterMismatchException,
 
+    -- ** ImportConflictException
+    _ImportConflictException,
+
+    -- ** ImportNotFoundException
+    _ImportNotFoundException,
+
+    -- ** IndexNotFoundException
+    _IndexNotFoundException,
+
+    -- ** InternalServerError
+    _InternalServerError,
+
+    -- ** InvalidExportTimeException
+    _InvalidExportTimeException,
+
     -- ** InvalidRestoreTimeException
     _InvalidRestoreTimeException,
 
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
-
-    -- ** ReplicaAlreadyExistsException
-    _ReplicaAlreadyExistsException,
+    -- ** ItemCollectionSizeLimitExceededException
+    _ItemCollectionSizeLimitExceededException,
 
     -- ** LimitExceededException
     _LimitExceededException,
 
+    -- ** PointInTimeRecoveryUnavailableException
+    _PointInTimeRecoveryUnavailableException,
+
+    -- ** ProvisionedThroughputExceededException
+    _ProvisionedThroughputExceededException,
+
+    -- ** ReplicaAlreadyExistsException
+    _ReplicaAlreadyExistsException,
+
+    -- ** ReplicaNotFoundException
+    _ReplicaNotFoundException,
+
+    -- ** RequestLimitExceeded
+    _RequestLimitExceeded,
+
     -- ** ResourceInUseException
     _ResourceInUseException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
+
+    -- ** TableAlreadyExistsException
+    _TableAlreadyExistsException,
+
+    -- ** TableInUseException
+    _TableInUseException,
+
+    -- ** TableNotFoundException
+    _TableNotFoundException,
+
+    -- ** TransactionCanceledException
+    _TransactionCanceledException,
+
+    -- ** TransactionConflictException
+    _TransactionConflictException,
+
+    -- ** TransactionInProgressException
+    _TransactionInProgressException,
 
     -- * Waiters
     -- $waiters
 
-    -- ** TableNotExists
-    newTableNotExists,
-
     -- ** TableExists
     newTableExists,
 
+    -- ** TableNotExists
+    newTableNotExists,
+
     -- * Operations
     -- $operations
-
-    -- ** PutItem
-    PutItem (PutItem'),
-    newPutItem,
-    PutItemResponse (PutItemResponse'),
-    newPutItemResponse,
-
-    -- ** DeleteItem
-    DeleteItem (DeleteItem'),
-    newDeleteItem,
-    DeleteItemResponse (DeleteItemResponse'),
-    newDeleteItemResponse,
-
-    -- ** UpdateItem
-    UpdateItem (UpdateItem'),
-    newUpdateItem,
-    UpdateItemResponse (UpdateItemResponse'),
-    newUpdateItemResponse,
-
-    -- ** DisableKinesisStreamingDestination
-    DisableKinesisStreamingDestination (DisableKinesisStreamingDestination'),
-    newDisableKinesisStreamingDestination,
-    KinesisStreamingDestinationOutput (KinesisStreamingDestinationOutput'),
-    newKinesisStreamingDestinationOutput,
-
-    -- ** ListGlobalTables
-    ListGlobalTables (ListGlobalTables'),
-    newListGlobalTables,
-    ListGlobalTablesResponse (ListGlobalTablesResponse'),
-    newListGlobalTablesResponse,
-
-    -- ** UpdateGlobalTable
-    UpdateGlobalTable (UpdateGlobalTable'),
-    newUpdateGlobalTable,
-    UpdateGlobalTableResponse (UpdateGlobalTableResponse'),
-    newUpdateGlobalTableResponse,
-
-    -- ** DeleteTable
-    DeleteTable (DeleteTable'),
-    newDeleteTable,
-    DeleteTableResponse (DeleteTableResponse'),
-    newDeleteTableResponse,
-
-    -- ** UpdateTable
-    UpdateTable (UpdateTable'),
-    newUpdateTable,
-    UpdateTableResponse (UpdateTableResponse'),
-    newUpdateTableResponse,
-
-    -- ** BatchGetItem
-    BatchGetItem (BatchGetItem'),
-    newBatchGetItem,
-    BatchGetItemResponse (BatchGetItemResponse'),
-    newBatchGetItemResponse,
-
-    -- ** ListBackups (Paginated)
-    ListBackups (ListBackups'),
-    newListBackups,
-    ListBackupsResponse (ListBackupsResponse'),
-    newListBackupsResponse,
-
-    -- ** DeleteBackup
-    DeleteBackup (DeleteBackup'),
-    newDeleteBackup,
-    DeleteBackupResponse (DeleteBackupResponse'),
-    newDeleteBackupResponse,
-
-    -- ** CreateBackup
-    CreateBackup (CreateBackup'),
-    newCreateBackup,
-    CreateBackupResponse (CreateBackupResponse'),
-    newCreateBackupResponse,
-
-    -- ** UpdateTableReplicaAutoScaling
-    UpdateTableReplicaAutoScaling (UpdateTableReplicaAutoScaling'),
-    newUpdateTableReplicaAutoScaling,
-    UpdateTableReplicaAutoScalingResponse (UpdateTableReplicaAutoScalingResponse'),
-    newUpdateTableReplicaAutoScalingResponse,
-
-    -- ** DescribeGlobalTableSettings
-    DescribeGlobalTableSettings (DescribeGlobalTableSettings'),
-    newDescribeGlobalTableSettings,
-    DescribeGlobalTableSettingsResponse (DescribeGlobalTableSettingsResponse'),
-    newDescribeGlobalTableSettingsResponse,
-
-    -- ** ListTagsOfResource (Paginated)
-    ListTagsOfResource (ListTagsOfResource'),
-    newListTagsOfResource,
-    ListTagsOfResourceResponse (ListTagsOfResourceResponse'),
-    newListTagsOfResourceResponse,
-
-    -- ** DescribeGlobalTable
-    DescribeGlobalTable (DescribeGlobalTable'),
-    newDescribeGlobalTable,
-    DescribeGlobalTableResponse (DescribeGlobalTableResponse'),
-    newDescribeGlobalTableResponse,
-
-    -- ** DescribeTable
-    DescribeTable (DescribeTable'),
-    newDescribeTable,
-    DescribeTableResponse (DescribeTableResponse'),
-    newDescribeTableResponse,
-
-    -- ** DescribeLimits
-    DescribeLimits (DescribeLimits'),
-    newDescribeLimits,
-    DescribeLimitsResponse (DescribeLimitsResponse'),
-    newDescribeLimitsResponse,
-
-    -- ** ExecuteTransaction
-    ExecuteTransaction (ExecuteTransaction'),
-    newExecuteTransaction,
-    ExecuteTransactionResponse (ExecuteTransactionResponse'),
-    newExecuteTransactionResponse,
-
-    -- ** GetItem
-    GetItem (GetItem'),
-    newGetItem,
-    GetItemResponse (GetItemResponse'),
-    newGetItemResponse,
-
-    -- ** DescribeBackup
-    DescribeBackup (DescribeBackup'),
-    newDescribeBackup,
-    DescribeBackupResponse (DescribeBackupResponse'),
-    newDescribeBackupResponse,
 
     -- ** BatchExecuteStatement
     BatchExecuteStatement (BatchExecuteStatement'),
@@ -270,35 +151,11 @@ module Amazonka.DynamoDB
     BatchExecuteStatementResponse (BatchExecuteStatementResponse'),
     newBatchExecuteStatementResponse,
 
-    -- ** DescribeTableReplicaAutoScaling
-    DescribeTableReplicaAutoScaling (DescribeTableReplicaAutoScaling'),
-    newDescribeTableReplicaAutoScaling,
-    DescribeTableReplicaAutoScalingResponse (DescribeTableReplicaAutoScalingResponse'),
-    newDescribeTableReplicaAutoScalingResponse,
-
-    -- ** UpdateGlobalTableSettings
-    UpdateGlobalTableSettings (UpdateGlobalTableSettings'),
-    newUpdateGlobalTableSettings,
-    UpdateGlobalTableSettingsResponse (UpdateGlobalTableSettingsResponse'),
-    newUpdateGlobalTableSettingsResponse,
-
-    -- ** EnableKinesisStreamingDestination
-    EnableKinesisStreamingDestination (EnableKinesisStreamingDestination'),
-    newEnableKinesisStreamingDestination,
-    KinesisStreamingDestinationOutput (KinesisStreamingDestinationOutput'),
-    newKinesisStreamingDestinationOutput,
-
-    -- ** TransactGetItems
-    TransactGetItems (TransactGetItems'),
-    newTransactGetItems,
-    TransactGetItemsResponse (TransactGetItemsResponse'),
-    newTransactGetItemsResponse,
-
-    -- ** ListContributorInsights
-    ListContributorInsights (ListContributorInsights'),
-    newListContributorInsights,
-    ListContributorInsightsResponse (ListContributorInsightsResponse'),
-    newListContributorInsightsResponse,
+    -- ** BatchGetItem
+    BatchGetItem (BatchGetItem'),
+    newBatchGetItem,
+    BatchGetItemResponse (BatchGetItemResponse'),
+    newBatchGetItemResponse,
 
     -- ** BatchWriteItem
     BatchWriteItem (BatchWriteItem'),
@@ -306,119 +163,11 @@ module Amazonka.DynamoDB
     BatchWriteItemResponse (BatchWriteItemResponse'),
     newBatchWriteItemResponse,
 
-    -- ** ExportTableToPointInTime
-    ExportTableToPointInTime (ExportTableToPointInTime'),
-    newExportTableToPointInTime,
-    ExportTableToPointInTimeResponse (ExportTableToPointInTimeResponse'),
-    newExportTableToPointInTimeResponse,
-
-    -- ** TransactWriteItems
-    TransactWriteItems (TransactWriteItems'),
-    newTransactWriteItems,
-    TransactWriteItemsResponse (TransactWriteItemsResponse'),
-    newTransactWriteItemsResponse,
-
-    -- ** ListTables (Paginated)
-    ListTables (ListTables'),
-    newListTables,
-    ListTablesResponse (ListTablesResponse'),
-    newListTablesResponse,
-
-    -- ** Scan (Paginated)
-    Scan (Scan'),
-    newScan,
-    ScanResponse (ScanResponse'),
-    newScanResponse,
-
-    -- ** UpdateContributorInsights
-    UpdateContributorInsights (UpdateContributorInsights'),
-    newUpdateContributorInsights,
-    UpdateContributorInsightsResponse (UpdateContributorInsightsResponse'),
-    newUpdateContributorInsightsResponse,
-
-    -- ** ExecuteStatement
-    ExecuteStatement (ExecuteStatement'),
-    newExecuteStatement,
-    ExecuteStatementResponse (ExecuteStatementResponse'),
-    newExecuteStatementResponse,
-
-    -- ** Query (Paginated)
-    Query (Query'),
-    newQuery,
-    QueryResponse (QueryResponse'),
-    newQueryResponse,
-
-    -- ** CreateTable
-    CreateTable (CreateTable'),
-    newCreateTable,
-    CreateTableResponse (CreateTableResponse'),
-    newCreateTableResponse,
-
-    -- ** DescribeKinesisStreamingDestination
-    DescribeKinesisStreamingDestination (DescribeKinesisStreamingDestination'),
-    newDescribeKinesisStreamingDestination,
-    DescribeKinesisStreamingDestinationResponse (DescribeKinesisStreamingDestinationResponse'),
-    newDescribeKinesisStreamingDestinationResponse,
-
-    -- ** DescribeEndpoints
-    DescribeEndpoints (DescribeEndpoints'),
-    newDescribeEndpoints,
-    DescribeEndpointsResponse (DescribeEndpointsResponse'),
-    newDescribeEndpointsResponse,
-
-    -- ** DescribeTimeToLive
-    DescribeTimeToLive (DescribeTimeToLive'),
-    newDescribeTimeToLive,
-    DescribeTimeToLiveResponse (DescribeTimeToLiveResponse'),
-    newDescribeTimeToLiveResponse,
-
-    -- ** DescribeContinuousBackups
-    DescribeContinuousBackups (DescribeContinuousBackups'),
-    newDescribeContinuousBackups,
-    DescribeContinuousBackupsResponse (DescribeContinuousBackupsResponse'),
-    newDescribeContinuousBackupsResponse,
-
-    -- ** ListExports
-    ListExports (ListExports'),
-    newListExports,
-    ListExportsResponse (ListExportsResponse'),
-    newListExportsResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** DescribeContributorInsights
-    DescribeContributorInsights (DescribeContributorInsights'),
-    newDescribeContributorInsights,
-    DescribeContributorInsightsResponse (DescribeContributorInsightsResponse'),
-    newDescribeContributorInsightsResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
-
-    -- ** RestoreTableToPointInTime
-    RestoreTableToPointInTime (RestoreTableToPointInTime'),
-    newRestoreTableToPointInTime,
-    RestoreTableToPointInTimeResponse (RestoreTableToPointInTimeResponse'),
-    newRestoreTableToPointInTimeResponse,
-
-    -- ** RestoreTableFromBackup
-    RestoreTableFromBackup (RestoreTableFromBackup'),
-    newRestoreTableFromBackup,
-    RestoreTableFromBackupResponse (RestoreTableFromBackupResponse'),
-    newRestoreTableFromBackupResponse,
-
-    -- ** UpdateTimeToLive
-    UpdateTimeToLive (UpdateTimeToLive'),
-    newUpdateTimeToLive,
-    UpdateTimeToLiveResponse (UpdateTimeToLiveResponse'),
-    newUpdateTimeToLiveResponse,
+    -- ** CreateBackup
+    CreateBackup (CreateBackup'),
+    newCreateBackup,
+    CreateBackupResponse (CreateBackupResponse'),
+    newCreateBackupResponse,
 
     -- ** CreateGlobalTable
     CreateGlobalTable (CreateGlobalTable'),
@@ -426,11 +175,53 @@ module Amazonka.DynamoDB
     CreateGlobalTableResponse (CreateGlobalTableResponse'),
     newCreateGlobalTableResponse,
 
-    -- ** UpdateContinuousBackups
-    UpdateContinuousBackups (UpdateContinuousBackups'),
-    newUpdateContinuousBackups,
-    UpdateContinuousBackupsResponse (UpdateContinuousBackupsResponse'),
-    newUpdateContinuousBackupsResponse,
+    -- ** CreateTable
+    CreateTable (CreateTable'),
+    newCreateTable,
+    CreateTableResponse (CreateTableResponse'),
+    newCreateTableResponse,
+
+    -- ** DeleteBackup
+    DeleteBackup (DeleteBackup'),
+    newDeleteBackup,
+    DeleteBackupResponse (DeleteBackupResponse'),
+    newDeleteBackupResponse,
+
+    -- ** DeleteItem
+    DeleteItem (DeleteItem'),
+    newDeleteItem,
+    DeleteItemResponse (DeleteItemResponse'),
+    newDeleteItemResponse,
+
+    -- ** DeleteTable
+    DeleteTable (DeleteTable'),
+    newDeleteTable,
+    DeleteTableResponse (DeleteTableResponse'),
+    newDeleteTableResponse,
+
+    -- ** DescribeBackup
+    DescribeBackup (DescribeBackup'),
+    newDescribeBackup,
+    DescribeBackupResponse (DescribeBackupResponse'),
+    newDescribeBackupResponse,
+
+    -- ** DescribeContinuousBackups
+    DescribeContinuousBackups (DescribeContinuousBackups'),
+    newDescribeContinuousBackups,
+    DescribeContinuousBackupsResponse (DescribeContinuousBackupsResponse'),
+    newDescribeContinuousBackupsResponse,
+
+    -- ** DescribeContributorInsights
+    DescribeContributorInsights (DescribeContributorInsights'),
+    newDescribeContributorInsights,
+    DescribeContributorInsightsResponse (DescribeContributorInsightsResponse'),
+    newDescribeContributorInsightsResponse,
+
+    -- ** DescribeEndpoints
+    DescribeEndpoints (DescribeEndpoints'),
+    newDescribeEndpoints,
+    DescribeEndpointsResponse (DescribeEndpointsResponse'),
+    newDescribeEndpointsResponse,
 
     -- ** DescribeExport
     DescribeExport (DescribeExport'),
@@ -438,10 +229,245 @@ module Amazonka.DynamoDB
     DescribeExportResponse (DescribeExportResponse'),
     newDescribeExportResponse,
 
+    -- ** DescribeGlobalTable
+    DescribeGlobalTable (DescribeGlobalTable'),
+    newDescribeGlobalTable,
+    DescribeGlobalTableResponse (DescribeGlobalTableResponse'),
+    newDescribeGlobalTableResponse,
+
+    -- ** DescribeGlobalTableSettings
+    DescribeGlobalTableSettings (DescribeGlobalTableSettings'),
+    newDescribeGlobalTableSettings,
+    DescribeGlobalTableSettingsResponse (DescribeGlobalTableSettingsResponse'),
+    newDescribeGlobalTableSettingsResponse,
+
+    -- ** DescribeImport
+    DescribeImport (DescribeImport'),
+    newDescribeImport,
+    DescribeImportResponse (DescribeImportResponse'),
+    newDescribeImportResponse,
+
+    -- ** DescribeKinesisStreamingDestination
+    DescribeKinesisStreamingDestination (DescribeKinesisStreamingDestination'),
+    newDescribeKinesisStreamingDestination,
+    DescribeKinesisStreamingDestinationResponse (DescribeKinesisStreamingDestinationResponse'),
+    newDescribeKinesisStreamingDestinationResponse,
+
+    -- ** DescribeLimits
+    DescribeLimits (DescribeLimits'),
+    newDescribeLimits,
+    DescribeLimitsResponse (DescribeLimitsResponse'),
+    newDescribeLimitsResponse,
+
+    -- ** DescribeTable
+    DescribeTable (DescribeTable'),
+    newDescribeTable,
+    DescribeTableResponse (DescribeTableResponse'),
+    newDescribeTableResponse,
+
+    -- ** DescribeTableReplicaAutoScaling
+    DescribeTableReplicaAutoScaling (DescribeTableReplicaAutoScaling'),
+    newDescribeTableReplicaAutoScaling,
+    DescribeTableReplicaAutoScalingResponse (DescribeTableReplicaAutoScalingResponse'),
+    newDescribeTableReplicaAutoScalingResponse,
+
+    -- ** DescribeTimeToLive
+    DescribeTimeToLive (DescribeTimeToLive'),
+    newDescribeTimeToLive,
+    DescribeTimeToLiveResponse (DescribeTimeToLiveResponse'),
+    newDescribeTimeToLiveResponse,
+
+    -- ** DisableKinesisStreamingDestination
+    DisableKinesisStreamingDestination (DisableKinesisStreamingDestination'),
+    newDisableKinesisStreamingDestination,
+    KinesisStreamingDestinationOutput (KinesisStreamingDestinationOutput'),
+    newKinesisStreamingDestinationOutput,
+
+    -- ** EnableKinesisStreamingDestination
+    EnableKinesisStreamingDestination (EnableKinesisStreamingDestination'),
+    newEnableKinesisStreamingDestination,
+    KinesisStreamingDestinationOutput (KinesisStreamingDestinationOutput'),
+    newKinesisStreamingDestinationOutput,
+
+    -- ** ExecuteStatement
+    ExecuteStatement (ExecuteStatement'),
+    newExecuteStatement,
+    ExecuteStatementResponse (ExecuteStatementResponse'),
+    newExecuteStatementResponse,
+
+    -- ** ExecuteTransaction
+    ExecuteTransaction (ExecuteTransaction'),
+    newExecuteTransaction,
+    ExecuteTransactionResponse (ExecuteTransactionResponse'),
+    newExecuteTransactionResponse,
+
+    -- ** ExportTableToPointInTime
+    ExportTableToPointInTime (ExportTableToPointInTime'),
+    newExportTableToPointInTime,
+    ExportTableToPointInTimeResponse (ExportTableToPointInTimeResponse'),
+    newExportTableToPointInTimeResponse,
+
+    -- ** GetItem
+    GetItem (GetItem'),
+    newGetItem,
+    GetItemResponse (GetItemResponse'),
+    newGetItemResponse,
+
+    -- ** ImportTable
+    ImportTable (ImportTable'),
+    newImportTable,
+    ImportTableResponse (ImportTableResponse'),
+    newImportTableResponse,
+
+    -- ** ListBackups (Paginated)
+    ListBackups (ListBackups'),
+    newListBackups,
+    ListBackupsResponse (ListBackupsResponse'),
+    newListBackupsResponse,
+
+    -- ** ListContributorInsights
+    ListContributorInsights (ListContributorInsights'),
+    newListContributorInsights,
+    ListContributorInsightsResponse (ListContributorInsightsResponse'),
+    newListContributorInsightsResponse,
+
+    -- ** ListExports
+    ListExports (ListExports'),
+    newListExports,
+    ListExportsResponse (ListExportsResponse'),
+    newListExportsResponse,
+
+    -- ** ListGlobalTables
+    ListGlobalTables (ListGlobalTables'),
+    newListGlobalTables,
+    ListGlobalTablesResponse (ListGlobalTablesResponse'),
+    newListGlobalTablesResponse,
+
+    -- ** ListImports
+    ListImports (ListImports'),
+    newListImports,
+    ListImportsResponse (ListImportsResponse'),
+    newListImportsResponse,
+
+    -- ** ListTables (Paginated)
+    ListTables (ListTables'),
+    newListTables,
+    ListTablesResponse (ListTablesResponse'),
+    newListTablesResponse,
+
+    -- ** ListTagsOfResource (Paginated)
+    ListTagsOfResource (ListTagsOfResource'),
+    newListTagsOfResource,
+    ListTagsOfResourceResponse (ListTagsOfResourceResponse'),
+    newListTagsOfResourceResponse,
+
+    -- ** PutItem
+    PutItem (PutItem'),
+    newPutItem,
+    PutItemResponse (PutItemResponse'),
+    newPutItemResponse,
+
+    -- ** Query (Paginated)
+    Query (Query'),
+    newQuery,
+    QueryResponse (QueryResponse'),
+    newQueryResponse,
+
+    -- ** RestoreTableFromBackup
+    RestoreTableFromBackup (RestoreTableFromBackup'),
+    newRestoreTableFromBackup,
+    RestoreTableFromBackupResponse (RestoreTableFromBackupResponse'),
+    newRestoreTableFromBackupResponse,
+
+    -- ** RestoreTableToPointInTime
+    RestoreTableToPointInTime (RestoreTableToPointInTime'),
+    newRestoreTableToPointInTime,
+    RestoreTableToPointInTimeResponse (RestoreTableToPointInTimeResponse'),
+    newRestoreTableToPointInTimeResponse,
+
+    -- ** Scan (Paginated)
+    Scan (Scan'),
+    newScan,
+    ScanResponse (ScanResponse'),
+    newScanResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** TransactGetItems
+    TransactGetItems (TransactGetItems'),
+    newTransactGetItems,
+    TransactGetItemsResponse (TransactGetItemsResponse'),
+    newTransactGetItemsResponse,
+
+    -- ** TransactWriteItems
+    TransactWriteItems (TransactWriteItems'),
+    newTransactWriteItems,
+    TransactWriteItemsResponse (TransactWriteItemsResponse'),
+    newTransactWriteItemsResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateContinuousBackups
+    UpdateContinuousBackups (UpdateContinuousBackups'),
+    newUpdateContinuousBackups,
+    UpdateContinuousBackupsResponse (UpdateContinuousBackupsResponse'),
+    newUpdateContinuousBackupsResponse,
+
+    -- ** UpdateContributorInsights
+    UpdateContributorInsights (UpdateContributorInsights'),
+    newUpdateContributorInsights,
+    UpdateContributorInsightsResponse (UpdateContributorInsightsResponse'),
+    newUpdateContributorInsightsResponse,
+
+    -- ** UpdateGlobalTable
+    UpdateGlobalTable (UpdateGlobalTable'),
+    newUpdateGlobalTable,
+    UpdateGlobalTableResponse (UpdateGlobalTableResponse'),
+    newUpdateGlobalTableResponse,
+
+    -- ** UpdateGlobalTableSettings
+    UpdateGlobalTableSettings (UpdateGlobalTableSettings'),
+    newUpdateGlobalTableSettings,
+    UpdateGlobalTableSettingsResponse (UpdateGlobalTableSettingsResponse'),
+    newUpdateGlobalTableSettingsResponse,
+
+    -- ** UpdateItem
+    UpdateItem (UpdateItem'),
+    newUpdateItem,
+    UpdateItemResponse (UpdateItemResponse'),
+    newUpdateItemResponse,
+
+    -- ** UpdateTable
+    UpdateTable (UpdateTable'),
+    newUpdateTable,
+    UpdateTableResponse (UpdateTableResponse'),
+    newUpdateTableResponse,
+
+    -- ** UpdateTableReplicaAutoScaling
+    UpdateTableReplicaAutoScaling (UpdateTableReplicaAutoScaling'),
+    newUpdateTableReplicaAutoScaling,
+    UpdateTableReplicaAutoScalingResponse (UpdateTableReplicaAutoScalingResponse'),
+    newUpdateTableReplicaAutoScalingResponse,
+
+    -- ** UpdateTimeToLive
+    UpdateTimeToLive (UpdateTimeToLive'),
+    newUpdateTimeToLive,
+    UpdateTimeToLiveResponse (UpdateTimeToLiveResponse'),
+    newUpdateTimeToLiveResponse,
+
     -- * Types
 
     -- ** Common
-    module Amazonka.DynamoDB.Internal,
+    module Amazonka.DynamoDB.Types.AttributeValue,
+    module Amazonka.DynamoDB.Types.WriteRequest,
 
     -- ** AttributeAction
     AttributeAction (..),
@@ -488,8 +514,17 @@ module Amazonka.DynamoDB
     -- ** GlobalTableStatus
     GlobalTableStatus (..),
 
+    -- ** ImportStatus
+    ImportStatus (..),
+
     -- ** IndexStatus
     IndexStatus (..),
+
+    -- ** InputCompressionType
+    InputCompressionType (..),
+
+    -- ** InputFormat
+    InputFormat (..),
 
     -- ** KeyType
     KeyType (..),
@@ -532,6 +567,9 @@ module Amazonka.DynamoDB
 
     -- ** StreamViewType
     StreamViewType (..),
+
+    -- ** TableClass
+    TableClass (..),
 
     -- ** TableStatus
     TableStatus (..),
@@ -639,6 +677,10 @@ module Amazonka.DynamoDB
     CreateReplicationGroupMemberAction (CreateReplicationGroupMemberAction'),
     newCreateReplicationGroupMemberAction,
 
+    -- ** CsvOptions
+    CsvOptions (CsvOptions'),
+    newCsvOptions,
+
     -- ** Delete
     Delete (Delete'),
     newDelete,
@@ -654,10 +696,6 @@ module Amazonka.DynamoDB
     -- ** DeleteReplicationGroupMemberAction
     DeleteReplicationGroupMemberAction (DeleteReplicationGroupMemberAction'),
     newDeleteReplicationGroupMemberAction,
-
-    -- ** DeleteRequest
-    DeleteRequest (DeleteRequest'),
-    newDeleteRequest,
 
     -- ** Endpoint
     Endpoint (Endpoint'),
@@ -714,6 +752,18 @@ module Amazonka.DynamoDB
     -- ** GlobalTableGlobalSecondaryIndexSettingsUpdate
     GlobalTableGlobalSecondaryIndexSettingsUpdate (GlobalTableGlobalSecondaryIndexSettingsUpdate'),
     newGlobalTableGlobalSecondaryIndexSettingsUpdate,
+
+    -- ** ImportSummary
+    ImportSummary (ImportSummary'),
+    newImportSummary,
+
+    -- ** ImportTableDescription
+    ImportTableDescription (ImportTableDescription'),
+    newImportTableDescription,
+
+    -- ** InputFormatOptions
+    InputFormatOptions (InputFormatOptions'),
+    newInputFormatOptions,
 
     -- ** ItemCollectionMetrics
     ItemCollectionMetrics (ItemCollectionMetrics'),
@@ -787,10 +837,6 @@ module Amazonka.DynamoDB
     Put (Put'),
     newPut,
 
-    -- ** PutRequest
-    PutRequest (PutRequest'),
-    newPutRequest,
-
     -- ** Replica
     Replica (Replica'),
     newReplica,
@@ -851,6 +897,10 @@ module Amazonka.DynamoDB
     RestoreSummary (RestoreSummary'),
     newRestoreSummary,
 
+    -- ** S3BucketSource
+    S3BucketSource (S3BucketSource'),
+    newS3BucketSource,
+
     -- ** SSEDescription
     SSEDescription (SSEDescription'),
     newSSEDescription,
@@ -874,6 +924,14 @@ module Amazonka.DynamoDB
     -- ** TableAutoScalingDescription
     TableAutoScalingDescription (TableAutoScalingDescription'),
     newTableAutoScalingDescription,
+
+    -- ** TableClassSummary
+    TableClassSummary (TableClassSummary'),
+    newTableClassSummary,
+
+    -- ** TableCreationParameters
+    TableCreationParameters (TableCreationParameters'),
+    newTableCreationParameters,
 
     -- ** TableDescription
     TableDescription (TableDescription'),
@@ -910,10 +968,6 @@ module Amazonka.DynamoDB
     -- ** UpdateReplicationGroupMemberAction
     UpdateReplicationGroupMemberAction (UpdateReplicationGroupMemberAction'),
     newUpdateReplicationGroupMemberAction,
-
-    -- ** WriteRequest
-    WriteRequest (WriteRequest'),
-    newWriteRequest,
   )
 where
 
@@ -933,6 +987,7 @@ import Amazonka.DynamoDB.DescribeEndpoints
 import Amazonka.DynamoDB.DescribeExport
 import Amazonka.DynamoDB.DescribeGlobalTable
 import Amazonka.DynamoDB.DescribeGlobalTableSettings
+import Amazonka.DynamoDB.DescribeImport
 import Amazonka.DynamoDB.DescribeKinesisStreamingDestination
 import Amazonka.DynamoDB.DescribeLimits
 import Amazonka.DynamoDB.DescribeTable
@@ -944,12 +999,13 @@ import Amazonka.DynamoDB.ExecuteStatement
 import Amazonka.DynamoDB.ExecuteTransaction
 import Amazonka.DynamoDB.ExportTableToPointInTime
 import Amazonka.DynamoDB.GetItem
-import Amazonka.DynamoDB.Internal
+import Amazonka.DynamoDB.ImportTable
 import Amazonka.DynamoDB.Lens
 import Amazonka.DynamoDB.ListBackups
 import Amazonka.DynamoDB.ListContributorInsights
 import Amazonka.DynamoDB.ListExports
 import Amazonka.DynamoDB.ListGlobalTables
+import Amazonka.DynamoDB.ListImports
 import Amazonka.DynamoDB.ListTables
 import Amazonka.DynamoDB.ListTagsOfResource
 import Amazonka.DynamoDB.PutItem
@@ -961,6 +1017,8 @@ import Amazonka.DynamoDB.TagResource
 import Amazonka.DynamoDB.TransactGetItems
 import Amazonka.DynamoDB.TransactWriteItems
 import Amazonka.DynamoDB.Types
+import Amazonka.DynamoDB.Types.AttributeValue
+import Amazonka.DynamoDB.Types.WriteRequest
 import Amazonka.DynamoDB.UntagResource
 import Amazonka.DynamoDB.UpdateContinuousBackups
 import Amazonka.DynamoDB.UpdateContributorInsights

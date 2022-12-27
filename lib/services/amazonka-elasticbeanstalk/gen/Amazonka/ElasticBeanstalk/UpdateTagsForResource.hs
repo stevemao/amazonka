@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.UpdateTagsForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,8 @@ module Amazonka.ElasticBeanstalk.UpdateTagsForResource
     newUpdateTagsForResource,
 
     -- * Request Lenses
-    updateTagsForResource_tagsToRemove,
     updateTagsForResource_tagsToAdd,
+    updateTagsForResource_tagsToRemove,
     updateTagsForResource_resourceArn,
 
     -- * Destructuring the Response
@@ -59,24 +59,25 @@ module Amazonka.ElasticBeanstalk.UpdateTagsForResource
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateTagsForResource' smart constructor.
 data UpdateTagsForResource = UpdateTagsForResource'
-  { -- | A list of tag keys to remove. If a tag key doesn\'t exist, it is
-    -- silently ignored.
-    --
-    -- Specify at least one of these parameters: @TagsToAdd@, @TagsToRemove@.
-    tagsToRemove :: Prelude.Maybe [Prelude.Text],
-    -- | A list of tags to add or update. If a key of an existing tag is added,
+  { -- | A list of tags to add or update. If a key of an existing tag is added,
     -- the tag\'s value is updated.
     --
     -- Specify at least one of these parameters: @TagsToAdd@, @TagsToRemove@.
     tagsToAdd :: Prelude.Maybe [Tag],
+    -- | A list of tag keys to remove. If a tag key doesn\'t exist, it is
+    -- silently ignored.
+    --
+    -- Specify at least one of these parameters: @TagsToAdd@, @TagsToRemove@.
+    tagsToRemove :: Prelude.Maybe [Prelude.Text],
     -- | The Amazon Resource Name (ARN) of the resouce to be updated.
     --
     -- Must be the ARN of an Elastic Beanstalk resource.
@@ -92,13 +93,13 @@ data UpdateTagsForResource = UpdateTagsForResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tagsToRemove', 'updateTagsForResource_tagsToRemove' - A list of tag keys to remove. If a tag key doesn\'t exist, it is
--- silently ignored.
+-- 'tagsToAdd', 'updateTagsForResource_tagsToAdd' - A list of tags to add or update. If a key of an existing tag is added,
+-- the tag\'s value is updated.
 --
 -- Specify at least one of these parameters: @TagsToAdd@, @TagsToRemove@.
 --
--- 'tagsToAdd', 'updateTagsForResource_tagsToAdd' - A list of tags to add or update. If a key of an existing tag is added,
--- the tag\'s value is updated.
+-- 'tagsToRemove', 'updateTagsForResource_tagsToRemove' - A list of tag keys to remove. If a tag key doesn\'t exist, it is
+-- silently ignored.
 --
 -- Specify at least one of these parameters: @TagsToAdd@, @TagsToRemove@.
 --
@@ -111,18 +112,10 @@ newUpdateTagsForResource ::
   UpdateTagsForResource
 newUpdateTagsForResource pResourceArn_ =
   UpdateTagsForResource'
-    { tagsToRemove =
-        Prelude.Nothing,
-      tagsToAdd = Prelude.Nothing,
+    { tagsToAdd = Prelude.Nothing,
+      tagsToRemove = Prelude.Nothing,
       resourceArn = pResourceArn_
     }
-
--- | A list of tag keys to remove. If a tag key doesn\'t exist, it is
--- silently ignored.
---
--- Specify at least one of these parameters: @TagsToAdd@, @TagsToRemove@.
-updateTagsForResource_tagsToRemove :: Lens.Lens' UpdateTagsForResource (Prelude.Maybe [Prelude.Text])
-updateTagsForResource_tagsToRemove = Lens.lens (\UpdateTagsForResource' {tagsToRemove} -> tagsToRemove) (\s@UpdateTagsForResource' {} a -> s {tagsToRemove = a} :: UpdateTagsForResource) Prelude.. Lens.mapping Lens.coerced
 
 -- | A list of tags to add or update. If a key of an existing tag is added,
 -- the tag\'s value is updated.
@@ -130,6 +123,13 @@ updateTagsForResource_tagsToRemove = Lens.lens (\UpdateTagsForResource' {tagsToR
 -- Specify at least one of these parameters: @TagsToAdd@, @TagsToRemove@.
 updateTagsForResource_tagsToAdd :: Lens.Lens' UpdateTagsForResource (Prelude.Maybe [Tag])
 updateTagsForResource_tagsToAdd = Lens.lens (\UpdateTagsForResource' {tagsToAdd} -> tagsToAdd) (\s@UpdateTagsForResource' {} a -> s {tagsToAdd = a} :: UpdateTagsForResource) Prelude.. Lens.mapping Lens.coerced
+
+-- | A list of tag keys to remove. If a tag key doesn\'t exist, it is
+-- silently ignored.
+--
+-- Specify at least one of these parameters: @TagsToAdd@, @TagsToRemove@.
+updateTagsForResource_tagsToRemove :: Lens.Lens' UpdateTagsForResource (Prelude.Maybe [Prelude.Text])
+updateTagsForResource_tagsToRemove = Lens.lens (\UpdateTagsForResource' {tagsToRemove} -> tagsToRemove) (\s@UpdateTagsForResource' {} a -> s {tagsToRemove = a} :: UpdateTagsForResource) Prelude.. Lens.mapping Lens.coerced
 
 -- | The Amazon Resource Name (ARN) of the resouce to be updated.
 --
@@ -141,42 +141,43 @@ instance Core.AWSRequest UpdateTagsForResource where
   type
     AWSResponse UpdateTagsForResource =
       UpdateTagsForResourceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull UpdateTagsForResourceResponse'
 
 instance Prelude.Hashable UpdateTagsForResource where
   hashWithSalt _salt UpdateTagsForResource' {..} =
-    _salt `Prelude.hashWithSalt` tagsToRemove
-      `Prelude.hashWithSalt` tagsToAdd
+    _salt `Prelude.hashWithSalt` tagsToAdd
+      `Prelude.hashWithSalt` tagsToRemove
       `Prelude.hashWithSalt` resourceArn
 
 instance Prelude.NFData UpdateTagsForResource where
   rnf UpdateTagsForResource' {..} =
-    Prelude.rnf tagsToRemove
-      `Prelude.seq` Prelude.rnf tagsToAdd
+    Prelude.rnf tagsToAdd
+      `Prelude.seq` Prelude.rnf tagsToRemove
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders UpdateTagsForResource where
+instance Data.ToHeaders UpdateTagsForResource where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UpdateTagsForResource where
+instance Data.ToPath UpdateTagsForResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateTagsForResource where
+instance Data.ToQuery UpdateTagsForResource where
   toQuery UpdateTagsForResource' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("UpdateTagsForResource" :: Prelude.ByteString),
+          Data.=: ("UpdateTagsForResource" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "TagsToRemove"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tagsToRemove),
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
         "TagsToAdd"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tagsToAdd),
-        "ResourceArn" Core.=: resourceArn
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tagsToAdd),
+        "TagsToRemove"
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tagsToRemove),
+        "ResourceArn" Data.=: resourceArn
       ]
 
 -- | /See:/ 'newUpdateTagsForResourceResponse' smart constructor.

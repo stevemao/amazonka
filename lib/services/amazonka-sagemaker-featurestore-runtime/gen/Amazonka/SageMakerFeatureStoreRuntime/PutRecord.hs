@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMakerFeatureStoreRuntime.PutRecord
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,6 +31,7 @@ module Amazonka.SageMakerFeatureStoreRuntime.PutRecord
     newPutRecord,
 
     -- * Request Lenses
+    putRecord_targetStores,
     putRecord_featureGroupName,
     putRecord_record,
 
@@ -41,7 +42,8 @@ module Amazonka.SageMakerFeatureStoreRuntime.PutRecord
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,7 +51,11 @@ import Amazonka.SageMakerFeatureStoreRuntime.Types
 
 -- | /See:/ 'newPutRecord' smart constructor.
 data PutRecord = PutRecord'
-  { -- | The name of the feature group that you want to insert the record into.
+  { -- | A list of stores to which you\'re adding the record. By default, Feature
+    -- Store adds the record to all of the stores that you\'re using for the
+    -- @FeatureGroup@.
+    targetStores :: Prelude.Maybe (Prelude.NonEmpty TargetStore),
+    -- | The name of the feature group that you want to insert the record into.
     featureGroupName :: Prelude.Text,
     -- | List of FeatureValues to be inserted. This will be a full over-write. If
     -- you only want to update few of the feature values, do the following:
@@ -71,6 +77,10 @@ data PutRecord = PutRecord'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'targetStores', 'putRecord_targetStores' - A list of stores to which you\'re adding the record. By default, Feature
+-- Store adds the record to all of the stores that you\'re using for the
+-- @FeatureGroup@.
+--
 -- 'featureGroupName', 'putRecord_featureGroupName' - The name of the feature group that you want to insert the record into.
 --
 -- 'record', 'putRecord_record' - List of FeatureValues to be inserted. This will be a full over-write. If
@@ -89,9 +99,16 @@ newPutRecord ::
   PutRecord
 newPutRecord pFeatureGroupName_ pRecord_ =
   PutRecord'
-    { featureGroupName = pFeatureGroupName_,
+    { targetStores = Prelude.Nothing,
+      featureGroupName = pFeatureGroupName_,
       record = Lens.coerced Lens.# pRecord_
     }
+
+-- | A list of stores to which you\'re adding the record. By default, Feature
+-- Store adds the record to all of the stores that you\'re using for the
+-- @FeatureGroup@.
+putRecord_targetStores :: Lens.Lens' PutRecord (Prelude.Maybe (Prelude.NonEmpty TargetStore))
+putRecord_targetStores = Lens.lens (\PutRecord' {targetStores} -> targetStores) (\s@PutRecord' {} a -> s {targetStores = a} :: PutRecord) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the feature group that you want to insert the record into.
 putRecord_featureGroupName :: Lens.Lens' PutRecord Prelude.Text
@@ -110,43 +127,48 @@ putRecord_record = Lens.lens (\PutRecord' {record} -> record) (\s@PutRecord' {} 
 
 instance Core.AWSRequest PutRecord where
   type AWSResponse PutRecord = PutRecordResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response = Response.receiveNull PutRecordResponse'
 
 instance Prelude.Hashable PutRecord where
   hashWithSalt _salt PutRecord' {..} =
-    _salt `Prelude.hashWithSalt` featureGroupName
+    _salt `Prelude.hashWithSalt` targetStores
+      `Prelude.hashWithSalt` featureGroupName
       `Prelude.hashWithSalt` record
 
 instance Prelude.NFData PutRecord where
   rnf PutRecord' {..} =
-    Prelude.rnf featureGroupName
+    Prelude.rnf targetStores
+      `Prelude.seq` Prelude.rnf featureGroupName
       `Prelude.seq` Prelude.rnf record
 
-instance Core.ToHeaders PutRecord where
+instance Data.ToHeaders PutRecord where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutRecord where
+instance Data.ToJSON PutRecord where
   toJSON PutRecord' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Record" Core..= record)]
+          [ ("TargetStores" Data..=) Prelude.<$> targetStores,
+            Prelude.Just ("Record" Data..= record)
+          ]
       )
 
-instance Core.ToPath PutRecord where
+instance Data.ToPath PutRecord where
   toPath PutRecord' {..} =
     Prelude.mconcat
-      ["/FeatureGroup/", Core.toBS featureGroupName]
+      ["/FeatureGroup/", Data.toBS featureGroupName]
 
-instance Core.ToQuery PutRecord where
+instance Data.ToQuery PutRecord where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutRecordResponse' smart constructor.

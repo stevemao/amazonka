@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,23 +19,23 @@ module Amazonka.Route53Domains
     -- * Errors
     -- $errors
 
+    -- ** DomainLimitExceeded
+    _DomainLimitExceeded,
+
+    -- ** DuplicateRequest
+    _DuplicateRequest,
+
     -- ** InvalidInput
     _InvalidInput,
 
     -- ** OperationLimitExceeded
     _OperationLimitExceeded,
 
-    -- ** DomainLimitExceeded
-    _DomainLimitExceeded,
-
-    -- ** UnsupportedTLD
-    _UnsupportedTLD,
-
     -- ** TLDRulesViolation
     _TLDRulesViolation,
 
-    -- ** DuplicateRequest
-    _DuplicateRequest,
+    -- ** UnsupportedTLD
+    _UnsupportedTLD,
 
     -- * Waiters
     -- $waiters
@@ -43,101 +43,17 @@ module Amazonka.Route53Domains
     -- * Operations
     -- $operations
 
-    -- ** ListOperations (Paginated)
-    ListOperations (ListOperations'),
-    newListOperations,
-    ListOperationsResponse (ListOperationsResponse'),
-    newListOperationsResponse,
+    -- ** AcceptDomainTransferFromAnotherAwsAccount
+    AcceptDomainTransferFromAnotherAwsAccount (AcceptDomainTransferFromAnotherAwsAccount'),
+    newAcceptDomainTransferFromAnotherAwsAccount,
+    AcceptDomainTransferFromAnotherAwsAccountResponse (AcceptDomainTransferFromAnotherAwsAccountResponse'),
+    newAcceptDomainTransferFromAnotherAwsAccountResponse,
 
-    -- ** GetDomainDetail
-    GetDomainDetail (GetDomainDetail'),
-    newGetDomainDetail,
-    GetDomainDetailResponse (GetDomainDetailResponse'),
-    newGetDomainDetailResponse,
-
-    -- ** CheckDomainTransferability
-    CheckDomainTransferability (CheckDomainTransferability'),
-    newCheckDomainTransferability,
-    CheckDomainTransferabilityResponse (CheckDomainTransferabilityResponse'),
-    newCheckDomainTransferabilityResponse,
-
-    -- ** UpdateDomainContactPrivacy
-    UpdateDomainContactPrivacy (UpdateDomainContactPrivacy'),
-    newUpdateDomainContactPrivacy,
-    UpdateDomainContactPrivacyResponse (UpdateDomainContactPrivacyResponse'),
-    newUpdateDomainContactPrivacyResponse,
-
-    -- ** GetOperationDetail
-    GetOperationDetail (GetOperationDetail'),
-    newGetOperationDetail,
-    GetOperationDetailResponse (GetOperationDetailResponse'),
-    newGetOperationDetailResponse,
-
-    -- ** RejectDomainTransferFromAnotherAwsAccount
-    RejectDomainTransferFromAnotherAwsAccount (RejectDomainTransferFromAnotherAwsAccount'),
-    newRejectDomainTransferFromAnotherAwsAccount,
-    RejectDomainTransferFromAnotherAwsAccountResponse (RejectDomainTransferFromAnotherAwsAccountResponse'),
-    newRejectDomainTransferFromAnotherAwsAccountResponse,
-
-    -- ** EnableDomainAutoRenew
-    EnableDomainAutoRenew (EnableDomainAutoRenew'),
-    newEnableDomainAutoRenew,
-    EnableDomainAutoRenewResponse (EnableDomainAutoRenewResponse'),
-    newEnableDomainAutoRenewResponse,
-
-    -- ** ResendContactReachabilityEmail
-    ResendContactReachabilityEmail (ResendContactReachabilityEmail'),
-    newResendContactReachabilityEmail,
-    ResendContactReachabilityEmailResponse (ResendContactReachabilityEmailResponse'),
-    newResendContactReachabilityEmailResponse,
-
-    -- ** DisableDomainAutoRenew
-    DisableDomainAutoRenew (DisableDomainAutoRenew'),
-    newDisableDomainAutoRenew,
-    DisableDomainAutoRenewResponse (DisableDomainAutoRenewResponse'),
-    newDisableDomainAutoRenewResponse,
-
-    -- ** RenewDomain
-    RenewDomain (RenewDomain'),
-    newRenewDomain,
-    RenewDomainResponse (RenewDomainResponse'),
-    newRenewDomainResponse,
-
-    -- ** ViewBilling (Paginated)
-    ViewBilling (ViewBilling'),
-    newViewBilling,
-    ViewBillingResponse (ViewBillingResponse'),
-    newViewBillingResponse,
-
-    -- ** UpdateDomainContact
-    UpdateDomainContact (UpdateDomainContact'),
-    newUpdateDomainContact,
-    UpdateDomainContactResponse (UpdateDomainContactResponse'),
-    newUpdateDomainContactResponse,
-
-    -- ** EnableDomainTransferLock
-    EnableDomainTransferLock (EnableDomainTransferLock'),
-    newEnableDomainTransferLock,
-    EnableDomainTransferLockResponse (EnableDomainTransferLockResponse'),
-    newEnableDomainTransferLockResponse,
-
-    -- ** RegisterDomain
-    RegisterDomain (RegisterDomain'),
-    newRegisterDomain,
-    RegisterDomainResponse (RegisterDomainResponse'),
-    newRegisterDomainResponse,
-
-    -- ** GetDomainSuggestions
-    GetDomainSuggestions (GetDomainSuggestions'),
-    newGetDomainSuggestions,
-    GetDomainSuggestionsResponse (GetDomainSuggestionsResponse'),
-    newGetDomainSuggestionsResponse,
-
-    -- ** DisableDomainTransferLock
-    DisableDomainTransferLock (DisableDomainTransferLock'),
-    newDisableDomainTransferLock,
-    DisableDomainTransferLockResponse (DisableDomainTransferLockResponse'),
-    newDisableDomainTransferLockResponse,
+    -- ** CancelDomainTransferToAnotherAwsAccount
+    CancelDomainTransferToAnotherAwsAccount (CancelDomainTransferToAnotherAwsAccount'),
+    newCancelDomainTransferToAnotherAwsAccount,
+    CancelDomainTransferToAnotherAwsAccountResponse (CancelDomainTransferToAnotherAwsAccountResponse'),
+    newCancelDomainTransferToAnotherAwsAccountResponse,
 
     -- ** CheckDomainAvailability
     CheckDomainAvailability (CheckDomainAvailability'),
@@ -145,35 +61,17 @@ module Amazonka.Route53Domains
     CheckDomainAvailabilityResponse (CheckDomainAvailabilityResponse'),
     newCheckDomainAvailabilityResponse,
 
-    -- ** TransferDomainToAnotherAwsAccount
-    TransferDomainToAnotherAwsAccount (TransferDomainToAnotherAwsAccount'),
-    newTransferDomainToAnotherAwsAccount,
-    TransferDomainToAnotherAwsAccountResponse (TransferDomainToAnotherAwsAccountResponse'),
-    newTransferDomainToAnotherAwsAccountResponse,
+    -- ** CheckDomainTransferability
+    CheckDomainTransferability (CheckDomainTransferability'),
+    newCheckDomainTransferability,
+    CheckDomainTransferabilityResponse (CheckDomainTransferabilityResponse'),
+    newCheckDomainTransferabilityResponse,
 
-    -- ** AcceptDomainTransferFromAnotherAwsAccount
-    AcceptDomainTransferFromAnotherAwsAccount (AcceptDomainTransferFromAnotherAwsAccount'),
-    newAcceptDomainTransferFromAnotherAwsAccount,
-    AcceptDomainTransferFromAnotherAwsAccountResponse (AcceptDomainTransferFromAnotherAwsAccountResponse'),
-    newAcceptDomainTransferFromAnotherAwsAccountResponse,
-
-    -- ** GetContactReachabilityStatus
-    GetContactReachabilityStatus (GetContactReachabilityStatus'),
-    newGetContactReachabilityStatus,
-    GetContactReachabilityStatusResponse (GetContactReachabilityStatusResponse'),
-    newGetContactReachabilityStatusResponse,
-
-    -- ** ListTagsForDomain
-    ListTagsForDomain (ListTagsForDomain'),
-    newListTagsForDomain,
-    ListTagsForDomainResponse (ListTagsForDomainResponse'),
-    newListTagsForDomainResponse,
-
-    -- ** UpdateDomainNameservers
-    UpdateDomainNameservers (UpdateDomainNameservers'),
-    newUpdateDomainNameservers,
-    UpdateDomainNameserversResponse (UpdateDomainNameserversResponse'),
-    newUpdateDomainNameserversResponse,
+    -- ** DeleteDomain
+    DeleteDomain (DeleteDomain'),
+    newDeleteDomain,
+    DeleteDomainResponse (DeleteDomainResponse'),
+    newDeleteDomainResponse,
 
     -- ** DeleteTagsForDomain
     DeleteTagsForDomain (DeleteTagsForDomain'),
@@ -181,11 +79,101 @@ module Amazonka.Route53Domains
     DeleteTagsForDomainResponse (DeleteTagsForDomainResponse'),
     newDeleteTagsForDomainResponse,
 
-    -- ** UpdateTagsForDomain
-    UpdateTagsForDomain (UpdateTagsForDomain'),
-    newUpdateTagsForDomain,
-    UpdateTagsForDomainResponse (UpdateTagsForDomainResponse'),
-    newUpdateTagsForDomainResponse,
+    -- ** DisableDomainAutoRenew
+    DisableDomainAutoRenew (DisableDomainAutoRenew'),
+    newDisableDomainAutoRenew,
+    DisableDomainAutoRenewResponse (DisableDomainAutoRenewResponse'),
+    newDisableDomainAutoRenewResponse,
+
+    -- ** DisableDomainTransferLock
+    DisableDomainTransferLock (DisableDomainTransferLock'),
+    newDisableDomainTransferLock,
+    DisableDomainTransferLockResponse (DisableDomainTransferLockResponse'),
+    newDisableDomainTransferLockResponse,
+
+    -- ** EnableDomainAutoRenew
+    EnableDomainAutoRenew (EnableDomainAutoRenew'),
+    newEnableDomainAutoRenew,
+    EnableDomainAutoRenewResponse (EnableDomainAutoRenewResponse'),
+    newEnableDomainAutoRenewResponse,
+
+    -- ** EnableDomainTransferLock
+    EnableDomainTransferLock (EnableDomainTransferLock'),
+    newEnableDomainTransferLock,
+    EnableDomainTransferLockResponse (EnableDomainTransferLockResponse'),
+    newEnableDomainTransferLockResponse,
+
+    -- ** GetContactReachabilityStatus
+    GetContactReachabilityStatus (GetContactReachabilityStatus'),
+    newGetContactReachabilityStatus,
+    GetContactReachabilityStatusResponse (GetContactReachabilityStatusResponse'),
+    newGetContactReachabilityStatusResponse,
+
+    -- ** GetDomainDetail
+    GetDomainDetail (GetDomainDetail'),
+    newGetDomainDetail,
+    GetDomainDetailResponse (GetDomainDetailResponse'),
+    newGetDomainDetailResponse,
+
+    -- ** GetDomainSuggestions
+    GetDomainSuggestions (GetDomainSuggestions'),
+    newGetDomainSuggestions,
+    GetDomainSuggestionsResponse (GetDomainSuggestionsResponse'),
+    newGetDomainSuggestionsResponse,
+
+    -- ** GetOperationDetail
+    GetOperationDetail (GetOperationDetail'),
+    newGetOperationDetail,
+    GetOperationDetailResponse (GetOperationDetailResponse'),
+    newGetOperationDetailResponse,
+
+    -- ** ListDomains (Paginated)
+    ListDomains (ListDomains'),
+    newListDomains,
+    ListDomainsResponse (ListDomainsResponse'),
+    newListDomainsResponse,
+
+    -- ** ListOperations (Paginated)
+    ListOperations (ListOperations'),
+    newListOperations,
+    ListOperationsResponse (ListOperationsResponse'),
+    newListOperationsResponse,
+
+    -- ** ListPrices (Paginated)
+    ListPrices (ListPrices'),
+    newListPrices,
+    ListPricesResponse (ListPricesResponse'),
+    newListPricesResponse,
+
+    -- ** ListTagsForDomain
+    ListTagsForDomain (ListTagsForDomain'),
+    newListTagsForDomain,
+    ListTagsForDomainResponse (ListTagsForDomainResponse'),
+    newListTagsForDomainResponse,
+
+    -- ** RegisterDomain
+    RegisterDomain (RegisterDomain'),
+    newRegisterDomain,
+    RegisterDomainResponse (RegisterDomainResponse'),
+    newRegisterDomainResponse,
+
+    -- ** RejectDomainTransferFromAnotherAwsAccount
+    RejectDomainTransferFromAnotherAwsAccount (RejectDomainTransferFromAnotherAwsAccount'),
+    newRejectDomainTransferFromAnotherAwsAccount,
+    RejectDomainTransferFromAnotherAwsAccountResponse (RejectDomainTransferFromAnotherAwsAccountResponse'),
+    newRejectDomainTransferFromAnotherAwsAccountResponse,
+
+    -- ** RenewDomain
+    RenewDomain (RenewDomain'),
+    newRenewDomain,
+    RenewDomainResponse (RenewDomainResponse'),
+    newRenewDomainResponse,
+
+    -- ** ResendContactReachabilityEmail
+    ResendContactReachabilityEmail (ResendContactReachabilityEmail'),
+    newResendContactReachabilityEmail,
+    ResendContactReachabilityEmailResponse (ResendContactReachabilityEmailResponse'),
+    newResendContactReachabilityEmailResponse,
 
     -- ** RetrieveDomainAuthCode
     RetrieveDomainAuthCode (RetrieveDomainAuthCode'),
@@ -199,17 +187,41 @@ module Amazonka.Route53Domains
     TransferDomainResponse (TransferDomainResponse'),
     newTransferDomainResponse,
 
-    -- ** ListDomains (Paginated)
-    ListDomains (ListDomains'),
-    newListDomains,
-    ListDomainsResponse (ListDomainsResponse'),
-    newListDomainsResponse,
+    -- ** TransferDomainToAnotherAwsAccount
+    TransferDomainToAnotherAwsAccount (TransferDomainToAnotherAwsAccount'),
+    newTransferDomainToAnotherAwsAccount,
+    TransferDomainToAnotherAwsAccountResponse (TransferDomainToAnotherAwsAccountResponse'),
+    newTransferDomainToAnotherAwsAccountResponse,
 
-    -- ** CancelDomainTransferToAnotherAwsAccount
-    CancelDomainTransferToAnotherAwsAccount (CancelDomainTransferToAnotherAwsAccount'),
-    newCancelDomainTransferToAnotherAwsAccount,
-    CancelDomainTransferToAnotherAwsAccountResponse (CancelDomainTransferToAnotherAwsAccountResponse'),
-    newCancelDomainTransferToAnotherAwsAccountResponse,
+    -- ** UpdateDomainContact
+    UpdateDomainContact (UpdateDomainContact'),
+    newUpdateDomainContact,
+    UpdateDomainContactResponse (UpdateDomainContactResponse'),
+    newUpdateDomainContactResponse,
+
+    -- ** UpdateDomainContactPrivacy
+    UpdateDomainContactPrivacy (UpdateDomainContactPrivacy'),
+    newUpdateDomainContactPrivacy,
+    UpdateDomainContactPrivacyResponse (UpdateDomainContactPrivacyResponse'),
+    newUpdateDomainContactPrivacyResponse,
+
+    -- ** UpdateDomainNameservers
+    UpdateDomainNameservers (UpdateDomainNameservers'),
+    newUpdateDomainNameservers,
+    UpdateDomainNameserversResponse (UpdateDomainNameserversResponse'),
+    newUpdateDomainNameserversResponse,
+
+    -- ** UpdateTagsForDomain
+    UpdateTagsForDomain (UpdateTagsForDomain'),
+    newUpdateTagsForDomain,
+    UpdateTagsForDomainResponse (UpdateTagsForDomainResponse'),
+    newUpdateTagsForDomainResponse,
+
+    -- ** ViewBilling (Paginated)
+    ViewBilling (ViewBilling'),
+    newViewBilling,
+    ViewBillingResponse (ViewBillingResponse'),
+    newViewBillingResponse,
 
     -- * Types
 
@@ -225,14 +237,23 @@ module Amazonka.Route53Domains
     -- ** ExtraParamName
     ExtraParamName (..),
 
+    -- ** ListDomainsAttributeName
+    ListDomainsAttributeName (..),
+
     -- ** OperationStatus
     OperationStatus (..),
 
     -- ** OperationType
     OperationType (..),
 
+    -- ** Operator
+    Operator (..),
+
     -- ** ReachabilityStatus
     ReachabilityStatus (..),
+
+    -- ** SortOrder
+    SortOrder (..),
 
     -- ** Transferable
     Transferable (..),
@@ -244,6 +265,10 @@ module Amazonka.Route53Domains
     -- ** ContactDetail
     ContactDetail (ContactDetail'),
     newContactDetail,
+
+    -- ** DomainPrice
+    DomainPrice (DomainPrice'),
+    newDomainPrice,
 
     -- ** DomainSuggestion
     DomainSuggestion (DomainSuggestion'),
@@ -261,6 +286,10 @@ module Amazonka.Route53Domains
     ExtraParam (ExtraParam'),
     newExtraParam,
 
+    -- ** FilterCondition
+    FilterCondition (FilterCondition'),
+    newFilterCondition,
+
     -- ** Nameserver
     Nameserver (Nameserver'),
     newNameserver,
@@ -268,6 +297,14 @@ module Amazonka.Route53Domains
     -- ** OperationSummary
     OperationSummary (OperationSummary'),
     newOperationSummary,
+
+    -- ** PriceWithCurrency
+    PriceWithCurrency (PriceWithCurrency'),
+    newPriceWithCurrency,
+
+    -- ** SortCondition
+    SortCondition (SortCondition'),
+    newSortCondition,
 
     -- ** Tag
     Tag (Tag'),
@@ -279,6 +316,7 @@ import Amazonka.Route53Domains.AcceptDomainTransferFromAnotherAwsAccount
 import Amazonka.Route53Domains.CancelDomainTransferToAnotherAwsAccount
 import Amazonka.Route53Domains.CheckDomainAvailability
 import Amazonka.Route53Domains.CheckDomainTransferability
+import Amazonka.Route53Domains.DeleteDomain
 import Amazonka.Route53Domains.DeleteTagsForDomain
 import Amazonka.Route53Domains.DisableDomainAutoRenew
 import Amazonka.Route53Domains.DisableDomainTransferLock
@@ -291,6 +329,7 @@ import Amazonka.Route53Domains.GetOperationDetail
 import Amazonka.Route53Domains.Lens
 import Amazonka.Route53Domains.ListDomains
 import Amazonka.Route53Domains.ListOperations
+import Amazonka.Route53Domains.ListPrices
 import Amazonka.Route53Domains.ListTagsForDomain
 import Amazonka.Route53Domains.RegisterDomain
 import Amazonka.Route53Domains.RejectDomainTransferFromAnotherAwsAccount

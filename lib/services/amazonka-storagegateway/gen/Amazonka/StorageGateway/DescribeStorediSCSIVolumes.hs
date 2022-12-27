@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.DescribeStorediSCSIVolumes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.StorageGateway.DescribeStorediSCSIVolumes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,12 +95,13 @@ instance Core.AWSRequest DescribeStorediSCSIVolumes where
   type
     AWSResponse DescribeStorediSCSIVolumes =
       DescribeStorediSCSIVolumesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeStorediSCSIVolumesResponse'
-            Prelude.<$> ( x Core..?> "StorediSCSIVolumes"
+            Prelude.<$> ( x Data..?> "StorediSCSIVolumes"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -113,32 +115,32 @@ instance Prelude.NFData DescribeStorediSCSIVolumes where
   rnf DescribeStorediSCSIVolumes' {..} =
     Prelude.rnf volumeARNs
 
-instance Core.ToHeaders DescribeStorediSCSIVolumes where
+instance Data.ToHeaders DescribeStorediSCSIVolumes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.DescribeStorediSCSIVolumes" ::
+              Data.=# ( "StorageGateway_20130630.DescribeStorediSCSIVolumes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeStorediSCSIVolumes where
+instance Data.ToJSON DescribeStorediSCSIVolumes where
   toJSON DescribeStorediSCSIVolumes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("VolumeARNs" Core..= volumeARNs)]
+          [Prelude.Just ("VolumeARNs" Data..= volumeARNs)]
       )
 
-instance Core.ToPath DescribeStorediSCSIVolumes where
+instance Data.ToPath DescribeStorediSCSIVolumes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeStorediSCSIVolumes where
+instance Data.ToQuery DescribeStorediSCSIVolumes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeStorediSCSIVolumesResponse' smart constructor.

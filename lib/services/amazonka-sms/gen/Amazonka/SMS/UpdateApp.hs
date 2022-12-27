@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.UpdateApp
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,10 +27,10 @@ module Amazonka.SMS.UpdateApp
     newUpdateApp,
 
     -- * Request Lenses
-    updateApp_roleName,
     updateApp_appId,
-    updateApp_name,
     updateApp_description,
+    updateApp_name,
+    updateApp_roleName,
     updateApp_serverGroups,
     updateApp_tags,
 
@@ -47,7 +47,8 @@ module Amazonka.SMS.UpdateApp
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,14 +56,15 @@ import Amazonka.SMS.Types
 
 -- | /See:/ 'newUpdateApp' smart constructor.
 data UpdateApp = UpdateApp'
-  { -- | The name of the service role in the customer\'s account used by AWS SMS.
-    roleName :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the application.
+  { -- | The ID of the application.
     appId :: Prelude.Maybe Prelude.Text,
-    -- | The new name of the application.
-    name :: Prelude.Maybe Prelude.Text,
     -- | The new description of the application.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The new name of the application.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The name of the service role in the customer\'s account used by Server
+    -- Migration Service.
+    roleName :: Prelude.Maybe Prelude.Text,
     -- | The server groups in the application to update.
     serverGroups :: Prelude.Maybe [ServerGroup],
     -- | The tags to associate with the application.
@@ -78,13 +80,14 @@ data UpdateApp = UpdateApp'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'roleName', 'updateApp_roleName' - The name of the service role in the customer\'s account used by AWS SMS.
---
 -- 'appId', 'updateApp_appId' - The ID of the application.
+--
+-- 'description', 'updateApp_description' - The new description of the application.
 --
 -- 'name', 'updateApp_name' - The new name of the application.
 --
--- 'description', 'updateApp_description' - The new description of the application.
+-- 'roleName', 'updateApp_roleName' - The name of the service role in the customer\'s account used by Server
+-- Migration Service.
 --
 -- 'serverGroups', 'updateApp_serverGroups' - The server groups in the application to update.
 --
@@ -93,29 +96,30 @@ newUpdateApp ::
   UpdateApp
 newUpdateApp =
   UpdateApp'
-    { roleName = Prelude.Nothing,
-      appId = Prelude.Nothing,
-      name = Prelude.Nothing,
+    { appId = Prelude.Nothing,
       description = Prelude.Nothing,
+      name = Prelude.Nothing,
+      roleName = Prelude.Nothing,
       serverGroups = Prelude.Nothing,
       tags = Prelude.Nothing
     }
-
--- | The name of the service role in the customer\'s account used by AWS SMS.
-updateApp_roleName :: Lens.Lens' UpdateApp (Prelude.Maybe Prelude.Text)
-updateApp_roleName = Lens.lens (\UpdateApp' {roleName} -> roleName) (\s@UpdateApp' {} a -> s {roleName = a} :: UpdateApp)
 
 -- | The ID of the application.
 updateApp_appId :: Lens.Lens' UpdateApp (Prelude.Maybe Prelude.Text)
 updateApp_appId = Lens.lens (\UpdateApp' {appId} -> appId) (\s@UpdateApp' {} a -> s {appId = a} :: UpdateApp)
 
+-- | The new description of the application.
+updateApp_description :: Lens.Lens' UpdateApp (Prelude.Maybe Prelude.Text)
+updateApp_description = Lens.lens (\UpdateApp' {description} -> description) (\s@UpdateApp' {} a -> s {description = a} :: UpdateApp)
+
 -- | The new name of the application.
 updateApp_name :: Lens.Lens' UpdateApp (Prelude.Maybe Prelude.Text)
 updateApp_name = Lens.lens (\UpdateApp' {name} -> name) (\s@UpdateApp' {} a -> s {name = a} :: UpdateApp)
 
--- | The new description of the application.
-updateApp_description :: Lens.Lens' UpdateApp (Prelude.Maybe Prelude.Text)
-updateApp_description = Lens.lens (\UpdateApp' {description} -> description) (\s@UpdateApp' {} a -> s {description = a} :: UpdateApp)
+-- | The name of the service role in the customer\'s account used by Server
+-- Migration Service.
+updateApp_roleName :: Lens.Lens' UpdateApp (Prelude.Maybe Prelude.Text)
+updateApp_roleName = Lens.lens (\UpdateApp' {roleName} -> roleName) (\s@UpdateApp' {} a -> s {roleName = a} :: UpdateApp)
 
 -- | The server groups in the application to update.
 updateApp_serverGroups :: Lens.Lens' UpdateApp (Prelude.Maybe [ServerGroup])
@@ -127,67 +131,68 @@ updateApp_tags = Lens.lens (\UpdateApp' {tags} -> tags) (\s@UpdateApp' {} a -> s
 
 instance Core.AWSRequest UpdateApp where
   type AWSResponse UpdateApp = UpdateAppResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateAppResponse'
-            Prelude.<$> (x Core..?> "appSummary")
-            Prelude.<*> (x Core..?> "serverGroups" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "appSummary")
+            Prelude.<*> (x Data..?> "serverGroups" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateApp where
   hashWithSalt _salt UpdateApp' {..} =
-    _salt `Prelude.hashWithSalt` roleName
-      `Prelude.hashWithSalt` appId
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` appId
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` roleName
       `Prelude.hashWithSalt` serverGroups
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData UpdateApp where
   rnf UpdateApp' {..} =
-    Prelude.rnf roleName
-      `Prelude.seq` Prelude.rnf appId
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf appId
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf roleName
       `Prelude.seq` Prelude.rnf serverGroups
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders UpdateApp where
+instance Data.ToHeaders UpdateApp where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.UpdateApp" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.UpdateApp" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateApp where
+instance Data.ToJSON UpdateApp where
   toJSON UpdateApp' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("roleName" Core..=) Prelude.<$> roleName,
-            ("appId" Core..=) Prelude.<$> appId,
-            ("name" Core..=) Prelude.<$> name,
-            ("description" Core..=) Prelude.<$> description,
-            ("serverGroups" Core..=) Prelude.<$> serverGroups,
-            ("tags" Core..=) Prelude.<$> tags
+          [ ("appId" Data..=) Prelude.<$> appId,
+            ("description" Data..=) Prelude.<$> description,
+            ("name" Data..=) Prelude.<$> name,
+            ("roleName" Data..=) Prelude.<$> roleName,
+            ("serverGroups" Data..=) Prelude.<$> serverGroups,
+            ("tags" Data..=) Prelude.<$> tags
           ]
       )
 
-instance Core.ToPath UpdateApp where
+instance Data.ToPath UpdateApp where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateApp where
+instance Data.ToQuery UpdateApp where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAppResponse' smart constructor.

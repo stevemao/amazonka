@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.PutActionRevision
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CodePipeline.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -129,13 +130,14 @@ instance Core.AWSRequest PutActionRevision where
   type
     AWSResponse PutActionRevision =
       PutActionRevisionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutActionRevisionResponse'
-            Prelude.<$> (x Core..?> "newRevision")
-            Prelude.<*> (x Core..?> "pipelineExecutionId")
+            Prelude.<$> (x Data..?> "newRevision")
+            Prelude.<*> (x Data..?> "pipelineExecutionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -153,37 +155,37 @@ instance Prelude.NFData PutActionRevision where
       `Prelude.seq` Prelude.rnf actionName
       `Prelude.seq` Prelude.rnf actionRevision
 
-instance Core.ToHeaders PutActionRevision where
+instance Data.ToHeaders PutActionRevision where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodePipeline_20150709.PutActionRevision" ::
+              Data.=# ( "CodePipeline_20150709.PutActionRevision" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutActionRevision where
+instance Data.ToJSON PutActionRevision where
   toJSON PutActionRevision' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("pipelineName" Core..= pipelineName),
-            Prelude.Just ("stageName" Core..= stageName),
-            Prelude.Just ("actionName" Core..= actionName),
+          [ Prelude.Just ("pipelineName" Data..= pipelineName),
+            Prelude.Just ("stageName" Data..= stageName),
+            Prelude.Just ("actionName" Data..= actionName),
             Prelude.Just
-              ("actionRevision" Core..= actionRevision)
+              ("actionRevision" Data..= actionRevision)
           ]
       )
 
-instance Core.ToPath PutActionRevision where
+instance Data.ToPath PutActionRevision where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutActionRevision where
+instance Data.ToQuery PutActionRevision where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @PutActionRevision@ action.

@@ -14,16 +14,19 @@
 
 -- |
 -- Module      : Amazonka.Forecast.DeleteDatasetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a dataset group created using the CreateDatasetGroup operation.
--- You can only delete dataset groups that have a status of @ACTIVE@,
--- @CREATE_FAILED@, or @UPDATE_FAILED@. To get the status, use the
--- DescribeDatasetGroup operation.
+-- Deletes a dataset group created using the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_CreateDatasetGroup.html CreateDatasetGroup>
+-- operation. You can only delete dataset groups that have a status of
+-- @ACTIVE@, @CREATE_FAILED@, or @UPDATE_FAILED@. To get the status, use
+-- the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_DescribeDatasetGroup.html DescribeDatasetGroup>
+-- operation.
 --
 -- This operation deletes only the dataset group, not the datasets in the
 -- group.
@@ -42,8 +45,9 @@ module Amazonka.Forecast.DeleteDatasetGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,7 +86,8 @@ instance Core.AWSRequest DeleteDatasetGroup where
   type
     AWSResponse DeleteDatasetGroup =
       DeleteDatasetGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteDatasetGroupResponse'
 
@@ -94,34 +99,34 @@ instance Prelude.NFData DeleteDatasetGroup where
   rnf DeleteDatasetGroup' {..} =
     Prelude.rnf datasetGroupArn
 
-instance Core.ToHeaders DeleteDatasetGroup where
+instance Data.ToHeaders DeleteDatasetGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.DeleteDatasetGroup" ::
+              Data.=# ( "AmazonForecast.DeleteDatasetGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteDatasetGroup where
+instance Data.ToJSON DeleteDatasetGroup where
   toJSON DeleteDatasetGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("DatasetGroupArn" Core..= datasetGroupArn)
+              ("DatasetGroupArn" Data..= datasetGroupArn)
           ]
       )
 
-instance Core.ToPath DeleteDatasetGroup where
+instance Data.ToPath DeleteDatasetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDatasetGroup where
+instance Data.ToQuery DeleteDatasetGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDatasetGroupResponse' smart constructor.

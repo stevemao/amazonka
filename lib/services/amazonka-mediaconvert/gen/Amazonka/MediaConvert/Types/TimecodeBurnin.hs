@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.TimecodeBurnin
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.TimecodeBurnin where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.TimecodeBurninPosition
 import qualified Amazonka.Prelude as Prelude
 
@@ -29,19 +30,19 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTimecodeBurnin' smart constructor.
 data TimecodeBurnin = TimecodeBurnin'
-  { -- | Use Prefix (Prefix) to place ASCII characters before any burned-in
+  { -- | Use Font Size (FontSize) to set the font size of any burned-in timecode.
+    -- Valid values are 10, 16, 32, 48.
+    fontSize :: Prelude.Maybe Prelude.Natural,
+    -- | Use Position (Position) under under Timecode burn-in (TimecodeBurnIn) to
+    -- specify the location the burned-in timecode on output video.
+    position :: Prelude.Maybe TimecodeBurninPosition,
+    -- | Use Prefix (Prefix) to place ASCII characters before any burned-in
     -- timecode. For example, a prefix of \"EZ-\" will result in the timecode
     -- \"EZ-00:00:00:00\". Provide either the characters themselves or the
     -- ASCII code equivalents. The supported range of characters is 0x20
     -- through 0x7e. This includes letters, numbers, and all special characters
     -- represented on a standard English keyboard.
-    prefix :: Prelude.Maybe Prelude.Text,
-    -- | Use Font Size (FontSize) to set the font size of any burned-in timecode.
-    -- Valid values are 10, 16, 32, 48.
-    fontSize :: Prelude.Maybe Prelude.Natural,
-    -- | Use Position (Position) under under Timecode burn-in (TimecodeBurnIn) to
-    -- specify the location the burned-in timecode on output video.
-    position :: Prelude.Maybe TimecodeBurninPosition
+    prefix :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -53,35 +54,26 @@ data TimecodeBurnin = TimecodeBurnin'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'fontSize', 'timecodeBurnin_fontSize' - Use Font Size (FontSize) to set the font size of any burned-in timecode.
+-- Valid values are 10, 16, 32, 48.
+--
+-- 'position', 'timecodeBurnin_position' - Use Position (Position) under under Timecode burn-in (TimecodeBurnIn) to
+-- specify the location the burned-in timecode on output video.
+--
 -- 'prefix', 'timecodeBurnin_prefix' - Use Prefix (Prefix) to place ASCII characters before any burned-in
 -- timecode. For example, a prefix of \"EZ-\" will result in the timecode
 -- \"EZ-00:00:00:00\". Provide either the characters themselves or the
 -- ASCII code equivalents. The supported range of characters is 0x20
 -- through 0x7e. This includes letters, numbers, and all special characters
 -- represented on a standard English keyboard.
---
--- 'fontSize', 'timecodeBurnin_fontSize' - Use Font Size (FontSize) to set the font size of any burned-in timecode.
--- Valid values are 10, 16, 32, 48.
---
--- 'position', 'timecodeBurnin_position' - Use Position (Position) under under Timecode burn-in (TimecodeBurnIn) to
--- specify the location the burned-in timecode on output video.
 newTimecodeBurnin ::
   TimecodeBurnin
 newTimecodeBurnin =
   TimecodeBurnin'
-    { prefix = Prelude.Nothing,
-      fontSize = Prelude.Nothing,
-      position = Prelude.Nothing
+    { fontSize = Prelude.Nothing,
+      position = Prelude.Nothing,
+      prefix = Prelude.Nothing
     }
-
--- | Use Prefix (Prefix) to place ASCII characters before any burned-in
--- timecode. For example, a prefix of \"EZ-\" will result in the timecode
--- \"EZ-00:00:00:00\". Provide either the characters themselves or the
--- ASCII code equivalents. The supported range of characters is 0x20
--- through 0x7e. This includes letters, numbers, and all special characters
--- represented on a standard English keyboard.
-timecodeBurnin_prefix :: Lens.Lens' TimecodeBurnin (Prelude.Maybe Prelude.Text)
-timecodeBurnin_prefix = Lens.lens (\TimecodeBurnin' {prefix} -> prefix) (\s@TimecodeBurnin' {} a -> s {prefix = a} :: TimecodeBurnin)
 
 -- | Use Font Size (FontSize) to set the font size of any burned-in timecode.
 -- Valid values are 10, 16, 32, 48.
@@ -93,35 +85,44 @@ timecodeBurnin_fontSize = Lens.lens (\TimecodeBurnin' {fontSize} -> fontSize) (\
 timecodeBurnin_position :: Lens.Lens' TimecodeBurnin (Prelude.Maybe TimecodeBurninPosition)
 timecodeBurnin_position = Lens.lens (\TimecodeBurnin' {position} -> position) (\s@TimecodeBurnin' {} a -> s {position = a} :: TimecodeBurnin)
 
-instance Core.FromJSON TimecodeBurnin where
+-- | Use Prefix (Prefix) to place ASCII characters before any burned-in
+-- timecode. For example, a prefix of \"EZ-\" will result in the timecode
+-- \"EZ-00:00:00:00\". Provide either the characters themselves or the
+-- ASCII code equivalents. The supported range of characters is 0x20
+-- through 0x7e. This includes letters, numbers, and all special characters
+-- represented on a standard English keyboard.
+timecodeBurnin_prefix :: Lens.Lens' TimecodeBurnin (Prelude.Maybe Prelude.Text)
+timecodeBurnin_prefix = Lens.lens (\TimecodeBurnin' {prefix} -> prefix) (\s@TimecodeBurnin' {} a -> s {prefix = a} :: TimecodeBurnin)
+
+instance Data.FromJSON TimecodeBurnin where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TimecodeBurnin"
       ( \x ->
           TimecodeBurnin'
-            Prelude.<$> (x Core..:? "prefix")
-            Prelude.<*> (x Core..:? "fontSize")
-            Prelude.<*> (x Core..:? "position")
+            Prelude.<$> (x Data..:? "fontSize")
+            Prelude.<*> (x Data..:? "position")
+            Prelude.<*> (x Data..:? "prefix")
       )
 
 instance Prelude.Hashable TimecodeBurnin where
   hashWithSalt _salt TimecodeBurnin' {..} =
-    _salt `Prelude.hashWithSalt` prefix
-      `Prelude.hashWithSalt` fontSize
+    _salt `Prelude.hashWithSalt` fontSize
       `Prelude.hashWithSalt` position
+      `Prelude.hashWithSalt` prefix
 
 instance Prelude.NFData TimecodeBurnin where
   rnf TimecodeBurnin' {..} =
-    Prelude.rnf prefix
-      `Prelude.seq` Prelude.rnf fontSize
+    Prelude.rnf fontSize
       `Prelude.seq` Prelude.rnf position
+      `Prelude.seq` Prelude.rnf prefix
 
-instance Core.ToJSON TimecodeBurnin where
+instance Data.ToJSON TimecodeBurnin where
   toJSON TimecodeBurnin' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("prefix" Core..=) Prelude.<$> prefix,
-            ("fontSize" Core..=) Prelude.<$> fontSize,
-            ("position" Core..=) Prelude.<$> position
+          [ ("fontSize" Data..=) Prelude.<$> fontSize,
+            ("position" Data..=) Prelude.<$> position,
+            ("prefix" Data..=) Prelude.<$> prefix
           ]
       )

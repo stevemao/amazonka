@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.AssetPropertyVariant
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTEvents.Types.AssetPropertyVariant where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure that contains an asset property value. For more information,
@@ -63,19 +64,19 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAssetPropertyVariant' smart constructor.
 data AssetPropertyVariant = AssetPropertyVariant'
-  { -- | The asset property value is an integer. You must use an expression, and
-    -- the evaluated result should be an integer.
-    integerValue :: Prelude.Maybe Prelude.Text,
+  { -- | The asset property value is a Boolean value that must be @\'TRUE\'@ or
+    -- @\'FALSE\'@. You must use an expression, and the evaluated result should
+    -- be a Boolean value.
+    booleanValue :: Prelude.Maybe Prelude.Text,
     -- | The asset property value is a double. You must use an expression, and
     -- the evaluated result should be a double.
     doubleValue :: Prelude.Maybe Prelude.Text,
+    -- | The asset property value is an integer. You must use an expression, and
+    -- the evaluated result should be an integer.
+    integerValue :: Prelude.Maybe Prelude.Text,
     -- | The asset property value is a string. You must use an expression, and
     -- the evaluated result should be a string.
-    stringValue :: Prelude.Maybe Prelude.Text,
-    -- | The asset property value is a Boolean value that must be @\'TRUE\'@ or
-    -- @\'FALSE\'@. You must use an expression, and the evaluated result should
-    -- be a Boolean value.
-    booleanValue :: Prelude.Maybe Prelude.Text
+    stringValue :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -87,43 +88,28 @@ data AssetPropertyVariant = AssetPropertyVariant'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'integerValue', 'assetPropertyVariant_integerValue' - The asset property value is an integer. You must use an expression, and
--- the evaluated result should be an integer.
+-- 'booleanValue', 'assetPropertyVariant_booleanValue' - The asset property value is a Boolean value that must be @\'TRUE\'@ or
+-- @\'FALSE\'@. You must use an expression, and the evaluated result should
+-- be a Boolean value.
 --
 -- 'doubleValue', 'assetPropertyVariant_doubleValue' - The asset property value is a double. You must use an expression, and
 -- the evaluated result should be a double.
 --
+-- 'integerValue', 'assetPropertyVariant_integerValue' - The asset property value is an integer. You must use an expression, and
+-- the evaluated result should be an integer.
+--
 -- 'stringValue', 'assetPropertyVariant_stringValue' - The asset property value is a string. You must use an expression, and
 -- the evaluated result should be a string.
---
--- 'booleanValue', 'assetPropertyVariant_booleanValue' - The asset property value is a Boolean value that must be @\'TRUE\'@ or
--- @\'FALSE\'@. You must use an expression, and the evaluated result should
--- be a Boolean value.
 newAssetPropertyVariant ::
   AssetPropertyVariant
 newAssetPropertyVariant =
   AssetPropertyVariant'
-    { integerValue =
+    { booleanValue =
         Prelude.Nothing,
       doubleValue = Prelude.Nothing,
-      stringValue = Prelude.Nothing,
-      booleanValue = Prelude.Nothing
+      integerValue = Prelude.Nothing,
+      stringValue = Prelude.Nothing
     }
-
--- | The asset property value is an integer. You must use an expression, and
--- the evaluated result should be an integer.
-assetPropertyVariant_integerValue :: Lens.Lens' AssetPropertyVariant (Prelude.Maybe Prelude.Text)
-assetPropertyVariant_integerValue = Lens.lens (\AssetPropertyVariant' {integerValue} -> integerValue) (\s@AssetPropertyVariant' {} a -> s {integerValue = a} :: AssetPropertyVariant)
-
--- | The asset property value is a double. You must use an expression, and
--- the evaluated result should be a double.
-assetPropertyVariant_doubleValue :: Lens.Lens' AssetPropertyVariant (Prelude.Maybe Prelude.Text)
-assetPropertyVariant_doubleValue = Lens.lens (\AssetPropertyVariant' {doubleValue} -> doubleValue) (\s@AssetPropertyVariant' {} a -> s {doubleValue = a} :: AssetPropertyVariant)
-
--- | The asset property value is a string. You must use an expression, and
--- the evaluated result should be a string.
-assetPropertyVariant_stringValue :: Lens.Lens' AssetPropertyVariant (Prelude.Maybe Prelude.Text)
-assetPropertyVariant_stringValue = Lens.lens (\AssetPropertyVariant' {stringValue} -> stringValue) (\s@AssetPropertyVariant' {} a -> s {stringValue = a} :: AssetPropertyVariant)
 
 -- | The asset property value is a Boolean value that must be @\'TRUE\'@ or
 -- @\'FALSE\'@. You must use an expression, and the evaluated result should
@@ -131,39 +117,54 @@ assetPropertyVariant_stringValue = Lens.lens (\AssetPropertyVariant' {stringValu
 assetPropertyVariant_booleanValue :: Lens.Lens' AssetPropertyVariant (Prelude.Maybe Prelude.Text)
 assetPropertyVariant_booleanValue = Lens.lens (\AssetPropertyVariant' {booleanValue} -> booleanValue) (\s@AssetPropertyVariant' {} a -> s {booleanValue = a} :: AssetPropertyVariant)
 
-instance Core.FromJSON AssetPropertyVariant where
+-- | The asset property value is a double. You must use an expression, and
+-- the evaluated result should be a double.
+assetPropertyVariant_doubleValue :: Lens.Lens' AssetPropertyVariant (Prelude.Maybe Prelude.Text)
+assetPropertyVariant_doubleValue = Lens.lens (\AssetPropertyVariant' {doubleValue} -> doubleValue) (\s@AssetPropertyVariant' {} a -> s {doubleValue = a} :: AssetPropertyVariant)
+
+-- | The asset property value is an integer. You must use an expression, and
+-- the evaluated result should be an integer.
+assetPropertyVariant_integerValue :: Lens.Lens' AssetPropertyVariant (Prelude.Maybe Prelude.Text)
+assetPropertyVariant_integerValue = Lens.lens (\AssetPropertyVariant' {integerValue} -> integerValue) (\s@AssetPropertyVariant' {} a -> s {integerValue = a} :: AssetPropertyVariant)
+
+-- | The asset property value is a string. You must use an expression, and
+-- the evaluated result should be a string.
+assetPropertyVariant_stringValue :: Lens.Lens' AssetPropertyVariant (Prelude.Maybe Prelude.Text)
+assetPropertyVariant_stringValue = Lens.lens (\AssetPropertyVariant' {stringValue} -> stringValue) (\s@AssetPropertyVariant' {} a -> s {stringValue = a} :: AssetPropertyVariant)
+
+instance Data.FromJSON AssetPropertyVariant where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssetPropertyVariant"
       ( \x ->
           AssetPropertyVariant'
-            Prelude.<$> (x Core..:? "integerValue")
-            Prelude.<*> (x Core..:? "doubleValue")
-            Prelude.<*> (x Core..:? "stringValue")
-            Prelude.<*> (x Core..:? "booleanValue")
+            Prelude.<$> (x Data..:? "booleanValue")
+            Prelude.<*> (x Data..:? "doubleValue")
+            Prelude.<*> (x Data..:? "integerValue")
+            Prelude.<*> (x Data..:? "stringValue")
       )
 
 instance Prelude.Hashable AssetPropertyVariant where
   hashWithSalt _salt AssetPropertyVariant' {..} =
-    _salt `Prelude.hashWithSalt` integerValue
+    _salt `Prelude.hashWithSalt` booleanValue
       `Prelude.hashWithSalt` doubleValue
+      `Prelude.hashWithSalt` integerValue
       `Prelude.hashWithSalt` stringValue
-      `Prelude.hashWithSalt` booleanValue
 
 instance Prelude.NFData AssetPropertyVariant where
   rnf AssetPropertyVariant' {..} =
-    Prelude.rnf integerValue
+    Prelude.rnf booleanValue
       `Prelude.seq` Prelude.rnf doubleValue
+      `Prelude.seq` Prelude.rnf integerValue
       `Prelude.seq` Prelude.rnf stringValue
-      `Prelude.seq` Prelude.rnf booleanValue
 
-instance Core.ToJSON AssetPropertyVariant where
+instance Data.ToJSON AssetPropertyVariant where
   toJSON AssetPropertyVariant' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("integerValue" Core..=) Prelude.<$> integerValue,
-            ("doubleValue" Core..=) Prelude.<$> doubleValue,
-            ("stringValue" Core..=) Prelude.<$> stringValue,
-            ("booleanValue" Core..=) Prelude.<$> booleanValue
+          [ ("booleanValue" Data..=) Prelude.<$> booleanValue,
+            ("doubleValue" Data..=) Prelude.<$> doubleValue,
+            ("integerValue" Data..=) Prelude.<$> integerValue,
+            ("stringValue" Data..=) Prelude.<$> stringValue
           ]
       )

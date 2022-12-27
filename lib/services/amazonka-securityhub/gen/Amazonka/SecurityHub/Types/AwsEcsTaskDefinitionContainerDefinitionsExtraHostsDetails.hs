@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsExtraHostsDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsExtraHostsDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A hostname and IP address mapping to append to the __\/etc\/hosts__ file
@@ -65,16 +66,16 @@ awsEcsTaskDefinitionContainerDefinitionsExtraHostsDetails_ipAddress :: Lens.Lens
 awsEcsTaskDefinitionContainerDefinitionsExtraHostsDetails_ipAddress = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsExtraHostsDetails' {ipAddress} -> ipAddress) (\s@AwsEcsTaskDefinitionContainerDefinitionsExtraHostsDetails' {} a -> s {ipAddress = a} :: AwsEcsTaskDefinitionContainerDefinitionsExtraHostsDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsTaskDefinitionContainerDefinitionsExtraHostsDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsTaskDefinitionContainerDefinitionsExtraHostsDetails"
       ( \x ->
           AwsEcsTaskDefinitionContainerDefinitionsExtraHostsDetails'
-            Prelude.<$> (x Core..:? "Hostname")
-              Prelude.<*> (x Core..:? "IpAddress")
+            Prelude.<$> (x Data..:? "Hostname")
+              Prelude.<*> (x Data..:? "IpAddress")
       )
 
 instance
@@ -97,14 +98,14 @@ instance
         `Prelude.seq` Prelude.rnf ipAddress
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsTaskDefinitionContainerDefinitionsExtraHostsDetails
   where
   toJSON
     AwsEcsTaskDefinitionContainerDefinitionsExtraHostsDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Hostname" Core..=) Prelude.<$> hostname,
-              ("IpAddress" Core..=) Prelude.<$> ipAddress
+            [ ("Hostname" Data..=) Prelude.<$> hostname,
+              ("IpAddress" Data..=) Prelude.<$> ipAddress
             ]
         )

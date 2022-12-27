@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.Types.S3DataConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Personalize.Types.S3DataConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration details of an Amazon S3 input or output bucket.
@@ -29,7 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 data S3DataConfig = S3DataConfig'
   { -- | The Amazon Resource Name (ARN) of the Key Management Service (KMS) key
     -- that Amazon Personalize uses to encrypt or decrypt the input and output
-    -- files of a batch inference job.
+    -- files.
     kmsKeyArn :: Prelude.Maybe Prelude.Text,
     -- | The file path of the Amazon S3 bucket.
     path :: Prelude.Text
@@ -46,7 +47,7 @@ data S3DataConfig = S3DataConfig'
 --
 -- 'kmsKeyArn', 's3DataConfig_kmsKeyArn' - The Amazon Resource Name (ARN) of the Key Management Service (KMS) key
 -- that Amazon Personalize uses to encrypt or decrypt the input and output
--- files of a batch inference job.
+-- files.
 --
 -- 'path', 's3DataConfig_path' - The file path of the Amazon S3 bucket.
 newS3DataConfig ::
@@ -61,7 +62,7 @@ newS3DataConfig pPath_ =
 
 -- | The Amazon Resource Name (ARN) of the Key Management Service (KMS) key
 -- that Amazon Personalize uses to encrypt or decrypt the input and output
--- files of a batch inference job.
+-- files.
 s3DataConfig_kmsKeyArn :: Lens.Lens' S3DataConfig (Prelude.Maybe Prelude.Text)
 s3DataConfig_kmsKeyArn = Lens.lens (\S3DataConfig' {kmsKeyArn} -> kmsKeyArn) (\s@S3DataConfig' {} a -> s {kmsKeyArn = a} :: S3DataConfig)
 
@@ -69,14 +70,14 @@ s3DataConfig_kmsKeyArn = Lens.lens (\S3DataConfig' {kmsKeyArn} -> kmsKeyArn) (\s
 s3DataConfig_path :: Lens.Lens' S3DataConfig Prelude.Text
 s3DataConfig_path = Lens.lens (\S3DataConfig' {path} -> path) (\s@S3DataConfig' {} a -> s {path = a} :: S3DataConfig)
 
-instance Core.FromJSON S3DataConfig where
+instance Data.FromJSON S3DataConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3DataConfig"
       ( \x ->
           S3DataConfig'
-            Prelude.<$> (x Core..:? "kmsKeyArn")
-            Prelude.<*> (x Core..: "path")
+            Prelude.<$> (x Data..:? "kmsKeyArn")
+            Prelude.<*> (x Data..: "path")
       )
 
 instance Prelude.Hashable S3DataConfig where
@@ -89,11 +90,11 @@ instance Prelude.NFData S3DataConfig where
     Prelude.rnf kmsKeyArn
       `Prelude.seq` Prelude.rnf path
 
-instance Core.ToJSON S3DataConfig where
+instance Data.ToJSON S3DataConfig where
   toJSON S3DataConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("kmsKeyArn" Core..=) Prelude.<$> kmsKeyArn,
-            Prelude.Just ("path" Core..= path)
+          [ ("kmsKeyArn" Data..=) Prelude.<$> kmsKeyArn,
+            Prelude.Just ("path" Data..= path)
           ]
       )

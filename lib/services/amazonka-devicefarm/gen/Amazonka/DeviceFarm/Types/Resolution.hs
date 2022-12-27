@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.Types.Resolution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DeviceFarm.Types.Resolution where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the screen resolution of a device in height and width,
@@ -62,14 +63,14 @@ resolution_height = Lens.lens (\Resolution' {height} -> height) (\s@Resolution' 
 resolution_width :: Lens.Lens' Resolution (Prelude.Maybe Prelude.Int)
 resolution_width = Lens.lens (\Resolution' {width} -> width) (\s@Resolution' {} a -> s {width = a} :: Resolution)
 
-instance Core.FromJSON Resolution where
+instance Data.FromJSON Resolution where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Resolution"
       ( \x ->
           Resolution'
-            Prelude.<$> (x Core..:? "height")
-            Prelude.<*> (x Core..:? "width")
+            Prelude.<$> (x Data..:? "height")
+            Prelude.<*> (x Data..:? "width")
       )
 
 instance Prelude.Hashable Resolution where

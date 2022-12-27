@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.CreateDirectory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,10 +35,10 @@ module Amazonka.DirectoryService.CreateDirectory
     newCreateDirectory,
 
     -- * Request Lenses
-    createDirectory_shortName,
-    createDirectory_vpcSettings,
     createDirectory_description,
+    createDirectory_shortName,
     createDirectory_tags,
+    createDirectory_vpcSettings,
     createDirectory_name,
     createDirectory_password,
     createDirectory_size,
@@ -54,8 +54,9 @@ module Amazonka.DirectoryService.CreateDirectory
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,15 +65,15 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateDirectory' smart constructor.
 data CreateDirectory = CreateDirectory'
-  { -- | The NetBIOS name of the directory, such as @CORP@.
+  { -- | A description for the directory.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The NetBIOS name of the directory, such as @CORP@.
     shortName :: Prelude.Maybe Prelude.Text,
+    -- | The tags to be assigned to the Simple AD directory.
+    tags :: Prelude.Maybe [Tag],
     -- | A DirectoryVpcSettings object that contains additional information for
     -- the operation.
     vpcSettings :: Prelude.Maybe DirectoryVpcSettings,
-    -- | A description for the directory.
-    description :: Prelude.Maybe Prelude.Text,
-    -- | The tags to be assigned to the Simple AD directory.
-    tags :: Prelude.Maybe [Tag],
     -- | The fully qualified name for the directory, such as @corp.example.com@.
     name :: Prelude.Text,
     -- | The password for the directory administrator. The directory creation
@@ -105,7 +106,7 @@ data CreateDirectory = CreateDirectory'
     -- enforced, see
     -- <https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/password-must-meet-complexity-requirements Password must meet complexity requirements>
     -- on the Microsoft website.
-    password :: Core.Sensitive Prelude.Text,
+    password :: Data.Sensitive Prelude.Text,
     -- | The size of the directory.
     size :: DirectorySize
   }
@@ -119,14 +120,14 @@ data CreateDirectory = CreateDirectory'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createDirectory_description' - A description for the directory.
+--
 -- 'shortName', 'createDirectory_shortName' - The NetBIOS name of the directory, such as @CORP@.
+--
+-- 'tags', 'createDirectory_tags' - The tags to be assigned to the Simple AD directory.
 --
 -- 'vpcSettings', 'createDirectory_vpcSettings' - A DirectoryVpcSettings object that contains additional information for
 -- the operation.
---
--- 'description', 'createDirectory_description' - A description for the directory.
---
--- 'tags', 'createDirectory_tags' - The tags to be assigned to the Simple AD directory.
 --
 -- 'name', 'createDirectory_name' - The fully qualified name for the directory, such as @corp.example.com@.
 --
@@ -172,31 +173,31 @@ newCreateDirectory ::
   CreateDirectory
 newCreateDirectory pName_ pPassword_ pSize_ =
   CreateDirectory'
-    { shortName = Prelude.Nothing,
-      vpcSettings = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      shortName = Prelude.Nothing,
       tags = Prelude.Nothing,
+      vpcSettings = Prelude.Nothing,
       name = pName_,
-      password = Core._Sensitive Lens.# pPassword_,
+      password = Data._Sensitive Lens.# pPassword_,
       size = pSize_
     }
-
--- | The NetBIOS name of the directory, such as @CORP@.
-createDirectory_shortName :: Lens.Lens' CreateDirectory (Prelude.Maybe Prelude.Text)
-createDirectory_shortName = Lens.lens (\CreateDirectory' {shortName} -> shortName) (\s@CreateDirectory' {} a -> s {shortName = a} :: CreateDirectory)
-
--- | A DirectoryVpcSettings object that contains additional information for
--- the operation.
-createDirectory_vpcSettings :: Lens.Lens' CreateDirectory (Prelude.Maybe DirectoryVpcSettings)
-createDirectory_vpcSettings = Lens.lens (\CreateDirectory' {vpcSettings} -> vpcSettings) (\s@CreateDirectory' {} a -> s {vpcSettings = a} :: CreateDirectory)
 
 -- | A description for the directory.
 createDirectory_description :: Lens.Lens' CreateDirectory (Prelude.Maybe Prelude.Text)
 createDirectory_description = Lens.lens (\CreateDirectory' {description} -> description) (\s@CreateDirectory' {} a -> s {description = a} :: CreateDirectory)
 
+-- | The NetBIOS name of the directory, such as @CORP@.
+createDirectory_shortName :: Lens.Lens' CreateDirectory (Prelude.Maybe Prelude.Text)
+createDirectory_shortName = Lens.lens (\CreateDirectory' {shortName} -> shortName) (\s@CreateDirectory' {} a -> s {shortName = a} :: CreateDirectory)
+
 -- | The tags to be assigned to the Simple AD directory.
 createDirectory_tags :: Lens.Lens' CreateDirectory (Prelude.Maybe [Tag])
 createDirectory_tags = Lens.lens (\CreateDirectory' {tags} -> tags) (\s@CreateDirectory' {} a -> s {tags = a} :: CreateDirectory) Prelude.. Lens.mapping Lens.coerced
+
+-- | A DirectoryVpcSettings object that contains additional information for
+-- the operation.
+createDirectory_vpcSettings :: Lens.Lens' CreateDirectory (Prelude.Maybe DirectoryVpcSettings)
+createDirectory_vpcSettings = Lens.lens (\CreateDirectory' {vpcSettings} -> vpcSettings) (\s@CreateDirectory' {} a -> s {vpcSettings = a} :: CreateDirectory)
 
 -- | The fully qualified name for the directory, such as @corp.example.com@.
 createDirectory_name :: Lens.Lens' CreateDirectory Prelude.Text
@@ -233,7 +234,7 @@ createDirectory_name = Lens.lens (\CreateDirectory' {name} -> name) (\s@CreateDi
 -- <https://docs.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/password-must-meet-complexity-requirements Password must meet complexity requirements>
 -- on the Microsoft website.
 createDirectory_password :: Lens.Lens' CreateDirectory Prelude.Text
-createDirectory_password = Lens.lens (\CreateDirectory' {password} -> password) (\s@CreateDirectory' {} a -> s {password = a} :: CreateDirectory) Prelude.. Core._Sensitive
+createDirectory_password = Lens.lens (\CreateDirectory' {password} -> password) (\s@CreateDirectory' {} a -> s {password = a} :: CreateDirectory) Prelude.. Data._Sensitive
 
 -- | The size of the directory.
 createDirectory_size :: Lens.Lens' CreateDirectory DirectorySize
@@ -243,68 +244,69 @@ instance Core.AWSRequest CreateDirectory where
   type
     AWSResponse CreateDirectory =
       CreateDirectoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDirectoryResponse'
-            Prelude.<$> (x Core..?> "DirectoryId")
+            Prelude.<$> (x Data..?> "DirectoryId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateDirectory where
   hashWithSalt _salt CreateDirectory' {..} =
-    _salt `Prelude.hashWithSalt` shortName
-      `Prelude.hashWithSalt` vpcSettings
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` shortName
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` vpcSettings
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` password
       `Prelude.hashWithSalt` size
 
 instance Prelude.NFData CreateDirectory where
   rnf CreateDirectory' {..} =
-    Prelude.rnf shortName
-      `Prelude.seq` Prelude.rnf vpcSettings
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf shortName
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf vpcSettings
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf password
       `Prelude.seq` Prelude.rnf size
 
-instance Core.ToHeaders CreateDirectory where
+instance Data.ToHeaders CreateDirectory where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.CreateDirectory" ::
+              Data.=# ( "DirectoryService_20150416.CreateDirectory" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDirectory where
+instance Data.ToJSON CreateDirectory where
   toJSON CreateDirectory' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ShortName" Core..=) Prelude.<$> shortName,
-            ("VpcSettings" Core..=) Prelude.<$> vpcSettings,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Password" Core..= password),
-            Prelude.Just ("Size" Core..= size)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("ShortName" Data..=) Prelude.<$> shortName,
+            ("Tags" Data..=) Prelude.<$> tags,
+            ("VpcSettings" Data..=) Prelude.<$> vpcSettings,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Password" Data..= password),
+            Prelude.Just ("Size" Data..= size)
           ]
       )
 
-instance Core.ToPath CreateDirectory where
+instance Data.ToPath CreateDirectory where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDirectory where
+instance Data.ToQuery CreateDirectory where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the results of the CreateDirectory operation.

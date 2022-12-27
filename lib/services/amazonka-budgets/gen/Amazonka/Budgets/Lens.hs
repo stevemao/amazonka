@@ -6,13 +6,19 @@
 
 -- |
 -- Module      : Amazonka.Budgets.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.Budgets.Lens
   ( -- * Operations
+
+    -- ** CreateBudget
+    createBudget_notificationsWithSubscribers,
+    createBudget_accountId,
+    createBudget_budget,
+    createBudgetResponse_httpStatus,
 
     -- ** CreateBudgetAction
     createBudgetAction_accountId,
@@ -29,21 +35,24 @@ module Amazonka.Budgets.Lens
     createBudgetActionResponse_budgetName,
     createBudgetActionResponse_actionId,
 
-    -- ** UpdateBudgetAction
-    updateBudgetAction_definition,
-    updateBudgetAction_executionRoleArn,
-    updateBudgetAction_actionThreshold,
-    updateBudgetAction_notificationType,
-    updateBudgetAction_approvalModel,
-    updateBudgetAction_subscribers,
-    updateBudgetAction_accountId,
-    updateBudgetAction_budgetName,
-    updateBudgetAction_actionId,
-    updateBudgetActionResponse_httpStatus,
-    updateBudgetActionResponse_accountId,
-    updateBudgetActionResponse_budgetName,
-    updateBudgetActionResponse_oldAction,
-    updateBudgetActionResponse_newAction,
+    -- ** CreateNotification
+    createNotification_accountId,
+    createNotification_budgetName,
+    createNotification_notification,
+    createNotification_subscribers,
+    createNotificationResponse_httpStatus,
+
+    -- ** CreateSubscriber
+    createSubscriber_accountId,
+    createSubscriber_budgetName,
+    createSubscriber_notification,
+    createSubscriber_subscriber,
+    createSubscriberResponse_httpStatus,
+
+    -- ** DeleteBudget
+    deleteBudget_accountId,
+    deleteBudget_budgetName,
+    deleteBudgetResponse_httpStatus,
 
     -- ** DeleteBudgetAction
     deleteBudgetAction_accountId,
@@ -54,39 +63,106 @@ module Amazonka.Budgets.Lens
     deleteBudgetActionResponse_budgetName,
     deleteBudgetActionResponse_action,
 
-    -- ** DescribeSubscribersForNotification
-    describeSubscribersForNotification_nextToken,
-    describeSubscribersForNotification_maxResults,
-    describeSubscribersForNotification_accountId,
-    describeSubscribersForNotification_budgetName,
-    describeSubscribersForNotification_notification,
-    describeSubscribersForNotificationResponse_nextToken,
-    describeSubscribersForNotificationResponse_subscribers,
-    describeSubscribersForNotificationResponse_httpStatus,
+    -- ** DeleteNotification
+    deleteNotification_accountId,
+    deleteNotification_budgetName,
+    deleteNotification_notification,
+    deleteNotificationResponse_httpStatus,
+
+    -- ** DeleteSubscriber
+    deleteSubscriber_accountId,
+    deleteSubscriber_budgetName,
+    deleteSubscriber_notification,
+    deleteSubscriber_subscriber,
+    deleteSubscriberResponse_httpStatus,
+
+    -- ** DescribeBudget
+    describeBudget_accountId,
+    describeBudget_budgetName,
+    describeBudgetResponse_budget,
+    describeBudgetResponse_httpStatus,
+
+    -- ** DescribeBudgetAction
+    describeBudgetAction_accountId,
+    describeBudgetAction_budgetName,
+    describeBudgetAction_actionId,
+    describeBudgetActionResponse_httpStatus,
+    describeBudgetActionResponse_accountId,
+    describeBudgetActionResponse_budgetName,
+    describeBudgetActionResponse_action,
+
+    -- ** DescribeBudgetActionHistories
+    describeBudgetActionHistories_maxResults,
+    describeBudgetActionHistories_nextToken,
+    describeBudgetActionHistories_timePeriod,
+    describeBudgetActionHistories_accountId,
+    describeBudgetActionHistories_budgetName,
+    describeBudgetActionHistories_actionId,
+    describeBudgetActionHistoriesResponse_nextToken,
+    describeBudgetActionHistoriesResponse_httpStatus,
+    describeBudgetActionHistoriesResponse_actionHistories,
+
+    -- ** DescribeBudgetActionsForAccount
+    describeBudgetActionsForAccount_maxResults,
+    describeBudgetActionsForAccount_nextToken,
+    describeBudgetActionsForAccount_accountId,
+    describeBudgetActionsForAccountResponse_nextToken,
+    describeBudgetActionsForAccountResponse_httpStatus,
+    describeBudgetActionsForAccountResponse_actions,
+
+    -- ** DescribeBudgetActionsForBudget
+    describeBudgetActionsForBudget_maxResults,
+    describeBudgetActionsForBudget_nextToken,
+    describeBudgetActionsForBudget_accountId,
+    describeBudgetActionsForBudget_budgetName,
+    describeBudgetActionsForBudgetResponse_nextToken,
+    describeBudgetActionsForBudgetResponse_httpStatus,
+    describeBudgetActionsForBudgetResponse_actions,
+
+    -- ** DescribeBudgetNotificationsForAccount
+    describeBudgetNotificationsForAccount_maxResults,
+    describeBudgetNotificationsForAccount_nextToken,
+    describeBudgetNotificationsForAccount_accountId,
+    describeBudgetNotificationsForAccountResponse_budgetNotificationsForAccount,
+    describeBudgetNotificationsForAccountResponse_nextToken,
+    describeBudgetNotificationsForAccountResponse_httpStatus,
+
+    -- ** DescribeBudgetPerformanceHistory
+    describeBudgetPerformanceHistory_maxResults,
+    describeBudgetPerformanceHistory_nextToken,
+    describeBudgetPerformanceHistory_timePeriod,
+    describeBudgetPerformanceHistory_accountId,
+    describeBudgetPerformanceHistory_budgetName,
+    describeBudgetPerformanceHistoryResponse_budgetPerformanceHistory,
+    describeBudgetPerformanceHistoryResponse_nextToken,
+    describeBudgetPerformanceHistoryResponse_httpStatus,
+
+    -- ** DescribeBudgets
+    describeBudgets_maxResults,
+    describeBudgets_nextToken,
+    describeBudgets_accountId,
+    describeBudgetsResponse_budgets,
+    describeBudgetsResponse_nextToken,
+    describeBudgetsResponse_httpStatus,
 
     -- ** DescribeNotificationsForBudget
-    describeNotificationsForBudget_nextToken,
     describeNotificationsForBudget_maxResults,
+    describeNotificationsForBudget_nextToken,
     describeNotificationsForBudget_accountId,
     describeNotificationsForBudget_budgetName,
     describeNotificationsForBudgetResponse_nextToken,
     describeNotificationsForBudgetResponse_notifications,
     describeNotificationsForBudgetResponse_httpStatus,
 
-    -- ** DescribeBudgets
-    describeBudgets_nextToken,
-    describeBudgets_maxResults,
-    describeBudgets_accountId,
-    describeBudgetsResponse_nextToken,
-    describeBudgetsResponse_budgets,
-    describeBudgetsResponse_httpStatus,
-
-    -- ** CreateSubscriber
-    createSubscriber_accountId,
-    createSubscriber_budgetName,
-    createSubscriber_notification,
-    createSubscriber_subscriber,
-    createSubscriberResponse_httpStatus,
+    -- ** DescribeSubscribersForNotification
+    describeSubscribersForNotification_maxResults,
+    describeSubscribersForNotification_nextToken,
+    describeSubscribersForNotification_accountId,
+    describeSubscribersForNotification_budgetName,
+    describeSubscribersForNotification_notification,
+    describeSubscribersForNotificationResponse_nextToken,
+    describeSubscribersForNotificationResponse_subscribers,
+    describeSubscribersForNotificationResponse_httpStatus,
 
     -- ** ExecuteBudgetAction
     executeBudgetAction_accountId,
@@ -104,16 +180,21 @@ module Amazonka.Budgets.Lens
     updateBudget_newBudget,
     updateBudgetResponse_httpStatus,
 
-    -- ** DeleteBudget
-    deleteBudget_accountId,
-    deleteBudget_budgetName,
-    deleteBudgetResponse_httpStatus,
-
-    -- ** DeleteNotification
-    deleteNotification_accountId,
-    deleteNotification_budgetName,
-    deleteNotification_notification,
-    deleteNotificationResponse_httpStatus,
+    -- ** UpdateBudgetAction
+    updateBudgetAction_actionThreshold,
+    updateBudgetAction_approvalModel,
+    updateBudgetAction_definition,
+    updateBudgetAction_executionRoleArn,
+    updateBudgetAction_notificationType,
+    updateBudgetAction_subscribers,
+    updateBudgetAction_accountId,
+    updateBudgetAction_budgetName,
+    updateBudgetAction_actionId,
+    updateBudgetActionResponse_httpStatus,
+    updateBudgetActionResponse_accountId,
+    updateBudgetActionResponse_budgetName,
+    updateBudgetActionResponse_oldAction,
+    updateBudgetActionResponse_newAction,
 
     -- ** UpdateNotification
     updateNotification_accountId,
@@ -122,41 +203,6 @@ module Amazonka.Budgets.Lens
     updateNotification_newNotification,
     updateNotificationResponse_httpStatus,
 
-    -- ** DescribeBudgetActionsForAccount
-    describeBudgetActionsForAccount_nextToken,
-    describeBudgetActionsForAccount_maxResults,
-    describeBudgetActionsForAccount_accountId,
-    describeBudgetActionsForAccountResponse_nextToken,
-    describeBudgetActionsForAccountResponse_httpStatus,
-    describeBudgetActionsForAccountResponse_actions,
-
-    -- ** DescribeBudgetPerformanceHistory
-    describeBudgetPerformanceHistory_timePeriod,
-    describeBudgetPerformanceHistory_nextToken,
-    describeBudgetPerformanceHistory_maxResults,
-    describeBudgetPerformanceHistory_accountId,
-    describeBudgetPerformanceHistory_budgetName,
-    describeBudgetPerformanceHistoryResponse_budgetPerformanceHistory,
-    describeBudgetPerformanceHistoryResponse_nextToken,
-    describeBudgetPerformanceHistoryResponse_httpStatus,
-
-    -- ** DescribeBudgetActionHistories
-    describeBudgetActionHistories_timePeriod,
-    describeBudgetActionHistories_nextToken,
-    describeBudgetActionHistories_maxResults,
-    describeBudgetActionHistories_accountId,
-    describeBudgetActionHistories_budgetName,
-    describeBudgetActionHistories_actionId,
-    describeBudgetActionHistoriesResponse_nextToken,
-    describeBudgetActionHistoriesResponse_httpStatus,
-    describeBudgetActionHistoriesResponse_actionHistories,
-
-    -- ** DescribeBudget
-    describeBudget_accountId,
-    describeBudget_budgetName,
-    describeBudgetResponse_budget,
-    describeBudgetResponse_httpStatus,
-
     -- ** UpdateSubscriber
     updateSubscriber_accountId,
     updateSubscriber_budgetName,
@@ -164,44 +210,6 @@ module Amazonka.Budgets.Lens
     updateSubscriber_oldSubscriber,
     updateSubscriber_newSubscriber,
     updateSubscriberResponse_httpStatus,
-
-    -- ** DeleteSubscriber
-    deleteSubscriber_accountId,
-    deleteSubscriber_budgetName,
-    deleteSubscriber_notification,
-    deleteSubscriber_subscriber,
-    deleteSubscriberResponse_httpStatus,
-
-    -- ** DescribeBudgetActionsForBudget
-    describeBudgetActionsForBudget_nextToken,
-    describeBudgetActionsForBudget_maxResults,
-    describeBudgetActionsForBudget_accountId,
-    describeBudgetActionsForBudget_budgetName,
-    describeBudgetActionsForBudgetResponse_nextToken,
-    describeBudgetActionsForBudgetResponse_httpStatus,
-    describeBudgetActionsForBudgetResponse_actions,
-
-    -- ** DescribeBudgetAction
-    describeBudgetAction_accountId,
-    describeBudgetAction_budgetName,
-    describeBudgetAction_actionId,
-    describeBudgetActionResponse_httpStatus,
-    describeBudgetActionResponse_accountId,
-    describeBudgetActionResponse_budgetName,
-    describeBudgetActionResponse_action,
-
-    -- ** CreateBudget
-    createBudget_notificationsWithSubscribers,
-    createBudget_accountId,
-    createBudget_budget,
-    createBudgetResponse_httpStatus,
-
-    -- ** CreateNotification
-    createNotification_accountId,
-    createNotification_budgetName,
-    createNotification_notification,
-    createNotification_subscribers,
-    createNotificationResponse_httpStatus,
 
     -- * Types
 
@@ -231,52 +239,66 @@ module Amazonka.Budgets.Lens
     actionThreshold_actionThresholdValue,
     actionThreshold_actionThresholdType,
 
+    -- ** AutoAdjustData
+    autoAdjustData_historicalOptions,
+    autoAdjustData_lastAutoAdjustTime,
+    autoAdjustData_autoAdjustType,
+
     -- ** Budget
-    budget_calculatedSpend,
-    budget_plannedBudgetLimits,
-    budget_lastUpdatedTime,
+    budget_autoAdjustData,
     budget_budgetLimit,
-    budget_timePeriod,
-    budget_costTypes,
+    budget_calculatedSpend,
     budget_costFilters,
+    budget_costTypes,
+    budget_lastUpdatedTime,
+    budget_plannedBudgetLimits,
+    budget_timePeriod,
     budget_budgetName,
     budget_timeUnit,
     budget_budgetType,
 
+    -- ** BudgetNotificationsForAccount
+    budgetNotificationsForAccount_budgetName,
+    budgetNotificationsForAccount_notifications,
+
     -- ** BudgetPerformanceHistory
-    budgetPerformanceHistory_budgetedAndActualAmountsList,
-    budgetPerformanceHistory_timeUnit,
     budgetPerformanceHistory_budgetName,
     budgetPerformanceHistory_budgetType,
-    budgetPerformanceHistory_costTypes,
+    budgetPerformanceHistory_budgetedAndActualAmountsList,
     budgetPerformanceHistory_costFilters,
+    budgetPerformanceHistory_costTypes,
+    budgetPerformanceHistory_timeUnit,
 
     -- ** BudgetedAndActualAmounts
-    budgetedAndActualAmounts_timePeriod,
     budgetedAndActualAmounts_actualAmount,
     budgetedAndActualAmounts_budgetedAmount,
+    budgetedAndActualAmounts_timePeriod,
 
     -- ** CalculatedSpend
     calculatedSpend_forecastedSpend,
     calculatedSpend_actualSpend,
 
     -- ** CostTypes
-    costTypes_useAmortized,
-    costTypes_includeRecurring,
-    costTypes_useBlended,
-    costTypes_includeSupport,
-    costTypes_includeDiscount,
-    costTypes_includeSubscription,
-    costTypes_includeRefund,
-    costTypes_includeUpfront,
-    costTypes_includeOtherSubscription,
-    costTypes_includeTax,
     costTypes_includeCredit,
+    costTypes_includeDiscount,
+    costTypes_includeOtherSubscription,
+    costTypes_includeRecurring,
+    costTypes_includeRefund,
+    costTypes_includeSubscription,
+    costTypes_includeSupport,
+    costTypes_includeTax,
+    costTypes_includeUpfront,
+    costTypes_useAmortized,
+    costTypes_useBlended,
 
     -- ** Definition
-    definition_scpActionDefinition,
     definition_iamActionDefinition,
+    definition_scpActionDefinition,
     definition_ssmActionDefinition,
+
+    -- ** HistoricalOptions
+    historicalOptions_lookBackAvailablePeriods,
+    historicalOptions_budgetAdjustmentPeriod,
 
     -- ** IamActionDefinition
     iamActionDefinition_groups,
@@ -285,8 +307,8 @@ module Amazonka.Budgets.Lens
     iamActionDefinition_policyArn,
 
     -- ** Notification
-    notification_thresholdType,
     notification_notificationState,
+    notification_thresholdType,
     notification_notificationType,
     notification_comparisonOperator,
     notification_threshold,
@@ -313,8 +335,8 @@ module Amazonka.Budgets.Lens
     subscriber_address,
 
     -- ** TimePeriod
-    timePeriod_start,
     timePeriod_end,
+    timePeriod_start,
   )
 where
 
@@ -331,6 +353,7 @@ import Amazonka.Budgets.DescribeBudgetAction
 import Amazonka.Budgets.DescribeBudgetActionHistories
 import Amazonka.Budgets.DescribeBudgetActionsForAccount
 import Amazonka.Budgets.DescribeBudgetActionsForBudget
+import Amazonka.Budgets.DescribeBudgetNotificationsForAccount
 import Amazonka.Budgets.DescribeBudgetPerformanceHistory
 import Amazonka.Budgets.DescribeBudgets
 import Amazonka.Budgets.DescribeNotificationsForBudget
@@ -340,12 +363,15 @@ import Amazonka.Budgets.Types.Action
 import Amazonka.Budgets.Types.ActionHistory
 import Amazonka.Budgets.Types.ActionHistoryDetails
 import Amazonka.Budgets.Types.ActionThreshold
+import Amazonka.Budgets.Types.AutoAdjustData
 import Amazonka.Budgets.Types.Budget
+import Amazonka.Budgets.Types.BudgetNotificationsForAccount
 import Amazonka.Budgets.Types.BudgetPerformanceHistory
 import Amazonka.Budgets.Types.BudgetedAndActualAmounts
 import Amazonka.Budgets.Types.CalculatedSpend
 import Amazonka.Budgets.Types.CostTypes
 import Amazonka.Budgets.Types.Definition
+import Amazonka.Budgets.Types.HistoricalOptions
 import Amazonka.Budgets.Types.IamActionDefinition
 import Amazonka.Budgets.Types.Notification
 import Amazonka.Budgets.Types.NotificationWithSubscribers

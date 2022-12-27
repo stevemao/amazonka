@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Grafana.Types.UpdateInstruction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.Grafana.Types.UpdateInstruction where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Grafana.Types.Role
 import Amazonka.Grafana.Types.UpdateAction
 import Amazonka.Grafana.Types.User
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the instructions for one Grafana role permission update in a
@@ -85,15 +86,15 @@ updateInstruction_role = Lens.lens (\UpdateInstruction' {role'} -> role') (\s@Up
 updateInstruction_users :: Lens.Lens' UpdateInstruction [User]
 updateInstruction_users = Lens.lens (\UpdateInstruction' {users} -> users) (\s@UpdateInstruction' {} a -> s {users = a} :: UpdateInstruction) Prelude.. Lens.coerced
 
-instance Core.FromJSON UpdateInstruction where
+instance Data.FromJSON UpdateInstruction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UpdateInstruction"
       ( \x ->
           UpdateInstruction'
-            Prelude.<$> (x Core..: "action")
-            Prelude.<*> (x Core..: "role")
-            Prelude.<*> (x Core..:? "users" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..: "action")
+            Prelude.<*> (x Data..: "role")
+            Prelude.<*> (x Data..:? "users" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable UpdateInstruction where
@@ -108,12 +109,12 @@ instance Prelude.NFData UpdateInstruction where
       `Prelude.seq` Prelude.rnf role'
       `Prelude.seq` Prelude.rnf users
 
-instance Core.ToJSON UpdateInstruction where
+instance Data.ToJSON UpdateInstruction where
   toJSON UpdateInstruction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("action" Core..= action),
-            Prelude.Just ("role" Core..= role'),
-            Prelude.Just ("users" Core..= users)
+          [ Prelude.Just ("action" Data..= action),
+            Prelude.Just ("role" Data..= role'),
+            Prelude.Just ("users" Data..= users)
           ]
       )

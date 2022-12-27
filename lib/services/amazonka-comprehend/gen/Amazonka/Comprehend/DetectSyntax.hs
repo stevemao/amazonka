@@ -14,14 +14,16 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.DetectSyntax
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Inspects text for syntax and the part of speech of words in the
--- document. For more information, how-syntax.
+-- document. For more information, see
+-- <https://docs.aws.amazon.com/comprehend/latest/dg/how-syntax.html Syntax>
+-- in the Comprehend Developer Guide.
 module Amazonka.Comprehend.DetectSyntax
   ( -- * Creating a Request
     DetectSyntax (..),
@@ -43,16 +45,16 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDetectSyntax' smart constructor.
 data DetectSyntax = DetectSyntax'
-  { -- | A UTF-8 string. Each string must contain fewer that 5,000 bytes of UTF
-    -- encoded characters.
-    text :: Core.Sensitive Prelude.Text,
+  { -- | A UTF-8 string. The maximum string size is 5 KB.
+    text :: Data.Sensitive Prelude.Text,
     -- | The language code of the input documents. You can specify any of the
     -- following languages supported by Amazon Comprehend: German (\"de\"),
     -- English (\"en\"), Spanish (\"es\"), French (\"fr\"), Italian (\"it\"),
@@ -69,8 +71,7 @@ data DetectSyntax = DetectSyntax'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'text', 'detectSyntax_text' - A UTF-8 string. Each string must contain fewer that 5,000 bytes of UTF
--- encoded characters.
+-- 'text', 'detectSyntax_text' - A UTF-8 string. The maximum string size is 5 KB.
 --
 -- 'languageCode', 'detectSyntax_languageCode' - The language code of the input documents. You can specify any of the
 -- following languages supported by Amazon Comprehend: German (\"de\"),
@@ -84,14 +85,13 @@ newDetectSyntax ::
   DetectSyntax
 newDetectSyntax pText_ pLanguageCode_ =
   DetectSyntax'
-    { text = Core._Sensitive Lens.# pText_,
+    { text = Data._Sensitive Lens.# pText_,
       languageCode = pLanguageCode_
     }
 
--- | A UTF-8 string. Each string must contain fewer that 5,000 bytes of UTF
--- encoded characters.
+-- | A UTF-8 string. The maximum string size is 5 KB.
 detectSyntax_text :: Lens.Lens' DetectSyntax Prelude.Text
-detectSyntax_text = Lens.lens (\DetectSyntax' {text} -> text) (\s@DetectSyntax' {} a -> s {text = a} :: DetectSyntax) Prelude.. Core._Sensitive
+detectSyntax_text = Lens.lens (\DetectSyntax' {text} -> text) (\s@DetectSyntax' {} a -> s {text = a} :: DetectSyntax) Prelude.. Data._Sensitive
 
 -- | The language code of the input documents. You can specify any of the
 -- following languages supported by Amazon Comprehend: German (\"de\"),
@@ -102,12 +102,13 @@ detectSyntax_languageCode = Lens.lens (\DetectSyntax' {languageCode} -> language
 
 instance Core.AWSRequest DetectSyntax where
   type AWSResponse DetectSyntax = DetectSyntaxResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DetectSyntaxResponse'
-            Prelude.<$> (x Core..?> "SyntaxTokens" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "SyntaxTokens" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,34 +122,34 @@ instance Prelude.NFData DetectSyntax where
     Prelude.rnf text
       `Prelude.seq` Prelude.rnf languageCode
 
-instance Core.ToHeaders DetectSyntax where
+instance Data.ToHeaders DetectSyntax where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.DetectSyntax" ::
+              Data.=# ( "Comprehend_20171127.DetectSyntax" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DetectSyntax where
+instance Data.ToJSON DetectSyntax where
   toJSON DetectSyntax' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Text" Core..= text),
-            Prelude.Just ("LanguageCode" Core..= languageCode)
+          [ Prelude.Just ("Text" Data..= text),
+            Prelude.Just ("LanguageCode" Data..= languageCode)
           ]
       )
 
-instance Core.ToPath DetectSyntax where
+instance Data.ToPath DetectSyntax where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetectSyntax where
+instance Data.ToQuery DetectSyntax where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDetectSyntaxResponse' smart constructor.
@@ -156,7 +157,9 @@ data DetectSyntaxResponse = DetectSyntaxResponse'
   { -- | A collection of syntax tokens describing the text. For each token, the
     -- response provides the text, the token type, where the text begins and
     -- ends, and the level of confidence that Amazon Comprehend has that the
-    -- token is correct. For a list of token types, see how-syntax.
+    -- token is correct. For a list of token types, see
+    -- <https://docs.aws.amazon.com/comprehend/latest/dg/how-syntax.html Syntax>
+    -- in the Comprehend Developer Guide.
     syntaxTokens :: Prelude.Maybe [SyntaxToken],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -174,7 +177,9 @@ data DetectSyntaxResponse = DetectSyntaxResponse'
 -- 'syntaxTokens', 'detectSyntaxResponse_syntaxTokens' - A collection of syntax tokens describing the text. For each token, the
 -- response provides the text, the token type, where the text begins and
 -- ends, and the level of confidence that Amazon Comprehend has that the
--- token is correct. For a list of token types, see how-syntax.
+-- token is correct. For a list of token types, see
+-- <https://docs.aws.amazon.com/comprehend/latest/dg/how-syntax.html Syntax>
+-- in the Comprehend Developer Guide.
 --
 -- 'httpStatus', 'detectSyntaxResponse_httpStatus' - The response's http status code.
 newDetectSyntaxResponse ::
@@ -191,7 +196,9 @@ newDetectSyntaxResponse pHttpStatus_ =
 -- | A collection of syntax tokens describing the text. For each token, the
 -- response provides the text, the token type, where the text begins and
 -- ends, and the level of confidence that Amazon Comprehend has that the
--- token is correct. For a list of token types, see how-syntax.
+-- token is correct. For a list of token types, see
+-- <https://docs.aws.amazon.com/comprehend/latest/dg/how-syntax.html Syntax>
+-- in the Comprehend Developer Guide.
 detectSyntaxResponse_syntaxTokens :: Lens.Lens' DetectSyntaxResponse (Prelude.Maybe [SyntaxToken])
 detectSyntaxResponse_syntaxTokens = Lens.lens (\DetectSyntaxResponse' {syntaxTokens} -> syntaxTokens) (\s@DetectSyntaxResponse' {} a -> s {syntaxTokens = a} :: DetectSyntaxResponse) Prelude.. Lens.mapping Lens.coerced
 

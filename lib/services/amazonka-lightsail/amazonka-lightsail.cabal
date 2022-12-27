@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -148,6 +148,7 @@ library
     Amazonka.Lightsail.GetLoadBalancerMetricData
     Amazonka.Lightsail.GetLoadBalancers
     Amazonka.Lightsail.GetLoadBalancerTlsCertificates
+    Amazonka.Lightsail.GetLoadBalancerTlsPolicies
     Amazonka.Lightsail.GetOperation
     Amazonka.Lightsail.GetOperations
     Amazonka.Lightsail.GetOperationsForResource
@@ -193,6 +194,8 @@ library
     Amazonka.Lightsail.Types.AccessKeyLastUsed
     Amazonka.Lightsail.Types.AccessRules
     Amazonka.Lightsail.Types.AccessType
+    Amazonka.Lightsail.Types.AccountLevelBpaSync
+    Amazonka.Lightsail.Types.AccountLevelBpaSyncStatus
     Amazonka.Lightsail.Types.AddOn
     Amazonka.Lightsail.Types.AddOnRequest
     Amazonka.Lightsail.Types.AddOnType
@@ -206,7 +209,9 @@ library
     Amazonka.Lightsail.Types.BehaviorEnum
     Amazonka.Lightsail.Types.Blueprint
     Amazonka.Lightsail.Types.BlueprintType
+    Amazonka.Lightsail.Types.BPAStatusMessage
     Amazonka.Lightsail.Types.Bucket
+    Amazonka.Lightsail.Types.BucketAccessLogConfig
     Amazonka.Lightsail.Types.BucketBundle
     Amazonka.Lightsail.Types.BucketMetricName
     Amazonka.Lightsail.Types.BucketState
@@ -215,6 +220,7 @@ library
     Amazonka.Lightsail.Types.CacheBehaviorPerPath
     Amazonka.Lightsail.Types.CacheSettings
     Amazonka.Lightsail.Types.Certificate
+    Amazonka.Lightsail.Types.CertificateDomainValidationStatus
     Amazonka.Lightsail.Types.CertificateStatus
     Amazonka.Lightsail.Types.CertificateSummary
     Amazonka.Lightsail.Types.CloudFormationStackRecord
@@ -231,6 +237,8 @@ library
     Amazonka.Lightsail.Types.ContainerServiceDeployment
     Amazonka.Lightsail.Types.ContainerServiceDeploymentRequest
     Amazonka.Lightsail.Types.ContainerServiceDeploymentState
+    Amazonka.Lightsail.Types.ContainerServiceECRImagePullerRole
+    Amazonka.Lightsail.Types.ContainerServiceECRImagePullerRoleRequest
     Amazonka.Lightsail.Types.ContainerServiceEndpoint
     Amazonka.Lightsail.Types.ContainerServiceHealthCheckConfig
     Amazonka.Lightsail.Types.ContainerServiceLogEvent
@@ -253,6 +261,8 @@ library
     Amazonka.Lightsail.Types.DiskState
     Amazonka.Lightsail.Types.DistributionBundle
     Amazonka.Lightsail.Types.DistributionMetricName
+    Amazonka.Lightsail.Types.DnsRecordCreationState
+    Amazonka.Lightsail.Types.DnsRecordCreationStateCode
     Amazonka.Lightsail.Types.Domain
     Amazonka.Lightsail.Types.DomainEntry
     Amazonka.Lightsail.Types.DomainValidationRecord
@@ -264,6 +274,9 @@ library
     Amazonka.Lightsail.Types.HeaderEnum
     Amazonka.Lightsail.Types.HeaderObject
     Amazonka.Lightsail.Types.HostKeyAttributes
+    Amazonka.Lightsail.Types.HttpEndpoint
+    Amazonka.Lightsail.Types.HttpProtocolIpv6
+    Amazonka.Lightsail.Types.HttpTokens
     Amazonka.Lightsail.Types.InputOrigin
     Amazonka.Lightsail.Types.Instance
     Amazonka.Lightsail.Types.InstanceAccessDetails
@@ -273,6 +286,8 @@ library
     Amazonka.Lightsail.Types.InstanceHealthReason
     Amazonka.Lightsail.Types.InstanceHealthState
     Amazonka.Lightsail.Types.InstanceHealthSummary
+    Amazonka.Lightsail.Types.InstanceMetadataOptions
+    Amazonka.Lightsail.Types.InstanceMetadataState
     Amazonka.Lightsail.Types.InstanceMetricName
     Amazonka.Lightsail.Types.InstanceNetworking
     Amazonka.Lightsail.Types.InstancePlatform
@@ -291,6 +306,8 @@ library
     Amazonka.Lightsail.Types.LoadBalancerProtocol
     Amazonka.Lightsail.Types.LoadBalancerState
     Amazonka.Lightsail.Types.LoadBalancerTlsCertificate
+    Amazonka.Lightsail.Types.LoadBalancerTlsCertificateDnsRecordCreationState
+    Amazonka.Lightsail.Types.LoadBalancerTlsCertificateDnsRecordCreationStateCode
     Amazonka.Lightsail.Types.LoadBalancerTlsCertificateDomainStatus
     Amazonka.Lightsail.Types.LoadBalancerTlsCertificateDomainValidationOption
     Amazonka.Lightsail.Types.LoadBalancerTlsCertificateDomainValidationRecord
@@ -300,6 +317,7 @@ library
     Amazonka.Lightsail.Types.LoadBalancerTlsCertificateRevocationReason
     Amazonka.Lightsail.Types.LoadBalancerTlsCertificateStatus
     Amazonka.Lightsail.Types.LoadBalancerTlsCertificateSummary
+    Amazonka.Lightsail.Types.LoadBalancerTlsPolicy
     Amazonka.Lightsail.Types.LogEvent
     Amazonka.Lightsail.Types.MetricDatapoint
     Amazonka.Lightsail.Types.MetricName
@@ -307,6 +325,8 @@ library
     Amazonka.Lightsail.Types.MetricUnit
     Amazonka.Lightsail.Types.MonitoredResourceInfo
     Amazonka.Lightsail.Types.MonthlyTransfer
+    Amazonka.Lightsail.Types.NameServersUpdateState
+    Amazonka.Lightsail.Types.NameServersUpdateStateCode
     Amazonka.Lightsail.Types.NetworkProtocol
     Amazonka.Lightsail.Types.Operation
     Amazonka.Lightsail.Types.OperationStatus
@@ -320,10 +340,15 @@ library
     Amazonka.Lightsail.Types.PortInfo
     Amazonka.Lightsail.Types.PortInfoSourceType
     Amazonka.Lightsail.Types.PortState
+    Amazonka.Lightsail.Types.PrivateRegistryAccess
+    Amazonka.Lightsail.Types.PrivateRegistryAccessRequest
     Amazonka.Lightsail.Types.QueryStringObject
+    Amazonka.Lightsail.Types.R53HostedZoneDeletionState
+    Amazonka.Lightsail.Types.R53HostedZoneDeletionStateCode
     Amazonka.Lightsail.Types.RecordState
     Amazonka.Lightsail.Types.RegionInfo
     Amazonka.Lightsail.Types.RegionName
+    Amazonka.Lightsail.Types.RegisteredDomainDelegationInfo
     Amazonka.Lightsail.Types.RelationalDatabase
     Amazonka.Lightsail.Types.RelationalDatabaseBlueprint
     Amazonka.Lightsail.Types.RelationalDatabaseBundle
@@ -354,13 +379,14 @@ library
     Amazonka.Lightsail.UpdateDistribution
     Amazonka.Lightsail.UpdateDistributionBundle
     Amazonka.Lightsail.UpdateDomainEntry
+    Amazonka.Lightsail.UpdateInstanceMetadataOptions
     Amazonka.Lightsail.UpdateLoadBalancerAttribute
     Amazonka.Lightsail.UpdateRelationalDatabase
     Amazonka.Lightsail.UpdateRelationalDatabaseParameters
     Amazonka.Lightsail.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-lightsail-test
@@ -379,9 +405,9 @@ test-suite amazonka-lightsail-test
     Test.Amazonka.Lightsail.Internal
 
   build-depends:
-    , amazonka-core         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
     , amazonka-lightsail
-    , amazonka-test         ^>=2.0
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

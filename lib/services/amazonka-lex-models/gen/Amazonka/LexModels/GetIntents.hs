@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.GetIntents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,9 +37,9 @@ module Amazonka.LexModels.GetIntents
     newGetIntents,
 
     -- * Request Lenses
+    getIntents_maxResults,
     getIntents_nameContains,
     getIntents_nextToken,
-    getIntents_maxResults,
 
     -- * Destructuring the Response
     GetIntentsResponse (..),
@@ -53,7 +53,8 @@ module Amazonka.LexModels.GetIntents
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -61,7 +62,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetIntents' smart constructor.
 data GetIntents = GetIntents'
-  { -- | Substring to match in intent names. An intent will be returned if any
+  { -- | The maximum number of intents to return in the response. The default is
+    -- 10.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Substring to match in intent names. An intent will be returned if any
     -- part of its name matches the substring. For example, \"xyz\" matches
     -- both \"xyzabc\" and \"abcxyz.\"
     nameContains :: Prelude.Maybe Prelude.Text,
@@ -69,10 +73,7 @@ data GetIntents = GetIntents'
     -- response to this API call is truncated, Amazon Lex returns a pagination
     -- token in the response. To fetch the next page of intents, specify the
     -- pagination token in the next request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of intents to return in the response. The default is
-    -- 10.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -84,6 +85,9 @@ data GetIntents = GetIntents'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getIntents_maxResults' - The maximum number of intents to return in the response. The default is
+-- 10.
+--
 -- 'nameContains', 'getIntents_nameContains' - Substring to match in intent names. An intent will be returned if any
 -- part of its name matches the substring. For example, \"xyz\" matches
 -- both \"xyzabc\" and \"abcxyz.\"
@@ -92,17 +96,19 @@ data GetIntents = GetIntents'
 -- response to this API call is truncated, Amazon Lex returns a pagination
 -- token in the response. To fetch the next page of intents, specify the
 -- pagination token in the next request.
---
--- 'maxResults', 'getIntents_maxResults' - The maximum number of intents to return in the response. The default is
--- 10.
 newGetIntents ::
   GetIntents
 newGetIntents =
   GetIntents'
-    { nameContains = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nameContains = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of intents to return in the response. The default is
+-- 10.
+getIntents_maxResults :: Lens.Lens' GetIntents (Prelude.Maybe Prelude.Natural)
+getIntents_maxResults = Lens.lens (\GetIntents' {maxResults} -> maxResults) (\s@GetIntents' {} a -> s {maxResults = a} :: GetIntents)
 
 -- | Substring to match in intent names. An intent will be returned if any
 -- part of its name matches the substring. For example, \"xyz\" matches
@@ -116,11 +122,6 @@ getIntents_nameContains = Lens.lens (\GetIntents' {nameContains} -> nameContains
 -- pagination token in the next request.
 getIntents_nextToken :: Lens.Lens' GetIntents (Prelude.Maybe Prelude.Text)
 getIntents_nextToken = Lens.lens (\GetIntents' {nextToken} -> nextToken) (\s@GetIntents' {} a -> s {nextToken = a} :: GetIntents)
-
--- | The maximum number of intents to return in the response. The default is
--- 10.
-getIntents_maxResults :: Lens.Lens' GetIntents (Prelude.Maybe Prelude.Natural)
-getIntents_maxResults = Lens.lens (\GetIntents' {maxResults} -> maxResults) (\s@GetIntents' {} a -> s {maxResults = a} :: GetIntents)
 
 instance Core.AWSPager GetIntents where
   page rq rs
@@ -143,48 +144,49 @@ instance Core.AWSPager GetIntents where
 
 instance Core.AWSRequest GetIntents where
   type AWSResponse GetIntents = GetIntentsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetIntentsResponse'
-            Prelude.<$> (x Core..?> "intents" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "intents" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetIntents where
   hashWithSalt _salt GetIntents' {..} =
-    _salt `Prelude.hashWithSalt` nameContains
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nameContains
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData GetIntents where
   rnf GetIntents' {..} =
-    Prelude.rnf nameContains
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nameContains
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders GetIntents where
+instance Data.ToHeaders GetIntents where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetIntents where
+instance Data.ToPath GetIntents where
   toPath = Prelude.const "/intents/"
 
-instance Core.ToQuery GetIntents where
+instance Data.ToQuery GetIntents where
   toQuery GetIntents' {..} =
     Prelude.mconcat
-      [ "nameContains" Core.=: nameContains,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nameContains" Data.=: nameContains,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetIntentsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.DetectCustomLabels
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -69,8 +69,8 @@ module Amazonka.Rekognition.DetectCustomLabels
     newDetectCustomLabels,
 
     -- * Request Lenses
-    detectCustomLabels_minConfidence,
     detectCustomLabels_maxResults,
+    detectCustomLabels_minConfidence,
     detectCustomLabels_projectVersionArn,
     detectCustomLabels_image,
 
@@ -85,7 +85,8 @@ module Amazonka.Rekognition.DetectCustomLabels
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types
 import qualified Amazonka.Request as Request
@@ -93,7 +94,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDetectCustomLabels' smart constructor.
 data DetectCustomLabels = DetectCustomLabels'
-  { -- | Specifies the minimum confidence level for the labels to return.
+  { -- | Maximum number of results you want the service to return in the
+    -- response. The service returns the specified number of highest confidence
+    -- labels ranked from highest confidence to lowest.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Specifies the minimum confidence level for the labels to return.
     -- @DetectCustomLabels@ doesn\'t return any labels with a confidence value
     -- that\'s lower than this specified value. If you specify a value of 0,
     -- @DetectCustomLabels@ returns all labels, regardless of the assumed
@@ -101,10 +106,6 @@ data DetectCustomLabels = DetectCustomLabels'
     -- @MinConfidence@, @DetectCustomLabels@ returns labels based on the
     -- assumed threshold of each label.
     minConfidence :: Prelude.Maybe Prelude.Double,
-    -- | Maximum number of results you want the service to return in the
-    -- response. The service returns the specified number of highest confidence
-    -- labels ranked from highest confidence to lowest.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ARN of the model version that you want to use.
     projectVersionArn :: Prelude.Text,
     image :: Image
@@ -119,6 +120,10 @@ data DetectCustomLabels = DetectCustomLabels'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'detectCustomLabels_maxResults' - Maximum number of results you want the service to return in the
+-- response. The service returns the specified number of highest confidence
+-- labels ranked from highest confidence to lowest.
+--
 -- 'minConfidence', 'detectCustomLabels_minConfidence' - Specifies the minimum confidence level for the labels to return.
 -- @DetectCustomLabels@ doesn\'t return any labels with a confidence value
 -- that\'s lower than this specified value. If you specify a value of 0,
@@ -126,10 +131,6 @@ data DetectCustomLabels = DetectCustomLabels'
 -- threshold applied to each label. If you don\'t specify a value for
 -- @MinConfidence@, @DetectCustomLabels@ returns labels based on the
 -- assumed threshold of each label.
---
--- 'maxResults', 'detectCustomLabels_maxResults' - Maximum number of results you want the service to return in the
--- response. The service returns the specified number of highest confidence
--- labels ranked from highest confidence to lowest.
 --
 -- 'projectVersionArn', 'detectCustomLabels_projectVersionArn' - The ARN of the model version that you want to use.
 --
@@ -142,12 +143,17 @@ newDetectCustomLabels ::
   DetectCustomLabels
 newDetectCustomLabels pProjectVersionArn_ pImage_ =
   DetectCustomLabels'
-    { minConfidence =
-        Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      minConfidence = Prelude.Nothing,
       projectVersionArn = pProjectVersionArn_,
       image = pImage_
     }
+
+-- | Maximum number of results you want the service to return in the
+-- response. The service returns the specified number of highest confidence
+-- labels ranked from highest confidence to lowest.
+detectCustomLabels_maxResults :: Lens.Lens' DetectCustomLabels (Prelude.Maybe Prelude.Natural)
+detectCustomLabels_maxResults = Lens.lens (\DetectCustomLabels' {maxResults} -> maxResults) (\s@DetectCustomLabels' {} a -> s {maxResults = a} :: DetectCustomLabels)
 
 -- | Specifies the minimum confidence level for the labels to return.
 -- @DetectCustomLabels@ doesn\'t return any labels with a confidence value
@@ -158,12 +164,6 @@ newDetectCustomLabels pProjectVersionArn_ pImage_ =
 -- assumed threshold of each label.
 detectCustomLabels_minConfidence :: Lens.Lens' DetectCustomLabels (Prelude.Maybe Prelude.Double)
 detectCustomLabels_minConfidence = Lens.lens (\DetectCustomLabels' {minConfidence} -> minConfidence) (\s@DetectCustomLabels' {} a -> s {minConfidence = a} :: DetectCustomLabels)
-
--- | Maximum number of results you want the service to return in the
--- response. The service returns the specified number of highest confidence
--- labels ranked from highest confidence to lowest.
-detectCustomLabels_maxResults :: Lens.Lens' DetectCustomLabels (Prelude.Maybe Prelude.Natural)
-detectCustomLabels_maxResults = Lens.lens (\DetectCustomLabels' {maxResults} -> maxResults) (\s@DetectCustomLabels' {} a -> s {maxResults = a} :: DetectCustomLabels)
 
 -- | The ARN of the model version that you want to use.
 detectCustomLabels_projectVersionArn :: Lens.Lens' DetectCustomLabels Prelude.Text
@@ -177,60 +177,61 @@ instance Core.AWSRequest DetectCustomLabels where
   type
     AWSResponse DetectCustomLabels =
       DetectCustomLabelsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DetectCustomLabelsResponse'
-            Prelude.<$> (x Core..?> "CustomLabels" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "CustomLabels" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DetectCustomLabels where
   hashWithSalt _salt DetectCustomLabels' {..} =
-    _salt `Prelude.hashWithSalt` minConfidence
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` minConfidence
       `Prelude.hashWithSalt` projectVersionArn
       `Prelude.hashWithSalt` image
 
 instance Prelude.NFData DetectCustomLabels where
   rnf DetectCustomLabels' {..} =
-    Prelude.rnf minConfidence
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf minConfidence
       `Prelude.seq` Prelude.rnf projectVersionArn
       `Prelude.seq` Prelude.rnf image
 
-instance Core.ToHeaders DetectCustomLabels where
+instance Data.ToHeaders DetectCustomLabels where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "RekognitionService.DetectCustomLabels" ::
+              Data.=# ( "RekognitionService.DetectCustomLabels" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DetectCustomLabels where
+instance Data.ToJSON DetectCustomLabels where
   toJSON DetectCustomLabels' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MinConfidence" Core..=) Prelude.<$> minConfidence,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("MinConfidence" Data..=) Prelude.<$> minConfidence,
             Prelude.Just
-              ("ProjectVersionArn" Core..= projectVersionArn),
-            Prelude.Just ("Image" Core..= image)
+              ("ProjectVersionArn" Data..= projectVersionArn),
+            Prelude.Just ("Image" Data..= image)
           ]
       )
 
-instance Core.ToPath DetectCustomLabels where
+instance Data.ToPath DetectCustomLabels where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetectCustomLabels where
+instance Data.ToQuery DetectCustomLabels where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDetectCustomLabelsResponse' smart constructor.

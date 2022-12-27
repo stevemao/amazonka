@@ -14,16 +14,16 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.CreateTable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- The @CreateTable@ operation adds a new table to your account. In an AWS
--- account, table names must be unique within each Region. That is, you can
--- have two tables with same name if you create the tables in different
--- Regions.
+-- The @CreateTable@ operation adds a new table to your account. In an
+-- Amazon Web Services account, table names must be unique within each
+-- Region. That is, you can have two tables with same name if you create
+-- the tables in different Regions.
 --
 -- @CreateTable@ is an asynchronous operation. Upon receiving a
 -- @CreateTable@ request, DynamoDB immediately returns a response with a
@@ -44,13 +44,14 @@ module Amazonka.DynamoDB.CreateTable
     newCreateTable,
 
     -- * Request Lenses
-    createTable_provisionedThroughput,
-    createTable_sSESpecification,
+    createTable_billingMode,
     createTable_globalSecondaryIndexes,
     createTable_localSecondaryIndexes,
-    createTable_billingMode,
-    createTable_tags,
+    createTable_provisionedThroughput,
+    createTable_sSESpecification,
     createTable_streamSpecification,
+    createTable_tableClass,
+    createTable_tags,
     createTable_attributeDefinitions,
     createTable_tableName,
     createTable_keySchema,
@@ -66,8 +67,9 @@ module Amazonka.DynamoDB.CreateTable
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,19 +78,17 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateTable' smart constructor.
 data CreateTable = CreateTable'
-  { -- | Represents the provisioned throughput settings for a specified table or
-    -- index. The settings can be modified using the @UpdateTable@ operation.
+  { -- | Controls how you are charged for read and write throughput and how you
+    -- manage capacity. This setting can be changed later.
     --
-    -- If you set BillingMode as @PROVISIONED@, you must specify this property.
-    -- If you set BillingMode as @PAY_PER_REQUEST@, you cannot specify this
-    -- property.
+    -- -   @PROVISIONED@ - We recommend using @PROVISIONED@ for predictable
+    --     workloads. @PROVISIONED@ sets the billing mode to
+    --     <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.ProvisionedThroughput.Manual Provisioned Mode>.
     --
-    -- For current minimum and maximum provisioned throughput values, see
-    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas>
-    -- in the /Amazon DynamoDB Developer Guide/.
-    provisionedThroughput :: Prelude.Maybe ProvisionedThroughput,
-    -- | Represents the settings used to enable server-side encryption.
-    sSESpecification :: Prelude.Maybe SSESpecification,
+    -- -   @PAY_PER_REQUEST@ - We recommend using @PAY_PER_REQUEST@ for
+    --     unpredictable workloads. @PAY_PER_REQUEST@ sets the billing mode to
+    --     <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.OnDemand On-Demand Mode>.
+    billingMode :: Prelude.Maybe BillingMode,
     -- | One or more global secondary indexes (the maximum is 20) to be created
     -- on the table. Each global secondary index in the array includes the
     -- following:
@@ -165,20 +165,19 @@ data CreateTable = CreateTable'
     --         project the same attribute into two different indexes, this
     --         counts as two distinct attributes when determining the total.
     localSecondaryIndexes :: Prelude.Maybe [LocalSecondaryIndex],
-    -- | Controls how you are charged for read and write throughput and how you
-    -- manage capacity. This setting can be changed later.
+    -- | Represents the provisioned throughput settings for a specified table or
+    -- index. The settings can be modified using the @UpdateTable@ operation.
     --
-    -- -   @PROVISIONED@ - We recommend using @PROVISIONED@ for predictable
-    --     workloads. @PROVISIONED@ sets the billing mode to
-    --     <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.ProvisionedThroughput.Manual Provisioned Mode>.
+    -- If you set BillingMode as @PROVISIONED@, you must specify this property.
+    -- If you set BillingMode as @PAY_PER_REQUEST@, you cannot specify this
+    -- property.
     --
-    -- -   @PAY_PER_REQUEST@ - We recommend using @PAY_PER_REQUEST@ for
-    --     unpredictable workloads. @PAY_PER_REQUEST@ sets the billing mode to
-    --     <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.OnDemand On-Demand Mode>.
-    billingMode :: Prelude.Maybe BillingMode,
-    -- | A list of key-value pairs to label the table. For more information, see
-    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html Tagging for DynamoDB>.
-    tags :: Prelude.Maybe [Tag],
+    -- For current minimum and maximum provisioned throughput values, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas>
+    -- in the /Amazon DynamoDB Developer Guide/.
+    provisionedThroughput :: Prelude.Maybe ProvisionedThroughput,
+    -- | Represents the settings used to enable server-side encryption.
+    sSESpecification :: Prelude.Maybe SSESpecification,
     -- | The settings for DynamoDB Streams on the table. These settings consist
     -- of:
     --
@@ -201,6 +200,12 @@ data CreateTable = CreateTable'
     --     -   @NEW_AND_OLD_IMAGES@ - Both the new and the old item images of
     --         the item are written to the stream.
     streamSpecification :: Prelude.Maybe StreamSpecification,
+    -- | The table class of the new table. Valid values are @STANDARD@ and
+    -- @STANDARD_INFREQUENT_ACCESS@.
+    tableClass :: Prelude.Maybe TableClass,
+    -- | A list of key-value pairs to label the table. For more information, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html Tagging for DynamoDB>.
+    tags :: Prelude.Maybe [Tag],
     -- | An array of attributes that describe the key schema for the table and
     -- indexes.
     attributeDefinitions :: [AttributeDefinition],
@@ -255,18 +260,16 @@ data CreateTable = CreateTable'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'provisionedThroughput', 'createTable_provisionedThroughput' - Represents the provisioned throughput settings for a specified table or
--- index. The settings can be modified using the @UpdateTable@ operation.
+-- 'billingMode', 'createTable_billingMode' - Controls how you are charged for read and write throughput and how you
+-- manage capacity. This setting can be changed later.
 --
--- If you set BillingMode as @PROVISIONED@, you must specify this property.
--- If you set BillingMode as @PAY_PER_REQUEST@, you cannot specify this
--- property.
+-- -   @PROVISIONED@ - We recommend using @PROVISIONED@ for predictable
+--     workloads. @PROVISIONED@ sets the billing mode to
+--     <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.ProvisionedThroughput.Manual Provisioned Mode>.
 --
--- For current minimum and maximum provisioned throughput values, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas>
--- in the /Amazon DynamoDB Developer Guide/.
---
--- 'sSESpecification', 'createTable_sSESpecification' - Represents the settings used to enable server-side encryption.
+-- -   @PAY_PER_REQUEST@ - We recommend using @PAY_PER_REQUEST@ for
+--     unpredictable workloads. @PAY_PER_REQUEST@ sets the billing mode to
+--     <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.OnDemand On-Demand Mode>.
 --
 -- 'globalSecondaryIndexes', 'createTable_globalSecondaryIndexes' - One or more global secondary indexes (the maximum is 20) to be created
 -- on the table. Each global secondary index in the array includes the
@@ -344,19 +347,18 @@ data CreateTable = CreateTable'
 --         project the same attribute into two different indexes, this
 --         counts as two distinct attributes when determining the total.
 --
--- 'billingMode', 'createTable_billingMode' - Controls how you are charged for read and write throughput and how you
--- manage capacity. This setting can be changed later.
+-- 'provisionedThroughput', 'createTable_provisionedThroughput' - Represents the provisioned throughput settings for a specified table or
+-- index. The settings can be modified using the @UpdateTable@ operation.
 --
--- -   @PROVISIONED@ - We recommend using @PROVISIONED@ for predictable
---     workloads. @PROVISIONED@ sets the billing mode to
---     <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.ProvisionedThroughput.Manual Provisioned Mode>.
+-- If you set BillingMode as @PROVISIONED@, you must specify this property.
+-- If you set BillingMode as @PAY_PER_REQUEST@, you cannot specify this
+-- property.
 --
--- -   @PAY_PER_REQUEST@ - We recommend using @PAY_PER_REQUEST@ for
---     unpredictable workloads. @PAY_PER_REQUEST@ sets the billing mode to
---     <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.OnDemand On-Demand Mode>.
+-- For current minimum and maximum provisioned throughput values, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas>
+-- in the /Amazon DynamoDB Developer Guide/.
 --
--- 'tags', 'createTable_tags' - A list of key-value pairs to label the table. For more information, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html Tagging for DynamoDB>.
+-- 'sSESpecification', 'createTable_sSESpecification' - Represents the settings used to enable server-side encryption.
 --
 -- 'streamSpecification', 'createTable_streamSpecification' - The settings for DynamoDB Streams on the table. These settings consist
 -- of:
@@ -379,6 +381,12 @@ data CreateTable = CreateTable'
 --
 --     -   @NEW_AND_OLD_IMAGES@ - Both the new and the old item images of
 --         the item are written to the stream.
+--
+-- 'tableClass', 'createTable_tableClass' - The table class of the new table. Valid values are @STANDARD@ and
+-- @STANDARD_INFREQUENT_ACCESS@.
+--
+-- 'tags', 'createTable_tags' - A list of key-value pairs to label the table. For more information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html Tagging for DynamoDB>.
 --
 -- 'attributeDefinitions', 'createTable_attributeDefinitions' - An array of attributes that describe the key schema for the table and
 -- indexes.
@@ -430,35 +438,31 @@ newCreateTable ::
   CreateTable
 newCreateTable pTableName_ pKeySchema_ =
   CreateTable'
-    { provisionedThroughput =
-        Prelude.Nothing,
-      sSESpecification = Prelude.Nothing,
+    { billingMode = Prelude.Nothing,
       globalSecondaryIndexes = Prelude.Nothing,
       localSecondaryIndexes = Prelude.Nothing,
-      billingMode = Prelude.Nothing,
-      tags = Prelude.Nothing,
+      provisionedThroughput = Prelude.Nothing,
+      sSESpecification = Prelude.Nothing,
       streamSpecification = Prelude.Nothing,
+      tableClass = Prelude.Nothing,
+      tags = Prelude.Nothing,
       attributeDefinitions = Prelude.mempty,
       tableName = pTableName_,
       keySchema = Lens.coerced Lens.# pKeySchema_
     }
 
--- | Represents the provisioned throughput settings for a specified table or
--- index. The settings can be modified using the @UpdateTable@ operation.
+-- | Controls how you are charged for read and write throughput and how you
+-- manage capacity. This setting can be changed later.
 --
--- If you set BillingMode as @PROVISIONED@, you must specify this property.
--- If you set BillingMode as @PAY_PER_REQUEST@, you cannot specify this
--- property.
+-- -   @PROVISIONED@ - We recommend using @PROVISIONED@ for predictable
+--     workloads. @PROVISIONED@ sets the billing mode to
+--     <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.ProvisionedThroughput.Manual Provisioned Mode>.
 --
--- For current minimum and maximum provisioned throughput values, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas>
--- in the /Amazon DynamoDB Developer Guide/.
-createTable_provisionedThroughput :: Lens.Lens' CreateTable (Prelude.Maybe ProvisionedThroughput)
-createTable_provisionedThroughput = Lens.lens (\CreateTable' {provisionedThroughput} -> provisionedThroughput) (\s@CreateTable' {} a -> s {provisionedThroughput = a} :: CreateTable)
-
--- | Represents the settings used to enable server-side encryption.
-createTable_sSESpecification :: Lens.Lens' CreateTable (Prelude.Maybe SSESpecification)
-createTable_sSESpecification = Lens.lens (\CreateTable' {sSESpecification} -> sSESpecification) (\s@CreateTable' {} a -> s {sSESpecification = a} :: CreateTable)
+-- -   @PAY_PER_REQUEST@ - We recommend using @PAY_PER_REQUEST@ for
+--     unpredictable workloads. @PAY_PER_REQUEST@ sets the billing mode to
+--     <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.OnDemand On-Demand Mode>.
+createTable_billingMode :: Lens.Lens' CreateTable (Prelude.Maybe BillingMode)
+createTable_billingMode = Lens.lens (\CreateTable' {billingMode} -> billingMode) (\s@CreateTable' {} a -> s {billingMode = a} :: CreateTable)
 
 -- | One or more global secondary indexes (the maximum is 20) to be created
 -- on the table. Each global secondary index in the array includes the
@@ -540,23 +544,22 @@ createTable_globalSecondaryIndexes = Lens.lens (\CreateTable' {globalSecondaryIn
 createTable_localSecondaryIndexes :: Lens.Lens' CreateTable (Prelude.Maybe [LocalSecondaryIndex])
 createTable_localSecondaryIndexes = Lens.lens (\CreateTable' {localSecondaryIndexes} -> localSecondaryIndexes) (\s@CreateTable' {} a -> s {localSecondaryIndexes = a} :: CreateTable) Prelude.. Lens.mapping Lens.coerced
 
--- | Controls how you are charged for read and write throughput and how you
--- manage capacity. This setting can be changed later.
+-- | Represents the provisioned throughput settings for a specified table or
+-- index. The settings can be modified using the @UpdateTable@ operation.
 --
--- -   @PROVISIONED@ - We recommend using @PROVISIONED@ for predictable
---     workloads. @PROVISIONED@ sets the billing mode to
---     <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.ProvisionedThroughput.Manual Provisioned Mode>.
+-- If you set BillingMode as @PROVISIONED@, you must specify this property.
+-- If you set BillingMode as @PAY_PER_REQUEST@, you cannot specify this
+-- property.
 --
--- -   @PAY_PER_REQUEST@ - We recommend using @PAY_PER_REQUEST@ for
---     unpredictable workloads. @PAY_PER_REQUEST@ sets the billing mode to
---     <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadWriteCapacityMode.html#HowItWorks.OnDemand On-Demand Mode>.
-createTable_billingMode :: Lens.Lens' CreateTable (Prelude.Maybe BillingMode)
-createTable_billingMode = Lens.lens (\CreateTable' {billingMode} -> billingMode) (\s@CreateTable' {} a -> s {billingMode = a} :: CreateTable)
+-- For current minimum and maximum provisioned throughput values, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Limits.html Service, Account, and Table Quotas>
+-- in the /Amazon DynamoDB Developer Guide/.
+createTable_provisionedThroughput :: Lens.Lens' CreateTable (Prelude.Maybe ProvisionedThroughput)
+createTable_provisionedThroughput = Lens.lens (\CreateTable' {provisionedThroughput} -> provisionedThroughput) (\s@CreateTable' {} a -> s {provisionedThroughput = a} :: CreateTable)
 
--- | A list of key-value pairs to label the table. For more information, see
--- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html Tagging for DynamoDB>.
-createTable_tags :: Lens.Lens' CreateTable (Prelude.Maybe [Tag])
-createTable_tags = Lens.lens (\CreateTable' {tags} -> tags) (\s@CreateTable' {} a -> s {tags = a} :: CreateTable) Prelude.. Lens.mapping Lens.coerced
+-- | Represents the settings used to enable server-side encryption.
+createTable_sSESpecification :: Lens.Lens' CreateTable (Prelude.Maybe SSESpecification)
+createTable_sSESpecification = Lens.lens (\CreateTable' {sSESpecification} -> sSESpecification) (\s@CreateTable' {} a -> s {sSESpecification = a} :: CreateTable)
 
 -- | The settings for DynamoDB Streams on the table. These settings consist
 -- of:
@@ -581,6 +584,16 @@ createTable_tags = Lens.lens (\CreateTable' {tags} -> tags) (\s@CreateTable' {} 
 --         the item are written to the stream.
 createTable_streamSpecification :: Lens.Lens' CreateTable (Prelude.Maybe StreamSpecification)
 createTable_streamSpecification = Lens.lens (\CreateTable' {streamSpecification} -> streamSpecification) (\s@CreateTable' {} a -> s {streamSpecification = a} :: CreateTable)
+
+-- | The table class of the new table. Valid values are @STANDARD@ and
+-- @STANDARD_INFREQUENT_ACCESS@.
+createTable_tableClass :: Lens.Lens' CreateTable (Prelude.Maybe TableClass)
+createTable_tableClass = Lens.lens (\CreateTable' {tableClass} -> tableClass) (\s@CreateTable' {} a -> s {tableClass = a} :: CreateTable)
+
+-- | A list of key-value pairs to label the table. For more information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Tagging.html Tagging for DynamoDB>.
+createTable_tags :: Lens.Lens' CreateTable (Prelude.Maybe [Tag])
+createTable_tags = Lens.lens (\CreateTable' {tags} -> tags) (\s@CreateTable' {} a -> s {tags = a} :: CreateTable) Prelude.. Lens.mapping Lens.coerced
 
 -- | An array of attributes that describe the key schema for the table and
 -- indexes.
@@ -633,85 +646,89 @@ createTable_keySchema = Lens.lens (\CreateTable' {keySchema} -> keySchema) (\s@C
 
 instance Core.AWSRequest CreateTable where
   type AWSResponse CreateTable = CreateTableResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateTableResponse'
-            Prelude.<$> (x Core..?> "TableDescription")
+            Prelude.<$> (x Data..?> "TableDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateTable where
   hashWithSalt _salt CreateTable' {..} =
-    _salt `Prelude.hashWithSalt` provisionedThroughput
-      `Prelude.hashWithSalt` sSESpecification
+    _salt `Prelude.hashWithSalt` billingMode
       `Prelude.hashWithSalt` globalSecondaryIndexes
       `Prelude.hashWithSalt` localSecondaryIndexes
-      `Prelude.hashWithSalt` billingMode
-      `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` provisionedThroughput
+      `Prelude.hashWithSalt` sSESpecification
       `Prelude.hashWithSalt` streamSpecification
+      `Prelude.hashWithSalt` tableClass
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` attributeDefinitions
       `Prelude.hashWithSalt` tableName
       `Prelude.hashWithSalt` keySchema
 
 instance Prelude.NFData CreateTable where
   rnf CreateTable' {..} =
-    Prelude.rnf provisionedThroughput
-      `Prelude.seq` Prelude.rnf sSESpecification
+    Prelude.rnf billingMode
       `Prelude.seq` Prelude.rnf globalSecondaryIndexes
       `Prelude.seq` Prelude.rnf localSecondaryIndexes
-      `Prelude.seq` Prelude.rnf billingMode
-      `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf provisionedThroughput
+      `Prelude.seq` Prelude.rnf sSESpecification
       `Prelude.seq` Prelude.rnf streamSpecification
+      `Prelude.seq` Prelude.rnf tableClass
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf attributeDefinitions
       `Prelude.seq` Prelude.rnf tableName
       `Prelude.seq` Prelude.rnf keySchema
 
-instance Core.ToHeaders CreateTable where
+instance Data.ToHeaders CreateTable where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.CreateTable" ::
+              Data.=# ( "DynamoDB_20120810.CreateTable" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateTable where
+instance Data.ToJSON CreateTable where
   toJSON CreateTable' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ProvisionedThroughput" Core..=)
-              Prelude.<$> provisionedThroughput,
-            ("SSESpecification" Core..=)
-              Prelude.<$> sSESpecification,
-            ("GlobalSecondaryIndexes" Core..=)
+          [ ("BillingMode" Data..=) Prelude.<$> billingMode,
+            ("GlobalSecondaryIndexes" Data..=)
               Prelude.<$> globalSecondaryIndexes,
-            ("LocalSecondaryIndexes" Core..=)
+            ("LocalSecondaryIndexes" Data..=)
               Prelude.<$> localSecondaryIndexes,
-            ("BillingMode" Core..=) Prelude.<$> billingMode,
-            ("Tags" Core..=) Prelude.<$> tags,
-            ("StreamSpecification" Core..=)
+            ("ProvisionedThroughput" Data..=)
+              Prelude.<$> provisionedThroughput,
+            ("SSESpecification" Data..=)
+              Prelude.<$> sSESpecification,
+            ("StreamSpecification" Data..=)
               Prelude.<$> streamSpecification,
+            ("TableClass" Data..=) Prelude.<$> tableClass,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
               ( "AttributeDefinitions"
-                  Core..= attributeDefinitions
+                  Data..= attributeDefinitions
               ),
-            Prelude.Just ("TableName" Core..= tableName),
-            Prelude.Just ("KeySchema" Core..= keySchema)
+            Prelude.Just ("TableName" Data..= tableName),
+            Prelude.Just ("KeySchema" Data..= keySchema)
           ]
       )
 
-instance Core.ToPath CreateTable where
+instance Data.ToPath CreateTable where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateTable where
+instance Data.ToQuery CreateTable where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @CreateTable@ operation.

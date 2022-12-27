@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Location.Types.SearchForPositionResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,29 @@
 module Amazonka.Location.Types.SearchForPositionResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types.Place
 import qualified Amazonka.Prelude as Prelude
 
--- | Specifies a single point of interest, or Place as a result of a search
--- query obtained from a dataset configured in the place index resource.
+-- | Contains a search result from a position search query that is run on a
+-- place index resource.
 --
 -- /See:/ 'newSearchForPositionResult' smart constructor.
 data SearchForPositionResult = SearchForPositionResult'
-  { -- | Contains details about the relevant point of interest.
+  { -- | The unique identifier of the place. You can use this with the @GetPlace@
+    -- operation to find the place again later.
+    --
+    -- For @SearchPlaceIndexForPosition@ operations, the @PlaceId@ is returned
+    -- only by place indexes that use HERE as a data provider.
+    placeId :: Prelude.Maybe Prelude.Text,
+    -- | The distance in meters of a great-circle arc between the query position
+    -- and the result.
+    --
+    -- A great-circle arc is the shortest path on a sphere, in this case the
+    -- Earth. This returns the shortest distance between two locations.
+    distance :: Prelude.Double,
+    -- | Details about the search result, such as its address and position.
     place :: Place
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -42,30 +55,71 @@ data SearchForPositionResult = SearchForPositionResult'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'place', 'searchForPositionResult_place' - Contains details about the relevant point of interest.
+-- 'placeId', 'searchForPositionResult_placeId' - The unique identifier of the place. You can use this with the @GetPlace@
+-- operation to find the place again later.
+--
+-- For @SearchPlaceIndexForPosition@ operations, the @PlaceId@ is returned
+-- only by place indexes that use HERE as a data provider.
+--
+-- 'distance', 'searchForPositionResult_distance' - The distance in meters of a great-circle arc between the query position
+-- and the result.
+--
+-- A great-circle arc is the shortest path on a sphere, in this case the
+-- Earth. This returns the shortest distance between two locations.
+--
+-- 'place', 'searchForPositionResult_place' - Details about the search result, such as its address and position.
 newSearchForPositionResult ::
+  -- | 'distance'
+  Prelude.Double ->
   -- | 'place'
   Place ->
   SearchForPositionResult
-newSearchForPositionResult pPlace_ =
-  SearchForPositionResult' {place = pPlace_}
+newSearchForPositionResult pDistance_ pPlace_ =
+  SearchForPositionResult'
+    { placeId = Prelude.Nothing,
+      distance = pDistance_,
+      place = pPlace_
+    }
 
--- | Contains details about the relevant point of interest.
+-- | The unique identifier of the place. You can use this with the @GetPlace@
+-- operation to find the place again later.
+--
+-- For @SearchPlaceIndexForPosition@ operations, the @PlaceId@ is returned
+-- only by place indexes that use HERE as a data provider.
+searchForPositionResult_placeId :: Lens.Lens' SearchForPositionResult (Prelude.Maybe Prelude.Text)
+searchForPositionResult_placeId = Lens.lens (\SearchForPositionResult' {placeId} -> placeId) (\s@SearchForPositionResult' {} a -> s {placeId = a} :: SearchForPositionResult)
+
+-- | The distance in meters of a great-circle arc between the query position
+-- and the result.
+--
+-- A great-circle arc is the shortest path on a sphere, in this case the
+-- Earth. This returns the shortest distance between two locations.
+searchForPositionResult_distance :: Lens.Lens' SearchForPositionResult Prelude.Double
+searchForPositionResult_distance = Lens.lens (\SearchForPositionResult' {distance} -> distance) (\s@SearchForPositionResult' {} a -> s {distance = a} :: SearchForPositionResult)
+
+-- | Details about the search result, such as its address and position.
 searchForPositionResult_place :: Lens.Lens' SearchForPositionResult Place
 searchForPositionResult_place = Lens.lens (\SearchForPositionResult' {place} -> place) (\s@SearchForPositionResult' {} a -> s {place = a} :: SearchForPositionResult)
 
-instance Core.FromJSON SearchForPositionResult where
+instance Data.FromJSON SearchForPositionResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SearchForPositionResult"
       ( \x ->
           SearchForPositionResult'
-            Prelude.<$> (x Core..: "Place")
+            Prelude.<$> (x Data..:? "PlaceId")
+            Prelude.<*> (x Data..: "Distance")
+            Prelude.<*> (x Data..: "Place")
       )
 
 instance Prelude.Hashable SearchForPositionResult where
   hashWithSalt _salt SearchForPositionResult' {..} =
-    _salt `Prelude.hashWithSalt` place
+    _salt `Prelude.hashWithSalt` placeId
+      `Prelude.hashWithSalt` distance
+      `Prelude.hashWithSalt` place
 
 instance Prelude.NFData SearchForPositionResult where
-  rnf SearchForPositionResult' {..} = Prelude.rnf place
+  rnf SearchForPositionResult' {..} =
+    Prelude.rnf placeId
+      `Prelude.seq` Prelude.rnf distance
+      `Prelude.seq` Prelude.rnf place

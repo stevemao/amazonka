@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.OriginRequestPolicyConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.CloudFront.Types.OriginRequestPolicyCookiesConfig
 import Amazonka.CloudFront.Types.OriginRequestPolicyHeadersConfig
 import Amazonka.CloudFront.Types.OriginRequestPolicyQueryStringsConfig
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An origin request policy configuration.
@@ -132,14 +133,14 @@ originRequestPolicyConfig_cookiesConfig = Lens.lens (\OriginRequestPolicyConfig'
 originRequestPolicyConfig_queryStringsConfig :: Lens.Lens' OriginRequestPolicyConfig OriginRequestPolicyQueryStringsConfig
 originRequestPolicyConfig_queryStringsConfig = Lens.lens (\OriginRequestPolicyConfig' {queryStringsConfig} -> queryStringsConfig) (\s@OriginRequestPolicyConfig' {} a -> s {queryStringsConfig = a} :: OriginRequestPolicyConfig)
 
-instance Core.FromXML OriginRequestPolicyConfig where
+instance Data.FromXML OriginRequestPolicyConfig where
   parseXML x =
     OriginRequestPolicyConfig'
-      Prelude.<$> (x Core..@? "Comment")
-      Prelude.<*> (x Core..@ "Name")
-      Prelude.<*> (x Core..@ "HeadersConfig")
-      Prelude.<*> (x Core..@ "CookiesConfig")
-      Prelude.<*> (x Core..@ "QueryStringsConfig")
+      Prelude.<$> (x Data..@? "Comment")
+      Prelude.<*> (x Data..@ "Name")
+      Prelude.<*> (x Data..@ "HeadersConfig")
+      Prelude.<*> (x Data..@ "CookiesConfig")
+      Prelude.<*> (x Data..@ "QueryStringsConfig")
 
 instance Prelude.Hashable OriginRequestPolicyConfig where
   hashWithSalt _salt OriginRequestPolicyConfig' {..} =
@@ -157,12 +158,12 @@ instance Prelude.NFData OriginRequestPolicyConfig where
       `Prelude.seq` Prelude.rnf cookiesConfig
       `Prelude.seq` Prelude.rnf queryStringsConfig
 
-instance Core.ToXML OriginRequestPolicyConfig where
+instance Data.ToXML OriginRequestPolicyConfig where
   toXML OriginRequestPolicyConfig' {..} =
     Prelude.mconcat
-      [ "Comment" Core.@= comment,
-        "Name" Core.@= name,
-        "HeadersConfig" Core.@= headersConfig,
-        "CookiesConfig" Core.@= cookiesConfig,
-        "QueryStringsConfig" Core.@= queryStringsConfig
+      [ "Comment" Data.@= comment,
+        "Name" Data.@= name,
+        "HeadersConfig" Data.@= headersConfig,
+        "CookiesConfig" Data.@= cookiesConfig,
+        "QueryStringsConfig" Data.@= queryStringsConfig
       ]

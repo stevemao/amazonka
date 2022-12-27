@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.GetReplicationSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.SSMIncidents.GetReplicationSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,13 +81,14 @@ instance Core.AWSRequest GetReplicationSet where
   type
     AWSResponse GetReplicationSet =
       GetReplicationSetResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetReplicationSetResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "replicationSet")
+            Prelude.<*> (x Data..:> "replicationSet")
       )
 
 instance Prelude.Hashable GetReplicationSet where
@@ -96,23 +98,23 @@ instance Prelude.Hashable GetReplicationSet where
 instance Prelude.NFData GetReplicationSet where
   rnf GetReplicationSet' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders GetReplicationSet where
+instance Data.ToHeaders GetReplicationSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetReplicationSet where
+instance Data.ToPath GetReplicationSet where
   toPath = Prelude.const "/getReplicationSet"
 
-instance Core.ToQuery GetReplicationSet where
+instance Data.ToQuery GetReplicationSet where
   toQuery GetReplicationSet' {..} =
-    Prelude.mconcat ["arn" Core.=: arn]
+    Prelude.mconcat ["arn" Data.=: arn]
 
 -- | /See:/ 'newGetReplicationSetResponse' smart constructor.
 data GetReplicationSetResponse = GetReplicationSetResponse'

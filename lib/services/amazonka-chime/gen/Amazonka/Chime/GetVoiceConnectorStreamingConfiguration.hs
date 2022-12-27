@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.GetVoiceConnectorStreamingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,12 +89,13 @@ instance
     AWSResponse
       GetVoiceConnectorStreamingConfiguration =
       GetVoiceConnectorStreamingConfigurationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetVoiceConnectorStreamingConfigurationResponse'
-            Prelude.<$> (x Core..?> "StreamingConfiguration")
+            Prelude.<$> (x Data..?> "StreamingConfiguration")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,24 +116,24 @@ instance
     Prelude.rnf voiceConnectorId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetVoiceConnectorStreamingConfiguration
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetVoiceConnectorStreamingConfiguration
   where
   toPath GetVoiceConnectorStreamingConfiguration' {..} =
     Prelude.mconcat
       [ "/voice-connectors/",
-        Core.toBS voiceConnectorId,
+        Data.toBS voiceConnectorId,
         "/streaming-configuration"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetVoiceConnectorStreamingConfiguration
   where
   toQuery = Prelude.const Prelude.mempty

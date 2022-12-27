@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.ListMobileDeviceAccessRules
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the mobile device access rules for the specified Amazon WorkMail
+-- Lists the mobile device access rules for the specified WorkMail
 -- organization.
 module Amazonka.WorkMail.ListMobileDeviceAccessRules
   ( -- * Creating a Request
@@ -41,7 +41,8 @@ module Amazonka.WorkMail.ListMobileDeviceAccessRules
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,7 +50,7 @@ import Amazonka.WorkMail.Types
 
 -- | /See:/ 'newListMobileDeviceAccessRules' smart constructor.
 data ListMobileDeviceAccessRules = ListMobileDeviceAccessRules'
-  { -- | The Amazon WorkMail organization for which to list the rules.
+  { -- | The WorkMail organization for which to list the rules.
     organizationId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,7 +63,7 @@ data ListMobileDeviceAccessRules = ListMobileDeviceAccessRules'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'organizationId', 'listMobileDeviceAccessRules_organizationId' - The Amazon WorkMail organization for which to list the rules.
+-- 'organizationId', 'listMobileDeviceAccessRules_organizationId' - The WorkMail organization for which to list the rules.
 newListMobileDeviceAccessRules ::
   -- | 'organizationId'
   Prelude.Text ->
@@ -73,7 +74,7 @@ newListMobileDeviceAccessRules pOrganizationId_ =
         pOrganizationId_
     }
 
--- | The Amazon WorkMail organization for which to list the rules.
+-- | The WorkMail organization for which to list the rules.
 listMobileDeviceAccessRules_organizationId :: Lens.Lens' ListMobileDeviceAccessRules Prelude.Text
 listMobileDeviceAccessRules_organizationId = Lens.lens (\ListMobileDeviceAccessRules' {organizationId} -> organizationId) (\s@ListMobileDeviceAccessRules' {} a -> s {organizationId = a} :: ListMobileDeviceAccessRules)
 
@@ -81,12 +82,13 @@ instance Core.AWSRequest ListMobileDeviceAccessRules where
   type
     AWSResponse ListMobileDeviceAccessRules =
       ListMobileDeviceAccessRulesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListMobileDeviceAccessRulesResponse'
-            Prelude.<$> (x Core..?> "Rules" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Rules" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,40 +100,40 @@ instance Prelude.NFData ListMobileDeviceAccessRules where
   rnf ListMobileDeviceAccessRules' {..} =
     Prelude.rnf organizationId
 
-instance Core.ToHeaders ListMobileDeviceAccessRules where
+instance Data.ToHeaders ListMobileDeviceAccessRules where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.ListMobileDeviceAccessRules" ::
+              Data.=# ( "WorkMailService.ListMobileDeviceAccessRules" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListMobileDeviceAccessRules where
+instance Data.ToJSON ListMobileDeviceAccessRules where
   toJSON ListMobileDeviceAccessRules' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId)
+              ("OrganizationId" Data..= organizationId)
           ]
       )
 
-instance Core.ToPath ListMobileDeviceAccessRules where
+instance Data.ToPath ListMobileDeviceAccessRules where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListMobileDeviceAccessRules where
+instance Data.ToQuery ListMobileDeviceAccessRules where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListMobileDeviceAccessRulesResponse' smart constructor.
 data ListMobileDeviceAccessRulesResponse = ListMobileDeviceAccessRulesResponse'
   { -- | The list of mobile device access rules that exist under the specified
-    -- Amazon WorkMail organization.
+    -- WorkMail organization.
     rules :: Prelude.Maybe [MobileDeviceAccessRule],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -147,7 +149,7 @@ data ListMobileDeviceAccessRulesResponse = ListMobileDeviceAccessRulesResponse'
 -- for backwards compatibility:
 --
 -- 'rules', 'listMobileDeviceAccessRulesResponse_rules' - The list of mobile device access rules that exist under the specified
--- Amazon WorkMail organization.
+-- WorkMail organization.
 --
 -- 'httpStatus', 'listMobileDeviceAccessRulesResponse_httpStatus' - The response's http status code.
 newListMobileDeviceAccessRulesResponse ::
@@ -162,7 +164,7 @@ newListMobileDeviceAccessRulesResponse pHttpStatus_ =
     }
 
 -- | The list of mobile device access rules that exist under the specified
--- Amazon WorkMail organization.
+-- WorkMail organization.
 listMobileDeviceAccessRulesResponse_rules :: Lens.Lens' ListMobileDeviceAccessRulesResponse (Prelude.Maybe [MobileDeviceAccessRule])
 listMobileDeviceAccessRulesResponse_rules = Lens.lens (\ListMobileDeviceAccessRulesResponse' {rules} -> rules) (\s@ListMobileDeviceAccessRulesResponse' {} a -> s {rules = a} :: ListMobileDeviceAccessRulesResponse) Prelude.. Lens.mapping Lens.coerced
 

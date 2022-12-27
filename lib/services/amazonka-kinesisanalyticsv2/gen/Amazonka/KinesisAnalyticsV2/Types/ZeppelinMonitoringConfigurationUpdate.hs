@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.ZeppelinMonitoringConfigurationUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.ZeppelinMonitoringConfigurationUpdate where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.LogLevel
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Updates to the monitoring configuration for Apache Zeppelin within a
@@ -78,13 +79,13 @@ instance
     Prelude.rnf logLevelUpdate
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ZeppelinMonitoringConfigurationUpdate
   where
   toJSON ZeppelinMonitoringConfigurationUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("LogLevelUpdate" Core..= logLevelUpdate)
+              ("LogLevelUpdate" Data..= logLevelUpdate)
           ]
       )

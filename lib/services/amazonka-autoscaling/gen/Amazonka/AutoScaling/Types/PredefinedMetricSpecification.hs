@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.PredefinedMetricSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AutoScaling.Types.PredefinedMetricSpecification where
 
 import Amazonka.AutoScaling.Types.MetricType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a predefined metric for a target tracking scaling policy to
@@ -66,8 +67,8 @@ data PredefinedMetricSpecification = PredefinedMetricSpecification'
     -- -   @ASGAverageNetworkOut@ - Average number of bytes sent out on all
     --     network interfaces by the Auto Scaling group.
     --
-    -- -   @ALBRequestCountPerTarget@ - Number of requests completed per target
-    --     in an Application Load Balancer target group.
+    -- -   @ALBRequestCountPerTarget@ - Average Application Load Balancer
+    --     request count per target for your Auto Scaling group.
     predefinedMetricType :: MetricType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -117,8 +118,8 @@ data PredefinedMetricSpecification = PredefinedMetricSpecification'
 -- -   @ASGAverageNetworkOut@ - Average number of bytes sent out on all
 --     network interfaces by the Auto Scaling group.
 --
--- -   @ALBRequestCountPerTarget@ - Number of requests completed per target
---     in an Application Load Balancer target group.
+-- -   @ALBRequestCountPerTarget@ - Average Application Load Balancer
+--     request count per target for your Auto Scaling group.
 newPredefinedMetricSpecification ::
   -- | 'predefinedMetricType'
   MetricType ->
@@ -171,16 +172,16 @@ predefinedMetricSpecification_resourceLabel = Lens.lens (\PredefinedMetricSpecif
 -- -   @ASGAverageNetworkOut@ - Average number of bytes sent out on all
 --     network interfaces by the Auto Scaling group.
 --
--- -   @ALBRequestCountPerTarget@ - Number of requests completed per target
---     in an Application Load Balancer target group.
+-- -   @ALBRequestCountPerTarget@ - Average Application Load Balancer
+--     request count per target for your Auto Scaling group.
 predefinedMetricSpecification_predefinedMetricType :: Lens.Lens' PredefinedMetricSpecification MetricType
 predefinedMetricSpecification_predefinedMetricType = Lens.lens (\PredefinedMetricSpecification' {predefinedMetricType} -> predefinedMetricType) (\s@PredefinedMetricSpecification' {} a -> s {predefinedMetricType = a} :: PredefinedMetricSpecification)
 
-instance Core.FromXML PredefinedMetricSpecification where
+instance Data.FromXML PredefinedMetricSpecification where
   parseXML x =
     PredefinedMetricSpecification'
-      Prelude.<$> (x Core..@? "ResourceLabel")
-      Prelude.<*> (x Core..@ "PredefinedMetricType")
+      Prelude.<$> (x Data..@? "ResourceLabel")
+      Prelude.<*> (x Data..@ "PredefinedMetricType")
 
 instance
   Prelude.Hashable
@@ -195,9 +196,9 @@ instance Prelude.NFData PredefinedMetricSpecification where
     Prelude.rnf resourceLabel
       `Prelude.seq` Prelude.rnf predefinedMetricType
 
-instance Core.ToQuery PredefinedMetricSpecification where
+instance Data.ToQuery PredefinedMetricSpecification where
   toQuery PredefinedMetricSpecification' {..} =
     Prelude.mconcat
-      [ "ResourceLabel" Core.=: resourceLabel,
-        "PredefinedMetricType" Core.=: predefinedMetricType
+      [ "ResourceLabel" Data.=: resourceLabel,
+        "PredefinedMetricType" Data.=: predefinedMetricType
       ]

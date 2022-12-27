@@ -14,25 +14,27 @@
 
 -- |
 -- Module      : Amazonka.RDS.DescribeEventCategories
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Displays a list of categories for all event source types, or, if
--- specified, for a specified source type. You can see a list of the event
--- categories and source types in
--- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.html Events>
--- in the /Amazon RDS User Guide./
+-- specified, for a specified source type. You can also see this list in
+-- the \"Amazon RDS event categories and event messages\" section of the
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_Events.Messages.html Amazon RDS User Guide>
+-- or the
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/USER_Events.Messages.html Amazon Aurora User Guide>
+-- .
 module Amazonka.RDS.DescribeEventCategories
   ( -- * Creating a Request
     DescribeEventCategories (..),
     newDescribeEventCategories,
 
     -- * Request Lenses
-    describeEventCategories_sourceType,
     describeEventCategories_filters,
+    describeEventCategories_sourceType,
 
     -- * Destructuring the Response
     DescribeEventCategoriesResponse (..),
@@ -45,7 +47,8 @@ module Amazonka.RDS.DescribeEventCategories
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -55,13 +58,14 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeEventCategories' smart constructor.
 data DescribeEventCategories = DescribeEventCategories'
-  { -- | The type of source that is generating the events.
+  { -- | This parameter isn\'t currently supported.
+    filters :: Prelude.Maybe [Filter],
+    -- | The type of source that is generating the events. For RDS Proxy events,
+    -- specify @db-proxy@.
     --
     -- Valid values: @db-instance@ | @db-cluster@ | @db-parameter-group@ |
-    -- @db-security-group@ | @db-snapshot@ | @db-cluster-snapshot@
-    sourceType :: Prelude.Maybe Prelude.Text,
-    -- | This parameter isn\'t currently supported.
-    filters :: Prelude.Maybe [Filter]
+    -- @db-security-group@ | @db-snapshot@ | @db-cluster-snapshot@ | @db-proxy@
+    sourceType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,83 +77,85 @@ data DescribeEventCategories = DescribeEventCategories'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sourceType', 'describeEventCategories_sourceType' - The type of source that is generating the events.
+-- 'filters', 'describeEventCategories_filters' - This parameter isn\'t currently supported.
+--
+-- 'sourceType', 'describeEventCategories_sourceType' - The type of source that is generating the events. For RDS Proxy events,
+-- specify @db-proxy@.
 --
 -- Valid values: @db-instance@ | @db-cluster@ | @db-parameter-group@ |
--- @db-security-group@ | @db-snapshot@ | @db-cluster-snapshot@
---
--- 'filters', 'describeEventCategories_filters' - This parameter isn\'t currently supported.
+-- @db-security-group@ | @db-snapshot@ | @db-cluster-snapshot@ | @db-proxy@
 newDescribeEventCategories ::
   DescribeEventCategories
 newDescribeEventCategories =
   DescribeEventCategories'
-    { sourceType =
-        Prelude.Nothing,
-      filters = Prelude.Nothing
+    { filters = Prelude.Nothing,
+      sourceType = Prelude.Nothing
     }
-
--- | The type of source that is generating the events.
---
--- Valid values: @db-instance@ | @db-cluster@ | @db-parameter-group@ |
--- @db-security-group@ | @db-snapshot@ | @db-cluster-snapshot@
-describeEventCategories_sourceType :: Lens.Lens' DescribeEventCategories (Prelude.Maybe Prelude.Text)
-describeEventCategories_sourceType = Lens.lens (\DescribeEventCategories' {sourceType} -> sourceType) (\s@DescribeEventCategories' {} a -> s {sourceType = a} :: DescribeEventCategories)
 
 -- | This parameter isn\'t currently supported.
 describeEventCategories_filters :: Lens.Lens' DescribeEventCategories (Prelude.Maybe [Filter])
 describeEventCategories_filters = Lens.lens (\DescribeEventCategories' {filters} -> filters) (\s@DescribeEventCategories' {} a -> s {filters = a} :: DescribeEventCategories) Prelude.. Lens.mapping Lens.coerced
 
+-- | The type of source that is generating the events. For RDS Proxy events,
+-- specify @db-proxy@.
+--
+-- Valid values: @db-instance@ | @db-cluster@ | @db-parameter-group@ |
+-- @db-security-group@ | @db-snapshot@ | @db-cluster-snapshot@ | @db-proxy@
+describeEventCategories_sourceType :: Lens.Lens' DescribeEventCategories (Prelude.Maybe Prelude.Text)
+describeEventCategories_sourceType = Lens.lens (\DescribeEventCategories' {sourceType} -> sourceType) (\s@DescribeEventCategories' {} a -> s {sourceType = a} :: DescribeEventCategories)
+
 instance Core.AWSRequest DescribeEventCategories where
   type
     AWSResponse DescribeEventCategories =
       DescribeEventCategoriesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeEventCategoriesResult"
       ( \s h x ->
           DescribeEventCategoriesResponse'
-            Prelude.<$> ( x Core..@? "EventCategoriesMapList"
+            Prelude.<$> ( x Data..@? "EventCategoriesMapList"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "EventCategoriesMap")
+                            Prelude.>>= Core.may (Data.parseXMLList "EventCategoriesMap")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeEventCategories where
   hashWithSalt _salt DescribeEventCategories' {..} =
-    _salt `Prelude.hashWithSalt` sourceType
-      `Prelude.hashWithSalt` filters
+    _salt `Prelude.hashWithSalt` filters
+      `Prelude.hashWithSalt` sourceType
 
 instance Prelude.NFData DescribeEventCategories where
   rnf DescribeEventCategories' {..} =
-    Prelude.rnf sourceType
-      `Prelude.seq` Prelude.rnf filters
+    Prelude.rnf filters
+      `Prelude.seq` Prelude.rnf sourceType
 
-instance Core.ToHeaders DescribeEventCategories where
+instance Data.ToHeaders DescribeEventCategories where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeEventCategories where
+instance Data.ToPath DescribeEventCategories where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEventCategories where
+instance Data.ToQuery DescribeEventCategories where
   toQuery DescribeEventCategories' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeEventCategories" :: Prelude.ByteString),
+          Data.=: ("DescribeEventCategories" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "SourceType" Core.=: sourceType,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters)
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "SourceType" Data.=: sourceType
       ]
 
 -- | Data returned from the @DescribeEventCategories@ operation.
 --
 -- /See:/ 'newDescribeEventCategoriesResponse' smart constructor.
 data DescribeEventCategoriesResponse = DescribeEventCategoriesResponse'
-  { -- | A list of EventCategoriesMap data types.
+  { -- | A list of @EventCategoriesMap@ data types.
     eventCategoriesMapList :: Prelude.Maybe [EventCategoriesMap],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -164,7 +170,7 @@ data DescribeEventCategoriesResponse = DescribeEventCategoriesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'eventCategoriesMapList', 'describeEventCategoriesResponse_eventCategoriesMapList' - A list of EventCategoriesMap data types.
+-- 'eventCategoriesMapList', 'describeEventCategoriesResponse_eventCategoriesMapList' - A list of @EventCategoriesMap@ data types.
 --
 -- 'httpStatus', 'describeEventCategoriesResponse_httpStatus' - The response's http status code.
 newDescribeEventCategoriesResponse ::
@@ -178,7 +184,7 @@ newDescribeEventCategoriesResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | A list of EventCategoriesMap data types.
+-- | A list of @EventCategoriesMap@ data types.
 describeEventCategoriesResponse_eventCategoriesMapList :: Lens.Lens' DescribeEventCategoriesResponse (Prelude.Maybe [EventCategoriesMap])
 describeEventCategoriesResponse_eventCategoriesMapList = Lens.lens (\DescribeEventCategoriesResponse' {eventCategoriesMapList} -> eventCategoriesMapList) (\s@DescribeEventCategoriesResponse' {} a -> s {eventCategoriesMapList = a} :: DescribeEventCategoriesResponse) Prelude.. Lens.mapping Lens.coerced
 

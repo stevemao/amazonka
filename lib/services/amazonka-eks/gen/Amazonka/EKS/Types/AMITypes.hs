@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.Types.AMITypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,17 +23,22 @@ module Amazonka.EKS.Types.AMITypes
         AMITypes_AL2_ARM_64,
         AMITypes_AL2_x86_64,
         AMITypes_AL2_x86_64_GPU,
+        AMITypes_BOTTLEROCKET_ARM_64,
+        AMITypes_BOTTLEROCKET_ARM_64_NVIDIA,
+        AMITypes_BOTTLEROCKET_x86_64,
+        AMITypes_BOTTLEROCKET_x86_64_NVIDIA,
         AMITypes_CUSTOM
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype AMITypes = AMITypes'
   { fromAMITypes ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -45,18 +50,18 @@ newtype AMITypes = AMITypes'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern AMITypes_AL2_ARM_64 :: AMITypes
@@ -68,6 +73,18 @@ pattern AMITypes_AL2_x86_64 = AMITypes' "AL2_x86_64"
 pattern AMITypes_AL2_x86_64_GPU :: AMITypes
 pattern AMITypes_AL2_x86_64_GPU = AMITypes' "AL2_x86_64_GPU"
 
+pattern AMITypes_BOTTLEROCKET_ARM_64 :: AMITypes
+pattern AMITypes_BOTTLEROCKET_ARM_64 = AMITypes' "BOTTLEROCKET_ARM_64"
+
+pattern AMITypes_BOTTLEROCKET_ARM_64_NVIDIA :: AMITypes
+pattern AMITypes_BOTTLEROCKET_ARM_64_NVIDIA = AMITypes' "BOTTLEROCKET_ARM_64_NVIDIA"
+
+pattern AMITypes_BOTTLEROCKET_x86_64 :: AMITypes
+pattern AMITypes_BOTTLEROCKET_x86_64 = AMITypes' "BOTTLEROCKET_x86_64"
+
+pattern AMITypes_BOTTLEROCKET_x86_64_NVIDIA :: AMITypes
+pattern AMITypes_BOTTLEROCKET_x86_64_NVIDIA = AMITypes' "BOTTLEROCKET_x86_64_NVIDIA"
+
 pattern AMITypes_CUSTOM :: AMITypes
 pattern AMITypes_CUSTOM = AMITypes' "CUSTOM"
 
@@ -75,6 +92,10 @@ pattern AMITypes_CUSTOM = AMITypes' "CUSTOM"
   AMITypes_AL2_ARM_64,
   AMITypes_AL2_x86_64,
   AMITypes_AL2_x86_64_GPU,
+  AMITypes_BOTTLEROCKET_ARM_64,
+  AMITypes_BOTTLEROCKET_ARM_64_NVIDIA,
+  AMITypes_BOTTLEROCKET_x86_64,
+  AMITypes_BOTTLEROCKET_x86_64_NVIDIA,
   AMITypes_CUSTOM,
   AMITypes'
   #-}

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroupsTagging.Types.TagFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ResourceGroupsTagging.Types.TagFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of tags (keys and values) that are used to specify the associated
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTagFilter' smart constructor.
 data TagFilter = TagFilter'
-  { -- | One part of a key-value pair that make up a tag. A value acts as a
-    -- descriptor within a tag category (key). The value can be empty or null.
-    values :: Prelude.Maybe [Prelude.Text],
-    -- | One part of a key-value pair that makes up a tag. A key is a general
+  { -- | One part of a key-value pair that makes up a tag. A key is a general
     -- label that acts like a category for more specific tag values.
-    key :: Prelude.Maybe Prelude.Text
+    key :: Prelude.Maybe Prelude.Text,
+    -- | One part of a key-value pair that make up a tag. A value acts as a
+    -- descriptor within a tag category (key). The value can be empty or null.
+    values :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,43 +46,43 @@ data TagFilter = TagFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'values', 'tagFilter_values' - One part of a key-value pair that make up a tag. A value acts as a
--- descriptor within a tag category (key). The value can be empty or null.
---
 -- 'key', 'tagFilter_key' - One part of a key-value pair that makes up a tag. A key is a general
 -- label that acts like a category for more specific tag values.
+--
+-- 'values', 'tagFilter_values' - One part of a key-value pair that make up a tag. A value acts as a
+-- descriptor within a tag category (key). The value can be empty or null.
 newTagFilter ::
   TagFilter
 newTagFilter =
   TagFilter'
-    { values = Prelude.Nothing,
-      key = Prelude.Nothing
+    { key = Prelude.Nothing,
+      values = Prelude.Nothing
     }
-
--- | One part of a key-value pair that make up a tag. A value acts as a
--- descriptor within a tag category (key). The value can be empty or null.
-tagFilter_values :: Lens.Lens' TagFilter (Prelude.Maybe [Prelude.Text])
-tagFilter_values = Lens.lens (\TagFilter' {values} -> values) (\s@TagFilter' {} a -> s {values = a} :: TagFilter) Prelude.. Lens.mapping Lens.coerced
 
 -- | One part of a key-value pair that makes up a tag. A key is a general
 -- label that acts like a category for more specific tag values.
 tagFilter_key :: Lens.Lens' TagFilter (Prelude.Maybe Prelude.Text)
 tagFilter_key = Lens.lens (\TagFilter' {key} -> key) (\s@TagFilter' {} a -> s {key = a} :: TagFilter)
 
+-- | One part of a key-value pair that make up a tag. A value acts as a
+-- descriptor within a tag category (key). The value can be empty or null.
+tagFilter_values :: Lens.Lens' TagFilter (Prelude.Maybe [Prelude.Text])
+tagFilter_values = Lens.lens (\TagFilter' {values} -> values) (\s@TagFilter' {} a -> s {values = a} :: TagFilter) Prelude.. Lens.mapping Lens.coerced
+
 instance Prelude.Hashable TagFilter where
   hashWithSalt _salt TagFilter' {..} =
-    _salt `Prelude.hashWithSalt` values
-      `Prelude.hashWithSalt` key
+    _salt `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` values
 
 instance Prelude.NFData TagFilter where
   rnf TagFilter' {..} =
-    Prelude.rnf values `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON TagFilter where
+instance Data.ToJSON TagFilter where
   toJSON TagFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Values" Core..=) Prelude.<$> values,
-            ("Key" Core..=) Prelude.<$> key
+          [ ("Key" Data..=) Prelude.<$> key,
+            ("Values" Data..=) Prelude.<$> values
           ]
       )

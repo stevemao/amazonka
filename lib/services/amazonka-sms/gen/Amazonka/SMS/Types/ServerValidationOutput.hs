@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.Types.ServerValidationOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SMS.Types.ServerValidationOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SMS.Types.Server
 
@@ -50,13 +51,13 @@ newServerValidationOutput =
 serverValidationOutput_server :: Lens.Lens' ServerValidationOutput (Prelude.Maybe Server)
 serverValidationOutput_server = Lens.lens (\ServerValidationOutput' {server} -> server) (\s@ServerValidationOutput' {} a -> s {server = a} :: ServerValidationOutput)
 
-instance Core.FromJSON ServerValidationOutput where
+instance Data.FromJSON ServerValidationOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServerValidationOutput"
       ( \x ->
           ServerValidationOutput'
-            Prelude.<$> (x Core..:? "server")
+            Prelude.<$> (x Data..:? "server")
       )
 
 instance Prelude.Hashable ServerValidationOutput where

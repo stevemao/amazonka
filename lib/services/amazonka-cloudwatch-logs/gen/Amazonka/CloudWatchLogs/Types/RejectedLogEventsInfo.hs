@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.Types.RejectedLogEventsInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.CloudWatchLogs.Types.RejectedLogEventsInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the rejected events.
 --
 -- /See:/ 'newRejectedLogEventsInfo' smart constructor.
 data RejectedLogEventsInfo = RejectedLogEventsInfo'
-  { -- | The log events that are too old.
-    tooOldLogEventEndIndex :: Prelude.Maybe Prelude.Int,
+  { -- | The expired log events.
+    expiredLogEventEndIndex :: Prelude.Maybe Prelude.Int,
     -- | The log events that are too new.
     tooNewLogEventStartIndex :: Prelude.Maybe Prelude.Int,
-    -- | The expired log events.
-    expiredLogEventEndIndex :: Prelude.Maybe Prelude.Int
+    -- | The log events that are dated too far in the past.
+    tooOldLogEventEndIndex :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,52 +45,53 @@ data RejectedLogEventsInfo = RejectedLogEventsInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tooOldLogEventEndIndex', 'rejectedLogEventsInfo_tooOldLogEventEndIndex' - The log events that are too old.
+-- 'expiredLogEventEndIndex', 'rejectedLogEventsInfo_expiredLogEventEndIndex' - The expired log events.
 --
 -- 'tooNewLogEventStartIndex', 'rejectedLogEventsInfo_tooNewLogEventStartIndex' - The log events that are too new.
 --
--- 'expiredLogEventEndIndex', 'rejectedLogEventsInfo_expiredLogEventEndIndex' - The expired log events.
+-- 'tooOldLogEventEndIndex', 'rejectedLogEventsInfo_tooOldLogEventEndIndex' - The log events that are dated too far in the past.
 newRejectedLogEventsInfo ::
   RejectedLogEventsInfo
 newRejectedLogEventsInfo =
   RejectedLogEventsInfo'
-    { tooOldLogEventEndIndex =
+    { expiredLogEventEndIndex =
         Prelude.Nothing,
       tooNewLogEventStartIndex = Prelude.Nothing,
-      expiredLogEventEndIndex = Prelude.Nothing
+      tooOldLogEventEndIndex = Prelude.Nothing
     }
-
--- | The log events that are too old.
-rejectedLogEventsInfo_tooOldLogEventEndIndex :: Lens.Lens' RejectedLogEventsInfo (Prelude.Maybe Prelude.Int)
-rejectedLogEventsInfo_tooOldLogEventEndIndex = Lens.lens (\RejectedLogEventsInfo' {tooOldLogEventEndIndex} -> tooOldLogEventEndIndex) (\s@RejectedLogEventsInfo' {} a -> s {tooOldLogEventEndIndex = a} :: RejectedLogEventsInfo)
-
--- | The log events that are too new.
-rejectedLogEventsInfo_tooNewLogEventStartIndex :: Lens.Lens' RejectedLogEventsInfo (Prelude.Maybe Prelude.Int)
-rejectedLogEventsInfo_tooNewLogEventStartIndex = Lens.lens (\RejectedLogEventsInfo' {tooNewLogEventStartIndex} -> tooNewLogEventStartIndex) (\s@RejectedLogEventsInfo' {} a -> s {tooNewLogEventStartIndex = a} :: RejectedLogEventsInfo)
 
 -- | The expired log events.
 rejectedLogEventsInfo_expiredLogEventEndIndex :: Lens.Lens' RejectedLogEventsInfo (Prelude.Maybe Prelude.Int)
 rejectedLogEventsInfo_expiredLogEventEndIndex = Lens.lens (\RejectedLogEventsInfo' {expiredLogEventEndIndex} -> expiredLogEventEndIndex) (\s@RejectedLogEventsInfo' {} a -> s {expiredLogEventEndIndex = a} :: RejectedLogEventsInfo)
 
-instance Core.FromJSON RejectedLogEventsInfo where
+-- | The log events that are too new.
+rejectedLogEventsInfo_tooNewLogEventStartIndex :: Lens.Lens' RejectedLogEventsInfo (Prelude.Maybe Prelude.Int)
+rejectedLogEventsInfo_tooNewLogEventStartIndex = Lens.lens (\RejectedLogEventsInfo' {tooNewLogEventStartIndex} -> tooNewLogEventStartIndex) (\s@RejectedLogEventsInfo' {} a -> s {tooNewLogEventStartIndex = a} :: RejectedLogEventsInfo)
+
+-- | The log events that are dated too far in the past.
+rejectedLogEventsInfo_tooOldLogEventEndIndex :: Lens.Lens' RejectedLogEventsInfo (Prelude.Maybe Prelude.Int)
+rejectedLogEventsInfo_tooOldLogEventEndIndex = Lens.lens (\RejectedLogEventsInfo' {tooOldLogEventEndIndex} -> tooOldLogEventEndIndex) (\s@RejectedLogEventsInfo' {} a -> s {tooOldLogEventEndIndex = a} :: RejectedLogEventsInfo)
+
+instance Data.FromJSON RejectedLogEventsInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RejectedLogEventsInfo"
       ( \x ->
           RejectedLogEventsInfo'
-            Prelude.<$> (x Core..:? "tooOldLogEventEndIndex")
-            Prelude.<*> (x Core..:? "tooNewLogEventStartIndex")
-            Prelude.<*> (x Core..:? "expiredLogEventEndIndex")
+            Prelude.<$> (x Data..:? "expiredLogEventEndIndex")
+            Prelude.<*> (x Data..:? "tooNewLogEventStartIndex")
+            Prelude.<*> (x Data..:? "tooOldLogEventEndIndex")
       )
 
 instance Prelude.Hashable RejectedLogEventsInfo where
   hashWithSalt _salt RejectedLogEventsInfo' {..} =
-    _salt `Prelude.hashWithSalt` tooOldLogEventEndIndex
-      `Prelude.hashWithSalt` tooNewLogEventStartIndex
+    _salt
       `Prelude.hashWithSalt` expiredLogEventEndIndex
+      `Prelude.hashWithSalt` tooNewLogEventStartIndex
+      `Prelude.hashWithSalt` tooOldLogEventEndIndex
 
 instance Prelude.NFData RejectedLogEventsInfo where
   rnf RejectedLogEventsInfo' {..} =
-    Prelude.rnf tooOldLogEventEndIndex
+    Prelude.rnf expiredLogEventEndIndex
       `Prelude.seq` Prelude.rnf tooNewLogEventStartIndex
-      `Prelude.seq` Prelude.rnf expiredLogEventEndIndex
+      `Prelude.seq` Prelude.rnf tooOldLogEventEndIndex

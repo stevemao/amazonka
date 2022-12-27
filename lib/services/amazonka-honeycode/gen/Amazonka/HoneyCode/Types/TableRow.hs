@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.Types.TableRow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.HoneyCode.Types.TableRow where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HoneyCode.Types.Cell
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that contains attributes about a single row in a table
@@ -32,7 +33,7 @@ data TableRow = TableRow'
     rowId :: Prelude.Text,
     -- | A list of cells in the table row. The cells appear in the same order as
     -- the columns of the table.
-    cells :: [Core.Sensitive Cell]
+    cells :: [Data.Sensitive Cell]
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -64,14 +65,14 @@ tableRow_rowId = Lens.lens (\TableRow' {rowId} -> rowId) (\s@TableRow' {} a -> s
 tableRow_cells :: Lens.Lens' TableRow [Cell]
 tableRow_cells = Lens.lens (\TableRow' {cells} -> cells) (\s@TableRow' {} a -> s {cells = a} :: TableRow) Prelude.. Lens.coerced
 
-instance Core.FromJSON TableRow where
+instance Data.FromJSON TableRow where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TableRow"
       ( \x ->
           TableRow'
-            Prelude.<$> (x Core..: "rowId")
-            Prelude.<*> (x Core..:? "cells" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..: "rowId")
+            Prelude.<*> (x Data..:? "cells" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable TableRow where

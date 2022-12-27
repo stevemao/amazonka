@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruProfiler.ConfigureAgent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CodeGuruProfiler.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -194,13 +195,14 @@ instance Core.AWSRequest ConfigureAgent where
   type
     AWSResponse ConfigureAgent =
       ConfigureAgentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ConfigureAgentResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable ConfigureAgent where
@@ -215,36 +217,36 @@ instance Prelude.NFData ConfigureAgent where
       `Prelude.seq` Prelude.rnf metadata
       `Prelude.seq` Prelude.rnf profilingGroupName
 
-instance Core.ToHeaders ConfigureAgent where
+instance Data.ToHeaders ConfigureAgent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ConfigureAgent where
+instance Data.ToJSON ConfigureAgent where
   toJSON ConfigureAgent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("fleetInstanceId" Core..=)
+          [ ("fleetInstanceId" Data..=)
               Prelude.<$> fleetInstanceId,
-            ("metadata" Core..=) Prelude.<$> metadata
+            ("metadata" Data..=) Prelude.<$> metadata
           ]
       )
 
-instance Core.ToPath ConfigureAgent where
+instance Data.ToPath ConfigureAgent where
   toPath ConfigureAgent' {..} =
     Prelude.mconcat
       [ "/profilingGroups/",
-        Core.toBS profilingGroupName,
+        Data.toBS profilingGroupName,
         "/configureAgent"
       ]
 
-instance Core.ToQuery ConfigureAgent where
+instance Data.ToQuery ConfigureAgent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The structure representing the configureAgentResponse.

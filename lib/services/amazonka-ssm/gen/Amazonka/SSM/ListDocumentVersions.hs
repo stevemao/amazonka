@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.ListDocumentVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.SSM.ListDocumentVersions
     newListDocumentVersions,
 
     -- * Request Lenses
-    listDocumentVersions_nextToken,
     listDocumentVersions_maxResults,
+    listDocumentVersions_nextToken,
     listDocumentVersions_name,
 
     -- * Destructuring the Response
@@ -45,7 +45,8 @@ module Amazonka.SSM.ListDocumentVersions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,13 +54,13 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newListDocumentVersions' smart constructor.
 data ListDocumentVersions = ListDocumentVersions'
-  { -- | The token for the next set of items to return. (You received this token
-    -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return for this call. The call also
+  { -- | The maximum number of items to return for this call. The call also
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the document. You can specify an Amazon Resource Name (ARN).
     name :: Prelude.Text
   }
@@ -73,12 +74,12 @@ data ListDocumentVersions = ListDocumentVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listDocumentVersions_nextToken' - The token for the next set of items to return. (You received this token
--- from a previous call.)
---
 -- 'maxResults', 'listDocumentVersions_maxResults' - The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
+--
+-- 'nextToken', 'listDocumentVersions_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
 -- 'name', 'listDocumentVersions_name' - The name of the document. You can specify an Amazon Resource Name (ARN).
 newListDocumentVersions ::
@@ -87,21 +88,21 @@ newListDocumentVersions ::
   ListDocumentVersions
 newListDocumentVersions pName_ =
   ListDocumentVersions'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       name = pName_
     }
-
--- | The token for the next set of items to return. (You received this token
--- from a previous call.)
-listDocumentVersions_nextToken :: Lens.Lens' ListDocumentVersions (Prelude.Maybe Prelude.Text)
-listDocumentVersions_nextToken = Lens.lens (\ListDocumentVersions' {nextToken} -> nextToken) (\s@ListDocumentVersions' {} a -> s {nextToken = a} :: ListDocumentVersions)
 
 -- | The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
 listDocumentVersions_maxResults :: Lens.Lens' ListDocumentVersions (Prelude.Maybe Prelude.Natural)
 listDocumentVersions_maxResults = Lens.lens (\ListDocumentVersions' {maxResults} -> maxResults) (\s@ListDocumentVersions' {} a -> s {maxResults = a} :: ListDocumentVersions)
+
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+listDocumentVersions_nextToken :: Lens.Lens' ListDocumentVersions (Prelude.Maybe Prelude.Text)
+listDocumentVersions_nextToken = Lens.lens (\ListDocumentVersions' {nextToken} -> nextToken) (\s@ListDocumentVersions' {} a -> s {nextToken = a} :: ListDocumentVersions)
 
 -- | The name of the document. You can specify an Amazon Resource Name (ARN).
 listDocumentVersions_name :: Lens.Lens' ListDocumentVersions Prelude.Text
@@ -134,57 +135,58 @@ instance Core.AWSRequest ListDocumentVersions where
   type
     AWSResponse ListDocumentVersions =
       ListDocumentVersionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDocumentVersionsResponse'
-            Prelude.<$> (x Core..?> "DocumentVersions")
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "DocumentVersions")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDocumentVersions where
   hashWithSalt _salt ListDocumentVersions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData ListDocumentVersions where
   rnf ListDocumentVersions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders ListDocumentVersions where
+instance Data.ToHeaders ListDocumentVersions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.ListDocumentVersions" ::
+              Data.=# ( "AmazonSSM.ListDocumentVersions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDocumentVersions where
+instance Data.ToJSON ListDocumentVersions where
   toJSON ListDocumentVersions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("Name" Core..= name)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath ListDocumentVersions where
+instance Data.ToPath ListDocumentVersions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDocumentVersions where
+instance Data.ToQuery ListDocumentVersions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDocumentVersionsResponse' smart constructor.

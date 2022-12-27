@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.CustomerManagedChannelS3StorageSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTAnalytics.Types.CustomerManagedChannelS3StorageSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Used to store channel data in an S3 bucket that you manage.
@@ -84,17 +85,17 @@ customerManagedChannelS3StorageSummary_roleArn :: Lens.Lens' CustomerManagedChan
 customerManagedChannelS3StorageSummary_roleArn = Lens.lens (\CustomerManagedChannelS3StorageSummary' {roleArn} -> roleArn) (\s@CustomerManagedChannelS3StorageSummary' {} a -> s {roleArn = a} :: CustomerManagedChannelS3StorageSummary)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     CustomerManagedChannelS3StorageSummary
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CustomerManagedChannelS3StorageSummary"
       ( \x ->
           CustomerManagedChannelS3StorageSummary'
-            Prelude.<$> (x Core..:? "bucket")
-            Prelude.<*> (x Core..:? "keyPrefix")
-            Prelude.<*> (x Core..:? "roleArn")
+            Prelude.<$> (x Data..:? "bucket")
+            Prelude.<*> (x Data..:? "keyPrefix")
+            Prelude.<*> (x Data..:? "roleArn")
       )
 
 instance

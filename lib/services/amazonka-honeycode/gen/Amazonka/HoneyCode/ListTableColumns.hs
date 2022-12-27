@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.ListTableColumns
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.HoneyCode.ListTableColumns
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HoneyCode.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -158,15 +159,16 @@ instance Core.AWSRequest ListTableColumns where
   type
     AWSResponse ListTableColumns =
       ListTableColumnsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTableColumnsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "workbookCursor")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "workbookCursor")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "tableColumns" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "tableColumns" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListTableColumns where
@@ -181,30 +183,30 @@ instance Prelude.NFData ListTableColumns where
       `Prelude.seq` Prelude.rnf workbookId
       `Prelude.seq` Prelude.rnf tableId
 
-instance Core.ToHeaders ListTableColumns where
+instance Data.ToHeaders ListTableColumns where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListTableColumns where
+instance Data.ToPath ListTableColumns where
   toPath ListTableColumns' {..} =
     Prelude.mconcat
       [ "/workbooks/",
-        Core.toBS workbookId,
+        Data.toBS workbookId,
         "/tables/",
-        Core.toBS tableId,
+        Data.toBS tableId,
         "/columns"
       ]
 
-instance Core.ToQuery ListTableColumns where
+instance Data.ToQuery ListTableColumns where
   toQuery ListTableColumns' {..} =
-    Prelude.mconcat ["nextToken" Core.=: nextToken]
+    Prelude.mconcat ["nextToken" Data.=: nextToken]
 
 -- | /See:/ 'newListTableColumnsResponse' smart constructor.
 data ListTableColumnsResponse = ListTableColumnsResponse'

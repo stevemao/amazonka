@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationSecretOptionsDetails
 
@@ -29,6 +30,34 @@ import Amazonka.SecurityHub.Types.AwsEcsTaskDefinitionContainerDefinitionsLogCon
 -- /See:/ 'newAwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails' smart constructor.
 data AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails = AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails'
   { -- | The log driver to use for the container.
+    --
+    -- Valid values on Fargate are as follows:
+    --
+    -- -   @awsfirelens@
+    --
+    -- -   @awslogs@
+    --
+    -- -   @splunk@
+    --
+    -- Valid values on Amazon EC2 are as follows:
+    --
+    -- -   @awsfirelens@
+    --
+    -- -   @awslogs@
+    --
+    -- -   @fluentd@
+    --
+    -- -   @gelf@
+    --
+    -- -   @journald@
+    --
+    -- -   @json-file@
+    --
+    -- -   @logentries@
+    --
+    -- -   @splunk@
+    --
+    -- -   @syslog@
     logDriver :: Prelude.Maybe Prelude.Text,
     -- | The configuration options to send to the log driver. Requires version
     -- 1.19 of the Docker Remote API or greater on your container instance.
@@ -48,6 +77,34 @@ data AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails = AwsEcsTas
 --
 -- 'logDriver', 'awsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails_logDriver' - The log driver to use for the container.
 --
+-- Valid values on Fargate are as follows:
+--
+-- -   @awsfirelens@
+--
+-- -   @awslogs@
+--
+-- -   @splunk@
+--
+-- Valid values on Amazon EC2 are as follows:
+--
+-- -   @awsfirelens@
+--
+-- -   @awslogs@
+--
+-- -   @fluentd@
+--
+-- -   @gelf@
+--
+-- -   @journald@
+--
+-- -   @json-file@
+--
+-- -   @logentries@
+--
+-- -   @splunk@
+--
+-- -   @syslog@
+--
 -- 'options', 'awsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails_options' - The configuration options to send to the log driver. Requires version
 -- 1.19 of the Docker Remote API or greater on your container instance.
 --
@@ -65,6 +122,34 @@ newAwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails =
     }
 
 -- | The log driver to use for the container.
+--
+-- Valid values on Fargate are as follows:
+--
+-- -   @awsfirelens@
+--
+-- -   @awslogs@
+--
+-- -   @splunk@
+--
+-- Valid values on Amazon EC2 are as follows:
+--
+-- -   @awsfirelens@
+--
+-- -   @awslogs@
+--
+-- -   @fluentd@
+--
+-- -   @gelf@
+--
+-- -   @journald@
+--
+-- -   @json-file@
+--
+-- -   @logentries@
+--
+-- -   @splunk@
+--
+-- -   @syslog@
 awsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails_logDriver :: Lens.Lens' AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails (Prelude.Maybe Prelude.Text)
 awsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails_logDriver = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails' {logDriver} -> logDriver) (\s@AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails' {} a -> s {logDriver = a} :: AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails)
 
@@ -78,17 +163,17 @@ awsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails_secretOptions ::
 awsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails_secretOptions = Lens.lens (\AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails' {secretOptions} -> secretOptions) (\s@AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails' {} a -> s {secretOptions = a} :: AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails) Prelude.. Lens.mapping Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails"
       ( \x ->
           AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails'
-            Prelude.<$> (x Core..:? "LogDriver")
-              Prelude.<*> (x Core..:? "Options" Core..!= Prelude.mempty)
-              Prelude.<*> (x Core..:? "SecretOptions" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "LogDriver")
+              Prelude.<*> (x Data..:? "Options" Data..!= Prelude.mempty)
+              Prelude.<*> (x Data..:? "SecretOptions" Data..!= Prelude.mempty)
       )
 
 instance
@@ -113,15 +198,15 @@ instance
         `Prelude.seq` Prelude.rnf secretOptions
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails
   where
   toJSON
     AwsEcsTaskDefinitionContainerDefinitionsLogConfigurationDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("LogDriver" Core..=) Prelude.<$> logDriver,
-              ("Options" Core..=) Prelude.<$> options,
-              ("SecretOptions" Core..=) Prelude.<$> secretOptions
+            [ ("LogDriver" Data..=) Prelude.<$> logDriver,
+              ("Options" Data..=) Prelude.<$> options,
+              ("SecretOptions" Data..=) Prelude.<$> secretOptions
             ]
         )

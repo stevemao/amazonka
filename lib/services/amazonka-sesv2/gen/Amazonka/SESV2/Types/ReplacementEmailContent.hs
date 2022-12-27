@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.ReplacementEmailContent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SESV2.Types.ReplacementEmailContent where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SESV2.Types.ReplacementTemplate
 
@@ -64,11 +65,11 @@ instance Prelude.NFData ReplacementEmailContent where
   rnf ReplacementEmailContent' {..} =
     Prelude.rnf replacementTemplate
 
-instance Core.ToJSON ReplacementEmailContent where
+instance Data.ToJSON ReplacementEmailContent where
   toJSON ReplacementEmailContent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ReplacementTemplate" Core..=)
+          [ ("ReplacementTemplate" Data..=)
               Prelude.<$> replacementTemplate
           ]
       )

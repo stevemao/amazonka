@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStar.Types.ProjectSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeStar.Types.ProjectSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the metadata for a project.
@@ -61,14 +62,14 @@ projectSummary_projectArn = Lens.lens (\ProjectSummary' {projectArn} -> projectA
 projectSummary_projectId :: Lens.Lens' ProjectSummary (Prelude.Maybe Prelude.Text)
 projectSummary_projectId = Lens.lens (\ProjectSummary' {projectId} -> projectId) (\s@ProjectSummary' {} a -> s {projectId = a} :: ProjectSummary)
 
-instance Core.FromJSON ProjectSummary where
+instance Data.FromJSON ProjectSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProjectSummary"
       ( \x ->
           ProjectSummary'
-            Prelude.<$> (x Core..:? "projectArn")
-            Prelude.<*> (x Core..:? "projectId")
+            Prelude.<$> (x Data..:? "projectArn")
+            Prelude.<*> (x Data..:? "projectId")
       )
 
 instance Prelude.Hashable ProjectSummary where

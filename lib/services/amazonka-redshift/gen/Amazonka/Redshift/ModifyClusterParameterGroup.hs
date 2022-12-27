@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.ModifyClusterParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,13 +40,14 @@ module Amazonka.Redshift.ModifyClusterParameterGroup
     newClusterParameterGroupNameMessage,
 
     -- * Response Lenses
-    clusterParameterGroupNameMessage_parameterGroupStatus,
     clusterParameterGroupNameMessage_parameterGroupName,
+    clusterParameterGroupNameMessage_parameterGroupStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -121,11 +122,12 @@ instance Core.AWSRequest ModifyClusterParameterGroup where
   type
     AWSResponse ModifyClusterParameterGroup =
       ClusterParameterGroupNameMessage
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyClusterParameterGroupResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable ModifyClusterParameterGroup where
   hashWithSalt _salt ModifyClusterParameterGroup' {..} =
@@ -137,22 +139,22 @@ instance Prelude.NFData ModifyClusterParameterGroup where
     Prelude.rnf parameterGroupName
       `Prelude.seq` Prelude.rnf parameters
 
-instance Core.ToHeaders ModifyClusterParameterGroup where
+instance Data.ToHeaders ModifyClusterParameterGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyClusterParameterGroup where
+instance Data.ToPath ModifyClusterParameterGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyClusterParameterGroup where
+instance Data.ToQuery ModifyClusterParameterGroup where
   toQuery ModifyClusterParameterGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ModifyClusterParameterGroup" ::
+          Data.=: ( "ModifyClusterParameterGroup" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "ParameterGroupName" Core.=: parameterGroupName,
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "ParameterGroupName" Data.=: parameterGroupName,
         "Parameters"
-          Core.=: Core.toQueryList "Parameter" parameters
+          Data.=: Data.toQueryList "Parameter" parameters
       ]

@@ -14,22 +14,23 @@
 
 -- |
 -- Module      : Amazonka.SNS.VerifySMSSandboxPhoneNumber
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Verifies a destination phone number with a one-time password (OTP) for
--- the calling account.
+-- the calling Amazon Web Services account.
 --
--- When you start using Amazon SNS to send SMS messages, your account is in
--- the /SMS sandbox/. The SMS sandbox provides a safe environment for you
--- to try Amazon SNS features without risking your reputation as an SMS
--- sender. While your account is in the SMS sandbox, you can use all of the
--- features of Amazon SNS. However, you can send SMS messages only to
--- verified destination phone numbers. For more information, including how
--- to move out of the sandbox to send messages without restrictions, see
+-- When you start using Amazon SNS to send SMS messages, your Amazon Web
+-- Services account is in the /SMS sandbox/. The SMS sandbox provides a
+-- safe environment for you to try Amazon SNS features without risking your
+-- reputation as an SMS sender. While your Amazon Web Services account is
+-- in the SMS sandbox, you can use all of the features of Amazon SNS.
+-- However, you can send SMS messages only to verified destination phone
+-- numbers. For more information, including how to move out of the sandbox
+-- to send messages without restrictions, see
 -- <https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html SMS sandbox>
 -- in the /Amazon SNS Developer Guide/.
 module Amazonka.SNS.VerifySMSSandboxPhoneNumber
@@ -51,7 +52,8 @@ module Amazonka.SNS.VerifySMSSandboxPhoneNumber
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,7 +109,8 @@ instance Core.AWSRequest VerifySMSSandboxPhoneNumber where
   type
     AWSResponse VerifySMSSandboxPhoneNumber =
       VerifySMSSandboxPhoneNumberResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "VerifySMSSandboxPhoneNumberResult"
@@ -126,23 +129,23 @@ instance Prelude.NFData VerifySMSSandboxPhoneNumber where
     Prelude.rnf phoneNumber
       `Prelude.seq` Prelude.rnf oneTimePassword
 
-instance Core.ToHeaders VerifySMSSandboxPhoneNumber where
+instance Data.ToHeaders VerifySMSSandboxPhoneNumber where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath VerifySMSSandboxPhoneNumber where
+instance Data.ToPath VerifySMSSandboxPhoneNumber where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery VerifySMSSandboxPhoneNumber where
+instance Data.ToQuery VerifySMSSandboxPhoneNumber where
   toQuery VerifySMSSandboxPhoneNumber' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "VerifySMSSandboxPhoneNumber" ::
+          Data.=: ( "VerifySMSSandboxPhoneNumber" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "PhoneNumber" Core.=: phoneNumber,
-        "OneTimePassword" Core.=: oneTimePassword
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "PhoneNumber" Data.=: phoneNumber,
+        "OneTimePassword" Data.=: oneTimePassword
       ]
 
 -- | The destination phone number\'s verification status.

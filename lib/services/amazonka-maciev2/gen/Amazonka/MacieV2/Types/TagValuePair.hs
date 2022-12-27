@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.TagValuePair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.TagValuePair where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies a tag key or tag key and value pair to use in a tag-based
@@ -31,12 +32,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTagValuePair' smart constructor.
 data TagValuePair = TagValuePair'
-  { -- | The tag value, associated with the specified tag key (key), to use in
+  { -- | The value for the tag key to use in the condition.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The tag value, associated with the specified tag key (key), to use in
     -- the condition. To specify only a tag key for a condition, specify the
     -- tag key for the key property and set this value to an empty string.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The value for the tag key to use in the condition.
-    key :: Prelude.Maybe Prelude.Text
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,18 +49,22 @@ data TagValuePair = TagValuePair'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'key', 'tagValuePair_key' - The value for the tag key to use in the condition.
+--
 -- 'value', 'tagValuePair_value' - The tag value, associated with the specified tag key (key), to use in
 -- the condition. To specify only a tag key for a condition, specify the
 -- tag key for the key property and set this value to an empty string.
---
--- 'key', 'tagValuePair_key' - The value for the tag key to use in the condition.
 newTagValuePair ::
   TagValuePair
 newTagValuePair =
   TagValuePair'
-    { value = Prelude.Nothing,
-      key = Prelude.Nothing
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
     }
+
+-- | The value for the tag key to use in the condition.
+tagValuePair_key :: Lens.Lens' TagValuePair (Prelude.Maybe Prelude.Text)
+tagValuePair_key = Lens.lens (\TagValuePair' {key} -> key) (\s@TagValuePair' {} a -> s {key = a} :: TagValuePair)
 
 -- | The tag value, associated with the specified tag key (key), to use in
 -- the condition. To specify only a tag key for a condition, specify the
@@ -67,33 +72,29 @@ newTagValuePair =
 tagValuePair_value :: Lens.Lens' TagValuePair (Prelude.Maybe Prelude.Text)
 tagValuePair_value = Lens.lens (\TagValuePair' {value} -> value) (\s@TagValuePair' {} a -> s {value = a} :: TagValuePair)
 
--- | The value for the tag key to use in the condition.
-tagValuePair_key :: Lens.Lens' TagValuePair (Prelude.Maybe Prelude.Text)
-tagValuePair_key = Lens.lens (\TagValuePair' {key} -> key) (\s@TagValuePair' {} a -> s {key = a} :: TagValuePair)
-
-instance Core.FromJSON TagValuePair where
+instance Data.FromJSON TagValuePair where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TagValuePair"
       ( \x ->
           TagValuePair'
-            Prelude.<$> (x Core..:? "value") Prelude.<*> (x Core..:? "key")
+            Prelude.<$> (x Data..:? "key") Prelude.<*> (x Data..:? "value")
       )
 
 instance Prelude.Hashable TagValuePair where
   hashWithSalt _salt TagValuePair' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` key
+    _salt `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData TagValuePair where
   rnf TagValuePair' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON TagValuePair where
+instance Data.ToJSON TagValuePair where
   toJSON TagValuePair' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("value" Core..=) Prelude.<$> value,
-            ("key" Core..=) Prelude.<$> key
+          [ ("key" Data..=) Prelude.<$> key,
+            ("value" Data..=) Prelude.<$> value
           ]
       )

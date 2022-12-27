@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.ListQueues
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,23 +45,24 @@ module Amazonka.SQS.ListQueues
     newListQueues,
 
     -- * Request Lenses
-    listQueues_queueNamePrefix,
-    listQueues_nextToken,
     listQueues_maxResults,
+    listQueues_nextToken,
+    listQueues_queueNamePrefix,
 
     -- * Destructuring the Response
     ListQueuesResponse (..),
     newListQueuesResponse,
 
     -- * Response Lenses
-    listQueuesResponse_queueUrls,
     listQueuesResponse_nextToken,
+    listQueuesResponse_queueUrls,
     listQueuesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -71,17 +72,17 @@ import Amazonka.SQS.Types
 --
 -- /See:/ 'newListQueues' smart constructor.
 data ListQueues = ListQueues'
-  { -- | A string to use for filtering the list results. Only those queues whose
+  { -- | Maximum number of results to include in the response. Value range is 1
+    -- to 1000. You must set @MaxResults@ to receive a value for @NextToken@ in
+    -- the response.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | Pagination token to request the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A string to use for filtering the list results. Only those queues whose
     -- name begins with the specified string are returned.
     --
     -- Queue URLs and names are case-sensitive.
-    queueNamePrefix :: Prelude.Maybe Prelude.Text,
-    -- | Pagination token to request the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of results to include in the response. Value range is 1
-    -- to 1000. You must set @MaxResults@ to receive a value for @NextToken@ in
-    -- the response.
-    maxResults :: Prelude.Maybe Prelude.Int
+    queueNamePrefix :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -93,24 +94,34 @@ data ListQueues = ListQueues'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listQueues_maxResults' - Maximum number of results to include in the response. Value range is 1
+-- to 1000. You must set @MaxResults@ to receive a value for @NextToken@ in
+-- the response.
+--
+-- 'nextToken', 'listQueues_nextToken' - Pagination token to request the next set of results.
+--
 -- 'queueNamePrefix', 'listQueues_queueNamePrefix' - A string to use for filtering the list results. Only those queues whose
 -- name begins with the specified string are returned.
 --
 -- Queue URLs and names are case-sensitive.
---
--- 'nextToken', 'listQueues_nextToken' - Pagination token to request the next set of results.
---
--- 'maxResults', 'listQueues_maxResults' - Maximum number of results to include in the response. Value range is 1
--- to 1000. You must set @MaxResults@ to receive a value for @NextToken@ in
--- the response.
 newListQueues ::
   ListQueues
 newListQueues =
   ListQueues'
-    { queueNamePrefix = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      queueNamePrefix = Prelude.Nothing
     }
+
+-- | Maximum number of results to include in the response. Value range is 1
+-- to 1000. You must set @MaxResults@ to receive a value for @NextToken@ in
+-- the response.
+listQueues_maxResults :: Lens.Lens' ListQueues (Prelude.Maybe Prelude.Int)
+listQueues_maxResults = Lens.lens (\ListQueues' {maxResults} -> maxResults) (\s@ListQueues' {} a -> s {maxResults = a} :: ListQueues)
+
+-- | Pagination token to request the next set of results.
+listQueues_nextToken :: Lens.Lens' ListQueues (Prelude.Maybe Prelude.Text)
+listQueues_nextToken = Lens.lens (\ListQueues' {nextToken} -> nextToken) (\s@ListQueues' {} a -> s {nextToken = a} :: ListQueues)
 
 -- | A string to use for filtering the list results. Only those queues whose
 -- name begins with the specified string are returned.
@@ -118,16 +129,6 @@ newListQueues =
 -- Queue URLs and names are case-sensitive.
 listQueues_queueNamePrefix :: Lens.Lens' ListQueues (Prelude.Maybe Prelude.Text)
 listQueues_queueNamePrefix = Lens.lens (\ListQueues' {queueNamePrefix} -> queueNamePrefix) (\s@ListQueues' {} a -> s {queueNamePrefix = a} :: ListQueues)
-
--- | Pagination token to request the next set of results.
-listQueues_nextToken :: Lens.Lens' ListQueues (Prelude.Maybe Prelude.Text)
-listQueues_nextToken = Lens.lens (\ListQueues' {nextToken} -> nextToken) (\s@ListQueues' {} a -> s {nextToken = a} :: ListQueues)
-
--- | Maximum number of results to include in the response. Value range is 1
--- to 1000. You must set @MaxResults@ to receive a value for @NextToken@ in
--- the response.
-listQueues_maxResults :: Lens.Lens' ListQueues (Prelude.Maybe Prelude.Int)
-listQueues_maxResults = Lens.lens (\ListQueues' {maxResults} -> maxResults) (\s@ListQueues' {} a -> s {maxResults = a} :: ListQueues)
 
 instance Core.AWSPager ListQueues where
   page rq rs
@@ -150,58 +151,59 @@ instance Core.AWSPager ListQueues where
 
 instance Core.AWSRequest ListQueues where
   type AWSResponse ListQueues = ListQueuesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListQueuesResult"
       ( \s h x ->
           ListQueuesResponse'
-            Prelude.<$> (Core.may (Core.parseXMLList "QueueUrl") x)
-            Prelude.<*> (x Core..@? "NextToken")
+            Prelude.<$> (x Data..@? "NextToken")
+            Prelude.<*> (Core.may (Data.parseXMLList "QueueUrl") x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListQueues where
   hashWithSalt _salt ListQueues' {..} =
-    _salt `Prelude.hashWithSalt` queueNamePrefix
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` queueNamePrefix
 
 instance Prelude.NFData ListQueues where
   rnf ListQueues' {..} =
-    Prelude.rnf queueNamePrefix
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf queueNamePrefix
 
-instance Core.ToHeaders ListQueues where
+instance Data.ToHeaders ListQueues where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListQueues where
+instance Data.ToPath ListQueues where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListQueues where
+instance Data.ToQuery ListQueues where
   toQuery ListQueues' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListQueues" :: Prelude.ByteString),
+          Data.=: ("ListQueues" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-11-05" :: Prelude.ByteString),
-        "QueueNamePrefix" Core.=: queueNamePrefix,
-        "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+          Data.=: ("2012-11-05" :: Prelude.ByteString),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        "QueueNamePrefix" Data.=: queueNamePrefix
       ]
 
 -- | A list of your queues.
 --
 -- /See:/ 'newListQueuesResponse' smart constructor.
 data ListQueuesResponse = ListQueuesResponse'
-  { -- | A list of queue URLs, up to 1,000 entries, or the value of MaxResults
-    -- that you sent in the request.
-    queueUrls :: Prelude.Maybe [Prelude.Text],
-    -- | Pagination token to include in the next request. Token value is @null@
+  { -- | Pagination token to include in the next request. Token value is @null@
     -- if there are no additional results to request, or if you did not set
     -- @MaxResults@ in the request.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of queue URLs, up to 1,000 entries, or the value of MaxResults
+    -- that you sent in the request.
+    queueUrls :: Prelude.Maybe [Prelude.Text],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -215,12 +217,12 @@ data ListQueuesResponse = ListQueuesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'queueUrls', 'listQueuesResponse_queueUrls' - A list of queue URLs, up to 1,000 entries, or the value of MaxResults
--- that you sent in the request.
---
 -- 'nextToken', 'listQueuesResponse_nextToken' - Pagination token to include in the next request. Token value is @null@
 -- if there are no additional results to request, or if you did not set
 -- @MaxResults@ in the request.
+--
+-- 'queueUrls', 'listQueuesResponse_queueUrls' - A list of queue URLs, up to 1,000 entries, or the value of MaxResults
+-- that you sent in the request.
 --
 -- 'httpStatus', 'listQueuesResponse_httpStatus' - The response's http status code.
 newListQueuesResponse ::
@@ -229,15 +231,10 @@ newListQueuesResponse ::
   ListQueuesResponse
 newListQueuesResponse pHttpStatus_ =
   ListQueuesResponse'
-    { queueUrls = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      queueUrls = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of queue URLs, up to 1,000 entries, or the value of MaxResults
--- that you sent in the request.
-listQueuesResponse_queueUrls :: Lens.Lens' ListQueuesResponse (Prelude.Maybe [Prelude.Text])
-listQueuesResponse_queueUrls = Lens.lens (\ListQueuesResponse' {queueUrls} -> queueUrls) (\s@ListQueuesResponse' {} a -> s {queueUrls = a} :: ListQueuesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Pagination token to include in the next request. Token value is @null@
 -- if there are no additional results to request, or if you did not set
@@ -245,12 +242,17 @@ listQueuesResponse_queueUrls = Lens.lens (\ListQueuesResponse' {queueUrls} -> qu
 listQueuesResponse_nextToken :: Lens.Lens' ListQueuesResponse (Prelude.Maybe Prelude.Text)
 listQueuesResponse_nextToken = Lens.lens (\ListQueuesResponse' {nextToken} -> nextToken) (\s@ListQueuesResponse' {} a -> s {nextToken = a} :: ListQueuesResponse)
 
+-- | A list of queue URLs, up to 1,000 entries, or the value of MaxResults
+-- that you sent in the request.
+listQueuesResponse_queueUrls :: Lens.Lens' ListQueuesResponse (Prelude.Maybe [Prelude.Text])
+listQueuesResponse_queueUrls = Lens.lens (\ListQueuesResponse' {queueUrls} -> queueUrls) (\s@ListQueuesResponse' {} a -> s {queueUrls = a} :: ListQueuesResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 listQueuesResponse_httpStatus :: Lens.Lens' ListQueuesResponse Prelude.Int
 listQueuesResponse_httpStatus = Lens.lens (\ListQueuesResponse' {httpStatus} -> httpStatus) (\s@ListQueuesResponse' {} a -> s {httpStatus = a} :: ListQueuesResponse)
 
 instance Prelude.NFData ListQueuesResponse where
   rnf ListQueuesResponse' {..} =
-    Prelude.rnf queueUrls
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf queueUrls
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.CreateAuthorizer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,12 +28,12 @@ module Amazonka.ApiGatewayV2.CreateAuthorizer
 
     -- * Request Lenses
     createAuthorizer_authorizerCredentialsArn,
-    createAuthorizer_identityValidationExpression,
-    createAuthorizer_enableSimpleResponses,
-    createAuthorizer_authorizerUri,
     createAuthorizer_authorizerPayloadFormatVersion,
-    createAuthorizer_jwtConfiguration,
     createAuthorizer_authorizerResultTtlInSeconds,
+    createAuthorizer_authorizerUri,
+    createAuthorizer_enableSimpleResponses,
+    createAuthorizer_identityValidationExpression,
+    createAuthorizer_jwtConfiguration,
     createAuthorizer_apiId,
     createAuthorizer_authorizerType,
     createAuthorizer_identitySource,
@@ -45,23 +45,24 @@ module Amazonka.ApiGatewayV2.CreateAuthorizer
 
     -- * Response Lenses
     createAuthorizerResponse_authorizerCredentialsArn,
-    createAuthorizerResponse_identityValidationExpression,
-    createAuthorizerResponse_enableSimpleResponses,
-    createAuthorizerResponse_authorizerUri,
-    createAuthorizerResponse_authorizerPayloadFormatVersion,
-    createAuthorizerResponse_jwtConfiguration,
     createAuthorizerResponse_authorizerId,
-    createAuthorizerResponse_name,
+    createAuthorizerResponse_authorizerPayloadFormatVersion,
     createAuthorizerResponse_authorizerResultTtlInSeconds,
-    createAuthorizerResponse_identitySource,
     createAuthorizerResponse_authorizerType,
+    createAuthorizerResponse_authorizerUri,
+    createAuthorizerResponse_enableSimpleResponses,
+    createAuthorizerResponse_identitySource,
+    createAuthorizerResponse_identityValidationExpression,
+    createAuthorizerResponse_jwtConfiguration,
+    createAuthorizerResponse_name,
     createAuthorizerResponse_httpStatus,
   )
 where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,14 +77,16 @@ data CreateAuthorizer = CreateAuthorizer'
     -- permissions on the Lambda function, don\'t specify this parameter.
     -- Supported only for REQUEST authorizers.
     authorizerCredentialsArn :: Prelude.Maybe Prelude.Text,
-    -- | This parameter is not used.
-    identityValidationExpression :: Prelude.Maybe Prelude.Text,
-    -- | Specifies whether a Lambda authorizer returns a response in a simple
-    -- format. By default, a Lambda authorizer must return an IAM policy. If
-    -- enabled, the Lambda authorizer can return a boolean value instead of an
-    -- IAM policy. Supported only for HTTP APIs. To learn more, see
-    -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>
-    enableSimpleResponses :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the format of the payload sent to an HTTP API Lambda
+    -- authorizer. Required for HTTP API Lambda authorizers. Supported values
+    -- are 1.0 and 2.0. To learn more, see
+    -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>.
+    authorizerPayloadFormatVersion :: Prelude.Maybe Prelude.Text,
+    -- | The time to live (TTL) for cached authorizer results, in seconds. If it
+    -- equals 0, authorization caching is disabled. If it is greater than 0,
+    -- API Gateway caches authorizer responses. The maximum value is 3600, or 1
+    -- hour. Supported only for HTTP API Lambda authorizers.
+    authorizerResultTtlInSeconds :: Prelude.Maybe Prelude.Natural,
     -- | The authorizer\'s Uniform Resource Identifier (URI). For REQUEST
     -- authorizers, this must be a well-formed Lambda function URI, for
     -- example,
@@ -96,19 +99,17 @@ data CreateAuthorizer = CreateAuthorizer'
     -- usually of the form \/2015-03-31\/functions\/[FunctionARN]\/invocations.
     -- Supported only for REQUEST authorizers.
     authorizerUri :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the format of the payload sent to an HTTP API Lambda
-    -- authorizer. Required for HTTP API Lambda authorizers. Supported values
-    -- are 1.0 and 2.0. To learn more, see
-    -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>.
-    authorizerPayloadFormatVersion :: Prelude.Maybe Prelude.Text,
+    -- | Specifies whether a Lambda authorizer returns a response in a simple
+    -- format. By default, a Lambda authorizer must return an IAM policy. If
+    -- enabled, the Lambda authorizer can return a boolean value instead of an
+    -- IAM policy. Supported only for HTTP APIs. To learn more, see
+    -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>
+    enableSimpleResponses :: Prelude.Maybe Prelude.Bool,
+    -- | This parameter is not used.
+    identityValidationExpression :: Prelude.Maybe Prelude.Text,
     -- | Represents the configuration of a JWT authorizer. Required for the JWT
     -- authorizer type. Supported only for HTTP APIs.
     jwtConfiguration :: Prelude.Maybe JWTConfiguration,
-    -- | The time to live (TTL) for cached authorizer results, in seconds. If it
-    -- equals 0, authorization caching is disabled. If it is greater than 0,
-    -- API Gateway caches authorizer responses. The maximum value is 3600, or 1
-    -- hour. Supported only for HTTP API Lambda authorizers.
-    authorizerResultTtlInSeconds :: Prelude.Maybe Prelude.Natural,
     -- | The API identifier.
     apiId :: Prelude.Text,
     -- | The authorizer type. Specify REQUEST for a Lambda function using
@@ -158,13 +159,15 @@ data CreateAuthorizer = CreateAuthorizer'
 -- permissions on the Lambda function, don\'t specify this parameter.
 -- Supported only for REQUEST authorizers.
 --
--- 'identityValidationExpression', 'createAuthorizer_identityValidationExpression' - This parameter is not used.
+-- 'authorizerPayloadFormatVersion', 'createAuthorizer_authorizerPayloadFormatVersion' - Specifies the format of the payload sent to an HTTP API Lambda
+-- authorizer. Required for HTTP API Lambda authorizers. Supported values
+-- are 1.0 and 2.0. To learn more, see
+-- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>.
 --
--- 'enableSimpleResponses', 'createAuthorizer_enableSimpleResponses' - Specifies whether a Lambda authorizer returns a response in a simple
--- format. By default, a Lambda authorizer must return an IAM policy. If
--- enabled, the Lambda authorizer can return a boolean value instead of an
--- IAM policy. Supported only for HTTP APIs. To learn more, see
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>
+-- 'authorizerResultTtlInSeconds', 'createAuthorizer_authorizerResultTtlInSeconds' - The time to live (TTL) for cached authorizer results, in seconds. If it
+-- equals 0, authorization caching is disabled. If it is greater than 0,
+-- API Gateway caches authorizer responses. The maximum value is 3600, or 1
+-- hour. Supported only for HTTP API Lambda authorizers.
 --
 -- 'authorizerUri', 'createAuthorizer_authorizerUri' - The authorizer\'s Uniform Resource Identifier (URI). For REQUEST
 -- authorizers, this must be a well-formed Lambda function URI, for
@@ -178,18 +181,16 @@ data CreateAuthorizer = CreateAuthorizer'
 -- usually of the form \/2015-03-31\/functions\/[FunctionARN]\/invocations.
 -- Supported only for REQUEST authorizers.
 --
--- 'authorizerPayloadFormatVersion', 'createAuthorizer_authorizerPayloadFormatVersion' - Specifies the format of the payload sent to an HTTP API Lambda
--- authorizer. Required for HTTP API Lambda authorizers. Supported values
--- are 1.0 and 2.0. To learn more, see
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>.
+-- 'enableSimpleResponses', 'createAuthorizer_enableSimpleResponses' - Specifies whether a Lambda authorizer returns a response in a simple
+-- format. By default, a Lambda authorizer must return an IAM policy. If
+-- enabled, the Lambda authorizer can return a boolean value instead of an
+-- IAM policy. Supported only for HTTP APIs. To learn more, see
+-- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>
+--
+-- 'identityValidationExpression', 'createAuthorizer_identityValidationExpression' - This parameter is not used.
 --
 -- 'jwtConfiguration', 'createAuthorizer_jwtConfiguration' - Represents the configuration of a JWT authorizer. Required for the JWT
 -- authorizer type. Supported only for HTTP APIs.
---
--- 'authorizerResultTtlInSeconds', 'createAuthorizer_authorizerResultTtlInSeconds' - The time to live (TTL) for cached authorizer results, in seconds. If it
--- equals 0, authorization caching is disabled. If it is greater than 0,
--- API Gateway caches authorizer responses. The maximum value is 3600, or 1
--- hour. Supported only for HTTP API Lambda authorizers.
 --
 -- 'apiId', 'createAuthorizer_apiId' - The API identifier.
 --
@@ -234,12 +235,12 @@ newCreateAuthorizer pApiId_ pAuthorizerType_ pName_ =
   CreateAuthorizer'
     { authorizerCredentialsArn =
         Prelude.Nothing,
-      identityValidationExpression = Prelude.Nothing,
-      enableSimpleResponses = Prelude.Nothing,
-      authorizerUri = Prelude.Nothing,
       authorizerPayloadFormatVersion = Prelude.Nothing,
-      jwtConfiguration = Prelude.Nothing,
       authorizerResultTtlInSeconds = Prelude.Nothing,
+      authorizerUri = Prelude.Nothing,
+      enableSimpleResponses = Prelude.Nothing,
+      identityValidationExpression = Prelude.Nothing,
+      jwtConfiguration = Prelude.Nothing,
       apiId = pApiId_,
       authorizerType = pAuthorizerType_,
       identitySource = Prelude.mempty,
@@ -254,17 +255,19 @@ newCreateAuthorizer pApiId_ pAuthorizerType_ pName_ =
 createAuthorizer_authorizerCredentialsArn :: Lens.Lens' CreateAuthorizer (Prelude.Maybe Prelude.Text)
 createAuthorizer_authorizerCredentialsArn = Lens.lens (\CreateAuthorizer' {authorizerCredentialsArn} -> authorizerCredentialsArn) (\s@CreateAuthorizer' {} a -> s {authorizerCredentialsArn = a} :: CreateAuthorizer)
 
--- | This parameter is not used.
-createAuthorizer_identityValidationExpression :: Lens.Lens' CreateAuthorizer (Prelude.Maybe Prelude.Text)
-createAuthorizer_identityValidationExpression = Lens.lens (\CreateAuthorizer' {identityValidationExpression} -> identityValidationExpression) (\s@CreateAuthorizer' {} a -> s {identityValidationExpression = a} :: CreateAuthorizer)
+-- | Specifies the format of the payload sent to an HTTP API Lambda
+-- authorizer. Required for HTTP API Lambda authorizers. Supported values
+-- are 1.0 and 2.0. To learn more, see
+-- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>.
+createAuthorizer_authorizerPayloadFormatVersion :: Lens.Lens' CreateAuthorizer (Prelude.Maybe Prelude.Text)
+createAuthorizer_authorizerPayloadFormatVersion = Lens.lens (\CreateAuthorizer' {authorizerPayloadFormatVersion} -> authorizerPayloadFormatVersion) (\s@CreateAuthorizer' {} a -> s {authorizerPayloadFormatVersion = a} :: CreateAuthorizer)
 
--- | Specifies whether a Lambda authorizer returns a response in a simple
--- format. By default, a Lambda authorizer must return an IAM policy. If
--- enabled, the Lambda authorizer can return a boolean value instead of an
--- IAM policy. Supported only for HTTP APIs. To learn more, see
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>
-createAuthorizer_enableSimpleResponses :: Lens.Lens' CreateAuthorizer (Prelude.Maybe Prelude.Bool)
-createAuthorizer_enableSimpleResponses = Lens.lens (\CreateAuthorizer' {enableSimpleResponses} -> enableSimpleResponses) (\s@CreateAuthorizer' {} a -> s {enableSimpleResponses = a} :: CreateAuthorizer)
+-- | The time to live (TTL) for cached authorizer results, in seconds. If it
+-- equals 0, authorization caching is disabled. If it is greater than 0,
+-- API Gateway caches authorizer responses. The maximum value is 3600, or 1
+-- hour. Supported only for HTTP API Lambda authorizers.
+createAuthorizer_authorizerResultTtlInSeconds :: Lens.Lens' CreateAuthorizer (Prelude.Maybe Prelude.Natural)
+createAuthorizer_authorizerResultTtlInSeconds = Lens.lens (\CreateAuthorizer' {authorizerResultTtlInSeconds} -> authorizerResultTtlInSeconds) (\s@CreateAuthorizer' {} a -> s {authorizerResultTtlInSeconds = a} :: CreateAuthorizer)
 
 -- | The authorizer\'s Uniform Resource Identifier (URI). For REQUEST
 -- authorizers, this must be a well-formed Lambda function URI, for
@@ -280,24 +283,22 @@ createAuthorizer_enableSimpleResponses = Lens.lens (\CreateAuthorizer' {enableSi
 createAuthorizer_authorizerUri :: Lens.Lens' CreateAuthorizer (Prelude.Maybe Prelude.Text)
 createAuthorizer_authorizerUri = Lens.lens (\CreateAuthorizer' {authorizerUri} -> authorizerUri) (\s@CreateAuthorizer' {} a -> s {authorizerUri = a} :: CreateAuthorizer)
 
--- | Specifies the format of the payload sent to an HTTP API Lambda
--- authorizer. Required for HTTP API Lambda authorizers. Supported values
--- are 1.0 and 2.0. To learn more, see
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>.
-createAuthorizer_authorizerPayloadFormatVersion :: Lens.Lens' CreateAuthorizer (Prelude.Maybe Prelude.Text)
-createAuthorizer_authorizerPayloadFormatVersion = Lens.lens (\CreateAuthorizer' {authorizerPayloadFormatVersion} -> authorizerPayloadFormatVersion) (\s@CreateAuthorizer' {} a -> s {authorizerPayloadFormatVersion = a} :: CreateAuthorizer)
+-- | Specifies whether a Lambda authorizer returns a response in a simple
+-- format. By default, a Lambda authorizer must return an IAM policy. If
+-- enabled, the Lambda authorizer can return a boolean value instead of an
+-- IAM policy. Supported only for HTTP APIs. To learn more, see
+-- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>
+createAuthorizer_enableSimpleResponses :: Lens.Lens' CreateAuthorizer (Prelude.Maybe Prelude.Bool)
+createAuthorizer_enableSimpleResponses = Lens.lens (\CreateAuthorizer' {enableSimpleResponses} -> enableSimpleResponses) (\s@CreateAuthorizer' {} a -> s {enableSimpleResponses = a} :: CreateAuthorizer)
+
+-- | This parameter is not used.
+createAuthorizer_identityValidationExpression :: Lens.Lens' CreateAuthorizer (Prelude.Maybe Prelude.Text)
+createAuthorizer_identityValidationExpression = Lens.lens (\CreateAuthorizer' {identityValidationExpression} -> identityValidationExpression) (\s@CreateAuthorizer' {} a -> s {identityValidationExpression = a} :: CreateAuthorizer)
 
 -- | Represents the configuration of a JWT authorizer. Required for the JWT
 -- authorizer type. Supported only for HTTP APIs.
 createAuthorizer_jwtConfiguration :: Lens.Lens' CreateAuthorizer (Prelude.Maybe JWTConfiguration)
 createAuthorizer_jwtConfiguration = Lens.lens (\CreateAuthorizer' {jwtConfiguration} -> jwtConfiguration) (\s@CreateAuthorizer' {} a -> s {jwtConfiguration = a} :: CreateAuthorizer)
-
--- | The time to live (TTL) for cached authorizer results, in seconds. If it
--- equals 0, authorization caching is disabled. If it is greater than 0,
--- API Gateway caches authorizer responses. The maximum value is 3600, or 1
--- hour. Supported only for HTTP API Lambda authorizers.
-createAuthorizer_authorizerResultTtlInSeconds :: Lens.Lens' CreateAuthorizer (Prelude.Maybe Prelude.Natural)
-createAuthorizer_authorizerResultTtlInSeconds = Lens.lens (\CreateAuthorizer' {authorizerResultTtlInSeconds} -> authorizerResultTtlInSeconds) (\s@CreateAuthorizer' {} a -> s {authorizerResultTtlInSeconds = a} :: CreateAuthorizer)
 
 -- | The API identifier.
 createAuthorizer_apiId :: Lens.Lens' CreateAuthorizer Prelude.Text
@@ -343,22 +344,23 @@ instance Core.AWSRequest CreateAuthorizer where
   type
     AWSResponse CreateAuthorizer =
       CreateAuthorizerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAuthorizerResponse'
-            Prelude.<$> (x Core..?> "authorizerCredentialsArn")
-            Prelude.<*> (x Core..?> "identityValidationExpression")
-            Prelude.<*> (x Core..?> "enableSimpleResponses")
-            Prelude.<*> (x Core..?> "authorizerUri")
-            Prelude.<*> (x Core..?> "authorizerPayloadFormatVersion")
-            Prelude.<*> (x Core..?> "jwtConfiguration")
-            Prelude.<*> (x Core..?> "authorizerId")
-            Prelude.<*> (x Core..?> "name")
-            Prelude.<*> (x Core..?> "authorizerResultTtlInSeconds")
-            Prelude.<*> (x Core..?> "identitySource" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "authorizerType")
+            Prelude.<$> (x Data..?> "authorizerCredentialsArn")
+            Prelude.<*> (x Data..?> "authorizerId")
+            Prelude.<*> (x Data..?> "authorizerPayloadFormatVersion")
+            Prelude.<*> (x Data..?> "authorizerResultTtlInSeconds")
+            Prelude.<*> (x Data..?> "authorizerType")
+            Prelude.<*> (x Data..?> "authorizerUri")
+            Prelude.<*> (x Data..?> "enableSimpleResponses")
+            Prelude.<*> (x Data..?> "identitySource" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "identityValidationExpression")
+            Prelude.<*> (x Data..?> "jwtConfiguration")
+            Prelude.<*> (x Data..?> "name")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -366,12 +368,12 @@ instance Prelude.Hashable CreateAuthorizer where
   hashWithSalt _salt CreateAuthorizer' {..} =
     _salt
       `Prelude.hashWithSalt` authorizerCredentialsArn
-      `Prelude.hashWithSalt` identityValidationExpression
-      `Prelude.hashWithSalt` enableSimpleResponses
-      `Prelude.hashWithSalt` authorizerUri
       `Prelude.hashWithSalt` authorizerPayloadFormatVersion
-      `Prelude.hashWithSalt` jwtConfiguration
       `Prelude.hashWithSalt` authorizerResultTtlInSeconds
+      `Prelude.hashWithSalt` authorizerUri
+      `Prelude.hashWithSalt` enableSimpleResponses
+      `Prelude.hashWithSalt` identityValidationExpression
+      `Prelude.hashWithSalt` jwtConfiguration
       `Prelude.hashWithSalt` apiId
       `Prelude.hashWithSalt` authorizerType
       `Prelude.hashWithSalt` identitySource
@@ -380,59 +382,59 @@ instance Prelude.Hashable CreateAuthorizer where
 instance Prelude.NFData CreateAuthorizer where
   rnf CreateAuthorizer' {..} =
     Prelude.rnf authorizerCredentialsArn
-      `Prelude.seq` Prelude.rnf identityValidationExpression
-      `Prelude.seq` Prelude.rnf enableSimpleResponses
-      `Prelude.seq` Prelude.rnf authorizerUri
       `Prelude.seq` Prelude.rnf authorizerPayloadFormatVersion
-      `Prelude.seq` Prelude.rnf jwtConfiguration
       `Prelude.seq` Prelude.rnf authorizerResultTtlInSeconds
+      `Prelude.seq` Prelude.rnf authorizerUri
+      `Prelude.seq` Prelude.rnf enableSimpleResponses
+      `Prelude.seq` Prelude.rnf identityValidationExpression
+      `Prelude.seq` Prelude.rnf jwtConfiguration
       `Prelude.seq` Prelude.rnf apiId
       `Prelude.seq` Prelude.rnf authorizerType
       `Prelude.seq` Prelude.rnf identitySource
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateAuthorizer where
+instance Data.ToHeaders CreateAuthorizer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAuthorizer where
+instance Data.ToJSON CreateAuthorizer where
   toJSON CreateAuthorizer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("authorizerCredentialsArn" Core..=)
+          [ ("authorizerCredentialsArn" Data..=)
               Prelude.<$> authorizerCredentialsArn,
-            ("identityValidationExpression" Core..=)
-              Prelude.<$> identityValidationExpression,
-            ("enableSimpleResponses" Core..=)
-              Prelude.<$> enableSimpleResponses,
-            ("authorizerUri" Core..=) Prelude.<$> authorizerUri,
-            ("authorizerPayloadFormatVersion" Core..=)
+            ("authorizerPayloadFormatVersion" Data..=)
               Prelude.<$> authorizerPayloadFormatVersion,
-            ("jwtConfiguration" Core..=)
-              Prelude.<$> jwtConfiguration,
-            ("authorizerResultTtlInSeconds" Core..=)
+            ("authorizerResultTtlInSeconds" Data..=)
               Prelude.<$> authorizerResultTtlInSeconds,
+            ("authorizerUri" Data..=) Prelude.<$> authorizerUri,
+            ("enableSimpleResponses" Data..=)
+              Prelude.<$> enableSimpleResponses,
+            ("identityValidationExpression" Data..=)
+              Prelude.<$> identityValidationExpression,
+            ("jwtConfiguration" Data..=)
+              Prelude.<$> jwtConfiguration,
             Prelude.Just
-              ("authorizerType" Core..= authorizerType),
+              ("authorizerType" Data..= authorizerType),
             Prelude.Just
-              ("identitySource" Core..= identitySource),
-            Prelude.Just ("name" Core..= name)
+              ("identitySource" Data..= identitySource),
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateAuthorizer where
+instance Data.ToPath CreateAuthorizer where
   toPath CreateAuthorizer' {..} =
     Prelude.mconcat
-      ["/v2/apis/", Core.toBS apiId, "/authorizers"]
+      ["/v2/apis/", Data.toBS apiId, "/authorizers"]
 
-instance Core.ToQuery CreateAuthorizer where
+instance Data.ToQuery CreateAuthorizer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAuthorizerResponse' smart constructor.
@@ -443,14 +445,22 @@ data CreateAuthorizerResponse = CreateAuthorizerResponse'
     -- permissions on the Lambda function, don\'t specify this parameter.
     -- Supported only for REQUEST authorizers.
     authorizerCredentialsArn :: Prelude.Maybe Prelude.Text,
-    -- | The validation expression does not apply to the REQUEST authorizer.
-    identityValidationExpression :: Prelude.Maybe Prelude.Text,
-    -- | Specifies whether a Lambda authorizer returns a response in a simple
-    -- format. If enabled, the Lambda authorizer can return a boolean value
-    -- instead of an IAM policy. Supported only for HTTP APIs. To learn more,
-    -- see
-    -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>
-    enableSimpleResponses :: Prelude.Maybe Prelude.Bool,
+    -- | The authorizer identifier.
+    authorizerId :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the format of the payload sent to an HTTP API Lambda
+    -- authorizer. Required for HTTP API Lambda authorizers. Supported values
+    -- are 1.0 and 2.0. To learn more, see
+    -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>.
+    authorizerPayloadFormatVersion :: Prelude.Maybe Prelude.Text,
+    -- | The time to live (TTL) for cached authorizer results, in seconds. If it
+    -- equals 0, authorization caching is disabled. If it is greater than 0,
+    -- API Gateway caches authorizer responses. The maximum value is 3600, or 1
+    -- hour. Supported only for HTTP API Lambda authorizers.
+    authorizerResultTtlInSeconds :: Prelude.Maybe Prelude.Natural,
+    -- | The authorizer type. Specify REQUEST for a Lambda function using
+    -- incoming request parameters. Specify JWT to use JSON Web Tokens
+    -- (supported only for HTTP APIs).
+    authorizerType :: Prelude.Maybe AuthorizerType,
     -- | The authorizer\'s Uniform Resource Identifier (URI). For REQUEST
     -- authorizers, this must be a well-formed Lambda function URI, for
     -- example,
@@ -463,23 +473,12 @@ data CreateAuthorizerResponse = CreateAuthorizerResponse'
     -- usually of the form \/2015-03-31\/functions\/[FunctionARN]\/invocations.
     -- Supported only for REQUEST authorizers.
     authorizerUri :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the format of the payload sent to an HTTP API Lambda
-    -- authorizer. Required for HTTP API Lambda authorizers. Supported values
-    -- are 1.0 and 2.0. To learn more, see
-    -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>.
-    authorizerPayloadFormatVersion :: Prelude.Maybe Prelude.Text,
-    -- | Represents the configuration of a JWT authorizer. Required for the JWT
-    -- authorizer type. Supported only for HTTP APIs.
-    jwtConfiguration :: Prelude.Maybe JWTConfiguration,
-    -- | The authorizer identifier.
-    authorizerId :: Prelude.Maybe Prelude.Text,
-    -- | The name of the authorizer.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The time to live (TTL) for cached authorizer results, in seconds. If it
-    -- equals 0, authorization caching is disabled. If it is greater than 0,
-    -- API Gateway caches authorizer responses. The maximum value is 3600, or 1
-    -- hour. Supported only for HTTP API Lambda authorizers.
-    authorizerResultTtlInSeconds :: Prelude.Maybe Prelude.Natural,
+    -- | Specifies whether a Lambda authorizer returns a response in a simple
+    -- format. If enabled, the Lambda authorizer can return a boolean value
+    -- instead of an IAM policy. Supported only for HTTP APIs. To learn more,
+    -- see
+    -- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>
+    enableSimpleResponses :: Prelude.Maybe Prelude.Bool,
     -- | The identity source for which authorization is requested.
     --
     -- For a REQUEST authorizer, this is optional. The value is a set of one or
@@ -504,10 +503,13 @@ data CreateAuthorizerResponse = CreateAuthorizerResponse'
     -- parameter-based selections are supported, for example
     -- \$request.header.Authorization.
     identitySource :: Prelude.Maybe [Prelude.Text],
-    -- | The authorizer type. Specify REQUEST for a Lambda function using
-    -- incoming request parameters. Specify JWT to use JSON Web Tokens
-    -- (supported only for HTTP APIs).
-    authorizerType :: Prelude.Maybe AuthorizerType,
+    -- | The validation expression does not apply to the REQUEST authorizer.
+    identityValidationExpression :: Prelude.Maybe Prelude.Text,
+    -- | Represents the configuration of a JWT authorizer. Required for the JWT
+    -- authorizer type. Supported only for HTTP APIs.
+    jwtConfiguration :: Prelude.Maybe JWTConfiguration,
+    -- | The name of the authorizer.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -527,13 +529,21 @@ data CreateAuthorizerResponse = CreateAuthorizerResponse'
 -- permissions on the Lambda function, don\'t specify this parameter.
 -- Supported only for REQUEST authorizers.
 --
--- 'identityValidationExpression', 'createAuthorizerResponse_identityValidationExpression' - The validation expression does not apply to the REQUEST authorizer.
+-- 'authorizerId', 'createAuthorizerResponse_authorizerId' - The authorizer identifier.
 --
--- 'enableSimpleResponses', 'createAuthorizerResponse_enableSimpleResponses' - Specifies whether a Lambda authorizer returns a response in a simple
--- format. If enabled, the Lambda authorizer can return a boolean value
--- instead of an IAM policy. Supported only for HTTP APIs. To learn more,
--- see
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>
+-- 'authorizerPayloadFormatVersion', 'createAuthorizerResponse_authorizerPayloadFormatVersion' - Specifies the format of the payload sent to an HTTP API Lambda
+-- authorizer. Required for HTTP API Lambda authorizers. Supported values
+-- are 1.0 and 2.0. To learn more, see
+-- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>.
+--
+-- 'authorizerResultTtlInSeconds', 'createAuthorizerResponse_authorizerResultTtlInSeconds' - The time to live (TTL) for cached authorizer results, in seconds. If it
+-- equals 0, authorization caching is disabled. If it is greater than 0,
+-- API Gateway caches authorizer responses. The maximum value is 3600, or 1
+-- hour. Supported only for HTTP API Lambda authorizers.
+--
+-- 'authorizerType', 'createAuthorizerResponse_authorizerType' - The authorizer type. Specify REQUEST for a Lambda function using
+-- incoming request parameters. Specify JWT to use JSON Web Tokens
+-- (supported only for HTTP APIs).
 --
 -- 'authorizerUri', 'createAuthorizerResponse_authorizerUri' - The authorizer\'s Uniform Resource Identifier (URI). For REQUEST
 -- authorizers, this must be a well-formed Lambda function URI, for
@@ -547,22 +557,11 @@ data CreateAuthorizerResponse = CreateAuthorizerResponse'
 -- usually of the form \/2015-03-31\/functions\/[FunctionARN]\/invocations.
 -- Supported only for REQUEST authorizers.
 --
--- 'authorizerPayloadFormatVersion', 'createAuthorizerResponse_authorizerPayloadFormatVersion' - Specifies the format of the payload sent to an HTTP API Lambda
--- authorizer. Required for HTTP API Lambda authorizers. Supported values
--- are 1.0 and 2.0. To learn more, see
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>.
---
--- 'jwtConfiguration', 'createAuthorizerResponse_jwtConfiguration' - Represents the configuration of a JWT authorizer. Required for the JWT
--- authorizer type. Supported only for HTTP APIs.
---
--- 'authorizerId', 'createAuthorizerResponse_authorizerId' - The authorizer identifier.
---
--- 'name', 'createAuthorizerResponse_name' - The name of the authorizer.
---
--- 'authorizerResultTtlInSeconds', 'createAuthorizerResponse_authorizerResultTtlInSeconds' - The time to live (TTL) for cached authorizer results, in seconds. If it
--- equals 0, authorization caching is disabled. If it is greater than 0,
--- API Gateway caches authorizer responses. The maximum value is 3600, or 1
--- hour. Supported only for HTTP API Lambda authorizers.
+-- 'enableSimpleResponses', 'createAuthorizerResponse_enableSimpleResponses' - Specifies whether a Lambda authorizer returns a response in a simple
+-- format. If enabled, the Lambda authorizer can return a boolean value
+-- instead of an IAM policy. Supported only for HTTP APIs. To learn more,
+-- see
+-- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>
 --
 -- 'identitySource', 'createAuthorizerResponse_identitySource' - The identity source for which authorization is requested.
 --
@@ -588,9 +587,12 @@ data CreateAuthorizerResponse = CreateAuthorizerResponse'
 -- parameter-based selections are supported, for example
 -- \$request.header.Authorization.
 --
--- 'authorizerType', 'createAuthorizerResponse_authorizerType' - The authorizer type. Specify REQUEST for a Lambda function using
--- incoming request parameters. Specify JWT to use JSON Web Tokens
--- (supported only for HTTP APIs).
+-- 'identityValidationExpression', 'createAuthorizerResponse_identityValidationExpression' - The validation expression does not apply to the REQUEST authorizer.
+--
+-- 'jwtConfiguration', 'createAuthorizerResponse_jwtConfiguration' - Represents the configuration of a JWT authorizer. Required for the JWT
+-- authorizer type. Supported only for HTTP APIs.
+--
+-- 'name', 'createAuthorizerResponse_name' - The name of the authorizer.
 --
 -- 'httpStatus', 'createAuthorizerResponse_httpStatus' - The response's http status code.
 newCreateAuthorizerResponse ::
@@ -601,16 +603,16 @@ newCreateAuthorizerResponse pHttpStatus_ =
   CreateAuthorizerResponse'
     { authorizerCredentialsArn =
         Prelude.Nothing,
-      identityValidationExpression = Prelude.Nothing,
-      enableSimpleResponses = Prelude.Nothing,
-      authorizerUri = Prelude.Nothing,
-      authorizerPayloadFormatVersion = Prelude.Nothing,
-      jwtConfiguration = Prelude.Nothing,
       authorizerId = Prelude.Nothing,
-      name = Prelude.Nothing,
+      authorizerPayloadFormatVersion = Prelude.Nothing,
       authorizerResultTtlInSeconds = Prelude.Nothing,
-      identitySource = Prelude.Nothing,
       authorizerType = Prelude.Nothing,
+      authorizerUri = Prelude.Nothing,
+      enableSimpleResponses = Prelude.Nothing,
+      identitySource = Prelude.Nothing,
+      identityValidationExpression = Prelude.Nothing,
+      jwtConfiguration = Prelude.Nothing,
+      name = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -622,17 +624,29 @@ newCreateAuthorizerResponse pHttpStatus_ =
 createAuthorizerResponse_authorizerCredentialsArn :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe Prelude.Text)
 createAuthorizerResponse_authorizerCredentialsArn = Lens.lens (\CreateAuthorizerResponse' {authorizerCredentialsArn} -> authorizerCredentialsArn) (\s@CreateAuthorizerResponse' {} a -> s {authorizerCredentialsArn = a} :: CreateAuthorizerResponse)
 
--- | The validation expression does not apply to the REQUEST authorizer.
-createAuthorizerResponse_identityValidationExpression :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe Prelude.Text)
-createAuthorizerResponse_identityValidationExpression = Lens.lens (\CreateAuthorizerResponse' {identityValidationExpression} -> identityValidationExpression) (\s@CreateAuthorizerResponse' {} a -> s {identityValidationExpression = a} :: CreateAuthorizerResponse)
+-- | The authorizer identifier.
+createAuthorizerResponse_authorizerId :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe Prelude.Text)
+createAuthorizerResponse_authorizerId = Lens.lens (\CreateAuthorizerResponse' {authorizerId} -> authorizerId) (\s@CreateAuthorizerResponse' {} a -> s {authorizerId = a} :: CreateAuthorizerResponse)
 
--- | Specifies whether a Lambda authorizer returns a response in a simple
--- format. If enabled, the Lambda authorizer can return a boolean value
--- instead of an IAM policy. Supported only for HTTP APIs. To learn more,
--- see
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>
-createAuthorizerResponse_enableSimpleResponses :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe Prelude.Bool)
-createAuthorizerResponse_enableSimpleResponses = Lens.lens (\CreateAuthorizerResponse' {enableSimpleResponses} -> enableSimpleResponses) (\s@CreateAuthorizerResponse' {} a -> s {enableSimpleResponses = a} :: CreateAuthorizerResponse)
+-- | Specifies the format of the payload sent to an HTTP API Lambda
+-- authorizer. Required for HTTP API Lambda authorizers. Supported values
+-- are 1.0 and 2.0. To learn more, see
+-- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>.
+createAuthorizerResponse_authorizerPayloadFormatVersion :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe Prelude.Text)
+createAuthorizerResponse_authorizerPayloadFormatVersion = Lens.lens (\CreateAuthorizerResponse' {authorizerPayloadFormatVersion} -> authorizerPayloadFormatVersion) (\s@CreateAuthorizerResponse' {} a -> s {authorizerPayloadFormatVersion = a} :: CreateAuthorizerResponse)
+
+-- | The time to live (TTL) for cached authorizer results, in seconds. If it
+-- equals 0, authorization caching is disabled. If it is greater than 0,
+-- API Gateway caches authorizer responses. The maximum value is 3600, or 1
+-- hour. Supported only for HTTP API Lambda authorizers.
+createAuthorizerResponse_authorizerResultTtlInSeconds :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe Prelude.Natural)
+createAuthorizerResponse_authorizerResultTtlInSeconds = Lens.lens (\CreateAuthorizerResponse' {authorizerResultTtlInSeconds} -> authorizerResultTtlInSeconds) (\s@CreateAuthorizerResponse' {} a -> s {authorizerResultTtlInSeconds = a} :: CreateAuthorizerResponse)
+
+-- | The authorizer type. Specify REQUEST for a Lambda function using
+-- incoming request parameters. Specify JWT to use JSON Web Tokens
+-- (supported only for HTTP APIs).
+createAuthorizerResponse_authorizerType :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe AuthorizerType)
+createAuthorizerResponse_authorizerType = Lens.lens (\CreateAuthorizerResponse' {authorizerType} -> authorizerType) (\s@CreateAuthorizerResponse' {} a -> s {authorizerType = a} :: CreateAuthorizerResponse)
 
 -- | The authorizer\'s Uniform Resource Identifier (URI). For REQUEST
 -- authorizers, this must be a well-formed Lambda function URI, for
@@ -648,32 +662,13 @@ createAuthorizerResponse_enableSimpleResponses = Lens.lens (\CreateAuthorizerRes
 createAuthorizerResponse_authorizerUri :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe Prelude.Text)
 createAuthorizerResponse_authorizerUri = Lens.lens (\CreateAuthorizerResponse' {authorizerUri} -> authorizerUri) (\s@CreateAuthorizerResponse' {} a -> s {authorizerUri = a} :: CreateAuthorizerResponse)
 
--- | Specifies the format of the payload sent to an HTTP API Lambda
--- authorizer. Required for HTTP API Lambda authorizers. Supported values
--- are 1.0 and 2.0. To learn more, see
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>.
-createAuthorizerResponse_authorizerPayloadFormatVersion :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe Prelude.Text)
-createAuthorizerResponse_authorizerPayloadFormatVersion = Lens.lens (\CreateAuthorizerResponse' {authorizerPayloadFormatVersion} -> authorizerPayloadFormatVersion) (\s@CreateAuthorizerResponse' {} a -> s {authorizerPayloadFormatVersion = a} :: CreateAuthorizerResponse)
-
--- | Represents the configuration of a JWT authorizer. Required for the JWT
--- authorizer type. Supported only for HTTP APIs.
-createAuthorizerResponse_jwtConfiguration :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe JWTConfiguration)
-createAuthorizerResponse_jwtConfiguration = Lens.lens (\CreateAuthorizerResponse' {jwtConfiguration} -> jwtConfiguration) (\s@CreateAuthorizerResponse' {} a -> s {jwtConfiguration = a} :: CreateAuthorizerResponse)
-
--- | The authorizer identifier.
-createAuthorizerResponse_authorizerId :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe Prelude.Text)
-createAuthorizerResponse_authorizerId = Lens.lens (\CreateAuthorizerResponse' {authorizerId} -> authorizerId) (\s@CreateAuthorizerResponse' {} a -> s {authorizerId = a} :: CreateAuthorizerResponse)
-
--- | The name of the authorizer.
-createAuthorizerResponse_name :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe Prelude.Text)
-createAuthorizerResponse_name = Lens.lens (\CreateAuthorizerResponse' {name} -> name) (\s@CreateAuthorizerResponse' {} a -> s {name = a} :: CreateAuthorizerResponse)
-
--- | The time to live (TTL) for cached authorizer results, in seconds. If it
--- equals 0, authorization caching is disabled. If it is greater than 0,
--- API Gateway caches authorizer responses. The maximum value is 3600, or 1
--- hour. Supported only for HTTP API Lambda authorizers.
-createAuthorizerResponse_authorizerResultTtlInSeconds :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe Prelude.Natural)
-createAuthorizerResponse_authorizerResultTtlInSeconds = Lens.lens (\CreateAuthorizerResponse' {authorizerResultTtlInSeconds} -> authorizerResultTtlInSeconds) (\s@CreateAuthorizerResponse' {} a -> s {authorizerResultTtlInSeconds = a} :: CreateAuthorizerResponse)
+-- | Specifies whether a Lambda authorizer returns a response in a simple
+-- format. If enabled, the Lambda authorizer can return a boolean value
+-- instead of an IAM policy. Supported only for HTTP APIs. To learn more,
+-- see
+-- <https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-lambda-authorizer.html Working with AWS Lambda authorizers for HTTP APIs>
+createAuthorizerResponse_enableSimpleResponses :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe Prelude.Bool)
+createAuthorizerResponse_enableSimpleResponses = Lens.lens (\CreateAuthorizerResponse' {enableSimpleResponses} -> enableSimpleResponses) (\s@CreateAuthorizerResponse' {} a -> s {enableSimpleResponses = a} :: CreateAuthorizerResponse)
 
 -- | The identity source for which authorization is requested.
 --
@@ -701,11 +696,18 @@ createAuthorizerResponse_authorizerResultTtlInSeconds = Lens.lens (\CreateAuthor
 createAuthorizerResponse_identitySource :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe [Prelude.Text])
 createAuthorizerResponse_identitySource = Lens.lens (\CreateAuthorizerResponse' {identitySource} -> identitySource) (\s@CreateAuthorizerResponse' {} a -> s {identitySource = a} :: CreateAuthorizerResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The authorizer type. Specify REQUEST for a Lambda function using
--- incoming request parameters. Specify JWT to use JSON Web Tokens
--- (supported only for HTTP APIs).
-createAuthorizerResponse_authorizerType :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe AuthorizerType)
-createAuthorizerResponse_authorizerType = Lens.lens (\CreateAuthorizerResponse' {authorizerType} -> authorizerType) (\s@CreateAuthorizerResponse' {} a -> s {authorizerType = a} :: CreateAuthorizerResponse)
+-- | The validation expression does not apply to the REQUEST authorizer.
+createAuthorizerResponse_identityValidationExpression :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe Prelude.Text)
+createAuthorizerResponse_identityValidationExpression = Lens.lens (\CreateAuthorizerResponse' {identityValidationExpression} -> identityValidationExpression) (\s@CreateAuthorizerResponse' {} a -> s {identityValidationExpression = a} :: CreateAuthorizerResponse)
+
+-- | Represents the configuration of a JWT authorizer. Required for the JWT
+-- authorizer type. Supported only for HTTP APIs.
+createAuthorizerResponse_jwtConfiguration :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe JWTConfiguration)
+createAuthorizerResponse_jwtConfiguration = Lens.lens (\CreateAuthorizerResponse' {jwtConfiguration} -> jwtConfiguration) (\s@CreateAuthorizerResponse' {} a -> s {jwtConfiguration = a} :: CreateAuthorizerResponse)
+
+-- | The name of the authorizer.
+createAuthorizerResponse_name :: Lens.Lens' CreateAuthorizerResponse (Prelude.Maybe Prelude.Text)
+createAuthorizerResponse_name = Lens.lens (\CreateAuthorizerResponse' {name} -> name) (\s@CreateAuthorizerResponse' {} a -> s {name = a} :: CreateAuthorizerResponse)
 
 -- | The response's http status code.
 createAuthorizerResponse_httpStatus :: Lens.Lens' CreateAuthorizerResponse Prelude.Int
@@ -714,14 +716,14 @@ createAuthorizerResponse_httpStatus = Lens.lens (\CreateAuthorizerResponse' {htt
 instance Prelude.NFData CreateAuthorizerResponse where
   rnf CreateAuthorizerResponse' {..} =
     Prelude.rnf authorizerCredentialsArn
-      `Prelude.seq` Prelude.rnf identityValidationExpression
-      `Prelude.seq` Prelude.rnf enableSimpleResponses
-      `Prelude.seq` Prelude.rnf authorizerUri
-      `Prelude.seq` Prelude.rnf authorizerPayloadFormatVersion
-      `Prelude.seq` Prelude.rnf jwtConfiguration
       `Prelude.seq` Prelude.rnf authorizerId
-      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf authorizerPayloadFormatVersion
       `Prelude.seq` Prelude.rnf authorizerResultTtlInSeconds
-      `Prelude.seq` Prelude.rnf identitySource
       `Prelude.seq` Prelude.rnf authorizerType
+      `Prelude.seq` Prelude.rnf authorizerUri
+      `Prelude.seq` Prelude.rnf enableSimpleResponses
+      `Prelude.seq` Prelude.rnf identitySource
+      `Prelude.seq` Prelude.rnf identityValidationExpression
+      `Prelude.seq` Prelude.rnf jwtConfiguration
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf httpStatus

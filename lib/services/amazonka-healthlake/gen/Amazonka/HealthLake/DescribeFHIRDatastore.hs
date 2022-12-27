@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.HealthLake.DescribeFHIRDatastore
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.HealthLake.DescribeFHIRDatastore
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HealthLake.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,13 +84,14 @@ instance Core.AWSRequest DescribeFHIRDatastore where
   type
     AWSResponse DescribeFHIRDatastore =
       DescribeFHIRDatastoreResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeFHIRDatastoreResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "DatastoreProperties")
+            Prelude.<*> (x Data..:> "DatastoreProperties")
       )
 
 instance Prelude.Hashable DescribeFHIRDatastore where
@@ -100,32 +102,32 @@ instance Prelude.NFData DescribeFHIRDatastore where
   rnf DescribeFHIRDatastore' {..} =
     Prelude.rnf datastoreId
 
-instance Core.ToHeaders DescribeFHIRDatastore where
+instance Data.ToHeaders DescribeFHIRDatastore where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "HealthLake.DescribeFHIRDatastore" ::
+              Data.=# ( "HealthLake.DescribeFHIRDatastore" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeFHIRDatastore where
+instance Data.ToJSON DescribeFHIRDatastore where
   toJSON DescribeFHIRDatastore' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("DatastoreId" Core..=) Prelude.<$> datastoreId]
+          [("DatastoreId" Data..=) Prelude.<$> datastoreId]
       )
 
-instance Core.ToPath DescribeFHIRDatastore where
+instance Data.ToPath DescribeFHIRDatastore where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeFHIRDatastore where
+instance Data.ToQuery DescribeFHIRDatastore where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeFHIRDatastoreResponse' smart constructor.

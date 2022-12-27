@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.EgressFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.EgressFilter where
 
 import Amazonka.AppMesh.Types.EgressFilterType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the egress filter rules for a service mesh.
@@ -65,11 +66,11 @@ newEgressFilter pType_ =
 egressFilter_type :: Lens.Lens' EgressFilter EgressFilterType
 egressFilter_type = Lens.lens (\EgressFilter' {type'} -> type') (\s@EgressFilter' {} a -> s {type' = a} :: EgressFilter)
 
-instance Core.FromJSON EgressFilter where
+instance Data.FromJSON EgressFilter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EgressFilter"
-      (\x -> EgressFilter' Prelude.<$> (x Core..: "type"))
+      (\x -> EgressFilter' Prelude.<$> (x Data..: "type"))
 
 instance Prelude.Hashable EgressFilter where
   hashWithSalt _salt EgressFilter' {..} =
@@ -78,9 +79,9 @@ instance Prelude.Hashable EgressFilter where
 instance Prelude.NFData EgressFilter where
   rnf EgressFilter' {..} = Prelude.rnf type'
 
-instance Core.ToJSON EgressFilter where
+instance Data.ToJSON EgressFilter where
   toJSON EgressFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("type" Core..= type')]
+          [Prelude.Just ("type" Data..= type')]
       )

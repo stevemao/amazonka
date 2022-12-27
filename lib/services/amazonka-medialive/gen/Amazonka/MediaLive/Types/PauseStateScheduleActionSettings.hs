@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.PauseStateScheduleActionSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.PauseStateScheduleActionSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.PipelinePauseStateSettings
 import qualified Amazonka.Prelude as Prelude
 
@@ -54,15 +55,15 @@ pauseStateScheduleActionSettings_pipelines :: Lens.Lens' PauseStateScheduleActio
 pauseStateScheduleActionSettings_pipelines = Lens.lens (\PauseStateScheduleActionSettings' {pipelines} -> pipelines) (\s@PauseStateScheduleActionSettings' {} a -> s {pipelines = a} :: PauseStateScheduleActionSettings) Prelude.. Lens.mapping Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     PauseStateScheduleActionSettings
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PauseStateScheduleActionSettings"
       ( \x ->
           PauseStateScheduleActionSettings'
-            Prelude.<$> (x Core..:? "pipelines" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "pipelines" Data..!= Prelude.mempty)
       )
 
 instance
@@ -81,9 +82,9 @@ instance
   rnf PauseStateScheduleActionSettings' {..} =
     Prelude.rnf pipelines
 
-instance Core.ToJSON PauseStateScheduleActionSettings where
+instance Data.ToJSON PauseStateScheduleActionSettings where
   toJSON PauseStateScheduleActionSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("pipelines" Core..=) Prelude.<$> pipelines]
+          [("pipelines" Data..=) Prelude.<$> pipelines]
       )

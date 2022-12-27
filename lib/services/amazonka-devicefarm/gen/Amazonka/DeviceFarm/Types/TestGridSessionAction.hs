@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.Types.TestGridSessionAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DeviceFarm.Types.TestGridSessionAction where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An action taken by a TestGridSession browser instance.
@@ -35,7 +36,7 @@ data TestGridSessionAction = TestGridSessionAction'
     -- | HTTP method that the browser used to make the request.
     requestMethod :: Prelude.Maybe Prelude.Text,
     -- | The time that the session invoked the action.
-    started :: Prelude.Maybe Core.POSIX,
+    started :: Prelude.Maybe Data.POSIX,
     -- | HTTP status code returned to the browser when the action was taken.
     statusCode :: Prelude.Maybe Prelude.Text
   }
@@ -85,23 +86,23 @@ testGridSessionAction_requestMethod = Lens.lens (\TestGridSessionAction' {reques
 
 -- | The time that the session invoked the action.
 testGridSessionAction_started :: Lens.Lens' TestGridSessionAction (Prelude.Maybe Prelude.UTCTime)
-testGridSessionAction_started = Lens.lens (\TestGridSessionAction' {started} -> started) (\s@TestGridSessionAction' {} a -> s {started = a} :: TestGridSessionAction) Prelude.. Lens.mapping Core._Time
+testGridSessionAction_started = Lens.lens (\TestGridSessionAction' {started} -> started) (\s@TestGridSessionAction' {} a -> s {started = a} :: TestGridSessionAction) Prelude.. Lens.mapping Data._Time
 
 -- | HTTP status code returned to the browser when the action was taken.
 testGridSessionAction_statusCode :: Lens.Lens' TestGridSessionAction (Prelude.Maybe Prelude.Text)
 testGridSessionAction_statusCode = Lens.lens (\TestGridSessionAction' {statusCode} -> statusCode) (\s@TestGridSessionAction' {} a -> s {statusCode = a} :: TestGridSessionAction)
 
-instance Core.FromJSON TestGridSessionAction where
+instance Data.FromJSON TestGridSessionAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TestGridSessionAction"
       ( \x ->
           TestGridSessionAction'
-            Prelude.<$> (x Core..:? "action")
-            Prelude.<*> (x Core..:? "duration")
-            Prelude.<*> (x Core..:? "requestMethod")
-            Prelude.<*> (x Core..:? "started")
-            Prelude.<*> (x Core..:? "statusCode")
+            Prelude.<$> (x Data..:? "action")
+            Prelude.<*> (x Data..:? "duration")
+            Prelude.<*> (x Data..:? "requestMethod")
+            Prelude.<*> (x Data..:? "started")
+            Prelude.<*> (x Data..:? "statusCode")
       )
 
 instance Prelude.Hashable TestGridSessionAction where

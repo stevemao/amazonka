@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetDistributionBundles
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,7 @@
 -- delivery network (CDN) distributions.
 --
 -- A distribution bundle specifies the monthly network transfer quota and
--- monthly cost of your dsitribution.
+-- monthly cost of your distribution.
 module Amazonka.Lightsail.GetDistributionBundles
   ( -- * Creating a Request
     GetDistributionBundles (..),
@@ -41,7 +41,8 @@ module Amazonka.Lightsail.GetDistributionBundles
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -65,12 +66,13 @@ instance Core.AWSRequest GetDistributionBundles where
   type
     AWSResponse GetDistributionBundles =
       GetDistributionBundlesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDistributionBundlesResponse'
-            Prelude.<$> (x Core..?> "bundles" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "bundles" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -81,28 +83,28 @@ instance Prelude.Hashable GetDistributionBundles where
 instance Prelude.NFData GetDistributionBundles where
   rnf _ = ()
 
-instance Core.ToHeaders GetDistributionBundles where
+instance Data.ToHeaders GetDistributionBundles where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetDistributionBundles" ::
+              Data.=# ( "Lightsail_20161128.GetDistributionBundles" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetDistributionBundles where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON GetDistributionBundles where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath GetDistributionBundles where
+instance Data.ToPath GetDistributionBundles where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetDistributionBundles where
+instance Data.ToQuery GetDistributionBundles where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDistributionBundlesResponse' smart constructor.

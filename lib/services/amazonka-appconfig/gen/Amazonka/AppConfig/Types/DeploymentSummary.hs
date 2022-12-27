@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.Types.DeploymentSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,38 +22,39 @@ module Amazonka.AppConfig.Types.DeploymentSummary where
 import Amazonka.AppConfig.Types.DeploymentState
 import Amazonka.AppConfig.Types.GrowthType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the deployment.
 --
 -- /See:/ 'newDeploymentSummary' smart constructor.
 data DeploymentSummary = DeploymentSummary'
-  { -- | The percentage of targets to receive a deployed configuration during
-    -- each interval.
-    growthFactor :: Prelude.Maybe Prelude.Double,
+  { -- | Time the deployment completed.
+    completedAt :: Prelude.Maybe Data.POSIX,
     -- | The name of the configuration.
     configurationName :: Prelude.Maybe Prelude.Text,
-    -- | The state of the deployment.
-    state :: Prelude.Maybe DeploymentState,
-    -- | The sequence number of the deployment.
-    deploymentNumber :: Prelude.Maybe Prelude.Int,
     -- | The version of the configuration.
     configurationVersion :: Prelude.Maybe Prelude.Text,
+    -- | Total amount of time the deployment lasted.
+    deploymentDurationInMinutes :: Prelude.Maybe Prelude.Natural,
+    -- | The sequence number of the deployment.
+    deploymentNumber :: Prelude.Maybe Prelude.Int,
+    -- | The amount of time that AppConfig monitors for alarms before considering
+    -- the deployment to be complete and no longer eligible for automatic
+    -- rollback.
+    finalBakeTimeInMinutes :: Prelude.Maybe Prelude.Natural,
+    -- | The percentage of targets to receive a deployed configuration during
+    -- each interval.
+    growthFactor :: Prelude.Maybe Prelude.Double,
+    -- | The algorithm used to define how percentage grows over time.
+    growthType :: Prelude.Maybe GrowthType,
     -- | The percentage of targets for which the deployment is available.
     percentageComplete :: Prelude.Maybe Prelude.Double,
     -- | Time the deployment started.
-    startedAt :: Prelude.Maybe Core.POSIX,
-    -- | Total amount of time the deployment lasted.
-    deploymentDurationInMinutes :: Prelude.Maybe Prelude.Natural,
-    -- | Time the deployment completed.
-    completedAt :: Prelude.Maybe Core.POSIX,
-    -- | The amount of time AppConfig monitors for alarms before considering the
-    -- deployment to be complete and no longer eligible for automatic roll
-    -- back.
-    finalBakeTimeInMinutes :: Prelude.Maybe Prelude.Natural,
-    -- | The algorithm used to define how percentage grows over time.
-    growthType :: Prelude.Maybe GrowthType
+    startedAt :: Prelude.Maybe Data.POSIX,
+    -- | The state of the deployment.
+    state :: Prelude.Maybe DeploymentState
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -65,67 +66,81 @@ data DeploymentSummary = DeploymentSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'growthFactor', 'deploymentSummary_growthFactor' - The percentage of targets to receive a deployed configuration during
--- each interval.
+-- 'completedAt', 'deploymentSummary_completedAt' - Time the deployment completed.
 --
 -- 'configurationName', 'deploymentSummary_configurationName' - The name of the configuration.
 --
--- 'state', 'deploymentSummary_state' - The state of the deployment.
+-- 'configurationVersion', 'deploymentSummary_configurationVersion' - The version of the configuration.
+--
+-- 'deploymentDurationInMinutes', 'deploymentSummary_deploymentDurationInMinutes' - Total amount of time the deployment lasted.
 --
 -- 'deploymentNumber', 'deploymentSummary_deploymentNumber' - The sequence number of the deployment.
 --
--- 'configurationVersion', 'deploymentSummary_configurationVersion' - The version of the configuration.
+-- 'finalBakeTimeInMinutes', 'deploymentSummary_finalBakeTimeInMinutes' - The amount of time that AppConfig monitors for alarms before considering
+-- the deployment to be complete and no longer eligible for automatic
+-- rollback.
+--
+-- 'growthFactor', 'deploymentSummary_growthFactor' - The percentage of targets to receive a deployed configuration during
+-- each interval.
+--
+-- 'growthType', 'deploymentSummary_growthType' - The algorithm used to define how percentage grows over time.
 --
 -- 'percentageComplete', 'deploymentSummary_percentageComplete' - The percentage of targets for which the deployment is available.
 --
 -- 'startedAt', 'deploymentSummary_startedAt' - Time the deployment started.
 --
--- 'deploymentDurationInMinutes', 'deploymentSummary_deploymentDurationInMinutes' - Total amount of time the deployment lasted.
---
--- 'completedAt', 'deploymentSummary_completedAt' - Time the deployment completed.
---
--- 'finalBakeTimeInMinutes', 'deploymentSummary_finalBakeTimeInMinutes' - The amount of time AppConfig monitors for alarms before considering the
--- deployment to be complete and no longer eligible for automatic roll
--- back.
---
--- 'growthType', 'deploymentSummary_growthType' - The algorithm used to define how percentage grows over time.
+-- 'state', 'deploymentSummary_state' - The state of the deployment.
 newDeploymentSummary ::
   DeploymentSummary
 newDeploymentSummary =
   DeploymentSummary'
-    { growthFactor = Prelude.Nothing,
+    { completedAt = Prelude.Nothing,
       configurationName = Prelude.Nothing,
-      state = Prelude.Nothing,
-      deploymentNumber = Prelude.Nothing,
       configurationVersion = Prelude.Nothing,
+      deploymentDurationInMinutes = Prelude.Nothing,
+      deploymentNumber = Prelude.Nothing,
+      finalBakeTimeInMinutes = Prelude.Nothing,
+      growthFactor = Prelude.Nothing,
+      growthType = Prelude.Nothing,
       percentageComplete = Prelude.Nothing,
       startedAt = Prelude.Nothing,
-      deploymentDurationInMinutes = Prelude.Nothing,
-      completedAt = Prelude.Nothing,
-      finalBakeTimeInMinutes = Prelude.Nothing,
-      growthType = Prelude.Nothing
+      state = Prelude.Nothing
     }
+
+-- | Time the deployment completed.
+deploymentSummary_completedAt :: Lens.Lens' DeploymentSummary (Prelude.Maybe Prelude.UTCTime)
+deploymentSummary_completedAt = Lens.lens (\DeploymentSummary' {completedAt} -> completedAt) (\s@DeploymentSummary' {} a -> s {completedAt = a} :: DeploymentSummary) Prelude.. Lens.mapping Data._Time
+
+-- | The name of the configuration.
+deploymentSummary_configurationName :: Lens.Lens' DeploymentSummary (Prelude.Maybe Prelude.Text)
+deploymentSummary_configurationName = Lens.lens (\DeploymentSummary' {configurationName} -> configurationName) (\s@DeploymentSummary' {} a -> s {configurationName = a} :: DeploymentSummary)
+
+-- | The version of the configuration.
+deploymentSummary_configurationVersion :: Lens.Lens' DeploymentSummary (Prelude.Maybe Prelude.Text)
+deploymentSummary_configurationVersion = Lens.lens (\DeploymentSummary' {configurationVersion} -> configurationVersion) (\s@DeploymentSummary' {} a -> s {configurationVersion = a} :: DeploymentSummary)
+
+-- | Total amount of time the deployment lasted.
+deploymentSummary_deploymentDurationInMinutes :: Lens.Lens' DeploymentSummary (Prelude.Maybe Prelude.Natural)
+deploymentSummary_deploymentDurationInMinutes = Lens.lens (\DeploymentSummary' {deploymentDurationInMinutes} -> deploymentDurationInMinutes) (\s@DeploymentSummary' {} a -> s {deploymentDurationInMinutes = a} :: DeploymentSummary)
+
+-- | The sequence number of the deployment.
+deploymentSummary_deploymentNumber :: Lens.Lens' DeploymentSummary (Prelude.Maybe Prelude.Int)
+deploymentSummary_deploymentNumber = Lens.lens (\DeploymentSummary' {deploymentNumber} -> deploymentNumber) (\s@DeploymentSummary' {} a -> s {deploymentNumber = a} :: DeploymentSummary)
+
+-- | The amount of time that AppConfig monitors for alarms before considering
+-- the deployment to be complete and no longer eligible for automatic
+-- rollback.
+deploymentSummary_finalBakeTimeInMinutes :: Lens.Lens' DeploymentSummary (Prelude.Maybe Prelude.Natural)
+deploymentSummary_finalBakeTimeInMinutes = Lens.lens (\DeploymentSummary' {finalBakeTimeInMinutes} -> finalBakeTimeInMinutes) (\s@DeploymentSummary' {} a -> s {finalBakeTimeInMinutes = a} :: DeploymentSummary)
 
 -- | The percentage of targets to receive a deployed configuration during
 -- each interval.
 deploymentSummary_growthFactor :: Lens.Lens' DeploymentSummary (Prelude.Maybe Prelude.Double)
 deploymentSummary_growthFactor = Lens.lens (\DeploymentSummary' {growthFactor} -> growthFactor) (\s@DeploymentSummary' {} a -> s {growthFactor = a} :: DeploymentSummary)
 
--- | The name of the configuration.
-deploymentSummary_configurationName :: Lens.Lens' DeploymentSummary (Prelude.Maybe Prelude.Text)
-deploymentSummary_configurationName = Lens.lens (\DeploymentSummary' {configurationName} -> configurationName) (\s@DeploymentSummary' {} a -> s {configurationName = a} :: DeploymentSummary)
-
--- | The state of the deployment.
-deploymentSummary_state :: Lens.Lens' DeploymentSummary (Prelude.Maybe DeploymentState)
-deploymentSummary_state = Lens.lens (\DeploymentSummary' {state} -> state) (\s@DeploymentSummary' {} a -> s {state = a} :: DeploymentSummary)
-
--- | The sequence number of the deployment.
-deploymentSummary_deploymentNumber :: Lens.Lens' DeploymentSummary (Prelude.Maybe Prelude.Int)
-deploymentSummary_deploymentNumber = Lens.lens (\DeploymentSummary' {deploymentNumber} -> deploymentNumber) (\s@DeploymentSummary' {} a -> s {deploymentNumber = a} :: DeploymentSummary)
-
--- | The version of the configuration.
-deploymentSummary_configurationVersion :: Lens.Lens' DeploymentSummary (Prelude.Maybe Prelude.Text)
-deploymentSummary_configurationVersion = Lens.lens (\DeploymentSummary' {configurationVersion} -> configurationVersion) (\s@DeploymentSummary' {} a -> s {configurationVersion = a} :: DeploymentSummary)
+-- | The algorithm used to define how percentage grows over time.
+deploymentSummary_growthType :: Lens.Lens' DeploymentSummary (Prelude.Maybe GrowthType)
+deploymentSummary_growthType = Lens.lens (\DeploymentSummary' {growthType} -> growthType) (\s@DeploymentSummary' {} a -> s {growthType = a} :: DeploymentSummary)
 
 -- | The percentage of targets for which the deployment is available.
 deploymentSummary_percentageComplete :: Lens.Lens' DeploymentSummary (Prelude.Maybe Prelude.Double)
@@ -133,69 +148,55 @@ deploymentSummary_percentageComplete = Lens.lens (\DeploymentSummary' {percentag
 
 -- | Time the deployment started.
 deploymentSummary_startedAt :: Lens.Lens' DeploymentSummary (Prelude.Maybe Prelude.UTCTime)
-deploymentSummary_startedAt = Lens.lens (\DeploymentSummary' {startedAt} -> startedAt) (\s@DeploymentSummary' {} a -> s {startedAt = a} :: DeploymentSummary) Prelude.. Lens.mapping Core._Time
+deploymentSummary_startedAt = Lens.lens (\DeploymentSummary' {startedAt} -> startedAt) (\s@DeploymentSummary' {} a -> s {startedAt = a} :: DeploymentSummary) Prelude.. Lens.mapping Data._Time
 
--- | Total amount of time the deployment lasted.
-deploymentSummary_deploymentDurationInMinutes :: Lens.Lens' DeploymentSummary (Prelude.Maybe Prelude.Natural)
-deploymentSummary_deploymentDurationInMinutes = Lens.lens (\DeploymentSummary' {deploymentDurationInMinutes} -> deploymentDurationInMinutes) (\s@DeploymentSummary' {} a -> s {deploymentDurationInMinutes = a} :: DeploymentSummary)
+-- | The state of the deployment.
+deploymentSummary_state :: Lens.Lens' DeploymentSummary (Prelude.Maybe DeploymentState)
+deploymentSummary_state = Lens.lens (\DeploymentSummary' {state} -> state) (\s@DeploymentSummary' {} a -> s {state = a} :: DeploymentSummary)
 
--- | Time the deployment completed.
-deploymentSummary_completedAt :: Lens.Lens' DeploymentSummary (Prelude.Maybe Prelude.UTCTime)
-deploymentSummary_completedAt = Lens.lens (\DeploymentSummary' {completedAt} -> completedAt) (\s@DeploymentSummary' {} a -> s {completedAt = a} :: DeploymentSummary) Prelude.. Lens.mapping Core._Time
-
--- | The amount of time AppConfig monitors for alarms before considering the
--- deployment to be complete and no longer eligible for automatic roll
--- back.
-deploymentSummary_finalBakeTimeInMinutes :: Lens.Lens' DeploymentSummary (Prelude.Maybe Prelude.Natural)
-deploymentSummary_finalBakeTimeInMinutes = Lens.lens (\DeploymentSummary' {finalBakeTimeInMinutes} -> finalBakeTimeInMinutes) (\s@DeploymentSummary' {} a -> s {finalBakeTimeInMinutes = a} :: DeploymentSummary)
-
--- | The algorithm used to define how percentage grows over time.
-deploymentSummary_growthType :: Lens.Lens' DeploymentSummary (Prelude.Maybe GrowthType)
-deploymentSummary_growthType = Lens.lens (\DeploymentSummary' {growthType} -> growthType) (\s@DeploymentSummary' {} a -> s {growthType = a} :: DeploymentSummary)
-
-instance Core.FromJSON DeploymentSummary where
+instance Data.FromJSON DeploymentSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DeploymentSummary"
       ( \x ->
           DeploymentSummary'
-            Prelude.<$> (x Core..:? "GrowthFactor")
-            Prelude.<*> (x Core..:? "ConfigurationName")
-            Prelude.<*> (x Core..:? "State")
-            Prelude.<*> (x Core..:? "DeploymentNumber")
-            Prelude.<*> (x Core..:? "ConfigurationVersion")
-            Prelude.<*> (x Core..:? "PercentageComplete")
-            Prelude.<*> (x Core..:? "StartedAt")
-            Prelude.<*> (x Core..:? "DeploymentDurationInMinutes")
-            Prelude.<*> (x Core..:? "CompletedAt")
-            Prelude.<*> (x Core..:? "FinalBakeTimeInMinutes")
-            Prelude.<*> (x Core..:? "GrowthType")
+            Prelude.<$> (x Data..:? "CompletedAt")
+            Prelude.<*> (x Data..:? "ConfigurationName")
+            Prelude.<*> (x Data..:? "ConfigurationVersion")
+            Prelude.<*> (x Data..:? "DeploymentDurationInMinutes")
+            Prelude.<*> (x Data..:? "DeploymentNumber")
+            Prelude.<*> (x Data..:? "FinalBakeTimeInMinutes")
+            Prelude.<*> (x Data..:? "GrowthFactor")
+            Prelude.<*> (x Data..:? "GrowthType")
+            Prelude.<*> (x Data..:? "PercentageComplete")
+            Prelude.<*> (x Data..:? "StartedAt")
+            Prelude.<*> (x Data..:? "State")
       )
 
 instance Prelude.Hashable DeploymentSummary where
   hashWithSalt _salt DeploymentSummary' {..} =
-    _salt `Prelude.hashWithSalt` growthFactor
+    _salt `Prelude.hashWithSalt` completedAt
       `Prelude.hashWithSalt` configurationName
-      `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` deploymentNumber
       `Prelude.hashWithSalt` configurationVersion
+      `Prelude.hashWithSalt` deploymentDurationInMinutes
+      `Prelude.hashWithSalt` deploymentNumber
+      `Prelude.hashWithSalt` finalBakeTimeInMinutes
+      `Prelude.hashWithSalt` growthFactor
+      `Prelude.hashWithSalt` growthType
       `Prelude.hashWithSalt` percentageComplete
       `Prelude.hashWithSalt` startedAt
-      `Prelude.hashWithSalt` deploymentDurationInMinutes
-      `Prelude.hashWithSalt` completedAt
-      `Prelude.hashWithSalt` finalBakeTimeInMinutes
-      `Prelude.hashWithSalt` growthType
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData DeploymentSummary where
   rnf DeploymentSummary' {..} =
-    Prelude.rnf growthFactor
+    Prelude.rnf completedAt
       `Prelude.seq` Prelude.rnf configurationName
-      `Prelude.seq` Prelude.rnf state
-      `Prelude.seq` Prelude.rnf deploymentNumber
       `Prelude.seq` Prelude.rnf configurationVersion
+      `Prelude.seq` Prelude.rnf deploymentDurationInMinutes
+      `Prelude.seq` Prelude.rnf deploymentNumber
+      `Prelude.seq` Prelude.rnf finalBakeTimeInMinutes
+      `Prelude.seq` Prelude.rnf growthFactor
+      `Prelude.seq` Prelude.rnf growthType
       `Prelude.seq` Prelude.rnf percentageComplete
       `Prelude.seq` Prelude.rnf startedAt
-      `Prelude.seq` Prelude.rnf deploymentDurationInMinutes
-      `Prelude.seq` Prelude.rnf completedAt
-      `Prelude.seq` Prelude.rnf finalBakeTimeInMinutes
-      `Prelude.seq` Prelude.rnf growthType
+      `Prelude.seq` Prelude.rnf state

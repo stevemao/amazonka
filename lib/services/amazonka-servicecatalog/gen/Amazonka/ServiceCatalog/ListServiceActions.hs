@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.ListServiceActions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.ServiceCatalog.ListServiceActions
 
     -- * Request Lenses
     listServiceActions_acceptLanguage,
-    listServiceActions_pageToken,
     listServiceActions_pageSize,
+    listServiceActions_pageToken,
 
     -- * Destructuring the Response
     ListServiceActionsResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.ServiceCatalog.ListServiceActions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,11 +62,11 @@ data ListServiceActions = ListServiceActions'
     --
     -- -   @zh@ - Chinese
     acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The page token for the next set of results. To retrieve the first set of
     -- results, use null.
-    pageToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call.
-    pageSize :: Prelude.Maybe Prelude.Natural
+    pageToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -85,18 +86,18 @@ data ListServiceActions = ListServiceActions'
 --
 -- -   @zh@ - Chinese
 --
+-- 'pageSize', 'listServiceActions_pageSize' - The maximum number of items to return with this call.
+--
 -- 'pageToken', 'listServiceActions_pageToken' - The page token for the next set of results. To retrieve the first set of
 -- results, use null.
---
--- 'pageSize', 'listServiceActions_pageSize' - The maximum number of items to return with this call.
 newListServiceActions ::
   ListServiceActions
 newListServiceActions =
   ListServiceActions'
     { acceptLanguage =
         Prelude.Nothing,
-      pageToken = Prelude.Nothing,
-      pageSize = Prelude.Nothing
+      pageSize = Prelude.Nothing,
+      pageToken = Prelude.Nothing
     }
 
 -- | The language code.
@@ -109,14 +110,14 @@ newListServiceActions =
 listServiceActions_acceptLanguage :: Lens.Lens' ListServiceActions (Prelude.Maybe Prelude.Text)
 listServiceActions_acceptLanguage = Lens.lens (\ListServiceActions' {acceptLanguage} -> acceptLanguage) (\s@ListServiceActions' {} a -> s {acceptLanguage = a} :: ListServiceActions)
 
+-- | The maximum number of items to return with this call.
+listServiceActions_pageSize :: Lens.Lens' ListServiceActions (Prelude.Maybe Prelude.Natural)
+listServiceActions_pageSize = Lens.lens (\ListServiceActions' {pageSize} -> pageSize) (\s@ListServiceActions' {} a -> s {pageSize = a} :: ListServiceActions)
+
 -- | The page token for the next set of results. To retrieve the first set of
 -- results, use null.
 listServiceActions_pageToken :: Lens.Lens' ListServiceActions (Prelude.Maybe Prelude.Text)
 listServiceActions_pageToken = Lens.lens (\ListServiceActions' {pageToken} -> pageToken) (\s@ListServiceActions' {} a -> s {pageToken = a} :: ListServiceActions)
-
--- | The maximum number of items to return with this call.
-listServiceActions_pageSize :: Lens.Lens' ListServiceActions (Prelude.Maybe Prelude.Natural)
-listServiceActions_pageSize = Lens.lens (\ListServiceActions' {pageSize} -> pageSize) (\s@ListServiceActions' {} a -> s {pageSize = a} :: ListServiceActions)
 
 instance Core.AWSPager ListServiceActions where
   page rq rs
@@ -144,13 +145,14 @@ instance Core.AWSRequest ListServiceActions where
   type
     AWSResponse ListServiceActions =
       ListServiceActionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListServiceActionsResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-            Prelude.<*> ( x Core..?> "ServiceActionSummaries"
+            Prelude.<$> (x Data..?> "NextPageToken")
+            Prelude.<*> ( x Data..?> "ServiceActionSummaries"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -159,45 +161,45 @@ instance Core.AWSRequest ListServiceActions where
 instance Prelude.Hashable ListServiceActions where
   hashWithSalt _salt ListServiceActions' {..} =
     _salt `Prelude.hashWithSalt` acceptLanguage
-      `Prelude.hashWithSalt` pageToken
       `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` pageToken
 
 instance Prelude.NFData ListServiceActions where
   rnf ListServiceActions' {..} =
     Prelude.rnf acceptLanguage
-      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf pageToken
 
-instance Core.ToHeaders ListServiceActions where
+instance Data.ToHeaders ListServiceActions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.ListServiceActions" ::
+              Data.=# ( "AWS242ServiceCatalogService.ListServiceActions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListServiceActions where
+instance Data.ToJSON ListServiceActions where
   toJSON ListServiceActions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("PageToken" Core..=) Prelude.<$> pageToken,
-            ("PageSize" Core..=) Prelude.<$> pageSize
+            ("PageSize" Data..=) Prelude.<$> pageSize,
+            ("PageToken" Data..=) Prelude.<$> pageToken
           ]
       )
 
-instance Core.ToPath ListServiceActions where
+instance Data.ToPath ListServiceActions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListServiceActions where
+instance Data.ToQuery ListServiceActions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListServiceActionsResponse' smart constructor.

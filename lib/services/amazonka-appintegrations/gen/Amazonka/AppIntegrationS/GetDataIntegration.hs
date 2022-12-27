@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppIntegrationS.GetDataIntegration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,13 +40,13 @@ module Amazonka.AppIntegrationS.GetDataIntegration
     newGetDataIntegrationResponse,
 
     -- * Response Lenses
-    getDataIntegrationResponse_kmsKey,
     getDataIntegrationResponse_arn,
-    getDataIntegrationResponse_scheduleConfiguration,
-    getDataIntegrationResponse_name,
-    getDataIntegrationResponse_id,
-    getDataIntegrationResponse_sourceURI,
     getDataIntegrationResponse_description,
+    getDataIntegrationResponse_id,
+    getDataIntegrationResponse_kmsKey,
+    getDataIntegrationResponse_name,
+    getDataIntegrationResponse_scheduleConfiguration,
+    getDataIntegrationResponse_sourceURI,
     getDataIntegrationResponse_tags,
     getDataIntegrationResponse_httpStatus,
   )
@@ -54,7 +54,8 @@ where
 
 import Amazonka.AppIntegrationS.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,19 +91,20 @@ instance Core.AWSRequest GetDataIntegration where
   type
     AWSResponse GetDataIntegration =
       GetDataIntegrationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDataIntegrationResponse'
-            Prelude.<$> (x Core..?> "KmsKey")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "ScheduleConfiguration")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "Id")
-            Prelude.<*> (x Core..?> "SourceURI")
-            Prelude.<*> (x Core..?> "Description")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "Description")
+            Prelude.<*> (x Data..?> "Id")
+            Prelude.<*> (x Data..?> "KmsKey")
+            Prelude.<*> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "ScheduleConfiguration")
+            Prelude.<*> (x Data..?> "SourceURI")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,41 +115,41 @@ instance Prelude.Hashable GetDataIntegration where
 instance Prelude.NFData GetDataIntegration where
   rnf GetDataIntegration' {..} = Prelude.rnf identifier
 
-instance Core.ToHeaders GetDataIntegration where
+instance Data.ToHeaders GetDataIntegration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetDataIntegration where
+instance Data.ToPath GetDataIntegration where
   toPath GetDataIntegration' {..} =
     Prelude.mconcat
-      ["/dataIntegrations/", Core.toBS identifier]
+      ["/dataIntegrations/", Data.toBS identifier]
 
-instance Core.ToQuery GetDataIntegration where
+instance Data.ToQuery GetDataIntegration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDataIntegrationResponse' smart constructor.
 data GetDataIntegrationResponse = GetDataIntegrationResponse'
-  { -- | The KMS key for the DataIntegration.
-    kmsKey :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) for the DataIntegration.
+  { -- | The Amazon Resource Name (ARN) for the DataIntegration.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the data and how often it should be pulled from the source.
-    scheduleConfiguration :: Prelude.Maybe ScheduleConfiguration,
-    -- | The name of the DataIntegration.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | A unique identifier.
-    id :: Prelude.Maybe Prelude.Text,
-    -- | The URI of the data source.
-    sourceURI :: Prelude.Maybe Prelude.Text,
     -- | The KMS key for the DataIntegration.
     description :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The KMS key for the DataIntegration.
+    kmsKey :: Prelude.Maybe Prelude.Text,
+    -- | The name of the DataIntegration.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The name of the data and how often it should be pulled from the source.
+    scheduleConfiguration :: Prelude.Maybe ScheduleConfiguration,
+    -- | The URI of the data source.
+    sourceURI :: Prelude.Maybe Prelude.Text,
     -- | One or more tags.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
@@ -163,19 +165,19 @@ data GetDataIntegrationResponse = GetDataIntegrationResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'kmsKey', 'getDataIntegrationResponse_kmsKey' - The KMS key for the DataIntegration.
---
 -- 'arn', 'getDataIntegrationResponse_arn' - The Amazon Resource Name (ARN) for the DataIntegration.
 --
--- 'scheduleConfiguration', 'getDataIntegrationResponse_scheduleConfiguration' - The name of the data and how often it should be pulled from the source.
---
--- 'name', 'getDataIntegrationResponse_name' - The name of the DataIntegration.
+-- 'description', 'getDataIntegrationResponse_description' - The KMS key for the DataIntegration.
 --
 -- 'id', 'getDataIntegrationResponse_id' - A unique identifier.
 --
--- 'sourceURI', 'getDataIntegrationResponse_sourceURI' - The URI of the data source.
+-- 'kmsKey', 'getDataIntegrationResponse_kmsKey' - The KMS key for the DataIntegration.
 --
--- 'description', 'getDataIntegrationResponse_description' - The KMS key for the DataIntegration.
+-- 'name', 'getDataIntegrationResponse_name' - The name of the DataIntegration.
+--
+-- 'scheduleConfiguration', 'getDataIntegrationResponse_scheduleConfiguration' - The name of the data and how often it should be pulled from the source.
+--
+-- 'sourceURI', 'getDataIntegrationResponse_sourceURI' - The URI of the data source.
 --
 -- 'tags', 'getDataIntegrationResponse_tags' - One or more tags.
 --
@@ -186,45 +188,44 @@ newGetDataIntegrationResponse ::
   GetDataIntegrationResponse
 newGetDataIntegrationResponse pHttpStatus_ =
   GetDataIntegrationResponse'
-    { kmsKey =
-        Prelude.Nothing,
-      arn = Prelude.Nothing,
-      scheduleConfiguration = Prelude.Nothing,
-      name = Prelude.Nothing,
-      id = Prelude.Nothing,
-      sourceURI = Prelude.Nothing,
+    { arn = Prelude.Nothing,
       description = Prelude.Nothing,
+      id = Prelude.Nothing,
+      kmsKey = Prelude.Nothing,
+      name = Prelude.Nothing,
+      scheduleConfiguration = Prelude.Nothing,
+      sourceURI = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The KMS key for the DataIntegration.
-getDataIntegrationResponse_kmsKey :: Lens.Lens' GetDataIntegrationResponse (Prelude.Maybe Prelude.Text)
-getDataIntegrationResponse_kmsKey = Lens.lens (\GetDataIntegrationResponse' {kmsKey} -> kmsKey) (\s@GetDataIntegrationResponse' {} a -> s {kmsKey = a} :: GetDataIntegrationResponse)
 
 -- | The Amazon Resource Name (ARN) for the DataIntegration.
 getDataIntegrationResponse_arn :: Lens.Lens' GetDataIntegrationResponse (Prelude.Maybe Prelude.Text)
 getDataIntegrationResponse_arn = Lens.lens (\GetDataIntegrationResponse' {arn} -> arn) (\s@GetDataIntegrationResponse' {} a -> s {arn = a} :: GetDataIntegrationResponse)
 
--- | The name of the data and how often it should be pulled from the source.
-getDataIntegrationResponse_scheduleConfiguration :: Lens.Lens' GetDataIntegrationResponse (Prelude.Maybe ScheduleConfiguration)
-getDataIntegrationResponse_scheduleConfiguration = Lens.lens (\GetDataIntegrationResponse' {scheduleConfiguration} -> scheduleConfiguration) (\s@GetDataIntegrationResponse' {} a -> s {scheduleConfiguration = a} :: GetDataIntegrationResponse)
-
--- | The name of the DataIntegration.
-getDataIntegrationResponse_name :: Lens.Lens' GetDataIntegrationResponse (Prelude.Maybe Prelude.Text)
-getDataIntegrationResponse_name = Lens.lens (\GetDataIntegrationResponse' {name} -> name) (\s@GetDataIntegrationResponse' {} a -> s {name = a} :: GetDataIntegrationResponse)
+-- | The KMS key for the DataIntegration.
+getDataIntegrationResponse_description :: Lens.Lens' GetDataIntegrationResponse (Prelude.Maybe Prelude.Text)
+getDataIntegrationResponse_description = Lens.lens (\GetDataIntegrationResponse' {description} -> description) (\s@GetDataIntegrationResponse' {} a -> s {description = a} :: GetDataIntegrationResponse)
 
 -- | A unique identifier.
 getDataIntegrationResponse_id :: Lens.Lens' GetDataIntegrationResponse (Prelude.Maybe Prelude.Text)
 getDataIntegrationResponse_id = Lens.lens (\GetDataIntegrationResponse' {id} -> id) (\s@GetDataIntegrationResponse' {} a -> s {id = a} :: GetDataIntegrationResponse)
 
+-- | The KMS key for the DataIntegration.
+getDataIntegrationResponse_kmsKey :: Lens.Lens' GetDataIntegrationResponse (Prelude.Maybe Prelude.Text)
+getDataIntegrationResponse_kmsKey = Lens.lens (\GetDataIntegrationResponse' {kmsKey} -> kmsKey) (\s@GetDataIntegrationResponse' {} a -> s {kmsKey = a} :: GetDataIntegrationResponse)
+
+-- | The name of the DataIntegration.
+getDataIntegrationResponse_name :: Lens.Lens' GetDataIntegrationResponse (Prelude.Maybe Prelude.Text)
+getDataIntegrationResponse_name = Lens.lens (\GetDataIntegrationResponse' {name} -> name) (\s@GetDataIntegrationResponse' {} a -> s {name = a} :: GetDataIntegrationResponse)
+
+-- | The name of the data and how often it should be pulled from the source.
+getDataIntegrationResponse_scheduleConfiguration :: Lens.Lens' GetDataIntegrationResponse (Prelude.Maybe ScheduleConfiguration)
+getDataIntegrationResponse_scheduleConfiguration = Lens.lens (\GetDataIntegrationResponse' {scheduleConfiguration} -> scheduleConfiguration) (\s@GetDataIntegrationResponse' {} a -> s {scheduleConfiguration = a} :: GetDataIntegrationResponse)
+
 -- | The URI of the data source.
 getDataIntegrationResponse_sourceURI :: Lens.Lens' GetDataIntegrationResponse (Prelude.Maybe Prelude.Text)
 getDataIntegrationResponse_sourceURI = Lens.lens (\GetDataIntegrationResponse' {sourceURI} -> sourceURI) (\s@GetDataIntegrationResponse' {} a -> s {sourceURI = a} :: GetDataIntegrationResponse)
-
--- | The KMS key for the DataIntegration.
-getDataIntegrationResponse_description :: Lens.Lens' GetDataIntegrationResponse (Prelude.Maybe Prelude.Text)
-getDataIntegrationResponse_description = Lens.lens (\GetDataIntegrationResponse' {description} -> description) (\s@GetDataIntegrationResponse' {} a -> s {description = a} :: GetDataIntegrationResponse)
 
 -- | One or more tags.
 getDataIntegrationResponse_tags :: Lens.Lens' GetDataIntegrationResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -236,12 +237,12 @@ getDataIntegrationResponse_httpStatus = Lens.lens (\GetDataIntegrationResponse' 
 
 instance Prelude.NFData GetDataIntegrationResponse where
   rnf GetDataIntegrationResponse' {..} =
-    Prelude.rnf kmsKey
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf scheduleConfiguration
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf id
-      `Prelude.seq` Prelude.rnf sourceURI
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf kmsKey
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf scheduleConfiguration
+      `Prelude.seq` Prelude.rnf sourceURI
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

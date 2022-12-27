@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.AllocateHostedConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,34 +48,35 @@ module Amazonka.DirectConnect.AllocateHostedConnection
     newConnection,
 
     -- * Response Lenses
-    connection_lagId,
-    connection_macSecCapable,
-    connection_portEncryptionStatus,
-    connection_vlan,
-    connection_location,
     connection_awsDevice,
-    connection_hasLogicalRedundancy,
-    connection_connectionId,
-    connection_awsLogicalDeviceId,
-    connection_loaIssueTime,
-    connection_partnerName,
-    connection_connectionName,
-    connection_encryptionMode,
-    connection_bandwidth,
-    connection_jumboFrameCapable,
-    connection_ownerAccount,
-    connection_region,
-    connection_macSecKeys,
-    connection_providerName,
     connection_awsDeviceV2,
+    connection_awsLogicalDeviceId,
+    connection_bandwidth,
+    connection_connectionId,
+    connection_connectionName,
     connection_connectionState,
+    connection_encryptionMode,
+    connection_hasLogicalRedundancy,
+    connection_jumboFrameCapable,
+    connection_lagId,
+    connection_loaIssueTime,
+    connection_location,
+    connection_macSecCapable,
+    connection_macSecKeys,
+    connection_ownerAccount,
+    connection_partnerName,
+    connection_portEncryptionStatus,
+    connection_providerName,
+    connection_region,
     connection_tags,
+    connection_vlan,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -186,10 +187,11 @@ instance Core.AWSRequest AllocateHostedConnection where
   type
     AWSResponse AllocateHostedConnection =
       Connection
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable AllocateHostedConnection where
   hashWithSalt _salt AllocateHostedConnection' {..} =
@@ -209,37 +211,37 @@ instance Prelude.NFData AllocateHostedConnection where
       `Prelude.seq` Prelude.rnf connectionName
       `Prelude.seq` Prelude.rnf vlan
 
-instance Core.ToHeaders AllocateHostedConnection where
+instance Data.ToHeaders AllocateHostedConnection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.AllocateHostedConnection" ::
+              Data.=# ( "OvertureService.AllocateHostedConnection" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AllocateHostedConnection where
+instance Data.ToJSON AllocateHostedConnection where
   toJSON AllocateHostedConnection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("connectionId" Core..= connectionId),
-            Prelude.Just ("ownerAccount" Core..= ownerAccount),
-            Prelude.Just ("bandwidth" Core..= bandwidth),
+          [ ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("connectionId" Data..= connectionId),
+            Prelude.Just ("ownerAccount" Data..= ownerAccount),
+            Prelude.Just ("bandwidth" Data..= bandwidth),
             Prelude.Just
-              ("connectionName" Core..= connectionName),
-            Prelude.Just ("vlan" Core..= vlan)
+              ("connectionName" Data..= connectionName),
+            Prelude.Just ("vlan" Data..= vlan)
           ]
       )
 
-instance Core.ToPath AllocateHostedConnection where
+instance Data.ToPath AllocateHostedConnection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AllocateHostedConnection where
+instance Data.ToQuery AllocateHostedConnection where
   toQuery = Prelude.const Prelude.mempty

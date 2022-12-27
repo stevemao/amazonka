@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.UpdateApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.ElasticBeanstalk.UpdateApplication
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,11 +106,12 @@ instance Core.AWSRequest UpdateApplication where
   type
     AWSResponse UpdateApplication =
       ApplicationDescriptionMessage
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "UpdateApplicationResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable UpdateApplication where
   hashWithSalt _salt UpdateApplication' {..} =
@@ -121,19 +123,19 @@ instance Prelude.NFData UpdateApplication where
     Prelude.rnf description
       `Prelude.seq` Prelude.rnf applicationName
 
-instance Core.ToHeaders UpdateApplication where
+instance Data.ToHeaders UpdateApplication where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UpdateApplication where
+instance Data.ToPath UpdateApplication where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateApplication where
+instance Data.ToQuery UpdateApplication where
   toQuery UpdateApplication' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("UpdateApplication" :: Prelude.ByteString),
+          Data.=: ("UpdateApplication" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "Description" Core.=: description,
-        "ApplicationName" Core.=: applicationName
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "Description" Data.=: description,
+        "ApplicationName" Data.=: applicationName
       ]

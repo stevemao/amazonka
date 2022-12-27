@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.Types.ServiceFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53AutoNaming.Types.ServiceFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53AutoNaming.Types.FilterCondition
 import Amazonka.Route53AutoNaming.Types.ServiceFilterName
@@ -36,12 +37,6 @@ data ServiceFilter = ServiceFilter'
     --
     -- -   @EQ@: When you specify @EQ@, specify one namespace ID for @Values@.
     --     @EQ@ is the default condition and can be omitted.
-    --
-    -- -   @IN@: When you specify @IN@, specify a list of the IDs for the
-    --     namespaces that you want @ListServices@ to return a list of services
-    --     for.
-    --
-    -- -   @BETWEEN@: Not applicable.
     condition :: Prelude.Maybe FilterCondition,
     -- | Specify @NAMESPACE_ID@.
     name :: ServiceFilterName,
@@ -66,12 +61,6 @@ data ServiceFilter = ServiceFilter'
 -- -   @EQ@: When you specify @EQ@, specify one namespace ID for @Values@.
 --     @EQ@ is the default condition and can be omitted.
 --
--- -   @IN@: When you specify @IN@, specify a list of the IDs for the
---     namespaces that you want @ListServices@ to return a list of services
---     for.
---
--- -   @BETWEEN@: Not applicable.
---
 -- 'name', 'serviceFilter_name' - Specify @NAMESPACE_ID@.
 --
 -- 'values', 'serviceFilter_values' - The values that are applicable to the value that you specify for
@@ -93,12 +82,6 @@ newServiceFilter pName_ =
 --
 -- -   @EQ@: When you specify @EQ@, specify one namespace ID for @Values@.
 --     @EQ@ is the default condition and can be omitted.
---
--- -   @IN@: When you specify @IN@, specify a list of the IDs for the
---     namespaces that you want @ListServices@ to return a list of services
---     for.
---
--- -   @BETWEEN@: Not applicable.
 serviceFilter_condition :: Lens.Lens' ServiceFilter (Prelude.Maybe FilterCondition)
 serviceFilter_condition = Lens.lens (\ServiceFilter' {condition} -> condition) (\s@ServiceFilter' {} a -> s {condition = a} :: ServiceFilter)
 
@@ -123,12 +106,12 @@ instance Prelude.NFData ServiceFilter where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON ServiceFilter where
+instance Data.ToJSON ServiceFilter where
   toJSON ServiceFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Condition" Core..=) Prelude.<$> condition,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Values" Core..= values)
+          [ ("Condition" Data..=) Prelude.<$> condition,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Values" Data..= values)
           ]
       )

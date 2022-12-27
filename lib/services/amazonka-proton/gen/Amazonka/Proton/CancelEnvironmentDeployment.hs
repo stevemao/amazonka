@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.CancelEnvironmentDeployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,8 +22,8 @@
 --
 -- Attempts to cancel an environment deployment on an UpdateEnvironment
 -- action, if the deployment is @IN_PROGRESS@. For more information, see
--- <https://docs.aws.amazon.com/proton/latest/adminguide/ag-env-update.html Update an environment>
--- in the /AWS Proton Administrator guide/.
+-- <https://docs.aws.amazon.com/proton/latest/userguide/ag-env-update.html Update an environment>
+-- in the /Proton User guide/.
 --
 -- The following list includes potential cancellation scenarios.
 --
@@ -55,7 +55,8 @@ module Amazonka.Proton.CancelEnvironmentDeployment
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -95,13 +96,14 @@ instance Core.AWSRequest CancelEnvironmentDeployment where
   type
     AWSResponse CancelEnvironmentDeployment =
       CancelEnvironmentDeploymentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CancelEnvironmentDeploymentResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "environment")
+            Prelude.<*> (x Data..:> "environment")
       )
 
 instance Prelude.Hashable CancelEnvironmentDeployment where
@@ -112,41 +114,41 @@ instance Prelude.NFData CancelEnvironmentDeployment where
   rnf CancelEnvironmentDeployment' {..} =
     Prelude.rnf environmentName
 
-instance Core.ToHeaders CancelEnvironmentDeployment where
+instance Data.ToHeaders CancelEnvironmentDeployment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.CancelEnvironmentDeployment" ::
+              Data.=# ( "AwsProton20200720.CancelEnvironmentDeployment" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CancelEnvironmentDeployment where
+instance Data.ToJSON CancelEnvironmentDeployment where
   toJSON CancelEnvironmentDeployment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("environmentName" Core..= environmentName)
+              ("environmentName" Data..= environmentName)
           ]
       )
 
-instance Core.ToPath CancelEnvironmentDeployment where
+instance Data.ToPath CancelEnvironmentDeployment where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelEnvironmentDeployment where
+instance Data.ToQuery CancelEnvironmentDeployment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCancelEnvironmentDeploymentResponse' smart constructor.
 data CancelEnvironmentDeploymentResponse = CancelEnvironmentDeploymentResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | The environment summary data that\'s returned by AWS Proton.
+    -- | The environment summary data that\'s returned by Proton.
     environment :: Environment
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -161,7 +163,7 @@ data CancelEnvironmentDeploymentResponse = CancelEnvironmentDeploymentResponse'
 --
 -- 'httpStatus', 'cancelEnvironmentDeploymentResponse_httpStatus' - The response's http status code.
 --
--- 'environment', 'cancelEnvironmentDeploymentResponse_environment' - The environment summary data that\'s returned by AWS Proton.
+-- 'environment', 'cancelEnvironmentDeploymentResponse_environment' - The environment summary data that\'s returned by Proton.
 newCancelEnvironmentDeploymentResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -181,7 +183,7 @@ newCancelEnvironmentDeploymentResponse
 cancelEnvironmentDeploymentResponse_httpStatus :: Lens.Lens' CancelEnvironmentDeploymentResponse Prelude.Int
 cancelEnvironmentDeploymentResponse_httpStatus = Lens.lens (\CancelEnvironmentDeploymentResponse' {httpStatus} -> httpStatus) (\s@CancelEnvironmentDeploymentResponse' {} a -> s {httpStatus = a} :: CancelEnvironmentDeploymentResponse)
 
--- | The environment summary data that\'s returned by AWS Proton.
+-- | The environment summary data that\'s returned by Proton.
 cancelEnvironmentDeploymentResponse_environment :: Lens.Lens' CancelEnvironmentDeploymentResponse Environment
 cancelEnvironmentDeploymentResponse_environment = Lens.lens (\CancelEnvironmentDeploymentResponse' {environment} -> environment) (\s@CancelEnvironmentDeploymentResponse' {} a -> s {environment = a} :: CancelEnvironmentDeploymentResponse)
 

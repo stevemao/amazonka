@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.TargetReservationValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.EC2.Types.TargetReservationValue where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ReservationValue
 import Amazonka.EC2.Types.TargetConfiguration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The total value of the new Convertible Reserved Instances.
@@ -74,11 +75,11 @@ targetReservationValue_reservationValue = Lens.lens (\TargetReservationValue' {r
 targetReservationValue_targetConfiguration :: Lens.Lens' TargetReservationValue (Prelude.Maybe TargetConfiguration)
 targetReservationValue_targetConfiguration = Lens.lens (\TargetReservationValue' {targetConfiguration} -> targetConfiguration) (\s@TargetReservationValue' {} a -> s {targetConfiguration = a} :: TargetReservationValue)
 
-instance Core.FromXML TargetReservationValue where
+instance Data.FromXML TargetReservationValue where
   parseXML x =
     TargetReservationValue'
-      Prelude.<$> (x Core..@? "reservationValue")
-      Prelude.<*> (x Core..@? "targetConfiguration")
+      Prelude.<$> (x Data..@? "reservationValue")
+      Prelude.<*> (x Data..@? "targetConfiguration")
 
 instance Prelude.Hashable TargetReservationValue where
   hashWithSalt _salt TargetReservationValue' {..} =

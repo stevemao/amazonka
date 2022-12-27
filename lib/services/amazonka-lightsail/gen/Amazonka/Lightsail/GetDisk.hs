@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetDisk
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Lightsail.GetDisk
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -75,12 +76,13 @@ getDisk_diskName = Lens.lens (\GetDisk' {diskName} -> diskName) (\s@GetDisk' {} 
 
 instance Core.AWSRequest GetDisk where
   type AWSResponse GetDisk = GetDiskResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDiskResponse'
-            Prelude.<$> (x Core..?> "disk")
+            Prelude.<$> (x Data..?> "disk")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -91,30 +93,30 @@ instance Prelude.Hashable GetDisk where
 instance Prelude.NFData GetDisk where
   rnf GetDisk' {..} = Prelude.rnf diskName
 
-instance Core.ToHeaders GetDisk where
+instance Data.ToHeaders GetDisk where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("Lightsail_20161128.GetDisk" :: Prelude.ByteString),
+              Data.=# ("Lightsail_20161128.GetDisk" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetDisk where
+instance Data.ToJSON GetDisk where
   toJSON GetDisk' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("diskName" Core..= diskName)]
+          [Prelude.Just ("diskName" Data..= diskName)]
       )
 
-instance Core.ToPath GetDisk where
+instance Data.ToPath GetDisk where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetDisk where
+instance Data.ToQuery GetDisk where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDiskResponse' smart constructor.

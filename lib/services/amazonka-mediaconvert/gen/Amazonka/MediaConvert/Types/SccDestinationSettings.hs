@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.SccDestinationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.SccDestinationSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.SccDestinationFramerate
 import qualified Amazonka.Prelude as Prelude
 
@@ -75,13 +76,13 @@ newSccDestinationSettings =
 sccDestinationSettings_framerate :: Lens.Lens' SccDestinationSettings (Prelude.Maybe SccDestinationFramerate)
 sccDestinationSettings_framerate = Lens.lens (\SccDestinationSettings' {framerate} -> framerate) (\s@SccDestinationSettings' {} a -> s {framerate = a} :: SccDestinationSettings)
 
-instance Core.FromJSON SccDestinationSettings where
+instance Data.FromJSON SccDestinationSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SccDestinationSettings"
       ( \x ->
           SccDestinationSettings'
-            Prelude.<$> (x Core..:? "framerate")
+            Prelude.<$> (x Data..:? "framerate")
       )
 
 instance Prelude.Hashable SccDestinationSettings where
@@ -92,9 +93,9 @@ instance Prelude.NFData SccDestinationSettings where
   rnf SccDestinationSettings' {..} =
     Prelude.rnf framerate
 
-instance Core.ToJSON SccDestinationSettings where
+instance Data.ToJSON SccDestinationSettings where
   toJSON SccDestinationSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("framerate" Core..=) Prelude.<$> framerate]
+          [("framerate" Data..=) Prelude.<$> framerate]
       )

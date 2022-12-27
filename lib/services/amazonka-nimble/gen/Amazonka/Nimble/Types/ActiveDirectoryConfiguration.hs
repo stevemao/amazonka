@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.Types.ActiveDirectoryConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Nimble.Types.ActiveDirectoryConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types.ActiveDirectoryComputerAttribute
 import qualified Amazonka.Prelude as Prelude
 
@@ -29,16 +30,16 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newActiveDirectoryConfiguration' smart constructor.
 data ActiveDirectoryConfiguration = ActiveDirectoryConfiguration'
-  { -- | The directory ID of the Directory Service for Microsoft Active Directory
+  { -- | A collection of custom attributes for an Active Directory computer.
+    computerAttributes :: Prelude.Maybe (Data.Sensitive [ActiveDirectoryComputerAttribute]),
+    -- | The directory ID of the Directory Service for Microsoft Active Directory
     -- to access using this studio component.
     directoryId :: Prelude.Maybe Prelude.Text,
-    -- | A collection of custom attributes for an Active Directory computer.
-    computerAttributes :: Prelude.Maybe [ActiveDirectoryComputerAttribute],
     -- | The distinguished name (DN) and organizational unit (OU) of an Active
     -- Directory computer.
     organizationalUnitDistinguishedName :: Prelude.Maybe Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'ActiveDirectoryConfiguration' with all optional fields omitted.
@@ -48,10 +49,10 @@ data ActiveDirectoryConfiguration = ActiveDirectoryConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'computerAttributes', 'activeDirectoryConfiguration_computerAttributes' - A collection of custom attributes for an Active Directory computer.
+--
 -- 'directoryId', 'activeDirectoryConfiguration_directoryId' - The directory ID of the Directory Service for Microsoft Active Directory
 -- to access using this studio component.
---
--- 'computerAttributes', 'activeDirectoryConfiguration_computerAttributes' - A collection of custom attributes for an Active Directory computer.
 --
 -- 'organizationalUnitDistinguishedName', 'activeDirectoryConfiguration_organizationalUnitDistinguishedName' - The distinguished name (DN) and organizational unit (OU) of an Active
 -- Directory computer.
@@ -59,38 +60,38 @@ newActiveDirectoryConfiguration ::
   ActiveDirectoryConfiguration
 newActiveDirectoryConfiguration =
   ActiveDirectoryConfiguration'
-    { directoryId =
+    { computerAttributes =
         Prelude.Nothing,
-      computerAttributes = Prelude.Nothing,
+      directoryId = Prelude.Nothing,
       organizationalUnitDistinguishedName =
         Prelude.Nothing
     }
+
+-- | A collection of custom attributes for an Active Directory computer.
+activeDirectoryConfiguration_computerAttributes :: Lens.Lens' ActiveDirectoryConfiguration (Prelude.Maybe [ActiveDirectoryComputerAttribute])
+activeDirectoryConfiguration_computerAttributes = Lens.lens (\ActiveDirectoryConfiguration' {computerAttributes} -> computerAttributes) (\s@ActiveDirectoryConfiguration' {} a -> s {computerAttributes = a} :: ActiveDirectoryConfiguration) Prelude.. Lens.mapping (Data._Sensitive Prelude.. Lens.coerced)
 
 -- | The directory ID of the Directory Service for Microsoft Active Directory
 -- to access using this studio component.
 activeDirectoryConfiguration_directoryId :: Lens.Lens' ActiveDirectoryConfiguration (Prelude.Maybe Prelude.Text)
 activeDirectoryConfiguration_directoryId = Lens.lens (\ActiveDirectoryConfiguration' {directoryId} -> directoryId) (\s@ActiveDirectoryConfiguration' {} a -> s {directoryId = a} :: ActiveDirectoryConfiguration)
 
--- | A collection of custom attributes for an Active Directory computer.
-activeDirectoryConfiguration_computerAttributes :: Lens.Lens' ActiveDirectoryConfiguration (Prelude.Maybe [ActiveDirectoryComputerAttribute])
-activeDirectoryConfiguration_computerAttributes = Lens.lens (\ActiveDirectoryConfiguration' {computerAttributes} -> computerAttributes) (\s@ActiveDirectoryConfiguration' {} a -> s {computerAttributes = a} :: ActiveDirectoryConfiguration) Prelude.. Lens.mapping Lens.coerced
-
 -- | The distinguished name (DN) and organizational unit (OU) of an Active
 -- Directory computer.
 activeDirectoryConfiguration_organizationalUnitDistinguishedName :: Lens.Lens' ActiveDirectoryConfiguration (Prelude.Maybe Prelude.Text)
 activeDirectoryConfiguration_organizationalUnitDistinguishedName = Lens.lens (\ActiveDirectoryConfiguration' {organizationalUnitDistinguishedName} -> organizationalUnitDistinguishedName) (\s@ActiveDirectoryConfiguration' {} a -> s {organizationalUnitDistinguishedName = a} :: ActiveDirectoryConfiguration)
 
-instance Core.FromJSON ActiveDirectoryConfiguration where
+instance Data.FromJSON ActiveDirectoryConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActiveDirectoryConfiguration"
       ( \x ->
           ActiveDirectoryConfiguration'
-            Prelude.<$> (x Core..:? "directoryId")
-            Prelude.<*> ( x Core..:? "computerAttributes"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "computerAttributes"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "organizationalUnitDistinguishedName")
+            Prelude.<*> (x Data..:? "directoryId")
+            Prelude.<*> (x Data..:? "organizationalUnitDistinguishedName")
       )
 
 instance
@@ -98,24 +99,24 @@ instance
     ActiveDirectoryConfiguration
   where
   hashWithSalt _salt ActiveDirectoryConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` directoryId
-      `Prelude.hashWithSalt` computerAttributes
+    _salt `Prelude.hashWithSalt` computerAttributes
+      `Prelude.hashWithSalt` directoryId
       `Prelude.hashWithSalt` organizationalUnitDistinguishedName
 
 instance Prelude.NFData ActiveDirectoryConfiguration where
   rnf ActiveDirectoryConfiguration' {..} =
-    Prelude.rnf directoryId
-      `Prelude.seq` Prelude.rnf computerAttributes
+    Prelude.rnf computerAttributes
+      `Prelude.seq` Prelude.rnf directoryId
       `Prelude.seq` Prelude.rnf organizationalUnitDistinguishedName
 
-instance Core.ToJSON ActiveDirectoryConfiguration where
+instance Data.ToJSON ActiveDirectoryConfiguration where
   toJSON ActiveDirectoryConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("directoryId" Core..=) Prelude.<$> directoryId,
-            ("computerAttributes" Core..=)
+          [ ("computerAttributes" Data..=)
               Prelude.<$> computerAttributes,
-            ("organizationalUnitDistinguishedName" Core..=)
+            ("directoryId" Data..=) Prelude.<$> directoryId,
+            ("organizationalUnitDistinguishedName" Data..=)
               Prelude.<$> organizationalUnitDistinguishedName
           ]
       )

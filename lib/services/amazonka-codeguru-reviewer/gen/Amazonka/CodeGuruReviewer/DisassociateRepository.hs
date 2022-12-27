@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruReviewer.DisassociateRepository
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CodeGuruReviewer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,8 +54,7 @@ data DisassociateRepository = DisassociateRepository'
   { -- | The Amazon Resource Name (ARN) of the
     -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociation.html RepositoryAssociation>
     -- object. You can retrieve this ARN by calling
-    -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_ListRepositoryAssociations.html ListRepositoryAssociations>
-    -- .
+    -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_ListRepositoryAssociations.html ListRepositoryAssociations>.
     associationArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -70,8 +70,7 @@ data DisassociateRepository = DisassociateRepository'
 -- 'associationArn', 'disassociateRepository_associationArn' - The Amazon Resource Name (ARN) of the
 -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociation.html RepositoryAssociation>
 -- object. You can retrieve this ARN by calling
--- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_ListRepositoryAssociations.html ListRepositoryAssociations>
--- .
+-- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_ListRepositoryAssociations.html ListRepositoryAssociations>.
 newDisassociateRepository ::
   -- | 'associationArn'
   Prelude.Text ->
@@ -85,8 +84,7 @@ newDisassociateRepository pAssociationArn_ =
 -- | The Amazon Resource Name (ARN) of the
 -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_RepositoryAssociation.html RepositoryAssociation>
 -- object. You can retrieve this ARN by calling
--- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_ListRepositoryAssociations.html ListRepositoryAssociations>
--- .
+-- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_ListRepositoryAssociations.html ListRepositoryAssociations>.
 disassociateRepository_associationArn :: Lens.Lens' DisassociateRepository Prelude.Text
 disassociateRepository_associationArn = Lens.lens (\DisassociateRepository' {associationArn} -> associationArn) (\s@DisassociateRepository' {} a -> s {associationArn = a} :: DisassociateRepository)
 
@@ -94,13 +92,14 @@ instance Core.AWSRequest DisassociateRepository where
   type
     AWSResponse DisassociateRepository =
       DisassociateRepositoryResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DisassociateRepositoryResponse'
-            Prelude.<$> (x Core..?> "RepositoryAssociation")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "RepositoryAssociation")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,23 +111,23 @@ instance Prelude.NFData DisassociateRepository where
   rnf DisassociateRepository' {..} =
     Prelude.rnf associationArn
 
-instance Core.ToHeaders DisassociateRepository where
+instance Data.ToHeaders DisassociateRepository where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DisassociateRepository where
+instance Data.ToPath DisassociateRepository where
   toPath DisassociateRepository' {..} =
     Prelude.mconcat
-      ["/associations/", Core.toBS associationArn]
+      ["/associations/", Data.toBS associationArn]
 
-instance Core.ToQuery DisassociateRepository where
+instance Data.ToQuery DisassociateRepository where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateRepositoryResponse' smart constructor.

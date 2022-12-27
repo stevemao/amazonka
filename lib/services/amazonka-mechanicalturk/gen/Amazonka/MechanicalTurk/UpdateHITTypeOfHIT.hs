@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.UpdateHITTypeOfHIT
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.MechanicalTurk.UpdateHITTypeOfHIT
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -94,7 +95,8 @@ instance Core.AWSRequest UpdateHITTypeOfHIT where
   type
     AWSResponse UpdateHITTypeOfHIT =
       UpdateHITTypeOfHITResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -112,34 +114,34 @@ instance Prelude.NFData UpdateHITTypeOfHIT where
     Prelude.rnf hITId
       `Prelude.seq` Prelude.rnf hITTypeId
 
-instance Core.ToHeaders UpdateHITTypeOfHIT where
+instance Data.ToHeaders UpdateHITTypeOfHIT where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MTurkRequesterServiceV20170117.UpdateHITTypeOfHIT" ::
+              Data.=# ( "MTurkRequesterServiceV20170117.UpdateHITTypeOfHIT" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateHITTypeOfHIT where
+instance Data.ToJSON UpdateHITTypeOfHIT where
   toJSON UpdateHITTypeOfHIT' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("HITId" Core..= hITId),
-            Prelude.Just ("HITTypeId" Core..= hITTypeId)
+          [ Prelude.Just ("HITId" Data..= hITId),
+            Prelude.Just ("HITTypeId" Data..= hITTypeId)
           ]
       )
 
-instance Core.ToPath UpdateHITTypeOfHIT where
+instance Data.ToPath UpdateHITTypeOfHIT where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateHITTypeOfHIT where
+instance Data.ToQuery UpdateHITTypeOfHIT where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateHITTypeOfHITResponse' smart constructor.

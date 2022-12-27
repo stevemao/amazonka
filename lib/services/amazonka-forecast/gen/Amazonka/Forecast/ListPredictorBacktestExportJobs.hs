@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.ListPredictorBacktestExportJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,8 @@ module Amazonka.Forecast.ListPredictorBacktestExportJobs
 
     -- * Request Lenses
     listPredictorBacktestExportJobs_filters,
-    listPredictorBacktestExportJobs_nextToken,
     listPredictorBacktestExportJobs_maxResults,
+    listPredictorBacktestExportJobs_nextToken,
 
     -- * Destructuring the Response
     ListPredictorBacktestExportJobsResponse (..),
@@ -52,8 +52,9 @@ module Amazonka.Forecast.ListPredictorBacktestExportJobs
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,12 +79,12 @@ data ListPredictorBacktestExportJobs = ListPredictorBacktestExportJobs'
     --
     -- -   @Value@ - The value to match.
     filters :: Prelude.Maybe [Filter],
+    -- | The number of items to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | If the result of the previous request was truncated, the response
     -- includes a NextToken. To retrieve the next set of results, use the token
     -- in the next request. Tokens expire after 24 hours.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of items to return in the response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -113,19 +114,19 @@ data ListPredictorBacktestExportJobs = ListPredictorBacktestExportJobs'
 --
 -- -   @Value@ - The value to match.
 --
+-- 'maxResults', 'listPredictorBacktestExportJobs_maxResults' - The number of items to return in the response.
+--
 -- 'nextToken', 'listPredictorBacktestExportJobs_nextToken' - If the result of the previous request was truncated, the response
 -- includes a NextToken. To retrieve the next set of results, use the token
 -- in the next request. Tokens expire after 24 hours.
---
--- 'maxResults', 'listPredictorBacktestExportJobs_maxResults' - The number of items to return in the response.
 newListPredictorBacktestExportJobs ::
   ListPredictorBacktestExportJobs
 newListPredictorBacktestExportJobs =
   ListPredictorBacktestExportJobs'
     { filters =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | An array of filters. For each filter, provide a condition and a match
@@ -148,15 +149,15 @@ newListPredictorBacktestExportJobs =
 listPredictorBacktestExportJobs_filters :: Lens.Lens' ListPredictorBacktestExportJobs (Prelude.Maybe [Filter])
 listPredictorBacktestExportJobs_filters = Lens.lens (\ListPredictorBacktestExportJobs' {filters} -> filters) (\s@ListPredictorBacktestExportJobs' {} a -> s {filters = a} :: ListPredictorBacktestExportJobs) Prelude.. Lens.mapping Lens.coerced
 
+-- | The number of items to return in the response.
+listPredictorBacktestExportJobs_maxResults :: Lens.Lens' ListPredictorBacktestExportJobs (Prelude.Maybe Prelude.Natural)
+listPredictorBacktestExportJobs_maxResults = Lens.lens (\ListPredictorBacktestExportJobs' {maxResults} -> maxResults) (\s@ListPredictorBacktestExportJobs' {} a -> s {maxResults = a} :: ListPredictorBacktestExportJobs)
+
 -- | If the result of the previous request was truncated, the response
 -- includes a NextToken. To retrieve the next set of results, use the token
 -- in the next request. Tokens expire after 24 hours.
 listPredictorBacktestExportJobs_nextToken :: Lens.Lens' ListPredictorBacktestExportJobs (Prelude.Maybe Prelude.Text)
 listPredictorBacktestExportJobs_nextToken = Lens.lens (\ListPredictorBacktestExportJobs' {nextToken} -> nextToken) (\s@ListPredictorBacktestExportJobs' {} a -> s {nextToken = a} :: ListPredictorBacktestExportJobs)
-
--- | The number of items to return in the response.
-listPredictorBacktestExportJobs_maxResults :: Lens.Lens' ListPredictorBacktestExportJobs (Prelude.Maybe Prelude.Natural)
-listPredictorBacktestExportJobs_maxResults = Lens.lens (\ListPredictorBacktestExportJobs' {maxResults} -> maxResults) (\s@ListPredictorBacktestExportJobs' {} a -> s {maxResults = a} :: ListPredictorBacktestExportJobs)
 
 instance
   Core.AWSPager
@@ -190,13 +191,14 @@ instance
   type
     AWSResponse ListPredictorBacktestExportJobs =
       ListPredictorBacktestExportJobsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPredictorBacktestExportJobsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "PredictorBacktestExportJobs"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "PredictorBacktestExportJobs"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -210,8 +212,8 @@ instance
     _salt
     ListPredictorBacktestExportJobs' {..} =
       _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
 
 instance
   Prelude.NFData
@@ -219,41 +221,41 @@ instance
   where
   rnf ListPredictorBacktestExportJobs' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListPredictorBacktestExportJobs
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.ListPredictorBacktestExportJobs" ::
+              Data.=# ( "AmazonForecast.ListPredictorBacktestExportJobs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPredictorBacktestExportJobs where
+instance Data.ToJSON ListPredictorBacktestExportJobs where
   toJSON ListPredictorBacktestExportJobs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListPredictorBacktestExportJobs where
+instance Data.ToPath ListPredictorBacktestExportJobs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPredictorBacktestExportJobs where
+instance Data.ToQuery ListPredictorBacktestExportJobs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListPredictorBacktestExportJobsResponse' smart constructor.

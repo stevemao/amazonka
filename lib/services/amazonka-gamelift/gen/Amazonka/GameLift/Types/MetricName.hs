@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.MetricName
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,6 +25,7 @@ module Amazonka.GameLift.Types.MetricName
         MetricName_ActiveInstances,
         MetricName_AvailableGameSessions,
         MetricName_AvailablePlayerSessions,
+        MetricName_ConcurrentActivatableGameSessions,
         MetricName_CurrentPlayerSessions,
         MetricName_IdleInstances,
         MetricName_PercentAvailableGameSessions,
@@ -36,11 +37,12 @@ module Amazonka.GameLift.Types.MetricName
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype MetricName = MetricName'
   { fromMetricName ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -52,18 +54,18 @@ newtype MetricName = MetricName'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern MetricName_ActivatingGameSessions :: MetricName
@@ -80,6 +82,9 @@ pattern MetricName_AvailableGameSessions = MetricName' "AvailableGameSessions"
 
 pattern MetricName_AvailablePlayerSessions :: MetricName
 pattern MetricName_AvailablePlayerSessions = MetricName' "AvailablePlayerSessions"
+
+pattern MetricName_ConcurrentActivatableGameSessions :: MetricName
+pattern MetricName_ConcurrentActivatableGameSessions = MetricName' "ConcurrentActivatableGameSessions"
 
 pattern MetricName_CurrentPlayerSessions :: MetricName
 pattern MetricName_CurrentPlayerSessions = MetricName' "CurrentPlayerSessions"
@@ -105,6 +110,7 @@ pattern MetricName_WaitTime = MetricName' "WaitTime"
   MetricName_ActiveInstances,
   MetricName_AvailableGameSessions,
   MetricName_AvailablePlayerSessions,
+  MetricName_ConcurrentActivatableGameSessions,
   MetricName_CurrentPlayerSessions,
   MetricName_IdleInstances,
   MetricName_PercentAvailableGameSessions,

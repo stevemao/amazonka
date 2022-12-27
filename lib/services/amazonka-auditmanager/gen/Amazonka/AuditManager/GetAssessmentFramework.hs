@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.GetAssessmentFramework
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,14 +41,15 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetAssessmentFramework' smart constructor.
 data GetAssessmentFramework = GetAssessmentFramework'
-  { -- | The identifier for the specified framework.
+  { -- | The identifier for the framework.
     frameworkId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -61,7 +62,7 @@ data GetAssessmentFramework = GetAssessmentFramework'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'frameworkId', 'getAssessmentFramework_frameworkId' - The identifier for the specified framework.
+-- 'frameworkId', 'getAssessmentFramework_frameworkId' - The identifier for the framework.
 newGetAssessmentFramework ::
   -- | 'frameworkId'
   Prelude.Text ->
@@ -72,7 +73,7 @@ newGetAssessmentFramework pFrameworkId_ =
         pFrameworkId_
     }
 
--- | The identifier for the specified framework.
+-- | The identifier for the framework.
 getAssessmentFramework_frameworkId :: Lens.Lens' GetAssessmentFramework Prelude.Text
 getAssessmentFramework_frameworkId = Lens.lens (\GetAssessmentFramework' {frameworkId} -> frameworkId) (\s@GetAssessmentFramework' {} a -> s {frameworkId = a} :: GetAssessmentFramework)
 
@@ -80,12 +81,13 @@ instance Core.AWSRequest GetAssessmentFramework where
   type
     AWSResponse GetAssessmentFramework =
       GetAssessmentFrameworkResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAssessmentFrameworkResponse'
-            Prelude.<$> (x Core..?> "framework")
+            Prelude.<$> (x Data..?> "framework")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,28 +99,28 @@ instance Prelude.NFData GetAssessmentFramework where
   rnf GetAssessmentFramework' {..} =
     Prelude.rnf frameworkId
 
-instance Core.ToHeaders GetAssessmentFramework where
+instance Data.ToHeaders GetAssessmentFramework where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetAssessmentFramework where
+instance Data.ToPath GetAssessmentFramework where
   toPath GetAssessmentFramework' {..} =
     Prelude.mconcat
-      ["/assessmentFrameworks/", Core.toBS frameworkId]
+      ["/assessmentFrameworks/", Data.toBS frameworkId]
 
-instance Core.ToQuery GetAssessmentFramework where
+instance Data.ToQuery GetAssessmentFramework where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAssessmentFrameworkResponse' smart constructor.
 data GetAssessmentFrameworkResponse = GetAssessmentFrameworkResponse'
-  { -- | The framework returned by the @GetAssessmentFramework@ API.
+  { -- | The framework that the @GetAssessmentFramework@ API returned.
     framework :: Prelude.Maybe Framework,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -133,7 +135,7 @@ data GetAssessmentFrameworkResponse = GetAssessmentFrameworkResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'framework', 'getAssessmentFrameworkResponse_framework' - The framework returned by the @GetAssessmentFramework@ API.
+-- 'framework', 'getAssessmentFrameworkResponse_framework' - The framework that the @GetAssessmentFramework@ API returned.
 --
 -- 'httpStatus', 'getAssessmentFrameworkResponse_httpStatus' - The response's http status code.
 newGetAssessmentFrameworkResponse ::
@@ -147,7 +149,7 @@ newGetAssessmentFrameworkResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The framework returned by the @GetAssessmentFramework@ API.
+-- | The framework that the @GetAssessmentFramework@ API returned.
 getAssessmentFrameworkResponse_framework :: Lens.Lens' GetAssessmentFrameworkResponse (Prelude.Maybe Framework)
 getAssessmentFrameworkResponse_framework = Lens.lens (\GetAssessmentFrameworkResponse' {framework} -> framework) (\s@GetAssessmentFrameworkResponse' {} a -> s {framework = a} :: GetAssessmentFrameworkResponse)
 

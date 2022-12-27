@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListJobExecutionsForThing
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,10 +33,11 @@ module Amazonka.IoT.ListJobExecutionsForThing
     newListJobExecutionsForThing,
 
     -- * Request Lenses
-    listJobExecutionsForThing_status,
+    listJobExecutionsForThing_jobId,
+    listJobExecutionsForThing_maxResults,
     listJobExecutionsForThing_namespaceId,
     listJobExecutionsForThing_nextToken,
-    listJobExecutionsForThing_maxResults,
+    listJobExecutionsForThing_status,
     listJobExecutionsForThing_thingName,
 
     -- * Destructuring the Response
@@ -51,17 +52,19 @@ module Amazonka.IoT.ListJobExecutionsForThing
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListJobExecutionsForThing' smart constructor.
 data ListJobExecutionsForThing = ListJobExecutionsForThing'
-  { -- | An optional filter that lets you search for jobs that have the specified
-    -- status.
-    status :: Prelude.Maybe JobExecutionStatus,
+  { -- | The unique identifier you assigned to this job when it was created.
+    jobId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The namespace used to indicate that a job is a customer-managed job.
     --
     -- When you specify a value for this parameter, Amazon Web Services IoT
@@ -74,8 +77,9 @@ data ListJobExecutionsForThing = ListJobExecutionsForThing'
     namespaceId :: Prelude.Maybe Prelude.Text,
     -- | The token to retrieve the next set of results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
-    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | An optional filter that lets you search for jobs that have the specified
+    -- status.
+    status :: Prelude.Maybe JobExecutionStatus,
     -- | The thing name.
     thingName :: Prelude.Text
   }
@@ -89,8 +93,9 @@ data ListJobExecutionsForThing = ListJobExecutionsForThing'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'listJobExecutionsForThing_status' - An optional filter that lets you search for jobs that have the specified
--- status.
+-- 'jobId', 'listJobExecutionsForThing_jobId' - The unique identifier you assigned to this job when it was created.
+--
+-- 'maxResults', 'listJobExecutionsForThing_maxResults' - The maximum number of results to be returned per request.
 --
 -- 'namespaceId', 'listJobExecutionsForThing_namespaceId' - The namespace used to indicate that a job is a customer-managed job.
 --
@@ -104,7 +109,8 @@ data ListJobExecutionsForThing = ListJobExecutionsForThing'
 --
 -- 'nextToken', 'listJobExecutionsForThing_nextToken' - The token to retrieve the next set of results.
 --
--- 'maxResults', 'listJobExecutionsForThing_maxResults' - The maximum number of results to be returned per request.
+-- 'status', 'listJobExecutionsForThing_status' - An optional filter that lets you search for jobs that have the specified
+-- status.
 --
 -- 'thingName', 'listJobExecutionsForThing_thingName' - The thing name.
 newListJobExecutionsForThing ::
@@ -113,18 +119,21 @@ newListJobExecutionsForThing ::
   ListJobExecutionsForThing
 newListJobExecutionsForThing pThingName_ =
   ListJobExecutionsForThing'
-    { status =
-        Prelude.Nothing,
+    { jobId = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       namespaceId = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      status = Prelude.Nothing,
       thingName = pThingName_
     }
 
--- | An optional filter that lets you search for jobs that have the specified
--- status.
-listJobExecutionsForThing_status :: Lens.Lens' ListJobExecutionsForThing (Prelude.Maybe JobExecutionStatus)
-listJobExecutionsForThing_status = Lens.lens (\ListJobExecutionsForThing' {status} -> status) (\s@ListJobExecutionsForThing' {} a -> s {status = a} :: ListJobExecutionsForThing)
+-- | The unique identifier you assigned to this job when it was created.
+listJobExecutionsForThing_jobId :: Lens.Lens' ListJobExecutionsForThing (Prelude.Maybe Prelude.Text)
+listJobExecutionsForThing_jobId = Lens.lens (\ListJobExecutionsForThing' {jobId} -> jobId) (\s@ListJobExecutionsForThing' {} a -> s {jobId = a} :: ListJobExecutionsForThing)
+
+-- | The maximum number of results to be returned per request.
+listJobExecutionsForThing_maxResults :: Lens.Lens' ListJobExecutionsForThing (Prelude.Maybe Prelude.Natural)
+listJobExecutionsForThing_maxResults = Lens.lens (\ListJobExecutionsForThing' {maxResults} -> maxResults) (\s@ListJobExecutionsForThing' {} a -> s {maxResults = a} :: ListJobExecutionsForThing)
 
 -- | The namespace used to indicate that a job is a customer-managed job.
 --
@@ -142,9 +151,10 @@ listJobExecutionsForThing_namespaceId = Lens.lens (\ListJobExecutionsForThing' {
 listJobExecutionsForThing_nextToken :: Lens.Lens' ListJobExecutionsForThing (Prelude.Maybe Prelude.Text)
 listJobExecutionsForThing_nextToken = Lens.lens (\ListJobExecutionsForThing' {nextToken} -> nextToken) (\s@ListJobExecutionsForThing' {} a -> s {nextToken = a} :: ListJobExecutionsForThing)
 
--- | The maximum number of results to be returned per request.
-listJobExecutionsForThing_maxResults :: Lens.Lens' ListJobExecutionsForThing (Prelude.Maybe Prelude.Natural)
-listJobExecutionsForThing_maxResults = Lens.lens (\ListJobExecutionsForThing' {maxResults} -> maxResults) (\s@ListJobExecutionsForThing' {} a -> s {maxResults = a} :: ListJobExecutionsForThing)
+-- | An optional filter that lets you search for jobs that have the specified
+-- status.
+listJobExecutionsForThing_status :: Lens.Lens' ListJobExecutionsForThing (Prelude.Maybe JobExecutionStatus)
+listJobExecutionsForThing_status = Lens.lens (\ListJobExecutionsForThing' {status} -> status) (\s@ListJobExecutionsForThing' {} a -> s {status = a} :: ListJobExecutionsForThing)
 
 -- | The thing name.
 listJobExecutionsForThing_thingName :: Lens.Lens' ListJobExecutionsForThing Prelude.Text
@@ -176,49 +186,53 @@ instance Core.AWSRequest ListJobExecutionsForThing where
   type
     AWSResponse ListJobExecutionsForThing =
       ListJobExecutionsForThingResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListJobExecutionsForThingResponse'
-            Prelude.<$> ( x Core..?> "executionSummaries"
+            Prelude.<$> ( x Data..?> "executionSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListJobExecutionsForThing where
   hashWithSalt _salt ListJobExecutionsForThing' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt `Prelude.hashWithSalt` jobId
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` namespaceId
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` thingName
 
 instance Prelude.NFData ListJobExecutionsForThing where
   rnf ListJobExecutionsForThing' {..} =
-    Prelude.rnf status
+    Prelude.rnf jobId
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf namespaceId
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf thingName
 
-instance Core.ToHeaders ListJobExecutionsForThing where
+instance Data.ToHeaders ListJobExecutionsForThing where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListJobExecutionsForThing where
+instance Data.ToPath ListJobExecutionsForThing where
   toPath ListJobExecutionsForThing' {..} =
     Prelude.mconcat
-      ["/things/", Core.toBS thingName, "/jobs"]
+      ["/things/", Data.toBS thingName, "/jobs"]
 
-instance Core.ToQuery ListJobExecutionsForThing where
+instance Data.ToQuery ListJobExecutionsForThing where
   toQuery ListJobExecutionsForThing' {..} =
     Prelude.mconcat
-      [ "status" Core.=: status,
-        "namespaceId" Core.=: namespaceId,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "jobId" Data.=: jobId,
+        "maxResults" Data.=: maxResults,
+        "namespaceId" Data.=: namespaceId,
+        "nextToken" Data.=: nextToken,
+        "status" Data.=: status
       ]
 
 -- | /See:/ 'newListJobExecutionsForThingResponse' smart constructor.

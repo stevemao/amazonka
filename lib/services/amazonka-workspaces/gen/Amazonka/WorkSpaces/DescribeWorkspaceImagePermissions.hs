@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.DescribeWorkspaceImagePermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.WorkSpaces.DescribeWorkspaceImagePermissions
     newDescribeWorkspaceImagePermissions,
 
     -- * Request Lenses
-    describeWorkspaceImagePermissions_nextToken,
     describeWorkspaceImagePermissions_maxResults,
+    describeWorkspaceImagePermissions_nextToken,
     describeWorkspaceImagePermissions_imageId,
 
     -- * Destructuring the Response
@@ -37,15 +37,16 @@ module Amazonka.WorkSpaces.DescribeWorkspaceImagePermissions
     newDescribeWorkspaceImagePermissionsResponse,
 
     -- * Response Lenses
+    describeWorkspaceImagePermissionsResponse_imageId,
     describeWorkspaceImagePermissionsResponse_imagePermissions,
     describeWorkspaceImagePermissionsResponse_nextToken,
-    describeWorkspaceImagePermissionsResponse_imageId,
     describeWorkspaceImagePermissionsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,11 +54,11 @@ import Amazonka.WorkSpaces.Types
 
 -- | /See:/ 'newDescribeWorkspaceImagePermissions' smart constructor.
 data DescribeWorkspaceImagePermissions = DescribeWorkspaceImagePermissions'
-  { -- | If you received a @NextToken@ from a previous call that was paginated,
+  { -- | The maximum number of items to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If you received a @NextToken@ from a previous call that was paginated,
     -- provide this token to receive the next set of results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The identifier of the image.
     imageId :: Prelude.Text
   }
@@ -71,10 +72,10 @@ data DescribeWorkspaceImagePermissions = DescribeWorkspaceImagePermissions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'describeWorkspaceImagePermissions_maxResults' - The maximum number of items to return.
+--
 -- 'nextToken', 'describeWorkspaceImagePermissions_nextToken' - If you received a @NextToken@ from a previous call that was paginated,
 -- provide this token to receive the next set of results.
---
--- 'maxResults', 'describeWorkspaceImagePermissions_maxResults' - The maximum number of items to return.
 --
 -- 'imageId', 'describeWorkspaceImagePermissions_imageId' - The identifier of the image.
 newDescribeWorkspaceImagePermissions ::
@@ -83,20 +84,20 @@ newDescribeWorkspaceImagePermissions ::
   DescribeWorkspaceImagePermissions
 newDescribeWorkspaceImagePermissions pImageId_ =
   DescribeWorkspaceImagePermissions'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       imageId = pImageId_
     }
+
+-- | The maximum number of items to return.
+describeWorkspaceImagePermissions_maxResults :: Lens.Lens' DescribeWorkspaceImagePermissions (Prelude.Maybe Prelude.Natural)
+describeWorkspaceImagePermissions_maxResults = Lens.lens (\DescribeWorkspaceImagePermissions' {maxResults} -> maxResults) (\s@DescribeWorkspaceImagePermissions' {} a -> s {maxResults = a} :: DescribeWorkspaceImagePermissions)
 
 -- | If you received a @NextToken@ from a previous call that was paginated,
 -- provide this token to receive the next set of results.
 describeWorkspaceImagePermissions_nextToken :: Lens.Lens' DescribeWorkspaceImagePermissions (Prelude.Maybe Prelude.Text)
 describeWorkspaceImagePermissions_nextToken = Lens.lens (\DescribeWorkspaceImagePermissions' {nextToken} -> nextToken) (\s@DescribeWorkspaceImagePermissions' {} a -> s {nextToken = a} :: DescribeWorkspaceImagePermissions)
-
--- | The maximum number of items to return.
-describeWorkspaceImagePermissions_maxResults :: Lens.Lens' DescribeWorkspaceImagePermissions (Prelude.Maybe Prelude.Natural)
-describeWorkspaceImagePermissions_maxResults = Lens.lens (\DescribeWorkspaceImagePermissions' {maxResults} -> maxResults) (\s@DescribeWorkspaceImagePermissions' {} a -> s {maxResults = a} :: DescribeWorkspaceImagePermissions)
 
 -- | The identifier of the image.
 describeWorkspaceImagePermissions_imageId :: Lens.Lens' DescribeWorkspaceImagePermissions Prelude.Text
@@ -109,16 +110,17 @@ instance
   type
     AWSResponse DescribeWorkspaceImagePermissions =
       DescribeWorkspaceImagePermissionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeWorkspaceImagePermissionsResponse'
-            Prelude.<$> ( x Core..?> "ImagePermissions"
-                            Core..!@ Prelude.mempty
-                        )
-              Prelude.<*> (x Core..?> "NextToken")
-              Prelude.<*> (x Core..?> "ImageId")
+            Prelude.<$> (x Data..?> "ImageId")
+              Prelude.<*> ( x Data..?> "ImagePermissions"
+                              Core..!@ Prelude.mempty
+                          )
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,8 +131,8 @@ instance
   hashWithSalt
     _salt
     DescribeWorkspaceImagePermissions' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` imageId
 
 instance
@@ -138,63 +140,63 @@ instance
     DescribeWorkspaceImagePermissions
   where
   rnf DescribeWorkspaceImagePermissions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf imageId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeWorkspaceImagePermissions
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.DescribeWorkspaceImagePermissions" ::
+              Data.=# ( "WorkspacesService.DescribeWorkspaceImagePermissions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeWorkspaceImagePermissions
   where
   toJSON DescribeWorkspaceImagePermissions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("ImageId" Core..= imageId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ImageId" Data..= imageId)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeWorkspaceImagePermissions
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeWorkspaceImagePermissions
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeWorkspaceImagePermissionsResponse' smart constructor.
 data DescribeWorkspaceImagePermissionsResponse = DescribeWorkspaceImagePermissionsResponse'
-  { -- | The identifiers of the Amazon Web Services accounts that the image has
+  { -- | The identifier of the image.
+    imageId :: Prelude.Maybe Prelude.Text,
+    -- | The identifiers of the Amazon Web Services accounts that the image has
     -- been shared with.
     imagePermissions :: Prelude.Maybe [ImagePermission],
     -- | The token to use to retrieve the next page of results. This value is
     -- null when there are no more results to return.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The identifier of the image.
-    imageId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -208,13 +210,13 @@ data DescribeWorkspaceImagePermissionsResponse = DescribeWorkspaceImagePermissio
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'imageId', 'describeWorkspaceImagePermissionsResponse_imageId' - The identifier of the image.
+--
 -- 'imagePermissions', 'describeWorkspaceImagePermissionsResponse_imagePermissions' - The identifiers of the Amazon Web Services accounts that the image has
 -- been shared with.
 --
 -- 'nextToken', 'describeWorkspaceImagePermissionsResponse_nextToken' - The token to use to retrieve the next page of results. This value is
 -- null when there are no more results to return.
---
--- 'imageId', 'describeWorkspaceImagePermissionsResponse_imageId' - The identifier of the image.
 --
 -- 'httpStatus', 'describeWorkspaceImagePermissionsResponse_httpStatus' - The response's http status code.
 newDescribeWorkspaceImagePermissionsResponse ::
@@ -224,12 +226,17 @@ newDescribeWorkspaceImagePermissionsResponse ::
 newDescribeWorkspaceImagePermissionsResponse
   pHttpStatus_ =
     DescribeWorkspaceImagePermissionsResponse'
-      { imagePermissions =
+      { imageId =
+          Prelude.Nothing,
+        imagePermissions =
           Prelude.Nothing,
         nextToken = Prelude.Nothing,
-        imageId = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
+
+-- | The identifier of the image.
+describeWorkspaceImagePermissionsResponse_imageId :: Lens.Lens' DescribeWorkspaceImagePermissionsResponse (Prelude.Maybe Prelude.Text)
+describeWorkspaceImagePermissionsResponse_imageId = Lens.lens (\DescribeWorkspaceImagePermissionsResponse' {imageId} -> imageId) (\s@DescribeWorkspaceImagePermissionsResponse' {} a -> s {imageId = a} :: DescribeWorkspaceImagePermissionsResponse)
 
 -- | The identifiers of the Amazon Web Services accounts that the image has
 -- been shared with.
@@ -241,10 +248,6 @@ describeWorkspaceImagePermissionsResponse_imagePermissions = Lens.lens (\Describ
 describeWorkspaceImagePermissionsResponse_nextToken :: Lens.Lens' DescribeWorkspaceImagePermissionsResponse (Prelude.Maybe Prelude.Text)
 describeWorkspaceImagePermissionsResponse_nextToken = Lens.lens (\DescribeWorkspaceImagePermissionsResponse' {nextToken} -> nextToken) (\s@DescribeWorkspaceImagePermissionsResponse' {} a -> s {nextToken = a} :: DescribeWorkspaceImagePermissionsResponse)
 
--- | The identifier of the image.
-describeWorkspaceImagePermissionsResponse_imageId :: Lens.Lens' DescribeWorkspaceImagePermissionsResponse (Prelude.Maybe Prelude.Text)
-describeWorkspaceImagePermissionsResponse_imageId = Lens.lens (\DescribeWorkspaceImagePermissionsResponse' {imageId} -> imageId) (\s@DescribeWorkspaceImagePermissionsResponse' {} a -> s {imageId = a} :: DescribeWorkspaceImagePermissionsResponse)
-
 -- | The response's http status code.
 describeWorkspaceImagePermissionsResponse_httpStatus :: Lens.Lens' DescribeWorkspaceImagePermissionsResponse Prelude.Int
 describeWorkspaceImagePermissionsResponse_httpStatus = Lens.lens (\DescribeWorkspaceImagePermissionsResponse' {httpStatus} -> httpStatus) (\s@DescribeWorkspaceImagePermissionsResponse' {} a -> s {httpStatus = a} :: DescribeWorkspaceImagePermissionsResponse)
@@ -254,7 +257,7 @@ instance
     DescribeWorkspaceImagePermissionsResponse
   where
   rnf DescribeWorkspaceImagePermissionsResponse' {..} =
-    Prelude.rnf imagePermissions
+    Prelude.rnf imageId
+      `Prelude.seq` Prelude.rnf imagePermissions
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf imageId
       `Prelude.seq` Prelude.rnf httpStatus

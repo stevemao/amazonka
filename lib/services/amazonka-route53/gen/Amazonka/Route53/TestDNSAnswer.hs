@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.TestDNSAnswer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,9 +32,9 @@ module Amazonka.Route53.TestDNSAnswer
     newTestDNSAnswer,
 
     -- * Request Lenses
-    testDNSAnswer_resolverIP,
     testDNSAnswer_eDNS0ClientSubnetIP,
     testDNSAnswer_eDNS0ClientSubnetMask,
+    testDNSAnswer_resolverIP,
     testDNSAnswer_hostedZoneId,
     testDNSAnswer_recordName,
     testDNSAnswer_recordType,
@@ -55,7 +55,8 @@ module Amazonka.Route53.TestDNSAnswer
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,12 +69,7 @@ import Amazonka.Route53.Types
 --
 -- /See:/ 'newTestDNSAnswer' smart constructor.
 data TestDNSAnswer = TestDNSAnswer'
-  { -- | If you want to simulate a request from a specific DNS resolver, specify
-    -- the IP address for that resolver. If you omit this value,
-    -- @TestDnsAnswer@ uses the IP address of a DNS resolver in the Amazon Web
-    -- Services US East (N. Virginia) Region (@us-east-1@).
-    resolverIP :: Prelude.Maybe Prelude.Text,
-    -- | If the resolver that you specified for resolverip supports EDNS0,
+  { -- | If the resolver that you specified for resolverip supports EDNS0,
     -- specify the IPv4 or IPv6 address of a client in the applicable location,
     -- for example, @192.0.2.44@ or @2001:db8:85a3::8a2e:370:7334@.
     eDNS0ClientSubnetIP :: Prelude.Maybe Prelude.Text,
@@ -92,6 +88,11 @@ data TestDNSAnswer = TestDNSAnswer'
     --
     -- -   __IPv6__: Specify a value between 0 and 128
     eDNS0ClientSubnetMask :: Prelude.Maybe Prelude.Text,
+    -- | If you want to simulate a request from a specific DNS resolver, specify
+    -- the IP address for that resolver. If you omit this value,
+    -- @TestDnsAnswer@ uses the IP address of a DNS resolver in the Amazon Web
+    -- Services US East (N. Virginia) Region (@us-east-1@).
+    resolverIP :: Prelude.Maybe Prelude.Text,
     -- | The ID of the hosted zone that you want Amazon Route 53 to simulate a
     -- query for.
     hostedZoneId :: ResourceId,
@@ -111,11 +112,6 @@ data TestDNSAnswer = TestDNSAnswer'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resolverIP', 'testDNSAnswer_resolverIP' - If you want to simulate a request from a specific DNS resolver, specify
--- the IP address for that resolver. If you omit this value,
--- @TestDnsAnswer@ uses the IP address of a DNS resolver in the Amazon Web
--- Services US East (N. Virginia) Region (@us-east-1@).
---
 -- 'eDNS0ClientSubnetIP', 'testDNSAnswer_eDNS0ClientSubnetIP' - If the resolver that you specified for resolverip supports EDNS0,
 -- specify the IPv4 or IPv6 address of a client in the applicable location,
 -- for example, @192.0.2.44@ or @2001:db8:85a3::8a2e:370:7334@.
@@ -134,6 +130,11 @@ data TestDNSAnswer = TestDNSAnswer'
 -- -   __IPv4__: Specify a value between 0 and 32
 --
 -- -   __IPv6__: Specify a value between 0 and 128
+--
+-- 'resolverIP', 'testDNSAnswer_resolverIP' - If you want to simulate a request from a specific DNS resolver, specify
+-- the IP address for that resolver. If you omit this value,
+-- @TestDnsAnswer@ uses the IP address of a DNS resolver in the Amazon Web
+-- Services US East (N. Virginia) Region (@us-east-1@).
 --
 -- 'hostedZoneId', 'testDNSAnswer_hostedZoneId' - The ID of the hosted zone that you want Amazon Route 53 to simulate a
 -- query for.
@@ -155,20 +156,14 @@ newTestDNSAnswer
   pRecordName_
   pRecordType_ =
     TestDNSAnswer'
-      { resolverIP = Prelude.Nothing,
-        eDNS0ClientSubnetIP = Prelude.Nothing,
+      { eDNS0ClientSubnetIP =
+          Prelude.Nothing,
         eDNS0ClientSubnetMask = Prelude.Nothing,
+        resolverIP = Prelude.Nothing,
         hostedZoneId = pHostedZoneId_,
         recordName = pRecordName_,
         recordType = pRecordType_
       }
-
--- | If you want to simulate a request from a specific DNS resolver, specify
--- the IP address for that resolver. If you omit this value,
--- @TestDnsAnswer@ uses the IP address of a DNS resolver in the Amazon Web
--- Services US East (N. Virginia) Region (@us-east-1@).
-testDNSAnswer_resolverIP :: Lens.Lens' TestDNSAnswer (Prelude.Maybe Prelude.Text)
-testDNSAnswer_resolverIP = Lens.lens (\TestDNSAnswer' {resolverIP} -> resolverIP) (\s@TestDNSAnswer' {} a -> s {resolverIP = a} :: TestDNSAnswer)
 
 -- | If the resolver that you specified for resolverip supports EDNS0,
 -- specify the IPv4 or IPv6 address of a client in the applicable location,
@@ -193,6 +188,13 @@ testDNSAnswer_eDNS0ClientSubnetIP = Lens.lens (\TestDNSAnswer' {eDNS0ClientSubne
 testDNSAnswer_eDNS0ClientSubnetMask :: Lens.Lens' TestDNSAnswer (Prelude.Maybe Prelude.Text)
 testDNSAnswer_eDNS0ClientSubnetMask = Lens.lens (\TestDNSAnswer' {eDNS0ClientSubnetMask} -> eDNS0ClientSubnetMask) (\s@TestDNSAnswer' {} a -> s {eDNS0ClientSubnetMask = a} :: TestDNSAnswer)
 
+-- | If you want to simulate a request from a specific DNS resolver, specify
+-- the IP address for that resolver. If you omit this value,
+-- @TestDnsAnswer@ uses the IP address of a DNS resolver in the Amazon Web
+-- Services US East (N. Virginia) Region (@us-east-1@).
+testDNSAnswer_resolverIP :: Lens.Lens' TestDNSAnswer (Prelude.Maybe Prelude.Text)
+testDNSAnswer_resolverIP = Lens.lens (\TestDNSAnswer' {resolverIP} -> resolverIP) (\s@TestDNSAnswer' {} a -> s {resolverIP = a} :: TestDNSAnswer)
+
 -- | The ID of the hosted zone that you want Amazon Route 53 to simulate a
 -- query for.
 testDNSAnswer_hostedZoneId :: Lens.Lens' TestDNSAnswer ResourceId
@@ -211,56 +213,57 @@ instance Core.AWSRequest TestDNSAnswer where
   type
     AWSResponse TestDNSAnswer =
       TestDNSAnswerResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           TestDNSAnswerResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "Nameserver")
-            Prelude.<*> (x Core..@ "RecordName")
-            Prelude.<*> (x Core..@ "RecordType")
-            Prelude.<*> ( x Core..@? "RecordData" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "RecordDataEntry"
+            Prelude.<*> (x Data..@ "Nameserver")
+            Prelude.<*> (x Data..@ "RecordName")
+            Prelude.<*> (x Data..@ "RecordType")
+            Prelude.<*> ( x Data..@? "RecordData" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "RecordDataEntry"
                         )
-            Prelude.<*> (x Core..@ "ResponseCode")
-            Prelude.<*> (x Core..@ "Protocol")
+            Prelude.<*> (x Data..@ "ResponseCode")
+            Prelude.<*> (x Data..@ "Protocol")
       )
 
 instance Prelude.Hashable TestDNSAnswer where
   hashWithSalt _salt TestDNSAnswer' {..} =
-    _salt `Prelude.hashWithSalt` resolverIP
-      `Prelude.hashWithSalt` eDNS0ClientSubnetIP
+    _salt `Prelude.hashWithSalt` eDNS0ClientSubnetIP
       `Prelude.hashWithSalt` eDNS0ClientSubnetMask
+      `Prelude.hashWithSalt` resolverIP
       `Prelude.hashWithSalt` hostedZoneId
       `Prelude.hashWithSalt` recordName
       `Prelude.hashWithSalt` recordType
 
 instance Prelude.NFData TestDNSAnswer where
   rnf TestDNSAnswer' {..} =
-    Prelude.rnf resolverIP
-      `Prelude.seq` Prelude.rnf eDNS0ClientSubnetIP
+    Prelude.rnf eDNS0ClientSubnetIP
       `Prelude.seq` Prelude.rnf eDNS0ClientSubnetMask
+      `Prelude.seq` Prelude.rnf resolverIP
       `Prelude.seq` Prelude.rnf hostedZoneId
       `Prelude.seq` Prelude.rnf recordName
       `Prelude.seq` Prelude.rnf recordType
 
-instance Core.ToHeaders TestDNSAnswer where
+instance Data.ToHeaders TestDNSAnswer where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath TestDNSAnswer where
+instance Data.ToPath TestDNSAnswer where
   toPath = Prelude.const "/2013-04-01/testdnsanswer"
 
-instance Core.ToQuery TestDNSAnswer where
+instance Data.ToQuery TestDNSAnswer where
   toQuery TestDNSAnswer' {..} =
     Prelude.mconcat
-      [ "resolverip" Core.=: resolverIP,
-        "edns0clientsubnetip" Core.=: eDNS0ClientSubnetIP,
+      [ "edns0clientsubnetip" Data.=: eDNS0ClientSubnetIP,
         "edns0clientsubnetmask"
-          Core.=: eDNS0ClientSubnetMask,
-        "hostedzoneid" Core.=: hostedZoneId,
-        "recordname" Core.=: recordName,
-        "recordtype" Core.=: recordType
+          Data.=: eDNS0ClientSubnetMask,
+        "resolverip" Data.=: resolverIP,
+        "hostedzoneid" Data.=: hostedZoneId,
+        "recordname" Data.=: recordName,
+        "recordtype" Data.=: recordType
       ]
 
 -- | A complex type that contains the response to a @TestDNSAnswer@ request.

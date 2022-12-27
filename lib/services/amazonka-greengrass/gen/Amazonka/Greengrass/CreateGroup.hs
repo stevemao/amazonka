@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.CreateGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,20 +41,21 @@ module Amazonka.Greengrass.CreateGroup
     newCreateGroupResponse,
 
     -- * Response Lenses
-    createGroupResponse_latestVersionArn,
     createGroupResponse_arn,
-    createGroupResponse_name,
     createGroupResponse_creationTimestamp,
     createGroupResponse_id,
-    createGroupResponse_latestVersion,
     createGroupResponse_lastUpdatedTimestamp,
+    createGroupResponse_latestVersion,
+    createGroupResponse_latestVersionArn,
+    createGroupResponse_name,
     createGroupResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,18 +118,19 @@ createGroup_name = Lens.lens (\CreateGroup' {name} -> name) (\s@CreateGroup' {} 
 
 instance Core.AWSRequest CreateGroup where
   type AWSResponse CreateGroup = CreateGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateGroupResponse'
-            Prelude.<$> (x Core..?> "LatestVersionArn")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "CreationTimestamp")
-            Prelude.<*> (x Core..?> "Id")
-            Prelude.<*> (x Core..?> "LatestVersion")
-            Prelude.<*> (x Core..?> "LastUpdatedTimestamp")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "CreationTimestamp")
+            Prelude.<*> (x Data..?> "Id")
+            Prelude.<*> (x Data..?> "LastUpdatedTimestamp")
+            Prelude.<*> (x Data..?> "LatestVersion")
+            Prelude.<*> (x Data..?> "LatestVersionArn")
+            Prelude.<*> (x Data..?> "Name")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -146,49 +148,49 @@ instance Prelude.NFData CreateGroup where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateGroup where
+instance Data.ToHeaders CreateGroup where
   toHeaders CreateGroup' {..} =
     Prelude.mconcat
-      [ "X-Amzn-Client-Token" Core.=# amznClientToken,
+      [ "X-Amzn-Client-Token" Data.=# amznClientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON CreateGroup where
+instance Data.ToJSON CreateGroup where
   toJSON CreateGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("InitialVersion" Core..=)
+          [ ("InitialVersion" Data..=)
               Prelude.<$> initialVersion,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name)
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateGroup where
+instance Data.ToPath CreateGroup where
   toPath = Prelude.const "/greengrass/groups"
 
-instance Core.ToQuery CreateGroup where
+instance Data.ToQuery CreateGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateGroupResponse' smart constructor.
 data CreateGroupResponse = CreateGroupResponse'
-  { -- | The ARN of the latest version associated with the definition.
-    latestVersionArn :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the definition.
+  { -- | The ARN of the definition.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the definition.
-    name :: Prelude.Maybe Prelude.Text,
     -- | The time, in milliseconds since the epoch, when the definition was
     -- created.
     creationTimestamp :: Prelude.Maybe Prelude.Text,
     -- | The ID of the definition.
     id :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the latest version associated with the definition.
-    latestVersion :: Prelude.Maybe Prelude.Text,
     -- | The time, in milliseconds since the epoch, when the definition was last
     -- updated.
     lastUpdatedTimestamp :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the latest version associated with the definition.
+    latestVersion :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the latest version associated with the definition.
+    latestVersionArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the definition.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -202,21 +204,21 @@ data CreateGroupResponse = CreateGroupResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'latestVersionArn', 'createGroupResponse_latestVersionArn' - The ARN of the latest version associated with the definition.
---
 -- 'arn', 'createGroupResponse_arn' - The ARN of the definition.
---
--- 'name', 'createGroupResponse_name' - The name of the definition.
 --
 -- 'creationTimestamp', 'createGroupResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the definition was
 -- created.
 --
 -- 'id', 'createGroupResponse_id' - The ID of the definition.
 --
--- 'latestVersion', 'createGroupResponse_latestVersion' - The ID of the latest version associated with the definition.
---
 -- 'lastUpdatedTimestamp', 'createGroupResponse_lastUpdatedTimestamp' - The time, in milliseconds since the epoch, when the definition was last
 -- updated.
+--
+-- 'latestVersion', 'createGroupResponse_latestVersion' - The ID of the latest version associated with the definition.
+--
+-- 'latestVersionArn', 'createGroupResponse_latestVersionArn' - The ARN of the latest version associated with the definition.
+--
+-- 'name', 'createGroupResponse_name' - The name of the definition.
 --
 -- 'httpStatus', 'createGroupResponse_httpStatus' - The response's http status code.
 newCreateGroupResponse ::
@@ -225,28 +227,19 @@ newCreateGroupResponse ::
   CreateGroupResponse
 newCreateGroupResponse pHttpStatus_ =
   CreateGroupResponse'
-    { latestVersionArn =
-        Prelude.Nothing,
-      arn = Prelude.Nothing,
-      name = Prelude.Nothing,
+    { arn = Prelude.Nothing,
       creationTimestamp = Prelude.Nothing,
       id = Prelude.Nothing,
-      latestVersion = Prelude.Nothing,
       lastUpdatedTimestamp = Prelude.Nothing,
+      latestVersion = Prelude.Nothing,
+      latestVersionArn = Prelude.Nothing,
+      name = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The ARN of the latest version associated with the definition.
-createGroupResponse_latestVersionArn :: Lens.Lens' CreateGroupResponse (Prelude.Maybe Prelude.Text)
-createGroupResponse_latestVersionArn = Lens.lens (\CreateGroupResponse' {latestVersionArn} -> latestVersionArn) (\s@CreateGroupResponse' {} a -> s {latestVersionArn = a} :: CreateGroupResponse)
 
 -- | The ARN of the definition.
 createGroupResponse_arn :: Lens.Lens' CreateGroupResponse (Prelude.Maybe Prelude.Text)
 createGroupResponse_arn = Lens.lens (\CreateGroupResponse' {arn} -> arn) (\s@CreateGroupResponse' {} a -> s {arn = a} :: CreateGroupResponse)
-
--- | The name of the definition.
-createGroupResponse_name :: Lens.Lens' CreateGroupResponse (Prelude.Maybe Prelude.Text)
-createGroupResponse_name = Lens.lens (\CreateGroupResponse' {name} -> name) (\s@CreateGroupResponse' {} a -> s {name = a} :: CreateGroupResponse)
 
 -- | The time, in milliseconds since the epoch, when the definition was
 -- created.
@@ -257,14 +250,22 @@ createGroupResponse_creationTimestamp = Lens.lens (\CreateGroupResponse' {creati
 createGroupResponse_id :: Lens.Lens' CreateGroupResponse (Prelude.Maybe Prelude.Text)
 createGroupResponse_id = Lens.lens (\CreateGroupResponse' {id} -> id) (\s@CreateGroupResponse' {} a -> s {id = a} :: CreateGroupResponse)
 
--- | The ID of the latest version associated with the definition.
-createGroupResponse_latestVersion :: Lens.Lens' CreateGroupResponse (Prelude.Maybe Prelude.Text)
-createGroupResponse_latestVersion = Lens.lens (\CreateGroupResponse' {latestVersion} -> latestVersion) (\s@CreateGroupResponse' {} a -> s {latestVersion = a} :: CreateGroupResponse)
-
 -- | The time, in milliseconds since the epoch, when the definition was last
 -- updated.
 createGroupResponse_lastUpdatedTimestamp :: Lens.Lens' CreateGroupResponse (Prelude.Maybe Prelude.Text)
 createGroupResponse_lastUpdatedTimestamp = Lens.lens (\CreateGroupResponse' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@CreateGroupResponse' {} a -> s {lastUpdatedTimestamp = a} :: CreateGroupResponse)
+
+-- | The ID of the latest version associated with the definition.
+createGroupResponse_latestVersion :: Lens.Lens' CreateGroupResponse (Prelude.Maybe Prelude.Text)
+createGroupResponse_latestVersion = Lens.lens (\CreateGroupResponse' {latestVersion} -> latestVersion) (\s@CreateGroupResponse' {} a -> s {latestVersion = a} :: CreateGroupResponse)
+
+-- | The ARN of the latest version associated with the definition.
+createGroupResponse_latestVersionArn :: Lens.Lens' CreateGroupResponse (Prelude.Maybe Prelude.Text)
+createGroupResponse_latestVersionArn = Lens.lens (\CreateGroupResponse' {latestVersionArn} -> latestVersionArn) (\s@CreateGroupResponse' {} a -> s {latestVersionArn = a} :: CreateGroupResponse)
+
+-- | The name of the definition.
+createGroupResponse_name :: Lens.Lens' CreateGroupResponse (Prelude.Maybe Prelude.Text)
+createGroupResponse_name = Lens.lens (\CreateGroupResponse' {name} -> name) (\s@CreateGroupResponse' {} a -> s {name = a} :: CreateGroupResponse)
 
 -- | The response's http status code.
 createGroupResponse_httpStatus :: Lens.Lens' CreateGroupResponse Prelude.Int
@@ -272,11 +273,11 @@ createGroupResponse_httpStatus = Lens.lens (\CreateGroupResponse' {httpStatus} -
 
 instance Prelude.NFData CreateGroupResponse where
   rnf CreateGroupResponse' {..} =
-    Prelude.rnf latestVersionArn
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf creationTimestamp
       `Prelude.seq` Prelude.rnf id
-      `Prelude.seq` Prelude.rnf latestVersion
       `Prelude.seq` Prelude.rnf lastUpdatedTimestamp
+      `Prelude.seq` Prelude.rnf latestVersion
+      `Prelude.seq` Prelude.rnf latestVersionArn
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf httpStatus

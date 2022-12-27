@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.InstanceFleetStateChangeReason
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EMR.Types.InstanceFleetStateChangeReason where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types.InstanceFleetStateChangeReasonCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides status change reason details for the instance fleet.
@@ -66,14 +67,14 @@ instanceFleetStateChangeReason_code = Lens.lens (\InstanceFleetStateChangeReason
 instanceFleetStateChangeReason_message :: Lens.Lens' InstanceFleetStateChangeReason (Prelude.Maybe Prelude.Text)
 instanceFleetStateChangeReason_message = Lens.lens (\InstanceFleetStateChangeReason' {message} -> message) (\s@InstanceFleetStateChangeReason' {} a -> s {message = a} :: InstanceFleetStateChangeReason)
 
-instance Core.FromJSON InstanceFleetStateChangeReason where
+instance Data.FromJSON InstanceFleetStateChangeReason where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstanceFleetStateChangeReason"
       ( \x ->
           InstanceFleetStateChangeReason'
-            Prelude.<$> (x Core..:? "Code")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Code")
+            Prelude.<*> (x Data..:? "Message")
       )
 
 instance

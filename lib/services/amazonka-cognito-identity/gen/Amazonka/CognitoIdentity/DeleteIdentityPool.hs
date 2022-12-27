@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentity.DeleteIdentityPool
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.CognitoIdentity.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,7 +82,8 @@ instance Core.AWSRequest DeleteIdentityPool where
   type
     AWSResponse DeleteIdentityPool =
       DeleteIdentityPoolResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteIdentityPoolResponse'
 
@@ -93,34 +95,34 @@ instance Prelude.NFData DeleteIdentityPool where
   rnf DeleteIdentityPool' {..} =
     Prelude.rnf identityPoolId
 
-instance Core.ToHeaders DeleteIdentityPool where
+instance Data.ToHeaders DeleteIdentityPool where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityService.DeleteIdentityPool" ::
+              Data.=# ( "AWSCognitoIdentityService.DeleteIdentityPool" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteIdentityPool where
+instance Data.ToJSON DeleteIdentityPool where
   toJSON DeleteIdentityPool' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("IdentityPoolId" Core..= identityPoolId)
+              ("IdentityPoolId" Data..= identityPoolId)
           ]
       )
 
-instance Core.ToPath DeleteIdentityPool where
+instance Data.ToPath DeleteIdentityPool where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteIdentityPool where
+instance Data.ToQuery DeleteIdentityPool where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteIdentityPoolResponse' smart constructor.

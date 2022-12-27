@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.OnInputLifecycle
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTEvents.Types.OnInputLifecycle where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types.Event
 import Amazonka.IoTEvents.Types.TransitionEvent
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the actions performed when the @condition@ evaluates to TRUE.
@@ -66,15 +67,15 @@ onInputLifecycle_events = Lens.lens (\OnInputLifecycle' {events} -> events) (\s@
 onInputLifecycle_transitionEvents :: Lens.Lens' OnInputLifecycle (Prelude.Maybe [TransitionEvent])
 onInputLifecycle_transitionEvents = Lens.lens (\OnInputLifecycle' {transitionEvents} -> transitionEvents) (\s@OnInputLifecycle' {} a -> s {transitionEvents = a} :: OnInputLifecycle) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON OnInputLifecycle where
+instance Data.FromJSON OnInputLifecycle where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OnInputLifecycle"
       ( \x ->
           OnInputLifecycle'
-            Prelude.<$> (x Core..:? "events" Core..!= Prelude.mempty)
-            Prelude.<*> ( x Core..:? "transitionEvents"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "events" Data..!= Prelude.mempty)
+            Prelude.<*> ( x Data..:? "transitionEvents"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -88,12 +89,12 @@ instance Prelude.NFData OnInputLifecycle where
     Prelude.rnf events
       `Prelude.seq` Prelude.rnf transitionEvents
 
-instance Core.ToJSON OnInputLifecycle where
+instance Data.ToJSON OnInputLifecycle where
   toJSON OnInputLifecycle' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("events" Core..=) Prelude.<$> events,
-            ("transitionEvents" Core..=)
+          [ ("events" Data..=) Prelude.<$> events,
+            ("transitionEvents" Data..=)
               Prelude.<$> transitionEvents
           ]
       )

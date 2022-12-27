@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.ResourceFilters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Config.Types.ResourceFilters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Filters the results by resource account ID, region, resource ID, and
@@ -28,14 +29,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newResourceFilters' smart constructor.
 data ResourceFilters = ResourceFilters'
-  { -- | The ID of the resource.
-    resourceId :: Prelude.Maybe Prelude.Text,
-    -- | The name of the resource.
-    resourceName :: Prelude.Maybe Prelude.Text,
-    -- | The 12-digit source account ID.
+  { -- | The 12-digit source account ID.
     accountId :: Prelude.Maybe Prelude.Text,
     -- | The source region.
-    region :: Prelude.Maybe Prelude.Text
+    region :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the resource.
+    resourceId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the resource.
+    resourceName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,30 +48,22 @@ data ResourceFilters = ResourceFilters'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceId', 'resourceFilters_resourceId' - The ID of the resource.
---
--- 'resourceName', 'resourceFilters_resourceName' - The name of the resource.
---
 -- 'accountId', 'resourceFilters_accountId' - The 12-digit source account ID.
 --
 -- 'region', 'resourceFilters_region' - The source region.
+--
+-- 'resourceId', 'resourceFilters_resourceId' - The ID of the resource.
+--
+-- 'resourceName', 'resourceFilters_resourceName' - The name of the resource.
 newResourceFilters ::
   ResourceFilters
 newResourceFilters =
   ResourceFilters'
-    { resourceId = Prelude.Nothing,
-      resourceName = Prelude.Nothing,
-      accountId = Prelude.Nothing,
-      region = Prelude.Nothing
+    { accountId = Prelude.Nothing,
+      region = Prelude.Nothing,
+      resourceId = Prelude.Nothing,
+      resourceName = Prelude.Nothing
     }
-
--- | The ID of the resource.
-resourceFilters_resourceId :: Lens.Lens' ResourceFilters (Prelude.Maybe Prelude.Text)
-resourceFilters_resourceId = Lens.lens (\ResourceFilters' {resourceId} -> resourceId) (\s@ResourceFilters' {} a -> s {resourceId = a} :: ResourceFilters)
-
--- | The name of the resource.
-resourceFilters_resourceName :: Lens.Lens' ResourceFilters (Prelude.Maybe Prelude.Text)
-resourceFilters_resourceName = Lens.lens (\ResourceFilters' {resourceName} -> resourceName) (\s@ResourceFilters' {} a -> s {resourceName = a} :: ResourceFilters)
 
 -- | The 12-digit source account ID.
 resourceFilters_accountId :: Lens.Lens' ResourceFilters (Prelude.Maybe Prelude.Text)
@@ -80,27 +73,35 @@ resourceFilters_accountId = Lens.lens (\ResourceFilters' {accountId} -> accountI
 resourceFilters_region :: Lens.Lens' ResourceFilters (Prelude.Maybe Prelude.Text)
 resourceFilters_region = Lens.lens (\ResourceFilters' {region} -> region) (\s@ResourceFilters' {} a -> s {region = a} :: ResourceFilters)
 
+-- | The ID of the resource.
+resourceFilters_resourceId :: Lens.Lens' ResourceFilters (Prelude.Maybe Prelude.Text)
+resourceFilters_resourceId = Lens.lens (\ResourceFilters' {resourceId} -> resourceId) (\s@ResourceFilters' {} a -> s {resourceId = a} :: ResourceFilters)
+
+-- | The name of the resource.
+resourceFilters_resourceName :: Lens.Lens' ResourceFilters (Prelude.Maybe Prelude.Text)
+resourceFilters_resourceName = Lens.lens (\ResourceFilters' {resourceName} -> resourceName) (\s@ResourceFilters' {} a -> s {resourceName = a} :: ResourceFilters)
+
 instance Prelude.Hashable ResourceFilters where
   hashWithSalt _salt ResourceFilters' {..} =
-    _salt `Prelude.hashWithSalt` resourceId
-      `Prelude.hashWithSalt` resourceName
-      `Prelude.hashWithSalt` accountId
+    _salt `Prelude.hashWithSalt` accountId
       `Prelude.hashWithSalt` region
+      `Prelude.hashWithSalt` resourceId
+      `Prelude.hashWithSalt` resourceName
 
 instance Prelude.NFData ResourceFilters where
   rnf ResourceFilters' {..} =
-    Prelude.rnf resourceId
-      `Prelude.seq` Prelude.rnf resourceName
-      `Prelude.seq` Prelude.rnf accountId
+    Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf region
+      `Prelude.seq` Prelude.rnf resourceId
+      `Prelude.seq` Prelude.rnf resourceName
 
-instance Core.ToJSON ResourceFilters where
+instance Data.ToJSON ResourceFilters where
   toJSON ResourceFilters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ResourceId" Core..=) Prelude.<$> resourceId,
-            ("ResourceName" Core..=) Prelude.<$> resourceName,
-            ("AccountId" Core..=) Prelude.<$> accountId,
-            ("Region" Core..=) Prelude.<$> region
+          [ ("AccountId" Data..=) Prelude.<$> accountId,
+            ("Region" Data..=) Prelude.<$> region,
+            ("ResourceId" Data..=) Prelude.<$> resourceId,
+            ("ResourceName" Data..=) Prelude.<$> resourceName
           ]
       )

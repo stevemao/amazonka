@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.Types.KmsKeyConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AccessAnalyzer.Types.KmsKeyConfiguration where
 
 import Amazonka.AccessAnalyzer.Types.KmsGrantConfiguration
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Proposed access control configuration for a KMS key. You can propose a
@@ -87,14 +88,14 @@ kmsKeyConfiguration_grants = Lens.lens (\KmsKeyConfiguration' {grants} -> grants
 kmsKeyConfiguration_keyPolicies :: Lens.Lens' KmsKeyConfiguration (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 kmsKeyConfiguration_keyPolicies = Lens.lens (\KmsKeyConfiguration' {keyPolicies} -> keyPolicies) (\s@KmsKeyConfiguration' {} a -> s {keyPolicies = a} :: KmsKeyConfiguration) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON KmsKeyConfiguration where
+instance Data.FromJSON KmsKeyConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KmsKeyConfiguration"
       ( \x ->
           KmsKeyConfiguration'
-            Prelude.<$> (x Core..:? "grants" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "keyPolicies" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "grants" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "keyPolicies" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable KmsKeyConfiguration where
@@ -107,11 +108,11 @@ instance Prelude.NFData KmsKeyConfiguration where
     Prelude.rnf grants
       `Prelude.seq` Prelude.rnf keyPolicies
 
-instance Core.ToJSON KmsKeyConfiguration where
+instance Data.ToJSON KmsKeyConfiguration where
   toJSON KmsKeyConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("grants" Core..=) Prelude.<$> grants,
-            ("keyPolicies" Core..=) Prelude.<$> keyPolicies
+          [ ("grants" Data..=) Prelude.<$> grants,
+            ("keyPolicies" Data..=) Prelude.<$> keyPolicies
           ]
       )

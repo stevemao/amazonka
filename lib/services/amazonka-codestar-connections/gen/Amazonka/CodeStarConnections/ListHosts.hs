@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarConnections.ListHosts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.CodeStarConnections.ListHosts
     newListHosts,
 
     -- * Request Lenses
-    listHosts_nextToken,
     listHosts_maxResults,
+    listHosts_nextToken,
 
     -- * Destructuring the Response
     ListHostsResponse (..),
@@ -43,20 +43,21 @@ where
 
 import Amazonka.CodeStarConnections.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListHosts' smart constructor.
 data ListHosts = ListHosts'
-  { -- | The token that was returned from the previous @ListHosts@ call, which
-    -- can be used to return the next set of hosts in the list.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call. To retrieve
+  { -- | The maximum number of results to return in a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that was returned from the previous @ListHosts@ call, which
+    -- can be used to return the next set of hosts in the list.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,24 +69,19 @@ data ListHosts = ListHosts'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listHosts_nextToken' - The token that was returned from the previous @ListHosts@ call, which
--- can be used to return the next set of hosts in the list.
---
 -- 'maxResults', 'listHosts_maxResults' - The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'listHosts_nextToken' - The token that was returned from the previous @ListHosts@ call, which
+-- can be used to return the next set of hosts in the list.
 newListHosts ::
   ListHosts
 newListHosts =
   ListHosts'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token that was returned from the previous @ListHosts@ call, which
--- can be used to return the next set of hosts in the list.
-listHosts_nextToken :: Lens.Lens' ListHosts (Prelude.Maybe Prelude.Text)
-listHosts_nextToken = Lens.lens (\ListHosts' {nextToken} -> nextToken) (\s@ListHosts' {} a -> s {nextToken = a} :: ListHosts)
 
 -- | The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
@@ -93,56 +89,62 @@ listHosts_nextToken = Lens.lens (\ListHosts' {nextToken} -> nextToken) (\s@ListH
 listHosts_maxResults :: Lens.Lens' ListHosts (Prelude.Maybe Prelude.Natural)
 listHosts_maxResults = Lens.lens (\ListHosts' {maxResults} -> maxResults) (\s@ListHosts' {} a -> s {maxResults = a} :: ListHosts)
 
+-- | The token that was returned from the previous @ListHosts@ call, which
+-- can be used to return the next set of hosts in the list.
+listHosts_nextToken :: Lens.Lens' ListHosts (Prelude.Maybe Prelude.Text)
+listHosts_nextToken = Lens.lens (\ListHosts' {nextToken} -> nextToken) (\s@ListHosts' {} a -> s {nextToken = a} :: ListHosts)
+
 instance Core.AWSRequest ListHosts where
   type AWSResponse ListHosts = ListHostsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListHostsResponse'
-            Prelude.<$> (x Core..?> "Hosts" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Hosts" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListHosts where
   hashWithSalt _salt ListHosts' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListHosts where
   rnf ListHosts' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListHosts where
+instance Data.ToHeaders ListHosts where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "com.amazonaws.codestar.connections.CodeStar_connections_20191201.ListHosts" ::
+              Data.=# ( "com.amazonaws.codestar.connections.CodeStar_connections_20191201.ListHosts" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListHosts where
+instance Data.ToJSON ListHosts where
   toJSON ListHosts' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListHosts where
+instance Data.ToPath ListHosts where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListHosts where
+instance Data.ToQuery ListHosts where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListHostsResponse' smart constructor.

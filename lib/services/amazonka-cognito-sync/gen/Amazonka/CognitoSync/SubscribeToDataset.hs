@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoSync.SubscribeToDataset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ where
 
 import Amazonka.CognitoSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -131,7 +132,8 @@ instance Core.AWSRequest SubscribeToDataset where
   type
     AWSResponse SubscribeToDataset =
       SubscribeToDatasetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -153,34 +155,34 @@ instance Prelude.NFData SubscribeToDataset where
       `Prelude.seq` Prelude.rnf datasetName
       `Prelude.seq` Prelude.rnf deviceId
 
-instance Core.ToHeaders SubscribeToDataset where
+instance Data.ToHeaders SubscribeToDataset where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SubscribeToDataset where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON SubscribeToDataset where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath SubscribeToDataset where
+instance Data.ToPath SubscribeToDataset where
   toPath SubscribeToDataset' {..} =
     Prelude.mconcat
       [ "/identitypools/",
-        Core.toBS identityPoolId,
+        Data.toBS identityPoolId,
         "/identities/",
-        Core.toBS identityId,
+        Data.toBS identityId,
         "/datasets/",
-        Core.toBS datasetName,
+        Data.toBS datasetName,
         "/subscriptions/",
-        Core.toBS deviceId
+        Data.toBS deviceId
       ]
 
-instance Core.ToQuery SubscribeToDataset where
+instance Data.ToQuery SubscribeToDataset where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Response to a SubscribeToDataset request.

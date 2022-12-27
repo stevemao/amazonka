@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.GetProvisionedProductOutputs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,12 +29,12 @@ module Amazonka.ServiceCatalog.GetProvisionedProductOutputs
     newGetProvisionedProductOutputs,
 
     -- * Request Lenses
-    getProvisionedProductOutputs_provisionedProductName,
-    getProvisionedProductOutputs_outputKeys,
     getProvisionedProductOutputs_acceptLanguage,
-    getProvisionedProductOutputs_pageToken,
+    getProvisionedProductOutputs_outputKeys,
     getProvisionedProductOutputs_pageSize,
+    getProvisionedProductOutputs_pageToken,
     getProvisionedProductOutputs_provisionedProductId,
+    getProvisionedProductOutputs_provisionedProductName,
 
     -- * Destructuring the Response
     GetProvisionedProductOutputsResponse (..),
@@ -48,7 +48,8 @@ module Amazonka.ServiceCatalog.GetProvisionedProductOutputs
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,13 +57,7 @@ import Amazonka.ServiceCatalog.Types
 
 -- | /See:/ 'newGetProvisionedProductOutputs' smart constructor.
 data GetProvisionedProductOutputs = GetProvisionedProductOutputs'
-  { -- | The name of the provisioned product that you want the outputs from.
-    provisionedProductName :: Prelude.Maybe Prelude.Text,
-    -- | The list of keys that the API should return with their values. If none
-    -- are provided, the API will return all outputs of the provisioned
-    -- product.
-    outputKeys :: Prelude.Maybe [Prelude.Text],
-    -- | The language code.
+  { -- | The language code.
     --
     -- -   @en@ - English (default)
     --
@@ -70,14 +65,20 @@ data GetProvisionedProductOutputs = GetProvisionedProductOutputs'
     --
     -- -   @zh@ - Chinese
     acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The list of keys that the API should return with their values. If none
+    -- are provided, the API will return all outputs of the provisioned
+    -- product.
+    outputKeys :: Prelude.Maybe [Prelude.Text],
+    -- | The maximum number of items to return with this call.
+    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The page token for the next set of results. To retrieve the first set of
     -- results, use null.
     pageToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call.
-    pageSize :: Prelude.Maybe Prelude.Natural,
     -- | The identifier of the provisioned product that you want the outputs
     -- from.
-    provisionedProductId :: Prelude.Maybe Prelude.Text
+    provisionedProductId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the provisioned product that you want the outputs from.
+    provisionedProductName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -89,12 +90,6 @@ data GetProvisionedProductOutputs = GetProvisionedProductOutputs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'provisionedProductName', 'getProvisionedProductOutputs_provisionedProductName' - The name of the provisioned product that you want the outputs from.
---
--- 'outputKeys', 'getProvisionedProductOutputs_outputKeys' - The list of keys that the API should return with their values. If none
--- are provided, the API will return all outputs of the provisioned
--- product.
---
 -- 'acceptLanguage', 'getProvisionedProductOutputs_acceptLanguage' - The language code.
 --
 -- -   @en@ - English (default)
@@ -103,35 +98,31 @@ data GetProvisionedProductOutputs = GetProvisionedProductOutputs'
 --
 -- -   @zh@ - Chinese
 --
--- 'pageToken', 'getProvisionedProductOutputs_pageToken' - The page token for the next set of results. To retrieve the first set of
--- results, use null.
+-- 'outputKeys', 'getProvisionedProductOutputs_outputKeys' - The list of keys that the API should return with their values. If none
+-- are provided, the API will return all outputs of the provisioned
+-- product.
 --
 -- 'pageSize', 'getProvisionedProductOutputs_pageSize' - The maximum number of items to return with this call.
 --
+-- 'pageToken', 'getProvisionedProductOutputs_pageToken' - The page token for the next set of results. To retrieve the first set of
+-- results, use null.
+--
 -- 'provisionedProductId', 'getProvisionedProductOutputs_provisionedProductId' - The identifier of the provisioned product that you want the outputs
 -- from.
+--
+-- 'provisionedProductName', 'getProvisionedProductOutputs_provisionedProductName' - The name of the provisioned product that you want the outputs from.
 newGetProvisionedProductOutputs ::
   GetProvisionedProductOutputs
 newGetProvisionedProductOutputs =
   GetProvisionedProductOutputs'
-    { provisionedProductName =
+    { acceptLanguage =
         Prelude.Nothing,
       outputKeys = Prelude.Nothing,
-      acceptLanguage = Prelude.Nothing,
-      pageToken = Prelude.Nothing,
       pageSize = Prelude.Nothing,
-      provisionedProductId = Prelude.Nothing
+      pageToken = Prelude.Nothing,
+      provisionedProductId = Prelude.Nothing,
+      provisionedProductName = Prelude.Nothing
     }
-
--- | The name of the provisioned product that you want the outputs from.
-getProvisionedProductOutputs_provisionedProductName :: Lens.Lens' GetProvisionedProductOutputs (Prelude.Maybe Prelude.Text)
-getProvisionedProductOutputs_provisionedProductName = Lens.lens (\GetProvisionedProductOutputs' {provisionedProductName} -> provisionedProductName) (\s@GetProvisionedProductOutputs' {} a -> s {provisionedProductName = a} :: GetProvisionedProductOutputs)
-
--- | The list of keys that the API should return with their values. If none
--- are provided, the API will return all outputs of the provisioned
--- product.
-getProvisionedProductOutputs_outputKeys :: Lens.Lens' GetProvisionedProductOutputs (Prelude.Maybe [Prelude.Text])
-getProvisionedProductOutputs_outputKeys = Lens.lens (\GetProvisionedProductOutputs' {outputKeys} -> outputKeys) (\s@GetProvisionedProductOutputs' {} a -> s {outputKeys = a} :: GetProvisionedProductOutputs) Prelude.. Lens.mapping Lens.coerced
 
 -- | The language code.
 --
@@ -143,31 +134,42 @@ getProvisionedProductOutputs_outputKeys = Lens.lens (\GetProvisionedProductOutpu
 getProvisionedProductOutputs_acceptLanguage :: Lens.Lens' GetProvisionedProductOutputs (Prelude.Maybe Prelude.Text)
 getProvisionedProductOutputs_acceptLanguage = Lens.lens (\GetProvisionedProductOutputs' {acceptLanguage} -> acceptLanguage) (\s@GetProvisionedProductOutputs' {} a -> s {acceptLanguage = a} :: GetProvisionedProductOutputs)
 
--- | The page token for the next set of results. To retrieve the first set of
--- results, use null.
-getProvisionedProductOutputs_pageToken :: Lens.Lens' GetProvisionedProductOutputs (Prelude.Maybe Prelude.Text)
-getProvisionedProductOutputs_pageToken = Lens.lens (\GetProvisionedProductOutputs' {pageToken} -> pageToken) (\s@GetProvisionedProductOutputs' {} a -> s {pageToken = a} :: GetProvisionedProductOutputs)
+-- | The list of keys that the API should return with their values. If none
+-- are provided, the API will return all outputs of the provisioned
+-- product.
+getProvisionedProductOutputs_outputKeys :: Lens.Lens' GetProvisionedProductOutputs (Prelude.Maybe [Prelude.Text])
+getProvisionedProductOutputs_outputKeys = Lens.lens (\GetProvisionedProductOutputs' {outputKeys} -> outputKeys) (\s@GetProvisionedProductOutputs' {} a -> s {outputKeys = a} :: GetProvisionedProductOutputs) Prelude.. Lens.mapping Lens.coerced
 
 -- | The maximum number of items to return with this call.
 getProvisionedProductOutputs_pageSize :: Lens.Lens' GetProvisionedProductOutputs (Prelude.Maybe Prelude.Natural)
 getProvisionedProductOutputs_pageSize = Lens.lens (\GetProvisionedProductOutputs' {pageSize} -> pageSize) (\s@GetProvisionedProductOutputs' {} a -> s {pageSize = a} :: GetProvisionedProductOutputs)
+
+-- | The page token for the next set of results. To retrieve the first set of
+-- results, use null.
+getProvisionedProductOutputs_pageToken :: Lens.Lens' GetProvisionedProductOutputs (Prelude.Maybe Prelude.Text)
+getProvisionedProductOutputs_pageToken = Lens.lens (\GetProvisionedProductOutputs' {pageToken} -> pageToken) (\s@GetProvisionedProductOutputs' {} a -> s {pageToken = a} :: GetProvisionedProductOutputs)
 
 -- | The identifier of the provisioned product that you want the outputs
 -- from.
 getProvisionedProductOutputs_provisionedProductId :: Lens.Lens' GetProvisionedProductOutputs (Prelude.Maybe Prelude.Text)
 getProvisionedProductOutputs_provisionedProductId = Lens.lens (\GetProvisionedProductOutputs' {provisionedProductId} -> provisionedProductId) (\s@GetProvisionedProductOutputs' {} a -> s {provisionedProductId = a} :: GetProvisionedProductOutputs)
 
+-- | The name of the provisioned product that you want the outputs from.
+getProvisionedProductOutputs_provisionedProductName :: Lens.Lens' GetProvisionedProductOutputs (Prelude.Maybe Prelude.Text)
+getProvisionedProductOutputs_provisionedProductName = Lens.lens (\GetProvisionedProductOutputs' {provisionedProductName} -> provisionedProductName) (\s@GetProvisionedProductOutputs' {} a -> s {provisionedProductName = a} :: GetProvisionedProductOutputs)
+
 instance Core.AWSRequest GetProvisionedProductOutputs where
   type
     AWSResponse GetProvisionedProductOutputs =
       GetProvisionedProductOutputsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetProvisionedProductOutputsResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-            Prelude.<*> (x Core..?> "Outputs" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextPageToken")
+            Prelude.<*> (x Data..?> "Outputs" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -176,57 +178,57 @@ instance
     GetProvisionedProductOutputs
   where
   hashWithSalt _salt GetProvisionedProductOutputs' {..} =
-    _salt `Prelude.hashWithSalt` provisionedProductName
+    _salt `Prelude.hashWithSalt` acceptLanguage
       `Prelude.hashWithSalt` outputKeys
-      `Prelude.hashWithSalt` acceptLanguage
-      `Prelude.hashWithSalt` pageToken
       `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` pageToken
       `Prelude.hashWithSalt` provisionedProductId
+      `Prelude.hashWithSalt` provisionedProductName
 
 instance Prelude.NFData GetProvisionedProductOutputs where
   rnf GetProvisionedProductOutputs' {..} =
-    Prelude.rnf provisionedProductName
+    Prelude.rnf acceptLanguage
       `Prelude.seq` Prelude.rnf outputKeys
-      `Prelude.seq` Prelude.rnf acceptLanguage
-      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf pageToken
       `Prelude.seq` Prelude.rnf provisionedProductId
+      `Prelude.seq` Prelude.rnf provisionedProductName
 
-instance Core.ToHeaders GetProvisionedProductOutputs where
+instance Data.ToHeaders GetProvisionedProductOutputs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.GetProvisionedProductOutputs" ::
+              Data.=# ( "AWS242ServiceCatalogService.GetProvisionedProductOutputs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetProvisionedProductOutputs where
+instance Data.ToJSON GetProvisionedProductOutputs where
   toJSON GetProvisionedProductOutputs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ProvisionedProductName" Core..=)
-              Prelude.<$> provisionedProductName,
-            ("OutputKeys" Core..=) Prelude.<$> outputKeys,
-            ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("PageToken" Core..=) Prelude.<$> pageToken,
-            ("PageSize" Core..=) Prelude.<$> pageSize,
-            ("ProvisionedProductId" Core..=)
-              Prelude.<$> provisionedProductId
+            ("OutputKeys" Data..=) Prelude.<$> outputKeys,
+            ("PageSize" Data..=) Prelude.<$> pageSize,
+            ("PageToken" Data..=) Prelude.<$> pageToken,
+            ("ProvisionedProductId" Data..=)
+              Prelude.<$> provisionedProductId,
+            ("ProvisionedProductName" Data..=)
+              Prelude.<$> provisionedProductName
           ]
       )
 
-instance Core.ToPath GetProvisionedProductOutputs where
+instance Data.ToPath GetProvisionedProductOutputs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetProvisionedProductOutputs where
+instance Data.ToQuery GetProvisionedProductOutputs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetProvisionedProductOutputsResponse' smart constructor.

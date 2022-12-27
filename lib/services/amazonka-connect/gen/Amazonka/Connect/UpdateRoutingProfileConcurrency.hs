@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.UpdateRoutingProfileConcurrency
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,7 +108,8 @@ instance
   type
     AWSResponse UpdateRoutingProfileConcurrency =
       UpdateRoutingProfileConcurrencyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       UpdateRoutingProfileConcurrencyResponse'
@@ -133,39 +135,39 @@ instance
       `Prelude.seq` Prelude.rnf mediaConcurrencies
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateRoutingProfileConcurrency
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRoutingProfileConcurrency where
+instance Data.ToJSON UpdateRoutingProfileConcurrency where
   toJSON UpdateRoutingProfileConcurrency' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("MediaConcurrencies" Core..= mediaConcurrencies)
+              ("MediaConcurrencies" Data..= mediaConcurrencies)
           ]
       )
 
-instance Core.ToPath UpdateRoutingProfileConcurrency where
+instance Data.ToPath UpdateRoutingProfileConcurrency where
   toPath UpdateRoutingProfileConcurrency' {..} =
     Prelude.mconcat
       [ "/routing-profiles/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/",
-        Core.toBS routingProfileId,
+        Data.toBS routingProfileId,
         "/concurrency"
       ]
 
-instance Core.ToQuery UpdateRoutingProfileConcurrency where
+instance Data.ToQuery UpdateRoutingProfileConcurrency where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateRoutingProfileConcurrencyResponse' smart constructor.

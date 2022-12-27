@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.RemediationActionWithOrder
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.FMS.Types.RemediationActionWithOrder where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types.RemediationAction
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An ordered list of actions you can take to remediate a violation.
 --
 -- /See:/ 'newRemediationActionWithOrder' smart constructor.
 data RemediationActionWithOrder = RemediationActionWithOrder'
-  { -- | Information about an action you can take to remediate a violation.
-    remediationAction :: Prelude.Maybe RemediationAction,
-    -- | The order of the remediation actions in the list.
-    order :: Prelude.Maybe Prelude.Int
+  { -- | The order of the remediation actions in the list.
+    order :: Prelude.Maybe Prelude.Int,
+    -- | Information about an action you can take to remediate a violation.
+    remediationAction :: Prelude.Maybe RemediationAction
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,42 +44,42 @@ data RemediationActionWithOrder = RemediationActionWithOrder'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'remediationAction', 'remediationActionWithOrder_remediationAction' - Information about an action you can take to remediate a violation.
---
 -- 'order', 'remediationActionWithOrder_order' - The order of the remediation actions in the list.
+--
+-- 'remediationAction', 'remediationActionWithOrder_remediationAction' - Information about an action you can take to remediate a violation.
 newRemediationActionWithOrder ::
   RemediationActionWithOrder
 newRemediationActionWithOrder =
   RemediationActionWithOrder'
-    { remediationAction =
+    { order =
         Prelude.Nothing,
-      order = Prelude.Nothing
+      remediationAction = Prelude.Nothing
     }
-
--- | Information about an action you can take to remediate a violation.
-remediationActionWithOrder_remediationAction :: Lens.Lens' RemediationActionWithOrder (Prelude.Maybe RemediationAction)
-remediationActionWithOrder_remediationAction = Lens.lens (\RemediationActionWithOrder' {remediationAction} -> remediationAction) (\s@RemediationActionWithOrder' {} a -> s {remediationAction = a} :: RemediationActionWithOrder)
 
 -- | The order of the remediation actions in the list.
 remediationActionWithOrder_order :: Lens.Lens' RemediationActionWithOrder (Prelude.Maybe Prelude.Int)
 remediationActionWithOrder_order = Lens.lens (\RemediationActionWithOrder' {order} -> order) (\s@RemediationActionWithOrder' {} a -> s {order = a} :: RemediationActionWithOrder)
 
-instance Core.FromJSON RemediationActionWithOrder where
+-- | Information about an action you can take to remediate a violation.
+remediationActionWithOrder_remediationAction :: Lens.Lens' RemediationActionWithOrder (Prelude.Maybe RemediationAction)
+remediationActionWithOrder_remediationAction = Lens.lens (\RemediationActionWithOrder' {remediationAction} -> remediationAction) (\s@RemediationActionWithOrder' {} a -> s {remediationAction = a} :: RemediationActionWithOrder)
+
+instance Data.FromJSON RemediationActionWithOrder where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RemediationActionWithOrder"
       ( \x ->
           RemediationActionWithOrder'
-            Prelude.<$> (x Core..:? "RemediationAction")
-            Prelude.<*> (x Core..:? "Order")
+            Prelude.<$> (x Data..:? "Order")
+            Prelude.<*> (x Data..:? "RemediationAction")
       )
 
 instance Prelude.Hashable RemediationActionWithOrder where
   hashWithSalt _salt RemediationActionWithOrder' {..} =
-    _salt `Prelude.hashWithSalt` remediationAction
-      `Prelude.hashWithSalt` order
+    _salt `Prelude.hashWithSalt` order
+      `Prelude.hashWithSalt` remediationAction
 
 instance Prelude.NFData RemediationActionWithOrder where
   rnf RemediationActionWithOrder' {..} =
-    Prelude.rnf remediationAction
-      `Prelude.seq` Prelude.rnf order
+    Prelude.rnf order
+      `Prelude.seq` Prelude.rnf remediationAction

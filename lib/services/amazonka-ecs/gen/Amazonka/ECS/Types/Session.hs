@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.Session
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,22 +20,22 @@
 module Amazonka.ECS.Types.Session where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The details of the execute command session.
+-- | The details for the execute command session.
 --
 -- /See:/ 'newSession' smart constructor.
 data Session = Session'
-  { -- | A URL back to managed agent on the container that the SSM Session
-    -- Manager client uses to send commands and receive output from the
-    -- container.
+  { -- | The ID of the execute command session.
+    sessionId :: Prelude.Maybe Prelude.Text,
+    -- | A URL to the managed agent on the container that the SSM Session Manager
+    -- client uses to send commands and receive output from the container.
     streamUrl :: Prelude.Maybe Prelude.Text,
-    -- | An encrypted token value containing session and caller information. Used
-    -- to authenticate the connection to the container.
-    tokenValue :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The ID of the execute command session.
-    sessionId :: Prelude.Maybe Prelude.Text
+    -- | An encrypted token value containing session and caller information.
+    -- It\'s used to authenticate the connection to the container.
+    tokenValue :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -47,57 +47,55 @@ data Session = Session'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'streamUrl', 'session_streamUrl' - A URL back to managed agent on the container that the SSM Session
--- Manager client uses to send commands and receive output from the
--- container.
---
--- 'tokenValue', 'session_tokenValue' - An encrypted token value containing session and caller information. Used
--- to authenticate the connection to the container.
---
 -- 'sessionId', 'session_sessionId' - The ID of the execute command session.
+--
+-- 'streamUrl', 'session_streamUrl' - A URL to the managed agent on the container that the SSM Session Manager
+-- client uses to send commands and receive output from the container.
+--
+-- 'tokenValue', 'session_tokenValue' - An encrypted token value containing session and caller information.
+-- It\'s used to authenticate the connection to the container.
 newSession ::
   Session
 newSession =
   Session'
-    { streamUrl = Prelude.Nothing,
-      tokenValue = Prelude.Nothing,
-      sessionId = Prelude.Nothing
+    { sessionId = Prelude.Nothing,
+      streamUrl = Prelude.Nothing,
+      tokenValue = Prelude.Nothing
     }
-
--- | A URL back to managed agent on the container that the SSM Session
--- Manager client uses to send commands and receive output from the
--- container.
-session_streamUrl :: Lens.Lens' Session (Prelude.Maybe Prelude.Text)
-session_streamUrl = Lens.lens (\Session' {streamUrl} -> streamUrl) (\s@Session' {} a -> s {streamUrl = a} :: Session)
-
--- | An encrypted token value containing session and caller information. Used
--- to authenticate the connection to the container.
-session_tokenValue :: Lens.Lens' Session (Prelude.Maybe Prelude.Text)
-session_tokenValue = Lens.lens (\Session' {tokenValue} -> tokenValue) (\s@Session' {} a -> s {tokenValue = a} :: Session) Prelude.. Lens.mapping Core._Sensitive
 
 -- | The ID of the execute command session.
 session_sessionId :: Lens.Lens' Session (Prelude.Maybe Prelude.Text)
 session_sessionId = Lens.lens (\Session' {sessionId} -> sessionId) (\s@Session' {} a -> s {sessionId = a} :: Session)
 
-instance Core.FromJSON Session where
+-- | A URL to the managed agent on the container that the SSM Session Manager
+-- client uses to send commands and receive output from the container.
+session_streamUrl :: Lens.Lens' Session (Prelude.Maybe Prelude.Text)
+session_streamUrl = Lens.lens (\Session' {streamUrl} -> streamUrl) (\s@Session' {} a -> s {streamUrl = a} :: Session)
+
+-- | An encrypted token value containing session and caller information.
+-- It\'s used to authenticate the connection to the container.
+session_tokenValue :: Lens.Lens' Session (Prelude.Maybe Prelude.Text)
+session_tokenValue = Lens.lens (\Session' {tokenValue} -> tokenValue) (\s@Session' {} a -> s {tokenValue = a} :: Session) Prelude.. Lens.mapping Data._Sensitive
+
+instance Data.FromJSON Session where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Session"
       ( \x ->
           Session'
-            Prelude.<$> (x Core..:? "streamUrl")
-            Prelude.<*> (x Core..:? "tokenValue")
-            Prelude.<*> (x Core..:? "sessionId")
+            Prelude.<$> (x Data..:? "sessionId")
+            Prelude.<*> (x Data..:? "streamUrl")
+            Prelude.<*> (x Data..:? "tokenValue")
       )
 
 instance Prelude.Hashable Session where
   hashWithSalt _salt Session' {..} =
-    _salt `Prelude.hashWithSalt` streamUrl
+    _salt `Prelude.hashWithSalt` sessionId
+      `Prelude.hashWithSalt` streamUrl
       `Prelude.hashWithSalt` tokenValue
-      `Prelude.hashWithSalt` sessionId
 
 instance Prelude.NFData Session where
   rnf Session' {..} =
-    Prelude.rnf streamUrl
+    Prelude.rnf sessionId
+      `Prelude.seq` Prelude.rnf streamUrl
       `Prelude.seq` Prelude.rnf tokenValue
-      `Prelude.seq` Prelude.rnf sessionId

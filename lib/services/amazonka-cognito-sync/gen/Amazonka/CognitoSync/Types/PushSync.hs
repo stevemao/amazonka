@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoSync.Types.PushSync
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CognitoSync.Types.PushSync where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration options to be applied to the identity pool.
@@ -64,16 +65,16 @@ pushSync_applicationArns = Lens.lens (\PushSync' {applicationArns} -> applicatio
 pushSync_roleArn :: Lens.Lens' PushSync (Prelude.Maybe Prelude.Text)
 pushSync_roleArn = Lens.lens (\PushSync' {roleArn} -> roleArn) (\s@PushSync' {} a -> s {roleArn = a} :: PushSync)
 
-instance Core.FromJSON PushSync where
+instance Data.FromJSON PushSync where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PushSync"
       ( \x ->
           PushSync'
-            Prelude.<$> ( x Core..:? "ApplicationArns"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "ApplicationArns"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "RoleArn")
+            Prelude.<*> (x Data..:? "RoleArn")
       )
 
 instance Prelude.Hashable PushSync where
@@ -86,12 +87,12 @@ instance Prelude.NFData PushSync where
     Prelude.rnf applicationArns
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToJSON PushSync where
+instance Data.ToJSON PushSync where
   toJSON PushSync' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ApplicationArns" Core..=)
+          [ ("ApplicationArns" Data..=)
               Prelude.<$> applicationArns,
-            ("RoleArn" Core..=) Prelude.<$> roleArn
+            ("RoleArn" Data..=) Prelude.<$> roleArn
           ]
       )

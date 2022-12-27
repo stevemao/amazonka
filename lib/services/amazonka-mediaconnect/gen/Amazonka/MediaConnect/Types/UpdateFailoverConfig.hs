@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.Types.UpdateFailoverConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,26 +20,27 @@
 module Amazonka.MediaConnect.Types.UpdateFailoverConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types.FailoverMode
 import Amazonka.MediaConnect.Types.SourcePriority
 import Amazonka.MediaConnect.Types.State
 import qualified Amazonka.Prelude as Prelude
 
--- | The settings for source failover
+-- | The settings for source failover.
 --
 -- /See:/ 'newUpdateFailoverConfig' smart constructor.
 data UpdateFailoverConfig = UpdateFailoverConfig'
-  { state :: Prelude.Maybe State,
+  { -- | The type of failover you choose for this flow. MERGE combines the source
+    -- streams into a single stream, allowing graceful recovery from any
+    -- single-source loss. FAILOVER allows switching between different streams.
+    failoverMode :: Prelude.Maybe FailoverMode,
     -- | Recovery window time to look for dash-7 packets
     recoveryWindow :: Prelude.Maybe Prelude.Int,
     -- | The priority you want to assign to a source. You can have a primary
     -- stream and a backup stream or two equally prioritized streams.
     sourcePriority :: Prelude.Maybe SourcePriority,
-    -- | The type of failover you choose for this flow. MERGE combines the source
-    -- streams into a single stream, allowing graceful recovery from any
-    -- single-source loss. FAILOVER allows switching between different streams.
-    failoverMode :: Prelude.Maybe FailoverMode
+    state :: Prelude.Maybe State
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,29 +52,32 @@ data UpdateFailoverConfig = UpdateFailoverConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'updateFailoverConfig_state' - Undocumented member.
+-- 'failoverMode', 'updateFailoverConfig_failoverMode' - The type of failover you choose for this flow. MERGE combines the source
+-- streams into a single stream, allowing graceful recovery from any
+-- single-source loss. FAILOVER allows switching between different streams.
 --
 -- 'recoveryWindow', 'updateFailoverConfig_recoveryWindow' - Recovery window time to look for dash-7 packets
 --
 -- 'sourcePriority', 'updateFailoverConfig_sourcePriority' - The priority you want to assign to a source. You can have a primary
 -- stream and a backup stream or two equally prioritized streams.
 --
--- 'failoverMode', 'updateFailoverConfig_failoverMode' - The type of failover you choose for this flow. MERGE combines the source
--- streams into a single stream, allowing graceful recovery from any
--- single-source loss. FAILOVER allows switching between different streams.
+-- 'state', 'updateFailoverConfig_state' - Undocumented member.
 newUpdateFailoverConfig ::
   UpdateFailoverConfig
 newUpdateFailoverConfig =
   UpdateFailoverConfig'
-    { state = Prelude.Nothing,
+    { failoverMode =
+        Prelude.Nothing,
       recoveryWindow = Prelude.Nothing,
       sourcePriority = Prelude.Nothing,
-      failoverMode = Prelude.Nothing
+      state = Prelude.Nothing
     }
 
--- | Undocumented member.
-updateFailoverConfig_state :: Lens.Lens' UpdateFailoverConfig (Prelude.Maybe State)
-updateFailoverConfig_state = Lens.lens (\UpdateFailoverConfig' {state} -> state) (\s@UpdateFailoverConfig' {} a -> s {state = a} :: UpdateFailoverConfig)
+-- | The type of failover you choose for this flow. MERGE combines the source
+-- streams into a single stream, allowing graceful recovery from any
+-- single-source loss. FAILOVER allows switching between different streams.
+updateFailoverConfig_failoverMode :: Lens.Lens' UpdateFailoverConfig (Prelude.Maybe FailoverMode)
+updateFailoverConfig_failoverMode = Lens.lens (\UpdateFailoverConfig' {failoverMode} -> failoverMode) (\s@UpdateFailoverConfig' {} a -> s {failoverMode = a} :: UpdateFailoverConfig)
 
 -- | Recovery window time to look for dash-7 packets
 updateFailoverConfig_recoveryWindow :: Lens.Lens' UpdateFailoverConfig (Prelude.Maybe Prelude.Int)
@@ -84,35 +88,33 @@ updateFailoverConfig_recoveryWindow = Lens.lens (\UpdateFailoverConfig' {recover
 updateFailoverConfig_sourcePriority :: Lens.Lens' UpdateFailoverConfig (Prelude.Maybe SourcePriority)
 updateFailoverConfig_sourcePriority = Lens.lens (\UpdateFailoverConfig' {sourcePriority} -> sourcePriority) (\s@UpdateFailoverConfig' {} a -> s {sourcePriority = a} :: UpdateFailoverConfig)
 
--- | The type of failover you choose for this flow. MERGE combines the source
--- streams into a single stream, allowing graceful recovery from any
--- single-source loss. FAILOVER allows switching between different streams.
-updateFailoverConfig_failoverMode :: Lens.Lens' UpdateFailoverConfig (Prelude.Maybe FailoverMode)
-updateFailoverConfig_failoverMode = Lens.lens (\UpdateFailoverConfig' {failoverMode} -> failoverMode) (\s@UpdateFailoverConfig' {} a -> s {failoverMode = a} :: UpdateFailoverConfig)
+-- | Undocumented member.
+updateFailoverConfig_state :: Lens.Lens' UpdateFailoverConfig (Prelude.Maybe State)
+updateFailoverConfig_state = Lens.lens (\UpdateFailoverConfig' {state} -> state) (\s@UpdateFailoverConfig' {} a -> s {state = a} :: UpdateFailoverConfig)
 
 instance Prelude.Hashable UpdateFailoverConfig where
   hashWithSalt _salt UpdateFailoverConfig' {..} =
-    _salt `Prelude.hashWithSalt` state
+    _salt `Prelude.hashWithSalt` failoverMode
       `Prelude.hashWithSalt` recoveryWindow
       `Prelude.hashWithSalt` sourcePriority
-      `Prelude.hashWithSalt` failoverMode
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData UpdateFailoverConfig where
   rnf UpdateFailoverConfig' {..} =
-    Prelude.rnf state
+    Prelude.rnf failoverMode
       `Prelude.seq` Prelude.rnf recoveryWindow
       `Prelude.seq` Prelude.rnf sourcePriority
-      `Prelude.seq` Prelude.rnf failoverMode
+      `Prelude.seq` Prelude.rnf state
 
-instance Core.ToJSON UpdateFailoverConfig where
+instance Data.ToJSON UpdateFailoverConfig where
   toJSON UpdateFailoverConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("state" Core..=) Prelude.<$> state,
-            ("recoveryWindow" Core..=)
+          [ ("failoverMode" Data..=) Prelude.<$> failoverMode,
+            ("recoveryWindow" Data..=)
               Prelude.<$> recoveryWindow,
-            ("sourcePriority" Core..=)
+            ("sourcePriority" Data..=)
               Prelude.<$> sourcePriority,
-            ("failoverMode" Core..=) Prelude.<$> failoverMode
+            ("state" Data..=) Prelude.<$> state
           ]
       )

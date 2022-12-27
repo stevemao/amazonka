@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,48 +14,47 @@
 module Amazonka.NetworkFirewall.Lens
   ( -- * Operations
 
+    -- ** AssociateFirewallPolicy
+    associateFirewallPolicy_firewallArn,
+    associateFirewallPolicy_firewallName,
+    associateFirewallPolicy_updateToken,
+    associateFirewallPolicy_firewallPolicyArn,
+    associateFirewallPolicyResponse_firewallArn,
+    associateFirewallPolicyResponse_firewallName,
+    associateFirewallPolicyResponse_firewallPolicyArn,
+    associateFirewallPolicyResponse_updateToken,
+    associateFirewallPolicyResponse_httpStatus,
+
     -- ** AssociateSubnets
-    associateSubnets_updateToken,
     associateSubnets_firewallArn,
     associateSubnets_firewallName,
+    associateSubnets_updateToken,
     associateSubnets_subnetMappings,
-    associateSubnetsResponse_subnetMappings,
-    associateSubnetsResponse_updateToken,
     associateSubnetsResponse_firewallArn,
     associateSubnetsResponse_firewallName,
+    associateSubnetsResponse_subnetMappings,
+    associateSubnetsResponse_updateToken,
     associateSubnetsResponse_httpStatus,
 
-    -- ** UpdateSubnetChangeProtection
-    updateSubnetChangeProtection_updateToken,
-    updateSubnetChangeProtection_firewallArn,
-    updateSubnetChangeProtection_firewallName,
-    updateSubnetChangeProtection_subnetChangeProtection,
-    updateSubnetChangeProtectionResponse_updateToken,
-    updateSubnetChangeProtectionResponse_firewallArn,
-    updateSubnetChangeProtectionResponse_subnetChangeProtection,
-    updateSubnetChangeProtectionResponse_firewallName,
-    updateSubnetChangeProtectionResponse_httpStatus,
-
-    -- ** UpdateFirewallPolicy
-    updateFirewallPolicy_firewallPolicyName,
-    updateFirewallPolicy_firewallPolicyArn,
-    updateFirewallPolicy_description,
-    updateFirewallPolicy_dryRun,
-    updateFirewallPolicy_updateToken,
-    updateFirewallPolicy_firewallPolicy,
-    updateFirewallPolicyResponse_httpStatus,
-    updateFirewallPolicyResponse_updateToken,
-    updateFirewallPolicyResponse_firewallPolicyResponse,
-
-    -- ** DeleteFirewallPolicy
-    deleteFirewallPolicy_firewallPolicyName,
-    deleteFirewallPolicy_firewallPolicyArn,
-    deleteFirewallPolicyResponse_httpStatus,
-    deleteFirewallPolicyResponse_firewallPolicyResponse,
+    -- ** CreateFirewall
+    createFirewall_deleteProtection,
+    createFirewall_description,
+    createFirewall_encryptionConfiguration,
+    createFirewall_firewallPolicyChangeProtection,
+    createFirewall_subnetChangeProtection,
+    createFirewall_tags,
+    createFirewall_firewallName,
+    createFirewall_firewallPolicyArn,
+    createFirewall_vpcId,
+    createFirewall_subnetMappings,
+    createFirewallResponse_firewall,
+    createFirewallResponse_firewallStatus,
+    createFirewallResponse_httpStatus,
 
     -- ** CreateFirewallPolicy
     createFirewallPolicy_description,
     createFirewallPolicy_dryRun,
+    createFirewallPolicy_encryptionConfiguration,
     createFirewallPolicy_tags,
     createFirewallPolicy_firewallPolicyName,
     createFirewallPolicy_firewallPolicy,
@@ -63,58 +62,14 @@ module Amazonka.NetworkFirewall.Lens
     createFirewallPolicyResponse_updateToken,
     createFirewallPolicyResponse_firewallPolicyResponse,
 
-    -- ** UpdateLoggingConfiguration
-    updateLoggingConfiguration_firewallArn,
-    updateLoggingConfiguration_loggingConfiguration,
-    updateLoggingConfiguration_firewallName,
-    updateLoggingConfigurationResponse_firewallArn,
-    updateLoggingConfigurationResponse_loggingConfiguration,
-    updateLoggingConfigurationResponse_firewallName,
-    updateLoggingConfigurationResponse_httpStatus,
-
-    -- ** DisassociateSubnets
-    disassociateSubnets_updateToken,
-    disassociateSubnets_firewallArn,
-    disassociateSubnets_firewallName,
-    disassociateSubnets_subnetIds,
-    disassociateSubnetsResponse_subnetMappings,
-    disassociateSubnetsResponse_updateToken,
-    disassociateSubnetsResponse_firewallArn,
-    disassociateSubnetsResponse_firewallName,
-    disassociateSubnetsResponse_httpStatus,
-
-    -- ** ListTagsForResource
-    listTagsForResource_nextToken,
-    listTagsForResource_maxResults,
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_nextToken,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** ListFirewallPolicies
-    listFirewallPolicies_nextToken,
-    listFirewallPolicies_maxResults,
-    listFirewallPoliciesResponse_firewallPolicies,
-    listFirewallPoliciesResponse_nextToken,
-    listFirewallPoliciesResponse_httpStatus,
-
-    -- ** UpdateFirewallDeleteProtection
-    updateFirewallDeleteProtection_updateToken,
-    updateFirewallDeleteProtection_firewallArn,
-    updateFirewallDeleteProtection_firewallName,
-    updateFirewallDeleteProtection_deleteProtection,
-    updateFirewallDeleteProtectionResponse_updateToken,
-    updateFirewallDeleteProtectionResponse_firewallArn,
-    updateFirewallDeleteProtectionResponse_deleteProtection,
-    updateFirewallDeleteProtectionResponse_firewallName,
-    updateFirewallDeleteProtectionResponse_httpStatus,
-
     -- ** CreateRuleGroup
-    createRuleGroup_rules,
     createRuleGroup_description,
     createRuleGroup_dryRun,
-    createRuleGroup_tags,
+    createRuleGroup_encryptionConfiguration,
     createRuleGroup_ruleGroup,
+    createRuleGroup_rules,
+    createRuleGroup_sourceMetadata,
+    createRuleGroup_tags,
     createRuleGroup_ruleGroupName,
     createRuleGroup_type,
     createRuleGroup_capacity,
@@ -122,143 +77,45 @@ module Amazonka.NetworkFirewall.Lens
     createRuleGroupResponse_updateToken,
     createRuleGroupResponse_ruleGroupResponse,
 
-    -- ** DescribeFirewallPolicy
-    describeFirewallPolicy_firewallPolicyName,
-    describeFirewallPolicy_firewallPolicyArn,
-    describeFirewallPolicyResponse_firewallPolicy,
-    describeFirewallPolicyResponse_httpStatus,
-    describeFirewallPolicyResponse_updateToken,
-    describeFirewallPolicyResponse_firewallPolicyResponse,
-
-    -- ** UpdateFirewallDescription
-    updateFirewallDescription_updateToken,
-    updateFirewallDescription_firewallArn,
-    updateFirewallDescription_description,
-    updateFirewallDescription_firewallName,
-    updateFirewallDescriptionResponse_updateToken,
-    updateFirewallDescriptionResponse_firewallArn,
-    updateFirewallDescriptionResponse_description,
-    updateFirewallDescriptionResponse_firewallName,
-    updateFirewallDescriptionResponse_httpStatus,
-
-    -- ** DescribeRuleGroup
-    describeRuleGroup_ruleGroupArn,
-    describeRuleGroup_type,
-    describeRuleGroup_ruleGroupName,
-    describeRuleGroupResponse_ruleGroup,
-    describeRuleGroupResponse_httpStatus,
-    describeRuleGroupResponse_updateToken,
-    describeRuleGroupResponse_ruleGroupResponse,
-
     -- ** DeleteFirewall
     deleteFirewall_firewallArn,
     deleteFirewall_firewallName,
-    deleteFirewallResponse_firewallStatus,
     deleteFirewallResponse_firewall,
+    deleteFirewallResponse_firewallStatus,
     deleteFirewallResponse_httpStatus,
 
-    -- ** ListFirewalls
-    listFirewalls_nextToken,
-    listFirewalls_vpcIds,
-    listFirewalls_maxResults,
-    listFirewallsResponse_nextToken,
-    listFirewallsResponse_firewalls,
-    listFirewallsResponse_httpStatus,
-
-    -- ** DescribeResourcePolicy
-    describeResourcePolicy_resourceArn,
-    describeResourcePolicyResponse_policy,
-    describeResourcePolicyResponse_httpStatus,
-
-    -- ** AssociateFirewallPolicy
-    associateFirewallPolicy_updateToken,
-    associateFirewallPolicy_firewallArn,
-    associateFirewallPolicy_firewallName,
-    associateFirewallPolicy_firewallPolicyArn,
-    associateFirewallPolicyResponse_updateToken,
-    associateFirewallPolicyResponse_firewallArn,
-    associateFirewallPolicyResponse_firewallPolicyArn,
-    associateFirewallPolicyResponse_firewallName,
-    associateFirewallPolicyResponse_httpStatus,
-
-    -- ** UpdateFirewallPolicyChangeProtection
-    updateFirewallPolicyChangeProtection_updateToken,
-    updateFirewallPolicyChangeProtection_firewallArn,
-    updateFirewallPolicyChangeProtection_firewallName,
-    updateFirewallPolicyChangeProtection_firewallPolicyChangeProtection,
-    updateFirewallPolicyChangeProtectionResponse_updateToken,
-    updateFirewallPolicyChangeProtectionResponse_firewallArn,
-    updateFirewallPolicyChangeProtectionResponse_firewallPolicyChangeProtection,
-    updateFirewallPolicyChangeProtectionResponse_firewallName,
-    updateFirewallPolicyChangeProtectionResponse_httpStatus,
-
-    -- ** CreateFirewall
-    createFirewall_firewallPolicyChangeProtection,
-    createFirewall_subnetChangeProtection,
-    createFirewall_deleteProtection,
-    createFirewall_description,
-    createFirewall_tags,
-    createFirewall_firewallName,
-    createFirewall_firewallPolicyArn,
-    createFirewall_vpcId,
-    createFirewall_subnetMappings,
-    createFirewallResponse_firewallStatus,
-    createFirewallResponse_firewall,
-    createFirewallResponse_httpStatus,
-
-    -- ** ListRuleGroups
-    listRuleGroups_nextToken,
-    listRuleGroups_maxResults,
-    listRuleGroupsResponse_nextToken,
-    listRuleGroupsResponse_ruleGroups,
-    listRuleGroupsResponse_httpStatus,
-
-    -- ** TagResource
-    tagResource_resourceArn,
-    tagResource_tags,
-    tagResourceResponse_httpStatus,
-
-    -- ** DeleteRuleGroup
-    deleteRuleGroup_ruleGroupArn,
-    deleteRuleGroup_type,
-    deleteRuleGroup_ruleGroupName,
-    deleteRuleGroupResponse_httpStatus,
-    deleteRuleGroupResponse_ruleGroupResponse,
-
-    -- ** UpdateRuleGroup
-    updateRuleGroup_ruleGroupArn,
-    updateRuleGroup_rules,
-    updateRuleGroup_type,
-    updateRuleGroup_description,
-    updateRuleGroup_ruleGroupName,
-    updateRuleGroup_dryRun,
-    updateRuleGroup_ruleGroup,
-    updateRuleGroup_updateToken,
-    updateRuleGroupResponse_httpStatus,
-    updateRuleGroupResponse_updateToken,
-    updateRuleGroupResponse_ruleGroupResponse,
-
-    -- ** PutResourcePolicy
-    putResourcePolicy_resourceArn,
-    putResourcePolicy_policy,
-    putResourcePolicyResponse_httpStatus,
-
-    -- ** DescribeFirewall
-    describeFirewall_firewallArn,
-    describeFirewall_firewallName,
-    describeFirewallResponse_firewallStatus,
-    describeFirewallResponse_updateToken,
-    describeFirewallResponse_firewall,
-    describeFirewallResponse_httpStatus,
+    -- ** DeleteFirewallPolicy
+    deleteFirewallPolicy_firewallPolicyArn,
+    deleteFirewallPolicy_firewallPolicyName,
+    deleteFirewallPolicyResponse_httpStatus,
+    deleteFirewallPolicyResponse_firewallPolicyResponse,
 
     -- ** DeleteResourcePolicy
     deleteResourcePolicy_resourceArn,
     deleteResourcePolicyResponse_httpStatus,
 
-    -- ** UntagResource
-    untagResource_resourceArn,
-    untagResource_tagKeys,
-    untagResourceResponse_httpStatus,
+    -- ** DeleteRuleGroup
+    deleteRuleGroup_ruleGroupArn,
+    deleteRuleGroup_ruleGroupName,
+    deleteRuleGroup_type,
+    deleteRuleGroupResponse_httpStatus,
+    deleteRuleGroupResponse_ruleGroupResponse,
+
+    -- ** DescribeFirewall
+    describeFirewall_firewallArn,
+    describeFirewall_firewallName,
+    describeFirewallResponse_firewall,
+    describeFirewallResponse_firewallStatus,
+    describeFirewallResponse_updateToken,
+    describeFirewallResponse_httpStatus,
+
+    -- ** DescribeFirewallPolicy
+    describeFirewallPolicy_firewallPolicyArn,
+    describeFirewallPolicy_firewallPolicyName,
+    describeFirewallPolicyResponse_firewallPolicy,
+    describeFirewallPolicyResponse_httpStatus,
+    describeFirewallPolicyResponse_updateToken,
+    describeFirewallPolicyResponse_firewallPolicyResponse,
 
     -- ** DescribeLoggingConfiguration
     describeLoggingConfiguration_firewallArn,
@@ -266,6 +123,183 @@ module Amazonka.NetworkFirewall.Lens
     describeLoggingConfigurationResponse_firewallArn,
     describeLoggingConfigurationResponse_loggingConfiguration,
     describeLoggingConfigurationResponse_httpStatus,
+
+    -- ** DescribeResourcePolicy
+    describeResourcePolicy_resourceArn,
+    describeResourcePolicyResponse_policy,
+    describeResourcePolicyResponse_httpStatus,
+
+    -- ** DescribeRuleGroup
+    describeRuleGroup_ruleGroupArn,
+    describeRuleGroup_ruleGroupName,
+    describeRuleGroup_type,
+    describeRuleGroupResponse_ruleGroup,
+    describeRuleGroupResponse_httpStatus,
+    describeRuleGroupResponse_updateToken,
+    describeRuleGroupResponse_ruleGroupResponse,
+
+    -- ** DescribeRuleGroupMetadata
+    describeRuleGroupMetadata_ruleGroupArn,
+    describeRuleGroupMetadata_ruleGroupName,
+    describeRuleGroupMetadata_type,
+    describeRuleGroupMetadataResponse_capacity,
+    describeRuleGroupMetadataResponse_description,
+    describeRuleGroupMetadataResponse_lastModifiedTime,
+    describeRuleGroupMetadataResponse_statefulRuleOptions,
+    describeRuleGroupMetadataResponse_type,
+    describeRuleGroupMetadataResponse_httpStatus,
+    describeRuleGroupMetadataResponse_ruleGroupArn,
+    describeRuleGroupMetadataResponse_ruleGroupName,
+
+    -- ** DisassociateSubnets
+    disassociateSubnets_firewallArn,
+    disassociateSubnets_firewallName,
+    disassociateSubnets_updateToken,
+    disassociateSubnets_subnetIds,
+    disassociateSubnetsResponse_firewallArn,
+    disassociateSubnetsResponse_firewallName,
+    disassociateSubnetsResponse_subnetMappings,
+    disassociateSubnetsResponse_updateToken,
+    disassociateSubnetsResponse_httpStatus,
+
+    -- ** ListFirewallPolicies
+    listFirewallPolicies_maxResults,
+    listFirewallPolicies_nextToken,
+    listFirewallPoliciesResponse_firewallPolicies,
+    listFirewallPoliciesResponse_nextToken,
+    listFirewallPoliciesResponse_httpStatus,
+
+    -- ** ListFirewalls
+    listFirewalls_maxResults,
+    listFirewalls_nextToken,
+    listFirewalls_vpcIds,
+    listFirewallsResponse_firewalls,
+    listFirewallsResponse_nextToken,
+    listFirewallsResponse_httpStatus,
+
+    -- ** ListRuleGroups
+    listRuleGroups_managedType,
+    listRuleGroups_maxResults,
+    listRuleGroups_nextToken,
+    listRuleGroups_scope,
+    listRuleGroups_type,
+    listRuleGroupsResponse_nextToken,
+    listRuleGroupsResponse_ruleGroups,
+    listRuleGroupsResponse_httpStatus,
+
+    -- ** ListTagsForResource
+    listTagsForResource_maxResults,
+    listTagsForResource_nextToken,
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_nextToken,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
+    -- ** PutResourcePolicy
+    putResourcePolicy_resourceArn,
+    putResourcePolicy_policy,
+    putResourcePolicyResponse_httpStatus,
+
+    -- ** TagResource
+    tagResource_resourceArn,
+    tagResource_tags,
+    tagResourceResponse_httpStatus,
+
+    -- ** UntagResource
+    untagResource_resourceArn,
+    untagResource_tagKeys,
+    untagResourceResponse_httpStatus,
+
+    -- ** UpdateFirewallDeleteProtection
+    updateFirewallDeleteProtection_firewallArn,
+    updateFirewallDeleteProtection_firewallName,
+    updateFirewallDeleteProtection_updateToken,
+    updateFirewallDeleteProtection_deleteProtection,
+    updateFirewallDeleteProtectionResponse_deleteProtection,
+    updateFirewallDeleteProtectionResponse_firewallArn,
+    updateFirewallDeleteProtectionResponse_firewallName,
+    updateFirewallDeleteProtectionResponse_updateToken,
+    updateFirewallDeleteProtectionResponse_httpStatus,
+
+    -- ** UpdateFirewallDescription
+    updateFirewallDescription_description,
+    updateFirewallDescription_firewallArn,
+    updateFirewallDescription_firewallName,
+    updateFirewallDescription_updateToken,
+    updateFirewallDescriptionResponse_description,
+    updateFirewallDescriptionResponse_firewallArn,
+    updateFirewallDescriptionResponse_firewallName,
+    updateFirewallDescriptionResponse_updateToken,
+    updateFirewallDescriptionResponse_httpStatus,
+
+    -- ** UpdateFirewallEncryptionConfiguration
+    updateFirewallEncryptionConfiguration_encryptionConfiguration,
+    updateFirewallEncryptionConfiguration_firewallArn,
+    updateFirewallEncryptionConfiguration_firewallName,
+    updateFirewallEncryptionConfiguration_updateToken,
+    updateFirewallEncryptionConfigurationResponse_encryptionConfiguration,
+    updateFirewallEncryptionConfigurationResponse_firewallArn,
+    updateFirewallEncryptionConfigurationResponse_firewallName,
+    updateFirewallEncryptionConfigurationResponse_updateToken,
+    updateFirewallEncryptionConfigurationResponse_httpStatus,
+
+    -- ** UpdateFirewallPolicy
+    updateFirewallPolicy_description,
+    updateFirewallPolicy_dryRun,
+    updateFirewallPolicy_encryptionConfiguration,
+    updateFirewallPolicy_firewallPolicyArn,
+    updateFirewallPolicy_firewallPolicyName,
+    updateFirewallPolicy_updateToken,
+    updateFirewallPolicy_firewallPolicy,
+    updateFirewallPolicyResponse_httpStatus,
+    updateFirewallPolicyResponse_updateToken,
+    updateFirewallPolicyResponse_firewallPolicyResponse,
+
+    -- ** UpdateFirewallPolicyChangeProtection
+    updateFirewallPolicyChangeProtection_firewallArn,
+    updateFirewallPolicyChangeProtection_firewallName,
+    updateFirewallPolicyChangeProtection_updateToken,
+    updateFirewallPolicyChangeProtection_firewallPolicyChangeProtection,
+    updateFirewallPolicyChangeProtectionResponse_firewallArn,
+    updateFirewallPolicyChangeProtectionResponse_firewallName,
+    updateFirewallPolicyChangeProtectionResponse_firewallPolicyChangeProtection,
+    updateFirewallPolicyChangeProtectionResponse_updateToken,
+    updateFirewallPolicyChangeProtectionResponse_httpStatus,
+
+    -- ** UpdateLoggingConfiguration
+    updateLoggingConfiguration_firewallArn,
+    updateLoggingConfiguration_firewallName,
+    updateLoggingConfiguration_loggingConfiguration,
+    updateLoggingConfigurationResponse_firewallArn,
+    updateLoggingConfigurationResponse_firewallName,
+    updateLoggingConfigurationResponse_loggingConfiguration,
+    updateLoggingConfigurationResponse_httpStatus,
+
+    -- ** UpdateRuleGroup
+    updateRuleGroup_description,
+    updateRuleGroup_dryRun,
+    updateRuleGroup_encryptionConfiguration,
+    updateRuleGroup_ruleGroup,
+    updateRuleGroup_ruleGroupArn,
+    updateRuleGroup_ruleGroupName,
+    updateRuleGroup_rules,
+    updateRuleGroup_sourceMetadata,
+    updateRuleGroup_type,
+    updateRuleGroup_updateToken,
+    updateRuleGroupResponse_httpStatus,
+    updateRuleGroupResponse_updateToken,
+    updateRuleGroupResponse_ruleGroupResponse,
+
+    -- ** UpdateSubnetChangeProtection
+    updateSubnetChangeProtection_firewallArn,
+    updateSubnetChangeProtection_firewallName,
+    updateSubnetChangeProtection_updateToken,
+    updateSubnetChangeProtection_subnetChangeProtection,
+    updateSubnetChangeProtectionResponse_firewallArn,
+    updateSubnetChangeProtectionResponse_firewallName,
+    updateSubnetChangeProtectionResponse_subnetChangeProtection,
+    updateSubnetChangeProtectionResponse_updateToken,
+    updateSubnetChangeProtectionResponse_httpStatus,
 
     -- * Types
 
@@ -276,9 +310,17 @@ module Amazonka.NetworkFirewall.Lens
     address_addressDefinition,
 
     -- ** Attachment
+    attachment_endpointId,
     attachment_status,
     attachment_subnetId,
-    attachment_endpointId,
+
+    -- ** CIDRSummary
+    cIDRSummary_availableCIDRCount,
+    cIDRSummary_iPSetReferences,
+    cIDRSummary_utilizedCIDRCount,
+
+    -- ** CapacityUsageSummary
+    capacityUsageSummary_cIDRs,
 
     -- ** CustomAction
     customAction_actionName,
@@ -287,14 +329,19 @@ module Amazonka.NetworkFirewall.Lens
     -- ** Dimension
     dimension_value,
 
+    -- ** EncryptionConfiguration
+    encryptionConfiguration_keyId,
+    encryptionConfiguration_type,
+
     -- ** Firewall
-    firewall_firewallArn,
-    firewall_firewallPolicyChangeProtection,
-    firewall_subnetChangeProtection,
     firewall_deleteProtection,
     firewall_description,
-    firewall_tags,
+    firewall_encryptionConfiguration,
+    firewall_firewallArn,
     firewall_firewallName,
+    firewall_firewallPolicyChangeProtection,
+    firewall_subnetChangeProtection,
+    firewall_tags,
     firewall_firewallPolicyArn,
     firewall_vpcId,
     firewall_subnetMappings,
@@ -305,11 +352,11 @@ module Amazonka.NetworkFirewall.Lens
     firewallMetadata_firewallName,
 
     -- ** FirewallPolicy
+    firewallPolicy_statefulDefaultActions,
     firewallPolicy_statefulEngineOptions,
     firewallPolicy_statefulRuleGroupReferences,
-    firewallPolicy_statelessRuleGroupReferences,
     firewallPolicy_statelessCustomActions,
-    firewallPolicy_statefulDefaultActions,
+    firewallPolicy_statelessRuleGroupReferences,
     firewallPolicy_statelessDefaultActions,
     firewallPolicy_statelessFragmentDefaultActions,
 
@@ -318,17 +365,20 @@ module Amazonka.NetworkFirewall.Lens
     firewallPolicyMetadata_name,
 
     -- ** FirewallPolicyResponse
-    firewallPolicyResponse_consumedStatelessRuleCapacity,
-    firewallPolicyResponse_numberOfAssociations,
-    firewallPolicyResponse_firewallPolicyStatus,
     firewallPolicyResponse_consumedStatefulRuleCapacity,
+    firewallPolicyResponse_consumedStatelessRuleCapacity,
     firewallPolicyResponse_description,
+    firewallPolicyResponse_encryptionConfiguration,
+    firewallPolicyResponse_firewallPolicyStatus,
+    firewallPolicyResponse_lastModifiedTime,
+    firewallPolicyResponse_numberOfAssociations,
     firewallPolicyResponse_tags,
     firewallPolicyResponse_firewallPolicyName,
     firewallPolicyResponse_firewallPolicyArn,
     firewallPolicyResponse_firewallPolicyId,
 
     -- ** FirewallStatus
+    firewallStatus_capacityUsageSummary,
     firewallStatus_syncStates,
     firewallStatus_status,
     firewallStatus_configurationSyncStateSummary,
@@ -344,6 +394,12 @@ module Amazonka.NetworkFirewall.Lens
     -- ** IPSet
     iPSet_definition,
 
+    -- ** IPSetMetadata
+    iPSetMetadata_resolvedCIDRCount,
+
+    -- ** IPSetReference
+    iPSetReference_referenceArn,
+
     -- ** LogDestinationConfig
     logDestinationConfig_logType,
     logDestinationConfig_logDestinationType,
@@ -353,16 +409,16 @@ module Amazonka.NetworkFirewall.Lens
     loggingConfiguration_logDestinationConfigs,
 
     -- ** MatchAttributes
-    matchAttributes_protocols,
-    matchAttributes_tCPFlags,
     matchAttributes_destinationPorts,
-    matchAttributes_sources,
-    matchAttributes_sourcePorts,
     matchAttributes_destinations,
+    matchAttributes_protocols,
+    matchAttributes_sourcePorts,
+    matchAttributes_sources,
+    matchAttributes_tCPFlags,
 
     -- ** PerObjectStatus
-    perObjectStatus_updateToken,
     perObjectStatus_syncStatus,
+    perObjectStatus_updateToken,
 
     -- ** PortRange
     portRange_fromPort,
@@ -374,13 +430,17 @@ module Amazonka.NetworkFirewall.Lens
     -- ** PublishMetricAction
     publishMetricAction_dimensions,
 
+    -- ** ReferenceSets
+    referenceSets_iPSetReferences,
+
     -- ** RuleDefinition
     ruleDefinition_matchAttributes,
     ruleDefinition_actions,
 
     -- ** RuleGroup
-    ruleGroup_statefulRuleOptions,
+    ruleGroup_referenceSets,
     ruleGroup_ruleVariables,
+    ruleGroup_statefulRuleOptions,
     ruleGroup_rulesSource,
 
     -- ** RuleGroupMetadata
@@ -388,13 +448,17 @@ module Amazonka.NetworkFirewall.Lens
     ruleGroupMetadata_name,
 
     -- ** RuleGroupResponse
-    ruleGroupResponse_numberOfAssociations,
     ruleGroupResponse_capacity,
     ruleGroupResponse_consumedCapacity,
-    ruleGroupResponse_ruleGroupStatus,
-    ruleGroupResponse_type,
     ruleGroupResponse_description,
+    ruleGroupResponse_encryptionConfiguration,
+    ruleGroupResponse_lastModifiedTime,
+    ruleGroupResponse_numberOfAssociations,
+    ruleGroupResponse_ruleGroupStatus,
+    ruleGroupResponse_snsTopic,
+    ruleGroupResponse_sourceMetadata,
     ruleGroupResponse_tags,
+    ruleGroupResponse_type,
     ruleGroupResponse_ruleGroupArn,
     ruleGroupResponse_ruleGroupName,
     ruleGroupResponse_ruleGroupId,
@@ -404,12 +468,12 @@ module Amazonka.NetworkFirewall.Lens
     ruleOption_keyword,
 
     -- ** RuleVariables
-    ruleVariables_portSets,
     ruleVariables_iPSets,
+    ruleVariables_portSets,
 
     -- ** RulesSource
-    rulesSource_rulesString,
     rulesSource_rulesSourceList,
+    rulesSource_rulesString,
     rulesSource_statefulRules,
     rulesSource_statelessRulesAndCustomActions,
 
@@ -418,15 +482,24 @@ module Amazonka.NetworkFirewall.Lens
     rulesSourceList_targetTypes,
     rulesSourceList_generatedRulesType,
 
+    -- ** SourceMetadata
+    sourceMetadata_sourceArn,
+    sourceMetadata_sourceUpdateToken,
+
     -- ** StatefulEngineOptions
     statefulEngineOptions_ruleOrder,
+    statefulEngineOptions_streamExceptionPolicy,
 
     -- ** StatefulRule
     statefulRule_action,
     statefulRule_header,
     statefulRule_ruleOptions,
 
+    -- ** StatefulRuleGroupOverride
+    statefulRuleGroupOverride_action,
+
     -- ** StatefulRuleGroupReference
+    statefulRuleGroupReference_override,
     statefulRuleGroupReference_priority,
     statefulRuleGroupReference_resourceArn,
 
@@ -449,8 +522,8 @@ module Amazonka.NetworkFirewall.Lens
     subnetMapping_subnetId,
 
     -- ** SyncState
-    syncState_config,
     syncState_attachment,
+    syncState_config,
 
     -- ** TCPFlagField
     tCPFlagField_masks,
@@ -476,6 +549,7 @@ import Amazonka.NetworkFirewall.DescribeFirewallPolicy
 import Amazonka.NetworkFirewall.DescribeLoggingConfiguration
 import Amazonka.NetworkFirewall.DescribeResourcePolicy
 import Amazonka.NetworkFirewall.DescribeRuleGroup
+import Amazonka.NetworkFirewall.DescribeRuleGroupMetadata
 import Amazonka.NetworkFirewall.DisassociateSubnets
 import Amazonka.NetworkFirewall.ListFirewallPolicies
 import Amazonka.NetworkFirewall.ListFirewalls
@@ -486,8 +560,11 @@ import Amazonka.NetworkFirewall.TagResource
 import Amazonka.NetworkFirewall.Types.ActionDefinition
 import Amazonka.NetworkFirewall.Types.Address
 import Amazonka.NetworkFirewall.Types.Attachment
+import Amazonka.NetworkFirewall.Types.CIDRSummary
+import Amazonka.NetworkFirewall.Types.CapacityUsageSummary
 import Amazonka.NetworkFirewall.Types.CustomAction
 import Amazonka.NetworkFirewall.Types.Dimension
+import Amazonka.NetworkFirewall.Types.EncryptionConfiguration
 import Amazonka.NetworkFirewall.Types.Firewall
 import Amazonka.NetworkFirewall.Types.FirewallMetadata
 import Amazonka.NetworkFirewall.Types.FirewallPolicy
@@ -496,6 +573,8 @@ import Amazonka.NetworkFirewall.Types.FirewallPolicyResponse
 import Amazonka.NetworkFirewall.Types.FirewallStatus
 import Amazonka.NetworkFirewall.Types.Header
 import Amazonka.NetworkFirewall.Types.IPSet
+import Amazonka.NetworkFirewall.Types.IPSetMetadata
+import Amazonka.NetworkFirewall.Types.IPSetReference
 import Amazonka.NetworkFirewall.Types.LogDestinationConfig
 import Amazonka.NetworkFirewall.Types.LoggingConfiguration
 import Amazonka.NetworkFirewall.Types.MatchAttributes
@@ -503,6 +582,7 @@ import Amazonka.NetworkFirewall.Types.PerObjectStatus
 import Amazonka.NetworkFirewall.Types.PortRange
 import Amazonka.NetworkFirewall.Types.PortSet
 import Amazonka.NetworkFirewall.Types.PublishMetricAction
+import Amazonka.NetworkFirewall.Types.ReferenceSets
 import Amazonka.NetworkFirewall.Types.RuleDefinition
 import Amazonka.NetworkFirewall.Types.RuleGroup
 import Amazonka.NetworkFirewall.Types.RuleGroupMetadata
@@ -511,8 +591,10 @@ import Amazonka.NetworkFirewall.Types.RuleOption
 import Amazonka.NetworkFirewall.Types.RuleVariables
 import Amazonka.NetworkFirewall.Types.RulesSource
 import Amazonka.NetworkFirewall.Types.RulesSourceList
+import Amazonka.NetworkFirewall.Types.SourceMetadata
 import Amazonka.NetworkFirewall.Types.StatefulEngineOptions
 import Amazonka.NetworkFirewall.Types.StatefulRule
+import Amazonka.NetworkFirewall.Types.StatefulRuleGroupOverride
 import Amazonka.NetworkFirewall.Types.StatefulRuleGroupReference
 import Amazonka.NetworkFirewall.Types.StatefulRuleOptions
 import Amazonka.NetworkFirewall.Types.StatelessRule
@@ -525,6 +607,7 @@ import Amazonka.NetworkFirewall.Types.Tag
 import Amazonka.NetworkFirewall.UntagResource
 import Amazonka.NetworkFirewall.UpdateFirewallDeleteProtection
 import Amazonka.NetworkFirewall.UpdateFirewallDescription
+import Amazonka.NetworkFirewall.UpdateFirewallEncryptionConfiguration
 import Amazonka.NetworkFirewall.UpdateFirewallPolicy
 import Amazonka.NetworkFirewall.UpdateFirewallPolicyChangeProtection
 import Amazonka.NetworkFirewall.UpdateLoggingConfiguration

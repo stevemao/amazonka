@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.DescribeSourceServers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.MGN.DescribeSourceServers
     newDescribeSourceServers,
 
     -- * Request Lenses
-    describeSourceServers_nextToken,
-    describeSourceServers_maxResults,
     describeSourceServers_filters,
+    describeSourceServers_maxResults,
+    describeSourceServers_nextToken,
 
     -- * Destructuring the Response
     DescribeSourceServersResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.MGN.DescribeSourceServers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,12 +54,12 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeSourceServers' smart constructor.
 data DescribeSourceServers = DescribeSourceServers'
-  { -- | Request to filter Source Servers list by next token.
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { -- | Request to filter Source Servers list.
+    filters :: Prelude.Maybe DescribeSourceServersRequestFilters,
     -- | Request to filter Source Servers list by maximum results.
     maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | Request to filter Source Servers list.
-    filters :: DescribeSourceServersRequestFilters
+    -- | Request to filter Source Servers list by next token.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,33 +71,31 @@ data DescribeSourceServers = DescribeSourceServers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeSourceServers_nextToken' - Request to filter Source Servers list by next token.
+-- 'filters', 'describeSourceServers_filters' - Request to filter Source Servers list.
 --
 -- 'maxResults', 'describeSourceServers_maxResults' - Request to filter Source Servers list by maximum results.
 --
--- 'filters', 'describeSourceServers_filters' - Request to filter Source Servers list.
+-- 'nextToken', 'describeSourceServers_nextToken' - Request to filter Source Servers list by next token.
 newDescribeSourceServers ::
-  -- | 'filters'
-  DescribeSourceServersRequestFilters ->
   DescribeSourceServers
-newDescribeSourceServers pFilters_ =
+newDescribeSourceServers =
   DescribeSourceServers'
-    { nextToken = Prelude.Nothing,
+    { filters = Prelude.Nothing,
       maxResults = Prelude.Nothing,
-      filters = pFilters_
+      nextToken = Prelude.Nothing
     }
 
--- | Request to filter Source Servers list by next token.
-describeSourceServers_nextToken :: Lens.Lens' DescribeSourceServers (Prelude.Maybe Prelude.Text)
-describeSourceServers_nextToken = Lens.lens (\DescribeSourceServers' {nextToken} -> nextToken) (\s@DescribeSourceServers' {} a -> s {nextToken = a} :: DescribeSourceServers)
+-- | Request to filter Source Servers list.
+describeSourceServers_filters :: Lens.Lens' DescribeSourceServers (Prelude.Maybe DescribeSourceServersRequestFilters)
+describeSourceServers_filters = Lens.lens (\DescribeSourceServers' {filters} -> filters) (\s@DescribeSourceServers' {} a -> s {filters = a} :: DescribeSourceServers)
 
 -- | Request to filter Source Servers list by maximum results.
 describeSourceServers_maxResults :: Lens.Lens' DescribeSourceServers (Prelude.Maybe Prelude.Natural)
 describeSourceServers_maxResults = Lens.lens (\DescribeSourceServers' {maxResults} -> maxResults) (\s@DescribeSourceServers' {} a -> s {maxResults = a} :: DescribeSourceServers)
 
--- | Request to filter Source Servers list.
-describeSourceServers_filters :: Lens.Lens' DescribeSourceServers DescribeSourceServersRequestFilters
-describeSourceServers_filters = Lens.lens (\DescribeSourceServers' {filters} -> filters) (\s@DescribeSourceServers' {} a -> s {filters = a} :: DescribeSourceServers)
+-- | Request to filter Source Servers list by next token.
+describeSourceServers_nextToken :: Lens.Lens' DescribeSourceServers (Prelude.Maybe Prelude.Text)
+describeSourceServers_nextToken = Lens.lens (\DescribeSourceServers' {nextToken} -> nextToken) (\s@DescribeSourceServers' {} a -> s {nextToken = a} :: DescribeSourceServers)
 
 instance Core.AWSPager DescribeSourceServers where
   page rq rs
@@ -124,53 +123,54 @@ instance Core.AWSRequest DescribeSourceServers where
   type
     AWSResponse DescribeSourceServers =
       DescribeSourceServersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeSourceServersResponse'
-            Prelude.<$> (x Core..?> "items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeSourceServers where
   hashWithSalt _salt DescribeSourceServers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` maxResults
-      `Prelude.hashWithSalt` filters
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeSourceServers where
   rnf DescribeSourceServers' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf filters
       `Prelude.seq` Prelude.rnf maxResults
-      `Prelude.seq` Prelude.rnf filters
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeSourceServers where
+instance Data.ToHeaders DescribeSourceServers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeSourceServers where
+instance Data.ToJSON DescribeSourceServers where
   toJSON DescribeSourceServers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("filters" Core..= filters)
+          [ ("filters" Data..=) Prelude.<$> filters,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath DescribeSourceServers where
+instance Data.ToPath DescribeSourceServers where
   toPath = Prelude.const "/DescribeSourceServers"
 
-instance Core.ToQuery DescribeSourceServers where
+instance Data.ToQuery DescribeSourceServers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeSourceServersResponse' smart constructor.

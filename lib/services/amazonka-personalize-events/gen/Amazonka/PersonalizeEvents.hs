@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.PersonalizeEvents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,11 +25,11 @@ module Amazonka.PersonalizeEvents
     -- ** InvalidInputException
     _InvalidInputException,
 
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
-
     -- ** ResourceInUseException
     _ResourceInUseException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
 
     -- * Waiters
     -- $waiters
@@ -37,11 +37,11 @@ module Amazonka.PersonalizeEvents
     -- * Operations
     -- $operations
 
-    -- ** PutUsers
-    PutUsers (PutUsers'),
-    newPutUsers,
-    PutUsersResponse (PutUsersResponse'),
-    newPutUsersResponse,
+    -- ** PutEvents
+    PutEvents (PutEvents'),
+    newPutEvents,
+    PutEventsResponse (PutEventsResponse'),
+    newPutEventsResponse,
 
     -- ** PutItems
     PutItems (PutItems'),
@@ -49,11 +49,11 @@ module Amazonka.PersonalizeEvents
     PutItemsResponse (PutItemsResponse'),
     newPutItemsResponse,
 
-    -- ** PutEvents
-    PutEvents (PutEvents'),
-    newPutEvents,
-    PutEventsResponse (PutEventsResponse'),
-    newPutEventsResponse,
+    -- ** PutUsers
+    PutUsers (PutUsers'),
+    newPutUsers,
+    PutUsersResponse (PutUsersResponse'),
+    newPutUsersResponse,
 
     -- * Types
 
@@ -64,6 +64,10 @@ module Amazonka.PersonalizeEvents
     -- ** Item
     Item (Item'),
     newItem,
+
+    -- ** MetricAttribution
+    MetricAttribution (MetricAttribution'),
+    newMetricAttribution,
 
     -- ** User
     User (User'),

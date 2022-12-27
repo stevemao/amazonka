@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.UpdateTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,20 +28,21 @@ module Amazonka.QuickSight.UpdateTemplate
     newUpdateTemplate,
 
     -- * Request Lenses
-    updateTemplate_versionDescription,
+    updateTemplate_definition,
     updateTemplate_name,
+    updateTemplate_sourceEntity,
+    updateTemplate_versionDescription,
     updateTemplate_awsAccountId,
     updateTemplate_templateId,
-    updateTemplate_sourceEntity,
 
     -- * Destructuring the Response
     UpdateTemplateResponse (..),
     newUpdateTemplateResponse,
 
     -- * Response Lenses
-    updateTemplateResponse_requestId,
     updateTemplateResponse_arn,
     updateTemplateResponse_creationStatus,
+    updateTemplateResponse_requestId,
     updateTemplateResponse_templateId,
     updateTemplateResponse_versionArn,
     updateTemplateResponse_status,
@@ -49,7 +50,8 @@ module Amazonka.QuickSight.UpdateTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -57,18 +59,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateTemplate' smart constructor.
 data UpdateTemplate = UpdateTemplate'
-  { -- | A description of the current template version that is being updated.
-    -- Every time you call @UpdateTemplate@, you create a new version of the
-    -- template. Each version of the template maintains a description of the
-    -- version in the @VersionDescription@ field.
-    versionDescription :: Prelude.Maybe Prelude.Text,
+  { -- | The definition of a template.
+    --
+    -- A definition is the data model of all features in a Dashboard, Template,
+    -- or Analysis.
+    definition :: Prelude.Maybe TemplateVersionDefinition,
     -- | The name for the template.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the Amazon Web Services account that contains the template
-    -- that you\'re updating.
-    awsAccountId :: Prelude.Text,
-    -- | The ID for the template.
-    templateId :: Prelude.Text,
     -- | The entity that you are using as a source when you update the template.
     -- In @SourceEntity@, you specify the type of object you\'re using as
     -- source: @SourceTemplate@ for a template or @SourceAnalysis@ for an
@@ -82,9 +79,19 @@ data UpdateTemplate = UpdateTemplate'
     -- @SourceAnalysis@ to list the replacement datasets for the placeholders
     -- listed in the original. The schema in each dataset must match its
     -- placeholder.
-    sourceEntity :: TemplateSourceEntity
+    sourceEntity :: Prelude.Maybe TemplateSourceEntity,
+    -- | A description of the current template version that is being updated.
+    -- Every time you call @UpdateTemplate@, you create a new version of the
+    -- template. Each version of the template maintains a description of the
+    -- version in the @VersionDescription@ field.
+    versionDescription :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Amazon Web Services account that contains the template
+    -- that you\'re updating.
+    awsAccountId :: Prelude.Text,
+    -- | The ID for the template.
+    templateId :: Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'UpdateTemplate' with all optional fields omitted.
@@ -94,17 +101,12 @@ data UpdateTemplate = UpdateTemplate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'versionDescription', 'updateTemplate_versionDescription' - A description of the current template version that is being updated.
--- Every time you call @UpdateTemplate@, you create a new version of the
--- template. Each version of the template maintains a description of the
--- version in the @VersionDescription@ field.
+-- 'definition', 'updateTemplate_definition' - The definition of a template.
+--
+-- A definition is the data model of all features in a Dashboard, Template,
+-- or Analysis.
 --
 -- 'name', 'updateTemplate_name' - The name for the template.
---
--- 'awsAccountId', 'updateTemplate_awsAccountId' - The ID of the Amazon Web Services account that contains the template
--- that you\'re updating.
---
--- 'templateId', 'updateTemplate_templateId' - The ID for the template.
 --
 -- 'sourceEntity', 'updateTemplate_sourceEntity' - The entity that you are using as a source when you update the template.
 -- In @SourceEntity@, you specify the type of object you\'re using as
@@ -119,46 +121,42 @@ data UpdateTemplate = UpdateTemplate'
 -- @SourceAnalysis@ to list the replacement datasets for the placeholders
 -- listed in the original. The schema in each dataset must match its
 -- placeholder.
+--
+-- 'versionDescription', 'updateTemplate_versionDescription' - A description of the current template version that is being updated.
+-- Every time you call @UpdateTemplate@, you create a new version of the
+-- template. Each version of the template maintains a description of the
+-- version in the @VersionDescription@ field.
+--
+-- 'awsAccountId', 'updateTemplate_awsAccountId' - The ID of the Amazon Web Services account that contains the template
+-- that you\'re updating.
+--
+-- 'templateId', 'updateTemplate_templateId' - The ID for the template.
 newUpdateTemplate ::
   -- | 'awsAccountId'
   Prelude.Text ->
   -- | 'templateId'
   Prelude.Text ->
-  -- | 'sourceEntity'
-  TemplateSourceEntity ->
   UpdateTemplate
-newUpdateTemplate
-  pAwsAccountId_
-  pTemplateId_
-  pSourceEntity_ =
-    UpdateTemplate'
-      { versionDescription =
-          Prelude.Nothing,
-        name = Prelude.Nothing,
-        awsAccountId = pAwsAccountId_,
-        templateId = pTemplateId_,
-        sourceEntity = pSourceEntity_
-      }
+newUpdateTemplate pAwsAccountId_ pTemplateId_ =
+  UpdateTemplate'
+    { definition = Prelude.Nothing,
+      name = Prelude.Nothing,
+      sourceEntity = Prelude.Nothing,
+      versionDescription = Prelude.Nothing,
+      awsAccountId = pAwsAccountId_,
+      templateId = pTemplateId_
+    }
 
--- | A description of the current template version that is being updated.
--- Every time you call @UpdateTemplate@, you create a new version of the
--- template. Each version of the template maintains a description of the
--- version in the @VersionDescription@ field.
-updateTemplate_versionDescription :: Lens.Lens' UpdateTemplate (Prelude.Maybe Prelude.Text)
-updateTemplate_versionDescription = Lens.lens (\UpdateTemplate' {versionDescription} -> versionDescription) (\s@UpdateTemplate' {} a -> s {versionDescription = a} :: UpdateTemplate)
+-- | The definition of a template.
+--
+-- A definition is the data model of all features in a Dashboard, Template,
+-- or Analysis.
+updateTemplate_definition :: Lens.Lens' UpdateTemplate (Prelude.Maybe TemplateVersionDefinition)
+updateTemplate_definition = Lens.lens (\UpdateTemplate' {definition} -> definition) (\s@UpdateTemplate' {} a -> s {definition = a} :: UpdateTemplate)
 
 -- | The name for the template.
 updateTemplate_name :: Lens.Lens' UpdateTemplate (Prelude.Maybe Prelude.Text)
 updateTemplate_name = Lens.lens (\UpdateTemplate' {name} -> name) (\s@UpdateTemplate' {} a -> s {name = a} :: UpdateTemplate)
-
--- | The ID of the Amazon Web Services account that contains the template
--- that you\'re updating.
-updateTemplate_awsAccountId :: Lens.Lens' UpdateTemplate Prelude.Text
-updateTemplate_awsAccountId = Lens.lens (\UpdateTemplate' {awsAccountId} -> awsAccountId) (\s@UpdateTemplate' {} a -> s {awsAccountId = a} :: UpdateTemplate)
-
--- | The ID for the template.
-updateTemplate_templateId :: Lens.Lens' UpdateTemplate Prelude.Text
-updateTemplate_templateId = Lens.lens (\UpdateTemplate' {templateId} -> templateId) (\s@UpdateTemplate' {} a -> s {templateId = a} :: UpdateTemplate)
 
 -- | The entity that you are using as a source when you update the template.
 -- In @SourceEntity@, you specify the type of object you\'re using as
@@ -173,84 +171,104 @@ updateTemplate_templateId = Lens.lens (\UpdateTemplate' {templateId} -> template
 -- @SourceAnalysis@ to list the replacement datasets for the placeholders
 -- listed in the original. The schema in each dataset must match its
 -- placeholder.
-updateTemplate_sourceEntity :: Lens.Lens' UpdateTemplate TemplateSourceEntity
+updateTemplate_sourceEntity :: Lens.Lens' UpdateTemplate (Prelude.Maybe TemplateSourceEntity)
 updateTemplate_sourceEntity = Lens.lens (\UpdateTemplate' {sourceEntity} -> sourceEntity) (\s@UpdateTemplate' {} a -> s {sourceEntity = a} :: UpdateTemplate)
+
+-- | A description of the current template version that is being updated.
+-- Every time you call @UpdateTemplate@, you create a new version of the
+-- template. Each version of the template maintains a description of the
+-- version in the @VersionDescription@ field.
+updateTemplate_versionDescription :: Lens.Lens' UpdateTemplate (Prelude.Maybe Prelude.Text)
+updateTemplate_versionDescription = Lens.lens (\UpdateTemplate' {versionDescription} -> versionDescription) (\s@UpdateTemplate' {} a -> s {versionDescription = a} :: UpdateTemplate)
+
+-- | The ID of the Amazon Web Services account that contains the template
+-- that you\'re updating.
+updateTemplate_awsAccountId :: Lens.Lens' UpdateTemplate Prelude.Text
+updateTemplate_awsAccountId = Lens.lens (\UpdateTemplate' {awsAccountId} -> awsAccountId) (\s@UpdateTemplate' {} a -> s {awsAccountId = a} :: UpdateTemplate)
+
+-- | The ID for the template.
+updateTemplate_templateId :: Lens.Lens' UpdateTemplate Prelude.Text
+updateTemplate_templateId = Lens.lens (\UpdateTemplate' {templateId} -> templateId) (\s@UpdateTemplate' {} a -> s {templateId = a} :: UpdateTemplate)
 
 instance Core.AWSRequest UpdateTemplate where
   type
     AWSResponse UpdateTemplate =
       UpdateTemplateResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateTemplateResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "CreationStatus")
-            Prelude.<*> (x Core..?> "TemplateId")
-            Prelude.<*> (x Core..?> "VersionArn")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "CreationStatus")
+            Prelude.<*> (x Data..?> "RequestId")
+            Prelude.<*> (x Data..?> "TemplateId")
+            Prelude.<*> (x Data..?> "VersionArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateTemplate where
   hashWithSalt _salt UpdateTemplate' {..} =
-    _salt `Prelude.hashWithSalt` versionDescription
+    _salt `Prelude.hashWithSalt` definition
       `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` sourceEntity
+      `Prelude.hashWithSalt` versionDescription
       `Prelude.hashWithSalt` awsAccountId
       `Prelude.hashWithSalt` templateId
-      `Prelude.hashWithSalt` sourceEntity
 
 instance Prelude.NFData UpdateTemplate where
   rnf UpdateTemplate' {..} =
-    Prelude.rnf versionDescription
+    Prelude.rnf definition
       `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf sourceEntity
+      `Prelude.seq` Prelude.rnf versionDescription
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf templateId
-      `Prelude.seq` Prelude.rnf sourceEntity
 
-instance Core.ToHeaders UpdateTemplate where
+instance Data.ToHeaders UpdateTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateTemplate where
+instance Data.ToJSON UpdateTemplate where
   toJSON UpdateTemplate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("VersionDescription" Core..=)
-              Prelude.<$> versionDescription,
-            ("Name" Core..=) Prelude.<$> name,
-            Prelude.Just ("SourceEntity" Core..= sourceEntity)
+          [ ("Definition" Data..=) Prelude.<$> definition,
+            ("Name" Data..=) Prelude.<$> name,
+            ("SourceEntity" Data..=) Prelude.<$> sourceEntity,
+            ("VersionDescription" Data..=)
+              Prelude.<$> versionDescription
           ]
       )
 
-instance Core.ToPath UpdateTemplate where
+instance Data.ToPath UpdateTemplate where
   toPath UpdateTemplate' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/templates/",
-        Core.toBS templateId
+        Data.toBS templateId
       ]
 
-instance Core.ToQuery UpdateTemplate where
+instance Data.ToQuery UpdateTemplate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateTemplateResponse' smart constructor.
 data UpdateTemplateResponse = UpdateTemplateResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) for the template.
+  { -- | The Amazon Resource Name (ARN) for the template.
     arn :: Prelude.Maybe Prelude.Text,
     -- | The creation status of the template.
     creationStatus :: Prelude.Maybe ResourceStatus,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The ID for the template.
     templateId :: Prelude.Maybe Prelude.Text,
     -- | The ARN for the template, including the version information of the first
@@ -269,11 +287,11 @@ data UpdateTemplateResponse = UpdateTemplateResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'updateTemplateResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'arn', 'updateTemplateResponse_arn' - The Amazon Resource Name (ARN) for the template.
 --
 -- 'creationStatus', 'updateTemplateResponse_creationStatus' - The creation status of the template.
+--
+-- 'requestId', 'updateTemplateResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'templateId', 'updateTemplateResponse_templateId' - The ID for the template.
 --
@@ -287,18 +305,13 @@ newUpdateTemplateResponse ::
   UpdateTemplateResponse
 newUpdateTemplateResponse pStatus_ =
   UpdateTemplateResponse'
-    { requestId =
-        Prelude.Nothing,
-      arn = Prelude.Nothing,
+    { arn = Prelude.Nothing,
       creationStatus = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       templateId = Prelude.Nothing,
       versionArn = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-updateTemplateResponse_requestId :: Lens.Lens' UpdateTemplateResponse (Prelude.Maybe Prelude.Text)
-updateTemplateResponse_requestId = Lens.lens (\UpdateTemplateResponse' {requestId} -> requestId) (\s@UpdateTemplateResponse' {} a -> s {requestId = a} :: UpdateTemplateResponse)
 
 -- | The Amazon Resource Name (ARN) for the template.
 updateTemplateResponse_arn :: Lens.Lens' UpdateTemplateResponse (Prelude.Maybe Prelude.Text)
@@ -307,6 +320,10 @@ updateTemplateResponse_arn = Lens.lens (\UpdateTemplateResponse' {arn} -> arn) (
 -- | The creation status of the template.
 updateTemplateResponse_creationStatus :: Lens.Lens' UpdateTemplateResponse (Prelude.Maybe ResourceStatus)
 updateTemplateResponse_creationStatus = Lens.lens (\UpdateTemplateResponse' {creationStatus} -> creationStatus) (\s@UpdateTemplateResponse' {} a -> s {creationStatus = a} :: UpdateTemplateResponse)
+
+-- | The Amazon Web Services request ID for this operation.
+updateTemplateResponse_requestId :: Lens.Lens' UpdateTemplateResponse (Prelude.Maybe Prelude.Text)
+updateTemplateResponse_requestId = Lens.lens (\UpdateTemplateResponse' {requestId} -> requestId) (\s@UpdateTemplateResponse' {} a -> s {requestId = a} :: UpdateTemplateResponse)
 
 -- | The ID for the template.
 updateTemplateResponse_templateId :: Lens.Lens' UpdateTemplateResponse (Prelude.Maybe Prelude.Text)
@@ -323,9 +340,9 @@ updateTemplateResponse_status = Lens.lens (\UpdateTemplateResponse' {status} -> 
 
 instance Prelude.NFData UpdateTemplateResponse where
   rnf UpdateTemplateResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf arn
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf creationStatus
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf templateId
       `Prelude.seq` Prelude.rnf versionArn
       `Prelude.seq` Prelude.rnf status

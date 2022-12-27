@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.AddSourceIdentifierToSubscription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Neptune.AddSourceIdentifierToSubscription
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -142,13 +143,14 @@ instance
   type
     AWSResponse AddSourceIdentifierToSubscription =
       AddSourceIdentifierToSubscriptionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "AddSourceIdentifierToSubscriptionResult"
       ( \s h x ->
           AddSourceIdentifierToSubscriptionResponse'
-            Prelude.<$> (x Core..@? "EventSubscription")
+            Prelude.<$> (x Data..@? "EventSubscription")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -171,31 +173,31 @@ instance
       `Prelude.seq` Prelude.rnf sourceIdentifier
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AddSourceIdentifierToSubscription
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     AddSourceIdentifierToSubscription
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     AddSourceIdentifierToSubscription
   where
   toQuery AddSourceIdentifierToSubscription' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "AddSourceIdentifierToSubscription" ::
+          Data.=: ( "AddSourceIdentifierToSubscription" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "SubscriptionName" Core.=: subscriptionName,
-        "SourceIdentifier" Core.=: sourceIdentifier
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "SubscriptionName" Data.=: subscriptionName,
+        "SourceIdentifier" Data.=: sourceIdentifier
       ]
 
 -- | /See:/ 'newAddSourceIdentifierToSubscriptionResponse' smart constructor.

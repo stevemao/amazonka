@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.EmailTemplateMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SESV2.Types.EmailTemplateMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about an email template.
 --
 -- /See:/ 'newEmailTemplateMetadata' smart constructor.
 data EmailTemplateMetadata = EmailTemplateMetadata'
-  { -- | The name of the template.
-    templateName :: Prelude.Maybe Prelude.Text,
-    -- | The time and date the template was created.
-    createdTimestamp :: Prelude.Maybe Core.POSIX
+  { -- | The time and date the template was created.
+    createdTimestamp :: Prelude.Maybe Data.POSIX,
+    -- | The name of the template.
+    templateName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,42 +43,42 @@ data EmailTemplateMetadata = EmailTemplateMetadata'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'templateName', 'emailTemplateMetadata_templateName' - The name of the template.
---
 -- 'createdTimestamp', 'emailTemplateMetadata_createdTimestamp' - The time and date the template was created.
+--
+-- 'templateName', 'emailTemplateMetadata_templateName' - The name of the template.
 newEmailTemplateMetadata ::
   EmailTemplateMetadata
 newEmailTemplateMetadata =
   EmailTemplateMetadata'
-    { templateName =
+    { createdTimestamp =
         Prelude.Nothing,
-      createdTimestamp = Prelude.Nothing
+      templateName = Prelude.Nothing
     }
+
+-- | The time and date the template was created.
+emailTemplateMetadata_createdTimestamp :: Lens.Lens' EmailTemplateMetadata (Prelude.Maybe Prelude.UTCTime)
+emailTemplateMetadata_createdTimestamp = Lens.lens (\EmailTemplateMetadata' {createdTimestamp} -> createdTimestamp) (\s@EmailTemplateMetadata' {} a -> s {createdTimestamp = a} :: EmailTemplateMetadata) Prelude.. Lens.mapping Data._Time
 
 -- | The name of the template.
 emailTemplateMetadata_templateName :: Lens.Lens' EmailTemplateMetadata (Prelude.Maybe Prelude.Text)
 emailTemplateMetadata_templateName = Lens.lens (\EmailTemplateMetadata' {templateName} -> templateName) (\s@EmailTemplateMetadata' {} a -> s {templateName = a} :: EmailTemplateMetadata)
 
--- | The time and date the template was created.
-emailTemplateMetadata_createdTimestamp :: Lens.Lens' EmailTemplateMetadata (Prelude.Maybe Prelude.UTCTime)
-emailTemplateMetadata_createdTimestamp = Lens.lens (\EmailTemplateMetadata' {createdTimestamp} -> createdTimestamp) (\s@EmailTemplateMetadata' {} a -> s {createdTimestamp = a} :: EmailTemplateMetadata) Prelude.. Lens.mapping Core._Time
-
-instance Core.FromJSON EmailTemplateMetadata where
+instance Data.FromJSON EmailTemplateMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EmailTemplateMetadata"
       ( \x ->
           EmailTemplateMetadata'
-            Prelude.<$> (x Core..:? "TemplateName")
-            Prelude.<*> (x Core..:? "CreatedTimestamp")
+            Prelude.<$> (x Data..:? "CreatedTimestamp")
+            Prelude.<*> (x Data..:? "TemplateName")
       )
 
 instance Prelude.Hashable EmailTemplateMetadata where
   hashWithSalt _salt EmailTemplateMetadata' {..} =
-    _salt `Prelude.hashWithSalt` templateName
-      `Prelude.hashWithSalt` createdTimestamp
+    _salt `Prelude.hashWithSalt` createdTimestamp
+      `Prelude.hashWithSalt` templateName
 
 instance Prelude.NFData EmailTemplateMetadata where
   rnf EmailTemplateMetadata' {..} =
-    Prelude.rnf templateName
-      `Prelude.seq` Prelude.rnf createdTimestamp
+    Prelude.rnf createdTimestamp
+      `Prelude.seq` Prelude.rnf templateName

@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Discovery
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -11,13 +11,13 @@
 --
 -- Derived from API version @2015-11-01@ of the AWS service descriptions, licensed under Apache 2.0.
 --
--- AWS Application Discovery Service
+-- Amazon Web Services Application Discovery Service
 --
--- AWS Application Discovery Service helps you plan application migration
--- projects. It automatically identifies servers, virtual machines (VMs),
--- and network dependencies in your on-premises data centers. For more
--- information, see the
--- <http://aws.amazon.com/application-discovery/faqs/ AWS Application Discovery Service FAQ>.
+-- Amazon Web Services Application Discovery Service helps you plan
+-- application migration projects. It automatically identifies servers,
+-- virtual machines (VMs), and network dependencies in your on-premises
+-- data centers. For more information, see the
+-- <http://aws.amazon.com/application-discovery/faqs/ Amazon Web Services Application Discovery Service FAQ>.
 -- Application Discovery Service offers three ways of performing discovery
 -- and collecting data about your on-premises servers:
 --
@@ -34,8 +34,9 @@
 --         information.
 --
 -- -   __Agent-based discovery__ collects a richer set of data than
---     agentless discovery by using the AWS Application Discovery Agent,
---     which you install on one or more hosts in your data center.
+--     agentless discovery by using the Amazon Web Services Application
+--     Discovery Agent, which you install on one or more hosts in your data
+--     center.
 --
 --     -   The agent captures infrastructure and application information,
 --         including an inventory of running processes, system performance
@@ -45,14 +46,14 @@
 --         transit to the Application Discovery Service database in the
 --         cloud.
 --
--- -   __AWS Partner Network (APN) solutions__ integrate with Application
---     Discovery Service, enabling you to import details of your
---     on-premises environment directly into Migration Hub without using
---     the discovery connector or discovery agent.
+-- -   __Amazon Web Services Partner Network (APN) solutions__ integrate
+--     with Application Discovery Service, enabling you to import details
+--     of your on-premises environment directly into Migration Hub without
+--     using the discovery connector or discovery agent.
 --
---     -   Third-party application discovery tools can query AWS
---         Application Discovery Service, and they can write to the
---         Application Discovery Service database using the public API.
+--     -   Third-party application discovery tools can query Amazon Web
+--         Services Application Discovery Service, and they can write to
+--         the Application Discovery Service database using the public API.
 --
 --     -   In this way, you can import data into Migration Hub and view it,
 --         so that you can associate applications with servers and track
@@ -72,10 +73,10 @@
 -- This API reference provides descriptions, syntax, and usage examples for
 -- each of the actions and data types for Application Discovery Service.
 -- The topic for each action shows the API request parameters and the
--- response. Alternatively, you can use one of the AWS SDKs to access an
--- API that is tailored to the programming language or platform that
--- you\'re using. For more information, see
--- <http://aws.amazon.com/tools/#SDKs AWS SDKs>.
+-- response. Alternatively, you can use one of the Amazon Web Services SDKs
+-- to access an API that is tailored to the programming language or
+-- platform that you\'re using. For more information, see
+-- <http://aws.amazon.com/tools/#SDKs Amazon Web Services SDKs>.
 --
 -- -   Remember that you must set your Migration Hub home region before you
 --     call any of these APIs.
@@ -95,12 +96,12 @@
 --     home region.
 --
 -- This guide is intended for use with the
--- <http://docs.aws.amazon.com/application-discovery/latest/userguide/ AWS Application Discovery Service User Guide>.
+-- <http://docs.aws.amazon.com/application-discovery/latest/userguide/ Amazon Web Services Application Discovery Service User Guide>.
 --
 -- All data is handled according to the
--- <http://aws.amazon.com/privacy/ AWS Privacy Policy>. You can operate
--- Application Discovery Service offline to inspect collected data before
--- it is shared with the service.
+-- <http://aws.amazon.com/privacy/ Amazon Web Services Privacy Policy>. You
+-- can operate Application Discovery Service offline to inspect collected
+-- data before it is shared with the service.
 module Amazonka.Discovery
   ( -- * Service Configuration
     defaultService,
@@ -111,29 +112,29 @@ module Amazonka.Discovery
     -- ** AuthorizationErrorException
     _AuthorizationErrorException,
 
+    -- ** ConflictErrorException
+    _ConflictErrorException,
+
     -- ** HomeRegionNotSetException
     _HomeRegionNotSetException,
 
     -- ** InvalidParameterException
     _InvalidParameterException,
 
-    -- ** ConflictErrorException
-    _ConflictErrorException,
-
     -- ** InvalidParameterValueException
     _InvalidParameterValueException,
-
-    -- ** ServerInternalErrorException
-    _ServerInternalErrorException,
 
     -- ** OperationNotPermittedException
     _OperationNotPermittedException,
 
+    -- ** ResourceInUseException
+    _ResourceInUseException,
+
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
-    -- ** ResourceInUseException
-    _ResourceInUseException,
+    -- ** ServerInternalErrorException
+    _ServerInternalErrorException,
 
     -- * Waiters
     -- $waiters
@@ -141,29 +142,11 @@ module Amazonka.Discovery
     -- * Operations
     -- $operations
 
-    -- ** DescribeTags (Paginated)
-    DescribeTags (DescribeTags'),
-    newDescribeTags,
-    DescribeTagsResponse (DescribeTagsResponse'),
-    newDescribeTagsResponse,
-
-    -- ** DescribeContinuousExports (Paginated)
-    DescribeContinuousExports (DescribeContinuousExports'),
-    newDescribeContinuousExports,
-    DescribeContinuousExportsResponse (DescribeContinuousExportsResponse'),
-    newDescribeContinuousExportsResponse,
-
-    -- ** StopDataCollectionByAgentIds
-    StopDataCollectionByAgentIds (StopDataCollectionByAgentIds'),
-    newStopDataCollectionByAgentIds,
-    StopDataCollectionByAgentIdsResponse (StopDataCollectionByAgentIdsResponse'),
-    newStopDataCollectionByAgentIdsResponse,
-
-    -- ** CreateTags
-    CreateTags (CreateTags'),
-    newCreateTags,
-    CreateTagsResponse (CreateTagsResponse'),
-    newCreateTagsResponse,
+    -- ** AssociateConfigurationItemsToApplication
+    AssociateConfigurationItemsToApplication (AssociateConfigurationItemsToApplication'),
+    newAssociateConfigurationItemsToApplication,
+    AssociateConfigurationItemsToApplicationResponse (AssociateConfigurationItemsToApplicationResponse'),
+    newAssociateConfigurationItemsToApplicationResponse,
 
     -- ** BatchDeleteImportData
     BatchDeleteImportData (BatchDeleteImportData'),
@@ -171,17 +154,17 @@ module Amazonka.Discovery
     BatchDeleteImportDataResponse (BatchDeleteImportDataResponse'),
     newBatchDeleteImportDataResponse,
 
-    -- ** DeleteTags
-    DeleteTags (DeleteTags'),
-    newDeleteTags,
-    DeleteTagsResponse (DeleteTagsResponse'),
-    newDeleteTagsResponse,
+    -- ** CreateApplication
+    CreateApplication (CreateApplication'),
+    newCreateApplication,
+    CreateApplicationResponse (CreateApplicationResponse'),
+    newCreateApplicationResponse,
 
-    -- ** StartImportTask
-    StartImportTask (StartImportTask'),
-    newStartImportTask,
-    StartImportTaskResponse (StartImportTaskResponse'),
-    newStartImportTaskResponse,
+    -- ** CreateTags
+    CreateTags (CreateTags'),
+    newCreateTags,
+    CreateTagsResponse (CreateTagsResponse'),
+    newCreateTagsResponse,
 
     -- ** DeleteApplications
     DeleteApplications (DeleteApplications'),
@@ -189,41 +172,11 @@ module Amazonka.Discovery
     DeleteApplicationsResponse (DeleteApplicationsResponse'),
     newDeleteApplicationsResponse,
 
-    -- ** UpdateApplication
-    UpdateApplication (UpdateApplication'),
-    newUpdateApplication,
-    UpdateApplicationResponse (UpdateApplicationResponse'),
-    newUpdateApplicationResponse,
-
-    -- ** DescribeConfigurations
-    DescribeConfigurations (DescribeConfigurations'),
-    newDescribeConfigurations,
-    DescribeConfigurationsResponse (DescribeConfigurationsResponse'),
-    newDescribeConfigurationsResponse,
-
-    -- ** DescribeImportTasks
-    DescribeImportTasks (DescribeImportTasks'),
-    newDescribeImportTasks,
-    DescribeImportTasksResponse (DescribeImportTasksResponse'),
-    newDescribeImportTasksResponse,
-
-    -- ** CreateApplication
-    CreateApplication (CreateApplication'),
-    newCreateApplication,
-    CreateApplicationResponse (CreateApplicationResponse'),
-    newCreateApplicationResponse,
-
-    -- ** ListConfigurations (Paginated)
-    ListConfigurations (ListConfigurations'),
-    newListConfigurations,
-    ListConfigurationsResponse (ListConfigurationsResponse'),
-    newListConfigurationsResponse,
-
-    -- ** StartContinuousExport
-    StartContinuousExport (StartContinuousExport'),
-    newStartContinuousExport,
-    StartContinuousExportResponse (StartContinuousExportResponse'),
-    newStartContinuousExportResponse,
+    -- ** DeleteTags
+    DeleteTags (DeleteTags'),
+    newDeleteTags,
+    DeleteTagsResponse (DeleteTagsResponse'),
+    newDeleteTagsResponse,
 
     -- ** DescribeAgents (Paginated)
     DescribeAgents (DescribeAgents'),
@@ -231,23 +184,35 @@ module Amazonka.Discovery
     DescribeAgentsResponse (DescribeAgentsResponse'),
     newDescribeAgentsResponse,
 
+    -- ** DescribeConfigurations
+    DescribeConfigurations (DescribeConfigurations'),
+    newDescribeConfigurations,
+    DescribeConfigurationsResponse (DescribeConfigurationsResponse'),
+    newDescribeConfigurationsResponse,
+
+    -- ** DescribeContinuousExports (Paginated)
+    DescribeContinuousExports (DescribeContinuousExports'),
+    newDescribeContinuousExports,
+    DescribeContinuousExportsResponse (DescribeContinuousExportsResponse'),
+    newDescribeContinuousExportsResponse,
+
     -- ** DescribeExportTasks (Paginated)
     DescribeExportTasks (DescribeExportTasks'),
     newDescribeExportTasks,
     DescribeExportTasksResponse (DescribeExportTasksResponse'),
     newDescribeExportTasksResponse,
 
-    -- ** StartDataCollectionByAgentIds
-    StartDataCollectionByAgentIds (StartDataCollectionByAgentIds'),
-    newStartDataCollectionByAgentIds,
-    StartDataCollectionByAgentIdsResponse (StartDataCollectionByAgentIdsResponse'),
-    newStartDataCollectionByAgentIdsResponse,
+    -- ** DescribeImportTasks
+    DescribeImportTasks (DescribeImportTasks'),
+    newDescribeImportTasks,
+    DescribeImportTasksResponse (DescribeImportTasksResponse'),
+    newDescribeImportTasksResponse,
 
-    -- ** GetDiscoverySummary
-    GetDiscoverySummary (GetDiscoverySummary'),
-    newGetDiscoverySummary,
-    GetDiscoverySummaryResponse (GetDiscoverySummaryResponse'),
-    newGetDiscoverySummaryResponse,
+    -- ** DescribeTags (Paginated)
+    DescribeTags (DescribeTags'),
+    newDescribeTags,
+    DescribeTagsResponse (DescribeTagsResponse'),
+    newDescribeTagsResponse,
 
     -- ** DisassociateConfigurationItemsFromApplication
     DisassociateConfigurationItemsFromApplication (DisassociateConfigurationItemsFromApplication'),
@@ -255,11 +220,17 @@ module Amazonka.Discovery
     DisassociateConfigurationItemsFromApplicationResponse (DisassociateConfigurationItemsFromApplicationResponse'),
     newDisassociateConfigurationItemsFromApplicationResponse,
 
-    -- ** AssociateConfigurationItemsToApplication
-    AssociateConfigurationItemsToApplication (AssociateConfigurationItemsToApplication'),
-    newAssociateConfigurationItemsToApplication,
-    AssociateConfigurationItemsToApplicationResponse (AssociateConfigurationItemsToApplicationResponse'),
-    newAssociateConfigurationItemsToApplicationResponse,
+    -- ** GetDiscoverySummary
+    GetDiscoverySummary (GetDiscoverySummary'),
+    newGetDiscoverySummary,
+    GetDiscoverySummaryResponse (GetDiscoverySummaryResponse'),
+    newGetDiscoverySummaryResponse,
+
+    -- ** ListConfigurations (Paginated)
+    ListConfigurations (ListConfigurations'),
+    newListConfigurations,
+    ListConfigurationsResponse (ListConfigurationsResponse'),
+    newListConfigurationsResponse,
 
     -- ** ListServerNeighbors
     ListServerNeighbors (ListServerNeighbors'),
@@ -267,17 +238,47 @@ module Amazonka.Discovery
     ListServerNeighborsResponse (ListServerNeighborsResponse'),
     newListServerNeighborsResponse,
 
-    -- ** StopContinuousExport
-    StopContinuousExport (StopContinuousExport'),
-    newStopContinuousExport,
-    StopContinuousExportResponse (StopContinuousExportResponse'),
-    newStopContinuousExportResponse,
+    -- ** StartContinuousExport
+    StartContinuousExport (StartContinuousExport'),
+    newStartContinuousExport,
+    StartContinuousExportResponse (StartContinuousExportResponse'),
+    newStartContinuousExportResponse,
+
+    -- ** StartDataCollectionByAgentIds
+    StartDataCollectionByAgentIds (StartDataCollectionByAgentIds'),
+    newStartDataCollectionByAgentIds,
+    StartDataCollectionByAgentIdsResponse (StartDataCollectionByAgentIdsResponse'),
+    newStartDataCollectionByAgentIdsResponse,
 
     -- ** StartExportTask
     StartExportTask (StartExportTask'),
     newStartExportTask,
     StartExportTaskResponse (StartExportTaskResponse'),
     newStartExportTaskResponse,
+
+    -- ** StartImportTask
+    StartImportTask (StartImportTask'),
+    newStartImportTask,
+    StartImportTaskResponse (StartImportTaskResponse'),
+    newStartImportTaskResponse,
+
+    -- ** StopContinuousExport
+    StopContinuousExport (StopContinuousExport'),
+    newStopContinuousExport,
+    StopContinuousExportResponse (StopContinuousExportResponse'),
+    newStopContinuousExportResponse,
+
+    -- ** StopDataCollectionByAgentIds
+    StopDataCollectionByAgentIds (StopDataCollectionByAgentIds'),
+    newStopDataCollectionByAgentIds,
+    StopDataCollectionByAgentIdsResponse (StopDataCollectionByAgentIdsResponse'),
+    newStopDataCollectionByAgentIdsResponse,
+
+    -- ** UpdateApplication
+    UpdateApplication (UpdateApplication'),
+    newUpdateApplication,
+    UpdateApplicationResponse (UpdateApplicationResponse'),
+    newUpdateApplicationResponse,
 
     -- * Types
 
@@ -339,9 +340,17 @@ module Amazonka.Discovery
     CustomerAgentInfo (CustomerAgentInfo'),
     newCustomerAgentInfo,
 
+    -- ** CustomerAgentlessCollectorInfo
+    CustomerAgentlessCollectorInfo (CustomerAgentlessCollectorInfo'),
+    newCustomerAgentlessCollectorInfo,
+
     -- ** CustomerConnectorInfo
     CustomerConnectorInfo (CustomerConnectorInfo'),
     newCustomerConnectorInfo,
+
+    -- ** CustomerMeCollectorInfo
+    CustomerMeCollectorInfo (CustomerMeCollectorInfo'),
+    newCustomerMeCollectorInfo,
 
     -- ** ExportFilter
     ExportFilter (ExportFilter'),

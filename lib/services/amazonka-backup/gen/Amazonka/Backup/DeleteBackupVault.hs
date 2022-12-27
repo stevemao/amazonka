@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.DeleteBackupVault
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,7 +87,8 @@ instance Core.AWSRequest DeleteBackupVault where
   type
     AWSResponse DeleteBackupVault =
       DeleteBackupVaultResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteBackupVaultResponse'
 
@@ -98,23 +100,23 @@ instance Prelude.NFData DeleteBackupVault where
   rnf DeleteBackupVault' {..} =
     Prelude.rnf backupVaultName
 
-instance Core.ToHeaders DeleteBackupVault where
+instance Data.ToHeaders DeleteBackupVault where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteBackupVault where
+instance Data.ToPath DeleteBackupVault where
   toPath DeleteBackupVault' {..} =
     Prelude.mconcat
-      ["/backup-vaults/", Core.toBS backupVaultName]
+      ["/backup-vaults/", Data.toBS backupVaultName]
 
-instance Core.ToQuery DeleteBackupVault where
+instance Data.ToQuery DeleteBackupVault where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteBackupVaultResponse' smart constructor.

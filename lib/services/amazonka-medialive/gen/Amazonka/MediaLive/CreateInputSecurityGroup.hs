@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.CreateInputSecurityGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.MediaLive.CreateInputSecurityGroup
     newCreateInputSecurityGroup,
 
     -- * Request Lenses
-    createInputSecurityGroup_whitelistRules,
     createInputSecurityGroup_tags,
+    createInputSecurityGroup_whitelistRules,
 
     -- * Destructuring the Response
     CreateInputSecurityGroupResponse (..),
@@ -41,7 +41,8 @@ module Amazonka.MediaLive.CreateInputSecurityGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -51,10 +52,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateInputSecurityGroup' smart constructor.
 data CreateInputSecurityGroup = CreateInputSecurityGroup'
-  { -- | List of IPv4 CIDR addresses to whitelist
-    whitelistRules :: Prelude.Maybe [InputWhitelistRuleCidr],
-    -- | A collection of key-value pairs.
-    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
+  { -- | A collection of key-value pairs.
+    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | List of IPv4 CIDR addresses to whitelist
+    whitelistRules :: Prelude.Maybe [InputWhitelistRuleCidr]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -66,74 +67,74 @@ data CreateInputSecurityGroup = CreateInputSecurityGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'whitelistRules', 'createInputSecurityGroup_whitelistRules' - List of IPv4 CIDR addresses to whitelist
---
 -- 'tags', 'createInputSecurityGroup_tags' - A collection of key-value pairs.
+--
+-- 'whitelistRules', 'createInputSecurityGroup_whitelistRules' - List of IPv4 CIDR addresses to whitelist
 newCreateInputSecurityGroup ::
   CreateInputSecurityGroup
 newCreateInputSecurityGroup =
   CreateInputSecurityGroup'
-    { whitelistRules =
-        Prelude.Nothing,
-      tags = Prelude.Nothing
+    { tags = Prelude.Nothing,
+      whitelistRules = Prelude.Nothing
     }
-
--- | List of IPv4 CIDR addresses to whitelist
-createInputSecurityGroup_whitelistRules :: Lens.Lens' CreateInputSecurityGroup (Prelude.Maybe [InputWhitelistRuleCidr])
-createInputSecurityGroup_whitelistRules = Lens.lens (\CreateInputSecurityGroup' {whitelistRules} -> whitelistRules) (\s@CreateInputSecurityGroup' {} a -> s {whitelistRules = a} :: CreateInputSecurityGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | A collection of key-value pairs.
 createInputSecurityGroup_tags :: Lens.Lens' CreateInputSecurityGroup (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createInputSecurityGroup_tags = Lens.lens (\CreateInputSecurityGroup' {tags} -> tags) (\s@CreateInputSecurityGroup' {} a -> s {tags = a} :: CreateInputSecurityGroup) Prelude.. Lens.mapping Lens.coerced
 
+-- | List of IPv4 CIDR addresses to whitelist
+createInputSecurityGroup_whitelistRules :: Lens.Lens' CreateInputSecurityGroup (Prelude.Maybe [InputWhitelistRuleCidr])
+createInputSecurityGroup_whitelistRules = Lens.lens (\CreateInputSecurityGroup' {whitelistRules} -> whitelistRules) (\s@CreateInputSecurityGroup' {} a -> s {whitelistRules = a} :: CreateInputSecurityGroup) Prelude.. Lens.mapping Lens.coerced
+
 instance Core.AWSRequest CreateInputSecurityGroup where
   type
     AWSResponse CreateInputSecurityGroup =
       CreateInputSecurityGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateInputSecurityGroupResponse'
-            Prelude.<$> (x Core..?> "securityGroup")
+            Prelude.<$> (x Data..?> "securityGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateInputSecurityGroup where
   hashWithSalt _salt CreateInputSecurityGroup' {..} =
-    _salt `Prelude.hashWithSalt` whitelistRules
-      `Prelude.hashWithSalt` tags
+    _salt `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` whitelistRules
 
 instance Prelude.NFData CreateInputSecurityGroup where
   rnf CreateInputSecurityGroup' {..} =
-    Prelude.rnf whitelistRules
-      `Prelude.seq` Prelude.rnf tags
+    Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf whitelistRules
 
-instance Core.ToHeaders CreateInputSecurityGroup where
+instance Data.ToHeaders CreateInputSecurityGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateInputSecurityGroup where
+instance Data.ToJSON CreateInputSecurityGroup where
   toJSON CreateInputSecurityGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("whitelistRules" Core..=)
-              Prelude.<$> whitelistRules,
-            ("tags" Core..=) Prelude.<$> tags
+          [ ("tags" Data..=) Prelude.<$> tags,
+            ("whitelistRules" Data..=)
+              Prelude.<$> whitelistRules
           ]
       )
 
-instance Core.ToPath CreateInputSecurityGroup where
+instance Data.ToPath CreateInputSecurityGroup where
   toPath = Prelude.const "/prod/inputSecurityGroups"
 
-instance Core.ToQuery CreateInputSecurityGroup where
+instance Data.ToQuery CreateInputSecurityGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for CreateInputSecurityGroupResponse

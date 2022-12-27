@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AMP.CreateRuleGroupsNamespace
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ where
 
 import Amazonka.AMP.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,7 +64,7 @@ data CreateRuleGroupsNamespace = CreateRuleGroupsNamespace'
     -- | Optional, user-provided tags for this rule groups namespace.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The namespace data that define the rule groups.
-    data' :: Core.Base64,
+    data' :: Data.Base64,
     -- | The rule groups namespace name.
     name :: Prelude.Text,
     -- | The ID of the workspace in which to create the rule group namespace.
@@ -109,7 +110,7 @@ newCreateRuleGroupsNamespace
       { clientToken =
           Prelude.Nothing,
         tags = Prelude.Nothing,
-        data' = Core._Base64 Lens.# pData_,
+        data' = Data._Base64 Lens.# pData_,
         name = pName_,
         workspaceId = pWorkspaceId_
       }
@@ -129,7 +130,7 @@ createRuleGroupsNamespace_tags = Lens.lens (\CreateRuleGroupsNamespace' {tags} -
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 createRuleGroupsNamespace_data :: Lens.Lens' CreateRuleGroupsNamespace Prelude.ByteString
-createRuleGroupsNamespace_data = Lens.lens (\CreateRuleGroupsNamespace' {data'} -> data') (\s@CreateRuleGroupsNamespace' {} a -> s {data' = a} :: CreateRuleGroupsNamespace) Prelude.. Core._Base64
+createRuleGroupsNamespace_data = Lens.lens (\CreateRuleGroupsNamespace' {data'} -> data') (\s@CreateRuleGroupsNamespace' {} a -> s {data' = a} :: CreateRuleGroupsNamespace) Prelude.. Data._Base64
 
 -- | The rule groups namespace name.
 createRuleGroupsNamespace_name :: Lens.Lens' CreateRuleGroupsNamespace Prelude.Text
@@ -143,16 +144,17 @@ instance Core.AWSRequest CreateRuleGroupsNamespace where
   type
     AWSResponse CreateRuleGroupsNamespace =
       CreateRuleGroupsNamespaceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateRuleGroupsNamespaceResponse'
-            Prelude.<$> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "arn")
-            Prelude.<*> (x Core..:> "name")
-            Prelude.<*> (x Core..:> "status")
+            Prelude.<*> (x Data..:> "arn")
+            Prelude.<*> (x Data..:> "name")
+            Prelude.<*> (x Data..:> "status")
       )
 
 instance Prelude.Hashable CreateRuleGroupsNamespace where
@@ -171,37 +173,37 @@ instance Prelude.NFData CreateRuleGroupsNamespace where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf workspaceId
 
-instance Core.ToHeaders CreateRuleGroupsNamespace where
+instance Data.ToHeaders CreateRuleGroupsNamespace where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateRuleGroupsNamespace where
+instance Data.ToJSON CreateRuleGroupsNamespace where
   toJSON CreateRuleGroupsNamespace' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("data" Core..= data'),
-            Prelude.Just ("name" Core..= name)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("data" Data..= data'),
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateRuleGroupsNamespace where
+instance Data.ToPath CreateRuleGroupsNamespace where
   toPath CreateRuleGroupsNamespace' {..} =
     Prelude.mconcat
       [ "/workspaces/",
-        Core.toBS workspaceId,
+        Data.toBS workspaceId,
         "/rulegroupsnamespaces"
       ]
 
-instance Core.ToQuery CreateRuleGroupsNamespace where
+instance Data.ToQuery CreateRuleGroupsNamespace where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a CreateRuleGroupsNamespace operation.

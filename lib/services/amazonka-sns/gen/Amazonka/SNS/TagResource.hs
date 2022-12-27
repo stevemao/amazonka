@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.TagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,9 @@
 -- -   A new tag with a key identical to that of an existing tag overwrites
 --     the existing tag.
 --
--- -   Tagging actions are limited to 10 TPS per account, per Region. If
---     your application requires a higher throughput, file a
+-- -   Tagging actions are limited to 10 TPS per Amazon Web Services
+--     account, per Amazon Web Services Region. If your application
+--     requires a higher throughput, file a
 --     <https://console.aws.amazon.com/support/home#/case/create?issueType=technical technical support request>.
 module Amazonka.SNS.TagResource
   ( -- * Creating a Request
@@ -58,7 +59,8 @@ module Amazonka.SNS.TagResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,7 +109,8 @@ tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} 
 
 instance Core.AWSRequest TagResource where
   type AWSResponse TagResource = TagResourceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "TagResourceResult"
@@ -126,21 +129,21 @@ instance Prelude.NFData TagResource where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagResource where
+instance Data.ToHeaders TagResource where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath TagResource where
+instance Data.ToPath TagResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TagResource where
+instance Data.ToQuery TagResource where
   toQuery TagResource' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("TagResource" :: Prelude.ByteString),
+          Data.=: ("TagResource" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "ResourceArn" Core.=: resourceArn,
-        "Tags" Core.=: Core.toQueryList "member" tags
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "ResourceArn" Data.=: resourceArn,
+        "Tags" Data.=: Data.toQueryList "member" tags
       ]
 
 -- | /See:/ 'newTagResourceResponse' smart constructor.

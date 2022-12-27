@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.Types.CreateAssessmentFrameworkControl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,17 @@
 module Amazonka.AuditManager.Types.CreateAssessmentFrameworkControl where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Control entity attributes that uniquely identify an existing control to
--- be added to a framework in Audit Manager.
+-- | The control entity attributes that uniquely identify an existing control
+-- to be added to a framework in Audit Manager.
 --
 -- /See:/ 'newCreateAssessmentFrameworkControl' smart constructor.
 data CreateAssessmentFrameworkControl = CreateAssessmentFrameworkControl'
   { -- | The unique identifier of the control.
-    id :: Prelude.Maybe Prelude.Text
+    id :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,15 +44,14 @@ data CreateAssessmentFrameworkControl = CreateAssessmentFrameworkControl'
 --
 -- 'id', 'createAssessmentFrameworkControl_id' - The unique identifier of the control.
 newCreateAssessmentFrameworkControl ::
+  -- | 'id'
+  Prelude.Text ->
   CreateAssessmentFrameworkControl
-newCreateAssessmentFrameworkControl =
-  CreateAssessmentFrameworkControl'
-    { id =
-        Prelude.Nothing
-    }
+newCreateAssessmentFrameworkControl pId_ =
+  CreateAssessmentFrameworkControl' {id = pId_}
 
 -- | The unique identifier of the control.
-createAssessmentFrameworkControl_id :: Lens.Lens' CreateAssessmentFrameworkControl (Prelude.Maybe Prelude.Text)
+createAssessmentFrameworkControl_id :: Lens.Lens' CreateAssessmentFrameworkControl Prelude.Text
 createAssessmentFrameworkControl_id = Lens.lens (\CreateAssessmentFrameworkControl' {id} -> id) (\s@CreateAssessmentFrameworkControl' {} a -> s {id = a} :: CreateAssessmentFrameworkControl)
 
 instance
@@ -70,7 +70,7 @@ instance
   rnf CreateAssessmentFrameworkControl' {..} =
     Prelude.rnf id
 
-instance Core.ToJSON CreateAssessmentFrameworkControl where
+instance Data.ToJSON CreateAssessmentFrameworkControl where
   toJSON CreateAssessmentFrameworkControl' {..} =
-    Core.object
-      (Prelude.catMaybes [("id" Core..=) Prelude.<$> id])
+    Data.object
+      (Prelude.catMaybes [Prelude.Just ("id" Data..= id)])

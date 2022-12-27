@@ -14,15 +14,16 @@
 
 -- |
 -- Module      : Amazonka.Redshift.AuthorizeDataShare
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- From a data producer account, authorizes the sharing of a datashare with
--- one or more consumer accounts. To authorize a datashare for a data
--- consumer, the producer account must have the correct access privileges.
+-- one or more consumer accounts or managing entities. To authorize a
+-- datashare for a data consumer, the producer account must have the
+-- correct access permissions.
 module Amazonka.Redshift.AuthorizeDataShare
   ( -- * Creating a Request
     AuthorizeDataShare (..),
@@ -37,15 +38,17 @@ module Amazonka.Redshift.AuthorizeDataShare
     newDataShare,
 
     -- * Response Lenses
-    dataShare_producerArn,
-    dataShare_dataShareAssociations,
-    dataShare_dataShareArn,
     dataShare_allowPubliclyAccessibleConsumers,
+    dataShare_dataShareArn,
+    dataShare_dataShareAssociations,
+    dataShare_managedBy,
+    dataShare_producerArn,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -57,7 +60,8 @@ data AuthorizeDataShare = AuthorizeDataShare'
     -- authorize sharing for.
     dataShareArn :: Prelude.Text,
     -- | The identifier of the data consumer that is authorized to access the
-    -- datashare. This identifier is an AWS account ID.
+    -- datashare. This identifier is an Amazon Web Services account ID or a
+    -- keyword, such as ADX.
     consumerIdentifier :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -74,7 +78,8 @@ data AuthorizeDataShare = AuthorizeDataShare'
 -- authorize sharing for.
 --
 -- 'consumerIdentifier', 'authorizeDataShare_consumerIdentifier' - The identifier of the data consumer that is authorized to access the
--- datashare. This identifier is an AWS account ID.
+-- datashare. This identifier is an Amazon Web Services account ID or a
+-- keyword, such as ADX.
 newAuthorizeDataShare ::
   -- | 'dataShareArn'
   Prelude.Text ->
@@ -95,17 +100,19 @@ authorizeDataShare_dataShareArn :: Lens.Lens' AuthorizeDataShare Prelude.Text
 authorizeDataShare_dataShareArn = Lens.lens (\AuthorizeDataShare' {dataShareArn} -> dataShareArn) (\s@AuthorizeDataShare' {} a -> s {dataShareArn = a} :: AuthorizeDataShare)
 
 -- | The identifier of the data consumer that is authorized to access the
--- datashare. This identifier is an AWS account ID.
+-- datashare. This identifier is an Amazon Web Services account ID or a
+-- keyword, such as ADX.
 authorizeDataShare_consumerIdentifier :: Lens.Lens' AuthorizeDataShare Prelude.Text
 authorizeDataShare_consumerIdentifier = Lens.lens (\AuthorizeDataShare' {consumerIdentifier} -> consumerIdentifier) (\s@AuthorizeDataShare' {} a -> s {consumerIdentifier = a} :: AuthorizeDataShare)
 
 instance Core.AWSRequest AuthorizeDataShare where
   type AWSResponse AuthorizeDataShare = DataShare
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "AuthorizeDataShareResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable AuthorizeDataShare where
   hashWithSalt _salt AuthorizeDataShare' {..} =
@@ -117,19 +124,19 @@ instance Prelude.NFData AuthorizeDataShare where
     Prelude.rnf dataShareArn
       `Prelude.seq` Prelude.rnf consumerIdentifier
 
-instance Core.ToHeaders AuthorizeDataShare where
+instance Data.ToHeaders AuthorizeDataShare where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AuthorizeDataShare where
+instance Data.ToPath AuthorizeDataShare where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AuthorizeDataShare where
+instance Data.ToQuery AuthorizeDataShare where
   toQuery AuthorizeDataShare' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("AuthorizeDataShare" :: Prelude.ByteString),
+          Data.=: ("AuthorizeDataShare" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "DataShareArn" Core.=: dataShareArn,
-        "ConsumerIdentifier" Core.=: consumerIdentifier
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "DataShareArn" Data.=: dataShareArn,
+        "ConsumerIdentifier" Data.=: consumerIdentifier
       ]

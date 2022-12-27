@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMRContainers.Types.EksInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EMRContainers.Types.EksInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The information about the EKS cluster.
@@ -49,12 +50,12 @@ newEksInfo = EksInfo' {namespace = Prelude.Nothing}
 eksInfo_namespace :: Lens.Lens' EksInfo (Prelude.Maybe Prelude.Text)
 eksInfo_namespace = Lens.lens (\EksInfo' {namespace} -> namespace) (\s@EksInfo' {} a -> s {namespace = a} :: EksInfo)
 
-instance Core.FromJSON EksInfo where
+instance Data.FromJSON EksInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EksInfo"
       ( \x ->
-          EksInfo' Prelude.<$> (x Core..:? "namespace")
+          EksInfo' Prelude.<$> (x Data..:? "namespace")
       )
 
 instance Prelude.Hashable EksInfo where
@@ -64,9 +65,9 @@ instance Prelude.Hashable EksInfo where
 instance Prelude.NFData EksInfo where
   rnf EksInfo' {..} = Prelude.rnf namespace
 
-instance Core.ToJSON EksInfo where
+instance Data.ToJSON EksInfo where
   toJSON EksInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("namespace" Core..=) Prelude.<$> namespace]
+          [("namespace" Data..=) Prelude.<$> namespace]
       )

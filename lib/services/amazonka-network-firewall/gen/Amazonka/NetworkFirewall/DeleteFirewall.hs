@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.DeleteFirewall
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,14 +49,15 @@ module Amazonka.NetworkFirewall.DeleteFirewall
     newDeleteFirewallResponse,
 
     -- * Response Lenses
-    deleteFirewallResponse_firewallStatus,
     deleteFirewallResponse_firewall,
+    deleteFirewallResponse_firewallStatus,
     deleteFirewallResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -117,13 +118,14 @@ instance Core.AWSRequest DeleteFirewall where
   type
     AWSResponse DeleteFirewall =
       DeleteFirewallResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteFirewallResponse'
-            Prelude.<$> (x Core..?> "FirewallStatus")
-            Prelude.<*> (x Core..?> "Firewall")
+            Prelude.<$> (x Data..?> "Firewall")
+            Prelude.<*> (x Data..?> "FirewallStatus")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -137,40 +139,40 @@ instance Prelude.NFData DeleteFirewall where
     Prelude.rnf firewallArn
       `Prelude.seq` Prelude.rnf firewallName
 
-instance Core.ToHeaders DeleteFirewall where
+instance Data.ToHeaders DeleteFirewall where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "NetworkFirewall_20201112.DeleteFirewall" ::
+              Data.=# ( "NetworkFirewall_20201112.DeleteFirewall" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteFirewall where
+instance Data.ToJSON DeleteFirewall where
   toJSON DeleteFirewall' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FirewallArn" Core..=) Prelude.<$> firewallArn,
-            ("FirewallName" Core..=) Prelude.<$> firewallName
+          [ ("FirewallArn" Data..=) Prelude.<$> firewallArn,
+            ("FirewallName" Data..=) Prelude.<$> firewallName
           ]
       )
 
-instance Core.ToPath DeleteFirewall where
+instance Data.ToPath DeleteFirewall where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteFirewall where
+instance Data.ToQuery DeleteFirewall where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFirewallResponse' smart constructor.
 data DeleteFirewallResponse = DeleteFirewallResponse'
-  { firewallStatus :: Prelude.Maybe FirewallStatus,
-    firewall :: Prelude.Maybe Firewall,
+  { firewall :: Prelude.Maybe Firewall,
+    firewallStatus :: Prelude.Maybe FirewallStatus,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -184,9 +186,9 @@ data DeleteFirewallResponse = DeleteFirewallResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'firewallStatus', 'deleteFirewallResponse_firewallStatus' - Undocumented member.
---
 -- 'firewall', 'deleteFirewallResponse_firewall' - Undocumented member.
+--
+-- 'firewallStatus', 'deleteFirewallResponse_firewallStatus' - Undocumented member.
 --
 -- 'httpStatus', 'deleteFirewallResponse_httpStatus' - The response's http status code.
 newDeleteFirewallResponse ::
@@ -195,19 +197,18 @@ newDeleteFirewallResponse ::
   DeleteFirewallResponse
 newDeleteFirewallResponse pHttpStatus_ =
   DeleteFirewallResponse'
-    { firewallStatus =
-        Prelude.Nothing,
-      firewall = Prelude.Nothing,
+    { firewall = Prelude.Nothing,
+      firewallStatus = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-deleteFirewallResponse_firewallStatus :: Lens.Lens' DeleteFirewallResponse (Prelude.Maybe FirewallStatus)
-deleteFirewallResponse_firewallStatus = Lens.lens (\DeleteFirewallResponse' {firewallStatus} -> firewallStatus) (\s@DeleteFirewallResponse' {} a -> s {firewallStatus = a} :: DeleteFirewallResponse)
-
--- | Undocumented member.
 deleteFirewallResponse_firewall :: Lens.Lens' DeleteFirewallResponse (Prelude.Maybe Firewall)
 deleteFirewallResponse_firewall = Lens.lens (\DeleteFirewallResponse' {firewall} -> firewall) (\s@DeleteFirewallResponse' {} a -> s {firewall = a} :: DeleteFirewallResponse)
+
+-- | Undocumented member.
+deleteFirewallResponse_firewallStatus :: Lens.Lens' DeleteFirewallResponse (Prelude.Maybe FirewallStatus)
+deleteFirewallResponse_firewallStatus = Lens.lens (\DeleteFirewallResponse' {firewallStatus} -> firewallStatus) (\s@DeleteFirewallResponse' {} a -> s {firewallStatus = a} :: DeleteFirewallResponse)
 
 -- | The response's http status code.
 deleteFirewallResponse_httpStatus :: Lens.Lens' DeleteFirewallResponse Prelude.Int
@@ -215,6 +216,6 @@ deleteFirewallResponse_httpStatus = Lens.lens (\DeleteFirewallResponse' {httpSta
 
 instance Prelude.NFData DeleteFirewallResponse where
   rnf DeleteFirewallResponse' {..} =
-    Prelude.rnf firewallStatus
-      `Prelude.seq` Prelude.rnf firewall
+    Prelude.rnf firewall
+      `Prelude.seq` Prelude.rnf firewallStatus
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.DeleteFunctionConcurrency
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,9 @@ module Amazonka.Lambda.DeleteFunctionConcurrency
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -48,12 +49,12 @@ data DeleteFunctionConcurrency = DeleteFunctionConcurrency'
     --
     -- __Name formats__
     --
-    -- -   __Function name__ - @my-function@.
+    -- -   __Function name__ – @my-function@.
     --
-    -- -   __Function ARN__ -
+    -- -   __Function ARN__ –
     --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
     --
-    -- -   __Partial ARN__ - @123456789012:function:my-function@.
+    -- -   __Partial ARN__ – @123456789012:function:my-function@.
     --
     -- The length constraint applies only to the full ARN. If you specify only
     -- the function name, it is limited to 64 characters in length.
@@ -73,12 +74,12 @@ data DeleteFunctionConcurrency = DeleteFunctionConcurrency'
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@.
+-- -   __Function name__ – @my-function@.
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- The length constraint applies only to the full ARN. If you specify only
 -- the function name, it is limited to 64 characters in length.
@@ -96,12 +97,12 @@ newDeleteFunctionConcurrency pFunctionName_ =
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@.
+-- -   __Function name__ – @my-function@.
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- The length constraint applies only to the full ARN. If you specify only
 -- the function name, it is limited to 64 characters in length.
@@ -112,7 +113,8 @@ instance Core.AWSRequest DeleteFunctionConcurrency where
   type
     AWSResponse DeleteFunctionConcurrency =
       DeleteFunctionConcurrencyResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteFunctionConcurrencyResponse'
@@ -125,18 +127,18 @@ instance Prelude.NFData DeleteFunctionConcurrency where
   rnf DeleteFunctionConcurrency' {..} =
     Prelude.rnf functionName
 
-instance Core.ToHeaders DeleteFunctionConcurrency where
+instance Data.ToHeaders DeleteFunctionConcurrency where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteFunctionConcurrency where
+instance Data.ToPath DeleteFunctionConcurrency where
   toPath DeleteFunctionConcurrency' {..} =
     Prelude.mconcat
       [ "/2017-10-31/functions/",
-        Core.toBS functionName,
+        Data.toBS functionName,
         "/concurrency"
       ]
 
-instance Core.ToQuery DeleteFunctionConcurrency where
+instance Data.ToQuery DeleteFunctionConcurrency where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFunctionConcurrencyResponse' smart constructor.

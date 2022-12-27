@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DeleteUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.QuickSight.DeleteUser
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -109,12 +110,13 @@ deleteUser_namespace = Lens.lens (\DeleteUser' {namespace} -> namespace) (\s@Del
 
 instance Core.AWSRequest DeleteUser where
   type AWSResponse DeleteUser = DeleteUserResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteUserResponse'
-            Prelude.<$> (x Core..?> "RequestId")
+            Prelude.<$> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,29 +132,29 @@ instance Prelude.NFData DeleteUser where
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf namespace
 
-instance Core.ToHeaders DeleteUser where
+instance Data.ToHeaders DeleteUser where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteUser where
+instance Data.ToPath DeleteUser where
   toPath DeleteUser' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/namespaces/",
-        Core.toBS namespace,
+        Data.toBS namespace,
         "/users/",
-        Core.toBS userName
+        Data.toBS userName
       ]
 
-instance Core.ToQuery DeleteUser where
+instance Data.ToQuery DeleteUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteUserResponse' smart constructor.

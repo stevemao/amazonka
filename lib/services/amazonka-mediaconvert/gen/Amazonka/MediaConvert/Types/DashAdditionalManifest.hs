@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.DashAdditionalManifest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.DashAdditionalManifest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specify the details for each additional DASH manifest that you want the
@@ -82,15 +83,15 @@ dashAdditionalManifest_manifestNameModifier = Lens.lens (\DashAdditionalManifest
 dashAdditionalManifest_selectedOutputs :: Lens.Lens' DashAdditionalManifest (Prelude.Maybe [Prelude.Text])
 dashAdditionalManifest_selectedOutputs = Lens.lens (\DashAdditionalManifest' {selectedOutputs} -> selectedOutputs) (\s@DashAdditionalManifest' {} a -> s {selectedOutputs = a} :: DashAdditionalManifest) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON DashAdditionalManifest where
+instance Data.FromJSON DashAdditionalManifest where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DashAdditionalManifest"
       ( \x ->
           DashAdditionalManifest'
-            Prelude.<$> (x Core..:? "manifestNameModifier")
-            Prelude.<*> ( x Core..:? "selectedOutputs"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "manifestNameModifier")
+            Prelude.<*> ( x Data..:? "selectedOutputs"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -104,13 +105,13 @@ instance Prelude.NFData DashAdditionalManifest where
     Prelude.rnf manifestNameModifier
       `Prelude.seq` Prelude.rnf selectedOutputs
 
-instance Core.ToJSON DashAdditionalManifest where
+instance Data.ToJSON DashAdditionalManifest where
   toJSON DashAdditionalManifest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("manifestNameModifier" Core..=)
+          [ ("manifestNameModifier" Data..=)
               Prelude.<$> manifestNameModifier,
-            ("selectedOutputs" Core..=)
+            ("selectedOutputs" Data..=)
               Prelude.<$> selectedOutputs
           ]
       )

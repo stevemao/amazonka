@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationAutoScaling.Types.StepScalingPolicyConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.ApplicationAutoScaling.Types.AdjustmentType
 import Amazonka.ApplicationAutoScaling.Types.MetricAggregationType
 import Amazonka.ApplicationAutoScaling.Types.StepAdjustment
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a step scaling policy configuration to use with Application
@@ -31,13 +32,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newStepScalingPolicyConfiguration' smart constructor.
 data StepScalingPolicyConfiguration = StepScalingPolicyConfiguration'
-  { -- | A set of adjustments that enable you to scale based on the size of the
-    -- alarm breach.
-    --
-    -- At least one step adjustment is required if you are adding a new step
-    -- scaling policy configuration.
-    stepAdjustments :: Prelude.Maybe [StepAdjustment],
-    -- | Specifies how the @ScalingAdjustment@ value in a
+  { -- | Specifies how the @ScalingAdjustment@ value in a
     -- <https://docs.aws.amazon.com/autoscaling/application/APIReference/API_StepAdjustment.html StepAdjustment>
     -- is interpreted (for example, an absolute number or a percentage). The
     -- valid values are @ChangeInCapacity@, @ExactCapacity@, and
@@ -116,7 +111,13 @@ data StepScalingPolicyConfiguration = StepScalingPolicyConfiguration'
     -- the scaling policy is performed, 25 percent of 4 is 1. However, because
     -- you specified a @MinAdjustmentMagnitude@ of 2, Application Auto Scaling
     -- scales out the service by 2 tasks.
-    minAdjustmentMagnitude :: Prelude.Maybe Prelude.Int
+    minAdjustmentMagnitude :: Prelude.Maybe Prelude.Int,
+    -- | A set of adjustments that enable you to scale based on the size of the
+    -- alarm breach.
+    --
+    -- At least one step adjustment is required if you are adding a new step
+    -- scaling policy configuration.
+    stepAdjustments :: Prelude.Maybe [StepAdjustment]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -127,12 +128,6 @@ data StepScalingPolicyConfiguration = StepScalingPolicyConfiguration'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'stepAdjustments', 'stepScalingPolicyConfiguration_stepAdjustments' - A set of adjustments that enable you to scale based on the size of the
--- alarm breach.
---
--- At least one step adjustment is required if you are adding a new step
--- scaling policy configuration.
 --
 -- 'adjustmentType', 'stepScalingPolicyConfiguration_adjustmentType' - Specifies how the @ScalingAdjustment@ value in a
 -- <https://docs.aws.amazon.com/autoscaling/application/APIReference/API_StepAdjustment.html StepAdjustment>
@@ -213,25 +208,23 @@ data StepScalingPolicyConfiguration = StepScalingPolicyConfiguration'
 -- the scaling policy is performed, 25 percent of 4 is 1. However, because
 -- you specified a @MinAdjustmentMagnitude@ of 2, Application Auto Scaling
 -- scales out the service by 2 tasks.
-newStepScalingPolicyConfiguration ::
-  StepScalingPolicyConfiguration
-newStepScalingPolicyConfiguration =
-  StepScalingPolicyConfiguration'
-    { stepAdjustments =
-        Prelude.Nothing,
-      adjustmentType = Prelude.Nothing,
-      cooldown = Prelude.Nothing,
-      metricAggregationType = Prelude.Nothing,
-      minAdjustmentMagnitude = Prelude.Nothing
-    }
-
--- | A set of adjustments that enable you to scale based on the size of the
+--
+-- 'stepAdjustments', 'stepScalingPolicyConfiguration_stepAdjustments' - A set of adjustments that enable you to scale based on the size of the
 -- alarm breach.
 --
 -- At least one step adjustment is required if you are adding a new step
 -- scaling policy configuration.
-stepScalingPolicyConfiguration_stepAdjustments :: Lens.Lens' StepScalingPolicyConfiguration (Prelude.Maybe [StepAdjustment])
-stepScalingPolicyConfiguration_stepAdjustments = Lens.lens (\StepScalingPolicyConfiguration' {stepAdjustments} -> stepAdjustments) (\s@StepScalingPolicyConfiguration' {} a -> s {stepAdjustments = a} :: StepScalingPolicyConfiguration) Prelude.. Lens.mapping Lens.coerced
+newStepScalingPolicyConfiguration ::
+  StepScalingPolicyConfiguration
+newStepScalingPolicyConfiguration =
+  StepScalingPolicyConfiguration'
+    { adjustmentType =
+        Prelude.Nothing,
+      cooldown = Prelude.Nothing,
+      metricAggregationType = Prelude.Nothing,
+      minAdjustmentMagnitude = Prelude.Nothing,
+      stepAdjustments = Prelude.Nothing
+    }
 
 -- | Specifies how the @ScalingAdjustment@ value in a
 -- <https://docs.aws.amazon.com/autoscaling/application/APIReference/API_StepAdjustment.html StepAdjustment>
@@ -321,19 +314,27 @@ stepScalingPolicyConfiguration_metricAggregationType = Lens.lens (\StepScalingPo
 stepScalingPolicyConfiguration_minAdjustmentMagnitude :: Lens.Lens' StepScalingPolicyConfiguration (Prelude.Maybe Prelude.Int)
 stepScalingPolicyConfiguration_minAdjustmentMagnitude = Lens.lens (\StepScalingPolicyConfiguration' {minAdjustmentMagnitude} -> minAdjustmentMagnitude) (\s@StepScalingPolicyConfiguration' {} a -> s {minAdjustmentMagnitude = a} :: StepScalingPolicyConfiguration)
 
-instance Core.FromJSON StepScalingPolicyConfiguration where
+-- | A set of adjustments that enable you to scale based on the size of the
+-- alarm breach.
+--
+-- At least one step adjustment is required if you are adding a new step
+-- scaling policy configuration.
+stepScalingPolicyConfiguration_stepAdjustments :: Lens.Lens' StepScalingPolicyConfiguration (Prelude.Maybe [StepAdjustment])
+stepScalingPolicyConfiguration_stepAdjustments = Lens.lens (\StepScalingPolicyConfiguration' {stepAdjustments} -> stepAdjustments) (\s@StepScalingPolicyConfiguration' {} a -> s {stepAdjustments = a} :: StepScalingPolicyConfiguration) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON StepScalingPolicyConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StepScalingPolicyConfiguration"
       ( \x ->
           StepScalingPolicyConfiguration'
-            Prelude.<$> ( x Core..:? "StepAdjustments"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "AdjustmentType")
+            Prelude.<*> (x Data..:? "Cooldown")
+            Prelude.<*> (x Data..:? "MetricAggregationType")
+            Prelude.<*> (x Data..:? "MinAdjustmentMagnitude")
+            Prelude.<*> ( x Data..:? "StepAdjustments"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "AdjustmentType")
-            Prelude.<*> (x Core..:? "Cooldown")
-            Prelude.<*> (x Core..:? "MetricAggregationType")
-            Prelude.<*> (x Core..:? "MinAdjustmentMagnitude")
       )
 
 instance
@@ -343,35 +344,35 @@ instance
   hashWithSalt
     _salt
     StepScalingPolicyConfiguration' {..} =
-      _salt `Prelude.hashWithSalt` stepAdjustments
-        `Prelude.hashWithSalt` adjustmentType
+      _salt `Prelude.hashWithSalt` adjustmentType
         `Prelude.hashWithSalt` cooldown
         `Prelude.hashWithSalt` metricAggregationType
         `Prelude.hashWithSalt` minAdjustmentMagnitude
+        `Prelude.hashWithSalt` stepAdjustments
 
 instance
   Prelude.NFData
     StepScalingPolicyConfiguration
   where
   rnf StepScalingPolicyConfiguration' {..} =
-    Prelude.rnf stepAdjustments
-      `Prelude.seq` Prelude.rnf adjustmentType
+    Prelude.rnf adjustmentType
       `Prelude.seq` Prelude.rnf cooldown
       `Prelude.seq` Prelude.rnf metricAggregationType
       `Prelude.seq` Prelude.rnf minAdjustmentMagnitude
+      `Prelude.seq` Prelude.rnf stepAdjustments
 
-instance Core.ToJSON StepScalingPolicyConfiguration where
+instance Data.ToJSON StepScalingPolicyConfiguration where
   toJSON StepScalingPolicyConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StepAdjustments" Core..=)
-              Prelude.<$> stepAdjustments,
-            ("AdjustmentType" Core..=)
+          [ ("AdjustmentType" Data..=)
               Prelude.<$> adjustmentType,
-            ("Cooldown" Core..=) Prelude.<$> cooldown,
-            ("MetricAggregationType" Core..=)
+            ("Cooldown" Data..=) Prelude.<$> cooldown,
+            ("MetricAggregationType" Data..=)
               Prelude.<$> metricAggregationType,
-            ("MinAdjustmentMagnitude" Core..=)
-              Prelude.<$> minAdjustmentMagnitude
+            ("MinAdjustmentMagnitude" Data..=)
+              Prelude.<$> minAdjustmentMagnitude,
+            ("StepAdjustments" Data..=)
+              Prelude.<$> stepAdjustments
           ]
       )

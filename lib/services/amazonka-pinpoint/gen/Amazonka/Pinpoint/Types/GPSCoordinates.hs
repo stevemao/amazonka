@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.GPSCoordinates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.GPSCoordinates where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the GPS coordinates of a location.
@@ -65,14 +66,14 @@ gPSCoordinates_latitude = Lens.lens (\GPSCoordinates' {latitude} -> latitude) (\
 gPSCoordinates_longitude :: Lens.Lens' GPSCoordinates Prelude.Double
 gPSCoordinates_longitude = Lens.lens (\GPSCoordinates' {longitude} -> longitude) (\s@GPSCoordinates' {} a -> s {longitude = a} :: GPSCoordinates)
 
-instance Core.FromJSON GPSCoordinates where
+instance Data.FromJSON GPSCoordinates where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GPSCoordinates"
       ( \x ->
           GPSCoordinates'
-            Prelude.<$> (x Core..: "Latitude")
-            Prelude.<*> (x Core..: "Longitude")
+            Prelude.<$> (x Data..: "Latitude")
+            Prelude.<*> (x Data..: "Longitude")
       )
 
 instance Prelude.Hashable GPSCoordinates where
@@ -85,11 +86,11 @@ instance Prelude.NFData GPSCoordinates where
     Prelude.rnf latitude
       `Prelude.seq` Prelude.rnf longitude
 
-instance Core.ToJSON GPSCoordinates where
+instance Data.ToJSON GPSCoordinates where
   toJSON GPSCoordinates' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Latitude" Core..= latitude),
-            Prelude.Just ("Longitude" Core..= longitude)
+          [ Prelude.Just ("Latitude" Data..= latitude),
+            Prelude.Just ("Longitude" Data..= longitude)
           ]
       )

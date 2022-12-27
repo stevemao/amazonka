@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.CognitoConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.CognitoConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Use this parameter to configure your Amazon Cognito workforce. A single
@@ -82,14 +83,14 @@ cognitoConfig_userPool = Lens.lens (\CognitoConfig' {userPool} -> userPool) (\s@
 cognitoConfig_clientId :: Lens.Lens' CognitoConfig Prelude.Text
 cognitoConfig_clientId = Lens.lens (\CognitoConfig' {clientId} -> clientId) (\s@CognitoConfig' {} a -> s {clientId = a} :: CognitoConfig)
 
-instance Core.FromJSON CognitoConfig where
+instance Data.FromJSON CognitoConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CognitoConfig"
       ( \x ->
           CognitoConfig'
-            Prelude.<$> (x Core..: "UserPool")
-            Prelude.<*> (x Core..: "ClientId")
+            Prelude.<$> (x Data..: "UserPool")
+            Prelude.<*> (x Data..: "ClientId")
       )
 
 instance Prelude.Hashable CognitoConfig where
@@ -102,11 +103,11 @@ instance Prelude.NFData CognitoConfig where
     Prelude.rnf userPool
       `Prelude.seq` Prelude.rnf clientId
 
-instance Core.ToJSON CognitoConfig where
+instance Data.ToJSON CognitoConfig where
   toJSON CognitoConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("UserPool" Core..= userPool),
-            Prelude.Just ("ClientId" Core..= clientId)
+          [ Prelude.Just ("UserPool" Data..= userPool),
+            Prelude.Just ("ClientId" Data..= clientId)
           ]
       )

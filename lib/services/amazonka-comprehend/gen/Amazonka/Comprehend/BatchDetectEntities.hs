@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.BatchDetectEntities
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@
 --
 -- Inspects the text of a batch of documents for named entities and returns
 -- information about them. For more information about named entities, see
--- how-entities
+-- <https://docs.aws.amazon.com/comprehend/latest/dg/how-entities.html Entities>
+-- in the Comprehend Developer Guide.
 module Amazonka.Comprehend.BatchDetectEntities
   ( -- * Creating a Request
     BatchDetectEntities (..),
@@ -45,17 +46,18 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newBatchDetectEntities' smart constructor.
 data BatchDetectEntities = BatchDetectEntities'
-  { -- | A list containing the text of the input documents. The list can contain
-    -- a maximum of 25 documents. Each document must contain fewer than 5,000
-    -- bytes of UTF-8 encoded characters.
-    textList :: Core.Sensitive [Core.Sensitive Prelude.Text],
+  { -- | A list containing the UTF-8 encoded text of the input documents. The
+    -- list can contain a maximum of 25 documents. The maximum size of each
+    -- document is 5 KB.
+    textList :: Data.Sensitive (Prelude.NonEmpty (Data.Sensitive Prelude.Text)),
     -- | The language of the input documents. You can specify any of the primary
     -- languages supported by Amazon Comprehend. All documents must be in the
     -- same language.
@@ -71,28 +73,32 @@ data BatchDetectEntities = BatchDetectEntities'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'textList', 'batchDetectEntities_textList' - A list containing the text of the input documents. The list can contain
--- a maximum of 25 documents. Each document must contain fewer than 5,000
--- bytes of UTF-8 encoded characters.
+-- 'textList', 'batchDetectEntities_textList' - A list containing the UTF-8 encoded text of the input documents. The
+-- list can contain a maximum of 25 documents. The maximum size of each
+-- document is 5 KB.
 --
 -- 'languageCode', 'batchDetectEntities_languageCode' - The language of the input documents. You can specify any of the primary
 -- languages supported by Amazon Comprehend. All documents must be in the
 -- same language.
 newBatchDetectEntities ::
+  -- | 'textList'
+  Prelude.NonEmpty Prelude.Text ->
   -- | 'languageCode'
   LanguageCode ->
   BatchDetectEntities
-newBatchDetectEntities pLanguageCode_ =
+newBatchDetectEntities pTextList_ pLanguageCode_ =
   BatchDetectEntities'
-    { textList = Prelude.mempty,
+    { textList =
+        Data._Sensitive Prelude.. Lens.coerced
+          Lens.# pTextList_,
       languageCode = pLanguageCode_
     }
 
--- | A list containing the text of the input documents. The list can contain
--- a maximum of 25 documents. Each document must contain fewer than 5,000
--- bytes of UTF-8 encoded characters.
-batchDetectEntities_textList :: Lens.Lens' BatchDetectEntities [Prelude.Text]
-batchDetectEntities_textList = Lens.lens (\BatchDetectEntities' {textList} -> textList) (\s@BatchDetectEntities' {} a -> s {textList = a} :: BatchDetectEntities) Prelude.. Core._Sensitive Prelude.. Lens.coerced
+-- | A list containing the UTF-8 encoded text of the input documents. The
+-- list can contain a maximum of 25 documents. The maximum size of each
+-- document is 5 KB.
+batchDetectEntities_textList :: Lens.Lens' BatchDetectEntities (Prelude.NonEmpty Prelude.Text)
+batchDetectEntities_textList = Lens.lens (\BatchDetectEntities' {textList} -> textList) (\s@BatchDetectEntities' {} a -> s {textList = a} :: BatchDetectEntities) Prelude.. Data._Sensitive Prelude.. Lens.coerced
 
 -- | The language of the input documents. You can specify any of the primary
 -- languages supported by Amazon Comprehend. All documents must be in the
@@ -104,14 +110,15 @@ instance Core.AWSRequest BatchDetectEntities where
   type
     AWSResponse BatchDetectEntities =
       BatchDetectEntitiesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDetectEntitiesResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "ResultList" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "ErrorList" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "ResultList" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "ErrorList" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable BatchDetectEntities where
@@ -124,34 +131,34 @@ instance Prelude.NFData BatchDetectEntities where
     Prelude.rnf textList
       `Prelude.seq` Prelude.rnf languageCode
 
-instance Core.ToHeaders BatchDetectEntities where
+instance Data.ToHeaders BatchDetectEntities where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.BatchDetectEntities" ::
+              Data.=# ( "Comprehend_20171127.BatchDetectEntities" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchDetectEntities where
+instance Data.ToJSON BatchDetectEntities where
   toJSON BatchDetectEntities' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("TextList" Core..= textList),
-            Prelude.Just ("LanguageCode" Core..= languageCode)
+          [ Prelude.Just ("TextList" Data..= textList),
+            Prelude.Just ("LanguageCode" Data..= languageCode)
           ]
       )
 
-instance Core.ToPath BatchDetectEntities where
+instance Data.ToPath BatchDetectEntities where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchDetectEntities where
+instance Data.ToQuery BatchDetectEntities where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchDetectEntitiesResponse' smart constructor.

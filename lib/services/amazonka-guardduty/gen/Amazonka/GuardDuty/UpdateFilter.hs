@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.UpdateFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.GuardDuty.UpdateFilter
     newUpdateFilter,
 
     -- * Request Lenses
-    updateFilter_findingCriteria,
     updateFilter_action,
     updateFilter_description,
+    updateFilter_findingCriteria,
     updateFilter_rank,
     updateFilter_detectorId,
     updateFilter_filterName,
@@ -45,21 +45,22 @@ module Amazonka.GuardDuty.UpdateFilter
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateFilter' smart constructor.
 data UpdateFilter = UpdateFilter'
-  { -- | Represents the criteria to be used in the filter for querying findings.
-    findingCriteria :: Prelude.Maybe FindingCriteria,
-    -- | Specifies the action that is to be applied to the findings that match
+  { -- | Specifies the action that is to be applied to the findings that match
     -- the filter.
     action :: Prelude.Maybe FilterAction,
     -- | The description of the filter.
     description :: Prelude.Maybe Prelude.Text,
+    -- | Represents the criteria to be used in the filter for querying findings.
+    findingCriteria :: Prelude.Maybe FindingCriteria,
     -- | Specifies the position of the filter in the list of current filters.
     -- Also specifies the order in which this filter is applied to the
     -- findings.
@@ -80,12 +81,12 @@ data UpdateFilter = UpdateFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'findingCriteria', 'updateFilter_findingCriteria' - Represents the criteria to be used in the filter for querying findings.
---
 -- 'action', 'updateFilter_action' - Specifies the action that is to be applied to the findings that match
 -- the filter.
 --
 -- 'description', 'updateFilter_description' - The description of the filter.
+--
+-- 'findingCriteria', 'updateFilter_findingCriteria' - Represents the criteria to be used in the filter for querying findings.
 --
 -- 'rank', 'updateFilter_rank' - Specifies the position of the filter in the list of current filters.
 -- Also specifies the order in which this filter is applied to the
@@ -103,17 +104,13 @@ newUpdateFilter ::
   UpdateFilter
 newUpdateFilter pDetectorId_ pFilterName_ =
   UpdateFilter'
-    { findingCriteria = Prelude.Nothing,
-      action = Prelude.Nothing,
+    { action = Prelude.Nothing,
       description = Prelude.Nothing,
+      findingCriteria = Prelude.Nothing,
       rank = Prelude.Nothing,
       detectorId = pDetectorId_,
       filterName = pFilterName_
     }
-
--- | Represents the criteria to be used in the filter for querying findings.
-updateFilter_findingCriteria :: Lens.Lens' UpdateFilter (Prelude.Maybe FindingCriteria)
-updateFilter_findingCriteria = Lens.lens (\UpdateFilter' {findingCriteria} -> findingCriteria) (\s@UpdateFilter' {} a -> s {findingCriteria = a} :: UpdateFilter)
 
 -- | Specifies the action that is to be applied to the findings that match
 -- the filter.
@@ -123,6 +120,10 @@ updateFilter_action = Lens.lens (\UpdateFilter' {action} -> action) (\s@UpdateFi
 -- | The description of the filter.
 updateFilter_description :: Lens.Lens' UpdateFilter (Prelude.Maybe Prelude.Text)
 updateFilter_description = Lens.lens (\UpdateFilter' {description} -> description) (\s@UpdateFilter' {} a -> s {description = a} :: UpdateFilter)
+
+-- | Represents the criteria to be used in the filter for querying findings.
+updateFilter_findingCriteria :: Lens.Lens' UpdateFilter (Prelude.Maybe FindingCriteria)
+updateFilter_findingCriteria = Lens.lens (\UpdateFilter' {findingCriteria} -> findingCriteria) (\s@UpdateFilter' {} a -> s {findingCriteria = a} :: UpdateFilter)
 
 -- | Specifies the position of the filter in the list of current filters.
 -- Also specifies the order in which this filter is applied to the
@@ -141,66 +142,67 @@ updateFilter_filterName = Lens.lens (\UpdateFilter' {filterName} -> filterName) 
 
 instance Core.AWSRequest UpdateFilter where
   type AWSResponse UpdateFilter = UpdateFilterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateFilterResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "name")
+            Prelude.<*> (x Data..:> "name")
       )
 
 instance Prelude.Hashable UpdateFilter where
   hashWithSalt _salt UpdateFilter' {..} =
-    _salt `Prelude.hashWithSalt` findingCriteria
-      `Prelude.hashWithSalt` action
+    _salt `Prelude.hashWithSalt` action
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` findingCriteria
       `Prelude.hashWithSalt` rank
       `Prelude.hashWithSalt` detectorId
       `Prelude.hashWithSalt` filterName
 
 instance Prelude.NFData UpdateFilter where
   rnf UpdateFilter' {..} =
-    Prelude.rnf findingCriteria
-      `Prelude.seq` Prelude.rnf action
+    Prelude.rnf action
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf findingCriteria
       `Prelude.seq` Prelude.rnf rank
       `Prelude.seq` Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf filterName
 
-instance Core.ToHeaders UpdateFilter where
+instance Data.ToHeaders UpdateFilter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateFilter where
+instance Data.ToJSON UpdateFilter where
   toJSON UpdateFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("findingCriteria" Core..=)
+          [ ("action" Data..=) Prelude.<$> action,
+            ("description" Data..=) Prelude.<$> description,
+            ("findingCriteria" Data..=)
               Prelude.<$> findingCriteria,
-            ("action" Core..=) Prelude.<$> action,
-            ("description" Core..=) Prelude.<$> description,
-            ("rank" Core..=) Prelude.<$> rank
+            ("rank" Data..=) Prelude.<$> rank
           ]
       )
 
-instance Core.ToPath UpdateFilter where
+instance Data.ToPath UpdateFilter where
   toPath UpdateFilter' {..} =
     Prelude.mconcat
       [ "/detector/",
-        Core.toBS detectorId,
+        Data.toBS detectorId,
         "/filter/",
-        Core.toBS filterName
+        Data.toBS filterName
       ]
 
-instance Core.ToQuery UpdateFilter where
+instance Data.ToQuery UpdateFilter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateFilterResponse' smart constructor.

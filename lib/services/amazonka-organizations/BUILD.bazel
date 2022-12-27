@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-organizations/amazonka-organizations.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-organizations/amazonka-organizations.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-organizations",
     srcs = [
@@ -8,6 +8,7 @@ haskell_library(
         "gen/Amazonka/Organizations/AcceptHandshake.hs",
         "gen/Amazonka/Organizations/AttachPolicy.hs",
         "gen/Amazonka/Organizations/CancelHandshake.hs",
+        "gen/Amazonka/Organizations/CloseAccount.hs",
         "gen/Amazonka/Organizations/CreateAccount.hs",
         "gen/Amazonka/Organizations/CreateGovCloudAccount.hs",
         "gen/Amazonka/Organizations/CreateOrganization.hs",
@@ -17,6 +18,7 @@ haskell_library(
         "gen/Amazonka/Organizations/DeleteOrganization.hs",
         "gen/Amazonka/Organizations/DeleteOrganizationalUnit.hs",
         "gen/Amazonka/Organizations/DeletePolicy.hs",
+        "gen/Amazonka/Organizations/DeleteResourcePolicy.hs",
         "gen/Amazonka/Organizations/DeregisterDelegatedAdministrator.hs",
         "gen/Amazonka/Organizations/DescribeAccount.hs",
         "gen/Amazonka/Organizations/DescribeCreateAccountStatus.hs",
@@ -25,6 +27,7 @@ haskell_library(
         "gen/Amazonka/Organizations/DescribeOrganization.hs",
         "gen/Amazonka/Organizations/DescribeOrganizationalUnit.hs",
         "gen/Amazonka/Organizations/DescribePolicy.hs",
+        "gen/Amazonka/Organizations/DescribeResourcePolicy.hs",
         "gen/Amazonka/Organizations/DetachPolicy.hs",
         "gen/Amazonka/Organizations/DisableAWSServiceAccess.hs",
         "gen/Amazonka/Organizations/DisablePolicyType.hs",
@@ -51,6 +54,7 @@ haskell_library(
         "gen/Amazonka/Organizations/ListTagsForResource.hs",
         "gen/Amazonka/Organizations/ListTargetsForPolicy.hs",
         "gen/Amazonka/Organizations/MoveAccount.hs",
+        "gen/Amazonka/Organizations/PutResourcePolicy.hs",
         "gen/Amazonka/Organizations/RegisterDelegatedAdministrator.hs",
         "gen/Amazonka/Organizations/RemoveAccountFromOrganization.hs",
         "gen/Amazonka/Organizations/TagResource.hs",
@@ -88,6 +92,8 @@ haskell_library(
         "gen/Amazonka/Organizations/Types/PolicyType.hs",
         "gen/Amazonka/Organizations/Types/PolicyTypeStatus.hs",
         "gen/Amazonka/Organizations/Types/PolicyTypeSummary.hs",
+        "gen/Amazonka/Organizations/Types/ResourcePolicy.hs",
+        "gen/Amazonka/Organizations/Types/ResourcePolicySummary.hs",
         "gen/Amazonka/Organizations/Types/Root.hs",
         "gen/Amazonka/Organizations/Types/Tag.hs",
         "gen/Amazonka/Organizations/Types/TargetType.hs",
@@ -96,14 +102,13 @@ haskell_library(
         "gen/Amazonka/Organizations/UpdatePolicy.hs",
         "gen/Amazonka/Organizations/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_organizations=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_organizations=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -112,7 +117,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-organizations/amazonka-organizations.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-organizations/amazonka-organizations.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-organizations-test",
     srcs = [
@@ -121,11 +126,12 @@ haskell_test(
         "test/Test/Amazonka/Organizations.hs",
         "test/Test/Amazonka/Organizations/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_organizations=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_organizations=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.Types.WebhookFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodeBuild.Types.WebhookFilter where
 
 import Amazonka.CodeBuild.Types.WebhookFilterType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A filter used to determine which webhooks trigger a build.
@@ -262,15 +263,15 @@ webhookFilter_type = Lens.lens (\WebhookFilter' {type'} -> type') (\s@WebhookFil
 webhookFilter_pattern :: Lens.Lens' WebhookFilter Prelude.Text
 webhookFilter_pattern = Lens.lens (\WebhookFilter' {pattern'} -> pattern') (\s@WebhookFilter' {} a -> s {pattern' = a} :: WebhookFilter)
 
-instance Core.FromJSON WebhookFilter where
+instance Data.FromJSON WebhookFilter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WebhookFilter"
       ( \x ->
           WebhookFilter'
-            Prelude.<$> (x Core..:? "excludeMatchedPattern")
-            Prelude.<*> (x Core..: "type")
-            Prelude.<*> (x Core..: "pattern")
+            Prelude.<$> (x Data..:? "excludeMatchedPattern")
+            Prelude.<*> (x Data..: "type")
+            Prelude.<*> (x Data..: "pattern")
       )
 
 instance Prelude.Hashable WebhookFilter where
@@ -285,13 +286,13 @@ instance Prelude.NFData WebhookFilter where
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf pattern'
 
-instance Core.ToJSON WebhookFilter where
+instance Data.ToJSON WebhookFilter where
   toJSON WebhookFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("excludeMatchedPattern" Core..=)
+          [ ("excludeMatchedPattern" Data..=)
               Prelude.<$> excludeMatchedPattern,
-            Prelude.Just ("type" Core..= type'),
-            Prelude.Just ("pattern" Core..= pattern')
+            Prelude.Just ("type" Data..= type'),
+            Prelude.Just ("pattern" Data..= pattern')
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.Types.WorkloadShare
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WellArchitected.Types.WorkloadShare where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WellArchitected.Types.PermissionType
 import Amazonka.WellArchitected.Types.ShareStatus
@@ -29,13 +30,13 @@ import Amazonka.WellArchitected.Types.ShareStatus
 --
 -- /See:/ 'newWorkloadShare' smart constructor.
 data WorkloadShare = WorkloadShare'
-  { status :: Prelude.Maybe ShareStatus,
+  { permissionType :: Prelude.Maybe PermissionType,
+    shareId :: Prelude.Maybe Prelude.Text,
     sharedBy :: Prelude.Maybe Prelude.Text,
     sharedWith :: Prelude.Maybe Prelude.Text,
-    permissionType :: Prelude.Maybe PermissionType,
+    status :: Prelude.Maybe ShareStatus,
     workloadId :: Prelude.Maybe Prelude.Text,
-    workloadName :: Prelude.Maybe Prelude.Text,
-    shareId :: Prelude.Maybe Prelude.Text
+    workloadName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,35 +48,39 @@ data WorkloadShare = WorkloadShare'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'workloadShare_status' - Undocumented member.
+-- 'permissionType', 'workloadShare_permissionType' - Undocumented member.
+--
+-- 'shareId', 'workloadShare_shareId' - Undocumented member.
 --
 -- 'sharedBy', 'workloadShare_sharedBy' - Undocumented member.
 --
 -- 'sharedWith', 'workloadShare_sharedWith' - Undocumented member.
 --
--- 'permissionType', 'workloadShare_permissionType' - Undocumented member.
+-- 'status', 'workloadShare_status' - Undocumented member.
 --
 -- 'workloadId', 'workloadShare_workloadId' - Undocumented member.
 --
 -- 'workloadName', 'workloadShare_workloadName' - Undocumented member.
---
--- 'shareId', 'workloadShare_shareId' - Undocumented member.
 newWorkloadShare ::
   WorkloadShare
 newWorkloadShare =
   WorkloadShare'
-    { status = Prelude.Nothing,
+    { permissionType = Prelude.Nothing,
+      shareId = Prelude.Nothing,
       sharedBy = Prelude.Nothing,
       sharedWith = Prelude.Nothing,
-      permissionType = Prelude.Nothing,
+      status = Prelude.Nothing,
       workloadId = Prelude.Nothing,
-      workloadName = Prelude.Nothing,
-      shareId = Prelude.Nothing
+      workloadName = Prelude.Nothing
     }
 
 -- | Undocumented member.
-workloadShare_status :: Lens.Lens' WorkloadShare (Prelude.Maybe ShareStatus)
-workloadShare_status = Lens.lens (\WorkloadShare' {status} -> status) (\s@WorkloadShare' {} a -> s {status = a} :: WorkloadShare)
+workloadShare_permissionType :: Lens.Lens' WorkloadShare (Prelude.Maybe PermissionType)
+workloadShare_permissionType = Lens.lens (\WorkloadShare' {permissionType} -> permissionType) (\s@WorkloadShare' {} a -> s {permissionType = a} :: WorkloadShare)
+
+-- | Undocumented member.
+workloadShare_shareId :: Lens.Lens' WorkloadShare (Prelude.Maybe Prelude.Text)
+workloadShare_shareId = Lens.lens (\WorkloadShare' {shareId} -> shareId) (\s@WorkloadShare' {} a -> s {shareId = a} :: WorkloadShare)
 
 -- | Undocumented member.
 workloadShare_sharedBy :: Lens.Lens' WorkloadShare (Prelude.Maybe Prelude.Text)
@@ -86,8 +91,8 @@ workloadShare_sharedWith :: Lens.Lens' WorkloadShare (Prelude.Maybe Prelude.Text
 workloadShare_sharedWith = Lens.lens (\WorkloadShare' {sharedWith} -> sharedWith) (\s@WorkloadShare' {} a -> s {sharedWith = a} :: WorkloadShare)
 
 -- | Undocumented member.
-workloadShare_permissionType :: Lens.Lens' WorkloadShare (Prelude.Maybe PermissionType)
-workloadShare_permissionType = Lens.lens (\WorkloadShare' {permissionType} -> permissionType) (\s@WorkloadShare' {} a -> s {permissionType = a} :: WorkloadShare)
+workloadShare_status :: Lens.Lens' WorkloadShare (Prelude.Maybe ShareStatus)
+workloadShare_status = Lens.lens (\WorkloadShare' {status} -> status) (\s@WorkloadShare' {} a -> s {status = a} :: WorkloadShare)
 
 -- | Undocumented member.
 workloadShare_workloadId :: Lens.Lens' WorkloadShare (Prelude.Maybe Prelude.Text)
@@ -97,41 +102,37 @@ workloadShare_workloadId = Lens.lens (\WorkloadShare' {workloadId} -> workloadId
 workloadShare_workloadName :: Lens.Lens' WorkloadShare (Prelude.Maybe Prelude.Text)
 workloadShare_workloadName = Lens.lens (\WorkloadShare' {workloadName} -> workloadName) (\s@WorkloadShare' {} a -> s {workloadName = a} :: WorkloadShare)
 
--- | Undocumented member.
-workloadShare_shareId :: Lens.Lens' WorkloadShare (Prelude.Maybe Prelude.Text)
-workloadShare_shareId = Lens.lens (\WorkloadShare' {shareId} -> shareId) (\s@WorkloadShare' {} a -> s {shareId = a} :: WorkloadShare)
-
-instance Core.FromJSON WorkloadShare where
+instance Data.FromJSON WorkloadShare where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WorkloadShare"
       ( \x ->
           WorkloadShare'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "SharedBy")
-            Prelude.<*> (x Core..:? "SharedWith")
-            Prelude.<*> (x Core..:? "PermissionType")
-            Prelude.<*> (x Core..:? "WorkloadId")
-            Prelude.<*> (x Core..:? "WorkloadName")
-            Prelude.<*> (x Core..:? "ShareId")
+            Prelude.<$> (x Data..:? "PermissionType")
+            Prelude.<*> (x Data..:? "ShareId")
+            Prelude.<*> (x Data..:? "SharedBy")
+            Prelude.<*> (x Data..:? "SharedWith")
+            Prelude.<*> (x Data..:? "Status")
+            Prelude.<*> (x Data..:? "WorkloadId")
+            Prelude.<*> (x Data..:? "WorkloadName")
       )
 
 instance Prelude.Hashable WorkloadShare where
   hashWithSalt _salt WorkloadShare' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt `Prelude.hashWithSalt` permissionType
+      `Prelude.hashWithSalt` shareId
       `Prelude.hashWithSalt` sharedBy
       `Prelude.hashWithSalt` sharedWith
-      `Prelude.hashWithSalt` permissionType
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` workloadId
       `Prelude.hashWithSalt` workloadName
-      `Prelude.hashWithSalt` shareId
 
 instance Prelude.NFData WorkloadShare where
   rnf WorkloadShare' {..} =
-    Prelude.rnf status
+    Prelude.rnf permissionType
+      `Prelude.seq` Prelude.rnf shareId
       `Prelude.seq` Prelude.rnf sharedBy
       `Prelude.seq` Prelude.rnf sharedWith
-      `Prelude.seq` Prelude.rnf permissionType
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf workloadId
       `Prelude.seq` Prelude.rnf workloadName
-      `Prelude.seq` Prelude.rnf shareId

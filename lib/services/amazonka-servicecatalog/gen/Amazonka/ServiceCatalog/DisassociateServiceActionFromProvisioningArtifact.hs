@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.DisassociateServiceActionFromProvisioningArtifact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.ServiceCatalog.DisassociateServiceActionFromProvisioningArtifact
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -144,7 +145,8 @@ instance
     AWSResponse
       DisassociateServiceActionFromProvisioningArtifact =
       DisassociateServiceActionFromProvisioningArtifactResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -176,51 +178,51 @@ instance
         `Prelude.seq` Prelude.rnf serviceActionId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DisassociateServiceActionFromProvisioningArtifact
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.DisassociateServiceActionFromProvisioningArtifact" ::
+              Data.=# ( "AWS242ServiceCatalogService.DisassociateServiceActionFromProvisioningArtifact" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DisassociateServiceActionFromProvisioningArtifact
   where
   toJSON
     DisassociateServiceActionFromProvisioningArtifact' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("AcceptLanguage" Core..=)
+            [ ("AcceptLanguage" Data..=)
                 Prelude.<$> acceptLanguage,
-              Prelude.Just ("ProductId" Core..= productId),
+              Prelude.Just ("ProductId" Data..= productId),
               Prelude.Just
                 ( "ProvisioningArtifactId"
-                    Core..= provisioningArtifactId
+                    Data..= provisioningArtifactId
                 ),
               Prelude.Just
-                ("ServiceActionId" Core..= serviceActionId)
+                ("ServiceActionId" Data..= serviceActionId)
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DisassociateServiceActionFromProvisioningArtifact
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DisassociateServiceActionFromProvisioningArtifact
   where
   toQuery = Prelude.const Prelude.mempty

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.UpdateRuleMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.FraudDetector.UpdateRuleMetadata
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +91,8 @@ instance Core.AWSRequest UpdateRuleMetadata where
   type
     AWSResponse UpdateRuleMetadata =
       UpdateRuleMetadataResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -108,34 +110,34 @@ instance Prelude.NFData UpdateRuleMetadata where
     Prelude.rnf rule
       `Prelude.seq` Prelude.rnf description
 
-instance Core.ToHeaders UpdateRuleMetadata where
+instance Data.ToHeaders UpdateRuleMetadata where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.UpdateRuleMetadata" ::
+              Data.=# ( "AWSHawksNestServiceFacade.UpdateRuleMetadata" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRuleMetadata where
+instance Data.ToJSON UpdateRuleMetadata where
   toJSON UpdateRuleMetadata' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("rule" Core..= rule),
-            Prelude.Just ("description" Core..= description)
+          [ Prelude.Just ("rule" Data..= rule),
+            Prelude.Just ("description" Data..= description)
           ]
       )
 
-instance Core.ToPath UpdateRuleMetadata where
+instance Data.ToPath UpdateRuleMetadata where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateRuleMetadata where
+instance Data.ToQuery UpdateRuleMetadata where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateRuleMetadataResponse' smart constructor.

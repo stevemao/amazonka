@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.Types.MonetaryAmount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DeviceFarm.Types.MonetaryAmount where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types.CurrencyCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A number that represents the monetary amount for an offering or
@@ -66,14 +67,14 @@ monetaryAmount_amount = Lens.lens (\MonetaryAmount' {amount} -> amount) (\s@Mone
 monetaryAmount_currencyCode :: Lens.Lens' MonetaryAmount (Prelude.Maybe CurrencyCode)
 monetaryAmount_currencyCode = Lens.lens (\MonetaryAmount' {currencyCode} -> currencyCode) (\s@MonetaryAmount' {} a -> s {currencyCode = a} :: MonetaryAmount)
 
-instance Core.FromJSON MonetaryAmount where
+instance Data.FromJSON MonetaryAmount where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MonetaryAmount"
       ( \x ->
           MonetaryAmount'
-            Prelude.<$> (x Core..:? "amount")
-            Prelude.<*> (x Core..:? "currencyCode")
+            Prelude.<$> (x Data..:? "amount")
+            Prelude.<*> (x Data..:? "currencyCode")
       )
 
 instance Prelude.Hashable MonetaryAmount where

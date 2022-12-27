@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.RegisterContainerImage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.Lightsail.RegisterContainerImage
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -182,12 +183,13 @@ instance Core.AWSRequest RegisterContainerImage where
   type
     AWSResponse RegisterContainerImage =
       RegisterContainerImageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RegisterContainerImageResponse'
-            Prelude.<$> (x Core..?> "containerImage")
+            Prelude.<$> (x Data..?> "containerImage")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -203,40 +205,42 @@ instance Prelude.NFData RegisterContainerImage where
       `Prelude.seq` Prelude.rnf label
       `Prelude.seq` Prelude.rnf digest
 
-instance Core.ToHeaders RegisterContainerImage where
+instance Data.ToHeaders RegisterContainerImage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.RegisterContainerImage" ::
+              Data.=# ( "Lightsail_20161128.RegisterContainerImage" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterContainerImage where
+instance Data.ToJSON RegisterContainerImage where
   toJSON RegisterContainerImage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("serviceName" Core..= serviceName),
-            Prelude.Just ("label" Core..= label),
-            Prelude.Just ("digest" Core..= digest)
+          [ Prelude.Just ("serviceName" Data..= serviceName),
+            Prelude.Just ("label" Data..= label),
+            Prelude.Just ("digest" Data..= digest)
           ]
       )
 
-instance Core.ToPath RegisterContainerImage where
+instance Data.ToPath RegisterContainerImage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterContainerImage where
+instance Data.ToQuery RegisterContainerImage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRegisterContainerImageResponse' smart constructor.
 data RegisterContainerImageResponse = RegisterContainerImageResponse'
-  { containerImage :: Prelude.Maybe ContainerImage,
+  { -- | An object that describes a container image that is registered to a
+    -- Lightsail container service
+    containerImage :: Prelude.Maybe ContainerImage,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -250,7 +254,8 @@ data RegisterContainerImageResponse = RegisterContainerImageResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'containerImage', 'registerContainerImageResponse_containerImage' - Undocumented member.
+-- 'containerImage', 'registerContainerImageResponse_containerImage' - An object that describes a container image that is registered to a
+-- Lightsail container service
 --
 -- 'httpStatus', 'registerContainerImageResponse_httpStatus' - The response's http status code.
 newRegisterContainerImageResponse ::
@@ -264,7 +269,8 @@ newRegisterContainerImageResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Undocumented member.
+-- | An object that describes a container image that is registered to a
+-- Lightsail container service
 registerContainerImageResponse_containerImage :: Lens.Lens' RegisterContainerImageResponse (Prelude.Maybe ContainerImage)
 registerContainerImageResponse_containerImage = Lens.lens (\RegisterContainerImageResponse' {containerImage} -> containerImage) (\s@RegisterContainerImageResponse' {} a -> s {containerImage = a} :: RegisterContainerImageResponse)
 

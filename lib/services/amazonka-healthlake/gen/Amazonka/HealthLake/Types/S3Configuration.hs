@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.HealthLake.Types.S3Configuration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.HealthLake.Types.S3Configuration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration of the S3 bucket for either an import or export job.
@@ -69,14 +70,14 @@ s3Configuration_s3Uri = Lens.lens (\S3Configuration' {s3Uri} -> s3Uri) (\s@S3Con
 s3Configuration_kmsKeyId :: Lens.Lens' S3Configuration Prelude.Text
 s3Configuration_kmsKeyId = Lens.lens (\S3Configuration' {kmsKeyId} -> kmsKeyId) (\s@S3Configuration' {} a -> s {kmsKeyId = a} :: S3Configuration)
 
-instance Core.FromJSON S3Configuration where
+instance Data.FromJSON S3Configuration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3Configuration"
       ( \x ->
           S3Configuration'
-            Prelude.<$> (x Core..: "S3Uri")
-            Prelude.<*> (x Core..: "KmsKeyId")
+            Prelude.<$> (x Data..: "S3Uri")
+            Prelude.<*> (x Data..: "KmsKeyId")
       )
 
 instance Prelude.Hashable S3Configuration where
@@ -89,11 +90,11 @@ instance Prelude.NFData S3Configuration where
     Prelude.rnf s3Uri
       `Prelude.seq` Prelude.rnf kmsKeyId
 
-instance Core.ToJSON S3Configuration where
+instance Data.ToJSON S3Configuration where
   toJSON S3Configuration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("S3Uri" Core..= s3Uri),
-            Prelude.Just ("KmsKeyId" Core..= kmsKeyId)
+          [ Prelude.Just ("S3Uri" Data..= s3Uri),
+            Prelude.Just ("KmsKeyId" Data..= kmsKeyId)
           ]
       )

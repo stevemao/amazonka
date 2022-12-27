@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ExportTransitGatewayRoutes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.EC2.ExportTransitGatewayRoutes
     newExportTransitGatewayRoutes,
 
     -- * Request Lenses
-    exportTransitGatewayRoutes_filters,
     exportTransitGatewayRoutes_dryRun,
+    exportTransitGatewayRoutes_filters,
     exportTransitGatewayRoutes_transitGatewayRouteTableId,
     exportTransitGatewayRoutes_s3Bucket,
 
@@ -50,15 +50,21 @@ module Amazonka.EC2.ExportTransitGatewayRoutes
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newExportTransitGatewayRoutes' smart constructor.
 data ExportTransitGatewayRoutes = ExportTransitGatewayRoutes'
-  { -- | One or more filters. The possible values are:
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters. The possible values are:
     --
     -- -   @attachment.transit-gateway-attachment-id@ - The id of the transit
     --     gateway attachment.
@@ -87,11 +93,6 @@ data ExportTransitGatewayRoutes = ExportTransitGatewayRoutes'
     --
     -- -   @type@ - The type of route (@propagated@ | @static@).
     filters :: Prelude.Maybe [Filter],
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The ID of the route table.
     transitGatewayRouteTableId :: Prelude.Text,
     -- | The name of the S3 bucket.
@@ -106,6 +107,11 @@ data ExportTransitGatewayRoutes = ExportTransitGatewayRoutes'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dryRun', 'exportTransitGatewayRoutes_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'exportTransitGatewayRoutes_filters' - One or more filters. The possible values are:
 --
@@ -136,11 +142,6 @@ data ExportTransitGatewayRoutes = ExportTransitGatewayRoutes'
 --
 -- -   @type@ - The type of route (@propagated@ | @static@).
 --
--- 'dryRun', 'exportTransitGatewayRoutes_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
 -- 'transitGatewayRouteTableId', 'exportTransitGatewayRoutes_transitGatewayRouteTableId' - The ID of the route table.
 --
 -- 's3Bucket', 'exportTransitGatewayRoutes_s3Bucket' - The name of the S3 bucket.
@@ -154,13 +155,20 @@ newExportTransitGatewayRoutes
   pTransitGatewayRouteTableId_
   pS3Bucket_ =
     ExportTransitGatewayRoutes'
-      { filters =
+      { dryRun =
           Prelude.Nothing,
-        dryRun = Prelude.Nothing,
+        filters = Prelude.Nothing,
         transitGatewayRouteTableId =
           pTransitGatewayRouteTableId_,
         s3Bucket = pS3Bucket_
       }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+exportTransitGatewayRoutes_dryRun :: Lens.Lens' ExportTransitGatewayRoutes (Prelude.Maybe Prelude.Bool)
+exportTransitGatewayRoutes_dryRun = Lens.lens (\ExportTransitGatewayRoutes' {dryRun} -> dryRun) (\s@ExportTransitGatewayRoutes' {} a -> s {dryRun = a} :: ExportTransitGatewayRoutes)
 
 -- | One or more filters. The possible values are:
 --
@@ -193,13 +201,6 @@ newExportTransitGatewayRoutes
 exportTransitGatewayRoutes_filters :: Lens.Lens' ExportTransitGatewayRoutes (Prelude.Maybe [Filter])
 exportTransitGatewayRoutes_filters = Lens.lens (\ExportTransitGatewayRoutes' {filters} -> filters) (\s@ExportTransitGatewayRoutes' {} a -> s {filters = a} :: ExportTransitGatewayRoutes) Prelude.. Lens.mapping Lens.coerced
 
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-exportTransitGatewayRoutes_dryRun :: Lens.Lens' ExportTransitGatewayRoutes (Prelude.Maybe Prelude.Bool)
-exportTransitGatewayRoutes_dryRun = Lens.lens (\ExportTransitGatewayRoutes' {dryRun} -> dryRun) (\s@ExportTransitGatewayRoutes' {} a -> s {dryRun = a} :: ExportTransitGatewayRoutes)
-
 -- | The ID of the route table.
 exportTransitGatewayRoutes_transitGatewayRouteTableId :: Lens.Lens' ExportTransitGatewayRoutes Prelude.Text
 exportTransitGatewayRoutes_transitGatewayRouteTableId = Lens.lens (\ExportTransitGatewayRoutes' {transitGatewayRouteTableId} -> transitGatewayRouteTableId) (\s@ExportTransitGatewayRoutes' {} a -> s {transitGatewayRouteTableId = a} :: ExportTransitGatewayRoutes)
@@ -212,48 +213,49 @@ instance Core.AWSRequest ExportTransitGatewayRoutes where
   type
     AWSResponse ExportTransitGatewayRoutes =
       ExportTransitGatewayRoutesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ExportTransitGatewayRoutesResponse'
-            Prelude.<$> (x Core..@? "s3Location")
+            Prelude.<$> (x Data..@? "s3Location")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ExportTransitGatewayRoutes where
   hashWithSalt _salt ExportTransitGatewayRoutes' {..} =
-    _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` dryRun
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` transitGatewayRouteTableId
       `Prelude.hashWithSalt` s3Bucket
 
 instance Prelude.NFData ExportTransitGatewayRoutes where
   rnf ExportTransitGatewayRoutes' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf transitGatewayRouteTableId
       `Prelude.seq` Prelude.rnf s3Bucket
 
-instance Core.ToHeaders ExportTransitGatewayRoutes where
+instance Data.ToHeaders ExportTransitGatewayRoutes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ExportTransitGatewayRoutes where
+instance Data.ToPath ExportTransitGatewayRoutes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ExportTransitGatewayRoutes where
+instance Data.ToQuery ExportTransitGatewayRoutes where
   toQuery ExportTransitGatewayRoutes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ExportTransitGatewayRoutes" :: Prelude.ByteString),
+          Data.=: ("ExportTransitGatewayRoutes" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "DryRun" Core.=: dryRun,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
         "TransitGatewayRouteTableId"
-          Core.=: transitGatewayRouteTableId,
-        "S3Bucket" Core.=: s3Bucket
+          Data.=: transitGatewayRouteTableId,
+        "S3Bucket" Data.=: s3Bucket
       ]
 
 -- | /See:/ 'newExportTransitGatewayRoutesResponse' smart constructor.

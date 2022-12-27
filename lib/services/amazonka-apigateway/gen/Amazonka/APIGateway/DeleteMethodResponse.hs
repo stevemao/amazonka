@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteMethodResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,13 +50,13 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteMethodResponse' smart constructor.
 data DeleteMethodResponse = DeleteMethodResponse'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The Resource identifier for the MethodResponse resource.
+    -- | The Resource identifier for the MethodResponse resource.
     resourceId :: Prelude.Text,
-    -- | [Required] The HTTP verb of the Method resource.
+    -- | The HTTP verb of the Method resource.
     httpMethod :: Prelude.Text,
-    -- | [Required] The status code identifier for the MethodResponse resource.
+    -- | The status code identifier for the MethodResponse resource.
     statusCode :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -68,13 +69,13 @@ data DeleteMethodResponse = DeleteMethodResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'deleteMethodResponse_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'deleteMethodResponse_restApiId' - The string identifier of the associated RestApi.
 --
--- 'resourceId', 'deleteMethodResponse_resourceId' - [Required] The Resource identifier for the MethodResponse resource.
+-- 'resourceId', 'deleteMethodResponse_resourceId' - The Resource identifier for the MethodResponse resource.
 --
--- 'httpMethod', 'deleteMethodResponse_httpMethod' - [Required] The HTTP verb of the Method resource.
+-- 'httpMethod', 'deleteMethodResponse_httpMethod' - The HTTP verb of the Method resource.
 --
--- 'statusCode', 'deleteMethodResponse_statusCode' - [Required] The status code identifier for the MethodResponse resource.
+-- 'statusCode', 'deleteMethodResponse_statusCode' - The status code identifier for the MethodResponse resource.
 newDeleteMethodResponse ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -97,19 +98,19 @@ newDeleteMethodResponse
         statusCode = pStatusCode_
       }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 deleteMethodResponse_restApiId :: Lens.Lens' DeleteMethodResponse Prelude.Text
 deleteMethodResponse_restApiId = Lens.lens (\DeleteMethodResponse' {restApiId} -> restApiId) (\s@DeleteMethodResponse' {} a -> s {restApiId = a} :: DeleteMethodResponse)
 
--- | [Required] The Resource identifier for the MethodResponse resource.
+-- | The Resource identifier for the MethodResponse resource.
 deleteMethodResponse_resourceId :: Lens.Lens' DeleteMethodResponse Prelude.Text
 deleteMethodResponse_resourceId = Lens.lens (\DeleteMethodResponse' {resourceId} -> resourceId) (\s@DeleteMethodResponse' {} a -> s {resourceId = a} :: DeleteMethodResponse)
 
--- | [Required] The HTTP verb of the Method resource.
+-- | The HTTP verb of the Method resource.
 deleteMethodResponse_httpMethod :: Lens.Lens' DeleteMethodResponse Prelude.Text
 deleteMethodResponse_httpMethod = Lens.lens (\DeleteMethodResponse' {httpMethod} -> httpMethod) (\s@DeleteMethodResponse' {} a -> s {httpMethod = a} :: DeleteMethodResponse)
 
--- | [Required] The status code identifier for the MethodResponse resource.
+-- | The status code identifier for the MethodResponse resource.
 deleteMethodResponse_statusCode :: Lens.Lens' DeleteMethodResponse Prelude.Text
 deleteMethodResponse_statusCode = Lens.lens (\DeleteMethodResponse' {statusCode} -> statusCode) (\s@DeleteMethodResponse' {} a -> s {statusCode = a} :: DeleteMethodResponse)
 
@@ -117,7 +118,8 @@ instance Core.AWSRequest DeleteMethodResponse where
   type
     AWSResponse DeleteMethodResponse =
       DeleteMethodResponseResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteMethodResponseResponse'
 
@@ -135,29 +137,29 @@ instance Prelude.NFData DeleteMethodResponse where
       `Prelude.seq` Prelude.rnf httpMethod
       `Prelude.seq` Prelude.rnf statusCode
 
-instance Core.ToHeaders DeleteMethodResponse where
+instance Data.ToHeaders DeleteMethodResponse where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteMethodResponse where
+instance Data.ToPath DeleteMethodResponse where
   toPath DeleteMethodResponse' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/resources/",
-        Core.toBS resourceId,
+        Data.toBS resourceId,
         "/methods/",
-        Core.toBS httpMethod,
+        Data.toBS httpMethod,
         "/responses/",
-        Core.toBS statusCode
+        Data.toBS statusCode
       ]
 
-instance Core.ToQuery DeleteMethodResponse where
+instance Data.ToQuery DeleteMethodResponse where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteMethodResponseResponse' smart constructor.

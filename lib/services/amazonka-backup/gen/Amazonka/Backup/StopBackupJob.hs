@@ -14,13 +14,18 @@
 
 -- |
 -- Module      : Amazonka.Backup.StopBackupJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Attempts to cancel a job to create a one-time backup of a resource.
+--
+-- This action is not supported for the following services: Amazon FSx for
+-- Windows File Server, Amazon FSx for Lustre, FSx for ONTAP , Amazon FSx
+-- for OpenZFS, Amazon DocumentDB (with MongoDB compatibility), Amazon RDS,
+-- Amazon Aurora, and Amazon Neptune.
 module Amazonka.Backup.StopBackupJob
   ( -- * Creating a Request
     StopBackupJob (..),
@@ -37,7 +42,8 @@ where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,7 +79,8 @@ instance Core.AWSRequest StopBackupJob where
   type
     AWSResponse StopBackupJob =
       StopBackupJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull StopBackupJobResponse'
 
@@ -84,26 +91,26 @@ instance Prelude.Hashable StopBackupJob where
 instance Prelude.NFData StopBackupJob where
   rnf StopBackupJob' {..} = Prelude.rnf backupJobId
 
-instance Core.ToHeaders StopBackupJob where
+instance Data.ToHeaders StopBackupJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopBackupJob where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON StopBackupJob where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath StopBackupJob where
+instance Data.ToPath StopBackupJob where
   toPath StopBackupJob' {..} =
     Prelude.mconcat
-      ["/backup-jobs/", Core.toBS backupJobId]
+      ["/backup-jobs/", Data.toBS backupJobId]
 
-instance Core.ToQuery StopBackupJob where
+instance Data.ToQuery StopBackupJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopBackupJobResponse' smart constructor.

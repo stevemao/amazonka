@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.MonitorInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,10 +22,11 @@
 --
 -- Enables detailed monitoring for a running instance. Otherwise, basic
 -- monitoring is enabled. For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch.html Monitoring your instances and volumes>
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/using-cloudwatch.html Monitor your instances using CloudWatch>
 -- in the /Amazon EC2 User Guide/.
 --
--- To disable detailed monitoring, see .
+-- To disable detailed monitoring, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_UnmonitorInstances.html UnmonitorInstances>.
 module Amazonka.EC2.MonitorInstances
   ( -- * Creating a Request
     MonitorInstances (..),
@@ -46,8 +47,9 @@ module Amazonka.EC2.MonitorInstances
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,13 +103,14 @@ instance Core.AWSRequest MonitorInstances where
   type
     AWSResponse MonitorInstances =
       MonitorInstancesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           MonitorInstancesResponse'
-            Prelude.<$> ( x Core..@? "instancesSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "instancesSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -122,21 +125,21 @@ instance Prelude.NFData MonitorInstances where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf instanceIds
 
-instance Core.ToHeaders MonitorInstances where
+instance Data.ToHeaders MonitorInstances where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath MonitorInstances where
+instance Data.ToPath MonitorInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery MonitorInstances where
+instance Data.ToQuery MonitorInstances where
   toQuery MonitorInstances' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("MonitorInstances" :: Prelude.ByteString),
+          Data.=: ("MonitorInstances" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        Core.toQueryList "InstanceId" instanceIds
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQueryList "InstanceId" instanceIds
       ]
 
 -- | /See:/ 'newMonitorInstancesResponse' smart constructor.

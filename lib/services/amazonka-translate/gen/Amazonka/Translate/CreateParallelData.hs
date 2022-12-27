@@ -14,25 +14,26 @@
 
 -- |
 -- Module      : Amazonka.Translate.CreateParallelData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates a parallel data resource in Amazon Translate by importing an
--- input file from Amazon S3. Parallel data files contain examples of
--- source phrases and their translations from your translation memory. By
--- adding parallel data, you can influence the style, tone, and word choice
--- in your translation output.
+-- input file from Amazon S3. Parallel data files contain examples that
+-- show how you want segments of text to be translated. By adding parallel
+-- data, you can influence the style, tone, and word choice in your
+-- translation output.
 module Amazonka.Translate.CreateParallelData
   ( -- * Creating a Request
     CreateParallelData (..),
     newCreateParallelData,
 
     -- * Request Lenses
-    createParallelData_encryptionKey,
     createParallelData_description,
+    createParallelData_encryptionKey,
+    createParallelData_tags,
     createParallelData_name,
     createParallelData_parallelDataConfig,
     createParallelData_clientToken,
@@ -42,14 +43,15 @@ module Amazonka.Translate.CreateParallelData
     newCreateParallelDataResponse,
 
     -- * Response Lenses
-    createParallelDataResponse_status,
     createParallelDataResponse_name,
+    createParallelDataResponse_status,
     createParallelDataResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,9 +59,14 @@ import Amazonka.Translate.Types
 
 -- | /See:/ 'newCreateParallelData' smart constructor.
 data CreateParallelData = CreateParallelData'
-  { encryptionKey :: Prelude.Maybe EncryptionKey,
-    -- | A custom description for the parallel data resource in Amazon Translate.
+  { -- | A custom description for the parallel data resource in Amazon Translate.
     description :: Prelude.Maybe Prelude.Text,
+    encryptionKey :: Prelude.Maybe EncryptionKey,
+    -- | Tags to be associated with this resource. A tag is a key-value pair that
+    -- adds metadata to a resource. Each tag key for the resource must be
+    -- unique. For more information, see
+    -- <https://docs.aws.amazon.com/translate/latest/dg/tagging.html Tagging your resources>.
+    tags :: Prelude.Maybe [Tag],
     -- | A custom name for the parallel data resource in Amazon Translate. You
     -- must assign a name that is unique in the account and region.
     name :: Prelude.Text,
@@ -79,9 +86,14 @@ data CreateParallelData = CreateParallelData'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createParallelData_description' - A custom description for the parallel data resource in Amazon Translate.
+--
 -- 'encryptionKey', 'createParallelData_encryptionKey' - Undocumented member.
 --
--- 'description', 'createParallelData_description' - A custom description for the parallel data resource in Amazon Translate.
+-- 'tags', 'createParallelData_tags' - Tags to be associated with this resource. A tag is a key-value pair that
+-- adds metadata to a resource. Each tag key for the resource must be
+-- unique. For more information, see
+-- <https://docs.aws.amazon.com/translate/latest/dg/tagging.html Tagging your resources>.
 --
 -- 'name', 'createParallelData_name' - A custom name for the parallel data resource in Amazon Translate. You
 -- must assign a name that is unique in the account and region.
@@ -103,21 +115,28 @@ newCreateParallelData
   pParallelDataConfig_
   pClientToken_ =
     CreateParallelData'
-      { encryptionKey =
-          Prelude.Nothing,
-        description = Prelude.Nothing,
+      { description = Prelude.Nothing,
+        encryptionKey = Prelude.Nothing,
+        tags = Prelude.Nothing,
         name = pName_,
         parallelDataConfig = pParallelDataConfig_,
         clientToken = pClientToken_
       }
 
+-- | A custom description for the parallel data resource in Amazon Translate.
+createParallelData_description :: Lens.Lens' CreateParallelData (Prelude.Maybe Prelude.Text)
+createParallelData_description = Lens.lens (\CreateParallelData' {description} -> description) (\s@CreateParallelData' {} a -> s {description = a} :: CreateParallelData)
+
 -- | Undocumented member.
 createParallelData_encryptionKey :: Lens.Lens' CreateParallelData (Prelude.Maybe EncryptionKey)
 createParallelData_encryptionKey = Lens.lens (\CreateParallelData' {encryptionKey} -> encryptionKey) (\s@CreateParallelData' {} a -> s {encryptionKey = a} :: CreateParallelData)
 
--- | A custom description for the parallel data resource in Amazon Translate.
-createParallelData_description :: Lens.Lens' CreateParallelData (Prelude.Maybe Prelude.Text)
-createParallelData_description = Lens.lens (\CreateParallelData' {description} -> description) (\s@CreateParallelData' {} a -> s {description = a} :: CreateParallelData)
+-- | Tags to be associated with this resource. A tag is a key-value pair that
+-- adds metadata to a resource. Each tag key for the resource must be
+-- unique. For more information, see
+-- <https://docs.aws.amazon.com/translate/latest/dg/tagging.html Tagging your resources>.
+createParallelData_tags :: Lens.Lens' CreateParallelData (Prelude.Maybe [Tag])
+createParallelData_tags = Lens.lens (\CreateParallelData' {tags} -> tags) (\s@CreateParallelData' {} a -> s {tags = a} :: CreateParallelData) Prelude.. Lens.mapping Lens.coerced
 
 -- | A custom name for the parallel data resource in Amazon Translate. You
 -- must assign a name that is unique in the account and region.
@@ -137,73 +156,77 @@ instance Core.AWSRequest CreateParallelData where
   type
     AWSResponse CreateParallelData =
       CreateParallelDataResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateParallelDataResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "Name")
+            Prelude.<$> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateParallelData where
   hashWithSalt _salt CreateParallelData' {..} =
-    _salt `Prelude.hashWithSalt` encryptionKey
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` encryptionKey
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` parallelDataConfig
       `Prelude.hashWithSalt` clientToken
 
 instance Prelude.NFData CreateParallelData where
   rnf CreateParallelData' {..} =
-    Prelude.rnf encryptionKey
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf encryptionKey
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf parallelDataConfig
       `Prelude.seq` Prelude.rnf clientToken
 
-instance Core.ToHeaders CreateParallelData where
+instance Data.ToHeaders CreateParallelData where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSShineFrontendService_20170701.CreateParallelData" ::
+              Data.=# ( "AWSShineFrontendService_20170701.CreateParallelData" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateParallelData where
+instance Data.ToJSON CreateParallelData where
   toJSON CreateParallelData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EncryptionKey" Core..=) Prelude.<$> encryptionKey,
-            ("Description" Core..=) Prelude.<$> description,
-            Prelude.Just ("Name" Core..= name),
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("EncryptionKey" Data..=) Prelude.<$> encryptionKey,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("ParallelDataConfig" Core..= parallelDataConfig),
-            Prelude.Just ("ClientToken" Core..= clientToken)
+              ("ParallelDataConfig" Data..= parallelDataConfig),
+            Prelude.Just ("ClientToken" Data..= clientToken)
           ]
       )
 
-instance Core.ToPath CreateParallelData where
+instance Data.ToPath CreateParallelData where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateParallelData where
+instance Data.ToQuery CreateParallelData where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateParallelDataResponse' smart constructor.
 data CreateParallelDataResponse = CreateParallelDataResponse'
-  { -- | The status of the parallel data resource. When the resource is ready for
+  { -- | The custom name that you assigned to the parallel data resource.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The status of the parallel data resource. When the resource is ready for
     -- you to use, the status is @ACTIVE@.
     status :: Prelude.Maybe ParallelDataStatus,
-    -- | The custom name that you assigned to the parallel data resource.
-    name :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -217,10 +240,10 @@ data CreateParallelDataResponse = CreateParallelDataResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'name', 'createParallelDataResponse_name' - The custom name that you assigned to the parallel data resource.
+--
 -- 'status', 'createParallelDataResponse_status' - The status of the parallel data resource. When the resource is ready for
 -- you to use, the status is @ACTIVE@.
---
--- 'name', 'createParallelDataResponse_name' - The custom name that you assigned to the parallel data resource.
 --
 -- 'httpStatus', 'createParallelDataResponse_httpStatus' - The response's http status code.
 newCreateParallelDataResponse ::
@@ -229,20 +252,19 @@ newCreateParallelDataResponse ::
   CreateParallelDataResponse
 newCreateParallelDataResponse pHttpStatus_ =
   CreateParallelDataResponse'
-    { status =
-        Prelude.Nothing,
-      name = Prelude.Nothing,
+    { name = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The custom name that you assigned to the parallel data resource.
+createParallelDataResponse_name :: Lens.Lens' CreateParallelDataResponse (Prelude.Maybe Prelude.Text)
+createParallelDataResponse_name = Lens.lens (\CreateParallelDataResponse' {name} -> name) (\s@CreateParallelDataResponse' {} a -> s {name = a} :: CreateParallelDataResponse)
 
 -- | The status of the parallel data resource. When the resource is ready for
 -- you to use, the status is @ACTIVE@.
 createParallelDataResponse_status :: Lens.Lens' CreateParallelDataResponse (Prelude.Maybe ParallelDataStatus)
 createParallelDataResponse_status = Lens.lens (\CreateParallelDataResponse' {status} -> status) (\s@CreateParallelDataResponse' {} a -> s {status = a} :: CreateParallelDataResponse)
-
--- | The custom name that you assigned to the parallel data resource.
-createParallelDataResponse_name :: Lens.Lens' CreateParallelDataResponse (Prelude.Maybe Prelude.Text)
-createParallelDataResponse_name = Lens.lens (\CreateParallelDataResponse' {name} -> name) (\s@CreateParallelDataResponse' {} a -> s {name = a} :: CreateParallelDataResponse)
 
 -- | The response's http status code.
 createParallelDataResponse_httpStatus :: Lens.Lens' CreateParallelDataResponse Prelude.Int
@@ -250,6 +272,6 @@ createParallelDataResponse_httpStatus = Lens.lens (\CreateParallelDataResponse' 
 
 instance Prelude.NFData CreateParallelDataResponse where
   rnf CreateParallelDataResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

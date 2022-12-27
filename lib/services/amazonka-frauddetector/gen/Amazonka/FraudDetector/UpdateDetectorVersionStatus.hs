@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.UpdateDetectorVersionStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.FraudDetector.UpdateDetectorVersionStatus
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,6 +57,8 @@ data UpdateDetectorVersionStatus = UpdateDetectorVersionStatus'
     -- | The detector version ID.
     detectorVersionId :: Prelude.Text,
     -- | The new status.
+    --
+    -- The only supported values are @ACTIVE@ and @INACTIVE@
     status :: DetectorVersionStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -73,6 +76,8 @@ data UpdateDetectorVersionStatus = UpdateDetectorVersionStatus'
 -- 'detectorVersionId', 'updateDetectorVersionStatus_detectorVersionId' - The detector version ID.
 --
 -- 'status', 'updateDetectorVersionStatus_status' - The new status.
+--
+-- The only supported values are @ACTIVE@ and @INACTIVE@
 newUpdateDetectorVersionStatus ::
   -- | 'detectorId'
   Prelude.Text ->
@@ -101,6 +106,8 @@ updateDetectorVersionStatus_detectorVersionId :: Lens.Lens' UpdateDetectorVersio
 updateDetectorVersionStatus_detectorVersionId = Lens.lens (\UpdateDetectorVersionStatus' {detectorVersionId} -> detectorVersionId) (\s@UpdateDetectorVersionStatus' {} a -> s {detectorVersionId = a} :: UpdateDetectorVersionStatus)
 
 -- | The new status.
+--
+-- The only supported values are @ACTIVE@ and @INACTIVE@
 updateDetectorVersionStatus_status :: Lens.Lens' UpdateDetectorVersionStatus DetectorVersionStatus
 updateDetectorVersionStatus_status = Lens.lens (\UpdateDetectorVersionStatus' {status} -> status) (\s@UpdateDetectorVersionStatus' {} a -> s {status = a} :: UpdateDetectorVersionStatus)
 
@@ -108,7 +115,8 @@ instance Core.AWSRequest UpdateDetectorVersionStatus where
   type
     AWSResponse UpdateDetectorVersionStatus =
       UpdateDetectorVersionStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -128,36 +136,36 @@ instance Prelude.NFData UpdateDetectorVersionStatus where
       `Prelude.seq` Prelude.rnf detectorVersionId
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders UpdateDetectorVersionStatus where
+instance Data.ToHeaders UpdateDetectorVersionStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.UpdateDetectorVersionStatus" ::
+              Data.=# ( "AWSHawksNestServiceFacade.UpdateDetectorVersionStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDetectorVersionStatus where
+instance Data.ToJSON UpdateDetectorVersionStatus where
   toJSON UpdateDetectorVersionStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("detectorId" Core..= detectorId),
+          [ Prelude.Just ("detectorId" Data..= detectorId),
             Prelude.Just
-              ("detectorVersionId" Core..= detectorVersionId),
-            Prelude.Just ("status" Core..= status)
+              ("detectorVersionId" Data..= detectorVersionId),
+            Prelude.Just ("status" Data..= status)
           ]
       )
 
-instance Core.ToPath UpdateDetectorVersionStatus where
+instance Data.ToPath UpdateDetectorVersionStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateDetectorVersionStatus where
+instance Data.ToQuery UpdateDetectorVersionStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDetectorVersionStatusResponse' smart constructor.

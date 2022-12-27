@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.OpsItemIdentity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.OpsItemIdentity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the user or resource that created an OpsItem event.
@@ -53,12 +54,12 @@ newOpsItemIdentity =
 opsItemIdentity_arn :: Lens.Lens' OpsItemIdentity (Prelude.Maybe Prelude.Text)
 opsItemIdentity_arn = Lens.lens (\OpsItemIdentity' {arn} -> arn) (\s@OpsItemIdentity' {} a -> s {arn = a} :: OpsItemIdentity)
 
-instance Core.FromJSON OpsItemIdentity where
+instance Data.FromJSON OpsItemIdentity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OpsItemIdentity"
       ( \x ->
-          OpsItemIdentity' Prelude.<$> (x Core..:? "Arn")
+          OpsItemIdentity' Prelude.<$> (x Data..:? "Arn")
       )
 
 instance Prelude.Hashable OpsItemIdentity where

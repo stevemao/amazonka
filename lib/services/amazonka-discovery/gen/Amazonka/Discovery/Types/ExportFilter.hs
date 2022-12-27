@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Discovery.Types.ExportFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Discovery.Types.ExportFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Used to select which agent\'s data is to be exported. A single agent ID
@@ -30,12 +31,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newExportFilter' smart constructor.
 data ExportFilter = ExportFilter'
-  { -- | A single @ExportFilter@ name. Supported filters: @agentId@.
+  { -- | A single @ExportFilter@ name. Supported filters: @agentIds@.
     name :: Prelude.Text,
-    -- | A single @agentId@ for a Discovery Agent. An @agentId@ can be found
-    -- using the
-    -- <http://docs.aws.amazon.com/application-discovery/latest/APIReference/API_DescribeExportTasks.html DescribeAgents>
-    -- action. Typically an ADS @agentId@ is in the form @o-0123456789abcdef0@.
+    -- | A single agent ID for a Discovery Agent. An agent ID can be found using
+    -- the
+    -- <http://docs.aws.amazon.com/application-discovery/latest/APIReference/API_DescribeAgents.html DescribeAgents>
+    -- action. Typically an ADS agent ID is in the form @o-0123456789abcdef0@.
     values :: [Prelude.Text],
     -- | Supported condition: @EQUALS@
     condition :: Prelude.Text
@@ -50,12 +51,12 @@ data ExportFilter = ExportFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'exportFilter_name' - A single @ExportFilter@ name. Supported filters: @agentId@.
+-- 'name', 'exportFilter_name' - A single @ExportFilter@ name. Supported filters: @agentIds@.
 --
--- 'values', 'exportFilter_values' - A single @agentId@ for a Discovery Agent. An @agentId@ can be found
--- using the
--- <http://docs.aws.amazon.com/application-discovery/latest/APIReference/API_DescribeExportTasks.html DescribeAgents>
--- action. Typically an ADS @agentId@ is in the form @o-0123456789abcdef0@.
+-- 'values', 'exportFilter_values' - A single agent ID for a Discovery Agent. An agent ID can be found using
+-- the
+-- <http://docs.aws.amazon.com/application-discovery/latest/APIReference/API_DescribeAgents.html DescribeAgents>
+-- action. Typically an ADS agent ID is in the form @o-0123456789abcdef0@.
 --
 -- 'condition', 'exportFilter_condition' - Supported condition: @EQUALS@
 newExportFilter ::
@@ -71,14 +72,14 @@ newExportFilter pName_ pCondition_ =
       condition = pCondition_
     }
 
--- | A single @ExportFilter@ name. Supported filters: @agentId@.
+-- | A single @ExportFilter@ name. Supported filters: @agentIds@.
 exportFilter_name :: Lens.Lens' ExportFilter Prelude.Text
 exportFilter_name = Lens.lens (\ExportFilter' {name} -> name) (\s@ExportFilter' {} a -> s {name = a} :: ExportFilter)
 
--- | A single @agentId@ for a Discovery Agent. An @agentId@ can be found
--- using the
--- <http://docs.aws.amazon.com/application-discovery/latest/APIReference/API_DescribeExportTasks.html DescribeAgents>
--- action. Typically an ADS @agentId@ is in the form @o-0123456789abcdef0@.
+-- | A single agent ID for a Discovery Agent. An agent ID can be found using
+-- the
+-- <http://docs.aws.amazon.com/application-discovery/latest/APIReference/API_DescribeAgents.html DescribeAgents>
+-- action. Typically an ADS agent ID is in the form @o-0123456789abcdef0@.
 exportFilter_values :: Lens.Lens' ExportFilter [Prelude.Text]
 exportFilter_values = Lens.lens (\ExportFilter' {values} -> values) (\s@ExportFilter' {} a -> s {values = a} :: ExportFilter) Prelude.. Lens.coerced
 
@@ -98,12 +99,12 @@ instance Prelude.NFData ExportFilter where
       `Prelude.seq` Prelude.rnf values
       `Prelude.seq` Prelude.rnf condition
 
-instance Core.ToJSON ExportFilter where
+instance Data.ToJSON ExportFilter where
   toJSON ExportFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("name" Core..= name),
-            Prelude.Just ("values" Core..= values),
-            Prelude.Just ("condition" Core..= condition)
+          [ Prelude.Just ("name" Data..= name),
+            Prelude.Just ("values" Data..= values),
+            Prelude.Just ("condition" Data..= condition)
           ]
       )

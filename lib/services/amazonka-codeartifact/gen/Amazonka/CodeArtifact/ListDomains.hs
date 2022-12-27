@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.ListDomains
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,9 +22,9 @@
 --
 -- Returns a list of
 -- <https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_PackageVersionDescription.html DomainSummary>
--- objects for all domains owned by the AWS account that makes this call.
--- Each returned @DomainSummary@ object contains information about a
--- domain.
+-- objects for all domains owned by the Amazon Web Services account that
+-- makes this call. Each returned @DomainSummary@ object contains
+-- information about a domain.
 --
 -- This operation returns paginated results.
 module Amazonka.CodeArtifact.ListDomains
@@ -33,35 +33,36 @@ module Amazonka.CodeArtifact.ListDomains
     newListDomains,
 
     -- * Request Lenses
-    listDomains_nextToken,
     listDomains_maxResults,
+    listDomains_nextToken,
 
     -- * Destructuring the Response
     ListDomainsResponse (..),
     newListDomainsResponse,
 
     -- * Response Lenses
-    listDomainsResponse_nextToken,
     listDomainsResponse_domains,
+    listDomainsResponse_nextToken,
     listDomainsResponse_httpStatus,
   )
 where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDomains' smart constructor.
 data ListDomains = ListDomains'
-  { -- | The token for the next set of results. Use the value returned in the
+  { -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,28 +74,28 @@ data ListDomains = ListDomains'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listDomains_maxResults' - The maximum number of results to return per page.
+--
 -- 'nextToken', 'listDomains_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listDomains_maxResults' - The maximum number of results to return per page.
 newListDomains ::
   ListDomains
 newListDomains =
   ListDomains'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results to return per page.
+listDomains_maxResults :: Lens.Lens' ListDomains (Prelude.Maybe Prelude.Natural)
+listDomains_maxResults = Lens.lens (\ListDomains' {maxResults} -> maxResults) (\s@ListDomains' {} a -> s {maxResults = a} :: ListDomains)
 
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
 listDomains_nextToken :: Lens.Lens' ListDomains (Prelude.Maybe Prelude.Text)
 listDomains_nextToken = Lens.lens (\ListDomains' {nextToken} -> nextToken) (\s@ListDomains' {} a -> s {nextToken = a} :: ListDomains)
-
--- | The maximum number of results to return per page.
-listDomains_maxResults :: Lens.Lens' ListDomains (Prelude.Maybe Prelude.Natural)
-listDomains_maxResults = Lens.lens (\ListDomains' {maxResults} -> maxResults) (\s@ListDomains' {} a -> s {maxResults = a} :: ListDomains)
 
 instance Core.AWSPager ListDomains where
   page rq rs
@@ -117,62 +118,63 @@ instance Core.AWSPager ListDomains where
 
 instance Core.AWSRequest ListDomains where
   type AWSResponse ListDomains = ListDomainsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDomainsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "domains" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "domains" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDomains where
   hashWithSalt _salt ListDomains' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDomains where
   rnf ListDomains' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDomains where
+instance Data.ToHeaders ListDomains where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDomains where
+instance Data.ToJSON ListDomains where
   toJSON ListDomains' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListDomains where
+instance Data.ToPath ListDomains where
   toPath = Prelude.const "/v1/domains"
 
-instance Core.ToQuery ListDomains where
+instance Data.ToQuery ListDomains where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDomainsResponse' smart constructor.
 data ListDomainsResponse = ListDomainsResponse'
-  { -- | The token for the next set of results. Use the value returned in the
-    -- previous response in the next request to retrieve the next set of
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The returned list of
+  { -- | The returned list of
     -- <https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_DomainSummary.html DomainSummary>
     -- objects.
     domains :: Prelude.Maybe [DomainSummary],
+    -- | The token for the next set of results. Use the value returned in the
+    -- previous response in the next request to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -186,13 +188,13 @@ data ListDomainsResponse = ListDomainsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listDomainsResponse_nextToken' - The token for the next set of results. Use the value returned in the
--- previous response in the next request to retrieve the next set of
--- results.
---
 -- 'domains', 'listDomainsResponse_domains' - The returned list of
 -- <https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_DomainSummary.html DomainSummary>
 -- objects.
+--
+-- 'nextToken', 'listDomainsResponse_nextToken' - The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
 --
 -- 'httpStatus', 'listDomainsResponse_httpStatus' - The response's http status code.
 newListDomainsResponse ::
@@ -201,16 +203,10 @@ newListDomainsResponse ::
   ListDomainsResponse
 newListDomainsResponse pHttpStatus_ =
   ListDomainsResponse'
-    { nextToken = Prelude.Nothing,
-      domains = Prelude.Nothing,
+    { domains = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The token for the next set of results. Use the value returned in the
--- previous response in the next request to retrieve the next set of
--- results.
-listDomainsResponse_nextToken :: Lens.Lens' ListDomainsResponse (Prelude.Maybe Prelude.Text)
-listDomainsResponse_nextToken = Lens.lens (\ListDomainsResponse' {nextToken} -> nextToken) (\s@ListDomainsResponse' {} a -> s {nextToken = a} :: ListDomainsResponse)
 
 -- | The returned list of
 -- <https://docs.aws.amazon.com/codeartifact/latest/APIReference/API_DomainSummary.html DomainSummary>
@@ -218,12 +214,18 @@ listDomainsResponse_nextToken = Lens.lens (\ListDomainsResponse' {nextToken} -> 
 listDomainsResponse_domains :: Lens.Lens' ListDomainsResponse (Prelude.Maybe [DomainSummary])
 listDomainsResponse_domains = Lens.lens (\ListDomainsResponse' {domains} -> domains) (\s@ListDomainsResponse' {} a -> s {domains = a} :: ListDomainsResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
+listDomainsResponse_nextToken :: Lens.Lens' ListDomainsResponse (Prelude.Maybe Prelude.Text)
+listDomainsResponse_nextToken = Lens.lens (\ListDomainsResponse' {nextToken} -> nextToken) (\s@ListDomainsResponse' {} a -> s {nextToken = a} :: ListDomainsResponse)
+
 -- | The response's http status code.
 listDomainsResponse_httpStatus :: Lens.Lens' ListDomainsResponse Prelude.Int
 listDomainsResponse_httpStatus = Lens.lens (\ListDomainsResponse' {httpStatus} -> httpStatus) (\s@ListDomainsResponse' {} a -> s {httpStatus = a} :: ListDomainsResponse)
 
 instance Prelude.NFData ListDomainsResponse where
   rnf ListDomainsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf domains
+    Prelude.rnf domains
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

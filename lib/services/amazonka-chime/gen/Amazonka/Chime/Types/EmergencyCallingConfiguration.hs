@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.EmergencyCallingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Chime.Types.EmergencyCallingConfiguration where
 
 import Amazonka.Chime.Types.DNISEmergencyCallingConfiguration
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The emergency calling configuration details associated with an Amazon
@@ -58,13 +59,13 @@ newEmergencyCallingConfiguration =
 emergencyCallingConfiguration_dnis :: Lens.Lens' EmergencyCallingConfiguration (Prelude.Maybe [DNISEmergencyCallingConfiguration])
 emergencyCallingConfiguration_dnis = Lens.lens (\EmergencyCallingConfiguration' {dnis} -> dnis) (\s@EmergencyCallingConfiguration' {} a -> s {dnis = a} :: EmergencyCallingConfiguration) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON EmergencyCallingConfiguration where
+instance Data.FromJSON EmergencyCallingConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EmergencyCallingConfiguration"
       ( \x ->
           EmergencyCallingConfiguration'
-            Prelude.<$> (x Core..:? "DNIS" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "DNIS" Data..!= Prelude.mempty)
       )
 
 instance
@@ -78,9 +79,9 @@ instance Prelude.NFData EmergencyCallingConfiguration where
   rnf EmergencyCallingConfiguration' {..} =
     Prelude.rnf dnis
 
-instance Core.ToJSON EmergencyCallingConfiguration where
+instance Data.ToJSON EmergencyCallingConfiguration where
   toJSON EmergencyCallingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("DNIS" Core..=) Prelude.<$> dnis]
+          [("DNIS" Data..=) Prelude.<$> dnis]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AmplifyBackend.GetToken
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,17 +35,18 @@ module Amazonka.AmplifyBackend.GetToken
     newGetTokenResponse,
 
     -- * Response Lenses
-    getTokenResponse_ttl,
     getTokenResponse_appId,
-    getTokenResponse_sessionId,
     getTokenResponse_challengeCode,
+    getTokenResponse_sessionId,
+    getTokenResponse_ttl,
     getTokenResponse_httpStatus,
   )
 where
 
 import Amazonka.AmplifyBackend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,15 +90,16 @@ getToken_appId = Lens.lens (\GetToken' {appId} -> appId) (\s@GetToken' {} a -> s
 
 instance Core.AWSRequest GetToken where
   type AWSResponse GetToken = GetTokenResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetTokenResponse'
-            Prelude.<$> (x Core..?> "ttl")
-            Prelude.<*> (x Core..?> "appId")
-            Prelude.<*> (x Core..?> "sessionId")
-            Prelude.<*> (x Core..?> "challengeCode")
+            Prelude.<$> (x Data..?> "appId")
+            Prelude.<*> (x Data..?> "challengeCode")
+            Prelude.<*> (x Data..?> "sessionId")
+            Prelude.<*> (x Data..?> "ttl")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,40 +113,40 @@ instance Prelude.NFData GetToken where
     Prelude.rnf sessionId
       `Prelude.seq` Prelude.rnf appId
 
-instance Core.ToHeaders GetToken where
+instance Data.ToHeaders GetToken where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetToken where
+instance Data.ToPath GetToken where
   toPath GetToken' {..} =
     Prelude.mconcat
       [ "/backend/",
-        Core.toBS appId,
+        Data.toBS appId,
         "/challenge/",
-        Core.toBS sessionId
+        Data.toBS sessionId
       ]
 
-instance Core.ToQuery GetToken where
+instance Data.ToQuery GetToken where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetTokenResponse' smart constructor.
 data GetTokenResponse = GetTokenResponse'
-  { -- | The expiry time for the one-time generated token code.
-    ttl :: Prelude.Maybe Prelude.Text,
-    -- | The app ID.
+  { -- | The app ID.
     appId :: Prelude.Maybe Prelude.Text,
-    -- | A unique ID provided when creating a new challenge token.
-    sessionId :: Prelude.Maybe Prelude.Text,
     -- | The one-time challenge code for authenticating into the Amplify Admin
     -- UI.
     challengeCode :: Prelude.Maybe Prelude.Text,
+    -- | A unique ID provided when creating a new challenge token.
+    sessionId :: Prelude.Maybe Prelude.Text,
+    -- | The expiry time for the one-time generated token code.
+    ttl :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -158,14 +160,14 @@ data GetTokenResponse = GetTokenResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ttl', 'getTokenResponse_ttl' - The expiry time for the one-time generated token code.
---
 -- 'appId', 'getTokenResponse_appId' - The app ID.
---
--- 'sessionId', 'getTokenResponse_sessionId' - A unique ID provided when creating a new challenge token.
 --
 -- 'challengeCode', 'getTokenResponse_challengeCode' - The one-time challenge code for authenticating into the Amplify Admin
 -- UI.
+--
+-- 'sessionId', 'getTokenResponse_sessionId' - A unique ID provided when creating a new challenge token.
+--
+-- 'ttl', 'getTokenResponse_ttl' - The expiry time for the one-time generated token code.
 --
 -- 'httpStatus', 'getTokenResponse_httpStatus' - The response's http status code.
 newGetTokenResponse ::
@@ -174,29 +176,29 @@ newGetTokenResponse ::
   GetTokenResponse
 newGetTokenResponse pHttpStatus_ =
   GetTokenResponse'
-    { ttl = Prelude.Nothing,
-      appId = Prelude.Nothing,
-      sessionId = Prelude.Nothing,
+    { appId = Prelude.Nothing,
       challengeCode = Prelude.Nothing,
+      sessionId = Prelude.Nothing,
+      ttl = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The expiry time for the one-time generated token code.
-getTokenResponse_ttl :: Lens.Lens' GetTokenResponse (Prelude.Maybe Prelude.Text)
-getTokenResponse_ttl = Lens.lens (\GetTokenResponse' {ttl} -> ttl) (\s@GetTokenResponse' {} a -> s {ttl = a} :: GetTokenResponse)
 
 -- | The app ID.
 getTokenResponse_appId :: Lens.Lens' GetTokenResponse (Prelude.Maybe Prelude.Text)
 getTokenResponse_appId = Lens.lens (\GetTokenResponse' {appId} -> appId) (\s@GetTokenResponse' {} a -> s {appId = a} :: GetTokenResponse)
 
--- | A unique ID provided when creating a new challenge token.
-getTokenResponse_sessionId :: Lens.Lens' GetTokenResponse (Prelude.Maybe Prelude.Text)
-getTokenResponse_sessionId = Lens.lens (\GetTokenResponse' {sessionId} -> sessionId) (\s@GetTokenResponse' {} a -> s {sessionId = a} :: GetTokenResponse)
-
 -- | The one-time challenge code for authenticating into the Amplify Admin
 -- UI.
 getTokenResponse_challengeCode :: Lens.Lens' GetTokenResponse (Prelude.Maybe Prelude.Text)
 getTokenResponse_challengeCode = Lens.lens (\GetTokenResponse' {challengeCode} -> challengeCode) (\s@GetTokenResponse' {} a -> s {challengeCode = a} :: GetTokenResponse)
+
+-- | A unique ID provided when creating a new challenge token.
+getTokenResponse_sessionId :: Lens.Lens' GetTokenResponse (Prelude.Maybe Prelude.Text)
+getTokenResponse_sessionId = Lens.lens (\GetTokenResponse' {sessionId} -> sessionId) (\s@GetTokenResponse' {} a -> s {sessionId = a} :: GetTokenResponse)
+
+-- | The expiry time for the one-time generated token code.
+getTokenResponse_ttl :: Lens.Lens' GetTokenResponse (Prelude.Maybe Prelude.Text)
+getTokenResponse_ttl = Lens.lens (\GetTokenResponse' {ttl} -> ttl) (\s@GetTokenResponse' {} a -> s {ttl = a} :: GetTokenResponse)
 
 -- | The response's http status code.
 getTokenResponse_httpStatus :: Lens.Lens' GetTokenResponse Prelude.Int
@@ -204,8 +206,8 @@ getTokenResponse_httpStatus = Lens.lens (\GetTokenResponse' {httpStatus} -> http
 
 instance Prelude.NFData GetTokenResponse where
   rnf GetTokenResponse' {..} =
-    Prelude.rnf ttl
-      `Prelude.seq` Prelude.rnf appId
-      `Prelude.seq` Prelude.rnf sessionId
+    Prelude.rnf appId
       `Prelude.seq` Prelude.rnf challengeCode
+      `Prelude.seq` Prelude.rnf sessionId
+      `Prelude.seq` Prelude.rnf ttl
       `Prelude.seq` Prelude.rnf httpStatus

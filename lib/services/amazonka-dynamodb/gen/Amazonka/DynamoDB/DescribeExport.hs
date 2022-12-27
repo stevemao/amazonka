@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.DescribeExport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DynamoDB.DescribeExport
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ instance Core.AWSRequest DescribeExport where
   type
     AWSResponse DescribeExport =
       DescribeExportResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeExportResponse'
-            Prelude.<$> (x Core..?> "ExportDescription")
+            Prelude.<$> (x Data..?> "ExportDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,32 +95,32 @@ instance Prelude.Hashable DescribeExport where
 instance Prelude.NFData DescribeExport where
   rnf DescribeExport' {..} = Prelude.rnf exportArn
 
-instance Core.ToHeaders DescribeExport where
+instance Data.ToHeaders DescribeExport where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.DescribeExport" ::
+              Data.=# ( "DynamoDB_20120810.DescribeExport" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeExport where
+instance Data.ToJSON DescribeExport where
   toJSON DescribeExport' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ExportArn" Core..= exportArn)]
+          [Prelude.Just ("ExportArn" Data..= exportArn)]
       )
 
-instance Core.ToPath DescribeExport where
+instance Data.ToPath DescribeExport where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeExport where
+instance Data.ToQuery DescribeExport where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeExportResponse' smart constructor.

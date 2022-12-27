@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.EnableRadius
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.DirectoryService.EnableRadius
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,7 +96,8 @@ enableRadius_radiusSettings = Lens.lens (\EnableRadius' {radiusSettings} -> radi
 
 instance Core.AWSRequest EnableRadius where
   type AWSResponse EnableRadius = EnableRadiusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -113,35 +115,35 @@ instance Prelude.NFData EnableRadius where
     Prelude.rnf directoryId
       `Prelude.seq` Prelude.rnf radiusSettings
 
-instance Core.ToHeaders EnableRadius where
+instance Data.ToHeaders EnableRadius where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.EnableRadius" ::
+              Data.=# ( "DirectoryService_20150416.EnableRadius" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EnableRadius where
+instance Data.ToJSON EnableRadius where
   toJSON EnableRadius' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DirectoryId" Core..= directoryId),
+          [ Prelude.Just ("DirectoryId" Data..= directoryId),
             Prelude.Just
-              ("RadiusSettings" Core..= radiusSettings)
+              ("RadiusSettings" Data..= radiusSettings)
           ]
       )
 
-instance Core.ToPath EnableRadius where
+instance Data.ToPath EnableRadius where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableRadius where
+instance Data.ToQuery EnableRadius where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the results of the EnableRadius operation.

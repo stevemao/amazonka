@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.Types.NetworkFirewallMissingExpectedRoutesViolation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.FMS.Types.NetworkFirewallMissingExpectedRoutesViolation where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types.ExpectedRoute
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Violation detail for an expected route missing in Network Firewall.
@@ -30,10 +31,10 @@ import qualified Amazonka.Prelude as Prelude
 data NetworkFirewallMissingExpectedRoutesViolation = NetworkFirewallMissingExpectedRoutesViolation'
   { -- | The expected routes.
     expectedRoutes :: Prelude.Maybe [ExpectedRoute],
-    -- | Information about the VPC ID.
-    vpcId :: Prelude.Maybe Prelude.Text,
     -- | The target of the violation.
-    violationTarget :: Prelude.Maybe Prelude.Text
+    violationTarget :: Prelude.Maybe Prelude.Text,
+    -- | Information about the VPC ID.
+    vpcId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,44 +48,44 @@ data NetworkFirewallMissingExpectedRoutesViolation = NetworkFirewallMissingExpec
 --
 -- 'expectedRoutes', 'networkFirewallMissingExpectedRoutesViolation_expectedRoutes' - The expected routes.
 --
--- 'vpcId', 'networkFirewallMissingExpectedRoutesViolation_vpcId' - Information about the VPC ID.
---
 -- 'violationTarget', 'networkFirewallMissingExpectedRoutesViolation_violationTarget' - The target of the violation.
+--
+-- 'vpcId', 'networkFirewallMissingExpectedRoutesViolation_vpcId' - Information about the VPC ID.
 newNetworkFirewallMissingExpectedRoutesViolation ::
   NetworkFirewallMissingExpectedRoutesViolation
 newNetworkFirewallMissingExpectedRoutesViolation =
   NetworkFirewallMissingExpectedRoutesViolation'
     { expectedRoutes =
         Prelude.Nothing,
-      vpcId = Prelude.Nothing,
       violationTarget =
-        Prelude.Nothing
+        Prelude.Nothing,
+      vpcId = Prelude.Nothing
     }
 
 -- | The expected routes.
 networkFirewallMissingExpectedRoutesViolation_expectedRoutes :: Lens.Lens' NetworkFirewallMissingExpectedRoutesViolation (Prelude.Maybe [ExpectedRoute])
 networkFirewallMissingExpectedRoutesViolation_expectedRoutes = Lens.lens (\NetworkFirewallMissingExpectedRoutesViolation' {expectedRoutes} -> expectedRoutes) (\s@NetworkFirewallMissingExpectedRoutesViolation' {} a -> s {expectedRoutes = a} :: NetworkFirewallMissingExpectedRoutesViolation) Prelude.. Lens.mapping Lens.coerced
 
--- | Information about the VPC ID.
-networkFirewallMissingExpectedRoutesViolation_vpcId :: Lens.Lens' NetworkFirewallMissingExpectedRoutesViolation (Prelude.Maybe Prelude.Text)
-networkFirewallMissingExpectedRoutesViolation_vpcId = Lens.lens (\NetworkFirewallMissingExpectedRoutesViolation' {vpcId} -> vpcId) (\s@NetworkFirewallMissingExpectedRoutesViolation' {} a -> s {vpcId = a} :: NetworkFirewallMissingExpectedRoutesViolation)
-
 -- | The target of the violation.
 networkFirewallMissingExpectedRoutesViolation_violationTarget :: Lens.Lens' NetworkFirewallMissingExpectedRoutesViolation (Prelude.Maybe Prelude.Text)
 networkFirewallMissingExpectedRoutesViolation_violationTarget = Lens.lens (\NetworkFirewallMissingExpectedRoutesViolation' {violationTarget} -> violationTarget) (\s@NetworkFirewallMissingExpectedRoutesViolation' {} a -> s {violationTarget = a} :: NetworkFirewallMissingExpectedRoutesViolation)
 
+-- | Information about the VPC ID.
+networkFirewallMissingExpectedRoutesViolation_vpcId :: Lens.Lens' NetworkFirewallMissingExpectedRoutesViolation (Prelude.Maybe Prelude.Text)
+networkFirewallMissingExpectedRoutesViolation_vpcId = Lens.lens (\NetworkFirewallMissingExpectedRoutesViolation' {vpcId} -> vpcId) (\s@NetworkFirewallMissingExpectedRoutesViolation' {} a -> s {vpcId = a} :: NetworkFirewallMissingExpectedRoutesViolation)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     NetworkFirewallMissingExpectedRoutesViolation
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NetworkFirewallMissingExpectedRoutesViolation"
       ( \x ->
           NetworkFirewallMissingExpectedRoutesViolation'
-            Prelude.<$> (x Core..:? "ExpectedRoutes" Core..!= Prelude.mempty)
-              Prelude.<*> (x Core..:? "VpcId")
-              Prelude.<*> (x Core..:? "ViolationTarget")
+            Prelude.<$> (x Data..:? "ExpectedRoutes" Data..!= Prelude.mempty)
+              Prelude.<*> (x Data..:? "ViolationTarget")
+              Prelude.<*> (x Data..:? "VpcId")
       )
 
 instance
@@ -95,8 +96,8 @@ instance
     _salt
     NetworkFirewallMissingExpectedRoutesViolation' {..} =
       _salt `Prelude.hashWithSalt` expectedRoutes
-        `Prelude.hashWithSalt` vpcId
         `Prelude.hashWithSalt` violationTarget
+        `Prelude.hashWithSalt` vpcId
 
 instance
   Prelude.NFData
@@ -105,5 +106,5 @@ instance
   rnf
     NetworkFirewallMissingExpectedRoutesViolation' {..} =
       Prelude.rnf expectedRoutes
-        `Prelude.seq` Prelude.rnf vpcId
         `Prelude.seq` Prelude.rnf violationTarget
+        `Prelude.seq` Prelude.rnf vpcId

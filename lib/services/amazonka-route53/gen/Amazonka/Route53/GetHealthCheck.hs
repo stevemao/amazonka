@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.GetHealthCheck
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Route53.GetHealthCheck
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,13 +89,14 @@ instance Core.AWSRequest GetHealthCheck where
   type
     AWSResponse GetHealthCheck =
       GetHealthCheckResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetHealthCheckResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "HealthCheck")
+            Prelude.<*> (x Data..@ "HealthCheck")
       )
 
 instance Prelude.Hashable GetHealthCheck where
@@ -104,15 +106,15 @@ instance Prelude.Hashable GetHealthCheck where
 instance Prelude.NFData GetHealthCheck where
   rnf GetHealthCheck' {..} = Prelude.rnf healthCheckId
 
-instance Core.ToHeaders GetHealthCheck where
+instance Data.ToHeaders GetHealthCheck where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetHealthCheck where
+instance Data.ToPath GetHealthCheck where
   toPath GetHealthCheck' {..} =
     Prelude.mconcat
-      ["/2013-04-01/healthcheck/", Core.toBS healthCheckId]
+      ["/2013-04-01/healthcheck/", Data.toBS healthCheckId]
 
-instance Core.ToQuery GetHealthCheck where
+instance Data.ToQuery GetHealthCheck where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A complex type that contains the response to a @GetHealthCheck@ request.

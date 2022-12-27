@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutMetrics.Types.SampleDataS3SourceConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LookoutMetrics.Types.SampleDataS3SourceConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutMetrics.Types.FileFormatDescriptor
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSampleDataS3SourceConfig' smart constructor.
 data SampleDataS3SourceConfig = SampleDataS3SourceConfig'
-  { -- | An array of strings containing the list of templated paths.
-    templatedPathList :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | An array of strings containing the historical set of data paths.
+  { -- | An array of strings containing the historical set of data paths.
     historicalDataPathList :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | An array of strings containing the list of templated paths.
+    templatedPathList :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
     -- | The Amazon Resource Name (ARN) of the role.
     roleArn :: Prelude.Text,
     fileFormatDescriptor :: FileFormatDescriptor
@@ -46,9 +47,9 @@ data SampleDataS3SourceConfig = SampleDataS3SourceConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'templatedPathList', 'sampleDataS3SourceConfig_templatedPathList' - An array of strings containing the list of templated paths.
---
 -- 'historicalDataPathList', 'sampleDataS3SourceConfig_historicalDataPathList' - An array of strings containing the historical set of data paths.
+--
+-- 'templatedPathList', 'sampleDataS3SourceConfig_templatedPathList' - An array of strings containing the list of templated paths.
 --
 -- 'roleArn', 'sampleDataS3SourceConfig_roleArn' - The Amazon Resource Name (ARN) of the role.
 --
@@ -63,20 +64,20 @@ newSampleDataS3SourceConfig
   pRoleArn_
   pFileFormatDescriptor_ =
     SampleDataS3SourceConfig'
-      { templatedPathList =
+      { historicalDataPathList =
           Prelude.Nothing,
-        historicalDataPathList = Prelude.Nothing,
+        templatedPathList = Prelude.Nothing,
         roleArn = pRoleArn_,
         fileFormatDescriptor = pFileFormatDescriptor_
       }
 
--- | An array of strings containing the list of templated paths.
-sampleDataS3SourceConfig_templatedPathList :: Lens.Lens' SampleDataS3SourceConfig (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-sampleDataS3SourceConfig_templatedPathList = Lens.lens (\SampleDataS3SourceConfig' {templatedPathList} -> templatedPathList) (\s@SampleDataS3SourceConfig' {} a -> s {templatedPathList = a} :: SampleDataS3SourceConfig) Prelude.. Lens.mapping Lens.coerced
-
 -- | An array of strings containing the historical set of data paths.
 sampleDataS3SourceConfig_historicalDataPathList :: Lens.Lens' SampleDataS3SourceConfig (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 sampleDataS3SourceConfig_historicalDataPathList = Lens.lens (\SampleDataS3SourceConfig' {historicalDataPathList} -> historicalDataPathList) (\s@SampleDataS3SourceConfig' {} a -> s {historicalDataPathList = a} :: SampleDataS3SourceConfig) Prelude.. Lens.mapping Lens.coerced
+
+-- | An array of strings containing the list of templated paths.
+sampleDataS3SourceConfig_templatedPathList :: Lens.Lens' SampleDataS3SourceConfig (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+sampleDataS3SourceConfig_templatedPathList = Lens.lens (\SampleDataS3SourceConfig' {templatedPathList} -> templatedPathList) (\s@SampleDataS3SourceConfig' {} a -> s {templatedPathList = a} :: SampleDataS3SourceConfig) Prelude.. Lens.mapping Lens.coerced
 
 -- | The Amazon Resource Name (ARN) of the role.
 sampleDataS3SourceConfig_roleArn :: Lens.Lens' SampleDataS3SourceConfig Prelude.Text
@@ -88,30 +89,30 @@ sampleDataS3SourceConfig_fileFormatDescriptor = Lens.lens (\SampleDataS3SourceCo
 
 instance Prelude.Hashable SampleDataS3SourceConfig where
   hashWithSalt _salt SampleDataS3SourceConfig' {..} =
-    _salt `Prelude.hashWithSalt` templatedPathList
-      `Prelude.hashWithSalt` historicalDataPathList
+    _salt `Prelude.hashWithSalt` historicalDataPathList
+      `Prelude.hashWithSalt` templatedPathList
       `Prelude.hashWithSalt` roleArn
       `Prelude.hashWithSalt` fileFormatDescriptor
 
 instance Prelude.NFData SampleDataS3SourceConfig where
   rnf SampleDataS3SourceConfig' {..} =
-    Prelude.rnf templatedPathList
-      `Prelude.seq` Prelude.rnf historicalDataPathList
+    Prelude.rnf historicalDataPathList
+      `Prelude.seq` Prelude.rnf templatedPathList
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf fileFormatDescriptor
 
-instance Core.ToJSON SampleDataS3SourceConfig where
+instance Data.ToJSON SampleDataS3SourceConfig where
   toJSON SampleDataS3SourceConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TemplatedPathList" Core..=)
-              Prelude.<$> templatedPathList,
-            ("HistoricalDataPathList" Core..=)
+          [ ("HistoricalDataPathList" Data..=)
               Prelude.<$> historicalDataPathList,
-            Prelude.Just ("RoleArn" Core..= roleArn),
+            ("TemplatedPathList" Data..=)
+              Prelude.<$> templatedPathList,
+            Prelude.Just ("RoleArn" Data..= roleArn),
             Prelude.Just
               ( "FileFormatDescriptor"
-                  Core..= fileFormatDescriptor
+                  Data..= fileFormatDescriptor
               )
           ]
       )

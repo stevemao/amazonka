@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.GetDNSSEC
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Route53.GetDNSSEC
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,15 +78,16 @@ getDNSSEC_hostedZoneId = Lens.lens (\GetDNSSEC' {hostedZoneId} -> hostedZoneId) 
 
 instance Core.AWSRequest GetDNSSEC where
   type AWSResponse GetDNSSEC = GetDNSSECResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetDNSSECResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "Status")
-            Prelude.<*> ( x Core..@? "KeySigningKeys" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "member"
+            Prelude.<*> (x Data..@ "Status")
+            Prelude.<*> ( x Data..@? "KeySigningKeys" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "member"
                         )
       )
 
@@ -96,18 +98,18 @@ instance Prelude.Hashable GetDNSSEC where
 instance Prelude.NFData GetDNSSEC where
   rnf GetDNSSEC' {..} = Prelude.rnf hostedZoneId
 
-instance Core.ToHeaders GetDNSSEC where
+instance Data.ToHeaders GetDNSSEC where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetDNSSEC where
+instance Data.ToPath GetDNSSEC where
   toPath GetDNSSEC' {..} =
     Prelude.mconcat
       [ "/2013-04-01/hostedzone/",
-        Core.toBS hostedZoneId,
+        Data.toBS hostedZoneId,
         "/dnssec"
       ]
 
-instance Core.ToQuery GetDNSSEC where
+instance Data.ToQuery GetDNSSEC where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDNSSECResponse' smart constructor.

@@ -14,23 +14,34 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.EnableAWSOrganizationsAccess
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enable portfolio sharing feature through AWS Organizations. This API
--- will allow Service Catalog to receive updates on your organization in
--- order to sync your shares with the current structure. This API can only
--- be called by the management account in the organization.
+-- Enable portfolio sharing feature through Organizations. This API will
+-- allow Service Catalog to receive updates on your organization in order
+-- to sync your shares with the current structure. This API can only be
+-- called by the management account in the organization.
 --
--- By calling this API Service Catalog will make a call to
--- organizations:EnableAWSServiceAccess on your behalf so that your shares
--- can be in sync with any changes in your AWS Organizations structure.
+-- When you call this API, Service Catalog calls
+-- @organizations:EnableAWSServiceAccess@ on your behalf so that your
+-- shares stay in sync with any changes in your Organizations structure.
 --
 -- Note that a delegated administrator is not authorized to invoke
 -- @EnableAWSOrganizationsAccess@.
+--
+-- If you have previously disabled Organizations access for Service
+-- Catalog, and then enable access again, the portfolio access permissions
+-- might not sync with the latest changes to the organization structure.
+-- Specifically, accounts that you removed from the organization after
+-- disabling Service Catalog access, and before you enabled access again,
+-- can retain access to the previously shared portfolio. As a result, an
+-- account that has been removed from the organization might still be able
+-- to create or manage Amazon Web Services resources when it is no longer
+-- authorized to do so. Amazon Web Services is working to resolve this
+-- issue.
 module Amazonka.ServiceCatalog.EnableAWSOrganizationsAccess
   ( -- * Creating a Request
     EnableAWSOrganizationsAccess (..),
@@ -46,7 +57,8 @@ module Amazonka.ServiceCatalog.EnableAWSOrganizationsAccess
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -71,7 +83,8 @@ instance Core.AWSRequest EnableAWSOrganizationsAccess where
   type
     AWSResponse EnableAWSOrganizationsAccess =
       EnableAWSOrganizationsAccessResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -89,28 +102,28 @@ instance
 instance Prelude.NFData EnableAWSOrganizationsAccess where
   rnf _ = ()
 
-instance Core.ToHeaders EnableAWSOrganizationsAccess where
+instance Data.ToHeaders EnableAWSOrganizationsAccess where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.EnableAWSOrganizationsAccess" ::
+              Data.=# ( "AWS242ServiceCatalogService.EnableAWSOrganizationsAccess" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EnableAWSOrganizationsAccess where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON EnableAWSOrganizationsAccess where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath EnableAWSOrganizationsAccess where
+instance Data.ToPath EnableAWSOrganizationsAccess where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableAWSOrganizationsAccess where
+instance Data.ToQuery EnableAWSOrganizationsAccess where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newEnableAWSOrganizationsAccessResponse' smart constructor.

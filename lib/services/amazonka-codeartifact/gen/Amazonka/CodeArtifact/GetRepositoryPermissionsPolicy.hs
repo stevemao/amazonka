@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.GetRepositoryPermissionsPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,15 +43,16 @@ where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetRepositoryPermissionsPolicy' smart constructor.
 data GetRepositoryPermissionsPolicy = GetRepositoryPermissionsPolicy'
-  { -- | The 12-digit account number of the AWS account that owns the domain. It
-    -- does not include dashes or spaces.
+  { -- | The 12-digit account number of the Amazon Web Services account that owns
+    -- the domain. It does not include dashes or spaces.
     domainOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the domain containing the repository whose associated
     -- resource policy is to be retrieved.
@@ -70,8 +71,8 @@ data GetRepositoryPermissionsPolicy = GetRepositoryPermissionsPolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainOwner', 'getRepositoryPermissionsPolicy_domainOwner' - The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- 'domainOwner', 'getRepositoryPermissionsPolicy_domainOwner' - The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 --
 -- 'domain', 'getRepositoryPermissionsPolicy_domain' - The name of the domain containing the repository whose associated
 -- resource policy is to be retrieved.
@@ -94,8 +95,8 @@ newGetRepositoryPermissionsPolicy
         repository = pRepository_
       }
 
--- | The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- | The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 getRepositoryPermissionsPolicy_domainOwner :: Lens.Lens' GetRepositoryPermissionsPolicy (Prelude.Maybe Prelude.Text)
 getRepositoryPermissionsPolicy_domainOwner = Lens.lens (\GetRepositoryPermissionsPolicy' {domainOwner} -> domainOwner) (\s@GetRepositoryPermissionsPolicy' {} a -> s {domainOwner = a} :: GetRepositoryPermissionsPolicy)
 
@@ -116,12 +117,13 @@ instance
   type
     AWSResponse GetRepositoryPermissionsPolicy =
       GetRepositoryPermissionsPolicyResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRepositoryPermissionsPolicyResponse'
-            Prelude.<$> (x Core..?> "policy")
+            Prelude.<$> (x Data..?> "policy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -146,29 +148,29 @@ instance
       `Prelude.seq` Prelude.rnf repository
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetRepositoryPermissionsPolicy
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetRepositoryPermissionsPolicy where
+instance Data.ToPath GetRepositoryPermissionsPolicy where
   toPath =
     Prelude.const "/v1/repository/permissions/policy"
 
-instance Core.ToQuery GetRepositoryPermissionsPolicy where
+instance Data.ToQuery GetRepositoryPermissionsPolicy where
   toQuery GetRepositoryPermissionsPolicy' {..} =
     Prelude.mconcat
-      [ "domain-owner" Core.=: domainOwner,
-        "domain" Core.=: domain,
-        "repository" Core.=: repository
+      [ "domain-owner" Data.=: domainOwner,
+        "domain" Data.=: domain,
+        "repository" Data.=: repository
       ]
 
 -- | /See:/ 'newGetRepositoryPermissionsPolicyResponse' smart constructor.

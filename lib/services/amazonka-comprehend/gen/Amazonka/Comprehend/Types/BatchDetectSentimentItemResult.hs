@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.Types.BatchDetectSentimentItemResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.Comprehend.Types.BatchDetectSentimentItemResult where
 import Amazonka.Comprehend.Types.SentimentScore
 import Amazonka.Comprehend.Types.SentimentType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The result of calling the operation. The operation returns one object
@@ -30,13 +31,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newBatchDetectSentimentItemResult' smart constructor.
 data BatchDetectSentimentItemResult = BatchDetectSentimentItemResult'
-  { -- | The sentiment detected in the document.
+  { -- | The zero-based index of the document in the input list.
+    index :: Prelude.Maybe Prelude.Int,
+    -- | The sentiment detected in the document.
     sentiment :: Prelude.Maybe SentimentType,
     -- | The level of confidence that Amazon Comprehend has in the accuracy of
     -- its sentiment detection.
-    sentimentScore :: Prelude.Maybe SentimentScore,
-    -- | The zero-based index of the document in the input list.
-    index :: Prelude.Maybe Prelude.Int
+    sentimentScore :: Prelude.Maybe SentimentScore
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,21 +49,25 @@ data BatchDetectSentimentItemResult = BatchDetectSentimentItemResult'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'index', 'batchDetectSentimentItemResult_index' - The zero-based index of the document in the input list.
+--
 -- 'sentiment', 'batchDetectSentimentItemResult_sentiment' - The sentiment detected in the document.
 --
 -- 'sentimentScore', 'batchDetectSentimentItemResult_sentimentScore' - The level of confidence that Amazon Comprehend has in the accuracy of
 -- its sentiment detection.
---
--- 'index', 'batchDetectSentimentItemResult_index' - The zero-based index of the document in the input list.
 newBatchDetectSentimentItemResult ::
   BatchDetectSentimentItemResult
 newBatchDetectSentimentItemResult =
   BatchDetectSentimentItemResult'
-    { sentiment =
+    { index =
         Prelude.Nothing,
-      sentimentScore = Prelude.Nothing,
-      index = Prelude.Nothing
+      sentiment = Prelude.Nothing,
+      sentimentScore = Prelude.Nothing
     }
+
+-- | The zero-based index of the document in the input list.
+batchDetectSentimentItemResult_index :: Lens.Lens' BatchDetectSentimentItemResult (Prelude.Maybe Prelude.Int)
+batchDetectSentimentItemResult_index = Lens.lens (\BatchDetectSentimentItemResult' {index} -> index) (\s@BatchDetectSentimentItemResult' {} a -> s {index = a} :: BatchDetectSentimentItemResult)
 
 -- | The sentiment detected in the document.
 batchDetectSentimentItemResult_sentiment :: Lens.Lens' BatchDetectSentimentItemResult (Prelude.Maybe SentimentType)
@@ -73,19 +78,15 @@ batchDetectSentimentItemResult_sentiment = Lens.lens (\BatchDetectSentimentItemR
 batchDetectSentimentItemResult_sentimentScore :: Lens.Lens' BatchDetectSentimentItemResult (Prelude.Maybe SentimentScore)
 batchDetectSentimentItemResult_sentimentScore = Lens.lens (\BatchDetectSentimentItemResult' {sentimentScore} -> sentimentScore) (\s@BatchDetectSentimentItemResult' {} a -> s {sentimentScore = a} :: BatchDetectSentimentItemResult)
 
--- | The zero-based index of the document in the input list.
-batchDetectSentimentItemResult_index :: Lens.Lens' BatchDetectSentimentItemResult (Prelude.Maybe Prelude.Int)
-batchDetectSentimentItemResult_index = Lens.lens (\BatchDetectSentimentItemResult' {index} -> index) (\s@BatchDetectSentimentItemResult' {} a -> s {index = a} :: BatchDetectSentimentItemResult)
-
-instance Core.FromJSON BatchDetectSentimentItemResult where
+instance Data.FromJSON BatchDetectSentimentItemResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchDetectSentimentItemResult"
       ( \x ->
           BatchDetectSentimentItemResult'
-            Prelude.<$> (x Core..:? "Sentiment")
-            Prelude.<*> (x Core..:? "SentimentScore")
-            Prelude.<*> (x Core..:? "Index")
+            Prelude.<$> (x Data..:? "Index")
+            Prelude.<*> (x Data..:? "Sentiment")
+            Prelude.<*> (x Data..:? "SentimentScore")
       )
 
 instance
@@ -95,15 +96,15 @@ instance
   hashWithSalt
     _salt
     BatchDetectSentimentItemResult' {..} =
-      _salt `Prelude.hashWithSalt` sentiment
+      _salt `Prelude.hashWithSalt` index
+        `Prelude.hashWithSalt` sentiment
         `Prelude.hashWithSalt` sentimentScore
-        `Prelude.hashWithSalt` index
 
 instance
   Prelude.NFData
     BatchDetectSentimentItemResult
   where
   rnf BatchDetectSentimentItemResult' {..} =
-    Prelude.rnf sentiment
+    Prelude.rnf index
+      `Prelude.seq` Prelude.rnf sentiment
       `Prelude.seq` Prelude.rnf sentimentScore
-      `Prelude.seq` Prelude.rnf index

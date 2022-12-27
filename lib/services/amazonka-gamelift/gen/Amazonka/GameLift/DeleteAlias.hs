@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DeleteAlias
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,6 @@
 --
 -- __Related actions__
 --
--- CreateAlias | ListAliases | DescribeAlias | UpdateAlias | DeleteAlias |
--- ResolveAlias |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.DeleteAlias
   ( -- * Creating a Request
@@ -45,15 +43,14 @@ module Amazonka.GameLift.DeleteAlias
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDeleteAlias' smart constructor.
+-- | /See:/ 'newDeleteAlias' smart constructor.
 data DeleteAlias = DeleteAlias'
   { -- | A unique identifier of the alias that you want to delete. You can use
     -- either the alias ID or ARN value.
@@ -85,7 +82,8 @@ deleteAlias_aliasId = Lens.lens (\DeleteAlias' {aliasId} -> aliasId) (\s@DeleteA
 
 instance Core.AWSRequest DeleteAlias where
   type AWSResponse DeleteAlias = DeleteAliasResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DeleteAliasResponse'
 
 instance Prelude.Hashable DeleteAlias where
@@ -95,30 +93,30 @@ instance Prelude.Hashable DeleteAlias where
 instance Prelude.NFData DeleteAlias where
   rnf DeleteAlias' {..} = Prelude.rnf aliasId
 
-instance Core.ToHeaders DeleteAlias where
+instance Data.ToHeaders DeleteAlias where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.DeleteAlias" :: Prelude.ByteString),
+              Data.=# ("GameLift.DeleteAlias" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteAlias where
+instance Data.ToJSON DeleteAlias where
   toJSON DeleteAlias' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("AliasId" Core..= aliasId)]
+          [Prelude.Just ("AliasId" Data..= aliasId)]
       )
 
-instance Core.ToPath DeleteAlias where
+instance Data.ToPath DeleteAlias where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAlias where
+instance Data.ToQuery DeleteAlias where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAliasResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.GetNetwork
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.ManagedBlockChain.GetNetwork
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -77,12 +78,13 @@ getNetwork_networkId = Lens.lens (\GetNetwork' {networkId} -> networkId) (\s@Get
 
 instance Core.AWSRequest GetNetwork where
   type AWSResponse GetNetwork = GetNetworkResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetNetworkResponse'
-            Prelude.<$> (x Core..?> "Network")
+            Prelude.<$> (x Data..?> "Network")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,22 +95,22 @@ instance Prelude.Hashable GetNetwork where
 instance Prelude.NFData GetNetwork where
   rnf GetNetwork' {..} = Prelude.rnf networkId
 
-instance Core.ToHeaders GetNetwork where
+instance Data.ToHeaders GetNetwork where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetNetwork where
+instance Data.ToPath GetNetwork where
   toPath GetNetwork' {..} =
-    Prelude.mconcat ["/networks/", Core.toBS networkId]
+    Prelude.mconcat ["/networks/", Data.toBS networkId]
 
-instance Core.ToQuery GetNetwork where
+instance Data.ToQuery GetNetwork where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetNetworkResponse' smart constructor.

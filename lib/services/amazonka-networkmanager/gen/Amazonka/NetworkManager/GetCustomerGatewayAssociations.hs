@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkManager.GetCustomerGatewayAssociations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.NetworkManager.GetCustomerGatewayAssociations
     newGetCustomerGatewayAssociations,
 
     -- * Request Lenses
-    getCustomerGatewayAssociations_nextToken,
     getCustomerGatewayAssociations_customerGatewayArns,
     getCustomerGatewayAssociations_maxResults,
+    getCustomerGatewayAssociations_nextToken,
     getCustomerGatewayAssociations_globalNetworkId,
 
     -- * Destructuring the Response
@@ -40,14 +40,15 @@ module Amazonka.NetworkManager.GetCustomerGatewayAssociations
     newGetCustomerGatewayAssociationsResponse,
 
     -- * Response Lenses
-    getCustomerGatewayAssociationsResponse_nextToken,
     getCustomerGatewayAssociationsResponse_customerGatewayAssociations,
+    getCustomerGatewayAssociationsResponse_nextToken,
     getCustomerGatewayAssociationsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,15 +56,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetCustomerGatewayAssociations' smart constructor.
 data GetCustomerGatewayAssociations = GetCustomerGatewayAssociations'
-  { -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | One or more customer gateway Amazon Resource Names (ARNs). For more
-    -- information, see
-    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazonec2.html#amazonec2-resources-for-iam-policies Resources Defined by Amazon EC2>.
-    -- The maximum is 10.
+  { -- | One or more customer gateway Amazon Resource Names (ARNs). The maximum
+    -- is 10.
     customerGatewayArns :: Prelude.Maybe [Prelude.Text],
     -- | The maximum number of results to return.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the global network.
     globalNetworkId :: Prelude.Text
   }
@@ -77,14 +76,12 @@ data GetCustomerGatewayAssociations = GetCustomerGatewayAssociations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getCustomerGatewayAssociations_nextToken' - The token for the next page of results.
---
--- 'customerGatewayArns', 'getCustomerGatewayAssociations_customerGatewayArns' - One or more customer gateway Amazon Resource Names (ARNs). For more
--- information, see
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazonec2.html#amazonec2-resources-for-iam-policies Resources Defined by Amazon EC2>.
--- The maximum is 10.
+-- 'customerGatewayArns', 'getCustomerGatewayAssociations_customerGatewayArns' - One or more customer gateway Amazon Resource Names (ARNs). The maximum
+-- is 10.
 --
 -- 'maxResults', 'getCustomerGatewayAssociations_maxResults' - The maximum number of results to return.
+--
+-- 'nextToken', 'getCustomerGatewayAssociations_nextToken' - The token for the next page of results.
 --
 -- 'globalNetworkId', 'getCustomerGatewayAssociations_globalNetworkId' - The ID of the global network.
 newGetCustomerGatewayAssociations ::
@@ -93,27 +90,25 @@ newGetCustomerGatewayAssociations ::
   GetCustomerGatewayAssociations
 newGetCustomerGatewayAssociations pGlobalNetworkId_ =
   GetCustomerGatewayAssociations'
-    { nextToken =
+    { customerGatewayArns =
         Prelude.Nothing,
-      customerGatewayArns = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       globalNetworkId = pGlobalNetworkId_
     }
 
--- | The token for the next page of results.
-getCustomerGatewayAssociations_nextToken :: Lens.Lens' GetCustomerGatewayAssociations (Prelude.Maybe Prelude.Text)
-getCustomerGatewayAssociations_nextToken = Lens.lens (\GetCustomerGatewayAssociations' {nextToken} -> nextToken) (\s@GetCustomerGatewayAssociations' {} a -> s {nextToken = a} :: GetCustomerGatewayAssociations)
-
--- | One or more customer gateway Amazon Resource Names (ARNs). For more
--- information, see
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazonec2.html#amazonec2-resources-for-iam-policies Resources Defined by Amazon EC2>.
--- The maximum is 10.
+-- | One or more customer gateway Amazon Resource Names (ARNs). The maximum
+-- is 10.
 getCustomerGatewayAssociations_customerGatewayArns :: Lens.Lens' GetCustomerGatewayAssociations (Prelude.Maybe [Prelude.Text])
 getCustomerGatewayAssociations_customerGatewayArns = Lens.lens (\GetCustomerGatewayAssociations' {customerGatewayArns} -> customerGatewayArns) (\s@GetCustomerGatewayAssociations' {} a -> s {customerGatewayArns = a} :: GetCustomerGatewayAssociations) Prelude.. Lens.mapping Lens.coerced
 
 -- | The maximum number of results to return.
 getCustomerGatewayAssociations_maxResults :: Lens.Lens' GetCustomerGatewayAssociations (Prelude.Maybe Prelude.Natural)
 getCustomerGatewayAssociations_maxResults = Lens.lens (\GetCustomerGatewayAssociations' {maxResults} -> maxResults) (\s@GetCustomerGatewayAssociations' {} a -> s {maxResults = a} :: GetCustomerGatewayAssociations)
+
+-- | The token for the next page of results.
+getCustomerGatewayAssociations_nextToken :: Lens.Lens' GetCustomerGatewayAssociations (Prelude.Maybe Prelude.Text)
+getCustomerGatewayAssociations_nextToken = Lens.lens (\GetCustomerGatewayAssociations' {nextToken} -> nextToken) (\s@GetCustomerGatewayAssociations' {} a -> s {nextToken = a} :: GetCustomerGatewayAssociations)
 
 -- | The ID of the global network.
 getCustomerGatewayAssociations_globalNetworkId :: Lens.Lens' GetCustomerGatewayAssociations Prelude.Text
@@ -148,15 +143,16 @@ instance
   type
     AWSResponse GetCustomerGatewayAssociations =
       GetCustomerGatewayAssociationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCustomerGatewayAssociationsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "CustomerGatewayAssociations"
+            Prelude.<$> ( x Data..?> "CustomerGatewayAssociations"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -167,9 +163,9 @@ instance
   hashWithSalt
     _salt
     GetCustomerGatewayAssociations' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` customerGatewayArns
+      _salt `Prelude.hashWithSalt` customerGatewayArns
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` globalNetworkId
 
 instance
@@ -177,51 +173,51 @@ instance
     GetCustomerGatewayAssociations
   where
   rnf GetCustomerGatewayAssociations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf customerGatewayArns
+    Prelude.rnf customerGatewayArns
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf globalNetworkId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetCustomerGatewayAssociations
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetCustomerGatewayAssociations where
+instance Data.ToPath GetCustomerGatewayAssociations where
   toPath GetCustomerGatewayAssociations' {..} =
     Prelude.mconcat
       [ "/global-networks/",
-        Core.toBS globalNetworkId,
+        Data.toBS globalNetworkId,
         "/customer-gateway-associations"
       ]
 
-instance Core.ToQuery GetCustomerGatewayAssociations where
+instance Data.ToQuery GetCustomerGatewayAssociations where
   toQuery GetCustomerGatewayAssociations' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "customerGatewayArns"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+      [ "customerGatewayArns"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> customerGatewayArns
             ),
-        "maxResults" Core.=: maxResults
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetCustomerGatewayAssociationsResponse' smart constructor.
 data GetCustomerGatewayAssociationsResponse = GetCustomerGatewayAssociationsResponse'
-  { -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The customer gateway associations.
+  { -- | The customer gateway associations.
     customerGatewayAssociations :: Prelude.Maybe [CustomerGatewayAssociation],
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -235,9 +231,9 @@ data GetCustomerGatewayAssociationsResponse = GetCustomerGatewayAssociationsResp
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getCustomerGatewayAssociationsResponse_nextToken' - The token for the next page of results.
---
 -- 'customerGatewayAssociations', 'getCustomerGatewayAssociationsResponse_customerGatewayAssociations' - The customer gateway associations.
+--
+-- 'nextToken', 'getCustomerGatewayAssociationsResponse_nextToken' - The token for the next page of results.
 --
 -- 'httpStatus', 'getCustomerGatewayAssociationsResponse_httpStatus' - The response's http status code.
 newGetCustomerGatewayAssociationsResponse ::
@@ -247,20 +243,19 @@ newGetCustomerGatewayAssociationsResponse ::
 newGetCustomerGatewayAssociationsResponse
   pHttpStatus_ =
     GetCustomerGatewayAssociationsResponse'
-      { nextToken =
+      { customerGatewayAssociations =
           Prelude.Nothing,
-        customerGatewayAssociations =
-          Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | The token for the next page of results.
-getCustomerGatewayAssociationsResponse_nextToken :: Lens.Lens' GetCustomerGatewayAssociationsResponse (Prelude.Maybe Prelude.Text)
-getCustomerGatewayAssociationsResponse_nextToken = Lens.lens (\GetCustomerGatewayAssociationsResponse' {nextToken} -> nextToken) (\s@GetCustomerGatewayAssociationsResponse' {} a -> s {nextToken = a} :: GetCustomerGatewayAssociationsResponse)
 
 -- | The customer gateway associations.
 getCustomerGatewayAssociationsResponse_customerGatewayAssociations :: Lens.Lens' GetCustomerGatewayAssociationsResponse (Prelude.Maybe [CustomerGatewayAssociation])
 getCustomerGatewayAssociationsResponse_customerGatewayAssociations = Lens.lens (\GetCustomerGatewayAssociationsResponse' {customerGatewayAssociations} -> customerGatewayAssociations) (\s@GetCustomerGatewayAssociationsResponse' {} a -> s {customerGatewayAssociations = a} :: GetCustomerGatewayAssociationsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The token for the next page of results.
+getCustomerGatewayAssociationsResponse_nextToken :: Lens.Lens' GetCustomerGatewayAssociationsResponse (Prelude.Maybe Prelude.Text)
+getCustomerGatewayAssociationsResponse_nextToken = Lens.lens (\GetCustomerGatewayAssociationsResponse' {nextToken} -> nextToken) (\s@GetCustomerGatewayAssociationsResponse' {} a -> s {nextToken = a} :: GetCustomerGatewayAssociationsResponse)
 
 -- | The response's http status code.
 getCustomerGatewayAssociationsResponse_httpStatus :: Lens.Lens' GetCustomerGatewayAssociationsResponse Prelude.Int
@@ -271,6 +266,6 @@ instance
     GetCustomerGatewayAssociationsResponse
   where
   rnf GetCustomerGatewayAssociationsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf customerGatewayAssociations
+    Prelude.rnf customerGatewayAssociations
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

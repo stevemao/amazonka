@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.RowLevelPermissionTagRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,22 @@
 module Amazonka.QuickSight.Types.RowLevelPermissionTagRule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A set of rules associated with a tag.
 --
 -- /See:/ 'newRowLevelPermissionTagRule' smart constructor.
 data RowLevelPermissionTagRule = RowLevelPermissionTagRule'
-  { -- | A string that you want to use to delimit the values when you pass the
+  { -- | A string that you want to use to filter by all the values in a column in
+    -- the dataset and don’t want to list the values one by one. For example,
+    -- you can use an asterisk as your match all value.
+    matchAllValue :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | A string that you want to use to delimit the values when you pass the
     -- values at run time. For example, you can delimit the values with a
     -- comma.
     tagMultiValueDelimiter :: Prelude.Maybe Prelude.Text,
-    -- | A string that you want to use to filter by all the values in a column in
-    -- the dataset and don’t want to list the values one by one. For example,
-    -- you can use an asterisk as your match all value.
-    matchAllValue :: Prelude.Maybe (Core.Sensitive Prelude.Text),
     -- | The unique key for a tag.
     tagKey :: Prelude.Text,
     -- | The column name that a tag key is assigned to.
@@ -50,13 +51,13 @@ data RowLevelPermissionTagRule = RowLevelPermissionTagRule'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tagMultiValueDelimiter', 'rowLevelPermissionTagRule_tagMultiValueDelimiter' - A string that you want to use to delimit the values when you pass the
--- values at run time. For example, you can delimit the values with a
--- comma.
---
 -- 'matchAllValue', 'rowLevelPermissionTagRule_matchAllValue' - A string that you want to use to filter by all the values in a column in
 -- the dataset and don’t want to list the values one by one. For example,
 -- you can use an asterisk as your match all value.
+--
+-- 'tagMultiValueDelimiter', 'rowLevelPermissionTagRule_tagMultiValueDelimiter' - A string that you want to use to delimit the values when you pass the
+-- values at run time. For example, you can delimit the values with a
+-- comma.
 --
 -- 'tagKey', 'rowLevelPermissionTagRule_tagKey' - The unique key for a tag.
 --
@@ -69,24 +70,24 @@ newRowLevelPermissionTagRule ::
   RowLevelPermissionTagRule
 newRowLevelPermissionTagRule pTagKey_ pColumnName_ =
   RowLevelPermissionTagRule'
-    { tagMultiValueDelimiter =
+    { matchAllValue =
         Prelude.Nothing,
-      matchAllValue = Prelude.Nothing,
+      tagMultiValueDelimiter = Prelude.Nothing,
       tagKey = pTagKey_,
       columnName = pColumnName_
     }
+
+-- | A string that you want to use to filter by all the values in a column in
+-- the dataset and don’t want to list the values one by one. For example,
+-- you can use an asterisk as your match all value.
+rowLevelPermissionTagRule_matchAllValue :: Lens.Lens' RowLevelPermissionTagRule (Prelude.Maybe Prelude.Text)
+rowLevelPermissionTagRule_matchAllValue = Lens.lens (\RowLevelPermissionTagRule' {matchAllValue} -> matchAllValue) (\s@RowLevelPermissionTagRule' {} a -> s {matchAllValue = a} :: RowLevelPermissionTagRule) Prelude.. Lens.mapping Data._Sensitive
 
 -- | A string that you want to use to delimit the values when you pass the
 -- values at run time. For example, you can delimit the values with a
 -- comma.
 rowLevelPermissionTagRule_tagMultiValueDelimiter :: Lens.Lens' RowLevelPermissionTagRule (Prelude.Maybe Prelude.Text)
 rowLevelPermissionTagRule_tagMultiValueDelimiter = Lens.lens (\RowLevelPermissionTagRule' {tagMultiValueDelimiter} -> tagMultiValueDelimiter) (\s@RowLevelPermissionTagRule' {} a -> s {tagMultiValueDelimiter = a} :: RowLevelPermissionTagRule)
-
--- | A string that you want to use to filter by all the values in a column in
--- the dataset and don’t want to list the values one by one. For example,
--- you can use an asterisk as your match all value.
-rowLevelPermissionTagRule_matchAllValue :: Lens.Lens' RowLevelPermissionTagRule (Prelude.Maybe Prelude.Text)
-rowLevelPermissionTagRule_matchAllValue = Lens.lens (\RowLevelPermissionTagRule' {matchAllValue} -> matchAllValue) (\s@RowLevelPermissionTagRule' {} a -> s {matchAllValue = a} :: RowLevelPermissionTagRule) Prelude.. Lens.mapping Core._Sensitive
 
 -- | The unique key for a tag.
 rowLevelPermissionTagRule_tagKey :: Lens.Lens' RowLevelPermissionTagRule Prelude.Text
@@ -96,40 +97,40 @@ rowLevelPermissionTagRule_tagKey = Lens.lens (\RowLevelPermissionTagRule' {tagKe
 rowLevelPermissionTagRule_columnName :: Lens.Lens' RowLevelPermissionTagRule Prelude.Text
 rowLevelPermissionTagRule_columnName = Lens.lens (\RowLevelPermissionTagRule' {columnName} -> columnName) (\s@RowLevelPermissionTagRule' {} a -> s {columnName = a} :: RowLevelPermissionTagRule)
 
-instance Core.FromJSON RowLevelPermissionTagRule where
+instance Data.FromJSON RowLevelPermissionTagRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RowLevelPermissionTagRule"
       ( \x ->
           RowLevelPermissionTagRule'
-            Prelude.<$> (x Core..:? "TagMultiValueDelimiter")
-            Prelude.<*> (x Core..:? "MatchAllValue")
-            Prelude.<*> (x Core..: "TagKey")
-            Prelude.<*> (x Core..: "ColumnName")
+            Prelude.<$> (x Data..:? "MatchAllValue")
+            Prelude.<*> (x Data..:? "TagMultiValueDelimiter")
+            Prelude.<*> (x Data..: "TagKey")
+            Prelude.<*> (x Data..: "ColumnName")
       )
 
 instance Prelude.Hashable RowLevelPermissionTagRule where
   hashWithSalt _salt RowLevelPermissionTagRule' {..} =
-    _salt `Prelude.hashWithSalt` tagMultiValueDelimiter
-      `Prelude.hashWithSalt` matchAllValue
+    _salt `Prelude.hashWithSalt` matchAllValue
+      `Prelude.hashWithSalt` tagMultiValueDelimiter
       `Prelude.hashWithSalt` tagKey
       `Prelude.hashWithSalt` columnName
 
 instance Prelude.NFData RowLevelPermissionTagRule where
   rnf RowLevelPermissionTagRule' {..} =
-    Prelude.rnf tagMultiValueDelimiter
-      `Prelude.seq` Prelude.rnf matchAllValue
+    Prelude.rnf matchAllValue
+      `Prelude.seq` Prelude.rnf tagMultiValueDelimiter
       `Prelude.seq` Prelude.rnf tagKey
       `Prelude.seq` Prelude.rnf columnName
 
-instance Core.ToJSON RowLevelPermissionTagRule where
+instance Data.ToJSON RowLevelPermissionTagRule where
   toJSON RowLevelPermissionTagRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TagMultiValueDelimiter" Core..=)
+          [ ("MatchAllValue" Data..=) Prelude.<$> matchAllValue,
+            ("TagMultiValueDelimiter" Data..=)
               Prelude.<$> tagMultiValueDelimiter,
-            ("MatchAllValue" Core..=) Prelude.<$> matchAllValue,
-            Prelude.Just ("TagKey" Core..= tagKey),
-            Prelude.Just ("ColumnName" Core..= columnName)
+            Prelude.Just ("TagKey" Data..= tagKey),
+            Prelude.Just ("ColumnName" Data..= columnName)
           ]
       )

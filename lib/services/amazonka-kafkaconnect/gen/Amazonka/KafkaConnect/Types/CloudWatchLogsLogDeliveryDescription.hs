@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.CloudWatchLogsLogDeliveryDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KafkaConnect.Types.CloudWatchLogsLogDeliveryDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A description of the log delivery settings.
@@ -66,16 +67,16 @@ cloudWatchLogsLogDeliveryDescription_logGroup :: Lens.Lens' CloudWatchLogsLogDel
 cloudWatchLogsLogDeliveryDescription_logGroup = Lens.lens (\CloudWatchLogsLogDeliveryDescription' {logGroup} -> logGroup) (\s@CloudWatchLogsLogDeliveryDescription' {} a -> s {logGroup = a} :: CloudWatchLogsLogDeliveryDescription)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     CloudWatchLogsLogDeliveryDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CloudWatchLogsLogDeliveryDescription"
       ( \x ->
           CloudWatchLogsLogDeliveryDescription'
-            Prelude.<$> (x Core..:? "enabled")
-            Prelude.<*> (x Core..:? "logGroup")
+            Prelude.<$> (x Data..:? "enabled")
+            Prelude.<*> (x Data..:? "logGroup")
       )
 
 instance

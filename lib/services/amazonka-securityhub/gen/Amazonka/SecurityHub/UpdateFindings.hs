@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.UpdateFindings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.SecurityHub.UpdateFindings
     newUpdateFindings,
 
     -- * Request Lenses
-    updateFindings_recordState,
     updateFindings_note,
+    updateFindings_recordState,
     updateFindings_filters,
 
     -- * Destructuring the Response
@@ -46,7 +46,8 @@ module Amazonka.SecurityHub.UpdateFindings
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,10 +55,10 @@ import Amazonka.SecurityHub.Types
 
 -- | /See:/ 'newUpdateFindings' smart constructor.
 data UpdateFindings = UpdateFindings'
-  { -- | The updated record state for the finding.
-    recordState :: Prelude.Maybe RecordState,
-    -- | The updated note for the finding.
+  { -- | The updated note for the finding.
     note :: Prelude.Maybe NoteUpdate,
+    -- | The updated record state for the finding.
+    recordState :: Prelude.Maybe RecordState,
     -- | A collection of attributes that specify which findings you want to
     -- update.
     filters :: AwsSecurityFindingFilters
@@ -72,9 +73,9 @@ data UpdateFindings = UpdateFindings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'recordState', 'updateFindings_recordState' - The updated record state for the finding.
---
 -- 'note', 'updateFindings_note' - The updated note for the finding.
+--
+-- 'recordState', 'updateFindings_recordState' - The updated record state for the finding.
 --
 -- 'filters', 'updateFindings_filters' - A collection of attributes that specify which findings you want to
 -- update.
@@ -84,18 +85,18 @@ newUpdateFindings ::
   UpdateFindings
 newUpdateFindings pFilters_ =
   UpdateFindings'
-    { recordState = Prelude.Nothing,
-      note = Prelude.Nothing,
+    { note = Prelude.Nothing,
+      recordState = Prelude.Nothing,
       filters = pFilters_
     }
-
--- | The updated record state for the finding.
-updateFindings_recordState :: Lens.Lens' UpdateFindings (Prelude.Maybe RecordState)
-updateFindings_recordState = Lens.lens (\UpdateFindings' {recordState} -> recordState) (\s@UpdateFindings' {} a -> s {recordState = a} :: UpdateFindings)
 
 -- | The updated note for the finding.
 updateFindings_note :: Lens.Lens' UpdateFindings (Prelude.Maybe NoteUpdate)
 updateFindings_note = Lens.lens (\UpdateFindings' {note} -> note) (\s@UpdateFindings' {} a -> s {note = a} :: UpdateFindings)
+
+-- | The updated record state for the finding.
+updateFindings_recordState :: Lens.Lens' UpdateFindings (Prelude.Maybe RecordState)
+updateFindings_recordState = Lens.lens (\UpdateFindings' {recordState} -> recordState) (\s@UpdateFindings' {} a -> s {recordState = a} :: UpdateFindings)
 
 -- | A collection of attributes that specify which findings you want to
 -- update.
@@ -106,7 +107,8 @@ instance Core.AWSRequest UpdateFindings where
   type
     AWSResponse UpdateFindings =
       UpdateFindingsResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -116,41 +118,41 @@ instance Core.AWSRequest UpdateFindings where
 
 instance Prelude.Hashable UpdateFindings where
   hashWithSalt _salt UpdateFindings' {..} =
-    _salt `Prelude.hashWithSalt` recordState
-      `Prelude.hashWithSalt` note
+    _salt `Prelude.hashWithSalt` note
+      `Prelude.hashWithSalt` recordState
       `Prelude.hashWithSalt` filters
 
 instance Prelude.NFData UpdateFindings where
   rnf UpdateFindings' {..} =
-    Prelude.rnf recordState
-      `Prelude.seq` Prelude.rnf note
+    Prelude.rnf note
+      `Prelude.seq` Prelude.rnf recordState
       `Prelude.seq` Prelude.rnf filters
 
-instance Core.ToHeaders UpdateFindings where
+instance Data.ToHeaders UpdateFindings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateFindings where
+instance Data.ToJSON UpdateFindings where
   toJSON UpdateFindings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RecordState" Core..=) Prelude.<$> recordState,
-            ("Note" Core..=) Prelude.<$> note,
-            Prelude.Just ("Filters" Core..= filters)
+          [ ("Note" Data..=) Prelude.<$> note,
+            ("RecordState" Data..=) Prelude.<$> recordState,
+            Prelude.Just ("Filters" Data..= filters)
           ]
       )
 
-instance Core.ToPath UpdateFindings where
+instance Data.ToPath UpdateFindings where
   toPath = Prelude.const "/findings"
 
-instance Core.ToQuery UpdateFindings where
+instance Data.ToQuery UpdateFindings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateFindingsResponse' smart constructor.

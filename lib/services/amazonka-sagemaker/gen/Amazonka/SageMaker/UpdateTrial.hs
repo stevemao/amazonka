@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.UpdateTrial
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.SageMaker.UpdateTrial
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,12 +91,13 @@ updateTrial_trialName = Lens.lens (\UpdateTrial' {trialName} -> trialName) (\s@U
 
 instance Core.AWSRequest UpdateTrial where
   type AWSResponse UpdateTrial = UpdateTrialResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateTrialResponse'
-            Prelude.<$> (x Core..?> "TrialArn")
+            Prelude.<$> (x Data..?> "TrialArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,32 +111,32 @@ instance Prelude.NFData UpdateTrial where
     Prelude.rnf displayName
       `Prelude.seq` Prelude.rnf trialName
 
-instance Core.ToHeaders UpdateTrial where
+instance Data.ToHeaders UpdateTrial where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.UpdateTrial" :: Prelude.ByteString),
+              Data.=# ("SageMaker.UpdateTrial" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateTrial where
+instance Data.ToJSON UpdateTrial where
   toJSON UpdateTrial' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DisplayName" Core..=) Prelude.<$> displayName,
-            Prelude.Just ("TrialName" Core..= trialName)
+          [ ("DisplayName" Data..=) Prelude.<$> displayName,
+            Prelude.Just ("TrialName" Data..= trialName)
           ]
       )
 
-instance Core.ToPath UpdateTrial where
+instance Data.ToPath UpdateTrial where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateTrial where
+instance Data.ToQuery UpdateTrial where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateTrialResponse' smart constructor.

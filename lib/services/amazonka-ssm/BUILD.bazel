@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-ssm/amazonka-ssm.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-ssm/amazonka-ssm.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-ssm",
     srcs = [
@@ -28,6 +28,7 @@ haskell_library(
         "gen/Amazonka/SSM/DeleteParameters.hs",
         "gen/Amazonka/SSM/DeletePatchBaseline.hs",
         "gen/Amazonka/SSM/DeleteResourceDataSync.hs",
+        "gen/Amazonka/SSM/DeleteResourcePolicy.hs",
         "gen/Amazonka/SSM/DeregisterManagedInstance.hs",
         "gen/Amazonka/SSM/DeregisterPatchBaselineForPatchGroup.hs",
         "gen/Amazonka/SSM/DeregisterTargetFromMaintenanceWindow.hs",
@@ -88,6 +89,7 @@ haskell_library(
         "gen/Amazonka/SSM/GetParametersByPath.hs",
         "gen/Amazonka/SSM/GetPatchBaseline.hs",
         "gen/Amazonka/SSM/GetPatchBaselineForPatchGroup.hs",
+        "gen/Amazonka/SSM/GetResourcePolicies.hs",
         "gen/Amazonka/SSM/GetServiceSetting.hs",
         "gen/Amazonka/SSM/LabelParameterVersion.hs",
         "gen/Amazonka/SSM/Lens.hs",
@@ -111,6 +113,7 @@ haskell_library(
         "gen/Amazonka/SSM/PutComplianceItems.hs",
         "gen/Amazonka/SSM/PutInventory.hs",
         "gen/Amazonka/SSM/PutParameter.hs",
+        "gen/Amazonka/SSM/PutResourcePolicy.hs",
         "gen/Amazonka/SSM/RegisterDefaultPatchBaseline.hs",
         "gen/Amazonka/SSM/RegisterPatchBaselineForPatchGroup.hs",
         "gen/Amazonka/SSM/RegisterTargetWithMaintenanceWindow.hs",
@@ -129,6 +132,9 @@ haskell_library(
         "gen/Amazonka/SSM/Types.hs",
         "gen/Amazonka/SSM/Types/AccountSharingInfo.hs",
         "gen/Amazonka/SSM/Types/Activation.hs",
+        "gen/Amazonka/SSM/Types/Alarm.hs",
+        "gen/Amazonka/SSM/Types/AlarmConfiguration.hs",
+        "gen/Amazonka/SSM/Types/AlarmStateInformation.hs",
         "gen/Amazonka/SSM/Types/Association.hs",
         "gen/Amazonka/SSM/Types/AssociationComplianceSeverity.hs",
         "gen/Amazonka/SSM/Types/AssociationDescription.hs",
@@ -207,9 +213,11 @@ haskell_library(
         "gen/Amazonka/SSM/Types/DocumentVersionInfo.hs",
         "gen/Amazonka/SSM/Types/EffectivePatch.hs",
         "gen/Amazonka/SSM/Types/ExecutionMode.hs",
+        "gen/Amazonka/SSM/Types/ExternalAlarmState.hs",
         "gen/Amazonka/SSM/Types/FailedCreateAssociation.hs",
         "gen/Amazonka/SSM/Types/FailureDetails.hs",
         "gen/Amazonka/SSM/Types/Fault.hs",
+        "gen/Amazonka/SSM/Types/GetResourcePoliciesResponseEntry.hs",
         "gen/Amazonka/SSM/Types/InstanceAggregatedAssociationOverview.hs",
         "gen/Amazonka/SSM/Types/InstanceAssociation.hs",
         "gen/Amazonka/SSM/Types/InstanceAssociationOutputLocation.hs",
@@ -322,6 +330,7 @@ haskell_library(
         "gen/Amazonka/SSM/Types/PlatformType.hs",
         "gen/Amazonka/SSM/Types/ProgressCounters.hs",
         "gen/Amazonka/SSM/Types/RebootOption.hs",
+        "gen/Amazonka/SSM/Types/RegistrationMetadataItem.hs",
         "gen/Amazonka/SSM/Types/RelatedOpsItem.hs",
         "gen/Amazonka/SSM/Types/ResolvedTargets.hs",
         "gen/Amazonka/SSM/Types/ResourceComplianceSummaryItem.hs",
@@ -351,6 +360,7 @@ haskell_library(
         "gen/Amazonka/SSM/Types/SessionStatus.hs",
         "gen/Amazonka/SSM/Types/SeveritySummary.hs",
         "gen/Amazonka/SSM/Types/SignalType.hs",
+        "gen/Amazonka/SSM/Types/SourceType.hs",
         "gen/Amazonka/SSM/Types/StepExecution.hs",
         "gen/Amazonka/SSM/Types/StepExecutionFilter.hs",
         "gen/Amazonka/SSM/Types/StepExecutionFilterKey.hs",
@@ -375,14 +385,13 @@ haskell_library(
         "gen/Amazonka/SSM/UpdateServiceSetting.hs",
         "gen/Amazonka/SSM/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_ssm=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_ssm=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -391,7 +400,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-ssm/amazonka-ssm.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-ssm/amazonka-ssm.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-ssm-test",
     srcs = [
@@ -400,11 +409,12 @@ haskell_test(
         "test/Test/Amazonka/SSM.hs",
         "test/Test/Amazonka/SSM/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_ssm=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_ssm=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

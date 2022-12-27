@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteApiKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -46,7 +47,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteApiKey' smart constructor.
 data DeleteApiKey = DeleteApiKey'
-  { -- | [Required] The identifier of the ApiKey resource to be deleted.
+  { -- | The identifier of the ApiKey resource to be deleted.
     apiKey :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -59,7 +60,7 @@ data DeleteApiKey = DeleteApiKey'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'apiKey', 'deleteApiKey_apiKey' - [Required] The identifier of the ApiKey resource to be deleted.
+-- 'apiKey', 'deleteApiKey_apiKey' - The identifier of the ApiKey resource to be deleted.
 newDeleteApiKey ::
   -- | 'apiKey'
   Prelude.Text ->
@@ -67,13 +68,14 @@ newDeleteApiKey ::
 newDeleteApiKey pApiKey_ =
   DeleteApiKey' {apiKey = pApiKey_}
 
--- | [Required] The identifier of the ApiKey resource to be deleted.
+-- | The identifier of the ApiKey resource to be deleted.
 deleteApiKey_apiKey :: Lens.Lens' DeleteApiKey Prelude.Text
 deleteApiKey_apiKey = Lens.lens (\DeleteApiKey' {apiKey} -> apiKey) (\s@DeleteApiKey' {} a -> s {apiKey = a} :: DeleteApiKey)
 
 instance Core.AWSRequest DeleteApiKey where
   type AWSResponse DeleteApiKey = DeleteApiKeyResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response = Response.receiveNull DeleteApiKeyResponse'
 
 instance Prelude.Hashable DeleteApiKey where
@@ -83,20 +85,20 @@ instance Prelude.Hashable DeleteApiKey where
 instance Prelude.NFData DeleteApiKey where
   rnf DeleteApiKey' {..} = Prelude.rnf apiKey
 
-instance Core.ToHeaders DeleteApiKey where
+instance Data.ToHeaders DeleteApiKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteApiKey where
+instance Data.ToPath DeleteApiKey where
   toPath DeleteApiKey' {..} =
-    Prelude.mconcat ["/apikeys/", Core.toBS apiKey]
+    Prelude.mconcat ["/apikeys/", Data.toBS apiKey]
 
-instance Core.ToQuery DeleteApiKey where
+instance Data.ToQuery DeleteApiKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteApiKeyResponse' smart constructor.

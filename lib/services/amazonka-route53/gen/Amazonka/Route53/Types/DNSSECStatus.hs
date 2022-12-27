@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.Types.DNSSECStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53.Types.DNSSECStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53.Internal
 
@@ -44,9 +45,9 @@ data DNSSECStatus = DNSSECStatus'
     --
     -- [ACTION_NEEDED]
     --     There is a problem with signing in the hosted zone that requires you
-    --     to take action to resolve. For example, the customer managed
-    --     customer master key (CMK) might have been deleted, or the
-    --     permissions for the customer managed CMK might have been changed.
+    --     to take action to resolve. For example, the customer managed key
+    --     might have been deleted, or the permissions for the customer managed
+    --     key might have been changed.
     --
     -- [INTERNAL_FAILURE]
     --     There was an error during a request. Before you can continue to work
@@ -85,9 +86,9 @@ data DNSSECStatus = DNSSECStatus'
 --
 -- [ACTION_NEEDED]
 --     There is a problem with signing in the hosted zone that requires you
---     to take action to resolve. For example, the customer managed
---     customer master key (CMK) might have been deleted, or the
---     permissions for the customer managed CMK might have been changed.
+--     to take action to resolve. For example, the customer managed key
+--     might have been deleted, or the permissions for the customer managed
+--     key might have been changed.
 --
 -- [INTERNAL_FAILURE]
 --     There was an error during a request. Before you can continue to work
@@ -122,9 +123,9 @@ newDNSSECStatus =
 --
 -- [ACTION_NEEDED]
 --     There is a problem with signing in the hosted zone that requires you
---     to take action to resolve. For example, the customer managed
---     customer master key (CMK) might have been deleted, or the
---     permissions for the customer managed CMK might have been changed.
+--     to take action to resolve. For example, the customer managed key
+--     might have been deleted, or the permissions for the customer managed
+--     key might have been changed.
 --
 -- [INTERNAL_FAILURE]
 --     There was an error during a request. Before you can continue to work
@@ -140,11 +141,11 @@ dNSSECStatus_serveSignature = Lens.lens (\DNSSECStatus' {serveSignature} -> serv
 dNSSECStatus_statusMessage :: Lens.Lens' DNSSECStatus (Prelude.Maybe Prelude.Text)
 dNSSECStatus_statusMessage = Lens.lens (\DNSSECStatus' {statusMessage} -> statusMessage) (\s@DNSSECStatus' {} a -> s {statusMessage = a} :: DNSSECStatus)
 
-instance Core.FromXML DNSSECStatus where
+instance Data.FromXML DNSSECStatus where
   parseXML x =
     DNSSECStatus'
-      Prelude.<$> (x Core..@? "ServeSignature")
-      Prelude.<*> (x Core..@? "StatusMessage")
+      Prelude.<$> (x Data..@? "ServeSignature")
+      Prelude.<*> (x Data..@? "StatusMessage")
 
 instance Prelude.Hashable DNSSECStatus where
   hashWithSalt _salt DNSSECStatus' {..} =

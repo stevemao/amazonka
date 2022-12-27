@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.Types.TableToReload
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DMS.Types.TableToReload where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides the name of the schema and table to be reloaded.
@@ -75,11 +76,11 @@ instance Prelude.NFData TableToReload where
     Prelude.rnf schemaName
       `Prelude.seq` Prelude.rnf tableName
 
-instance Core.ToJSON TableToReload where
+instance Data.ToJSON TableToReload where
   toJSON TableToReload' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("SchemaName" Core..= schemaName),
-            Prelude.Just ("TableName" Core..= tableName)
+          [ Prelude.Just ("SchemaName" Data..= schemaName),
+            Prelude.Just ("TableName" Data..= tableName)
           ]
       )

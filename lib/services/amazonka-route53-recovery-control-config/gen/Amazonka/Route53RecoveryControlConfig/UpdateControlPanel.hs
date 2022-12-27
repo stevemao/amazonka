@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryControlConfig.UpdateControlPanel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Route53RecoveryControlConfig.UpdateControlPanel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,12 +98,13 @@ instance Core.AWSRequest UpdateControlPanel where
   type
     AWSResponse UpdateControlPanel =
       UpdateControlPanelResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateControlPanelResponse'
-            Prelude.<$> (x Core..?> "ControlPanel")
+            Prelude.<$> (x Data..?> "ControlPanel")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,32 +118,32 @@ instance Prelude.NFData UpdateControlPanel where
     Prelude.rnf controlPanelArn
       `Prelude.seq` Prelude.rnf controlPanelName
 
-instance Core.ToHeaders UpdateControlPanel where
+instance Data.ToHeaders UpdateControlPanel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateControlPanel where
+instance Data.ToJSON UpdateControlPanel where
   toJSON UpdateControlPanel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ControlPanelArn" Core..= controlPanelArn),
+              ("ControlPanelArn" Data..= controlPanelArn),
             Prelude.Just
-              ("ControlPanelName" Core..= controlPanelName)
+              ("ControlPanelName" Data..= controlPanelName)
           ]
       )
 
-instance Core.ToPath UpdateControlPanel where
+instance Data.ToPath UpdateControlPanel where
   toPath = Prelude.const "/controlpanel"
 
-instance Core.ToQuery UpdateControlPanel where
+instance Data.ToQuery UpdateControlPanel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateControlPanelResponse' smart constructor.

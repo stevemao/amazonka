@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.GetDeploymentGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CodeDeploy.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,8 +52,8 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetDeploymentGroup' smart constructor.
 data GetDeploymentGroup = GetDeploymentGroup'
-  { -- | The name of an AWS CodeDeploy application associated with the IAM user
-    -- or AWS account.
+  { -- | The name of an CodeDeploy application associated with the IAM user or
+    -- Amazon Web Services account.
     applicationName :: Prelude.Text,
     -- | The name of a deployment group for the specified application.
     deploymentGroupName :: Prelude.Text
@@ -67,8 +68,8 @@ data GetDeploymentGroup = GetDeploymentGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'applicationName', 'getDeploymentGroup_applicationName' - The name of an AWS CodeDeploy application associated with the IAM user
--- or AWS account.
+-- 'applicationName', 'getDeploymentGroup_applicationName' - The name of an CodeDeploy application associated with the IAM user or
+-- Amazon Web Services account.
 --
 -- 'deploymentGroupName', 'getDeploymentGroup_deploymentGroupName' - The name of a deployment group for the specified application.
 newGetDeploymentGroup ::
@@ -86,8 +87,8 @@ newGetDeploymentGroup
         deploymentGroupName = pDeploymentGroupName_
       }
 
--- | The name of an AWS CodeDeploy application associated with the IAM user
--- or AWS account.
+-- | The name of an CodeDeploy application associated with the IAM user or
+-- Amazon Web Services account.
 getDeploymentGroup_applicationName :: Lens.Lens' GetDeploymentGroup Prelude.Text
 getDeploymentGroup_applicationName = Lens.lens (\GetDeploymentGroup' {applicationName} -> applicationName) (\s@GetDeploymentGroup' {} a -> s {applicationName = a} :: GetDeploymentGroup)
 
@@ -99,12 +100,13 @@ instance Core.AWSRequest GetDeploymentGroup where
   type
     AWSResponse GetDeploymentGroup =
       GetDeploymentGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDeploymentGroupResponse'
-            Prelude.<$> (x Core..?> "deploymentGroupInfo")
+            Prelude.<$> (x Data..?> "deploymentGroupInfo")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,36 +120,36 @@ instance Prelude.NFData GetDeploymentGroup where
     Prelude.rnf applicationName
       `Prelude.seq` Prelude.rnf deploymentGroupName
 
-instance Core.ToHeaders GetDeploymentGroup where
+instance Data.ToHeaders GetDeploymentGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeDeploy_20141006.GetDeploymentGroup" ::
+              Data.=# ( "CodeDeploy_20141006.GetDeploymentGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetDeploymentGroup where
+instance Data.ToJSON GetDeploymentGroup where
   toJSON GetDeploymentGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("applicationName" Core..= applicationName),
+              ("applicationName" Data..= applicationName),
             Prelude.Just
-              ("deploymentGroupName" Core..= deploymentGroupName)
+              ("deploymentGroupName" Data..= deploymentGroupName)
           ]
       )
 
-instance Core.ToPath GetDeploymentGroup where
+instance Data.ToPath GetDeploymentGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetDeploymentGroup where
+instance Data.ToQuery GetDeploymentGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @GetDeploymentGroup@ operation.

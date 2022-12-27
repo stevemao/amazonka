@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.Types.SourceConnectorProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,13 @@
 module Amazonka.CustomerProfiles.Types.SourceConnectorProperties where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CustomerProfiles.Types.MarketoSourceProperties
 import Amazonka.CustomerProfiles.Types.S3SourceProperties
 import Amazonka.CustomerProfiles.Types.SalesforceSourceProperties
 import Amazonka.CustomerProfiles.Types.ServiceNowSourceProperties
 import Amazonka.CustomerProfiles.Types.ZendeskSourceProperties
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the information that is required to query a particular Amazon
@@ -34,19 +35,19 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSourceConnectorProperties' smart constructor.
 data SourceConnectorProperties = SourceConnectorProperties'
-  { -- | The properties that are applied when ServiceNow is being used as a
-    -- source.
-    serviceNow :: Prelude.Maybe ServiceNowSourceProperties,
-    -- | The properties that are applied when Marketo is being used as a source.
+  { -- | The properties that are applied when Marketo is being used as a source.
     marketo :: Prelude.Maybe MarketoSourceProperties,
+    -- | The properties that are applied when Amazon S3 is being used as the flow
+    -- source.
+    s3 :: Prelude.Maybe S3SourceProperties,
     -- | The properties that are applied when Salesforce is being used as a
     -- source.
     salesforce :: Prelude.Maybe SalesforceSourceProperties,
-    -- | The properties that are applied when using Zendesk as a flow source.
-    zendesk :: Prelude.Maybe ZendeskSourceProperties,
-    -- | The properties that are applied when Amazon S3 is being used as the flow
+    -- | The properties that are applied when ServiceNow is being used as a
     -- source.
-    s3 :: Prelude.Maybe S3SourceProperties
+    serviceNow :: Prelude.Maybe ServiceNowSourceProperties,
+    -- | The properties that are applied when using Zendesk as a flow source.
+    zendesk :: Prelude.Maybe ZendeskSourceProperties
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,77 +59,77 @@ data SourceConnectorProperties = SourceConnectorProperties'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'serviceNow', 'sourceConnectorProperties_serviceNow' - The properties that are applied when ServiceNow is being used as a
--- source.
---
 -- 'marketo', 'sourceConnectorProperties_marketo' - The properties that are applied when Marketo is being used as a source.
+--
+-- 's3', 'sourceConnectorProperties_s3' - The properties that are applied when Amazon S3 is being used as the flow
+-- source.
 --
 -- 'salesforce', 'sourceConnectorProperties_salesforce' - The properties that are applied when Salesforce is being used as a
 -- source.
 --
--- 'zendesk', 'sourceConnectorProperties_zendesk' - The properties that are applied when using Zendesk as a flow source.
---
--- 's3', 'sourceConnectorProperties_s3' - The properties that are applied when Amazon S3 is being used as the flow
+-- 'serviceNow', 'sourceConnectorProperties_serviceNow' - The properties that are applied when ServiceNow is being used as a
 -- source.
+--
+-- 'zendesk', 'sourceConnectorProperties_zendesk' - The properties that are applied when using Zendesk as a flow source.
 newSourceConnectorProperties ::
   SourceConnectorProperties
 newSourceConnectorProperties =
   SourceConnectorProperties'
-    { serviceNow =
+    { marketo =
         Prelude.Nothing,
-      marketo = Prelude.Nothing,
+      s3 = Prelude.Nothing,
       salesforce = Prelude.Nothing,
-      zendesk = Prelude.Nothing,
-      s3 = Prelude.Nothing
+      serviceNow = Prelude.Nothing,
+      zendesk = Prelude.Nothing
     }
-
--- | The properties that are applied when ServiceNow is being used as a
--- source.
-sourceConnectorProperties_serviceNow :: Lens.Lens' SourceConnectorProperties (Prelude.Maybe ServiceNowSourceProperties)
-sourceConnectorProperties_serviceNow = Lens.lens (\SourceConnectorProperties' {serviceNow} -> serviceNow) (\s@SourceConnectorProperties' {} a -> s {serviceNow = a} :: SourceConnectorProperties)
 
 -- | The properties that are applied when Marketo is being used as a source.
 sourceConnectorProperties_marketo :: Lens.Lens' SourceConnectorProperties (Prelude.Maybe MarketoSourceProperties)
 sourceConnectorProperties_marketo = Lens.lens (\SourceConnectorProperties' {marketo} -> marketo) (\s@SourceConnectorProperties' {} a -> s {marketo = a} :: SourceConnectorProperties)
-
--- | The properties that are applied when Salesforce is being used as a
--- source.
-sourceConnectorProperties_salesforce :: Lens.Lens' SourceConnectorProperties (Prelude.Maybe SalesforceSourceProperties)
-sourceConnectorProperties_salesforce = Lens.lens (\SourceConnectorProperties' {salesforce} -> salesforce) (\s@SourceConnectorProperties' {} a -> s {salesforce = a} :: SourceConnectorProperties)
-
--- | The properties that are applied when using Zendesk as a flow source.
-sourceConnectorProperties_zendesk :: Lens.Lens' SourceConnectorProperties (Prelude.Maybe ZendeskSourceProperties)
-sourceConnectorProperties_zendesk = Lens.lens (\SourceConnectorProperties' {zendesk} -> zendesk) (\s@SourceConnectorProperties' {} a -> s {zendesk = a} :: SourceConnectorProperties)
 
 -- | The properties that are applied when Amazon S3 is being used as the flow
 -- source.
 sourceConnectorProperties_s3 :: Lens.Lens' SourceConnectorProperties (Prelude.Maybe S3SourceProperties)
 sourceConnectorProperties_s3 = Lens.lens (\SourceConnectorProperties' {s3} -> s3) (\s@SourceConnectorProperties' {} a -> s {s3 = a} :: SourceConnectorProperties)
 
+-- | The properties that are applied when Salesforce is being used as a
+-- source.
+sourceConnectorProperties_salesforce :: Lens.Lens' SourceConnectorProperties (Prelude.Maybe SalesforceSourceProperties)
+sourceConnectorProperties_salesforce = Lens.lens (\SourceConnectorProperties' {salesforce} -> salesforce) (\s@SourceConnectorProperties' {} a -> s {salesforce = a} :: SourceConnectorProperties)
+
+-- | The properties that are applied when ServiceNow is being used as a
+-- source.
+sourceConnectorProperties_serviceNow :: Lens.Lens' SourceConnectorProperties (Prelude.Maybe ServiceNowSourceProperties)
+sourceConnectorProperties_serviceNow = Lens.lens (\SourceConnectorProperties' {serviceNow} -> serviceNow) (\s@SourceConnectorProperties' {} a -> s {serviceNow = a} :: SourceConnectorProperties)
+
+-- | The properties that are applied when using Zendesk as a flow source.
+sourceConnectorProperties_zendesk :: Lens.Lens' SourceConnectorProperties (Prelude.Maybe ZendeskSourceProperties)
+sourceConnectorProperties_zendesk = Lens.lens (\SourceConnectorProperties' {zendesk} -> zendesk) (\s@SourceConnectorProperties' {} a -> s {zendesk = a} :: SourceConnectorProperties)
+
 instance Prelude.Hashable SourceConnectorProperties where
   hashWithSalt _salt SourceConnectorProperties' {..} =
-    _salt `Prelude.hashWithSalt` serviceNow
-      `Prelude.hashWithSalt` marketo
-      `Prelude.hashWithSalt` salesforce
-      `Prelude.hashWithSalt` zendesk
+    _salt `Prelude.hashWithSalt` marketo
       `Prelude.hashWithSalt` s3
+      `Prelude.hashWithSalt` salesforce
+      `Prelude.hashWithSalt` serviceNow
+      `Prelude.hashWithSalt` zendesk
 
 instance Prelude.NFData SourceConnectorProperties where
   rnf SourceConnectorProperties' {..} =
-    Prelude.rnf serviceNow
-      `Prelude.seq` Prelude.rnf marketo
-      `Prelude.seq` Prelude.rnf salesforce
-      `Prelude.seq` Prelude.rnf zendesk
+    Prelude.rnf marketo
       `Prelude.seq` Prelude.rnf s3
+      `Prelude.seq` Prelude.rnf salesforce
+      `Prelude.seq` Prelude.rnf serviceNow
+      `Prelude.seq` Prelude.rnf zendesk
 
-instance Core.ToJSON SourceConnectorProperties where
+instance Data.ToJSON SourceConnectorProperties where
   toJSON SourceConnectorProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ServiceNow" Core..=) Prelude.<$> serviceNow,
-            ("Marketo" Core..=) Prelude.<$> marketo,
-            ("Salesforce" Core..=) Prelude.<$> salesforce,
-            ("Zendesk" Core..=) Prelude.<$> zendesk,
-            ("S3" Core..=) Prelude.<$> s3
+          [ ("Marketo" Data..=) Prelude.<$> marketo,
+            ("S3" Data..=) Prelude.<$> s3,
+            ("Salesforce" Data..=) Prelude.<$> salesforce,
+            ("ServiceNow" Data..=) Prelude.<$> serviceNow,
+            ("Zendesk" Data..=) Prelude.<$> zendesk
           ]
       )

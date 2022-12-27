@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.UpdateRelatedItems
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.SSMIncidents.UpdateRelatedItems
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -50,11 +51,11 @@ import Amazonka.SSMIncidents.Types
 
 -- | /See:/ 'newUpdateRelatedItems' smart constructor.
 data UpdateRelatedItems = UpdateRelatedItems'
-  { -- | A token ensuring that the action is called only once with the specified
-    -- details.
+  { -- | A token ensuring that the operation is called only once with the
+    -- specified details.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the incident record you are updating
-    -- related items in.
+    -- | The Amazon Resource Name (ARN) of the incident record containing the
+    -- related items you are updating.
     incidentRecordArn :: Prelude.Text,
     -- | Details about the item you are adding or deleting.
     relatedItemsUpdate :: RelatedItemsUpdate
@@ -69,11 +70,11 @@ data UpdateRelatedItems = UpdateRelatedItems'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'updateRelatedItems_clientToken' - A token ensuring that the action is called only once with the specified
--- details.
+-- 'clientToken', 'updateRelatedItems_clientToken' - A token ensuring that the operation is called only once with the
+-- specified details.
 --
--- 'incidentRecordArn', 'updateRelatedItems_incidentRecordArn' - The Amazon Resource Name (ARN) of the incident record you are updating
--- related items in.
+-- 'incidentRecordArn', 'updateRelatedItems_incidentRecordArn' - The Amazon Resource Name (ARN) of the incident record containing the
+-- related items you are updating.
 --
 -- 'relatedItemsUpdate', 'updateRelatedItems_relatedItemsUpdate' - Details about the item you are adding or deleting.
 newUpdateRelatedItems ::
@@ -91,13 +92,13 @@ newUpdateRelatedItems
         relatedItemsUpdate = pRelatedItemsUpdate_
       }
 
--- | A token ensuring that the action is called only once with the specified
--- details.
+-- | A token ensuring that the operation is called only once with the
+-- specified details.
 updateRelatedItems_clientToken :: Lens.Lens' UpdateRelatedItems (Prelude.Maybe Prelude.Text)
 updateRelatedItems_clientToken = Lens.lens (\UpdateRelatedItems' {clientToken} -> clientToken) (\s@UpdateRelatedItems' {} a -> s {clientToken = a} :: UpdateRelatedItems)
 
--- | The Amazon Resource Name (ARN) of the incident record you are updating
--- related items in.
+-- | The Amazon Resource Name (ARN) of the incident record containing the
+-- related items you are updating.
 updateRelatedItems_incidentRecordArn :: Lens.Lens' UpdateRelatedItems Prelude.Text
 updateRelatedItems_incidentRecordArn = Lens.lens (\UpdateRelatedItems' {incidentRecordArn} -> incidentRecordArn) (\s@UpdateRelatedItems' {} a -> s {incidentRecordArn = a} :: UpdateRelatedItems)
 
@@ -109,7 +110,8 @@ instance Core.AWSRequest UpdateRelatedItems where
   type
     AWSResponse UpdateRelatedItems =
       UpdateRelatedItemsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -129,33 +131,33 @@ instance Prelude.NFData UpdateRelatedItems where
       `Prelude.seq` Prelude.rnf incidentRecordArn
       `Prelude.seq` Prelude.rnf relatedItemsUpdate
 
-instance Core.ToHeaders UpdateRelatedItems where
+instance Data.ToHeaders UpdateRelatedItems where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRelatedItems where
+instance Data.ToJSON UpdateRelatedItems where
   toJSON UpdateRelatedItems' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
             Prelude.Just
-              ("incidentRecordArn" Core..= incidentRecordArn),
+              ("incidentRecordArn" Data..= incidentRecordArn),
             Prelude.Just
-              ("relatedItemsUpdate" Core..= relatedItemsUpdate)
+              ("relatedItemsUpdate" Data..= relatedItemsUpdate)
           ]
       )
 
-instance Core.ToPath UpdateRelatedItems where
+instance Data.ToPath UpdateRelatedItems where
   toPath = Prelude.const "/updateRelatedItems"
 
-instance Core.ToQuery UpdateRelatedItems where
+instance Data.ToQuery UpdateRelatedItems where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateRelatedItemsResponse' smart constructor.

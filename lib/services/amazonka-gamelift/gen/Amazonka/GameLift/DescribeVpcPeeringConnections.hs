@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DescribeVpcPeeringConnections
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,18 +23,15 @@
 -- Retrieves information on VPC peering connections. Use this operation to
 -- get peering information for all fleets or for one specific fleet ID.
 --
--- To retrieve connection information, call this operation from the AWS
--- account that is used to manage the Amazon GameLift fleets. Specify a
--- fleet ID or leave the parameter empty to retrieve all connection
--- records. If successful, the retrieved information includes both active
--- and pending connections. Active connections identify the IpV4 CIDR block
--- that the VPC uses to connect.
+-- To retrieve connection information, call this operation from the Amazon
+-- Web Services account that is used to manage the Amazon GameLift fleets.
+-- Specify a fleet ID or leave the parameter empty to retrieve all
+-- connection records. If successful, the retrieved information includes
+-- both active and pending connections. Active connections identify the
+-- IpV4 CIDR block that the VPC uses to connect.
 --
 -- __Related actions__
 --
--- CreateVpcPeeringAuthorization | DescribeVpcPeeringAuthorizations |
--- DeleteVpcPeeringAuthorization | CreateVpcPeeringConnection |
--- DescribeVpcPeeringConnections | DeleteVpcPeeringConnection |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.DescribeVpcPeeringConnections
   ( -- * Creating a Request
@@ -55,15 +52,14 @@ module Amazonka.GameLift.DescribeVpcPeeringConnections
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDescribeVpcPeeringConnections' smart constructor.
+-- | /See:/ 'newDescribeVpcPeeringConnections' smart constructor.
 data DescribeVpcPeeringConnections = DescribeVpcPeeringConnections'
   { -- | A unique identifier for the fleet. You can use either the fleet ID or
     -- ARN value.
@@ -101,12 +97,13 @@ instance
   type
     AWSResponse DescribeVpcPeeringConnections =
       DescribeVpcPeeringConnectionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeVpcPeeringConnectionsResponse'
-            Prelude.<$> ( x Core..?> "VpcPeeringConnections"
+            Prelude.<$> ( x Data..?> "VpcPeeringConnections"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -123,37 +120,35 @@ instance Prelude.NFData DescribeVpcPeeringConnections where
   rnf DescribeVpcPeeringConnections' {..} =
     Prelude.rnf fleetId
 
-instance Core.ToHeaders DescribeVpcPeeringConnections where
+instance Data.ToHeaders DescribeVpcPeeringConnections where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DescribeVpcPeeringConnections" ::
+              Data.=# ( "GameLift.DescribeVpcPeeringConnections" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeVpcPeeringConnections where
+instance Data.ToJSON DescribeVpcPeeringConnections where
   toJSON DescribeVpcPeeringConnections' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("FleetId" Core..=) Prelude.<$> fleetId]
+          [("FleetId" Data..=) Prelude.<$> fleetId]
       )
 
-instance Core.ToPath DescribeVpcPeeringConnections where
+instance Data.ToPath DescribeVpcPeeringConnections where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeVpcPeeringConnections where
+instance Data.ToQuery DescribeVpcPeeringConnections where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newDescribeVpcPeeringConnectionsResponse' smart constructor.
+-- | /See:/ 'newDescribeVpcPeeringConnectionsResponse' smart constructor.
 data DescribeVpcPeeringConnectionsResponse = DescribeVpcPeeringConnectionsResponse'
   { -- | A collection of VPC peering connection records that match the request.
     vpcPeeringConnections :: Prelude.Maybe [VpcPeeringConnection],

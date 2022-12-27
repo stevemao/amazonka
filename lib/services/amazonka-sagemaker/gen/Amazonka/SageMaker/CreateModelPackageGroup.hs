@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateModelPackageGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.SageMaker.CreateModelPackageGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,13 +110,14 @@ instance Core.AWSRequest CreateModelPackageGroup where
   type
     AWSResponse CreateModelPackageGroup =
       CreateModelPackageGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateModelPackageGroupResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ModelPackageGroupArn")
+            Prelude.<*> (x Data..:> "ModelPackageGroupArn")
       )
 
 instance Prelude.Hashable CreateModelPackageGroup where
@@ -131,39 +133,39 @@ instance Prelude.NFData CreateModelPackageGroup where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf modelPackageGroupName
 
-instance Core.ToHeaders CreateModelPackageGroup where
+instance Data.ToHeaders CreateModelPackageGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.CreateModelPackageGroup" ::
+              Data.=# ( "SageMaker.CreateModelPackageGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateModelPackageGroup where
+instance Data.ToJSON CreateModelPackageGroup where
   toJSON CreateModelPackageGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ModelPackageGroupDescription" Core..=)
+          [ ("ModelPackageGroupDescription" Data..=)
               Prelude.<$> modelPackageGroupDescription,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
               ( "ModelPackageGroupName"
-                  Core..= modelPackageGroupName
+                  Data..= modelPackageGroupName
               )
           ]
       )
 
-instance Core.ToPath CreateModelPackageGroup where
+instance Data.ToPath CreateModelPackageGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateModelPackageGroup where
+instance Data.ToQuery CreateModelPackageGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateModelPackageGroupResponse' smart constructor.

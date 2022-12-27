@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.BundleTaskError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.BundleTaskError where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an error for BundleInstance.
@@ -62,11 +63,11 @@ bundleTaskError_code = Lens.lens (\BundleTaskError' {code} -> code) (\s@BundleTa
 bundleTaskError_message :: Lens.Lens' BundleTaskError (Prelude.Maybe Prelude.Text)
 bundleTaskError_message = Lens.lens (\BundleTaskError' {message} -> message) (\s@BundleTaskError' {} a -> s {message = a} :: BundleTaskError)
 
-instance Core.FromXML BundleTaskError where
+instance Data.FromXML BundleTaskError where
   parseXML x =
     BundleTaskError'
-      Prelude.<$> (x Core..@? "code")
-      Prelude.<*> (x Core..@? "message")
+      Prelude.<$> (x Data..@? "code")
+      Prelude.<*> (x Data..@? "message")
 
 instance Prelude.Hashable BundleTaskError where
   hashWithSalt _salt BundleTaskError' {..} =

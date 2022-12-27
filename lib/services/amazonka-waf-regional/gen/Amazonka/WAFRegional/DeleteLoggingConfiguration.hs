@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.DeleteLoggingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.WAFRegional.DeleteLoggingConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ instance Core.AWSRequest DeleteLoggingConfiguration where
   type
     AWSResponse DeleteLoggingConfiguration =
       DeleteLoggingConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -107,32 +109,32 @@ instance Prelude.NFData DeleteLoggingConfiguration where
   rnf DeleteLoggingConfiguration' {..} =
     Prelude.rnf resourceArn
 
-instance Core.ToHeaders DeleteLoggingConfiguration where
+instance Data.ToHeaders DeleteLoggingConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_Regional_20161128.DeleteLoggingConfiguration" ::
+              Data.=# ( "AWSWAF_Regional_20161128.DeleteLoggingConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteLoggingConfiguration where
+instance Data.ToJSON DeleteLoggingConfiguration where
   toJSON DeleteLoggingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ResourceArn" Core..= resourceArn)]
+          [Prelude.Just ("ResourceArn" Data..= resourceArn)]
       )
 
-instance Core.ToPath DeleteLoggingConfiguration where
+instance Data.ToPath DeleteLoggingConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteLoggingConfiguration where
+instance Data.ToQuery DeleteLoggingConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteLoggingConfigurationResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.Types.Grantee
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,22 +20,23 @@
 module Amazonka.Glacier.Types.Grantee where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types.Type
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the grantee.
 --
 -- /See:/ 'newGrantee' smart constructor.
 data Grantee = Grantee'
-  { -- | URI of the grantee group.
-    uri :: Prelude.Maybe Prelude.Text,
+  { -- | Screen name of the grantee.
+    displayName :: Prelude.Maybe Prelude.Text,
     -- | Email address of the grantee.
     emailAddress :: Prelude.Maybe Prelude.Text,
-    -- | Screen name of the grantee.
-    displayName :: Prelude.Maybe Prelude.Text,
     -- | The canonical user ID of the grantee.
     id :: Prelude.Maybe Prelude.Text,
+    -- | URI of the grantee group.
+    uri :: Prelude.Maybe Prelude.Text,
     -- | Type of grantee
     type' :: Type
   }
@@ -49,13 +50,13 @@ data Grantee = Grantee'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'uri', 'grantee_uri' - URI of the grantee group.
+-- 'displayName', 'grantee_displayName' - Screen name of the grantee.
 --
 -- 'emailAddress', 'grantee_emailAddress' - Email address of the grantee.
 --
--- 'displayName', 'grantee_displayName' - Screen name of the grantee.
---
 -- 'id', 'grantee_id' - The canonical user ID of the grantee.
+--
+-- 'uri', 'grantee_uri' - URI of the grantee group.
 --
 -- 'type'', 'grantee_type' - Type of grantee
 newGrantee ::
@@ -64,70 +65,70 @@ newGrantee ::
   Grantee
 newGrantee pType_ =
   Grantee'
-    { uri = Prelude.Nothing,
+    { displayName = Prelude.Nothing,
       emailAddress = Prelude.Nothing,
-      displayName = Prelude.Nothing,
       id = Prelude.Nothing,
+      uri = Prelude.Nothing,
       type' = pType_
     }
-
--- | URI of the grantee group.
-grantee_uri :: Lens.Lens' Grantee (Prelude.Maybe Prelude.Text)
-grantee_uri = Lens.lens (\Grantee' {uri} -> uri) (\s@Grantee' {} a -> s {uri = a} :: Grantee)
-
--- | Email address of the grantee.
-grantee_emailAddress :: Lens.Lens' Grantee (Prelude.Maybe Prelude.Text)
-grantee_emailAddress = Lens.lens (\Grantee' {emailAddress} -> emailAddress) (\s@Grantee' {} a -> s {emailAddress = a} :: Grantee)
 
 -- | Screen name of the grantee.
 grantee_displayName :: Lens.Lens' Grantee (Prelude.Maybe Prelude.Text)
 grantee_displayName = Lens.lens (\Grantee' {displayName} -> displayName) (\s@Grantee' {} a -> s {displayName = a} :: Grantee)
 
+-- | Email address of the grantee.
+grantee_emailAddress :: Lens.Lens' Grantee (Prelude.Maybe Prelude.Text)
+grantee_emailAddress = Lens.lens (\Grantee' {emailAddress} -> emailAddress) (\s@Grantee' {} a -> s {emailAddress = a} :: Grantee)
+
 -- | The canonical user ID of the grantee.
 grantee_id :: Lens.Lens' Grantee (Prelude.Maybe Prelude.Text)
 grantee_id = Lens.lens (\Grantee' {id} -> id) (\s@Grantee' {} a -> s {id = a} :: Grantee)
+
+-- | URI of the grantee group.
+grantee_uri :: Lens.Lens' Grantee (Prelude.Maybe Prelude.Text)
+grantee_uri = Lens.lens (\Grantee' {uri} -> uri) (\s@Grantee' {} a -> s {uri = a} :: Grantee)
 
 -- | Type of grantee
 grantee_type :: Lens.Lens' Grantee Type
 grantee_type = Lens.lens (\Grantee' {type'} -> type') (\s@Grantee' {} a -> s {type' = a} :: Grantee)
 
-instance Core.FromJSON Grantee where
+instance Data.FromJSON Grantee where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Grantee"
       ( \x ->
           Grantee'
-            Prelude.<$> (x Core..:? "URI")
-            Prelude.<*> (x Core..:? "EmailAddress")
-            Prelude.<*> (x Core..:? "DisplayName")
-            Prelude.<*> (x Core..:? "ID")
-            Prelude.<*> (x Core..: "Type")
+            Prelude.<$> (x Data..:? "DisplayName")
+            Prelude.<*> (x Data..:? "EmailAddress")
+            Prelude.<*> (x Data..:? "ID")
+            Prelude.<*> (x Data..:? "URI")
+            Prelude.<*> (x Data..: "Type")
       )
 
 instance Prelude.Hashable Grantee where
   hashWithSalt _salt Grantee' {..} =
-    _salt `Prelude.hashWithSalt` uri
+    _salt `Prelude.hashWithSalt` displayName
       `Prelude.hashWithSalt` emailAddress
-      `Prelude.hashWithSalt` displayName
       `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` uri
       `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData Grantee where
   rnf Grantee' {..} =
-    Prelude.rnf uri
+    Prelude.rnf displayName
       `Prelude.seq` Prelude.rnf emailAddress
-      `Prelude.seq` Prelude.rnf displayName
       `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf uri
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON Grantee where
+instance Data.ToJSON Grantee where
   toJSON Grantee' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("URI" Core..=) Prelude.<$> uri,
-            ("EmailAddress" Core..=) Prelude.<$> emailAddress,
-            ("DisplayName" Core..=) Prelude.<$> displayName,
-            ("ID" Core..=) Prelude.<$> id,
-            Prelude.Just ("Type" Core..= type')
+          [ ("DisplayName" Data..=) Prelude.<$> displayName,
+            ("EmailAddress" Data..=) Prelude.<$> emailAddress,
+            ("ID" Data..=) Prelude.<$> id,
+            ("URI" Data..=) Prelude.<$> uri,
+            Prelude.Just ("Type" Data..= type')
           ]
       )

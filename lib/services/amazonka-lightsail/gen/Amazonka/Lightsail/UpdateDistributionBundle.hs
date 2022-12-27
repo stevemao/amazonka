@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.UpdateDistributionBundle
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,16 +24,16 @@
 -- (CDN) distribution.
 --
 -- A distribution bundle specifies the monthly network transfer quota and
--- monthly cost of your dsitribution.
+-- monthly cost of your distribution.
 --
 -- Update your distribution\'s bundle if your distribution is going over
 -- its monthly network transfer quota and is incurring an overage fee.
 --
 -- You can update your distribution\'s bundle only one time within your
--- monthly AWS billing cycle. To determine if you can update your
--- distribution\'s bundle, use the @GetDistributions@ action. The
--- @ableToUpdateBundle@ parameter in the result will indicate whether you
--- can currently update your distribution\'s bundle.
+-- monthly Amazon Web Services billing cycle. To determine if you can
+-- update your distribution\'s bundle, use the @GetDistributions@ action.
+-- The @ableToUpdateBundle@ parameter in the result will indicate whether
+-- you can currently update your distribution\'s bundle.
 module Amazonka.Lightsail.UpdateDistributionBundle
   ( -- * Creating a Request
     UpdateDistributionBundle (..),
@@ -54,7 +54,8 @@ module Amazonka.Lightsail.UpdateDistributionBundle
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -119,12 +120,13 @@ instance Core.AWSRequest UpdateDistributionBundle where
   type
     AWSResponse UpdateDistributionBundle =
       UpdateDistributionBundleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDistributionBundleResponse'
-            Prelude.<$> (x Core..?> "operation")
+            Prelude.<$> (x Data..?> "operation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -138,40 +140,43 @@ instance Prelude.NFData UpdateDistributionBundle where
     Prelude.rnf bundleId
       `Prelude.seq` Prelude.rnf distributionName
 
-instance Core.ToHeaders UpdateDistributionBundle where
+instance Data.ToHeaders UpdateDistributionBundle where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.UpdateDistributionBundle" ::
+              Data.=# ( "Lightsail_20161128.UpdateDistributionBundle" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDistributionBundle where
+instance Data.ToJSON UpdateDistributionBundle where
   toJSON UpdateDistributionBundle' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("bundleId" Core..=) Prelude.<$> bundleId,
-            ("distributionName" Core..=)
+          [ ("bundleId" Data..=) Prelude.<$> bundleId,
+            ("distributionName" Data..=)
               Prelude.<$> distributionName
           ]
       )
 
-instance Core.ToPath UpdateDistributionBundle where
+instance Data.ToPath UpdateDistributionBundle where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateDistributionBundle where
+instance Data.ToQuery UpdateDistributionBundle where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDistributionBundleResponse' smart constructor.
 data UpdateDistributionBundleResponse = UpdateDistributionBundleResponse'
-  { operation :: Prelude.Maybe Operation,
+  { -- | An object that describes the result of the action, such as the status of
+    -- the request, the timestamp of the request, and the resources affected by
+    -- the request.
+    operation :: Prelude.Maybe Operation,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -185,7 +190,9 @@ data UpdateDistributionBundleResponse = UpdateDistributionBundleResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'operation', 'updateDistributionBundleResponse_operation' - Undocumented member.
+-- 'operation', 'updateDistributionBundleResponse_operation' - An object that describes the result of the action, such as the status of
+-- the request, the timestamp of the request, and the resources affected by
+-- the request.
 --
 -- 'httpStatus', 'updateDistributionBundleResponse_httpStatus' - The response's http status code.
 newUpdateDistributionBundleResponse ::
@@ -199,7 +206,9 @@ newUpdateDistributionBundleResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Undocumented member.
+-- | An object that describes the result of the action, such as the status of
+-- the request, the timestamp of the request, and the resources affected by
+-- the request.
 updateDistributionBundleResponse_operation :: Lens.Lens' UpdateDistributionBundleResponse (Prelude.Maybe Operation)
 updateDistributionBundleResponse_operation = Lens.lens (\UpdateDistributionBundleResponse' {operation} -> operation) (\s@UpdateDistributionBundleResponse' {} a -> s {operation = a} :: UpdateDistributionBundleResponse)
 

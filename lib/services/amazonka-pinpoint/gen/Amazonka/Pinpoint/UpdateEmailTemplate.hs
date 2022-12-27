@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.UpdateEmailTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Pinpoint.UpdateEmailTemplate
     newUpdateEmailTemplate,
 
     -- * Request Lenses
-    updateEmailTemplate_version,
     updateEmailTemplate_createNewVersion,
+    updateEmailTemplate_version,
     updateEmailTemplate_templateName,
     updateEmailTemplate_emailTemplateRequest,
 
@@ -44,7 +44,8 @@ module Amazonka.Pinpoint.UpdateEmailTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,7 +53,17 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateEmailTemplate' smart constructor.
 data UpdateEmailTemplate = UpdateEmailTemplate'
-  { -- | The unique identifier for the version of the message template to update,
+  { -- | Specifies whether to save the updates as a new version of the message
+    -- template. Valid values are: true, save the updates as a new version;
+    -- and, false, save the updates to (overwrite) the latest existing version
+    -- of the template.
+    --
+    -- If you don\'t specify a value for this parameter, Amazon Pinpoint saves
+    -- the updates to (overwrites) the latest existing version of the template.
+    -- If you specify a value of true for this parameter, don\'t specify a
+    -- value for the version parameter. Otherwise, an error will occur.
+    createNewVersion :: Prelude.Maybe Prelude.Bool,
+    -- | The unique identifier for the version of the message template to update,
     -- retrieve information about, or delete. To retrieve identifiers and other
     -- information for all the versions of a template, use the Template
     -- Versions resource.
@@ -75,16 +86,6 @@ data UpdateEmailTemplate = UpdateEmailTemplate'
     -- -   For a delete operation, deletes the template, including all versions
     --     of the template.
     version :: Prelude.Maybe Prelude.Text,
-    -- | Specifies whether to save the updates as a new version of the message
-    -- template. Valid values are: true, save the updates as a new version;
-    -- and, false, save the updates to (overwrite) the latest existing version
-    -- of the template.
-    --
-    -- If you don\'t specify a value for this parameter, Amazon Pinpoint saves
-    -- the updates to (overwrites) the latest existing version of the template.
-    -- If you specify a value of true for this parameter, don\'t specify a
-    -- value for the version parameter. Otherwise, an error will occur.
-    createNewVersion :: Prelude.Maybe Prelude.Bool,
     -- | The name of the message template. A template name must start with an
     -- alphanumeric character and can contain a maximum of 128 characters. The
     -- characters can be alphanumeric characters, underscores (_), or hyphens
@@ -101,6 +102,16 @@ data UpdateEmailTemplate = UpdateEmailTemplate'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'createNewVersion', 'updateEmailTemplate_createNewVersion' - Specifies whether to save the updates as a new version of the message
+-- template. Valid values are: true, save the updates as a new version;
+-- and, false, save the updates to (overwrite) the latest existing version
+-- of the template.
+--
+-- If you don\'t specify a value for this parameter, Amazon Pinpoint saves
+-- the updates to (overwrites) the latest existing version of the template.
+-- If you specify a value of true for this parameter, don\'t specify a
+-- value for the version parameter. Otherwise, an error will occur.
 --
 -- 'version', 'updateEmailTemplate_version' - The unique identifier for the version of the message template to update,
 -- retrieve information about, or delete. To retrieve identifiers and other
@@ -125,16 +136,6 @@ data UpdateEmailTemplate = UpdateEmailTemplate'
 -- -   For a delete operation, deletes the template, including all versions
 --     of the template.
 --
--- 'createNewVersion', 'updateEmailTemplate_createNewVersion' - Specifies whether to save the updates as a new version of the message
--- template. Valid values are: true, save the updates as a new version;
--- and, false, save the updates to (overwrite) the latest existing version
--- of the template.
---
--- If you don\'t specify a value for this parameter, Amazon Pinpoint saves
--- the updates to (overwrites) the latest existing version of the template.
--- If you specify a value of true for this parameter, don\'t specify a
--- value for the version parameter. Otherwise, an error will occur.
---
 -- 'templateName', 'updateEmailTemplate_templateName' - The name of the message template. A template name must start with an
 -- alphanumeric character and can contain a maximum of 128 characters. The
 -- characters can be alphanumeric characters, underscores (_), or hyphens
@@ -151,11 +152,24 @@ newUpdateEmailTemplate
   pTemplateName_
   pEmailTemplateRequest_ =
     UpdateEmailTemplate'
-      { version = Prelude.Nothing,
-        createNewVersion = Prelude.Nothing,
+      { createNewVersion =
+          Prelude.Nothing,
+        version = Prelude.Nothing,
         templateName = pTemplateName_,
         emailTemplateRequest = pEmailTemplateRequest_
       }
+
+-- | Specifies whether to save the updates as a new version of the message
+-- template. Valid values are: true, save the updates as a new version;
+-- and, false, save the updates to (overwrite) the latest existing version
+-- of the template.
+--
+-- If you don\'t specify a value for this parameter, Amazon Pinpoint saves
+-- the updates to (overwrites) the latest existing version of the template.
+-- If you specify a value of true for this parameter, don\'t specify a
+-- value for the version parameter. Otherwise, an error will occur.
+updateEmailTemplate_createNewVersion :: Lens.Lens' UpdateEmailTemplate (Prelude.Maybe Prelude.Bool)
+updateEmailTemplate_createNewVersion = Lens.lens (\UpdateEmailTemplate' {createNewVersion} -> createNewVersion) (\s@UpdateEmailTemplate' {} a -> s {createNewVersion = a} :: UpdateEmailTemplate)
 
 -- | The unique identifier for the version of the message template to update,
 -- retrieve information about, or delete. To retrieve identifiers and other
@@ -182,18 +196,6 @@ newUpdateEmailTemplate
 updateEmailTemplate_version :: Lens.Lens' UpdateEmailTemplate (Prelude.Maybe Prelude.Text)
 updateEmailTemplate_version = Lens.lens (\UpdateEmailTemplate' {version} -> version) (\s@UpdateEmailTemplate' {} a -> s {version = a} :: UpdateEmailTemplate)
 
--- | Specifies whether to save the updates as a new version of the message
--- template. Valid values are: true, save the updates as a new version;
--- and, false, save the updates to (overwrite) the latest existing version
--- of the template.
---
--- If you don\'t specify a value for this parameter, Amazon Pinpoint saves
--- the updates to (overwrites) the latest existing version of the template.
--- If you specify a value of true for this parameter, don\'t specify a
--- value for the version parameter. Otherwise, an error will occur.
-updateEmailTemplate_createNewVersion :: Lens.Lens' UpdateEmailTemplate (Prelude.Maybe Prelude.Bool)
-updateEmailTemplate_createNewVersion = Lens.lens (\UpdateEmailTemplate' {createNewVersion} -> createNewVersion) (\s@UpdateEmailTemplate' {} a -> s {createNewVersion = a} :: UpdateEmailTemplate)
-
 -- | The name of the message template. A template name must start with an
 -- alphanumeric character and can contain a maximum of 128 characters. The
 -- characters can be alphanumeric characters, underscores (_), or hyphens
@@ -209,61 +211,55 @@ instance Core.AWSRequest UpdateEmailTemplate where
   type
     AWSResponse UpdateEmailTemplate =
       UpdateEmailTemplateResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateEmailTemplateResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable UpdateEmailTemplate where
   hashWithSalt _salt UpdateEmailTemplate' {..} =
-    _salt `Prelude.hashWithSalt` version
-      `Prelude.hashWithSalt` createNewVersion
+    _salt `Prelude.hashWithSalt` createNewVersion
+      `Prelude.hashWithSalt` version
       `Prelude.hashWithSalt` templateName
       `Prelude.hashWithSalt` emailTemplateRequest
 
 instance Prelude.NFData UpdateEmailTemplate where
   rnf UpdateEmailTemplate' {..} =
-    Prelude.rnf version
-      `Prelude.seq` Prelude.rnf createNewVersion
+    Prelude.rnf createNewVersion
+      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf templateName
       `Prelude.seq` Prelude.rnf emailTemplateRequest
 
-instance Core.ToHeaders UpdateEmailTemplate where
+instance Data.ToHeaders UpdateEmailTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateEmailTemplate where
+instance Data.ToJSON UpdateEmailTemplate where
   toJSON UpdateEmailTemplate' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ Prelude.Just
-              ( "EmailTemplateRequest"
-                  Core..= emailTemplateRequest
-              )
-          ]
-      )
+    Data.toJSON emailTemplateRequest
 
-instance Core.ToPath UpdateEmailTemplate where
+instance Data.ToPath UpdateEmailTemplate where
   toPath UpdateEmailTemplate' {..} =
     Prelude.mconcat
-      ["/v1/templates/", Core.toBS templateName, "/email"]
+      ["/v1/templates/", Data.toBS templateName, "/email"]
 
-instance Core.ToQuery UpdateEmailTemplate where
+instance Data.ToQuery UpdateEmailTemplate where
   toQuery UpdateEmailTemplate' {..} =
     Prelude.mconcat
-      [ "version" Core.=: version,
-        "create-new-version" Core.=: createNewVersion
+      [ "create-new-version" Data.=: createNewVersion,
+        "version" Data.=: version
       ]
 
 -- | /See:/ 'newUpdateEmailTemplateResponse' smart constructor.

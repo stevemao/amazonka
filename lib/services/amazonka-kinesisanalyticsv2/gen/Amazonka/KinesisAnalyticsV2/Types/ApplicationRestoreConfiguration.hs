@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.ApplicationRestoreConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.ApplicationRestoreConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.ApplicationRestoreType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the method and snapshot to use when restarting an application
@@ -78,16 +79,16 @@ applicationRestoreConfiguration_applicationRestoreType :: Lens.Lens' Application
 applicationRestoreConfiguration_applicationRestoreType = Lens.lens (\ApplicationRestoreConfiguration' {applicationRestoreType} -> applicationRestoreType) (\s@ApplicationRestoreConfiguration' {} a -> s {applicationRestoreType = a} :: ApplicationRestoreConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ApplicationRestoreConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ApplicationRestoreConfiguration"
       ( \x ->
           ApplicationRestoreConfiguration'
-            Prelude.<$> (x Core..:? "SnapshotName")
-            Prelude.<*> (x Core..: "ApplicationRestoreType")
+            Prelude.<$> (x Data..:? "SnapshotName")
+            Prelude.<*> (x Data..: "ApplicationRestoreType")
       )
 
 instance
@@ -108,14 +109,14 @@ instance
     Prelude.rnf snapshotName
       `Prelude.seq` Prelude.rnf applicationRestoreType
 
-instance Core.ToJSON ApplicationRestoreConfiguration where
+instance Data.ToJSON ApplicationRestoreConfiguration where
   toJSON ApplicationRestoreConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SnapshotName" Core..=) Prelude.<$> snapshotName,
+          [ ("SnapshotName" Data..=) Prelude.<$> snapshotName,
             Prelude.Just
               ( "ApplicationRestoreType"
-                  Core..= applicationRestoreType
+                  Data..= applicationRestoreType
               )
           ]
       )

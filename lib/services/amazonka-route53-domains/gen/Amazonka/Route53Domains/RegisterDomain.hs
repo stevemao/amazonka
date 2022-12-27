@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.RegisterDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,16 +40,19 @@
 --     contact information either for Amazon Registrar (for .com, .net, and
 --     .org domains) or for our registrar associate, Gandi (for all other
 --     TLDs). If you don\'t enable privacy protection, WHOIS queries return
---     the information that you entered for the registrant, admin, and tech
---     contacts.
+--     the information that you entered for the administrative, registrant,
+--     and technical contacts.
+--
+--     You must specify the same privacy setting for the administrative,
+--     registrant, and technical contacts.
 --
 -- -   If registration is successful, returns an operation ID that you can
 --     use to track the progress and completion of the action. If the
 --     request is not completed successfully, the domain registrant is
 --     notified by email.
 --
--- -   Charges your AWS account an amount based on the top-level domain.
---     For more information, see
+-- -   Charges your Amazon Web Services account an amount based on the
+--     top-level domain. For more information, see
 --     <http://aws.amazon.com/route53/pricing/ Amazon Route 53 Pricing>.
 module Amazonka.Route53Domains.RegisterDomain
   ( -- * Creating a Request
@@ -57,11 +60,11 @@ module Amazonka.Route53Domains.RegisterDomain
     newRegisterDomain,
 
     -- * Request Lenses
-    registerDomain_privacyProtectTechContact,
-    registerDomain_privacyProtectRegistrantContact,
     registerDomain_autoRenew,
-    registerDomain_privacyProtectAdminContact,
     registerDomain_idnLangCode,
+    registerDomain_privacyProtectAdminContact,
+    registerDomain_privacyProtectRegistrantContact,
+    registerDomain_privacyProtectTechContact,
     registerDomain_domainName,
     registerDomain_durationInYears,
     registerDomain_adminContact,
@@ -79,7 +82,8 @@ module Amazonka.Route53Domains.RegisterDomain
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,30 +93,14 @@ import Amazonka.Route53Domains.Types
 --
 -- /See:/ 'newRegisterDomain' smart constructor.
 data RegisterDomain = RegisterDomain'
-  { -- | Whether you want to conceal contact information from WHOIS queries. If
-    -- you specify @true@, WHOIS (\"who is\") queries return contact
-    -- information either for Amazon Registrar (for .com, .net, and .org
-    -- domains) or for our registrar associate, Gandi (for all other TLDs). If
-    -- you specify @false@, WHOIS queries return the information that you
-    -- entered for the technical contact.
-    --
-    -- Default: @true@
-    privacyProtectTechContact :: Prelude.Maybe Prelude.Bool,
-    -- | Whether you want to conceal contact information from WHOIS queries. If
-    -- you specify @true@, WHOIS (\"who is\") queries return contact
-    -- information either for Amazon Registrar (for .com, .net, and .org
-    -- domains) or for our registrar associate, Gandi (for all other TLDs). If
-    -- you specify @false@, WHOIS queries return the information that you
-    -- entered for the registrant contact (the domain owner).
-    --
-    -- Default: @true@
-    privacyProtectRegistrantContact :: Prelude.Maybe Prelude.Bool,
-    -- | Indicates whether the domain will be automatically renewed (@true@) or
+  { -- | Indicates whether the domain will be automatically renewed (@true@) or
     -- not (@false@). Autorenewal only takes effect after the account is
     -- charged.
     --
     -- Default: @true@
     autoRenew :: Prelude.Maybe Prelude.Bool,
+    -- | Reserved for future use.
+    idnLangCode :: Prelude.Maybe Prelude.Text,
     -- | Whether you want to conceal contact information from WHOIS queries. If
     -- you specify @true@, WHOIS (\"who is\") queries return contact
     -- information either for Amazon Registrar (for .com, .net, and .org
@@ -120,10 +108,35 @@ data RegisterDomain = RegisterDomain'
     -- you specify @false@, WHOIS queries return the information that you
     -- entered for the admin contact.
     --
+    -- You must specify the same privacy setting for the administrative,
+    -- registrant, and technical contacts.
+    --
     -- Default: @true@
     privacyProtectAdminContact :: Prelude.Maybe Prelude.Bool,
-    -- | Reserved for future use.
-    idnLangCode :: Prelude.Maybe Prelude.Text,
+    -- | Whether you want to conceal contact information from WHOIS queries. If
+    -- you specify @true@, WHOIS (\"who is\") queries return contact
+    -- information either for Amazon Registrar (for .com, .net, and .org
+    -- domains) or for our registrar associate, Gandi (for all other TLDs). If
+    -- you specify @false@, WHOIS queries return the information that you
+    -- entered for the registrant contact (the domain owner).
+    --
+    -- You must specify the same privacy setting for the administrative,
+    -- registrant, and technical contacts.
+    --
+    -- Default: @true@
+    privacyProtectRegistrantContact :: Prelude.Maybe Prelude.Bool,
+    -- | Whether you want to conceal contact information from WHOIS queries. If
+    -- you specify @true@, WHOIS (\"who is\") queries return contact
+    -- information either for Amazon Registrar (for .com, .net, and .org
+    -- domains) or for our registrar associate, Gandi (for all other TLDs). If
+    -- you specify @false@, WHOIS queries return the information that you
+    -- entered for the technical contact.
+    --
+    -- You must specify the same privacy setting for the administrative,
+    -- registrant, and technical contacts.
+    --
+    -- Default: @true@
+    privacyProtectTechContact :: Prelude.Maybe Prelude.Bool,
     -- | The domain name that you want to register. The top-level domain (TLD),
     -- such as .com, must be a TLD that Route 53 supports. For a list of
     -- supported TLDs, see
@@ -160,15 +173,15 @@ data RegisterDomain = RegisterDomain'
     -- | Provides detailed contact information. For information about the values
     -- that you specify for each element, see
     -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ContactDetail.html ContactDetail>.
-    adminContact :: Core.Sensitive ContactDetail,
+    adminContact :: Data.Sensitive ContactDetail,
     -- | Provides detailed contact information. For information about the values
     -- that you specify for each element, see
     -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ContactDetail.html ContactDetail>.
-    registrantContact :: Core.Sensitive ContactDetail,
+    registrantContact :: Data.Sensitive ContactDetail,
     -- | Provides detailed contact information. For information about the values
     -- that you specify for each element, see
     -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ContactDetail.html ContactDetail>.
-    techContact :: Core.Sensitive ContactDetail
+    techContact :: Data.Sensitive ContactDetail
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -180,12 +193,23 @@ data RegisterDomain = RegisterDomain'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'privacyProtectTechContact', 'registerDomain_privacyProtectTechContact' - Whether you want to conceal contact information from WHOIS queries. If
+-- 'autoRenew', 'registerDomain_autoRenew' - Indicates whether the domain will be automatically renewed (@true@) or
+-- not (@false@). Autorenewal only takes effect after the account is
+-- charged.
+--
+-- Default: @true@
+--
+-- 'idnLangCode', 'registerDomain_idnLangCode' - Reserved for future use.
+--
+-- 'privacyProtectAdminContact', 'registerDomain_privacyProtectAdminContact' - Whether you want to conceal contact information from WHOIS queries. If
 -- you specify @true@, WHOIS (\"who is\") queries return contact
 -- information either for Amazon Registrar (for .com, .net, and .org
 -- domains) or for our registrar associate, Gandi (for all other TLDs). If
 -- you specify @false@, WHOIS queries return the information that you
--- entered for the technical contact.
+-- entered for the admin contact.
+--
+-- You must specify the same privacy setting for the administrative,
+-- registrant, and technical contacts.
 --
 -- Default: @true@
 --
@@ -196,24 +220,22 @@ data RegisterDomain = RegisterDomain'
 -- you specify @false@, WHOIS queries return the information that you
 -- entered for the registrant contact (the domain owner).
 --
--- Default: @true@
---
--- 'autoRenew', 'registerDomain_autoRenew' - Indicates whether the domain will be automatically renewed (@true@) or
--- not (@false@). Autorenewal only takes effect after the account is
--- charged.
+-- You must specify the same privacy setting for the administrative,
+-- registrant, and technical contacts.
 --
 -- Default: @true@
 --
--- 'privacyProtectAdminContact', 'registerDomain_privacyProtectAdminContact' - Whether you want to conceal contact information from WHOIS queries. If
+-- 'privacyProtectTechContact', 'registerDomain_privacyProtectTechContact' - Whether you want to conceal contact information from WHOIS queries. If
 -- you specify @true@, WHOIS (\"who is\") queries return contact
 -- information either for Amazon Registrar (for .com, .net, and .org
 -- domains) or for our registrar associate, Gandi (for all other TLDs). If
 -- you specify @false@, WHOIS queries return the information that you
--- entered for the admin contact.
+-- entered for the technical contact.
+--
+-- You must specify the same privacy setting for the administrative,
+-- registrant, and technical contacts.
 --
 -- Default: @true@
---
--- 'idnLangCode', 'registerDomain_idnLangCode' - Reserved for future use.
 --
 -- 'domainName', 'registerDomain_domainName' - The domain name that you want to register. The top-level domain (TLD),
 -- such as .com, must be a TLD that Route 53 supports. For a list of
@@ -278,41 +300,18 @@ newRegisterDomain
   pRegistrantContact_
   pTechContact_ =
     RegisterDomain'
-      { privacyProtectTechContact =
-          Prelude.Nothing,
-        privacyProtectRegistrantContact = Prelude.Nothing,
-        autoRenew = Prelude.Nothing,
-        privacyProtectAdminContact = Prelude.Nothing,
+      { autoRenew = Prelude.Nothing,
         idnLangCode = Prelude.Nothing,
+        privacyProtectAdminContact = Prelude.Nothing,
+        privacyProtectRegistrantContact = Prelude.Nothing,
+        privacyProtectTechContact = Prelude.Nothing,
         domainName = pDomainName_,
         durationInYears = pDurationInYears_,
-        adminContact = Core._Sensitive Lens.# pAdminContact_,
+        adminContact = Data._Sensitive Lens.# pAdminContact_,
         registrantContact =
-          Core._Sensitive Lens.# pRegistrantContact_,
-        techContact = Core._Sensitive Lens.# pTechContact_
+          Data._Sensitive Lens.# pRegistrantContact_,
+        techContact = Data._Sensitive Lens.# pTechContact_
       }
-
--- | Whether you want to conceal contact information from WHOIS queries. If
--- you specify @true@, WHOIS (\"who is\") queries return contact
--- information either for Amazon Registrar (for .com, .net, and .org
--- domains) or for our registrar associate, Gandi (for all other TLDs). If
--- you specify @false@, WHOIS queries return the information that you
--- entered for the technical contact.
---
--- Default: @true@
-registerDomain_privacyProtectTechContact :: Lens.Lens' RegisterDomain (Prelude.Maybe Prelude.Bool)
-registerDomain_privacyProtectTechContact = Lens.lens (\RegisterDomain' {privacyProtectTechContact} -> privacyProtectTechContact) (\s@RegisterDomain' {} a -> s {privacyProtectTechContact = a} :: RegisterDomain)
-
--- | Whether you want to conceal contact information from WHOIS queries. If
--- you specify @true@, WHOIS (\"who is\") queries return contact
--- information either for Amazon Registrar (for .com, .net, and .org
--- domains) or for our registrar associate, Gandi (for all other TLDs). If
--- you specify @false@, WHOIS queries return the information that you
--- entered for the registrant contact (the domain owner).
---
--- Default: @true@
-registerDomain_privacyProtectRegistrantContact :: Lens.Lens' RegisterDomain (Prelude.Maybe Prelude.Bool)
-registerDomain_privacyProtectRegistrantContact = Lens.lens (\RegisterDomain' {privacyProtectRegistrantContact} -> privacyProtectRegistrantContact) (\s@RegisterDomain' {} a -> s {privacyProtectRegistrantContact = a} :: RegisterDomain)
 
 -- | Indicates whether the domain will be automatically renewed (@true@) or
 -- not (@false@). Autorenewal only takes effect after the account is
@@ -322,6 +321,10 @@ registerDomain_privacyProtectRegistrantContact = Lens.lens (\RegisterDomain' {pr
 registerDomain_autoRenew :: Lens.Lens' RegisterDomain (Prelude.Maybe Prelude.Bool)
 registerDomain_autoRenew = Lens.lens (\RegisterDomain' {autoRenew} -> autoRenew) (\s@RegisterDomain' {} a -> s {autoRenew = a} :: RegisterDomain)
 
+-- | Reserved for future use.
+registerDomain_idnLangCode :: Lens.Lens' RegisterDomain (Prelude.Maybe Prelude.Text)
+registerDomain_idnLangCode = Lens.lens (\RegisterDomain' {idnLangCode} -> idnLangCode) (\s@RegisterDomain' {} a -> s {idnLangCode = a} :: RegisterDomain)
+
 -- | Whether you want to conceal contact information from WHOIS queries. If
 -- you specify @true@, WHOIS (\"who is\") queries return contact
 -- information either for Amazon Registrar (for .com, .net, and .org
@@ -329,13 +332,40 @@ registerDomain_autoRenew = Lens.lens (\RegisterDomain' {autoRenew} -> autoRenew)
 -- you specify @false@, WHOIS queries return the information that you
 -- entered for the admin contact.
 --
+-- You must specify the same privacy setting for the administrative,
+-- registrant, and technical contacts.
+--
 -- Default: @true@
 registerDomain_privacyProtectAdminContact :: Lens.Lens' RegisterDomain (Prelude.Maybe Prelude.Bool)
 registerDomain_privacyProtectAdminContact = Lens.lens (\RegisterDomain' {privacyProtectAdminContact} -> privacyProtectAdminContact) (\s@RegisterDomain' {} a -> s {privacyProtectAdminContact = a} :: RegisterDomain)
 
--- | Reserved for future use.
-registerDomain_idnLangCode :: Lens.Lens' RegisterDomain (Prelude.Maybe Prelude.Text)
-registerDomain_idnLangCode = Lens.lens (\RegisterDomain' {idnLangCode} -> idnLangCode) (\s@RegisterDomain' {} a -> s {idnLangCode = a} :: RegisterDomain)
+-- | Whether you want to conceal contact information from WHOIS queries. If
+-- you specify @true@, WHOIS (\"who is\") queries return contact
+-- information either for Amazon Registrar (for .com, .net, and .org
+-- domains) or for our registrar associate, Gandi (for all other TLDs). If
+-- you specify @false@, WHOIS queries return the information that you
+-- entered for the registrant contact (the domain owner).
+--
+-- You must specify the same privacy setting for the administrative,
+-- registrant, and technical contacts.
+--
+-- Default: @true@
+registerDomain_privacyProtectRegistrantContact :: Lens.Lens' RegisterDomain (Prelude.Maybe Prelude.Bool)
+registerDomain_privacyProtectRegistrantContact = Lens.lens (\RegisterDomain' {privacyProtectRegistrantContact} -> privacyProtectRegistrantContact) (\s@RegisterDomain' {} a -> s {privacyProtectRegistrantContact = a} :: RegisterDomain)
+
+-- | Whether you want to conceal contact information from WHOIS queries. If
+-- you specify @true@, WHOIS (\"who is\") queries return contact
+-- information either for Amazon Registrar (for .com, .net, and .org
+-- domains) or for our registrar associate, Gandi (for all other TLDs). If
+-- you specify @false@, WHOIS queries return the information that you
+-- entered for the technical contact.
+--
+-- You must specify the same privacy setting for the administrative,
+-- registrant, and technical contacts.
+--
+-- Default: @true@
+registerDomain_privacyProtectTechContact :: Lens.Lens' RegisterDomain (Prelude.Maybe Prelude.Bool)
+registerDomain_privacyProtectTechContact = Lens.lens (\RegisterDomain' {privacyProtectTechContact} -> privacyProtectTechContact) (\s@RegisterDomain' {} a -> s {privacyProtectTechContact = a} :: RegisterDomain)
 
 -- | The domain name that you want to register. The top-level domain (TLD),
 -- such as .com, must be a TLD that Route 53 supports. For a list of
@@ -378,41 +408,41 @@ registerDomain_durationInYears = Lens.lens (\RegisterDomain' {durationInYears} -
 -- that you specify for each element, see
 -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ContactDetail.html ContactDetail>.
 registerDomain_adminContact :: Lens.Lens' RegisterDomain ContactDetail
-registerDomain_adminContact = Lens.lens (\RegisterDomain' {adminContact} -> adminContact) (\s@RegisterDomain' {} a -> s {adminContact = a} :: RegisterDomain) Prelude.. Core._Sensitive
+registerDomain_adminContact = Lens.lens (\RegisterDomain' {adminContact} -> adminContact) (\s@RegisterDomain' {} a -> s {adminContact = a} :: RegisterDomain) Prelude.. Data._Sensitive
 
 -- | Provides detailed contact information. For information about the values
 -- that you specify for each element, see
 -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ContactDetail.html ContactDetail>.
 registerDomain_registrantContact :: Lens.Lens' RegisterDomain ContactDetail
-registerDomain_registrantContact = Lens.lens (\RegisterDomain' {registrantContact} -> registrantContact) (\s@RegisterDomain' {} a -> s {registrantContact = a} :: RegisterDomain) Prelude.. Core._Sensitive
+registerDomain_registrantContact = Lens.lens (\RegisterDomain' {registrantContact} -> registrantContact) (\s@RegisterDomain' {} a -> s {registrantContact = a} :: RegisterDomain) Prelude.. Data._Sensitive
 
 -- | Provides detailed contact information. For information about the values
 -- that you specify for each element, see
 -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_ContactDetail.html ContactDetail>.
 registerDomain_techContact :: Lens.Lens' RegisterDomain ContactDetail
-registerDomain_techContact = Lens.lens (\RegisterDomain' {techContact} -> techContact) (\s@RegisterDomain' {} a -> s {techContact = a} :: RegisterDomain) Prelude.. Core._Sensitive
+registerDomain_techContact = Lens.lens (\RegisterDomain' {techContact} -> techContact) (\s@RegisterDomain' {} a -> s {techContact = a} :: RegisterDomain) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest RegisterDomain where
   type
     AWSResponse RegisterDomain =
       RegisterDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RegisterDomainResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "OperationId")
+            Prelude.<*> (x Data..:> "OperationId")
       )
 
 instance Prelude.Hashable RegisterDomain where
   hashWithSalt _salt RegisterDomain' {..} =
-    _salt
-      `Prelude.hashWithSalt` privacyProtectTechContact
-      `Prelude.hashWithSalt` privacyProtectRegistrantContact
-      `Prelude.hashWithSalt` autoRenew
-      `Prelude.hashWithSalt` privacyProtectAdminContact
+    _salt `Prelude.hashWithSalt` autoRenew
       `Prelude.hashWithSalt` idnLangCode
+      `Prelude.hashWithSalt` privacyProtectAdminContact
+      `Prelude.hashWithSalt` privacyProtectRegistrantContact
+      `Prelude.hashWithSalt` privacyProtectTechContact
       `Prelude.hashWithSalt` domainName
       `Prelude.hashWithSalt` durationInYears
       `Prelude.hashWithSalt` adminContact
@@ -421,58 +451,58 @@ instance Prelude.Hashable RegisterDomain where
 
 instance Prelude.NFData RegisterDomain where
   rnf RegisterDomain' {..} =
-    Prelude.rnf privacyProtectTechContact
-      `Prelude.seq` Prelude.rnf privacyProtectRegistrantContact
-      `Prelude.seq` Prelude.rnf autoRenew
-      `Prelude.seq` Prelude.rnf privacyProtectAdminContact
+    Prelude.rnf autoRenew
       `Prelude.seq` Prelude.rnf idnLangCode
+      `Prelude.seq` Prelude.rnf privacyProtectAdminContact
+      `Prelude.seq` Prelude.rnf privacyProtectRegistrantContact
+      `Prelude.seq` Prelude.rnf privacyProtectTechContact
       `Prelude.seq` Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf durationInYears
       `Prelude.seq` Prelude.rnf adminContact
       `Prelude.seq` Prelude.rnf registrantContact
       `Prelude.seq` Prelude.rnf techContact
 
-instance Core.ToHeaders RegisterDomain where
+instance Data.ToHeaders RegisterDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Domains_v20140515.RegisterDomain" ::
+              Data.=# ( "Route53Domains_v20140515.RegisterDomain" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterDomain where
+instance Data.ToJSON RegisterDomain where
   toJSON RegisterDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PrivacyProtectTechContact" Core..=)
-              Prelude.<$> privacyProtectTechContact,
-            ("PrivacyProtectRegistrantContact" Core..=)
-              Prelude.<$> privacyProtectRegistrantContact,
-            ("AutoRenew" Core..=) Prelude.<$> autoRenew,
-            ("PrivacyProtectAdminContact" Core..=)
+          [ ("AutoRenew" Data..=) Prelude.<$> autoRenew,
+            ("IdnLangCode" Data..=) Prelude.<$> idnLangCode,
+            ("PrivacyProtectAdminContact" Data..=)
               Prelude.<$> privacyProtectAdminContact,
-            ("IdnLangCode" Core..=) Prelude.<$> idnLangCode,
-            Prelude.Just ("DomainName" Core..= domainName),
+            ("PrivacyProtectRegistrantContact" Data..=)
+              Prelude.<$> privacyProtectRegistrantContact,
+            ("PrivacyProtectTechContact" Data..=)
+              Prelude.<$> privacyProtectTechContact,
+            Prelude.Just ("DomainName" Data..= domainName),
             Prelude.Just
-              ("DurationInYears" Core..= durationInYears),
-            Prelude.Just ("AdminContact" Core..= adminContact),
+              ("DurationInYears" Data..= durationInYears),
+            Prelude.Just ("AdminContact" Data..= adminContact),
             Prelude.Just
-              ("RegistrantContact" Core..= registrantContact),
-            Prelude.Just ("TechContact" Core..= techContact)
+              ("RegistrantContact" Data..= registrantContact),
+            Prelude.Just ("TechContact" Data..= techContact)
           ]
       )
 
-instance Core.ToPath RegisterDomain where
+instance Data.ToPath RegisterDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterDomain where
+instance Data.ToQuery RegisterDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The RegisterDomain response includes the following element.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.ActivityTaskFailedEventAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SWF.Types.ActivityTaskFailedEventAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides the details of the @ActivityTaskFailed@ event.
 --
 -- /See:/ 'newActivityTaskFailedEventAttributes' smart constructor.
 data ActivityTaskFailedEventAttributes = ActivityTaskFailedEventAttributes'
-  { -- | The reason provided for the failure.
-    reason :: Prelude.Maybe Prelude.Text,
-    -- | The details of the failure.
+  { -- | The details of the failure.
     details :: Prelude.Maybe Prelude.Text,
+    -- | The reason provided for the failure.
+    reason :: Prelude.Maybe Prelude.Text,
     -- | The ID of the @ActivityTaskScheduled@ event that was recorded when this
     -- activity task was scheduled. This information can be useful for
     -- diagnosing problems by tracing back the chain of events leading up to
@@ -51,9 +52,9 @@ data ActivityTaskFailedEventAttributes = ActivityTaskFailedEventAttributes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'reason', 'activityTaskFailedEventAttributes_reason' - The reason provided for the failure.
---
 -- 'details', 'activityTaskFailedEventAttributes_details' - The details of the failure.
+--
+-- 'reason', 'activityTaskFailedEventAttributes_reason' - The reason provided for the failure.
 --
 -- 'scheduledEventId', 'activityTaskFailedEventAttributes_scheduledEventId' - The ID of the @ActivityTaskScheduled@ event that was recorded when this
 -- activity task was scheduled. This information can be useful for
@@ -73,20 +74,20 @@ newActivityTaskFailedEventAttributes
   pScheduledEventId_
   pStartedEventId_ =
     ActivityTaskFailedEventAttributes'
-      { reason =
+      { details =
           Prelude.Nothing,
-        details = Prelude.Nothing,
+        reason = Prelude.Nothing,
         scheduledEventId = pScheduledEventId_,
         startedEventId = pStartedEventId_
       }
 
--- | The reason provided for the failure.
-activityTaskFailedEventAttributes_reason :: Lens.Lens' ActivityTaskFailedEventAttributes (Prelude.Maybe Prelude.Text)
-activityTaskFailedEventAttributes_reason = Lens.lens (\ActivityTaskFailedEventAttributes' {reason} -> reason) (\s@ActivityTaskFailedEventAttributes' {} a -> s {reason = a} :: ActivityTaskFailedEventAttributes)
-
 -- | The details of the failure.
 activityTaskFailedEventAttributes_details :: Lens.Lens' ActivityTaskFailedEventAttributes (Prelude.Maybe Prelude.Text)
 activityTaskFailedEventAttributes_details = Lens.lens (\ActivityTaskFailedEventAttributes' {details} -> details) (\s@ActivityTaskFailedEventAttributes' {} a -> s {details = a} :: ActivityTaskFailedEventAttributes)
+
+-- | The reason provided for the failure.
+activityTaskFailedEventAttributes_reason :: Lens.Lens' ActivityTaskFailedEventAttributes (Prelude.Maybe Prelude.Text)
+activityTaskFailedEventAttributes_reason = Lens.lens (\ActivityTaskFailedEventAttributes' {reason} -> reason) (\s@ActivityTaskFailedEventAttributes' {} a -> s {reason = a} :: ActivityTaskFailedEventAttributes)
 
 -- | The ID of the @ActivityTaskScheduled@ event that was recorded when this
 -- activity task was scheduled. This information can be useful for
@@ -102,18 +103,18 @@ activityTaskFailedEventAttributes_startedEventId :: Lens.Lens' ActivityTaskFaile
 activityTaskFailedEventAttributes_startedEventId = Lens.lens (\ActivityTaskFailedEventAttributes' {startedEventId} -> startedEventId) (\s@ActivityTaskFailedEventAttributes' {} a -> s {startedEventId = a} :: ActivityTaskFailedEventAttributes)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ActivityTaskFailedEventAttributes
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActivityTaskFailedEventAttributes"
       ( \x ->
           ActivityTaskFailedEventAttributes'
-            Prelude.<$> (x Core..:? "reason")
-            Prelude.<*> (x Core..:? "details")
-            Prelude.<*> (x Core..: "scheduledEventId")
-            Prelude.<*> (x Core..: "startedEventId")
+            Prelude.<$> (x Data..:? "details")
+            Prelude.<*> (x Data..:? "reason")
+            Prelude.<*> (x Data..: "scheduledEventId")
+            Prelude.<*> (x Data..: "startedEventId")
       )
 
 instance
@@ -123,8 +124,8 @@ instance
   hashWithSalt
     _salt
     ActivityTaskFailedEventAttributes' {..} =
-      _salt `Prelude.hashWithSalt` reason
-        `Prelude.hashWithSalt` details
+      _salt `Prelude.hashWithSalt` details
+        `Prelude.hashWithSalt` reason
         `Prelude.hashWithSalt` scheduledEventId
         `Prelude.hashWithSalt` startedEventId
 
@@ -133,7 +134,7 @@ instance
     ActivityTaskFailedEventAttributes
   where
   rnf ActivityTaskFailedEventAttributes' {..} =
-    Prelude.rnf reason
-      `Prelude.seq` Prelude.rnf details
+    Prelude.rnf details
+      `Prelude.seq` Prelude.rnf reason
       `Prelude.seq` Prelude.rnf scheduledEventId
       `Prelude.seq` Prelude.rnf startedEventId

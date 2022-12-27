@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.SetSubscriptionAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.SNS.SetSubscriptionAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,6 +65,14 @@ data SetSubscriptionAttributes = SetSubscriptionAttributes'
     -- -   @FilterPolicy@ – The simple JSON object that lets your subscriber
     --     receive only a subset of messages, rather than receiving every
     --     message published to the topic.
+    --
+    -- -   @FilterPolicyScope@ – This attribute lets you choose the filtering
+    --     scope by using one of the following string value types:
+    --
+    --     -   @MessageAttributes@ (default) – The filter is applied on the
+    --         message attributes.
+    --
+    --     -   @MessageBody@ – The filter is applied on the message body.
     --
     -- -   @RawMessageDelivery@ – When set to @true@, enables raw message
     --     delivery to Amazon SQS or HTTP\/S endpoints. This eliminates the
@@ -119,6 +128,14 @@ data SetSubscriptionAttributes = SetSubscriptionAttributes'
 -- -   @FilterPolicy@ – The simple JSON object that lets your subscriber
 --     receive only a subset of messages, rather than receiving every
 --     message published to the topic.
+--
+-- -   @FilterPolicyScope@ – This attribute lets you choose the filtering
+--     scope by using one of the following string value types:
+--
+--     -   @MessageAttributes@ (default) – The filter is applied on the
+--         message attributes.
+--
+--     -   @MessageBody@ – The filter is applied on the message body.
 --
 -- -   @RawMessageDelivery@ – When set to @true@, enables raw message
 --     delivery to Amazon SQS or HTTP\/S endpoints. This eliminates the
@@ -183,6 +200,14 @@ setSubscriptionAttributes_subscriptionArn = Lens.lens (\SetSubscriptionAttribute
 --     receive only a subset of messages, rather than receiving every
 --     message published to the topic.
 --
+-- -   @FilterPolicyScope@ – This attribute lets you choose the filtering
+--     scope by using one of the following string value types:
+--
+--     -   @MessageAttributes@ (default) – The filter is applied on the
+--         message attributes.
+--
+--     -   @MessageBody@ – The filter is applied on the message body.
+--
 -- -   @RawMessageDelivery@ – When set to @true@, enables raw message
 --     delivery to Amazon SQS or HTTP\/S endpoints. This eliminates the
 --     need for the endpoints to process JSON formatting, which is
@@ -217,7 +242,8 @@ instance Core.AWSRequest SetSubscriptionAttributes where
   type
     AWSResponse SetSubscriptionAttributes =
       SetSubscriptionAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       SetSubscriptionAttributesResponse'
@@ -234,22 +260,22 @@ instance Prelude.NFData SetSubscriptionAttributes where
       `Prelude.seq` Prelude.rnf subscriptionArn
       `Prelude.seq` Prelude.rnf attributeName
 
-instance Core.ToHeaders SetSubscriptionAttributes where
+instance Data.ToHeaders SetSubscriptionAttributes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetSubscriptionAttributes where
+instance Data.ToPath SetSubscriptionAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetSubscriptionAttributes where
+instance Data.ToQuery SetSubscriptionAttributes where
   toQuery SetSubscriptionAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SetSubscriptionAttributes" :: Prelude.ByteString),
+          Data.=: ("SetSubscriptionAttributes" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "AttributeValue" Core.=: attributeValue,
-        "SubscriptionArn" Core.=: subscriptionArn,
-        "AttributeName" Core.=: attributeName
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "AttributeValue" Data.=: attributeValue,
+        "SubscriptionArn" Data.=: subscriptionArn,
+        "AttributeName" Data.=: attributeName
       ]
 
 -- | /See:/ 'newSetSubscriptionAttributesResponse' smart constructor.

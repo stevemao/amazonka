@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.IKEVersionsRequestListValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.IKEVersionsRequestListValue where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The IKE version that is permitted for the VPN tunnel.
@@ -62,6 +63,6 @@ instance Prelude.NFData IKEVersionsRequestListValue where
   rnf IKEVersionsRequestListValue' {..} =
     Prelude.rnf value
 
-instance Core.ToQuery IKEVersionsRequestListValue where
+instance Data.ToQuery IKEVersionsRequestListValue where
   toQuery IKEVersionsRequestListValue' {..} =
-    Prelude.mconcat ["Value" Core.=: value]
+    Prelude.mconcat ["Value" Data.=: value]

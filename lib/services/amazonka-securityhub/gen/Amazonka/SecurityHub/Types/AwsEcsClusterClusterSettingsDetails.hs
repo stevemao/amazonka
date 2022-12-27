@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsClusterClusterSettingsDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEcsClusterClusterSettingsDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Indicates whether to enable CloudWatch Container Insights for the ECS
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAwsEcsClusterClusterSettingsDetails' smart constructor.
 data AwsEcsClusterClusterSettingsDetails = AwsEcsClusterClusterSettingsDetails'
-  { -- | The value of the setting.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The name of the setting.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | The name of the setting. The valid value is @containerInsights@.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value of the setting. Valid values are @disabled@ or @enabled@.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,36 +44,36 @@ data AwsEcsClusterClusterSettingsDetails = AwsEcsClusterClusterSettingsDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'awsEcsClusterClusterSettingsDetails_value' - The value of the setting.
+-- 'name', 'awsEcsClusterClusterSettingsDetails_name' - The name of the setting. The valid value is @containerInsights@.
 --
--- 'name', 'awsEcsClusterClusterSettingsDetails_name' - The name of the setting.
+-- 'value', 'awsEcsClusterClusterSettingsDetails_value' - The value of the setting. Valid values are @disabled@ or @enabled@.
 newAwsEcsClusterClusterSettingsDetails ::
   AwsEcsClusterClusterSettingsDetails
 newAwsEcsClusterClusterSettingsDetails =
   AwsEcsClusterClusterSettingsDetails'
-    { value =
+    { name =
         Prelude.Nothing,
-      name = Prelude.Nothing
+      value = Prelude.Nothing
     }
 
--- | The value of the setting.
-awsEcsClusterClusterSettingsDetails_value :: Lens.Lens' AwsEcsClusterClusterSettingsDetails (Prelude.Maybe Prelude.Text)
-awsEcsClusterClusterSettingsDetails_value = Lens.lens (\AwsEcsClusterClusterSettingsDetails' {value} -> value) (\s@AwsEcsClusterClusterSettingsDetails' {} a -> s {value = a} :: AwsEcsClusterClusterSettingsDetails)
-
--- | The name of the setting.
+-- | The name of the setting. The valid value is @containerInsights@.
 awsEcsClusterClusterSettingsDetails_name :: Lens.Lens' AwsEcsClusterClusterSettingsDetails (Prelude.Maybe Prelude.Text)
 awsEcsClusterClusterSettingsDetails_name = Lens.lens (\AwsEcsClusterClusterSettingsDetails' {name} -> name) (\s@AwsEcsClusterClusterSettingsDetails' {} a -> s {name = a} :: AwsEcsClusterClusterSettingsDetails)
 
+-- | The value of the setting. Valid values are @disabled@ or @enabled@.
+awsEcsClusterClusterSettingsDetails_value :: Lens.Lens' AwsEcsClusterClusterSettingsDetails (Prelude.Maybe Prelude.Text)
+awsEcsClusterClusterSettingsDetails_value = Lens.lens (\AwsEcsClusterClusterSettingsDetails' {value} -> value) (\s@AwsEcsClusterClusterSettingsDetails' {} a -> s {value = a} :: AwsEcsClusterClusterSettingsDetails)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsClusterClusterSettingsDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsClusterClusterSettingsDetails"
       ( \x ->
           AwsEcsClusterClusterSettingsDetails'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name") Prelude.<*> (x Data..:? "Value")
       )
 
 instance
@@ -82,24 +83,24 @@ instance
   hashWithSalt
     _salt
     AwsEcsClusterClusterSettingsDetails' {..} =
-      _salt `Prelude.hashWithSalt` value
-        `Prelude.hashWithSalt` name
+      _salt `Prelude.hashWithSalt` name
+        `Prelude.hashWithSalt` value
 
 instance
   Prelude.NFData
     AwsEcsClusterClusterSettingsDetails
   where
   rnf AwsEcsClusterClusterSettingsDetails' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsClusterClusterSettingsDetails
   where
   toJSON AwsEcsClusterClusterSettingsDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Name" Core..=) Prelude.<$> name
+          [ ("Name" Data..=) Prelude.<$> name,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

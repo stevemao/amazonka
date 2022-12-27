@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.Types.InputProcessingConfigurationDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalytics.Types.InputProcessingConfigurationDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalytics.Types.InputLambdaProcessorDescription
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides configuration information about an input processor. Currently,
@@ -60,15 +61,15 @@ inputProcessingConfigurationDescription_inputLambdaProcessorDescription :: Lens.
 inputProcessingConfigurationDescription_inputLambdaProcessorDescription = Lens.lens (\InputProcessingConfigurationDescription' {inputLambdaProcessorDescription} -> inputLambdaProcessorDescription) (\s@InputProcessingConfigurationDescription' {} a -> s {inputLambdaProcessorDescription = a} :: InputProcessingConfigurationDescription)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     InputProcessingConfigurationDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InputProcessingConfigurationDescription"
       ( \x ->
           InputProcessingConfigurationDescription'
-            Prelude.<$> (x Core..:? "InputLambdaProcessorDescription")
+            Prelude.<$> (x Data..:? "InputLambdaProcessorDescription")
       )
 
 instance

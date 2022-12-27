@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.DeletePortfolio
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.ServiceCatalog.DeletePortfolio
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,7 +112,8 @@ instance Core.AWSRequest DeletePortfolio where
   type
     AWSResponse DeletePortfolio =
       DeletePortfolioResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -129,35 +131,35 @@ instance Prelude.NFData DeletePortfolio where
     Prelude.rnf acceptLanguage
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToHeaders DeletePortfolio where
+instance Data.ToHeaders DeletePortfolio where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.DeletePortfolio" ::
+              Data.=# ( "AWS242ServiceCatalogService.DeletePortfolio" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeletePortfolio where
+instance Data.ToJSON DeletePortfolio where
   toJSON DeletePortfolio' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            Prelude.Just ("Id" Core..= id)
+            Prelude.Just ("Id" Data..= id)
           ]
       )
 
-instance Core.ToPath DeletePortfolio where
+instance Data.ToPath DeletePortfolio where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeletePortfolio where
+instance Data.ToQuery DeletePortfolio where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeletePortfolioResponse' smart constructor.

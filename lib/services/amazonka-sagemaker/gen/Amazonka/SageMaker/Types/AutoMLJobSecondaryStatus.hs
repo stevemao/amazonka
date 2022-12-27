@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.AutoMLJobSecondaryStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,11 @@ module Amazonka.SageMaker.Types.AutoMLJobSecondaryStatus
         AutoMLJobSecondaryStatus_Failed,
         AutoMLJobSecondaryStatus_FeatureEngineering,
         AutoMLJobSecondaryStatus_GeneratingExplainabilityReport,
+        AutoMLJobSecondaryStatus_GeneratingModelInsightsReport,
         AutoMLJobSecondaryStatus_MaxAutoMLJobRuntimeReached,
         AutoMLJobSecondaryStatus_MaxCandidatesReached,
         AutoMLJobSecondaryStatus_ModelDeploymentError,
+        AutoMLJobSecondaryStatus_ModelInsightsError,
         AutoMLJobSecondaryStatus_ModelTuning,
         AutoMLJobSecondaryStatus_Starting,
         AutoMLJobSecondaryStatus_Stopped,
@@ -40,11 +42,12 @@ module Amazonka.SageMaker.Types.AutoMLJobSecondaryStatus
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype AutoMLJobSecondaryStatus = AutoMLJobSecondaryStatus'
   { fromAutoMLJobSecondaryStatus ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -56,18 +59,18 @@ newtype AutoMLJobSecondaryStatus = AutoMLJobSecondaryStatus'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern AutoMLJobSecondaryStatus_AnalyzingData :: AutoMLJobSecondaryStatus
@@ -94,6 +97,9 @@ pattern AutoMLJobSecondaryStatus_FeatureEngineering = AutoMLJobSecondaryStatus' 
 pattern AutoMLJobSecondaryStatus_GeneratingExplainabilityReport :: AutoMLJobSecondaryStatus
 pattern AutoMLJobSecondaryStatus_GeneratingExplainabilityReport = AutoMLJobSecondaryStatus' "GeneratingExplainabilityReport"
 
+pattern AutoMLJobSecondaryStatus_GeneratingModelInsightsReport :: AutoMLJobSecondaryStatus
+pattern AutoMLJobSecondaryStatus_GeneratingModelInsightsReport = AutoMLJobSecondaryStatus' "GeneratingModelInsightsReport"
+
 pattern AutoMLJobSecondaryStatus_MaxAutoMLJobRuntimeReached :: AutoMLJobSecondaryStatus
 pattern AutoMLJobSecondaryStatus_MaxAutoMLJobRuntimeReached = AutoMLJobSecondaryStatus' "MaxAutoMLJobRuntimeReached"
 
@@ -102,6 +108,9 @@ pattern AutoMLJobSecondaryStatus_MaxCandidatesReached = AutoMLJobSecondaryStatus
 
 pattern AutoMLJobSecondaryStatus_ModelDeploymentError :: AutoMLJobSecondaryStatus
 pattern AutoMLJobSecondaryStatus_ModelDeploymentError = AutoMLJobSecondaryStatus' "ModelDeploymentError"
+
+pattern AutoMLJobSecondaryStatus_ModelInsightsError :: AutoMLJobSecondaryStatus
+pattern AutoMLJobSecondaryStatus_ModelInsightsError = AutoMLJobSecondaryStatus' "ModelInsightsError"
 
 pattern AutoMLJobSecondaryStatus_ModelTuning :: AutoMLJobSecondaryStatus
 pattern AutoMLJobSecondaryStatus_ModelTuning = AutoMLJobSecondaryStatus' "ModelTuning"
@@ -124,9 +133,11 @@ pattern AutoMLJobSecondaryStatus_Stopping = AutoMLJobSecondaryStatus' "Stopping"
   AutoMLJobSecondaryStatus_Failed,
   AutoMLJobSecondaryStatus_FeatureEngineering,
   AutoMLJobSecondaryStatus_GeneratingExplainabilityReport,
+  AutoMLJobSecondaryStatus_GeneratingModelInsightsReport,
   AutoMLJobSecondaryStatus_MaxAutoMLJobRuntimeReached,
   AutoMLJobSecondaryStatus_MaxCandidatesReached,
   AutoMLJobSecondaryStatus_ModelDeploymentError,
+  AutoMLJobSecondaryStatus_ModelInsightsError,
   AutoMLJobSecondaryStatus_ModelTuning,
   AutoMLJobSecondaryStatus_Starting,
   AutoMLJobSecondaryStatus_Stopped,

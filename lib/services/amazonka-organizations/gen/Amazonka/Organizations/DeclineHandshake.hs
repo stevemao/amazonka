@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.DeclineHandshake
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.Organizations.DeclineHandshake
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -101,12 +102,13 @@ instance Core.AWSRequest DeclineHandshake where
   type
     AWSResponse DeclineHandshake =
       DeclineHandshakeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeclineHandshakeResponse'
-            Prelude.<$> (x Core..?> "Handshake")
+            Prelude.<$> (x Data..?> "Handshake")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,32 +119,32 @@ instance Prelude.Hashable DeclineHandshake where
 instance Prelude.NFData DeclineHandshake where
   rnf DeclineHandshake' {..} = Prelude.rnf handshakeId
 
-instance Core.ToHeaders DeclineHandshake where
+instance Data.ToHeaders DeclineHandshake where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.DeclineHandshake" ::
+              Data.=# ( "AWSOrganizationsV20161128.DeclineHandshake" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeclineHandshake where
+instance Data.ToJSON DeclineHandshake where
   toJSON DeclineHandshake' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("HandshakeId" Core..= handshakeId)]
+          [Prelude.Just ("HandshakeId" Data..= handshakeId)]
       )
 
-instance Core.ToPath DeclineHandshake where
+instance Data.ToPath DeclineHandshake where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeclineHandshake where
+instance Data.ToQuery DeclineHandshake where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeclineHandshakeResponse' smart constructor.

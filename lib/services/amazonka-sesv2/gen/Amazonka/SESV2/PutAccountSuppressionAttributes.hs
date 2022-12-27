@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.PutAccountSuppressionAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.SESV2.PutAccountSuppressionAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,7 +113,8 @@ instance
   type
     AWSResponse PutAccountSuppressionAttributes =
       PutAccountSuppressionAttributesResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -137,33 +139,33 @@ instance
     Prelude.rnf suppressedReasons
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PutAccountSuppressionAttributes
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutAccountSuppressionAttributes where
+instance Data.ToJSON PutAccountSuppressionAttributes where
   toJSON PutAccountSuppressionAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SuppressedReasons" Core..=)
+          [ ("SuppressedReasons" Data..=)
               Prelude.<$> suppressedReasons
           ]
       )
 
-instance Core.ToPath PutAccountSuppressionAttributes where
+instance Data.ToPath PutAccountSuppressionAttributes where
   toPath =
     Prelude.const "/v2/email/account/suppression"
 
-instance Core.ToQuery PutAccountSuppressionAttributes where
+instance Data.ToQuery PutAccountSuppressionAttributes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | An HTTP 200 response if the request succeeds, or an error message if the

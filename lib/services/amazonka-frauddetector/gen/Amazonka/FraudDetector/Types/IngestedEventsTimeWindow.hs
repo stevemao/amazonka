@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.IngestedEventsTimeWindow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.FraudDetector.Types.IngestedEventsTimeWindow where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The start and stop time of the ingested events.
@@ -65,14 +66,14 @@ ingestedEventsTimeWindow_startTime = Lens.lens (\IngestedEventsTimeWindow' {star
 ingestedEventsTimeWindow_endTime :: Lens.Lens' IngestedEventsTimeWindow Prelude.Text
 ingestedEventsTimeWindow_endTime = Lens.lens (\IngestedEventsTimeWindow' {endTime} -> endTime) (\s@IngestedEventsTimeWindow' {} a -> s {endTime = a} :: IngestedEventsTimeWindow)
 
-instance Core.FromJSON IngestedEventsTimeWindow where
+instance Data.FromJSON IngestedEventsTimeWindow where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IngestedEventsTimeWindow"
       ( \x ->
           IngestedEventsTimeWindow'
-            Prelude.<$> (x Core..: "startTime")
-            Prelude.<*> (x Core..: "endTime")
+            Prelude.<$> (x Data..: "startTime")
+            Prelude.<*> (x Data..: "endTime")
       )
 
 instance Prelude.Hashable IngestedEventsTimeWindow where
@@ -85,11 +86,11 @@ instance Prelude.NFData IngestedEventsTimeWindow where
     Prelude.rnf startTime
       `Prelude.seq` Prelude.rnf endTime
 
-instance Core.ToJSON IngestedEventsTimeWindow where
+instance Data.ToJSON IngestedEventsTimeWindow where
   toJSON IngestedEventsTimeWindow' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("startTime" Core..= startTime),
-            Prelude.Just ("endTime" Core..= endTime)
+          [ Prelude.Just ("startTime" Data..= startTime),
+            Prelude.Just ("endTime" Data..= endTime)
           ]
       )

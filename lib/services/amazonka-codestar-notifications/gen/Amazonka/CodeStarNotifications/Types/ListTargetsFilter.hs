@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStarNotifications.Types.ListTargetsFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,14 +21,15 @@ module Amazonka.CodeStarNotifications.Types.ListTargetsFilter where
 
 import Amazonka.CodeStarNotifications.Types.ListTargetsFilterName
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a filter to apply to the list of returned targets. You
 -- can filter by target type, address, or status. For example, to filter
--- results to notification rules that have active Amazon SNS topics as
--- targets, you could specify a ListTargetsFilter Name as TargetType and a
--- Value of SNS, and a Name of TARGET_STATUS and a Value of ACTIVE.
+-- results to notification rules that have active Chatbot topics as
+-- targets, you could specify a ListTargetsFilter Name as @TargetType@ and
+-- a Value of @SNS@, and a Name of @TARGET_STATUS@ and a Value of @ACTIVE@.
 --
 -- /See:/ 'newListTargetsFilter' smart constructor.
 data ListTargetsFilter = ListTargetsFilter'
@@ -36,7 +37,7 @@ data ListTargetsFilter = ListTargetsFilter'
     -- targets.
     name :: ListTargetsFilterName,
     -- | The value of the attribute you want to use to filter the returned
-    -- targets. For example, if you specify /SNS/ for the Target type, you
+    -- targets. For example, if you specify @SNS@ for the Target type, you
     -- could specify an Amazon Resource Name (ARN) for a topic as the value.
     value :: Prelude.Text
   }
@@ -54,7 +55,7 @@ data ListTargetsFilter = ListTargetsFilter'
 -- targets.
 --
 -- 'value', 'listTargetsFilter_value' - The value of the attribute you want to use to filter the returned
--- targets. For example, if you specify /SNS/ for the Target type, you
+-- targets. For example, if you specify @SNS@ for the Target type, you
 -- could specify an Amazon Resource Name (ARN) for a topic as the value.
 newListTargetsFilter ::
   -- | 'name'
@@ -71,7 +72,7 @@ listTargetsFilter_name :: Lens.Lens' ListTargetsFilter ListTargetsFilterName
 listTargetsFilter_name = Lens.lens (\ListTargetsFilter' {name} -> name) (\s@ListTargetsFilter' {} a -> s {name = a} :: ListTargetsFilter)
 
 -- | The value of the attribute you want to use to filter the returned
--- targets. For example, if you specify /SNS/ for the Target type, you
+-- targets. For example, if you specify @SNS@ for the Target type, you
 -- could specify an Amazon Resource Name (ARN) for a topic as the value.
 listTargetsFilter_value :: Lens.Lens' ListTargetsFilter Prelude.Text
 listTargetsFilter_value = Lens.lens (\ListTargetsFilter' {value} -> value) (\s@ListTargetsFilter' {} a -> s {value = a} :: ListTargetsFilter)
@@ -85,11 +86,11 @@ instance Prelude.NFData ListTargetsFilter where
   rnf ListTargetsFilter' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON ListTargetsFilter where
+instance Data.ToJSON ListTargetsFilter where
   toJSON ListTargetsFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Value" Core..= value)
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Value" Data..= value)
           ]
       )

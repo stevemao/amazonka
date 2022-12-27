@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteMethod
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -48,11 +49,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteMethod' smart constructor.
 data DeleteMethod = DeleteMethod'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The Resource identifier for the Method resource.
+    -- | The Resource identifier for the Method resource.
     resourceId :: Prelude.Text,
-    -- | [Required] The HTTP verb of the Method resource.
+    -- | The HTTP verb of the Method resource.
     httpMethod :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -65,11 +66,11 @@ data DeleteMethod = DeleteMethod'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'deleteMethod_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'deleteMethod_restApiId' - The string identifier of the associated RestApi.
 --
--- 'resourceId', 'deleteMethod_resourceId' - [Required] The Resource identifier for the Method resource.
+-- 'resourceId', 'deleteMethod_resourceId' - The Resource identifier for the Method resource.
 --
--- 'httpMethod', 'deleteMethod_httpMethod' - [Required] The HTTP verb of the Method resource.
+-- 'httpMethod', 'deleteMethod_httpMethod' - The HTTP verb of the Method resource.
 newDeleteMethod ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -85,21 +86,22 @@ newDeleteMethod pRestApiId_ pResourceId_ pHttpMethod_ =
       httpMethod = pHttpMethod_
     }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 deleteMethod_restApiId :: Lens.Lens' DeleteMethod Prelude.Text
 deleteMethod_restApiId = Lens.lens (\DeleteMethod' {restApiId} -> restApiId) (\s@DeleteMethod' {} a -> s {restApiId = a} :: DeleteMethod)
 
--- | [Required] The Resource identifier for the Method resource.
+-- | The Resource identifier for the Method resource.
 deleteMethod_resourceId :: Lens.Lens' DeleteMethod Prelude.Text
 deleteMethod_resourceId = Lens.lens (\DeleteMethod' {resourceId} -> resourceId) (\s@DeleteMethod' {} a -> s {resourceId = a} :: DeleteMethod)
 
--- | [Required] The HTTP verb of the Method resource.
+-- | The HTTP verb of the Method resource.
 deleteMethod_httpMethod :: Lens.Lens' DeleteMethod Prelude.Text
 deleteMethod_httpMethod = Lens.lens (\DeleteMethod' {httpMethod} -> httpMethod) (\s@DeleteMethod' {} a -> s {httpMethod = a} :: DeleteMethod)
 
 instance Core.AWSRequest DeleteMethod where
   type AWSResponse DeleteMethod = DeleteMethodResponse'
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteMethodResponse''
 
@@ -115,27 +117,27 @@ instance Prelude.NFData DeleteMethod where
       `Prelude.seq` Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf httpMethod
 
-instance Core.ToHeaders DeleteMethod where
+instance Data.ToHeaders DeleteMethod where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteMethod where
+instance Data.ToPath DeleteMethod where
   toPath DeleteMethod' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/resources/",
-        Core.toBS resourceId,
+        Data.toBS resourceId,
         "/methods/",
-        Core.toBS httpMethod
+        Data.toBS httpMethod
       ]
 
-instance Core.ToQuery DeleteMethod where
+instance Data.ToQuery DeleteMethod where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteMethodResponse'' smart constructor.

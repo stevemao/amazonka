@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKIdentity.Types.AppInstanceAdminSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.ChimeSDKIdentity.Types.AppInstanceAdminSummary where
 
 import Amazonka.ChimeSDKIdentity.Types.Identity
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Summary of the details of an @AppInstanceAdmin@.
@@ -51,13 +52,13 @@ newAppInstanceAdminSummary =
 appInstanceAdminSummary_admin :: Lens.Lens' AppInstanceAdminSummary (Prelude.Maybe Identity)
 appInstanceAdminSummary_admin = Lens.lens (\AppInstanceAdminSummary' {admin} -> admin) (\s@AppInstanceAdminSummary' {} a -> s {admin = a} :: AppInstanceAdminSummary)
 
-instance Core.FromJSON AppInstanceAdminSummary where
+instance Data.FromJSON AppInstanceAdminSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AppInstanceAdminSummary"
       ( \x ->
           AppInstanceAdminSummary'
-            Prelude.<$> (x Core..:? "Admin")
+            Prelude.<$> (x Data..:? "Admin")
       )
 
 instance Prelude.Hashable AppInstanceAdminSummary where

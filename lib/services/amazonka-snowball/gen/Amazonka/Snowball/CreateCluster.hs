@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.CreateCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,12 +29,12 @@ module Amazonka.Snowball.CreateCluster
     newCreateCluster,
 
     -- * Request Lenses
-    createCluster_kmsKeyARN,
-    createCluster_remoteManagement,
-    createCluster_notification,
-    createCluster_forwardingAddressId,
-    createCluster_onDeviceServiceConfiguration,
     createCluster_description,
+    createCluster_forwardingAddressId,
+    createCluster_kmsKeyARN,
+    createCluster_notification,
+    createCluster_onDeviceServiceConfiguration,
+    createCluster_remoteManagement,
     createCluster_taxDocuments,
     createCluster_jobType,
     createCluster_resources,
@@ -54,7 +54,8 @@ module Amazonka.Snowball.CreateCluster
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,31 +63,32 @@ import Amazonka.Snowball.Types
 
 -- | /See:/ 'newCreateCluster' smart constructor.
 data CreateCluster = CreateCluster'
-  { -- | The @KmsKeyARN@ value that you want to associate with this cluster.
+  { -- | An optional description of this specific cluster, for example
+    -- @Environmental Data Cluster-01@.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The forwarding address ID for a cluster. This field is not supported in
+    -- most regions.
+    forwardingAddressId :: Prelude.Maybe Prelude.Text,
+    -- | The @KmsKeyARN@ value that you want to associate with this cluster.
     -- @KmsKeyARN@ values are created by using the
     -- <https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html CreateKey>
-    -- API action in AWS Key Management Service (AWS KMS).
+    -- API action in Key Management Service (KMS).
     kmsKeyARN :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Simple Notification Service (Amazon SNS) notification
+    -- settings for this cluster.
+    notification :: Prelude.Maybe Notification,
+    -- | Specifies the service or services on the Snow Family device that your
+    -- transferred data will be exported from or imported into. Amazon Web
+    -- Services Snow Family device clusters support Amazon S3 and NFS (Network
+    -- File System).
+    onDeviceServiceConfiguration :: Prelude.Maybe OnDeviceServiceConfiguration,
     -- | Allows you to securely operate and manage Snow devices in a cluster
     -- remotely from outside of your internal network. When set to
     -- @INSTALLED_AUTOSTART@, remote management will automatically be available
     -- when the device arrives at your location. Otherwise, you need to use the
     -- Snowball Client to manage the device.
     remoteManagement :: Prelude.Maybe RemoteManagement,
-    -- | The Amazon Simple Notification Service (Amazon SNS) notification
-    -- settings for this cluster.
-    notification :: Prelude.Maybe Notification,
-    -- | The forwarding address ID for a cluster. This field is not supported in
-    -- most regions.
-    forwardingAddressId :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the service or services on the Snow Family device that your
-    -- transferred data will be exported from or imported into. AWS Snow Family
-    -- supports Amazon S3 and NFS (Network File System).
-    onDeviceServiceConfiguration :: Prelude.Maybe OnDeviceServiceConfiguration,
-    -- | An optional description of this specific cluster, for example
-    -- @Environmental Data Cluster-01@.
-    description :: Prelude.Maybe Prelude.Text,
-    -- | The tax documents required in your AWS Region.
+    -- | The tax documents required in your Amazon Web Services Region.
     taxDocuments :: Prelude.Maybe TaxDocuments,
     -- | The type of job for this cluster. Currently, the only job type supported
     -- for clusters is @LOCAL_USE@.
@@ -98,20 +100,20 @@ data CreateCluster = CreateCluster'
     -- (Snow Family Devices and Capacity) in the /Snowcone User Guide/.
     jobType :: JobType,
     -- | The resources associated with the cluster job. These resources include
-    -- Amazon S3 buckets and optional AWS Lambda functions written in the
-    -- Python language.
+    -- Amazon S3 buckets and optional Lambda functions written in the Python
+    -- language.
     resources :: JobResource,
     -- | The ID for the address that you want the cluster shipped to.
     addressId :: Prelude.Text,
     -- | The @RoleARN@ that you want to associate with this cluster. @RoleArn@
     -- values are created by using the
     -- <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole>
-    -- API action in AWS Identity and Access Management (IAM).
+    -- API action in Identity and Access Management (IAM).
     roleARN :: Prelude.Text,
-    -- | The type of AWS Snow Family device to use for this cluster.
+    -- | The type of Snow Family devices to use for this cluster.
     --
-    -- For cluster jobs, AWS Snow Family currently supports only the @EDGE@
-    -- device type.
+    -- For cluster jobs, Amazon Web Services Snow Family currently supports
+    -- only the @EDGE@ device type.
     --
     -- For more information, see
     -- \"https:\/\/docs.aws.amazon.com\/snowball\/latest\/snowcone-guide\/snow-device-types.html\"
@@ -160,10 +162,24 @@ data CreateCluster = CreateCluster'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createCluster_description' - An optional description of this specific cluster, for example
+-- @Environmental Data Cluster-01@.
+--
+-- 'forwardingAddressId', 'createCluster_forwardingAddressId' - The forwarding address ID for a cluster. This field is not supported in
+-- most regions.
+--
 -- 'kmsKeyARN', 'createCluster_kmsKeyARN' - The @KmsKeyARN@ value that you want to associate with this cluster.
 -- @KmsKeyARN@ values are created by using the
 -- <https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html CreateKey>
--- API action in AWS Key Management Service (AWS KMS).
+-- API action in Key Management Service (KMS).
+--
+-- 'notification', 'createCluster_notification' - The Amazon Simple Notification Service (Amazon SNS) notification
+-- settings for this cluster.
+--
+-- 'onDeviceServiceConfiguration', 'createCluster_onDeviceServiceConfiguration' - Specifies the service or services on the Snow Family device that your
+-- transferred data will be exported from or imported into. Amazon Web
+-- Services Snow Family device clusters support Amazon S3 and NFS (Network
+-- File System).
 --
 -- 'remoteManagement', 'createCluster_remoteManagement' - Allows you to securely operate and manage Snow devices in a cluster
 -- remotely from outside of your internal network. When set to
@@ -171,20 +187,7 @@ data CreateCluster = CreateCluster'
 -- when the device arrives at your location. Otherwise, you need to use the
 -- Snowball Client to manage the device.
 --
--- 'notification', 'createCluster_notification' - The Amazon Simple Notification Service (Amazon SNS) notification
--- settings for this cluster.
---
--- 'forwardingAddressId', 'createCluster_forwardingAddressId' - The forwarding address ID for a cluster. This field is not supported in
--- most regions.
---
--- 'onDeviceServiceConfiguration', 'createCluster_onDeviceServiceConfiguration' - Specifies the service or services on the Snow Family device that your
--- transferred data will be exported from or imported into. AWS Snow Family
--- supports Amazon S3 and NFS (Network File System).
---
--- 'description', 'createCluster_description' - An optional description of this specific cluster, for example
--- @Environmental Data Cluster-01@.
---
--- 'taxDocuments', 'createCluster_taxDocuments' - The tax documents required in your AWS Region.
+-- 'taxDocuments', 'createCluster_taxDocuments' - The tax documents required in your Amazon Web Services Region.
 --
 -- 'jobType', 'createCluster_jobType' - The type of job for this cluster. Currently, the only job type supported
 -- for clusters is @LOCAL_USE@.
@@ -196,20 +199,20 @@ data CreateCluster = CreateCluster'
 -- (Snow Family Devices and Capacity) in the /Snowcone User Guide/.
 --
 -- 'resources', 'createCluster_resources' - The resources associated with the cluster job. These resources include
--- Amazon S3 buckets and optional AWS Lambda functions written in the
--- Python language.
+-- Amazon S3 buckets and optional Lambda functions written in the Python
+-- language.
 --
 -- 'addressId', 'createCluster_addressId' - The ID for the address that you want the cluster shipped to.
 --
 -- 'roleARN', 'createCluster_roleARN' - The @RoleARN@ that you want to associate with this cluster. @RoleArn@
 -- values are created by using the
 -- <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole>
--- API action in AWS Identity and Access Management (IAM).
+-- API action in Identity and Access Management (IAM).
 --
--- 'snowballType', 'createCluster_snowballType' - The type of AWS Snow Family device to use for this cluster.
+-- 'snowballType', 'createCluster_snowballType' - The type of Snow Family devices to use for this cluster.
 --
--- For cluster jobs, AWS Snow Family currently supports only the @EDGE@
--- device type.
+-- For cluster jobs, Amazon Web Services Snow Family currently supports
+-- only the @EDGE@ device type.
 --
 -- For more information, see
 -- \"https:\/\/docs.aws.amazon.com\/snowball\/latest\/snowcone-guide\/snow-device-types.html\"
@@ -268,12 +271,12 @@ newCreateCluster
   pSnowballType_
   pShippingOption_ =
     CreateCluster'
-      { kmsKeyARN = Prelude.Nothing,
-        remoteManagement = Prelude.Nothing,
-        notification = Prelude.Nothing,
+      { description = Prelude.Nothing,
         forwardingAddressId = Prelude.Nothing,
+        kmsKeyARN = Prelude.Nothing,
+        notification = Prelude.Nothing,
         onDeviceServiceConfiguration = Prelude.Nothing,
-        description = Prelude.Nothing,
+        remoteManagement = Prelude.Nothing,
         taxDocuments = Prelude.Nothing,
         jobType = pJobType_,
         resources = pResources_,
@@ -283,12 +286,34 @@ newCreateCluster
         shippingOption = pShippingOption_
       }
 
+-- | An optional description of this specific cluster, for example
+-- @Environmental Data Cluster-01@.
+createCluster_description :: Lens.Lens' CreateCluster (Prelude.Maybe Prelude.Text)
+createCluster_description = Lens.lens (\CreateCluster' {description} -> description) (\s@CreateCluster' {} a -> s {description = a} :: CreateCluster)
+
+-- | The forwarding address ID for a cluster. This field is not supported in
+-- most regions.
+createCluster_forwardingAddressId :: Lens.Lens' CreateCluster (Prelude.Maybe Prelude.Text)
+createCluster_forwardingAddressId = Lens.lens (\CreateCluster' {forwardingAddressId} -> forwardingAddressId) (\s@CreateCluster' {} a -> s {forwardingAddressId = a} :: CreateCluster)
+
 -- | The @KmsKeyARN@ value that you want to associate with this cluster.
 -- @KmsKeyARN@ values are created by using the
 -- <https://docs.aws.amazon.com/kms/latest/APIReference/API_CreateKey.html CreateKey>
--- API action in AWS Key Management Service (AWS KMS).
+-- API action in Key Management Service (KMS).
 createCluster_kmsKeyARN :: Lens.Lens' CreateCluster (Prelude.Maybe Prelude.Text)
 createCluster_kmsKeyARN = Lens.lens (\CreateCluster' {kmsKeyARN} -> kmsKeyARN) (\s@CreateCluster' {} a -> s {kmsKeyARN = a} :: CreateCluster)
+
+-- | The Amazon Simple Notification Service (Amazon SNS) notification
+-- settings for this cluster.
+createCluster_notification :: Lens.Lens' CreateCluster (Prelude.Maybe Notification)
+createCluster_notification = Lens.lens (\CreateCluster' {notification} -> notification) (\s@CreateCluster' {} a -> s {notification = a} :: CreateCluster)
+
+-- | Specifies the service or services on the Snow Family device that your
+-- transferred data will be exported from or imported into. Amazon Web
+-- Services Snow Family device clusters support Amazon S3 and NFS (Network
+-- File System).
+createCluster_onDeviceServiceConfiguration :: Lens.Lens' CreateCluster (Prelude.Maybe OnDeviceServiceConfiguration)
+createCluster_onDeviceServiceConfiguration = Lens.lens (\CreateCluster' {onDeviceServiceConfiguration} -> onDeviceServiceConfiguration) (\s@CreateCluster' {} a -> s {onDeviceServiceConfiguration = a} :: CreateCluster)
 
 -- | Allows you to securely operate and manage Snow devices in a cluster
 -- remotely from outside of your internal network. When set to
@@ -298,28 +323,7 @@ createCluster_kmsKeyARN = Lens.lens (\CreateCluster' {kmsKeyARN} -> kmsKeyARN) (
 createCluster_remoteManagement :: Lens.Lens' CreateCluster (Prelude.Maybe RemoteManagement)
 createCluster_remoteManagement = Lens.lens (\CreateCluster' {remoteManagement} -> remoteManagement) (\s@CreateCluster' {} a -> s {remoteManagement = a} :: CreateCluster)
 
--- | The Amazon Simple Notification Service (Amazon SNS) notification
--- settings for this cluster.
-createCluster_notification :: Lens.Lens' CreateCluster (Prelude.Maybe Notification)
-createCluster_notification = Lens.lens (\CreateCluster' {notification} -> notification) (\s@CreateCluster' {} a -> s {notification = a} :: CreateCluster)
-
--- | The forwarding address ID for a cluster. This field is not supported in
--- most regions.
-createCluster_forwardingAddressId :: Lens.Lens' CreateCluster (Prelude.Maybe Prelude.Text)
-createCluster_forwardingAddressId = Lens.lens (\CreateCluster' {forwardingAddressId} -> forwardingAddressId) (\s@CreateCluster' {} a -> s {forwardingAddressId = a} :: CreateCluster)
-
--- | Specifies the service or services on the Snow Family device that your
--- transferred data will be exported from or imported into. AWS Snow Family
--- supports Amazon S3 and NFS (Network File System).
-createCluster_onDeviceServiceConfiguration :: Lens.Lens' CreateCluster (Prelude.Maybe OnDeviceServiceConfiguration)
-createCluster_onDeviceServiceConfiguration = Lens.lens (\CreateCluster' {onDeviceServiceConfiguration} -> onDeviceServiceConfiguration) (\s@CreateCluster' {} a -> s {onDeviceServiceConfiguration = a} :: CreateCluster)
-
--- | An optional description of this specific cluster, for example
--- @Environmental Data Cluster-01@.
-createCluster_description :: Lens.Lens' CreateCluster (Prelude.Maybe Prelude.Text)
-createCluster_description = Lens.lens (\CreateCluster' {description} -> description) (\s@CreateCluster' {} a -> s {description = a} :: CreateCluster)
-
--- | The tax documents required in your AWS Region.
+-- | The tax documents required in your Amazon Web Services Region.
 createCluster_taxDocuments :: Lens.Lens' CreateCluster (Prelude.Maybe TaxDocuments)
 createCluster_taxDocuments = Lens.lens (\CreateCluster' {taxDocuments} -> taxDocuments) (\s@CreateCluster' {} a -> s {taxDocuments = a} :: CreateCluster)
 
@@ -335,8 +339,8 @@ createCluster_jobType :: Lens.Lens' CreateCluster JobType
 createCluster_jobType = Lens.lens (\CreateCluster' {jobType} -> jobType) (\s@CreateCluster' {} a -> s {jobType = a} :: CreateCluster)
 
 -- | The resources associated with the cluster job. These resources include
--- Amazon S3 buckets and optional AWS Lambda functions written in the
--- Python language.
+-- Amazon S3 buckets and optional Lambda functions written in the Python
+-- language.
 createCluster_resources :: Lens.Lens' CreateCluster JobResource
 createCluster_resources = Lens.lens (\CreateCluster' {resources} -> resources) (\s@CreateCluster' {} a -> s {resources = a} :: CreateCluster)
 
@@ -347,14 +351,14 @@ createCluster_addressId = Lens.lens (\CreateCluster' {addressId} -> addressId) (
 -- | The @RoleARN@ that you want to associate with this cluster. @RoleArn@
 -- values are created by using the
 -- <https://docs.aws.amazon.com/IAM/latest/APIReference/API_CreateRole.html CreateRole>
--- API action in AWS Identity and Access Management (IAM).
+-- API action in Identity and Access Management (IAM).
 createCluster_roleARN :: Lens.Lens' CreateCluster Prelude.Text
 createCluster_roleARN = Lens.lens (\CreateCluster' {roleARN} -> roleARN) (\s@CreateCluster' {} a -> s {roleARN = a} :: CreateCluster)
 
--- | The type of AWS Snow Family device to use for this cluster.
+-- | The type of Snow Family devices to use for this cluster.
 --
--- For cluster jobs, AWS Snow Family currently supports only the @EDGE@
--- device type.
+-- For cluster jobs, Amazon Web Services Snow Family currently supports
+-- only the @EDGE@ device type.
 --
 -- For more information, see
 -- \"https:\/\/docs.aws.amazon.com\/snowball\/latest\/snowcone-guide\/snow-device-types.html\"
@@ -400,23 +404,24 @@ instance Core.AWSRequest CreateCluster where
   type
     AWSResponse CreateCluster =
       CreateClusterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateClusterResponse'
-            Prelude.<$> (x Core..?> "ClusterId")
+            Prelude.<$> (x Data..?> "ClusterId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateCluster where
   hashWithSalt _salt CreateCluster' {..} =
-    _salt `Prelude.hashWithSalt` kmsKeyARN
-      `Prelude.hashWithSalt` remoteManagement
-      `Prelude.hashWithSalt` notification
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` forwardingAddressId
+      `Prelude.hashWithSalt` kmsKeyARN
+      `Prelude.hashWithSalt` notification
       `Prelude.hashWithSalt` onDeviceServiceConfiguration
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` remoteManagement
       `Prelude.hashWithSalt` taxDocuments
       `Prelude.hashWithSalt` jobType
       `Prelude.hashWithSalt` resources
@@ -427,12 +432,12 @@ instance Prelude.Hashable CreateCluster where
 
 instance Prelude.NFData CreateCluster where
   rnf CreateCluster' {..} =
-    Prelude.rnf kmsKeyARN
-      `Prelude.seq` Prelude.rnf remoteManagement
-      `Prelude.seq` Prelude.rnf notification
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf forwardingAddressId
+      `Prelude.seq` Prelude.rnf kmsKeyARN
+      `Prelude.seq` Prelude.rnf notification
       `Prelude.seq` Prelude.rnf onDeviceServiceConfiguration
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf remoteManagement
       `Prelude.seq` Prelude.rnf taxDocuments
       `Prelude.seq` Prelude.rnf jobType
       `Prelude.seq` Prelude.rnf resources
@@ -441,49 +446,49 @@ instance Prelude.NFData CreateCluster where
       `Prelude.seq` Prelude.rnf snowballType
       `Prelude.seq` Prelude.rnf shippingOption
 
-instance Core.ToHeaders CreateCluster where
+instance Data.ToHeaders CreateCluster where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSIESnowballJobManagementService.CreateCluster" ::
+              Data.=# ( "AWSIESnowballJobManagementService.CreateCluster" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateCluster where
+instance Data.ToJSON CreateCluster where
   toJSON CreateCluster' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KmsKeyARN" Core..=) Prelude.<$> kmsKeyARN,
-            ("RemoteManagement" Core..=)
-              Prelude.<$> remoteManagement,
-            ("Notification" Core..=) Prelude.<$> notification,
-            ("ForwardingAddressId" Core..=)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("ForwardingAddressId" Data..=)
               Prelude.<$> forwardingAddressId,
-            ("OnDeviceServiceConfiguration" Core..=)
+            ("KmsKeyARN" Data..=) Prelude.<$> kmsKeyARN,
+            ("Notification" Data..=) Prelude.<$> notification,
+            ("OnDeviceServiceConfiguration" Data..=)
               Prelude.<$> onDeviceServiceConfiguration,
-            ("Description" Core..=) Prelude.<$> description,
-            ("TaxDocuments" Core..=) Prelude.<$> taxDocuments,
-            Prelude.Just ("JobType" Core..= jobType),
-            Prelude.Just ("Resources" Core..= resources),
-            Prelude.Just ("AddressId" Core..= addressId),
-            Prelude.Just ("RoleARN" Core..= roleARN),
-            Prelude.Just ("SnowballType" Core..= snowballType),
+            ("RemoteManagement" Data..=)
+              Prelude.<$> remoteManagement,
+            ("TaxDocuments" Data..=) Prelude.<$> taxDocuments,
+            Prelude.Just ("JobType" Data..= jobType),
+            Prelude.Just ("Resources" Data..= resources),
+            Prelude.Just ("AddressId" Data..= addressId),
+            Prelude.Just ("RoleARN" Data..= roleARN),
+            Prelude.Just ("SnowballType" Data..= snowballType),
             Prelude.Just
-              ("ShippingOption" Core..= shippingOption)
+              ("ShippingOption" Data..= shippingOption)
           ]
       )
 
-instance Core.ToPath CreateCluster where
+instance Data.ToPath CreateCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateCluster where
+instance Data.ToQuery CreateCluster where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateClusterResponse' smart constructor.

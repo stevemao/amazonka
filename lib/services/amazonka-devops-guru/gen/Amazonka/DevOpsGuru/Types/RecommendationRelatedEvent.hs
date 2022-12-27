@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.Types.RecommendationRelatedEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,22 @@
 module Amazonka.DevOpsGuru.Types.RecommendationRelatedEvent where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types.RecommendationRelatedEventResource
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an event that is related to a recommendation.
 --
 -- /See:/ 'newRecommendationRelatedEvent' smart constructor.
 data RecommendationRelatedEvent = RecommendationRelatedEvent'
-  { -- | A @ResourceCollection@ object that contains arrays of the names of AWS
-    -- CloudFormation stacks. You can specify up to 500 AWS CloudFormation
-    -- stacks.
-    resources :: Prelude.Maybe [RecommendationRelatedEventResource],
-    -- | The name of the event. This corresponds to the @Name@ field in an
+  { -- | The name of the event. This corresponds to the @Name@ field in an
     -- @Event@ object.
-    name :: Prelude.Maybe Prelude.Text
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A @ResourceCollection@ object that contains arrays of the names of
+    -- Amazon Web Services CloudFormation stacks. You can specify up to 500
+    -- Amazon Web Services CloudFormation stacks.
+    resources :: Prelude.Maybe [RecommendationRelatedEventResource]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,48 +47,47 @@ data RecommendationRelatedEvent = RecommendationRelatedEvent'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resources', 'recommendationRelatedEvent_resources' - A @ResourceCollection@ object that contains arrays of the names of AWS
--- CloudFormation stacks. You can specify up to 500 AWS CloudFormation
--- stacks.
---
 -- 'name', 'recommendationRelatedEvent_name' - The name of the event. This corresponds to the @Name@ field in an
 -- @Event@ object.
+--
+-- 'resources', 'recommendationRelatedEvent_resources' - A @ResourceCollection@ object that contains arrays of the names of
+-- Amazon Web Services CloudFormation stacks. You can specify up to 500
+-- Amazon Web Services CloudFormation stacks.
 newRecommendationRelatedEvent ::
   RecommendationRelatedEvent
 newRecommendationRelatedEvent =
   RecommendationRelatedEvent'
-    { resources =
-        Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      resources = Prelude.Nothing
     }
-
--- | A @ResourceCollection@ object that contains arrays of the names of AWS
--- CloudFormation stacks. You can specify up to 500 AWS CloudFormation
--- stacks.
-recommendationRelatedEvent_resources :: Lens.Lens' RecommendationRelatedEvent (Prelude.Maybe [RecommendationRelatedEventResource])
-recommendationRelatedEvent_resources = Lens.lens (\RecommendationRelatedEvent' {resources} -> resources) (\s@RecommendationRelatedEvent' {} a -> s {resources = a} :: RecommendationRelatedEvent) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the event. This corresponds to the @Name@ field in an
 -- @Event@ object.
 recommendationRelatedEvent_name :: Lens.Lens' RecommendationRelatedEvent (Prelude.Maybe Prelude.Text)
 recommendationRelatedEvent_name = Lens.lens (\RecommendationRelatedEvent' {name} -> name) (\s@RecommendationRelatedEvent' {} a -> s {name = a} :: RecommendationRelatedEvent)
 
-instance Core.FromJSON RecommendationRelatedEvent where
+-- | A @ResourceCollection@ object that contains arrays of the names of
+-- Amazon Web Services CloudFormation stacks. You can specify up to 500
+-- Amazon Web Services CloudFormation stacks.
+recommendationRelatedEvent_resources :: Lens.Lens' RecommendationRelatedEvent (Prelude.Maybe [RecommendationRelatedEventResource])
+recommendationRelatedEvent_resources = Lens.lens (\RecommendationRelatedEvent' {resources} -> resources) (\s@RecommendationRelatedEvent' {} a -> s {resources = a} :: RecommendationRelatedEvent) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON RecommendationRelatedEvent where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RecommendationRelatedEvent"
       ( \x ->
           RecommendationRelatedEvent'
-            Prelude.<$> (x Core..:? "Resources" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "Resources" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable RecommendationRelatedEvent where
   hashWithSalt _salt RecommendationRelatedEvent' {..} =
-    _salt `Prelude.hashWithSalt` resources
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` resources
 
 instance Prelude.NFData RecommendationRelatedEvent where
   rnf RecommendationRelatedEvent' {..} =
-    Prelude.rnf resources
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name
+      `Prelude.seq` Prelude.rnf resources

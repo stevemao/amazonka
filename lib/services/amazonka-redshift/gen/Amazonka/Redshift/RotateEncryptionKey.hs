@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.RotateEncryptionKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Redshift.RotateEncryptionKey
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -94,13 +95,14 @@ instance Core.AWSRequest RotateEncryptionKey where
   type
     AWSResponse RotateEncryptionKey =
       RotateEncryptionKeyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "RotateEncryptionKeyResult"
       ( \s h x ->
           RotateEncryptionKeyResponse'
-            Prelude.<$> (x Core..@? "Cluster")
+            Prelude.<$> (x Data..@? "Cluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,20 +114,20 @@ instance Prelude.NFData RotateEncryptionKey where
   rnf RotateEncryptionKey' {..} =
     Prelude.rnf clusterIdentifier
 
-instance Core.ToHeaders RotateEncryptionKey where
+instance Data.ToHeaders RotateEncryptionKey where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RotateEncryptionKey where
+instance Data.ToPath RotateEncryptionKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RotateEncryptionKey where
+instance Data.ToQuery RotateEncryptionKey where
   toQuery RotateEncryptionKey' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RotateEncryptionKey" :: Prelude.ByteString),
+          Data.=: ("RotateEncryptionKey" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "ClusterIdentifier" Core.=: clusterIdentifier
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "ClusterIdentifier" Data.=: clusterIdentifier
       ]
 
 -- | /See:/ 'newRotateEncryptionKeyResponse' smart constructor.

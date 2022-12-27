@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.Types.ContainerDistributionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ImageBuilder.Types.ContainerDistributionConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types.TargetContainerRepository
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Container distribution settings for encryption, licensing, and sharing
@@ -77,17 +78,17 @@ containerDistributionConfiguration_targetRepository :: Lens.Lens' ContainerDistr
 containerDistributionConfiguration_targetRepository = Lens.lens (\ContainerDistributionConfiguration' {targetRepository} -> targetRepository) (\s@ContainerDistributionConfiguration' {} a -> s {targetRepository = a} :: ContainerDistributionConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ContainerDistributionConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContainerDistributionConfiguration"
       ( \x ->
           ContainerDistributionConfiguration'
-            Prelude.<$> (x Core..:? "containerTags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "description")
-            Prelude.<*> (x Core..: "targetRepository")
+            Prelude.<$> (x Data..:? "containerTags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "description")
+            Prelude.<*> (x Data..: "targetRepository")
       )
 
 instance
@@ -111,15 +112,15 @@ instance
       `Prelude.seq` Prelude.rnf targetRepository
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ContainerDistributionConfiguration
   where
   toJSON ContainerDistributionConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("containerTags" Core..=) Prelude.<$> containerTags,
-            ("description" Core..=) Prelude.<$> description,
+          [ ("containerTags" Data..=) Prelude.<$> containerTags,
+            ("description" Data..=) Prelude.<$> description,
             Prelude.Just
-              ("targetRepository" Core..= targetRepository)
+              ("targetRepository" Data..= targetRepository)
           ]
       )

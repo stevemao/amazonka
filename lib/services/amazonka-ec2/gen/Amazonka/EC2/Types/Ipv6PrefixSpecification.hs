@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.Ipv6PrefixSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.Ipv6PrefixSpecification where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the IPv6 prefix.
@@ -54,10 +55,10 @@ newIpv6PrefixSpecification =
 ipv6PrefixSpecification_ipv6Prefix :: Lens.Lens' Ipv6PrefixSpecification (Prelude.Maybe Prelude.Text)
 ipv6PrefixSpecification_ipv6Prefix = Lens.lens (\Ipv6PrefixSpecification' {ipv6Prefix} -> ipv6Prefix) (\s@Ipv6PrefixSpecification' {} a -> s {ipv6Prefix = a} :: Ipv6PrefixSpecification)
 
-instance Core.FromXML Ipv6PrefixSpecification where
+instance Data.FromXML Ipv6PrefixSpecification where
   parseXML x =
     Ipv6PrefixSpecification'
-      Prelude.<$> (x Core..@? "ipv6Prefix")
+      Prelude.<$> (x Data..@? "ipv6Prefix")
 
 instance Prelude.Hashable Ipv6PrefixSpecification where
   hashWithSalt _salt Ipv6PrefixSpecification' {..} =

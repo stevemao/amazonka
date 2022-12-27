@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.UpdateDocumentVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.WorkDocs.UpdateDocumentVersion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,7 +54,7 @@ import Amazonka.WorkDocs.Types
 data UpdateDocumentVersion = UpdateDocumentVersion'
   { -- | Amazon WorkDocs authentication token. Not required when using AWS
     -- administrator credentials to access the API.
-    authenticationToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    authenticationToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The status of the version.
     versionStatus :: Prelude.Maybe DocumentVersionStatus,
     -- | The ID of the document.
@@ -97,7 +98,7 @@ newUpdateDocumentVersion pDocumentId_ pVersionId_ =
 -- | Amazon WorkDocs authentication token. Not required when using AWS
 -- administrator credentials to access the API.
 updateDocumentVersion_authenticationToken :: Lens.Lens' UpdateDocumentVersion (Prelude.Maybe Prelude.Text)
-updateDocumentVersion_authenticationToken = Lens.lens (\UpdateDocumentVersion' {authenticationToken} -> authenticationToken) (\s@UpdateDocumentVersion' {} a -> s {authenticationToken = a} :: UpdateDocumentVersion) Prelude.. Lens.mapping Core._Sensitive
+updateDocumentVersion_authenticationToken = Lens.lens (\UpdateDocumentVersion' {authenticationToken} -> authenticationToken) (\s@UpdateDocumentVersion' {} a -> s {authenticationToken = a} :: UpdateDocumentVersion) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The status of the version.
 updateDocumentVersion_versionStatus :: Lens.Lens' UpdateDocumentVersion (Prelude.Maybe DocumentVersionStatus)
@@ -115,7 +116,8 @@ instance Core.AWSRequest UpdateDocumentVersion where
   type
     AWSResponse UpdateDocumentVersion =
       UpdateDocumentVersionResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveNull UpdateDocumentVersionResponse'
 
@@ -133,33 +135,33 @@ instance Prelude.NFData UpdateDocumentVersion where
       `Prelude.seq` Prelude.rnf documentId
       `Prelude.seq` Prelude.rnf versionId
 
-instance Core.ToHeaders UpdateDocumentVersion where
+instance Data.ToHeaders UpdateDocumentVersion where
   toHeaders UpdateDocumentVersion' {..} =
     Prelude.mconcat
-      [ "Authentication" Core.=# authenticationToken,
+      [ "Authentication" Data.=# authenticationToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON UpdateDocumentVersion where
+instance Data.ToJSON UpdateDocumentVersion where
   toJSON UpdateDocumentVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("VersionStatus" Core..=)
+          [ ("VersionStatus" Data..=)
               Prelude.<$> versionStatus
           ]
       )
 
-instance Core.ToPath UpdateDocumentVersion where
+instance Data.ToPath UpdateDocumentVersion where
   toPath UpdateDocumentVersion' {..} =
     Prelude.mconcat
       [ "/api/v1/documents/",
-        Core.toBS documentId,
+        Data.toBS documentId,
         "/versions/",
-        Core.toBS versionId
+        Data.toBS versionId
       ]
 
-instance Core.ToQuery UpdateDocumentVersion where
+instance Data.ToQuery UpdateDocumentVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDocumentVersionResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.Types.SupportedOperation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Redshift.Types.SupportedOperation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Internal
 
@@ -54,10 +55,10 @@ newSupportedOperation =
 supportedOperation_operationName :: Lens.Lens' SupportedOperation (Prelude.Maybe Prelude.Text)
 supportedOperation_operationName = Lens.lens (\SupportedOperation' {operationName} -> operationName) (\s@SupportedOperation' {} a -> s {operationName = a} :: SupportedOperation)
 
-instance Core.FromXML SupportedOperation where
+instance Data.FromXML SupportedOperation where
   parseXML x =
     SupportedOperation'
-      Prelude.<$> (x Core..@? "OperationName")
+      Prelude.<$> (x Data..@? "OperationName")
 
 instance Prelude.Hashable SupportedOperation where
   hashWithSalt _salt SupportedOperation' {..} =

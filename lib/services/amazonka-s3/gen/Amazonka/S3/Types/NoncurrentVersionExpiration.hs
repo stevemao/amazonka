@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.NoncurrentVersionExpiration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.NoncurrentVersionExpiration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 
@@ -32,9 +33,15 @@ import Amazonka.S3.Internal
 --
 -- /See:/ 'newNoncurrentVersionExpiration' smart constructor.
 data NoncurrentVersionExpiration = NoncurrentVersionExpiration'
-  { -- | Specifies the number of days an object is noncurrent before Amazon S3
-    -- can perform the associated action. For information about the noncurrent
-    -- days calculations, see
+  { -- | Specifies how many noncurrent versions Amazon S3 will retain. If there
+    -- are this many more recent noncurrent versions, Amazon S3 will take the
+    -- associated action. For more information about noncurrent versions, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html Lifecycle configuration elements>
+    -- in the /Amazon S3 User Guide/.
+    newerNoncurrentVersions' :: Prelude.Maybe Prelude.Int,
+    -- | Specifies the number of days an object is noncurrent before Amazon S3
+    -- can perform the associated action. The value must be a non-zero positive
+    -- integer. For information about the noncurrent days calculations, see
     -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#non-current-days-calculations How Amazon S3 Calculates When an Object Became Noncurrent>
     -- in the /Amazon S3 User Guide/.
     noncurrentDays :: Prelude.Int
@@ -49,9 +56,15 @@ data NoncurrentVersionExpiration = NoncurrentVersionExpiration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'newerNoncurrentVersions'', 'noncurrentVersionExpiration_newerNoncurrentVersions' - Specifies how many noncurrent versions Amazon S3 will retain. If there
+-- are this many more recent noncurrent versions, Amazon S3 will take the
+-- associated action. For more information about noncurrent versions, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html Lifecycle configuration elements>
+-- in the /Amazon S3 User Guide/.
+--
 -- 'noncurrentDays', 'noncurrentVersionExpiration_noncurrentDays' - Specifies the number of days an object is noncurrent before Amazon S3
--- can perform the associated action. For information about the noncurrent
--- days calculations, see
+-- can perform the associated action. The value must be a non-zero positive
+-- integer. For information about the noncurrent days calculations, see
 -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#non-current-days-calculations How Amazon S3 Calculates When an Object Became Noncurrent>
 -- in the /Amazon S3 User Guide/.
 newNoncurrentVersionExpiration ::
@@ -60,32 +73,48 @@ newNoncurrentVersionExpiration ::
   NoncurrentVersionExpiration
 newNoncurrentVersionExpiration pNoncurrentDays_ =
   NoncurrentVersionExpiration'
-    { noncurrentDays =
-        pNoncurrentDays_
+    { newerNoncurrentVersions' =
+        Prelude.Nothing,
+      noncurrentDays = pNoncurrentDays_
     }
 
+-- | Specifies how many noncurrent versions Amazon S3 will retain. If there
+-- are this many more recent noncurrent versions, Amazon S3 will take the
+-- associated action. For more information about noncurrent versions, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/intro-lifecycle-rules.html Lifecycle configuration elements>
+-- in the /Amazon S3 User Guide/.
+noncurrentVersionExpiration_newerNoncurrentVersions :: Lens.Lens' NoncurrentVersionExpiration (Prelude.Maybe Prelude.Int)
+noncurrentVersionExpiration_newerNoncurrentVersions = Lens.lens (\NoncurrentVersionExpiration' {newerNoncurrentVersions'} -> newerNoncurrentVersions') (\s@NoncurrentVersionExpiration' {} a -> s {newerNoncurrentVersions' = a} :: NoncurrentVersionExpiration)
+
 -- | Specifies the number of days an object is noncurrent before Amazon S3
--- can perform the associated action. For information about the noncurrent
--- days calculations, see
+-- can perform the associated action. The value must be a non-zero positive
+-- integer. For information about the noncurrent days calculations, see
 -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/intro-lifecycle-rules.html#non-current-days-calculations How Amazon S3 Calculates When an Object Became Noncurrent>
 -- in the /Amazon S3 User Guide/.
 noncurrentVersionExpiration_noncurrentDays :: Lens.Lens' NoncurrentVersionExpiration Prelude.Int
 noncurrentVersionExpiration_noncurrentDays = Lens.lens (\NoncurrentVersionExpiration' {noncurrentDays} -> noncurrentDays) (\s@NoncurrentVersionExpiration' {} a -> s {noncurrentDays = a} :: NoncurrentVersionExpiration)
 
-instance Core.FromXML NoncurrentVersionExpiration where
+instance Data.FromXML NoncurrentVersionExpiration where
   parseXML x =
     NoncurrentVersionExpiration'
-      Prelude.<$> (x Core..@ "NoncurrentDays")
+      Prelude.<$> (x Data..@? "NewerNoncurrentVersions")
+      Prelude.<*> (x Data..@ "NoncurrentDays")
 
 instance Prelude.Hashable NoncurrentVersionExpiration where
   hashWithSalt _salt NoncurrentVersionExpiration' {..} =
-    _salt `Prelude.hashWithSalt` noncurrentDays
+    _salt
+      `Prelude.hashWithSalt` newerNoncurrentVersions'
+      `Prelude.hashWithSalt` noncurrentDays
 
 instance Prelude.NFData NoncurrentVersionExpiration where
   rnf NoncurrentVersionExpiration' {..} =
-    Prelude.rnf noncurrentDays
+    Prelude.rnf newerNoncurrentVersions'
+      `Prelude.seq` Prelude.rnf noncurrentDays
 
-instance Core.ToXML NoncurrentVersionExpiration where
+instance Data.ToXML NoncurrentVersionExpiration where
   toXML NoncurrentVersionExpiration' {..} =
     Prelude.mconcat
-      ["NoncurrentDays" Core.@= noncurrentDays]
+      [ "NewerNoncurrentVersions"
+          Data.@= newerNoncurrentVersions',
+        "NoncurrentDays" Data.@= noncurrentDays
+      ]

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.NatGatewayAddress
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.NatGatewayAddress where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the IP addresses and network interface associated with a NAT
@@ -29,13 +30,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newNatGatewayAddress' smart constructor.
 data NatGatewayAddress = NatGatewayAddress'
-  { -- | The private IP address associated with the NAT gateway.
-    privateIp :: Prelude.Maybe Prelude.Text,
-    -- | [Public NAT gateway only] The allocation ID of the Elastic IP address
+  { -- | [Public NAT gateway only] The allocation ID of the Elastic IP address
     -- that\'s associated with the NAT gateway.
     allocationId :: Prelude.Maybe Prelude.Text,
     -- | The ID of the network interface associated with the NAT gateway.
     networkInterfaceId :: Prelude.Maybe Prelude.Text,
+    -- | The private IP address associated with the NAT gateway.
+    privateIp :: Prelude.Maybe Prelude.Text,
     -- | [Public NAT gateway only] The Elastic IP address associated with the NAT
     -- gateway.
     publicIp :: Prelude.Maybe Prelude.Text
@@ -50,12 +51,12 @@ data NatGatewayAddress = NatGatewayAddress'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'privateIp', 'natGatewayAddress_privateIp' - The private IP address associated with the NAT gateway.
---
 -- 'allocationId', 'natGatewayAddress_allocationId' - [Public NAT gateway only] The allocation ID of the Elastic IP address
 -- that\'s associated with the NAT gateway.
 --
 -- 'networkInterfaceId', 'natGatewayAddress_networkInterfaceId' - The ID of the network interface associated with the NAT gateway.
+--
+-- 'privateIp', 'natGatewayAddress_privateIp' - The private IP address associated with the NAT gateway.
 --
 -- 'publicIp', 'natGatewayAddress_publicIp' - [Public NAT gateway only] The Elastic IP address associated with the NAT
 -- gateway.
@@ -63,15 +64,11 @@ newNatGatewayAddress ::
   NatGatewayAddress
 newNatGatewayAddress =
   NatGatewayAddress'
-    { privateIp = Prelude.Nothing,
-      allocationId = Prelude.Nothing,
+    { allocationId = Prelude.Nothing,
       networkInterfaceId = Prelude.Nothing,
+      privateIp = Prelude.Nothing,
       publicIp = Prelude.Nothing
     }
-
--- | The private IP address associated with the NAT gateway.
-natGatewayAddress_privateIp :: Lens.Lens' NatGatewayAddress (Prelude.Maybe Prelude.Text)
-natGatewayAddress_privateIp = Lens.lens (\NatGatewayAddress' {privateIp} -> privateIp) (\s@NatGatewayAddress' {} a -> s {privateIp = a} :: NatGatewayAddress)
 
 -- | [Public NAT gateway only] The allocation ID of the Elastic IP address
 -- that\'s associated with the NAT gateway.
@@ -82,29 +79,33 @@ natGatewayAddress_allocationId = Lens.lens (\NatGatewayAddress' {allocationId} -
 natGatewayAddress_networkInterfaceId :: Lens.Lens' NatGatewayAddress (Prelude.Maybe Prelude.Text)
 natGatewayAddress_networkInterfaceId = Lens.lens (\NatGatewayAddress' {networkInterfaceId} -> networkInterfaceId) (\s@NatGatewayAddress' {} a -> s {networkInterfaceId = a} :: NatGatewayAddress)
 
+-- | The private IP address associated with the NAT gateway.
+natGatewayAddress_privateIp :: Lens.Lens' NatGatewayAddress (Prelude.Maybe Prelude.Text)
+natGatewayAddress_privateIp = Lens.lens (\NatGatewayAddress' {privateIp} -> privateIp) (\s@NatGatewayAddress' {} a -> s {privateIp = a} :: NatGatewayAddress)
+
 -- | [Public NAT gateway only] The Elastic IP address associated with the NAT
 -- gateway.
 natGatewayAddress_publicIp :: Lens.Lens' NatGatewayAddress (Prelude.Maybe Prelude.Text)
 natGatewayAddress_publicIp = Lens.lens (\NatGatewayAddress' {publicIp} -> publicIp) (\s@NatGatewayAddress' {} a -> s {publicIp = a} :: NatGatewayAddress)
 
-instance Core.FromXML NatGatewayAddress where
+instance Data.FromXML NatGatewayAddress where
   parseXML x =
     NatGatewayAddress'
-      Prelude.<$> (x Core..@? "privateIp")
-      Prelude.<*> (x Core..@? "allocationId")
-      Prelude.<*> (x Core..@? "networkInterfaceId")
-      Prelude.<*> (x Core..@? "publicIp")
+      Prelude.<$> (x Data..@? "allocationId")
+      Prelude.<*> (x Data..@? "networkInterfaceId")
+      Prelude.<*> (x Data..@? "privateIp")
+      Prelude.<*> (x Data..@? "publicIp")
 
 instance Prelude.Hashable NatGatewayAddress where
   hashWithSalt _salt NatGatewayAddress' {..} =
-    _salt `Prelude.hashWithSalt` privateIp
-      `Prelude.hashWithSalt` allocationId
+    _salt `Prelude.hashWithSalt` allocationId
       `Prelude.hashWithSalt` networkInterfaceId
+      `Prelude.hashWithSalt` privateIp
       `Prelude.hashWithSalt` publicIp
 
 instance Prelude.NFData NatGatewayAddress where
   rnf NatGatewayAddress' {..} =
-    Prelude.rnf privateIp
-      `Prelude.seq` Prelude.rnf allocationId
+    Prelude.rnf allocationId
       `Prelude.seq` Prelude.rnf networkInterfaceId
+      `Prelude.seq` Prelude.rnf privateIp
       `Prelude.seq` Prelude.rnf publicIp

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.HostVolumeProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ECS.Types.HostVolumeProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details on a container instance bind mount host volume.
@@ -28,16 +29,16 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newHostVolumeProperties' smart constructor.
 data HostVolumeProperties = HostVolumeProperties'
   { -- | When the @host@ parameter is used, specify a @sourcePath@ to declare the
-    -- path on the host container instance that is presented to the container.
+    -- path on the host container instance that\'s presented to the container.
     -- If this parameter is empty, then the Docker daemon has assigned a host
     -- path for you. If the @host@ parameter contains a @sourcePath@ file
     -- location, then the data volume persists at the specified location on the
     -- host container instance until you delete it manually. If the
-    -- @sourcePath@ value does not exist on the host container instance, the
+    -- @sourcePath@ value doesn\'t exist on the host container instance, the
     -- Docker daemon creates it. If the location does exist, the contents of
     -- the source path folder are exported.
     --
-    -- If you are using the Fargate launch type, the @sourcePath@ parameter is
+    -- If you\'re using the Fargate launch type, the @sourcePath@ parameter is
     -- not supported.
     sourcePath :: Prelude.Maybe Prelude.Text
   }
@@ -52,16 +53,16 @@ data HostVolumeProperties = HostVolumeProperties'
 -- for backwards compatibility:
 --
 -- 'sourcePath', 'hostVolumeProperties_sourcePath' - When the @host@ parameter is used, specify a @sourcePath@ to declare the
--- path on the host container instance that is presented to the container.
+-- path on the host container instance that\'s presented to the container.
 -- If this parameter is empty, then the Docker daemon has assigned a host
 -- path for you. If the @host@ parameter contains a @sourcePath@ file
 -- location, then the data volume persists at the specified location on the
 -- host container instance until you delete it manually. If the
--- @sourcePath@ value does not exist on the host container instance, the
+-- @sourcePath@ value doesn\'t exist on the host container instance, the
 -- Docker daemon creates it. If the location does exist, the contents of
 -- the source path folder are exported.
 --
--- If you are using the Fargate launch type, the @sourcePath@ parameter is
+-- If you\'re using the Fargate launch type, the @sourcePath@ parameter is
 -- not supported.
 newHostVolumeProperties ::
   HostVolumeProperties
@@ -69,27 +70,27 @@ newHostVolumeProperties =
   HostVolumeProperties' {sourcePath = Prelude.Nothing}
 
 -- | When the @host@ parameter is used, specify a @sourcePath@ to declare the
--- path on the host container instance that is presented to the container.
+-- path on the host container instance that\'s presented to the container.
 -- If this parameter is empty, then the Docker daemon has assigned a host
 -- path for you. If the @host@ parameter contains a @sourcePath@ file
 -- location, then the data volume persists at the specified location on the
 -- host container instance until you delete it manually. If the
--- @sourcePath@ value does not exist on the host container instance, the
+-- @sourcePath@ value doesn\'t exist on the host container instance, the
 -- Docker daemon creates it. If the location does exist, the contents of
 -- the source path folder are exported.
 --
--- If you are using the Fargate launch type, the @sourcePath@ parameter is
+-- If you\'re using the Fargate launch type, the @sourcePath@ parameter is
 -- not supported.
 hostVolumeProperties_sourcePath :: Lens.Lens' HostVolumeProperties (Prelude.Maybe Prelude.Text)
 hostVolumeProperties_sourcePath = Lens.lens (\HostVolumeProperties' {sourcePath} -> sourcePath) (\s@HostVolumeProperties' {} a -> s {sourcePath = a} :: HostVolumeProperties)
 
-instance Core.FromJSON HostVolumeProperties where
+instance Data.FromJSON HostVolumeProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HostVolumeProperties"
       ( \x ->
           HostVolumeProperties'
-            Prelude.<$> (x Core..:? "sourcePath")
+            Prelude.<$> (x Data..:? "sourcePath")
       )
 
 instance Prelude.Hashable HostVolumeProperties where
@@ -100,9 +101,9 @@ instance Prelude.NFData HostVolumeProperties where
   rnf HostVolumeProperties' {..} =
     Prelude.rnf sourcePath
 
-instance Core.ToJSON HostVolumeProperties where
+instance Data.ToJSON HostVolumeProperties where
   toJSON HostVolumeProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("sourcePath" Core..=) Prelude.<$> sourcePath]
+          [("sourcePath" Data..=) Prelude.<$> sourcePath]
       )

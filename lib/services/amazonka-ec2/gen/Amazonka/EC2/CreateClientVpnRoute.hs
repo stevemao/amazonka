@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateClientVpnRoute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.EC2.CreateClientVpnRoute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -203,12 +204,13 @@ instance Core.AWSRequest CreateClientVpnRoute where
   type
     AWSResponse CreateClientVpnRoute =
       CreateClientVpnRouteResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateClientVpnRouteResponse'
-            Prelude.<$> (x Core..@? "status")
+            Prelude.<$> (x Data..@? "status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -230,25 +232,25 @@ instance Prelude.NFData CreateClientVpnRoute where
       `Prelude.seq` Prelude.rnf destinationCidrBlock
       `Prelude.seq` Prelude.rnf targetVpcSubnetId
 
-instance Core.ToHeaders CreateClientVpnRoute where
+instance Data.ToHeaders CreateClientVpnRoute where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateClientVpnRoute where
+instance Data.ToPath CreateClientVpnRoute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateClientVpnRoute where
+instance Data.ToQuery CreateClientVpnRoute where
   toQuery CreateClientVpnRoute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateClientVpnRoute" :: Prelude.ByteString),
+          Data.=: ("CreateClientVpnRoute" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "ClientToken" Core.=: clientToken,
-        "Description" Core.=: description,
-        "DryRun" Core.=: dryRun,
-        "ClientVpnEndpointId" Core.=: clientVpnEndpointId,
-        "DestinationCidrBlock" Core.=: destinationCidrBlock,
-        "TargetVpcSubnetId" Core.=: targetVpcSubnetId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "ClientToken" Data.=: clientToken,
+        "Description" Data.=: description,
+        "DryRun" Data.=: dryRun,
+        "ClientVpnEndpointId" Data.=: clientVpnEndpointId,
+        "DestinationCidrBlock" Data.=: destinationCidrBlock,
+        "TargetVpcSubnetId" Data.=: targetVpcSubnetId
       ]
 
 -- | /See:/ 'newCreateClientVpnRouteResponse' smart constructor.

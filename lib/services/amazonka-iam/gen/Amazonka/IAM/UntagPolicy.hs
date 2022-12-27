@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.UntagPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IAM.UntagPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,7 +108,8 @@ untagPolicy_tagKeys = Lens.lens (\UntagPolicy' {tagKeys} -> tagKeys) (\s@UntagPo
 
 instance Core.AWSRequest UntagPolicy where
   type AWSResponse UntagPolicy = UntagPolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull UntagPolicyResponse'
 
 instance Prelude.Hashable UntagPolicy where
@@ -120,21 +122,21 @@ instance Prelude.NFData UntagPolicy where
     Prelude.rnf policyArn
       `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagPolicy where
+instance Data.ToHeaders UntagPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UntagPolicy where
+instance Data.ToPath UntagPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UntagPolicy where
+instance Data.ToQuery UntagPolicy where
   toQuery UntagPolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("UntagPolicy" :: Prelude.ByteString),
+          Data.=: ("UntagPolicy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "PolicyArn" Core.=: policyArn,
-        "TagKeys" Core.=: Core.toQueryList "member" tagKeys
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "PolicyArn" Data.=: policyArn,
+        "TagKeys" Data.=: Data.toQueryList "member" tagKeys
       ]
 
 -- | /See:/ 'newUntagPolicyResponse' smart constructor.

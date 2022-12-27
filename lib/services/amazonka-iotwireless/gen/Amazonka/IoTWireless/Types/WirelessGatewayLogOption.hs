@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.Types.WirelessGatewayLogOption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.IoTWireless.Types.WirelessGatewayLogOption where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types.LogLevel
 import Amazonka.IoTWireless.Types.WirelessGatewayEventLogOption
 import Amazonka.IoTWireless.Types.WirelessGatewayType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The log options for wireless gateways and can be used to set log levels
@@ -75,15 +76,15 @@ wirelessGatewayLogOption_type = Lens.lens (\WirelessGatewayLogOption' {type'} ->
 wirelessGatewayLogOption_logLevel :: Lens.Lens' WirelessGatewayLogOption LogLevel
 wirelessGatewayLogOption_logLevel = Lens.lens (\WirelessGatewayLogOption' {logLevel} -> logLevel) (\s@WirelessGatewayLogOption' {} a -> s {logLevel = a} :: WirelessGatewayLogOption)
 
-instance Core.FromJSON WirelessGatewayLogOption where
+instance Data.FromJSON WirelessGatewayLogOption where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WirelessGatewayLogOption"
       ( \x ->
           WirelessGatewayLogOption'
-            Prelude.<$> (x Core..:? "Events" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "Type")
-            Prelude.<*> (x Core..: "LogLevel")
+            Prelude.<$> (x Data..:? "Events" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "Type")
+            Prelude.<*> (x Data..: "LogLevel")
       )
 
 instance Prelude.Hashable WirelessGatewayLogOption where
@@ -98,12 +99,12 @@ instance Prelude.NFData WirelessGatewayLogOption where
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf logLevel
 
-instance Core.ToJSON WirelessGatewayLogOption where
+instance Data.ToJSON WirelessGatewayLogOption where
   toJSON WirelessGatewayLogOption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Events" Core..=) Prelude.<$> events,
-            Prelude.Just ("Type" Core..= type'),
-            Prelude.Just ("LogLevel" Core..= logLevel)
+          [ ("Events" Data..=) Prelude.<$> events,
+            Prelude.Just ("Type" Data..= type'),
+            Prelude.Just ("LogLevel" Data..= logLevel)
           ]
       )

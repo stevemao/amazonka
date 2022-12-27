@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.DescribeCertificateAuthority
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,9 +39,9 @@
 -- -   @EXPIRED@ - Your private CA certificate has expired.
 --
 -- -   @FAILED@ - Your private CA has failed. Your CA can fail because of
---     problems such a network outage or back-end AWS failure or other
---     errors. A failed CA can never return to the pending state. You must
---     create a new CA.
+--     problems such a network outage or back-end Amazon Web Services
+--     failure or other errors. A failed CA can never return to the pending
+--     state. You must create a new CA.
 --
 -- -   @DELETED@ - Your private CA is within the restoration period, after
 --     which it is permanently deleted. The length of time remaining in the
@@ -66,7 +66,8 @@ where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -118,12 +119,13 @@ instance Core.AWSRequest DescribeCertificateAuthority where
   type
     AWSResponse DescribeCertificateAuthority =
       DescribeCertificateAuthorityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeCertificateAuthorityResponse'
-            Prelude.<$> (x Core..?> "CertificateAuthority")
+            Prelude.<$> (x Data..?> "CertificateAuthority")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -139,36 +141,36 @@ instance Prelude.NFData DescribeCertificateAuthority where
   rnf DescribeCertificateAuthority' {..} =
     Prelude.rnf certificateAuthorityArn
 
-instance Core.ToHeaders DescribeCertificateAuthority where
+instance Data.ToHeaders DescribeCertificateAuthority where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ACMPrivateCA.DescribeCertificateAuthority" ::
+              Data.=# ( "ACMPrivateCA.DescribeCertificateAuthority" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeCertificateAuthority where
+instance Data.ToJSON DescribeCertificateAuthority where
   toJSON DescribeCertificateAuthority' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "CertificateAuthorityArn"
-                  Core..= certificateAuthorityArn
+                  Data..= certificateAuthorityArn
               )
           ]
       )
 
-instance Core.ToPath DescribeCertificateAuthority where
+instance Data.ToPath DescribeCertificateAuthority where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeCertificateAuthority where
+instance Data.ToQuery DescribeCertificateAuthority where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeCertificateAuthorityResponse' smart constructor.

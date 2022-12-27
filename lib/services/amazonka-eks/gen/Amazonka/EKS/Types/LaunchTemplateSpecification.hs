@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.Types.LaunchTemplateSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.EKS.Types.LaunchTemplateSpecification where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing a node group launch template specification. The
--- launch template cannot include
+-- launch template can\'t include
 -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateNetworkInterface.html SubnetId>
 -- ,
 -- <https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_IamInstanceProfile.html IamInstanceProfile>
@@ -40,19 +41,26 @@ import qualified Amazonka.Prelude as Prelude
 -- in the Amazon EC2 API Reference. For more information about using launch
 -- templates with Amazon EKS, see
 -- <https://docs.aws.amazon.com/eks/latest/userguide/launch-templates.html Launch template support>
--- in the Amazon EKS User Guide.
+-- in the /Amazon EKS User Guide/.
 --
--- Specify either @name@ or @id@, but not both.
+-- You must specify either the launch template ID or the launch template
+-- name in the request, but not both.
 --
 -- /See:/ 'newLaunchTemplateSpecification' smart constructor.
 data LaunchTemplateSpecification = LaunchTemplateSpecification'
-  { -- | The name of the launch template.
+  { -- | The ID of the launch template.
+    --
+    -- You must specify either the launch template ID or the launch template
+    -- name in the request, but not both.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | The name of the launch template.
+    --
+    -- You must specify either the launch template name or the launch template
+    -- ID in the request, but not both.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The version of the launch template to use. If no version is specified,
-    -- then the template\'s default version is used.
-    version :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the launch template.
-    id :: Prelude.Maybe Prelude.Text
+    -- | The version number of the launch template to use. If no version is
+    -- specified, then the template\'s default version is used.
+    version :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -64,64 +72,75 @@ data LaunchTemplateSpecification = LaunchTemplateSpecification'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'id', 'launchTemplateSpecification_id' - The ID of the launch template.
+--
+-- You must specify either the launch template ID or the launch template
+-- name in the request, but not both.
+--
 -- 'name', 'launchTemplateSpecification_name' - The name of the launch template.
 --
--- 'version', 'launchTemplateSpecification_version' - The version of the launch template to use. If no version is specified,
--- then the template\'s default version is used.
+-- You must specify either the launch template name or the launch template
+-- ID in the request, but not both.
 --
--- 'id', 'launchTemplateSpecification_id' - The ID of the launch template.
+-- 'version', 'launchTemplateSpecification_version' - The version number of the launch template to use. If no version is
+-- specified, then the template\'s default version is used.
 newLaunchTemplateSpecification ::
   LaunchTemplateSpecification
 newLaunchTemplateSpecification =
   LaunchTemplateSpecification'
-    { name =
-        Prelude.Nothing,
-      version = Prelude.Nothing,
-      id = Prelude.Nothing
+    { id = Prelude.Nothing,
+      name = Prelude.Nothing,
+      version = Prelude.Nothing
     }
 
--- | The name of the launch template.
-launchTemplateSpecification_name :: Lens.Lens' LaunchTemplateSpecification (Prelude.Maybe Prelude.Text)
-launchTemplateSpecification_name = Lens.lens (\LaunchTemplateSpecification' {name} -> name) (\s@LaunchTemplateSpecification' {} a -> s {name = a} :: LaunchTemplateSpecification)
-
--- | The version of the launch template to use. If no version is specified,
--- then the template\'s default version is used.
-launchTemplateSpecification_version :: Lens.Lens' LaunchTemplateSpecification (Prelude.Maybe Prelude.Text)
-launchTemplateSpecification_version = Lens.lens (\LaunchTemplateSpecification' {version} -> version) (\s@LaunchTemplateSpecification' {} a -> s {version = a} :: LaunchTemplateSpecification)
-
 -- | The ID of the launch template.
+--
+-- You must specify either the launch template ID or the launch template
+-- name in the request, but not both.
 launchTemplateSpecification_id :: Lens.Lens' LaunchTemplateSpecification (Prelude.Maybe Prelude.Text)
 launchTemplateSpecification_id = Lens.lens (\LaunchTemplateSpecification' {id} -> id) (\s@LaunchTemplateSpecification' {} a -> s {id = a} :: LaunchTemplateSpecification)
 
-instance Core.FromJSON LaunchTemplateSpecification where
+-- | The name of the launch template.
+--
+-- You must specify either the launch template name or the launch template
+-- ID in the request, but not both.
+launchTemplateSpecification_name :: Lens.Lens' LaunchTemplateSpecification (Prelude.Maybe Prelude.Text)
+launchTemplateSpecification_name = Lens.lens (\LaunchTemplateSpecification' {name} -> name) (\s@LaunchTemplateSpecification' {} a -> s {name = a} :: LaunchTemplateSpecification)
+
+-- | The version number of the launch template to use. If no version is
+-- specified, then the template\'s default version is used.
+launchTemplateSpecification_version :: Lens.Lens' LaunchTemplateSpecification (Prelude.Maybe Prelude.Text)
+launchTemplateSpecification_version = Lens.lens (\LaunchTemplateSpecification' {version} -> version) (\s@LaunchTemplateSpecification' {} a -> s {version = a} :: LaunchTemplateSpecification)
+
+instance Data.FromJSON LaunchTemplateSpecification where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LaunchTemplateSpecification"
       ( \x ->
           LaunchTemplateSpecification'
-            Prelude.<$> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "version")
-            Prelude.<*> (x Core..:? "id")
+            Prelude.<$> (x Data..:? "id")
+            Prelude.<*> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "version")
       )
 
 instance Prelude.Hashable LaunchTemplateSpecification where
   hashWithSalt _salt LaunchTemplateSpecification' {..} =
-    _salt `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` version
-      `Prelude.hashWithSalt` id
 
 instance Prelude.NFData LaunchTemplateSpecification where
   rnf LaunchTemplateSpecification' {..} =
-    Prelude.rnf name
+    Prelude.rnf id
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf version
-      `Prelude.seq` Prelude.rnf id
 
-instance Core.ToJSON LaunchTemplateSpecification where
+instance Data.ToJSON LaunchTemplateSpecification where
   toJSON LaunchTemplateSpecification' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("name" Core..=) Prelude.<$> name,
-            ("version" Core..=) Prelude.<$> version,
-            ("id" Core..=) Prelude.<$> id
+          [ ("id" Data..=) Prelude.<$> id,
+            ("name" Data..=) Prelude.<$> name,
+            ("version" Data..=) Prelude.<$> version
           ]
       )

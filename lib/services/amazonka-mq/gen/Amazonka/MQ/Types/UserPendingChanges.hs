@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MQ.Types.UserPendingChanges
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MQ.Types.UserPendingChanges where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MQ.Types.ChangeType
 import qualified Amazonka.Prelude as Prelude
 
@@ -29,13 +30,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newUserPendingChanges' smart constructor.
 data UserPendingChanges = UserPendingChanges'
-  { -- | The list of groups (20 maximum) to which the ActiveMQ user belongs. This
+  { -- | Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
+    consoleAccess :: Prelude.Maybe Prelude.Bool,
+    -- | The list of groups (20 maximum) to which the ActiveMQ user belongs. This
     -- value can contain only alphanumeric characters, dashes, periods,
     -- underscores, and tildes (- . _ ~). This value must be 2-100 characters
     -- long.
     groups :: Prelude.Maybe [Prelude.Text],
-    -- | Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
-    consoleAccess :: Prelude.Maybe Prelude.Bool,
     -- | Required. The type of change pending for the ActiveMQ user.
     pendingChange :: ChangeType
   }
@@ -49,12 +50,12 @@ data UserPendingChanges = UserPendingChanges'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'consoleAccess', 'userPendingChanges_consoleAccess' - Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
+--
 -- 'groups', 'userPendingChanges_groups' - The list of groups (20 maximum) to which the ActiveMQ user belongs. This
 -- value can contain only alphanumeric characters, dashes, periods,
 -- underscores, and tildes (- . _ ~). This value must be 2-100 characters
 -- long.
---
--- 'consoleAccess', 'userPendingChanges_consoleAccess' - Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
 --
 -- 'pendingChange', 'userPendingChanges_pendingChange' - Required. The type of change pending for the ActiveMQ user.
 newUserPendingChanges ::
@@ -63,10 +64,15 @@ newUserPendingChanges ::
   UserPendingChanges
 newUserPendingChanges pPendingChange_ =
   UserPendingChanges'
-    { groups = Prelude.Nothing,
-      consoleAccess = Prelude.Nothing,
+    { consoleAccess =
+        Prelude.Nothing,
+      groups = Prelude.Nothing,
       pendingChange = pPendingChange_
     }
+
+-- | Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
+userPendingChanges_consoleAccess :: Lens.Lens' UserPendingChanges (Prelude.Maybe Prelude.Bool)
+userPendingChanges_consoleAccess = Lens.lens (\UserPendingChanges' {consoleAccess} -> consoleAccess) (\s@UserPendingChanges' {} a -> s {consoleAccess = a} :: UserPendingChanges)
 
 -- | The list of groups (20 maximum) to which the ActiveMQ user belongs. This
 -- value can contain only alphanumeric characters, dashes, periods,
@@ -75,33 +81,29 @@ newUserPendingChanges pPendingChange_ =
 userPendingChanges_groups :: Lens.Lens' UserPendingChanges (Prelude.Maybe [Prelude.Text])
 userPendingChanges_groups = Lens.lens (\UserPendingChanges' {groups} -> groups) (\s@UserPendingChanges' {} a -> s {groups = a} :: UserPendingChanges) Prelude.. Lens.mapping Lens.coerced
 
--- | Enables access to the the ActiveMQ Web Console for the ActiveMQ user.
-userPendingChanges_consoleAccess :: Lens.Lens' UserPendingChanges (Prelude.Maybe Prelude.Bool)
-userPendingChanges_consoleAccess = Lens.lens (\UserPendingChanges' {consoleAccess} -> consoleAccess) (\s@UserPendingChanges' {} a -> s {consoleAccess = a} :: UserPendingChanges)
-
 -- | Required. The type of change pending for the ActiveMQ user.
 userPendingChanges_pendingChange :: Lens.Lens' UserPendingChanges ChangeType
 userPendingChanges_pendingChange = Lens.lens (\UserPendingChanges' {pendingChange} -> pendingChange) (\s@UserPendingChanges' {} a -> s {pendingChange = a} :: UserPendingChanges)
 
-instance Core.FromJSON UserPendingChanges where
+instance Data.FromJSON UserPendingChanges where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UserPendingChanges"
       ( \x ->
           UserPendingChanges'
-            Prelude.<$> (x Core..:? "groups" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "consoleAccess")
-            Prelude.<*> (x Core..: "pendingChange")
+            Prelude.<$> (x Data..:? "consoleAccess")
+            Prelude.<*> (x Data..:? "groups" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "pendingChange")
       )
 
 instance Prelude.Hashable UserPendingChanges where
   hashWithSalt _salt UserPendingChanges' {..} =
-    _salt `Prelude.hashWithSalt` groups
-      `Prelude.hashWithSalt` consoleAccess
+    _salt `Prelude.hashWithSalt` consoleAccess
+      `Prelude.hashWithSalt` groups
       `Prelude.hashWithSalt` pendingChange
 
 instance Prelude.NFData UserPendingChanges where
   rnf UserPendingChanges' {..} =
-    Prelude.rnf groups
-      `Prelude.seq` Prelude.rnf consoleAccess
+    Prelude.rnf consoleAccess
+      `Prelude.seq` Prelude.rnf groups
       `Prelude.seq` Prelude.rnf pendingChange

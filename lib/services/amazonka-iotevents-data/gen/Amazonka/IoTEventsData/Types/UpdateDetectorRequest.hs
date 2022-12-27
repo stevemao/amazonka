@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types.UpdateDetectorRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTEventsData.Types.UpdateDetectorRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEventsData.Types.DetectorStateDefinition
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information used to update the detector (instance).
@@ -112,14 +113,14 @@ instance Prelude.NFData UpdateDetectorRequest where
       `Prelude.seq` Prelude.rnf detectorModelName
       `Prelude.seq` Prelude.rnf state
 
-instance Core.ToJSON UpdateDetectorRequest where
+instance Data.ToJSON UpdateDetectorRequest where
   toJSON UpdateDetectorRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("keyValue" Core..=) Prelude.<$> keyValue,
-            Prelude.Just ("messageId" Core..= messageId),
+          [ ("keyValue" Data..=) Prelude.<$> keyValue,
+            Prelude.Just ("messageId" Data..= messageId),
             Prelude.Just
-              ("detectorModelName" Core..= detectorModelName),
-            Prelude.Just ("state" Core..= state)
+              ("detectorModelName" Data..= detectorModelName),
+            Prelude.Just ("state" Data..= state)
           ]
       )

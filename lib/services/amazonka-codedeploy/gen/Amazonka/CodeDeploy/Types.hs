@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,118 +18,118 @@ module Amazonka.CodeDeploy.Types
     defaultService,
 
     -- * Errors
-    _LifecycleHookLimitExceededException,
-    _InvalidTimeRangeException,
-    _InvalidComputePlatformException,
-    _InvalidTagException,
-    _InvalidFileExistsBehaviorException,
-    _InvalidAlarmConfigException,
-    _InstanceNameAlreadyRegisteredException,
-    _IamUserArnRequiredException,
-    _InvalidDeploymentGroupNameException,
-    _InvalidInstanceTypeException,
-    _IamSessionArnAlreadyRegisteredException,
-    _InvalidTrafficRoutingConfigurationException,
-    _DescriptionTooLongException,
-    _InvalidIamUserArnException,
-    _InvalidOnPremisesTagCombinationException,
-    _DeploymentNotStartedException,
-    _DeploymentConfigLimitExceededException,
-    _RoleRequiredException,
-    _InvalidLoadBalancerInfoException,
-    _InvalidBlueGreenDeploymentConfigurationException,
-    _InvalidRoleException,
-    _DeploymentConfigAlreadyExistsException,
-    _InvalidTargetInstancesException,
-    _InvalidTagsToAddException,
-    _DeploymentLimitExceededException,
-    _IamUserArnAlreadyRegisteredException,
-    _InvalidIamSessionArnException,
-    _InstanceLimitExceededException,
-    _InvalidLifecycleEventHookExecutionIdException,
-    _InvalidDeploymentStyleException,
-    _InvalidTargetFilterNameException,
-    _DeploymentTargetListSizeExceededException,
-    _InvalidDeployedStateFilterException,
-    _InvalidAutoScalingGroupException,
-    _InvalidApplicationNameException,
-    _GitHubAccountTokenDoesNotExistException,
-    _ApplicationDoesNotExistException,
-    _InvalidMinimumHealthyHostValueException,
-    _UnsupportedActionForDeploymentTypeException,
-    _ResourceValidationException,
-    _ArnNotSupportedException,
-    _InvalidGitHubAccountTokenException,
-    _InvalidEC2TagCombinationException,
-    _InvalidLifecycleEventHookExecutionStatusException,
     _AlarmsLimitExceededException,
-    _OperationNotSupportedException,
-    _DeploymentTargetDoesNotExistException,
-    _InvalidTagFilterException,
-    _InvalidTriggerConfigException,
-    _InvalidDeploymentWaitTypeException,
-    _InvalidIgnoreApplicationStopFailuresValueException,
-    _InvalidUpdateOutdatedInstancesOnlyValueException,
-    _TagRequiredException,
-    _DeploymentGroupNameRequiredException,
-    _BucketNameFilterRequiredException,
-    _DeploymentConfigDoesNotExistException,
-    _InvalidBucketNameFilterException,
-    _DeploymentGroupAlreadyExistsException,
-    _InvalidSortByException,
-    _RevisionDoesNotExistException,
-    _InvalidTargetException,
-    _DeploymentGroupLimitExceededException,
-    _DeploymentGroupDoesNotExistException,
-    _ThrottlingException,
-    _InvalidDeploymentConfigNameException,
-    _DeploymentConfigNameRequiredException,
-    _DeploymentIdRequiredException,
-    _InvalidInstanceIdException,
-    _DeploymentIsNotInReadyStateException,
-    _InvalidTargetGroupPairException,
-    _InvalidNextTokenException,
-    _InstanceIdRequiredException,
-    _InvalidDeploymentIdException,
-    _InvalidSortOrderException,
-    _InvalidAutoRollbackConfigException,
-    _DeploymentAlreadyCompletedException,
-    _ECSServiceMappingLimitExceededException,
-    _DeploymentDoesNotExistException,
-    _BatchLimitExceededException,
-    _InvalidRevisionException,
-    _RevisionRequiredException,
-    _InstanceDoesNotExistException,
-    _DeploymentConfigInUseException,
-    _InvalidInputException,
-    _InvalidEC2TagException,
-    _InvalidInstanceNameException,
-    _InstanceNameRequiredException,
-    _MultipleIamArnsProvidedException,
-    _TriggerTargetsLimitExceededException,
-    _InvalidDeploymentStatusException,
-    _InvalidRegistrationStatusException,
-    _ApplicationNameRequiredException,
-    _InstanceNotRegisteredException,
     _ApplicationAlreadyExistsException,
-    _InvalidInstanceStatusException,
-    _InvalidDeploymentTargetIdException,
-    _TagLimitExceededException,
+    _ApplicationDoesNotExistException,
     _ApplicationLimitExceededException,
-    _TagSetListLimitExceededException,
-    _InvalidArnException,
-    _InvalidOperationException,
-    _DeploymentTargetIdRequiredException,
-    _GitHubAccountTokenNameRequiredException,
-    _InvalidECSServiceException,
-    _InvalidDeploymentInstanceTypeException,
-    _InvalidExternalIdException,
-    _IamArnRequiredException,
-    _InvalidGitHubAccountTokenNameException,
-    _LifecycleEventAlreadyCompletedException,
-    _InvalidKeyPrefixFilterException,
-    _ResourceArnRequiredException,
+    _ApplicationNameRequiredException,
+    _ArnNotSupportedException,
+    _BatchLimitExceededException,
+    _BucketNameFilterRequiredException,
+    _DeploymentAlreadyCompletedException,
     _DeploymentAlreadyStartedException,
+    _DeploymentConfigAlreadyExistsException,
+    _DeploymentConfigDoesNotExistException,
+    _DeploymentConfigInUseException,
+    _DeploymentConfigLimitExceededException,
+    _DeploymentConfigNameRequiredException,
+    _DeploymentDoesNotExistException,
+    _DeploymentGroupAlreadyExistsException,
+    _DeploymentGroupDoesNotExistException,
+    _DeploymentGroupLimitExceededException,
+    _DeploymentGroupNameRequiredException,
+    _DeploymentIdRequiredException,
+    _DeploymentIsNotInReadyStateException,
+    _DeploymentLimitExceededException,
+    _DeploymentNotStartedException,
+    _DeploymentTargetDoesNotExistException,
+    _DeploymentTargetIdRequiredException,
+    _DeploymentTargetListSizeExceededException,
+    _DescriptionTooLongException,
+    _ECSServiceMappingLimitExceededException,
+    _GitHubAccountTokenDoesNotExistException,
+    _GitHubAccountTokenNameRequiredException,
+    _IamArnRequiredException,
+    _IamSessionArnAlreadyRegisteredException,
+    _IamUserArnAlreadyRegisteredException,
+    _IamUserArnRequiredException,
+    _InstanceDoesNotExistException,
+    _InstanceIdRequiredException,
+    _InstanceLimitExceededException,
+    _InstanceNameAlreadyRegisteredException,
+    _InstanceNameRequiredException,
+    _InstanceNotRegisteredException,
+    _InvalidAlarmConfigException,
+    _InvalidApplicationNameException,
+    _InvalidArnException,
+    _InvalidAutoRollbackConfigException,
+    _InvalidAutoScalingGroupException,
+    _InvalidBlueGreenDeploymentConfigurationException,
+    _InvalidBucketNameFilterException,
+    _InvalidComputePlatformException,
+    _InvalidDeployedStateFilterException,
+    _InvalidDeploymentConfigNameException,
+    _InvalidDeploymentGroupNameException,
+    _InvalidDeploymentIdException,
+    _InvalidDeploymentInstanceTypeException,
+    _InvalidDeploymentStatusException,
+    _InvalidDeploymentStyleException,
+    _InvalidDeploymentTargetIdException,
+    _InvalidDeploymentWaitTypeException,
+    _InvalidEC2TagCombinationException,
+    _InvalidEC2TagException,
+    _InvalidECSServiceException,
+    _InvalidExternalIdException,
+    _InvalidFileExistsBehaviorException,
+    _InvalidGitHubAccountTokenException,
+    _InvalidGitHubAccountTokenNameException,
+    _InvalidIamSessionArnException,
+    _InvalidIamUserArnException,
+    _InvalidIgnoreApplicationStopFailuresValueException,
+    _InvalidInputException,
+    _InvalidInstanceIdException,
+    _InvalidInstanceNameException,
+    _InvalidInstanceStatusException,
+    _InvalidInstanceTypeException,
+    _InvalidKeyPrefixFilterException,
+    _InvalidLifecycleEventHookExecutionIdException,
+    _InvalidLifecycleEventHookExecutionStatusException,
+    _InvalidLoadBalancerInfoException,
+    _InvalidMinimumHealthyHostValueException,
+    _InvalidNextTokenException,
+    _InvalidOnPremisesTagCombinationException,
+    _InvalidOperationException,
+    _InvalidRegistrationStatusException,
+    _InvalidRevisionException,
+    _InvalidRoleException,
+    _InvalidSortByException,
+    _InvalidSortOrderException,
+    _InvalidTagException,
+    _InvalidTagFilterException,
+    _InvalidTagsToAddException,
+    _InvalidTargetException,
+    _InvalidTargetFilterNameException,
+    _InvalidTargetGroupPairException,
+    _InvalidTargetInstancesException,
+    _InvalidTimeRangeException,
+    _InvalidTrafficRoutingConfigurationException,
+    _InvalidTriggerConfigException,
+    _InvalidUpdateOutdatedInstancesOnlyValueException,
+    _LifecycleEventAlreadyCompletedException,
+    _LifecycleHookLimitExceededException,
+    _MultipleIamArnsProvidedException,
+    _OperationNotSupportedException,
+    _ResourceArnRequiredException,
+    _ResourceValidationException,
+    _RevisionDoesNotExistException,
+    _RevisionRequiredException,
+    _RoleRequiredException,
+    _TagLimitExceededException,
+    _TagRequiredException,
+    _TagSetListLimitExceededException,
+    _ThrottlingException,
+    _TriggerTargetsLimitExceededException,
+    _UnsupportedActionForDeploymentTypeException,
 
     -- * ApplicationRevisionSortBy
     ApplicationRevisionSortBy (..),
@@ -231,9 +232,9 @@ module Amazonka.CodeDeploy.Types
     -- * AlarmConfiguration
     AlarmConfiguration (..),
     newAlarmConfiguration,
-    alarmConfiguration_ignorePollAlarmFailure,
-    alarmConfiguration_enabled,
     alarmConfiguration_alarms,
+    alarmConfiguration_enabled,
+    alarmConfiguration_ignorePollAlarmFailure,
 
     -- * AppSpecContent
     AppSpecContent (..),
@@ -244,12 +245,12 @@ module Amazonka.CodeDeploy.Types
     -- * ApplicationInfo
     ApplicationInfo (..),
     newApplicationInfo,
-    applicationInfo_linkedToGitHub,
-    applicationInfo_computePlatform,
     applicationInfo_applicationId,
     applicationInfo_applicationName,
-    applicationInfo_gitHubAccountName,
+    applicationInfo_computePlatform,
     applicationInfo_createTime,
+    applicationInfo_gitHubAccountName,
+    applicationInfo_linkedToGitHub,
 
     -- * AutoRollbackConfiguration
     AutoRollbackConfiguration (..),
@@ -279,92 +280,93 @@ module Amazonka.CodeDeploy.Types
     -- * CloudFormationTarget
     CloudFormationTarget (..),
     newCloudFormationTarget,
-    cloudFormationTarget_targetId,
-    cloudFormationTarget_status,
     cloudFormationTarget_deploymentId,
-    cloudFormationTarget_resourceType,
     cloudFormationTarget_lastUpdatedAt,
     cloudFormationTarget_lifecycleEvents,
+    cloudFormationTarget_resourceType,
+    cloudFormationTarget_status,
+    cloudFormationTarget_targetId,
     cloudFormationTarget_targetVersionWeight,
 
     -- * DeploymentConfigInfo
     DeploymentConfigInfo (..),
     newDeploymentConfigInfo,
-    deploymentConfigInfo_deploymentConfigName,
     deploymentConfigInfo_computePlatform,
+    deploymentConfigInfo_createTime,
+    deploymentConfigInfo_deploymentConfigId,
+    deploymentConfigInfo_deploymentConfigName,
     deploymentConfigInfo_minimumHealthyHosts,
     deploymentConfigInfo_trafficRoutingConfig,
-    deploymentConfigInfo_deploymentConfigId,
-    deploymentConfigInfo_createTime,
 
     -- * DeploymentGroupInfo
     DeploymentGroupInfo (..),
     newDeploymentGroupInfo,
-    deploymentGroupInfo_serviceRoleArn,
-    deploymentGroupInfo_ec2TagSet,
-    deploymentGroupInfo_deploymentConfigName,
-    deploymentGroupInfo_lastAttemptedDeployment,
-    deploymentGroupInfo_onPremisesTagSet,
-    deploymentGroupInfo_computePlatform,
-    deploymentGroupInfo_targetRevision,
-    deploymentGroupInfo_ec2TagFilters,
-    deploymentGroupInfo_ecsServices,
-    deploymentGroupInfo_blueGreenDeploymentConfiguration,
-    deploymentGroupInfo_loadBalancerInfo,
-    deploymentGroupInfo_outdatedInstancesStrategy,
-    deploymentGroupInfo_onPremisesInstanceTagFilters,
-    deploymentGroupInfo_lastSuccessfulDeployment,
-    deploymentGroupInfo_applicationName,
     deploymentGroupInfo_alarmConfiguration,
-    deploymentGroupInfo_triggerConfigurations,
-    deploymentGroupInfo_deploymentGroupId,
-    deploymentGroupInfo_autoScalingGroups,
-    deploymentGroupInfo_deploymentStyle,
+    deploymentGroupInfo_applicationName,
     deploymentGroupInfo_autoRollbackConfiguration,
+    deploymentGroupInfo_autoScalingGroups,
+    deploymentGroupInfo_blueGreenDeploymentConfiguration,
+    deploymentGroupInfo_computePlatform,
+    deploymentGroupInfo_deploymentConfigName,
+    deploymentGroupInfo_deploymentGroupId,
     deploymentGroupInfo_deploymentGroupName,
+    deploymentGroupInfo_deploymentStyle,
+    deploymentGroupInfo_ec2TagFilters,
+    deploymentGroupInfo_ec2TagSet,
+    deploymentGroupInfo_ecsServices,
+    deploymentGroupInfo_lastAttemptedDeployment,
+    deploymentGroupInfo_lastSuccessfulDeployment,
+    deploymentGroupInfo_loadBalancerInfo,
+    deploymentGroupInfo_onPremisesInstanceTagFilters,
+    deploymentGroupInfo_onPremisesTagSet,
+    deploymentGroupInfo_outdatedInstancesStrategy,
+    deploymentGroupInfo_serviceRoleArn,
+    deploymentGroupInfo_targetRevision,
+    deploymentGroupInfo_triggerConfigurations,
 
     -- * DeploymentInfo
     DeploymentInfo (..),
     newDeploymentInfo,
-    deploymentInfo_creator,
-    deploymentInfo_status,
-    deploymentInfo_deploymentId,
-    deploymentInfo_deploymentConfigName,
-    deploymentInfo_computePlatform,
-    deploymentInfo_previousRevision,
-    deploymentInfo_instanceTerminationWaitTimeStarted,
-    deploymentInfo_deploymentStatusMessages,
-    deploymentInfo_relatedDeployments,
-    deploymentInfo_startTime,
-    deploymentInfo_completeTime,
-    deploymentInfo_blueGreenDeploymentConfiguration,
-    deploymentInfo_errorInformation,
-    deploymentInfo_loadBalancerInfo,
     deploymentInfo_additionalDeploymentStatusInfo,
-    deploymentInfo_deploymentOverview,
-    deploymentInfo_fileExistsBehavior,
     deploymentInfo_applicationName,
-    deploymentInfo_rollbackInfo,
-    deploymentInfo_externalId,
-    deploymentInfo_targetInstances,
-    deploymentInfo_revision,
-    deploymentInfo_description,
-    deploymentInfo_deploymentStyle,
-    deploymentInfo_createTime,
     deploymentInfo_autoRollbackConfiguration,
-    deploymentInfo_updateOutdatedInstancesOnly,
+    deploymentInfo_blueGreenDeploymentConfiguration,
+    deploymentInfo_completeTime,
+    deploymentInfo_computePlatform,
+    deploymentInfo_createTime,
+    deploymentInfo_creator,
+    deploymentInfo_deploymentConfigName,
     deploymentInfo_deploymentGroupName,
+    deploymentInfo_deploymentId,
+    deploymentInfo_deploymentOverview,
+    deploymentInfo_deploymentStatusMessages,
+    deploymentInfo_deploymentStyle,
+    deploymentInfo_description,
+    deploymentInfo_errorInformation,
+    deploymentInfo_externalId,
+    deploymentInfo_fileExistsBehavior,
     deploymentInfo_ignoreApplicationStopFailures,
+    deploymentInfo_instanceTerminationWaitTimeStarted,
+    deploymentInfo_loadBalancerInfo,
+    deploymentInfo_overrideAlarmConfiguration,
+    deploymentInfo_previousRevision,
+    deploymentInfo_relatedDeployments,
+    deploymentInfo_revision,
+    deploymentInfo_rollbackInfo,
+    deploymentInfo_startTime,
+    deploymentInfo_status,
+    deploymentInfo_targetInstances,
+    deploymentInfo_updateOutdatedInstancesOnly,
 
     -- * DeploymentOverview
     DeploymentOverview (..),
     newDeploymentOverview,
-    deploymentOverview_pending,
-    deploymentOverview_skipped,
-    deploymentOverview_inProgress,
-    deploymentOverview_succeeded,
-    deploymentOverview_ready,
     deploymentOverview_failed,
+    deploymentOverview_inProgress,
+    deploymentOverview_pending,
+    deploymentOverview_ready,
+    deploymentOverview_skipped,
+    deploymentOverview_succeeded,
 
     -- * DeploymentReadyOption
     DeploymentReadyOption (..),
@@ -381,26 +383,26 @@ module Amazonka.CodeDeploy.Types
     -- * DeploymentTarget
     DeploymentTarget (..),
     newDeploymentTarget,
-    deploymentTarget_instanceTarget,
     deploymentTarget_cloudFormationTarget,
-    deploymentTarget_ecsTarget,
     deploymentTarget_deploymentTargetType,
+    deploymentTarget_ecsTarget,
+    deploymentTarget_instanceTarget,
     deploymentTarget_lambdaTarget,
 
     -- * Diagnostics
     Diagnostics (..),
     newDiagnostics,
-    diagnostics_logTail,
     diagnostics_errorCode,
-    diagnostics_scriptName,
+    diagnostics_logTail,
     diagnostics_message,
+    diagnostics_scriptName,
 
     -- * EC2TagFilter
     EC2TagFilter (..),
     newEC2TagFilter,
-    eC2TagFilter_value,
     eC2TagFilter_key,
     eC2TagFilter_type,
+    eC2TagFilter_value,
 
     -- * EC2TagSet
     EC2TagSet (..),
@@ -410,31 +412,31 @@ module Amazonka.CodeDeploy.Types
     -- * ECSService
     ECSService (..),
     newECSService,
-    eCSService_serviceName,
     eCSService_clusterName,
+    eCSService_serviceName,
 
     -- * ECSTarget
     ECSTarget (..),
     newECSTarget,
-    eCSTarget_targetArn,
-    eCSTarget_targetId,
-    eCSTarget_status,
     eCSTarget_deploymentId,
     eCSTarget_lastUpdatedAt,
-    eCSTarget_taskSetsInfo,
     eCSTarget_lifecycleEvents,
+    eCSTarget_status,
+    eCSTarget_targetArn,
+    eCSTarget_targetId,
+    eCSTarget_taskSetsInfo,
 
     -- * ECSTaskSet
     ECSTaskSet (..),
     newECSTaskSet,
+    eCSTaskSet_desiredCount,
+    eCSTaskSet_identifer,
+    eCSTaskSet_pendingCount,
     eCSTaskSet_runningCount,
     eCSTaskSet_status,
-    eCSTaskSet_identifer,
-    eCSTaskSet_desiredCount,
-    eCSTaskSet_pendingCount,
-    eCSTaskSet_trafficWeight,
     eCSTaskSet_targetGroup,
     eCSTaskSet_taskSetLabel,
+    eCSTaskSet_trafficWeight,
 
     -- * ELBInfo
     ELBInfo (..),
@@ -450,11 +452,11 @@ module Amazonka.CodeDeploy.Types
     -- * GenericRevisionInfo
     GenericRevisionInfo (..),
     newGenericRevisionInfo,
-    genericRevisionInfo_registerTime,
-    genericRevisionInfo_firstUsedTime,
     genericRevisionInfo_deploymentGroups,
-    genericRevisionInfo_lastUsedTime,
     genericRevisionInfo_description,
+    genericRevisionInfo_firstUsedTime,
+    genericRevisionInfo_lastUsedTime,
+    genericRevisionInfo_registerTime,
 
     -- * GitHubLocation
     GitHubLocation (..),
@@ -470,24 +472,24 @@ module Amazonka.CodeDeploy.Types
     -- * InstanceInfo
     InstanceInfo (..),
     newInstanceInfo,
-    instanceInfo_registerTime,
-    instanceInfo_instanceArn,
     instanceInfo_deregisterTime,
-    instanceInfo_iamUserArn,
-    instanceInfo_instanceName,
     instanceInfo_iamSessionArn,
+    instanceInfo_iamUserArn,
+    instanceInfo_instanceArn,
+    instanceInfo_instanceName,
+    instanceInfo_registerTime,
     instanceInfo_tags,
 
     -- * InstanceTarget
     InstanceTarget (..),
     newInstanceTarget,
-    instanceTarget_targetArn,
-    instanceTarget_targetId,
-    instanceTarget_status,
     instanceTarget_deploymentId,
     instanceTarget_instanceLabel,
     instanceTarget_lastUpdatedAt,
     instanceTarget_lifecycleEvents,
+    instanceTarget_status,
+    instanceTarget_targetArn,
+    instanceTarget_targetId,
 
     -- * LambdaFunctionInfo
     LambdaFunctionInfo (..),
@@ -501,30 +503,30 @@ module Amazonka.CodeDeploy.Types
     -- * LambdaTarget
     LambdaTarget (..),
     newLambdaTarget,
-    lambdaTarget_targetArn,
-    lambdaTarget_targetId,
-    lambdaTarget_status,
     lambdaTarget_deploymentId,
+    lambdaTarget_lambdaFunctionInfo,
     lambdaTarget_lastUpdatedAt,
     lambdaTarget_lifecycleEvents,
-    lambdaTarget_lambdaFunctionInfo,
+    lambdaTarget_status,
+    lambdaTarget_targetArn,
+    lambdaTarget_targetId,
 
     -- * LastDeploymentInfo
     LastDeploymentInfo (..),
     newLastDeploymentInfo,
-    lastDeploymentInfo_status,
+    lastDeploymentInfo_createTime,
     lastDeploymentInfo_deploymentId,
     lastDeploymentInfo_endTime,
-    lastDeploymentInfo_createTime,
+    lastDeploymentInfo_status,
 
     -- * LifecycleEvent
     LifecycleEvent (..),
     newLifecycleEvent,
-    lifecycleEvent_status,
-    lifecycleEvent_lifecycleEventName,
-    lifecycleEvent_startTime,
     lifecycleEvent_diagnostics,
     lifecycleEvent_endTime,
+    lifecycleEvent_lifecycleEventName,
+    lifecycleEvent_startTime,
+    lifecycleEvent_status,
 
     -- * LoadBalancerInfo
     LoadBalancerInfo (..),
@@ -536,8 +538,8 @@ module Amazonka.CodeDeploy.Types
     -- * MinimumHealthyHosts
     MinimumHealthyHosts (..),
     newMinimumHealthyHosts,
-    minimumHealthyHosts_value,
     minimumHealthyHosts_type,
+    minimumHealthyHosts_value,
 
     -- * OnPremisesTagSet
     OnPremisesTagSet (..),
@@ -565,40 +567,40 @@ module Amazonka.CodeDeploy.Types
     -- * RevisionLocation
     RevisionLocation (..),
     newRevisionLocation,
-    revisionLocation_string,
-    revisionLocation_revisionType,
-    revisionLocation_s3Location,
     revisionLocation_appSpecContent,
     revisionLocation_gitHubLocation,
+    revisionLocation_revisionType,
+    revisionLocation_s3Location,
+    revisionLocation_string,
 
     -- * RollbackInfo
     RollbackInfo (..),
     newRollbackInfo,
-    rollbackInfo_rollbackTriggeringDeploymentId,
-    rollbackInfo_rollbackMessage,
     rollbackInfo_rollbackDeploymentId,
+    rollbackInfo_rollbackMessage,
+    rollbackInfo_rollbackTriggeringDeploymentId,
 
     -- * S3Location
     S3Location (..),
     newS3Location,
+    s3Location_bucket,
     s3Location_bundleType,
     s3Location_eTag,
-    s3Location_bucket,
     s3Location_key,
     s3Location_version,
 
     -- * Tag
     Tag (..),
     newTag,
-    tag_value,
     tag_key,
+    tag_value,
 
     -- * TagFilter
     TagFilter (..),
     newTagFilter,
-    tagFilter_value,
     tagFilter_key,
     tagFilter_type,
+    tagFilter_value,
 
     -- * TargetGroupInfo
     TargetGroupInfo (..),
@@ -609,15 +611,15 @@ module Amazonka.CodeDeploy.Types
     TargetGroupPairInfo (..),
     newTargetGroupPairInfo,
     targetGroupPairInfo_prodTrafficRoute,
-    targetGroupPairInfo_testTrafficRoute,
     targetGroupPairInfo_targetGroups,
+    targetGroupPairInfo_testTrafficRoute,
 
     -- * TargetInstances
     TargetInstances (..),
     newTargetInstances,
+    targetInstances_autoScalingGroups,
     targetInstances_ec2TagSet,
     targetInstances_tagFilters,
-    targetInstances_autoScalingGroups,
 
     -- * TimeBasedCanary
     TimeBasedCanary (..),
@@ -634,8 +636,8 @@ module Amazonka.CodeDeploy.Types
     -- * TimeRange
     TimeRange (..),
     newTimeRange,
-    timeRange_start,
     timeRange_end,
+    timeRange_start,
 
     -- * TrafficRoute
     TrafficRoute (..),
@@ -652,8 +654,8 @@ module Amazonka.CodeDeploy.Types
     -- * TriggerConfig
     TriggerConfig (..),
     newTriggerConfig,
-    triggerConfig_triggerName,
     triggerConfig_triggerEvents,
+    triggerConfig_triggerName,
     triggerConfig_triggerTargetArn,
   )
 where
@@ -743,7 +745,7 @@ import Amazonka.CodeDeploy.Types.TrafficRoutingType
 import Amazonka.CodeDeploy.Types.TriggerConfig
 import Amazonka.CodeDeploy.Types.TriggerEventType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -751,42 +753,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "CodeDeploy",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "codedeploy",
-      Core._serviceSigningName = "codedeploy",
-      Core._serviceVersion = "2014-10-06",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "CodeDeploy",
-      Core._serviceRetry = retry
+    { Core.abbrev = "CodeDeploy",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "codedeploy",
+      Core.signingName = "codedeploy",
+      Core.version = "2014-10-06",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "CodeDeploy",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -794,69 +803,328 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
--- | The limit for lifecycle hooks was exceeded.
-_LifecycleHookLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_LifecycleHookLimitExceededException =
+-- | The maximum number of alarms for a deployment group (10) was exceeded.
+_AlarmsLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_AlarmsLimitExceededException =
   Core._MatchServiceError
     defaultService
-    "LifecycleHookLimitExceededException"
+    "AlarmsLimitExceededException"
 
--- | The specified time range was specified in an invalid format.
-_InvalidTimeRangeException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidTimeRangeException =
+-- | An application with the specified name with the IAM user or Amazon Web
+-- Services account already exists.
+_ApplicationAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ApplicationAlreadyExistsException =
   Core._MatchServiceError
     defaultService
-    "InvalidTimeRangeException"
+    "ApplicationAlreadyExistsException"
 
--- | The computePlatform is invalid. The computePlatform should be @Lambda@,
--- @Server@, or @ECS@.
-_InvalidComputePlatformException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidComputePlatformException =
+-- | The application does not exist with the IAM user or Amazon Web Services
+-- account.
+_ApplicationDoesNotExistException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ApplicationDoesNotExistException =
   Core._MatchServiceError
     defaultService
-    "InvalidComputePlatformException"
+    "ApplicationDoesNotExistException"
 
--- | The tag was specified in an invalid format.
-_InvalidTagException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidTagException =
+-- | More applications were attempted to be created than are allowed.
+_ApplicationLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ApplicationLimitExceededException =
   Core._MatchServiceError
     defaultService
-    "InvalidTagException"
+    "ApplicationLimitExceededException"
 
--- | An invalid fileExistsBehavior option was specified to determine how AWS
--- CodeDeploy handles files or directories that already exist in a
--- deployment target location, but weren\'t part of the previous successful
--- deployment. Valid values include \"DISALLOW,\" \"OVERWRITE,\" and
--- \"RETAIN.\"
-_InvalidFileExistsBehaviorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidFileExistsBehaviorException =
+-- | The minimum number of required application names was not specified.
+_ApplicationNameRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ApplicationNameRequiredException =
   Core._MatchServiceError
     defaultService
-    "InvalidFileExistsBehaviorException"
+    "ApplicationNameRequiredException"
+
+-- | The specified ARN is not supported. For example, it might be an ARN for
+-- a resource that is not expected.
+_ArnNotSupportedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ArnNotSupportedException =
+  Core._MatchServiceError
+    defaultService
+    "ArnNotSupportedException"
+
+-- | The maximum number of names or IDs allowed for this request (100) was
+-- exceeded.
+_BatchLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_BatchLimitExceededException =
+  Core._MatchServiceError
+    defaultService
+    "BatchLimitExceededException"
+
+-- | A bucket name is required, but was not provided.
+_BucketNameFilterRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_BucketNameFilterRequiredException =
+  Core._MatchServiceError
+    defaultService
+    "BucketNameFilterRequiredException"
+
+-- | The deployment is already complete.
+_DeploymentAlreadyCompletedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentAlreadyCompletedException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentAlreadyCompletedException"
+
+-- | A deployment to a target was attempted while another deployment was in
+-- progress.
+_DeploymentAlreadyStartedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentAlreadyStartedException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentAlreadyStartedException"
+
+-- | A deployment configuration with the specified name with the IAM user or
+-- Amazon Web Services account already exists.
+_DeploymentConfigAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentConfigAlreadyExistsException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentConfigAlreadyExistsException"
+
+-- | The deployment configuration does not exist with the IAM user or Amazon
+-- Web Services account.
+_DeploymentConfigDoesNotExistException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentConfigDoesNotExistException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentConfigDoesNotExistException"
+
+-- | The deployment configuration is still in use.
+_DeploymentConfigInUseException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentConfigInUseException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentConfigInUseException"
+
+-- | The deployment configurations limit was exceeded.
+_DeploymentConfigLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentConfigLimitExceededException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentConfigLimitExceededException"
+
+-- | The deployment configuration name was not specified.
+_DeploymentConfigNameRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentConfigNameRequiredException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentConfigNameRequiredException"
+
+-- | The deployment with the IAM user or Amazon Web Services account does not
+-- exist.
+_DeploymentDoesNotExistException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentDoesNotExistException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentDoesNotExistException"
+
+-- | A deployment group with the specified name with the IAM user or Amazon
+-- Web Services account already exists.
+_DeploymentGroupAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentGroupAlreadyExistsException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentGroupAlreadyExistsException"
+
+-- | The named deployment group with the IAM user or Amazon Web Services
+-- account does not exist.
+_DeploymentGroupDoesNotExistException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentGroupDoesNotExistException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentGroupDoesNotExistException"
+
+-- | The deployment groups limit was exceeded.
+_DeploymentGroupLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentGroupLimitExceededException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentGroupLimitExceededException"
+
+-- | The deployment group name was not specified.
+_DeploymentGroupNameRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentGroupNameRequiredException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentGroupNameRequiredException"
+
+-- | At least one deployment ID must be specified.
+_DeploymentIdRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentIdRequiredException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentIdRequiredException"
+
+-- | The deployment does not have a status of Ready and can\'t continue yet.
+_DeploymentIsNotInReadyStateException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentIsNotInReadyStateException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentIsNotInReadyStateException"
+
+-- | The number of allowed deployments was exceeded.
+_DeploymentLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentLimitExceededException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentLimitExceededException"
+
+-- | The specified deployment has not started.
+_DeploymentNotStartedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentNotStartedException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentNotStartedException"
+
+-- | The provided target ID does not belong to the attempted deployment.
+_DeploymentTargetDoesNotExistException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentTargetDoesNotExistException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentTargetDoesNotExistException"
+
+-- | A deployment target ID was not provided.
+_DeploymentTargetIdRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentTargetIdRequiredException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentTargetIdRequiredException"
+
+-- | The maximum number of targets that can be associated with an Amazon ECS
+-- or Lambda deployment was exceeded. The target list of both types of
+-- deployments must have exactly one item. This exception does not apply to
+-- EC2\/On-premises deployments.
+_DeploymentTargetListSizeExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DeploymentTargetListSizeExceededException =
+  Core._MatchServiceError
+    defaultService
+    "DeploymentTargetListSizeExceededException"
+
+-- | The description is too long.
+_DescriptionTooLongException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DescriptionTooLongException =
+  Core._MatchServiceError
+    defaultService
+    "DescriptionTooLongException"
+
+-- | The Amazon ECS service is associated with more than one deployment
+-- groups. An Amazon ECS service can be associated with only one deployment
+-- group.
+_ECSServiceMappingLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ECSServiceMappingLimitExceededException =
+  Core._MatchServiceError
+    defaultService
+    "ECSServiceMappingLimitExceededException"
+
+-- | No GitHub account connection exists with the named specified in the
+-- call.
+_GitHubAccountTokenDoesNotExistException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_GitHubAccountTokenDoesNotExistException =
+  Core._MatchServiceError
+    defaultService
+    "GitHubAccountTokenDoesNotExistException"
+
+-- | The call is missing a required GitHub account connection name.
+_GitHubAccountTokenNameRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_GitHubAccountTokenNameRequiredException =
+  Core._MatchServiceError
+    defaultService
+    "GitHubAccountTokenNameRequiredException"
+
+-- | No IAM ARN was included in the request. You must use an IAM session ARN
+-- or IAM user ARN in the request.
+_IamArnRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_IamArnRequiredException =
+  Core._MatchServiceError
+    defaultService
+    "IamArnRequiredException"
+
+-- | The request included an IAM session ARN that has already been used to
+-- register a different instance.
+_IamSessionArnAlreadyRegisteredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_IamSessionArnAlreadyRegisteredException =
+  Core._MatchServiceError
+    defaultService
+    "IamSessionArnAlreadyRegisteredException"
+
+-- | The specified IAM user ARN is already registered with an on-premises
+-- instance.
+_IamUserArnAlreadyRegisteredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_IamUserArnAlreadyRegisteredException =
+  Core._MatchServiceError
+    defaultService
+    "IamUserArnAlreadyRegisteredException"
+
+-- | An IAM user ARN was not specified.
+_IamUserArnRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_IamUserArnRequiredException =
+  Core._MatchServiceError
+    defaultService
+    "IamUserArnRequiredException"
+
+-- | The specified instance does not exist in the deployment group.
+_InstanceDoesNotExistException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InstanceDoesNotExistException =
+  Core._MatchServiceError
+    defaultService
+    "InstanceDoesNotExistException"
+
+-- | The instance ID was not specified.
+_InstanceIdRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InstanceIdRequiredException =
+  Core._MatchServiceError
+    defaultService
+    "InstanceIdRequiredException"
+
+-- | The maximum number of allowed on-premises instances in a single call was
+-- exceeded.
+_InstanceLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InstanceLimitExceededException =
+  Core._MatchServiceError
+    defaultService
+    "InstanceLimitExceededException"
+
+-- | The specified on-premises instance name is already registered.
+_InstanceNameAlreadyRegisteredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InstanceNameAlreadyRegisteredException =
+  Core._MatchServiceError
+    defaultService
+    "InstanceNameAlreadyRegisteredException"
+
+-- | An on-premises instance name was not specified.
+_InstanceNameRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InstanceNameRequiredException =
+  Core._MatchServiceError
+    defaultService
+    "InstanceNameRequiredException"
+
+-- | The specified on-premises instance is not registered.
+_InstanceNotRegisteredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InstanceNotRegisteredException =
+  Core._MatchServiceError
+    defaultService
+    "InstanceNotRegisteredException"
 
 -- | The format of the alarm configuration is invalid. Possible causes
 -- include:
@@ -877,102 +1145,36 @@ _InvalidAlarmConfigException =
     defaultService
     "InvalidAlarmConfigException"
 
--- | The specified on-premises instance name is already registered.
-_InstanceNameAlreadyRegisteredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InstanceNameAlreadyRegisteredException =
+-- | The application name was specified in an invalid format.
+_InvalidApplicationNameException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidApplicationNameException =
   Core._MatchServiceError
     defaultService
-    "InstanceNameAlreadyRegisteredException"
+    "InvalidApplicationNameException"
 
--- | An IAM user ARN was not specified.
-_IamUserArnRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_IamUserArnRequiredException =
+-- | The specified ARN is not in a valid format.
+_InvalidArnException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidArnException =
   Core._MatchServiceError
     defaultService
-    "IamUserArnRequiredException"
+    "InvalidArnException"
 
--- | The deployment group name was specified in an invalid format.
-_InvalidDeploymentGroupNameException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidDeploymentGroupNameException =
+-- | The automatic rollback configuration was specified in an invalid format.
+-- For example, automatic rollback is enabled, but an invalid triggering
+-- event type or no event types were listed.
+_InvalidAutoRollbackConfigException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidAutoRollbackConfigException =
   Core._MatchServiceError
     defaultService
-    "InvalidDeploymentGroupNameException"
+    "InvalidAutoRollbackConfigException"
 
--- | An invalid instance type was specified for instances in a blue\/green
--- deployment. Valid values include \"Blue\" for an original environment
--- and \"Green\" for a replacement environment.
-_InvalidInstanceTypeException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidInstanceTypeException =
+-- | The Auto Scaling group was specified in an invalid format or does not
+-- exist.
+_InvalidAutoScalingGroupException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidAutoScalingGroupException =
   Core._MatchServiceError
     defaultService
-    "InvalidInstanceTypeException"
-
--- | The request included an IAM session ARN that has already been used to
--- register a different instance.
-_IamSessionArnAlreadyRegisteredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_IamSessionArnAlreadyRegisteredException =
-  Core._MatchServiceError
-    defaultService
-    "IamSessionArnAlreadyRegisteredException"
-
--- | The configuration that specifies how traffic is routed during a
--- deployment is invalid.
-_InvalidTrafficRoutingConfigurationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidTrafficRoutingConfigurationException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidTrafficRoutingConfigurationException"
-
--- | The description is too long.
-_DescriptionTooLongException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DescriptionTooLongException =
-  Core._MatchServiceError
-    defaultService
-    "DescriptionTooLongException"
-
--- | The IAM user ARN was specified in an invalid format.
-_InvalidIamUserArnException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidIamUserArnException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidIamUserArnException"
-
--- | A call was submitted that specified both OnPremisesTagFilters and
--- OnPremisesTagSet, but only one of these data types can be used in a
--- single call.
-_InvalidOnPremisesTagCombinationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidOnPremisesTagCombinationException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidOnPremisesTagCombinationException"
-
--- | The specified deployment has not started.
-_DeploymentNotStartedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentNotStartedException =
-  Core._MatchServiceError
-    defaultService
-    "DeploymentNotStartedException"
-
--- | The deployment configurations limit was exceeded.
-_DeploymentConfigLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentConfigLimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "DeploymentConfigLimitExceededException"
-
--- | The role ID was not specified.
-_RoleRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_RoleRequiredException =
-  Core._MatchServiceError
-    defaultService
-    "RoleRequiredException"
-
--- | An invalid load balancer name, or no load balancer name, was specified.
-_InvalidLoadBalancerInfoException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidLoadBalancerInfoException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidLoadBalancerInfoException"
+    "InvalidAutoScalingGroupException"
 
 -- | The configuration for the blue\/green deployment group was provided in
 -- an invalid format. For information about deployment configuration
@@ -983,6 +1185,277 @@ _InvalidBlueGreenDeploymentConfigurationException =
     defaultService
     "InvalidBlueGreenDeploymentConfigurationException"
 
+-- | The bucket name either doesn\'t exist or was specified in an invalid
+-- format.
+_InvalidBucketNameFilterException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidBucketNameFilterException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidBucketNameFilterException"
+
+-- | The computePlatform is invalid. The computePlatform should be @Lambda@,
+-- @Server@, or @ECS@.
+_InvalidComputePlatformException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidComputePlatformException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidComputePlatformException"
+
+-- | The deployed state filter was specified in an invalid format.
+_InvalidDeployedStateFilterException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidDeployedStateFilterException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidDeployedStateFilterException"
+
+-- | The deployment configuration name was specified in an invalid format.
+_InvalidDeploymentConfigNameException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidDeploymentConfigNameException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidDeploymentConfigNameException"
+
+-- | The deployment group name was specified in an invalid format.
+_InvalidDeploymentGroupNameException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidDeploymentGroupNameException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidDeploymentGroupNameException"
+
+-- | At least one of the deployment IDs was specified in an invalid format.
+_InvalidDeploymentIdException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidDeploymentIdException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidDeploymentIdException"
+
+-- | An instance type was specified for an in-place deployment. Instance
+-- types are supported for blue\/green deployments only.
+_InvalidDeploymentInstanceTypeException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidDeploymentInstanceTypeException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidDeploymentInstanceTypeException"
+
+-- | The specified deployment status doesn\'t exist or cannot be determined.
+_InvalidDeploymentStatusException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidDeploymentStatusException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidDeploymentStatusException"
+
+-- | An invalid deployment style was specified. Valid deployment types
+-- include \"IN_PLACE\" and \"BLUE_GREEN.\" Valid deployment options
+-- include \"WITH_TRAFFIC_CONTROL\" and \"WITHOUT_TRAFFIC_CONTROL.\"
+_InvalidDeploymentStyleException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidDeploymentStyleException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidDeploymentStyleException"
+
+-- | The target ID provided was not valid.
+_InvalidDeploymentTargetIdException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidDeploymentTargetIdException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidDeploymentTargetIdException"
+
+-- | The wait type is invalid.
+_InvalidDeploymentWaitTypeException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidDeploymentWaitTypeException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidDeploymentWaitTypeException"
+
+-- | A call was submitted that specified both Ec2TagFilters and Ec2TagSet,
+-- but only one of these data types can be used in a single call.
+_InvalidEC2TagCombinationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidEC2TagCombinationException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidEC2TagCombinationException"
+
+-- | The tag was specified in an invalid format.
+_InvalidEC2TagException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidEC2TagException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidEC2TagException"
+
+-- | The Amazon ECS service identifier is not valid.
+_InvalidECSServiceException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidECSServiceException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidECSServiceException"
+
+-- | The external ID was specified in an invalid format.
+_InvalidExternalIdException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidExternalIdException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidExternalIdException"
+
+-- | An invalid fileExistsBehavior option was specified to determine how
+-- CodeDeploy handles files or directories that already exist in a
+-- deployment target location, but weren\'t part of the previous successful
+-- deployment. Valid values include \"DISALLOW,\" \"OVERWRITE,\" and
+-- \"RETAIN.\"
+_InvalidFileExistsBehaviorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidFileExistsBehaviorException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidFileExistsBehaviorException"
+
+-- | The GitHub token is not valid.
+_InvalidGitHubAccountTokenException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidGitHubAccountTokenException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidGitHubAccountTokenException"
+
+-- | The format of the specified GitHub account connection name is invalid.
+_InvalidGitHubAccountTokenNameException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidGitHubAccountTokenNameException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidGitHubAccountTokenNameException"
+
+-- | The IAM session ARN was specified in an invalid format.
+_InvalidIamSessionArnException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidIamSessionArnException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidIamSessionArnException"
+
+-- | The IAM user ARN was specified in an invalid format.
+_InvalidIamUserArnException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidIamUserArnException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidIamUserArnException"
+
+-- | The IgnoreApplicationStopFailures value is invalid. For Lambda
+-- deployments, @false@ is expected. For EC2\/On-premises deployments,
+-- @true@ or @false@ is expected.
+_InvalidIgnoreApplicationStopFailuresValueException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidIgnoreApplicationStopFailuresValueException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidIgnoreApplicationStopFailuresValueException"
+
+-- | The input was specified in an invalid format.
+_InvalidInputException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidInputException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidInputException"
+
+-- |
+_InvalidInstanceIdException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidInstanceIdException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidInstanceIdException"
+
+-- | The on-premises instance name was specified in an invalid format.
+_InvalidInstanceNameException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidInstanceNameException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidInstanceNameException"
+
+-- | The specified instance status does not exist.
+_InvalidInstanceStatusException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidInstanceStatusException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidInstanceStatusException"
+
+-- | An invalid instance type was specified for instances in a blue\/green
+-- deployment. Valid values include \"Blue\" for an original environment
+-- and \"Green\" for a replacement environment.
+_InvalidInstanceTypeException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidInstanceTypeException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidInstanceTypeException"
+
+-- | The specified key prefix filter was specified in an invalid format.
+_InvalidKeyPrefixFilterException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidKeyPrefixFilterException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidKeyPrefixFilterException"
+
+-- | A lifecycle event hook is invalid. Review the @hooks@ section in your
+-- AppSpec file to ensure the lifecycle events and @hooks@ functions are
+-- valid.
+_InvalidLifecycleEventHookExecutionIdException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidLifecycleEventHookExecutionIdException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidLifecycleEventHookExecutionIdException"
+
+-- | The result of a Lambda validation function that verifies a lifecycle
+-- event is invalid. It should return @Succeeded@ or @Failed@.
+_InvalidLifecycleEventHookExecutionStatusException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidLifecycleEventHookExecutionStatusException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidLifecycleEventHookExecutionStatusException"
+
+-- | An invalid load balancer name, or no load balancer name, was specified.
+_InvalidLoadBalancerInfoException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidLoadBalancerInfoException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidLoadBalancerInfoException"
+
+-- | The minimum healthy instance value was specified in an invalid format.
+_InvalidMinimumHealthyHostValueException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidMinimumHealthyHostValueException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidMinimumHealthyHostValueException"
+
+-- | The next token was specified in an invalid format.
+_InvalidNextTokenException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidNextTokenException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidNextTokenException"
+
+-- | A call was submitted that specified both OnPremisesTagFilters and
+-- OnPremisesTagSet, but only one of these data types can be used in a
+-- single call.
+_InvalidOnPremisesTagCombinationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidOnPremisesTagCombinationException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidOnPremisesTagCombinationException"
+
+-- | An invalid operation was detected.
+_InvalidOperationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidOperationException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidOperationException"
+
+-- | The registration status was specified in an invalid format.
+_InvalidRegistrationStatusException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidRegistrationStatusException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidRegistrationStatusException"
+
+-- | The revision was specified in an invalid format.
+_InvalidRevisionException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidRevisionException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidRevisionException"
+
 -- | The service role ARN was specified in an invalid format. Or, if an Auto
 -- Scaling group was specified, the specified service role does not grant
 -- the appropriate permissions to Amazon EC2 Auto Scaling.
@@ -992,13 +1465,62 @@ _InvalidRoleException =
     defaultService
     "InvalidRoleException"
 
--- | A deployment configuration with the specified name with the IAM user or
--- AWS account already exists.
-_DeploymentConfigAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentConfigAlreadyExistsException =
+-- | The column name to sort by is either not present or was specified in an
+-- invalid format.
+_InvalidSortByException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidSortByException =
   Core._MatchServiceError
     defaultService
-    "DeploymentConfigAlreadyExistsException"
+    "InvalidSortByException"
+
+-- | The sort order was specified in an invalid format.
+_InvalidSortOrderException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidSortOrderException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidSortOrderException"
+
+-- | The tag was specified in an invalid format.
+_InvalidTagException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidTagException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidTagException"
+
+-- | The tag filter was specified in an invalid format.
+_InvalidTagFilterException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidTagFilterException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidTagFilterException"
+
+-- | The specified tags are not valid.
+_InvalidTagsToAddException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidTagsToAddException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidTagsToAddException"
+
+-- | A target is not valid.
+_InvalidTargetException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidTargetException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidTargetException"
+
+-- | The target filter name is invalid.
+_InvalidTargetFilterNameException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidTargetFilterNameException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidTargetFilterNameException"
+
+-- | A target group pair associated with this deployment is not valid.
+_InvalidTargetGroupPairException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidTargetGroupPairException =
+  Core._MatchServiceError
+    defaultService
+    "InvalidTargetGroupPairException"
 
 -- | The target instance configuration is invalid. Possible causes include:
 --
@@ -1016,195 +1538,20 @@ _InvalidTargetInstancesException =
     defaultService
     "InvalidTargetInstancesException"
 
--- | The specified tags are not valid.
-_InvalidTagsToAddException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidTagsToAddException =
+-- | The specified time range was specified in an invalid format.
+_InvalidTimeRangeException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidTimeRangeException =
   Core._MatchServiceError
     defaultService
-    "InvalidTagsToAddException"
+    "InvalidTimeRangeException"
 
--- | The number of allowed deployments was exceeded.
-_DeploymentLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentLimitExceededException =
+-- | The configuration that specifies how traffic is routed during a
+-- deployment is invalid.
+_InvalidTrafficRoutingConfigurationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidTrafficRoutingConfigurationException =
   Core._MatchServiceError
     defaultService
-    "DeploymentLimitExceededException"
-
--- | The specified IAM user ARN is already registered with an on-premises
--- instance.
-_IamUserArnAlreadyRegisteredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_IamUserArnAlreadyRegisteredException =
-  Core._MatchServiceError
-    defaultService
-    "IamUserArnAlreadyRegisteredException"
-
--- | The IAM session ARN was specified in an invalid format.
-_InvalidIamSessionArnException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidIamSessionArnException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidIamSessionArnException"
-
--- | The maximum number of allowed on-premises instances in a single call was
--- exceeded.
-_InstanceLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InstanceLimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "InstanceLimitExceededException"
-
--- | A lifecycle event hook is invalid. Review the @hooks@ section in your
--- AppSpec file to ensure the lifecycle events and @hooks@ functions are
--- valid.
-_InvalidLifecycleEventHookExecutionIdException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidLifecycleEventHookExecutionIdException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidLifecycleEventHookExecutionIdException"
-
--- | An invalid deployment style was specified. Valid deployment types
--- include \"IN_PLACE\" and \"BLUE_GREEN.\" Valid deployment options
--- include \"WITH_TRAFFIC_CONTROL\" and \"WITHOUT_TRAFFIC_CONTROL.\"
-_InvalidDeploymentStyleException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidDeploymentStyleException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidDeploymentStyleException"
-
--- | The target filter name is invalid.
-_InvalidTargetFilterNameException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidTargetFilterNameException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidTargetFilterNameException"
-
--- | The maximum number of targets that can be associated with an Amazon ECS
--- or AWS Lambda deployment was exceeded. The target list of both types of
--- deployments must have exactly one item. This exception does not apply to
--- EC2\/On-premises deployments.
-_DeploymentTargetListSizeExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentTargetListSizeExceededException =
-  Core._MatchServiceError
-    defaultService
-    "DeploymentTargetListSizeExceededException"
-
--- | The deployed state filter was specified in an invalid format.
-_InvalidDeployedStateFilterException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidDeployedStateFilterException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidDeployedStateFilterException"
-
--- | The Auto Scaling group was specified in an invalid format or does not
--- exist.
-_InvalidAutoScalingGroupException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidAutoScalingGroupException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidAutoScalingGroupException"
-
--- | The application name was specified in an invalid format.
-_InvalidApplicationNameException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidApplicationNameException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidApplicationNameException"
-
--- | No GitHub account connection exists with the named specified in the
--- call.
-_GitHubAccountTokenDoesNotExistException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_GitHubAccountTokenDoesNotExistException =
-  Core._MatchServiceError
-    defaultService
-    "GitHubAccountTokenDoesNotExistException"
-
--- | The application does not exist with the IAM user or AWS account.
-_ApplicationDoesNotExistException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ApplicationDoesNotExistException =
-  Core._MatchServiceError
-    defaultService
-    "ApplicationDoesNotExistException"
-
--- | The minimum healthy instance value was specified in an invalid format.
-_InvalidMinimumHealthyHostValueException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidMinimumHealthyHostValueException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidMinimumHealthyHostValueException"
-
--- | A call was submitted that is not supported for the specified deployment
--- type.
-_UnsupportedActionForDeploymentTypeException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_UnsupportedActionForDeploymentTypeException =
-  Core._MatchServiceError
-    defaultService
-    "UnsupportedActionForDeploymentTypeException"
-
--- | The specified resource could not be validated.
-_ResourceValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceValidationException =
-  Core._MatchServiceError
-    defaultService
-    "ResourceValidationException"
-
--- | The specified ARN is not supported. For example, it might be an ARN for
--- a resource that is not expected.
-_ArnNotSupportedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ArnNotSupportedException =
-  Core._MatchServiceError
-    defaultService
-    "ArnNotSupportedException"
-
--- | The GitHub token is not valid.
-_InvalidGitHubAccountTokenException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidGitHubAccountTokenException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidGitHubAccountTokenException"
-
--- | A call was submitted that specified both Ec2TagFilters and Ec2TagSet,
--- but only one of these data types can be used in a single call.
-_InvalidEC2TagCombinationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidEC2TagCombinationException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidEC2TagCombinationException"
-
--- | The result of a Lambda validation function that verifies a lifecycle
--- event is invalid. It should return @Succeeded@ or @Failed@.
-_InvalidLifecycleEventHookExecutionStatusException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidLifecycleEventHookExecutionStatusException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidLifecycleEventHookExecutionStatusException"
-
--- | The maximum number of alarms for a deployment group (10) was exceeded.
-_AlarmsLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_AlarmsLimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "AlarmsLimitExceededException"
-
--- | The API used does not support the deployment.
-_OperationNotSupportedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_OperationNotSupportedException =
-  Core._MatchServiceError
-    defaultService
-    "OperationNotSupportedException"
-
--- | The provided target ID does not belong to the attempted deployment.
-_DeploymentTargetDoesNotExistException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentTargetDoesNotExistException =
-  Core._MatchServiceError
-    defaultService
-    "DeploymentTargetDoesNotExistException"
-
--- | The tag filter was specified in an invalid format.
-_InvalidTagFilterException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidTagFilterException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidTagFilterException"
+    "InvalidTrafficRoutingConfigurationException"
 
 -- | The trigger was specified in an invalid format.
 _InvalidTriggerConfigException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -1213,23 +1560,7 @@ _InvalidTriggerConfigException =
     defaultService
     "InvalidTriggerConfigException"
 
--- | The wait type is invalid.
-_InvalidDeploymentWaitTypeException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidDeploymentWaitTypeException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidDeploymentWaitTypeException"
-
--- | The IgnoreApplicationStopFailures value is invalid. For AWS Lambda
--- deployments, @false@ is expected. For EC2\/On-premises deployments,
--- @true@ or @false@ is expected.
-_InvalidIgnoreApplicationStopFailuresValueException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidIgnoreApplicationStopFailuresValueException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidIgnoreApplicationStopFailuresValueException"
-
--- | The UpdateOutdatedInstancesOnly value is invalid. For AWS Lambda
+-- | The UpdateOutdatedInstancesOnly value is invalid. For Lambda
 -- deployments, @false@ is expected. For EC2\/On-premises deployments,
 -- @true@ or @false@ is expected.
 _InvalidUpdateOutdatedInstancesOnlyValueException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -1237,413 +1568,6 @@ _InvalidUpdateOutdatedInstancesOnlyValueException =
   Core._MatchServiceError
     defaultService
     "InvalidUpdateOutdatedInstancesOnlyValueException"
-
--- | A tag was not specified.
-_TagRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TagRequiredException =
-  Core._MatchServiceError
-    defaultService
-    "TagRequiredException"
-
--- | The deployment group name was not specified.
-_DeploymentGroupNameRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentGroupNameRequiredException =
-  Core._MatchServiceError
-    defaultService
-    "DeploymentGroupNameRequiredException"
-
--- | A bucket name is required, but was not provided.
-_BucketNameFilterRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_BucketNameFilterRequiredException =
-  Core._MatchServiceError
-    defaultService
-    "BucketNameFilterRequiredException"
-
--- | The deployment configuration does not exist with the IAM user or AWS
--- account.
-_DeploymentConfigDoesNotExistException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentConfigDoesNotExistException =
-  Core._MatchServiceError
-    defaultService
-    "DeploymentConfigDoesNotExistException"
-
--- | The bucket name either doesn\'t exist or was specified in an invalid
--- format.
-_InvalidBucketNameFilterException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidBucketNameFilterException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidBucketNameFilterException"
-
--- | A deployment group with the specified name with the IAM user or AWS
--- account already exists.
-_DeploymentGroupAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentGroupAlreadyExistsException =
-  Core._MatchServiceError
-    defaultService
-    "DeploymentGroupAlreadyExistsException"
-
--- | The column name to sort by is either not present or was specified in an
--- invalid format.
-_InvalidSortByException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidSortByException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidSortByException"
-
--- | The named revision does not exist with the IAM user or AWS account.
-_RevisionDoesNotExistException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_RevisionDoesNotExistException =
-  Core._MatchServiceError
-    defaultService
-    "RevisionDoesNotExistException"
-
--- | A target is not valid.
-_InvalidTargetException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidTargetException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidTargetException"
-
--- | The deployment groups limit was exceeded.
-_DeploymentGroupLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentGroupLimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "DeploymentGroupLimitExceededException"
-
--- | The named deployment group with the IAM user or AWS account does not
--- exist.
-_DeploymentGroupDoesNotExistException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentGroupDoesNotExistException =
-  Core._MatchServiceError
-    defaultService
-    "DeploymentGroupDoesNotExistException"
-
--- | An API function was called too frequently.
-_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ThrottlingException =
-  Core._MatchServiceError
-    defaultService
-    "ThrottlingException"
-
--- | The deployment configuration name was specified in an invalid format.
-_InvalidDeploymentConfigNameException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidDeploymentConfigNameException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidDeploymentConfigNameException"
-
--- | The deployment configuration name was not specified.
-_DeploymentConfigNameRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentConfigNameRequiredException =
-  Core._MatchServiceError
-    defaultService
-    "DeploymentConfigNameRequiredException"
-
--- | At least one deployment ID must be specified.
-_DeploymentIdRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentIdRequiredException =
-  Core._MatchServiceError
-    defaultService
-    "DeploymentIdRequiredException"
-
--- |
-_InvalidInstanceIdException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidInstanceIdException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidInstanceIdException"
-
--- | The deployment does not have a status of Ready and can\'t continue yet.
-_DeploymentIsNotInReadyStateException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentIsNotInReadyStateException =
-  Core._MatchServiceError
-    defaultService
-    "DeploymentIsNotInReadyStateException"
-
--- | A target group pair associated with this deployment is not valid.
-_InvalidTargetGroupPairException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidTargetGroupPairException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidTargetGroupPairException"
-
--- | The next token was specified in an invalid format.
-_InvalidNextTokenException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidNextTokenException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidNextTokenException"
-
--- | The instance ID was not specified.
-_InstanceIdRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InstanceIdRequiredException =
-  Core._MatchServiceError
-    defaultService
-    "InstanceIdRequiredException"
-
--- | At least one of the deployment IDs was specified in an invalid format.
-_InvalidDeploymentIdException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidDeploymentIdException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidDeploymentIdException"
-
--- | The sort order was specified in an invalid format.
-_InvalidSortOrderException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidSortOrderException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidSortOrderException"
-
--- | The automatic rollback configuration was specified in an invalid format.
--- For example, automatic rollback is enabled, but an invalid triggering
--- event type or no event types were listed.
-_InvalidAutoRollbackConfigException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidAutoRollbackConfigException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidAutoRollbackConfigException"
-
--- | The deployment is already complete.
-_DeploymentAlreadyCompletedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentAlreadyCompletedException =
-  Core._MatchServiceError
-    defaultService
-    "DeploymentAlreadyCompletedException"
-
--- | The Amazon ECS service is associated with more than one deployment
--- groups. An Amazon ECS service can be associated with only one deployment
--- group.
-_ECSServiceMappingLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ECSServiceMappingLimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "ECSServiceMappingLimitExceededException"
-
--- | The deployment with the IAM user or AWS account does not exist.
-_DeploymentDoesNotExistException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentDoesNotExistException =
-  Core._MatchServiceError
-    defaultService
-    "DeploymentDoesNotExistException"
-
--- | The maximum number of names or IDs allowed for this request (100) was
--- exceeded.
-_BatchLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_BatchLimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "BatchLimitExceededException"
-
--- | The revision was specified in an invalid format.
-_InvalidRevisionException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidRevisionException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidRevisionException"
-
--- | The revision ID was not specified.
-_RevisionRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_RevisionRequiredException =
-  Core._MatchServiceError
-    defaultService
-    "RevisionRequiredException"
-
--- | The specified instance does not exist in the deployment group.
-_InstanceDoesNotExistException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InstanceDoesNotExistException =
-  Core._MatchServiceError
-    defaultService
-    "InstanceDoesNotExistException"
-
--- | The deployment configuration is still in use.
-_DeploymentConfigInUseException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentConfigInUseException =
-  Core._MatchServiceError
-    defaultService
-    "DeploymentConfigInUseException"
-
--- | The input was specified in an invalid format.
-_InvalidInputException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidInputException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidInputException"
-
--- | The tag was specified in an invalid format.
-_InvalidEC2TagException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidEC2TagException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidEC2TagException"
-
--- | The on-premises instance name was specified in an invalid format.
-_InvalidInstanceNameException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidInstanceNameException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidInstanceNameException"
-
--- | An on-premises instance name was not specified.
-_InstanceNameRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InstanceNameRequiredException =
-  Core._MatchServiceError
-    defaultService
-    "InstanceNameRequiredException"
-
--- | Both an IAM user ARN and an IAM session ARN were included in the
--- request. Use only one ARN type.
-_MultipleIamArnsProvidedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_MultipleIamArnsProvidedException =
-  Core._MatchServiceError
-    defaultService
-    "MultipleIamArnsProvidedException"
-
--- | The maximum allowed number of triggers was exceeded.
-_TriggerTargetsLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TriggerTargetsLimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "TriggerTargetsLimitExceededException"
-
--- | The specified deployment status doesn\'t exist or cannot be determined.
-_InvalidDeploymentStatusException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidDeploymentStatusException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidDeploymentStatusException"
-
--- | The registration status was specified in an invalid format.
-_InvalidRegistrationStatusException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidRegistrationStatusException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidRegistrationStatusException"
-
--- | The minimum number of required application names was not specified.
-_ApplicationNameRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ApplicationNameRequiredException =
-  Core._MatchServiceError
-    defaultService
-    "ApplicationNameRequiredException"
-
--- | The specified on-premises instance is not registered.
-_InstanceNotRegisteredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InstanceNotRegisteredException =
-  Core._MatchServiceError
-    defaultService
-    "InstanceNotRegisteredException"
-
--- | An application with the specified name with the IAM user or AWS account
--- already exists.
-_ApplicationAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ApplicationAlreadyExistsException =
-  Core._MatchServiceError
-    defaultService
-    "ApplicationAlreadyExistsException"
-
--- | The specified instance status does not exist.
-_InvalidInstanceStatusException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidInstanceStatusException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidInstanceStatusException"
-
--- | The target ID provided was not valid.
-_InvalidDeploymentTargetIdException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidDeploymentTargetIdException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidDeploymentTargetIdException"
-
--- | The maximum allowed number of tags was exceeded.
-_TagLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TagLimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "TagLimitExceededException"
-
--- | More applications were attempted to be created than are allowed.
-_ApplicationLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ApplicationLimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "ApplicationLimitExceededException"
-
--- | The number of tag groups included in the tag set list exceeded the
--- maximum allowed limit of 3.
-_TagSetListLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TagSetListLimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "TagSetListLimitExceededException"
-
--- | The specified ARN is not in a valid format.
-_InvalidArnException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidArnException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidArnException"
-
--- | An invalid operation was detected.
-_InvalidOperationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidOperationException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidOperationException"
-
--- | A deployment target ID was not provided.
-_DeploymentTargetIdRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentTargetIdRequiredException =
-  Core._MatchServiceError
-    defaultService
-    "DeploymentTargetIdRequiredException"
-
--- | The call is missing a required GitHub account connection name.
-_GitHubAccountTokenNameRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_GitHubAccountTokenNameRequiredException =
-  Core._MatchServiceError
-    defaultService
-    "GitHubAccountTokenNameRequiredException"
-
--- | The Amazon ECS service identifier is not valid.
-_InvalidECSServiceException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidECSServiceException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidECSServiceException"
-
--- | An instance type was specified for an in-place deployment. Instance
--- types are supported for blue\/green deployments only.
-_InvalidDeploymentInstanceTypeException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidDeploymentInstanceTypeException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidDeploymentInstanceTypeException"
-
--- | The external ID was specified in an invalid format.
-_InvalidExternalIdException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidExternalIdException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidExternalIdException"
-
--- | No IAM ARN was included in the request. You must use an IAM session ARN
--- or IAM user ARN in the request.
-_IamArnRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_IamArnRequiredException =
-  Core._MatchServiceError
-    defaultService
-    "IamArnRequiredException"
-
--- | The format of the specified GitHub account connection name is invalid.
-_InvalidGitHubAccountTokenNameException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidGitHubAccountTokenNameException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidGitHubAccountTokenNameException"
 
 -- | An attempt to return the status of an already completed lifecycle event
 -- occurred.
@@ -1653,12 +1577,27 @@ _LifecycleEventAlreadyCompletedException =
     defaultService
     "LifecycleEventAlreadyCompletedException"
 
--- | The specified key prefix filter was specified in an invalid format.
-_InvalidKeyPrefixFilterException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidKeyPrefixFilterException =
+-- | The limit for lifecycle hooks was exceeded.
+_LifecycleHookLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_LifecycleHookLimitExceededException =
   Core._MatchServiceError
     defaultService
-    "InvalidKeyPrefixFilterException"
+    "LifecycleHookLimitExceededException"
+
+-- | Both an IAM user ARN and an IAM session ARN were included in the
+-- request. Use only one ARN type.
+_MultipleIamArnsProvidedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_MultipleIamArnsProvidedException =
+  Core._MatchServiceError
+    defaultService
+    "MultipleIamArnsProvidedException"
+
+-- | The API used does not support the deployment.
+_OperationNotSupportedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_OperationNotSupportedException =
+  Core._MatchServiceError
+    defaultService
+    "OperationNotSupportedException"
 
 -- | The ARN of a resource is required, but was not found.
 _ResourceArnRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -1667,10 +1606,75 @@ _ResourceArnRequiredException =
     defaultService
     "ResourceArnRequiredException"
 
--- | A deployment to a target was attempted while another deployment was in
--- progress.
-_DeploymentAlreadyStartedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DeploymentAlreadyStartedException =
+-- | The specified resource could not be validated.
+_ResourceValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceValidationException =
   Core._MatchServiceError
     defaultService
-    "DeploymentAlreadyStartedException"
+    "ResourceValidationException"
+
+-- | The named revision does not exist with the IAM user or Amazon Web
+-- Services account.
+_RevisionDoesNotExistException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_RevisionDoesNotExistException =
+  Core._MatchServiceError
+    defaultService
+    "RevisionDoesNotExistException"
+
+-- | The revision ID was not specified.
+_RevisionRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_RevisionRequiredException =
+  Core._MatchServiceError
+    defaultService
+    "RevisionRequiredException"
+
+-- | The role ID was not specified.
+_RoleRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_RoleRequiredException =
+  Core._MatchServiceError
+    defaultService
+    "RoleRequiredException"
+
+-- | The maximum allowed number of tags was exceeded.
+_TagLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TagLimitExceededException =
+  Core._MatchServiceError
+    defaultService
+    "TagLimitExceededException"
+
+-- | A tag was not specified.
+_TagRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TagRequiredException =
+  Core._MatchServiceError
+    defaultService
+    "TagRequiredException"
+
+-- | The number of tag groups included in the tag set list exceeded the
+-- maximum allowed limit of 3.
+_TagSetListLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TagSetListLimitExceededException =
+  Core._MatchServiceError
+    defaultService
+    "TagSetListLimitExceededException"
+
+-- | An API function was called too frequently.
+_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ThrottlingException =
+  Core._MatchServiceError
+    defaultService
+    "ThrottlingException"
+
+-- | The maximum allowed number of triggers was exceeded.
+_TriggerTargetsLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TriggerTargetsLimitExceededException =
+  Core._MatchServiceError
+    defaultService
+    "TriggerTargetsLimitExceededException"
+
+-- | A call was submitted that is not supported for the specified deployment
+-- type.
+_UnsupportedActionForDeploymentTypeException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_UnsupportedActionForDeploymentTypeException =
+  Core._MatchServiceError
+    defaultService
+    "UnsupportedActionForDeploymentTypeException"

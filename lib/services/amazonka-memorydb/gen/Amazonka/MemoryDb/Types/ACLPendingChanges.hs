@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MemoryDb.Types.ACLPendingChanges
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MemoryDb.Types.ACLPendingChanges where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Returns the updates being applied to the ACL.
@@ -62,15 +63,15 @@ aCLPendingChanges_userNamesToAdd = Lens.lens (\ACLPendingChanges' {userNamesToAd
 aCLPendingChanges_userNamesToRemove :: Lens.Lens' ACLPendingChanges (Prelude.Maybe [Prelude.Text])
 aCLPendingChanges_userNamesToRemove = Lens.lens (\ACLPendingChanges' {userNamesToRemove} -> userNamesToRemove) (\s@ACLPendingChanges' {} a -> s {userNamesToRemove = a} :: ACLPendingChanges) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ACLPendingChanges where
+instance Data.FromJSON ACLPendingChanges where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ACLPendingChanges"
       ( \x ->
           ACLPendingChanges'
-            Prelude.<$> (x Core..:? "UserNamesToAdd" Core..!= Prelude.mempty)
-            Prelude.<*> ( x Core..:? "UserNamesToRemove"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "UserNamesToAdd" Data..!= Prelude.mempty)
+            Prelude.<*> ( x Data..:? "UserNamesToRemove"
+                            Data..!= Prelude.mempty
                         )
       )
 

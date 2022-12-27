@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.CheckSchemaVersionValidity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,16 +45,17 @@ module Amazonka.Glue.CheckSchemaVersionValidity
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCheckSchemaVersionValidity' smart constructor.
 data CheckSchemaVersionValidity = CheckSchemaVersionValidity'
-  { -- | The data format of the schema definition. Currently @AVRO@ and @JSON@
-    -- are supported.
+  { -- | The data format of the schema definition. Currently @AVRO@, @JSON@ and
+    -- @PROTOBUF@ are supported.
     dataFormat :: DataFormat,
     -- | The definition of the schema that has to be validated.
     schemaDefinition :: Prelude.Text
@@ -69,8 +70,8 @@ data CheckSchemaVersionValidity = CheckSchemaVersionValidity'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'dataFormat', 'checkSchemaVersionValidity_dataFormat' - The data format of the schema definition. Currently @AVRO@ and @JSON@
--- are supported.
+-- 'dataFormat', 'checkSchemaVersionValidity_dataFormat' - The data format of the schema definition. Currently @AVRO@, @JSON@ and
+-- @PROTOBUF@ are supported.
 --
 -- 'schemaDefinition', 'checkSchemaVersionValidity_schemaDefinition' - The definition of the schema that has to be validated.
 newCheckSchemaVersionValidity ::
@@ -88,8 +89,8 @@ newCheckSchemaVersionValidity
         schemaDefinition = pSchemaDefinition_
       }
 
--- | The data format of the schema definition. Currently @AVRO@ and @JSON@
--- are supported.
+-- | The data format of the schema definition. Currently @AVRO@, @JSON@ and
+-- @PROTOBUF@ are supported.
 checkSchemaVersionValidity_dataFormat :: Lens.Lens' CheckSchemaVersionValidity DataFormat
 checkSchemaVersionValidity_dataFormat = Lens.lens (\CheckSchemaVersionValidity' {dataFormat} -> dataFormat) (\s@CheckSchemaVersionValidity' {} a -> s {dataFormat = a} :: CheckSchemaVersionValidity)
 
@@ -101,13 +102,14 @@ instance Core.AWSRequest CheckSchemaVersionValidity where
   type
     AWSResponse CheckSchemaVersionValidity =
       CheckSchemaVersionValidityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CheckSchemaVersionValidityResponse'
-            Prelude.<$> (x Core..?> "Error")
-            Prelude.<*> (x Core..?> "Valid")
+            Prelude.<$> (x Data..?> "Error")
+            Prelude.<*> (x Data..?> "Valid")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,35 +123,35 @@ instance Prelude.NFData CheckSchemaVersionValidity where
     Prelude.rnf dataFormat
       `Prelude.seq` Prelude.rnf schemaDefinition
 
-instance Core.ToHeaders CheckSchemaVersionValidity where
+instance Data.ToHeaders CheckSchemaVersionValidity where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSGlue.CheckSchemaVersionValidity" ::
+              Data.=# ( "AWSGlue.CheckSchemaVersionValidity" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CheckSchemaVersionValidity where
+instance Data.ToJSON CheckSchemaVersionValidity where
   toJSON CheckSchemaVersionValidity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DataFormat" Core..= dataFormat),
+          [ Prelude.Just ("DataFormat" Data..= dataFormat),
             Prelude.Just
-              ("SchemaDefinition" Core..= schemaDefinition)
+              ("SchemaDefinition" Data..= schemaDefinition)
           ]
       )
 
-instance Core.ToPath CheckSchemaVersionValidity where
+instance Data.ToPath CheckSchemaVersionValidity where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CheckSchemaVersionValidity where
+instance Data.ToQuery CheckSchemaVersionValidity where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCheckSchemaVersionValidityResponse' smart constructor.

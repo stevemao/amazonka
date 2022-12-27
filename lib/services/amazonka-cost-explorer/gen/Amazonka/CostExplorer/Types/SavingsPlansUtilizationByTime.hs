@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.SavingsPlansUtilizationByTime
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +20,25 @@
 module Amazonka.CostExplorer.Types.SavingsPlansUtilizationByTime where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types.DateInterval
 import Amazonka.CostExplorer.Types.SavingsPlansAmortizedCommitment
 import Amazonka.CostExplorer.Types.SavingsPlansSavings
 import Amazonka.CostExplorer.Types.SavingsPlansUtilization
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The amount of Savings Plans utilization, in hours.
+-- | The amount of Savings Plans utilization (in hours).
 --
 -- /See:/ 'newSavingsPlansUtilizationByTime' smart constructor.
 data SavingsPlansUtilizationByTime = SavingsPlansUtilizationByTime'
   { -- | The total amortized commitment for a Savings Plans. This includes the
     -- sum of the upfront and recurring Savings Plans fees.
     amortizedCommitment :: Prelude.Maybe SavingsPlansAmortizedCommitment,
-    -- | The amount saved by using existing Savings Plans. Savings returns both
-    -- net savings from Savings Plans as well as the @onDemandCostEquivalent@
-    -- of the Savings Plans when considering the utilization rate.
+    -- | The amount that\'s saved by using existing Savings Plans. Savings
+    -- returns both net savings from Savings Plans and also the
+    -- @onDemandCostEquivalent@ of the Savings Plans when considering the
+    -- utilization rate.
     savings :: Prelude.Maybe SavingsPlansSavings,
     timePeriod :: DateInterval,
     -- | A ratio of your effectiveness of using existing Savings Plans to apply
@@ -56,9 +58,10 @@ data SavingsPlansUtilizationByTime = SavingsPlansUtilizationByTime'
 -- 'amortizedCommitment', 'savingsPlansUtilizationByTime_amortizedCommitment' - The total amortized commitment for a Savings Plans. This includes the
 -- sum of the upfront and recurring Savings Plans fees.
 --
--- 'savings', 'savingsPlansUtilizationByTime_savings' - The amount saved by using existing Savings Plans. Savings returns both
--- net savings from Savings Plans as well as the @onDemandCostEquivalent@
--- of the Savings Plans when considering the utilization rate.
+-- 'savings', 'savingsPlansUtilizationByTime_savings' - The amount that\'s saved by using existing Savings Plans. Savings
+-- returns both net savings from Savings Plans and also the
+-- @onDemandCostEquivalent@ of the Savings Plans when considering the
+-- utilization rate.
 --
 -- 'timePeriod', 'savingsPlansUtilizationByTime_timePeriod' - Undocumented member.
 --
@@ -86,9 +89,10 @@ newSavingsPlansUtilizationByTime
 savingsPlansUtilizationByTime_amortizedCommitment :: Lens.Lens' SavingsPlansUtilizationByTime (Prelude.Maybe SavingsPlansAmortizedCommitment)
 savingsPlansUtilizationByTime_amortizedCommitment = Lens.lens (\SavingsPlansUtilizationByTime' {amortizedCommitment} -> amortizedCommitment) (\s@SavingsPlansUtilizationByTime' {} a -> s {amortizedCommitment = a} :: SavingsPlansUtilizationByTime)
 
--- | The amount saved by using existing Savings Plans. Savings returns both
--- net savings from Savings Plans as well as the @onDemandCostEquivalent@
--- of the Savings Plans when considering the utilization rate.
+-- | The amount that\'s saved by using existing Savings Plans. Savings
+-- returns both net savings from Savings Plans and also the
+-- @onDemandCostEquivalent@ of the Savings Plans when considering the
+-- utilization rate.
 savingsPlansUtilizationByTime_savings :: Lens.Lens' SavingsPlansUtilizationByTime (Prelude.Maybe SavingsPlansSavings)
 savingsPlansUtilizationByTime_savings = Lens.lens (\SavingsPlansUtilizationByTime' {savings} -> savings) (\s@SavingsPlansUtilizationByTime' {} a -> s {savings = a} :: SavingsPlansUtilizationByTime)
 
@@ -101,16 +105,16 @@ savingsPlansUtilizationByTime_timePeriod = Lens.lens (\SavingsPlansUtilizationBy
 savingsPlansUtilizationByTime_utilization :: Lens.Lens' SavingsPlansUtilizationByTime SavingsPlansUtilization
 savingsPlansUtilizationByTime_utilization = Lens.lens (\SavingsPlansUtilizationByTime' {utilization} -> utilization) (\s@SavingsPlansUtilizationByTime' {} a -> s {utilization = a} :: SavingsPlansUtilizationByTime)
 
-instance Core.FromJSON SavingsPlansUtilizationByTime where
+instance Data.FromJSON SavingsPlansUtilizationByTime where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SavingsPlansUtilizationByTime"
       ( \x ->
           SavingsPlansUtilizationByTime'
-            Prelude.<$> (x Core..:? "AmortizedCommitment")
-            Prelude.<*> (x Core..:? "Savings")
-            Prelude.<*> (x Core..: "TimePeriod")
-            Prelude.<*> (x Core..: "Utilization")
+            Prelude.<$> (x Data..:? "AmortizedCommitment")
+            Prelude.<*> (x Data..:? "Savings")
+            Prelude.<*> (x Data..: "TimePeriod")
+            Prelude.<*> (x Data..: "Utilization")
       )
 
 instance

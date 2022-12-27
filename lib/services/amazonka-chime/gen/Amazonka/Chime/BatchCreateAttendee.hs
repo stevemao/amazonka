@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.BatchCreateAttendee
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,13 +94,14 @@ instance Core.AWSRequest BatchCreateAttendee where
   type
     AWSResponse BatchCreateAttendee =
       BatchCreateAttendeeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchCreateAttendeeResponse'
-            Prelude.<$> (x Core..?> "Attendees" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Errors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Attendees" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Errors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,22 +115,22 @@ instance Prelude.NFData BatchCreateAttendee where
     Prelude.rnf meetingId
       `Prelude.seq` Prelude.rnf attendees
 
-instance Core.ToHeaders BatchCreateAttendee where
+instance Data.ToHeaders BatchCreateAttendee where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON BatchCreateAttendee where
+instance Data.ToJSON BatchCreateAttendee where
   toJSON BatchCreateAttendee' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Attendees" Core..= attendees)]
+          [Prelude.Just ("Attendees" Data..= attendees)]
       )
 
-instance Core.ToPath BatchCreateAttendee where
+instance Data.ToPath BatchCreateAttendee where
   toPath BatchCreateAttendee' {..} =
     Prelude.mconcat
-      ["/meetings/", Core.toBS meetingId, "/attendees"]
+      ["/meetings/", Data.toBS meetingId, "/attendees"]
 
-instance Core.ToQuery BatchCreateAttendee where
+instance Data.ToQuery BatchCreateAttendee where
   toQuery =
     Prelude.const
       (Prelude.mconcat ["operation=batch-create"])

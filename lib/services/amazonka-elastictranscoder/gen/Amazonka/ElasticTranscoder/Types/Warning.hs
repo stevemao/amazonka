@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticTranscoder.Types.Warning
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticTranscoder.Types.Warning where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Elastic Transcoder returns a warning if the resources used by your
@@ -75,14 +76,14 @@ warning_code = Lens.lens (\Warning' {code} -> code) (\s@Warning' {} a -> s {code
 warning_message :: Lens.Lens' Warning (Prelude.Maybe Prelude.Text)
 warning_message = Lens.lens (\Warning' {message} -> message) (\s@Warning' {} a -> s {message = a} :: Warning)
 
-instance Core.FromJSON Warning where
+instance Data.FromJSON Warning where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Warning"
       ( \x ->
           Warning'
-            Prelude.<$> (x Core..:? "Code")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Code")
+            Prelude.<*> (x Data..:? "Message")
       )
 
 instance Prelude.Hashable Warning where

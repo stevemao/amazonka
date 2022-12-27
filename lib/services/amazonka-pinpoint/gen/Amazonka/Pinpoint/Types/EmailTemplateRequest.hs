@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.EmailTemplateRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.EmailTemplateRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the content and settings for a message template that can be
@@ -28,17 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEmailTemplateRequest' smart constructor.
 data EmailTemplateRequest = EmailTemplateRequest'
-  { -- | The subject line, or title, to use in email messages that are based on
-    -- the message template.
-    subject :: Prelude.Maybe Prelude.Text,
-    -- | The message body, in plain text format, to use in email messages that
-    -- are based on the message template. We recommend using plain text format
-    -- for email clients that don\'t render HTML content and clients that are
-    -- connected to high-latency networks, such as mobile devices.
-    textPart :: Prelude.Maybe Prelude.Text,
-    -- | A custom description of the message template.
-    templateDescription :: Prelude.Maybe Prelude.Text,
-    -- | A JSON object that specifies the default values to use for message
+  { -- | A JSON object that specifies the default values to use for message
     -- variables in the message template. This object is a set of key-value
     -- pairs. Each key defines a message variable in the template. The
     -- corresponding value defines the default value for that variable. When
@@ -57,6 +48,16 @@ data EmailTemplateRequest = EmailTemplateRequest'
     -- use the template, if the template contains message variables for
     -- recommendation data.
     recommenderId :: Prelude.Maybe Prelude.Text,
+    -- | The subject line, or title, to use in email messages that are based on
+    -- the message template.
+    subject :: Prelude.Maybe Prelude.Text,
+    -- | A custom description of the message template.
+    templateDescription :: Prelude.Maybe Prelude.Text,
+    -- | The message body, in plain text format, to use in email messages that
+    -- are based on the message template. We recommend using plain text format
+    -- for email clients that don\'t render HTML content and clients that are
+    -- connected to high-latency networks, such as mobile devices.
+    textPart :: Prelude.Maybe Prelude.Text,
     -- | A string-to-string map of key-value pairs that defines the tags to
     -- associate with the message template. Each tag consists of a required tag
     -- key and an associated tag value.
@@ -71,16 +72,6 @@ data EmailTemplateRequest = EmailTemplateRequest'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'subject', 'emailTemplateRequest_subject' - The subject line, or title, to use in email messages that are based on
--- the message template.
---
--- 'textPart', 'emailTemplateRequest_textPart' - The message body, in plain text format, to use in email messages that
--- are based on the message template. We recommend using plain text format
--- for email clients that don\'t render HTML content and clients that are
--- connected to high-latency networks, such as mobile devices.
---
--- 'templateDescription', 'emailTemplateRequest_templateDescription' - A custom description of the message template.
 --
 -- 'defaultSubstitutions', 'emailTemplateRequest_defaultSubstitutions' - A JSON object that specifies the default values to use for message
 -- variables in the message template. This object is a set of key-value
@@ -101,6 +92,16 @@ data EmailTemplateRequest = EmailTemplateRequest'
 -- use the template, if the template contains message variables for
 -- recommendation data.
 --
+-- 'subject', 'emailTemplateRequest_subject' - The subject line, or title, to use in email messages that are based on
+-- the message template.
+--
+-- 'templateDescription', 'emailTemplateRequest_templateDescription' - A custom description of the message template.
+--
+-- 'textPart', 'emailTemplateRequest_textPart' - The message body, in plain text format, to use in email messages that
+-- are based on the message template. We recommend using plain text format
+-- for email clients that don\'t render HTML content and clients that are
+-- connected to high-latency networks, such as mobile devices.
+--
 -- 'tags', 'emailTemplateRequest_tags' - A string-to-string map of key-value pairs that defines the tags to
 -- associate with the message template. Each tag consists of a required tag
 -- key and an associated tag value.
@@ -108,30 +109,15 @@ newEmailTemplateRequest ::
   EmailTemplateRequest
 newEmailTemplateRequest =
   EmailTemplateRequest'
-    { subject = Prelude.Nothing,
-      textPart = Prelude.Nothing,
-      templateDescription = Prelude.Nothing,
-      defaultSubstitutions = Prelude.Nothing,
+    { defaultSubstitutions =
+        Prelude.Nothing,
       htmlPart = Prelude.Nothing,
       recommenderId = Prelude.Nothing,
+      subject = Prelude.Nothing,
+      templateDescription = Prelude.Nothing,
+      textPart = Prelude.Nothing,
       tags = Prelude.Nothing
     }
-
--- | The subject line, or title, to use in email messages that are based on
--- the message template.
-emailTemplateRequest_subject :: Lens.Lens' EmailTemplateRequest (Prelude.Maybe Prelude.Text)
-emailTemplateRequest_subject = Lens.lens (\EmailTemplateRequest' {subject} -> subject) (\s@EmailTemplateRequest' {} a -> s {subject = a} :: EmailTemplateRequest)
-
--- | The message body, in plain text format, to use in email messages that
--- are based on the message template. We recommend using plain text format
--- for email clients that don\'t render HTML content and clients that are
--- connected to high-latency networks, such as mobile devices.
-emailTemplateRequest_textPart :: Lens.Lens' EmailTemplateRequest (Prelude.Maybe Prelude.Text)
-emailTemplateRequest_textPart = Lens.lens (\EmailTemplateRequest' {textPart} -> textPart) (\s@EmailTemplateRequest' {} a -> s {textPart = a} :: EmailTemplateRequest)
-
--- | A custom description of the message template.
-emailTemplateRequest_templateDescription :: Lens.Lens' EmailTemplateRequest (Prelude.Maybe Prelude.Text)
-emailTemplateRequest_templateDescription = Lens.lens (\EmailTemplateRequest' {templateDescription} -> templateDescription) (\s@EmailTemplateRequest' {} a -> s {templateDescription = a} :: EmailTemplateRequest)
 
 -- | A JSON object that specifies the default values to use for message
 -- variables in the message template. This object is a set of key-value
@@ -158,6 +144,22 @@ emailTemplateRequest_htmlPart = Lens.lens (\EmailTemplateRequest' {htmlPart} -> 
 emailTemplateRequest_recommenderId :: Lens.Lens' EmailTemplateRequest (Prelude.Maybe Prelude.Text)
 emailTemplateRequest_recommenderId = Lens.lens (\EmailTemplateRequest' {recommenderId} -> recommenderId) (\s@EmailTemplateRequest' {} a -> s {recommenderId = a} :: EmailTemplateRequest)
 
+-- | The subject line, or title, to use in email messages that are based on
+-- the message template.
+emailTemplateRequest_subject :: Lens.Lens' EmailTemplateRequest (Prelude.Maybe Prelude.Text)
+emailTemplateRequest_subject = Lens.lens (\EmailTemplateRequest' {subject} -> subject) (\s@EmailTemplateRequest' {} a -> s {subject = a} :: EmailTemplateRequest)
+
+-- | A custom description of the message template.
+emailTemplateRequest_templateDescription :: Lens.Lens' EmailTemplateRequest (Prelude.Maybe Prelude.Text)
+emailTemplateRequest_templateDescription = Lens.lens (\EmailTemplateRequest' {templateDescription} -> templateDescription) (\s@EmailTemplateRequest' {} a -> s {templateDescription = a} :: EmailTemplateRequest)
+
+-- | The message body, in plain text format, to use in email messages that
+-- are based on the message template. We recommend using plain text format
+-- for email clients that don\'t render HTML content and clients that are
+-- connected to high-latency networks, such as mobile devices.
+emailTemplateRequest_textPart :: Lens.Lens' EmailTemplateRequest (Prelude.Maybe Prelude.Text)
+emailTemplateRequest_textPart = Lens.lens (\EmailTemplateRequest' {textPart} -> textPart) (\s@EmailTemplateRequest' {} a -> s {textPart = a} :: EmailTemplateRequest)
+
 -- | A string-to-string map of key-value pairs that defines the tags to
 -- associate with the message template. Each tag consists of a required tag
 -- key and an associated tag value.
@@ -166,36 +168,36 @@ emailTemplateRequest_tags = Lens.lens (\EmailTemplateRequest' {tags} -> tags) (\
 
 instance Prelude.Hashable EmailTemplateRequest where
   hashWithSalt _salt EmailTemplateRequest' {..} =
-    _salt `Prelude.hashWithSalt` subject
-      `Prelude.hashWithSalt` textPart
-      `Prelude.hashWithSalt` templateDescription
-      `Prelude.hashWithSalt` defaultSubstitutions
+    _salt `Prelude.hashWithSalt` defaultSubstitutions
       `Prelude.hashWithSalt` htmlPart
       `Prelude.hashWithSalt` recommenderId
+      `Prelude.hashWithSalt` subject
+      `Prelude.hashWithSalt` templateDescription
+      `Prelude.hashWithSalt` textPart
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData EmailTemplateRequest where
   rnf EmailTemplateRequest' {..} =
-    Prelude.rnf subject
-      `Prelude.seq` Prelude.rnf textPart
-      `Prelude.seq` Prelude.rnf templateDescription
-      `Prelude.seq` Prelude.rnf defaultSubstitutions
+    Prelude.rnf defaultSubstitutions
       `Prelude.seq` Prelude.rnf htmlPart
       `Prelude.seq` Prelude.rnf recommenderId
+      `Prelude.seq` Prelude.rnf subject
+      `Prelude.seq` Prelude.rnf templateDescription
+      `Prelude.seq` Prelude.rnf textPart
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToJSON EmailTemplateRequest where
+instance Data.ToJSON EmailTemplateRequest where
   toJSON EmailTemplateRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Subject" Core..=) Prelude.<$> subject,
-            ("TextPart" Core..=) Prelude.<$> textPart,
-            ("TemplateDescription" Core..=)
-              Prelude.<$> templateDescription,
-            ("DefaultSubstitutions" Core..=)
+          [ ("DefaultSubstitutions" Data..=)
               Prelude.<$> defaultSubstitutions,
-            ("HtmlPart" Core..=) Prelude.<$> htmlPart,
-            ("RecommenderId" Core..=) Prelude.<$> recommenderId,
-            ("tags" Core..=) Prelude.<$> tags
+            ("HtmlPart" Data..=) Prelude.<$> htmlPart,
+            ("RecommenderId" Data..=) Prelude.<$> recommenderId,
+            ("Subject" Data..=) Prelude.<$> subject,
+            ("TemplateDescription" Data..=)
+              Prelude.<$> templateDescription,
+            ("TextPart" Data..=) Prelude.<$> textPart,
+            ("tags" Data..=) Prelude.<$> tags
           ]
       )

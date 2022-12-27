@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.CreateDatasetImportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,10 @@
 -- information on granting access to your Amazon S3 bucket, see
 -- <https://docs.aws.amazon.com/personalize/latest/dg/granting-personalize-s3-access.html Giving Amazon Personalize Access to Amazon S3 Resources>.
 --
--- The dataset import job replaces any existing data in the dataset that
--- you imported in bulk.
+-- By default, a dataset import job replaces any existing data in the
+-- dataset that you imported in bulk. To add new records without replacing
+-- existing data, specify INCREMENTAL for the import mode in the
+-- CreateDatasetImportJob operation.
 --
 -- __Status__
 --
@@ -37,7 +39,8 @@
 --
 -- -   CREATE PENDING > CREATE IN_PROGRESS > ACTIVE -or- CREATE FAILED
 --
--- To get the status of the import job, call DescribeDatasetImportJob,
+-- To get the status of the import job, call
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeDatasetImportJob.html DescribeDatasetImportJob>,
 -- providing the Amazon Resource Name (ARN) of the dataset import job. The
 -- dataset import is complete when the status shows as ACTIVE. If the
 -- status shows as CREATE FAILED, the response includes a @failureReason@
@@ -48,15 +51,18 @@
 --
 -- __Related APIs__
 --
--- -   ListDatasetImportJobs
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_ListDatasetImportJobs.html ListDatasetImportJobs>
 --
--- -   DescribeDatasetImportJob
+-- -   <https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeDatasetImportJob.html DescribeDatasetImportJob>
 module Amazonka.Personalize.CreateDatasetImportJob
   ( -- * Creating a Request
     CreateDatasetImportJob (..),
     newCreateDatasetImportJob,
 
     -- * Request Lenses
+    createDatasetImportJob_importMode,
+    createDatasetImportJob_publishAttributionMetricsToS3,
+    createDatasetImportJob_tags,
     createDatasetImportJob_jobName,
     createDatasetImportJob_datasetArn,
     createDatasetImportJob_dataSource,
@@ -73,7 +79,8 @@ module Amazonka.Personalize.CreateDatasetImportJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -81,7 +88,25 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateDatasetImportJob' smart constructor.
 data CreateDatasetImportJob = CreateDatasetImportJob'
-  { -- | The name for the dataset import job.
+  { -- | Specify how to add the new records to an existing dataset. The default
+    -- import mode is @FULL@. If you haven\'t imported bulk records into the
+    -- dataset previously, you can only specify @FULL@.
+    --
+    -- -   Specify @FULL@ to overwrite all existing bulk data in your dataset.
+    --     Data you imported individually is not replaced.
+    --
+    -- -   Specify @INCREMENTAL@ to append the new records to the existing data
+    --     in your dataset. Amazon Personalize replaces any record with the
+    --     same ID with the new one.
+    importMode :: Prelude.Maybe ImportMode,
+    -- | If you created a metric attribution, specify whether to publish metrics
+    -- for this import job to Amazon S3
+    publishAttributionMetricsToS3 :: Prelude.Maybe Prelude.Bool,
+    -- | A list of
+    -- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+    -- to apply to the dataset import job.
+    tags :: Prelude.Maybe [Tag],
+    -- | The name for the dataset import job.
     jobName :: Prelude.Text,
     -- | The ARN of the dataset that receives the imported data.
     datasetArn :: Prelude.Text,
@@ -100,6 +125,24 @@ data CreateDatasetImportJob = CreateDatasetImportJob'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'importMode', 'createDatasetImportJob_importMode' - Specify how to add the new records to an existing dataset. The default
+-- import mode is @FULL@. If you haven\'t imported bulk records into the
+-- dataset previously, you can only specify @FULL@.
+--
+-- -   Specify @FULL@ to overwrite all existing bulk data in your dataset.
+--     Data you imported individually is not replaced.
+--
+-- -   Specify @INCREMENTAL@ to append the new records to the existing data
+--     in your dataset. Amazon Personalize replaces any record with the
+--     same ID with the new one.
+--
+-- 'publishAttributionMetricsToS3', 'createDatasetImportJob_publishAttributionMetricsToS3' - If you created a metric attribution, specify whether to publish metrics
+-- for this import job to Amazon S3
+--
+-- 'tags', 'createDatasetImportJob_tags' - A list of
+-- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+-- to apply to the dataset import job.
 --
 -- 'jobName', 'createDatasetImportJob_jobName' - The name for the dataset import job.
 --
@@ -125,11 +168,39 @@ newCreateDatasetImportJob
   pDataSource_
   pRoleArn_ =
     CreateDatasetImportJob'
-      { jobName = pJobName_,
+      { importMode =
+          Prelude.Nothing,
+        publishAttributionMetricsToS3 = Prelude.Nothing,
+        tags = Prelude.Nothing,
+        jobName = pJobName_,
         datasetArn = pDatasetArn_,
         dataSource = pDataSource_,
         roleArn = pRoleArn_
       }
+
+-- | Specify how to add the new records to an existing dataset. The default
+-- import mode is @FULL@. If you haven\'t imported bulk records into the
+-- dataset previously, you can only specify @FULL@.
+--
+-- -   Specify @FULL@ to overwrite all existing bulk data in your dataset.
+--     Data you imported individually is not replaced.
+--
+-- -   Specify @INCREMENTAL@ to append the new records to the existing data
+--     in your dataset. Amazon Personalize replaces any record with the
+--     same ID with the new one.
+createDatasetImportJob_importMode :: Lens.Lens' CreateDatasetImportJob (Prelude.Maybe ImportMode)
+createDatasetImportJob_importMode = Lens.lens (\CreateDatasetImportJob' {importMode} -> importMode) (\s@CreateDatasetImportJob' {} a -> s {importMode = a} :: CreateDatasetImportJob)
+
+-- | If you created a metric attribution, specify whether to publish metrics
+-- for this import job to Amazon S3
+createDatasetImportJob_publishAttributionMetricsToS3 :: Lens.Lens' CreateDatasetImportJob (Prelude.Maybe Prelude.Bool)
+createDatasetImportJob_publishAttributionMetricsToS3 = Lens.lens (\CreateDatasetImportJob' {publishAttributionMetricsToS3} -> publishAttributionMetricsToS3) (\s@CreateDatasetImportJob' {} a -> s {publishAttributionMetricsToS3 = a} :: CreateDatasetImportJob)
+
+-- | A list of
+-- <https://docs.aws.amazon.com/personalize/latest/dev/tagging-resources.html tags>
+-- to apply to the dataset import job.
+createDatasetImportJob_tags :: Lens.Lens' CreateDatasetImportJob (Prelude.Maybe [Tag])
+createDatasetImportJob_tags = Lens.lens (\CreateDatasetImportJob' {tags} -> tags) (\s@CreateDatasetImportJob' {} a -> s {tags = a} :: CreateDatasetImportJob) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name for the dataset import job.
 createDatasetImportJob_jobName :: Lens.Lens' CreateDatasetImportJob Prelude.Text
@@ -152,59 +223,70 @@ instance Core.AWSRequest CreateDatasetImportJob where
   type
     AWSResponse CreateDatasetImportJob =
       CreateDatasetImportJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDatasetImportJobResponse'
-            Prelude.<$> (x Core..?> "datasetImportJobArn")
+            Prelude.<$> (x Data..?> "datasetImportJobArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateDatasetImportJob where
   hashWithSalt _salt CreateDatasetImportJob' {..} =
-    _salt `Prelude.hashWithSalt` jobName
+    _salt `Prelude.hashWithSalt` importMode
+      `Prelude.hashWithSalt` publishAttributionMetricsToS3
+      `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` jobName
       `Prelude.hashWithSalt` datasetArn
       `Prelude.hashWithSalt` dataSource
       `Prelude.hashWithSalt` roleArn
 
 instance Prelude.NFData CreateDatasetImportJob where
   rnf CreateDatasetImportJob' {..} =
-    Prelude.rnf jobName
+    Prelude.rnf importMode
+      `Prelude.seq` Prelude.rnf publishAttributionMetricsToS3
+      `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf jobName
       `Prelude.seq` Prelude.rnf datasetArn
       `Prelude.seq` Prelude.rnf dataSource
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders CreateDatasetImportJob where
+instance Data.ToHeaders CreateDatasetImportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.CreateDatasetImportJob" ::
+              Data.=# ( "AmazonPersonalize.CreateDatasetImportJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDatasetImportJob where
+instance Data.ToJSON CreateDatasetImportJob where
   toJSON CreateDatasetImportJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("jobName" Core..= jobName),
-            Prelude.Just ("datasetArn" Core..= datasetArn),
-            Prelude.Just ("dataSource" Core..= dataSource),
-            Prelude.Just ("roleArn" Core..= roleArn)
+          [ ("importMode" Data..=) Prelude.<$> importMode,
+            ("publishAttributionMetricsToS3" Data..=)
+              Prelude.<$> publishAttributionMetricsToS3,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("jobName" Data..= jobName),
+            Prelude.Just ("datasetArn" Data..= datasetArn),
+            Prelude.Just ("dataSource" Data..= dataSource),
+            Prelude.Just ("roleArn" Data..= roleArn)
           ]
       )
 
-instance Core.ToPath CreateDatasetImportJob where
+instance Data.ToPath CreateDatasetImportJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDatasetImportJob where
+instance Data.ToQuery CreateDatasetImportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDatasetImportJobResponse' smart constructor.

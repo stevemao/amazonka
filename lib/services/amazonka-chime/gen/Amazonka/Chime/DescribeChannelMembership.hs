@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.DescribeChannelMembership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,12 +107,13 @@ instance Core.AWSRequest DescribeChannelMembership where
   type
     AWSResponse DescribeChannelMembership =
       DescribeChannelMembershipResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeChannelMembershipResponse'
-            Prelude.<$> (x Core..?> "ChannelMembership")
+            Prelude.<$> (x Data..?> "ChannelMembership")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -127,21 +129,21 @@ instance Prelude.NFData DescribeChannelMembership where
       `Prelude.seq` Prelude.rnf channelArn
       `Prelude.seq` Prelude.rnf memberArn
 
-instance Core.ToHeaders DescribeChannelMembership where
+instance Data.ToHeaders DescribeChannelMembership where
   toHeaders DescribeChannelMembership' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToPath DescribeChannelMembership where
+instance Data.ToPath DescribeChannelMembership where
   toPath DescribeChannelMembership' {..} =
     Prelude.mconcat
       [ "/channels/",
-        Core.toBS channelArn,
+        Data.toBS channelArn,
         "/memberships/",
-        Core.toBS memberArn
+        Data.toBS memberArn
       ]
 
-instance Core.ToQuery DescribeChannelMembership where
+instance Data.ToQuery DescribeChannelMembership where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeChannelMembershipResponse' smart constructor.

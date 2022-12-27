@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.DeleteCoreDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.GreengrassV2.DeleteCoreDevice
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,7 +82,8 @@ instance Core.AWSRequest DeleteCoreDevice where
   type
     AWSResponse DeleteCoreDevice =
       DeleteCoreDeviceResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteCoreDeviceResponse'
 
@@ -93,25 +95,17 @@ instance Prelude.NFData DeleteCoreDevice where
   rnf DeleteCoreDevice' {..} =
     Prelude.rnf coreDeviceThingName
 
-instance Core.ToHeaders DeleteCoreDevice where
-  toHeaders =
-    Prelude.const
-      ( Prelude.mconcat
-          [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
-                          Prelude.ByteString
-                      )
-          ]
-      )
+instance Data.ToHeaders DeleteCoreDevice where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteCoreDevice where
+instance Data.ToPath DeleteCoreDevice where
   toPath DeleteCoreDevice' {..} =
     Prelude.mconcat
       [ "/greengrass/v2/coreDevices/",
-        Core.toBS coreDeviceThingName
+        Data.toBS coreDeviceThingName
       ]
 
-instance Core.ToQuery DeleteCoreDevice where
+instance Data.ToQuery DeleteCoreDevice where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCoreDeviceResponse' smart constructor.

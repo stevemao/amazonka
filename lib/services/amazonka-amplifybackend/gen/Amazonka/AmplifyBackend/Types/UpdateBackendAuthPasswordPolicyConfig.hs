@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AmplifyBackend.Types.UpdateBackendAuthPasswordPolicyConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AmplifyBackend.Types.UpdateBackendAuthPasswordPolicyConfig where
 
 import Amazonka.AmplifyBackend.Types.AdditionalConstraintsElement
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the password policy for your Amazon Cognito user pool
@@ -89,14 +90,14 @@ instance
       `Prelude.seq` Prelude.rnf minimumLength
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     UpdateBackendAuthPasswordPolicyConfig
   where
   toJSON UpdateBackendAuthPasswordPolicyConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("additionalConstraints" Core..=)
+          [ ("additionalConstraints" Data..=)
               Prelude.<$> additionalConstraints,
-            ("minimumLength" Core..=) Prelude.<$> minimumLength
+            ("minimumLength" Data..=) Prelude.<$> minimumLength
           ]
       )

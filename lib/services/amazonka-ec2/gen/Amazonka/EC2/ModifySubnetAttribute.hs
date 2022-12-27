@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifySubnetAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,22 @@
 --
 -- Modifies a subnet attribute. You can only modify one attribute at a
 -- time.
+--
+-- Use this action to modify subnets on Amazon Web Services Outposts.
+--
+-- -   To modify a subnet on an Outpost rack, set both
+--     @MapCustomerOwnedIpOnLaunch@ and @CustomerOwnedIpv4Pool@. These two
+--     parameters act as a single attribute.
+--
+-- -   To modify a subnet on an Outpost server, set either
+--     @EnableLniAtDeviceIndex@ or @DisableLniAtDeviceIndex@.
+--
+-- For more information about Amazon Web Services Outposts, see the
+-- following:
+--
+-- -   <https://docs.aws.amazon.com/outposts/latest/userguide/how-servers-work.html Outpost servers>
+--
+-- -   <https://docs.aws.amazon.com/outposts/latest/userguide/how-racks-work.html Outpost racks>
 module Amazonka.EC2.ModifySubnetAttribute
   ( -- * Creating a Request
     ModifySubnetAttribute (..),
@@ -30,8 +46,14 @@ module Amazonka.EC2.ModifySubnetAttribute
     -- * Request Lenses
     modifySubnetAttribute_assignIpv6AddressOnCreation,
     modifySubnetAttribute_customerOwnedIpv4Pool,
+    modifySubnetAttribute_disableLniAtDeviceIndex,
+    modifySubnetAttribute_enableDns64,
+    modifySubnetAttribute_enableLniAtDeviceIndex,
+    modifySubnetAttribute_enableResourceNameDnsAAAARecordOnLaunch,
+    modifySubnetAttribute_enableResourceNameDnsARecordOnLaunch,
     modifySubnetAttribute_mapCustomerOwnedIpOnLaunch,
     modifySubnetAttribute_mapPublicIpOnLaunch,
+    modifySubnetAttribute_privateDnsHostnameTypeOnLaunch,
     modifySubnetAttribute_subnetId,
 
     -- * Destructuring the Response
@@ -41,8 +63,9 @@ module Amazonka.EC2.ModifySubnetAttribute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,6 +86,24 @@ data ModifySubnetAttribute = ModifySubnetAttribute'
     -- You must set this value when you specify @true@ for
     -- @MapCustomerOwnedIpOnLaunch@.
     customerOwnedIpv4Pool :: Prelude.Maybe Prelude.Text,
+    -- | Specify @true@ to indicate that local network interfaces at the current
+    -- position should be disabled.
+    disableLniAtDeviceIndex :: Prelude.Maybe AttributeBooleanValue,
+    -- | Indicates whether DNS queries made to the Amazon-provided DNS Resolver
+    -- in this subnet should return synthetic IPv6 addresses for IPv4-only
+    -- destinations.
+    enableDns64 :: Prelude.Maybe AttributeBooleanValue,
+    -- | Indicates the device position for local network interfaces in this
+    -- subnet. For example, @1@ indicates local network interfaces in this
+    -- subnet are the secondary network interface (eth1). A local network
+    -- interface cannot be the primary network interface (eth0).
+    enableLniAtDeviceIndex :: Prelude.Maybe Prelude.Int,
+    -- | Indicates whether to respond to DNS queries for instance hostnames with
+    -- DNS AAAA records.
+    enableResourceNameDnsAAAARecordOnLaunch :: Prelude.Maybe AttributeBooleanValue,
+    -- | Indicates whether to respond to DNS queries for instance hostnames with
+    -- DNS A records.
+    enableResourceNameDnsARecordOnLaunch :: Prelude.Maybe AttributeBooleanValue,
     -- | Specify @true@ to indicate that network interfaces attached to instances
     -- created in the specified subnet should be assigned a customer-owned IPv4
     -- address.
@@ -74,6 +115,12 @@ data ModifySubnetAttribute = ModifySubnetAttribute'
     -- created in the specified subnet should be assigned a public IPv4
     -- address.
     mapPublicIpOnLaunch :: Prelude.Maybe AttributeBooleanValue,
+    -- | The type of hostname to assign to instances in the subnet at launch. For
+    -- IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS name
+    -- can be based on the instance IPv4 address (ip-name) or the instance ID
+    -- (resource-name). For IPv6 only subnets, an instance DNS name must be
+    -- based on the instance ID (resource-name).
+    privateDnsHostnameTypeOnLaunch :: Prelude.Maybe HostnameType,
     -- | The ID of the subnet.
     subnetId :: Prelude.Text
   }
@@ -101,6 +148,24 @@ data ModifySubnetAttribute = ModifySubnetAttribute'
 -- You must set this value when you specify @true@ for
 -- @MapCustomerOwnedIpOnLaunch@.
 --
+-- 'disableLniAtDeviceIndex', 'modifySubnetAttribute_disableLniAtDeviceIndex' - Specify @true@ to indicate that local network interfaces at the current
+-- position should be disabled.
+--
+-- 'enableDns64', 'modifySubnetAttribute_enableDns64' - Indicates whether DNS queries made to the Amazon-provided DNS Resolver
+-- in this subnet should return synthetic IPv6 addresses for IPv4-only
+-- destinations.
+--
+-- 'enableLniAtDeviceIndex', 'modifySubnetAttribute_enableLniAtDeviceIndex' - Indicates the device position for local network interfaces in this
+-- subnet. For example, @1@ indicates local network interfaces in this
+-- subnet are the secondary network interface (eth1). A local network
+-- interface cannot be the primary network interface (eth0).
+--
+-- 'enableResourceNameDnsAAAARecordOnLaunch', 'modifySubnetAttribute_enableResourceNameDnsAAAARecordOnLaunch' - Indicates whether to respond to DNS queries for instance hostnames with
+-- DNS AAAA records.
+--
+-- 'enableResourceNameDnsARecordOnLaunch', 'modifySubnetAttribute_enableResourceNameDnsARecordOnLaunch' - Indicates whether to respond to DNS queries for instance hostnames with
+-- DNS A records.
+--
 -- 'mapCustomerOwnedIpOnLaunch', 'modifySubnetAttribute_mapCustomerOwnedIpOnLaunch' - Specify @true@ to indicate that network interfaces attached to instances
 -- created in the specified subnet should be assigned a customer-owned IPv4
 -- address.
@@ -112,6 +177,12 @@ data ModifySubnetAttribute = ModifySubnetAttribute'
 -- created in the specified subnet should be assigned a public IPv4
 -- address.
 --
+-- 'privateDnsHostnameTypeOnLaunch', 'modifySubnetAttribute_privateDnsHostnameTypeOnLaunch' - The type of hostname to assign to instances in the subnet at launch. For
+-- IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS name
+-- can be based on the instance IPv4 address (ip-name) or the instance ID
+-- (resource-name). For IPv6 only subnets, an instance DNS name must be
+-- based on the instance ID (resource-name).
+--
 -- 'subnetId', 'modifySubnetAttribute_subnetId' - The ID of the subnet.
 newModifySubnetAttribute ::
   -- | 'subnetId'
@@ -122,8 +193,16 @@ newModifySubnetAttribute pSubnetId_ =
     { assignIpv6AddressOnCreation =
         Prelude.Nothing,
       customerOwnedIpv4Pool = Prelude.Nothing,
+      disableLniAtDeviceIndex = Prelude.Nothing,
+      enableDns64 = Prelude.Nothing,
+      enableLniAtDeviceIndex = Prelude.Nothing,
+      enableResourceNameDnsAAAARecordOnLaunch =
+        Prelude.Nothing,
+      enableResourceNameDnsARecordOnLaunch =
+        Prelude.Nothing,
       mapCustomerOwnedIpOnLaunch = Prelude.Nothing,
       mapPublicIpOnLaunch = Prelude.Nothing,
+      privateDnsHostnameTypeOnLaunch = Prelude.Nothing,
       subnetId = pSubnetId_
     }
 
@@ -145,6 +224,34 @@ modifySubnetAttribute_assignIpv6AddressOnCreation = Lens.lens (\ModifySubnetAttr
 modifySubnetAttribute_customerOwnedIpv4Pool :: Lens.Lens' ModifySubnetAttribute (Prelude.Maybe Prelude.Text)
 modifySubnetAttribute_customerOwnedIpv4Pool = Lens.lens (\ModifySubnetAttribute' {customerOwnedIpv4Pool} -> customerOwnedIpv4Pool) (\s@ModifySubnetAttribute' {} a -> s {customerOwnedIpv4Pool = a} :: ModifySubnetAttribute)
 
+-- | Specify @true@ to indicate that local network interfaces at the current
+-- position should be disabled.
+modifySubnetAttribute_disableLniAtDeviceIndex :: Lens.Lens' ModifySubnetAttribute (Prelude.Maybe AttributeBooleanValue)
+modifySubnetAttribute_disableLniAtDeviceIndex = Lens.lens (\ModifySubnetAttribute' {disableLniAtDeviceIndex} -> disableLniAtDeviceIndex) (\s@ModifySubnetAttribute' {} a -> s {disableLniAtDeviceIndex = a} :: ModifySubnetAttribute)
+
+-- | Indicates whether DNS queries made to the Amazon-provided DNS Resolver
+-- in this subnet should return synthetic IPv6 addresses for IPv4-only
+-- destinations.
+modifySubnetAttribute_enableDns64 :: Lens.Lens' ModifySubnetAttribute (Prelude.Maybe AttributeBooleanValue)
+modifySubnetAttribute_enableDns64 = Lens.lens (\ModifySubnetAttribute' {enableDns64} -> enableDns64) (\s@ModifySubnetAttribute' {} a -> s {enableDns64 = a} :: ModifySubnetAttribute)
+
+-- | Indicates the device position for local network interfaces in this
+-- subnet. For example, @1@ indicates local network interfaces in this
+-- subnet are the secondary network interface (eth1). A local network
+-- interface cannot be the primary network interface (eth0).
+modifySubnetAttribute_enableLniAtDeviceIndex :: Lens.Lens' ModifySubnetAttribute (Prelude.Maybe Prelude.Int)
+modifySubnetAttribute_enableLniAtDeviceIndex = Lens.lens (\ModifySubnetAttribute' {enableLniAtDeviceIndex} -> enableLniAtDeviceIndex) (\s@ModifySubnetAttribute' {} a -> s {enableLniAtDeviceIndex = a} :: ModifySubnetAttribute)
+
+-- | Indicates whether to respond to DNS queries for instance hostnames with
+-- DNS AAAA records.
+modifySubnetAttribute_enableResourceNameDnsAAAARecordOnLaunch :: Lens.Lens' ModifySubnetAttribute (Prelude.Maybe AttributeBooleanValue)
+modifySubnetAttribute_enableResourceNameDnsAAAARecordOnLaunch = Lens.lens (\ModifySubnetAttribute' {enableResourceNameDnsAAAARecordOnLaunch} -> enableResourceNameDnsAAAARecordOnLaunch) (\s@ModifySubnetAttribute' {} a -> s {enableResourceNameDnsAAAARecordOnLaunch = a} :: ModifySubnetAttribute)
+
+-- | Indicates whether to respond to DNS queries for instance hostnames with
+-- DNS A records.
+modifySubnetAttribute_enableResourceNameDnsARecordOnLaunch :: Lens.Lens' ModifySubnetAttribute (Prelude.Maybe AttributeBooleanValue)
+modifySubnetAttribute_enableResourceNameDnsARecordOnLaunch = Lens.lens (\ModifySubnetAttribute' {enableResourceNameDnsARecordOnLaunch} -> enableResourceNameDnsARecordOnLaunch) (\s@ModifySubnetAttribute' {} a -> s {enableResourceNameDnsARecordOnLaunch = a} :: ModifySubnetAttribute)
+
 -- | Specify @true@ to indicate that network interfaces attached to instances
 -- created in the specified subnet should be assigned a customer-owned IPv4
 -- address.
@@ -160,6 +267,14 @@ modifySubnetAttribute_mapCustomerOwnedIpOnLaunch = Lens.lens (\ModifySubnetAttri
 modifySubnetAttribute_mapPublicIpOnLaunch :: Lens.Lens' ModifySubnetAttribute (Prelude.Maybe AttributeBooleanValue)
 modifySubnetAttribute_mapPublicIpOnLaunch = Lens.lens (\ModifySubnetAttribute' {mapPublicIpOnLaunch} -> mapPublicIpOnLaunch) (\s@ModifySubnetAttribute' {} a -> s {mapPublicIpOnLaunch = a} :: ModifySubnetAttribute)
 
+-- | The type of hostname to assign to instances in the subnet at launch. For
+-- IPv4-only and dual-stack (IPv4 and IPv6) subnets, an instance DNS name
+-- can be based on the instance IPv4 address (ip-name) or the instance ID
+-- (resource-name). For IPv6 only subnets, an instance DNS name must be
+-- based on the instance ID (resource-name).
+modifySubnetAttribute_privateDnsHostnameTypeOnLaunch :: Lens.Lens' ModifySubnetAttribute (Prelude.Maybe HostnameType)
+modifySubnetAttribute_privateDnsHostnameTypeOnLaunch = Lens.lens (\ModifySubnetAttribute' {privateDnsHostnameTypeOnLaunch} -> privateDnsHostnameTypeOnLaunch) (\s@ModifySubnetAttribute' {} a -> s {privateDnsHostnameTypeOnLaunch = a} :: ModifySubnetAttribute)
+
 -- | The ID of the subnet.
 modifySubnetAttribute_subnetId :: Lens.Lens' ModifySubnetAttribute Prelude.Text
 modifySubnetAttribute_subnetId = Lens.lens (\ModifySubnetAttribute' {subnetId} -> subnetId) (\s@ModifySubnetAttribute' {} a -> s {subnetId = a} :: ModifySubnetAttribute)
@@ -168,7 +283,8 @@ instance Core.AWSRequest ModifySubnetAttribute where
   type
     AWSResponse ModifySubnetAttribute =
       ModifySubnetAttributeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull ModifySubnetAttributeResponse'
 
@@ -177,39 +293,62 @@ instance Prelude.Hashable ModifySubnetAttribute where
     _salt
       `Prelude.hashWithSalt` assignIpv6AddressOnCreation
       `Prelude.hashWithSalt` customerOwnedIpv4Pool
+      `Prelude.hashWithSalt` disableLniAtDeviceIndex
+      `Prelude.hashWithSalt` enableDns64
+      `Prelude.hashWithSalt` enableLniAtDeviceIndex
+      `Prelude.hashWithSalt` enableResourceNameDnsAAAARecordOnLaunch
+      `Prelude.hashWithSalt` enableResourceNameDnsARecordOnLaunch
       `Prelude.hashWithSalt` mapCustomerOwnedIpOnLaunch
       `Prelude.hashWithSalt` mapPublicIpOnLaunch
+      `Prelude.hashWithSalt` privateDnsHostnameTypeOnLaunch
       `Prelude.hashWithSalt` subnetId
 
 instance Prelude.NFData ModifySubnetAttribute where
   rnf ModifySubnetAttribute' {..} =
     Prelude.rnf assignIpv6AddressOnCreation
       `Prelude.seq` Prelude.rnf customerOwnedIpv4Pool
+      `Prelude.seq` Prelude.rnf disableLniAtDeviceIndex
+      `Prelude.seq` Prelude.rnf enableDns64
+      `Prelude.seq` Prelude.rnf enableLniAtDeviceIndex
+      `Prelude.seq` Prelude.rnf enableResourceNameDnsAAAARecordOnLaunch
+      `Prelude.seq` Prelude.rnf enableResourceNameDnsARecordOnLaunch
       `Prelude.seq` Prelude.rnf mapCustomerOwnedIpOnLaunch
       `Prelude.seq` Prelude.rnf mapPublicIpOnLaunch
+      `Prelude.seq` Prelude.rnf privateDnsHostnameTypeOnLaunch
       `Prelude.seq` Prelude.rnf subnetId
 
-instance Core.ToHeaders ModifySubnetAttribute where
+instance Data.ToHeaders ModifySubnetAttribute where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifySubnetAttribute where
+instance Data.ToPath ModifySubnetAttribute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifySubnetAttribute where
+instance Data.ToQuery ModifySubnetAttribute where
   toQuery ModifySubnetAttribute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifySubnetAttribute" :: Prelude.ByteString),
+          Data.=: ("ModifySubnetAttribute" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
         "AssignIpv6AddressOnCreation"
-          Core.=: assignIpv6AddressOnCreation,
+          Data.=: assignIpv6AddressOnCreation,
         "CustomerOwnedIpv4Pool"
-          Core.=: customerOwnedIpv4Pool,
+          Data.=: customerOwnedIpv4Pool,
+        "DisableLniAtDeviceIndex"
+          Data.=: disableLniAtDeviceIndex,
+        "EnableDns64" Data.=: enableDns64,
+        "EnableLniAtDeviceIndex"
+          Data.=: enableLniAtDeviceIndex,
+        "EnableResourceNameDnsAAAARecordOnLaunch"
+          Data.=: enableResourceNameDnsAAAARecordOnLaunch,
+        "EnableResourceNameDnsARecordOnLaunch"
+          Data.=: enableResourceNameDnsARecordOnLaunch,
         "MapCustomerOwnedIpOnLaunch"
-          Core.=: mapCustomerOwnedIpOnLaunch,
-        "MapPublicIpOnLaunch" Core.=: mapPublicIpOnLaunch,
-        "SubnetId" Core.=: subnetId
+          Data.=: mapCustomerOwnedIpOnLaunch,
+        "MapPublicIpOnLaunch" Data.=: mapPublicIpOnLaunch,
+        "PrivateDnsHostnameTypeOnLaunch"
+          Data.=: privateDnsHostnameTypeOnLaunch,
+        "SubnetId" Data.=: subnetId
       ]
 
 -- | /See:/ 'newModifySubnetAttributeResponse' smart constructor.

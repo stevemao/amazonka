@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.BatchPutScheduledUpdateGroupAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,15 +97,16 @@ instance
   type
     AWSResponse BatchPutScheduledUpdateGroupAction =
       BatchPutScheduledUpdateGroupActionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "BatchPutScheduledUpdateGroupActionResult"
       ( \s h x ->
           BatchPutScheduledUpdateGroupActionResponse'
-            Prelude.<$> ( x Core..@? "FailedScheduledUpdateGroupActions"
+            Prelude.<$> ( x Data..@? "FailedScheduledUpdateGroupActions"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -128,32 +130,32 @@ instance
       `Prelude.seq` Prelude.rnf scheduledUpdateGroupActions
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     BatchPutScheduledUpdateGroupAction
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     BatchPutScheduledUpdateGroupAction
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     BatchPutScheduledUpdateGroupAction
   where
   toQuery BatchPutScheduledUpdateGroupAction' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "BatchPutScheduledUpdateGroupAction" ::
+          Data.=: ( "BatchPutScheduledUpdateGroupAction" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "AutoScalingGroupName" Core.=: autoScalingGroupName,
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "AutoScalingGroupName" Data.=: autoScalingGroupName,
         "ScheduledUpdateGroupActions"
-          Core.=: Core.toQueryList
+          Data.=: Data.toQueryList
             "member"
             scheduledUpdateGroupActions
       ]

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.KnownGenderType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,18 +21,21 @@ module Amazonka.Rekognition.Types.KnownGenderType
   ( KnownGenderType
       ( ..,
         KnownGenderType_Female,
-        KnownGenderType_Male
+        KnownGenderType_Male,
+        KnownGenderType_Nonbinary,
+        KnownGenderType_Unlisted
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of enum string of possible gender values that Celebrity returns.
 newtype KnownGenderType = KnownGenderType'
   { fromKnownGenderType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -44,18 +47,18 @@ newtype KnownGenderType = KnownGenderType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern KnownGenderType_Female :: KnownGenderType
@@ -64,8 +67,16 @@ pattern KnownGenderType_Female = KnownGenderType' "Female"
 pattern KnownGenderType_Male :: KnownGenderType
 pattern KnownGenderType_Male = KnownGenderType' "Male"
 
+pattern KnownGenderType_Nonbinary :: KnownGenderType
+pattern KnownGenderType_Nonbinary = KnownGenderType' "Nonbinary"
+
+pattern KnownGenderType_Unlisted :: KnownGenderType
+pattern KnownGenderType_Unlisted = KnownGenderType' "Unlisted"
+
 {-# COMPLETE
   KnownGenderType_Female,
   KnownGenderType_Male,
+  KnownGenderType_Nonbinary,
+  KnownGenderType_Unlisted,
   KnownGenderType'
   #-}

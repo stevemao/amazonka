@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.WorkflowTypeFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.WorkflowTypeFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Used to filter workflow execution query results by type. Each parameter,
@@ -74,11 +75,11 @@ instance Prelude.NFData WorkflowTypeFilter where
   rnf WorkflowTypeFilter' {..} =
     Prelude.rnf version `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON WorkflowTypeFilter where
+instance Data.ToJSON WorkflowTypeFilter where
   toJSON WorkflowTypeFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("version" Core..=) Prelude.<$> version,
-            Prelude.Just ("name" Core..= name)
+          [ ("version" Data..=) Prelude.<$> version,
+            Prelude.Just ("name" Data..= name)
           ]
       )

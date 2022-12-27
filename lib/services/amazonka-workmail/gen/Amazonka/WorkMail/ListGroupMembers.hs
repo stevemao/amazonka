@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.ListGroupMembers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.WorkMail.ListGroupMembers
     newListGroupMembers,
 
     -- * Request Lenses
-    listGroupMembers_nextToken,
     listGroupMembers_maxResults,
+    listGroupMembers_nextToken,
     listGroupMembers_organizationId,
     listGroupMembers_groupId,
 
@@ -47,7 +47,8 @@ module Amazonka.WorkMail.ListGroupMembers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,11 +56,11 @@ import Amazonka.WorkMail.Types
 
 -- | /See:/ 'newListGroupMembers' smart constructor.
 data ListGroupMembers = ListGroupMembers'
-  { -- | The token to use to retrieve the next page of results. The first call
+  { -- | The maximum number of results to return in a single call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to use to retrieve the next page of results. The first call
     -- does not contain any tokens.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The identifier for the organization under which the group exists.
     organizationId :: Prelude.Text,
     -- | The identifier for the group to which the members (users or groups) are
@@ -76,10 +77,10 @@ data ListGroupMembers = ListGroupMembers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listGroupMembers_maxResults' - The maximum number of results to return in a single call.
+--
 -- 'nextToken', 'listGroupMembers_nextToken' - The token to use to retrieve the next page of results. The first call
 -- does not contain any tokens.
---
--- 'maxResults', 'listGroupMembers_maxResults' - The maximum number of results to return in a single call.
 --
 -- 'organizationId', 'listGroupMembers_organizationId' - The identifier for the organization under which the group exists.
 --
@@ -93,20 +94,20 @@ newListGroupMembers ::
   ListGroupMembers
 newListGroupMembers pOrganizationId_ pGroupId_ =
   ListGroupMembers'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       organizationId = pOrganizationId_,
       groupId = pGroupId_
     }
+
+-- | The maximum number of results to return in a single call.
+listGroupMembers_maxResults :: Lens.Lens' ListGroupMembers (Prelude.Maybe Prelude.Natural)
+listGroupMembers_maxResults = Lens.lens (\ListGroupMembers' {maxResults} -> maxResults) (\s@ListGroupMembers' {} a -> s {maxResults = a} :: ListGroupMembers)
 
 -- | The token to use to retrieve the next page of results. The first call
 -- does not contain any tokens.
 listGroupMembers_nextToken :: Lens.Lens' ListGroupMembers (Prelude.Maybe Prelude.Text)
 listGroupMembers_nextToken = Lens.lens (\ListGroupMembers' {nextToken} -> nextToken) (\s@ListGroupMembers' {} a -> s {nextToken = a} :: ListGroupMembers)
-
--- | The maximum number of results to return in a single call.
-listGroupMembers_maxResults :: Lens.Lens' ListGroupMembers (Prelude.Maybe Prelude.Natural)
-listGroupMembers_maxResults = Lens.lens (\ListGroupMembers' {maxResults} -> maxResults) (\s@ListGroupMembers' {} a -> s {maxResults = a} :: ListGroupMembers)
 
 -- | The identifier for the organization under which the group exists.
 listGroupMembers_organizationId :: Lens.Lens' ListGroupMembers Prelude.Text
@@ -143,61 +144,62 @@ instance Core.AWSRequest ListGroupMembers where
   type
     AWSResponse ListGroupMembers =
       ListGroupMembersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListGroupMembersResponse'
-            Prelude.<$> (x Core..?> "Members" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Members" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListGroupMembers where
   hashWithSalt _salt ListGroupMembers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` organizationId
       `Prelude.hashWithSalt` groupId
 
 instance Prelude.NFData ListGroupMembers where
   rnf ListGroupMembers' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf organizationId
       `Prelude.seq` Prelude.rnf groupId
 
-instance Core.ToHeaders ListGroupMembers where
+instance Data.ToHeaders ListGroupMembers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.ListGroupMembers" ::
+              Data.=# ( "WorkMailService.ListGroupMembers" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListGroupMembers where
+instance Data.ToJSON ListGroupMembers where
   toJSON ListGroupMembers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("GroupId" Core..= groupId)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("GroupId" Data..= groupId)
           ]
       )
 
-instance Core.ToPath ListGroupMembers where
+instance Data.ToPath ListGroupMembers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListGroupMembers where
+instance Data.ToQuery ListGroupMembers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListGroupMembersResponse' smart constructor.

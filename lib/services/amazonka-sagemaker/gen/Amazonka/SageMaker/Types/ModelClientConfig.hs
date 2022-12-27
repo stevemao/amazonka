@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ModelClientConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ModelClientConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configures the timeout and maximum number of retries for processing a
@@ -28,10 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newModelClientConfig' smart constructor.
 data ModelClientConfig = ModelClientConfig'
-  { -- | The timeout value in seconds for an invocation request.
-    invocationsTimeoutInSeconds :: Prelude.Maybe Prelude.Natural,
-    -- | The maximum number of retries when invocation requests are failing.
-    invocationsMaxRetries :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of retries when invocation requests are failing. The
+    -- default value is 3.
+    invocationsMaxRetries :: Prelude.Maybe Prelude.Natural,
+    -- | The timeout value in seconds for an invocation request. The default
+    -- value is 600.
+    invocationsTimeoutInSeconds :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,54 +46,57 @@ data ModelClientConfig = ModelClientConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'invocationsTimeoutInSeconds', 'modelClientConfig_invocationsTimeoutInSeconds' - The timeout value in seconds for an invocation request.
+-- 'invocationsMaxRetries', 'modelClientConfig_invocationsMaxRetries' - The maximum number of retries when invocation requests are failing. The
+-- default value is 3.
 --
--- 'invocationsMaxRetries', 'modelClientConfig_invocationsMaxRetries' - The maximum number of retries when invocation requests are failing.
+-- 'invocationsTimeoutInSeconds', 'modelClientConfig_invocationsTimeoutInSeconds' - The timeout value in seconds for an invocation request. The default
+-- value is 600.
 newModelClientConfig ::
   ModelClientConfig
 newModelClientConfig =
   ModelClientConfig'
-    { invocationsTimeoutInSeconds =
+    { invocationsMaxRetries =
         Prelude.Nothing,
-      invocationsMaxRetries = Prelude.Nothing
+      invocationsTimeoutInSeconds = Prelude.Nothing
     }
 
--- | The timeout value in seconds for an invocation request.
-modelClientConfig_invocationsTimeoutInSeconds :: Lens.Lens' ModelClientConfig (Prelude.Maybe Prelude.Natural)
-modelClientConfig_invocationsTimeoutInSeconds = Lens.lens (\ModelClientConfig' {invocationsTimeoutInSeconds} -> invocationsTimeoutInSeconds) (\s@ModelClientConfig' {} a -> s {invocationsTimeoutInSeconds = a} :: ModelClientConfig)
-
--- | The maximum number of retries when invocation requests are failing.
+-- | The maximum number of retries when invocation requests are failing. The
+-- default value is 3.
 modelClientConfig_invocationsMaxRetries :: Lens.Lens' ModelClientConfig (Prelude.Maybe Prelude.Natural)
 modelClientConfig_invocationsMaxRetries = Lens.lens (\ModelClientConfig' {invocationsMaxRetries} -> invocationsMaxRetries) (\s@ModelClientConfig' {} a -> s {invocationsMaxRetries = a} :: ModelClientConfig)
 
-instance Core.FromJSON ModelClientConfig where
+-- | The timeout value in seconds for an invocation request. The default
+-- value is 600.
+modelClientConfig_invocationsTimeoutInSeconds :: Lens.Lens' ModelClientConfig (Prelude.Maybe Prelude.Natural)
+modelClientConfig_invocationsTimeoutInSeconds = Lens.lens (\ModelClientConfig' {invocationsTimeoutInSeconds} -> invocationsTimeoutInSeconds) (\s@ModelClientConfig' {} a -> s {invocationsTimeoutInSeconds = a} :: ModelClientConfig)
+
+instance Data.FromJSON ModelClientConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ModelClientConfig"
       ( \x ->
           ModelClientConfig'
-            Prelude.<$> (x Core..:? "InvocationsTimeoutInSeconds")
-            Prelude.<*> (x Core..:? "InvocationsMaxRetries")
+            Prelude.<$> (x Data..:? "InvocationsMaxRetries")
+            Prelude.<*> (x Data..:? "InvocationsTimeoutInSeconds")
       )
 
 instance Prelude.Hashable ModelClientConfig where
   hashWithSalt _salt ModelClientConfig' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` invocationsMaxRetries
       `Prelude.hashWithSalt` invocationsTimeoutInSeconds
-      `Prelude.hashWithSalt` invocationsMaxRetries
 
 instance Prelude.NFData ModelClientConfig where
   rnf ModelClientConfig' {..} =
-    Prelude.rnf invocationsTimeoutInSeconds
-      `Prelude.seq` Prelude.rnf invocationsMaxRetries
+    Prelude.rnf invocationsMaxRetries
+      `Prelude.seq` Prelude.rnf invocationsTimeoutInSeconds
 
-instance Core.ToJSON ModelClientConfig where
+instance Data.ToJSON ModelClientConfig where
   toJSON ModelClientConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("InvocationsTimeoutInSeconds" Core..=)
-              Prelude.<$> invocationsTimeoutInSeconds,
-            ("InvocationsMaxRetries" Core..=)
-              Prelude.<$> invocationsMaxRetries
+          [ ("InvocationsMaxRetries" Data..=)
+              Prelude.<$> invocationsMaxRetries,
+            ("InvocationsTimeoutInSeconds" Data..=)
+              Prelude.<$> invocationsTimeoutInSeconds
           ]
       )

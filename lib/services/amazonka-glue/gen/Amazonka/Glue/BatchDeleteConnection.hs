@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.BatchDeleteConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,15 +35,16 @@ module Amazonka.Glue.BatchDeleteConnection
     newBatchDeleteConnectionResponse,
 
     -- * Response Lenses
-    batchDeleteConnectionResponse_succeeded,
     batchDeleteConnectionResponse_errors,
+    batchDeleteConnectionResponse_succeeded,
     batchDeleteConnectionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,13 +92,14 @@ instance Core.AWSRequest BatchDeleteConnection where
   type
     AWSResponse BatchDeleteConnection =
       BatchDeleteConnectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDeleteConnectionResponse'
-            Prelude.<$> (x Core..?> "Succeeded" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Errors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Errors" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Succeeded" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,45 +113,45 @@ instance Prelude.NFData BatchDeleteConnection where
     Prelude.rnf catalogId
       `Prelude.seq` Prelude.rnf connectionNameList
 
-instance Core.ToHeaders BatchDeleteConnection where
+instance Data.ToHeaders BatchDeleteConnection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSGlue.BatchDeleteConnection" ::
+              Data.=# ( "AWSGlue.BatchDeleteConnection" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchDeleteConnection where
+instance Data.ToJSON BatchDeleteConnection where
   toJSON BatchDeleteConnection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
             Prelude.Just
-              ("ConnectionNameList" Core..= connectionNameList)
+              ("ConnectionNameList" Data..= connectionNameList)
           ]
       )
 
-instance Core.ToPath BatchDeleteConnection where
+instance Data.ToPath BatchDeleteConnection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchDeleteConnection where
+instance Data.ToQuery BatchDeleteConnection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchDeleteConnectionResponse' smart constructor.
 data BatchDeleteConnectionResponse = BatchDeleteConnectionResponse'
-  { -- | A list of names of the connection definitions that were successfully
-    -- deleted.
-    succeeded :: Prelude.Maybe [Prelude.Text],
-    -- | A map of the names of connections that were not successfully deleted to
+  { -- | A map of the names of connections that were not successfully deleted to
     -- error details.
     errors :: Prelude.Maybe (Prelude.HashMap Prelude.Text ErrorDetail),
+    -- | A list of names of the connection definitions that were successfully
+    -- deleted.
+    succeeded :: Prelude.Maybe [Prelude.Text],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -163,11 +165,11 @@ data BatchDeleteConnectionResponse = BatchDeleteConnectionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'succeeded', 'batchDeleteConnectionResponse_succeeded' - A list of names of the connection definitions that were successfully
--- deleted.
---
 -- 'errors', 'batchDeleteConnectionResponse_errors' - A map of the names of connections that were not successfully deleted to
 -- error details.
+--
+-- 'succeeded', 'batchDeleteConnectionResponse_succeeded' - A list of names of the connection definitions that were successfully
+-- deleted.
 --
 -- 'httpStatus', 'batchDeleteConnectionResponse_httpStatus' - The response's http status code.
 newBatchDeleteConnectionResponse ::
@@ -176,21 +178,21 @@ newBatchDeleteConnectionResponse ::
   BatchDeleteConnectionResponse
 newBatchDeleteConnectionResponse pHttpStatus_ =
   BatchDeleteConnectionResponse'
-    { succeeded =
+    { errors =
         Prelude.Nothing,
-      errors = Prelude.Nothing,
+      succeeded = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of names of the connection definitions that were successfully
--- deleted.
-batchDeleteConnectionResponse_succeeded :: Lens.Lens' BatchDeleteConnectionResponse (Prelude.Maybe [Prelude.Text])
-batchDeleteConnectionResponse_succeeded = Lens.lens (\BatchDeleteConnectionResponse' {succeeded} -> succeeded) (\s@BatchDeleteConnectionResponse' {} a -> s {succeeded = a} :: BatchDeleteConnectionResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A map of the names of connections that were not successfully deleted to
 -- error details.
 batchDeleteConnectionResponse_errors :: Lens.Lens' BatchDeleteConnectionResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text ErrorDetail))
 batchDeleteConnectionResponse_errors = Lens.lens (\BatchDeleteConnectionResponse' {errors} -> errors) (\s@BatchDeleteConnectionResponse' {} a -> s {errors = a} :: BatchDeleteConnectionResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A list of names of the connection definitions that were successfully
+-- deleted.
+batchDeleteConnectionResponse_succeeded :: Lens.Lens' BatchDeleteConnectionResponse (Prelude.Maybe [Prelude.Text])
+batchDeleteConnectionResponse_succeeded = Lens.lens (\BatchDeleteConnectionResponse' {succeeded} -> succeeded) (\s@BatchDeleteConnectionResponse' {} a -> s {succeeded = a} :: BatchDeleteConnectionResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 batchDeleteConnectionResponse_httpStatus :: Lens.Lens' BatchDeleteConnectionResponse Prelude.Int
@@ -198,6 +200,6 @@ batchDeleteConnectionResponse_httpStatus = Lens.lens (\BatchDeleteConnectionResp
 
 instance Prelude.NFData BatchDeleteConnectionResponse where
   rnf BatchDeleteConnectionResponse' {..} =
-    Prelude.rnf succeeded
-      `Prelude.seq` Prelude.rnf errors
+    Prelude.rnf errors
+      `Prelude.seq` Prelude.rnf succeeded
       `Prelude.seq` Prelude.rnf httpStatus

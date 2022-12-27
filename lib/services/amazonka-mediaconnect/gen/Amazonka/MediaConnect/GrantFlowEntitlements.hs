@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.GrantFlowEntitlements
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,14 +35,15 @@ module Amazonka.MediaConnect.GrantFlowEntitlements
     newGrantFlowEntitlementsResponse,
 
     -- * Response Lenses
-    grantFlowEntitlementsResponse_flowArn,
     grantFlowEntitlementsResponse_entitlements,
+    grantFlowEntitlementsResponse_flowArn,
     grantFlowEntitlementsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -92,13 +93,14 @@ instance Core.AWSRequest GrantFlowEntitlements where
   type
     AWSResponse GrantFlowEntitlements =
       GrantFlowEntitlementsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GrantFlowEntitlementsResponse'
-            Prelude.<$> (x Core..?> "flowArn")
-            Prelude.<*> (x Core..?> "entitlements" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "entitlements" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "flowArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,38 +114,38 @@ instance Prelude.NFData GrantFlowEntitlements where
     Prelude.rnf flowArn
       `Prelude.seq` Prelude.rnf entitlements
 
-instance Core.ToHeaders GrantFlowEntitlements where
+instance Data.ToHeaders GrantFlowEntitlements where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GrantFlowEntitlements where
+instance Data.ToJSON GrantFlowEntitlements where
   toJSON GrantFlowEntitlements' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("entitlements" Core..= entitlements)]
+          [Prelude.Just ("entitlements" Data..= entitlements)]
       )
 
-instance Core.ToPath GrantFlowEntitlements where
+instance Data.ToPath GrantFlowEntitlements where
   toPath GrantFlowEntitlements' {..} =
     Prelude.mconcat
-      ["/v1/flows/", Core.toBS flowArn, "/entitlements"]
+      ["/v1/flows/", Data.toBS flowArn, "/entitlements"]
 
-instance Core.ToQuery GrantFlowEntitlements where
+instance Data.ToQuery GrantFlowEntitlements where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGrantFlowEntitlementsResponse' smart constructor.
 data GrantFlowEntitlementsResponse = GrantFlowEntitlementsResponse'
-  { -- | The ARN of the flow that these entitlements were granted to.
-    flowArn :: Prelude.Maybe Prelude.Text,
-    -- | The entitlements that were just granted.
+  { -- | The entitlements that were just granted.
     entitlements :: Prelude.Maybe [Entitlement],
+    -- | The ARN of the flow that these entitlements were granted to.
+    flowArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -157,9 +159,9 @@ data GrantFlowEntitlementsResponse = GrantFlowEntitlementsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'flowArn', 'grantFlowEntitlementsResponse_flowArn' - The ARN of the flow that these entitlements were granted to.
---
 -- 'entitlements', 'grantFlowEntitlementsResponse_entitlements' - The entitlements that were just granted.
+--
+-- 'flowArn', 'grantFlowEntitlementsResponse_flowArn' - The ARN of the flow that these entitlements were granted to.
 --
 -- 'httpStatus', 'grantFlowEntitlementsResponse_httpStatus' - The response's http status code.
 newGrantFlowEntitlementsResponse ::
@@ -168,19 +170,19 @@ newGrantFlowEntitlementsResponse ::
   GrantFlowEntitlementsResponse
 newGrantFlowEntitlementsResponse pHttpStatus_ =
   GrantFlowEntitlementsResponse'
-    { flowArn =
+    { entitlements =
         Prelude.Nothing,
-      entitlements = Prelude.Nothing,
+      flowArn = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The ARN of the flow that these entitlements were granted to.
-grantFlowEntitlementsResponse_flowArn :: Lens.Lens' GrantFlowEntitlementsResponse (Prelude.Maybe Prelude.Text)
-grantFlowEntitlementsResponse_flowArn = Lens.lens (\GrantFlowEntitlementsResponse' {flowArn} -> flowArn) (\s@GrantFlowEntitlementsResponse' {} a -> s {flowArn = a} :: GrantFlowEntitlementsResponse)
 
 -- | The entitlements that were just granted.
 grantFlowEntitlementsResponse_entitlements :: Lens.Lens' GrantFlowEntitlementsResponse (Prelude.Maybe [Entitlement])
 grantFlowEntitlementsResponse_entitlements = Lens.lens (\GrantFlowEntitlementsResponse' {entitlements} -> entitlements) (\s@GrantFlowEntitlementsResponse' {} a -> s {entitlements = a} :: GrantFlowEntitlementsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The ARN of the flow that these entitlements were granted to.
+grantFlowEntitlementsResponse_flowArn :: Lens.Lens' GrantFlowEntitlementsResponse (Prelude.Maybe Prelude.Text)
+grantFlowEntitlementsResponse_flowArn = Lens.lens (\GrantFlowEntitlementsResponse' {flowArn} -> flowArn) (\s@GrantFlowEntitlementsResponse' {} a -> s {flowArn = a} :: GrantFlowEntitlementsResponse)
 
 -- | The response's http status code.
 grantFlowEntitlementsResponse_httpStatus :: Lens.Lens' GrantFlowEntitlementsResponse Prelude.Int
@@ -188,6 +190,6 @@ grantFlowEntitlementsResponse_httpStatus = Lens.lens (\GrantFlowEntitlementsResp
 
 instance Prelude.NFData GrantFlowEntitlementsResponse where
   rnf GrantFlowEntitlementsResponse' {..} =
-    Prelude.rnf flowArn
-      `Prelude.seq` Prelude.rnf entitlements
+    Prelude.rnf entitlements
+      `Prelude.seq` Prelude.rnf flowArn
       `Prelude.seq` Prelude.rnf httpStatus

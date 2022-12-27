@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.DeleteStreamingImage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Nimble.DeleteStreamingImage
 
     -- * Request Lenses
     deleteStreamingImage_clientToken,
-    deleteStreamingImage_studioId,
     deleteStreamingImage_streamingImageId,
+    deleteStreamingImage_studioId,
 
     -- * Destructuring the Response
     DeleteStreamingImageResponse (..),
@@ -42,7 +42,8 @@ module Amazonka.Nimble.DeleteStreamingImage
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -50,19 +51,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteStreamingImage' smart constructor.
 data DeleteStreamingImage = DeleteStreamingImage'
-  { -- | To make an idempotent API request using one of these actions, specify a
-    -- client token in the request. You should not reuse the same client token
-    -- for other API requests. If you retry a request that completed
-    -- successfully using the same client token and the same parameters, the
-    -- retry succeeds without performing any further actions. If you retry a
-    -- successful request using the same client token, but one or more of the
-    -- parameters are different, the retry fails with a ValidationException
-    -- error.
+  { -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. If you don’t specify a client token, the AWS
+    -- SDK automatically generates a client token and uses it for the request
+    -- to ensure idempotency.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The studio ID.
-    studioId :: Prelude.Text,
     -- | The streaming image ID.
-    streamingImageId :: Prelude.Text
+    streamingImageId :: Prelude.Text,
+    -- | The studio ID.
+    studioId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -74,94 +71,87 @@ data DeleteStreamingImage = DeleteStreamingImage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'deleteStreamingImage_clientToken' - To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
---
--- 'studioId', 'deleteStreamingImage_studioId' - The studio ID.
+-- 'clientToken', 'deleteStreamingImage_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 --
 -- 'streamingImageId', 'deleteStreamingImage_streamingImageId' - The streaming image ID.
+--
+-- 'studioId', 'deleteStreamingImage_studioId' - The studio ID.
 newDeleteStreamingImage ::
-  -- | 'studioId'
-  Prelude.Text ->
   -- | 'streamingImageId'
   Prelude.Text ->
+  -- | 'studioId'
+  Prelude.Text ->
   DeleteStreamingImage
-newDeleteStreamingImage pStudioId_ pStreamingImageId_ =
+newDeleteStreamingImage pStreamingImageId_ pStudioId_ =
   DeleteStreamingImage'
     { clientToken =
         Prelude.Nothing,
-      studioId = pStudioId_,
-      streamingImageId = pStreamingImageId_
+      streamingImageId = pStreamingImageId_,
+      studioId = pStudioId_
     }
 
--- | To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 deleteStreamingImage_clientToken :: Lens.Lens' DeleteStreamingImage (Prelude.Maybe Prelude.Text)
 deleteStreamingImage_clientToken = Lens.lens (\DeleteStreamingImage' {clientToken} -> clientToken) (\s@DeleteStreamingImage' {} a -> s {clientToken = a} :: DeleteStreamingImage)
-
--- | The studio ID.
-deleteStreamingImage_studioId :: Lens.Lens' DeleteStreamingImage Prelude.Text
-deleteStreamingImage_studioId = Lens.lens (\DeleteStreamingImage' {studioId} -> studioId) (\s@DeleteStreamingImage' {} a -> s {studioId = a} :: DeleteStreamingImage)
 
 -- | The streaming image ID.
 deleteStreamingImage_streamingImageId :: Lens.Lens' DeleteStreamingImage Prelude.Text
 deleteStreamingImage_streamingImageId = Lens.lens (\DeleteStreamingImage' {streamingImageId} -> streamingImageId) (\s@DeleteStreamingImage' {} a -> s {streamingImageId = a} :: DeleteStreamingImage)
 
+-- | The studio ID.
+deleteStreamingImage_studioId :: Lens.Lens' DeleteStreamingImage Prelude.Text
+deleteStreamingImage_studioId = Lens.lens (\DeleteStreamingImage' {studioId} -> studioId) (\s@DeleteStreamingImage' {} a -> s {studioId = a} :: DeleteStreamingImage)
+
 instance Core.AWSRequest DeleteStreamingImage where
   type
     AWSResponse DeleteStreamingImage =
       DeleteStreamingImageResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteStreamingImageResponse'
-            Prelude.<$> (x Core..?> "streamingImage")
+            Prelude.<$> (x Data..?> "streamingImage")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DeleteStreamingImage where
   hashWithSalt _salt DeleteStreamingImage' {..} =
     _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` studioId
       `Prelude.hashWithSalt` streamingImageId
+      `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData DeleteStreamingImage where
   rnf DeleteStreamingImage' {..} =
     Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf studioId
       `Prelude.seq` Prelude.rnf streamingImageId
+      `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders DeleteStreamingImage where
+instance Data.ToHeaders DeleteStreamingImage where
   toHeaders DeleteStreamingImage' {..} =
     Prelude.mconcat
-      [ "X-Amz-Client-Token" Core.=# clientToken,
+      [ "X-Amz-Client-Token" Data.=# clientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath DeleteStreamingImage where
+instance Data.ToPath DeleteStreamingImage where
   toPath DeleteStreamingImage' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/streaming-images/",
-        Core.toBS streamingImageId
+        Data.toBS streamingImageId
       ]
 
-instance Core.ToQuery DeleteStreamingImage where
+instance Data.ToQuery DeleteStreamingImage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteStreamingImageResponse' smart constructor.
@@ -171,7 +161,7 @@ data DeleteStreamingImageResponse = DeleteStreamingImageResponse'
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'DeleteStreamingImageResponse' with all optional fields omitted.

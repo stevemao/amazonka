@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.ListCustomRoutingPortMappingsByDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.GlobalAccelerator.ListCustomRoutingPortMappingsByDestination
     newListCustomRoutingPortMappingsByDestination,
 
     -- * Request Lenses
-    listCustomRoutingPortMappingsByDestination_nextToken,
     listCustomRoutingPortMappingsByDestination_maxResults,
+    listCustomRoutingPortMappingsByDestination_nextToken,
     listCustomRoutingPortMappingsByDestination_endpointId,
     listCustomRoutingPortMappingsByDestination_destinationAddress,
 
@@ -44,27 +44,28 @@ module Amazonka.GlobalAccelerator.ListCustomRoutingPortMappingsByDestination
     newListCustomRoutingPortMappingsByDestinationResponse,
 
     -- * Response Lenses
-    listCustomRoutingPortMappingsByDestinationResponse_nextToken,
     listCustomRoutingPortMappingsByDestinationResponse_destinationPortMappings,
+    listCustomRoutingPortMappingsByDestinationResponse_nextToken,
     listCustomRoutingPortMappingsByDestinationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListCustomRoutingPortMappingsByDestination' smart constructor.
 data ListCustomRoutingPortMappingsByDestination = ListCustomRoutingPortMappingsByDestination'
-  { -- | The token for the next set of results. You receive this token from a
-    -- previous call.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of destination port mappings that you want to return with
+  { -- | The number of destination port mappings that you want to return with
     -- this call. The default value is 10.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. You receive this token from a
+    -- previous call.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID for the virtual private cloud (VPC) subnet.
     endpointId :: Prelude.Text,
     -- | The endpoint IP address in a virtual private cloud (VPC) subnet for
@@ -81,11 +82,11 @@ data ListCustomRoutingPortMappingsByDestination = ListCustomRoutingPortMappingsB
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listCustomRoutingPortMappingsByDestination_nextToken' - The token for the next set of results. You receive this token from a
--- previous call.
---
 -- 'maxResults', 'listCustomRoutingPortMappingsByDestination_maxResults' - The number of destination port mappings that you want to return with
 -- this call. The default value is 10.
+--
+-- 'nextToken', 'listCustomRoutingPortMappingsByDestination_nextToken' - The token for the next set of results. You receive this token from a
+-- previous call.
 --
 -- 'endpointId', 'listCustomRoutingPortMappingsByDestination_endpointId' - The ID for the virtual private cloud (VPC) subnet.
 --
@@ -101,23 +102,23 @@ newListCustomRoutingPortMappingsByDestination
   pEndpointId_
   pDestinationAddress_ =
     ListCustomRoutingPortMappingsByDestination'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         endpointId = pEndpointId_,
         destinationAddress =
           pDestinationAddress_
       }
 
--- | The token for the next set of results. You receive this token from a
--- previous call.
-listCustomRoutingPortMappingsByDestination_nextToken :: Lens.Lens' ListCustomRoutingPortMappingsByDestination (Prelude.Maybe Prelude.Text)
-listCustomRoutingPortMappingsByDestination_nextToken = Lens.lens (\ListCustomRoutingPortMappingsByDestination' {nextToken} -> nextToken) (\s@ListCustomRoutingPortMappingsByDestination' {} a -> s {nextToken = a} :: ListCustomRoutingPortMappingsByDestination)
-
 -- | The number of destination port mappings that you want to return with
 -- this call. The default value is 10.
 listCustomRoutingPortMappingsByDestination_maxResults :: Lens.Lens' ListCustomRoutingPortMappingsByDestination (Prelude.Maybe Prelude.Natural)
 listCustomRoutingPortMappingsByDestination_maxResults = Lens.lens (\ListCustomRoutingPortMappingsByDestination' {maxResults} -> maxResults) (\s@ListCustomRoutingPortMappingsByDestination' {} a -> s {maxResults = a} :: ListCustomRoutingPortMappingsByDestination)
+
+-- | The token for the next set of results. You receive this token from a
+-- previous call.
+listCustomRoutingPortMappingsByDestination_nextToken :: Lens.Lens' ListCustomRoutingPortMappingsByDestination (Prelude.Maybe Prelude.Text)
+listCustomRoutingPortMappingsByDestination_nextToken = Lens.lens (\ListCustomRoutingPortMappingsByDestination' {nextToken} -> nextToken) (\s@ListCustomRoutingPortMappingsByDestination' {} a -> s {nextToken = a} :: ListCustomRoutingPortMappingsByDestination)
 
 -- | The ID for the virtual private cloud (VPC) subnet.
 listCustomRoutingPortMappingsByDestination_endpointId :: Lens.Lens' ListCustomRoutingPortMappingsByDestination Prelude.Text
@@ -161,15 +162,16 @@ instance
     AWSResponse
       ListCustomRoutingPortMappingsByDestination =
       ListCustomRoutingPortMappingsByDestinationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListCustomRoutingPortMappingsByDestinationResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-              Prelude.<*> ( x Core..?> "DestinationPortMappings"
-                              Core..!@ Prelude.mempty
-                          )
+            Prelude.<$> ( x Data..?> "DestinationPortMappings"
+                            Core..!@ Prelude.mempty
+                        )
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -180,8 +182,8 @@ instance
   hashWithSalt
     _salt
     ListCustomRoutingPortMappingsByDestination' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` endpointId
         `Prelude.hashWithSalt` destinationAddress
 
@@ -190,65 +192,65 @@ instance
     ListCustomRoutingPortMappingsByDestination
   where
   rnf ListCustomRoutingPortMappingsByDestination' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf endpointId
       `Prelude.seq` Prelude.rnf destinationAddress
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListCustomRoutingPortMappingsByDestination
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.ListCustomRoutingPortMappingsByDestination" ::
+              Data.=# ( "GlobalAccelerator_V20180706.ListCustomRoutingPortMappingsByDestination" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ListCustomRoutingPortMappingsByDestination
   where
   toJSON
     ListCustomRoutingPortMappingsByDestination' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("NextToken" Core..=) Prelude.<$> nextToken,
-              ("MaxResults" Core..=) Prelude.<$> maxResults,
-              Prelude.Just ("EndpointId" Core..= endpointId),
+            [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+              ("NextToken" Data..=) Prelude.<$> nextToken,
+              Prelude.Just ("EndpointId" Data..= endpointId),
               Prelude.Just
-                ("DestinationAddress" Core..= destinationAddress)
+                ("DestinationAddress" Data..= destinationAddress)
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListCustomRoutingPortMappingsByDestination
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListCustomRoutingPortMappingsByDestination
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListCustomRoutingPortMappingsByDestinationResponse' smart constructor.
 data ListCustomRoutingPortMappingsByDestinationResponse = ListCustomRoutingPortMappingsByDestinationResponse'
-  { -- | The token for the next set of results. You receive this token from a
-    -- previous call.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The port mappings for the endpoint IP address that you specified in the
+  { -- | The port mappings for the endpoint IP address that you specified in the
     -- request.
     destinationPortMappings :: Prelude.Maybe [DestinationPortMapping],
+    -- | The token for the next set of results. You receive this token from a
+    -- previous call.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -262,11 +264,11 @@ data ListCustomRoutingPortMappingsByDestinationResponse = ListCustomRoutingPortM
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listCustomRoutingPortMappingsByDestinationResponse_nextToken' - The token for the next set of results. You receive this token from a
--- previous call.
---
 -- 'destinationPortMappings', 'listCustomRoutingPortMappingsByDestinationResponse_destinationPortMappings' - The port mappings for the endpoint IP address that you specified in the
 -- request.
+--
+-- 'nextToken', 'listCustomRoutingPortMappingsByDestinationResponse_nextToken' - The token for the next set of results. You receive this token from a
+-- previous call.
 --
 -- 'httpStatus', 'listCustomRoutingPortMappingsByDestinationResponse_httpStatus' - The response's http status code.
 newListCustomRoutingPortMappingsByDestinationResponse ::
@@ -276,23 +278,23 @@ newListCustomRoutingPortMappingsByDestinationResponse ::
 newListCustomRoutingPortMappingsByDestinationResponse
   pHttpStatus_ =
     ListCustomRoutingPortMappingsByDestinationResponse'
-      { nextToken =
+      { destinationPortMappings =
           Prelude.Nothing,
-        destinationPortMappings =
+        nextToken =
           Prelude.Nothing,
         httpStatus =
           pHttpStatus_
       }
 
--- | The token for the next set of results. You receive this token from a
--- previous call.
-listCustomRoutingPortMappingsByDestinationResponse_nextToken :: Lens.Lens' ListCustomRoutingPortMappingsByDestinationResponse (Prelude.Maybe Prelude.Text)
-listCustomRoutingPortMappingsByDestinationResponse_nextToken = Lens.lens (\ListCustomRoutingPortMappingsByDestinationResponse' {nextToken} -> nextToken) (\s@ListCustomRoutingPortMappingsByDestinationResponse' {} a -> s {nextToken = a} :: ListCustomRoutingPortMappingsByDestinationResponse)
-
 -- | The port mappings for the endpoint IP address that you specified in the
 -- request.
 listCustomRoutingPortMappingsByDestinationResponse_destinationPortMappings :: Lens.Lens' ListCustomRoutingPortMappingsByDestinationResponse (Prelude.Maybe [DestinationPortMapping])
 listCustomRoutingPortMappingsByDestinationResponse_destinationPortMappings = Lens.lens (\ListCustomRoutingPortMappingsByDestinationResponse' {destinationPortMappings} -> destinationPortMappings) (\s@ListCustomRoutingPortMappingsByDestinationResponse' {} a -> s {destinationPortMappings = a} :: ListCustomRoutingPortMappingsByDestinationResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The token for the next set of results. You receive this token from a
+-- previous call.
+listCustomRoutingPortMappingsByDestinationResponse_nextToken :: Lens.Lens' ListCustomRoutingPortMappingsByDestinationResponse (Prelude.Maybe Prelude.Text)
+listCustomRoutingPortMappingsByDestinationResponse_nextToken = Lens.lens (\ListCustomRoutingPortMappingsByDestinationResponse' {nextToken} -> nextToken) (\s@ListCustomRoutingPortMappingsByDestinationResponse' {} a -> s {nextToken = a} :: ListCustomRoutingPortMappingsByDestinationResponse)
 
 -- | The response's http status code.
 listCustomRoutingPortMappingsByDestinationResponse_httpStatus :: Lens.Lens' ListCustomRoutingPortMappingsByDestinationResponse Prelude.Int
@@ -304,6 +306,6 @@ instance
   where
   rnf
     ListCustomRoutingPortMappingsByDestinationResponse' {..} =
-      Prelude.rnf nextToken
-        `Prelude.seq` Prelude.rnf destinationPortMappings
+      Prelude.rnf destinationPortMappings
+        `Prelude.seq` Prelude.rnf nextToken
         `Prelude.seq` Prelude.rnf httpStatus

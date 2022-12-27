@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.PutPartnerEventsResultEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchEvents.Types.PutPartnerEventsResultEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents an event that a partner tried to generate, but failed.
@@ -71,15 +72,15 @@ putPartnerEventsResultEntry_errorMessage = Lens.lens (\PutPartnerEventsResultEnt
 putPartnerEventsResultEntry_eventId :: Lens.Lens' PutPartnerEventsResultEntry (Prelude.Maybe Prelude.Text)
 putPartnerEventsResultEntry_eventId = Lens.lens (\PutPartnerEventsResultEntry' {eventId} -> eventId) (\s@PutPartnerEventsResultEntry' {} a -> s {eventId = a} :: PutPartnerEventsResultEntry)
 
-instance Core.FromJSON PutPartnerEventsResultEntry where
+instance Data.FromJSON PutPartnerEventsResultEntry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PutPartnerEventsResultEntry"
       ( \x ->
           PutPartnerEventsResultEntry'
-            Prelude.<$> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "ErrorMessage")
-            Prelude.<*> (x Core..:? "EventId")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "ErrorMessage")
+            Prelude.<*> (x Data..:? "EventId")
       )
 
 instance Prelude.Hashable PutPartnerEventsResultEntry where

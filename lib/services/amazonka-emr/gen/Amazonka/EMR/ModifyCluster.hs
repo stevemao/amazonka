@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.ModifyCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.EMR.ModifyCluster
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,12 +104,13 @@ instance Core.AWSRequest ModifyCluster where
   type
     AWSResponse ModifyCluster =
       ModifyClusterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ModifyClusterResponse'
-            Prelude.<$> (x Core..?> "StepConcurrencyLevel")
+            Prelude.<$> (x Data..?> "StepConcurrencyLevel")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -122,35 +124,35 @@ instance Prelude.NFData ModifyCluster where
     Prelude.rnf stepConcurrencyLevel
       `Prelude.seq` Prelude.rnf clusterId
 
-instance Core.ToHeaders ModifyCluster where
+instance Data.ToHeaders ModifyCluster where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ElasticMapReduce.ModifyCluster" ::
+              Data.=# ( "ElasticMapReduce.ModifyCluster" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ModifyCluster where
+instance Data.ToJSON ModifyCluster where
   toJSON ModifyCluster' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StepConcurrencyLevel" Core..=)
+          [ ("StepConcurrencyLevel" Data..=)
               Prelude.<$> stepConcurrencyLevel,
-            Prelude.Just ("ClusterId" Core..= clusterId)
+            Prelude.Just ("ClusterId" Data..= clusterId)
           ]
       )
 
-instance Core.ToPath ModifyCluster where
+instance Data.ToPath ModifyCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyCluster where
+instance Data.ToQuery ModifyCluster where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newModifyClusterResponse' smart constructor.

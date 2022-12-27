@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.CreateDeliverabilityTestReport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,7 +52,8 @@ module Amazonka.SESV2.CreateDeliverabilityTestReport
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -148,14 +149,15 @@ instance
   type
     AWSResponse CreateDeliverabilityTestReport =
       CreateDeliverabilityTestReportResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDeliverabilityTestReportResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ReportId")
-            Prelude.<*> (x Core..:> "DeliverabilityTestStatus")
+            Prelude.<*> (x Data..:> "ReportId")
+            Prelude.<*> (x Data..:> "DeliverabilityTestStatus")
       )
 
 instance
@@ -181,37 +183,37 @@ instance
       `Prelude.seq` Prelude.rnf content
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateDeliverabilityTestReport
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDeliverabilityTestReport where
+instance Data.ToJSON CreateDeliverabilityTestReport where
   toJSON CreateDeliverabilityTestReport' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ReportName" Core..=) Prelude.<$> reportName,
-            ("Tags" Core..=) Prelude.<$> tags,
+          [ ("ReportName" Data..=) Prelude.<$> reportName,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("FromEmailAddress" Core..= fromEmailAddress),
-            Prelude.Just ("Content" Core..= content)
+              ("FromEmailAddress" Data..= fromEmailAddress),
+            Prelude.Just ("Content" Data..= content)
           ]
       )
 
-instance Core.ToPath CreateDeliverabilityTestReport where
+instance Data.ToPath CreateDeliverabilityTestReport where
   toPath =
     Prelude.const
       "/v2/email/deliverability-dashboard/test"
 
-instance Core.ToQuery CreateDeliverabilityTestReport where
+instance Data.ToQuery CreateDeliverabilityTestReport where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Information about the predictive inbox placement test that you created.

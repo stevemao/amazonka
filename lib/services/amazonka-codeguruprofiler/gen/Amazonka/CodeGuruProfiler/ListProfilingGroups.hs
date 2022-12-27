@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruProfiler.ListProfilingGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.CodeGuruProfiler.ListProfilingGroups
 
     -- * Request Lenses
     listProfilingGroups_includeDescription,
-    listProfilingGroups_nextToken,
     listProfilingGroups_maxResults,
+    listProfilingGroups_nextToken,
 
     -- * Destructuring the Response
     ListProfilingGroupsResponse (..),
@@ -47,7 +47,8 @@ where
 
 import Amazonka.CodeGuruProfiler.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,6 +63,13 @@ data ListProfilingGroups = ListProfilingGroups'
     -- objects that contain detailed information about profiling groups is
     -- returned. If @false@, then a list of profiling group names is returned.
     includeDescription :: Prelude.Maybe Prelude.Bool,
+    -- | The maximum number of profiling groups results returned by
+    -- @ListProfilingGroups@ in paginated output. When this parameter is used,
+    -- @ListProfilingGroups@ only returns @maxResults@ results in a single page
+    -- along with a @nextToken@ response element. The remaining results of the
+    -- initial request can be seen by sending another @ListProfilingGroups@
+    -- request with the returned @nextToken@ value.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The @nextToken@ value returned from a previous paginated
     -- @ListProfilingGroups@ request where @maxResults@ was used and the
     -- results exceeded the value of that parameter. Pagination continues from
@@ -70,14 +78,7 @@ data ListProfilingGroups = ListProfilingGroups'
     -- This token should be treated as an opaque identifier that is only used
     -- to retrieve the next items in a list and not for other programmatic
     -- purposes.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of profiling groups results returned by
-    -- @ListProfilingGroups@ in paginated output. When this parameter is used,
-    -- @ListProfilingGroups@ only returns @maxResults@ results in a single page
-    -- along with a @nextToken@ response element. The remaining results of the
-    -- initial request can be seen by sending another @ListProfilingGroups@
-    -- request with the returned @nextToken@ value.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -95,6 +96,13 @@ data ListProfilingGroups = ListProfilingGroups'
 -- objects that contain detailed information about profiling groups is
 -- returned. If @false@, then a list of profiling group names is returned.
 --
+-- 'maxResults', 'listProfilingGroups_maxResults' - The maximum number of profiling groups results returned by
+-- @ListProfilingGroups@ in paginated output. When this parameter is used,
+-- @ListProfilingGroups@ only returns @maxResults@ results in a single page
+-- along with a @nextToken@ response element. The remaining results of the
+-- initial request can be seen by sending another @ListProfilingGroups@
+-- request with the returned @nextToken@ value.
+--
 -- 'nextToken', 'listProfilingGroups_nextToken' - The @nextToken@ value returned from a previous paginated
 -- @ListProfilingGroups@ request where @maxResults@ was used and the
 -- results exceeded the value of that parameter. Pagination continues from
@@ -103,21 +111,14 @@ data ListProfilingGroups = ListProfilingGroups'
 -- This token should be treated as an opaque identifier that is only used
 -- to retrieve the next items in a list and not for other programmatic
 -- purposes.
---
--- 'maxResults', 'listProfilingGroups_maxResults' - The maximum number of profiling groups results returned by
--- @ListProfilingGroups@ in paginated output. When this parameter is used,
--- @ListProfilingGroups@ only returns @maxResults@ results in a single page
--- along with a @nextToken@ response element. The remaining results of the
--- initial request can be seen by sending another @ListProfilingGroups@
--- request with the returned @nextToken@ value.
 newListProfilingGroups ::
   ListProfilingGroups
 newListProfilingGroups =
   ListProfilingGroups'
     { includeDescription =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | A @Boolean@ value indicating whether to include a description. If
@@ -127,6 +128,15 @@ newListProfilingGroups =
 -- returned. If @false@, then a list of profiling group names is returned.
 listProfilingGroups_includeDescription :: Lens.Lens' ListProfilingGroups (Prelude.Maybe Prelude.Bool)
 listProfilingGroups_includeDescription = Lens.lens (\ListProfilingGroups' {includeDescription} -> includeDescription) (\s@ListProfilingGroups' {} a -> s {includeDescription = a} :: ListProfilingGroups)
+
+-- | The maximum number of profiling groups results returned by
+-- @ListProfilingGroups@ in paginated output. When this parameter is used,
+-- @ListProfilingGroups@ only returns @maxResults@ results in a single page
+-- along with a @nextToken@ response element. The remaining results of the
+-- initial request can be seen by sending another @ListProfilingGroups@
+-- request with the returned @nextToken@ value.
+listProfilingGroups_maxResults :: Lens.Lens' ListProfilingGroups (Prelude.Maybe Prelude.Natural)
+listProfilingGroups_maxResults = Lens.lens (\ListProfilingGroups' {maxResults} -> maxResults) (\s@ListProfilingGroups' {} a -> s {maxResults = a} :: ListProfilingGroups)
 
 -- | The @nextToken@ value returned from a previous paginated
 -- @ListProfilingGroups@ request where @maxResults@ was used and the
@@ -139,30 +149,22 @@ listProfilingGroups_includeDescription = Lens.lens (\ListProfilingGroups' {inclu
 listProfilingGroups_nextToken :: Lens.Lens' ListProfilingGroups (Prelude.Maybe Prelude.Text)
 listProfilingGroups_nextToken = Lens.lens (\ListProfilingGroups' {nextToken} -> nextToken) (\s@ListProfilingGroups' {} a -> s {nextToken = a} :: ListProfilingGroups)
 
--- | The maximum number of profiling groups results returned by
--- @ListProfilingGroups@ in paginated output. When this parameter is used,
--- @ListProfilingGroups@ only returns @maxResults@ results in a single page
--- along with a @nextToken@ response element. The remaining results of the
--- initial request can be seen by sending another @ListProfilingGroups@
--- request with the returned @nextToken@ value.
-listProfilingGroups_maxResults :: Lens.Lens' ListProfilingGroups (Prelude.Maybe Prelude.Natural)
-listProfilingGroups_maxResults = Lens.lens (\ListProfilingGroups' {maxResults} -> maxResults) (\s@ListProfilingGroups' {} a -> s {maxResults = a} :: ListProfilingGroups)
-
 instance Core.AWSRequest ListProfilingGroups where
   type
     AWSResponse ListProfilingGroups =
       ListProfilingGroupsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListProfilingGroupsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "profilingGroups"
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> ( x Data..?> "profilingGroups"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "profilingGroupNames"
+            Prelude.<*> ( x Data..?> "profilingGroupNames"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -170,35 +172,35 @@ instance Core.AWSRequest ListProfilingGroups where
 instance Prelude.Hashable ListProfilingGroups where
   hashWithSalt _salt ListProfilingGroups' {..} =
     _salt `Prelude.hashWithSalt` includeDescription
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListProfilingGroups where
   rnf ListProfilingGroups' {..} =
     Prelude.rnf includeDescription
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListProfilingGroups where
+instance Data.ToHeaders ListProfilingGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListProfilingGroups where
+instance Data.ToPath ListProfilingGroups where
   toPath = Prelude.const "/profilingGroups"
 
-instance Core.ToQuery ListProfilingGroups where
+instance Data.ToQuery ListProfilingGroups where
   toQuery ListProfilingGroups' {..} =
     Prelude.mconcat
-      [ "includeDescription" Core.=: includeDescription,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "includeDescription" Data.=: includeDescription,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | The structure representing the listProfilingGroupsResponse.

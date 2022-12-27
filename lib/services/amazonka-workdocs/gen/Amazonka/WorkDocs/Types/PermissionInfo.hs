@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.Types.PermissionInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WorkDocs.Types.PermissionInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WorkDocs.Types.RolePermissionType
 import Amazonka.WorkDocs.Types.RoleType
@@ -63,13 +64,13 @@ permissionInfo_role = Lens.lens (\PermissionInfo' {role'} -> role') (\s@Permissi
 permissionInfo_type :: Lens.Lens' PermissionInfo (Prelude.Maybe RolePermissionType)
 permissionInfo_type = Lens.lens (\PermissionInfo' {type'} -> type') (\s@PermissionInfo' {} a -> s {type' = a} :: PermissionInfo)
 
-instance Core.FromJSON PermissionInfo where
+instance Data.FromJSON PermissionInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PermissionInfo"
       ( \x ->
           PermissionInfo'
-            Prelude.<$> (x Core..:? "Role") Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Role") Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable PermissionInfo where

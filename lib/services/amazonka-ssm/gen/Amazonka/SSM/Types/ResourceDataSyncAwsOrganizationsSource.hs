@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.ResourceDataSyncAwsOrganizationsSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.ResourceDataSyncAwsOrganizationsSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.ResourceDataSyncOrganizationalUnit
 
@@ -83,16 +84,16 @@ resourceDataSyncAwsOrganizationsSource_organizationSourceType :: Lens.Lens' Reso
 resourceDataSyncAwsOrganizationsSource_organizationSourceType = Lens.lens (\ResourceDataSyncAwsOrganizationsSource' {organizationSourceType} -> organizationSourceType) (\s@ResourceDataSyncAwsOrganizationsSource' {} a -> s {organizationSourceType = a} :: ResourceDataSyncAwsOrganizationsSource)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ResourceDataSyncAwsOrganizationsSource
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceDataSyncAwsOrganizationsSource"
       ( \x ->
           ResourceDataSyncAwsOrganizationsSource'
-            Prelude.<$> (x Core..:? "OrganizationalUnits")
-            Prelude.<*> (x Core..: "OrganizationSourceType")
+            Prelude.<$> (x Data..:? "OrganizationalUnits")
+            Prelude.<*> (x Data..: "OrganizationSourceType")
       )
 
 instance
@@ -114,17 +115,17 @@ instance
       `Prelude.seq` Prelude.rnf organizationSourceType
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ResourceDataSyncAwsOrganizationsSource
   where
   toJSON ResourceDataSyncAwsOrganizationsSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OrganizationalUnits" Core..=)
+          [ ("OrganizationalUnits" Data..=)
               Prelude.<$> organizationalUnits,
             Prelude.Just
               ( "OrganizationSourceType"
-                  Core..= organizationSourceType
+                  Data..= organizationSourceType
               )
           ]
       )

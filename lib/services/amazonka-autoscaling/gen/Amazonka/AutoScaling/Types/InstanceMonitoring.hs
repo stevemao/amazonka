@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.InstanceMonitoring
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AutoScaling.Types.InstanceMonitoring where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes whether detailed monitoring is enabled for the Auto Scaling
@@ -54,10 +55,10 @@ newInstanceMonitoring =
 instanceMonitoring_enabled :: Lens.Lens' InstanceMonitoring (Prelude.Maybe Prelude.Bool)
 instanceMonitoring_enabled = Lens.lens (\InstanceMonitoring' {enabled} -> enabled) (\s@InstanceMonitoring' {} a -> s {enabled = a} :: InstanceMonitoring)
 
-instance Core.FromXML InstanceMonitoring where
+instance Data.FromXML InstanceMonitoring where
   parseXML x =
     InstanceMonitoring'
-      Prelude.<$> (x Core..@? "Enabled")
+      Prelude.<$> (x Data..@? "Enabled")
 
 instance Prelude.Hashable InstanceMonitoring where
   hashWithSalt _salt InstanceMonitoring' {..} =
@@ -66,6 +67,6 @@ instance Prelude.Hashable InstanceMonitoring where
 instance Prelude.NFData InstanceMonitoring where
   rnf InstanceMonitoring' {..} = Prelude.rnf enabled
 
-instance Core.ToQuery InstanceMonitoring where
+instance Data.ToQuery InstanceMonitoring where
   toQuery InstanceMonitoring' {..} =
-    Prelude.mconcat ["Enabled" Core.=: enabled]
+    Prelude.mconcat ["Enabled" Data.=: enabled]

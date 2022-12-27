@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.UnassignVolume
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.OpsWorks.UnassignVolume
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -81,7 +82,8 @@ instance Core.AWSRequest UnassignVolume where
   type
     AWSResponse UnassignVolume =
       UnassignVolumeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull UnassignVolumeResponse'
 
@@ -92,32 +94,32 @@ instance Prelude.Hashable UnassignVolume where
 instance Prelude.NFData UnassignVolume where
   rnf UnassignVolume' {..} = Prelude.rnf volumeId
 
-instance Core.ToHeaders UnassignVolume where
+instance Data.ToHeaders UnassignVolume where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.UnassignVolume" ::
+              Data.=# ( "OpsWorks_20130218.UnassignVolume" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UnassignVolume where
+instance Data.ToJSON UnassignVolume where
   toJSON UnassignVolume' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("VolumeId" Core..= volumeId)]
+          [Prelude.Just ("VolumeId" Data..= volumeId)]
       )
 
-instance Core.ToPath UnassignVolume where
+instance Data.ToPath UnassignVolume where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UnassignVolume where
+instance Data.ToQuery UnassignVolume where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUnassignVolumeResponse' smart constructor.

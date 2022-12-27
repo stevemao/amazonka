@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.CreateStudio
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,11 +27,11 @@ module Amazonka.EMR.CreateStudio
     newCreateStudio,
 
     -- * Request Lenses
+    createStudio_description,
     createStudio_idpAuthUrl,
     createStudio_idpRelayStateParameterName,
-    createStudio_userRole,
-    createStudio_description,
     createStudio_tags,
+    createStudio_userRole,
     createStudio_name,
     createStudio_authMode,
     createStudio_vpcId,
@@ -53,15 +53,18 @@ module Amazonka.EMR.CreateStudio
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateStudio' smart constructor.
 data CreateStudio = CreateStudio'
-  { -- | The authentication endpoint of your identity provider (IdP). Specify
+  { -- | A detailed description of the Amazon EMR Studio.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The authentication endpoint of your identity provider (IdP). Specify
     -- this value when you use IAM authentication and want to let federated
     -- users log in to a Studio with the Studio URL and credentials from your
     -- IdP. Amazon EMR Studio redirects users to this endpoint to enter
@@ -73,18 +76,16 @@ data CreateStudio = CreateStudio'
     -- log in to a Studio using the Studio URL. The @RelayState@ parameter
     -- differs by IdP.
     idpRelayStateParameterName :: Prelude.Maybe Prelude.Text,
-    -- | The IAM user role that users and groups assume when logged in to an
-    -- Amazon EMR Studio. Only specify a @UserRole@ when you use Amazon Web
-    -- Services SSO authentication. The permissions attached to the @UserRole@
-    -- can be scoped down for each user or group using session policies.
-    userRole :: Prelude.Maybe Prelude.Text,
-    -- | A detailed description of the Amazon EMR Studio.
-    description :: Prelude.Maybe Prelude.Text,
     -- | A list of tags to associate with the Amazon EMR Studio. Tags are
     -- user-defined key-value pairs that consist of a required key string with
     -- a maximum of 128 characters, and an optional value string with a maximum
     -- of 256 characters.
     tags :: Prelude.Maybe [Tag],
+    -- | The IAM user role that users and groups assume when logged in to an
+    -- Amazon EMR Studio. Only specify a @UserRole@ when you use Amazon Web
+    -- Services SSO authentication. The permissions attached to the @UserRole@
+    -- can be scoped down for each user or group using session policies.
+    userRole :: Prelude.Maybe Prelude.Text,
     -- | A descriptive name for the Amazon EMR Studio.
     name :: Prelude.Text,
     -- | Specifies whether the Studio authenticates users using IAM or Amazon Web
@@ -125,6 +126,8 @@ data CreateStudio = CreateStudio'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createStudio_description' - A detailed description of the Amazon EMR Studio.
+--
 -- 'idpAuthUrl', 'createStudio_idpAuthUrl' - The authentication endpoint of your identity provider (IdP). Specify
 -- this value when you use IAM authentication and want to let federated
 -- users log in to a Studio with the Studio URL and credentials from your
@@ -137,17 +140,15 @@ data CreateStudio = CreateStudio'
 -- log in to a Studio using the Studio URL. The @RelayState@ parameter
 -- differs by IdP.
 --
--- 'userRole', 'createStudio_userRole' - The IAM user role that users and groups assume when logged in to an
--- Amazon EMR Studio. Only specify a @UserRole@ when you use Amazon Web
--- Services SSO authentication. The permissions attached to the @UserRole@
--- can be scoped down for each user or group using session policies.
---
--- 'description', 'createStudio_description' - A detailed description of the Amazon EMR Studio.
---
 -- 'tags', 'createStudio_tags' - A list of tags to associate with the Amazon EMR Studio. Tags are
 -- user-defined key-value pairs that consist of a required key string with
 -- a maximum of 128 characters, and an optional value string with a maximum
 -- of 256 characters.
+--
+-- 'userRole', 'createStudio_userRole' - The IAM user role that users and groups assume when logged in to an
+-- Amazon EMR Studio. Only specify a @UserRole@ when you use Amazon Web
+-- Services SSO authentication. The permissions attached to the @UserRole@
+-- can be scoped down for each user or group using session policies.
 --
 -- 'name', 'createStudio_name' - A descriptive name for the Amazon EMR Studio.
 --
@@ -202,11 +203,11 @@ newCreateStudio
   pEngineSecurityGroupId_
   pDefaultS3Location_ =
     CreateStudio'
-      { idpAuthUrl = Prelude.Nothing,
+      { description = Prelude.Nothing,
+        idpAuthUrl = Prelude.Nothing,
         idpRelayStateParameterName = Prelude.Nothing,
-        userRole = Prelude.Nothing,
-        description = Prelude.Nothing,
         tags = Prelude.Nothing,
+        userRole = Prelude.Nothing,
         name = pName_,
         authMode = pAuthMode_,
         vpcId = pVpcId_,
@@ -217,6 +218,10 @@ newCreateStudio
         engineSecurityGroupId = pEngineSecurityGroupId_,
         defaultS3Location = pDefaultS3Location_
       }
+
+-- | A detailed description of the Amazon EMR Studio.
+createStudio_description :: Lens.Lens' CreateStudio (Prelude.Maybe Prelude.Text)
+createStudio_description = Lens.lens (\CreateStudio' {description} -> description) (\s@CreateStudio' {} a -> s {description = a} :: CreateStudio)
 
 -- | The authentication endpoint of your identity provider (IdP). Specify
 -- this value when you use IAM authentication and want to let federated
@@ -234,23 +239,19 @@ createStudio_idpAuthUrl = Lens.lens (\CreateStudio' {idpAuthUrl} -> idpAuthUrl) 
 createStudio_idpRelayStateParameterName :: Lens.Lens' CreateStudio (Prelude.Maybe Prelude.Text)
 createStudio_idpRelayStateParameterName = Lens.lens (\CreateStudio' {idpRelayStateParameterName} -> idpRelayStateParameterName) (\s@CreateStudio' {} a -> s {idpRelayStateParameterName = a} :: CreateStudio)
 
--- | The IAM user role that users and groups assume when logged in to an
--- Amazon EMR Studio. Only specify a @UserRole@ when you use Amazon Web
--- Services SSO authentication. The permissions attached to the @UserRole@
--- can be scoped down for each user or group using session policies.
-createStudio_userRole :: Lens.Lens' CreateStudio (Prelude.Maybe Prelude.Text)
-createStudio_userRole = Lens.lens (\CreateStudio' {userRole} -> userRole) (\s@CreateStudio' {} a -> s {userRole = a} :: CreateStudio)
-
--- | A detailed description of the Amazon EMR Studio.
-createStudio_description :: Lens.Lens' CreateStudio (Prelude.Maybe Prelude.Text)
-createStudio_description = Lens.lens (\CreateStudio' {description} -> description) (\s@CreateStudio' {} a -> s {description = a} :: CreateStudio)
-
 -- | A list of tags to associate with the Amazon EMR Studio. Tags are
 -- user-defined key-value pairs that consist of a required key string with
 -- a maximum of 128 characters, and an optional value string with a maximum
 -- of 256 characters.
 createStudio_tags :: Lens.Lens' CreateStudio (Prelude.Maybe [Tag])
 createStudio_tags = Lens.lens (\CreateStudio' {tags} -> tags) (\s@CreateStudio' {} a -> s {tags = a} :: CreateStudio) Prelude.. Lens.mapping Lens.coerced
+
+-- | The IAM user role that users and groups assume when logged in to an
+-- Amazon EMR Studio. Only specify a @UserRole@ when you use Amazon Web
+-- Services SSO authentication. The permissions attached to the @UserRole@
+-- can be scoped down for each user or group using session policies.
+createStudio_userRole :: Lens.Lens' CreateStudio (Prelude.Maybe Prelude.Text)
+createStudio_userRole = Lens.lens (\CreateStudio' {userRole} -> userRole) (\s@CreateStudio' {} a -> s {userRole = a} :: CreateStudio)
 
 -- | A descriptive name for the Amazon EMR Studio.
 createStudio_name :: Lens.Lens' CreateStudio Prelude.Text
@@ -299,23 +300,24 @@ createStudio_defaultS3Location = Lens.lens (\CreateStudio' {defaultS3Location} -
 
 instance Core.AWSRequest CreateStudio where
   type AWSResponse CreateStudio = CreateStudioResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateStudioResponse'
-            Prelude.<$> (x Core..?> "StudioId")
-            Prelude.<*> (x Core..?> "Url")
+            Prelude.<$> (x Data..?> "StudioId")
+            Prelude.<*> (x Data..?> "Url")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateStudio where
   hashWithSalt _salt CreateStudio' {..} =
-    _salt `Prelude.hashWithSalt` idpAuthUrl
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` idpAuthUrl
       `Prelude.hashWithSalt` idpRelayStateParameterName
-      `Prelude.hashWithSalt` userRole
-      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` userRole
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` authMode
       `Prelude.hashWithSalt` vpcId
@@ -327,11 +329,11 @@ instance Prelude.Hashable CreateStudio where
 
 instance Prelude.NFData CreateStudio where
   rnf CreateStudio' {..} =
-    Prelude.rnf idpAuthUrl
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf idpAuthUrl
       `Prelude.seq` Prelude.rnf idpRelayStateParameterName
-      `Prelude.seq` Prelude.rnf userRole
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf userRole
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf authMode
       `Prelude.seq` Prelude.rnf vpcId
@@ -341,53 +343,53 @@ instance Prelude.NFData CreateStudio where
       `Prelude.seq` Prelude.rnf engineSecurityGroupId
       `Prelude.seq` Prelude.rnf defaultS3Location
 
-instance Core.ToHeaders CreateStudio where
+instance Data.ToHeaders CreateStudio where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ElasticMapReduce.CreateStudio" ::
+              Data.=# ( "ElasticMapReduce.CreateStudio" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateStudio where
+instance Data.ToJSON CreateStudio where
   toJSON CreateStudio' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IdpAuthUrl" Core..=) Prelude.<$> idpAuthUrl,
-            ("IdpRelayStateParameterName" Core..=)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("IdpAuthUrl" Data..=) Prelude.<$> idpAuthUrl,
+            ("IdpRelayStateParameterName" Data..=)
               Prelude.<$> idpRelayStateParameterName,
-            ("UserRole" Core..=) Prelude.<$> userRole,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("AuthMode" Core..= authMode),
-            Prelude.Just ("VpcId" Core..= vpcId),
-            Prelude.Just ("SubnetIds" Core..= subnetIds),
-            Prelude.Just ("ServiceRole" Core..= serviceRole),
+            ("Tags" Data..=) Prelude.<$> tags,
+            ("UserRole" Data..=) Prelude.<$> userRole,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("AuthMode" Data..= authMode),
+            Prelude.Just ("VpcId" Data..= vpcId),
+            Prelude.Just ("SubnetIds" Data..= subnetIds),
+            Prelude.Just ("ServiceRole" Data..= serviceRole),
             Prelude.Just
               ( "WorkspaceSecurityGroupId"
-                  Core..= workspaceSecurityGroupId
+                  Data..= workspaceSecurityGroupId
               ),
             Prelude.Just
               ( "EngineSecurityGroupId"
-                  Core..= engineSecurityGroupId
+                  Data..= engineSecurityGroupId
               ),
             Prelude.Just
-              ("DefaultS3Location" Core..= defaultS3Location)
+              ("DefaultS3Location" Data..= defaultS3Location)
           ]
       )
 
-instance Core.ToPath CreateStudio where
+instance Data.ToPath CreateStudio where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateStudio where
+instance Data.ToQuery CreateStudio where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateStudioResponse' smart constructor.

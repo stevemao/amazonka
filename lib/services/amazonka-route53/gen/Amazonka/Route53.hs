@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Route53
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,65 +24,194 @@ module Amazonka.Route53
     -- * Errors
     -- $errors
 
-    -- ** HealthCheckVersionMismatch
-    _HealthCheckVersionMismatch,
+    -- ** CidrBlockInUseException
+    _CidrBlockInUseException,
 
-    -- ** NoSuchQueryLoggingConfig
-    _NoSuchQueryLoggingConfig,
+    -- ** CidrCollectionAlreadyExistsException
+    _CidrCollectionAlreadyExistsException,
 
-    -- ** DNSSECNotFound
-    _DNSSECNotFound,
+    -- ** CidrCollectionInUseException
+    _CidrCollectionInUseException,
 
-    -- ** KeySigningKeyInUse
-    _KeySigningKeyInUse,
-
-    -- ** TooManyKeySigningKeys
-    _TooManyKeySigningKeys,
-
-    -- ** HostedZoneNotPrivate
-    _HostedZoneNotPrivate,
-
-    -- ** InvalidInput
-    _InvalidInput,
-
-    -- ** HostedZoneNotEmpty
-    _HostedZoneNotEmpty,
-
-    -- ** InvalidArgument
-    _InvalidArgument,
-
-    -- ** KeySigningKeyWithActiveStatusNotFound
-    _KeySigningKeyWithActiveStatusNotFound,
-
-    -- ** TrafficPolicyInstanceAlreadyExists
-    _TrafficPolicyInstanceAlreadyExists,
-
-    -- ** ConflictingTypes
-    _ConflictingTypes,
-
-    -- ** QueryLoggingConfigAlreadyExists
-    _QueryLoggingConfigAlreadyExists,
+    -- ** CidrCollectionVersionMismatchException
+    _CidrCollectionVersionMismatchException,
 
     -- ** ConcurrentModification
     _ConcurrentModification,
 
+    -- ** ConflictingDomainExists
+    _ConflictingDomainExists,
+
+    -- ** ConflictingTypes
+    _ConflictingTypes,
+
+    -- ** DNSSECNotFound
+    _DNSSECNotFound,
+
+    -- ** DelegationSetAlreadyCreated
+    _DelegationSetAlreadyCreated,
+
     -- ** DelegationSetAlreadyReusable
     _DelegationSetAlreadyReusable,
 
-    -- ** NotAuthorizedException
-    _NotAuthorizedException,
+    -- ** DelegationSetInUse
+    _DelegationSetInUse,
+
+    -- ** DelegationSetNotAvailable
+    _DelegationSetNotAvailable,
+
+    -- ** DelegationSetNotReusable
+    _DelegationSetNotReusable,
+
+    -- ** HealthCheckAlreadyExists
+    _HealthCheckAlreadyExists,
+
+    -- ** HealthCheckInUse
+    _HealthCheckInUse,
+
+    -- ** HealthCheckVersionMismatch
+    _HealthCheckVersionMismatch,
+
+    -- ** HostedZoneAlreadyExists
+    _HostedZoneAlreadyExists,
+
+    -- ** HostedZoneNotEmpty
+    _HostedZoneNotEmpty,
+
+    -- ** HostedZoneNotFound
+    _HostedZoneNotFound,
+
+    -- ** HostedZoneNotPrivate
+    _HostedZoneNotPrivate,
+
+    -- ** HostedZonePartiallyDelegated
+    _HostedZonePartiallyDelegated,
+
+    -- ** IncompatibleVersion
+    _IncompatibleVersion,
 
     -- ** InsufficientCloudWatchLogsResourcePolicy
     _InsufficientCloudWatchLogsResourcePolicy,
 
+    -- ** InvalidArgument
+    _InvalidArgument,
+
+    -- ** InvalidChangeBatch
+    _InvalidChangeBatch,
+
+    -- ** InvalidDomainName
+    _InvalidDomainName,
+
+    -- ** InvalidInput
+    _InvalidInput,
+
+    -- ** InvalidKMSArn
+    _InvalidKMSArn,
+
+    -- ** InvalidKeySigningKeyName
+    _InvalidKeySigningKeyName,
+
+    -- ** InvalidKeySigningKeyStatus
+    _InvalidKeySigningKeyStatus,
+
+    -- ** InvalidPaginationToken
+    _InvalidPaginationToken,
+
+    -- ** InvalidSigningStatus
+    _InvalidSigningStatus,
+
+    -- ** InvalidTrafficPolicyDocument
+    _InvalidTrafficPolicyDocument,
+
+    -- ** InvalidVPCId
+    _InvalidVPCId,
+
+    -- ** KeySigningKeyAlreadyExists
+    _KeySigningKeyAlreadyExists,
+
+    -- ** KeySigningKeyInParentDSRecord
+    _KeySigningKeyInParentDSRecord,
+
+    -- ** KeySigningKeyInUse
+    _KeySigningKeyInUse,
+
+    -- ** KeySigningKeyWithActiveStatusNotFound
+    _KeySigningKeyWithActiveStatusNotFound,
+
+    -- ** LastVPCAssociation
+    _LastVPCAssociation,
+
+    -- ** LimitsExceeded
+    _LimitsExceeded,
+
+    -- ** NoSuchChange
+    _NoSuchChange,
+
+    -- ** NoSuchCidrCollectionException
+    _NoSuchCidrCollectionException,
+
+    -- ** NoSuchCidrLocationException
+    _NoSuchCidrLocationException,
+
     -- ** NoSuchCloudWatchLogsLogGroup
     _NoSuchCloudWatchLogsLogGroup,
+
+    -- ** NoSuchDelegationSet
+    _NoSuchDelegationSet,
+
+    -- ** NoSuchGeoLocation
+    _NoSuchGeoLocation,
+
+    -- ** NoSuchHealthCheck
+    _NoSuchHealthCheck,
+
+    -- ** NoSuchHostedZone
+    _NoSuchHostedZone,
+
+    -- ** NoSuchKeySigningKey
+    _NoSuchKeySigningKey,
+
+    -- ** NoSuchQueryLoggingConfig
+    _NoSuchQueryLoggingConfig,
+
+    -- ** NoSuchTrafficPolicy
+    _NoSuchTrafficPolicy,
+
+    -- ** NoSuchTrafficPolicyInstance
+    _NoSuchTrafficPolicyInstance,
+
+    -- ** NotAuthorizedException
+    _NotAuthorizedException,
 
     -- ** PriorRequestNotComplete
     _PriorRequestNotComplete,
 
-    -- ** InvalidChangeBatch
-    _InvalidChangeBatch,
+    -- ** PublicZoneVPCAssociation
+    _PublicZoneVPCAssociation,
+
+    -- ** QueryLoggingConfigAlreadyExists
+    _QueryLoggingConfigAlreadyExists,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** TooManyHealthChecks
+    _TooManyHealthChecks,
+
+    -- ** TooManyHostedZones
+    _TooManyHostedZones,
+
+    -- ** TooManyKeySigningKeys
+    _TooManyKeySigningKeys,
+
+    -- ** TooManyTrafficPolicies
+    _TooManyTrafficPolicies,
+
+    -- ** TooManyTrafficPolicyInstances
+    _TooManyTrafficPolicyInstances,
+
+    -- ** TooManyTrafficPolicyVersionsForCurrentPolicy
+    _TooManyTrafficPolicyVersionsForCurrentPolicy,
 
     -- ** TooManyVPCAssociationAuthorizations
     _TooManyVPCAssociationAuthorizations,
@@ -90,128 +219,17 @@ module Amazonka.Route53
     -- ** TrafficPolicyAlreadyExists
     _TrafficPolicyAlreadyExists,
 
-    -- ** InvalidTrafficPolicyDocument
-    _InvalidTrafficPolicyDocument,
+    -- ** TrafficPolicyInUse
+    _TrafficPolicyInUse,
 
-    -- ** InvalidSigningStatus
-    _InvalidSigningStatus,
-
-    -- ** InvalidPaginationToken
-    _InvalidPaginationToken,
-
-    -- ** DelegationSetNotReusable
-    _DelegationSetNotReusable,
-
-    -- ** InvalidDomainName
-    _InvalidDomainName,
-
-    -- ** NoSuchTrafficPolicy
-    _NoSuchTrafficPolicy,
-
-    -- ** HostedZoneNotFound
-    _HostedZoneNotFound,
-
-    -- ** DelegationSetInUse
-    _DelegationSetInUse,
-
-    -- ** NoSuchDelegationSet
-    _NoSuchDelegationSet,
-
-    -- ** HealthCheckAlreadyExists
-    _HealthCheckAlreadyExists,
-
-    -- ** TooManyTrafficPolicies
-    _TooManyTrafficPolicies,
+    -- ** TrafficPolicyInstanceAlreadyExists
+    _TrafficPolicyInstanceAlreadyExists,
 
     -- ** VPCAssociationAuthorizationNotFound
     _VPCAssociationAuthorizationNotFound,
 
-    -- ** NoSuchGeoLocation
-    _NoSuchGeoLocation,
-
-    -- ** DelegationSetNotAvailable
-    _DelegationSetNotAvailable,
-
-    -- ** NoSuchKeySigningKey
-    _NoSuchKeySigningKey,
-
     -- ** VPCAssociationNotFound
     _VPCAssociationNotFound,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
-
-    -- ** HostedZonePartiallyDelegated
-    _HostedZonePartiallyDelegated,
-
-    -- ** KeySigningKeyInParentDSRecord
-    _KeySigningKeyInParentDSRecord,
-
-    -- ** NoSuchChange
-    _NoSuchChange,
-
-    -- ** InvalidKeySigningKeyName
-    _InvalidKeySigningKeyName,
-
-    -- ** LimitsExceeded
-    _LimitsExceeded,
-
-    -- ** KeySigningKeyAlreadyExists
-    _KeySigningKeyAlreadyExists,
-
-    -- ** TooManyTrafficPolicyInstances
-    _TooManyTrafficPolicyInstances,
-
-    -- ** NoSuchTrafficPolicyInstance
-    _NoSuchTrafficPolicyInstance,
-
-    -- ** IncompatibleVersion
-    _IncompatibleVersion,
-
-    -- ** PublicZoneVPCAssociation
-    _PublicZoneVPCAssociation,
-
-    -- ** NoSuchHostedZone
-    _NoSuchHostedZone,
-
-    -- ** TooManyHostedZones
-    _TooManyHostedZones,
-
-    -- ** HealthCheckInUse
-    _HealthCheckInUse,
-
-    -- ** InvalidKeySigningKeyStatus
-    _InvalidKeySigningKeyStatus,
-
-    -- ** DelegationSetAlreadyCreated
-    _DelegationSetAlreadyCreated,
-
-    -- ** ConflictingDomainExists
-    _ConflictingDomainExists,
-
-    -- ** LastVPCAssociation
-    _LastVPCAssociation,
-
-    -- ** TooManyHealthChecks
-    _TooManyHealthChecks,
-
-    -- ** NoSuchHealthCheck
-    _NoSuchHealthCheck,
-
-    -- ** InvalidKMSArn
-    _InvalidKMSArn,
-
-    -- ** TrafficPolicyInUse
-    _TrafficPolicyInUse,
-
-    -- ** InvalidVPCId
-    _InvalidVPCId,
-
-    -- ** HostedZoneAlreadyExists
-    _HostedZoneAlreadyExists,
-
-    -- ** TooManyTrafficPolicyVersionsForCurrentPolicy
-    _TooManyTrafficPolicyVersionsForCurrentPolicy,
 
     -- * Waiters
     -- $waiters
@@ -222,11 +240,11 @@ module Amazonka.Route53
     -- * Operations
     -- $operations
 
-    -- ** GetHostedZoneLimit
-    GetHostedZoneLimit (GetHostedZoneLimit'),
-    newGetHostedZoneLimit,
-    GetHostedZoneLimitResponse (GetHostedZoneLimitResponse'),
-    newGetHostedZoneLimitResponse,
+    -- ** ActivateKeySigningKey
+    ActivateKeySigningKey (ActivateKeySigningKey'),
+    newActivateKeySigningKey,
+    ActivateKeySigningKeyResponse (ActivateKeySigningKeyResponse'),
+    newActivateKeySigningKeyResponse,
 
     -- ** AssociateVPCWithHostedZone
     AssociateVPCWithHostedZone (AssociateVPCWithHostedZone'),
@@ -234,95 +252,11 @@ module Amazonka.Route53
     AssociateVPCWithHostedZoneResponse (AssociateVPCWithHostedZoneResponse'),
     newAssociateVPCWithHostedZoneResponse,
 
-    -- ** DeleteTrafficPolicy
-    DeleteTrafficPolicy (DeleteTrafficPolicy'),
-    newDeleteTrafficPolicy,
-    DeleteTrafficPolicyResponse (DeleteTrafficPolicyResponse'),
-    newDeleteTrafficPolicyResponse,
-
-    -- ** DisableHostedZoneDNSSEC
-    DisableHostedZoneDNSSEC (DisableHostedZoneDNSSEC'),
-    newDisableHostedZoneDNSSEC,
-    DisableHostedZoneDNSSECResponse (DisableHostedZoneDNSSECResponse'),
-    newDisableHostedZoneDNSSECResponse,
-
-    -- ** CreateKeySigningKey
-    CreateKeySigningKey (CreateKeySigningKey'),
-    newCreateKeySigningKey,
-    CreateKeySigningKeyResponse (CreateKeySigningKeyResponse'),
-    newCreateKeySigningKeyResponse,
-
-    -- ** GetCheckerIpRanges
-    GetCheckerIpRanges (GetCheckerIpRanges'),
-    newGetCheckerIpRanges,
-    GetCheckerIpRangesResponse (GetCheckerIpRangesResponse'),
-    newGetCheckerIpRangesResponse,
-
-    -- ** GetTrafficPolicyInstance
-    GetTrafficPolicyInstance (GetTrafficPolicyInstance'),
-    newGetTrafficPolicyInstance,
-    GetTrafficPolicyInstanceResponse (GetTrafficPolicyInstanceResponse'),
-    newGetTrafficPolicyInstanceResponse,
-
-    -- ** GetHealthCheckLastFailureReason
-    GetHealthCheckLastFailureReason (GetHealthCheckLastFailureReason'),
-    newGetHealthCheckLastFailureReason,
-    GetHealthCheckLastFailureReasonResponse (GetHealthCheckLastFailureReasonResponse'),
-    newGetHealthCheckLastFailureReasonResponse,
-
-    -- ** DeleteReusableDelegationSet
-    DeleteReusableDelegationSet (DeleteReusableDelegationSet'),
-    newDeleteReusableDelegationSet,
-    DeleteReusableDelegationSetResponse (DeleteReusableDelegationSetResponse'),
-    newDeleteReusableDelegationSetResponse,
-
-    -- ** ListHostedZonesByName
-    ListHostedZonesByName (ListHostedZonesByName'),
-    newListHostedZonesByName,
-    ListHostedZonesByNameResponse (ListHostedZonesByNameResponse'),
-    newListHostedZonesByNameResponse,
-
-    -- ** ActivateKeySigningKey
-    ActivateKeySigningKey (ActivateKeySigningKey'),
-    newActivateKeySigningKey,
-    ActivateKeySigningKeyResponse (ActivateKeySigningKeyResponse'),
-    newActivateKeySigningKeyResponse,
-
-    -- ** ListReusableDelegationSets
-    ListReusableDelegationSets (ListReusableDelegationSets'),
-    newListReusableDelegationSets,
-    ListReusableDelegationSetsResponse (ListReusableDelegationSetsResponse'),
-    newListReusableDelegationSetsResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** ListQueryLoggingConfigs (Paginated)
-    ListQueryLoggingConfigs (ListQueryLoggingConfigs'),
-    newListQueryLoggingConfigs,
-    ListQueryLoggingConfigsResponse (ListQueryLoggingConfigsResponse'),
-    newListQueryLoggingConfigsResponse,
-
-    -- ** ListTrafficPolicyInstances
-    ListTrafficPolicyInstances (ListTrafficPolicyInstances'),
-    newListTrafficPolicyInstances,
-    ListTrafficPolicyInstancesResponse (ListTrafficPolicyInstancesResponse'),
-    newListTrafficPolicyInstancesResponse,
-
-    -- ** CreateTrafficPolicyInstance
-    CreateTrafficPolicyInstance (CreateTrafficPolicyInstance'),
-    newCreateTrafficPolicyInstance,
-    CreateTrafficPolicyInstanceResponse (CreateTrafficPolicyInstanceResponse'),
-    newCreateTrafficPolicyInstanceResponse,
-
-    -- ** GetChange
-    GetChange (GetChange'),
-    newGetChange,
-    GetChangeResponse (GetChangeResponse'),
-    newGetChangeResponse,
+    -- ** ChangeCidrCollection
+    ChangeCidrCollection (ChangeCidrCollection'),
+    newChangeCidrCollection,
+    ChangeCidrCollectionResponse (ChangeCidrCollectionResponse'),
+    newChangeCidrCollectionResponse,
 
     -- ** ChangeResourceRecordSets
     ChangeResourceRecordSets (ChangeResourceRecordSets'),
@@ -330,47 +264,17 @@ module Amazonka.Route53
     ChangeResourceRecordSetsResponse (ChangeResourceRecordSetsResponse'),
     newChangeResourceRecordSetsResponse,
 
-    -- ** DeleteHealthCheck
-    DeleteHealthCheck (DeleteHealthCheck'),
-    newDeleteHealthCheck,
-    DeleteHealthCheckResponse (DeleteHealthCheckResponse'),
-    newDeleteHealthCheckResponse,
+    -- ** ChangeTagsForResource
+    ChangeTagsForResource (ChangeTagsForResource'),
+    newChangeTagsForResource,
+    ChangeTagsForResourceResponse (ChangeTagsForResourceResponse'),
+    newChangeTagsForResourceResponse,
 
-    -- ** UpdateHealthCheck
-    UpdateHealthCheck (UpdateHealthCheck'),
-    newUpdateHealthCheck,
-    UpdateHealthCheckResponse (UpdateHealthCheckResponse'),
-    newUpdateHealthCheckResponse,
-
-    -- ** CreateHostedZone
-    CreateHostedZone (CreateHostedZone'),
-    newCreateHostedZone,
-    CreateHostedZoneResponse (CreateHostedZoneResponse'),
-    newCreateHostedZoneResponse,
-
-    -- ** CreateVPCAssociationAuthorization
-    CreateVPCAssociationAuthorization (CreateVPCAssociationAuthorization'),
-    newCreateVPCAssociationAuthorization,
-    CreateVPCAssociationAuthorizationResponse (CreateVPCAssociationAuthorizationResponse'),
-    newCreateVPCAssociationAuthorizationResponse,
-
-    -- ** ListVPCAssociationAuthorizations (Paginated)
-    ListVPCAssociationAuthorizations (ListVPCAssociationAuthorizations'),
-    newListVPCAssociationAuthorizations,
-    ListVPCAssociationAuthorizationsResponse (ListVPCAssociationAuthorizationsResponse'),
-    newListVPCAssociationAuthorizationsResponse,
-
-    -- ** ListTrafficPolicyInstancesByPolicy
-    ListTrafficPolicyInstancesByPolicy (ListTrafficPolicyInstancesByPolicy'),
-    newListTrafficPolicyInstancesByPolicy,
-    ListTrafficPolicyInstancesByPolicyResponse (ListTrafficPolicyInstancesByPolicyResponse'),
-    newListTrafficPolicyInstancesByPolicyResponse,
-
-    -- ** DisassociateVPCFromHostedZone
-    DisassociateVPCFromHostedZone (DisassociateVPCFromHostedZone'),
-    newDisassociateVPCFromHostedZone,
-    DisassociateVPCFromHostedZoneResponse (DisassociateVPCFromHostedZoneResponse'),
-    newDisassociateVPCFromHostedZoneResponse,
+    -- ** CreateCidrCollection
+    CreateCidrCollection (CreateCidrCollection'),
+    newCreateCidrCollection,
+    CreateCidrCollectionResponse (CreateCidrCollectionResponse'),
+    newCreateCidrCollectionResponse,
 
     -- ** CreateHealthCheck
     CreateHealthCheck (CreateHealthCheck'),
@@ -378,59 +282,17 @@ module Amazonka.Route53
     CreateHealthCheckResponse (CreateHealthCheckResponse'),
     newCreateHealthCheckResponse,
 
-    -- ** DeleteVPCAssociationAuthorization
-    DeleteVPCAssociationAuthorization (DeleteVPCAssociationAuthorization'),
-    newDeleteVPCAssociationAuthorization,
-    DeleteVPCAssociationAuthorizationResponse (DeleteVPCAssociationAuthorizationResponse'),
-    newDeleteVPCAssociationAuthorizationResponse,
+    -- ** CreateHostedZone
+    CreateHostedZone (CreateHostedZone'),
+    newCreateHostedZone,
+    CreateHostedZoneResponse (CreateHostedZoneResponse'),
+    newCreateHostedZoneResponse,
 
-    -- ** ChangeTagsForResource
-    ChangeTagsForResource (ChangeTagsForResource'),
-    newChangeTagsForResource,
-    ChangeTagsForResourceResponse (ChangeTagsForResourceResponse'),
-    newChangeTagsForResourceResponse,
-
-    -- ** ListHostedZones (Paginated)
-    ListHostedZones (ListHostedZones'),
-    newListHostedZones,
-    ListHostedZonesResponse (ListHostedZonesResponse'),
-    newListHostedZonesResponse,
-
-    -- ** GetTrafficPolicyInstanceCount
-    GetTrafficPolicyInstanceCount (GetTrafficPolicyInstanceCount'),
-    newGetTrafficPolicyInstanceCount,
-    GetTrafficPolicyInstanceCountResponse (GetTrafficPolicyInstanceCountResponse'),
-    newGetTrafficPolicyInstanceCountResponse,
-
-    -- ** ListGeoLocations
-    ListGeoLocations (ListGeoLocations'),
-    newListGeoLocations,
-    ListGeoLocationsResponse (ListGeoLocationsResponse'),
-    newListGeoLocationsResponse,
-
-    -- ** GetHostedZone
-    GetHostedZone (GetHostedZone'),
-    newGetHostedZone,
-    GetHostedZoneResponse (GetHostedZoneResponse'),
-    newGetHostedZoneResponse,
-
-    -- ** GetHealthCheck
-    GetHealthCheck (GetHealthCheck'),
-    newGetHealthCheck,
-    GetHealthCheckResponse (GetHealthCheckResponse'),
-    newGetHealthCheckResponse,
-
-    -- ** ListResourceRecordSets (Paginated)
-    ListResourceRecordSets (ListResourceRecordSets'),
-    newListResourceRecordSets,
-    ListResourceRecordSetsResponse (ListResourceRecordSetsResponse'),
-    newListResourceRecordSetsResponse,
-
-    -- ** CreateReusableDelegationSet
-    CreateReusableDelegationSet (CreateReusableDelegationSet'),
-    newCreateReusableDelegationSet,
-    CreateReusableDelegationSetResponse (CreateReusableDelegationSetResponse'),
-    newCreateReusableDelegationSetResponse,
+    -- ** CreateKeySigningKey
+    CreateKeySigningKey (CreateKeySigningKey'),
+    newCreateKeySigningKey,
+    CreateKeySigningKeyResponse (CreateKeySigningKeyResponse'),
+    newCreateKeySigningKeyResponse,
 
     -- ** CreateQueryLoggingConfig
     CreateQueryLoggingConfig (CreateQueryLoggingConfig'),
@@ -438,23 +300,59 @@ module Amazonka.Route53
     CreateQueryLoggingConfigResponse (CreateQueryLoggingConfigResponse'),
     newCreateQueryLoggingConfigResponse,
 
-    -- ** GetHealthCheckCount
-    GetHealthCheckCount (GetHealthCheckCount'),
-    newGetHealthCheckCount,
-    GetHealthCheckCountResponse (GetHealthCheckCountResponse'),
-    newGetHealthCheckCountResponse,
+    -- ** CreateReusableDelegationSet
+    CreateReusableDelegationSet (CreateReusableDelegationSet'),
+    newCreateReusableDelegationSet,
+    CreateReusableDelegationSetResponse (CreateReusableDelegationSetResponse'),
+    newCreateReusableDelegationSetResponse,
 
-    -- ** UpdateTrafficPolicyComment
-    UpdateTrafficPolicyComment (UpdateTrafficPolicyComment'),
-    newUpdateTrafficPolicyComment,
-    UpdateTrafficPolicyCommentResponse (UpdateTrafficPolicyCommentResponse'),
-    newUpdateTrafficPolicyCommentResponse,
+    -- ** CreateTrafficPolicy
+    CreateTrafficPolicy (CreateTrafficPolicy'),
+    newCreateTrafficPolicy,
+    CreateTrafficPolicyResponse (CreateTrafficPolicyResponse'),
+    newCreateTrafficPolicyResponse,
 
-    -- ** GetHostedZoneCount
-    GetHostedZoneCount (GetHostedZoneCount'),
-    newGetHostedZoneCount,
-    GetHostedZoneCountResponse (GetHostedZoneCountResponse'),
-    newGetHostedZoneCountResponse,
+    -- ** CreateTrafficPolicyInstance
+    CreateTrafficPolicyInstance (CreateTrafficPolicyInstance'),
+    newCreateTrafficPolicyInstance,
+    CreateTrafficPolicyInstanceResponse (CreateTrafficPolicyInstanceResponse'),
+    newCreateTrafficPolicyInstanceResponse,
+
+    -- ** CreateTrafficPolicyVersion
+    CreateTrafficPolicyVersion (CreateTrafficPolicyVersion'),
+    newCreateTrafficPolicyVersion,
+    CreateTrafficPolicyVersionResponse (CreateTrafficPolicyVersionResponse'),
+    newCreateTrafficPolicyVersionResponse,
+
+    -- ** CreateVPCAssociationAuthorization
+    CreateVPCAssociationAuthorization (CreateVPCAssociationAuthorization'),
+    newCreateVPCAssociationAuthorization,
+    CreateVPCAssociationAuthorizationResponse (CreateVPCAssociationAuthorizationResponse'),
+    newCreateVPCAssociationAuthorizationResponse,
+
+    -- ** DeactivateKeySigningKey
+    DeactivateKeySigningKey (DeactivateKeySigningKey'),
+    newDeactivateKeySigningKey,
+    DeactivateKeySigningKeyResponse (DeactivateKeySigningKeyResponse'),
+    newDeactivateKeySigningKeyResponse,
+
+    -- ** DeleteCidrCollection
+    DeleteCidrCollection (DeleteCidrCollection'),
+    newDeleteCidrCollection,
+    DeleteCidrCollectionResponse (DeleteCidrCollectionResponse'),
+    newDeleteCidrCollectionResponse,
+
+    -- ** DeleteHealthCheck
+    DeleteHealthCheck (DeleteHealthCheck'),
+    newDeleteHealthCheck,
+    DeleteHealthCheckResponse (DeleteHealthCheckResponse'),
+    newDeleteHealthCheckResponse,
+
+    -- ** DeleteHostedZone
+    DeleteHostedZone (DeleteHostedZone'),
+    newDeleteHostedZone,
+    DeleteHostedZoneResponse (DeleteHostedZoneResponse'),
+    newDeleteHostedZoneResponse,
 
     -- ** DeleteKeySigningKey
     DeleteKeySigningKey (DeleteKeySigningKey'),
@@ -462,17 +360,47 @@ module Amazonka.Route53
     DeleteKeySigningKeyResponse (DeleteKeySigningKeyResponse'),
     newDeleteKeySigningKeyResponse,
 
-    -- ** GetDNSSEC
-    GetDNSSEC (GetDNSSEC'),
-    newGetDNSSEC,
-    GetDNSSECResponse (GetDNSSECResponse'),
-    newGetDNSSECResponse,
+    -- ** DeleteQueryLoggingConfig
+    DeleteQueryLoggingConfig (DeleteQueryLoggingConfig'),
+    newDeleteQueryLoggingConfig,
+    DeleteQueryLoggingConfigResponse (DeleteQueryLoggingConfigResponse'),
+    newDeleteQueryLoggingConfigResponse,
 
-    -- ** GetAccountLimit
-    GetAccountLimit (GetAccountLimit'),
-    newGetAccountLimit,
-    GetAccountLimitResponse (GetAccountLimitResponse'),
-    newGetAccountLimitResponse,
+    -- ** DeleteReusableDelegationSet
+    DeleteReusableDelegationSet (DeleteReusableDelegationSet'),
+    newDeleteReusableDelegationSet,
+    DeleteReusableDelegationSetResponse (DeleteReusableDelegationSetResponse'),
+    newDeleteReusableDelegationSetResponse,
+
+    -- ** DeleteTrafficPolicy
+    DeleteTrafficPolicy (DeleteTrafficPolicy'),
+    newDeleteTrafficPolicy,
+    DeleteTrafficPolicyResponse (DeleteTrafficPolicyResponse'),
+    newDeleteTrafficPolicyResponse,
+
+    -- ** DeleteTrafficPolicyInstance
+    DeleteTrafficPolicyInstance (DeleteTrafficPolicyInstance'),
+    newDeleteTrafficPolicyInstance,
+    DeleteTrafficPolicyInstanceResponse (DeleteTrafficPolicyInstanceResponse'),
+    newDeleteTrafficPolicyInstanceResponse,
+
+    -- ** DeleteVPCAssociationAuthorization
+    DeleteVPCAssociationAuthorization (DeleteVPCAssociationAuthorization'),
+    newDeleteVPCAssociationAuthorization,
+    DeleteVPCAssociationAuthorizationResponse (DeleteVPCAssociationAuthorizationResponse'),
+    newDeleteVPCAssociationAuthorizationResponse,
+
+    -- ** DisableHostedZoneDNSSEC
+    DisableHostedZoneDNSSEC (DisableHostedZoneDNSSEC'),
+    newDisableHostedZoneDNSSEC,
+    DisableHostedZoneDNSSECResponse (DisableHostedZoneDNSSECResponse'),
+    newDisableHostedZoneDNSSECResponse,
+
+    -- ** DisassociateVPCFromHostedZone
+    DisassociateVPCFromHostedZone (DisassociateVPCFromHostedZone'),
+    newDisassociateVPCFromHostedZone,
+    DisassociateVPCFromHostedZoneResponse (DisassociateVPCFromHostedZoneResponse'),
+    newDisassociateVPCFromHostedZoneResponse,
 
     -- ** EnableHostedZoneDNSSEC
     EnableHostedZoneDNSSEC (EnableHostedZoneDNSSEC'),
@@ -480,11 +408,77 @@ module Amazonka.Route53
     EnableHostedZoneDNSSECResponse (EnableHostedZoneDNSSECResponse'),
     newEnableHostedZoneDNSSECResponse,
 
-    -- ** DeleteQueryLoggingConfig
-    DeleteQueryLoggingConfig (DeleteQueryLoggingConfig'),
-    newDeleteQueryLoggingConfig,
-    DeleteQueryLoggingConfigResponse (DeleteQueryLoggingConfigResponse'),
-    newDeleteQueryLoggingConfigResponse,
+    -- ** GetAccountLimit
+    GetAccountLimit (GetAccountLimit'),
+    newGetAccountLimit,
+    GetAccountLimitResponse (GetAccountLimitResponse'),
+    newGetAccountLimitResponse,
+
+    -- ** GetChange
+    GetChange (GetChange'),
+    newGetChange,
+    GetChangeResponse (GetChangeResponse'),
+    newGetChangeResponse,
+
+    -- ** GetCheckerIpRanges
+    GetCheckerIpRanges (GetCheckerIpRanges'),
+    newGetCheckerIpRanges,
+    GetCheckerIpRangesResponse (GetCheckerIpRangesResponse'),
+    newGetCheckerIpRangesResponse,
+
+    -- ** GetDNSSEC
+    GetDNSSEC (GetDNSSEC'),
+    newGetDNSSEC,
+    GetDNSSECResponse (GetDNSSECResponse'),
+    newGetDNSSECResponse,
+
+    -- ** GetGeoLocation
+    GetGeoLocation (GetGeoLocation'),
+    newGetGeoLocation,
+    GetGeoLocationResponse (GetGeoLocationResponse'),
+    newGetGeoLocationResponse,
+
+    -- ** GetHealthCheck
+    GetHealthCheck (GetHealthCheck'),
+    newGetHealthCheck,
+    GetHealthCheckResponse (GetHealthCheckResponse'),
+    newGetHealthCheckResponse,
+
+    -- ** GetHealthCheckCount
+    GetHealthCheckCount (GetHealthCheckCount'),
+    newGetHealthCheckCount,
+    GetHealthCheckCountResponse (GetHealthCheckCountResponse'),
+    newGetHealthCheckCountResponse,
+
+    -- ** GetHealthCheckLastFailureReason
+    GetHealthCheckLastFailureReason (GetHealthCheckLastFailureReason'),
+    newGetHealthCheckLastFailureReason,
+    GetHealthCheckLastFailureReasonResponse (GetHealthCheckLastFailureReasonResponse'),
+    newGetHealthCheckLastFailureReasonResponse,
+
+    -- ** GetHealthCheckStatus
+    GetHealthCheckStatus (GetHealthCheckStatus'),
+    newGetHealthCheckStatus,
+    GetHealthCheckStatusResponse (GetHealthCheckStatusResponse'),
+    newGetHealthCheckStatusResponse,
+
+    -- ** GetHostedZone
+    GetHostedZone (GetHostedZone'),
+    newGetHostedZone,
+    GetHostedZoneResponse (GetHostedZoneResponse'),
+    newGetHostedZoneResponse,
+
+    -- ** GetHostedZoneCount
+    GetHostedZoneCount (GetHostedZoneCount'),
+    newGetHostedZoneCount,
+    GetHostedZoneCountResponse (GetHostedZoneCountResponse'),
+    newGetHostedZoneCountResponse,
+
+    -- ** GetHostedZoneLimit
+    GetHostedZoneLimit (GetHostedZoneLimit'),
+    newGetHostedZoneLimit,
+    GetHostedZoneLimitResponse (GetHostedZoneLimitResponse'),
+    newGetHostedZoneLimitResponse,
 
     -- ** GetQueryLoggingConfig
     GetQueryLoggingConfig (GetQueryLoggingConfig'),
@@ -498,65 +492,11 @@ module Amazonka.Route53
     GetReusableDelegationSetResponse (GetReusableDelegationSetResponse'),
     newGetReusableDelegationSetResponse,
 
-    -- ** DeleteTrafficPolicyInstance
-    DeleteTrafficPolicyInstance (DeleteTrafficPolicyInstance'),
-    newDeleteTrafficPolicyInstance,
-    DeleteTrafficPolicyInstanceResponse (DeleteTrafficPolicyInstanceResponse'),
-    newDeleteTrafficPolicyInstanceResponse,
-
-    -- ** UpdateTrafficPolicyInstance
-    UpdateTrafficPolicyInstance (UpdateTrafficPolicyInstance'),
-    newUpdateTrafficPolicyInstance,
-    UpdateTrafficPolicyInstanceResponse (UpdateTrafficPolicyInstanceResponse'),
-    newUpdateTrafficPolicyInstanceResponse,
-
-    -- ** UpdateHostedZoneComment
-    UpdateHostedZoneComment (UpdateHostedZoneComment'),
-    newUpdateHostedZoneComment,
-    UpdateHostedZoneCommentResponse (UpdateHostedZoneCommentResponse'),
-    newUpdateHostedZoneCommentResponse,
-
-    -- ** GetHealthCheckStatus
-    GetHealthCheckStatus (GetHealthCheckStatus'),
-    newGetHealthCheckStatus,
-    GetHealthCheckStatusResponse (GetHealthCheckStatusResponse'),
-    newGetHealthCheckStatusResponse,
-
-    -- ** ListHostedZonesByVPC
-    ListHostedZonesByVPC (ListHostedZonesByVPC'),
-    newListHostedZonesByVPC,
-    ListHostedZonesByVPCResponse (ListHostedZonesByVPCResponse'),
-    newListHostedZonesByVPCResponse,
-
     -- ** GetReusableDelegationSetLimit
     GetReusableDelegationSetLimit (GetReusableDelegationSetLimit'),
     newGetReusableDelegationSetLimit,
     GetReusableDelegationSetLimitResponse (GetReusableDelegationSetLimitResponse'),
     newGetReusableDelegationSetLimitResponse,
-
-    -- ** CreateTrafficPolicyVersion
-    CreateTrafficPolicyVersion (CreateTrafficPolicyVersion'),
-    newCreateTrafficPolicyVersion,
-    CreateTrafficPolicyVersionResponse (CreateTrafficPolicyVersionResponse'),
-    newCreateTrafficPolicyVersionResponse,
-
-    -- ** DeactivateKeySigningKey
-    DeactivateKeySigningKey (DeactivateKeySigningKey'),
-    newDeactivateKeySigningKey,
-    DeactivateKeySigningKeyResponse (DeactivateKeySigningKeyResponse'),
-    newDeactivateKeySigningKeyResponse,
-
-    -- ** TestDNSAnswer
-    TestDNSAnswer (TestDNSAnswer'),
-    newTestDNSAnswer,
-    TestDNSAnswerResponse (TestDNSAnswerResponse'),
-    newTestDNSAnswerResponse,
-
-    -- ** ListHealthChecks (Paginated)
-    ListHealthChecks (ListHealthChecks'),
-    newListHealthChecks,
-    ListHealthChecksResponse (ListHealthChecksResponse'),
-    newListHealthChecksResponse,
 
     -- ** GetTrafficPolicy
     GetTrafficPolicy (GetTrafficPolicy'),
@@ -564,23 +504,89 @@ module Amazonka.Route53
     GetTrafficPolicyResponse (GetTrafficPolicyResponse'),
     newGetTrafficPolicyResponse,
 
-    -- ** ListTrafficPolicyVersions
-    ListTrafficPolicyVersions (ListTrafficPolicyVersions'),
-    newListTrafficPolicyVersions,
-    ListTrafficPolicyVersionsResponse (ListTrafficPolicyVersionsResponse'),
-    newListTrafficPolicyVersionsResponse,
+    -- ** GetTrafficPolicyInstance
+    GetTrafficPolicyInstance (GetTrafficPolicyInstance'),
+    newGetTrafficPolicyInstance,
+    GetTrafficPolicyInstanceResponse (GetTrafficPolicyInstanceResponse'),
+    newGetTrafficPolicyInstanceResponse,
 
-    -- ** DeleteHostedZone
-    DeleteHostedZone (DeleteHostedZone'),
-    newDeleteHostedZone,
-    DeleteHostedZoneResponse (DeleteHostedZoneResponse'),
-    newDeleteHostedZoneResponse,
+    -- ** GetTrafficPolicyInstanceCount
+    GetTrafficPolicyInstanceCount (GetTrafficPolicyInstanceCount'),
+    newGetTrafficPolicyInstanceCount,
+    GetTrafficPolicyInstanceCountResponse (GetTrafficPolicyInstanceCountResponse'),
+    newGetTrafficPolicyInstanceCountResponse,
 
-    -- ** GetGeoLocation
-    GetGeoLocation (GetGeoLocation'),
-    newGetGeoLocation,
-    GetGeoLocationResponse (GetGeoLocationResponse'),
-    newGetGeoLocationResponse,
+    -- ** ListCidrBlocks (Paginated)
+    ListCidrBlocks (ListCidrBlocks'),
+    newListCidrBlocks,
+    ListCidrBlocksResponse (ListCidrBlocksResponse'),
+    newListCidrBlocksResponse,
+
+    -- ** ListCidrCollections (Paginated)
+    ListCidrCollections (ListCidrCollections'),
+    newListCidrCollections,
+    ListCidrCollectionsResponse (ListCidrCollectionsResponse'),
+    newListCidrCollectionsResponse,
+
+    -- ** ListCidrLocations (Paginated)
+    ListCidrLocations (ListCidrLocations'),
+    newListCidrLocations,
+    ListCidrLocationsResponse (ListCidrLocationsResponse'),
+    newListCidrLocationsResponse,
+
+    -- ** ListGeoLocations
+    ListGeoLocations (ListGeoLocations'),
+    newListGeoLocations,
+    ListGeoLocationsResponse (ListGeoLocationsResponse'),
+    newListGeoLocationsResponse,
+
+    -- ** ListHealthChecks (Paginated)
+    ListHealthChecks (ListHealthChecks'),
+    newListHealthChecks,
+    ListHealthChecksResponse (ListHealthChecksResponse'),
+    newListHealthChecksResponse,
+
+    -- ** ListHostedZones (Paginated)
+    ListHostedZones (ListHostedZones'),
+    newListHostedZones,
+    ListHostedZonesResponse (ListHostedZonesResponse'),
+    newListHostedZonesResponse,
+
+    -- ** ListHostedZonesByName
+    ListHostedZonesByName (ListHostedZonesByName'),
+    newListHostedZonesByName,
+    ListHostedZonesByNameResponse (ListHostedZonesByNameResponse'),
+    newListHostedZonesByNameResponse,
+
+    -- ** ListHostedZonesByVPC
+    ListHostedZonesByVPC (ListHostedZonesByVPC'),
+    newListHostedZonesByVPC,
+    ListHostedZonesByVPCResponse (ListHostedZonesByVPCResponse'),
+    newListHostedZonesByVPCResponse,
+
+    -- ** ListQueryLoggingConfigs (Paginated)
+    ListQueryLoggingConfigs (ListQueryLoggingConfigs'),
+    newListQueryLoggingConfigs,
+    ListQueryLoggingConfigsResponse (ListQueryLoggingConfigsResponse'),
+    newListQueryLoggingConfigsResponse,
+
+    -- ** ListResourceRecordSets (Paginated)
+    ListResourceRecordSets (ListResourceRecordSets'),
+    newListResourceRecordSets,
+    ListResourceRecordSetsResponse (ListResourceRecordSetsResponse'),
+    newListResourceRecordSetsResponse,
+
+    -- ** ListReusableDelegationSets
+    ListReusableDelegationSets (ListReusableDelegationSets'),
+    newListReusableDelegationSets,
+    ListReusableDelegationSetsResponse (ListReusableDelegationSetsResponse'),
+    newListReusableDelegationSetsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** ListTagsForResources
     ListTagsForResources (ListTagsForResources'),
@@ -588,11 +594,17 @@ module Amazonka.Route53
     ListTagsForResourcesResponse (ListTagsForResourcesResponse'),
     newListTagsForResourcesResponse,
 
-    -- ** CreateTrafficPolicy
-    CreateTrafficPolicy (CreateTrafficPolicy'),
-    newCreateTrafficPolicy,
-    CreateTrafficPolicyResponse (CreateTrafficPolicyResponse'),
-    newCreateTrafficPolicyResponse,
+    -- ** ListTrafficPolicies
+    ListTrafficPolicies (ListTrafficPolicies'),
+    newListTrafficPolicies,
+    ListTrafficPoliciesResponse (ListTrafficPoliciesResponse'),
+    newListTrafficPoliciesResponse,
+
+    -- ** ListTrafficPolicyInstances
+    ListTrafficPolicyInstances (ListTrafficPolicyInstances'),
+    newListTrafficPolicyInstances,
+    ListTrafficPolicyInstancesResponse (ListTrafficPolicyInstancesResponse'),
+    newListTrafficPolicyInstancesResponse,
 
     -- ** ListTrafficPolicyInstancesByHostedZone
     ListTrafficPolicyInstancesByHostedZone (ListTrafficPolicyInstancesByHostedZone'),
@@ -600,11 +612,53 @@ module Amazonka.Route53
     ListTrafficPolicyInstancesByHostedZoneResponse (ListTrafficPolicyInstancesByHostedZoneResponse'),
     newListTrafficPolicyInstancesByHostedZoneResponse,
 
-    -- ** ListTrafficPolicies
-    ListTrafficPolicies (ListTrafficPolicies'),
-    newListTrafficPolicies,
-    ListTrafficPoliciesResponse (ListTrafficPoliciesResponse'),
-    newListTrafficPoliciesResponse,
+    -- ** ListTrafficPolicyInstancesByPolicy
+    ListTrafficPolicyInstancesByPolicy (ListTrafficPolicyInstancesByPolicy'),
+    newListTrafficPolicyInstancesByPolicy,
+    ListTrafficPolicyInstancesByPolicyResponse (ListTrafficPolicyInstancesByPolicyResponse'),
+    newListTrafficPolicyInstancesByPolicyResponse,
+
+    -- ** ListTrafficPolicyVersions
+    ListTrafficPolicyVersions (ListTrafficPolicyVersions'),
+    newListTrafficPolicyVersions,
+    ListTrafficPolicyVersionsResponse (ListTrafficPolicyVersionsResponse'),
+    newListTrafficPolicyVersionsResponse,
+
+    -- ** ListVPCAssociationAuthorizations (Paginated)
+    ListVPCAssociationAuthorizations (ListVPCAssociationAuthorizations'),
+    newListVPCAssociationAuthorizations,
+    ListVPCAssociationAuthorizationsResponse (ListVPCAssociationAuthorizationsResponse'),
+    newListVPCAssociationAuthorizationsResponse,
+
+    -- ** TestDNSAnswer
+    TestDNSAnswer (TestDNSAnswer'),
+    newTestDNSAnswer,
+    TestDNSAnswerResponse (TestDNSAnswerResponse'),
+    newTestDNSAnswerResponse,
+
+    -- ** UpdateHealthCheck
+    UpdateHealthCheck (UpdateHealthCheck'),
+    newUpdateHealthCheck,
+    UpdateHealthCheckResponse (UpdateHealthCheckResponse'),
+    newUpdateHealthCheckResponse,
+
+    -- ** UpdateHostedZoneComment
+    UpdateHostedZoneComment (UpdateHostedZoneComment'),
+    newUpdateHostedZoneComment,
+    UpdateHostedZoneCommentResponse (UpdateHostedZoneCommentResponse'),
+    newUpdateHostedZoneCommentResponse,
+
+    -- ** UpdateTrafficPolicyComment
+    UpdateTrafficPolicyComment (UpdateTrafficPolicyComment'),
+    newUpdateTrafficPolicyComment,
+    UpdateTrafficPolicyCommentResponse (UpdateTrafficPolicyCommentResponse'),
+    newUpdateTrafficPolicyCommentResponse,
+
+    -- ** UpdateTrafficPolicyInstance
+    UpdateTrafficPolicyInstance (UpdateTrafficPolicyInstance'),
+    newUpdateTrafficPolicyInstance,
+    UpdateTrafficPolicyInstanceResponse (UpdateTrafficPolicyInstanceResponse'),
+    newUpdateTrafficPolicyInstanceResponse,
 
     -- * Types
 
@@ -619,6 +673,9 @@ module Amazonka.Route53
 
     -- ** ChangeStatus
     ChangeStatus (..),
+
+    -- ** CidrCollectionChangeAction
+    CidrCollectionChangeAction (..),
 
     -- ** CloudWatchRegion
     CloudWatchRegion (..),
@@ -683,9 +740,29 @@ module Amazonka.Route53
     ChangeInfo (ChangeInfo'),
     newChangeInfo,
 
+    -- ** CidrBlockSummary
+    CidrBlockSummary (CidrBlockSummary'),
+    newCidrBlockSummary,
+
+    -- ** CidrCollection
+    CidrCollection (CidrCollection'),
+    newCidrCollection,
+
+    -- ** CidrCollectionChange
+    CidrCollectionChange (CidrCollectionChange'),
+    newCidrCollectionChange,
+
+    -- ** CidrRoutingConfig
+    CidrRoutingConfig (CidrRoutingConfig'),
+    newCidrRoutingConfig,
+
     -- ** CloudWatchAlarmConfiguration
     CloudWatchAlarmConfiguration (CloudWatchAlarmConfiguration'),
     newCloudWatchAlarmConfiguration,
+
+    -- ** CollectionSummary
+    CollectionSummary (CollectionSummary'),
+    newCollectionSummary,
 
     -- ** DNSSECStatus
     DNSSECStatus (DNSSECStatus'),
@@ -747,6 +824,10 @@ module Amazonka.Route53
     LinkedService (LinkedService'),
     newLinkedService,
 
+    -- ** LocationSummary
+    LocationSummary (LocationSummary'),
+    newLocationSummary,
+
     -- ** QueryLoggingConfig
     QueryLoggingConfig (QueryLoggingConfig'),
     newQueryLoggingConfig,
@@ -795,8 +876,10 @@ where
 
 import Amazonka.Route53.ActivateKeySigningKey
 import Amazonka.Route53.AssociateVPCWithHostedZone
+import Amazonka.Route53.ChangeCidrCollection
 import Amazonka.Route53.ChangeResourceRecordSets
 import Amazonka.Route53.ChangeTagsForResource
+import Amazonka.Route53.CreateCidrCollection
 import Amazonka.Route53.CreateHealthCheck
 import Amazonka.Route53.CreateHostedZone
 import Amazonka.Route53.CreateKeySigningKey
@@ -807,6 +890,7 @@ import Amazonka.Route53.CreateTrafficPolicyInstance
 import Amazonka.Route53.CreateTrafficPolicyVersion
 import Amazonka.Route53.CreateVPCAssociationAuthorization
 import Amazonka.Route53.DeactivateKeySigningKey
+import Amazonka.Route53.DeleteCidrCollection
 import Amazonka.Route53.DeleteHealthCheck
 import Amazonka.Route53.DeleteHostedZone
 import Amazonka.Route53.DeleteKeySigningKey
@@ -838,6 +922,9 @@ import Amazonka.Route53.GetTrafficPolicyInstance
 import Amazonka.Route53.GetTrafficPolicyInstanceCount
 import Amazonka.Route53.Internal
 import Amazonka.Route53.Lens
+import Amazonka.Route53.ListCidrBlocks
+import Amazonka.Route53.ListCidrCollections
+import Amazonka.Route53.ListCidrLocations
 import Amazonka.Route53.ListGeoLocations
 import Amazonka.Route53.ListHealthChecks
 import Amazonka.Route53.ListHostedZones

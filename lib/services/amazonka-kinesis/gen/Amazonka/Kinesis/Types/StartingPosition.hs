@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.Types.StartingPosition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.Kinesis.Types.StartingPosition where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types.ShardIteratorType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- |
+-- | The starting position in the data stream from which to start streaming.
 --
 -- /See:/ 'newStartingPosition' smart constructor.
 data StartingPosition = StartingPosition'
@@ -40,7 +41,7 @@ data StartingPosition = StartingPosition'
     -- streamed from the next (later) record. If the time stamp is older than
     -- the current trim horizon, records will be streamed from the oldest
     -- untrimmed data record (@TRIM_HORIZON@).
-    timestamp :: Prelude.Maybe Core.POSIX,
+    timestamp :: Prelude.Maybe Data.POSIX,
     -- | You can set the starting position to one of the following values:
     --
     -- @AT_SEQUENCE_NUMBER@: Start streaming from the position denoted by the
@@ -124,7 +125,7 @@ startingPosition_sequenceNumber = Lens.lens (\StartingPosition' {sequenceNumber}
 -- the current trim horizon, records will be streamed from the oldest
 -- untrimmed data record (@TRIM_HORIZON@).
 startingPosition_timestamp :: Lens.Lens' StartingPosition (Prelude.Maybe Prelude.UTCTime)
-startingPosition_timestamp = Lens.lens (\StartingPosition' {timestamp} -> timestamp) (\s@StartingPosition' {} a -> s {timestamp = a} :: StartingPosition) Prelude.. Lens.mapping Core._Time
+startingPosition_timestamp = Lens.lens (\StartingPosition' {timestamp} -> timestamp) (\s@StartingPosition' {} a -> s {timestamp = a} :: StartingPosition) Prelude.. Lens.mapping Data._Time
 
 -- | You can set the starting position to one of the following values:
 --
@@ -157,13 +158,13 @@ instance Prelude.NFData StartingPosition where
       `Prelude.seq` Prelude.rnf timestamp
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON StartingPosition where
+instance Data.ToJSON StartingPosition where
   toJSON StartingPosition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SequenceNumber" Core..=)
+          [ ("SequenceNumber" Data..=)
               Prelude.<$> sequenceNumber,
-            ("Timestamp" Core..=) Prelude.<$> timestamp,
-            Prelude.Just ("Type" Core..= type')
+            ("Timestamp" Data..=) Prelude.<$> timestamp,
+            Prelude.Just ("Type" Data..= type')
           ]
       )

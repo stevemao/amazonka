@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.DecisionTaskCompletedEventAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.DecisionTaskCompletedEventAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides the details of the @DecisionTaskCompleted@ event.
@@ -93,17 +94,17 @@ decisionTaskCompletedEventAttributes_startedEventId :: Lens.Lens' DecisionTaskCo
 decisionTaskCompletedEventAttributes_startedEventId = Lens.lens (\DecisionTaskCompletedEventAttributes' {startedEventId} -> startedEventId) (\s@DecisionTaskCompletedEventAttributes' {} a -> s {startedEventId = a} :: DecisionTaskCompletedEventAttributes)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     DecisionTaskCompletedEventAttributes
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DecisionTaskCompletedEventAttributes"
       ( \x ->
           DecisionTaskCompletedEventAttributes'
-            Prelude.<$> (x Core..:? "executionContext")
-            Prelude.<*> (x Core..: "scheduledEventId")
-            Prelude.<*> (x Core..: "startedEventId")
+            Prelude.<$> (x Data..:? "executionContext")
+            Prelude.<*> (x Data..: "scheduledEventId")
+            Prelude.<*> (x Data..: "startedEventId")
       )
 
 instance

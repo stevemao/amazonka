@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.DeleteRouteCalculator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Location.DeleteRouteCalculator
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -81,7 +82,8 @@ instance Core.AWSRequest DeleteRouteCalculator where
   type
     AWSResponse DeleteRouteCalculator =
       DeleteRouteCalculatorResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -97,23 +99,23 @@ instance Prelude.NFData DeleteRouteCalculator where
   rnf DeleteRouteCalculator' {..} =
     Prelude.rnf calculatorName
 
-instance Core.ToHeaders DeleteRouteCalculator where
+instance Data.ToHeaders DeleteRouteCalculator where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteRouteCalculator where
+instance Data.ToPath DeleteRouteCalculator where
   toPath DeleteRouteCalculator' {..} =
     Prelude.mconcat
-      ["/routes/v0/calculators/", Core.toBS calculatorName]
+      ["/routes/v0/calculators/", Data.toBS calculatorName]
 
-instance Core.ToQuery DeleteRouteCalculator where
+instance Data.ToQuery DeleteRouteCalculator where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRouteCalculatorResponse' smart constructor.

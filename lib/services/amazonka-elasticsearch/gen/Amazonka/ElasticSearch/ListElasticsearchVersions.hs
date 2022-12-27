@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.ListElasticsearchVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,23 +29,24 @@ module Amazonka.ElasticSearch.ListElasticsearchVersions
     newListElasticsearchVersions,
 
     -- * Request Lenses
-    listElasticsearchVersions_nextToken,
     listElasticsearchVersions_maxResults,
+    listElasticsearchVersions_nextToken,
 
     -- * Destructuring the Response
     ListElasticsearchVersionsResponse (..),
     newListElasticsearchVersionsResponse,
 
     -- * Response Lenses
-    listElasticsearchVersionsResponse_nextToken,
     listElasticsearchVersionsResponse_elasticsearchVersions,
+    listElasticsearchVersionsResponse_nextToken,
     listElasticsearchVersionsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,10 +63,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListElasticsearchVersions' smart constructor.
 data ListElasticsearchVersions = ListElasticsearchVersions'
-  { nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Set this value to limit the number of results returned. Value provided
+  { -- | Set this value to limit the number of results returned. Value provided
     -- must be greater than 10 else it wont be honored.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -77,27 +78,27 @@ data ListElasticsearchVersions = ListElasticsearchVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listElasticsearchVersions_nextToken' - Undocumented member.
---
 -- 'maxResults', 'listElasticsearchVersions_maxResults' - Set this value to limit the number of results returned. Value provided
 -- must be greater than 10 else it wont be honored.
+--
+-- 'nextToken', 'listElasticsearchVersions_nextToken' - Undocumented member.
 newListElasticsearchVersions ::
   ListElasticsearchVersions
 newListElasticsearchVersions =
   ListElasticsearchVersions'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | Undocumented member.
-listElasticsearchVersions_nextToken :: Lens.Lens' ListElasticsearchVersions (Prelude.Maybe Prelude.Text)
-listElasticsearchVersions_nextToken = Lens.lens (\ListElasticsearchVersions' {nextToken} -> nextToken) (\s@ListElasticsearchVersions' {} a -> s {nextToken = a} :: ListElasticsearchVersions)
 
 -- | Set this value to limit the number of results returned. Value provided
 -- must be greater than 10 else it wont be honored.
 listElasticsearchVersions_maxResults :: Lens.Lens' ListElasticsearchVersions (Prelude.Maybe Prelude.Int)
 listElasticsearchVersions_maxResults = Lens.lens (\ListElasticsearchVersions' {maxResults} -> maxResults) (\s@ListElasticsearchVersions' {} a -> s {maxResults = a} :: ListElasticsearchVersions)
+
+-- | Undocumented member.
+listElasticsearchVersions_nextToken :: Lens.Lens' ListElasticsearchVersions (Prelude.Maybe Prelude.Text)
+listElasticsearchVersions_nextToken = Lens.lens (\ListElasticsearchVersions' {nextToken} -> nextToken) (\s@ListElasticsearchVersions' {} a -> s {nextToken = a} :: ListElasticsearchVersions)
 
 instance Core.AWSPager ListElasticsearchVersions where
   page rq rs
@@ -125,39 +126,40 @@ instance Core.AWSRequest ListElasticsearchVersions where
   type
     AWSResponse ListElasticsearchVersions =
       ListElasticsearchVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListElasticsearchVersionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "ElasticsearchVersions"
+            Prelude.<$> ( x Data..?> "ElasticsearchVersions"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListElasticsearchVersions where
   hashWithSalt _salt ListElasticsearchVersions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListElasticsearchVersions where
   rnf ListElasticsearchVersions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListElasticsearchVersions where
+instance Data.ToHeaders ListElasticsearchVersions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListElasticsearchVersions where
+instance Data.ToPath ListElasticsearchVersions where
   toPath = Prelude.const "/2015-01-01/es/versions"
 
-instance Core.ToQuery ListElasticsearchVersions where
+instance Data.ToQuery ListElasticsearchVersions where
   toQuery ListElasticsearchVersions' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | Container for the parameters for response received from
@@ -165,8 +167,8 @@ instance Core.ToQuery ListElasticsearchVersions where
 --
 -- /See:/ 'newListElasticsearchVersionsResponse' smart constructor.
 data ListElasticsearchVersionsResponse = ListElasticsearchVersionsResponse'
-  { nextToken :: Prelude.Maybe Prelude.Text,
-    elasticsearchVersions :: Prelude.Maybe [Prelude.Text],
+  { elasticsearchVersions :: Prelude.Maybe [Prelude.Text],
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -180,9 +182,9 @@ data ListElasticsearchVersionsResponse = ListElasticsearchVersionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listElasticsearchVersionsResponse_nextToken' - Undocumented member.
---
 -- 'elasticsearchVersions', 'listElasticsearchVersionsResponse_elasticsearchVersions' - Undocumented member.
+--
+-- 'nextToken', 'listElasticsearchVersionsResponse_nextToken' - Undocumented member.
 --
 -- 'httpStatus', 'listElasticsearchVersionsResponse_httpStatus' - The response's http status code.
 newListElasticsearchVersionsResponse ::
@@ -191,19 +193,19 @@ newListElasticsearchVersionsResponse ::
   ListElasticsearchVersionsResponse
 newListElasticsearchVersionsResponse pHttpStatus_ =
   ListElasticsearchVersionsResponse'
-    { nextToken =
+    { elasticsearchVersions =
         Prelude.Nothing,
-      elasticsearchVersions = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-listElasticsearchVersionsResponse_nextToken :: Lens.Lens' ListElasticsearchVersionsResponse (Prelude.Maybe Prelude.Text)
-listElasticsearchVersionsResponse_nextToken = Lens.lens (\ListElasticsearchVersionsResponse' {nextToken} -> nextToken) (\s@ListElasticsearchVersionsResponse' {} a -> s {nextToken = a} :: ListElasticsearchVersionsResponse)
-
--- | Undocumented member.
 listElasticsearchVersionsResponse_elasticsearchVersions :: Lens.Lens' ListElasticsearchVersionsResponse (Prelude.Maybe [Prelude.Text])
 listElasticsearchVersionsResponse_elasticsearchVersions = Lens.lens (\ListElasticsearchVersionsResponse' {elasticsearchVersions} -> elasticsearchVersions) (\s@ListElasticsearchVersionsResponse' {} a -> s {elasticsearchVersions = a} :: ListElasticsearchVersionsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Undocumented member.
+listElasticsearchVersionsResponse_nextToken :: Lens.Lens' ListElasticsearchVersionsResponse (Prelude.Maybe Prelude.Text)
+listElasticsearchVersionsResponse_nextToken = Lens.lens (\ListElasticsearchVersionsResponse' {nextToken} -> nextToken) (\s@ListElasticsearchVersionsResponse' {} a -> s {nextToken = a} :: ListElasticsearchVersionsResponse)
 
 -- | The response's http status code.
 listElasticsearchVersionsResponse_httpStatus :: Lens.Lens' ListElasticsearchVersionsResponse Prelude.Int
@@ -214,6 +216,6 @@ instance
     ListElasticsearchVersionsResponse
   where
   rnf ListElasticsearchVersionsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf elasticsearchVersions
+    Prelude.rnf elasticsearchVersions
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.Types.IdentityProviderConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,16 @@
 module Amazonka.EKS.Types.IdentityProviderConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing an identity provider configuration.
 --
 -- /See:/ 'newIdentityProviderConfig' smart constructor.
 data IdentityProviderConfig = IdentityProviderConfig'
-  { -- | The type of the identity provider configuration.
+  { -- | The type of the identity provider configuration. The only type available
+    -- is @oidc@.
     type' :: Prelude.Text,
     -- | The name of the identity provider configuration.
     name :: Prelude.Text
@@ -42,7 +44,8 @@ data IdentityProviderConfig = IdentityProviderConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'type'', 'identityProviderConfig_type' - The type of the identity provider configuration.
+-- 'type'', 'identityProviderConfig_type' - The type of the identity provider configuration. The only type available
+-- is @oidc@.
 --
 -- 'name', 'identityProviderConfig_name' - The name of the identity provider configuration.
 newIdentityProviderConfig ::
@@ -57,7 +60,8 @@ newIdentityProviderConfig pType_ pName_ =
       name = pName_
     }
 
--- | The type of the identity provider configuration.
+-- | The type of the identity provider configuration. The only type available
+-- is @oidc@.
 identityProviderConfig_type :: Lens.Lens' IdentityProviderConfig Prelude.Text
 identityProviderConfig_type = Lens.lens (\IdentityProviderConfig' {type'} -> type') (\s@IdentityProviderConfig' {} a -> s {type' = a} :: IdentityProviderConfig)
 
@@ -65,13 +69,13 @@ identityProviderConfig_type = Lens.lens (\IdentityProviderConfig' {type'} -> typ
 identityProviderConfig_name :: Lens.Lens' IdentityProviderConfig Prelude.Text
 identityProviderConfig_name = Lens.lens (\IdentityProviderConfig' {name} -> name) (\s@IdentityProviderConfig' {} a -> s {name = a} :: IdentityProviderConfig)
 
-instance Core.FromJSON IdentityProviderConfig where
+instance Data.FromJSON IdentityProviderConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IdentityProviderConfig"
       ( \x ->
           IdentityProviderConfig'
-            Prelude.<$> (x Core..: "type") Prelude.<*> (x Core..: "name")
+            Prelude.<$> (x Data..: "type") Prelude.<*> (x Data..: "name")
       )
 
 instance Prelude.Hashable IdentityProviderConfig where
@@ -83,11 +87,11 @@ instance Prelude.NFData IdentityProviderConfig where
   rnf IdentityProviderConfig' {..} =
     Prelude.rnf type' `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON IdentityProviderConfig where
+instance Data.ToJSON IdentityProviderConfig where
   toJSON IdentityProviderConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("type" Core..= type'),
-            Prelude.Just ("name" Core..= name)
+          [ Prelude.Just ("type" Data..= type'),
+            Prelude.Just ("name" Data..= name)
           ]
       )

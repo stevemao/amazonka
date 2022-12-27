@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.GetBucketsAggregation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.IoT.GetBucketsAggregation
     newGetBucketsAggregation,
 
     -- * Request Lenses
-    getBucketsAggregation_queryVersion,
     getBucketsAggregation_indexName,
+    getBucketsAggregation_queryVersion,
     getBucketsAggregation_queryString,
     getBucketsAggregation_aggregationField,
     getBucketsAggregation_bucketsAggregationType,
@@ -50,18 +50,19 @@ module Amazonka.IoT.GetBucketsAggregation
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetBucketsAggregation' smart constructor.
 data GetBucketsAggregation = GetBucketsAggregation'
-  { -- | The version of the query.
-    queryVersion :: Prelude.Maybe Prelude.Text,
-    -- | The name of the index to search.
+  { -- | The name of the index to search.
     indexName :: Prelude.Maybe Prelude.Text,
+    -- | The version of the query.
+    queryVersion :: Prelude.Maybe Prelude.Text,
     -- | The search query string.
     queryString :: Prelude.Text,
     -- | The aggregation field.
@@ -80,9 +81,9 @@ data GetBucketsAggregation = GetBucketsAggregation'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'queryVersion', 'getBucketsAggregation_queryVersion' - The version of the query.
---
 -- 'indexName', 'getBucketsAggregation_indexName' - The name of the index to search.
+--
+-- 'queryVersion', 'getBucketsAggregation_queryVersion' - The version of the query.
 --
 -- 'queryString', 'getBucketsAggregation_queryString' - The search query string.
 --
@@ -103,21 +104,20 @@ newGetBucketsAggregation
   pAggregationField_
   pBucketsAggregationType_ =
     GetBucketsAggregation'
-      { queryVersion =
-          Prelude.Nothing,
-        indexName = Prelude.Nothing,
+      { indexName = Prelude.Nothing,
+        queryVersion = Prelude.Nothing,
         queryString = pQueryString_,
         aggregationField = pAggregationField_,
         bucketsAggregationType = pBucketsAggregationType_
       }
 
--- | The version of the query.
-getBucketsAggregation_queryVersion :: Lens.Lens' GetBucketsAggregation (Prelude.Maybe Prelude.Text)
-getBucketsAggregation_queryVersion = Lens.lens (\GetBucketsAggregation' {queryVersion} -> queryVersion) (\s@GetBucketsAggregation' {} a -> s {queryVersion = a} :: GetBucketsAggregation)
-
 -- | The name of the index to search.
 getBucketsAggregation_indexName :: Lens.Lens' GetBucketsAggregation (Prelude.Maybe Prelude.Text)
 getBucketsAggregation_indexName = Lens.lens (\GetBucketsAggregation' {indexName} -> indexName) (\s@GetBucketsAggregation' {} a -> s {indexName = a} :: GetBucketsAggregation)
+
+-- | The version of the query.
+getBucketsAggregation_queryVersion :: Lens.Lens' GetBucketsAggregation (Prelude.Maybe Prelude.Text)
+getBucketsAggregation_queryVersion = Lens.lens (\GetBucketsAggregation' {queryVersion} -> queryVersion) (\s@GetBucketsAggregation' {} a -> s {queryVersion = a} :: GetBucketsAggregation)
 
 -- | The search query string.
 getBucketsAggregation_queryString :: Lens.Lens' GetBucketsAggregation Prelude.Text
@@ -136,55 +136,56 @@ instance Core.AWSRequest GetBucketsAggregation where
   type
     AWSResponse GetBucketsAggregation =
       GetBucketsAggregationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBucketsAggregationResponse'
-            Prelude.<$> (x Core..?> "buckets" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "totalCount")
+            Prelude.<$> (x Data..?> "buckets" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "totalCount")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetBucketsAggregation where
   hashWithSalt _salt GetBucketsAggregation' {..} =
-    _salt `Prelude.hashWithSalt` queryVersion
-      `Prelude.hashWithSalt` indexName
+    _salt `Prelude.hashWithSalt` indexName
+      `Prelude.hashWithSalt` queryVersion
       `Prelude.hashWithSalt` queryString
       `Prelude.hashWithSalt` aggregationField
       `Prelude.hashWithSalt` bucketsAggregationType
 
 instance Prelude.NFData GetBucketsAggregation where
   rnf GetBucketsAggregation' {..} =
-    Prelude.rnf queryVersion
-      `Prelude.seq` Prelude.rnf indexName
+    Prelude.rnf indexName
+      `Prelude.seq` Prelude.rnf queryVersion
       `Prelude.seq` Prelude.rnf queryString
       `Prelude.seq` Prelude.rnf aggregationField
       `Prelude.seq` Prelude.rnf bucketsAggregationType
 
-instance Core.ToHeaders GetBucketsAggregation where
+instance Data.ToHeaders GetBucketsAggregation where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON GetBucketsAggregation where
+instance Data.ToJSON GetBucketsAggregation where
   toJSON GetBucketsAggregation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("queryVersion" Core..=) Prelude.<$> queryVersion,
-            ("indexName" Core..=) Prelude.<$> indexName,
-            Prelude.Just ("queryString" Core..= queryString),
+          [ ("indexName" Data..=) Prelude.<$> indexName,
+            ("queryVersion" Data..=) Prelude.<$> queryVersion,
+            Prelude.Just ("queryString" Data..= queryString),
             Prelude.Just
-              ("aggregationField" Core..= aggregationField),
+              ("aggregationField" Data..= aggregationField),
             Prelude.Just
               ( "bucketsAggregationType"
-                  Core..= bucketsAggregationType
+                  Data..= bucketsAggregationType
               )
           ]
       )
 
-instance Core.ToPath GetBucketsAggregation where
+instance Data.ToPath GetBucketsAggregation where
   toPath = Prelude.const "/indices/buckets"
 
-instance Core.ToQuery GetBucketsAggregation where
+instance Data.ToQuery GetBucketsAggregation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetBucketsAggregationResponse' smart constructor.
@@ -197,8 +198,7 @@ data GetBucketsAggregationResponse = GetBucketsAggregationResponse'
     --
     -- @count@: The number of documents that have that value.
     buckets :: Prelude.Maybe [Bucket],
-    -- | The total number of documents that fit the query string criteria and
-    -- contain a value for the Aggregation field targeted in the request.
+    -- | The total number of things that fit the query string criteria.
     totalCount :: Prelude.Maybe Prelude.Int,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -221,8 +221,7 @@ data GetBucketsAggregationResponse = GetBucketsAggregationResponse'
 --
 -- @count@: The number of documents that have that value.
 --
--- 'totalCount', 'getBucketsAggregationResponse_totalCount' - The total number of documents that fit the query string criteria and
--- contain a value for the Aggregation field targeted in the request.
+-- 'totalCount', 'getBucketsAggregationResponse_totalCount' - The total number of things that fit the query string criteria.
 --
 -- 'httpStatus', 'getBucketsAggregationResponse_httpStatus' - The response's http status code.
 newGetBucketsAggregationResponse ::
@@ -247,8 +246,7 @@ newGetBucketsAggregationResponse pHttpStatus_ =
 getBucketsAggregationResponse_buckets :: Lens.Lens' GetBucketsAggregationResponse (Prelude.Maybe [Bucket])
 getBucketsAggregationResponse_buckets = Lens.lens (\GetBucketsAggregationResponse' {buckets} -> buckets) (\s@GetBucketsAggregationResponse' {} a -> s {buckets = a} :: GetBucketsAggregationResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The total number of documents that fit the query string criteria and
--- contain a value for the Aggregation field targeted in the request.
+-- | The total number of things that fit the query string criteria.
 getBucketsAggregationResponse_totalCount :: Lens.Lens' GetBucketsAggregationResponse (Prelude.Maybe Prelude.Int)
 getBucketsAggregationResponse_totalCount = Lens.lens (\GetBucketsAggregationResponse' {totalCount} -> totalCount) (\s@GetBucketsAggregationResponse' {} a -> s {totalCount = a} :: GetBucketsAggregationResponse)
 

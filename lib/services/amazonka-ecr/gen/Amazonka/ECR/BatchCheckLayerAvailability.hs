@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.BatchCheckLayerAvailability
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,8 +51,9 @@ module Amazonka.ECR.BatchCheckLayerAvailability
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,13 +124,14 @@ instance Core.AWSRequest BatchCheckLayerAvailability where
   type
     AWSResponse BatchCheckLayerAvailability =
       BatchCheckLayerAvailabilityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchCheckLayerAvailabilityResponse'
-            Prelude.<$> (x Core..?> "failures" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "layers" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "failures" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "layers" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -145,36 +147,36 @@ instance Prelude.NFData BatchCheckLayerAvailability where
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf layerDigests
 
-instance Core.ToHeaders BatchCheckLayerAvailability where
+instance Data.ToHeaders BatchCheckLayerAvailability where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerRegistry_V20150921.BatchCheckLayerAvailability" ::
+              Data.=# ( "AmazonEC2ContainerRegistry_V20150921.BatchCheckLayerAvailability" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchCheckLayerAvailability where
+instance Data.ToJSON BatchCheckLayerAvailability where
   toJSON BatchCheckLayerAvailability' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("registryId" Core..=) Prelude.<$> registryId,
+          [ ("registryId" Data..=) Prelude.<$> registryId,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
-            Prelude.Just ("layerDigests" Core..= layerDigests)
+              ("repositoryName" Data..= repositoryName),
+            Prelude.Just ("layerDigests" Data..= layerDigests)
           ]
       )
 
-instance Core.ToPath BatchCheckLayerAvailability where
+instance Data.ToPath BatchCheckLayerAvailability where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchCheckLayerAvailability where
+instance Data.ToQuery BatchCheckLayerAvailability where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchCheckLayerAvailabilityResponse' smart constructor.

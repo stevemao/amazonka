@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.UpdateDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.IoTWireless.UpdateDestination
     newUpdateDestination,
 
     -- * Request Lenses
-    updateDestination_expressionType,
-    updateDestination_expression,
     updateDestination_description,
+    updateDestination_expression,
+    updateDestination_expressionType,
     updateDestination_roleArn,
     updateDestination_name,
 
@@ -43,20 +43,21 @@ module Amazonka.IoTWireless.UpdateDestination
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateDestination' smart constructor.
 data UpdateDestination = UpdateDestination'
-  { -- | The type of value in @Expression@.
-    expressionType :: Prelude.Maybe ExpressionType,
+  { -- | A new description of the resource.
+    description :: Prelude.Maybe Prelude.Text,
     -- | The new rule name or topic rule to send messages to.
     expression :: Prelude.Maybe Prelude.Text,
-    -- | A new description of the resource.
-    description :: Prelude.Maybe Prelude.Text,
+    -- | The type of value in @Expression@.
+    expressionType :: Prelude.Maybe ExpressionType,
     -- | The ARN of the IAM Role that authorizes the destination.
     roleArn :: Prelude.Maybe Prelude.Text,
     -- | The new name of the resource.
@@ -72,11 +73,11 @@ data UpdateDestination = UpdateDestination'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'expressionType', 'updateDestination_expressionType' - The type of value in @Expression@.
+-- 'description', 'updateDestination_description' - A new description of the resource.
 --
 -- 'expression', 'updateDestination_expression' - The new rule name or topic rule to send messages to.
 --
--- 'description', 'updateDestination_description' - A new description of the resource.
+-- 'expressionType', 'updateDestination_expressionType' - The type of value in @Expression@.
 --
 -- 'roleArn', 'updateDestination_roleArn' - The ARN of the IAM Role that authorizes the destination.
 --
@@ -87,25 +88,24 @@ newUpdateDestination ::
   UpdateDestination
 newUpdateDestination pName_ =
   UpdateDestination'
-    { expressionType =
-        Prelude.Nothing,
+    { description = Prelude.Nothing,
       expression = Prelude.Nothing,
-      description = Prelude.Nothing,
+      expressionType = Prelude.Nothing,
       roleArn = Prelude.Nothing,
       name = pName_
     }
 
--- | The type of value in @Expression@.
-updateDestination_expressionType :: Lens.Lens' UpdateDestination (Prelude.Maybe ExpressionType)
-updateDestination_expressionType = Lens.lens (\UpdateDestination' {expressionType} -> expressionType) (\s@UpdateDestination' {} a -> s {expressionType = a} :: UpdateDestination)
+-- | A new description of the resource.
+updateDestination_description :: Lens.Lens' UpdateDestination (Prelude.Maybe Prelude.Text)
+updateDestination_description = Lens.lens (\UpdateDestination' {description} -> description) (\s@UpdateDestination' {} a -> s {description = a} :: UpdateDestination)
 
 -- | The new rule name or topic rule to send messages to.
 updateDestination_expression :: Lens.Lens' UpdateDestination (Prelude.Maybe Prelude.Text)
 updateDestination_expression = Lens.lens (\UpdateDestination' {expression} -> expression) (\s@UpdateDestination' {} a -> s {expression = a} :: UpdateDestination)
 
--- | A new description of the resource.
-updateDestination_description :: Lens.Lens' UpdateDestination (Prelude.Maybe Prelude.Text)
-updateDestination_description = Lens.lens (\UpdateDestination' {description} -> description) (\s@UpdateDestination' {} a -> s {description = a} :: UpdateDestination)
+-- | The type of value in @Expression@.
+updateDestination_expressionType :: Lens.Lens' UpdateDestination (Prelude.Maybe ExpressionType)
+updateDestination_expressionType = Lens.lens (\UpdateDestination' {expressionType} -> expressionType) (\s@UpdateDestination' {} a -> s {expressionType = a} :: UpdateDestination)
 
 -- | The ARN of the IAM Role that authorizes the destination.
 updateDestination_roleArn :: Lens.Lens' UpdateDestination (Prelude.Maybe Prelude.Text)
@@ -119,7 +119,8 @@ instance Core.AWSRequest UpdateDestination where
   type
     AWSResponse UpdateDestination =
       UpdateDestinationResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -129,40 +130,40 @@ instance Core.AWSRequest UpdateDestination where
 
 instance Prelude.Hashable UpdateDestination where
   hashWithSalt _salt UpdateDestination' {..} =
-    _salt `Prelude.hashWithSalt` expressionType
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` expression
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` expressionType
       `Prelude.hashWithSalt` roleArn
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData UpdateDestination where
   rnf UpdateDestination' {..} =
-    Prelude.rnf expressionType
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf expression
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf expressionType
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders UpdateDestination where
+instance Data.ToHeaders UpdateDestination where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateDestination where
+instance Data.ToJSON UpdateDestination where
   toJSON UpdateDestination' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ExpressionType" Core..=)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Expression" Data..=) Prelude.<$> expression,
+            ("ExpressionType" Data..=)
               Prelude.<$> expressionType,
-            ("Expression" Core..=) Prelude.<$> expression,
-            ("Description" Core..=) Prelude.<$> description,
-            ("RoleArn" Core..=) Prelude.<$> roleArn
+            ("RoleArn" Data..=) Prelude.<$> roleArn
           ]
       )
 
-instance Core.ToPath UpdateDestination where
+instance Data.ToPath UpdateDestination where
   toPath UpdateDestination' {..} =
-    Prelude.mconcat ["/destinations/", Core.toBS name]
+    Prelude.mconcat ["/destinations/", Data.toBS name]
 
-instance Core.ToQuery UpdateDestination where
+instance Data.ToQuery UpdateDestination where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDestinationResponse' smart constructor.

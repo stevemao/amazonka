@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.Types.CustomRoutingAcceleratorAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,28 @@
 module Amazonka.GlobalAccelerator.Types.CustomRoutingAcceleratorAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Attributes of a custom routing accelerator.
 --
 -- /See:/ 'newCustomRoutingAcceleratorAttributes' smart constructor.
 data CustomRoutingAcceleratorAttributes = CustomRoutingAcceleratorAttributes'
-  { -- | The prefix for the location in the Amazon S3 bucket for the flow logs.
+  { -- | Indicates whether flow logs are enabled. The default value is false. If
+    -- the value is true, @FlowLogsS3Bucket@ and @FlowLogsS3Prefix@ must be
+    -- specified.
+    --
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/monitoring-global-accelerator.flow-logs.html Flow logs>
+    -- in the /Global Accelerator Developer Guide/.
+    flowLogsEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the Amazon S3 bucket for the flow logs. Attribute is
+    -- required if @FlowLogsEnabled@ is @true@. The bucket must exist and have
+    -- a bucket policy that grants Global Accelerator permission to write to
+    -- the bucket.
+    flowLogsS3Bucket :: Prelude.Maybe Prelude.Text,
+    -- | The prefix for the location in the Amazon S3 bucket for the flow logs.
     -- Attribute is required if @FlowLogsEnabled@ is @true@.
     --
     -- If you don’t specify a prefix, the flow logs are stored in the root of
@@ -36,20 +50,7 @@ data CustomRoutingAcceleratorAttributes = CustomRoutingAcceleratorAttributes'
     -- the following:
     --
     -- DOC-EXAMPLE-BUCKET\/\/AWSLogs\/aws_account_id
-    flowLogsS3Prefix :: Prelude.Maybe Prelude.Text,
-    -- | Indicates whether flow logs are enabled. The default value is false. If
-    -- the value is true, @FlowLogsS3Bucket@ and @FlowLogsS3Prefix@ must be
-    -- specified.
-    --
-    -- For more information, see
-    -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/monitoring-global-accelerator.flow-logs.html Flow Logs>
-    -- in the /AWS Global Accelerator Developer Guide/.
-    flowLogsEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | The name of the Amazon S3 bucket for the flow logs. Attribute is
-    -- required if @FlowLogsEnabled@ is @true@. The bucket must exist and have
-    -- a bucket policy that grants AWS Global Accelerator permission to write
-    -- to the bucket.
-    flowLogsS3Bucket :: Prelude.Maybe Prelude.Text
+    flowLogsS3Prefix :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -61,6 +62,19 @@ data CustomRoutingAcceleratorAttributes = CustomRoutingAcceleratorAttributes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'flowLogsEnabled', 'customRoutingAcceleratorAttributes_flowLogsEnabled' - Indicates whether flow logs are enabled. The default value is false. If
+-- the value is true, @FlowLogsS3Bucket@ and @FlowLogsS3Prefix@ must be
+-- specified.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/global-accelerator/latest/dg/monitoring-global-accelerator.flow-logs.html Flow logs>
+-- in the /Global Accelerator Developer Guide/.
+--
+-- 'flowLogsS3Bucket', 'customRoutingAcceleratorAttributes_flowLogsS3Bucket' - The name of the Amazon S3 bucket for the flow logs. Attribute is
+-- required if @FlowLogsEnabled@ is @true@. The bucket must exist and have
+-- a bucket policy that grants Global Accelerator permission to write to
+-- the bucket.
+--
 -- 'flowLogsS3Prefix', 'customRoutingAcceleratorAttributes_flowLogsS3Prefix' - The prefix for the location in the Amazon S3 bucket for the flow logs.
 -- Attribute is required if @FlowLogsEnabled@ is @true@.
 --
@@ -70,28 +84,32 @@ data CustomRoutingAcceleratorAttributes = CustomRoutingAcceleratorAttributes'
 -- the following:
 --
 -- DOC-EXAMPLE-BUCKET\/\/AWSLogs\/aws_account_id
---
--- 'flowLogsEnabled', 'customRoutingAcceleratorAttributes_flowLogsEnabled' - Indicates whether flow logs are enabled. The default value is false. If
--- the value is true, @FlowLogsS3Bucket@ and @FlowLogsS3Prefix@ must be
--- specified.
---
--- For more information, see
--- <https://docs.aws.amazon.com/global-accelerator/latest/dg/monitoring-global-accelerator.flow-logs.html Flow Logs>
--- in the /AWS Global Accelerator Developer Guide/.
---
--- 'flowLogsS3Bucket', 'customRoutingAcceleratorAttributes_flowLogsS3Bucket' - The name of the Amazon S3 bucket for the flow logs. Attribute is
--- required if @FlowLogsEnabled@ is @true@. The bucket must exist and have
--- a bucket policy that grants AWS Global Accelerator permission to write
--- to the bucket.
 newCustomRoutingAcceleratorAttributes ::
   CustomRoutingAcceleratorAttributes
 newCustomRoutingAcceleratorAttributes =
   CustomRoutingAcceleratorAttributes'
-    { flowLogsS3Prefix =
+    { flowLogsEnabled =
         Prelude.Nothing,
-      flowLogsEnabled = Prelude.Nothing,
-      flowLogsS3Bucket = Prelude.Nothing
+      flowLogsS3Bucket = Prelude.Nothing,
+      flowLogsS3Prefix = Prelude.Nothing
     }
+
+-- | Indicates whether flow logs are enabled. The default value is false. If
+-- the value is true, @FlowLogsS3Bucket@ and @FlowLogsS3Prefix@ must be
+-- specified.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/global-accelerator/latest/dg/monitoring-global-accelerator.flow-logs.html Flow logs>
+-- in the /Global Accelerator Developer Guide/.
+customRoutingAcceleratorAttributes_flowLogsEnabled :: Lens.Lens' CustomRoutingAcceleratorAttributes (Prelude.Maybe Prelude.Bool)
+customRoutingAcceleratorAttributes_flowLogsEnabled = Lens.lens (\CustomRoutingAcceleratorAttributes' {flowLogsEnabled} -> flowLogsEnabled) (\s@CustomRoutingAcceleratorAttributes' {} a -> s {flowLogsEnabled = a} :: CustomRoutingAcceleratorAttributes)
+
+-- | The name of the Amazon S3 bucket for the flow logs. Attribute is
+-- required if @FlowLogsEnabled@ is @true@. The bucket must exist and have
+-- a bucket policy that grants Global Accelerator permission to write to
+-- the bucket.
+customRoutingAcceleratorAttributes_flowLogsS3Bucket :: Lens.Lens' CustomRoutingAcceleratorAttributes (Prelude.Maybe Prelude.Text)
+customRoutingAcceleratorAttributes_flowLogsS3Bucket = Lens.lens (\CustomRoutingAcceleratorAttributes' {flowLogsS3Bucket} -> flowLogsS3Bucket) (\s@CustomRoutingAcceleratorAttributes' {} a -> s {flowLogsS3Bucket = a} :: CustomRoutingAcceleratorAttributes)
 
 -- | The prefix for the location in the Amazon S3 bucket for the flow logs.
 -- Attribute is required if @FlowLogsEnabled@ is @true@.
@@ -105,35 +123,18 @@ newCustomRoutingAcceleratorAttributes =
 customRoutingAcceleratorAttributes_flowLogsS3Prefix :: Lens.Lens' CustomRoutingAcceleratorAttributes (Prelude.Maybe Prelude.Text)
 customRoutingAcceleratorAttributes_flowLogsS3Prefix = Lens.lens (\CustomRoutingAcceleratorAttributes' {flowLogsS3Prefix} -> flowLogsS3Prefix) (\s@CustomRoutingAcceleratorAttributes' {} a -> s {flowLogsS3Prefix = a} :: CustomRoutingAcceleratorAttributes)
 
--- | Indicates whether flow logs are enabled. The default value is false. If
--- the value is true, @FlowLogsS3Bucket@ and @FlowLogsS3Prefix@ must be
--- specified.
---
--- For more information, see
--- <https://docs.aws.amazon.com/global-accelerator/latest/dg/monitoring-global-accelerator.flow-logs.html Flow Logs>
--- in the /AWS Global Accelerator Developer Guide/.
-customRoutingAcceleratorAttributes_flowLogsEnabled :: Lens.Lens' CustomRoutingAcceleratorAttributes (Prelude.Maybe Prelude.Bool)
-customRoutingAcceleratorAttributes_flowLogsEnabled = Lens.lens (\CustomRoutingAcceleratorAttributes' {flowLogsEnabled} -> flowLogsEnabled) (\s@CustomRoutingAcceleratorAttributes' {} a -> s {flowLogsEnabled = a} :: CustomRoutingAcceleratorAttributes)
-
--- | The name of the Amazon S3 bucket for the flow logs. Attribute is
--- required if @FlowLogsEnabled@ is @true@. The bucket must exist and have
--- a bucket policy that grants AWS Global Accelerator permission to write
--- to the bucket.
-customRoutingAcceleratorAttributes_flowLogsS3Bucket :: Lens.Lens' CustomRoutingAcceleratorAttributes (Prelude.Maybe Prelude.Text)
-customRoutingAcceleratorAttributes_flowLogsS3Bucket = Lens.lens (\CustomRoutingAcceleratorAttributes' {flowLogsS3Bucket} -> flowLogsS3Bucket) (\s@CustomRoutingAcceleratorAttributes' {} a -> s {flowLogsS3Bucket = a} :: CustomRoutingAcceleratorAttributes)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     CustomRoutingAcceleratorAttributes
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CustomRoutingAcceleratorAttributes"
       ( \x ->
           CustomRoutingAcceleratorAttributes'
-            Prelude.<$> (x Core..:? "FlowLogsS3Prefix")
-            Prelude.<*> (x Core..:? "FlowLogsEnabled")
-            Prelude.<*> (x Core..:? "FlowLogsS3Bucket")
+            Prelude.<$> (x Data..:? "FlowLogsEnabled")
+            Prelude.<*> (x Data..:? "FlowLogsS3Bucket")
+            Prelude.<*> (x Data..:? "FlowLogsS3Prefix")
       )
 
 instance
@@ -143,15 +144,15 @@ instance
   hashWithSalt
     _salt
     CustomRoutingAcceleratorAttributes' {..} =
-      _salt `Prelude.hashWithSalt` flowLogsS3Prefix
-        `Prelude.hashWithSalt` flowLogsEnabled
+      _salt `Prelude.hashWithSalt` flowLogsEnabled
         `Prelude.hashWithSalt` flowLogsS3Bucket
+        `Prelude.hashWithSalt` flowLogsS3Prefix
 
 instance
   Prelude.NFData
     CustomRoutingAcceleratorAttributes
   where
   rnf CustomRoutingAcceleratorAttributes' {..} =
-    Prelude.rnf flowLogsS3Prefix
-      `Prelude.seq` Prelude.rnf flowLogsEnabled
+    Prelude.rnf flowLogsEnabled
       `Prelude.seq` Prelude.rnf flowLogsS3Bucket
+      `Prelude.seq` Prelude.rnf flowLogsS3Prefix

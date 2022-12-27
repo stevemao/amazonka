@@ -14,21 +14,21 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.ListDeploymentStrategies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- List deployment strategies.
+-- Lists deployment strategies.
 module Amazonka.AppConfig.ListDeploymentStrategies
   ( -- * Creating a Request
     ListDeploymentStrategies (..),
     newListDeploymentStrategies,
 
     -- * Request Lenses
-    listDeploymentStrategies_nextToken,
     listDeploymentStrategies_maxResults,
+    listDeploymentStrategies_nextToken,
 
     -- * Destructuring the Response
     ListDeploymentStrategiesResponse (..),
@@ -43,20 +43,21 @@ where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDeploymentStrategies' smart constructor.
 data ListDeploymentStrategies = ListDeploymentStrategies'
-  { -- | A token to start the list. Use this token to get the next set of
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return for this call. The call also
+  { -- | The maximum number of items to return for this call. The call also
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token to start the list. Use this token to get the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,25 +69,20 @@ data ListDeploymentStrategies = ListDeploymentStrategies'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listDeploymentStrategies_nextToken' - A token to start the list. Use this token to get the next set of
--- results.
---
 -- 'maxResults', 'listDeploymentStrategies_maxResults' - The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
+--
+-- 'nextToken', 'listDeploymentStrategies_nextToken' - A token to start the list. Use this token to get the next set of
+-- results.
 newListDeploymentStrategies ::
   ListDeploymentStrategies
 newListDeploymentStrategies =
   ListDeploymentStrategies'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | A token to start the list. Use this token to get the next set of
--- results.
-listDeploymentStrategies_nextToken :: Lens.Lens' ListDeploymentStrategies (Prelude.Maybe Prelude.Text)
-listDeploymentStrategies_nextToken = Lens.lens (\ListDeploymentStrategies' {nextToken} -> nextToken) (\s@ListDeploymentStrategies' {} a -> s {nextToken = a} :: ListDeploymentStrategies)
 
 -- | The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
@@ -94,49 +90,55 @@ listDeploymentStrategies_nextToken = Lens.lens (\ListDeploymentStrategies' {next
 listDeploymentStrategies_maxResults :: Lens.Lens' ListDeploymentStrategies (Prelude.Maybe Prelude.Natural)
 listDeploymentStrategies_maxResults = Lens.lens (\ListDeploymentStrategies' {maxResults} -> maxResults) (\s@ListDeploymentStrategies' {} a -> s {maxResults = a} :: ListDeploymentStrategies)
 
+-- | A token to start the list. Use this token to get the next set of
+-- results.
+listDeploymentStrategies_nextToken :: Lens.Lens' ListDeploymentStrategies (Prelude.Maybe Prelude.Text)
+listDeploymentStrategies_nextToken = Lens.lens (\ListDeploymentStrategies' {nextToken} -> nextToken) (\s@ListDeploymentStrategies' {} a -> s {nextToken = a} :: ListDeploymentStrategies)
+
 instance Core.AWSRequest ListDeploymentStrategies where
   type
     AWSResponse ListDeploymentStrategies =
       ListDeploymentStrategiesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDeploymentStrategiesResponse'
-            Prelude.<$> (x Core..?> "Items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDeploymentStrategies where
   hashWithSalt _salt ListDeploymentStrategies' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDeploymentStrategies where
   rnf ListDeploymentStrategies' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDeploymentStrategies where
+instance Data.ToHeaders ListDeploymentStrategies where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListDeploymentStrategies where
+instance Data.ToPath ListDeploymentStrategies where
   toPath = Prelude.const "/deploymentstrategies"
 
-instance Core.ToQuery ListDeploymentStrategies where
+instance Data.ToQuery ListDeploymentStrategies where
   toQuery ListDeploymentStrategies' {..} =
     Prelude.mconcat
-      [ "next_token" Core.=: nextToken,
-        "max_results" Core.=: maxResults
+      [ "max_results" Data.=: maxResults,
+        "next_token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListDeploymentStrategiesResponse' smart constructor.

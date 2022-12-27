@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DLM.Types.CrossRegionCopyDeprecateRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,13 @@
 module Amazonka.DLM.Types.CrossRegionCopyDeprecateRule where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DLM.Types.RetentionIntervalUnitValues
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Specifies an AMI deprecation rule for cross-Region AMI copies created by
--- a cross-Region copy rule.
+-- | __[AMI policies only]__ Specifies an AMI deprecation rule for
+-- cross-Region AMI copies created by an AMI policy.
 --
 -- /See:/ 'newCrossRegionCopyDeprecateRule' smart constructor.
 data CrossRegionCopyDeprecateRule = CrossRegionCopyDeprecateRule'
@@ -34,7 +35,9 @@ data CrossRegionCopyDeprecateRule = CrossRegionCopyDeprecateRule'
     -- period, and it can\'t be greater than 10 years. This is equivalent to
     -- 120 months, 520 weeks, or 3650 days.
     interval :: Prelude.Maybe Prelude.Natural,
-    -- | The unit of time in which to measure the __Interval__.
+    -- | The unit of time in which to measure the __Interval__. For example, to
+    -- deprecate a cross-Region AMI copy after 3 months, specify @Interval=3@
+    -- and @IntervalUnit=MONTHS@.
     intervalUnit :: Prelude.Maybe RetentionIntervalUnitValues
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -52,7 +55,9 @@ data CrossRegionCopyDeprecateRule = CrossRegionCopyDeprecateRule'
 -- period, and it can\'t be greater than 10 years. This is equivalent to
 -- 120 months, 520 weeks, or 3650 days.
 --
--- 'intervalUnit', 'crossRegionCopyDeprecateRule_intervalUnit' - The unit of time in which to measure the __Interval__.
+-- 'intervalUnit', 'crossRegionCopyDeprecateRule_intervalUnit' - The unit of time in which to measure the __Interval__. For example, to
+-- deprecate a cross-Region AMI copy after 3 months, specify @Interval=3@
+-- and @IntervalUnit=MONTHS@.
 newCrossRegionCopyDeprecateRule ::
   CrossRegionCopyDeprecateRule
 newCrossRegionCopyDeprecateRule =
@@ -69,18 +74,20 @@ newCrossRegionCopyDeprecateRule =
 crossRegionCopyDeprecateRule_interval :: Lens.Lens' CrossRegionCopyDeprecateRule (Prelude.Maybe Prelude.Natural)
 crossRegionCopyDeprecateRule_interval = Lens.lens (\CrossRegionCopyDeprecateRule' {interval} -> interval) (\s@CrossRegionCopyDeprecateRule' {} a -> s {interval = a} :: CrossRegionCopyDeprecateRule)
 
--- | The unit of time in which to measure the __Interval__.
+-- | The unit of time in which to measure the __Interval__. For example, to
+-- deprecate a cross-Region AMI copy after 3 months, specify @Interval=3@
+-- and @IntervalUnit=MONTHS@.
 crossRegionCopyDeprecateRule_intervalUnit :: Lens.Lens' CrossRegionCopyDeprecateRule (Prelude.Maybe RetentionIntervalUnitValues)
 crossRegionCopyDeprecateRule_intervalUnit = Lens.lens (\CrossRegionCopyDeprecateRule' {intervalUnit} -> intervalUnit) (\s@CrossRegionCopyDeprecateRule' {} a -> s {intervalUnit = a} :: CrossRegionCopyDeprecateRule)
 
-instance Core.FromJSON CrossRegionCopyDeprecateRule where
+instance Data.FromJSON CrossRegionCopyDeprecateRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CrossRegionCopyDeprecateRule"
       ( \x ->
           CrossRegionCopyDeprecateRule'
-            Prelude.<$> (x Core..:? "Interval")
-            Prelude.<*> (x Core..:? "IntervalUnit")
+            Prelude.<$> (x Data..:? "Interval")
+            Prelude.<*> (x Data..:? "IntervalUnit")
       )
 
 instance
@@ -96,11 +103,11 @@ instance Prelude.NFData CrossRegionCopyDeprecateRule where
     Prelude.rnf interval
       `Prelude.seq` Prelude.rnf intervalUnit
 
-instance Core.ToJSON CrossRegionCopyDeprecateRule where
+instance Data.ToJSON CrossRegionCopyDeprecateRule where
   toJSON CrossRegionCopyDeprecateRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Interval" Core..=) Prelude.<$> interval,
-            ("IntervalUnit" Core..=) Prelude.<$> intervalUnit
+          [ ("Interval" Data..=) Prelude.<$> interval,
+            ("IntervalUnit" Data..=) Prelude.<$> intervalUnit
           ]
       )

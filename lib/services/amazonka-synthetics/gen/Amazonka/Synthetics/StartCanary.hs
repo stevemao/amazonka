@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Synthetics.StartCanary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Synthetics.StartCanary
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +80,8 @@ startCanary_name = Lens.lens (\StartCanary' {name} -> name) (\s@StartCanary' {} 
 
 instance Core.AWSRequest StartCanary where
   type AWSResponse StartCanary = StartCanaryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -94,26 +96,26 @@ instance Prelude.Hashable StartCanary where
 instance Prelude.NFData StartCanary where
   rnf StartCanary' {..} = Prelude.rnf name
 
-instance Core.ToHeaders StartCanary where
+instance Data.ToHeaders StartCanary where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartCanary where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON StartCanary where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath StartCanary where
+instance Data.ToPath StartCanary where
   toPath StartCanary' {..} =
     Prelude.mconcat
-      ["/canary/", Core.toBS name, "/start"]
+      ["/canary/", Data.toBS name, "/start"]
 
-instance Core.ToQuery StartCanary where
+instance Data.ToQuery StartCanary where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartCanaryResponse' smart constructor.

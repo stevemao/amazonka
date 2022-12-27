@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.DeleteMetricStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.CloudWatch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteMetricStream where
   type
     AWSResponse DeleteMetricStream =
       DeleteMetricStreamResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteMetricStreamResult"
@@ -92,20 +94,20 @@ instance Prelude.Hashable DeleteMetricStream where
 instance Prelude.NFData DeleteMetricStream where
   rnf DeleteMetricStream' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteMetricStream where
+instance Data.ToHeaders DeleteMetricStream where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteMetricStream where
+instance Data.ToPath DeleteMetricStream where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteMetricStream where
+instance Data.ToQuery DeleteMetricStream where
   toQuery DeleteMetricStream' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteMetricStream" :: Prelude.ByteString),
+          Data.=: ("DeleteMetricStream" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-08-01" :: Prelude.ByteString),
-        "Name" Core.=: name
+          Data.=: ("2010-08-01" :: Prelude.ByteString),
+        "Name" Data.=: name
       ]
 
 -- | /See:/ 'newDeleteMetricStreamResponse' smart constructor.

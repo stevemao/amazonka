@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyAvailabilityZoneGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.EC2.ModifyAvailabilityZoneGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -130,12 +131,13 @@ instance Core.AWSRequest ModifyAvailabilityZoneGroup where
   type
     AWSResponse ModifyAvailabilityZoneGroup =
       ModifyAvailabilityZoneGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ModifyAvailabilityZoneGroupResponse'
-            Prelude.<$> (x Core..@? "return")
+            Prelude.<$> (x Data..@? "return")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -151,24 +153,24 @@ instance Prelude.NFData ModifyAvailabilityZoneGroup where
       `Prelude.seq` Prelude.rnf groupName
       `Prelude.seq` Prelude.rnf optInStatus
 
-instance Core.ToHeaders ModifyAvailabilityZoneGroup where
+instance Data.ToHeaders ModifyAvailabilityZoneGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyAvailabilityZoneGroup where
+instance Data.ToPath ModifyAvailabilityZoneGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyAvailabilityZoneGroup where
+instance Data.ToQuery ModifyAvailabilityZoneGroup where
   toQuery ModifyAvailabilityZoneGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ModifyAvailabilityZoneGroup" ::
+          Data.=: ( "ModifyAvailabilityZoneGroup" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "GroupName" Core.=: groupName,
-        "OptInStatus" Core.=: optInStatus
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "GroupName" Data.=: groupName,
+        "OptInStatus" Data.=: optInStatus
       ]
 
 -- | /See:/ 'newModifyAvailabilityZoneGroupResponse' smart constructor.

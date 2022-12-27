@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Mobile.UpdateProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Mobile.UpdateProject
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Mobile.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -97,12 +98,13 @@ instance Core.AWSRequest UpdateProject where
   type
     AWSResponse UpdateProject =
       UpdateProjectResponse
-  request = Request.postBody defaultService
+  request overrides =
+    Request.postBody (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateProjectResponse'
-            Prelude.<$> (x Core..?> "details")
+            Prelude.<$> (x Data..?> "details")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,26 +118,26 @@ instance Prelude.NFData UpdateProject where
     Prelude.rnf contents
       `Prelude.seq` Prelude.rnf projectId
 
-instance Core.ToBody UpdateProject where
-  toBody UpdateProject' {..} = Core.toBody contents
+instance Data.ToBody UpdateProject where
+  toBody UpdateProject' {..} = Data.toBody contents
 
-instance Core.ToHeaders UpdateProject where
+instance Data.ToHeaders UpdateProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath UpdateProject where
+instance Data.ToPath UpdateProject where
   toPath = Prelude.const "/update"
 
-instance Core.ToQuery UpdateProject where
+instance Data.ToQuery UpdateProject where
   toQuery UpdateProject' {..} =
-    Prelude.mconcat ["projectId" Core.=: projectId]
+    Prelude.mconcat ["projectId" Data.=: projectId]
 
 -- | Result structure used for requests to updated project configuration.
 --

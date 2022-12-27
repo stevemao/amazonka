@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.DomainEndpointOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,23 @@
 module Amazonka.ElasticSearch.Types.DomainEndpointOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types.TLSSecurityPolicy
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Options to configure endpoint for the Elasticsearch domain.
 --
 -- /See:/ 'newDomainEndpointOptions' smart constructor.
 data DomainEndpointOptions = DomainEndpointOptions'
-  { -- | Specify if only HTTPS endpoint should be enabled for the Elasticsearch
+  { -- | Specify the fully qualified domain for your custom endpoint.
+    customEndpoint :: Prelude.Maybe Prelude.Text,
+    -- | Specify ACM certificate ARN for your custom endpoint.
+    customEndpointCertificateArn :: Prelude.Maybe Prelude.Text,
+    -- | Specify if custom endpoint should be enabled for the Elasticsearch
+    -- domain.
+    customEndpointEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | Specify if only HTTPS endpoint should be enabled for the Elasticsearch
     -- domain.
     enforceHTTPS :: Prelude.Maybe Prelude.Bool,
     -- | Specify the TLS security policy that needs to be applied to the HTTPS
@@ -39,14 +47,7 @@ data DomainEndpointOptions = DomainEndpointOptions'
     --     TLSv1.0 and higher.
     -- -   __Policy-Min-TLS-1-2-2019-07:__ TLS security policy which supports
     --     only TLSv1.2
-    tLSSecurityPolicy :: Prelude.Maybe TLSSecurityPolicy,
-    -- | Specify if custom endpoint should be enabled for the Elasticsearch
-    -- domain.
-    customEndpointEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | Specify the fully qualified domain for your custom endpoint.
-    customEndpoint :: Prelude.Maybe Prelude.Text,
-    -- | Specify ACM certificate ARN for your custom endpoint.
-    customEndpointCertificateArn :: Prelude.Maybe Prelude.Text
+    tLSSecurityPolicy :: Prelude.Maybe TLSSecurityPolicy
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -57,6 +58,13 @@ data DomainEndpointOptions = DomainEndpointOptions'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'customEndpoint', 'domainEndpointOptions_customEndpoint' - Specify the fully qualified domain for your custom endpoint.
+--
+-- 'customEndpointCertificateArn', 'domainEndpointOptions_customEndpointCertificateArn' - Specify ACM certificate ARN for your custom endpoint.
+--
+-- 'customEndpointEnabled', 'domainEndpointOptions_customEndpointEnabled' - Specify if custom endpoint should be enabled for the Elasticsearch
+-- domain.
 --
 -- 'enforceHTTPS', 'domainEndpointOptions_enforceHTTPS' - Specify if only HTTPS endpoint should be enabled for the Elasticsearch
 -- domain.
@@ -69,24 +77,30 @@ data DomainEndpointOptions = DomainEndpointOptions'
 --     TLSv1.0 and higher.
 -- -   __Policy-Min-TLS-1-2-2019-07:__ TLS security policy which supports
 --     only TLSv1.2
---
--- 'customEndpointEnabled', 'domainEndpointOptions_customEndpointEnabled' - Specify if custom endpoint should be enabled for the Elasticsearch
--- domain.
---
--- 'customEndpoint', 'domainEndpointOptions_customEndpoint' - Specify the fully qualified domain for your custom endpoint.
---
--- 'customEndpointCertificateArn', 'domainEndpointOptions_customEndpointCertificateArn' - Specify ACM certificate ARN for your custom endpoint.
 newDomainEndpointOptions ::
   DomainEndpointOptions
 newDomainEndpointOptions =
   DomainEndpointOptions'
-    { enforceHTTPS =
+    { customEndpoint =
         Prelude.Nothing,
-      tLSSecurityPolicy = Prelude.Nothing,
+      customEndpointCertificateArn = Prelude.Nothing,
       customEndpointEnabled = Prelude.Nothing,
-      customEndpoint = Prelude.Nothing,
-      customEndpointCertificateArn = Prelude.Nothing
+      enforceHTTPS = Prelude.Nothing,
+      tLSSecurityPolicy = Prelude.Nothing
     }
+
+-- | Specify the fully qualified domain for your custom endpoint.
+domainEndpointOptions_customEndpoint :: Lens.Lens' DomainEndpointOptions (Prelude.Maybe Prelude.Text)
+domainEndpointOptions_customEndpoint = Lens.lens (\DomainEndpointOptions' {customEndpoint} -> customEndpoint) (\s@DomainEndpointOptions' {} a -> s {customEndpoint = a} :: DomainEndpointOptions)
+
+-- | Specify ACM certificate ARN for your custom endpoint.
+domainEndpointOptions_customEndpointCertificateArn :: Lens.Lens' DomainEndpointOptions (Prelude.Maybe Prelude.Text)
+domainEndpointOptions_customEndpointCertificateArn = Lens.lens (\DomainEndpointOptions' {customEndpointCertificateArn} -> customEndpointCertificateArn) (\s@DomainEndpointOptions' {} a -> s {customEndpointCertificateArn = a} :: DomainEndpointOptions)
+
+-- | Specify if custom endpoint should be enabled for the Elasticsearch
+-- domain.
+domainEndpointOptions_customEndpointEnabled :: Lens.Lens' DomainEndpointOptions (Prelude.Maybe Prelude.Bool)
+domainEndpointOptions_customEndpointEnabled = Lens.lens (\DomainEndpointOptions' {customEndpointEnabled} -> customEndpointEnabled) (\s@DomainEndpointOptions' {} a -> s {customEndpointEnabled = a} :: DomainEndpointOptions)
 
 -- | Specify if only HTTPS endpoint should be enabled for the Elasticsearch
 -- domain.
@@ -104,60 +118,47 @@ domainEndpointOptions_enforceHTTPS = Lens.lens (\DomainEndpointOptions' {enforce
 domainEndpointOptions_tLSSecurityPolicy :: Lens.Lens' DomainEndpointOptions (Prelude.Maybe TLSSecurityPolicy)
 domainEndpointOptions_tLSSecurityPolicy = Lens.lens (\DomainEndpointOptions' {tLSSecurityPolicy} -> tLSSecurityPolicy) (\s@DomainEndpointOptions' {} a -> s {tLSSecurityPolicy = a} :: DomainEndpointOptions)
 
--- | Specify if custom endpoint should be enabled for the Elasticsearch
--- domain.
-domainEndpointOptions_customEndpointEnabled :: Lens.Lens' DomainEndpointOptions (Prelude.Maybe Prelude.Bool)
-domainEndpointOptions_customEndpointEnabled = Lens.lens (\DomainEndpointOptions' {customEndpointEnabled} -> customEndpointEnabled) (\s@DomainEndpointOptions' {} a -> s {customEndpointEnabled = a} :: DomainEndpointOptions)
-
--- | Specify the fully qualified domain for your custom endpoint.
-domainEndpointOptions_customEndpoint :: Lens.Lens' DomainEndpointOptions (Prelude.Maybe Prelude.Text)
-domainEndpointOptions_customEndpoint = Lens.lens (\DomainEndpointOptions' {customEndpoint} -> customEndpoint) (\s@DomainEndpointOptions' {} a -> s {customEndpoint = a} :: DomainEndpointOptions)
-
--- | Specify ACM certificate ARN for your custom endpoint.
-domainEndpointOptions_customEndpointCertificateArn :: Lens.Lens' DomainEndpointOptions (Prelude.Maybe Prelude.Text)
-domainEndpointOptions_customEndpointCertificateArn = Lens.lens (\DomainEndpointOptions' {customEndpointCertificateArn} -> customEndpointCertificateArn) (\s@DomainEndpointOptions' {} a -> s {customEndpointCertificateArn = a} :: DomainEndpointOptions)
-
-instance Core.FromJSON DomainEndpointOptions where
+instance Data.FromJSON DomainEndpointOptions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DomainEndpointOptions"
       ( \x ->
           DomainEndpointOptions'
-            Prelude.<$> (x Core..:? "EnforceHTTPS")
-            Prelude.<*> (x Core..:? "TLSSecurityPolicy")
-            Prelude.<*> (x Core..:? "CustomEndpointEnabled")
-            Prelude.<*> (x Core..:? "CustomEndpoint")
-            Prelude.<*> (x Core..:? "CustomEndpointCertificateArn")
+            Prelude.<$> (x Data..:? "CustomEndpoint")
+            Prelude.<*> (x Data..:? "CustomEndpointCertificateArn")
+            Prelude.<*> (x Data..:? "CustomEndpointEnabled")
+            Prelude.<*> (x Data..:? "EnforceHTTPS")
+            Prelude.<*> (x Data..:? "TLSSecurityPolicy")
       )
 
 instance Prelude.Hashable DomainEndpointOptions where
   hashWithSalt _salt DomainEndpointOptions' {..} =
-    _salt `Prelude.hashWithSalt` enforceHTTPS
-      `Prelude.hashWithSalt` tLSSecurityPolicy
-      `Prelude.hashWithSalt` customEndpointEnabled
-      `Prelude.hashWithSalt` customEndpoint
+    _salt `Prelude.hashWithSalt` customEndpoint
       `Prelude.hashWithSalt` customEndpointCertificateArn
+      `Prelude.hashWithSalt` customEndpointEnabled
+      `Prelude.hashWithSalt` enforceHTTPS
+      `Prelude.hashWithSalt` tLSSecurityPolicy
 
 instance Prelude.NFData DomainEndpointOptions where
   rnf DomainEndpointOptions' {..} =
-    Prelude.rnf enforceHTTPS
-      `Prelude.seq` Prelude.rnf tLSSecurityPolicy
-      `Prelude.seq` Prelude.rnf customEndpointEnabled
-      `Prelude.seq` Prelude.rnf customEndpoint
+    Prelude.rnf customEndpoint
       `Prelude.seq` Prelude.rnf customEndpointCertificateArn
+      `Prelude.seq` Prelude.rnf customEndpointEnabled
+      `Prelude.seq` Prelude.rnf enforceHTTPS
+      `Prelude.seq` Prelude.rnf tLSSecurityPolicy
 
-instance Core.ToJSON DomainEndpointOptions where
+instance Data.ToJSON DomainEndpointOptions where
   toJSON DomainEndpointOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EnforceHTTPS" Core..=) Prelude.<$> enforceHTTPS,
-            ("TLSSecurityPolicy" Core..=)
-              Prelude.<$> tLSSecurityPolicy,
-            ("CustomEndpointEnabled" Core..=)
-              Prelude.<$> customEndpointEnabled,
-            ("CustomEndpoint" Core..=)
+          [ ("CustomEndpoint" Data..=)
               Prelude.<$> customEndpoint,
-            ("CustomEndpointCertificateArn" Core..=)
-              Prelude.<$> customEndpointCertificateArn
+            ("CustomEndpointCertificateArn" Data..=)
+              Prelude.<$> customEndpointCertificateArn,
+            ("CustomEndpointEnabled" Data..=)
+              Prelude.<$> customEndpointEnabled,
+            ("EnforceHTTPS" Data..=) Prelude.<$> enforceHTTPS,
+            ("TLSSecurityPolicy" Data..=)
+              Prelude.<$> tLSSecurityPolicy
           ]
       )

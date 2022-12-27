@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DeleteClusterSecurityGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.Redshift.DeleteClusterSecurityGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -86,7 +87,8 @@ instance Core.AWSRequest DeleteClusterSecurityGroup where
   type
     AWSResponse DeleteClusterSecurityGroup =
       DeleteClusterSecurityGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DeleteClusterSecurityGroupResponse'
@@ -100,21 +102,21 @@ instance Prelude.NFData DeleteClusterSecurityGroup where
   rnf DeleteClusterSecurityGroup' {..} =
     Prelude.rnf clusterSecurityGroupName
 
-instance Core.ToHeaders DeleteClusterSecurityGroup where
+instance Data.ToHeaders DeleteClusterSecurityGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteClusterSecurityGroup where
+instance Data.ToPath DeleteClusterSecurityGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteClusterSecurityGroup where
+instance Data.ToQuery DeleteClusterSecurityGroup where
   toQuery DeleteClusterSecurityGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteClusterSecurityGroup" :: Prelude.ByteString),
+          Data.=: ("DeleteClusterSecurityGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
         "ClusterSecurityGroupName"
-          Core.=: clusterSecurityGroupName
+          Data.=: clusterSecurityGroupName
       ]
 
 -- | /See:/ 'newDeleteClusterSecurityGroupResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.SuspendProcesses
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -75,7 +76,7 @@ data SuspendProcesses = SuspendProcesses'
     --
     -- -   @ScheduledActions@
     --
-    -- If you omit this parameter, all processes are specified.
+    -- If you omit this property, all processes are specified.
     scalingProcesses :: Prelude.Maybe [Prelude.Text],
     -- | The name of the Auto Scaling group.
     autoScalingGroupName :: Prelude.Text
@@ -110,7 +111,7 @@ data SuspendProcesses = SuspendProcesses'
 --
 -- -   @ScheduledActions@
 --
--- If you omit this parameter, all processes are specified.
+-- If you omit this property, all processes are specified.
 --
 -- 'autoScalingGroupName', 'suspendProcesses_autoScalingGroupName' - The name of the Auto Scaling group.
 newSuspendProcesses ::
@@ -144,7 +145,7 @@ newSuspendProcesses pAutoScalingGroupName_ =
 --
 -- -   @ScheduledActions@
 --
--- If you omit this parameter, all processes are specified.
+-- If you omit this property, all processes are specified.
 suspendProcesses_scalingProcesses :: Lens.Lens' SuspendProcesses (Prelude.Maybe [Prelude.Text])
 suspendProcesses_scalingProcesses = Lens.lens (\SuspendProcesses' {scalingProcesses} -> scalingProcesses) (\s@SuspendProcesses' {} a -> s {scalingProcesses = a} :: SuspendProcesses) Prelude.. Lens.mapping Lens.coerced
 
@@ -156,7 +157,8 @@ instance Core.AWSRequest SuspendProcesses where
   type
     AWSResponse SuspendProcesses =
       SuspendProcessesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull SuspendProcessesResponse'
 
@@ -170,25 +172,25 @@ instance Prelude.NFData SuspendProcesses where
     Prelude.rnf scalingProcesses
       `Prelude.seq` Prelude.rnf autoScalingGroupName
 
-instance Core.ToHeaders SuspendProcesses where
+instance Data.ToHeaders SuspendProcesses where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SuspendProcesses where
+instance Data.ToPath SuspendProcesses where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SuspendProcesses where
+instance Data.ToQuery SuspendProcesses where
   toQuery SuspendProcesses' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SuspendProcesses" :: Prelude.ByteString),
+          Data.=: ("SuspendProcesses" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
         "ScalingProcesses"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> scalingProcesses
             ),
-        "AutoScalingGroupName" Core.=: autoScalingGroupName
+        "AutoScalingGroupName" Data.=: autoScalingGroupName
       ]
 
 -- | /See:/ 'newSuspendProcessesResponse' smart constructor.

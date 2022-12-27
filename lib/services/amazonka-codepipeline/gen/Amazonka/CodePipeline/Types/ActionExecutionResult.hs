@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.ActionExecutionResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,22 @@
 module Amazonka.CodePipeline.Types.ActionExecutionResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Execution result information, such as the external execution ID.
 --
 -- /See:/ 'newActionExecutionResult' smart constructor.
 data ActionExecutionResult = ActionExecutionResult'
-  { -- | The deepest external link to the external resource (for example, a
-    -- repository URL or deployment endpoint) that is used when running the
-    -- action.
-    externalExecutionUrl :: Prelude.Maybe Prelude.Text,
-    -- | The action provider\'s external ID for the action execution.
+  { -- | The action provider\'s external ID for the action execution.
     externalExecutionId :: Prelude.Maybe Prelude.Text,
     -- | The action provider\'s summary for the action execution.
-    externalExecutionSummary :: Prelude.Maybe Prelude.Text
+    externalExecutionSummary :: Prelude.Maybe Prelude.Text,
+    -- | The deepest external link to the external resource (for example, a
+    -- repository URL or deployment endpoint) that is used when running the
+    -- action.
+    externalExecutionUrl :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,28 +47,22 @@ data ActionExecutionResult = ActionExecutionResult'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'externalExecutionUrl', 'actionExecutionResult_externalExecutionUrl' - The deepest external link to the external resource (for example, a
--- repository URL or deployment endpoint) that is used when running the
--- action.
---
 -- 'externalExecutionId', 'actionExecutionResult_externalExecutionId' - The action provider\'s external ID for the action execution.
 --
 -- 'externalExecutionSummary', 'actionExecutionResult_externalExecutionSummary' - The action provider\'s summary for the action execution.
+--
+-- 'externalExecutionUrl', 'actionExecutionResult_externalExecutionUrl' - The deepest external link to the external resource (for example, a
+-- repository URL or deployment endpoint) that is used when running the
+-- action.
 newActionExecutionResult ::
   ActionExecutionResult
 newActionExecutionResult =
   ActionExecutionResult'
-    { externalExecutionUrl =
+    { externalExecutionId =
         Prelude.Nothing,
-      externalExecutionId = Prelude.Nothing,
-      externalExecutionSummary = Prelude.Nothing
+      externalExecutionSummary = Prelude.Nothing,
+      externalExecutionUrl = Prelude.Nothing
     }
-
--- | The deepest external link to the external resource (for example, a
--- repository URL or deployment endpoint) that is used when running the
--- action.
-actionExecutionResult_externalExecutionUrl :: Lens.Lens' ActionExecutionResult (Prelude.Maybe Prelude.Text)
-actionExecutionResult_externalExecutionUrl = Lens.lens (\ActionExecutionResult' {externalExecutionUrl} -> externalExecutionUrl) (\s@ActionExecutionResult' {} a -> s {externalExecutionUrl = a} :: ActionExecutionResult)
 
 -- | The action provider\'s external ID for the action execution.
 actionExecutionResult_externalExecutionId :: Lens.Lens' ActionExecutionResult (Prelude.Maybe Prelude.Text)
@@ -77,25 +72,31 @@ actionExecutionResult_externalExecutionId = Lens.lens (\ActionExecutionResult' {
 actionExecutionResult_externalExecutionSummary :: Lens.Lens' ActionExecutionResult (Prelude.Maybe Prelude.Text)
 actionExecutionResult_externalExecutionSummary = Lens.lens (\ActionExecutionResult' {externalExecutionSummary} -> externalExecutionSummary) (\s@ActionExecutionResult' {} a -> s {externalExecutionSummary = a} :: ActionExecutionResult)
 
-instance Core.FromJSON ActionExecutionResult where
+-- | The deepest external link to the external resource (for example, a
+-- repository URL or deployment endpoint) that is used when running the
+-- action.
+actionExecutionResult_externalExecutionUrl :: Lens.Lens' ActionExecutionResult (Prelude.Maybe Prelude.Text)
+actionExecutionResult_externalExecutionUrl = Lens.lens (\ActionExecutionResult' {externalExecutionUrl} -> externalExecutionUrl) (\s@ActionExecutionResult' {} a -> s {externalExecutionUrl = a} :: ActionExecutionResult)
+
+instance Data.FromJSON ActionExecutionResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActionExecutionResult"
       ( \x ->
           ActionExecutionResult'
-            Prelude.<$> (x Core..:? "externalExecutionUrl")
-            Prelude.<*> (x Core..:? "externalExecutionId")
-            Prelude.<*> (x Core..:? "externalExecutionSummary")
+            Prelude.<$> (x Data..:? "externalExecutionId")
+            Prelude.<*> (x Data..:? "externalExecutionSummary")
+            Prelude.<*> (x Data..:? "externalExecutionUrl")
       )
 
 instance Prelude.Hashable ActionExecutionResult where
   hashWithSalt _salt ActionExecutionResult' {..} =
-    _salt `Prelude.hashWithSalt` externalExecutionUrl
-      `Prelude.hashWithSalt` externalExecutionId
+    _salt `Prelude.hashWithSalt` externalExecutionId
       `Prelude.hashWithSalt` externalExecutionSummary
+      `Prelude.hashWithSalt` externalExecutionUrl
 
 instance Prelude.NFData ActionExecutionResult where
   rnf ActionExecutionResult' {..} =
-    Prelude.rnf externalExecutionUrl
-      `Prelude.seq` Prelude.rnf externalExecutionId
+    Prelude.rnf externalExecutionId
       `Prelude.seq` Prelude.rnf externalExecutionSummary
+      `Prelude.seq` Prelude.rnf externalExecutionUrl

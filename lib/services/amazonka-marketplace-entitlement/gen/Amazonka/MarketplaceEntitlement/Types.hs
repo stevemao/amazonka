@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.MarketplaceEntitlement.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,9 +18,9 @@ module Amazonka.MarketplaceEntitlement.Types
     defaultService,
 
     -- * Errors
+    _InternalServiceErrorException,
     _InvalidParameterException,
     _ThrottlingException,
-    _InternalServiceErrorException,
 
     -- * GetEntitlementFilterName
     GetEntitlementFilterName (..),
@@ -27,24 +28,24 @@ module Amazonka.MarketplaceEntitlement.Types
     -- * Entitlement
     Entitlement (..),
     newEntitlement,
-    entitlement_dimension,
-    entitlement_value,
-    entitlement_expirationDate,
     entitlement_customerIdentifier,
+    entitlement_dimension,
+    entitlement_expirationDate,
     entitlement_productCode,
+    entitlement_value,
 
     -- * EntitlementValue
     EntitlementValue (..),
     newEntitlementValue,
-    entitlementValue_integerValue,
-    entitlementValue_doubleValue,
-    entitlementValue_stringValue,
     entitlementValue_booleanValue,
+    entitlementValue_doubleValue,
+    entitlementValue_integerValue,
+    entitlementValue_stringValue,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.MarketplaceEntitlement.Types.Entitlement
 import Amazonka.MarketplaceEntitlement.Types.EntitlementValue
 import Amazonka.MarketplaceEntitlement.Types.GetEntitlementFilterName
@@ -55,44 +56,51 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev =
+    { Core.abbrev =
         "MarketplaceEntitlement",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix =
-        "entitlement.marketplace",
-      Core._serviceSigningName = "aws-marketplace",
-      Core._serviceVersion = "2017-01-11",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "entitlement.marketplace",
+      Core.signingName = "aws-marketplace",
+      Core.version = "2017-01-11",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error =
         Core.parseJSONError "MarketplaceEntitlement",
-      Core._serviceRetry = retry
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -100,29 +108,29 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
+
+-- | An internal error has occurred. Retry your request. If the problem
+-- persists, post a message with details on the AWS forums.
+_InternalServiceErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InternalServiceErrorException =
+  Core._MatchServiceError
+    defaultService
+    "InternalServiceErrorException"
 
 -- | One or more parameters in your request was invalid.
 _InvalidParameterException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -137,11 +145,3 @@ _ThrottlingException =
   Core._MatchServiceError
     defaultService
     "ThrottlingException"
-
--- | An internal error has occurred. Retry your request. If the problem
--- persists, post a message with details on the AWS forums.
-_InternalServiceErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InternalServiceErrorException =
-  Core._MatchServiceError
-    defaultService
-    "InternalServiceErrorException"

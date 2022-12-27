@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsElasticBeanstalkEnvironmentEnvironmentLink
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsElasticBeanstalkEnvironmentEnvironmentLink where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a link to another environment that is in the
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAwsElasticBeanstalkEnvironmentEnvironmentLink' smart constructor.
 data AwsElasticBeanstalkEnvironmentEnvironmentLink = AwsElasticBeanstalkEnvironmentEnvironmentLink'
-  { -- | The name of the environment link.
-    linkName :: Prelude.Maybe Prelude.Text,
-    -- | The name of the linked environment.
-    environmentName :: Prelude.Maybe Prelude.Text
+  { -- | The name of the linked environment.
+    environmentName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the environment link.
+    linkName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,38 +44,37 @@ data AwsElasticBeanstalkEnvironmentEnvironmentLink = AwsElasticBeanstalkEnvironm
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'linkName', 'awsElasticBeanstalkEnvironmentEnvironmentLink_linkName' - The name of the environment link.
---
 -- 'environmentName', 'awsElasticBeanstalkEnvironmentEnvironmentLink_environmentName' - The name of the linked environment.
+--
+-- 'linkName', 'awsElasticBeanstalkEnvironmentEnvironmentLink_linkName' - The name of the environment link.
 newAwsElasticBeanstalkEnvironmentEnvironmentLink ::
   AwsElasticBeanstalkEnvironmentEnvironmentLink
 newAwsElasticBeanstalkEnvironmentEnvironmentLink =
   AwsElasticBeanstalkEnvironmentEnvironmentLink'
-    { linkName =
+    { environmentName =
         Prelude.Nothing,
-      environmentName =
-        Prelude.Nothing
+      linkName = Prelude.Nothing
     }
-
--- | The name of the environment link.
-awsElasticBeanstalkEnvironmentEnvironmentLink_linkName :: Lens.Lens' AwsElasticBeanstalkEnvironmentEnvironmentLink (Prelude.Maybe Prelude.Text)
-awsElasticBeanstalkEnvironmentEnvironmentLink_linkName = Lens.lens (\AwsElasticBeanstalkEnvironmentEnvironmentLink' {linkName} -> linkName) (\s@AwsElasticBeanstalkEnvironmentEnvironmentLink' {} a -> s {linkName = a} :: AwsElasticBeanstalkEnvironmentEnvironmentLink)
 
 -- | The name of the linked environment.
 awsElasticBeanstalkEnvironmentEnvironmentLink_environmentName :: Lens.Lens' AwsElasticBeanstalkEnvironmentEnvironmentLink (Prelude.Maybe Prelude.Text)
 awsElasticBeanstalkEnvironmentEnvironmentLink_environmentName = Lens.lens (\AwsElasticBeanstalkEnvironmentEnvironmentLink' {environmentName} -> environmentName) (\s@AwsElasticBeanstalkEnvironmentEnvironmentLink' {} a -> s {environmentName = a} :: AwsElasticBeanstalkEnvironmentEnvironmentLink)
 
+-- | The name of the environment link.
+awsElasticBeanstalkEnvironmentEnvironmentLink_linkName :: Lens.Lens' AwsElasticBeanstalkEnvironmentEnvironmentLink (Prelude.Maybe Prelude.Text)
+awsElasticBeanstalkEnvironmentEnvironmentLink_linkName = Lens.lens (\AwsElasticBeanstalkEnvironmentEnvironmentLink' {linkName} -> linkName) (\s@AwsElasticBeanstalkEnvironmentEnvironmentLink' {} a -> s {linkName = a} :: AwsElasticBeanstalkEnvironmentEnvironmentLink)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsElasticBeanstalkEnvironmentEnvironmentLink
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsElasticBeanstalkEnvironmentEnvironmentLink"
       ( \x ->
           AwsElasticBeanstalkEnvironmentEnvironmentLink'
-            Prelude.<$> (x Core..:? "LinkName")
-              Prelude.<*> (x Core..:? "EnvironmentName")
+            Prelude.<$> (x Data..:? "EnvironmentName")
+              Prelude.<*> (x Data..:? "LinkName")
       )
 
 instance
@@ -84,8 +84,8 @@ instance
   hashWithSalt
     _salt
     AwsElasticBeanstalkEnvironmentEnvironmentLink' {..} =
-      _salt `Prelude.hashWithSalt` linkName
-        `Prelude.hashWithSalt` environmentName
+      _salt `Prelude.hashWithSalt` environmentName
+        `Prelude.hashWithSalt` linkName
 
 instance
   Prelude.NFData
@@ -93,19 +93,19 @@ instance
   where
   rnf
     AwsElasticBeanstalkEnvironmentEnvironmentLink' {..} =
-      Prelude.rnf linkName
-        `Prelude.seq` Prelude.rnf environmentName
+      Prelude.rnf environmentName
+        `Prelude.seq` Prelude.rnf linkName
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsElasticBeanstalkEnvironmentEnvironmentLink
   where
   toJSON
     AwsElasticBeanstalkEnvironmentEnvironmentLink' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("LinkName" Core..=) Prelude.<$> linkName,
-              ("EnvironmentName" Core..=)
-                Prelude.<$> environmentName
+            [ ("EnvironmentName" Data..=)
+                Prelude.<$> environmentName,
+              ("LinkName" Data..=) Prelude.<$> linkName
             ]
         )

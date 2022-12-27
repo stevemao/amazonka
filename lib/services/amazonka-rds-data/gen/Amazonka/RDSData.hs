@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.RDSData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,11 +14,14 @@
 -- Amazon RDS Data Service
 --
 -- Amazon RDS provides an HTTP endpoint to run SQL statements on an Amazon
--- Aurora Serverless DB cluster. To run these statements, you work with the
--- Data Service API.
+-- Aurora Serverless v1 DB cluster. To run these statements, you work with
+-- the Data Service API.
+--
+-- The Data Service API isn\'t supported on Amazon Aurora Serverless v2 DB
+-- clusters.
 --
 -- For more information about the Data Service API, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html Using the Data API for Aurora Serverless>
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/data-api.html Using the Data API>
 -- in the /Amazon Aurora User Guide/.
 module Amazonka.RDSData
   ( -- * Service Configuration
@@ -27,11 +30,17 @@ module Amazonka.RDSData
     -- * Errors
     -- $errors
 
-    -- ** StatementTimeoutException
-    _StatementTimeoutException,
+    -- ** AccessDeniedException
+    _AccessDeniedException,
+
+    -- ** BadRequestException
+    _BadRequestException,
 
     -- ** ForbiddenException
     _ForbiddenException,
+
+    -- ** InternalServerErrorException
+    _InternalServerErrorException,
 
     -- ** NotFoundException
     _NotFoundException,
@@ -39,11 +48,8 @@ module Amazonka.RDSData
     -- ** ServiceUnavailableError
     _ServiceUnavailableError,
 
-    -- ** InternalServerErrorException
-    _InternalServerErrorException,
-
-    -- ** BadRequestException
-    _BadRequestException,
+    -- ** StatementTimeoutException
+    _StatementTimeoutException,
 
     -- * Waiters
     -- $waiters
@@ -51,11 +57,11 @@ module Amazonka.RDSData
     -- * Operations
     -- $operations
 
-    -- ** RollbackTransaction
-    RollbackTransaction (RollbackTransaction'),
-    newRollbackTransaction,
-    RollbackTransactionResponse (RollbackTransactionResponse'),
-    newRollbackTransactionResponse,
+    -- ** BatchExecuteStatement
+    BatchExecuteStatement (BatchExecuteStatement'),
+    newBatchExecuteStatement,
+    BatchExecuteStatementResponse (BatchExecuteStatementResponse'),
+    newBatchExecuteStatementResponse,
 
     -- ** BeginTransaction
     BeginTransaction (BeginTransaction'),
@@ -63,11 +69,11 @@ module Amazonka.RDSData
     BeginTransactionResponse (BeginTransactionResponse'),
     newBeginTransactionResponse,
 
-    -- ** BatchExecuteStatement
-    BatchExecuteStatement (BatchExecuteStatement'),
-    newBatchExecuteStatement,
-    BatchExecuteStatementResponse (BatchExecuteStatementResponse'),
-    newBatchExecuteStatementResponse,
+    -- ** CommitTransaction
+    CommitTransaction (CommitTransaction'),
+    newCommitTransaction,
+    CommitTransactionResponse (CommitTransactionResponse'),
+    newCommitTransactionResponse,
 
     -- ** ExecuteStatement
     ExecuteStatement (ExecuteStatement'),
@@ -75,16 +81,22 @@ module Amazonka.RDSData
     ExecuteStatementResponse (ExecuteStatementResponse'),
     newExecuteStatementResponse,
 
-    -- ** CommitTransaction
-    CommitTransaction (CommitTransaction'),
-    newCommitTransaction,
-    CommitTransactionResponse (CommitTransactionResponse'),
-    newCommitTransactionResponse,
+    -- ** RollbackTransaction
+    RollbackTransaction (RollbackTransaction'),
+    newRollbackTransaction,
+    RollbackTransactionResponse (RollbackTransactionResponse'),
+    newRollbackTransactionResponse,
 
     -- * Types
 
     -- ** DecimalReturnType
     DecimalReturnType (..),
+
+    -- ** LongReturnType
+    LongReturnType (..),
+
+    -- ** RecordsFormatType
+    RecordsFormatType (..),
 
     -- ** TypeHint
     TypeHint (..),

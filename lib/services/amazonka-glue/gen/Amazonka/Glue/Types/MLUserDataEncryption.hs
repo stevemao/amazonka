@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.MLUserDataEncryption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Glue.Types.MLUserDataEncryption where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.MLUserDataEncryptionModeString
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The encryption-at-rest settings of the transform that apply to accessing
@@ -81,14 +82,14 @@ mLUserDataEncryption_kmsKeyId = Lens.lens (\MLUserDataEncryption' {kmsKeyId} -> 
 mLUserDataEncryption_mlUserDataEncryptionMode :: Lens.Lens' MLUserDataEncryption MLUserDataEncryptionModeString
 mLUserDataEncryption_mlUserDataEncryptionMode = Lens.lens (\MLUserDataEncryption' {mlUserDataEncryptionMode} -> mlUserDataEncryptionMode) (\s@MLUserDataEncryption' {} a -> s {mlUserDataEncryptionMode = a} :: MLUserDataEncryption)
 
-instance Core.FromJSON MLUserDataEncryption where
+instance Data.FromJSON MLUserDataEncryption where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MLUserDataEncryption"
       ( \x ->
           MLUserDataEncryption'
-            Prelude.<$> (x Core..:? "KmsKeyId")
-            Prelude.<*> (x Core..: "MlUserDataEncryptionMode")
+            Prelude.<$> (x Data..:? "KmsKeyId")
+            Prelude.<*> (x Data..: "MlUserDataEncryptionMode")
       )
 
 instance Prelude.Hashable MLUserDataEncryption where
@@ -101,14 +102,14 @@ instance Prelude.NFData MLUserDataEncryption where
     Prelude.rnf kmsKeyId
       `Prelude.seq` Prelude.rnf mlUserDataEncryptionMode
 
-instance Core.ToJSON MLUserDataEncryption where
+instance Data.ToJSON MLUserDataEncryption where
   toJSON MLUserDataEncryption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KmsKeyId" Core..=) Prelude.<$> kmsKeyId,
+          [ ("KmsKeyId" Data..=) Prelude.<$> kmsKeyId,
             Prelude.Just
               ( "MlUserDataEncryptionMode"
-                  Core..= mlUserDataEncryptionMode
+                  Data..= mlUserDataEncryptionMode
               )
           ]
       )

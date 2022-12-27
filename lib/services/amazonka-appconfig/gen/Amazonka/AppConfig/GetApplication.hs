@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.GetApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieve information about an application.
+-- Retrieves information about an application.
 module Amazonka.AppConfig.GetApplication
   ( -- * Creating a Request
     GetApplication (..),
@@ -34,15 +34,16 @@ module Amazonka.AppConfig.GetApplication
     newApplication,
 
     -- * Response Lenses
-    application_name,
-    application_id,
     application_description,
+    application_id,
+    application_name,
   )
 where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,10 +77,11 @@ getApplication_applicationId = Lens.lens (\GetApplication' {applicationId} -> ap
 
 instance Core.AWSRequest GetApplication where
   type AWSResponse GetApplication = Application
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetApplication where
   hashWithSalt _salt GetApplication' {..} =
@@ -88,21 +90,21 @@ instance Prelude.Hashable GetApplication where
 instance Prelude.NFData GetApplication where
   rnf GetApplication' {..} = Prelude.rnf applicationId
 
-instance Core.ToHeaders GetApplication where
+instance Data.ToHeaders GetApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetApplication where
+instance Data.ToPath GetApplication where
   toPath GetApplication' {..} =
     Prelude.mconcat
-      ["/applications/", Core.toBS applicationId]
+      ["/applications/", Data.toBS applicationId]
 
-instance Core.ToQuery GetApplication where
+instance Data.ToQuery GetApplication where
   toQuery = Prelude.const Prelude.mempty

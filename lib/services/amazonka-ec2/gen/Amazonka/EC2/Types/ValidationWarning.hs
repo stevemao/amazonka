@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ValidationWarning
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.ValidationWarning where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ValidationError
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The error codes and error messages that are returned for the parameters
@@ -54,11 +55,11 @@ newValidationWarning =
 validationWarning_errors :: Lens.Lens' ValidationWarning (Prelude.Maybe [ValidationError])
 validationWarning_errors = Lens.lens (\ValidationWarning' {errors} -> errors) (\s@ValidationWarning' {} a -> s {errors = a} :: ValidationWarning) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML ValidationWarning where
+instance Data.FromXML ValidationWarning where
   parseXML x =
     ValidationWarning'
-      Prelude.<$> ( x Core..@? "errorSet" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<$> ( x Data..@? "errorSet" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
 
 instance Prelude.Hashable ValidationWarning where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.AddThingsToThingGroupParams
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.AddThingsToThingGroupParams where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Parameters used when defining a mitigation action that move a set of
@@ -78,14 +79,14 @@ addThingsToThingGroupParams_overrideDynamicGroups = Lens.lens (\AddThingsToThing
 addThingsToThingGroupParams_thingGroupNames :: Lens.Lens' AddThingsToThingGroupParams (Prelude.NonEmpty Prelude.Text)
 addThingsToThingGroupParams_thingGroupNames = Lens.lens (\AddThingsToThingGroupParams' {thingGroupNames} -> thingGroupNames) (\s@AddThingsToThingGroupParams' {} a -> s {thingGroupNames = a} :: AddThingsToThingGroupParams) Prelude.. Lens.coerced
 
-instance Core.FromJSON AddThingsToThingGroupParams where
+instance Data.FromJSON AddThingsToThingGroupParams where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AddThingsToThingGroupParams"
       ( \x ->
           AddThingsToThingGroupParams'
-            Prelude.<$> (x Core..:? "overrideDynamicGroups")
-            Prelude.<*> (x Core..: "thingGroupNames")
+            Prelude.<$> (x Data..:? "overrideDynamicGroups")
+            Prelude.<*> (x Data..: "thingGroupNames")
       )
 
 instance Prelude.Hashable AddThingsToThingGroupParams where
@@ -98,13 +99,13 @@ instance Prelude.NFData AddThingsToThingGroupParams where
     Prelude.rnf overrideDynamicGroups
       `Prelude.seq` Prelude.rnf thingGroupNames
 
-instance Core.ToJSON AddThingsToThingGroupParams where
+instance Data.ToJSON AddThingsToThingGroupParams where
   toJSON AddThingsToThingGroupParams' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("overrideDynamicGroups" Core..=)
+          [ ("overrideDynamicGroups" Data..=)
               Prelude.<$> overrideDynamicGroups,
             Prelude.Just
-              ("thingGroupNames" Core..= thingGroupNames)
+              ("thingGroupNames" Data..= thingGroupNames)
           ]
       )

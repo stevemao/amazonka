@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.DataProcessing
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.DataProcessing where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.JoinSource
 
@@ -37,14 +38,13 @@ import Amazonka.SageMaker.Types.JoinSource
 data DataProcessing = DataProcessing'
   { -- | A
     -- <https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html#data-processing-operators JSONPath>
-    -- expression used to select a portion of the joined dataset to save in the
-    -- output file for a batch transform job. If you want Amazon SageMaker to
-    -- store the entire input dataset in the output file, leave the default
-    -- value, @$@. If you specify indexes that aren\'t within the dimension
-    -- size of the joined dataset, you get an error.
+    -- expression used to select a portion of the input data to pass to the
+    -- algorithm. Use the @InputFilter@ parameter to exclude fields, such as an
+    -- ID column, from the input. If you want SageMaker to pass the entire
+    -- input dataset to the algorithm, accept the default value @$@.
     --
-    -- Examples: @\"$\"@, @\"$[0,5:]\"@, @\"$[\'id\',\'SageMakerOutput\']\"@
-    outputFilter :: Prelude.Maybe Prelude.Text,
+    -- Examples: @\"$\"@, @\"$[1:]\"@, @\"$.features\"@
+    inputFilter :: Prelude.Maybe Prelude.Text,
     -- | Specifies the source of the data to join with the transformed data. The
     -- valid values are @None@ and @Input@. The default value is @None@, which
     -- specifies not to join the input with the transformed data. If you want
@@ -71,13 +71,14 @@ data DataProcessing = DataProcessing'
     joinSource :: Prelude.Maybe JoinSource,
     -- | A
     -- <https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html#data-processing-operators JSONPath>
-    -- expression used to select a portion of the input data to pass to the
-    -- algorithm. Use the @InputFilter@ parameter to exclude fields, such as an
-    -- ID column, from the input. If you want Amazon SageMaker to pass the
-    -- entire input dataset to the algorithm, accept the default value @$@.
+    -- expression used to select a portion of the joined dataset to save in the
+    -- output file for a batch transform job. If you want SageMaker to store
+    -- the entire input dataset in the output file, leave the default value,
+    -- @$@. If you specify indexes that aren\'t within the dimension size of
+    -- the joined dataset, you get an error.
     --
-    -- Examples: @\"$\"@, @\"$[1:]\"@, @\"$.features\"@
-    inputFilter :: Prelude.Maybe Prelude.Text
+    -- Examples: @\"$\"@, @\"$[0,5:]\"@, @\"$[\'id\',\'SageMakerOutput\']\"@
+    outputFilter :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -89,15 +90,14 @@ data DataProcessing = DataProcessing'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'outputFilter', 'dataProcessing_outputFilter' - A
+-- 'inputFilter', 'dataProcessing_inputFilter' - A
 -- <https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html#data-processing-operators JSONPath>
--- expression used to select a portion of the joined dataset to save in the
--- output file for a batch transform job. If you want Amazon SageMaker to
--- store the entire input dataset in the output file, leave the default
--- value, @$@. If you specify indexes that aren\'t within the dimension
--- size of the joined dataset, you get an error.
+-- expression used to select a portion of the input data to pass to the
+-- algorithm. Use the @InputFilter@ parameter to exclude fields, such as an
+-- ID column, from the input. If you want SageMaker to pass the entire
+-- input dataset to the algorithm, accept the default value @$@.
 --
--- Examples: @\"$\"@, @\"$[0,5:]\"@, @\"$[\'id\',\'SageMakerOutput\']\"@
+-- Examples: @\"$\"@, @\"$[1:]\"@, @\"$.features\"@
 --
 -- 'joinSource', 'dataProcessing_joinSource' - Specifies the source of the data to join with the transformed data. The
 -- valid values are @None@ and @Input@. The default value is @None@, which
@@ -123,34 +123,34 @@ data DataProcessing = DataProcessing'
 -- For information on how joining in applied, see
 -- <https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html#batch-transform-data-processing-workflow Workflow for Associating Inferences with Input Records>.
 --
--- 'inputFilter', 'dataProcessing_inputFilter' - A
+-- 'outputFilter', 'dataProcessing_outputFilter' - A
 -- <https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html#data-processing-operators JSONPath>
--- expression used to select a portion of the input data to pass to the
--- algorithm. Use the @InputFilter@ parameter to exclude fields, such as an
--- ID column, from the input. If you want Amazon SageMaker to pass the
--- entire input dataset to the algorithm, accept the default value @$@.
+-- expression used to select a portion of the joined dataset to save in the
+-- output file for a batch transform job. If you want SageMaker to store
+-- the entire input dataset in the output file, leave the default value,
+-- @$@. If you specify indexes that aren\'t within the dimension size of
+-- the joined dataset, you get an error.
 --
--- Examples: @\"$\"@, @\"$[1:]\"@, @\"$.features\"@
+-- Examples: @\"$\"@, @\"$[0,5:]\"@, @\"$[\'id\',\'SageMakerOutput\']\"@
 newDataProcessing ::
   DataProcessing
 newDataProcessing =
   DataProcessing'
-    { outputFilter = Prelude.Nothing,
+    { inputFilter = Prelude.Nothing,
       joinSource = Prelude.Nothing,
-      inputFilter = Prelude.Nothing
+      outputFilter = Prelude.Nothing
     }
 
 -- | A
 -- <https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html#data-processing-operators JSONPath>
--- expression used to select a portion of the joined dataset to save in the
--- output file for a batch transform job. If you want Amazon SageMaker to
--- store the entire input dataset in the output file, leave the default
--- value, @$@. If you specify indexes that aren\'t within the dimension
--- size of the joined dataset, you get an error.
+-- expression used to select a portion of the input data to pass to the
+-- algorithm. Use the @InputFilter@ parameter to exclude fields, such as an
+-- ID column, from the input. If you want SageMaker to pass the entire
+-- input dataset to the algorithm, accept the default value @$@.
 --
--- Examples: @\"$\"@, @\"$[0,5:]\"@, @\"$[\'id\',\'SageMakerOutput\']\"@
-dataProcessing_outputFilter :: Lens.Lens' DataProcessing (Prelude.Maybe Prelude.Text)
-dataProcessing_outputFilter = Lens.lens (\DataProcessing' {outputFilter} -> outputFilter) (\s@DataProcessing' {} a -> s {outputFilter = a} :: DataProcessing)
+-- Examples: @\"$\"@, @\"$[1:]\"@, @\"$.features\"@
+dataProcessing_inputFilter :: Lens.Lens' DataProcessing (Prelude.Maybe Prelude.Text)
+dataProcessing_inputFilter = Lens.lens (\DataProcessing' {inputFilter} -> inputFilter) (\s@DataProcessing' {} a -> s {inputFilter = a} :: DataProcessing)
 
 -- | Specifies the source of the data to join with the transformed data. The
 -- valid values are @None@ and @Input@. The default value is @None@, which
@@ -180,44 +180,45 @@ dataProcessing_joinSource = Lens.lens (\DataProcessing' {joinSource} -> joinSour
 
 -- | A
 -- <https://docs.aws.amazon.com/sagemaker/latest/dg/batch-transform-data-processing.html#data-processing-operators JSONPath>
--- expression used to select a portion of the input data to pass to the
--- algorithm. Use the @InputFilter@ parameter to exclude fields, such as an
--- ID column, from the input. If you want Amazon SageMaker to pass the
--- entire input dataset to the algorithm, accept the default value @$@.
+-- expression used to select a portion of the joined dataset to save in the
+-- output file for a batch transform job. If you want SageMaker to store
+-- the entire input dataset in the output file, leave the default value,
+-- @$@. If you specify indexes that aren\'t within the dimension size of
+-- the joined dataset, you get an error.
 --
--- Examples: @\"$\"@, @\"$[1:]\"@, @\"$.features\"@
-dataProcessing_inputFilter :: Lens.Lens' DataProcessing (Prelude.Maybe Prelude.Text)
-dataProcessing_inputFilter = Lens.lens (\DataProcessing' {inputFilter} -> inputFilter) (\s@DataProcessing' {} a -> s {inputFilter = a} :: DataProcessing)
+-- Examples: @\"$\"@, @\"$[0,5:]\"@, @\"$[\'id\',\'SageMakerOutput\']\"@
+dataProcessing_outputFilter :: Lens.Lens' DataProcessing (Prelude.Maybe Prelude.Text)
+dataProcessing_outputFilter = Lens.lens (\DataProcessing' {outputFilter} -> outputFilter) (\s@DataProcessing' {} a -> s {outputFilter = a} :: DataProcessing)
 
-instance Core.FromJSON DataProcessing where
+instance Data.FromJSON DataProcessing where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataProcessing"
       ( \x ->
           DataProcessing'
-            Prelude.<$> (x Core..:? "OutputFilter")
-            Prelude.<*> (x Core..:? "JoinSource")
-            Prelude.<*> (x Core..:? "InputFilter")
+            Prelude.<$> (x Data..:? "InputFilter")
+            Prelude.<*> (x Data..:? "JoinSource")
+            Prelude.<*> (x Data..:? "OutputFilter")
       )
 
 instance Prelude.Hashable DataProcessing where
   hashWithSalt _salt DataProcessing' {..} =
-    _salt `Prelude.hashWithSalt` outputFilter
+    _salt `Prelude.hashWithSalt` inputFilter
       `Prelude.hashWithSalt` joinSource
-      `Prelude.hashWithSalt` inputFilter
+      `Prelude.hashWithSalt` outputFilter
 
 instance Prelude.NFData DataProcessing where
   rnf DataProcessing' {..} =
-    Prelude.rnf outputFilter
+    Prelude.rnf inputFilter
       `Prelude.seq` Prelude.rnf joinSource
-      `Prelude.seq` Prelude.rnf inputFilter
+      `Prelude.seq` Prelude.rnf outputFilter
 
-instance Core.ToJSON DataProcessing where
+instance Data.ToJSON DataProcessing where
   toJSON DataProcessing' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OutputFilter" Core..=) Prelude.<$> outputFilter,
-            ("JoinSource" Core..=) Prelude.<$> joinSource,
-            ("InputFilter" Core..=) Prelude.<$> inputFilter
+          [ ("InputFilter" Data..=) Prelude.<$> inputFilter,
+            ("JoinSource" Data..=) Prelude.<$> joinSource,
+            ("OutputFilter" Data..=) Prelude.<$> outputFilter
           ]
       )

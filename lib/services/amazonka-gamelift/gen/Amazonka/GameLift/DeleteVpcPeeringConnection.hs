@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DeleteVpcPeeringConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,20 +22,15 @@
 --
 -- Removes a VPC peering connection. To delete the connection, you must
 -- have a valid authorization for the VPC peering connection that you want
--- to delete. You can check for an authorization by calling
--- DescribeVpcPeeringAuthorizations or request a new one using
--- CreateVpcPeeringAuthorization.
+-- to delete..
 --
--- Once a valid authorization exists, call this operation from the AWS
--- account that is used to manage the Amazon GameLift fleets. Identify the
--- connection to delete by the connection ID and fleet ID. If successful,
--- the connection is removed.
+-- Once a valid authorization exists, call this operation from the Amazon
+-- Web Services account that is used to manage the Amazon GameLift fleets.
+-- Identify the connection to delete by the connection ID and fleet ID. If
+-- successful, the connection is removed.
 --
 -- __Related actions__
 --
--- CreateVpcPeeringAuthorization | DescribeVpcPeeringAuthorizations |
--- DeleteVpcPeeringAuthorization | CreateVpcPeeringConnection |
--- DescribeVpcPeeringConnections | DeleteVpcPeeringConnection |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.DeleteVpcPeeringConnection
   ( -- * Creating a Request
@@ -56,23 +51,20 @@ module Amazonka.GameLift.DeleteVpcPeeringConnection
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDeleteVpcPeeringConnection' smart constructor.
+-- | /See:/ 'newDeleteVpcPeeringConnection' smart constructor.
 data DeleteVpcPeeringConnection = DeleteVpcPeeringConnection'
   { -- | A unique identifier for the fleet. This fleet specified must match the
     -- fleet referenced in the VPC peering connection record. You can use
     -- either the fleet ID or ARN value.
     fleetId :: Prelude.Text,
-    -- | A unique identifier for a VPC peering connection. This value is included
-    -- in the VpcPeeringConnection object, which can be retrieved by calling
-    -- DescribeVpcPeeringConnections.
+    -- | A unique identifier for a VPC peering connection.
     vpcPeeringConnectionId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -89,9 +81,7 @@ data DeleteVpcPeeringConnection = DeleteVpcPeeringConnection'
 -- fleet referenced in the VPC peering connection record. You can use
 -- either the fleet ID or ARN value.
 --
--- 'vpcPeeringConnectionId', 'deleteVpcPeeringConnection_vpcPeeringConnectionId' - A unique identifier for a VPC peering connection. This value is included
--- in the VpcPeeringConnection object, which can be retrieved by calling
--- DescribeVpcPeeringConnections.
+-- 'vpcPeeringConnectionId', 'deleteVpcPeeringConnection_vpcPeeringConnectionId' - A unique identifier for a VPC peering connection.
 newDeleteVpcPeeringConnection ::
   -- | 'fleetId'
   Prelude.Text ->
@@ -113,9 +103,7 @@ newDeleteVpcPeeringConnection
 deleteVpcPeeringConnection_fleetId :: Lens.Lens' DeleteVpcPeeringConnection Prelude.Text
 deleteVpcPeeringConnection_fleetId = Lens.lens (\DeleteVpcPeeringConnection' {fleetId} -> fleetId) (\s@DeleteVpcPeeringConnection' {} a -> s {fleetId = a} :: DeleteVpcPeeringConnection)
 
--- | A unique identifier for a VPC peering connection. This value is included
--- in the VpcPeeringConnection object, which can be retrieved by calling
--- DescribeVpcPeeringConnections.
+-- | A unique identifier for a VPC peering connection.
 deleteVpcPeeringConnection_vpcPeeringConnectionId :: Lens.Lens' DeleteVpcPeeringConnection Prelude.Text
 deleteVpcPeeringConnection_vpcPeeringConnectionId = Lens.lens (\DeleteVpcPeeringConnection' {vpcPeeringConnectionId} -> vpcPeeringConnectionId) (\s@DeleteVpcPeeringConnection' {} a -> s {vpcPeeringConnectionId = a} :: DeleteVpcPeeringConnection)
 
@@ -123,7 +111,8 @@ instance Core.AWSRequest DeleteVpcPeeringConnection where
   type
     AWSResponse DeleteVpcPeeringConnection =
       DeleteVpcPeeringConnectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -141,37 +130,37 @@ instance Prelude.NFData DeleteVpcPeeringConnection where
     Prelude.rnf fleetId
       `Prelude.seq` Prelude.rnf vpcPeeringConnectionId
 
-instance Core.ToHeaders DeleteVpcPeeringConnection where
+instance Data.ToHeaders DeleteVpcPeeringConnection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DeleteVpcPeeringConnection" ::
+              Data.=# ( "GameLift.DeleteVpcPeeringConnection" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteVpcPeeringConnection where
+instance Data.ToJSON DeleteVpcPeeringConnection where
   toJSON DeleteVpcPeeringConnection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("FleetId" Core..= fleetId),
+          [ Prelude.Just ("FleetId" Data..= fleetId),
             Prelude.Just
               ( "VpcPeeringConnectionId"
-                  Core..= vpcPeeringConnectionId
+                  Data..= vpcPeeringConnectionId
               )
           ]
       )
 
-instance Core.ToPath DeleteVpcPeeringConnection where
+instance Data.ToPath DeleteVpcPeeringConnection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteVpcPeeringConnection where
+instance Data.ToQuery DeleteVpcPeeringConnection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteVpcPeeringConnectionResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Location.Types.BatchItemError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Location.Types.BatchItemError where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types.BatchItemErrorCode
 import qualified Amazonka.Prelude as Prelude
 
@@ -62,14 +63,14 @@ batchItemError_code = Lens.lens (\BatchItemError' {code} -> code) (\s@BatchItemE
 batchItemError_message :: Lens.Lens' BatchItemError (Prelude.Maybe Prelude.Text)
 batchItemError_message = Lens.lens (\BatchItemError' {message} -> message) (\s@BatchItemError' {} a -> s {message = a} :: BatchItemError)
 
-instance Core.FromJSON BatchItemError where
+instance Data.FromJSON BatchItemError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchItemError"
       ( \x ->
           BatchItemError'
-            Prelude.<$> (x Core..:? "Code")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Code")
+            Prelude.<*> (x Data..:? "Message")
       )
 
 instance Prelude.Hashable BatchItemError where

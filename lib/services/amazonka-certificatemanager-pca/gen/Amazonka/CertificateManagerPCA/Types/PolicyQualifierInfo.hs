@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.Types.PolicyQualifierInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CertificateManagerPCA.Types.PolicyQualifierInfo where
 import Amazonka.CertificateManagerPCA.Types.PolicyQualifierId
 import Amazonka.CertificateManagerPCA.Types.Qualifier
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Modifies the @CertPolicyId@ of a @PolicyInformation@ object with a
@@ -85,12 +86,12 @@ instance Prelude.NFData PolicyQualifierInfo where
     Prelude.rnf policyQualifierId
       `Prelude.seq` Prelude.rnf qualifier
 
-instance Core.ToJSON PolicyQualifierInfo where
+instance Data.ToJSON PolicyQualifierInfo where
   toJSON PolicyQualifierInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("PolicyQualifierId" Core..= policyQualifierId),
-            Prelude.Just ("Qualifier" Core..= qualifier)
+              ("PolicyQualifierId" Data..= policyQualifierId),
+            Prelude.Just ("Qualifier" Data..= qualifier)
           ]
       )

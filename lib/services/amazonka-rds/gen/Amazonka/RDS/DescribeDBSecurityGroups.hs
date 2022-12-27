@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DescribeDBSecurityGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,6 +24,16 @@
 -- @DBSecurityGroupName@ is specified, the list will contain only the
 -- descriptions of the specified DB security group.
 --
+-- EC2-Classic was retired on August 15, 2022. If you haven\'t migrated
+-- from EC2-Classic to a VPC, we recommend that you migrate as soon as
+-- possible. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html Migrate from EC2-Classic to a VPC>
+-- in the /Amazon EC2 User Guide/, the blog
+-- <http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/ EC2-Classic Networking is Retiring – Here’s How to Prepare>,
+-- and
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Non-VPC2VPC.html Moving a DB instance not in a VPC into a VPC>
+-- in the /Amazon RDS User Guide/.
+--
 -- This operation returns paginated results.
 module Amazonka.RDS.DescribeDBSecurityGroups
   ( -- * Creating a Request
@@ -31,10 +41,10 @@ module Amazonka.RDS.DescribeDBSecurityGroups
     newDescribeDBSecurityGroups,
 
     -- * Request Lenses
+    describeDBSecurityGroups_dbSecurityGroupName,
     describeDBSecurityGroups_filters,
     describeDBSecurityGroups_marker,
     describeDBSecurityGroups_maxRecords,
-    describeDBSecurityGroups_dbSecurityGroupName,
 
     -- * Destructuring the Response
     DescribeDBSecurityGroupsResponse (..),
@@ -48,7 +58,8 @@ module Amazonka.RDS.DescribeDBSecurityGroups
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -58,7 +69,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeDBSecurityGroups' smart constructor.
 data DescribeDBSecurityGroups = DescribeDBSecurityGroups'
-  { -- | This parameter isn\'t currently supported.
+  { -- | The name of the DB security group to return details for.
+    dbSecurityGroupName :: Prelude.Maybe Prelude.Text,
+    -- | This parameter isn\'t currently supported.
     filters :: Prelude.Maybe [Filter],
     -- | An optional pagination token provided by a previous
     -- @DescribeDBSecurityGroups@ request. If this parameter is specified, the
@@ -73,9 +86,7 @@ data DescribeDBSecurityGroups = DescribeDBSecurityGroups'
     -- Default: 100
     --
     -- Constraints: Minimum 20, maximum 100.
-    maxRecords :: Prelude.Maybe Prelude.Int,
-    -- | The name of the DB security group to return details for.
-    dbSecurityGroupName :: Prelude.Maybe Prelude.Text
+    maxRecords :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -86,6 +97,8 @@ data DescribeDBSecurityGroups = DescribeDBSecurityGroups'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dbSecurityGroupName', 'describeDBSecurityGroups_dbSecurityGroupName' - The name of the DB security group to return details for.
 --
 -- 'filters', 'describeDBSecurityGroups_filters' - This parameter isn\'t currently supported.
 --
@@ -102,18 +115,20 @@ data DescribeDBSecurityGroups = DescribeDBSecurityGroups'
 -- Default: 100
 --
 -- Constraints: Minimum 20, maximum 100.
---
--- 'dbSecurityGroupName', 'describeDBSecurityGroups_dbSecurityGroupName' - The name of the DB security group to return details for.
 newDescribeDBSecurityGroups ::
   DescribeDBSecurityGroups
 newDescribeDBSecurityGroups =
   DescribeDBSecurityGroups'
-    { filters =
+    { dbSecurityGroupName =
         Prelude.Nothing,
+      filters = Prelude.Nothing,
       marker = Prelude.Nothing,
-      maxRecords = Prelude.Nothing,
-      dbSecurityGroupName = Prelude.Nothing
+      maxRecords = Prelude.Nothing
     }
+
+-- | The name of the DB security group to return details for.
+describeDBSecurityGroups_dbSecurityGroupName :: Lens.Lens' DescribeDBSecurityGroups (Prelude.Maybe Prelude.Text)
+describeDBSecurityGroups_dbSecurityGroupName = Lens.lens (\DescribeDBSecurityGroups' {dbSecurityGroupName} -> dbSecurityGroupName) (\s@DescribeDBSecurityGroups' {} a -> s {dbSecurityGroupName = a} :: DescribeDBSecurityGroups)
 
 -- | This parameter isn\'t currently supported.
 describeDBSecurityGroups_filters :: Lens.Lens' DescribeDBSecurityGroups (Prelude.Maybe [Filter])
@@ -136,10 +151,6 @@ describeDBSecurityGroups_marker = Lens.lens (\DescribeDBSecurityGroups' {marker}
 -- Constraints: Minimum 20, maximum 100.
 describeDBSecurityGroups_maxRecords :: Lens.Lens' DescribeDBSecurityGroups (Prelude.Maybe Prelude.Int)
 describeDBSecurityGroups_maxRecords = Lens.lens (\DescribeDBSecurityGroups' {maxRecords} -> maxRecords) (\s@DescribeDBSecurityGroups' {} a -> s {maxRecords = a} :: DescribeDBSecurityGroups)
-
--- | The name of the DB security group to return details for.
-describeDBSecurityGroups_dbSecurityGroupName :: Lens.Lens' DescribeDBSecurityGroups (Prelude.Maybe Prelude.Text)
-describeDBSecurityGroups_dbSecurityGroupName = Lens.lens (\DescribeDBSecurityGroups' {dbSecurityGroupName} -> dbSecurityGroupName) (\s@DescribeDBSecurityGroups' {} a -> s {dbSecurityGroupName = a} :: DescribeDBSecurityGroups)
 
 instance Core.AWSPager DescribeDBSecurityGroups where
   page rq rs
@@ -167,53 +178,54 @@ instance Core.AWSRequest DescribeDBSecurityGroups where
   type
     AWSResponse DescribeDBSecurityGroups =
       DescribeDBSecurityGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeDBSecurityGroupsResult"
       ( \s h x ->
           DescribeDBSecurityGroupsResponse'
-            Prelude.<$> ( x Core..@? "DBSecurityGroups"
+            Prelude.<$> ( x Data..@? "DBSecurityGroups"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "DBSecurityGroup")
+                            Prelude.>>= Core.may (Data.parseXMLList "DBSecurityGroup")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeDBSecurityGroups where
   hashWithSalt _salt DescribeDBSecurityGroups' {..} =
-    _salt `Prelude.hashWithSalt` filters
+    _salt `Prelude.hashWithSalt` dbSecurityGroupName
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
-      `Prelude.hashWithSalt` dbSecurityGroupName
 
 instance Prelude.NFData DescribeDBSecurityGroups where
   rnf DescribeDBSecurityGroups' {..} =
-    Prelude.rnf filters
+    Prelude.rnf dbSecurityGroupName
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
-      `Prelude.seq` Prelude.rnf dbSecurityGroupName
 
-instance Core.ToHeaders DescribeDBSecurityGroups where
+instance Data.ToHeaders DescribeDBSecurityGroups where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDBSecurityGroups where
+instance Data.ToPath DescribeDBSecurityGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDBSecurityGroups where
+instance Data.ToQuery DescribeDBSecurityGroups where
   toQuery DescribeDBSecurityGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeDBSecurityGroups" :: Prelude.ByteString),
+          Data.=: ("DescribeDBSecurityGroups" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBSecurityGroupName" Data.=: dbSecurityGroupName,
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "DBSecurityGroupName" Core.=: dbSecurityGroupName
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords
       ]
 
 -- | Contains the result of a successful invocation of the

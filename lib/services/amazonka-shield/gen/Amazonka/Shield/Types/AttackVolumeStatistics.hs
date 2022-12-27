@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.Types.AttackVolumeStatistics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Shield.Types.AttackVolumeStatistics where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Statistics objects for the various data types in AttackVolume.
@@ -52,13 +53,13 @@ newAttackVolumeStatistics pMax_ =
 attackVolumeStatistics_max :: Lens.Lens' AttackVolumeStatistics Prelude.Double
 attackVolumeStatistics_max = Lens.lens (\AttackVolumeStatistics' {max} -> max) (\s@AttackVolumeStatistics' {} a -> s {max = a} :: AttackVolumeStatistics)
 
-instance Core.FromJSON AttackVolumeStatistics where
+instance Data.FromJSON AttackVolumeStatistics where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AttackVolumeStatistics"
       ( \x ->
           AttackVolumeStatistics'
-            Prelude.<$> (x Core..: "Max")
+            Prelude.<$> (x Data..: "Max")
       )
 
 instance Prelude.Hashable AttackVolumeStatistics where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.BatchUpdateDetector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IoTEventsData.BatchUpdateDetector
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEventsData.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,12 +85,13 @@ instance Core.AWSRequest BatchUpdateDetector where
   type
     AWSResponse BatchUpdateDetector =
       BatchUpdateDetectorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchUpdateDetectorResponse'
-            Prelude.<$> ( x Core..?> "batchUpdateDetectorErrorEntries"
+            Prelude.<$> ( x Data..?> "batchUpdateDetectorErrorEntries"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -102,20 +104,20 @@ instance Prelude.Hashable BatchUpdateDetector where
 instance Prelude.NFData BatchUpdateDetector where
   rnf BatchUpdateDetector' {..} = Prelude.rnf detectors
 
-instance Core.ToHeaders BatchUpdateDetector where
+instance Data.ToHeaders BatchUpdateDetector where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON BatchUpdateDetector where
+instance Data.ToJSON BatchUpdateDetector where
   toJSON BatchUpdateDetector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("detectors" Core..= detectors)]
+          [Prelude.Just ("detectors" Data..= detectors)]
       )
 
-instance Core.ToPath BatchUpdateDetector where
+instance Data.ToPath BatchUpdateDetector where
   toPath = Prelude.const "/detectors"
 
-instance Core.ToQuery BatchUpdateDetector where
+instance Data.ToQuery BatchUpdateDetector where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchUpdateDetectorResponse' smart constructor.

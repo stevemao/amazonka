@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DeleteClusterParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ module Amazonka.Redshift.DeleteClusterParameterGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -98,7 +99,8 @@ instance Core.AWSRequest DeleteClusterParameterGroup where
   type
     AWSResponse DeleteClusterParameterGroup =
       DeleteClusterParameterGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DeleteClusterParameterGroupResponse'
@@ -111,22 +113,22 @@ instance Prelude.NFData DeleteClusterParameterGroup where
   rnf DeleteClusterParameterGroup' {..} =
     Prelude.rnf parameterGroupName
 
-instance Core.ToHeaders DeleteClusterParameterGroup where
+instance Data.ToHeaders DeleteClusterParameterGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteClusterParameterGroup where
+instance Data.ToPath DeleteClusterParameterGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteClusterParameterGroup where
+instance Data.ToQuery DeleteClusterParameterGroup where
   toQuery DeleteClusterParameterGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteClusterParameterGroup" ::
+          Data.=: ( "DeleteClusterParameterGroup" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "ParameterGroupName" Core.=: parameterGroupName
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "ParameterGroupName" Data.=: parameterGroupName
       ]
 
 -- | /See:/ 'newDeleteClusterParameterGroupResponse' smart constructor.

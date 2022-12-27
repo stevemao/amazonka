@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Types.RegionalConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ElastiCache.Types.RegionalConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types.ReshardingConfiguration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of the replication groups
@@ -93,14 +94,14 @@ instance Prelude.NFData RegionalConfiguration where
       `Prelude.seq` Prelude.rnf replicationGroupRegion
       `Prelude.seq` Prelude.rnf reshardingConfiguration
 
-instance Core.ToQuery RegionalConfiguration where
+instance Data.ToQuery RegionalConfiguration where
   toQuery RegionalConfiguration' {..} =
     Prelude.mconcat
-      [ "ReplicationGroupId" Core.=: replicationGroupId,
+      [ "ReplicationGroupId" Data.=: replicationGroupId,
         "ReplicationGroupRegion"
-          Core.=: replicationGroupRegion,
+          Data.=: replicationGroupRegion,
         "ReshardingConfiguration"
-          Core.=: Core.toQueryList
+          Data.=: Data.toQueryList
             "ReshardingConfiguration"
             reshardingConfiguration
       ]

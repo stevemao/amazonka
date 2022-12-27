@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.PutMetricFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates or updates a metric filter and associates it with the specified
--- log group. Metric filters allow you to configure rules to extract metric
--- data from log events ingested through
+-- log group. With metric filters, you can configure rules to extract
+-- metric data from log events ingested through
 -- <https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_PutLogEvents.html PutLogEvents>.
 --
 -- The maximum number of metric filters that can be associated with a log
@@ -37,9 +37,9 @@
 -- found for a dimension is treated as a separate metric and accrues
 -- charges as a separate custom metric.
 --
--- To help prevent accidental high charges, Amazon disables a metric filter
--- if it generates 1000 different name\/value pairs for the dimensions that
--- you have specified within a certain amount of time.
+-- CloudWatch Logs disables a metric filter if it generates 1,000 different
+-- name\/value pairs for your specified dimensions within a certain amount
+-- of time. This helps to prevent accidental high charges.
 --
 -- You can also set up a billing alarm to alert you if your charges are
 -- higher than expected. For more information, see
@@ -63,7 +63,8 @@ where
 
 import Amazonka.CloudWatchLogs.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -139,7 +140,8 @@ instance Core.AWSRequest PutMetricFilter where
   type
     AWSResponse PutMetricFilter =
       PutMetricFilterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull PutMetricFilterResponse'
 
@@ -157,39 +159,39 @@ instance Prelude.NFData PutMetricFilter where
       `Prelude.seq` Prelude.rnf filterPattern
       `Prelude.seq` Prelude.rnf metricTransformations
 
-instance Core.ToHeaders PutMetricFilter where
+instance Data.ToHeaders PutMetricFilter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Logs_20140328.PutMetricFilter" ::
+              Data.=# ( "Logs_20140328.PutMetricFilter" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutMetricFilter where
+instance Data.ToJSON PutMetricFilter where
   toJSON PutMetricFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("logGroupName" Core..= logGroupName),
-            Prelude.Just ("filterName" Core..= filterName),
-            Prelude.Just ("filterPattern" Core..= filterPattern),
+          [ Prelude.Just ("logGroupName" Data..= logGroupName),
+            Prelude.Just ("filterName" Data..= filterName),
+            Prelude.Just ("filterPattern" Data..= filterPattern),
             Prelude.Just
               ( "metricTransformations"
-                  Core..= metricTransformations
+                  Data..= metricTransformations
               )
           ]
       )
 
-instance Core.ToPath PutMetricFilter where
+instance Data.ToPath PutMetricFilter where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutMetricFilter where
+instance Data.ToQuery PutMetricFilter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutMetricFilterResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.GetTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,12 +28,12 @@ module Amazonka.CostExplorer.GetTags
     newGetTags,
 
     -- * Request Lenses
-    getTags_nextPageToken,
-    getTags_searchString,
-    getTags_tagKey,
     getTags_filter,
     getTags_maxResults,
+    getTags_nextPageToken,
+    getTags_searchString,
     getTags_sortBy,
+    getTags_tagKey,
     getTags_timePeriod,
 
     -- * Destructuring the Response
@@ -50,31 +50,30 @@ module Amazonka.CostExplorer.GetTags
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetTags' smart constructor.
 data GetTags = GetTags'
-  { -- | The token to retrieve the next set of results. Amazon Web Services
+  { filter' :: Prelude.Maybe Expression,
+    -- | This field is only used when SortBy is provided in the request. The
+    -- maximum number of objects that are returned for this request. If
+    -- MaxResults isn\'t specified with SortBy, the request returns 1000
+    -- results as the default value for this parameter.
+    --
+    -- For @GetTags@, MaxResults has an upper quota of 1000.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to retrieve the next set of results. Amazon Web Services
     -- provides the token when the response from a previous call has more
     -- results than the maximum page size.
     nextPageToken :: Prelude.Maybe Prelude.Text,
     -- | The value that you want to search for.
     searchString :: Prelude.Maybe Prelude.Text,
-    -- | The key of the tag that you want to return values for.
-    tagKey :: Prelude.Maybe Prelude.Text,
-    filter' :: Prelude.Maybe Expression,
-    -- | This field is only used when SortBy is provided in the request. The
-    -- maximum number of objects that to be returned for this request. If
-    -- MaxResults is not specified with SortBy, the request will return 1000
-    -- results as the default value for this parameter.
-    --
-    -- For @GetTags@, MaxResults has an upper limit of 1000.
-    maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The value by which you want to sort the data.
+    -- | The value that you want to sort the data by.
     --
     -- The key represents cost and usage metrics. The following values are
     -- supported:
@@ -93,11 +92,13 @@ data GetTags = GetTags'
     --
     -- -   @NormalizedUsageAmount@
     --
-    -- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+    -- The supported values for @SortOrder@ are @ASCENDING@ and @DESCENDING@.
     --
-    -- When using @SortBy@, @NextPageToken@ and @SearchString@ are not
+    -- When you use @SortBy@, @NextPageToken@ and @SearchString@ aren\'t
     -- supported.
     sortBy :: Prelude.Maybe [SortDefinition],
+    -- | The key of the tag that you want to return values for.
+    tagKey :: Prelude.Maybe Prelude.Text,
     -- | The start and end dates for retrieving the dimension values. The start
     -- date is inclusive, but the end date is exclusive. For example, if
     -- @start@ is @2017-01-01@ and @end@ is @2017-05-01@, then the cost and
@@ -115,24 +116,22 @@ data GetTags = GetTags'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'filter'', 'getTags_filter' - Undocumented member.
+--
+-- 'maxResults', 'getTags_maxResults' - This field is only used when SortBy is provided in the request. The
+-- maximum number of objects that are returned for this request. If
+-- MaxResults isn\'t specified with SortBy, the request returns 1000
+-- results as the default value for this parameter.
+--
+-- For @GetTags@, MaxResults has an upper quota of 1000.
+--
 -- 'nextPageToken', 'getTags_nextPageToken' - The token to retrieve the next set of results. Amazon Web Services
 -- provides the token when the response from a previous call has more
 -- results than the maximum page size.
 --
 -- 'searchString', 'getTags_searchString' - The value that you want to search for.
 --
--- 'tagKey', 'getTags_tagKey' - The key of the tag that you want to return values for.
---
--- 'filter'', 'getTags_filter' - Undocumented member.
---
--- 'maxResults', 'getTags_maxResults' - This field is only used when SortBy is provided in the request. The
--- maximum number of objects that to be returned for this request. If
--- MaxResults is not specified with SortBy, the request will return 1000
--- results as the default value for this parameter.
---
--- For @GetTags@, MaxResults has an upper limit of 1000.
---
--- 'sortBy', 'getTags_sortBy' - The value by which you want to sort the data.
+-- 'sortBy', 'getTags_sortBy' - The value that you want to sort the data by.
 --
 -- The key represents cost and usage metrics. The following values are
 -- supported:
@@ -151,10 +150,12 @@ data GetTags = GetTags'
 --
 -- -   @NormalizedUsageAmount@
 --
--- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+-- The supported values for @SortOrder@ are @ASCENDING@ and @DESCENDING@.
 --
--- When using @SortBy@, @NextPageToken@ and @SearchString@ are not
+-- When you use @SortBy@, @NextPageToken@ and @SearchString@ aren\'t
 -- supported.
+--
+-- 'tagKey', 'getTags_tagKey' - The key of the tag that you want to return values for.
 --
 -- 'timePeriod', 'getTags_timePeriod' - The start and end dates for retrieving the dimension values. The start
 -- date is inclusive, but the end date is exclusive. For example, if
@@ -167,14 +168,27 @@ newGetTags ::
   GetTags
 newGetTags pTimePeriod_ =
   GetTags'
-    { nextPageToken = Prelude.Nothing,
-      searchString = Prelude.Nothing,
-      tagKey = Prelude.Nothing,
-      filter' = Prelude.Nothing,
+    { filter' = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      searchString = Prelude.Nothing,
       sortBy = Prelude.Nothing,
+      tagKey = Prelude.Nothing,
       timePeriod = pTimePeriod_
     }
+
+-- | Undocumented member.
+getTags_filter :: Lens.Lens' GetTags (Prelude.Maybe Expression)
+getTags_filter = Lens.lens (\GetTags' {filter'} -> filter') (\s@GetTags' {} a -> s {filter' = a} :: GetTags)
+
+-- | This field is only used when SortBy is provided in the request. The
+-- maximum number of objects that are returned for this request. If
+-- MaxResults isn\'t specified with SortBy, the request returns 1000
+-- results as the default value for this parameter.
+--
+-- For @GetTags@, MaxResults has an upper quota of 1000.
+getTags_maxResults :: Lens.Lens' GetTags (Prelude.Maybe Prelude.Natural)
+getTags_maxResults = Lens.lens (\GetTags' {maxResults} -> maxResults) (\s@GetTags' {} a -> s {maxResults = a} :: GetTags)
 
 -- | The token to retrieve the next set of results. Amazon Web Services
 -- provides the token when the response from a previous call has more
@@ -186,24 +200,7 @@ getTags_nextPageToken = Lens.lens (\GetTags' {nextPageToken} -> nextPageToken) (
 getTags_searchString :: Lens.Lens' GetTags (Prelude.Maybe Prelude.Text)
 getTags_searchString = Lens.lens (\GetTags' {searchString} -> searchString) (\s@GetTags' {} a -> s {searchString = a} :: GetTags)
 
--- | The key of the tag that you want to return values for.
-getTags_tagKey :: Lens.Lens' GetTags (Prelude.Maybe Prelude.Text)
-getTags_tagKey = Lens.lens (\GetTags' {tagKey} -> tagKey) (\s@GetTags' {} a -> s {tagKey = a} :: GetTags)
-
--- | Undocumented member.
-getTags_filter :: Lens.Lens' GetTags (Prelude.Maybe Expression)
-getTags_filter = Lens.lens (\GetTags' {filter'} -> filter') (\s@GetTags' {} a -> s {filter' = a} :: GetTags)
-
--- | This field is only used when SortBy is provided in the request. The
--- maximum number of objects that to be returned for this request. If
--- MaxResults is not specified with SortBy, the request will return 1000
--- results as the default value for this parameter.
---
--- For @GetTags@, MaxResults has an upper limit of 1000.
-getTags_maxResults :: Lens.Lens' GetTags (Prelude.Maybe Prelude.Natural)
-getTags_maxResults = Lens.lens (\GetTags' {maxResults} -> maxResults) (\s@GetTags' {} a -> s {maxResults = a} :: GetTags)
-
--- | The value by which you want to sort the data.
+-- | The value that you want to sort the data by.
 --
 -- The key represents cost and usage metrics. The following values are
 -- supported:
@@ -222,12 +219,16 @@ getTags_maxResults = Lens.lens (\GetTags' {maxResults} -> maxResults) (\s@GetTag
 --
 -- -   @NormalizedUsageAmount@
 --
--- Supported values for @SortOrder@ are @ASCENDING@ or @DESCENDING@.
+-- The supported values for @SortOrder@ are @ASCENDING@ and @DESCENDING@.
 --
--- When using @SortBy@, @NextPageToken@ and @SearchString@ are not
+-- When you use @SortBy@, @NextPageToken@ and @SearchString@ aren\'t
 -- supported.
 getTags_sortBy :: Lens.Lens' GetTags (Prelude.Maybe [SortDefinition])
 getTags_sortBy = Lens.lens (\GetTags' {sortBy} -> sortBy) (\s@GetTags' {} a -> s {sortBy = a} :: GetTags) Prelude.. Lens.mapping Lens.coerced
+
+-- | The key of the tag that you want to return values for.
+getTags_tagKey :: Lens.Lens' GetTags (Prelude.Maybe Prelude.Text)
+getTags_tagKey = Lens.lens (\GetTags' {tagKey} -> tagKey) (\s@GetTags' {} a -> s {tagKey = a} :: GetTags)
 
 -- | The start and end dates for retrieving the dimension values. The start
 -- date is inclusive, but the end date is exclusive. For example, if
@@ -239,71 +240,72 @@ getTags_timePeriod = Lens.lens (\GetTags' {timePeriod} -> timePeriod) (\s@GetTag
 
 instance Core.AWSRequest GetTags where
   type AWSResponse GetTags = GetTagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetTagsResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
+            Prelude.<$> (x Data..?> "NextPageToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..:> "ReturnSize")
-            Prelude.<*> (x Core..:> "TotalSize")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "ReturnSize")
+            Prelude.<*> (x Data..:> "TotalSize")
       )
 
 instance Prelude.Hashable GetTags where
   hashWithSalt _salt GetTags' {..} =
-    _salt `Prelude.hashWithSalt` nextPageToken
-      `Prelude.hashWithSalt` searchString
-      `Prelude.hashWithSalt` tagKey
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextPageToken
+      `Prelude.hashWithSalt` searchString
       `Prelude.hashWithSalt` sortBy
+      `Prelude.hashWithSalt` tagKey
       `Prelude.hashWithSalt` timePeriod
 
 instance Prelude.NFData GetTags where
   rnf GetTags' {..} =
-    Prelude.rnf nextPageToken
-      `Prelude.seq` Prelude.rnf searchString
-      `Prelude.seq` Prelude.rnf tagKey
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextPageToken
+      `Prelude.seq` Prelude.rnf searchString
       `Prelude.seq` Prelude.rnf sortBy
+      `Prelude.seq` Prelude.rnf tagKey
       `Prelude.seq` Prelude.rnf timePeriod
 
-instance Core.ToHeaders GetTags where
+instance Data.ToHeaders GetTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSInsightsIndexService.GetTags" ::
+              Data.=# ( "AWSInsightsIndexService.GetTags" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetTags where
+instance Data.ToJSON GetTags where
   toJSON GetTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextPageToken" Core..=) Prelude.<$> nextPageToken,
-            ("SearchString" Core..=) Prelude.<$> searchString,
-            ("TagKey" Core..=) Prelude.<$> tagKey,
-            ("Filter" Core..=) Prelude.<$> filter',
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("SortBy" Core..=) Prelude.<$> sortBy,
-            Prelude.Just ("TimePeriod" Core..= timePeriod)
+          [ ("Filter" Data..=) Prelude.<$> filter',
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextPageToken" Data..=) Prelude.<$> nextPageToken,
+            ("SearchString" Data..=) Prelude.<$> searchString,
+            ("SortBy" Data..=) Prelude.<$> sortBy,
+            ("TagKey" Data..=) Prelude.<$> tagKey,
+            Prelude.Just ("TimePeriod" Data..= timePeriod)
           ]
       )
 
-instance Core.ToPath GetTags where
+instance Data.ToPath GetTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetTags where
+instance Data.ToQuery GetTags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetTagsResponse' smart constructor.

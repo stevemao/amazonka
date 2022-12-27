@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.ListInputRoutings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.IoTEvents.ListInputRoutings
     newListInputRoutings,
 
     -- * Request Lenses
-    listInputRoutings_nextToken,
     listInputRoutings_maxResults,
+    listInputRoutings_nextToken,
     listInputRoutings_inputIdentifier,
 
     -- * Destructuring the Response
@@ -36,25 +36,26 @@ module Amazonka.IoTEvents.ListInputRoutings
     newListInputRoutingsResponse,
 
     -- * Response Lenses
-    listInputRoutingsResponse_routedResources,
     listInputRoutingsResponse_nextToken,
+    listInputRoutingsResponse_routedResources,
     listInputRoutingsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListInputRoutings' smart constructor.
 data ListInputRoutings = ListInputRoutings'
-  { -- | The token that you can use to return the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
+  { -- | The maximum number of results to be returned per request.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that you can use to return the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The identifer of the routed input.
     inputIdentifier :: InputIdentifier
   }
@@ -68,9 +69,9 @@ data ListInputRoutings = ListInputRoutings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listInputRoutings_nextToken' - The token that you can use to return the next set of results.
---
 -- 'maxResults', 'listInputRoutings_maxResults' - The maximum number of results to be returned per request.
+--
+-- 'nextToken', 'listInputRoutings_nextToken' - The token that you can use to return the next set of results.
 --
 -- 'inputIdentifier', 'listInputRoutings_inputIdentifier' - The identifer of the routed input.
 newListInputRoutings ::
@@ -79,18 +80,18 @@ newListInputRoutings ::
   ListInputRoutings
 newListInputRoutings pInputIdentifier_ =
   ListInputRoutings'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       inputIdentifier = pInputIdentifier_
     }
-
--- | The token that you can use to return the next set of results.
-listInputRoutings_nextToken :: Lens.Lens' ListInputRoutings (Prelude.Maybe Prelude.Text)
-listInputRoutings_nextToken = Lens.lens (\ListInputRoutings' {nextToken} -> nextToken) (\s@ListInputRoutings' {} a -> s {nextToken = a} :: ListInputRoutings)
 
 -- | The maximum number of results to be returned per request.
 listInputRoutings_maxResults :: Lens.Lens' ListInputRoutings (Prelude.Maybe Prelude.Natural)
 listInputRoutings_maxResults = Lens.lens (\ListInputRoutings' {maxResults} -> maxResults) (\s@ListInputRoutings' {} a -> s {maxResults = a} :: ListInputRoutings)
+
+-- | The token that you can use to return the next set of results.
+listInputRoutings_nextToken :: Lens.Lens' ListInputRoutings (Prelude.Maybe Prelude.Text)
+listInputRoutings_nextToken = Lens.lens (\ListInputRoutings' {nextToken} -> nextToken) (\s@ListInputRoutings' {} a -> s {nextToken = a} :: ListInputRoutings)
 
 -- | The identifer of the routed input.
 listInputRoutings_inputIdentifier :: Lens.Lens' ListInputRoutings InputIdentifier
@@ -100,57 +101,58 @@ instance Core.AWSRequest ListInputRoutings where
   type
     AWSResponse ListInputRoutings =
       ListInputRoutingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListInputRoutingsResponse'
-            Prelude.<$> ( x Core..?> "routedResources"
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> ( x Data..?> "routedResources"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListInputRoutings where
   hashWithSalt _salt ListInputRoutings' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` inputIdentifier
 
 instance Prelude.NFData ListInputRoutings where
   rnf ListInputRoutings' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf inputIdentifier
 
-instance Core.ToHeaders ListInputRoutings where
+instance Data.ToHeaders ListInputRoutings where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON ListInputRoutings where
+instance Data.ToJSON ListInputRoutings where
   toJSON ListInputRoutings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("inputIdentifier" Core..= inputIdentifier)
+              ("inputIdentifier" Data..= inputIdentifier)
           ]
       )
 
-instance Core.ToPath ListInputRoutings where
+instance Data.ToPath ListInputRoutings where
   toPath = Prelude.const "/input-routings"
 
-instance Core.ToQuery ListInputRoutings where
+instance Data.ToQuery ListInputRoutings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListInputRoutingsResponse' smart constructor.
 data ListInputRoutingsResponse = ListInputRoutingsResponse'
-  { -- | Summary information about the routed resources.
-    routedResources :: Prelude.Maybe [RoutedResource],
-    -- | The token that you can use to return the next set of results, or @null@
+  { -- | The token that you can use to return the next set of results, or @null@
     -- if there are no more results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Summary information about the routed resources.
+    routedResources :: Prelude.Maybe [RoutedResource],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -164,10 +166,10 @@ data ListInputRoutingsResponse = ListInputRoutingsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'routedResources', 'listInputRoutingsResponse_routedResources' - Summary information about the routed resources.
---
 -- 'nextToken', 'listInputRoutingsResponse_nextToken' - The token that you can use to return the next set of results, or @null@
 -- if there are no more results.
+--
+-- 'routedResources', 'listInputRoutingsResponse_routedResources' - Summary information about the routed resources.
 --
 -- 'httpStatus', 'listInputRoutingsResponse_httpStatus' - The response's http status code.
 newListInputRoutingsResponse ::
@@ -176,20 +178,20 @@ newListInputRoutingsResponse ::
   ListInputRoutingsResponse
 newListInputRoutingsResponse pHttpStatus_ =
   ListInputRoutingsResponse'
-    { routedResources =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      routedResources = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Summary information about the routed resources.
-listInputRoutingsResponse_routedResources :: Lens.Lens' ListInputRoutingsResponse (Prelude.Maybe [RoutedResource])
-listInputRoutingsResponse_routedResources = Lens.lens (\ListInputRoutingsResponse' {routedResources} -> routedResources) (\s@ListInputRoutingsResponse' {} a -> s {routedResources = a} :: ListInputRoutingsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token that you can use to return the next set of results, or @null@
 -- if there are no more results.
 listInputRoutingsResponse_nextToken :: Lens.Lens' ListInputRoutingsResponse (Prelude.Maybe Prelude.Text)
 listInputRoutingsResponse_nextToken = Lens.lens (\ListInputRoutingsResponse' {nextToken} -> nextToken) (\s@ListInputRoutingsResponse' {} a -> s {nextToken = a} :: ListInputRoutingsResponse)
+
+-- | Summary information about the routed resources.
+listInputRoutingsResponse_routedResources :: Lens.Lens' ListInputRoutingsResponse (Prelude.Maybe [RoutedResource])
+listInputRoutingsResponse_routedResources = Lens.lens (\ListInputRoutingsResponse' {routedResources} -> routedResources) (\s@ListInputRoutingsResponse' {} a -> s {routedResources = a} :: ListInputRoutingsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listInputRoutingsResponse_httpStatus :: Lens.Lens' ListInputRoutingsResponse Prelude.Int
@@ -197,6 +199,6 @@ listInputRoutingsResponse_httpStatus = Lens.lens (\ListInputRoutingsResponse' {h
 
 instance Prelude.NFData ListInputRoutingsResponse where
   rnf ListInputRoutingsResponse' {..} =
-    Prelude.rnf routedResources
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf routedResources
       `Prelude.seq` Prelude.rnf httpStatus

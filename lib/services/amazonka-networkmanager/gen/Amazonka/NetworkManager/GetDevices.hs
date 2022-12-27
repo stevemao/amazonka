@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkManager.GetDevices
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.NetworkManager.GetDevices
 
     -- * Request Lenses
     getDevices_deviceIds,
+    getDevices_maxResults,
     getDevices_nextToken,
     getDevices_siteId,
-    getDevices_maxResults,
     getDevices_globalNetworkId,
 
     -- * Destructuring the Response
@@ -40,14 +40,15 @@ module Amazonka.NetworkManager.GetDevices
     newGetDevicesResponse,
 
     -- * Response Lenses
-    getDevicesResponse_nextToken,
     getDevicesResponse_devices,
+    getDevicesResponse_nextToken,
     getDevicesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -57,12 +58,12 @@ import qualified Amazonka.Response as Response
 data GetDevices = GetDevices'
   { -- | One or more device IDs. The maximum is 10.
     deviceIds :: Prelude.Maybe [Prelude.Text],
+    -- | The maximum number of results to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The token for the next page of results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the site.
     siteId :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the global network.
     globalNetworkId :: Prelude.Text
   }
@@ -78,11 +79,11 @@ data GetDevices = GetDevices'
 --
 -- 'deviceIds', 'getDevices_deviceIds' - One or more device IDs. The maximum is 10.
 --
+-- 'maxResults', 'getDevices_maxResults' - The maximum number of results to return.
+--
 -- 'nextToken', 'getDevices_nextToken' - The token for the next page of results.
 --
 -- 'siteId', 'getDevices_siteId' - The ID of the site.
---
--- 'maxResults', 'getDevices_maxResults' - The maximum number of results to return.
 --
 -- 'globalNetworkId', 'getDevices_globalNetworkId' - The ID of the global network.
 newGetDevices ::
@@ -92,15 +93,19 @@ newGetDevices ::
 newGetDevices pGlobalNetworkId_ =
   GetDevices'
     { deviceIds = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
       siteId = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
       globalNetworkId = pGlobalNetworkId_
     }
 
 -- | One or more device IDs. The maximum is 10.
 getDevices_deviceIds :: Lens.Lens' GetDevices (Prelude.Maybe [Prelude.Text])
 getDevices_deviceIds = Lens.lens (\GetDevices' {deviceIds} -> deviceIds) (\s@GetDevices' {} a -> s {deviceIds = a} :: GetDevices) Prelude.. Lens.mapping Lens.coerced
+
+-- | The maximum number of results to return.
+getDevices_maxResults :: Lens.Lens' GetDevices (Prelude.Maybe Prelude.Natural)
+getDevices_maxResults = Lens.lens (\GetDevices' {maxResults} -> maxResults) (\s@GetDevices' {} a -> s {maxResults = a} :: GetDevices)
 
 -- | The token for the next page of results.
 getDevices_nextToken :: Lens.Lens' GetDevices (Prelude.Maybe Prelude.Text)
@@ -109,10 +114,6 @@ getDevices_nextToken = Lens.lens (\GetDevices' {nextToken} -> nextToken) (\s@Get
 -- | The ID of the site.
 getDevices_siteId :: Lens.Lens' GetDevices (Prelude.Maybe Prelude.Text)
 getDevices_siteId = Lens.lens (\GetDevices' {siteId} -> siteId) (\s@GetDevices' {} a -> s {siteId = a} :: GetDevices)
-
--- | The maximum number of results to return.
-getDevices_maxResults :: Lens.Lens' GetDevices (Prelude.Maybe Prelude.Natural)
-getDevices_maxResults = Lens.lens (\GetDevices' {maxResults} -> maxResults) (\s@GetDevices' {} a -> s {maxResults = a} :: GetDevices)
 
 -- | The ID of the global network.
 getDevices_globalNetworkId :: Lens.Lens' GetDevices Prelude.Text
@@ -139,68 +140,69 @@ instance Core.AWSPager GetDevices where
 
 instance Core.AWSRequest GetDevices where
   type AWSResponse GetDevices = GetDevicesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDevicesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Devices" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Devices" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetDevices where
   hashWithSalt _salt GetDevices' {..} =
     _salt `Prelude.hashWithSalt` deviceIds
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` siteId
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` globalNetworkId
 
 instance Prelude.NFData GetDevices where
   rnf GetDevices' {..} =
     Prelude.rnf deviceIds
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf siteId
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf globalNetworkId
 
-instance Core.ToHeaders GetDevices where
+instance Data.ToHeaders GetDevices where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetDevices where
+instance Data.ToPath GetDevices where
   toPath GetDevices' {..} =
     Prelude.mconcat
       [ "/global-networks/",
-        Core.toBS globalNetworkId,
+        Data.toBS globalNetworkId,
         "/devices"
       ]
 
-instance Core.ToQuery GetDevices where
+instance Data.ToQuery GetDevices where
   toQuery GetDevices' {..} =
     Prelude.mconcat
       [ "deviceIds"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> deviceIds),
-        "nextToken" Core.=: nextToken,
-        "siteId" Core.=: siteId,
-        "maxResults" Core.=: maxResults
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> deviceIds),
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "siteId" Data.=: siteId
       ]
 
 -- | /See:/ 'newGetDevicesResponse' smart constructor.
 data GetDevicesResponse = GetDevicesResponse'
-  { -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The devices.
+  { -- | The devices.
     devices :: Prelude.Maybe [Device],
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -214,9 +216,9 @@ data GetDevicesResponse = GetDevicesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getDevicesResponse_nextToken' - The token for the next page of results.
---
 -- 'devices', 'getDevicesResponse_devices' - The devices.
+--
+-- 'nextToken', 'getDevicesResponse_nextToken' - The token for the next page of results.
 --
 -- 'httpStatus', 'getDevicesResponse_httpStatus' - The response's http status code.
 newGetDevicesResponse ::
@@ -225,18 +227,18 @@ newGetDevicesResponse ::
   GetDevicesResponse
 newGetDevicesResponse pHttpStatus_ =
   GetDevicesResponse'
-    { nextToken = Prelude.Nothing,
-      devices = Prelude.Nothing,
+    { devices = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The token for the next page of results.
-getDevicesResponse_nextToken :: Lens.Lens' GetDevicesResponse (Prelude.Maybe Prelude.Text)
-getDevicesResponse_nextToken = Lens.lens (\GetDevicesResponse' {nextToken} -> nextToken) (\s@GetDevicesResponse' {} a -> s {nextToken = a} :: GetDevicesResponse)
 
 -- | The devices.
 getDevicesResponse_devices :: Lens.Lens' GetDevicesResponse (Prelude.Maybe [Device])
 getDevicesResponse_devices = Lens.lens (\GetDevicesResponse' {devices} -> devices) (\s@GetDevicesResponse' {} a -> s {devices = a} :: GetDevicesResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The token for the next page of results.
+getDevicesResponse_nextToken :: Lens.Lens' GetDevicesResponse (Prelude.Maybe Prelude.Text)
+getDevicesResponse_nextToken = Lens.lens (\GetDevicesResponse' {nextToken} -> nextToken) (\s@GetDevicesResponse' {} a -> s {nextToken = a} :: GetDevicesResponse)
 
 -- | The response's http status code.
 getDevicesResponse_httpStatus :: Lens.Lens' GetDevicesResponse Prelude.Int
@@ -244,6 +246,6 @@ getDevicesResponse_httpStatus = Lens.lens (\GetDevicesResponse' {httpStatus} -> 
 
 instance Prelude.NFData GetDevicesResponse where
   rnf GetDevicesResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf devices
+    Prelude.rnf devices
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

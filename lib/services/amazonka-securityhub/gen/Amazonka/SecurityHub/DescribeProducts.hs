@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.DescribeProducts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,9 +35,9 @@ module Amazonka.SecurityHub.DescribeProducts
     newDescribeProducts,
 
     -- * Request Lenses
+    describeProducts_maxResults,
     describeProducts_nextToken,
     describeProducts_productArn,
-    describeProducts_maxResults,
 
     -- * Destructuring the Response
     DescribeProductsResponse (..),
@@ -51,7 +51,8 @@ module Amazonka.SecurityHub.DescribeProducts
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,7 +60,9 @@ import Amazonka.SecurityHub.Types
 
 -- | /See:/ 'newDescribeProducts' smart constructor.
 data DescribeProducts = DescribeProducts'
-  { -- | The token that is required for pagination. On your first call to the
+  { -- | The maximum number of results to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that is required for pagination. On your first call to the
     -- @DescribeProducts@ operation, set the value of this parameter to @NULL@.
     --
     -- For subsequent calls to the operation, to continue listing data, set the
@@ -67,9 +70,7 @@ data DescribeProducts = DescribeProducts'
     -- response.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the integration to return.
-    productArn :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    productArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -81,6 +82,8 @@ data DescribeProducts = DescribeProducts'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'describeProducts_maxResults' - The maximum number of results to return.
+--
 -- 'nextToken', 'describeProducts_nextToken' - The token that is required for pagination. On your first call to the
 -- @DescribeProducts@ operation, set the value of this parameter to @NULL@.
 --
@@ -89,16 +92,18 @@ data DescribeProducts = DescribeProducts'
 -- response.
 --
 -- 'productArn', 'describeProducts_productArn' - The ARN of the integration to return.
---
--- 'maxResults', 'describeProducts_maxResults' - The maximum number of results to return.
 newDescribeProducts ::
   DescribeProducts
 newDescribeProducts =
   DescribeProducts'
-    { nextToken = Prelude.Nothing,
-      productArn = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      productArn = Prelude.Nothing
     }
+
+-- | The maximum number of results to return.
+describeProducts_maxResults :: Lens.Lens' DescribeProducts (Prelude.Maybe Prelude.Natural)
+describeProducts_maxResults = Lens.lens (\DescribeProducts' {maxResults} -> maxResults) (\s@DescribeProducts' {} a -> s {maxResults = a} :: DescribeProducts)
 
 -- | The token that is required for pagination. On your first call to the
 -- @DescribeProducts@ operation, set the value of this parameter to @NULL@.
@@ -112,10 +117,6 @@ describeProducts_nextToken = Lens.lens (\DescribeProducts' {nextToken} -> nextTo
 -- | The ARN of the integration to return.
 describeProducts_productArn :: Lens.Lens' DescribeProducts (Prelude.Maybe Prelude.Text)
 describeProducts_productArn = Lens.lens (\DescribeProducts' {productArn} -> productArn) (\s@DescribeProducts' {} a -> s {productArn = a} :: DescribeProducts)
-
--- | The maximum number of results to return.
-describeProducts_maxResults :: Lens.Lens' DescribeProducts (Prelude.Maybe Prelude.Natural)
-describeProducts_maxResults = Lens.lens (\DescribeProducts' {maxResults} -> maxResults) (\s@DescribeProducts' {} a -> s {maxResults = a} :: DescribeProducts)
 
 instance Core.AWSPager DescribeProducts where
   page rq rs
@@ -140,48 +141,49 @@ instance Core.AWSRequest DescribeProducts where
   type
     AWSResponse DescribeProducts =
       DescribeProductsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeProductsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Products" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Products" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable DescribeProducts where
   hashWithSalt _salt DescribeProducts' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` productArn
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData DescribeProducts where
   rnf DescribeProducts' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf productArn
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders DescribeProducts where
+instance Data.ToHeaders DescribeProducts where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeProducts where
+instance Data.ToPath DescribeProducts where
   toPath = Prelude.const "/products"
 
-instance Core.ToQuery DescribeProducts where
+instance Data.ToQuery DescribeProducts where
   toQuery DescribeProducts' {..} =
     Prelude.mconcat
-      [ "NextToken" Core.=: nextToken,
-        "ProductArn" Core.=: productArn,
-        "MaxResults" Core.=: maxResults
+      [ "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        "ProductArn" Data.=: productArn
       ]
 
 -- | /See:/ 'newDescribeProductsResponse' smart constructor.

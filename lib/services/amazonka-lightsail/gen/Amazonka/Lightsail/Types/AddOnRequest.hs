@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.AddOnRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.AddOnRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.AddOnType
 import Amazonka.Lightsail.Types.AutoSnapshotAddOnRequest
 import qualified Amazonka.Prelude as Prelude
@@ -85,12 +86,12 @@ instance Prelude.NFData AddOnRequest where
     Prelude.rnf autoSnapshotAddOnRequest
       `Prelude.seq` Prelude.rnf addOnType
 
-instance Core.ToJSON AddOnRequest where
+instance Data.ToJSON AddOnRequest where
   toJSON AddOnRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("autoSnapshotAddOnRequest" Core..=)
+          [ ("autoSnapshotAddOnRequest" Data..=)
               Prelude.<$> autoSnapshotAddOnRequest,
-            Prelude.Just ("addOnType" Core..= addOnType)
+            Prelude.Just ("addOnType" Data..= addOnType)
           ]
       )

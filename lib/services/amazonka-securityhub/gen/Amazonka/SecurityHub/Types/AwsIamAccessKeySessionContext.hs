@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsIamAccessKeySessionContext
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsIamAccessKeySessionContext where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsIamAccessKeySessionContextAttributes
 import Amazonka.SecurityHub.Types.AwsIamAccessKeySessionContextSessionIssuer
@@ -64,14 +65,14 @@ awsIamAccessKeySessionContext_attributes = Lens.lens (\AwsIamAccessKeySessionCon
 awsIamAccessKeySessionContext_sessionIssuer :: Lens.Lens' AwsIamAccessKeySessionContext (Prelude.Maybe AwsIamAccessKeySessionContextSessionIssuer)
 awsIamAccessKeySessionContext_sessionIssuer = Lens.lens (\AwsIamAccessKeySessionContext' {sessionIssuer} -> sessionIssuer) (\s@AwsIamAccessKeySessionContext' {} a -> s {sessionIssuer = a} :: AwsIamAccessKeySessionContext)
 
-instance Core.FromJSON AwsIamAccessKeySessionContext where
+instance Data.FromJSON AwsIamAccessKeySessionContext where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsIamAccessKeySessionContext"
       ( \x ->
           AwsIamAccessKeySessionContext'
-            Prelude.<$> (x Core..:? "Attributes")
-            Prelude.<*> (x Core..:? "SessionIssuer")
+            Prelude.<$> (x Data..:? "Attributes")
+            Prelude.<*> (x Data..:? "SessionIssuer")
       )
 
 instance
@@ -87,11 +88,11 @@ instance Prelude.NFData AwsIamAccessKeySessionContext where
     Prelude.rnf attributes
       `Prelude.seq` Prelude.rnf sessionIssuer
 
-instance Core.ToJSON AwsIamAccessKeySessionContext where
+instance Data.ToJSON AwsIamAccessKeySessionContext where
   toJSON AwsIamAccessKeySessionContext' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Attributes" Core..=) Prelude.<$> attributes,
-            ("SessionIssuer" Core..=) Prelude.<$> sessionIssuer
+          [ ("Attributes" Data..=) Prelude.<$> attributes,
+            ("SessionIssuer" Data..=) Prelude.<$> sessionIssuer
           ]
       )

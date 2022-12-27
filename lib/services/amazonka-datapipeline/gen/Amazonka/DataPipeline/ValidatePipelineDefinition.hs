@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.ValidatePipelineDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.DataPipeline.ValidatePipelineDefinition
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataPipeline.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -118,19 +119,20 @@ instance Core.AWSRequest ValidatePipelineDefinition where
   type
     AWSResponse ValidatePipelineDefinition =
       ValidatePipelineDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ValidatePipelineDefinitionResponse'
-            Prelude.<$> ( x Core..?> "validationErrors"
+            Prelude.<$> ( x Data..?> "validationErrors"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> ( x Core..?> "validationWarnings"
+            Prelude.<*> ( x Data..?> "validationWarnings"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "errored")
+            Prelude.<*> (x Data..:> "errored")
       )
 
 instance Prelude.Hashable ValidatePipelineDefinition where
@@ -147,39 +149,39 @@ instance Prelude.NFData ValidatePipelineDefinition where
       `Prelude.seq` Prelude.rnf pipelineId
       `Prelude.seq` Prelude.rnf pipelineObjects
 
-instance Core.ToHeaders ValidatePipelineDefinition where
+instance Data.ToHeaders ValidatePipelineDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DataPipeline.ValidatePipelineDefinition" ::
+              Data.=# ( "DataPipeline.ValidatePipelineDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ValidatePipelineDefinition where
+instance Data.ToJSON ValidatePipelineDefinition where
   toJSON ValidatePipelineDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("parameterObjects" Core..=)
+          [ ("parameterObjects" Data..=)
               Prelude.<$> parameterObjects,
-            ("parameterValues" Core..=)
+            ("parameterValues" Data..=)
               Prelude.<$> parameterValues,
-            Prelude.Just ("pipelineId" Core..= pipelineId),
+            Prelude.Just ("pipelineId" Data..= pipelineId),
             Prelude.Just
-              ("pipelineObjects" Core..= pipelineObjects)
+              ("pipelineObjects" Data..= pipelineObjects)
           ]
       )
 
-instance Core.ToPath ValidatePipelineDefinition where
+instance Data.ToPath ValidatePipelineDefinition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ValidatePipelineDefinition where
+instance Data.ToQuery ValidatePipelineDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of ValidatePipelineDefinition.

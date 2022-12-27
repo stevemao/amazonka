@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.ColumnImportance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.ColumnImportance where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure containing the column name and column importance score for a
@@ -32,10 +33,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newColumnImportance' smart constructor.
 data ColumnImportance = ColumnImportance'
-  { -- | The column importance score for the column, as a decimal.
-    importance :: Prelude.Maybe Prelude.Double,
-    -- | The name of a column.
-    columnName :: Prelude.Maybe Prelude.Text
+  { -- | The name of a column.
+    columnName :: Prelude.Maybe Prelude.Text,
+    -- | The column importance score for the column, as a decimal.
+    importance :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,41 +48,41 @@ data ColumnImportance = ColumnImportance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'importance', 'columnImportance_importance' - The column importance score for the column, as a decimal.
---
 -- 'columnName', 'columnImportance_columnName' - The name of a column.
+--
+-- 'importance', 'columnImportance_importance' - The column importance score for the column, as a decimal.
 newColumnImportance ::
   ColumnImportance
 newColumnImportance =
   ColumnImportance'
-    { importance = Prelude.Nothing,
-      columnName = Prelude.Nothing
+    { columnName = Prelude.Nothing,
+      importance = Prelude.Nothing
     }
-
--- | The column importance score for the column, as a decimal.
-columnImportance_importance :: Lens.Lens' ColumnImportance (Prelude.Maybe Prelude.Double)
-columnImportance_importance = Lens.lens (\ColumnImportance' {importance} -> importance) (\s@ColumnImportance' {} a -> s {importance = a} :: ColumnImportance)
 
 -- | The name of a column.
 columnImportance_columnName :: Lens.Lens' ColumnImportance (Prelude.Maybe Prelude.Text)
 columnImportance_columnName = Lens.lens (\ColumnImportance' {columnName} -> columnName) (\s@ColumnImportance' {} a -> s {columnName = a} :: ColumnImportance)
 
-instance Core.FromJSON ColumnImportance where
+-- | The column importance score for the column, as a decimal.
+columnImportance_importance :: Lens.Lens' ColumnImportance (Prelude.Maybe Prelude.Double)
+columnImportance_importance = Lens.lens (\ColumnImportance' {importance} -> importance) (\s@ColumnImportance' {} a -> s {importance = a} :: ColumnImportance)
+
+instance Data.FromJSON ColumnImportance where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ColumnImportance"
       ( \x ->
           ColumnImportance'
-            Prelude.<$> (x Core..:? "Importance")
-            Prelude.<*> (x Core..:? "ColumnName")
+            Prelude.<$> (x Data..:? "ColumnName")
+            Prelude.<*> (x Data..:? "Importance")
       )
 
 instance Prelude.Hashable ColumnImportance where
   hashWithSalt _salt ColumnImportance' {..} =
-    _salt `Prelude.hashWithSalt` importance
-      `Prelude.hashWithSalt` columnName
+    _salt `Prelude.hashWithSalt` columnName
+      `Prelude.hashWithSalt` importance
 
 instance Prelude.NFData ColumnImportance where
   rnf ColumnImportance' {..} =
-    Prelude.rnf importance
-      `Prelude.seq` Prelude.rnf columnName
+    Prelude.rnf columnName
+      `Prelude.seq` Prelude.rnf importance

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.Types.HostedZoneSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53.Types.HostedZoneSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53.Internal
 import Amazonka.Route53.Types.HostedZoneOwner
@@ -91,12 +92,12 @@ hostedZoneSummary_name = Lens.lens (\HostedZoneSummary' {name} -> name) (\s@Host
 hostedZoneSummary_owner :: Lens.Lens' HostedZoneSummary HostedZoneOwner
 hostedZoneSummary_owner = Lens.lens (\HostedZoneSummary' {owner} -> owner) (\s@HostedZoneSummary' {} a -> s {owner = a} :: HostedZoneSummary)
 
-instance Core.FromXML HostedZoneSummary where
+instance Data.FromXML HostedZoneSummary where
   parseXML x =
     HostedZoneSummary'
-      Prelude.<$> (x Core..@ "HostedZoneId")
-      Prelude.<*> (x Core..@ "Name")
-      Prelude.<*> (x Core..@ "Owner")
+      Prelude.<$> (x Data..@ "HostedZoneId")
+      Prelude.<*> (x Data..@ "Name")
+      Prelude.<*> (x Data..@ "Owner")
 
 instance Prelude.Hashable HostedZoneSummary where
   hashWithSalt _salt HostedZoneSummary' {..} =

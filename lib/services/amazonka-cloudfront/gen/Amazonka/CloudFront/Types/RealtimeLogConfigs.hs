@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.RealtimeLogConfigs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.RealtimeLogConfigs where
 
 import Amazonka.CloudFront.Types.RealtimeLogConfig
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of real-time log configurations.
@@ -116,16 +117,16 @@ realtimeLogConfigs_isTruncated = Lens.lens (\RealtimeLogConfigs' {isTruncated} -
 realtimeLogConfigs_marker :: Lens.Lens' RealtimeLogConfigs Prelude.Text
 realtimeLogConfigs_marker = Lens.lens (\RealtimeLogConfigs' {marker} -> marker) (\s@RealtimeLogConfigs' {} a -> s {marker = a} :: RealtimeLogConfigs)
 
-instance Core.FromXML RealtimeLogConfigs where
+instance Data.FromXML RealtimeLogConfigs where
   parseXML x =
     RealtimeLogConfigs'
-      Prelude.<$> ( x Core..@? "Items" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+      Prelude.<$> ( x Data..@? "Items" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
-      Prelude.<*> (x Core..@? "NextMarker")
-      Prelude.<*> (x Core..@ "MaxItems")
-      Prelude.<*> (x Core..@ "IsTruncated")
-      Prelude.<*> (x Core..@ "Marker")
+      Prelude.<*> (x Data..@? "NextMarker")
+      Prelude.<*> (x Data..@ "MaxItems")
+      Prelude.<*> (x Data..@ "IsTruncated")
+      Prelude.<*> (x Data..@ "Marker")
 
 instance Prelude.Hashable RealtimeLogConfigs where
   hashWithSalt _salt RealtimeLogConfigs' {..} =

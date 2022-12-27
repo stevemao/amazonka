@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.MemoryDb.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,175 +14,54 @@
 module Amazonka.MemoryDb.Lens
   ( -- * Operations
 
-    -- ** DescribeClusters
-    describeClusters_showShardDetails,
-    describeClusters_nextToken,
-    describeClusters_clusterName,
-    describeClusters_maxResults,
-    describeClustersResponse_nextToken,
-    describeClustersResponse_clusters,
-    describeClustersResponse_httpStatus,
-
     -- ** BatchUpdateCluster
     batchUpdateCluster_serviceUpdate,
     batchUpdateCluster_clusterNames,
-    batchUpdateClusterResponse_unprocessedClusters,
     batchUpdateClusterResponse_processedClusters,
+    batchUpdateClusterResponse_unprocessedClusters,
     batchUpdateClusterResponse_httpStatus,
 
-    -- ** DescribeUsers
-    describeUsers_filters,
-    describeUsers_userName,
-    describeUsers_nextToken,
-    describeUsers_maxResults,
-    describeUsersResponse_users,
-    describeUsersResponse_nextToken,
-    describeUsersResponse_httpStatus,
-
-    -- ** DescribeParameters
-    describeParameters_nextToken,
-    describeParameters_maxResults,
-    describeParameters_parameterGroupName,
-    describeParametersResponse_nextToken,
-    describeParametersResponse_parameters,
-    describeParametersResponse_httpStatus,
-
-    -- ** DeleteACL
-    deleteACL_aCLName,
-    deleteACLResponse_acl,
-    deleteACLResponse_httpStatus,
-
-    -- ** UpdateACL
-    updateACL_userNamesToAdd,
-    updateACL_userNamesToRemove,
-    updateACL_aCLName,
-    updateACLResponse_acl,
-    updateACLResponse_httpStatus,
-
-    -- ** DescribeEvents
-    describeEvents_sourceName,
-    describeEvents_startTime,
-    describeEvents_sourceType,
-    describeEvents_nextToken,
-    describeEvents_endTime,
-    describeEvents_duration,
-    describeEvents_maxResults,
-    describeEventsResponse_nextToken,
-    describeEventsResponse_events,
-    describeEventsResponse_httpStatus,
-
-    -- ** DescribeEngineVersions
-    describeEngineVersions_engineVersion,
-    describeEngineVersions_defaultOnly,
-    describeEngineVersions_nextToken,
-    describeEngineVersions_parameterGroupFamily,
-    describeEngineVersions_maxResults,
-    describeEngineVersionsResponse_nextToken,
-    describeEngineVersionsResponse_engineVersions,
-    describeEngineVersionsResponse_httpStatus,
-
-    -- ** DescribeACLs
-    describeACLs_nextToken,
-    describeACLs_maxResults,
-    describeACLs_aCLName,
-    describeACLsResponse_nextToken,
-    describeACLsResponse_aCLs,
-    describeACLsResponse_httpStatus,
-
-    -- ** CreateSubnetGroup
-    createSubnetGroup_description,
-    createSubnetGroup_tags,
-    createSubnetGroup_subnetGroupName,
-    createSubnetGroup_subnetIds,
-    createSubnetGroupResponse_subnetGroup,
-    createSubnetGroupResponse_httpStatus,
-
-    -- ** DeleteCluster
-    deleteCluster_finalSnapshotName,
-    deleteCluster_clusterName,
-    deleteClusterResponse_cluster,
-    deleteClusterResponse_httpStatus,
-
-    -- ** UpdateCluster
-    updateCluster_engineVersion,
-    updateCluster_securityGroupIds,
-    updateCluster_snsTopicArn,
-    updateCluster_snapshotWindow,
-    updateCluster_maintenanceWindow,
-    updateCluster_shardConfiguration,
-    updateCluster_snapshotRetentionLimit,
-    updateCluster_replicaConfiguration,
-    updateCluster_nodeType,
-    updateCluster_snsTopicStatus,
-    updateCluster_description,
-    updateCluster_aCLName,
-    updateCluster_parameterGroupName,
-    updateCluster_clusterName,
-    updateClusterResponse_cluster,
-    updateClusterResponse_httpStatus,
-
-    -- ** CreateCluster
-    createCluster_engineVersion,
-    createCluster_securityGroupIds,
-    createCluster_snapshotArns,
-    createCluster_autoMinorVersionUpgrade,
-    createCluster_snsTopicArn,
-    createCluster_snapshotWindow,
-    createCluster_subnetGroupName,
-    createCluster_tLSEnabled,
-    createCluster_numShards,
-    createCluster_maintenanceWindow,
-    createCluster_kmsKeyId,
-    createCluster_snapshotRetentionLimit,
-    createCluster_snapshotName,
-    createCluster_description,
-    createCluster_numReplicasPerShard,
-    createCluster_tags,
-    createCluster_port,
-    createCluster_parameterGroupName,
-    createCluster_clusterName,
-    createCluster_nodeType,
-    createCluster_aCLName,
-    createClusterResponse_cluster,
-    createClusterResponse_httpStatus,
-
     -- ** CopySnapshot
-    copySnapshot_targetBucket,
     copySnapshot_kmsKeyId,
     copySnapshot_tags,
+    copySnapshot_targetBucket,
     copySnapshot_sourceSnapshotName,
     copySnapshot_targetSnapshotName,
     copySnapshotResponse_snapshot,
     copySnapshotResponse_httpStatus,
 
-    -- ** DeleteParameterGroup
-    deleteParameterGroup_parameterGroupName,
-    deleteParameterGroupResponse_parameterGroup,
-    deleteParameterGroupResponse_httpStatus,
+    -- ** CreateACL
+    createACL_tags,
+    createACL_userNames,
+    createACL_aCLName,
+    createACLResponse_acl,
+    createACLResponse_httpStatus,
 
-    -- ** UpdateParameterGroup
-    updateParameterGroup_parameterGroupName,
-    updateParameterGroup_parameterNameValues,
-    updateParameterGroupResponse_parameterGroup,
-    updateParameterGroupResponse_httpStatus,
-
-    -- ** DescribeSubnetGroups
-    describeSubnetGroups_subnetGroupName,
-    describeSubnetGroups_nextToken,
-    describeSubnetGroups_maxResults,
-    describeSubnetGroupsResponse_subnetGroups,
-    describeSubnetGroupsResponse_nextToken,
-    describeSubnetGroupsResponse_httpStatus,
-
-    -- ** DescribeServiceUpdates
-    describeServiceUpdates_status,
-    describeServiceUpdates_serviceUpdateName,
-    describeServiceUpdates_clusterNames,
-    describeServiceUpdates_nextToken,
-    describeServiceUpdates_maxResults,
-    describeServiceUpdatesResponse_serviceUpdates,
-    describeServiceUpdatesResponse_nextToken,
-    describeServiceUpdatesResponse_httpStatus,
+    -- ** CreateCluster
+    createCluster_autoMinorVersionUpgrade,
+    createCluster_dataTiering,
+    createCluster_description,
+    createCluster_engineVersion,
+    createCluster_kmsKeyId,
+    createCluster_maintenanceWindow,
+    createCluster_numReplicasPerShard,
+    createCluster_numShards,
+    createCluster_parameterGroupName,
+    createCluster_port,
+    createCluster_securityGroupIds,
+    createCluster_snapshotArns,
+    createCluster_snapshotName,
+    createCluster_snapshotRetentionLimit,
+    createCluster_snapshotWindow,
+    createCluster_snsTopicArn,
+    createCluster_subnetGroupName,
+    createCluster_tLSEnabled,
+    createCluster_tags,
+    createCluster_clusterName,
+    createCluster_nodeType,
+    createCluster_aCLName,
+    createClusterResponse_cluster,
+    createClusterResponse_httpStatus,
 
     -- ** CreateParameterGroup
     createParameterGroup_description,
@@ -192,35 +71,21 @@ module Amazonka.MemoryDb.Lens
     createParameterGroupResponse_parameterGroup,
     createParameterGroupResponse_httpStatus,
 
-    -- ** DescribeSnapshots
-    describeSnapshots_showDetail,
-    describeSnapshots_nextToken,
-    describeSnapshots_source,
-    describeSnapshots_clusterName,
-    describeSnapshots_snapshotName,
-    describeSnapshots_maxResults,
-    describeSnapshotsResponse_nextToken,
-    describeSnapshotsResponse_snapshots,
-    describeSnapshotsResponse_httpStatus,
+    -- ** CreateSnapshot
+    createSnapshot_kmsKeyId,
+    createSnapshot_tags,
+    createSnapshot_clusterName,
+    createSnapshot_snapshotName,
+    createSnapshotResponse_snapshot,
+    createSnapshotResponse_httpStatus,
 
-    -- ** CreateACL
-    createACL_userNames,
-    createACL_tags,
-    createACL_aCLName,
-    createACLResponse_acl,
-    createACLResponse_httpStatus,
-
-    -- ** UpdateSubnetGroup
-    updateSubnetGroup_subnetIds,
-    updateSubnetGroup_description,
-    updateSubnetGroup_subnetGroupName,
-    updateSubnetGroupResponse_subnetGroup,
-    updateSubnetGroupResponse_httpStatus,
-
-    -- ** DeleteSubnetGroup
-    deleteSubnetGroup_subnetGroupName,
-    deleteSubnetGroupResponse_subnetGroup,
-    deleteSubnetGroupResponse_httpStatus,
+    -- ** CreateSubnetGroup
+    createSubnetGroup_description,
+    createSubnetGroup_tags,
+    createSubnetGroup_subnetGroupName,
+    createSubnetGroup_subnetIds,
+    createSubnetGroupResponse_subnetGroup,
+    createSubnetGroupResponse_httpStatus,
 
     -- ** CreateUser
     createUser_tags,
@@ -230,10 +95,129 @@ module Amazonka.MemoryDb.Lens
     createUserResponse_user,
     createUserResponse_httpStatus,
 
+    -- ** DeleteACL
+    deleteACL_aCLName,
+    deleteACLResponse_acl,
+    deleteACLResponse_httpStatus,
+
+    -- ** DeleteCluster
+    deleteCluster_finalSnapshotName,
+    deleteCluster_clusterName,
+    deleteClusterResponse_cluster,
+    deleteClusterResponse_httpStatus,
+
+    -- ** DeleteParameterGroup
+    deleteParameterGroup_parameterGroupName,
+    deleteParameterGroupResponse_parameterGroup,
+    deleteParameterGroupResponse_httpStatus,
+
     -- ** DeleteSnapshot
     deleteSnapshot_snapshotName,
     deleteSnapshotResponse_snapshot,
     deleteSnapshotResponse_httpStatus,
+
+    -- ** DeleteSubnetGroup
+    deleteSubnetGroup_subnetGroupName,
+    deleteSubnetGroupResponse_subnetGroup,
+    deleteSubnetGroupResponse_httpStatus,
+
+    -- ** DeleteUser
+    deleteUser_userName,
+    deleteUserResponse_user,
+    deleteUserResponse_httpStatus,
+
+    -- ** DescribeACLs
+    describeACLs_aCLName,
+    describeACLs_maxResults,
+    describeACLs_nextToken,
+    describeACLsResponse_aCLs,
+    describeACLsResponse_nextToken,
+    describeACLsResponse_httpStatus,
+
+    -- ** DescribeClusters
+    describeClusters_clusterName,
+    describeClusters_maxResults,
+    describeClusters_nextToken,
+    describeClusters_showShardDetails,
+    describeClustersResponse_clusters,
+    describeClustersResponse_nextToken,
+    describeClustersResponse_httpStatus,
+
+    -- ** DescribeEngineVersions
+    describeEngineVersions_defaultOnly,
+    describeEngineVersions_engineVersion,
+    describeEngineVersions_maxResults,
+    describeEngineVersions_nextToken,
+    describeEngineVersions_parameterGroupFamily,
+    describeEngineVersionsResponse_engineVersions,
+    describeEngineVersionsResponse_nextToken,
+    describeEngineVersionsResponse_httpStatus,
+
+    -- ** DescribeEvents
+    describeEvents_duration,
+    describeEvents_endTime,
+    describeEvents_maxResults,
+    describeEvents_nextToken,
+    describeEvents_sourceName,
+    describeEvents_sourceType,
+    describeEvents_startTime,
+    describeEventsResponse_events,
+    describeEventsResponse_nextToken,
+    describeEventsResponse_httpStatus,
+
+    -- ** DescribeParameterGroups
+    describeParameterGroups_maxResults,
+    describeParameterGroups_nextToken,
+    describeParameterGroups_parameterGroupName,
+    describeParameterGroupsResponse_nextToken,
+    describeParameterGroupsResponse_parameterGroups,
+    describeParameterGroupsResponse_httpStatus,
+
+    -- ** DescribeParameters
+    describeParameters_maxResults,
+    describeParameters_nextToken,
+    describeParameters_parameterGroupName,
+    describeParametersResponse_nextToken,
+    describeParametersResponse_parameters,
+    describeParametersResponse_httpStatus,
+
+    -- ** DescribeServiceUpdates
+    describeServiceUpdates_clusterNames,
+    describeServiceUpdates_maxResults,
+    describeServiceUpdates_nextToken,
+    describeServiceUpdates_serviceUpdateName,
+    describeServiceUpdates_status,
+    describeServiceUpdatesResponse_nextToken,
+    describeServiceUpdatesResponse_serviceUpdates,
+    describeServiceUpdatesResponse_httpStatus,
+
+    -- ** DescribeSnapshots
+    describeSnapshots_clusterName,
+    describeSnapshots_maxResults,
+    describeSnapshots_nextToken,
+    describeSnapshots_showDetail,
+    describeSnapshots_snapshotName,
+    describeSnapshots_source,
+    describeSnapshotsResponse_nextToken,
+    describeSnapshotsResponse_snapshots,
+    describeSnapshotsResponse_httpStatus,
+
+    -- ** DescribeSubnetGroups
+    describeSubnetGroups_maxResults,
+    describeSubnetGroups_nextToken,
+    describeSubnetGroups_subnetGroupName,
+    describeSubnetGroupsResponse_nextToken,
+    describeSubnetGroupsResponse_subnetGroups,
+    describeSubnetGroupsResponse_httpStatus,
+
+    -- ** DescribeUsers
+    describeUsers_filters,
+    describeUsers_maxResults,
+    describeUsers_nextToken,
+    describeUsers_userName,
+    describeUsersResponse_nextToken,
+    describeUsersResponse_users,
+    describeUsersResponse_httpStatus,
 
     -- ** FailoverShard
     failoverShard_clusterName,
@@ -241,45 +225,11 @@ module Amazonka.MemoryDb.Lens
     failoverShardResponse_cluster,
     failoverShardResponse_httpStatus,
 
-    -- ** UpdateUser
-    updateUser_authenticationMode,
-    updateUser_accessString,
-    updateUser_userName,
-    updateUserResponse_user,
-    updateUserResponse_httpStatus,
-
-    -- ** DeleteUser
-    deleteUser_userName,
-    deleteUserResponse_user,
-    deleteUserResponse_httpStatus,
-
     -- ** ListAllowedNodeTypeUpdates
     listAllowedNodeTypeUpdates_clusterName,
-    listAllowedNodeTypeUpdatesResponse_scaleUpNodeTypes,
     listAllowedNodeTypeUpdatesResponse_scaleDownNodeTypes,
+    listAllowedNodeTypeUpdatesResponse_scaleUpNodeTypes,
     listAllowedNodeTypeUpdatesResponse_httpStatus,
-
-    -- ** DescribeParameterGroups
-    describeParameterGroups_nextToken,
-    describeParameterGroups_maxResults,
-    describeParameterGroups_parameterGroupName,
-    describeParameterGroupsResponse_nextToken,
-    describeParameterGroupsResponse_parameterGroups,
-    describeParameterGroupsResponse_httpStatus,
-
-    -- ** CreateSnapshot
-    createSnapshot_kmsKeyId,
-    createSnapshot_tags,
-    createSnapshot_clusterName,
-    createSnapshot_snapshotName,
-    createSnapshotResponse_snapshot,
-    createSnapshotResponse_httpStatus,
-
-    -- ** TagResource
-    tagResource_resourceArn,
-    tagResource_tags,
-    tagResourceResponse_tagList,
-    tagResourceResponse_httpStatus,
 
     -- ** ListTags
     listTags_resourceArn,
@@ -287,11 +237,17 @@ module Amazonka.MemoryDb.Lens
     listTagsResponse_httpStatus,
 
     -- ** ResetParameterGroup
-    resetParameterGroup_parameterNames,
     resetParameterGroup_allParameters,
+    resetParameterGroup_parameterNames,
     resetParameterGroup_parameterGroupName,
     resetParameterGroupResponse_parameterGroup,
     resetParameterGroupResponse_httpStatus,
+
+    -- ** TagResource
+    tagResource_resourceArn,
+    tagResource_tags,
+    tagResourceResponse_tagList,
+    tagResourceResponse_httpStatus,
 
     -- ** UntagResource
     untagResource_resourceArn,
@@ -299,16 +255,61 @@ module Amazonka.MemoryDb.Lens
     untagResourceResponse_tagList,
     untagResourceResponse_httpStatus,
 
+    -- ** UpdateACL
+    updateACL_userNamesToAdd,
+    updateACL_userNamesToRemove,
+    updateACL_aCLName,
+    updateACLResponse_acl,
+    updateACLResponse_httpStatus,
+
+    -- ** UpdateCluster
+    updateCluster_aCLName,
+    updateCluster_description,
+    updateCluster_engineVersion,
+    updateCluster_maintenanceWindow,
+    updateCluster_nodeType,
+    updateCluster_parameterGroupName,
+    updateCluster_replicaConfiguration,
+    updateCluster_securityGroupIds,
+    updateCluster_shardConfiguration,
+    updateCluster_snapshotRetentionLimit,
+    updateCluster_snapshotWindow,
+    updateCluster_snsTopicArn,
+    updateCluster_snsTopicStatus,
+    updateCluster_clusterName,
+    updateClusterResponse_cluster,
+    updateClusterResponse_httpStatus,
+
+    -- ** UpdateParameterGroup
+    updateParameterGroup_parameterGroupName,
+    updateParameterGroup_parameterNameValues,
+    updateParameterGroupResponse_parameterGroup,
+    updateParameterGroupResponse_httpStatus,
+
+    -- ** UpdateSubnetGroup
+    updateSubnetGroup_description,
+    updateSubnetGroup_subnetIds,
+    updateSubnetGroup_subnetGroupName,
+    updateSubnetGroupResponse_subnetGroup,
+    updateSubnetGroupResponse_httpStatus,
+
+    -- ** UpdateUser
+    updateUser_accessString,
+    updateUser_authenticationMode,
+    updateUser_userName,
+    updateUserResponse_user,
+    updateUserResponse_httpStatus,
+
     -- * Types
 
     -- ** ACL
-    acl_status,
-    acl_userNames,
     acl_arn,
+    acl_clusters,
+    acl_minimumEngineVersion,
     acl_name,
     acl_pendingChanges,
-    acl_minimumEngineVersion,
-    acl_clusters,
+    acl_status,
+    acl_userNames,
 
     -- ** ACLPendingChanges
     aCLPendingChanges_userNamesToAdd,
@@ -329,100 +330,101 @@ module Amazonka.MemoryDb.Lens
     availabilityZone_name,
 
     -- ** Cluster
-    cluster_engineVersion,
-    cluster_status,
-    cluster_autoMinorVersionUpgrade,
-    cluster_snsTopicArn,
-    cluster_securityGroups,
-    cluster_availabilityMode,
-    cluster_parameterGroupStatus,
+    cluster_aCLName,
     cluster_arn,
-    cluster_pendingUpdates,
+    cluster_autoMinorVersionUpgrade,
+    cluster_availabilityMode,
+    cluster_clusterEndpoint,
+    cluster_dataTiering,
+    cluster_description,
+    cluster_enginePatchVersion,
+    cluster_engineVersion,
+    cluster_kmsKeyId,
+    cluster_maintenanceWindow,
+    cluster_name,
+    cluster_nodeType,
     cluster_numberOfShards,
+    cluster_parameterGroupName,
+    cluster_parameterGroupStatus,
+    cluster_pendingUpdates,
+    cluster_securityGroups,
+    cluster_shards,
+    cluster_snapshotRetentionLimit,
     cluster_snapshotWindow,
+    cluster_snsTopicArn,
+    cluster_snsTopicStatus,
+    cluster_status,
     cluster_subnetGroupName,
     cluster_tLSEnabled,
-    cluster_maintenanceWindow,
-    cluster_kmsKeyId,
-    cluster_shards,
-    cluster_name,
-    cluster_enginePatchVersion,
-    cluster_snapshotRetentionLimit,
-    cluster_nodeType,
-    cluster_snsTopicStatus,
-    cluster_description,
-    cluster_aCLName,
-    cluster_clusterEndpoint,
-    cluster_parameterGroupName,
 
     -- ** ClusterConfiguration
+    clusterConfiguration_description,
     clusterConfiguration_engineVersion,
-    clusterConfiguration_vpcId,
+    clusterConfiguration_maintenanceWindow,
+    clusterConfiguration_name,
+    clusterConfiguration_nodeType,
+    clusterConfiguration_numShards,
+    clusterConfiguration_parameterGroupName,
+    clusterConfiguration_port,
+    clusterConfiguration_shards,
+    clusterConfiguration_snapshotRetentionLimit,
     clusterConfiguration_snapshotWindow,
     clusterConfiguration_subnetGroupName,
-    clusterConfiguration_numShards,
-    clusterConfiguration_maintenanceWindow,
     clusterConfiguration_topicArn,
-    clusterConfiguration_shards,
-    clusterConfiguration_name,
-    clusterConfiguration_snapshotRetentionLimit,
-    clusterConfiguration_nodeType,
-    clusterConfiguration_description,
-    clusterConfiguration_port,
-    clusterConfiguration_parameterGroupName,
+    clusterConfiguration_vpcId,
 
     -- ** ClusterPendingUpdates
-    clusterPendingUpdates_serviceUpdates,
-    clusterPendingUpdates_resharding,
     clusterPendingUpdates_aCLs,
+    clusterPendingUpdates_resharding,
+    clusterPendingUpdates_serviceUpdates,
 
     -- ** Endpoint
     endpoint_address,
     endpoint_port,
 
     -- ** EngineVersionInfo
-    engineVersionInfo_engineVersion,
     engineVersionInfo_enginePatchVersion,
+    engineVersionInfo_engineVersion,
     engineVersionInfo_parameterGroupFamily,
 
     -- ** Event
-    event_sourceName,
-    event_sourceType,
     event_date,
     event_message,
+    event_sourceName,
+    event_sourceType,
 
     -- ** Filter
     filter_name,
     filter_values,
 
     -- ** Node
-    node_status,
     node_availabilityZone,
-    node_name,
-    node_endpoint,
     node_createTime,
+    node_endpoint,
+    node_name,
+    node_status,
 
     -- ** Parameter
-    parameter_value,
-    parameter_name,
-    parameter_minimumEngineVersion,
-    parameter_dataType,
     parameter_allowedValues,
+    parameter_dataType,
     parameter_description,
+    parameter_minimumEngineVersion,
+    parameter_name,
+    parameter_value,
 
     -- ** ParameterGroup
     parameterGroup_arn,
+    parameterGroup_description,
     parameterGroup_family,
     parameterGroup_name,
-    parameterGroup_description,
 
     -- ** ParameterNameValue
-    parameterNameValue_parameterValue,
     parameterNameValue_parameterName,
+    parameterNameValue_parameterValue,
 
     -- ** PendingModifiedServiceUpdate
-    pendingModifiedServiceUpdate_status,
     pendingModifiedServiceUpdate_serviceUpdateName,
+    pendingModifiedServiceUpdate_status,
 
     -- ** ReplicaConfigurationRequest
     replicaConfigurationRequest_replicaCount,
@@ -431,81 +433,82 @@ module Amazonka.MemoryDb.Lens
     reshardingStatus_slotMigration,
 
     -- ** SecurityGroupMembership
-    securityGroupMembership_status,
     securityGroupMembership_securityGroupId,
+    securityGroupMembership_status,
 
     -- ** ServiceUpdate
-    serviceUpdate_status,
     serviceUpdate_autoUpdateStartDate,
-    serviceUpdate_serviceUpdateName,
+    serviceUpdate_clusterName,
+    serviceUpdate_description,
     serviceUpdate_nodesUpdated,
     serviceUpdate_releaseDate,
-    serviceUpdate_clusterName,
+    serviceUpdate_serviceUpdateName,
+    serviceUpdate_status,
     serviceUpdate_type,
-    serviceUpdate_description,
 
     -- ** ServiceUpdateRequest
     serviceUpdateRequest_serviceUpdateNameToApply,
 
     -- ** Shard
-    shard_status,
-    shard_slots,
-    shard_numberOfNodes,
     shard_name,
     shard_nodes,
+    shard_numberOfNodes,
+    shard_slots,
+    shard_status,
 
     -- ** ShardConfiguration
-    shardConfiguration_slots,
     shardConfiguration_replicaCount,
+    shardConfiguration_slots,
 
     -- ** ShardConfigurationRequest
     shardConfigurationRequest_shardCount,
 
     -- ** ShardDetail
+    shardDetail_configuration,
+    shardDetail_name,
     shardDetail_size,
     shardDetail_snapshotCreationTime,
-    shardDetail_name,
-    shardDetail_configuration,
 
     -- ** SlotMigration
     slotMigration_progressPercentage,
 
     -- ** Snapshot
-    snapshot_status,
     snapshot_arn,
+    snapshot_clusterConfiguration,
+    snapshot_dataTiering,
     snapshot_kmsKeyId,
     snapshot_name,
-    snapshot_clusterConfiguration,
     snapshot_source,
+    snapshot_status,
 
     -- ** Subnet
-    subnet_identifier,
     subnet_availabilityZone,
+    subnet_identifier,
 
     -- ** SubnetGroup
     subnetGroup_arn,
-    subnetGroup_vpcId,
-    subnetGroup_subnets,
-    subnetGroup_name,
     subnetGroup_description,
+    subnetGroup_name,
+    subnetGroup_subnets,
+    subnetGroup_vpcId,
 
     -- ** Tag
-    tag_value,
     tag_key,
+    tag_value,
 
     -- ** UnprocessedCluster
     unprocessedCluster_clusterName,
-    unprocessedCluster_errorType,
     unprocessedCluster_errorMessage,
+    unprocessedCluster_errorType,
 
     -- ** User
-    user_status,
-    user_arn,
-    user_authentication,
-    user_accessString,
-    user_name,
     user_aCLNames,
+    user_arn,
+    user_accessString,
+    user_authentication,
     user_minimumEngineVersion,
+    user_name,
+    user_status,
   )
 where
 

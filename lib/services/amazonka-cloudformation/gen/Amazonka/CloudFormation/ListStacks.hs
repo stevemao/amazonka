@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.ListStacks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -126,15 +127,16 @@ instance Core.AWSPager ListStacks where
 
 instance Core.AWSRequest ListStacks where
   type AWSResponse ListStacks = ListStacksResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListStacksResult"
       ( \s h x ->
           ListStacksResponse'
-            Prelude.<$> (x Core..@? "NextToken")
-            Prelude.<*> ( x Core..@? "StackSummaries" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "NextToken")
+            Prelude.<*> ( x Data..@? "StackSummaries" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -149,23 +151,23 @@ instance Prelude.NFData ListStacks where
     Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf stackStatusFilter
 
-instance Core.ToHeaders ListStacks where
+instance Data.ToHeaders ListStacks where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListStacks where
+instance Data.ToPath ListStacks where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListStacks where
+instance Data.ToQuery ListStacks where
   toQuery ListStacks' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListStacks" :: Prelude.ByteString),
+          Data.=: ("ListStacks" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "NextToken" Data.=: nextToken,
         "StackStatusFilter"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> stackStatusFilter
             )
       ]

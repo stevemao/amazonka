@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.AwsJobExecutionsRolloutConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.AwsJobExecutionsRolloutConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.AwsJobExponentialRolloutRate
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration for the rollout of OTA updates.
@@ -66,14 +67,14 @@ awsJobExecutionsRolloutConfig_exponentialRate = Lens.lens (\AwsJobExecutionsRoll
 awsJobExecutionsRolloutConfig_maximumPerMinute :: Lens.Lens' AwsJobExecutionsRolloutConfig (Prelude.Maybe Prelude.Natural)
 awsJobExecutionsRolloutConfig_maximumPerMinute = Lens.lens (\AwsJobExecutionsRolloutConfig' {maximumPerMinute} -> maximumPerMinute) (\s@AwsJobExecutionsRolloutConfig' {} a -> s {maximumPerMinute = a} :: AwsJobExecutionsRolloutConfig)
 
-instance Core.FromJSON AwsJobExecutionsRolloutConfig where
+instance Data.FromJSON AwsJobExecutionsRolloutConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsJobExecutionsRolloutConfig"
       ( \x ->
           AwsJobExecutionsRolloutConfig'
-            Prelude.<$> (x Core..:? "exponentialRate")
-            Prelude.<*> (x Core..:? "maximumPerMinute")
+            Prelude.<$> (x Data..:? "exponentialRate")
+            Prelude.<*> (x Data..:? "maximumPerMinute")
       )
 
 instance
@@ -89,13 +90,13 @@ instance Prelude.NFData AwsJobExecutionsRolloutConfig where
     Prelude.rnf exponentialRate
       `Prelude.seq` Prelude.rnf maximumPerMinute
 
-instance Core.ToJSON AwsJobExecutionsRolloutConfig where
+instance Data.ToJSON AwsJobExecutionsRolloutConfig where
   toJSON AwsJobExecutionsRolloutConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("exponentialRate" Core..=)
+          [ ("exponentialRate" Data..=)
               Prelude.<$> exponentialRate,
-            ("maximumPerMinute" Core..=)
+            ("maximumPerMinute" Data..=)
               Prelude.<$> maximumPerMinute
           ]
       )

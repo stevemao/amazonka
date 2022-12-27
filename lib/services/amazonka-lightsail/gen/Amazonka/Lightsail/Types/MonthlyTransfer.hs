@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.MonthlyTransfer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.MonthlyTransfer where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the monthly data transfer in and out of your virtual private
@@ -54,13 +55,13 @@ newMonthlyTransfer =
 monthlyTransfer_gbPerMonthAllocated :: Lens.Lens' MonthlyTransfer (Prelude.Maybe Prelude.Int)
 monthlyTransfer_gbPerMonthAllocated = Lens.lens (\MonthlyTransfer' {gbPerMonthAllocated} -> gbPerMonthAllocated) (\s@MonthlyTransfer' {} a -> s {gbPerMonthAllocated = a} :: MonthlyTransfer)
 
-instance Core.FromJSON MonthlyTransfer where
+instance Data.FromJSON MonthlyTransfer where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MonthlyTransfer"
       ( \x ->
           MonthlyTransfer'
-            Prelude.<$> (x Core..:? "gbPerMonthAllocated")
+            Prelude.<$> (x Data..:? "gbPerMonthAllocated")
       )
 
 instance Prelude.Hashable MonthlyTransfer where

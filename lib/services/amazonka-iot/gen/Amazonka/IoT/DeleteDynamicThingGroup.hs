@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeleteDynamicThingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IoT.DeleteDynamicThingGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,7 +94,8 @@ instance Core.AWSRequest DeleteDynamicThingGroup where
   type
     AWSResponse DeleteDynamicThingGroup =
       DeleteDynamicThingGroupResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -111,18 +113,18 @@ instance Prelude.NFData DeleteDynamicThingGroup where
     Prelude.rnf expectedVersion
       `Prelude.seq` Prelude.rnf thingGroupName
 
-instance Core.ToHeaders DeleteDynamicThingGroup where
+instance Data.ToHeaders DeleteDynamicThingGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDynamicThingGroup where
+instance Data.ToPath DeleteDynamicThingGroup where
   toPath DeleteDynamicThingGroup' {..} =
     Prelude.mconcat
-      ["/dynamic-thing-groups/", Core.toBS thingGroupName]
+      ["/dynamic-thing-groups/", Data.toBS thingGroupName]
 
-instance Core.ToQuery DeleteDynamicThingGroup where
+instance Data.ToQuery DeleteDynamicThingGroup where
   toQuery DeleteDynamicThingGroup' {..} =
     Prelude.mconcat
-      ["expectedVersion" Core.=: expectedVersion]
+      ["expectedVersion" Data.=: expectedVersion]
 
 -- | /See:/ 'newDeleteDynamicThingGroupResponse' smart constructor.
 data DeleteDynamicThingGroupResponse = DeleteDynamicThingGroupResponse'

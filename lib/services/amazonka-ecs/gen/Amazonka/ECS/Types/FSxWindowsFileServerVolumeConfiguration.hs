@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.FSxWindowsFileServerVolumeConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,17 @@
 module Amazonka.ECS.Types.FSxWindowsFileServerVolumeConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types.FSxWindowsFileServerAuthorizationConfig
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | This parameter is specified when you are using
+-- | This parameter is specified when you\'re using
 -- <https://docs.aws.amazon.com/fsx/latest/WindowsGuide/what-is.html Amazon FSx for Windows File Server>
 -- file system for task storage.
 --
 -- For more information and the input format, see
--- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/wfsx-volumes.html Amazon FSx for Windows File Server Volumes>
+-- <https://docs.aws.amazon.com/AmazonECS/latest/developerguide/wfsx-volumes.html Amazon FSx for Windows File Server volumes>
 -- in the /Amazon Elastic Container Service Developer Guide/.
 --
 -- /See:/ 'newFSxWindowsFileServerVolumeConfiguration' smart constructor.
@@ -95,17 +96,17 @@ fSxWindowsFileServerVolumeConfiguration_authorizationConfig :: Lens.Lens' FSxWin
 fSxWindowsFileServerVolumeConfiguration_authorizationConfig = Lens.lens (\FSxWindowsFileServerVolumeConfiguration' {authorizationConfig} -> authorizationConfig) (\s@FSxWindowsFileServerVolumeConfiguration' {} a -> s {authorizationConfig = a} :: FSxWindowsFileServerVolumeConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     FSxWindowsFileServerVolumeConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FSxWindowsFileServerVolumeConfiguration"
       ( \x ->
           FSxWindowsFileServerVolumeConfiguration'
-            Prelude.<$> (x Core..: "fileSystemId")
-            Prelude.<*> (x Core..: "rootDirectory")
-            Prelude.<*> (x Core..: "authorizationConfig")
+            Prelude.<$> (x Data..: "fileSystemId")
+            Prelude.<*> (x Data..: "rootDirectory")
+            Prelude.<*> (x Data..: "authorizationConfig")
       )
 
 instance
@@ -129,15 +130,15 @@ instance
       `Prelude.seq` Prelude.rnf authorizationConfig
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     FSxWindowsFileServerVolumeConfiguration
   where
   toJSON FSxWindowsFileServerVolumeConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("fileSystemId" Core..= fileSystemId),
-            Prelude.Just ("rootDirectory" Core..= rootDirectory),
+          [ Prelude.Just ("fileSystemId" Data..= fileSystemId),
+            Prelude.Just ("rootDirectory" Data..= rootDirectory),
             Prelude.Just
-              ("authorizationConfig" Core..= authorizationConfig)
+              ("authorizationConfig" Data..= authorizationConfig)
           ]
       )

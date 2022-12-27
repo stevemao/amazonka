@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteBasePathMapping
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -47,9 +48,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteBasePathMapping' smart constructor.
 data DeleteBasePathMapping = DeleteBasePathMapping'
-  { -- | [Required] The domain name of the BasePathMapping resource to delete.
+  { -- | The domain name of the BasePathMapping resource to delete.
     domainName :: Prelude.Text,
-    -- | [Required] The base path name of the BasePathMapping resource to delete.
+    -- | The base path name of the BasePathMapping resource to delete.
     --
     -- To specify an empty base path, set this parameter to @\'(none)\'@.
     basePath :: Prelude.Text
@@ -64,9 +65,9 @@ data DeleteBasePathMapping = DeleteBasePathMapping'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainName', 'deleteBasePathMapping_domainName' - [Required] The domain name of the BasePathMapping resource to delete.
+-- 'domainName', 'deleteBasePathMapping_domainName' - The domain name of the BasePathMapping resource to delete.
 --
--- 'basePath', 'deleteBasePathMapping_basePath' - [Required] The base path name of the BasePathMapping resource to delete.
+-- 'basePath', 'deleteBasePathMapping_basePath' - The base path name of the BasePathMapping resource to delete.
 --
 -- To specify an empty base path, set this parameter to @\'(none)\'@.
 newDeleteBasePathMapping ::
@@ -81,11 +82,11 @@ newDeleteBasePathMapping pDomainName_ pBasePath_ =
       basePath = pBasePath_
     }
 
--- | [Required] The domain name of the BasePathMapping resource to delete.
+-- | The domain name of the BasePathMapping resource to delete.
 deleteBasePathMapping_domainName :: Lens.Lens' DeleteBasePathMapping Prelude.Text
 deleteBasePathMapping_domainName = Lens.lens (\DeleteBasePathMapping' {domainName} -> domainName) (\s@DeleteBasePathMapping' {} a -> s {domainName = a} :: DeleteBasePathMapping)
 
--- | [Required] The base path name of the BasePathMapping resource to delete.
+-- | The base path name of the BasePathMapping resource to delete.
 --
 -- To specify an empty base path, set this parameter to @\'(none)\'@.
 deleteBasePathMapping_basePath :: Lens.Lens' DeleteBasePathMapping Prelude.Text
@@ -95,7 +96,8 @@ instance Core.AWSRequest DeleteBasePathMapping where
   type
     AWSResponse DeleteBasePathMapping =
       DeleteBasePathMappingResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteBasePathMappingResponse'
 
@@ -109,25 +111,25 @@ instance Prelude.NFData DeleteBasePathMapping where
     Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf basePath
 
-instance Core.ToHeaders DeleteBasePathMapping where
+instance Data.ToHeaders DeleteBasePathMapping where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteBasePathMapping where
+instance Data.ToPath DeleteBasePathMapping where
   toPath DeleteBasePathMapping' {..} =
     Prelude.mconcat
       [ "/domainnames/",
-        Core.toBS domainName,
+        Data.toBS domainName,
         "/basepathmappings/",
-        Core.toBS basePath
+        Data.toBS basePath
       ]
 
-instance Core.ToQuery DeleteBasePathMapping where
+instance Data.ToQuery DeleteBasePathMapping where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteBasePathMappingResponse' smart constructor.

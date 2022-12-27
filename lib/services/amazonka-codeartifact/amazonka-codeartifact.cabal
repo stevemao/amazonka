@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -54,6 +54,7 @@ library
     Amazonka.CodeArtifact.DeleteRepository
     Amazonka.CodeArtifact.DeleteRepositoryPermissionsPolicy
     Amazonka.CodeArtifact.DescribeDomain
+    Amazonka.CodeArtifact.DescribePackage
     Amazonka.CodeArtifact.DescribePackageVersion
     Amazonka.CodeArtifact.DescribeRepository
     Amazonka.CodeArtifact.DisassociateExternalConnection
@@ -74,22 +75,31 @@ library
     Amazonka.CodeArtifact.ListRepositoriesInDomain
     Amazonka.CodeArtifact.ListTagsForResource
     Amazonka.CodeArtifact.PutDomainPermissionsPolicy
+    Amazonka.CodeArtifact.PutPackageOriginConfiguration
     Amazonka.CodeArtifact.PutRepositoryPermissionsPolicy
     Amazonka.CodeArtifact.TagResource
     Amazonka.CodeArtifact.Types
+    Amazonka.CodeArtifact.Types.AllowPublish
+    Amazonka.CodeArtifact.Types.AllowUpstream
     Amazonka.CodeArtifact.Types.AssetSummary
     Amazonka.CodeArtifact.Types.DomainDescription
+    Amazonka.CodeArtifact.Types.DomainEntryPoint
     Amazonka.CodeArtifact.Types.DomainStatus
     Amazonka.CodeArtifact.Types.DomainSummary
     Amazonka.CodeArtifact.Types.ExternalConnectionStatus
     Amazonka.CodeArtifact.Types.HashAlgorithm
     Amazonka.CodeArtifact.Types.LicenseInfo
     Amazonka.CodeArtifact.Types.PackageDependency
+    Amazonka.CodeArtifact.Types.PackageDescription
     Amazonka.CodeArtifact.Types.PackageFormat
+    Amazonka.CodeArtifact.Types.PackageOriginConfiguration
+    Amazonka.CodeArtifact.Types.PackageOriginRestrictions
     Amazonka.CodeArtifact.Types.PackageSummary
     Amazonka.CodeArtifact.Types.PackageVersionDescription
     Amazonka.CodeArtifact.Types.PackageVersionError
     Amazonka.CodeArtifact.Types.PackageVersionErrorCode
+    Amazonka.CodeArtifact.Types.PackageVersionOrigin
+    Amazonka.CodeArtifact.Types.PackageVersionOriginType
     Amazonka.CodeArtifact.Types.PackageVersionSortType
     Amazonka.CodeArtifact.Types.PackageVersionStatus
     Amazonka.CodeArtifact.Types.PackageVersionSummary
@@ -107,7 +117,7 @@ library
     Amazonka.CodeArtifact.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-codeartifact-test
@@ -127,8 +137,8 @@ test-suite amazonka-codeartifact-test
 
   build-depends:
     , amazonka-codeartifact
-    , amazonka-core          ^>=2.0
-    , amazonka-test          ^>=2.0
+    , amazonka-core          >=2.0 && <2.1
+    , amazonka-test          >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

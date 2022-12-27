@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.VoiceRecordingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Connect.Types.VoiceRecordingConfiguration where
 
 import Amazonka.Connect.Types.VoiceRecordingTrack
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the recording configuration settings.
@@ -62,11 +63,11 @@ instance Prelude.NFData VoiceRecordingConfiguration where
   rnf VoiceRecordingConfiguration' {..} =
     Prelude.rnf voiceRecordingTrack
 
-instance Core.ToJSON VoiceRecordingConfiguration where
+instance Data.ToJSON VoiceRecordingConfiguration where
   toJSON VoiceRecordingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("VoiceRecordingTrack" Core..=)
+          [ ("VoiceRecordingTrack" Data..=)
               Prelude.<$> voiceRecordingTrack
           ]
       )

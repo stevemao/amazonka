@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.HttpRouteAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.HttpRouteAction where
 
 import Amazonka.AppMesh.Types.WeightedTarget
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the action to take if a match is determined.
@@ -59,13 +60,13 @@ newHttpRouteAction pWeightedTargets_ =
 httpRouteAction_weightedTargets :: Lens.Lens' HttpRouteAction (Prelude.NonEmpty WeightedTarget)
 httpRouteAction_weightedTargets = Lens.lens (\HttpRouteAction' {weightedTargets} -> weightedTargets) (\s@HttpRouteAction' {} a -> s {weightedTargets = a} :: HttpRouteAction) Prelude.. Lens.coerced
 
-instance Core.FromJSON HttpRouteAction where
+instance Data.FromJSON HttpRouteAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HttpRouteAction"
       ( \x ->
           HttpRouteAction'
-            Prelude.<$> (x Core..: "weightedTargets")
+            Prelude.<$> (x Data..: "weightedTargets")
       )
 
 instance Prelude.Hashable HttpRouteAction where
@@ -76,11 +77,11 @@ instance Prelude.NFData HttpRouteAction where
   rnf HttpRouteAction' {..} =
     Prelude.rnf weightedTargets
 
-instance Core.ToJSON HttpRouteAction where
+instance Data.ToJSON HttpRouteAction where
   toJSON HttpRouteAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("weightedTargets" Core..= weightedTargets)
+              ("weightedTargets" Data..= weightedTargets)
           ]
       )

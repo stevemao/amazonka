@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.UpdateTrafficPolicyComment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Route53.UpdateTrafficPolicyComment
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,13 +116,14 @@ instance Core.AWSRequest UpdateTrafficPolicyComment where
   type
     AWSResponse UpdateTrafficPolicyComment =
       UpdateTrafficPolicyCommentResponse
-  request = Request.postXML defaultService
+  request overrides =
+    Request.postXML (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           UpdateTrafficPolicyCommentResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "TrafficPolicy")
+            Prelude.<*> (x Data..@ "TrafficPolicy")
       )
 
 instance Prelude.Hashable UpdateTrafficPolicyComment where
@@ -136,29 +138,29 @@ instance Prelude.NFData UpdateTrafficPolicyComment where
       `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf comment
 
-instance Core.ToElement UpdateTrafficPolicyComment where
+instance Data.ToElement UpdateTrafficPolicyComment where
   toElement =
-    Core.mkElement
+    Data.mkElement
       "{https://route53.amazonaws.com/doc/2013-04-01/}UpdateTrafficPolicyCommentRequest"
 
-instance Core.ToHeaders UpdateTrafficPolicyComment where
+instance Data.ToHeaders UpdateTrafficPolicyComment where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath UpdateTrafficPolicyComment where
+instance Data.ToPath UpdateTrafficPolicyComment where
   toPath UpdateTrafficPolicyComment' {..} =
     Prelude.mconcat
       [ "/2013-04-01/trafficpolicy/",
-        Core.toBS id,
+        Data.toBS id,
         "/",
-        Core.toBS version
+        Data.toBS version
       ]
 
-instance Core.ToQuery UpdateTrafficPolicyComment where
+instance Data.ToQuery UpdateTrafficPolicyComment where
   toQuery = Prelude.const Prelude.mempty
 
-instance Core.ToXML UpdateTrafficPolicyComment where
+instance Data.ToXML UpdateTrafficPolicyComment where
   toXML UpdateTrafficPolicyComment' {..} =
-    Prelude.mconcat ["Comment" Core.@= comment]
+    Prelude.mconcat ["Comment" Data.@= comment]
 
 -- | A complex type that contains the response information for the traffic
 -- policy.

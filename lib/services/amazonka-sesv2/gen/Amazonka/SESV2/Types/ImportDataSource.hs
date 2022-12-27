@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.ImportDataSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SESV2.Types.ImportDataSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SESV2.Types.DataFormat
 
@@ -66,14 +67,14 @@ importDataSource_s3Url = Lens.lens (\ImportDataSource' {s3Url} -> s3Url) (\s@Imp
 importDataSource_dataFormat :: Lens.Lens' ImportDataSource DataFormat
 importDataSource_dataFormat = Lens.lens (\ImportDataSource' {dataFormat} -> dataFormat) (\s@ImportDataSource' {} a -> s {dataFormat = a} :: ImportDataSource)
 
-instance Core.FromJSON ImportDataSource where
+instance Data.FromJSON ImportDataSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ImportDataSource"
       ( \x ->
           ImportDataSource'
-            Prelude.<$> (x Core..: "S3Url")
-            Prelude.<*> (x Core..: "DataFormat")
+            Prelude.<$> (x Data..: "S3Url")
+            Prelude.<*> (x Data..: "DataFormat")
       )
 
 instance Prelude.Hashable ImportDataSource where
@@ -86,11 +87,11 @@ instance Prelude.NFData ImportDataSource where
     Prelude.rnf s3Url
       `Prelude.seq` Prelude.rnf dataFormat
 
-instance Core.ToJSON ImportDataSource where
+instance Data.ToJSON ImportDataSource where
   toJSON ImportDataSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("S3Url" Core..= s3Url),
-            Prelude.Just ("DataFormat" Core..= dataFormat)
+          [ Prelude.Just ("S3Url" Data..= s3Url),
+            Prelude.Just ("DataFormat" Data..= dataFormat)
           ]
       )

@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,10 +18,10 @@ module Amazonka.CodeBuild.Types
     defaultService,
 
     -- * Errors
-    _ResourceAlreadyExistsException,
-    _OAuthProviderException,
     _AccountLimitExceededException,
     _InvalidInputException,
+    _OAuthProviderException,
+    _ResourceAlreadyExistsException,
     _ResourceNotFoundException,
 
     -- * ArtifactNamespace
@@ -140,89 +141,89 @@ module Amazonka.CodeBuild.Types
     -- * BatchRestrictions
     BatchRestrictions (..),
     newBatchRestrictions,
-    batchRestrictions_maximumBuildsAllowed,
     batchRestrictions_computeTypesAllowed,
+    batchRestrictions_maximumBuildsAllowed,
 
     -- * Build
     Build (..),
     newBuild,
-    build_phases,
-    build_buildComplete,
-    build_secondaryArtifacts,
     build_arn,
-    build_exportedEnvironmentVariables,
-    build_buildNumber,
-    build_startTime,
     build_artifacts,
-    build_environment,
-    build_initiator,
-    build_networkInterface,
-    build_secondarySourceVersions,
-    build_currentPhase,
-    build_queuedTimeoutInMinutes,
-    build_cache,
-    build_secondarySources,
-    build_debugSession,
-    build_sourceVersion,
     build_buildBatchArn,
-    build_logs,
-    build_resolvedSourceVersion,
-    build_vpcConfig,
-    build_endTime,
-    build_projectName,
+    build_buildComplete,
+    build_buildNumber,
     build_buildStatus,
-    build_source,
-    build_id,
-    build_fileSystemLocations,
-    build_reportArns,
+    build_cache,
+    build_currentPhase,
+    build_debugSession,
     build_encryptionKey,
+    build_endTime,
+    build_environment,
+    build_exportedEnvironmentVariables,
+    build_fileSystemLocations,
+    build_id,
+    build_initiator,
+    build_logs,
+    build_networkInterface,
+    build_phases,
+    build_projectName,
+    build_queuedTimeoutInMinutes,
+    build_reportArns,
+    build_resolvedSourceVersion,
+    build_secondaryArtifacts,
+    build_secondarySourceVersions,
+    build_secondarySources,
     build_serviceRole,
+    build_source,
+    build_sourceVersion,
+    build_startTime,
     build_timeoutInMinutes,
+    build_vpcConfig,
 
     -- * BuildArtifacts
     BuildArtifacts (..),
     newBuildArtifacts,
+    buildArtifacts_artifactIdentifier,
+    buildArtifacts_bucketOwnerAccess,
+    buildArtifacts_encryptionDisabled,
     buildArtifacts_location,
     buildArtifacts_md5sum,
-    buildArtifacts_encryptionDisabled,
     buildArtifacts_overrideArtifactName,
-    buildArtifacts_artifactIdentifier,
     buildArtifacts_sha256sum,
-    buildArtifacts_bucketOwnerAccess,
 
     -- * BuildBatch
     BuildBatch (..),
     newBuildBatch,
-    buildBatch_phases,
-    buildBatch_secondaryArtifacts,
-    buildBatch_buildTimeoutInMinutes,
-    buildBatch_debugSessionEnabled,
     buildBatch_arn,
-    buildBatch_startTime,
     buildBatch_artifacts,
-    buildBatch_environment,
-    buildBatch_initiator,
-    buildBatch_secondarySourceVersions,
-    buildBatch_buildBatchStatus,
-    buildBatch_currentPhase,
-    buildBatch_buildBatchNumber,
-    buildBatch_queuedTimeoutInMinutes,
-    buildBatch_cache,
-    buildBatch_secondarySources,
-    buildBatch_sourceVersion,
-    buildBatch_resolvedSourceVersion,
-    buildBatch_vpcConfig,
-    buildBatch_endTime,
-    buildBatch_projectName,
-    buildBatch_buildGroups,
-    buildBatch_source,
-    buildBatch_id,
-    buildBatch_fileSystemLocations,
     buildBatch_buildBatchConfig,
-    buildBatch_encryptionKey,
-    buildBatch_logConfig,
-    buildBatch_serviceRole,
+    buildBatch_buildBatchNumber,
+    buildBatch_buildBatchStatus,
+    buildBatch_buildGroups,
+    buildBatch_buildTimeoutInMinutes,
+    buildBatch_cache,
     buildBatch_complete,
+    buildBatch_currentPhase,
+    buildBatch_debugSessionEnabled,
+    buildBatch_encryptionKey,
+    buildBatch_endTime,
+    buildBatch_environment,
+    buildBatch_fileSystemLocations,
+    buildBatch_id,
+    buildBatch_initiator,
+    buildBatch_logConfig,
+    buildBatch_phases,
+    buildBatch_projectName,
+    buildBatch_queuedTimeoutInMinutes,
+    buildBatch_resolvedSourceVersion,
+    buildBatch_secondaryArtifacts,
+    buildBatch_secondarySourceVersions,
+    buildBatch_secondarySources,
+    buildBatch_serviceRole,
+    buildBatch_source,
+    buildBatch_sourceVersion,
+    buildBatch_startTime,
+    buildBatch_vpcConfig,
 
     -- * BuildBatchFilter
     BuildBatchFilter (..),
@@ -233,19 +234,19 @@ module Amazonka.CodeBuild.Types
     BuildBatchPhase (..),
     newBuildBatchPhase,
     buildBatchPhase_contexts,
-    buildBatchPhase_startTime,
+    buildBatchPhase_durationInSeconds,
+    buildBatchPhase_endTime,
     buildBatchPhase_phaseStatus,
     buildBatchPhase_phaseType,
-    buildBatchPhase_endTime,
-    buildBatchPhase_durationInSeconds,
+    buildBatchPhase_startTime,
 
     -- * BuildGroup
     BuildGroup (..),
     newBuildGroup,
-    buildGroup_identifier,
-    buildGroup_dependsOn,
-    buildGroup_ignoreFailure,
     buildGroup_currentBuildSummary,
+    buildGroup_dependsOn,
+    buildGroup_identifier,
+    buildGroup_ignoreFailure,
     buildGroup_priorBuildSummaryList,
 
     -- * BuildNotDeleted
@@ -258,11 +259,11 @@ module Amazonka.CodeBuild.Types
     BuildPhase (..),
     newBuildPhase,
     buildPhase_contexts,
-    buildPhase_startTime,
+    buildPhase_durationInSeconds,
+    buildPhase_endTime,
     buildPhase_phaseStatus,
     buildPhase_phaseType,
-    buildPhase_endTime,
-    buildPhase_durationInSeconds,
+    buildPhase_startTime,
 
     -- * BuildStatusConfig
     BuildStatusConfig (..),
@@ -273,11 +274,11 @@ module Amazonka.CodeBuild.Types
     -- * BuildSummary
     BuildSummary (..),
     newBuildSummary,
-    buildSummary_secondaryArtifacts,
-    buildSummary_primaryArtifact,
     buildSummary_arn,
     buildSummary_buildStatus,
+    buildSummary_primaryArtifact,
     buildSummary_requestedOn,
+    buildSummary_secondaryArtifacts,
 
     -- * CloudWatchLogsConfig
     CloudWatchLogsConfig (..),
@@ -289,26 +290,26 @@ module Amazonka.CodeBuild.Types
     -- * CodeCoverage
     CodeCoverage (..),
     newCodeCoverage,
-    codeCoverage_expired,
-    codeCoverage_branchesMissed,
-    codeCoverage_linesMissed,
-    codeCoverage_filePath,
-    codeCoverage_branchesCovered,
-    codeCoverage_linesCovered,
     codeCoverage_branchCoveragePercentage,
+    codeCoverage_branchesCovered,
+    codeCoverage_branchesMissed,
+    codeCoverage_expired,
+    codeCoverage_filePath,
     codeCoverage_id,
     codeCoverage_lineCoveragePercentage,
+    codeCoverage_linesCovered,
+    codeCoverage_linesMissed,
     codeCoverage_reportARN,
 
     -- * CodeCoverageReportSummary
     CodeCoverageReportSummary (..),
     newCodeCoverageReportSummary,
-    codeCoverageReportSummary_branchesMissed,
-    codeCoverageReportSummary_linesMissed,
-    codeCoverageReportSummary_branchesCovered,
-    codeCoverageReportSummary_linesCovered,
     codeCoverageReportSummary_branchCoveragePercentage,
+    codeCoverageReportSummary_branchesCovered,
+    codeCoverageReportSummary_branchesMissed,
     codeCoverageReportSummary_lineCoveragePercentage,
+    codeCoverageReportSummary_linesCovered,
+    codeCoverageReportSummary_linesMissed,
 
     -- * DebugSession
     DebugSession (..),
@@ -319,9 +320,9 @@ module Amazonka.CodeBuild.Types
     -- * EnvironmentImage
     EnvironmentImage (..),
     newEnvironmentImage,
-    environmentImage_versions,
-    environmentImage_name,
     environmentImage_description,
+    environmentImage_name,
+    environmentImage_versions,
 
     -- * EnvironmentLanguage
     EnvironmentLanguage (..),
@@ -332,8 +333,8 @@ module Amazonka.CodeBuild.Types
     -- * EnvironmentPlatform
     EnvironmentPlatform (..),
     newEnvironmentPlatform,
-    environmentPlatform_platform,
     environmentPlatform_languages,
+    environmentPlatform_platform,
 
     -- * EnvironmentVariable
     EnvironmentVariable (..),
@@ -345,8 +346,8 @@ module Amazonka.CodeBuild.Types
     -- * ExportedEnvironmentVariable
     ExportedEnvironmentVariable (..),
     newExportedEnvironmentVariable,
-    exportedEnvironmentVariable_value,
     exportedEnvironmentVariable_name,
+    exportedEnvironmentVariable_value,
 
     -- * GitSubmodulesConfig
     GitSubmodulesConfig (..),
@@ -356,26 +357,26 @@ module Amazonka.CodeBuild.Types
     -- * LogsConfig
     LogsConfig (..),
     newLogsConfig,
-    logsConfig_s3Logs,
     logsConfig_cloudWatchLogs,
+    logsConfig_s3Logs,
 
     -- * LogsLocation
     LogsLocation (..),
     newLogsLocation,
-    logsLocation_deepLink,
-    logsLocation_s3Logs,
     logsLocation_cloudWatchLogs,
-    logsLocation_s3DeepLink,
-    logsLocation_s3LogsArn,
     logsLocation_cloudWatchLogsArn,
+    logsLocation_deepLink,
     logsLocation_groupName,
+    logsLocation_s3DeepLink,
+    logsLocation_s3Logs,
+    logsLocation_s3LogsArn,
     logsLocation_streamName,
 
     -- * NetworkInterface
     NetworkInterface (..),
     newNetworkInterface,
-    networkInterface_subnetId,
     networkInterface_networkInterfaceId,
+    networkInterface_subnetId,
 
     -- * PhaseContext
     PhaseContext (..),
@@ -386,47 +387,47 @@ module Amazonka.CodeBuild.Types
     -- * Project
     Project (..),
     newProject,
-    project_secondaryArtifacts,
-    project_resourceAccessRole,
     project_arn,
     project_artifacts,
-    project_environment,
-    project_created,
-    project_concurrentBuildLimit,
-    project_secondarySourceVersions,
-    project_queuedTimeoutInMinutes,
-    project_cache,
-    project_secondarySources,
-    project_sourceVersion,
-    project_name,
-    project_vpcConfig,
-    project_publicProjectAlias,
-    project_source,
     project_badge,
-    project_logsConfig,
-    project_fileSystemLocations,
     project_buildBatchConfig,
-    project_encryptionKey,
-    project_lastModified,
-    project_projectVisibility,
-    project_webhook,
+    project_cache,
+    project_concurrentBuildLimit,
+    project_created,
     project_description,
+    project_encryptionKey,
+    project_environment,
+    project_fileSystemLocations,
+    project_lastModified,
+    project_logsConfig,
+    project_name,
+    project_projectVisibility,
+    project_publicProjectAlias,
+    project_queuedTimeoutInMinutes,
+    project_resourceAccessRole,
+    project_secondaryArtifacts,
+    project_secondarySourceVersions,
+    project_secondarySources,
     project_serviceRole,
+    project_source,
+    project_sourceVersion,
     project_tags,
     project_timeoutInMinutes,
+    project_vpcConfig,
+    project_webhook,
 
     -- * ProjectArtifacts
     ProjectArtifacts (..),
     newProjectArtifacts,
-    projectArtifacts_packaging,
-    projectArtifacts_path,
-    projectArtifacts_location,
-    projectArtifacts_name,
-    projectArtifacts_encryptionDisabled,
-    projectArtifacts_overrideArtifactName,
     projectArtifacts_artifactIdentifier,
     projectArtifacts_bucketOwnerAccess,
+    projectArtifacts_encryptionDisabled,
+    projectArtifacts_location,
+    projectArtifacts_name,
     projectArtifacts_namespaceType,
+    projectArtifacts_overrideArtifactName,
+    projectArtifacts_packaging,
+    projectArtifacts_path,
     projectArtifacts_type,
 
     -- * ProjectBadge
@@ -438,11 +439,11 @@ module Amazonka.CodeBuild.Types
     -- * ProjectBuildBatchConfig
     ProjectBuildBatchConfig (..),
     newProjectBuildBatchConfig,
-    projectBuildBatchConfig_combineArtifacts,
-    projectBuildBatchConfig_timeoutInMins,
-    projectBuildBatchConfig_restrictions,
     projectBuildBatchConfig_batchReportMode,
+    projectBuildBatchConfig_combineArtifacts,
+    projectBuildBatchConfig_restrictions,
     projectBuildBatchConfig_serviceRole,
+    projectBuildBatchConfig_timeoutInMins,
 
     -- * ProjectCache
     ProjectCache (..),
@@ -454,11 +455,11 @@ module Amazonka.CodeBuild.Types
     -- * ProjectEnvironment
     ProjectEnvironment (..),
     newProjectEnvironment,
+    projectEnvironment_certificate,
+    projectEnvironment_environmentVariables,
     projectEnvironment_imagePullCredentialsType,
     projectEnvironment_privilegedMode,
     projectEnvironment_registryCredential,
-    projectEnvironment_certificate,
-    projectEnvironment_environmentVariables,
     projectEnvironment_type,
     projectEnvironment_image,
     projectEnvironment_computeType,
@@ -466,24 +467,24 @@ module Amazonka.CodeBuild.Types
     -- * ProjectFileSystemLocation
     ProjectFileSystemLocation (..),
     newProjectFileSystemLocation,
-    projectFileSystemLocation_location,
     projectFileSystemLocation_identifier,
+    projectFileSystemLocation_location,
     projectFileSystemLocation_mountOptions,
-    projectFileSystemLocation_type,
     projectFileSystemLocation_mountPoint,
+    projectFileSystemLocation_type,
 
     -- * ProjectSource
     ProjectSource (..),
     newProjectSource,
-    projectSource_reportBuildStatus,
-    projectSource_insecureSsl,
-    projectSource_location,
     projectSource_auth,
+    projectSource_buildStatusConfig,
     projectSource_buildspec,
-    projectSource_sourceIdentifier,
     projectSource_gitCloneDepth,
     projectSource_gitSubmodulesConfig,
-    projectSource_buildStatusConfig,
+    projectSource_insecureSsl,
+    projectSource_location,
+    projectSource_reportBuildStatus,
+    projectSource_sourceIdentifier,
     projectSource_type,
 
     -- * ProjectSourceVersion
@@ -501,18 +502,18 @@ module Amazonka.CodeBuild.Types
     -- * Report
     Report (..),
     newReport,
+    report_arn,
+    report_codeCoverageSummary,
+    report_created,
+    report_executionId,
+    report_expired,
+    report_exportConfig,
+    report_name,
     report_reportGroupArn,
     report_status,
-    report_expired,
-    report_executionId,
-    report_truncated,
-    report_arn,
-    report_created,
-    report_name,
-    report_codeCoverageSummary,
     report_testSummary,
+    report_truncated,
     report_type,
-    report_exportConfig,
 
     -- * ReportExportConfig
     ReportExportConfig (..),
@@ -528,20 +529,20 @@ module Amazonka.CodeBuild.Types
     -- * ReportGroup
     ReportGroup (..),
     newReportGroup,
-    reportGroup_status,
     reportGroup_arn,
     reportGroup_created,
-    reportGroup_name,
-    reportGroup_type,
-    reportGroup_lastModified,
     reportGroup_exportConfig,
+    reportGroup_lastModified,
+    reportGroup_name,
+    reportGroup_status,
     reportGroup_tags,
+    reportGroup_type,
 
     -- * ReportGroupTrendStats
     ReportGroupTrendStats (..),
     newReportGroupTrendStats,
-    reportGroupTrendStats_max,
     reportGroupTrendStats_average,
+    reportGroupTrendStats_max,
     reportGroupTrendStats_min,
 
     -- * ReportWithRawData
@@ -553,27 +554,27 @@ module Amazonka.CodeBuild.Types
     -- * ResolvedArtifact
     ResolvedArtifact (..),
     newResolvedArtifact,
-    resolvedArtifact_location,
     resolvedArtifact_identifier,
+    resolvedArtifact_location,
     resolvedArtifact_type,
 
     -- * S3LogsConfig
     S3LogsConfig (..),
     newS3LogsConfig,
-    s3LogsConfig_location,
-    s3LogsConfig_encryptionDisabled,
     s3LogsConfig_bucketOwnerAccess,
+    s3LogsConfig_encryptionDisabled,
+    s3LogsConfig_location,
     s3LogsConfig_status,
 
     -- * S3ReportExportConfig
     S3ReportExportConfig (..),
     newS3ReportExportConfig,
-    s3ReportExportConfig_packaging,
-    s3ReportExportConfig_path,
     s3ReportExportConfig_bucket,
     s3ReportExportConfig_bucketOwner,
     s3ReportExportConfig_encryptionDisabled,
     s3ReportExportConfig_encryptionKey,
+    s3ReportExportConfig_packaging,
+    s3ReportExportConfig_path,
 
     -- * SourceAuth
     SourceAuth (..),
@@ -585,32 +586,32 @@ module Amazonka.CodeBuild.Types
     SourceCredentialsInfo (..),
     newSourceCredentialsInfo,
     sourceCredentialsInfo_arn,
-    sourceCredentialsInfo_serverType,
     sourceCredentialsInfo_authType,
+    sourceCredentialsInfo_serverType,
 
     -- * Tag
     Tag (..),
     newTag,
-    tag_value,
     tag_key,
+    tag_value,
 
     -- * TestCase
     TestCase (..),
     newTestCase,
     testCase_durationInNanoSeconds,
-    testCase_status,
     testCase_expired,
-    testCase_prefix,
-    testCase_name,
-    testCase_testRawDataPath,
     testCase_message,
+    testCase_name,
+    testCase_prefix,
     testCase_reportArn,
+    testCase_status,
+    testCase_testRawDataPath,
 
     -- * TestCaseFilter
     TestCaseFilter (..),
     newTestCaseFilter,
-    testCaseFilter_status,
     testCaseFilter_keyword,
+    testCaseFilter_status,
 
     -- * TestReportSummary
     TestReportSummary (..),
@@ -623,19 +624,19 @@ module Amazonka.CodeBuild.Types
     VpcConfig (..),
     newVpcConfig,
     vpcConfig_securityGroupIds,
-    vpcConfig_vpcId,
     vpcConfig_subnets,
+    vpcConfig_vpcId,
 
     -- * Webhook
     Webhook (..),
     newWebhook,
     webhook_branchFilter,
-    webhook_lastModifiedSecret,
-    webhook_url,
-    webhook_secret,
-    webhook_filterGroups,
-    webhook_payloadUrl,
     webhook_buildType,
+    webhook_filterGroups,
+    webhook_lastModifiedSecret,
+    webhook_payloadUrl,
+    webhook_secret,
+    webhook_url,
 
     -- * WebhookFilter
     WebhookFilter (..),
@@ -738,7 +739,7 @@ import Amazonka.CodeBuild.Types.WebhookBuildType
 import Amazonka.CodeBuild.Types.WebhookFilter
 import Amazonka.CodeBuild.Types.WebhookFilterType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -746,41 +747,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "CodeBuild",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "codebuild",
-      Core._serviceSigningName = "codebuild",
-      Core._serviceVersion = "2016-10-06",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "CodeBuild",
-      Core._serviceRetry = retry
+    { Core.abbrev = "CodeBuild",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "codebuild",
+      Core.signingName = "codebuild",
+      Core.version = "2016-10-06",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "CodeBuild",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -788,44 +797,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | The specified Amazon Web Services resource cannot be created, because an
--- Amazon Web Services resource with the same settings already exists.
-_ResourceAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceAlreadyExistsException =
-  Core._MatchServiceError
-    defaultService
-    "ResourceAlreadyExistsException"
-
--- | There was a problem with the underlying OAuth provider.
-_OAuthProviderException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_OAuthProviderException =
-  Core._MatchServiceError
-    defaultService
-    "OAuthProviderException"
 
 -- | An Amazon Web Services service limit was exceeded for the calling Amazon
 -- Web Services account.
@@ -841,6 +827,21 @@ _InvalidInputException =
   Core._MatchServiceError
     defaultService
     "InvalidInputException"
+
+-- | There was a problem with the underlying OAuth provider.
+_OAuthProviderException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_OAuthProviderException =
+  Core._MatchServiceError
+    defaultService
+    "OAuthProviderException"
+
+-- | The specified Amazon Web Services resource cannot be created, because an
+-- Amazon Web Services resource with the same settings already exists.
+_ResourceAlreadyExistsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceAlreadyExistsException =
+  Core._MatchServiceError
+    defaultService
+    "ResourceAlreadyExistsException"
 
 -- | The specified Amazon Web Services resource cannot be found.
 _ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError

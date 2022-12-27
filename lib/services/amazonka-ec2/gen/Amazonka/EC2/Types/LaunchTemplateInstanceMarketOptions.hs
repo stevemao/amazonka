@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LaunchTemplateInstanceMarketOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.EC2.Types.LaunchTemplateInstanceMarketOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.LaunchTemplateSpotMarketOptions
 import Amazonka.EC2.Types.MarketType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The market (purchasing) option for the instances.
@@ -66,13 +67,13 @@ launchTemplateInstanceMarketOptions_spotOptions :: Lens.Lens' LaunchTemplateInst
 launchTemplateInstanceMarketOptions_spotOptions = Lens.lens (\LaunchTemplateInstanceMarketOptions' {spotOptions} -> spotOptions) (\s@LaunchTemplateInstanceMarketOptions' {} a -> s {spotOptions = a} :: LaunchTemplateInstanceMarketOptions)
 
 instance
-  Core.FromXML
+  Data.FromXML
     LaunchTemplateInstanceMarketOptions
   where
   parseXML x =
     LaunchTemplateInstanceMarketOptions'
-      Prelude.<$> (x Core..@? "marketType")
-      Prelude.<*> (x Core..@? "spotOptions")
+      Prelude.<$> (x Data..@? "marketType")
+      Prelude.<*> (x Data..@? "spotOptions")
 
 instance
   Prelude.Hashable

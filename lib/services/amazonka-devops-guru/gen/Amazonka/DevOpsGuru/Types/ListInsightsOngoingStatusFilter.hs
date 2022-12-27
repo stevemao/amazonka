@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.Types.ListInsightsOngoingStatusFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DevOpsGuru.Types.ListInsightsOngoingStatusFilter where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types.InsightType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Used to filter for insights that have the status @ONGOING@.
@@ -69,9 +70,9 @@ instance
   rnf ListInsightsOngoingStatusFilter' {..} =
     Prelude.rnf type'
 
-instance Core.ToJSON ListInsightsOngoingStatusFilter where
+instance Data.ToJSON ListInsightsOngoingStatusFilter where
   toJSON ListInsightsOngoingStatusFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Type" Core..= type')]
+          [Prelude.Just ("Type" Data..= type')]
       )

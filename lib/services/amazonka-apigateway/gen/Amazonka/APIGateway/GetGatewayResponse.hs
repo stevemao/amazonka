@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetGatewayResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,16 +37,17 @@ module Amazonka.APIGateway.GetGatewayResponse
 
     -- * Response Lenses
     gatewayResponse_defaultResponse,
+    gatewayResponse_responseParameters,
     gatewayResponse_responseTemplates,
     gatewayResponse_responseType,
     gatewayResponse_statusCode,
-    gatewayResponse_responseParameters,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,11 +57,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetGatewayResponse' smart constructor.
 data GetGatewayResponse = GetGatewayResponse'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required]
-    --
-    -- The response type of the associated GatewayResponse.
+    -- | The response type of the associated GatewayResponse.
     responseType :: GatewayResponseType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -73,11 +72,9 @@ data GetGatewayResponse = GetGatewayResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'getGatewayResponse_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getGatewayResponse_restApiId' - The string identifier of the associated RestApi.
 --
--- 'responseType', 'getGatewayResponse_responseType' - [Required]
---
--- The response type of the associated GatewayResponse.
+-- 'responseType', 'getGatewayResponse_responseType' - The response type of the associated GatewayResponse.
 newGetGatewayResponse ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -90,22 +87,21 @@ newGetGatewayResponse pRestApiId_ pResponseType_ =
       responseType = pResponseType_
     }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getGatewayResponse_restApiId :: Lens.Lens' GetGatewayResponse Prelude.Text
 getGatewayResponse_restApiId = Lens.lens (\GetGatewayResponse' {restApiId} -> restApiId) (\s@GetGatewayResponse' {} a -> s {restApiId = a} :: GetGatewayResponse)
 
--- | [Required]
---
--- The response type of the associated GatewayResponse.
+-- | The response type of the associated GatewayResponse.
 getGatewayResponse_responseType :: Lens.Lens' GetGatewayResponse GatewayResponseType
 getGatewayResponse_responseType = Lens.lens (\GetGatewayResponse' {responseType} -> responseType) (\s@GetGatewayResponse' {} a -> s {responseType = a} :: GetGatewayResponse)
 
 instance Core.AWSRequest GetGatewayResponse where
   type AWSResponse GetGatewayResponse = GatewayResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetGatewayResponse where
   hashWithSalt _salt GetGatewayResponse' {..} =
@@ -117,23 +113,23 @@ instance Prelude.NFData GetGatewayResponse where
     Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf responseType
 
-instance Core.ToHeaders GetGatewayResponse where
+instance Data.ToHeaders GetGatewayResponse where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetGatewayResponse where
+instance Data.ToPath GetGatewayResponse where
   toPath GetGatewayResponse' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/gatewayresponses/",
-        Core.toBS responseType
+        Data.toBS responseType
       ]
 
-instance Core.ToQuery GetGatewayResponse where
+instance Data.ToQuery GetGatewayResponse where
   toQuery = Prelude.const Prelude.mempty

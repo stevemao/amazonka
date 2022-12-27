@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.ListenerTlsValidationContext
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AppMesh.Types.ListenerTlsValidationContext where
 import Amazonka.AppMesh.Types.ListenerTlsValidationContextTrust
 import Amazonka.AppMesh.Types.SubjectAlternativeNames
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a listener\'s Transport Layer Security (TLS)
@@ -73,14 +74,14 @@ listenerTlsValidationContext_subjectAlternativeNames = Lens.lens (\ListenerTlsVa
 listenerTlsValidationContext_trust :: Lens.Lens' ListenerTlsValidationContext ListenerTlsValidationContextTrust
 listenerTlsValidationContext_trust = Lens.lens (\ListenerTlsValidationContext' {trust} -> trust) (\s@ListenerTlsValidationContext' {} a -> s {trust = a} :: ListenerTlsValidationContext)
 
-instance Core.FromJSON ListenerTlsValidationContext where
+instance Data.FromJSON ListenerTlsValidationContext where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ListenerTlsValidationContext"
       ( \x ->
           ListenerTlsValidationContext'
-            Prelude.<$> (x Core..:? "subjectAlternativeNames")
-            Prelude.<*> (x Core..: "trust")
+            Prelude.<$> (x Data..:? "subjectAlternativeNames")
+            Prelude.<*> (x Data..: "trust")
       )
 
 instance
@@ -97,12 +98,12 @@ instance Prelude.NFData ListenerTlsValidationContext where
     Prelude.rnf subjectAlternativeNames
       `Prelude.seq` Prelude.rnf trust
 
-instance Core.ToJSON ListenerTlsValidationContext where
+instance Data.ToJSON ListenerTlsValidationContext where
   toJSON ListenerTlsValidationContext' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("subjectAlternativeNames" Core..=)
+          [ ("subjectAlternativeNames" Data..=)
               Prelude.<$> subjectAlternativeNames,
-            Prelude.Just ("trust" Core..= trust)
+            Prelude.Just ("trust" Data..= trust)
           ]
       )

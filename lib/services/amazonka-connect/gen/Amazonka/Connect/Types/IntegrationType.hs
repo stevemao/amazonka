@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.IntegrationType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,6 +20,7 @@
 module Amazonka.Connect.Types.IntegrationType
   ( IntegrationType
       ( ..,
+        IntegrationType_CASES_DOMAIN,
         IntegrationType_EVENT,
         IntegrationType_PINPOINT_APP,
         IntegrationType_VOICE_ID,
@@ -30,11 +31,12 @@ module Amazonka.Connect.Types.IntegrationType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype IntegrationType = IntegrationType'
   { fromIntegrationType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -46,19 +48,22 @@ newtype IntegrationType = IntegrationType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern IntegrationType_CASES_DOMAIN :: IntegrationType
+pattern IntegrationType_CASES_DOMAIN = IntegrationType' "CASES_DOMAIN"
 
 pattern IntegrationType_EVENT :: IntegrationType
 pattern IntegrationType_EVENT = IntegrationType' "EVENT"
@@ -76,6 +81,7 @@ pattern IntegrationType_WISDOM_KNOWLEDGE_BASE :: IntegrationType
 pattern IntegrationType_WISDOM_KNOWLEDGE_BASE = IntegrationType' "WISDOM_KNOWLEDGE_BASE"
 
 {-# COMPLETE
+  IntegrationType_CASES_DOMAIN,
   IntegrationType_EVENT,
   IntegrationType_PINPOINT_APP,
   IntegrationType_VOICE_ID,

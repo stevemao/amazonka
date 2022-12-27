@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.GetDashboard
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,16 +38,17 @@ module Amazonka.CloudWatch.GetDashboard
     newGetDashboardResponse,
 
     -- * Response Lenses
-    getDashboardResponse_dashboardName,
-    getDashboardResponse_dashboardBody,
     getDashboardResponse_dashboardArn,
+    getDashboardResponse_dashboardBody,
+    getDashboardResponse_dashboardName,
     getDashboardResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudWatch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,15 +82,16 @@ getDashboard_dashboardName = Lens.lens (\GetDashboard' {dashboardName} -> dashbo
 
 instance Core.AWSRequest GetDashboard where
   type AWSResponse GetDashboard = GetDashboardResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetDashboardResult"
       ( \s h x ->
           GetDashboardResponse'
-            Prelude.<$> (x Core..@? "DashboardName")
-            Prelude.<*> (x Core..@? "DashboardBody")
-            Prelude.<*> (x Core..@? "DashboardArn")
+            Prelude.<$> (x Data..@? "DashboardArn")
+            Prelude.<*> (x Data..@? "DashboardBody")
+            Prelude.<*> (x Data..@? "DashboardName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,33 +102,33 @@ instance Prelude.Hashable GetDashboard where
 instance Prelude.NFData GetDashboard where
   rnf GetDashboard' {..} = Prelude.rnf dashboardName
 
-instance Core.ToHeaders GetDashboard where
+instance Data.ToHeaders GetDashboard where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetDashboard where
+instance Data.ToPath GetDashboard where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetDashboard where
+instance Data.ToQuery GetDashboard where
   toQuery GetDashboard' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetDashboard" :: Prelude.ByteString),
+          Data.=: ("GetDashboard" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-08-01" :: Prelude.ByteString),
-        "DashboardName" Core.=: dashboardName
+          Data.=: ("2010-08-01" :: Prelude.ByteString),
+        "DashboardName" Data.=: dashboardName
       ]
 
 -- | /See:/ 'newGetDashboardResponse' smart constructor.
 data GetDashboardResponse = GetDashboardResponse'
-  { -- | The name of the dashboard.
-    dashboardName :: Prelude.Maybe Prelude.Text,
+  { -- | The Amazon Resource Name (ARN) of the dashboard.
+    dashboardArn :: Prelude.Maybe Prelude.Text,
     -- | The detailed information about the dashboard, including what widgets are
     -- included and their location on the dashboard. For more information about
     -- the @DashboardBody@ syntax, see
     -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/CloudWatch-Dashboard-Body-Structure.html Dashboard Body Structure and Syntax>.
     dashboardBody :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the dashboard.
-    dashboardArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the dashboard.
+    dashboardName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -140,14 +142,14 @@ data GetDashboardResponse = GetDashboardResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'dashboardName', 'getDashboardResponse_dashboardName' - The name of the dashboard.
+-- 'dashboardArn', 'getDashboardResponse_dashboardArn' - The Amazon Resource Name (ARN) of the dashboard.
 --
 -- 'dashboardBody', 'getDashboardResponse_dashboardBody' - The detailed information about the dashboard, including what widgets are
 -- included and their location on the dashboard. For more information about
 -- the @DashboardBody@ syntax, see
 -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/CloudWatch-Dashboard-Body-Structure.html Dashboard Body Structure and Syntax>.
 --
--- 'dashboardArn', 'getDashboardResponse_dashboardArn' - The Amazon Resource Name (ARN) of the dashboard.
+-- 'dashboardName', 'getDashboardResponse_dashboardName' - The name of the dashboard.
 --
 -- 'httpStatus', 'getDashboardResponse_httpStatus' - The response's http status code.
 newGetDashboardResponse ::
@@ -156,16 +158,16 @@ newGetDashboardResponse ::
   GetDashboardResponse
 newGetDashboardResponse pHttpStatus_ =
   GetDashboardResponse'
-    { dashboardName =
+    { dashboardArn =
         Prelude.Nothing,
       dashboardBody = Prelude.Nothing,
-      dashboardArn = Prelude.Nothing,
+      dashboardName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The name of the dashboard.
-getDashboardResponse_dashboardName :: Lens.Lens' GetDashboardResponse (Prelude.Maybe Prelude.Text)
-getDashboardResponse_dashboardName = Lens.lens (\GetDashboardResponse' {dashboardName} -> dashboardName) (\s@GetDashboardResponse' {} a -> s {dashboardName = a} :: GetDashboardResponse)
+-- | The Amazon Resource Name (ARN) of the dashboard.
+getDashboardResponse_dashboardArn :: Lens.Lens' GetDashboardResponse (Prelude.Maybe Prelude.Text)
+getDashboardResponse_dashboardArn = Lens.lens (\GetDashboardResponse' {dashboardArn} -> dashboardArn) (\s@GetDashboardResponse' {} a -> s {dashboardArn = a} :: GetDashboardResponse)
 
 -- | The detailed information about the dashboard, including what widgets are
 -- included and their location on the dashboard. For more information about
@@ -174,9 +176,9 @@ getDashboardResponse_dashboardName = Lens.lens (\GetDashboardResponse' {dashboar
 getDashboardResponse_dashboardBody :: Lens.Lens' GetDashboardResponse (Prelude.Maybe Prelude.Text)
 getDashboardResponse_dashboardBody = Lens.lens (\GetDashboardResponse' {dashboardBody} -> dashboardBody) (\s@GetDashboardResponse' {} a -> s {dashboardBody = a} :: GetDashboardResponse)
 
--- | The Amazon Resource Name (ARN) of the dashboard.
-getDashboardResponse_dashboardArn :: Lens.Lens' GetDashboardResponse (Prelude.Maybe Prelude.Text)
-getDashboardResponse_dashboardArn = Lens.lens (\GetDashboardResponse' {dashboardArn} -> dashboardArn) (\s@GetDashboardResponse' {} a -> s {dashboardArn = a} :: GetDashboardResponse)
+-- | The name of the dashboard.
+getDashboardResponse_dashboardName :: Lens.Lens' GetDashboardResponse (Prelude.Maybe Prelude.Text)
+getDashboardResponse_dashboardName = Lens.lens (\GetDashboardResponse' {dashboardName} -> dashboardName) (\s@GetDashboardResponse' {} a -> s {dashboardName = a} :: GetDashboardResponse)
 
 -- | The response's http status code.
 getDashboardResponse_httpStatus :: Lens.Lens' GetDashboardResponse Prelude.Int
@@ -184,7 +186,7 @@ getDashboardResponse_httpStatus = Lens.lens (\GetDashboardResponse' {httpStatus}
 
 instance Prelude.NFData GetDashboardResponse where
   rnf GetDashboardResponse' {..} =
-    Prelude.rnf dashboardName
+    Prelude.rnf dashboardArn
       `Prelude.seq` Prelude.rnf dashboardBody
-      `Prelude.seq` Prelude.rnf dashboardArn
+      `Prelude.seq` Prelude.rnf dashboardName
       `Prelude.seq` Prelude.rnf httpStatus

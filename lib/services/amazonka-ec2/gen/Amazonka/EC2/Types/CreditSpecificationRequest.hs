@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.CreditSpecificationRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,18 @@
 module Amazonka.EC2.Types.CreditSpecificationRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | The credit option for CPU usage of a T2, T3, or T3a instance.
+-- | The credit option for CPU usage of a T instance.
 --
 -- /See:/ 'newCreditSpecificationRequest' smart constructor.
 data CreditSpecificationRequest = CreditSpecificationRequest'
-  { -- | The credit option for CPU usage of a T2, T3, or T3a instance. Valid
-    -- values are @standard@ and @unlimited@.
+  { -- | The credit option for CPU usage of a T instance.
+    --
+    -- Valid values: @standard@ | @unlimited@
     cpuCredits :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -42,8 +44,9 @@ data CreditSpecificationRequest = CreditSpecificationRequest'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'cpuCredits', 'creditSpecificationRequest_cpuCredits' - The credit option for CPU usage of a T2, T3, or T3a instance. Valid
--- values are @standard@ and @unlimited@.
+-- 'cpuCredits', 'creditSpecificationRequest_cpuCredits' - The credit option for CPU usage of a T instance.
+--
+-- Valid values: @standard@ | @unlimited@
 newCreditSpecificationRequest ::
   -- | 'cpuCredits'
   Prelude.Text ->
@@ -54,8 +57,9 @@ newCreditSpecificationRequest pCpuCredits_ =
         pCpuCredits_
     }
 
--- | The credit option for CPU usage of a T2, T3, or T3a instance. Valid
--- values are @standard@ and @unlimited@.
+-- | The credit option for CPU usage of a T instance.
+--
+-- Valid values: @standard@ | @unlimited@
 creditSpecificationRequest_cpuCredits :: Lens.Lens' CreditSpecificationRequest Prelude.Text
 creditSpecificationRequest_cpuCredits = Lens.lens (\CreditSpecificationRequest' {cpuCredits} -> cpuCredits) (\s@CreditSpecificationRequest' {} a -> s {cpuCredits = a} :: CreditSpecificationRequest)
 
@@ -67,6 +71,6 @@ instance Prelude.NFData CreditSpecificationRequest where
   rnf CreditSpecificationRequest' {..} =
     Prelude.rnf cpuCredits
 
-instance Core.ToQuery CreditSpecificationRequest where
+instance Data.ToQuery CreditSpecificationRequest where
   toQuery CreditSpecificationRequest' {..} =
-    Prelude.mconcat ["CpuCredits" Core.=: cpuCredits]
+    Prelude.mconcat ["CpuCredits" Data.=: cpuCredits]

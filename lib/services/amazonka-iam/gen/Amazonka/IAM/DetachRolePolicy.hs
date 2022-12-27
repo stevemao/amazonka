@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.DetachRolePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.IAM.DetachRolePolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -122,7 +123,8 @@ instance Core.AWSRequest DetachRolePolicy where
   type
     AWSResponse DetachRolePolicy =
       DetachRolePolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DetachRolePolicyResponse'
 
@@ -136,21 +138,21 @@ instance Prelude.NFData DetachRolePolicy where
     Prelude.rnf roleName
       `Prelude.seq` Prelude.rnf policyArn
 
-instance Core.ToHeaders DetachRolePolicy where
+instance Data.ToHeaders DetachRolePolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DetachRolePolicy where
+instance Data.ToPath DetachRolePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetachRolePolicy where
+instance Data.ToQuery DetachRolePolicy where
   toQuery DetachRolePolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DetachRolePolicy" :: Prelude.ByteString),
+          Data.=: ("DetachRolePolicy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "RoleName" Core.=: roleName,
-        "PolicyArn" Core.=: policyArn
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "RoleName" Data.=: roleName,
+        "PolicyArn" Data.=: policyArn
       ]
 
 -- | /See:/ 'newDetachRolePolicyResponse' smart constructor.

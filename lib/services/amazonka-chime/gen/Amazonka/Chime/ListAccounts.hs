@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.ListAccounts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,10 +32,10 @@ module Amazonka.Chime.ListAccounts
     newListAccounts,
 
     -- * Request Lenses
-    listAccounts_nextToken,
-    listAccounts_name,
-    listAccounts_userEmail,
     listAccounts_maxResults,
+    listAccounts_name,
+    listAccounts_nextToken,
+    listAccounts_userEmail,
 
     -- * Destructuring the Response
     ListAccountsResponse (..),
@@ -50,22 +50,23 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListAccounts' smart constructor.
 data ListAccounts = ListAccounts'
-  { -- | The token to use to retrieve the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { -- | The maximum number of results to return in a single call. Defaults to
+    -- 100.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | Amazon Chime account name prefix with which to filter results.
     name :: Prelude.Maybe Prelude.Text,
+    -- | The token to use to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | User email address with which to filter results.
-    userEmail :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The maximum number of results to return in a single call. Defaults to
-    -- 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    userEmail :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -77,40 +78,40 @@ data ListAccounts = ListAccounts'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listAccounts_nextToken' - The token to use to retrieve the next page of results.
+-- 'maxResults', 'listAccounts_maxResults' - The maximum number of results to return in a single call. Defaults to
+-- 100.
 --
 -- 'name', 'listAccounts_name' - Amazon Chime account name prefix with which to filter results.
 --
--- 'userEmail', 'listAccounts_userEmail' - User email address with which to filter results.
+-- 'nextToken', 'listAccounts_nextToken' - The token to use to retrieve the next page of results.
 --
--- 'maxResults', 'listAccounts_maxResults' - The maximum number of results to return in a single call. Defaults to
--- 100.
+-- 'userEmail', 'listAccounts_userEmail' - User email address with which to filter results.
 newListAccounts ::
   ListAccounts
 newListAccounts =
   ListAccounts'
-    { nextToken = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       name = Prelude.Nothing,
-      userEmail = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing,
+      userEmail = Prelude.Nothing
     }
-
--- | The token to use to retrieve the next page of results.
-listAccounts_nextToken :: Lens.Lens' ListAccounts (Prelude.Maybe Prelude.Text)
-listAccounts_nextToken = Lens.lens (\ListAccounts' {nextToken} -> nextToken) (\s@ListAccounts' {} a -> s {nextToken = a} :: ListAccounts)
-
--- | Amazon Chime account name prefix with which to filter results.
-listAccounts_name :: Lens.Lens' ListAccounts (Prelude.Maybe Prelude.Text)
-listAccounts_name = Lens.lens (\ListAccounts' {name} -> name) (\s@ListAccounts' {} a -> s {name = a} :: ListAccounts)
-
--- | User email address with which to filter results.
-listAccounts_userEmail :: Lens.Lens' ListAccounts (Prelude.Maybe Prelude.Text)
-listAccounts_userEmail = Lens.lens (\ListAccounts' {userEmail} -> userEmail) (\s@ListAccounts' {} a -> s {userEmail = a} :: ListAccounts) Prelude.. Lens.mapping Core._Sensitive
 
 -- | The maximum number of results to return in a single call. Defaults to
 -- 100.
 listAccounts_maxResults :: Lens.Lens' ListAccounts (Prelude.Maybe Prelude.Natural)
 listAccounts_maxResults = Lens.lens (\ListAccounts' {maxResults} -> maxResults) (\s@ListAccounts' {} a -> s {maxResults = a} :: ListAccounts)
+
+-- | Amazon Chime account name prefix with which to filter results.
+listAccounts_name :: Lens.Lens' ListAccounts (Prelude.Maybe Prelude.Text)
+listAccounts_name = Lens.lens (\ListAccounts' {name} -> name) (\s@ListAccounts' {} a -> s {name = a} :: ListAccounts)
+
+-- | The token to use to retrieve the next page of results.
+listAccounts_nextToken :: Lens.Lens' ListAccounts (Prelude.Maybe Prelude.Text)
+listAccounts_nextToken = Lens.lens (\ListAccounts' {nextToken} -> nextToken) (\s@ListAccounts' {} a -> s {nextToken = a} :: ListAccounts)
+
+-- | User email address with which to filter results.
+listAccounts_userEmail :: Lens.Lens' ListAccounts (Prelude.Maybe Prelude.Text)
+listAccounts_userEmail = Lens.lens (\ListAccounts' {userEmail} -> userEmail) (\s@ListAccounts' {} a -> s {userEmail = a} :: ListAccounts) Prelude.. Lens.mapping Data._Sensitive
 
 instance Core.AWSPager ListAccounts where
   page rq rs
@@ -133,43 +134,44 @@ instance Core.AWSPager ListAccounts where
 
 instance Core.AWSRequest ListAccounts where
   type AWSResponse ListAccounts = ListAccountsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAccountsResponse'
-            Prelude.<$> (x Core..?> "Accounts" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Accounts" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAccounts where
   hashWithSalt _salt ListAccounts' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` userEmail
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData ListAccounts where
   rnf ListAccounts' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf userEmail
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders ListAccounts where
+instance Data.ToHeaders ListAccounts where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListAccounts where
+instance Data.ToPath ListAccounts where
   toPath = Prelude.const "/accounts"
 
-instance Core.ToQuery ListAccounts where
+instance Data.ToQuery ListAccounts where
   toQuery ListAccounts' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "name" Core.=: name,
-        "user-email" Core.=: userEmail,
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "name" Data.=: name,
+        "next-token" Data.=: nextToken,
+        "user-email" Data.=: userEmail
       ]
 
 -- | /See:/ 'newListAccountsResponse' smart constructor.

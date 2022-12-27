@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.DescribeWorkspaceBundles
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.WorkSpaces.DescribeWorkspaceBundles
 
     -- * Request Lenses
     describeWorkspaceBundles_bundleIds,
-    describeWorkspaceBundles_owner,
     describeWorkspaceBundles_nextToken,
+    describeWorkspaceBundles_owner,
 
     -- * Destructuring the Response
     DescribeWorkspaceBundlesResponse (..),
@@ -48,7 +48,8 @@ module Amazonka.WorkSpaces.DescribeWorkspaceBundles
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,16 +60,16 @@ data DescribeWorkspaceBundles = DescribeWorkspaceBundles'
   { -- | The identifiers of the bundles. You cannot combine this parameter with
     -- any other filter.
     bundleIds :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | The token for the next set of results. (You received this token from a
+    -- previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The owner of the bundles. You cannot combine this parameter with any
     -- other filter.
     --
     -- To describe the bundles provided by Amazon Web Services, specify
     -- @AMAZON@. To describe the bundles that belong to your account, don\'t
     -- specify a value.
-    owner :: Prelude.Maybe Prelude.Text,
-    -- | The token for the next set of results. (You received this token from a
-    -- previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text
+    owner :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -83,29 +84,34 @@ data DescribeWorkspaceBundles = DescribeWorkspaceBundles'
 -- 'bundleIds', 'describeWorkspaceBundles_bundleIds' - The identifiers of the bundles. You cannot combine this parameter with
 -- any other filter.
 --
+-- 'nextToken', 'describeWorkspaceBundles_nextToken' - The token for the next set of results. (You received this token from a
+-- previous call.)
+--
 -- 'owner', 'describeWorkspaceBundles_owner' - The owner of the bundles. You cannot combine this parameter with any
 -- other filter.
 --
 -- To describe the bundles provided by Amazon Web Services, specify
 -- @AMAZON@. To describe the bundles that belong to your account, don\'t
 -- specify a value.
---
--- 'nextToken', 'describeWorkspaceBundles_nextToken' - The token for the next set of results. (You received this token from a
--- previous call.)
 newDescribeWorkspaceBundles ::
   DescribeWorkspaceBundles
 newDescribeWorkspaceBundles =
   DescribeWorkspaceBundles'
     { bundleIds =
         Prelude.Nothing,
-      owner = Prelude.Nothing,
-      nextToken = Prelude.Nothing
+      nextToken = Prelude.Nothing,
+      owner = Prelude.Nothing
     }
 
 -- | The identifiers of the bundles. You cannot combine this parameter with
 -- any other filter.
 describeWorkspaceBundles_bundleIds :: Lens.Lens' DescribeWorkspaceBundles (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 describeWorkspaceBundles_bundleIds = Lens.lens (\DescribeWorkspaceBundles' {bundleIds} -> bundleIds) (\s@DescribeWorkspaceBundles' {} a -> s {bundleIds = a} :: DescribeWorkspaceBundles) Prelude.. Lens.mapping Lens.coerced
+
+-- | The token for the next set of results. (You received this token from a
+-- previous call.)
+describeWorkspaceBundles_nextToken :: Lens.Lens' DescribeWorkspaceBundles (Prelude.Maybe Prelude.Text)
+describeWorkspaceBundles_nextToken = Lens.lens (\DescribeWorkspaceBundles' {nextToken} -> nextToken) (\s@DescribeWorkspaceBundles' {} a -> s {nextToken = a} :: DescribeWorkspaceBundles)
 
 -- | The owner of the bundles. You cannot combine this parameter with any
 -- other filter.
@@ -115,11 +121,6 @@ describeWorkspaceBundles_bundleIds = Lens.lens (\DescribeWorkspaceBundles' {bund
 -- specify a value.
 describeWorkspaceBundles_owner :: Lens.Lens' DescribeWorkspaceBundles (Prelude.Maybe Prelude.Text)
 describeWorkspaceBundles_owner = Lens.lens (\DescribeWorkspaceBundles' {owner} -> owner) (\s@DescribeWorkspaceBundles' {} a -> s {owner = a} :: DescribeWorkspaceBundles)
-
--- | The token for the next set of results. (You received this token from a
--- previous call.)
-describeWorkspaceBundles_nextToken :: Lens.Lens' DescribeWorkspaceBundles (Prelude.Maybe Prelude.Text)
-describeWorkspaceBundles_nextToken = Lens.lens (\DescribeWorkspaceBundles' {nextToken} -> nextToken) (\s@DescribeWorkspaceBundles' {} a -> s {nextToken = a} :: DescribeWorkspaceBundles)
 
 instance Core.AWSPager DescribeWorkspaceBundles where
   page rq rs
@@ -147,57 +148,58 @@ instance Core.AWSRequest DescribeWorkspaceBundles where
   type
     AWSResponse DescribeWorkspaceBundles =
       DescribeWorkspaceBundlesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeWorkspaceBundlesResponse'
-            Prelude.<$> (x Core..?> "Bundles" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Bundles" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeWorkspaceBundles where
   hashWithSalt _salt DescribeWorkspaceBundles' {..} =
     _salt `Prelude.hashWithSalt` bundleIds
-      `Prelude.hashWithSalt` owner
       `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` owner
 
 instance Prelude.NFData DescribeWorkspaceBundles where
   rnf DescribeWorkspaceBundles' {..} =
     Prelude.rnf bundleIds
-      `Prelude.seq` Prelude.rnf owner
       `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf owner
 
-instance Core.ToHeaders DescribeWorkspaceBundles where
+instance Data.ToHeaders DescribeWorkspaceBundles where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.DescribeWorkspaceBundles" ::
+              Data.=# ( "WorkspacesService.DescribeWorkspaceBundles" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeWorkspaceBundles where
+instance Data.ToJSON DescribeWorkspaceBundles where
   toJSON DescribeWorkspaceBundles' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BundleIds" Core..=) Prelude.<$> bundleIds,
-            ("Owner" Core..=) Prelude.<$> owner,
-            ("NextToken" Core..=) Prelude.<$> nextToken
+          [ ("BundleIds" Data..=) Prelude.<$> bundleIds,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("Owner" Data..=) Prelude.<$> owner
           ]
       )
 
-instance Core.ToPath DescribeWorkspaceBundles where
+instance Data.ToPath DescribeWorkspaceBundles where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeWorkspaceBundles where
+instance Data.ToQuery DescribeWorkspaceBundles where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeWorkspaceBundlesResponse' smart constructor.

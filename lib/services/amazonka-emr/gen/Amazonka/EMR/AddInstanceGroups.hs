@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.AddInstanceGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,15 +36,16 @@ module Amazonka.EMR.AddInstanceGroups
 
     -- * Response Lenses
     addInstanceGroupsResponse_clusterArn,
-    addInstanceGroupsResponse_jobFlowId,
     addInstanceGroupsResponse_instanceGroupIds,
+    addInstanceGroupsResponse_jobFlowId,
     addInstanceGroupsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,16 +94,17 @@ instance Core.AWSRequest AddInstanceGroups where
   type
     AWSResponse AddInstanceGroups =
       AddInstanceGroupsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddInstanceGroupsResponse'
-            Prelude.<$> (x Core..?> "ClusterArn")
-            Prelude.<*> (x Core..?> "JobFlowId")
-            Prelude.<*> ( x Core..?> "InstanceGroupIds"
+            Prelude.<$> (x Data..?> "ClusterArn")
+            Prelude.<*> ( x Data..?> "InstanceGroupIds"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "JobFlowId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,35 +118,35 @@ instance Prelude.NFData AddInstanceGroups where
     Prelude.rnf instanceGroups
       `Prelude.seq` Prelude.rnf jobFlowId
 
-instance Core.ToHeaders AddInstanceGroups where
+instance Data.ToHeaders AddInstanceGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ElasticMapReduce.AddInstanceGroups" ::
+              Data.=# ( "ElasticMapReduce.AddInstanceGroups" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddInstanceGroups where
+instance Data.ToJSON AddInstanceGroups where
   toJSON AddInstanceGroups' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("InstanceGroups" Core..= instanceGroups),
-            Prelude.Just ("JobFlowId" Core..= jobFlowId)
+              ("InstanceGroups" Data..= instanceGroups),
+            Prelude.Just ("JobFlowId" Data..= jobFlowId)
           ]
       )
 
-instance Core.ToPath AddInstanceGroups where
+instance Data.ToPath AddInstanceGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddInstanceGroups where
+instance Data.ToQuery AddInstanceGroups where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Output from an AddInstanceGroups call.
@@ -153,10 +155,10 @@ instance Core.ToQuery AddInstanceGroups where
 data AddInstanceGroupsResponse = AddInstanceGroupsResponse'
   { -- | The Amazon Resource Name of the cluster.
     clusterArn :: Prelude.Maybe Prelude.Text,
-    -- | The job flow ID in which the instance groups are added.
-    jobFlowId :: Prelude.Maybe Prelude.Text,
     -- | Instance group IDs of the newly created instance groups.
     instanceGroupIds :: Prelude.Maybe [Prelude.Text],
+    -- | The job flow ID in which the instance groups are added.
+    jobFlowId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -172,9 +174,9 @@ data AddInstanceGroupsResponse = AddInstanceGroupsResponse'
 --
 -- 'clusterArn', 'addInstanceGroupsResponse_clusterArn' - The Amazon Resource Name of the cluster.
 --
--- 'jobFlowId', 'addInstanceGroupsResponse_jobFlowId' - The job flow ID in which the instance groups are added.
---
 -- 'instanceGroupIds', 'addInstanceGroupsResponse_instanceGroupIds' - Instance group IDs of the newly created instance groups.
+--
+-- 'jobFlowId', 'addInstanceGroupsResponse_jobFlowId' - The job flow ID in which the instance groups are added.
 --
 -- 'httpStatus', 'addInstanceGroupsResponse_httpStatus' - The response's http status code.
 newAddInstanceGroupsResponse ::
@@ -185,8 +187,8 @@ newAddInstanceGroupsResponse pHttpStatus_ =
   AddInstanceGroupsResponse'
     { clusterArn =
         Prelude.Nothing,
-      jobFlowId = Prelude.Nothing,
       instanceGroupIds = Prelude.Nothing,
+      jobFlowId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -194,13 +196,13 @@ newAddInstanceGroupsResponse pHttpStatus_ =
 addInstanceGroupsResponse_clusterArn :: Lens.Lens' AddInstanceGroupsResponse (Prelude.Maybe Prelude.Text)
 addInstanceGroupsResponse_clusterArn = Lens.lens (\AddInstanceGroupsResponse' {clusterArn} -> clusterArn) (\s@AddInstanceGroupsResponse' {} a -> s {clusterArn = a} :: AddInstanceGroupsResponse)
 
--- | The job flow ID in which the instance groups are added.
-addInstanceGroupsResponse_jobFlowId :: Lens.Lens' AddInstanceGroupsResponse (Prelude.Maybe Prelude.Text)
-addInstanceGroupsResponse_jobFlowId = Lens.lens (\AddInstanceGroupsResponse' {jobFlowId} -> jobFlowId) (\s@AddInstanceGroupsResponse' {} a -> s {jobFlowId = a} :: AddInstanceGroupsResponse)
-
 -- | Instance group IDs of the newly created instance groups.
 addInstanceGroupsResponse_instanceGroupIds :: Lens.Lens' AddInstanceGroupsResponse (Prelude.Maybe [Prelude.Text])
 addInstanceGroupsResponse_instanceGroupIds = Lens.lens (\AddInstanceGroupsResponse' {instanceGroupIds} -> instanceGroupIds) (\s@AddInstanceGroupsResponse' {} a -> s {instanceGroupIds = a} :: AddInstanceGroupsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The job flow ID in which the instance groups are added.
+addInstanceGroupsResponse_jobFlowId :: Lens.Lens' AddInstanceGroupsResponse (Prelude.Maybe Prelude.Text)
+addInstanceGroupsResponse_jobFlowId = Lens.lens (\AddInstanceGroupsResponse' {jobFlowId} -> jobFlowId) (\s@AddInstanceGroupsResponse' {} a -> s {jobFlowId = a} :: AddInstanceGroupsResponse)
 
 -- | The response's http status code.
 addInstanceGroupsResponse_httpStatus :: Lens.Lens' AddInstanceGroupsResponse Prelude.Int
@@ -209,6 +211,6 @@ addInstanceGroupsResponse_httpStatus = Lens.lens (\AddInstanceGroupsResponse' {h
 instance Prelude.NFData AddInstanceGroupsResponse where
   rnf AddInstanceGroupsResponse' {..} =
     Prelude.rnf clusterArn
-      `Prelude.seq` Prelude.rnf jobFlowId
       `Prelude.seq` Prelude.rnf instanceGroupIds
+      `Prelude.seq` Prelude.rnf jobFlowId
       `Prelude.seq` Prelude.rnf httpStatus

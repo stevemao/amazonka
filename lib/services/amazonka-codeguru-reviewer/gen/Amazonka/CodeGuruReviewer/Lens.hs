@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruReviewer.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,68 +14,14 @@
 module Amazonka.CodeGuruReviewer.Lens
   ( -- * Operations
 
-    -- ** ListRecommendationFeedback
-    listRecommendationFeedback_userIds,
-    listRecommendationFeedback_nextToken,
-    listRecommendationFeedback_recommendationIds,
-    listRecommendationFeedback_maxResults,
-    listRecommendationFeedback_codeReviewArn,
-    listRecommendationFeedbackResponse_nextToken,
-    listRecommendationFeedbackResponse_recommendationFeedbackSummaries,
-    listRecommendationFeedbackResponse_httpStatus,
-
-    -- ** ListTagsForResource
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** DisassociateRepository
-    disassociateRepository_associationArn,
-    disassociateRepositoryResponse_repositoryAssociation,
-    disassociateRepositoryResponse_tags,
-    disassociateRepositoryResponse_httpStatus,
-
-    -- ** DescribeRepositoryAssociation
-    describeRepositoryAssociation_associationArn,
-    describeRepositoryAssociationResponse_repositoryAssociation,
-    describeRepositoryAssociationResponse_tags,
-    describeRepositoryAssociationResponse_httpStatus,
-
-    -- ** DescribeCodeReview
-    describeCodeReview_codeReviewArn,
-    describeCodeReviewResponse_codeReview,
-    describeCodeReviewResponse_httpStatus,
-
-    -- ** ListRepositoryAssociations
-    listRepositoryAssociations_states,
-    listRepositoryAssociations_owners,
-    listRepositoryAssociations_providerTypes,
-    listRepositoryAssociations_nextToken,
-    listRepositoryAssociations_names,
-    listRepositoryAssociations_maxResults,
-    listRepositoryAssociationsResponse_nextToken,
-    listRepositoryAssociationsResponse_repositoryAssociationSummaries,
-    listRepositoryAssociationsResponse_httpStatus,
-
-    -- ** DescribeRecommendationFeedback
-    describeRecommendationFeedback_userId,
-    describeRecommendationFeedback_codeReviewArn,
-    describeRecommendationFeedback_recommendationId,
-    describeRecommendationFeedbackResponse_recommendationFeedback,
-    describeRecommendationFeedbackResponse_httpStatus,
-
-    -- ** ListRecommendations
-    listRecommendations_nextToken,
-    listRecommendations_maxResults,
-    listRecommendations_codeReviewArn,
-    listRecommendationsResponse_nextToken,
-    listRecommendationsResponse_recommendationSummaries,
-    listRecommendationsResponse_httpStatus,
-
-    -- ** TagResource
-    tagResource_resourceArn,
-    tagResource_tags,
-    tagResourceResponse_httpStatus,
+    -- ** AssociateRepository
+    associateRepository_clientRequestToken,
+    associateRepository_kmsKeyDetails,
+    associateRepository_tags,
+    associateRepository_repository,
+    associateRepositoryResponse_repositoryAssociation,
+    associateRepositoryResponse_tags,
+    associateRepositoryResponse_httpStatus,
 
     -- ** CreateCodeReview
     createCodeReview_clientRequestToken,
@@ -85,36 +31,90 @@ module Amazonka.CodeGuruReviewer.Lens
     createCodeReviewResponse_codeReview,
     createCodeReviewResponse_httpStatus,
 
-    -- ** UntagResource
-    untagResource_resourceArn,
-    untagResource_tagKeys,
-    untagResourceResponse_httpStatus,
+    -- ** DescribeCodeReview
+    describeCodeReview_codeReviewArn,
+    describeCodeReviewResponse_codeReview,
+    describeCodeReviewResponse_httpStatus,
+
+    -- ** DescribeRecommendationFeedback
+    describeRecommendationFeedback_userId,
+    describeRecommendationFeedback_codeReviewArn,
+    describeRecommendationFeedback_recommendationId,
+    describeRecommendationFeedbackResponse_recommendationFeedback,
+    describeRecommendationFeedbackResponse_httpStatus,
+
+    -- ** DescribeRepositoryAssociation
+    describeRepositoryAssociation_associationArn,
+    describeRepositoryAssociationResponse_repositoryAssociation,
+    describeRepositoryAssociationResponse_tags,
+    describeRepositoryAssociationResponse_httpStatus,
+
+    -- ** DisassociateRepository
+    disassociateRepository_associationArn,
+    disassociateRepositoryResponse_repositoryAssociation,
+    disassociateRepositoryResponse_tags,
+    disassociateRepositoryResponse_httpStatus,
 
     -- ** ListCodeReviews
-    listCodeReviews_states,
+    listCodeReviews_maxResults,
+    listCodeReviews_nextToken,
     listCodeReviews_providerTypes,
     listCodeReviews_repositoryNames,
-    listCodeReviews_nextToken,
-    listCodeReviews_maxResults,
+    listCodeReviews_states,
     listCodeReviews_type,
     listCodeReviewsResponse_codeReviewSummaries,
     listCodeReviewsResponse_nextToken,
     listCodeReviewsResponse_httpStatus,
 
-    -- ** AssociateRepository
-    associateRepository_kmsKeyDetails,
-    associateRepository_clientRequestToken,
-    associateRepository_tags,
-    associateRepository_repository,
-    associateRepositoryResponse_repositoryAssociation,
-    associateRepositoryResponse_tags,
-    associateRepositoryResponse_httpStatus,
+    -- ** ListRecommendationFeedback
+    listRecommendationFeedback_maxResults,
+    listRecommendationFeedback_nextToken,
+    listRecommendationFeedback_recommendationIds,
+    listRecommendationFeedback_userIds,
+    listRecommendationFeedback_codeReviewArn,
+    listRecommendationFeedbackResponse_nextToken,
+    listRecommendationFeedbackResponse_recommendationFeedbackSummaries,
+    listRecommendationFeedbackResponse_httpStatus,
+
+    -- ** ListRecommendations
+    listRecommendations_maxResults,
+    listRecommendations_nextToken,
+    listRecommendations_codeReviewArn,
+    listRecommendationsResponse_nextToken,
+    listRecommendationsResponse_recommendationSummaries,
+    listRecommendationsResponse_httpStatus,
+
+    -- ** ListRepositoryAssociations
+    listRepositoryAssociations_maxResults,
+    listRepositoryAssociations_names,
+    listRepositoryAssociations_nextToken,
+    listRepositoryAssociations_owners,
+    listRepositoryAssociations_providerTypes,
+    listRepositoryAssociations_states,
+    listRepositoryAssociationsResponse_nextToken,
+    listRepositoryAssociationsResponse_repositoryAssociationSummaries,
+    listRepositoryAssociationsResponse_httpStatus,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
 
     -- ** PutRecommendationFeedback
     putRecommendationFeedback_codeReviewArn,
     putRecommendationFeedback_recommendationId,
     putRecommendationFeedback_reactions,
     putRecommendationFeedbackResponse_httpStatus,
+
+    -- ** TagResource
+    tagResource_resourceArn,
+    tagResource_tags,
+    tagResourceResponse_httpStatus,
+
+    -- ** UntagResource
+    untagResource_resourceArn,
+    untagResource_tagKeys,
+    untagResourceResponse_httpStatus,
 
     -- * Types
 
@@ -130,48 +130,49 @@ module Amazonka.CodeGuruReviewer.Lens
     codeCommitRepository_name,
 
     -- ** CodeReview
-    codeReview_associationArn,
-    codeReview_state,
-    codeReview_metrics,
-    codeReview_pullRequestId,
-    codeReview_providerType,
-    codeReview_owner,
-    codeReview_name,
-    codeReview_codeReviewArn,
-    codeReview_repositoryName,
-    codeReview_type,
-    codeReview_sourceCodeType,
-    codeReview_stateReason,
-    codeReview_createdTimeStamp,
     codeReview_analysisTypes,
+    codeReview_associationArn,
+    codeReview_codeReviewArn,
+    codeReview_configFileState,
+    codeReview_createdTimeStamp,
     codeReview_lastUpdatedTimeStamp,
+    codeReview_metrics,
+    codeReview_name,
+    codeReview_owner,
+    codeReview_providerType,
+    codeReview_pullRequestId,
+    codeReview_repositoryName,
+    codeReview_sourceCodeType,
+    codeReview_state,
+    codeReview_stateReason,
+    codeReview_type,
 
     -- ** CodeReviewSummary
-    codeReviewSummary_state,
-    codeReviewSummary_pullRequestId,
-    codeReviewSummary_providerType,
-    codeReviewSummary_owner,
-    codeReviewSummary_name,
     codeReviewSummary_codeReviewArn,
-    codeReviewSummary_repositoryName,
-    codeReviewSummary_type,
-    codeReviewSummary_sourceCodeType,
-    codeReviewSummary_metricsSummary,
     codeReviewSummary_createdTimeStamp,
     codeReviewSummary_lastUpdatedTimeStamp,
+    codeReviewSummary_metricsSummary,
+    codeReviewSummary_name,
+    codeReviewSummary_owner,
+    codeReviewSummary_providerType,
+    codeReviewSummary_pullRequestId,
+    codeReviewSummary_repositoryName,
+    codeReviewSummary_sourceCodeType,
+    codeReviewSummary_state,
+    codeReviewSummary_type,
 
     -- ** CodeReviewType
     codeReviewType_analysisTypes,
     codeReviewType_repositoryAnalysis,
 
     -- ** CommitDiffSourceCodeType
-    commitDiffSourceCodeType_sourceCommit,
-    commitDiffSourceCodeType_mergeBaseCommit,
     commitDiffSourceCodeType_destinationCommit,
+    commitDiffSourceCodeType_mergeBaseCommit,
+    commitDiffSourceCodeType_sourceCommit,
 
     -- ** EventInfo
-    eventInfo_state,
     eventInfo_name,
+    eventInfo_state,
 
     -- ** KMSKeyDetails
     kmsKeyDetails_encryptionOption,
@@ -180,39 +181,41 @@ module Amazonka.CodeGuruReviewer.Lens
     -- ** Metrics
     metrics_findingsCount,
     metrics_meteredLinesOfCodeCount,
+    metrics_suppressedLinesOfCodeCount,
 
     -- ** MetricsSummary
     metricsSummary_findingsCount,
     metricsSummary_meteredLinesOfCodeCount,
+    metricsSummary_suppressedLinesOfCodeCount,
 
     -- ** RecommendationFeedback
-    recommendationFeedback_recommendationId,
-    recommendationFeedback_userId,
-    recommendationFeedback_reactions,
     recommendationFeedback_codeReviewArn,
     recommendationFeedback_createdTimeStamp,
     recommendationFeedback_lastUpdatedTimeStamp,
+    recommendationFeedback_reactions,
+    recommendationFeedback_recommendationId,
+    recommendationFeedback_userId,
 
     -- ** RecommendationFeedbackSummary
+    recommendationFeedbackSummary_reactions,
     recommendationFeedbackSummary_recommendationId,
     recommendationFeedbackSummary_userId,
-    recommendationFeedbackSummary_reactions,
 
     -- ** RecommendationSummary
-    recommendationSummary_recommendationId,
-    recommendationSummary_filePath,
-    recommendationSummary_severity,
-    recommendationSummary_ruleMetadata,
-    recommendationSummary_startLine,
-    recommendationSummary_endLine,
     recommendationSummary_description,
+    recommendationSummary_endLine,
+    recommendationSummary_filePath,
     recommendationSummary_recommendationCategory,
+    recommendationSummary_recommendationId,
+    recommendationSummary_ruleMetadata,
+    recommendationSummary_severity,
+    recommendationSummary_startLine,
 
     -- ** Repository
+    repository_bitbucket,
     repository_codeCommit,
     repository_gitHubEnterpriseServer,
     repository_s3Bucket,
-    repository_bitbucket,
 
     -- ** RepositoryAnalysis
     repositoryAnalysis_repositoryHead,
@@ -221,41 +224,41 @@ module Amazonka.CodeGuruReviewer.Lens
     -- ** RepositoryAssociation
     repositoryAssociation_associationArn,
     repositoryAssociation_associationId,
-    repositoryAssociation_state,
-    repositoryAssociation_s3RepositoryDetails,
-    repositoryAssociation_providerType,
-    repositoryAssociation_owner,
-    repositoryAssociation_name,
-    repositoryAssociation_kmsKeyDetails,
     repositoryAssociation_connectionArn,
-    repositoryAssociation_stateReason,
     repositoryAssociation_createdTimeStamp,
+    repositoryAssociation_kmsKeyDetails,
     repositoryAssociation_lastUpdatedTimeStamp,
+    repositoryAssociation_name,
+    repositoryAssociation_owner,
+    repositoryAssociation_providerType,
+    repositoryAssociation_s3RepositoryDetails,
+    repositoryAssociation_state,
+    repositoryAssociation_stateReason,
 
     -- ** RepositoryAssociationSummary
     repositoryAssociationSummary_associationArn,
     repositoryAssociationSummary_associationId,
-    repositoryAssociationSummary_state,
-    repositoryAssociationSummary_providerType,
-    repositoryAssociationSummary_owner,
-    repositoryAssociationSummary_name,
     repositoryAssociationSummary_connectionArn,
     repositoryAssociationSummary_lastUpdatedTimeStamp,
+    repositoryAssociationSummary_name,
+    repositoryAssociationSummary_owner,
+    repositoryAssociationSummary_providerType,
+    repositoryAssociationSummary_state,
 
     -- ** RepositoryHeadSourceCodeType
     repositoryHeadSourceCodeType_branchName,
 
     -- ** RequestMetadata
-    requestMetadata_requestId,
     requestMetadata_eventInfo,
-    requestMetadata_vendorName,
+    requestMetadata_requestId,
     requestMetadata_requester,
+    requestMetadata_vendorName,
 
     -- ** RuleMetadata
     ruleMetadata_longDescription,
-    ruleMetadata_ruleTags,
     ruleMetadata_ruleId,
     ruleMetadata_ruleName,
+    ruleMetadata_ruleTags,
     ruleMetadata_shortDescription,
 
     -- ** S3BucketRepository
@@ -267,15 +270,15 @@ module Amazonka.CodeGuruReviewer.Lens
     s3Repository_bucketName,
 
     -- ** S3RepositoryDetails
-    s3RepositoryDetails_codeArtifacts,
     s3RepositoryDetails_bucketName,
+    s3RepositoryDetails_codeArtifacts,
 
     -- ** SourceCodeType
-    sourceCodeType_s3BucketRepository,
-    sourceCodeType_requestMetadata,
-    sourceCodeType_repositoryHead,
-    sourceCodeType_commitDiff,
     sourceCodeType_branchDiff,
+    sourceCodeType_commitDiff,
+    sourceCodeType_repositoryHead,
+    sourceCodeType_requestMetadata,
+    sourceCodeType_s3BucketRepository,
 
     -- ** ThirdPartySourceRepository
     thirdPartySourceRepository_name,

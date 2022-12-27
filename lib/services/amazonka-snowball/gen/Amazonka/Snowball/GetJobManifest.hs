@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.GetJobManifest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,10 +27,12 @@
 -- another call to the @GetJobManifest@ action.
 --
 -- The manifest is an encrypted file that you can download after your job
--- enters the @WithCustomer@ status. The manifest is decrypted by using the
--- @UnlockCode@ code value, when you pass both values to the Snow device
--- through the Snowball client when the client is started for the first
--- time.
+-- enters the @WithCustomer@ status. This is the only valid status for
+-- calling this API as the manifest and @UnlockCode@ code value are used
+-- for securing your device and should only be used when you have the
+-- device. The manifest is decrypted by using the @UnlockCode@ code value,
+-- when you pass both values to the Snow device through the Snowball client
+-- when the client is started for the first time.
 --
 -- As a best practice, we recommend that you don\'t save a copy of an
 -- @UnlockCode@ value in the same location as the manifest file for that
@@ -58,7 +60,8 @@ module Amazonka.Snowball.GetJobManifest
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,12 +101,13 @@ instance Core.AWSRequest GetJobManifest where
   type
     AWSResponse GetJobManifest =
       GetJobManifestResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetJobManifestResponse'
-            Prelude.<$> (x Core..?> "ManifestURI")
+            Prelude.<$> (x Data..?> "ManifestURI")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,32 +118,32 @@ instance Prelude.Hashable GetJobManifest where
 instance Prelude.NFData GetJobManifest where
   rnf GetJobManifest' {..} = Prelude.rnf jobId
 
-instance Core.ToHeaders GetJobManifest where
+instance Data.ToHeaders GetJobManifest where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSIESnowballJobManagementService.GetJobManifest" ::
+              Data.=# ( "AWSIESnowballJobManagementService.GetJobManifest" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetJobManifest where
+instance Data.ToJSON GetJobManifest where
   toJSON GetJobManifest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("JobId" Core..= jobId)]
+          [Prelude.Just ("JobId" Data..= jobId)]
       )
 
-instance Core.ToPath GetJobManifest where
+instance Data.ToPath GetJobManifest where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetJobManifest where
+instance Data.ToQuery GetJobManifest where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetJobManifestResponse' smart constructor.

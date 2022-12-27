@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.ServerSideEncryption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.ServerSideEncryption where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.EncryptionType
 import qualified Amazonka.Prelude as Prelude
 
@@ -79,14 +80,14 @@ serverSideEncryption_encryptionType = Lens.lens (\ServerSideEncryption' {encrypt
 serverSideEncryption_kmsMasterKeyId :: Lens.Lens' ServerSideEncryption (Prelude.Maybe Prelude.Text)
 serverSideEncryption_kmsMasterKeyId = Lens.lens (\ServerSideEncryption' {kmsMasterKeyId} -> kmsMasterKeyId) (\s@ServerSideEncryption' {} a -> s {kmsMasterKeyId = a} :: ServerSideEncryption)
 
-instance Core.FromJSON ServerSideEncryption where
+instance Data.FromJSON ServerSideEncryption where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServerSideEncryption"
       ( \x ->
           ServerSideEncryption'
-            Prelude.<$> (x Core..:? "encryptionType")
-            Prelude.<*> (x Core..:? "kmsMasterKeyId")
+            Prelude.<$> (x Data..:? "encryptionType")
+            Prelude.<*> (x Data..:? "kmsMasterKeyId")
       )
 
 instance Prelude.Hashable ServerSideEncryption where

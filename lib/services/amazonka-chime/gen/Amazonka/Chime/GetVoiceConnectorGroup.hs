@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.GetVoiceConnectorGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,12 +82,13 @@ instance Core.AWSRequest GetVoiceConnectorGroup where
   type
     AWSResponse GetVoiceConnectorGroup =
       GetVoiceConnectorGroupResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetVoiceConnectorGroupResponse'
-            Prelude.<$> (x Core..?> "VoiceConnectorGroup")
+            Prelude.<$> (x Data..?> "VoiceConnectorGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,17 +100,17 @@ instance Prelude.NFData GetVoiceConnectorGroup where
   rnf GetVoiceConnectorGroup' {..} =
     Prelude.rnf voiceConnectorGroupId
 
-instance Core.ToHeaders GetVoiceConnectorGroup where
+instance Data.ToHeaders GetVoiceConnectorGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetVoiceConnectorGroup where
+instance Data.ToPath GetVoiceConnectorGroup where
   toPath GetVoiceConnectorGroup' {..} =
     Prelude.mconcat
       [ "/voice-connector-groups/",
-        Core.toBS voiceConnectorGroupId
+        Data.toBS voiceConnectorGroupId
       ]
 
-instance Core.ToQuery GetVoiceConnectorGroup where
+instance Data.ToQuery GetVoiceConnectorGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetVoiceConnectorGroupResponse' smart constructor.

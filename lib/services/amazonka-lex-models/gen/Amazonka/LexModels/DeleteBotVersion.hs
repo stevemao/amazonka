@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.DeleteBotVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.LexModels.DeleteBotVersion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -97,7 +98,8 @@ instance Core.AWSRequest DeleteBotVersion where
   type
     AWSResponse DeleteBotVersion =
       DeleteBotVersionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteBotVersionResponse'
 
@@ -110,27 +112,27 @@ instance Prelude.NFData DeleteBotVersion where
   rnf DeleteBotVersion' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf version
 
-instance Core.ToHeaders DeleteBotVersion where
+instance Data.ToHeaders DeleteBotVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteBotVersion where
+instance Data.ToPath DeleteBotVersion where
   toPath DeleteBotVersion' {..} =
     Prelude.mconcat
       [ "/bots/",
-        Core.toBS name,
+        Data.toBS name,
         "/versions/",
-        Core.toBS version
+        Data.toBS version
       ]
 
-instance Core.ToQuery DeleteBotVersion where
+instance Data.ToQuery DeleteBotVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteBotVersionResponse' smart constructor.

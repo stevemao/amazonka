@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.MGN.StartTest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lauches a Test Instance for specific Source Servers. This command starts
--- a LAUNCH job whose initiatedBy property is StartTest and changes the
--- SourceServer.lifeCycle.state property to TESTING.
+-- Launches a Test Instance for specific Source Servers. This command
+-- starts a LAUNCH job whose initiatedBy property is StartTest and changes
+-- the SourceServer.lifeCycle.state property to TESTING.
 module Amazonka.MGN.StartTest
   ( -- * Creating a Request
     StartTest (..),
@@ -43,7 +43,8 @@ module Amazonka.MGN.StartTest
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,7 +53,7 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newStartTest' smart constructor.
 data StartTest = StartTest'
   { -- | Start Test by Tags.
-    tags :: Prelude.Maybe (Core.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text)),
+    tags :: Prelude.Maybe (Data.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text)),
     -- | Start Test for Source Server IDs.
     sourceServerIDs :: Prelude.NonEmpty Prelude.Text
   }
@@ -82,7 +83,7 @@ newStartTest pSourceServerIDs_ =
 
 -- | Start Test by Tags.
 startTest_tags :: Lens.Lens' StartTest (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-startTest_tags = Lens.lens (\StartTest' {tags} -> tags) (\s@StartTest' {} a -> s {tags = a} :: StartTest) Prelude.. Lens.mapping (Core._Sensitive Prelude.. Lens.coerced)
+startTest_tags = Lens.lens (\StartTest' {tags} -> tags) (\s@StartTest' {} a -> s {tags = a} :: StartTest) Prelude.. Lens.mapping (Data._Sensitive Prelude.. Lens.coerced)
 
 -- | Start Test for Source Server IDs.
 startTest_sourceServerIDs :: Lens.Lens' StartTest (Prelude.NonEmpty Prelude.Text)
@@ -90,12 +91,13 @@ startTest_sourceServerIDs = Lens.lens (\StartTest' {sourceServerIDs} -> sourceSe
 
 instance Core.AWSRequest StartTest where
   type AWSResponse StartTest = StartTestResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartTestResponse'
-            Prelude.<$> (x Core..?> "job")
+            Prelude.<$> (x Data..?> "job")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,31 +111,31 @@ instance Prelude.NFData StartTest where
     Prelude.rnf tags
       `Prelude.seq` Prelude.rnf sourceServerIDs
 
-instance Core.ToHeaders StartTest where
+instance Data.ToHeaders StartTest where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartTest where
+instance Data.ToJSON StartTest where
   toJSON StartTest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
+          [ ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("sourceServerIDs" Core..= sourceServerIDs)
+              ("sourceServerIDs" Data..= sourceServerIDs)
           ]
       )
 
-instance Core.ToPath StartTest where
+instance Data.ToPath StartTest where
   toPath = Prelude.const "/StartTest"
 
-instance Core.ToQuery StartTest where
+instance Data.ToQuery StartTest where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartTestResponse' smart constructor.

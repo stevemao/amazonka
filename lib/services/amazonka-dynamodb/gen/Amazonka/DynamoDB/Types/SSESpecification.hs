@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.SSESpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,32 +20,34 @@
 module Amazonka.DynamoDB.Types.SSESpecification where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.SSEType
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the settings used to enable server-side encryption.
 --
 -- /See:/ 'newSSESpecification' smart constructor.
 data SSESpecification = SSESpecification'
-  { -- | Indicates whether server-side encryption is done using an AWS managed
-    -- CMK or an AWS owned CMK. If enabled (true), server-side encryption type
-    -- is set to @KMS@ and an AWS managed CMK is used (AWS KMS charges apply).
-    -- If disabled (false) or not specified, server-side encryption is set to
-    -- AWS owned CMK.
+  { -- | Indicates whether server-side encryption is done using an Amazon Web
+    -- Services managed key or an Amazon Web Services owned key. If enabled
+    -- (true), server-side encryption type is set to @KMS@ and an Amazon Web
+    -- Services managed key is used (KMS charges apply). If disabled (false) or
+    -- not specified, server-side encryption is set to Amazon Web Services
+    -- owned key.
     enabled :: Prelude.Maybe Prelude.Bool,
-    -- | The AWS KMS customer master key (CMK) that should be used for the AWS
-    -- KMS encryption. To specify a CMK, use its key ID, Amazon Resource Name
-    -- (ARN), alias name, or alias ARN. Note that you should only provide this
-    -- parameter if the key is different from the default DynamoDB customer
-    -- master key alias\/aws\/dynamodb.
+    -- | The KMS key that should be used for the KMS encryption. To specify a
+    -- key, use its key ID, Amazon Resource Name (ARN), alias name, or alias
+    -- ARN. Note that you should only provide this parameter if the key is
+    -- different from the default DynamoDB key @alias\/aws\/dynamodb@.
     kmsMasterKeyId :: Prelude.Maybe Prelude.Text,
     -- | Server-side encryption type. The only supported value is:
     --
-    -- -   @KMS@ - Server-side encryption that uses AWS Key Management Service.
-    --     The key is stored in your account and is managed by AWS KMS (AWS KMS
-    --     charges apply).
+    -- -   @KMS@ - Server-side encryption that uses Key Management Service. The
+    --     key is stored in your account and is managed by KMS (KMS charges
+    --     apply).
     sSEType :: Prelude.Maybe SSEType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -58,23 +60,23 @@ data SSESpecification = SSESpecification'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'enabled', 'sSESpecification_enabled' - Indicates whether server-side encryption is done using an AWS managed
--- CMK or an AWS owned CMK. If enabled (true), server-side encryption type
--- is set to @KMS@ and an AWS managed CMK is used (AWS KMS charges apply).
--- If disabled (false) or not specified, server-side encryption is set to
--- AWS owned CMK.
+-- 'enabled', 'sSESpecification_enabled' - Indicates whether server-side encryption is done using an Amazon Web
+-- Services managed key or an Amazon Web Services owned key. If enabled
+-- (true), server-side encryption type is set to @KMS@ and an Amazon Web
+-- Services managed key is used (KMS charges apply). If disabled (false) or
+-- not specified, server-side encryption is set to Amazon Web Services
+-- owned key.
 --
--- 'kmsMasterKeyId', 'sSESpecification_kmsMasterKeyId' - The AWS KMS customer master key (CMK) that should be used for the AWS
--- KMS encryption. To specify a CMK, use its key ID, Amazon Resource Name
--- (ARN), alias name, or alias ARN. Note that you should only provide this
--- parameter if the key is different from the default DynamoDB customer
--- master key alias\/aws\/dynamodb.
+-- 'kmsMasterKeyId', 'sSESpecification_kmsMasterKeyId' - The KMS key that should be used for the KMS encryption. To specify a
+-- key, use its key ID, Amazon Resource Name (ARN), alias name, or alias
+-- ARN. Note that you should only provide this parameter if the key is
+-- different from the default DynamoDB key @alias\/aws\/dynamodb@.
 --
 -- 'sSEType', 'sSESpecification_sSEType' - Server-side encryption type. The only supported value is:
 --
--- -   @KMS@ - Server-side encryption that uses AWS Key Management Service.
---     The key is stored in your account and is managed by AWS KMS (AWS KMS
---     charges apply).
+-- -   @KMS@ - Server-side encryption that uses Key Management Service. The
+--     key is stored in your account and is managed by KMS (KMS charges
+--     apply).
 newSSESpecification ::
   SSESpecification
 newSSESpecification =
@@ -84,29 +86,40 @@ newSSESpecification =
       sSEType = Prelude.Nothing
     }
 
--- | Indicates whether server-side encryption is done using an AWS managed
--- CMK or an AWS owned CMK. If enabled (true), server-side encryption type
--- is set to @KMS@ and an AWS managed CMK is used (AWS KMS charges apply).
--- If disabled (false) or not specified, server-side encryption is set to
--- AWS owned CMK.
+-- | Indicates whether server-side encryption is done using an Amazon Web
+-- Services managed key or an Amazon Web Services owned key. If enabled
+-- (true), server-side encryption type is set to @KMS@ and an Amazon Web
+-- Services managed key is used (KMS charges apply). If disabled (false) or
+-- not specified, server-side encryption is set to Amazon Web Services
+-- owned key.
 sSESpecification_enabled :: Lens.Lens' SSESpecification (Prelude.Maybe Prelude.Bool)
 sSESpecification_enabled = Lens.lens (\SSESpecification' {enabled} -> enabled) (\s@SSESpecification' {} a -> s {enabled = a} :: SSESpecification)
 
--- | The AWS KMS customer master key (CMK) that should be used for the AWS
--- KMS encryption. To specify a CMK, use its key ID, Amazon Resource Name
--- (ARN), alias name, or alias ARN. Note that you should only provide this
--- parameter if the key is different from the default DynamoDB customer
--- master key alias\/aws\/dynamodb.
+-- | The KMS key that should be used for the KMS encryption. To specify a
+-- key, use its key ID, Amazon Resource Name (ARN), alias name, or alias
+-- ARN. Note that you should only provide this parameter if the key is
+-- different from the default DynamoDB key @alias\/aws\/dynamodb@.
 sSESpecification_kmsMasterKeyId :: Lens.Lens' SSESpecification (Prelude.Maybe Prelude.Text)
 sSESpecification_kmsMasterKeyId = Lens.lens (\SSESpecification' {kmsMasterKeyId} -> kmsMasterKeyId) (\s@SSESpecification' {} a -> s {kmsMasterKeyId = a} :: SSESpecification)
 
 -- | Server-side encryption type. The only supported value is:
 --
--- -   @KMS@ - Server-side encryption that uses AWS Key Management Service.
---     The key is stored in your account and is managed by AWS KMS (AWS KMS
---     charges apply).
+-- -   @KMS@ - Server-side encryption that uses Key Management Service. The
+--     key is stored in your account and is managed by KMS (KMS charges
+--     apply).
 sSESpecification_sSEType :: Lens.Lens' SSESpecification (Prelude.Maybe SSEType)
 sSESpecification_sSEType = Lens.lens (\SSESpecification' {sSEType} -> sSEType) (\s@SSESpecification' {} a -> s {sSEType = a} :: SSESpecification)
+
+instance Data.FromJSON SSESpecification where
+  parseJSON =
+    Data.withObject
+      "SSESpecification"
+      ( \x ->
+          SSESpecification'
+            Prelude.<$> (x Data..:? "Enabled")
+            Prelude.<*> (x Data..:? "KMSMasterKeyId")
+            Prelude.<*> (x Data..:? "SSEType")
+      )
 
 instance Prelude.Hashable SSESpecification where
   hashWithSalt _salt SSESpecification' {..} =
@@ -120,13 +133,13 @@ instance Prelude.NFData SSESpecification where
       `Prelude.seq` Prelude.rnf kmsMasterKeyId
       `Prelude.seq` Prelude.rnf sSEType
 
-instance Core.ToJSON SSESpecification where
+instance Data.ToJSON SSESpecification where
   toJSON SSESpecification' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Enabled" Core..=) Prelude.<$> enabled,
-            ("KMSMasterKeyId" Core..=)
+          [ ("Enabled" Data..=) Prelude.<$> enabled,
+            ("KMSMasterKeyId" Data..=)
               Prelude.<$> kmsMasterKeyId,
-            ("SSEType" Core..=) Prelude.<$> sSEType
+            ("SSEType" Data..=) Prelude.<$> sSEType
           ]
       )

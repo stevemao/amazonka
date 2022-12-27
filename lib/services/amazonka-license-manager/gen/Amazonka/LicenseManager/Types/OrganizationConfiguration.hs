@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.Types.OrganizationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LicenseManager.Types.OrganizationConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration information for Organizations.
@@ -55,13 +56,13 @@ newOrganizationConfiguration pEnableIntegration_ =
 organizationConfiguration_enableIntegration :: Lens.Lens' OrganizationConfiguration Prelude.Bool
 organizationConfiguration_enableIntegration = Lens.lens (\OrganizationConfiguration' {enableIntegration} -> enableIntegration) (\s@OrganizationConfiguration' {} a -> s {enableIntegration = a} :: OrganizationConfiguration)
 
-instance Core.FromJSON OrganizationConfiguration where
+instance Data.FromJSON OrganizationConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OrganizationConfiguration"
       ( \x ->
           OrganizationConfiguration'
-            Prelude.<$> (x Core..: "EnableIntegration")
+            Prelude.<$> (x Data..: "EnableIntegration")
       )
 
 instance Prelude.Hashable OrganizationConfiguration where
@@ -72,11 +73,11 @@ instance Prelude.NFData OrganizationConfiguration where
   rnf OrganizationConfiguration' {..} =
     Prelude.rnf enableIntegration
 
-instance Core.ToJSON OrganizationConfiguration where
+instance Data.ToJSON OrganizationConfiguration where
   toJSON OrganizationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("EnableIntegration" Core..= enableIntegration)
+              ("EnableIntegration" Data..= enableIntegration)
           ]
       )

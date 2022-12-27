@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.GetDeployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CodeDeploy.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,8 +56,8 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetDeployment' smart constructor.
 data GetDeployment = GetDeployment'
-  { -- | The unique ID of a deployment associated with the IAM user or AWS
-    -- account.
+  { -- | The unique ID of a deployment associated with the IAM user or Amazon Web
+    -- Services account.
     deploymentId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -69,8 +70,8 @@ data GetDeployment = GetDeployment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'deploymentId', 'getDeployment_deploymentId' - The unique ID of a deployment associated with the IAM user or AWS
--- account.
+-- 'deploymentId', 'getDeployment_deploymentId' - The unique ID of a deployment associated with the IAM user or Amazon Web
+-- Services account.
 newGetDeployment ::
   -- | 'deploymentId'
   Prelude.Text ->
@@ -78,8 +79,8 @@ newGetDeployment ::
 newGetDeployment pDeploymentId_ =
   GetDeployment' {deploymentId = pDeploymentId_}
 
--- | The unique ID of a deployment associated with the IAM user or AWS
--- account.
+-- | The unique ID of a deployment associated with the IAM user or Amazon Web
+-- Services account.
 getDeployment_deploymentId :: Lens.Lens' GetDeployment Prelude.Text
 getDeployment_deploymentId = Lens.lens (\GetDeployment' {deploymentId} -> deploymentId) (\s@GetDeployment' {} a -> s {deploymentId = a} :: GetDeployment)
 
@@ -87,12 +88,13 @@ instance Core.AWSRequest GetDeployment where
   type
     AWSResponse GetDeployment =
       GetDeploymentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDeploymentResponse'
-            Prelude.<$> (x Core..?> "deploymentInfo")
+            Prelude.<$> (x Data..?> "deploymentInfo")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -103,32 +105,32 @@ instance Prelude.Hashable GetDeployment where
 instance Prelude.NFData GetDeployment where
   rnf GetDeployment' {..} = Prelude.rnf deploymentId
 
-instance Core.ToHeaders GetDeployment where
+instance Data.ToHeaders GetDeployment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeDeploy_20141006.GetDeployment" ::
+              Data.=# ( "CodeDeploy_20141006.GetDeployment" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetDeployment where
+instance Data.ToJSON GetDeployment where
   toJSON GetDeployment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("deploymentId" Core..= deploymentId)]
+          [Prelude.Just ("deploymentId" Data..= deploymentId)]
       )
 
-instance Core.ToPath GetDeployment where
+instance Data.ToPath GetDeployment where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetDeployment where
+instance Data.ToQuery GetDeployment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @GetDeployment@ operation.

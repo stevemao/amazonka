@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetInstanceMetricData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,14 +45,15 @@ module Amazonka.Lightsail.GetInstanceMetricData
     newGetInstanceMetricDataResponse,
 
     -- * Response Lenses
-    getInstanceMetricDataResponse_metricName,
     getInstanceMetricDataResponse_metricData,
+    getInstanceMetricDataResponse_metricName,
     getInstanceMetricDataResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -158,6 +159,17 @@ data GetInstanceMetricData = GetInstanceMetricData'
     --     @Statistics@: The most useful statistic is @Sum@.
     --
     --     @Unit@: The published unit is @Count@.
+    --
+    -- -   __@MetadataNoToken@__ - Reports the number of times that the
+    --     instance metadata service was successfully accessed without a token.
+    --     This metric determines if there are any processes accessing instance
+    --     metadata by using Instance Metadata Service Version 1, which
+    --     doesn\'t use a token. If all requests use token-backed sessions,
+    --     such as Instance Metadata Service Version 2, then the value is 0.
+    --
+    --     @Statistics@: The most useful statistic is @Sum@.
+    --
+    --     @Unit@: The published unit is @Count@.
     metricName :: InstanceMetricName,
     -- | The granularity, in seconds, of the returned data points.
     --
@@ -167,9 +179,9 @@ data GetInstanceMetricData = GetInstanceMetricData'
     -- 5-minute (300 seconds) granularity.
     period :: Prelude.Natural,
     -- | The start time of the time period.
-    startTime :: Core.POSIX,
+    startTime :: Data.POSIX,
     -- | The end time of the time period.
-    endTime :: Core.POSIX,
+    endTime :: Data.POSIX,
     -- | The unit for the metric data request. Valid units depend on the metric
     -- data being requested. For the valid units to specify with each available
     -- metric, see the @metricName@ parameter.
@@ -310,6 +322,17 @@ data GetInstanceMetricData = GetInstanceMetricData'
 --
 --     @Unit@: The published unit is @Count@.
 --
+-- -   __@MetadataNoToken@__ - Reports the number of times that the
+--     instance metadata service was successfully accessed without a token.
+--     This metric determines if there are any processes accessing instance
+--     metadata by using Instance Metadata Service Version 1, which
+--     doesn\'t use a token. If all requests use token-backed sessions,
+--     such as Instance Metadata Service Version 2, then the value is 0.
+--
+--     @Statistics@: The most useful statistic is @Sum@.
+--
+--     @Unit@: The published unit is @Count@.
+--
 -- 'period', 'getInstanceMetricData_period' - The granularity, in seconds, of the returned data points.
 --
 -- The @StatusCheckFailed@, @StatusCheckFailed_Instance@, and
@@ -376,8 +399,8 @@ newGetInstanceMetricData
           pInstanceName_,
         metricName = pMetricName_,
         period = pPeriod_,
-        startTime = Core._Time Lens.# pStartTime_,
-        endTime = Core._Time Lens.# pEndTime_,
+        startTime = Data._Time Lens.# pStartTime_,
+        endTime = Data._Time Lens.# pEndTime_,
         unit = pUnit_,
         statistics = Prelude.mempty
       }
@@ -482,6 +505,17 @@ getInstanceMetricData_instanceName = Lens.lens (\GetInstanceMetricData' {instanc
 --     @Statistics@: The most useful statistic is @Sum@.
 --
 --     @Unit@: The published unit is @Count@.
+--
+-- -   __@MetadataNoToken@__ - Reports the number of times that the
+--     instance metadata service was successfully accessed without a token.
+--     This metric determines if there are any processes accessing instance
+--     metadata by using Instance Metadata Service Version 1, which
+--     doesn\'t use a token. If all requests use token-backed sessions,
+--     such as Instance Metadata Service Version 2, then the value is 0.
+--
+--     @Statistics@: The most useful statistic is @Sum@.
+--
+--     @Unit@: The published unit is @Count@.
 getInstanceMetricData_metricName :: Lens.Lens' GetInstanceMetricData InstanceMetricName
 getInstanceMetricData_metricName = Lens.lens (\GetInstanceMetricData' {metricName} -> metricName) (\s@GetInstanceMetricData' {} a -> s {metricName = a} :: GetInstanceMetricData)
 
@@ -496,11 +530,11 @@ getInstanceMetricData_period = Lens.lens (\GetInstanceMetricData' {period} -> pe
 
 -- | The start time of the time period.
 getInstanceMetricData_startTime :: Lens.Lens' GetInstanceMetricData Prelude.UTCTime
-getInstanceMetricData_startTime = Lens.lens (\GetInstanceMetricData' {startTime} -> startTime) (\s@GetInstanceMetricData' {} a -> s {startTime = a} :: GetInstanceMetricData) Prelude.. Core._Time
+getInstanceMetricData_startTime = Lens.lens (\GetInstanceMetricData' {startTime} -> startTime) (\s@GetInstanceMetricData' {} a -> s {startTime = a} :: GetInstanceMetricData) Prelude.. Data._Time
 
 -- | The end time of the time period.
 getInstanceMetricData_endTime :: Lens.Lens' GetInstanceMetricData Prelude.UTCTime
-getInstanceMetricData_endTime = Lens.lens (\GetInstanceMetricData' {endTime} -> endTime) (\s@GetInstanceMetricData' {} a -> s {endTime = a} :: GetInstanceMetricData) Prelude.. Core._Time
+getInstanceMetricData_endTime = Lens.lens (\GetInstanceMetricData' {endTime} -> endTime) (\s@GetInstanceMetricData' {} a -> s {endTime = a} :: GetInstanceMetricData) Prelude.. Data._Time
 
 -- | The unit for the metric data request. Valid units depend on the metric
 -- data being requested. For the valid units to specify with each available
@@ -540,13 +574,14 @@ instance Core.AWSRequest GetInstanceMetricData where
   type
     AWSResponse GetInstanceMetricData =
       GetInstanceMetricDataResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetInstanceMetricDataResponse'
-            Prelude.<$> (x Core..?> "metricName")
-            Prelude.<*> (x Core..?> "metricData" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "metricData" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "metricName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -570,47 +605,47 @@ instance Prelude.NFData GetInstanceMetricData where
       `Prelude.seq` Prelude.rnf unit
       `Prelude.seq` Prelude.rnf statistics
 
-instance Core.ToHeaders GetInstanceMetricData where
+instance Data.ToHeaders GetInstanceMetricData where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetInstanceMetricData" ::
+              Data.=# ( "Lightsail_20161128.GetInstanceMetricData" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetInstanceMetricData where
+instance Data.ToJSON GetInstanceMetricData where
   toJSON GetInstanceMetricData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("instanceName" Core..= instanceName),
-            Prelude.Just ("metricName" Core..= metricName),
-            Prelude.Just ("period" Core..= period),
-            Prelude.Just ("startTime" Core..= startTime),
-            Prelude.Just ("endTime" Core..= endTime),
-            Prelude.Just ("unit" Core..= unit),
-            Prelude.Just ("statistics" Core..= statistics)
+          [ Prelude.Just ("instanceName" Data..= instanceName),
+            Prelude.Just ("metricName" Data..= metricName),
+            Prelude.Just ("period" Data..= period),
+            Prelude.Just ("startTime" Data..= startTime),
+            Prelude.Just ("endTime" Data..= endTime),
+            Prelude.Just ("unit" Data..= unit),
+            Prelude.Just ("statistics" Data..= statistics)
           ]
       )
 
-instance Core.ToPath GetInstanceMetricData where
+instance Data.ToPath GetInstanceMetricData where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetInstanceMetricData where
+instance Data.ToQuery GetInstanceMetricData where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetInstanceMetricDataResponse' smart constructor.
 data GetInstanceMetricDataResponse = GetInstanceMetricDataResponse'
-  { -- | The name of the metric returned.
-    metricName :: Prelude.Maybe InstanceMetricName,
-    -- | An array of objects that describe the metric data returned.
+  { -- | An array of objects that describe the metric data returned.
     metricData :: Prelude.Maybe [MetricDatapoint],
+    -- | The name of the metric returned.
+    metricName :: Prelude.Maybe InstanceMetricName,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -624,9 +659,9 @@ data GetInstanceMetricDataResponse = GetInstanceMetricDataResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'metricName', 'getInstanceMetricDataResponse_metricName' - The name of the metric returned.
---
 -- 'metricData', 'getInstanceMetricDataResponse_metricData' - An array of objects that describe the metric data returned.
+--
+-- 'metricName', 'getInstanceMetricDataResponse_metricName' - The name of the metric returned.
 --
 -- 'httpStatus', 'getInstanceMetricDataResponse_httpStatus' - The response's http status code.
 newGetInstanceMetricDataResponse ::
@@ -635,19 +670,19 @@ newGetInstanceMetricDataResponse ::
   GetInstanceMetricDataResponse
 newGetInstanceMetricDataResponse pHttpStatus_ =
   GetInstanceMetricDataResponse'
-    { metricName =
+    { metricData =
         Prelude.Nothing,
-      metricData = Prelude.Nothing,
+      metricName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The name of the metric returned.
-getInstanceMetricDataResponse_metricName :: Lens.Lens' GetInstanceMetricDataResponse (Prelude.Maybe InstanceMetricName)
-getInstanceMetricDataResponse_metricName = Lens.lens (\GetInstanceMetricDataResponse' {metricName} -> metricName) (\s@GetInstanceMetricDataResponse' {} a -> s {metricName = a} :: GetInstanceMetricDataResponse)
 
 -- | An array of objects that describe the metric data returned.
 getInstanceMetricDataResponse_metricData :: Lens.Lens' GetInstanceMetricDataResponse (Prelude.Maybe [MetricDatapoint])
 getInstanceMetricDataResponse_metricData = Lens.lens (\GetInstanceMetricDataResponse' {metricData} -> metricData) (\s@GetInstanceMetricDataResponse' {} a -> s {metricData = a} :: GetInstanceMetricDataResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The name of the metric returned.
+getInstanceMetricDataResponse_metricName :: Lens.Lens' GetInstanceMetricDataResponse (Prelude.Maybe InstanceMetricName)
+getInstanceMetricDataResponse_metricName = Lens.lens (\GetInstanceMetricDataResponse' {metricName} -> metricName) (\s@GetInstanceMetricDataResponse' {} a -> s {metricName = a} :: GetInstanceMetricDataResponse)
 
 -- | The response's http status code.
 getInstanceMetricDataResponse_httpStatus :: Lens.Lens' GetInstanceMetricDataResponse Prelude.Int
@@ -655,6 +690,6 @@ getInstanceMetricDataResponse_httpStatus = Lens.lens (\GetInstanceMetricDataResp
 
 instance Prelude.NFData GetInstanceMetricDataResponse where
   rnf GetInstanceMetricDataResponse' {..} =
-    Prelude.rnf metricName
-      `Prelude.seq` Prelude.rnf metricData
+    Prelude.rnf metricData
+      `Prelude.seq` Prelude.rnf metricName
       `Prelude.seq` Prelude.rnf httpStatus

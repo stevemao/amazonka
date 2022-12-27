@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Types.CacheParameterGroupNameMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElastiCache.Types.CacheParameterGroupNameMessage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output of one of the following operations:
@@ -57,10 +58,10 @@ newCacheParameterGroupNameMessage =
 cacheParameterGroupNameMessage_cacheParameterGroupName :: Lens.Lens' CacheParameterGroupNameMessage (Prelude.Maybe Prelude.Text)
 cacheParameterGroupNameMessage_cacheParameterGroupName = Lens.lens (\CacheParameterGroupNameMessage' {cacheParameterGroupName} -> cacheParameterGroupName) (\s@CacheParameterGroupNameMessage' {} a -> s {cacheParameterGroupName = a} :: CacheParameterGroupNameMessage)
 
-instance Core.FromXML CacheParameterGroupNameMessage where
+instance Data.FromXML CacheParameterGroupNameMessage where
   parseXML x =
     CacheParameterGroupNameMessage'
-      Prelude.<$> (x Core..@? "CacheParameterGroupName")
+      Prelude.<$> (x Data..@? "CacheParameterGroupName")
 
 instance
   Prelude.Hashable

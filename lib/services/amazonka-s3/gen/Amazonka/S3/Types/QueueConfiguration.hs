@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.QueueConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.QueueConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.Event
@@ -32,8 +33,8 @@ import Amazonka.S3.Types.NotificationConfigurationFilter
 --
 -- /See:/ 'newQueueConfiguration' smart constructor.
 data QueueConfiguration = QueueConfiguration'
-  { id :: Prelude.Maybe Prelude.Text,
-    filter' :: Prelude.Maybe NotificationConfigurationFilter,
+  { filter' :: Prelude.Maybe NotificationConfigurationFilter,
+    id :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the Amazon SQS queue to which Amazon
     -- S3 publishes a message when it detects events of the specified type.
     queueArn :: Prelude.Text,
@@ -50,9 +51,9 @@ data QueueConfiguration = QueueConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'id', 'queueConfiguration_id' - Undocumented member.
---
 -- 'filter'', 'queueConfiguration_filter' - Undocumented member.
+--
+-- 'id', 'queueConfiguration_id' - Undocumented member.
 --
 -- 'queueArn', 'queueConfiguration_queueArn' - The Amazon Resource Name (ARN) of the Amazon SQS queue to which Amazon
 -- S3 publishes a message when it detects events of the specified type.
@@ -64,19 +65,19 @@ newQueueConfiguration ::
   QueueConfiguration
 newQueueConfiguration pQueueArn_ =
   QueueConfiguration'
-    { id = Prelude.Nothing,
-      filter' = Prelude.Nothing,
+    { filter' = Prelude.Nothing,
+      id = Prelude.Nothing,
       queueArn = pQueueArn_,
       events = Prelude.mempty
     }
 
 -- | Undocumented member.
-queueConfiguration_id :: Lens.Lens' QueueConfiguration (Prelude.Maybe Prelude.Text)
-queueConfiguration_id = Lens.lens (\QueueConfiguration' {id} -> id) (\s@QueueConfiguration' {} a -> s {id = a} :: QueueConfiguration)
-
--- | Undocumented member.
 queueConfiguration_filter :: Lens.Lens' QueueConfiguration (Prelude.Maybe NotificationConfigurationFilter)
 queueConfiguration_filter = Lens.lens (\QueueConfiguration' {filter'} -> filter') (\s@QueueConfiguration' {} a -> s {filter' = a} :: QueueConfiguration)
+
+-- | Undocumented member.
+queueConfiguration_id :: Lens.Lens' QueueConfiguration (Prelude.Maybe Prelude.Text)
+queueConfiguration_id = Lens.lens (\QueueConfiguration' {id} -> id) (\s@QueueConfiguration' {} a -> s {id = a} :: QueueConfiguration)
 
 -- | The Amazon Resource Name (ARN) of the Amazon SQS queue to which Amazon
 -- S3 publishes a message when it detects events of the specified type.
@@ -87,33 +88,33 @@ queueConfiguration_queueArn = Lens.lens (\QueueConfiguration' {queueArn} -> queu
 queueConfiguration_events :: Lens.Lens' QueueConfiguration [Event]
 queueConfiguration_events = Lens.lens (\QueueConfiguration' {events} -> events) (\s@QueueConfiguration' {} a -> s {events = a} :: QueueConfiguration) Prelude.. Lens.coerced
 
-instance Core.FromXML QueueConfiguration where
+instance Data.FromXML QueueConfiguration where
   parseXML x =
     QueueConfiguration'
-      Prelude.<$> (x Core..@? "Id")
-      Prelude.<*> (x Core..@? "Filter")
-      Prelude.<*> (x Core..@ "Queue")
-      Prelude.<*> (Core.parseXMLList "Event" x)
+      Prelude.<$> (x Data..@? "Filter")
+      Prelude.<*> (x Data..@? "Id")
+      Prelude.<*> (x Data..@ "Queue")
+      Prelude.<*> (Data.parseXMLList "Event" x)
 
 instance Prelude.Hashable QueueConfiguration where
   hashWithSalt _salt QueueConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` id
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
+      `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` queueArn
       `Prelude.hashWithSalt` events
 
 instance Prelude.NFData QueueConfiguration where
   rnf QueueConfiguration' {..} =
-    Prelude.rnf id
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
+      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf queueArn
       `Prelude.seq` Prelude.rnf events
 
-instance Core.ToXML QueueConfiguration where
+instance Data.ToXML QueueConfiguration where
   toXML QueueConfiguration' {..} =
     Prelude.mconcat
-      [ "Id" Core.@= id,
-        "Filter" Core.@= filter',
-        "Queue" Core.@= queueArn,
-        Core.toXMLList "Event" events
+      [ "Filter" Data.@= filter',
+        "Id" Data.@= id,
+        "Queue" Data.@= queueArn,
+        Data.toXMLList "Event" events
       ]

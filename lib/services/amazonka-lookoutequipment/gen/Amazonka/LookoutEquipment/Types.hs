@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutEquipment.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,13 +18,13 @@ module Amazonka.LookoutEquipment.Types
     defaultService,
 
     -- * Errors
-    _ValidationException,
     _AccessDeniedException,
     _ConflictException,
-    _ServiceQuotaExceededException,
-    _ThrottlingException,
     _InternalServerException,
     _ResourceNotFoundException,
+    _ServiceQuotaExceededException,
+    _ThrottlingException,
+    _ValidationException,
 
     -- * DataUploadFrequency
     DataUploadFrequency (..),
@@ -40,25 +41,58 @@ module Amazonka.LookoutEquipment.Types
     -- * IngestionJobStatus
     IngestionJobStatus (..),
 
+    -- * LabelRating
+    LabelRating (..),
+
+    -- * LatestInferenceResult
+    LatestInferenceResult (..),
+
     -- * ModelStatus
     ModelStatus (..),
+
+    -- * Monotonicity
+    Monotonicity (..),
+
+    -- * StatisticalIssueStatus
+    StatisticalIssueStatus (..),
 
     -- * TargetSamplingRate
     TargetSamplingRate (..),
 
+    -- * CategoricalValues
+    CategoricalValues (..),
+    newCategoricalValues,
+    categoricalValues_numberOfCategory,
+    categoricalValues_status,
+
+    -- * CountPercent
+    CountPercent (..),
+    newCountPercent,
+    countPercent_count,
+    countPercent_percentage,
+
     -- * DataIngestionJobSummary
     DataIngestionJobSummary (..),
     newDataIngestionJobSummary,
-    dataIngestionJobSummary_ingestionInputConfiguration,
-    dataIngestionJobSummary_status,
     dataIngestionJobSummary_datasetArn,
-    dataIngestionJobSummary_jobId,
     dataIngestionJobSummary_datasetName,
+    dataIngestionJobSummary_ingestionInputConfiguration,
+    dataIngestionJobSummary_jobId,
+    dataIngestionJobSummary_status,
 
     -- * DataPreProcessingConfiguration
     DataPreProcessingConfiguration (..),
     newDataPreProcessingConfiguration,
     dataPreProcessingConfiguration_targetSamplingRate,
+
+    -- * DataQualitySummary
+    DataQualitySummary (..),
+    newDataQualitySummary,
+    dataQualitySummary_insufficientSensorData,
+    dataQualitySummary_missingSensorData,
+    dataQualitySummary_invalidSensorData,
+    dataQualitySummary_unsupportedTimestamps,
+    dataQualitySummary_duplicateTimestamps,
 
     -- * DatasetSchema
     DatasetSchema (..),
@@ -68,39 +102,54 @@ module Amazonka.LookoutEquipment.Types
     -- * DatasetSummary
     DatasetSummary (..),
     newDatasetSummary,
-    datasetSummary_status,
-    datasetSummary_datasetArn,
     datasetSummary_createdAt,
+    datasetSummary_datasetArn,
     datasetSummary_datasetName,
+    datasetSummary_status,
+
+    -- * DuplicateTimestamps
+    DuplicateTimestamps (..),
+    newDuplicateTimestamps,
+    duplicateTimestamps_totalNumberOfDuplicateTimestamps,
+
+    -- * InferenceEventSummary
+    InferenceEventSummary (..),
+    newInferenceEventSummary,
+    inferenceEventSummary_diagnostics,
+    inferenceEventSummary_eventDurationInSeconds,
+    inferenceEventSummary_eventEndTime,
+    inferenceEventSummary_eventStartTime,
+    inferenceEventSummary_inferenceSchedulerArn,
+    inferenceEventSummary_inferenceSchedulerName,
 
     -- * InferenceExecutionSummary
     InferenceExecutionSummary (..),
     newInferenceExecutionSummary,
-    inferenceExecutionSummary_status,
-    inferenceExecutionSummary_failedReason,
-    inferenceExecutionSummary_modelArn,
-    inferenceExecutionSummary_dataStartTime,
-    inferenceExecutionSummary_modelName,
     inferenceExecutionSummary_customerResultObject,
-    inferenceExecutionSummary_inferenceSchedulerArn,
-    inferenceExecutionSummary_scheduledStartTime,
-    inferenceExecutionSummary_dataOutputConfiguration,
     inferenceExecutionSummary_dataEndTime,
-    inferenceExecutionSummary_inferenceSchedulerName,
     inferenceExecutionSummary_dataInputConfiguration,
+    inferenceExecutionSummary_dataOutputConfiguration,
+    inferenceExecutionSummary_dataStartTime,
+    inferenceExecutionSummary_failedReason,
+    inferenceExecutionSummary_inferenceSchedulerArn,
+    inferenceExecutionSummary_inferenceSchedulerName,
+    inferenceExecutionSummary_modelArn,
+    inferenceExecutionSummary_modelName,
+    inferenceExecutionSummary_scheduledStartTime,
+    inferenceExecutionSummary_status,
 
     -- * InferenceInputConfiguration
     InferenceInputConfiguration (..),
     newInferenceInputConfiguration,
+    inferenceInputConfiguration_inferenceInputNameConfiguration,
     inferenceInputConfiguration_inputTimeZoneOffset,
     inferenceInputConfiguration_s3InputConfiguration,
-    inferenceInputConfiguration_inferenceInputNameConfiguration,
 
     -- * InferenceInputNameConfiguration
     InferenceInputNameConfiguration (..),
     newInferenceInputNameConfiguration,
-    inferenceInputNameConfiguration_timestampFormat,
     inferenceInputNameConfiguration_componentTimestampDelimiter,
+    inferenceInputNameConfiguration_timestampFormat,
 
     -- * InferenceOutputConfiguration
     InferenceOutputConfiguration (..),
@@ -123,13 +172,21 @@ module Amazonka.LookoutEquipment.Types
     -- * InferenceSchedulerSummary
     InferenceSchedulerSummary (..),
     newInferenceSchedulerSummary,
-    inferenceSchedulerSummary_status,
-    inferenceSchedulerSummary_dataUploadFrequency,
     inferenceSchedulerSummary_dataDelayOffsetInMinutes,
-    inferenceSchedulerSummary_modelArn,
-    inferenceSchedulerSummary_modelName,
+    inferenceSchedulerSummary_dataUploadFrequency,
     inferenceSchedulerSummary_inferenceSchedulerArn,
     inferenceSchedulerSummary_inferenceSchedulerName,
+    inferenceSchedulerSummary_latestInferenceResult,
+    inferenceSchedulerSummary_modelArn,
+    inferenceSchedulerSummary_modelName,
+    inferenceSchedulerSummary_status,
+
+    -- * IngestedFilesSummary
+    IngestedFilesSummary (..),
+    newIngestedFilesSummary,
+    ingestedFilesSummary_discardedFiles,
+    ingestedFilesSummary_totalNumberOfFiles,
+    ingestedFilesSummary_ingestedNumberOfFiles,
 
     -- * IngestionInputConfiguration
     IngestionInputConfiguration (..),
@@ -139,12 +196,47 @@ module Amazonka.LookoutEquipment.Types
     -- * IngestionS3InputConfiguration
     IngestionS3InputConfiguration (..),
     newIngestionS3InputConfiguration,
+    ingestionS3InputConfiguration_keyPattern,
     ingestionS3InputConfiguration_prefix,
     ingestionS3InputConfiguration_bucket,
+
+    -- * InsufficientSensorData
+    InsufficientSensorData (..),
+    newInsufficientSensorData,
+    insufficientSensorData_missingCompleteSensorData,
+    insufficientSensorData_sensorsWithShortDateRange,
+
+    -- * InvalidSensorData
+    InvalidSensorData (..),
+    newInvalidSensorData,
+    invalidSensorData_affectedSensorCount,
+    invalidSensorData_totalNumberOfInvalidValues,
+
+    -- * LabelGroupSummary
+    LabelGroupSummary (..),
+    newLabelGroupSummary,
+    labelGroupSummary_createdAt,
+    labelGroupSummary_labelGroupArn,
+    labelGroupSummary_labelGroupName,
+    labelGroupSummary_updatedAt,
+
+    -- * LabelSummary
+    LabelSummary (..),
+    newLabelSummary,
+    labelSummary_createdAt,
+    labelSummary_endTime,
+    labelSummary_equipment,
+    labelSummary_faultCode,
+    labelSummary_labelGroupArn,
+    labelSummary_labelGroupName,
+    labelSummary_labelId,
+    labelSummary_rating,
+    labelSummary_startTime,
 
     -- * LabelsInputConfiguration
     LabelsInputConfiguration (..),
     newLabelsInputConfiguration,
+    labelsInputConfiguration_labelGroupName,
     labelsInputConfiguration_s3InputConfiguration,
 
     -- * LabelsS3InputConfiguration
@@ -153,15 +245,44 @@ module Amazonka.LookoutEquipment.Types
     labelsS3InputConfiguration_prefix,
     labelsS3InputConfiguration_bucket,
 
+    -- * LargeTimestampGaps
+    LargeTimestampGaps (..),
+    newLargeTimestampGaps,
+    largeTimestampGaps_maxTimestampGapInDays,
+    largeTimestampGaps_numberOfLargeTimestampGaps,
+    largeTimestampGaps_status,
+
+    -- * MissingCompleteSensorData
+    MissingCompleteSensorData (..),
+    newMissingCompleteSensorData,
+    missingCompleteSensorData_affectedSensorCount,
+
+    -- * MissingSensorData
+    MissingSensorData (..),
+    newMissingSensorData,
+    missingSensorData_affectedSensorCount,
+    missingSensorData_totalNumberOfMissingValues,
+
     -- * ModelSummary
     ModelSummary (..),
     newModelSummary,
-    modelSummary_status,
-    modelSummary_datasetArn,
-    modelSummary_modelArn,
     modelSummary_createdAt,
-    modelSummary_modelName,
+    modelSummary_datasetArn,
     modelSummary_datasetName,
+    modelSummary_modelArn,
+    modelSummary_modelName,
+    modelSummary_status,
+
+    -- * MonotonicValues
+    MonotonicValues (..),
+    newMonotonicValues,
+    monotonicValues_monotonicity,
+    monotonicValues_status,
+
+    -- * MultipleOperatingModes
+    MultipleOperatingModes (..),
+    newMultipleOperatingModes,
+    multipleOperatingModes_status,
 
     -- * S3Object
     S3Object (..),
@@ -169,22 +290,54 @@ module Amazonka.LookoutEquipment.Types
     s3Object_bucket,
     s3Object_key,
 
+    -- * SensorStatisticsSummary
+    SensorStatisticsSummary (..),
+    newSensorStatisticsSummary,
+    sensorStatisticsSummary_categoricalValues,
+    sensorStatisticsSummary_componentName,
+    sensorStatisticsSummary_dataEndTime,
+    sensorStatisticsSummary_dataExists,
+    sensorStatisticsSummary_dataStartTime,
+    sensorStatisticsSummary_duplicateTimestamps,
+    sensorStatisticsSummary_invalidDateEntries,
+    sensorStatisticsSummary_invalidValues,
+    sensorStatisticsSummary_largeTimestampGaps,
+    sensorStatisticsSummary_missingValues,
+    sensorStatisticsSummary_monotonicValues,
+    sensorStatisticsSummary_multipleOperatingModes,
+    sensorStatisticsSummary_sensorName,
+
+    -- * SensorsWithShortDateRange
+    SensorsWithShortDateRange (..),
+    newSensorsWithShortDateRange,
+    sensorsWithShortDateRange_affectedSensorCount,
+
     -- * Tag
     Tag (..),
     newTag,
     tag_key,
     tag_value,
+
+    -- * UnsupportedTimestamps
+    UnsupportedTimestamps (..),
+    newUnsupportedTimestamps,
+    unsupportedTimestamps_totalNumberOfUnsupportedTimestamps,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import Amazonka.LookoutEquipment.Types.CategoricalValues
+import Amazonka.LookoutEquipment.Types.CountPercent
 import Amazonka.LookoutEquipment.Types.DataIngestionJobSummary
 import Amazonka.LookoutEquipment.Types.DataPreProcessingConfiguration
+import Amazonka.LookoutEquipment.Types.DataQualitySummary
 import Amazonka.LookoutEquipment.Types.DataUploadFrequency
 import Amazonka.LookoutEquipment.Types.DatasetSchema
 import Amazonka.LookoutEquipment.Types.DatasetStatus
 import Amazonka.LookoutEquipment.Types.DatasetSummary
+import Amazonka.LookoutEquipment.Types.DuplicateTimestamps
+import Amazonka.LookoutEquipment.Types.InferenceEventSummary
 import Amazonka.LookoutEquipment.Types.InferenceExecutionStatus
 import Amazonka.LookoutEquipment.Types.InferenceExecutionSummary
 import Amazonka.LookoutEquipment.Types.InferenceInputConfiguration
@@ -194,16 +347,33 @@ import Amazonka.LookoutEquipment.Types.InferenceS3InputConfiguration
 import Amazonka.LookoutEquipment.Types.InferenceS3OutputConfiguration
 import Amazonka.LookoutEquipment.Types.InferenceSchedulerStatus
 import Amazonka.LookoutEquipment.Types.InferenceSchedulerSummary
+import Amazonka.LookoutEquipment.Types.IngestedFilesSummary
 import Amazonka.LookoutEquipment.Types.IngestionInputConfiguration
 import Amazonka.LookoutEquipment.Types.IngestionJobStatus
 import Amazonka.LookoutEquipment.Types.IngestionS3InputConfiguration
+import Amazonka.LookoutEquipment.Types.InsufficientSensorData
+import Amazonka.LookoutEquipment.Types.InvalidSensorData
+import Amazonka.LookoutEquipment.Types.LabelGroupSummary
+import Amazonka.LookoutEquipment.Types.LabelRating
+import Amazonka.LookoutEquipment.Types.LabelSummary
 import Amazonka.LookoutEquipment.Types.LabelsInputConfiguration
 import Amazonka.LookoutEquipment.Types.LabelsS3InputConfiguration
+import Amazonka.LookoutEquipment.Types.LargeTimestampGaps
+import Amazonka.LookoutEquipment.Types.LatestInferenceResult
+import Amazonka.LookoutEquipment.Types.MissingCompleteSensorData
+import Amazonka.LookoutEquipment.Types.MissingSensorData
 import Amazonka.LookoutEquipment.Types.ModelStatus
 import Amazonka.LookoutEquipment.Types.ModelSummary
+import Amazonka.LookoutEquipment.Types.MonotonicValues
+import Amazonka.LookoutEquipment.Types.Monotonicity
+import Amazonka.LookoutEquipment.Types.MultipleOperatingModes
 import Amazonka.LookoutEquipment.Types.S3Object
+import Amazonka.LookoutEquipment.Types.SensorStatisticsSummary
+import Amazonka.LookoutEquipment.Types.SensorsWithShortDateRange
+import Amazonka.LookoutEquipment.Types.StatisticalIssueStatus
 import Amazonka.LookoutEquipment.Types.Tag
 import Amazonka.LookoutEquipment.Types.TargetSamplingRate
+import Amazonka.LookoutEquipment.Types.UnsupportedTimestamps
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -211,43 +381,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev =
-        "LookoutEquipment",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "lookoutequipment",
-      Core._serviceSigningName = "lookoutequipment",
-      Core._serviceVersion = "2020-12-15",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "LookoutEquipment",
-      Core._serviceRetry = retry
+    { Core.abbrev = "LookoutEquipment",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "lookoutequipment",
+      Core.signingName = "lookoutequipment",
+      Core.version = "2020-12-15",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "LookoutEquipment",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -255,37 +431,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | The input fails to satisfy constraints specified by Amazon Lookout for
--- Equipment or a related AWS service that\'s being utilized.
-_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ValidationException =
-  Core._MatchServiceError
-    defaultService
-    "ValidationException"
 
 -- | The request could not be completed because you do not have access to the
 -- resource.
@@ -303,20 +463,6 @@ _ConflictException =
     defaultService
     "ConflictException"
 
--- | Resource limitations have been exceeded.
-_ServiceQuotaExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ServiceQuotaExceededException =
-  Core._MatchServiceError
-    defaultService
-    "ServiceQuotaExceededException"
-
--- | The request was denied due to request throttling.
-_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ThrottlingException =
-  Core._MatchServiceError
-    defaultService
-    "ThrottlingException"
-
 -- | Processing of the request has failed because of an unknown error,
 -- exception or failure.
 _InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -332,3 +478,25 @@ _ResourceNotFoundException =
   Core._MatchServiceError
     defaultService
     "ResourceNotFoundException"
+
+-- | Resource limitations have been exceeded.
+_ServiceQuotaExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ServiceQuotaExceededException =
+  Core._MatchServiceError
+    defaultService
+    "ServiceQuotaExceededException"
+
+-- | The request was denied due to request throttling.
+_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ThrottlingException =
+  Core._MatchServiceError
+    defaultService
+    "ThrottlingException"
+
+-- | The input fails to satisfy constraints specified by Amazon Lookout for
+-- Equipment or a related AWS service that\'s being utilized.
+_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ValidationException =
+  Core._MatchServiceError
+    defaultService
+    "ValidationException"

@@ -14,23 +14,27 @@
 
 -- |
 -- Module      : Amazonka.Athena.UpdateWorkGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Updates the workgroup with the specified name. The workgroup\'s name
--- cannot be changed.
+-- cannot be changed. Only one of @ConfigurationsUpdates@ or
+-- @ConfigurationUpdates@ can be specified; @ConfigurationsUpdates@ for a
+-- workgroup with multi engine support (for example, an Apache Spark
+-- enabled workgroup) or @ConfigurationUpdates@ for an Athena SQL
+-- workgroup.
 module Amazonka.Athena.UpdateWorkGroup
   ( -- * Creating a Request
     UpdateWorkGroup (..),
     newUpdateWorkGroup,
 
     -- * Request Lenses
-    updateWorkGroup_state,
     updateWorkGroup_configurationUpdates,
     updateWorkGroup_description,
+    updateWorkGroup_state,
     updateWorkGroup_workGroup,
 
     -- * Destructuring the Response
@@ -44,20 +48,20 @@ where
 
 import Amazonka.Athena.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateWorkGroup' smart constructor.
 data UpdateWorkGroup = UpdateWorkGroup'
-  { -- | The workgroup state that will be updated for the given workgroup.
-    state :: Prelude.Maybe WorkGroupState,
-    -- | The workgroup configuration that will be updated for the given
-    -- workgroup.
+  { -- | Contains configuration updates for an Athena SQL workgroup.
     configurationUpdates :: Prelude.Maybe WorkGroupConfigurationUpdates,
     -- | The workgroup description.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The workgroup state that will be updated for the given workgroup.
+    state :: Prelude.Maybe WorkGroupState,
     -- | The specified workgroup that will be updated.
     workGroup :: Prelude.Text
   }
@@ -71,12 +75,11 @@ data UpdateWorkGroup = UpdateWorkGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'updateWorkGroup_state' - The workgroup state that will be updated for the given workgroup.
---
--- 'configurationUpdates', 'updateWorkGroup_configurationUpdates' - The workgroup configuration that will be updated for the given
--- workgroup.
+-- 'configurationUpdates', 'updateWorkGroup_configurationUpdates' - Contains configuration updates for an Athena SQL workgroup.
 --
 -- 'description', 'updateWorkGroup_description' - The workgroup description.
+--
+-- 'state', 'updateWorkGroup_state' - The workgroup state that will be updated for the given workgroup.
 --
 -- 'workGroup', 'updateWorkGroup_workGroup' - The specified workgroup that will be updated.
 newUpdateWorkGroup ::
@@ -85,24 +88,24 @@ newUpdateWorkGroup ::
   UpdateWorkGroup
 newUpdateWorkGroup pWorkGroup_ =
   UpdateWorkGroup'
-    { state = Prelude.Nothing,
-      configurationUpdates = Prelude.Nothing,
+    { configurationUpdates =
+        Prelude.Nothing,
       description = Prelude.Nothing,
+      state = Prelude.Nothing,
       workGroup = pWorkGroup_
     }
 
--- | The workgroup state that will be updated for the given workgroup.
-updateWorkGroup_state :: Lens.Lens' UpdateWorkGroup (Prelude.Maybe WorkGroupState)
-updateWorkGroup_state = Lens.lens (\UpdateWorkGroup' {state} -> state) (\s@UpdateWorkGroup' {} a -> s {state = a} :: UpdateWorkGroup)
-
--- | The workgroup configuration that will be updated for the given
--- workgroup.
+-- | Contains configuration updates for an Athena SQL workgroup.
 updateWorkGroup_configurationUpdates :: Lens.Lens' UpdateWorkGroup (Prelude.Maybe WorkGroupConfigurationUpdates)
 updateWorkGroup_configurationUpdates = Lens.lens (\UpdateWorkGroup' {configurationUpdates} -> configurationUpdates) (\s@UpdateWorkGroup' {} a -> s {configurationUpdates = a} :: UpdateWorkGroup)
 
 -- | The workgroup description.
 updateWorkGroup_description :: Lens.Lens' UpdateWorkGroup (Prelude.Maybe Prelude.Text)
 updateWorkGroup_description = Lens.lens (\UpdateWorkGroup' {description} -> description) (\s@UpdateWorkGroup' {} a -> s {description = a} :: UpdateWorkGroup)
+
+-- | The workgroup state that will be updated for the given workgroup.
+updateWorkGroup_state :: Lens.Lens' UpdateWorkGroup (Prelude.Maybe WorkGroupState)
+updateWorkGroup_state = Lens.lens (\UpdateWorkGroup' {state} -> state) (\s@UpdateWorkGroup' {} a -> s {state = a} :: UpdateWorkGroup)
 
 -- | The specified workgroup that will be updated.
 updateWorkGroup_workGroup :: Lens.Lens' UpdateWorkGroup Prelude.Text
@@ -112,7 +115,8 @@ instance Core.AWSRequest UpdateWorkGroup where
   type
     AWSResponse UpdateWorkGroup =
       UpdateWorkGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -122,49 +126,49 @@ instance Core.AWSRequest UpdateWorkGroup where
 
 instance Prelude.Hashable UpdateWorkGroup where
   hashWithSalt _salt UpdateWorkGroup' {..} =
-    _salt `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` configurationUpdates
+    _salt `Prelude.hashWithSalt` configurationUpdates
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` state
       `Prelude.hashWithSalt` workGroup
 
 instance Prelude.NFData UpdateWorkGroup where
   rnf UpdateWorkGroup' {..} =
-    Prelude.rnf state
-      `Prelude.seq` Prelude.rnf configurationUpdates
+    Prelude.rnf configurationUpdates
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf workGroup
 
-instance Core.ToHeaders UpdateWorkGroup where
+instance Data.ToHeaders UpdateWorkGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonAthena.UpdateWorkGroup" ::
+              Data.=# ( "AmazonAthena.UpdateWorkGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateWorkGroup where
+instance Data.ToJSON UpdateWorkGroup where
   toJSON UpdateWorkGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("State" Core..=) Prelude.<$> state,
-            ("ConfigurationUpdates" Core..=)
+          [ ("ConfigurationUpdates" Data..=)
               Prelude.<$> configurationUpdates,
-            ("Description" Core..=) Prelude.<$> description,
-            Prelude.Just ("WorkGroup" Core..= workGroup)
+            ("Description" Data..=) Prelude.<$> description,
+            ("State" Data..=) Prelude.<$> state,
+            Prelude.Just ("WorkGroup" Data..= workGroup)
           ]
       )
 
-instance Core.ToPath UpdateWorkGroup where
+instance Data.ToPath UpdateWorkGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateWorkGroup where
+instance Data.ToQuery UpdateWorkGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateWorkGroupResponse' smart constructor.

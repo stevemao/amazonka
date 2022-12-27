@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MQ.Types.LogsSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MQ.Types.LogsSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MQ.Types.PendingLogs
 import qualified Amazonka.Prelude as Prelude
 
@@ -29,14 +30,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newLogsSummary' smart constructor.
 data LogsSummary = LogsSummary'
-  { -- | The list of information about logs pending to be deployed for the
-    -- specified broker.
-    pending :: Prelude.Maybe PendingLogs,
-    -- | Enables audit logging. Every user management action made using JMX or
+  { -- | Enables audit logging. Every user management action made using JMX or
     -- the ActiveMQ Web Console is logged.
     audit :: Prelude.Maybe Prelude.Bool,
     -- | The location of the CloudWatch Logs log group where audit logs are sent.
     auditLogGroup :: Prelude.Maybe Prelude.Text,
+    -- | The list of information about logs pending to be deployed for the
+    -- specified broker.
+    pending :: Prelude.Maybe PendingLogs,
     -- | The location of the CloudWatch Logs log group where general logs are
     -- sent.
     generalLogGroup :: Prelude.Text,
@@ -53,13 +54,13 @@ data LogsSummary = LogsSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'pending', 'logsSummary_pending' - The list of information about logs pending to be deployed for the
--- specified broker.
---
 -- 'audit', 'logsSummary_audit' - Enables audit logging. Every user management action made using JMX or
 -- the ActiveMQ Web Console is logged.
 --
 -- 'auditLogGroup', 'logsSummary_auditLogGroup' - The location of the CloudWatch Logs log group where audit logs are sent.
+--
+-- 'pending', 'logsSummary_pending' - The list of information about logs pending to be deployed for the
+-- specified broker.
 --
 -- 'generalLogGroup', 'logsSummary_generalLogGroup' - The location of the CloudWatch Logs log group where general logs are
 -- sent.
@@ -73,17 +74,12 @@ newLogsSummary ::
   LogsSummary
 newLogsSummary pGeneralLogGroup_ pGeneral_ =
   LogsSummary'
-    { pending = Prelude.Nothing,
-      audit = Prelude.Nothing,
+    { audit = Prelude.Nothing,
       auditLogGroup = Prelude.Nothing,
+      pending = Prelude.Nothing,
       generalLogGroup = pGeneralLogGroup_,
       general = pGeneral_
     }
-
--- | The list of information about logs pending to be deployed for the
--- specified broker.
-logsSummary_pending :: Lens.Lens' LogsSummary (Prelude.Maybe PendingLogs)
-logsSummary_pending = Lens.lens (\LogsSummary' {pending} -> pending) (\s@LogsSummary' {} a -> s {pending = a} :: LogsSummary)
 
 -- | Enables audit logging. Every user management action made using JMX or
 -- the ActiveMQ Web Console is logged.
@@ -94,6 +90,11 @@ logsSummary_audit = Lens.lens (\LogsSummary' {audit} -> audit) (\s@LogsSummary' 
 logsSummary_auditLogGroup :: Lens.Lens' LogsSummary (Prelude.Maybe Prelude.Text)
 logsSummary_auditLogGroup = Lens.lens (\LogsSummary' {auditLogGroup} -> auditLogGroup) (\s@LogsSummary' {} a -> s {auditLogGroup = a} :: LogsSummary)
 
+-- | The list of information about logs pending to be deployed for the
+-- specified broker.
+logsSummary_pending :: Lens.Lens' LogsSummary (Prelude.Maybe PendingLogs)
+logsSummary_pending = Lens.lens (\LogsSummary' {pending} -> pending) (\s@LogsSummary' {} a -> s {pending = a} :: LogsSummary)
+
 -- | The location of the CloudWatch Logs log group where general logs are
 -- sent.
 logsSummary_generalLogGroup :: Lens.Lens' LogsSummary Prelude.Text
@@ -103,31 +104,31 @@ logsSummary_generalLogGroup = Lens.lens (\LogsSummary' {generalLogGroup} -> gene
 logsSummary_general :: Lens.Lens' LogsSummary Prelude.Bool
 logsSummary_general = Lens.lens (\LogsSummary' {general} -> general) (\s@LogsSummary' {} a -> s {general = a} :: LogsSummary)
 
-instance Core.FromJSON LogsSummary where
+instance Data.FromJSON LogsSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LogsSummary"
       ( \x ->
           LogsSummary'
-            Prelude.<$> (x Core..:? "pending")
-            Prelude.<*> (x Core..:? "audit")
-            Prelude.<*> (x Core..:? "auditLogGroup")
-            Prelude.<*> (x Core..: "generalLogGroup")
-            Prelude.<*> (x Core..: "general")
+            Prelude.<$> (x Data..:? "audit")
+            Prelude.<*> (x Data..:? "auditLogGroup")
+            Prelude.<*> (x Data..:? "pending")
+            Prelude.<*> (x Data..: "generalLogGroup")
+            Prelude.<*> (x Data..: "general")
       )
 
 instance Prelude.Hashable LogsSummary where
   hashWithSalt _salt LogsSummary' {..} =
-    _salt `Prelude.hashWithSalt` pending
-      `Prelude.hashWithSalt` audit
+    _salt `Prelude.hashWithSalt` audit
       `Prelude.hashWithSalt` auditLogGroup
+      `Prelude.hashWithSalt` pending
       `Prelude.hashWithSalt` generalLogGroup
       `Prelude.hashWithSalt` general
 
 instance Prelude.NFData LogsSummary where
   rnf LogsSummary' {..} =
-    Prelude.rnf pending
-      `Prelude.seq` Prelude.rnf audit
+    Prelude.rnf audit
       `Prelude.seq` Prelude.rnf auditLogGroup
+      `Prelude.seq` Prelude.rnf pending
       `Prelude.seq` Prelude.rnf generalLogGroup
       `Prelude.seq` Prelude.rnf general

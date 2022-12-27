@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroupsTagging.Types.FailureInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,45 +20,47 @@
 module Amazonka.ResourceGroupsTagging.Types.FailureInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.ResourceGroupsTagging.Types.ResourceErrorCode
 
 -- | Information about the errors that are returned for each failed resource.
 -- This information can include @InternalServiceException@ and
 -- @InvalidParameterException@ errors. It can also include any valid error
--- code returned by the AWS service that hosts the resource that the ARN
--- key represents.
+-- code returned by the Amazon Web Services service that hosts the resource
+-- that the ARN key represents.
 --
 -- The following are common error codes that you might receive from other
--- AWS services:
+-- Amazon Web Services services:
 --
 -- -   __InternalServiceException__ – This can mean that the Resource
---     Groups Tagging API didn\'t receive a response from another AWS
---     service. It can also mean the the resource type in the request is
---     not supported by the Resource Groups Tagging API. In these cases,
---     it\'s safe to retry the request and then call
---     <http://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/API_GetResources.html GetResources>
+--     Groups Tagging API didn\'t receive a response from another Amazon
+--     Web Services service. It can also mean that the resource type in the
+--     request is not supported by the Resource Groups Tagging API. In
+--     these cases, it\'s safe to retry the request and then call
+--     <https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/API_GetResources.html GetResources>
 --     to verify the changes.
 --
 -- -   __AccessDeniedException__ – This can mean that you need permission
---     to calling tagging operations in the AWS service that contains the
---     resource. For example, to use the Resource Groups Tagging API to tag
---     a CloudWatch alarm resource, you need permission to call
---     <http://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/API_TagResources.html TagResources>
+--     to call the tagging operations in the Amazon Web Services service
+--     that contains the resource. For example, to use the Resource Groups
+--     Tagging API to tag a Amazon CloudWatch alarm resource, you need
+--     permission to call both
+--     <https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/API_TagResources.html TagResources>
 --     /and/
---     <http://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_TagResource.html TagResource>
+--     <https://docs.aws.amazon.com/AmazonCloudWatch/latest/APIReference/API_TagResource.html TagResource>
 --     in the CloudWatch API.
 --
--- For more information on errors that are generated from other AWS
--- services, see the documentation for that service.
+-- For more information on errors that are generated from other Amazon Web
+-- Services services, see the documentation for that service.
 --
 -- /See:/ 'newFailureInfo' smart constructor.
 data FailureInfo = FailureInfo'
   { -- | The code of the common error. Valid values include
     -- @InternalServiceException@, @InvalidParameterException@, and any valid
-    -- error code returned by the AWS service that hosts the resource that you
-    -- want to tag.
+    -- error code returned by the Amazon Web Services service that hosts the
+    -- resource that you want to tag.
     errorCode :: Prelude.Maybe ResourceErrorCode,
     -- | The message of the common error.
     errorMessage :: Prelude.Maybe Prelude.Text,
@@ -77,8 +79,8 @@ data FailureInfo = FailureInfo'
 --
 -- 'errorCode', 'failureInfo_errorCode' - The code of the common error. Valid values include
 -- @InternalServiceException@, @InvalidParameterException@, and any valid
--- error code returned by the AWS service that hosts the resource that you
--- want to tag.
+-- error code returned by the Amazon Web Services service that hosts the
+-- resource that you want to tag.
 --
 -- 'errorMessage', 'failureInfo_errorMessage' - The message of the common error.
 --
@@ -94,8 +96,8 @@ newFailureInfo =
 
 -- | The code of the common error. Valid values include
 -- @InternalServiceException@, @InvalidParameterException@, and any valid
--- error code returned by the AWS service that hosts the resource that you
--- want to tag.
+-- error code returned by the Amazon Web Services service that hosts the
+-- resource that you want to tag.
 failureInfo_errorCode :: Lens.Lens' FailureInfo (Prelude.Maybe ResourceErrorCode)
 failureInfo_errorCode = Lens.lens (\FailureInfo' {errorCode} -> errorCode) (\s@FailureInfo' {} a -> s {errorCode = a} :: FailureInfo)
 
@@ -107,15 +109,15 @@ failureInfo_errorMessage = Lens.lens (\FailureInfo' {errorMessage} -> errorMessa
 failureInfo_statusCode :: Lens.Lens' FailureInfo (Prelude.Maybe Prelude.Int)
 failureInfo_statusCode = Lens.lens (\FailureInfo' {statusCode} -> statusCode) (\s@FailureInfo' {} a -> s {statusCode = a} :: FailureInfo)
 
-instance Core.FromJSON FailureInfo where
+instance Data.FromJSON FailureInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FailureInfo"
       ( \x ->
           FailureInfo'
-            Prelude.<$> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "ErrorMessage")
-            Prelude.<*> (x Core..:? "StatusCode")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "ErrorMessage")
+            Prelude.<*> (x Data..:? "StatusCode")
       )
 
 instance Prelude.Hashable FailureInfo where

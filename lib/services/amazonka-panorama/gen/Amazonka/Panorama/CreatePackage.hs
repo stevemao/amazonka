@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.CreatePackage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,15 +35,16 @@ module Amazonka.Panorama.CreatePackage
     newCreatePackageResponse,
 
     -- * Response Lenses
-    createPackageResponse_packageId,
     createPackageResponse_arn,
+    createPackageResponse_packageId,
     createPackageResponse_httpStatus,
     createPackageResponse_storageLocation,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Panorama.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -91,15 +92,16 @@ instance Core.AWSRequest CreatePackage where
   type
     AWSResponse CreatePackage =
       CreatePackageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreatePackageResponse'
-            Prelude.<$> (x Core..?> "PackageId")
-            Prelude.<*> (x Core..?> "Arn")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "PackageId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "StorageLocation")
+            Prelude.<*> (x Data..:> "StorageLocation")
       )
 
 instance Prelude.Hashable CreatePackage where
@@ -112,38 +114,38 @@ instance Prelude.NFData CreatePackage where
     Prelude.rnf tags
       `Prelude.seq` Prelude.rnf packageName
 
-instance Core.ToHeaders CreatePackage where
+instance Data.ToHeaders CreatePackage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreatePackage where
+instance Data.ToJSON CreatePackage where
   toJSON CreatePackage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("PackageName" Core..= packageName)
+          [ ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("PackageName" Data..= packageName)
           ]
       )
 
-instance Core.ToPath CreatePackage where
+instance Data.ToPath CreatePackage where
   toPath = Prelude.const "/packages"
 
-instance Core.ToQuery CreatePackage where
+instance Data.ToQuery CreatePackage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreatePackageResponse' smart constructor.
 data CreatePackageResponse = CreatePackageResponse'
-  { -- | The package\'s ID.
-    packageId :: Prelude.Maybe Prelude.Text,
-    -- | The package\'s ARN.
+  { -- | The package\'s ARN.
     arn :: Prelude.Maybe Prelude.Text,
+    -- | The package\'s ID.
+    packageId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The package\'s storage location.
@@ -159,9 +161,9 @@ data CreatePackageResponse = CreatePackageResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'packageId', 'createPackageResponse_packageId' - The package\'s ID.
---
 -- 'arn', 'createPackageResponse_arn' - The package\'s ARN.
+--
+-- 'packageId', 'createPackageResponse_packageId' - The package\'s ID.
 --
 -- 'httpStatus', 'createPackageResponse_httpStatus' - The response's http status code.
 --
@@ -176,19 +178,19 @@ newCreatePackageResponse
   pHttpStatus_
   pStorageLocation_ =
     CreatePackageResponse'
-      { packageId = Prelude.Nothing,
-        arn = Prelude.Nothing,
+      { arn = Prelude.Nothing,
+        packageId = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         storageLocation = pStorageLocation_
       }
 
--- | The package\'s ID.
-createPackageResponse_packageId :: Lens.Lens' CreatePackageResponse (Prelude.Maybe Prelude.Text)
-createPackageResponse_packageId = Lens.lens (\CreatePackageResponse' {packageId} -> packageId) (\s@CreatePackageResponse' {} a -> s {packageId = a} :: CreatePackageResponse)
-
 -- | The package\'s ARN.
 createPackageResponse_arn :: Lens.Lens' CreatePackageResponse (Prelude.Maybe Prelude.Text)
 createPackageResponse_arn = Lens.lens (\CreatePackageResponse' {arn} -> arn) (\s@CreatePackageResponse' {} a -> s {arn = a} :: CreatePackageResponse)
+
+-- | The package\'s ID.
+createPackageResponse_packageId :: Lens.Lens' CreatePackageResponse (Prelude.Maybe Prelude.Text)
+createPackageResponse_packageId = Lens.lens (\CreatePackageResponse' {packageId} -> packageId) (\s@CreatePackageResponse' {} a -> s {packageId = a} :: CreatePackageResponse)
 
 -- | The response's http status code.
 createPackageResponse_httpStatus :: Lens.Lens' CreatePackageResponse Prelude.Int
@@ -200,7 +202,7 @@ createPackageResponse_storageLocation = Lens.lens (\CreatePackageResponse' {stor
 
 instance Prelude.NFData CreatePackageResponse where
   rnf CreatePackageResponse' {..} =
-    Prelude.rnf packageId
-      `Prelude.seq` Prelude.rnf arn
+    Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf packageId
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf storageLocation

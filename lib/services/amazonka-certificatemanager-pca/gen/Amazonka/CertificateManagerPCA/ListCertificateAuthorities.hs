@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.ListCertificateAuthorities
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.CertificateManagerPCA.ListCertificateAuthorities
     newListCertificateAuthorities,
 
     -- * Request Lenses
+    listCertificateAuthorities_maxResults,
     listCertificateAuthorities_nextToken,
     listCertificateAuthorities_resourceOwner,
-    listCertificateAuthorities_maxResults,
 
     -- * Destructuring the Response
     ListCertificateAuthoritiesResponse (..),
@@ -48,26 +48,27 @@ where
 
 import Amazonka.CertificateManagerPCA.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListCertificateAuthorities' smart constructor.
 data ListCertificateAuthorities = ListCertificateAuthorities'
-  { -- | Use this parameter when paginating results in a subsequent request after
+  { -- | Use this parameter when paginating results to specify the maximum number
+    -- of items to return in the response on each page. If additional items
+    -- exist beyond the number you specify, the @NextToken@ element is sent in
+    -- the response. Use this @NextToken@ value in a subsequent request to
+    -- retrieve additional items.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Use this parameter when paginating results in a subsequent request after
     -- you receive a response with truncated results. Set it to the value of
     -- the @NextToken@ parameter from the response you just received.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | Use this parameter to filter the returned set of certificate authorities
     -- based on their owner. The default is SELF.
-    resourceOwner :: Prelude.Maybe ResourceOwner,
-    -- | Use this parameter when paginating results to specify the maximum number
-    -- of items to return in the response on each page. If additional items
-    -- exist beyond the number you specify, the @NextToken@ element is sent in
-    -- the response. Use this @NextToken@ value in a subsequent request to
-    -- retrieve additional items.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    resourceOwner :: Prelude.Maybe ResourceOwner
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -79,27 +80,35 @@ data ListCertificateAuthorities = ListCertificateAuthorities'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listCertificateAuthorities_maxResults' - Use this parameter when paginating results to specify the maximum number
+-- of items to return in the response on each page. If additional items
+-- exist beyond the number you specify, the @NextToken@ element is sent in
+-- the response. Use this @NextToken@ value in a subsequent request to
+-- retrieve additional items.
+--
 -- 'nextToken', 'listCertificateAuthorities_nextToken' - Use this parameter when paginating results in a subsequent request after
 -- you receive a response with truncated results. Set it to the value of
 -- the @NextToken@ parameter from the response you just received.
 --
 -- 'resourceOwner', 'listCertificateAuthorities_resourceOwner' - Use this parameter to filter the returned set of certificate authorities
 -- based on their owner. The default is SELF.
---
--- 'maxResults', 'listCertificateAuthorities_maxResults' - Use this parameter when paginating results to specify the maximum number
--- of items to return in the response on each page. If additional items
--- exist beyond the number you specify, the @NextToken@ element is sent in
--- the response. Use this @NextToken@ value in a subsequent request to
--- retrieve additional items.
 newListCertificateAuthorities ::
   ListCertificateAuthorities
 newListCertificateAuthorities =
   ListCertificateAuthorities'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      resourceOwner = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing,
+      resourceOwner = Prelude.Nothing
     }
+
+-- | Use this parameter when paginating results to specify the maximum number
+-- of items to return in the response on each page. If additional items
+-- exist beyond the number you specify, the @NextToken@ element is sent in
+-- the response. Use this @NextToken@ value in a subsequent request to
+-- retrieve additional items.
+listCertificateAuthorities_maxResults :: Lens.Lens' ListCertificateAuthorities (Prelude.Maybe Prelude.Natural)
+listCertificateAuthorities_maxResults = Lens.lens (\ListCertificateAuthorities' {maxResults} -> maxResults) (\s@ListCertificateAuthorities' {} a -> s {maxResults = a} :: ListCertificateAuthorities)
 
 -- | Use this parameter when paginating results in a subsequent request after
 -- you receive a response with truncated results. Set it to the value of
@@ -111,14 +120,6 @@ listCertificateAuthorities_nextToken = Lens.lens (\ListCertificateAuthorities' {
 -- based on their owner. The default is SELF.
 listCertificateAuthorities_resourceOwner :: Lens.Lens' ListCertificateAuthorities (Prelude.Maybe ResourceOwner)
 listCertificateAuthorities_resourceOwner = Lens.lens (\ListCertificateAuthorities' {resourceOwner} -> resourceOwner) (\s@ListCertificateAuthorities' {} a -> s {resourceOwner = a} :: ListCertificateAuthorities)
-
--- | Use this parameter when paginating results to specify the maximum number
--- of items to return in the response on each page. If additional items
--- exist beyond the number you specify, the @NextToken@ element is sent in
--- the response. Use this @NextToken@ value in a subsequent request to
--- retrieve additional items.
-listCertificateAuthorities_maxResults :: Lens.Lens' ListCertificateAuthorities (Prelude.Maybe Prelude.Natural)
-listCertificateAuthorities_maxResults = Lens.lens (\ListCertificateAuthorities' {maxResults} -> maxResults) (\s@ListCertificateAuthorities' {} a -> s {maxResults = a} :: ListCertificateAuthorities)
 
 instance Core.AWSPager ListCertificateAuthorities where
   page rq rs
@@ -146,59 +147,60 @@ instance Core.AWSRequest ListCertificateAuthorities where
   type
     AWSResponse ListCertificateAuthorities =
       ListCertificateAuthoritiesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListCertificateAuthoritiesResponse'
-            Prelude.<$> ( x Core..?> "CertificateAuthorities"
+            Prelude.<$> ( x Data..?> "CertificateAuthorities"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListCertificateAuthorities where
   hashWithSalt _salt ListCertificateAuthorities' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` resourceOwner
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData ListCertificateAuthorities where
   rnf ListCertificateAuthorities' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceOwner
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders ListCertificateAuthorities where
+instance Data.ToHeaders ListCertificateAuthorities where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ACMPrivateCA.ListCertificateAuthorities" ::
+              Data.=# ( "ACMPrivateCA.ListCertificateAuthorities" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListCertificateAuthorities where
+instance Data.ToJSON ListCertificateAuthorities where
   toJSON ListCertificateAuthorities' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("ResourceOwner" Core..=) Prelude.<$> resourceOwner,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("ResourceOwner" Data..=) Prelude.<$> resourceOwner
           ]
       )
 
-instance Core.ToPath ListCertificateAuthorities where
+instance Data.ToPath ListCertificateAuthorities where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListCertificateAuthorities where
+instance Data.ToQuery ListCertificateAuthorities where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListCertificateAuthoritiesResponse' smart constructor.

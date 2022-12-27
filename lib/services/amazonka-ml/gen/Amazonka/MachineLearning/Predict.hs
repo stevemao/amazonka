@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MachineLearning.Predict
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.MachineLearning.Predict
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MachineLearning.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -101,12 +102,13 @@ predict_predictEndpoint = Lens.lens (\Predict' {predictEndpoint} -> predictEndpo
 
 instance Core.AWSRequest Predict where
   type AWSResponse Predict = PredictResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PredictResponse'
-            Prelude.<$> (x Core..?> "Prediction")
+            Prelude.<$> (x Data..?> "Prediction")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -122,34 +124,34 @@ instance Prelude.NFData Predict where
       `Prelude.seq` Prelude.rnf record
       `Prelude.seq` Prelude.rnf predictEndpoint
 
-instance Core.ToHeaders Predict where
+instance Data.ToHeaders Predict where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonML_20141212.Predict" :: Prelude.ByteString),
+              Data.=# ("AmazonML_20141212.Predict" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON Predict where
+instance Data.ToJSON Predict where
   toJSON Predict' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("MLModelId" Core..= mLModelId),
-            Prelude.Just ("Record" Core..= record),
+          [ Prelude.Just ("MLModelId" Data..= mLModelId),
+            Prelude.Just ("Record" Data..= record),
             Prelude.Just
-              ("PredictEndpoint" Core..= predictEndpoint)
+              ("PredictEndpoint" Data..= predictEndpoint)
           ]
       )
 
-instance Core.ToPath Predict where
+instance Data.ToPath Predict where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery Predict where
+instance Data.ToQuery Predict where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPredictResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.CancelUpdateStack
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,7 @@
 -- successfully, the stack rolls back the update and reverts to the
 -- previous stack configuration.
 --
--- You can cancel only stacks that are in the UPDATE_IN_PROGRESS state.
+-- You can cancel only stacks that are in the @UPDATE_IN_PROGRESS@ state.
 module Amazonka.CloudFormation.CancelUpdateStack
   ( -- * Creating a Request
     CancelUpdateStack (..),
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,7 +58,7 @@ data CancelUpdateStack = CancelUpdateStack'
     -- name. You might retry @CancelUpdateStack@ requests to ensure that
     -- CloudFormation successfully received them.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
-    -- | The name or the unique stack ID that is associated with the stack.
+    -- | The name or the unique stack ID that\'s associated with the stack.
     stackName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -76,7 +77,7 @@ data CancelUpdateStack = CancelUpdateStack'
 -- name. You might retry @CancelUpdateStack@ requests to ensure that
 -- CloudFormation successfully received them.
 --
--- 'stackName', 'cancelUpdateStack_stackName' - The name or the unique stack ID that is associated with the stack.
+-- 'stackName', 'cancelUpdateStack_stackName' - The name or the unique stack ID that\'s associated with the stack.
 newCancelUpdateStack ::
   -- | 'stackName'
   Prelude.Text ->
@@ -96,7 +97,7 @@ newCancelUpdateStack pStackName_ =
 cancelUpdateStack_clientRequestToken :: Lens.Lens' CancelUpdateStack (Prelude.Maybe Prelude.Text)
 cancelUpdateStack_clientRequestToken = Lens.lens (\CancelUpdateStack' {clientRequestToken} -> clientRequestToken) (\s@CancelUpdateStack' {} a -> s {clientRequestToken = a} :: CancelUpdateStack)
 
--- | The name or the unique stack ID that is associated with the stack.
+-- | The name or the unique stack ID that\'s associated with the stack.
 cancelUpdateStack_stackName :: Lens.Lens' CancelUpdateStack Prelude.Text
 cancelUpdateStack_stackName = Lens.lens (\CancelUpdateStack' {stackName} -> stackName) (\s@CancelUpdateStack' {} a -> s {stackName = a} :: CancelUpdateStack)
 
@@ -104,7 +105,8 @@ instance Core.AWSRequest CancelUpdateStack where
   type
     AWSResponse CancelUpdateStack =
       CancelUpdateStackResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull CancelUpdateStackResponse'
 
@@ -118,21 +120,21 @@ instance Prelude.NFData CancelUpdateStack where
     Prelude.rnf clientRequestToken
       `Prelude.seq` Prelude.rnf stackName
 
-instance Core.ToHeaders CancelUpdateStack where
+instance Data.ToHeaders CancelUpdateStack where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CancelUpdateStack where
+instance Data.ToPath CancelUpdateStack where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelUpdateStack where
+instance Data.ToQuery CancelUpdateStack where
   toQuery CancelUpdateStack' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CancelUpdateStack" :: Prelude.ByteString),
+          Data.=: ("CancelUpdateStack" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "ClientRequestToken" Core.=: clientRequestToken,
-        "StackName" Core.=: stackName
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "ClientRequestToken" Data.=: clientRequestToken,
+        "StackName" Data.=: stackName
       ]
 
 -- | /See:/ 'newCancelUpdateStackResponse' smart constructor.

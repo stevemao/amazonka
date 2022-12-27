@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.CustomerProfiles
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,241 +27,241 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestDeleteProfileObjectType $
---             newDeleteProfileObjectType
---
---         , requestListIntegrations $
---             newListIntegrations
---
---         , requestPutProfileObjectType $
---             newPutProfileObjectType
---
---         , requestListProfileObjects $
---             newListProfileObjects
---
---         , requestListProfileObjectTypeTemplates $
---             newListProfileObjectTypeTemplates
---
---         , requestDeleteProfile $
---             newDeleteProfile
---
---         , requestUpdateProfile $
---             newUpdateProfile
---
---         , requestListTagsForResource $
---             newListTagsForResource
---
---         , requestAddProfileKey $
+--         [ requestAddProfileKey $
 --             newAddProfileKey
---
---         , requestGetProfileObjectTypeTemplate $
---             newGetProfileObjectTypeTemplate
---
---         , requestGetIntegration $
---             newGetIntegration
---
---         , requestGetDomain $
---             newGetDomain
 --
 --         , requestCreateDomain $
 --             newCreateDomain
 --
---         , requestDeleteIntegration $
---             newDeleteIntegration
+--         , requestCreateIntegrationWorkflow $
+--             newCreateIntegrationWorkflow
 --
 --         , requestCreateProfile $
 --             newCreateProfile
 --
---         , requestPutProfileObject $
---             newPutProfileObject
+--         , requestDeleteDomain $
+--             newDeleteDomain
 --
---         , requestPutIntegration $
---             newPutIntegration
+--         , requestDeleteIntegration $
+--             newDeleteIntegration
 --
---         , requestDeleteProfileObject $
---             newDeleteProfileObject
---
---         , requestListProfileObjectTypes $
---             newListProfileObjectTypes
+--         , requestDeleteProfile $
+--             newDeleteProfile
 --
 --         , requestDeleteProfileKey $
 --             newDeleteProfileKey
 --
---         , requestGetProfileObjectType $
---             newGetProfileObjectType
+--         , requestDeleteProfileObject $
+--             newDeleteProfileObject
 --
---         , requestMergeProfiles $
---             newMergeProfiles
+--         , requestDeleteProfileObjectType $
+--             newDeleteProfileObjectType
 --
---         , requestTagResource $
---             newTagResource
+--         , requestDeleteWorkflow $
+--             newDeleteWorkflow
+--
+--         , requestGetAutoMergingPreview $
+--             newGetAutoMergingPreview
+--
+--         , requestGetDomain $
+--             newGetDomain
+--
+--         , requestGetIdentityResolutionJob $
+--             newGetIdentityResolutionJob
+--
+--         , requestGetIntegration $
+--             newGetIntegration
 --
 --         , requestGetMatches $
 --             newGetMatches
 --
---         , requestUntagResource $
---             newUntagResource
+--         , requestGetProfileObjectType $
+--             newGetProfileObjectType
 --
---         , requestSearchProfiles $
---             newSearchProfiles
+--         , requestGetProfileObjectTypeTemplate $
+--             newGetProfileObjectTypeTemplate
+--
+--         , requestGetWorkflow $
+--             newGetWorkflow
+--
+--         , requestGetWorkflowSteps $
+--             newGetWorkflowSteps
 --
 --         , requestListAccountIntegrations $
 --             newListAccountIntegrations
 --
---         , requestDeleteDomain $
---             newDeleteDomain
+--         , requestListDomains $
+--             newListDomains
+--
+--         , requestListIdentityResolutionJobs $
+--             newListIdentityResolutionJobs
+--
+--         , requestListIntegrations $
+--             newListIntegrations
+--
+--         , requestListProfileObjectTypeTemplates $
+--             newListProfileObjectTypeTemplates
+--
+--         , requestListProfileObjectTypes $
+--             newListProfileObjectTypes
+--
+--         , requestListProfileObjects $
+--             newListProfileObjects
+--
+--         , requestListTagsForResource $
+--             newListTagsForResource
+--
+--         , requestListWorkflows $
+--             newListWorkflows
+--
+--         , requestMergeProfiles $
+--             newMergeProfiles
+--
+--         , requestPutIntegration $
+--             newPutIntegration
+--
+--         , requestPutProfileObject $
+--             newPutProfileObject
+--
+--         , requestPutProfileObjectType $
+--             newPutProfileObjectType
+--
+--         , requestSearchProfiles $
+--             newSearchProfiles
+--
+--         , requestTagResource $
+--             newTagResource
+--
+--         , requestUntagResource $
+--             newUntagResource
 --
 --         , requestUpdateDomain $
 --             newUpdateDomain
 --
---         , requestListDomains $
---             newListDomains
+--         , requestUpdateProfile $
+--             newUpdateProfile
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseDeleteProfileObjectType $
---             newDeleteProfileObjectTypeResponse
---
---         , responseListIntegrations $
---             newListIntegrationsResponse
---
---         , responsePutProfileObjectType $
---             newPutProfileObjectTypeResponse
---
---         , responseListProfileObjects $
---             newListProfileObjectsResponse
---
---         , responseListProfileObjectTypeTemplates $
---             newListProfileObjectTypeTemplatesResponse
---
---         , responseDeleteProfile $
---             newDeleteProfileResponse
---
---         , responseUpdateProfile $
---             newUpdateProfileResponse
---
---         , responseListTagsForResource $
---             newListTagsForResourceResponse
---
---         , responseAddProfileKey $
+--         [ responseAddProfileKey $
 --             newAddProfileKeyResponse
---
---         , responseGetProfileObjectTypeTemplate $
---             newGetProfileObjectTypeTemplateResponse
---
---         , responseGetIntegration $
---             newGetIntegrationResponse
---
---         , responseGetDomain $
---             newGetDomainResponse
 --
 --         , responseCreateDomain $
 --             newCreateDomainResponse
 --
---         , responseDeleteIntegration $
---             newDeleteIntegrationResponse
+--         , responseCreateIntegrationWorkflow $
+--             newCreateIntegrationWorkflowResponse
 --
 --         , responseCreateProfile $
 --             newCreateProfileResponse
 --
---         , responsePutProfileObject $
---             newPutProfileObjectResponse
+--         , responseDeleteDomain $
+--             newDeleteDomainResponse
 --
---         , responsePutIntegration $
---             newPutIntegrationResponse
+--         , responseDeleteIntegration $
+--             newDeleteIntegrationResponse
 --
---         , responseDeleteProfileObject $
---             newDeleteProfileObjectResponse
---
---         , responseListProfileObjectTypes $
---             newListProfileObjectTypesResponse
+--         , responseDeleteProfile $
+--             newDeleteProfileResponse
 --
 --         , responseDeleteProfileKey $
 --             newDeleteProfileKeyResponse
 --
---         , responseGetProfileObjectType $
---             newGetProfileObjectTypeResponse
+--         , responseDeleteProfileObject $
+--             newDeleteProfileObjectResponse
 --
---         , responseMergeProfiles $
---             newMergeProfilesResponse
+--         , responseDeleteProfileObjectType $
+--             newDeleteProfileObjectTypeResponse
 --
---         , responseTagResource $
---             newTagResourceResponse
+--         , responseDeleteWorkflow $
+--             newDeleteWorkflowResponse
+--
+--         , responseGetAutoMergingPreview $
+--             newGetAutoMergingPreviewResponse
+--
+--         , responseGetDomain $
+--             newGetDomainResponse
+--
+--         , responseGetIdentityResolutionJob $
+--             newGetIdentityResolutionJobResponse
+--
+--         , responseGetIntegration $
+--             newGetIntegrationResponse
 --
 --         , responseGetMatches $
 --             newGetMatchesResponse
 --
---         , responseUntagResource $
---             newUntagResourceResponse
+--         , responseGetProfileObjectType $
+--             newGetProfileObjectTypeResponse
 --
---         , responseSearchProfiles $
---             newSearchProfilesResponse
+--         , responseGetProfileObjectTypeTemplate $
+--             newGetProfileObjectTypeTemplateResponse
+--
+--         , responseGetWorkflow $
+--             newGetWorkflowResponse
+--
+--         , responseGetWorkflowSteps $
+--             newGetWorkflowStepsResponse
 --
 --         , responseListAccountIntegrations $
 --             newListAccountIntegrationsResponse
 --
---         , responseDeleteDomain $
---             newDeleteDomainResponse
+--         , responseListDomains $
+--             newListDomainsResponse
+--
+--         , responseListIdentityResolutionJobs $
+--             newListIdentityResolutionJobsResponse
+--
+--         , responseListIntegrations $
+--             newListIntegrationsResponse
+--
+--         , responseListProfileObjectTypeTemplates $
+--             newListProfileObjectTypeTemplatesResponse
+--
+--         , responseListProfileObjectTypes $
+--             newListProfileObjectTypesResponse
+--
+--         , responseListProfileObjects $
+--             newListProfileObjectsResponse
+--
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
+--
+--         , responseListWorkflows $
+--             newListWorkflowsResponse
+--
+--         , responseMergeProfiles $
+--             newMergeProfilesResponse
+--
+--         , responsePutIntegration $
+--             newPutIntegrationResponse
+--
+--         , responsePutProfileObject $
+--             newPutProfileObjectResponse
+--
+--         , responsePutProfileObjectType $
+--             newPutProfileObjectTypeResponse
+--
+--         , responseSearchProfiles $
+--             newSearchProfilesResponse
+--
+--         , responseTagResource $
+--             newTagResourceResponse
+--
+--         , responseUntagResource $
+--             newUntagResourceResponse
 --
 --         , responseUpdateDomain $
 --             newUpdateDomainResponse
 --
---         , responseListDomains $
---             newListDomainsResponse
+--         , responseUpdateProfile $
+--             newUpdateProfileResponse
 --
 --           ]
 --     ]
 
 -- Requests
-
-requestDeleteProfileObjectType :: DeleteProfileObjectType -> TestTree
-requestDeleteProfileObjectType =
-  req
-    "DeleteProfileObjectType"
-    "fixture/DeleteProfileObjectType.yaml"
-
-requestListIntegrations :: ListIntegrations -> TestTree
-requestListIntegrations =
-  req
-    "ListIntegrations"
-    "fixture/ListIntegrations.yaml"
-
-requestPutProfileObjectType :: PutProfileObjectType -> TestTree
-requestPutProfileObjectType =
-  req
-    "PutProfileObjectType"
-    "fixture/PutProfileObjectType.yaml"
-
-requestListProfileObjects :: ListProfileObjects -> TestTree
-requestListProfileObjects =
-  req
-    "ListProfileObjects"
-    "fixture/ListProfileObjects.yaml"
-
-requestListProfileObjectTypeTemplates :: ListProfileObjectTypeTemplates -> TestTree
-requestListProfileObjectTypeTemplates =
-  req
-    "ListProfileObjectTypeTemplates"
-    "fixture/ListProfileObjectTypeTemplates.yaml"
-
-requestDeleteProfile :: DeleteProfile -> TestTree
-requestDeleteProfile =
-  req
-    "DeleteProfile"
-    "fixture/DeleteProfile.yaml"
-
-requestUpdateProfile :: UpdateProfile -> TestTree
-requestUpdateProfile =
-  req
-    "UpdateProfile"
-    "fixture/UpdateProfile.yaml"
-
-requestListTagsForResource :: ListTagsForResource -> TestTree
-requestListTagsForResource =
-  req
-    "ListTagsForResource"
-    "fixture/ListTagsForResource.yaml"
 
 requestAddProfileKey :: AddProfileKey -> TestTree
 requestAddProfileKey =
@@ -269,35 +269,17 @@ requestAddProfileKey =
     "AddProfileKey"
     "fixture/AddProfileKey.yaml"
 
-requestGetProfileObjectTypeTemplate :: GetProfileObjectTypeTemplate -> TestTree
-requestGetProfileObjectTypeTemplate =
-  req
-    "GetProfileObjectTypeTemplate"
-    "fixture/GetProfileObjectTypeTemplate.yaml"
-
-requestGetIntegration :: GetIntegration -> TestTree
-requestGetIntegration =
-  req
-    "GetIntegration"
-    "fixture/GetIntegration.yaml"
-
-requestGetDomain :: GetDomain -> TestTree
-requestGetDomain =
-  req
-    "GetDomain"
-    "fixture/GetDomain.yaml"
-
 requestCreateDomain :: CreateDomain -> TestTree
 requestCreateDomain =
   req
     "CreateDomain"
     "fixture/CreateDomain.yaml"
 
-requestDeleteIntegration :: DeleteIntegration -> TestTree
-requestDeleteIntegration =
+requestCreateIntegrationWorkflow :: CreateIntegrationWorkflow -> TestTree
+requestCreateIntegrationWorkflow =
   req
-    "DeleteIntegration"
-    "fixture/DeleteIntegration.yaml"
+    "CreateIntegrationWorkflow"
+    "fixture/CreateIntegrationWorkflow.yaml"
 
 requestCreateProfile :: CreateProfile -> TestTree
 requestCreateProfile =
@@ -305,29 +287,23 @@ requestCreateProfile =
     "CreateProfile"
     "fixture/CreateProfile.yaml"
 
-requestPutProfileObject :: PutProfileObject -> TestTree
-requestPutProfileObject =
+requestDeleteDomain :: DeleteDomain -> TestTree
+requestDeleteDomain =
   req
-    "PutProfileObject"
-    "fixture/PutProfileObject.yaml"
+    "DeleteDomain"
+    "fixture/DeleteDomain.yaml"
 
-requestPutIntegration :: PutIntegration -> TestTree
-requestPutIntegration =
+requestDeleteIntegration :: DeleteIntegration -> TestTree
+requestDeleteIntegration =
   req
-    "PutIntegration"
-    "fixture/PutIntegration.yaml"
+    "DeleteIntegration"
+    "fixture/DeleteIntegration.yaml"
 
-requestDeleteProfileObject :: DeleteProfileObject -> TestTree
-requestDeleteProfileObject =
+requestDeleteProfile :: DeleteProfile -> TestTree
+requestDeleteProfile =
   req
-    "DeleteProfileObject"
-    "fixture/DeleteProfileObject.yaml"
-
-requestListProfileObjectTypes :: ListProfileObjectTypes -> TestTree
-requestListProfileObjectTypes =
-  req
-    "ListProfileObjectTypes"
-    "fixture/ListProfileObjectTypes.yaml"
+    "DeleteProfile"
+    "fixture/DeleteProfile.yaml"
 
 requestDeleteProfileKey :: DeleteProfileKey -> TestTree
 requestDeleteProfileKey =
@@ -335,23 +311,47 @@ requestDeleteProfileKey =
     "DeleteProfileKey"
     "fixture/DeleteProfileKey.yaml"
 
-requestGetProfileObjectType :: GetProfileObjectType -> TestTree
-requestGetProfileObjectType =
+requestDeleteProfileObject :: DeleteProfileObject -> TestTree
+requestDeleteProfileObject =
   req
-    "GetProfileObjectType"
-    "fixture/GetProfileObjectType.yaml"
+    "DeleteProfileObject"
+    "fixture/DeleteProfileObject.yaml"
 
-requestMergeProfiles :: MergeProfiles -> TestTree
-requestMergeProfiles =
+requestDeleteProfileObjectType :: DeleteProfileObjectType -> TestTree
+requestDeleteProfileObjectType =
   req
-    "MergeProfiles"
-    "fixture/MergeProfiles.yaml"
+    "DeleteProfileObjectType"
+    "fixture/DeleteProfileObjectType.yaml"
 
-requestTagResource :: TagResource -> TestTree
-requestTagResource =
+requestDeleteWorkflow :: DeleteWorkflow -> TestTree
+requestDeleteWorkflow =
   req
-    "TagResource"
-    "fixture/TagResource.yaml"
+    "DeleteWorkflow"
+    "fixture/DeleteWorkflow.yaml"
+
+requestGetAutoMergingPreview :: GetAutoMergingPreview -> TestTree
+requestGetAutoMergingPreview =
+  req
+    "GetAutoMergingPreview"
+    "fixture/GetAutoMergingPreview.yaml"
+
+requestGetDomain :: GetDomain -> TestTree
+requestGetDomain =
+  req
+    "GetDomain"
+    "fixture/GetDomain.yaml"
+
+requestGetIdentityResolutionJob :: GetIdentityResolutionJob -> TestTree
+requestGetIdentityResolutionJob =
+  req
+    "GetIdentityResolutionJob"
+    "fixture/GetIdentityResolutionJob.yaml"
+
+requestGetIntegration :: GetIntegration -> TestTree
+requestGetIntegration =
+  req
+    "GetIntegration"
+    "fixture/GetIntegration.yaml"
 
 requestGetMatches :: GetMatches -> TestTree
 requestGetMatches =
@@ -359,17 +359,29 @@ requestGetMatches =
     "GetMatches"
     "fixture/GetMatches.yaml"
 
-requestUntagResource :: UntagResource -> TestTree
-requestUntagResource =
+requestGetProfileObjectType :: GetProfileObjectType -> TestTree
+requestGetProfileObjectType =
   req
-    "UntagResource"
-    "fixture/UntagResource.yaml"
+    "GetProfileObjectType"
+    "fixture/GetProfileObjectType.yaml"
 
-requestSearchProfiles :: SearchProfiles -> TestTree
-requestSearchProfiles =
+requestGetProfileObjectTypeTemplate :: GetProfileObjectTypeTemplate -> TestTree
+requestGetProfileObjectTypeTemplate =
   req
-    "SearchProfiles"
-    "fixture/SearchProfiles.yaml"
+    "GetProfileObjectTypeTemplate"
+    "fixture/GetProfileObjectTypeTemplate.yaml"
+
+requestGetWorkflow :: GetWorkflow -> TestTree
+requestGetWorkflow =
+  req
+    "GetWorkflow"
+    "fixture/GetWorkflow.yaml"
+
+requestGetWorkflowSteps :: GetWorkflowSteps -> TestTree
+requestGetWorkflowSteps =
+  req
+    "GetWorkflowSteps"
+    "fixture/GetWorkflowSteps.yaml"
 
 requestListAccountIntegrations :: ListAccountIntegrations -> TestTree
 requestListAccountIntegrations =
@@ -377,11 +389,95 @@ requestListAccountIntegrations =
     "ListAccountIntegrations"
     "fixture/ListAccountIntegrations.yaml"
 
-requestDeleteDomain :: DeleteDomain -> TestTree
-requestDeleteDomain =
+requestListDomains :: ListDomains -> TestTree
+requestListDomains =
   req
-    "DeleteDomain"
-    "fixture/DeleteDomain.yaml"
+    "ListDomains"
+    "fixture/ListDomains.yaml"
+
+requestListIdentityResolutionJobs :: ListIdentityResolutionJobs -> TestTree
+requestListIdentityResolutionJobs =
+  req
+    "ListIdentityResolutionJobs"
+    "fixture/ListIdentityResolutionJobs.yaml"
+
+requestListIntegrations :: ListIntegrations -> TestTree
+requestListIntegrations =
+  req
+    "ListIntegrations"
+    "fixture/ListIntegrations.yaml"
+
+requestListProfileObjectTypeTemplates :: ListProfileObjectTypeTemplates -> TestTree
+requestListProfileObjectTypeTemplates =
+  req
+    "ListProfileObjectTypeTemplates"
+    "fixture/ListProfileObjectTypeTemplates.yaml"
+
+requestListProfileObjectTypes :: ListProfileObjectTypes -> TestTree
+requestListProfileObjectTypes =
+  req
+    "ListProfileObjectTypes"
+    "fixture/ListProfileObjectTypes.yaml"
+
+requestListProfileObjects :: ListProfileObjects -> TestTree
+requestListProfileObjects =
+  req
+    "ListProfileObjects"
+    "fixture/ListProfileObjects.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
+requestListWorkflows :: ListWorkflows -> TestTree
+requestListWorkflows =
+  req
+    "ListWorkflows"
+    "fixture/ListWorkflows.yaml"
+
+requestMergeProfiles :: MergeProfiles -> TestTree
+requestMergeProfiles =
+  req
+    "MergeProfiles"
+    "fixture/MergeProfiles.yaml"
+
+requestPutIntegration :: PutIntegration -> TestTree
+requestPutIntegration =
+  req
+    "PutIntegration"
+    "fixture/PutIntegration.yaml"
+
+requestPutProfileObject :: PutProfileObject -> TestTree
+requestPutProfileObject =
+  req
+    "PutProfileObject"
+    "fixture/PutProfileObject.yaml"
+
+requestPutProfileObjectType :: PutProfileObjectType -> TestTree
+requestPutProfileObjectType =
+  req
+    "PutProfileObjectType"
+    "fixture/PutProfileObjectType.yaml"
+
+requestSearchProfiles :: SearchProfiles -> TestTree
+requestSearchProfiles =
+  req
+    "SearchProfiles"
+    "fixture/SearchProfiles.yaml"
+
+requestTagResource :: TagResource -> TestTree
+requestTagResource =
+  req
+    "TagResource"
+    "fixture/TagResource.yaml"
+
+requestUntagResource :: UntagResource -> TestTree
+requestUntagResource =
+  req
+    "UntagResource"
+    "fixture/UntagResource.yaml"
 
 requestUpdateDomain :: UpdateDomain -> TestTree
 requestUpdateDomain =
@@ -389,77 +485,13 @@ requestUpdateDomain =
     "UpdateDomain"
     "fixture/UpdateDomain.yaml"
 
-requestListDomains :: ListDomains -> TestTree
-requestListDomains =
+requestUpdateProfile :: UpdateProfile -> TestTree
+requestUpdateProfile =
   req
-    "ListDomains"
-    "fixture/ListDomains.yaml"
+    "UpdateProfile"
+    "fixture/UpdateProfile.yaml"
 
 -- Responses
-
-responseDeleteProfileObjectType :: DeleteProfileObjectTypeResponse -> TestTree
-responseDeleteProfileObjectType =
-  res
-    "DeleteProfileObjectTypeResponse"
-    "fixture/DeleteProfileObjectTypeResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteProfileObjectType)
-
-responseListIntegrations :: ListIntegrationsResponse -> TestTree
-responseListIntegrations =
-  res
-    "ListIntegrationsResponse"
-    "fixture/ListIntegrationsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListIntegrations)
-
-responsePutProfileObjectType :: PutProfileObjectTypeResponse -> TestTree
-responsePutProfileObjectType =
-  res
-    "PutProfileObjectTypeResponse"
-    "fixture/PutProfileObjectTypeResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy PutProfileObjectType)
-
-responseListProfileObjects :: ListProfileObjectsResponse -> TestTree
-responseListProfileObjects =
-  res
-    "ListProfileObjectsResponse"
-    "fixture/ListProfileObjectsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListProfileObjects)
-
-responseListProfileObjectTypeTemplates :: ListProfileObjectTypeTemplatesResponse -> TestTree
-responseListProfileObjectTypeTemplates =
-  res
-    "ListProfileObjectTypeTemplatesResponse"
-    "fixture/ListProfileObjectTypeTemplatesResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListProfileObjectTypeTemplates)
-
-responseDeleteProfile :: DeleteProfileResponse -> TestTree
-responseDeleteProfile =
-  res
-    "DeleteProfileResponse"
-    "fixture/DeleteProfileResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteProfile)
-
-responseUpdateProfile :: UpdateProfileResponse -> TestTree
-responseUpdateProfile =
-  res
-    "UpdateProfileResponse"
-    "fixture/UpdateProfileResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateProfile)
-
-responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
-responseListTagsForResource =
-  res
-    "ListTagsForResourceResponse"
-    "fixture/ListTagsForResourceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
 
 responseAddProfileKey :: AddProfileKeyResponse -> TestTree
 responseAddProfileKey =
@@ -469,30 +501,6 @@ responseAddProfileKey =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy AddProfileKey)
 
-responseGetProfileObjectTypeTemplate :: GetProfileObjectTypeTemplateResponse -> TestTree
-responseGetProfileObjectTypeTemplate =
-  res
-    "GetProfileObjectTypeTemplateResponse"
-    "fixture/GetProfileObjectTypeTemplateResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetProfileObjectTypeTemplate)
-
-responseGetIntegration :: GetIntegrationResponse -> TestTree
-responseGetIntegration =
-  res
-    "GetIntegrationResponse"
-    "fixture/GetIntegrationResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetIntegration)
-
-responseGetDomain :: GetDomainResponse -> TestTree
-responseGetDomain =
-  res
-    "GetDomainResponse"
-    "fixture/GetDomainResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetDomain)
-
 responseCreateDomain :: CreateDomainResponse -> TestTree
 responseCreateDomain =
   res
@@ -501,13 +509,13 @@ responseCreateDomain =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateDomain)
 
-responseDeleteIntegration :: DeleteIntegrationResponse -> TestTree
-responseDeleteIntegration =
+responseCreateIntegrationWorkflow :: CreateIntegrationWorkflowResponse -> TestTree
+responseCreateIntegrationWorkflow =
   res
-    "DeleteIntegrationResponse"
-    "fixture/DeleteIntegrationResponse.proto"
+    "CreateIntegrationWorkflowResponse"
+    "fixture/CreateIntegrationWorkflowResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteIntegration)
+    (Proxy.Proxy :: Proxy.Proxy CreateIntegrationWorkflow)
 
 responseCreateProfile :: CreateProfileResponse -> TestTree
 responseCreateProfile =
@@ -517,37 +525,29 @@ responseCreateProfile =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateProfile)
 
-responsePutProfileObject :: PutProfileObjectResponse -> TestTree
-responsePutProfileObject =
+responseDeleteDomain :: DeleteDomainResponse -> TestTree
+responseDeleteDomain =
   res
-    "PutProfileObjectResponse"
-    "fixture/PutProfileObjectResponse.proto"
+    "DeleteDomainResponse"
+    "fixture/DeleteDomainResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy PutProfileObject)
+    (Proxy.Proxy :: Proxy.Proxy DeleteDomain)
 
-responsePutIntegration :: PutIntegrationResponse -> TestTree
-responsePutIntegration =
+responseDeleteIntegration :: DeleteIntegrationResponse -> TestTree
+responseDeleteIntegration =
   res
-    "PutIntegrationResponse"
-    "fixture/PutIntegrationResponse.proto"
+    "DeleteIntegrationResponse"
+    "fixture/DeleteIntegrationResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy PutIntegration)
+    (Proxy.Proxy :: Proxy.Proxy DeleteIntegration)
 
-responseDeleteProfileObject :: DeleteProfileObjectResponse -> TestTree
-responseDeleteProfileObject =
+responseDeleteProfile :: DeleteProfileResponse -> TestTree
+responseDeleteProfile =
   res
-    "DeleteProfileObjectResponse"
-    "fixture/DeleteProfileObjectResponse.proto"
+    "DeleteProfileResponse"
+    "fixture/DeleteProfileResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteProfileObject)
-
-responseListProfileObjectTypes :: ListProfileObjectTypesResponse -> TestTree
-responseListProfileObjectTypes =
-  res
-    "ListProfileObjectTypesResponse"
-    "fixture/ListProfileObjectTypesResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListProfileObjectTypes)
+    (Proxy.Proxy :: Proxy.Proxy DeleteProfile)
 
 responseDeleteProfileKey :: DeleteProfileKeyResponse -> TestTree
 responseDeleteProfileKey =
@@ -557,29 +557,61 @@ responseDeleteProfileKey =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DeleteProfileKey)
 
-responseGetProfileObjectType :: GetProfileObjectTypeResponse -> TestTree
-responseGetProfileObjectType =
+responseDeleteProfileObject :: DeleteProfileObjectResponse -> TestTree
+responseDeleteProfileObject =
   res
-    "GetProfileObjectTypeResponse"
-    "fixture/GetProfileObjectTypeResponse.proto"
+    "DeleteProfileObjectResponse"
+    "fixture/DeleteProfileObjectResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetProfileObjectType)
+    (Proxy.Proxy :: Proxy.Proxy DeleteProfileObject)
 
-responseMergeProfiles :: MergeProfilesResponse -> TestTree
-responseMergeProfiles =
+responseDeleteProfileObjectType :: DeleteProfileObjectTypeResponse -> TestTree
+responseDeleteProfileObjectType =
   res
-    "MergeProfilesResponse"
-    "fixture/MergeProfilesResponse.proto"
+    "DeleteProfileObjectTypeResponse"
+    "fixture/DeleteProfileObjectTypeResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy MergeProfiles)
+    (Proxy.Proxy :: Proxy.Proxy DeleteProfileObjectType)
 
-responseTagResource :: TagResourceResponse -> TestTree
-responseTagResource =
+responseDeleteWorkflow :: DeleteWorkflowResponse -> TestTree
+responseDeleteWorkflow =
   res
-    "TagResourceResponse"
-    "fixture/TagResourceResponse.proto"
+    "DeleteWorkflowResponse"
+    "fixture/DeleteWorkflowResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy TagResource)
+    (Proxy.Proxy :: Proxy.Proxy DeleteWorkflow)
+
+responseGetAutoMergingPreview :: GetAutoMergingPreviewResponse -> TestTree
+responseGetAutoMergingPreview =
+  res
+    "GetAutoMergingPreviewResponse"
+    "fixture/GetAutoMergingPreviewResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetAutoMergingPreview)
+
+responseGetDomain :: GetDomainResponse -> TestTree
+responseGetDomain =
+  res
+    "GetDomainResponse"
+    "fixture/GetDomainResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetDomain)
+
+responseGetIdentityResolutionJob :: GetIdentityResolutionJobResponse -> TestTree
+responseGetIdentityResolutionJob =
+  res
+    "GetIdentityResolutionJobResponse"
+    "fixture/GetIdentityResolutionJobResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetIdentityResolutionJob)
+
+responseGetIntegration :: GetIntegrationResponse -> TestTree
+responseGetIntegration =
+  res
+    "GetIntegrationResponse"
+    "fixture/GetIntegrationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetIntegration)
 
 responseGetMatches :: GetMatchesResponse -> TestTree
 responseGetMatches =
@@ -589,21 +621,37 @@ responseGetMatches =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetMatches)
 
-responseUntagResource :: UntagResourceResponse -> TestTree
-responseUntagResource =
+responseGetProfileObjectType :: GetProfileObjectTypeResponse -> TestTree
+responseGetProfileObjectType =
   res
-    "UntagResourceResponse"
-    "fixture/UntagResourceResponse.proto"
+    "GetProfileObjectTypeResponse"
+    "fixture/GetProfileObjectTypeResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy UntagResource)
+    (Proxy.Proxy :: Proxy.Proxy GetProfileObjectType)
 
-responseSearchProfiles :: SearchProfilesResponse -> TestTree
-responseSearchProfiles =
+responseGetProfileObjectTypeTemplate :: GetProfileObjectTypeTemplateResponse -> TestTree
+responseGetProfileObjectTypeTemplate =
   res
-    "SearchProfilesResponse"
-    "fixture/SearchProfilesResponse.proto"
+    "GetProfileObjectTypeTemplateResponse"
+    "fixture/GetProfileObjectTypeTemplateResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy SearchProfiles)
+    (Proxy.Proxy :: Proxy.Proxy GetProfileObjectTypeTemplate)
+
+responseGetWorkflow :: GetWorkflowResponse -> TestTree
+responseGetWorkflow =
+  res
+    "GetWorkflowResponse"
+    "fixture/GetWorkflowResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetWorkflow)
+
+responseGetWorkflowSteps :: GetWorkflowStepsResponse -> TestTree
+responseGetWorkflowSteps =
+  res
+    "GetWorkflowStepsResponse"
+    "fixture/GetWorkflowStepsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetWorkflowSteps)
 
 responseListAccountIntegrations :: ListAccountIntegrationsResponse -> TestTree
 responseListAccountIntegrations =
@@ -613,13 +661,125 @@ responseListAccountIntegrations =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy ListAccountIntegrations)
 
-responseDeleteDomain :: DeleteDomainResponse -> TestTree
-responseDeleteDomain =
+responseListDomains :: ListDomainsResponse -> TestTree
+responseListDomains =
   res
-    "DeleteDomainResponse"
-    "fixture/DeleteDomainResponse.proto"
+    "ListDomainsResponse"
+    "fixture/ListDomainsResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteDomain)
+    (Proxy.Proxy :: Proxy.Proxy ListDomains)
+
+responseListIdentityResolutionJobs :: ListIdentityResolutionJobsResponse -> TestTree
+responseListIdentityResolutionJobs =
+  res
+    "ListIdentityResolutionJobsResponse"
+    "fixture/ListIdentityResolutionJobsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListIdentityResolutionJobs)
+
+responseListIntegrations :: ListIntegrationsResponse -> TestTree
+responseListIntegrations =
+  res
+    "ListIntegrationsResponse"
+    "fixture/ListIntegrationsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListIntegrations)
+
+responseListProfileObjectTypeTemplates :: ListProfileObjectTypeTemplatesResponse -> TestTree
+responseListProfileObjectTypeTemplates =
+  res
+    "ListProfileObjectTypeTemplatesResponse"
+    "fixture/ListProfileObjectTypeTemplatesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListProfileObjectTypeTemplates)
+
+responseListProfileObjectTypes :: ListProfileObjectTypesResponse -> TestTree
+responseListProfileObjectTypes =
+  res
+    "ListProfileObjectTypesResponse"
+    "fixture/ListProfileObjectTypesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListProfileObjectTypes)
+
+responseListProfileObjects :: ListProfileObjectsResponse -> TestTree
+responseListProfileObjects =
+  res
+    "ListProfileObjectsResponse"
+    "fixture/ListProfileObjectsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListProfileObjects)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+
+responseListWorkflows :: ListWorkflowsResponse -> TestTree
+responseListWorkflows =
+  res
+    "ListWorkflowsResponse"
+    "fixture/ListWorkflowsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListWorkflows)
+
+responseMergeProfiles :: MergeProfilesResponse -> TestTree
+responseMergeProfiles =
+  res
+    "MergeProfilesResponse"
+    "fixture/MergeProfilesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy MergeProfiles)
+
+responsePutIntegration :: PutIntegrationResponse -> TestTree
+responsePutIntegration =
+  res
+    "PutIntegrationResponse"
+    "fixture/PutIntegrationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy PutIntegration)
+
+responsePutProfileObject :: PutProfileObjectResponse -> TestTree
+responsePutProfileObject =
+  res
+    "PutProfileObjectResponse"
+    "fixture/PutProfileObjectResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy PutProfileObject)
+
+responsePutProfileObjectType :: PutProfileObjectTypeResponse -> TestTree
+responsePutProfileObjectType =
+  res
+    "PutProfileObjectTypeResponse"
+    "fixture/PutProfileObjectTypeResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy PutProfileObjectType)
+
+responseSearchProfiles :: SearchProfilesResponse -> TestTree
+responseSearchProfiles =
+  res
+    "SearchProfilesResponse"
+    "fixture/SearchProfilesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy SearchProfiles)
+
+responseTagResource :: TagResourceResponse -> TestTree
+responseTagResource =
+  res
+    "TagResourceResponse"
+    "fixture/TagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy TagResource)
+
+responseUntagResource :: UntagResourceResponse -> TestTree
+responseUntagResource =
+  res
+    "UntagResourceResponse"
+    "fixture/UntagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UntagResource)
 
 responseUpdateDomain :: UpdateDomainResponse -> TestTree
 responseUpdateDomain =
@@ -629,10 +789,10 @@ responseUpdateDomain =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy UpdateDomain)
 
-responseListDomains :: ListDomainsResponse -> TestTree
-responseListDomains =
+responseUpdateProfile :: UpdateProfileResponse -> TestTree
+responseUpdateProfile =
   res
-    "ListDomainsResponse"
-    "fixture/ListDomainsResponse.proto"
+    "UpdateProfileResponse"
+    "fixture/UpdateProfileResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListDomains)
+    (Proxy.Proxy :: Proxy.Proxy UpdateProfile)

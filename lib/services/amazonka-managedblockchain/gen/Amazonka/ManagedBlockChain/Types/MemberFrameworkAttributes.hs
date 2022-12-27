@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.Types.MemberFrameworkAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ManagedBlockChain.Types.MemberFrameworkAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types.MemberFabricAttributes
 import qualified Amazonka.Prelude as Prelude
 
@@ -58,13 +59,13 @@ newMemberFrameworkAttributes =
 memberFrameworkAttributes_fabric :: Lens.Lens' MemberFrameworkAttributes (Prelude.Maybe MemberFabricAttributes)
 memberFrameworkAttributes_fabric = Lens.lens (\MemberFrameworkAttributes' {fabric} -> fabric) (\s@MemberFrameworkAttributes' {} a -> s {fabric = a} :: MemberFrameworkAttributes)
 
-instance Core.FromJSON MemberFrameworkAttributes where
+instance Data.FromJSON MemberFrameworkAttributes where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MemberFrameworkAttributes"
       ( \x ->
           MemberFrameworkAttributes'
-            Prelude.<$> (x Core..:? "Fabric")
+            Prelude.<$> (x Data..:? "Fabric")
       )
 
 instance Prelude.Hashable MemberFrameworkAttributes where

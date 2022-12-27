@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.CreateRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,8 +53,9 @@ module Amazonka.ELBV2.CreateRule
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -131,14 +132,15 @@ createRule_actions = Lens.lens (\CreateRule' {actions} -> actions) (\s@CreateRul
 
 instance Core.AWSRequest CreateRule where
   type AWSResponse CreateRule = CreateRuleResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateRuleResult"
       ( \s h x ->
           CreateRuleResponse'
-            Prelude.<$> ( x Core..@? "Rules" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "Rules" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -159,27 +161,27 @@ instance Prelude.NFData CreateRule where
       `Prelude.seq` Prelude.rnf priority
       `Prelude.seq` Prelude.rnf actions
 
-instance Core.ToHeaders CreateRule where
+instance Data.ToHeaders CreateRule where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateRule where
+instance Data.ToPath CreateRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateRule where
+instance Data.ToQuery CreateRule where
   toQuery CreateRule' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateRule" :: Prelude.ByteString),
+          Data.=: ("CreateRule" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-12-01" :: Prelude.ByteString),
+          Data.=: ("2015-12-01" :: Prelude.ByteString),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tags),
-        "ListenerArn" Core.=: listenerArn,
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tags),
+        "ListenerArn" Data.=: listenerArn,
         "Conditions"
-          Core.=: Core.toQueryList "member" conditions,
-        "Priority" Core.=: priority,
-        "Actions" Core.=: Core.toQueryList "member" actions
+          Data.=: Data.toQueryList "member" conditions,
+        "Priority" Data.=: priority,
+        "Actions" Data.=: Data.toQueryList "member" actions
       ]
 
 -- | /See:/ 'newCreateRuleResponse' smart constructor.

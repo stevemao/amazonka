@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ImportExport.CancelJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.ImportExport.CancelJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImportExport.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,13 +89,14 @@ cancelJob_jobId = Lens.lens (\CancelJob' {jobId} -> jobId) (\s@CancelJob' {} a -
 
 instance Core.AWSRequest CancelJob where
   type AWSResponse CancelJob = CancelJobResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CancelJobResult"
       ( \s h x ->
           CancelJobResponse'
-            Prelude.<$> (x Core..@? "Success")
+            Prelude.<$> (x Data..@? "Success")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,21 +110,21 @@ instance Prelude.NFData CancelJob where
     Prelude.rnf aPIVersion
       `Prelude.seq` Prelude.rnf jobId
 
-instance Core.ToHeaders CancelJob where
+instance Data.ToHeaders CancelJob where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CancelJob where
+instance Data.ToPath CancelJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelJob where
+instance Data.ToQuery CancelJob where
   toQuery CancelJob' {..} =
     Prelude.mconcat
       [ "Operation=CancelJob",
-        "Action" Core.=: ("CancelJob" :: Prelude.ByteString),
+        "Action" Data.=: ("CancelJob" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-06-01" :: Prelude.ByteString),
-        "APIVersion" Core.=: aPIVersion,
-        "JobId" Core.=: jobId
+          Data.=: ("2010-06-01" :: Prelude.ByteString),
+        "APIVersion" Data.=: aPIVersion,
+        "JobId" Data.=: jobId
       ]
 
 -- | Output structure for the CancelJob operation.

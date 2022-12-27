@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.EventInformation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,16 @@
 module Amazonka.EC2.Types.EventInformation where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an EC2 Fleet or Spot Fleet event.
 --
 -- /See:/ 'newEventInformation' smart constructor.
 data EventInformation = EventInformation'
-  { -- | The ID of the instance. This information is available only for
-    -- @instanceChange@ events.
-    instanceId :: Prelude.Maybe Prelude.Text,
-    -- | The description of the event.
+  { -- | The description of the event.
     eventDescription :: Prelude.Maybe Prelude.Text,
     -- | The event.
     --
@@ -56,17 +54,20 @@ data EventInformation = EventInformation'
     --     and Amazon EC2 is attempting to maintain the target number of
     --     running instances.
     --
-    -- -   @cancelled@ - The EC2 Fleet or Spot Fleet request is canceled and
-    --     has no running instances. The EC2 Fleet or Spot Fleet will be
-    --     deleted two days after its instances are terminated.
+    -- -   @deleted@ (EC2 Fleet) \/ @cancelled@ (Spot Fleet) - The EC2 Fleet is
+    --     deleted or the Spot Fleet request is canceled and has no running
+    --     instances. The EC2 Fleet or Spot Fleet will be deleted two days
+    --     after its instances are terminated.
     --
-    -- -   @cancelled_running@ - The EC2 Fleet or Spot Fleet request is
-    --     canceled and does not launch additional instances. Its existing
-    --     instances continue to run until they are interrupted or terminated.
-    --     The request remains in this state until all instances are
-    --     interrupted or terminated.
+    -- -   @deleted_running@ (EC2 Fleet) \/ @cancelled_running@ (Spot Fleet) -
+    --     The EC2 Fleet is deleted or the Spot Fleet request is canceled and
+    --     does not launch additional instances. Its existing instances
+    --     continue to run until they are interrupted or terminated. The
+    --     request remains in this state until all instances are interrupted or
+    --     terminated.
     --
-    -- -   @cancelled_terminating@ - The EC2 Fleet or Spot Fleet request is
+    -- -   @deleted_terminating@ (EC2 Fleet) \/ @cancelled_terminating@ (Spot
+    --     Fleet) - The EC2 Fleet is deleted or the Spot Fleet request is
     --     canceled and its instances are terminating. The request remains in
     --     this state until all instances are terminated.
     --
@@ -117,7 +118,10 @@ data EventInformation = EventInformation'
     -- -   @registerWithLoadBalancersFailed@ - An attempt to register instances
     --     with load balancers failed. For more information, see the
     --     description of the event.
-    eventSubType :: Prelude.Maybe Prelude.Text
+    eventSubType :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the instance. This information is available only for
+    -- @instanceChange@ events.
+    instanceId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -128,9 +132,6 @@ data EventInformation = EventInformation'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'instanceId', 'eventInformation_instanceId' - The ID of the instance. This information is available only for
--- @instanceChange@ events.
 --
 -- 'eventDescription', 'eventInformation_eventDescription' - The description of the event.
 --
@@ -157,17 +158,20 @@ data EventInformation = EventInformation'
 --     and Amazon EC2 is attempting to maintain the target number of
 --     running instances.
 --
--- -   @cancelled@ - The EC2 Fleet or Spot Fleet request is canceled and
---     has no running instances. The EC2 Fleet or Spot Fleet will be
---     deleted two days after its instances are terminated.
+-- -   @deleted@ (EC2 Fleet) \/ @cancelled@ (Spot Fleet) - The EC2 Fleet is
+--     deleted or the Spot Fleet request is canceled and has no running
+--     instances. The EC2 Fleet or Spot Fleet will be deleted two days
+--     after its instances are terminated.
 --
--- -   @cancelled_running@ - The EC2 Fleet or Spot Fleet request is
---     canceled and does not launch additional instances. Its existing
---     instances continue to run until they are interrupted or terminated.
---     The request remains in this state until all instances are
---     interrupted or terminated.
+-- -   @deleted_running@ (EC2 Fleet) \/ @cancelled_running@ (Spot Fleet) -
+--     The EC2 Fleet is deleted or the Spot Fleet request is canceled and
+--     does not launch additional instances. Its existing instances
+--     continue to run until they are interrupted or terminated. The
+--     request remains in this state until all instances are interrupted or
+--     terminated.
 --
--- -   @cancelled_terminating@ - The EC2 Fleet or Spot Fleet request is
+-- -   @deleted_terminating@ (EC2 Fleet) \/ @cancelled_terminating@ (Spot
+--     Fleet) - The EC2 Fleet is deleted or the Spot Fleet request is
 --     canceled and its instances are terminating. The request remains in
 --     this state until all instances are terminated.
 --
@@ -218,19 +222,18 @@ data EventInformation = EventInformation'
 -- -   @registerWithLoadBalancersFailed@ - An attempt to register instances
 --     with load balancers failed. For more information, see the
 --     description of the event.
+--
+-- 'instanceId', 'eventInformation_instanceId' - The ID of the instance. This information is available only for
+-- @instanceChange@ events.
 newEventInformation ::
   EventInformation
 newEventInformation =
   EventInformation'
-    { instanceId = Prelude.Nothing,
-      eventDescription = Prelude.Nothing,
-      eventSubType = Prelude.Nothing
+    { eventDescription =
+        Prelude.Nothing,
+      eventSubType = Prelude.Nothing,
+      instanceId = Prelude.Nothing
     }
-
--- | The ID of the instance. This information is available only for
--- @instanceChange@ events.
-eventInformation_instanceId :: Lens.Lens' EventInformation (Prelude.Maybe Prelude.Text)
-eventInformation_instanceId = Lens.lens (\EventInformation' {instanceId} -> instanceId) (\s@EventInformation' {} a -> s {instanceId = a} :: EventInformation)
 
 -- | The description of the event.
 eventInformation_eventDescription :: Lens.Lens' EventInformation (Prelude.Maybe Prelude.Text)
@@ -259,17 +262,20 @@ eventInformation_eventDescription = Lens.lens (\EventInformation' {eventDescript
 --     and Amazon EC2 is attempting to maintain the target number of
 --     running instances.
 --
--- -   @cancelled@ - The EC2 Fleet or Spot Fleet request is canceled and
---     has no running instances. The EC2 Fleet or Spot Fleet will be
---     deleted two days after its instances are terminated.
+-- -   @deleted@ (EC2 Fleet) \/ @cancelled@ (Spot Fleet) - The EC2 Fleet is
+--     deleted or the Spot Fleet request is canceled and has no running
+--     instances. The EC2 Fleet or Spot Fleet will be deleted two days
+--     after its instances are terminated.
 --
--- -   @cancelled_running@ - The EC2 Fleet or Spot Fleet request is
---     canceled and does not launch additional instances. Its existing
---     instances continue to run until they are interrupted or terminated.
---     The request remains in this state until all instances are
---     interrupted or terminated.
+-- -   @deleted_running@ (EC2 Fleet) \/ @cancelled_running@ (Spot Fleet) -
+--     The EC2 Fleet is deleted or the Spot Fleet request is canceled and
+--     does not launch additional instances. Its existing instances
+--     continue to run until they are interrupted or terminated. The
+--     request remains in this state until all instances are interrupted or
+--     terminated.
 --
--- -   @cancelled_terminating@ - The EC2 Fleet or Spot Fleet request is
+-- -   @deleted_terminating@ (EC2 Fleet) \/ @cancelled_terminating@ (Spot
+--     Fleet) - The EC2 Fleet is deleted or the Spot Fleet request is
 --     canceled and its instances are terminating. The request remains in
 --     this state until all instances are terminated.
 --
@@ -323,21 +329,26 @@ eventInformation_eventDescription = Lens.lens (\EventInformation' {eventDescript
 eventInformation_eventSubType :: Lens.Lens' EventInformation (Prelude.Maybe Prelude.Text)
 eventInformation_eventSubType = Lens.lens (\EventInformation' {eventSubType} -> eventSubType) (\s@EventInformation' {} a -> s {eventSubType = a} :: EventInformation)
 
-instance Core.FromXML EventInformation where
+-- | The ID of the instance. This information is available only for
+-- @instanceChange@ events.
+eventInformation_instanceId :: Lens.Lens' EventInformation (Prelude.Maybe Prelude.Text)
+eventInformation_instanceId = Lens.lens (\EventInformation' {instanceId} -> instanceId) (\s@EventInformation' {} a -> s {instanceId = a} :: EventInformation)
+
+instance Data.FromXML EventInformation where
   parseXML x =
     EventInformation'
-      Prelude.<$> (x Core..@? "instanceId")
-      Prelude.<*> (x Core..@? "eventDescription")
-      Prelude.<*> (x Core..@? "eventSubType")
+      Prelude.<$> (x Data..@? "eventDescription")
+      Prelude.<*> (x Data..@? "eventSubType")
+      Prelude.<*> (x Data..@? "instanceId")
 
 instance Prelude.Hashable EventInformation where
   hashWithSalt _salt EventInformation' {..} =
-    _salt `Prelude.hashWithSalt` instanceId
-      `Prelude.hashWithSalt` eventDescription
+    _salt `Prelude.hashWithSalt` eventDescription
       `Prelude.hashWithSalt` eventSubType
+      `Prelude.hashWithSalt` instanceId
 
 instance Prelude.NFData EventInformation where
   rnf EventInformation' {..} =
-    Prelude.rnf instanceId
-      `Prelude.seq` Prelude.rnf eventDescription
+    Prelude.rnf eventDescription
       `Prelude.seq` Prelude.rnf eventSubType
+      `Prelude.seq` Prelude.rnf instanceId

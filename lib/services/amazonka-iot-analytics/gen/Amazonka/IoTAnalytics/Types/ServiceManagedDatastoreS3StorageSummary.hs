@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.ServiceManagedDatastoreS3StorageSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTAnalytics.Types.ServiceManagedDatastoreS3StorageSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the data store that is managed by IoT
@@ -42,11 +43,11 @@ newServiceManagedDatastoreS3StorageSummary =
   ServiceManagedDatastoreS3StorageSummary'
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ServiceManagedDatastoreS3StorageSummary
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServiceManagedDatastoreS3StorageSummary"
       ( \x ->
           Prelude.pure

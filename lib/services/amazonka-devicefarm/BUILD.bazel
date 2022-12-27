@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-devicefarm/amazonka-devicefarm.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-devicefarm/amazonka-devicefarm.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-devicefarm",
     srcs = [
@@ -152,6 +152,7 @@ haskell_library(
         "gen/Amazonka/DeviceFarm/Types/UploadStatus.hs",
         "gen/Amazonka/DeviceFarm/Types/UploadType.hs",
         "gen/Amazonka/DeviceFarm/Types/VPCEConfiguration.hs",
+        "gen/Amazonka/DeviceFarm/Types/VpcConfig.hs",
         "gen/Amazonka/DeviceFarm/UntagResource.hs",
         "gen/Amazonka/DeviceFarm/UpdateDeviceInstance.hs",
         "gen/Amazonka/DeviceFarm/UpdateDevicePool.hs",
@@ -163,14 +164,13 @@ haskell_library(
         "gen/Amazonka/DeviceFarm/UpdateVPCEConfiguration.hs",
         "gen/Amazonka/DeviceFarm/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_devicefarm=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_devicefarm=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -179,7 +179,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-devicefarm/amazonka-devicefarm.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-devicefarm/amazonka-devicefarm.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-devicefarm-test",
     srcs = [
@@ -188,11 +188,12 @@ haskell_test(
         "test/Test/Amazonka/DeviceFarm/Internal.hs",
         "test/Test/Amazonka/Gen/DeviceFarm.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_devicefarm=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_devicefarm=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

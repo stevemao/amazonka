@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.FirehoseAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTEvents.Types.FirehoseAction where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types.Payload
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Sends information about the detector model instance and the event that
@@ -29,13 +30,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newFirehoseAction' smart constructor.
 data FirehoseAction = FirehoseAction'
-  { -- | A character separator that is used to separate records written to the
+  { -- | You can configure the action payload when you send a message to an
+    -- Amazon Kinesis Data Firehose delivery stream.
+    payload :: Prelude.Maybe Payload,
+    -- | A character separator that is used to separate records written to the
     -- Kinesis Data Firehose delivery stream. Valid values are: \'\\n\'
     -- (newline), \'\\t\' (tab), \'\\r\\n\' (Windows newline), \',\' (comma).
     separator :: Prelude.Maybe Prelude.Text,
-    -- | You can configure the action payload when you send a message to an
-    -- Amazon Kinesis Data Firehose delivery stream.
-    payload :: Prelude.Maybe Payload,
     -- | The name of the Kinesis Data Firehose delivery stream where the data is
     -- written.
     deliveryStreamName :: Prelude.Text
@@ -50,12 +51,12 @@ data FirehoseAction = FirehoseAction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'payload', 'firehoseAction_payload' - You can configure the action payload when you send a message to an
+-- Amazon Kinesis Data Firehose delivery stream.
+--
 -- 'separator', 'firehoseAction_separator' - A character separator that is used to separate records written to the
 -- Kinesis Data Firehose delivery stream. Valid values are: \'\\n\'
 -- (newline), \'\\t\' (tab), \'\\r\\n\' (Windows newline), \',\' (comma).
---
--- 'payload', 'firehoseAction_payload' - You can configure the action payload when you send a message to an
--- Amazon Kinesis Data Firehose delivery stream.
 --
 -- 'deliveryStreamName', 'firehoseAction_deliveryStreamName' - The name of the Kinesis Data Firehose delivery stream where the data is
 -- written.
@@ -65,10 +66,15 @@ newFirehoseAction ::
   FirehoseAction
 newFirehoseAction pDeliveryStreamName_ =
   FirehoseAction'
-    { separator = Prelude.Nothing,
-      payload = Prelude.Nothing,
+    { payload = Prelude.Nothing,
+      separator = Prelude.Nothing,
       deliveryStreamName = pDeliveryStreamName_
     }
+
+-- | You can configure the action payload when you send a message to an
+-- Amazon Kinesis Data Firehose delivery stream.
+firehoseAction_payload :: Lens.Lens' FirehoseAction (Prelude.Maybe Payload)
+firehoseAction_payload = Lens.lens (\FirehoseAction' {payload} -> payload) (\s@FirehoseAction' {} a -> s {payload = a} :: FirehoseAction)
 
 -- | A character separator that is used to separate records written to the
 -- Kinesis Data Firehose delivery stream. Valid values are: \'\\n\'
@@ -76,46 +82,41 @@ newFirehoseAction pDeliveryStreamName_ =
 firehoseAction_separator :: Lens.Lens' FirehoseAction (Prelude.Maybe Prelude.Text)
 firehoseAction_separator = Lens.lens (\FirehoseAction' {separator} -> separator) (\s@FirehoseAction' {} a -> s {separator = a} :: FirehoseAction)
 
--- | You can configure the action payload when you send a message to an
--- Amazon Kinesis Data Firehose delivery stream.
-firehoseAction_payload :: Lens.Lens' FirehoseAction (Prelude.Maybe Payload)
-firehoseAction_payload = Lens.lens (\FirehoseAction' {payload} -> payload) (\s@FirehoseAction' {} a -> s {payload = a} :: FirehoseAction)
-
 -- | The name of the Kinesis Data Firehose delivery stream where the data is
 -- written.
 firehoseAction_deliveryStreamName :: Lens.Lens' FirehoseAction Prelude.Text
 firehoseAction_deliveryStreamName = Lens.lens (\FirehoseAction' {deliveryStreamName} -> deliveryStreamName) (\s@FirehoseAction' {} a -> s {deliveryStreamName = a} :: FirehoseAction)
 
-instance Core.FromJSON FirehoseAction where
+instance Data.FromJSON FirehoseAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FirehoseAction"
       ( \x ->
           FirehoseAction'
-            Prelude.<$> (x Core..:? "separator")
-            Prelude.<*> (x Core..:? "payload")
-            Prelude.<*> (x Core..: "deliveryStreamName")
+            Prelude.<$> (x Data..:? "payload")
+            Prelude.<*> (x Data..:? "separator")
+            Prelude.<*> (x Data..: "deliveryStreamName")
       )
 
 instance Prelude.Hashable FirehoseAction where
   hashWithSalt _salt FirehoseAction' {..} =
-    _salt `Prelude.hashWithSalt` separator
-      `Prelude.hashWithSalt` payload
+    _salt `Prelude.hashWithSalt` payload
+      `Prelude.hashWithSalt` separator
       `Prelude.hashWithSalt` deliveryStreamName
 
 instance Prelude.NFData FirehoseAction where
   rnf FirehoseAction' {..} =
-    Prelude.rnf separator
-      `Prelude.seq` Prelude.rnf payload
+    Prelude.rnf payload
+      `Prelude.seq` Prelude.rnf separator
       `Prelude.seq` Prelude.rnf deliveryStreamName
 
-instance Core.ToJSON FirehoseAction where
+instance Data.ToJSON FirehoseAction where
   toJSON FirehoseAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("separator" Core..=) Prelude.<$> separator,
-            ("payload" Core..=) Prelude.<$> payload,
+          [ ("payload" Data..=) Prelude.<$> payload,
+            ("separator" Data..=) Prelude.<$> separator,
             Prelude.Just
-              ("deliveryStreamName" Core..= deliveryStreamName)
+              ("deliveryStreamName" Data..= deliveryStreamName)
           ]
       )

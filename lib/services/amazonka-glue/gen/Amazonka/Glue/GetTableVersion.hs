@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetTableVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.Glue.GetTableVersion
     newGetTableVersion,
 
     -- * Request Lenses
-    getTableVersion_versionId,
     getTableVersion_catalogId,
+    getTableVersion_versionId,
     getTableVersion_databaseName,
     getTableVersion_tableName,
 
@@ -43,20 +43,21 @@ module Amazonka.Glue.GetTableVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetTableVersion' smart constructor.
 data GetTableVersion = GetTableVersion'
-  { -- | The ID value of the table version to be retrieved. A @VersionID@ is a
-    -- string representation of an integer. Each version is incremented by 1.
-    versionId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the Data Catalog where the tables reside. If none is provided,
+  { -- | The ID of the Data Catalog where the tables reside. If none is provided,
     -- the Amazon Web Services account ID is used by default.
     catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The ID value of the table version to be retrieved. A @VersionID@ is a
+    -- string representation of an integer. Each version is incremented by 1.
+    versionId :: Prelude.Maybe Prelude.Text,
     -- | The database in the catalog in which the table resides. For Hive
     -- compatibility, this name is entirely lowercase.
     databaseName :: Prelude.Text,
@@ -74,11 +75,11 @@ data GetTableVersion = GetTableVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'versionId', 'getTableVersion_versionId' - The ID value of the table version to be retrieved. A @VersionID@ is a
--- string representation of an integer. Each version is incremented by 1.
---
 -- 'catalogId', 'getTableVersion_catalogId' - The ID of the Data Catalog where the tables reside. If none is provided,
 -- the Amazon Web Services account ID is used by default.
+--
+-- 'versionId', 'getTableVersion_versionId' - The ID value of the table version to be retrieved. A @VersionID@ is a
+-- string representation of an integer. Each version is incremented by 1.
 --
 -- 'databaseName', 'getTableVersion_databaseName' - The database in the catalog in which the table resides. For Hive
 -- compatibility, this name is entirely lowercase.
@@ -93,21 +94,21 @@ newGetTableVersion ::
   GetTableVersion
 newGetTableVersion pDatabaseName_ pTableName_ =
   GetTableVersion'
-    { versionId = Prelude.Nothing,
-      catalogId = Prelude.Nothing,
+    { catalogId = Prelude.Nothing,
+      versionId = Prelude.Nothing,
       databaseName = pDatabaseName_,
       tableName = pTableName_
     }
-
--- | The ID value of the table version to be retrieved. A @VersionID@ is a
--- string representation of an integer. Each version is incremented by 1.
-getTableVersion_versionId :: Lens.Lens' GetTableVersion (Prelude.Maybe Prelude.Text)
-getTableVersion_versionId = Lens.lens (\GetTableVersion' {versionId} -> versionId) (\s@GetTableVersion' {} a -> s {versionId = a} :: GetTableVersion)
 
 -- | The ID of the Data Catalog where the tables reside. If none is provided,
 -- the Amazon Web Services account ID is used by default.
 getTableVersion_catalogId :: Lens.Lens' GetTableVersion (Prelude.Maybe Prelude.Text)
 getTableVersion_catalogId = Lens.lens (\GetTableVersion' {catalogId} -> catalogId) (\s@GetTableVersion' {} a -> s {catalogId = a} :: GetTableVersion)
+
+-- | The ID value of the table version to be retrieved. A @VersionID@ is a
+-- string representation of an integer. Each version is incremented by 1.
+getTableVersion_versionId :: Lens.Lens' GetTableVersion (Prelude.Maybe Prelude.Text)
+getTableVersion_versionId = Lens.lens (\GetTableVersion' {versionId} -> versionId) (\s@GetTableVersion' {} a -> s {versionId = a} :: GetTableVersion)
 
 -- | The database in the catalog in which the table resides. For Hive
 -- compatibility, this name is entirely lowercase.
@@ -123,57 +124,58 @@ instance Core.AWSRequest GetTableVersion where
   type
     AWSResponse GetTableVersion =
       GetTableVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetTableVersionResponse'
-            Prelude.<$> (x Core..?> "TableVersion")
+            Prelude.<$> (x Data..?> "TableVersion")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetTableVersion where
   hashWithSalt _salt GetTableVersion' {..} =
-    _salt `Prelude.hashWithSalt` versionId
-      `Prelude.hashWithSalt` catalogId
+    _salt `Prelude.hashWithSalt` catalogId
+      `Prelude.hashWithSalt` versionId
       `Prelude.hashWithSalt` databaseName
       `Prelude.hashWithSalt` tableName
 
 instance Prelude.NFData GetTableVersion where
   rnf GetTableVersion' {..} =
-    Prelude.rnf versionId
-      `Prelude.seq` Prelude.rnf catalogId
+    Prelude.rnf catalogId
+      `Prelude.seq` Prelude.rnf versionId
       `Prelude.seq` Prelude.rnf databaseName
       `Prelude.seq` Prelude.rnf tableName
 
-instance Core.ToHeaders GetTableVersion where
+instance Data.ToHeaders GetTableVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetTableVersion" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetTableVersion" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetTableVersion where
+instance Data.ToJSON GetTableVersion where
   toJSON GetTableVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("VersionId" Core..=) Prelude.<$> versionId,
-            ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("DatabaseName" Core..= databaseName),
-            Prelude.Just ("TableName" Core..= tableName)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            ("VersionId" Data..=) Prelude.<$> versionId,
+            Prelude.Just ("DatabaseName" Data..= databaseName),
+            Prelude.Just ("TableName" Data..= tableName)
           ]
       )
 
-instance Core.ToPath GetTableVersion where
+instance Data.ToPath GetTableVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetTableVersion where
+instance Data.ToQuery GetTableVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetTableVersionResponse' smart constructor.

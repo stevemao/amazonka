@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.UpdateRulesOfIpGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.WorkSpaces.UpdateRulesOfIpGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,7 +90,8 @@ instance Core.AWSRequest UpdateRulesOfIpGroup where
   type
     AWSResponse UpdateRulesOfIpGroup =
       UpdateRulesOfIpGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -107,34 +109,34 @@ instance Prelude.NFData UpdateRulesOfIpGroup where
     Prelude.rnf groupId
       `Prelude.seq` Prelude.rnf userRules
 
-instance Core.ToHeaders UpdateRulesOfIpGroup where
+instance Data.ToHeaders UpdateRulesOfIpGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.UpdateRulesOfIpGroup" ::
+              Data.=# ( "WorkspacesService.UpdateRulesOfIpGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRulesOfIpGroup where
+instance Data.ToJSON UpdateRulesOfIpGroup where
   toJSON UpdateRulesOfIpGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("GroupId" Core..= groupId),
-            Prelude.Just ("UserRules" Core..= userRules)
+          [ Prelude.Just ("GroupId" Data..= groupId),
+            Prelude.Just ("UserRules" Data..= userRules)
           ]
       )
 
-instance Core.ToPath UpdateRulesOfIpGroup where
+instance Data.ToPath UpdateRulesOfIpGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateRulesOfIpGroup where
+instance Data.ToQuery UpdateRulesOfIpGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateRulesOfIpGroupResponse' smart constructor.

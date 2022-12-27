@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.ListInvitations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Lists all GuardDuty membership invitations that were sent to the current
--- AWS account.
+-- Amazon Web Services account.
 --
 -- This operation returns paginated results.
 module Amazonka.GuardDuty.ListInvitations
@@ -30,8 +30,8 @@ module Amazonka.GuardDuty.ListInvitations
     newListInvitations,
 
     -- * Request Lenses
-    listInvitations_nextToken,
     listInvitations_maxResults,
+    listInvitations_nextToken,
 
     -- * Destructuring the Response
     ListInvitationsResponse (..),
@@ -45,23 +45,24 @@ module Amazonka.GuardDuty.ListInvitations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListInvitations' smart constructor.
 data ListInvitations = ListInvitations'
-  { -- | You can use this parameter when paginating results. Set the value of
+  { -- | You can use this parameter to indicate the maximum number of items that
+    -- you want in the response. The default value is 50. The maximum value is
+    -- 50.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | You can use this parameter when paginating results. Set the value of
     -- this parameter to null on your first call to the list action. For
     -- subsequent calls to the action, fill nextToken in the request with the
     -- value of NextToken from the previous response to continue listing data.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | You can use this parameter to indicate the maximum number of items that
-    -- you want in the response. The default value is 50. The maximum value is
-    -- 50.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,21 +74,27 @@ data ListInvitations = ListInvitations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listInvitations_maxResults' - You can use this parameter to indicate the maximum number of items that
+-- you want in the response. The default value is 50. The maximum value is
+-- 50.
+--
 -- 'nextToken', 'listInvitations_nextToken' - You can use this parameter when paginating results. Set the value of
 -- this parameter to null on your first call to the list action. For
 -- subsequent calls to the action, fill nextToken in the request with the
 -- value of NextToken from the previous response to continue listing data.
---
--- 'maxResults', 'listInvitations_maxResults' - You can use this parameter to indicate the maximum number of items that
--- you want in the response. The default value is 50. The maximum value is
--- 50.
 newListInvitations ::
   ListInvitations
 newListInvitations =
   ListInvitations'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | You can use this parameter to indicate the maximum number of items that
+-- you want in the response. The default value is 50. The maximum value is
+-- 50.
+listInvitations_maxResults :: Lens.Lens' ListInvitations (Prelude.Maybe Prelude.Natural)
+listInvitations_maxResults = Lens.lens (\ListInvitations' {maxResults} -> maxResults) (\s@ListInvitations' {} a -> s {maxResults = a} :: ListInvitations)
 
 -- | You can use this parameter when paginating results. Set the value of
 -- this parameter to null on your first call to the list action. For
@@ -95,12 +102,6 @@ newListInvitations =
 -- value of NextToken from the previous response to continue listing data.
 listInvitations_nextToken :: Lens.Lens' ListInvitations (Prelude.Maybe Prelude.Text)
 listInvitations_nextToken = Lens.lens (\ListInvitations' {nextToken} -> nextToken) (\s@ListInvitations' {} a -> s {nextToken = a} :: ListInvitations)
-
--- | You can use this parameter to indicate the maximum number of items that
--- you want in the response. The default value is 50. The maximum value is
--- 50.
-listInvitations_maxResults :: Lens.Lens' ListInvitations (Prelude.Maybe Prelude.Natural)
-listInvitations_maxResults = Lens.lens (\ListInvitations' {maxResults} -> maxResults) (\s@ListInvitations' {} a -> s {maxResults = a} :: ListInvitations)
 
 instance Core.AWSPager ListInvitations where
   page rq rs
@@ -128,45 +129,46 @@ instance Core.AWSRequest ListInvitations where
   type
     AWSResponse ListInvitations =
       ListInvitationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListInvitationsResponse'
-            Prelude.<$> (x Core..?> "invitations" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "invitations" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListInvitations where
   hashWithSalt _salt ListInvitations' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListInvitations where
   rnf ListInvitations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListInvitations where
+instance Data.ToHeaders ListInvitations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListInvitations where
+instance Data.ToPath ListInvitations where
   toPath = Prelude.const "/invitation"
 
-instance Core.ToQuery ListInvitations where
+instance Data.ToQuery ListInvitations where
   toQuery ListInvitations' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListInvitationsResponse' smart constructor.

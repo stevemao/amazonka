@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.DescribeWorkingStorage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,8 @@ module Amazonka.StorageGateway.DescribeWorkingStorage
     newDescribeWorkingStorageResponse,
 
     -- * Response Lenses
-    describeWorkingStorageResponse_gatewayARN,
     describeWorkingStorageResponse_diskIds,
+    describeWorkingStorageResponse_gatewayARN,
     describeWorkingStorageResponse_workingStorageAllocatedInBytes,
     describeWorkingStorageResponse_workingStorageUsedInBytes,
     describeWorkingStorageResponse_httpStatus,
@@ -53,7 +53,8 @@ module Amazonka.StorageGateway.DescribeWorkingStorage
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,15 +92,16 @@ instance Core.AWSRequest DescribeWorkingStorage where
   type
     AWSResponse DescribeWorkingStorage =
       DescribeWorkingStorageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeWorkingStorageResponse'
-            Prelude.<$> (x Core..?> "GatewayARN")
-            Prelude.<*> (x Core..?> "DiskIds" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "WorkingStorageAllocatedInBytes")
-            Prelude.<*> (x Core..?> "WorkingStorageUsedInBytes")
+            Prelude.<$> (x Data..?> "DiskIds" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "GatewayARN")
+            Prelude.<*> (x Data..?> "WorkingStorageAllocatedInBytes")
+            Prelude.<*> (x Data..?> "WorkingStorageUsedInBytes")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,44 +113,44 @@ instance Prelude.NFData DescribeWorkingStorage where
   rnf DescribeWorkingStorage' {..} =
     Prelude.rnf gatewayARN
 
-instance Core.ToHeaders DescribeWorkingStorage where
+instance Data.ToHeaders DescribeWorkingStorage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.DescribeWorkingStorage" ::
+              Data.=# ( "StorageGateway_20130630.DescribeWorkingStorage" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeWorkingStorage where
+instance Data.ToJSON DescribeWorkingStorage where
   toJSON DescribeWorkingStorage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("GatewayARN" Core..= gatewayARN)]
+          [Prelude.Just ("GatewayARN" Data..= gatewayARN)]
       )
 
-instance Core.ToPath DescribeWorkingStorage where
+instance Data.ToPath DescribeWorkingStorage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeWorkingStorage where
+instance Data.ToQuery DescribeWorkingStorage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A JSON object containing the following fields:
 --
 -- /See:/ 'newDescribeWorkingStorageResponse' smart constructor.
 data DescribeWorkingStorageResponse = DescribeWorkingStorageResponse'
-  { gatewayARN :: Prelude.Maybe Prelude.Text,
-    -- | An array of the gateway\'s local disk IDs that are configured as working
+  { -- | An array of the gateway\'s local disk IDs that are configured as working
     -- storage. Each local disk ID is specified as a string (minimum length of
     -- 1 and maximum length of 300). If no local disks are configured as
     -- working storage, then the DiskIds array is empty.
     diskIds :: Prelude.Maybe [Prelude.Text],
+    gatewayARN :: Prelude.Maybe Prelude.Text,
     -- | The total working storage in bytes allocated for the gateway. If no
     -- working storage is configured for the gateway, this field returns 0.
     workingStorageAllocatedInBytes :: Prelude.Maybe Prelude.Integer,
@@ -168,12 +170,12 @@ data DescribeWorkingStorageResponse = DescribeWorkingStorageResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'gatewayARN', 'describeWorkingStorageResponse_gatewayARN' - Undocumented member.
---
 -- 'diskIds', 'describeWorkingStorageResponse_diskIds' - An array of the gateway\'s local disk IDs that are configured as working
 -- storage. Each local disk ID is specified as a string (minimum length of
 -- 1 and maximum length of 300). If no local disks are configured as
 -- working storage, then the DiskIds array is empty.
+--
+-- 'gatewayARN', 'describeWorkingStorageResponse_gatewayARN' - Undocumented member.
 --
 -- 'workingStorageAllocatedInBytes', 'describeWorkingStorageResponse_workingStorageAllocatedInBytes' - The total working storage in bytes allocated for the gateway. If no
 -- working storage is configured for the gateway, this field returns 0.
@@ -188,18 +190,14 @@ newDescribeWorkingStorageResponse ::
   DescribeWorkingStorageResponse
 newDescribeWorkingStorageResponse pHttpStatus_ =
   DescribeWorkingStorageResponse'
-    { gatewayARN =
+    { diskIds =
         Prelude.Nothing,
-      diskIds = Prelude.Nothing,
+      gatewayARN = Prelude.Nothing,
       workingStorageAllocatedInBytes =
         Prelude.Nothing,
       workingStorageUsedInBytes = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Undocumented member.
-describeWorkingStorageResponse_gatewayARN :: Lens.Lens' DescribeWorkingStorageResponse (Prelude.Maybe Prelude.Text)
-describeWorkingStorageResponse_gatewayARN = Lens.lens (\DescribeWorkingStorageResponse' {gatewayARN} -> gatewayARN) (\s@DescribeWorkingStorageResponse' {} a -> s {gatewayARN = a} :: DescribeWorkingStorageResponse)
 
 -- | An array of the gateway\'s local disk IDs that are configured as working
 -- storage. Each local disk ID is specified as a string (minimum length of
@@ -207,6 +205,10 @@ describeWorkingStorageResponse_gatewayARN = Lens.lens (\DescribeWorkingStorageRe
 -- working storage, then the DiskIds array is empty.
 describeWorkingStorageResponse_diskIds :: Lens.Lens' DescribeWorkingStorageResponse (Prelude.Maybe [Prelude.Text])
 describeWorkingStorageResponse_diskIds = Lens.lens (\DescribeWorkingStorageResponse' {diskIds} -> diskIds) (\s@DescribeWorkingStorageResponse' {} a -> s {diskIds = a} :: DescribeWorkingStorageResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Undocumented member.
+describeWorkingStorageResponse_gatewayARN :: Lens.Lens' DescribeWorkingStorageResponse (Prelude.Maybe Prelude.Text)
+describeWorkingStorageResponse_gatewayARN = Lens.lens (\DescribeWorkingStorageResponse' {gatewayARN} -> gatewayARN) (\s@DescribeWorkingStorageResponse' {} a -> s {gatewayARN = a} :: DescribeWorkingStorageResponse)
 
 -- | The total working storage in bytes allocated for the gateway. If no
 -- working storage is configured for the gateway, this field returns 0.
@@ -227,8 +229,8 @@ instance
     DescribeWorkingStorageResponse
   where
   rnf DescribeWorkingStorageResponse' {..} =
-    Prelude.rnf gatewayARN
-      `Prelude.seq` Prelude.rnf diskIds
+    Prelude.rnf diskIds
+      `Prelude.seq` Prelude.rnf gatewayARN
       `Prelude.seq` Prelude.rnf workingStorageAllocatedInBytes
       `Prelude.seq` Prelude.rnf workingStorageUsedInBytes
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.Mp2Settings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.Mp2Settings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.Mp2CodingMode
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,13 +29,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMp2Settings' smart constructor.
 data Mp2Settings = Mp2Settings'
-  { -- | The MPEG2 Audio coding mode. Valid values are codingMode10 (for mono) or
+  { -- | Average bitrate in bits\/second.
+    bitrate :: Prelude.Maybe Prelude.Double,
+    -- | The MPEG2 Audio coding mode. Valid values are codingMode10 (for mono) or
     -- codingMode20 (for stereo).
     codingMode :: Prelude.Maybe Mp2CodingMode,
     -- | Sample rate in Hz.
-    sampleRate :: Prelude.Maybe Prelude.Double,
-    -- | Average bitrate in bits\/second.
-    bitrate :: Prelude.Maybe Prelude.Double
+    sampleRate :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,20 +47,24 @@ data Mp2Settings = Mp2Settings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'bitrate', 'mp2Settings_bitrate' - Average bitrate in bits\/second.
+--
 -- 'codingMode', 'mp2Settings_codingMode' - The MPEG2 Audio coding mode. Valid values are codingMode10 (for mono) or
 -- codingMode20 (for stereo).
 --
 -- 'sampleRate', 'mp2Settings_sampleRate' - Sample rate in Hz.
---
--- 'bitrate', 'mp2Settings_bitrate' - Average bitrate in bits\/second.
 newMp2Settings ::
   Mp2Settings
 newMp2Settings =
   Mp2Settings'
-    { codingMode = Prelude.Nothing,
-      sampleRate = Prelude.Nothing,
-      bitrate = Prelude.Nothing
+    { bitrate = Prelude.Nothing,
+      codingMode = Prelude.Nothing,
+      sampleRate = Prelude.Nothing
     }
+
+-- | Average bitrate in bits\/second.
+mp2Settings_bitrate :: Lens.Lens' Mp2Settings (Prelude.Maybe Prelude.Double)
+mp2Settings_bitrate = Lens.lens (\Mp2Settings' {bitrate} -> bitrate) (\s@Mp2Settings' {} a -> s {bitrate = a} :: Mp2Settings)
 
 -- | The MPEG2 Audio coding mode. Valid values are codingMode10 (for mono) or
 -- codingMode20 (for stereo).
@@ -70,39 +75,35 @@ mp2Settings_codingMode = Lens.lens (\Mp2Settings' {codingMode} -> codingMode) (\
 mp2Settings_sampleRate :: Lens.Lens' Mp2Settings (Prelude.Maybe Prelude.Double)
 mp2Settings_sampleRate = Lens.lens (\Mp2Settings' {sampleRate} -> sampleRate) (\s@Mp2Settings' {} a -> s {sampleRate = a} :: Mp2Settings)
 
--- | Average bitrate in bits\/second.
-mp2Settings_bitrate :: Lens.Lens' Mp2Settings (Prelude.Maybe Prelude.Double)
-mp2Settings_bitrate = Lens.lens (\Mp2Settings' {bitrate} -> bitrate) (\s@Mp2Settings' {} a -> s {bitrate = a} :: Mp2Settings)
-
-instance Core.FromJSON Mp2Settings where
+instance Data.FromJSON Mp2Settings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Mp2Settings"
       ( \x ->
           Mp2Settings'
-            Prelude.<$> (x Core..:? "codingMode")
-            Prelude.<*> (x Core..:? "sampleRate")
-            Prelude.<*> (x Core..:? "bitrate")
+            Prelude.<$> (x Data..:? "bitrate")
+            Prelude.<*> (x Data..:? "codingMode")
+            Prelude.<*> (x Data..:? "sampleRate")
       )
 
 instance Prelude.Hashable Mp2Settings where
   hashWithSalt _salt Mp2Settings' {..} =
-    _salt `Prelude.hashWithSalt` codingMode
+    _salt `Prelude.hashWithSalt` bitrate
+      `Prelude.hashWithSalt` codingMode
       `Prelude.hashWithSalt` sampleRate
-      `Prelude.hashWithSalt` bitrate
 
 instance Prelude.NFData Mp2Settings where
   rnf Mp2Settings' {..} =
-    Prelude.rnf codingMode
+    Prelude.rnf bitrate
+      `Prelude.seq` Prelude.rnf codingMode
       `Prelude.seq` Prelude.rnf sampleRate
-      `Prelude.seq` Prelude.rnf bitrate
 
-instance Core.ToJSON Mp2Settings where
+instance Data.ToJSON Mp2Settings where
   toJSON Mp2Settings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("codingMode" Core..=) Prelude.<$> codingMode,
-            ("sampleRate" Core..=) Prelude.<$> sampleRate,
-            ("bitrate" Core..=) Prelude.<$> bitrate
+          [ ("bitrate" Data..=) Prelude.<$> bitrate,
+            ("codingMode" Data..=) Prelude.<$> codingMode,
+            ("sampleRate" Data..=) Prelude.<$> sampleRate
           ]
       )

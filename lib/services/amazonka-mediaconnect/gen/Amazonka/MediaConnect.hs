@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,38 +19,35 @@ module Amazonka.MediaConnect
     -- * Errors
     -- $errors
 
-    -- ** GrantFlowEntitlements420Exception
-    _GrantFlowEntitlements420Exception,
-
-    -- ** ForbiddenException
-    _ForbiddenException,
-
-    -- ** NotFoundException
-    _NotFoundException,
-
-    -- ** CreateFlow420Exception
-    _CreateFlow420Exception,
-
-    -- ** TooManyRequestsException
-    _TooManyRequestsException,
-
-    -- ** InternalServerErrorException
-    _InternalServerErrorException,
-
-    -- ** ServiceUnavailableException
-    _ServiceUnavailableException,
-
     -- ** AddFlowOutputs420Exception
     _AddFlowOutputs420Exception,
 
     -- ** BadRequestException
     _BadRequestException,
 
+    -- ** CreateFlow420Exception
+    _CreateFlow420Exception,
+
+    -- ** ForbiddenException
+    _ForbiddenException,
+
+    -- ** GrantFlowEntitlements420Exception
+    _GrantFlowEntitlements420Exception,
+
+    -- ** InternalServerErrorException
+    _InternalServerErrorException,
+
+    -- ** NotFoundException
+    _NotFoundException,
+
+    -- ** ServiceUnavailableException
+    _ServiceUnavailableException,
+
+    -- ** TooManyRequestsException
+    _TooManyRequestsException,
+
     -- * Waiters
     -- $waiters
-
-    -- ** FlowStandby
-    newFlowStandby,
 
     -- ** FlowActive
     newFlowActive,
@@ -58,56 +55,11 @@ module Amazonka.MediaConnect
     -- ** FlowDeleted
     newFlowDeleted,
 
+    -- ** FlowStandby
+    newFlowStandby,
+
     -- * Operations
     -- $operations
-
-    -- ** RemoveFlowVpcInterface
-    RemoveFlowVpcInterface (RemoveFlowVpcInterface'),
-    newRemoveFlowVpcInterface,
-    RemoveFlowVpcInterfaceResponse (RemoveFlowVpcInterfaceResponse'),
-    newRemoveFlowVpcInterfaceResponse,
-
-    -- ** RemoveFlowMediaStream
-    RemoveFlowMediaStream (RemoveFlowMediaStream'),
-    newRemoveFlowMediaStream,
-    RemoveFlowMediaStreamResponse (RemoveFlowMediaStreamResponse'),
-    newRemoveFlowMediaStreamResponse,
-
-    -- ** UpdateFlowOutput
-    UpdateFlowOutput (UpdateFlowOutput'),
-    newUpdateFlowOutput,
-    UpdateFlowOutputResponse (UpdateFlowOutputResponse'),
-    newUpdateFlowOutputResponse,
-
-    -- ** AddFlowOutputs
-    AddFlowOutputs (AddFlowOutputs'),
-    newAddFlowOutputs,
-    AddFlowOutputsResponse (AddFlowOutputsResponse'),
-    newAddFlowOutputsResponse,
-
-    -- ** StartFlow
-    StartFlow (StartFlow'),
-    newStartFlow,
-    StartFlowResponse (StartFlowResponse'),
-    newStartFlowResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** AddFlowSources
-    AddFlowSources (AddFlowSources'),
-    newAddFlowSources,
-    AddFlowSourcesResponse (AddFlowSourcesResponse'),
-    newAddFlowSourcesResponse,
-
-    -- ** DescribeReservation
-    DescribeReservation (DescribeReservation'),
-    newDescribeReservation,
-    DescribeReservationResponse (DescribeReservationResponse'),
-    newDescribeReservationResponse,
 
     -- ** AddFlowMediaStreams
     AddFlowMediaStreams (AddFlowMediaStreams'),
@@ -115,53 +67,17 @@ module Amazonka.MediaConnect
     AddFlowMediaStreamsResponse (AddFlowMediaStreamsResponse'),
     newAddFlowMediaStreamsResponse,
 
-    -- ** RemoveFlowOutput
-    RemoveFlowOutput (RemoveFlowOutput'),
-    newRemoveFlowOutput,
-    RemoveFlowOutputResponse (RemoveFlowOutputResponse'),
-    newRemoveFlowOutputResponse,
+    -- ** AddFlowOutputs
+    AddFlowOutputs (AddFlowOutputs'),
+    newAddFlowOutputs,
+    AddFlowOutputsResponse (AddFlowOutputsResponse'),
+    newAddFlowOutputsResponse,
 
-    -- ** RevokeFlowEntitlement
-    RevokeFlowEntitlement (RevokeFlowEntitlement'),
-    newRevokeFlowEntitlement,
-    RevokeFlowEntitlementResponse (RevokeFlowEntitlementResponse'),
-    newRevokeFlowEntitlementResponse,
-
-    -- ** CreateFlow
-    CreateFlow (CreateFlow'),
-    newCreateFlow,
-    CreateFlowResponse (CreateFlowResponse'),
-    newCreateFlowResponse,
-
-    -- ** RemoveFlowSource
-    RemoveFlowSource (RemoveFlowSource'),
-    newRemoveFlowSource,
-    RemoveFlowSourceResponse (RemoveFlowSourceResponse'),
-    newRemoveFlowSourceResponse,
-
-    -- ** DescribeFlow
-    DescribeFlow (DescribeFlow'),
-    newDescribeFlow,
-    DescribeFlowResponse (DescribeFlowResponse'),
-    newDescribeFlowResponse,
-
-    -- ** UpdateFlowEntitlement
-    UpdateFlowEntitlement (UpdateFlowEntitlement'),
-    newUpdateFlowEntitlement,
-    UpdateFlowEntitlementResponse (UpdateFlowEntitlementResponse'),
-    newUpdateFlowEntitlementResponse,
-
-    -- ** StopFlow
-    StopFlow (StopFlow'),
-    newStopFlow,
-    StopFlowResponse (StopFlowResponse'),
-    newStopFlowResponse,
-
-    -- ** DescribeOffering
-    DescribeOffering (DescribeOffering'),
-    newDescribeOffering,
-    DescribeOfferingResponse (DescribeOfferingResponse'),
-    newDescribeOfferingResponse,
+    -- ** AddFlowSources
+    AddFlowSources (AddFlowSources'),
+    newAddFlowSources,
+    AddFlowSourcesResponse (AddFlowSourcesResponse'),
+    newAddFlowSourcesResponse,
 
     -- ** AddFlowVpcInterfaces
     AddFlowVpcInterfaces (AddFlowVpcInterfaces'),
@@ -169,17 +85,47 @@ module Amazonka.MediaConnect
     AddFlowVpcInterfacesResponse (AddFlowVpcInterfacesResponse'),
     newAddFlowVpcInterfacesResponse,
 
+    -- ** CreateFlow
+    CreateFlow (CreateFlow'),
+    newCreateFlow,
+    CreateFlowResponse (CreateFlowResponse'),
+    newCreateFlowResponse,
+
+    -- ** DeleteFlow
+    DeleteFlow (DeleteFlow'),
+    newDeleteFlow,
+    DeleteFlowResponse (DeleteFlowResponse'),
+    newDeleteFlowResponse,
+
+    -- ** DescribeFlow
+    DescribeFlow (DescribeFlow'),
+    newDescribeFlow,
+    DescribeFlowResponse (DescribeFlowResponse'),
+    newDescribeFlowResponse,
+
+    -- ** DescribeOffering
+    DescribeOffering (DescribeOffering'),
+    newDescribeOffering,
+    DescribeOfferingResponse (DescribeOfferingResponse'),
+    newDescribeOfferingResponse,
+
+    -- ** DescribeReservation
+    DescribeReservation (DescribeReservation'),
+    newDescribeReservation,
+    DescribeReservationResponse (DescribeReservationResponse'),
+    newDescribeReservationResponse,
+
+    -- ** GrantFlowEntitlements
+    GrantFlowEntitlements (GrantFlowEntitlements'),
+    newGrantFlowEntitlements,
+    GrantFlowEntitlementsResponse (GrantFlowEntitlementsResponse'),
+    newGrantFlowEntitlementsResponse,
+
     -- ** ListEntitlements (Paginated)
     ListEntitlements (ListEntitlements'),
     newListEntitlements,
     ListEntitlementsResponse (ListEntitlementsResponse'),
     newListEntitlementsResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
 
     -- ** ListFlows (Paginated)
     ListFlows (ListFlows'),
@@ -187,17 +133,77 @@ module Amazonka.MediaConnect
     ListFlowsResponse (ListFlowsResponse'),
     newListFlowsResponse,
 
+    -- ** ListOfferings (Paginated)
+    ListOfferings (ListOfferings'),
+    newListOfferings,
+    ListOfferingsResponse (ListOfferingsResponse'),
+    newListOfferingsResponse,
+
+    -- ** ListReservations (Paginated)
+    ListReservations (ListReservations'),
+    newListReservations,
+    ListReservationsResponse (ListReservationsResponse'),
+    newListReservationsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
     -- ** PurchaseOffering
     PurchaseOffering (PurchaseOffering'),
     newPurchaseOffering,
     PurchaseOfferingResponse (PurchaseOfferingResponse'),
     newPurchaseOfferingResponse,
 
-    -- ** UpdateFlowMediaStream
-    UpdateFlowMediaStream (UpdateFlowMediaStream'),
-    newUpdateFlowMediaStream,
-    UpdateFlowMediaStreamResponse (UpdateFlowMediaStreamResponse'),
-    newUpdateFlowMediaStreamResponse,
+    -- ** RemoveFlowMediaStream
+    RemoveFlowMediaStream (RemoveFlowMediaStream'),
+    newRemoveFlowMediaStream,
+    RemoveFlowMediaStreamResponse (RemoveFlowMediaStreamResponse'),
+    newRemoveFlowMediaStreamResponse,
+
+    -- ** RemoveFlowOutput
+    RemoveFlowOutput (RemoveFlowOutput'),
+    newRemoveFlowOutput,
+    RemoveFlowOutputResponse (RemoveFlowOutputResponse'),
+    newRemoveFlowOutputResponse,
+
+    -- ** RemoveFlowSource
+    RemoveFlowSource (RemoveFlowSource'),
+    newRemoveFlowSource,
+    RemoveFlowSourceResponse (RemoveFlowSourceResponse'),
+    newRemoveFlowSourceResponse,
+
+    -- ** RemoveFlowVpcInterface
+    RemoveFlowVpcInterface (RemoveFlowVpcInterface'),
+    newRemoveFlowVpcInterface,
+    RemoveFlowVpcInterfaceResponse (RemoveFlowVpcInterfaceResponse'),
+    newRemoveFlowVpcInterfaceResponse,
+
+    -- ** RevokeFlowEntitlement
+    RevokeFlowEntitlement (RevokeFlowEntitlement'),
+    newRevokeFlowEntitlement,
+    RevokeFlowEntitlementResponse (RevokeFlowEntitlementResponse'),
+    newRevokeFlowEntitlementResponse,
+
+    -- ** StartFlow
+    StartFlow (StartFlow'),
+    newStartFlow,
+    StartFlowResponse (StartFlowResponse'),
+    newStartFlowResponse,
+
+    -- ** StopFlow
+    StopFlow (StopFlow'),
+    newStopFlow,
+    StopFlowResponse (StopFlowResponse'),
+    newStopFlowResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
     -- ** UntagResource
     UntagResource (UntagResource'),
@@ -211,35 +217,29 @@ module Amazonka.MediaConnect
     UpdateFlowResponse (UpdateFlowResponse'),
     newUpdateFlowResponse,
 
-    -- ** DeleteFlow
-    DeleteFlow (DeleteFlow'),
-    newDeleteFlow,
-    DeleteFlowResponse (DeleteFlowResponse'),
-    newDeleteFlowResponse,
+    -- ** UpdateFlowEntitlement
+    UpdateFlowEntitlement (UpdateFlowEntitlement'),
+    newUpdateFlowEntitlement,
+    UpdateFlowEntitlementResponse (UpdateFlowEntitlementResponse'),
+    newUpdateFlowEntitlementResponse,
+
+    -- ** UpdateFlowMediaStream
+    UpdateFlowMediaStream (UpdateFlowMediaStream'),
+    newUpdateFlowMediaStream,
+    UpdateFlowMediaStreamResponse (UpdateFlowMediaStreamResponse'),
+    newUpdateFlowMediaStreamResponse,
+
+    -- ** UpdateFlowOutput
+    UpdateFlowOutput (UpdateFlowOutput'),
+    newUpdateFlowOutput,
+    UpdateFlowOutputResponse (UpdateFlowOutputResponse'),
+    newUpdateFlowOutputResponse,
 
     -- ** UpdateFlowSource
     UpdateFlowSource (UpdateFlowSource'),
     newUpdateFlowSource,
     UpdateFlowSourceResponse (UpdateFlowSourceResponse'),
     newUpdateFlowSourceResponse,
-
-    -- ** GrantFlowEntitlements
-    GrantFlowEntitlements (GrantFlowEntitlements'),
-    newGrantFlowEntitlements,
-    GrantFlowEntitlementsResponse (GrantFlowEntitlementsResponse'),
-    newGrantFlowEntitlementsResponse,
-
-    -- ** ListReservations (Paginated)
-    ListReservations (ListReservations'),
-    newListReservations,
-    ListReservationsResponse (ListReservationsResponse'),
-    newListReservationsResponse,
-
-    -- ** ListOfferings (Paginated)
-    ListOfferings (ListOfferings'),
-    newListOfferings,
-    ListOfferingsResponse (ListOfferingsResponse'),
-    newListOfferingsResponse,
 
     -- * Types
 
@@ -266,6 +266,9 @@ module Amazonka.MediaConnect
 
     -- ** KeyType
     KeyType (..),
+
+    -- ** MaintenanceDay
+    MaintenanceDay (..),
 
     -- ** MediaStreamType
     MediaStreamType (..),
@@ -302,6 +305,10 @@ module Amazonka.MediaConnect
 
     -- ** Tcs
     Tcs (..),
+
+    -- ** AddMaintenance
+    AddMaintenance (AddMaintenance'),
+    newAddMaintenance,
 
     -- ** AddMediaStreamRequest
     AddMediaStreamRequest (AddMediaStreamRequest'),
@@ -379,6 +386,10 @@ module Amazonka.MediaConnect
     ListedFlow (ListedFlow'),
     newListedFlow,
 
+    -- ** Maintenance
+    Maintenance (Maintenance'),
+    newMaintenance,
+
     -- ** MediaStream
     MediaStream (MediaStream'),
     newMediaStream,
@@ -450,6 +461,10 @@ module Amazonka.MediaConnect
     -- ** UpdateFailoverConfig
     UpdateFailoverConfig (UpdateFailoverConfig'),
     newUpdateFailoverConfig,
+
+    -- ** UpdateMaintenance
+    UpdateMaintenance (UpdateMaintenance'),
+    newUpdateMaintenance,
 
     -- ** VpcInterface
     VpcInterface (VpcInterface'),

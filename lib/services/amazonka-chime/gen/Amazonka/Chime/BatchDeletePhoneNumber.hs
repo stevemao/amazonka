@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.BatchDeletePhoneNumber
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,12 +86,13 @@ instance Core.AWSRequest BatchDeletePhoneNumber where
   type
     AWSResponse BatchDeletePhoneNumber =
       BatchDeletePhoneNumberResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDeletePhoneNumberResponse'
-            Prelude.<$> ( x Core..?> "PhoneNumberErrors"
+            Prelude.<$> ( x Data..?> "PhoneNumberErrors"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -104,22 +106,22 @@ instance Prelude.NFData BatchDeletePhoneNumber where
   rnf BatchDeletePhoneNumber' {..} =
     Prelude.rnf phoneNumberIds
 
-instance Core.ToHeaders BatchDeletePhoneNumber where
+instance Data.ToHeaders BatchDeletePhoneNumber where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON BatchDeletePhoneNumber where
+instance Data.ToJSON BatchDeletePhoneNumber where
   toJSON BatchDeletePhoneNumber' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("PhoneNumberIds" Core..= phoneNumberIds)
+              ("PhoneNumberIds" Data..= phoneNumberIds)
           ]
       )
 
-instance Core.ToPath BatchDeletePhoneNumber where
+instance Data.ToPath BatchDeletePhoneNumber where
   toPath = Prelude.const "/phone-numbers"
 
-instance Core.ToQuery BatchDeletePhoneNumber where
+instance Data.ToQuery BatchDeletePhoneNumber where
   toQuery =
     Prelude.const
       (Prelude.mconcat ["operation=batch-delete"])

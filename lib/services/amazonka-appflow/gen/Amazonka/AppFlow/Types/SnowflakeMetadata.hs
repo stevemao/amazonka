@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.SnowflakeMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.SnowflakeMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The connector metadata specific to Snowflake.
@@ -56,14 +57,14 @@ newSnowflakeMetadata =
 snowflakeMetadata_supportedRegions :: Lens.Lens' SnowflakeMetadata (Prelude.Maybe [Prelude.Text])
 snowflakeMetadata_supportedRegions = Lens.lens (\SnowflakeMetadata' {supportedRegions} -> supportedRegions) (\s@SnowflakeMetadata' {} a -> s {supportedRegions = a} :: SnowflakeMetadata) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON SnowflakeMetadata where
+instance Data.FromJSON SnowflakeMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SnowflakeMetadata"
       ( \x ->
           SnowflakeMetadata'
-            Prelude.<$> ( x Core..:? "supportedRegions"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "supportedRegions"
+                            Data..!= Prelude.mempty
                         )
       )
 

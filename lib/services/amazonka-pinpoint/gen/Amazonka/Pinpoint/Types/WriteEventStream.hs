@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.WriteEventStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.WriteEventStream where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the Amazon Resource Name (ARN) of an event stream to publish
@@ -104,14 +105,14 @@ instance Prelude.NFData WriteEventStream where
     Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf destinationStreamArn
 
-instance Core.ToJSON WriteEventStream where
+instance Data.ToJSON WriteEventStream where
   toJSON WriteEventStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("RoleArn" Core..= roleArn),
+          [ Prelude.Just ("RoleArn" Data..= roleArn),
             Prelude.Just
               ( "DestinationStreamArn"
-                  Core..= destinationStreamArn
+                  Data..= destinationStreamArn
               )
           ]
       )

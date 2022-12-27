@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.ModifyDBProxyTargetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.RDS.ModifyDBProxyTargetGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -58,9 +59,9 @@ data ModifyDBProxyTargetGroup = ModifyDBProxyTargetGroup'
     -- with a letter and must contain only ASCII letters, digits, and hyphens;
     -- it can\'t end with a hyphen or contain two consecutive hyphens.
     newName' :: Prelude.Maybe Prelude.Text,
-    -- | The name of the new target group to assign to the proxy.
+    -- | The name of the target group to modify.
     targetGroupName :: Prelude.Text,
-    -- | The name of the new proxy to which to assign the target group.
+    -- | The name of the proxy.
     dbProxyName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -80,9 +81,9 @@ data ModifyDBProxyTargetGroup = ModifyDBProxyTargetGroup'
 -- with a letter and must contain only ASCII letters, digits, and hyphens;
 -- it can\'t end with a hyphen or contain two consecutive hyphens.
 --
--- 'targetGroupName', 'modifyDBProxyTargetGroup_targetGroupName' - The name of the new target group to assign to the proxy.
+-- 'targetGroupName', 'modifyDBProxyTargetGroup_targetGroupName' - The name of the target group to modify.
 --
--- 'dbProxyName', 'modifyDBProxyTargetGroup_dbProxyName' - The name of the new proxy to which to assign the target group.
+-- 'dbProxyName', 'modifyDBProxyTargetGroup_dbProxyName' - The name of the proxy.
 newModifyDBProxyTargetGroup ::
   -- | 'targetGroupName'
   Prelude.Text ->
@@ -111,11 +112,11 @@ modifyDBProxyTargetGroup_connectionPoolConfig = Lens.lens (\ModifyDBProxyTargetG
 modifyDBProxyTargetGroup_newName :: Lens.Lens' ModifyDBProxyTargetGroup (Prelude.Maybe Prelude.Text)
 modifyDBProxyTargetGroup_newName = Lens.lens (\ModifyDBProxyTargetGroup' {newName'} -> newName') (\s@ModifyDBProxyTargetGroup' {} a -> s {newName' = a} :: ModifyDBProxyTargetGroup)
 
--- | The name of the new target group to assign to the proxy.
+-- | The name of the target group to modify.
 modifyDBProxyTargetGroup_targetGroupName :: Lens.Lens' ModifyDBProxyTargetGroup Prelude.Text
 modifyDBProxyTargetGroup_targetGroupName = Lens.lens (\ModifyDBProxyTargetGroup' {targetGroupName} -> targetGroupName) (\s@ModifyDBProxyTargetGroup' {} a -> s {targetGroupName = a} :: ModifyDBProxyTargetGroup)
 
--- | The name of the new proxy to which to assign the target group.
+-- | The name of the proxy.
 modifyDBProxyTargetGroup_dbProxyName :: Lens.Lens' ModifyDBProxyTargetGroup Prelude.Text
 modifyDBProxyTargetGroup_dbProxyName = Lens.lens (\ModifyDBProxyTargetGroup' {dbProxyName} -> dbProxyName) (\s@ModifyDBProxyTargetGroup' {} a -> s {dbProxyName = a} :: ModifyDBProxyTargetGroup)
 
@@ -123,13 +124,14 @@ instance Core.AWSRequest ModifyDBProxyTargetGroup where
   type
     AWSResponse ModifyDBProxyTargetGroup =
       ModifyDBProxyTargetGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyDBProxyTargetGroupResult"
       ( \s h x ->
           ModifyDBProxyTargetGroupResponse'
-            Prelude.<$> (x Core..@? "DBProxyTargetGroup")
+            Prelude.<$> (x Data..@? "DBProxyTargetGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,23 +149,23 @@ instance Prelude.NFData ModifyDBProxyTargetGroup where
       `Prelude.seq` Prelude.rnf targetGroupName
       `Prelude.seq` Prelude.rnf dbProxyName
 
-instance Core.ToHeaders ModifyDBProxyTargetGroup where
+instance Data.ToHeaders ModifyDBProxyTargetGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyDBProxyTargetGroup where
+instance Data.ToPath ModifyDBProxyTargetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyDBProxyTargetGroup where
+instance Data.ToQuery ModifyDBProxyTargetGroup where
   toQuery ModifyDBProxyTargetGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyDBProxyTargetGroup" :: Prelude.ByteString),
+          Data.=: ("ModifyDBProxyTargetGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "ConnectionPoolConfig" Core.=: connectionPoolConfig,
-        "NewName" Core.=: newName',
-        "TargetGroupName" Core.=: targetGroupName,
-        "DBProxyName" Core.=: dbProxyName
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "ConnectionPoolConfig" Data.=: connectionPoolConfig,
+        "NewName" Data.=: newName',
+        "TargetGroupName" Data.=: targetGroupName,
+        "DBProxyName" Data.=: dbProxyName
       ]
 
 -- | /See:/ 'newModifyDBProxyTargetGroupResponse' smart constructor.

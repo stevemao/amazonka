@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.Polly.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,10 +14,23 @@
 module Amazonka.Polly.Lens
   ( -- * Operations
 
+    -- ** DeleteLexicon
+    deleteLexicon_name,
+    deleteLexiconResponse_httpStatus,
+
+    -- ** DescribeVoices
+    describeVoices_engine,
+    describeVoices_includeAdditionalLanguageCodes,
+    describeVoices_languageCode,
+    describeVoices_nextToken,
+    describeVoicesResponse_nextToken,
+    describeVoicesResponse_voices,
+    describeVoicesResponse_httpStatus,
+
     -- ** GetLexicon
     getLexicon_name,
-    getLexiconResponse_lexiconAttributes,
     getLexiconResponse_lexicon,
+    getLexiconResponse_lexiconAttributes,
     getLexiconResponse_httpStatus,
 
     -- ** GetSpeechSynthesisTask
@@ -25,40 +38,16 @@ module Amazonka.Polly.Lens
     getSpeechSynthesisTaskResponse_synthesisTask,
     getSpeechSynthesisTaskResponse_httpStatus,
 
-    -- ** DescribeVoices
-    describeVoices_languageCode,
-    describeVoices_engine,
-    describeVoices_nextToken,
-    describeVoices_includeAdditionalLanguageCodes,
-    describeVoicesResponse_nextToken,
-    describeVoicesResponse_voices,
-    describeVoicesResponse_httpStatus,
-
     -- ** ListLexicons
     listLexicons_nextToken,
     listLexiconsResponse_lexicons,
     listLexiconsResponse_nextToken,
     listLexiconsResponse_httpStatus,
 
-    -- ** SynthesizeSpeech
-    synthesizeSpeech_languageCode,
-    synthesizeSpeech_engine,
-    synthesizeSpeech_speechMarkTypes,
-    synthesizeSpeech_sampleRate,
-    synthesizeSpeech_textType,
-    synthesizeSpeech_lexiconNames,
-    synthesizeSpeech_outputFormat,
-    synthesizeSpeech_text,
-    synthesizeSpeech_voiceId,
-    synthesizeSpeechResponse_requestCharacters,
-    synthesizeSpeechResponse_contentType,
-    synthesizeSpeechResponse_httpStatus,
-    synthesizeSpeechResponse_audioStream,
-
     -- ** ListSpeechSynthesisTasks
-    listSpeechSynthesisTasks_status,
-    listSpeechSynthesisTasks_nextToken,
     listSpeechSynthesisTasks_maxResults,
+    listSpeechSynthesisTasks_nextToken,
+    listSpeechSynthesisTasks_status,
     listSpeechSynthesisTasksResponse_nextToken,
     listSpeechSynthesisTasksResponse_synthesisTasks,
     listSpeechSynthesisTasksResponse_httpStatus,
@@ -68,25 +57,36 @@ module Amazonka.Polly.Lens
     putLexicon_content,
     putLexiconResponse_httpStatus,
 
-    -- ** DeleteLexicon
-    deleteLexicon_name,
-    deleteLexiconResponse_httpStatus,
-
     -- ** StartSpeechSynthesisTask
-    startSpeechSynthesisTask_languageCode,
-    startSpeechSynthesisTask_snsTopicArn,
-    startSpeechSynthesisTask_outputS3KeyPrefix,
     startSpeechSynthesisTask_engine,
-    startSpeechSynthesisTask_speechMarkTypes,
-    startSpeechSynthesisTask_sampleRate,
-    startSpeechSynthesisTask_textType,
+    startSpeechSynthesisTask_languageCode,
     startSpeechSynthesisTask_lexiconNames,
+    startSpeechSynthesisTask_outputS3KeyPrefix,
+    startSpeechSynthesisTask_sampleRate,
+    startSpeechSynthesisTask_snsTopicArn,
+    startSpeechSynthesisTask_speechMarkTypes,
+    startSpeechSynthesisTask_textType,
     startSpeechSynthesisTask_outputFormat,
     startSpeechSynthesisTask_outputS3BucketName,
     startSpeechSynthesisTask_text,
     startSpeechSynthesisTask_voiceId,
     startSpeechSynthesisTaskResponse_synthesisTask,
     startSpeechSynthesisTaskResponse_httpStatus,
+
+    -- ** SynthesizeSpeech
+    synthesizeSpeech_engine,
+    synthesizeSpeech_languageCode,
+    synthesizeSpeech_lexiconNames,
+    synthesizeSpeech_sampleRate,
+    synthesizeSpeech_speechMarkTypes,
+    synthesizeSpeech_textType,
+    synthesizeSpeech_outputFormat,
+    synthesizeSpeech_text,
+    synthesizeSpeech_voiceId,
+    synthesizeSpeechResponse_contentType,
+    synthesizeSpeechResponse_requestCharacters,
+    synthesizeSpeechResponse_httpStatus,
+    synthesizeSpeechResponse_audioStream,
 
     -- * Types
 
@@ -95,12 +95,12 @@ module Amazonka.Polly.Lens
     lexicon_name,
 
     -- ** LexiconAttributes
+    lexiconAttributes_alphabet,
     lexiconAttributes_languageCode,
-    lexiconAttributes_size,
+    lexiconAttributes_lastModified,
     lexiconAttributes_lexemesCount,
     lexiconAttributes_lexiconArn,
-    lexiconAttributes_alphabet,
-    lexiconAttributes_lastModified,
+    lexiconAttributes_size,
 
     -- ** LexiconDescription
     lexiconDescription_attributes,
@@ -108,28 +108,28 @@ module Amazonka.Polly.Lens
 
     -- ** SynthesisTask
     synthesisTask_creationTime,
-    synthesisTask_languageCode,
-    synthesisTask_snsTopicArn,
-    synthesisTask_taskStatusReason,
-    synthesisTask_taskId,
-    synthesisTask_requestCharacters,
     synthesisTask_engine,
-    synthesisTask_speechMarkTypes,
-    synthesisTask_sampleRate,
+    synthesisTask_languageCode,
+    synthesisTask_lexiconNames,
     synthesisTask_outputFormat,
+    synthesisTask_outputUri,
+    synthesisTask_requestCharacters,
+    synthesisTask_sampleRate,
+    synthesisTask_snsTopicArn,
+    synthesisTask_speechMarkTypes,
+    synthesisTask_taskId,
+    synthesisTask_taskStatus,
+    synthesisTask_taskStatusReason,
     synthesisTask_textType,
     synthesisTask_voiceId,
-    synthesisTask_lexiconNames,
-    synthesisTask_taskStatus,
-    synthesisTask_outputUri,
 
     -- ** Voice
+    voice_additionalLanguageCodes,
+    voice_gender,
+    voice_id,
     voice_languageCode,
     voice_languageName,
-    voice_gender,
     voice_name,
-    voice_id,
-    voice_additionalLanguageCodes,
     voice_supportedEngines,
   )
 where

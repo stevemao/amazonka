@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.Types.ActivitySucceededEventDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.StepFunctions.Types.ActivitySucceededEventDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.StepFunctions.Types.HistoryEventExecutionDataDetails
 
@@ -31,7 +32,7 @@ import Amazonka.StepFunctions.Types.HistoryEventExecutionDataDetails
 data ActivitySucceededEventDetails = ActivitySucceededEventDetails'
   { -- | The JSON data output by the activity task. Length constraints apply to
     -- the payload size, and are expressed as bytes in UTF-8 encoding.
-    output :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    output :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | Contains details about the output of an execution history event.
     outputDetails :: Prelude.Maybe HistoryEventExecutionDataDetails
   }
@@ -61,20 +62,20 @@ newActivitySucceededEventDetails =
 -- | The JSON data output by the activity task. Length constraints apply to
 -- the payload size, and are expressed as bytes in UTF-8 encoding.
 activitySucceededEventDetails_output :: Lens.Lens' ActivitySucceededEventDetails (Prelude.Maybe Prelude.Text)
-activitySucceededEventDetails_output = Lens.lens (\ActivitySucceededEventDetails' {output} -> output) (\s@ActivitySucceededEventDetails' {} a -> s {output = a} :: ActivitySucceededEventDetails) Prelude.. Lens.mapping Core._Sensitive
+activitySucceededEventDetails_output = Lens.lens (\ActivitySucceededEventDetails' {output} -> output) (\s@ActivitySucceededEventDetails' {} a -> s {output = a} :: ActivitySucceededEventDetails) Prelude.. Lens.mapping Data._Sensitive
 
 -- | Contains details about the output of an execution history event.
 activitySucceededEventDetails_outputDetails :: Lens.Lens' ActivitySucceededEventDetails (Prelude.Maybe HistoryEventExecutionDataDetails)
 activitySucceededEventDetails_outputDetails = Lens.lens (\ActivitySucceededEventDetails' {outputDetails} -> outputDetails) (\s@ActivitySucceededEventDetails' {} a -> s {outputDetails = a} :: ActivitySucceededEventDetails)
 
-instance Core.FromJSON ActivitySucceededEventDetails where
+instance Data.FromJSON ActivitySucceededEventDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActivitySucceededEventDetails"
       ( \x ->
           ActivitySucceededEventDetails'
-            Prelude.<$> (x Core..:? "output")
-            Prelude.<*> (x Core..:? "outputDetails")
+            Prelude.<$> (x Data..:? "output")
+            Prelude.<*> (x Data..:? "outputDetails")
       )
 
 instance

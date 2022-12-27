@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.ListUsersInGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.CognitoIdentityProvider.ListUsersInGroup
     newListUsersInGroup,
 
     -- * Request Lenses
-    listUsersInGroup_nextToken,
     listUsersInGroup_limit,
+    listUsersInGroup_nextToken,
     listUsersInGroup_userPoolId,
     listUsersInGroup_groupName,
 
@@ -41,27 +41,28 @@ module Amazonka.CognitoIdentityProvider.ListUsersInGroup
     newListUsersInGroupResponse,
 
     -- * Response Lenses
-    listUsersInGroupResponse_users,
     listUsersInGroupResponse_nextToken,
+    listUsersInGroupResponse_users,
     listUsersInGroupResponse_httpStatus,
   )
 where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListUsersInGroup' smart constructor.
 data ListUsersInGroup = ListUsersInGroup'
-  { -- | An identifier that was returned from the previous call to this
+  { -- | The limit of the request to list users.
+    limit :: Prelude.Maybe Prelude.Natural,
+    -- | An identifier that was returned from the previous call to this
     -- operation, which can be used to return the next set of items in the
     -- list.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The limit of the request to list users.
-    limit :: Prelude.Maybe Prelude.Natural,
     -- | The user pool ID for the user pool.
     userPoolId :: Prelude.Text,
     -- | The name of the group.
@@ -77,11 +78,11 @@ data ListUsersInGroup = ListUsersInGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'limit', 'listUsersInGroup_limit' - The limit of the request to list users.
+--
 -- 'nextToken', 'listUsersInGroup_nextToken' - An identifier that was returned from the previous call to this
 -- operation, which can be used to return the next set of items in the
 -- list.
---
--- 'limit', 'listUsersInGroup_limit' - The limit of the request to list users.
 --
 -- 'userPoolId', 'listUsersInGroup_userPoolId' - The user pool ID for the user pool.
 --
@@ -94,21 +95,21 @@ newListUsersInGroup ::
   ListUsersInGroup
 newListUsersInGroup pUserPoolId_ pGroupName_ =
   ListUsersInGroup'
-    { nextToken = Prelude.Nothing,
-      limit = Prelude.Nothing,
+    { limit = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       userPoolId = pUserPoolId_,
       groupName = pGroupName_
     }
+
+-- | The limit of the request to list users.
+listUsersInGroup_limit :: Lens.Lens' ListUsersInGroup (Prelude.Maybe Prelude.Natural)
+listUsersInGroup_limit = Lens.lens (\ListUsersInGroup' {limit} -> limit) (\s@ListUsersInGroup' {} a -> s {limit = a} :: ListUsersInGroup)
 
 -- | An identifier that was returned from the previous call to this
 -- operation, which can be used to return the next set of items in the
 -- list.
 listUsersInGroup_nextToken :: Lens.Lens' ListUsersInGroup (Prelude.Maybe Prelude.Text)
 listUsersInGroup_nextToken = Lens.lens (\ListUsersInGroup' {nextToken} -> nextToken) (\s@ListUsersInGroup' {} a -> s {nextToken = a} :: ListUsersInGroup)
-
--- | The limit of the request to list users.
-listUsersInGroup_limit :: Lens.Lens' ListUsersInGroup (Prelude.Maybe Prelude.Natural)
-listUsersInGroup_limit = Lens.lens (\ListUsersInGroup' {limit} -> limit) (\s@ListUsersInGroup' {} a -> s {limit = a} :: ListUsersInGroup)
 
 -- | The user pool ID for the user pool.
 listUsersInGroup_userPoolId :: Lens.Lens' ListUsersInGroup Prelude.Text
@@ -143,70 +144,70 @@ instance Core.AWSRequest ListUsersInGroup where
   type
     AWSResponse ListUsersInGroup =
       ListUsersInGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListUsersInGroupResponse'
-            Prelude.<$> (x Core..?> "Users" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Users" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListUsersInGroup where
   hashWithSalt _salt ListUsersInGroup' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` userPoolId
       `Prelude.hashWithSalt` groupName
 
 instance Prelude.NFData ListUsersInGroup where
   rnf ListUsersInGroup' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf userPoolId
       `Prelude.seq` Prelude.rnf groupName
 
-instance Core.ToHeaders ListUsersInGroup where
+instance Data.ToHeaders ListUsersInGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.ListUsersInGroup" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.ListUsersInGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListUsersInGroup where
+instance Data.ToJSON ListUsersInGroup where
   toJSON ListUsersInGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit,
-            Prelude.Just ("UserPoolId" Core..= userPoolId),
-            Prelude.Just ("GroupName" Core..= groupName)
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("UserPoolId" Data..= userPoolId),
+            Prelude.Just ("GroupName" Data..= groupName)
           ]
       )
 
-instance Core.ToPath ListUsersInGroup where
+instance Data.ToPath ListUsersInGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListUsersInGroup where
+instance Data.ToQuery ListUsersInGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListUsersInGroupResponse' smart constructor.
 data ListUsersInGroupResponse = ListUsersInGroupResponse'
-  { -- | The users returned in the request to list users.
-    users :: Prelude.Maybe [UserType],
-    -- | An identifier that was returned from the previous call to this
-    -- operation, which can be used to return the next set of items in the
-    -- list.
+  { -- | An identifier that you can use in a later request to return the next set
+    -- of items in the list.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The users returned in the request to list users.
+    users :: Prelude.Maybe [UserType],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -220,11 +221,10 @@ data ListUsersInGroupResponse = ListUsersInGroupResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'users', 'listUsersInGroupResponse_users' - The users returned in the request to list users.
+-- 'nextToken', 'listUsersInGroupResponse_nextToken' - An identifier that you can use in a later request to return the next set
+-- of items in the list.
 --
--- 'nextToken', 'listUsersInGroupResponse_nextToken' - An identifier that was returned from the previous call to this
--- operation, which can be used to return the next set of items in the
--- list.
+-- 'users', 'listUsersInGroupResponse_users' - The users returned in the request to list users.
 --
 -- 'httpStatus', 'listUsersInGroupResponse_httpStatus' - The response's http status code.
 newListUsersInGroupResponse ::
@@ -233,20 +233,20 @@ newListUsersInGroupResponse ::
   ListUsersInGroupResponse
 newListUsersInGroupResponse pHttpStatus_ =
   ListUsersInGroupResponse'
-    { users = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken =
+        Prelude.Nothing,
+      users = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | An identifier that you can use in a later request to return the next set
+-- of items in the list.
+listUsersInGroupResponse_nextToken :: Lens.Lens' ListUsersInGroupResponse (Prelude.Maybe Prelude.Text)
+listUsersInGroupResponse_nextToken = Lens.lens (\ListUsersInGroupResponse' {nextToken} -> nextToken) (\s@ListUsersInGroupResponse' {} a -> s {nextToken = a} :: ListUsersInGroupResponse)
 
 -- | The users returned in the request to list users.
 listUsersInGroupResponse_users :: Lens.Lens' ListUsersInGroupResponse (Prelude.Maybe [UserType])
 listUsersInGroupResponse_users = Lens.lens (\ListUsersInGroupResponse' {users} -> users) (\s@ListUsersInGroupResponse' {} a -> s {users = a} :: ListUsersInGroupResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | An identifier that was returned from the previous call to this
--- operation, which can be used to return the next set of items in the
--- list.
-listUsersInGroupResponse_nextToken :: Lens.Lens' ListUsersInGroupResponse (Prelude.Maybe Prelude.Text)
-listUsersInGroupResponse_nextToken = Lens.lens (\ListUsersInGroupResponse' {nextToken} -> nextToken) (\s@ListUsersInGroupResponse' {} a -> s {nextToken = a} :: ListUsersInGroupResponse)
 
 -- | The response's http status code.
 listUsersInGroupResponse_httpStatus :: Lens.Lens' ListUsersInGroupResponse Prelude.Int
@@ -254,6 +254,6 @@ listUsersInGroupResponse_httpStatus = Lens.lens (\ListUsersInGroupResponse' {htt
 
 instance Prelude.NFData ListUsersInGroupResponse where
   rnf ListUsersInGroupResponse' {..} =
-    Prelude.rnf users
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf users
       `Prelude.seq` Prelude.rnf httpStatus

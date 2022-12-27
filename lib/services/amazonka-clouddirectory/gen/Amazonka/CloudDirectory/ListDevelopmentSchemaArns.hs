@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.ListDevelopmentSchemaArns
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,33 +30,34 @@ module Amazonka.CloudDirectory.ListDevelopmentSchemaArns
     newListDevelopmentSchemaArns,
 
     -- * Request Lenses
-    listDevelopmentSchemaArns_nextToken,
     listDevelopmentSchemaArns_maxResults,
+    listDevelopmentSchemaArns_nextToken,
 
     -- * Destructuring the Response
     ListDevelopmentSchemaArnsResponse (..),
     newListDevelopmentSchemaArnsResponse,
 
     -- * Response Lenses
-    listDevelopmentSchemaArnsResponse_schemaArns,
     listDevelopmentSchemaArnsResponse_nextToken,
+    listDevelopmentSchemaArnsResponse_schemaArns,
     listDevelopmentSchemaArnsResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDevelopmentSchemaArns' smart constructor.
 data ListDevelopmentSchemaArns = ListDevelopmentSchemaArns'
-  { -- | The pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to retrieve.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of results to retrieve.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,25 +69,25 @@ data ListDevelopmentSchemaArns = ListDevelopmentSchemaArns'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listDevelopmentSchemaArns_nextToken' - The pagination token.
---
 -- 'maxResults', 'listDevelopmentSchemaArns_maxResults' - The maximum number of results to retrieve.
+--
+-- 'nextToken', 'listDevelopmentSchemaArns_nextToken' - The pagination token.
 newListDevelopmentSchemaArns ::
   ListDevelopmentSchemaArns
 newListDevelopmentSchemaArns =
   ListDevelopmentSchemaArns'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | The pagination token.
-listDevelopmentSchemaArns_nextToken :: Lens.Lens' ListDevelopmentSchemaArns (Prelude.Maybe Prelude.Text)
-listDevelopmentSchemaArns_nextToken = Lens.lens (\ListDevelopmentSchemaArns' {nextToken} -> nextToken) (\s@ListDevelopmentSchemaArns' {} a -> s {nextToken = a} :: ListDevelopmentSchemaArns)
 
 -- | The maximum number of results to retrieve.
 listDevelopmentSchemaArns_maxResults :: Lens.Lens' ListDevelopmentSchemaArns (Prelude.Maybe Prelude.Natural)
 listDevelopmentSchemaArns_maxResults = Lens.lens (\ListDevelopmentSchemaArns' {maxResults} -> maxResults) (\s@ListDevelopmentSchemaArns' {} a -> s {maxResults = a} :: ListDevelopmentSchemaArns)
+
+-- | The pagination token.
+listDevelopmentSchemaArns_nextToken :: Lens.Lens' ListDevelopmentSchemaArns (Prelude.Maybe Prelude.Text)
+listDevelopmentSchemaArns_nextToken = Lens.lens (\ListDevelopmentSchemaArns' {nextToken} -> nextToken) (\s@ListDevelopmentSchemaArns' {} a -> s {nextToken = a} :: ListDevelopmentSchemaArns)
 
 instance Core.AWSPager ListDevelopmentSchemaArns where
   page rq rs
@@ -114,52 +115,53 @@ instance Core.AWSRequest ListDevelopmentSchemaArns where
   type
     AWSResponse ListDevelopmentSchemaArns =
       ListDevelopmentSchemaArnsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDevelopmentSchemaArnsResponse'
-            Prelude.<$> (x Core..?> "SchemaArns" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "SchemaArns" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDevelopmentSchemaArns where
   hashWithSalt _salt ListDevelopmentSchemaArns' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDevelopmentSchemaArns where
   rnf ListDevelopmentSchemaArns' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDevelopmentSchemaArns where
+instance Data.ToHeaders ListDevelopmentSchemaArns where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON ListDevelopmentSchemaArns where
+instance Data.ToJSON ListDevelopmentSchemaArns where
   toJSON ListDevelopmentSchemaArns' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListDevelopmentSchemaArns where
+instance Data.ToPath ListDevelopmentSchemaArns where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/schema/development"
 
-instance Core.ToQuery ListDevelopmentSchemaArns where
+instance Data.ToQuery ListDevelopmentSchemaArns where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDevelopmentSchemaArnsResponse' smart constructor.
 data ListDevelopmentSchemaArnsResponse = ListDevelopmentSchemaArnsResponse'
-  { -- | The ARNs of retrieved development schemas.
-    schemaArns :: Prelude.Maybe [Prelude.Text],
-    -- | The pagination token.
+  { -- | The pagination token.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The ARNs of retrieved development schemas.
+    schemaArns :: Prelude.Maybe [Prelude.Text],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -173,9 +175,9 @@ data ListDevelopmentSchemaArnsResponse = ListDevelopmentSchemaArnsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'schemaArns', 'listDevelopmentSchemaArnsResponse_schemaArns' - The ARNs of retrieved development schemas.
---
 -- 'nextToken', 'listDevelopmentSchemaArnsResponse_nextToken' - The pagination token.
+--
+-- 'schemaArns', 'listDevelopmentSchemaArnsResponse_schemaArns' - The ARNs of retrieved development schemas.
 --
 -- 'httpStatus', 'listDevelopmentSchemaArnsResponse_httpStatus' - The response's http status code.
 newListDevelopmentSchemaArnsResponse ::
@@ -184,19 +186,19 @@ newListDevelopmentSchemaArnsResponse ::
   ListDevelopmentSchemaArnsResponse
 newListDevelopmentSchemaArnsResponse pHttpStatus_ =
   ListDevelopmentSchemaArnsResponse'
-    { schemaArns =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      schemaArns = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The ARNs of retrieved development schemas.
-listDevelopmentSchemaArnsResponse_schemaArns :: Lens.Lens' ListDevelopmentSchemaArnsResponse (Prelude.Maybe [Prelude.Text])
-listDevelopmentSchemaArnsResponse_schemaArns = Lens.lens (\ListDevelopmentSchemaArnsResponse' {schemaArns} -> schemaArns) (\s@ListDevelopmentSchemaArnsResponse' {} a -> s {schemaArns = a} :: ListDevelopmentSchemaArnsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The pagination token.
 listDevelopmentSchemaArnsResponse_nextToken :: Lens.Lens' ListDevelopmentSchemaArnsResponse (Prelude.Maybe Prelude.Text)
 listDevelopmentSchemaArnsResponse_nextToken = Lens.lens (\ListDevelopmentSchemaArnsResponse' {nextToken} -> nextToken) (\s@ListDevelopmentSchemaArnsResponse' {} a -> s {nextToken = a} :: ListDevelopmentSchemaArnsResponse)
+
+-- | The ARNs of retrieved development schemas.
+listDevelopmentSchemaArnsResponse_schemaArns :: Lens.Lens' ListDevelopmentSchemaArnsResponse (Prelude.Maybe [Prelude.Text])
+listDevelopmentSchemaArnsResponse_schemaArns = Lens.lens (\ListDevelopmentSchemaArnsResponse' {schemaArns} -> schemaArns) (\s@ListDevelopmentSchemaArnsResponse' {} a -> s {schemaArns = a} :: ListDevelopmentSchemaArnsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listDevelopmentSchemaArnsResponse_httpStatus :: Lens.Lens' ListDevelopmentSchemaArnsResponse Prelude.Int
@@ -207,6 +209,6 @@ instance
     ListDevelopmentSchemaArnsResponse
   where
   rnf ListDevelopmentSchemaArnsResponse' {..} =
-    Prelude.rnf schemaArns
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf schemaArns
       `Prelude.seq` Prelude.rnf httpStatus

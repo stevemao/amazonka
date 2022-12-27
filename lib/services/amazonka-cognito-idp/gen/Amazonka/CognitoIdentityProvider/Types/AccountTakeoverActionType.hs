@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.AccountTakeoverActionType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CognitoIdentityProvider.Types.AccountTakeoverActionType where
 
 import Amazonka.CognitoIdentityProvider.Types.AccountTakeoverEventActionType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Account takeover action type.
@@ -30,17 +31,18 @@ import qualified Amazonka.Prelude as Prelude
 data AccountTakeoverActionType = AccountTakeoverActionType'
   { -- | Flag specifying whether to send a notification.
     notify :: Prelude.Bool,
-    -- | The event action.
+    -- | The action to take in response to the account takeover action. Valid
+    -- values are as follows:
     --
     -- -   @BLOCK@ Choosing this action will block the request.
     --
-    -- -   @MFA_IF_CONFIGURED@ Throw MFA challenge if user has configured it,
-    --     else allow the request.
+    -- -   @MFA_IF_CONFIGURED@ Present an MFA challenge if user has configured
+    --     it, else allow the request.
     --
-    -- -   @MFA_REQUIRED@ Throw MFA challenge if user has configured it, else
-    --     block the request.
+    -- -   @MFA_REQUIRED@ Present an MFA challenge if user has configured it,
+    --     else block the request.
     --
-    -- -   @NO_ACTION@ Allow the user sign-in.
+    -- -   @NO_ACTION@ Allow the user to sign in.
     eventAction :: AccountTakeoverEventActionType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -55,17 +57,18 @@ data AccountTakeoverActionType = AccountTakeoverActionType'
 --
 -- 'notify', 'accountTakeoverActionType_notify' - Flag specifying whether to send a notification.
 --
--- 'eventAction', 'accountTakeoverActionType_eventAction' - The event action.
+-- 'eventAction', 'accountTakeoverActionType_eventAction' - The action to take in response to the account takeover action. Valid
+-- values are as follows:
 --
 -- -   @BLOCK@ Choosing this action will block the request.
 --
--- -   @MFA_IF_CONFIGURED@ Throw MFA challenge if user has configured it,
---     else allow the request.
+-- -   @MFA_IF_CONFIGURED@ Present an MFA challenge if user has configured
+--     it, else allow the request.
 --
--- -   @MFA_REQUIRED@ Throw MFA challenge if user has configured it, else
---     block the request.
+-- -   @MFA_REQUIRED@ Present an MFA challenge if user has configured it,
+--     else block the request.
 --
--- -   @NO_ACTION@ Allow the user sign-in.
+-- -   @NO_ACTION@ Allow the user to sign in.
 newAccountTakeoverActionType ::
   -- | 'notify'
   Prelude.Bool ->
@@ -82,28 +85,29 @@ newAccountTakeoverActionType pNotify_ pEventAction_ =
 accountTakeoverActionType_notify :: Lens.Lens' AccountTakeoverActionType Prelude.Bool
 accountTakeoverActionType_notify = Lens.lens (\AccountTakeoverActionType' {notify} -> notify) (\s@AccountTakeoverActionType' {} a -> s {notify = a} :: AccountTakeoverActionType)
 
--- | The event action.
+-- | The action to take in response to the account takeover action. Valid
+-- values are as follows:
 --
 -- -   @BLOCK@ Choosing this action will block the request.
 --
--- -   @MFA_IF_CONFIGURED@ Throw MFA challenge if user has configured it,
---     else allow the request.
+-- -   @MFA_IF_CONFIGURED@ Present an MFA challenge if user has configured
+--     it, else allow the request.
 --
--- -   @MFA_REQUIRED@ Throw MFA challenge if user has configured it, else
---     block the request.
+-- -   @MFA_REQUIRED@ Present an MFA challenge if user has configured it,
+--     else block the request.
 --
--- -   @NO_ACTION@ Allow the user sign-in.
+-- -   @NO_ACTION@ Allow the user to sign in.
 accountTakeoverActionType_eventAction :: Lens.Lens' AccountTakeoverActionType AccountTakeoverEventActionType
 accountTakeoverActionType_eventAction = Lens.lens (\AccountTakeoverActionType' {eventAction} -> eventAction) (\s@AccountTakeoverActionType' {} a -> s {eventAction = a} :: AccountTakeoverActionType)
 
-instance Core.FromJSON AccountTakeoverActionType where
+instance Data.FromJSON AccountTakeoverActionType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AccountTakeoverActionType"
       ( \x ->
           AccountTakeoverActionType'
-            Prelude.<$> (x Core..: "Notify")
-            Prelude.<*> (x Core..: "EventAction")
+            Prelude.<$> (x Data..: "Notify")
+            Prelude.<*> (x Data..: "EventAction")
       )
 
 instance Prelude.Hashable AccountTakeoverActionType where
@@ -116,11 +120,11 @@ instance Prelude.NFData AccountTakeoverActionType where
     Prelude.rnf notify
       `Prelude.seq` Prelude.rnf eventAction
 
-instance Core.ToJSON AccountTakeoverActionType where
+instance Data.ToJSON AccountTakeoverActionType where
   toJSON AccountTakeoverActionType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Notify" Core..= notify),
-            Prelude.Just ("EventAction" Core..= eventAction)
+          [ Prelude.Just ("Notify" Data..= notify),
+            Prelude.Just ("EventAction" Data..= eventAction)
           ]
       )

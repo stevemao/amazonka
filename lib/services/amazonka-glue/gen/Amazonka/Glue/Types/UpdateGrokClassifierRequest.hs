@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.UpdateGrokClassifierRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.UpdateGrokClassifierRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies a grok classifier to update when passed to @UpdateClassifier@.
@@ -99,15 +100,15 @@ instance Prelude.NFData UpdateGrokClassifierRequest where
       `Prelude.seq` Prelude.rnf grokPattern
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON UpdateGrokClassifierRequest where
+instance Data.ToJSON UpdateGrokClassifierRequest where
   toJSON UpdateGrokClassifierRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Classification" Core..=)
+          [ ("Classification" Data..=)
               Prelude.<$> classification,
-            ("CustomPatterns" Core..=)
+            ("CustomPatterns" Data..=)
               Prelude.<$> customPatterns,
-            ("GrokPattern" Core..=) Prelude.<$> grokPattern,
-            Prelude.Just ("Name" Core..= name)
+            ("GrokPattern" Data..=) Prelude.<$> grokPattern,
+            Prelude.Just ("Name" Data..= name)
           ]
       )

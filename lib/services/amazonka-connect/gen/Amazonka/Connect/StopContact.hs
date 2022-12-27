@@ -14,13 +14,20 @@
 
 -- |
 -- Module      : Amazonka.Connect.StopContact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Ends the specified contact.
+-- Ends the specified contact. This call does not work for the following
+-- initiation methods:
+--
+-- -   DISCONNECT
+--
+-- -   TRANSFER
+--
+-- -   QUEUE_TRANSFER
 module Amazonka.Connect.StopContact
   ( -- * Creating a Request
     StopContact (..),
@@ -41,7 +48,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +99,8 @@ stopContact_instanceId = Lens.lens (\StopContact' {instanceId} -> instanceId) (\
 
 instance Core.AWSRequest StopContact where
   type AWSResponse StopContact = StopContactResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -109,30 +118,30 @@ instance Prelude.NFData StopContact where
     Prelude.rnf contactId
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders StopContact where
+instance Data.ToHeaders StopContact where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopContact where
+instance Data.ToJSON StopContact where
   toJSON StopContact' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ContactId" Core..= contactId),
-            Prelude.Just ("InstanceId" Core..= instanceId)
+          [ Prelude.Just ("ContactId" Data..= contactId),
+            Prelude.Just ("InstanceId" Data..= instanceId)
           ]
       )
 
-instance Core.ToPath StopContact where
+instance Data.ToPath StopContact where
   toPath = Prelude.const "/contact/stop"
 
-instance Core.ToQuery StopContact where
+instance Data.ToQuery StopContact where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopContactResponse' smart constructor.

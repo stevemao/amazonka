@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.CopyDBParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.RDS.CopyDBParameterGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -177,13 +178,14 @@ instance Core.AWSRequest CopyDBParameterGroup where
   type
     AWSResponse CopyDBParameterGroup =
       CopyDBParameterGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CopyDBParameterGroupResult"
       ( \s h x ->
           CopyDBParameterGroupResponse'
-            Prelude.<$> (x Core..@? "DBParameterGroup")
+            Prelude.<$> (x Data..@? "DBParameterGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -201,28 +203,28 @@ instance Prelude.NFData CopyDBParameterGroup where
       `Prelude.seq` Prelude.rnf targetDBParameterGroupIdentifier
       `Prelude.seq` Prelude.rnf targetDBParameterGroupDescription
 
-instance Core.ToHeaders CopyDBParameterGroup where
+instance Data.ToHeaders CopyDBParameterGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CopyDBParameterGroup where
+instance Data.ToPath CopyDBParameterGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CopyDBParameterGroup where
+instance Data.ToQuery CopyDBParameterGroup where
   toQuery CopyDBParameterGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CopyDBParameterGroup" :: Prelude.ByteString),
+          Data.=: ("CopyDBParameterGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
         "SourceDBParameterGroupIdentifier"
-          Core.=: sourceDBParameterGroupIdentifier,
+          Data.=: sourceDBParameterGroupIdentifier,
         "TargetDBParameterGroupIdentifier"
-          Core.=: targetDBParameterGroupIdentifier,
+          Data.=: targetDBParameterGroupIdentifier,
         "TargetDBParameterGroupDescription"
-          Core.=: targetDBParameterGroupDescription
+          Data.=: targetDBParameterGroupDescription
       ]
 
 -- | /See:/ 'newCopyDBParameterGroupResponse' smart constructor.

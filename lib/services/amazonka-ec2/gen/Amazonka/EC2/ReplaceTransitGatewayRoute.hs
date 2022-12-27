@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ReplaceTransitGatewayRoute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.EC2.ReplaceTransitGatewayRoute
 
     -- * Request Lenses
     replaceTransitGatewayRoute_blackhole,
-    replaceTransitGatewayRoute_transitGatewayAttachmentId,
     replaceTransitGatewayRoute_dryRun,
+    replaceTransitGatewayRoute_transitGatewayAttachmentId,
     replaceTransitGatewayRoute_destinationCidrBlock,
     replaceTransitGatewayRoute_transitGatewayRouteTableId,
 
@@ -45,8 +45,9 @@ module Amazonka.EC2.ReplaceTransitGatewayRoute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,13 +56,13 @@ import qualified Amazonka.Response as Response
 data ReplaceTransitGatewayRoute = ReplaceTransitGatewayRoute'
   { -- | Indicates whether traffic matching this route is to be dropped.
     blackhole :: Prelude.Maybe Prelude.Bool,
-    -- | The ID of the attachment.
-    transitGatewayAttachmentId :: Prelude.Maybe Prelude.Text,
     -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the attachment.
+    transitGatewayAttachmentId :: Prelude.Maybe Prelude.Text,
     -- | The CIDR range used for the destination match. Routing decisions are
     -- based on the most specific match.
     destinationCidrBlock :: Prelude.Text,
@@ -80,12 +81,12 @@ data ReplaceTransitGatewayRoute = ReplaceTransitGatewayRoute'
 --
 -- 'blackhole', 'replaceTransitGatewayRoute_blackhole' - Indicates whether traffic matching this route is to be dropped.
 --
--- 'transitGatewayAttachmentId', 'replaceTransitGatewayRoute_transitGatewayAttachmentId' - The ID of the attachment.
---
 -- 'dryRun', 'replaceTransitGatewayRoute_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'transitGatewayAttachmentId', 'replaceTransitGatewayRoute_transitGatewayAttachmentId' - The ID of the attachment.
 --
 -- 'destinationCidrBlock', 'replaceTransitGatewayRoute_destinationCidrBlock' - The CIDR range used for the destination match. Routing decisions are
 -- based on the most specific match.
@@ -103,8 +104,8 @@ newReplaceTransitGatewayRoute
     ReplaceTransitGatewayRoute'
       { blackhole =
           Prelude.Nothing,
-        transitGatewayAttachmentId = Prelude.Nothing,
         dryRun = Prelude.Nothing,
+        transitGatewayAttachmentId = Prelude.Nothing,
         destinationCidrBlock = pDestinationCidrBlock_,
         transitGatewayRouteTableId =
           pTransitGatewayRouteTableId_
@@ -114,16 +115,16 @@ newReplaceTransitGatewayRoute
 replaceTransitGatewayRoute_blackhole :: Lens.Lens' ReplaceTransitGatewayRoute (Prelude.Maybe Prelude.Bool)
 replaceTransitGatewayRoute_blackhole = Lens.lens (\ReplaceTransitGatewayRoute' {blackhole} -> blackhole) (\s@ReplaceTransitGatewayRoute' {} a -> s {blackhole = a} :: ReplaceTransitGatewayRoute)
 
--- | The ID of the attachment.
-replaceTransitGatewayRoute_transitGatewayAttachmentId :: Lens.Lens' ReplaceTransitGatewayRoute (Prelude.Maybe Prelude.Text)
-replaceTransitGatewayRoute_transitGatewayAttachmentId = Lens.lens (\ReplaceTransitGatewayRoute' {transitGatewayAttachmentId} -> transitGatewayAttachmentId) (\s@ReplaceTransitGatewayRoute' {} a -> s {transitGatewayAttachmentId = a} :: ReplaceTransitGatewayRoute)
-
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
 replaceTransitGatewayRoute_dryRun :: Lens.Lens' ReplaceTransitGatewayRoute (Prelude.Maybe Prelude.Bool)
 replaceTransitGatewayRoute_dryRun = Lens.lens (\ReplaceTransitGatewayRoute' {dryRun} -> dryRun) (\s@ReplaceTransitGatewayRoute' {} a -> s {dryRun = a} :: ReplaceTransitGatewayRoute)
+
+-- | The ID of the attachment.
+replaceTransitGatewayRoute_transitGatewayAttachmentId :: Lens.Lens' ReplaceTransitGatewayRoute (Prelude.Maybe Prelude.Text)
+replaceTransitGatewayRoute_transitGatewayAttachmentId = Lens.lens (\ReplaceTransitGatewayRoute' {transitGatewayAttachmentId} -> transitGatewayAttachmentId) (\s@ReplaceTransitGatewayRoute' {} a -> s {transitGatewayAttachmentId = a} :: ReplaceTransitGatewayRoute)
 
 -- | The CIDR range used for the destination match. Routing decisions are
 -- based on the most specific match.
@@ -138,51 +139,52 @@ instance Core.AWSRequest ReplaceTransitGatewayRoute where
   type
     AWSResponse ReplaceTransitGatewayRoute =
       ReplaceTransitGatewayRouteResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ReplaceTransitGatewayRouteResponse'
-            Prelude.<$> (x Core..@? "route")
+            Prelude.<$> (x Data..@? "route")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ReplaceTransitGatewayRoute where
   hashWithSalt _salt ReplaceTransitGatewayRoute' {..} =
     _salt `Prelude.hashWithSalt` blackhole
-      `Prelude.hashWithSalt` transitGatewayAttachmentId
       `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` transitGatewayAttachmentId
       `Prelude.hashWithSalt` destinationCidrBlock
       `Prelude.hashWithSalt` transitGatewayRouteTableId
 
 instance Prelude.NFData ReplaceTransitGatewayRoute where
   rnf ReplaceTransitGatewayRoute' {..} =
     Prelude.rnf blackhole
-      `Prelude.seq` Prelude.rnf transitGatewayAttachmentId
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf transitGatewayAttachmentId
       `Prelude.seq` Prelude.rnf destinationCidrBlock
       `Prelude.seq` Prelude.rnf transitGatewayRouteTableId
 
-instance Core.ToHeaders ReplaceTransitGatewayRoute where
+instance Data.ToHeaders ReplaceTransitGatewayRoute where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ReplaceTransitGatewayRoute where
+instance Data.ToPath ReplaceTransitGatewayRoute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ReplaceTransitGatewayRoute where
+instance Data.ToQuery ReplaceTransitGatewayRoute where
   toQuery ReplaceTransitGatewayRoute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ReplaceTransitGatewayRoute" :: Prelude.ByteString),
+          Data.=: ("ReplaceTransitGatewayRoute" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "Blackhole" Core.=: blackhole,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "Blackhole" Data.=: blackhole,
+        "DryRun" Data.=: dryRun,
         "TransitGatewayAttachmentId"
-          Core.=: transitGatewayAttachmentId,
-        "DryRun" Core.=: dryRun,
-        "DestinationCidrBlock" Core.=: destinationCidrBlock,
+          Data.=: transitGatewayAttachmentId,
+        "DestinationCidrBlock" Data.=: destinationCidrBlock,
         "TransitGatewayRouteTableId"
-          Core.=: transitGatewayRouteTableId
+          Data.=: transitGatewayRouteTableId
       ]
 
 -- | /See:/ 'newReplaceTransitGatewayRouteResponse' smart constructor.

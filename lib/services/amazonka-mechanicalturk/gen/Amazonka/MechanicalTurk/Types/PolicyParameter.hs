@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.Types.PolicyParameter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MechanicalTurk.Types.PolicyParameter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types.ParameterMapEntry
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newPolicyParameter' smart constructor.
 data PolicyParameter = PolicyParameter'
-  { -- | The list of values of the Parameter
-    values :: Prelude.Maybe [Prelude.Text],
+  { -- | Name of the parameter from the list of Review Polices.
+    key :: Prelude.Maybe Prelude.Text,
     -- | List of ParameterMapEntry objects.
     mapEntries :: Prelude.Maybe [ParameterMapEntry],
-    -- | Name of the parameter from the list of Review Polices.
-    key :: Prelude.Maybe Prelude.Text
+    -- | The list of values of the Parameter
+    values :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,61 +46,61 @@ data PolicyParameter = PolicyParameter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'values', 'policyParameter_values' - The list of values of the Parameter
+-- 'key', 'policyParameter_key' - Name of the parameter from the list of Review Polices.
 --
 -- 'mapEntries', 'policyParameter_mapEntries' - List of ParameterMapEntry objects.
 --
--- 'key', 'policyParameter_key' - Name of the parameter from the list of Review Polices.
+-- 'values', 'policyParameter_values' - The list of values of the Parameter
 newPolicyParameter ::
   PolicyParameter
 newPolicyParameter =
   PolicyParameter'
-    { values = Prelude.Nothing,
+    { key = Prelude.Nothing,
       mapEntries = Prelude.Nothing,
-      key = Prelude.Nothing
+      values = Prelude.Nothing
     }
-
--- | The list of values of the Parameter
-policyParameter_values :: Lens.Lens' PolicyParameter (Prelude.Maybe [Prelude.Text])
-policyParameter_values = Lens.lens (\PolicyParameter' {values} -> values) (\s@PolicyParameter' {} a -> s {values = a} :: PolicyParameter) Prelude.. Lens.mapping Lens.coerced
-
--- | List of ParameterMapEntry objects.
-policyParameter_mapEntries :: Lens.Lens' PolicyParameter (Prelude.Maybe [ParameterMapEntry])
-policyParameter_mapEntries = Lens.lens (\PolicyParameter' {mapEntries} -> mapEntries) (\s@PolicyParameter' {} a -> s {mapEntries = a} :: PolicyParameter) Prelude.. Lens.mapping Lens.coerced
 
 -- | Name of the parameter from the list of Review Polices.
 policyParameter_key :: Lens.Lens' PolicyParameter (Prelude.Maybe Prelude.Text)
 policyParameter_key = Lens.lens (\PolicyParameter' {key} -> key) (\s@PolicyParameter' {} a -> s {key = a} :: PolicyParameter)
 
-instance Core.FromJSON PolicyParameter where
+-- | List of ParameterMapEntry objects.
+policyParameter_mapEntries :: Lens.Lens' PolicyParameter (Prelude.Maybe [ParameterMapEntry])
+policyParameter_mapEntries = Lens.lens (\PolicyParameter' {mapEntries} -> mapEntries) (\s@PolicyParameter' {} a -> s {mapEntries = a} :: PolicyParameter) Prelude.. Lens.mapping Lens.coerced
+
+-- | The list of values of the Parameter
+policyParameter_values :: Lens.Lens' PolicyParameter (Prelude.Maybe [Prelude.Text])
+policyParameter_values = Lens.lens (\PolicyParameter' {values} -> values) (\s@PolicyParameter' {} a -> s {values = a} :: PolicyParameter) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON PolicyParameter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PolicyParameter"
       ( \x ->
           PolicyParameter'
-            Prelude.<$> (x Core..:? "Values" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "MapEntries" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Key")
+            Prelude.<$> (x Data..:? "Key")
+            Prelude.<*> (x Data..:? "MapEntries" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Values" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable PolicyParameter where
   hashWithSalt _salt PolicyParameter' {..} =
-    _salt `Prelude.hashWithSalt` values
+    _salt `Prelude.hashWithSalt` key
       `Prelude.hashWithSalt` mapEntries
-      `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` values
 
 instance Prelude.NFData PolicyParameter where
   rnf PolicyParameter' {..} =
-    Prelude.rnf values
+    Prelude.rnf key
       `Prelude.seq` Prelude.rnf mapEntries
-      `Prelude.seq` Prelude.rnf key
+      `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON PolicyParameter where
+instance Data.ToJSON PolicyParameter where
   toJSON PolicyParameter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Values" Core..=) Prelude.<$> values,
-            ("MapEntries" Core..=) Prelude.<$> mapEntries,
-            ("Key" Core..=) Prelude.<$> key
+          [ ("Key" Data..=) Prelude.<$> key,
+            ("MapEntries" Data..=) Prelude.<$> mapEntries,
+            ("Values" Data..=) Prelude.<$> values
           ]
       )

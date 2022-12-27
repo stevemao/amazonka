@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.Column
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.Glue.Types.Column where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A column in a @Table@.
 --
 -- /See:/ 'newColumn' smart constructor.
 data Column = Column'
-  { -- | These key-value pairs define properties associated with the column.
+  { -- | A free-form text comment.
+    comment :: Prelude.Maybe Prelude.Text,
+    -- | These key-value pairs define properties associated with the column.
     parameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The data type of the @Column@.
     type' :: Prelude.Maybe Prelude.Text,
-    -- | A free-form text comment.
-    comment :: Prelude.Maybe Prelude.Text,
     -- | The name of the @Column@.
     name :: Prelude.Text
   }
@@ -46,11 +47,11 @@ data Column = Column'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'comment', 'column_comment' - A free-form text comment.
+--
 -- 'parameters', 'column_parameters' - These key-value pairs define properties associated with the column.
 --
 -- 'type'', 'column_type' - The data type of the @Column@.
---
--- 'comment', 'column_comment' - A free-form text comment.
 --
 -- 'name', 'column_name' - The name of the @Column@.
 newColumn ::
@@ -59,11 +60,15 @@ newColumn ::
   Column
 newColumn pName_ =
   Column'
-    { parameters = Prelude.Nothing,
+    { comment = Prelude.Nothing,
+      parameters = Prelude.Nothing,
       type' = Prelude.Nothing,
-      comment = Prelude.Nothing,
       name = pName_
     }
+
+-- | A free-form text comment.
+column_comment :: Lens.Lens' Column (Prelude.Maybe Prelude.Text)
+column_comment = Lens.lens (\Column' {comment} -> comment) (\s@Column' {} a -> s {comment = a} :: Column)
 
 -- | These key-value pairs define properties associated with the column.
 column_parameters :: Lens.Lens' Column (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -73,47 +78,43 @@ column_parameters = Lens.lens (\Column' {parameters} -> parameters) (\s@Column' 
 column_type :: Lens.Lens' Column (Prelude.Maybe Prelude.Text)
 column_type = Lens.lens (\Column' {type'} -> type') (\s@Column' {} a -> s {type' = a} :: Column)
 
--- | A free-form text comment.
-column_comment :: Lens.Lens' Column (Prelude.Maybe Prelude.Text)
-column_comment = Lens.lens (\Column' {comment} -> comment) (\s@Column' {} a -> s {comment = a} :: Column)
-
 -- | The name of the @Column@.
 column_name :: Lens.Lens' Column Prelude.Text
 column_name = Lens.lens (\Column' {name} -> name) (\s@Column' {} a -> s {name = a} :: Column)
 
-instance Core.FromJSON Column where
+instance Data.FromJSON Column where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Column"
       ( \x ->
           Column'
-            Prelude.<$> (x Core..:? "Parameters" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Type")
-            Prelude.<*> (x Core..:? "Comment")
-            Prelude.<*> (x Core..: "Name")
+            Prelude.<$> (x Data..:? "Comment")
+            Prelude.<*> (x Data..:? "Parameters" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Type")
+            Prelude.<*> (x Data..: "Name")
       )
 
 instance Prelude.Hashable Column where
   hashWithSalt _salt Column' {..} =
-    _salt `Prelude.hashWithSalt` parameters
+    _salt `Prelude.hashWithSalt` comment
+      `Prelude.hashWithSalt` parameters
       `Prelude.hashWithSalt` type'
-      `Prelude.hashWithSalt` comment
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData Column where
   rnf Column' {..} =
-    Prelude.rnf parameters
+    Prelude.rnf comment
+      `Prelude.seq` Prelude.rnf parameters
       `Prelude.seq` Prelude.rnf type'
-      `Prelude.seq` Prelude.rnf comment
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON Column where
+instance Data.ToJSON Column where
   toJSON Column' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Parameters" Core..=) Prelude.<$> parameters,
-            ("Type" Core..=) Prelude.<$> type',
-            ("Comment" Core..=) Prelude.<$> comment,
-            Prelude.Just ("Name" Core..= name)
+          [ ("Comment" Data..=) Prelude.<$> comment,
+            ("Parameters" Data..=) Prelude.<$> parameters,
+            ("Type" Data..=) Prelude.<$> type',
+            Prelude.Just ("Name" Data..= name)
           ]
       )

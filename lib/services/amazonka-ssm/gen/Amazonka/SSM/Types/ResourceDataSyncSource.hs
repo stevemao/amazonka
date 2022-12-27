@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.ResourceDataSyncSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.ResourceDataSyncSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.ResourceDataSyncAwsOrganizationsSource
 
@@ -29,7 +30,11 @@ import Amazonka.SSM.Types.ResourceDataSyncAwsOrganizationsSource
 --
 -- /See:/ 'newResourceDataSyncSource' smart constructor.
 data ResourceDataSyncSource = ResourceDataSyncSource'
-  { -- | When you create a resource data sync, if you choose one of the
+  { -- | Information about the @AwsOrganizationsSource@ resource data sync
+    -- source. A sync source of this type can synchronize data from
+    -- Organizations.
+    awsOrganizationsSource :: Prelude.Maybe ResourceDataSyncAwsOrganizationsSource,
+    -- | When you create a resource data sync, if you choose one of the
     -- Organizations options, then Systems Manager automatically enables all
     -- OpsData sources in the selected Amazon Web Services Regions for all
     -- Amazon Web Services accounts in your organization (or in the selected
@@ -40,10 +45,6 @@ data ResourceDataSyncSource = ResourceDataSyncSource'
     -- | Whether to automatically synchronize and aggregate data from new Amazon
     -- Web Services Regions when those Regions come online.
     includeFutureRegions :: Prelude.Maybe Prelude.Bool,
-    -- | Information about the @AwsOrganizationsSource@ resource data sync
-    -- source. A sync source of this type can synchronize data from
-    -- Organizations.
-    awsOrganizationsSource :: Prelude.Maybe ResourceDataSyncAwsOrganizationsSource,
     -- | The type of data source for the resource data sync. @SourceType@ is
     -- either @AwsOrganizations@ (if an organization is present in
     -- Organizations) or @SingleAccountMultiRegions@.
@@ -62,6 +63,10 @@ data ResourceDataSyncSource = ResourceDataSyncSource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'awsOrganizationsSource', 'resourceDataSyncSource_awsOrganizationsSource' - Information about the @AwsOrganizationsSource@ resource data sync
+-- source. A sync source of this type can synchronize data from
+-- Organizations.
+--
 -- 'enableAllOpsDataSources', 'resourceDataSyncSource_enableAllOpsDataSources' - When you create a resource data sync, if you choose one of the
 -- Organizations options, then Systems Manager automatically enables all
 -- OpsData sources in the selected Amazon Web Services Regions for all
@@ -72,10 +77,6 @@ data ResourceDataSyncSource = ResourceDataSyncSource'
 --
 -- 'includeFutureRegions', 'resourceDataSyncSource_includeFutureRegions' - Whether to automatically synchronize and aggregate data from new Amazon
 -- Web Services Regions when those Regions come online.
---
--- 'awsOrganizationsSource', 'resourceDataSyncSource_awsOrganizationsSource' - Information about the @AwsOrganizationsSource@ resource data sync
--- source. A sync source of this type can synchronize data from
--- Organizations.
 --
 -- 'sourceType', 'resourceDataSyncSource_sourceType' - The type of data source for the resource data sync. @SourceType@ is
 -- either @AwsOrganizations@ (if an organization is present in
@@ -89,13 +90,19 @@ newResourceDataSyncSource ::
   ResourceDataSyncSource
 newResourceDataSyncSource pSourceType_ =
   ResourceDataSyncSource'
-    { enableAllOpsDataSources =
+    { awsOrganizationsSource =
         Prelude.Nothing,
+      enableAllOpsDataSources = Prelude.Nothing,
       includeFutureRegions = Prelude.Nothing,
-      awsOrganizationsSource = Prelude.Nothing,
       sourceType = pSourceType_,
       sourceRegions = Prelude.mempty
     }
+
+-- | Information about the @AwsOrganizationsSource@ resource data sync
+-- source. A sync source of this type can synchronize data from
+-- Organizations.
+resourceDataSyncSource_awsOrganizationsSource :: Lens.Lens' ResourceDataSyncSource (Prelude.Maybe ResourceDataSyncAwsOrganizationsSource)
+resourceDataSyncSource_awsOrganizationsSource = Lens.lens (\ResourceDataSyncSource' {awsOrganizationsSource} -> awsOrganizationsSource) (\s@ResourceDataSyncSource' {} a -> s {awsOrganizationsSource = a} :: ResourceDataSyncSource)
 
 -- | When you create a resource data sync, if you choose one of the
 -- Organizations options, then Systems Manager automatically enables all
@@ -112,12 +119,6 @@ resourceDataSyncSource_enableAllOpsDataSources = Lens.lens (\ResourceDataSyncSou
 resourceDataSyncSource_includeFutureRegions :: Lens.Lens' ResourceDataSyncSource (Prelude.Maybe Prelude.Bool)
 resourceDataSyncSource_includeFutureRegions = Lens.lens (\ResourceDataSyncSource' {includeFutureRegions} -> includeFutureRegions) (\s@ResourceDataSyncSource' {} a -> s {includeFutureRegions = a} :: ResourceDataSyncSource)
 
--- | Information about the @AwsOrganizationsSource@ resource data sync
--- source. A sync source of this type can synchronize data from
--- Organizations.
-resourceDataSyncSource_awsOrganizationsSource :: Lens.Lens' ResourceDataSyncSource (Prelude.Maybe ResourceDataSyncAwsOrganizationsSource)
-resourceDataSyncSource_awsOrganizationsSource = Lens.lens (\ResourceDataSyncSource' {awsOrganizationsSource} -> awsOrganizationsSource) (\s@ResourceDataSyncSource' {} a -> s {awsOrganizationsSource = a} :: ResourceDataSyncSource)
-
 -- | The type of data source for the resource data sync. @SourceType@ is
 -- either @AwsOrganizations@ (if an organization is present in
 -- Organizations) or @SingleAccountMultiRegions@.
@@ -131,33 +132,32 @@ resourceDataSyncSource_sourceRegions = Lens.lens (\ResourceDataSyncSource' {sour
 
 instance Prelude.Hashable ResourceDataSyncSource where
   hashWithSalt _salt ResourceDataSyncSource' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` awsOrganizationsSource
       `Prelude.hashWithSalt` enableAllOpsDataSources
       `Prelude.hashWithSalt` includeFutureRegions
-      `Prelude.hashWithSalt` awsOrganizationsSource
       `Prelude.hashWithSalt` sourceType
       `Prelude.hashWithSalt` sourceRegions
 
 instance Prelude.NFData ResourceDataSyncSource where
   rnf ResourceDataSyncSource' {..} =
-    Prelude.rnf enableAllOpsDataSources
+    Prelude.rnf awsOrganizationsSource
+      `Prelude.seq` Prelude.rnf enableAllOpsDataSources
       `Prelude.seq` Prelude.rnf includeFutureRegions
-      `Prelude.seq` Prelude.rnf awsOrganizationsSource
       `Prelude.seq` Prelude.rnf sourceType
       `Prelude.seq` Prelude.rnf sourceRegions
 
-instance Core.ToJSON ResourceDataSyncSource where
+instance Data.ToJSON ResourceDataSyncSource where
   toJSON ResourceDataSyncSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EnableAllOpsDataSources" Core..=)
-              Prelude.<$> enableAllOpsDataSources,
-            ("IncludeFutureRegions" Core..=)
-              Prelude.<$> includeFutureRegions,
-            ("AwsOrganizationsSource" Core..=)
+          [ ("AwsOrganizationsSource" Data..=)
               Prelude.<$> awsOrganizationsSource,
-            Prelude.Just ("SourceType" Core..= sourceType),
+            ("EnableAllOpsDataSources" Data..=)
+              Prelude.<$> enableAllOpsDataSources,
+            ("IncludeFutureRegions" Data..=)
+              Prelude.<$> includeFutureRegions,
+            Prelude.Just ("SourceType" Data..= sourceType),
             Prelude.Just
-              ("SourceRegions" Core..= sourceRegions)
+              ("SourceRegions" Data..= sourceRegions)
           ]
       )

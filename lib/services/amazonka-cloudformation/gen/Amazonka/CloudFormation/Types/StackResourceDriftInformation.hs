@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.Types.StackResourceDriftInformation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFormation.Types.StackResourceDriftInformation where
 
 import Amazonka.CloudFormation.Types.StackResourceDriftStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about whether the resource\'s actual configuration
@@ -31,7 +32,7 @@ import qualified Amazonka.Prelude as Prelude
 data StackResourceDriftInformation = StackResourceDriftInformation'
   { -- | When CloudFormation last checked if the resource had drifted from its
     -- expected configuration.
-    lastCheckTimestamp :: Prelude.Maybe Core.ISO8601,
+    lastCheckTimestamp :: Prelude.Maybe Data.ISO8601,
     -- | Status of the resource\'s actual configuration compared to its expected
     -- configuration
     --
@@ -47,8 +48,8 @@ data StackResourceDriftInformation = StackResourceDriftInformation'
     --     status of @NOT_CHECKED@. For more information, see
     --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html Resources that Support Drift Detection>.
     --
-    -- -   @IN_SYNC@: The resources\'s actual configuration matches its
-    --     expected configuration.
+    -- -   @IN_SYNC@: The resource\'s actual configuration matches its expected
+    --     configuration.
     stackResourceDriftStatus :: StackResourceDriftStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -79,8 +80,8 @@ data StackResourceDriftInformation = StackResourceDriftInformation'
 --     status of @NOT_CHECKED@. For more information, see
 --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html Resources that Support Drift Detection>.
 --
--- -   @IN_SYNC@: The resources\'s actual configuration matches its
---     expected configuration.
+-- -   @IN_SYNC@: The resource\'s actual configuration matches its expected
+--     configuration.
 newStackResourceDriftInformation ::
   -- | 'stackResourceDriftStatus'
   StackResourceDriftStatus ->
@@ -97,7 +98,7 @@ newStackResourceDriftInformation
 -- | When CloudFormation last checked if the resource had drifted from its
 -- expected configuration.
 stackResourceDriftInformation_lastCheckTimestamp :: Lens.Lens' StackResourceDriftInformation (Prelude.Maybe Prelude.UTCTime)
-stackResourceDriftInformation_lastCheckTimestamp = Lens.lens (\StackResourceDriftInformation' {lastCheckTimestamp} -> lastCheckTimestamp) (\s@StackResourceDriftInformation' {} a -> s {lastCheckTimestamp = a} :: StackResourceDriftInformation) Prelude.. Lens.mapping Core._Time
+stackResourceDriftInformation_lastCheckTimestamp = Lens.lens (\StackResourceDriftInformation' {lastCheckTimestamp} -> lastCheckTimestamp) (\s@StackResourceDriftInformation' {} a -> s {lastCheckTimestamp = a} :: StackResourceDriftInformation) Prelude.. Lens.mapping Data._Time
 
 -- | Status of the resource\'s actual configuration compared to its expected
 -- configuration
@@ -114,16 +115,16 @@ stackResourceDriftInformation_lastCheckTimestamp = Lens.lens (\StackResourceDrif
 --     status of @NOT_CHECKED@. For more information, see
 --     <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html Resources that Support Drift Detection>.
 --
--- -   @IN_SYNC@: The resources\'s actual configuration matches its
---     expected configuration.
+-- -   @IN_SYNC@: The resource\'s actual configuration matches its expected
+--     configuration.
 stackResourceDriftInformation_stackResourceDriftStatus :: Lens.Lens' StackResourceDriftInformation StackResourceDriftStatus
 stackResourceDriftInformation_stackResourceDriftStatus = Lens.lens (\StackResourceDriftInformation' {stackResourceDriftStatus} -> stackResourceDriftStatus) (\s@StackResourceDriftInformation' {} a -> s {stackResourceDriftStatus = a} :: StackResourceDriftInformation)
 
-instance Core.FromXML StackResourceDriftInformation where
+instance Data.FromXML StackResourceDriftInformation where
   parseXML x =
     StackResourceDriftInformation'
-      Prelude.<$> (x Core..@? "LastCheckTimestamp")
-      Prelude.<*> (x Core..@ "StackResourceDriftStatus")
+      Prelude.<$> (x Data..@? "LastCheckTimestamp")
+      Prelude.<*> (x Data..@ "StackResourceDriftStatus")
 
 instance
   Prelude.Hashable

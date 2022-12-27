@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.DeleteFunctionDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.Greengrass.DeleteFunctionDefinition
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +80,8 @@ instance Core.AWSRequest DeleteFunctionDefinition where
   type
     AWSResponse DeleteFunctionDefinition =
       DeleteFunctionDefinitionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,25 +97,25 @@ instance Prelude.NFData DeleteFunctionDefinition where
   rnf DeleteFunctionDefinition' {..} =
     Prelude.rnf functionDefinitionId
 
-instance Core.ToHeaders DeleteFunctionDefinition where
+instance Data.ToHeaders DeleteFunctionDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteFunctionDefinition where
+instance Data.ToPath DeleteFunctionDefinition where
   toPath DeleteFunctionDefinition' {..} =
     Prelude.mconcat
       [ "/greengrass/definition/functions/",
-        Core.toBS functionDefinitionId
+        Data.toBS functionDefinitionId
       ]
 
-instance Core.ToQuery DeleteFunctionDefinition where
+instance Data.ToQuery DeleteFunctionDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFunctionDefinitionResponse' smart constructor.

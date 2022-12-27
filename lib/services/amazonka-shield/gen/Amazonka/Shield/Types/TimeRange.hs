@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.Types.TimeRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,18 @@
 module Amazonka.Shield.Types.TimeRange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The time range.
 --
 -- /See:/ 'newTimeRange' smart constructor.
 data TimeRange = TimeRange'
-  { -- | The start time, in Unix time in seconds. For more information see
-    -- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp>.
-    fromInclusive :: Prelude.Maybe Core.POSIX,
-    -- | The end time, in Unix time in seconds. For more information see
-    -- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp>.
-    toExclusive :: Prelude.Maybe Core.POSIX
+  { -- | The start time, in Unix time in seconds.
+    fromInclusive :: Prelude.Maybe Data.POSIX,
+    -- | The end time, in Unix time in seconds.
+    toExclusive :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,11 +43,9 @@ data TimeRange = TimeRange'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'fromInclusive', 'timeRange_fromInclusive' - The start time, in Unix time in seconds. For more information see
--- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp>.
+-- 'fromInclusive', 'timeRange_fromInclusive' - The start time, in Unix time in seconds.
 --
--- 'toExclusive', 'timeRange_toExclusive' - The end time, in Unix time in seconds. For more information see
--- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp>.
+-- 'toExclusive', 'timeRange_toExclusive' - The end time, in Unix time in seconds.
 newTimeRange ::
   TimeRange
 newTimeRange =
@@ -57,24 +54,22 @@ newTimeRange =
       toExclusive = Prelude.Nothing
     }
 
--- | The start time, in Unix time in seconds. For more information see
--- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp>.
+-- | The start time, in Unix time in seconds.
 timeRange_fromInclusive :: Lens.Lens' TimeRange (Prelude.Maybe Prelude.UTCTime)
-timeRange_fromInclusive = Lens.lens (\TimeRange' {fromInclusive} -> fromInclusive) (\s@TimeRange' {} a -> s {fromInclusive = a} :: TimeRange) Prelude.. Lens.mapping Core._Time
+timeRange_fromInclusive = Lens.lens (\TimeRange' {fromInclusive} -> fromInclusive) (\s@TimeRange' {} a -> s {fromInclusive = a} :: TimeRange) Prelude.. Lens.mapping Data._Time
 
--- | The end time, in Unix time in seconds. For more information see
--- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#parameter-types timestamp>.
+-- | The end time, in Unix time in seconds.
 timeRange_toExclusive :: Lens.Lens' TimeRange (Prelude.Maybe Prelude.UTCTime)
-timeRange_toExclusive = Lens.lens (\TimeRange' {toExclusive} -> toExclusive) (\s@TimeRange' {} a -> s {toExclusive = a} :: TimeRange) Prelude.. Lens.mapping Core._Time
+timeRange_toExclusive = Lens.lens (\TimeRange' {toExclusive} -> toExclusive) (\s@TimeRange' {} a -> s {toExclusive = a} :: TimeRange) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON TimeRange where
+instance Data.FromJSON TimeRange where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TimeRange"
       ( \x ->
           TimeRange'
-            Prelude.<$> (x Core..:? "FromInclusive")
-            Prelude.<*> (x Core..:? "ToExclusive")
+            Prelude.<$> (x Data..:? "FromInclusive")
+            Prelude.<*> (x Data..:? "ToExclusive")
       )
 
 instance Prelude.Hashable TimeRange where
@@ -87,11 +82,11 @@ instance Prelude.NFData TimeRange where
     Prelude.rnf fromInclusive
       `Prelude.seq` Prelude.rnf toExclusive
 
-instance Core.ToJSON TimeRange where
+instance Data.ToJSON TimeRange where
   toJSON TimeRange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FromInclusive" Core..=) Prelude.<$> fromInclusive,
-            ("ToExclusive" Core..=) Prelude.<$> toExclusive
+          [ ("FromInclusive" Data..=) Prelude.<$> fromInclusive,
+            ("ToExclusive" Data..=) Prelude.<$> toExclusive
           ]
       )

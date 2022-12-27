@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.Types.TagInfoForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAF.Types.TagInfoForResource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WAF.Types.Tag
 
@@ -47,8 +48,8 @@ import Amazonka.WAF.Types.Tag
 --
 -- /See:/ 'newTagInfoForResource' smart constructor.
 data TagInfoForResource = TagInfoForResource'
-  { tagList :: Prelude.Maybe (Prelude.NonEmpty Tag),
-    resourceARN :: Prelude.Maybe Prelude.Text
+  { resourceARN :: Prelude.Maybe Prelude.Text,
+    tagList :: Prelude.Maybe (Prelude.NonEmpty Tag)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -60,41 +61,41 @@ data TagInfoForResource = TagInfoForResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tagList', 'tagInfoForResource_tagList' -
---
 -- 'resourceARN', 'tagInfoForResource_resourceARN' -
+--
+-- 'tagList', 'tagInfoForResource_tagList' -
 newTagInfoForResource ::
   TagInfoForResource
 newTagInfoForResource =
   TagInfoForResource'
-    { tagList = Prelude.Nothing,
-      resourceARN = Prelude.Nothing
+    { resourceARN = Prelude.Nothing,
+      tagList = Prelude.Nothing
     }
-
--- |
-tagInfoForResource_tagList :: Lens.Lens' TagInfoForResource (Prelude.Maybe (Prelude.NonEmpty Tag))
-tagInfoForResource_tagList = Lens.lens (\TagInfoForResource' {tagList} -> tagList) (\s@TagInfoForResource' {} a -> s {tagList = a} :: TagInfoForResource) Prelude.. Lens.mapping Lens.coerced
 
 -- |
 tagInfoForResource_resourceARN :: Lens.Lens' TagInfoForResource (Prelude.Maybe Prelude.Text)
 tagInfoForResource_resourceARN = Lens.lens (\TagInfoForResource' {resourceARN} -> resourceARN) (\s@TagInfoForResource' {} a -> s {resourceARN = a} :: TagInfoForResource)
 
-instance Core.FromJSON TagInfoForResource where
+-- |
+tagInfoForResource_tagList :: Lens.Lens' TagInfoForResource (Prelude.Maybe (Prelude.NonEmpty Tag))
+tagInfoForResource_tagList = Lens.lens (\TagInfoForResource' {tagList} -> tagList) (\s@TagInfoForResource' {} a -> s {tagList = a} :: TagInfoForResource) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON TagInfoForResource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TagInfoForResource"
       ( \x ->
           TagInfoForResource'
-            Prelude.<$> (x Core..:? "TagList")
-            Prelude.<*> (x Core..:? "ResourceARN")
+            Prelude.<$> (x Data..:? "ResourceARN")
+            Prelude.<*> (x Data..:? "TagList")
       )
 
 instance Prelude.Hashable TagInfoForResource where
   hashWithSalt _salt TagInfoForResource' {..} =
-    _salt `Prelude.hashWithSalt` tagList
-      `Prelude.hashWithSalt` resourceARN
+    _salt `Prelude.hashWithSalt` resourceARN
+      `Prelude.hashWithSalt` tagList
 
 instance Prelude.NFData TagInfoForResource where
   rnf TagInfoForResource' {..} =
-    Prelude.rnf tagList
-      `Prelude.seq` Prelude.rnf resourceARN
+    Prelude.rnf resourceARN
+      `Prelude.seq` Prelude.rnf tagList

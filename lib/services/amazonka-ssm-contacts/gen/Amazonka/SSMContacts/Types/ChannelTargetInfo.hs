@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.Types.ChannelTargetInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSMContacts.Types.ChannelTargetInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the contact channel that Incident Manager uses to
@@ -68,14 +69,14 @@ channelTargetInfo_retryIntervalInMinutes = Lens.lens (\ChannelTargetInfo' {retry
 channelTargetInfo_contactChannelId :: Lens.Lens' ChannelTargetInfo Prelude.Text
 channelTargetInfo_contactChannelId = Lens.lens (\ChannelTargetInfo' {contactChannelId} -> contactChannelId) (\s@ChannelTargetInfo' {} a -> s {contactChannelId = a} :: ChannelTargetInfo)
 
-instance Core.FromJSON ChannelTargetInfo where
+instance Data.FromJSON ChannelTargetInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ChannelTargetInfo"
       ( \x ->
           ChannelTargetInfo'
-            Prelude.<$> (x Core..:? "RetryIntervalInMinutes")
-            Prelude.<*> (x Core..: "ContactChannelId")
+            Prelude.<$> (x Data..:? "RetryIntervalInMinutes")
+            Prelude.<*> (x Data..: "ContactChannelId")
       )
 
 instance Prelude.Hashable ChannelTargetInfo where
@@ -88,13 +89,13 @@ instance Prelude.NFData ChannelTargetInfo where
     Prelude.rnf retryIntervalInMinutes
       `Prelude.seq` Prelude.rnf contactChannelId
 
-instance Core.ToJSON ChannelTargetInfo where
+instance Data.ToJSON ChannelTargetInfo where
   toJSON ChannelTargetInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RetryIntervalInMinutes" Core..=)
+          [ ("RetryIntervalInMinutes" Data..=)
               Prelude.<$> retryIntervalInMinutes,
             Prelude.Just
-              ("ContactChannelId" Core..= contactChannelId)
+              ("ContactChannelId" Data..= contactChannelId)
           ]
       )

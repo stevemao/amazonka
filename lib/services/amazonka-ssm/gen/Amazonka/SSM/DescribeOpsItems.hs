@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.DescribeOpsItems
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,9 +39,9 @@ module Amazonka.SSM.DescribeOpsItems
     newDescribeOpsItems,
 
     -- * Request Lenses
-    describeOpsItems_opsItemFilters,
-    describeOpsItems_nextToken,
     describeOpsItems_maxResults,
+    describeOpsItems_nextToken,
+    describeOpsItems_opsItemFilters,
 
     -- * Destructuring the Response
     DescribeOpsItemsResponse (..),
@@ -55,7 +55,8 @@ module Amazonka.SSM.DescribeOpsItems
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,7 +64,14 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newDescribeOpsItems' smart constructor.
 data DescribeOpsItems = DescribeOpsItems'
-  { -- | One or more filters to limit the response.
+  { -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token to start the list. Use this token to get the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | One or more filters to limit the response.
     --
     -- -   Key: CreatedTime
     --
@@ -124,14 +132,7 @@ data DescribeOpsItems = DescribeOpsItems'
     -- **If you filter the response by using the OperationalData operator,
     -- specify a key-value pair by using the following JSON format:
     -- {\"key\":\"key_name\",\"value\":\"a_value\"}
-    opsItemFilters :: Prelude.Maybe [OpsItemFilter],
-    -- | A token to start the list. Use this token to get the next set of
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return for this call. The call also
-    -- returns a token that you can specify in a subsequent call to get the
-    -- next set of results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    opsItemFilters :: Prelude.Maybe [OpsItemFilter]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -142,6 +143,13 @@ data DescribeOpsItems = DescribeOpsItems'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'maxResults', 'describeOpsItems_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+--
+-- 'nextToken', 'describeOpsItems_nextToken' - A token to start the list. Use this token to get the next set of
+-- results.
 --
 -- 'opsItemFilters', 'describeOpsItems_opsItemFilters' - One or more filters to limit the response.
 --
@@ -204,21 +212,25 @@ data DescribeOpsItems = DescribeOpsItems'
 -- **If you filter the response by using the OperationalData operator,
 -- specify a key-value pair by using the following JSON format:
 -- {\"key\":\"key_name\",\"value\":\"a_value\"}
---
--- 'nextToken', 'describeOpsItems_nextToken' - A token to start the list. Use this token to get the next set of
--- results.
---
--- 'maxResults', 'describeOpsItems_maxResults' - The maximum number of items to return for this call. The call also
--- returns a token that you can specify in a subsequent call to get the
--- next set of results.
 newDescribeOpsItems ::
   DescribeOpsItems
 newDescribeOpsItems =
   DescribeOpsItems'
-    { opsItemFilters = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      opsItemFilters = Prelude.Nothing
     }
+
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+describeOpsItems_maxResults :: Lens.Lens' DescribeOpsItems (Prelude.Maybe Prelude.Natural)
+describeOpsItems_maxResults = Lens.lens (\DescribeOpsItems' {maxResults} -> maxResults) (\s@DescribeOpsItems' {} a -> s {maxResults = a} :: DescribeOpsItems)
+
+-- | A token to start the list. Use this token to get the next set of
+-- results.
+describeOpsItems_nextToken :: Lens.Lens' DescribeOpsItems (Prelude.Maybe Prelude.Text)
+describeOpsItems_nextToken = Lens.lens (\DescribeOpsItems' {nextToken} -> nextToken) (\s@DescribeOpsItems' {} a -> s {nextToken = a} :: DescribeOpsItems)
 
 -- | One or more filters to limit the response.
 --
@@ -284,17 +296,6 @@ newDescribeOpsItems =
 describeOpsItems_opsItemFilters :: Lens.Lens' DescribeOpsItems (Prelude.Maybe [OpsItemFilter])
 describeOpsItems_opsItemFilters = Lens.lens (\DescribeOpsItems' {opsItemFilters} -> opsItemFilters) (\s@DescribeOpsItems' {} a -> s {opsItemFilters = a} :: DescribeOpsItems) Prelude.. Lens.mapping Lens.coerced
 
--- | A token to start the list. Use this token to get the next set of
--- results.
-describeOpsItems_nextToken :: Lens.Lens' DescribeOpsItems (Prelude.Maybe Prelude.Text)
-describeOpsItems_nextToken = Lens.lens (\DescribeOpsItems' {nextToken} -> nextToken) (\s@DescribeOpsItems' {} a -> s {nextToken = a} :: DescribeOpsItems)
-
--- | The maximum number of items to return for this call. The call also
--- returns a token that you can specify in a subsequent call to get the
--- next set of results.
-describeOpsItems_maxResults :: Lens.Lens' DescribeOpsItems (Prelude.Maybe Prelude.Natural)
-describeOpsItems_maxResults = Lens.lens (\DescribeOpsItems' {maxResults} -> maxResults) (\s@DescribeOpsItems' {} a -> s {maxResults = a} :: DescribeOpsItems)
-
 instance Core.AWSPager DescribeOpsItems where
   page rq rs
     | Core.stop
@@ -321,13 +322,14 @@ instance Core.AWSRequest DescribeOpsItems where
   type
     AWSResponse DescribeOpsItems =
       DescribeOpsItemsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeOpsItemsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "OpsItemSummaries"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "OpsItemSummaries"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -335,44 +337,44 @@ instance Core.AWSRequest DescribeOpsItems where
 
 instance Prelude.Hashable DescribeOpsItems where
   hashWithSalt _salt DescribeOpsItems' {..} =
-    _salt `Prelude.hashWithSalt` opsItemFilters
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` opsItemFilters
 
 instance Prelude.NFData DescribeOpsItems where
   rnf DescribeOpsItems' {..} =
-    Prelude.rnf opsItemFilters
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf opsItemFilters
 
-instance Core.ToHeaders DescribeOpsItems where
+instance Data.ToHeaders DescribeOpsItems where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonSSM.DescribeOpsItems" :: Prelude.ByteString),
+              Data.=# ("AmazonSSM.DescribeOpsItems" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeOpsItems where
+instance Data.ToJSON DescribeOpsItems where
   toJSON DescribeOpsItems' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OpsItemFilters" Core..=)
-              Prelude.<$> opsItemFilters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("OpsItemFilters" Data..=)
+              Prelude.<$> opsItemFilters
           ]
       )
 
-instance Core.ToPath DescribeOpsItems where
+instance Data.ToPath DescribeOpsItems where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeOpsItems where
+instance Data.ToQuery DescribeOpsItems where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeOpsItemsResponse' smart constructor.

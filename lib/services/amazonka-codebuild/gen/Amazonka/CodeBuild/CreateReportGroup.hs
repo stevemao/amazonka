@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.CreateReportGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -125,12 +126,13 @@ instance Core.AWSRequest CreateReportGroup where
   type
     AWSResponse CreateReportGroup =
       CreateReportGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateReportGroupResponse'
-            Prelude.<$> (x Core..?> "reportGroup")
+            Prelude.<$> (x Data..?> "reportGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -148,36 +150,36 @@ instance Prelude.NFData CreateReportGroup where
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf exportConfig
 
-instance Core.ToHeaders CreateReportGroup where
+instance Data.ToHeaders CreateReportGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.CreateReportGroup" ::
+              Data.=# ( "CodeBuild_20161006.CreateReportGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateReportGroup where
+instance Data.ToJSON CreateReportGroup where
   toJSON CreateReportGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("type" Core..= type'),
-            Prelude.Just ("exportConfig" Core..= exportConfig)
+          [ ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("type" Data..= type'),
+            Prelude.Just ("exportConfig" Data..= exportConfig)
           ]
       )
 
-instance Core.ToPath CreateReportGroup where
+instance Data.ToPath CreateReportGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateReportGroup where
+instance Data.ToQuery CreateReportGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateReportGroupResponse' smart constructor.

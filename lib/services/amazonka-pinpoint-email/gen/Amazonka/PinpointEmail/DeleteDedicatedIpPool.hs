@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointEmail.DeleteDedicatedIpPool
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.PinpointEmail.DeleteDedicatedIpPool
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.PinpointEmail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -78,7 +79,8 @@ instance Core.AWSRequest DeleteDedicatedIpPool where
   type
     AWSResponse DeleteDedicatedIpPool =
       DeleteDedicatedIpPoolResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -93,23 +95,23 @@ instance Prelude.Hashable DeleteDedicatedIpPool where
 instance Prelude.NFData DeleteDedicatedIpPool where
   rnf DeleteDedicatedIpPool' {..} = Prelude.rnf poolName
 
-instance Core.ToHeaders DeleteDedicatedIpPool where
+instance Data.ToHeaders DeleteDedicatedIpPool where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteDedicatedIpPool where
+instance Data.ToPath DeleteDedicatedIpPool where
   toPath DeleteDedicatedIpPool' {..} =
     Prelude.mconcat
-      ["/v1/email/dedicated-ip-pools/", Core.toBS poolName]
+      ["/v1/email/dedicated-ip-pools/", Data.toBS poolName]
 
-instance Core.ToQuery DeleteDedicatedIpPool where
+instance Data.ToQuery DeleteDedicatedIpPool where
   toQuery = Prelude.const Prelude.mempty
 
 -- | An HTTP 200 response if the request succeeds, or an error message if the

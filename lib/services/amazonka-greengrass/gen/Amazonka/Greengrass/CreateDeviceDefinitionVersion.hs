@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.CreateDeviceDefinitionVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,15 +38,16 @@ module Amazonka.Greengrass.CreateDeviceDefinitionVersion
     -- * Response Lenses
     createDeviceDefinitionVersionResponse_arn,
     createDeviceDefinitionVersionResponse_creationTimestamp,
-    createDeviceDefinitionVersionResponse_version,
     createDeviceDefinitionVersionResponse_id,
+    createDeviceDefinitionVersionResponse_version,
     createDeviceDefinitionVersionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,15 +107,16 @@ instance
   type
     AWSResponse CreateDeviceDefinitionVersion =
       CreateDeviceDefinitionVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDeviceDefinitionVersionResponse'
-            Prelude.<$> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "CreationTimestamp")
-            Prelude.<*> (x Core..?> "Version")
-            Prelude.<*> (x Core..?> "Id")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "CreationTimestamp")
+            Prelude.<*> (x Data..?> "Id")
+            Prelude.<*> (x Data..?> "Version")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -133,30 +135,30 @@ instance Prelude.NFData CreateDeviceDefinitionVersion where
       `Prelude.seq` Prelude.rnf devices
       `Prelude.seq` Prelude.rnf deviceDefinitionId
 
-instance Core.ToHeaders CreateDeviceDefinitionVersion where
+instance Data.ToHeaders CreateDeviceDefinitionVersion where
   toHeaders CreateDeviceDefinitionVersion' {..} =
     Prelude.mconcat
-      [ "X-Amzn-Client-Token" Core.=# amznClientToken,
+      [ "X-Amzn-Client-Token" Data.=# amznClientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON CreateDeviceDefinitionVersion where
+instance Data.ToJSON CreateDeviceDefinitionVersion where
   toJSON CreateDeviceDefinitionVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Devices" Core..=) Prelude.<$> devices]
+          [("Devices" Data..=) Prelude.<$> devices]
       )
 
-instance Core.ToPath CreateDeviceDefinitionVersion where
+instance Data.ToPath CreateDeviceDefinitionVersion where
   toPath CreateDeviceDefinitionVersion' {..} =
     Prelude.mconcat
       [ "/greengrass/definition/devices/",
-        Core.toBS deviceDefinitionId,
+        Data.toBS deviceDefinitionId,
         "/versions"
       ]
 
-instance Core.ToQuery CreateDeviceDefinitionVersion where
+instance Data.ToQuery CreateDeviceDefinitionVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDeviceDefinitionVersionResponse' smart constructor.
@@ -165,10 +167,10 @@ data CreateDeviceDefinitionVersionResponse = CreateDeviceDefinitionVersionRespon
     arn :: Prelude.Maybe Prelude.Text,
     -- | The time, in milliseconds since the epoch, when the version was created.
     creationTimestamp :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the version.
-    version :: Prelude.Maybe Prelude.Text,
     -- | The ID of the parent definition that the version is associated with.
     id :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the version.
+    version :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -186,9 +188,9 @@ data CreateDeviceDefinitionVersionResponse = CreateDeviceDefinitionVersionRespon
 --
 -- 'creationTimestamp', 'createDeviceDefinitionVersionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the version was created.
 --
--- 'version', 'createDeviceDefinitionVersionResponse_version' - The ID of the version.
---
 -- 'id', 'createDeviceDefinitionVersionResponse_id' - The ID of the parent definition that the version is associated with.
+--
+-- 'version', 'createDeviceDefinitionVersionResponse_version' - The ID of the version.
 --
 -- 'httpStatus', 'createDeviceDefinitionVersionResponse_httpStatus' - The response's http status code.
 newCreateDeviceDefinitionVersionResponse ::
@@ -200,8 +202,8 @@ newCreateDeviceDefinitionVersionResponse pHttpStatus_ =
     { arn =
         Prelude.Nothing,
       creationTimestamp = Prelude.Nothing,
-      version = Prelude.Nothing,
       id = Prelude.Nothing,
+      version = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -213,13 +215,13 @@ createDeviceDefinitionVersionResponse_arn = Lens.lens (\CreateDeviceDefinitionVe
 createDeviceDefinitionVersionResponse_creationTimestamp :: Lens.Lens' CreateDeviceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
 createDeviceDefinitionVersionResponse_creationTimestamp = Lens.lens (\CreateDeviceDefinitionVersionResponse' {creationTimestamp} -> creationTimestamp) (\s@CreateDeviceDefinitionVersionResponse' {} a -> s {creationTimestamp = a} :: CreateDeviceDefinitionVersionResponse)
 
--- | The ID of the version.
-createDeviceDefinitionVersionResponse_version :: Lens.Lens' CreateDeviceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
-createDeviceDefinitionVersionResponse_version = Lens.lens (\CreateDeviceDefinitionVersionResponse' {version} -> version) (\s@CreateDeviceDefinitionVersionResponse' {} a -> s {version = a} :: CreateDeviceDefinitionVersionResponse)
-
 -- | The ID of the parent definition that the version is associated with.
 createDeviceDefinitionVersionResponse_id :: Lens.Lens' CreateDeviceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
 createDeviceDefinitionVersionResponse_id = Lens.lens (\CreateDeviceDefinitionVersionResponse' {id} -> id) (\s@CreateDeviceDefinitionVersionResponse' {} a -> s {id = a} :: CreateDeviceDefinitionVersionResponse)
+
+-- | The ID of the version.
+createDeviceDefinitionVersionResponse_version :: Lens.Lens' CreateDeviceDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+createDeviceDefinitionVersionResponse_version = Lens.lens (\CreateDeviceDefinitionVersionResponse' {version} -> version) (\s@CreateDeviceDefinitionVersionResponse' {} a -> s {version = a} :: CreateDeviceDefinitionVersionResponse)
 
 -- | The response's http status code.
 createDeviceDefinitionVersionResponse_httpStatus :: Lens.Lens' CreateDeviceDefinitionVersionResponse Prelude.Int
@@ -232,6 +234,6 @@ instance
   rnf CreateDeviceDefinitionVersionResponse' {..} =
     Prelude.rnf arn
       `Prelude.seq` Prelude.rnf creationTimestamp
-      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf httpStatus

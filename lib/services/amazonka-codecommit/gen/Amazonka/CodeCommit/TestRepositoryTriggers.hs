@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.TestRepositoryTriggers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,15 +97,16 @@ instance Core.AWSRequest TestRepositoryTriggers where
   type
     AWSResponse TestRepositoryTriggers =
       TestRepositoryTriggersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           TestRepositoryTriggersResponse'
-            Prelude.<$> ( x Core..?> "failedExecutions"
+            Prelude.<$> ( x Data..?> "failedExecutions"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> ( x Core..?> "successfulExecutions"
+            Prelude.<*> ( x Data..?> "successfulExecutions"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -120,35 +122,35 @@ instance Prelude.NFData TestRepositoryTriggers where
     Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf triggers
 
-instance Core.ToHeaders TestRepositoryTriggers where
+instance Data.ToHeaders TestRepositoryTriggers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.TestRepositoryTriggers" ::
+              Data.=# ( "CodeCommit_20150413.TestRepositoryTriggers" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TestRepositoryTriggers where
+instance Data.ToJSON TestRepositoryTriggers where
   toJSON TestRepositoryTriggers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("repositoryName" Core..= repositoryName),
-            Prelude.Just ("triggers" Core..= triggers)
+              ("repositoryName" Data..= repositoryName),
+            Prelude.Just ("triggers" Data..= triggers)
           ]
       )
 
-instance Core.ToPath TestRepositoryTriggers where
+instance Data.ToPath TestRepositoryTriggers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TestRepositoryTriggers where
+instance Data.ToQuery TestRepositoryTriggers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a test repository triggers operation.

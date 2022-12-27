@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.GetLoggingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.WAF.GetLoggingConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,12 +93,13 @@ instance Core.AWSRequest GetLoggingConfiguration where
   type
     AWSResponse GetLoggingConfiguration =
       GetLoggingConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetLoggingConfigurationResponse'
-            Prelude.<$> (x Core..?> "LoggingConfiguration")
+            Prelude.<$> (x Data..?> "LoggingConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,32 +111,32 @@ instance Prelude.NFData GetLoggingConfiguration where
   rnf GetLoggingConfiguration' {..} =
     Prelude.rnf resourceArn
 
-instance Core.ToHeaders GetLoggingConfiguration where
+instance Data.ToHeaders GetLoggingConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_20150824.GetLoggingConfiguration" ::
+              Data.=# ( "AWSWAF_20150824.GetLoggingConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetLoggingConfiguration where
+instance Data.ToJSON GetLoggingConfiguration where
   toJSON GetLoggingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ResourceArn" Core..= resourceArn)]
+          [Prelude.Just ("ResourceArn" Data..= resourceArn)]
       )
 
-instance Core.ToPath GetLoggingConfiguration where
+instance Data.ToPath GetLoggingConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetLoggingConfiguration where
+instance Data.ToQuery GetLoggingConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetLoggingConfigurationResponse' smart constructor.

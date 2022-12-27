@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.MwAA.CreateWebLoginToken
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Create a JWT token to be used to login to Airflow Web UI with claims
--- based Authentication.
+-- Creates a web login token for the Airflow Web UI. To learn more, see
+-- <https://docs.aws.amazon.com/mwaa/latest/userguide/call-mwaa-apis-web.html Creating an Apache Airflow web login token>.
 module Amazonka.MwAA.CreateWebLoginToken
   ( -- * Creating a Request
     CreateWebLoginToken (..),
@@ -42,7 +42,8 @@ module Amazonka.MwAA.CreateWebLoginToken
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MwAA.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -50,7 +51,8 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateWebLoginToken' smart constructor.
 data CreateWebLoginToken = CreateWebLoginToken'
-  { -- | Create an Airflow Web UI login token request for a MWAA environment.
+  { -- | The name of the Amazon MWAA environment. For example,
+    -- @MyMWAAEnvironment@.
     name :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -63,7 +65,8 @@ data CreateWebLoginToken = CreateWebLoginToken'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'createWebLoginToken_name' - Create an Airflow Web UI login token request for a MWAA environment.
+-- 'name', 'createWebLoginToken_name' - The name of the Amazon MWAA environment. For example,
+-- @MyMWAAEnvironment@.
 newCreateWebLoginToken ::
   -- | 'name'
   Prelude.Text ->
@@ -71,7 +74,8 @@ newCreateWebLoginToken ::
 newCreateWebLoginToken pName_ =
   CreateWebLoginToken' {name = pName_}
 
--- | Create an Airflow Web UI login token request for a MWAA environment.
+-- | The name of the Amazon MWAA environment. For example,
+-- @MyMWAAEnvironment@.
 createWebLoginToken_name :: Lens.Lens' CreateWebLoginToken Prelude.Text
 createWebLoginToken_name = Lens.lens (\CreateWebLoginToken' {name} -> name) (\s@CreateWebLoginToken' {} a -> s {name = a} :: CreateWebLoginToken)
 
@@ -79,13 +83,14 @@ instance Core.AWSRequest CreateWebLoginToken where
   type
     AWSResponse CreateWebLoginToken =
       CreateWebLoginTokenResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateWebLoginTokenResponse'
-            Prelude.<$> (x Core..?> "WebServerHostname")
-            Prelude.<*> (x Core..?> "WebToken")
+            Prelude.<$> (x Data..?> "WebServerHostname")
+            Prelude.<*> (x Data..?> "WebToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -96,35 +101,33 @@ instance Prelude.Hashable CreateWebLoginToken where
 instance Prelude.NFData CreateWebLoginToken where
   rnf CreateWebLoginToken' {..} = Prelude.rnf name
 
-instance Core.ToHeaders CreateWebLoginToken where
+instance Data.ToHeaders CreateWebLoginToken where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateWebLoginToken where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON CreateWebLoginToken where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath CreateWebLoginToken where
+instance Data.ToPath CreateWebLoginToken where
   toPath CreateWebLoginToken' {..} =
-    Prelude.mconcat ["/webtoken/", Core.toBS name]
+    Prelude.mconcat ["/webtoken/", Data.toBS name]
 
-instance Core.ToQuery CreateWebLoginToken where
+instance Data.ToQuery CreateWebLoginToken where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateWebLoginTokenResponse' smart constructor.
 data CreateWebLoginTokenResponse = CreateWebLoginTokenResponse'
-  { -- | Create an Airflow Web UI login token response for the provided webserver
-    -- hostname.
+  { -- | The Airflow web server hostname for the environment.
     webServerHostname :: Prelude.Maybe Prelude.Text,
-    -- | Create an Airflow Web UI login token response for the provided JWT
-    -- token.
-    webToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    -- | An Airflow web server login token.
+    webToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -138,11 +141,9 @@ data CreateWebLoginTokenResponse = CreateWebLoginTokenResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'webServerHostname', 'createWebLoginTokenResponse_webServerHostname' - Create an Airflow Web UI login token response for the provided webserver
--- hostname.
+-- 'webServerHostname', 'createWebLoginTokenResponse_webServerHostname' - The Airflow web server hostname for the environment.
 --
--- 'webToken', 'createWebLoginTokenResponse_webToken' - Create an Airflow Web UI login token response for the provided JWT
--- token.
+-- 'webToken', 'createWebLoginTokenResponse_webToken' - An Airflow web server login token.
 --
 -- 'httpStatus', 'createWebLoginTokenResponse_httpStatus' - The response's http status code.
 newCreateWebLoginTokenResponse ::
@@ -157,15 +158,13 @@ newCreateWebLoginTokenResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Create an Airflow Web UI login token response for the provided webserver
--- hostname.
+-- | The Airflow web server hostname for the environment.
 createWebLoginTokenResponse_webServerHostname :: Lens.Lens' CreateWebLoginTokenResponse (Prelude.Maybe Prelude.Text)
 createWebLoginTokenResponse_webServerHostname = Lens.lens (\CreateWebLoginTokenResponse' {webServerHostname} -> webServerHostname) (\s@CreateWebLoginTokenResponse' {} a -> s {webServerHostname = a} :: CreateWebLoginTokenResponse)
 
--- | Create an Airflow Web UI login token response for the provided JWT
--- token.
+-- | An Airflow web server login token.
 createWebLoginTokenResponse_webToken :: Lens.Lens' CreateWebLoginTokenResponse (Prelude.Maybe Prelude.Text)
-createWebLoginTokenResponse_webToken = Lens.lens (\CreateWebLoginTokenResponse' {webToken} -> webToken) (\s@CreateWebLoginTokenResponse' {} a -> s {webToken = a} :: CreateWebLoginTokenResponse) Prelude.. Lens.mapping Core._Sensitive
+createWebLoginTokenResponse_webToken = Lens.lens (\CreateWebLoginTokenResponse' {webToken} -> webToken) (\s@CreateWebLoginTokenResponse' {} a -> s {webToken = a} :: CreateWebLoginTokenResponse) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The response's http status code.
 createWebLoginTokenResponse_httpStatus :: Lens.Lens' CreateWebLoginTokenResponse Prelude.Int

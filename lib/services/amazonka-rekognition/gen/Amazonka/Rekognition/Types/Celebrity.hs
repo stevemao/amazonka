@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.Celebrity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.Celebrity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.ComparedFace
 import Amazonka.Rekognition.Types.KnownGender
@@ -30,21 +31,21 @@ import Amazonka.Rekognition.Types.KnownGender
 --
 -- /See:/ 'newCelebrity' smart constructor.
 data Celebrity = Celebrity'
-  { -- | The confidence, in percentage, that Amazon Rekognition has that the
+  { -- | Provides information about the celebrity\'s face, such as its location
+    -- on the image.
+    face :: Prelude.Maybe ComparedFace,
+    -- | A unique identifier for the celebrity.
+    id :: Prelude.Maybe Prelude.Text,
+    knownGender :: Prelude.Maybe KnownGender,
+    -- | The confidence, in percentage, that Amazon Rekognition has that the
     -- recognized face is the celebrity.
     matchConfidence :: Prelude.Maybe Prelude.Double,
+    -- | The name of the celebrity.
+    name :: Prelude.Maybe Prelude.Text,
     -- | An array of URLs pointing to additional information about the celebrity.
     -- If there is no additional information about the celebrity, this list is
     -- empty.
-    urls :: Prelude.Maybe [Prelude.Text],
-    knownGender :: Prelude.Maybe KnownGender,
-    -- | The name of the celebrity.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | A unique identifier for the celebrity.
-    id :: Prelude.Maybe Prelude.Text,
-    -- | Provides information about the celebrity\'s face, such as its location
-    -- on the image.
-    face :: Prelude.Maybe ComparedFace
+    urls :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -56,37 +57,54 @@ data Celebrity = Celebrity'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'face', 'celebrity_face' - Provides information about the celebrity\'s face, such as its location
+-- on the image.
+--
+-- 'id', 'celebrity_id' - A unique identifier for the celebrity.
+--
+-- 'knownGender', 'celebrity_knownGender' - Undocumented member.
+--
 -- 'matchConfidence', 'celebrity_matchConfidence' - The confidence, in percentage, that Amazon Rekognition has that the
 -- recognized face is the celebrity.
+--
+-- 'name', 'celebrity_name' - The name of the celebrity.
 --
 -- 'urls', 'celebrity_urls' - An array of URLs pointing to additional information about the celebrity.
 -- If there is no additional information about the celebrity, this list is
 -- empty.
---
--- 'knownGender', 'celebrity_knownGender' - Undocumented member.
---
--- 'name', 'celebrity_name' - The name of the celebrity.
---
--- 'id', 'celebrity_id' - A unique identifier for the celebrity.
---
--- 'face', 'celebrity_face' - Provides information about the celebrity\'s face, such as its location
--- on the image.
 newCelebrity ::
   Celebrity
 newCelebrity =
   Celebrity'
-    { matchConfidence = Prelude.Nothing,
-      urls = Prelude.Nothing,
-      knownGender = Prelude.Nothing,
-      name = Prelude.Nothing,
+    { face = Prelude.Nothing,
       id = Prelude.Nothing,
-      face = Prelude.Nothing
+      knownGender = Prelude.Nothing,
+      matchConfidence = Prelude.Nothing,
+      name = Prelude.Nothing,
+      urls = Prelude.Nothing
     }
+
+-- | Provides information about the celebrity\'s face, such as its location
+-- on the image.
+celebrity_face :: Lens.Lens' Celebrity (Prelude.Maybe ComparedFace)
+celebrity_face = Lens.lens (\Celebrity' {face} -> face) (\s@Celebrity' {} a -> s {face = a} :: Celebrity)
+
+-- | A unique identifier for the celebrity.
+celebrity_id :: Lens.Lens' Celebrity (Prelude.Maybe Prelude.Text)
+celebrity_id = Lens.lens (\Celebrity' {id} -> id) (\s@Celebrity' {} a -> s {id = a} :: Celebrity)
+
+-- | Undocumented member.
+celebrity_knownGender :: Lens.Lens' Celebrity (Prelude.Maybe KnownGender)
+celebrity_knownGender = Lens.lens (\Celebrity' {knownGender} -> knownGender) (\s@Celebrity' {} a -> s {knownGender = a} :: Celebrity)
 
 -- | The confidence, in percentage, that Amazon Rekognition has that the
 -- recognized face is the celebrity.
 celebrity_matchConfidence :: Lens.Lens' Celebrity (Prelude.Maybe Prelude.Double)
 celebrity_matchConfidence = Lens.lens (\Celebrity' {matchConfidence} -> matchConfidence) (\s@Celebrity' {} a -> s {matchConfidence = a} :: Celebrity)
+
+-- | The name of the celebrity.
+celebrity_name :: Lens.Lens' Celebrity (Prelude.Maybe Prelude.Text)
+celebrity_name = Lens.lens (\Celebrity' {name} -> name) (\s@Celebrity' {} a -> s {name = a} :: Celebrity)
 
 -- | An array of URLs pointing to additional information about the celebrity.
 -- If there is no additional information about the celebrity, this list is
@@ -94,51 +112,34 @@ celebrity_matchConfidence = Lens.lens (\Celebrity' {matchConfidence} -> matchCon
 celebrity_urls :: Lens.Lens' Celebrity (Prelude.Maybe [Prelude.Text])
 celebrity_urls = Lens.lens (\Celebrity' {urls} -> urls) (\s@Celebrity' {} a -> s {urls = a} :: Celebrity) Prelude.. Lens.mapping Lens.coerced
 
--- | Undocumented member.
-celebrity_knownGender :: Lens.Lens' Celebrity (Prelude.Maybe KnownGender)
-celebrity_knownGender = Lens.lens (\Celebrity' {knownGender} -> knownGender) (\s@Celebrity' {} a -> s {knownGender = a} :: Celebrity)
-
--- | The name of the celebrity.
-celebrity_name :: Lens.Lens' Celebrity (Prelude.Maybe Prelude.Text)
-celebrity_name = Lens.lens (\Celebrity' {name} -> name) (\s@Celebrity' {} a -> s {name = a} :: Celebrity)
-
--- | A unique identifier for the celebrity.
-celebrity_id :: Lens.Lens' Celebrity (Prelude.Maybe Prelude.Text)
-celebrity_id = Lens.lens (\Celebrity' {id} -> id) (\s@Celebrity' {} a -> s {id = a} :: Celebrity)
-
--- | Provides information about the celebrity\'s face, such as its location
--- on the image.
-celebrity_face :: Lens.Lens' Celebrity (Prelude.Maybe ComparedFace)
-celebrity_face = Lens.lens (\Celebrity' {face} -> face) (\s@Celebrity' {} a -> s {face = a} :: Celebrity)
-
-instance Core.FromJSON Celebrity where
+instance Data.FromJSON Celebrity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Celebrity"
       ( \x ->
           Celebrity'
-            Prelude.<$> (x Core..:? "MatchConfidence")
-            Prelude.<*> (x Core..:? "Urls" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "KnownGender")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Id")
-            Prelude.<*> (x Core..:? "Face")
+            Prelude.<$> (x Data..:? "Face")
+            Prelude.<*> (x Data..:? "Id")
+            Prelude.<*> (x Data..:? "KnownGender")
+            Prelude.<*> (x Data..:? "MatchConfidence")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "Urls" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Celebrity where
   hashWithSalt _salt Celebrity' {..} =
-    _salt `Prelude.hashWithSalt` matchConfidence
-      `Prelude.hashWithSalt` urls
-      `Prelude.hashWithSalt` knownGender
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` face
       `Prelude.hashWithSalt` id
-      `Prelude.hashWithSalt` face
+      `Prelude.hashWithSalt` knownGender
+      `Prelude.hashWithSalt` matchConfidence
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` urls
 
 instance Prelude.NFData Celebrity where
   rnf Celebrity' {..} =
-    Prelude.rnf matchConfidence
-      `Prelude.seq` Prelude.rnf urls
-      `Prelude.seq` Prelude.rnf knownGender
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf face
       `Prelude.seq` Prelude.rnf id
-      `Prelude.seq` Prelude.rnf face
+      `Prelude.seq` Prelude.rnf knownGender
+      `Prelude.seq` Prelude.rnf matchConfidence
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf urls

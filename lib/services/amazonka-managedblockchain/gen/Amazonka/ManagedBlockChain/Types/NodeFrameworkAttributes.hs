@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.Types.NodeFrameworkAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ManagedBlockChain.Types.NodeFrameworkAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types.NodeEthereumAttributes
 import Amazonka.ManagedBlockChain.Types.NodeFabricAttributes
 import qualified Amazonka.Prelude as Prelude
@@ -30,12 +31,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newNodeFrameworkAttributes' smart constructor.
 data NodeFrameworkAttributes = NodeFrameworkAttributes'
-  { -- | Attributes of Hyperledger Fabric for a peer node on a Managed Blockchain
-    -- network that uses Hyperledger Fabric.
-    fabric :: Prelude.Maybe NodeFabricAttributes,
-    -- | Attributes of Ethereum for a node on a Managed Blockchain network that
+  { -- | Attributes of Ethereum for a node on a Managed Blockchain network that
     -- uses Ethereum.
-    ethereum :: Prelude.Maybe NodeEthereumAttributes
+    ethereum :: Prelude.Maybe NodeEthereumAttributes,
+    -- | Attributes of Hyperledger Fabric for a peer node on a Managed Blockchain
+    -- network that uses Hyperledger Fabric.
+    fabric :: Prelude.Maybe NodeFabricAttributes
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,45 +48,46 @@ data NodeFrameworkAttributes = NodeFrameworkAttributes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'fabric', 'nodeFrameworkAttributes_fabric' - Attributes of Hyperledger Fabric for a peer node on a Managed Blockchain
--- network that uses Hyperledger Fabric.
---
 -- 'ethereum', 'nodeFrameworkAttributes_ethereum' - Attributes of Ethereum for a node on a Managed Blockchain network that
 -- uses Ethereum.
+--
+-- 'fabric', 'nodeFrameworkAttributes_fabric' - Attributes of Hyperledger Fabric for a peer node on a Managed Blockchain
+-- network that uses Hyperledger Fabric.
 newNodeFrameworkAttributes ::
   NodeFrameworkAttributes
 newNodeFrameworkAttributes =
   NodeFrameworkAttributes'
-    { fabric = Prelude.Nothing,
-      ethereum = Prelude.Nothing
+    { ethereum =
+        Prelude.Nothing,
+      fabric = Prelude.Nothing
     }
-
--- | Attributes of Hyperledger Fabric for a peer node on a Managed Blockchain
--- network that uses Hyperledger Fabric.
-nodeFrameworkAttributes_fabric :: Lens.Lens' NodeFrameworkAttributes (Prelude.Maybe NodeFabricAttributes)
-nodeFrameworkAttributes_fabric = Lens.lens (\NodeFrameworkAttributes' {fabric} -> fabric) (\s@NodeFrameworkAttributes' {} a -> s {fabric = a} :: NodeFrameworkAttributes)
 
 -- | Attributes of Ethereum for a node on a Managed Blockchain network that
 -- uses Ethereum.
 nodeFrameworkAttributes_ethereum :: Lens.Lens' NodeFrameworkAttributes (Prelude.Maybe NodeEthereumAttributes)
 nodeFrameworkAttributes_ethereum = Lens.lens (\NodeFrameworkAttributes' {ethereum} -> ethereum) (\s@NodeFrameworkAttributes' {} a -> s {ethereum = a} :: NodeFrameworkAttributes)
 
-instance Core.FromJSON NodeFrameworkAttributes where
+-- | Attributes of Hyperledger Fabric for a peer node on a Managed Blockchain
+-- network that uses Hyperledger Fabric.
+nodeFrameworkAttributes_fabric :: Lens.Lens' NodeFrameworkAttributes (Prelude.Maybe NodeFabricAttributes)
+nodeFrameworkAttributes_fabric = Lens.lens (\NodeFrameworkAttributes' {fabric} -> fabric) (\s@NodeFrameworkAttributes' {} a -> s {fabric = a} :: NodeFrameworkAttributes)
+
+instance Data.FromJSON NodeFrameworkAttributes where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NodeFrameworkAttributes"
       ( \x ->
           NodeFrameworkAttributes'
-            Prelude.<$> (x Core..:? "Fabric")
-            Prelude.<*> (x Core..:? "Ethereum")
+            Prelude.<$> (x Data..:? "Ethereum")
+            Prelude.<*> (x Data..:? "Fabric")
       )
 
 instance Prelude.Hashable NodeFrameworkAttributes where
   hashWithSalt _salt NodeFrameworkAttributes' {..} =
-    _salt `Prelude.hashWithSalt` fabric
-      `Prelude.hashWithSalt` ethereum
+    _salt `Prelude.hashWithSalt` ethereum
+      `Prelude.hashWithSalt` fabric
 
 instance Prelude.NFData NodeFrameworkAttributes where
   rnf NodeFrameworkAttributes' {..} =
-    Prelude.rnf fabric
-      `Prelude.seq` Prelude.rnf ethereum
+    Prelude.rnf ethereum
+      `Prelude.seq` Prelude.rnf fabric

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.DeleteStudio
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,9 @@ module Amazonka.EMR.DeleteStudio
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -71,7 +72,8 @@ deleteStudio_studioId = Lens.lens (\DeleteStudio' {studioId} -> studioId) (\s@De
 
 instance Core.AWSRequest DeleteStudio where
   type AWSResponse DeleteStudio = DeleteStudioResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DeleteStudioResponse'
 
 instance Prelude.Hashable DeleteStudio where
@@ -81,32 +83,32 @@ instance Prelude.Hashable DeleteStudio where
 instance Prelude.NFData DeleteStudio where
   rnf DeleteStudio' {..} = Prelude.rnf studioId
 
-instance Core.ToHeaders DeleteStudio where
+instance Data.ToHeaders DeleteStudio where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ElasticMapReduce.DeleteStudio" ::
+              Data.=# ( "ElasticMapReduce.DeleteStudio" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteStudio where
+instance Data.ToJSON DeleteStudio where
   toJSON DeleteStudio' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("StudioId" Core..= studioId)]
+          [Prelude.Just ("StudioId" Data..= studioId)]
       )
 
-instance Core.ToPath DeleteStudio where
+instance Data.ToPath DeleteStudio where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteStudio where
+instance Data.ToQuery DeleteStudio where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteStudioResponse' smart constructor.

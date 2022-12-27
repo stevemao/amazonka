@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.AttachPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,7 +111,8 @@ attachPolicy_objectReference = Lens.lens (\AttachPolicy' {objectReference} -> ob
 
 instance Core.AWSRequest AttachPolicy where
   type AWSResponse AttachPolicy = AttachPolicyResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -130,28 +132,28 @@ instance Prelude.NFData AttachPolicy where
       `Prelude.seq` Prelude.rnf policyReference
       `Prelude.seq` Prelude.rnf objectReference
 
-instance Core.ToHeaders AttachPolicy where
+instance Data.ToHeaders AttachPolicy where
   toHeaders AttachPolicy' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# directoryArn]
+      ["x-amz-data-partition" Data.=# directoryArn]
 
-instance Core.ToJSON AttachPolicy where
+instance Data.ToJSON AttachPolicy where
   toJSON AttachPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("PolicyReference" Core..= policyReference),
+              ("PolicyReference" Data..= policyReference),
             Prelude.Just
-              ("ObjectReference" Core..= objectReference)
+              ("ObjectReference" Data..= objectReference)
           ]
       )
 
-instance Core.ToPath AttachPolicy where
+instance Data.ToPath AttachPolicy where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/policy/attach"
 
-instance Core.ToQuery AttachPolicy where
+instance Data.ToQuery AttachPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAttachPolicyResponse' smart constructor.

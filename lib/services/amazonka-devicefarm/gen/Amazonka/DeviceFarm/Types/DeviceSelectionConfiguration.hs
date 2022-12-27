@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.Types.DeviceSelectionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DeviceFarm.Types.DeviceSelectionConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types.DeviceFilter
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the device filters used in a test run and the maximum number
@@ -323,11 +324,11 @@ instance Prelude.NFData DeviceSelectionConfiguration where
     Prelude.rnf filters
       `Prelude.seq` Prelude.rnf maxDevices
 
-instance Core.ToJSON DeviceSelectionConfiguration where
+instance Data.ToJSON DeviceSelectionConfiguration where
   toJSON DeviceSelectionConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("filters" Core..= filters),
-            Prelude.Just ("maxDevices" Core..= maxDevices)
+          [ Prelude.Just ("filters" Data..= filters),
+            Prelude.Just ("maxDevices" Data..= maxDevices)
           ]
       )

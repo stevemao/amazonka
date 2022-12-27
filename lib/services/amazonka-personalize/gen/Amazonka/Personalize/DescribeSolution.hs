@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Personalize.DescribeSolution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Describes a solution. For more information on solutions, see
--- CreateSolution.
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html CreateSolution>.
 module Amazonka.Personalize.DescribeSolution
   ( -- * Creating a Request
     DescribeSolution (..),
@@ -41,7 +41,8 @@ module Amazonka.Personalize.DescribeSolution
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -78,12 +79,13 @@ instance Core.AWSRequest DescribeSolution where
   type
     AWSResponse DescribeSolution =
       DescribeSolutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeSolutionResponse'
-            Prelude.<$> (x Core..?> "solution")
+            Prelude.<$> (x Data..?> "solution")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -94,32 +96,32 @@ instance Prelude.Hashable DescribeSolution where
 instance Prelude.NFData DescribeSolution where
   rnf DescribeSolution' {..} = Prelude.rnf solutionArn
 
-instance Core.ToHeaders DescribeSolution where
+instance Data.ToHeaders DescribeSolution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.DescribeSolution" ::
+              Data.=# ( "AmazonPersonalize.DescribeSolution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeSolution where
+instance Data.ToJSON DescribeSolution where
   toJSON DescribeSolution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("solutionArn" Core..= solutionArn)]
+          [Prelude.Just ("solutionArn" Data..= solutionArn)]
       )
 
-instance Core.ToPath DescribeSolution where
+instance Data.ToPath DescribeSolution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeSolution where
+instance Data.ToQuery DescribeSolution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeSolutionResponse' smart constructor.

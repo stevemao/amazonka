@@ -14,15 +14,18 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.ListExecutions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the executions of a state machine that meet the filtering
--- criteria. Results are sorted by time, with the most recent execution
--- first.
+-- Lists all executions of a state machine or a Map Run. You can list all
+-- executions related to a state machine by specifying a state machine
+-- Amazon Resource Name (ARN), or those related to a Map Run by specifying
+-- a Map Run ARN.
+--
+-- Results are sorted by time, with the most recent execution first.
 --
 -- If @nextToken@ is returned, there are more results available. The value
 -- of @nextToken@ is a unique pagination token for each page. Make the call
@@ -43,10 +46,11 @@ module Amazonka.StepFunctions.ListExecutions
     newListExecutions,
 
     -- * Request Lenses
-    listExecutions_statusFilter,
-    listExecutions_nextToken,
+    listExecutions_mapRunArn,
     listExecutions_maxResults,
+    listExecutions_nextToken,
     listExecutions_stateMachineArn,
+    listExecutions_statusFilter,
 
     -- * Destructuring the Response
     ListExecutionsResponse (..),
@@ -60,7 +64,8 @@ module Amazonka.StepFunctions.ListExecutions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,16 +73,16 @@ import Amazonka.StepFunctions.Types
 
 -- | /See:/ 'newListExecutions' smart constructor.
 data ListExecutions = ListExecutions'
-  { -- | If specified, only list the executions whose current execution status
-    -- matches the given filter.
-    statusFilter :: Prelude.Maybe ExecutionStatus,
-    -- | If @nextToken@ is returned, there are more results available. The value
-    -- of @nextToken@ is a unique pagination token for each page. Make the call
-    -- again using the returned token to retrieve the next page. Keep all other
-    -- arguments unchanged. Each pagination token expires after 24 hours. Using
-    -- an expired pagination token will return an /HTTP 400 InvalidToken/
-    -- error.
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { -- | The Amazon Resource Name (ARN) of the Map Run that started the child
+    -- workflow executions. If the @mapRunArn@ field is specified, a list of
+    -- all of the child workflow executions started by a Map Run is returned.
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/step-functions/latest/dg/concepts-examine-map-run.html Examining Map Run>
+    -- in the /Step Functions Developer Guide/.
+    --
+    -- You can specify either a @mapRunArn@ or a @stateMachineArn@, but not
+    -- both.
+    mapRunArn :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results that are returned per call. You can use
     -- @nextToken@ to obtain further pages of results. The default is 100 and
     -- the maximum allowed page size is 1000. A value of 0 uses the default.
@@ -85,9 +90,22 @@ data ListExecutions = ListExecutions'
     -- This is only an upper limit. The actual number of results returned per
     -- call might be fewer than the specified maximum.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If @nextToken@ is returned, there are more results available. The value
+    -- of @nextToken@ is a unique pagination token for each page. Make the call
+    -- again using the returned token to retrieve the next page. Keep all other
+    -- arguments unchanged. Each pagination token expires after 24 hours. Using
+    -- an expired pagination token will return an /HTTP 400 InvalidToken/
+    -- error.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the state machine whose executions is
     -- listed.
-    stateMachineArn :: Prelude.Text
+    --
+    -- You can specify either a @mapRunArn@ or a @stateMachineArn@, but not
+    -- both.
+    stateMachineArn :: Prelude.Maybe Prelude.Text,
+    -- | If specified, only list the executions whose current execution status
+    -- matches the given filter.
+    statusFilter :: Prelude.Maybe ExecutionStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -99,15 +117,15 @@ data ListExecutions = ListExecutions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'statusFilter', 'listExecutions_statusFilter' - If specified, only list the executions whose current execution status
--- matches the given filter.
+-- 'mapRunArn', 'listExecutions_mapRunArn' - The Amazon Resource Name (ARN) of the Map Run that started the child
+-- workflow executions. If the @mapRunArn@ field is specified, a list of
+-- all of the child workflow executions started by a Map Run is returned.
+-- For more information, see
+-- <https://docs.aws.amazon.com/step-functions/latest/dg/concepts-examine-map-run.html Examining Map Run>
+-- in the /Step Functions Developer Guide/.
 --
--- 'nextToken', 'listExecutions_nextToken' - If @nextToken@ is returned, there are more results available. The value
--- of @nextToken@ is a unique pagination token for each page. Make the call
--- again using the returned token to retrieve the next page. Keep all other
--- arguments unchanged. Each pagination token expires after 24 hours. Using
--- an expired pagination token will return an /HTTP 400 InvalidToken/
--- error.
+-- You can specify either a @mapRunArn@ or a @stateMachineArn@, but not
+-- both.
 --
 -- 'maxResults', 'listExecutions_maxResults' - The maximum number of results that are returned per call. You can use
 -- @nextToken@ to obtain further pages of results. The default is 100 and
@@ -116,33 +134,43 @@ data ListExecutions = ListExecutions'
 -- This is only an upper limit. The actual number of results returned per
 -- call might be fewer than the specified maximum.
 --
--- 'stateMachineArn', 'listExecutions_stateMachineArn' - The Amazon Resource Name (ARN) of the state machine whose executions is
--- listed.
-newListExecutions ::
-  -- | 'stateMachineArn'
-  Prelude.Text ->
-  ListExecutions
-newListExecutions pStateMachineArn_ =
-  ListExecutions'
-    { statusFilter = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
-      stateMachineArn = pStateMachineArn_
-    }
-
--- | If specified, only list the executions whose current execution status
--- matches the given filter.
-listExecutions_statusFilter :: Lens.Lens' ListExecutions (Prelude.Maybe ExecutionStatus)
-listExecutions_statusFilter = Lens.lens (\ListExecutions' {statusFilter} -> statusFilter) (\s@ListExecutions' {} a -> s {statusFilter = a} :: ListExecutions)
-
--- | If @nextToken@ is returned, there are more results available. The value
+-- 'nextToken', 'listExecutions_nextToken' - If @nextToken@ is returned, there are more results available. The value
 -- of @nextToken@ is a unique pagination token for each page. Make the call
 -- again using the returned token to retrieve the next page. Keep all other
 -- arguments unchanged. Each pagination token expires after 24 hours. Using
 -- an expired pagination token will return an /HTTP 400 InvalidToken/
 -- error.
-listExecutions_nextToken :: Lens.Lens' ListExecutions (Prelude.Maybe Prelude.Text)
-listExecutions_nextToken = Lens.lens (\ListExecutions' {nextToken} -> nextToken) (\s@ListExecutions' {} a -> s {nextToken = a} :: ListExecutions)
+--
+-- 'stateMachineArn', 'listExecutions_stateMachineArn' - The Amazon Resource Name (ARN) of the state machine whose executions is
+-- listed.
+--
+-- You can specify either a @mapRunArn@ or a @stateMachineArn@, but not
+-- both.
+--
+-- 'statusFilter', 'listExecutions_statusFilter' - If specified, only list the executions whose current execution status
+-- matches the given filter.
+newListExecutions ::
+  ListExecutions
+newListExecutions =
+  ListExecutions'
+    { mapRunArn = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      stateMachineArn = Prelude.Nothing,
+      statusFilter = Prelude.Nothing
+    }
+
+-- | The Amazon Resource Name (ARN) of the Map Run that started the child
+-- workflow executions. If the @mapRunArn@ field is specified, a list of
+-- all of the child workflow executions started by a Map Run is returned.
+-- For more information, see
+-- <https://docs.aws.amazon.com/step-functions/latest/dg/concepts-examine-map-run.html Examining Map Run>
+-- in the /Step Functions Developer Guide/.
+--
+-- You can specify either a @mapRunArn@ or a @stateMachineArn@, but not
+-- both.
+listExecutions_mapRunArn :: Lens.Lens' ListExecutions (Prelude.Maybe Prelude.Text)
+listExecutions_mapRunArn = Lens.lens (\ListExecutions' {mapRunArn} -> mapRunArn) (\s@ListExecutions' {} a -> s {mapRunArn = a} :: ListExecutions)
 
 -- | The maximum number of results that are returned per call. You can use
 -- @nextToken@ to obtain further pages of results. The default is 100 and
@@ -153,10 +181,27 @@ listExecutions_nextToken = Lens.lens (\ListExecutions' {nextToken} -> nextToken)
 listExecutions_maxResults :: Lens.Lens' ListExecutions (Prelude.Maybe Prelude.Natural)
 listExecutions_maxResults = Lens.lens (\ListExecutions' {maxResults} -> maxResults) (\s@ListExecutions' {} a -> s {maxResults = a} :: ListExecutions)
 
+-- | If @nextToken@ is returned, there are more results available. The value
+-- of @nextToken@ is a unique pagination token for each page. Make the call
+-- again using the returned token to retrieve the next page. Keep all other
+-- arguments unchanged. Each pagination token expires after 24 hours. Using
+-- an expired pagination token will return an /HTTP 400 InvalidToken/
+-- error.
+listExecutions_nextToken :: Lens.Lens' ListExecutions (Prelude.Maybe Prelude.Text)
+listExecutions_nextToken = Lens.lens (\ListExecutions' {nextToken} -> nextToken) (\s@ListExecutions' {} a -> s {nextToken = a} :: ListExecutions)
+
 -- | The Amazon Resource Name (ARN) of the state machine whose executions is
 -- listed.
-listExecutions_stateMachineArn :: Lens.Lens' ListExecutions Prelude.Text
+--
+-- You can specify either a @mapRunArn@ or a @stateMachineArn@, but not
+-- both.
+listExecutions_stateMachineArn :: Lens.Lens' ListExecutions (Prelude.Maybe Prelude.Text)
 listExecutions_stateMachineArn = Lens.lens (\ListExecutions' {stateMachineArn} -> stateMachineArn) (\s@ListExecutions' {} a -> s {stateMachineArn = a} :: ListExecutions)
+
+-- | If specified, only list the executions whose current execution status
+-- matches the given filter.
+listExecutions_statusFilter :: Lens.Lens' ListExecutions (Prelude.Maybe ExecutionStatus)
+listExecutions_statusFilter = Lens.lens (\ListExecutions' {statusFilter} -> statusFilter) (\s@ListExecutions' {} a -> s {statusFilter = a} :: ListExecutions)
 
 instance Core.AWSPager ListExecutions where
   page rq rs
@@ -180,61 +225,65 @@ instance Core.AWSRequest ListExecutions where
   type
     AWSResponse ListExecutions =
       ListExecutionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListExecutionsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "executions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "executions" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListExecutions where
   hashWithSalt _salt ListExecutions' {..} =
-    _salt `Prelude.hashWithSalt` statusFilter
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` mapRunArn
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` stateMachineArn
+      `Prelude.hashWithSalt` statusFilter
 
 instance Prelude.NFData ListExecutions where
   rnf ListExecutions' {..} =
-    Prelude.rnf statusFilter
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf mapRunArn
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf stateMachineArn
+      `Prelude.seq` Prelude.rnf statusFilter
 
-instance Core.ToHeaders ListExecutions where
+instance Data.ToHeaders ListExecutions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSStepFunctions.ListExecutions" ::
+              Data.=# ( "AWSStepFunctions.ListExecutions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListExecutions where
+instance Data.ToJSON ListExecutions where
   toJSON ListExecutions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("statusFilter" Core..=) Prelude.<$> statusFilter,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just
-              ("stateMachineArn" Core..= stateMachineArn)
+          [ ("mapRunArn" Data..=) Prelude.<$> mapRunArn,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("stateMachineArn" Data..=)
+              Prelude.<$> stateMachineArn,
+            ("statusFilter" Data..=) Prelude.<$> statusFilter
           ]
       )
 
-instance Core.ToPath ListExecutions where
+instance Data.ToPath ListExecutions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListExecutions where
+instance Data.ToQuery ListExecutions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListExecutionsResponse' smart constructor.

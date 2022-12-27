@@ -14,22 +14,22 @@
 
 -- |
 -- Module      : Amazonka.AppSync.CreateApiKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a unique key that you can distribute to clients who are
--- executing your API.
+-- Creates a unique key that you can distribute to clients who invoke your
+-- API.
 module Amazonka.AppSync.CreateApiKey
   ( -- * Creating a Request
     CreateApiKey (..),
     newCreateApiKey,
 
     -- * Request Lenses
-    createApiKey_expires,
     createApiKey_description,
+    createApiKey_expires,
     createApiKey_apiId,
 
     -- * Destructuring the Response
@@ -44,20 +44,21 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateApiKey' smart constructor.
 data CreateApiKey = CreateApiKey'
-  { -- | The time from creation time after which the API key expires. The date is
-    -- represented as seconds since the epoch, rounded down to the nearest
-    -- hour. The default value for this parameter is 7 days from creation time.
-    -- For more information, see .
-    expires :: Prelude.Maybe Prelude.Integer,
-    -- | A description of the purpose of the API key.
+  { -- | A description of the purpose of the API key.
     description :: Prelude.Maybe Prelude.Text,
+    -- | From the creation time, the time after which the API key expires. The
+    -- date is represented as seconds since the epoch, rounded down to the
+    -- nearest hour. The default value for this parameter is 7 days from
+    -- creation time. For more information, see .
+    expires :: Prelude.Maybe Prelude.Integer,
     -- | The ID for your GraphQL API.
     apiId :: Prelude.Text
   }
@@ -71,12 +72,12 @@ data CreateApiKey = CreateApiKey'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'expires', 'createApiKey_expires' - The time from creation time after which the API key expires. The date is
--- represented as seconds since the epoch, rounded down to the nearest
--- hour. The default value for this parameter is 7 days from creation time.
--- For more information, see .
---
 -- 'description', 'createApiKey_description' - A description of the purpose of the API key.
+--
+-- 'expires', 'createApiKey_expires' - From the creation time, the time after which the API key expires. The
+-- date is represented as seconds since the epoch, rounded down to the
+-- nearest hour. The default value for this parameter is 7 days from
+-- creation time. For more information, see .
 --
 -- 'apiId', 'createApiKey_apiId' - The ID for your GraphQL API.
 newCreateApiKey ::
@@ -85,21 +86,21 @@ newCreateApiKey ::
   CreateApiKey
 newCreateApiKey pApiId_ =
   CreateApiKey'
-    { expires = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      expires = Prelude.Nothing,
       apiId = pApiId_
     }
-
--- | The time from creation time after which the API key expires. The date is
--- represented as seconds since the epoch, rounded down to the nearest
--- hour. The default value for this parameter is 7 days from creation time.
--- For more information, see .
-createApiKey_expires :: Lens.Lens' CreateApiKey (Prelude.Maybe Prelude.Integer)
-createApiKey_expires = Lens.lens (\CreateApiKey' {expires} -> expires) (\s@CreateApiKey' {} a -> s {expires = a} :: CreateApiKey)
 
 -- | A description of the purpose of the API key.
 createApiKey_description :: Lens.Lens' CreateApiKey (Prelude.Maybe Prelude.Text)
 createApiKey_description = Lens.lens (\CreateApiKey' {description} -> description) (\s@CreateApiKey' {} a -> s {description = a} :: CreateApiKey)
+
+-- | From the creation time, the time after which the API key expires. The
+-- date is represented as seconds since the epoch, rounded down to the
+-- nearest hour. The default value for this parameter is 7 days from
+-- creation time. For more information, see .
+createApiKey_expires :: Lens.Lens' CreateApiKey (Prelude.Maybe Prelude.Integer)
+createApiKey_expires = Lens.lens (\CreateApiKey' {expires} -> expires) (\s@CreateApiKey' {} a -> s {expires = a} :: CreateApiKey)
 
 -- | The ID for your GraphQL API.
 createApiKey_apiId :: Lens.Lens' CreateApiKey Prelude.Text
@@ -107,53 +108,54 @@ createApiKey_apiId = Lens.lens (\CreateApiKey' {apiId} -> apiId) (\s@CreateApiKe
 
 instance Core.AWSRequest CreateApiKey where
   type AWSResponse CreateApiKey = CreateApiKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateApiKeyResponse'
-            Prelude.<$> (x Core..?> "apiKey")
+            Prelude.<$> (x Data..?> "apiKey")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateApiKey where
   hashWithSalt _salt CreateApiKey' {..} =
-    _salt `Prelude.hashWithSalt` expires
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` expires
       `Prelude.hashWithSalt` apiId
 
 instance Prelude.NFData CreateApiKey where
   rnf CreateApiKey' {..} =
-    Prelude.rnf expires
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf expires
       `Prelude.seq` Prelude.rnf apiId
 
-instance Core.ToHeaders CreateApiKey where
+instance Data.ToHeaders CreateApiKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateApiKey where
+instance Data.ToJSON CreateApiKey where
   toJSON CreateApiKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("expires" Core..=) Prelude.<$> expires,
-            ("description" Core..=) Prelude.<$> description
+          [ ("description" Data..=) Prelude.<$> description,
+            ("expires" Data..=) Prelude.<$> expires
           ]
       )
 
-instance Core.ToPath CreateApiKey where
+instance Data.ToPath CreateApiKey where
   toPath CreateApiKey' {..} =
     Prelude.mconcat
-      ["/v1/apis/", Core.toBS apiId, "/apikeys"]
+      ["/v1/apis/", Data.toBS apiId, "/apikeys"]
 
-instance Core.ToQuery CreateApiKey where
+instance Data.ToQuery CreateApiKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateApiKeyResponse' smart constructor.

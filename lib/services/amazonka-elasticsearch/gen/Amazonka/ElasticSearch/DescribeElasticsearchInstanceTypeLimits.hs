@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.DescribeElasticsearchInstanceTypeLimits
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.ElasticSearch.DescribeElasticsearchInstanceTypeLimits
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,12 +124,13 @@ instance
     AWSResponse
       DescribeElasticsearchInstanceTypeLimits =
       DescribeElasticsearchInstanceTypeLimitsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeElasticsearchInstanceTypeLimitsResponse'
-            Prelude.<$> (x Core..?> "LimitsByRole" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "LimitsByRole" Core..!@ Prelude.mempty)
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -153,29 +155,29 @@ instance
       `Prelude.seq` Prelude.rnf elasticsearchVersion
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeElasticsearchInstanceTypeLimits
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeElasticsearchInstanceTypeLimits
   where
   toPath DescribeElasticsearchInstanceTypeLimits' {..} =
     Prelude.mconcat
       [ "/2015-01-01/es/instanceTypeLimits/",
-        Core.toBS elasticsearchVersion,
+        Data.toBS elasticsearchVersion,
         "/",
-        Core.toBS instanceType
+        Data.toBS instanceType
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeElasticsearchInstanceTypeLimits
   where
   toQuery DescribeElasticsearchInstanceTypeLimits' {..} =
-    Prelude.mconcat ["domainName" Core.=: domainName]
+    Prelude.mconcat ["domainName" Data.=: domainName]
 
 -- | Container for the parameters received from
 -- @ DescribeElasticsearchInstanceTypeLimits @ operation.

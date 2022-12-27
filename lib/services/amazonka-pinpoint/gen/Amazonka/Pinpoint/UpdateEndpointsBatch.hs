@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.UpdateEndpointsBatch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.Pinpoint.UpdateEndpointsBatch
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -101,13 +102,14 @@ instance Core.AWSRequest UpdateEndpointsBatch where
   type
     AWSResponse UpdateEndpointsBatch =
       UpdateEndpointsBatchResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateEndpointsBatchResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable UpdateEndpointsBatch where
@@ -120,34 +122,27 @@ instance Prelude.NFData UpdateEndpointsBatch where
     Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf endpointBatchRequest
 
-instance Core.ToHeaders UpdateEndpointsBatch where
+instance Data.ToHeaders UpdateEndpointsBatch where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateEndpointsBatch where
+instance Data.ToJSON UpdateEndpointsBatch where
   toJSON UpdateEndpointsBatch' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ Prelude.Just
-              ( "EndpointBatchRequest"
-                  Core..= endpointBatchRequest
-              )
-          ]
-      )
+    Data.toJSON endpointBatchRequest
 
-instance Core.ToPath UpdateEndpointsBatch where
+instance Data.ToPath UpdateEndpointsBatch where
   toPath UpdateEndpointsBatch' {..} =
     Prelude.mconcat
-      ["/v1/apps/", Core.toBS applicationId, "/endpoints"]
+      ["/v1/apps/", Data.toBS applicationId, "/endpoints"]
 
-instance Core.ToQuery UpdateEndpointsBatch where
+instance Data.ToQuery UpdateEndpointsBatch where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateEndpointsBatchResponse' smart constructor.

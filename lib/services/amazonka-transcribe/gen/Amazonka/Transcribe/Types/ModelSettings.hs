@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.Types.ModelSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,28 @@
 module Amazonka.Transcribe.Types.ModelSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The object used to call your custom language model to your transcription
--- job.
+-- | Provides the name of the custom language model that was included in the
+-- specified transcription job.
+--
+-- Only use @ModelSettings@ with the @LanguageModelName@ sub-parameter if
+-- you\'re __not__ using automatic language identification (@@). If using
+-- @LanguageIdSettings@ in your request, this parameter contains a
+-- @LanguageModelName@ sub-parameter.
 --
 -- /See:/ 'newModelSettings' smart constructor.
 data ModelSettings = ModelSettings'
-  { -- | The name of your custom language model.
+  { -- | The name of the custom language model you want to use when processing
+    -- your transcription job. Note that custom language model names are case
+    -- sensitive.
+    --
+    -- The language of the specified custom language model must match the
+    -- language code that you specify in your transcription request. If the
+    -- languages don\'t match, the custom language model isn\'t applied. There
+    -- are no errors or warnings associated with a language mismatch.
     languageModelName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -41,23 +54,37 @@ data ModelSettings = ModelSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'languageModelName', 'modelSettings_languageModelName' - The name of your custom language model.
+-- 'languageModelName', 'modelSettings_languageModelName' - The name of the custom language model you want to use when processing
+-- your transcription job. Note that custom language model names are case
+-- sensitive.
+--
+-- The language of the specified custom language model must match the
+-- language code that you specify in your transcription request. If the
+-- languages don\'t match, the custom language model isn\'t applied. There
+-- are no errors or warnings associated with a language mismatch.
 newModelSettings ::
   ModelSettings
 newModelSettings =
   ModelSettings' {languageModelName = Prelude.Nothing}
 
--- | The name of your custom language model.
+-- | The name of the custom language model you want to use when processing
+-- your transcription job. Note that custom language model names are case
+-- sensitive.
+--
+-- The language of the specified custom language model must match the
+-- language code that you specify in your transcription request. If the
+-- languages don\'t match, the custom language model isn\'t applied. There
+-- are no errors or warnings associated with a language mismatch.
 modelSettings_languageModelName :: Lens.Lens' ModelSettings (Prelude.Maybe Prelude.Text)
 modelSettings_languageModelName = Lens.lens (\ModelSettings' {languageModelName} -> languageModelName) (\s@ModelSettings' {} a -> s {languageModelName = a} :: ModelSettings)
 
-instance Core.FromJSON ModelSettings where
+instance Data.FromJSON ModelSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ModelSettings"
       ( \x ->
           ModelSettings'
-            Prelude.<$> (x Core..:? "LanguageModelName")
+            Prelude.<$> (x Data..:? "LanguageModelName")
       )
 
 instance Prelude.Hashable ModelSettings where
@@ -68,11 +95,11 @@ instance Prelude.NFData ModelSettings where
   rnf ModelSettings' {..} =
     Prelude.rnf languageModelName
 
-instance Core.ToJSON ModelSettings where
+instance Data.ToJSON ModelSettings where
   toJSON ModelSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LanguageModelName" Core..=)
+          [ ("LanguageModelName" Data..=)
               Prelude.<$> languageModelName
           ]
       )

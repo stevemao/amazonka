@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.Types.ListedEntitlement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConnect.Types.ListedEntitlement where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An entitlement that has been granted to you from other AWS accounts.
@@ -80,15 +81,15 @@ listedEntitlement_entitlementArn = Lens.lens (\ListedEntitlement' {entitlementAr
 listedEntitlement_entitlementName :: Lens.Lens' ListedEntitlement Prelude.Text
 listedEntitlement_entitlementName = Lens.lens (\ListedEntitlement' {entitlementName} -> entitlementName) (\s@ListedEntitlement' {} a -> s {entitlementName = a} :: ListedEntitlement)
 
-instance Core.FromJSON ListedEntitlement where
+instance Data.FromJSON ListedEntitlement where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ListedEntitlement"
       ( \x ->
           ListedEntitlement'
-            Prelude.<$> (x Core..:? "dataTransferSubscriberFeePercent")
-            Prelude.<*> (x Core..: "entitlementArn")
-            Prelude.<*> (x Core..: "entitlementName")
+            Prelude.<$> (x Data..:? "dataTransferSubscriberFeePercent")
+            Prelude.<*> (x Data..: "entitlementArn")
+            Prelude.<*> (x Data..: "entitlementName")
       )
 
 instance Prelude.Hashable ListedEntitlement where

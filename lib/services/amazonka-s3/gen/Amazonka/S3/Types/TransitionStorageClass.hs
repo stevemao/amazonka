@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.TransitionStorageClass
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,7 @@ module Amazonka.S3.Types.TransitionStorageClass
       ( ..,
         TransitionStorageClass_DEEP_ARCHIVE,
         TransitionStorageClass_GLACIER,
+        TransitionStorageClass_GLACIER_IR,
         TransitionStorageClass_INTELLIGENT_TIERING,
         TransitionStorageClass_ONEZONE_IA,
         TransitionStorageClass_STANDARD_IA
@@ -30,12 +31,13 @@ module Amazonka.S3.Types.TransitionStorageClass
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 
 newtype TransitionStorageClass = TransitionStorageClass'
   { fromTransitionStorageClass ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -47,18 +49,18 @@ newtype TransitionStorageClass = TransitionStorageClass'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern TransitionStorageClass_DEEP_ARCHIVE :: TransitionStorageClass
@@ -66,6 +68,9 @@ pattern TransitionStorageClass_DEEP_ARCHIVE = TransitionStorageClass' "DEEP_ARCH
 
 pattern TransitionStorageClass_GLACIER :: TransitionStorageClass
 pattern TransitionStorageClass_GLACIER = TransitionStorageClass' "GLACIER"
+
+pattern TransitionStorageClass_GLACIER_IR :: TransitionStorageClass
+pattern TransitionStorageClass_GLACIER_IR = TransitionStorageClass' "GLACIER_IR"
 
 pattern TransitionStorageClass_INTELLIGENT_TIERING :: TransitionStorageClass
 pattern TransitionStorageClass_INTELLIGENT_TIERING = TransitionStorageClass' "INTELLIGENT_TIERING"
@@ -79,6 +84,7 @@ pattern TransitionStorageClass_STANDARD_IA = TransitionStorageClass' "STANDARD_I
 {-# COMPLETE
   TransitionStorageClass_DEEP_ARCHIVE,
   TransitionStorageClass_GLACIER,
+  TransitionStorageClass_GLACIER_IR,
   TransitionStorageClass_INTELLIGENT_TIERING,
   TransitionStorageClass_ONEZONE_IA,
   TransitionStorageClass_STANDARD_IA,

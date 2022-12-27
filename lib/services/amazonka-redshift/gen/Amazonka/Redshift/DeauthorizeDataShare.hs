@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DeauthorizeDataShare
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- From the producer account, removes authorization from the specified
--- datashare.
+-- From a datashare producer account, removes authorization from the
+-- specified datashare.
 module Amazonka.Redshift.DeauthorizeDataShare
   ( -- * Creating a Request
     DeauthorizeDataShare (..),
@@ -36,15 +36,17 @@ module Amazonka.Redshift.DeauthorizeDataShare
     newDataShare,
 
     -- * Response Lenses
-    dataShare_producerArn,
-    dataShare_dataShareAssociations,
-    dataShare_dataShareArn,
     dataShare_allowPubliclyAccessibleConsumers,
+    dataShare_dataShareArn,
+    dataShare_dataShareAssociations,
+    dataShare_managedBy,
+    dataShare_producerArn,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -56,7 +58,8 @@ data DeauthorizeDataShare = DeauthorizeDataShare'
     -- from.
     dataShareArn :: Prelude.Text,
     -- | The identifier of the data consumer that is to have authorization
-    -- removed from the datashare. This identifier is an AWS account ID.
+    -- removed from the datashare. This identifier is an Amazon Web Services
+    -- account ID or a keyword, such as ADX.
     consumerIdentifier :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -73,7 +76,8 @@ data DeauthorizeDataShare = DeauthorizeDataShare'
 -- from.
 --
 -- 'consumerIdentifier', 'deauthorizeDataShare_consumerIdentifier' - The identifier of the data consumer that is to have authorization
--- removed from the datashare. This identifier is an AWS account ID.
+-- removed from the datashare. This identifier is an Amazon Web Services
+-- account ID or a keyword, such as ADX.
 newDeauthorizeDataShare ::
   -- | 'dataShareArn'
   Prelude.Text ->
@@ -95,17 +99,19 @@ deauthorizeDataShare_dataShareArn :: Lens.Lens' DeauthorizeDataShare Prelude.Tex
 deauthorizeDataShare_dataShareArn = Lens.lens (\DeauthorizeDataShare' {dataShareArn} -> dataShareArn) (\s@DeauthorizeDataShare' {} a -> s {dataShareArn = a} :: DeauthorizeDataShare)
 
 -- | The identifier of the data consumer that is to have authorization
--- removed from the datashare. This identifier is an AWS account ID.
+-- removed from the datashare. This identifier is an Amazon Web Services
+-- account ID or a keyword, such as ADX.
 deauthorizeDataShare_consumerIdentifier :: Lens.Lens' DeauthorizeDataShare Prelude.Text
 deauthorizeDataShare_consumerIdentifier = Lens.lens (\DeauthorizeDataShare' {consumerIdentifier} -> consumerIdentifier) (\s@DeauthorizeDataShare' {} a -> s {consumerIdentifier = a} :: DeauthorizeDataShare)
 
 instance Core.AWSRequest DeauthorizeDataShare where
   type AWSResponse DeauthorizeDataShare = DataShare
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeauthorizeDataShareResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable DeauthorizeDataShare where
   hashWithSalt _salt DeauthorizeDataShare' {..} =
@@ -117,19 +123,19 @@ instance Prelude.NFData DeauthorizeDataShare where
     Prelude.rnf dataShareArn
       `Prelude.seq` Prelude.rnf consumerIdentifier
 
-instance Core.ToHeaders DeauthorizeDataShare where
+instance Data.ToHeaders DeauthorizeDataShare where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeauthorizeDataShare where
+instance Data.ToPath DeauthorizeDataShare where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeauthorizeDataShare where
+instance Data.ToQuery DeauthorizeDataShare where
   toQuery DeauthorizeDataShare' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeauthorizeDataShare" :: Prelude.ByteString),
+          Data.=: ("DeauthorizeDataShare" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "DataShareArn" Core.=: dataShareArn,
-        "ConsumerIdentifier" Core.=: consumerIdentifier
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "DataShareArn" Data.=: dataShareArn,
+        "ConsumerIdentifier" Data.=: consumerIdentifier
       ]

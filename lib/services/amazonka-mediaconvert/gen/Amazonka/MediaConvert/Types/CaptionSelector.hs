@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.CaptionSelector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.CaptionSelector where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.CaptionSourceSettings
 import Amazonka.MediaConvert.Types.LanguageCode
 import qualified Amazonka.Prelude as Prelude
@@ -120,15 +121,15 @@ captionSelector_languageCode = Lens.lens (\CaptionSelector' {languageCode} -> la
 captionSelector_sourceSettings :: Lens.Lens' CaptionSelector (Prelude.Maybe CaptionSourceSettings)
 captionSelector_sourceSettings = Lens.lens (\CaptionSelector' {sourceSettings} -> sourceSettings) (\s@CaptionSelector' {} a -> s {sourceSettings = a} :: CaptionSelector)
 
-instance Core.FromJSON CaptionSelector where
+instance Data.FromJSON CaptionSelector where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CaptionSelector"
       ( \x ->
           CaptionSelector'
-            Prelude.<$> (x Core..:? "customLanguageCode")
-            Prelude.<*> (x Core..:? "languageCode")
-            Prelude.<*> (x Core..:? "sourceSettings")
+            Prelude.<$> (x Data..:? "customLanguageCode")
+            Prelude.<*> (x Data..:? "languageCode")
+            Prelude.<*> (x Data..:? "sourceSettings")
       )
 
 instance Prelude.Hashable CaptionSelector where
@@ -143,14 +144,14 @@ instance Prelude.NFData CaptionSelector where
       `Prelude.seq` Prelude.rnf languageCode
       `Prelude.seq` Prelude.rnf sourceSettings
 
-instance Core.ToJSON CaptionSelector where
+instance Data.ToJSON CaptionSelector where
   toJSON CaptionSelector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("customLanguageCode" Core..=)
+          [ ("customLanguageCode" Data..=)
               Prelude.<$> customLanguageCode,
-            ("languageCode" Core..=) Prelude.<$> languageCode,
-            ("sourceSettings" Core..=)
+            ("languageCode" Data..=) Prelude.<$> languageCode,
+            ("sourceSettings" Data..=)
               Prelude.<$> sourceSettings
           ]
       )

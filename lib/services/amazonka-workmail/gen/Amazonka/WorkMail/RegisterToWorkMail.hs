@@ -14,17 +14,17 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.RegisterToWorkMail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Registers an existing and disabled user, group, or resource for Amazon
--- WorkMail use by associating a mailbox and calendaring capabilities. It
--- performs no change if the user, group, or resource is enabled and fails
--- if the user, group, or resource is deleted. This operation results in
--- the accumulation of costs. For more information, see
+-- Registers an existing and disabled user, group, or resource for WorkMail
+-- use by associating a mailbox and calendaring capabilities. It performs
+-- no change if the user, group, or resource is enabled and fails if the
+-- user, group, or resource is deleted. This operation results in the
+-- accumulation of costs. For more information, see
 -- <https://aws.amazon.com/workmail/pricing Pricing>. The equivalent
 -- console functionality for this operation is /Enable/.
 --
@@ -51,7 +51,8 @@ module Amazonka.WorkMail.RegisterToWorkMail
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -119,7 +120,8 @@ instance Core.AWSRequest RegisterToWorkMail where
   type
     AWSResponse RegisterToWorkMail =
       RegisterToWorkMailResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -139,36 +141,36 @@ instance Prelude.NFData RegisterToWorkMail where
       `Prelude.seq` Prelude.rnf entityId
       `Prelude.seq` Prelude.rnf email
 
-instance Core.ToHeaders RegisterToWorkMail where
+instance Data.ToHeaders RegisterToWorkMail where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.RegisterToWorkMail" ::
+              Data.=# ( "WorkMailService.RegisterToWorkMail" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterToWorkMail where
+instance Data.ToJSON RegisterToWorkMail where
   toJSON RegisterToWorkMail' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("EntityId" Core..= entityId),
-            Prelude.Just ("Email" Core..= email)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("EntityId" Data..= entityId),
+            Prelude.Just ("Email" Data..= email)
           ]
       )
 
-instance Core.ToPath RegisterToWorkMail where
+instance Data.ToPath RegisterToWorkMail where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterToWorkMail where
+instance Data.ToQuery RegisterToWorkMail where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRegisterToWorkMailResponse' smart constructor.

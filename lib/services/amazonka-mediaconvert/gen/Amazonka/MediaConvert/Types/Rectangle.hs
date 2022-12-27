@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.Rectangle
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.Rectangle where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Use Rectangle to identify a specific area of the video frame.
@@ -85,16 +86,16 @@ rectangle_x = Lens.lens (\Rectangle' {x} -> x) (\s@Rectangle' {} a -> s {x = a} 
 rectangle_y :: Lens.Lens' Rectangle (Prelude.Maybe Prelude.Natural)
 rectangle_y = Lens.lens (\Rectangle' {y} -> y) (\s@Rectangle' {} a -> s {y = a} :: Rectangle)
 
-instance Core.FromJSON Rectangle where
+instance Data.FromJSON Rectangle where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Rectangle"
       ( \x ->
           Rectangle'
-            Prelude.<$> (x Core..:? "height")
-            Prelude.<*> (x Core..:? "width")
-            Prelude.<*> (x Core..:? "x")
-            Prelude.<*> (x Core..:? "y")
+            Prelude.<$> (x Data..:? "height")
+            Prelude.<*> (x Data..:? "width")
+            Prelude.<*> (x Data..:? "x")
+            Prelude.<*> (x Data..:? "y")
       )
 
 instance Prelude.Hashable Rectangle where
@@ -111,13 +112,13 @@ instance Prelude.NFData Rectangle where
       `Prelude.seq` Prelude.rnf x
       `Prelude.seq` Prelude.rnf y
 
-instance Core.ToJSON Rectangle where
+instance Data.ToJSON Rectangle where
   toJSON Rectangle' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("height" Core..=) Prelude.<$> height,
-            ("width" Core..=) Prelude.<$> width,
-            ("x" Core..=) Prelude.<$> x,
-            ("y" Core..=) Prelude.<$> y
+          [ ("height" Data..=) Prelude.<$> height,
+            ("width" Data..=) Prelude.<$> width,
+            ("x" Data..=) Prelude.<$> x,
+            ("y" Data..=) Prelude.<$> y
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.DeleteApplicationCloudWatchLoggingOption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.KinesisAnalyticsV2.DeleteApplicationCloudWatchLoggingOption
     newDeleteApplicationCloudWatchLoggingOption,
 
     -- * Request Lenses
-    deleteApplicationCloudWatchLoggingOption_currentApplicationVersionId,
     deleteApplicationCloudWatchLoggingOption_conditionalToken,
+    deleteApplicationCloudWatchLoggingOption_currentApplicationVersionId,
     deleteApplicationCloudWatchLoggingOption_applicationName,
     deleteApplicationCloudWatchLoggingOption_cloudWatchLoggingOptionId,
 
@@ -46,27 +46,28 @@ module Amazonka.KinesisAnalyticsV2.DeleteApplicationCloudWatchLoggingOption
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteApplicationCloudWatchLoggingOption' smart constructor.
 data DeleteApplicationCloudWatchLoggingOption = DeleteApplicationCloudWatchLoggingOption'
-  { -- | The version ID of the application. You must provide the
-    -- @CurrentApplicationVersionId@ or the @ConditionalToken@. You can
-    -- retrieve the application version ID using DescribeApplication. For
-    -- better concurrency support, use the @ConditionalToken@ parameter instead
-    -- of @CurrentApplicationVersionId@.
-    currentApplicationVersionId :: Prelude.Maybe Prelude.Natural,
-    -- | A value you use to implement strong concurrency for application updates.
+  { -- | A value you use to implement strong concurrency for application updates.
     -- You must provide the @CurrentApplicationVersionId@ or the
     -- @ConditionalToken@. You get the application\'s current
     -- @ConditionalToken@ using DescribeApplication. For better concurrency
     -- support, use the @ConditionalToken@ parameter instead of
     -- @CurrentApplicationVersionId@.
     conditionalToken :: Prelude.Maybe Prelude.Text,
+    -- | The version ID of the application. You must provide the
+    -- @CurrentApplicationVersionId@ or the @ConditionalToken@. You can
+    -- retrieve the application version ID using DescribeApplication. For
+    -- better concurrency support, use the @ConditionalToken@ parameter instead
+    -- of @CurrentApplicationVersionId@.
+    currentApplicationVersionId :: Prelude.Maybe Prelude.Natural,
     -- | The application name.
     applicationName :: Prelude.Text,
     -- | The @CloudWatchLoggingOptionId@ of the Amazon CloudWatch logging option
@@ -84,18 +85,18 @@ data DeleteApplicationCloudWatchLoggingOption = DeleteApplicationCloudWatchLoggi
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'currentApplicationVersionId', 'deleteApplicationCloudWatchLoggingOption_currentApplicationVersionId' - The version ID of the application. You must provide the
--- @CurrentApplicationVersionId@ or the @ConditionalToken@. You can
--- retrieve the application version ID using DescribeApplication. For
--- better concurrency support, use the @ConditionalToken@ parameter instead
--- of @CurrentApplicationVersionId@.
---
 -- 'conditionalToken', 'deleteApplicationCloudWatchLoggingOption_conditionalToken' - A value you use to implement strong concurrency for application updates.
 -- You must provide the @CurrentApplicationVersionId@ or the
 -- @ConditionalToken@. You get the application\'s current
 -- @ConditionalToken@ using DescribeApplication. For better concurrency
 -- support, use the @ConditionalToken@ parameter instead of
 -- @CurrentApplicationVersionId@.
+--
+-- 'currentApplicationVersionId', 'deleteApplicationCloudWatchLoggingOption_currentApplicationVersionId' - The version ID of the application. You must provide the
+-- @CurrentApplicationVersionId@ or the @ConditionalToken@. You can
+-- retrieve the application version ID using DescribeApplication. For
+-- better concurrency support, use the @ConditionalToken@ parameter instead
+-- of @CurrentApplicationVersionId@.
 --
 -- 'applicationName', 'deleteApplicationCloudWatchLoggingOption_applicationName' - The application name.
 --
@@ -112,23 +113,15 @@ newDeleteApplicationCloudWatchLoggingOption
   pApplicationName_
   pCloudWatchLoggingOptionId_ =
     DeleteApplicationCloudWatchLoggingOption'
-      { currentApplicationVersionId =
+      { conditionalToken =
           Prelude.Nothing,
-        conditionalToken =
+        currentApplicationVersionId =
           Prelude.Nothing,
         applicationName =
           pApplicationName_,
         cloudWatchLoggingOptionId =
           pCloudWatchLoggingOptionId_
       }
-
--- | The version ID of the application. You must provide the
--- @CurrentApplicationVersionId@ or the @ConditionalToken@. You can
--- retrieve the application version ID using DescribeApplication. For
--- better concurrency support, use the @ConditionalToken@ parameter instead
--- of @CurrentApplicationVersionId@.
-deleteApplicationCloudWatchLoggingOption_currentApplicationVersionId :: Lens.Lens' DeleteApplicationCloudWatchLoggingOption (Prelude.Maybe Prelude.Natural)
-deleteApplicationCloudWatchLoggingOption_currentApplicationVersionId = Lens.lens (\DeleteApplicationCloudWatchLoggingOption' {currentApplicationVersionId} -> currentApplicationVersionId) (\s@DeleteApplicationCloudWatchLoggingOption' {} a -> s {currentApplicationVersionId = a} :: DeleteApplicationCloudWatchLoggingOption)
 
 -- | A value you use to implement strong concurrency for application updates.
 -- You must provide the @CurrentApplicationVersionId@ or the
@@ -138,6 +131,14 @@ deleteApplicationCloudWatchLoggingOption_currentApplicationVersionId = Lens.lens
 -- @CurrentApplicationVersionId@.
 deleteApplicationCloudWatchLoggingOption_conditionalToken :: Lens.Lens' DeleteApplicationCloudWatchLoggingOption (Prelude.Maybe Prelude.Text)
 deleteApplicationCloudWatchLoggingOption_conditionalToken = Lens.lens (\DeleteApplicationCloudWatchLoggingOption' {conditionalToken} -> conditionalToken) (\s@DeleteApplicationCloudWatchLoggingOption' {} a -> s {conditionalToken = a} :: DeleteApplicationCloudWatchLoggingOption)
+
+-- | The version ID of the application. You must provide the
+-- @CurrentApplicationVersionId@ or the @ConditionalToken@. You can
+-- retrieve the application version ID using DescribeApplication. For
+-- better concurrency support, use the @ConditionalToken@ parameter instead
+-- of @CurrentApplicationVersionId@.
+deleteApplicationCloudWatchLoggingOption_currentApplicationVersionId :: Lens.Lens' DeleteApplicationCloudWatchLoggingOption (Prelude.Maybe Prelude.Natural)
+deleteApplicationCloudWatchLoggingOption_currentApplicationVersionId = Lens.lens (\DeleteApplicationCloudWatchLoggingOption' {currentApplicationVersionId} -> currentApplicationVersionId) (\s@DeleteApplicationCloudWatchLoggingOption' {} a -> s {currentApplicationVersionId = a} :: DeleteApplicationCloudWatchLoggingOption)
 
 -- | The application name.
 deleteApplicationCloudWatchLoggingOption_applicationName :: Lens.Lens' DeleteApplicationCloudWatchLoggingOption Prelude.Text
@@ -157,14 +158,15 @@ instance
     AWSResponse
       DeleteApplicationCloudWatchLoggingOption =
       DeleteApplicationCloudWatchLoggingOptionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteApplicationCloudWatchLoggingOptionResponse'
-            Prelude.<$> (x Core..?> "ApplicationARN")
-              Prelude.<*> (x Core..?> "ApplicationVersionId")
-              Prelude.<*> ( x Core..?> "CloudWatchLoggingOptionDescriptions"
+            Prelude.<$> (x Data..?> "ApplicationARN")
+              Prelude.<*> (x Data..?> "ApplicationVersionId")
+              Prelude.<*> ( x Data..?> "CloudWatchLoggingOptionDescriptions"
                               Core..!@ Prelude.mempty
                           )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -177,9 +179,8 @@ instance
   hashWithSalt
     _salt
     DeleteApplicationCloudWatchLoggingOption' {..} =
-      _salt
+      _salt `Prelude.hashWithSalt` conditionalToken
         `Prelude.hashWithSalt` currentApplicationVersionId
-        `Prelude.hashWithSalt` conditionalToken
         `Prelude.hashWithSalt` applicationName
         `Prelude.hashWithSalt` cloudWatchLoggingOptionId
 
@@ -188,57 +189,57 @@ instance
     DeleteApplicationCloudWatchLoggingOption
   where
   rnf DeleteApplicationCloudWatchLoggingOption' {..} =
-    Prelude.rnf currentApplicationVersionId
-      `Prelude.seq` Prelude.rnf conditionalToken
+    Prelude.rnf conditionalToken
+      `Prelude.seq` Prelude.rnf currentApplicationVersionId
       `Prelude.seq` Prelude.rnf applicationName
       `Prelude.seq` Prelude.rnf cloudWatchLoggingOptionId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteApplicationCloudWatchLoggingOption
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "KinesisAnalytics_20180523.DeleteApplicationCloudWatchLoggingOption" ::
+              Data.=# ( "KinesisAnalytics_20180523.DeleteApplicationCloudWatchLoggingOption" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DeleteApplicationCloudWatchLoggingOption
   where
   toJSON DeleteApplicationCloudWatchLoggingOption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CurrentApplicationVersionId" Core..=)
-              Prelude.<$> currentApplicationVersionId,
-            ("ConditionalToken" Core..=)
+          [ ("ConditionalToken" Data..=)
               Prelude.<$> conditionalToken,
+            ("CurrentApplicationVersionId" Data..=)
+              Prelude.<$> currentApplicationVersionId,
             Prelude.Just
-              ("ApplicationName" Core..= applicationName),
+              ("ApplicationName" Data..= applicationName),
             Prelude.Just
               ( "CloudWatchLoggingOptionId"
-                  Core..= cloudWatchLoggingOptionId
+                  Data..= cloudWatchLoggingOptionId
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeleteApplicationCloudWatchLoggingOption
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteApplicationCloudWatchLoggingOption
   where
   toQuery = Prelude.const Prelude.mempty

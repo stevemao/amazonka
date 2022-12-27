@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroupsTagging.UntagResources
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,20 @@
 --     for removing tags. For more information, see the documentation for
 --     the service whose resource you want to untag.
 --
--- -   You can only tag resources that are located in the specified AWS
---     Region for the calling AWS account.
+-- -   You can only tag resources that are located in the specified Amazon
+--     Web Services Region for the calling Amazon Web Services account.
+--
+-- __Minimum permissions__
+--
+-- In addition to the @tag:UntagResources@ permission required by this
+-- operation, you must also have the remove tags permission defined by the
+-- service that created the resource. For example, to remove the tags from
+-- an Amazon EC2 instance using the @UntagResources@ operation, you must
+-- have both of the following permissions:
+--
+-- -   @tag:UntagResource@
+--
+-- -   @ec2:DeleteTags@
 module Amazonka.ResourceGroupsTagging.UntagResources
   ( -- * Creating a Request
     UntagResources (..),
@@ -52,7 +64,8 @@ module Amazonka.ResourceGroupsTagging.UntagResources
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import Amazonka.ResourceGroupsTagging.Types
@@ -65,8 +78,8 @@ data UntagResources = UntagResources'
     --
     -- An ARN (Amazon Resource Name) uniquely identifies a resource. For more
     -- information, see
-    -- <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
-    -- in the /AWS General Reference/.
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
+    -- in the /Amazon Web Services General Reference/.
     resourceARNList :: Prelude.NonEmpty Prelude.Text,
     -- | Specifies a list of tag keys that you want to remove from the specified
     -- resources.
@@ -87,8 +100,8 @@ data UntagResources = UntagResources'
 --
 -- An ARN (Amazon Resource Name) uniquely identifies a resource. For more
 -- information, see
--- <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
--- in the /AWS General Reference/.
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
+-- in the /Amazon Web Services General Reference/.
 --
 -- 'tagKeys', 'untagResources_tagKeys' - Specifies a list of tag keys that you want to remove from the specified
 -- resources.
@@ -110,8 +123,8 @@ newUntagResources pResourceARNList_ pTagKeys_ =
 --
 -- An ARN (Amazon Resource Name) uniquely identifies a resource. For more
 -- information, see
--- <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
--- in the /AWS General Reference/.
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
+-- in the /Amazon Web Services General Reference/.
 untagResources_resourceARNList :: Lens.Lens' UntagResources (Prelude.NonEmpty Prelude.Text)
 untagResources_resourceARNList = Lens.lens (\UntagResources' {resourceARNList} -> resourceARNList) (\s@UntagResources' {} a -> s {resourceARNList = a} :: UntagResources) Prelude.. Lens.coerced
 
@@ -124,12 +137,13 @@ instance Core.AWSRequest UntagResources where
   type
     AWSResponse UntagResources =
       UntagResourcesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UntagResourcesResponse'
-            Prelude.<$> ( x Core..?> "FailedResourcesMap"
+            Prelude.<$> ( x Data..?> "FailedResourcesMap"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -145,35 +159,35 @@ instance Prelude.NFData UntagResources where
     Prelude.rnf resourceARNList
       `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagResources where
+instance Data.ToHeaders UntagResources where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ResourceGroupsTaggingAPI_20170126.UntagResources" ::
+              Data.=# ( "ResourceGroupsTaggingAPI_20170126.UntagResources" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UntagResources where
+instance Data.ToJSON UntagResources where
   toJSON UntagResources' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ResourceARNList" Core..= resourceARNList),
-            Prelude.Just ("TagKeys" Core..= tagKeys)
+              ("ResourceARNList" Data..= resourceARNList),
+            Prelude.Just ("TagKeys" Data..= tagKeys)
           ]
       )
 
-instance Core.ToPath UntagResources where
+instance Data.ToPath UntagResources where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UntagResources where
+instance Data.ToQuery UntagResources where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUntagResourcesResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.DescribeVirtualGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,16 +43,17 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeVirtualGateway' smart constructor.
 data DescribeVirtualGateway = DescribeVirtualGateway'
-  { -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then it\'s the ID of the account that shared the mesh with
-    -- your account. For more information about mesh sharing, see
+  { -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then it\'s the ID of the account that shared
+    -- the mesh with your account. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the service mesh that the gateway route resides in.
@@ -70,9 +71,9 @@ data DescribeVirtualGateway = DescribeVirtualGateway'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'meshOwner', 'describeVirtualGateway_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- 'meshOwner', 'describeVirtualGateway_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'meshName', 'describeVirtualGateway_meshName' - The name of the service mesh that the gateway route resides in.
@@ -94,9 +95,9 @@ newDescribeVirtualGateway
         virtualGatewayName = pVirtualGatewayName_
       }
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 describeVirtualGateway_meshOwner :: Lens.Lens' DescribeVirtualGateway (Prelude.Maybe Prelude.Text)
 describeVirtualGateway_meshOwner = Lens.lens (\DescribeVirtualGateway' {meshOwner} -> meshOwner) (\s@DescribeVirtualGateway' {} a -> s {meshOwner = a} :: DescribeVirtualGateway)
@@ -113,13 +114,14 @@ instance Core.AWSRequest DescribeVirtualGateway where
   type
     AWSResponse DescribeVirtualGateway =
       DescribeVirtualGatewayResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeVirtualGatewayResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable DescribeVirtualGateway where
@@ -134,29 +136,29 @@ instance Prelude.NFData DescribeVirtualGateway where
       `Prelude.seq` Prelude.rnf meshName
       `Prelude.seq` Prelude.rnf virtualGatewayName
 
-instance Core.ToHeaders DescribeVirtualGateway where
+instance Data.ToHeaders DescribeVirtualGateway where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeVirtualGateway where
+instance Data.ToPath DescribeVirtualGateway where
   toPath DescribeVirtualGateway' {..} =
     Prelude.mconcat
       [ "/v20190125/meshes/",
-        Core.toBS meshName,
+        Data.toBS meshName,
         "/virtualGateways/",
-        Core.toBS virtualGatewayName
+        Data.toBS virtualGatewayName
       ]
 
-instance Core.ToQuery DescribeVirtualGateway where
+instance Data.ToQuery DescribeVirtualGateway where
   toQuery DescribeVirtualGateway' {..} =
-    Prelude.mconcat ["meshOwner" Core.=: meshOwner]
+    Prelude.mconcat ["meshOwner" Data.=: meshOwner]
 
 -- | /See:/ 'newDescribeVirtualGatewayResponse' smart constructor.
 data DescribeVirtualGatewayResponse = DescribeVirtualGatewayResponse'

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.Types.Exclusion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Inspector.Types.Exclusion where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types.Attribute
 import Amazonka.Inspector.Types.Scope
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about what was excluded from an assessment run.
@@ -114,18 +115,18 @@ exclusion_recommendation = Lens.lens (\Exclusion' {recommendation} -> recommenda
 exclusion_scopes :: Lens.Lens' Exclusion (Prelude.NonEmpty Scope)
 exclusion_scopes = Lens.lens (\Exclusion' {scopes} -> scopes) (\s@Exclusion' {} a -> s {scopes = a} :: Exclusion) Prelude.. Lens.coerced
 
-instance Core.FromJSON Exclusion where
+instance Data.FromJSON Exclusion where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Exclusion"
       ( \x ->
           Exclusion'
-            Prelude.<$> (x Core..:? "attributes" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "arn")
-            Prelude.<*> (x Core..: "title")
-            Prelude.<*> (x Core..: "description")
-            Prelude.<*> (x Core..: "recommendation")
-            Prelude.<*> (x Core..: "scopes")
+            Prelude.<$> (x Data..:? "attributes" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "arn")
+            Prelude.<*> (x Data..: "title")
+            Prelude.<*> (x Data..: "description")
+            Prelude.<*> (x Data..: "recommendation")
+            Prelude.<*> (x Data..: "scopes")
       )
 
 instance Prelude.Hashable Exclusion where

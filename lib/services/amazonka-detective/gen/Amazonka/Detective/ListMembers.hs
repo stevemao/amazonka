@@ -14,22 +14,28 @@
 
 -- |
 -- Module      : Amazonka.Detective.ListMembers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the list of member accounts for a behavior graph. Does not
--- return member accounts that were removed from the behavior graph.
+-- Retrieves the list of member accounts for a behavior graph.
+--
+-- For invited accounts, the results do not include member accounts that
+-- were removed from the behavior graph.
+--
+-- For the organization behavior graph, the results do not include
+-- organization accounts that the Detective administrator account has not
+-- enabled as member accounts.
 module Amazonka.Detective.ListMembers
   ( -- * Creating a Request
     ListMembers (..),
     newListMembers,
 
     -- * Request Lenses
-    listMembers_nextToken,
     listMembers_maxResults,
+    listMembers_nextToken,
     listMembers_graphArn,
 
     -- * Destructuring the Response
@@ -44,22 +50,23 @@ module Amazonka.Detective.ListMembers
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Detective.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListMembers' smart constructor.
 data ListMembers = ListMembers'
-  { -- | For requests to retrieve the next page of member account results, the
-    -- pagination token that was returned with the previous page of results.
-    -- The initial request does not include a pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of member accounts to include in the response. The
+  { -- | The maximum number of member accounts to include in the response. The
     -- total must be less than the overall limit on the number of results to
     -- return, which is currently 200.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | For requests to retrieve the next page of member account results, the
+    -- pagination token that was returned with the previous page of results.
+    -- The initial request does not include a pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the behavior graph for which to retrieve the list of member
     -- accounts.
     graphArn :: Prelude.Text
@@ -74,13 +81,13 @@ data ListMembers = ListMembers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listMembers_nextToken' - For requests to retrieve the next page of member account results, the
--- pagination token that was returned with the previous page of results.
--- The initial request does not include a pagination token.
---
 -- 'maxResults', 'listMembers_maxResults' - The maximum number of member accounts to include in the response. The
 -- total must be less than the overall limit on the number of results to
 -- return, which is currently 200.
+--
+-- 'nextToken', 'listMembers_nextToken' - For requests to retrieve the next page of member account results, the
+-- pagination token that was returned with the previous page of results.
+-- The initial request does not include a pagination token.
 --
 -- 'graphArn', 'listMembers_graphArn' - The ARN of the behavior graph for which to retrieve the list of member
 -- accounts.
@@ -90,22 +97,22 @@ newListMembers ::
   ListMembers
 newListMembers pGraphArn_ =
   ListMembers'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       graphArn = pGraphArn_
     }
-
--- | For requests to retrieve the next page of member account results, the
--- pagination token that was returned with the previous page of results.
--- The initial request does not include a pagination token.
-listMembers_nextToken :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Text)
-listMembers_nextToken = Lens.lens (\ListMembers' {nextToken} -> nextToken) (\s@ListMembers' {} a -> s {nextToken = a} :: ListMembers)
 
 -- | The maximum number of member accounts to include in the response. The
 -- total must be less than the overall limit on the number of results to
 -- return, which is currently 200.
 listMembers_maxResults :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Natural)
 listMembers_maxResults = Lens.lens (\ListMembers' {maxResults} -> maxResults) (\s@ListMembers' {} a -> s {maxResults = a} :: ListMembers)
+
+-- | For requests to retrieve the next page of member account results, the
+-- pagination token that was returned with the previous page of results.
+-- The initial request does not include a pagination token.
+listMembers_nextToken :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Text)
+listMembers_nextToken = Lens.lens (\ListMembers' {nextToken} -> nextToken) (\s@ListMembers' {} a -> s {nextToken = a} :: ListMembers)
 
 -- | The ARN of the behavior graph for which to retrieve the list of member
 -- accounts.
@@ -114,66 +121,71 @@ listMembers_graphArn = Lens.lens (\ListMembers' {graphArn} -> graphArn) (\s@List
 
 instance Core.AWSRequest ListMembers where
   type AWSResponse ListMembers = ListMembersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListMembersResponse'
-            Prelude.<$> (x Core..?> "MemberDetails" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "MemberDetails" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListMembers where
   hashWithSalt _salt ListMembers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` graphArn
 
 instance Prelude.NFData ListMembers where
   rnf ListMembers' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf graphArn
 
-instance Core.ToHeaders ListMembers where
+instance Data.ToHeaders ListMembers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListMembers where
+instance Data.ToJSON ListMembers where
   toJSON ListMembers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("GraphArn" Core..= graphArn)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("GraphArn" Data..= graphArn)
           ]
       )
 
-instance Core.ToPath ListMembers where
+instance Data.ToPath ListMembers where
   toPath = Prelude.const "/graph/members/list"
 
-instance Core.ToQuery ListMembers where
+instance Data.ToQuery ListMembers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListMembersResponse' smart constructor.
 data ListMembersResponse = ListMembersResponse'
   { -- | The list of member accounts in the behavior graph.
     --
-    -- The results include member accounts that did not pass verification and
-    -- member accounts that have not yet accepted the invitation to the
-    -- behavior graph. The results do not include member accounts that were
-    -- removed from the behavior graph.
+    -- For invited accounts, the results include member accounts that did not
+    -- pass verification and member accounts that have not yet accepted the
+    -- invitation to the behavior graph. The results do not include member
+    -- accounts that were removed from the behavior graph.
+    --
+    -- For the organization behavior graph, the results do not include
+    -- organization accounts that the Detective administrator account has not
+    -- enabled as member accounts.
     memberDetails :: Prelude.Maybe [MemberDetail],
-    -- | If there are more member accounts remaining in the results, then this is
-    -- the pagination token to use to request the next page of member accounts.
+    -- | If there are more member accounts remaining in the results, then use
+    -- this pagination token to request the next page of member accounts.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -190,13 +202,17 @@ data ListMembersResponse = ListMembersResponse'
 --
 -- 'memberDetails', 'listMembersResponse_memberDetails' - The list of member accounts in the behavior graph.
 --
--- The results include member accounts that did not pass verification and
--- member accounts that have not yet accepted the invitation to the
--- behavior graph. The results do not include member accounts that were
--- removed from the behavior graph.
+-- For invited accounts, the results include member accounts that did not
+-- pass verification and member accounts that have not yet accepted the
+-- invitation to the behavior graph. The results do not include member
+-- accounts that were removed from the behavior graph.
 --
--- 'nextToken', 'listMembersResponse_nextToken' - If there are more member accounts remaining in the results, then this is
--- the pagination token to use to request the next page of member accounts.
+-- For the organization behavior graph, the results do not include
+-- organization accounts that the Detective administrator account has not
+-- enabled as member accounts.
+--
+-- 'nextToken', 'listMembersResponse_nextToken' - If there are more member accounts remaining in the results, then use
+-- this pagination token to request the next page of member accounts.
 --
 -- 'httpStatus', 'listMembersResponse_httpStatus' - The response's http status code.
 newListMembersResponse ::
@@ -213,15 +229,19 @@ newListMembersResponse pHttpStatus_ =
 
 -- | The list of member accounts in the behavior graph.
 --
--- The results include member accounts that did not pass verification and
--- member accounts that have not yet accepted the invitation to the
--- behavior graph. The results do not include member accounts that were
--- removed from the behavior graph.
+-- For invited accounts, the results include member accounts that did not
+-- pass verification and member accounts that have not yet accepted the
+-- invitation to the behavior graph. The results do not include member
+-- accounts that were removed from the behavior graph.
+--
+-- For the organization behavior graph, the results do not include
+-- organization accounts that the Detective administrator account has not
+-- enabled as member accounts.
 listMembersResponse_memberDetails :: Lens.Lens' ListMembersResponse (Prelude.Maybe [MemberDetail])
 listMembersResponse_memberDetails = Lens.lens (\ListMembersResponse' {memberDetails} -> memberDetails) (\s@ListMembersResponse' {} a -> s {memberDetails = a} :: ListMembersResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | If there are more member accounts remaining in the results, then this is
--- the pagination token to use to request the next page of member accounts.
+-- | If there are more member accounts remaining in the results, then use
+-- this pagination token to request the next page of member accounts.
 listMembersResponse_nextToken :: Lens.Lens' ListMembersResponse (Prelude.Maybe Prelude.Text)
 listMembersResponse_nextToken = Lens.lens (\ListMembersResponse' {nextToken} -> nextToken) (\s@ListMembersResponse' {} a -> s {nextToken = a} :: ListMembersResponse)
 

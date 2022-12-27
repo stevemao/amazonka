@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.DescribeOffering
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.MediaConnect.DescribeOffering
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -79,12 +80,13 @@ instance Core.AWSRequest DescribeOffering where
   type
     AWSResponse DescribeOffering =
       DescribeOfferingResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeOfferingResponse'
-            Prelude.<$> (x Core..?> "offering")
+            Prelude.<$> (x Data..?> "offering")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,23 +97,23 @@ instance Prelude.Hashable DescribeOffering where
 instance Prelude.NFData DescribeOffering where
   rnf DescribeOffering' {..} = Prelude.rnf offeringArn
 
-instance Core.ToHeaders DescribeOffering where
+instance Data.ToHeaders DescribeOffering where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeOffering where
+instance Data.ToPath DescribeOffering where
   toPath DescribeOffering' {..} =
     Prelude.mconcat
-      ["/v1/offerings/", Core.toBS offeringArn]
+      ["/v1/offerings/", Data.toBS offeringArn]
 
-instance Core.ToQuery DescribeOffering where
+instance Data.ToQuery DescribeOffering where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeOfferingResponse' smart constructor.

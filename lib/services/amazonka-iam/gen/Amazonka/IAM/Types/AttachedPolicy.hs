@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.Types.AttachedPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IAM.Types.AttachedPolicy where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about an attached policy.
@@ -36,9 +37,9 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAttachedPolicy' smart constructor.
 data AttachedPolicy = AttachedPolicy'
-  { -- | The friendly name of the attached policy.
-    policyName :: Prelude.Maybe Prelude.Text,
-    policyArn :: Prelude.Maybe Prelude.Text
+  { policyArn :: Prelude.Maybe Prelude.Text,
+    -- | The friendly name of the attached policy.
+    policyName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,37 +51,37 @@ data AttachedPolicy = AttachedPolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'policyName', 'attachedPolicy_policyName' - The friendly name of the attached policy.
---
 -- 'policyArn', 'attachedPolicy_policyArn' - Undocumented member.
+--
+-- 'policyName', 'attachedPolicy_policyName' - The friendly name of the attached policy.
 newAttachedPolicy ::
   AttachedPolicy
 newAttachedPolicy =
   AttachedPolicy'
-    { policyName = Prelude.Nothing,
-      policyArn = Prelude.Nothing
+    { policyArn = Prelude.Nothing,
+      policyName = Prelude.Nothing
     }
-
--- | The friendly name of the attached policy.
-attachedPolicy_policyName :: Lens.Lens' AttachedPolicy (Prelude.Maybe Prelude.Text)
-attachedPolicy_policyName = Lens.lens (\AttachedPolicy' {policyName} -> policyName) (\s@AttachedPolicy' {} a -> s {policyName = a} :: AttachedPolicy)
 
 -- | Undocumented member.
 attachedPolicy_policyArn :: Lens.Lens' AttachedPolicy (Prelude.Maybe Prelude.Text)
 attachedPolicy_policyArn = Lens.lens (\AttachedPolicy' {policyArn} -> policyArn) (\s@AttachedPolicy' {} a -> s {policyArn = a} :: AttachedPolicy)
 
-instance Core.FromXML AttachedPolicy where
+-- | The friendly name of the attached policy.
+attachedPolicy_policyName :: Lens.Lens' AttachedPolicy (Prelude.Maybe Prelude.Text)
+attachedPolicy_policyName = Lens.lens (\AttachedPolicy' {policyName} -> policyName) (\s@AttachedPolicy' {} a -> s {policyName = a} :: AttachedPolicy)
+
+instance Data.FromXML AttachedPolicy where
   parseXML x =
     AttachedPolicy'
-      Prelude.<$> (x Core..@? "PolicyName")
-      Prelude.<*> (x Core..@? "PolicyArn")
+      Prelude.<$> (x Data..@? "PolicyArn")
+      Prelude.<*> (x Data..@? "PolicyName")
 
 instance Prelude.Hashable AttachedPolicy where
   hashWithSalt _salt AttachedPolicy' {..} =
-    _salt `Prelude.hashWithSalt` policyName
-      `Prelude.hashWithSalt` policyArn
+    _salt `Prelude.hashWithSalt` policyArn
+      `Prelude.hashWithSalt` policyName
 
 instance Prelude.NFData AttachedPolicy where
   rnf AttachedPolicy' {..} =
-    Prelude.rnf policyName
-      `Prelude.seq` Prelude.rnf policyArn
+    Prelude.rnf policyArn
+      `Prelude.seq` Prelude.rnf policyName

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.EdgeOutputConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.EdgeOutputConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.EdgePresetDeploymentType
 
@@ -28,10 +29,7 @@ import Amazonka.SageMaker.Types.EdgePresetDeploymentType
 --
 -- /See:/ 'newEdgeOutputConfig' smart constructor.
 data EdgeOutputConfig = EdgeOutputConfig'
-  { -- | The deployment type SageMaker Edge Manager will create. Currently only
-    -- supports Amazon Web Services IoT Greengrass Version 2 components.
-    presetDeploymentType :: Prelude.Maybe EdgePresetDeploymentType,
-    -- | The Amazon Web Services Key Management Service (Amazon Web Services KMS)
+  { -- | The Amazon Web Services Key Management Service (Amazon Web Services KMS)
     -- key that Amazon SageMaker uses to encrypt data on the storage volume
     -- after compilation job. If you don\'t provide a KMS key ID, Amazon
     -- SageMaker uses the default KMS key for Amazon S3 for your role\'s
@@ -68,6 +66,9 @@ data EdgeOutputConfig = EdgeOutputConfig'
     --     Supported architectures for Linux include: Linux x86_64, Linux
     --     ARMV8.
     presetDeploymentConfig :: Prelude.Maybe Prelude.Text,
+    -- | The deployment type SageMaker Edge Manager will create. Currently only
+    -- supports Amazon Web Services IoT Greengrass Version 2 components.
+    presetDeploymentType :: Prelude.Maybe EdgePresetDeploymentType,
     -- | The Amazon Simple Storage (S3) bucker URI.
     s3OutputLocation :: Prelude.Text
   }
@@ -80,9 +81,6 @@ data EdgeOutputConfig = EdgeOutputConfig'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'presetDeploymentType', 'edgeOutputConfig_presetDeploymentType' - The deployment type SageMaker Edge Manager will create. Currently only
--- supports Amazon Web Services IoT Greengrass Version 2 components.
 --
 -- 'kmsKeyId', 'edgeOutputConfig_kmsKeyId' - The Amazon Web Services Key Management Service (Amazon Web Services KMS)
 -- key that Amazon SageMaker uses to encrypt data on the storage volume
@@ -121,6 +119,9 @@ data EdgeOutputConfig = EdgeOutputConfig'
 --     Supported architectures for Linux include: Linux x86_64, Linux
 --     ARMV8.
 --
+-- 'presetDeploymentType', 'edgeOutputConfig_presetDeploymentType' - The deployment type SageMaker Edge Manager will create. Currently only
+-- supports Amazon Web Services IoT Greengrass Version 2 components.
+--
 -- 's3OutputLocation', 'edgeOutputConfig_s3OutputLocation' - The Amazon Simple Storage (S3) bucker URI.
 newEdgeOutputConfig ::
   -- | 's3OutputLocation'
@@ -128,17 +129,11 @@ newEdgeOutputConfig ::
   EdgeOutputConfig
 newEdgeOutputConfig pS3OutputLocation_ =
   EdgeOutputConfig'
-    { presetDeploymentType =
-        Prelude.Nothing,
-      kmsKeyId = Prelude.Nothing,
+    { kmsKeyId = Prelude.Nothing,
       presetDeploymentConfig = Prelude.Nothing,
+      presetDeploymentType = Prelude.Nothing,
       s3OutputLocation = pS3OutputLocation_
     }
-
--- | The deployment type SageMaker Edge Manager will create. Currently only
--- supports Amazon Web Services IoT Greengrass Version 2 components.
-edgeOutputConfig_presetDeploymentType :: Lens.Lens' EdgeOutputConfig (Prelude.Maybe EdgePresetDeploymentType)
-edgeOutputConfig_presetDeploymentType = Lens.lens (\EdgeOutputConfig' {presetDeploymentType} -> presetDeploymentType) (\s@EdgeOutputConfig' {} a -> s {presetDeploymentType = a} :: EdgeOutputConfig)
 
 -- | The Amazon Web Services Key Management Service (Amazon Web Services KMS)
 -- key that Amazon SageMaker uses to encrypt data on the storage volume
@@ -181,46 +176,51 @@ edgeOutputConfig_kmsKeyId = Lens.lens (\EdgeOutputConfig' {kmsKeyId} -> kmsKeyId
 edgeOutputConfig_presetDeploymentConfig :: Lens.Lens' EdgeOutputConfig (Prelude.Maybe Prelude.Text)
 edgeOutputConfig_presetDeploymentConfig = Lens.lens (\EdgeOutputConfig' {presetDeploymentConfig} -> presetDeploymentConfig) (\s@EdgeOutputConfig' {} a -> s {presetDeploymentConfig = a} :: EdgeOutputConfig)
 
+-- | The deployment type SageMaker Edge Manager will create. Currently only
+-- supports Amazon Web Services IoT Greengrass Version 2 components.
+edgeOutputConfig_presetDeploymentType :: Lens.Lens' EdgeOutputConfig (Prelude.Maybe EdgePresetDeploymentType)
+edgeOutputConfig_presetDeploymentType = Lens.lens (\EdgeOutputConfig' {presetDeploymentType} -> presetDeploymentType) (\s@EdgeOutputConfig' {} a -> s {presetDeploymentType = a} :: EdgeOutputConfig)
+
 -- | The Amazon Simple Storage (S3) bucker URI.
 edgeOutputConfig_s3OutputLocation :: Lens.Lens' EdgeOutputConfig Prelude.Text
 edgeOutputConfig_s3OutputLocation = Lens.lens (\EdgeOutputConfig' {s3OutputLocation} -> s3OutputLocation) (\s@EdgeOutputConfig' {} a -> s {s3OutputLocation = a} :: EdgeOutputConfig)
 
-instance Core.FromJSON EdgeOutputConfig where
+instance Data.FromJSON EdgeOutputConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EdgeOutputConfig"
       ( \x ->
           EdgeOutputConfig'
-            Prelude.<$> (x Core..:? "PresetDeploymentType")
-            Prelude.<*> (x Core..:? "KmsKeyId")
-            Prelude.<*> (x Core..:? "PresetDeploymentConfig")
-            Prelude.<*> (x Core..: "S3OutputLocation")
+            Prelude.<$> (x Data..:? "KmsKeyId")
+            Prelude.<*> (x Data..:? "PresetDeploymentConfig")
+            Prelude.<*> (x Data..:? "PresetDeploymentType")
+            Prelude.<*> (x Data..: "S3OutputLocation")
       )
 
 instance Prelude.Hashable EdgeOutputConfig where
   hashWithSalt _salt EdgeOutputConfig' {..} =
-    _salt `Prelude.hashWithSalt` presetDeploymentType
-      `Prelude.hashWithSalt` kmsKeyId
+    _salt `Prelude.hashWithSalt` kmsKeyId
       `Prelude.hashWithSalt` presetDeploymentConfig
+      `Prelude.hashWithSalt` presetDeploymentType
       `Prelude.hashWithSalt` s3OutputLocation
 
 instance Prelude.NFData EdgeOutputConfig where
   rnf EdgeOutputConfig' {..} =
-    Prelude.rnf presetDeploymentType
-      `Prelude.seq` Prelude.rnf kmsKeyId
+    Prelude.rnf kmsKeyId
       `Prelude.seq` Prelude.rnf presetDeploymentConfig
+      `Prelude.seq` Prelude.rnf presetDeploymentType
       `Prelude.seq` Prelude.rnf s3OutputLocation
 
-instance Core.ToJSON EdgeOutputConfig where
+instance Data.ToJSON EdgeOutputConfig where
   toJSON EdgeOutputConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PresetDeploymentType" Core..=)
-              Prelude.<$> presetDeploymentType,
-            ("KmsKeyId" Core..=) Prelude.<$> kmsKeyId,
-            ("PresetDeploymentConfig" Core..=)
+          [ ("KmsKeyId" Data..=) Prelude.<$> kmsKeyId,
+            ("PresetDeploymentConfig" Data..=)
               Prelude.<$> presetDeploymentConfig,
+            ("PresetDeploymentType" Data..=)
+              Prelude.<$> presetDeploymentType,
             Prelude.Just
-              ("S3OutputLocation" Core..= s3OutputLocation)
+              ("S3OutputLocation" Data..= s3OutputLocation)
           ]
       )

@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.IoT1ClickDevices
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,20 +21,20 @@ module Amazonka.IoT1ClickDevices
     -- * Errors
     -- $errors
 
+    -- ** ForbiddenException
+    _ForbiddenException,
+
+    -- ** InternalFailureException
+    _InternalFailureException,
+
     -- ** InvalidRequestException
     _InvalidRequestException,
 
     -- ** PreconditionFailedException
     _PreconditionFailedException,
 
-    -- ** ForbiddenException
-    _ForbiddenException,
-
     -- ** RangeNotSatisfiableException
     _RangeNotSatisfiableException,
-
-    -- ** InternalFailureException
-    _InternalFailureException,
 
     -- ** ResourceConflictException
     _ResourceConflictException,
@@ -48,23 +48,29 @@ module Amazonka.IoT1ClickDevices
     -- * Operations
     -- $operations
 
-    -- ** GetDeviceMethods
-    GetDeviceMethods (GetDeviceMethods'),
-    newGetDeviceMethods,
-    GetDeviceMethodsResponse (GetDeviceMethodsResponse'),
-    newGetDeviceMethodsResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
     -- ** ClaimDevicesByClaimCode
     ClaimDevicesByClaimCode (ClaimDevicesByClaimCode'),
     newClaimDevicesByClaimCode,
     ClaimDevicesByClaimCodeResponse (ClaimDevicesByClaimCodeResponse'),
     newClaimDevicesByClaimCodeResponse,
+
+    -- ** DescribeDevice
+    DescribeDevice (DescribeDevice'),
+    newDescribeDevice,
+    DescribeDeviceResponse (DescribeDeviceResponse'),
+    newDescribeDeviceResponse,
+
+    -- ** FinalizeDeviceClaim
+    FinalizeDeviceClaim (FinalizeDeviceClaim'),
+    newFinalizeDeviceClaim,
+    FinalizeDeviceClaimResponse (FinalizeDeviceClaimResponse'),
+    newFinalizeDeviceClaimResponse,
+
+    -- ** GetDeviceMethods
+    GetDeviceMethods (GetDeviceMethods'),
+    newGetDeviceMethods,
+    GetDeviceMethodsResponse (GetDeviceMethodsResponse'),
+    newGetDeviceMethodsResponse,
 
     -- ** InitiateDeviceClaim
     InitiateDeviceClaim (InitiateDeviceClaim'),
@@ -78,29 +84,35 @@ module Amazonka.IoT1ClickDevices
     InvokeDeviceMethodResponse (InvokeDeviceMethodResponse'),
     newInvokeDeviceMethodResponse,
 
-    -- ** DescribeDevice
-    DescribeDevice (DescribeDevice'),
-    newDescribeDevice,
-    DescribeDeviceResponse (DescribeDeviceResponse'),
-    newDescribeDeviceResponse,
-
     -- ** ListDeviceEvents (Paginated)
     ListDeviceEvents (ListDeviceEvents'),
     newListDeviceEvents,
     ListDeviceEventsResponse (ListDeviceEventsResponse'),
     newListDeviceEventsResponse,
 
-    -- ** FinalizeDeviceClaim
-    FinalizeDeviceClaim (FinalizeDeviceClaim'),
-    newFinalizeDeviceClaim,
-    FinalizeDeviceClaimResponse (FinalizeDeviceClaimResponse'),
-    newFinalizeDeviceClaimResponse,
+    -- ** ListDevices (Paginated)
+    ListDevices (ListDevices'),
+    newListDevices,
+    ListDevicesResponse (ListDevicesResponse'),
+    newListDevicesResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** TagResource
     TagResource (TagResource'),
     newTagResource,
     TagResourceResponse (TagResourceResponse'),
     newTagResourceResponse,
+
+    -- ** UnclaimDevice
+    UnclaimDevice (UnclaimDevice'),
+    newUnclaimDevice,
+    UnclaimDeviceResponse (UnclaimDeviceResponse'),
+    newUnclaimDeviceResponse,
 
     -- ** UntagResource
     UntagResource (UntagResource'),
@@ -113,18 +125,6 @@ module Amazonka.IoT1ClickDevices
     newUpdateDeviceState,
     UpdateDeviceStateResponse (UpdateDeviceStateResponse'),
     newUpdateDeviceStateResponse,
-
-    -- ** UnclaimDevice
-    UnclaimDevice (UnclaimDevice'),
-    newUnclaimDevice,
-    UnclaimDeviceResponse (UnclaimDeviceResponse'),
-    newUnclaimDeviceResponse,
-
-    -- ** ListDevices (Paginated)
-    ListDevices (ListDevices'),
-    newListDevices,
-    ListDevicesResponse (ListDevicesResponse'),
-    newListDevicesResponse,
 
     -- * Types
 

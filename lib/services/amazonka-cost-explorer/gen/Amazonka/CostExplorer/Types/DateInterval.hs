@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.DateInterval
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CostExplorer.Types.DateInterval where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The time period of the request.
@@ -80,13 +81,13 @@ dateInterval_start = Lens.lens (\DateInterval' {start} -> start) (\s@DateInterva
 dateInterval_end :: Lens.Lens' DateInterval Prelude.Text
 dateInterval_end = Lens.lens (\DateInterval' {end} -> end) (\s@DateInterval' {} a -> s {end = a} :: DateInterval)
 
-instance Core.FromJSON DateInterval where
+instance Data.FromJSON DateInterval where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DateInterval"
       ( \x ->
           DateInterval'
-            Prelude.<$> (x Core..: "Start") Prelude.<*> (x Core..: "End")
+            Prelude.<$> (x Data..: "Start") Prelude.<*> (x Data..: "End")
       )
 
 instance Prelude.Hashable DateInterval where
@@ -98,11 +99,11 @@ instance Prelude.NFData DateInterval where
   rnf DateInterval' {..} =
     Prelude.rnf start `Prelude.seq` Prelude.rnf end
 
-instance Core.ToJSON DateInterval where
+instance Data.ToJSON DateInterval where
   toJSON DateInterval' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Start" Core..= start),
-            Prelude.Just ("End" Core..= end)
+          [ Prelude.Just ("Start" Data..= start),
+            Prelude.Just ("End" Data..= end)
           ]
       )

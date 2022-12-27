@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.DeleteConfigurationAggregator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,7 +82,8 @@ instance
   type
     AWSResponse DeleteConfigurationAggregator =
       DeleteConfigurationAggregatorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteConfigurationAggregatorResponse'
@@ -98,36 +100,36 @@ instance Prelude.NFData DeleteConfigurationAggregator where
   rnf DeleteConfigurationAggregator' {..} =
     Prelude.rnf configurationAggregatorName
 
-instance Core.ToHeaders DeleteConfigurationAggregator where
+instance Data.ToHeaders DeleteConfigurationAggregator where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.DeleteConfigurationAggregator" ::
+              Data.=# ( "StarlingDoveService.DeleteConfigurationAggregator" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteConfigurationAggregator where
+instance Data.ToJSON DeleteConfigurationAggregator where
   toJSON DeleteConfigurationAggregator' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "ConfigurationAggregatorName"
-                  Core..= configurationAggregatorName
+                  Data..= configurationAggregatorName
               )
           ]
       )
 
-instance Core.ToPath DeleteConfigurationAggregator where
+instance Data.ToPath DeleteConfigurationAggregator where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteConfigurationAggregator where
+instance Data.ToQuery DeleteConfigurationAggregator where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteConfigurationAggregatorResponse' smart constructor.

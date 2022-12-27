@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Discovery.StopDataCollectionByAgentIds
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Discovery.StopDataCollectionByAgentIds
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Discovery.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,12 +79,13 @@ instance Core.AWSRequest StopDataCollectionByAgentIds where
   type
     AWSResponse StopDataCollectionByAgentIds =
       StopDataCollectionByAgentIdsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StopDataCollectionByAgentIdsResponse'
-            Prelude.<$> ( x Core..?> "agentsConfigurationStatus"
+            Prelude.<$> ( x Data..?> "agentsConfigurationStatus"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -100,32 +102,32 @@ instance Prelude.NFData StopDataCollectionByAgentIds where
   rnf StopDataCollectionByAgentIds' {..} =
     Prelude.rnf agentIds
 
-instance Core.ToHeaders StopDataCollectionByAgentIds where
+instance Data.ToHeaders StopDataCollectionByAgentIds where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSPoseidonService_V2015_11_01.StopDataCollectionByAgentIds" ::
+              Data.=# ( "AWSPoseidonService_V2015_11_01.StopDataCollectionByAgentIds" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopDataCollectionByAgentIds where
+instance Data.ToJSON StopDataCollectionByAgentIds where
   toJSON StopDataCollectionByAgentIds' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("agentIds" Core..= agentIds)]
+          [Prelude.Just ("agentIds" Data..= agentIds)]
       )
 
-instance Core.ToPath StopDataCollectionByAgentIds where
+instance Data.ToPath StopDataCollectionByAgentIds where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopDataCollectionByAgentIds where
+instance Data.ToQuery StopDataCollectionByAgentIds where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopDataCollectionByAgentIdsResponse' smart constructor.

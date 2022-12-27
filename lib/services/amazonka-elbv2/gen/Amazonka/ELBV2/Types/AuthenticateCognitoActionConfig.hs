@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.Types.AuthenticateCognitoActionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ELBV2.Types.AuthenticateCognitoActionConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types.AuthenticateCognitoActionConditionalBehaviorEnum
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Request parameters to use when integrating with Amazon Cognito to
@@ -32,12 +33,6 @@ data AuthenticateCognitoActionConfig = AuthenticateCognitoActionConfig'
   { -- | The query parameters (up to 10) to include in the redirect request to
     -- the authorization endpoint.
     authenticationRequestExtraParams :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The set of user claims to be requested from the IdP. The default is
-    -- @openid@.
-    --
-    -- To verify which scope values your IdP supports and how to separate
-    -- multiple values, see the documentation for your IdP.
-    scope :: Prelude.Maybe Prelude.Text,
     -- | The behavior if the user is not authenticated. The following are
     -- possible values:
     --
@@ -48,6 +43,12 @@ data AuthenticateCognitoActionConfig = AuthenticateCognitoActionConfig'
     -- -   authenticate@@ - Redirect the request to the IdP authorization
     --     endpoint. This is the default value.
     onUnauthenticatedRequest :: Prelude.Maybe AuthenticateCognitoActionConditionalBehaviorEnum,
+    -- | The set of user claims to be requested from the IdP. The default is
+    -- @openid@.
+    --
+    -- To verify which scope values your IdP supports and how to separate
+    -- multiple values, see the documentation for your IdP.
+    scope :: Prelude.Maybe Prelude.Text,
     -- | The name of the cookie used to maintain session information. The default
     -- is AWSELBAuthSessionCookie.
     sessionCookieName :: Prelude.Maybe Prelude.Text,
@@ -75,12 +76,6 @@ data AuthenticateCognitoActionConfig = AuthenticateCognitoActionConfig'
 -- 'authenticationRequestExtraParams', 'authenticateCognitoActionConfig_authenticationRequestExtraParams' - The query parameters (up to 10) to include in the redirect request to
 -- the authorization endpoint.
 --
--- 'scope', 'authenticateCognitoActionConfig_scope' - The set of user claims to be requested from the IdP. The default is
--- @openid@.
---
--- To verify which scope values your IdP supports and how to separate
--- multiple values, see the documentation for your IdP.
---
 -- 'onUnauthenticatedRequest', 'authenticateCognitoActionConfig_onUnauthenticatedRequest' - The behavior if the user is not authenticated. The following are
 -- possible values:
 --
@@ -90,6 +85,12 @@ data AuthenticateCognitoActionConfig = AuthenticateCognitoActionConfig'
 --
 -- -   authenticate@@ - Redirect the request to the IdP authorization
 --     endpoint. This is the default value.
+--
+-- 'scope', 'authenticateCognitoActionConfig_scope' - The set of user claims to be requested from the IdP. The default is
+-- @openid@.
+--
+-- To verify which scope values your IdP supports and how to separate
+-- multiple values, see the documentation for your IdP.
 --
 -- 'sessionCookieName', 'authenticateCognitoActionConfig_sessionCookieName' - The name of the cookie used to maintain session information. The default
 -- is AWSELBAuthSessionCookie.
@@ -118,8 +119,8 @@ newAuthenticateCognitoActionConfig
     AuthenticateCognitoActionConfig'
       { authenticationRequestExtraParams =
           Prelude.Nothing,
-        scope = Prelude.Nothing,
         onUnauthenticatedRequest = Prelude.Nothing,
+        scope = Prelude.Nothing,
         sessionCookieName = Prelude.Nothing,
         sessionTimeout = Prelude.Nothing,
         userPoolArn = pUserPoolArn_,
@@ -132,14 +133,6 @@ newAuthenticateCognitoActionConfig
 authenticateCognitoActionConfig_authenticationRequestExtraParams :: Lens.Lens' AuthenticateCognitoActionConfig (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 authenticateCognitoActionConfig_authenticationRequestExtraParams = Lens.lens (\AuthenticateCognitoActionConfig' {authenticationRequestExtraParams} -> authenticationRequestExtraParams) (\s@AuthenticateCognitoActionConfig' {} a -> s {authenticationRequestExtraParams = a} :: AuthenticateCognitoActionConfig) Prelude.. Lens.mapping Lens.coerced
 
--- | The set of user claims to be requested from the IdP. The default is
--- @openid@.
---
--- To verify which scope values your IdP supports and how to separate
--- multiple values, see the documentation for your IdP.
-authenticateCognitoActionConfig_scope :: Lens.Lens' AuthenticateCognitoActionConfig (Prelude.Maybe Prelude.Text)
-authenticateCognitoActionConfig_scope = Lens.lens (\AuthenticateCognitoActionConfig' {scope} -> scope) (\s@AuthenticateCognitoActionConfig' {} a -> s {scope = a} :: AuthenticateCognitoActionConfig)
-
 -- | The behavior if the user is not authenticated. The following are
 -- possible values:
 --
@@ -151,6 +144,14 @@ authenticateCognitoActionConfig_scope = Lens.lens (\AuthenticateCognitoActionCon
 --     endpoint. This is the default value.
 authenticateCognitoActionConfig_onUnauthenticatedRequest :: Lens.Lens' AuthenticateCognitoActionConfig (Prelude.Maybe AuthenticateCognitoActionConditionalBehaviorEnum)
 authenticateCognitoActionConfig_onUnauthenticatedRequest = Lens.lens (\AuthenticateCognitoActionConfig' {onUnauthenticatedRequest} -> onUnauthenticatedRequest) (\s@AuthenticateCognitoActionConfig' {} a -> s {onUnauthenticatedRequest = a} :: AuthenticateCognitoActionConfig)
+
+-- | The set of user claims to be requested from the IdP. The default is
+-- @openid@.
+--
+-- To verify which scope values your IdP supports and how to separate
+-- multiple values, see the documentation for your IdP.
+authenticateCognitoActionConfig_scope :: Lens.Lens' AuthenticateCognitoActionConfig (Prelude.Maybe Prelude.Text)
+authenticateCognitoActionConfig_scope = Lens.lens (\AuthenticateCognitoActionConfig' {scope} -> scope) (\s@AuthenticateCognitoActionConfig' {} a -> s {scope = a} :: AuthenticateCognitoActionConfig)
 
 -- | The name of the cookie used to maintain session information. The default
 -- is AWSELBAuthSessionCookie.
@@ -175,20 +176,20 @@ authenticateCognitoActionConfig_userPoolClientId = Lens.lens (\AuthenticateCogni
 authenticateCognitoActionConfig_userPoolDomain :: Lens.Lens' AuthenticateCognitoActionConfig Prelude.Text
 authenticateCognitoActionConfig_userPoolDomain = Lens.lens (\AuthenticateCognitoActionConfig' {userPoolDomain} -> userPoolDomain) (\s@AuthenticateCognitoActionConfig' {} a -> s {userPoolDomain = a} :: AuthenticateCognitoActionConfig)
 
-instance Core.FromXML AuthenticateCognitoActionConfig where
+instance Data.FromXML AuthenticateCognitoActionConfig where
   parseXML x =
     AuthenticateCognitoActionConfig'
-      Prelude.<$> ( x Core..@? "AuthenticationRequestExtraParams"
+      Prelude.<$> ( x Data..@? "AuthenticationRequestExtraParams"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLMap "entry" "key" "value")
+                      Prelude.>>= Core.may (Data.parseXMLMap "entry" "key" "value")
                   )
-      Prelude.<*> (x Core..@? "Scope")
-      Prelude.<*> (x Core..@? "OnUnauthenticatedRequest")
-      Prelude.<*> (x Core..@? "SessionCookieName")
-      Prelude.<*> (x Core..@? "SessionTimeout")
-      Prelude.<*> (x Core..@ "UserPoolArn")
-      Prelude.<*> (x Core..@ "UserPoolClientId")
-      Prelude.<*> (x Core..@ "UserPoolDomain")
+      Prelude.<*> (x Data..@? "OnUnauthenticatedRequest")
+      Prelude.<*> (x Data..@? "Scope")
+      Prelude.<*> (x Data..@? "SessionCookieName")
+      Prelude.<*> (x Data..@? "SessionTimeout")
+      Prelude.<*> (x Data..@ "UserPoolArn")
+      Prelude.<*> (x Data..@ "UserPoolClientId")
+      Prelude.<*> (x Data..@ "UserPoolDomain")
 
 instance
   Prelude.Hashable
@@ -199,8 +200,8 @@ instance
     AuthenticateCognitoActionConfig' {..} =
       _salt
         `Prelude.hashWithSalt` authenticationRequestExtraParams
-        `Prelude.hashWithSalt` scope
         `Prelude.hashWithSalt` onUnauthenticatedRequest
+        `Prelude.hashWithSalt` scope
         `Prelude.hashWithSalt` sessionCookieName
         `Prelude.hashWithSalt` sessionTimeout
         `Prelude.hashWithSalt` userPoolArn
@@ -213,28 +214,28 @@ instance
   where
   rnf AuthenticateCognitoActionConfig' {..} =
     Prelude.rnf authenticationRequestExtraParams
-      `Prelude.seq` Prelude.rnf scope
       `Prelude.seq` Prelude.rnf onUnauthenticatedRequest
+      `Prelude.seq` Prelude.rnf scope
       `Prelude.seq` Prelude.rnf sessionCookieName
       `Prelude.seq` Prelude.rnf sessionTimeout
       `Prelude.seq` Prelude.rnf userPoolArn
       `Prelude.seq` Prelude.rnf userPoolClientId
       `Prelude.seq` Prelude.rnf userPoolDomain
 
-instance Core.ToQuery AuthenticateCognitoActionConfig where
+instance Data.ToQuery AuthenticateCognitoActionConfig where
   toQuery AuthenticateCognitoActionConfig' {..} =
     Prelude.mconcat
       [ "AuthenticationRequestExtraParams"
-          Core.=: Core.toQuery
-            ( Core.toQueryMap "entry" "key" "value"
+          Data.=: Data.toQuery
+            ( Data.toQueryMap "entry" "key" "value"
                 Prelude.<$> authenticationRequestExtraParams
             ),
-        "Scope" Core.=: scope,
         "OnUnauthenticatedRequest"
-          Core.=: onUnauthenticatedRequest,
-        "SessionCookieName" Core.=: sessionCookieName,
-        "SessionTimeout" Core.=: sessionTimeout,
-        "UserPoolArn" Core.=: userPoolArn,
-        "UserPoolClientId" Core.=: userPoolClientId,
-        "UserPoolDomain" Core.=: userPoolDomain
+          Data.=: onUnauthenticatedRequest,
+        "Scope" Data.=: scope,
+        "SessionCookieName" Data.=: sessionCookieName,
+        "SessionTimeout" Data.=: sessionTimeout,
+        "UserPoolArn" Data.=: userPoolArn,
+        "UserPoolClientId" Data.=: userPoolClientId,
+        "UserPoolDomain" Data.=: userPoolDomain
       ]

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.ApplicationResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,17 @@
 module Amazonka.Pinpoint.Types.ApplicationResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about an application.
 --
 -- /See:/ 'newApplicationResponse' smart constructor.
 data ApplicationResponse = ApplicationResponse'
-  { -- | A string-to-string map of key-value pairs that identifies the tags that
+  { -- | The date and time when the Application was created.
+    creationDate :: Prelude.Maybe Prelude.Text,
+    -- | A string-to-string map of key-value pairs that identifies the tags that
     -- are associated with the application. Each tag consists of a required tag
     -- key and an associated tag value.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
@@ -50,6 +53,8 @@ data ApplicationResponse = ApplicationResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'creationDate', 'applicationResponse_creationDate' - The date and time when the Application was created.
+--
 -- 'tags', 'applicationResponse_tags' - A string-to-string map of key-value pairs that identifies the tags that
 -- are associated with the application. Each tag consists of a required tag
 -- key and an associated tag value.
@@ -71,11 +76,17 @@ newApplicationResponse ::
   ApplicationResponse
 newApplicationResponse pId_ pArn_ pName_ =
   ApplicationResponse'
-    { tags = Prelude.Nothing,
+    { creationDate =
+        Prelude.Nothing,
+      tags = Prelude.Nothing,
       id = pId_,
       arn = pArn_,
       name = pName_
     }
+
+-- | The date and time when the Application was created.
+applicationResponse_creationDate :: Lens.Lens' ApplicationResponse (Prelude.Maybe Prelude.Text)
+applicationResponse_creationDate = Lens.lens (\ApplicationResponse' {creationDate} -> creationDate) (\s@ApplicationResponse' {} a -> s {creationDate = a} :: ApplicationResponse)
 
 -- | A string-to-string map of key-value pairs that identifies the tags that
 -- are associated with the application. Each tag consists of a required tag
@@ -97,28 +108,31 @@ applicationResponse_arn = Lens.lens (\ApplicationResponse' {arn} -> arn) (\s@App
 applicationResponse_name :: Lens.Lens' ApplicationResponse Prelude.Text
 applicationResponse_name = Lens.lens (\ApplicationResponse' {name} -> name) (\s@ApplicationResponse' {} a -> s {name = a} :: ApplicationResponse)
 
-instance Core.FromJSON ApplicationResponse where
+instance Data.FromJSON ApplicationResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ApplicationResponse"
       ( \x ->
           ApplicationResponse'
-            Prelude.<$> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "Id")
-            Prelude.<*> (x Core..: "Arn")
-            Prelude.<*> (x Core..: "Name")
+            Prelude.<$> (x Data..:? "CreationDate")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "Id")
+            Prelude.<*> (x Data..: "Arn")
+            Prelude.<*> (x Data..: "Name")
       )
 
 instance Prelude.Hashable ApplicationResponse where
   hashWithSalt _salt ApplicationResponse' {..} =
-    _salt `Prelude.hashWithSalt` tags
+    _salt `Prelude.hashWithSalt` creationDate
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData ApplicationResponse where
   rnf ApplicationResponse' {..} =
-    Prelude.rnf tags
+    Prelude.rnf creationDate
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf name

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.Types.MinimumHealthyHosts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,16 +21,15 @@ module Amazonka.CodeDeploy.Types.MinimumHealthyHosts where
 
 import Amazonka.CodeDeploy.Types.MinimumHealthyHostsType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about minimum healthy instance.
 --
 -- /See:/ 'newMinimumHealthyHosts' smart constructor.
 data MinimumHealthyHosts = MinimumHealthyHosts'
-  { -- | The minimum healthy instance value.
-    value :: Prelude.Maybe Prelude.Int,
-    -- | The minimum healthy instance type:
+  { -- | The minimum healthy instance type:
     --
     -- -   @HOST_COUNT@: The minimum number of healthy instances as an absolute
     --     value.
@@ -49,7 +48,7 @@ data MinimumHealthyHosts = MinimumHealthyHosts'
     -- returns a minimum healthy instance type of MOST_CONCURRENCY and a value
     -- of 1. This means a deployment to only one instance at a time. (You
     -- cannot set the type to MOST_CONCURRENCY, only to HOST_COUNT or
-    -- FLEET_PERCENT.) In addition, with CodeDeployDefault.OneAtATime, AWS
+    -- FLEET_PERCENT.) In addition, with CodeDeployDefault.OneAtATime,
     -- CodeDeploy attempts to ensure that all instances but one are kept in a
     -- healthy state during the deployment. Although this allows one instance
     -- at a time to be taken offline for a new deployment, it also means that
@@ -57,9 +56,11 @@ data MinimumHealthyHosts = MinimumHealthyHosts'
     -- still successful.
     --
     -- For more information, see
-    -- <https://docs.aws.amazon.com/codedeploy/latest/userguide/instances-health.html AWS CodeDeploy Instance Health>
-    -- in the /AWS CodeDeploy User Guide/.
-    type' :: Prelude.Maybe MinimumHealthyHostsType
+    -- <https://docs.aws.amazon.com/codedeploy/latest/userguide/instances-health.html CodeDeploy Instance Health>
+    -- in the /CodeDeploy User Guide/.
+    type' :: Prelude.Maybe MinimumHealthyHostsType,
+    -- | The minimum healthy instance value.
+    value :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,8 +71,6 @@ data MinimumHealthyHosts = MinimumHealthyHosts'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'value', 'minimumHealthyHosts_value' - The minimum healthy instance value.
 --
 -- 'type'', 'minimumHealthyHosts_type' - The minimum healthy instance type:
 --
@@ -92,7 +91,7 @@ data MinimumHealthyHosts = MinimumHealthyHosts'
 -- returns a minimum healthy instance type of MOST_CONCURRENCY and a value
 -- of 1. This means a deployment to only one instance at a time. (You
 -- cannot set the type to MOST_CONCURRENCY, only to HOST_COUNT or
--- FLEET_PERCENT.) In addition, with CodeDeployDefault.OneAtATime, AWS
+-- FLEET_PERCENT.) In addition, with CodeDeployDefault.OneAtATime,
 -- CodeDeploy attempts to ensure that all instances but one are kept in a
 -- healthy state during the deployment. Although this allows one instance
 -- at a time to be taken offline for a new deployment, it also means that
@@ -100,19 +99,17 @@ data MinimumHealthyHosts = MinimumHealthyHosts'
 -- still successful.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/codedeploy/latest/userguide/instances-health.html AWS CodeDeploy Instance Health>
--- in the /AWS CodeDeploy User Guide/.
+-- <https://docs.aws.amazon.com/codedeploy/latest/userguide/instances-health.html CodeDeploy Instance Health>
+-- in the /CodeDeploy User Guide/.
+--
+-- 'value', 'minimumHealthyHosts_value' - The minimum healthy instance value.
 newMinimumHealthyHosts ::
   MinimumHealthyHosts
 newMinimumHealthyHosts =
   MinimumHealthyHosts'
-    { value = Prelude.Nothing,
-      type' = Prelude.Nothing
+    { type' = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The minimum healthy instance value.
-minimumHealthyHosts_value :: Lens.Lens' MinimumHealthyHosts (Prelude.Maybe Prelude.Int)
-minimumHealthyHosts_value = Lens.lens (\MinimumHealthyHosts' {value} -> value) (\s@MinimumHealthyHosts' {} a -> s {value = a} :: MinimumHealthyHosts)
 
 -- | The minimum healthy instance type:
 --
@@ -133,7 +130,7 @@ minimumHealthyHosts_value = Lens.lens (\MinimumHealthyHosts' {value} -> value) (
 -- returns a minimum healthy instance type of MOST_CONCURRENCY and a value
 -- of 1. This means a deployment to only one instance at a time. (You
 -- cannot set the type to MOST_CONCURRENCY, only to HOST_COUNT or
--- FLEET_PERCENT.) In addition, with CodeDeployDefault.OneAtATime, AWS
+-- FLEET_PERCENT.) In addition, with CodeDeployDefault.OneAtATime,
 -- CodeDeploy attempts to ensure that all instances but one are kept in a
 -- healthy state during the deployment. Although this allows one instance
 -- at a time to be taken offline for a new deployment, it also means that
@@ -141,34 +138,38 @@ minimumHealthyHosts_value = Lens.lens (\MinimumHealthyHosts' {value} -> value) (
 -- still successful.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/codedeploy/latest/userguide/instances-health.html AWS CodeDeploy Instance Health>
--- in the /AWS CodeDeploy User Guide/.
+-- <https://docs.aws.amazon.com/codedeploy/latest/userguide/instances-health.html CodeDeploy Instance Health>
+-- in the /CodeDeploy User Guide/.
 minimumHealthyHosts_type :: Lens.Lens' MinimumHealthyHosts (Prelude.Maybe MinimumHealthyHostsType)
 minimumHealthyHosts_type = Lens.lens (\MinimumHealthyHosts' {type'} -> type') (\s@MinimumHealthyHosts' {} a -> s {type' = a} :: MinimumHealthyHosts)
 
-instance Core.FromJSON MinimumHealthyHosts where
+-- | The minimum healthy instance value.
+minimumHealthyHosts_value :: Lens.Lens' MinimumHealthyHosts (Prelude.Maybe Prelude.Int)
+minimumHealthyHosts_value = Lens.lens (\MinimumHealthyHosts' {value} -> value) (\s@MinimumHealthyHosts' {} a -> s {value = a} :: MinimumHealthyHosts)
+
+instance Data.FromJSON MinimumHealthyHosts where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MinimumHealthyHosts"
       ( \x ->
           MinimumHealthyHosts'
-            Prelude.<$> (x Core..:? "value") Prelude.<*> (x Core..:? "type")
+            Prelude.<$> (x Data..:? "type") Prelude.<*> (x Data..:? "value")
       )
 
 instance Prelude.Hashable MinimumHealthyHosts where
   hashWithSalt _salt MinimumHealthyHosts' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` type'
+    _salt `Prelude.hashWithSalt` type'
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData MinimumHealthyHosts where
   rnf MinimumHealthyHosts' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf type'
+    Prelude.rnf type' `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON MinimumHealthyHosts where
+instance Data.ToJSON MinimumHealthyHosts where
   toJSON MinimumHealthyHosts' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("value" Core..=) Prelude.<$> value,
-            ("type" Core..=) Prelude.<$> type'
+          [ ("type" Data..=) Prelude.<$> type',
+            ("value" Data..=) Prelude.<$> value
           ]
       )

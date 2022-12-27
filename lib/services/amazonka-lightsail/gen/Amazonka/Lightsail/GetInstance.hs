@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Lightsail.GetInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -76,12 +77,13 @@ getInstance_instanceName = Lens.lens (\GetInstance' {instanceName} -> instanceNa
 
 instance Core.AWSRequest GetInstance where
   type AWSResponse GetInstance = GetInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetInstanceResponse'
-            Prelude.<$> (x Core..?> "instance")
+            Prelude.<$> (x Data..?> "instance")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -92,32 +94,32 @@ instance Prelude.Hashable GetInstance where
 instance Prelude.NFData GetInstance where
   rnf GetInstance' {..} = Prelude.rnf instanceName
 
-instance Core.ToHeaders GetInstance where
+instance Data.ToHeaders GetInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetInstance" ::
+              Data.=# ( "Lightsail_20161128.GetInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetInstance where
+instance Data.ToJSON GetInstance where
   toJSON GetInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("instanceName" Core..= instanceName)]
+          [Prelude.Just ("instanceName" Data..= instanceName)]
       )
 
-instance Core.ToPath GetInstance where
+instance Data.ToPath GetInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetInstance where
+instance Data.ToQuery GetInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetInstanceResponse' smart constructor.

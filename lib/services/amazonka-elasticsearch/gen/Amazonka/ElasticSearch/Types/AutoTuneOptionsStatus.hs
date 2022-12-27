@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.AutoTuneOptionsStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.ElasticSearch.Types.AutoTuneOptionsStatus where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types.AutoTuneOptions
 import Amazonka.ElasticSearch.Types.AutoTuneStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the status of Auto-Tune options for the specified
@@ -30,11 +31,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAutoTuneOptionsStatus' smart constructor.
 data AutoTuneOptionsStatus = AutoTuneOptionsStatus'
-  { -- | Specifies Status of the Auto-Tune options for the specified
+  { -- | Specifies Auto-Tune options for the specified Elasticsearch domain.
+    options :: Prelude.Maybe AutoTuneOptions,
+    -- | Specifies Status of the Auto-Tune options for the specified
     -- Elasticsearch domain.
-    status :: Prelude.Maybe AutoTuneStatus,
-    -- | Specifies Auto-Tune options for the specified Elasticsearch domain.
-    options :: Prelude.Maybe AutoTuneOptions
+    status :: Prelude.Maybe AutoTuneStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,43 +47,43 @@ data AutoTuneOptionsStatus = AutoTuneOptionsStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'options', 'autoTuneOptionsStatus_options' - Specifies Auto-Tune options for the specified Elasticsearch domain.
+--
 -- 'status', 'autoTuneOptionsStatus_status' - Specifies Status of the Auto-Tune options for the specified
 -- Elasticsearch domain.
---
--- 'options', 'autoTuneOptionsStatus_options' - Specifies Auto-Tune options for the specified Elasticsearch domain.
 newAutoTuneOptionsStatus ::
   AutoTuneOptionsStatus
 newAutoTuneOptionsStatus =
   AutoTuneOptionsStatus'
-    { status = Prelude.Nothing,
-      options = Prelude.Nothing
+    { options = Prelude.Nothing,
+      status = Prelude.Nothing
     }
+
+-- | Specifies Auto-Tune options for the specified Elasticsearch domain.
+autoTuneOptionsStatus_options :: Lens.Lens' AutoTuneOptionsStatus (Prelude.Maybe AutoTuneOptions)
+autoTuneOptionsStatus_options = Lens.lens (\AutoTuneOptionsStatus' {options} -> options) (\s@AutoTuneOptionsStatus' {} a -> s {options = a} :: AutoTuneOptionsStatus)
 
 -- | Specifies Status of the Auto-Tune options for the specified
 -- Elasticsearch domain.
 autoTuneOptionsStatus_status :: Lens.Lens' AutoTuneOptionsStatus (Prelude.Maybe AutoTuneStatus)
 autoTuneOptionsStatus_status = Lens.lens (\AutoTuneOptionsStatus' {status} -> status) (\s@AutoTuneOptionsStatus' {} a -> s {status = a} :: AutoTuneOptionsStatus)
 
--- | Specifies Auto-Tune options for the specified Elasticsearch domain.
-autoTuneOptionsStatus_options :: Lens.Lens' AutoTuneOptionsStatus (Prelude.Maybe AutoTuneOptions)
-autoTuneOptionsStatus_options = Lens.lens (\AutoTuneOptionsStatus' {options} -> options) (\s@AutoTuneOptionsStatus' {} a -> s {options = a} :: AutoTuneOptionsStatus)
-
-instance Core.FromJSON AutoTuneOptionsStatus where
+instance Data.FromJSON AutoTuneOptionsStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutoTuneOptionsStatus"
       ( \x ->
           AutoTuneOptionsStatus'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "Options")
+            Prelude.<$> (x Data..:? "Options")
+            Prelude.<*> (x Data..:? "Status")
       )
 
 instance Prelude.Hashable AutoTuneOptionsStatus where
   hashWithSalt _salt AutoTuneOptionsStatus' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` options
+    _salt `Prelude.hashWithSalt` options
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData AutoTuneOptionsStatus where
   rnf AutoTuneOptionsStatus' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf options
+    Prelude.rnf options
+      `Prelude.seq` Prelude.rnf status

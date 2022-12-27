@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.Types.BatchDescribeTypeConfigurationsError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFormation.Types.BatchDescribeTypeConfigurationsError where
 
 import Amazonka.CloudFormation.Types.TypeConfigurationIdentifier
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Detailed information concerning an error generated during the setting of
@@ -29,11 +30,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newBatchDescribeTypeConfigurationsError' smart constructor.
 data BatchDescribeTypeConfigurationsError = BatchDescribeTypeConfigurationsError'
-  { typeConfigurationIdentifier :: Prelude.Maybe TypeConfigurationIdentifier,
-    -- | The error code.
+  { -- | The error code.
     errorCode :: Prelude.Maybe Prelude.Text,
     -- | The error message.
-    errorMessage :: Prelude.Maybe Prelude.Text
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    typeConfigurationIdentifier :: Prelude.Maybe TypeConfigurationIdentifier
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,24 +46,21 @@ data BatchDescribeTypeConfigurationsError = BatchDescribeTypeConfigurationsError
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'typeConfigurationIdentifier', 'batchDescribeTypeConfigurationsError_typeConfigurationIdentifier' - Undocumented member.
---
 -- 'errorCode', 'batchDescribeTypeConfigurationsError_errorCode' - The error code.
 --
 -- 'errorMessage', 'batchDescribeTypeConfigurationsError_errorMessage' - The error message.
+--
+-- 'typeConfigurationIdentifier', 'batchDescribeTypeConfigurationsError_typeConfigurationIdentifier' - Undocumented member.
 newBatchDescribeTypeConfigurationsError ::
   BatchDescribeTypeConfigurationsError
 newBatchDescribeTypeConfigurationsError =
   BatchDescribeTypeConfigurationsError'
-    { typeConfigurationIdentifier =
+    { errorCode =
         Prelude.Nothing,
-      errorCode = Prelude.Nothing,
-      errorMessage = Prelude.Nothing
+      errorMessage = Prelude.Nothing,
+      typeConfigurationIdentifier =
+        Prelude.Nothing
     }
-
--- | Undocumented member.
-batchDescribeTypeConfigurationsError_typeConfigurationIdentifier :: Lens.Lens' BatchDescribeTypeConfigurationsError (Prelude.Maybe TypeConfigurationIdentifier)
-batchDescribeTypeConfigurationsError_typeConfigurationIdentifier = Lens.lens (\BatchDescribeTypeConfigurationsError' {typeConfigurationIdentifier} -> typeConfigurationIdentifier) (\s@BatchDescribeTypeConfigurationsError' {} a -> s {typeConfigurationIdentifier = a} :: BatchDescribeTypeConfigurationsError)
 
 -- | The error code.
 batchDescribeTypeConfigurationsError_errorCode :: Lens.Lens' BatchDescribeTypeConfigurationsError (Prelude.Maybe Prelude.Text)
@@ -72,15 +70,19 @@ batchDescribeTypeConfigurationsError_errorCode = Lens.lens (\BatchDescribeTypeCo
 batchDescribeTypeConfigurationsError_errorMessage :: Lens.Lens' BatchDescribeTypeConfigurationsError (Prelude.Maybe Prelude.Text)
 batchDescribeTypeConfigurationsError_errorMessage = Lens.lens (\BatchDescribeTypeConfigurationsError' {errorMessage} -> errorMessage) (\s@BatchDescribeTypeConfigurationsError' {} a -> s {errorMessage = a} :: BatchDescribeTypeConfigurationsError)
 
+-- | Undocumented member.
+batchDescribeTypeConfigurationsError_typeConfigurationIdentifier :: Lens.Lens' BatchDescribeTypeConfigurationsError (Prelude.Maybe TypeConfigurationIdentifier)
+batchDescribeTypeConfigurationsError_typeConfigurationIdentifier = Lens.lens (\BatchDescribeTypeConfigurationsError' {typeConfigurationIdentifier} -> typeConfigurationIdentifier) (\s@BatchDescribeTypeConfigurationsError' {} a -> s {typeConfigurationIdentifier = a} :: BatchDescribeTypeConfigurationsError)
+
 instance
-  Core.FromXML
+  Data.FromXML
     BatchDescribeTypeConfigurationsError
   where
   parseXML x =
     BatchDescribeTypeConfigurationsError'
-      Prelude.<$> (x Core..@? "TypeConfigurationIdentifier")
-      Prelude.<*> (x Core..@? "ErrorCode")
-      Prelude.<*> (x Core..@? "ErrorMessage")
+      Prelude.<$> (x Data..@? "ErrorCode")
+      Prelude.<*> (x Data..@? "ErrorMessage")
+      Prelude.<*> (x Data..@? "TypeConfigurationIdentifier")
 
 instance
   Prelude.Hashable
@@ -89,16 +91,15 @@ instance
   hashWithSalt
     _salt
     BatchDescribeTypeConfigurationsError' {..} =
-      _salt
-        `Prelude.hashWithSalt` typeConfigurationIdentifier
-        `Prelude.hashWithSalt` errorCode
+      _salt `Prelude.hashWithSalt` errorCode
         `Prelude.hashWithSalt` errorMessage
+        `Prelude.hashWithSalt` typeConfigurationIdentifier
 
 instance
   Prelude.NFData
     BatchDescribeTypeConfigurationsError
   where
   rnf BatchDescribeTypeConfigurationsError' {..} =
-    Prelude.rnf typeConfigurationIdentifier
-      `Prelude.seq` Prelude.rnf errorCode
+    Prelude.rnf errorCode
       `Prelude.seq` Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf typeConfigurationIdentifier

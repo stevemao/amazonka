@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.Types.TraceUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.XRay.Types.TraceUser where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.XRay.Types.ServiceId
 
@@ -62,14 +63,14 @@ traceUser_serviceIds = Lens.lens (\TraceUser' {serviceIds} -> serviceIds) (\s@Tr
 traceUser_userName :: Lens.Lens' TraceUser (Prelude.Maybe Prelude.Text)
 traceUser_userName = Lens.lens (\TraceUser' {userName} -> userName) (\s@TraceUser' {} a -> s {userName = a} :: TraceUser)
 
-instance Core.FromJSON TraceUser where
+instance Data.FromJSON TraceUser where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TraceUser"
       ( \x ->
           TraceUser'
-            Prelude.<$> (x Core..:? "ServiceIds" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "UserName")
+            Prelude.<$> (x Data..:? "ServiceIds" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "UserName")
       )
 
 instance Prelude.Hashable TraceUser where

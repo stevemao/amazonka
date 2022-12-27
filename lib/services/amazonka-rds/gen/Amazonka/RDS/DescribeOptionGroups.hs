@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DescribeOptionGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.RDS.DescribeOptionGroups
     newDescribeOptionGroups,
 
     -- * Request Lenses
-    describeOptionGroups_filters,
     describeOptionGroups_engineName,
+    describeOptionGroups_filters,
     describeOptionGroups_majorEngineVersion,
     describeOptionGroups_marker,
     describeOptionGroups_maxRecords,
@@ -48,7 +48,8 @@ module Amazonka.RDS.DescribeOptionGroups
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -58,9 +59,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeOptionGroups' smart constructor.
 data DescribeOptionGroups = DescribeOptionGroups'
-  { -- | This parameter isn\'t currently supported.
-    filters :: Prelude.Maybe [Filter],
-    -- | Filters the list of option groups to only include groups associated with
+  { -- | Filters the list of option groups to only include groups associated with
     -- a specific database engine.
     --
     -- Valid Values:
@@ -87,6 +86,8 @@ data DescribeOptionGroups = DescribeOptionGroups'
     --
     -- -   @sqlserver-web@
     engineName :: Prelude.Maybe Prelude.Text,
+    -- | This parameter isn\'t currently supported.
+    filters :: Prelude.Maybe [Filter],
     -- | Filters the list of option groups to only include groups associated with
     -- a specific database engine version. If specified, then EngineName must
     -- also be specified.
@@ -118,8 +119,6 @@ data DescribeOptionGroups = DescribeOptionGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'filters', 'describeOptionGroups_filters' - This parameter isn\'t currently supported.
---
 -- 'engineName', 'describeOptionGroups_engineName' - Filters the list of option groups to only include groups associated with
 -- a specific database engine.
 --
@@ -147,6 +146,8 @@ data DescribeOptionGroups = DescribeOptionGroups'
 --
 -- -   @sqlserver-web@
 --
+-- 'filters', 'describeOptionGroups_filters' - This parameter isn\'t currently supported.
+--
 -- 'majorEngineVersion', 'describeOptionGroups_majorEngineVersion' - Filters the list of option groups to only include groups associated with
 -- a specific database engine version. If specified, then EngineName must
 -- also be specified.
@@ -170,17 +171,13 @@ newDescribeOptionGroups ::
   DescribeOptionGroups
 newDescribeOptionGroups =
   DescribeOptionGroups'
-    { filters = Prelude.Nothing,
-      engineName = Prelude.Nothing,
+    { engineName = Prelude.Nothing,
+      filters = Prelude.Nothing,
       majorEngineVersion = Prelude.Nothing,
       marker = Prelude.Nothing,
       maxRecords = Prelude.Nothing,
       optionGroupName = Prelude.Nothing
     }
-
--- | This parameter isn\'t currently supported.
-describeOptionGroups_filters :: Lens.Lens' DescribeOptionGroups (Prelude.Maybe [Filter])
-describeOptionGroups_filters = Lens.lens (\DescribeOptionGroups' {filters} -> filters) (\s@DescribeOptionGroups' {} a -> s {filters = a} :: DescribeOptionGroups) Prelude.. Lens.mapping Lens.coerced
 
 -- | Filters the list of option groups to only include groups associated with
 -- a specific database engine.
@@ -210,6 +207,10 @@ describeOptionGroups_filters = Lens.lens (\DescribeOptionGroups' {filters} -> fi
 -- -   @sqlserver-web@
 describeOptionGroups_engineName :: Lens.Lens' DescribeOptionGroups (Prelude.Maybe Prelude.Text)
 describeOptionGroups_engineName = Lens.lens (\DescribeOptionGroups' {engineName} -> engineName) (\s@DescribeOptionGroups' {} a -> s {engineName = a} :: DescribeOptionGroups)
+
+-- | This parameter isn\'t currently supported.
+describeOptionGroups_filters :: Lens.Lens' DescribeOptionGroups (Prelude.Maybe [Filter])
+describeOptionGroups_filters = Lens.lens (\DescribeOptionGroups' {filters} -> filters) (\s@DescribeOptionGroups' {} a -> s {filters = a} :: DescribeOptionGroups) Prelude.. Lens.mapping Lens.coerced
 
 -- | Filters the list of option groups to only include groups associated with
 -- a specific database engine version. If specified, then EngineName must
@@ -265,24 +266,25 @@ instance Core.AWSRequest DescribeOptionGroups where
   type
     AWSResponse DescribeOptionGroups =
       DescribeOptionGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeOptionGroupsResult"
       ( \s h x ->
           DescribeOptionGroupsResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> ( x Core..@? "OptionGroupsList"
+            Prelude.<$> (x Data..@? "Marker")
+            Prelude.<*> ( x Data..@? "OptionGroupsList"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "OptionGroup")
+                            Prelude.>>= Core.may (Data.parseXMLList "OptionGroup")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeOptionGroups where
   hashWithSalt _salt DescribeOptionGroups' {..} =
-    _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` engineName
+    _salt `Prelude.hashWithSalt` engineName
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` majorEngineVersion
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
@@ -290,34 +292,34 @@ instance Prelude.Hashable DescribeOptionGroups where
 
 instance Prelude.NFData DescribeOptionGroups where
   rnf DescribeOptionGroups' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf engineName
+    Prelude.rnf engineName
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf majorEngineVersion
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
       `Prelude.seq` Prelude.rnf optionGroupName
 
-instance Core.ToHeaders DescribeOptionGroups where
+instance Data.ToHeaders DescribeOptionGroups where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeOptionGroups where
+instance Data.ToPath DescribeOptionGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeOptionGroups where
+instance Data.ToQuery DescribeOptionGroups where
   toQuery DescribeOptionGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeOptionGroups" :: Prelude.ByteString),
+          Data.=: ("DescribeOptionGroups" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "EngineName" Data.=: engineName,
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "EngineName" Core.=: engineName,
-        "MajorEngineVersion" Core.=: majorEngineVersion,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "OptionGroupName" Core.=: optionGroupName
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MajorEngineVersion" Data.=: majorEngineVersion,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "OptionGroupName" Data.=: optionGroupName
       ]
 
 -- | List of option groups.

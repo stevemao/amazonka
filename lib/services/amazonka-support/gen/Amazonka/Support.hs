@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Support
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -11,50 +11,53 @@
 --
 -- Derived from API version @2013-04-15@ of the AWS service descriptions, licensed under Apache 2.0.
 --
--- AWS Support
+-- Amazon Web Services Support
 --
--- The /AWS Support API Reference/ is intended for programmers who need
--- detailed information about the AWS Support operations and data types.
--- You can use the API to manage your support cases programmatically. The
--- AWS Support API uses HTTP methods that return results in JSON format.
+-- The /Amazon Web Services Support API Reference/ is intended for
+-- programmers who need detailed information about the Amazon Web Services
+-- Support operations and data types. You can use the API to manage your
+-- support cases programmatically. The Amazon Web Services Support API uses
+-- HTTP methods that return results in JSON format.
 --
--- -   You must have a Business or Enterprise Support plan to use the AWS
---     Support API.
+-- -   You must have a Business, Enterprise On-Ramp, or Enterprise Support
+--     plan to use the Amazon Web Services Support API.
 --
--- -   If you call the AWS Support API from an account that does not have a
---     Business or Enterprise Support plan, the
---     @SubscriptionRequiredException@ error message appears. For
+-- -   If you call the Amazon Web Services Support API from an account that
+--     does not have a Business, Enterprise On-Ramp, or Enterprise Support
+--     plan, the @SubscriptionRequiredException@ error message appears. For
 --     information about changing your support plan, see
---     <http://aws.amazon.com/premiumsupport/ AWS Support>.
+--     <http://aws.amazon.com/premiumsupport/ Amazon Web Services Support>.
 --
--- The AWS Support service also exposes a set of
--- <http://aws.amazon.com/premiumsupport/trustedadvisor/ AWS Trusted Advisor>
+-- The Amazon Web Services Support service also exposes a set of
+-- <http://aws.amazon.com/premiumsupport/trustedadvisor/ Trusted Advisor>
 -- features. You can retrieve a list of checks and their descriptions, get
 -- check results, specify checks to refresh, and get the refresh status of
 -- checks.
 --
--- The following list describes the AWS Support case management operations:
+-- The following list describes the Amazon Web Services Support case
+-- management operations:
 --
 -- -   Service names, issue categories, and available severity levels - The
---     DescribeServices and DescribeSeverityLevels operations return AWS
---     service names, service codes, service categories, and problem
---     severity levels. You use these values when you call the CreateCase
---     operation.
+--     DescribeServices and DescribeSeverityLevels operations return Amazon
+--     Web Services service names, service codes, service categories, and
+--     problem severity levels. You use these values when you call the
+--     CreateCase operation.
 --
 -- -   Case creation, case details, and case resolution - The CreateCase,
 --     DescribeCases, DescribeAttachment, and ResolveCase operations create
---     AWS Support cases, retrieve information about cases, and resolve
---     cases.
+--     Amazon Web Services Support cases, retrieve information about cases,
+--     and resolve cases.
 --
 -- -   Case communication - The DescribeCommunications,
 --     AddCommunicationToCase, and AddAttachmentsToSet operations retrieve
---     and add communications and attachments to AWS Support cases.
+--     and add communications and attachments to Amazon Web Services
+--     Support cases.
 --
--- The following list describes the operations available from the AWS
--- Support service for Trusted Advisor:
+-- The following list describes the operations available from the Amazon
+-- Web Services Support service for Trusted Advisor:
 --
 -- -   DescribeTrustedAdvisorChecks returns the list of checks that run
---     against your AWS resources.
+--     against your Amazon Web Services resources.
 --
 -- -   Using the @checkId@ for a specific check returned by
 --     DescribeTrustedAdvisorChecks, you can call
@@ -70,14 +73,14 @@
 -- -   DescribeTrustedAdvisorCheckRefreshStatuses reports the refresh
 --     status of one or more checks.
 --
--- For authentication of requests, AWS Support uses
+-- For authentication of requests, Amazon Web Services Support uses
 -- <https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html Signature Version 4 Signing Process>.
 --
 -- See
--- <https://docs.aws.amazon.com/awssupport/latest/user/Welcome.html About the AWS Support API>
--- in the /AWS Support User Guide/ for information about how to use this
--- service to create and manage your support cases, and how to call Trusted
--- Advisor for results of checks on your resources.
+-- <https://docs.aws.amazon.com/awssupport/latest/user/Welcome.html About the Amazon Web Services Support API>
+-- in the /Amazon Web Services Support User Guide/ for information about
+-- how to use this service to create and manage your support cases, and how
+-- to call Trusted Advisor for results of checks on your resources.
 module Amazonka.Support
   ( -- * Service Configuration
     defaultService,
@@ -85,17 +88,14 @@ module Amazonka.Support
     -- * Errors
     -- $errors
 
-    -- ** AttachmentSetExpired
-    _AttachmentSetExpired,
+    -- ** AttachmentIdNotFound
+    _AttachmentIdNotFound,
 
     -- ** AttachmentLimitExceeded
     _AttachmentLimitExceeded,
 
-    -- ** DescribeAttachmentLimitExceeded
-    _DescribeAttachmentLimitExceeded,
-
-    -- ** CaseIdNotFound
-    _CaseIdNotFound,
+    -- ** AttachmentSetExpired
+    _AttachmentSetExpired,
 
     -- ** AttachmentSetIdNotFound
     _AttachmentSetIdNotFound,
@@ -103,14 +103,17 @@ module Amazonka.Support
     -- ** AttachmentSetSizeLimitExceeded
     _AttachmentSetSizeLimitExceeded,
 
-    -- ** AttachmentIdNotFound
-    _AttachmentIdNotFound,
+    -- ** CaseCreationLimitExceeded
+    _CaseCreationLimitExceeded,
+
+    -- ** CaseIdNotFound
+    _CaseIdNotFound,
+
+    -- ** DescribeAttachmentLimitExceeded
+    _DescribeAttachmentLimitExceeded,
 
     -- ** InternalServerError
     _InternalServerError,
-
-    -- ** CaseCreationLimitExceeded
-    _CaseCreationLimitExceeded,
 
     -- * Waiters
     -- $waiters
@@ -118,29 +121,17 @@ module Amazonka.Support
     -- * Operations
     -- $operations
 
-    -- ** RefreshTrustedAdvisorCheck
-    RefreshTrustedAdvisorCheck (RefreshTrustedAdvisorCheck'),
-    newRefreshTrustedAdvisorCheck,
-    RefreshTrustedAdvisorCheckResponse (RefreshTrustedAdvisorCheckResponse'),
-    newRefreshTrustedAdvisorCheckResponse,
+    -- ** AddAttachmentsToSet
+    AddAttachmentsToSet (AddAttachmentsToSet'),
+    newAddAttachmentsToSet,
+    AddAttachmentsToSetResponse (AddAttachmentsToSetResponse'),
+    newAddAttachmentsToSetResponse,
 
-    -- ** DescribeCases (Paginated)
-    DescribeCases (DescribeCases'),
-    newDescribeCases,
-    DescribeCasesResponse (DescribeCasesResponse'),
-    newDescribeCasesResponse,
-
-    -- ** DescribeTrustedAdvisorCheckRefreshStatuses
-    DescribeTrustedAdvisorCheckRefreshStatuses (DescribeTrustedAdvisorCheckRefreshStatuses'),
-    newDescribeTrustedAdvisorCheckRefreshStatuses,
-    DescribeTrustedAdvisorCheckRefreshStatusesResponse (DescribeTrustedAdvisorCheckRefreshStatusesResponse'),
-    newDescribeTrustedAdvisorCheckRefreshStatusesResponse,
-
-    -- ** DescribeTrustedAdvisorCheckSummaries
-    DescribeTrustedAdvisorCheckSummaries (DescribeTrustedAdvisorCheckSummaries'),
-    newDescribeTrustedAdvisorCheckSummaries,
-    DescribeTrustedAdvisorCheckSummariesResponse (DescribeTrustedAdvisorCheckSummariesResponse'),
-    newDescribeTrustedAdvisorCheckSummariesResponse,
+    -- ** AddCommunicationToCase
+    AddCommunicationToCase (AddCommunicationToCase'),
+    newAddCommunicationToCase,
+    AddCommunicationToCaseResponse (AddCommunicationToCaseResponse'),
+    newAddCommunicationToCaseResponse,
 
     -- ** CreateCase
     CreateCase (CreateCase'),
@@ -148,47 +139,17 @@ module Amazonka.Support
     CreateCaseResponse (CreateCaseResponse'),
     newCreateCaseResponse,
 
-    -- ** ResolveCase
-    ResolveCase (ResolveCase'),
-    newResolveCase,
-    ResolveCaseResponse (ResolveCaseResponse'),
-    newResolveCaseResponse,
-
-    -- ** DescribeSeverityLevels
-    DescribeSeverityLevels (DescribeSeverityLevels'),
-    newDescribeSeverityLevels,
-    DescribeSeverityLevelsResponse (DescribeSeverityLevelsResponse'),
-    newDescribeSeverityLevelsResponse,
-
-    -- ** DescribeTrustedAdvisorChecks
-    DescribeTrustedAdvisorChecks (DescribeTrustedAdvisorChecks'),
-    newDescribeTrustedAdvisorChecks,
-    DescribeTrustedAdvisorChecksResponse (DescribeTrustedAdvisorChecksResponse'),
-    newDescribeTrustedAdvisorChecksResponse,
-
     -- ** DescribeAttachment
     DescribeAttachment (DescribeAttachment'),
     newDescribeAttachment,
     DescribeAttachmentResponse (DescribeAttachmentResponse'),
     newDescribeAttachmentResponse,
 
-    -- ** AddAttachmentsToSet
-    AddAttachmentsToSet (AddAttachmentsToSet'),
-    newAddAttachmentsToSet,
-    AddAttachmentsToSetResponse (AddAttachmentsToSetResponse'),
-    newAddAttachmentsToSetResponse,
-
-    -- ** DescribeTrustedAdvisorCheckResult
-    DescribeTrustedAdvisorCheckResult (DescribeTrustedAdvisorCheckResult'),
-    newDescribeTrustedAdvisorCheckResult,
-    DescribeTrustedAdvisorCheckResultResponse (DescribeTrustedAdvisorCheckResultResponse'),
-    newDescribeTrustedAdvisorCheckResultResponse,
-
-    -- ** DescribeServices
-    DescribeServices (DescribeServices'),
-    newDescribeServices,
-    DescribeServicesResponse (DescribeServicesResponse'),
-    newDescribeServicesResponse,
+    -- ** DescribeCases (Paginated)
+    DescribeCases (DescribeCases'),
+    newDescribeCases,
+    DescribeCasesResponse (DescribeCasesResponse'),
+    newDescribeCasesResponse,
 
     -- ** DescribeCommunications (Paginated)
     DescribeCommunications (DescribeCommunications'),
@@ -196,11 +157,53 @@ module Amazonka.Support
     DescribeCommunicationsResponse (DescribeCommunicationsResponse'),
     newDescribeCommunicationsResponse,
 
-    -- ** AddCommunicationToCase
-    AddCommunicationToCase (AddCommunicationToCase'),
-    newAddCommunicationToCase,
-    AddCommunicationToCaseResponse (AddCommunicationToCaseResponse'),
-    newAddCommunicationToCaseResponse,
+    -- ** DescribeServices
+    DescribeServices (DescribeServices'),
+    newDescribeServices,
+    DescribeServicesResponse (DescribeServicesResponse'),
+    newDescribeServicesResponse,
+
+    -- ** DescribeSeverityLevels
+    DescribeSeverityLevels (DescribeSeverityLevels'),
+    newDescribeSeverityLevels,
+    DescribeSeverityLevelsResponse (DescribeSeverityLevelsResponse'),
+    newDescribeSeverityLevelsResponse,
+
+    -- ** DescribeTrustedAdvisorCheckRefreshStatuses
+    DescribeTrustedAdvisorCheckRefreshStatuses (DescribeTrustedAdvisorCheckRefreshStatuses'),
+    newDescribeTrustedAdvisorCheckRefreshStatuses,
+    DescribeTrustedAdvisorCheckRefreshStatusesResponse (DescribeTrustedAdvisorCheckRefreshStatusesResponse'),
+    newDescribeTrustedAdvisorCheckRefreshStatusesResponse,
+
+    -- ** DescribeTrustedAdvisorCheckResult
+    DescribeTrustedAdvisorCheckResult (DescribeTrustedAdvisorCheckResult'),
+    newDescribeTrustedAdvisorCheckResult,
+    DescribeTrustedAdvisorCheckResultResponse (DescribeTrustedAdvisorCheckResultResponse'),
+    newDescribeTrustedAdvisorCheckResultResponse,
+
+    -- ** DescribeTrustedAdvisorCheckSummaries
+    DescribeTrustedAdvisorCheckSummaries (DescribeTrustedAdvisorCheckSummaries'),
+    newDescribeTrustedAdvisorCheckSummaries,
+    DescribeTrustedAdvisorCheckSummariesResponse (DescribeTrustedAdvisorCheckSummariesResponse'),
+    newDescribeTrustedAdvisorCheckSummariesResponse,
+
+    -- ** DescribeTrustedAdvisorChecks
+    DescribeTrustedAdvisorChecks (DescribeTrustedAdvisorChecks'),
+    newDescribeTrustedAdvisorChecks,
+    DescribeTrustedAdvisorChecksResponse (DescribeTrustedAdvisorChecksResponse'),
+    newDescribeTrustedAdvisorChecksResponse,
+
+    -- ** RefreshTrustedAdvisorCheck
+    RefreshTrustedAdvisorCheck (RefreshTrustedAdvisorCheck'),
+    newRefreshTrustedAdvisorCheck,
+    RefreshTrustedAdvisorCheckResponse (RefreshTrustedAdvisorCheckResponse'),
+    newRefreshTrustedAdvisorCheckResponse,
+
+    -- ** ResolveCase
+    ResolveCase (ResolveCase'),
+    newResolveCase,
+    ResolveCaseResponse (ResolveCaseResponse'),
+    newResolveCaseResponse,
 
     -- * Types
 

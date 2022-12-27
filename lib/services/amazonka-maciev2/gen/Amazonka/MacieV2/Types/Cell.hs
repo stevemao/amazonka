@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.Cell
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.Cell where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the location of an occurrence of sensitive data in a Microsoft
@@ -28,9 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCell' smart constructor.
 data Cell = Cell'
-  { -- | The row number of the row that contains the sensitive data.
-    row :: Prelude.Maybe Prelude.Integer,
-    -- | The location of the cell, as an absolute cell reference, that contains
+  { -- | The location of the cell, as an absolute cell reference, that contains
     -- the sensitive data, for example Sheet2!C5 for cell C5 on Sheet2 in a
     -- Microsoft Excel workbook. This value is null for CSV and TSV files.
     cellReference :: Prelude.Maybe Prelude.Text,
@@ -40,7 +39,9 @@ data Cell = Cell'
     -- column B, and so on.
     column :: Prelude.Maybe Prelude.Integer,
     -- | The name of the column that contains the sensitive data, if available.
-    columnName :: Prelude.Maybe Prelude.Text
+    columnName :: Prelude.Maybe Prelude.Text,
+    -- | The row number of the row that contains the sensitive data.
+    row :: Prelude.Maybe Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,8 +53,6 @@ data Cell = Cell'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'row', 'cell_row' - The row number of the row that contains the sensitive data.
---
 -- 'cellReference', 'cell_cellReference' - The location of the cell, as an absolute cell reference, that contains
 -- the sensitive data, for example Sheet2!C5 for cell C5 on Sheet2 in a
 -- Microsoft Excel workbook. This value is null for CSV and TSV files.
@@ -64,19 +63,17 @@ data Cell = Cell'
 -- column B, and so on.
 --
 -- 'columnName', 'cell_columnName' - The name of the column that contains the sensitive data, if available.
+--
+-- 'row', 'cell_row' - The row number of the row that contains the sensitive data.
 newCell ::
   Cell
 newCell =
   Cell'
-    { row = Prelude.Nothing,
-      cellReference = Prelude.Nothing,
+    { cellReference = Prelude.Nothing,
       column = Prelude.Nothing,
-      columnName = Prelude.Nothing
+      columnName = Prelude.Nothing,
+      row = Prelude.Nothing
     }
-
--- | The row number of the row that contains the sensitive data.
-cell_row :: Lens.Lens' Cell (Prelude.Maybe Prelude.Integer)
-cell_row = Lens.lens (\Cell' {row} -> row) (\s@Cell' {} a -> s {row = a} :: Cell)
 
 -- | The location of the cell, as an absolute cell reference, that contains
 -- the sensitive data, for example Sheet2!C5 for cell C5 on Sheet2 in a
@@ -95,28 +92,32 @@ cell_column = Lens.lens (\Cell' {column} -> column) (\s@Cell' {} a -> s {column 
 cell_columnName :: Lens.Lens' Cell (Prelude.Maybe Prelude.Text)
 cell_columnName = Lens.lens (\Cell' {columnName} -> columnName) (\s@Cell' {} a -> s {columnName = a} :: Cell)
 
-instance Core.FromJSON Cell where
+-- | The row number of the row that contains the sensitive data.
+cell_row :: Lens.Lens' Cell (Prelude.Maybe Prelude.Integer)
+cell_row = Lens.lens (\Cell' {row} -> row) (\s@Cell' {} a -> s {row = a} :: Cell)
+
+instance Data.FromJSON Cell where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Cell"
       ( \x ->
           Cell'
-            Prelude.<$> (x Core..:? "row")
-            Prelude.<*> (x Core..:? "cellReference")
-            Prelude.<*> (x Core..:? "column")
-            Prelude.<*> (x Core..:? "columnName")
+            Prelude.<$> (x Data..:? "cellReference")
+            Prelude.<*> (x Data..:? "column")
+            Prelude.<*> (x Data..:? "columnName")
+            Prelude.<*> (x Data..:? "row")
       )
 
 instance Prelude.Hashable Cell where
   hashWithSalt _salt Cell' {..} =
-    _salt `Prelude.hashWithSalt` row
-      `Prelude.hashWithSalt` cellReference
+    _salt `Prelude.hashWithSalt` cellReference
       `Prelude.hashWithSalt` column
       `Prelude.hashWithSalt` columnName
+      `Prelude.hashWithSalt` row
 
 instance Prelude.NFData Cell where
   rnf Cell' {..} =
-    Prelude.rnf row
-      `Prelude.seq` Prelude.rnf cellReference
+    Prelude.rnf cellReference
       `Prelude.seq` Prelude.rnf column
       `Prelude.seq` Prelude.rnf columnName
+      `Prelude.seq` Prelude.rnf row

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.SelectParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.SelectParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.ExpressionType
@@ -110,11 +111,11 @@ instance Prelude.NFData SelectParameters where
       `Prelude.seq` Prelude.rnf expression
       `Prelude.seq` Prelude.rnf outputSerialization
 
-instance Core.ToXML SelectParameters where
+instance Data.ToXML SelectParameters where
   toXML SelectParameters' {..} =
     Prelude.mconcat
-      [ "InputSerialization" Core.@= inputSerialization,
-        "ExpressionType" Core.@= expressionType,
-        "Expression" Core.@= expression,
-        "OutputSerialization" Core.@= outputSerialization
+      [ "InputSerialization" Data.@= inputSerialization,
+        "ExpressionType" Data.@= expressionType,
+        "Expression" Data.@= expression,
+        "OutputSerialization" Data.@= outputSerialization
       ]

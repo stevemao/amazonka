@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.Types.Output
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.KinesisAnalytics.Types.Output where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalytics.Types.DestinationSchema
 import Amazonka.KinesisAnalytics.Types.KinesisFirehoseOutput
 import Amazonka.KinesisAnalytics.Types.KinesisStreamsOutput
 import Amazonka.KinesisAnalytics.Types.LambdaOutput
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes application output configuration in which you identify an
@@ -38,13 +39,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newOutput' smart constructor.
 data Output = Output'
-  { -- | Identifies an AWS Lambda function as the destination.
-    lambdaOutput :: Prelude.Maybe LambdaOutput,
-    -- | Identifies an Amazon Kinesis stream as the destination.
-    kinesisStreamsOutput :: Prelude.Maybe KinesisStreamsOutput,
-    -- | Identifies an Amazon Kinesis Firehose delivery stream as the
+  { -- | Identifies an Amazon Kinesis Firehose delivery stream as the
     -- destination.
     kinesisFirehoseOutput :: Prelude.Maybe KinesisFirehoseOutput,
+    -- | Identifies an Amazon Kinesis stream as the destination.
+    kinesisStreamsOutput :: Prelude.Maybe KinesisStreamsOutput,
+    -- | Identifies an AWS Lambda function as the destination.
+    lambdaOutput :: Prelude.Maybe LambdaOutput,
     -- | Name of the in-application stream.
     name :: Prelude.Text,
     -- | Describes the data format when records are written to the destination.
@@ -62,12 +63,12 @@ data Output = Output'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'lambdaOutput', 'output_lambdaOutput' - Identifies an AWS Lambda function as the destination.
+-- 'kinesisFirehoseOutput', 'output_kinesisFirehoseOutput' - Identifies an Amazon Kinesis Firehose delivery stream as the
+-- destination.
 --
 -- 'kinesisStreamsOutput', 'output_kinesisStreamsOutput' - Identifies an Amazon Kinesis stream as the destination.
 --
--- 'kinesisFirehoseOutput', 'output_kinesisFirehoseOutput' - Identifies an Amazon Kinesis Firehose delivery stream as the
--- destination.
+-- 'lambdaOutput', 'output_lambdaOutput' - Identifies an AWS Lambda function as the destination.
 --
 -- 'name', 'output_name' - Name of the in-application stream.
 --
@@ -82,25 +83,25 @@ newOutput ::
   Output
 newOutput pName_ pDestinationSchema_ =
   Output'
-    { lambdaOutput = Prelude.Nothing,
+    { kinesisFirehoseOutput = Prelude.Nothing,
       kinesisStreamsOutput = Prelude.Nothing,
-      kinesisFirehoseOutput = Prelude.Nothing,
+      lambdaOutput = Prelude.Nothing,
       name = pName_,
       destinationSchema = pDestinationSchema_
     }
-
--- | Identifies an AWS Lambda function as the destination.
-output_lambdaOutput :: Lens.Lens' Output (Prelude.Maybe LambdaOutput)
-output_lambdaOutput = Lens.lens (\Output' {lambdaOutput} -> lambdaOutput) (\s@Output' {} a -> s {lambdaOutput = a} :: Output)
-
--- | Identifies an Amazon Kinesis stream as the destination.
-output_kinesisStreamsOutput :: Lens.Lens' Output (Prelude.Maybe KinesisStreamsOutput)
-output_kinesisStreamsOutput = Lens.lens (\Output' {kinesisStreamsOutput} -> kinesisStreamsOutput) (\s@Output' {} a -> s {kinesisStreamsOutput = a} :: Output)
 
 -- | Identifies an Amazon Kinesis Firehose delivery stream as the
 -- destination.
 output_kinesisFirehoseOutput :: Lens.Lens' Output (Prelude.Maybe KinesisFirehoseOutput)
 output_kinesisFirehoseOutput = Lens.lens (\Output' {kinesisFirehoseOutput} -> kinesisFirehoseOutput) (\s@Output' {} a -> s {kinesisFirehoseOutput = a} :: Output)
+
+-- | Identifies an Amazon Kinesis stream as the destination.
+output_kinesisStreamsOutput :: Lens.Lens' Output (Prelude.Maybe KinesisStreamsOutput)
+output_kinesisStreamsOutput = Lens.lens (\Output' {kinesisStreamsOutput} -> kinesisStreamsOutput) (\s@Output' {} a -> s {kinesisStreamsOutput = a} :: Output)
+
+-- | Identifies an AWS Lambda function as the destination.
+output_lambdaOutput :: Lens.Lens' Output (Prelude.Maybe LambdaOutput)
+output_lambdaOutput = Lens.lens (\Output' {lambdaOutput} -> lambdaOutput) (\s@Output' {} a -> s {lambdaOutput = a} :: Output)
 
 -- | Name of the in-application stream.
 output_name :: Lens.Lens' Output Prelude.Text
@@ -114,31 +115,31 @@ output_destinationSchema = Lens.lens (\Output' {destinationSchema} -> destinatio
 
 instance Prelude.Hashable Output where
   hashWithSalt _salt Output' {..} =
-    _salt `Prelude.hashWithSalt` lambdaOutput
+    _salt `Prelude.hashWithSalt` kinesisFirehoseOutput
       `Prelude.hashWithSalt` kinesisStreamsOutput
-      `Prelude.hashWithSalt` kinesisFirehoseOutput
+      `Prelude.hashWithSalt` lambdaOutput
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` destinationSchema
 
 instance Prelude.NFData Output where
   rnf Output' {..} =
-    Prelude.rnf lambdaOutput
+    Prelude.rnf kinesisFirehoseOutput
       `Prelude.seq` Prelude.rnf kinesisStreamsOutput
-      `Prelude.seq` Prelude.rnf kinesisFirehoseOutput
+      `Prelude.seq` Prelude.rnf lambdaOutput
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf destinationSchema
 
-instance Core.ToJSON Output where
+instance Data.ToJSON Output where
   toJSON Output' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LambdaOutput" Core..=) Prelude.<$> lambdaOutput,
-            ("KinesisStreamsOutput" Core..=)
-              Prelude.<$> kinesisStreamsOutput,
-            ("KinesisFirehoseOutput" Core..=)
+          [ ("KinesisFirehoseOutput" Data..=)
               Prelude.<$> kinesisFirehoseOutput,
-            Prelude.Just ("Name" Core..= name),
+            ("KinesisStreamsOutput" Data..=)
+              Prelude.<$> kinesisStreamsOutput,
+            ("LambdaOutput" Data..=) Prelude.<$> lambdaOutput,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("DestinationSchema" Core..= destinationSchema)
+              ("DestinationSchema" Data..= destinationSchema)
           ]
       )

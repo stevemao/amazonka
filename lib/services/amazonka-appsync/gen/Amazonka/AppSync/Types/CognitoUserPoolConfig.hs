@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.Types.CognitoUserPoolConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppSync.Types.CognitoUserPoolConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an Amazon Cognito user pool configuration.
@@ -28,7 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newCognitoUserPoolConfig' smart constructor.
 data CognitoUserPoolConfig = CognitoUserPoolConfig'
   { -- | A regular expression for validating the incoming Amazon Cognito user
-    -- pool app client ID.
+    -- pool app client ID. If this value isn\'t set, no filtering is applied.
     appIdClientRegex :: Prelude.Maybe Prelude.Text,
     -- | The user pool ID.
     userPoolId :: Prelude.Text,
@@ -46,7 +47,7 @@ data CognitoUserPoolConfig = CognitoUserPoolConfig'
 -- for backwards compatibility:
 --
 -- 'appIdClientRegex', 'cognitoUserPoolConfig_appIdClientRegex' - A regular expression for validating the incoming Amazon Cognito user
--- pool app client ID.
+-- pool app client ID. If this value isn\'t set, no filtering is applied.
 --
 -- 'userPoolId', 'cognitoUserPoolConfig_userPoolId' - The user pool ID.
 --
@@ -66,7 +67,7 @@ newCognitoUserPoolConfig pUserPoolId_ pAwsRegion_ =
     }
 
 -- | A regular expression for validating the incoming Amazon Cognito user
--- pool app client ID.
+-- pool app client ID. If this value isn\'t set, no filtering is applied.
 cognitoUserPoolConfig_appIdClientRegex :: Lens.Lens' CognitoUserPoolConfig (Prelude.Maybe Prelude.Text)
 cognitoUserPoolConfig_appIdClientRegex = Lens.lens (\CognitoUserPoolConfig' {appIdClientRegex} -> appIdClientRegex) (\s@CognitoUserPoolConfig' {} a -> s {appIdClientRegex = a} :: CognitoUserPoolConfig)
 
@@ -78,15 +79,15 @@ cognitoUserPoolConfig_userPoolId = Lens.lens (\CognitoUserPoolConfig' {userPoolI
 cognitoUserPoolConfig_awsRegion :: Lens.Lens' CognitoUserPoolConfig Prelude.Text
 cognitoUserPoolConfig_awsRegion = Lens.lens (\CognitoUserPoolConfig' {awsRegion} -> awsRegion) (\s@CognitoUserPoolConfig' {} a -> s {awsRegion = a} :: CognitoUserPoolConfig)
 
-instance Core.FromJSON CognitoUserPoolConfig where
+instance Data.FromJSON CognitoUserPoolConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CognitoUserPoolConfig"
       ( \x ->
           CognitoUserPoolConfig'
-            Prelude.<$> (x Core..:? "appIdClientRegex")
-            Prelude.<*> (x Core..: "userPoolId")
-            Prelude.<*> (x Core..: "awsRegion")
+            Prelude.<$> (x Data..:? "appIdClientRegex")
+            Prelude.<*> (x Data..: "userPoolId")
+            Prelude.<*> (x Data..: "awsRegion")
       )
 
 instance Prelude.Hashable CognitoUserPoolConfig where
@@ -101,13 +102,13 @@ instance Prelude.NFData CognitoUserPoolConfig where
       `Prelude.seq` Prelude.rnf userPoolId
       `Prelude.seq` Prelude.rnf awsRegion
 
-instance Core.ToJSON CognitoUserPoolConfig where
+instance Data.ToJSON CognitoUserPoolConfig where
   toJSON CognitoUserPoolConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("appIdClientRegex" Core..=)
+          [ ("appIdClientRegex" Data..=)
               Prelude.<$> appIdClientRegex,
-            Prelude.Just ("userPoolId" Core..= userPoolId),
-            Prelude.Just ("awsRegion" Core..= awsRegion)
+            Prelude.Just ("userPoolId" Data..= userPoolId),
+            Prelude.Just ("awsRegion" Data..= awsRegion)
           ]
       )

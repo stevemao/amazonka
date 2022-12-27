@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.AttachInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,7 +52,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,7 +100,8 @@ instance Core.AWSRequest AttachInstances where
   type
     AWSResponse AttachInstances =
       AttachInstancesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull AttachInstancesResponse'
 
@@ -113,23 +115,23 @@ instance Prelude.NFData AttachInstances where
     Prelude.rnf instanceIds
       `Prelude.seq` Prelude.rnf autoScalingGroupName
 
-instance Core.ToHeaders AttachInstances where
+instance Data.ToHeaders AttachInstances where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AttachInstances where
+instance Data.ToPath AttachInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AttachInstances where
+instance Data.ToQuery AttachInstances where
   toQuery AttachInstances' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("AttachInstances" :: Prelude.ByteString),
+          Data.=: ("AttachInstances" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
         "InstanceIds"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> instanceIds),
-        "AutoScalingGroupName" Core.=: autoScalingGroupName
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> instanceIds),
+        "AutoScalingGroupName" Data.=: autoScalingGroupName
       ]
 
 -- | /See:/ 'newAttachInstancesResponse' smart constructor.

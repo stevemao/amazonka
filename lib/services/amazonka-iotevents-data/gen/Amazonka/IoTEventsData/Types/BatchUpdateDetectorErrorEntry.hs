@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types.BatchUpdateDetectorErrorEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTEventsData.Types.BatchUpdateDetectorErrorEntry where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEventsData.Types.ErrorCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the error that occurred when attempting to update a
@@ -79,15 +80,15 @@ batchUpdateDetectorErrorEntry_errorMessage = Lens.lens (\BatchUpdateDetectorErro
 batchUpdateDetectorErrorEntry_messageId :: Lens.Lens' BatchUpdateDetectorErrorEntry (Prelude.Maybe Prelude.Text)
 batchUpdateDetectorErrorEntry_messageId = Lens.lens (\BatchUpdateDetectorErrorEntry' {messageId} -> messageId) (\s@BatchUpdateDetectorErrorEntry' {} a -> s {messageId = a} :: BatchUpdateDetectorErrorEntry)
 
-instance Core.FromJSON BatchUpdateDetectorErrorEntry where
+instance Data.FromJSON BatchUpdateDetectorErrorEntry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchUpdateDetectorErrorEntry"
       ( \x ->
           BatchUpdateDetectorErrorEntry'
-            Prelude.<$> (x Core..:? "errorCode")
-            Prelude.<*> (x Core..:? "errorMessage")
-            Prelude.<*> (x Core..:? "messageId")
+            Prelude.<$> (x Data..:? "errorCode")
+            Prelude.<*> (x Data..:? "errorMessage")
+            Prelude.<*> (x Data..:? "messageId")
       )
 
 instance

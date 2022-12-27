@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.StartContentUpload
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ module Amazonka.Wisdom.StartContentUpload
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,8 +62,8 @@ import Amazonka.Wisdom.Types
 data StartContentUpload = StartContentUpload'
   { -- | The type of content to upload.
     contentType :: Prelude.Text,
-    -- | The the identifier of the knowledge base. Can be either the ID or the
-    -- ARN. URLs cannot contain the ARN.
+    -- | The identifier of the knowledge base. Can be either the ID or the ARN.
+    -- URLs cannot contain the ARN.
     knowledgeBaseId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -77,8 +78,8 @@ data StartContentUpload = StartContentUpload'
 --
 -- 'contentType', 'startContentUpload_contentType' - The type of content to upload.
 --
--- 'knowledgeBaseId', 'startContentUpload_knowledgeBaseId' - The the identifier of the knowledge base. Can be either the ID or the
--- ARN. URLs cannot contain the ARN.
+-- 'knowledgeBaseId', 'startContentUpload_knowledgeBaseId' - The identifier of the knowledge base. Can be either the ID or the ARN.
+-- URLs cannot contain the ARN.
 newStartContentUpload ::
   -- | 'contentType'
   Prelude.Text ->
@@ -95,8 +96,8 @@ newStartContentUpload pContentType_ pKnowledgeBaseId_ =
 startContentUpload_contentType :: Lens.Lens' StartContentUpload Prelude.Text
 startContentUpload_contentType = Lens.lens (\StartContentUpload' {contentType} -> contentType) (\s@StartContentUpload' {} a -> s {contentType = a} :: StartContentUpload)
 
--- | The the identifier of the knowledge base. Can be either the ID or the
--- ARN. URLs cannot contain the ARN.
+-- | The identifier of the knowledge base. Can be either the ID or the ARN.
+-- URLs cannot contain the ARN.
 startContentUpload_knowledgeBaseId :: Lens.Lens' StartContentUpload Prelude.Text
 startContentUpload_knowledgeBaseId = Lens.lens (\StartContentUpload' {knowledgeBaseId} -> knowledgeBaseId) (\s@StartContentUpload' {} a -> s {knowledgeBaseId = a} :: StartContentUpload)
 
@@ -104,18 +105,19 @@ instance Core.AWSRequest StartContentUpload where
   type
     AWSResponse StartContentUpload =
       StartContentUploadResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartContentUploadResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "headersToInclude"
+            Prelude.<*> ( x Data..?> "headersToInclude"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..:> "uploadId")
-            Prelude.<*> (x Core..:> "url")
-            Prelude.<*> (x Core..:> "urlExpiry")
+            Prelude.<*> (x Data..:> "uploadId")
+            Prelude.<*> (x Data..:> "url")
+            Prelude.<*> (x Data..:> "urlExpiry")
       )
 
 instance Prelude.Hashable StartContentUpload where
@@ -128,33 +130,33 @@ instance Prelude.NFData StartContentUpload where
     Prelude.rnf contentType
       `Prelude.seq` Prelude.rnf knowledgeBaseId
 
-instance Core.ToHeaders StartContentUpload where
+instance Data.ToHeaders StartContentUpload where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartContentUpload where
+instance Data.ToJSON StartContentUpload where
   toJSON StartContentUpload' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("contentType" Core..= contentType)]
+          [Prelude.Just ("contentType" Data..= contentType)]
       )
 
-instance Core.ToPath StartContentUpload where
+instance Data.ToPath StartContentUpload where
   toPath StartContentUpload' {..} =
     Prelude.mconcat
       [ "/knowledgeBases/",
-        Core.toBS knowledgeBaseId,
+        Data.toBS knowledgeBaseId,
         "/upload"
       ]
 
-instance Core.ToQuery StartContentUpload where
+instance Data.ToQuery StartContentUpload where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartContentUploadResponse' smart constructor.
@@ -166,9 +168,9 @@ data StartContentUploadResponse = StartContentUploadResponse'
     -- | The identifier of the upload.
     uploadId :: Prelude.Text,
     -- | The URL of the upload.
-    url :: Core.Sensitive Prelude.Text,
+    url :: Data.Sensitive Prelude.Text,
     -- | The expiration time of the URL as an epoch timestamp.
-    urlExpiry :: Core.POSIX
+    urlExpiry :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -209,8 +211,8 @@ newStartContentUploadResponse
           pHttpStatus_,
         headersToInclude = Prelude.mempty,
         uploadId = pUploadId_,
-        url = Core._Sensitive Lens.# pUrl_,
-        urlExpiry = Core._Time Lens.# pUrlExpiry_
+        url = Data._Sensitive Lens.# pUrl_,
+        urlExpiry = Data._Time Lens.# pUrlExpiry_
       }
 
 -- | The response's http status code.
@@ -227,11 +229,11 @@ startContentUploadResponse_uploadId = Lens.lens (\StartContentUploadResponse' {u
 
 -- | The URL of the upload.
 startContentUploadResponse_url :: Lens.Lens' StartContentUploadResponse Prelude.Text
-startContentUploadResponse_url = Lens.lens (\StartContentUploadResponse' {url} -> url) (\s@StartContentUploadResponse' {} a -> s {url = a} :: StartContentUploadResponse) Prelude.. Core._Sensitive
+startContentUploadResponse_url = Lens.lens (\StartContentUploadResponse' {url} -> url) (\s@StartContentUploadResponse' {} a -> s {url = a} :: StartContentUploadResponse) Prelude.. Data._Sensitive
 
 -- | The expiration time of the URL as an epoch timestamp.
 startContentUploadResponse_urlExpiry :: Lens.Lens' StartContentUploadResponse Prelude.UTCTime
-startContentUploadResponse_urlExpiry = Lens.lens (\StartContentUploadResponse' {urlExpiry} -> urlExpiry) (\s@StartContentUploadResponse' {} a -> s {urlExpiry = a} :: StartContentUploadResponse) Prelude.. Core._Time
+startContentUploadResponse_urlExpiry = Lens.lens (\StartContentUploadResponse' {urlExpiry} -> urlExpiry) (\s@StartContentUploadResponse' {} a -> s {urlExpiry = a} :: StartContentUploadResponse) Prelude.. Data._Time
 
 instance Prelude.NFData StartContentUploadResponse where
   rnf StartContentUploadResponse' {..} =

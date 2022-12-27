@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStar.ListUserProfiles
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.CodeStar.ListUserProfiles
     newListUserProfiles,
 
     -- * Request Lenses
-    listUserProfiles_nextToken,
     listUserProfiles_maxResults,
+    listUserProfiles_nextToken,
 
     -- * Destructuring the Response
     ListUserProfilesResponse (..),
@@ -46,18 +46,19 @@ where
 
 import Amazonka.CodeStar.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListUserProfiles' smart constructor.
 data ListUserProfiles = ListUserProfiles'
-  { -- | The continuation token for the next set of results, if the results
+  { -- | The maximum number of results to return in a response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The continuation token for the next set of results, if the results
     -- cannot be returned in one response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,26 +70,26 @@ data ListUserProfiles = ListUserProfiles'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listUserProfiles_maxResults' - The maximum number of results to return in a response.
+--
 -- 'nextToken', 'listUserProfiles_nextToken' - The continuation token for the next set of results, if the results
 -- cannot be returned in one response.
---
--- 'maxResults', 'listUserProfiles_maxResults' - The maximum number of results to return in a response.
 newListUserProfiles ::
   ListUserProfiles
 newListUserProfiles =
   ListUserProfiles'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results to return in a response.
+listUserProfiles_maxResults :: Lens.Lens' ListUserProfiles (Prelude.Maybe Prelude.Natural)
+listUserProfiles_maxResults = Lens.lens (\ListUserProfiles' {maxResults} -> maxResults) (\s@ListUserProfiles' {} a -> s {maxResults = a} :: ListUserProfiles)
 
 -- | The continuation token for the next set of results, if the results
 -- cannot be returned in one response.
 listUserProfiles_nextToken :: Lens.Lens' ListUserProfiles (Prelude.Maybe Prelude.Text)
 listUserProfiles_nextToken = Lens.lens (\ListUserProfiles' {nextToken} -> nextToken) (\s@ListUserProfiles' {} a -> s {nextToken = a} :: ListUserProfiles)
-
--- | The maximum number of results to return in a response.
-listUserProfiles_maxResults :: Lens.Lens' ListUserProfiles (Prelude.Maybe Prelude.Natural)
-listUserProfiles_maxResults = Lens.lens (\ListUserProfiles' {maxResults} -> maxResults) (\s@ListUserProfiles' {} a -> s {maxResults = a} :: ListUserProfiles)
 
 instance Core.AWSPager ListUserProfiles where
   page rq rs
@@ -113,54 +114,55 @@ instance Core.AWSRequest ListUserProfiles where
   type
     AWSResponse ListUserProfiles =
       ListUserProfilesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListUserProfilesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "userProfiles" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "userProfiles" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListUserProfiles where
   hashWithSalt _salt ListUserProfiles' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListUserProfiles where
   rnf ListUserProfiles' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListUserProfiles where
+instance Data.ToHeaders ListUserProfiles where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeStar_20170419.ListUserProfiles" ::
+              Data.=# ( "CodeStar_20170419.ListUserProfiles" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListUserProfiles where
+instance Data.ToJSON ListUserProfiles where
   toJSON ListUserProfiles' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListUserProfiles where
+instance Data.ToPath ListUserProfiles where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListUserProfiles where
+instance Data.ToQuery ListUserProfiles where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListUserProfilesResponse' smart constructor.

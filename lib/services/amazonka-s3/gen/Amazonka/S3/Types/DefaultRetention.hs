@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.DefaultRetention
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.DefaultRetention where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.ObjectLockRetentionMode
@@ -91,12 +92,12 @@ defaultRetention_mode = Lens.lens (\DefaultRetention' {mode} -> mode) (\s@Defaul
 defaultRetention_years :: Lens.Lens' DefaultRetention (Prelude.Maybe Prelude.Int)
 defaultRetention_years = Lens.lens (\DefaultRetention' {years} -> years) (\s@DefaultRetention' {} a -> s {years = a} :: DefaultRetention)
 
-instance Core.FromXML DefaultRetention where
+instance Data.FromXML DefaultRetention where
   parseXML x =
     DefaultRetention'
-      Prelude.<$> (x Core..@? "Days")
-      Prelude.<*> (x Core..@? "Mode")
-      Prelude.<*> (x Core..@? "Years")
+      Prelude.<$> (x Data..@? "Days")
+      Prelude.<*> (x Data..@? "Mode")
+      Prelude.<*> (x Data..@? "Years")
 
 instance Prelude.Hashable DefaultRetention where
   hashWithSalt _salt DefaultRetention' {..} =
@@ -110,10 +111,10 @@ instance Prelude.NFData DefaultRetention where
       `Prelude.seq` Prelude.rnf mode
       `Prelude.seq` Prelude.rnf years
 
-instance Core.ToXML DefaultRetention where
+instance Data.ToXML DefaultRetention where
   toXML DefaultRetention' {..} =
     Prelude.mconcat
-      [ "Days" Core.@= days,
-        "Mode" Core.@= mode,
-        "Years" Core.@= years
+      [ "Days" Data.@= days,
+        "Mode" Data.@= mode,
+        "Years" Data.@= years
       ]

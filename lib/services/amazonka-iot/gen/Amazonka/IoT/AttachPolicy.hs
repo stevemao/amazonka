@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.AttachPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.IoT.AttachPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,7 +100,8 @@ attachPolicy_target = Lens.lens (\AttachPolicy' {target} -> target) (\s@AttachPo
 
 instance Core.AWSRequest AttachPolicy where
   type AWSResponse AttachPolicy = AttachPolicyResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response = Response.receiveNull AttachPolicyResponse'
 
 instance Prelude.Hashable AttachPolicy where
@@ -112,22 +114,22 @@ instance Prelude.NFData AttachPolicy where
     Prelude.rnf policyName
       `Prelude.seq` Prelude.rnf target
 
-instance Core.ToHeaders AttachPolicy where
+instance Data.ToHeaders AttachPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON AttachPolicy where
+instance Data.ToJSON AttachPolicy where
   toJSON AttachPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("target" Core..= target)]
+          [Prelude.Just ("target" Data..= target)]
       )
 
-instance Core.ToPath AttachPolicy where
+instance Data.ToPath AttachPolicy where
   toPath AttachPolicy' {..} =
     Prelude.mconcat
-      ["/target-policies/", Core.toBS policyName]
+      ["/target-policies/", Data.toBS policyName]
 
-instance Core.ToQuery AttachPolicy where
+instance Data.ToQuery AttachPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAttachPolicyResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.PutRoomSkillParameter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,7 +104,8 @@ instance Core.AWSRequest PutRoomSkillParameter where
   type
     AWSResponse PutRoomSkillParameter =
       PutRoomSkillParameterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -123,36 +125,36 @@ instance Prelude.NFData PutRoomSkillParameter where
       `Prelude.seq` Prelude.rnf skillId
       `Prelude.seq` Prelude.rnf roomSkillParameter
 
-instance Core.ToHeaders PutRoomSkillParameter where
+instance Data.ToHeaders PutRoomSkillParameter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.PutRoomSkillParameter" ::
+              Data.=# ( "AlexaForBusiness.PutRoomSkillParameter" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutRoomSkillParameter where
+instance Data.ToJSON PutRoomSkillParameter where
   toJSON PutRoomSkillParameter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RoomArn" Core..=) Prelude.<$> roomArn,
-            Prelude.Just ("SkillId" Core..= skillId),
+          [ ("RoomArn" Data..=) Prelude.<$> roomArn,
+            Prelude.Just ("SkillId" Data..= skillId),
             Prelude.Just
-              ("RoomSkillParameter" Core..= roomSkillParameter)
+              ("RoomSkillParameter" Data..= roomSkillParameter)
           ]
       )
 
-instance Core.ToPath PutRoomSkillParameter where
+instance Data.ToPath PutRoomSkillParameter where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutRoomSkillParameter where
+instance Data.ToQuery PutRoomSkillParameter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutRoomSkillParameterResponse' smart constructor.

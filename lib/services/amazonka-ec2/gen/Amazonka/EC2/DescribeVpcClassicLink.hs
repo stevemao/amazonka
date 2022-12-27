@@ -14,22 +14,27 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeVpcClassicLink
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Describes the ClassicLink status of one or more VPCs.
+--
+-- We are retiring EC2-Classic. We recommend that you migrate from
+-- EC2-Classic to a VPC. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html Migrate from EC2-Classic to a VPC>
+-- in the /Amazon Elastic Compute Cloud User Guide/.
 module Amazonka.EC2.DescribeVpcClassicLink
   ( -- * Creating a Request
     DescribeVpcClassicLink (..),
     newDescribeVpcClassicLink,
 
     -- * Request Lenses
+    describeVpcClassicLink_dryRun,
     describeVpcClassicLink_filters,
     describeVpcClassicLink_vpcIds,
-    describeVpcClassicLink_dryRun,
 
     -- * Destructuring the Response
     DescribeVpcClassicLinkResponse (..),
@@ -42,15 +47,21 @@ module Amazonka.EC2.DescribeVpcClassicLink
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeVpcClassicLink' smart constructor.
 data DescribeVpcClassicLink = DescribeVpcClassicLink'
-  { -- | One or more filters.
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters.
     --
     -- -   @is-classic-link-enabled@ - Whether the VPC is enabled for
     --     ClassicLink (@true@ | @false@).
@@ -66,12 +77,7 @@ data DescribeVpcClassicLink = DescribeVpcClassicLink'
     --     regardless of the tag value.
     filters :: Prelude.Maybe [Filter],
     -- | One or more VPCs for which you want to describe the ClassicLink status.
-    vpcIds :: Prelude.Maybe [Prelude.Text],
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool
+    vpcIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -82,6 +88,11 @@ data DescribeVpcClassicLink = DescribeVpcClassicLink'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dryRun', 'describeVpcClassicLink_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeVpcClassicLink_filters' - One or more filters.
 --
@@ -99,19 +110,21 @@ data DescribeVpcClassicLink = DescribeVpcClassicLink'
 --     regardless of the tag value.
 --
 -- 'vpcIds', 'describeVpcClassicLink_vpcIds' - One or more VPCs for which you want to describe the ClassicLink status.
---
--- 'dryRun', 'describeVpcClassicLink_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
 newDescribeVpcClassicLink ::
   DescribeVpcClassicLink
 newDescribeVpcClassicLink =
   DescribeVpcClassicLink'
-    { filters = Prelude.Nothing,
-      vpcIds = Prelude.Nothing,
-      dryRun = Prelude.Nothing
+    { dryRun = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      vpcIds = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeVpcClassicLink_dryRun :: Lens.Lens' DescribeVpcClassicLink (Prelude.Maybe Prelude.Bool)
+describeVpcClassicLink_dryRun = Lens.lens (\DescribeVpcClassicLink' {dryRun} -> dryRun) (\s@DescribeVpcClassicLink' {} a -> s {dryRun = a} :: DescribeVpcClassicLink)
 
 -- | One or more filters.
 --
@@ -134,58 +147,52 @@ describeVpcClassicLink_filters = Lens.lens (\DescribeVpcClassicLink' {filters} -
 describeVpcClassicLink_vpcIds :: Lens.Lens' DescribeVpcClassicLink (Prelude.Maybe [Prelude.Text])
 describeVpcClassicLink_vpcIds = Lens.lens (\DescribeVpcClassicLink' {vpcIds} -> vpcIds) (\s@DescribeVpcClassicLink' {} a -> s {vpcIds = a} :: DescribeVpcClassicLink) Prelude.. Lens.mapping Lens.coerced
 
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeVpcClassicLink_dryRun :: Lens.Lens' DescribeVpcClassicLink (Prelude.Maybe Prelude.Bool)
-describeVpcClassicLink_dryRun = Lens.lens (\DescribeVpcClassicLink' {dryRun} -> dryRun) (\s@DescribeVpcClassicLink' {} a -> s {dryRun = a} :: DescribeVpcClassicLink)
-
 instance Core.AWSRequest DescribeVpcClassicLink where
   type
     AWSResponse DescribeVpcClassicLink =
       DescribeVpcClassicLinkResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeVpcClassicLinkResponse'
-            Prelude.<$> ( x Core..@? "vpcSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "vpcSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeVpcClassicLink where
   hashWithSalt _salt DescribeVpcClassicLink' {..} =
-    _salt `Prelude.hashWithSalt` filters
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` vpcIds
-      `Prelude.hashWithSalt` dryRun
 
 instance Prelude.NFData DescribeVpcClassicLink where
   rnf DescribeVpcClassicLink' {..} =
-    Prelude.rnf filters
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf vpcIds
-      `Prelude.seq` Prelude.rnf dryRun
 
-instance Core.ToHeaders DescribeVpcClassicLink where
+instance Data.ToHeaders DescribeVpcClassicLink where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeVpcClassicLink where
+instance Data.ToPath DescribeVpcClassicLink where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeVpcClassicLink where
+instance Data.ToQuery DescribeVpcClassicLink where
   toQuery DescribeVpcClassicLink' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeVpcClassicLink" :: Prelude.ByteString),
+          Data.=: ("DescribeVpcClassicLink" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        Core.toQuery
-          (Core.toQueryList "VpcId" Prelude.<$> vpcIds),
-        "DryRun" Core.=: dryRun
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        Data.toQuery
+          (Data.toQueryList "VpcId" Prelude.<$> vpcIds)
       ]
 
 -- | /See:/ 'newDescribeVpcClassicLinkResponse' smart constructor.

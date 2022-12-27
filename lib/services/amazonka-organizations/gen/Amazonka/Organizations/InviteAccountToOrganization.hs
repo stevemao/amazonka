@@ -14,31 +14,32 @@
 
 -- |
 -- Module      : Amazonka.Organizations.InviteAccountToOrganization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Sends an invitation to another account to join your organization as a
--- member account. AWS Organizations sends email on your behalf to the
--- email address that is associated with the other account\'s owner. The
+-- member account. Organizations sends email on your behalf to the email
+-- address that is associated with the other account\'s owner. The
 -- invitation is implemented as a Handshake whose details are in the
 -- response.
 --
--- -   You can invite AWS accounts only from the same seller as the
---     management account. For example, if your organization\'s management
---     account was created by Amazon Internet Services Pvt. Ltd (AISPL), an
---     AWS seller in India, you can invite only other AISPL accounts to
---     your organization. You can\'t combine accounts from AISPL and AWS or
---     from any other AWS seller. For more information, see
---     <http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/useconsolidatedbilliing-India.html Consolidated Billing in India>.
+-- -   You can invite Amazon Web Services accounts only from the same
+--     seller as the management account. For example, if your
+--     organization\'s management account was created by Amazon Internet
+--     Services Pvt. Ltd (AISPL), an Amazon Web Services seller in India,
+--     you can invite only other AISPL accounts to your organization. You
+--     can\'t combine accounts from AISPL and Amazon Web Services or from
+--     any other Amazon Web Services seller. For more information, see
+--     <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/useconsolidatedbilliing-India.html Consolidated Billing in India>.
 --
 -- -   If you receive an exception that indicates that you exceeded your
 --     account limits for the organization or that the operation failed
 --     because your organization is still initializing, wait one hour and
 --     then try again. If the error persists after an hour, contact
---     <https://console.aws.amazon.com/support/home#/ AWS Support>.
+--     <https://console.aws.amazon.com/support/home#/ Amazon Web Services Support>.
 --
 -- If the request includes tags, then the requester must have the
 -- @organizations:TagResource@ permission.
@@ -66,7 +67,8 @@ module Amazonka.Organizations.InviteAccountToOrganization
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -76,13 +78,13 @@ import qualified Amazonka.Response as Response
 data InviteAccountToOrganization = InviteAccountToOrganization'
   { -- | Additional information that you want to include in the generated email
     -- to the recipient account owner.
-    notes :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    notes :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | A list of tags that you want to attach to the account when it becomes a
     -- member of the organization. For each tag in the list, you must specify
     -- both a tag key and a value. You can set the value to an empty string,
     -- but you can\'t set it to @null@. For more information about tagging, see
-    -- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources>
-    -- in the AWS Organizations User Guide.
+    -- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging Organizations resources>
+    -- in the Organizations User Guide.
     --
     -- Any tags in the request are checked for compliance with any applicable
     -- tag policies when the request is made. The request is rejected if the
@@ -97,20 +99,21 @@ data InviteAccountToOrganization = InviteAccountToOrganization'
     -- tags for an account, then the entire request fails and invitations are
     -- not sent.
     tags :: Prelude.Maybe [Tag],
-    -- | The identifier (ID) of the AWS account that you want to invite to join
-    -- your organization. This is a JSON object that contains the following
-    -- elements:
+    -- | The identifier (ID) of the Amazon Web Services account that you want to
+    -- invite to join your organization. This is a JSON object that contains
+    -- the following elements:
     --
     -- @{ \"Type\": \"ACCOUNT\", \"Id\": \"\< account id number >\" }@
     --
-    -- If you use the AWS CLI, you can submit this as a single string, similar
-    -- to the following example:
+    -- If you use the CLI, you can submit this as a single string, similar to
+    -- the following example:
     --
     -- @--target Id=123456789012,Type=ACCOUNT@
     --
-    -- If you specify @\"Type\": \"ACCOUNT\"@, you must provide the AWS account
-    -- ID number as the @Id@. If you specify @\"Type\": \"EMAIL\"@, you must
-    -- specify the email address that is associated with the account.
+    -- If you specify @\"Type\": \"ACCOUNT\"@, you must provide the Amazon Web
+    -- Services account ID number as the @Id@. If you specify
+    -- @\"Type\": \"EMAIL\"@, you must specify the email address that is
+    -- associated with the account.
     --
     -- @--target Id=diego\@example.com,Type=EMAIL@
     target :: HandshakeParty
@@ -132,8 +135,8 @@ data InviteAccountToOrganization = InviteAccountToOrganization'
 -- member of the organization. For each tag in the list, you must specify
 -- both a tag key and a value. You can set the value to an empty string,
 -- but you can\'t set it to @null@. For more information about tagging, see
--- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources>
--- in the AWS Organizations User Guide.
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging Organizations resources>
+-- in the Organizations User Guide.
 --
 -- Any tags in the request are checked for compliance with any applicable
 -- tag policies when the request is made. The request is rejected if the
@@ -148,20 +151,21 @@ data InviteAccountToOrganization = InviteAccountToOrganization'
 -- tags for an account, then the entire request fails and invitations are
 -- not sent.
 --
--- 'target', 'inviteAccountToOrganization_target' - The identifier (ID) of the AWS account that you want to invite to join
--- your organization. This is a JSON object that contains the following
--- elements:
+-- 'target', 'inviteAccountToOrganization_target' - The identifier (ID) of the Amazon Web Services account that you want to
+-- invite to join your organization. This is a JSON object that contains
+-- the following elements:
 --
 -- @{ \"Type\": \"ACCOUNT\", \"Id\": \"\< account id number >\" }@
 --
--- If you use the AWS CLI, you can submit this as a single string, similar
--- to the following example:
+-- If you use the CLI, you can submit this as a single string, similar to
+-- the following example:
 --
 -- @--target Id=123456789012,Type=ACCOUNT@
 --
--- If you specify @\"Type\": \"ACCOUNT\"@, you must provide the AWS account
--- ID number as the @Id@. If you specify @\"Type\": \"EMAIL\"@, you must
--- specify the email address that is associated with the account.
+-- If you specify @\"Type\": \"ACCOUNT\"@, you must provide the Amazon Web
+-- Services account ID number as the @Id@. If you specify
+-- @\"Type\": \"EMAIL\"@, you must specify the email address that is
+-- associated with the account.
 --
 -- @--target Id=diego\@example.com,Type=EMAIL@
 newInviteAccountToOrganization ::
@@ -179,14 +183,14 @@ newInviteAccountToOrganization pTarget_ =
 -- | Additional information that you want to include in the generated email
 -- to the recipient account owner.
 inviteAccountToOrganization_notes :: Lens.Lens' InviteAccountToOrganization (Prelude.Maybe Prelude.Text)
-inviteAccountToOrganization_notes = Lens.lens (\InviteAccountToOrganization' {notes} -> notes) (\s@InviteAccountToOrganization' {} a -> s {notes = a} :: InviteAccountToOrganization) Prelude.. Lens.mapping Core._Sensitive
+inviteAccountToOrganization_notes = Lens.lens (\InviteAccountToOrganization' {notes} -> notes) (\s@InviteAccountToOrganization' {} a -> s {notes = a} :: InviteAccountToOrganization) Prelude.. Lens.mapping Data._Sensitive
 
 -- | A list of tags that you want to attach to the account when it becomes a
 -- member of the organization. For each tag in the list, you must specify
 -- both a tag key and a value. You can set the value to an empty string,
 -- but you can\'t set it to @null@. For more information about tagging, see
--- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources>
--- in the AWS Organizations User Guide.
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging Organizations resources>
+-- in the Organizations User Guide.
 --
 -- Any tags in the request are checked for compliance with any applicable
 -- tag policies when the request is made. The request is rejected if the
@@ -203,20 +207,21 @@ inviteAccountToOrganization_notes = Lens.lens (\InviteAccountToOrganization' {no
 inviteAccountToOrganization_tags :: Lens.Lens' InviteAccountToOrganization (Prelude.Maybe [Tag])
 inviteAccountToOrganization_tags = Lens.lens (\InviteAccountToOrganization' {tags} -> tags) (\s@InviteAccountToOrganization' {} a -> s {tags = a} :: InviteAccountToOrganization) Prelude.. Lens.mapping Lens.coerced
 
--- | The identifier (ID) of the AWS account that you want to invite to join
--- your organization. This is a JSON object that contains the following
--- elements:
+-- | The identifier (ID) of the Amazon Web Services account that you want to
+-- invite to join your organization. This is a JSON object that contains
+-- the following elements:
 --
 -- @{ \"Type\": \"ACCOUNT\", \"Id\": \"\< account id number >\" }@
 --
--- If you use the AWS CLI, you can submit this as a single string, similar
--- to the following example:
+-- If you use the CLI, you can submit this as a single string, similar to
+-- the following example:
 --
 -- @--target Id=123456789012,Type=ACCOUNT@
 --
--- If you specify @\"Type\": \"ACCOUNT\"@, you must provide the AWS account
--- ID number as the @Id@. If you specify @\"Type\": \"EMAIL\"@, you must
--- specify the email address that is associated with the account.
+-- If you specify @\"Type\": \"ACCOUNT\"@, you must provide the Amazon Web
+-- Services account ID number as the @Id@. If you specify
+-- @\"Type\": \"EMAIL\"@, you must specify the email address that is
+-- associated with the account.
 --
 -- @--target Id=diego\@example.com,Type=EMAIL@
 inviteAccountToOrganization_target :: Lens.Lens' InviteAccountToOrganization HandshakeParty
@@ -226,12 +231,13 @@ instance Core.AWSRequest InviteAccountToOrganization where
   type
     AWSResponse InviteAccountToOrganization =
       InviteAccountToOrganizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           InviteAccountToOrganizationResponse'
-            Prelude.<$> (x Core..?> "Handshake")
+            Prelude.<$> (x Data..?> "Handshake")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -247,35 +253,35 @@ instance Prelude.NFData InviteAccountToOrganization where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf target
 
-instance Core.ToHeaders InviteAccountToOrganization where
+instance Data.ToHeaders InviteAccountToOrganization where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.InviteAccountToOrganization" ::
+              Data.=# ( "AWSOrganizationsV20161128.InviteAccountToOrganization" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON InviteAccountToOrganization where
+instance Data.ToJSON InviteAccountToOrganization where
   toJSON InviteAccountToOrganization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Notes" Core..=) Prelude.<$> notes,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Target" Core..= target)
+          [ ("Notes" Data..=) Prelude.<$> notes,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Target" Data..= target)
           ]
       )
 
-instance Core.ToPath InviteAccountToOrganization where
+instance Data.ToPath InviteAccountToOrganization where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery InviteAccountToOrganization where
+instance Data.ToQuery InviteAccountToOrganization where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newInviteAccountToOrganizationResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.GetBucketAcl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,6 +25,13 @@
 -- the ACL of the bucket, you must have @READ_ACP@ access to the bucket. If
 -- @READ_ACP@ permission is granted to the anonymous user, you can return
 -- the ACL of the bucket without using an authorization header.
+--
+-- If your bucket uses the bucket owner enforced setting for S3 Object
+-- Ownership, requests to read ACLs are still supported and return the
+-- @bucket-owner-full-control@ ACL with the owner being the account that
+-- created the bucket. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html Controlling object ownership and disabling ACLs>
+-- in the /Amazon S3 User Guide/.
 --
 -- __Related Resources__
 --
@@ -50,7 +57,8 @@ module Amazonka.S3.GetBucketAcl
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,8 +67,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newGetBucketAcl' smart constructor.
 data GetBucketAcl = GetBucketAcl'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | Specifies the S3 bucket whose ACL is being requested.
     bucket :: BucketName
@@ -76,8 +84,8 @@ data GetBucketAcl = GetBucketAcl'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'getBucketAcl_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'getBucketAcl_bucket' - Specifies the S3 bucket whose ACL is being requested.
 newGetBucketAcl ::
@@ -92,8 +100,8 @@ newGetBucketAcl pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 getBucketAcl_expectedBucketOwner :: Lens.Lens' GetBucketAcl (Prelude.Maybe Prelude.Text)
 getBucketAcl_expectedBucketOwner = Lens.lens (\GetBucketAcl' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetBucketAcl' {} a -> s {expectedBucketOwner = a} :: GetBucketAcl)
 
@@ -103,18 +111,18 @@ getBucketAcl_bucket = Lens.lens (\GetBucketAcl' {bucket} -> bucket) (\s@GetBucke
 
 instance Core.AWSRequest GetBucketAcl where
   type AWSResponse GetBucketAcl = GetBucketAclResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetBucketAclResponse'
-            Prelude.<$> ( x Core..@? "AccessControlList"
+            Prelude.<$> ( x Data..@? "AccessControlList"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "Grant")
+                            Prelude.>>= Core.may (Data.parseXMLList "Grant")
                         )
-            Prelude.<*> (x Core..@? "Owner")
+            Prelude.<*> (x Data..@? "Owner")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,18 +136,18 @@ instance Prelude.NFData GetBucketAcl where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders GetBucketAcl where
+instance Data.ToHeaders GetBucketAcl where
   toHeaders GetBucketAcl' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath GetBucketAcl where
+instance Data.ToPath GetBucketAcl where
   toPath GetBucketAcl' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery GetBucketAcl where
+instance Data.ToQuery GetBucketAcl where
   toQuery = Prelude.const (Prelude.mconcat ["acl"])
 
 -- | /See:/ 'newGetBucketAclResponse' smart constructor.

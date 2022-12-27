@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScalingPlans.Types.PredefinedScalingMetricSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AutoScalingPlans.Types.PredefinedScalingMetricSpecification wher
 
 import Amazonka.AutoScalingPlans.Types.ScalingMetricType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a predefined metric that can be used for dynamic scaling as
@@ -147,16 +148,16 @@ predefinedScalingMetricSpecification_predefinedScalingMetricType :: Lens.Lens' P
 predefinedScalingMetricSpecification_predefinedScalingMetricType = Lens.lens (\PredefinedScalingMetricSpecification' {predefinedScalingMetricType} -> predefinedScalingMetricType) (\s@PredefinedScalingMetricSpecification' {} a -> s {predefinedScalingMetricType = a} :: PredefinedScalingMetricSpecification)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     PredefinedScalingMetricSpecification
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PredefinedScalingMetricSpecification"
       ( \x ->
           PredefinedScalingMetricSpecification'
-            Prelude.<$> (x Core..:? "ResourceLabel")
-            Prelude.<*> (x Core..: "PredefinedScalingMetricType")
+            Prelude.<$> (x Data..:? "ResourceLabel")
+            Prelude.<*> (x Data..: "PredefinedScalingMetricType")
       )
 
 instance
@@ -178,16 +179,16 @@ instance
       `Prelude.seq` Prelude.rnf predefinedScalingMetricType
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     PredefinedScalingMetricSpecification
   where
   toJSON PredefinedScalingMetricSpecification' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ResourceLabel" Core..=) Prelude.<$> resourceLabel,
+          [ ("ResourceLabel" Data..=) Prelude.<$> resourceLabel,
             Prelude.Just
               ( "PredefinedScalingMetricType"
-                  Core..= predefinedScalingMetricType
+                  Data..= predefinedScalingMetricType
               )
           ]
       )

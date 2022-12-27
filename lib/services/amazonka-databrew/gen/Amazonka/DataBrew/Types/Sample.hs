@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.Types.Sample
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DataBrew.Types.Sample where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types.SampleType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the sample size and sampling type for DataBrew to use for
@@ -62,13 +63,13 @@ sample_size = Lens.lens (\Sample' {size} -> size) (\s@Sample' {} a -> s {size = 
 sample_type :: Lens.Lens' Sample SampleType
 sample_type = Lens.lens (\Sample' {type'} -> type') (\s@Sample' {} a -> s {type' = a} :: Sample)
 
-instance Core.FromJSON Sample where
+instance Data.FromJSON Sample where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Sample"
       ( \x ->
           Sample'
-            Prelude.<$> (x Core..:? "Size") Prelude.<*> (x Core..: "Type")
+            Prelude.<$> (x Data..:? "Size") Prelude.<*> (x Data..: "Type")
       )
 
 instance Prelude.Hashable Sample where
@@ -80,11 +81,11 @@ instance Prelude.NFData Sample where
   rnf Sample' {..} =
     Prelude.rnf size `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON Sample where
+instance Data.ToJSON Sample where
   toJSON Sample' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Size" Core..=) Prelude.<$> size,
-            Prelude.Just ("Type" Core..= type')
+          [ ("Size" Data..=) Prelude.<$> size,
+            Prelude.Just ("Type" Data..= type')
           ]
       )

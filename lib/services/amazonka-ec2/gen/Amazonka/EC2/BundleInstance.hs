@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.BundleInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.EC2.BundleInstance
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -145,12 +146,13 @@ instance Core.AWSRequest BundleInstance where
   type
     AWSResponse BundleInstance =
       BundleInstanceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           BundleInstanceResponse'
-            Prelude.<$> (x Core..@? "bundleInstanceTask")
+            Prelude.<$> (x Data..@? "bundleInstanceTask")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -166,22 +168,22 @@ instance Prelude.NFData BundleInstance where
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf storage
 
-instance Core.ToHeaders BundleInstance where
+instance Data.ToHeaders BundleInstance where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath BundleInstance where
+instance Data.ToPath BundleInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BundleInstance where
+instance Data.ToQuery BundleInstance where
   toQuery BundleInstance' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("BundleInstance" :: Prelude.ByteString),
+          Data.=: ("BundleInstance" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "InstanceId" Core.=: instanceId,
-        "Storage" Core.=: storage
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "InstanceId" Data.=: instanceId,
+        "Storage" Data.=: storage
       ]
 
 -- | Contains the output of BundleInstance.

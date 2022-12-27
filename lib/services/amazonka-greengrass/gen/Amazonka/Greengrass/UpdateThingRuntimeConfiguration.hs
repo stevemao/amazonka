@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.UpdateThingRuntimeConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Greengrass.UpdateThingRuntimeConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,7 +93,8 @@ instance
   type
     AWSResponse UpdateThingRuntimeConfiguration =
       UpdateThingRuntimeConfigurationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -119,37 +121,37 @@ instance
       `Prelude.seq` Prelude.rnf thingName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateThingRuntimeConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateThingRuntimeConfiguration where
+instance Data.ToJSON UpdateThingRuntimeConfiguration where
   toJSON UpdateThingRuntimeConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TelemetryConfiguration" Core..=)
+          [ ("TelemetryConfiguration" Data..=)
               Prelude.<$> telemetryConfiguration
           ]
       )
 
-instance Core.ToPath UpdateThingRuntimeConfiguration where
+instance Data.ToPath UpdateThingRuntimeConfiguration where
   toPath UpdateThingRuntimeConfiguration' {..} =
     Prelude.mconcat
       [ "/greengrass/things/",
-        Core.toBS thingName,
+        Data.toBS thingName,
         "/runtimeconfig"
       ]
 
-instance Core.ToQuery UpdateThingRuntimeConfiguration where
+instance Data.ToQuery UpdateThingRuntimeConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateThingRuntimeConfigurationResponse' smart constructor.

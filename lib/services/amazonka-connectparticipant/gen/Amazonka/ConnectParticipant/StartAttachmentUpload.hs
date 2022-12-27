@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ConnectParticipant.StartAttachmentUpload
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,9 @@
 --
 -- Provides a pre-signed Amazon S3 URL in response for uploading the file
 -- directly to S3.
+--
+-- The Amazon Connect Participant Service APIs do not use
+-- <https://docs.aws.amazon.com/general/latest/gr/signature-version-4.html Signature Version 4 authentication>.
 module Amazonka.ConnectParticipant.StartAttachmentUpload
   ( -- * Creating a Request
     StartAttachmentUpload (..),
@@ -47,7 +50,8 @@ where
 
 import Amazonka.ConnectParticipant.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -143,13 +147,14 @@ instance Core.AWSRequest StartAttachmentUpload where
   type
     AWSResponse StartAttachmentUpload =
       StartAttachmentUploadResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartAttachmentUploadResponse'
-            Prelude.<$> (x Core..?> "AttachmentId")
-            Prelude.<*> (x Core..?> "UploadMetadata")
+            Prelude.<$> (x Data..?> "AttachmentId")
+            Prelude.<*> (x Data..?> "UploadMetadata")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -169,35 +174,35 @@ instance Prelude.NFData StartAttachmentUpload where
       `Prelude.seq` Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf connectionToken
 
-instance Core.ToHeaders StartAttachmentUpload where
+instance Data.ToHeaders StartAttachmentUpload where
   toHeaders StartAttachmentUpload' {..} =
     Prelude.mconcat
-      [ "X-Amz-Bearer" Core.=# connectionToken,
+      [ "X-Amz-Bearer" Data.=# connectionToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON StartAttachmentUpload where
+instance Data.ToJSON StartAttachmentUpload where
   toJSON StartAttachmentUpload' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ContentType" Core..= contentType),
+          [ Prelude.Just ("ContentType" Data..= contentType),
             Prelude.Just
               ( "AttachmentSizeInBytes"
-                  Core..= attachmentSizeInBytes
+                  Data..= attachmentSizeInBytes
               ),
             Prelude.Just
-              ("AttachmentName" Core..= attachmentName),
-            Prelude.Just ("ClientToken" Core..= clientToken)
+              ("AttachmentName" Data..= attachmentName),
+            Prelude.Just ("ClientToken" Data..= clientToken)
           ]
       )
 
-instance Core.ToPath StartAttachmentUpload where
+instance Data.ToPath StartAttachmentUpload where
   toPath =
     Prelude.const
       "/participant/start-attachment-upload"
 
-instance Core.ToQuery StartAttachmentUpload where
+instance Data.ToQuery StartAttachmentUpload where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartAttachmentUploadResponse' smart constructor.

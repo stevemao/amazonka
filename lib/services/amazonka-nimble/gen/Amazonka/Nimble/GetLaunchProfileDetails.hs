@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.GetLaunchProfileDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,23 +31,24 @@ module Amazonka.Nimble.GetLaunchProfileDetails
     newGetLaunchProfileDetails,
 
     -- * Request Lenses
-    getLaunchProfileDetails_studioId,
     getLaunchProfileDetails_launchProfileId,
+    getLaunchProfileDetails_studioId,
 
     -- * Destructuring the Response
     GetLaunchProfileDetailsResponse (..),
     newGetLaunchProfileDetailsResponse,
 
     -- * Response Lenses
-    getLaunchProfileDetailsResponse_streamingImages,
     getLaunchProfileDetailsResponse_launchProfile,
+    getLaunchProfileDetailsResponse_streamingImages,
     getLaunchProfileDetailsResponse_studioComponentSummaries,
     getLaunchProfileDetailsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,10 +56,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetLaunchProfileDetails' smart constructor.
 data GetLaunchProfileDetails = GetLaunchProfileDetails'
-  { -- | The studio ID.
-    studioId :: Prelude.Text,
-    -- | The launch profile ID.
-    launchProfileId :: Prelude.Text
+  { -- | The Launch Profile ID.
+    launchProfileId :: Prelude.Text,
+    -- | The studio ID.
+    studioId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,45 +71,47 @@ data GetLaunchProfileDetails = GetLaunchProfileDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'studioId', 'getLaunchProfileDetails_studioId' - The studio ID.
+-- 'launchProfileId', 'getLaunchProfileDetails_launchProfileId' - The Launch Profile ID.
 --
--- 'launchProfileId', 'getLaunchProfileDetails_launchProfileId' - The launch profile ID.
+-- 'studioId', 'getLaunchProfileDetails_studioId' - The studio ID.
 newGetLaunchProfileDetails ::
-  -- | 'studioId'
-  Prelude.Text ->
   -- | 'launchProfileId'
+  Prelude.Text ->
+  -- | 'studioId'
   Prelude.Text ->
   GetLaunchProfileDetails
 newGetLaunchProfileDetails
-  pStudioId_
-  pLaunchProfileId_ =
+  pLaunchProfileId_
+  pStudioId_ =
     GetLaunchProfileDetails'
-      { studioId = pStudioId_,
-        launchProfileId = pLaunchProfileId_
+      { launchProfileId =
+          pLaunchProfileId_,
+        studioId = pStudioId_
       }
+
+-- | The Launch Profile ID.
+getLaunchProfileDetails_launchProfileId :: Lens.Lens' GetLaunchProfileDetails Prelude.Text
+getLaunchProfileDetails_launchProfileId = Lens.lens (\GetLaunchProfileDetails' {launchProfileId} -> launchProfileId) (\s@GetLaunchProfileDetails' {} a -> s {launchProfileId = a} :: GetLaunchProfileDetails)
 
 -- | The studio ID.
 getLaunchProfileDetails_studioId :: Lens.Lens' GetLaunchProfileDetails Prelude.Text
 getLaunchProfileDetails_studioId = Lens.lens (\GetLaunchProfileDetails' {studioId} -> studioId) (\s@GetLaunchProfileDetails' {} a -> s {studioId = a} :: GetLaunchProfileDetails)
 
--- | The launch profile ID.
-getLaunchProfileDetails_launchProfileId :: Lens.Lens' GetLaunchProfileDetails Prelude.Text
-getLaunchProfileDetails_launchProfileId = Lens.lens (\GetLaunchProfileDetails' {launchProfileId} -> launchProfileId) (\s@GetLaunchProfileDetails' {} a -> s {launchProfileId = a} :: GetLaunchProfileDetails)
-
 instance Core.AWSRequest GetLaunchProfileDetails where
   type
     AWSResponse GetLaunchProfileDetails =
       GetLaunchProfileDetailsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetLaunchProfileDetailsResponse'
-            Prelude.<$> ( x Core..?> "streamingImages"
+            Prelude.<$> (x Data..?> "launchProfile")
+            Prelude.<*> ( x Data..?> "streamingImages"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "launchProfile")
-            Prelude.<*> ( x Core..?> "studioComponentSummaries"
+            Prelude.<*> ( x Data..?> "studioComponentSummaries"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -116,50 +119,50 @@ instance Core.AWSRequest GetLaunchProfileDetails where
 
 instance Prelude.Hashable GetLaunchProfileDetails where
   hashWithSalt _salt GetLaunchProfileDetails' {..} =
-    _salt `Prelude.hashWithSalt` studioId
-      `Prelude.hashWithSalt` launchProfileId
+    _salt `Prelude.hashWithSalt` launchProfileId
+      `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData GetLaunchProfileDetails where
   rnf GetLaunchProfileDetails' {..} =
-    Prelude.rnf studioId
-      `Prelude.seq` Prelude.rnf launchProfileId
+    Prelude.rnf launchProfileId
+      `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders GetLaunchProfileDetails where
+instance Data.ToHeaders GetLaunchProfileDetails where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetLaunchProfileDetails where
+instance Data.ToPath GetLaunchProfileDetails where
   toPath GetLaunchProfileDetails' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/launch-profiles/",
-        Core.toBS launchProfileId,
+        Data.toBS launchProfileId,
         "/details"
       ]
 
-instance Core.ToQuery GetLaunchProfileDetails where
+instance Data.ToQuery GetLaunchProfileDetails where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetLaunchProfileDetailsResponse' smart constructor.
 data GetLaunchProfileDetailsResponse = GetLaunchProfileDetailsResponse'
-  { -- | A collection of streaming images.
-    streamingImages :: Prelude.Maybe [StreamingImage],
-    -- | The launch profile.
+  { -- | The launch profile.
     launchProfile :: Prelude.Maybe LaunchProfile,
+    -- | A collection of streaming images.
+    streamingImages :: Prelude.Maybe [StreamingImage],
     -- | A collection of studio component summaries.
     studioComponentSummaries :: Prelude.Maybe [StudioComponentSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'GetLaunchProfileDetailsResponse' with all optional fields omitted.
@@ -169,9 +172,9 @@ data GetLaunchProfileDetailsResponse = GetLaunchProfileDetailsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'streamingImages', 'getLaunchProfileDetailsResponse_streamingImages' - A collection of streaming images.
---
 -- 'launchProfile', 'getLaunchProfileDetailsResponse_launchProfile' - The launch profile.
+--
+-- 'streamingImages', 'getLaunchProfileDetailsResponse_streamingImages' - A collection of streaming images.
 --
 -- 'studioComponentSummaries', 'getLaunchProfileDetailsResponse_studioComponentSummaries' - A collection of studio component summaries.
 --
@@ -182,20 +185,20 @@ newGetLaunchProfileDetailsResponse ::
   GetLaunchProfileDetailsResponse
 newGetLaunchProfileDetailsResponse pHttpStatus_ =
   GetLaunchProfileDetailsResponse'
-    { streamingImages =
+    { launchProfile =
         Prelude.Nothing,
-      launchProfile = Prelude.Nothing,
+      streamingImages = Prelude.Nothing,
       studioComponentSummaries = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | A collection of streaming images.
-getLaunchProfileDetailsResponse_streamingImages :: Lens.Lens' GetLaunchProfileDetailsResponse (Prelude.Maybe [StreamingImage])
-getLaunchProfileDetailsResponse_streamingImages = Lens.lens (\GetLaunchProfileDetailsResponse' {streamingImages} -> streamingImages) (\s@GetLaunchProfileDetailsResponse' {} a -> s {streamingImages = a} :: GetLaunchProfileDetailsResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The launch profile.
 getLaunchProfileDetailsResponse_launchProfile :: Lens.Lens' GetLaunchProfileDetailsResponse (Prelude.Maybe LaunchProfile)
 getLaunchProfileDetailsResponse_launchProfile = Lens.lens (\GetLaunchProfileDetailsResponse' {launchProfile} -> launchProfile) (\s@GetLaunchProfileDetailsResponse' {} a -> s {launchProfile = a} :: GetLaunchProfileDetailsResponse)
+
+-- | A collection of streaming images.
+getLaunchProfileDetailsResponse_streamingImages :: Lens.Lens' GetLaunchProfileDetailsResponse (Prelude.Maybe [StreamingImage])
+getLaunchProfileDetailsResponse_streamingImages = Lens.lens (\GetLaunchProfileDetailsResponse' {streamingImages} -> streamingImages) (\s@GetLaunchProfileDetailsResponse' {} a -> s {streamingImages = a} :: GetLaunchProfileDetailsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A collection of studio component summaries.
 getLaunchProfileDetailsResponse_studioComponentSummaries :: Lens.Lens' GetLaunchProfileDetailsResponse (Prelude.Maybe [StudioComponentSummary])
@@ -210,7 +213,7 @@ instance
     GetLaunchProfileDetailsResponse
   where
   rnf GetLaunchProfileDetailsResponse' {..} =
-    Prelude.rnf streamingImages
-      `Prelude.seq` Prelude.rnf launchProfile
+    Prelude.rnf launchProfile
+      `Prelude.seq` Prelude.rnf streamingImages
       `Prelude.seq` Prelude.rnf studioComponentSummaries
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.GetSubscriptionDefinitionVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,19 +36,20 @@ module Amazonka.Greengrass.GetSubscriptionDefinitionVersion
     newGetSubscriptionDefinitionVersionResponse,
 
     -- * Response Lenses
-    getSubscriptionDefinitionVersionResponse_definition,
     getSubscriptionDefinitionVersionResponse_arn,
-    getSubscriptionDefinitionVersionResponse_nextToken,
     getSubscriptionDefinitionVersionResponse_creationTimestamp,
-    getSubscriptionDefinitionVersionResponse_version,
+    getSubscriptionDefinitionVersionResponse_definition,
     getSubscriptionDefinitionVersionResponse_id,
+    getSubscriptionDefinitionVersionResponse_nextToken,
+    getSubscriptionDefinitionVersionResponse_version,
     getSubscriptionDefinitionVersionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -135,17 +136,18 @@ instance
   type
     AWSResponse GetSubscriptionDefinitionVersion =
       GetSubscriptionDefinitionVersionResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSubscriptionDefinitionVersionResponse'
-            Prelude.<$> (x Core..?> "Definition")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "CreationTimestamp")
-            Prelude.<*> (x Core..?> "Version")
-            Prelude.<*> (x Core..?> "Id")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "CreationTimestamp")
+            Prelude.<*> (x Data..?> "Definition")
+            Prelude.<*> (x Data..?> "Id")
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Version")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -170,51 +172,51 @@ instance
       `Prelude.seq` Prelude.rnf subscriptionDefinitionVersionId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetSubscriptionDefinitionVersion
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetSubscriptionDefinitionVersion where
+instance Data.ToPath GetSubscriptionDefinitionVersion where
   toPath GetSubscriptionDefinitionVersion' {..} =
     Prelude.mconcat
       [ "/greengrass/definition/subscriptions/",
-        Core.toBS subscriptionDefinitionId,
+        Data.toBS subscriptionDefinitionId,
         "/versions/",
-        Core.toBS subscriptionDefinitionVersionId
+        Data.toBS subscriptionDefinitionVersionId
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetSubscriptionDefinitionVersion
   where
   toQuery GetSubscriptionDefinitionVersion' {..} =
-    Prelude.mconcat ["NextToken" Core.=: nextToken]
+    Prelude.mconcat ["NextToken" Data.=: nextToken]
 
 -- | /See:/ 'newGetSubscriptionDefinitionVersionResponse' smart constructor.
 data GetSubscriptionDefinitionVersionResponse = GetSubscriptionDefinitionVersionResponse'
-  { -- | Information about the subscription definition version.
-    definition :: Prelude.Maybe SubscriptionDefinitionVersion,
-    -- | The ARN of the subscription definition version.
+  { -- | The ARN of the subscription definition version.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The token for the next set of results, or \'\'null\'\' if there are no
-    -- additional results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The time, in milliseconds since the epoch, when the subscription
     -- definition version was created.
     creationTimestamp :: Prelude.Maybe Prelude.Text,
-    -- | The version of the subscription definition version.
-    version :: Prelude.Maybe Prelude.Text,
+    -- | Information about the subscription definition version.
+    definition :: Prelude.Maybe SubscriptionDefinitionVersion,
     -- | The ID of the subscription definition version.
     id :: Prelude.Maybe Prelude.Text,
+    -- | The token for the next set of results, or \'\'null\'\' if there are no
+    -- additional results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The version of the subscription definition version.
+    version :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -228,19 +230,19 @@ data GetSubscriptionDefinitionVersionResponse = GetSubscriptionDefinitionVersion
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'definition', 'getSubscriptionDefinitionVersionResponse_definition' - Information about the subscription definition version.
---
 -- 'arn', 'getSubscriptionDefinitionVersionResponse_arn' - The ARN of the subscription definition version.
---
--- 'nextToken', 'getSubscriptionDefinitionVersionResponse_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
--- additional results.
 --
 -- 'creationTimestamp', 'getSubscriptionDefinitionVersionResponse_creationTimestamp' - The time, in milliseconds since the epoch, when the subscription
 -- definition version was created.
 --
--- 'version', 'getSubscriptionDefinitionVersionResponse_version' - The version of the subscription definition version.
+-- 'definition', 'getSubscriptionDefinitionVersionResponse_definition' - Information about the subscription definition version.
 --
 -- 'id', 'getSubscriptionDefinitionVersionResponse_id' - The ID of the subscription definition version.
+--
+-- 'nextToken', 'getSubscriptionDefinitionVersionResponse_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+--
+-- 'version', 'getSubscriptionDefinitionVersionResponse_version' - The version of the subscription definition version.
 --
 -- 'httpStatus', 'getSubscriptionDefinitionVersionResponse_httpStatus' - The response's http status code.
 newGetSubscriptionDefinitionVersionResponse ::
@@ -250,42 +252,42 @@ newGetSubscriptionDefinitionVersionResponse ::
 newGetSubscriptionDefinitionVersionResponse
   pHttpStatus_ =
     GetSubscriptionDefinitionVersionResponse'
-      { definition =
+      { arn =
           Prelude.Nothing,
-        arn = Prelude.Nothing,
-        nextToken = Prelude.Nothing,
         creationTimestamp =
           Prelude.Nothing,
-        version = Prelude.Nothing,
+        definition = Prelude.Nothing,
         id = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
+        version = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | Information about the subscription definition version.
-getSubscriptionDefinitionVersionResponse_definition :: Lens.Lens' GetSubscriptionDefinitionVersionResponse (Prelude.Maybe SubscriptionDefinitionVersion)
-getSubscriptionDefinitionVersionResponse_definition = Lens.lens (\GetSubscriptionDefinitionVersionResponse' {definition} -> definition) (\s@GetSubscriptionDefinitionVersionResponse' {} a -> s {definition = a} :: GetSubscriptionDefinitionVersionResponse)
 
 -- | The ARN of the subscription definition version.
 getSubscriptionDefinitionVersionResponse_arn :: Lens.Lens' GetSubscriptionDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
 getSubscriptionDefinitionVersionResponse_arn = Lens.lens (\GetSubscriptionDefinitionVersionResponse' {arn} -> arn) (\s@GetSubscriptionDefinitionVersionResponse' {} a -> s {arn = a} :: GetSubscriptionDefinitionVersionResponse)
-
--- | The token for the next set of results, or \'\'null\'\' if there are no
--- additional results.
-getSubscriptionDefinitionVersionResponse_nextToken :: Lens.Lens' GetSubscriptionDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
-getSubscriptionDefinitionVersionResponse_nextToken = Lens.lens (\GetSubscriptionDefinitionVersionResponse' {nextToken} -> nextToken) (\s@GetSubscriptionDefinitionVersionResponse' {} a -> s {nextToken = a} :: GetSubscriptionDefinitionVersionResponse)
 
 -- | The time, in milliseconds since the epoch, when the subscription
 -- definition version was created.
 getSubscriptionDefinitionVersionResponse_creationTimestamp :: Lens.Lens' GetSubscriptionDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
 getSubscriptionDefinitionVersionResponse_creationTimestamp = Lens.lens (\GetSubscriptionDefinitionVersionResponse' {creationTimestamp} -> creationTimestamp) (\s@GetSubscriptionDefinitionVersionResponse' {} a -> s {creationTimestamp = a} :: GetSubscriptionDefinitionVersionResponse)
 
--- | The version of the subscription definition version.
-getSubscriptionDefinitionVersionResponse_version :: Lens.Lens' GetSubscriptionDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
-getSubscriptionDefinitionVersionResponse_version = Lens.lens (\GetSubscriptionDefinitionVersionResponse' {version} -> version) (\s@GetSubscriptionDefinitionVersionResponse' {} a -> s {version = a} :: GetSubscriptionDefinitionVersionResponse)
+-- | Information about the subscription definition version.
+getSubscriptionDefinitionVersionResponse_definition :: Lens.Lens' GetSubscriptionDefinitionVersionResponse (Prelude.Maybe SubscriptionDefinitionVersion)
+getSubscriptionDefinitionVersionResponse_definition = Lens.lens (\GetSubscriptionDefinitionVersionResponse' {definition} -> definition) (\s@GetSubscriptionDefinitionVersionResponse' {} a -> s {definition = a} :: GetSubscriptionDefinitionVersionResponse)
 
 -- | The ID of the subscription definition version.
 getSubscriptionDefinitionVersionResponse_id :: Lens.Lens' GetSubscriptionDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
 getSubscriptionDefinitionVersionResponse_id = Lens.lens (\GetSubscriptionDefinitionVersionResponse' {id} -> id) (\s@GetSubscriptionDefinitionVersionResponse' {} a -> s {id = a} :: GetSubscriptionDefinitionVersionResponse)
+
+-- | The token for the next set of results, or \'\'null\'\' if there are no
+-- additional results.
+getSubscriptionDefinitionVersionResponse_nextToken :: Lens.Lens' GetSubscriptionDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+getSubscriptionDefinitionVersionResponse_nextToken = Lens.lens (\GetSubscriptionDefinitionVersionResponse' {nextToken} -> nextToken) (\s@GetSubscriptionDefinitionVersionResponse' {} a -> s {nextToken = a} :: GetSubscriptionDefinitionVersionResponse)
+
+-- | The version of the subscription definition version.
+getSubscriptionDefinitionVersionResponse_version :: Lens.Lens' GetSubscriptionDefinitionVersionResponse (Prelude.Maybe Prelude.Text)
+getSubscriptionDefinitionVersionResponse_version = Lens.lens (\GetSubscriptionDefinitionVersionResponse' {version} -> version) (\s@GetSubscriptionDefinitionVersionResponse' {} a -> s {version = a} :: GetSubscriptionDefinitionVersionResponse)
 
 -- | The response's http status code.
 getSubscriptionDefinitionVersionResponse_httpStatus :: Lens.Lens' GetSubscriptionDefinitionVersionResponse Prelude.Int
@@ -296,10 +298,10 @@ instance
     GetSubscriptionDefinitionVersionResponse
   where
   rnf GetSubscriptionDefinitionVersionResponse' {..} =
-    Prelude.rnf definition
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf creationTimestamp
-      `Prelude.seq` Prelude.rnf version
+      `Prelude.seq` Prelude.rnf definition
       `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf version
       `Prelude.seq` Prelude.rnf httpStatus

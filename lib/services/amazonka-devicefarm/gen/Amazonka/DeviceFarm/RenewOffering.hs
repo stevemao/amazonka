@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.RenewOffering
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.DeviceFarm.RenewOffering
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,12 +98,13 @@ instance Core.AWSRequest RenewOffering where
   type
     AWSResponse RenewOffering =
       RenewOfferingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RenewOfferingResponse'
-            Prelude.<$> (x Core..?> "offeringTransaction")
+            Prelude.<$> (x Data..?> "offeringTransaction")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,34 +118,34 @@ instance Prelude.NFData RenewOffering where
     Prelude.rnf offeringId
       `Prelude.seq` Prelude.rnf quantity
 
-instance Core.ToHeaders RenewOffering where
+instance Data.ToHeaders RenewOffering where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.RenewOffering" ::
+              Data.=# ( "DeviceFarm_20150623.RenewOffering" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RenewOffering where
+instance Data.ToJSON RenewOffering where
   toJSON RenewOffering' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("offeringId" Core..= offeringId),
-            Prelude.Just ("quantity" Core..= quantity)
+          [ Prelude.Just ("offeringId" Data..= offeringId),
+            Prelude.Just ("quantity" Data..= quantity)
           ]
       )
 
-instance Core.ToPath RenewOffering where
+instance Data.ToPath RenewOffering where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RenewOffering where
+instance Data.ToQuery RenewOffering where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The result of a renewal offering.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.DeleteWebACL
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -61,7 +61,8 @@ module Amazonka.WAF.DeleteWebACL
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,12 +113,13 @@ deleteWebACL_changeToken = Lens.lens (\DeleteWebACL' {changeToken} -> changeToke
 
 instance Core.AWSRequest DeleteWebACL where
   type AWSResponse DeleteWebACL = DeleteWebACLResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteWebACLResponse'
-            Prelude.<$> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -131,34 +133,34 @@ instance Prelude.NFData DeleteWebACL where
     Prelude.rnf webACLId
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders DeleteWebACL where
+instance Data.ToHeaders DeleteWebACL where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_20150824.DeleteWebACL" ::
+              Data.=# ( "AWSWAF_20150824.DeleteWebACL" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteWebACL where
+instance Data.ToJSON DeleteWebACL where
   toJSON DeleteWebACL' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("WebACLId" Core..= webACLId),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+          [ Prelude.Just ("WebACLId" Data..= webACLId),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath DeleteWebACL where
+instance Data.ToPath DeleteWebACL where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteWebACL where
+instance Data.ToQuery DeleteWebACL where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteWebACLResponse' smart constructor.

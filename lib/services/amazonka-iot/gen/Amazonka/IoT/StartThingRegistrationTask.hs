@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.StartThingRegistrationTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.IoT.StartThingRegistrationTask
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -130,12 +131,13 @@ instance Core.AWSRequest StartThingRegistrationTask where
   type
     AWSResponse StartThingRegistrationTask =
       StartThingRegistrationTaskResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartThingRegistrationTaskResponse'
-            Prelude.<$> (x Core..?> "taskId")
+            Prelude.<$> (x Data..?> "taskId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -153,25 +155,25 @@ instance Prelude.NFData StartThingRegistrationTask where
       `Prelude.seq` Prelude.rnf inputFileKey
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders StartThingRegistrationTask where
+instance Data.ToHeaders StartThingRegistrationTask where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON StartThingRegistrationTask where
+instance Data.ToJSON StartThingRegistrationTask where
   toJSON StartThingRegistrationTask' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("templateBody" Core..= templateBody),
+          [ Prelude.Just ("templateBody" Data..= templateBody),
             Prelude.Just
-              ("inputFileBucket" Core..= inputFileBucket),
-            Prelude.Just ("inputFileKey" Core..= inputFileKey),
-            Prelude.Just ("roleArn" Core..= roleArn)
+              ("inputFileBucket" Data..= inputFileBucket),
+            Prelude.Just ("inputFileKey" Data..= inputFileKey),
+            Prelude.Just ("roleArn" Data..= roleArn)
           ]
       )
 
-instance Core.ToPath StartThingRegistrationTask where
+instance Data.ToPath StartThingRegistrationTask where
   toPath = Prelude.const "/thing-registration-tasks"
 
-instance Core.ToQuery StartThingRegistrationTask where
+instance Data.ToQuery StartThingRegistrationTask where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartThingRegistrationTaskResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.AssetSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,19 @@
 module Amazonka.IoTSiteWise.Types.AssetSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.AssetHierarchy
 import Amazonka.IoTSiteWise.Types.AssetStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains a summary of an asset.
 --
 -- /See:/ 'newAssetSummary' smart constructor.
 data AssetSummary = AssetSummary'
-  { -- | The ID of the asset.
+  { -- | A description for the asset.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the asset.
     id :: Prelude.Text,
     -- | The
     -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
@@ -42,9 +45,9 @@ data AssetSummary = AssetSummary'
     -- | The ID of the asset model used to create this asset.
     assetModelId :: Prelude.Text,
     -- | The date the asset was created, in Unix epoch time.
-    creationDate :: Core.POSIX,
+    creationDate :: Data.POSIX,
     -- | The date the asset was last updated, in Unix epoch time.
-    lastUpdateDate :: Core.POSIX,
+    lastUpdateDate :: Data.POSIX,
     -- | The current status of the asset.
     status :: AssetStatus,
     -- | A list of asset hierarchies that each contain a @hierarchyId@. A
@@ -60,6 +63,8 @@ data AssetSummary = AssetSummary'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'description', 'assetSummary_description' - A description for the asset.
 --
 -- 'id', 'assetSummary_id' - The ID of the asset.
 --
@@ -106,15 +111,20 @@ newAssetSummary
   pLastUpdateDate_
   pStatus_ =
     AssetSummary'
-      { id = pId_,
+      { description = Prelude.Nothing,
+        id = pId_,
         arn = pArn_,
         name = pName_,
         assetModelId = pAssetModelId_,
-        creationDate = Core._Time Lens.# pCreationDate_,
-        lastUpdateDate = Core._Time Lens.# pLastUpdateDate_,
+        creationDate = Data._Time Lens.# pCreationDate_,
+        lastUpdateDate = Data._Time Lens.# pLastUpdateDate_,
         status = pStatus_,
         hierarchies = Prelude.mempty
       }
+
+-- | A description for the asset.
+assetSummary_description :: Lens.Lens' AssetSummary (Prelude.Maybe Prelude.Text)
+assetSummary_description = Lens.lens (\AssetSummary' {description} -> description) (\s@AssetSummary' {} a -> s {description = a} :: AssetSummary)
 
 -- | The ID of the asset.
 assetSummary_id :: Lens.Lens' AssetSummary Prelude.Text
@@ -138,11 +148,11 @@ assetSummary_assetModelId = Lens.lens (\AssetSummary' {assetModelId} -> assetMod
 
 -- | The date the asset was created, in Unix epoch time.
 assetSummary_creationDate :: Lens.Lens' AssetSummary Prelude.UTCTime
-assetSummary_creationDate = Lens.lens (\AssetSummary' {creationDate} -> creationDate) (\s@AssetSummary' {} a -> s {creationDate = a} :: AssetSummary) Prelude.. Core._Time
+assetSummary_creationDate = Lens.lens (\AssetSummary' {creationDate} -> creationDate) (\s@AssetSummary' {} a -> s {creationDate = a} :: AssetSummary) Prelude.. Data._Time
 
 -- | The date the asset was last updated, in Unix epoch time.
 assetSummary_lastUpdateDate :: Lens.Lens' AssetSummary Prelude.UTCTime
-assetSummary_lastUpdateDate = Lens.lens (\AssetSummary' {lastUpdateDate} -> lastUpdateDate) (\s@AssetSummary' {} a -> s {lastUpdateDate = a} :: AssetSummary) Prelude.. Core._Time
+assetSummary_lastUpdateDate = Lens.lens (\AssetSummary' {lastUpdateDate} -> lastUpdateDate) (\s@AssetSummary' {} a -> s {lastUpdateDate = a} :: AssetSummary) Prelude.. Data._Time
 
 -- | The current status of the asset.
 assetSummary_status :: Lens.Lens' AssetSummary AssetStatus
@@ -153,25 +163,27 @@ assetSummary_status = Lens.lens (\AssetSummary' {status} -> status) (\s@AssetSum
 assetSummary_hierarchies :: Lens.Lens' AssetSummary [AssetHierarchy]
 assetSummary_hierarchies = Lens.lens (\AssetSummary' {hierarchies} -> hierarchies) (\s@AssetSummary' {} a -> s {hierarchies = a} :: AssetSummary) Prelude.. Lens.coerced
 
-instance Core.FromJSON AssetSummary where
+instance Data.FromJSON AssetSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssetSummary"
       ( \x ->
           AssetSummary'
-            Prelude.<$> (x Core..: "id")
-            Prelude.<*> (x Core..: "arn")
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "assetModelId")
-            Prelude.<*> (x Core..: "creationDate")
-            Prelude.<*> (x Core..: "lastUpdateDate")
-            Prelude.<*> (x Core..: "status")
-            Prelude.<*> (x Core..:? "hierarchies" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "description")
+            Prelude.<*> (x Data..: "id")
+            Prelude.<*> (x Data..: "arn")
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "assetModelId")
+            Prelude.<*> (x Data..: "creationDate")
+            Prelude.<*> (x Data..: "lastUpdateDate")
+            Prelude.<*> (x Data..: "status")
+            Prelude.<*> (x Data..:? "hierarchies" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable AssetSummary where
   hashWithSalt _salt AssetSummary' {..} =
-    _salt `Prelude.hashWithSalt` id
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` assetModelId
@@ -182,7 +194,8 @@ instance Prelude.Hashable AssetSummary where
 
 instance Prelude.NFData AssetSummary where
   rnf AssetSummary' {..} =
-    Prelude.rnf id
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf assetModelId

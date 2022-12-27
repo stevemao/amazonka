@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentity.Types.RulesConfigurationType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CognitoIdentity.Types.RulesConfigurationType where
 
 import Amazonka.CognitoIdentity.Types.MappingRule
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A container for rules.
@@ -62,13 +63,13 @@ newRulesConfigurationType pRules_ =
 rulesConfigurationType_rules :: Lens.Lens' RulesConfigurationType (Prelude.NonEmpty MappingRule)
 rulesConfigurationType_rules = Lens.lens (\RulesConfigurationType' {rules} -> rules) (\s@RulesConfigurationType' {} a -> s {rules = a} :: RulesConfigurationType) Prelude.. Lens.coerced
 
-instance Core.FromJSON RulesConfigurationType where
+instance Data.FromJSON RulesConfigurationType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RulesConfigurationType"
       ( \x ->
           RulesConfigurationType'
-            Prelude.<$> (x Core..: "Rules")
+            Prelude.<$> (x Data..: "Rules")
       )
 
 instance Prelude.Hashable RulesConfigurationType where
@@ -78,9 +79,9 @@ instance Prelude.Hashable RulesConfigurationType where
 instance Prelude.NFData RulesConfigurationType where
   rnf RulesConfigurationType' {..} = Prelude.rnf rules
 
-instance Core.ToJSON RulesConfigurationType where
+instance Data.ToJSON RulesConfigurationType where
   toJSON RulesConfigurationType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Rules" Core..= rules)]
+          [Prelude.Just ("Rules" Data..= rules)]
       )

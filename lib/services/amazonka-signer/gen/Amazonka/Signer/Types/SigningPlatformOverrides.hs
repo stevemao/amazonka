@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Signer.Types.SigningPlatformOverrides
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Signer.Types.SigningPlatformOverrides where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Signer.Types.ImageFormat
 import Amazonka.Signer.Types.SigningConfigurationOverrides
@@ -83,14 +84,14 @@ signingPlatformOverrides_signingConfiguration = Lens.lens (\SigningPlatformOverr
 signingPlatformOverrides_signingImageFormat :: Lens.Lens' SigningPlatformOverrides (Prelude.Maybe ImageFormat)
 signingPlatformOverrides_signingImageFormat = Lens.lens (\SigningPlatformOverrides' {signingImageFormat} -> signingImageFormat) (\s@SigningPlatformOverrides' {} a -> s {signingImageFormat = a} :: SigningPlatformOverrides)
 
-instance Core.FromJSON SigningPlatformOverrides where
+instance Data.FromJSON SigningPlatformOverrides where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SigningPlatformOverrides"
       ( \x ->
           SigningPlatformOverrides'
-            Prelude.<$> (x Core..:? "signingConfiguration")
-            Prelude.<*> (x Core..:? "signingImageFormat")
+            Prelude.<$> (x Data..:? "signingConfiguration")
+            Prelude.<*> (x Data..:? "signingImageFormat")
       )
 
 instance Prelude.Hashable SigningPlatformOverrides where
@@ -103,13 +104,13 @@ instance Prelude.NFData SigningPlatformOverrides where
     Prelude.rnf signingConfiguration
       `Prelude.seq` Prelude.rnf signingImageFormat
 
-instance Core.ToJSON SigningPlatformOverrides where
+instance Data.ToJSON SigningPlatformOverrides where
   toJSON SigningPlatformOverrides' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("signingConfiguration" Core..=)
+          [ ("signingConfiguration" Data..=)
               Prelude.<$> signingConfiguration,
-            ("signingImageFormat" Core..=)
+            ("signingImageFormat" Data..=)
               Prelude.<$> signingImageFormat
           ]
       )

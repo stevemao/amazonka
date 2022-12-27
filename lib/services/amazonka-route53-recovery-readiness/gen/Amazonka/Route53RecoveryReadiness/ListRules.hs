@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.ListRules
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a collection of rules that are applied as part of Readiness
--- Checks.
+-- Lists all readiness rules, or lists the readiness rules for a specific
+-- resource type.
 --
 -- This operation returns paginated results.
 module Amazonka.Route53RecoveryReadiness.ListRules
@@ -30,23 +30,24 @@ module Amazonka.Route53RecoveryReadiness.ListRules
     newListRules,
 
     -- * Request Lenses
-    listRules_resourceType,
-    listRules_nextToken,
     listRules_maxResults,
+    listRules_nextToken,
+    listRules_resourceType,
 
     -- * Destructuring the Response
     ListRulesResponse (..),
     newListRulesResponse,
 
     -- * Response Lenses
-    listRulesResponse_rules,
     listRulesResponse_nextToken,
+    listRulesResponse_rules,
     listRulesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,13 +55,12 @@ import Amazonka.Route53RecoveryReadiness.Types
 
 -- | /See:/ 'newListRules' smart constructor.
 data ListRules = ListRules'
-  { -- | Filter parameter which specifies the rules to return given a resource
-    -- type.
-    resourceType :: Prelude.Maybe Prelude.Text,
-    -- | A token used to resume pagination from the end of a previous request.
+  { -- | The number of objects that you want to return with this call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that identifies which batch of results you want to see.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Upper bound on number of records to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | The resource type that a readiness rule applies to.
+    resourceType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,33 +72,31 @@ data ListRules = ListRules'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceType', 'listRules_resourceType' - Filter parameter which specifies the rules to return given a resource
--- type.
+-- 'maxResults', 'listRules_maxResults' - The number of objects that you want to return with this call.
 --
--- 'nextToken', 'listRules_nextToken' - A token used to resume pagination from the end of a previous request.
+-- 'nextToken', 'listRules_nextToken' - The token that identifies which batch of results you want to see.
 --
--- 'maxResults', 'listRules_maxResults' - Upper bound on number of records to return.
+-- 'resourceType', 'listRules_resourceType' - The resource type that a readiness rule applies to.
 newListRules ::
   ListRules
 newListRules =
   ListRules'
-    { resourceType = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      resourceType = Prelude.Nothing
     }
 
--- | Filter parameter which specifies the rules to return given a resource
--- type.
-listRules_resourceType :: Lens.Lens' ListRules (Prelude.Maybe Prelude.Text)
-listRules_resourceType = Lens.lens (\ListRules' {resourceType} -> resourceType) (\s@ListRules' {} a -> s {resourceType = a} :: ListRules)
+-- | The number of objects that you want to return with this call.
+listRules_maxResults :: Lens.Lens' ListRules (Prelude.Maybe Prelude.Natural)
+listRules_maxResults = Lens.lens (\ListRules' {maxResults} -> maxResults) (\s@ListRules' {} a -> s {maxResults = a} :: ListRules)
 
--- | A token used to resume pagination from the end of a previous request.
+-- | The token that identifies which batch of results you want to see.
 listRules_nextToken :: Lens.Lens' ListRules (Prelude.Maybe Prelude.Text)
 listRules_nextToken = Lens.lens (\ListRules' {nextToken} -> nextToken) (\s@ListRules' {} a -> s {nextToken = a} :: ListRules)
 
--- | Upper bound on number of records to return.
-listRules_maxResults :: Lens.Lens' ListRules (Prelude.Maybe Prelude.Natural)
-listRules_maxResults = Lens.lens (\ListRules' {maxResults} -> maxResults) (\s@ListRules' {} a -> s {maxResults = a} :: ListRules)
+-- | The resource type that a readiness rule applies to.
+listRules_resourceType :: Lens.Lens' ListRules (Prelude.Maybe Prelude.Text)
+listRules_resourceType = Lens.lens (\ListRules' {resourceType} -> resourceType) (\s@ListRules' {} a -> s {resourceType = a} :: ListRules)
 
 instance Core.AWSPager ListRules where
   page rq rs
@@ -121,57 +119,57 @@ instance Core.AWSPager ListRules where
 
 instance Core.AWSRequest ListRules where
   type AWSResponse ListRules = ListRulesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRulesResponse'
-            Prelude.<$> (x Core..?> "rules" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "rules" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListRules where
   hashWithSalt _salt ListRules' {..} =
-    _salt `Prelude.hashWithSalt` resourceType
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` resourceType
 
 instance Prelude.NFData ListRules where
   rnf ListRules' {..} =
-    Prelude.rnf resourceType
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf resourceType
 
-instance Core.ToHeaders ListRules where
+instance Data.ToHeaders ListRules where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListRules where
+instance Data.ToPath ListRules where
   toPath = Prelude.const "/rules"
 
-instance Core.ToQuery ListRules where
+instance Data.ToQuery ListRules where
   toQuery ListRules' {..} =
     Prelude.mconcat
-      [ "resourceType" Core.=: resourceType,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "resourceType" Data.=: resourceType
       ]
 
 -- | /See:/ 'newListRulesResponse' smart constructor.
 data ListRulesResponse = ListRulesResponse'
-  { -- | A list of rules
-    rules :: Prelude.Maybe [ListRulesOutput],
-    -- | A token that can be used to resume pagination from the end of the
-    -- collection.
+  { -- | The token that identifies which batch of results you want to see.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of readiness rules for a specific resource type.
+    rules :: Prelude.Maybe [ListRulesOutput],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -185,10 +183,9 @@ data ListRulesResponse = ListRulesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'rules', 'listRulesResponse_rules' - A list of rules
+-- 'nextToken', 'listRulesResponse_nextToken' - The token that identifies which batch of results you want to see.
 --
--- 'nextToken', 'listRulesResponse_nextToken' - A token that can be used to resume pagination from the end of the
--- collection.
+-- 'rules', 'listRulesResponse_rules' - A list of readiness rules for a specific resource type.
 --
 -- 'httpStatus', 'listRulesResponse_httpStatus' - The response's http status code.
 newListRulesResponse ::
@@ -197,19 +194,18 @@ newListRulesResponse ::
   ListRulesResponse
 newListRulesResponse pHttpStatus_ =
   ListRulesResponse'
-    { rules = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      rules = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | A list of rules
-listRulesResponse_rules :: Lens.Lens' ListRulesResponse (Prelude.Maybe [ListRulesOutput])
-listRulesResponse_rules = Lens.lens (\ListRulesResponse' {rules} -> rules) (\s@ListRulesResponse' {} a -> s {rules = a} :: ListRulesResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | A token that can be used to resume pagination from the end of the
--- collection.
+-- | The token that identifies which batch of results you want to see.
 listRulesResponse_nextToken :: Lens.Lens' ListRulesResponse (Prelude.Maybe Prelude.Text)
 listRulesResponse_nextToken = Lens.lens (\ListRulesResponse' {nextToken} -> nextToken) (\s@ListRulesResponse' {} a -> s {nextToken = a} :: ListRulesResponse)
+
+-- | A list of readiness rules for a specific resource type.
+listRulesResponse_rules :: Lens.Lens' ListRulesResponse (Prelude.Maybe [ListRulesOutput])
+listRulesResponse_rules = Lens.lens (\ListRulesResponse' {rules} -> rules) (\s@ListRulesResponse' {} a -> s {rules = a} :: ListRulesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listRulesResponse_httpStatus :: Lens.Lens' ListRulesResponse Prelude.Int
@@ -217,6 +213,6 @@ listRulesResponse_httpStatus = Lens.lens (\ListRulesResponse' {httpStatus} -> ht
 
 instance Prelude.NFData ListRulesResponse where
   rnf ListRulesResponse' {..} =
-    Prelude.rnf rules
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf rules
       `Prelude.seq` Prelude.rnf httpStatus

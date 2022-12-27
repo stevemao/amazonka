@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.EncryptionInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Kafka.Types.EncryptionInfo where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types.EncryptionAtRest
 import Amazonka.Kafka.Types.EncryptionInTransit
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Includes encryption-related information, such as the AWS KMS key used
@@ -65,14 +66,14 @@ encryptionInfo_encryptionAtRest = Lens.lens (\EncryptionInfo' {encryptionAtRest}
 encryptionInfo_encryptionInTransit :: Lens.Lens' EncryptionInfo (Prelude.Maybe EncryptionInTransit)
 encryptionInfo_encryptionInTransit = Lens.lens (\EncryptionInfo' {encryptionInTransit} -> encryptionInTransit) (\s@EncryptionInfo' {} a -> s {encryptionInTransit = a} :: EncryptionInfo)
 
-instance Core.FromJSON EncryptionInfo where
+instance Data.FromJSON EncryptionInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EncryptionInfo"
       ( \x ->
           EncryptionInfo'
-            Prelude.<$> (x Core..:? "encryptionAtRest")
-            Prelude.<*> (x Core..:? "encryptionInTransit")
+            Prelude.<$> (x Data..:? "encryptionAtRest")
+            Prelude.<*> (x Data..:? "encryptionInTransit")
       )
 
 instance Prelude.Hashable EncryptionInfo where
@@ -85,13 +86,13 @@ instance Prelude.NFData EncryptionInfo where
     Prelude.rnf encryptionAtRest
       `Prelude.seq` Prelude.rnf encryptionInTransit
 
-instance Core.ToJSON EncryptionInfo where
+instance Data.ToJSON EncryptionInfo where
   toJSON EncryptionInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("encryptionAtRest" Core..=)
+          [ ("encryptionAtRest" Data..=)
               Prelude.<$> encryptionAtRest,
-            ("encryptionInTransit" Core..=)
+            ("encryptionInTransit" Data..=)
               Prelude.<$> encryptionInTransit
           ]
       )

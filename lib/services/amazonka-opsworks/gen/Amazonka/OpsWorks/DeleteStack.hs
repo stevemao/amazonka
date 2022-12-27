@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DeleteStack
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.OpsWorks.DeleteStack
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -79,7 +80,8 @@ deleteStack_stackId = Lens.lens (\DeleteStack' {stackId} -> stackId) (\s@DeleteS
 
 instance Core.AWSRequest DeleteStack where
   type AWSResponse DeleteStack = DeleteStackResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DeleteStackResponse'
 
 instance Prelude.Hashable DeleteStack where
@@ -89,32 +91,32 @@ instance Prelude.Hashable DeleteStack where
 instance Prelude.NFData DeleteStack where
   rnf DeleteStack' {..} = Prelude.rnf stackId
 
-instance Core.ToHeaders DeleteStack where
+instance Data.ToHeaders DeleteStack where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DeleteStack" ::
+              Data.=# ( "OpsWorks_20130218.DeleteStack" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteStack where
+instance Data.ToJSON DeleteStack where
   toJSON DeleteStack' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("StackId" Core..= stackId)]
+          [Prelude.Just ("StackId" Data..= stackId)]
       )
 
-instance Core.ToPath DeleteStack where
+instance Data.ToPath DeleteStack where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteStack where
+instance Data.ToQuery DeleteStack where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteStackResponse' smart constructor.

@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.EKS.DescribeAddonVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the Kubernetes versions that the add-on can be used with.
+-- Describes the versions for an add-on. Information such as the Kubernetes
+-- versions that you can use the add-on with, the @owner@, @publisher@, and
+-- the @type@ of the add-on are returned.
 --
 -- This operation returns paginated results.
 module Amazonka.EKS.DescribeAddonVersions
@@ -30,9 +32,12 @@ module Amazonka.EKS.DescribeAddonVersions
 
     -- * Request Lenses
     describeAddonVersions_addonName,
-    describeAddonVersions_nextToken,
     describeAddonVersions_kubernetesVersion,
     describeAddonVersions_maxResults,
+    describeAddonVersions_nextToken,
+    describeAddonVersions_owners,
+    describeAddonVersions_publishers,
+    describeAddonVersions_types,
 
     -- * Destructuring the Response
     DescribeAddonVersionsResponse (..),
@@ -46,8 +51,9 @@ module Amazonka.EKS.DescribeAddonVersions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,6 +64,10 @@ data DescribeAddonVersions = DescribeAddonVersions'
     -- <https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html ListAddons>
     -- .
     addonName :: Prelude.Maybe Prelude.Text,
+    -- | The Kubernetes versions that you can use the add-on with.
+    kubernetesVersion :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The @nextToken@ value returned from a previous paginated
     -- @DescribeAddonVersionsRequest@ where @maxResults@ was used and the
     -- results exceeded the value of that parameter. Pagination continues from
@@ -67,10 +77,15 @@ data DescribeAddonVersions = DescribeAddonVersions'
     -- to retrieve the next items in a list and not for other programmatic
     -- purposes.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The Kubernetes versions that the add-on can be used with.
-    kubernetesVersion :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | The owner of the add-on. For valid @owners@, don\'t specify a value for
+    -- this property.
+    owners :: Prelude.Maybe [Prelude.Text],
+    -- | The publisher of the add-on. For valid @publishers@, don\'t specify a
+    -- value for this property.
+    publishers :: Prelude.Maybe [Prelude.Text],
+    -- | The type of the add-on. For valid @types@, don\'t specify a value for
+    -- this property.
+    types :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -86,6 +101,10 @@ data DescribeAddonVersions = DescribeAddonVersions'
 -- <https://docs.aws.amazon.com/eks/latest/APIReference/API_ListAddons.html ListAddons>
 -- .
 --
+-- 'kubernetesVersion', 'describeAddonVersions_kubernetesVersion' - The Kubernetes versions that you can use the add-on with.
+--
+-- 'maxResults', 'describeAddonVersions_maxResults' - The maximum number of results to return.
+--
 -- 'nextToken', 'describeAddonVersions_nextToken' - The @nextToken@ value returned from a previous paginated
 -- @DescribeAddonVersionsRequest@ where @maxResults@ was used and the
 -- results exceeded the value of that parameter. Pagination continues from
@@ -95,17 +114,25 @@ data DescribeAddonVersions = DescribeAddonVersions'
 -- to retrieve the next items in a list and not for other programmatic
 -- purposes.
 --
--- 'kubernetesVersion', 'describeAddonVersions_kubernetesVersion' - The Kubernetes versions that the add-on can be used with.
+-- 'owners', 'describeAddonVersions_owners' - The owner of the add-on. For valid @owners@, don\'t specify a value for
+-- this property.
 --
--- 'maxResults', 'describeAddonVersions_maxResults' - The maximum number of results to return.
+-- 'publishers', 'describeAddonVersions_publishers' - The publisher of the add-on. For valid @publishers@, don\'t specify a
+-- value for this property.
+--
+-- 'types', 'describeAddonVersions_types' - The type of the add-on. For valid @types@, don\'t specify a value for
+-- this property.
 newDescribeAddonVersions ::
   DescribeAddonVersions
 newDescribeAddonVersions =
   DescribeAddonVersions'
     { addonName = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       kubernetesVersion = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      owners = Prelude.Nothing,
+      publishers = Prelude.Nothing,
+      types = Prelude.Nothing
     }
 
 -- | The name of the add-on. The name must match one of the names returned by
@@ -113,6 +140,14 @@ newDescribeAddonVersions =
 -- .
 describeAddonVersions_addonName :: Lens.Lens' DescribeAddonVersions (Prelude.Maybe Prelude.Text)
 describeAddonVersions_addonName = Lens.lens (\DescribeAddonVersions' {addonName} -> addonName) (\s@DescribeAddonVersions' {} a -> s {addonName = a} :: DescribeAddonVersions)
+
+-- | The Kubernetes versions that you can use the add-on with.
+describeAddonVersions_kubernetesVersion :: Lens.Lens' DescribeAddonVersions (Prelude.Maybe Prelude.Text)
+describeAddonVersions_kubernetesVersion = Lens.lens (\DescribeAddonVersions' {kubernetesVersion} -> kubernetesVersion) (\s@DescribeAddonVersions' {} a -> s {kubernetesVersion = a} :: DescribeAddonVersions)
+
+-- | The maximum number of results to return.
+describeAddonVersions_maxResults :: Lens.Lens' DescribeAddonVersions (Prelude.Maybe Prelude.Natural)
+describeAddonVersions_maxResults = Lens.lens (\DescribeAddonVersions' {maxResults} -> maxResults) (\s@DescribeAddonVersions' {} a -> s {maxResults = a} :: DescribeAddonVersions)
 
 -- | The @nextToken@ value returned from a previous paginated
 -- @DescribeAddonVersionsRequest@ where @maxResults@ was used and the
@@ -125,13 +160,20 @@ describeAddonVersions_addonName = Lens.lens (\DescribeAddonVersions' {addonName}
 describeAddonVersions_nextToken :: Lens.Lens' DescribeAddonVersions (Prelude.Maybe Prelude.Text)
 describeAddonVersions_nextToken = Lens.lens (\DescribeAddonVersions' {nextToken} -> nextToken) (\s@DescribeAddonVersions' {} a -> s {nextToken = a} :: DescribeAddonVersions)
 
--- | The Kubernetes versions that the add-on can be used with.
-describeAddonVersions_kubernetesVersion :: Lens.Lens' DescribeAddonVersions (Prelude.Maybe Prelude.Text)
-describeAddonVersions_kubernetesVersion = Lens.lens (\DescribeAddonVersions' {kubernetesVersion} -> kubernetesVersion) (\s@DescribeAddonVersions' {} a -> s {kubernetesVersion = a} :: DescribeAddonVersions)
+-- | The owner of the add-on. For valid @owners@, don\'t specify a value for
+-- this property.
+describeAddonVersions_owners :: Lens.Lens' DescribeAddonVersions (Prelude.Maybe [Prelude.Text])
+describeAddonVersions_owners = Lens.lens (\DescribeAddonVersions' {owners} -> owners) (\s@DescribeAddonVersions' {} a -> s {owners = a} :: DescribeAddonVersions) Prelude.. Lens.mapping Lens.coerced
 
--- | The maximum number of results to return.
-describeAddonVersions_maxResults :: Lens.Lens' DescribeAddonVersions (Prelude.Maybe Prelude.Natural)
-describeAddonVersions_maxResults = Lens.lens (\DescribeAddonVersions' {maxResults} -> maxResults) (\s@DescribeAddonVersions' {} a -> s {maxResults = a} :: DescribeAddonVersions)
+-- | The publisher of the add-on. For valid @publishers@, don\'t specify a
+-- value for this property.
+describeAddonVersions_publishers :: Lens.Lens' DescribeAddonVersions (Prelude.Maybe [Prelude.Text])
+describeAddonVersions_publishers = Lens.lens (\DescribeAddonVersions' {publishers} -> publishers) (\s@DescribeAddonVersions' {} a -> s {publishers = a} :: DescribeAddonVersions) Prelude.. Lens.mapping Lens.coerced
+
+-- | The type of the add-on. For valid @types@, don\'t specify a value for
+-- this property.
+describeAddonVersions_types :: Lens.Lens' DescribeAddonVersions (Prelude.Maybe [Prelude.Text])
+describeAddonVersions_types = Lens.lens (\DescribeAddonVersions' {types} -> types) (\s@DescribeAddonVersions' {} a -> s {types = a} :: DescribeAddonVersions) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSPager DescribeAddonVersions where
   page rq rs
@@ -159,56 +201,73 @@ instance Core.AWSRequest DescribeAddonVersions where
   type
     AWSResponse DescribeAddonVersions =
       DescribeAddonVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAddonVersionsResponse'
-            Prelude.<$> (x Core..?> "addons" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "addons" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeAddonVersions where
   hashWithSalt _salt DescribeAddonVersions' {..} =
     _salt `Prelude.hashWithSalt` addonName
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` kubernetesVersion
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` owners
+      `Prelude.hashWithSalt` publishers
+      `Prelude.hashWithSalt` types
 
 instance Prelude.NFData DescribeAddonVersions where
   rnf DescribeAddonVersions' {..} =
     Prelude.rnf addonName
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf kubernetesVersion
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf owners
+      `Prelude.seq` Prelude.rnf publishers
+      `Prelude.seq` Prelude.rnf types
 
-instance Core.ToHeaders DescribeAddonVersions where
+instance Data.ToHeaders DescribeAddonVersions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeAddonVersions where
+instance Data.ToPath DescribeAddonVersions where
   toPath = Prelude.const "/addons/supported-versions"
 
-instance Core.ToQuery DescribeAddonVersions where
+instance Data.ToQuery DescribeAddonVersions where
   toQuery DescribeAddonVersions' {..} =
     Prelude.mconcat
-      [ "addonName" Core.=: addonName,
-        "nextToken" Core.=: nextToken,
-        "kubernetesVersion" Core.=: kubernetesVersion,
-        "maxResults" Core.=: maxResults
+      [ "addonName" Data.=: addonName,
+        "kubernetesVersion" Data.=: kubernetesVersion,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "owners"
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> owners),
+        "publishers"
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> publishers),
+        "types"
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> types)
       ]
 
 -- | /See:/ 'newDescribeAddonVersionsResponse' smart constructor.
 data DescribeAddonVersionsResponse = DescribeAddonVersionsResponse'
-  { -- | The list of available versions with Kubernetes version compatibility.
+  { -- | The list of available versions with Kubernetes version compatibility and
+    -- other properties.
     addons :: Prelude.Maybe [AddonInfo],
     -- | The @nextToken@ value returned from a previous paginated
     -- @DescribeAddonVersionsResponse@ where @maxResults@ was used and the
@@ -232,7 +291,8 @@ data DescribeAddonVersionsResponse = DescribeAddonVersionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'addons', 'describeAddonVersionsResponse_addons' - The list of available versions with Kubernetes version compatibility.
+-- 'addons', 'describeAddonVersionsResponse_addons' - The list of available versions with Kubernetes version compatibility and
+-- other properties.
 --
 -- 'nextToken', 'describeAddonVersionsResponse_nextToken' - The @nextToken@ value returned from a previous paginated
 -- @DescribeAddonVersionsResponse@ where @maxResults@ was used and the
@@ -256,7 +316,8 @@ newDescribeAddonVersionsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The list of available versions with Kubernetes version compatibility.
+-- | The list of available versions with Kubernetes version compatibility and
+-- other properties.
 describeAddonVersionsResponse_addons :: Lens.Lens' DescribeAddonVersionsResponse (Prelude.Maybe [AddonInfo])
 describeAddonVersionsResponse_addons = Lens.lens (\DescribeAddonVersionsResponse' {addons} -> addons) (\s@DescribeAddonVersionsResponse' {} a -> s {addons = a} :: DescribeAddonVersionsResponse) Prelude.. Lens.mapping Lens.coerced
 

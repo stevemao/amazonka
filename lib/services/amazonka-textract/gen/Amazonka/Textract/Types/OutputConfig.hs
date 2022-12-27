@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Textract.Types.OutputConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Textract.Types.OutputConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Sets whether or not your output will go to a user created bucket. Used
@@ -29,8 +30,8 @@ import qualified Amazonka.Prelude as Prelude
 -- @OutputConfig@ is an optional parameter which lets you adjust where your
 -- output will be placed. By default, Amazon Textract will store the
 -- results internally and can only be accessed by the Get API operations.
--- With OutputConfig enabled, you can set the name of the bucket the output
--- will be sent to and the file prefix of the results where you can
+-- With @OutputConfig@ enabled, you can set the name of the bucket the
+-- output will be sent to the file prefix of the results where you can
 -- download your results. Additionally, you can set the @KMSKeyID@
 -- parameter to a customer master key (CMK) to encrypt your output. Without
 -- this parameter set Amazon Textract will encrypt server-side using the
@@ -98,11 +99,11 @@ instance Prelude.NFData OutputConfig where
     Prelude.rnf s3Prefix
       `Prelude.seq` Prelude.rnf s3Bucket
 
-instance Core.ToJSON OutputConfig where
+instance Data.ToJSON OutputConfig where
   toJSON OutputConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("S3Prefix" Core..=) Prelude.<$> s3Prefix,
-            Prelude.Just ("S3Bucket" Core..= s3Bucket)
+          [ ("S3Prefix" Data..=) Prelude.<$> s3Prefix,
+            Prelude.Just ("S3Bucket" Data..= s3Bucket)
           ]
       )

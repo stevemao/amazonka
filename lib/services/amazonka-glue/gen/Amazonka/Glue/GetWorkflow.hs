@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetWorkflow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.Glue.GetWorkflow
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,12 +91,13 @@ getWorkflow_name = Lens.lens (\GetWorkflow' {name} -> name) (\s@GetWorkflow' {} 
 
 instance Core.AWSRequest GetWorkflow where
   type AWSResponse GetWorkflow = GetWorkflowResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetWorkflowResponse'
-            Prelude.<$> (x Core..?> "Workflow")
+            Prelude.<$> (x Data..?> "Workflow")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,32 +111,32 @@ instance Prelude.NFData GetWorkflow where
     Prelude.rnf includeGraph
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders GetWorkflow where
+instance Data.ToHeaders GetWorkflow where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetWorkflow" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetWorkflow" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetWorkflow where
+instance Data.ToJSON GetWorkflow where
   toJSON GetWorkflow' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IncludeGraph" Core..=) Prelude.<$> includeGraph,
-            Prelude.Just ("Name" Core..= name)
+          [ ("IncludeGraph" Data..=) Prelude.<$> includeGraph,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath GetWorkflow where
+instance Data.ToPath GetWorkflow where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetWorkflow where
+instance Data.ToQuery GetWorkflow where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetWorkflowResponse' smart constructor.

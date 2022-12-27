@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DAX.Types.Event
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DAX.Types.Event where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DAX.Types.SourceType
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a single occurrence of something interesting within the
@@ -30,16 +31,16 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEvent' smart constructor.
 data Event = Event'
-  { -- | The source of the event. For example, if the event occurred at the node
+  { -- | The date and time when the event occurred.
+    date :: Prelude.Maybe Data.POSIX,
+    -- | A user-defined message associated with the event.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The source of the event. For example, if the event occurred at the node
     -- level, the source would be the node ID.
     sourceName :: Prelude.Maybe Prelude.Text,
     -- | Specifies the origin of this event - a cluster, a parameter group, a
     -- node ID, etc.
-    sourceType :: Prelude.Maybe SourceType,
-    -- | The date and time when the event occurred.
-    date :: Prelude.Maybe Core.POSIX,
-    -- | A user-defined message associated with the event.
-    message :: Prelude.Maybe Prelude.Text
+    sourceType :: Prelude.Maybe SourceType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,24 +52,32 @@ data Event = Event'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'date', 'event_date' - The date and time when the event occurred.
+--
+-- 'message', 'event_message' - A user-defined message associated with the event.
+--
 -- 'sourceName', 'event_sourceName' - The source of the event. For example, if the event occurred at the node
 -- level, the source would be the node ID.
 --
 -- 'sourceType', 'event_sourceType' - Specifies the origin of this event - a cluster, a parameter group, a
 -- node ID, etc.
---
--- 'date', 'event_date' - The date and time when the event occurred.
---
--- 'message', 'event_message' - A user-defined message associated with the event.
 newEvent ::
   Event
 newEvent =
   Event'
-    { sourceName = Prelude.Nothing,
-      sourceType = Prelude.Nothing,
-      date = Prelude.Nothing,
-      message = Prelude.Nothing
+    { date = Prelude.Nothing,
+      message = Prelude.Nothing,
+      sourceName = Prelude.Nothing,
+      sourceType = Prelude.Nothing
     }
+
+-- | The date and time when the event occurred.
+event_date :: Lens.Lens' Event (Prelude.Maybe Prelude.UTCTime)
+event_date = Lens.lens (\Event' {date} -> date) (\s@Event' {} a -> s {date = a} :: Event) Prelude.. Lens.mapping Data._Time
+
+-- | A user-defined message associated with the event.
+event_message :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
+event_message = Lens.lens (\Event' {message} -> message) (\s@Event' {} a -> s {message = a} :: Event)
 
 -- | The source of the event. For example, if the event occurred at the node
 -- level, the source would be the node ID.
@@ -80,36 +89,28 @@ event_sourceName = Lens.lens (\Event' {sourceName} -> sourceName) (\s@Event' {} 
 event_sourceType :: Lens.Lens' Event (Prelude.Maybe SourceType)
 event_sourceType = Lens.lens (\Event' {sourceType} -> sourceType) (\s@Event' {} a -> s {sourceType = a} :: Event)
 
--- | The date and time when the event occurred.
-event_date :: Lens.Lens' Event (Prelude.Maybe Prelude.UTCTime)
-event_date = Lens.lens (\Event' {date} -> date) (\s@Event' {} a -> s {date = a} :: Event) Prelude.. Lens.mapping Core._Time
-
--- | A user-defined message associated with the event.
-event_message :: Lens.Lens' Event (Prelude.Maybe Prelude.Text)
-event_message = Lens.lens (\Event' {message} -> message) (\s@Event' {} a -> s {message = a} :: Event)
-
-instance Core.FromJSON Event where
+instance Data.FromJSON Event where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Event"
       ( \x ->
           Event'
-            Prelude.<$> (x Core..:? "SourceName")
-            Prelude.<*> (x Core..:? "SourceType")
-            Prelude.<*> (x Core..:? "Date")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Date")
+            Prelude.<*> (x Data..:? "Message")
+            Prelude.<*> (x Data..:? "SourceName")
+            Prelude.<*> (x Data..:? "SourceType")
       )
 
 instance Prelude.Hashable Event where
   hashWithSalt _salt Event' {..} =
-    _salt `Prelude.hashWithSalt` sourceName
-      `Prelude.hashWithSalt` sourceType
-      `Prelude.hashWithSalt` date
+    _salt `Prelude.hashWithSalt` date
       `Prelude.hashWithSalt` message
+      `Prelude.hashWithSalt` sourceName
+      `Prelude.hashWithSalt` sourceType
 
 instance Prelude.NFData Event where
   rnf Event' {..} =
-    Prelude.rnf sourceName
-      `Prelude.seq` Prelude.rnf sourceType
-      `Prelude.seq` Prelude.rnf date
+    Prelude.rnf date
       `Prelude.seq` Prelude.rnf message
+      `Prelude.seq` Prelude.rnf sourceName
+      `Prelude.seq` Prelude.rnf sourceType

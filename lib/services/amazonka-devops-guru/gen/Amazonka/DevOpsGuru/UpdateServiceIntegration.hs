@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.UpdateServiceIntegration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,8 +22,8 @@
 --
 -- Enables or disables integration with a service that can be integrated
 -- with DevOps Guru. The one service that can be integrated with DevOps
--- Guru is AWS Systems Manager, which can be used to create an OpsItem for
--- each generated insight.
+-- Guru is Amazon Web Services Systems Manager, which can be used to create
+-- an OpsItem for each generated insight.
 module Amazonka.DevOpsGuru.UpdateServiceIntegration
   ( -- * Creating a Request
     UpdateServiceIntegration (..),
@@ -42,8 +42,9 @@ module Amazonka.DevOpsGuru.UpdateServiceIntegration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,7 +89,8 @@ instance Core.AWSRequest UpdateServiceIntegration where
   type
     AWSResponse UpdateServiceIntegration =
       UpdateServiceIntegrationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -104,30 +106,30 @@ instance Prelude.NFData UpdateServiceIntegration where
   rnf UpdateServiceIntegration' {..} =
     Prelude.rnf serviceIntegration
 
-instance Core.ToHeaders UpdateServiceIntegration where
+instance Data.ToHeaders UpdateServiceIntegration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateServiceIntegration where
+instance Data.ToJSON UpdateServiceIntegration where
   toJSON UpdateServiceIntegration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ServiceIntegration" Core..= serviceIntegration)
+              ("ServiceIntegration" Data..= serviceIntegration)
           ]
       )
 
-instance Core.ToPath UpdateServiceIntegration where
+instance Data.ToPath UpdateServiceIntegration where
   toPath = Prelude.const "/service-integrations"
 
-instance Core.ToQuery UpdateServiceIntegration where
+instance Data.ToQuery UpdateServiceIntegration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateServiceIntegrationResponse' smart constructor.

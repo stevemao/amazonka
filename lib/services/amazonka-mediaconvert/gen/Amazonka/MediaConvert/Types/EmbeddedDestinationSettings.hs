@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.EmbeddedDestinationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.EmbeddedDestinationSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Settings related to CEA\/EIA-608 and CEA\/EIA-708 (also called embedded
@@ -113,14 +114,14 @@ embeddedDestinationSettings_destination608ChannelNumber = Lens.lens (\EmbeddedDe
 embeddedDestinationSettings_destination708ServiceNumber :: Lens.Lens' EmbeddedDestinationSettings (Prelude.Maybe Prelude.Natural)
 embeddedDestinationSettings_destination708ServiceNumber = Lens.lens (\EmbeddedDestinationSettings' {destination708ServiceNumber} -> destination708ServiceNumber) (\s@EmbeddedDestinationSettings' {} a -> s {destination708ServiceNumber = a} :: EmbeddedDestinationSettings)
 
-instance Core.FromJSON EmbeddedDestinationSettings where
+instance Data.FromJSON EmbeddedDestinationSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EmbeddedDestinationSettings"
       ( \x ->
           EmbeddedDestinationSettings'
-            Prelude.<$> (x Core..:? "destination608ChannelNumber")
-            Prelude.<*> (x Core..:? "destination708ServiceNumber")
+            Prelude.<$> (x Data..:? "destination608ChannelNumber")
+            Prelude.<*> (x Data..:? "destination708ServiceNumber")
       )
 
 instance Prelude.Hashable EmbeddedDestinationSettings where
@@ -134,13 +135,13 @@ instance Prelude.NFData EmbeddedDestinationSettings where
     Prelude.rnf destination608ChannelNumber
       `Prelude.seq` Prelude.rnf destination708ServiceNumber
 
-instance Core.ToJSON EmbeddedDestinationSettings where
+instance Data.ToJSON EmbeddedDestinationSettings where
   toJSON EmbeddedDestinationSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("destination608ChannelNumber" Core..=)
+          [ ("destination608ChannelNumber" Data..=)
               Prelude.<$> destination608ChannelNumber,
-            ("destination708ServiceNumber" Core..=)
+            ("destination708ServiceNumber" Data..=)
               Prelude.<$> destination708ServiceNumber
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.DisableInsightRules
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CloudWatch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,14 +83,15 @@ instance Core.AWSRequest DisableInsightRules where
   type
     AWSResponse DisableInsightRules =
       DisableInsightRulesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DisableInsightRulesResult"
       ( \s h x ->
           DisableInsightRulesResponse'
-            Prelude.<$> ( x Core..@? "Failures" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "Failures" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -101,21 +103,21 @@ instance Prelude.Hashable DisableInsightRules where
 instance Prelude.NFData DisableInsightRules where
   rnf DisableInsightRules' {..} = Prelude.rnf ruleNames
 
-instance Core.ToHeaders DisableInsightRules where
+instance Data.ToHeaders DisableInsightRules where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DisableInsightRules where
+instance Data.ToPath DisableInsightRules where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisableInsightRules where
+instance Data.ToQuery DisableInsightRules where
   toQuery DisableInsightRules' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DisableInsightRules" :: Prelude.ByteString),
+          Data.=: ("DisableInsightRules" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-08-01" :: Prelude.ByteString),
+          Data.=: ("2010-08-01" :: Prelude.ByteString),
         "RuleNames"
-          Core.=: Core.toQueryList "member" ruleNames
+          Data.=: Data.toQueryList "member" ruleNames
       ]
 
 -- | /See:/ 'newDisableInsightRulesResponse' smart constructor.

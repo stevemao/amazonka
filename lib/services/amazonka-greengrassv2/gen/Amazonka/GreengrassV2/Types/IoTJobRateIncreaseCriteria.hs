@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.Types.IoTJobRateIncreaseCriteria
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GreengrassV2.Types.IoTJobRateIncreaseCriteria where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about criteria to meet before a job increases its
@@ -70,14 +71,14 @@ ioTJobRateIncreaseCriteria_numberOfNotifiedThings = Lens.lens (\IoTJobRateIncrea
 ioTJobRateIncreaseCriteria_numberOfSucceededThings :: Lens.Lens' IoTJobRateIncreaseCriteria (Prelude.Maybe Prelude.Natural)
 ioTJobRateIncreaseCriteria_numberOfSucceededThings = Lens.lens (\IoTJobRateIncreaseCriteria' {numberOfSucceededThings} -> numberOfSucceededThings) (\s@IoTJobRateIncreaseCriteria' {} a -> s {numberOfSucceededThings = a} :: IoTJobRateIncreaseCriteria)
 
-instance Core.FromJSON IoTJobRateIncreaseCriteria where
+instance Data.FromJSON IoTJobRateIncreaseCriteria where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IoTJobRateIncreaseCriteria"
       ( \x ->
           IoTJobRateIncreaseCriteria'
-            Prelude.<$> (x Core..:? "numberOfNotifiedThings")
-            Prelude.<*> (x Core..:? "numberOfSucceededThings")
+            Prelude.<$> (x Data..:? "numberOfNotifiedThings")
+            Prelude.<*> (x Data..:? "numberOfSucceededThings")
       )
 
 instance Prelude.Hashable IoTJobRateIncreaseCriteria where
@@ -90,13 +91,13 @@ instance Prelude.NFData IoTJobRateIncreaseCriteria where
     Prelude.rnf numberOfNotifiedThings
       `Prelude.seq` Prelude.rnf numberOfSucceededThings
 
-instance Core.ToJSON IoTJobRateIncreaseCriteria where
+instance Data.ToJSON IoTJobRateIncreaseCriteria where
   toJSON IoTJobRateIncreaseCriteria' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("numberOfNotifiedThings" Core..=)
+          [ ("numberOfNotifiedThings" Data..=)
               Prelude.<$> numberOfNotifiedThings,
-            ("numberOfSucceededThings" Core..=)
+            ("numberOfSucceededThings" Data..=)
               Prelude.<$> numberOfSucceededThings
           ]
       )

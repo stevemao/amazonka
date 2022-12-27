@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.CreateGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.XRay.CreateGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,7 +59,7 @@ data CreateGroup = CreateGroup'
     -- -   The InsightsEnabled boolean can be set to true to enable insights
     --     for the new group or false to disable insights for the new group.
     --
-    -- -   The NotifcationsEnabled boolean can be set to true to enable
+    -- -   The NotificationsEnabled boolean can be set to true to enable
     --     insights notifications for the new group. Notifications may only be
     --     enabled on a group with InsightsEnabled set to true.
     insightsConfiguration :: Prelude.Maybe InsightsConfiguration,
@@ -104,7 +105,7 @@ data CreateGroup = CreateGroup'
 -- -   The InsightsEnabled boolean can be set to true to enable insights
 --     for the new group or false to disable insights for the new group.
 --
--- -   The NotifcationsEnabled boolean can be set to true to enable
+-- -   The NotificationsEnabled boolean can be set to true to enable
 --     insights notifications for the new group. Notifications may only be
 --     enabled on a group with InsightsEnabled set to true.
 --
@@ -152,7 +153,7 @@ createGroup_filterExpression = Lens.lens (\CreateGroup' {filterExpression} -> fi
 -- -   The InsightsEnabled boolean can be set to true to enable insights
 --     for the new group or false to disable insights for the new group.
 --
--- -   The NotifcationsEnabled boolean can be set to true to enable
+-- -   The NotificationsEnabled boolean can be set to true to enable
 --     insights notifications for the new group. Notifications may only be
 --     enabled on a group with InsightsEnabled set to true.
 createGroup_insightsConfiguration :: Lens.Lens' CreateGroup (Prelude.Maybe InsightsConfiguration)
@@ -188,12 +189,13 @@ createGroup_groupName = Lens.lens (\CreateGroup' {groupName} -> groupName) (\s@C
 
 instance Core.AWSRequest CreateGroup where
   type AWSResponse CreateGroup = CreateGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateGroupResponse'
-            Prelude.<$> (x Core..?> "Group")
+            Prelude.<$> (x Data..?> "Group")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -211,26 +213,26 @@ instance Prelude.NFData CreateGroup where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf groupName
 
-instance Core.ToHeaders CreateGroup where
+instance Data.ToHeaders CreateGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateGroup where
+instance Data.ToJSON CreateGroup where
   toJSON CreateGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FilterExpression" Core..=)
+          [ ("FilterExpression" Data..=)
               Prelude.<$> filterExpression,
-            ("InsightsConfiguration" Core..=)
+            ("InsightsConfiguration" Data..=)
               Prelude.<$> insightsConfiguration,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("GroupName" Core..= groupName)
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("GroupName" Data..= groupName)
           ]
       )
 
-instance Core.ToPath CreateGroup where
+instance Data.ToPath CreateGroup where
   toPath = Prelude.const "/CreateGroup"
 
-instance Core.ToQuery CreateGroup where
+instance Data.ToQuery CreateGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateGroupResponse' smart constructor.

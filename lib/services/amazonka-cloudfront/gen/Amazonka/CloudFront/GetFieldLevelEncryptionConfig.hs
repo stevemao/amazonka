@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.GetFieldLevelEncryptionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,13 +82,14 @@ instance
   type
     AWSResponse GetFieldLevelEncryptionConfig =
       GetFieldLevelEncryptionConfigResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetFieldLevelEncryptionConfigResponse'
-            Prelude.<$> (h Core..#? "ETag")
-            Prelude.<*> (Core.parseXML x)
+            Prelude.<$> (h Data..#? "ETag")
+            Prelude.<*> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -102,18 +104,18 @@ instance Prelude.NFData GetFieldLevelEncryptionConfig where
   rnf GetFieldLevelEncryptionConfig' {..} =
     Prelude.rnf id
 
-instance Core.ToHeaders GetFieldLevelEncryptionConfig where
+instance Data.ToHeaders GetFieldLevelEncryptionConfig where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetFieldLevelEncryptionConfig where
+instance Data.ToPath GetFieldLevelEncryptionConfig where
   toPath GetFieldLevelEncryptionConfig' {..} =
     Prelude.mconcat
       [ "/2020-05-31/field-level-encryption/",
-        Core.toBS id,
+        Data.toBS id,
         "/config"
       ]
 
-instance Core.ToQuery GetFieldLevelEncryptionConfig where
+instance Data.ToQuery GetFieldLevelEncryptionConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetFieldLevelEncryptionConfigResponse' smart constructor.

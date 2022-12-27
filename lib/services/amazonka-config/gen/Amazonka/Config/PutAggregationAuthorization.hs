@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.PutAggregationAuthorization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,12 +106,13 @@ instance Core.AWSRequest PutAggregationAuthorization where
   type
     AWSResponse PutAggregationAuthorization =
       PutAggregationAuthorizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutAggregationAuthorizationResponse'
-            Prelude.<$> (x Core..?> "AggregationAuthorization")
+            Prelude.<$> (x Data..?> "AggregationAuthorization")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,37 +128,37 @@ instance Prelude.NFData PutAggregationAuthorization where
       `Prelude.seq` Prelude.rnf authorizedAccountId
       `Prelude.seq` Prelude.rnf authorizedAwsRegion
 
-instance Core.ToHeaders PutAggregationAuthorization where
+instance Data.ToHeaders PutAggregationAuthorization where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.PutAggregationAuthorization" ::
+              Data.=# ( "StarlingDoveService.PutAggregationAuthorization" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutAggregationAuthorization where
+instance Data.ToJSON PutAggregationAuthorization where
   toJSON PutAggregationAuthorization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("AuthorizedAccountId" Core..= authorizedAccountId),
+              ("AuthorizedAccountId" Data..= authorizedAccountId),
             Prelude.Just
-              ("AuthorizedAwsRegion" Core..= authorizedAwsRegion)
+              ("AuthorizedAwsRegion" Data..= authorizedAwsRegion)
           ]
       )
 
-instance Core.ToPath PutAggregationAuthorization where
+instance Data.ToPath PutAggregationAuthorization where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutAggregationAuthorization where
+instance Data.ToQuery PutAggregationAuthorization where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutAggregationAuthorizationResponse' smart constructor.

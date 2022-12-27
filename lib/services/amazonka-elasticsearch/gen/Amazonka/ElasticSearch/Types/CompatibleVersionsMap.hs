@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.CompatibleVersionsMap
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticSearch.Types.CompatibleVersionsMap where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A map from an @ ElasticsearchVersion @ to a list of compatible
@@ -62,15 +63,15 @@ compatibleVersionsMap_sourceVersion = Lens.lens (\CompatibleVersionsMap' {source
 compatibleVersionsMap_targetVersions :: Lens.Lens' CompatibleVersionsMap (Prelude.Maybe [Prelude.Text])
 compatibleVersionsMap_targetVersions = Lens.lens (\CompatibleVersionsMap' {targetVersions} -> targetVersions) (\s@CompatibleVersionsMap' {} a -> s {targetVersions = a} :: CompatibleVersionsMap) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON CompatibleVersionsMap where
+instance Data.FromJSON CompatibleVersionsMap where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CompatibleVersionsMap"
       ( \x ->
           CompatibleVersionsMap'
-            Prelude.<$> (x Core..:? "SourceVersion")
-            Prelude.<*> ( x Core..:? "TargetVersions"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "SourceVersion")
+            Prelude.<*> ( x Data..:? "TargetVersions"
+                            Data..!= Prelude.mempty
                         )
       )
 

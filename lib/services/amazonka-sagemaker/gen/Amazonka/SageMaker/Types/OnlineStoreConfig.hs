@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.OnlineStoreConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.OnlineStoreConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.OnlineStoreSecurityConfig
 
@@ -31,15 +32,15 @@ import Amazonka.SageMaker.Types.OnlineStoreSecurityConfig
 --
 -- /See:/ 'newOnlineStoreConfig' smart constructor.
 data OnlineStoreConfig = OnlineStoreConfig'
-  { -- | Use to specify KMS Key ID (@KMSKeyId@) for at-rest encryption of your
-    -- @OnlineStore@.
-    securityConfig :: Prelude.Maybe OnlineStoreSecurityConfig,
-    -- | Turn @OnlineStore@ off by specifying @False@ for the @EnableOnlineStore@
+  { -- | Turn @OnlineStore@ off by specifying @False@ for the @EnableOnlineStore@
     -- flag. Turn @OnlineStore@ on by specifying @True@ for the
     -- @EnableOnlineStore@ flag.
     --
     -- The default value is @False@.
-    enableOnlineStore :: Prelude.Maybe Prelude.Bool
+    enableOnlineStore :: Prelude.Maybe Prelude.Bool,
+    -- | Use to specify KMS Key ID (@KMSKeyId@) for at-rest encryption of your
+    -- @OnlineStore@.
+    securityConfig :: Prelude.Maybe OnlineStoreSecurityConfig
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,27 +52,22 @@ data OnlineStoreConfig = OnlineStoreConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'securityConfig', 'onlineStoreConfig_securityConfig' - Use to specify KMS Key ID (@KMSKeyId@) for at-rest encryption of your
--- @OnlineStore@.
---
 -- 'enableOnlineStore', 'onlineStoreConfig_enableOnlineStore' - Turn @OnlineStore@ off by specifying @False@ for the @EnableOnlineStore@
 -- flag. Turn @OnlineStore@ on by specifying @True@ for the
 -- @EnableOnlineStore@ flag.
 --
 -- The default value is @False@.
+--
+-- 'securityConfig', 'onlineStoreConfig_securityConfig' - Use to specify KMS Key ID (@KMSKeyId@) for at-rest encryption of your
+-- @OnlineStore@.
 newOnlineStoreConfig ::
   OnlineStoreConfig
 newOnlineStoreConfig =
   OnlineStoreConfig'
-    { securityConfig =
+    { enableOnlineStore =
         Prelude.Nothing,
-      enableOnlineStore = Prelude.Nothing
+      securityConfig = Prelude.Nothing
     }
-
--- | Use to specify KMS Key ID (@KMSKeyId@) for at-rest encryption of your
--- @OnlineStore@.
-onlineStoreConfig_securityConfig :: Lens.Lens' OnlineStoreConfig (Prelude.Maybe OnlineStoreSecurityConfig)
-onlineStoreConfig_securityConfig = Lens.lens (\OnlineStoreConfig' {securityConfig} -> securityConfig) (\s@OnlineStoreConfig' {} a -> s {securityConfig = a} :: OnlineStoreConfig)
 
 -- | Turn @OnlineStore@ off by specifying @False@ for the @EnableOnlineStore@
 -- flag. Turn @OnlineStore@ on by specifying @True@ for the
@@ -81,33 +77,38 @@ onlineStoreConfig_securityConfig = Lens.lens (\OnlineStoreConfig' {securityConfi
 onlineStoreConfig_enableOnlineStore :: Lens.Lens' OnlineStoreConfig (Prelude.Maybe Prelude.Bool)
 onlineStoreConfig_enableOnlineStore = Lens.lens (\OnlineStoreConfig' {enableOnlineStore} -> enableOnlineStore) (\s@OnlineStoreConfig' {} a -> s {enableOnlineStore = a} :: OnlineStoreConfig)
 
-instance Core.FromJSON OnlineStoreConfig where
+-- | Use to specify KMS Key ID (@KMSKeyId@) for at-rest encryption of your
+-- @OnlineStore@.
+onlineStoreConfig_securityConfig :: Lens.Lens' OnlineStoreConfig (Prelude.Maybe OnlineStoreSecurityConfig)
+onlineStoreConfig_securityConfig = Lens.lens (\OnlineStoreConfig' {securityConfig} -> securityConfig) (\s@OnlineStoreConfig' {} a -> s {securityConfig = a} :: OnlineStoreConfig)
+
+instance Data.FromJSON OnlineStoreConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OnlineStoreConfig"
       ( \x ->
           OnlineStoreConfig'
-            Prelude.<$> (x Core..:? "SecurityConfig")
-            Prelude.<*> (x Core..:? "EnableOnlineStore")
+            Prelude.<$> (x Data..:? "EnableOnlineStore")
+            Prelude.<*> (x Data..:? "SecurityConfig")
       )
 
 instance Prelude.Hashable OnlineStoreConfig where
   hashWithSalt _salt OnlineStoreConfig' {..} =
-    _salt `Prelude.hashWithSalt` securityConfig
-      `Prelude.hashWithSalt` enableOnlineStore
+    _salt `Prelude.hashWithSalt` enableOnlineStore
+      `Prelude.hashWithSalt` securityConfig
 
 instance Prelude.NFData OnlineStoreConfig where
   rnf OnlineStoreConfig' {..} =
-    Prelude.rnf securityConfig
-      `Prelude.seq` Prelude.rnf enableOnlineStore
+    Prelude.rnf enableOnlineStore
+      `Prelude.seq` Prelude.rnf securityConfig
 
-instance Core.ToJSON OnlineStoreConfig where
+instance Data.ToJSON OnlineStoreConfig where
   toJSON OnlineStoreConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SecurityConfig" Core..=)
-              Prelude.<$> securityConfig,
-            ("EnableOnlineStore" Core..=)
-              Prelude.<$> enableOnlineStore
+          [ ("EnableOnlineStore" Data..=)
+              Prelude.<$> enableOnlineStore,
+            ("SecurityConfig" Data..=)
+              Prelude.<$> securityConfig
           ]
       )

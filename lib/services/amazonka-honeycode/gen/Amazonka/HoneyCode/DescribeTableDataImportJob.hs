@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.DescribeTableDataImportJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,6 +37,7 @@ module Amazonka.HoneyCode.DescribeTableDataImportJob
     newDescribeTableDataImportJobResponse,
 
     -- * Response Lenses
+    describeTableDataImportJobResponse_errorCode,
     describeTableDataImportJobResponse_httpStatus,
     describeTableDataImportJobResponse_jobStatus,
     describeTableDataImportJobResponse_message,
@@ -45,8 +46,9 @@ module Amazonka.HoneyCode.DescribeTableDataImportJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HoneyCode.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -140,15 +142,17 @@ instance Core.AWSRequest DescribeTableDataImportJob where
   type
     AWSResponse DescribeTableDataImportJob =
       DescribeTableDataImportJobResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTableDataImportJobResponse'
-            Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "jobStatus")
-            Prelude.<*> (x Core..:> "message")
-            Prelude.<*> (x Core..:> "jobMetadata")
+            Prelude.<$> (x Data..?> "errorCode")
+            Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Data..:> "jobStatus")
+            Prelude.<*> (x Data..:> "message")
+            Prelude.<*> (x Data..:> "jobMetadata")
       )
 
 instance Prelude.Hashable DescribeTableDataImportJob where
@@ -163,34 +167,37 @@ instance Prelude.NFData DescribeTableDataImportJob where
       `Prelude.seq` Prelude.rnf tableId
       `Prelude.seq` Prelude.rnf jobId
 
-instance Core.ToHeaders DescribeTableDataImportJob where
+instance Data.ToHeaders DescribeTableDataImportJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeTableDataImportJob where
+instance Data.ToPath DescribeTableDataImportJob where
   toPath DescribeTableDataImportJob' {..} =
     Prelude.mconcat
       [ "/workbooks/",
-        Core.toBS workbookId,
+        Data.toBS workbookId,
         "/tables/",
-        Core.toBS tableId,
+        Data.toBS tableId,
         "/import/",
-        Core.toBS jobId
+        Data.toBS jobId
       ]
 
-instance Core.ToQuery DescribeTableDataImportJob where
+instance Data.ToQuery DescribeTableDataImportJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeTableDataImportJobResponse' smart constructor.
 data DescribeTableDataImportJobResponse = DescribeTableDataImportJobResponse'
-  { -- | The response's http status code.
+  { -- | If job status is failed, error code to understand reason for the
+    -- failure.
+    errorCode :: Prelude.Maybe ErrorCode,
+    -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The current status of the import job.
     jobStatus :: TableDataImportJobStatus,
@@ -209,6 +216,9 @@ data DescribeTableDataImportJobResponse = DescribeTableDataImportJobResponse'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'errorCode', 'describeTableDataImportJobResponse_errorCode' - If job status is failed, error code to understand reason for the
+-- failure.
 --
 -- 'httpStatus', 'describeTableDataImportJobResponse_httpStatus' - The response's http status code.
 --
@@ -234,12 +244,18 @@ newDescribeTableDataImportJobResponse
   pMessage_
   pJobMetadata_ =
     DescribeTableDataImportJobResponse'
-      { httpStatus =
-          pHttpStatus_,
+      { errorCode =
+          Prelude.Nothing,
+        httpStatus = pHttpStatus_,
         jobStatus = pJobStatus_,
         message = pMessage_,
         jobMetadata = pJobMetadata_
       }
+
+-- | If job status is failed, error code to understand reason for the
+-- failure.
+describeTableDataImportJobResponse_errorCode :: Lens.Lens' DescribeTableDataImportJobResponse (Prelude.Maybe ErrorCode)
+describeTableDataImportJobResponse_errorCode = Lens.lens (\DescribeTableDataImportJobResponse' {errorCode} -> errorCode) (\s@DescribeTableDataImportJobResponse' {} a -> s {errorCode = a} :: DescribeTableDataImportJobResponse)
 
 -- | The response's http status code.
 describeTableDataImportJobResponse_httpStatus :: Lens.Lens' DescribeTableDataImportJobResponse Prelude.Int
@@ -263,7 +279,8 @@ instance
     DescribeTableDataImportJobResponse
   where
   rnf DescribeTableDataImportJobResponse' {..} =
-    Prelude.rnf httpStatus
+    Prelude.rnf errorCode
+      `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf jobStatus
       `Prelude.seq` Prelude.rnf message
       `Prelude.seq` Prelude.rnf jobMetadata

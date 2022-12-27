@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.Types.ErrorStatistics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.XRay.Types.ErrorStatistics where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about requests that failed with a 4xx Client Error status
@@ -77,15 +78,15 @@ errorStatistics_throttleCount = Lens.lens (\ErrorStatistics' {throttleCount} -> 
 errorStatistics_totalCount :: Lens.Lens' ErrorStatistics (Prelude.Maybe Prelude.Integer)
 errorStatistics_totalCount = Lens.lens (\ErrorStatistics' {totalCount} -> totalCount) (\s@ErrorStatistics' {} a -> s {totalCount = a} :: ErrorStatistics)
 
-instance Core.FromJSON ErrorStatistics where
+instance Data.FromJSON ErrorStatistics where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ErrorStatistics"
       ( \x ->
           ErrorStatistics'
-            Prelude.<$> (x Core..:? "OtherCount")
-            Prelude.<*> (x Core..:? "ThrottleCount")
-            Prelude.<*> (x Core..:? "TotalCount")
+            Prelude.<$> (x Data..:? "OtherCount")
+            Prelude.<*> (x Data..:? "ThrottleCount")
+            Prelude.<*> (x Data..:? "TotalCount")
       )
 
 instance Prelude.Hashable ErrorStatistics where

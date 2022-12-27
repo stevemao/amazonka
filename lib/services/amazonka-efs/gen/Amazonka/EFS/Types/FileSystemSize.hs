@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.Types.FileSystemSize
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EFS.Types.FileSystemSize where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The latest known metered size (in bytes) of data stored in the file
@@ -34,16 +35,16 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newFileSystemSize' smart constructor.
 data FileSystemSize = FileSystemSize'
-  { -- | The latest known metered size (in bytes) of data stored in the
+  { -- | The time at which the size of data, returned in the @Value@ field, was
+    -- determined. The value is the integer number of seconds since
+    -- 1970-01-01T00:00:00Z.
+    timestamp :: Prelude.Maybe Data.POSIX,
+    -- | The latest known metered size (in bytes) of data stored in the
     -- Infrequent Access storage class.
     valueInIA :: Prelude.Maybe Prelude.Natural,
     -- | The latest known metered size (in bytes) of data stored in the Standard
     -- storage class.
     valueInStandard :: Prelude.Maybe Prelude.Natural,
-    -- | The time at which the size of data, returned in the @Value@ field, was
-    -- determined. The value is the integer number of seconds since
-    -- 1970-01-01T00:00:00Z.
-    timestamp :: Prelude.Maybe Core.POSIX,
     -- | The latest known metered size (in bytes) of data stored in the file
     -- system.
     value :: Prelude.Natural
@@ -58,15 +59,15 @@ data FileSystemSize = FileSystemSize'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'timestamp', 'fileSystemSize_timestamp' - The time at which the size of data, returned in the @Value@ field, was
+-- determined. The value is the integer number of seconds since
+-- 1970-01-01T00:00:00Z.
+--
 -- 'valueInIA', 'fileSystemSize_valueInIA' - The latest known metered size (in bytes) of data stored in the
 -- Infrequent Access storage class.
 --
 -- 'valueInStandard', 'fileSystemSize_valueInStandard' - The latest known metered size (in bytes) of data stored in the Standard
 -- storage class.
---
--- 'timestamp', 'fileSystemSize_timestamp' - The time at which the size of data, returned in the @Value@ field, was
--- determined. The value is the integer number of seconds since
--- 1970-01-01T00:00:00Z.
 --
 -- 'value', 'fileSystemSize_value' - The latest known metered size (in bytes) of data stored in the file
 -- system.
@@ -76,11 +77,17 @@ newFileSystemSize ::
   FileSystemSize
 newFileSystemSize pValue_ =
   FileSystemSize'
-    { valueInIA = Prelude.Nothing,
+    { timestamp = Prelude.Nothing,
+      valueInIA = Prelude.Nothing,
       valueInStandard = Prelude.Nothing,
-      timestamp = Prelude.Nothing,
       value = pValue_
     }
+
+-- | The time at which the size of data, returned in the @Value@ field, was
+-- determined. The value is the integer number of seconds since
+-- 1970-01-01T00:00:00Z.
+fileSystemSize_timestamp :: Lens.Lens' FileSystemSize (Prelude.Maybe Prelude.UTCTime)
+fileSystemSize_timestamp = Lens.lens (\FileSystemSize' {timestamp} -> timestamp) (\s@FileSystemSize' {} a -> s {timestamp = a} :: FileSystemSize) Prelude.. Lens.mapping Data._Time
 
 -- | The latest known metered size (in bytes) of data stored in the
 -- Infrequent Access storage class.
@@ -92,39 +99,33 @@ fileSystemSize_valueInIA = Lens.lens (\FileSystemSize' {valueInIA} -> valueInIA)
 fileSystemSize_valueInStandard :: Lens.Lens' FileSystemSize (Prelude.Maybe Prelude.Natural)
 fileSystemSize_valueInStandard = Lens.lens (\FileSystemSize' {valueInStandard} -> valueInStandard) (\s@FileSystemSize' {} a -> s {valueInStandard = a} :: FileSystemSize)
 
--- | The time at which the size of data, returned in the @Value@ field, was
--- determined. The value is the integer number of seconds since
--- 1970-01-01T00:00:00Z.
-fileSystemSize_timestamp :: Lens.Lens' FileSystemSize (Prelude.Maybe Prelude.UTCTime)
-fileSystemSize_timestamp = Lens.lens (\FileSystemSize' {timestamp} -> timestamp) (\s@FileSystemSize' {} a -> s {timestamp = a} :: FileSystemSize) Prelude.. Lens.mapping Core._Time
-
 -- | The latest known metered size (in bytes) of data stored in the file
 -- system.
 fileSystemSize_value :: Lens.Lens' FileSystemSize Prelude.Natural
 fileSystemSize_value = Lens.lens (\FileSystemSize' {value} -> value) (\s@FileSystemSize' {} a -> s {value = a} :: FileSystemSize)
 
-instance Core.FromJSON FileSystemSize where
+instance Data.FromJSON FileSystemSize where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FileSystemSize"
       ( \x ->
           FileSystemSize'
-            Prelude.<$> (x Core..:? "ValueInIA")
-            Prelude.<*> (x Core..:? "ValueInStandard")
-            Prelude.<*> (x Core..:? "Timestamp")
-            Prelude.<*> (x Core..: "Value")
+            Prelude.<$> (x Data..:? "Timestamp")
+            Prelude.<*> (x Data..:? "ValueInIA")
+            Prelude.<*> (x Data..:? "ValueInStandard")
+            Prelude.<*> (x Data..: "Value")
       )
 
 instance Prelude.Hashable FileSystemSize where
   hashWithSalt _salt FileSystemSize' {..} =
-    _salt `Prelude.hashWithSalt` valueInIA
+    _salt `Prelude.hashWithSalt` timestamp
+      `Prelude.hashWithSalt` valueInIA
       `Prelude.hashWithSalt` valueInStandard
-      `Prelude.hashWithSalt` timestamp
       `Prelude.hashWithSalt` value
 
 instance Prelude.NFData FileSystemSize where
   rnf FileSystemSize' {..} =
-    Prelude.rnf valueInIA
+    Prelude.rnf timestamp
+      `Prelude.seq` Prelude.rnf valueInIA
       `Prelude.seq` Prelude.rnf valueInStandard
-      `Prelude.seq` Prelude.rnf timestamp
       `Prelude.seq` Prelude.rnf value

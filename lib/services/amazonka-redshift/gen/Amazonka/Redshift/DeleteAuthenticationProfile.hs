@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DeleteAuthenticationProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Redshift.DeleteAuthenticationProfile
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -81,13 +82,14 @@ instance Core.AWSRequest DeleteAuthenticationProfile where
   type
     AWSResponse DeleteAuthenticationProfile =
       DeleteAuthenticationProfileResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteAuthenticationProfileResult"
       ( \s h x ->
           DeleteAuthenticationProfileResponse'
-            Prelude.<$> (x Core..@? "AuthenticationProfileName")
+            Prelude.<$> (x Data..@? "AuthenticationProfileName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,23 +102,23 @@ instance Prelude.NFData DeleteAuthenticationProfile where
   rnf DeleteAuthenticationProfile' {..} =
     Prelude.rnf authenticationProfileName
 
-instance Core.ToHeaders DeleteAuthenticationProfile where
+instance Data.ToHeaders DeleteAuthenticationProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteAuthenticationProfile where
+instance Data.ToPath DeleteAuthenticationProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAuthenticationProfile where
+instance Data.ToQuery DeleteAuthenticationProfile where
   toQuery DeleteAuthenticationProfile' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteAuthenticationProfile" ::
+          Data.=: ( "DeleteAuthenticationProfile" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
         "AuthenticationProfileName"
-          Core.=: authenticationProfileName
+          Data.=: authenticationProfileName
       ]
 
 -- | /See:/ 'newDeleteAuthenticationProfileResponse' smart constructor.

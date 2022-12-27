@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.SSEDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,12 @@
 module Amazonka.DynamoDB.Types.SSEDescription where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.SSEStatus
 import Amazonka.DynamoDB.Types.SSEType
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | The description of the server-side encryption status on the specified
@@ -31,29 +33,28 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSSEDescription' smart constructor.
 data SSEDescription = SSEDescription'
-  { -- | Represents the current state of server-side encryption. The only
+  { -- | Indicates the time, in UNIX epoch date format, when DynamoDB detected
+    -- that the table\'s KMS key was inaccessible. This attribute will
+    -- automatically be cleared when DynamoDB detects that the table\'s KMS key
+    -- is accessible again. DynamoDB will initiate the table archival process
+    -- when table\'s KMS key remains inaccessible for more than seven days from
+    -- this date.
+    inaccessibleEncryptionDateTime :: Prelude.Maybe Data.POSIX,
+    -- | The KMS key ARN used for the KMS encryption.
+    kmsMasterKeyArn :: Prelude.Maybe Prelude.Text,
+    -- | Server-side encryption type. The only supported value is:
+    --
+    -- -   @KMS@ - Server-side encryption that uses Key Management Service. The
+    --     key is stored in your account and is managed by KMS (KMS charges
+    --     apply).
+    sSEType :: Prelude.Maybe SSEType,
+    -- | Represents the current state of server-side encryption. The only
     -- supported values are:
     --
     -- -   @ENABLED@ - Server-side encryption is enabled.
     --
     -- -   @UPDATING@ - Server-side encryption is being updated.
-    status :: Prelude.Maybe SSEStatus,
-    -- | Indicates the time, in UNIX epoch date format, when DynamoDB detected
-    -- that the table\'s AWS KMS key was inaccessible. This attribute will
-    -- automatically be cleared when DynamoDB detects that the table\'s AWS KMS
-    -- key is accessible again. DynamoDB will initiate the table archival
-    -- process when table\'s AWS KMS key remains inaccessible for more than
-    -- seven days from this date.
-    inaccessibleEncryptionDateTime :: Prelude.Maybe Core.POSIX,
-    -- | Server-side encryption type. The only supported value is:
-    --
-    -- -   @KMS@ - Server-side encryption that uses AWS Key Management Service.
-    --     The key is stored in your account and is managed by AWS KMS (AWS KMS
-    --     charges apply).
-    sSEType :: Prelude.Maybe SSEType,
-    -- | The AWS KMS customer master key (CMK) ARN used for the AWS KMS
-    -- encryption.
-    kmsMasterKeyArn :: Prelude.Maybe Prelude.Text
+    status :: Prelude.Maybe SSEStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -65,37 +66,58 @@ data SSEDescription = SSEDescription'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'inaccessibleEncryptionDateTime', 'sSEDescription_inaccessibleEncryptionDateTime' - Indicates the time, in UNIX epoch date format, when DynamoDB detected
+-- that the table\'s KMS key was inaccessible. This attribute will
+-- automatically be cleared when DynamoDB detects that the table\'s KMS key
+-- is accessible again. DynamoDB will initiate the table archival process
+-- when table\'s KMS key remains inaccessible for more than seven days from
+-- this date.
+--
+-- 'kmsMasterKeyArn', 'sSEDescription_kmsMasterKeyArn' - The KMS key ARN used for the KMS encryption.
+--
+-- 'sSEType', 'sSEDescription_sSEType' - Server-side encryption type. The only supported value is:
+--
+-- -   @KMS@ - Server-side encryption that uses Key Management Service. The
+--     key is stored in your account and is managed by KMS (KMS charges
+--     apply).
+--
 -- 'status', 'sSEDescription_status' - Represents the current state of server-side encryption. The only
 -- supported values are:
 --
 -- -   @ENABLED@ - Server-side encryption is enabled.
 --
 -- -   @UPDATING@ - Server-side encryption is being updated.
---
--- 'inaccessibleEncryptionDateTime', 'sSEDescription_inaccessibleEncryptionDateTime' - Indicates the time, in UNIX epoch date format, when DynamoDB detected
--- that the table\'s AWS KMS key was inaccessible. This attribute will
--- automatically be cleared when DynamoDB detects that the table\'s AWS KMS
--- key is accessible again. DynamoDB will initiate the table archival
--- process when table\'s AWS KMS key remains inaccessible for more than
--- seven days from this date.
---
--- 'sSEType', 'sSEDescription_sSEType' - Server-side encryption type. The only supported value is:
---
--- -   @KMS@ - Server-side encryption that uses AWS Key Management Service.
---     The key is stored in your account and is managed by AWS KMS (AWS KMS
---     charges apply).
---
--- 'kmsMasterKeyArn', 'sSEDescription_kmsMasterKeyArn' - The AWS KMS customer master key (CMK) ARN used for the AWS KMS
--- encryption.
 newSSEDescription ::
   SSEDescription
 newSSEDescription =
   SSEDescription'
-    { status = Prelude.Nothing,
-      inaccessibleEncryptionDateTime = Prelude.Nothing,
+    { inaccessibleEncryptionDateTime =
+        Prelude.Nothing,
+      kmsMasterKeyArn = Prelude.Nothing,
       sSEType = Prelude.Nothing,
-      kmsMasterKeyArn = Prelude.Nothing
+      status = Prelude.Nothing
     }
+
+-- | Indicates the time, in UNIX epoch date format, when DynamoDB detected
+-- that the table\'s KMS key was inaccessible. This attribute will
+-- automatically be cleared when DynamoDB detects that the table\'s KMS key
+-- is accessible again. DynamoDB will initiate the table archival process
+-- when table\'s KMS key remains inaccessible for more than seven days from
+-- this date.
+sSEDescription_inaccessibleEncryptionDateTime :: Lens.Lens' SSEDescription (Prelude.Maybe Prelude.UTCTime)
+sSEDescription_inaccessibleEncryptionDateTime = Lens.lens (\SSEDescription' {inaccessibleEncryptionDateTime} -> inaccessibleEncryptionDateTime) (\s@SSEDescription' {} a -> s {inaccessibleEncryptionDateTime = a} :: SSEDescription) Prelude.. Lens.mapping Data._Time
+
+-- | The KMS key ARN used for the KMS encryption.
+sSEDescription_kmsMasterKeyArn :: Lens.Lens' SSEDescription (Prelude.Maybe Prelude.Text)
+sSEDescription_kmsMasterKeyArn = Lens.lens (\SSEDescription' {kmsMasterKeyArn} -> kmsMasterKeyArn) (\s@SSEDescription' {} a -> s {kmsMasterKeyArn = a} :: SSEDescription)
+
+-- | Server-side encryption type. The only supported value is:
+--
+-- -   @KMS@ - Server-side encryption that uses Key Management Service. The
+--     key is stored in your account and is managed by KMS (KMS charges
+--     apply).
+sSEDescription_sSEType :: Lens.Lens' SSEDescription (Prelude.Maybe SSEType)
+sSEDescription_sSEType = Lens.lens (\SSEDescription' {sSEType} -> sSEType) (\s@SSEDescription' {} a -> s {sSEType = a} :: SSEDescription)
 
 -- | Represents the current state of server-side encryption. The only
 -- supported values are:
@@ -106,50 +128,29 @@ newSSEDescription =
 sSEDescription_status :: Lens.Lens' SSEDescription (Prelude.Maybe SSEStatus)
 sSEDescription_status = Lens.lens (\SSEDescription' {status} -> status) (\s@SSEDescription' {} a -> s {status = a} :: SSEDescription)
 
--- | Indicates the time, in UNIX epoch date format, when DynamoDB detected
--- that the table\'s AWS KMS key was inaccessible. This attribute will
--- automatically be cleared when DynamoDB detects that the table\'s AWS KMS
--- key is accessible again. DynamoDB will initiate the table archival
--- process when table\'s AWS KMS key remains inaccessible for more than
--- seven days from this date.
-sSEDescription_inaccessibleEncryptionDateTime :: Lens.Lens' SSEDescription (Prelude.Maybe Prelude.UTCTime)
-sSEDescription_inaccessibleEncryptionDateTime = Lens.lens (\SSEDescription' {inaccessibleEncryptionDateTime} -> inaccessibleEncryptionDateTime) (\s@SSEDescription' {} a -> s {inaccessibleEncryptionDateTime = a} :: SSEDescription) Prelude.. Lens.mapping Core._Time
-
--- | Server-side encryption type. The only supported value is:
---
--- -   @KMS@ - Server-side encryption that uses AWS Key Management Service.
---     The key is stored in your account and is managed by AWS KMS (AWS KMS
---     charges apply).
-sSEDescription_sSEType :: Lens.Lens' SSEDescription (Prelude.Maybe SSEType)
-sSEDescription_sSEType = Lens.lens (\SSEDescription' {sSEType} -> sSEType) (\s@SSEDescription' {} a -> s {sSEType = a} :: SSEDescription)
-
--- | The AWS KMS customer master key (CMK) ARN used for the AWS KMS
--- encryption.
-sSEDescription_kmsMasterKeyArn :: Lens.Lens' SSEDescription (Prelude.Maybe Prelude.Text)
-sSEDescription_kmsMasterKeyArn = Lens.lens (\SSEDescription' {kmsMasterKeyArn} -> kmsMasterKeyArn) (\s@SSEDescription' {} a -> s {kmsMasterKeyArn = a} :: SSEDescription)
-
-instance Core.FromJSON SSEDescription where
+instance Data.FromJSON SSEDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SSEDescription"
       ( \x ->
           SSEDescription'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "InaccessibleEncryptionDateTime")
-            Prelude.<*> (x Core..:? "SSEType")
-            Prelude.<*> (x Core..:? "KMSMasterKeyArn")
+            Prelude.<$> (x Data..:? "InaccessibleEncryptionDateTime")
+            Prelude.<*> (x Data..:? "KMSMasterKeyArn")
+            Prelude.<*> (x Data..:? "SSEType")
+            Prelude.<*> (x Data..:? "Status")
       )
 
 instance Prelude.Hashable SSEDescription where
   hashWithSalt _salt SSEDescription' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt
       `Prelude.hashWithSalt` inaccessibleEncryptionDateTime
-      `Prelude.hashWithSalt` sSEType
       `Prelude.hashWithSalt` kmsMasterKeyArn
+      `Prelude.hashWithSalt` sSEType
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData SSEDescription where
   rnf SSEDescription' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf inaccessibleEncryptionDateTime
-      `Prelude.seq` Prelude.rnf sSEType
+    Prelude.rnf inaccessibleEncryptionDateTime
       `Prelude.seq` Prelude.rnf kmsMasterKeyArn
+      `Prelude.seq` Prelude.rnf sSEType
+      `Prelude.seq` Prelude.rnf status

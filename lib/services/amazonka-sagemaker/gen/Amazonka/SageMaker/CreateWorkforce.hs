@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateWorkforce
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,10 +47,11 @@ module Amazonka.SageMaker.CreateWorkforce
     newCreateWorkforce,
 
     -- * Request Lenses
-    createWorkforce_sourceIpConfig,
     createWorkforce_cognitoConfig,
     createWorkforce_oidcConfig,
+    createWorkforce_sourceIpConfig,
     createWorkforce_tags,
+    createWorkforce_workforceVpcConfig,
     createWorkforce_workforceName,
 
     -- * Destructuring the Response
@@ -64,7 +65,8 @@ module Amazonka.SageMaker.CreateWorkforce
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -72,8 +74,7 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newCreateWorkforce' smart constructor.
 data CreateWorkforce = CreateWorkforce'
-  { sourceIpConfig :: Prelude.Maybe SourceIpConfig,
-    -- | Use this parameter to configure an Amazon Cognito private workforce. A
+  { -- | Use this parameter to configure an Amazon Cognito private workforce. A
     -- single Cognito workforce is created using and corresponds to a single
     -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html Amazon Cognito user pool>.
     --
@@ -84,10 +85,13 @@ data CreateWorkforce = CreateWorkforce'
     --
     -- Do not use @CognitoConfig@ if you specify values for @OidcConfig@.
     oidcConfig :: Prelude.Maybe OidcConfig,
+    sourceIpConfig :: Prelude.Maybe SourceIpConfig,
     -- | An array of key-value pairs that contain metadata to help you categorize
     -- and organize our workforce. Each tag consists of a key and a value, both
     -- of which you define.
     tags :: Prelude.Maybe [Tag],
+    -- | Use this parameter to configure a workforce using VPC.
+    workforceVpcConfig :: Prelude.Maybe WorkforceVpcConfigRequest,
     -- | The name of the private workforce.
     workforceName :: Prelude.Text
   }
@@ -101,8 +105,6 @@ data CreateWorkforce = CreateWorkforce'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sourceIpConfig', 'createWorkforce_sourceIpConfig' - Undocumented member.
---
 -- 'cognitoConfig', 'createWorkforce_cognitoConfig' - Use this parameter to configure an Amazon Cognito private workforce. A
 -- single Cognito workforce is created using and corresponds to a single
 -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools.html Amazon Cognito user pool>.
@@ -114,9 +116,13 @@ data CreateWorkforce = CreateWorkforce'
 --
 -- Do not use @CognitoConfig@ if you specify values for @OidcConfig@.
 --
+-- 'sourceIpConfig', 'createWorkforce_sourceIpConfig' - Undocumented member.
+--
 -- 'tags', 'createWorkforce_tags' - An array of key-value pairs that contain metadata to help you categorize
 -- and organize our workforce. Each tag consists of a key and a value, both
 -- of which you define.
+--
+-- 'workforceVpcConfig', 'createWorkforce_workforceVpcConfig' - Use this parameter to configure a workforce using VPC.
 --
 -- 'workforceName', 'createWorkforce_workforceName' - The name of the private workforce.
 newCreateWorkforce ::
@@ -125,16 +131,13 @@ newCreateWorkforce ::
   CreateWorkforce
 newCreateWorkforce pWorkforceName_ =
   CreateWorkforce'
-    { sourceIpConfig = Prelude.Nothing,
-      cognitoConfig = Prelude.Nothing,
+    { cognitoConfig = Prelude.Nothing,
       oidcConfig = Prelude.Nothing,
+      sourceIpConfig = Prelude.Nothing,
       tags = Prelude.Nothing,
+      workforceVpcConfig = Prelude.Nothing,
       workforceName = pWorkforceName_
     }
-
--- | Undocumented member.
-createWorkforce_sourceIpConfig :: Lens.Lens' CreateWorkforce (Prelude.Maybe SourceIpConfig)
-createWorkforce_sourceIpConfig = Lens.lens (\CreateWorkforce' {sourceIpConfig} -> sourceIpConfig) (\s@CreateWorkforce' {} a -> s {sourceIpConfig = a} :: CreateWorkforce)
 
 -- | Use this parameter to configure an Amazon Cognito private workforce. A
 -- single Cognito workforce is created using and corresponds to a single
@@ -151,11 +154,19 @@ createWorkforce_cognitoConfig = Lens.lens (\CreateWorkforce' {cognitoConfig} -> 
 createWorkforce_oidcConfig :: Lens.Lens' CreateWorkforce (Prelude.Maybe OidcConfig)
 createWorkforce_oidcConfig = Lens.lens (\CreateWorkforce' {oidcConfig} -> oidcConfig) (\s@CreateWorkforce' {} a -> s {oidcConfig = a} :: CreateWorkforce)
 
+-- | Undocumented member.
+createWorkforce_sourceIpConfig :: Lens.Lens' CreateWorkforce (Prelude.Maybe SourceIpConfig)
+createWorkforce_sourceIpConfig = Lens.lens (\CreateWorkforce' {sourceIpConfig} -> sourceIpConfig) (\s@CreateWorkforce' {} a -> s {sourceIpConfig = a} :: CreateWorkforce)
+
 -- | An array of key-value pairs that contain metadata to help you categorize
 -- and organize our workforce. Each tag consists of a key and a value, both
 -- of which you define.
 createWorkforce_tags :: Lens.Lens' CreateWorkforce (Prelude.Maybe [Tag])
 createWorkforce_tags = Lens.lens (\CreateWorkforce' {tags} -> tags) (\s@CreateWorkforce' {} a -> s {tags = a} :: CreateWorkforce) Prelude.. Lens.mapping Lens.coerced
+
+-- | Use this parameter to configure a workforce using VPC.
+createWorkforce_workforceVpcConfig :: Lens.Lens' CreateWorkforce (Prelude.Maybe WorkforceVpcConfigRequest)
+createWorkforce_workforceVpcConfig = Lens.lens (\CreateWorkforce' {workforceVpcConfig} -> workforceVpcConfig) (\s@CreateWorkforce' {} a -> s {workforceVpcConfig = a} :: CreateWorkforce)
 
 -- | The name of the private workforce.
 createWorkforce_workforceName :: Lens.Lens' CreateWorkforce Prelude.Text
@@ -165,62 +176,67 @@ instance Core.AWSRequest CreateWorkforce where
   type
     AWSResponse CreateWorkforce =
       CreateWorkforceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateWorkforceResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "WorkforceArn")
+            Prelude.<*> (x Data..:> "WorkforceArn")
       )
 
 instance Prelude.Hashable CreateWorkforce where
   hashWithSalt _salt CreateWorkforce' {..} =
-    _salt `Prelude.hashWithSalt` sourceIpConfig
-      `Prelude.hashWithSalt` cognitoConfig
+    _salt `Prelude.hashWithSalt` cognitoConfig
       `Prelude.hashWithSalt` oidcConfig
+      `Prelude.hashWithSalt` sourceIpConfig
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` workforceVpcConfig
       `Prelude.hashWithSalt` workforceName
 
 instance Prelude.NFData CreateWorkforce where
   rnf CreateWorkforce' {..} =
-    Prelude.rnf sourceIpConfig
-      `Prelude.seq` Prelude.rnf cognitoConfig
+    Prelude.rnf cognitoConfig
       `Prelude.seq` Prelude.rnf oidcConfig
+      `Prelude.seq` Prelude.rnf sourceIpConfig
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf workforceVpcConfig
       `Prelude.seq` Prelude.rnf workforceName
 
-instance Core.ToHeaders CreateWorkforce where
+instance Data.ToHeaders CreateWorkforce where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.CreateWorkforce" :: Prelude.ByteString),
+              Data.=# ("SageMaker.CreateWorkforce" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateWorkforce where
+instance Data.ToJSON CreateWorkforce where
   toJSON CreateWorkforce' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SourceIpConfig" Core..=)
+          [ ("CognitoConfig" Data..=) Prelude.<$> cognitoConfig,
+            ("OidcConfig" Data..=) Prelude.<$> oidcConfig,
+            ("SourceIpConfig" Data..=)
               Prelude.<$> sourceIpConfig,
-            ("CognitoConfig" Core..=) Prelude.<$> cognitoConfig,
-            ("OidcConfig" Core..=) Prelude.<$> oidcConfig,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("Tags" Data..=) Prelude.<$> tags,
+            ("WorkforceVpcConfig" Data..=)
+              Prelude.<$> workforceVpcConfig,
             Prelude.Just
-              ("WorkforceName" Core..= workforceName)
+              ("WorkforceName" Data..= workforceName)
           ]
       )
 
-instance Core.ToPath CreateWorkforce where
+instance Data.ToPath CreateWorkforce where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateWorkforce where
+instance Data.ToQuery CreateWorkforce where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateWorkforceResponse' smart constructor.

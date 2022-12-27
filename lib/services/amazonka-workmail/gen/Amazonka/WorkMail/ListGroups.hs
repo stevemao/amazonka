@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.ListGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.WorkMail.ListGroups
     newListGroups,
 
     -- * Request Lenses
-    listGroups_nextToken,
     listGroups_maxResults,
+    listGroups_nextToken,
     listGroups_organizationId,
 
     -- * Destructuring the Response
@@ -45,7 +45,8 @@ module Amazonka.WorkMail.ListGroups
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,11 +54,11 @@ import Amazonka.WorkMail.Types
 
 -- | /See:/ 'newListGroups' smart constructor.
 data ListGroups = ListGroups'
-  { -- | The token to use to retrieve the next page of results. The first call
+  { -- | The maximum number of results to return in a single call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to use to retrieve the next page of results. The first call
     -- does not contain any tokens.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The identifier for the organization under which the groups exist.
     organizationId :: Prelude.Text
   }
@@ -71,10 +72,10 @@ data ListGroups = ListGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listGroups_maxResults' - The maximum number of results to return in a single call.
+--
 -- 'nextToken', 'listGroups_nextToken' - The token to use to retrieve the next page of results. The first call
 -- does not contain any tokens.
---
--- 'maxResults', 'listGroups_maxResults' - The maximum number of results to return in a single call.
 --
 -- 'organizationId', 'listGroups_organizationId' - The identifier for the organization under which the groups exist.
 newListGroups ::
@@ -83,19 +84,19 @@ newListGroups ::
   ListGroups
 newListGroups pOrganizationId_ =
   ListGroups'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       organizationId = pOrganizationId_
     }
+
+-- | The maximum number of results to return in a single call.
+listGroups_maxResults :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Natural)
+listGroups_maxResults = Lens.lens (\ListGroups' {maxResults} -> maxResults) (\s@ListGroups' {} a -> s {maxResults = a} :: ListGroups)
 
 -- | The token to use to retrieve the next page of results. The first call
 -- does not contain any tokens.
 listGroups_nextToken :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Text)
 listGroups_nextToken = Lens.lens (\ListGroups' {nextToken} -> nextToken) (\s@ListGroups' {} a -> s {nextToken = a} :: ListGroups)
-
--- | The maximum number of results to return in a single call.
-listGroups_maxResults :: Lens.Lens' ListGroups (Prelude.Maybe Prelude.Natural)
-listGroups_maxResults = Lens.lens (\ListGroups' {maxResults} -> maxResults) (\s@ListGroups' {} a -> s {maxResults = a} :: ListGroups)
 
 -- | The identifier for the organization under which the groups exist.
 listGroups_organizationId :: Lens.Lens' ListGroups Prelude.Text
@@ -122,56 +123,57 @@ instance Core.AWSPager ListGroups where
 
 instance Core.AWSRequest ListGroups where
   type AWSResponse ListGroups = ListGroupsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListGroupsResponse'
-            Prelude.<$> (x Core..?> "Groups" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Groups" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListGroups where
   hashWithSalt _salt ListGroups' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` organizationId
 
 instance Prelude.NFData ListGroups where
   rnf ListGroups' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf organizationId
 
-instance Core.ToHeaders ListGroups where
+instance Data.ToHeaders ListGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("WorkMailService.ListGroups" :: Prelude.ByteString),
+              Data.=# ("WorkMailService.ListGroups" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListGroups where
+instance Data.ToJSON ListGroups where
   toJSON ListGroups' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("OrganizationId" Core..= organizationId)
+              ("OrganizationId" Data..= organizationId)
           ]
       )
 
-instance Core.ToPath ListGroups where
+instance Data.ToPath ListGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListGroups where
+instance Data.ToQuery ListGroups where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListGroupsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DeleteHumanTaskUi
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.SageMaker.DeleteHumanTaskUi
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,7 +88,8 @@ instance Core.AWSRequest DeleteHumanTaskUi where
   type
     AWSResponse DeleteHumanTaskUi =
       DeleteHumanTaskUiResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -103,34 +105,34 @@ instance Prelude.NFData DeleteHumanTaskUi where
   rnf DeleteHumanTaskUi' {..} =
     Prelude.rnf humanTaskUiName
 
-instance Core.ToHeaders DeleteHumanTaskUi where
+instance Data.ToHeaders DeleteHumanTaskUi where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DeleteHumanTaskUi" ::
+              Data.=# ( "SageMaker.DeleteHumanTaskUi" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteHumanTaskUi where
+instance Data.ToJSON DeleteHumanTaskUi where
   toJSON DeleteHumanTaskUi' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("HumanTaskUiName" Core..= humanTaskUiName)
+              ("HumanTaskUiName" Data..= humanTaskUiName)
           ]
       )
 
-instance Core.ToPath DeleteHumanTaskUi where
+instance Data.ToPath DeleteHumanTaskUi where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteHumanTaskUi where
+instance Data.ToQuery DeleteHumanTaskUi where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteHumanTaskUiResponse' smart constructor.

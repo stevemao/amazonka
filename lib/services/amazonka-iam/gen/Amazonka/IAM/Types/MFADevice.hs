@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.Types.MFADevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IAM.Types.MFADevice where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about an MFA device.
@@ -36,7 +37,7 @@ data MFADevice = MFADevice'
     -- MFA devices, the serial number is the device ARN.
     serialNumber :: Prelude.Text,
     -- | The date when the MFA device was enabled for the user.
-    enableDate :: Core.ISO8601
+    enableDate :: Data.ISO8601
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -66,7 +67,7 @@ newMFADevice pUserName_ pSerialNumber_ pEnableDate_ =
   MFADevice'
     { userName = pUserName_,
       serialNumber = pSerialNumber_,
-      enableDate = Core._Time Lens.# pEnableDate_
+      enableDate = Data._Time Lens.# pEnableDate_
     }
 
 -- | The user with whom the MFA device is associated.
@@ -80,14 +81,14 @@ mfaDevice_serialNumber = Lens.lens (\MFADevice' {serialNumber} -> serialNumber) 
 
 -- | The date when the MFA device was enabled for the user.
 mfaDevice_enableDate :: Lens.Lens' MFADevice Prelude.UTCTime
-mfaDevice_enableDate = Lens.lens (\MFADevice' {enableDate} -> enableDate) (\s@MFADevice' {} a -> s {enableDate = a} :: MFADevice) Prelude.. Core._Time
+mfaDevice_enableDate = Lens.lens (\MFADevice' {enableDate} -> enableDate) (\s@MFADevice' {} a -> s {enableDate = a} :: MFADevice) Prelude.. Data._Time
 
-instance Core.FromXML MFADevice where
+instance Data.FromXML MFADevice where
   parseXML x =
     MFADevice'
-      Prelude.<$> (x Core..@ "UserName")
-      Prelude.<*> (x Core..@ "SerialNumber")
-      Prelude.<*> (x Core..@ "EnableDate")
+      Prelude.<$> (x Data..@ "UserName")
+      Prelude.<*> (x Data..@ "SerialNumber")
+      Prelude.<*> (x Data..@ "EnableDate")
 
 instance Prelude.Hashable MFADevice where
   hashWithSalt _salt MFADevice' {..} =

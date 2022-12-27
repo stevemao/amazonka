@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.ModifyClusterDbRevision
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Redshift.ModifyClusterDbRevision
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -107,13 +108,14 @@ instance Core.AWSRequest ModifyClusterDbRevision where
   type
     AWSResponse ModifyClusterDbRevision =
       ModifyClusterDbRevisionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyClusterDbRevisionResult"
       ( \s h x ->
           ModifyClusterDbRevisionResponse'
-            Prelude.<$> (x Core..@? "Cluster")
+            Prelude.<$> (x Data..@? "Cluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -127,21 +129,21 @@ instance Prelude.NFData ModifyClusterDbRevision where
     Prelude.rnf clusterIdentifier
       `Prelude.seq` Prelude.rnf revisionTarget
 
-instance Core.ToHeaders ModifyClusterDbRevision where
+instance Data.ToHeaders ModifyClusterDbRevision where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyClusterDbRevision where
+instance Data.ToPath ModifyClusterDbRevision where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyClusterDbRevision where
+instance Data.ToQuery ModifyClusterDbRevision where
   toQuery ModifyClusterDbRevision' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyClusterDbRevision" :: Prelude.ByteString),
+          Data.=: ("ModifyClusterDbRevision" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "ClusterIdentifier" Core.=: clusterIdentifier,
-        "RevisionTarget" Core.=: revisionTarget
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "ClusterIdentifier" Data.=: clusterIdentifier,
+        "RevisionTarget" Data.=: revisionTarget
       ]
 
 -- | /See:/ 'newModifyClusterDbRevisionResponse' smart constructor.

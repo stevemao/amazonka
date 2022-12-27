@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,41 +22,47 @@ module Amazonka.HoneyCode
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
-
-    -- ** AutomationExecutionTimeoutException
-    _AutomationExecutionTimeoutException,
-
-    -- ** ServiceQuotaExceededException
-    _ServiceQuotaExceededException,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
 
     -- ** AutomationExecutionException
     _AutomationExecutionException,
 
-    -- ** RequestTimeoutException
-    _RequestTimeoutException,
+    -- ** AutomationExecutionTimeoutException
+    _AutomationExecutionTimeoutException,
 
     -- ** InternalServerException
     _InternalServerException,
 
-    -- ** ServiceUnavailableException
-    _ServiceUnavailableException,
+    -- ** RequestTimeoutException
+    _RequestTimeoutException,
 
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
+
+    -- ** ServiceQuotaExceededException
+    _ServiceQuotaExceededException,
+
+    -- ** ServiceUnavailableException
+    _ServiceUnavailableException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** ValidationException
+    _ValidationException,
 
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
+
+    -- ** BatchCreateTableRows
+    BatchCreateTableRows (BatchCreateTableRows'),
+    newBatchCreateTableRows,
+    BatchCreateTableRowsResponse (BatchCreateTableRowsResponse'),
+    newBatchCreateTableRowsResponse,
 
     -- ** BatchDeleteTableRows
     BatchDeleteTableRows (BatchDeleteTableRows'),
@@ -70,17 +76,11 @@ module Amazonka.HoneyCode
     BatchUpdateTableRowsResponse (BatchUpdateTableRowsResponse'),
     newBatchUpdateTableRowsResponse,
 
-    -- ** ListTableRows (Paginated)
-    ListTableRows (ListTableRows'),
-    newListTableRows,
-    ListTableRowsResponse (ListTableRowsResponse'),
-    newListTableRowsResponse,
-
-    -- ** InvokeScreenAutomation
-    InvokeScreenAutomation (InvokeScreenAutomation'),
-    newInvokeScreenAutomation,
-    InvokeScreenAutomationResponse (InvokeScreenAutomationResponse'),
-    newInvokeScreenAutomationResponse,
+    -- ** BatchUpsertTableRows
+    BatchUpsertTableRows (BatchUpsertTableRows'),
+    newBatchUpsertTableRows,
+    BatchUpsertTableRowsResponse (BatchUpsertTableRowsResponse'),
+    newBatchUpsertTableRowsResponse,
 
     -- ** DescribeTableDataImportJob
     DescribeTableDataImportJob (DescribeTableDataImportJob'),
@@ -88,41 +88,17 @@ module Amazonka.HoneyCode
     DescribeTableDataImportJobResponse (DescribeTableDataImportJobResponse'),
     newDescribeTableDataImportJobResponse,
 
-    -- ** StartTableDataImportJob
-    StartTableDataImportJob (StartTableDataImportJob'),
-    newStartTableDataImportJob,
-    StartTableDataImportJobResponse (StartTableDataImportJobResponse'),
-    newStartTableDataImportJobResponse,
-
-    -- ** BatchCreateTableRows
-    BatchCreateTableRows (BatchCreateTableRows'),
-    newBatchCreateTableRows,
-    BatchCreateTableRowsResponse (BatchCreateTableRowsResponse'),
-    newBatchCreateTableRowsResponse,
-
-    -- ** ListTables (Paginated)
-    ListTables (ListTables'),
-    newListTables,
-    ListTablesResponse (ListTablesResponse'),
-    newListTablesResponse,
-
     -- ** GetScreenData
     GetScreenData (GetScreenData'),
     newGetScreenData,
     GetScreenDataResponse (GetScreenDataResponse'),
     newGetScreenDataResponse,
 
-    -- ** QueryTableRows (Paginated)
-    QueryTableRows (QueryTableRows'),
-    newQueryTableRows,
-    QueryTableRowsResponse (QueryTableRowsResponse'),
-    newQueryTableRowsResponse,
-
-    -- ** BatchUpsertTableRows
-    BatchUpsertTableRows (BatchUpsertTableRows'),
-    newBatchUpsertTableRows,
-    BatchUpsertTableRowsResponse (BatchUpsertTableRowsResponse'),
-    newBatchUpsertTableRowsResponse,
+    -- ** InvokeScreenAutomation
+    InvokeScreenAutomation (InvokeScreenAutomation'),
+    newInvokeScreenAutomation,
+    InvokeScreenAutomationResponse (InvokeScreenAutomationResponse'),
+    newInvokeScreenAutomationResponse,
 
     -- ** ListTableColumns (Paginated)
     ListTableColumns (ListTableColumns'),
@@ -130,7 +106,52 @@ module Amazonka.HoneyCode
     ListTableColumnsResponse (ListTableColumnsResponse'),
     newListTableColumnsResponse,
 
+    -- ** ListTableRows (Paginated)
+    ListTableRows (ListTableRows'),
+    newListTableRows,
+    ListTableRowsResponse (ListTableRowsResponse'),
+    newListTableRowsResponse,
+
+    -- ** ListTables (Paginated)
+    ListTables (ListTables'),
+    newListTables,
+    ListTablesResponse (ListTablesResponse'),
+    newListTablesResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** QueryTableRows (Paginated)
+    QueryTableRows (QueryTableRows'),
+    newQueryTableRows,
+    QueryTableRowsResponse (QueryTableRowsResponse'),
+    newQueryTableRowsResponse,
+
+    -- ** StartTableDataImportJob
+    StartTableDataImportJob (StartTableDataImportJob'),
+    newStartTableDataImportJob,
+    StartTableDataImportJobResponse (StartTableDataImportJobResponse'),
+    newStartTableDataImportJobResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
     -- * Types
+
+    -- ** ErrorCode
+    ErrorCode (..),
 
     -- ** Format
     Format (..),
@@ -256,9 +277,12 @@ import Amazonka.HoneyCode.Lens
 import Amazonka.HoneyCode.ListTableColumns
 import Amazonka.HoneyCode.ListTableRows
 import Amazonka.HoneyCode.ListTables
+import Amazonka.HoneyCode.ListTagsForResource
 import Amazonka.HoneyCode.QueryTableRows
 import Amazonka.HoneyCode.StartTableDataImportJob
+import Amazonka.HoneyCode.TagResource
 import Amazonka.HoneyCode.Types
+import Amazonka.HoneyCode.UntagResource
 import Amazonka.HoneyCode.Waiters
 
 -- $errors

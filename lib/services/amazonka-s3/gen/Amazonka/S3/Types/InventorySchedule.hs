@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.InventorySchedule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.InventorySchedule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.InventoryFrequency
@@ -54,10 +55,10 @@ newInventorySchedule pFrequency_ =
 inventorySchedule_frequency :: Lens.Lens' InventorySchedule InventoryFrequency
 inventorySchedule_frequency = Lens.lens (\InventorySchedule' {frequency} -> frequency) (\s@InventorySchedule' {} a -> s {frequency = a} :: InventorySchedule)
 
-instance Core.FromXML InventorySchedule where
+instance Data.FromXML InventorySchedule where
   parseXML x =
     InventorySchedule'
-      Prelude.<$> (x Core..@ "Frequency")
+      Prelude.<$> (x Data..@ "Frequency")
 
 instance Prelude.Hashable InventorySchedule where
   hashWithSalt _salt InventorySchedule' {..} =
@@ -66,6 +67,6 @@ instance Prelude.Hashable InventorySchedule where
 instance Prelude.NFData InventorySchedule where
   rnf InventorySchedule' {..} = Prelude.rnf frequency
 
-instance Core.ToXML InventorySchedule where
+instance Data.ToXML InventorySchedule where
   toXML InventorySchedule' {..} =
-    Prelude.mconcat ["Frequency" Core.@= frequency]
+    Prelude.mconcat ["Frequency" Data.@= frequency]

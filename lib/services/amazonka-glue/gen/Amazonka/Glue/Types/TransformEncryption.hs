@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.TransformEncryption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Glue.Types.TransformEncryption where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.MLUserDataEncryption
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The encryption-at-rest settings of the transform that apply to accessing
@@ -71,14 +72,14 @@ transformEncryption_mlUserDataEncryption = Lens.lens (\TransformEncryption' {mlU
 transformEncryption_taskRunSecurityConfigurationName :: Lens.Lens' TransformEncryption (Prelude.Maybe Prelude.Text)
 transformEncryption_taskRunSecurityConfigurationName = Lens.lens (\TransformEncryption' {taskRunSecurityConfigurationName} -> taskRunSecurityConfigurationName) (\s@TransformEncryption' {} a -> s {taskRunSecurityConfigurationName = a} :: TransformEncryption)
 
-instance Core.FromJSON TransformEncryption where
+instance Data.FromJSON TransformEncryption where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TransformEncryption"
       ( \x ->
           TransformEncryption'
-            Prelude.<$> (x Core..:? "MlUserDataEncryption")
-            Prelude.<*> (x Core..:? "TaskRunSecurityConfigurationName")
+            Prelude.<$> (x Data..:? "MlUserDataEncryption")
+            Prelude.<*> (x Data..:? "TaskRunSecurityConfigurationName")
       )
 
 instance Prelude.Hashable TransformEncryption where
@@ -91,13 +92,13 @@ instance Prelude.NFData TransformEncryption where
     Prelude.rnf mlUserDataEncryption
       `Prelude.seq` Prelude.rnf taskRunSecurityConfigurationName
 
-instance Core.ToJSON TransformEncryption where
+instance Data.ToJSON TransformEncryption where
   toJSON TransformEncryption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MlUserDataEncryption" Core..=)
+          [ ("MlUserDataEncryption" Data..=)
               Prelude.<$> mlUserDataEncryption,
-            ("TaskRunSecurityConfigurationName" Core..=)
+            ("TaskRunSecurityConfigurationName" Data..=)
               Prelude.<$> taskRunSecurityConfigurationName
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.UpdateRoom
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,11 +27,11 @@ module Amazonka.AlexaBusiness.UpdateRoom
     newUpdateRoom,
 
     -- * Request Lenses
+    updateRoom_description,
     updateRoom_profileArn,
     updateRoom_providerCalendarId,
     updateRoom_roomArn,
     updateRoom_roomName,
-    updateRoom_description,
 
     -- * Destructuring the Response
     UpdateRoomResponse (..),
@@ -44,23 +44,24 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateRoom' smart constructor.
 data UpdateRoom = UpdateRoom'
-  { -- | The updated profile ARN for the room.
+  { -- | The updated description for the room.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The updated profile ARN for the room.
     profileArn :: Prelude.Maybe Prelude.Text,
     -- | The updated provider calendar ARN for the room.
     providerCalendarId :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the room to update.
     roomArn :: Prelude.Maybe Prelude.Text,
     -- | The updated name for the room.
-    roomName :: Prelude.Maybe Prelude.Text,
-    -- | The updated description for the room.
-    description :: Prelude.Maybe Prelude.Text
+    roomName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,6 +73,8 @@ data UpdateRoom = UpdateRoom'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'updateRoom_description' - The updated description for the room.
+--
 -- 'profileArn', 'updateRoom_profileArn' - The updated profile ARN for the room.
 --
 -- 'providerCalendarId', 'updateRoom_providerCalendarId' - The updated provider calendar ARN for the room.
@@ -79,18 +82,20 @@ data UpdateRoom = UpdateRoom'
 -- 'roomArn', 'updateRoom_roomArn' - The ARN of the room to update.
 --
 -- 'roomName', 'updateRoom_roomName' - The updated name for the room.
---
--- 'description', 'updateRoom_description' - The updated description for the room.
 newUpdateRoom ::
   UpdateRoom
 newUpdateRoom =
   UpdateRoom'
-    { profileArn = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      profileArn = Prelude.Nothing,
       providerCalendarId = Prelude.Nothing,
       roomArn = Prelude.Nothing,
-      roomName = Prelude.Nothing,
-      description = Prelude.Nothing
+      roomName = Prelude.Nothing
     }
+
+-- | The updated description for the room.
+updateRoom_description :: Lens.Lens' UpdateRoom (Prelude.Maybe Prelude.Text)
+updateRoom_description = Lens.lens (\UpdateRoom' {description} -> description) (\s@UpdateRoom' {} a -> s {description = a} :: UpdateRoom)
 
 -- | The updated profile ARN for the room.
 updateRoom_profileArn :: Lens.Lens' UpdateRoom (Prelude.Maybe Prelude.Text)
@@ -108,13 +113,10 @@ updateRoom_roomArn = Lens.lens (\UpdateRoom' {roomArn} -> roomArn) (\s@UpdateRoo
 updateRoom_roomName :: Lens.Lens' UpdateRoom (Prelude.Maybe Prelude.Text)
 updateRoom_roomName = Lens.lens (\UpdateRoom' {roomName} -> roomName) (\s@UpdateRoom' {} a -> s {roomName = a} :: UpdateRoom)
 
--- | The updated description for the room.
-updateRoom_description :: Lens.Lens' UpdateRoom (Prelude.Maybe Prelude.Text)
-updateRoom_description = Lens.lens (\UpdateRoom' {description} -> description) (\s@UpdateRoom' {} a -> s {description = a} :: UpdateRoom)
-
 instance Core.AWSRequest UpdateRoom where
   type AWSResponse UpdateRoom = UpdateRoomResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -124,52 +126,52 @@ instance Core.AWSRequest UpdateRoom where
 
 instance Prelude.Hashable UpdateRoom where
   hashWithSalt _salt UpdateRoom' {..} =
-    _salt `Prelude.hashWithSalt` profileArn
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` profileArn
       `Prelude.hashWithSalt` providerCalendarId
       `Prelude.hashWithSalt` roomArn
       `Prelude.hashWithSalt` roomName
-      `Prelude.hashWithSalt` description
 
 instance Prelude.NFData UpdateRoom where
   rnf UpdateRoom' {..} =
-    Prelude.rnf profileArn
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf profileArn
       `Prelude.seq` Prelude.rnf providerCalendarId
       `Prelude.seq` Prelude.rnf roomArn
       `Prelude.seq` Prelude.rnf roomName
-      `Prelude.seq` Prelude.rnf description
 
-instance Core.ToHeaders UpdateRoom where
+instance Data.ToHeaders UpdateRoom where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.UpdateRoom" ::
+              Data.=# ( "AlexaForBusiness.UpdateRoom" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRoom where
+instance Data.ToJSON UpdateRoom where
   toJSON UpdateRoom' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ProfileArn" Core..=) Prelude.<$> profileArn,
-            ("ProviderCalendarId" Core..=)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("ProfileArn" Data..=) Prelude.<$> profileArn,
+            ("ProviderCalendarId" Data..=)
               Prelude.<$> providerCalendarId,
-            ("RoomArn" Core..=) Prelude.<$> roomArn,
-            ("RoomName" Core..=) Prelude.<$> roomName,
-            ("Description" Core..=) Prelude.<$> description
+            ("RoomArn" Data..=) Prelude.<$> roomArn,
+            ("RoomName" Data..=) Prelude.<$> roomName
           ]
       )
 
-instance Core.ToPath UpdateRoom where
+instance Data.ToPath UpdateRoom where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateRoom where
+instance Data.ToQuery UpdateRoom where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateRoomResponse' smart constructor.

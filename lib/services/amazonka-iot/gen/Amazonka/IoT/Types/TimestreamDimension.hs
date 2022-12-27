@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.TimestreamDimension
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.TimestreamDimension where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Metadata attributes of the time series that are written in each measure
@@ -81,13 +82,13 @@ timestreamDimension_name = Lens.lens (\TimestreamDimension' {name} -> name) (\s@
 timestreamDimension_value :: Lens.Lens' TimestreamDimension Prelude.Text
 timestreamDimension_value = Lens.lens (\TimestreamDimension' {value} -> value) (\s@TimestreamDimension' {} a -> s {value = a} :: TimestreamDimension)
 
-instance Core.FromJSON TimestreamDimension where
+instance Data.FromJSON TimestreamDimension where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TimestreamDimension"
       ( \x ->
           TimestreamDimension'
-            Prelude.<$> (x Core..: "name") Prelude.<*> (x Core..: "value")
+            Prelude.<$> (x Data..: "name") Prelude.<*> (x Data..: "value")
       )
 
 instance Prelude.Hashable TimestreamDimension where
@@ -99,11 +100,11 @@ instance Prelude.NFData TimestreamDimension where
   rnf TimestreamDimension' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON TimestreamDimension where
+instance Data.ToJSON TimestreamDimension where
   toJSON TimestreamDimension' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("name" Core..= name),
-            Prelude.Just ("value" Core..= value)
+          [ Prelude.Just ("name" Data..= name),
+            Prelude.Just ("value" Data..= value)
           ]
       )

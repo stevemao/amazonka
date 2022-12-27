@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateModelExplainabilityJobDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.SageMaker.CreateModelExplainabilityJobDefinition
     newCreateModelExplainabilityJobDefinition,
 
     -- * Request Lenses
-    createModelExplainabilityJobDefinition_stoppingCondition,
-    createModelExplainabilityJobDefinition_networkConfig,
     createModelExplainabilityJobDefinition_modelExplainabilityBaselineConfig,
+    createModelExplainabilityJobDefinition_networkConfig,
+    createModelExplainabilityJobDefinition_stoppingCondition,
     createModelExplainabilityJobDefinition_tags,
     createModelExplainabilityJobDefinition_jobDefinitionName,
     createModelExplainabilityJobDefinition_modelExplainabilityAppSpecification,
@@ -49,7 +49,8 @@ module Amazonka.SageMaker.CreateModelExplainabilityJobDefinition
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,11 +58,11 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newCreateModelExplainabilityJobDefinition' smart constructor.
 data CreateModelExplainabilityJobDefinition = CreateModelExplainabilityJobDefinition'
-  { stoppingCondition :: Prelude.Maybe MonitoringStoppingCondition,
+  { -- | The baseline configuration for a model explainability job.
+    modelExplainabilityBaselineConfig :: Prelude.Maybe ModelExplainabilityBaselineConfig,
     -- | Networking options for a model explainability job.
     networkConfig :: Prelude.Maybe MonitoringNetworkConfig,
-    -- | The baseline configuration for a model explainability job.
-    modelExplainabilityBaselineConfig :: Prelude.Maybe ModelExplainabilityBaselineConfig,
+    stoppingCondition :: Prelude.Maybe MonitoringStoppingCondition,
     -- | (Optional) An array of key-value pairs. For more information, see
     -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
     -- in the /Amazon Web Services Billing and Cost Management User Guide/.
@@ -91,11 +92,11 @@ data CreateModelExplainabilityJobDefinition = CreateModelExplainabilityJobDefini
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'stoppingCondition', 'createModelExplainabilityJobDefinition_stoppingCondition' - Undocumented member.
+-- 'modelExplainabilityBaselineConfig', 'createModelExplainabilityJobDefinition_modelExplainabilityBaselineConfig' - The baseline configuration for a model explainability job.
 --
 -- 'networkConfig', 'createModelExplainabilityJobDefinition_networkConfig' - Networking options for a model explainability job.
 --
--- 'modelExplainabilityBaselineConfig', 'createModelExplainabilityJobDefinition_modelExplainabilityBaselineConfig' - The baseline configuration for a model explainability job.
+-- 'stoppingCondition', 'createModelExplainabilityJobDefinition_stoppingCondition' - Undocumented member.
 --
 -- 'tags', 'createModelExplainabilityJobDefinition_tags' - (Optional) An array of key-value pairs. For more information, see
 -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
@@ -138,11 +139,10 @@ newCreateModelExplainabilityJobDefinition
   pJobResources_
   pRoleArn_ =
     CreateModelExplainabilityJobDefinition'
-      { stoppingCondition =
+      { modelExplainabilityBaselineConfig =
           Prelude.Nothing,
         networkConfig = Prelude.Nothing,
-        modelExplainabilityBaselineConfig =
-          Prelude.Nothing,
+        stoppingCondition = Prelude.Nothing,
         tags = Prelude.Nothing,
         jobDefinitionName =
           pJobDefinitionName_,
@@ -156,17 +156,17 @@ newCreateModelExplainabilityJobDefinition
         roleArn = pRoleArn_
       }
 
--- | Undocumented member.
-createModelExplainabilityJobDefinition_stoppingCondition :: Lens.Lens' CreateModelExplainabilityJobDefinition (Prelude.Maybe MonitoringStoppingCondition)
-createModelExplainabilityJobDefinition_stoppingCondition = Lens.lens (\CreateModelExplainabilityJobDefinition' {stoppingCondition} -> stoppingCondition) (\s@CreateModelExplainabilityJobDefinition' {} a -> s {stoppingCondition = a} :: CreateModelExplainabilityJobDefinition)
+-- | The baseline configuration for a model explainability job.
+createModelExplainabilityJobDefinition_modelExplainabilityBaselineConfig :: Lens.Lens' CreateModelExplainabilityJobDefinition (Prelude.Maybe ModelExplainabilityBaselineConfig)
+createModelExplainabilityJobDefinition_modelExplainabilityBaselineConfig = Lens.lens (\CreateModelExplainabilityJobDefinition' {modelExplainabilityBaselineConfig} -> modelExplainabilityBaselineConfig) (\s@CreateModelExplainabilityJobDefinition' {} a -> s {modelExplainabilityBaselineConfig = a} :: CreateModelExplainabilityJobDefinition)
 
 -- | Networking options for a model explainability job.
 createModelExplainabilityJobDefinition_networkConfig :: Lens.Lens' CreateModelExplainabilityJobDefinition (Prelude.Maybe MonitoringNetworkConfig)
 createModelExplainabilityJobDefinition_networkConfig = Lens.lens (\CreateModelExplainabilityJobDefinition' {networkConfig} -> networkConfig) (\s@CreateModelExplainabilityJobDefinition' {} a -> s {networkConfig = a} :: CreateModelExplainabilityJobDefinition)
 
--- | The baseline configuration for a model explainability job.
-createModelExplainabilityJobDefinition_modelExplainabilityBaselineConfig :: Lens.Lens' CreateModelExplainabilityJobDefinition (Prelude.Maybe ModelExplainabilityBaselineConfig)
-createModelExplainabilityJobDefinition_modelExplainabilityBaselineConfig = Lens.lens (\CreateModelExplainabilityJobDefinition' {modelExplainabilityBaselineConfig} -> modelExplainabilityBaselineConfig) (\s@CreateModelExplainabilityJobDefinition' {} a -> s {modelExplainabilityBaselineConfig = a} :: CreateModelExplainabilityJobDefinition)
+-- | Undocumented member.
+createModelExplainabilityJobDefinition_stoppingCondition :: Lens.Lens' CreateModelExplainabilityJobDefinition (Prelude.Maybe MonitoringStoppingCondition)
+createModelExplainabilityJobDefinition_stoppingCondition = Lens.lens (\CreateModelExplainabilityJobDefinition' {stoppingCondition} -> stoppingCondition) (\s@CreateModelExplainabilityJobDefinition' {} a -> s {stoppingCondition = a} :: CreateModelExplainabilityJobDefinition)
 
 -- | (Optional) An array of key-value pairs. For more information, see
 -- <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html#allocation-whatURL Using Cost Allocation Tags>
@@ -210,13 +210,14 @@ instance
     AWSResponse
       CreateModelExplainabilityJobDefinition =
       CreateModelExplainabilityJobDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateModelExplainabilityJobDefinitionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> (x Core..:> "JobDefinitionArn")
+              Prelude.<*> (x Data..:> "JobDefinitionArn")
       )
 
 instance
@@ -226,9 +227,10 @@ instance
   hashWithSalt
     _salt
     CreateModelExplainabilityJobDefinition' {..} =
-      _salt `Prelude.hashWithSalt` stoppingCondition
-        `Prelude.hashWithSalt` networkConfig
+      _salt
         `Prelude.hashWithSalt` modelExplainabilityBaselineConfig
+        `Prelude.hashWithSalt` networkConfig
+        `Prelude.hashWithSalt` stoppingCondition
         `Prelude.hashWithSalt` tags
         `Prelude.hashWithSalt` jobDefinitionName
         `Prelude.hashWithSalt` modelExplainabilityAppSpecification
@@ -242,9 +244,9 @@ instance
     CreateModelExplainabilityJobDefinition
   where
   rnf CreateModelExplainabilityJobDefinition' {..} =
-    Prelude.rnf stoppingCondition
+    Prelude.rnf modelExplainabilityBaselineConfig
       `Prelude.seq` Prelude.rnf networkConfig
-      `Prelude.seq` Prelude.rnf modelExplainabilityBaselineConfig
+      `Prelude.seq` Prelude.rnf stoppingCondition
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf jobDefinitionName
       `Prelude.seq` Prelude.rnf modelExplainabilityAppSpecification
@@ -254,63 +256,63 @@ instance
       `Prelude.seq` Prelude.rnf roleArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateModelExplainabilityJobDefinition
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.CreateModelExplainabilityJobDefinition" ::
+              Data.=# ( "SageMaker.CreateModelExplainabilityJobDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CreateModelExplainabilityJobDefinition
   where
   toJSON CreateModelExplainabilityJobDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StoppingCondition" Core..=)
-              Prelude.<$> stoppingCondition,
-            ("NetworkConfig" Core..=) Prelude.<$> networkConfig,
-            ("ModelExplainabilityBaselineConfig" Core..=)
+          [ ("ModelExplainabilityBaselineConfig" Data..=)
               Prelude.<$> modelExplainabilityBaselineConfig,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("NetworkConfig" Data..=) Prelude.<$> networkConfig,
+            ("StoppingCondition" Data..=)
+              Prelude.<$> stoppingCondition,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("JobDefinitionName" Core..= jobDefinitionName),
+              ("JobDefinitionName" Data..= jobDefinitionName),
             Prelude.Just
               ( "ModelExplainabilityAppSpecification"
-                  Core..= modelExplainabilityAppSpecification
+                  Data..= modelExplainabilityAppSpecification
               ),
             Prelude.Just
               ( "ModelExplainabilityJobInput"
-                  Core..= modelExplainabilityJobInput
+                  Data..= modelExplainabilityJobInput
               ),
             Prelude.Just
               ( "ModelExplainabilityJobOutputConfig"
-                  Core..= modelExplainabilityJobOutputConfig
+                  Data..= modelExplainabilityJobOutputConfig
               ),
-            Prelude.Just ("JobResources" Core..= jobResources),
-            Prelude.Just ("RoleArn" Core..= roleArn)
+            Prelude.Just ("JobResources" Data..= jobResources),
+            Prelude.Just ("RoleArn" Data..= roleArn)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     CreateModelExplainabilityJobDefinition
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CreateModelExplainabilityJobDefinition
   where
   toQuery = Prelude.const Prelude.mempty

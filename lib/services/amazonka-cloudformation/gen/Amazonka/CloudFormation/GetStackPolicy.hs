@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.GetStackPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,7 +52,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetStackPolicy' smart constructor.
 data GetStackPolicy = GetStackPolicy'
-  { -- | The name or unique stack ID that is associated with the stack whose
+  { -- | The name or unique stack ID that\'s associated with the stack whose
     -- policy you want to get.
     stackName :: Prelude.Text
   }
@@ -65,7 +66,7 @@ data GetStackPolicy = GetStackPolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'stackName', 'getStackPolicy_stackName' - The name or unique stack ID that is associated with the stack whose
+-- 'stackName', 'getStackPolicy_stackName' - The name or unique stack ID that\'s associated with the stack whose
 -- policy you want to get.
 newGetStackPolicy ::
   -- | 'stackName'
@@ -74,7 +75,7 @@ newGetStackPolicy ::
 newGetStackPolicy pStackName_ =
   GetStackPolicy' {stackName = pStackName_}
 
--- | The name or unique stack ID that is associated with the stack whose
+-- | The name or unique stack ID that\'s associated with the stack whose
 -- policy you want to get.
 getStackPolicy_stackName :: Lens.Lens' GetStackPolicy Prelude.Text
 getStackPolicy_stackName = Lens.lens (\GetStackPolicy' {stackName} -> stackName) (\s@GetStackPolicy' {} a -> s {stackName = a} :: GetStackPolicy)
@@ -83,13 +84,14 @@ instance Core.AWSRequest GetStackPolicy where
   type
     AWSResponse GetStackPolicy =
       GetStackPolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetStackPolicyResult"
       ( \s h x ->
           GetStackPolicyResponse'
-            Prelude.<$> (x Core..@? "StackPolicyBody")
+            Prelude.<$> (x Data..@? "StackPolicyBody")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,20 +102,20 @@ instance Prelude.Hashable GetStackPolicy where
 instance Prelude.NFData GetStackPolicy where
   rnf GetStackPolicy' {..} = Prelude.rnf stackName
 
-instance Core.ToHeaders GetStackPolicy where
+instance Data.ToHeaders GetStackPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetStackPolicy where
+instance Data.ToPath GetStackPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetStackPolicy where
+instance Data.ToQuery GetStackPolicy where
   toQuery GetStackPolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetStackPolicy" :: Prelude.ByteString),
+          Data.=: ("GetStackPolicy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "StackName" Core.=: stackName
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "StackName" Data.=: stackName
       ]
 
 -- | The output for the GetStackPolicy action.

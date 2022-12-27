@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.Types.MissionProfileIdResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GroundStation.Types.MissionProfileIdResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- |
@@ -53,13 +54,13 @@ newMissionProfileIdResponse =
 missionProfileIdResponse_missionProfileId :: Lens.Lens' MissionProfileIdResponse (Prelude.Maybe Prelude.Text)
 missionProfileIdResponse_missionProfileId = Lens.lens (\MissionProfileIdResponse' {missionProfileId} -> missionProfileId) (\s@MissionProfileIdResponse' {} a -> s {missionProfileId = a} :: MissionProfileIdResponse)
 
-instance Core.FromJSON MissionProfileIdResponse where
+instance Data.FromJSON MissionProfileIdResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MissionProfileIdResponse"
       ( \x ->
           MissionProfileIdResponse'
-            Prelude.<$> (x Core..:? "missionProfileId")
+            Prelude.<$> (x Data..:? "missionProfileId")
       )
 
 instance Prelude.Hashable MissionProfileIdResponse where

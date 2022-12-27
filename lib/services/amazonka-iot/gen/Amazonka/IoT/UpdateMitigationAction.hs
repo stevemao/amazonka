@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.UpdateMitigationAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,15 +40,16 @@ module Amazonka.IoT.UpdateMitigationAction
     newUpdateMitigationActionResponse,
 
     -- * Response Lenses
-    updateMitigationActionResponse_actionId,
     updateMitigationActionResponse_actionArn,
+    updateMitigationActionResponse_actionId,
     updateMitigationActionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,13 +112,14 @@ instance Core.AWSRequest UpdateMitigationAction where
   type
     AWSResponse UpdateMitigationAction =
       UpdateMitigationActionResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateMitigationActionResponse'
-            Prelude.<$> (x Core..?> "actionId")
-            Prelude.<*> (x Core..?> "actionArn")
+            Prelude.<$> (x Data..?> "actionArn")
+            Prelude.<*> (x Data..?> "actionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -133,32 +135,32 @@ instance Prelude.NFData UpdateMitigationAction where
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf actionName
 
-instance Core.ToHeaders UpdateMitigationAction where
+instance Data.ToHeaders UpdateMitigationAction where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateMitigationAction where
+instance Data.ToJSON UpdateMitigationAction where
   toJSON UpdateMitigationAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("actionParams" Core..=) Prelude.<$> actionParams,
-            ("roleArn" Core..=) Prelude.<$> roleArn
+          [ ("actionParams" Data..=) Prelude.<$> actionParams,
+            ("roleArn" Data..=) Prelude.<$> roleArn
           ]
       )
 
-instance Core.ToPath UpdateMitigationAction where
+instance Data.ToPath UpdateMitigationAction where
   toPath UpdateMitigationAction' {..} =
     Prelude.mconcat
-      ["/mitigationactions/actions/", Core.toBS actionName]
+      ["/mitigationactions/actions/", Data.toBS actionName]
 
-instance Core.ToQuery UpdateMitigationAction where
+instance Data.ToQuery UpdateMitigationAction where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateMitigationActionResponse' smart constructor.
 data UpdateMitigationActionResponse = UpdateMitigationActionResponse'
-  { -- | A unique identifier for the mitigation action.
-    actionId :: Prelude.Maybe Prelude.Text,
-    -- | The ARN for the new mitigation action.
+  { -- | The ARN for the new mitigation action.
     actionArn :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the mitigation action.
+    actionId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -172,9 +174,9 @@ data UpdateMitigationActionResponse = UpdateMitigationActionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'actionId', 'updateMitigationActionResponse_actionId' - A unique identifier for the mitigation action.
---
 -- 'actionArn', 'updateMitigationActionResponse_actionArn' - The ARN for the new mitigation action.
+--
+-- 'actionId', 'updateMitigationActionResponse_actionId' - A unique identifier for the mitigation action.
 --
 -- 'httpStatus', 'updateMitigationActionResponse_httpStatus' - The response's http status code.
 newUpdateMitigationActionResponse ::
@@ -183,19 +185,19 @@ newUpdateMitigationActionResponse ::
   UpdateMitigationActionResponse
 newUpdateMitigationActionResponse pHttpStatus_ =
   UpdateMitigationActionResponse'
-    { actionId =
+    { actionArn =
         Prelude.Nothing,
-      actionArn = Prelude.Nothing,
+      actionId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A unique identifier for the mitigation action.
-updateMitigationActionResponse_actionId :: Lens.Lens' UpdateMitigationActionResponse (Prelude.Maybe Prelude.Text)
-updateMitigationActionResponse_actionId = Lens.lens (\UpdateMitigationActionResponse' {actionId} -> actionId) (\s@UpdateMitigationActionResponse' {} a -> s {actionId = a} :: UpdateMitigationActionResponse)
 
 -- | The ARN for the new mitigation action.
 updateMitigationActionResponse_actionArn :: Lens.Lens' UpdateMitigationActionResponse (Prelude.Maybe Prelude.Text)
 updateMitigationActionResponse_actionArn = Lens.lens (\UpdateMitigationActionResponse' {actionArn} -> actionArn) (\s@UpdateMitigationActionResponse' {} a -> s {actionArn = a} :: UpdateMitigationActionResponse)
+
+-- | A unique identifier for the mitigation action.
+updateMitigationActionResponse_actionId :: Lens.Lens' UpdateMitigationActionResponse (Prelude.Maybe Prelude.Text)
+updateMitigationActionResponse_actionId = Lens.lens (\UpdateMitigationActionResponse' {actionId} -> actionId) (\s@UpdateMitigationActionResponse' {} a -> s {actionId = a} :: UpdateMitigationActionResponse)
 
 -- | The response's http status code.
 updateMitigationActionResponse_httpStatus :: Lens.Lens' UpdateMitigationActionResponse Prelude.Int
@@ -206,6 +208,6 @@ instance
     UpdateMitigationActionResponse
   where
   rnf UpdateMitigationActionResponse' {..} =
-    Prelude.rnf actionId
-      `Prelude.seq` Prelude.rnf actionArn
+    Prelude.rnf actionArn
+      `Prelude.seq` Prelude.rnf actionId
       `Prelude.seq` Prelude.rnf httpStatus

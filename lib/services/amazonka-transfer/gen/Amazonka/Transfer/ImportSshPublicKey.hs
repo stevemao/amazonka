@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.ImportSshPublicKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.Transfer.ImportSshPublicKey
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,6 +61,8 @@ data ImportSshPublicKey = ImportSshPublicKey'
   { -- | A system-assigned unique identifier for a server.
     serverId :: Prelude.Text,
     -- | The public key portion of an SSH key pair.
+    --
+    -- Transfer Family accepts RSA, ECDSA, and ED25519 keys.
     sshPublicKeyBody :: Prelude.Text,
     -- | The name of the user account that is assigned to one or more servers.
     userName :: Prelude.Text
@@ -77,6 +80,8 @@ data ImportSshPublicKey = ImportSshPublicKey'
 -- 'serverId', 'importSshPublicKey_serverId' - A system-assigned unique identifier for a server.
 --
 -- 'sshPublicKeyBody', 'importSshPublicKey_sshPublicKeyBody' - The public key portion of an SSH key pair.
+--
+-- Transfer Family accepts RSA, ECDSA, and ED25519 keys.
 --
 -- 'userName', 'importSshPublicKey_userName' - The name of the user account that is assigned to one or more servers.
 newImportSshPublicKey ::
@@ -102,6 +107,8 @@ importSshPublicKey_serverId :: Lens.Lens' ImportSshPublicKey Prelude.Text
 importSshPublicKey_serverId = Lens.lens (\ImportSshPublicKey' {serverId} -> serverId) (\s@ImportSshPublicKey' {} a -> s {serverId = a} :: ImportSshPublicKey)
 
 -- | The public key portion of an SSH key pair.
+--
+-- Transfer Family accepts RSA, ECDSA, and ED25519 keys.
 importSshPublicKey_sshPublicKeyBody :: Lens.Lens' ImportSshPublicKey Prelude.Text
 importSshPublicKey_sshPublicKeyBody = Lens.lens (\ImportSshPublicKey' {sshPublicKeyBody} -> sshPublicKeyBody) (\s@ImportSshPublicKey' {} a -> s {sshPublicKeyBody = a} :: ImportSshPublicKey)
 
@@ -113,15 +120,16 @@ instance Core.AWSRequest ImportSshPublicKey where
   type
     AWSResponse ImportSshPublicKey =
       ImportSshPublicKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ImportSshPublicKeyResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ServerId")
-            Prelude.<*> (x Core..:> "SshPublicKeyId")
-            Prelude.<*> (x Core..:> "UserName")
+            Prelude.<*> (x Data..:> "ServerId")
+            Prelude.<*> (x Data..:> "SshPublicKeyId")
+            Prelude.<*> (x Data..:> "UserName")
       )
 
 instance Prelude.Hashable ImportSshPublicKey where
@@ -136,36 +144,36 @@ instance Prelude.NFData ImportSshPublicKey where
       `Prelude.seq` Prelude.rnf sshPublicKeyBody
       `Prelude.seq` Prelude.rnf userName
 
-instance Core.ToHeaders ImportSshPublicKey where
+instance Data.ToHeaders ImportSshPublicKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "TransferService.ImportSshPublicKey" ::
+              Data.=# ( "TransferService.ImportSshPublicKey" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ImportSshPublicKey where
+instance Data.ToJSON ImportSshPublicKey where
   toJSON ImportSshPublicKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ServerId" Core..= serverId),
+          [ Prelude.Just ("ServerId" Data..= serverId),
             Prelude.Just
-              ("SshPublicKeyBody" Core..= sshPublicKeyBody),
-            Prelude.Just ("UserName" Core..= userName)
+              ("SshPublicKeyBody" Data..= sshPublicKeyBody),
+            Prelude.Just ("UserName" Data..= userName)
           ]
       )
 
-instance Core.ToPath ImportSshPublicKey where
+instance Data.ToPath ImportSshPublicKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ImportSshPublicKey where
+instance Data.ToQuery ImportSshPublicKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Identifies the user, the server they belong to, and the identifier of

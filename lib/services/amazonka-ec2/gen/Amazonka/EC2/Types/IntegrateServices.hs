@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.IntegrateServices
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.IntegrateServices where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.AthenaIntegration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes service integrations with VPC Flow logs.
@@ -63,11 +64,11 @@ instance Prelude.NFData IntegrateServices where
   rnf IntegrateServices' {..} =
     Prelude.rnf athenaIntegrations
 
-instance Core.ToQuery IntegrateServices where
+instance Data.ToQuery IntegrateServices where
   toQuery IntegrateServices' {..} =
     Prelude.mconcat
-      [ Core.toQuery
-          ( Core.toQueryList "AthenaIntegration"
+      [ Data.toQuery
+          ( Data.toQueryList "AthenaIntegration"
               Prelude.<$> athenaIntegrations
           )
       ]

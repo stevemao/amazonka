@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.CheckDomainAvailability
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.Route53Domains.CheckDomainAvailability
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -163,13 +164,14 @@ instance Core.AWSRequest CheckDomainAvailability where
   type
     AWSResponse CheckDomainAvailability =
       CheckDomainAvailabilityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CheckDomainAvailabilityResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Availability")
+            Prelude.<*> (x Data..:> "Availability")
       )
 
 instance Prelude.Hashable CheckDomainAvailability where
@@ -182,34 +184,34 @@ instance Prelude.NFData CheckDomainAvailability where
     Prelude.rnf idnLangCode
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders CheckDomainAvailability where
+instance Data.ToHeaders CheckDomainAvailability where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Domains_v20140515.CheckDomainAvailability" ::
+              Data.=# ( "Route53Domains_v20140515.CheckDomainAvailability" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CheckDomainAvailability where
+instance Data.ToJSON CheckDomainAvailability where
   toJSON CheckDomainAvailability' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IdnLangCode" Core..=) Prelude.<$> idnLangCode,
-            Prelude.Just ("DomainName" Core..= domainName)
+          [ ("IdnLangCode" Data..=) Prelude.<$> idnLangCode,
+            Prelude.Just ("DomainName" Data..= domainName)
           ]
       )
 
-instance Core.ToPath CheckDomainAvailability where
+instance Data.ToPath CheckDomainAvailability where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CheckDomainAvailability where
+instance Data.ToQuery CheckDomainAvailability where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The CheckDomainAvailability response includes the following elements.

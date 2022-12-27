@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.UpdateOrganizationalUnit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.Organizations.UpdateOrganizationalUnit
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -127,12 +128,13 @@ instance Core.AWSRequest UpdateOrganizationalUnit where
   type
     AWSResponse UpdateOrganizationalUnit =
       UpdateOrganizationalUnitResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateOrganizationalUnitResponse'
-            Prelude.<$> (x Core..?> "OrganizationalUnit")
+            Prelude.<$> (x Data..?> "OrganizationalUnit")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -146,37 +148,37 @@ instance Prelude.NFData UpdateOrganizationalUnit where
     Prelude.rnf name
       `Prelude.seq` Prelude.rnf organizationalUnitId
 
-instance Core.ToHeaders UpdateOrganizationalUnit where
+instance Data.ToHeaders UpdateOrganizationalUnit where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.UpdateOrganizationalUnit" ::
+              Data.=# ( "AWSOrganizationsV20161128.UpdateOrganizationalUnit" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateOrganizationalUnit where
+instance Data.ToJSON UpdateOrganizationalUnit where
   toJSON UpdateOrganizationalUnit' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Name" Core..=) Prelude.<$> name,
+          [ ("Name" Data..=) Prelude.<$> name,
             Prelude.Just
               ( "OrganizationalUnitId"
-                  Core..= organizationalUnitId
+                  Data..= organizationalUnitId
               )
           ]
       )
 
-instance Core.ToPath UpdateOrganizationalUnit where
+instance Data.ToPath UpdateOrganizationalUnit where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateOrganizationalUnit where
+instance Data.ToQuery UpdateOrganizationalUnit where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateOrganizationalUnitResponse' smart constructor.

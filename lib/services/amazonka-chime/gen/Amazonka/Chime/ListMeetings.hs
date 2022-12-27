@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.ListMeetings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.Chime.ListMeetings
     newListMeetings,
 
     -- * Request Lenses
-    listMeetings_nextToken,
     listMeetings_maxResults,
+    listMeetings_nextToken,
 
     -- * Destructuring the Response
     ListMeetingsResponse (..),
@@ -46,17 +46,18 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListMeetings' smart constructor.
 data ListMeetings = ListMeetings'
-  { -- | The token to use to retrieve the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of results to return in a single call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to use to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,58 +69,59 @@ data ListMeetings = ListMeetings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listMeetings_nextToken' - The token to use to retrieve the next page of results.
---
 -- 'maxResults', 'listMeetings_maxResults' - The maximum number of results to return in a single call.
+--
+-- 'nextToken', 'listMeetings_nextToken' - The token to use to retrieve the next page of results.
 newListMeetings ::
   ListMeetings
 newListMeetings =
   ListMeetings'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token to use to retrieve the next page of results.
-listMeetings_nextToken :: Lens.Lens' ListMeetings (Prelude.Maybe Prelude.Text)
-listMeetings_nextToken = Lens.lens (\ListMeetings' {nextToken} -> nextToken) (\s@ListMeetings' {} a -> s {nextToken = a} :: ListMeetings)
 
 -- | The maximum number of results to return in a single call.
 listMeetings_maxResults :: Lens.Lens' ListMeetings (Prelude.Maybe Prelude.Natural)
 listMeetings_maxResults = Lens.lens (\ListMeetings' {maxResults} -> maxResults) (\s@ListMeetings' {} a -> s {maxResults = a} :: ListMeetings)
 
+-- | The token to use to retrieve the next page of results.
+listMeetings_nextToken :: Lens.Lens' ListMeetings (Prelude.Maybe Prelude.Text)
+listMeetings_nextToken = Lens.lens (\ListMeetings' {nextToken} -> nextToken) (\s@ListMeetings' {} a -> s {nextToken = a} :: ListMeetings)
+
 instance Core.AWSRequest ListMeetings where
   type AWSResponse ListMeetings = ListMeetingsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListMeetingsResponse'
-            Prelude.<$> (x Core..?> "Meetings" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Meetings" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListMeetings where
   hashWithSalt _salt ListMeetings' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListMeetings where
   rnf ListMeetings' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListMeetings where
+instance Data.ToHeaders ListMeetings where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListMeetings where
+instance Data.ToPath ListMeetings where
   toPath = Prelude.const "/meetings"
 
-instance Core.ToQuery ListMeetings where
+instance Data.ToQuery ListMeetings where
   toQuery ListMeetings' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListMeetingsResponse' smart constructor.

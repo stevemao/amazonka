@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SES.Types.Destination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SES.Types.Destination where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the destination of the message, consisting of To:, CC:, and
@@ -92,16 +93,16 @@ instance Prelude.NFData Destination where
       `Prelude.seq` Prelude.rnf ccAddresses
       `Prelude.seq` Prelude.rnf toAddresses
 
-instance Core.ToQuery Destination where
+instance Data.ToQuery Destination where
   toQuery Destination' {..} =
     Prelude.mconcat
       [ "BccAddresses"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> bccAddresses),
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> bccAddresses),
         "CcAddresses"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> ccAddresses),
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> ccAddresses),
         "ToAddresses"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> toAddresses)
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> toAddresses)
       ]

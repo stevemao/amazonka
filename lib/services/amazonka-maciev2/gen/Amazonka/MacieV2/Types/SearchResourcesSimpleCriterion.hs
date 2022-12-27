@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.SearchResourcesSimpleCriterion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.SearchResourcesSimpleCriterion where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.SearchResourcesComparator
 import Amazonka.MacieV2.Types.SearchResourcesSimpleCriterionKey
 import qualified Amazonka.Prelude as Prelude
@@ -30,7 +31,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSearchResourcesSimpleCriterion' smart constructor.
 data SearchResourcesSimpleCriterion = SearchResourcesSimpleCriterion'
-  { -- | An array that lists one or more values to use in the condition. If you
+  { -- | The operator to use in the condition. Valid values are EQ (equals) and
+    -- NE (not equals).
+    comparator :: Prelude.Maybe SearchResourcesComparator,
+    -- | The property to use in the condition.
+    key :: Prelude.Maybe SearchResourcesSimpleCriterionKey,
+    -- | An array that lists one or more values to use in the condition. If you
     -- specify multiple values, Amazon Macie uses OR logic to join the values.
     -- Valid values for each supported property (key) are:
     --
@@ -51,12 +57,7 @@ data SearchResourcesSimpleCriterion = SearchResourcesSimpleCriterion'
     --
     -- Values are case sensitive. Also, Macie doesn\'t support use of partial
     -- values or wildcard characters in values.
-    values :: Prelude.Maybe [Prelude.Text],
-    -- | The property to use in the condition.
-    key :: Prelude.Maybe SearchResourcesSimpleCriterionKey,
-    -- | The operator to use in the condition. Valid values are EQ (equals) and
-    -- NE (not equals).
-    comparator :: Prelude.Maybe SearchResourcesComparator
+    values :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,6 +68,11 @@ data SearchResourcesSimpleCriterion = SearchResourcesSimpleCriterion'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'comparator', 'searchResourcesSimpleCriterion_comparator' - The operator to use in the condition. Valid values are EQ (equals) and
+-- NE (not equals).
+--
+-- 'key', 'searchResourcesSimpleCriterion_key' - The property to use in the condition.
 --
 -- 'values', 'searchResourcesSimpleCriterion_values' - An array that lists one or more values to use in the condition. If you
 -- specify multiple values, Amazon Macie uses OR logic to join the values.
@@ -89,20 +95,24 @@ data SearchResourcesSimpleCriterion = SearchResourcesSimpleCriterion'
 --
 -- Values are case sensitive. Also, Macie doesn\'t support use of partial
 -- values or wildcard characters in values.
---
--- 'key', 'searchResourcesSimpleCriterion_key' - The property to use in the condition.
---
--- 'comparator', 'searchResourcesSimpleCriterion_comparator' - The operator to use in the condition. Valid values are EQ (equals) and
--- NE (not equals).
 newSearchResourcesSimpleCriterion ::
   SearchResourcesSimpleCriterion
 newSearchResourcesSimpleCriterion =
   SearchResourcesSimpleCriterion'
-    { values =
+    { comparator =
         Prelude.Nothing,
       key = Prelude.Nothing,
-      comparator = Prelude.Nothing
+      values = Prelude.Nothing
     }
+
+-- | The operator to use in the condition. Valid values are EQ (equals) and
+-- NE (not equals).
+searchResourcesSimpleCriterion_comparator :: Lens.Lens' SearchResourcesSimpleCriterion (Prelude.Maybe SearchResourcesComparator)
+searchResourcesSimpleCriterion_comparator = Lens.lens (\SearchResourcesSimpleCriterion' {comparator} -> comparator) (\s@SearchResourcesSimpleCriterion' {} a -> s {comparator = a} :: SearchResourcesSimpleCriterion)
+
+-- | The property to use in the condition.
+searchResourcesSimpleCriterion_key :: Lens.Lens' SearchResourcesSimpleCriterion (Prelude.Maybe SearchResourcesSimpleCriterionKey)
+searchResourcesSimpleCriterion_key = Lens.lens (\SearchResourcesSimpleCriterion' {key} -> key) (\s@SearchResourcesSimpleCriterion' {} a -> s {key = a} :: SearchResourcesSimpleCriterion)
 
 -- | An array that lists one or more values to use in the condition. If you
 -- specify multiple values, Amazon Macie uses OR logic to join the values.
@@ -128,15 +138,6 @@ newSearchResourcesSimpleCriterion =
 searchResourcesSimpleCriterion_values :: Lens.Lens' SearchResourcesSimpleCriterion (Prelude.Maybe [Prelude.Text])
 searchResourcesSimpleCriterion_values = Lens.lens (\SearchResourcesSimpleCriterion' {values} -> values) (\s@SearchResourcesSimpleCriterion' {} a -> s {values = a} :: SearchResourcesSimpleCriterion) Prelude.. Lens.mapping Lens.coerced
 
--- | The property to use in the condition.
-searchResourcesSimpleCriterion_key :: Lens.Lens' SearchResourcesSimpleCriterion (Prelude.Maybe SearchResourcesSimpleCriterionKey)
-searchResourcesSimpleCriterion_key = Lens.lens (\SearchResourcesSimpleCriterion' {key} -> key) (\s@SearchResourcesSimpleCriterion' {} a -> s {key = a} :: SearchResourcesSimpleCriterion)
-
--- | The operator to use in the condition. Valid values are EQ (equals) and
--- NE (not equals).
-searchResourcesSimpleCriterion_comparator :: Lens.Lens' SearchResourcesSimpleCriterion (Prelude.Maybe SearchResourcesComparator)
-searchResourcesSimpleCriterion_comparator = Lens.lens (\SearchResourcesSimpleCriterion' {comparator} -> comparator) (\s@SearchResourcesSimpleCriterion' {} a -> s {comparator = a} :: SearchResourcesSimpleCriterion)
-
 instance
   Prelude.Hashable
     SearchResourcesSimpleCriterion
@@ -144,25 +145,25 @@ instance
   hashWithSalt
     _salt
     SearchResourcesSimpleCriterion' {..} =
-      _salt `Prelude.hashWithSalt` values
+      _salt `Prelude.hashWithSalt` comparator
         `Prelude.hashWithSalt` key
-        `Prelude.hashWithSalt` comparator
+        `Prelude.hashWithSalt` values
 
 instance
   Prelude.NFData
     SearchResourcesSimpleCriterion
   where
   rnf SearchResourcesSimpleCriterion' {..} =
-    Prelude.rnf values
+    Prelude.rnf comparator
       `Prelude.seq` Prelude.rnf key
-      `Prelude.seq` Prelude.rnf comparator
+      `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON SearchResourcesSimpleCriterion where
+instance Data.ToJSON SearchResourcesSimpleCriterion where
   toJSON SearchResourcesSimpleCriterion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("values" Core..=) Prelude.<$> values,
-            ("key" Core..=) Prelude.<$> key,
-            ("comparator" Core..=) Prelude.<$> comparator
+          [ ("comparator" Data..=) Prelude.<$> comparator,
+            ("key" Data..=) Prelude.<$> key,
+            ("values" Data..=) Prelude.<$> values
           ]
       )

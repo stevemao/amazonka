@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DescribeEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,11 +34,14 @@ module Amazonka.SageMaker.DescribeEndpoint
     newDescribeEndpointResponse,
 
     -- * Response Lenses
-    describeEndpointResponse_failureReason,
     describeEndpointResponse_asyncInferenceConfig,
-    describeEndpointResponse_productionVariants,
-    describeEndpointResponse_lastDeploymentConfig,
     describeEndpointResponse_dataCaptureConfig,
+    describeEndpointResponse_explainerConfig,
+    describeEndpointResponse_failureReason,
+    describeEndpointResponse_lastDeploymentConfig,
+    describeEndpointResponse_pendingDeploymentSummary,
+    describeEndpointResponse_productionVariants,
+    describeEndpointResponse_shadowProductionVariants,
     describeEndpointResponse_httpStatus,
     describeEndpointResponse_endpointName,
     describeEndpointResponse_endpointArn,
@@ -50,7 +53,8 @@ module Amazonka.SageMaker.DescribeEndpoint
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -87,23 +91,27 @@ instance Core.AWSRequest DescribeEndpoint where
   type
     AWSResponse DescribeEndpoint =
       DescribeEndpointResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEndpointResponse'
-            Prelude.<$> (x Core..?> "FailureReason")
-            Prelude.<*> (x Core..?> "AsyncInferenceConfig")
-            Prelude.<*> (x Core..?> "ProductionVariants")
-            Prelude.<*> (x Core..?> "LastDeploymentConfig")
-            Prelude.<*> (x Core..?> "DataCaptureConfig")
+            Prelude.<$> (x Data..?> "AsyncInferenceConfig")
+            Prelude.<*> (x Data..?> "DataCaptureConfig")
+            Prelude.<*> (x Data..?> "ExplainerConfig")
+            Prelude.<*> (x Data..?> "FailureReason")
+            Prelude.<*> (x Data..?> "LastDeploymentConfig")
+            Prelude.<*> (x Data..?> "PendingDeploymentSummary")
+            Prelude.<*> (x Data..?> "ProductionVariants")
+            Prelude.<*> (x Data..?> "ShadowProductionVariants")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "EndpointName")
-            Prelude.<*> (x Core..:> "EndpointArn")
-            Prelude.<*> (x Core..:> "EndpointConfigName")
-            Prelude.<*> (x Core..:> "EndpointStatus")
-            Prelude.<*> (x Core..:> "CreationTime")
-            Prelude.<*> (x Core..:> "LastModifiedTime")
+            Prelude.<*> (x Data..:> "EndpointName")
+            Prelude.<*> (x Data..:> "EndpointArn")
+            Prelude.<*> (x Data..:> "EndpointConfigName")
+            Prelude.<*> (x Data..:> "EndpointStatus")
+            Prelude.<*> (x Data..:> "CreationTime")
+            Prelude.<*> (x Data..:> "LastModifiedTime")
       )
 
 instance Prelude.Hashable DescribeEndpoint where
@@ -113,46 +121,58 @@ instance Prelude.Hashable DescribeEndpoint where
 instance Prelude.NFData DescribeEndpoint where
   rnf DescribeEndpoint' {..} = Prelude.rnf endpointName
 
-instance Core.ToHeaders DescribeEndpoint where
+instance Data.ToHeaders DescribeEndpoint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.DescribeEndpoint" :: Prelude.ByteString),
+              Data.=# ("SageMaker.DescribeEndpoint" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEndpoint where
+instance Data.ToJSON DescribeEndpoint where
   toJSON DescribeEndpoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("EndpointName" Core..= endpointName)]
+          [Prelude.Just ("EndpointName" Data..= endpointName)]
       )
 
-instance Core.ToPath DescribeEndpoint where
+instance Data.ToPath DescribeEndpoint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEndpoint where
+instance Data.ToQuery DescribeEndpoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeEndpointResponse' smart constructor.
 data DescribeEndpointResponse = DescribeEndpointResponse'
-  { -- | If the status of the endpoint is @Failed@, the reason why it failed.
-    failureReason :: Prelude.Maybe Prelude.Text,
-    -- | Returns the description of an endpoint configuration created using the
+  { -- | Returns the description of an endpoint configuration created using the
     -- <https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html CreateEndpointConfig>
     -- API.
     asyncInferenceConfig :: Prelude.Maybe AsyncInferenceConfig,
+    dataCaptureConfig :: Prelude.Maybe DataCaptureConfigSummary,
+    -- | The configuration parameters for an explainer.
+    explainerConfig :: Prelude.Maybe ExplainerConfig,
+    -- | If the status of the endpoint is @Failed@, the reason why it failed.
+    failureReason :: Prelude.Maybe Prelude.Text,
+    -- | The most recent deployment configuration for the endpoint.
+    lastDeploymentConfig :: Prelude.Maybe DeploymentConfig,
+    -- | Returns the summary of an in-progress deployment. This field is only
+    -- returned when the endpoint is creating or updating with a new endpoint
+    -- configuration.
+    pendingDeploymentSummary :: Prelude.Maybe PendingDeploymentSummary,
     -- | An array of ProductionVariantSummary objects, one for each model hosted
     -- behind this endpoint.
     productionVariants :: Prelude.Maybe (Prelude.NonEmpty ProductionVariantSummary),
-    -- | The most recent deployment configuration for the endpoint.
-    lastDeploymentConfig :: Prelude.Maybe DeploymentConfig,
-    dataCaptureConfig :: Prelude.Maybe DataCaptureConfigSummary,
+    -- | Array of @ProductionVariant@ objects. There is one for each model that
+    -- you want to host at this endpoint in shadow mode with production traffic
+    -- replicated from the model specified on @ProductionVariants@.If you use
+    -- this field, you can only specify one variant for @ProductionVariants@
+    -- and one variant for @ShadowProductionVariants@.
+    shadowProductionVariants :: Prelude.Maybe (Prelude.NonEmpty ProductionVariantSummary),
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | Name of the endpoint.
@@ -195,9 +215,9 @@ data DescribeEndpointResponse = DescribeEndpointResponse'
     --     on a failed endpoint.
     endpointStatus :: EndpointStatus,
     -- | A timestamp that shows when the endpoint was created.
-    creationTime :: Core.POSIX,
+    creationTime :: Data.POSIX,
     -- | A timestamp that shows when the endpoint was last modified.
-    lastModifiedTime :: Core.POSIX
+    lastModifiedTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -209,18 +229,30 @@ data DescribeEndpointResponse = DescribeEndpointResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'failureReason', 'describeEndpointResponse_failureReason' - If the status of the endpoint is @Failed@, the reason why it failed.
---
 -- 'asyncInferenceConfig', 'describeEndpointResponse_asyncInferenceConfig' - Returns the description of an endpoint configuration created using the
 -- <https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html CreateEndpointConfig>
 -- API.
 --
--- 'productionVariants', 'describeEndpointResponse_productionVariants' - An array of ProductionVariantSummary objects, one for each model hosted
--- behind this endpoint.
+-- 'dataCaptureConfig', 'describeEndpointResponse_dataCaptureConfig' - Undocumented member.
+--
+-- 'explainerConfig', 'describeEndpointResponse_explainerConfig' - The configuration parameters for an explainer.
+--
+-- 'failureReason', 'describeEndpointResponse_failureReason' - If the status of the endpoint is @Failed@, the reason why it failed.
 --
 -- 'lastDeploymentConfig', 'describeEndpointResponse_lastDeploymentConfig' - The most recent deployment configuration for the endpoint.
 --
--- 'dataCaptureConfig', 'describeEndpointResponse_dataCaptureConfig' - Undocumented member.
+-- 'pendingDeploymentSummary', 'describeEndpointResponse_pendingDeploymentSummary' - Returns the summary of an in-progress deployment. This field is only
+-- returned when the endpoint is creating or updating with a new endpoint
+-- configuration.
+--
+-- 'productionVariants', 'describeEndpointResponse_productionVariants' - An array of ProductionVariantSummary objects, one for each model hosted
+-- behind this endpoint.
+--
+-- 'shadowProductionVariants', 'describeEndpointResponse_shadowProductionVariants' - Array of @ProductionVariant@ objects. There is one for each model that
+-- you want to host at this endpoint in shadow mode with production traffic
+-- replicated from the model specified on @ProductionVariants@.If you use
+-- this field, you can only specify one variant for @ProductionVariants@
+-- and one variant for @ShadowProductionVariants@.
 --
 -- 'httpStatus', 'describeEndpointResponse_httpStatus' - The response's http status code.
 --
@@ -291,25 +323,24 @@ newDescribeEndpointResponse
   pCreationTime_
   pLastModifiedTime_ =
     DescribeEndpointResponse'
-      { failureReason =
+      { asyncInferenceConfig =
           Prelude.Nothing,
-        asyncInferenceConfig = Prelude.Nothing,
-        productionVariants = Prelude.Nothing,
-        lastDeploymentConfig = Prelude.Nothing,
         dataCaptureConfig = Prelude.Nothing,
+        explainerConfig = Prelude.Nothing,
+        failureReason = Prelude.Nothing,
+        lastDeploymentConfig = Prelude.Nothing,
+        pendingDeploymentSummary = Prelude.Nothing,
+        productionVariants = Prelude.Nothing,
+        shadowProductionVariants = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         endpointName = pEndpointName_,
         endpointArn = pEndpointArn_,
         endpointConfigName = pEndpointConfigName_,
         endpointStatus = pEndpointStatus_,
-        creationTime = Core._Time Lens.# pCreationTime_,
+        creationTime = Data._Time Lens.# pCreationTime_,
         lastModifiedTime =
-          Core._Time Lens.# pLastModifiedTime_
+          Data._Time Lens.# pLastModifiedTime_
       }
-
--- | If the status of the endpoint is @Failed@, the reason why it failed.
-describeEndpointResponse_failureReason :: Lens.Lens' DescribeEndpointResponse (Prelude.Maybe Prelude.Text)
-describeEndpointResponse_failureReason = Lens.lens (\DescribeEndpointResponse' {failureReason} -> failureReason) (\s@DescribeEndpointResponse' {} a -> s {failureReason = a} :: DescribeEndpointResponse)
 
 -- | Returns the description of an endpoint configuration created using the
 -- <https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateEndpointConfig.html CreateEndpointConfig>
@@ -317,18 +348,40 @@ describeEndpointResponse_failureReason = Lens.lens (\DescribeEndpointResponse' {
 describeEndpointResponse_asyncInferenceConfig :: Lens.Lens' DescribeEndpointResponse (Prelude.Maybe AsyncInferenceConfig)
 describeEndpointResponse_asyncInferenceConfig = Lens.lens (\DescribeEndpointResponse' {asyncInferenceConfig} -> asyncInferenceConfig) (\s@DescribeEndpointResponse' {} a -> s {asyncInferenceConfig = a} :: DescribeEndpointResponse)
 
--- | An array of ProductionVariantSummary objects, one for each model hosted
--- behind this endpoint.
-describeEndpointResponse_productionVariants :: Lens.Lens' DescribeEndpointResponse (Prelude.Maybe (Prelude.NonEmpty ProductionVariantSummary))
-describeEndpointResponse_productionVariants = Lens.lens (\DescribeEndpointResponse' {productionVariants} -> productionVariants) (\s@DescribeEndpointResponse' {} a -> s {productionVariants = a} :: DescribeEndpointResponse) Prelude.. Lens.mapping Lens.coerced
+-- | Undocumented member.
+describeEndpointResponse_dataCaptureConfig :: Lens.Lens' DescribeEndpointResponse (Prelude.Maybe DataCaptureConfigSummary)
+describeEndpointResponse_dataCaptureConfig = Lens.lens (\DescribeEndpointResponse' {dataCaptureConfig} -> dataCaptureConfig) (\s@DescribeEndpointResponse' {} a -> s {dataCaptureConfig = a} :: DescribeEndpointResponse)
+
+-- | The configuration parameters for an explainer.
+describeEndpointResponse_explainerConfig :: Lens.Lens' DescribeEndpointResponse (Prelude.Maybe ExplainerConfig)
+describeEndpointResponse_explainerConfig = Lens.lens (\DescribeEndpointResponse' {explainerConfig} -> explainerConfig) (\s@DescribeEndpointResponse' {} a -> s {explainerConfig = a} :: DescribeEndpointResponse)
+
+-- | If the status of the endpoint is @Failed@, the reason why it failed.
+describeEndpointResponse_failureReason :: Lens.Lens' DescribeEndpointResponse (Prelude.Maybe Prelude.Text)
+describeEndpointResponse_failureReason = Lens.lens (\DescribeEndpointResponse' {failureReason} -> failureReason) (\s@DescribeEndpointResponse' {} a -> s {failureReason = a} :: DescribeEndpointResponse)
 
 -- | The most recent deployment configuration for the endpoint.
 describeEndpointResponse_lastDeploymentConfig :: Lens.Lens' DescribeEndpointResponse (Prelude.Maybe DeploymentConfig)
 describeEndpointResponse_lastDeploymentConfig = Lens.lens (\DescribeEndpointResponse' {lastDeploymentConfig} -> lastDeploymentConfig) (\s@DescribeEndpointResponse' {} a -> s {lastDeploymentConfig = a} :: DescribeEndpointResponse)
 
--- | Undocumented member.
-describeEndpointResponse_dataCaptureConfig :: Lens.Lens' DescribeEndpointResponse (Prelude.Maybe DataCaptureConfigSummary)
-describeEndpointResponse_dataCaptureConfig = Lens.lens (\DescribeEndpointResponse' {dataCaptureConfig} -> dataCaptureConfig) (\s@DescribeEndpointResponse' {} a -> s {dataCaptureConfig = a} :: DescribeEndpointResponse)
+-- | Returns the summary of an in-progress deployment. This field is only
+-- returned when the endpoint is creating or updating with a new endpoint
+-- configuration.
+describeEndpointResponse_pendingDeploymentSummary :: Lens.Lens' DescribeEndpointResponse (Prelude.Maybe PendingDeploymentSummary)
+describeEndpointResponse_pendingDeploymentSummary = Lens.lens (\DescribeEndpointResponse' {pendingDeploymentSummary} -> pendingDeploymentSummary) (\s@DescribeEndpointResponse' {} a -> s {pendingDeploymentSummary = a} :: DescribeEndpointResponse)
+
+-- | An array of ProductionVariantSummary objects, one for each model hosted
+-- behind this endpoint.
+describeEndpointResponse_productionVariants :: Lens.Lens' DescribeEndpointResponse (Prelude.Maybe (Prelude.NonEmpty ProductionVariantSummary))
+describeEndpointResponse_productionVariants = Lens.lens (\DescribeEndpointResponse' {productionVariants} -> productionVariants) (\s@DescribeEndpointResponse' {} a -> s {productionVariants = a} :: DescribeEndpointResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Array of @ProductionVariant@ objects. There is one for each model that
+-- you want to host at this endpoint in shadow mode with production traffic
+-- replicated from the model specified on @ProductionVariants@.If you use
+-- this field, you can only specify one variant for @ProductionVariants@
+-- and one variant for @ShadowProductionVariants@.
+describeEndpointResponse_shadowProductionVariants :: Lens.Lens' DescribeEndpointResponse (Prelude.Maybe (Prelude.NonEmpty ProductionVariantSummary))
+describeEndpointResponse_shadowProductionVariants = Lens.lens (\DescribeEndpointResponse' {shadowProductionVariants} -> shadowProductionVariants) (\s@DescribeEndpointResponse' {} a -> s {shadowProductionVariants = a} :: DescribeEndpointResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeEndpointResponse_httpStatus :: Lens.Lens' DescribeEndpointResponse Prelude.Int
@@ -383,19 +436,22 @@ describeEndpointResponse_endpointStatus = Lens.lens (\DescribeEndpointResponse' 
 
 -- | A timestamp that shows when the endpoint was created.
 describeEndpointResponse_creationTime :: Lens.Lens' DescribeEndpointResponse Prelude.UTCTime
-describeEndpointResponse_creationTime = Lens.lens (\DescribeEndpointResponse' {creationTime} -> creationTime) (\s@DescribeEndpointResponse' {} a -> s {creationTime = a} :: DescribeEndpointResponse) Prelude.. Core._Time
+describeEndpointResponse_creationTime = Lens.lens (\DescribeEndpointResponse' {creationTime} -> creationTime) (\s@DescribeEndpointResponse' {} a -> s {creationTime = a} :: DescribeEndpointResponse) Prelude.. Data._Time
 
 -- | A timestamp that shows when the endpoint was last modified.
 describeEndpointResponse_lastModifiedTime :: Lens.Lens' DescribeEndpointResponse Prelude.UTCTime
-describeEndpointResponse_lastModifiedTime = Lens.lens (\DescribeEndpointResponse' {lastModifiedTime} -> lastModifiedTime) (\s@DescribeEndpointResponse' {} a -> s {lastModifiedTime = a} :: DescribeEndpointResponse) Prelude.. Core._Time
+describeEndpointResponse_lastModifiedTime = Lens.lens (\DescribeEndpointResponse' {lastModifiedTime} -> lastModifiedTime) (\s@DescribeEndpointResponse' {} a -> s {lastModifiedTime = a} :: DescribeEndpointResponse) Prelude.. Data._Time
 
 instance Prelude.NFData DescribeEndpointResponse where
   rnf DescribeEndpointResponse' {..} =
-    Prelude.rnf failureReason
-      `Prelude.seq` Prelude.rnf asyncInferenceConfig
-      `Prelude.seq` Prelude.rnf productionVariants
-      `Prelude.seq` Prelude.rnf lastDeploymentConfig
+    Prelude.rnf asyncInferenceConfig
       `Prelude.seq` Prelude.rnf dataCaptureConfig
+      `Prelude.seq` Prelude.rnf explainerConfig
+      `Prelude.seq` Prelude.rnf failureReason
+      `Prelude.seq` Prelude.rnf lastDeploymentConfig
+      `Prelude.seq` Prelude.rnf pendingDeploymentSummary
+      `Prelude.seq` Prelude.rnf productionVariants
+      `Prelude.seq` Prelude.rnf shadowProductionVariants
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf endpointName
       `Prelude.seq` Prelude.rnf endpointArn

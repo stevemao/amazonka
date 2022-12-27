@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Types.Filter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElastiCache.Types.Filter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Used to streamline results of a search based on the property being
@@ -75,9 +76,9 @@ instance Prelude.NFData Filter where
   rnf Filter' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf values
 
-instance Core.ToQuery Filter where
+instance Data.ToQuery Filter where
   toQuery Filter' {..} =
     Prelude.mconcat
-      [ "Name" Core.=: name,
-        "Values" Core.=: Core.toQueryList "member" values
+      [ "Name" Data.=: name,
+        "Values" Data.=: Data.toQueryList "member" values
       ]

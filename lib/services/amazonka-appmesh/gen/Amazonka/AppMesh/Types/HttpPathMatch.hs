@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.HttpPathMatch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.AppMesh.Types.HttpPathMatch where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing the path to match in the request.
 --
 -- /See:/ 'newHttpPathMatch' smart constructor.
 data HttpPathMatch = HttpPathMatch'
-  { -- | The regex used to match the path.
-    regex :: Prelude.Maybe Prelude.Text,
-    -- | The exact path to match on.
-    exact :: Prelude.Maybe Prelude.Text
+  { -- | The exact path to match on.
+    exact :: Prelude.Maybe Prelude.Text,
+    -- | The regex used to match the path.
+    regex :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,49 +43,49 @@ data HttpPathMatch = HttpPathMatch'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'regex', 'httpPathMatch_regex' - The regex used to match the path.
---
 -- 'exact', 'httpPathMatch_exact' - The exact path to match on.
+--
+-- 'regex', 'httpPathMatch_regex' - The regex used to match the path.
 newHttpPathMatch ::
   HttpPathMatch
 newHttpPathMatch =
   HttpPathMatch'
-    { regex = Prelude.Nothing,
-      exact = Prelude.Nothing
+    { exact = Prelude.Nothing,
+      regex = Prelude.Nothing
     }
-
--- | The regex used to match the path.
-httpPathMatch_regex :: Lens.Lens' HttpPathMatch (Prelude.Maybe Prelude.Text)
-httpPathMatch_regex = Lens.lens (\HttpPathMatch' {regex} -> regex) (\s@HttpPathMatch' {} a -> s {regex = a} :: HttpPathMatch)
 
 -- | The exact path to match on.
 httpPathMatch_exact :: Lens.Lens' HttpPathMatch (Prelude.Maybe Prelude.Text)
 httpPathMatch_exact = Lens.lens (\HttpPathMatch' {exact} -> exact) (\s@HttpPathMatch' {} a -> s {exact = a} :: HttpPathMatch)
 
-instance Core.FromJSON HttpPathMatch where
+-- | The regex used to match the path.
+httpPathMatch_regex :: Lens.Lens' HttpPathMatch (Prelude.Maybe Prelude.Text)
+httpPathMatch_regex = Lens.lens (\HttpPathMatch' {regex} -> regex) (\s@HttpPathMatch' {} a -> s {regex = a} :: HttpPathMatch)
+
+instance Data.FromJSON HttpPathMatch where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HttpPathMatch"
       ( \x ->
           HttpPathMatch'
-            Prelude.<$> (x Core..:? "regex")
-            Prelude.<*> (x Core..:? "exact")
+            Prelude.<$> (x Data..:? "exact")
+            Prelude.<*> (x Data..:? "regex")
       )
 
 instance Prelude.Hashable HttpPathMatch where
   hashWithSalt _salt HttpPathMatch' {..} =
-    _salt `Prelude.hashWithSalt` regex
-      `Prelude.hashWithSalt` exact
+    _salt `Prelude.hashWithSalt` exact
+      `Prelude.hashWithSalt` regex
 
 instance Prelude.NFData HttpPathMatch where
   rnf HttpPathMatch' {..} =
-    Prelude.rnf regex `Prelude.seq` Prelude.rnf exact
+    Prelude.rnf exact `Prelude.seq` Prelude.rnf regex
 
-instance Core.ToJSON HttpPathMatch where
+instance Data.ToJSON HttpPathMatch where
   toJSON HttpPathMatch' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("regex" Core..=) Prelude.<$> regex,
-            ("exact" Core..=) Prelude.<$> exact
+          [ ("exact" Data..=) Prelude.<$> exact,
+            ("regex" Data..=) Prelude.<$> regex
           ]
       )

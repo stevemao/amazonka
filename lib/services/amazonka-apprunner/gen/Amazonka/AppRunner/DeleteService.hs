@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.DeleteService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,6 +25,9 @@
 -- This is an asynchronous operation. On a successful call, you can use the
 -- returned @OperationId@ and the ListOperations call to track the
 -- operation\'s progress.
+--
+-- Make sure that you don\'t have any active VPCIngressConnections
+-- associated with the service you want to delete.
 module Amazonka.AppRunner.DeleteService
   ( -- * Creating a Request
     DeleteService (..),
@@ -46,7 +49,8 @@ where
 
 import Amazonka.AppRunner.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,14 +89,15 @@ instance Core.AWSRequest DeleteService where
   type
     AWSResponse DeleteService =
       DeleteServiceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteServiceResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Service")
-            Prelude.<*> (x Core..:> "OperationId")
+            Prelude.<*> (x Data..:> "Service")
+            Prelude.<*> (x Data..:> "OperationId")
       )
 
 instance Prelude.Hashable DeleteService where
@@ -102,30 +107,30 @@ instance Prelude.Hashable DeleteService where
 instance Prelude.NFData DeleteService where
   rnf DeleteService' {..} = Prelude.rnf serviceArn
 
-instance Core.ToHeaders DeleteService where
+instance Data.ToHeaders DeleteService where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AppRunner.DeleteService" :: Prelude.ByteString),
+              Data.=# ("AppRunner.DeleteService" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteService where
+instance Data.ToJSON DeleteService where
   toJSON DeleteService' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ServiceArn" Core..= serviceArn)]
+          [Prelude.Just ("ServiceArn" Data..= serviceArn)]
       )
 
-instance Core.ToPath DeleteService where
+instance Data.ToPath DeleteService where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteService where
+instance Data.ToQuery DeleteService where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteServiceResponse' smart constructor.

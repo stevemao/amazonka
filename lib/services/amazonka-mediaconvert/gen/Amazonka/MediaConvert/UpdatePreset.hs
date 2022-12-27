@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.UpdatePreset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.MediaConvert.UpdatePreset
     newUpdatePreset,
 
     -- * Request Lenses
-    updatePreset_settings,
     updatePreset_category,
     updatePreset_description,
+    updatePreset_settings,
     updatePreset_name,
 
     -- * Destructuring the Response
@@ -43,7 +43,8 @@ module Amazonka.MediaConvert.UpdatePreset
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -51,12 +52,12 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdatePreset' smart constructor.
 data UpdatePreset = UpdatePreset'
-  { -- | Settings for preset
-    settings :: Prelude.Maybe PresetSettings,
-    -- | The new category for the preset, if you are changing it.
+  { -- | The new category for the preset, if you are changing it.
     category :: Prelude.Maybe Prelude.Text,
     -- | The new description for the preset, if you are changing it.
     description :: Prelude.Maybe Prelude.Text,
+    -- | Settings for preset
+    settings :: Prelude.Maybe PresetSettings,
     -- | The name of the preset you are modifying.
     name :: Prelude.Text
   }
@@ -70,11 +71,11 @@ data UpdatePreset = UpdatePreset'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'settings', 'updatePreset_settings' - Settings for preset
---
 -- 'category', 'updatePreset_category' - The new category for the preset, if you are changing it.
 --
 -- 'description', 'updatePreset_description' - The new description for the preset, if you are changing it.
+--
+-- 'settings', 'updatePreset_settings' - Settings for preset
 --
 -- 'name', 'updatePreset_name' - The name of the preset you are modifying.
 newUpdatePreset ::
@@ -83,15 +84,11 @@ newUpdatePreset ::
   UpdatePreset
 newUpdatePreset pName_ =
   UpdatePreset'
-    { settings = Prelude.Nothing,
-      category = Prelude.Nothing,
+    { category = Prelude.Nothing,
       description = Prelude.Nothing,
+      settings = Prelude.Nothing,
       name = pName_
     }
-
--- | Settings for preset
-updatePreset_settings :: Lens.Lens' UpdatePreset (Prelude.Maybe PresetSettings)
-updatePreset_settings = Lens.lens (\UpdatePreset' {settings} -> settings) (\s@UpdatePreset' {} a -> s {settings = a} :: UpdatePreset)
 
 -- | The new category for the preset, if you are changing it.
 updatePreset_category :: Lens.Lens' UpdatePreset (Prelude.Maybe Prelude.Text)
@@ -101,62 +98,67 @@ updatePreset_category = Lens.lens (\UpdatePreset' {category} -> category) (\s@Up
 updatePreset_description :: Lens.Lens' UpdatePreset (Prelude.Maybe Prelude.Text)
 updatePreset_description = Lens.lens (\UpdatePreset' {description} -> description) (\s@UpdatePreset' {} a -> s {description = a} :: UpdatePreset)
 
+-- | Settings for preset
+updatePreset_settings :: Lens.Lens' UpdatePreset (Prelude.Maybe PresetSettings)
+updatePreset_settings = Lens.lens (\UpdatePreset' {settings} -> settings) (\s@UpdatePreset' {} a -> s {settings = a} :: UpdatePreset)
+
 -- | The name of the preset you are modifying.
 updatePreset_name :: Lens.Lens' UpdatePreset Prelude.Text
 updatePreset_name = Lens.lens (\UpdatePreset' {name} -> name) (\s@UpdatePreset' {} a -> s {name = a} :: UpdatePreset)
 
 instance Core.AWSRequest UpdatePreset where
   type AWSResponse UpdatePreset = UpdatePresetResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdatePresetResponse'
-            Prelude.<$> (x Core..?> "preset")
+            Prelude.<$> (x Data..?> "preset")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdatePreset where
   hashWithSalt _salt UpdatePreset' {..} =
-    _salt `Prelude.hashWithSalt` settings
-      `Prelude.hashWithSalt` category
+    _salt `Prelude.hashWithSalt` category
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` settings
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData UpdatePreset where
   rnf UpdatePreset' {..} =
-    Prelude.rnf settings
-      `Prelude.seq` Prelude.rnf category
+    Prelude.rnf category
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf settings
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders UpdatePreset where
+instance Data.ToHeaders UpdatePreset where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdatePreset where
+instance Data.ToJSON UpdatePreset where
   toJSON UpdatePreset' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("settings" Core..=) Prelude.<$> settings,
-            ("category" Core..=) Prelude.<$> category,
-            ("description" Core..=) Prelude.<$> description
+          [ ("category" Data..=) Prelude.<$> category,
+            ("description" Data..=) Prelude.<$> description,
+            ("settings" Data..=) Prelude.<$> settings
           ]
       )
 
-instance Core.ToPath UpdatePreset where
+instance Data.ToPath UpdatePreset where
   toPath UpdatePreset' {..} =
     Prelude.mconcat
-      ["/2017-08-29/presets/", Core.toBS name]
+      ["/2017-08-29/presets/", Data.toBS name]
 
-instance Core.ToQuery UpdatePreset where
+instance Data.ToQuery UpdatePreset where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdatePresetResponse' smart constructor.

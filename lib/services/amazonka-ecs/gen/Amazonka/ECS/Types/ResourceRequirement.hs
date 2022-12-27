@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.ResourceRequirement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ECS.Types.ResourceRequirement where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types.ResourceType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The type and amount of a resource to assign to a container. The
@@ -37,12 +38,12 @@ data ResourceRequirement = ResourceRequirement'
   { -- | The value for the specified resource type.
     --
     -- If the @GPU@ type is used, the value is the number of physical @GPUs@
-    -- the Amazon ECS container agent will reserve for the container. The
-    -- number of GPUs reserved for all containers in a task should not exceed
-    -- the number of available GPUs on the container instance the task is
+    -- the Amazon ECS container agent reserves for the container. The number of
+    -- GPUs that\'s reserved for all containers in a task can\'t exceed the
+    -- number of available GPUs on the container instance that the task is
     -- launched on.
     --
-    -- If the @InferenceAccelerator@ type is used, the @value@ should match the
+    -- If the @InferenceAccelerator@ type is used, the @value@ matches the
     -- @deviceName@ for an InferenceAccelerator specified in a task definition.
     value :: Prelude.Text,
     -- | The type of resource to assign to a container. The supported values are
@@ -62,12 +63,12 @@ data ResourceRequirement = ResourceRequirement'
 -- 'value', 'resourceRequirement_value' - The value for the specified resource type.
 --
 -- If the @GPU@ type is used, the value is the number of physical @GPUs@
--- the Amazon ECS container agent will reserve for the container. The
--- number of GPUs reserved for all containers in a task should not exceed
--- the number of available GPUs on the container instance the task is
+-- the Amazon ECS container agent reserves for the container. The number of
+-- GPUs that\'s reserved for all containers in a task can\'t exceed the
+-- number of available GPUs on the container instance that the task is
 -- launched on.
 --
--- If the @InferenceAccelerator@ type is used, the @value@ should match the
+-- If the @InferenceAccelerator@ type is used, the @value@ matches the
 -- @deviceName@ for an InferenceAccelerator specified in a task definition.
 --
 -- 'type'', 'resourceRequirement_type' - The type of resource to assign to a container. The supported values are
@@ -87,12 +88,12 @@ newResourceRequirement pValue_ pType_ =
 -- | The value for the specified resource type.
 --
 -- If the @GPU@ type is used, the value is the number of physical @GPUs@
--- the Amazon ECS container agent will reserve for the container. The
--- number of GPUs reserved for all containers in a task should not exceed
--- the number of available GPUs on the container instance the task is
+-- the Amazon ECS container agent reserves for the container. The number of
+-- GPUs that\'s reserved for all containers in a task can\'t exceed the
+-- number of available GPUs on the container instance that the task is
 -- launched on.
 --
--- If the @InferenceAccelerator@ type is used, the @value@ should match the
+-- If the @InferenceAccelerator@ type is used, the @value@ matches the
 -- @deviceName@ for an InferenceAccelerator specified in a task definition.
 resourceRequirement_value :: Lens.Lens' ResourceRequirement Prelude.Text
 resourceRequirement_value = Lens.lens (\ResourceRequirement' {value} -> value) (\s@ResourceRequirement' {} a -> s {value = a} :: ResourceRequirement)
@@ -102,13 +103,13 @@ resourceRequirement_value = Lens.lens (\ResourceRequirement' {value} -> value) (
 resourceRequirement_type :: Lens.Lens' ResourceRequirement ResourceType
 resourceRequirement_type = Lens.lens (\ResourceRequirement' {type'} -> type') (\s@ResourceRequirement' {} a -> s {type' = a} :: ResourceRequirement)
 
-instance Core.FromJSON ResourceRequirement where
+instance Data.FromJSON ResourceRequirement where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceRequirement"
       ( \x ->
           ResourceRequirement'
-            Prelude.<$> (x Core..: "value") Prelude.<*> (x Core..: "type")
+            Prelude.<$> (x Data..: "value") Prelude.<*> (x Data..: "type")
       )
 
 instance Prelude.Hashable ResourceRequirement where
@@ -120,11 +121,11 @@ instance Prelude.NFData ResourceRequirement where
   rnf ResourceRequirement' {..} =
     Prelude.rnf value `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON ResourceRequirement where
+instance Data.ToJSON ResourceRequirement where
   toJSON ResourceRequirement' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("value" Core..= value),
-            Prelude.Just ("type" Core..= type')
+          [ Prelude.Just ("value" Data..= value),
+            Prelude.Just ("type" Data..= type')
           ]
       )

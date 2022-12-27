@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.XRay
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,8 +21,26 @@ module Amazonka.XRay
     -- * Errors
     -- $errors
 
+    -- ** InvalidPolicyRevisionIdException
+    _InvalidPolicyRevisionIdException,
+
     -- ** InvalidRequestException
     _InvalidRequestException,
+
+    -- ** LockoutPreventionException
+    _LockoutPreventionException,
+
+    -- ** MalformedPolicyDocumentException
+    _MalformedPolicyDocumentException,
+
+    -- ** PolicyCountLimitExceededException
+    _PolicyCountLimitExceededException,
+
+    -- ** PolicySizeLimitExceededException
+    _PolicySizeLimitExceededException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
 
     -- ** RuleLimitExceededException
     _RuleLimitExceededException,
@@ -33,50 +51,11 @@ module Amazonka.XRay
     -- ** TooManyTagsException
     _TooManyTagsException,
 
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
-
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** PutEncryptionConfig
-    PutEncryptionConfig (PutEncryptionConfig'),
-    newPutEncryptionConfig,
-    PutEncryptionConfigResponse (PutEncryptionConfigResponse'),
-    newPutEncryptionConfigResponse,
-
-    -- ** GetServiceGraph (Paginated)
-    GetServiceGraph (GetServiceGraph'),
-    newGetServiceGraph,
-    GetServiceGraphResponse (GetServiceGraphResponse'),
-    newGetServiceGraphResponse,
-
-    -- ** GetSamplingTargets
-    GetSamplingTargets (GetSamplingTargets'),
-    newGetSamplingTargets,
-    GetSamplingTargetsResponse (GetSamplingTargetsResponse'),
-    newGetSamplingTargetsResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** GetTraceSummaries (Paginated)
-    GetTraceSummaries (GetTraceSummaries'),
-    newGetTraceSummaries,
-    GetTraceSummariesResponse (GetTraceSummariesResponse'),
-    newGetTraceSummariesResponse,
-
-    -- ** PutTraceSegments
-    PutTraceSegments (PutTraceSegments'),
-    newPutTraceSegments,
-    PutTraceSegmentsResponse (PutTraceSegmentsResponse'),
-    newPutTraceSegmentsResponse,
 
     -- ** BatchGetTraces (Paginated)
     BatchGetTraces (BatchGetTraces'),
@@ -84,95 +63,17 @@ module Amazonka.XRay
     BatchGetTracesResponse (BatchGetTracesResponse'),
     newBatchGetTracesResponse,
 
-    -- ** GetInsight
-    GetInsight (GetInsight'),
-    newGetInsight,
-    GetInsightResponse (GetInsightResponse'),
-    newGetInsightResponse,
-
-    -- ** GetTimeSeriesServiceStatistics (Paginated)
-    GetTimeSeriesServiceStatistics (GetTimeSeriesServiceStatistics'),
-    newGetTimeSeriesServiceStatistics,
-    GetTimeSeriesServiceStatisticsResponse (GetTimeSeriesServiceStatisticsResponse'),
-    newGetTimeSeriesServiceStatisticsResponse,
-
-    -- ** GetEncryptionConfig
-    GetEncryptionConfig (GetEncryptionConfig'),
-    newGetEncryptionConfig,
-    GetEncryptionConfigResponse (GetEncryptionConfigResponse'),
-    newGetEncryptionConfigResponse,
-
-    -- ** GetInsightImpactGraph
-    GetInsightImpactGraph (GetInsightImpactGraph'),
-    newGetInsightImpactGraph,
-    GetInsightImpactGraphResponse (GetInsightImpactGraphResponse'),
-    newGetInsightImpactGraphResponse,
-
-    -- ** UpdateSamplingRule
-    UpdateSamplingRule (UpdateSamplingRule'),
-    newUpdateSamplingRule,
-    UpdateSamplingRuleResponse (UpdateSamplingRuleResponse'),
-    newUpdateSamplingRuleResponse,
-
-    -- ** DeleteSamplingRule
-    DeleteSamplingRule (DeleteSamplingRule'),
-    newDeleteSamplingRule,
-    DeleteSamplingRuleResponse (DeleteSamplingRuleResponse'),
-    newDeleteSamplingRuleResponse,
-
-    -- ** GetInsightEvents
-    GetInsightEvents (GetInsightEvents'),
-    newGetInsightEvents,
-    GetInsightEventsResponse (GetInsightEventsResponse'),
-    newGetInsightEventsResponse,
-
-    -- ** GetGroups (Paginated)
-    GetGroups (GetGroups'),
-    newGetGroups,
-    GetGroupsResponse (GetGroupsResponse'),
-    newGetGroupsResponse,
-
-    -- ** GetInsightSummaries
-    GetInsightSummaries (GetInsightSummaries'),
-    newGetInsightSummaries,
-    GetInsightSummariesResponse (GetInsightSummariesResponse'),
-    newGetInsightSummariesResponse,
-
-    -- ** PutTelemetryRecords
-    PutTelemetryRecords (PutTelemetryRecords'),
-    newPutTelemetryRecords,
-    PutTelemetryRecordsResponse (PutTelemetryRecordsResponse'),
-    newPutTelemetryRecordsResponse,
-
-    -- ** GetSamplingRules (Paginated)
-    GetSamplingRules (GetSamplingRules'),
-    newGetSamplingRules,
-    GetSamplingRulesResponse (GetSamplingRulesResponse'),
-    newGetSamplingRulesResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** GetTraceGraph (Paginated)
-    GetTraceGraph (GetTraceGraph'),
-    newGetTraceGraph,
-    GetTraceGraphResponse (GetTraceGraphResponse'),
-    newGetTraceGraphResponse,
-
     -- ** CreateGroup
     CreateGroup (CreateGroup'),
     newCreateGroup,
     CreateGroupResponse (CreateGroupResponse'),
     newCreateGroupResponse,
 
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** CreateSamplingRule
+    CreateSamplingRule (CreateSamplingRule'),
+    newCreateSamplingRule,
+    CreateSamplingRuleResponse (CreateSamplingRuleResponse'),
+    newCreateSamplingRuleResponse,
 
     -- ** DeleteGroup
     DeleteGroup (DeleteGroup'),
@@ -180,11 +81,23 @@ module Amazonka.XRay
     DeleteGroupResponse (DeleteGroupResponse'),
     newDeleteGroupResponse,
 
-    -- ** UpdateGroup
-    UpdateGroup (UpdateGroup'),
-    newUpdateGroup,
-    UpdateGroupResponse (UpdateGroupResponse'),
-    newUpdateGroupResponse,
+    -- ** DeleteResourcePolicy
+    DeleteResourcePolicy (DeleteResourcePolicy'),
+    newDeleteResourcePolicy,
+    DeleteResourcePolicyResponse (DeleteResourcePolicyResponse'),
+    newDeleteResourcePolicyResponse,
+
+    -- ** DeleteSamplingRule
+    DeleteSamplingRule (DeleteSamplingRule'),
+    newDeleteSamplingRule,
+    DeleteSamplingRuleResponse (DeleteSamplingRuleResponse'),
+    newDeleteSamplingRuleResponse,
+
+    -- ** GetEncryptionConfig
+    GetEncryptionConfig (GetEncryptionConfig'),
+    newGetEncryptionConfig,
+    GetEncryptionConfigResponse (GetEncryptionConfigResponse'),
+    newGetEncryptionConfigResponse,
 
     -- ** GetGroup
     GetGroup (GetGroup'),
@@ -192,17 +105,137 @@ module Amazonka.XRay
     GetGroupResponse (GetGroupResponse'),
     newGetGroupResponse,
 
+    -- ** GetGroups (Paginated)
+    GetGroups (GetGroups'),
+    newGetGroups,
+    GetGroupsResponse (GetGroupsResponse'),
+    newGetGroupsResponse,
+
+    -- ** GetInsight
+    GetInsight (GetInsight'),
+    newGetInsight,
+    GetInsightResponse (GetInsightResponse'),
+    newGetInsightResponse,
+
+    -- ** GetInsightEvents
+    GetInsightEvents (GetInsightEvents'),
+    newGetInsightEvents,
+    GetInsightEventsResponse (GetInsightEventsResponse'),
+    newGetInsightEventsResponse,
+
+    -- ** GetInsightImpactGraph
+    GetInsightImpactGraph (GetInsightImpactGraph'),
+    newGetInsightImpactGraph,
+    GetInsightImpactGraphResponse (GetInsightImpactGraphResponse'),
+    newGetInsightImpactGraphResponse,
+
+    -- ** GetInsightSummaries
+    GetInsightSummaries (GetInsightSummaries'),
+    newGetInsightSummaries,
+    GetInsightSummariesResponse (GetInsightSummariesResponse'),
+    newGetInsightSummariesResponse,
+
+    -- ** GetSamplingRules (Paginated)
+    GetSamplingRules (GetSamplingRules'),
+    newGetSamplingRules,
+    GetSamplingRulesResponse (GetSamplingRulesResponse'),
+    newGetSamplingRulesResponse,
+
     -- ** GetSamplingStatisticSummaries (Paginated)
     GetSamplingStatisticSummaries (GetSamplingStatisticSummaries'),
     newGetSamplingStatisticSummaries,
     GetSamplingStatisticSummariesResponse (GetSamplingStatisticSummariesResponse'),
     newGetSamplingStatisticSummariesResponse,
 
-    -- ** CreateSamplingRule
-    CreateSamplingRule (CreateSamplingRule'),
-    newCreateSamplingRule,
-    CreateSamplingRuleResponse (CreateSamplingRuleResponse'),
-    newCreateSamplingRuleResponse,
+    -- ** GetSamplingTargets
+    GetSamplingTargets (GetSamplingTargets'),
+    newGetSamplingTargets,
+    GetSamplingTargetsResponse (GetSamplingTargetsResponse'),
+    newGetSamplingTargetsResponse,
+
+    -- ** GetServiceGraph (Paginated)
+    GetServiceGraph (GetServiceGraph'),
+    newGetServiceGraph,
+    GetServiceGraphResponse (GetServiceGraphResponse'),
+    newGetServiceGraphResponse,
+
+    -- ** GetTimeSeriesServiceStatistics (Paginated)
+    GetTimeSeriesServiceStatistics (GetTimeSeriesServiceStatistics'),
+    newGetTimeSeriesServiceStatistics,
+    GetTimeSeriesServiceStatisticsResponse (GetTimeSeriesServiceStatisticsResponse'),
+    newGetTimeSeriesServiceStatisticsResponse,
+
+    -- ** GetTraceGraph (Paginated)
+    GetTraceGraph (GetTraceGraph'),
+    newGetTraceGraph,
+    GetTraceGraphResponse (GetTraceGraphResponse'),
+    newGetTraceGraphResponse,
+
+    -- ** GetTraceSummaries (Paginated)
+    GetTraceSummaries (GetTraceSummaries'),
+    newGetTraceSummaries,
+    GetTraceSummariesResponse (GetTraceSummariesResponse'),
+    newGetTraceSummariesResponse,
+
+    -- ** ListResourcePolicies (Paginated)
+    ListResourcePolicies (ListResourcePolicies'),
+    newListResourcePolicies,
+    ListResourcePoliciesResponse (ListResourcePoliciesResponse'),
+    newListResourcePoliciesResponse,
+
+    -- ** ListTagsForResource (Paginated)
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** PutEncryptionConfig
+    PutEncryptionConfig (PutEncryptionConfig'),
+    newPutEncryptionConfig,
+    PutEncryptionConfigResponse (PutEncryptionConfigResponse'),
+    newPutEncryptionConfigResponse,
+
+    -- ** PutResourcePolicy
+    PutResourcePolicy (PutResourcePolicy'),
+    newPutResourcePolicy,
+    PutResourcePolicyResponse (PutResourcePolicyResponse'),
+    newPutResourcePolicyResponse,
+
+    -- ** PutTelemetryRecords
+    PutTelemetryRecords (PutTelemetryRecords'),
+    newPutTelemetryRecords,
+    PutTelemetryRecordsResponse (PutTelemetryRecordsResponse'),
+    newPutTelemetryRecordsResponse,
+
+    -- ** PutTraceSegments
+    PutTraceSegments (PutTraceSegments'),
+    newPutTraceSegments,
+    PutTraceSegmentsResponse (PutTraceSegmentsResponse'),
+    newPutTraceSegmentsResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateGroup
+    UpdateGroup (UpdateGroup'),
+    newUpdateGroup,
+    UpdateGroupResponse (UpdateGroupResponse'),
+    newUpdateGroupResponse,
+
+    -- ** UpdateSamplingRule
+    UpdateSamplingRule (UpdateSamplingRule'),
+    newUpdateSamplingRule,
+    UpdateSamplingRuleResponse (UpdateSamplingRuleResponse'),
+    newUpdateSamplingRuleResponse,
 
     -- * Types
 
@@ -344,6 +377,10 @@ module Amazonka.XRay
     ResourceARNDetail (ResourceARNDetail'),
     newResourceARNDetail,
 
+    -- ** ResourcePolicy
+    ResourcePolicy (ResourcePolicy'),
+    newResourcePolicy,
+
     -- ** ResponseTimeRootCause
     ResponseTimeRootCause (ResponseTimeRootCause'),
     newResponseTimeRootCause,
@@ -446,6 +483,7 @@ import Amazonka.XRay.BatchGetTraces
 import Amazonka.XRay.CreateGroup
 import Amazonka.XRay.CreateSamplingRule
 import Amazonka.XRay.DeleteGroup
+import Amazonka.XRay.DeleteResourcePolicy
 import Amazonka.XRay.DeleteSamplingRule
 import Amazonka.XRay.GetEncryptionConfig
 import Amazonka.XRay.GetGroup
@@ -462,8 +500,10 @@ import Amazonka.XRay.GetTimeSeriesServiceStatistics
 import Amazonka.XRay.GetTraceGraph
 import Amazonka.XRay.GetTraceSummaries
 import Amazonka.XRay.Lens
+import Amazonka.XRay.ListResourcePolicies
 import Amazonka.XRay.ListTagsForResource
 import Amazonka.XRay.PutEncryptionConfig
+import Amazonka.XRay.PutResourcePolicy
 import Amazonka.XRay.PutTelemetryRecords
 import Amazonka.XRay.PutTraceSegments
 import Amazonka.XRay.TagResource

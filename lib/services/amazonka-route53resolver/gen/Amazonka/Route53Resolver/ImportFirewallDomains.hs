@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.ImportFirewallDomains
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,16 +47,17 @@ module Amazonka.Route53Resolver.ImportFirewallDomains
     newImportFirewallDomainsResponse,
 
     -- * Response Lenses
+    importFirewallDomainsResponse_id,
+    importFirewallDomainsResponse_name,
     importFirewallDomainsResponse_status,
     importFirewallDomainsResponse_statusMessage,
-    importFirewallDomainsResponse_name,
-    importFirewallDomainsResponse_id,
     importFirewallDomainsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -145,15 +146,16 @@ instance Core.AWSRequest ImportFirewallDomains where
   type
     AWSResponse ImportFirewallDomains =
       ImportFirewallDomainsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ImportFirewallDomainsResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "StatusMessage")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "Id")
+            Prelude.<$> (x Data..?> "Id")
+            Prelude.<*> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "Status")
+            Prelude.<*> (x Data..?> "StatusMessage")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -169,50 +171,50 @@ instance Prelude.NFData ImportFirewallDomains where
       `Prelude.seq` Prelude.rnf operation
       `Prelude.seq` Prelude.rnf domainFileUrl
 
-instance Core.ToHeaders ImportFirewallDomains where
+instance Data.ToHeaders ImportFirewallDomains where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Resolver.ImportFirewallDomains" ::
+              Data.=# ( "Route53Resolver.ImportFirewallDomains" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ImportFirewallDomains where
+instance Data.ToJSON ImportFirewallDomains where
   toJSON ImportFirewallDomains' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "FirewallDomainListId"
-                  Core..= firewallDomainListId
+                  Data..= firewallDomainListId
               ),
-            Prelude.Just ("Operation" Core..= operation),
+            Prelude.Just ("Operation" Data..= operation),
             Prelude.Just
-              ("DomainFileUrl" Core..= domainFileUrl)
+              ("DomainFileUrl" Data..= domainFileUrl)
           ]
       )
 
-instance Core.ToPath ImportFirewallDomains where
+instance Data.ToPath ImportFirewallDomains where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ImportFirewallDomains where
+instance Data.ToQuery ImportFirewallDomains where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newImportFirewallDomainsResponse' smart constructor.
 data ImportFirewallDomainsResponse = ImportFirewallDomainsResponse'
-  { status :: Prelude.Maybe FirewallDomainListStatus,
-    -- | Additional information about the status of the list, if available.
-    statusMessage :: Prelude.Maybe Prelude.Text,
+  { -- | The Id of the firewall domain list that DNS Firewall just updated.
+    id :: Prelude.Maybe Prelude.Text,
     -- | The name of the domain list.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The Id of the firewall domain list that DNS Firewall just updated.
-    id :: Prelude.Maybe Prelude.Text,
+    status :: Prelude.Maybe FirewallDomainListStatus,
+    -- | Additional information about the status of the list, if available.
+    statusMessage :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -226,13 +228,13 @@ data ImportFirewallDomainsResponse = ImportFirewallDomainsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'importFirewallDomainsResponse_status' -
---
--- 'statusMessage', 'importFirewallDomainsResponse_statusMessage' - Additional information about the status of the list, if available.
+-- 'id', 'importFirewallDomainsResponse_id' - The Id of the firewall domain list that DNS Firewall just updated.
 --
 -- 'name', 'importFirewallDomainsResponse_name' - The name of the domain list.
 --
--- 'id', 'importFirewallDomainsResponse_id' - The Id of the firewall domain list that DNS Firewall just updated.
+-- 'status', 'importFirewallDomainsResponse_status' -
+--
+-- 'statusMessage', 'importFirewallDomainsResponse_statusMessage' - Additional information about the status of the list, if available.
 --
 -- 'httpStatus', 'importFirewallDomainsResponse_httpStatus' - The response's http status code.
 newImportFirewallDomainsResponse ::
@@ -241,13 +243,21 @@ newImportFirewallDomainsResponse ::
   ImportFirewallDomainsResponse
 newImportFirewallDomainsResponse pHttpStatus_ =
   ImportFirewallDomainsResponse'
-    { status =
+    { id =
         Prelude.Nothing,
-      statusMessage = Prelude.Nothing,
       name = Prelude.Nothing,
-      id = Prelude.Nothing,
+      status = Prelude.Nothing,
+      statusMessage = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The Id of the firewall domain list that DNS Firewall just updated.
+importFirewallDomainsResponse_id :: Lens.Lens' ImportFirewallDomainsResponse (Prelude.Maybe Prelude.Text)
+importFirewallDomainsResponse_id = Lens.lens (\ImportFirewallDomainsResponse' {id} -> id) (\s@ImportFirewallDomainsResponse' {} a -> s {id = a} :: ImportFirewallDomainsResponse)
+
+-- | The name of the domain list.
+importFirewallDomainsResponse_name :: Lens.Lens' ImportFirewallDomainsResponse (Prelude.Maybe Prelude.Text)
+importFirewallDomainsResponse_name = Lens.lens (\ImportFirewallDomainsResponse' {name} -> name) (\s@ImportFirewallDomainsResponse' {} a -> s {name = a} :: ImportFirewallDomainsResponse)
 
 -- |
 importFirewallDomainsResponse_status :: Lens.Lens' ImportFirewallDomainsResponse (Prelude.Maybe FirewallDomainListStatus)
@@ -257,22 +267,14 @@ importFirewallDomainsResponse_status = Lens.lens (\ImportFirewallDomainsResponse
 importFirewallDomainsResponse_statusMessage :: Lens.Lens' ImportFirewallDomainsResponse (Prelude.Maybe Prelude.Text)
 importFirewallDomainsResponse_statusMessage = Lens.lens (\ImportFirewallDomainsResponse' {statusMessage} -> statusMessage) (\s@ImportFirewallDomainsResponse' {} a -> s {statusMessage = a} :: ImportFirewallDomainsResponse)
 
--- | The name of the domain list.
-importFirewallDomainsResponse_name :: Lens.Lens' ImportFirewallDomainsResponse (Prelude.Maybe Prelude.Text)
-importFirewallDomainsResponse_name = Lens.lens (\ImportFirewallDomainsResponse' {name} -> name) (\s@ImportFirewallDomainsResponse' {} a -> s {name = a} :: ImportFirewallDomainsResponse)
-
--- | The Id of the firewall domain list that DNS Firewall just updated.
-importFirewallDomainsResponse_id :: Lens.Lens' ImportFirewallDomainsResponse (Prelude.Maybe Prelude.Text)
-importFirewallDomainsResponse_id = Lens.lens (\ImportFirewallDomainsResponse' {id} -> id) (\s@ImportFirewallDomainsResponse' {} a -> s {id = a} :: ImportFirewallDomainsResponse)
-
 -- | The response's http status code.
 importFirewallDomainsResponse_httpStatus :: Lens.Lens' ImportFirewallDomainsResponse Prelude.Int
 importFirewallDomainsResponse_httpStatus = Lens.lens (\ImportFirewallDomainsResponse' {httpStatus} -> httpStatus) (\s@ImportFirewallDomainsResponse' {} a -> s {httpStatus = a} :: ImportFirewallDomainsResponse)
 
 instance Prelude.NFData ImportFirewallDomainsResponse where
   rnf ImportFirewallDomainsResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf statusMessage
+    Prelude.rnf id
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf id
+      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf statusMessage
       `Prelude.seq` Prelude.rnf httpStatus

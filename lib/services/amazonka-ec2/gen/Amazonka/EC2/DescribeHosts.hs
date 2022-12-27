@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeHosts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,10 +34,10 @@ module Amazonka.EC2.DescribeHosts
     newDescribeHosts,
 
     -- * Request Lenses
-    describeHosts_nextToken,
     describeHosts_filter,
     describeHosts_hostIds,
     describeHosts_maxResults,
+    describeHosts_nextToken,
 
     -- * Destructuring the Response
     DescribeHostsResponse (..),
@@ -51,17 +51,16 @@ module Amazonka.EC2.DescribeHosts
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeHosts' smart constructor.
 data DescribeHosts = DescribeHosts'
-  { -- | The token to use to retrieve the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The filters.
+  { -- | The filters.
     --
     -- -   @auto-placement@ - Whether auto-placement is enabled or disabled
     --     (@on@ | @off@).
@@ -95,7 +94,9 @@ data DescribeHosts = DescribeHosts'
     --
     -- You cannot specify this parameter and the host IDs parameter in the same
     -- request.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token to use to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -106,8 +107,6 @@ data DescribeHosts = DescribeHosts'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'nextToken', 'describeHosts_nextToken' - The token to use to retrieve the next page of results.
 --
 -- 'filter'', 'describeHosts_filter' - The filters.
 --
@@ -143,19 +142,17 @@ data DescribeHosts = DescribeHosts'
 --
 -- You cannot specify this parameter and the host IDs parameter in the same
 -- request.
+--
+-- 'nextToken', 'describeHosts_nextToken' - The token to use to retrieve the next page of results.
 newDescribeHosts ::
   DescribeHosts
 newDescribeHosts =
   DescribeHosts'
-    { nextToken = Prelude.Nothing,
-      filter' = Prelude.Nothing,
+    { filter' = Prelude.Nothing,
       hostIds = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token to use to retrieve the next page of results.
-describeHosts_nextToken :: Lens.Lens' DescribeHosts (Prelude.Maybe Prelude.Text)
-describeHosts_nextToken = Lens.lens (\DescribeHosts' {nextToken} -> nextToken) (\s@DescribeHosts' {} a -> s {nextToken = a} :: DescribeHosts)
 
 -- | The filters.
 --
@@ -198,6 +195,10 @@ describeHosts_hostIds = Lens.lens (\DescribeHosts' {hostIds} -> hostIds) (\s@Des
 describeHosts_maxResults :: Lens.Lens' DescribeHosts (Prelude.Maybe Prelude.Int)
 describeHosts_maxResults = Lens.lens (\DescribeHosts' {maxResults} -> maxResults) (\s@DescribeHosts' {} a -> s {maxResults = a} :: DescribeHosts)
 
+-- | The token to use to retrieve the next page of results.
+describeHosts_nextToken :: Lens.Lens' DescribeHosts (Prelude.Maybe Prelude.Text)
+describeHosts_nextToken = Lens.lens (\DescribeHosts' {nextToken} -> nextToken) (\s@DescribeHosts' {} a -> s {nextToken = a} :: DescribeHosts)
+
 instance Core.AWSPager DescribeHosts where
   page rq rs
     | Core.stop
@@ -221,51 +222,52 @@ instance Core.AWSRequest DescribeHosts where
   type
     AWSResponse DescribeHosts =
       DescribeHostsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeHostsResponse'
-            Prelude.<$> ( x Core..@? "hostSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "hostSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> (x Core..@? "nextToken")
+            Prelude.<*> (x Data..@? "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeHosts where
   hashWithSalt _salt DescribeHosts' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` hostIds
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeHosts where
   rnf DescribeHosts' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf hostIds
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeHosts where
+instance Data.ToHeaders DescribeHosts where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeHosts where
+instance Data.ToPath DescribeHosts where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeHosts where
+instance Data.ToQuery DescribeHosts where
   toQuery DescribeHosts' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeHosts" :: Prelude.ByteString),
+          Data.=: ("DescribeHosts" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filter'),
-        Core.toQuery
-          (Core.toQueryList "HostId" Prelude.<$> hostIds),
-        "MaxResults" Core.=: maxResults
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filter'),
+        Data.toQuery
+          (Data.toQueryList "HostId" Prelude.<$> hostIds),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeHostsResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.Types.SizeConstraintSetUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAFRegional.Types.SizeConstraintSetUpdate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WAFRegional.Types.ChangeAction
 import Amazonka.WAFRegional.Types.SizeConstraint
@@ -106,12 +107,12 @@ instance Prelude.NFData SizeConstraintSetUpdate where
     Prelude.rnf action
       `Prelude.seq` Prelude.rnf sizeConstraint
 
-instance Core.ToJSON SizeConstraintSetUpdate where
+instance Data.ToJSON SizeConstraintSetUpdate where
   toJSON SizeConstraintSetUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Action" Core..= action),
+          [ Prelude.Just ("Action" Data..= action),
             Prelude.Just
-              ("SizeConstraint" Core..= sizeConstraint)
+              ("SizeConstraint" Data..= sizeConstraint)
           ]
       )

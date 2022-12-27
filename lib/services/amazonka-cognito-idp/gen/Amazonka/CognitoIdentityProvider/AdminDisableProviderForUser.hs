@@ -14,20 +14,20 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.AdminDisableProviderForUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disables the user from signing in with the specified external (SAML or
--- social) identity provider. If the user to disable is a Cognito User
--- Pools native username + password user, they are not permitted to use
--- their password to sign-in. If the user to disable is a linked external
--- IdP user, any link between that user and an existing user is removed.
--- The next time the external user (no longer attached to the previously
--- linked @DestinationUser@) signs in, they must create a new user account.
--- See
+-- Prevents the user from signing in with the specified external (SAML or
+-- social) identity provider (IdP). If the user that you want to deactivate
+-- is a Amazon Cognito user pools native username + password user, they
+-- can\'t use their password to sign in. If the user to deactivate is a
+-- linked external IdP user, any link between that user and an existing
+-- user is removed. When the external user signs in again, and the user is
+-- no longer attached to the previously linked @DestinationUser@, the user
+-- must create a new user account. See
 -- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminLinkProviderForUser.html AdminLinkProviderForUser>.
 --
 -- This action is enabled only for admin access and requires developer
@@ -36,18 +36,17 @@
 -- The @ProviderName@ must match the value specified when creating an IdP
 -- for the pool.
 --
--- To disable a native username + password user, the @ProviderName@ value
--- must be @Cognito@ and the @ProviderAttributeName@ must be
--- @Cognito_Subject@, with the @ProviderAttributeValue@ being the name that
--- is used in the user pool for the user.
+-- To deactivate a native username + password user, the @ProviderName@
+-- value must be @Cognito@ and the @ProviderAttributeName@ must be
+-- @Cognito_Subject@. The @ProviderAttributeValue@ must be the name that is
+-- used in the user pool for the user.
 --
 -- The @ProviderAttributeName@ must always be @Cognito_Subject@ for social
--- identity providers. The @ProviderAttributeValue@ must always be the
--- exact subject that was used when the user was originally linked as a
--- source user.
+-- IdPs. The @ProviderAttributeValue@ must always be the exact subject that
+-- was used when the user was originally linked as a source user.
 --
 -- For de-linking a SAML identity, there are two scenarios. If the linked
--- identity has not yet been used to sign-in, the @ProviderAttributeName@
+-- identity has not yet been used to sign in, the @ProviderAttributeName@
 -- and @ProviderAttributeValue@ must be the same values that were used for
 -- the @SourceUser@ when the identities were originally linked using
 -- @ AdminLinkProviderForUser@ call. (If the linking was done with
@@ -75,7 +74,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -125,7 +125,8 @@ instance Core.AWSRequest AdminDisableProviderForUser where
   type
     AWSResponse AdminDisableProviderForUser =
       AdminDisableProviderForUserResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -143,34 +144,34 @@ instance Prelude.NFData AdminDisableProviderForUser where
     Prelude.rnf userPoolId
       `Prelude.seq` Prelude.rnf user
 
-instance Core.ToHeaders AdminDisableProviderForUser where
+instance Data.ToHeaders AdminDisableProviderForUser where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.AdminDisableProviderForUser" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.AdminDisableProviderForUser" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AdminDisableProviderForUser where
+instance Data.ToJSON AdminDisableProviderForUser where
   toJSON AdminDisableProviderForUser' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("UserPoolId" Core..= userPoolId),
-            Prelude.Just ("User" Core..= user)
+          [ Prelude.Just ("UserPoolId" Data..= userPoolId),
+            Prelude.Just ("User" Data..= user)
           ]
       )
 
-instance Core.ToPath AdminDisableProviderForUser where
+instance Data.ToPath AdminDisableProviderForUser where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AdminDisableProviderForUser where
+instance Data.ToQuery AdminDisableProviderForUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAdminDisableProviderForUserResponse' smart constructor.

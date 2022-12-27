@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.Types.EcsCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.OpsWorks.Types.EcsCluster where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a registered Amazon ECS cluster.
@@ -79,16 +80,16 @@ ecsCluster_registeredAt = Lens.lens (\EcsCluster' {registeredAt} -> registeredAt
 ecsCluster_stackId :: Lens.Lens' EcsCluster (Prelude.Maybe Prelude.Text)
 ecsCluster_stackId = Lens.lens (\EcsCluster' {stackId} -> stackId) (\s@EcsCluster' {} a -> s {stackId = a} :: EcsCluster)
 
-instance Core.FromJSON EcsCluster where
+instance Data.FromJSON EcsCluster where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EcsCluster"
       ( \x ->
           EcsCluster'
-            Prelude.<$> (x Core..:? "EcsClusterArn")
-            Prelude.<*> (x Core..:? "EcsClusterName")
-            Prelude.<*> (x Core..:? "RegisteredAt")
-            Prelude.<*> (x Core..:? "StackId")
+            Prelude.<$> (x Data..:? "EcsClusterArn")
+            Prelude.<*> (x Data..:? "EcsClusterName")
+            Prelude.<*> (x Data..:? "RegisteredAt")
+            Prelude.<*> (x Data..:? "StackId")
       )
 
 instance Prelude.Hashable EcsCluster where

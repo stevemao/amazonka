@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchGetObjectAttributesResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudDirectory.Types.BatchGetObjectAttributesResponse where
 
 import Amazonka.CloudDirectory.Types.AttributeKeyAndValue
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output of a GetObjectAttributes response operation.
@@ -55,15 +56,15 @@ batchGetObjectAttributesResponse_attributes :: Lens.Lens' BatchGetObjectAttribut
 batchGetObjectAttributesResponse_attributes = Lens.lens (\BatchGetObjectAttributesResponse' {attributes} -> attributes) (\s@BatchGetObjectAttributesResponse' {} a -> s {attributes = a} :: BatchGetObjectAttributesResponse) Prelude.. Lens.mapping Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     BatchGetObjectAttributesResponse
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchGetObjectAttributesResponse"
       ( \x ->
           BatchGetObjectAttributesResponse'
-            Prelude.<$> (x Core..:? "Attributes" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Attributes" Data..!= Prelude.mempty)
       )
 
 instance

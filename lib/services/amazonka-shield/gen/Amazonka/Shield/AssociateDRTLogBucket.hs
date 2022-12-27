@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.AssociateDRTLogBucket
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@
 --
 -- To use the services of the SRT and make an @AssociateDRTLogBucket@
 -- request, you must be subscribed to the
--- <https://aws.amazon.com/premiumsupport/business-support/ Business Support plan>
+-- <http://aws.amazon.com/premiumsupport/business-support/ Business Support plan>
 -- or the
--- <https://aws.amazon.com/premiumsupport/enterprise-support/ Enterprise Support plan>.
+-- <http://aws.amazon.com/premiumsupport/enterprise-support/ Enterprise Support plan>.
 module Amazonka.Shield.AssociateDRTLogBucket
   ( -- * Creating a Request
     AssociateDRTLogBucket (..),
@@ -48,7 +48,8 @@ module Amazonka.Shield.AssociateDRTLogBucket
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,7 +86,8 @@ instance Core.AWSRequest AssociateDRTLogBucket where
   type
     AWSResponse AssociateDRTLogBucket =
       AssociateDRTLogBucketResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -101,32 +103,32 @@ instance Prelude.NFData AssociateDRTLogBucket where
   rnf AssociateDRTLogBucket' {..} =
     Prelude.rnf logBucket
 
-instance Core.ToHeaders AssociateDRTLogBucket where
+instance Data.ToHeaders AssociateDRTLogBucket where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSShield_20160616.AssociateDRTLogBucket" ::
+              Data.=# ( "AWSShield_20160616.AssociateDRTLogBucket" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateDRTLogBucket where
+instance Data.ToJSON AssociateDRTLogBucket where
   toJSON AssociateDRTLogBucket' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("LogBucket" Core..= logBucket)]
+          [Prelude.Just ("LogBucket" Data..= logBucket)]
       )
 
-instance Core.ToPath AssociateDRTLogBucket where
+instance Data.ToPath AssociateDRTLogBucket where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateDRTLogBucket where
+instance Data.ToQuery AssociateDRTLogBucket where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateDRTLogBucketResponse' smart constructor.

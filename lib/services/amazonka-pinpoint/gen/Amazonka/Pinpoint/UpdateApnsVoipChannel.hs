@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.UpdateApnsVoipChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.Pinpoint.UpdateApnsVoipChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -97,13 +98,14 @@ instance Core.AWSRequest UpdateApnsVoipChannel where
   type
     AWSResponse UpdateApnsVoipChannel =
       UpdateApnsVoipChannelResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateApnsVoipChannelResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable UpdateApnsVoipChannel where
@@ -116,37 +118,30 @@ instance Prelude.NFData UpdateApnsVoipChannel where
     Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf aPNSVoipChannelRequest
 
-instance Core.ToHeaders UpdateApnsVoipChannel where
+instance Data.ToHeaders UpdateApnsVoipChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateApnsVoipChannel where
+instance Data.ToJSON UpdateApnsVoipChannel where
   toJSON UpdateApnsVoipChannel' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ Prelude.Just
-              ( "APNSVoipChannelRequest"
-                  Core..= aPNSVoipChannelRequest
-              )
-          ]
-      )
+    Data.toJSON aPNSVoipChannelRequest
 
-instance Core.ToPath UpdateApnsVoipChannel where
+instance Data.ToPath UpdateApnsVoipChannel where
   toPath UpdateApnsVoipChannel' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/channels/apns_voip"
       ]
 
-instance Core.ToQuery UpdateApnsVoipChannel where
+instance Data.ToQuery UpdateApnsVoipChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateApnsVoipChannelResponse' smart constructor.

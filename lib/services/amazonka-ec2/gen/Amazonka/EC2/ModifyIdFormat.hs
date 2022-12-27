@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyIdFormat
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -64,8 +64,9 @@ module Amazonka.EC2.ModifyIdFormat
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -147,7 +148,8 @@ instance Core.AWSRequest ModifyIdFormat where
   type
     AWSResponse ModifyIdFormat =
       ModifyIdFormatResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull ModifyIdFormatResponse'
 
@@ -161,21 +163,21 @@ instance Prelude.NFData ModifyIdFormat where
     Prelude.rnf resource
       `Prelude.seq` Prelude.rnf useLongIds
 
-instance Core.ToHeaders ModifyIdFormat where
+instance Data.ToHeaders ModifyIdFormat where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyIdFormat where
+instance Data.ToPath ModifyIdFormat where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyIdFormat where
+instance Data.ToQuery ModifyIdFormat where
   toQuery ModifyIdFormat' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyIdFormat" :: Prelude.ByteString),
+          Data.=: ("ModifyIdFormat" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "Resource" Core.=: resource,
-        "UseLongIds" Core.=: useLongIds
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "Resource" Data.=: resource,
+        "UseLongIds" Data.=: useLongIds
       ]
 
 -- | /See:/ 'newModifyIdFormatResponse' smart constructor.

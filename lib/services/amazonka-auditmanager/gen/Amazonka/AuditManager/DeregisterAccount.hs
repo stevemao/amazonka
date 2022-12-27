@@ -14,13 +14,50 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.DeregisterAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Deregisters an account in Audit Manager.
+--
+-- When you deregister your account from Audit Manager, your data isn’t
+-- deleted. If you want to delete your resource data, you must perform that
+-- task separately before you deregister your account. Either, you can do
+-- this in the Audit Manager console. Or, you can use one of the delete API
+-- operations that are provided by Audit Manager.
+--
+-- To delete your Audit Manager resource data, see the following
+-- instructions:
+--
+-- -   <https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_DeleteAssessment.html DeleteAssessment>
+--     (see also:
+--     <https://docs.aws.amazon.com/audit-manager/latest/userguide/delete-assessment.html Deleting an assessment>
+--     in the /Audit Manager User Guide/)
+--
+-- -   <https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_DeleteAssessmentFramework.html DeleteAssessmentFramework>
+--     (see also:
+--     <https://docs.aws.amazon.com/audit-manager/latest/userguide/delete-custom-framework.html Deleting a custom framework>
+--     in the /Audit Manager User Guide/)
+--
+-- -   <https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_DeleteAssessmentFrameworkShare.html DeleteAssessmentFrameworkShare>
+--     (see also:
+--     <https://docs.aws.amazon.com/audit-manager/latest/userguide/deleting-shared-framework-requests.html Deleting a share request>
+--     in the /Audit Manager User Guide/)
+--
+-- -   <https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_DeleteAssessmentReport.html DeleteAssessmentReport>
+--     (see also:
+--     <https://docs.aws.amazon.com/audit-manager/latest/userguide/generate-assessment-report.html#delete-assessment-report-steps Deleting an assessment report>
+--     in the /Audit Manager User Guide/)
+--
+-- -   <https://docs.aws.amazon.com/audit-manager/latest/APIReference/API_DeleteControl.html DeleteControl>
+--     (see also:
+--     <https://docs.aws.amazon.com/audit-manager/latest/userguide/delete-controls.html Deleting a custom control>
+--     in the /Audit Manager User Guide/)
+--
+-- At this time, Audit Manager doesn\'t provide an option to delete
+-- evidence. All available delete operations are listed above.
 module Amazonka.AuditManager.DeregisterAccount
   ( -- * Creating a Request
     DeregisterAccount (..),
@@ -38,7 +75,8 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,12 +99,13 @@ instance Core.AWSRequest DeregisterAccount where
   type
     AWSResponse DeregisterAccount =
       DeregisterAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeregisterAccountResponse'
-            Prelude.<$> (x Core..?> "status")
+            Prelude.<$> (x Data..?> "status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -77,24 +116,24 @@ instance Prelude.Hashable DeregisterAccount where
 instance Prelude.NFData DeregisterAccount where
   rnf _ = ()
 
-instance Core.ToHeaders DeregisterAccount where
+instance Data.ToHeaders DeregisterAccount where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeregisterAccount where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DeregisterAccount where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DeregisterAccount where
+instance Data.ToPath DeregisterAccount where
   toPath = Prelude.const "/account/deregisterAccount"
 
-instance Core.ToQuery DeregisterAccount where
+instance Data.ToQuery DeregisterAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeregisterAccountResponse' smart constructor.

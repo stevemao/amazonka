@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.UpdateCachePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -57,7 +57,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -127,13 +128,14 @@ instance Core.AWSRequest UpdateCachePolicy where
   type
     AWSResponse UpdateCachePolicy =
       UpdateCachePolicyResponse
-  request = Request.putXML defaultService
+  request overrides =
+    Request.putXML (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           UpdateCachePolicyResponse'
-            Prelude.<$> (Core.parseXML x)
-            Prelude.<*> (h Core..#? "ETag")
+            Prelude.<$> (Data.parseXML x)
+            Prelude.<*> (h Data..#? "ETag")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -149,22 +151,22 @@ instance Prelude.NFData UpdateCachePolicy where
       `Prelude.seq` Prelude.rnf cachePolicyConfig
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToElement UpdateCachePolicy where
+instance Data.ToElement UpdateCachePolicy where
   toElement UpdateCachePolicy' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}CachePolicyConfig"
       cachePolicyConfig
 
-instance Core.ToHeaders UpdateCachePolicy where
+instance Data.ToHeaders UpdateCachePolicy where
   toHeaders UpdateCachePolicy' {..} =
-    Prelude.mconcat ["If-Match" Core.=# ifMatch]
+    Prelude.mconcat ["If-Match" Data.=# ifMatch]
 
-instance Core.ToPath UpdateCachePolicy where
+instance Data.ToPath UpdateCachePolicy where
   toPath UpdateCachePolicy' {..} =
     Prelude.mconcat
-      ["/2020-05-31/cache-policy/", Core.toBS id]
+      ["/2020-05-31/cache-policy/", Data.toBS id]
 
-instance Core.ToQuery UpdateCachePolicy where
+instance Data.ToQuery UpdateCachePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateCachePolicyResponse' smart constructor.

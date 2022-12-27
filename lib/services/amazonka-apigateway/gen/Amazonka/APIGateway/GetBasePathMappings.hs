@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetBasePathMappings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,7 +62,7 @@ data GetBasePathMappings = GetBasePathMappings'
     limit :: Prelude.Maybe Prelude.Int,
     -- | The current pagination position in the paged result set.
     position :: Prelude.Maybe Prelude.Text,
-    -- | [Required] The domain name of a BasePathMapping resource.
+    -- | The domain name of a BasePathMapping resource.
     domainName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -79,7 +80,7 @@ data GetBasePathMappings = GetBasePathMappings'
 --
 -- 'position', 'getBasePathMappings_position' - The current pagination position in the paged result set.
 --
--- 'domainName', 'getBasePathMappings_domainName' - [Required] The domain name of a BasePathMapping resource.
+-- 'domainName', 'getBasePathMappings_domainName' - The domain name of a BasePathMapping resource.
 newGetBasePathMappings ::
   -- | 'domainName'
   Prelude.Text ->
@@ -100,7 +101,7 @@ getBasePathMappings_limit = Lens.lens (\GetBasePathMappings' {limit} -> limit) (
 getBasePathMappings_position :: Lens.Lens' GetBasePathMappings (Prelude.Maybe Prelude.Text)
 getBasePathMappings_position = Lens.lens (\GetBasePathMappings' {position} -> position) (\s@GetBasePathMappings' {} a -> s {position = a} :: GetBasePathMappings)
 
--- | [Required] The domain name of a BasePathMapping resource.
+-- | The domain name of a BasePathMapping resource.
 getBasePathMappings_domainName :: Lens.Lens' GetBasePathMappings Prelude.Text
 getBasePathMappings_domainName = Lens.lens (\GetBasePathMappings' {domainName} -> domainName) (\s@GetBasePathMappings' {} a -> s {domainName = a} :: GetBasePathMappings)
 
@@ -130,13 +131,14 @@ instance Core.AWSRequest GetBasePathMappings where
   type
     AWSResponse GetBasePathMappings =
       GetBasePathMappingsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBasePathMappingsResponse'
-            Prelude.<$> (x Core..?> "item" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "position")
+            Prelude.<$> (x Data..?> "item" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "position")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -152,31 +154,29 @@ instance Prelude.NFData GetBasePathMappings where
       `Prelude.seq` Prelude.rnf position
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders GetBasePathMappings where
+instance Data.ToHeaders GetBasePathMappings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetBasePathMappings where
+instance Data.ToPath GetBasePathMappings where
   toPath GetBasePathMappings' {..} =
     Prelude.mconcat
       [ "/domainnames/",
-        Core.toBS domainName,
+        Data.toBS domainName,
         "/basepathmappings"
       ]
 
-instance Core.ToQuery GetBasePathMappings where
+instance Data.ToQuery GetBasePathMappings where
   toQuery GetBasePathMappings' {..} =
     Prelude.mconcat
-      ["limit" Core.=: limit, "position" Core.=: position]
+      ["limit" Data.=: limit, "position" Data.=: position]
 
 -- | Represents a collection of BasePathMapping resources.
---
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-custom-domains.html Use Custom Domain Names>
 --
 -- /See:/ 'newGetBasePathMappingsResponse' smart constructor.
 data GetBasePathMappingsResponse = GetBasePathMappingsResponse'

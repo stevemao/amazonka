@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearch.Types.AvailabilityOptionsStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudSearch.Types.AvailabilityOptionsStatus where
 
 import Amazonka.CloudSearch.Types.OptionStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The status and configuration of the domain\'s availability options.
@@ -65,11 +66,11 @@ availabilityOptionsStatus_options = Lens.lens (\AvailabilityOptionsStatus' {opti
 availabilityOptionsStatus_status :: Lens.Lens' AvailabilityOptionsStatus OptionStatus
 availabilityOptionsStatus_status = Lens.lens (\AvailabilityOptionsStatus' {status} -> status) (\s@AvailabilityOptionsStatus' {} a -> s {status = a} :: AvailabilityOptionsStatus)
 
-instance Core.FromXML AvailabilityOptionsStatus where
+instance Data.FromXML AvailabilityOptionsStatus where
   parseXML x =
     AvailabilityOptionsStatus'
-      Prelude.<$> (x Core..@ "Options")
-      Prelude.<*> (x Core..@ "Status")
+      Prelude.<$> (x Data..@ "Options")
+      Prelude.<*> (x Data..@ "Status")
 
 instance Prelude.Hashable AvailabilityOptionsStatus where
   hashWithSalt _salt AvailabilityOptionsStatus' {..} =

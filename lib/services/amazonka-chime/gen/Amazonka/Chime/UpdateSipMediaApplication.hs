@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.UpdateSipMediaApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.Chime.UpdateSipMediaApplication
     newUpdateSipMediaApplication,
 
     -- * Request Lenses
-    updateSipMediaApplication_name,
     updateSipMediaApplication_endpoints,
+    updateSipMediaApplication_name,
     updateSipMediaApplication_sipMediaApplicationId,
 
     -- * Destructuring the Response
@@ -43,17 +43,18 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateSipMediaApplication' smart constructor.
 data UpdateSipMediaApplication = UpdateSipMediaApplication'
-  { -- | The new name for the specified SIP media application.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The new set of endpoints for the specified SIP media application.
+  { -- | The new set of endpoints for the specified SIP media application.
     endpoints :: Prelude.Maybe (Prelude.NonEmpty SipMediaApplicationEndpoint),
+    -- | The new name for the specified SIP media application.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The SIP media application ID.
     sipMediaApplicationId :: Prelude.Text
   }
@@ -67,9 +68,9 @@ data UpdateSipMediaApplication = UpdateSipMediaApplication'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'updateSipMediaApplication_name' - The new name for the specified SIP media application.
---
 -- 'endpoints', 'updateSipMediaApplication_endpoints' - The new set of endpoints for the specified SIP media application.
+--
+-- 'name', 'updateSipMediaApplication_name' - The new name for the specified SIP media application.
 --
 -- 'sipMediaApplicationId', 'updateSipMediaApplication_sipMediaApplicationId' - The SIP media application ID.
 newUpdateSipMediaApplication ::
@@ -78,18 +79,19 @@ newUpdateSipMediaApplication ::
   UpdateSipMediaApplication
 newUpdateSipMediaApplication pSipMediaApplicationId_ =
   UpdateSipMediaApplication'
-    { name = Prelude.Nothing,
-      endpoints = Prelude.Nothing,
+    { endpoints =
+        Prelude.Nothing,
+      name = Prelude.Nothing,
       sipMediaApplicationId = pSipMediaApplicationId_
     }
-
--- | The new name for the specified SIP media application.
-updateSipMediaApplication_name :: Lens.Lens' UpdateSipMediaApplication (Prelude.Maybe Prelude.Text)
-updateSipMediaApplication_name = Lens.lens (\UpdateSipMediaApplication' {name} -> name) (\s@UpdateSipMediaApplication' {} a -> s {name = a} :: UpdateSipMediaApplication)
 
 -- | The new set of endpoints for the specified SIP media application.
 updateSipMediaApplication_endpoints :: Lens.Lens' UpdateSipMediaApplication (Prelude.Maybe (Prelude.NonEmpty SipMediaApplicationEndpoint))
 updateSipMediaApplication_endpoints = Lens.lens (\UpdateSipMediaApplication' {endpoints} -> endpoints) (\s@UpdateSipMediaApplication' {} a -> s {endpoints = a} :: UpdateSipMediaApplication) Prelude.. Lens.mapping Lens.coerced
+
+-- | The new name for the specified SIP media application.
+updateSipMediaApplication_name :: Lens.Lens' UpdateSipMediaApplication (Prelude.Maybe Prelude.Text)
+updateSipMediaApplication_name = Lens.lens (\UpdateSipMediaApplication' {name} -> name) (\s@UpdateSipMediaApplication' {} a -> s {name = a} :: UpdateSipMediaApplication)
 
 -- | The SIP media application ID.
 updateSipMediaApplication_sipMediaApplicationId :: Lens.Lens' UpdateSipMediaApplication Prelude.Text
@@ -99,47 +101,48 @@ instance Core.AWSRequest UpdateSipMediaApplication where
   type
     AWSResponse UpdateSipMediaApplication =
       UpdateSipMediaApplicationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateSipMediaApplicationResponse'
-            Prelude.<$> (x Core..?> "SipMediaApplication")
+            Prelude.<$> (x Data..?> "SipMediaApplication")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateSipMediaApplication where
   hashWithSalt _salt UpdateSipMediaApplication' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` endpoints
+    _salt `Prelude.hashWithSalt` endpoints
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` sipMediaApplicationId
 
 instance Prelude.NFData UpdateSipMediaApplication where
   rnf UpdateSipMediaApplication' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf endpoints
+    Prelude.rnf endpoints
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf sipMediaApplicationId
 
-instance Core.ToHeaders UpdateSipMediaApplication where
+instance Data.ToHeaders UpdateSipMediaApplication where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateSipMediaApplication where
+instance Data.ToJSON UpdateSipMediaApplication where
   toJSON UpdateSipMediaApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Name" Core..=) Prelude.<$> name,
-            ("Endpoints" Core..=) Prelude.<$> endpoints
+          [ ("Endpoints" Data..=) Prelude.<$> endpoints,
+            ("Name" Data..=) Prelude.<$> name
           ]
       )
 
-instance Core.ToPath UpdateSipMediaApplication where
+instance Data.ToPath UpdateSipMediaApplication where
   toPath UpdateSipMediaApplication' {..} =
     Prelude.mconcat
       [ "/sip-media-applications/",
-        Core.toBS sipMediaApplicationId
+        Data.toBS sipMediaApplicationId
       ]
 
-instance Core.ToQuery UpdateSipMediaApplication where
+instance Data.ToQuery UpdateSipMediaApplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateSipMediaApplicationResponse' smart constructor.

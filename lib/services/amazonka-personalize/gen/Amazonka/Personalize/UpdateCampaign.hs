@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.UpdateCampaign
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,12 +24,17 @@
 -- value of the campaign\'s @minProvisionedTPS@ parameter.
 --
 -- To update a campaign, the campaign status must be ACTIVE or CREATE
--- FAILED. Check the campaign status using the DescribeCampaign API.
+-- FAILED. Check the campaign status using the
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_DescribeCampaign.html DescribeCampaign>
+-- operation.
 --
--- You must wait until the @status@ of the updated campaign is @ACTIVE@
--- before asking the campaign for recommendations.
+-- You can still get recommendations from a campaign while an update is in
+-- progress. The campaign will use the previous solution version and
+-- campaign configuration to generate recommendations until the latest
+-- campaign update status is @Active@.
 --
--- For more information on campaigns, see CreateCampaign.
+-- For more information on campaigns, see
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateCampaign.html CreateCampaign>.
 module Amazonka.Personalize.UpdateCampaign
   ( -- * Creating a Request
     UpdateCampaign (..),
@@ -52,7 +57,8 @@ module Amazonka.Personalize.UpdateCampaign
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -121,12 +127,13 @@ instance Core.AWSRequest UpdateCampaign where
   type
     AWSResponse UpdateCampaign =
       UpdateCampaignResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateCampaignResponse'
-            Prelude.<$> (x Core..?> "campaignArn")
+            Prelude.<$> (x Data..?> "campaignArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -144,39 +151,39 @@ instance Prelude.NFData UpdateCampaign where
       `Prelude.seq` Prelude.rnf solutionVersionArn
       `Prelude.seq` Prelude.rnf campaignArn
 
-instance Core.ToHeaders UpdateCampaign where
+instance Data.ToHeaders UpdateCampaign where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.UpdateCampaign" ::
+              Data.=# ( "AmazonPersonalize.UpdateCampaign" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateCampaign where
+instance Data.ToJSON UpdateCampaign where
   toJSON UpdateCampaign' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("campaignConfig" Core..=)
+          [ ("campaignConfig" Data..=)
               Prelude.<$> campaignConfig,
-            ("minProvisionedTPS" Core..=)
+            ("minProvisionedTPS" Data..=)
               Prelude.<$> minProvisionedTPS,
-            ("solutionVersionArn" Core..=)
+            ("solutionVersionArn" Data..=)
               Prelude.<$> solutionVersionArn,
-            Prelude.Just ("campaignArn" Core..= campaignArn)
+            Prelude.Just ("campaignArn" Data..= campaignArn)
           ]
       )
 
-instance Core.ToPath UpdateCampaign where
+instance Data.ToPath UpdateCampaign where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateCampaign where
+instance Data.ToQuery UpdateCampaign where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateCampaignResponse' smart constructor.

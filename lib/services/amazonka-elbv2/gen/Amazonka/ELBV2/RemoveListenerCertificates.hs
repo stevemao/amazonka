@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.RemoveListenerCertificates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.ELBV2.RemoveListenerCertificates
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,7 +94,8 @@ instance Core.AWSRequest RemoveListenerCertificates where
   type
     AWSResponse RemoveListenerCertificates =
       RemoveListenerCertificatesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "RemoveListenerCertificatesResult"
@@ -112,22 +114,22 @@ instance Prelude.NFData RemoveListenerCertificates where
     Prelude.rnf listenerArn
       `Prelude.seq` Prelude.rnf certificates
 
-instance Core.ToHeaders RemoveListenerCertificates where
+instance Data.ToHeaders RemoveListenerCertificates where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RemoveListenerCertificates where
+instance Data.ToPath RemoveListenerCertificates where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemoveListenerCertificates where
+instance Data.ToQuery RemoveListenerCertificates where
   toQuery RemoveListenerCertificates' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RemoveListenerCertificates" :: Prelude.ByteString),
+          Data.=: ("RemoveListenerCertificates" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-12-01" :: Prelude.ByteString),
-        "ListenerArn" Core.=: listenerArn,
+          Data.=: ("2015-12-01" :: Prelude.ByteString),
+        "ListenerArn" Data.=: listenerArn,
         "Certificates"
-          Core.=: Core.toQueryList "member" certificates
+          Data.=: Data.toQueryList "member" certificates
       ]
 
 -- | /See:/ 'newRemoveListenerCertificatesResponse' smart constructor.

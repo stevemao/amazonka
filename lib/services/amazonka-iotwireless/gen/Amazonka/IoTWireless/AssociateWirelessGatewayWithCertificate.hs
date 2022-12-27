@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.AssociateWirelessGatewayWithCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IoTWireless.AssociateWirelessGatewayWithCertificate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,12 +99,13 @@ instance
     AWSResponse
       AssociateWirelessGatewayWithCertificate =
       AssociateWirelessGatewayWithCertificateResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AssociateWirelessGatewayWithCertificateResponse'
-            Prelude.<$> (x Core..?> "IotCertificateId")
+            Prelude.<$> (x Data..?> "IotCertificateId")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,33 +128,33 @@ instance
       `Prelude.seq` Prelude.rnf iotCertificateId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AssociateWirelessGatewayWithCertificate
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AssociateWirelessGatewayWithCertificate
   where
   toJSON AssociateWirelessGatewayWithCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("IotCertificateId" Core..= iotCertificateId)
+              ("IotCertificateId" Data..= iotCertificateId)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     AssociateWirelessGatewayWithCertificate
   where
   toPath AssociateWirelessGatewayWithCertificate' {..} =
     Prelude.mconcat
-      ["/wireless-gateways/", Core.toBS id, "/certificate"]
+      ["/wireless-gateways/", Data.toBS id, "/certificate"]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     AssociateWirelessGatewayWithCertificate
   where
   toQuery = Prelude.const Prelude.mempty

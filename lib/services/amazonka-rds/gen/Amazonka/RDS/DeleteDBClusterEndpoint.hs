@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DeleteDBClusterEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,21 +37,22 @@ module Amazonka.RDS.DeleteDBClusterEndpoint
     newDBClusterEndpoint,
 
     -- * Response Lenses
-    dbClusterEndpoint_status,
-    dbClusterEndpoint_dbClusterIdentifier,
-    dbClusterEndpoint_dbClusterEndpointArn,
     dbClusterEndpoint_customEndpointType,
-    dbClusterEndpoint_staticMembers,
-    dbClusterEndpoint_endpointType,
+    dbClusterEndpoint_dbClusterEndpointArn,
     dbClusterEndpoint_dbClusterEndpointIdentifier,
-    dbClusterEndpoint_endpoint,
     dbClusterEndpoint_dbClusterEndpointResourceIdentifier,
+    dbClusterEndpoint_dbClusterIdentifier,
+    dbClusterEndpoint_endpoint,
+    dbClusterEndpoint_endpointType,
     dbClusterEndpoint_excludedMembers,
+    dbClusterEndpoint_staticMembers,
+    dbClusterEndpoint_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -95,11 +96,12 @@ instance Core.AWSRequest DeleteDBClusterEndpoint where
   type
     AWSResponse DeleteDBClusterEndpoint =
       DBClusterEndpoint
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteDBClusterEndpointResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable DeleteDBClusterEndpoint where
   hashWithSalt _salt DeleteDBClusterEndpoint' {..} =
@@ -110,19 +112,19 @@ instance Prelude.NFData DeleteDBClusterEndpoint where
   rnf DeleteDBClusterEndpoint' {..} =
     Prelude.rnf dbClusterEndpointIdentifier
 
-instance Core.ToHeaders DeleteDBClusterEndpoint where
+instance Data.ToHeaders DeleteDBClusterEndpoint where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDBClusterEndpoint where
+instance Data.ToPath DeleteDBClusterEndpoint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDBClusterEndpoint where
+instance Data.ToQuery DeleteDBClusterEndpoint where
   toQuery DeleteDBClusterEndpoint' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteDBClusterEndpoint" :: Prelude.ByteString),
+          Data.=: ("DeleteDBClusterEndpoint" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "DBClusterEndpointIdentifier"
-          Core.=: dbClusterEndpointIdentifier
+          Data.=: dbClusterEndpointIdentifier
       ]

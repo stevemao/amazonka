@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SES.Types.IdentityVerificationAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SES.Types.IdentityVerificationAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SES.Types.VerificationStatus
 
@@ -72,11 +73,11 @@ identityVerificationAttributes_verificationToken = Lens.lens (\IdentityVerificat
 identityVerificationAttributes_verificationStatus :: Lens.Lens' IdentityVerificationAttributes VerificationStatus
 identityVerificationAttributes_verificationStatus = Lens.lens (\IdentityVerificationAttributes' {verificationStatus} -> verificationStatus) (\s@IdentityVerificationAttributes' {} a -> s {verificationStatus = a} :: IdentityVerificationAttributes)
 
-instance Core.FromXML IdentityVerificationAttributes where
+instance Data.FromXML IdentityVerificationAttributes where
   parseXML x =
     IdentityVerificationAttributes'
-      Prelude.<$> (x Core..@? "VerificationToken")
-      Prelude.<*> (x Core..@ "VerificationStatus")
+      Prelude.<$> (x Data..@? "VerificationToken")
+      Prelude.<*> (x Data..@ "VerificationStatus")
 
 instance
   Prelude.Hashable

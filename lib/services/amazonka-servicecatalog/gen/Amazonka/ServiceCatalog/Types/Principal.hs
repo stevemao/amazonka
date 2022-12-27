@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.Types.Principal
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ServiceCatalog.Types.Principal where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.ServiceCatalog.Types.PrincipalType
 
@@ -28,10 +29,13 @@ import Amazonka.ServiceCatalog.Types.PrincipalType
 --
 -- /See:/ 'newPrincipal' smart constructor.
 data Principal = Principal'
-  { -- | The principal type. The supported value is @IAM@.
-    principalType :: Prelude.Maybe PrincipalType,
-    -- | The ARN of the principal (IAM user, role, or group).
-    principalARN :: Prelude.Maybe Prelude.Text
+  { -- | The ARN of the principal (IAM user, role, or group). This field allows
+    -- for an ARN with no @accountID@ if the @PrincipalType@ is an
+    -- @IAM_PATTERN@.
+    principalARN :: Prelude.Maybe Prelude.Text,
+    -- | The principal type. The supported value is @IAM@ if you use a fully
+    -- defined ARN, or @IAM_PATTERN@ if you use an ARN with no @accountID@.
+    principalType :: Prelude.Maybe PrincipalType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,41 +47,47 @@ data Principal = Principal'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'principalType', 'principal_principalType' - The principal type. The supported value is @IAM@.
+-- 'principalARN', 'principal_principalARN' - The ARN of the principal (IAM user, role, or group). This field allows
+-- for an ARN with no @accountID@ if the @PrincipalType@ is an
+-- @IAM_PATTERN@.
 --
--- 'principalARN', 'principal_principalARN' - The ARN of the principal (IAM user, role, or group).
+-- 'principalType', 'principal_principalType' - The principal type. The supported value is @IAM@ if you use a fully
+-- defined ARN, or @IAM_PATTERN@ if you use an ARN with no @accountID@.
 newPrincipal ::
   Principal
 newPrincipal =
   Principal'
-    { principalType = Prelude.Nothing,
-      principalARN = Prelude.Nothing
+    { principalARN = Prelude.Nothing,
+      principalType = Prelude.Nothing
     }
 
--- | The principal type. The supported value is @IAM@.
-principal_principalType :: Lens.Lens' Principal (Prelude.Maybe PrincipalType)
-principal_principalType = Lens.lens (\Principal' {principalType} -> principalType) (\s@Principal' {} a -> s {principalType = a} :: Principal)
-
--- | The ARN of the principal (IAM user, role, or group).
+-- | The ARN of the principal (IAM user, role, or group). This field allows
+-- for an ARN with no @accountID@ if the @PrincipalType@ is an
+-- @IAM_PATTERN@.
 principal_principalARN :: Lens.Lens' Principal (Prelude.Maybe Prelude.Text)
 principal_principalARN = Lens.lens (\Principal' {principalARN} -> principalARN) (\s@Principal' {} a -> s {principalARN = a} :: Principal)
 
-instance Core.FromJSON Principal where
+-- | The principal type. The supported value is @IAM@ if you use a fully
+-- defined ARN, or @IAM_PATTERN@ if you use an ARN with no @accountID@.
+principal_principalType :: Lens.Lens' Principal (Prelude.Maybe PrincipalType)
+principal_principalType = Lens.lens (\Principal' {principalType} -> principalType) (\s@Principal' {} a -> s {principalType = a} :: Principal)
+
+instance Data.FromJSON Principal where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Principal"
       ( \x ->
           Principal'
-            Prelude.<$> (x Core..:? "PrincipalType")
-            Prelude.<*> (x Core..:? "PrincipalARN")
+            Prelude.<$> (x Data..:? "PrincipalARN")
+            Prelude.<*> (x Data..:? "PrincipalType")
       )
 
 instance Prelude.Hashable Principal where
   hashWithSalt _salt Principal' {..} =
-    _salt `Prelude.hashWithSalt` principalType
-      `Prelude.hashWithSalt` principalARN
+    _salt `Prelude.hashWithSalt` principalARN
+      `Prelude.hashWithSalt` principalType
 
 instance Prelude.NFData Principal where
   rnf Principal' {..} =
-    Prelude.rnf principalType
-      `Prelude.seq` Prelude.rnf principalARN
+    Prelude.rnf principalARN
+      `Prelude.seq` Prelude.rnf principalType

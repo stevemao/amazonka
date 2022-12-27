@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.AccelerateConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.AccelerateConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.BucketAccelerateStatus
@@ -62,6 +63,6 @@ instance Prelude.Hashable AccelerateConfiguration where
 instance Prelude.NFData AccelerateConfiguration where
   rnf AccelerateConfiguration' {..} = Prelude.rnf status
 
-instance Core.ToXML AccelerateConfiguration where
+instance Data.ToXML AccelerateConfiguration where
   toXML AccelerateConfiguration' {..} =
-    Prelude.mconcat ["Status" Core.@= status]
+    Prelude.mconcat ["Status" Data.@= status]

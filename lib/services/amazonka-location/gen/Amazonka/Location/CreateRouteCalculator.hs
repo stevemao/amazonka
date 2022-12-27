@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.CreateRouteCalculator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,6 +25,12 @@
 -- You can send requests to a route calculator resource to estimate travel
 -- time, distance, and get directions. A route calculator sources traffic
 -- and road network data from your chosen data provider.
+--
+-- If your application is tracking or routing assets you use in your
+-- business, such as delivery vehicles or employees, you may only use HERE
+-- as your geolocation provider. See section 82 of the
+-- <http://aws.amazon.com/service-terms AWS service terms> for more
+-- details.
 module Amazonka.Location.CreateRouteCalculator
   ( -- * Creating a Request
     CreateRouteCalculator (..),
@@ -32,10 +38,10 @@ module Amazonka.Location.CreateRouteCalculator
 
     -- * Request Lenses
     createRouteCalculator_description,
+    createRouteCalculator_pricingPlan,
     createRouteCalculator_tags,
     createRouteCalculator_calculatorName,
     createRouteCalculator_dataSource,
-    createRouteCalculator_pricingPlan,
 
     -- * Destructuring the Response
     CreateRouteCalculatorResponse (..),
@@ -50,7 +56,8 @@ module Amazonka.Location.CreateRouteCalculator
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -60,6 +67,9 @@ import qualified Amazonka.Response as Response
 data CreateRouteCalculator = CreateRouteCalculator'
   { -- | The optional description for the route calculator resource.
     description :: Prelude.Maybe Prelude.Text,
+    -- | No longer used. If included, the only allowed value is
+    -- @RequestBasedUsage@.
+    pricingPlan :: Prelude.Maybe PricingPlan,
     -- | Applies one or more tags to the route calculator resource. A tag is a
     -- key-value pair helps manage, identify, search, and filter your resources
     -- by labelling them.
@@ -80,6 +90,8 @@ data CreateRouteCalculator = CreateRouteCalculator'
     --
     -- -   Can use alphanumeric characters (A–Z, a–z, 0–9), and the following
     --     characters: + - = . _ : \/ \@.
+    --
+    -- -   Cannot use \"aws:\" as a prefix for a key.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The name of the route calculator resource.
     --
@@ -116,12 +128,7 @@ data CreateRouteCalculator = CreateRouteCalculator'
     -- For additional information , see
     -- <https://docs.aws.amazon.com/location/latest/developerguide/what-is-data-provider.html Data providers>
     -- on the /Amazon Location Service Developer Guide/.
-    dataSource :: Prelude.Text,
-    -- | Specifies the pricing plan for your route calculator resource.
-    --
-    -- For additional details and restrictions on each pricing plan option, see
-    -- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-    pricingPlan :: PricingPlan
+    dataSource :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -134,6 +141,9 @@ data CreateRouteCalculator = CreateRouteCalculator'
 -- for backwards compatibility:
 --
 -- 'description', 'createRouteCalculator_description' - The optional description for the route calculator resource.
+--
+-- 'pricingPlan', 'createRouteCalculator_pricingPlan' - No longer used. If included, the only allowed value is
+-- @RequestBasedUsage@.
 --
 -- 'tags', 'createRouteCalculator_tags' - Applies one or more tags to the route calculator resource. A tag is a
 -- key-value pair helps manage, identify, search, and filter your resources
@@ -155,6 +165,8 @@ data CreateRouteCalculator = CreateRouteCalculator'
 --
 -- -   Can use alphanumeric characters (A–Z, a–z, 0–9), and the following
 --     characters: + - = . _ : \/ \@.
+--
+-- -   Cannot use \"aws:\" as a prefix for a key.
 --
 -- 'calculatorName', 'createRouteCalculator_calculatorName' - The name of the route calculator resource.
 --
@@ -191,35 +203,32 @@ data CreateRouteCalculator = CreateRouteCalculator'
 -- For additional information , see
 -- <https://docs.aws.amazon.com/location/latest/developerguide/what-is-data-provider.html Data providers>
 -- on the /Amazon Location Service Developer Guide/.
---
--- 'pricingPlan', 'createRouteCalculator_pricingPlan' - Specifies the pricing plan for your route calculator resource.
---
--- For additional details and restrictions on each pricing plan option, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
 newCreateRouteCalculator ::
   -- | 'calculatorName'
   Prelude.Text ->
   -- | 'dataSource'
   Prelude.Text ->
-  -- | 'pricingPlan'
-  PricingPlan ->
   CreateRouteCalculator
 newCreateRouteCalculator
   pCalculatorName_
-  pDataSource_
-  pPricingPlan_ =
+  pDataSource_ =
     CreateRouteCalculator'
       { description =
           Prelude.Nothing,
+        pricingPlan = Prelude.Nothing,
         tags = Prelude.Nothing,
         calculatorName = pCalculatorName_,
-        dataSource = pDataSource_,
-        pricingPlan = pPricingPlan_
+        dataSource = pDataSource_
       }
 
 -- | The optional description for the route calculator resource.
 createRouteCalculator_description :: Lens.Lens' CreateRouteCalculator (Prelude.Maybe Prelude.Text)
 createRouteCalculator_description = Lens.lens (\CreateRouteCalculator' {description} -> description) (\s@CreateRouteCalculator' {} a -> s {description = a} :: CreateRouteCalculator)
+
+-- | No longer used. If included, the only allowed value is
+-- @RequestBasedUsage@.
+createRouteCalculator_pricingPlan :: Lens.Lens' CreateRouteCalculator (Prelude.Maybe PricingPlan)
+createRouteCalculator_pricingPlan = Lens.lens (\CreateRouteCalculator' {pricingPlan} -> pricingPlan) (\s@CreateRouteCalculator' {} a -> s {pricingPlan = a} :: CreateRouteCalculator)
 
 -- | Applies one or more tags to the route calculator resource. A tag is a
 -- key-value pair helps manage, identify, search, and filter your resources
@@ -241,6 +250,8 @@ createRouteCalculator_description = Lens.lens (\CreateRouteCalculator' {descript
 --
 -- -   Can use alphanumeric characters (A–Z, a–z, 0–9), and the following
 --     characters: + - = . _ : \/ \@.
+--
+-- -   Cannot use \"aws:\" as a prefix for a key.
 createRouteCalculator_tags :: Lens.Lens' CreateRouteCalculator (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createRouteCalculator_tags = Lens.lens (\CreateRouteCalculator' {tags} -> tags) (\s@CreateRouteCalculator' {} a -> s {tags = a} :: CreateRouteCalculator) Prelude.. Lens.mapping Lens.coerced
 
@@ -284,72 +295,66 @@ createRouteCalculator_calculatorName = Lens.lens (\CreateRouteCalculator' {calcu
 createRouteCalculator_dataSource :: Lens.Lens' CreateRouteCalculator Prelude.Text
 createRouteCalculator_dataSource = Lens.lens (\CreateRouteCalculator' {dataSource} -> dataSource) (\s@CreateRouteCalculator' {} a -> s {dataSource = a} :: CreateRouteCalculator)
 
--- | Specifies the pricing plan for your route calculator resource.
---
--- For additional details and restrictions on each pricing plan option, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-createRouteCalculator_pricingPlan :: Lens.Lens' CreateRouteCalculator PricingPlan
-createRouteCalculator_pricingPlan = Lens.lens (\CreateRouteCalculator' {pricingPlan} -> pricingPlan) (\s@CreateRouteCalculator' {} a -> s {pricingPlan = a} :: CreateRouteCalculator)
-
 instance Core.AWSRequest CreateRouteCalculator where
   type
     AWSResponse CreateRouteCalculator =
       CreateRouteCalculatorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateRouteCalculatorResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "CalculatorArn")
-            Prelude.<*> (x Core..:> "CalculatorName")
-            Prelude.<*> (x Core..:> "CreateTime")
+            Prelude.<*> (x Data..:> "CalculatorArn")
+            Prelude.<*> (x Data..:> "CalculatorName")
+            Prelude.<*> (x Data..:> "CreateTime")
       )
 
 instance Prelude.Hashable CreateRouteCalculator where
   hashWithSalt _salt CreateRouteCalculator' {..} =
     _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` pricingPlan
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` calculatorName
       `Prelude.hashWithSalt` dataSource
-      `Prelude.hashWithSalt` pricingPlan
 
 instance Prelude.NFData CreateRouteCalculator where
   rnf CreateRouteCalculator' {..} =
     Prelude.rnf description
+      `Prelude.seq` Prelude.rnf pricingPlan
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf calculatorName
       `Prelude.seq` Prelude.rnf dataSource
-      `Prelude.seq` Prelude.rnf pricingPlan
 
-instance Core.ToHeaders CreateRouteCalculator where
+instance Data.ToHeaders CreateRouteCalculator where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateRouteCalculator where
+instance Data.ToJSON CreateRouteCalculator where
   toJSON CreateRouteCalculator' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("PricingPlan" Data..=) Prelude.<$> pricingPlan,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("CalculatorName" Core..= calculatorName),
-            Prelude.Just ("DataSource" Core..= dataSource),
-            Prelude.Just ("PricingPlan" Core..= pricingPlan)
+              ("CalculatorName" Data..= calculatorName),
+            Prelude.Just ("DataSource" Data..= dataSource)
           ]
       )
 
-instance Core.ToPath CreateRouteCalculator where
+instance Data.ToPath CreateRouteCalculator where
   toPath = Prelude.const "/routes/v0/calculators"
 
-instance Core.ToQuery CreateRouteCalculator where
+instance Data.ToQuery CreateRouteCalculator where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateRouteCalculatorResponse' smart constructor.
@@ -371,7 +376,7 @@ data CreateRouteCalculatorResponse = CreateRouteCalculatorResponse'
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
     --
     -- -   For example, @2020–07-2T12:15:20.000Z+01:00@
-    createTime :: Core.POSIX
+    createTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -420,7 +425,7 @@ newCreateRouteCalculatorResponse
           pHttpStatus_,
         calculatorArn = pCalculatorArn_,
         calculatorName = pCalculatorName_,
-        createTime = Core._Time Lens.# pCreateTime_
+        createTime = Data._Time Lens.# pCreateTime_
       }
 
 -- | The response's http status code.
@@ -447,7 +452,7 @@ createRouteCalculatorResponse_calculatorName = Lens.lens (\CreateRouteCalculator
 --
 -- -   For example, @2020–07-2T12:15:20.000Z+01:00@
 createRouteCalculatorResponse_createTime :: Lens.Lens' CreateRouteCalculatorResponse Prelude.UTCTime
-createRouteCalculatorResponse_createTime = Lens.lens (\CreateRouteCalculatorResponse' {createTime} -> createTime) (\s@CreateRouteCalculatorResponse' {} a -> s {createTime = a} :: CreateRouteCalculatorResponse) Prelude.. Core._Time
+createRouteCalculatorResponse_createTime = Lens.lens (\CreateRouteCalculatorResponse' {createTime} -> createTime) (\s@CreateRouteCalculatorResponse' {} a -> s {createTime = a} :: CreateRouteCalculatorResponse) Prelude.. Data._Time
 
 instance Prelude.NFData CreateRouteCalculatorResponse where
   rnf CreateRouteCalculatorResponse' {..} =

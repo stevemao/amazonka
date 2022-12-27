@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.CreateDataset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,15 +39,20 @@
 --
 -- After creating a dataset, you import your training data into it and add
 -- the dataset to a dataset group. You use the dataset group to create a
--- predictor. For more information, see howitworks-datasets-groups.
+-- predictor. For more information, see
+-- <https://docs.aws.amazon.com/forecast/latest/dg/howitworks-datasets-groups.html Importing datasets>.
 --
--- To get a list of all your datasets, use the ListDatasets operation.
+-- To get a list of all your datasets, use the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_ListDatasets.html ListDatasets>
+-- operation.
 --
 -- For example Forecast datasets, see the
 -- <https://github.com/aws-samples/amazon-forecast-samples Amazon Forecast Sample GitHub repository>.
 --
 -- The @Status@ of a dataset must be @ACTIVE@ before you can import
--- training data. Use the DescribeDataset operation to get the status.
+-- training data. Use the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_DescribeDataset.html DescribeDataset>
+-- operation to get the status.
 module Amazonka.Forecast.CreateDataset
   ( -- * Creating a Request
     CreateDataset (..),
@@ -73,8 +78,9 @@ module Amazonka.Forecast.CreateDataset
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -127,14 +133,16 @@ data CreateDataset = CreateDataset'
     datasetName :: Prelude.Text,
     -- | The domain associated with the dataset. When you add a dataset to a
     -- dataset group, this value and the value specified for the @Domain@
-    -- parameter of the CreateDatasetGroup operation must match.
+    -- parameter of the
+    -- <https://docs.aws.amazon.com/forecast/latest/dg/API_CreateDatasetGroup.html CreateDatasetGroup>
+    -- operation must match.
     --
     -- The @Domain@ and @DatasetType@ that you choose determine the fields that
     -- must be present in the training data that you import to the dataset. For
     -- example, if you choose the @RETAIL@ domain and @TARGET_TIME_SERIES@ as
     -- the @DatasetType@, Amazon Forecast requires @item_id@, @timestamp@, and
     -- @demand@ fields to be present in your data. For more information, see
-    -- howitworks-datasets-groups.
+    -- <https://docs.aws.amazon.com/forecast/latest/dg/howitworks-datasets-groups.html Importing datasets>.
     domain :: Domain,
     -- | The dataset type. Valid values depend on the chosen @Domain@.
     datasetType :: DatasetType,
@@ -142,7 +150,8 @@ data CreateDataset = CreateDataset'
     -- match the fields in your data. The dataset @Domain@ and @DatasetType@
     -- that you choose determine the minimum required fields in your training
     -- data. For information about the required fields for a specific dataset
-    -- domain and type, see howitworks-domains-ds-types.
+    -- domain and type, see
+    -- <https://docs.aws.amazon.com/forecast/latest/dg/howitworks-domains-ds-types.html Dataset Domains and Dataset Types>.
     schema :: Schema
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -201,14 +210,16 @@ data CreateDataset = CreateDataset'
 --
 -- 'domain', 'createDataset_domain' - The domain associated with the dataset. When you add a dataset to a
 -- dataset group, this value and the value specified for the @Domain@
--- parameter of the CreateDatasetGroup operation must match.
+-- parameter of the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_CreateDatasetGroup.html CreateDatasetGroup>
+-- operation must match.
 --
 -- The @Domain@ and @DatasetType@ that you choose determine the fields that
 -- must be present in the training data that you import to the dataset. For
 -- example, if you choose the @RETAIL@ domain and @TARGET_TIME_SERIES@ as
 -- the @DatasetType@, Amazon Forecast requires @item_id@, @timestamp@, and
 -- @demand@ fields to be present in your data. For more information, see
--- howitworks-datasets-groups.
+-- <https://docs.aws.amazon.com/forecast/latest/dg/howitworks-datasets-groups.html Importing datasets>.
 --
 -- 'datasetType', 'createDataset_datasetType' - The dataset type. Valid values depend on the chosen @Domain@.
 --
@@ -216,7 +227,8 @@ data CreateDataset = CreateDataset'
 -- match the fields in your data. The dataset @Domain@ and @DatasetType@
 -- that you choose determine the minimum required fields in your training
 -- data. For information about the required fields for a specific dataset
--- domain and type, see howitworks-domains-ds-types.
+-- domain and type, see
+-- <https://docs.aws.amazon.com/forecast/latest/dg/howitworks-domains-ds-types.html Dataset Domains and Dataset Types>.
 newCreateDataset ::
   -- | 'datasetName'
   Prelude.Text ->
@@ -296,14 +308,16 @@ createDataset_datasetName = Lens.lens (\CreateDataset' {datasetName} -> datasetN
 
 -- | The domain associated with the dataset. When you add a dataset to a
 -- dataset group, this value and the value specified for the @Domain@
--- parameter of the CreateDatasetGroup operation must match.
+-- parameter of the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_CreateDatasetGroup.html CreateDatasetGroup>
+-- operation must match.
 --
 -- The @Domain@ and @DatasetType@ that you choose determine the fields that
 -- must be present in the training data that you import to the dataset. For
 -- example, if you choose the @RETAIL@ domain and @TARGET_TIME_SERIES@ as
 -- the @DatasetType@, Amazon Forecast requires @item_id@, @timestamp@, and
 -- @demand@ fields to be present in your data. For more information, see
--- howitworks-datasets-groups.
+-- <https://docs.aws.amazon.com/forecast/latest/dg/howitworks-datasets-groups.html Importing datasets>.
 createDataset_domain :: Lens.Lens' CreateDataset Domain
 createDataset_domain = Lens.lens (\CreateDataset' {domain} -> domain) (\s@CreateDataset' {} a -> s {domain = a} :: CreateDataset)
 
@@ -315,7 +329,8 @@ createDataset_datasetType = Lens.lens (\CreateDataset' {datasetType} -> datasetT
 -- match the fields in your data. The dataset @Domain@ and @DatasetType@
 -- that you choose determine the minimum required fields in your training
 -- data. For information about the required fields for a specific dataset
--- domain and type, see howitworks-domains-ds-types.
+-- domain and type, see
+-- <https://docs.aws.amazon.com/forecast/latest/dg/howitworks-domains-ds-types.html Dataset Domains and Dataset Types>.
 createDataset_schema :: Lens.Lens' CreateDataset Schema
 createDataset_schema = Lens.lens (\CreateDataset' {schema} -> schema) (\s@CreateDataset' {} a -> s {schema = a} :: CreateDataset)
 
@@ -323,12 +338,13 @@ instance Core.AWSRequest CreateDataset where
   type
     AWSResponse CreateDataset =
       CreateDatasetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDatasetResponse'
-            Prelude.<$> (x Core..?> "DatasetArn")
+            Prelude.<$> (x Data..?> "DatasetArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -352,40 +368,40 @@ instance Prelude.NFData CreateDataset where
       `Prelude.seq` Prelude.rnf datasetType
       `Prelude.seq` Prelude.rnf schema
 
-instance Core.ToHeaders CreateDataset where
+instance Data.ToHeaders CreateDataset where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.CreateDataset" ::
+              Data.=# ( "AmazonForecast.CreateDataset" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDataset where
+instance Data.ToJSON CreateDataset where
   toJSON CreateDataset' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DataFrequency" Core..=) Prelude.<$> dataFrequency,
-            ("EncryptionConfig" Core..=)
+          [ ("DataFrequency" Data..=) Prelude.<$> dataFrequency,
+            ("EncryptionConfig" Data..=)
               Prelude.<$> encryptionConfig,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("DatasetName" Core..= datasetName),
-            Prelude.Just ("Domain" Core..= domain),
-            Prelude.Just ("DatasetType" Core..= datasetType),
-            Prelude.Just ("Schema" Core..= schema)
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("DatasetName" Data..= datasetName),
+            Prelude.Just ("Domain" Data..= domain),
+            Prelude.Just ("DatasetType" Data..= datasetType),
+            Prelude.Just ("Schema" Data..= schema)
           ]
       )
 
-instance Core.ToPath CreateDataset where
+instance Data.ToPath CreateDataset where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDataset where
+instance Data.ToQuery CreateDataset where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDatasetResponse' smart constructor.

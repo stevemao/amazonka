@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.DeleteAppInstanceAdmin
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ instance Core.AWSRequest DeleteAppInstanceAdmin where
   type
     AWSResponse DeleteAppInstanceAdmin =
       DeleteAppInstanceAdminResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteAppInstanceAdminResponse'
@@ -106,19 +108,19 @@ instance Prelude.NFData DeleteAppInstanceAdmin where
     Prelude.rnf appInstanceAdminArn
       `Prelude.seq` Prelude.rnf appInstanceArn
 
-instance Core.ToHeaders DeleteAppInstanceAdmin where
+instance Data.ToHeaders DeleteAppInstanceAdmin where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteAppInstanceAdmin where
+instance Data.ToPath DeleteAppInstanceAdmin where
   toPath DeleteAppInstanceAdmin' {..} =
     Prelude.mconcat
       [ "/app-instances/",
-        Core.toBS appInstanceArn,
+        Data.toBS appInstanceArn,
         "/admins/",
-        Core.toBS appInstanceAdminArn
+        Data.toBS appInstanceAdminArn
       ]
 
-instance Core.ToQuery DeleteAppInstanceAdmin where
+instance Data.ToQuery DeleteAppInstanceAdmin where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAppInstanceAdminResponse' smart constructor.

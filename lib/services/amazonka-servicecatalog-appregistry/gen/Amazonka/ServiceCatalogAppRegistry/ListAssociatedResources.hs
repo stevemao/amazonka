@@ -14,14 +14,19 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalogAppRegistry.ListAssociatedResources
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all resources that are associated with specified application.
--- Results are paginated.
+-- Lists all of the resources that are associated with the specified
+-- application. Results are paginated.
+--
+-- If you share an application, and a consumer account associates a tag
+-- query to the application, all of the users who can access the
+-- application can also view the tag values in all accounts that are
+-- associated with it using this API.
 --
 -- This operation returns paginated results.
 module Amazonka.ServiceCatalogAppRegistry.ListAssociatedResources
@@ -30,8 +35,8 @@ module Amazonka.ServiceCatalogAppRegistry.ListAssociatedResources
     newListAssociatedResources,
 
     -- * Request Lenses
-    listAssociatedResources_nextToken,
     listAssociatedResources_maxResults,
+    listAssociatedResources_nextToken,
     listAssociatedResources_application,
 
     -- * Destructuring the Response
@@ -39,14 +44,15 @@ module Amazonka.ServiceCatalogAppRegistry.ListAssociatedResources
     newListAssociatedResourcesResponse,
 
     -- * Response Lenses
-    listAssociatedResourcesResponse_resources,
     listAssociatedResourcesResponse_nextToken,
+    listAssociatedResourcesResponse_resources,
     listAssociatedResourcesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,12 +60,12 @@ import Amazonka.ServiceCatalogAppRegistry.Types
 
 -- | /See:/ 'newListAssociatedResources' smart constructor.
 data ListAssociatedResources = ListAssociatedResources'
-  { -- | The token to use to get the next page of results after a previous API
-    -- call.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The upper bound of the number of results to return (cannot exceed 25).
+  { -- | The upper bound of the number of results to return (cannot exceed 25).
     -- If this parameter is omitted, it defaults to 25. This value is optional.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to use to get the next page of results after a previous API
+    -- call.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name or ID of the application.
     application :: Prelude.Text
   }
@@ -73,11 +79,11 @@ data ListAssociatedResources = ListAssociatedResources'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listAssociatedResources_nextToken' - The token to use to get the next page of results after a previous API
--- call.
---
 -- 'maxResults', 'listAssociatedResources_maxResults' - The upper bound of the number of results to return (cannot exceed 25).
 -- If this parameter is omitted, it defaults to 25. This value is optional.
+--
+-- 'nextToken', 'listAssociatedResources_nextToken' - The token to use to get the next page of results after a previous API
+-- call.
 --
 -- 'application', 'listAssociatedResources_application' - The name or ID of the application.
 newListAssociatedResources ::
@@ -86,21 +92,21 @@ newListAssociatedResources ::
   ListAssociatedResources
 newListAssociatedResources pApplication_ =
   ListAssociatedResources'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       application = pApplication_
     }
-
--- | The token to use to get the next page of results after a previous API
--- call.
-listAssociatedResources_nextToken :: Lens.Lens' ListAssociatedResources (Prelude.Maybe Prelude.Text)
-listAssociatedResources_nextToken = Lens.lens (\ListAssociatedResources' {nextToken} -> nextToken) (\s@ListAssociatedResources' {} a -> s {nextToken = a} :: ListAssociatedResources)
 
 -- | The upper bound of the number of results to return (cannot exceed 25).
 -- If this parameter is omitted, it defaults to 25. This value is optional.
 listAssociatedResources_maxResults :: Lens.Lens' ListAssociatedResources (Prelude.Maybe Prelude.Natural)
 listAssociatedResources_maxResults = Lens.lens (\ListAssociatedResources' {maxResults} -> maxResults) (\s@ListAssociatedResources' {} a -> s {maxResults = a} :: ListAssociatedResources)
+
+-- | The token to use to get the next page of results after a previous API
+-- call.
+listAssociatedResources_nextToken :: Lens.Lens' ListAssociatedResources (Prelude.Maybe Prelude.Text)
+listAssociatedResources_nextToken = Lens.lens (\ListAssociatedResources' {nextToken} -> nextToken) (\s@ListAssociatedResources' {} a -> s {nextToken = a} :: ListAssociatedResources)
 
 -- | The name or ID of the application.
 listAssociatedResources_application :: Lens.Lens' ListAssociatedResources Prelude.Text
@@ -132,61 +138,62 @@ instance Core.AWSRequest ListAssociatedResources where
   type
     AWSResponse ListAssociatedResources =
       ListAssociatedResourcesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAssociatedResourcesResponse'
-            Prelude.<$> (x Core..?> "resources" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "resources" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAssociatedResources where
   hashWithSalt _salt ListAssociatedResources' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` application
 
 instance Prelude.NFData ListAssociatedResources where
   rnf ListAssociatedResources' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf application
 
-instance Core.ToHeaders ListAssociatedResources where
+instance Data.ToHeaders ListAssociatedResources where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListAssociatedResources where
+instance Data.ToPath ListAssociatedResources where
   toPath ListAssociatedResources' {..} =
     Prelude.mconcat
       [ "/applications/",
-        Core.toBS application,
+        Data.toBS application,
         "/resources"
       ]
 
-instance Core.ToQuery ListAssociatedResources where
+instance Data.ToQuery ListAssociatedResources where
   toQuery ListAssociatedResources' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListAssociatedResourcesResponse' smart constructor.
 data ListAssociatedResourcesResponse = ListAssociatedResourcesResponse'
-  { -- | Information about the resources.
-    resources :: Prelude.Maybe [ResourceInfo],
-    -- | The token to use to get the next page of results after a previous API
+  { -- | The token to use to get the next page of results after a previous API
     -- call.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the resources.
+    resources :: Prelude.Maybe [ResourceInfo],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -200,10 +207,10 @@ data ListAssociatedResourcesResponse = ListAssociatedResourcesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resources', 'listAssociatedResourcesResponse_resources' - Information about the resources.
---
 -- 'nextToken', 'listAssociatedResourcesResponse_nextToken' - The token to use to get the next page of results after a previous API
 -- call.
+--
+-- 'resources', 'listAssociatedResourcesResponse_resources' - Information about the resources.
 --
 -- 'httpStatus', 'listAssociatedResourcesResponse_httpStatus' - The response's http status code.
 newListAssociatedResourcesResponse ::
@@ -212,20 +219,20 @@ newListAssociatedResourcesResponse ::
   ListAssociatedResourcesResponse
 newListAssociatedResourcesResponse pHttpStatus_ =
   ListAssociatedResourcesResponse'
-    { resources =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      resources = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Information about the resources.
-listAssociatedResourcesResponse_resources :: Lens.Lens' ListAssociatedResourcesResponse (Prelude.Maybe [ResourceInfo])
-listAssociatedResourcesResponse_resources = Lens.lens (\ListAssociatedResourcesResponse' {resources} -> resources) (\s@ListAssociatedResourcesResponse' {} a -> s {resources = a} :: ListAssociatedResourcesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to use to get the next page of results after a previous API
 -- call.
 listAssociatedResourcesResponse_nextToken :: Lens.Lens' ListAssociatedResourcesResponse (Prelude.Maybe Prelude.Text)
 listAssociatedResourcesResponse_nextToken = Lens.lens (\ListAssociatedResourcesResponse' {nextToken} -> nextToken) (\s@ListAssociatedResourcesResponse' {} a -> s {nextToken = a} :: ListAssociatedResourcesResponse)
+
+-- | Information about the resources.
+listAssociatedResourcesResponse_resources :: Lens.Lens' ListAssociatedResourcesResponse (Prelude.Maybe [ResourceInfo])
+listAssociatedResourcesResponse_resources = Lens.lens (\ListAssociatedResourcesResponse' {resources} -> resources) (\s@ListAssociatedResourcesResponse' {} a -> s {resources = a} :: ListAssociatedResourcesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listAssociatedResourcesResponse_httpStatus :: Lens.Lens' ListAssociatedResourcesResponse Prelude.Int
@@ -236,6 +243,6 @@ instance
     ListAssociatedResourcesResponse
   where
   rnf ListAssociatedResourcesResponse' {..} =
-    Prelude.rnf resources
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf resources
       `Prelude.seq` Prelude.rnf httpStatus

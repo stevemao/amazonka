@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.OriginGroupMembers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.OriginGroupMembers where
 
 import Amazonka.CloudFront.Types.OriginGroupMember
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A complex data type for the origins included in an origin group.
@@ -66,12 +67,12 @@ originGroupMembers_quantity = Lens.lens (\OriginGroupMembers' {quantity} -> quan
 originGroupMembers_items :: Lens.Lens' OriginGroupMembers (Prelude.NonEmpty OriginGroupMember)
 originGroupMembers_items = Lens.lens (\OriginGroupMembers' {items} -> items) (\s@OriginGroupMembers' {} a -> s {items = a} :: OriginGroupMembers) Prelude.. Lens.coerced
 
-instance Core.FromXML OriginGroupMembers where
+instance Data.FromXML OriginGroupMembers where
   parseXML x =
     OriginGroupMembers'
-      Prelude.<$> (x Core..@ "Quantity")
-      Prelude.<*> ( x Core..@? "Items" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.parseXMLList1 "OriginGroupMember"
+      Prelude.<$> (x Data..@ "Quantity")
+      Prelude.<*> ( x Data..@? "Items" Core..!@ Prelude.mempty
+                      Prelude.>>= Data.parseXMLList1 "OriginGroupMember"
                   )
 
 instance Prelude.Hashable OriginGroupMembers where
@@ -84,10 +85,10 @@ instance Prelude.NFData OriginGroupMembers where
     Prelude.rnf quantity
       `Prelude.seq` Prelude.rnf items
 
-instance Core.ToXML OriginGroupMembers where
+instance Data.ToXML OriginGroupMembers where
   toXML OriginGroupMembers' {..} =
     Prelude.mconcat
-      [ "Quantity" Core.@= quantity,
+      [ "Quantity" Data.@= quantity,
         "Items"
-          Core.@= Core.toXMLList "OriginGroupMember" items
+          Data.@= Data.toXMLList "OriginGroupMember" items
       ]

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.CreateWorkloadShare
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,13 +22,14 @@
 --
 -- Create a workload share.
 --
--- The owner of a workload can share it with other AWS accounts and IAM
--- users in the same AWS Region. Shared access to a workload is not removed
--- until the workload invitation is deleted.
+-- The owner of a workload can share it with other Amazon Web Services
+-- accounts and IAM users in the same Amazon Web Services Region. Shared
+-- access to a workload is not removed until the workload invitation is
+-- deleted.
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/wellarchitected/latest/userguide/workloads-sharing.html Sharing a Workload>
--- in the /AWS Well-Architected Tool User Guide/.
+-- in the /Well-Architected Tool User Guide/.
 module Amazonka.WellArchitected.CreateWorkloadShare
   ( -- * Creating a Request
     CreateWorkloadShare (..),
@@ -45,14 +46,15 @@ module Amazonka.WellArchitected.CreateWorkloadShare
     newCreateWorkloadShareResponse,
 
     -- * Response Lenses
-    createWorkloadShareResponse_workloadId,
     createWorkloadShareResponse_shareId,
+    createWorkloadShareResponse_workloadId,
     createWorkloadShareResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -126,13 +128,14 @@ instance Core.AWSRequest CreateWorkloadShare where
   type
     AWSResponse CreateWorkloadShare =
       CreateWorkloadShareResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateWorkloadShareResponse'
-            Prelude.<$> (x Core..?> "WorkloadId")
-            Prelude.<*> (x Core..?> "ShareId")
+            Prelude.<$> (x Data..?> "ShareId")
+            Prelude.<*> (x Data..?> "WorkloadId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -150,43 +153,43 @@ instance Prelude.NFData CreateWorkloadShare where
       `Prelude.seq` Prelude.rnf permissionType
       `Prelude.seq` Prelude.rnf clientRequestToken
 
-instance Core.ToHeaders CreateWorkloadShare where
+instance Data.ToHeaders CreateWorkloadShare where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateWorkloadShare where
+instance Data.ToJSON CreateWorkloadShare where
   toJSON CreateWorkloadShare' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("SharedWith" Core..= sharedWith),
+          [ Prelude.Just ("SharedWith" Data..= sharedWith),
             Prelude.Just
-              ("PermissionType" Core..= permissionType),
+              ("PermissionType" Data..= permissionType),
             Prelude.Just
-              ("ClientRequestToken" Core..= clientRequestToken)
+              ("ClientRequestToken" Data..= clientRequestToken)
           ]
       )
 
-instance Core.ToPath CreateWorkloadShare where
+instance Data.ToPath CreateWorkloadShare where
   toPath CreateWorkloadShare' {..} =
     Prelude.mconcat
-      ["/workloads/", Core.toBS workloadId, "/shares"]
+      ["/workloads/", Data.toBS workloadId, "/shares"]
 
-instance Core.ToQuery CreateWorkloadShare where
+instance Data.ToQuery CreateWorkloadShare where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Input for Create Workload Share
 --
 -- /See:/ 'newCreateWorkloadShareResponse' smart constructor.
 data CreateWorkloadShareResponse = CreateWorkloadShareResponse'
-  { workloadId :: Prelude.Maybe Prelude.Text,
-    shareId :: Prelude.Maybe Prelude.Text,
+  { shareId :: Prelude.Maybe Prelude.Text,
+    workloadId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -200,9 +203,9 @@ data CreateWorkloadShareResponse = CreateWorkloadShareResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'workloadId', 'createWorkloadShareResponse_workloadId' - Undocumented member.
---
 -- 'shareId', 'createWorkloadShareResponse_shareId' - Undocumented member.
+--
+-- 'workloadId', 'createWorkloadShareResponse_workloadId' - Undocumented member.
 --
 -- 'httpStatus', 'createWorkloadShareResponse_httpStatus' - The response's http status code.
 newCreateWorkloadShareResponse ::
@@ -211,19 +214,19 @@ newCreateWorkloadShareResponse ::
   CreateWorkloadShareResponse
 newCreateWorkloadShareResponse pHttpStatus_ =
   CreateWorkloadShareResponse'
-    { workloadId =
+    { shareId =
         Prelude.Nothing,
-      shareId = Prelude.Nothing,
+      workloadId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-createWorkloadShareResponse_workloadId :: Lens.Lens' CreateWorkloadShareResponse (Prelude.Maybe Prelude.Text)
-createWorkloadShareResponse_workloadId = Lens.lens (\CreateWorkloadShareResponse' {workloadId} -> workloadId) (\s@CreateWorkloadShareResponse' {} a -> s {workloadId = a} :: CreateWorkloadShareResponse)
-
--- | Undocumented member.
 createWorkloadShareResponse_shareId :: Lens.Lens' CreateWorkloadShareResponse (Prelude.Maybe Prelude.Text)
 createWorkloadShareResponse_shareId = Lens.lens (\CreateWorkloadShareResponse' {shareId} -> shareId) (\s@CreateWorkloadShareResponse' {} a -> s {shareId = a} :: CreateWorkloadShareResponse)
+
+-- | Undocumented member.
+createWorkloadShareResponse_workloadId :: Lens.Lens' CreateWorkloadShareResponse (Prelude.Maybe Prelude.Text)
+createWorkloadShareResponse_workloadId = Lens.lens (\CreateWorkloadShareResponse' {workloadId} -> workloadId) (\s@CreateWorkloadShareResponse' {} a -> s {workloadId = a} :: CreateWorkloadShareResponse)
 
 -- | The response's http status code.
 createWorkloadShareResponse_httpStatus :: Lens.Lens' CreateWorkloadShareResponse Prelude.Int
@@ -231,6 +234,6 @@ createWorkloadShareResponse_httpStatus = Lens.lens (\CreateWorkloadShareResponse
 
 instance Prelude.NFData CreateWorkloadShareResponse where
   rnf CreateWorkloadShareResponse' {..} =
-    Prelude.rnf workloadId
-      `Prelude.seq` Prelude.rnf shareId
+    Prelude.rnf shareId
+      `Prelude.seq` Prelude.rnf workloadId
       `Prelude.seq` Prelude.rnf httpStatus

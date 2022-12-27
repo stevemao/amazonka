@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MigrationHub.ListDiscoveredResources
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.MigrationHub.ListDiscoveredResources
     newListDiscoveredResources,
 
     -- * Request Lenses
-    listDiscoveredResources_nextToken,
     listDiscoveredResources_maxResults,
+    listDiscoveredResources_nextToken,
     listDiscoveredResources_progressUpdateStream,
     listDiscoveredResources_migrationTaskName,
 
@@ -46,7 +46,8 @@ module Amazonka.MigrationHub.ListDiscoveredResources
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MigrationHub.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,12 +55,12 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDiscoveredResources' smart constructor.
 data ListDiscoveredResources = ListDiscoveredResources'
-  { -- | If a @NextToken@ was returned by a previous call, there are more results
+  { -- | The maximum number of results returned per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If a @NextToken@ was returned by a previous call, there are more results
     -- available. To retrieve the next page of results, make the call again
     -- using the returned token in @NextToken@.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results returned per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The name of the ProgressUpdateStream.
     progressUpdateStream :: Prelude.Text,
     -- | The name of the MigrationTask. /Do not store personal data in this
@@ -76,11 +77,11 @@ data ListDiscoveredResources = ListDiscoveredResources'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listDiscoveredResources_maxResults' - The maximum number of results returned per page.
+--
 -- 'nextToken', 'listDiscoveredResources_nextToken' - If a @NextToken@ was returned by a previous call, there are more results
 -- available. To retrieve the next page of results, make the call again
 -- using the returned token in @NextToken@.
---
--- 'maxResults', 'listDiscoveredResources_maxResults' - The maximum number of results returned per page.
 --
 -- 'progressUpdateStream', 'listDiscoveredResources_progressUpdateStream' - The name of the ProgressUpdateStream.
 --
@@ -96,22 +97,22 @@ newListDiscoveredResources
   pProgressUpdateStream_
   pMigrationTaskName_ =
     ListDiscoveredResources'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         progressUpdateStream = pProgressUpdateStream_,
         migrationTaskName = pMigrationTaskName_
       }
+
+-- | The maximum number of results returned per page.
+listDiscoveredResources_maxResults :: Lens.Lens' ListDiscoveredResources (Prelude.Maybe Prelude.Natural)
+listDiscoveredResources_maxResults = Lens.lens (\ListDiscoveredResources' {maxResults} -> maxResults) (\s@ListDiscoveredResources' {} a -> s {maxResults = a} :: ListDiscoveredResources)
 
 -- | If a @NextToken@ was returned by a previous call, there are more results
 -- available. To retrieve the next page of results, make the call again
 -- using the returned token in @NextToken@.
 listDiscoveredResources_nextToken :: Lens.Lens' ListDiscoveredResources (Prelude.Maybe Prelude.Text)
 listDiscoveredResources_nextToken = Lens.lens (\ListDiscoveredResources' {nextToken} -> nextToken) (\s@ListDiscoveredResources' {} a -> s {nextToken = a} :: ListDiscoveredResources)
-
--- | The maximum number of results returned per page.
-listDiscoveredResources_maxResults :: Lens.Lens' ListDiscoveredResources (Prelude.Maybe Prelude.Natural)
-listDiscoveredResources_maxResults = Lens.lens (\ListDiscoveredResources' {maxResults} -> maxResults) (\s@ListDiscoveredResources' {} a -> s {maxResults = a} :: ListDiscoveredResources)
 
 -- | The name of the ProgressUpdateStream.
 listDiscoveredResources_progressUpdateStream :: Lens.Lens' ListDiscoveredResources Prelude.Text
@@ -148,66 +149,67 @@ instance Core.AWSRequest ListDiscoveredResources where
   type
     AWSResponse ListDiscoveredResources =
       ListDiscoveredResourcesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDiscoveredResourcesResponse'
-            Prelude.<$> ( x Core..?> "DiscoveredResourceList"
+            Prelude.<$> ( x Data..?> "DiscoveredResourceList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDiscoveredResources where
   hashWithSalt _salt ListDiscoveredResources' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` progressUpdateStream
       `Prelude.hashWithSalt` migrationTaskName
 
 instance Prelude.NFData ListDiscoveredResources where
   rnf ListDiscoveredResources' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf progressUpdateStream
       `Prelude.seq` Prelude.rnf migrationTaskName
 
-instance Core.ToHeaders ListDiscoveredResources where
+instance Data.ToHeaders ListDiscoveredResources where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSMigrationHub.ListDiscoveredResources" ::
+              Data.=# ( "AWSMigrationHub.ListDiscoveredResources" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDiscoveredResources where
+instance Data.ToJSON ListDiscoveredResources where
   toJSON ListDiscoveredResources' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
               ( "ProgressUpdateStream"
-                  Core..= progressUpdateStream
+                  Data..= progressUpdateStream
               ),
             Prelude.Just
-              ("MigrationTaskName" Core..= migrationTaskName)
+              ("MigrationTaskName" Data..= migrationTaskName)
           ]
       )
 
-instance Core.ToPath ListDiscoveredResources where
+instance Data.ToPath ListDiscoveredResources where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDiscoveredResources where
+instance Data.ToQuery ListDiscoveredResources where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDiscoveredResourcesResponse' smart constructor.

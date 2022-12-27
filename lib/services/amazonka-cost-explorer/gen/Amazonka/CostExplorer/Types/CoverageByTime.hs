@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.CoverageByTime
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.CostExplorer.Types.CoverageByTime where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types.Coverage
 import Amazonka.CostExplorer.Types.DateInterval
 import Amazonka.CostExplorer.Types.ReservationCoverageGroup
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Reservation coverage for a specified period, in hours.
@@ -73,15 +74,15 @@ coverageByTime_timePeriod = Lens.lens (\CoverageByTime' {timePeriod} -> timePeri
 coverageByTime_total :: Lens.Lens' CoverageByTime (Prelude.Maybe Coverage)
 coverageByTime_total = Lens.lens (\CoverageByTime' {total} -> total) (\s@CoverageByTime' {} a -> s {total = a} :: CoverageByTime)
 
-instance Core.FromJSON CoverageByTime where
+instance Data.FromJSON CoverageByTime where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CoverageByTime"
       ( \x ->
           CoverageByTime'
-            Prelude.<$> (x Core..:? "Groups" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "TimePeriod")
-            Prelude.<*> (x Core..:? "Total")
+            Prelude.<$> (x Data..:? "Groups" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "TimePeriod")
+            Prelude.<*> (x Data..:? "Total")
       )
 
 instance Prelude.Hashable CoverageByTime where

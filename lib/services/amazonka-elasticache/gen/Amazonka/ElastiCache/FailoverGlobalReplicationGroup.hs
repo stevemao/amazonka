@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.FailoverGlobalReplicationGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Used to failover the primary region to a selected secondary region. The
--- selected secondary region will become primary, and all other clusters
--- will become secondary.
+-- Used to failover the primary region to a secondary region. The secondary
+-- region will become primary, and all other clusters will become
+-- secondary.
 module Amazonka.ElastiCache.FailoverGlobalReplicationGroup
   ( -- * Creating a Request
     FailoverGlobalReplicationGroup (..),
@@ -44,8 +44,9 @@ module Amazonka.ElastiCache.FailoverGlobalReplicationGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,13 +114,14 @@ instance
   type
     AWSResponse FailoverGlobalReplicationGroup =
       FailoverGlobalReplicationGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "FailoverGlobalReplicationGroupResult"
       ( \s h x ->
           FailoverGlobalReplicationGroupResponse'
-            Prelude.<$> (x Core..@? "GlobalReplicationGroup")
+            Prelude.<$> (x Data..@? "GlobalReplicationGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -145,28 +147,28 @@ instance
       `Prelude.seq` Prelude.rnf primaryReplicationGroupId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     FailoverGlobalReplicationGroup
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath FailoverGlobalReplicationGroup where
+instance Data.ToPath FailoverGlobalReplicationGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery FailoverGlobalReplicationGroup where
+instance Data.ToQuery FailoverGlobalReplicationGroup where
   toQuery FailoverGlobalReplicationGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "FailoverGlobalReplicationGroup" ::
+          Data.=: ( "FailoverGlobalReplicationGroup" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
         "GlobalReplicationGroupId"
-          Core.=: globalReplicationGroupId,
-        "PrimaryRegion" Core.=: primaryRegion,
+          Data.=: globalReplicationGroupId,
+        "PrimaryRegion" Data.=: primaryRegion,
         "PrimaryReplicationGroupId"
-          Core.=: primaryReplicationGroupId
+          Data.=: primaryReplicationGroupId
       ]
 
 -- | /See:/ 'newFailoverGlobalReplicationGroupResponse' smart constructor.

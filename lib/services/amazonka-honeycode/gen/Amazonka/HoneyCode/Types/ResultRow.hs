@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.Types.ResultRow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.HoneyCode.Types.ResultRow where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HoneyCode.Types.DataItem
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A single row in the ResultSet.
@@ -31,7 +32,7 @@ data ResultRow = ResultRow'
   { -- | The ID for a particular row.
     rowId :: Prelude.Maybe Prelude.Text,
     -- | List of all the data cells in a row.
-    dataItems :: [Core.Sensitive DataItem]
+    dataItems :: [Data.Sensitive DataItem]
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -62,14 +63,14 @@ resultRow_rowId = Lens.lens (\ResultRow' {rowId} -> rowId) (\s@ResultRow' {} a -
 resultRow_dataItems :: Lens.Lens' ResultRow [DataItem]
 resultRow_dataItems = Lens.lens (\ResultRow' {dataItems} -> dataItems) (\s@ResultRow' {} a -> s {dataItems = a} :: ResultRow) Prelude.. Lens.coerced
 
-instance Core.FromJSON ResultRow where
+instance Data.FromJSON ResultRow where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResultRow"
       ( \x ->
           ResultRow'
-            Prelude.<$> (x Core..:? "rowId")
-            Prelude.<*> (x Core..:? "dataItems" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "rowId")
+            Prelude.<*> (x Data..:? "dataItems" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ResultRow where

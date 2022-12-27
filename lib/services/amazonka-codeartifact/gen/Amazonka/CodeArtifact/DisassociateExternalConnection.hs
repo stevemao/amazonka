@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.DisassociateExternalConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,15 +44,16 @@ where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDisassociateExternalConnection' smart constructor.
 data DisassociateExternalConnection = DisassociateExternalConnection'
-  { -- | The 12-digit account number of the AWS account that owns the domain. It
-    -- does not include dashes or spaces.
+  { -- | The 12-digit account number of the Amazon Web Services account that owns
+    -- the domain. It does not include dashes or spaces.
     domainOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the domain that contains the repository from which to remove
     -- the external repository.
@@ -73,8 +74,8 @@ data DisassociateExternalConnection = DisassociateExternalConnection'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainOwner', 'disassociateExternalConnection_domainOwner' - The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- 'domainOwner', 'disassociateExternalConnection_domainOwner' - The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 --
 -- 'domain', 'disassociateExternalConnection_domain' - The name of the domain that contains the repository from which to remove
 -- the external repository.
@@ -103,8 +104,8 @@ newDisassociateExternalConnection
         externalConnection = pExternalConnection_
       }
 
--- | The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
+-- | The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
 disassociateExternalConnection_domainOwner :: Lens.Lens' DisassociateExternalConnection (Prelude.Maybe Prelude.Text)
 disassociateExternalConnection_domainOwner = Lens.lens (\DisassociateExternalConnection' {domainOwner} -> domainOwner) (\s@DisassociateExternalConnection' {} a -> s {domainOwner = a} :: DisassociateExternalConnection)
 
@@ -129,12 +130,13 @@ instance
   type
     AWSResponse DisassociateExternalConnection =
       DisassociateExternalConnectionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DisassociateExternalConnectionResponse'
-            Prelude.<$> (x Core..?> "repository")
+            Prelude.<$> (x Data..?> "repository")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -161,30 +163,30 @@ instance
       `Prelude.seq` Prelude.rnf externalConnection
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DisassociateExternalConnection
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DisassociateExternalConnection where
+instance Data.ToPath DisassociateExternalConnection where
   toPath =
     Prelude.const "/v1/repository/external-connection"
 
-instance Core.ToQuery DisassociateExternalConnection where
+instance Data.ToQuery DisassociateExternalConnection where
   toQuery DisassociateExternalConnection' {..} =
     Prelude.mconcat
-      [ "domain-owner" Core.=: domainOwner,
-        "domain" Core.=: domain,
-        "repository" Core.=: repository,
-        "external-connection" Core.=: externalConnection
+      [ "domain-owner" Data.=: domainOwner,
+        "domain" Data.=: domain,
+        "repository" Data.=: repository,
+        "external-connection" Data.=: externalConnection
       ]
 
 -- | /See:/ 'newDisassociateExternalConnectionResponse' smart constructor.

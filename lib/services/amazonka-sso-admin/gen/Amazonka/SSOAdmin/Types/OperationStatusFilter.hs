@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.Types.OperationStatusFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSOAdmin.Types.OperationStatusFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSOAdmin.Types.StatusValues
 
@@ -58,9 +59,9 @@ instance Prelude.Hashable OperationStatusFilter where
 instance Prelude.NFData OperationStatusFilter where
   rnf OperationStatusFilter' {..} = Prelude.rnf status
 
-instance Core.ToJSON OperationStatusFilter where
+instance Data.ToJSON OperationStatusFilter where
   toJSON OperationStatusFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Status" Core..=) Prelude.<$> status]
+          [("Status" Data..=) Prelude.<$> status]
       )

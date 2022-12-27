@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Types.SecurityGroupMembership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.ElastiCache.Types.SecurityGroupMembership where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a single cache security group and its status.
 --
 -- /See:/ 'newSecurityGroupMembership' smart constructor.
 data SecurityGroupMembership = SecurityGroupMembership'
-  { -- | The status of the cache security group membership. The status changes
+  { -- | The identifier of the cache security group.
+    securityGroupId :: Prelude.Maybe Prelude.Text,
+    -- | The status of the cache security group membership. The status changes
     -- whenever a cache security group is modified, or when the cache security
     -- groups assigned to a cluster are modified.
-    status :: Prelude.Maybe Prelude.Text,
-    -- | The identifier of the cache security group.
-    securityGroupId :: Prelude.Maybe Prelude.Text
+    status :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,18 +45,23 @@ data SecurityGroupMembership = SecurityGroupMembership'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'securityGroupId', 'securityGroupMembership_securityGroupId' - The identifier of the cache security group.
+--
 -- 'status', 'securityGroupMembership_status' - The status of the cache security group membership. The status changes
 -- whenever a cache security group is modified, or when the cache security
 -- groups assigned to a cluster are modified.
---
--- 'securityGroupId', 'securityGroupMembership_securityGroupId' - The identifier of the cache security group.
 newSecurityGroupMembership ::
   SecurityGroupMembership
 newSecurityGroupMembership =
   SecurityGroupMembership'
-    { status = Prelude.Nothing,
-      securityGroupId = Prelude.Nothing
+    { securityGroupId =
+        Prelude.Nothing,
+      status = Prelude.Nothing
     }
+
+-- | The identifier of the cache security group.
+securityGroupMembership_securityGroupId :: Lens.Lens' SecurityGroupMembership (Prelude.Maybe Prelude.Text)
+securityGroupMembership_securityGroupId = Lens.lens (\SecurityGroupMembership' {securityGroupId} -> securityGroupId) (\s@SecurityGroupMembership' {} a -> s {securityGroupId = a} :: SecurityGroupMembership)
 
 -- | The status of the cache security group membership. The status changes
 -- whenever a cache security group is modified, or when the cache security
@@ -63,22 +69,18 @@ newSecurityGroupMembership =
 securityGroupMembership_status :: Lens.Lens' SecurityGroupMembership (Prelude.Maybe Prelude.Text)
 securityGroupMembership_status = Lens.lens (\SecurityGroupMembership' {status} -> status) (\s@SecurityGroupMembership' {} a -> s {status = a} :: SecurityGroupMembership)
 
--- | The identifier of the cache security group.
-securityGroupMembership_securityGroupId :: Lens.Lens' SecurityGroupMembership (Prelude.Maybe Prelude.Text)
-securityGroupMembership_securityGroupId = Lens.lens (\SecurityGroupMembership' {securityGroupId} -> securityGroupId) (\s@SecurityGroupMembership' {} a -> s {securityGroupId = a} :: SecurityGroupMembership)
-
-instance Core.FromXML SecurityGroupMembership where
+instance Data.FromXML SecurityGroupMembership where
   parseXML x =
     SecurityGroupMembership'
-      Prelude.<$> (x Core..@? "Status")
-      Prelude.<*> (x Core..@? "SecurityGroupId")
+      Prelude.<$> (x Data..@? "SecurityGroupId")
+      Prelude.<*> (x Data..@? "Status")
 
 instance Prelude.Hashable SecurityGroupMembership where
   hashWithSalt _salt SecurityGroupMembership' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` securityGroupId
+    _salt `Prelude.hashWithSalt` securityGroupId
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData SecurityGroupMembership where
   rnf SecurityGroupMembership' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf securityGroupId
+    Prelude.rnf securityGroupId
+      `Prelude.seq` Prelude.rnf status

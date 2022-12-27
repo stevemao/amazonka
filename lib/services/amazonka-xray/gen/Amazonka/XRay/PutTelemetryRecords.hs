@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.PutTelemetryRecords
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.XRay.PutTelemetryRecords
     newPutTelemetryRecords,
 
     -- * Request Lenses
-    putTelemetryRecords_hostname,
     putTelemetryRecords_eC2InstanceId,
+    putTelemetryRecords_hostname,
     putTelemetryRecords_resourceARN,
     putTelemetryRecords_telemetryRecords,
 
@@ -42,7 +42,8 @@ module Amazonka.XRay.PutTelemetryRecords
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -50,8 +51,8 @@ import Amazonka.XRay.Types
 
 -- | /See:/ 'newPutTelemetryRecords' smart constructor.
 data PutTelemetryRecords = PutTelemetryRecords'
-  { hostname :: Prelude.Maybe Prelude.Text,
-    eC2InstanceId :: Prelude.Maybe Prelude.Text,
+  { eC2InstanceId :: Prelude.Maybe Prelude.Text,
+    hostname :: Prelude.Maybe Prelude.Text,
     resourceARN :: Prelude.Maybe Prelude.Text,
     telemetryRecords :: [TelemetryRecord]
   }
@@ -65,9 +66,9 @@ data PutTelemetryRecords = PutTelemetryRecords'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'hostname', 'putTelemetryRecords_hostname' -
---
 -- 'eC2InstanceId', 'putTelemetryRecords_eC2InstanceId' -
+--
+-- 'hostname', 'putTelemetryRecords_hostname' -
 --
 -- 'resourceARN', 'putTelemetryRecords_resourceARN' -
 --
@@ -76,19 +77,20 @@ newPutTelemetryRecords ::
   PutTelemetryRecords
 newPutTelemetryRecords =
   PutTelemetryRecords'
-    { hostname = Prelude.Nothing,
-      eC2InstanceId = Prelude.Nothing,
+    { eC2InstanceId =
+        Prelude.Nothing,
+      hostname = Prelude.Nothing,
       resourceARN = Prelude.Nothing,
       telemetryRecords = Prelude.mempty
     }
 
 -- |
-putTelemetryRecords_hostname :: Lens.Lens' PutTelemetryRecords (Prelude.Maybe Prelude.Text)
-putTelemetryRecords_hostname = Lens.lens (\PutTelemetryRecords' {hostname} -> hostname) (\s@PutTelemetryRecords' {} a -> s {hostname = a} :: PutTelemetryRecords)
-
--- |
 putTelemetryRecords_eC2InstanceId :: Lens.Lens' PutTelemetryRecords (Prelude.Maybe Prelude.Text)
 putTelemetryRecords_eC2InstanceId = Lens.lens (\PutTelemetryRecords' {eC2InstanceId} -> eC2InstanceId) (\s@PutTelemetryRecords' {} a -> s {eC2InstanceId = a} :: PutTelemetryRecords)
+
+-- |
+putTelemetryRecords_hostname :: Lens.Lens' PutTelemetryRecords (Prelude.Maybe Prelude.Text)
+putTelemetryRecords_hostname = Lens.lens (\PutTelemetryRecords' {hostname} -> hostname) (\s@PutTelemetryRecords' {} a -> s {hostname = a} :: PutTelemetryRecords)
 
 -- |
 putTelemetryRecords_resourceARN :: Lens.Lens' PutTelemetryRecords (Prelude.Maybe Prelude.Text)
@@ -102,7 +104,8 @@ instance Core.AWSRequest PutTelemetryRecords where
   type
     AWSResponse PutTelemetryRecords =
       PutTelemetryRecordsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -112,37 +115,37 @@ instance Core.AWSRequest PutTelemetryRecords where
 
 instance Prelude.Hashable PutTelemetryRecords where
   hashWithSalt _salt PutTelemetryRecords' {..} =
-    _salt `Prelude.hashWithSalt` hostname
-      `Prelude.hashWithSalt` eC2InstanceId
+    _salt `Prelude.hashWithSalt` eC2InstanceId
+      `Prelude.hashWithSalt` hostname
       `Prelude.hashWithSalt` resourceARN
       `Prelude.hashWithSalt` telemetryRecords
 
 instance Prelude.NFData PutTelemetryRecords where
   rnf PutTelemetryRecords' {..} =
-    Prelude.rnf hostname
-      `Prelude.seq` Prelude.rnf eC2InstanceId
+    Prelude.rnf eC2InstanceId
+      `Prelude.seq` Prelude.rnf hostname
       `Prelude.seq` Prelude.rnf resourceARN
       `Prelude.seq` Prelude.rnf telemetryRecords
 
-instance Core.ToHeaders PutTelemetryRecords where
+instance Data.ToHeaders PutTelemetryRecords where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON PutTelemetryRecords where
+instance Data.ToJSON PutTelemetryRecords where
   toJSON PutTelemetryRecords' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Hostname" Core..=) Prelude.<$> hostname,
-            ("EC2InstanceId" Core..=) Prelude.<$> eC2InstanceId,
-            ("ResourceARN" Core..=) Prelude.<$> resourceARN,
+          [ ("EC2InstanceId" Data..=) Prelude.<$> eC2InstanceId,
+            ("Hostname" Data..=) Prelude.<$> hostname,
+            ("ResourceARN" Data..=) Prelude.<$> resourceARN,
             Prelude.Just
-              ("TelemetryRecords" Core..= telemetryRecords)
+              ("TelemetryRecords" Data..= telemetryRecords)
           ]
       )
 
-instance Core.ToPath PutTelemetryRecords where
+instance Data.ToPath PutTelemetryRecords where
   toPath = Prelude.const "/TelemetryRecords"
 
-instance Core.ToQuery PutTelemetryRecords where
+instance Data.ToQuery PutTelemetryRecords where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutTelemetryRecordsResponse' smart constructor.

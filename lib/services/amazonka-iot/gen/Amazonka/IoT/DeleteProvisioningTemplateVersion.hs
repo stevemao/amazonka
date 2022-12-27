@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeleteProvisioningTemplateVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a fleet provisioning template version.
+-- Deletes a provisioning template version.
 --
 -- Requires permission to access the
 -- <https://docs.aws.amazon.com/service-authorization/latest/reference/list_awsiot.html#awsiot-actions-as-permissions DeleteProvisioningTemplateVersion>
@@ -44,17 +44,18 @@ module Amazonka.IoT.DeleteProvisioningTemplateVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteProvisioningTemplateVersion' smart constructor.
 data DeleteProvisioningTemplateVersion = DeleteProvisioningTemplateVersion'
-  { -- | The name of the fleet provisioning template version to delete.
+  { -- | The name of the provisioning template version to delete.
     templateName :: Prelude.Text,
-    -- | The fleet provisioning template version ID to delete.
+    -- | The provisioning template version ID to delete.
     versionId :: Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -67,9 +68,9 @@ data DeleteProvisioningTemplateVersion = DeleteProvisioningTemplateVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'templateName', 'deleteProvisioningTemplateVersion_templateName' - The name of the fleet provisioning template version to delete.
+-- 'templateName', 'deleteProvisioningTemplateVersion_templateName' - The name of the provisioning template version to delete.
 --
--- 'versionId', 'deleteProvisioningTemplateVersion_versionId' - The fleet provisioning template version ID to delete.
+-- 'versionId', 'deleteProvisioningTemplateVersion_versionId' - The provisioning template version ID to delete.
 newDeleteProvisioningTemplateVersion ::
   -- | 'templateName'
   Prelude.Text ->
@@ -85,11 +86,11 @@ newDeleteProvisioningTemplateVersion
         versionId = pVersionId_
       }
 
--- | The name of the fleet provisioning template version to delete.
+-- | The name of the provisioning template version to delete.
 deleteProvisioningTemplateVersion_templateName :: Lens.Lens' DeleteProvisioningTemplateVersion Prelude.Text
 deleteProvisioningTemplateVersion_templateName = Lens.lens (\DeleteProvisioningTemplateVersion' {templateName} -> templateName) (\s@DeleteProvisioningTemplateVersion' {} a -> s {templateName = a} :: DeleteProvisioningTemplateVersion)
 
--- | The fleet provisioning template version ID to delete.
+-- | The provisioning template version ID to delete.
 deleteProvisioningTemplateVersion_versionId :: Lens.Lens' DeleteProvisioningTemplateVersion Prelude.Int
 deleteProvisioningTemplateVersion_versionId = Lens.lens (\DeleteProvisioningTemplateVersion' {versionId} -> versionId) (\s@DeleteProvisioningTemplateVersion' {} a -> s {versionId = a} :: DeleteProvisioningTemplateVersion)
 
@@ -100,7 +101,8 @@ instance
   type
     AWSResponse DeleteProvisioningTemplateVersion =
       DeleteProvisioningTemplateVersionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -127,25 +129,25 @@ instance
       `Prelude.seq` Prelude.rnf versionId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteProvisioningTemplateVersion
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeleteProvisioningTemplateVersion
   where
   toPath DeleteProvisioningTemplateVersion' {..} =
     Prelude.mconcat
       [ "/provisioning-templates/",
-        Core.toBS templateName,
+        Data.toBS templateName,
         "/versions/",
-        Core.toBS versionId
+        Data.toBS versionId
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteProvisioningTemplateVersion
   where
   toQuery = Prelude.const Prelude.mempty

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.Types.OperatingSystemConfigurationManager
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.OpsWorks.Types.OperatingSystemConfigurationManager where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A block that contains information about the configuration manager (Chef)
@@ -68,16 +69,16 @@ operatingSystemConfigurationManager_version :: Lens.Lens' OperatingSystemConfigu
 operatingSystemConfigurationManager_version = Lens.lens (\OperatingSystemConfigurationManager' {version} -> version) (\s@OperatingSystemConfigurationManager' {} a -> s {version = a} :: OperatingSystemConfigurationManager)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     OperatingSystemConfigurationManager
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OperatingSystemConfigurationManager"
       ( \x ->
           OperatingSystemConfigurationManager'
-            Prelude.<$> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Version")
+            Prelude.<$> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "Version")
       )
 
 instance

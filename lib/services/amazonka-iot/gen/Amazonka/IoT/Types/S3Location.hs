@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.S3Location
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.S3Location where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The S3 location.
@@ -70,15 +71,15 @@ s3Location_key = Lens.lens (\S3Location' {key} -> key) (\s@S3Location' {} a -> s
 s3Location_version :: Lens.Lens' S3Location (Prelude.Maybe Prelude.Text)
 s3Location_version = Lens.lens (\S3Location' {version} -> version) (\s@S3Location' {} a -> s {version = a} :: S3Location)
 
-instance Core.FromJSON S3Location where
+instance Data.FromJSON S3Location where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3Location"
       ( \x ->
           S3Location'
-            Prelude.<$> (x Core..:? "bucket")
-            Prelude.<*> (x Core..:? "key")
-            Prelude.<*> (x Core..:? "version")
+            Prelude.<$> (x Data..:? "bucket")
+            Prelude.<*> (x Data..:? "key")
+            Prelude.<*> (x Data..:? "version")
       )
 
 instance Prelude.Hashable S3Location where
@@ -93,12 +94,12 @@ instance Prelude.NFData S3Location where
       `Prelude.seq` Prelude.rnf key
       `Prelude.seq` Prelude.rnf version
 
-instance Core.ToJSON S3Location where
+instance Data.ToJSON S3Location where
   toJSON S3Location' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("bucket" Core..=) Prelude.<$> bucket,
-            ("key" Core..=) Prelude.<$> key,
-            ("version" Core..=) Prelude.<$> version
+          [ ("bucket" Data..=) Prelude.<$> bucket,
+            ("key" Data..=) Prelude.<$> key,
+            ("version" Data..=) Prelude.<$> version
           ]
       )

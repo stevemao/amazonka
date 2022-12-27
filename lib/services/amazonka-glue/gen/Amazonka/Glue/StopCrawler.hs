@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.StopCrawler
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.Glue.StopCrawler
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,7 +74,8 @@ stopCrawler_name = Lens.lens (\StopCrawler' {name} -> name) (\s@StopCrawler' {} 
 
 instance Core.AWSRequest StopCrawler where
   type AWSResponse StopCrawler = StopCrawlerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -88,30 +90,30 @@ instance Prelude.Hashable StopCrawler where
 instance Prelude.NFData StopCrawler where
   rnf StopCrawler' {..} = Prelude.rnf name
 
-instance Core.ToHeaders StopCrawler where
+instance Data.ToHeaders StopCrawler where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.StopCrawler" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.StopCrawler" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopCrawler where
+instance Data.ToJSON StopCrawler where
   toJSON StopCrawler' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath StopCrawler where
+instance Data.ToPath StopCrawler where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopCrawler where
+instance Data.ToQuery StopCrawler where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopCrawlerResponse' smart constructor.

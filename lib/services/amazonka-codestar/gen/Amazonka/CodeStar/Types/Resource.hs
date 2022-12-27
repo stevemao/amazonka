@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStar.Types.Resource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeStar.Types.Resource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a resource for a project.
@@ -51,11 +52,11 @@ newResource pId_ = Resource' {id = pId_}
 resource_id :: Lens.Lens' Resource Prelude.Text
 resource_id = Lens.lens (\Resource' {id} -> id) (\s@Resource' {} a -> s {id = a} :: Resource)
 
-instance Core.FromJSON Resource where
+instance Data.FromJSON Resource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Resource"
-      (\x -> Resource' Prelude.<$> (x Core..: "id"))
+      (\x -> Resource' Prelude.<$> (x Data..: "id"))
 
 instance Prelude.Hashable Resource where
   hashWithSalt _salt Resource' {..} =

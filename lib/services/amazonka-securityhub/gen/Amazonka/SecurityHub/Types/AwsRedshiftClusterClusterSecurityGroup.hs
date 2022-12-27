@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsRedshiftClusterClusterSecurityGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SecurityHub.Types.AwsRedshiftClusterClusterSecurityGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A security group that is associated with the cluster.
 --
 -- /See:/ 'newAwsRedshiftClusterClusterSecurityGroup' smart constructor.
 data AwsRedshiftClusterClusterSecurityGroup = AwsRedshiftClusterClusterSecurityGroup'
-  { -- | The status of the cluster security group.
-    status :: Prelude.Maybe Prelude.Text,
-    -- | The name of the cluster security group.
-    clusterSecurityGroupName :: Prelude.Maybe Prelude.Text
+  { -- | The name of the cluster security group.
+    clusterSecurityGroupName :: Prelude.Maybe Prelude.Text,
+    -- | The status of the cluster security group.
+    status :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,38 +43,37 @@ data AwsRedshiftClusterClusterSecurityGroup = AwsRedshiftClusterClusterSecurityG
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'awsRedshiftClusterClusterSecurityGroup_status' - The status of the cluster security group.
---
 -- 'clusterSecurityGroupName', 'awsRedshiftClusterClusterSecurityGroup_clusterSecurityGroupName' - The name of the cluster security group.
+--
+-- 'status', 'awsRedshiftClusterClusterSecurityGroup_status' - The status of the cluster security group.
 newAwsRedshiftClusterClusterSecurityGroup ::
   AwsRedshiftClusterClusterSecurityGroup
 newAwsRedshiftClusterClusterSecurityGroup =
   AwsRedshiftClusterClusterSecurityGroup'
-    { status =
+    { clusterSecurityGroupName =
         Prelude.Nothing,
-      clusterSecurityGroupName =
-        Prelude.Nothing
+      status = Prelude.Nothing
     }
-
--- | The status of the cluster security group.
-awsRedshiftClusterClusterSecurityGroup_status :: Lens.Lens' AwsRedshiftClusterClusterSecurityGroup (Prelude.Maybe Prelude.Text)
-awsRedshiftClusterClusterSecurityGroup_status = Lens.lens (\AwsRedshiftClusterClusterSecurityGroup' {status} -> status) (\s@AwsRedshiftClusterClusterSecurityGroup' {} a -> s {status = a} :: AwsRedshiftClusterClusterSecurityGroup)
 
 -- | The name of the cluster security group.
 awsRedshiftClusterClusterSecurityGroup_clusterSecurityGroupName :: Lens.Lens' AwsRedshiftClusterClusterSecurityGroup (Prelude.Maybe Prelude.Text)
 awsRedshiftClusterClusterSecurityGroup_clusterSecurityGroupName = Lens.lens (\AwsRedshiftClusterClusterSecurityGroup' {clusterSecurityGroupName} -> clusterSecurityGroupName) (\s@AwsRedshiftClusterClusterSecurityGroup' {} a -> s {clusterSecurityGroupName = a} :: AwsRedshiftClusterClusterSecurityGroup)
 
+-- | The status of the cluster security group.
+awsRedshiftClusterClusterSecurityGroup_status :: Lens.Lens' AwsRedshiftClusterClusterSecurityGroup (Prelude.Maybe Prelude.Text)
+awsRedshiftClusterClusterSecurityGroup_status = Lens.lens (\AwsRedshiftClusterClusterSecurityGroup' {status} -> status) (\s@AwsRedshiftClusterClusterSecurityGroup' {} a -> s {status = a} :: AwsRedshiftClusterClusterSecurityGroup)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsRedshiftClusterClusterSecurityGroup
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsRedshiftClusterClusterSecurityGroup"
       ( \x ->
           AwsRedshiftClusterClusterSecurityGroup'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "ClusterSecurityGroupName")
+            Prelude.<$> (x Data..:? "ClusterSecurityGroupName")
+            Prelude.<*> (x Data..:? "Status")
       )
 
 instance
@@ -83,26 +83,27 @@ instance
   hashWithSalt
     _salt
     AwsRedshiftClusterClusterSecurityGroup' {..} =
-      _salt `Prelude.hashWithSalt` status
+      _salt
         `Prelude.hashWithSalt` clusterSecurityGroupName
+        `Prelude.hashWithSalt` status
 
 instance
   Prelude.NFData
     AwsRedshiftClusterClusterSecurityGroup
   where
   rnf AwsRedshiftClusterClusterSecurityGroup' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf clusterSecurityGroupName
+    Prelude.rnf clusterSecurityGroupName
+      `Prelude.seq` Prelude.rnf status
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsRedshiftClusterClusterSecurityGroup
   where
   toJSON AwsRedshiftClusterClusterSecurityGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Status" Core..=) Prelude.<$> status,
-            ("ClusterSecurityGroupName" Core..=)
-              Prelude.<$> clusterSecurityGroupName
+          [ ("ClusterSecurityGroupName" Data..=)
+              Prelude.<$> clusterSecurityGroupName,
+            ("Status" Data..=) Prelude.<$> status
           ]
       )

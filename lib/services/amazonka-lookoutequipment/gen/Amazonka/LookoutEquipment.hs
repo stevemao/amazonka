@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutEquipment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,20 +21,11 @@ module Amazonka.LookoutEquipment
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
 
     -- ** ConflictException
     _ConflictException,
-
-    -- ** ServiceQuotaExceededException
-    _ServiceQuotaExceededException,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
 
     -- ** InternalServerException
     _InternalServerException,
@@ -42,35 +33,44 @@ module Amazonka.LookoutEquipment
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
+    -- ** ServiceQuotaExceededException
+    _ServiceQuotaExceededException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** ValidationException
+    _ValidationException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
 
-    -- ** StartInferenceScheduler
-    StartInferenceScheduler (StartInferenceScheduler'),
-    newStartInferenceScheduler,
-    StartInferenceSchedulerResponse (StartInferenceSchedulerResponse'),
-    newStartInferenceSchedulerResponse,
+    -- ** CreateDataset
+    CreateDataset (CreateDataset'),
+    newCreateDataset,
+    CreateDatasetResponse (CreateDatasetResponse'),
+    newCreateDatasetResponse,
 
-    -- ** DescribeDataset
-    DescribeDataset (DescribeDataset'),
-    newDescribeDataset,
-    DescribeDatasetResponse (DescribeDatasetResponse'),
-    newDescribeDatasetResponse,
+    -- ** CreateInferenceScheduler
+    CreateInferenceScheduler (CreateInferenceScheduler'),
+    newCreateInferenceScheduler,
+    CreateInferenceSchedulerResponse (CreateInferenceSchedulerResponse'),
+    newCreateInferenceSchedulerResponse,
 
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
+    -- ** CreateLabel
+    CreateLabel (CreateLabel'),
+    newCreateLabel,
+    CreateLabelResponse (CreateLabelResponse'),
+    newCreateLabelResponse,
 
-    -- ** DescribeDataIngestionJob
-    DescribeDataIngestionJob (DescribeDataIngestionJob'),
-    newDescribeDataIngestionJob,
-    DescribeDataIngestionJobResponse (DescribeDataIngestionJobResponse'),
-    newDescribeDataIngestionJobResponse,
+    -- ** CreateLabelGroup
+    CreateLabelGroup (CreateLabelGroup'),
+    newCreateLabelGroup,
+    CreateLabelGroupResponse (CreateLabelGroupResponse'),
+    newCreateLabelGroupResponse,
 
     -- ** CreateModel
     CreateModel (CreateModel'),
@@ -84,11 +84,23 @@ module Amazonka.LookoutEquipment
     DeleteDatasetResponse (DeleteDatasetResponse'),
     newDeleteDatasetResponse,
 
-    -- ** CreateDataset
-    CreateDataset (CreateDataset'),
-    newCreateDataset,
-    CreateDatasetResponse (CreateDatasetResponse'),
-    newCreateDatasetResponse,
+    -- ** DeleteInferenceScheduler
+    DeleteInferenceScheduler (DeleteInferenceScheduler'),
+    newDeleteInferenceScheduler,
+    DeleteInferenceSchedulerResponse (DeleteInferenceSchedulerResponse'),
+    newDeleteInferenceSchedulerResponse,
+
+    -- ** DeleteLabel
+    DeleteLabel (DeleteLabel'),
+    newDeleteLabel,
+    DeleteLabelResponse (DeleteLabelResponse'),
+    newDeleteLabelResponse,
+
+    -- ** DeleteLabelGroup
+    DeleteLabelGroup (DeleteLabelGroup'),
+    newDeleteLabelGroup,
+    DeleteLabelGroupResponse (DeleteLabelGroupResponse'),
+    newDeleteLabelGroupResponse,
 
     -- ** DeleteModel
     DeleteModel (DeleteModel'),
@@ -96,23 +108,35 @@ module Amazonka.LookoutEquipment
     DeleteModelResponse (DeleteModelResponse'),
     newDeleteModelResponse,
 
-    -- ** ListModels
-    ListModels (ListModels'),
-    newListModels,
-    ListModelsResponse (ListModelsResponse'),
-    newListModelsResponse,
+    -- ** DescribeDataIngestionJob
+    DescribeDataIngestionJob (DescribeDataIngestionJob'),
+    newDescribeDataIngestionJob,
+    DescribeDataIngestionJobResponse (DescribeDataIngestionJobResponse'),
+    newDescribeDataIngestionJobResponse,
 
-    -- ** StopInferenceScheduler
-    StopInferenceScheduler (StopInferenceScheduler'),
-    newStopInferenceScheduler,
-    StopInferenceSchedulerResponse (StopInferenceSchedulerResponse'),
-    newStopInferenceSchedulerResponse,
+    -- ** DescribeDataset
+    DescribeDataset (DescribeDataset'),
+    newDescribeDataset,
+    DescribeDatasetResponse (DescribeDatasetResponse'),
+    newDescribeDatasetResponse,
 
-    -- ** ListDataIngestionJobs
-    ListDataIngestionJobs (ListDataIngestionJobs'),
-    newListDataIngestionJobs,
-    ListDataIngestionJobsResponse (ListDataIngestionJobsResponse'),
-    newListDataIngestionJobsResponse,
+    -- ** DescribeInferenceScheduler
+    DescribeInferenceScheduler (DescribeInferenceScheduler'),
+    newDescribeInferenceScheduler,
+    DescribeInferenceSchedulerResponse (DescribeInferenceSchedulerResponse'),
+    newDescribeInferenceSchedulerResponse,
+
+    -- ** DescribeLabel
+    DescribeLabel (DescribeLabel'),
+    newDescribeLabel,
+    DescribeLabelResponse (DescribeLabelResponse'),
+    newDescribeLabelResponse,
+
+    -- ** DescribeLabelGroup
+    DescribeLabelGroup (DescribeLabelGroup'),
+    newDescribeLabelGroup,
+    DescribeLabelGroupResponse (DescribeLabelGroupResponse'),
+    newDescribeLabelGroupResponse,
 
     -- ** DescribeModel
     DescribeModel (DescribeModel'),
@@ -120,47 +144,11 @@ module Amazonka.LookoutEquipment
     DescribeModelResponse (DescribeModelResponse'),
     newDescribeModelResponse,
 
-    -- ** StartDataIngestionJob
-    StartDataIngestionJob (StartDataIngestionJob'),
-    newStartDataIngestionJob,
-    StartDataIngestionJobResponse (StartDataIngestionJobResponse'),
-    newStartDataIngestionJobResponse,
-
-    -- ** ListInferenceSchedulers
-    ListInferenceSchedulers (ListInferenceSchedulers'),
-    newListInferenceSchedulers,
-    ListInferenceSchedulersResponse (ListInferenceSchedulersResponse'),
-    newListInferenceSchedulersResponse,
-
-    -- ** UpdateInferenceScheduler
-    UpdateInferenceScheduler (UpdateInferenceScheduler'),
-    newUpdateInferenceScheduler,
-    UpdateInferenceSchedulerResponse (UpdateInferenceSchedulerResponse'),
-    newUpdateInferenceSchedulerResponse,
-
-    -- ** DeleteInferenceScheduler
-    DeleteInferenceScheduler (DeleteInferenceScheduler'),
-    newDeleteInferenceScheduler,
-    DeleteInferenceSchedulerResponse (DeleteInferenceSchedulerResponse'),
-    newDeleteInferenceSchedulerResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** ListInferenceExecutions
-    ListInferenceExecutions (ListInferenceExecutions'),
-    newListInferenceExecutions,
-    ListInferenceExecutionsResponse (ListInferenceExecutionsResponse'),
-    newListInferenceExecutionsResponse,
-
-    -- ** CreateInferenceScheduler
-    CreateInferenceScheduler (CreateInferenceScheduler'),
-    newCreateInferenceScheduler,
-    CreateInferenceSchedulerResponse (CreateInferenceSchedulerResponse'),
-    newCreateInferenceSchedulerResponse,
+    -- ** ListDataIngestionJobs
+    ListDataIngestionJobs (ListDataIngestionJobs'),
+    newListDataIngestionJobs,
+    ListDataIngestionJobsResponse (ListDataIngestionJobsResponse'),
+    newListDataIngestionJobsResponse,
 
     -- ** ListDatasets
     ListDatasets (ListDatasets'),
@@ -168,17 +156,95 @@ module Amazonka.LookoutEquipment
     ListDatasetsResponse (ListDatasetsResponse'),
     newListDatasetsResponse,
 
+    -- ** ListInferenceEvents
+    ListInferenceEvents (ListInferenceEvents'),
+    newListInferenceEvents,
+    ListInferenceEventsResponse (ListInferenceEventsResponse'),
+    newListInferenceEventsResponse,
+
+    -- ** ListInferenceExecutions
+    ListInferenceExecutions (ListInferenceExecutions'),
+    newListInferenceExecutions,
+    ListInferenceExecutionsResponse (ListInferenceExecutionsResponse'),
+    newListInferenceExecutionsResponse,
+
+    -- ** ListInferenceSchedulers
+    ListInferenceSchedulers (ListInferenceSchedulers'),
+    newListInferenceSchedulers,
+    ListInferenceSchedulersResponse (ListInferenceSchedulersResponse'),
+    newListInferenceSchedulersResponse,
+
+    -- ** ListLabelGroups
+    ListLabelGroups (ListLabelGroups'),
+    newListLabelGroups,
+    ListLabelGroupsResponse (ListLabelGroupsResponse'),
+    newListLabelGroupsResponse,
+
+    -- ** ListLabels
+    ListLabels (ListLabels'),
+    newListLabels,
+    ListLabelsResponse (ListLabelsResponse'),
+    newListLabelsResponse,
+
+    -- ** ListModels
+    ListModels (ListModels'),
+    newListModels,
+    ListModelsResponse (ListModelsResponse'),
+    newListModelsResponse,
+
+    -- ** ListSensorStatistics
+    ListSensorStatistics (ListSensorStatistics'),
+    newListSensorStatistics,
+    ListSensorStatisticsResponse (ListSensorStatisticsResponse'),
+    newListSensorStatisticsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** StartDataIngestionJob
+    StartDataIngestionJob (StartDataIngestionJob'),
+    newStartDataIngestionJob,
+    StartDataIngestionJobResponse (StartDataIngestionJobResponse'),
+    newStartDataIngestionJobResponse,
+
+    -- ** StartInferenceScheduler
+    StartInferenceScheduler (StartInferenceScheduler'),
+    newStartInferenceScheduler,
+    StartInferenceSchedulerResponse (StartInferenceSchedulerResponse'),
+    newStartInferenceSchedulerResponse,
+
+    -- ** StopInferenceScheduler
+    StopInferenceScheduler (StopInferenceScheduler'),
+    newStopInferenceScheduler,
+    StopInferenceSchedulerResponse (StopInferenceSchedulerResponse'),
+    newStopInferenceSchedulerResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
     -- ** UntagResource
     UntagResource (UntagResource'),
     newUntagResource,
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** DescribeInferenceScheduler
-    DescribeInferenceScheduler (DescribeInferenceScheduler'),
-    newDescribeInferenceScheduler,
-    DescribeInferenceSchedulerResponse (DescribeInferenceSchedulerResponse'),
-    newDescribeInferenceSchedulerResponse,
+    -- ** UpdateInferenceScheduler
+    UpdateInferenceScheduler (UpdateInferenceScheduler'),
+    newUpdateInferenceScheduler,
+    UpdateInferenceSchedulerResponse (UpdateInferenceSchedulerResponse'),
+    newUpdateInferenceSchedulerResponse,
+
+    -- ** UpdateLabelGroup
+    UpdateLabelGroup (UpdateLabelGroup'),
+    newUpdateLabelGroup,
+    UpdateLabelGroupResponse (UpdateLabelGroupResponse'),
+    newUpdateLabelGroupResponse,
 
     -- * Types
 
@@ -197,11 +263,31 @@ module Amazonka.LookoutEquipment
     -- ** IngestionJobStatus
     IngestionJobStatus (..),
 
+    -- ** LabelRating
+    LabelRating (..),
+
+    -- ** LatestInferenceResult
+    LatestInferenceResult (..),
+
     -- ** ModelStatus
     ModelStatus (..),
 
+    -- ** Monotonicity
+    Monotonicity (..),
+
+    -- ** StatisticalIssueStatus
+    StatisticalIssueStatus (..),
+
     -- ** TargetSamplingRate
     TargetSamplingRate (..),
+
+    -- ** CategoricalValues
+    CategoricalValues (CategoricalValues'),
+    newCategoricalValues,
+
+    -- ** CountPercent
+    CountPercent (CountPercent'),
+    newCountPercent,
 
     -- ** DataIngestionJobSummary
     DataIngestionJobSummary (DataIngestionJobSummary'),
@@ -211,6 +297,10 @@ module Amazonka.LookoutEquipment
     DataPreProcessingConfiguration (DataPreProcessingConfiguration'),
     newDataPreProcessingConfiguration,
 
+    -- ** DataQualitySummary
+    DataQualitySummary (DataQualitySummary'),
+    newDataQualitySummary,
+
     -- ** DatasetSchema
     DatasetSchema (DatasetSchema'),
     newDatasetSchema,
@@ -218,6 +308,14 @@ module Amazonka.LookoutEquipment
     -- ** DatasetSummary
     DatasetSummary (DatasetSummary'),
     newDatasetSummary,
+
+    -- ** DuplicateTimestamps
+    DuplicateTimestamps (DuplicateTimestamps'),
+    newDuplicateTimestamps,
+
+    -- ** InferenceEventSummary
+    InferenceEventSummary (InferenceEventSummary'),
+    newInferenceEventSummary,
 
     -- ** InferenceExecutionSummary
     InferenceExecutionSummary (InferenceExecutionSummary'),
@@ -247,6 +345,10 @@ module Amazonka.LookoutEquipment
     InferenceSchedulerSummary (InferenceSchedulerSummary'),
     newInferenceSchedulerSummary,
 
+    -- ** IngestedFilesSummary
+    IngestedFilesSummary (IngestedFilesSummary'),
+    newIngestedFilesSummary,
+
     -- ** IngestionInputConfiguration
     IngestionInputConfiguration (IngestionInputConfiguration'),
     newIngestionInputConfiguration,
@@ -254,6 +356,22 @@ module Amazonka.LookoutEquipment
     -- ** IngestionS3InputConfiguration
     IngestionS3InputConfiguration (IngestionS3InputConfiguration'),
     newIngestionS3InputConfiguration,
+
+    -- ** InsufficientSensorData
+    InsufficientSensorData (InsufficientSensorData'),
+    newInsufficientSensorData,
+
+    -- ** InvalidSensorData
+    InvalidSensorData (InvalidSensorData'),
+    newInvalidSensorData,
+
+    -- ** LabelGroupSummary
+    LabelGroupSummary (LabelGroupSummary'),
+    newLabelGroupSummary,
+
+    -- ** LabelSummary
+    LabelSummary (LabelSummary'),
+    newLabelSummary,
 
     -- ** LabelsInputConfiguration
     LabelsInputConfiguration (LabelsInputConfiguration'),
@@ -263,36 +381,78 @@ module Amazonka.LookoutEquipment
     LabelsS3InputConfiguration (LabelsS3InputConfiguration'),
     newLabelsS3InputConfiguration,
 
+    -- ** LargeTimestampGaps
+    LargeTimestampGaps (LargeTimestampGaps'),
+    newLargeTimestampGaps,
+
+    -- ** MissingCompleteSensorData
+    MissingCompleteSensorData (MissingCompleteSensorData'),
+    newMissingCompleteSensorData,
+
+    -- ** MissingSensorData
+    MissingSensorData (MissingSensorData'),
+    newMissingSensorData,
+
     -- ** ModelSummary
     ModelSummary (ModelSummary'),
     newModelSummary,
+
+    -- ** MonotonicValues
+    MonotonicValues (MonotonicValues'),
+    newMonotonicValues,
+
+    -- ** MultipleOperatingModes
+    MultipleOperatingModes (MultipleOperatingModes'),
+    newMultipleOperatingModes,
 
     -- ** S3Object
     S3Object (S3Object'),
     newS3Object,
 
+    -- ** SensorStatisticsSummary
+    SensorStatisticsSummary (SensorStatisticsSummary'),
+    newSensorStatisticsSummary,
+
+    -- ** SensorsWithShortDateRange
+    SensorsWithShortDateRange (SensorsWithShortDateRange'),
+    newSensorsWithShortDateRange,
+
     -- ** Tag
     Tag (Tag'),
     newTag,
+
+    -- ** UnsupportedTimestamps
+    UnsupportedTimestamps (UnsupportedTimestamps'),
+    newUnsupportedTimestamps,
   )
 where
 
 import Amazonka.LookoutEquipment.CreateDataset
 import Amazonka.LookoutEquipment.CreateInferenceScheduler
+import Amazonka.LookoutEquipment.CreateLabel
+import Amazonka.LookoutEquipment.CreateLabelGroup
 import Amazonka.LookoutEquipment.CreateModel
 import Amazonka.LookoutEquipment.DeleteDataset
 import Amazonka.LookoutEquipment.DeleteInferenceScheduler
+import Amazonka.LookoutEquipment.DeleteLabel
+import Amazonka.LookoutEquipment.DeleteLabelGroup
 import Amazonka.LookoutEquipment.DeleteModel
 import Amazonka.LookoutEquipment.DescribeDataIngestionJob
 import Amazonka.LookoutEquipment.DescribeDataset
 import Amazonka.LookoutEquipment.DescribeInferenceScheduler
+import Amazonka.LookoutEquipment.DescribeLabel
+import Amazonka.LookoutEquipment.DescribeLabelGroup
 import Amazonka.LookoutEquipment.DescribeModel
 import Amazonka.LookoutEquipment.Lens
 import Amazonka.LookoutEquipment.ListDataIngestionJobs
 import Amazonka.LookoutEquipment.ListDatasets
+import Amazonka.LookoutEquipment.ListInferenceEvents
 import Amazonka.LookoutEquipment.ListInferenceExecutions
 import Amazonka.LookoutEquipment.ListInferenceSchedulers
+import Amazonka.LookoutEquipment.ListLabelGroups
+import Amazonka.LookoutEquipment.ListLabels
 import Amazonka.LookoutEquipment.ListModels
+import Amazonka.LookoutEquipment.ListSensorStatistics
 import Amazonka.LookoutEquipment.ListTagsForResource
 import Amazonka.LookoutEquipment.StartDataIngestionJob
 import Amazonka.LookoutEquipment.StartInferenceScheduler
@@ -301,6 +461,7 @@ import Amazonka.LookoutEquipment.TagResource
 import Amazonka.LookoutEquipment.Types
 import Amazonka.LookoutEquipment.UntagResource
 import Amazonka.LookoutEquipment.UpdateInferenceScheduler
+import Amazonka.LookoutEquipment.UpdateLabelGroup
 import Amazonka.LookoutEquipment.Waiters
 
 -- $errors

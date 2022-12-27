@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.VerifyTrust
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.DirectoryService.VerifyTrust
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,12 +83,13 @@ verifyTrust_trustId = Lens.lens (\VerifyTrust' {trustId} -> trustId) (\s@VerifyT
 
 instance Core.AWSRequest VerifyTrust where
   type AWSResponse VerifyTrust = VerifyTrustResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           VerifyTrustResponse'
-            Prelude.<$> (x Core..?> "TrustId")
+            Prelude.<$> (x Data..?> "TrustId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,32 +100,32 @@ instance Prelude.Hashable VerifyTrust where
 instance Prelude.NFData VerifyTrust where
   rnf VerifyTrust' {..} = Prelude.rnf trustId
 
-instance Core.ToHeaders VerifyTrust where
+instance Data.ToHeaders VerifyTrust where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.VerifyTrust" ::
+              Data.=# ( "DirectoryService_20150416.VerifyTrust" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON VerifyTrust where
+instance Data.ToJSON VerifyTrust where
   toJSON VerifyTrust' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("TrustId" Core..= trustId)]
+          [Prelude.Just ("TrustId" Data..= trustId)]
       )
 
-instance Core.ToPath VerifyTrust where
+instance Data.ToPath VerifyTrust where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery VerifyTrust where
+instance Data.ToQuery VerifyTrust where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Result of a VerifyTrust request.

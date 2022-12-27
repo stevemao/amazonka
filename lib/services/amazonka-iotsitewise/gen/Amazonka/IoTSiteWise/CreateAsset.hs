@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.CreateAsset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,6 +29,7 @@ module Amazonka.IoTSiteWise.CreateAsset
     newCreateAsset,
 
     -- * Request Lenses
+    createAsset_assetDescription,
     createAsset_clientToken,
     createAsset_tags,
     createAsset_assetName,
@@ -47,15 +48,18 @@ module Amazonka.IoTSiteWise.CreateAsset
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateAsset' smart constructor.
 data CreateAsset = CreateAsset'
-  { -- | A unique case-sensitive identifier that you can provide to ensure the
+  { -- | A description for the asset.
+    assetDescription :: Prelude.Maybe Prelude.Text,
+    -- | A unique case-sensitive identifier that you can provide to ensure the
     -- idempotency of the request. Don\'t reuse this client token if a new
     -- idempotent request is required.
     clientToken :: Prelude.Maybe Prelude.Text,
@@ -64,7 +68,7 @@ data CreateAsset = CreateAsset'
     -- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html Tagging your IoT SiteWise resources>
     -- in the /IoT SiteWise User Guide/.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | A unique, friendly name for the asset.
+    -- | A friendly name for the asset.
     assetName :: Prelude.Text,
     -- | The ID of the asset model from which to create the asset.
     assetModelId :: Prelude.Text
@@ -79,6 +83,8 @@ data CreateAsset = CreateAsset'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'assetDescription', 'createAsset_assetDescription' - A description for the asset.
+--
 -- 'clientToken', 'createAsset_clientToken' - A unique case-sensitive identifier that you can provide to ensure the
 -- idempotency of the request. Don\'t reuse this client token if a new
 -- idempotent request is required.
@@ -88,7 +94,7 @@ data CreateAsset = CreateAsset'
 -- <https://docs.aws.amazon.com/iot-sitewise/latest/userguide/tag-resources.html Tagging your IoT SiteWise resources>
 -- in the /IoT SiteWise User Guide/.
 --
--- 'assetName', 'createAsset_assetName' - A unique, friendly name for the asset.
+-- 'assetName', 'createAsset_assetName' - A friendly name for the asset.
 --
 -- 'assetModelId', 'createAsset_assetModelId' - The ID of the asset model from which to create the asset.
 newCreateAsset ::
@@ -99,11 +105,16 @@ newCreateAsset ::
   CreateAsset
 newCreateAsset pAssetName_ pAssetModelId_ =
   CreateAsset'
-    { clientToken = Prelude.Nothing,
+    { assetDescription = Prelude.Nothing,
+      clientToken = Prelude.Nothing,
       tags = Prelude.Nothing,
       assetName = pAssetName_,
       assetModelId = pAssetModelId_
     }
+
+-- | A description for the asset.
+createAsset_assetDescription :: Lens.Lens' CreateAsset (Prelude.Maybe Prelude.Text)
+createAsset_assetDescription = Lens.lens (\CreateAsset' {assetDescription} -> assetDescription) (\s@CreateAsset' {} a -> s {assetDescription = a} :: CreateAsset)
 
 -- | A unique case-sensitive identifier that you can provide to ensure the
 -- idempotency of the request. Don\'t reuse this client token if a new
@@ -118,7 +129,7 @@ createAsset_clientToken = Lens.lens (\CreateAsset' {clientToken} -> clientToken)
 createAsset_tags :: Lens.Lens' CreateAsset (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createAsset_tags = Lens.lens (\CreateAsset' {tags} -> tags) (\s@CreateAsset' {} a -> s {tags = a} :: CreateAsset) Prelude.. Lens.mapping Lens.coerced
 
--- | A unique, friendly name for the asset.
+-- | A friendly name for the asset.
 createAsset_assetName :: Lens.Lens' CreateAsset Prelude.Text
 createAsset_assetName = Lens.lens (\CreateAsset' {assetName} -> assetName) (\s@CreateAsset' {} a -> s {assetName = a} :: CreateAsset)
 
@@ -128,57 +139,62 @@ createAsset_assetModelId = Lens.lens (\CreateAsset' {assetModelId} -> assetModel
 
 instance Core.AWSRequest CreateAsset where
   type AWSResponse CreateAsset = CreateAssetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAssetResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "assetId")
-            Prelude.<*> (x Core..:> "assetArn")
-            Prelude.<*> (x Core..:> "assetStatus")
+            Prelude.<*> (x Data..:> "assetId")
+            Prelude.<*> (x Data..:> "assetArn")
+            Prelude.<*> (x Data..:> "assetStatus")
       )
 
 instance Prelude.Hashable CreateAsset where
   hashWithSalt _salt CreateAsset' {..} =
-    _salt `Prelude.hashWithSalt` clientToken
+    _salt `Prelude.hashWithSalt` assetDescription
+      `Prelude.hashWithSalt` clientToken
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` assetName
       `Prelude.hashWithSalt` assetModelId
 
 instance Prelude.NFData CreateAsset where
   rnf CreateAsset' {..} =
-    Prelude.rnf clientToken
+    Prelude.rnf assetDescription
+      `Prelude.seq` Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf assetName
       `Prelude.seq` Prelude.rnf assetModelId
 
-instance Core.ToHeaders CreateAsset where
+instance Data.ToHeaders CreateAsset where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAsset where
+instance Data.ToJSON CreateAsset where
   toJSON CreateAsset' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("assetName" Core..= assetName),
-            Prelude.Just ("assetModelId" Core..= assetModelId)
+          [ ("assetDescription" Data..=)
+              Prelude.<$> assetDescription,
+            ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("assetName" Data..= assetName),
+            Prelude.Just ("assetModelId" Data..= assetModelId)
           ]
       )
 
-instance Core.ToPath CreateAsset where
+instance Data.ToPath CreateAsset where
   toPath = Prelude.const "/assets"
 
-instance Core.ToQuery CreateAsset where
+instance Data.ToQuery CreateAsset where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAssetResponse' smart constructor.

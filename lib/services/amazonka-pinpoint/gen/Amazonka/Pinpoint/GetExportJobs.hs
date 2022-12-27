@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetExportJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Pinpoint.GetExportJobs
     newGetExportJobs,
 
     -- * Request Lenses
-    getExportJobs_token,
     getExportJobs_pageSize,
+    getExportJobs_token,
     getExportJobs_applicationId,
 
     -- * Destructuring the Response
@@ -43,7 +43,8 @@ module Amazonka.Pinpoint.GetExportJobs
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -51,13 +52,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetExportJobs' smart constructor.
 data GetExportJobs = GetExportJobs'
-  { -- | The NextToken string that specifies which page of results to return in a
-    -- paginated response.
-    token :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to include in each page of a paginated
+  { -- | The maximum number of items to include in each page of a paginated
     -- response. This parameter is not supported for application, campaign, and
     -- journey metrics.
     pageSize :: Prelude.Maybe Prelude.Text,
+    -- | The NextToken string that specifies which page of results to return in a
+    -- paginated response.
+    token :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier for the application. This identifier is displayed
     -- as the __Project ID__ on the Amazon Pinpoint console.
     applicationId :: Prelude.Text
@@ -72,12 +73,12 @@ data GetExportJobs = GetExportJobs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'token', 'getExportJobs_token' - The NextToken string that specifies which page of results to return in a
--- paginated response.
---
 -- 'pageSize', 'getExportJobs_pageSize' - The maximum number of items to include in each page of a paginated
 -- response. This parameter is not supported for application, campaign, and
 -- journey metrics.
+--
+-- 'token', 'getExportJobs_token' - The NextToken string that specifies which page of results to return in a
+-- paginated response.
 --
 -- 'applicationId', 'getExportJobs_applicationId' - The unique identifier for the application. This identifier is displayed
 -- as the __Project ID__ on the Amazon Pinpoint console.
@@ -87,21 +88,21 @@ newGetExportJobs ::
   GetExportJobs
 newGetExportJobs pApplicationId_ =
   GetExportJobs'
-    { token = Prelude.Nothing,
-      pageSize = Prelude.Nothing,
+    { pageSize = Prelude.Nothing,
+      token = Prelude.Nothing,
       applicationId = pApplicationId_
     }
-
--- | The NextToken string that specifies which page of results to return in a
--- paginated response.
-getExportJobs_token :: Lens.Lens' GetExportJobs (Prelude.Maybe Prelude.Text)
-getExportJobs_token = Lens.lens (\GetExportJobs' {token} -> token) (\s@GetExportJobs' {} a -> s {token = a} :: GetExportJobs)
 
 -- | The maximum number of items to include in each page of a paginated
 -- response. This parameter is not supported for application, campaign, and
 -- journey metrics.
 getExportJobs_pageSize :: Lens.Lens' GetExportJobs (Prelude.Maybe Prelude.Text)
 getExportJobs_pageSize = Lens.lens (\GetExportJobs' {pageSize} -> pageSize) (\s@GetExportJobs' {} a -> s {pageSize = a} :: GetExportJobs)
+
+-- | The NextToken string that specifies which page of results to return in a
+-- paginated response.
+getExportJobs_token :: Lens.Lens' GetExportJobs (Prelude.Maybe Prelude.Text)
+getExportJobs_token = Lens.lens (\GetExportJobs' {token} -> token) (\s@GetExportJobs' {} a -> s {token = a} :: GetExportJobs)
 
 -- | The unique identifier for the application. This identifier is displayed
 -- as the __Project ID__ on the Amazon Pinpoint console.
@@ -112,50 +113,51 @@ instance Core.AWSRequest GetExportJobs where
   type
     AWSResponse GetExportJobs =
       GetExportJobsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetExportJobsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetExportJobs where
   hashWithSalt _salt GetExportJobs' {..} =
-    _salt `Prelude.hashWithSalt` token
-      `Prelude.hashWithSalt` pageSize
+    _salt `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` token
       `Prelude.hashWithSalt` applicationId
 
 instance Prelude.NFData GetExportJobs where
   rnf GetExportJobs' {..} =
-    Prelude.rnf token
-      `Prelude.seq` Prelude.rnf pageSize
+    Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf token
       `Prelude.seq` Prelude.rnf applicationId
 
-instance Core.ToHeaders GetExportJobs where
+instance Data.ToHeaders GetExportJobs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetExportJobs where
+instance Data.ToPath GetExportJobs where
   toPath GetExportJobs' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/jobs/export"
       ]
 
-instance Core.ToQuery GetExportJobs where
+instance Data.ToQuery GetExportJobs where
   toQuery GetExportJobs' {..} =
     Prelude.mconcat
-      ["token" Core.=: token, "page-size" Core.=: pageSize]
+      ["page-size" Data.=: pageSize, "token" Data.=: token]
 
 -- | /See:/ 'newGetExportJobsResponse' smart constructor.
 data GetExportJobsResponse = GetExportJobsResponse'

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryControlConfig.DeleteSafetyRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Route53RecoveryControlConfig.DeleteSafetyRule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,7 +50,7 @@ import Amazonka.Route53RecoveryControlConfig.Types
 
 -- | /See:/ 'newDeleteSafetyRule' smart constructor.
 data DeleteSafetyRule = DeleteSafetyRule'
-  { -- | The request body that you include when you update a safety rule.
+  { -- | The ARN of the safety rule.
     safetyRuleArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,7 +63,7 @@ data DeleteSafetyRule = DeleteSafetyRule'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'safetyRuleArn', 'deleteSafetyRule_safetyRuleArn' - The request body that you include when you update a safety rule.
+-- 'safetyRuleArn', 'deleteSafetyRule_safetyRuleArn' - The ARN of the safety rule.
 newDeleteSafetyRule ::
   -- | 'safetyRuleArn'
   Prelude.Text ->
@@ -70,7 +71,7 @@ newDeleteSafetyRule ::
 newDeleteSafetyRule pSafetyRuleArn_ =
   DeleteSafetyRule' {safetyRuleArn = pSafetyRuleArn_}
 
--- | The request body that you include when you update a safety rule.
+-- | The ARN of the safety rule.
 deleteSafetyRule_safetyRuleArn :: Lens.Lens' DeleteSafetyRule Prelude.Text
 deleteSafetyRule_safetyRuleArn = Lens.lens (\DeleteSafetyRule' {safetyRuleArn} -> safetyRuleArn) (\s@DeleteSafetyRule' {} a -> s {safetyRuleArn = a} :: DeleteSafetyRule)
 
@@ -78,7 +79,8 @@ instance Core.AWSRequest DeleteSafetyRule where
   type
     AWSResponse DeleteSafetyRule =
       DeleteSafetyRuleResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -93,23 +95,23 @@ instance Prelude.Hashable DeleteSafetyRule where
 instance Prelude.NFData DeleteSafetyRule where
   rnf DeleteSafetyRule' {..} = Prelude.rnf safetyRuleArn
 
-instance Core.ToHeaders DeleteSafetyRule where
+instance Data.ToHeaders DeleteSafetyRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteSafetyRule where
+instance Data.ToPath DeleteSafetyRule where
   toPath DeleteSafetyRule' {..} =
     Prelude.mconcat
-      ["/safetyrule/", Core.toBS safetyRuleArn]
+      ["/safetyrule/", Data.toBS safetyRuleArn]
 
-instance Core.ToQuery DeleteSafetyRule where
+instance Data.ToQuery DeleteSafetyRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteSafetyRuleResponse' smart constructor.

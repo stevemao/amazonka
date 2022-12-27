@@ -14,13 +14,17 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.UntagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Removes specified tags from a specified Amazon Transcribe resource.
+-- Removes the specified tags from the specified Amazon Transcribe
+-- resource.
+--
+-- If you include @UntagResource@ in your request, you must also include
+-- @ResourceArn@ and @TagKeys@.
 module Amazonka.Transcribe.UntagResource
   ( -- * Creating a Request
     UntagResource (..),
@@ -40,7 +44,8 @@ module Amazonka.Transcribe.UntagResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,9 +54,17 @@ import Amazonka.Transcribe.Types
 -- | /See:/ 'newUntagResource' smart constructor.
 data UntagResource = UntagResource'
   { -- | The Amazon Resource Name (ARN) of the Amazon Transcribe resource you
-    -- want to remove tags from.
+    -- want to remove tags from. ARNs have the format
+    -- @arn:partition:service:region:account-id:resource-type\/resource-id@.
+    --
+    -- For example,
+    -- @arn:aws:transcribe:us-west-2:111122223333:transcription-job\/transcription-job-name@.
+    --
+    -- Valid values for @resource-type@ are: @transcription-job@,
+    -- @medical-transcription-job@, @vocabulary@, @medical-vocabulary@,
+    -- @vocabulary-filter@, and @language-model@.
     resourceArn :: Prelude.Text,
-    -- | A list of tag keys you want to remove from a specified Amazon Transcribe
+    -- | Removes the specified tag keys from the specified Amazon Transcribe
     -- resource.
     tagKeys :: Prelude.NonEmpty Prelude.Text
   }
@@ -66,9 +79,17 @@ data UntagResource = UntagResource'
 -- for backwards compatibility:
 --
 -- 'resourceArn', 'untagResource_resourceArn' - The Amazon Resource Name (ARN) of the Amazon Transcribe resource you
--- want to remove tags from.
+-- want to remove tags from. ARNs have the format
+-- @arn:partition:service:region:account-id:resource-type\/resource-id@.
 --
--- 'tagKeys', 'untagResource_tagKeys' - A list of tag keys you want to remove from a specified Amazon Transcribe
+-- For example,
+-- @arn:aws:transcribe:us-west-2:111122223333:transcription-job\/transcription-job-name@.
+--
+-- Valid values for @resource-type@ are: @transcription-job@,
+-- @medical-transcription-job@, @vocabulary@, @medical-vocabulary@,
+-- @vocabulary-filter@, and @language-model@.
+--
+-- 'tagKeys', 'untagResource_tagKeys' - Removes the specified tag keys from the specified Amazon Transcribe
 -- resource.
 newUntagResource ::
   -- | 'resourceArn'
@@ -83,11 +104,19 @@ newUntagResource pResourceArn_ pTagKeys_ =
     }
 
 -- | The Amazon Resource Name (ARN) of the Amazon Transcribe resource you
--- want to remove tags from.
+-- want to remove tags from. ARNs have the format
+-- @arn:partition:service:region:account-id:resource-type\/resource-id@.
+--
+-- For example,
+-- @arn:aws:transcribe:us-west-2:111122223333:transcription-job\/transcription-job-name@.
+--
+-- Valid values for @resource-type@ are: @transcription-job@,
+-- @medical-transcription-job@, @vocabulary@, @medical-vocabulary@,
+-- @vocabulary-filter@, and @language-model@.
 untagResource_resourceArn :: Lens.Lens' UntagResource Prelude.Text
 untagResource_resourceArn = Lens.lens (\UntagResource' {resourceArn} -> resourceArn) (\s@UntagResource' {} a -> s {resourceArn = a} :: UntagResource)
 
--- | A list of tag keys you want to remove from a specified Amazon Transcribe
+-- | Removes the specified tag keys from the specified Amazon Transcribe
 -- resource.
 untagResource_tagKeys :: Lens.Lens' UntagResource (Prelude.NonEmpty Prelude.Text)
 untagResource_tagKeys = Lens.lens (\UntagResource' {tagKeys} -> tagKeys) (\s@UntagResource' {} a -> s {tagKeys = a} :: UntagResource) Prelude.. Lens.coerced
@@ -96,7 +125,8 @@ instance Core.AWSRequest UntagResource where
   type
     AWSResponse UntagResource =
       UntagResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,32 +144,32 @@ instance Prelude.NFData UntagResource where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagResource where
+instance Data.ToHeaders UntagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("Transcribe.UntagResource" :: Prelude.ByteString),
+              Data.=# ("Transcribe.UntagResource" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UntagResource where
+instance Data.ToJSON UntagResource where
   toJSON UntagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceArn" Core..= resourceArn),
-            Prelude.Just ("TagKeys" Core..= tagKeys)
+          [ Prelude.Just ("ResourceArn" Data..= resourceArn),
+            Prelude.Just ("TagKeys" Data..= tagKeys)
           ]
       )
 
-instance Core.ToPath UntagResource where
+instance Data.ToPath UntagResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UntagResource where
+instance Data.ToQuery UntagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUntagResourceResponse' smart constructor.

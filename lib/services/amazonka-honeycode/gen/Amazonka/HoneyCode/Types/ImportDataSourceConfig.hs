@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.Types.ImportDataSourceConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.HoneyCode.Types.ImportDataSourceConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that contains the configuration parameters for the data source
@@ -30,9 +31,9 @@ import qualified Amazonka.Prelude as Prelude
 data ImportDataSourceConfig = ImportDataSourceConfig'
   { -- | The URL from which source data will be downloaded for the import
     -- request.
-    dataSourceUrl :: Prelude.Maybe Prelude.Text
+    dataSourceUrl :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'ImportDataSourceConfig' with all optional fields omitted.
@@ -55,15 +56,15 @@ newImportDataSourceConfig =
 -- | The URL from which source data will be downloaded for the import
 -- request.
 importDataSourceConfig_dataSourceUrl :: Lens.Lens' ImportDataSourceConfig (Prelude.Maybe Prelude.Text)
-importDataSourceConfig_dataSourceUrl = Lens.lens (\ImportDataSourceConfig' {dataSourceUrl} -> dataSourceUrl) (\s@ImportDataSourceConfig' {} a -> s {dataSourceUrl = a} :: ImportDataSourceConfig)
+importDataSourceConfig_dataSourceUrl = Lens.lens (\ImportDataSourceConfig' {dataSourceUrl} -> dataSourceUrl) (\s@ImportDataSourceConfig' {} a -> s {dataSourceUrl = a} :: ImportDataSourceConfig) Prelude.. Lens.mapping Data._Sensitive
 
-instance Core.FromJSON ImportDataSourceConfig where
+instance Data.FromJSON ImportDataSourceConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ImportDataSourceConfig"
       ( \x ->
           ImportDataSourceConfig'
-            Prelude.<$> (x Core..:? "dataSourceUrl")
+            Prelude.<$> (x Data..:? "dataSourceUrl")
       )
 
 instance Prelude.Hashable ImportDataSourceConfig where
@@ -74,11 +75,11 @@ instance Prelude.NFData ImportDataSourceConfig where
   rnf ImportDataSourceConfig' {..} =
     Prelude.rnf dataSourceUrl
 
-instance Core.ToJSON ImportDataSourceConfig where
+instance Data.ToJSON ImportDataSourceConfig where
   toJSON ImportDataSourceConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("dataSourceUrl" Core..=)
+          [ ("dataSourceUrl" Data..=)
               Prelude.<$> dataSourceUrl
           ]
       )

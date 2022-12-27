@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.InstanceMetadataOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AutoScaling.Types.InstanceMetadataOptions where
 import Amazonka.AutoScaling.Types.InstanceMetadataEndpointState
 import Amazonka.AutoScaling.Types.InstanceMetadataHttpTokensState
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The metadata options for the instances. For more information, see
@@ -141,12 +142,12 @@ instanceMetadataOptions_httpPutResponseHopLimit = Lens.lens (\InstanceMetadataOp
 instanceMetadataOptions_httpTokens :: Lens.Lens' InstanceMetadataOptions (Prelude.Maybe InstanceMetadataHttpTokensState)
 instanceMetadataOptions_httpTokens = Lens.lens (\InstanceMetadataOptions' {httpTokens} -> httpTokens) (\s@InstanceMetadataOptions' {} a -> s {httpTokens = a} :: InstanceMetadataOptions)
 
-instance Core.FromXML InstanceMetadataOptions where
+instance Data.FromXML InstanceMetadataOptions where
   parseXML x =
     InstanceMetadataOptions'
-      Prelude.<$> (x Core..@? "HttpEndpoint")
-      Prelude.<*> (x Core..@? "HttpPutResponseHopLimit")
-      Prelude.<*> (x Core..@? "HttpTokens")
+      Prelude.<$> (x Data..@? "HttpEndpoint")
+      Prelude.<*> (x Data..@? "HttpPutResponseHopLimit")
+      Prelude.<*> (x Data..@? "HttpTokens")
 
 instance Prelude.Hashable InstanceMetadataOptions where
   hashWithSalt _salt InstanceMetadataOptions' {..} =
@@ -160,11 +161,11 @@ instance Prelude.NFData InstanceMetadataOptions where
       `Prelude.seq` Prelude.rnf httpPutResponseHopLimit
       `Prelude.seq` Prelude.rnf httpTokens
 
-instance Core.ToQuery InstanceMetadataOptions where
+instance Data.ToQuery InstanceMetadataOptions where
   toQuery InstanceMetadataOptions' {..} =
     Prelude.mconcat
-      [ "HttpEndpoint" Core.=: httpEndpoint,
+      [ "HttpEndpoint" Data.=: httpEndpoint,
         "HttpPutResponseHopLimit"
-          Core.=: httpPutResponseHopLimit,
-        "HttpTokens" Core.=: httpTokens
+          Data.=: httpPutResponseHopLimit,
+        "HttpTokens" Data.=: httpTokens
       ]

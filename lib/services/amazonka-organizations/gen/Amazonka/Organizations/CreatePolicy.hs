@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Organizations.CreatePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates a policy of a specified type that you can attach to a root, an
--- organizational unit (OU), or an individual AWS account.
+-- organizational unit (OU), or an individual Amazon Web Services account.
 --
 -- For more information about policies and their use, see
 -- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies.html Managing Organization Policies>.
@@ -54,7 +54,8 @@ module Amazonka.Organizations.CreatePolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -66,8 +67,8 @@ data CreatePolicy = CreatePolicy'
     -- each tag in the list, you must specify both a tag key and a value. You
     -- can set the value to an empty string, but you can\'t set it to @null@.
     -- For more information about tagging, see
-    -- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources>
-    -- in the AWS Organizations User Guide.
+    -- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging Organizations resources>
+    -- in the Organizations User Guide.
     --
     -- If any one of the tags is invalid or if you exceed the allowed number of
     -- tags for a policy, then the entire request fails and the policy is not
@@ -111,8 +112,8 @@ data CreatePolicy = CreatePolicy'
 -- each tag in the list, you must specify both a tag key and a value. You
 -- can set the value to an empty string, but you can\'t set it to @null@.
 -- For more information about tagging, see
--- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources>
--- in the AWS Organizations User Guide.
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging Organizations resources>
+-- in the Organizations User Guide.
 --
 -- If any one of the tags is invalid or if you exceed the allowed number of
 -- tags for a policy, then the entire request fails and the policy is not
@@ -163,8 +164,8 @@ newCreatePolicy pContent_ pDescription_ pName_ pType_ =
 -- each tag in the list, you must specify both a tag key and a value. You
 -- can set the value to an empty string, but you can\'t set it to @null@.
 -- For more information about tagging, see
--- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources>
--- in the AWS Organizations User Guide.
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging Organizations resources>
+-- in the Organizations User Guide.
 --
 -- If any one of the tags is invalid or if you exceed the allowed number of
 -- tags for a policy, then the entire request fails and the policy is not
@@ -205,12 +206,13 @@ createPolicy_type = Lens.lens (\CreatePolicy' {type'} -> type') (\s@CreatePolicy
 
 instance Core.AWSRequest CreatePolicy where
   type AWSResponse CreatePolicy = CreatePolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreatePolicyResponse'
-            Prelude.<$> (x Core..?> "Policy")
+            Prelude.<$> (x Data..?> "Policy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -230,37 +232,37 @@ instance Prelude.NFData CreatePolicy where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToHeaders CreatePolicy where
+instance Data.ToHeaders CreatePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.CreatePolicy" ::
+              Data.=# ( "AWSOrganizationsV20161128.CreatePolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreatePolicy where
+instance Data.ToJSON CreatePolicy where
   toJSON CreatePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Content" Core..= content),
-            Prelude.Just ("Description" Core..= description),
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Type" Core..= type')
+          [ ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Content" Data..= content),
+            Prelude.Just ("Description" Data..= description),
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Type" Data..= type')
           ]
       )
 
-instance Core.ToPath CreatePolicy where
+instance Data.ToPath CreatePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreatePolicy where
+instance Data.ToQuery CreatePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreatePolicyResponse' smart constructor.

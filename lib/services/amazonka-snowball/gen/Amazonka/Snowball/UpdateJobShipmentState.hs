@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.UpdateJobShipmentState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Snowball.UpdateJobShipmentState
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,7 +56,8 @@ data UpdateJobShipmentState = UpdateJobShipmentState'
     --
     -- Set to @RECEIVED@ when the device arrives at your location.
     --
-    -- Set to @RETURNED@ when you have returned the device to AWS.
+    -- Set to @RETURNED@ when you have returned the device to Amazon Web
+    -- Services.
     shipmentState :: ShipmentState
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -75,7 +77,8 @@ data UpdateJobShipmentState = UpdateJobShipmentState'
 --
 -- Set to @RECEIVED@ when the device arrives at your location.
 --
--- Set to @RETURNED@ when you have returned the device to AWS.
+-- Set to @RETURNED@ when you have returned the device to Amazon Web
+-- Services.
 newUpdateJobShipmentState ::
   -- | 'jobId'
   Prelude.Text ->
@@ -97,7 +100,8 @@ updateJobShipmentState_jobId = Lens.lens (\UpdateJobShipmentState' {jobId} -> jo
 --
 -- Set to @RECEIVED@ when the device arrives at your location.
 --
--- Set to @RETURNED@ when you have returned the device to AWS.
+-- Set to @RETURNED@ when you have returned the device to Amazon Web
+-- Services.
 updateJobShipmentState_shipmentState :: Lens.Lens' UpdateJobShipmentState ShipmentState
 updateJobShipmentState_shipmentState = Lens.lens (\UpdateJobShipmentState' {shipmentState} -> shipmentState) (\s@UpdateJobShipmentState' {} a -> s {shipmentState = a} :: UpdateJobShipmentState)
 
@@ -105,7 +109,8 @@ instance Core.AWSRequest UpdateJobShipmentState where
   type
     AWSResponse UpdateJobShipmentState =
       UpdateJobShipmentStateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -123,35 +128,35 @@ instance Prelude.NFData UpdateJobShipmentState where
     Prelude.rnf jobId
       `Prelude.seq` Prelude.rnf shipmentState
 
-instance Core.ToHeaders UpdateJobShipmentState where
+instance Data.ToHeaders UpdateJobShipmentState where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSIESnowballJobManagementService.UpdateJobShipmentState" ::
+              Data.=# ( "AWSIESnowballJobManagementService.UpdateJobShipmentState" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateJobShipmentState where
+instance Data.ToJSON UpdateJobShipmentState where
   toJSON UpdateJobShipmentState' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("JobId" Core..= jobId),
+          [ Prelude.Just ("JobId" Data..= jobId),
             Prelude.Just
-              ("ShipmentState" Core..= shipmentState)
+              ("ShipmentState" Data..= shipmentState)
           ]
       )
 
-instance Core.ToPath UpdateJobShipmentState where
+instance Data.ToPath UpdateJobShipmentState where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateJobShipmentState where
+instance Data.ToQuery UpdateJobShipmentState where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateJobShipmentStateResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.Types.EncryptionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppRunner.Types.EncryptionConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a custom encryption key that App Runner uses to encrypt copies
@@ -53,13 +54,13 @@ newEncryptionConfiguration pKmsKey_ =
 encryptionConfiguration_kmsKey :: Lens.Lens' EncryptionConfiguration Prelude.Text
 encryptionConfiguration_kmsKey = Lens.lens (\EncryptionConfiguration' {kmsKey} -> kmsKey) (\s@EncryptionConfiguration' {} a -> s {kmsKey = a} :: EncryptionConfiguration)
 
-instance Core.FromJSON EncryptionConfiguration where
+instance Data.FromJSON EncryptionConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EncryptionConfiguration"
       ( \x ->
           EncryptionConfiguration'
-            Prelude.<$> (x Core..: "KmsKey")
+            Prelude.<$> (x Data..: "KmsKey")
       )
 
 instance Prelude.Hashable EncryptionConfiguration where
@@ -69,9 +70,9 @@ instance Prelude.Hashable EncryptionConfiguration where
 instance Prelude.NFData EncryptionConfiguration where
   rnf EncryptionConfiguration' {..} = Prelude.rnf kmsKey
 
-instance Core.ToJSON EncryptionConfiguration where
+instance Data.ToJSON EncryptionConfiguration where
   toJSON EncryptionConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("KmsKey" Core..= kmsKey)]
+          [Prelude.Just ("KmsKey" Data..= kmsKey)]
       )

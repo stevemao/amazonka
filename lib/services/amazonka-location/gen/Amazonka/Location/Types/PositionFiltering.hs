@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Location.Types.PositionFiltering
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,6 +20,7 @@
 module Amazonka.Location.Types.PositionFiltering
   ( PositionFiltering
       ( ..,
+        PositionFiltering_AccuracyBased,
         PositionFiltering_DistanceBased,
         PositionFiltering_TimeBased
       ),
@@ -27,11 +28,12 @@ module Amazonka.Location.Types.PositionFiltering
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype PositionFiltering = PositionFiltering'
   { fromPositionFiltering ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -43,19 +45,22 @@ newtype PositionFiltering = PositionFiltering'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern PositionFiltering_AccuracyBased :: PositionFiltering
+pattern PositionFiltering_AccuracyBased = PositionFiltering' "AccuracyBased"
 
 pattern PositionFiltering_DistanceBased :: PositionFiltering
 pattern PositionFiltering_DistanceBased = PositionFiltering' "DistanceBased"
@@ -64,6 +69,7 @@ pattern PositionFiltering_TimeBased :: PositionFiltering
 pattern PositionFiltering_TimeBased = PositionFiltering' "TimeBased"
 
 {-# COMPLETE
+  PositionFiltering_AccuracyBased,
   PositionFiltering_DistanceBased,
   PositionFiltering_TimeBased,
   PositionFiltering'

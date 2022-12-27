@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutMetrics.CreateAlert
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,10 @@ module Amazonka.LookoutMetrics.CreateAlert
 
     -- * Request Lenses
     createAlert_alertDescription,
+    createAlert_alertFilters,
+    createAlert_alertSensitivityThreshold,
     createAlert_tags,
     createAlert_alertName,
-    createAlert_alertSensitivityThreshold,
     createAlert_anomalyDetectorArn,
     createAlert_action,
 
@@ -45,7 +46,8 @@ module Amazonka.LookoutMetrics.CreateAlert
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutMetrics.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,14 +57,17 @@ import qualified Amazonka.Response as Response
 data CreateAlert = CreateAlert'
   { -- | A description of the alert.
     alertDescription :: Prelude.Maybe Prelude.Text,
+    -- | The configuration of the alert filters, containing MetricList and
+    -- DimensionFilterList.
+    alertFilters :: Prelude.Maybe AlertFilters,
+    -- | An integer from 0 to 100 specifying the alert sensitivity threshold.
+    alertSensitivityThreshold :: Prelude.Maybe Prelude.Natural,
     -- | A list of
     -- <https://docs.aws.amazon.com/lookoutmetrics/latest/dev/detectors-tags.html tags>
     -- to apply to the alert.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The name of the alert.
     alertName :: Prelude.Text,
-    -- | An integer from 0 to 100 specifying the alert sensitivity threshold.
-    alertSensitivityThreshold :: Prelude.Natural,
     -- | The ARN of the detector to which the alert is attached.
     anomalyDetectorArn :: Prelude.Text,
     -- | Action that will be triggered when there is an alert.
@@ -80,13 +85,16 @@ data CreateAlert = CreateAlert'
 --
 -- 'alertDescription', 'createAlert_alertDescription' - A description of the alert.
 --
+-- 'alertFilters', 'createAlert_alertFilters' - The configuration of the alert filters, containing MetricList and
+-- DimensionFilterList.
+--
+-- 'alertSensitivityThreshold', 'createAlert_alertSensitivityThreshold' - An integer from 0 to 100 specifying the alert sensitivity threshold.
+--
 -- 'tags', 'createAlert_tags' - A list of
 -- <https://docs.aws.amazon.com/lookoutmetrics/latest/dev/detectors-tags.html tags>
 -- to apply to the alert.
 --
 -- 'alertName', 'createAlert_alertName' - The name of the alert.
---
--- 'alertSensitivityThreshold', 'createAlert_alertSensitivityThreshold' - An integer from 0 to 100 specifying the alert sensitivity threshold.
 --
 -- 'anomalyDetectorArn', 'createAlert_anomalyDetectorArn' - The ARN of the detector to which the alert is attached.
 --
@@ -94,8 +102,6 @@ data CreateAlert = CreateAlert'
 newCreateAlert ::
   -- | 'alertName'
   Prelude.Text ->
-  -- | 'alertSensitivityThreshold'
-  Prelude.Natural ->
   -- | 'anomalyDetectorArn'
   Prelude.Text ->
   -- | 'action'
@@ -103,15 +109,14 @@ newCreateAlert ::
   CreateAlert
 newCreateAlert
   pAlertName_
-  pAlertSensitivityThreshold_
   pAnomalyDetectorArn_
   pAction_ =
     CreateAlert'
       { alertDescription = Prelude.Nothing,
+        alertFilters = Prelude.Nothing,
+        alertSensitivityThreshold = Prelude.Nothing,
         tags = Prelude.Nothing,
         alertName = pAlertName_,
-        alertSensitivityThreshold =
-          pAlertSensitivityThreshold_,
         anomalyDetectorArn = pAnomalyDetectorArn_,
         action = pAction_
       }
@@ -119,6 +124,15 @@ newCreateAlert
 -- | A description of the alert.
 createAlert_alertDescription :: Lens.Lens' CreateAlert (Prelude.Maybe Prelude.Text)
 createAlert_alertDescription = Lens.lens (\CreateAlert' {alertDescription} -> alertDescription) (\s@CreateAlert' {} a -> s {alertDescription = a} :: CreateAlert)
+
+-- | The configuration of the alert filters, containing MetricList and
+-- DimensionFilterList.
+createAlert_alertFilters :: Lens.Lens' CreateAlert (Prelude.Maybe AlertFilters)
+createAlert_alertFilters = Lens.lens (\CreateAlert' {alertFilters} -> alertFilters) (\s@CreateAlert' {} a -> s {alertFilters = a} :: CreateAlert)
+
+-- | An integer from 0 to 100 specifying the alert sensitivity threshold.
+createAlert_alertSensitivityThreshold :: Lens.Lens' CreateAlert (Prelude.Maybe Prelude.Natural)
+createAlert_alertSensitivityThreshold = Lens.lens (\CreateAlert' {alertSensitivityThreshold} -> alertSensitivityThreshold) (\s@CreateAlert' {} a -> s {alertSensitivityThreshold = a} :: CreateAlert)
 
 -- | A list of
 -- <https://docs.aws.amazon.com/lookoutmetrics/latest/dev/detectors-tags.html tags>
@@ -130,10 +144,6 @@ createAlert_tags = Lens.lens (\CreateAlert' {tags} -> tags) (\s@CreateAlert' {} 
 createAlert_alertName :: Lens.Lens' CreateAlert Prelude.Text
 createAlert_alertName = Lens.lens (\CreateAlert' {alertName} -> alertName) (\s@CreateAlert' {} a -> s {alertName = a} :: CreateAlert)
 
--- | An integer from 0 to 100 specifying the alert sensitivity threshold.
-createAlert_alertSensitivityThreshold :: Lens.Lens' CreateAlert Prelude.Natural
-createAlert_alertSensitivityThreshold = Lens.lens (\CreateAlert' {alertSensitivityThreshold} -> alertSensitivityThreshold) (\s@CreateAlert' {} a -> s {alertSensitivityThreshold = a} :: CreateAlert)
-
 -- | The ARN of the detector to which the alert is attached.
 createAlert_anomalyDetectorArn :: Lens.Lens' CreateAlert Prelude.Text
 createAlert_anomalyDetectorArn = Lens.lens (\CreateAlert' {anomalyDetectorArn} -> anomalyDetectorArn) (\s@CreateAlert' {} a -> s {anomalyDetectorArn = a} :: CreateAlert)
@@ -144,66 +154,68 @@ createAlert_action = Lens.lens (\CreateAlert' {action} -> action) (\s@CreateAler
 
 instance Core.AWSRequest CreateAlert where
   type AWSResponse CreateAlert = CreateAlertResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAlertResponse'
-            Prelude.<$> (x Core..?> "AlertArn")
+            Prelude.<$> (x Data..?> "AlertArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateAlert where
   hashWithSalt _salt CreateAlert' {..} =
     _salt `Prelude.hashWithSalt` alertDescription
+      `Prelude.hashWithSalt` alertFilters
+      `Prelude.hashWithSalt` alertSensitivityThreshold
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` alertName
-      `Prelude.hashWithSalt` alertSensitivityThreshold
       `Prelude.hashWithSalt` anomalyDetectorArn
       `Prelude.hashWithSalt` action
 
 instance Prelude.NFData CreateAlert where
   rnf CreateAlert' {..} =
     Prelude.rnf alertDescription
+      `Prelude.seq` Prelude.rnf alertFilters
+      `Prelude.seq` Prelude.rnf alertSensitivityThreshold
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf alertName
-      `Prelude.seq` Prelude.rnf alertSensitivityThreshold
       `Prelude.seq` Prelude.rnf anomalyDetectorArn
       `Prelude.seq` Prelude.rnf action
 
-instance Core.ToHeaders CreateAlert where
+instance Data.ToHeaders CreateAlert where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAlert where
+instance Data.ToJSON CreateAlert where
   toJSON CreateAlert' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AlertDescription" Core..=)
+          [ ("AlertDescription" Data..=)
               Prelude.<$> alertDescription,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("AlertName" Core..= alertName),
+            ("AlertFilters" Data..=) Prelude.<$> alertFilters,
+            ("AlertSensitivityThreshold" Data..=)
+              Prelude.<$> alertSensitivityThreshold,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("AlertName" Data..= alertName),
             Prelude.Just
-              ( "AlertSensitivityThreshold"
-                  Core..= alertSensitivityThreshold
-              ),
-            Prelude.Just
-              ("AnomalyDetectorArn" Core..= anomalyDetectorArn),
-            Prelude.Just ("Action" Core..= action)
+              ("AnomalyDetectorArn" Data..= anomalyDetectorArn),
+            Prelude.Just ("Action" Data..= action)
           ]
       )
 
-instance Core.ToPath CreateAlert where
+instance Data.ToPath CreateAlert where
   toPath = Prelude.const "/CreateAlert"
 
-instance Core.ToQuery CreateAlert where
+instance Data.ToQuery CreateAlert where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAlertResponse' smart constructor.

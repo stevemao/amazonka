@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetSchemaVersionsDiff
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.Glue.GetSchemaVersionsDiff
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -146,12 +147,13 @@ instance Core.AWSRequest GetSchemaVersionsDiff where
   type
     AWSResponse GetSchemaVersionsDiff =
       GetSchemaVersionsDiffResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSchemaVersionsDiffResponse'
-            Prelude.<$> (x Core..?> "Diff")
+            Prelude.<$> (x Data..?> "Diff")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -169,43 +171,43 @@ instance Prelude.NFData GetSchemaVersionsDiff where
       `Prelude.seq` Prelude.rnf secondSchemaVersionNumber
       `Prelude.seq` Prelude.rnf schemaDiffType
 
-instance Core.ToHeaders GetSchemaVersionsDiff where
+instance Data.ToHeaders GetSchemaVersionsDiff where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSGlue.GetSchemaVersionsDiff" ::
+              Data.=# ( "AWSGlue.GetSchemaVersionsDiff" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetSchemaVersionsDiff where
+instance Data.ToJSON GetSchemaVersionsDiff where
   toJSON GetSchemaVersionsDiff' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("SchemaId" Core..= schemaId),
+          [ Prelude.Just ("SchemaId" Data..= schemaId),
             Prelude.Just
               ( "FirstSchemaVersionNumber"
-                  Core..= firstSchemaVersionNumber
+                  Data..= firstSchemaVersionNumber
               ),
             Prelude.Just
               ( "SecondSchemaVersionNumber"
-                  Core..= secondSchemaVersionNumber
+                  Data..= secondSchemaVersionNumber
               ),
             Prelude.Just
-              ("SchemaDiffType" Core..= schemaDiffType)
+              ("SchemaDiffType" Data..= schemaDiffType)
           ]
       )
 
-instance Core.ToPath GetSchemaVersionsDiff where
+instance Data.ToPath GetSchemaVersionsDiff where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetSchemaVersionsDiff where
+instance Data.ToQuery GetSchemaVersionsDiff where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSchemaVersionsDiffResponse' smart constructor.

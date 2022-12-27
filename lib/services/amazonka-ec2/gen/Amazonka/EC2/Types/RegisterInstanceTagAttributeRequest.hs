@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.RegisterInstanceTagAttributeRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.RegisterInstanceTagAttributeRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the tag keys to register for the current Region. You
@@ -89,15 +90,15 @@ instance
       `Prelude.seq` Prelude.rnf instanceTagKeys
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     RegisterInstanceTagAttributeRequest
   where
   toQuery RegisterInstanceTagAttributeRequest' {..} =
     Prelude.mconcat
       [ "IncludeAllTagsOfInstance"
-          Core.=: includeAllTagsOfInstance,
-        Core.toQuery
-          ( Core.toQueryList "InstanceTagKey"
+          Data.=: includeAllTagsOfInstance,
+        Data.toQuery
+          ( Data.toQueryList "InstanceTagKey"
               Prelude.<$> instanceTagKeys
           )
       ]

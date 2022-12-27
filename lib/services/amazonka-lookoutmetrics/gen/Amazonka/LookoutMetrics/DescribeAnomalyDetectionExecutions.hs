@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutMetrics.DescribeAnomalyDetectionExecutions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,9 @@ module Amazonka.LookoutMetrics.DescribeAnomalyDetectionExecutions
     newDescribeAnomalyDetectionExecutions,
 
     -- * Request Lenses
+    describeAnomalyDetectionExecutions_maxResults,
     describeAnomalyDetectionExecutions_nextToken,
     describeAnomalyDetectionExecutions_timestamp,
-    describeAnomalyDetectionExecutions_maxResults,
     describeAnomalyDetectionExecutions_anomalyDetectorArn,
 
     -- * Destructuring the Response
@@ -38,14 +38,15 @@ module Amazonka.LookoutMetrics.DescribeAnomalyDetectionExecutions
     newDescribeAnomalyDetectionExecutionsResponse,
 
     -- * Response Lenses
-    describeAnomalyDetectionExecutionsResponse_nextToken,
     describeAnomalyDetectionExecutionsResponse_executionList,
+    describeAnomalyDetectionExecutionsResponse_nextToken,
     describeAnomalyDetectionExecutionsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutMetrics.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,13 +54,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeAnomalyDetectionExecutions' smart constructor.
 data DescribeAnomalyDetectionExecutions = DescribeAnomalyDetectionExecutions'
-  { -- | Specify the pagination token that\'s returned by a previous request to
+  { -- | The number of items to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Specify the pagination token that\'s returned by a previous request to
     -- retrieve the next page of results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The timestamp of the anomaly detection job.
     timestamp :: Prelude.Maybe Prelude.Text,
-    -- | The number of items to return in the response.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The Amazon Resource Name (ARN) of the anomaly detector.
     anomalyDetectorArn :: Prelude.Text
   }
@@ -73,12 +74,12 @@ data DescribeAnomalyDetectionExecutions = DescribeAnomalyDetectionExecutions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'describeAnomalyDetectionExecutions_maxResults' - The number of items to return in the response.
+--
 -- 'nextToken', 'describeAnomalyDetectionExecutions_nextToken' - Specify the pagination token that\'s returned by a previous request to
 -- retrieve the next page of results.
 --
 -- 'timestamp', 'describeAnomalyDetectionExecutions_timestamp' - The timestamp of the anomaly detection job.
---
--- 'maxResults', 'describeAnomalyDetectionExecutions_maxResults' - The number of items to return in the response.
 --
 -- 'anomalyDetectorArn', 'describeAnomalyDetectionExecutions_anomalyDetectorArn' - The Amazon Resource Name (ARN) of the anomaly detector.
 newDescribeAnomalyDetectionExecutions ::
@@ -88,13 +89,17 @@ newDescribeAnomalyDetectionExecutions ::
 newDescribeAnomalyDetectionExecutions
   pAnomalyDetectorArn_ =
     DescribeAnomalyDetectionExecutions'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         timestamp = Prelude.Nothing,
-        maxResults = Prelude.Nothing,
         anomalyDetectorArn =
           pAnomalyDetectorArn_
       }
+
+-- | The number of items to return in the response.
+describeAnomalyDetectionExecutions_maxResults :: Lens.Lens' DescribeAnomalyDetectionExecutions (Prelude.Maybe Prelude.Natural)
+describeAnomalyDetectionExecutions_maxResults = Lens.lens (\DescribeAnomalyDetectionExecutions' {maxResults} -> maxResults) (\s@DescribeAnomalyDetectionExecutions' {} a -> s {maxResults = a} :: DescribeAnomalyDetectionExecutions)
 
 -- | Specify the pagination token that\'s returned by a previous request to
 -- retrieve the next page of results.
@@ -104,10 +109,6 @@ describeAnomalyDetectionExecutions_nextToken = Lens.lens (\DescribeAnomalyDetect
 -- | The timestamp of the anomaly detection job.
 describeAnomalyDetectionExecutions_timestamp :: Lens.Lens' DescribeAnomalyDetectionExecutions (Prelude.Maybe Prelude.Text)
 describeAnomalyDetectionExecutions_timestamp = Lens.lens (\DescribeAnomalyDetectionExecutions' {timestamp} -> timestamp) (\s@DescribeAnomalyDetectionExecutions' {} a -> s {timestamp = a} :: DescribeAnomalyDetectionExecutions)
-
--- | The number of items to return in the response.
-describeAnomalyDetectionExecutions_maxResults :: Lens.Lens' DescribeAnomalyDetectionExecutions (Prelude.Maybe Prelude.Natural)
-describeAnomalyDetectionExecutions_maxResults = Lens.lens (\DescribeAnomalyDetectionExecutions' {maxResults} -> maxResults) (\s@DescribeAnomalyDetectionExecutions' {} a -> s {maxResults = a} :: DescribeAnomalyDetectionExecutions)
 
 -- | The Amazon Resource Name (ARN) of the anomaly detector.
 describeAnomalyDetectionExecutions_anomalyDetectorArn :: Lens.Lens' DescribeAnomalyDetectionExecutions Prelude.Text
@@ -120,13 +121,14 @@ instance
   type
     AWSResponse DescribeAnomalyDetectionExecutions =
       DescribeAnomalyDetectionExecutionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAnomalyDetectionExecutionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-              Prelude.<*> (x Core..?> "ExecutionList" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "ExecutionList" Core..!@ Prelude.mempty)
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -137,9 +139,9 @@ instance
   hashWithSalt
     _salt
     DescribeAnomalyDetectionExecutions' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` timestamp
-        `Prelude.hashWithSalt` maxResults
         `Prelude.hashWithSalt` anomalyDetectorArn
 
 instance
@@ -147,59 +149,59 @@ instance
     DescribeAnomalyDetectionExecutions
   where
   rnf DescribeAnomalyDetectionExecutions' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf timestamp
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf anomalyDetectorArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeAnomalyDetectionExecutions
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeAnomalyDetectionExecutions
   where
   toJSON DescribeAnomalyDetectionExecutions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Timestamp" Core..=) Prelude.<$> timestamp,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("Timestamp" Data..=) Prelude.<$> timestamp,
             Prelude.Just
-              ("AnomalyDetectorArn" Core..= anomalyDetectorArn)
+              ("AnomalyDetectorArn" Data..= anomalyDetectorArn)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeAnomalyDetectionExecutions
   where
   toPath =
     Prelude.const "/DescribeAnomalyDetectionExecutions"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeAnomalyDetectionExecutions
   where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAnomalyDetectionExecutionsResponse' smart constructor.
 data DescribeAnomalyDetectionExecutionsResponse = DescribeAnomalyDetectionExecutionsResponse'
-  { -- | The pagination token that\'s included if more results are available.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A list of detection jobs.
+  { -- | A list of detection jobs.
     executionList :: Prelude.Maybe [ExecutionStatus],
+    -- | The pagination token that\'s included if more results are available.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -213,9 +215,9 @@ data DescribeAnomalyDetectionExecutionsResponse = DescribeAnomalyDetectionExecut
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeAnomalyDetectionExecutionsResponse_nextToken' - The pagination token that\'s included if more results are available.
---
 -- 'executionList', 'describeAnomalyDetectionExecutionsResponse_executionList' - A list of detection jobs.
+--
+-- 'nextToken', 'describeAnomalyDetectionExecutionsResponse_nextToken' - The pagination token that\'s included if more results are available.
 --
 -- 'httpStatus', 'describeAnomalyDetectionExecutionsResponse_httpStatus' - The response's http status code.
 newDescribeAnomalyDetectionExecutionsResponse ::
@@ -225,19 +227,19 @@ newDescribeAnomalyDetectionExecutionsResponse ::
 newDescribeAnomalyDetectionExecutionsResponse
   pHttpStatus_ =
     DescribeAnomalyDetectionExecutionsResponse'
-      { nextToken =
+      { executionList =
           Prelude.Nothing,
-        executionList = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | The pagination token that\'s included if more results are available.
-describeAnomalyDetectionExecutionsResponse_nextToken :: Lens.Lens' DescribeAnomalyDetectionExecutionsResponse (Prelude.Maybe Prelude.Text)
-describeAnomalyDetectionExecutionsResponse_nextToken = Lens.lens (\DescribeAnomalyDetectionExecutionsResponse' {nextToken} -> nextToken) (\s@DescribeAnomalyDetectionExecutionsResponse' {} a -> s {nextToken = a} :: DescribeAnomalyDetectionExecutionsResponse)
 
 -- | A list of detection jobs.
 describeAnomalyDetectionExecutionsResponse_executionList :: Lens.Lens' DescribeAnomalyDetectionExecutionsResponse (Prelude.Maybe [ExecutionStatus])
 describeAnomalyDetectionExecutionsResponse_executionList = Lens.lens (\DescribeAnomalyDetectionExecutionsResponse' {executionList} -> executionList) (\s@DescribeAnomalyDetectionExecutionsResponse' {} a -> s {executionList = a} :: DescribeAnomalyDetectionExecutionsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The pagination token that\'s included if more results are available.
+describeAnomalyDetectionExecutionsResponse_nextToken :: Lens.Lens' DescribeAnomalyDetectionExecutionsResponse (Prelude.Maybe Prelude.Text)
+describeAnomalyDetectionExecutionsResponse_nextToken = Lens.lens (\DescribeAnomalyDetectionExecutionsResponse' {nextToken} -> nextToken) (\s@DescribeAnomalyDetectionExecutionsResponse' {} a -> s {nextToken = a} :: DescribeAnomalyDetectionExecutionsResponse)
 
 -- | The response's http status code.
 describeAnomalyDetectionExecutionsResponse_httpStatus :: Lens.Lens' DescribeAnomalyDetectionExecutionsResponse Prelude.Int
@@ -248,6 +250,6 @@ instance
     DescribeAnomalyDetectionExecutionsResponse
   where
   rnf DescribeAnomalyDetectionExecutionsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf executionList
+    Prelude.rnf executionList
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

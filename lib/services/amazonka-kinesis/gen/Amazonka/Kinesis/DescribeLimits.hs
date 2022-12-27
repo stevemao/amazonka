@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.DescribeLimits
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,12 +39,15 @@ module Amazonka.Kinesis.DescribeLimits
     describeLimitsResponse_httpStatus,
     describeLimitsResponse_shardLimit,
     describeLimitsResponse_openShardCount,
+    describeLimitsResponse_onDemandStreamCount,
+    describeLimitsResponse_onDemandStreamCountLimit,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,14 +70,17 @@ instance Core.AWSRequest DescribeLimits where
   type
     AWSResponse DescribeLimits =
       DescribeLimitsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeLimitsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ShardLimit")
-            Prelude.<*> (x Core..:> "OpenShardCount")
+            Prelude.<*> (x Data..:> "ShardLimit")
+            Prelude.<*> (x Data..:> "OpenShardCount")
+            Prelude.<*> (x Data..:> "OnDemandStreamCount")
+            Prelude.<*> (x Data..:> "OnDemandStreamCountLimit")
       )
 
 instance Prelude.Hashable DescribeLimits where
@@ -84,28 +90,28 @@ instance Prelude.Hashable DescribeLimits where
 instance Prelude.NFData DescribeLimits where
   rnf _ = ()
 
-instance Core.ToHeaders DescribeLimits where
+instance Data.ToHeaders DescribeLimits where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Kinesis_20131202.DescribeLimits" ::
+              Data.=# ( "Kinesis_20131202.DescribeLimits" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeLimits where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DescribeLimits where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DescribeLimits where
+instance Data.ToPath DescribeLimits where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeLimits where
+instance Data.ToQuery DescribeLimits where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeLimitsResponse' smart constructor.
@@ -115,7 +121,11 @@ data DescribeLimitsResponse = DescribeLimitsResponse'
     -- | The maximum number of shards.
     shardLimit :: Prelude.Natural,
     -- | The number of open shards.
-    openShardCount :: Prelude.Natural
+    openShardCount :: Prelude.Natural,
+    -- | Indicates the number of data streams with the on-demand capacity mode.
+    onDemandStreamCount :: Prelude.Natural,
+    -- | The maximum number of data streams with the on-demand capacity mode.
+    onDemandStreamCountLimit :: Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -132,6 +142,10 @@ data DescribeLimitsResponse = DescribeLimitsResponse'
 -- 'shardLimit', 'describeLimitsResponse_shardLimit' - The maximum number of shards.
 --
 -- 'openShardCount', 'describeLimitsResponse_openShardCount' - The number of open shards.
+--
+-- 'onDemandStreamCount', 'describeLimitsResponse_onDemandStreamCount' - Indicates the number of data streams with the on-demand capacity mode.
+--
+-- 'onDemandStreamCountLimit', 'describeLimitsResponse_onDemandStreamCountLimit' - The maximum number of data streams with the on-demand capacity mode.
 newDescribeLimitsResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -139,15 +153,24 @@ newDescribeLimitsResponse ::
   Prelude.Natural ->
   -- | 'openShardCount'
   Prelude.Natural ->
+  -- | 'onDemandStreamCount'
+  Prelude.Natural ->
+  -- | 'onDemandStreamCountLimit'
+  Prelude.Natural ->
   DescribeLimitsResponse
 newDescribeLimitsResponse
   pHttpStatus_
   pShardLimit_
-  pOpenShardCount_ =
+  pOpenShardCount_
+  pOnDemandStreamCount_
+  pOnDemandStreamCountLimit_ =
     DescribeLimitsResponse'
       { httpStatus = pHttpStatus_,
         shardLimit = pShardLimit_,
-        openShardCount = pOpenShardCount_
+        openShardCount = pOpenShardCount_,
+        onDemandStreamCount = pOnDemandStreamCount_,
+        onDemandStreamCountLimit =
+          pOnDemandStreamCountLimit_
       }
 
 -- | The response's http status code.
@@ -162,8 +185,18 @@ describeLimitsResponse_shardLimit = Lens.lens (\DescribeLimitsResponse' {shardLi
 describeLimitsResponse_openShardCount :: Lens.Lens' DescribeLimitsResponse Prelude.Natural
 describeLimitsResponse_openShardCount = Lens.lens (\DescribeLimitsResponse' {openShardCount} -> openShardCount) (\s@DescribeLimitsResponse' {} a -> s {openShardCount = a} :: DescribeLimitsResponse)
 
+-- | Indicates the number of data streams with the on-demand capacity mode.
+describeLimitsResponse_onDemandStreamCount :: Lens.Lens' DescribeLimitsResponse Prelude.Natural
+describeLimitsResponse_onDemandStreamCount = Lens.lens (\DescribeLimitsResponse' {onDemandStreamCount} -> onDemandStreamCount) (\s@DescribeLimitsResponse' {} a -> s {onDemandStreamCount = a} :: DescribeLimitsResponse)
+
+-- | The maximum number of data streams with the on-demand capacity mode.
+describeLimitsResponse_onDemandStreamCountLimit :: Lens.Lens' DescribeLimitsResponse Prelude.Natural
+describeLimitsResponse_onDemandStreamCountLimit = Lens.lens (\DescribeLimitsResponse' {onDemandStreamCountLimit} -> onDemandStreamCountLimit) (\s@DescribeLimitsResponse' {} a -> s {onDemandStreamCountLimit = a} :: DescribeLimitsResponse)
+
 instance Prelude.NFData DescribeLimitsResponse where
   rnf DescribeLimitsResponse' {..} =
     Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf shardLimit
       `Prelude.seq` Prelude.rnf openShardCount
+      `Prelude.seq` Prelude.rnf onDemandStreamCount
+      `Prelude.seq` Prelude.rnf onDemandStreamCountLimit

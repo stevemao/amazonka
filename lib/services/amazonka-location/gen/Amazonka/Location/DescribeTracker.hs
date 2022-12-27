@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.DescribeTracker
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,14 +34,14 @@ module Amazonka.Location.DescribeTracker
     newDescribeTrackerResponse,
 
     -- * Response Lenses
-    describeTrackerResponse_pricingPlanDataSource,
     describeTrackerResponse_kmsKeyId,
-    describeTrackerResponse_tags,
     describeTrackerResponse_positionFiltering,
+    describeTrackerResponse_pricingPlan,
+    describeTrackerResponse_pricingPlanDataSource,
+    describeTrackerResponse_tags,
     describeTrackerResponse_httpStatus,
     describeTrackerResponse_createTime,
     describeTrackerResponse_description,
-    describeTrackerResponse_pricingPlan,
     describeTrackerResponse_trackerArn,
     describeTrackerResponse_trackerName,
     describeTrackerResponse_updateTime,
@@ -49,7 +49,8 @@ module Amazonka.Location.DescribeTracker
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -86,22 +87,23 @@ instance Core.AWSRequest DescribeTracker where
   type
     AWSResponse DescribeTracker =
       DescribeTrackerResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTrackerResponse'
-            Prelude.<$> (x Core..?> "PricingPlanDataSource")
-            Prelude.<*> (x Core..?> "KmsKeyId")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "PositionFiltering")
+            Prelude.<$> (x Data..?> "KmsKeyId")
+            Prelude.<*> (x Data..?> "PositionFiltering")
+            Prelude.<*> (x Data..?> "PricingPlan")
+            Prelude.<*> (x Data..?> "PricingPlanDataSource")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "CreateTime")
-            Prelude.<*> (x Core..:> "Description")
-            Prelude.<*> (x Core..:> "PricingPlan")
-            Prelude.<*> (x Core..:> "TrackerArn")
-            Prelude.<*> (x Core..:> "TrackerName")
-            Prelude.<*> (x Core..:> "UpdateTime")
+            Prelude.<*> (x Data..:> "CreateTime")
+            Prelude.<*> (x Data..:> "Description")
+            Prelude.<*> (x Data..:> "TrackerArn")
+            Prelude.<*> (x Data..:> "TrackerName")
+            Prelude.<*> (x Data..:> "UpdateTime")
       )
 
 instance Prelude.Hashable DescribeTracker where
@@ -111,50 +113,47 @@ instance Prelude.Hashable DescribeTracker where
 instance Prelude.NFData DescribeTracker where
   rnf DescribeTracker' {..} = Prelude.rnf trackerName
 
-instance Core.ToHeaders DescribeTracker where
+instance Data.ToHeaders DescribeTracker where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeTracker where
+instance Data.ToPath DescribeTracker where
   toPath DescribeTracker' {..} =
     Prelude.mconcat
-      ["/tracking/v0/trackers/", Core.toBS trackerName]
+      ["/tracking/v0/trackers/", Data.toBS trackerName]
 
-instance Core.ToQuery DescribeTracker where
+instance Data.ToQuery DescribeTracker where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeTrackerResponse' smart constructor.
 data DescribeTrackerResponse = DescribeTrackerResponse'
-  { -- | The specified data provider for the tracker resource.
-    pricingPlanDataSource :: Prelude.Maybe Prelude.Text,
-    -- | A key identifier for an
+  { -- | A key identifier for an
     -- <https://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html AWS KMS customer managed key>
     -- assigned to the Amazon Location resource.
     kmsKeyId :: Prelude.Maybe Prelude.Text,
-    -- | The tags associated with the tracker resource.
-    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The position filtering method of the tracker resource.
     positionFiltering :: Prelude.Maybe PositionFiltering,
+    -- | Always returns @RequestBasedUsage@.
+    pricingPlan :: Prelude.Maybe PricingPlan,
+    -- | No longer used. Always returns an empty string.
+    pricingPlanDataSource :: Prelude.Maybe Prelude.Text,
+    -- | The tags associated with the tracker resource.
+    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The timestamp for when the tracker resource was created in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    createTime :: Core.POSIX,
+    createTime :: Data.POSIX,
     -- | The optional description for the tracker resource.
     description :: Prelude.Text,
-    -- | The pricing plan selected for the specified tracker resource.
-    --
-    -- For additional details and restrictions on each pricing plan option, see
-    -- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-    pricingPlan :: PricingPlan,
     -- | The Amazon Resource Name (ARN) for the tracker resource. Used when you
     -- need to specify a resource across all AWS.
     --
@@ -166,7 +165,7 @@ data DescribeTrackerResponse = DescribeTrackerResponse'
     -- | The timestamp for when the tracker resource was last updated in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    updateTime :: Core.POSIX
+    updateTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -178,15 +177,17 @@ data DescribeTrackerResponse = DescribeTrackerResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'pricingPlanDataSource', 'describeTrackerResponse_pricingPlanDataSource' - The specified data provider for the tracker resource.
---
 -- 'kmsKeyId', 'describeTrackerResponse_kmsKeyId' - A key identifier for an
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html AWS KMS customer managed key>
 -- assigned to the Amazon Location resource.
 --
--- 'tags', 'describeTrackerResponse_tags' - The tags associated with the tracker resource.
---
 -- 'positionFiltering', 'describeTrackerResponse_positionFiltering' - The position filtering method of the tracker resource.
+--
+-- 'pricingPlan', 'describeTrackerResponse_pricingPlan' - Always returns @RequestBasedUsage@.
+--
+-- 'pricingPlanDataSource', 'describeTrackerResponse_pricingPlanDataSource' - No longer used. Always returns an empty string.
+--
+-- 'tags', 'describeTrackerResponse_tags' - The tags associated with the tracker resource.
 --
 -- 'httpStatus', 'describeTrackerResponse_httpStatus' - The response's http status code.
 --
@@ -195,11 +196,6 @@ data DescribeTrackerResponse = DescribeTrackerResponse'
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 --
 -- 'description', 'describeTrackerResponse_description' - The optional description for the tracker resource.
---
--- 'pricingPlan', 'describeTrackerResponse_pricingPlan' - The pricing plan selected for the specified tracker resource.
---
--- For additional details and restrictions on each pricing plan option, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
 --
 -- 'trackerArn', 'describeTrackerResponse_trackerArn' - The Amazon Resource Name (ARN) for the tracker resource. Used when you
 -- need to specify a resource across all AWS.
@@ -219,8 +215,6 @@ newDescribeTrackerResponse ::
   Prelude.UTCTime ->
   -- | 'description'
   Prelude.Text ->
-  -- | 'pricingPlan'
-  PricingPlan ->
   -- | 'trackerArn'
   Prelude.Text ->
   -- | 'trackerName'
@@ -232,28 +226,23 @@ newDescribeTrackerResponse
   pHttpStatus_
   pCreateTime_
   pDescription_
-  pPricingPlan_
   pTrackerArn_
   pTrackerName_
   pUpdateTime_ =
     DescribeTrackerResponse'
-      { pricingPlanDataSource =
+      { kmsKeyId =
           Prelude.Nothing,
-        kmsKeyId = Prelude.Nothing,
-        tags = Prelude.Nothing,
         positionFiltering = Prelude.Nothing,
+        pricingPlan = Prelude.Nothing,
+        pricingPlanDataSource = Prelude.Nothing,
+        tags = Prelude.Nothing,
         httpStatus = pHttpStatus_,
-        createTime = Core._Time Lens.# pCreateTime_,
+        createTime = Data._Time Lens.# pCreateTime_,
         description = pDescription_,
-        pricingPlan = pPricingPlan_,
         trackerArn = pTrackerArn_,
         trackerName = pTrackerName_,
-        updateTime = Core._Time Lens.# pUpdateTime_
+        updateTime = Data._Time Lens.# pUpdateTime_
       }
-
--- | The specified data provider for the tracker resource.
-describeTrackerResponse_pricingPlanDataSource :: Lens.Lens' DescribeTrackerResponse (Prelude.Maybe Prelude.Text)
-describeTrackerResponse_pricingPlanDataSource = Lens.lens (\DescribeTrackerResponse' {pricingPlanDataSource} -> pricingPlanDataSource) (\s@DescribeTrackerResponse' {} a -> s {pricingPlanDataSource = a} :: DescribeTrackerResponse)
 
 -- | A key identifier for an
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/create-keys.html AWS KMS customer managed key>
@@ -261,13 +250,21 @@ describeTrackerResponse_pricingPlanDataSource = Lens.lens (\DescribeTrackerRespo
 describeTrackerResponse_kmsKeyId :: Lens.Lens' DescribeTrackerResponse (Prelude.Maybe Prelude.Text)
 describeTrackerResponse_kmsKeyId = Lens.lens (\DescribeTrackerResponse' {kmsKeyId} -> kmsKeyId) (\s@DescribeTrackerResponse' {} a -> s {kmsKeyId = a} :: DescribeTrackerResponse)
 
--- | The tags associated with the tracker resource.
-describeTrackerResponse_tags :: Lens.Lens' DescribeTrackerResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-describeTrackerResponse_tags = Lens.lens (\DescribeTrackerResponse' {tags} -> tags) (\s@DescribeTrackerResponse' {} a -> s {tags = a} :: DescribeTrackerResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The position filtering method of the tracker resource.
 describeTrackerResponse_positionFiltering :: Lens.Lens' DescribeTrackerResponse (Prelude.Maybe PositionFiltering)
 describeTrackerResponse_positionFiltering = Lens.lens (\DescribeTrackerResponse' {positionFiltering} -> positionFiltering) (\s@DescribeTrackerResponse' {} a -> s {positionFiltering = a} :: DescribeTrackerResponse)
+
+-- | Always returns @RequestBasedUsage@.
+describeTrackerResponse_pricingPlan :: Lens.Lens' DescribeTrackerResponse (Prelude.Maybe PricingPlan)
+describeTrackerResponse_pricingPlan = Lens.lens (\DescribeTrackerResponse' {pricingPlan} -> pricingPlan) (\s@DescribeTrackerResponse' {} a -> s {pricingPlan = a} :: DescribeTrackerResponse)
+
+-- | No longer used. Always returns an empty string.
+describeTrackerResponse_pricingPlanDataSource :: Lens.Lens' DescribeTrackerResponse (Prelude.Maybe Prelude.Text)
+describeTrackerResponse_pricingPlanDataSource = Lens.lens (\DescribeTrackerResponse' {pricingPlanDataSource} -> pricingPlanDataSource) (\s@DescribeTrackerResponse' {} a -> s {pricingPlanDataSource = a} :: DescribeTrackerResponse)
+
+-- | The tags associated with the tracker resource.
+describeTrackerResponse_tags :: Lens.Lens' DescribeTrackerResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+describeTrackerResponse_tags = Lens.lens (\DescribeTrackerResponse' {tags} -> tags) (\s@DescribeTrackerResponse' {} a -> s {tags = a} :: DescribeTrackerResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeTrackerResponse_httpStatus :: Lens.Lens' DescribeTrackerResponse Prelude.Int
@@ -277,18 +274,11 @@ describeTrackerResponse_httpStatus = Lens.lens (\DescribeTrackerResponse' {httpS
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 describeTrackerResponse_createTime :: Lens.Lens' DescribeTrackerResponse Prelude.UTCTime
-describeTrackerResponse_createTime = Lens.lens (\DescribeTrackerResponse' {createTime} -> createTime) (\s@DescribeTrackerResponse' {} a -> s {createTime = a} :: DescribeTrackerResponse) Prelude.. Core._Time
+describeTrackerResponse_createTime = Lens.lens (\DescribeTrackerResponse' {createTime} -> createTime) (\s@DescribeTrackerResponse' {} a -> s {createTime = a} :: DescribeTrackerResponse) Prelude.. Data._Time
 
 -- | The optional description for the tracker resource.
 describeTrackerResponse_description :: Lens.Lens' DescribeTrackerResponse Prelude.Text
 describeTrackerResponse_description = Lens.lens (\DescribeTrackerResponse' {description} -> description) (\s@DescribeTrackerResponse' {} a -> s {description = a} :: DescribeTrackerResponse)
-
--- | The pricing plan selected for the specified tracker resource.
---
--- For additional details and restrictions on each pricing plan option, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-describeTrackerResponse_pricingPlan :: Lens.Lens' DescribeTrackerResponse PricingPlan
-describeTrackerResponse_pricingPlan = Lens.lens (\DescribeTrackerResponse' {pricingPlan} -> pricingPlan) (\s@DescribeTrackerResponse' {} a -> s {pricingPlan = a} :: DescribeTrackerResponse)
 
 -- | The Amazon Resource Name (ARN) for the tracker resource. Used when you
 -- need to specify a resource across all AWS.
@@ -306,18 +296,18 @@ describeTrackerResponse_trackerName = Lens.lens (\DescribeTrackerResponse' {trac
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 describeTrackerResponse_updateTime :: Lens.Lens' DescribeTrackerResponse Prelude.UTCTime
-describeTrackerResponse_updateTime = Lens.lens (\DescribeTrackerResponse' {updateTime} -> updateTime) (\s@DescribeTrackerResponse' {} a -> s {updateTime = a} :: DescribeTrackerResponse) Prelude.. Core._Time
+describeTrackerResponse_updateTime = Lens.lens (\DescribeTrackerResponse' {updateTime} -> updateTime) (\s@DescribeTrackerResponse' {} a -> s {updateTime = a} :: DescribeTrackerResponse) Prelude.. Data._Time
 
 instance Prelude.NFData DescribeTrackerResponse where
   rnf DescribeTrackerResponse' {..} =
-    Prelude.rnf pricingPlanDataSource
-      `Prelude.seq` Prelude.rnf kmsKeyId
-      `Prelude.seq` Prelude.rnf tags
+    Prelude.rnf kmsKeyId
       `Prelude.seq` Prelude.rnf positionFiltering
+      `Prelude.seq` Prelude.rnf pricingPlan
+      `Prelude.seq` Prelude.rnf pricingPlanDataSource
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf createTime
       `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf pricingPlan
       `Prelude.seq` Prelude.rnf trackerArn
       `Prelude.seq` Prelude.rnf trackerName
       `Prelude.seq` Prelude.rnf updateTime

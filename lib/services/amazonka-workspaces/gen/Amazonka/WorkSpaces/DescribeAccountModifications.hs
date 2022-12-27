@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.DescribeAccountModifications
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.WorkSpaces.DescribeAccountModifications
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -107,15 +108,16 @@ instance Core.AWSRequest DescribeAccountModifications where
   type
     AWSResponse DescribeAccountModifications =
       DescribeAccountModificationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAccountModificationsResponse'
-            Prelude.<$> ( x Core..?> "AccountModifications"
+            Prelude.<$> ( x Data..?> "AccountModifications"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,32 +132,32 @@ instance Prelude.NFData DescribeAccountModifications where
   rnf DescribeAccountModifications' {..} =
     Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeAccountModifications where
+instance Data.ToHeaders DescribeAccountModifications where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.DescribeAccountModifications" ::
+              Data.=# ( "WorkspacesService.DescribeAccountModifications" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAccountModifications where
+instance Data.ToJSON DescribeAccountModifications where
   toJSON DescribeAccountModifications' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("NextToken" Core..=) Prelude.<$> nextToken]
+          [("NextToken" Data..=) Prelude.<$> nextToken]
       )
 
-instance Core.ToPath DescribeAccountModifications where
+instance Data.ToPath DescribeAccountModifications where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAccountModifications where
+instance Data.ToQuery DescribeAccountModifications where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAccountModificationsResponse' smart constructor.

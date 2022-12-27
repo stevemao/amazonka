@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DescribeDataSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes a dataset.
+-- Describes a dataset. This operation doesn\'t support datasets that
+-- include uploaded files as a source.
 module Amazonka.QuickSight.DescribeDataSet
   ( -- * Creating a Request
     DescribeDataSet (..),
@@ -35,14 +36,15 @@ module Amazonka.QuickSight.DescribeDataSet
     newDescribeDataSetResponse,
 
     -- * Response Lenses
-    describeDataSetResponse_requestId,
     describeDataSetResponse_dataSet,
+    describeDataSetResponse_requestId,
     describeDataSetResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -95,13 +97,14 @@ instance Core.AWSRequest DescribeDataSet where
   type
     AWSResponse DescribeDataSet =
       DescribeDataSetResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDataSetResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "DataSet")
+            Prelude.<$> (x Data..?> "DataSet")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,35 +118,35 @@ instance Prelude.NFData DescribeDataSet where
     Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf dataSetId
 
-instance Core.ToHeaders DescribeDataSet where
+instance Data.ToHeaders DescribeDataSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeDataSet where
+instance Data.ToPath DescribeDataSet where
   toPath DescribeDataSet' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/data-sets/",
-        Core.toBS dataSetId
+        Data.toBS dataSetId
       ]
 
-instance Core.ToQuery DescribeDataSet where
+instance Data.ToQuery DescribeDataSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeDataSetResponse' smart constructor.
 data DescribeDataSetResponse = DescribeDataSetResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | Information on the dataset.
+  { -- | Information on the dataset.
     dataSet :: Prelude.Maybe DataSet,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -157,9 +160,9 @@ data DescribeDataSetResponse = DescribeDataSetResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'describeDataSetResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'dataSet', 'describeDataSetResponse_dataSet' - Information on the dataset.
+--
+-- 'requestId', 'describeDataSetResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'describeDataSetResponse_status' - The HTTP status of the request.
 newDescribeDataSetResponse ::
@@ -168,19 +171,18 @@ newDescribeDataSetResponse ::
   DescribeDataSetResponse
 newDescribeDataSetResponse pStatus_ =
   DescribeDataSetResponse'
-    { requestId =
-        Prelude.Nothing,
-      dataSet = Prelude.Nothing,
+    { dataSet = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-describeDataSetResponse_requestId :: Lens.Lens' DescribeDataSetResponse (Prelude.Maybe Prelude.Text)
-describeDataSetResponse_requestId = Lens.lens (\DescribeDataSetResponse' {requestId} -> requestId) (\s@DescribeDataSetResponse' {} a -> s {requestId = a} :: DescribeDataSetResponse)
 
 -- | Information on the dataset.
 describeDataSetResponse_dataSet :: Lens.Lens' DescribeDataSetResponse (Prelude.Maybe DataSet)
 describeDataSetResponse_dataSet = Lens.lens (\DescribeDataSetResponse' {dataSet} -> dataSet) (\s@DescribeDataSetResponse' {} a -> s {dataSet = a} :: DescribeDataSetResponse)
+
+-- | The Amazon Web Services request ID for this operation.
+describeDataSetResponse_requestId :: Lens.Lens' DescribeDataSetResponse (Prelude.Maybe Prelude.Text)
+describeDataSetResponse_requestId = Lens.lens (\DescribeDataSetResponse' {requestId} -> requestId) (\s@DescribeDataSetResponse' {} a -> s {requestId = a} :: DescribeDataSetResponse)
 
 -- | The HTTP status of the request.
 describeDataSetResponse_status :: Lens.Lens' DescribeDataSetResponse Prelude.Int
@@ -188,6 +190,6 @@ describeDataSetResponse_status = Lens.lens (\DescribeDataSetResponse' {status} -
 
 instance Prelude.NFData DescribeDataSetResponse where
   rnf DescribeDataSetResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf dataSet
+    Prelude.rnf dataSet
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

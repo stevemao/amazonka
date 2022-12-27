@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.StreamingDistributionConfigWithTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudFront.Types.StreamingDistributionConfigWithTags where
 import Amazonka.CloudFront.Types.StreamingDistributionConfig
 import Amazonka.CloudFront.Types.Tags
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A streaming distribution Configuration and a list of tags to be
@@ -91,12 +92,12 @@ instance
       `Prelude.seq` Prelude.rnf tags
 
 instance
-  Core.ToXML
+  Data.ToXML
     StreamingDistributionConfigWithTags
   where
   toXML StreamingDistributionConfigWithTags' {..} =
     Prelude.mconcat
       [ "StreamingDistributionConfig"
-          Core.@= streamingDistributionConfig,
-        "Tags" Core.@= tags
+          Data.@= streamingDistributionConfig,
+        "Tags" Data.@= tags
       ]

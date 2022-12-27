@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QLDBSession.Types.Page
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QLDBSession.Types.Page where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QLDBSession.Types.ValueHolder
 
@@ -62,14 +63,14 @@ page_nextPageToken = Lens.lens (\Page' {nextPageToken} -> nextPageToken) (\s@Pag
 page_values :: Lens.Lens' Page (Prelude.Maybe [ValueHolder])
 page_values = Lens.lens (\Page' {values} -> values) (\s@Page' {} a -> s {values = a} :: Page) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON Page where
+instance Data.FromJSON Page where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Page"
       ( \x ->
           Page'
-            Prelude.<$> (x Core..:? "NextPageToken")
-            Prelude.<*> (x Core..:? "Values" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "NextPageToken")
+            Prelude.<*> (x Data..:? "Values" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Page where

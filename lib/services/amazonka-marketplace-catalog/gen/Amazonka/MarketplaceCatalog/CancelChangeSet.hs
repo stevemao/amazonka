@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MarketplaceCatalog.CancelChangeSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,14 +38,15 @@ module Amazonka.MarketplaceCatalog.CancelChangeSet
     newCancelChangeSetResponse,
 
     -- * Response Lenses
-    cancelChangeSetResponse_changeSetId,
     cancelChangeSetResponse_changeSetArn,
+    cancelChangeSetResponse_changeSetId,
     cancelChangeSetResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MarketplaceCatalog.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -101,13 +102,14 @@ instance Core.AWSRequest CancelChangeSet where
   type
     AWSResponse CancelChangeSet =
       CancelChangeSetResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CancelChangeSetResponse'
-            Prelude.<$> (x Core..?> "ChangeSetId")
-            Prelude.<*> (x Core..?> "ChangeSetArn")
+            Prelude.<$> (x Data..?> "ChangeSetArn")
+            Prelude.<*> (x Data..?> "ChangeSetId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,36 +123,36 @@ instance Prelude.NFData CancelChangeSet where
     Prelude.rnf catalog
       `Prelude.seq` Prelude.rnf changeSetId
 
-instance Core.ToHeaders CancelChangeSet where
+instance Data.ToHeaders CancelChangeSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CancelChangeSet where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON CancelChangeSet where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath CancelChangeSet where
+instance Data.ToPath CancelChangeSet where
   toPath = Prelude.const "/CancelChangeSet"
 
-instance Core.ToQuery CancelChangeSet where
+instance Data.ToQuery CancelChangeSet where
   toQuery CancelChangeSet' {..} =
     Prelude.mconcat
-      [ "catalog" Core.=: catalog,
-        "changeSetId" Core.=: changeSetId
+      [ "catalog" Data.=: catalog,
+        "changeSetId" Data.=: changeSetId
       ]
 
 -- | /See:/ 'newCancelChangeSetResponse' smart constructor.
 data CancelChangeSetResponse = CancelChangeSetResponse'
-  { -- | The unique identifier for the change set referenced in this request.
-    changeSetId :: Prelude.Maybe Prelude.Text,
-    -- | The ARN associated with the change set referenced in this request.
+  { -- | The ARN associated with the change set referenced in this request.
     changeSetArn :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the change set referenced in this request.
+    changeSetId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -164,9 +166,9 @@ data CancelChangeSetResponse = CancelChangeSetResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'changeSetId', 'cancelChangeSetResponse_changeSetId' - The unique identifier for the change set referenced in this request.
---
 -- 'changeSetArn', 'cancelChangeSetResponse_changeSetArn' - The ARN associated with the change set referenced in this request.
+--
+-- 'changeSetId', 'cancelChangeSetResponse_changeSetId' - The unique identifier for the change set referenced in this request.
 --
 -- 'httpStatus', 'cancelChangeSetResponse_httpStatus' - The response's http status code.
 newCancelChangeSetResponse ::
@@ -175,19 +177,19 @@ newCancelChangeSetResponse ::
   CancelChangeSetResponse
 newCancelChangeSetResponse pHttpStatus_ =
   CancelChangeSetResponse'
-    { changeSetId =
+    { changeSetArn =
         Prelude.Nothing,
-      changeSetArn = Prelude.Nothing,
+      changeSetId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The unique identifier for the change set referenced in this request.
-cancelChangeSetResponse_changeSetId :: Lens.Lens' CancelChangeSetResponse (Prelude.Maybe Prelude.Text)
-cancelChangeSetResponse_changeSetId = Lens.lens (\CancelChangeSetResponse' {changeSetId} -> changeSetId) (\s@CancelChangeSetResponse' {} a -> s {changeSetId = a} :: CancelChangeSetResponse)
 
 -- | The ARN associated with the change set referenced in this request.
 cancelChangeSetResponse_changeSetArn :: Lens.Lens' CancelChangeSetResponse (Prelude.Maybe Prelude.Text)
 cancelChangeSetResponse_changeSetArn = Lens.lens (\CancelChangeSetResponse' {changeSetArn} -> changeSetArn) (\s@CancelChangeSetResponse' {} a -> s {changeSetArn = a} :: CancelChangeSetResponse)
+
+-- | The unique identifier for the change set referenced in this request.
+cancelChangeSetResponse_changeSetId :: Lens.Lens' CancelChangeSetResponse (Prelude.Maybe Prelude.Text)
+cancelChangeSetResponse_changeSetId = Lens.lens (\CancelChangeSetResponse' {changeSetId} -> changeSetId) (\s@CancelChangeSetResponse' {} a -> s {changeSetId = a} :: CancelChangeSetResponse)
 
 -- | The response's http status code.
 cancelChangeSetResponse_httpStatus :: Lens.Lens' CancelChangeSetResponse Prelude.Int
@@ -195,6 +197,6 @@ cancelChangeSetResponse_httpStatus = Lens.lens (\CancelChangeSetResponse' {httpS
 
 instance Prelude.NFData CancelChangeSetResponse where
   rnf CancelChangeSetResponse' {..} =
-    Prelude.rnf changeSetId
-      `Prelude.seq` Prelude.rnf changeSetArn
+    Prelude.rnf changeSetArn
+      `Prelude.seq` Prelude.rnf changeSetId
       `Prelude.seq` Prelude.rnf httpStatus

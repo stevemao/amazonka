@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.Types.SamplingRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.XRay.Types.SamplingRule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A sampling rule that services use to decide whether to instrument a
@@ -30,14 +31,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSamplingRule' smart constructor.
 data SamplingRule = SamplingRule'
-  { -- | The name of the sampling rule. Specify a rule by either name or ARN, but
-    -- not both.
-    ruleName :: Prelude.Maybe Prelude.Text,
-    -- | Matches attributes derived from the request.
+  { -- | Matches attributes derived from the request.
     attributes :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The ARN of the sampling rule. Specify a rule by either name or ARN, but
     -- not both.
     ruleARN :: Prelude.Maybe Prelude.Text,
+    -- | The name of the sampling rule. Specify a rule by either name or ARN, but
+    -- not both.
+    ruleName :: Prelude.Maybe Prelude.Text,
     -- | Matches the ARN of the Amazon Web Services resource on which the service
     -- runs.
     resourceARN :: Prelude.Text,
@@ -74,12 +75,12 @@ data SamplingRule = SamplingRule'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ruleName', 'samplingRule_ruleName' - The name of the sampling rule. Specify a rule by either name or ARN, but
--- not both.
---
 -- 'attributes', 'samplingRule_attributes' - Matches attributes derived from the request.
 --
 -- 'ruleARN', 'samplingRule_ruleARN' - The ARN of the sampling rule. Specify a rule by either name or ARN, but
+-- not both.
+--
+-- 'ruleName', 'samplingRule_ruleName' - The name of the sampling rule. Specify a rule by either name or ARN, but
 -- not both.
 --
 -- 'resourceARN', 'samplingRule_resourceARN' - Matches the ARN of the Amazon Web Services resource on which the service
@@ -140,9 +141,9 @@ newSamplingRule
   pURLPath_
   pVersion_ =
     SamplingRule'
-      { ruleName = Prelude.Nothing,
-        attributes = Prelude.Nothing,
+      { attributes = Prelude.Nothing,
         ruleARN = Prelude.Nothing,
+        ruleName = Prelude.Nothing,
         resourceARN = pResourceARN_,
         priority = pPriority_,
         fixedRate = pFixedRate_,
@@ -155,11 +156,6 @@ newSamplingRule
         version = pVersion_
       }
 
--- | The name of the sampling rule. Specify a rule by either name or ARN, but
--- not both.
-samplingRule_ruleName :: Lens.Lens' SamplingRule (Prelude.Maybe Prelude.Text)
-samplingRule_ruleName = Lens.lens (\SamplingRule' {ruleName} -> ruleName) (\s@SamplingRule' {} a -> s {ruleName = a} :: SamplingRule)
-
 -- | Matches attributes derived from the request.
 samplingRule_attributes :: Lens.Lens' SamplingRule (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 samplingRule_attributes = Lens.lens (\SamplingRule' {attributes} -> attributes) (\s@SamplingRule' {} a -> s {attributes = a} :: SamplingRule) Prelude.. Lens.mapping Lens.coerced
@@ -168,6 +164,11 @@ samplingRule_attributes = Lens.lens (\SamplingRule' {attributes} -> attributes) 
 -- not both.
 samplingRule_ruleARN :: Lens.Lens' SamplingRule (Prelude.Maybe Prelude.Text)
 samplingRule_ruleARN = Lens.lens (\SamplingRule' {ruleARN} -> ruleARN) (\s@SamplingRule' {} a -> s {ruleARN = a} :: SamplingRule)
+
+-- | The name of the sampling rule. Specify a rule by either name or ARN, but
+-- not both.
+samplingRule_ruleName :: Lens.Lens' SamplingRule (Prelude.Maybe Prelude.Text)
+samplingRule_ruleName = Lens.lens (\SamplingRule' {ruleName} -> ruleName) (\s@SamplingRule' {} a -> s {ruleName = a} :: SamplingRule)
 
 -- | Matches the ARN of the Amazon Web Services resource on which the service
 -- runs.
@@ -214,32 +215,32 @@ samplingRule_uRLPath = Lens.lens (\SamplingRule' {uRLPath} -> uRLPath) (\s@Sampl
 samplingRule_version :: Lens.Lens' SamplingRule Prelude.Natural
 samplingRule_version = Lens.lens (\SamplingRule' {version} -> version) (\s@SamplingRule' {} a -> s {version = a} :: SamplingRule)
 
-instance Core.FromJSON SamplingRule where
+instance Data.FromJSON SamplingRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SamplingRule"
       ( \x ->
           SamplingRule'
-            Prelude.<$> (x Core..:? "RuleName")
-            Prelude.<*> (x Core..:? "Attributes" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "RuleARN")
-            Prelude.<*> (x Core..: "ResourceARN")
-            Prelude.<*> (x Core..: "Priority")
-            Prelude.<*> (x Core..: "FixedRate")
-            Prelude.<*> (x Core..: "ReservoirSize")
-            Prelude.<*> (x Core..: "ServiceName")
-            Prelude.<*> (x Core..: "ServiceType")
-            Prelude.<*> (x Core..: "Host")
-            Prelude.<*> (x Core..: "HTTPMethod")
-            Prelude.<*> (x Core..: "URLPath")
-            Prelude.<*> (x Core..: "Version")
+            Prelude.<$> (x Data..:? "Attributes" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "RuleARN")
+            Prelude.<*> (x Data..:? "RuleName")
+            Prelude.<*> (x Data..: "ResourceARN")
+            Prelude.<*> (x Data..: "Priority")
+            Prelude.<*> (x Data..: "FixedRate")
+            Prelude.<*> (x Data..: "ReservoirSize")
+            Prelude.<*> (x Data..: "ServiceName")
+            Prelude.<*> (x Data..: "ServiceType")
+            Prelude.<*> (x Data..: "Host")
+            Prelude.<*> (x Data..: "HTTPMethod")
+            Prelude.<*> (x Data..: "URLPath")
+            Prelude.<*> (x Data..: "Version")
       )
 
 instance Prelude.Hashable SamplingRule where
   hashWithSalt _salt SamplingRule' {..} =
-    _salt `Prelude.hashWithSalt` ruleName
-      `Prelude.hashWithSalt` attributes
+    _salt `Prelude.hashWithSalt` attributes
       `Prelude.hashWithSalt` ruleARN
+      `Prelude.hashWithSalt` ruleName
       `Prelude.hashWithSalt` resourceARN
       `Prelude.hashWithSalt` priority
       `Prelude.hashWithSalt` fixedRate
@@ -253,9 +254,9 @@ instance Prelude.Hashable SamplingRule where
 
 instance Prelude.NFData SamplingRule where
   rnf SamplingRule' {..} =
-    Prelude.rnf ruleName
-      `Prelude.seq` Prelude.rnf attributes
+    Prelude.rnf attributes
       `Prelude.seq` Prelude.rnf ruleARN
+      `Prelude.seq` Prelude.rnf ruleName
       `Prelude.seq` Prelude.rnf resourceARN
       `Prelude.seq` Prelude.rnf priority
       `Prelude.seq` Prelude.rnf fixedRate
@@ -267,22 +268,22 @@ instance Prelude.NFData SamplingRule where
       `Prelude.seq` Prelude.rnf uRLPath
       `Prelude.seq` Prelude.rnf version
 
-instance Core.ToJSON SamplingRule where
+instance Data.ToJSON SamplingRule where
   toJSON SamplingRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RuleName" Core..=) Prelude.<$> ruleName,
-            ("Attributes" Core..=) Prelude.<$> attributes,
-            ("RuleARN" Core..=) Prelude.<$> ruleARN,
-            Prelude.Just ("ResourceARN" Core..= resourceARN),
-            Prelude.Just ("Priority" Core..= priority),
-            Prelude.Just ("FixedRate" Core..= fixedRate),
-            Prelude.Just ("ReservoirSize" Core..= reservoirSize),
-            Prelude.Just ("ServiceName" Core..= serviceName),
-            Prelude.Just ("ServiceType" Core..= serviceType),
-            Prelude.Just ("Host" Core..= host),
-            Prelude.Just ("HTTPMethod" Core..= hTTPMethod),
-            Prelude.Just ("URLPath" Core..= uRLPath),
-            Prelude.Just ("Version" Core..= version)
+          [ ("Attributes" Data..=) Prelude.<$> attributes,
+            ("RuleARN" Data..=) Prelude.<$> ruleARN,
+            ("RuleName" Data..=) Prelude.<$> ruleName,
+            Prelude.Just ("ResourceARN" Data..= resourceARN),
+            Prelude.Just ("Priority" Data..= priority),
+            Prelude.Just ("FixedRate" Data..= fixedRate),
+            Prelude.Just ("ReservoirSize" Data..= reservoirSize),
+            Prelude.Just ("ServiceName" Data..= serviceName),
+            Prelude.Just ("ServiceType" Data..= serviceType),
+            Prelude.Just ("Host" Data..= host),
+            Prelude.Just ("HTTPMethod" Data..= hTTPMethod),
+            Prelude.Just ("URLPath" Data..= uRLPath),
+            Prelude.Just ("Version" Data..= version)
           ]
       )

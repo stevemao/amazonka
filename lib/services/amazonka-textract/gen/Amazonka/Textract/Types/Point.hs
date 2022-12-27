@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Textract.Types.Point
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Textract.Types.Point where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The X and Y coordinates of a point on a document page. The X and Y
@@ -67,13 +68,13 @@ point_x = Lens.lens (\Point' {x} -> x) (\s@Point' {} a -> s {x = a} :: Point)
 point_y :: Lens.Lens' Point (Prelude.Maybe Prelude.Double)
 point_y = Lens.lens (\Point' {y} -> y) (\s@Point' {} a -> s {y = a} :: Point)
 
-instance Core.FromJSON Point where
+instance Data.FromJSON Point where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Point"
       ( \x ->
           Point'
-            Prelude.<$> (x Core..:? "X") Prelude.<*> (x Core..:? "Y")
+            Prelude.<$> (x Data..:? "X") Prelude.<*> (x Data..:? "Y")
       )
 
 instance Prelude.Hashable Point where

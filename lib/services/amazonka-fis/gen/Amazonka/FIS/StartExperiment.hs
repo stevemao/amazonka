@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FIS.StartExperiment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.FIS.StartExperiment
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FIS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,12 +107,13 @@ instance Core.AWSRequest StartExperiment where
   type
     AWSResponse StartExperiment =
       StartExperimentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartExperimentResponse'
-            Prelude.<$> (x Core..?> "experiment")
+            Prelude.<$> (x Data..?> "experiment")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -127,34 +129,34 @@ instance Prelude.NFData StartExperiment where
       `Prelude.seq` Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf experimentTemplateId
 
-instance Core.ToHeaders StartExperiment where
+instance Data.ToHeaders StartExperiment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartExperiment where
+instance Data.ToJSON StartExperiment where
   toJSON StartExperiment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("clientToken" Core..= clientToken),
+          [ ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("clientToken" Data..= clientToken),
             Prelude.Just
               ( "experimentTemplateId"
-                  Core..= experimentTemplateId
+                  Data..= experimentTemplateId
               )
           ]
       )
 
-instance Core.ToPath StartExperiment where
+instance Data.ToPath StartExperiment where
   toPath = Prelude.const "/experiments"
 
-instance Core.ToQuery StartExperiment where
+instance Data.ToQuery StartExperiment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartExperimentResponse' smart constructor.

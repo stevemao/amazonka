@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.Types.EnabledServicePrincipal
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,22 @@
 module Amazonka.Organizations.Types.EnabledServicePrincipal where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure that contains details of a service principal that represents
--- an AWS service that is enabled to integrate with AWS Organizations.
+-- an Amazon Web Services service that is enabled to integrate with
+-- Organizations.
 --
 -- /See:/ 'newEnabledServicePrincipal' smart constructor.
 data EnabledServicePrincipal = EnabledServicePrincipal'
-  { -- | The name of the service principal. This is typically in the form of a
-    -- URL, such as: @ servicename.amazonaws.com@.
-    servicePrincipal :: Prelude.Maybe Prelude.Text,
-    -- | The date that the service principal was enabled for integration with AWS
+  { -- | The date that the service principal was enabled for integration with
     -- Organizations.
-    dateEnabled :: Prelude.Maybe Core.POSIX
+    dateEnabled :: Prelude.Maybe Data.POSIX,
+    -- | The name of the service principal. This is typically in the form of a
+    -- URL, such as: @ servicename.amazonaws.com@.
+    servicePrincipal :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,46 +47,46 @@ data EnabledServicePrincipal = EnabledServicePrincipal'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dateEnabled', 'enabledServicePrincipal_dateEnabled' - The date that the service principal was enabled for integration with
+-- Organizations.
+--
 -- 'servicePrincipal', 'enabledServicePrincipal_servicePrincipal' - The name of the service principal. This is typically in the form of a
 -- URL, such as: @ servicename.amazonaws.com@.
---
--- 'dateEnabled', 'enabledServicePrincipal_dateEnabled' - The date that the service principal was enabled for integration with AWS
--- Organizations.
 newEnabledServicePrincipal ::
   EnabledServicePrincipal
 newEnabledServicePrincipal =
   EnabledServicePrincipal'
-    { servicePrincipal =
+    { dateEnabled =
         Prelude.Nothing,
-      dateEnabled = Prelude.Nothing
+      servicePrincipal = Prelude.Nothing
     }
+
+-- | The date that the service principal was enabled for integration with
+-- Organizations.
+enabledServicePrincipal_dateEnabled :: Lens.Lens' EnabledServicePrincipal (Prelude.Maybe Prelude.UTCTime)
+enabledServicePrincipal_dateEnabled = Lens.lens (\EnabledServicePrincipal' {dateEnabled} -> dateEnabled) (\s@EnabledServicePrincipal' {} a -> s {dateEnabled = a} :: EnabledServicePrincipal) Prelude.. Lens.mapping Data._Time
 
 -- | The name of the service principal. This is typically in the form of a
 -- URL, such as: @ servicename.amazonaws.com@.
 enabledServicePrincipal_servicePrincipal :: Lens.Lens' EnabledServicePrincipal (Prelude.Maybe Prelude.Text)
 enabledServicePrincipal_servicePrincipal = Lens.lens (\EnabledServicePrincipal' {servicePrincipal} -> servicePrincipal) (\s@EnabledServicePrincipal' {} a -> s {servicePrincipal = a} :: EnabledServicePrincipal)
 
--- | The date that the service principal was enabled for integration with AWS
--- Organizations.
-enabledServicePrincipal_dateEnabled :: Lens.Lens' EnabledServicePrincipal (Prelude.Maybe Prelude.UTCTime)
-enabledServicePrincipal_dateEnabled = Lens.lens (\EnabledServicePrincipal' {dateEnabled} -> dateEnabled) (\s@EnabledServicePrincipal' {} a -> s {dateEnabled = a} :: EnabledServicePrincipal) Prelude.. Lens.mapping Core._Time
-
-instance Core.FromJSON EnabledServicePrincipal where
+instance Data.FromJSON EnabledServicePrincipal where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EnabledServicePrincipal"
       ( \x ->
           EnabledServicePrincipal'
-            Prelude.<$> (x Core..:? "ServicePrincipal")
-            Prelude.<*> (x Core..:? "DateEnabled")
+            Prelude.<$> (x Data..:? "DateEnabled")
+            Prelude.<*> (x Data..:? "ServicePrincipal")
       )
 
 instance Prelude.Hashable EnabledServicePrincipal where
   hashWithSalt _salt EnabledServicePrincipal' {..} =
-    _salt `Prelude.hashWithSalt` servicePrincipal
-      `Prelude.hashWithSalt` dateEnabled
+    _salt `Prelude.hashWithSalt` dateEnabled
+      `Prelude.hashWithSalt` servicePrincipal
 
 instance Prelude.NFData EnabledServicePrincipal where
   rnf EnabledServicePrincipal' {..} =
-    Prelude.rnf servicePrincipal
-      `Prelude.seq` Prelude.rnf dateEnabled
+    Prelude.rnf dateEnabled
+      `Prelude.seq` Prelude.rnf servicePrincipal

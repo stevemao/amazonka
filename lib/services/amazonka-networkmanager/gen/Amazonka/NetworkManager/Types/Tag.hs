@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkManager.Types.Tag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,22 @@
 module Amazonka.NetworkManager.Types.Tag where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a tag.
 --
 -- /See:/ 'newTag' smart constructor.
 data Tag = Tag'
-  { -- | The tag value.
+  { -- | The tag key.
     --
-    -- Length Constraints: Maximum length of 256 characters.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The tag key.
+    -- Constraints: Maximum length of 128 characters.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The tag value.
     --
-    -- Length Constraints: Maximum length of 128 characters.
-    key :: Prelude.Maybe Prelude.Text
+    -- Constraints: Maximum length of 256 characters.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,56 +47,56 @@ data Tag = Tag'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'tag_value' - The tag value.
---
--- Length Constraints: Maximum length of 256 characters.
---
 -- 'key', 'tag_key' - The tag key.
 --
--- Length Constraints: Maximum length of 128 characters.
+-- Constraints: Maximum length of 128 characters.
+--
+-- 'value', 'tag_value' - The tag value.
+--
+-- Constraints: Maximum length of 256 characters.
 newTag ::
   Tag
 newTag =
   Tag'
-    { value = Prelude.Nothing,
-      key = Prelude.Nothing
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The tag value.
---
--- Length Constraints: Maximum length of 256 characters.
-tag_value :: Lens.Lens' Tag (Prelude.Maybe Prelude.Text)
-tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
 
 -- | The tag key.
 --
--- Length Constraints: Maximum length of 128 characters.
+-- Constraints: Maximum length of 128 characters.
 tag_key :: Lens.Lens' Tag (Prelude.Maybe Prelude.Text)
 tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 
-instance Core.FromJSON Tag where
+-- | The tag value.
+--
+-- Constraints: Maximum length of 256 characters.
+tag_value :: Lens.Lens' Tag (Prelude.Maybe Prelude.Text)
+tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
+
+instance Data.FromJSON Tag where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Tag"
       ( \x ->
           Tag'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Key")
+            Prelude.<$> (x Data..:? "Key") Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable Tag where
   hashWithSalt _salt Tag' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` key
+    _salt `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData Tag where
   rnf Tag' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON Tag where
+instance Data.ToJSON Tag where
   toJSON Tag' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Key" Core..=) Prelude.<$> key
+          [ ("Key" Data..=) Prelude.<$> key,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

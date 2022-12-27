@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.Types.VaultNotificationConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.Glacier.Types.VaultNotificationConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a vault\'s notification configuration.
 --
 -- /See:/ 'newVaultNotificationConfig' smart constructor.
 data VaultNotificationConfig = VaultNotificationConfig'
-  { -- | The Amazon Simple Notification Service (Amazon SNS) topic Amazon
-    -- Resource Name (ARN).
-    sNSTopic :: Prelude.Maybe Prelude.Text,
-    -- | A list of one or more events for which Amazon S3 Glacier will send a
+  { -- | A list of one or more events for which Amazon S3 Glacier will send a
     -- notification to the specified Amazon SNS topic.
-    events :: Prelude.Maybe [Prelude.Text]
+    events :: Prelude.Maybe [Prelude.Text],
+    -- | The Amazon Simple Notification Service (Amazon SNS) topic Amazon
+    -- Resource Name (ARN).
+    sNSTopic :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,55 +45,54 @@ data VaultNotificationConfig = VaultNotificationConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sNSTopic', 'vaultNotificationConfig_sNSTopic' - The Amazon Simple Notification Service (Amazon SNS) topic Amazon
--- Resource Name (ARN).
---
 -- 'events', 'vaultNotificationConfig_events' - A list of one or more events for which Amazon S3 Glacier will send a
 -- notification to the specified Amazon SNS topic.
+--
+-- 'sNSTopic', 'vaultNotificationConfig_sNSTopic' - The Amazon Simple Notification Service (Amazon SNS) topic Amazon
+-- Resource Name (ARN).
 newVaultNotificationConfig ::
   VaultNotificationConfig
 newVaultNotificationConfig =
   VaultNotificationConfig'
-    { sNSTopic =
-        Prelude.Nothing,
-      events = Prelude.Nothing
+    { events = Prelude.Nothing,
+      sNSTopic = Prelude.Nothing
     }
-
--- | The Amazon Simple Notification Service (Amazon SNS) topic Amazon
--- Resource Name (ARN).
-vaultNotificationConfig_sNSTopic :: Lens.Lens' VaultNotificationConfig (Prelude.Maybe Prelude.Text)
-vaultNotificationConfig_sNSTopic = Lens.lens (\VaultNotificationConfig' {sNSTopic} -> sNSTopic) (\s@VaultNotificationConfig' {} a -> s {sNSTopic = a} :: VaultNotificationConfig)
 
 -- | A list of one or more events for which Amazon S3 Glacier will send a
 -- notification to the specified Amazon SNS topic.
 vaultNotificationConfig_events :: Lens.Lens' VaultNotificationConfig (Prelude.Maybe [Prelude.Text])
 vaultNotificationConfig_events = Lens.lens (\VaultNotificationConfig' {events} -> events) (\s@VaultNotificationConfig' {} a -> s {events = a} :: VaultNotificationConfig) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON VaultNotificationConfig where
+-- | The Amazon Simple Notification Service (Amazon SNS) topic Amazon
+-- Resource Name (ARN).
+vaultNotificationConfig_sNSTopic :: Lens.Lens' VaultNotificationConfig (Prelude.Maybe Prelude.Text)
+vaultNotificationConfig_sNSTopic = Lens.lens (\VaultNotificationConfig' {sNSTopic} -> sNSTopic) (\s@VaultNotificationConfig' {} a -> s {sNSTopic = a} :: VaultNotificationConfig)
+
+instance Data.FromJSON VaultNotificationConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VaultNotificationConfig"
       ( \x ->
           VaultNotificationConfig'
-            Prelude.<$> (x Core..:? "SNSTopic")
-            Prelude.<*> (x Core..:? "Events" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Events" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "SNSTopic")
       )
 
 instance Prelude.Hashable VaultNotificationConfig where
   hashWithSalt _salt VaultNotificationConfig' {..} =
-    _salt `Prelude.hashWithSalt` sNSTopic
-      `Prelude.hashWithSalt` events
+    _salt `Prelude.hashWithSalt` events
+      `Prelude.hashWithSalt` sNSTopic
 
 instance Prelude.NFData VaultNotificationConfig where
   rnf VaultNotificationConfig' {..} =
-    Prelude.rnf sNSTopic
-      `Prelude.seq` Prelude.rnf events
+    Prelude.rnf events
+      `Prelude.seq` Prelude.rnf sNSTopic
 
-instance Core.ToJSON VaultNotificationConfig where
+instance Data.ToJSON VaultNotificationConfig where
   toJSON VaultNotificationConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SNSTopic" Core..=) Prelude.<$> sNSTopic,
-            ("Events" Core..=) Prelude.<$> events
+          [ ("Events" Data..=) Prelude.<$> events,
+            ("SNSTopic" Data..=) Prelude.<$> sNSTopic
           ]
       )

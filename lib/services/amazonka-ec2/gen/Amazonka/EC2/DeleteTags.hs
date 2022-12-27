@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,7 @@
 --
 -- To list the current tags, use DescribeTags. For more information about
 -- tags, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html Tagging Your Resources>
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Tags.html Tag your Amazon EC2 resources>
 -- in the /Amazon Elastic Compute Cloud User Guide/.
 module Amazonka.EC2.DeleteTags
   ( -- * Creating a Request
@@ -43,8 +43,9 @@ module Amazonka.EC2.DeleteTags
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,6 +66,8 @@ data DeleteTags = DeleteTags'
     -- If you omit this parameter, we delete all user-defined tags for the
     -- specified resources. We do not delete Amazon Web Services-generated tags
     -- (tags that have the @aws:@ prefix).
+    --
+    -- Constraints: Up to 1000 tags.
     tags :: Prelude.Maybe [Tag],
     -- | The IDs of the resources, separated by spaces.
     --
@@ -97,6 +100,8 @@ data DeleteTags = DeleteTags'
 -- specified resources. We do not delete Amazon Web Services-generated tags
 -- (tags that have the @aws:@ prefix).
 --
+-- Constraints: Up to 1000 tags.
+--
 -- 'resources', 'deleteTags_resources' - The IDs of the resources, separated by spaces.
 --
 -- Constraints: Up to 1000 resource IDs. We recommend breaking up this
@@ -126,6 +131,8 @@ deleteTags_dryRun = Lens.lens (\DeleteTags' {dryRun} -> dryRun) (\s@DeleteTags' 
 -- If you omit this parameter, we delete all user-defined tags for the
 -- specified resources. We do not delete Amazon Web Services-generated tags
 -- (tags that have the @aws:@ prefix).
+--
+-- Constraints: Up to 1000 tags.
 deleteTags_tags :: Lens.Lens' DeleteTags (Prelude.Maybe [Tag])
 deleteTags_tags = Lens.lens (\DeleteTags' {tags} -> tags) (\s@DeleteTags' {} a -> s {tags = a} :: DeleteTags) Prelude.. Lens.mapping Lens.coerced
 
@@ -138,7 +145,8 @@ deleteTags_resources = Lens.lens (\DeleteTags' {resources} -> resources) (\s@Del
 
 instance Core.AWSRequest DeleteTags where
   type AWSResponse DeleteTags = DeleteTagsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response = Response.receiveNull DeleteTagsResponse'
 
 instance Prelude.Hashable DeleteTags where
@@ -153,23 +161,23 @@ instance Prelude.NFData DeleteTags where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf resources
 
-instance Core.ToHeaders DeleteTags where
+instance Data.ToHeaders DeleteTags where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteTags where
+instance Data.ToPath DeleteTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteTags where
+instance Data.ToQuery DeleteTags where
   toQuery DeleteTags' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteTags" :: Prelude.ByteString),
+          Data.=: ("DeleteTags" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        Core.toQuery
-          (Core.toQueryList "Tag" Prelude.<$> tags),
-        Core.toQueryList "ResourceId" resources
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Tag" Prelude.<$> tags),
+        Data.toQueryList "ResourceId" resources
       ]
 
 -- | /See:/ 'newDeleteTagsResponse' smart constructor.

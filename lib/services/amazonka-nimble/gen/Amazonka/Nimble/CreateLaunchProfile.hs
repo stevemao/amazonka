@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.CreateLaunchProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,11 +31,11 @@ module Amazonka.Nimble.CreateLaunchProfile
     createLaunchProfile_description,
     createLaunchProfile_tags,
     createLaunchProfile_ec2SubnetIds,
-    createLaunchProfile_studioComponentIds,
-    createLaunchProfile_studioId,
     createLaunchProfile_launchProfileProtocolVersions,
     createLaunchProfile_name,
     createLaunchProfile_streamConfiguration,
+    createLaunchProfile_studioComponentIds,
+    createLaunchProfile_studioId,
 
     -- * Destructuring the Response
     CreateLaunchProfileResponse (..),
@@ -48,45 +48,43 @@ module Amazonka.Nimble.CreateLaunchProfile
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | A collection of launch profiles.
---
--- /See:/ 'newCreateLaunchProfile' smart constructor.
+-- | /See:/ 'newCreateLaunchProfile' smart constructor.
 data CreateLaunchProfile = CreateLaunchProfile'
-  { -- | To make an idempotent API request using one of these actions, specify a
-    -- client token in the request. You should not reuse the same client token
-    -- for other API requests. If you retry a request that completed
-    -- successfully using the same client token and the same parameters, the
-    -- retry succeeds without performing any further actions. If you retry a
-    -- successful request using the same client token, but one or more of the
-    -- parameters are different, the retry fails with a ValidationException
-    -- error.
+  { -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. If you don’t specify a client token, the AWS
+    -- SDK automatically generates a client token and uses it for the request
+    -- to ensure idempotency.
     clientToken :: Prelude.Maybe Prelude.Text,
     -- | The description.
-    description :: Prelude.Maybe Prelude.Text,
+    description :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | A collection of labels, in the form of key:value pairs, that apply to
     -- this resource.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | Specifies the IDs of the EC2 subnets where streaming sessions will be
+    -- accessible from. These subnets must support the specified instance
+    -- types.
     ec2SubnetIds :: [Prelude.Text],
-    -- | Unique identifiers for a collection of studio components that can be
-    -- used with this launch profile.
-    studioComponentIds :: Prelude.NonEmpty Prelude.Text,
-    -- | The studio ID.
-    studioId :: Prelude.Text,
     -- | The version number of the protocol that is used by the launch profile.
     -- The only valid version is \"2021-03-31\".
     launchProfileProtocolVersions :: [Prelude.Text],
     -- | The name for the launch profile.
-    name :: Prelude.Text,
+    name :: Data.Sensitive Prelude.Text,
     -- | A configuration for a streaming session.
-    streamConfiguration :: StreamConfigurationCreate
+    streamConfiguration :: StreamConfigurationCreate,
+    -- | Unique identifiers for a collection of studio components that can be
+    -- used with this launch profile.
+    studioComponentIds :: Prelude.NonEmpty Prelude.Text,
+    -- | The studio ID.
+    studioId :: Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'CreateLaunchProfile' with all optional fields omitted.
@@ -96,26 +94,19 @@ data CreateLaunchProfile = CreateLaunchProfile'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'createLaunchProfile_clientToken' - To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- 'clientToken', 'createLaunchProfile_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 --
 -- 'description', 'createLaunchProfile_description' - The description.
 --
 -- 'tags', 'createLaunchProfile_tags' - A collection of labels, in the form of key:value pairs, that apply to
 -- this resource.
 --
--- 'ec2SubnetIds', 'createLaunchProfile_ec2SubnetIds' -
---
--- 'studioComponentIds', 'createLaunchProfile_studioComponentIds' - Unique identifiers for a collection of studio components that can be
--- used with this launch profile.
---
--- 'studioId', 'createLaunchProfile_studioId' - The studio ID.
+-- 'ec2SubnetIds', 'createLaunchProfile_ec2SubnetIds' - Specifies the IDs of the EC2 subnets where streaming sessions will be
+-- accessible from. These subnets must support the specified instance
+-- types.
 --
 -- 'launchProfileProtocolVersions', 'createLaunchProfile_launchProfileProtocolVersions' - The version number of the protocol that is used by the launch profile.
 -- The only valid version is \"2021-03-31\".
@@ -123,57 +114,73 @@ data CreateLaunchProfile = CreateLaunchProfile'
 -- 'name', 'createLaunchProfile_name' - The name for the launch profile.
 --
 -- 'streamConfiguration', 'createLaunchProfile_streamConfiguration' - A configuration for a streaming session.
+--
+-- 'studioComponentIds', 'createLaunchProfile_studioComponentIds' - Unique identifiers for a collection of studio components that can be
+-- used with this launch profile.
+--
+-- 'studioId', 'createLaunchProfile_studioId' - The studio ID.
 newCreateLaunchProfile ::
-  -- | 'studioComponentIds'
-  Prelude.NonEmpty Prelude.Text ->
-  -- | 'studioId'
-  Prelude.Text ->
   -- | 'name'
   Prelude.Text ->
   -- | 'streamConfiguration'
   StreamConfigurationCreate ->
+  -- | 'studioComponentIds'
+  Prelude.NonEmpty Prelude.Text ->
+  -- | 'studioId'
+  Prelude.Text ->
   CreateLaunchProfile
 newCreateLaunchProfile
-  pStudioComponentIds_
-  pStudioId_
   pName_
-  pStreamConfiguration_ =
+  pStreamConfiguration_
+  pStudioComponentIds_
+  pStudioId_ =
     CreateLaunchProfile'
       { clientToken = Prelude.Nothing,
         description = Prelude.Nothing,
         tags = Prelude.Nothing,
         ec2SubnetIds = Prelude.mempty,
+        launchProfileProtocolVersions = Prelude.mempty,
+        name = Data._Sensitive Lens.# pName_,
+        streamConfiguration = pStreamConfiguration_,
         studioComponentIds =
           Lens.coerced Lens.# pStudioComponentIds_,
-        studioId = pStudioId_,
-        launchProfileProtocolVersions = Prelude.mempty,
-        name = pName_,
-        streamConfiguration = pStreamConfiguration_
+        studioId = pStudioId_
       }
 
--- | To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 createLaunchProfile_clientToken :: Lens.Lens' CreateLaunchProfile (Prelude.Maybe Prelude.Text)
 createLaunchProfile_clientToken = Lens.lens (\CreateLaunchProfile' {clientToken} -> clientToken) (\s@CreateLaunchProfile' {} a -> s {clientToken = a} :: CreateLaunchProfile)
 
 -- | The description.
 createLaunchProfile_description :: Lens.Lens' CreateLaunchProfile (Prelude.Maybe Prelude.Text)
-createLaunchProfile_description = Lens.lens (\CreateLaunchProfile' {description} -> description) (\s@CreateLaunchProfile' {} a -> s {description = a} :: CreateLaunchProfile)
+createLaunchProfile_description = Lens.lens (\CreateLaunchProfile' {description} -> description) (\s@CreateLaunchProfile' {} a -> s {description = a} :: CreateLaunchProfile) Prelude.. Lens.mapping Data._Sensitive
 
 -- | A collection of labels, in the form of key:value pairs, that apply to
 -- this resource.
 createLaunchProfile_tags :: Lens.Lens' CreateLaunchProfile (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createLaunchProfile_tags = Lens.lens (\CreateLaunchProfile' {tags} -> tags) (\s@CreateLaunchProfile' {} a -> s {tags = a} :: CreateLaunchProfile) Prelude.. Lens.mapping Lens.coerced
 
--- |
+-- | Specifies the IDs of the EC2 subnets where streaming sessions will be
+-- accessible from. These subnets must support the specified instance
+-- types.
 createLaunchProfile_ec2SubnetIds :: Lens.Lens' CreateLaunchProfile [Prelude.Text]
 createLaunchProfile_ec2SubnetIds = Lens.lens (\CreateLaunchProfile' {ec2SubnetIds} -> ec2SubnetIds) (\s@CreateLaunchProfile' {} a -> s {ec2SubnetIds = a} :: CreateLaunchProfile) Prelude.. Lens.coerced
+
+-- | The version number of the protocol that is used by the launch profile.
+-- The only valid version is \"2021-03-31\".
+createLaunchProfile_launchProfileProtocolVersions :: Lens.Lens' CreateLaunchProfile [Prelude.Text]
+createLaunchProfile_launchProfileProtocolVersions = Lens.lens (\CreateLaunchProfile' {launchProfileProtocolVersions} -> launchProfileProtocolVersions) (\s@CreateLaunchProfile' {} a -> s {launchProfileProtocolVersions = a} :: CreateLaunchProfile) Prelude.. Lens.coerced
+
+-- | The name for the launch profile.
+createLaunchProfile_name :: Lens.Lens' CreateLaunchProfile Prelude.Text
+createLaunchProfile_name = Lens.lens (\CreateLaunchProfile' {name} -> name) (\s@CreateLaunchProfile' {} a -> s {name = a} :: CreateLaunchProfile) Prelude.. Data._Sensitive
+
+-- | A configuration for a streaming session.
+createLaunchProfile_streamConfiguration :: Lens.Lens' CreateLaunchProfile StreamConfigurationCreate
+createLaunchProfile_streamConfiguration = Lens.lens (\CreateLaunchProfile' {streamConfiguration} -> streamConfiguration) (\s@CreateLaunchProfile' {} a -> s {streamConfiguration = a} :: CreateLaunchProfile)
 
 -- | Unique identifiers for a collection of studio components that can be
 -- used with this launch profile.
@@ -184,29 +191,17 @@ createLaunchProfile_studioComponentIds = Lens.lens (\CreateLaunchProfile' {studi
 createLaunchProfile_studioId :: Lens.Lens' CreateLaunchProfile Prelude.Text
 createLaunchProfile_studioId = Lens.lens (\CreateLaunchProfile' {studioId} -> studioId) (\s@CreateLaunchProfile' {} a -> s {studioId = a} :: CreateLaunchProfile)
 
--- | The version number of the protocol that is used by the launch profile.
--- The only valid version is \"2021-03-31\".
-createLaunchProfile_launchProfileProtocolVersions :: Lens.Lens' CreateLaunchProfile [Prelude.Text]
-createLaunchProfile_launchProfileProtocolVersions = Lens.lens (\CreateLaunchProfile' {launchProfileProtocolVersions} -> launchProfileProtocolVersions) (\s@CreateLaunchProfile' {} a -> s {launchProfileProtocolVersions = a} :: CreateLaunchProfile) Prelude.. Lens.coerced
-
--- | The name for the launch profile.
-createLaunchProfile_name :: Lens.Lens' CreateLaunchProfile Prelude.Text
-createLaunchProfile_name = Lens.lens (\CreateLaunchProfile' {name} -> name) (\s@CreateLaunchProfile' {} a -> s {name = a} :: CreateLaunchProfile)
-
--- | A configuration for a streaming session.
-createLaunchProfile_streamConfiguration :: Lens.Lens' CreateLaunchProfile StreamConfigurationCreate
-createLaunchProfile_streamConfiguration = Lens.lens (\CreateLaunchProfile' {streamConfiguration} -> streamConfiguration) (\s@CreateLaunchProfile' {} a -> s {streamConfiguration = a} :: CreateLaunchProfile)
-
 instance Core.AWSRequest CreateLaunchProfile where
   type
     AWSResponse CreateLaunchProfile =
       CreateLaunchProfileResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateLaunchProfileResponse'
-            Prelude.<$> (x Core..?> "launchProfile")
+            Prelude.<$> (x Data..?> "launchProfile")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -216,11 +211,11 @@ instance Prelude.Hashable CreateLaunchProfile where
       `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` ec2SubnetIds
-      `Prelude.hashWithSalt` studioComponentIds
-      `Prelude.hashWithSalt` studioId
       `Prelude.hashWithSalt` launchProfileProtocolVersions
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` streamConfiguration
+      `Prelude.hashWithSalt` studioComponentIds
+      `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData CreateLaunchProfile where
   rnf CreateLaunchProfile' {..} =
@@ -228,48 +223,48 @@ instance Prelude.NFData CreateLaunchProfile where
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf ec2SubnetIds
-      `Prelude.seq` Prelude.rnf studioComponentIds
-      `Prelude.seq` Prelude.rnf studioId
       `Prelude.seq` Prelude.rnf launchProfileProtocolVersions
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf streamConfiguration
+      `Prelude.seq` Prelude.rnf studioComponentIds
+      `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders CreateLaunchProfile where
+instance Data.ToHeaders CreateLaunchProfile where
   toHeaders CreateLaunchProfile' {..} =
     Prelude.mconcat
-      [ "X-Amz-Client-Token" Core.=# clientToken,
+      [ "X-Amz-Client-Token" Data.=# clientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON CreateLaunchProfile where
+instance Data.ToJSON CreateLaunchProfile where
   toJSON CreateLaunchProfile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("ec2SubnetIds" Core..= ec2SubnetIds),
-            Prelude.Just
-              ("studioComponentIds" Core..= studioComponentIds),
+          [ ("description" Data..=) Prelude.<$> description,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("ec2SubnetIds" Data..= ec2SubnetIds),
             Prelude.Just
               ( "launchProfileProtocolVersions"
-                  Core..= launchProfileProtocolVersions
+                  Data..= launchProfileProtocolVersions
               ),
-            Prelude.Just ("name" Core..= name),
+            Prelude.Just ("name" Data..= name),
             Prelude.Just
-              ("streamConfiguration" Core..= streamConfiguration)
+              ("streamConfiguration" Data..= streamConfiguration),
+            Prelude.Just
+              ("studioComponentIds" Data..= studioComponentIds)
           ]
       )
 
-instance Core.ToPath CreateLaunchProfile where
+instance Data.ToPath CreateLaunchProfile where
   toPath CreateLaunchProfile' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/launch-profiles"
       ]
 
-instance Core.ToQuery CreateLaunchProfile where
+instance Data.ToQuery CreateLaunchProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateLaunchProfileResponse' smart constructor.
@@ -279,7 +274,7 @@ data CreateLaunchProfileResponse = CreateLaunchProfileResponse'
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'CreateLaunchProfileResponse' with all optional fields omitted.

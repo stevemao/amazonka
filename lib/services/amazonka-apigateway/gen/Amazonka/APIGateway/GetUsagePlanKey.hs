@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetUsagePlanKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,16 +35,17 @@ module Amazonka.APIGateway.GetUsagePlanKey
     newUsagePlanKey,
 
     -- * Response Lenses
-    usagePlanKey_value,
-    usagePlanKey_name,
     usagePlanKey_id,
+    usagePlanKey_name,
     usagePlanKey_type,
+    usagePlanKey_value,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,12 +54,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetUsagePlanKey' smart constructor.
 data GetUsagePlanKey = GetUsagePlanKey'
-  { -- | [Required] The Id of the UsagePlan resource representing the usage plan
-    -- containing the to-be-retrieved UsagePlanKey resource representing a plan
-    -- customer.
+  { -- | The Id of the UsagePlan resource representing the usage plan containing
+    -- the to-be-retrieved UsagePlanKey resource representing a plan customer.
     usagePlanId :: Prelude.Text,
-    -- | [Required] The key Id of the to-be-retrieved UsagePlanKey resource
-    -- representing a plan customer.
+    -- | The key Id of the to-be-retrieved UsagePlanKey resource representing a
+    -- plan customer.
     keyId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -71,12 +71,11 @@ data GetUsagePlanKey = GetUsagePlanKey'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'usagePlanId', 'getUsagePlanKey_usagePlanId' - [Required] The Id of the UsagePlan resource representing the usage plan
--- containing the to-be-retrieved UsagePlanKey resource representing a plan
--- customer.
+-- 'usagePlanId', 'getUsagePlanKey_usagePlanId' - The Id of the UsagePlan resource representing the usage plan containing
+-- the to-be-retrieved UsagePlanKey resource representing a plan customer.
 --
--- 'keyId', 'getUsagePlanKey_keyId' - [Required] The key Id of the to-be-retrieved UsagePlanKey resource
--- representing a plan customer.
+-- 'keyId', 'getUsagePlanKey_keyId' - The key Id of the to-be-retrieved UsagePlanKey resource representing a
+-- plan customer.
 newGetUsagePlanKey ::
   -- | 'usagePlanId'
   Prelude.Text ->
@@ -89,23 +88,23 @@ newGetUsagePlanKey pUsagePlanId_ pKeyId_ =
       keyId = pKeyId_
     }
 
--- | [Required] The Id of the UsagePlan resource representing the usage plan
--- containing the to-be-retrieved UsagePlanKey resource representing a plan
--- customer.
+-- | The Id of the UsagePlan resource representing the usage plan containing
+-- the to-be-retrieved UsagePlanKey resource representing a plan customer.
 getUsagePlanKey_usagePlanId :: Lens.Lens' GetUsagePlanKey Prelude.Text
 getUsagePlanKey_usagePlanId = Lens.lens (\GetUsagePlanKey' {usagePlanId} -> usagePlanId) (\s@GetUsagePlanKey' {} a -> s {usagePlanId = a} :: GetUsagePlanKey)
 
--- | [Required] The key Id of the to-be-retrieved UsagePlanKey resource
--- representing a plan customer.
+-- | The key Id of the to-be-retrieved UsagePlanKey resource representing a
+-- plan customer.
 getUsagePlanKey_keyId :: Lens.Lens' GetUsagePlanKey Prelude.Text
 getUsagePlanKey_keyId = Lens.lens (\GetUsagePlanKey' {keyId} -> keyId) (\s@GetUsagePlanKey' {} a -> s {keyId = a} :: GetUsagePlanKey)
 
 instance Core.AWSRequest GetUsagePlanKey where
   type AWSResponse GetUsagePlanKey = UsagePlanKey
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetUsagePlanKey where
   hashWithSalt _salt GetUsagePlanKey' {..} =
@@ -117,23 +116,23 @@ instance Prelude.NFData GetUsagePlanKey where
     Prelude.rnf usagePlanId
       `Prelude.seq` Prelude.rnf keyId
 
-instance Core.ToHeaders GetUsagePlanKey where
+instance Data.ToHeaders GetUsagePlanKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetUsagePlanKey where
+instance Data.ToPath GetUsagePlanKey where
   toPath GetUsagePlanKey' {..} =
     Prelude.mconcat
       [ "/usageplans/",
-        Core.toBS usagePlanId,
+        Data.toBS usagePlanId,
         "/keys/",
-        Core.toBS keyId
+        Data.toBS keyId
       ]
 
-instance Core.ToQuery GetUsagePlanKey where
+instance Data.ToQuery GetUsagePlanKey where
   toQuery = Prelude.const Prelude.mempty

@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -72,6 +72,7 @@ library
     Amazonka.QLDB.Types.LedgerEncryptionDescription
     Amazonka.QLDB.Types.LedgerState
     Amazonka.QLDB.Types.LedgerSummary
+    Amazonka.QLDB.Types.OutputFormat
     Amazonka.QLDB.Types.PermissionsMode
     Amazonka.QLDB.Types.S3EncryptionConfiguration
     Amazonka.QLDB.Types.S3ExportConfiguration
@@ -84,7 +85,7 @@ library
     Amazonka.QLDB.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-qldb-test
@@ -103,9 +104,9 @@ test-suite amazonka-qldb-test
     Test.Amazonka.QLDB.Internal
 
   build-depends:
-    , amazonka-core         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
     , amazonka-qldb
-    , amazonka-test         ^>=2.0
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

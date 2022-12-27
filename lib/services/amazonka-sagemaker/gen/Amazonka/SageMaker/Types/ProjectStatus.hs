@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ProjectStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,17 +26,21 @@ module Amazonka.SageMaker.Types.ProjectStatus
         ProjectStatus_DeleteCompleted,
         ProjectStatus_DeleteFailed,
         ProjectStatus_DeleteInProgress,
-        ProjectStatus_Pending
+        ProjectStatus_Pending,
+        ProjectStatus_UpdateCompleted,
+        ProjectStatus_UpdateFailed,
+        ProjectStatus_UpdateInProgress
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype ProjectStatus = ProjectStatus'
   { fromProjectStatus ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -48,18 +52,18 @@ newtype ProjectStatus = ProjectStatus'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern ProjectStatus_CreateCompleted :: ProjectStatus
@@ -83,6 +87,15 @@ pattern ProjectStatus_DeleteInProgress = ProjectStatus' "DeleteInProgress"
 pattern ProjectStatus_Pending :: ProjectStatus
 pattern ProjectStatus_Pending = ProjectStatus' "Pending"
 
+pattern ProjectStatus_UpdateCompleted :: ProjectStatus
+pattern ProjectStatus_UpdateCompleted = ProjectStatus' "UpdateCompleted"
+
+pattern ProjectStatus_UpdateFailed :: ProjectStatus
+pattern ProjectStatus_UpdateFailed = ProjectStatus' "UpdateFailed"
+
+pattern ProjectStatus_UpdateInProgress :: ProjectStatus
+pattern ProjectStatus_UpdateInProgress = ProjectStatus' "UpdateInProgress"
+
 {-# COMPLETE
   ProjectStatus_CreateCompleted,
   ProjectStatus_CreateFailed,
@@ -91,5 +104,8 @@ pattern ProjectStatus_Pending = ProjectStatus' "Pending"
   ProjectStatus_DeleteFailed,
   ProjectStatus_DeleteInProgress,
   ProjectStatus_Pending,
+  ProjectStatus_UpdateCompleted,
+  ProjectStatus_UpdateFailed,
+  ProjectStatus_UpdateInProgress,
   ProjectStatus'
   #-}

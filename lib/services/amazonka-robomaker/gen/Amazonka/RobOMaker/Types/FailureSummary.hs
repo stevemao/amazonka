@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.Types.FailureSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RobOMaker.Types.FailureSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RobOMaker.Types.WorldFailure
 
@@ -62,14 +63,14 @@ failureSummary_failures = Lens.lens (\FailureSummary' {failures} -> failures) (\
 failureSummary_totalFailureCount :: Lens.Lens' FailureSummary (Prelude.Maybe Prelude.Int)
 failureSummary_totalFailureCount = Lens.lens (\FailureSummary' {totalFailureCount} -> totalFailureCount) (\s@FailureSummary' {} a -> s {totalFailureCount = a} :: FailureSummary)
 
-instance Core.FromJSON FailureSummary where
+instance Data.FromJSON FailureSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FailureSummary"
       ( \x ->
           FailureSummary'
-            Prelude.<$> (x Core..:? "failures" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "totalFailureCount")
+            Prelude.<$> (x Data..:? "failures" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "totalFailureCount")
       )
 
 instance Prelude.Hashable FailureSummary where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMakerFeatureStoreRuntime.GetRecord
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.SageMakerFeatureStoreRuntime.GetRecord
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,7 +56,7 @@ data GetRecord = GetRecord'
   { -- | List of names of Features to be retrieved. If not specified, the latest
     -- value for all the Features are returned.
     featureNames :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | The name of the feature group in which you want to put the records.
+    -- | The name of the feature group from which you want to retrieve a record.
     featureGroupName :: Prelude.Text,
     -- | The value that corresponds to @RecordIdentifier@ type and uniquely
     -- identifies the record in the @FeatureGroup@.
@@ -74,7 +75,7 @@ data GetRecord = GetRecord'
 -- 'featureNames', 'getRecord_featureNames' - List of names of Features to be retrieved. If not specified, the latest
 -- value for all the Features are returned.
 --
--- 'featureGroupName', 'getRecord_featureGroupName' - The name of the feature group in which you want to put the records.
+-- 'featureGroupName', 'getRecord_featureGroupName' - The name of the feature group from which you want to retrieve a record.
 --
 -- 'recordIdentifierValueAsString', 'getRecord_recordIdentifierValueAsString' - The value that corresponds to @RecordIdentifier@ type and uniquely
 -- identifies the record in the @FeatureGroup@.
@@ -99,7 +100,7 @@ newGetRecord
 getRecord_featureNames :: Lens.Lens' GetRecord (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 getRecord_featureNames = Lens.lens (\GetRecord' {featureNames} -> featureNames) (\s@GetRecord' {} a -> s {featureNames = a} :: GetRecord) Prelude.. Lens.mapping Lens.coerced
 
--- | The name of the feature group in which you want to put the records.
+-- | The name of the feature group from which you want to retrieve a record.
 getRecord_featureGroupName :: Lens.Lens' GetRecord Prelude.Text
 getRecord_featureGroupName = Lens.lens (\GetRecord' {featureGroupName} -> featureGroupName) (\s@GetRecord' {} a -> s {featureGroupName = a} :: GetRecord)
 
@@ -110,12 +111,13 @@ getRecord_recordIdentifierValueAsString = Lens.lens (\GetRecord' {recordIdentifi
 
 instance Core.AWSRequest GetRecord where
   type AWSResponse GetRecord = GetRecordResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRecordResponse'
-            Prelude.<$> (x Core..?> "Record")
+            Prelude.<$> (x Data..?> "Record")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -131,30 +133,30 @@ instance Prelude.NFData GetRecord where
       `Prelude.seq` Prelude.rnf featureGroupName
       `Prelude.seq` Prelude.rnf recordIdentifierValueAsString
 
-instance Core.ToHeaders GetRecord where
+instance Data.ToHeaders GetRecord where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetRecord where
+instance Data.ToPath GetRecord where
   toPath GetRecord' {..} =
     Prelude.mconcat
-      ["/FeatureGroup/", Core.toBS featureGroupName]
+      ["/FeatureGroup/", Data.toBS featureGroupName]
 
-instance Core.ToQuery GetRecord where
+instance Data.ToQuery GetRecord where
   toQuery GetRecord' {..} =
     Prelude.mconcat
       [ "FeatureName"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> featureNames),
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> featureNames),
         "RecordIdentifierValueAsString"
-          Core.=: recordIdentifierValueAsString
+          Data.=: recordIdentifierValueAsString
       ]
 
 -- | /See:/ 'newGetRecordResponse' smart constructor.

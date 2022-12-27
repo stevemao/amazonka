@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceQuotas.GetRequestedServiceQuotaChange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.ServiceQuotas.GetRequestedServiceQuotaChange
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,12 +84,13 @@ instance
   type
     AWSResponse GetRequestedServiceQuotaChange =
       GetRequestedServiceQuotaChangeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRequestedServiceQuotaChangeResponse'
-            Prelude.<$> (x Core..?> "RequestedQuota")
+            Prelude.<$> (x Data..?> "RequestedQuota")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,34 +111,34 @@ instance
     Prelude.rnf requestId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetRequestedServiceQuotaChange
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ServiceQuotasV20190624.GetRequestedServiceQuotaChange" ::
+              Data.=# ( "ServiceQuotasV20190624.GetRequestedServiceQuotaChange" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetRequestedServiceQuotaChange where
+instance Data.ToJSON GetRequestedServiceQuotaChange where
   toJSON GetRequestedServiceQuotaChange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("RequestId" Core..= requestId)]
+          [Prelude.Just ("RequestId" Data..= requestId)]
       )
 
-instance Core.ToPath GetRequestedServiceQuotaChange where
+instance Data.ToPath GetRequestedServiceQuotaChange where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetRequestedServiceQuotaChange where
+instance Data.ToQuery GetRequestedServiceQuotaChange where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetRequestedServiceQuotaChangeResponse' smart constructor.

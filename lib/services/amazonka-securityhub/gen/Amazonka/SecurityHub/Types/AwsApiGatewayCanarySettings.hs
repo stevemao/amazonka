@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsApiGatewayCanarySettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsApiGatewayCanarySettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about settings for canary deployment in the stage.
@@ -29,6 +30,8 @@ import qualified Amazonka.Prelude as Prelude
 data AwsApiGatewayCanarySettings = AwsApiGatewayCanarySettings'
   { -- | The deployment identifier for the canary deployment.
     deploymentId :: Prelude.Maybe Prelude.Text,
+    -- | The percentage of traffic that is diverted to a canary deployment.
+    percentTraffic :: Prelude.Maybe Prelude.Double,
     -- | Stage variables that are overridden in the canary release deployment.
     -- The variables include new stage variables that are introduced in the
     -- canary.
@@ -37,9 +40,7 @@ data AwsApiGatewayCanarySettings = AwsApiGatewayCanarySettings'
     -- variable name and the variable value.
     stageVariableOverrides :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | Indicates whether the canary deployment uses the stage cache.
-    useStageCache :: Prelude.Maybe Prelude.Bool,
-    -- | The percentage of traffic that is diverted to a canary deployment.
-    percentTraffic :: Prelude.Maybe Prelude.Double
+    useStageCache :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -53,6 +54,8 @@ data AwsApiGatewayCanarySettings = AwsApiGatewayCanarySettings'
 --
 -- 'deploymentId', 'awsApiGatewayCanarySettings_deploymentId' - The deployment identifier for the canary deployment.
 --
+-- 'percentTraffic', 'awsApiGatewayCanarySettings_percentTraffic' - The percentage of traffic that is diverted to a canary deployment.
+--
 -- 'stageVariableOverrides', 'awsApiGatewayCanarySettings_stageVariableOverrides' - Stage variables that are overridden in the canary release deployment.
 -- The variables include new stage variables that are introduced in the
 -- canary.
@@ -61,22 +64,24 @@ data AwsApiGatewayCanarySettings = AwsApiGatewayCanarySettings'
 -- variable name and the variable value.
 --
 -- 'useStageCache', 'awsApiGatewayCanarySettings_useStageCache' - Indicates whether the canary deployment uses the stage cache.
---
--- 'percentTraffic', 'awsApiGatewayCanarySettings_percentTraffic' - The percentage of traffic that is diverted to a canary deployment.
 newAwsApiGatewayCanarySettings ::
   AwsApiGatewayCanarySettings
 newAwsApiGatewayCanarySettings =
   AwsApiGatewayCanarySettings'
     { deploymentId =
         Prelude.Nothing,
+      percentTraffic = Prelude.Nothing,
       stageVariableOverrides = Prelude.Nothing,
-      useStageCache = Prelude.Nothing,
-      percentTraffic = Prelude.Nothing
+      useStageCache = Prelude.Nothing
     }
 
 -- | The deployment identifier for the canary deployment.
 awsApiGatewayCanarySettings_deploymentId :: Lens.Lens' AwsApiGatewayCanarySettings (Prelude.Maybe Prelude.Text)
 awsApiGatewayCanarySettings_deploymentId = Lens.lens (\AwsApiGatewayCanarySettings' {deploymentId} -> deploymentId) (\s@AwsApiGatewayCanarySettings' {} a -> s {deploymentId = a} :: AwsApiGatewayCanarySettings)
+
+-- | The percentage of traffic that is diverted to a canary deployment.
+awsApiGatewayCanarySettings_percentTraffic :: Lens.Lens' AwsApiGatewayCanarySettings (Prelude.Maybe Prelude.Double)
+awsApiGatewayCanarySettings_percentTraffic = Lens.lens (\AwsApiGatewayCanarySettings' {percentTraffic} -> percentTraffic) (\s@AwsApiGatewayCanarySettings' {} a -> s {percentTraffic = a} :: AwsApiGatewayCanarySettings)
 
 -- | Stage variables that are overridden in the canary release deployment.
 -- The variables include new stage variables that are introduced in the
@@ -91,47 +96,43 @@ awsApiGatewayCanarySettings_stageVariableOverrides = Lens.lens (\AwsApiGatewayCa
 awsApiGatewayCanarySettings_useStageCache :: Lens.Lens' AwsApiGatewayCanarySettings (Prelude.Maybe Prelude.Bool)
 awsApiGatewayCanarySettings_useStageCache = Lens.lens (\AwsApiGatewayCanarySettings' {useStageCache} -> useStageCache) (\s@AwsApiGatewayCanarySettings' {} a -> s {useStageCache = a} :: AwsApiGatewayCanarySettings)
 
--- | The percentage of traffic that is diverted to a canary deployment.
-awsApiGatewayCanarySettings_percentTraffic :: Lens.Lens' AwsApiGatewayCanarySettings (Prelude.Maybe Prelude.Double)
-awsApiGatewayCanarySettings_percentTraffic = Lens.lens (\AwsApiGatewayCanarySettings' {percentTraffic} -> percentTraffic) (\s@AwsApiGatewayCanarySettings' {} a -> s {percentTraffic = a} :: AwsApiGatewayCanarySettings)
-
-instance Core.FromJSON AwsApiGatewayCanarySettings where
+instance Data.FromJSON AwsApiGatewayCanarySettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsApiGatewayCanarySettings"
       ( \x ->
           AwsApiGatewayCanarySettings'
-            Prelude.<$> (x Core..:? "DeploymentId")
-            Prelude.<*> ( x Core..:? "StageVariableOverrides"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "DeploymentId")
+            Prelude.<*> (x Data..:? "PercentTraffic")
+            Prelude.<*> ( x Data..:? "StageVariableOverrides"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "UseStageCache")
-            Prelude.<*> (x Core..:? "PercentTraffic")
+            Prelude.<*> (x Data..:? "UseStageCache")
       )
 
 instance Prelude.Hashable AwsApiGatewayCanarySettings where
   hashWithSalt _salt AwsApiGatewayCanarySettings' {..} =
     _salt `Prelude.hashWithSalt` deploymentId
+      `Prelude.hashWithSalt` percentTraffic
       `Prelude.hashWithSalt` stageVariableOverrides
       `Prelude.hashWithSalt` useStageCache
-      `Prelude.hashWithSalt` percentTraffic
 
 instance Prelude.NFData AwsApiGatewayCanarySettings where
   rnf AwsApiGatewayCanarySettings' {..} =
     Prelude.rnf deploymentId
+      `Prelude.seq` Prelude.rnf percentTraffic
       `Prelude.seq` Prelude.rnf stageVariableOverrides
       `Prelude.seq` Prelude.rnf useStageCache
-      `Prelude.seq` Prelude.rnf percentTraffic
 
-instance Core.ToJSON AwsApiGatewayCanarySettings where
+instance Data.ToJSON AwsApiGatewayCanarySettings where
   toJSON AwsApiGatewayCanarySettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DeploymentId" Core..=) Prelude.<$> deploymentId,
-            ("StageVariableOverrides" Core..=)
+          [ ("DeploymentId" Data..=) Prelude.<$> deploymentId,
+            ("PercentTraffic" Data..=)
+              Prelude.<$> percentTraffic,
+            ("StageVariableOverrides" Data..=)
               Prelude.<$> stageVariableOverrides,
-            ("UseStageCache" Core..=) Prelude.<$> useStageCache,
-            ("PercentTraffic" Core..=)
-              Prelude.<$> percentTraffic
+            ("UseStageCache" Data..=) Prelude.<$> useStageCache
           ]
       )

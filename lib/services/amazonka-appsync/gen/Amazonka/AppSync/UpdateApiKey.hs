@@ -14,21 +14,21 @@
 
 -- |
 -- Module      : Amazonka.AppSync.UpdateApiKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates an API key. The key can be updated while it is not deleted.
+-- Updates an API key. You can update the key as long as it\'s not deleted.
 module Amazonka.AppSync.UpdateApiKey
   ( -- * Creating a Request
     UpdateApiKey (..),
     newUpdateApiKey,
 
     -- * Request Lenses
-    updateApiKey_expires,
     updateApiKey_description,
+    updateApiKey_expires,
     updateApiKey_apiId,
     updateApiKey_id,
 
@@ -44,18 +44,19 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateApiKey' smart constructor.
 data UpdateApiKey = UpdateApiKey'
-  { -- | The time from update time after which the API key expires. The date is
-    -- represented as seconds since the epoch. For more information, see .
-    expires :: Prelude.Maybe Prelude.Integer,
-    -- | A description of the purpose of the API key.
+  { -- | A description of the purpose of the API key.
     description :: Prelude.Maybe Prelude.Text,
+    -- | From the update time, the time after which the API key expires. The date
+    -- is represented as seconds since the epoch. For more information, see .
+    expires :: Prelude.Maybe Prelude.Integer,
     -- | The ID for the GraphQL API.
     apiId :: Prelude.Text,
     -- | The API key ID.
@@ -71,10 +72,10 @@ data UpdateApiKey = UpdateApiKey'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'expires', 'updateApiKey_expires' - The time from update time after which the API key expires. The date is
--- represented as seconds since the epoch. For more information, see .
---
 -- 'description', 'updateApiKey_description' - A description of the purpose of the API key.
+--
+-- 'expires', 'updateApiKey_expires' - From the update time, the time after which the API key expires. The date
+-- is represented as seconds since the epoch. For more information, see .
 --
 -- 'apiId', 'updateApiKey_apiId' - The ID for the GraphQL API.
 --
@@ -87,20 +88,20 @@ newUpdateApiKey ::
   UpdateApiKey
 newUpdateApiKey pApiId_ pId_ =
   UpdateApiKey'
-    { expires = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      expires = Prelude.Nothing,
       apiId = pApiId_,
       id = pId_
     }
 
--- | The time from update time after which the API key expires. The date is
--- represented as seconds since the epoch. For more information, see .
-updateApiKey_expires :: Lens.Lens' UpdateApiKey (Prelude.Maybe Prelude.Integer)
-updateApiKey_expires = Lens.lens (\UpdateApiKey' {expires} -> expires) (\s@UpdateApiKey' {} a -> s {expires = a} :: UpdateApiKey)
-
 -- | A description of the purpose of the API key.
 updateApiKey_description :: Lens.Lens' UpdateApiKey (Prelude.Maybe Prelude.Text)
 updateApiKey_description = Lens.lens (\UpdateApiKey' {description} -> description) (\s@UpdateApiKey' {} a -> s {description = a} :: UpdateApiKey)
+
+-- | From the update time, the time after which the API key expires. The date
+-- is represented as seconds since the epoch. For more information, see .
+updateApiKey_expires :: Lens.Lens' UpdateApiKey (Prelude.Maybe Prelude.Integer)
+updateApiKey_expires = Lens.lens (\UpdateApiKey' {expires} -> expires) (\s@UpdateApiKey' {} a -> s {expires = a} :: UpdateApiKey)
 
 -- | The ID for the GraphQL API.
 updateApiKey_apiId :: Lens.Lens' UpdateApiKey Prelude.Text
@@ -112,59 +113,60 @@ updateApiKey_id = Lens.lens (\UpdateApiKey' {id} -> id) (\s@UpdateApiKey' {} a -
 
 instance Core.AWSRequest UpdateApiKey where
   type AWSResponse UpdateApiKey = UpdateApiKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateApiKeyResponse'
-            Prelude.<$> (x Core..?> "apiKey")
+            Prelude.<$> (x Data..?> "apiKey")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateApiKey where
   hashWithSalt _salt UpdateApiKey' {..} =
-    _salt `Prelude.hashWithSalt` expires
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` expires
       `Prelude.hashWithSalt` apiId
       `Prelude.hashWithSalt` id
 
 instance Prelude.NFData UpdateApiKey where
   rnf UpdateApiKey' {..} =
-    Prelude.rnf expires
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf expires
       `Prelude.seq` Prelude.rnf apiId
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToHeaders UpdateApiKey where
+instance Data.ToHeaders UpdateApiKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateApiKey where
+instance Data.ToJSON UpdateApiKey where
   toJSON UpdateApiKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("expires" Core..=) Prelude.<$> expires,
-            ("description" Core..=) Prelude.<$> description
+          [ ("description" Data..=) Prelude.<$> description,
+            ("expires" Data..=) Prelude.<$> expires
           ]
       )
 
-instance Core.ToPath UpdateApiKey where
+instance Data.ToPath UpdateApiKey where
   toPath UpdateApiKey' {..} =
     Prelude.mconcat
       [ "/v1/apis/",
-        Core.toBS apiId,
+        Data.toBS apiId,
         "/apikeys/",
-        Core.toBS id
+        Data.toBS id
       ]
 
-instance Core.ToQuery UpdateApiKey where
+instance Data.ToQuery UpdateApiKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateApiKeyResponse' smart constructor.

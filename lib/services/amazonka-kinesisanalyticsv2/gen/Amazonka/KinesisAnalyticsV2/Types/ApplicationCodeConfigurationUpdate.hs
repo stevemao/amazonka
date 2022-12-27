@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.ApplicationCodeConfigurationUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.KinesisAnalyticsV2.Types.ApplicationCodeConfigurationUpdate where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.CodeContentType
 import Amazonka.KinesisAnalyticsV2.Types.CodeContentUpdate
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes code configuration updates for an application. This is
@@ -85,15 +86,15 @@ instance
       `Prelude.seq` Prelude.rnf codeContentUpdate
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ApplicationCodeConfigurationUpdate
   where
   toJSON ApplicationCodeConfigurationUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CodeContentTypeUpdate" Core..=)
+          [ ("CodeContentTypeUpdate" Data..=)
               Prelude.<$> codeContentTypeUpdate,
-            ("CodeContentUpdate" Core..=)
+            ("CodeContentUpdate" Data..=)
               Prelude.<$> codeContentUpdate
           ]
       )

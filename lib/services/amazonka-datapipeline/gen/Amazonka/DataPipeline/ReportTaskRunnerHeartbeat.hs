@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.ReportTaskRunnerHeartbeat
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.DataPipeline.ReportTaskRunnerHeartbeat
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataPipeline.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -133,13 +134,14 @@ instance Core.AWSRequest ReportTaskRunnerHeartbeat where
   type
     AWSResponse ReportTaskRunnerHeartbeat =
       ReportTaskRunnerHeartbeatResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ReportTaskRunnerHeartbeatResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "terminate")
+            Prelude.<*> (x Data..:> "terminate")
       )
 
 instance Prelude.Hashable ReportTaskRunnerHeartbeat where
@@ -154,35 +156,35 @@ instance Prelude.NFData ReportTaskRunnerHeartbeat where
       `Prelude.seq` Prelude.rnf workerGroup
       `Prelude.seq` Prelude.rnf taskrunnerId
 
-instance Core.ToHeaders ReportTaskRunnerHeartbeat where
+instance Data.ToHeaders ReportTaskRunnerHeartbeat where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DataPipeline.ReportTaskRunnerHeartbeat" ::
+              Data.=# ( "DataPipeline.ReportTaskRunnerHeartbeat" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ReportTaskRunnerHeartbeat where
+instance Data.ToJSON ReportTaskRunnerHeartbeat where
   toJSON ReportTaskRunnerHeartbeat' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("hostname" Core..=) Prelude.<$> hostname,
-            ("workerGroup" Core..=) Prelude.<$> workerGroup,
-            Prelude.Just ("taskrunnerId" Core..= taskrunnerId)
+          [ ("hostname" Data..=) Prelude.<$> hostname,
+            ("workerGroup" Data..=) Prelude.<$> workerGroup,
+            Prelude.Just ("taskrunnerId" Data..= taskrunnerId)
           ]
       )
 
-instance Core.ToPath ReportTaskRunnerHeartbeat where
+instance Data.ToPath ReportTaskRunnerHeartbeat where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ReportTaskRunnerHeartbeat where
+instance Data.ToQuery ReportTaskRunnerHeartbeat where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of ReportTaskRunnerHeartbeat.

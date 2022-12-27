@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.BatchListIndexResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudDirectory.Types.BatchListIndexResponse where
 
 import Amazonka.CloudDirectory.Types.IndexAttachment
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output of a ListIndex response operation.
@@ -63,16 +64,16 @@ batchListIndexResponse_indexAttachments = Lens.lens (\BatchListIndexResponse' {i
 batchListIndexResponse_nextToken :: Lens.Lens' BatchListIndexResponse (Prelude.Maybe Prelude.Text)
 batchListIndexResponse_nextToken = Lens.lens (\BatchListIndexResponse' {nextToken} -> nextToken) (\s@BatchListIndexResponse' {} a -> s {nextToken = a} :: BatchListIndexResponse)
 
-instance Core.FromJSON BatchListIndexResponse where
+instance Data.FromJSON BatchListIndexResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchListIndexResponse"
       ( \x ->
           BatchListIndexResponse'
-            Prelude.<$> ( x Core..:? "IndexAttachments"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "IndexAttachments"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "NextToken")
+            Prelude.<*> (x Data..:? "NextToken")
       )
 
 instance Prelude.Hashable BatchListIndexResponse where

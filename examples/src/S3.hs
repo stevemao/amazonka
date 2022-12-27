@@ -7,16 +7,20 @@
 
 module S3 where
 
-import Amazonka
+import Amazonka hiding (length)
 import Amazonka.S3
 import Control.Lens
 import Control.Monad
 import Control.Monad.IO.Class
+import Data.ByteString (ByteString)
 import Data.Conduit
 import qualified Data.Conduit.Binary as CB
 import qualified Data.Conduit.List as CL
 import qualified Data.Foldable as Fold
 import Data.Generics.Labels ()
+import Data.Maybe (fromMaybe)
+import Data.Text (Text)
+import qualified Data.Text as Text
 import qualified Data.Text.IO as Text
 import Data.Time
 import System.IO
@@ -28,9 +32,9 @@ getPresignedURL ::
   -- | The source object key.
   ObjectKey ->
   IO ByteString
-getPresignedURL r b k = do
+getPresignedURL reg b k = do
   lgr <- newLogger Trace stdout
-  env <- newEnv discover <&> set #envLogger lgr . within r
+  env <- newEnv discover <&> set #logger lgr . set #region reg
   ts <- getCurrentTime
   runResourceT $ presignURL env ts 60 (newGetObject b k)
 
@@ -38,23 +42,32 @@ listAll ::
   -- | Region to operate in.
   Region ->
   IO ()
-listAll r = do
+listAll reg = do
   lgr <- newLogger Debug stdout
-  env <- newEnv discover <&> set #envLogger lgr . within r
+  env <- newEnv discover <&> set #logger lgr . set #region reg
 
-  let val :: ToText a => Maybe a -> Text
-      val = maybe "Nothing" toText
+  let val :: Maybe Text -> Text
+      val = fromMaybe "Nothing"
 
-      lat v = maybe mempty (mappend " - " . toText) (v ^. #isLatest)
-      key v = val (v ^. #key) <> ": " <> val (v ^. #versionId) <> lat v
+      lat :: ObjectVersion -> Text
+      lat v = Text.pack . maybe mempty (mappend " - " . show) $ v ^. #isLatest
+
+      key :: ObjectVersion -> Text
+      key v =
+        mconcat
+          [ val (v ^? #key . traverse . _ObjectKey),
+            ": ",
+            val (v ^? #versionId . traverse . _ObjectVersionId),
+            lat v
+          ]
 
   runResourceT $ do
     say "Listing Buckets .."
     Just bs <- view #buckets <$> send env newListBuckets
-    say $ "Found " <> toText (length bs) <> " Buckets."
+    say $ "Found " <> Text.pack (show (length bs)) <> " Buckets."
 
     forM_ bs $ \(view #name -> b) -> do
-      say $ "Listing Object Versions in: " <> toText b
+      say $ "Listing Object Versions in: " <> (b ^. _BucketName)
       runConduit $
         paginate env (newListObjectVersions b)
           .| CL.concatMap (toListOf $ #versions . _Just . folded)
@@ -69,20 +82,20 @@ getFile ::
   -- | The destination file to save as.
   FilePath ->
   IO ()
-getFile r b k f = do
+getFile reg b k f = do
   lgr <- newLogger Debug stdout
-  env <- newEnv discover <&> set #envLogger lgr . within r
+  env <- newEnv discover <&> set #logger lgr . set #region reg
 
   runResourceT $ do
     rs <- send env (newGetObject b k)
     view #body rs `sinkBody` CB.sinkFile f
     say $
       "Successfully Download: "
-        <> toText b
+        <> b ^. _BucketName
         <> " - "
-        <> toText k
+        <> k ^. _ObjectKey
         <> " to "
-        <> toText f
+        <> Text.pack f
 
 putChunkedFile ::
   -- | Region to operate in.
@@ -96,20 +109,20 @@ putChunkedFile ::
   -- | The source file to upload.
   FilePath ->
   IO ()
-putChunkedFile r b k c f = do
+putChunkedFile reg b k c f = do
   lgr <- newLogger Debug stdout
-  env <- newEnv discover <&> set #envLogger lgr . within r
+  env <- newEnv discover <&> set #logger lgr . set #region reg
 
   runResourceT $ do
     bdy <- chunkedFile c f
     void . send env $ newPutObject b k bdy
     say $
       "Successfully Uploaded: "
-        <> toText f
+        <> Text.pack f
         <> " to "
-        <> toText b
+        <> b ^. _BucketName
         <> " - "
-        <> toText k
+        <> k ^. _ObjectKey
 
 tagBucket ::
   -- | Region to operate in.
@@ -119,12 +132,12 @@ tagBucket ::
   -- | List of K/V pairs to apply as tags.
   [(ObjectKey, Text)] ->
   IO ()
-tagBucket r bkt xs = do
+tagBucket reg bkt xs = do
   lgr <- newLogger Debug stdout
-  env <- newEnv discover <&> set #envLogger lgr . within r
+  env <- newEnv discover <&> set #logger lgr . set #region reg
 
   let tags = map (uncurry newTag) xs
-      kv t = toText (t ^. #key) <> "=" <> (t ^. #value)
+      kv t = (t ^. #key . _ObjectKey) <> "=" <> (t ^. #value)
 
   runResourceT $ do
     void . send env $ newPutBucketTagging bkt (newTagging & #tagSet .~ tags)
@@ -133,6 +146,23 @@ tagBucket r bkt xs = do
     ts <- view #tagSet <$> send env (newGetBucketTagging bkt)
     forM_ ts $ \t ->
       say $ "Found Tag: " <> kv t
+
+getObjectAttributes ::
+  Region ->
+  BucketName ->
+  ObjectKey ->
+  IO GetObjectAttributesResponse
+getObjectAttributes reg b k = do
+  lgr <- newLogger Trace stdout
+  env <- newEnv discover <&> set #logger lgr . set #region reg
+  let req =
+        newGetObjectAttributes b k
+          & #objectAttributes
+            .~ [ ObjectAttributes_ETag,
+                 ObjectAttributes_ObjectParts,
+                 ObjectAttributes_StorageClass
+               ]
+  runResourceT $ send env req
 
 say :: MonadIO m => Text -> m ()
 say = liftIO . Text.putStrLn

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.AssociateQueueQuickConnects
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,7 +111,8 @@ instance Core.AWSRequest AssociateQueueQuickConnects where
   type
     AWSResponse AssociateQueueQuickConnects =
       AssociateQueueQuickConnectsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       AssociateQueueQuickConnectsResponse'
@@ -127,37 +129,37 @@ instance Prelude.NFData AssociateQueueQuickConnects where
       `Prelude.seq` Prelude.rnf queueId
       `Prelude.seq` Prelude.rnf quickConnectIds
 
-instance Core.ToHeaders AssociateQueueQuickConnects where
+instance Data.ToHeaders AssociateQueueQuickConnects where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateQueueQuickConnects where
+instance Data.ToJSON AssociateQueueQuickConnects where
   toJSON AssociateQueueQuickConnects' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("QuickConnectIds" Core..= quickConnectIds)
+              ("QuickConnectIds" Data..= quickConnectIds)
           ]
       )
 
-instance Core.ToPath AssociateQueueQuickConnects where
+instance Data.ToPath AssociateQueueQuickConnects where
   toPath AssociateQueueQuickConnects' {..} =
     Prelude.mconcat
       [ "/queues/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/",
-        Core.toBS queueId,
+        Data.toBS queueId,
         "/associate-quick-connects"
       ]
 
-instance Core.ToQuery AssociateQueueQuickConnects where
+instance Data.ToQuery AssociateQueueQuickConnects where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateQueueQuickConnectsResponse' smart constructor.

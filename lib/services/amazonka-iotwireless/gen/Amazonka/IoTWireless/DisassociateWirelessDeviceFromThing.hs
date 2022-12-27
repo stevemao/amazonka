@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.DisassociateWirelessDeviceFromThing
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.IoTWireless.DisassociateWirelessDeviceFromThing
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,7 +80,8 @@ instance
   type
     AWSResponse DisassociateWirelessDeviceFromThing =
       DisassociateWirelessDeviceFromThingResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -104,21 +106,21 @@ instance
     Prelude.rnf id
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DisassociateWirelessDeviceFromThing
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DisassociateWirelessDeviceFromThing
   where
   toPath DisassociateWirelessDeviceFromThing' {..} =
     Prelude.mconcat
-      ["/wireless-devices/", Core.toBS id, "/thing"]
+      ["/wireless-devices/", Data.toBS id, "/thing"]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DisassociateWirelessDeviceFromThing
   where
   toQuery = Prelude.const Prelude.mempty

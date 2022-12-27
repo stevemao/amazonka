@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.FixedModeScheduleActionStartSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.FixedModeScheduleActionStartSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Start time for the action.
@@ -68,15 +69,15 @@ fixedModeScheduleActionStartSettings_time :: Lens.Lens' FixedModeScheduleActionS
 fixedModeScheduleActionStartSettings_time = Lens.lens (\FixedModeScheduleActionStartSettings' {time} -> time) (\s@FixedModeScheduleActionStartSettings' {} a -> s {time = a} :: FixedModeScheduleActionStartSettings)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     FixedModeScheduleActionStartSettings
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FixedModeScheduleActionStartSettings"
       ( \x ->
           FixedModeScheduleActionStartSettings'
-            Prelude.<$> (x Core..: "time")
+            Prelude.<$> (x Data..: "time")
       )
 
 instance
@@ -96,11 +97,11 @@ instance
     Prelude.rnf time
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     FixedModeScheduleActionStartSettings
   where
   toJSON FixedModeScheduleActionStartSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("time" Core..= time)]
+          [Prelude.Just ("time" Data..= time)]
       )

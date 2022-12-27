@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.GetSolutionMetrics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Personalize.GetSolutionMetrics
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -84,13 +85,14 @@ instance Core.AWSRequest GetSolutionMetrics where
   type
     AWSResponse GetSolutionMetrics =
       GetSolutionMetricsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSolutionMetricsResponse'
-            Prelude.<$> (x Core..?> "metrics" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "solutionVersionArn")
+            Prelude.<$> (x Data..?> "metrics" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "solutionVersionArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -102,39 +104,41 @@ instance Prelude.NFData GetSolutionMetrics where
   rnf GetSolutionMetrics' {..} =
     Prelude.rnf solutionVersionArn
 
-instance Core.ToHeaders GetSolutionMetrics where
+instance Data.ToHeaders GetSolutionMetrics where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.GetSolutionMetrics" ::
+              Data.=# ( "AmazonPersonalize.GetSolutionMetrics" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetSolutionMetrics where
+instance Data.ToJSON GetSolutionMetrics where
   toJSON GetSolutionMetrics' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("solutionVersionArn" Core..= solutionVersionArn)
+              ("solutionVersionArn" Data..= solutionVersionArn)
           ]
       )
 
-instance Core.ToPath GetSolutionMetrics where
+instance Data.ToPath GetSolutionMetrics where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetSolutionMetrics where
+instance Data.ToQuery GetSolutionMetrics where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSolutionMetricsResponse' smart constructor.
 data GetSolutionMetricsResponse = GetSolutionMetricsResponse'
-  { -- | The metrics for the solution version.
+  { -- | The metrics for the solution version. For more information, see
+    -- <https://docs.aws.amazon.com/personalize/latest/dg/working-with-training-metrics.html Evaluating a solution version with metrics>
+    -- .
     metrics :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Double),
     -- | The same solution version ARN as specified in the request.
     solutionVersionArn :: Prelude.Maybe Prelude.Text,
@@ -151,7 +155,9 @@ data GetSolutionMetricsResponse = GetSolutionMetricsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'metrics', 'getSolutionMetricsResponse_metrics' - The metrics for the solution version.
+-- 'metrics', 'getSolutionMetricsResponse_metrics' - The metrics for the solution version. For more information, see
+-- <https://docs.aws.amazon.com/personalize/latest/dg/working-with-training-metrics.html Evaluating a solution version with metrics>
+-- .
 --
 -- 'solutionVersionArn', 'getSolutionMetricsResponse_solutionVersionArn' - The same solution version ARN as specified in the request.
 --
@@ -168,7 +174,9 @@ newGetSolutionMetricsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The metrics for the solution version.
+-- | The metrics for the solution version. For more information, see
+-- <https://docs.aws.amazon.com/personalize/latest/dg/working-with-training-metrics.html Evaluating a solution version with metrics>
+-- .
 getSolutionMetricsResponse_metrics :: Lens.Lens' GetSolutionMetricsResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Double))
 getSolutionMetricsResponse_metrics = Lens.lens (\GetSolutionMetricsResponse' {metrics} -> metrics) (\s@GetSolutionMetricsResponse' {} a -> s {metrics = a} :: GetSolutionMetricsResponse) Prelude.. Lens.mapping Lens.coerced
 

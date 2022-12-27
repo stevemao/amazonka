@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.Types.EnvironmentSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,46 +20,59 @@
 module Amazonka.Proton.Types.EnvironmentSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types.DeploymentStatus
 import Amazonka.Proton.Types.Provisioning
 
--- | A summary of the environment detail data.
+-- | Summary data of an Proton environment resource. An Proton environment is
+-- a set of resources shared across Proton services.
 --
 -- /See:/ 'newEnvironmentSummary' smart constructor.
 data EnvironmentSummary = EnvironmentSummary'
-  { -- | An environment deployment status message.
-    deploymentStatusMessage :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The ID of the environment account that the environment infrastructure
-    -- resources are provisioned in.
-    environmentAccountId :: Prelude.Maybe Prelude.Text,
-    -- | When included, indicates that the environment template is for customer
-    -- provisioned and managed infrastructure.
-    provisioning :: Prelude.Maybe Provisioning,
-    -- | The Amazon Resource Name (ARN) of the AWS Proton service role that
-    -- allows AWS Proton to make calls to other services on your behalf.
-    protonServiceRoleArn :: Prelude.Maybe Prelude.Text,
+  { -- | The Amazon Resource Name (ARN) of the IAM service role that Proton uses
+    -- when provisioning directly defined components in this environment. It
+    -- determines the scope of infrastructure that a component can provision.
+    --
+    -- The environment must have a @componentRoleArn@ to allow directly defined
+    -- components to be associated with the environment.
+    --
+    -- For more information about components, see
+    -- <https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html Proton components>
+    -- in the /Proton User Guide/.
+    componentRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | An environment deployment status message.
+    deploymentStatusMessage :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The description of the environment.
+    description :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The ID of the environment account connection that the environment is
     -- associated with.
     environmentAccountConnectionId :: Prelude.Maybe Prelude.Text,
-    -- | The description of the environment.
-    description :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    -- | The ID of the environment account that the environment infrastructure
+    -- resources are provisioned in.
+    environmentAccountId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the Proton service role that allows
+    -- Proton to make calls to other services on your behalf.
+    protonServiceRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | When included, indicates that the environment template is for customer
+    -- provisioned and managed infrastructure.
+    provisioning :: Prelude.Maybe Provisioning,
     -- | The Amazon Resource Name (ARN) of the environment.
     arn :: Prelude.Text,
     -- | The time when the environment was created.
-    createdAt :: Core.POSIX,
+    createdAt :: Data.POSIX,
     -- | The environment deployment status.
     deploymentStatus :: DeploymentStatus,
     -- | The time when a deployment of the environment was last attempted.
-    lastDeploymentAttemptedAt :: Core.POSIX,
+    lastDeploymentAttemptedAt :: Data.POSIX,
     -- | The time when the environment was last deployed successfully.
-    lastDeploymentSucceededAt :: Core.POSIX,
+    lastDeploymentSucceededAt :: Data.POSIX,
     -- | The name of the environment.
     name :: Prelude.Text,
-    -- | The ID of the major version of the environment template.
+    -- | The major version of the environment template.
     templateMajorVersion :: Prelude.Text,
-    -- | The ID of the minor version of the environment template.
+    -- | The minor version of the environment template.
     templateMinorVersion :: Prelude.Text,
     -- | The name of the environment template.
     templateName :: Prelude.Text
@@ -74,21 +87,32 @@ data EnvironmentSummary = EnvironmentSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'componentRoleArn', 'environmentSummary_componentRoleArn' - The Amazon Resource Name (ARN) of the IAM service role that Proton uses
+-- when provisioning directly defined components in this environment. It
+-- determines the scope of infrastructure that a component can provision.
+--
+-- The environment must have a @componentRoleArn@ to allow directly defined
+-- components to be associated with the environment.
+--
+-- For more information about components, see
+-- <https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html Proton components>
+-- in the /Proton User Guide/.
+--
 -- 'deploymentStatusMessage', 'environmentSummary_deploymentStatusMessage' - An environment deployment status message.
 --
--- 'environmentAccountId', 'environmentSummary_environmentAccountId' - The ID of the environment account that the environment infrastructure
--- resources are provisioned in.
---
--- 'provisioning', 'environmentSummary_provisioning' - When included, indicates that the environment template is for customer
--- provisioned and managed infrastructure.
---
--- 'protonServiceRoleArn', 'environmentSummary_protonServiceRoleArn' - The Amazon Resource Name (ARN) of the AWS Proton service role that
--- allows AWS Proton to make calls to other services on your behalf.
+-- 'description', 'environmentSummary_description' - The description of the environment.
 --
 -- 'environmentAccountConnectionId', 'environmentSummary_environmentAccountConnectionId' - The ID of the environment account connection that the environment is
 -- associated with.
 --
--- 'description', 'environmentSummary_description' - The description of the environment.
+-- 'environmentAccountId', 'environmentSummary_environmentAccountId' - The ID of the environment account that the environment infrastructure
+-- resources are provisioned in.
+--
+-- 'protonServiceRoleArn', 'environmentSummary_protonServiceRoleArn' - The Amazon Resource Name (ARN) of the Proton service role that allows
+-- Proton to make calls to other services on your behalf.
+--
+-- 'provisioning', 'environmentSummary_provisioning' - When included, indicates that the environment template is for customer
+-- provisioned and managed infrastructure.
 --
 -- 'arn', 'environmentSummary_arn' - The Amazon Resource Name (ARN) of the environment.
 --
@@ -102,9 +126,9 @@ data EnvironmentSummary = EnvironmentSummary'
 --
 -- 'name', 'environmentSummary_name' - The name of the environment.
 --
--- 'templateMajorVersion', 'environmentSummary_templateMajorVersion' - The ID of the major version of the environment template.
+-- 'templateMajorVersion', 'environmentSummary_templateMajorVersion' - The major version of the environment template.
 --
--- 'templateMinorVersion', 'environmentSummary_templateMinorVersion' - The ID of the minor version of the environment template.
+-- 'templateMinorVersion', 'environmentSummary_templateMinorVersion' - The minor version of the environment template.
 --
 -- 'templateName', 'environmentSummary_templateName' - The name of the environment template.
 newEnvironmentSummary ::
@@ -138,53 +162,67 @@ newEnvironmentSummary
   pTemplateMinorVersion_
   pTemplateName_ =
     EnvironmentSummary'
-      { deploymentStatusMessage =
+      { componentRoleArn =
           Prelude.Nothing,
-        environmentAccountId = Prelude.Nothing,
-        provisioning = Prelude.Nothing,
-        protonServiceRoleArn = Prelude.Nothing,
-        environmentAccountConnectionId = Prelude.Nothing,
+        deploymentStatusMessage = Prelude.Nothing,
         description = Prelude.Nothing,
+        environmentAccountConnectionId = Prelude.Nothing,
+        environmentAccountId = Prelude.Nothing,
+        protonServiceRoleArn = Prelude.Nothing,
+        provisioning = Prelude.Nothing,
         arn = pArn_,
-        createdAt = Core._Time Lens.# pCreatedAt_,
+        createdAt = Data._Time Lens.# pCreatedAt_,
         deploymentStatus = pDeploymentStatus_,
         lastDeploymentAttemptedAt =
-          Core._Time Lens.# pLastDeploymentAttemptedAt_,
+          Data._Time Lens.# pLastDeploymentAttemptedAt_,
         lastDeploymentSucceededAt =
-          Core._Time Lens.# pLastDeploymentSucceededAt_,
+          Data._Time Lens.# pLastDeploymentSucceededAt_,
         name = pName_,
         templateMajorVersion = pTemplateMajorVersion_,
         templateMinorVersion = pTemplateMinorVersion_,
         templateName = pTemplateName_
       }
 
+-- | The Amazon Resource Name (ARN) of the IAM service role that Proton uses
+-- when provisioning directly defined components in this environment. It
+-- determines the scope of infrastructure that a component can provision.
+--
+-- The environment must have a @componentRoleArn@ to allow directly defined
+-- components to be associated with the environment.
+--
+-- For more information about components, see
+-- <https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html Proton components>
+-- in the /Proton User Guide/.
+environmentSummary_componentRoleArn :: Lens.Lens' EnvironmentSummary (Prelude.Maybe Prelude.Text)
+environmentSummary_componentRoleArn = Lens.lens (\EnvironmentSummary' {componentRoleArn} -> componentRoleArn) (\s@EnvironmentSummary' {} a -> s {componentRoleArn = a} :: EnvironmentSummary)
+
 -- | An environment deployment status message.
 environmentSummary_deploymentStatusMessage :: Lens.Lens' EnvironmentSummary (Prelude.Maybe Prelude.Text)
-environmentSummary_deploymentStatusMessage = Lens.lens (\EnvironmentSummary' {deploymentStatusMessage} -> deploymentStatusMessage) (\s@EnvironmentSummary' {} a -> s {deploymentStatusMessage = a} :: EnvironmentSummary) Prelude.. Lens.mapping Core._Sensitive
+environmentSummary_deploymentStatusMessage = Lens.lens (\EnvironmentSummary' {deploymentStatusMessage} -> deploymentStatusMessage) (\s@EnvironmentSummary' {} a -> s {deploymentStatusMessage = a} :: EnvironmentSummary) Prelude.. Lens.mapping Data._Sensitive
 
--- | The ID of the environment account that the environment infrastructure
--- resources are provisioned in.
-environmentSummary_environmentAccountId :: Lens.Lens' EnvironmentSummary (Prelude.Maybe Prelude.Text)
-environmentSummary_environmentAccountId = Lens.lens (\EnvironmentSummary' {environmentAccountId} -> environmentAccountId) (\s@EnvironmentSummary' {} a -> s {environmentAccountId = a} :: EnvironmentSummary)
-
--- | When included, indicates that the environment template is for customer
--- provisioned and managed infrastructure.
-environmentSummary_provisioning :: Lens.Lens' EnvironmentSummary (Prelude.Maybe Provisioning)
-environmentSummary_provisioning = Lens.lens (\EnvironmentSummary' {provisioning} -> provisioning) (\s@EnvironmentSummary' {} a -> s {provisioning = a} :: EnvironmentSummary)
-
--- | The Amazon Resource Name (ARN) of the AWS Proton service role that
--- allows AWS Proton to make calls to other services on your behalf.
-environmentSummary_protonServiceRoleArn :: Lens.Lens' EnvironmentSummary (Prelude.Maybe Prelude.Text)
-environmentSummary_protonServiceRoleArn = Lens.lens (\EnvironmentSummary' {protonServiceRoleArn} -> protonServiceRoleArn) (\s@EnvironmentSummary' {} a -> s {protonServiceRoleArn = a} :: EnvironmentSummary)
+-- | The description of the environment.
+environmentSummary_description :: Lens.Lens' EnvironmentSummary (Prelude.Maybe Prelude.Text)
+environmentSummary_description = Lens.lens (\EnvironmentSummary' {description} -> description) (\s@EnvironmentSummary' {} a -> s {description = a} :: EnvironmentSummary) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The ID of the environment account connection that the environment is
 -- associated with.
 environmentSummary_environmentAccountConnectionId :: Lens.Lens' EnvironmentSummary (Prelude.Maybe Prelude.Text)
 environmentSummary_environmentAccountConnectionId = Lens.lens (\EnvironmentSummary' {environmentAccountConnectionId} -> environmentAccountConnectionId) (\s@EnvironmentSummary' {} a -> s {environmentAccountConnectionId = a} :: EnvironmentSummary)
 
--- | The description of the environment.
-environmentSummary_description :: Lens.Lens' EnvironmentSummary (Prelude.Maybe Prelude.Text)
-environmentSummary_description = Lens.lens (\EnvironmentSummary' {description} -> description) (\s@EnvironmentSummary' {} a -> s {description = a} :: EnvironmentSummary) Prelude.. Lens.mapping Core._Sensitive
+-- | The ID of the environment account that the environment infrastructure
+-- resources are provisioned in.
+environmentSummary_environmentAccountId :: Lens.Lens' EnvironmentSummary (Prelude.Maybe Prelude.Text)
+environmentSummary_environmentAccountId = Lens.lens (\EnvironmentSummary' {environmentAccountId} -> environmentAccountId) (\s@EnvironmentSummary' {} a -> s {environmentAccountId = a} :: EnvironmentSummary)
+
+-- | The Amazon Resource Name (ARN) of the Proton service role that allows
+-- Proton to make calls to other services on your behalf.
+environmentSummary_protonServiceRoleArn :: Lens.Lens' EnvironmentSummary (Prelude.Maybe Prelude.Text)
+environmentSummary_protonServiceRoleArn = Lens.lens (\EnvironmentSummary' {protonServiceRoleArn} -> protonServiceRoleArn) (\s@EnvironmentSummary' {} a -> s {protonServiceRoleArn = a} :: EnvironmentSummary)
+
+-- | When included, indicates that the environment template is for customer
+-- provisioned and managed infrastructure.
+environmentSummary_provisioning :: Lens.Lens' EnvironmentSummary (Prelude.Maybe Provisioning)
+environmentSummary_provisioning = Lens.lens (\EnvironmentSummary' {provisioning} -> provisioning) (\s@EnvironmentSummary' {} a -> s {provisioning = a} :: EnvironmentSummary)
 
 -- | The Amazon Resource Name (ARN) of the environment.
 environmentSummary_arn :: Lens.Lens' EnvironmentSummary Prelude.Text
@@ -192,7 +230,7 @@ environmentSummary_arn = Lens.lens (\EnvironmentSummary' {arn} -> arn) (\s@Envir
 
 -- | The time when the environment was created.
 environmentSummary_createdAt :: Lens.Lens' EnvironmentSummary Prelude.UTCTime
-environmentSummary_createdAt = Lens.lens (\EnvironmentSummary' {createdAt} -> createdAt) (\s@EnvironmentSummary' {} a -> s {createdAt = a} :: EnvironmentSummary) Prelude.. Core._Time
+environmentSummary_createdAt = Lens.lens (\EnvironmentSummary' {createdAt} -> createdAt) (\s@EnvironmentSummary' {} a -> s {createdAt = a} :: EnvironmentSummary) Prelude.. Data._Time
 
 -- | The environment deployment status.
 environmentSummary_deploymentStatus :: Lens.Lens' EnvironmentSummary DeploymentStatus
@@ -200,21 +238,21 @@ environmentSummary_deploymentStatus = Lens.lens (\EnvironmentSummary' {deploymen
 
 -- | The time when a deployment of the environment was last attempted.
 environmentSummary_lastDeploymentAttemptedAt :: Lens.Lens' EnvironmentSummary Prelude.UTCTime
-environmentSummary_lastDeploymentAttemptedAt = Lens.lens (\EnvironmentSummary' {lastDeploymentAttemptedAt} -> lastDeploymentAttemptedAt) (\s@EnvironmentSummary' {} a -> s {lastDeploymentAttemptedAt = a} :: EnvironmentSummary) Prelude.. Core._Time
+environmentSummary_lastDeploymentAttemptedAt = Lens.lens (\EnvironmentSummary' {lastDeploymentAttemptedAt} -> lastDeploymentAttemptedAt) (\s@EnvironmentSummary' {} a -> s {lastDeploymentAttemptedAt = a} :: EnvironmentSummary) Prelude.. Data._Time
 
 -- | The time when the environment was last deployed successfully.
 environmentSummary_lastDeploymentSucceededAt :: Lens.Lens' EnvironmentSummary Prelude.UTCTime
-environmentSummary_lastDeploymentSucceededAt = Lens.lens (\EnvironmentSummary' {lastDeploymentSucceededAt} -> lastDeploymentSucceededAt) (\s@EnvironmentSummary' {} a -> s {lastDeploymentSucceededAt = a} :: EnvironmentSummary) Prelude.. Core._Time
+environmentSummary_lastDeploymentSucceededAt = Lens.lens (\EnvironmentSummary' {lastDeploymentSucceededAt} -> lastDeploymentSucceededAt) (\s@EnvironmentSummary' {} a -> s {lastDeploymentSucceededAt = a} :: EnvironmentSummary) Prelude.. Data._Time
 
 -- | The name of the environment.
 environmentSummary_name :: Lens.Lens' EnvironmentSummary Prelude.Text
 environmentSummary_name = Lens.lens (\EnvironmentSummary' {name} -> name) (\s@EnvironmentSummary' {} a -> s {name = a} :: EnvironmentSummary)
 
--- | The ID of the major version of the environment template.
+-- | The major version of the environment template.
 environmentSummary_templateMajorVersion :: Lens.Lens' EnvironmentSummary Prelude.Text
 environmentSummary_templateMajorVersion = Lens.lens (\EnvironmentSummary' {templateMajorVersion} -> templateMajorVersion) (\s@EnvironmentSummary' {} a -> s {templateMajorVersion = a} :: EnvironmentSummary)
 
--- | The ID of the minor version of the environment template.
+-- | The minor version of the environment template.
 environmentSummary_templateMinorVersion :: Lens.Lens' EnvironmentSummary Prelude.Text
 environmentSummary_templateMinorVersion = Lens.lens (\EnvironmentSummary' {templateMinorVersion} -> templateMinorVersion) (\s@EnvironmentSummary' {} a -> s {templateMinorVersion = a} :: EnvironmentSummary)
 
@@ -222,38 +260,39 @@ environmentSummary_templateMinorVersion = Lens.lens (\EnvironmentSummary' {templ
 environmentSummary_templateName :: Lens.Lens' EnvironmentSummary Prelude.Text
 environmentSummary_templateName = Lens.lens (\EnvironmentSummary' {templateName} -> templateName) (\s@EnvironmentSummary' {} a -> s {templateName = a} :: EnvironmentSummary)
 
-instance Core.FromJSON EnvironmentSummary where
+instance Data.FromJSON EnvironmentSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EnvironmentSummary"
       ( \x ->
           EnvironmentSummary'
-            Prelude.<$> (x Core..:? "deploymentStatusMessage")
-            Prelude.<*> (x Core..:? "environmentAccountId")
-            Prelude.<*> (x Core..:? "provisioning")
-            Prelude.<*> (x Core..:? "protonServiceRoleArn")
-            Prelude.<*> (x Core..:? "environmentAccountConnectionId")
-            Prelude.<*> (x Core..:? "description")
-            Prelude.<*> (x Core..: "arn")
-            Prelude.<*> (x Core..: "createdAt")
-            Prelude.<*> (x Core..: "deploymentStatus")
-            Prelude.<*> (x Core..: "lastDeploymentAttemptedAt")
-            Prelude.<*> (x Core..: "lastDeploymentSucceededAt")
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "templateMajorVersion")
-            Prelude.<*> (x Core..: "templateMinorVersion")
-            Prelude.<*> (x Core..: "templateName")
+            Prelude.<$> (x Data..:? "componentRoleArn")
+            Prelude.<*> (x Data..:? "deploymentStatusMessage")
+            Prelude.<*> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "environmentAccountConnectionId")
+            Prelude.<*> (x Data..:? "environmentAccountId")
+            Prelude.<*> (x Data..:? "protonServiceRoleArn")
+            Prelude.<*> (x Data..:? "provisioning")
+            Prelude.<*> (x Data..: "arn")
+            Prelude.<*> (x Data..: "createdAt")
+            Prelude.<*> (x Data..: "deploymentStatus")
+            Prelude.<*> (x Data..: "lastDeploymentAttemptedAt")
+            Prelude.<*> (x Data..: "lastDeploymentSucceededAt")
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "templateMajorVersion")
+            Prelude.<*> (x Data..: "templateMinorVersion")
+            Prelude.<*> (x Data..: "templateName")
       )
 
 instance Prelude.Hashable EnvironmentSummary where
   hashWithSalt _salt EnvironmentSummary' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` componentRoleArn
       `Prelude.hashWithSalt` deploymentStatusMessage
-      `Prelude.hashWithSalt` environmentAccountId
-      `Prelude.hashWithSalt` provisioning
-      `Prelude.hashWithSalt` protonServiceRoleArn
-      `Prelude.hashWithSalt` environmentAccountConnectionId
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` environmentAccountConnectionId
+      `Prelude.hashWithSalt` environmentAccountId
+      `Prelude.hashWithSalt` protonServiceRoleArn
+      `Prelude.hashWithSalt` provisioning
       `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` createdAt
       `Prelude.hashWithSalt` deploymentStatus
@@ -266,12 +305,13 @@ instance Prelude.Hashable EnvironmentSummary where
 
 instance Prelude.NFData EnvironmentSummary where
   rnf EnvironmentSummary' {..} =
-    Prelude.rnf deploymentStatusMessage
-      `Prelude.seq` Prelude.rnf environmentAccountId
-      `Prelude.seq` Prelude.rnf provisioning
-      `Prelude.seq` Prelude.rnf protonServiceRoleArn
-      `Prelude.seq` Prelude.rnf environmentAccountConnectionId
+    Prelude.rnf componentRoleArn
+      `Prelude.seq` Prelude.rnf deploymentStatusMessage
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf environmentAccountConnectionId
+      `Prelude.seq` Prelude.rnf environmentAccountId
+      `Prelude.seq` Prelude.rnf protonServiceRoleArn
+      `Prelude.seq` Prelude.rnf provisioning
       `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf createdAt
       `Prelude.seq` Prelude.rnf deploymentStatus

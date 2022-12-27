@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.CreateModelVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,17 +41,18 @@ module Amazonka.FraudDetector.CreateModelVersion
     newCreateModelVersionResponse,
 
     -- * Response Lenses
-    createModelVersionResponse_status,
-    createModelVersionResponse_modelType,
     createModelVersionResponse_modelId,
+    createModelVersionResponse_modelType,
     createModelVersionResponse_modelVersionNumber,
+    createModelVersionResponse_status,
     createModelVersionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -160,15 +161,16 @@ instance Core.AWSRequest CreateModelVersion where
   type
     AWSResponse CreateModelVersion =
       CreateModelVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateModelVersionResponse'
-            Prelude.<$> (x Core..?> "status")
-            Prelude.<*> (x Core..?> "modelType")
-            Prelude.<*> (x Core..?> "modelId")
-            Prelude.<*> (x Core..?> "modelVersionNumber")
+            Prelude.<$> (x Data..?> "modelId")
+            Prelude.<*> (x Data..?> "modelType")
+            Prelude.<*> (x Data..?> "modelVersionNumber")
+            Prelude.<*> (x Data..?> "status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -192,55 +194,55 @@ instance Prelude.NFData CreateModelVersion where
       `Prelude.seq` Prelude.rnf trainingDataSource
       `Prelude.seq` Prelude.rnf trainingDataSchema
 
-instance Core.ToHeaders CreateModelVersion where
+instance Data.ToHeaders CreateModelVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.CreateModelVersion" ::
+              Data.=# ( "AWSHawksNestServiceFacade.CreateModelVersion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateModelVersion where
+instance Data.ToJSON CreateModelVersion where
   toJSON CreateModelVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("externalEventsDetail" Core..=)
+          [ ("externalEventsDetail" Data..=)
               Prelude.<$> externalEventsDetail,
-            ("ingestedEventsDetail" Core..=)
+            ("ingestedEventsDetail" Data..=)
               Prelude.<$> ingestedEventsDetail,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("modelId" Core..= modelId),
-            Prelude.Just ("modelType" Core..= modelType),
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("modelId" Data..= modelId),
+            Prelude.Just ("modelType" Data..= modelType),
             Prelude.Just
-              ("trainingDataSource" Core..= trainingDataSource),
+              ("trainingDataSource" Data..= trainingDataSource),
             Prelude.Just
-              ("trainingDataSchema" Core..= trainingDataSchema)
+              ("trainingDataSchema" Data..= trainingDataSchema)
           ]
       )
 
-instance Core.ToPath CreateModelVersion where
+instance Data.ToPath CreateModelVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateModelVersion where
+instance Data.ToQuery CreateModelVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateModelVersionResponse' smart constructor.
 data CreateModelVersionResponse = CreateModelVersionResponse'
-  { -- | The model version status.
-    status :: Prelude.Maybe Prelude.Text,
+  { -- | The model ID.
+    modelId :: Prelude.Maybe Prelude.Text,
     -- | The model type.
     modelType :: Prelude.Maybe ModelTypeEnum,
-    -- | The model ID.
-    modelId :: Prelude.Maybe Prelude.Text,
     -- | The model version number of the model version created.
     modelVersionNumber :: Prelude.Maybe Prelude.Text,
+    -- | The model version status.
+    status :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -254,13 +256,13 @@ data CreateModelVersionResponse = CreateModelVersionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'createModelVersionResponse_status' - The model version status.
+-- 'modelId', 'createModelVersionResponse_modelId' - The model ID.
 --
 -- 'modelType', 'createModelVersionResponse_modelType' - The model type.
 --
--- 'modelId', 'createModelVersionResponse_modelId' - The model ID.
---
 -- 'modelVersionNumber', 'createModelVersionResponse_modelVersionNumber' - The model version number of the model version created.
+--
+-- 'status', 'createModelVersionResponse_status' - The model version status.
 --
 -- 'httpStatus', 'createModelVersionResponse_httpStatus' - The response's http status code.
 newCreateModelVersionResponse ::
@@ -269,29 +271,29 @@ newCreateModelVersionResponse ::
   CreateModelVersionResponse
 newCreateModelVersionResponse pHttpStatus_ =
   CreateModelVersionResponse'
-    { status =
+    { modelId =
         Prelude.Nothing,
       modelType = Prelude.Nothing,
-      modelId = Prelude.Nothing,
       modelVersionNumber = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The model version status.
-createModelVersionResponse_status :: Lens.Lens' CreateModelVersionResponse (Prelude.Maybe Prelude.Text)
-createModelVersionResponse_status = Lens.lens (\CreateModelVersionResponse' {status} -> status) (\s@CreateModelVersionResponse' {} a -> s {status = a} :: CreateModelVersionResponse)
-
--- | The model type.
-createModelVersionResponse_modelType :: Lens.Lens' CreateModelVersionResponse (Prelude.Maybe ModelTypeEnum)
-createModelVersionResponse_modelType = Lens.lens (\CreateModelVersionResponse' {modelType} -> modelType) (\s@CreateModelVersionResponse' {} a -> s {modelType = a} :: CreateModelVersionResponse)
 
 -- | The model ID.
 createModelVersionResponse_modelId :: Lens.Lens' CreateModelVersionResponse (Prelude.Maybe Prelude.Text)
 createModelVersionResponse_modelId = Lens.lens (\CreateModelVersionResponse' {modelId} -> modelId) (\s@CreateModelVersionResponse' {} a -> s {modelId = a} :: CreateModelVersionResponse)
 
+-- | The model type.
+createModelVersionResponse_modelType :: Lens.Lens' CreateModelVersionResponse (Prelude.Maybe ModelTypeEnum)
+createModelVersionResponse_modelType = Lens.lens (\CreateModelVersionResponse' {modelType} -> modelType) (\s@CreateModelVersionResponse' {} a -> s {modelType = a} :: CreateModelVersionResponse)
+
 -- | The model version number of the model version created.
 createModelVersionResponse_modelVersionNumber :: Lens.Lens' CreateModelVersionResponse (Prelude.Maybe Prelude.Text)
 createModelVersionResponse_modelVersionNumber = Lens.lens (\CreateModelVersionResponse' {modelVersionNumber} -> modelVersionNumber) (\s@CreateModelVersionResponse' {} a -> s {modelVersionNumber = a} :: CreateModelVersionResponse)
+
+-- | The model version status.
+createModelVersionResponse_status :: Lens.Lens' CreateModelVersionResponse (Prelude.Maybe Prelude.Text)
+createModelVersionResponse_status = Lens.lens (\CreateModelVersionResponse' {status} -> status) (\s@CreateModelVersionResponse' {} a -> s {status = a} :: CreateModelVersionResponse)
 
 -- | The response's http status code.
 createModelVersionResponse_httpStatus :: Lens.Lens' CreateModelVersionResponse Prelude.Int
@@ -299,8 +301,8 @@ createModelVersionResponse_httpStatus = Lens.lens (\CreateModelVersionResponse' 
 
 instance Prelude.NFData CreateModelVersionResponse where
   rnf CreateModelVersionResponse' {..} =
-    Prelude.rnf status
+    Prelude.rnf modelId
       `Prelude.seq` Prelude.rnf modelType
-      `Prelude.seq` Prelude.rnf modelId
       `Prelude.seq` Prelude.rnf modelVersionNumber
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

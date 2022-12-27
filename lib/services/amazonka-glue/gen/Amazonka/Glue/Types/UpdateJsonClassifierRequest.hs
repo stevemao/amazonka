@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.UpdateJsonClassifierRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.UpdateJsonClassifierRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies a JSON classifier to be updated.
@@ -79,11 +80,11 @@ instance Prelude.NFData UpdateJsonClassifierRequest where
   rnf UpdateJsonClassifierRequest' {..} =
     Prelude.rnf jsonPath `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON UpdateJsonClassifierRequest where
+instance Data.ToJSON UpdateJsonClassifierRequest where
   toJSON UpdateJsonClassifierRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("JsonPath" Core..=) Prelude.<$> jsonPath,
-            Prelude.Just ("Name" Core..= name)
+          [ ("JsonPath" Data..=) Prelude.<$> jsonPath,
+            Prelude.Just ("Name" Data..= name)
           ]
       )

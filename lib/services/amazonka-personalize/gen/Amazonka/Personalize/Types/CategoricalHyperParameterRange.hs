@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.Types.CategoricalHyperParameterRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.Personalize.Types.CategoricalHyperParameterRange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides the name and range of a categorical hyperparameter.
 --
 -- /See:/ 'newCategoricalHyperParameterRange' smart constructor.
 data CategoricalHyperParameterRange = CategoricalHyperParameterRange'
-  { -- | A list of the categories for the hyperparameter.
-    values :: Prelude.Maybe [Prelude.Text],
-    -- | The name of the hyperparameter.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | The name of the hyperparameter.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A list of the categories for the hyperparameter.
+    values :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,34 +43,34 @@ data CategoricalHyperParameterRange = CategoricalHyperParameterRange'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'values', 'categoricalHyperParameterRange_values' - A list of the categories for the hyperparameter.
---
 -- 'name', 'categoricalHyperParameterRange_name' - The name of the hyperparameter.
+--
+-- 'values', 'categoricalHyperParameterRange_values' - A list of the categories for the hyperparameter.
 newCategoricalHyperParameterRange ::
   CategoricalHyperParameterRange
 newCategoricalHyperParameterRange =
   CategoricalHyperParameterRange'
-    { values =
+    { name =
         Prelude.Nothing,
-      name = Prelude.Nothing
+      values = Prelude.Nothing
     }
-
--- | A list of the categories for the hyperparameter.
-categoricalHyperParameterRange_values :: Lens.Lens' CategoricalHyperParameterRange (Prelude.Maybe [Prelude.Text])
-categoricalHyperParameterRange_values = Lens.lens (\CategoricalHyperParameterRange' {values} -> values) (\s@CategoricalHyperParameterRange' {} a -> s {values = a} :: CategoricalHyperParameterRange) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the hyperparameter.
 categoricalHyperParameterRange_name :: Lens.Lens' CategoricalHyperParameterRange (Prelude.Maybe Prelude.Text)
 categoricalHyperParameterRange_name = Lens.lens (\CategoricalHyperParameterRange' {name} -> name) (\s@CategoricalHyperParameterRange' {} a -> s {name = a} :: CategoricalHyperParameterRange)
 
-instance Core.FromJSON CategoricalHyperParameterRange where
+-- | A list of the categories for the hyperparameter.
+categoricalHyperParameterRange_values :: Lens.Lens' CategoricalHyperParameterRange (Prelude.Maybe [Prelude.Text])
+categoricalHyperParameterRange_values = Lens.lens (\CategoricalHyperParameterRange' {values} -> values) (\s@CategoricalHyperParameterRange' {} a -> s {values = a} :: CategoricalHyperParameterRange) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON CategoricalHyperParameterRange where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CategoricalHyperParameterRange"
       ( \x ->
           CategoricalHyperParameterRange'
-            Prelude.<$> (x Core..:? "values" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "name")
+            Prelude.<$> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "values" Data..!= Prelude.mempty)
       )
 
 instance
@@ -79,21 +80,21 @@ instance
   hashWithSalt
     _salt
     CategoricalHyperParameterRange' {..} =
-      _salt `Prelude.hashWithSalt` values
-        `Prelude.hashWithSalt` name
+      _salt `Prelude.hashWithSalt` name
+        `Prelude.hashWithSalt` values
 
 instance
   Prelude.NFData
     CategoricalHyperParameterRange
   where
   rnf CategoricalHyperParameterRange' {..} =
-    Prelude.rnf values `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON CategoricalHyperParameterRange where
+instance Data.ToJSON CategoricalHyperParameterRange where
   toJSON CategoricalHyperParameterRange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("values" Core..=) Prelude.<$> values,
-            ("name" Core..=) Prelude.<$> name
+          [ ("name" Data..=) Prelude.<$> name,
+            ("values" Data..=) Prelude.<$> values
           ]
       )

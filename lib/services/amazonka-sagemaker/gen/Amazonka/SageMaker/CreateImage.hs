@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateImage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,7 @@
 --
 -- Creates a custom SageMaker image. A SageMaker image is a set of image
 -- versions. Each image version represents a container image stored in
--- Amazon Container Registry (ECR). For more information, see
+-- Amazon Elastic Container Registry (ECR). For more information, see
 -- <https://docs.aws.amazon.com/sagemaker/latest/dg/studio-byoi.html Bring your own SageMaker image>.
 module Amazonka.SageMaker.CreateImage
   ( -- * Creating a Request
@@ -30,8 +30,8 @@ module Amazonka.SageMaker.CreateImage
     newCreateImage,
 
     -- * Request Lenses
-    createImage_displayName,
     createImage_description,
+    createImage_displayName,
     createImage_tags,
     createImage_imageName,
     createImage_roleArn,
@@ -47,7 +47,8 @@ module Amazonka.SageMaker.CreateImage
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,11 +56,11 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newCreateImage' smart constructor.
 data CreateImage = CreateImage'
-  { -- | The display name of the image. If not provided, @ImageName@ is
+  { -- | The description of the image.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The display name of the image. If not provided, @ImageName@ is
     -- displayed.
     displayName :: Prelude.Maybe Prelude.Text,
-    -- | The description of the image.
-    description :: Prelude.Maybe Prelude.Text,
     -- | A list of tags to apply to the image.
     tags :: Prelude.Maybe [Tag],
     -- | The name of the image. Must be unique to your account.
@@ -78,10 +79,10 @@ data CreateImage = CreateImage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createImage_description' - The description of the image.
+--
 -- 'displayName', 'createImage_displayName' - The display name of the image. If not provided, @ImageName@ is
 -- displayed.
---
--- 'description', 'createImage_description' - The description of the image.
 --
 -- 'tags', 'createImage_tags' - A list of tags to apply to the image.
 --
@@ -97,21 +98,21 @@ newCreateImage ::
   CreateImage
 newCreateImage pImageName_ pRoleArn_ =
   CreateImage'
-    { displayName = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      displayName = Prelude.Nothing,
       tags = Prelude.Nothing,
       imageName = pImageName_,
       roleArn = pRoleArn_
     }
 
+-- | The description of the image.
+createImage_description :: Lens.Lens' CreateImage (Prelude.Maybe Prelude.Text)
+createImage_description = Lens.lens (\CreateImage' {description} -> description) (\s@CreateImage' {} a -> s {description = a} :: CreateImage)
+
 -- | The display name of the image. If not provided, @ImageName@ is
 -- displayed.
 createImage_displayName :: Lens.Lens' CreateImage (Prelude.Maybe Prelude.Text)
 createImage_displayName = Lens.lens (\CreateImage' {displayName} -> displayName) (\s@CreateImage' {} a -> s {displayName = a} :: CreateImage)
-
--- | The description of the image.
-createImage_description :: Lens.Lens' CreateImage (Prelude.Maybe Prelude.Text)
-createImage_description = Lens.lens (\CreateImage' {description} -> description) (\s@CreateImage' {} a -> s {description = a} :: CreateImage)
 
 -- | A list of tags to apply to the image.
 createImage_tags :: Lens.Lens' CreateImage (Prelude.Maybe [Tag])
@@ -128,60 +129,61 @@ createImage_roleArn = Lens.lens (\CreateImage' {roleArn} -> roleArn) (\s@CreateI
 
 instance Core.AWSRequest CreateImage where
   type AWSResponse CreateImage = CreateImageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateImageResponse'
-            Prelude.<$> (x Core..?> "ImageArn")
+            Prelude.<$> (x Data..?> "ImageArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateImage where
   hashWithSalt _salt CreateImage' {..} =
-    _salt `Prelude.hashWithSalt` displayName
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` displayName
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` imageName
       `Prelude.hashWithSalt` roleArn
 
 instance Prelude.NFData CreateImage where
   rnf CreateImage' {..} =
-    Prelude.rnf displayName
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf displayName
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf imageName
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders CreateImage where
+instance Data.ToHeaders CreateImage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.CreateImage" :: Prelude.ByteString),
+              Data.=# ("SageMaker.CreateImage" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateImage where
+instance Data.ToJSON CreateImage where
   toJSON CreateImage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DisplayName" Core..=) Prelude.<$> displayName,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("ImageName" Core..= imageName),
-            Prelude.Just ("RoleArn" Core..= roleArn)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("DisplayName" Data..=) Prelude.<$> displayName,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("ImageName" Data..= imageName),
+            Prelude.Just ("RoleArn" Data..= roleArn)
           ]
       )
 
-instance Core.ToPath CreateImage where
+instance Data.ToPath CreateImage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateImage where
+instance Data.ToQuery CreateImage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateImageResponse' smart constructor.

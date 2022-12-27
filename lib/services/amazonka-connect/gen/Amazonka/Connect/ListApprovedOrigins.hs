@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.ListApprovedOrigins
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.Connect.ListApprovedOrigins
     newListApprovedOrigins,
 
     -- * Request Lenses
-    listApprovedOrigins_nextToken,
     listApprovedOrigins_maxResults,
+    listApprovedOrigins_nextToken,
     listApprovedOrigins_instanceId,
 
     -- * Destructuring the Response
@@ -50,19 +50,20 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListApprovedOrigins' smart constructor.
 data ListApprovedOrigins = ListApprovedOrigins'
-  { -- | The token for the next set of results. Use the value returned in the
+  { -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
     instanceId :: Prelude.Text
@@ -77,11 +78,11 @@ data ListApprovedOrigins = ListApprovedOrigins'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listApprovedOrigins_maxResults' - The maximum number of results to return per page.
+--
 -- 'nextToken', 'listApprovedOrigins_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listApprovedOrigins_maxResults' - The maximum number of results to return per page.
 --
 -- 'instanceId', 'listApprovedOrigins_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -91,20 +92,20 @@ newListApprovedOrigins ::
   ListApprovedOrigins
 newListApprovedOrigins pInstanceId_ =
   ListApprovedOrigins'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       instanceId = pInstanceId_
     }
+
+-- | The maximum number of results to return per page.
+listApprovedOrigins_maxResults :: Lens.Lens' ListApprovedOrigins (Prelude.Maybe Prelude.Natural)
+listApprovedOrigins_maxResults = Lens.lens (\ListApprovedOrigins' {maxResults} -> maxResults) (\s@ListApprovedOrigins' {} a -> s {maxResults = a} :: ListApprovedOrigins)
 
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
 listApprovedOrigins_nextToken :: Lens.Lens' ListApprovedOrigins (Prelude.Maybe Prelude.Text)
 listApprovedOrigins_nextToken = Lens.lens (\ListApprovedOrigins' {nextToken} -> nextToken) (\s@ListApprovedOrigins' {} a -> s {nextToken = a} :: ListApprovedOrigins)
-
--- | The maximum number of results to return per page.
-listApprovedOrigins_maxResults :: Lens.Lens' ListApprovedOrigins (Prelude.Maybe Prelude.Natural)
-listApprovedOrigins_maxResults = Lens.lens (\ListApprovedOrigins' {maxResults} -> maxResults) (\s@ListApprovedOrigins' {} a -> s {maxResults = a} :: ListApprovedOrigins)
 
 -- | The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -137,52 +138,53 @@ instance Core.AWSRequest ListApprovedOrigins where
   type
     AWSResponse ListApprovedOrigins =
       ListApprovedOriginsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListApprovedOriginsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Origins" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Origins" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListApprovedOrigins where
   hashWithSalt _salt ListApprovedOrigins' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` instanceId
 
 instance Prelude.NFData ListApprovedOrigins where
   rnf ListApprovedOrigins' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders ListApprovedOrigins where
+instance Data.ToHeaders ListApprovedOrigins where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListApprovedOrigins where
+instance Data.ToPath ListApprovedOrigins where
   toPath ListApprovedOrigins' {..} =
     Prelude.mconcat
       [ "/instance/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/approved-origins"
       ]
 
-instance Core.ToQuery ListApprovedOrigins where
+instance Data.ToQuery ListApprovedOrigins where
   toQuery ListApprovedOrigins' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListApprovedOriginsResponse' smart constructor.

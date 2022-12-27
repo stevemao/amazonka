@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.ModifyDBClusterParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,10 +24,6 @@
 -- than one parameter, submit a list of the following: @ParameterName@,
 -- @ParameterValue@, and @ApplyMethod@. A maximum of 20 parameters can be
 -- modified in a single request.
---
--- For more information on Amazon Aurora, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?>
--- in the /Amazon Aurora User Guide./
 --
 -- After you create a DB cluster parameter group, you should wait at least
 -- 5 minutes before creating your first DB cluster that uses that DB
@@ -39,16 +35,22 @@
 -- database defined by the @character_set_database@ parameter. You can use
 -- the /Parameter Groups/ option of the
 -- <https://console.aws.amazon.com/rds/ Amazon RDS console> or the
--- @DescribeDBClusterParameters@ action to verify that your DB cluster
+-- @DescribeDBClusterParameters@ operation to verify that your DB cluster
 -- parameter group has been created or modified.
 --
 -- If the modified DB cluster parameter group is used by an Aurora
--- Serverless cluster, Aurora applies the update immediately. The cluster
--- restart might interrupt your workload. In that case, your application
--- must reopen any connections and retry any transactions that were active
--- when the parameter changes took effect.
+-- Serverless v1 cluster, Aurora applies the update immediately. The
+-- cluster restart might interrupt your workload. In that case, your
+-- application must reopen any connections and retry any transactions that
+-- were active when the parameter changes took effect.
 --
--- This action only applies to Aurora DB clusters.
+-- For more information on Amazon Aurora DB clusters, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What is Amazon Aurora?>
+-- in the /Amazon Aurora User Guide/.
+--
+-- For more information on Multi-AZ DB clusters, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html Multi-AZ deployments with two readable standby DB instances>
+-- in the /Amazon RDS User Guide./
 module Amazonka.RDS.ModifyDBClusterParameterGroup
   ( -- * Creating a Request
     ModifyDBClusterParameterGroup (..),
@@ -68,7 +70,8 @@ module Amazonka.RDS.ModifyDBClusterParameterGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -156,11 +159,12 @@ instance
   type
     AWSResponse ModifyDBClusterParameterGroup =
       DBClusterParameterGroupNameMessage
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyDBClusterParameterGroupResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance
   Prelude.Hashable
@@ -176,23 +180,23 @@ instance Prelude.NFData ModifyDBClusterParameterGroup where
     Prelude.rnf dbClusterParameterGroupName
       `Prelude.seq` Prelude.rnf parameters
 
-instance Core.ToHeaders ModifyDBClusterParameterGroup where
+instance Data.ToHeaders ModifyDBClusterParameterGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyDBClusterParameterGroup where
+instance Data.ToPath ModifyDBClusterParameterGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyDBClusterParameterGroup where
+instance Data.ToQuery ModifyDBClusterParameterGroup where
   toQuery ModifyDBClusterParameterGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ModifyDBClusterParameterGroup" ::
+          Data.=: ( "ModifyDBClusterParameterGroup" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "DBClusterParameterGroupName"
-          Core.=: dbClusterParameterGroupName,
+          Data.=: dbClusterParameterGroupName,
         "Parameters"
-          Core.=: Core.toQueryList "Parameter" parameters
+          Data.=: Data.toQueryList "Parameter" parameters
       ]

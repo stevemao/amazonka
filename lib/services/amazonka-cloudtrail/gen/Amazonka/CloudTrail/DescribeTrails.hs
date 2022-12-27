@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudTrail.DescribeTrails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CloudTrail.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -160,12 +161,13 @@ instance Core.AWSRequest DescribeTrails where
   type
     AWSResponse DescribeTrails =
       DescribeTrailsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTrailsResponse'
-            Prelude.<$> (x Core..?> "trailList" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "trailList" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -179,35 +181,35 @@ instance Prelude.NFData DescribeTrails where
     Prelude.rnf includeShadowTrails
       `Prelude.seq` Prelude.rnf trailNameList
 
-instance Core.ToHeaders DescribeTrails where
+instance Data.ToHeaders DescribeTrails where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.DescribeTrails" ::
+              Data.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.DescribeTrails" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeTrails where
+instance Data.ToJSON DescribeTrails where
   toJSON DescribeTrails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("includeShadowTrails" Core..=)
+          [ ("includeShadowTrails" Data..=)
               Prelude.<$> includeShadowTrails,
-            ("trailNameList" Core..=) Prelude.<$> trailNameList
+            ("trailNameList" Data..=) Prelude.<$> trailNameList
           ]
       )
 
-instance Core.ToPath DescribeTrails where
+instance Data.ToPath DescribeTrails where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTrails where
+instance Data.ToQuery DescribeTrails where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Returns the objects or data listed below if successful. Otherwise,

@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.ConfigureLogsForPlaybackConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Configures Amazon CloudWatch log settings for a playback configuration.
+-- Amazon CloudWatch log settings for a playback configuration.
 module Amazonka.MediaTailor.ConfigureLogsForPlaybackConfiguration
   ( -- * Creating a Request
     ConfigureLogsForPlaybackConfiguration (..),
@@ -36,13 +36,14 @@ module Amazonka.MediaTailor.ConfigureLogsForPlaybackConfiguration
 
     -- * Response Lenses
     configureLogsForPlaybackConfigurationResponse_playbackConfigurationName,
-    configureLogsForPlaybackConfigurationResponse_percentEnabled,
     configureLogsForPlaybackConfigurationResponse_httpStatus,
+    configureLogsForPlaybackConfigurationResponse_percentEnabled,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,13 +55,13 @@ import qualified Amazonka.Response as Response
 data ConfigureLogsForPlaybackConfiguration = ConfigureLogsForPlaybackConfiguration'
   { -- | The percentage of session logs that MediaTailor sends to your Cloudwatch
     -- Logs account. For example, if your playback configuration has 1000
-    -- sessions and percentEnabled is set to 60, MediaTailor sends logs for 600
-    -- of the sessions to CloudWatch Logs. MediaTailor decides at random which
-    -- of the playback configuration sessions to send logs for. If you want to
-    -- view logs for a specific session, you can use the
+    -- sessions and percentEnabled is set to @60@, MediaTailor sends logs for
+    -- 600 of the sessions to CloudWatch Logs. MediaTailor decides at random
+    -- which of the playback configuration sessions to send logs for. If you
+    -- want to view logs for a specific session, you can use the
     -- <https://docs.aws.amazon.com/mediatailor/latest/ug/debug-log-mode.html debug log mode>.
     --
-    -- Valid values: 0 - 100
+    -- Valid values: @0@ - @100@
     percentEnabled :: Prelude.Int,
     -- | The name of the playback configuration.
     playbackConfigurationName :: Prelude.Text
@@ -77,13 +78,13 @@ data ConfigureLogsForPlaybackConfiguration = ConfigureLogsForPlaybackConfigurati
 --
 -- 'percentEnabled', 'configureLogsForPlaybackConfiguration_percentEnabled' - The percentage of session logs that MediaTailor sends to your Cloudwatch
 -- Logs account. For example, if your playback configuration has 1000
--- sessions and percentEnabled is set to 60, MediaTailor sends logs for 600
--- of the sessions to CloudWatch Logs. MediaTailor decides at random which
--- of the playback configuration sessions to send logs for. If you want to
--- view logs for a specific session, you can use the
+-- sessions and percentEnabled is set to @60@, MediaTailor sends logs for
+-- 600 of the sessions to CloudWatch Logs. MediaTailor decides at random
+-- which of the playback configuration sessions to send logs for. If you
+-- want to view logs for a specific session, you can use the
 -- <https://docs.aws.amazon.com/mediatailor/latest/ug/debug-log-mode.html debug log mode>.
 --
--- Valid values: 0 - 100
+-- Valid values: @0@ - @100@
 --
 -- 'playbackConfigurationName', 'configureLogsForPlaybackConfiguration_playbackConfigurationName' - The name of the playback configuration.
 newConfigureLogsForPlaybackConfiguration ::
@@ -104,13 +105,13 @@ newConfigureLogsForPlaybackConfiguration
 
 -- | The percentage of session logs that MediaTailor sends to your Cloudwatch
 -- Logs account. For example, if your playback configuration has 1000
--- sessions and percentEnabled is set to 60, MediaTailor sends logs for 600
--- of the sessions to CloudWatch Logs. MediaTailor decides at random which
--- of the playback configuration sessions to send logs for. If you want to
--- view logs for a specific session, you can use the
+-- sessions and percentEnabled is set to @60@, MediaTailor sends logs for
+-- 600 of the sessions to CloudWatch Logs. MediaTailor decides at random
+-- which of the playback configuration sessions to send logs for. If you
+-- want to view logs for a specific session, you can use the
 -- <https://docs.aws.amazon.com/mediatailor/latest/ug/debug-log-mode.html debug log mode>.
 --
--- Valid values: 0 - 100
+-- Valid values: @0@ - @100@
 configureLogsForPlaybackConfiguration_percentEnabled :: Lens.Lens' ConfigureLogsForPlaybackConfiguration Prelude.Int
 configureLogsForPlaybackConfiguration_percentEnabled = Lens.lens (\ConfigureLogsForPlaybackConfiguration' {percentEnabled} -> percentEnabled) (\s@ConfigureLogsForPlaybackConfiguration' {} a -> s {percentEnabled = a} :: ConfigureLogsForPlaybackConfiguration)
 
@@ -126,14 +127,15 @@ instance
     AWSResponse
       ConfigureLogsForPlaybackConfiguration =
       ConfigureLogsForPlaybackConfigurationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ConfigureLogsForPlaybackConfigurationResponse'
-            Prelude.<$> (x Core..?> "PlaybackConfigurationName")
-              Prelude.<*> (x Core..?> "PercentEnabled")
+            Prelude.<$> (x Data..?> "PlaybackConfigurationName")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+              Prelude.<*> (x Data..:> "PercentEnabled")
       )
 
 instance
@@ -155,37 +157,37 @@ instance
       `Prelude.seq` Prelude.rnf playbackConfigurationName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ConfigureLogsForPlaybackConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ConfigureLogsForPlaybackConfiguration
   where
   toJSON ConfigureLogsForPlaybackConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("PercentEnabled" Core..= percentEnabled),
+              ("PercentEnabled" Data..= percentEnabled),
             Prelude.Just
               ( "PlaybackConfigurationName"
-                  Core..= playbackConfigurationName
+                  Data..= playbackConfigurationName
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     ConfigureLogsForPlaybackConfiguration
   where
   toPath =
@@ -193,7 +195,7 @@ instance
       "/configureLogs/playbackConfiguration"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ConfigureLogsForPlaybackConfiguration
   where
   toQuery = Prelude.const Prelude.mempty
@@ -202,11 +204,11 @@ instance
 data ConfigureLogsForPlaybackConfigurationResponse = ConfigureLogsForPlaybackConfigurationResponse'
   { -- | The name of the playback configuration.
     playbackConfigurationName :: Prelude.Maybe Prelude.Text,
+    -- | The response's http status code.
+    httpStatus :: Prelude.Int,
     -- | The percentage of session logs that MediaTailor sends to your Cloudwatch
     -- Logs account.
-    percentEnabled :: Prelude.Maybe Prelude.Int,
-    -- | The response's http status code.
-    httpStatus :: Prelude.Int
+    percentEnabled :: Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -220,36 +222,39 @@ data ConfigureLogsForPlaybackConfigurationResponse = ConfigureLogsForPlaybackCon
 --
 -- 'playbackConfigurationName', 'configureLogsForPlaybackConfigurationResponse_playbackConfigurationName' - The name of the playback configuration.
 --
+-- 'httpStatus', 'configureLogsForPlaybackConfigurationResponse_httpStatus' - The response's http status code.
+--
 -- 'percentEnabled', 'configureLogsForPlaybackConfigurationResponse_percentEnabled' - The percentage of session logs that MediaTailor sends to your Cloudwatch
 -- Logs account.
---
--- 'httpStatus', 'configureLogsForPlaybackConfigurationResponse_httpStatus' - The response's http status code.
 newConfigureLogsForPlaybackConfigurationResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
+  -- | 'percentEnabled'
+  Prelude.Int ->
   ConfigureLogsForPlaybackConfigurationResponse
 newConfigureLogsForPlaybackConfigurationResponse
-  pHttpStatus_ =
+  pHttpStatus_
+  pPercentEnabled_ =
     ConfigureLogsForPlaybackConfigurationResponse'
       { playbackConfigurationName =
           Prelude.Nothing,
+        httpStatus = pHttpStatus_,
         percentEnabled =
-          Prelude.Nothing,
-        httpStatus = pHttpStatus_
+          pPercentEnabled_
       }
 
 -- | The name of the playback configuration.
 configureLogsForPlaybackConfigurationResponse_playbackConfigurationName :: Lens.Lens' ConfigureLogsForPlaybackConfigurationResponse (Prelude.Maybe Prelude.Text)
 configureLogsForPlaybackConfigurationResponse_playbackConfigurationName = Lens.lens (\ConfigureLogsForPlaybackConfigurationResponse' {playbackConfigurationName} -> playbackConfigurationName) (\s@ConfigureLogsForPlaybackConfigurationResponse' {} a -> s {playbackConfigurationName = a} :: ConfigureLogsForPlaybackConfigurationResponse)
 
--- | The percentage of session logs that MediaTailor sends to your Cloudwatch
--- Logs account.
-configureLogsForPlaybackConfigurationResponse_percentEnabled :: Lens.Lens' ConfigureLogsForPlaybackConfigurationResponse (Prelude.Maybe Prelude.Int)
-configureLogsForPlaybackConfigurationResponse_percentEnabled = Lens.lens (\ConfigureLogsForPlaybackConfigurationResponse' {percentEnabled} -> percentEnabled) (\s@ConfigureLogsForPlaybackConfigurationResponse' {} a -> s {percentEnabled = a} :: ConfigureLogsForPlaybackConfigurationResponse)
-
 -- | The response's http status code.
 configureLogsForPlaybackConfigurationResponse_httpStatus :: Lens.Lens' ConfigureLogsForPlaybackConfigurationResponse Prelude.Int
 configureLogsForPlaybackConfigurationResponse_httpStatus = Lens.lens (\ConfigureLogsForPlaybackConfigurationResponse' {httpStatus} -> httpStatus) (\s@ConfigureLogsForPlaybackConfigurationResponse' {} a -> s {httpStatus = a} :: ConfigureLogsForPlaybackConfigurationResponse)
+
+-- | The percentage of session logs that MediaTailor sends to your Cloudwatch
+-- Logs account.
+configureLogsForPlaybackConfigurationResponse_percentEnabled :: Lens.Lens' ConfigureLogsForPlaybackConfigurationResponse Prelude.Int
+configureLogsForPlaybackConfigurationResponse_percentEnabled = Lens.lens (\ConfigureLogsForPlaybackConfigurationResponse' {percentEnabled} -> percentEnabled) (\s@ConfigureLogsForPlaybackConfigurationResponse' {} a -> s {percentEnabled = a} :: ConfigureLogsForPlaybackConfigurationResponse)
 
 instance
   Prelude.NFData
@@ -258,5 +263,5 @@ instance
   rnf
     ConfigureLogsForPlaybackConfigurationResponse' {..} =
       Prelude.rnf playbackConfigurationName
-        `Prelude.seq` Prelude.rnf percentEnabled
         `Prelude.seq` Prelude.rnf httpStatus
+        `Prelude.seq` Prelude.rnf percentEnabled

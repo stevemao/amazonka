@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.TcpRoute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,20 @@
 module Amazonka.AppMesh.Types.TcpRoute where
 
 import Amazonka.AppMesh.Types.TcpRouteAction
+import Amazonka.AppMesh.Types.TcpRouteMatch
 import Amazonka.AppMesh.Types.TcpTimeout
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a TCP route type.
 --
 -- /See:/ 'newTcpRoute' smart constructor.
 data TcpRoute = TcpRoute'
-  { -- | An object that represents types of timeouts.
+  { -- | An object that represents the criteria for determining a request match.
+    match :: Prelude.Maybe TcpRouteMatch,
+    -- | An object that represents types of timeouts.
     timeout :: Prelude.Maybe TcpTimeout,
     -- | The action to take if a match is determined.
     action :: TcpRouteAction
@@ -44,6 +48,8 @@ data TcpRoute = TcpRoute'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'match', 'tcpRoute_match' - An object that represents the criteria for determining a request match.
+--
 -- 'timeout', 'tcpRoute_timeout' - An object that represents types of timeouts.
 --
 -- 'action', 'tcpRoute_action' - The action to take if a match is determined.
@@ -53,9 +59,14 @@ newTcpRoute ::
   TcpRoute
 newTcpRoute pAction_ =
   TcpRoute'
-    { timeout = Prelude.Nothing,
+    { match = Prelude.Nothing,
+      timeout = Prelude.Nothing,
       action = pAction_
     }
+
+-- | An object that represents the criteria for determining a request match.
+tcpRoute_match :: Lens.Lens' TcpRoute (Prelude.Maybe TcpRouteMatch)
+tcpRoute_match = Lens.lens (\TcpRoute' {match} -> match) (\s@TcpRoute' {} a -> s {match = a} :: TcpRoute)
 
 -- | An object that represents types of timeouts.
 tcpRoute_timeout :: Lens.Lens' TcpRoute (Prelude.Maybe TcpTimeout)
@@ -65,31 +76,35 @@ tcpRoute_timeout = Lens.lens (\TcpRoute' {timeout} -> timeout) (\s@TcpRoute' {} 
 tcpRoute_action :: Lens.Lens' TcpRoute TcpRouteAction
 tcpRoute_action = Lens.lens (\TcpRoute' {action} -> action) (\s@TcpRoute' {} a -> s {action = a} :: TcpRoute)
 
-instance Core.FromJSON TcpRoute where
+instance Data.FromJSON TcpRoute where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TcpRoute"
       ( \x ->
           TcpRoute'
-            Prelude.<$> (x Core..:? "timeout")
-            Prelude.<*> (x Core..: "action")
+            Prelude.<$> (x Data..:? "match")
+            Prelude.<*> (x Data..:? "timeout")
+            Prelude.<*> (x Data..: "action")
       )
 
 instance Prelude.Hashable TcpRoute where
   hashWithSalt _salt TcpRoute' {..} =
-    _salt `Prelude.hashWithSalt` timeout
+    _salt `Prelude.hashWithSalt` match
+      `Prelude.hashWithSalt` timeout
       `Prelude.hashWithSalt` action
 
 instance Prelude.NFData TcpRoute where
   rnf TcpRoute' {..} =
-    Prelude.rnf timeout
+    Prelude.rnf match
+      `Prelude.seq` Prelude.rnf timeout
       `Prelude.seq` Prelude.rnf action
 
-instance Core.ToJSON TcpRoute where
+instance Data.ToJSON TcpRoute where
   toJSON TcpRoute' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("timeout" Core..=) Prelude.<$> timeout,
-            Prelude.Just ("action" Core..= action)
+          [ ("match" Data..=) Prelude.<$> match,
+            ("timeout" Data..=) Prelude.<$> timeout,
+            Prelude.Just ("action" Data..= action)
           ]
       )

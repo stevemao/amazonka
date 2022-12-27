@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualServiceSpec
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.VirtualServiceSpec where
 
 import Amazonka.AppMesh.Types.VirtualServiceProvider
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the specification of a virtual service.
@@ -54,13 +55,13 @@ newVirtualServiceSpec =
 virtualServiceSpec_provider :: Lens.Lens' VirtualServiceSpec (Prelude.Maybe VirtualServiceProvider)
 virtualServiceSpec_provider = Lens.lens (\VirtualServiceSpec' {provider} -> provider) (\s@VirtualServiceSpec' {} a -> s {provider = a} :: VirtualServiceSpec)
 
-instance Core.FromJSON VirtualServiceSpec where
+instance Data.FromJSON VirtualServiceSpec where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualServiceSpec"
       ( \x ->
           VirtualServiceSpec'
-            Prelude.<$> (x Core..:? "provider")
+            Prelude.<$> (x Data..:? "provider")
       )
 
 instance Prelude.Hashable VirtualServiceSpec where
@@ -70,9 +71,9 @@ instance Prelude.Hashable VirtualServiceSpec where
 instance Prelude.NFData VirtualServiceSpec where
   rnf VirtualServiceSpec' {..} = Prelude.rnf provider
 
-instance Core.ToJSON VirtualServiceSpec where
+instance Data.ToJSON VirtualServiceSpec where
   toJSON VirtualServiceSpec' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("provider" Core..=) Prelude.<$> provider]
+          [("provider" Data..=) Prelude.<$> provider]
       )

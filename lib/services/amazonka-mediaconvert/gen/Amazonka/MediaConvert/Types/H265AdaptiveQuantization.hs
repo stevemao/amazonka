@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.H265AdaptiveQuantization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,6 +20,7 @@
 module Amazonka.MediaConvert.Types.H265AdaptiveQuantization
   ( H265AdaptiveQuantization
       ( ..,
+        H265AdaptiveQuantization_AUTO,
         H265AdaptiveQuantization_HIGH,
         H265AdaptiveQuantization_HIGHER,
         H265AdaptiveQuantization_LOW,
@@ -31,16 +32,23 @@ module Amazonka.MediaConvert.Types.H265AdaptiveQuantization
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Specify the strength of any adaptive quantization filters that you
--- enable. The value that you choose here applies to the following
--- settings: Flicker adaptive quantization (flickerAdaptiveQuantization),
--- Spatial adaptive quantization (spatialAdaptiveQuantization), and
--- Temporal adaptive quantization (temporalAdaptiveQuantization).
+-- | When you set Adaptive Quantization (H265AdaptiveQuantization) to Auto
+-- (AUTO), or leave blank, MediaConvert automatically applies quantization
+-- to improve the video quality of your output. Set Adaptive Quantization
+-- to Low (LOW), Medium (MEDIUM), High (HIGH), Higher (HIGHER), or Max
+-- (MAX) to manually control the strength of the quantization filter. When
+-- you do, you can specify a value for Spatial Adaptive Quantization
+-- (H265SpatialAdaptiveQuantization), Temporal Adaptive Quantization
+-- (H265TemporalAdaptiveQuantization), and Flicker Adaptive Quantization
+-- (H265FlickerAdaptiveQuantization), to further control the quantization
+-- filter. Set Adaptive Quantization to Off (OFF) to apply no quantization
+-- to your output.
 newtype H265AdaptiveQuantization = H265AdaptiveQuantization'
   { fromH265AdaptiveQuantization ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -52,19 +60,22 @@ newtype H265AdaptiveQuantization = H265AdaptiveQuantization'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern H265AdaptiveQuantization_AUTO :: H265AdaptiveQuantization
+pattern H265AdaptiveQuantization_AUTO = H265AdaptiveQuantization' "AUTO"
 
 pattern H265AdaptiveQuantization_HIGH :: H265AdaptiveQuantization
 pattern H265AdaptiveQuantization_HIGH = H265AdaptiveQuantization' "HIGH"
@@ -85,6 +96,7 @@ pattern H265AdaptiveQuantization_OFF :: H265AdaptiveQuantization
 pattern H265AdaptiveQuantization_OFF = H265AdaptiveQuantization' "OFF"
 
 {-# COMPLETE
+  H265AdaptiveQuantization_AUTO,
   H265AdaptiveQuantization_HIGH,
   H265AdaptiveQuantization_HIGHER,
   H265AdaptiveQuantization_LOW,

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetUsagePlanKeys
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.APIGateway.GetUsagePlanKeys
     newGetUsagePlanKeys,
 
     -- * Request Lenses
-    getUsagePlanKeys_nameQuery,
     getUsagePlanKeys_limit,
+    getUsagePlanKeys_nameQuery,
     getUsagePlanKeys_position,
     getUsagePlanKeys_usagePlanId,
 
@@ -48,7 +48,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,17 +59,16 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetUsagePlanKeys' smart constructor.
 data GetUsagePlanKeys = GetUsagePlanKeys'
-  { -- | A query parameter specifying the name of the to-be-returned usage plan
-    -- keys.
-    nameQuery :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of returned results per page. The default value is 25
+  { -- | The maximum number of returned results per page. The default value is 25
     -- and the maximum value is 500.
     limit :: Prelude.Maybe Prelude.Int,
+    -- | A query parameter specifying the name of the to-be-returned usage plan
+    -- keys.
+    nameQuery :: Prelude.Maybe Prelude.Text,
     -- | The current pagination position in the paged result set.
     position :: Prelude.Maybe Prelude.Text,
-    -- | [Required] The Id of the UsagePlan resource representing the usage plan
-    -- containing the to-be-retrieved UsagePlanKey resource representing a plan
-    -- customer.
+    -- | The Id of the UsagePlan resource representing the usage plan containing
+    -- the to-be-retrieved UsagePlanKey resource representing a plan customer.
     usagePlanId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -81,46 +81,44 @@ data GetUsagePlanKeys = GetUsagePlanKeys'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nameQuery', 'getUsagePlanKeys_nameQuery' - A query parameter specifying the name of the to-be-returned usage plan
--- keys.
---
 -- 'limit', 'getUsagePlanKeys_limit' - The maximum number of returned results per page. The default value is 25
 -- and the maximum value is 500.
 --
+-- 'nameQuery', 'getUsagePlanKeys_nameQuery' - A query parameter specifying the name of the to-be-returned usage plan
+-- keys.
+--
 -- 'position', 'getUsagePlanKeys_position' - The current pagination position in the paged result set.
 --
--- 'usagePlanId', 'getUsagePlanKeys_usagePlanId' - [Required] The Id of the UsagePlan resource representing the usage plan
--- containing the to-be-retrieved UsagePlanKey resource representing a plan
--- customer.
+-- 'usagePlanId', 'getUsagePlanKeys_usagePlanId' - The Id of the UsagePlan resource representing the usage plan containing
+-- the to-be-retrieved UsagePlanKey resource representing a plan customer.
 newGetUsagePlanKeys ::
   -- | 'usagePlanId'
   Prelude.Text ->
   GetUsagePlanKeys
 newGetUsagePlanKeys pUsagePlanId_ =
   GetUsagePlanKeys'
-    { nameQuery = Prelude.Nothing,
-      limit = Prelude.Nothing,
+    { limit = Prelude.Nothing,
+      nameQuery = Prelude.Nothing,
       position = Prelude.Nothing,
       usagePlanId = pUsagePlanId_
     }
-
--- | A query parameter specifying the name of the to-be-returned usage plan
--- keys.
-getUsagePlanKeys_nameQuery :: Lens.Lens' GetUsagePlanKeys (Prelude.Maybe Prelude.Text)
-getUsagePlanKeys_nameQuery = Lens.lens (\GetUsagePlanKeys' {nameQuery} -> nameQuery) (\s@GetUsagePlanKeys' {} a -> s {nameQuery = a} :: GetUsagePlanKeys)
 
 -- | The maximum number of returned results per page. The default value is 25
 -- and the maximum value is 500.
 getUsagePlanKeys_limit :: Lens.Lens' GetUsagePlanKeys (Prelude.Maybe Prelude.Int)
 getUsagePlanKeys_limit = Lens.lens (\GetUsagePlanKeys' {limit} -> limit) (\s@GetUsagePlanKeys' {} a -> s {limit = a} :: GetUsagePlanKeys)
 
+-- | A query parameter specifying the name of the to-be-returned usage plan
+-- keys.
+getUsagePlanKeys_nameQuery :: Lens.Lens' GetUsagePlanKeys (Prelude.Maybe Prelude.Text)
+getUsagePlanKeys_nameQuery = Lens.lens (\GetUsagePlanKeys' {nameQuery} -> nameQuery) (\s@GetUsagePlanKeys' {} a -> s {nameQuery = a} :: GetUsagePlanKeys)
+
 -- | The current pagination position in the paged result set.
 getUsagePlanKeys_position :: Lens.Lens' GetUsagePlanKeys (Prelude.Maybe Prelude.Text)
 getUsagePlanKeys_position = Lens.lens (\GetUsagePlanKeys' {position} -> position) (\s@GetUsagePlanKeys' {} a -> s {position = a} :: GetUsagePlanKeys)
 
--- | [Required] The Id of the UsagePlan resource representing the usage plan
--- containing the to-be-retrieved UsagePlanKey resource representing a plan
--- customer.
+-- | The Id of the UsagePlan resource representing the usage plan containing
+-- the to-be-retrieved UsagePlanKey resource representing a plan customer.
 getUsagePlanKeys_usagePlanId :: Lens.Lens' GetUsagePlanKeys Prelude.Text
 getUsagePlanKeys_usagePlanId = Lens.lens (\GetUsagePlanKeys' {usagePlanId} -> usagePlanId) (\s@GetUsagePlanKeys' {} a -> s {usagePlanId = a} :: GetUsagePlanKeys)
 
@@ -149,56 +147,55 @@ instance Core.AWSRequest GetUsagePlanKeys where
   type
     AWSResponse GetUsagePlanKeys =
       GetUsagePlanKeysResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetUsagePlanKeysResponse'
-            Prelude.<$> (x Core..?> "item" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "position")
+            Prelude.<$> (x Data..?> "item" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "position")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetUsagePlanKeys where
   hashWithSalt _salt GetUsagePlanKeys' {..} =
-    _salt `Prelude.hashWithSalt` nameQuery
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nameQuery
       `Prelude.hashWithSalt` position
       `Prelude.hashWithSalt` usagePlanId
 
 instance Prelude.NFData GetUsagePlanKeys where
   rnf GetUsagePlanKeys' {..} =
-    Prelude.rnf nameQuery
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nameQuery
       `Prelude.seq` Prelude.rnf position
       `Prelude.seq` Prelude.rnf usagePlanId
 
-instance Core.ToHeaders GetUsagePlanKeys where
+instance Data.ToHeaders GetUsagePlanKeys where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetUsagePlanKeys where
+instance Data.ToPath GetUsagePlanKeys where
   toPath GetUsagePlanKeys' {..} =
     Prelude.mconcat
-      ["/usageplans/", Core.toBS usagePlanId, "/keys"]
+      ["/usageplans/", Data.toBS usagePlanId, "/keys"]
 
-instance Core.ToQuery GetUsagePlanKeys where
+instance Data.ToQuery GetUsagePlanKeys where
   toQuery GetUsagePlanKeys' {..} =
     Prelude.mconcat
-      [ "name" Core.=: nameQuery,
-        "limit" Core.=: limit,
-        "position" Core.=: position
+      [ "limit" Data.=: limit,
+        "name" Data.=: nameQuery,
+        "position" Data.=: position
       ]
 
 -- | Represents the collection of usage plan keys added to usage plans for
 -- the associated API keys and, possibly, other types of keys.
---
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-api-usage-plans.html Create and Use Usage Plans>
 --
 -- /See:/ 'newGetUsagePlanKeysResponse' smart constructor.
 data GetUsagePlanKeysResponse = GetUsagePlanKeysResponse'

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DescribeClusterTracks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.Redshift.DescribeClusterTracks
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -138,17 +139,18 @@ instance Core.AWSRequest DescribeClusterTracks where
   type
     AWSResponse DescribeClusterTracks =
       DescribeClusterTracksResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeClusterTracksResult"
       ( \s h x ->
           DescribeClusterTracksResponse'
-            Prelude.<$> ( x Core..@? "MaintenanceTracks"
+            Prelude.<$> ( x Data..@? "MaintenanceTracks"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "MaintenanceTrack")
+                            Prelude.>>= Core.may (Data.parseXMLList "MaintenanceTrack")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -164,22 +166,22 @@ instance Prelude.NFData DescribeClusterTracks where
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
 
-instance Core.ToHeaders DescribeClusterTracks where
+instance Data.ToHeaders DescribeClusterTracks where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeClusterTracks where
+instance Data.ToPath DescribeClusterTracks where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeClusterTracks where
+instance Data.ToQuery DescribeClusterTracks where
   toQuery DescribeClusterTracks' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeClusterTracks" :: Prelude.ByteString),
+          Data.=: ("DescribeClusterTracks" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "MaintenanceTrackName" Core.=: maintenanceTrackName,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "MaintenanceTrackName" Data.=: maintenanceTrackName,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords
       ]
 
 -- | /See:/ 'newDescribeClusterTracksResponse' smart constructor.

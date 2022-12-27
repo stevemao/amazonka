@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Location.Types.MapConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Location.Types.MapConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the map tile style selected from an available provider.
@@ -63,14 +64,36 @@ data MapConfiguration = MapConfiguration'
     -- Valid
     -- <https://docs.aws.amazon.com/location/latest/developerguide/HERE.html HERE Technologies map styles>:
     --
-    -- -   @VectorHereBerlin@ – The HERE Berlin map style is a high contrast
-    --     detailed base map of the world that blends 3D and 2D rendering.
+    -- -   @VectorHereContrast@ – The HERE Contrast (Berlin) map style is a
+    --     high contrast detailed base map of the world that blends 3D and 2D
+    --     rendering.
     --
-    --     When using HERE as your data provider, and selecting the Style
-    --     @VectorHereBerlin@, you may not use HERE Technologies maps for Asset
-    --     Management. See the
-    --     <https://aws.amazon.com/service-terms/ AWS Service Terms> for Amazon
-    --     Location Service.
+    --     The @VectorHereContrast@ style has been renamed from
+    --     @VectorHereBerlin@. @VectorHereBerlin@ has been deprecated, but will
+    --     continue to work in applications that use it.
+    --
+    -- -   @VectorHereExplore@ – A default HERE map style containing a neutral,
+    --     global map and its features including roads, buildings, landmarks,
+    --     and water features. It also now includes a fully designed map of
+    --     Japan.
+    --
+    -- -   @VectorHereExploreTruck@ – A global map containing truck
+    --     restrictions and attributes (e.g. width \/ height \/ HAZMAT)
+    --     symbolized with highlighted segments and icons on top of HERE
+    --     Explore to support use cases within transport and logistics.
+    --
+    -- -   @RasterHereExploreSatellite@ – A global map containing high
+    --     resolution satellite imagery.
+    --
+    -- -   @HybridHereExploreSatellite@ – A global map displaying the road
+    --     network, street names, and city labels over satellite imagery. This
+    --     style will automatically retrieve both raster and vector tiles, and
+    --     your charges will be based on total tiles retrieved.
+    --
+    --     Hybrid styles use both vector and raster tiles when rendering the
+    --     map that you see. This means that more tiles are retrieved than when
+    --     using either vector or raster tiles alone. Your charges will include
+    --     all tiles retrieved.
     style :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -119,14 +142,36 @@ data MapConfiguration = MapConfiguration'
 -- Valid
 -- <https://docs.aws.amazon.com/location/latest/developerguide/HERE.html HERE Technologies map styles>:
 --
--- -   @VectorHereBerlin@ – The HERE Berlin map style is a high contrast
---     detailed base map of the world that blends 3D and 2D rendering.
+-- -   @VectorHereContrast@ – The HERE Contrast (Berlin) map style is a
+--     high contrast detailed base map of the world that blends 3D and 2D
+--     rendering.
 --
---     When using HERE as your data provider, and selecting the Style
---     @VectorHereBerlin@, you may not use HERE Technologies maps for Asset
---     Management. See the
---     <https://aws.amazon.com/service-terms/ AWS Service Terms> for Amazon
---     Location Service.
+--     The @VectorHereContrast@ style has been renamed from
+--     @VectorHereBerlin@. @VectorHereBerlin@ has been deprecated, but will
+--     continue to work in applications that use it.
+--
+-- -   @VectorHereExplore@ – A default HERE map style containing a neutral,
+--     global map and its features including roads, buildings, landmarks,
+--     and water features. It also now includes a fully designed map of
+--     Japan.
+--
+-- -   @VectorHereExploreTruck@ – A global map containing truck
+--     restrictions and attributes (e.g. width \/ height \/ HAZMAT)
+--     symbolized with highlighted segments and icons on top of HERE
+--     Explore to support use cases within transport and logistics.
+--
+-- -   @RasterHereExploreSatellite@ – A global map containing high
+--     resolution satellite imagery.
+--
+-- -   @HybridHereExploreSatellite@ – A global map displaying the road
+--     network, street names, and city labels over satellite imagery. This
+--     style will automatically retrieve both raster and vector tiles, and
+--     your charges will be based on total tiles retrieved.
+--
+--     Hybrid styles use both vector and raster tiles when rendering the
+--     map that you see. This means that more tiles are retrieved than when
+--     using either vector or raster tiles alone. Your charges will include
+--     all tiles retrieved.
 newMapConfiguration ::
   -- | 'style'
   Prelude.Text ->
@@ -170,23 +215,45 @@ newMapConfiguration pStyle_ =
 -- Valid
 -- <https://docs.aws.amazon.com/location/latest/developerguide/HERE.html HERE Technologies map styles>:
 --
--- -   @VectorHereBerlin@ – The HERE Berlin map style is a high contrast
---     detailed base map of the world that blends 3D and 2D rendering.
+-- -   @VectorHereContrast@ – The HERE Contrast (Berlin) map style is a
+--     high contrast detailed base map of the world that blends 3D and 2D
+--     rendering.
 --
---     When using HERE as your data provider, and selecting the Style
---     @VectorHereBerlin@, you may not use HERE Technologies maps for Asset
---     Management. See the
---     <https://aws.amazon.com/service-terms/ AWS Service Terms> for Amazon
---     Location Service.
+--     The @VectorHereContrast@ style has been renamed from
+--     @VectorHereBerlin@. @VectorHereBerlin@ has been deprecated, but will
+--     continue to work in applications that use it.
+--
+-- -   @VectorHereExplore@ – A default HERE map style containing a neutral,
+--     global map and its features including roads, buildings, landmarks,
+--     and water features. It also now includes a fully designed map of
+--     Japan.
+--
+-- -   @VectorHereExploreTruck@ – A global map containing truck
+--     restrictions and attributes (e.g. width \/ height \/ HAZMAT)
+--     symbolized with highlighted segments and icons on top of HERE
+--     Explore to support use cases within transport and logistics.
+--
+-- -   @RasterHereExploreSatellite@ – A global map containing high
+--     resolution satellite imagery.
+--
+-- -   @HybridHereExploreSatellite@ – A global map displaying the road
+--     network, street names, and city labels over satellite imagery. This
+--     style will automatically retrieve both raster and vector tiles, and
+--     your charges will be based on total tiles retrieved.
+--
+--     Hybrid styles use both vector and raster tiles when rendering the
+--     map that you see. This means that more tiles are retrieved than when
+--     using either vector or raster tiles alone. Your charges will include
+--     all tiles retrieved.
 mapConfiguration_style :: Lens.Lens' MapConfiguration Prelude.Text
 mapConfiguration_style = Lens.lens (\MapConfiguration' {style} -> style) (\s@MapConfiguration' {} a -> s {style = a} :: MapConfiguration)
 
-instance Core.FromJSON MapConfiguration where
+instance Data.FromJSON MapConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MapConfiguration"
       ( \x ->
-          MapConfiguration' Prelude.<$> (x Core..: "Style")
+          MapConfiguration' Prelude.<$> (x Data..: "Style")
       )
 
 instance Prelude.Hashable MapConfiguration where
@@ -196,9 +263,9 @@ instance Prelude.Hashable MapConfiguration where
 instance Prelude.NFData MapConfiguration where
   rnf MapConfiguration' {..} = Prelude.rnf style
 
-instance Core.ToJSON MapConfiguration where
+instance Data.ToJSON MapConfiguration where
   toJSON MapConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Style" Core..= style)]
+          [Prelude.Just ("Style" Data..= style)]
       )

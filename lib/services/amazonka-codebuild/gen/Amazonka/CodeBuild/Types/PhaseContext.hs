@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.Types.PhaseContext
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeBuild.Types.PhaseContext where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Additional information about a build phase that has an error. You can
@@ -65,14 +66,14 @@ phaseContext_message = Lens.lens (\PhaseContext' {message} -> message) (\s@Phase
 phaseContext_statusCode :: Lens.Lens' PhaseContext (Prelude.Maybe Prelude.Text)
 phaseContext_statusCode = Lens.lens (\PhaseContext' {statusCode} -> statusCode) (\s@PhaseContext' {} a -> s {statusCode = a} :: PhaseContext)
 
-instance Core.FromJSON PhaseContext where
+instance Data.FromJSON PhaseContext where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PhaseContext"
       ( \x ->
           PhaseContext'
-            Prelude.<$> (x Core..:? "message")
-            Prelude.<*> (x Core..:? "statusCode")
+            Prelude.<$> (x Data..:? "message")
+            Prelude.<*> (x Data..:? "statusCode")
       )
 
 instance Prelude.Hashable PhaseContext where

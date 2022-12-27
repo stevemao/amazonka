@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.SSM.DescribeAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes the association for the specified target or instance. If you
--- created the association by using the @Targets@ parameter, then you must
--- retrieve the association by using the association ID.
+-- Describes the association for the specified target or managed node. If
+-- you created the association by using the @Targets@ parameter, then you
+-- must retrieve the association by using the association ID.
 module Amazonka.SSM.DescribeAssociation
   ( -- * Creating a Request
     DescribeAssociation (..),
@@ -30,9 +30,9 @@ module Amazonka.SSM.DescribeAssociation
 
     -- * Request Lenses
     describeAssociation_associationId,
+    describeAssociation_associationVersion,
     describeAssociation_instanceId,
     describeAssociation_name,
-    describeAssociation_associationVersion,
 
     -- * Destructuring the Response
     DescribeAssociationResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.SSM.DescribeAssociation
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,16 +56,16 @@ import Amazonka.SSM.Types
 data DescribeAssociation = DescribeAssociation'
   { -- | The association ID for which you want information.
     associationId :: Prelude.Maybe Prelude.Text,
-    -- | The instance ID.
-    instanceId :: Prelude.Maybe Prelude.Text,
-    -- | The name of the SSM document.
-    name :: Prelude.Maybe Prelude.Text,
     -- | Specify the association version to retrieve. To view the latest version,
     -- either specify @$LATEST@ for this parameter, or omit this parameter. To
-    -- view a list of all associations for an instance, use ListAssociations.
-    -- To get a list of versions for a specific association, use
-    -- ListAssociationVersions.
-    associationVersion :: Prelude.Maybe Prelude.Text
+    -- view a list of all associations for a managed node, use
+    -- ListAssociations. To get a list of versions for a specific association,
+    -- use ListAssociationVersions.
+    associationVersion :: Prelude.Maybe Prelude.Text,
+    -- | The managed node ID.
+    instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the SSM document.
+    name :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -78,31 +79,39 @@ data DescribeAssociation = DescribeAssociation'
 --
 -- 'associationId', 'describeAssociation_associationId' - The association ID for which you want information.
 --
--- 'instanceId', 'describeAssociation_instanceId' - The instance ID.
---
--- 'name', 'describeAssociation_name' - The name of the SSM document.
---
 -- 'associationVersion', 'describeAssociation_associationVersion' - Specify the association version to retrieve. To view the latest version,
 -- either specify @$LATEST@ for this parameter, or omit this parameter. To
--- view a list of all associations for an instance, use ListAssociations.
--- To get a list of versions for a specific association, use
--- ListAssociationVersions.
+-- view a list of all associations for a managed node, use
+-- ListAssociations. To get a list of versions for a specific association,
+-- use ListAssociationVersions.
+--
+-- 'instanceId', 'describeAssociation_instanceId' - The managed node ID.
+--
+-- 'name', 'describeAssociation_name' - The name of the SSM document.
 newDescribeAssociation ::
   DescribeAssociation
 newDescribeAssociation =
   DescribeAssociation'
     { associationId =
         Prelude.Nothing,
+      associationVersion = Prelude.Nothing,
       instanceId = Prelude.Nothing,
-      name = Prelude.Nothing,
-      associationVersion = Prelude.Nothing
+      name = Prelude.Nothing
     }
 
 -- | The association ID for which you want information.
 describeAssociation_associationId :: Lens.Lens' DescribeAssociation (Prelude.Maybe Prelude.Text)
 describeAssociation_associationId = Lens.lens (\DescribeAssociation' {associationId} -> associationId) (\s@DescribeAssociation' {} a -> s {associationId = a} :: DescribeAssociation)
 
--- | The instance ID.
+-- | Specify the association version to retrieve. To view the latest version,
+-- either specify @$LATEST@ for this parameter, or omit this parameter. To
+-- view a list of all associations for a managed node, use
+-- ListAssociations. To get a list of versions for a specific association,
+-- use ListAssociationVersions.
+describeAssociation_associationVersion :: Lens.Lens' DescribeAssociation (Prelude.Maybe Prelude.Text)
+describeAssociation_associationVersion = Lens.lens (\DescribeAssociation' {associationVersion} -> associationVersion) (\s@DescribeAssociation' {} a -> s {associationVersion = a} :: DescribeAssociation)
+
+-- | The managed node ID.
 describeAssociation_instanceId :: Lens.Lens' DescribeAssociation (Prelude.Maybe Prelude.Text)
 describeAssociation_instanceId = Lens.lens (\DescribeAssociation' {instanceId} -> instanceId) (\s@DescribeAssociation' {} a -> s {instanceId = a} :: DescribeAssociation)
 
@@ -110,72 +119,65 @@ describeAssociation_instanceId = Lens.lens (\DescribeAssociation' {instanceId} -
 describeAssociation_name :: Lens.Lens' DescribeAssociation (Prelude.Maybe Prelude.Text)
 describeAssociation_name = Lens.lens (\DescribeAssociation' {name} -> name) (\s@DescribeAssociation' {} a -> s {name = a} :: DescribeAssociation)
 
--- | Specify the association version to retrieve. To view the latest version,
--- either specify @$LATEST@ for this parameter, or omit this parameter. To
--- view a list of all associations for an instance, use ListAssociations.
--- To get a list of versions for a specific association, use
--- ListAssociationVersions.
-describeAssociation_associationVersion :: Lens.Lens' DescribeAssociation (Prelude.Maybe Prelude.Text)
-describeAssociation_associationVersion = Lens.lens (\DescribeAssociation' {associationVersion} -> associationVersion) (\s@DescribeAssociation' {} a -> s {associationVersion = a} :: DescribeAssociation)
-
 instance Core.AWSRequest DescribeAssociation where
   type
     AWSResponse DescribeAssociation =
       DescribeAssociationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAssociationResponse'
-            Prelude.<$> (x Core..?> "AssociationDescription")
+            Prelude.<$> (x Data..?> "AssociationDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeAssociation where
   hashWithSalt _salt DescribeAssociation' {..} =
     _salt `Prelude.hashWithSalt` associationId
+      `Prelude.hashWithSalt` associationVersion
       `Prelude.hashWithSalt` instanceId
       `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` associationVersion
 
 instance Prelude.NFData DescribeAssociation where
   rnf DescribeAssociation' {..} =
     Prelude.rnf associationId
+      `Prelude.seq` Prelude.rnf associationVersion
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf associationVersion
 
-instance Core.ToHeaders DescribeAssociation where
+instance Data.ToHeaders DescribeAssociation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.DescribeAssociation" ::
+              Data.=# ( "AmazonSSM.DescribeAssociation" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAssociation where
+instance Data.ToJSON DescribeAssociation where
   toJSON DescribeAssociation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AssociationId" Core..=) Prelude.<$> associationId,
-            ("InstanceId" Core..=) Prelude.<$> instanceId,
-            ("Name" Core..=) Prelude.<$> name,
-            ("AssociationVersion" Core..=)
-              Prelude.<$> associationVersion
+          [ ("AssociationId" Data..=) Prelude.<$> associationId,
+            ("AssociationVersion" Data..=)
+              Prelude.<$> associationVersion,
+            ("InstanceId" Data..=) Prelude.<$> instanceId,
+            ("Name" Data..=) Prelude.<$> name
           ]
       )
 
-instance Core.ToPath DescribeAssociation where
+instance Data.ToPath DescribeAssociation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAssociation where
+instance Data.ToQuery DescribeAssociation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAssociationResponse' smart constructor.
@@ -185,7 +187,7 @@ data DescribeAssociationResponse = DescribeAssociationResponse'
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'DescribeAssociationResponse' with all optional fields omitted.

@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.MigrationHubConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,37 +27,31 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestGetHomeRegion $
---             newGetHomeRegion
---
---         , requestCreateHomeRegionControl $
+--         [ requestCreateHomeRegionControl $
 --             newCreateHomeRegionControl
 --
 --         , requestDescribeHomeRegionControls $
 --             newDescribeHomeRegionControls
 --
+--         , requestGetHomeRegion $
+--             newGetHomeRegion
+--
 --           ]
 
 --     , testGroup "response"
---         [ responseGetHomeRegion $
---             newGetHomeRegionResponse
---
---         , responseCreateHomeRegionControl $
+--         [ responseCreateHomeRegionControl $
 --             newCreateHomeRegionControlResponse
 --
 --         , responseDescribeHomeRegionControls $
 --             newDescribeHomeRegionControlsResponse
 --
+--         , responseGetHomeRegion $
+--             newGetHomeRegionResponse
+--
 --           ]
 --     ]
 
 -- Requests
-
-requestGetHomeRegion :: GetHomeRegion -> TestTree
-requestGetHomeRegion =
-  req
-    "GetHomeRegion"
-    "fixture/GetHomeRegion.yaml"
 
 requestCreateHomeRegionControl :: CreateHomeRegionControl -> TestTree
 requestCreateHomeRegionControl =
@@ -71,15 +65,13 @@ requestDescribeHomeRegionControls =
     "DescribeHomeRegionControls"
     "fixture/DescribeHomeRegionControls.yaml"
 
--- Responses
+requestGetHomeRegion :: GetHomeRegion -> TestTree
+requestGetHomeRegion =
+  req
+    "GetHomeRegion"
+    "fixture/GetHomeRegion.yaml"
 
-responseGetHomeRegion :: GetHomeRegionResponse -> TestTree
-responseGetHomeRegion =
-  res
-    "GetHomeRegionResponse"
-    "fixture/GetHomeRegionResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetHomeRegion)
+-- Responses
 
 responseCreateHomeRegionControl :: CreateHomeRegionControlResponse -> TestTree
 responseCreateHomeRegionControl =
@@ -96,3 +88,11 @@ responseDescribeHomeRegionControls =
     "fixture/DescribeHomeRegionControlsResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DescribeHomeRegionControls)
+
+responseGetHomeRegion :: GetHomeRegionResponse -> TestTree
+responseGetHomeRegion =
+  res
+    "GetHomeRegionResponse"
+    "fixture/GetHomeRegionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetHomeRegion)

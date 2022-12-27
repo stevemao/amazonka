@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.UpdateVPCEConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,10 +28,10 @@ module Amazonka.DeviceFarm.UpdateVPCEConfiguration
     newUpdateVPCEConfiguration,
 
     -- * Request Lenses
-    updateVPCEConfiguration_vpceServiceName,
-    updateVPCEConfiguration_vpceConfigurationName,
     updateVPCEConfiguration_serviceDnsName,
     updateVPCEConfiguration_vpceConfigurationDescription,
+    updateVPCEConfiguration_vpceConfigurationName,
+    updateVPCEConfiguration_vpceServiceName,
     updateVPCEConfiguration_arn,
 
     -- * Destructuring the Response
@@ -45,26 +45,27 @@ module Amazonka.DeviceFarm.UpdateVPCEConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateVPCEConfiguration' smart constructor.
 data UpdateVPCEConfiguration = UpdateVPCEConfiguration'
-  { -- | The name of the VPC endpoint service running in your AWS account that
-    -- you want Device Farm to test.
-    vpceServiceName :: Prelude.Maybe Prelude.Text,
-    -- | The friendly name you give to your VPC endpoint configuration to manage
-    -- your configurations more easily.
-    vpceConfigurationName :: Prelude.Maybe Prelude.Text,
-    -- | The DNS (domain) name used to connect to your private service in your
+  { -- | The DNS (domain) name used to connect to your private service in your
     -- VPC. The DNS name must not already be in use on the internet.
     serviceDnsName :: Prelude.Maybe Prelude.Text,
     -- | An optional description that provides details about your VPC endpoint
     -- configuration.
     vpceConfigurationDescription :: Prelude.Maybe Prelude.Text,
+    -- | The friendly name you give to your VPC endpoint configuration to manage
+    -- your configurations more easily.
+    vpceConfigurationName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the VPC endpoint service running in your AWS account that
+    -- you want Device Farm to test.
+    vpceServiceName :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the VPC endpoint configuration you
     -- want to update.
     arn :: Prelude.Text
@@ -79,17 +80,17 @@ data UpdateVPCEConfiguration = UpdateVPCEConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vpceServiceName', 'updateVPCEConfiguration_vpceServiceName' - The name of the VPC endpoint service running in your AWS account that
--- you want Device Farm to test.
---
--- 'vpceConfigurationName', 'updateVPCEConfiguration_vpceConfigurationName' - The friendly name you give to your VPC endpoint configuration to manage
--- your configurations more easily.
---
 -- 'serviceDnsName', 'updateVPCEConfiguration_serviceDnsName' - The DNS (domain) name used to connect to your private service in your
 -- VPC. The DNS name must not already be in use on the internet.
 --
 -- 'vpceConfigurationDescription', 'updateVPCEConfiguration_vpceConfigurationDescription' - An optional description that provides details about your VPC endpoint
 -- configuration.
+--
+-- 'vpceConfigurationName', 'updateVPCEConfiguration_vpceConfigurationName' - The friendly name you give to your VPC endpoint configuration to manage
+-- your configurations more easily.
+--
+-- 'vpceServiceName', 'updateVPCEConfiguration_vpceServiceName' - The name of the VPC endpoint service running in your AWS account that
+-- you want Device Farm to test.
 --
 -- 'arn', 'updateVPCEConfiguration_arn' - The Amazon Resource Name (ARN) of the VPC endpoint configuration you
 -- want to update.
@@ -99,23 +100,13 @@ newUpdateVPCEConfiguration ::
   UpdateVPCEConfiguration
 newUpdateVPCEConfiguration pArn_ =
   UpdateVPCEConfiguration'
-    { vpceServiceName =
+    { serviceDnsName =
         Prelude.Nothing,
-      vpceConfigurationName = Prelude.Nothing,
-      serviceDnsName = Prelude.Nothing,
       vpceConfigurationDescription = Prelude.Nothing,
+      vpceConfigurationName = Prelude.Nothing,
+      vpceServiceName = Prelude.Nothing,
       arn = pArn_
     }
-
--- | The name of the VPC endpoint service running in your AWS account that
--- you want Device Farm to test.
-updateVPCEConfiguration_vpceServiceName :: Lens.Lens' UpdateVPCEConfiguration (Prelude.Maybe Prelude.Text)
-updateVPCEConfiguration_vpceServiceName = Lens.lens (\UpdateVPCEConfiguration' {vpceServiceName} -> vpceServiceName) (\s@UpdateVPCEConfiguration' {} a -> s {vpceServiceName = a} :: UpdateVPCEConfiguration)
-
--- | The friendly name you give to your VPC endpoint configuration to manage
--- your configurations more easily.
-updateVPCEConfiguration_vpceConfigurationName :: Lens.Lens' UpdateVPCEConfiguration (Prelude.Maybe Prelude.Text)
-updateVPCEConfiguration_vpceConfigurationName = Lens.lens (\UpdateVPCEConfiguration' {vpceConfigurationName} -> vpceConfigurationName) (\s@UpdateVPCEConfiguration' {} a -> s {vpceConfigurationName = a} :: UpdateVPCEConfiguration)
 
 -- | The DNS (domain) name used to connect to your private service in your
 -- VPC. The DNS name must not already be in use on the internet.
@@ -127,6 +118,16 @@ updateVPCEConfiguration_serviceDnsName = Lens.lens (\UpdateVPCEConfiguration' {s
 updateVPCEConfiguration_vpceConfigurationDescription :: Lens.Lens' UpdateVPCEConfiguration (Prelude.Maybe Prelude.Text)
 updateVPCEConfiguration_vpceConfigurationDescription = Lens.lens (\UpdateVPCEConfiguration' {vpceConfigurationDescription} -> vpceConfigurationDescription) (\s@UpdateVPCEConfiguration' {} a -> s {vpceConfigurationDescription = a} :: UpdateVPCEConfiguration)
 
+-- | The friendly name you give to your VPC endpoint configuration to manage
+-- your configurations more easily.
+updateVPCEConfiguration_vpceConfigurationName :: Lens.Lens' UpdateVPCEConfiguration (Prelude.Maybe Prelude.Text)
+updateVPCEConfiguration_vpceConfigurationName = Lens.lens (\UpdateVPCEConfiguration' {vpceConfigurationName} -> vpceConfigurationName) (\s@UpdateVPCEConfiguration' {} a -> s {vpceConfigurationName = a} :: UpdateVPCEConfiguration)
+
+-- | The name of the VPC endpoint service running in your AWS account that
+-- you want Device Farm to test.
+updateVPCEConfiguration_vpceServiceName :: Lens.Lens' UpdateVPCEConfiguration (Prelude.Maybe Prelude.Text)
+updateVPCEConfiguration_vpceServiceName = Lens.lens (\UpdateVPCEConfiguration' {vpceServiceName} -> vpceServiceName) (\s@UpdateVPCEConfiguration' {} a -> s {vpceServiceName = a} :: UpdateVPCEConfiguration)
+
 -- | The Amazon Resource Name (ARN) of the VPC endpoint configuration you
 -- want to update.
 updateVPCEConfiguration_arn :: Lens.Lens' UpdateVPCEConfiguration Prelude.Text
@@ -136,66 +137,67 @@ instance Core.AWSRequest UpdateVPCEConfiguration where
   type
     AWSResponse UpdateVPCEConfiguration =
       UpdateVPCEConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateVPCEConfigurationResponse'
-            Prelude.<$> (x Core..?> "vpceConfiguration")
+            Prelude.<$> (x Data..?> "vpceConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateVPCEConfiguration where
   hashWithSalt _salt UpdateVPCEConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` vpceServiceName
-      `Prelude.hashWithSalt` vpceConfigurationName
-      `Prelude.hashWithSalt` serviceDnsName
+    _salt `Prelude.hashWithSalt` serviceDnsName
       `Prelude.hashWithSalt` vpceConfigurationDescription
+      `Prelude.hashWithSalt` vpceConfigurationName
+      `Prelude.hashWithSalt` vpceServiceName
       `Prelude.hashWithSalt` arn
 
 instance Prelude.NFData UpdateVPCEConfiguration where
   rnf UpdateVPCEConfiguration' {..} =
-    Prelude.rnf vpceServiceName
-      `Prelude.seq` Prelude.rnf vpceConfigurationName
-      `Prelude.seq` Prelude.rnf serviceDnsName
+    Prelude.rnf serviceDnsName
       `Prelude.seq` Prelude.rnf vpceConfigurationDescription
+      `Prelude.seq` Prelude.rnf vpceConfigurationName
+      `Prelude.seq` Prelude.rnf vpceServiceName
       `Prelude.seq` Prelude.rnf arn
 
-instance Core.ToHeaders UpdateVPCEConfiguration where
+instance Data.ToHeaders UpdateVPCEConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.UpdateVPCEConfiguration" ::
+              Data.=# ( "DeviceFarm_20150623.UpdateVPCEConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateVPCEConfiguration where
+instance Data.ToJSON UpdateVPCEConfiguration where
   toJSON UpdateVPCEConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("vpceServiceName" Core..=)
-              Prelude.<$> vpceServiceName,
-            ("vpceConfigurationName" Core..=)
-              Prelude.<$> vpceConfigurationName,
-            ("serviceDnsName" Core..=)
+          [ ("serviceDnsName" Data..=)
               Prelude.<$> serviceDnsName,
-            ("vpceConfigurationDescription" Core..=)
+            ("vpceConfigurationDescription" Data..=)
               Prelude.<$> vpceConfigurationDescription,
-            Prelude.Just ("arn" Core..= arn)
+            ("vpceConfigurationName" Data..=)
+              Prelude.<$> vpceConfigurationName,
+            ("vpceServiceName" Data..=)
+              Prelude.<$> vpceServiceName,
+            Prelude.Just ("arn" Data..= arn)
           ]
       )
 
-instance Core.ToPath UpdateVPCEConfiguration where
+instance Data.ToPath UpdateVPCEConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateVPCEConfiguration where
+instance Data.ToQuery UpdateVPCEConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateVPCEConfigurationResponse' smart constructor.

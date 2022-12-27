@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.CreateConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.GroundStation.CreateConfig
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,10 +105,11 @@ createConfig_name = Lens.lens (\CreateConfig' {name} -> name) (\s@CreateConfig' 
 
 instance Core.AWSRequest CreateConfig where
   type AWSResponse CreateConfig = ConfigIdResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable CreateConfig where
   hashWithSalt _salt CreateConfig' {..} =
@@ -121,29 +123,29 @@ instance Prelude.NFData CreateConfig where
       `Prelude.seq` Prelude.rnf configData
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateConfig where
+instance Data.ToHeaders CreateConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateConfig where
+instance Data.ToJSON CreateConfig where
   toJSON CreateConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("configData" Core..= configData),
-            Prelude.Just ("name" Core..= name)
+          [ ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("configData" Data..= configData),
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateConfig where
+instance Data.ToPath CreateConfig where
   toPath = Prelude.const "/config"
 
-instance Core.ToQuery CreateConfig where
+instance Data.ToQuery CreateConfig where
   toQuery = Prelude.const Prelude.mempty

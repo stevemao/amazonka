@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.StreamProcessorOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.Rekognition.Types.StreamProcessorOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.KinesisDataStream
+import Amazonka.Rekognition.Types.S3Destination
 
 -- | Information about the Amazon Kinesis Data Streams stream to which a
 -- Amazon Rekognition Video stream processor streams the results of a video
@@ -33,7 +35,10 @@ import Amazonka.Rekognition.Types.KinesisDataStream
 data StreamProcessorOutput = StreamProcessorOutput'
   { -- | The Amazon Kinesis Data Streams stream to which the Amazon Rekognition
     -- stream processor streams the analysis results.
-    kinesisDataStream :: Prelude.Maybe KinesisDataStream
+    kinesisDataStream :: Prelude.Maybe KinesisDataStream,
+    -- | The Amazon S3 bucket location to which Amazon Rekognition publishes the
+    -- detailed inference results of a video analysis operation.
+    s3Destination :: Prelude.Maybe S3Destination
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,12 +52,16 @@ data StreamProcessorOutput = StreamProcessorOutput'
 --
 -- 'kinesisDataStream', 'streamProcessorOutput_kinesisDataStream' - The Amazon Kinesis Data Streams stream to which the Amazon Rekognition
 -- stream processor streams the analysis results.
+--
+-- 's3Destination', 'streamProcessorOutput_s3Destination' - The Amazon S3 bucket location to which Amazon Rekognition publishes the
+-- detailed inference results of a video analysis operation.
 newStreamProcessorOutput ::
   StreamProcessorOutput
 newStreamProcessorOutput =
   StreamProcessorOutput'
     { kinesisDataStream =
-        Prelude.Nothing
+        Prelude.Nothing,
+      s3Destination = Prelude.Nothing
     }
 
 -- | The Amazon Kinesis Data Streams stream to which the Amazon Rekognition
@@ -60,28 +69,37 @@ newStreamProcessorOutput =
 streamProcessorOutput_kinesisDataStream :: Lens.Lens' StreamProcessorOutput (Prelude.Maybe KinesisDataStream)
 streamProcessorOutput_kinesisDataStream = Lens.lens (\StreamProcessorOutput' {kinesisDataStream} -> kinesisDataStream) (\s@StreamProcessorOutput' {} a -> s {kinesisDataStream = a} :: StreamProcessorOutput)
 
-instance Core.FromJSON StreamProcessorOutput where
+-- | The Amazon S3 bucket location to which Amazon Rekognition publishes the
+-- detailed inference results of a video analysis operation.
+streamProcessorOutput_s3Destination :: Lens.Lens' StreamProcessorOutput (Prelude.Maybe S3Destination)
+streamProcessorOutput_s3Destination = Lens.lens (\StreamProcessorOutput' {s3Destination} -> s3Destination) (\s@StreamProcessorOutput' {} a -> s {s3Destination = a} :: StreamProcessorOutput)
+
+instance Data.FromJSON StreamProcessorOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StreamProcessorOutput"
       ( \x ->
           StreamProcessorOutput'
-            Prelude.<$> (x Core..:? "KinesisDataStream")
+            Prelude.<$> (x Data..:? "KinesisDataStream")
+            Prelude.<*> (x Data..:? "S3Destination")
       )
 
 instance Prelude.Hashable StreamProcessorOutput where
   hashWithSalt _salt StreamProcessorOutput' {..} =
     _salt `Prelude.hashWithSalt` kinesisDataStream
+      `Prelude.hashWithSalt` s3Destination
 
 instance Prelude.NFData StreamProcessorOutput where
   rnf StreamProcessorOutput' {..} =
     Prelude.rnf kinesisDataStream
+      `Prelude.seq` Prelude.rnf s3Destination
 
-instance Core.ToJSON StreamProcessorOutput where
+instance Data.ToJSON StreamProcessorOutput where
   toJSON StreamProcessorOutput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KinesisDataStream" Core..=)
-              Prelude.<$> kinesisDataStream
+          [ ("KinesisDataStream" Data..=)
+              Prelude.<$> kinesisDataStream,
+            ("S3Destination" Data..=) Prelude.<$> s3Destination
           ]
       )

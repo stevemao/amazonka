@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.Types.LocalDeviceResourceData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Greengrass.Types.LocalDeviceResourceData where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types.GroupOwnerSetting
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Attributes that define a local device resource.
@@ -69,14 +70,14 @@ localDeviceResourceData_groupOwnerSetting = Lens.lens (\LocalDeviceResourceData'
 localDeviceResourceData_sourcePath :: Lens.Lens' LocalDeviceResourceData (Prelude.Maybe Prelude.Text)
 localDeviceResourceData_sourcePath = Lens.lens (\LocalDeviceResourceData' {sourcePath} -> sourcePath) (\s@LocalDeviceResourceData' {} a -> s {sourcePath = a} :: LocalDeviceResourceData)
 
-instance Core.FromJSON LocalDeviceResourceData where
+instance Data.FromJSON LocalDeviceResourceData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LocalDeviceResourceData"
       ( \x ->
           LocalDeviceResourceData'
-            Prelude.<$> (x Core..:? "GroupOwnerSetting")
-            Prelude.<*> (x Core..:? "SourcePath")
+            Prelude.<$> (x Data..:? "GroupOwnerSetting")
+            Prelude.<*> (x Data..:? "SourcePath")
       )
 
 instance Prelude.Hashable LocalDeviceResourceData where
@@ -89,12 +90,12 @@ instance Prelude.NFData LocalDeviceResourceData where
     Prelude.rnf groupOwnerSetting
       `Prelude.seq` Prelude.rnf sourcePath
 
-instance Core.ToJSON LocalDeviceResourceData where
+instance Data.ToJSON LocalDeviceResourceData where
   toJSON LocalDeviceResourceData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GroupOwnerSetting" Core..=)
+          [ ("GroupOwnerSetting" Data..=)
               Prelude.<$> groupOwnerSetting,
-            ("SourcePath" Core..=) Prelude.<$> sourcePath
+            ("SourcePath" Data..=) Prelude.<$> sourcePath
           ]
       )

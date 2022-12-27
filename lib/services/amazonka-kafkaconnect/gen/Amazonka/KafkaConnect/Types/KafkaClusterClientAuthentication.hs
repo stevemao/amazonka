@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.KafkaClusterClientAuthentication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KafkaConnect.Types.KafkaClusterClientAuthentication where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types.KafkaClusterClientAuthenticationType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The client authentication information used in order to authenticate with
@@ -77,11 +78,11 @@ instance
   rnf KafkaClusterClientAuthentication' {..} =
     Prelude.rnf authenticationType
 
-instance Core.ToJSON KafkaClusterClientAuthentication where
+instance Data.ToJSON KafkaClusterClientAuthentication where
   toJSON KafkaClusterClientAuthentication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("authenticationType" Core..= authenticationType)
+              ("authenticationType" Data..= authenticationType)
           ]
       )

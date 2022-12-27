@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DeleteTopicRuleDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IoT.DeleteTopicRuleDestination
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +81,8 @@ instance Core.AWSRequest DeleteTopicRuleDestination where
   type
     AWSResponse DeleteTopicRuleDestination =
       DeleteTopicRuleDestinationResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,14 +97,14 @@ instance Prelude.Hashable DeleteTopicRuleDestination where
 instance Prelude.NFData DeleteTopicRuleDestination where
   rnf DeleteTopicRuleDestination' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders DeleteTopicRuleDestination where
+instance Data.ToHeaders DeleteTopicRuleDestination where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteTopicRuleDestination where
+instance Data.ToPath DeleteTopicRuleDestination where
   toPath DeleteTopicRuleDestination' {..} =
-    Prelude.mconcat ["/destinations/", Core.toBS arn]
+    Prelude.mconcat ["/destinations/", Data.toBS arn]
 
-instance Core.ToQuery DeleteTopicRuleDestination where
+instance Data.ToQuery DeleteTopicRuleDestination where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteTopicRuleDestinationResponse' smart constructor.

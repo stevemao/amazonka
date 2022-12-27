@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.Types.AccountLimit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudFormation.Types.AccountLimit where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The AccountLimit data type.
@@ -35,17 +36,17 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- For more information about these account limits, and other
 -- CloudFormation limits, see
--- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html CloudFormation Limits>
+-- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cloudformation-limits.html CloudFormation quotas>
 -- in the /CloudFormation User Guide/.
 --
 -- /See:/ 'newAccountLimit' smart constructor.
 data AccountLimit = AccountLimit'
-  { -- | The value that is associated with the account limit name.
-    value :: Prelude.Maybe Prelude.Int,
-    -- | The name of the account limit.
+  { -- | The name of the account limit.
     --
     -- Values: @ConcurrentResourcesLimit@ | @StackLimit@ | @StackOutputsLimit@
-    name :: Prelude.Maybe Prelude.Text
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value that\'s associated with the account limit name.
+    value :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -57,22 +58,18 @@ data AccountLimit = AccountLimit'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'accountLimit_value' - The value that is associated with the account limit name.
---
 -- 'name', 'accountLimit_name' - The name of the account limit.
 --
 -- Values: @ConcurrentResourcesLimit@ | @StackLimit@ | @StackOutputsLimit@
+--
+-- 'value', 'accountLimit_value' - The value that\'s associated with the account limit name.
 newAccountLimit ::
   AccountLimit
 newAccountLimit =
   AccountLimit'
-    { value = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The value that is associated with the account limit name.
-accountLimit_value :: Lens.Lens' AccountLimit (Prelude.Maybe Prelude.Int)
-accountLimit_value = Lens.lens (\AccountLimit' {value} -> value) (\s@AccountLimit' {} a -> s {value = a} :: AccountLimit)
 
 -- | The name of the account limit.
 --
@@ -80,16 +77,20 @@ accountLimit_value = Lens.lens (\AccountLimit' {value} -> value) (\s@AccountLimi
 accountLimit_name :: Lens.Lens' AccountLimit (Prelude.Maybe Prelude.Text)
 accountLimit_name = Lens.lens (\AccountLimit' {name} -> name) (\s@AccountLimit' {} a -> s {name = a} :: AccountLimit)
 
-instance Core.FromXML AccountLimit where
+-- | The value that\'s associated with the account limit name.
+accountLimit_value :: Lens.Lens' AccountLimit (Prelude.Maybe Prelude.Int)
+accountLimit_value = Lens.lens (\AccountLimit' {value} -> value) (\s@AccountLimit' {} a -> s {value = a} :: AccountLimit)
+
+instance Data.FromXML AccountLimit where
   parseXML x =
     AccountLimit'
-      Prelude.<$> (x Core..@? "Value") Prelude.<*> (x Core..@? "Name")
+      Prelude.<$> (x Data..@? "Name") Prelude.<*> (x Data..@? "Value")
 
 instance Prelude.Hashable AccountLimit where
   hashWithSalt _salt AccountLimit' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData AccountLimit where
   rnf AccountLimit' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf value

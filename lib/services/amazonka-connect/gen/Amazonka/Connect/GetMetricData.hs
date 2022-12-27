@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.GetMetricData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,9 +33,9 @@ module Amazonka.Connect.GetMetricData
     newGetMetricData,
 
     -- * Request Lenses
-    getMetricData_nextToken,
     getMetricData_groupings,
     getMetricData_maxResults,
+    getMetricData_nextToken,
     getMetricData_instanceId,
     getMetricData_startTime,
     getMetricData_endTime,
@@ -55,18 +55,15 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetMetricData' smart constructor.
 data GetMetricData = GetMetricData'
-  { -- | The token for the next set of results. Use the value returned in the
-    -- previous response in the next request to retrieve the next set of
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The grouping applied to the metrics returned. For example, when results
+  { -- | The grouping applied to the metrics returned. For example, when results
     -- are grouped by queue, the metrics returned are grouped by queue. The
     -- values returned apply to the metrics for each queue rather than
     -- aggregated for all queues.
@@ -76,6 +73,10 @@ data GetMetricData = GetMetricData'
     groupings :: Prelude.Maybe [Grouping],
     -- | The maximum number of results to return per page.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
+    -- previous response in the next request to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
     instanceId :: Prelude.Text,
@@ -86,7 +87,7 @@ data GetMetricData = GetMetricData'
     --
     -- The start time cannot be earlier than 24 hours before the time of the
     -- request. Historical metrics are available only for 24 hours.
-    startTime :: Core.POSIX,
+    startTime :: Data.POSIX,
     -- | The timestamp, in UNIX Epoch time format, at which to end the reporting
     -- interval for the retrieval of historical metrics data. The time must be
     -- specified using an interval of 5 minutes, such as 11:00, 11:05, 11:10,
@@ -94,7 +95,7 @@ data GetMetricData = GetMetricData'
     --
     -- The time range between the start and end time must be less than 24
     -- hours.
-    endTime :: Core.POSIX,
+    endTime :: Data.POSIX,
     -- | The queues, up to 100, or channels, to use to filter the metrics
     -- returned. Metric data is retrieved only for the resources associated
     -- with the queues or channels included in the filter. You can include both
@@ -255,10 +256,6 @@ data GetMetricData = GetMetricData'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getMetricData_nextToken' - The token for the next set of results. Use the value returned in the
--- previous response in the next request to retrieve the next set of
--- results.
---
 -- 'groupings', 'getMetricData_groupings' - The grouping applied to the metrics returned. For example, when results
 -- are grouped by queue, the metrics returned are grouped by queue. The
 -- values returned apply to the metrics for each queue rather than
@@ -268,6 +265,10 @@ data GetMetricData = GetMetricData'
 -- returned.
 --
 -- 'maxResults', 'getMetricData_maxResults' - The maximum number of results to return per page.
+--
+-- 'nextToken', 'getMetricData_nextToken' - The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
 --
 -- 'instanceId', 'getMetricData_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -452,21 +453,15 @@ newGetMetricData
   pEndTime_
   pFilters_ =
     GetMetricData'
-      { nextToken = Prelude.Nothing,
-        groupings = Prelude.Nothing,
+      { groupings = Prelude.Nothing,
         maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         instanceId = pInstanceId_,
-        startTime = Core._Time Lens.# pStartTime_,
-        endTime = Core._Time Lens.# pEndTime_,
+        startTime = Data._Time Lens.# pStartTime_,
+        endTime = Data._Time Lens.# pEndTime_,
         filters = pFilters_,
         historicalMetrics = Prelude.mempty
       }
-
--- | The token for the next set of results. Use the value returned in the
--- previous response in the next request to retrieve the next set of
--- results.
-getMetricData_nextToken :: Lens.Lens' GetMetricData (Prelude.Maybe Prelude.Text)
-getMetricData_nextToken = Lens.lens (\GetMetricData' {nextToken} -> nextToken) (\s@GetMetricData' {} a -> s {nextToken = a} :: GetMetricData)
 
 -- | The grouping applied to the metrics returned. For example, when results
 -- are grouped by queue, the metrics returned are grouped by queue. The
@@ -482,6 +477,12 @@ getMetricData_groupings = Lens.lens (\GetMetricData' {groupings} -> groupings) (
 getMetricData_maxResults :: Lens.Lens' GetMetricData (Prelude.Maybe Prelude.Natural)
 getMetricData_maxResults = Lens.lens (\GetMetricData' {maxResults} -> maxResults) (\s@GetMetricData' {} a -> s {maxResults = a} :: GetMetricData)
 
+-- | The token for the next set of results. Use the value returned in the
+-- previous response in the next request to retrieve the next set of
+-- results.
+getMetricData_nextToken :: Lens.Lens' GetMetricData (Prelude.Maybe Prelude.Text)
+getMetricData_nextToken = Lens.lens (\GetMetricData' {nextToken} -> nextToken) (\s@GetMetricData' {} a -> s {nextToken = a} :: GetMetricData)
+
 -- | The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
 getMetricData_instanceId :: Lens.Lens' GetMetricData Prelude.Text
@@ -495,7 +496,7 @@ getMetricData_instanceId = Lens.lens (\GetMetricData' {instanceId} -> instanceId
 -- The start time cannot be earlier than 24 hours before the time of the
 -- request. Historical metrics are available only for 24 hours.
 getMetricData_startTime :: Lens.Lens' GetMetricData Prelude.UTCTime
-getMetricData_startTime = Lens.lens (\GetMetricData' {startTime} -> startTime) (\s@GetMetricData' {} a -> s {startTime = a} :: GetMetricData) Prelude.. Core._Time
+getMetricData_startTime = Lens.lens (\GetMetricData' {startTime} -> startTime) (\s@GetMetricData' {} a -> s {startTime = a} :: GetMetricData) Prelude.. Data._Time
 
 -- | The timestamp, in UNIX Epoch time format, at which to end the reporting
 -- interval for the retrieval of historical metrics data. The time must be
@@ -505,7 +506,7 @@ getMetricData_startTime = Lens.lens (\GetMetricData' {startTime} -> startTime) (
 -- The time range between the start and end time must be less than 24
 -- hours.
 getMetricData_endTime :: Lens.Lens' GetMetricData Prelude.UTCTime
-getMetricData_endTime = Lens.lens (\GetMetricData' {endTime} -> endTime) (\s@GetMetricData' {} a -> s {endTime = a} :: GetMetricData) Prelude.. Core._Time
+getMetricData_endTime = Lens.lens (\GetMetricData' {endTime} -> endTime) (\s@GetMetricData' {} a -> s {endTime = a} :: GetMetricData) Prelude.. Data._Time
 
 -- | The queues, up to 100, or channels, to use to filter the metrics
 -- returned. Metric data is retrieved only for the resources associated
@@ -684,21 +685,22 @@ instance Core.AWSRequest GetMetricData where
   type
     AWSResponse GetMetricData =
       GetMetricDataResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetMetricDataResponse'
-            Prelude.<$> (x Core..?> "MetricResults" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "MetricResults" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetMetricData where
   hashWithSalt _salt GetMetricData' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` groupings
+    _salt `Prelude.hashWithSalt` groupings
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` instanceId
       `Prelude.hashWithSalt` startTime
       `Prelude.hashWithSalt` endTime
@@ -707,47 +709,47 @@ instance Prelude.Hashable GetMetricData where
 
 instance Prelude.NFData GetMetricData where
   rnf GetMetricData' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf groupings
+    Prelude.rnf groupings
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf startTime
       `Prelude.seq` Prelude.rnf endTime
       `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf historicalMetrics
 
-instance Core.ToHeaders GetMetricData where
+instance Data.ToHeaders GetMetricData where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetMetricData where
+instance Data.ToJSON GetMetricData where
   toJSON GetMetricData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Groupings" Core..=) Prelude.<$> groupings,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("StartTime" Core..= startTime),
-            Prelude.Just ("EndTime" Core..= endTime),
-            Prelude.Just ("Filters" Core..= filters),
+          [ ("Groupings" Data..=) Prelude.<$> groupings,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("StartTime" Data..= startTime),
+            Prelude.Just ("EndTime" Data..= endTime),
+            Prelude.Just ("Filters" Data..= filters),
             Prelude.Just
-              ("HistoricalMetrics" Core..= historicalMetrics)
+              ("HistoricalMetrics" Data..= historicalMetrics)
           ]
       )
 
-instance Core.ToPath GetMetricData where
+instance Data.ToPath GetMetricData where
   toPath GetMetricData' {..} =
     Prelude.mconcat
-      ["/metrics/historical/", Core.toBS instanceId]
+      ["/metrics/historical/", Data.toBS instanceId]
 
-instance Core.ToQuery GetMetricData where
+instance Data.ToQuery GetMetricData where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetMetricDataResponse' smart constructor.

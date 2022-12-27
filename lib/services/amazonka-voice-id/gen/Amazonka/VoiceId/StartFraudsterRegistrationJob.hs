@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.VoiceId.StartFraudsterRegistrationJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.VoiceId.StartFraudsterRegistrationJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,7 +59,7 @@ data StartFraudsterRegistrationJob = StartFraudsterRegistrationJob'
     -- not provided, Amazon Web Services SDK populates this field.
     clientToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the new fraudster registration job.
-    jobName :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    jobName :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The registration config containing details such as the action to take
     -- when a duplicate fraudster is detected, and the similarity threshold to
     -- use for detecting a duplicate fraudster.
@@ -76,7 +77,7 @@ data StartFraudsterRegistrationJob = StartFraudsterRegistrationJob'
     -- that contains the list of fraudster registration requests.
     inputDataConfig :: InputDataConfig,
     -- | The output data config containing the S3 location where Voice ID writes
-    -- the job output file; you must also include a KMS Key ID to encrypt the
+    -- the job output file; you must also include a KMS key ID to encrypt the
     -- file.
     outputDataConfig :: OutputDataConfig
   }
@@ -112,7 +113,7 @@ data StartFraudsterRegistrationJob = StartFraudsterRegistrationJob'
 -- that contains the list of fraudster registration requests.
 --
 -- 'outputDataConfig', 'startFraudsterRegistrationJob_outputDataConfig' - The output data config containing the S3 location where Voice ID writes
--- the job output file; you must also include a KMS Key ID to encrypt the
+-- the job output file; you must also include a KMS key ID to encrypt the
 -- file.
 newStartFraudsterRegistrationJob ::
   -- | 'dataAccessRoleArn'
@@ -147,7 +148,7 @@ startFraudsterRegistrationJob_clientToken = Lens.lens (\StartFraudsterRegistrati
 
 -- | The name of the new fraudster registration job.
 startFraudsterRegistrationJob_jobName :: Lens.Lens' StartFraudsterRegistrationJob (Prelude.Maybe Prelude.Text)
-startFraudsterRegistrationJob_jobName = Lens.lens (\StartFraudsterRegistrationJob' {jobName} -> jobName) (\s@StartFraudsterRegistrationJob' {} a -> s {jobName = a} :: StartFraudsterRegistrationJob) Prelude.. Lens.mapping Core._Sensitive
+startFraudsterRegistrationJob_jobName = Lens.lens (\StartFraudsterRegistrationJob' {jobName} -> jobName) (\s@StartFraudsterRegistrationJob' {} a -> s {jobName = a} :: StartFraudsterRegistrationJob) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The registration config containing details such as the action to take
 -- when a duplicate fraudster is detected, and the similarity threshold to
@@ -174,7 +175,7 @@ startFraudsterRegistrationJob_inputDataConfig :: Lens.Lens' StartFraudsterRegist
 startFraudsterRegistrationJob_inputDataConfig = Lens.lens (\StartFraudsterRegistrationJob' {inputDataConfig} -> inputDataConfig) (\s@StartFraudsterRegistrationJob' {} a -> s {inputDataConfig = a} :: StartFraudsterRegistrationJob)
 
 -- | The output data config containing the S3 location where Voice ID writes
--- the job output file; you must also include a KMS Key ID to encrypt the
+-- the job output file; you must also include a KMS key ID to encrypt the
 -- file.
 startFraudsterRegistrationJob_outputDataConfig :: Lens.Lens' StartFraudsterRegistrationJob OutputDataConfig
 startFraudsterRegistrationJob_outputDataConfig = Lens.lens (\StartFraudsterRegistrationJob' {outputDataConfig} -> outputDataConfig) (\s@StartFraudsterRegistrationJob' {} a -> s {outputDataConfig = a} :: StartFraudsterRegistrationJob)
@@ -186,12 +187,13 @@ instance
   type
     AWSResponse StartFraudsterRegistrationJob =
       StartFraudsterRegistrationJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartFraudsterRegistrationJobResponse'
-            Prelude.<$> (x Core..?> "Job")
+            Prelude.<$> (x Data..?> "Job")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -218,43 +220,43 @@ instance Prelude.NFData StartFraudsterRegistrationJob where
       `Prelude.seq` Prelude.rnf inputDataConfig
       `Prelude.seq` Prelude.rnf outputDataConfig
 
-instance Core.ToHeaders StartFraudsterRegistrationJob where
+instance Data.ToHeaders StartFraudsterRegistrationJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "VoiceID.StartFraudsterRegistrationJob" ::
+              Data.=# ( "VoiceID.StartFraudsterRegistrationJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartFraudsterRegistrationJob where
+instance Data.ToJSON StartFraudsterRegistrationJob where
   toJSON StartFraudsterRegistrationJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientToken" Core..=) Prelude.<$> clientToken,
-            ("JobName" Core..=) Prelude.<$> jobName,
-            ("RegistrationConfig" Core..=)
+          [ ("ClientToken" Data..=) Prelude.<$> clientToken,
+            ("JobName" Data..=) Prelude.<$> jobName,
+            ("RegistrationConfig" Data..=)
               Prelude.<$> registrationConfig,
             Prelude.Just
-              ("DataAccessRoleArn" Core..= dataAccessRoleArn),
-            Prelude.Just ("DomainId" Core..= domainId),
+              ("DataAccessRoleArn" Data..= dataAccessRoleArn),
+            Prelude.Just ("DomainId" Data..= domainId),
             Prelude.Just
-              ("InputDataConfig" Core..= inputDataConfig),
+              ("InputDataConfig" Data..= inputDataConfig),
             Prelude.Just
-              ("OutputDataConfig" Core..= outputDataConfig)
+              ("OutputDataConfig" Data..= outputDataConfig)
           ]
       )
 
-instance Core.ToPath StartFraudsterRegistrationJob where
+instance Data.ToPath StartFraudsterRegistrationJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartFraudsterRegistrationJob where
+instance Data.ToQuery StartFraudsterRegistrationJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartFraudsterRegistrationJobResponse' smart constructor.

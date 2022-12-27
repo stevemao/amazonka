@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackage.Types.MssPackage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaPackage.Types.MssPackage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaPackage.Types.MssEncryption
 import Amazonka.MediaPackage.Types.StreamSelection
 import qualified Amazonka.Prelude as Prelude
@@ -29,12 +30,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMssPackage' smart constructor.
 data MssPackage = MssPackage'
-  { -- | The duration (in seconds) of each segment.
-    segmentDurationSeconds :: Prelude.Maybe Prelude.Int,
-    streamSelection :: Prelude.Maybe StreamSelection,
-    encryption :: Prelude.Maybe MssEncryption,
+  { encryption :: Prelude.Maybe MssEncryption,
     -- | The time window (in seconds) contained in each manifest.
-    manifestWindowSeconds :: Prelude.Maybe Prelude.Int
+    manifestWindowSeconds :: Prelude.Maybe Prelude.Int,
+    -- | The duration (in seconds) of each segment.
+    segmentDurationSeconds :: Prelude.Maybe Prelude.Int,
+    streamSelection :: Prelude.Maybe StreamSelection
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,31 +47,22 @@ data MssPackage = MssPackage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'segmentDurationSeconds', 'mssPackage_segmentDurationSeconds' - The duration (in seconds) of each segment.
---
--- 'streamSelection', 'mssPackage_streamSelection' - Undocumented member.
---
 -- 'encryption', 'mssPackage_encryption' - Undocumented member.
 --
 -- 'manifestWindowSeconds', 'mssPackage_manifestWindowSeconds' - The time window (in seconds) contained in each manifest.
+--
+-- 'segmentDurationSeconds', 'mssPackage_segmentDurationSeconds' - The duration (in seconds) of each segment.
+--
+-- 'streamSelection', 'mssPackage_streamSelection' - Undocumented member.
 newMssPackage ::
   MssPackage
 newMssPackage =
   MssPackage'
-    { segmentDurationSeconds =
-        Prelude.Nothing,
-      streamSelection = Prelude.Nothing,
-      encryption = Prelude.Nothing,
-      manifestWindowSeconds = Prelude.Nothing
+    { encryption = Prelude.Nothing,
+      manifestWindowSeconds = Prelude.Nothing,
+      segmentDurationSeconds = Prelude.Nothing,
+      streamSelection = Prelude.Nothing
     }
-
--- | The duration (in seconds) of each segment.
-mssPackage_segmentDurationSeconds :: Lens.Lens' MssPackage (Prelude.Maybe Prelude.Int)
-mssPackage_segmentDurationSeconds = Lens.lens (\MssPackage' {segmentDurationSeconds} -> segmentDurationSeconds) (\s@MssPackage' {} a -> s {segmentDurationSeconds = a} :: MssPackage)
-
--- | Undocumented member.
-mssPackage_streamSelection :: Lens.Lens' MssPackage (Prelude.Maybe StreamSelection)
-mssPackage_streamSelection = Lens.lens (\MssPackage' {streamSelection} -> streamSelection) (\s@MssPackage' {} a -> s {streamSelection = a} :: MssPackage)
 
 -- | Undocumented member.
 mssPackage_encryption :: Lens.Lens' MssPackage (Prelude.Maybe MssEncryption)
@@ -80,42 +72,50 @@ mssPackage_encryption = Lens.lens (\MssPackage' {encryption} -> encryption) (\s@
 mssPackage_manifestWindowSeconds :: Lens.Lens' MssPackage (Prelude.Maybe Prelude.Int)
 mssPackage_manifestWindowSeconds = Lens.lens (\MssPackage' {manifestWindowSeconds} -> manifestWindowSeconds) (\s@MssPackage' {} a -> s {manifestWindowSeconds = a} :: MssPackage)
 
-instance Core.FromJSON MssPackage where
+-- | The duration (in seconds) of each segment.
+mssPackage_segmentDurationSeconds :: Lens.Lens' MssPackage (Prelude.Maybe Prelude.Int)
+mssPackage_segmentDurationSeconds = Lens.lens (\MssPackage' {segmentDurationSeconds} -> segmentDurationSeconds) (\s@MssPackage' {} a -> s {segmentDurationSeconds = a} :: MssPackage)
+
+-- | Undocumented member.
+mssPackage_streamSelection :: Lens.Lens' MssPackage (Prelude.Maybe StreamSelection)
+mssPackage_streamSelection = Lens.lens (\MssPackage' {streamSelection} -> streamSelection) (\s@MssPackage' {} a -> s {streamSelection = a} :: MssPackage)
+
+instance Data.FromJSON MssPackage where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MssPackage"
       ( \x ->
           MssPackage'
-            Prelude.<$> (x Core..:? "segmentDurationSeconds")
-            Prelude.<*> (x Core..:? "streamSelection")
-            Prelude.<*> (x Core..:? "encryption")
-            Prelude.<*> (x Core..:? "manifestWindowSeconds")
+            Prelude.<$> (x Data..:? "encryption")
+            Prelude.<*> (x Data..:? "manifestWindowSeconds")
+            Prelude.<*> (x Data..:? "segmentDurationSeconds")
+            Prelude.<*> (x Data..:? "streamSelection")
       )
 
 instance Prelude.Hashable MssPackage where
   hashWithSalt _salt MssPackage' {..} =
-    _salt `Prelude.hashWithSalt` segmentDurationSeconds
-      `Prelude.hashWithSalt` streamSelection
-      `Prelude.hashWithSalt` encryption
+    _salt `Prelude.hashWithSalt` encryption
       `Prelude.hashWithSalt` manifestWindowSeconds
+      `Prelude.hashWithSalt` segmentDurationSeconds
+      `Prelude.hashWithSalt` streamSelection
 
 instance Prelude.NFData MssPackage where
   rnf MssPackage' {..} =
-    Prelude.rnf segmentDurationSeconds
-      `Prelude.seq` Prelude.rnf streamSelection
-      `Prelude.seq` Prelude.rnf encryption
+    Prelude.rnf encryption
       `Prelude.seq` Prelude.rnf manifestWindowSeconds
+      `Prelude.seq` Prelude.rnf segmentDurationSeconds
+      `Prelude.seq` Prelude.rnf streamSelection
 
-instance Core.ToJSON MssPackage where
+instance Data.ToJSON MssPackage where
   toJSON MssPackage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("segmentDurationSeconds" Core..=)
+          [ ("encryption" Data..=) Prelude.<$> encryption,
+            ("manifestWindowSeconds" Data..=)
+              Prelude.<$> manifestWindowSeconds,
+            ("segmentDurationSeconds" Data..=)
               Prelude.<$> segmentDurationSeconds,
-            ("streamSelection" Core..=)
-              Prelude.<$> streamSelection,
-            ("encryption" Core..=) Prelude.<$> encryption,
-            ("manifestWindowSeconds" Core..=)
-              Prelude.<$> manifestWindowSeconds
+            ("streamSelection" Data..=)
+              Prelude.<$> streamSelection
           ]
       )

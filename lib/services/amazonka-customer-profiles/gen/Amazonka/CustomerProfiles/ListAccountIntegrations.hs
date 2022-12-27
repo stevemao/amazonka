@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.ListAccountIntegrations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,9 @@ module Amazonka.CustomerProfiles.ListAccountIntegrations
     newListAccountIntegrations,
 
     -- * Request Lenses
-    listAccountIntegrations_nextToken,
+    listAccountIntegrations_includeHidden,
     listAccountIntegrations_maxResults,
+    listAccountIntegrations_nextToken,
     listAccountIntegrations_uri,
 
     -- * Destructuring the Response
@@ -44,18 +45,22 @@ module Amazonka.CustomerProfiles.ListAccountIntegrations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CustomerProfiles.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListAccountIntegrations' smart constructor.
 data ListAccountIntegrations = ListAccountIntegrations'
-  { -- | The pagination token from the previous ListAccountIntegrations API call.
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { -- | Boolean to indicate if hidden integration should be returned. Defaults
+    -- to @False@.
+    includeHidden :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of objects returned per page.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token from the previous ListAccountIntegrations API call.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The URI of the S3 bucket or any other type of data source.
     uri :: Prelude.Text
   }
@@ -69,9 +74,12 @@ data ListAccountIntegrations = ListAccountIntegrations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listAccountIntegrations_nextToken' - The pagination token from the previous ListAccountIntegrations API call.
+-- 'includeHidden', 'listAccountIntegrations_includeHidden' - Boolean to indicate if hidden integration should be returned. Defaults
+-- to @False@.
 --
 -- 'maxResults', 'listAccountIntegrations_maxResults' - The maximum number of objects returned per page.
+--
+-- 'nextToken', 'listAccountIntegrations_nextToken' - The pagination token from the previous ListAccountIntegrations API call.
 --
 -- 'uri', 'listAccountIntegrations_uri' - The URI of the S3 bucket or any other type of data source.
 newListAccountIntegrations ::
@@ -80,19 +88,25 @@ newListAccountIntegrations ::
   ListAccountIntegrations
 newListAccountIntegrations pUri_ =
   ListAccountIntegrations'
-    { nextToken =
+    { includeHidden =
         Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       uri = pUri_
     }
 
--- | The pagination token from the previous ListAccountIntegrations API call.
-listAccountIntegrations_nextToken :: Lens.Lens' ListAccountIntegrations (Prelude.Maybe Prelude.Text)
-listAccountIntegrations_nextToken = Lens.lens (\ListAccountIntegrations' {nextToken} -> nextToken) (\s@ListAccountIntegrations' {} a -> s {nextToken = a} :: ListAccountIntegrations)
+-- | Boolean to indicate if hidden integration should be returned. Defaults
+-- to @False@.
+listAccountIntegrations_includeHidden :: Lens.Lens' ListAccountIntegrations (Prelude.Maybe Prelude.Bool)
+listAccountIntegrations_includeHidden = Lens.lens (\ListAccountIntegrations' {includeHidden} -> includeHidden) (\s@ListAccountIntegrations' {} a -> s {includeHidden = a} :: ListAccountIntegrations)
 
 -- | The maximum number of objects returned per page.
 listAccountIntegrations_maxResults :: Lens.Lens' ListAccountIntegrations (Prelude.Maybe Prelude.Natural)
 listAccountIntegrations_maxResults = Lens.lens (\ListAccountIntegrations' {maxResults} -> maxResults) (\s@ListAccountIntegrations' {} a -> s {maxResults = a} :: ListAccountIntegrations)
+
+-- | The pagination token from the previous ListAccountIntegrations API call.
+listAccountIntegrations_nextToken :: Lens.Lens' ListAccountIntegrations (Prelude.Maybe Prelude.Text)
+listAccountIntegrations_nextToken = Lens.lens (\ListAccountIntegrations' {nextToken} -> nextToken) (\s@ListAccountIntegrations' {} a -> s {nextToken = a} :: ListAccountIntegrations)
 
 -- | The URI of the S3 bucket or any other type of data source.
 listAccountIntegrations_uri :: Lens.Lens' ListAccountIntegrations Prelude.Text
@@ -102,54 +116,58 @@ instance Core.AWSRequest ListAccountIntegrations where
   type
     AWSResponse ListAccountIntegrations =
       ListAccountIntegrationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAccountIntegrationsResponse'
-            Prelude.<$> (x Core..?> "Items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAccountIntegrations where
   hashWithSalt _salt ListAccountIntegrations' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` includeHidden
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` uri
 
 instance Prelude.NFData ListAccountIntegrations where
   rnf ListAccountIntegrations' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf includeHidden
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf uri
 
-instance Core.ToHeaders ListAccountIntegrations where
+instance Data.ToHeaders ListAccountIntegrations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListAccountIntegrations where
+instance Data.ToJSON ListAccountIntegrations where
   toJSON ListAccountIntegrations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Uri" Core..= uri)]
+          [Prelude.Just ("Uri" Data..= uri)]
       )
 
-instance Core.ToPath ListAccountIntegrations where
+instance Data.ToPath ListAccountIntegrations where
   toPath = Prelude.const "/integrations"
 
-instance Core.ToQuery ListAccountIntegrations where
+instance Data.ToQuery ListAccountIntegrations where
   toQuery ListAccountIntegrations' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults
+      [ "include-hidden" Data.=: includeHidden,
+        "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListAccountIntegrationsResponse' smart constructor.

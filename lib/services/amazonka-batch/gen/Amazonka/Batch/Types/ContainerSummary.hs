@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.Types.ContainerSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.Batch.Types.ContainerSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | An object representing summary details of a container within a job.
+-- | An object that represents summary details of a container within a job.
 --
 -- /See:/ 'newContainerSummary' smart constructor.
 data ContainerSummary = ContainerSummary'
-  { -- | A short (255 max characters) human-readable string to provide additional
-    -- details about a running or stopped container.
-    reason :: Prelude.Maybe Prelude.Text,
-    -- | The exit code to return upon completion.
-    exitCode :: Prelude.Maybe Prelude.Int
+  { -- | The exit code to return upon completion.
+    exitCode :: Prelude.Maybe Prelude.Int,
+    -- | A short (255 max characters) human-readable string to provide additional
+    -- details for a running or stopped container.
+    reason :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,43 +44,43 @@ data ContainerSummary = ContainerSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'reason', 'containerSummary_reason' - A short (255 max characters) human-readable string to provide additional
--- details about a running or stopped container.
---
 -- 'exitCode', 'containerSummary_exitCode' - The exit code to return upon completion.
+--
+-- 'reason', 'containerSummary_reason' - A short (255 max characters) human-readable string to provide additional
+-- details for a running or stopped container.
 newContainerSummary ::
   ContainerSummary
 newContainerSummary =
   ContainerSummary'
-    { reason = Prelude.Nothing,
-      exitCode = Prelude.Nothing
+    { exitCode = Prelude.Nothing,
+      reason = Prelude.Nothing
     }
-
--- | A short (255 max characters) human-readable string to provide additional
--- details about a running or stopped container.
-containerSummary_reason :: Lens.Lens' ContainerSummary (Prelude.Maybe Prelude.Text)
-containerSummary_reason = Lens.lens (\ContainerSummary' {reason} -> reason) (\s@ContainerSummary' {} a -> s {reason = a} :: ContainerSummary)
 
 -- | The exit code to return upon completion.
 containerSummary_exitCode :: Lens.Lens' ContainerSummary (Prelude.Maybe Prelude.Int)
 containerSummary_exitCode = Lens.lens (\ContainerSummary' {exitCode} -> exitCode) (\s@ContainerSummary' {} a -> s {exitCode = a} :: ContainerSummary)
 
-instance Core.FromJSON ContainerSummary where
+-- | A short (255 max characters) human-readable string to provide additional
+-- details for a running or stopped container.
+containerSummary_reason :: Lens.Lens' ContainerSummary (Prelude.Maybe Prelude.Text)
+containerSummary_reason = Lens.lens (\ContainerSummary' {reason} -> reason) (\s@ContainerSummary' {} a -> s {reason = a} :: ContainerSummary)
+
+instance Data.FromJSON ContainerSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContainerSummary"
       ( \x ->
           ContainerSummary'
-            Prelude.<$> (x Core..:? "reason")
-            Prelude.<*> (x Core..:? "exitCode")
+            Prelude.<$> (x Data..:? "exitCode")
+            Prelude.<*> (x Data..:? "reason")
       )
 
 instance Prelude.Hashable ContainerSummary where
   hashWithSalt _salt ContainerSummary' {..} =
-    _salt `Prelude.hashWithSalt` reason
-      `Prelude.hashWithSalt` exitCode
+    _salt `Prelude.hashWithSalt` exitCode
+      `Prelude.hashWithSalt` reason
 
 instance Prelude.NFData ContainerSummary where
   rnf ContainerSummary' {..} =
-    Prelude.rnf reason
-      `Prelude.seq` Prelude.rnf exitCode
+    Prelude.rnf exitCode
+      `Prelude.seq` Prelude.rnf reason

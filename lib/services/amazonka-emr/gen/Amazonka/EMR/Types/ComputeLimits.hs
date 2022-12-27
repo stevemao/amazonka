@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.ComputeLimits
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EMR.Types.ComputeLimits where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types.ComputeLimitsUnitType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The EC2 unit limits for a managed scaling policy. The managed scaling
@@ -31,18 +32,18 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newComputeLimits' smart constructor.
 data ComputeLimits = ComputeLimits'
-  { -- | The upper boundary of On-Demand EC2 units. It is measured through vCPU
-    -- cores or instances for instance groups and measured through units for
-    -- instance fleets. The On-Demand units are not allowed to scale beyond
-    -- this boundary. The parameter is used to split capacity allocation
-    -- between On-Demand and Spot Instances.
-    maximumOnDemandCapacityUnits :: Prelude.Maybe Prelude.Int,
-    -- | The upper boundary of EC2 units for core node type in a cluster. It is
+  { -- | The upper boundary of EC2 units for core node type in a cluster. It is
     -- measured through vCPU cores or instances for instance groups and
     -- measured through units for instance fleets. The core units are not
     -- allowed to scale beyond this boundary. The parameter is used to split
     -- capacity allocation between core and task nodes.
     maximumCoreCapacityUnits :: Prelude.Maybe Prelude.Int,
+    -- | The upper boundary of On-Demand EC2 units. It is measured through vCPU
+    -- cores or instances for instance groups and measured through units for
+    -- instance fleets. The On-Demand units are not allowed to scale beyond
+    -- this boundary. The parameter is used to split capacity allocation
+    -- between On-Demand and Spot Instances.
+    maximumOnDemandCapacityUnits :: Prelude.Maybe Prelude.Int,
     -- | The unit type used for specifying a managed scaling policy.
     unitType :: ComputeLimitsUnitType,
     -- | The lower boundary of EC2 units. It is measured through vCPU cores or
@@ -68,17 +69,17 @@ data ComputeLimits = ComputeLimits'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'maximumOnDemandCapacityUnits', 'computeLimits_maximumOnDemandCapacityUnits' - The upper boundary of On-Demand EC2 units. It is measured through vCPU
--- cores or instances for instance groups and measured through units for
--- instance fleets. The On-Demand units are not allowed to scale beyond
--- this boundary. The parameter is used to split capacity allocation
--- between On-Demand and Spot Instances.
---
 -- 'maximumCoreCapacityUnits', 'computeLimits_maximumCoreCapacityUnits' - The upper boundary of EC2 units for core node type in a cluster. It is
 -- measured through vCPU cores or instances for instance groups and
 -- measured through units for instance fleets. The core units are not
 -- allowed to scale beyond this boundary. The parameter is used to split
 -- capacity allocation between core and task nodes.
+--
+-- 'maximumOnDemandCapacityUnits', 'computeLimits_maximumOnDemandCapacityUnits' - The upper boundary of On-Demand EC2 units. It is measured through vCPU
+-- cores or instances for instance groups and measured through units for
+-- instance fleets. The On-Demand units are not allowed to scale beyond
+-- this boundary. The parameter is used to split capacity allocation
+-- between On-Demand and Spot Instances.
 --
 -- 'unitType', 'computeLimits_unitType' - The unit type used for specifying a managed scaling policy.
 --
@@ -106,21 +107,13 @@ newComputeLimits
   pMinimumCapacityUnits_
   pMaximumCapacityUnits_ =
     ComputeLimits'
-      { maximumOnDemandCapacityUnits =
+      { maximumCoreCapacityUnits =
           Prelude.Nothing,
-        maximumCoreCapacityUnits = Prelude.Nothing,
+        maximumOnDemandCapacityUnits = Prelude.Nothing,
         unitType = pUnitType_,
         minimumCapacityUnits = pMinimumCapacityUnits_,
         maximumCapacityUnits = pMaximumCapacityUnits_
       }
-
--- | The upper boundary of On-Demand EC2 units. It is measured through vCPU
--- cores or instances for instance groups and measured through units for
--- instance fleets. The On-Demand units are not allowed to scale beyond
--- this boundary. The parameter is used to split capacity allocation
--- between On-Demand and Spot Instances.
-computeLimits_maximumOnDemandCapacityUnits :: Lens.Lens' ComputeLimits (Prelude.Maybe Prelude.Int)
-computeLimits_maximumOnDemandCapacityUnits = Lens.lens (\ComputeLimits' {maximumOnDemandCapacityUnits} -> maximumOnDemandCapacityUnits) (\s@ComputeLimits' {} a -> s {maximumOnDemandCapacityUnits = a} :: ComputeLimits)
 
 -- | The upper boundary of EC2 units for core node type in a cluster. It is
 -- measured through vCPU cores or instances for instance groups and
@@ -129,6 +122,14 @@ computeLimits_maximumOnDemandCapacityUnits = Lens.lens (\ComputeLimits' {maximum
 -- capacity allocation between core and task nodes.
 computeLimits_maximumCoreCapacityUnits :: Lens.Lens' ComputeLimits (Prelude.Maybe Prelude.Int)
 computeLimits_maximumCoreCapacityUnits = Lens.lens (\ComputeLimits' {maximumCoreCapacityUnits} -> maximumCoreCapacityUnits) (\s@ComputeLimits' {} a -> s {maximumCoreCapacityUnits = a} :: ComputeLimits)
+
+-- | The upper boundary of On-Demand EC2 units. It is measured through vCPU
+-- cores or instances for instance groups and measured through units for
+-- instance fleets. The On-Demand units are not allowed to scale beyond
+-- this boundary. The parameter is used to split capacity allocation
+-- between On-Demand and Spot Instances.
+computeLimits_maximumOnDemandCapacityUnits :: Lens.Lens' ComputeLimits (Prelude.Maybe Prelude.Int)
+computeLimits_maximumOnDemandCapacityUnits = Lens.lens (\ComputeLimits' {maximumOnDemandCapacityUnits} -> maximumOnDemandCapacityUnits) (\s@ComputeLimits' {} a -> s {maximumOnDemandCapacityUnits = a} :: ComputeLimits)
 
 -- | The unit type used for specifying a managed scaling policy.
 computeLimits_unitType :: Lens.Lens' ComputeLimits ComputeLimitsUnitType
@@ -150,52 +151,52 @@ computeLimits_minimumCapacityUnits = Lens.lens (\ComputeLimits' {minimumCapacity
 computeLimits_maximumCapacityUnits :: Lens.Lens' ComputeLimits Prelude.Int
 computeLimits_maximumCapacityUnits = Lens.lens (\ComputeLimits' {maximumCapacityUnits} -> maximumCapacityUnits) (\s@ComputeLimits' {} a -> s {maximumCapacityUnits = a} :: ComputeLimits)
 
-instance Core.FromJSON ComputeLimits where
+instance Data.FromJSON ComputeLimits where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ComputeLimits"
       ( \x ->
           ComputeLimits'
-            Prelude.<$> (x Core..:? "MaximumOnDemandCapacityUnits")
-            Prelude.<*> (x Core..:? "MaximumCoreCapacityUnits")
-            Prelude.<*> (x Core..: "UnitType")
-            Prelude.<*> (x Core..: "MinimumCapacityUnits")
-            Prelude.<*> (x Core..: "MaximumCapacityUnits")
+            Prelude.<$> (x Data..:? "MaximumCoreCapacityUnits")
+            Prelude.<*> (x Data..:? "MaximumOnDemandCapacityUnits")
+            Prelude.<*> (x Data..: "UnitType")
+            Prelude.<*> (x Data..: "MinimumCapacityUnits")
+            Prelude.<*> (x Data..: "MaximumCapacityUnits")
       )
 
 instance Prelude.Hashable ComputeLimits where
   hashWithSalt _salt ComputeLimits' {..} =
     _salt
-      `Prelude.hashWithSalt` maximumOnDemandCapacityUnits
       `Prelude.hashWithSalt` maximumCoreCapacityUnits
+      `Prelude.hashWithSalt` maximumOnDemandCapacityUnits
       `Prelude.hashWithSalt` unitType
       `Prelude.hashWithSalt` minimumCapacityUnits
       `Prelude.hashWithSalt` maximumCapacityUnits
 
 instance Prelude.NFData ComputeLimits where
   rnf ComputeLimits' {..} =
-    Prelude.rnf maximumOnDemandCapacityUnits
-      `Prelude.seq` Prelude.rnf maximumCoreCapacityUnits
+    Prelude.rnf maximumCoreCapacityUnits
+      `Prelude.seq` Prelude.rnf maximumOnDemandCapacityUnits
       `Prelude.seq` Prelude.rnf unitType
       `Prelude.seq` Prelude.rnf minimumCapacityUnits
       `Prelude.seq` Prelude.rnf maximumCapacityUnits
 
-instance Core.ToJSON ComputeLimits where
+instance Data.ToJSON ComputeLimits where
   toJSON ComputeLimits' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MaximumOnDemandCapacityUnits" Core..=)
-              Prelude.<$> maximumOnDemandCapacityUnits,
-            ("MaximumCoreCapacityUnits" Core..=)
+          [ ("MaximumCoreCapacityUnits" Data..=)
               Prelude.<$> maximumCoreCapacityUnits,
-            Prelude.Just ("UnitType" Core..= unitType),
+            ("MaximumOnDemandCapacityUnits" Data..=)
+              Prelude.<$> maximumOnDemandCapacityUnits,
+            Prelude.Just ("UnitType" Data..= unitType),
             Prelude.Just
               ( "MinimumCapacityUnits"
-                  Core..= minimumCapacityUnits
+                  Data..= minimumCapacityUnits
               ),
             Prelude.Just
               ( "MaximumCapacityUnits"
-                  Core..= maximumCapacityUnits
+                  Data..= maximumCapacityUnits
               )
           ]
       )

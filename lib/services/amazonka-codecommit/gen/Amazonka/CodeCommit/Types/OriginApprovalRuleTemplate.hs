@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.Types.OriginApprovalRuleTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeCommit.Types.OriginApprovalRuleTemplate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Returns information about the template that created the approval rule
@@ -63,14 +64,14 @@ originApprovalRuleTemplate_approvalRuleTemplateId = Lens.lens (\OriginApprovalRu
 originApprovalRuleTemplate_approvalRuleTemplateName :: Lens.Lens' OriginApprovalRuleTemplate (Prelude.Maybe Prelude.Text)
 originApprovalRuleTemplate_approvalRuleTemplateName = Lens.lens (\OriginApprovalRuleTemplate' {approvalRuleTemplateName} -> approvalRuleTemplateName) (\s@OriginApprovalRuleTemplate' {} a -> s {approvalRuleTemplateName = a} :: OriginApprovalRuleTemplate)
 
-instance Core.FromJSON OriginApprovalRuleTemplate where
+instance Data.FromJSON OriginApprovalRuleTemplate where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OriginApprovalRuleTemplate"
       ( \x ->
           OriginApprovalRuleTemplate'
-            Prelude.<$> (x Core..:? "approvalRuleTemplateId")
-            Prelude.<*> (x Core..:? "approvalRuleTemplateName")
+            Prelude.<$> (x Data..:? "approvalRuleTemplateId")
+            Prelude.<*> (x Data..:? "approvalRuleTemplateName")
       )
 
 instance Prelude.Hashable OriginApprovalRuleTemplate where

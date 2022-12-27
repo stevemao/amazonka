@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.DecimalColumnStatisticsData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Glue.Types.DecimalColumnStatisticsData where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.DecimalNumber
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Defines column statistics supported for fixed-point number data columns.
@@ -88,16 +89,16 @@ decimalColumnStatisticsData_numberOfNulls = Lens.lens (\DecimalColumnStatisticsD
 decimalColumnStatisticsData_numberOfDistinctValues :: Lens.Lens' DecimalColumnStatisticsData Prelude.Natural
 decimalColumnStatisticsData_numberOfDistinctValues = Lens.lens (\DecimalColumnStatisticsData' {numberOfDistinctValues} -> numberOfDistinctValues) (\s@DecimalColumnStatisticsData' {} a -> s {numberOfDistinctValues = a} :: DecimalColumnStatisticsData)
 
-instance Core.FromJSON DecimalColumnStatisticsData where
+instance Data.FromJSON DecimalColumnStatisticsData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DecimalColumnStatisticsData"
       ( \x ->
           DecimalColumnStatisticsData'
-            Prelude.<$> (x Core..:? "MaximumValue")
-            Prelude.<*> (x Core..:? "MinimumValue")
-            Prelude.<*> (x Core..: "NumberOfNulls")
-            Prelude.<*> (x Core..: "NumberOfDistinctValues")
+            Prelude.<$> (x Data..:? "MaximumValue")
+            Prelude.<*> (x Data..:? "MinimumValue")
+            Prelude.<*> (x Data..: "NumberOfNulls")
+            Prelude.<*> (x Data..: "NumberOfDistinctValues")
       )
 
 instance Prelude.Hashable DecimalColumnStatisticsData where
@@ -114,16 +115,16 @@ instance Prelude.NFData DecimalColumnStatisticsData where
       `Prelude.seq` Prelude.rnf numberOfNulls
       `Prelude.seq` Prelude.rnf numberOfDistinctValues
 
-instance Core.ToJSON DecimalColumnStatisticsData where
+instance Data.ToJSON DecimalColumnStatisticsData where
   toJSON DecimalColumnStatisticsData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MaximumValue" Core..=) Prelude.<$> maximumValue,
-            ("MinimumValue" Core..=) Prelude.<$> minimumValue,
-            Prelude.Just ("NumberOfNulls" Core..= numberOfNulls),
+          [ ("MaximumValue" Data..=) Prelude.<$> maximumValue,
+            ("MinimumValue" Data..=) Prelude.<$> minimumValue,
+            Prelude.Just ("NumberOfNulls" Data..= numberOfNulls),
             Prelude.Just
               ( "NumberOfDistinctValues"
-                  Core..= numberOfDistinctValues
+                  Data..= numberOfDistinctValues
               )
           ]
       )

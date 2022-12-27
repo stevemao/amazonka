@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.Types.CLMLanguageCode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,24 @@
 module Amazonka.Transcribe.Types.CLMLanguageCode
   ( CLMLanguageCode
       ( ..,
+        CLMLanguageCode_De_DE,
         CLMLanguageCode_En_AU,
         CLMLanguageCode_En_GB,
         CLMLanguageCode_En_US,
         CLMLanguageCode_Es_US,
-        CLMLanguageCode_Hi_IN
+        CLMLanguageCode_Hi_IN,
+        CLMLanguageCode_Ja_JP
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype CLMLanguageCode = CLMLanguageCode'
   { fromCLMLanguageCode ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -46,19 +49,22 @@ newtype CLMLanguageCode = CLMLanguageCode'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern CLMLanguageCode_De_DE :: CLMLanguageCode
+pattern CLMLanguageCode_De_DE = CLMLanguageCode' "de-DE"
 
 pattern CLMLanguageCode_En_AU :: CLMLanguageCode
 pattern CLMLanguageCode_En_AU = CLMLanguageCode' "en-AU"
@@ -75,11 +81,16 @@ pattern CLMLanguageCode_Es_US = CLMLanguageCode' "es-US"
 pattern CLMLanguageCode_Hi_IN :: CLMLanguageCode
 pattern CLMLanguageCode_Hi_IN = CLMLanguageCode' "hi-IN"
 
+pattern CLMLanguageCode_Ja_JP :: CLMLanguageCode
+pattern CLMLanguageCode_Ja_JP = CLMLanguageCode' "ja-JP"
+
 {-# COMPLETE
+  CLMLanguageCode_De_DE,
   CLMLanguageCode_En_AU,
   CLMLanguageCode_En_GB,
   CLMLanguageCode_En_US,
   CLMLanguageCode_Es_US,
   CLMLanguageCode_Hi_IN,
+  CLMLanguageCode_Ja_JP,
   CLMLanguageCode'
   #-}

@@ -14,18 +14,17 @@
 
 -- |
 -- Module      : Amazonka.Organizations.DescribeAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves AWS Organizations-related information about the specified
--- account.
+-- Retrieves Organizations-related information about the specified account.
 --
 -- This operation can be called only from the organization\'s management
 -- account or by a member account that is a delegated administrator for an
--- AWS service.
+-- Amazon Web Services service.
 module Amazonka.Organizations.DescribeAccount
   ( -- * Creating a Request
     DescribeAccount (..),
@@ -45,7 +44,8 @@ module Amazonka.Organizations.DescribeAccount
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,9 +53,9 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeAccount' smart constructor.
 data DescribeAccount = DescribeAccount'
-  { -- | The unique identifier (ID) of the AWS account that you want information
-    -- about. You can get the ID from the ListAccounts or ListAccountsForParent
-    -- operations.
+  { -- | The unique identifier (ID) of the Amazon Web Services account that you
+    -- want information about. You can get the ID from the ListAccounts or
+    -- ListAccountsForParent operations.
     --
     -- The <http://wikipedia.org/wiki/regex regex pattern> for an account ID
     -- string requires exactly 12 digits.
@@ -71,9 +71,9 @@ data DescribeAccount = DescribeAccount'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'accountId', 'describeAccount_accountId' - The unique identifier (ID) of the AWS account that you want information
--- about. You can get the ID from the ListAccounts or ListAccountsForParent
--- operations.
+-- 'accountId', 'describeAccount_accountId' - The unique identifier (ID) of the Amazon Web Services account that you
+-- want information about. You can get the ID from the ListAccounts or
+-- ListAccountsForParent operations.
 --
 -- The <http://wikipedia.org/wiki/regex regex pattern> for an account ID
 -- string requires exactly 12 digits.
@@ -84,9 +84,9 @@ newDescribeAccount ::
 newDescribeAccount pAccountId_ =
   DescribeAccount' {accountId = pAccountId_}
 
--- | The unique identifier (ID) of the AWS account that you want information
--- about. You can get the ID from the ListAccounts or ListAccountsForParent
--- operations.
+-- | The unique identifier (ID) of the Amazon Web Services account that you
+-- want information about. You can get the ID from the ListAccounts or
+-- ListAccountsForParent operations.
 --
 -- The <http://wikipedia.org/wiki/regex regex pattern> for an account ID
 -- string requires exactly 12 digits.
@@ -97,12 +97,13 @@ instance Core.AWSRequest DescribeAccount where
   type
     AWSResponse DescribeAccount =
       DescribeAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAccountResponse'
-            Prelude.<$> (x Core..?> "Account")
+            Prelude.<$> (x Data..?> "Account")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,32 +114,32 @@ instance Prelude.Hashable DescribeAccount where
 instance Prelude.NFData DescribeAccount where
   rnf DescribeAccount' {..} = Prelude.rnf accountId
 
-instance Core.ToHeaders DescribeAccount where
+instance Data.ToHeaders DescribeAccount where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.DescribeAccount" ::
+              Data.=# ( "AWSOrganizationsV20161128.DescribeAccount" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAccount where
+instance Data.ToJSON DescribeAccount where
   toJSON DescribeAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("AccountId" Core..= accountId)]
+          [Prelude.Just ("AccountId" Data..= accountId)]
       )
 
-instance Core.ToPath DescribeAccount where
+instance Data.ToPath DescribeAccount where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAccount where
+instance Data.ToQuery DescribeAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAccountResponse' smart constructor.

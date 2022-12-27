@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.SetIpAddressType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Sets the type of IP addresses used by the subnets of the specified
--- Application Load Balancer or Network Load Balancer.
+-- Sets the type of IP addresses used by the subnets of the specified load
+-- balancer.
 module Amazonka.ELBV2.SetIpAddressType
   ( -- * Creating a Request
     SetIpAddressType (..),
@@ -42,8 +42,9 @@ module Amazonka.ELBV2.SetIpAddressType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,9 +54,8 @@ data SetIpAddressType = SetIpAddressType'
   { -- | The Amazon Resource Name (ARN) of the load balancer.
     loadBalancerArn :: Prelude.Text,
     -- | The IP address type. The possible values are @ipv4@ (for IPv4 addresses)
-    -- and @dualstack@ (for IPv4 and IPv6 addresses). Internal load balancers
-    -- must use @ipv4@. You can’t specify @dualstack@ for a load balancer with
-    -- a UDP or TCP_UDP listener.
+    -- and @dualstack@ (for IPv4 and IPv6 addresses). You can’t specify
+    -- @dualstack@ for a load balancer with a UDP or TCP_UDP listener.
     ipAddressType :: IpAddressType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -71,9 +71,8 @@ data SetIpAddressType = SetIpAddressType'
 -- 'loadBalancerArn', 'setIpAddressType_loadBalancerArn' - The Amazon Resource Name (ARN) of the load balancer.
 --
 -- 'ipAddressType', 'setIpAddressType_ipAddressType' - The IP address type. The possible values are @ipv4@ (for IPv4 addresses)
--- and @dualstack@ (for IPv4 and IPv6 addresses). Internal load balancers
--- must use @ipv4@. You can’t specify @dualstack@ for a load balancer with
--- a UDP or TCP_UDP listener.
+-- and @dualstack@ (for IPv4 and IPv6 addresses). You can’t specify
+-- @dualstack@ for a load balancer with a UDP or TCP_UDP listener.
 newSetIpAddressType ::
   -- | 'loadBalancerArn'
   Prelude.Text ->
@@ -92,9 +91,8 @@ setIpAddressType_loadBalancerArn :: Lens.Lens' SetIpAddressType Prelude.Text
 setIpAddressType_loadBalancerArn = Lens.lens (\SetIpAddressType' {loadBalancerArn} -> loadBalancerArn) (\s@SetIpAddressType' {} a -> s {loadBalancerArn = a} :: SetIpAddressType)
 
 -- | The IP address type. The possible values are @ipv4@ (for IPv4 addresses)
--- and @dualstack@ (for IPv4 and IPv6 addresses). Internal load balancers
--- must use @ipv4@. You can’t specify @dualstack@ for a load balancer with
--- a UDP or TCP_UDP listener.
+-- and @dualstack@ (for IPv4 and IPv6 addresses). You can’t specify
+-- @dualstack@ for a load balancer with a UDP or TCP_UDP listener.
 setIpAddressType_ipAddressType :: Lens.Lens' SetIpAddressType IpAddressType
 setIpAddressType_ipAddressType = Lens.lens (\SetIpAddressType' {ipAddressType} -> ipAddressType) (\s@SetIpAddressType' {} a -> s {ipAddressType = a} :: SetIpAddressType)
 
@@ -102,13 +100,14 @@ instance Core.AWSRequest SetIpAddressType where
   type
     AWSResponse SetIpAddressType =
       SetIpAddressTypeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SetIpAddressTypeResult"
       ( \s h x ->
           SetIpAddressTypeResponse'
-            Prelude.<$> (x Core..@? "IpAddressType")
+            Prelude.<$> (x Data..@? "IpAddressType")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -122,21 +121,21 @@ instance Prelude.NFData SetIpAddressType where
     Prelude.rnf loadBalancerArn
       `Prelude.seq` Prelude.rnf ipAddressType
 
-instance Core.ToHeaders SetIpAddressType where
+instance Data.ToHeaders SetIpAddressType where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetIpAddressType where
+instance Data.ToPath SetIpAddressType where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetIpAddressType where
+instance Data.ToQuery SetIpAddressType where
   toQuery SetIpAddressType' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SetIpAddressType" :: Prelude.ByteString),
+          Data.=: ("SetIpAddressType" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-12-01" :: Prelude.ByteString),
-        "LoadBalancerArn" Core.=: loadBalancerArn,
-        "IpAddressType" Core.=: ipAddressType
+          Data.=: ("2015-12-01" :: Prelude.ByteString),
+        "LoadBalancerArn" Data.=: loadBalancerArn,
+        "IpAddressType" Data.=: ipAddressType
       ]
 
 -- | /See:/ 'newSetIpAddressTypeResponse' smart constructor.

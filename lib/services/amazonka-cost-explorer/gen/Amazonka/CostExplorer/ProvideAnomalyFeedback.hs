@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.ProvideAnomalyFeedback
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.CostExplorer.ProvideAnomalyFeedback
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,13 +95,14 @@ instance Core.AWSRequest ProvideAnomalyFeedback where
   type
     AWSResponse ProvideAnomalyFeedback =
       ProvideAnomalyFeedbackResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ProvideAnomalyFeedbackResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "AnomalyId")
+            Prelude.<*> (x Data..:> "AnomalyId")
       )
 
 instance Prelude.Hashable ProvideAnomalyFeedback where
@@ -113,34 +115,34 @@ instance Prelude.NFData ProvideAnomalyFeedback where
     Prelude.rnf anomalyId
       `Prelude.seq` Prelude.rnf feedback
 
-instance Core.ToHeaders ProvideAnomalyFeedback where
+instance Data.ToHeaders ProvideAnomalyFeedback where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSInsightsIndexService.ProvideAnomalyFeedback" ::
+              Data.=# ( "AWSInsightsIndexService.ProvideAnomalyFeedback" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ProvideAnomalyFeedback where
+instance Data.ToJSON ProvideAnomalyFeedback where
   toJSON ProvideAnomalyFeedback' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("AnomalyId" Core..= anomalyId),
-            Prelude.Just ("Feedback" Core..= feedback)
+          [ Prelude.Just ("AnomalyId" Data..= anomalyId),
+            Prelude.Just ("Feedback" Data..= feedback)
           ]
       )
 
-instance Core.ToPath ProvideAnomalyFeedback where
+instance Data.ToPath ProvideAnomalyFeedback where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ProvideAnomalyFeedback where
+instance Data.ToQuery ProvideAnomalyFeedback where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newProvideAnomalyFeedbackResponse' smart constructor.

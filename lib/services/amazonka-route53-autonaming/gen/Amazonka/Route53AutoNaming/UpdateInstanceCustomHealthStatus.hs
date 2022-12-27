@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.UpdateInstanceCustomHealthStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,7 +26,7 @@
 -- You can use @UpdateInstanceCustomHealthStatus@ to change the status only
 -- for custom health checks, which you define using
 -- @HealthCheckCustomConfig@ when you create a service. You can\'t use it
--- to change the status for Route 53 health checks, which you define using
+-- to change the status for Route 53 health checks, which you define using
 -- @HealthCheckConfig@.
 --
 -- For more information, see
@@ -48,7 +48,8 @@ module Amazonka.Route53AutoNaming.UpdateInstanceCustomHealthStatus
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -119,7 +120,8 @@ instance
   type
     AWSResponse UpdateInstanceCustomHealthStatus =
       UpdateInstanceCustomHealthStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       UpdateInstanceCustomHealthStatusResponse'
@@ -145,38 +147,38 @@ instance
       `Prelude.seq` Prelude.rnf status
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateInstanceCustomHealthStatus
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53AutoNaming_v20170314.UpdateInstanceCustomHealthStatus" ::
+              Data.=# ( "Route53AutoNaming_v20170314.UpdateInstanceCustomHealthStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateInstanceCustomHealthStatus where
+instance Data.ToJSON UpdateInstanceCustomHealthStatus where
   toJSON UpdateInstanceCustomHealthStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ServiceId" Core..= serviceId),
-            Prelude.Just ("InstanceId" Core..= instanceId),
-            Prelude.Just ("Status" Core..= status)
+          [ Prelude.Just ("ServiceId" Data..= serviceId),
+            Prelude.Just ("InstanceId" Data..= instanceId),
+            Prelude.Just ("Status" Data..= status)
           ]
       )
 
-instance Core.ToPath UpdateInstanceCustomHealthStatus where
+instance Data.ToPath UpdateInstanceCustomHealthStatus where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateInstanceCustomHealthStatus
   where
   toQuery = Prelude.const Prelude.mempty

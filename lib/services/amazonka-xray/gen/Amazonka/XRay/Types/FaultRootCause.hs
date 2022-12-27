@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.Types.FaultRootCause
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.XRay.Types.FaultRootCause where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.XRay.Types.FaultRootCauseService
 
@@ -65,14 +66,14 @@ faultRootCause_clientImpacting = Lens.lens (\FaultRootCause' {clientImpacting} -
 faultRootCause_services :: Lens.Lens' FaultRootCause (Prelude.Maybe [FaultRootCauseService])
 faultRootCause_services = Lens.lens (\FaultRootCause' {services} -> services) (\s@FaultRootCause' {} a -> s {services = a} :: FaultRootCause) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON FaultRootCause where
+instance Data.FromJSON FaultRootCause where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FaultRootCause"
       ( \x ->
           FaultRootCause'
-            Prelude.<$> (x Core..:? "ClientImpacting")
-            Prelude.<*> (x Core..:? "Services" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "ClientImpacting")
+            Prelude.<*> (x Data..:? "Services" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable FaultRootCause where

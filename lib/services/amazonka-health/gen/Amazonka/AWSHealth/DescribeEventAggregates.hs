@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AWSHealth.DescribeEventAggregates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,9 +34,9 @@ module Amazonka.AWSHealth.DescribeEventAggregates
     newDescribeEventAggregates,
 
     -- * Request Lenses
-    describeEventAggregates_nextToken,
     describeEventAggregates_filter,
     describeEventAggregates_maxResults,
+    describeEventAggregates_nextToken,
     describeEventAggregates_aggregateField,
 
     -- * Destructuring the Response
@@ -44,32 +44,33 @@ module Amazonka.AWSHealth.DescribeEventAggregates
     newDescribeEventAggregatesResponse,
 
     -- * Response Lenses
-    describeEventAggregatesResponse_nextToken,
     describeEventAggregatesResponse_eventAggregates,
+    describeEventAggregatesResponse_nextToken,
     describeEventAggregatesResponse_httpStatus,
   )
 where
 
 import Amazonka.AWSHealth.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeEventAggregates' smart constructor.
 data DescribeEventAggregates = DescribeEventAggregates'
-  { -- | If the results of a search are large, only a portion of the results are
+  { -- | Values to narrow the results returned.
+    filter' :: Prelude.Maybe EventFilter,
+    -- | The maximum number of items to return in one batch, between 10 and 100,
+    -- inclusive.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If the results of a search are large, only a portion of the results are
     -- returned, and a @nextToken@ pagination token is returned in the
     -- response. To retrieve the next batch of results, reissue the search
     -- request and include the returned token. When all results have been
     -- returned, the response does not contain a pagination token value.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Values to narrow the results returned.
-    filter' :: Prelude.Maybe EventFilter,
-    -- | The maximum number of items to return in one batch, between 10 and 100,
-    -- inclusive.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The only currently supported value is @eventTypeCategory@.
     aggregateField :: EventAggregateField
   }
@@ -83,16 +84,16 @@ data DescribeEventAggregates = DescribeEventAggregates'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'filter'', 'describeEventAggregates_filter' - Values to narrow the results returned.
+--
+-- 'maxResults', 'describeEventAggregates_maxResults' - The maximum number of items to return in one batch, between 10 and 100,
+-- inclusive.
+--
 -- 'nextToken', 'describeEventAggregates_nextToken' - If the results of a search are large, only a portion of the results are
 -- returned, and a @nextToken@ pagination token is returned in the
 -- response. To retrieve the next batch of results, reissue the search
 -- request and include the returned token. When all results have been
 -- returned, the response does not contain a pagination token value.
---
--- 'filter'', 'describeEventAggregates_filter' - Values to narrow the results returned.
---
--- 'maxResults', 'describeEventAggregates_maxResults' - The maximum number of items to return in one batch, between 10 and 100,
--- inclusive.
 --
 -- 'aggregateField', 'describeEventAggregates_aggregateField' - The only currently supported value is @eventTypeCategory@.
 newDescribeEventAggregates ::
@@ -101,20 +102,11 @@ newDescribeEventAggregates ::
   DescribeEventAggregates
 newDescribeEventAggregates pAggregateField_ =
   DescribeEventAggregates'
-    { nextToken =
-        Prelude.Nothing,
-      filter' = Prelude.Nothing,
+    { filter' = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       aggregateField = pAggregateField_
     }
-
--- | If the results of a search are large, only a portion of the results are
--- returned, and a @nextToken@ pagination token is returned in the
--- response. To retrieve the next batch of results, reissue the search
--- request and include the returned token. When all results have been
--- returned, the response does not contain a pagination token value.
-describeEventAggregates_nextToken :: Lens.Lens' DescribeEventAggregates (Prelude.Maybe Prelude.Text)
-describeEventAggregates_nextToken = Lens.lens (\DescribeEventAggregates' {nextToken} -> nextToken) (\s@DescribeEventAggregates' {} a -> s {nextToken = a} :: DescribeEventAggregates)
 
 -- | Values to narrow the results returned.
 describeEventAggregates_filter :: Lens.Lens' DescribeEventAggregates (Prelude.Maybe EventFilter)
@@ -124,6 +116,14 @@ describeEventAggregates_filter = Lens.lens (\DescribeEventAggregates' {filter'} 
 -- inclusive.
 describeEventAggregates_maxResults :: Lens.Lens' DescribeEventAggregates (Prelude.Maybe Prelude.Natural)
 describeEventAggregates_maxResults = Lens.lens (\DescribeEventAggregates' {maxResults} -> maxResults) (\s@DescribeEventAggregates' {} a -> s {maxResults = a} :: DescribeEventAggregates)
+
+-- | If the results of a search are large, only a portion of the results are
+-- returned, and a @nextToken@ pagination token is returned in the
+-- response. To retrieve the next batch of results, reissue the search
+-- request and include the returned token. When all results have been
+-- returned, the response does not contain a pagination token value.
+describeEventAggregates_nextToken :: Lens.Lens' DescribeEventAggregates (Prelude.Maybe Prelude.Text)
+describeEventAggregates_nextToken = Lens.lens (\DescribeEventAggregates' {nextToken} -> nextToken) (\s@DescribeEventAggregates' {} a -> s {nextToken = a} :: DescribeEventAggregates)
 
 -- | The only currently supported value is @eventTypeCategory@.
 describeEventAggregates_aggregateField :: Lens.Lens' DescribeEventAggregates EventAggregateField
@@ -155,76 +155,77 @@ instance Core.AWSRequest DescribeEventAggregates where
   type
     AWSResponse DescribeEventAggregates =
       DescribeEventAggregatesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEventAggregatesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "eventAggregates"
+            Prelude.<$> ( x Data..?> "eventAggregates"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeEventAggregates where
   hashWithSalt _salt DescribeEventAggregates' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` aggregateField
 
 instance Prelude.NFData DescribeEventAggregates where
   rnf DescribeEventAggregates' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf aggregateField
 
-instance Core.ToHeaders DescribeEventAggregates where
+instance Data.ToHeaders DescribeEventAggregates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHealth_20160804.DescribeEventAggregates" ::
+              Data.=# ( "AWSHealth_20160804.DescribeEventAggregates" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEventAggregates where
+instance Data.ToJSON DescribeEventAggregates where
   toJSON DescribeEventAggregates' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("filter" Core..=) Prelude.<$> filter',
-            ("maxResults" Core..=) Prelude.<$> maxResults,
+          [ ("filter" Data..=) Prelude.<$> filter',
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("aggregateField" Core..= aggregateField)
+              ("aggregateField" Data..= aggregateField)
           ]
       )
 
-instance Core.ToPath DescribeEventAggregates where
+instance Data.ToPath DescribeEventAggregates where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEventAggregates where
+instance Data.ToQuery DescribeEventAggregates where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeEventAggregatesResponse' smart constructor.
 data DescribeEventAggregatesResponse = DescribeEventAggregatesResponse'
-  { -- | If the results of a search are large, only a portion of the results are
+  { -- | The number of events in each category that meet the optional filter
+    -- criteria.
+    eventAggregates :: Prelude.Maybe [EventAggregate],
+    -- | If the results of a search are large, only a portion of the results are
     -- returned, and a @nextToken@ pagination token is returned in the
     -- response. To retrieve the next batch of results, reissue the search
     -- request and include the returned token. When all results have been
     -- returned, the response does not contain a pagination token value.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of events in each category that meet the optional filter
-    -- criteria.
-    eventAggregates :: Prelude.Maybe [EventAggregate],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -238,14 +239,14 @@ data DescribeEventAggregatesResponse = DescribeEventAggregatesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'eventAggregates', 'describeEventAggregatesResponse_eventAggregates' - The number of events in each category that meet the optional filter
+-- criteria.
+--
 -- 'nextToken', 'describeEventAggregatesResponse_nextToken' - If the results of a search are large, only a portion of the results are
 -- returned, and a @nextToken@ pagination token is returned in the
 -- response. To retrieve the next batch of results, reissue the search
 -- request and include the returned token. When all results have been
 -- returned, the response does not contain a pagination token value.
---
--- 'eventAggregates', 'describeEventAggregatesResponse_eventAggregates' - The number of events in each category that meet the optional filter
--- criteria.
 --
 -- 'httpStatus', 'describeEventAggregatesResponse_httpStatus' - The response's http status code.
 newDescribeEventAggregatesResponse ::
@@ -254,11 +255,16 @@ newDescribeEventAggregatesResponse ::
   DescribeEventAggregatesResponse
 newDescribeEventAggregatesResponse pHttpStatus_ =
   DescribeEventAggregatesResponse'
-    { nextToken =
+    { eventAggregates =
         Prelude.Nothing,
-      eventAggregates = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The number of events in each category that meet the optional filter
+-- criteria.
+describeEventAggregatesResponse_eventAggregates :: Lens.Lens' DescribeEventAggregatesResponse (Prelude.Maybe [EventAggregate])
+describeEventAggregatesResponse_eventAggregates = Lens.lens (\DescribeEventAggregatesResponse' {eventAggregates} -> eventAggregates) (\s@DescribeEventAggregatesResponse' {} a -> s {eventAggregates = a} :: DescribeEventAggregatesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If the results of a search are large, only a portion of the results are
 -- returned, and a @nextToken@ pagination token is returned in the
@@ -267,11 +273,6 @@ newDescribeEventAggregatesResponse pHttpStatus_ =
 -- returned, the response does not contain a pagination token value.
 describeEventAggregatesResponse_nextToken :: Lens.Lens' DescribeEventAggregatesResponse (Prelude.Maybe Prelude.Text)
 describeEventAggregatesResponse_nextToken = Lens.lens (\DescribeEventAggregatesResponse' {nextToken} -> nextToken) (\s@DescribeEventAggregatesResponse' {} a -> s {nextToken = a} :: DescribeEventAggregatesResponse)
-
--- | The number of events in each category that meet the optional filter
--- criteria.
-describeEventAggregatesResponse_eventAggregates :: Lens.Lens' DescribeEventAggregatesResponse (Prelude.Maybe [EventAggregate])
-describeEventAggregatesResponse_eventAggregates = Lens.lens (\DescribeEventAggregatesResponse' {eventAggregates} -> eventAggregates) (\s@DescribeEventAggregatesResponse' {} a -> s {eventAggregates = a} :: DescribeEventAggregatesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeEventAggregatesResponse_httpStatus :: Lens.Lens' DescribeEventAggregatesResponse Prelude.Int
@@ -282,6 +283,6 @@ instance
     DescribeEventAggregatesResponse
   where
   rnf DescribeEventAggregatesResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf eventAggregates
+    Prelude.rnf eventAggregates
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

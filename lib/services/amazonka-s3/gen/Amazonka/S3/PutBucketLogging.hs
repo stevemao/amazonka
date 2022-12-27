@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.PutBucketLogging
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,6 +29,13 @@
 -- use the @Grantee@ request element to grant access to other people. The
 -- @Permissions@ request element specifies the kind of access the grantee
 -- has to the logs.
+--
+-- If the target bucket for log delivery uses the bucket owner enforced
+-- setting for S3 Object Ownership, you can\'t use the @Grantee@ request
+-- element to grant access to others. Permissions can only be granted using
+-- policies. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/enable-server-access-logging.html#grant-log-delivery-permissions-general Permissions for server access log delivery>
+-- in the /Amazon S3 User Guide/.
 --
 -- __Grantee Values__
 --
@@ -59,7 +66,8 @@
 -- @\<BucketLoggingStatus xmlns=\"http:\/\/doc.s3.amazonaws.com\/2006-03-01\" \/>@
 --
 -- For more information about server access logging, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/dev/ServerLogs.html Server Access Logging>.
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/ServerLogs.html Server Access Logging>
+-- in the /Amazon S3 User Guide/.
 --
 -- For more information about creating a bucket, see
 -- <https://docs.aws.amazon.com/AmazonS3/latest/API/API_CreateBucket.html CreateBucket>.
@@ -81,6 +89,7 @@ module Amazonka.S3.PutBucketLogging
     newPutBucketLogging,
 
     -- * Request Lenses
+    putBucketLogging_checksumAlgorithm,
     putBucketLogging_contentMD5,
     putBucketLogging_expectedBucketOwner,
     putBucketLogging_bucket,
@@ -93,7 +102,8 @@ module Amazonka.S3.PutBucketLogging
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,15 +111,27 @@ import Amazonka.S3.Types
 
 -- | /See:/ 'newPutBucketLogging' smart constructor.
 data PutBucketLogging = PutBucketLogging'
-  { -- | The MD5 hash of the @PutBucketLogging@ request body.
+  { -- | Indicates the algorithm used to create the checksum for the object when
+    -- using the SDK. This header will not provide any additional functionality
+    -- if not using the SDK. When sending this header, there must be a
+    -- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+    -- Otherwise, Amazon S3 fails the request with the HTTP status code
+    -- @400 Bad Request@. For more information, see
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+    -- in the /Amazon S3 User Guide/.
+    --
+    -- If you provide an individual checksum, Amazon S3 ignores any provided
+    -- @ChecksumAlgorithm@ parameter.
+    checksumAlgorithm :: Prelude.Maybe ChecksumAlgorithm,
+    -- | The MD5 hash of the @PutBucketLogging@ request body.
     --
     -- For requests made using the Amazon Web Services Command Line Interface
     -- (CLI) or Amazon Web Services SDKs, this field is calculated
     -- automatically.
     contentMD5 :: Prelude.Maybe Prelude.Text,
     -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket for which to set the logging parameters.
     bucket :: BucketName,
@@ -126,6 +148,18 @@ data PutBucketLogging = PutBucketLogging'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'checksumAlgorithm', 'putBucketLogging_checksumAlgorithm' - Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
+--
 -- 'contentMD5', 'putBucketLogging_contentMD5' - The MD5 hash of the @PutBucketLogging@ request body.
 --
 -- For requests made using the Amazon Web Services Command Line Interface
@@ -133,8 +167,8 @@ data PutBucketLogging = PutBucketLogging'
 -- automatically.
 --
 -- 'expectedBucketOwner', 'putBucketLogging_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'putBucketLogging_bucket' - The name of the bucket for which to set the logging parameters.
 --
@@ -147,11 +181,27 @@ newPutBucketLogging ::
   PutBucketLogging
 newPutBucketLogging pBucket_ pBucketLoggingStatus_ =
   PutBucketLogging'
-    { contentMD5 = Prelude.Nothing,
+    { checksumAlgorithm =
+        Prelude.Nothing,
+      contentMD5 = Prelude.Nothing,
       expectedBucketOwner = Prelude.Nothing,
       bucket = pBucket_,
       bucketLoggingStatus = pBucketLoggingStatus_
     }
+
+-- | Indicates the algorithm used to create the checksum for the object when
+-- using the SDK. This header will not provide any additional functionality
+-- if not using the SDK. When sending this header, there must be a
+-- corresponding @x-amz-checksum@ or @x-amz-trailer@ header sent.
+-- Otherwise, Amazon S3 fails the request with the HTTP status code
+-- @400 Bad Request@. For more information, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/checking-object-integrity.html Checking object integrity>
+-- in the /Amazon S3 User Guide/.
+--
+-- If you provide an individual checksum, Amazon S3 ignores any provided
+-- @ChecksumAlgorithm@ parameter.
+putBucketLogging_checksumAlgorithm :: Lens.Lens' PutBucketLogging (Prelude.Maybe ChecksumAlgorithm)
+putBucketLogging_checksumAlgorithm = Lens.lens (\PutBucketLogging' {checksumAlgorithm} -> checksumAlgorithm) (\s@PutBucketLogging' {} a -> s {checksumAlgorithm = a} :: PutBucketLogging)
 
 -- | The MD5 hash of the @PutBucketLogging@ request body.
 --
@@ -162,8 +212,8 @@ putBucketLogging_contentMD5 :: Lens.Lens' PutBucketLogging (Prelude.Maybe Prelud
 putBucketLogging_contentMD5 = Lens.lens (\PutBucketLogging' {contentMD5} -> contentMD5) (\s@PutBucketLogging' {} a -> s {contentMD5 = a} :: PutBucketLogging)
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 putBucketLogging_expectedBucketOwner :: Lens.Lens' PutBucketLogging (Prelude.Maybe Prelude.Text)
 putBucketLogging_expectedBucketOwner = Lens.lens (\PutBucketLogging' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutBucketLogging' {} a -> s {expectedBucketOwner = a} :: PutBucketLogging)
 
@@ -179,45 +229,49 @@ instance Core.AWSRequest PutBucketLogging where
   type
     AWSResponse PutBucketLogging =
       PutBucketLoggingResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.putXML defaultService
+      Prelude.. Request.putXML (overrides defaultService)
   response =
     Response.receiveNull PutBucketLoggingResponse'
 
 instance Prelude.Hashable PutBucketLogging where
   hashWithSalt _salt PutBucketLogging' {..} =
-    _salt `Prelude.hashWithSalt` contentMD5
+    _salt `Prelude.hashWithSalt` checksumAlgorithm
+      `Prelude.hashWithSalt` contentMD5
       `Prelude.hashWithSalt` expectedBucketOwner
       `Prelude.hashWithSalt` bucket
       `Prelude.hashWithSalt` bucketLoggingStatus
 
 instance Prelude.NFData PutBucketLogging where
   rnf PutBucketLogging' {..} =
-    Prelude.rnf contentMD5
+    Prelude.rnf checksumAlgorithm
+      `Prelude.seq` Prelude.rnf contentMD5
       `Prelude.seq` Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
       `Prelude.seq` Prelude.rnf bucketLoggingStatus
 
-instance Core.ToElement PutBucketLogging where
+instance Data.ToElement PutBucketLogging where
   toElement PutBucketLogging' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}BucketLoggingStatus"
       bucketLoggingStatus
 
-instance Core.ToHeaders PutBucketLogging where
+instance Data.ToHeaders PutBucketLogging where
   toHeaders PutBucketLogging' {..} =
     Prelude.mconcat
-      [ "Content-MD5" Core.=# contentMD5,
+      [ "x-amz-sdk-checksum-algorithm"
+          Data.=# checksumAlgorithm,
+        "Content-MD5" Data.=# contentMD5,
         "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath PutBucketLogging where
+instance Data.ToPath PutBucketLogging where
   toPath PutBucketLogging' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery PutBucketLogging where
+instance Data.ToQuery PutBucketLogging where
   toQuery = Prelude.const (Prelude.mconcat ["logging"])
 
 -- | /See:/ 'newPutBucketLoggingResponse' smart constructor.

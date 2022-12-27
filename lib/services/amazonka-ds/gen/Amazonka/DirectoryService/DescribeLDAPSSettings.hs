@@ -14,21 +14,23 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.DescribeLDAPSSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Describes the status of LDAP security for the specified directory.
+--
+-- This operation returns paginated results.
 module Amazonka.DirectoryService.DescribeLDAPSSettings
   ( -- * Creating a Request
     DescribeLDAPSSettings (..),
     newDescribeLDAPSSettings,
 
     -- * Request Lenses
-    describeLDAPSSettings_nextToken,
     describeLDAPSSettings_limit,
+    describeLDAPSSettings_nextToken,
     describeLDAPSSettings_type,
     describeLDAPSSettings_directoryId,
 
@@ -44,18 +46,19 @@ module Amazonka.DirectoryService.DescribeLDAPSSettings
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeLDAPSSettings' smart constructor.
 data DescribeLDAPSSettings = DescribeLDAPSSettings'
-  { -- | The type of next token used for pagination.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the number of items that should be displayed on one page.
+  { -- | Specifies the number of items that should be displayed on one page.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | The type of next token used for pagination.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The type of LDAP security to enable. Currently only the value @Client@
     -- is supported.
     type' :: Prelude.Maybe LDAPSType,
@@ -72,9 +75,9 @@ data DescribeLDAPSSettings = DescribeLDAPSSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeLDAPSSettings_nextToken' - The type of next token used for pagination.
---
 -- 'limit', 'describeLDAPSSettings_limit' - Specifies the number of items that should be displayed on one page.
+--
+-- 'nextToken', 'describeLDAPSSettings_nextToken' - The type of next token used for pagination.
 --
 -- 'type'', 'describeLDAPSSettings_type' - The type of LDAP security to enable. Currently only the value @Client@
 -- is supported.
@@ -86,19 +89,19 @@ newDescribeLDAPSSettings ::
   DescribeLDAPSSettings
 newDescribeLDAPSSettings pDirectoryId_ =
   DescribeLDAPSSettings'
-    { nextToken = Prelude.Nothing,
-      limit = Prelude.Nothing,
+    { limit = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       type' = Prelude.Nothing,
       directoryId = pDirectoryId_
     }
 
--- | The type of next token used for pagination.
-describeLDAPSSettings_nextToken :: Lens.Lens' DescribeLDAPSSettings (Prelude.Maybe Prelude.Text)
-describeLDAPSSettings_nextToken = Lens.lens (\DescribeLDAPSSettings' {nextToken} -> nextToken) (\s@DescribeLDAPSSettings' {} a -> s {nextToken = a} :: DescribeLDAPSSettings)
-
 -- | Specifies the number of items that should be displayed on one page.
 describeLDAPSSettings_limit :: Lens.Lens' DescribeLDAPSSettings (Prelude.Maybe Prelude.Natural)
 describeLDAPSSettings_limit = Lens.lens (\DescribeLDAPSSettings' {limit} -> limit) (\s@DescribeLDAPSSettings' {} a -> s {limit = a} :: DescribeLDAPSSettings)
+
+-- | The type of next token used for pagination.
+describeLDAPSSettings_nextToken :: Lens.Lens' DescribeLDAPSSettings (Prelude.Maybe Prelude.Text)
+describeLDAPSSettings_nextToken = Lens.lens (\DescribeLDAPSSettings' {nextToken} -> nextToken) (\s@DescribeLDAPSSettings' {} a -> s {nextToken = a} :: DescribeLDAPSSettings)
 
 -- | The type of LDAP security to enable. Currently only the value @Client@
 -- is supported.
@@ -109,66 +112,89 @@ describeLDAPSSettings_type = Lens.lens (\DescribeLDAPSSettings' {type'} -> type'
 describeLDAPSSettings_directoryId :: Lens.Lens' DescribeLDAPSSettings Prelude.Text
 describeLDAPSSettings_directoryId = Lens.lens (\DescribeLDAPSSettings' {directoryId} -> directoryId) (\s@DescribeLDAPSSettings' {} a -> s {directoryId = a} :: DescribeLDAPSSettings)
 
+instance Core.AWSPager DescribeLDAPSSettings where
+  page rq rs
+    | Core.stop
+        ( rs
+            Lens.^? describeLDAPSSettingsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Core.stop
+        ( rs
+            Lens.^? describeLDAPSSettingsResponse_lDAPSSettingsInfo
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Prelude.& describeLDAPSSettings_nextToken
+          Lens..~ rs
+          Lens.^? describeLDAPSSettingsResponse_nextToken
+            Prelude.. Lens._Just
+
 instance Core.AWSRequest DescribeLDAPSSettings where
   type
     AWSResponse DescribeLDAPSSettings =
       DescribeLDAPSSettingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeLDAPSSettingsResponse'
-            Prelude.<$> ( x Core..?> "LDAPSSettingsInfo"
+            Prelude.<$> ( x Data..?> "LDAPSSettingsInfo"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeLDAPSSettings where
   hashWithSalt _salt DescribeLDAPSSettings' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` type'
       `Prelude.hashWithSalt` directoryId
 
 instance Prelude.NFData DescribeLDAPSSettings where
   rnf DescribeLDAPSSettings' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf directoryId
 
-instance Core.ToHeaders DescribeLDAPSSettings where
+instance Data.ToHeaders DescribeLDAPSSettings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.DescribeLDAPSSettings" ::
+              Data.=# ( "DirectoryService_20150416.DescribeLDAPSSettings" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeLDAPSSettings where
+instance Data.ToJSON DescribeLDAPSSettings where
   toJSON DescribeLDAPSSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit,
-            ("Type" Core..=) Prelude.<$> type',
-            Prelude.Just ("DirectoryId" Core..= directoryId)
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("Type" Data..=) Prelude.<$> type',
+            Prelude.Just ("DirectoryId" Data..= directoryId)
           ]
       )
 
-instance Core.ToPath DescribeLDAPSSettings where
+instance Data.ToPath DescribeLDAPSSettings where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeLDAPSSettings where
+instance Data.ToQuery DescribeLDAPSSettings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeLDAPSSettingsResponse' smart constructor.

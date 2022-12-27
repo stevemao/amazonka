@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticTranscoder.ReadPreset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.ElasticTranscoder.ReadPreset
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticTranscoder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,12 +80,13 @@ readPreset_id = Lens.lens (\ReadPreset' {id} -> id) (\s@ReadPreset' {} a -> s {i
 
 instance Core.AWSRequest ReadPreset where
   type AWSResponse ReadPreset = ReadPresetResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ReadPresetResponse'
-            Prelude.<$> (x Core..?> "Preset")
+            Prelude.<$> (x Data..?> "Preset")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,15 +97,15 @@ instance Prelude.Hashable ReadPreset where
 instance Prelude.NFData ReadPreset where
   rnf ReadPreset' {..} = Prelude.rnf id
 
-instance Core.ToHeaders ReadPreset where
+instance Data.ToHeaders ReadPreset where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ReadPreset where
+instance Data.ToPath ReadPreset where
   toPath ReadPreset' {..} =
     Prelude.mconcat
-      ["/2012-09-25/presets/", Core.toBS id]
+      ["/2012-09-25/presets/", Data.toBS id]
 
-instance Core.ToQuery ReadPreset where
+instance Data.ToQuery ReadPreset where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The @ReadPresetResponse@ structure.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.GlacierJobParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.GlacierJobParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.Tier
@@ -61,6 +62,6 @@ instance Prelude.Hashable GlacierJobParameters where
 instance Prelude.NFData GlacierJobParameters where
   rnf GlacierJobParameters' {..} = Prelude.rnf tier
 
-instance Core.ToXML GlacierJobParameters where
+instance Data.ToXML GlacierJobParameters where
   toXML GlacierJobParameters' {..} =
-    Prelude.mconcat ["Tier" Core.@= tier]
+    Prelude.mconcat ["Tier" Data.@= tier]

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.Types.FunctionDefaultExecutionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.Greengrass.Types.FunctionDefaultExecutionConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types.FunctionIsolationMode
 import Amazonka.Greengrass.Types.FunctionRunAsConfig
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration information that specifies how a Lambda function runs.
 --
 -- /See:/ 'newFunctionDefaultExecutionConfig' smart constructor.
 data FunctionDefaultExecutionConfig = FunctionDefaultExecutionConfig'
-  { runAs :: Prelude.Maybe FunctionRunAsConfig,
-    isolationMode :: Prelude.Maybe FunctionIsolationMode
+  { isolationMode :: Prelude.Maybe FunctionIsolationMode,
+    runAs :: Prelude.Maybe FunctionRunAsConfig
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,34 +43,34 @@ data FunctionDefaultExecutionConfig = FunctionDefaultExecutionConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'runAs', 'functionDefaultExecutionConfig_runAs' - Undocumented member.
---
 -- 'isolationMode', 'functionDefaultExecutionConfig_isolationMode' - Undocumented member.
+--
+-- 'runAs', 'functionDefaultExecutionConfig_runAs' - Undocumented member.
 newFunctionDefaultExecutionConfig ::
   FunctionDefaultExecutionConfig
 newFunctionDefaultExecutionConfig =
   FunctionDefaultExecutionConfig'
-    { runAs =
+    { isolationMode =
         Prelude.Nothing,
-      isolationMode = Prelude.Nothing
+      runAs = Prelude.Nothing
     }
-
--- | Undocumented member.
-functionDefaultExecutionConfig_runAs :: Lens.Lens' FunctionDefaultExecutionConfig (Prelude.Maybe FunctionRunAsConfig)
-functionDefaultExecutionConfig_runAs = Lens.lens (\FunctionDefaultExecutionConfig' {runAs} -> runAs) (\s@FunctionDefaultExecutionConfig' {} a -> s {runAs = a} :: FunctionDefaultExecutionConfig)
 
 -- | Undocumented member.
 functionDefaultExecutionConfig_isolationMode :: Lens.Lens' FunctionDefaultExecutionConfig (Prelude.Maybe FunctionIsolationMode)
 functionDefaultExecutionConfig_isolationMode = Lens.lens (\FunctionDefaultExecutionConfig' {isolationMode} -> isolationMode) (\s@FunctionDefaultExecutionConfig' {} a -> s {isolationMode = a} :: FunctionDefaultExecutionConfig)
 
-instance Core.FromJSON FunctionDefaultExecutionConfig where
+-- | Undocumented member.
+functionDefaultExecutionConfig_runAs :: Lens.Lens' FunctionDefaultExecutionConfig (Prelude.Maybe FunctionRunAsConfig)
+functionDefaultExecutionConfig_runAs = Lens.lens (\FunctionDefaultExecutionConfig' {runAs} -> runAs) (\s@FunctionDefaultExecutionConfig' {} a -> s {runAs = a} :: FunctionDefaultExecutionConfig)
+
+instance Data.FromJSON FunctionDefaultExecutionConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FunctionDefaultExecutionConfig"
       ( \x ->
           FunctionDefaultExecutionConfig'
-            Prelude.<$> (x Core..:? "RunAs")
-            Prelude.<*> (x Core..:? "IsolationMode")
+            Prelude.<$> (x Data..:? "IsolationMode")
+            Prelude.<*> (x Data..:? "RunAs")
       )
 
 instance
@@ -79,22 +80,22 @@ instance
   hashWithSalt
     _salt
     FunctionDefaultExecutionConfig' {..} =
-      _salt `Prelude.hashWithSalt` runAs
-        `Prelude.hashWithSalt` isolationMode
+      _salt `Prelude.hashWithSalt` isolationMode
+        `Prelude.hashWithSalt` runAs
 
 instance
   Prelude.NFData
     FunctionDefaultExecutionConfig
   where
   rnf FunctionDefaultExecutionConfig' {..} =
-    Prelude.rnf runAs
-      `Prelude.seq` Prelude.rnf isolationMode
+    Prelude.rnf isolationMode
+      `Prelude.seq` Prelude.rnf runAs
 
-instance Core.ToJSON FunctionDefaultExecutionConfig where
+instance Data.ToJSON FunctionDefaultExecutionConfig where
   toJSON FunctionDefaultExecutionConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RunAs" Core..=) Prelude.<$> runAs,
-            ("IsolationMode" Core..=) Prelude.<$> isolationMode
+          [ ("IsolationMode" Data..=) Prelude.<$> isolationMode,
+            ("RunAs" Data..=) Prelude.<$> runAs
           ]
       )

@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Proton.GetEnvironment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Get detail data for an environment.
+-- Get detailed data for an environment.
 module Amazonka.Proton.GetEnvironment
   ( -- * Creating a Request
     GetEnvironment (..),
@@ -40,7 +40,8 @@ module Amazonka.Proton.GetEnvironment
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -48,7 +49,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetEnvironment' smart constructor.
 data GetEnvironment = GetEnvironment'
-  { -- | The name of the environment that you want to get the detail data for.
+  { -- | The name of the environment that you want to get the detailed data for.
     name :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -61,7 +62,7 @@ data GetEnvironment = GetEnvironment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'getEnvironment_name' - The name of the environment that you want to get the detail data for.
+-- 'name', 'getEnvironment_name' - The name of the environment that you want to get the detailed data for.
 newGetEnvironment ::
   -- | 'name'
   Prelude.Text ->
@@ -69,7 +70,7 @@ newGetEnvironment ::
 newGetEnvironment pName_ =
   GetEnvironment' {name = pName_}
 
--- | The name of the environment that you want to get the detail data for.
+-- | The name of the environment that you want to get the detailed data for.
 getEnvironment_name :: Lens.Lens' GetEnvironment Prelude.Text
 getEnvironment_name = Lens.lens (\GetEnvironment' {name} -> name) (\s@GetEnvironment' {} a -> s {name = a} :: GetEnvironment)
 
@@ -77,13 +78,14 @@ instance Core.AWSRequest GetEnvironment where
   type
     AWSResponse GetEnvironment =
       GetEnvironmentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetEnvironmentResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "environment")
+            Prelude.<*> (x Data..:> "environment")
       )
 
 instance Prelude.Hashable GetEnvironment where
@@ -93,39 +95,39 @@ instance Prelude.Hashable GetEnvironment where
 instance Prelude.NFData GetEnvironment where
   rnf GetEnvironment' {..} = Prelude.rnf name
 
-instance Core.ToHeaders GetEnvironment where
+instance Data.ToHeaders GetEnvironment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.GetEnvironment" ::
+              Data.=# ( "AwsProton20200720.GetEnvironment" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetEnvironment where
+instance Data.ToJSON GetEnvironment where
   toJSON GetEnvironment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("name" Core..= name)]
+          [Prelude.Just ("name" Data..= name)]
       )
 
-instance Core.ToPath GetEnvironment where
+instance Data.ToPath GetEnvironment where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetEnvironment where
+instance Data.ToQuery GetEnvironment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetEnvironmentResponse' smart constructor.
 data GetEnvironmentResponse = GetEnvironmentResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | The environment detail data that\'s returned by AWS Proton.
+    -- | The detailed data of the requested environment.
     environment :: Environment
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -140,7 +142,7 @@ data GetEnvironmentResponse = GetEnvironmentResponse'
 --
 -- 'httpStatus', 'getEnvironmentResponse_httpStatus' - The response's http status code.
 --
--- 'environment', 'getEnvironmentResponse_environment' - The environment detail data that\'s returned by AWS Proton.
+-- 'environment', 'getEnvironmentResponse_environment' - The detailed data of the requested environment.
 newGetEnvironmentResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -157,7 +159,7 @@ newGetEnvironmentResponse pHttpStatus_ pEnvironment_ =
 getEnvironmentResponse_httpStatus :: Lens.Lens' GetEnvironmentResponse Prelude.Int
 getEnvironmentResponse_httpStatus = Lens.lens (\GetEnvironmentResponse' {httpStatus} -> httpStatus) (\s@GetEnvironmentResponse' {} a -> s {httpStatus = a} :: GetEnvironmentResponse)
 
--- | The environment detail data that\'s returned by AWS Proton.
+-- | The detailed data of the requested environment.
 getEnvironmentResponse_environment :: Lens.Lens' GetEnvironmentResponse Environment
 getEnvironmentResponse_environment = Lens.lens (\GetEnvironmentResponse' {environment} -> environment) (\s@GetEnvironmentResponse' {} a -> s {environment = a} :: GetEnvironmentResponse)
 

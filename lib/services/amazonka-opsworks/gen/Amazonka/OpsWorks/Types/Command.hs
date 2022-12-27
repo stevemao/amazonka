@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.Types.Command
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,30 @@
 module Amazonka.OpsWorks.Types.Command where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a command.
 --
 -- /See:/ 'newCommand' smart constructor.
 data Command = Command'
-  { -- | The command deployment ID.
+  { -- | Date and time when the command was acknowledged.
+    acknowledgedAt :: Prelude.Maybe Prelude.Text,
+    -- | The command ID.
+    commandId :: Prelude.Maybe Prelude.Text,
+    -- | Date when the command completed.
+    completedAt :: Prelude.Maybe Prelude.Text,
+    -- | Date and time when the command was run.
+    createdAt :: Prelude.Maybe Prelude.Text,
+    -- | The command deployment ID.
     deploymentId :: Prelude.Maybe Prelude.Text,
+    -- | The command exit code.
+    exitCode :: Prelude.Maybe Prelude.Int,
     -- | The ID of the instance where the command was executed.
     instanceId :: Prelude.Maybe Prelude.Text,
+    -- | The URL of the command log.
+    logUrl :: Prelude.Maybe Prelude.Text,
     -- | The command status:
     --
     -- -   failed
@@ -41,14 +54,6 @@ data Command = Command'
     --
     -- -   pending
     status :: Prelude.Maybe Prelude.Text,
-    -- | The URL of the command log.
-    logUrl :: Prelude.Maybe Prelude.Text,
-    -- | Date and time when the command was run.
-    createdAt :: Prelude.Maybe Prelude.Text,
-    -- | The command ID.
-    commandId :: Prelude.Maybe Prelude.Text,
-    -- | The command exit code.
-    exitCode :: Prelude.Maybe Prelude.Int,
     -- | The command type:
     --
     -- -   @configure@
@@ -74,11 +79,7 @@ data Command = Command'
     -- -   @update_custom_cookbooks@
     --
     -- -   @update_dependencies@
-    type' :: Prelude.Maybe Prelude.Text,
-    -- | Date when the command completed.
-    completedAt :: Prelude.Maybe Prelude.Text,
-    -- | Date and time when the command was acknowledged.
-    acknowledgedAt :: Prelude.Maybe Prelude.Text
+    type' :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -90,9 +91,21 @@ data Command = Command'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'acknowledgedAt', 'command_acknowledgedAt' - Date and time when the command was acknowledged.
+--
+-- 'commandId', 'command_commandId' - The command ID.
+--
+-- 'completedAt', 'command_completedAt' - Date when the command completed.
+--
+-- 'createdAt', 'command_createdAt' - Date and time when the command was run.
+--
 -- 'deploymentId', 'command_deploymentId' - The command deployment ID.
 --
+-- 'exitCode', 'command_exitCode' - The command exit code.
+--
 -- 'instanceId', 'command_instanceId' - The ID of the instance where the command was executed.
+--
+-- 'logUrl', 'command_logUrl' - The URL of the command log.
 --
 -- 'status', 'command_status' - The command status:
 --
@@ -103,14 +116,6 @@ data Command = Command'
 -- -   skipped
 --
 -- -   pending
---
--- 'logUrl', 'command_logUrl' - The URL of the command log.
---
--- 'createdAt', 'command_createdAt' - Date and time when the command was run.
---
--- 'commandId', 'command_commandId' - The command ID.
---
--- 'exitCode', 'command_exitCode' - The command exit code.
 --
 -- 'type'', 'command_type' - The command type:
 --
@@ -137,33 +142,53 @@ data Command = Command'
 -- -   @update_custom_cookbooks@
 --
 -- -   @update_dependencies@
---
--- 'completedAt', 'command_completedAt' - Date when the command completed.
---
--- 'acknowledgedAt', 'command_acknowledgedAt' - Date and time when the command was acknowledged.
 newCommand ::
   Command
 newCommand =
   Command'
-    { deploymentId = Prelude.Nothing,
-      instanceId = Prelude.Nothing,
-      status = Prelude.Nothing,
-      logUrl = Prelude.Nothing,
-      createdAt = Prelude.Nothing,
+    { acknowledgedAt = Prelude.Nothing,
       commandId = Prelude.Nothing,
-      exitCode = Prelude.Nothing,
-      type' = Prelude.Nothing,
       completedAt = Prelude.Nothing,
-      acknowledgedAt = Prelude.Nothing
+      createdAt = Prelude.Nothing,
+      deploymentId = Prelude.Nothing,
+      exitCode = Prelude.Nothing,
+      instanceId = Prelude.Nothing,
+      logUrl = Prelude.Nothing,
+      status = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
+
+-- | Date and time when the command was acknowledged.
+command_acknowledgedAt :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_acknowledgedAt = Lens.lens (\Command' {acknowledgedAt} -> acknowledgedAt) (\s@Command' {} a -> s {acknowledgedAt = a} :: Command)
+
+-- | The command ID.
+command_commandId :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_commandId = Lens.lens (\Command' {commandId} -> commandId) (\s@Command' {} a -> s {commandId = a} :: Command)
+
+-- | Date when the command completed.
+command_completedAt :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_completedAt = Lens.lens (\Command' {completedAt} -> completedAt) (\s@Command' {} a -> s {completedAt = a} :: Command)
+
+-- | Date and time when the command was run.
+command_createdAt :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_createdAt = Lens.lens (\Command' {createdAt} -> createdAt) (\s@Command' {} a -> s {createdAt = a} :: Command)
 
 -- | The command deployment ID.
 command_deploymentId :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
 command_deploymentId = Lens.lens (\Command' {deploymentId} -> deploymentId) (\s@Command' {} a -> s {deploymentId = a} :: Command)
 
+-- | The command exit code.
+command_exitCode :: Lens.Lens' Command (Prelude.Maybe Prelude.Int)
+command_exitCode = Lens.lens (\Command' {exitCode} -> exitCode) (\s@Command' {} a -> s {exitCode = a} :: Command)
+
 -- | The ID of the instance where the command was executed.
 command_instanceId :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
 command_instanceId = Lens.lens (\Command' {instanceId} -> instanceId) (\s@Command' {} a -> s {instanceId = a} :: Command)
+
+-- | The URL of the command log.
+command_logUrl :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
+command_logUrl = Lens.lens (\Command' {logUrl} -> logUrl) (\s@Command' {} a -> s {logUrl = a} :: Command)
 
 -- | The command status:
 --
@@ -176,22 +201,6 @@ command_instanceId = Lens.lens (\Command' {instanceId} -> instanceId) (\s@Comman
 -- -   pending
 command_status :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
 command_status = Lens.lens (\Command' {status} -> status) (\s@Command' {} a -> s {status = a} :: Command)
-
--- | The URL of the command log.
-command_logUrl :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
-command_logUrl = Lens.lens (\Command' {logUrl} -> logUrl) (\s@Command' {} a -> s {logUrl = a} :: Command)
-
--- | Date and time when the command was run.
-command_createdAt :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
-command_createdAt = Lens.lens (\Command' {createdAt} -> createdAt) (\s@Command' {} a -> s {createdAt = a} :: Command)
-
--- | The command ID.
-command_commandId :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
-command_commandId = Lens.lens (\Command' {commandId} -> commandId) (\s@Command' {} a -> s {commandId = a} :: Command)
-
--- | The command exit code.
-command_exitCode :: Lens.Lens' Command (Prelude.Maybe Prelude.Int)
-command_exitCode = Lens.lens (\Command' {exitCode} -> exitCode) (\s@Command' {} a -> s {exitCode = a} :: Command)
 
 -- | The command type:
 --
@@ -221,54 +230,46 @@ command_exitCode = Lens.lens (\Command' {exitCode} -> exitCode) (\s@Command' {} 
 command_type :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
 command_type = Lens.lens (\Command' {type'} -> type') (\s@Command' {} a -> s {type' = a} :: Command)
 
--- | Date when the command completed.
-command_completedAt :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
-command_completedAt = Lens.lens (\Command' {completedAt} -> completedAt) (\s@Command' {} a -> s {completedAt = a} :: Command)
-
--- | Date and time when the command was acknowledged.
-command_acknowledgedAt :: Lens.Lens' Command (Prelude.Maybe Prelude.Text)
-command_acknowledgedAt = Lens.lens (\Command' {acknowledgedAt} -> acknowledgedAt) (\s@Command' {} a -> s {acknowledgedAt = a} :: Command)
-
-instance Core.FromJSON Command where
+instance Data.FromJSON Command where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Command"
       ( \x ->
           Command'
-            Prelude.<$> (x Core..:? "DeploymentId")
-            Prelude.<*> (x Core..:? "InstanceId")
-            Prelude.<*> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "LogUrl")
-            Prelude.<*> (x Core..:? "CreatedAt")
-            Prelude.<*> (x Core..:? "CommandId")
-            Prelude.<*> (x Core..:? "ExitCode")
-            Prelude.<*> (x Core..:? "Type")
-            Prelude.<*> (x Core..:? "CompletedAt")
-            Prelude.<*> (x Core..:? "AcknowledgedAt")
+            Prelude.<$> (x Data..:? "AcknowledgedAt")
+            Prelude.<*> (x Data..:? "CommandId")
+            Prelude.<*> (x Data..:? "CompletedAt")
+            Prelude.<*> (x Data..:? "CreatedAt")
+            Prelude.<*> (x Data..:? "DeploymentId")
+            Prelude.<*> (x Data..:? "ExitCode")
+            Prelude.<*> (x Data..:? "InstanceId")
+            Prelude.<*> (x Data..:? "LogUrl")
+            Prelude.<*> (x Data..:? "Status")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable Command where
   hashWithSalt _salt Command' {..} =
-    _salt `Prelude.hashWithSalt` deploymentId
-      `Prelude.hashWithSalt` instanceId
-      `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` logUrl
-      `Prelude.hashWithSalt` createdAt
+    _salt `Prelude.hashWithSalt` acknowledgedAt
       `Prelude.hashWithSalt` commandId
-      `Prelude.hashWithSalt` exitCode
-      `Prelude.hashWithSalt` type'
       `Prelude.hashWithSalt` completedAt
-      `Prelude.hashWithSalt` acknowledgedAt
+      `Prelude.hashWithSalt` createdAt
+      `Prelude.hashWithSalt` deploymentId
+      `Prelude.hashWithSalt` exitCode
+      `Prelude.hashWithSalt` instanceId
+      `Prelude.hashWithSalt` logUrl
+      `Prelude.hashWithSalt` status
+      `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData Command where
   rnf Command' {..} =
-    Prelude.rnf deploymentId
-      `Prelude.seq` Prelude.rnf instanceId
-      `Prelude.seq` Prelude.rnf status
-      `Prelude.seq` Prelude.rnf logUrl
-      `Prelude.seq` Prelude.rnf createdAt
+    Prelude.rnf acknowledgedAt
       `Prelude.seq` Prelude.rnf commandId
-      `Prelude.seq` Prelude.rnf exitCode
-      `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf completedAt
-      `Prelude.seq` Prelude.rnf acknowledgedAt
+      `Prelude.seq` Prelude.rnf createdAt
+      `Prelude.seq` Prelude.rnf deploymentId
+      `Prelude.seq` Prelude.rnf exitCode
+      `Prelude.seq` Prelude.rnf instanceId
+      `Prelude.seq` Prelude.rnf logUrl
+      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf type'

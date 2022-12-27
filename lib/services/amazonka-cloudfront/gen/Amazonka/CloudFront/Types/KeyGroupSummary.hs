@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.KeyGroupSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.KeyGroupSummary where
 
 import Amazonka.CloudFront.Types.KeyGroup
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a key group.
@@ -53,9 +54,9 @@ newKeyGroupSummary pKeyGroup_ =
 keyGroupSummary_keyGroup :: Lens.Lens' KeyGroupSummary KeyGroup
 keyGroupSummary_keyGroup = Lens.lens (\KeyGroupSummary' {keyGroup} -> keyGroup) (\s@KeyGroupSummary' {} a -> s {keyGroup = a} :: KeyGroupSummary)
 
-instance Core.FromXML KeyGroupSummary where
+instance Data.FromXML KeyGroupSummary where
   parseXML x =
-    KeyGroupSummary' Prelude.<$> (x Core..@ "KeyGroup")
+    KeyGroupSummary' Prelude.<$> (x Data..@ "KeyGroup")
 
 instance Prelude.Hashable KeyGroupSummary where
   hashWithSalt _salt KeyGroupSummary' {..} =

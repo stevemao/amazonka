@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.CreateConnectionBasicAuthRequestParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchEvents.Types.CreateConnectionBasicAuthRequestParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the Basic authorization parameters to use for the connection.
@@ -90,14 +91,14 @@ instance
       `Prelude.seq` Prelude.rnf password
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CreateConnectionBasicAuthRequestParameters
   where
   toJSON
     CreateConnectionBasicAuthRequestParameters' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ Prelude.Just ("Username" Core..= username),
-              Prelude.Just ("Password" Core..= password)
+            [ Prelude.Just ("Username" Data..= username),
+              Prelude.Just ("Password" Data..= password)
             ]
         )

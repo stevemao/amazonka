@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.DescribeConstraint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,15 +35,16 @@ module Amazonka.ServiceCatalog.DescribeConstraint
     newDescribeConstraintResponse,
 
     -- * Response Lenses
-    describeConstraintResponse_status,
     describeConstraintResponse_constraintDetail,
     describeConstraintResponse_constraintParameters,
+    describeConstraintResponse_status,
     describeConstraintResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,14 +111,15 @@ instance Core.AWSRequest DescribeConstraint where
   type
     AWSResponse DescribeConstraint =
       DescribeConstraintResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeConstraintResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "ConstraintDetail")
-            Prelude.<*> (x Core..?> "ConstraintParameters")
+            Prelude.<$> (x Data..?> "ConstraintDetail")
+            Prelude.<*> (x Data..?> "ConstraintParameters")
+            Prelude.<*> (x Data..?> "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -131,45 +133,45 @@ instance Prelude.NFData DescribeConstraint where
     Prelude.rnf acceptLanguage
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToHeaders DescribeConstraint where
+instance Data.ToHeaders DescribeConstraint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.DescribeConstraint" ::
+              Data.=# ( "AWS242ServiceCatalogService.DescribeConstraint" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeConstraint where
+instance Data.ToJSON DescribeConstraint where
   toJSON DescribeConstraint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            Prelude.Just ("Id" Core..= id)
+            Prelude.Just ("Id" Data..= id)
           ]
       )
 
-instance Core.ToPath DescribeConstraint where
+instance Data.ToPath DescribeConstraint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeConstraint where
+instance Data.ToQuery DescribeConstraint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeConstraintResponse' smart constructor.
 data DescribeConstraintResponse = DescribeConstraintResponse'
-  { -- | The status of the current request.
-    status :: Prelude.Maybe RequestStatus,
-    -- | Information about the constraint.
+  { -- | Information about the constraint.
     constraintDetail :: Prelude.Maybe ConstraintDetail,
     -- | The constraint parameters.
     constraintParameters :: Prelude.Maybe Prelude.Text,
+    -- | The status of the current request.
+    status :: Prelude.Maybe RequestStatus,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -183,11 +185,11 @@ data DescribeConstraintResponse = DescribeConstraintResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'describeConstraintResponse_status' - The status of the current request.
---
 -- 'constraintDetail', 'describeConstraintResponse_constraintDetail' - Information about the constraint.
 --
 -- 'constraintParameters', 'describeConstraintResponse_constraintParameters' - The constraint parameters.
+--
+-- 'status', 'describeConstraintResponse_status' - The status of the current request.
 --
 -- 'httpStatus', 'describeConstraintResponse_httpStatus' - The response's http status code.
 newDescribeConstraintResponse ::
@@ -196,16 +198,12 @@ newDescribeConstraintResponse ::
   DescribeConstraintResponse
 newDescribeConstraintResponse pHttpStatus_ =
   DescribeConstraintResponse'
-    { status =
+    { constraintDetail =
         Prelude.Nothing,
-      constraintDetail = Prelude.Nothing,
       constraintParameters = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The status of the current request.
-describeConstraintResponse_status :: Lens.Lens' DescribeConstraintResponse (Prelude.Maybe RequestStatus)
-describeConstraintResponse_status = Lens.lens (\DescribeConstraintResponse' {status} -> status) (\s@DescribeConstraintResponse' {} a -> s {status = a} :: DescribeConstraintResponse)
 
 -- | Information about the constraint.
 describeConstraintResponse_constraintDetail :: Lens.Lens' DescribeConstraintResponse (Prelude.Maybe ConstraintDetail)
@@ -215,13 +213,17 @@ describeConstraintResponse_constraintDetail = Lens.lens (\DescribeConstraintResp
 describeConstraintResponse_constraintParameters :: Lens.Lens' DescribeConstraintResponse (Prelude.Maybe Prelude.Text)
 describeConstraintResponse_constraintParameters = Lens.lens (\DescribeConstraintResponse' {constraintParameters} -> constraintParameters) (\s@DescribeConstraintResponse' {} a -> s {constraintParameters = a} :: DescribeConstraintResponse)
 
+-- | The status of the current request.
+describeConstraintResponse_status :: Lens.Lens' DescribeConstraintResponse (Prelude.Maybe RequestStatus)
+describeConstraintResponse_status = Lens.lens (\DescribeConstraintResponse' {status} -> status) (\s@DescribeConstraintResponse' {} a -> s {status = a} :: DescribeConstraintResponse)
+
 -- | The response's http status code.
 describeConstraintResponse_httpStatus :: Lens.Lens' DescribeConstraintResponse Prelude.Int
 describeConstraintResponse_httpStatus = Lens.lens (\DescribeConstraintResponse' {httpStatus} -> httpStatus) (\s@DescribeConstraintResponse' {} a -> s {httpStatus = a} :: DescribeConstraintResponse)
 
 instance Prelude.NFData DescribeConstraintResponse where
   rnf DescribeConstraintResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf constraintDetail
+    Prelude.rnf constraintDetail
       `Prelude.seq` Prelude.rnf constraintParameters
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.ItemResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,10 @@
 module Amazonka.DynamoDB.Types.ItemResponse where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details for the requested item.
@@ -51,13 +53,13 @@ newItemResponse =
 itemResponse_item :: Lens.Lens' ItemResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text AttributeValue))
 itemResponse_item = Lens.lens (\ItemResponse' {item} -> item) (\s@ItemResponse' {} a -> s {item = a} :: ItemResponse) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ItemResponse where
+instance Data.FromJSON ItemResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ItemResponse"
       ( \x ->
           ItemResponse'
-            Prelude.<$> (x Core..:? "Item" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Item" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ItemResponse where

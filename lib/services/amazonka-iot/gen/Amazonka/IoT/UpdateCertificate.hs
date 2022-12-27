@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.UpdateCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,8 +50,9 @@ module Amazonka.IoT.UpdateCertificate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -129,7 +130,8 @@ instance Core.AWSRequest UpdateCertificate where
   type
     AWSResponse UpdateCertificate =
       UpdateCertificateResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveNull UpdateCertificateResponse'
 
@@ -143,20 +145,20 @@ instance Prelude.NFData UpdateCertificate where
     Prelude.rnf certificateId
       `Prelude.seq` Prelude.rnf newStatus'
 
-instance Core.ToHeaders UpdateCertificate where
+instance Data.ToHeaders UpdateCertificate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateCertificate where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON UpdateCertificate where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath UpdateCertificate where
+instance Data.ToPath UpdateCertificate where
   toPath UpdateCertificate' {..} =
     Prelude.mconcat
-      ["/certificates/", Core.toBS certificateId]
+      ["/certificates/", Data.toBS certificateId]
 
-instance Core.ToQuery UpdateCertificate where
+instance Data.ToQuery UpdateCertificate where
   toQuery UpdateCertificate' {..} =
-    Prelude.mconcat ["newStatus" Core.=: newStatus']
+    Prelude.mconcat ["newStatus" Data.=: newStatus']
 
 -- | /See:/ 'newUpdateCertificateResponse' smart constructor.
 data UpdateCertificateResponse = UpdateCertificateResponse'

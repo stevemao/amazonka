@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.CreateScheduledAudit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,8 +49,9 @@ module Amazonka.IoT.CreateScheduledAudit
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -170,12 +171,13 @@ instance Core.AWSRequest CreateScheduledAudit where
   type
     AWSResponse CreateScheduledAudit =
       CreateScheduledAuditResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateScheduledAuditResponse'
-            Prelude.<$> (x Core..?> "scheduledAuditArn")
+            Prelude.<$> (x Data..?> "scheduledAuditArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -197,30 +199,30 @@ instance Prelude.NFData CreateScheduledAudit where
       `Prelude.seq` Prelude.rnf targetCheckNames
       `Prelude.seq` Prelude.rnf scheduledAuditName
 
-instance Core.ToHeaders CreateScheduledAudit where
+instance Data.ToHeaders CreateScheduledAudit where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateScheduledAudit where
+instance Data.ToJSON CreateScheduledAudit where
   toJSON CreateScheduledAudit' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("dayOfMonth" Core..=) Prelude.<$> dayOfMonth,
-            ("dayOfWeek" Core..=) Prelude.<$> dayOfWeek,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("frequency" Core..= frequency),
+          [ ("dayOfMonth" Data..=) Prelude.<$> dayOfMonth,
+            ("dayOfWeek" Data..=) Prelude.<$> dayOfWeek,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("frequency" Data..= frequency),
             Prelude.Just
-              ("targetCheckNames" Core..= targetCheckNames)
+              ("targetCheckNames" Data..= targetCheckNames)
           ]
       )
 
-instance Core.ToPath CreateScheduledAudit where
+instance Data.ToPath CreateScheduledAudit where
   toPath CreateScheduledAudit' {..} =
     Prelude.mconcat
       [ "/audit/scheduledaudits/",
-        Core.toBS scheduledAuditName
+        Data.toBS scheduledAuditName
       ]
 
-instance Core.ToQuery CreateScheduledAudit where
+instance Data.ToQuery CreateScheduledAudit where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateScheduledAuditResponse' smart constructor.

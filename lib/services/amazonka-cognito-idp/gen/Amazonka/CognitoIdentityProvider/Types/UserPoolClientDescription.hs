@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.UserPoolClientDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CognitoIdentityProvider.Types.UserPoolClientDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The description of the user pool client.
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newUserPoolClientDescription' smart constructor.
 data UserPoolClientDescription = UserPoolClientDescription'
   { -- | The ID of the client associated with the user pool.
-    clientId :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    clientId :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The client name from the user pool client description.
+    clientName :: Prelude.Maybe Prelude.Text,
     -- | The user pool ID for the user pool where you want to describe the user
     -- pool client.
-    userPoolId :: Prelude.Maybe Prelude.Text,
-    -- | The client name from the user pool client description.
-    clientName :: Prelude.Maybe Prelude.Text
+    userPoolId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -47,52 +48,52 @@ data UserPoolClientDescription = UserPoolClientDescription'
 --
 -- 'clientId', 'userPoolClientDescription_clientId' - The ID of the client associated with the user pool.
 --
+-- 'clientName', 'userPoolClientDescription_clientName' - The client name from the user pool client description.
+--
 -- 'userPoolId', 'userPoolClientDescription_userPoolId' - The user pool ID for the user pool where you want to describe the user
 -- pool client.
---
--- 'clientName', 'userPoolClientDescription_clientName' - The client name from the user pool client description.
 newUserPoolClientDescription ::
   UserPoolClientDescription
 newUserPoolClientDescription =
   UserPoolClientDescription'
     { clientId =
         Prelude.Nothing,
-      userPoolId = Prelude.Nothing,
-      clientName = Prelude.Nothing
+      clientName = Prelude.Nothing,
+      userPoolId = Prelude.Nothing
     }
 
 -- | The ID of the client associated with the user pool.
 userPoolClientDescription_clientId :: Lens.Lens' UserPoolClientDescription (Prelude.Maybe Prelude.Text)
-userPoolClientDescription_clientId = Lens.lens (\UserPoolClientDescription' {clientId} -> clientId) (\s@UserPoolClientDescription' {} a -> s {clientId = a} :: UserPoolClientDescription) Prelude.. Lens.mapping Core._Sensitive
+userPoolClientDescription_clientId = Lens.lens (\UserPoolClientDescription' {clientId} -> clientId) (\s@UserPoolClientDescription' {} a -> s {clientId = a} :: UserPoolClientDescription) Prelude.. Lens.mapping Data._Sensitive
+
+-- | The client name from the user pool client description.
+userPoolClientDescription_clientName :: Lens.Lens' UserPoolClientDescription (Prelude.Maybe Prelude.Text)
+userPoolClientDescription_clientName = Lens.lens (\UserPoolClientDescription' {clientName} -> clientName) (\s@UserPoolClientDescription' {} a -> s {clientName = a} :: UserPoolClientDescription)
 
 -- | The user pool ID for the user pool where you want to describe the user
 -- pool client.
 userPoolClientDescription_userPoolId :: Lens.Lens' UserPoolClientDescription (Prelude.Maybe Prelude.Text)
 userPoolClientDescription_userPoolId = Lens.lens (\UserPoolClientDescription' {userPoolId} -> userPoolId) (\s@UserPoolClientDescription' {} a -> s {userPoolId = a} :: UserPoolClientDescription)
 
--- | The client name from the user pool client description.
-userPoolClientDescription_clientName :: Lens.Lens' UserPoolClientDescription (Prelude.Maybe Prelude.Text)
-userPoolClientDescription_clientName = Lens.lens (\UserPoolClientDescription' {clientName} -> clientName) (\s@UserPoolClientDescription' {} a -> s {clientName = a} :: UserPoolClientDescription)
-
-instance Core.FromJSON UserPoolClientDescription where
+instance Data.FromJSON UserPoolClientDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UserPoolClientDescription"
       ( \x ->
           UserPoolClientDescription'
-            Prelude.<$> (x Core..:? "ClientId")
-            Prelude.<*> (x Core..:? "UserPoolId")
-            Prelude.<*> (x Core..:? "ClientName")
+            Prelude.<$> (x Data..:? "ClientId")
+            Prelude.<*> (x Data..:? "ClientName")
+            Prelude.<*> (x Data..:? "UserPoolId")
       )
 
 instance Prelude.Hashable UserPoolClientDescription where
   hashWithSalt _salt UserPoolClientDescription' {..} =
     _salt `Prelude.hashWithSalt` clientId
-      `Prelude.hashWithSalt` userPoolId
       `Prelude.hashWithSalt` clientName
+      `Prelude.hashWithSalt` userPoolId
 
 instance Prelude.NFData UserPoolClientDescription where
   rnf UserPoolClientDescription' {..} =
     Prelude.rnf clientId
-      `Prelude.seq` Prelude.rnf userPoolId
       `Prelude.seq` Prelude.rnf clientName
+      `Prelude.seq` Prelude.rnf userPoolId

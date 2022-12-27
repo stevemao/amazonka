@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,42 +14,241 @@
 module Amazonka.Transcribe.Lens
   ( -- * Operations
 
-    -- ** ListLanguageModels
-    listLanguageModels_nameContains,
-    listLanguageModels_nextToken,
-    listLanguageModels_statusEquals,
-    listLanguageModels_maxResults,
-    listLanguageModelsResponse_nextToken,
-    listLanguageModelsResponse_models,
-    listLanguageModelsResponse_httpStatus,
+    -- ** CreateCallAnalyticsCategory
+    createCallAnalyticsCategory_inputType,
+    createCallAnalyticsCategory_categoryName,
+    createCallAnalyticsCategory_rules,
+    createCallAnalyticsCategoryResponse_categoryProperties,
+    createCallAnalyticsCategoryResponse_httpStatus,
 
-    -- ** GetVocabulary
-    getVocabulary_vocabularyName,
-    getVocabularyResponse_failureReason,
-    getVocabularyResponse_languageCode,
-    getVocabularyResponse_downloadUri,
-    getVocabularyResponse_vocabularyName,
-    getVocabularyResponse_lastModifiedTime,
-    getVocabularyResponse_vocabularyState,
-    getVocabularyResponse_httpStatus,
+    -- ** CreateLanguageModel
+    createLanguageModel_tags,
+    createLanguageModel_languageCode,
+    createLanguageModel_baseModelName,
+    createLanguageModel_modelName,
+    createLanguageModel_inputDataConfig,
+    createLanguageModelResponse_baseModelName,
+    createLanguageModelResponse_inputDataConfig,
+    createLanguageModelResponse_languageCode,
+    createLanguageModelResponse_modelName,
+    createLanguageModelResponse_modelStatus,
+    createLanguageModelResponse_httpStatus,
+
+    -- ** CreateMedicalVocabulary
+    createMedicalVocabulary_tags,
+    createMedicalVocabulary_vocabularyName,
+    createMedicalVocabulary_languageCode,
+    createMedicalVocabulary_vocabularyFileUri,
+    createMedicalVocabularyResponse_failureReason,
+    createMedicalVocabularyResponse_languageCode,
+    createMedicalVocabularyResponse_lastModifiedTime,
+    createMedicalVocabularyResponse_vocabularyName,
+    createMedicalVocabularyResponse_vocabularyState,
+    createMedicalVocabularyResponse_httpStatus,
+
+    -- ** CreateVocabulary
+    createVocabulary_phrases,
+    createVocabulary_tags,
+    createVocabulary_vocabularyFileUri,
+    createVocabulary_vocabularyName,
+    createVocabulary_languageCode,
+    createVocabularyResponse_failureReason,
+    createVocabularyResponse_languageCode,
+    createVocabularyResponse_lastModifiedTime,
+    createVocabularyResponse_vocabularyName,
+    createVocabularyResponse_vocabularyState,
+    createVocabularyResponse_httpStatus,
+
+    -- ** CreateVocabularyFilter
+    createVocabularyFilter_tags,
+    createVocabularyFilter_vocabularyFilterFileUri,
+    createVocabularyFilter_words,
+    createVocabularyFilter_vocabularyFilterName,
+    createVocabularyFilter_languageCode,
+    createVocabularyFilterResponse_languageCode,
+    createVocabularyFilterResponse_lastModifiedTime,
+    createVocabularyFilterResponse_vocabularyFilterName,
+    createVocabularyFilterResponse_httpStatus,
+
+    -- ** DeleteCallAnalyticsCategory
+    deleteCallAnalyticsCategory_categoryName,
+    deleteCallAnalyticsCategoryResponse_httpStatus,
+
+    -- ** DeleteCallAnalyticsJob
+    deleteCallAnalyticsJob_callAnalyticsJobName,
+    deleteCallAnalyticsJobResponse_httpStatus,
 
     -- ** DeleteLanguageModel
     deleteLanguageModel_modelName,
+
+    -- ** DeleteMedicalTranscriptionJob
+    deleteMedicalTranscriptionJob_medicalTranscriptionJobName,
+
+    -- ** DeleteMedicalVocabulary
+    deleteMedicalVocabulary_vocabularyName,
+
+    -- ** DeleteTranscriptionJob
+    deleteTranscriptionJob_transcriptionJobName,
+
+    -- ** DeleteVocabulary
+    deleteVocabulary_vocabularyName,
+
+    -- ** DeleteVocabularyFilter
+    deleteVocabularyFilter_vocabularyFilterName,
+
+    -- ** DescribeLanguageModel
+    describeLanguageModel_modelName,
+    describeLanguageModelResponse_languageModel,
+    describeLanguageModelResponse_httpStatus,
+
+    -- ** GetCallAnalyticsCategory
+    getCallAnalyticsCategory_categoryName,
+    getCallAnalyticsCategoryResponse_categoryProperties,
+    getCallAnalyticsCategoryResponse_httpStatus,
+
+    -- ** GetCallAnalyticsJob
+    getCallAnalyticsJob_callAnalyticsJobName,
+    getCallAnalyticsJobResponse_callAnalyticsJob,
+    getCallAnalyticsJobResponse_httpStatus,
+
+    -- ** GetMedicalTranscriptionJob
+    getMedicalTranscriptionJob_medicalTranscriptionJobName,
+    getMedicalTranscriptionJobResponse_medicalTranscriptionJob,
+    getMedicalTranscriptionJobResponse_httpStatus,
+
+    -- ** GetMedicalVocabulary
+    getMedicalVocabulary_vocabularyName,
+    getMedicalVocabularyResponse_downloadUri,
+    getMedicalVocabularyResponse_failureReason,
+    getMedicalVocabularyResponse_languageCode,
+    getMedicalVocabularyResponse_lastModifiedTime,
+    getMedicalVocabularyResponse_vocabularyName,
+    getMedicalVocabularyResponse_vocabularyState,
+    getMedicalVocabularyResponse_httpStatus,
 
     -- ** GetTranscriptionJob
     getTranscriptionJob_transcriptionJobName,
     getTranscriptionJobResponse_transcriptionJob,
     getTranscriptionJobResponse_httpStatus,
 
+    -- ** GetVocabulary
+    getVocabulary_vocabularyName,
+    getVocabularyResponse_downloadUri,
+    getVocabularyResponse_failureReason,
+    getVocabularyResponse_languageCode,
+    getVocabularyResponse_lastModifiedTime,
+    getVocabularyResponse_vocabularyName,
+    getVocabularyResponse_vocabularyState,
+    getVocabularyResponse_httpStatus,
+
+    -- ** GetVocabularyFilter
+    getVocabularyFilter_vocabularyFilterName,
+    getVocabularyFilterResponse_downloadUri,
+    getVocabularyFilterResponse_languageCode,
+    getVocabularyFilterResponse_lastModifiedTime,
+    getVocabularyFilterResponse_vocabularyFilterName,
+    getVocabularyFilterResponse_httpStatus,
+
+    -- ** ListCallAnalyticsCategories
+    listCallAnalyticsCategories_maxResults,
+    listCallAnalyticsCategories_nextToken,
+    listCallAnalyticsCategoriesResponse_categories,
+    listCallAnalyticsCategoriesResponse_nextToken,
+    listCallAnalyticsCategoriesResponse_httpStatus,
+
+    -- ** ListCallAnalyticsJobs
+    listCallAnalyticsJobs_jobNameContains,
+    listCallAnalyticsJobs_maxResults,
+    listCallAnalyticsJobs_nextToken,
+    listCallAnalyticsJobs_status,
+    listCallAnalyticsJobsResponse_callAnalyticsJobSummaries,
+    listCallAnalyticsJobsResponse_nextToken,
+    listCallAnalyticsJobsResponse_status,
+    listCallAnalyticsJobsResponse_httpStatus,
+
+    -- ** ListLanguageModels
+    listLanguageModels_maxResults,
+    listLanguageModels_nameContains,
+    listLanguageModels_nextToken,
+    listLanguageModels_statusEquals,
+    listLanguageModelsResponse_models,
+    listLanguageModelsResponse_nextToken,
+    listLanguageModelsResponse_httpStatus,
+
+    -- ** ListMedicalTranscriptionJobs
+    listMedicalTranscriptionJobs_jobNameContains,
+    listMedicalTranscriptionJobs_maxResults,
+    listMedicalTranscriptionJobs_nextToken,
+    listMedicalTranscriptionJobs_status,
+    listMedicalTranscriptionJobsResponse_medicalTranscriptionJobSummaries,
+    listMedicalTranscriptionJobsResponse_nextToken,
+    listMedicalTranscriptionJobsResponse_status,
+    listMedicalTranscriptionJobsResponse_httpStatus,
+
+    -- ** ListMedicalVocabularies
+    listMedicalVocabularies_maxResults,
+    listMedicalVocabularies_nameContains,
+    listMedicalVocabularies_nextToken,
+    listMedicalVocabularies_stateEquals,
+    listMedicalVocabulariesResponse_nextToken,
+    listMedicalVocabulariesResponse_status,
+    listMedicalVocabulariesResponse_vocabularies,
+    listMedicalVocabulariesResponse_httpStatus,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_resourceArn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
+    -- ** ListTranscriptionJobs
+    listTranscriptionJobs_jobNameContains,
+    listTranscriptionJobs_maxResults,
+    listTranscriptionJobs_nextToken,
+    listTranscriptionJobs_status,
+    listTranscriptionJobsResponse_nextToken,
+    listTranscriptionJobsResponse_status,
+    listTranscriptionJobsResponse_transcriptionJobSummaries,
+    listTranscriptionJobsResponse_httpStatus,
+
+    -- ** ListVocabularies
+    listVocabularies_maxResults,
+    listVocabularies_nameContains,
+    listVocabularies_nextToken,
+    listVocabularies_stateEquals,
+    listVocabulariesResponse_nextToken,
+    listVocabulariesResponse_status,
+    listVocabulariesResponse_vocabularies,
+    listVocabulariesResponse_httpStatus,
+
+    -- ** ListVocabularyFilters
+    listVocabularyFilters_maxResults,
+    listVocabularyFilters_nameContains,
+    listVocabularyFilters_nextToken,
+    listVocabularyFiltersResponse_nextToken,
+    listVocabularyFiltersResponse_vocabularyFilters,
+    listVocabularyFiltersResponse_httpStatus,
+
+    -- ** StartCallAnalyticsJob
+    startCallAnalyticsJob_channelDefinitions,
+    startCallAnalyticsJob_dataAccessRoleArn,
+    startCallAnalyticsJob_outputEncryptionKMSKeyId,
+    startCallAnalyticsJob_outputLocation,
+    startCallAnalyticsJob_settings,
+    startCallAnalyticsJob_callAnalyticsJobName,
+    startCallAnalyticsJob_media,
+    startCallAnalyticsJobResponse_callAnalyticsJob,
+    startCallAnalyticsJobResponse_httpStatus,
+
     -- ** StartMedicalTranscriptionJob
-    startMedicalTranscriptionJob_settings,
-    startMedicalTranscriptionJob_mediaFormat,
-    startMedicalTranscriptionJob_outputEncryptionKMSKeyId,
-    startMedicalTranscriptionJob_kmsEncryptionContext,
-    startMedicalTranscriptionJob_outputKey,
     startMedicalTranscriptionJob_contentIdentificationType,
-    startMedicalTranscriptionJob_tags,
+    startMedicalTranscriptionJob_kmsEncryptionContext,
+    startMedicalTranscriptionJob_mediaFormat,
     startMedicalTranscriptionJob_mediaSampleRateHertz,
+    startMedicalTranscriptionJob_outputEncryptionKMSKeyId,
+    startMedicalTranscriptionJob_outputKey,
+    startMedicalTranscriptionJob_settings,
+    startMedicalTranscriptionJob_tags,
     startMedicalTranscriptionJob_medicalTranscriptionJobName,
     startMedicalTranscriptionJob_languageCode,
     startMedicalTranscriptionJob_media,
@@ -59,204 +258,66 @@ module Amazonka.Transcribe.Lens
     startMedicalTranscriptionJobResponse_medicalTranscriptionJob,
     startMedicalTranscriptionJobResponse_httpStatus,
 
-    -- ** ListCallAnalyticsJobs
-    listCallAnalyticsJobs_status,
-    listCallAnalyticsJobs_nextToken,
-    listCallAnalyticsJobs_jobNameContains,
-    listCallAnalyticsJobs_maxResults,
-    listCallAnalyticsJobsResponse_status,
-    listCallAnalyticsJobsResponse_callAnalyticsJobSummaries,
-    listCallAnalyticsJobsResponse_nextToken,
-    listCallAnalyticsJobsResponse_httpStatus,
-
-    -- ** ListTagsForResource
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_resourceArn,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** GetCallAnalyticsCategory
-    getCallAnalyticsCategory_categoryName,
-    getCallAnalyticsCategoryResponse_categoryProperties,
-    getCallAnalyticsCategoryResponse_httpStatus,
-
-    -- ** DeleteMedicalVocabulary
-    deleteMedicalVocabulary_vocabularyName,
-
-    -- ** UpdateMedicalVocabulary
-    updateMedicalVocabulary_vocabularyFileUri,
-    updateMedicalVocabulary_vocabularyName,
-    updateMedicalVocabulary_languageCode,
-    updateMedicalVocabularyResponse_languageCode,
-    updateMedicalVocabularyResponse_vocabularyName,
-    updateMedicalVocabularyResponse_lastModifiedTime,
-    updateMedicalVocabularyResponse_vocabularyState,
-    updateMedicalVocabularyResponse_httpStatus,
-
-    -- ** CreateCallAnalyticsCategory
-    createCallAnalyticsCategory_categoryName,
-    createCallAnalyticsCategory_rules,
-    createCallAnalyticsCategoryResponse_categoryProperties,
-    createCallAnalyticsCategoryResponse_httpStatus,
-
-    -- ** DeleteTranscriptionJob
-    deleteTranscriptionJob_transcriptionJobName,
-
-    -- ** DescribeLanguageModel
-    describeLanguageModel_modelName,
-    describeLanguageModelResponse_languageModel,
-    describeLanguageModelResponse_httpStatus,
-
-    -- ** ListCallAnalyticsCategories
-    listCallAnalyticsCategories_nextToken,
-    listCallAnalyticsCategories_maxResults,
-    listCallAnalyticsCategoriesResponse_categories,
-    listCallAnalyticsCategoriesResponse_nextToken,
-    listCallAnalyticsCategoriesResponse_httpStatus,
-
-    -- ** DeleteMedicalTranscriptionJob
-    deleteMedicalTranscriptionJob_medicalTranscriptionJobName,
-
-    -- ** DeleteVocabulary
-    deleteVocabulary_vocabularyName,
-
-    -- ** StartCallAnalyticsJob
-    startCallAnalyticsJob_settings,
-    startCallAnalyticsJob_outputEncryptionKMSKeyId,
-    startCallAnalyticsJob_outputLocation,
-    startCallAnalyticsJob_channelDefinitions,
-    startCallAnalyticsJob_callAnalyticsJobName,
-    startCallAnalyticsJob_media,
-    startCallAnalyticsJob_dataAccessRoleArn,
-    startCallAnalyticsJobResponse_callAnalyticsJob,
-    startCallAnalyticsJobResponse_httpStatus,
-
-    -- ** UpdateVocabulary
-    updateVocabulary_vocabularyFileUri,
-    updateVocabulary_phrases,
-    updateVocabulary_vocabularyName,
-    updateVocabulary_languageCode,
-    updateVocabularyResponse_languageCode,
-    updateVocabularyResponse_vocabularyName,
-    updateVocabularyResponse_lastModifiedTime,
-    updateVocabularyResponse_vocabularyState,
-    updateVocabularyResponse_httpStatus,
-
-    -- ** CreateVocabularyFilter
-    createVocabularyFilter_vocabularyFilterFileUri,
-    createVocabularyFilter_words,
-    createVocabularyFilter_tags,
-    createVocabularyFilter_vocabularyFilterName,
-    createVocabularyFilter_languageCode,
-    createVocabularyFilterResponse_languageCode,
-    createVocabularyFilterResponse_lastModifiedTime,
-    createVocabularyFilterResponse_vocabularyFilterName,
-    createVocabularyFilterResponse_httpStatus,
-
-    -- ** GetMedicalTranscriptionJob
-    getMedicalTranscriptionJob_medicalTranscriptionJobName,
-    getMedicalTranscriptionJobResponse_medicalTranscriptionJob,
-    getMedicalTranscriptionJobResponse_httpStatus,
-
-    -- ** GetVocabularyFilter
-    getVocabularyFilter_vocabularyFilterName,
-    getVocabularyFilterResponse_languageCode,
-    getVocabularyFilterResponse_downloadUri,
-    getVocabularyFilterResponse_lastModifiedTime,
-    getVocabularyFilterResponse_vocabularyFilterName,
-    getVocabularyFilterResponse_httpStatus,
-
-    -- ** GetMedicalVocabulary
-    getMedicalVocabulary_vocabularyName,
-    getMedicalVocabularyResponse_failureReason,
-    getMedicalVocabularyResponse_languageCode,
-    getMedicalVocabularyResponse_downloadUri,
-    getMedicalVocabularyResponse_vocabularyName,
-    getMedicalVocabularyResponse_lastModifiedTime,
-    getMedicalVocabularyResponse_vocabularyState,
-    getMedicalVocabularyResponse_httpStatus,
-
-    -- ** DeleteCallAnalyticsJob
-    deleteCallAnalyticsJob_callAnalyticsJobName,
-    deleteCallAnalyticsJobResponse_httpStatus,
-
-    -- ** CreateMedicalVocabulary
-    createMedicalVocabulary_tags,
-    createMedicalVocabulary_vocabularyName,
-    createMedicalVocabulary_languageCode,
-    createMedicalVocabulary_vocabularyFileUri,
-    createMedicalVocabularyResponse_failureReason,
-    createMedicalVocabularyResponse_languageCode,
-    createMedicalVocabularyResponse_vocabularyName,
-    createMedicalVocabularyResponse_lastModifiedTime,
-    createMedicalVocabularyResponse_vocabularyState,
-    createMedicalVocabularyResponse_httpStatus,
-
-    -- ** ListMedicalVocabularies
-    listMedicalVocabularies_nameContains,
-    listMedicalVocabularies_nextToken,
-    listMedicalVocabularies_stateEquals,
-    listMedicalVocabularies_maxResults,
-    listMedicalVocabulariesResponse_vocabularies,
-    listMedicalVocabulariesResponse_status,
-    listMedicalVocabulariesResponse_nextToken,
-    listMedicalVocabulariesResponse_httpStatus,
-
-    -- ** DeleteCallAnalyticsCategory
-    deleteCallAnalyticsCategory_categoryName,
-    deleteCallAnalyticsCategoryResponse_httpStatus,
-
-    -- ** UpdateCallAnalyticsCategory
-    updateCallAnalyticsCategory_categoryName,
-    updateCallAnalyticsCategory_rules,
-    updateCallAnalyticsCategoryResponse_categoryProperties,
-    updateCallAnalyticsCategoryResponse_httpStatus,
-
-    -- ** GetCallAnalyticsJob
-    getCallAnalyticsJob_callAnalyticsJobName,
-    getCallAnalyticsJobResponse_callAnalyticsJob,
-    getCallAnalyticsJobResponse_httpStatus,
+    -- ** StartTranscriptionJob
+    startTranscriptionJob_contentRedaction,
+    startTranscriptionJob_identifyLanguage,
+    startTranscriptionJob_identifyMultipleLanguages,
+    startTranscriptionJob_jobExecutionSettings,
+    startTranscriptionJob_kmsEncryptionContext,
+    startTranscriptionJob_languageCode,
+    startTranscriptionJob_languageIdSettings,
+    startTranscriptionJob_languageOptions,
+    startTranscriptionJob_mediaFormat,
+    startTranscriptionJob_mediaSampleRateHertz,
+    startTranscriptionJob_modelSettings,
+    startTranscriptionJob_outputBucketName,
+    startTranscriptionJob_outputEncryptionKMSKeyId,
+    startTranscriptionJob_outputKey,
+    startTranscriptionJob_settings,
+    startTranscriptionJob_subtitles,
+    startTranscriptionJob_tags,
+    startTranscriptionJob_transcriptionJobName,
+    startTranscriptionJob_media,
+    startTranscriptionJobResponse_transcriptionJob,
+    startTranscriptionJobResponse_httpStatus,
 
     -- ** TagResource
     tagResource_resourceArn,
     tagResource_tags,
     tagResourceResponse_httpStatus,
 
-    -- ** ListTranscriptionJobs
-    listTranscriptionJobs_status,
-    listTranscriptionJobs_nextToken,
-    listTranscriptionJobs_jobNameContains,
-    listTranscriptionJobs_maxResults,
-    listTranscriptionJobsResponse_status,
-    listTranscriptionJobsResponse_nextToken,
-    listTranscriptionJobsResponse_transcriptionJobSummaries,
-    listTranscriptionJobsResponse_httpStatus,
-
-    -- ** ListMedicalTranscriptionJobs
-    listMedicalTranscriptionJobs_status,
-    listMedicalTranscriptionJobs_nextToken,
-    listMedicalTranscriptionJobs_jobNameContains,
-    listMedicalTranscriptionJobs_maxResults,
-    listMedicalTranscriptionJobsResponse_status,
-    listMedicalTranscriptionJobsResponse_nextToken,
-    listMedicalTranscriptionJobsResponse_medicalTranscriptionJobSummaries,
-    listMedicalTranscriptionJobsResponse_httpStatus,
-
     -- ** UntagResource
     untagResource_resourceArn,
     untagResource_tagKeys,
     untagResourceResponse_httpStatus,
 
-    -- ** DeleteVocabularyFilter
-    deleteVocabularyFilter_vocabularyFilterName,
+    -- ** UpdateCallAnalyticsCategory
+    updateCallAnalyticsCategory_inputType,
+    updateCallAnalyticsCategory_categoryName,
+    updateCallAnalyticsCategory_rules,
+    updateCallAnalyticsCategoryResponse_categoryProperties,
+    updateCallAnalyticsCategoryResponse_httpStatus,
 
-    -- ** ListVocabularyFilters
-    listVocabularyFilters_nameContains,
-    listVocabularyFilters_nextToken,
-    listVocabularyFilters_maxResults,
-    listVocabularyFiltersResponse_nextToken,
-    listVocabularyFiltersResponse_vocabularyFilters,
-    listVocabularyFiltersResponse_httpStatus,
+    -- ** UpdateMedicalVocabulary
+    updateMedicalVocabulary_vocabularyName,
+    updateMedicalVocabulary_languageCode,
+    updateMedicalVocabulary_vocabularyFileUri,
+    updateMedicalVocabularyResponse_languageCode,
+    updateMedicalVocabularyResponse_lastModifiedTime,
+    updateMedicalVocabularyResponse_vocabularyName,
+    updateMedicalVocabularyResponse_vocabularyState,
+    updateMedicalVocabularyResponse_httpStatus,
+
+    -- ** UpdateVocabulary
+    updateVocabulary_phrases,
+    updateVocabulary_vocabularyFileUri,
+    updateVocabulary_vocabularyName,
+    updateVocabulary_languageCode,
+    updateVocabularyResponse_languageCode,
+    updateVocabularyResponse_lastModifiedTime,
+    updateVocabularyResponse_vocabularyName,
+    updateVocabularyResponse_vocabularyState,
+    updateVocabularyResponse_httpStatus,
 
     -- ** UpdateVocabularyFilter
     updateVocabularyFilter_vocabularyFilterFileUri,
@@ -267,116 +328,62 @@ module Amazonka.Transcribe.Lens
     updateVocabularyFilterResponse_vocabularyFilterName,
     updateVocabularyFilterResponse_httpStatus,
 
-    -- ** ListVocabularies
-    listVocabularies_nameContains,
-    listVocabularies_nextToken,
-    listVocabularies_stateEquals,
-    listVocabularies_maxResults,
-    listVocabulariesResponse_vocabularies,
-    listVocabulariesResponse_status,
-    listVocabulariesResponse_nextToken,
-    listVocabulariesResponse_httpStatus,
-
-    -- ** CreateVocabulary
-    createVocabulary_vocabularyFileUri,
-    createVocabulary_phrases,
-    createVocabulary_tags,
-    createVocabulary_vocabularyName,
-    createVocabulary_languageCode,
-    createVocabularyResponse_failureReason,
-    createVocabularyResponse_languageCode,
-    createVocabularyResponse_vocabularyName,
-    createVocabularyResponse_lastModifiedTime,
-    createVocabularyResponse_vocabularyState,
-    createVocabularyResponse_httpStatus,
-
-    -- ** CreateLanguageModel
-    createLanguageModel_tags,
-    createLanguageModel_languageCode,
-    createLanguageModel_baseModelName,
-    createLanguageModel_modelName,
-    createLanguageModel_inputDataConfig,
-    createLanguageModelResponse_languageCode,
-    createLanguageModelResponse_modelName,
-    createLanguageModelResponse_inputDataConfig,
-    createLanguageModelResponse_baseModelName,
-    createLanguageModelResponse_modelStatus,
-    createLanguageModelResponse_httpStatus,
-
-    -- ** StartTranscriptionJob
-    startTranscriptionJob_contentRedaction,
-    startTranscriptionJob_subtitles,
-    startTranscriptionJob_languageCode,
-    startTranscriptionJob_languageOptions,
-    startTranscriptionJob_settings,
-    startTranscriptionJob_outputBucketName,
-    startTranscriptionJob_mediaFormat,
-    startTranscriptionJob_outputEncryptionKMSKeyId,
-    startTranscriptionJob_modelSettings,
-    startTranscriptionJob_kmsEncryptionContext,
-    startTranscriptionJob_jobExecutionSettings,
-    startTranscriptionJob_outputKey,
-    startTranscriptionJob_identifyLanguage,
-    startTranscriptionJob_tags,
-    startTranscriptionJob_mediaSampleRateHertz,
-    startTranscriptionJob_transcriptionJobName,
-    startTranscriptionJob_media,
-    startTranscriptionJobResponse_transcriptionJob,
-    startTranscriptionJobResponse_httpStatus,
-
     -- * Types
 
     -- ** AbsoluteTimeRange
-    absoluteTimeRange_first,
-    absoluteTimeRange_startTime,
-    absoluteTimeRange_last,
     absoluteTimeRange_endTime,
+    absoluteTimeRange_first,
+    absoluteTimeRange_last,
+    absoluteTimeRange_startTime,
 
     -- ** CallAnalyticsJob
-    callAnalyticsJob_creationTime,
-    callAnalyticsJob_failureReason,
+    callAnalyticsJob_callAnalyticsJobName,
     callAnalyticsJob_callAnalyticsJobStatus,
+    callAnalyticsJob_channelDefinitions,
+    callAnalyticsJob_completionTime,
+    callAnalyticsJob_creationTime,
+    callAnalyticsJob_dataAccessRoleArn,
+    callAnalyticsJob_failureReason,
     callAnalyticsJob_identifiedLanguageScore,
     callAnalyticsJob_languageCode,
-    callAnalyticsJob_settings,
-    callAnalyticsJob_startTime,
-    callAnalyticsJob_completionTime,
-    callAnalyticsJob_callAnalyticsJobName,
     callAnalyticsJob_media,
     callAnalyticsJob_mediaFormat,
-    callAnalyticsJob_channelDefinitions,
-    callAnalyticsJob_dataAccessRoleArn,
-    callAnalyticsJob_transcript,
     callAnalyticsJob_mediaSampleRateHertz,
+    callAnalyticsJob_settings,
+    callAnalyticsJob_startTime,
+    callAnalyticsJob_transcript,
 
     -- ** CallAnalyticsJobSettings
     callAnalyticsJobSettings_contentRedaction,
-    callAnalyticsJobSettings_languageOptions,
-    callAnalyticsJobSettings_vocabularyName,
+    callAnalyticsJobSettings_languageIdSettings,
     callAnalyticsJobSettings_languageModelName,
-    callAnalyticsJobSettings_vocabularyFilterName,
+    callAnalyticsJobSettings_languageOptions,
     callAnalyticsJobSettings_vocabularyFilterMethod,
+    callAnalyticsJobSettings_vocabularyFilterName,
+    callAnalyticsJobSettings_vocabularyName,
 
     -- ** CallAnalyticsJobSummary
+    callAnalyticsJobSummary_callAnalyticsJobName,
+    callAnalyticsJobSummary_callAnalyticsJobStatus,
+    callAnalyticsJobSummary_completionTime,
     callAnalyticsJobSummary_creationTime,
     callAnalyticsJobSummary_failureReason,
-    callAnalyticsJobSummary_callAnalyticsJobStatus,
     callAnalyticsJobSummary_languageCode,
     callAnalyticsJobSummary_startTime,
-    callAnalyticsJobSummary_completionTime,
-    callAnalyticsJobSummary_callAnalyticsJobName,
 
     -- ** CategoryProperties
-    categoryProperties_rules,
     categoryProperties_categoryName,
-    categoryProperties_lastUpdateTime,
     categoryProperties_createTime,
+    categoryProperties_inputType,
+    categoryProperties_lastUpdateTime,
+    categoryProperties_rules,
 
     -- ** ChannelDefinition
-    channelDefinition_participantRole,
     channelDefinition_channelId,
+    channelDefinition_participantRole,
 
     -- ** ContentRedaction
+    contentRedaction_piiEntityTypes,
     contentRedaction_redactionType,
     contentRedaction_redactionOutput,
 
@@ -386,26 +393,35 @@ module Amazonka.Transcribe.Lens
     inputDataConfig_dataAccessRoleArn,
 
     -- ** InterruptionFilter
+    interruptionFilter_absoluteTimeRange,
+    interruptionFilter_negate,
     interruptionFilter_participantRole,
     interruptionFilter_relativeTimeRange,
-    interruptionFilter_negate,
     interruptionFilter_threshold,
-    interruptionFilter_absoluteTimeRange,
 
     -- ** JobExecutionSettings
-    jobExecutionSettings_dataAccessRoleArn,
     jobExecutionSettings_allowDeferredExecution,
+    jobExecutionSettings_dataAccessRoleArn,
+
+    -- ** LanguageCodeItem
+    languageCodeItem_durationInSeconds,
+    languageCodeItem_languageCode,
+
+    -- ** LanguageIdSettings
+    languageIdSettings_languageModelName,
+    languageIdSettings_vocabularyFilterName,
+    languageIdSettings_vocabularyName,
 
     -- ** LanguageModel
-    languageModel_failureReason,
-    languageModel_languageCode,
-    languageModel_modelName,
-    languageModel_lastModifiedTime,
-    languageModel_upgradeAvailability,
-    languageModel_inputDataConfig,
     languageModel_baseModelName,
-    languageModel_modelStatus,
     languageModel_createTime,
+    languageModel_failureReason,
+    languageModel_inputDataConfig,
+    languageModel_languageCode,
+    languageModel_lastModifiedTime,
+    languageModel_modelName,
+    languageModel_modelStatus,
+    languageModel_upgradeAvailability,
 
     -- ** Media
     media_mediaFileUri,
@@ -415,52 +431,52 @@ module Amazonka.Transcribe.Lens
     medicalTranscript_transcriptFileUri,
 
     -- ** MedicalTranscriptionJob
+    medicalTranscriptionJob_completionTime,
+    medicalTranscriptionJob_contentIdentificationType,
     medicalTranscriptionJob_creationTime,
-    medicalTranscriptionJob_specialty,
     medicalTranscriptionJob_failureReason,
     medicalTranscriptionJob_languageCode,
-    medicalTranscriptionJob_settings,
-    medicalTranscriptionJob_startTime,
-    medicalTranscriptionJob_completionTime,
     medicalTranscriptionJob_media,
     medicalTranscriptionJob_mediaFormat,
+    medicalTranscriptionJob_mediaSampleRateHertz,
     medicalTranscriptionJob_medicalTranscriptionJobName,
+    medicalTranscriptionJob_settings,
+    medicalTranscriptionJob_specialty,
+    medicalTranscriptionJob_startTime,
+    medicalTranscriptionJob_tags,
+    medicalTranscriptionJob_transcript,
     medicalTranscriptionJob_transcriptionJobStatus,
     medicalTranscriptionJob_type,
-    medicalTranscriptionJob_contentIdentificationType,
-    medicalTranscriptionJob_transcript,
-    medicalTranscriptionJob_tags,
-    medicalTranscriptionJob_mediaSampleRateHertz,
 
     -- ** MedicalTranscriptionJobSummary
+    medicalTranscriptionJobSummary_completionTime,
+    medicalTranscriptionJobSummary_contentIdentificationType,
     medicalTranscriptionJobSummary_creationTime,
-    medicalTranscriptionJobSummary_specialty,
     medicalTranscriptionJobSummary_failureReason,
     medicalTranscriptionJobSummary_languageCode,
-    medicalTranscriptionJobSummary_outputLocationType,
-    medicalTranscriptionJobSummary_startTime,
-    medicalTranscriptionJobSummary_completionTime,
     medicalTranscriptionJobSummary_medicalTranscriptionJobName,
+    medicalTranscriptionJobSummary_outputLocationType,
+    medicalTranscriptionJobSummary_specialty,
+    medicalTranscriptionJobSummary_startTime,
     medicalTranscriptionJobSummary_transcriptionJobStatus,
     medicalTranscriptionJobSummary_type,
-    medicalTranscriptionJobSummary_contentIdentificationType,
 
     -- ** MedicalTranscriptionSetting
-    medicalTranscriptionSetting_vocabularyName,
-    medicalTranscriptionSetting_maxAlternatives,
     medicalTranscriptionSetting_channelIdentification,
-    medicalTranscriptionSetting_showAlternatives,
+    medicalTranscriptionSetting_maxAlternatives,
     medicalTranscriptionSetting_maxSpeakerLabels,
+    medicalTranscriptionSetting_showAlternatives,
     medicalTranscriptionSetting_showSpeakerLabels,
+    medicalTranscriptionSetting_vocabularyName,
 
     -- ** ModelSettings
     modelSettings_languageModelName,
 
     -- ** NonTalkTimeFilter
-    nonTalkTimeFilter_relativeTimeRange,
-    nonTalkTimeFilter_negate,
-    nonTalkTimeFilter_threshold,
     nonTalkTimeFilter_absoluteTimeRange,
+    nonTalkTimeFilter_negate,
+    nonTalkTimeFilter_relativeTimeRange,
+    nonTalkTimeFilter_threshold,
 
     -- ** RelativeTimeRange
     relativeTimeRange_endPercentage,
@@ -469,33 +485,35 @@ module Amazonka.Transcribe.Lens
     relativeTimeRange_startPercentage,
 
     -- ** Rule
-    rule_nonTalkTimeFilter,
-    rule_transcriptFilter,
-    rule_sentimentFilter,
     rule_interruptionFilter,
+    rule_nonTalkTimeFilter,
+    rule_sentimentFilter,
+    rule_transcriptFilter,
 
     -- ** SentimentFilter
+    sentimentFilter_absoluteTimeRange,
+    sentimentFilter_negate,
     sentimentFilter_participantRole,
     sentimentFilter_relativeTimeRange,
-    sentimentFilter_negate,
-    sentimentFilter_absoluteTimeRange,
     sentimentFilter_sentiments,
 
     -- ** Settings
-    settings_vocabularyName,
-    settings_maxAlternatives,
     settings_channelIdentification,
-    settings_showAlternatives,
+    settings_maxAlternatives,
     settings_maxSpeakerLabels,
-    settings_vocabularyFilterName,
+    settings_showAlternatives,
     settings_showSpeakerLabels,
     settings_vocabularyFilterMethod,
+    settings_vocabularyFilterName,
+    settings_vocabularyName,
 
     -- ** Subtitles
     subtitles_formats,
+    subtitles_outputStartIndex,
 
     -- ** SubtitlesOutput
     subtitlesOutput_formats,
+    subtitlesOutput_outputStartIndex,
     subtitlesOutput_subtitleFileUris,
 
     -- ** Tag
@@ -507,48 +525,53 @@ module Amazonka.Transcribe.Lens
     transcript_transcriptFileUri,
 
     -- ** TranscriptFilter
+    transcriptFilter_absoluteTimeRange,
+    transcriptFilter_negate,
     transcriptFilter_participantRole,
     transcriptFilter_relativeTimeRange,
-    transcriptFilter_negate,
-    transcriptFilter_absoluteTimeRange,
     transcriptFilter_transcriptFilterType,
     transcriptFilter_targets,
 
     -- ** TranscriptionJob
+    transcriptionJob_completionTime,
+    transcriptionJob_contentRedaction,
     transcriptionJob_creationTime,
     transcriptionJob_failureReason,
-    transcriptionJob_contentRedaction,
     transcriptionJob_identifiedLanguageScore,
-    transcriptionJob_subtitles,
+    transcriptionJob_identifyLanguage,
+    transcriptionJob_identifyMultipleLanguages,
+    transcriptionJob_jobExecutionSettings,
     transcriptionJob_languageCode,
+    transcriptionJob_languageCodes,
+    transcriptionJob_languageIdSettings,
     transcriptionJob_languageOptions,
-    transcriptionJob_settings,
-    transcriptionJob_startTime,
-    transcriptionJob_completionTime,
     transcriptionJob_media,
     transcriptionJob_mediaFormat,
-    transcriptionJob_modelSettings,
-    transcriptionJob_transcriptionJobStatus,
-    transcriptionJob_jobExecutionSettings,
-    transcriptionJob_transcriptionJobName,
-    transcriptionJob_identifyLanguage,
-    transcriptionJob_transcript,
-    transcriptionJob_tags,
     transcriptionJob_mediaSampleRateHertz,
+    transcriptionJob_modelSettings,
+    transcriptionJob_settings,
+    transcriptionJob_startTime,
+    transcriptionJob_subtitles,
+    transcriptionJob_tags,
+    transcriptionJob_transcript,
+    transcriptionJob_transcriptionJobName,
+    transcriptionJob_transcriptionJobStatus,
 
     -- ** TranscriptionJobSummary
+    transcriptionJobSummary_completionTime,
+    transcriptionJobSummary_contentRedaction,
     transcriptionJobSummary_creationTime,
     transcriptionJobSummary_failureReason,
-    transcriptionJobSummary_contentRedaction,
     transcriptionJobSummary_identifiedLanguageScore,
+    transcriptionJobSummary_identifyLanguage,
+    transcriptionJobSummary_identifyMultipleLanguages,
     transcriptionJobSummary_languageCode,
+    transcriptionJobSummary_languageCodes,
+    transcriptionJobSummary_modelSettings,
     transcriptionJobSummary_outputLocationType,
     transcriptionJobSummary_startTime,
-    transcriptionJobSummary_completionTime,
-    transcriptionJobSummary_modelSettings,
-    transcriptionJobSummary_transcriptionJobStatus,
     transcriptionJobSummary_transcriptionJobName,
-    transcriptionJobSummary_identifyLanguage,
+    transcriptionJobSummary_transcriptionJobStatus,
 
     -- ** VocabularyFilterInfo
     vocabularyFilterInfo_languageCode,
@@ -557,8 +580,8 @@ module Amazonka.Transcribe.Lens
 
     -- ** VocabularyInfo
     vocabularyInfo_languageCode,
-    vocabularyInfo_vocabularyName,
     vocabularyInfo_lastModifiedTime,
+    vocabularyInfo_vocabularyName,
     vocabularyInfo_vocabularyState,
   )
 where
@@ -607,6 +630,8 @@ import Amazonka.Transcribe.Types.ContentRedaction
 import Amazonka.Transcribe.Types.InputDataConfig
 import Amazonka.Transcribe.Types.InterruptionFilter
 import Amazonka.Transcribe.Types.JobExecutionSettings
+import Amazonka.Transcribe.Types.LanguageCodeItem
+import Amazonka.Transcribe.Types.LanguageIdSettings
 import Amazonka.Transcribe.Types.LanguageModel
 import Amazonka.Transcribe.Types.Media
 import Amazonka.Transcribe.Types.MedicalTranscript

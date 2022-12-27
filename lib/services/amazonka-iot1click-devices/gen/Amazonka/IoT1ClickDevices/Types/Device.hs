@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT1ClickDevices.Types.Device
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT1ClickDevices.Types.Device where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT1ClickDevices.Types.Attributes
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newDevice' smart constructor.
@@ -69,15 +70,15 @@ device_deviceId = Lens.lens (\Device' {deviceId} -> deviceId) (\s@Device' {} a -
 device_type :: Lens.Lens' Device (Prelude.Maybe Prelude.Text)
 device_type = Lens.lens (\Device' {type'} -> type') (\s@Device' {} a -> s {type' = a} :: Device)
 
-instance Core.FromJSON Device where
+instance Data.FromJSON Device where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Device"
       ( \x ->
           Device'
-            Prelude.<$> (x Core..:? "attributes")
-            Prelude.<*> (x Core..:? "deviceId")
-            Prelude.<*> (x Core..:? "type")
+            Prelude.<$> (x Data..:? "attributes")
+            Prelude.<*> (x Data..:? "deviceId")
+            Prelude.<*> (x Data..:? "type")
       )
 
 instance Prelude.Hashable Device where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.ServiceDiscovery
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.AppMesh.Types.ServiceDiscovery where
 import Amazonka.AppMesh.Types.AwsCloudMapServiceDiscovery
 import Amazonka.AppMesh.Types.DnsServiceDiscovery
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the service discovery information for a
@@ -64,14 +65,14 @@ serviceDiscovery_awsCloudMap = Lens.lens (\ServiceDiscovery' {awsCloudMap} -> aw
 serviceDiscovery_dns :: Lens.Lens' ServiceDiscovery (Prelude.Maybe DnsServiceDiscovery)
 serviceDiscovery_dns = Lens.lens (\ServiceDiscovery' {dns} -> dns) (\s@ServiceDiscovery' {} a -> s {dns = a} :: ServiceDiscovery)
 
-instance Core.FromJSON ServiceDiscovery where
+instance Data.FromJSON ServiceDiscovery where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServiceDiscovery"
       ( \x ->
           ServiceDiscovery'
-            Prelude.<$> (x Core..:? "awsCloudMap")
-            Prelude.<*> (x Core..:? "dns")
+            Prelude.<$> (x Data..:? "awsCloudMap")
+            Prelude.<*> (x Data..:? "dns")
       )
 
 instance Prelude.Hashable ServiceDiscovery where
@@ -84,11 +85,11 @@ instance Prelude.NFData ServiceDiscovery where
     Prelude.rnf awsCloudMap
       `Prelude.seq` Prelude.rnf dns
 
-instance Core.ToJSON ServiceDiscovery where
+instance Data.ToJSON ServiceDiscovery where
   toJSON ServiceDiscovery' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("awsCloudMap" Core..=) Prelude.<$> awsCloudMap,
-            ("dns" Core..=) Prelude.<$> dns
+          [ ("awsCloudMap" Data..=) Prelude.<$> awsCloudMap,
+            ("dns" Data..=) Prelude.<$> dns
           ]
       )

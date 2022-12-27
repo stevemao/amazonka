@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.SingularConnectorProfileProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.SingularConnectorProfileProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The connector-specific profile properties required when using Singular.
@@ -41,11 +42,11 @@ newSingularConnectorProfileProperties =
   SingularConnectorProfileProperties'
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     SingularConnectorProfileProperties
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SingularConnectorProfileProperties"
       ( \x ->
           Prelude.pure SingularConnectorProfileProperties'
@@ -65,7 +66,7 @@ instance
   rnf _ = ()
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     SingularConnectorProfileProperties
   where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+  toJSON = Prelude.const (Data.Object Prelude.mempty)

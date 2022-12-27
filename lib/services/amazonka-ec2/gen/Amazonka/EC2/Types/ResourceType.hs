@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ResourceType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,8 +21,10 @@ module Amazonka.EC2.Types.ResourceType
   ( ResourceType
       ( ..,
         ResourceType_Capacity_reservation,
+        ResourceType_Capacity_reservation_fleet,
         ResourceType_Carrier_gateway,
         ResourceType_Client_vpn_endpoint,
+        ResourceType_Coip_pool,
         ResourceType_Customer_gateway,
         ResourceType_Dedicated_host,
         ResourceType_Dhcp_options,
@@ -40,6 +42,9 @@ module Amazonka.EC2.Types.ResourceType
         ResourceType_Instance,
         ResourceType_Instance_event_window,
         ResourceType_Internet_gateway,
+        ResourceType_Ipam,
+        ResourceType_Ipam_pool,
+        ResourceType_Ipam_scope,
         ResourceType_Ipv4pool_ec2,
         ResourceType_Ipv6pool_ec2,
         ResourceType_Key_pair,
@@ -52,6 +57,8 @@ module Amazonka.EC2.Types.ResourceType
         ResourceType_Local_gateway_virtual_interface_group,
         ResourceType_Natgateway,
         ResourceType_Network_acl,
+        ResourceType_Network_insights_access_scope,
+        ResourceType_Network_insights_access_scope_analysis,
         ResourceType_Network_insights_analysis,
         ResourceType_Network_insights_path,
         ResourceType_Network_interface,
@@ -66,33 +73,47 @@ module Amazonka.EC2.Types.ResourceType
         ResourceType_Spot_fleet_request,
         ResourceType_Spot_instances_request,
         ResourceType_Subnet,
+        ResourceType_Subnet_cidr_reservation,
         ResourceType_Traffic_mirror_filter,
+        ResourceType_Traffic_mirror_filter_rule,
         ResourceType_Traffic_mirror_session,
         ResourceType_Traffic_mirror_target,
         ResourceType_Transit_gateway,
         ResourceType_Transit_gateway_attachment,
         ResourceType_Transit_gateway_connect_peer,
         ResourceType_Transit_gateway_multicast_domain,
+        ResourceType_Transit_gateway_policy_table,
         ResourceType_Transit_gateway_route_table,
+        ResourceType_Transit_gateway_route_table_announcement,
+        ResourceType_Verified_access_endpoint,
+        ResourceType_Verified_access_group,
+        ResourceType_Verified_access_instance,
+        ResourceType_Verified_access_policy,
+        ResourceType_Verified_access_trust_provider,
         ResourceType_Volume,
         ResourceType_Vpc,
         ResourceType_Vpc_endpoint,
+        ResourceType_Vpc_endpoint_connection,
+        ResourceType_Vpc_endpoint_connection_device_type,
         ResourceType_Vpc_endpoint_service,
+        ResourceType_Vpc_endpoint_service_permission,
         ResourceType_Vpc_flow_log,
         ResourceType_Vpc_peering_connection,
         ResourceType_Vpn_connection,
+        ResourceType_Vpn_connection_device_type,
         ResourceType_Vpn_gateway
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import qualified Amazonka.Prelude as Prelude
 
 newtype ResourceType = ResourceType'
   { fromResourceType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -104,28 +125,34 @@ newtype ResourceType = ResourceType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern ResourceType_Capacity_reservation :: ResourceType
 pattern ResourceType_Capacity_reservation = ResourceType' "capacity-reservation"
+
+pattern ResourceType_Capacity_reservation_fleet :: ResourceType
+pattern ResourceType_Capacity_reservation_fleet = ResourceType' "capacity-reservation-fleet"
 
 pattern ResourceType_Carrier_gateway :: ResourceType
 pattern ResourceType_Carrier_gateway = ResourceType' "carrier-gateway"
 
 pattern ResourceType_Client_vpn_endpoint :: ResourceType
 pattern ResourceType_Client_vpn_endpoint = ResourceType' "client-vpn-endpoint"
+
+pattern ResourceType_Coip_pool :: ResourceType
+pattern ResourceType_Coip_pool = ResourceType' "coip-pool"
 
 pattern ResourceType_Customer_gateway :: ResourceType
 pattern ResourceType_Customer_gateway = ResourceType' "customer-gateway"
@@ -178,6 +205,15 @@ pattern ResourceType_Instance_event_window = ResourceType' "instance-event-windo
 pattern ResourceType_Internet_gateway :: ResourceType
 pattern ResourceType_Internet_gateway = ResourceType' "internet-gateway"
 
+pattern ResourceType_Ipam :: ResourceType
+pattern ResourceType_Ipam = ResourceType' "ipam"
+
+pattern ResourceType_Ipam_pool :: ResourceType
+pattern ResourceType_Ipam_pool = ResourceType' "ipam-pool"
+
+pattern ResourceType_Ipam_scope :: ResourceType
+pattern ResourceType_Ipam_scope = ResourceType' "ipam-scope"
+
 pattern ResourceType_Ipv4pool_ec2 :: ResourceType
 pattern ResourceType_Ipv4pool_ec2 = ResourceType' "ipv4pool-ec2"
 
@@ -213,6 +249,12 @@ pattern ResourceType_Natgateway = ResourceType' "natgateway"
 
 pattern ResourceType_Network_acl :: ResourceType
 pattern ResourceType_Network_acl = ResourceType' "network-acl"
+
+pattern ResourceType_Network_insights_access_scope :: ResourceType
+pattern ResourceType_Network_insights_access_scope = ResourceType' "network-insights-access-scope"
+
+pattern ResourceType_Network_insights_access_scope_analysis :: ResourceType
+pattern ResourceType_Network_insights_access_scope_analysis = ResourceType' "network-insights-access-scope-analysis"
 
 pattern ResourceType_Network_insights_analysis :: ResourceType
 pattern ResourceType_Network_insights_analysis = ResourceType' "network-insights-analysis"
@@ -256,8 +298,14 @@ pattern ResourceType_Spot_instances_request = ResourceType' "spot-instances-requ
 pattern ResourceType_Subnet :: ResourceType
 pattern ResourceType_Subnet = ResourceType' "subnet"
 
+pattern ResourceType_Subnet_cidr_reservation :: ResourceType
+pattern ResourceType_Subnet_cidr_reservation = ResourceType' "subnet-cidr-reservation"
+
 pattern ResourceType_Traffic_mirror_filter :: ResourceType
 pattern ResourceType_Traffic_mirror_filter = ResourceType' "traffic-mirror-filter"
+
+pattern ResourceType_Traffic_mirror_filter_rule :: ResourceType
+pattern ResourceType_Traffic_mirror_filter_rule = ResourceType' "traffic-mirror-filter-rule"
 
 pattern ResourceType_Traffic_mirror_session :: ResourceType
 pattern ResourceType_Traffic_mirror_session = ResourceType' "traffic-mirror-session"
@@ -277,8 +325,29 @@ pattern ResourceType_Transit_gateway_connect_peer = ResourceType' "transit-gatew
 pattern ResourceType_Transit_gateway_multicast_domain :: ResourceType
 pattern ResourceType_Transit_gateway_multicast_domain = ResourceType' "transit-gateway-multicast-domain"
 
+pattern ResourceType_Transit_gateway_policy_table :: ResourceType
+pattern ResourceType_Transit_gateway_policy_table = ResourceType' "transit-gateway-policy-table"
+
 pattern ResourceType_Transit_gateway_route_table :: ResourceType
 pattern ResourceType_Transit_gateway_route_table = ResourceType' "transit-gateway-route-table"
+
+pattern ResourceType_Transit_gateway_route_table_announcement :: ResourceType
+pattern ResourceType_Transit_gateway_route_table_announcement = ResourceType' "transit-gateway-route-table-announcement"
+
+pattern ResourceType_Verified_access_endpoint :: ResourceType
+pattern ResourceType_Verified_access_endpoint = ResourceType' "verified-access-endpoint"
+
+pattern ResourceType_Verified_access_group :: ResourceType
+pattern ResourceType_Verified_access_group = ResourceType' "verified-access-group"
+
+pattern ResourceType_Verified_access_instance :: ResourceType
+pattern ResourceType_Verified_access_instance = ResourceType' "verified-access-instance"
+
+pattern ResourceType_Verified_access_policy :: ResourceType
+pattern ResourceType_Verified_access_policy = ResourceType' "verified-access-policy"
+
+pattern ResourceType_Verified_access_trust_provider :: ResourceType
+pattern ResourceType_Verified_access_trust_provider = ResourceType' "verified-access-trust-provider"
 
 pattern ResourceType_Volume :: ResourceType
 pattern ResourceType_Volume = ResourceType' "volume"
@@ -289,8 +358,17 @@ pattern ResourceType_Vpc = ResourceType' "vpc"
 pattern ResourceType_Vpc_endpoint :: ResourceType
 pattern ResourceType_Vpc_endpoint = ResourceType' "vpc-endpoint"
 
+pattern ResourceType_Vpc_endpoint_connection :: ResourceType
+pattern ResourceType_Vpc_endpoint_connection = ResourceType' "vpc-endpoint-connection"
+
+pattern ResourceType_Vpc_endpoint_connection_device_type :: ResourceType
+pattern ResourceType_Vpc_endpoint_connection_device_type = ResourceType' "vpc-endpoint-connection-device-type"
+
 pattern ResourceType_Vpc_endpoint_service :: ResourceType
 pattern ResourceType_Vpc_endpoint_service = ResourceType' "vpc-endpoint-service"
+
+pattern ResourceType_Vpc_endpoint_service_permission :: ResourceType
+pattern ResourceType_Vpc_endpoint_service_permission = ResourceType' "vpc-endpoint-service-permission"
 
 pattern ResourceType_Vpc_flow_log :: ResourceType
 pattern ResourceType_Vpc_flow_log = ResourceType' "vpc-flow-log"
@@ -301,13 +379,18 @@ pattern ResourceType_Vpc_peering_connection = ResourceType' "vpc-peering-connect
 pattern ResourceType_Vpn_connection :: ResourceType
 pattern ResourceType_Vpn_connection = ResourceType' "vpn-connection"
 
+pattern ResourceType_Vpn_connection_device_type :: ResourceType
+pattern ResourceType_Vpn_connection_device_type = ResourceType' "vpn-connection-device-type"
+
 pattern ResourceType_Vpn_gateway :: ResourceType
 pattern ResourceType_Vpn_gateway = ResourceType' "vpn-gateway"
 
 {-# COMPLETE
   ResourceType_Capacity_reservation,
+  ResourceType_Capacity_reservation_fleet,
   ResourceType_Carrier_gateway,
   ResourceType_Client_vpn_endpoint,
+  ResourceType_Coip_pool,
   ResourceType_Customer_gateway,
   ResourceType_Dedicated_host,
   ResourceType_Dhcp_options,
@@ -325,6 +408,9 @@ pattern ResourceType_Vpn_gateway = ResourceType' "vpn-gateway"
   ResourceType_Instance,
   ResourceType_Instance_event_window,
   ResourceType_Internet_gateway,
+  ResourceType_Ipam,
+  ResourceType_Ipam_pool,
+  ResourceType_Ipam_scope,
   ResourceType_Ipv4pool_ec2,
   ResourceType_Ipv6pool_ec2,
   ResourceType_Key_pair,
@@ -337,6 +423,8 @@ pattern ResourceType_Vpn_gateway = ResourceType' "vpn-gateway"
   ResourceType_Local_gateway_virtual_interface_group,
   ResourceType_Natgateway,
   ResourceType_Network_acl,
+  ResourceType_Network_insights_access_scope,
+  ResourceType_Network_insights_access_scope_analysis,
   ResourceType_Network_insights_analysis,
   ResourceType_Network_insights_path,
   ResourceType_Network_interface,
@@ -351,21 +439,34 @@ pattern ResourceType_Vpn_gateway = ResourceType' "vpn-gateway"
   ResourceType_Spot_fleet_request,
   ResourceType_Spot_instances_request,
   ResourceType_Subnet,
+  ResourceType_Subnet_cidr_reservation,
   ResourceType_Traffic_mirror_filter,
+  ResourceType_Traffic_mirror_filter_rule,
   ResourceType_Traffic_mirror_session,
   ResourceType_Traffic_mirror_target,
   ResourceType_Transit_gateway,
   ResourceType_Transit_gateway_attachment,
   ResourceType_Transit_gateway_connect_peer,
   ResourceType_Transit_gateway_multicast_domain,
+  ResourceType_Transit_gateway_policy_table,
   ResourceType_Transit_gateway_route_table,
+  ResourceType_Transit_gateway_route_table_announcement,
+  ResourceType_Verified_access_endpoint,
+  ResourceType_Verified_access_group,
+  ResourceType_Verified_access_instance,
+  ResourceType_Verified_access_policy,
+  ResourceType_Verified_access_trust_provider,
   ResourceType_Volume,
   ResourceType_Vpc,
   ResourceType_Vpc_endpoint,
+  ResourceType_Vpc_endpoint_connection,
+  ResourceType_Vpc_endpoint_connection_device_type,
   ResourceType_Vpc_endpoint_service,
+  ResourceType_Vpc_endpoint_service_permission,
   ResourceType_Vpc_flow_log,
   ResourceType_Vpc_peering_connection,
   ResourceType_Vpn_connection,
+  ResourceType_Vpn_connection_device_type,
   ResourceType_Vpn_gateway,
   ResourceType'
   #-}

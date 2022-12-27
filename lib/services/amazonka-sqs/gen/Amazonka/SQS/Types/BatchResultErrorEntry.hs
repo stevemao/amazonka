@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.Types.BatchResultErrorEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SQS.Types.BatchResultErrorEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Gives a detailed description of the result of an action on each entry in
@@ -89,13 +90,13 @@ batchResultErrorEntry_senderFault = Lens.lens (\BatchResultErrorEntry' {senderFa
 batchResultErrorEntry_code :: Lens.Lens' BatchResultErrorEntry Prelude.Text
 batchResultErrorEntry_code = Lens.lens (\BatchResultErrorEntry' {code} -> code) (\s@BatchResultErrorEntry' {} a -> s {code = a} :: BatchResultErrorEntry)
 
-instance Core.FromXML BatchResultErrorEntry where
+instance Data.FromXML BatchResultErrorEntry where
   parseXML x =
     BatchResultErrorEntry'
-      Prelude.<$> (x Core..@? "Message")
-      Prelude.<*> (x Core..@ "Id")
-      Prelude.<*> (x Core..@ "SenderFault")
-      Prelude.<*> (x Core..@ "Code")
+      Prelude.<$> (x Data..@? "Message")
+      Prelude.<*> (x Data..@ "Id")
+      Prelude.<*> (x Data..@ "SenderFault")
+      Prelude.<*> (x Data..@ "Code")
 
 instance Prelude.Hashable BatchResultErrorEntry where
   hashWithSalt _salt BatchResultErrorEntry' {..} =

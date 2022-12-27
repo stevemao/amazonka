@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.PutAccountPreferences
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@
 --
 -- Starting in October, 2021, you will receive an error if you try to set
 -- the account preference to use the short 8 character format resource ID.
--- Contact Amazon Web Services support if you receive an error and need to
--- use short IDs for file system and mount target resources.
+-- Contact Amazon Web Services support if you receive an error and must use
+-- short IDs for file system and mount target resources.
 module Amazonka.EFS.PutAccountPreferences
   ( -- * Creating a Request
     PutAccountPreferences (..),
@@ -51,8 +51,9 @@ module Amazonka.EFS.PutAccountPreferences
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EFS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,7 +66,7 @@ data PutAccountPreferences = PutAccountPreferences'
     --
     -- Starting in October, 2021, you will receive an error when setting the
     -- account preference to @SHORT_ID@. Contact Amazon Web Services support if
-    -- you receive an error and need to use short IDs for file system and mount
+    -- you receive an error and must use short IDs for file system and mount
     -- target resources.
     resourceIdType :: ResourceIdType
   }
@@ -85,7 +86,7 @@ data PutAccountPreferences = PutAccountPreferences'
 --
 -- Starting in October, 2021, you will receive an error when setting the
 -- account preference to @SHORT_ID@. Contact Amazon Web Services support if
--- you receive an error and need to use short IDs for file system and mount
+-- you receive an error and must use short IDs for file system and mount
 -- target resources.
 newPutAccountPreferences ::
   -- | 'resourceIdType'
@@ -103,7 +104,7 @@ newPutAccountPreferences pResourceIdType_ =
 --
 -- Starting in October, 2021, you will receive an error when setting the
 -- account preference to @SHORT_ID@. Contact Amazon Web Services support if
--- you receive an error and need to use short IDs for file system and mount
+-- you receive an error and must use short IDs for file system and mount
 -- target resources.
 putAccountPreferences_resourceIdType :: Lens.Lens' PutAccountPreferences ResourceIdType
 putAccountPreferences_resourceIdType = Lens.lens (\PutAccountPreferences' {resourceIdType} -> resourceIdType) (\s@PutAccountPreferences' {} a -> s {resourceIdType = a} :: PutAccountPreferences)
@@ -112,12 +113,13 @@ instance Core.AWSRequest PutAccountPreferences where
   type
     AWSResponse PutAccountPreferences =
       PutAccountPreferencesResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutAccountPreferencesResponse'
-            Prelude.<$> (x Core..?> "ResourceIdPreference")
+            Prelude.<$> (x Data..?> "ResourceIdPreference")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,23 +131,23 @@ instance Prelude.NFData PutAccountPreferences where
   rnf PutAccountPreferences' {..} =
     Prelude.rnf resourceIdType
 
-instance Core.ToHeaders PutAccountPreferences where
+instance Data.ToHeaders PutAccountPreferences where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON PutAccountPreferences where
+instance Data.ToJSON PutAccountPreferences where
   toJSON PutAccountPreferences' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ResourceIdType" Core..= resourceIdType)
+              ("ResourceIdType" Data..= resourceIdType)
           ]
       )
 
-instance Core.ToPath PutAccountPreferences where
+instance Data.ToPath PutAccountPreferences where
   toPath =
     Prelude.const "/2015-02-01/account-preferences"
 
-instance Core.ToQuery PutAccountPreferences where
+instance Data.ToQuery PutAccountPreferences where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutAccountPreferencesResponse' smart constructor.

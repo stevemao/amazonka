@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Determines whether a service deployment fails if a service cannot reach
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails' smart constructor.
 data AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails = AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails'
-  { -- | Whether to roll back the service if a service deployment fails. If
+  { -- | Whether to enable the deployment circuit breaker logic for the service.
+    enable :: Prelude.Maybe Prelude.Bool,
+    -- | Whether to roll back the service if a service deployment fails. If
     -- rollback is enabled, when a service deployment fails, the service is
     -- rolled back to the last deployment that completed successfully.
-    rollback :: Prelude.Maybe Prelude.Bool,
-    -- | Whether to enable the deployment circuit breaker logic for the service.
-    enable :: Prelude.Maybe Prelude.Bool
+    rollback :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,20 +46,24 @@ data AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails = AwsEc
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'enable', 'awsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails_enable' - Whether to enable the deployment circuit breaker logic for the service.
+--
 -- 'rollback', 'awsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails_rollback' - Whether to roll back the service if a service deployment fails. If
 -- rollback is enabled, when a service deployment fails, the service is
 -- rolled back to the last deployment that completed successfully.
---
--- 'enable', 'awsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails_enable' - Whether to enable the deployment circuit breaker logic for the service.
 newAwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails ::
   AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails
 newAwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails =
   AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails'
-    { rollback =
+    { enable =
         Prelude.Nothing,
-      enable =
+      rollback =
         Prelude.Nothing
     }
+
+-- | Whether to enable the deployment circuit breaker logic for the service.
+awsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails_enable :: Lens.Lens' AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails (Prelude.Maybe Prelude.Bool)
+awsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails_enable = Lens.lens (\AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails' {enable} -> enable) (\s@AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails' {} a -> s {enable = a} :: AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails)
 
 -- | Whether to roll back the service if a service deployment fails. If
 -- rollback is enabled, when a service deployment fails, the service is
@@ -66,21 +71,17 @@ newAwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails =
 awsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails_rollback :: Lens.Lens' AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails (Prelude.Maybe Prelude.Bool)
 awsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails_rollback = Lens.lens (\AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails' {rollback} -> rollback) (\s@AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails' {} a -> s {rollback = a} :: AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails)
 
--- | Whether to enable the deployment circuit breaker logic for the service.
-awsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails_enable :: Lens.Lens' AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails (Prelude.Maybe Prelude.Bool)
-awsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails_enable = Lens.lens (\AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails' {enable} -> enable) (\s@AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails' {} a -> s {enable = a} :: AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails"
       ( \x ->
           AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails'
-            Prelude.<$> (x Core..:? "Rollback")
-              Prelude.<*> (x Core..:? "Enable")
+            Prelude.<$> (x Data..:? "Enable")
+              Prelude.<*> (x Data..:? "Rollback")
       )
 
 instance
@@ -90,8 +91,8 @@ instance
   hashWithSalt
     _salt
     AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails' {..} =
-      _salt `Prelude.hashWithSalt` rollback
-        `Prelude.hashWithSalt` enable
+      _salt `Prelude.hashWithSalt` enable
+        `Prelude.hashWithSalt` rollback
 
 instance
   Prelude.NFData
@@ -99,18 +100,18 @@ instance
   where
   rnf
     AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails' {..} =
-      Prelude.rnf rollback
-        `Prelude.seq` Prelude.rnf enable
+      Prelude.rnf enable
+        `Prelude.seq` Prelude.rnf rollback
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails
   where
   toJSON
     AwsEcsServiceDeploymentConfigurationDeploymentCircuitBreakerDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Rollback" Core..=) Prelude.<$> rollback,
-              ("Enable" Core..=) Prelude.<$> enable
+            [ ("Enable" Data..=) Prelude.<$> enable,
+              ("Rollback" Data..=) Prelude.<$> rollback
             ]
         )

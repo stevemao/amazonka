@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.Types.ClusterNode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Redshift.Types.ClusterNode where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Internal
 
@@ -71,12 +72,12 @@ clusterNode_privateIPAddress = Lens.lens (\ClusterNode' {privateIPAddress} -> pr
 clusterNode_publicIPAddress :: Lens.Lens' ClusterNode (Prelude.Maybe Prelude.Text)
 clusterNode_publicIPAddress = Lens.lens (\ClusterNode' {publicIPAddress} -> publicIPAddress) (\s@ClusterNode' {} a -> s {publicIPAddress = a} :: ClusterNode)
 
-instance Core.FromXML ClusterNode where
+instance Data.FromXML ClusterNode where
   parseXML x =
     ClusterNode'
-      Prelude.<$> (x Core..@? "NodeRole")
-      Prelude.<*> (x Core..@? "PrivateIPAddress")
-      Prelude.<*> (x Core..@? "PublicIPAddress")
+      Prelude.<$> (x Data..@? "NodeRole")
+      Prelude.<*> (x Data..@? "PrivateIPAddress")
+      Prelude.<*> (x Data..@? "PublicIPAddress")
 
 instance Prelude.Hashable ClusterNode where
   hashWithSalt _salt ClusterNode' {..} =

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RAM.Types.TagFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,20 @@
 module Amazonka.RAM.Types.TagFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Used to filter information based on tags.
+-- | A tag key and optional list of possible values that you can use to
+-- filter results for tagged resources.
 --
 -- /See:/ 'newTagFilter' smart constructor.
 data TagFilter = TagFilter'
-  { -- | The tag values.
-    tagValues :: Prelude.Maybe [Prelude.Text],
-    -- | The tag key.
-    tagKey :: Prelude.Maybe Prelude.Text
+  { -- | The tag key. This must have a valid string value and can\'t be empty.
+    tagKey :: Prelude.Maybe Prelude.Text,
+    -- | A list of zero or more tag values. If no values are provided, then the
+    -- filter matches any tag with the specified key, regardless of its value.
+    tagValues :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,40 +45,42 @@ data TagFilter = TagFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tagValues', 'tagFilter_tagValues' - The tag values.
+-- 'tagKey', 'tagFilter_tagKey' - The tag key. This must have a valid string value and can\'t be empty.
 --
--- 'tagKey', 'tagFilter_tagKey' - The tag key.
+-- 'tagValues', 'tagFilter_tagValues' - A list of zero or more tag values. If no values are provided, then the
+-- filter matches any tag with the specified key, regardless of its value.
 newTagFilter ::
   TagFilter
 newTagFilter =
   TagFilter'
-    { tagValues = Prelude.Nothing,
-      tagKey = Prelude.Nothing
+    { tagKey = Prelude.Nothing,
+      tagValues = Prelude.Nothing
     }
 
--- | The tag values.
-tagFilter_tagValues :: Lens.Lens' TagFilter (Prelude.Maybe [Prelude.Text])
-tagFilter_tagValues = Lens.lens (\TagFilter' {tagValues} -> tagValues) (\s@TagFilter' {} a -> s {tagValues = a} :: TagFilter) Prelude.. Lens.mapping Lens.coerced
-
--- | The tag key.
+-- | The tag key. This must have a valid string value and can\'t be empty.
 tagFilter_tagKey :: Lens.Lens' TagFilter (Prelude.Maybe Prelude.Text)
 tagFilter_tagKey = Lens.lens (\TagFilter' {tagKey} -> tagKey) (\s@TagFilter' {} a -> s {tagKey = a} :: TagFilter)
 
+-- | A list of zero or more tag values. If no values are provided, then the
+-- filter matches any tag with the specified key, regardless of its value.
+tagFilter_tagValues :: Lens.Lens' TagFilter (Prelude.Maybe [Prelude.Text])
+tagFilter_tagValues = Lens.lens (\TagFilter' {tagValues} -> tagValues) (\s@TagFilter' {} a -> s {tagValues = a} :: TagFilter) Prelude.. Lens.mapping Lens.coerced
+
 instance Prelude.Hashable TagFilter where
   hashWithSalt _salt TagFilter' {..} =
-    _salt `Prelude.hashWithSalt` tagValues
-      `Prelude.hashWithSalt` tagKey
+    _salt `Prelude.hashWithSalt` tagKey
+      `Prelude.hashWithSalt` tagValues
 
 instance Prelude.NFData TagFilter where
   rnf TagFilter' {..} =
-    Prelude.rnf tagValues
-      `Prelude.seq` Prelude.rnf tagKey
+    Prelude.rnf tagKey
+      `Prelude.seq` Prelude.rnf tagValues
 
-instance Core.ToJSON TagFilter where
+instance Data.ToJSON TagFilter where
   toJSON TagFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tagValues" Core..=) Prelude.<$> tagValues,
-            ("tagKey" Core..=) Prelude.<$> tagKey
+          [ ("tagKey" Data..=) Prelude.<$> tagKey,
+            ("tagValues" Data..=) Prelude.<$> tagValues
           ]
       )

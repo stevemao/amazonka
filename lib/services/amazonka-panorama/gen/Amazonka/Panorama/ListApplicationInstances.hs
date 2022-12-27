@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.ListApplicationInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,24 +27,25 @@ module Amazonka.Panorama.ListApplicationInstances
     newListApplicationInstances,
 
     -- * Request Lenses
-    listApplicationInstances_nextToken,
-    listApplicationInstances_statusFilter,
     listApplicationInstances_deviceId,
     listApplicationInstances_maxResults,
+    listApplicationInstances_nextToken,
+    listApplicationInstances_statusFilter,
 
     -- * Destructuring the Response
     ListApplicationInstancesResponse (..),
     newListApplicationInstancesResponse,
 
     -- * Response Lenses
-    listApplicationInstancesResponse_nextToken,
     listApplicationInstancesResponse_applicationInstances,
+    listApplicationInstancesResponse_nextToken,
     listApplicationInstancesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Panorama.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,16 +53,16 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListApplicationInstances' smart constructor.
 data ListApplicationInstances = ListApplicationInstances'
-  { -- | Specify the pagination token from a previous request to retrieve the
-    -- next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Only include instances with a specific status.
-    statusFilter :: Prelude.Maybe StatusFilter,
-    -- | The application instances\' device ID.
+  { -- | The application instances\' device ID.
     deviceId :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of application instances to return in one page of
     -- results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Specify the pagination token from a previous request to retrieve the
+    -- next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Only include instances with a specific status.
+    statusFilter :: Prelude.Maybe StatusFilter
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,34 +74,25 @@ data ListApplicationInstances = ListApplicationInstances'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listApplicationInstances_nextToken' - Specify the pagination token from a previous request to retrieve the
--- next page of results.
---
--- 'statusFilter', 'listApplicationInstances_statusFilter' - Only include instances with a specific status.
---
 -- 'deviceId', 'listApplicationInstances_deviceId' - The application instances\' device ID.
 --
 -- 'maxResults', 'listApplicationInstances_maxResults' - The maximum number of application instances to return in one page of
 -- results.
+--
+-- 'nextToken', 'listApplicationInstances_nextToken' - Specify the pagination token from a previous request to retrieve the
+-- next page of results.
+--
+-- 'statusFilter', 'listApplicationInstances_statusFilter' - Only include instances with a specific status.
 newListApplicationInstances ::
   ListApplicationInstances
 newListApplicationInstances =
   ListApplicationInstances'
-    { nextToken =
+    { deviceId =
         Prelude.Nothing,
-      statusFilter = Prelude.Nothing,
-      deviceId = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      statusFilter = Prelude.Nothing
     }
-
--- | Specify the pagination token from a previous request to retrieve the
--- next page of results.
-listApplicationInstances_nextToken :: Lens.Lens' ListApplicationInstances (Prelude.Maybe Prelude.Text)
-listApplicationInstances_nextToken = Lens.lens (\ListApplicationInstances' {nextToken} -> nextToken) (\s@ListApplicationInstances' {} a -> s {nextToken = a} :: ListApplicationInstances)
-
--- | Only include instances with a specific status.
-listApplicationInstances_statusFilter :: Lens.Lens' ListApplicationInstances (Prelude.Maybe StatusFilter)
-listApplicationInstances_statusFilter = Lens.lens (\ListApplicationInstances' {statusFilter} -> statusFilter) (\s@ListApplicationInstances' {} a -> s {statusFilter = a} :: ListApplicationInstances)
 
 -- | The application instances\' device ID.
 listApplicationInstances_deviceId :: Lens.Lens' ListApplicationInstances (Prelude.Maybe Prelude.Text)
@@ -111,65 +103,75 @@ listApplicationInstances_deviceId = Lens.lens (\ListApplicationInstances' {devic
 listApplicationInstances_maxResults :: Lens.Lens' ListApplicationInstances (Prelude.Maybe Prelude.Natural)
 listApplicationInstances_maxResults = Lens.lens (\ListApplicationInstances' {maxResults} -> maxResults) (\s@ListApplicationInstances' {} a -> s {maxResults = a} :: ListApplicationInstances)
 
+-- | Specify the pagination token from a previous request to retrieve the
+-- next page of results.
+listApplicationInstances_nextToken :: Lens.Lens' ListApplicationInstances (Prelude.Maybe Prelude.Text)
+listApplicationInstances_nextToken = Lens.lens (\ListApplicationInstances' {nextToken} -> nextToken) (\s@ListApplicationInstances' {} a -> s {nextToken = a} :: ListApplicationInstances)
+
+-- | Only include instances with a specific status.
+listApplicationInstances_statusFilter :: Lens.Lens' ListApplicationInstances (Prelude.Maybe StatusFilter)
+listApplicationInstances_statusFilter = Lens.lens (\ListApplicationInstances' {statusFilter} -> statusFilter) (\s@ListApplicationInstances' {} a -> s {statusFilter = a} :: ListApplicationInstances)
+
 instance Core.AWSRequest ListApplicationInstances where
   type
     AWSResponse ListApplicationInstances =
       ListApplicationInstancesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListApplicationInstancesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "ApplicationInstances"
+            Prelude.<$> ( x Data..?> "ApplicationInstances"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListApplicationInstances where
   hashWithSalt _salt ListApplicationInstances' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` statusFilter
-      `Prelude.hashWithSalt` deviceId
+    _salt `Prelude.hashWithSalt` deviceId
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` statusFilter
 
 instance Prelude.NFData ListApplicationInstances where
   rnf ListApplicationInstances' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf statusFilter
-      `Prelude.seq` Prelude.rnf deviceId
+    Prelude.rnf deviceId
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf statusFilter
 
-instance Core.ToHeaders ListApplicationInstances where
+instance Data.ToHeaders ListApplicationInstances where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListApplicationInstances where
+instance Data.ToPath ListApplicationInstances where
   toPath = Prelude.const "/application-instances"
 
-instance Core.ToQuery ListApplicationInstances where
+instance Data.ToQuery ListApplicationInstances where
   toQuery ListApplicationInstances' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "statusFilter" Core.=: statusFilter,
-        "deviceId" Core.=: deviceId,
-        "maxResults" Core.=: maxResults
+      [ "deviceId" Data.=: deviceId,
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "statusFilter" Data.=: statusFilter
       ]
 
 -- | /See:/ 'newListApplicationInstancesResponse' smart constructor.
 data ListApplicationInstancesResponse = ListApplicationInstancesResponse'
-  { -- | A pagination token that\'s included if more results are available.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A list of application instances.
+  { -- | A list of application instances.
     applicationInstances :: Prelude.Maybe [ApplicationInstance],
+    -- | A pagination token that\'s included if more results are available.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -183,9 +185,9 @@ data ListApplicationInstancesResponse = ListApplicationInstancesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listApplicationInstancesResponse_nextToken' - A pagination token that\'s included if more results are available.
---
 -- 'applicationInstances', 'listApplicationInstancesResponse_applicationInstances' - A list of application instances.
+--
+-- 'nextToken', 'listApplicationInstancesResponse_nextToken' - A pagination token that\'s included if more results are available.
 --
 -- 'httpStatus', 'listApplicationInstancesResponse_httpStatus' - The response's http status code.
 newListApplicationInstancesResponse ::
@@ -194,19 +196,19 @@ newListApplicationInstancesResponse ::
   ListApplicationInstancesResponse
 newListApplicationInstancesResponse pHttpStatus_ =
   ListApplicationInstancesResponse'
-    { nextToken =
+    { applicationInstances =
         Prelude.Nothing,
-      applicationInstances = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A pagination token that\'s included if more results are available.
-listApplicationInstancesResponse_nextToken :: Lens.Lens' ListApplicationInstancesResponse (Prelude.Maybe Prelude.Text)
-listApplicationInstancesResponse_nextToken = Lens.lens (\ListApplicationInstancesResponse' {nextToken} -> nextToken) (\s@ListApplicationInstancesResponse' {} a -> s {nextToken = a} :: ListApplicationInstancesResponse)
 
 -- | A list of application instances.
 listApplicationInstancesResponse_applicationInstances :: Lens.Lens' ListApplicationInstancesResponse (Prelude.Maybe [ApplicationInstance])
 listApplicationInstancesResponse_applicationInstances = Lens.lens (\ListApplicationInstancesResponse' {applicationInstances} -> applicationInstances) (\s@ListApplicationInstancesResponse' {} a -> s {applicationInstances = a} :: ListApplicationInstancesResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A pagination token that\'s included if more results are available.
+listApplicationInstancesResponse_nextToken :: Lens.Lens' ListApplicationInstancesResponse (Prelude.Maybe Prelude.Text)
+listApplicationInstancesResponse_nextToken = Lens.lens (\ListApplicationInstancesResponse' {nextToken} -> nextToken) (\s@ListApplicationInstancesResponse' {} a -> s {nextToken = a} :: ListApplicationInstancesResponse)
 
 -- | The response's http status code.
 listApplicationInstancesResponse_httpStatus :: Lens.Lens' ListApplicationInstancesResponse Prelude.Int
@@ -217,6 +219,6 @@ instance
     ListApplicationInstancesResponse
   where
   rnf ListApplicationInstancesResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf applicationInstances
+    Prelude.rnf applicationInstances
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

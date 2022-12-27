@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.HlsCaptionLanguageMapping
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.HlsCaptionLanguageMapping where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.LanguageCode
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,16 +29,16 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newHlsCaptionLanguageMapping' smart constructor.
 data HlsCaptionLanguageMapping = HlsCaptionLanguageMapping'
-  { -- | Specify the language for this captions channel, using the ISO 639-2 or
+  { -- | Caption channel.
+    captionChannel :: Prelude.Maybe Prelude.Int,
+    -- | Specify the language for this captions channel, using the ISO 639-2 or
     -- ISO 639-3 three-letter language code
     customLanguageCode :: Prelude.Maybe Prelude.Text,
     -- | Specify the language, using the ISO 639-2 three-letter code listed at
     -- https:\/\/www.loc.gov\/standards\/iso639-2\/php\/code_list.php.
     languageCode :: Prelude.Maybe LanguageCode,
     -- | Caption language description.
-    languageDescription :: Prelude.Maybe Prelude.Text,
-    -- | Caption channel.
-    captionChannel :: Prelude.Maybe Prelude.Int
+    languageDescription :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,6 +50,8 @@ data HlsCaptionLanguageMapping = HlsCaptionLanguageMapping'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'captionChannel', 'hlsCaptionLanguageMapping_captionChannel' - Caption channel.
+--
 -- 'customLanguageCode', 'hlsCaptionLanguageMapping_customLanguageCode' - Specify the language for this captions channel, using the ISO 639-2 or
 -- ISO 639-3 three-letter language code
 --
@@ -56,18 +59,20 @@ data HlsCaptionLanguageMapping = HlsCaptionLanguageMapping'
 -- https:\/\/www.loc.gov\/standards\/iso639-2\/php\/code_list.php.
 --
 -- 'languageDescription', 'hlsCaptionLanguageMapping_languageDescription' - Caption language description.
---
--- 'captionChannel', 'hlsCaptionLanguageMapping_captionChannel' - Caption channel.
 newHlsCaptionLanguageMapping ::
   HlsCaptionLanguageMapping
 newHlsCaptionLanguageMapping =
   HlsCaptionLanguageMapping'
-    { customLanguageCode =
+    { captionChannel =
         Prelude.Nothing,
+      customLanguageCode = Prelude.Nothing,
       languageCode = Prelude.Nothing,
-      languageDescription = Prelude.Nothing,
-      captionChannel = Prelude.Nothing
+      languageDescription = Prelude.Nothing
     }
+
+-- | Caption channel.
+hlsCaptionLanguageMapping_captionChannel :: Lens.Lens' HlsCaptionLanguageMapping (Prelude.Maybe Prelude.Int)
+hlsCaptionLanguageMapping_captionChannel = Lens.lens (\HlsCaptionLanguageMapping' {captionChannel} -> captionChannel) (\s@HlsCaptionLanguageMapping' {} a -> s {captionChannel = a} :: HlsCaptionLanguageMapping)
 
 -- | Specify the language for this captions channel, using the ISO 639-2 or
 -- ISO 639-3 three-letter language code
@@ -83,46 +88,42 @@ hlsCaptionLanguageMapping_languageCode = Lens.lens (\HlsCaptionLanguageMapping' 
 hlsCaptionLanguageMapping_languageDescription :: Lens.Lens' HlsCaptionLanguageMapping (Prelude.Maybe Prelude.Text)
 hlsCaptionLanguageMapping_languageDescription = Lens.lens (\HlsCaptionLanguageMapping' {languageDescription} -> languageDescription) (\s@HlsCaptionLanguageMapping' {} a -> s {languageDescription = a} :: HlsCaptionLanguageMapping)
 
--- | Caption channel.
-hlsCaptionLanguageMapping_captionChannel :: Lens.Lens' HlsCaptionLanguageMapping (Prelude.Maybe Prelude.Int)
-hlsCaptionLanguageMapping_captionChannel = Lens.lens (\HlsCaptionLanguageMapping' {captionChannel} -> captionChannel) (\s@HlsCaptionLanguageMapping' {} a -> s {captionChannel = a} :: HlsCaptionLanguageMapping)
-
-instance Core.FromJSON HlsCaptionLanguageMapping where
+instance Data.FromJSON HlsCaptionLanguageMapping where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HlsCaptionLanguageMapping"
       ( \x ->
           HlsCaptionLanguageMapping'
-            Prelude.<$> (x Core..:? "customLanguageCode")
-            Prelude.<*> (x Core..:? "languageCode")
-            Prelude.<*> (x Core..:? "languageDescription")
-            Prelude.<*> (x Core..:? "captionChannel")
+            Prelude.<$> (x Data..:? "captionChannel")
+            Prelude.<*> (x Data..:? "customLanguageCode")
+            Prelude.<*> (x Data..:? "languageCode")
+            Prelude.<*> (x Data..:? "languageDescription")
       )
 
 instance Prelude.Hashable HlsCaptionLanguageMapping where
   hashWithSalt _salt HlsCaptionLanguageMapping' {..} =
-    _salt `Prelude.hashWithSalt` customLanguageCode
+    _salt `Prelude.hashWithSalt` captionChannel
+      `Prelude.hashWithSalt` customLanguageCode
       `Prelude.hashWithSalt` languageCode
       `Prelude.hashWithSalt` languageDescription
-      `Prelude.hashWithSalt` captionChannel
 
 instance Prelude.NFData HlsCaptionLanguageMapping where
   rnf HlsCaptionLanguageMapping' {..} =
-    Prelude.rnf customLanguageCode
+    Prelude.rnf captionChannel
+      `Prelude.seq` Prelude.rnf customLanguageCode
       `Prelude.seq` Prelude.rnf languageCode
       `Prelude.seq` Prelude.rnf languageDescription
-      `Prelude.seq` Prelude.rnf captionChannel
 
-instance Core.ToJSON HlsCaptionLanguageMapping where
+instance Data.ToJSON HlsCaptionLanguageMapping where
   toJSON HlsCaptionLanguageMapping' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("customLanguageCode" Core..=)
+          [ ("captionChannel" Data..=)
+              Prelude.<$> captionChannel,
+            ("customLanguageCode" Data..=)
               Prelude.<$> customLanguageCode,
-            ("languageCode" Core..=) Prelude.<$> languageCode,
-            ("languageDescription" Core..=)
-              Prelude.<$> languageDescription,
-            ("captionChannel" Core..=)
-              Prelude.<$> captionChannel
+            ("languageCode" Data..=) Prelude.<$> languageCode,
+            ("languageDescription" Data..=)
+              Prelude.<$> languageDescription
           ]
       )

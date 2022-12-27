@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.DeleteApi
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -70,7 +71,8 @@ deleteApi_apiId = Lens.lens (\DeleteApi' {apiId} -> apiId) (\s@DeleteApi' {} a -
 
 instance Core.AWSRequest DeleteApi where
   type AWSResponse DeleteApi = DeleteApiResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response = Response.receiveNull DeleteApiResponse'
 
 instance Prelude.Hashable DeleteApi where
@@ -80,22 +82,22 @@ instance Prelude.Hashable DeleteApi where
 instance Prelude.NFData DeleteApi where
   rnf DeleteApi' {..} = Prelude.rnf apiId
 
-instance Core.ToHeaders DeleteApi where
+instance Data.ToHeaders DeleteApi where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteApi where
+instance Data.ToPath DeleteApi where
   toPath DeleteApi' {..} =
-    Prelude.mconcat ["/v2/apis/", Core.toBS apiId]
+    Prelude.mconcat ["/v2/apis/", Data.toBS apiId]
 
-instance Core.ToQuery DeleteApi where
+instance Data.ToQuery DeleteApi where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteApiResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.FecOutputSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.FecOutputSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.FecOutputIncludeFec
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,20 +29,20 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newFecOutputSettings' smart constructor.
 data FecOutputSettings = FecOutputSettings'
-  { -- | Parameter L from SMPTE 2022-1. The width of the FEC protection matrix.
+  { -- | Parameter D from SMPTE 2022-1. The height of the FEC protection matrix.
+    -- The number of transport stream packets per column error correction
+    -- packet. Must be between 4 and 20, inclusive.
+    columnDepth :: Prelude.Maybe Prelude.Natural,
+    -- | Enables column only or column and row based FEC
+    includeFec :: Prelude.Maybe FecOutputIncludeFec,
+    -- | Parameter L from SMPTE 2022-1. The width of the FEC protection matrix.
     -- Must be between 1 and 20, inclusive. If only Column FEC is used, then
     -- larger values increase robustness. If Row FEC is used, then this is the
     -- number of transport stream packets per row error correction packet, and
     -- the value must be between 4 and 20, inclusive, if includeFec is
     -- columnAndRow. If includeFec is column, this value must be 1 to 20,
     -- inclusive.
-    rowLength :: Prelude.Maybe Prelude.Natural,
-    -- | Enables column only or column and row based FEC
-    includeFec :: Prelude.Maybe FecOutputIncludeFec,
-    -- | Parameter D from SMPTE 2022-1. The height of the FEC protection matrix.
-    -- The number of transport stream packets per column error correction
-    -- packet. Must be between 4 and 20, inclusive.
-    columnDepth :: Prelude.Maybe Prelude.Natural
+    rowLength :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -53,6 +54,12 @@ data FecOutputSettings = FecOutputSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'columnDepth', 'fecOutputSettings_columnDepth' - Parameter D from SMPTE 2022-1. The height of the FEC protection matrix.
+-- The number of transport stream packets per column error correction
+-- packet. Must be between 4 and 20, inclusive.
+--
+-- 'includeFec', 'fecOutputSettings_includeFec' - Enables column only or column and row based FEC
+--
 -- 'rowLength', 'fecOutputSettings_rowLength' - Parameter L from SMPTE 2022-1. The width of the FEC protection matrix.
 -- Must be between 1 and 20, inclusive. If only Column FEC is used, then
 -- larger values increase robustness. If Row FEC is used, then this is the
@@ -60,20 +67,24 @@ data FecOutputSettings = FecOutputSettings'
 -- the value must be between 4 and 20, inclusive, if includeFec is
 -- columnAndRow. If includeFec is column, this value must be 1 to 20,
 -- inclusive.
---
--- 'includeFec', 'fecOutputSettings_includeFec' - Enables column only or column and row based FEC
---
--- 'columnDepth', 'fecOutputSettings_columnDepth' - Parameter D from SMPTE 2022-1. The height of the FEC protection matrix.
--- The number of transport stream packets per column error correction
--- packet. Must be between 4 and 20, inclusive.
 newFecOutputSettings ::
   FecOutputSettings
 newFecOutputSettings =
   FecOutputSettings'
-    { rowLength = Prelude.Nothing,
+    { columnDepth = Prelude.Nothing,
       includeFec = Prelude.Nothing,
-      columnDepth = Prelude.Nothing
+      rowLength = Prelude.Nothing
     }
+
+-- | Parameter D from SMPTE 2022-1. The height of the FEC protection matrix.
+-- The number of transport stream packets per column error correction
+-- packet. Must be between 4 and 20, inclusive.
+fecOutputSettings_columnDepth :: Lens.Lens' FecOutputSettings (Prelude.Maybe Prelude.Natural)
+fecOutputSettings_columnDepth = Lens.lens (\FecOutputSettings' {columnDepth} -> columnDepth) (\s@FecOutputSettings' {} a -> s {columnDepth = a} :: FecOutputSettings)
+
+-- | Enables column only or column and row based FEC
+fecOutputSettings_includeFec :: Lens.Lens' FecOutputSettings (Prelude.Maybe FecOutputIncludeFec)
+fecOutputSettings_includeFec = Lens.lens (\FecOutputSettings' {includeFec} -> includeFec) (\s@FecOutputSettings' {} a -> s {includeFec = a} :: FecOutputSettings)
 
 -- | Parameter L from SMPTE 2022-1. The width of the FEC protection matrix.
 -- Must be between 1 and 20, inclusive. If only Column FEC is used, then
@@ -85,45 +96,35 @@ newFecOutputSettings =
 fecOutputSettings_rowLength :: Lens.Lens' FecOutputSettings (Prelude.Maybe Prelude.Natural)
 fecOutputSettings_rowLength = Lens.lens (\FecOutputSettings' {rowLength} -> rowLength) (\s@FecOutputSettings' {} a -> s {rowLength = a} :: FecOutputSettings)
 
--- | Enables column only or column and row based FEC
-fecOutputSettings_includeFec :: Lens.Lens' FecOutputSettings (Prelude.Maybe FecOutputIncludeFec)
-fecOutputSettings_includeFec = Lens.lens (\FecOutputSettings' {includeFec} -> includeFec) (\s@FecOutputSettings' {} a -> s {includeFec = a} :: FecOutputSettings)
-
--- | Parameter D from SMPTE 2022-1. The height of the FEC protection matrix.
--- The number of transport stream packets per column error correction
--- packet. Must be between 4 and 20, inclusive.
-fecOutputSettings_columnDepth :: Lens.Lens' FecOutputSettings (Prelude.Maybe Prelude.Natural)
-fecOutputSettings_columnDepth = Lens.lens (\FecOutputSettings' {columnDepth} -> columnDepth) (\s@FecOutputSettings' {} a -> s {columnDepth = a} :: FecOutputSettings)
-
-instance Core.FromJSON FecOutputSettings where
+instance Data.FromJSON FecOutputSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FecOutputSettings"
       ( \x ->
           FecOutputSettings'
-            Prelude.<$> (x Core..:? "rowLength")
-            Prelude.<*> (x Core..:? "includeFec")
-            Prelude.<*> (x Core..:? "columnDepth")
+            Prelude.<$> (x Data..:? "columnDepth")
+            Prelude.<*> (x Data..:? "includeFec")
+            Prelude.<*> (x Data..:? "rowLength")
       )
 
 instance Prelude.Hashable FecOutputSettings where
   hashWithSalt _salt FecOutputSettings' {..} =
-    _salt `Prelude.hashWithSalt` rowLength
+    _salt `Prelude.hashWithSalt` columnDepth
       `Prelude.hashWithSalt` includeFec
-      `Prelude.hashWithSalt` columnDepth
+      `Prelude.hashWithSalt` rowLength
 
 instance Prelude.NFData FecOutputSettings where
   rnf FecOutputSettings' {..} =
-    Prelude.rnf rowLength
+    Prelude.rnf columnDepth
       `Prelude.seq` Prelude.rnf includeFec
-      `Prelude.seq` Prelude.rnf columnDepth
+      `Prelude.seq` Prelude.rnf rowLength
 
-instance Core.ToJSON FecOutputSettings where
+instance Data.ToJSON FecOutputSettings where
   toJSON FecOutputSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("rowLength" Core..=) Prelude.<$> rowLength,
-            ("includeFec" Core..=) Prelude.<$> includeFec,
-            ("columnDepth" Core..=) Prelude.<$> columnDepth
+          [ ("columnDepth" Data..=) Prelude.<$> columnDepth,
+            ("includeFec" Data..=) Prelude.<$> includeFec,
+            ("rowLength" Data..=) Prelude.<$> rowLength
           ]
       )

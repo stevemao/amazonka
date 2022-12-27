@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.Types.VpcConfigurationDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Firehose.Types.VpcConfigurationDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of the VPC of the Amazon ES destination.
@@ -246,16 +247,16 @@ vpcConfigurationDescription_securityGroupIds = Lens.lens (\VpcConfigurationDescr
 vpcConfigurationDescription_vpcId :: Lens.Lens' VpcConfigurationDescription Prelude.Text
 vpcConfigurationDescription_vpcId = Lens.lens (\VpcConfigurationDescription' {vpcId} -> vpcId) (\s@VpcConfigurationDescription' {} a -> s {vpcId = a} :: VpcConfigurationDescription)
 
-instance Core.FromJSON VpcConfigurationDescription where
+instance Data.FromJSON VpcConfigurationDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VpcConfigurationDescription"
       ( \x ->
           VpcConfigurationDescription'
-            Prelude.<$> (x Core..: "SubnetIds")
-            Prelude.<*> (x Core..: "RoleARN")
-            Prelude.<*> (x Core..: "SecurityGroupIds")
-            Prelude.<*> (x Core..: "VpcId")
+            Prelude.<$> (x Data..: "SubnetIds")
+            Prelude.<*> (x Data..: "RoleARN")
+            Prelude.<*> (x Data..: "SecurityGroupIds")
+            Prelude.<*> (x Data..: "VpcId")
       )
 
 instance Prelude.Hashable VpcConfigurationDescription where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetPartitionIndexes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,15 +39,16 @@ module Amazonka.Glue.GetPartitionIndexes
     newGetPartitionIndexesResponse,
 
     -- * Response Lenses
-    getPartitionIndexesResponse_partitionIndexDescriptorList,
     getPartitionIndexesResponse_nextToken,
+    getPartitionIndexesResponse_partitionIndexDescriptorList,
     getPartitionIndexesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -142,15 +143,16 @@ instance Core.AWSRequest GetPartitionIndexes where
   type
     AWSResponse GetPartitionIndexes =
       GetPartitionIndexesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPartitionIndexesResponse'
-            Prelude.<$> ( x Core..?> "PartitionIndexDescriptorList"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "PartitionIndexDescriptorList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -168,45 +170,45 @@ instance Prelude.NFData GetPartitionIndexes where
       `Prelude.seq` Prelude.rnf databaseName
       `Prelude.seq` Prelude.rnf tableName
 
-instance Core.ToHeaders GetPartitionIndexes where
+instance Data.ToHeaders GetPartitionIndexes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSGlue.GetPartitionIndexes" ::
+              Data.=# ( "AWSGlue.GetPartitionIndexes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetPartitionIndexes where
+instance Data.ToJSON GetPartitionIndexes where
   toJSON GetPartitionIndexes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            Prelude.Just ("DatabaseName" Core..= databaseName),
-            Prelude.Just ("TableName" Core..= tableName)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("DatabaseName" Data..= databaseName),
+            Prelude.Just ("TableName" Data..= tableName)
           ]
       )
 
-instance Core.ToPath GetPartitionIndexes where
+instance Data.ToPath GetPartitionIndexes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetPartitionIndexes where
+instance Data.ToQuery GetPartitionIndexes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetPartitionIndexesResponse' smart constructor.
 data GetPartitionIndexesResponse = GetPartitionIndexesResponse'
-  { -- | A list of index descriptors.
-    partitionIndexDescriptorList :: Prelude.Maybe [PartitionIndexDescriptor],
-    -- | A continuation token, present if the current list segment is not the
+  { -- | A continuation token, present if the current list segment is not the
     -- last.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of index descriptors.
+    partitionIndexDescriptorList :: Prelude.Maybe [PartitionIndexDescriptor],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -220,10 +222,10 @@ data GetPartitionIndexesResponse = GetPartitionIndexesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'partitionIndexDescriptorList', 'getPartitionIndexesResponse_partitionIndexDescriptorList' - A list of index descriptors.
---
 -- 'nextToken', 'getPartitionIndexesResponse_nextToken' - A continuation token, present if the current list segment is not the
 -- last.
+--
+-- 'partitionIndexDescriptorList', 'getPartitionIndexesResponse_partitionIndexDescriptorList' - A list of index descriptors.
 --
 -- 'httpStatus', 'getPartitionIndexesResponse_httpStatus' - The response's http status code.
 newGetPartitionIndexesResponse ::
@@ -232,20 +234,20 @@ newGetPartitionIndexesResponse ::
   GetPartitionIndexesResponse
 newGetPartitionIndexesResponse pHttpStatus_ =
   GetPartitionIndexesResponse'
-    { partitionIndexDescriptorList =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      partitionIndexDescriptorList = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of index descriptors.
-getPartitionIndexesResponse_partitionIndexDescriptorList :: Lens.Lens' GetPartitionIndexesResponse (Prelude.Maybe [PartitionIndexDescriptor])
-getPartitionIndexesResponse_partitionIndexDescriptorList = Lens.lens (\GetPartitionIndexesResponse' {partitionIndexDescriptorList} -> partitionIndexDescriptorList) (\s@GetPartitionIndexesResponse' {} a -> s {partitionIndexDescriptorList = a} :: GetPartitionIndexesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A continuation token, present if the current list segment is not the
 -- last.
 getPartitionIndexesResponse_nextToken :: Lens.Lens' GetPartitionIndexesResponse (Prelude.Maybe Prelude.Text)
 getPartitionIndexesResponse_nextToken = Lens.lens (\GetPartitionIndexesResponse' {nextToken} -> nextToken) (\s@GetPartitionIndexesResponse' {} a -> s {nextToken = a} :: GetPartitionIndexesResponse)
+
+-- | A list of index descriptors.
+getPartitionIndexesResponse_partitionIndexDescriptorList :: Lens.Lens' GetPartitionIndexesResponse (Prelude.Maybe [PartitionIndexDescriptor])
+getPartitionIndexesResponse_partitionIndexDescriptorList = Lens.lens (\GetPartitionIndexesResponse' {partitionIndexDescriptorList} -> partitionIndexDescriptorList) (\s@GetPartitionIndexesResponse' {} a -> s {partitionIndexDescriptorList = a} :: GetPartitionIndexesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 getPartitionIndexesResponse_httpStatus :: Lens.Lens' GetPartitionIndexesResponse Prelude.Int
@@ -253,6 +255,6 @@ getPartitionIndexesResponse_httpStatus = Lens.lens (\GetPartitionIndexesResponse
 
 instance Prelude.NFData GetPartitionIndexesResponse where
   rnf GetPartitionIndexesResponse' {..} =
-    Prelude.rnf partitionIndexDescriptorList
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf partitionIndexDescriptorList
       `Prelude.seq` Prelude.rnf httpStatus

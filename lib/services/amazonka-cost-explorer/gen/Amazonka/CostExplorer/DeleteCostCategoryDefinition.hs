@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.DeleteCostCategoryDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.CostExplorer.DeleteCostCategoryDefinition
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,13 +83,14 @@ instance Core.AWSRequest DeleteCostCategoryDefinition where
   type
     AWSResponse DeleteCostCategoryDefinition =
       DeleteCostCategoryDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteCostCategoryDefinitionResponse'
-            Prelude.<$> (x Core..?> "CostCategoryArn")
-            Prelude.<*> (x Core..?> "EffectiveEnd")
+            Prelude.<$> (x Data..?> "CostCategoryArn")
+            Prelude.<*> (x Data..?> "EffectiveEnd")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -103,34 +105,34 @@ instance Prelude.NFData DeleteCostCategoryDefinition where
   rnf DeleteCostCategoryDefinition' {..} =
     Prelude.rnf costCategoryArn
 
-instance Core.ToHeaders DeleteCostCategoryDefinition where
+instance Data.ToHeaders DeleteCostCategoryDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSInsightsIndexService.DeleteCostCategoryDefinition" ::
+              Data.=# ( "AWSInsightsIndexService.DeleteCostCategoryDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteCostCategoryDefinition where
+instance Data.ToJSON DeleteCostCategoryDefinition where
   toJSON DeleteCostCategoryDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("CostCategoryArn" Core..= costCategoryArn)
+              ("CostCategoryArn" Data..= costCategoryArn)
           ]
       )
 
-instance Core.ToPath DeleteCostCategoryDefinition where
+instance Data.ToPath DeleteCostCategoryDefinition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCostCategoryDefinition where
+instance Data.ToQuery DeleteCostCategoryDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCostCategoryDefinitionResponse' smart constructor.
@@ -138,8 +140,7 @@ data DeleteCostCategoryDefinitionResponse = DeleteCostCategoryDefinitionResponse
   { -- | The unique identifier for your Cost Category.
     costCategoryArn :: Prelude.Maybe Prelude.Text,
     -- | The effective end date of the Cost Category as a result of deleting it.
-    -- No costs after this date will be categorized by the deleted Cost
-    -- Category.
+    -- No costs after this date is categorized by the deleted Cost Category.
     effectiveEnd :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -157,8 +158,7 @@ data DeleteCostCategoryDefinitionResponse = DeleteCostCategoryDefinitionResponse
 -- 'costCategoryArn', 'deleteCostCategoryDefinitionResponse_costCategoryArn' - The unique identifier for your Cost Category.
 --
 -- 'effectiveEnd', 'deleteCostCategoryDefinitionResponse_effectiveEnd' - The effective end date of the Cost Category as a result of deleting it.
--- No costs after this date will be categorized by the deleted Cost
--- Category.
+-- No costs after this date is categorized by the deleted Cost Category.
 --
 -- 'httpStatus', 'deleteCostCategoryDefinitionResponse_httpStatus' - The response's http status code.
 newDeleteCostCategoryDefinitionResponse ::
@@ -178,8 +178,7 @@ deleteCostCategoryDefinitionResponse_costCategoryArn :: Lens.Lens' DeleteCostCat
 deleteCostCategoryDefinitionResponse_costCategoryArn = Lens.lens (\DeleteCostCategoryDefinitionResponse' {costCategoryArn} -> costCategoryArn) (\s@DeleteCostCategoryDefinitionResponse' {} a -> s {costCategoryArn = a} :: DeleteCostCategoryDefinitionResponse)
 
 -- | The effective end date of the Cost Category as a result of deleting it.
--- No costs after this date will be categorized by the deleted Cost
--- Category.
+-- No costs after this date is categorized by the deleted Cost Category.
 deleteCostCategoryDefinitionResponse_effectiveEnd :: Lens.Lens' DeleteCostCategoryDefinitionResponse (Prelude.Maybe Prelude.Text)
 deleteCostCategoryDefinitionResponse_effectiveEnd = Lens.lens (\DeleteCostCategoryDefinitionResponse' {effectiveEnd} -> effectiveEnd) (\s@DeleteCostCategoryDefinitionResponse' {} a -> s {effectiveEnd = a} :: DeleteCostCategoryDefinitionResponse)
 

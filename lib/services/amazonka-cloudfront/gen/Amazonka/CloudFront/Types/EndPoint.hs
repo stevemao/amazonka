@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.EndPoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.EndPoint where
 
 import Amazonka.CloudFront.Types.KinesisStreamConfig
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the Amazon Kinesis data stream where you are
@@ -71,11 +72,11 @@ endPoint_kinesisStreamConfig = Lens.lens (\EndPoint' {kinesisStreamConfig} -> ki
 endPoint_streamType :: Lens.Lens' EndPoint Prelude.Text
 endPoint_streamType = Lens.lens (\EndPoint' {streamType} -> streamType) (\s@EndPoint' {} a -> s {streamType = a} :: EndPoint)
 
-instance Core.FromXML EndPoint where
+instance Data.FromXML EndPoint where
   parseXML x =
     EndPoint'
-      Prelude.<$> (x Core..@? "KinesisStreamConfig")
-      Prelude.<*> (x Core..@ "StreamType")
+      Prelude.<$> (x Data..@? "KinesisStreamConfig")
+      Prelude.<*> (x Data..@ "StreamType")
 
 instance Prelude.Hashable EndPoint where
   hashWithSalt _salt EndPoint' {..} =
@@ -87,9 +88,9 @@ instance Prelude.NFData EndPoint where
     Prelude.rnf kinesisStreamConfig
       `Prelude.seq` Prelude.rnf streamType
 
-instance Core.ToXML EndPoint where
+instance Data.ToXML EndPoint where
   toXML EndPoint' {..} =
     Prelude.mconcat
-      [ "KinesisStreamConfig" Core.@= kinesisStreamConfig,
-        "StreamType" Core.@= streamType
+      [ "KinesisStreamConfig" Data.@= kinesisStreamConfig,
+        "StreamType" Data.@= streamType
       ]

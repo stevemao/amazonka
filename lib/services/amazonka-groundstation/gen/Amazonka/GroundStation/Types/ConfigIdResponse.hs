@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.Types.ConfigIdResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GroundStation.Types.ConfigIdResponse where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types.ConfigCapabilityType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- |
@@ -71,15 +72,15 @@ configIdResponse_configId = Lens.lens (\ConfigIdResponse' {configId} -> configId
 configIdResponse_configType :: Lens.Lens' ConfigIdResponse (Prelude.Maybe ConfigCapabilityType)
 configIdResponse_configType = Lens.lens (\ConfigIdResponse' {configType} -> configType) (\s@ConfigIdResponse' {} a -> s {configType = a} :: ConfigIdResponse)
 
-instance Core.FromJSON ConfigIdResponse where
+instance Data.FromJSON ConfigIdResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConfigIdResponse"
       ( \x ->
           ConfigIdResponse'
-            Prelude.<$> (x Core..:? "configArn")
-            Prelude.<*> (x Core..:? "configId")
-            Prelude.<*> (x Core..:? "configType")
+            Prelude.<$> (x Data..:? "configArn")
+            Prelude.<*> (x Data..:? "configId")
+            Prelude.<*> (x Data..:? "configType")
       )
 
 instance Prelude.Hashable ConfigIdResponse where

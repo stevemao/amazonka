@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WellArchitected.UpdateWorkloadShare
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,14 +36,15 @@ module Amazonka.WellArchitected.UpdateWorkloadShare
     newUpdateWorkloadShareResponse,
 
     -- * Response Lenses
-    updateWorkloadShareResponse_workloadShare,
     updateWorkloadShareResponse_workloadId,
+    updateWorkloadShareResponse_workloadShare,
     updateWorkloadShareResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,13 +107,14 @@ instance Core.AWSRequest UpdateWorkloadShare where
   type
     AWSResponse UpdateWorkloadShare =
       UpdateWorkloadShareResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateWorkloadShareResponse'
-            Prelude.<$> (x Core..?> "WorkloadShare")
-            Prelude.<*> (x Core..?> "WorkloadId")
+            Prelude.<$> (x Data..?> "WorkloadId")
+            Prelude.<*> (x Data..?> "WorkloadShare")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,44 +130,44 @@ instance Prelude.NFData UpdateWorkloadShare where
       `Prelude.seq` Prelude.rnf workloadId
       `Prelude.seq` Prelude.rnf permissionType
 
-instance Core.ToHeaders UpdateWorkloadShare where
+instance Data.ToHeaders UpdateWorkloadShare where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateWorkloadShare where
+instance Data.ToJSON UpdateWorkloadShare where
   toJSON UpdateWorkloadShare' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("PermissionType" Core..= permissionType)
+              ("PermissionType" Data..= permissionType)
           ]
       )
 
-instance Core.ToPath UpdateWorkloadShare where
+instance Data.ToPath UpdateWorkloadShare where
   toPath UpdateWorkloadShare' {..} =
     Prelude.mconcat
       [ "/workloads/",
-        Core.toBS workloadId,
+        Data.toBS workloadId,
         "/shares/",
-        Core.toBS shareId
+        Data.toBS shareId
       ]
 
-instance Core.ToQuery UpdateWorkloadShare where
+instance Data.ToQuery UpdateWorkloadShare where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Input for Update Workload Share
 --
 -- /See:/ 'newUpdateWorkloadShareResponse' smart constructor.
 data UpdateWorkloadShareResponse = UpdateWorkloadShareResponse'
-  { workloadShare :: Prelude.Maybe WorkloadShare,
-    workloadId :: Prelude.Maybe Prelude.Text,
+  { workloadId :: Prelude.Maybe Prelude.Text,
+    workloadShare :: Prelude.Maybe WorkloadShare,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -179,9 +181,9 @@ data UpdateWorkloadShareResponse = UpdateWorkloadShareResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'workloadShare', 'updateWorkloadShareResponse_workloadShare' - Undocumented member.
---
 -- 'workloadId', 'updateWorkloadShareResponse_workloadId' - Undocumented member.
+--
+-- 'workloadShare', 'updateWorkloadShareResponse_workloadShare' - Undocumented member.
 --
 -- 'httpStatus', 'updateWorkloadShareResponse_httpStatus' - The response's http status code.
 newUpdateWorkloadShareResponse ::
@@ -190,19 +192,19 @@ newUpdateWorkloadShareResponse ::
   UpdateWorkloadShareResponse
 newUpdateWorkloadShareResponse pHttpStatus_ =
   UpdateWorkloadShareResponse'
-    { workloadShare =
+    { workloadId =
         Prelude.Nothing,
-      workloadId = Prelude.Nothing,
+      workloadShare = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-updateWorkloadShareResponse_workloadShare :: Lens.Lens' UpdateWorkloadShareResponse (Prelude.Maybe WorkloadShare)
-updateWorkloadShareResponse_workloadShare = Lens.lens (\UpdateWorkloadShareResponse' {workloadShare} -> workloadShare) (\s@UpdateWorkloadShareResponse' {} a -> s {workloadShare = a} :: UpdateWorkloadShareResponse)
-
--- | Undocumented member.
 updateWorkloadShareResponse_workloadId :: Lens.Lens' UpdateWorkloadShareResponse (Prelude.Maybe Prelude.Text)
 updateWorkloadShareResponse_workloadId = Lens.lens (\UpdateWorkloadShareResponse' {workloadId} -> workloadId) (\s@UpdateWorkloadShareResponse' {} a -> s {workloadId = a} :: UpdateWorkloadShareResponse)
+
+-- | Undocumented member.
+updateWorkloadShareResponse_workloadShare :: Lens.Lens' UpdateWorkloadShareResponse (Prelude.Maybe WorkloadShare)
+updateWorkloadShareResponse_workloadShare = Lens.lens (\UpdateWorkloadShareResponse' {workloadShare} -> workloadShare) (\s@UpdateWorkloadShareResponse' {} a -> s {workloadShare = a} :: UpdateWorkloadShareResponse)
 
 -- | The response's http status code.
 updateWorkloadShareResponse_httpStatus :: Lens.Lens' UpdateWorkloadShareResponse Prelude.Int
@@ -210,6 +212,6 @@ updateWorkloadShareResponse_httpStatus = Lens.lens (\UpdateWorkloadShareResponse
 
 instance Prelude.NFData UpdateWorkloadShareResponse where
   rnf UpdateWorkloadShareResponse' {..} =
-    Prelude.rnf workloadShare
-      `Prelude.seq` Prelude.rnf workloadId
+    Prelude.rnf workloadId
+      `Prelude.seq` Prelude.rnf workloadShare
       `Prelude.seq` Prelude.rnf httpStatus

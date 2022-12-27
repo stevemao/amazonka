@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.SetIdentityHeadersInNotificationsEnabled
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.SES.SetIdentityHeadersInNotificationsEnabled
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -150,7 +151,8 @@ instance
     AWSResponse
       SetIdentityHeadersInNotificationsEnabled =
       SetIdentityHeadersInNotificationsEnabledResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SetIdentityHeadersInNotificationsEnabledResult"
@@ -180,32 +182,32 @@ instance
       `Prelude.seq` Prelude.rnf enabled
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     SetIdentityHeadersInNotificationsEnabled
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     SetIdentityHeadersInNotificationsEnabled
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     SetIdentityHeadersInNotificationsEnabled
   where
   toQuery SetIdentityHeadersInNotificationsEnabled' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "SetIdentityHeadersInNotificationsEnabled" ::
+          Data.=: ( "SetIdentityHeadersInNotificationsEnabled" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "Identity" Core.=: identity,
-        "NotificationType" Core.=: notificationType,
-        "Enabled" Core.=: enabled
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "Identity" Data.=: identity,
+        "NotificationType" Data.=: notificationType,
+        "Enabled" Data.=: enabled
       ]
 
 -- | An empty element returned on a successful request.

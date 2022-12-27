@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DescribeFleetLocationUtilization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,15 +36,6 @@
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-intro.html Setting up GameLift fleets>
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/monitoring-cloudwatch.html#gamelift-metrics-fleet GameLift metrics for fleets>
---
--- __Related actions__
---
--- CreateFleetLocations | DescribeFleetLocationAttributes |
--- DescribeFleetLocationCapacity | DescribeFleetLocationUtilization |
--- DescribeFleetAttributes | DescribeFleetCapacity |
--- DescribeFleetUtilization | UpdateFleetCapacity | StopFleetActions |
--- DeleteFleetLocations |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.DescribeFleetLocationUtilization
   ( -- * Creating a Request
     DescribeFleetLocationUtilization (..),
@@ -65,21 +56,21 @@ module Amazonka.GameLift.DescribeFleetLocationUtilization
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDescribeFleetLocationUtilization' smart constructor.
+-- | /See:/ 'newDescribeFleetLocationUtilization' smart constructor.
 data DescribeFleetLocationUtilization = DescribeFleetLocationUtilization'
   { -- | A unique identifier for the fleet to request location utilization for.
     -- You can use either the fleet ID or ARN value.
     fleetId :: Prelude.Text,
     -- | The fleet location to retrieve utilization information for. Specify a
-    -- location in the form of an AWS Region code, such as @us-west-2@.
+    -- location in the form of an Amazon Web Services Region code, such as
+    -- @us-west-2@.
     location :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -96,7 +87,8 @@ data DescribeFleetLocationUtilization = DescribeFleetLocationUtilization'
 -- You can use either the fleet ID or ARN value.
 --
 -- 'location', 'describeFleetLocationUtilization_location' - The fleet location to retrieve utilization information for. Specify a
--- location in the form of an AWS Region code, such as @us-west-2@.
+-- location in the form of an Amazon Web Services Region code, such as
+-- @us-west-2@.
 newDescribeFleetLocationUtilization ::
   -- | 'fleetId'
   Prelude.Text ->
@@ -118,7 +110,8 @@ describeFleetLocationUtilization_fleetId :: Lens.Lens' DescribeFleetLocationUtil
 describeFleetLocationUtilization_fleetId = Lens.lens (\DescribeFleetLocationUtilization' {fleetId} -> fleetId) (\s@DescribeFleetLocationUtilization' {} a -> s {fleetId = a} :: DescribeFleetLocationUtilization)
 
 -- | The fleet location to retrieve utilization information for. Specify a
--- location in the form of an AWS Region code, such as @us-west-2@.
+-- location in the form of an Amazon Web Services Region code, such as
+-- @us-west-2@.
 describeFleetLocationUtilization_location :: Lens.Lens' DescribeFleetLocationUtilization Prelude.Text
 describeFleetLocationUtilization_location = Lens.lens (\DescribeFleetLocationUtilization' {location} -> location) (\s@DescribeFleetLocationUtilization' {} a -> s {location = a} :: DescribeFleetLocationUtilization)
 
@@ -129,12 +122,13 @@ instance
   type
     AWSResponse DescribeFleetLocationUtilization =
       DescribeFleetLocationUtilizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeFleetLocationUtilizationResponse'
-            Prelude.<$> (x Core..?> "FleetUtilization")
+            Prelude.<$> (x Data..?> "FleetUtilization")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -157,44 +151,42 @@ instance
       `Prelude.seq` Prelude.rnf location
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeFleetLocationUtilization
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DescribeFleetLocationUtilization" ::
+              Data.=# ( "GameLift.DescribeFleetLocationUtilization" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeFleetLocationUtilization where
+instance Data.ToJSON DescribeFleetLocationUtilization where
   toJSON DescribeFleetLocationUtilization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("FleetId" Core..= fleetId),
-            Prelude.Just ("Location" Core..= location)
+          [ Prelude.Just ("FleetId" Data..= fleetId),
+            Prelude.Just ("Location" Data..= location)
           ]
       )
 
-instance Core.ToPath DescribeFleetLocationUtilization where
+instance Data.ToPath DescribeFleetLocationUtilization where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeFleetLocationUtilization
   where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newDescribeFleetLocationUtilizationResponse' smart constructor.
+-- | /See:/ 'newDescribeFleetLocationUtilizationResponse' smart constructor.
 data DescribeFleetLocationUtilizationResponse = DescribeFleetLocationUtilizationResponse'
   { -- | Utilization information for the requested fleet location. Utilization
     -- objects are returned only for fleets and locations that currently exist.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.CapacityDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.KafkaConnect.Types.CapacityDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types.AutoScalingDescription
 import Amazonka.KafkaConnect.Types.ProvisionedCapacityDescription
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A description of the connector\'s capacity.
@@ -63,14 +64,14 @@ capacityDescription_autoScaling = Lens.lens (\CapacityDescription' {autoScaling}
 capacityDescription_provisionedCapacity :: Lens.Lens' CapacityDescription (Prelude.Maybe ProvisionedCapacityDescription)
 capacityDescription_provisionedCapacity = Lens.lens (\CapacityDescription' {provisionedCapacity} -> provisionedCapacity) (\s@CapacityDescription' {} a -> s {provisionedCapacity = a} :: CapacityDescription)
 
-instance Core.FromJSON CapacityDescription where
+instance Data.FromJSON CapacityDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CapacityDescription"
       ( \x ->
           CapacityDescription'
-            Prelude.<$> (x Core..:? "autoScaling")
-            Prelude.<*> (x Core..:? "provisionedCapacity")
+            Prelude.<$> (x Data..:? "autoScaling")
+            Prelude.<*> (x Data..:? "provisionedCapacity")
       )
 
 instance Prelude.Hashable CapacityDescription where

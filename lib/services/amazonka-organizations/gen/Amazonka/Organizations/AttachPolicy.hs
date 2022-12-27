@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.AttachPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,8 +22,8 @@
 --
 -- Attaches a policy to a root, an organizational unit (OU), or an
 -- individual account. How the policy affects accounts depends on the type
--- of policy. Refer to the /AWS Organizations User Guide/ for information
--- about each policy type:
+-- of policy. Refer to the /Organizations User Guide/ for information about
+-- each policy type:
 --
 -- -   <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_ai-opt-out.html AISERVICES_OPT_OUT_POLICY>
 --
@@ -51,7 +51,8 @@ module Amazonka.Organizations.AttachPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -162,7 +163,8 @@ attachPolicy_targetId = Lens.lens (\AttachPolicy' {targetId} -> targetId) (\s@At
 
 instance Core.AWSRequest AttachPolicy where
   type AWSResponse AttachPolicy = AttachPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull AttachPolicyResponse'
 
 instance Prelude.Hashable AttachPolicy where
@@ -175,34 +177,34 @@ instance Prelude.NFData AttachPolicy where
     Prelude.rnf policyId
       `Prelude.seq` Prelude.rnf targetId
 
-instance Core.ToHeaders AttachPolicy where
+instance Data.ToHeaders AttachPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.AttachPolicy" ::
+              Data.=# ( "AWSOrganizationsV20161128.AttachPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AttachPolicy where
+instance Data.ToJSON AttachPolicy where
   toJSON AttachPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("PolicyId" Core..= policyId),
-            Prelude.Just ("TargetId" Core..= targetId)
+          [ Prelude.Just ("PolicyId" Data..= policyId),
+            Prelude.Just ("TargetId" Data..= targetId)
           ]
       )
 
-instance Core.ToPath AttachPolicy where
+instance Data.ToPath AttachPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AttachPolicy where
+instance Data.ToQuery AttachPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAttachPolicyResponse' smart constructor.

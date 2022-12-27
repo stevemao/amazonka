@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.Types.FileSystemPolicyDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EFS.Types.FileSystemPolicyDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newFileSystemPolicyDescription' smart constructor.
@@ -60,14 +61,14 @@ fileSystemPolicyDescription_fileSystemId = Lens.lens (\FileSystemPolicyDescripti
 fileSystemPolicyDescription_policy :: Lens.Lens' FileSystemPolicyDescription (Prelude.Maybe Prelude.Text)
 fileSystemPolicyDescription_policy = Lens.lens (\FileSystemPolicyDescription' {policy} -> policy) (\s@FileSystemPolicyDescription' {} a -> s {policy = a} :: FileSystemPolicyDescription)
 
-instance Core.FromJSON FileSystemPolicyDescription where
+instance Data.FromJSON FileSystemPolicyDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FileSystemPolicyDescription"
       ( \x ->
           FileSystemPolicyDescription'
-            Prelude.<$> (x Core..:? "FileSystemId")
-            Prelude.<*> (x Core..:? "Policy")
+            Prelude.<$> (x Data..:? "FileSystemId")
+            Prelude.<*> (x Data..:? "Policy")
       )
 
 instance Prelude.Hashable FileSystemPolicyDescription where

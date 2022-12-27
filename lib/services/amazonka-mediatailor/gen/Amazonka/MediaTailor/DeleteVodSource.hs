@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.DeleteVodSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a specific VOD source in a specific source location.
+-- The video on demand (VOD) source to delete.
 module Amazonka.MediaTailor.DeleteVodSource
   ( -- * Creating a Request
     DeleteVodSource (..),
@@ -40,7 +40,8 @@ module Amazonka.MediaTailor.DeleteVodSource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -48,9 +49,9 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteVodSource' smart constructor.
 data DeleteVodSource = DeleteVodSource'
-  { -- | The identifier for the source location you are working on.
+  { -- | The name of the source location associated with this VOD Source.
     sourceLocationName :: Prelude.Text,
-    -- | The identifier for the VOD source you are working on.
+    -- | The name of the VOD source.
     vodSourceName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -63,9 +64,9 @@ data DeleteVodSource = DeleteVodSource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sourceLocationName', 'deleteVodSource_sourceLocationName' - The identifier for the source location you are working on.
+-- 'sourceLocationName', 'deleteVodSource_sourceLocationName' - The name of the source location associated with this VOD Source.
 --
--- 'vodSourceName', 'deleteVodSource_vodSourceName' - The identifier for the VOD source you are working on.
+-- 'vodSourceName', 'deleteVodSource_vodSourceName' - The name of the VOD source.
 newDeleteVodSource ::
   -- | 'sourceLocationName'
   Prelude.Text ->
@@ -81,11 +82,11 @@ newDeleteVodSource
         vodSourceName = pVodSourceName_
       }
 
--- | The identifier for the source location you are working on.
+-- | The name of the source location associated with this VOD Source.
 deleteVodSource_sourceLocationName :: Lens.Lens' DeleteVodSource Prelude.Text
 deleteVodSource_sourceLocationName = Lens.lens (\DeleteVodSource' {sourceLocationName} -> sourceLocationName) (\s@DeleteVodSource' {} a -> s {sourceLocationName = a} :: DeleteVodSource)
 
--- | The identifier for the VOD source you are working on.
+-- | The name of the VOD source.
 deleteVodSource_vodSourceName :: Lens.Lens' DeleteVodSource Prelude.Text
 deleteVodSource_vodSourceName = Lens.lens (\DeleteVodSource' {vodSourceName} -> vodSourceName) (\s@DeleteVodSource' {} a -> s {vodSourceName = a} :: DeleteVodSource)
 
@@ -93,7 +94,8 @@ instance Core.AWSRequest DeleteVodSource where
   type
     AWSResponse DeleteVodSource =
       DeleteVodSourceResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -111,27 +113,27 @@ instance Prelude.NFData DeleteVodSource where
     Prelude.rnf sourceLocationName
       `Prelude.seq` Prelude.rnf vodSourceName
 
-instance Core.ToHeaders DeleteVodSource where
+instance Data.ToHeaders DeleteVodSource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteVodSource where
+instance Data.ToPath DeleteVodSource where
   toPath DeleteVodSource' {..} =
     Prelude.mconcat
       [ "/sourceLocation/",
-        Core.toBS sourceLocationName,
+        Data.toBS sourceLocationName,
         "/vodSource/",
-        Core.toBS vodSourceName
+        Data.toBS vodSourceName
       ]
 
-instance Core.ToQuery DeleteVodSource where
+instance Data.ToQuery DeleteVodSource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteVodSourceResponse' smart constructor.

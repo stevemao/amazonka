@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.GetInsightSummaries
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,11 +28,11 @@ module Amazonka.XRay.GetInsightSummaries
     newGetInsightSummaries,
 
     -- * Request Lenses
-    getInsightSummaries_states,
-    getInsightSummaries_nextToken,
     getInsightSummaries_groupARN,
     getInsightSummaries_groupName,
     getInsightSummaries_maxResults,
+    getInsightSummaries_nextToken,
+    getInsightSummaries_states,
     getInsightSummaries_startTime,
     getInsightSummaries_endTime,
 
@@ -48,7 +48,8 @@ module Amazonka.XRay.GetInsightSummaries
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,23 +57,23 @@ import Amazonka.XRay.Types
 
 -- | /See:/ 'newGetInsightSummaries' smart constructor.
 data GetInsightSummaries = GetInsightSummaries'
-  { -- | The list of insight states.
-    states :: Prelude.Maybe [InsightState],
-    -- | Pagination token.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the group. Required if the GroupName
+  { -- | The Amazon Resource Name (ARN) of the group. Required if the GroupName
     -- isn\'t provided.
     groupARN :: Prelude.Maybe Prelude.Text,
     -- | The name of the group. Required if the GroupARN isn\'t provided.
     groupName :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results to display.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Pagination token.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The list of insight states.
+    states :: Prelude.Maybe [InsightState],
     -- | The beginning of the time frame in which the insights started. The start
     -- time can\'t be more than 30 days old.
-    startTime :: Core.POSIX,
+    startTime :: Data.POSIX,
     -- | The end of the time frame in which the insights ended. The end time
     -- can\'t be more than 30 days old.
-    endTime :: Core.POSIX
+    endTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -84,16 +85,16 @@ data GetInsightSummaries = GetInsightSummaries'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'states', 'getInsightSummaries_states' - The list of insight states.
---
--- 'nextToken', 'getInsightSummaries_nextToken' - Pagination token.
---
 -- 'groupARN', 'getInsightSummaries_groupARN' - The Amazon Resource Name (ARN) of the group. Required if the GroupName
 -- isn\'t provided.
 --
 -- 'groupName', 'getInsightSummaries_groupName' - The name of the group. Required if the GroupARN isn\'t provided.
 --
 -- 'maxResults', 'getInsightSummaries_maxResults' - The maximum number of results to display.
+--
+-- 'nextToken', 'getInsightSummaries_nextToken' - Pagination token.
+--
+-- 'states', 'getInsightSummaries_states' - The list of insight states.
 --
 -- 'startTime', 'getInsightSummaries_startTime' - The beginning of the time frame in which the insights started. The start
 -- time can\'t be more than 30 days old.
@@ -108,22 +109,14 @@ newGetInsightSummaries ::
   GetInsightSummaries
 newGetInsightSummaries pStartTime_ pEndTime_ =
   GetInsightSummaries'
-    { states = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      groupARN = Prelude.Nothing,
+    { groupARN = Prelude.Nothing,
       groupName = Prelude.Nothing,
       maxResults = Prelude.Nothing,
-      startTime = Core._Time Lens.# pStartTime_,
-      endTime = Core._Time Lens.# pEndTime_
+      nextToken = Prelude.Nothing,
+      states = Prelude.Nothing,
+      startTime = Data._Time Lens.# pStartTime_,
+      endTime = Data._Time Lens.# pEndTime_
     }
-
--- | The list of insight states.
-getInsightSummaries_states :: Lens.Lens' GetInsightSummaries (Prelude.Maybe [InsightState])
-getInsightSummaries_states = Lens.lens (\GetInsightSummaries' {states} -> states) (\s@GetInsightSummaries' {} a -> s {states = a} :: GetInsightSummaries) Prelude.. Lens.mapping Lens.coerced
-
--- | Pagination token.
-getInsightSummaries_nextToken :: Lens.Lens' GetInsightSummaries (Prelude.Maybe Prelude.Text)
-getInsightSummaries_nextToken = Lens.lens (\GetInsightSummaries' {nextToken} -> nextToken) (\s@GetInsightSummaries' {} a -> s {nextToken = a} :: GetInsightSummaries)
 
 -- | The Amazon Resource Name (ARN) of the group. Required if the GroupName
 -- isn\'t provided.
@@ -138,73 +131,82 @@ getInsightSummaries_groupName = Lens.lens (\GetInsightSummaries' {groupName} -> 
 getInsightSummaries_maxResults :: Lens.Lens' GetInsightSummaries (Prelude.Maybe Prelude.Natural)
 getInsightSummaries_maxResults = Lens.lens (\GetInsightSummaries' {maxResults} -> maxResults) (\s@GetInsightSummaries' {} a -> s {maxResults = a} :: GetInsightSummaries)
 
+-- | Pagination token.
+getInsightSummaries_nextToken :: Lens.Lens' GetInsightSummaries (Prelude.Maybe Prelude.Text)
+getInsightSummaries_nextToken = Lens.lens (\GetInsightSummaries' {nextToken} -> nextToken) (\s@GetInsightSummaries' {} a -> s {nextToken = a} :: GetInsightSummaries)
+
+-- | The list of insight states.
+getInsightSummaries_states :: Lens.Lens' GetInsightSummaries (Prelude.Maybe [InsightState])
+getInsightSummaries_states = Lens.lens (\GetInsightSummaries' {states} -> states) (\s@GetInsightSummaries' {} a -> s {states = a} :: GetInsightSummaries) Prelude.. Lens.mapping Lens.coerced
+
 -- | The beginning of the time frame in which the insights started. The start
 -- time can\'t be more than 30 days old.
 getInsightSummaries_startTime :: Lens.Lens' GetInsightSummaries Prelude.UTCTime
-getInsightSummaries_startTime = Lens.lens (\GetInsightSummaries' {startTime} -> startTime) (\s@GetInsightSummaries' {} a -> s {startTime = a} :: GetInsightSummaries) Prelude.. Core._Time
+getInsightSummaries_startTime = Lens.lens (\GetInsightSummaries' {startTime} -> startTime) (\s@GetInsightSummaries' {} a -> s {startTime = a} :: GetInsightSummaries) Prelude.. Data._Time
 
 -- | The end of the time frame in which the insights ended. The end time
 -- can\'t be more than 30 days old.
 getInsightSummaries_endTime :: Lens.Lens' GetInsightSummaries Prelude.UTCTime
-getInsightSummaries_endTime = Lens.lens (\GetInsightSummaries' {endTime} -> endTime) (\s@GetInsightSummaries' {} a -> s {endTime = a} :: GetInsightSummaries) Prelude.. Core._Time
+getInsightSummaries_endTime = Lens.lens (\GetInsightSummaries' {endTime} -> endTime) (\s@GetInsightSummaries' {} a -> s {endTime = a} :: GetInsightSummaries) Prelude.. Data._Time
 
 instance Core.AWSRequest GetInsightSummaries where
   type
     AWSResponse GetInsightSummaries =
       GetInsightSummariesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetInsightSummariesResponse'
-            Prelude.<$> ( x Core..?> "InsightSummaries"
+            Prelude.<$> ( x Data..?> "InsightSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetInsightSummaries where
   hashWithSalt _salt GetInsightSummaries' {..} =
-    _salt `Prelude.hashWithSalt` states
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` groupARN
+    _salt `Prelude.hashWithSalt` groupARN
       `Prelude.hashWithSalt` groupName
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` states
       `Prelude.hashWithSalt` startTime
       `Prelude.hashWithSalt` endTime
 
 instance Prelude.NFData GetInsightSummaries where
   rnf GetInsightSummaries' {..} =
-    Prelude.rnf states
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf groupARN
+    Prelude.rnf groupARN
       `Prelude.seq` Prelude.rnf groupName
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf states
       `Prelude.seq` Prelude.rnf startTime
       `Prelude.seq` Prelude.rnf endTime
 
-instance Core.ToHeaders GetInsightSummaries where
+instance Data.ToHeaders GetInsightSummaries where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON GetInsightSummaries where
+instance Data.ToJSON GetInsightSummaries where
   toJSON GetInsightSummaries' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("States" Core..=) Prelude.<$> states,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("GroupARN" Core..=) Prelude.<$> groupARN,
-            ("GroupName" Core..=) Prelude.<$> groupName,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("StartTime" Core..= startTime),
-            Prelude.Just ("EndTime" Core..= endTime)
+          [ ("GroupARN" Data..=) Prelude.<$> groupARN,
+            ("GroupName" Data..=) Prelude.<$> groupName,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("States" Data..=) Prelude.<$> states,
+            Prelude.Just ("StartTime" Data..= startTime),
+            Prelude.Just ("EndTime" Data..= endTime)
           ]
       )
 
-instance Core.ToPath GetInsightSummaries where
+instance Data.ToPath GetInsightSummaries where
   toPath = Prelude.const "/InsightSummaries"
 
-instance Core.ToQuery GetInsightSummaries where
+instance Data.ToQuery GetInsightSummaries where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetInsightSummariesResponse' smart constructor.

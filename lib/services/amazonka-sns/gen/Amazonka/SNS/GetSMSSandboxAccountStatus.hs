@@ -14,22 +14,23 @@
 
 -- |
 -- Module      : Amazonka.SNS.GetSMSSandboxAccountStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the SMS sandbox status for the calling account in the target
--- Region.
+-- Retrieves the SMS sandbox status for the calling Amazon Web Services
+-- account in the target Amazon Web Services Region.
 --
--- When you start using Amazon SNS to send SMS messages, your account is in
--- the /SMS sandbox/. The SMS sandbox provides a safe environment for you
--- to try Amazon SNS features without risking your reputation as an SMS
--- sender. While your account is in the SMS sandbox, you can use all of the
--- features of Amazon SNS. However, you can send SMS messages only to
--- verified destination phone numbers. For more information, including how
--- to move out of the sandbox to send messages without restrictions, see
+-- When you start using Amazon SNS to send SMS messages, your Amazon Web
+-- Services account is in the /SMS sandbox/. The SMS sandbox provides a
+-- safe environment for you to try Amazon SNS features without risking your
+-- reputation as an SMS sender. While your Amazon Web Services account is
+-- in the SMS sandbox, you can use all of the features of Amazon SNS.
+-- However, you can send SMS messages only to verified destination phone
+-- numbers. For more information, including how to move out of the sandbox
+-- to send messages without restrictions, see
 -- <https://docs.aws.amazon.com/sns/latest/dg/sns-sms-sandbox.html SMS sandbox>
 -- in the /Amazon SNS Developer Guide/.
 module Amazonka.SNS.GetSMSSandboxAccountStatus
@@ -48,7 +49,8 @@ module Amazonka.SNS.GetSMSSandboxAccountStatus
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,14 +75,15 @@ instance Core.AWSRequest GetSMSSandboxAccountStatus where
   type
     AWSResponse GetSMSSandboxAccountStatus =
       GetSMSSandboxAccountStatusResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetSMSSandboxAccountStatusResult"
       ( \s h x ->
           GetSMSSandboxAccountStatusResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "IsInSandbox")
+            Prelude.<*> (x Data..@ "IsInSandbox")
       )
 
 instance Prelude.Hashable GetSMSSandboxAccountStatus where
@@ -90,20 +93,20 @@ instance Prelude.Hashable GetSMSSandboxAccountStatus where
 instance Prelude.NFData GetSMSSandboxAccountStatus where
   rnf _ = ()
 
-instance Core.ToHeaders GetSMSSandboxAccountStatus where
+instance Data.ToHeaders GetSMSSandboxAccountStatus where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetSMSSandboxAccountStatus where
+instance Data.ToPath GetSMSSandboxAccountStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetSMSSandboxAccountStatus where
+instance Data.ToQuery GetSMSSandboxAccountStatus where
   toQuery =
     Prelude.const
       ( Prelude.mconcat
           [ "Action"
-              Core.=: ("GetSMSSandboxAccountStatus" :: Prelude.ByteString),
+              Data.=: ("GetSMSSandboxAccountStatus" :: Prelude.ByteString),
             "Version"
-              Core.=: ("2010-03-31" :: Prelude.ByteString)
+              Data.=: ("2010-03-31" :: Prelude.ByteString)
           ]
       )
 
@@ -111,7 +114,8 @@ instance Core.ToQuery GetSMSSandboxAccountStatus where
 data GetSMSSandboxAccountStatusResponse = GetSMSSandboxAccountStatusResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | Indicates whether the calling account is in the SMS sandbox.
+    -- | Indicates whether the calling Amazon Web Services account is in the SMS
+    -- sandbox.
     isInSandbox :: Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -126,7 +130,8 @@ data GetSMSSandboxAccountStatusResponse = GetSMSSandboxAccountStatusResponse'
 --
 -- 'httpStatus', 'getSMSSandboxAccountStatusResponse_httpStatus' - The response's http status code.
 --
--- 'isInSandbox', 'getSMSSandboxAccountStatusResponse_isInSandbox' - Indicates whether the calling account is in the SMS sandbox.
+-- 'isInSandbox', 'getSMSSandboxAccountStatusResponse_isInSandbox' - Indicates whether the calling Amazon Web Services account is in the SMS
+-- sandbox.
 newGetSMSSandboxAccountStatusResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -146,7 +151,8 @@ newGetSMSSandboxAccountStatusResponse
 getSMSSandboxAccountStatusResponse_httpStatus :: Lens.Lens' GetSMSSandboxAccountStatusResponse Prelude.Int
 getSMSSandboxAccountStatusResponse_httpStatus = Lens.lens (\GetSMSSandboxAccountStatusResponse' {httpStatus} -> httpStatus) (\s@GetSMSSandboxAccountStatusResponse' {} a -> s {httpStatus = a} :: GetSMSSandboxAccountStatusResponse)
 
--- | Indicates whether the calling account is in the SMS sandbox.
+-- | Indicates whether the calling Amazon Web Services account is in the SMS
+-- sandbox.
 getSMSSandboxAccountStatusResponse_isInSandbox :: Lens.Lens' GetSMSSandboxAccountStatusResponse Prelude.Bool
 getSMSSandboxAccountStatusResponse_isInSandbox = Lens.lens (\GetSMSSandboxAccountStatusResponse' {isInSandbox} -> isInSandbox) (\s@GetSMSSandboxAccountStatusResponse' {} a -> s {isInSandbox = a} :: GetSMSSandboxAccountStatusResponse)
 

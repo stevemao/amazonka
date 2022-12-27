@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.MediaConcurrency
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Connect.Types.MediaConcurrency where
 
 import Amazonka.Connect.Types.Channel
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about which channels are supported, and how many
@@ -85,14 +86,14 @@ mediaConcurrency_channel = Lens.lens (\MediaConcurrency' {channel} -> channel) (
 mediaConcurrency_concurrency :: Lens.Lens' MediaConcurrency Prelude.Natural
 mediaConcurrency_concurrency = Lens.lens (\MediaConcurrency' {concurrency} -> concurrency) (\s@MediaConcurrency' {} a -> s {concurrency = a} :: MediaConcurrency)
 
-instance Core.FromJSON MediaConcurrency where
+instance Data.FromJSON MediaConcurrency where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MediaConcurrency"
       ( \x ->
           MediaConcurrency'
-            Prelude.<$> (x Core..: "Channel")
-            Prelude.<*> (x Core..: "Concurrency")
+            Prelude.<$> (x Data..: "Channel")
+            Prelude.<*> (x Data..: "Concurrency")
       )
 
 instance Prelude.Hashable MediaConcurrency where
@@ -105,11 +106,11 @@ instance Prelude.NFData MediaConcurrency where
     Prelude.rnf channel
       `Prelude.seq` Prelude.rnf concurrency
 
-instance Core.ToJSON MediaConcurrency where
+instance Data.ToJSON MediaConcurrency where
   toJSON MediaConcurrency' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Channel" Core..= channel),
-            Prelude.Just ("Concurrency" Core..= concurrency)
+          [ Prelude.Just ("Channel" Data..= channel),
+            Prelude.Just ("Concurrency" Data..= concurrency)
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.UpdateContext
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.SageMaker.UpdateContext
     newUpdateContext,
 
     -- * Request Lenses
-    updateContext_propertiesToRemove,
     updateContext_description,
     updateContext_properties,
+    updateContext_propertiesToRemove,
     updateContext_contextName,
 
     -- * Destructuring the Response
@@ -43,7 +43,8 @@ module Amazonka.SageMaker.UpdateContext
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,12 +52,12 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newUpdateContext' smart constructor.
 data UpdateContext = UpdateContext'
-  { -- | A list of properties to remove.
-    propertiesToRemove :: Prelude.Maybe [Prelude.Text],
-    -- | The new description for the context.
+  { -- | The new description for the context.
     description :: Prelude.Maybe Prelude.Text,
     -- | The new list of properties. Overwrites the current property list.
     properties :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | A list of properties to remove.
+    propertiesToRemove :: Prelude.Maybe [Prelude.Text],
     -- | The name of the context to update.
     contextName :: Prelude.Text
   }
@@ -70,11 +71,11 @@ data UpdateContext = UpdateContext'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'propertiesToRemove', 'updateContext_propertiesToRemove' - A list of properties to remove.
---
 -- 'description', 'updateContext_description' - The new description for the context.
 --
 -- 'properties', 'updateContext_properties' - The new list of properties. Overwrites the current property list.
+--
+-- 'propertiesToRemove', 'updateContext_propertiesToRemove' - A list of properties to remove.
 --
 -- 'contextName', 'updateContext_contextName' - The name of the context to update.
 newUpdateContext ::
@@ -83,16 +84,11 @@ newUpdateContext ::
   UpdateContext
 newUpdateContext pContextName_ =
   UpdateContext'
-    { propertiesToRemove =
-        Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
       properties = Prelude.Nothing,
+      propertiesToRemove = Prelude.Nothing,
       contextName = pContextName_
     }
-
--- | A list of properties to remove.
-updateContext_propertiesToRemove :: Lens.Lens' UpdateContext (Prelude.Maybe [Prelude.Text])
-updateContext_propertiesToRemove = Lens.lens (\UpdateContext' {propertiesToRemove} -> propertiesToRemove) (\s@UpdateContext' {} a -> s {propertiesToRemove = a} :: UpdateContext) Prelude.. Lens.mapping Lens.coerced
 
 -- | The new description for the context.
 updateContext_description :: Lens.Lens' UpdateContext (Prelude.Maybe Prelude.Text)
@@ -102,6 +98,10 @@ updateContext_description = Lens.lens (\UpdateContext' {description} -> descript
 updateContext_properties :: Lens.Lens' UpdateContext (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 updateContext_properties = Lens.lens (\UpdateContext' {properties} -> properties) (\s@UpdateContext' {} a -> s {properties = a} :: UpdateContext) Prelude.. Lens.mapping Lens.coerced
 
+-- | A list of properties to remove.
+updateContext_propertiesToRemove :: Lens.Lens' UpdateContext (Prelude.Maybe [Prelude.Text])
+updateContext_propertiesToRemove = Lens.lens (\UpdateContext' {propertiesToRemove} -> propertiesToRemove) (\s@UpdateContext' {} a -> s {propertiesToRemove = a} :: UpdateContext) Prelude.. Lens.mapping Lens.coerced
+
 -- | The name of the context to update.
 updateContext_contextName :: Lens.Lens' UpdateContext Prelude.Text
 updateContext_contextName = Lens.lens (\UpdateContext' {contextName} -> contextName) (\s@UpdateContext' {} a -> s {contextName = a} :: UpdateContext)
@@ -110,58 +110,59 @@ instance Core.AWSRequest UpdateContext where
   type
     AWSResponse UpdateContext =
       UpdateContextResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateContextResponse'
-            Prelude.<$> (x Core..?> "ContextArn")
+            Prelude.<$> (x Data..?> "ContextArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateContext where
   hashWithSalt _salt UpdateContext' {..} =
-    _salt `Prelude.hashWithSalt` propertiesToRemove
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` properties
+      `Prelude.hashWithSalt` propertiesToRemove
       `Prelude.hashWithSalt` contextName
 
 instance Prelude.NFData UpdateContext where
   rnf UpdateContext' {..} =
-    Prelude.rnf propertiesToRemove
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf properties
+      `Prelude.seq` Prelude.rnf propertiesToRemove
       `Prelude.seq` Prelude.rnf contextName
 
-instance Core.ToHeaders UpdateContext where
+instance Data.ToHeaders UpdateContext where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.UpdateContext" :: Prelude.ByteString),
+              Data.=# ("SageMaker.UpdateContext" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateContext where
+instance Data.ToJSON UpdateContext where
   toJSON UpdateContext' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PropertiesToRemove" Core..=)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Properties" Data..=) Prelude.<$> properties,
+            ("PropertiesToRemove" Data..=)
               Prelude.<$> propertiesToRemove,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Properties" Core..=) Prelude.<$> properties,
-            Prelude.Just ("ContextName" Core..= contextName)
+            Prelude.Just ("ContextName" Data..= contextName)
           ]
       )
 
-instance Core.ToPath UpdateContext where
+instance Data.ToPath UpdateContext where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateContext where
+instance Data.ToQuery UpdateContext where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateContextResponse' smart constructor.

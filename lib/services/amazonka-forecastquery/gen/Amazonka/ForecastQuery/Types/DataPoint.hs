@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ForecastQuery.Types.DataPoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.ForecastQuery.Types.DataPoint where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The forecast value for a specific date. Part of the Forecast object.
 --
 -- /See:/ 'newDataPoint' smart constructor.
 data DataPoint = DataPoint'
-  { -- | The forecast value.
-    value :: Prelude.Maybe Prelude.Double,
-    -- | The timestamp of the specific forecast.
-    timestamp :: Prelude.Maybe Prelude.Text
+  { -- | The timestamp of the specific forecast.
+    timestamp :: Prelude.Maybe Prelude.Text,
+    -- | The forecast value.
+    value :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,41 +43,41 @@ data DataPoint = DataPoint'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'dataPoint_value' - The forecast value.
---
 -- 'timestamp', 'dataPoint_timestamp' - The timestamp of the specific forecast.
+--
+-- 'value', 'dataPoint_value' - The forecast value.
 newDataPoint ::
   DataPoint
 newDataPoint =
   DataPoint'
-    { value = Prelude.Nothing,
-      timestamp = Prelude.Nothing
+    { timestamp = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The forecast value.
-dataPoint_value :: Lens.Lens' DataPoint (Prelude.Maybe Prelude.Double)
-dataPoint_value = Lens.lens (\DataPoint' {value} -> value) (\s@DataPoint' {} a -> s {value = a} :: DataPoint)
 
 -- | The timestamp of the specific forecast.
 dataPoint_timestamp :: Lens.Lens' DataPoint (Prelude.Maybe Prelude.Text)
 dataPoint_timestamp = Lens.lens (\DataPoint' {timestamp} -> timestamp) (\s@DataPoint' {} a -> s {timestamp = a} :: DataPoint)
 
-instance Core.FromJSON DataPoint where
+-- | The forecast value.
+dataPoint_value :: Lens.Lens' DataPoint (Prelude.Maybe Prelude.Double)
+dataPoint_value = Lens.lens (\DataPoint' {value} -> value) (\s@DataPoint' {} a -> s {value = a} :: DataPoint)
+
+instance Data.FromJSON DataPoint where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DataPoint"
       ( \x ->
           DataPoint'
-            Prelude.<$> (x Core..:? "Value")
-            Prelude.<*> (x Core..:? "Timestamp")
+            Prelude.<$> (x Data..:? "Timestamp")
+            Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable DataPoint where
   hashWithSalt _salt DataPoint' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` timestamp
+    _salt `Prelude.hashWithSalt` timestamp
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData DataPoint where
   rnf DataPoint' {..} =
-    Prelude.rnf value
-      `Prelude.seq` Prelude.rnf timestamp
+    Prelude.rnf timestamp
+      `Prelude.seq` Prelude.rnf value

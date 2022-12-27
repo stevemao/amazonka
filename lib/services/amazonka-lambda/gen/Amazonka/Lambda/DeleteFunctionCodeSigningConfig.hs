@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.DeleteFunctionCodeSigningConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,9 @@ module Amazonka.Lambda.DeleteFunctionCodeSigningConfig
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,7 +116,8 @@ instance
   type
     AWSResponse DeleteFunctionCodeSigningConfig =
       DeleteFunctionCodeSigningConfigResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteFunctionCodeSigningConfigResponse'
@@ -137,20 +139,20 @@ instance
     Prelude.rnf functionName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteFunctionCodeSigningConfig
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteFunctionCodeSigningConfig where
+instance Data.ToPath DeleteFunctionCodeSigningConfig where
   toPath DeleteFunctionCodeSigningConfig' {..} =
     Prelude.mconcat
       [ "/2020-06-30/functions/",
-        Core.toBS functionName,
+        Data.toBS functionName,
         "/code-signing-config"
       ]
 
-instance Core.ToQuery DeleteFunctionCodeSigningConfig where
+instance Data.ToQuery DeleteFunctionCodeSigningConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFunctionCodeSigningConfigResponse' smart constructor.

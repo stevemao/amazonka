@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.AMP
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,20 +19,11 @@ module Amazonka.AMP
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
 
     -- ** ConflictException
     _ConflictException,
-
-    -- ** ServiceQuotaExceededException
-    _ServiceQuotaExceededException,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
 
     -- ** InternalServerException
     _InternalServerException,
@@ -40,23 +31,26 @@ module Amazonka.AMP
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
+    -- ** ServiceQuotaExceededException
+    _ServiceQuotaExceededException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** ValidationException
+    _ValidationException,
+
     -- * Waiters
     -- $waiters
-
-    -- ** WorkspaceDeleted
-    newWorkspaceDeleted,
 
     -- ** WorkspaceActive
     newWorkspaceActive,
 
+    -- ** WorkspaceDeleted
+    newWorkspaceDeleted,
+
     -- * Operations
     -- $operations
-
-    -- ** ListWorkspaces (Paginated)
-    ListWorkspaces (ListWorkspaces'),
-    newListWorkspaces,
-    ListWorkspacesResponse (ListWorkspacesResponse'),
-    newListWorkspacesResponse,
 
     -- ** CreateAlertManagerDefinition
     CreateAlertManagerDefinition (CreateAlertManagerDefinition'),
@@ -64,17 +58,11 @@ module Amazonka.AMP
     CreateAlertManagerDefinitionResponse (CreateAlertManagerDefinitionResponse'),
     newCreateAlertManagerDefinitionResponse,
 
-    -- ** DeleteWorkspace
-    DeleteWorkspace (DeleteWorkspace'),
-    newDeleteWorkspace,
-    DeleteWorkspaceResponse (DeleteWorkspaceResponse'),
-    newDeleteWorkspaceResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
+    -- ** CreateLoggingConfiguration
+    CreateLoggingConfiguration (CreateLoggingConfiguration'),
+    newCreateLoggingConfiguration,
+    CreateLoggingConfigurationResponse (CreateLoggingConfigurationResponse'),
+    newCreateLoggingConfigurationResponse,
 
     -- ** CreateRuleGroupsNamespace
     CreateRuleGroupsNamespace (CreateRuleGroupsNamespace'),
@@ -82,23 +70,11 @@ module Amazonka.AMP
     CreateRuleGroupsNamespaceResponse (CreateRuleGroupsNamespaceResponse'),
     newCreateRuleGroupsNamespaceResponse,
 
-    -- ** DescribeAlertManagerDefinition
-    DescribeAlertManagerDefinition (DescribeAlertManagerDefinition'),
-    newDescribeAlertManagerDefinition,
-    DescribeAlertManagerDefinitionResponse (DescribeAlertManagerDefinitionResponse'),
-    newDescribeAlertManagerDefinitionResponse,
-
-    -- ** DescribeWorkspace
-    DescribeWorkspace (DescribeWorkspace'),
-    newDescribeWorkspace,
-    DescribeWorkspaceResponse (DescribeWorkspaceResponse'),
-    newDescribeWorkspaceResponse,
-
-    -- ** PutAlertManagerDefinition
-    PutAlertManagerDefinition (PutAlertManagerDefinition'),
-    newPutAlertManagerDefinition,
-    PutAlertManagerDefinitionResponse (PutAlertManagerDefinitionResponse'),
-    newPutAlertManagerDefinitionResponse,
+    -- ** CreateWorkspace
+    CreateWorkspace (CreateWorkspace'),
+    newCreateWorkspace,
+    CreateWorkspaceResponse (CreateWorkspaceResponse'),
+    newCreateWorkspaceResponse,
 
     -- ** DeleteAlertManagerDefinition
     DeleteAlertManagerDefinition (DeleteAlertManagerDefinition'),
@@ -106,17 +82,11 @@ module Amazonka.AMP
     DeleteAlertManagerDefinitionResponse (DeleteAlertManagerDefinitionResponse'),
     newDeleteAlertManagerDefinitionResponse,
 
-    -- ** DescribeRuleGroupsNamespace
-    DescribeRuleGroupsNamespace (DescribeRuleGroupsNamespace'),
-    newDescribeRuleGroupsNamespace,
-    DescribeRuleGroupsNamespaceResponse (DescribeRuleGroupsNamespaceResponse'),
-    newDescribeRuleGroupsNamespaceResponse,
-
-    -- ** UpdateWorkspaceAlias
-    UpdateWorkspaceAlias (UpdateWorkspaceAlias'),
-    newUpdateWorkspaceAlias,
-    UpdateWorkspaceAliasResponse (UpdateWorkspaceAliasResponse'),
-    newUpdateWorkspaceAliasResponse,
+    -- ** DeleteLoggingConfiguration
+    DeleteLoggingConfiguration (DeleteLoggingConfiguration'),
+    newDeleteLoggingConfiguration,
+    DeleteLoggingConfigurationResponse (DeleteLoggingConfigurationResponse'),
+    newDeleteLoggingConfigurationResponse,
 
     -- ** DeleteRuleGroupsNamespace
     DeleteRuleGroupsNamespace (DeleteRuleGroupsNamespace'),
@@ -124,17 +94,65 @@ module Amazonka.AMP
     DeleteRuleGroupsNamespaceResponse (DeleteRuleGroupsNamespaceResponse'),
     newDeleteRuleGroupsNamespaceResponse,
 
-    -- ** PutRuleGroupsNamespace
-    PutRuleGroupsNamespace (PutRuleGroupsNamespace'),
-    newPutRuleGroupsNamespace,
-    PutRuleGroupsNamespaceResponse (PutRuleGroupsNamespaceResponse'),
-    newPutRuleGroupsNamespaceResponse,
+    -- ** DeleteWorkspace
+    DeleteWorkspace (DeleteWorkspace'),
+    newDeleteWorkspace,
+    DeleteWorkspaceResponse (DeleteWorkspaceResponse'),
+    newDeleteWorkspaceResponse,
+
+    -- ** DescribeAlertManagerDefinition
+    DescribeAlertManagerDefinition (DescribeAlertManagerDefinition'),
+    newDescribeAlertManagerDefinition,
+    DescribeAlertManagerDefinitionResponse (DescribeAlertManagerDefinitionResponse'),
+    newDescribeAlertManagerDefinitionResponse,
+
+    -- ** DescribeLoggingConfiguration
+    DescribeLoggingConfiguration (DescribeLoggingConfiguration'),
+    newDescribeLoggingConfiguration,
+    DescribeLoggingConfigurationResponse (DescribeLoggingConfigurationResponse'),
+    newDescribeLoggingConfigurationResponse,
+
+    -- ** DescribeRuleGroupsNamespace
+    DescribeRuleGroupsNamespace (DescribeRuleGroupsNamespace'),
+    newDescribeRuleGroupsNamespace,
+    DescribeRuleGroupsNamespaceResponse (DescribeRuleGroupsNamespaceResponse'),
+    newDescribeRuleGroupsNamespaceResponse,
+
+    -- ** DescribeWorkspace
+    DescribeWorkspace (DescribeWorkspace'),
+    newDescribeWorkspace,
+    DescribeWorkspaceResponse (DescribeWorkspaceResponse'),
+    newDescribeWorkspaceResponse,
 
     -- ** ListRuleGroupsNamespaces (Paginated)
     ListRuleGroupsNamespaces (ListRuleGroupsNamespaces'),
     newListRuleGroupsNamespaces,
     ListRuleGroupsNamespacesResponse (ListRuleGroupsNamespacesResponse'),
     newListRuleGroupsNamespacesResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** ListWorkspaces (Paginated)
+    ListWorkspaces (ListWorkspaces'),
+    newListWorkspaces,
+    ListWorkspacesResponse (ListWorkspacesResponse'),
+    newListWorkspacesResponse,
+
+    -- ** PutAlertManagerDefinition
+    PutAlertManagerDefinition (PutAlertManagerDefinition'),
+    newPutAlertManagerDefinition,
+    PutAlertManagerDefinitionResponse (PutAlertManagerDefinitionResponse'),
+    newPutAlertManagerDefinitionResponse,
+
+    -- ** PutRuleGroupsNamespace
+    PutRuleGroupsNamespace (PutRuleGroupsNamespace'),
+    newPutRuleGroupsNamespace,
+    PutRuleGroupsNamespaceResponse (PutRuleGroupsNamespaceResponse'),
+    newPutRuleGroupsNamespaceResponse,
 
     -- ** TagResource
     TagResource (TagResource'),
@@ -148,16 +166,25 @@ module Amazonka.AMP
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** CreateWorkspace
-    CreateWorkspace (CreateWorkspace'),
-    newCreateWorkspace,
-    CreateWorkspaceResponse (CreateWorkspaceResponse'),
-    newCreateWorkspaceResponse,
+    -- ** UpdateLoggingConfiguration
+    UpdateLoggingConfiguration (UpdateLoggingConfiguration'),
+    newUpdateLoggingConfiguration,
+    UpdateLoggingConfigurationResponse (UpdateLoggingConfigurationResponse'),
+    newUpdateLoggingConfigurationResponse,
+
+    -- ** UpdateWorkspaceAlias
+    UpdateWorkspaceAlias (UpdateWorkspaceAlias'),
+    newUpdateWorkspaceAlias,
+    UpdateWorkspaceAliasResponse (UpdateWorkspaceAliasResponse'),
+    newUpdateWorkspaceAliasResponse,
 
     -- * Types
 
     -- ** AlertManagerDefinitionStatusCode
     AlertManagerDefinitionStatusCode (..),
+
+    -- ** LoggingConfigurationStatusCode
+    LoggingConfigurationStatusCode (..),
 
     -- ** RuleGroupsNamespaceStatusCode
     RuleGroupsNamespaceStatusCode (..),
@@ -172,6 +199,14 @@ module Amazonka.AMP
     -- ** AlertManagerDefinitionStatus
     AlertManagerDefinitionStatus (AlertManagerDefinitionStatus'),
     newAlertManagerDefinitionStatus,
+
+    -- ** LoggingConfigurationMetadata
+    LoggingConfigurationMetadata (LoggingConfigurationMetadata'),
+    newLoggingConfigurationMetadata,
+
+    -- ** LoggingConfigurationStatus
+    LoggingConfigurationStatus (LoggingConfigurationStatus'),
+    newLoggingConfigurationStatus,
 
     -- ** RuleGroupsNamespaceDescription
     RuleGroupsNamespaceDescription (RuleGroupsNamespaceDescription'),
@@ -200,12 +235,15 @@ module Amazonka.AMP
 where
 
 import Amazonka.AMP.CreateAlertManagerDefinition
+import Amazonka.AMP.CreateLoggingConfiguration
 import Amazonka.AMP.CreateRuleGroupsNamespace
 import Amazonka.AMP.CreateWorkspace
 import Amazonka.AMP.DeleteAlertManagerDefinition
+import Amazonka.AMP.DeleteLoggingConfiguration
 import Amazonka.AMP.DeleteRuleGroupsNamespace
 import Amazonka.AMP.DeleteWorkspace
 import Amazonka.AMP.DescribeAlertManagerDefinition
+import Amazonka.AMP.DescribeLoggingConfiguration
 import Amazonka.AMP.DescribeRuleGroupsNamespace
 import Amazonka.AMP.DescribeWorkspace
 import Amazonka.AMP.Lens
@@ -217,6 +255,7 @@ import Amazonka.AMP.PutRuleGroupsNamespace
 import Amazonka.AMP.TagResource
 import Amazonka.AMP.Types
 import Amazonka.AMP.UntagResource
+import Amazonka.AMP.UpdateLoggingConfiguration
 import Amazonka.AMP.UpdateWorkspaceAlias
 import Amazonka.AMP.Waiters
 

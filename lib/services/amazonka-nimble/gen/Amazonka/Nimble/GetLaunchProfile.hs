@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.GetLaunchProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.Nimble.GetLaunchProfile
     newGetLaunchProfile,
 
     -- * Request Lenses
-    getLaunchProfile_studioId,
     getLaunchProfile_launchProfileId,
+    getLaunchProfile_studioId,
 
     -- * Destructuring the Response
     GetLaunchProfileResponse (..),
@@ -41,7 +41,8 @@ module Amazonka.Nimble.GetLaunchProfile
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -49,10 +50,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetLaunchProfile' smart constructor.
 data GetLaunchProfile = GetLaunchProfile'
-  { -- | The studio ID.
-    studioId :: Prelude.Text,
-    -- | The launch profile ID.
-    launchProfileId :: Prelude.Text
+  { -- | The Launch Profile ID.
+    launchProfileId :: Prelude.Text,
+    -- | The studio ID.
+    studioId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -64,73 +65,75 @@ data GetLaunchProfile = GetLaunchProfile'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'studioId', 'getLaunchProfile_studioId' - The studio ID.
+-- 'launchProfileId', 'getLaunchProfile_launchProfileId' - The Launch Profile ID.
 --
--- 'launchProfileId', 'getLaunchProfile_launchProfileId' - The launch profile ID.
+-- 'studioId', 'getLaunchProfile_studioId' - The studio ID.
 newGetLaunchProfile ::
-  -- | 'studioId'
-  Prelude.Text ->
   -- | 'launchProfileId'
   Prelude.Text ->
+  -- | 'studioId'
+  Prelude.Text ->
   GetLaunchProfile
-newGetLaunchProfile pStudioId_ pLaunchProfileId_ =
+newGetLaunchProfile pLaunchProfileId_ pStudioId_ =
   GetLaunchProfile'
-    { studioId = pStudioId_,
-      launchProfileId = pLaunchProfileId_
+    { launchProfileId =
+        pLaunchProfileId_,
+      studioId = pStudioId_
     }
+
+-- | The Launch Profile ID.
+getLaunchProfile_launchProfileId :: Lens.Lens' GetLaunchProfile Prelude.Text
+getLaunchProfile_launchProfileId = Lens.lens (\GetLaunchProfile' {launchProfileId} -> launchProfileId) (\s@GetLaunchProfile' {} a -> s {launchProfileId = a} :: GetLaunchProfile)
 
 -- | The studio ID.
 getLaunchProfile_studioId :: Lens.Lens' GetLaunchProfile Prelude.Text
 getLaunchProfile_studioId = Lens.lens (\GetLaunchProfile' {studioId} -> studioId) (\s@GetLaunchProfile' {} a -> s {studioId = a} :: GetLaunchProfile)
 
--- | The launch profile ID.
-getLaunchProfile_launchProfileId :: Lens.Lens' GetLaunchProfile Prelude.Text
-getLaunchProfile_launchProfileId = Lens.lens (\GetLaunchProfile' {launchProfileId} -> launchProfileId) (\s@GetLaunchProfile' {} a -> s {launchProfileId = a} :: GetLaunchProfile)
-
 instance Core.AWSRequest GetLaunchProfile where
   type
     AWSResponse GetLaunchProfile =
       GetLaunchProfileResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetLaunchProfileResponse'
-            Prelude.<$> (x Core..?> "launchProfile")
+            Prelude.<$> (x Data..?> "launchProfile")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetLaunchProfile where
   hashWithSalt _salt GetLaunchProfile' {..} =
-    _salt `Prelude.hashWithSalt` studioId
-      `Prelude.hashWithSalt` launchProfileId
+    _salt `Prelude.hashWithSalt` launchProfileId
+      `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData GetLaunchProfile where
   rnf GetLaunchProfile' {..} =
-    Prelude.rnf studioId
-      `Prelude.seq` Prelude.rnf launchProfileId
+    Prelude.rnf launchProfileId
+      `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders GetLaunchProfile where
+instance Data.ToHeaders GetLaunchProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetLaunchProfile where
+instance Data.ToPath GetLaunchProfile where
   toPath GetLaunchProfile' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/launch-profiles/",
-        Core.toBS launchProfileId
+        Data.toBS launchProfileId
       ]
 
-instance Core.ToQuery GetLaunchProfile where
+instance Data.ToQuery GetLaunchProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetLaunchProfileResponse' smart constructor.
@@ -140,7 +143,7 @@ data GetLaunchProfileResponse = GetLaunchProfileResponse'
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'GetLaunchProfileResponse' with all optional fields omitted.

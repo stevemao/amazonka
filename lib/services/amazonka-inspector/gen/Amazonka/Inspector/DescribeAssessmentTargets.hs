@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.DescribeAssessmentTargets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.Inspector.DescribeAssessmentTargets
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,16 +86,17 @@ instance Core.AWSRequest DescribeAssessmentTargets where
   type
     AWSResponse DescribeAssessmentTargets =
       DescribeAssessmentTargetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAssessmentTargetsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "assessmentTargets"
+            Prelude.<*> ( x Data..?> "assessmentTargets"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "failedItems" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "failedItems" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable DescribeAssessmentTargets where
@@ -105,36 +107,36 @@ instance Prelude.NFData DescribeAssessmentTargets where
   rnf DescribeAssessmentTargets' {..} =
     Prelude.rnf assessmentTargetArns
 
-instance Core.ToHeaders DescribeAssessmentTargets where
+instance Data.ToHeaders DescribeAssessmentTargets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.DescribeAssessmentTargets" ::
+              Data.=# ( "InspectorService.DescribeAssessmentTargets" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAssessmentTargets where
+instance Data.ToJSON DescribeAssessmentTargets where
   toJSON DescribeAssessmentTargets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "assessmentTargetArns"
-                  Core..= assessmentTargetArns
+                  Data..= assessmentTargetArns
               )
           ]
       )
 
-instance Core.ToPath DescribeAssessmentTargets where
+instance Data.ToPath DescribeAssessmentTargets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAssessmentTargets where
+instance Data.ToQuery DescribeAssessmentTargets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAssessmentTargetsResponse' smart constructor.

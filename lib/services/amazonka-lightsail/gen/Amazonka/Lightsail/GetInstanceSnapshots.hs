@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetInstanceSnapshots
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,14 +36,15 @@ module Amazonka.Lightsail.GetInstanceSnapshots
     newGetInstanceSnapshotsResponse,
 
     -- * Response Lenses
-    getInstanceSnapshotsResponse_nextPageToken,
     getInstanceSnapshotsResponse_instanceSnapshots,
+    getInstanceSnapshotsResponse_nextPageToken,
     getInstanceSnapshotsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -112,15 +113,16 @@ instance Core.AWSRequest GetInstanceSnapshots where
   type
     AWSResponse GetInstanceSnapshots =
       GetInstanceSnapshotsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetInstanceSnapshotsResponse'
-            Prelude.<$> (x Core..?> "nextPageToken")
-            Prelude.<*> ( x Core..?> "instanceSnapshots"
+            Prelude.<$> ( x Data..?> "instanceSnapshots"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "nextPageToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -131,37 +133,40 @@ instance Prelude.Hashable GetInstanceSnapshots where
 instance Prelude.NFData GetInstanceSnapshots where
   rnf GetInstanceSnapshots' {..} = Prelude.rnf pageToken
 
-instance Core.ToHeaders GetInstanceSnapshots where
+instance Data.ToHeaders GetInstanceSnapshots where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetInstanceSnapshots" ::
+              Data.=# ( "Lightsail_20161128.GetInstanceSnapshots" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetInstanceSnapshots where
+instance Data.ToJSON GetInstanceSnapshots where
   toJSON GetInstanceSnapshots' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("pageToken" Core..=) Prelude.<$> pageToken]
+          [("pageToken" Data..=) Prelude.<$> pageToken]
       )
 
-instance Core.ToPath GetInstanceSnapshots where
+instance Data.ToPath GetInstanceSnapshots where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetInstanceSnapshots where
+instance Data.ToQuery GetInstanceSnapshots where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetInstanceSnapshotsResponse' smart constructor.
 data GetInstanceSnapshotsResponse = GetInstanceSnapshotsResponse'
-  { -- | The token to advance to the next page of results from your request.
+  { -- | An array of key-value pairs containing information about the results of
+    -- your get instance snapshots request.
+    instanceSnapshots :: Prelude.Maybe [InstanceSnapshot],
+    -- | The token to advance to the next page of results from your request.
     --
     -- A next page token is not returned if there are no more results to
     -- display.
@@ -169,9 +174,6 @@ data GetInstanceSnapshotsResponse = GetInstanceSnapshotsResponse'
     -- To get the next page of results, perform another @GetInstanceSnapshots@
     -- request and specify the next page token using the @pageToken@ parameter.
     nextPageToken :: Prelude.Maybe Prelude.Text,
-    -- | An array of key-value pairs containing information about the results of
-    -- your get instance snapshots request.
-    instanceSnapshots :: Prelude.Maybe [InstanceSnapshot],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -185,6 +187,9 @@ data GetInstanceSnapshotsResponse = GetInstanceSnapshotsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'instanceSnapshots', 'getInstanceSnapshotsResponse_instanceSnapshots' - An array of key-value pairs containing information about the results of
+-- your get instance snapshots request.
+--
 -- 'nextPageToken', 'getInstanceSnapshotsResponse_nextPageToken' - The token to advance to the next page of results from your request.
 --
 -- A next page token is not returned if there are no more results to
@@ -193,9 +198,6 @@ data GetInstanceSnapshotsResponse = GetInstanceSnapshotsResponse'
 -- To get the next page of results, perform another @GetInstanceSnapshots@
 -- request and specify the next page token using the @pageToken@ parameter.
 --
--- 'instanceSnapshots', 'getInstanceSnapshotsResponse_instanceSnapshots' - An array of key-value pairs containing information about the results of
--- your get instance snapshots request.
---
 -- 'httpStatus', 'getInstanceSnapshotsResponse_httpStatus' - The response's http status code.
 newGetInstanceSnapshotsResponse ::
   -- | 'httpStatus'
@@ -203,11 +205,16 @@ newGetInstanceSnapshotsResponse ::
   GetInstanceSnapshotsResponse
 newGetInstanceSnapshotsResponse pHttpStatus_ =
   GetInstanceSnapshotsResponse'
-    { nextPageToken =
+    { instanceSnapshots =
         Prelude.Nothing,
-      instanceSnapshots = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | An array of key-value pairs containing information about the results of
+-- your get instance snapshots request.
+getInstanceSnapshotsResponse_instanceSnapshots :: Lens.Lens' GetInstanceSnapshotsResponse (Prelude.Maybe [InstanceSnapshot])
+getInstanceSnapshotsResponse_instanceSnapshots = Lens.lens (\GetInstanceSnapshotsResponse' {instanceSnapshots} -> instanceSnapshots) (\s@GetInstanceSnapshotsResponse' {} a -> s {instanceSnapshots = a} :: GetInstanceSnapshotsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to advance to the next page of results from your request.
 --
@@ -219,17 +226,12 @@ newGetInstanceSnapshotsResponse pHttpStatus_ =
 getInstanceSnapshotsResponse_nextPageToken :: Lens.Lens' GetInstanceSnapshotsResponse (Prelude.Maybe Prelude.Text)
 getInstanceSnapshotsResponse_nextPageToken = Lens.lens (\GetInstanceSnapshotsResponse' {nextPageToken} -> nextPageToken) (\s@GetInstanceSnapshotsResponse' {} a -> s {nextPageToken = a} :: GetInstanceSnapshotsResponse)
 
--- | An array of key-value pairs containing information about the results of
--- your get instance snapshots request.
-getInstanceSnapshotsResponse_instanceSnapshots :: Lens.Lens' GetInstanceSnapshotsResponse (Prelude.Maybe [InstanceSnapshot])
-getInstanceSnapshotsResponse_instanceSnapshots = Lens.lens (\GetInstanceSnapshotsResponse' {instanceSnapshots} -> instanceSnapshots) (\s@GetInstanceSnapshotsResponse' {} a -> s {instanceSnapshots = a} :: GetInstanceSnapshotsResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The response's http status code.
 getInstanceSnapshotsResponse_httpStatus :: Lens.Lens' GetInstanceSnapshotsResponse Prelude.Int
 getInstanceSnapshotsResponse_httpStatus = Lens.lens (\GetInstanceSnapshotsResponse' {httpStatus} -> httpStatus) (\s@GetInstanceSnapshotsResponse' {} a -> s {httpStatus = a} :: GetInstanceSnapshotsResponse)
 
 instance Prelude.NFData GetInstanceSnapshotsResponse where
   rnf GetInstanceSnapshotsResponse' {..} =
-    Prelude.rnf nextPageToken
-      `Prelude.seq` Prelude.rnf instanceSnapshots
+    Prelude.rnf instanceSnapshots
+      `Prelude.seq` Prelude.rnf nextPageToken
       `Prelude.seq` Prelude.rnf httpStatus

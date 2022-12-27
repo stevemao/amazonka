@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.DeleteJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DataBrew.DeleteJob
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,13 +75,14 @@ deleteJob_name = Lens.lens (\DeleteJob' {name} -> name) (\s@DeleteJob' {} a -> s
 
 instance Core.AWSRequest DeleteJob where
   type AWSResponse DeleteJob = DeleteJobResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteJobResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Name")
+            Prelude.<*> (x Data..:> "Name")
       )
 
 instance Prelude.Hashable DeleteJob where
@@ -90,22 +92,22 @@ instance Prelude.Hashable DeleteJob where
 instance Prelude.NFData DeleteJob where
   rnf DeleteJob' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteJob where
+instance Data.ToHeaders DeleteJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteJob where
+instance Data.ToPath DeleteJob where
   toPath DeleteJob' {..} =
-    Prelude.mconcat ["/jobs/", Core.toBS name]
+    Prelude.mconcat ["/jobs/", Data.toBS name]
 
-instance Core.ToQuery DeleteJob where
+instance Data.ToQuery DeleteJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteJobResponse' smart constructor.

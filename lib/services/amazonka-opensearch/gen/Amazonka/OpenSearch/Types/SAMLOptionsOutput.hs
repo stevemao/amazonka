@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.SAMLOptionsOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.OpenSearch.Types.SAMLOptionsOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types.SAMLIdp
 import qualified Amazonka.Prelude as Prelude
 
@@ -89,17 +90,17 @@ sAMLOptionsOutput_sessionTimeoutMinutes = Lens.lens (\SAMLOptionsOutput' {sessio
 sAMLOptionsOutput_subjectKey :: Lens.Lens' SAMLOptionsOutput (Prelude.Maybe Prelude.Text)
 sAMLOptionsOutput_subjectKey = Lens.lens (\SAMLOptionsOutput' {subjectKey} -> subjectKey) (\s@SAMLOptionsOutput' {} a -> s {subjectKey = a} :: SAMLOptionsOutput)
 
-instance Core.FromJSON SAMLOptionsOutput where
+instance Data.FromJSON SAMLOptionsOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SAMLOptionsOutput"
       ( \x ->
           SAMLOptionsOutput'
-            Prelude.<$> (x Core..:? "Enabled")
-            Prelude.<*> (x Core..:? "Idp")
-            Prelude.<*> (x Core..:? "RolesKey")
-            Prelude.<*> (x Core..:? "SessionTimeoutMinutes")
-            Prelude.<*> (x Core..:? "SubjectKey")
+            Prelude.<$> (x Data..:? "Enabled")
+            Prelude.<*> (x Data..:? "Idp")
+            Prelude.<*> (x Data..:? "RolesKey")
+            Prelude.<*> (x Data..:? "SessionTimeoutMinutes")
+            Prelude.<*> (x Data..:? "SubjectKey")
       )
 
 instance Prelude.Hashable SAMLOptionsOutput where

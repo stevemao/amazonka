@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Athena.Types.UnprocessedNamedQueryId
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,22 @@
 module Amazonka.Athena.Types.UnprocessedNamedQueryId where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a named query ID that could not be processed.
 --
 -- /See:/ 'newUnprocessedNamedQueryId' smart constructor.
 data UnprocessedNamedQueryId = UnprocessedNamedQueryId'
-  { -- | The unique identifier of the named query.
-    namedQueryId :: Prelude.Maybe Prelude.Text,
-    -- | The error code returned when the processing request for the named query
+  { -- | The error code returned when the processing request for the named query
     -- failed, if applicable.
     errorCode :: Prelude.Maybe Prelude.Text,
     -- | The error message returned when the processing request for the named
     -- query failed, if applicable.
-    errorMessage :: Prelude.Maybe Prelude.Text
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier of the named query.
+    namedQueryId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,26 +47,22 @@ data UnprocessedNamedQueryId = UnprocessedNamedQueryId'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'namedQueryId', 'unprocessedNamedQueryId_namedQueryId' - The unique identifier of the named query.
---
 -- 'errorCode', 'unprocessedNamedQueryId_errorCode' - The error code returned when the processing request for the named query
 -- failed, if applicable.
 --
 -- 'errorMessage', 'unprocessedNamedQueryId_errorMessage' - The error message returned when the processing request for the named
 -- query failed, if applicable.
+--
+-- 'namedQueryId', 'unprocessedNamedQueryId_namedQueryId' - The unique identifier of the named query.
 newUnprocessedNamedQueryId ::
   UnprocessedNamedQueryId
 newUnprocessedNamedQueryId =
   UnprocessedNamedQueryId'
-    { namedQueryId =
+    { errorCode =
         Prelude.Nothing,
-      errorCode = Prelude.Nothing,
-      errorMessage = Prelude.Nothing
+      errorMessage = Prelude.Nothing,
+      namedQueryId = Prelude.Nothing
     }
-
--- | The unique identifier of the named query.
-unprocessedNamedQueryId_namedQueryId :: Lens.Lens' UnprocessedNamedQueryId (Prelude.Maybe Prelude.Text)
-unprocessedNamedQueryId_namedQueryId = Lens.lens (\UnprocessedNamedQueryId' {namedQueryId} -> namedQueryId) (\s@UnprocessedNamedQueryId' {} a -> s {namedQueryId = a} :: UnprocessedNamedQueryId)
 
 -- | The error code returned when the processing request for the named query
 -- failed, if applicable.
@@ -77,25 +74,29 @@ unprocessedNamedQueryId_errorCode = Lens.lens (\UnprocessedNamedQueryId' {errorC
 unprocessedNamedQueryId_errorMessage :: Lens.Lens' UnprocessedNamedQueryId (Prelude.Maybe Prelude.Text)
 unprocessedNamedQueryId_errorMessage = Lens.lens (\UnprocessedNamedQueryId' {errorMessage} -> errorMessage) (\s@UnprocessedNamedQueryId' {} a -> s {errorMessage = a} :: UnprocessedNamedQueryId)
 
-instance Core.FromJSON UnprocessedNamedQueryId where
+-- | The unique identifier of the named query.
+unprocessedNamedQueryId_namedQueryId :: Lens.Lens' UnprocessedNamedQueryId (Prelude.Maybe Prelude.Text)
+unprocessedNamedQueryId_namedQueryId = Lens.lens (\UnprocessedNamedQueryId' {namedQueryId} -> namedQueryId) (\s@UnprocessedNamedQueryId' {} a -> s {namedQueryId = a} :: UnprocessedNamedQueryId)
+
+instance Data.FromJSON UnprocessedNamedQueryId where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UnprocessedNamedQueryId"
       ( \x ->
           UnprocessedNamedQueryId'
-            Prelude.<$> (x Core..:? "NamedQueryId")
-            Prelude.<*> (x Core..:? "ErrorCode")
-            Prelude.<*> (x Core..:? "ErrorMessage")
+            Prelude.<$> (x Data..:? "ErrorCode")
+            Prelude.<*> (x Data..:? "ErrorMessage")
+            Prelude.<*> (x Data..:? "NamedQueryId")
       )
 
 instance Prelude.Hashable UnprocessedNamedQueryId where
   hashWithSalt _salt UnprocessedNamedQueryId' {..} =
-    _salt `Prelude.hashWithSalt` namedQueryId
-      `Prelude.hashWithSalt` errorCode
+    _salt `Prelude.hashWithSalt` errorCode
       `Prelude.hashWithSalt` errorMessage
+      `Prelude.hashWithSalt` namedQueryId
 
 instance Prelude.NFData UnprocessedNamedQueryId where
   rnf UnprocessedNamedQueryId' {..} =
-    Prelude.rnf namedQueryId
-      `Prelude.seq` Prelude.rnf errorCode
+    Prelude.rnf errorCode
       `Prelude.seq` Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf namedQueryId

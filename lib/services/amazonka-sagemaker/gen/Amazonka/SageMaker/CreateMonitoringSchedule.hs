@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateMonitoringSchedule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.SageMaker.CreateMonitoringSchedule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,13 +118,14 @@ instance Core.AWSRequest CreateMonitoringSchedule where
   type
     AWSResponse CreateMonitoringSchedule =
       CreateMonitoringScheduleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateMonitoringScheduleResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "MonitoringScheduleArn")
+            Prelude.<*> (x Data..:> "MonitoringScheduleArn")
       )
 
 instance Prelude.Hashable CreateMonitoringSchedule where
@@ -138,41 +140,41 @@ instance Prelude.NFData CreateMonitoringSchedule where
       `Prelude.seq` Prelude.rnf monitoringScheduleName
       `Prelude.seq` Prelude.rnf monitoringScheduleConfig
 
-instance Core.ToHeaders CreateMonitoringSchedule where
+instance Data.ToHeaders CreateMonitoringSchedule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.CreateMonitoringSchedule" ::
+              Data.=# ( "SageMaker.CreateMonitoringSchedule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateMonitoringSchedule where
+instance Data.ToJSON CreateMonitoringSchedule where
   toJSON CreateMonitoringSchedule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
               ( "MonitoringScheduleName"
-                  Core..= monitoringScheduleName
+                  Data..= monitoringScheduleName
               ),
             Prelude.Just
               ( "MonitoringScheduleConfig"
-                  Core..= monitoringScheduleConfig
+                  Data..= monitoringScheduleConfig
               )
           ]
       )
 
-instance Core.ToPath CreateMonitoringSchedule where
+instance Data.ToPath CreateMonitoringSchedule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateMonitoringSchedule where
+instance Data.ToQuery CreateMonitoringSchedule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateMonitoringScheduleResponse' smart constructor.

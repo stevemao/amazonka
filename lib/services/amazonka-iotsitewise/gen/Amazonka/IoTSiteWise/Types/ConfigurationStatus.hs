@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.ConfigurationStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTSiteWise.Types.ConfigurationStatus where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.ConfigurationErrorDetails
 import Amazonka.IoTSiteWise.Types.ConfigurationState
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains current status information for the configuration.
@@ -65,13 +66,13 @@ configurationStatus_error = Lens.lens (\ConfigurationStatus' {error} -> error) (
 configurationStatus_state :: Lens.Lens' ConfigurationStatus ConfigurationState
 configurationStatus_state = Lens.lens (\ConfigurationStatus' {state} -> state) (\s@ConfigurationStatus' {} a -> s {state = a} :: ConfigurationStatus)
 
-instance Core.FromJSON ConfigurationStatus where
+instance Data.FromJSON ConfigurationStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConfigurationStatus"
       ( \x ->
           ConfigurationStatus'
-            Prelude.<$> (x Core..:? "error") Prelude.<*> (x Core..: "state")
+            Prelude.<$> (x Data..:? "error") Prelude.<*> (x Data..: "state")
       )
 
 instance Prelude.Hashable ConfigurationStatus where

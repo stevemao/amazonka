@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.DescribeComplianceByResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,11 +54,11 @@ module Amazonka.Config.DescribeComplianceByResource
     newDescribeComplianceByResource,
 
     -- * Request Lenses
+    describeComplianceByResource_complianceTypes,
+    describeComplianceByResource_limit,
+    describeComplianceByResource_nextToken,
     describeComplianceByResource_resourceId,
     describeComplianceByResource_resourceType,
-    describeComplianceByResource_complianceTypes,
-    describeComplianceByResource_nextToken,
-    describeComplianceByResource_limit,
 
     -- * Destructuring the Response
     DescribeComplianceByResourceResponse (..),
@@ -73,7 +73,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,7 +83,19 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeComplianceByResource' smart constructor.
 data DescribeComplianceByResource = DescribeComplianceByResource'
-  { -- | The ID of the Amazon Web Services resource for which you want compliance
+  { -- | Filters the results by compliance.
+    --
+    -- The allowed values are @COMPLIANT@, @NON_COMPLIANT@, and
+    -- @INSUFFICIENT_DATA@.
+    complianceTypes :: Prelude.Maybe [ComplianceType],
+    -- | The maximum number of evaluation results returned on each page. The
+    -- default is 10. You cannot specify a number greater than 100. If you
+    -- specify 0, Config uses the default.
+    limit :: Prelude.Maybe Prelude.Natural,
+    -- | The @nextToken@ string returned on a previous page that you use to get
+    -- the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Amazon Web Services resource for which you want compliance
     -- information. You can specify only one resource ID. If you specify a
     -- resource ID, you must also specify a type for @ResourceType@.
     resourceId :: Prelude.Maybe Prelude.Text,
@@ -90,19 +103,7 @@ data DescribeComplianceByResource = DescribeComplianceByResource'
     -- information (for example, @AWS::EC2::Instance@). For this action, you
     -- can specify that the resource type is an Amazon Web Services account by
     -- specifying @AWS::::Account@.
-    resourceType :: Prelude.Maybe Prelude.Text,
-    -- | Filters the results by compliance.
-    --
-    -- The allowed values are @COMPLIANT@, @NON_COMPLIANT@, and
-    -- @INSUFFICIENT_DATA@.
-    complianceTypes :: Prelude.Maybe [ComplianceType],
-    -- | The @nextToken@ string returned on a previous page that you use to get
-    -- the next page of results in a paginated response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of evaluation results returned on each page. The
-    -- default is 10. You cannot specify a number greater than 100. If you
-    -- specify 0, Config uses the default.
-    limit :: Prelude.Maybe Prelude.Natural
+    resourceType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -114,6 +115,18 @@ data DescribeComplianceByResource = DescribeComplianceByResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'complianceTypes', 'describeComplianceByResource_complianceTypes' - Filters the results by compliance.
+--
+-- The allowed values are @COMPLIANT@, @NON_COMPLIANT@, and
+-- @INSUFFICIENT_DATA@.
+--
+-- 'limit', 'describeComplianceByResource_limit' - The maximum number of evaluation results returned on each page. The
+-- default is 10. You cannot specify a number greater than 100. If you
+-- specify 0, Config uses the default.
+--
+-- 'nextToken', 'describeComplianceByResource_nextToken' - The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+--
 -- 'resourceId', 'describeComplianceByResource_resourceId' - The ID of the Amazon Web Services resource for which you want compliance
 -- information. You can specify only one resource ID. If you specify a
 -- resource ID, you must also specify a type for @ResourceType@.
@@ -122,29 +135,35 @@ data DescribeComplianceByResource = DescribeComplianceByResource'
 -- information (for example, @AWS::EC2::Instance@). For this action, you
 -- can specify that the resource type is an Amazon Web Services account by
 -- specifying @AWS::::Account@.
---
--- 'complianceTypes', 'describeComplianceByResource_complianceTypes' - Filters the results by compliance.
---
--- The allowed values are @COMPLIANT@, @NON_COMPLIANT@, and
--- @INSUFFICIENT_DATA@.
---
--- 'nextToken', 'describeComplianceByResource_nextToken' - The @nextToken@ string returned on a previous page that you use to get
--- the next page of results in a paginated response.
---
--- 'limit', 'describeComplianceByResource_limit' - The maximum number of evaluation results returned on each page. The
--- default is 10. You cannot specify a number greater than 100. If you
--- specify 0, Config uses the default.
 newDescribeComplianceByResource ::
   DescribeComplianceByResource
 newDescribeComplianceByResource =
   DescribeComplianceByResource'
-    { resourceId =
+    { complianceTypes =
         Prelude.Nothing,
-      resourceType = Prelude.Nothing,
-      complianceTypes = Prelude.Nothing,
+      limit = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      limit = Prelude.Nothing
+      resourceId = Prelude.Nothing,
+      resourceType = Prelude.Nothing
     }
+
+-- | Filters the results by compliance.
+--
+-- The allowed values are @COMPLIANT@, @NON_COMPLIANT@, and
+-- @INSUFFICIENT_DATA@.
+describeComplianceByResource_complianceTypes :: Lens.Lens' DescribeComplianceByResource (Prelude.Maybe [ComplianceType])
+describeComplianceByResource_complianceTypes = Lens.lens (\DescribeComplianceByResource' {complianceTypes} -> complianceTypes) (\s@DescribeComplianceByResource' {} a -> s {complianceTypes = a} :: DescribeComplianceByResource) Prelude.. Lens.mapping Lens.coerced
+
+-- | The maximum number of evaluation results returned on each page. The
+-- default is 10. You cannot specify a number greater than 100. If you
+-- specify 0, Config uses the default.
+describeComplianceByResource_limit :: Lens.Lens' DescribeComplianceByResource (Prelude.Maybe Prelude.Natural)
+describeComplianceByResource_limit = Lens.lens (\DescribeComplianceByResource' {limit} -> limit) (\s@DescribeComplianceByResource' {} a -> s {limit = a} :: DescribeComplianceByResource)
+
+-- | The @nextToken@ string returned on a previous page that you use to get
+-- the next page of results in a paginated response.
+describeComplianceByResource_nextToken :: Lens.Lens' DescribeComplianceByResource (Prelude.Maybe Prelude.Text)
+describeComplianceByResource_nextToken = Lens.lens (\DescribeComplianceByResource' {nextToken} -> nextToken) (\s@DescribeComplianceByResource' {} a -> s {nextToken = a} :: DescribeComplianceByResource)
 
 -- | The ID of the Amazon Web Services resource for which you want compliance
 -- information. You can specify only one resource ID. If you specify a
@@ -158,24 +177,6 @@ describeComplianceByResource_resourceId = Lens.lens (\DescribeComplianceByResour
 -- specifying @AWS::::Account@.
 describeComplianceByResource_resourceType :: Lens.Lens' DescribeComplianceByResource (Prelude.Maybe Prelude.Text)
 describeComplianceByResource_resourceType = Lens.lens (\DescribeComplianceByResource' {resourceType} -> resourceType) (\s@DescribeComplianceByResource' {} a -> s {resourceType = a} :: DescribeComplianceByResource)
-
--- | Filters the results by compliance.
---
--- The allowed values are @COMPLIANT@, @NON_COMPLIANT@, and
--- @INSUFFICIENT_DATA@.
-describeComplianceByResource_complianceTypes :: Lens.Lens' DescribeComplianceByResource (Prelude.Maybe [ComplianceType])
-describeComplianceByResource_complianceTypes = Lens.lens (\DescribeComplianceByResource' {complianceTypes} -> complianceTypes) (\s@DescribeComplianceByResource' {} a -> s {complianceTypes = a} :: DescribeComplianceByResource) Prelude.. Lens.mapping Lens.coerced
-
--- | The @nextToken@ string returned on a previous page that you use to get
--- the next page of results in a paginated response.
-describeComplianceByResource_nextToken :: Lens.Lens' DescribeComplianceByResource (Prelude.Maybe Prelude.Text)
-describeComplianceByResource_nextToken = Lens.lens (\DescribeComplianceByResource' {nextToken} -> nextToken) (\s@DescribeComplianceByResource' {} a -> s {nextToken = a} :: DescribeComplianceByResource)
-
--- | The maximum number of evaluation results returned on each page. The
--- default is 10. You cannot specify a number greater than 100. If you
--- specify 0, Config uses the default.
-describeComplianceByResource_limit :: Lens.Lens' DescribeComplianceByResource (Prelude.Maybe Prelude.Natural)
-describeComplianceByResource_limit = Lens.lens (\DescribeComplianceByResource' {limit} -> limit) (\s@DescribeComplianceByResource' {} a -> s {limit = a} :: DescribeComplianceByResource)
 
 instance Core.AWSPager DescribeComplianceByResource where
   page rq rs
@@ -203,15 +204,16 @@ instance Core.AWSRequest DescribeComplianceByResource where
   type
     AWSResponse DescribeComplianceByResource =
       DescribeComplianceByResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeComplianceByResourceResponse'
-            Prelude.<$> ( x Core..?> "ComplianceByResources"
+            Prelude.<$> ( x Data..?> "ComplianceByResources"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -220,52 +222,52 @@ instance
     DescribeComplianceByResource
   where
   hashWithSalt _salt DescribeComplianceByResource' {..} =
-    _salt `Prelude.hashWithSalt` resourceId
-      `Prelude.hashWithSalt` resourceType
-      `Prelude.hashWithSalt` complianceTypes
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` complianceTypes
       `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` resourceId
+      `Prelude.hashWithSalt` resourceType
 
 instance Prelude.NFData DescribeComplianceByResource where
   rnf DescribeComplianceByResource' {..} =
-    Prelude.rnf resourceId
-      `Prelude.seq` Prelude.rnf resourceType
-      `Prelude.seq` Prelude.rnf complianceTypes
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf complianceTypes
       `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf resourceId
+      `Prelude.seq` Prelude.rnf resourceType
 
-instance Core.ToHeaders DescribeComplianceByResource where
+instance Data.ToHeaders DescribeComplianceByResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.DescribeComplianceByResource" ::
+              Data.=# ( "StarlingDoveService.DescribeComplianceByResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeComplianceByResource where
+instance Data.ToJSON DescribeComplianceByResource where
   toJSON DescribeComplianceByResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ResourceId" Core..=) Prelude.<$> resourceId,
-            ("ResourceType" Core..=) Prelude.<$> resourceType,
-            ("ComplianceTypes" Core..=)
+          [ ("ComplianceTypes" Data..=)
               Prelude.<$> complianceTypes,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("ResourceId" Data..=) Prelude.<$> resourceId,
+            ("ResourceType" Data..=) Prelude.<$> resourceType
           ]
       )
 
-instance Core.ToPath DescribeComplianceByResource where
+instance Data.ToPath DescribeComplianceByResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeComplianceByResource where
+instance Data.ToQuery DescribeComplianceByResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- |

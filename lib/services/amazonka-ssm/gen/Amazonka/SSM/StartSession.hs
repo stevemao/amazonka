@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.SSM.StartSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Initiates a connection to a target (for example, an instance) for a
+-- Initiates a connection to a target (for example, a managed node) for a
 -- Session Manager session. Returns a URL and token that can be used to
 -- open a WebSocket connection for sending input and receiving outputs.
 --
@@ -41,6 +41,7 @@ module Amazonka.SSM.StartSession
     -- * Request Lenses
     startSession_documentName,
     startSession_parameters,
+    startSession_reason,
     startSession_target,
 
     -- * Destructuring the Response
@@ -48,15 +49,16 @@ module Amazonka.SSM.StartSession
     newStartSessionResponse,
 
     -- * Response Lenses
+    startSessionResponse_sessionId,
     startSessionResponse_streamUrl,
     startSessionResponse_tokenValue,
-    startSessionResponse_sessionId,
     startSessionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,15 +66,23 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newStartSession' smart constructor.
 data StartSession = StartSession'
-  { -- | The name of the SSM document to define the parameters and plugin
-    -- settings for the session. For example, @SSM-SessionManagerRunShell@. You
-    -- can call the GetDocument API to verify the document exists before
-    -- attempting to start a session. If no document name is provided, a shell
-    -- to the instance is launched by default.
+  { -- | The name of the SSM document you want to use to define the type of
+    -- session, input parameters, or preferences for the session. For example,
+    -- @SSM-SessionManagerRunShell@. You can call the GetDocument API to verify
+    -- the document exists before attempting to start a session. If no document
+    -- name is provided, a shell to the managed node is launched by default.
+    -- For more information, see
+    -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html Start a session>
+    -- in the /Amazon Web Services Systems Manager User Guide/.
     documentName :: Prelude.Maybe Prelude.Text,
-    -- | Reserved for future use.
+    -- | The values you want to specify for the parameters defined in the Session
+    -- document.
     parameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]),
-    -- | The instance to connect to for the session.
+    -- | The reason for connecting to the instance. This value is included in the
+    -- details for the Amazon CloudWatch Events event created when you start
+    -- the session.
+    reason :: Prelude.Maybe Prelude.Text,
+    -- | The managed node to connect to for the session.
     target :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -85,15 +95,23 @@ data StartSession = StartSession'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'documentName', 'startSession_documentName' - The name of the SSM document to define the parameters and plugin
--- settings for the session. For example, @SSM-SessionManagerRunShell@. You
--- can call the GetDocument API to verify the document exists before
--- attempting to start a session. If no document name is provided, a shell
--- to the instance is launched by default.
+-- 'documentName', 'startSession_documentName' - The name of the SSM document you want to use to define the type of
+-- session, input parameters, or preferences for the session. For example,
+-- @SSM-SessionManagerRunShell@. You can call the GetDocument API to verify
+-- the document exists before attempting to start a session. If no document
+-- name is provided, a shell to the managed node is launched by default.
+-- For more information, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html Start a session>
+-- in the /Amazon Web Services Systems Manager User Guide/.
 --
--- 'parameters', 'startSession_parameters' - Reserved for future use.
+-- 'parameters', 'startSession_parameters' - The values you want to specify for the parameters defined in the Session
+-- document.
 --
--- 'target', 'startSession_target' - The instance to connect to for the session.
+-- 'reason', 'startSession_reason' - The reason for connecting to the instance. This value is included in the
+-- details for the Amazon CloudWatch Events event created when you start
+-- the session.
+--
+-- 'target', 'startSession_target' - The managed node to connect to for the session.
 newStartSession ::
   -- | 'target'
   Prelude.Text ->
@@ -102,35 +120,47 @@ newStartSession pTarget_ =
   StartSession'
     { documentName = Prelude.Nothing,
       parameters = Prelude.Nothing,
+      reason = Prelude.Nothing,
       target = pTarget_
     }
 
--- | The name of the SSM document to define the parameters and plugin
--- settings for the session. For example, @SSM-SessionManagerRunShell@. You
--- can call the GetDocument API to verify the document exists before
--- attempting to start a session. If no document name is provided, a shell
--- to the instance is launched by default.
+-- | The name of the SSM document you want to use to define the type of
+-- session, input parameters, or preferences for the session. For example,
+-- @SSM-SessionManagerRunShell@. You can call the GetDocument API to verify
+-- the document exists before attempting to start a session. If no document
+-- name is provided, a shell to the managed node is launched by default.
+-- For more information, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager-working-with-sessions-start.html Start a session>
+-- in the /Amazon Web Services Systems Manager User Guide/.
 startSession_documentName :: Lens.Lens' StartSession (Prelude.Maybe Prelude.Text)
 startSession_documentName = Lens.lens (\StartSession' {documentName} -> documentName) (\s@StartSession' {} a -> s {documentName = a} :: StartSession)
 
--- | Reserved for future use.
+-- | The values you want to specify for the parameters defined in the Session
+-- document.
 startSession_parameters :: Lens.Lens' StartSession (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
 startSession_parameters = Lens.lens (\StartSession' {parameters} -> parameters) (\s@StartSession' {} a -> s {parameters = a} :: StartSession) Prelude.. Lens.mapping Lens.coerced
 
--- | The instance to connect to for the session.
+-- | The reason for connecting to the instance. This value is included in the
+-- details for the Amazon CloudWatch Events event created when you start
+-- the session.
+startSession_reason :: Lens.Lens' StartSession (Prelude.Maybe Prelude.Text)
+startSession_reason = Lens.lens (\StartSession' {reason} -> reason) (\s@StartSession' {} a -> s {reason = a} :: StartSession)
+
+-- | The managed node to connect to for the session.
 startSession_target :: Lens.Lens' StartSession Prelude.Text
 startSession_target = Lens.lens (\StartSession' {target} -> target) (\s@StartSession' {} a -> s {target = a} :: StartSession)
 
 instance Core.AWSRequest StartSession where
   type AWSResponse StartSession = StartSessionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartSessionResponse'
-            Prelude.<$> (x Core..?> "StreamUrl")
-            Prelude.<*> (x Core..?> "TokenValue")
-            Prelude.<*> (x Core..?> "SessionId")
+            Prelude.<$> (x Data..?> "SessionId")
+            Prelude.<*> (x Data..?> "StreamUrl")
+            Prelude.<*> (x Data..?> "TokenValue")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -138,47 +168,52 @@ instance Prelude.Hashable StartSession where
   hashWithSalt _salt StartSession' {..} =
     _salt `Prelude.hashWithSalt` documentName
       `Prelude.hashWithSalt` parameters
+      `Prelude.hashWithSalt` reason
       `Prelude.hashWithSalt` target
 
 instance Prelude.NFData StartSession where
   rnf StartSession' {..} =
     Prelude.rnf documentName
       `Prelude.seq` Prelude.rnf parameters
+      `Prelude.seq` Prelude.rnf reason
       `Prelude.seq` Prelude.rnf target
 
-instance Core.ToHeaders StartSession where
+instance Data.ToHeaders StartSession where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonSSM.StartSession" :: Prelude.ByteString),
+              Data.=# ("AmazonSSM.StartSession" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartSession where
+instance Data.ToJSON StartSession where
   toJSON StartSession' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DocumentName" Core..=) Prelude.<$> documentName,
-            ("Parameters" Core..=) Prelude.<$> parameters,
-            Prelude.Just ("Target" Core..= target)
+          [ ("DocumentName" Data..=) Prelude.<$> documentName,
+            ("Parameters" Data..=) Prelude.<$> parameters,
+            ("Reason" Data..=) Prelude.<$> reason,
+            Prelude.Just ("Target" Data..= target)
           ]
       )
 
-instance Core.ToPath StartSession where
+instance Data.ToPath StartSession where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartSession where
+instance Data.ToQuery StartSession where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartSessionResponse' smart constructor.
 data StartSessionResponse = StartSessionResponse'
-  { -- | A URL back to SSM Agent on the instance that the Session Manager client
-    -- uses to send commands and receive output from the instance. Format:
+  { -- | The ID of the session.
+    sessionId :: Prelude.Maybe Prelude.Text,
+    -- | A URL back to SSM Agent on the managed node that the Session Manager
+    -- client uses to send commands and receive output from the node. Format:
     -- @wss:\/\/ssmmessages.region.amazonaws.com\/v1\/data-channel\/session-id?stream=(input|output)@
     --
     -- __region__ represents the Region identifier for an Amazon Web Services
@@ -191,11 +226,11 @@ data StartSessionResponse = StartSessionResponse'
     -- __session-id__ represents the ID of a Session Manager session, such as
     -- @1a2b3c4dEXAMPLE@.
     streamUrl :: Prelude.Maybe Prelude.Text,
-    -- | An encrypted token value containing session and caller information. Used
-    -- to authenticate the connection to the instance.
+    -- | An encrypted token value containing session and caller information. This
+    -- token is used to authenticate the connection to the managed node, and is
+    -- valid only long enough to ensure the connection is successful. Never
+    -- share your session\'s token.
     tokenValue :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the session.
-    sessionId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -209,8 +244,10 @@ data StartSessionResponse = StartSessionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'streamUrl', 'startSessionResponse_streamUrl' - A URL back to SSM Agent on the instance that the Session Manager client
--- uses to send commands and receive output from the instance. Format:
+-- 'sessionId', 'startSessionResponse_sessionId' - The ID of the session.
+--
+-- 'streamUrl', 'startSessionResponse_streamUrl' - A URL back to SSM Agent on the managed node that the Session Manager
+-- client uses to send commands and receive output from the node. Format:
 -- @wss:\/\/ssmmessages.region.amazonaws.com\/v1\/data-channel\/session-id?stream=(input|output)@
 --
 -- __region__ represents the Region identifier for an Amazon Web Services
@@ -223,10 +260,10 @@ data StartSessionResponse = StartSessionResponse'
 -- __session-id__ represents the ID of a Session Manager session, such as
 -- @1a2b3c4dEXAMPLE@.
 --
--- 'tokenValue', 'startSessionResponse_tokenValue' - An encrypted token value containing session and caller information. Used
--- to authenticate the connection to the instance.
---
--- 'sessionId', 'startSessionResponse_sessionId' - The ID of the session.
+-- 'tokenValue', 'startSessionResponse_tokenValue' - An encrypted token value containing session and caller information. This
+-- token is used to authenticate the connection to the managed node, and is
+-- valid only long enough to ensure the connection is successful. Never
+-- share your session\'s token.
 --
 -- 'httpStatus', 'startSessionResponse_httpStatus' - The response's http status code.
 newStartSessionResponse ::
@@ -235,14 +272,18 @@ newStartSessionResponse ::
   StartSessionResponse
 newStartSessionResponse pHttpStatus_ =
   StartSessionResponse'
-    { streamUrl = Prelude.Nothing,
+    { sessionId = Prelude.Nothing,
+      streamUrl = Prelude.Nothing,
       tokenValue = Prelude.Nothing,
-      sessionId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | A URL back to SSM Agent on the instance that the Session Manager client
--- uses to send commands and receive output from the instance. Format:
+-- | The ID of the session.
+startSessionResponse_sessionId :: Lens.Lens' StartSessionResponse (Prelude.Maybe Prelude.Text)
+startSessionResponse_sessionId = Lens.lens (\StartSessionResponse' {sessionId} -> sessionId) (\s@StartSessionResponse' {} a -> s {sessionId = a} :: StartSessionResponse)
+
+-- | A URL back to SSM Agent on the managed node that the Session Manager
+-- client uses to send commands and receive output from the node. Format:
 -- @wss:\/\/ssmmessages.region.amazonaws.com\/v1\/data-channel\/session-id?stream=(input|output)@
 --
 -- __region__ represents the Region identifier for an Amazon Web Services
@@ -257,14 +298,12 @@ newStartSessionResponse pHttpStatus_ =
 startSessionResponse_streamUrl :: Lens.Lens' StartSessionResponse (Prelude.Maybe Prelude.Text)
 startSessionResponse_streamUrl = Lens.lens (\StartSessionResponse' {streamUrl} -> streamUrl) (\s@StartSessionResponse' {} a -> s {streamUrl = a} :: StartSessionResponse)
 
--- | An encrypted token value containing session and caller information. Used
--- to authenticate the connection to the instance.
+-- | An encrypted token value containing session and caller information. This
+-- token is used to authenticate the connection to the managed node, and is
+-- valid only long enough to ensure the connection is successful. Never
+-- share your session\'s token.
 startSessionResponse_tokenValue :: Lens.Lens' StartSessionResponse (Prelude.Maybe Prelude.Text)
 startSessionResponse_tokenValue = Lens.lens (\StartSessionResponse' {tokenValue} -> tokenValue) (\s@StartSessionResponse' {} a -> s {tokenValue = a} :: StartSessionResponse)
-
--- | The ID of the session.
-startSessionResponse_sessionId :: Lens.Lens' StartSessionResponse (Prelude.Maybe Prelude.Text)
-startSessionResponse_sessionId = Lens.lens (\StartSessionResponse' {sessionId} -> sessionId) (\s@StartSessionResponse' {} a -> s {sessionId = a} :: StartSessionResponse)
 
 -- | The response's http status code.
 startSessionResponse_httpStatus :: Lens.Lens' StartSessionResponse Prelude.Int
@@ -272,7 +311,7 @@ startSessionResponse_httpStatus = Lens.lens (\StartSessionResponse' {httpStatus}
 
 instance Prelude.NFData StartSessionResponse where
   rnf StartSessionResponse' {..} =
-    Prelude.rnf streamUrl
+    Prelude.rnf sessionId
+      `Prelude.seq` Prelude.rnf streamUrl
       `Prelude.seq` Prelude.rnf tokenValue
-      `Prelude.seq` Prelude.rnf sessionId
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.UpdateConstraint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.ServiceCatalog.UpdateConstraint
 
     -- * Request Lenses
     updateConstraint_acceptLanguage,
-    updateConstraint_parameters,
     updateConstraint_description,
+    updateConstraint_parameters,
     updateConstraint_id,
 
     -- * Destructuring the Response
@@ -37,15 +37,16 @@ module Amazonka.ServiceCatalog.UpdateConstraint
     newUpdateConstraintResponse,
 
     -- * Response Lenses
-    updateConstraintResponse_status,
     updateConstraintResponse_constraintDetail,
     updateConstraintResponse_constraintParameters,
+    updateConstraintResponse_status,
     updateConstraintResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,6 +62,8 @@ data UpdateConstraint = UpdateConstraint'
     --
     -- -   @zh@ - Chinese
     acceptLanguage :: Prelude.Maybe Prelude.Text,
+    -- | The updated description of the constraint.
+    description :: Prelude.Maybe Prelude.Text,
     -- | The constraint parameters, in JSON format. The syntax depends on the
     -- constraint type as follows:
     --
@@ -114,15 +117,13 @@ data UpdateConstraint = UpdateConstraint'
     --     You also cannot have more than one @STACKSET@ constraint on a
     --     product and portfolio.
     --
-    --     Products with a @STACKSET@ constraint will launch an AWS
-    --     CloudFormation stack set.
+    --     Products with a @STACKSET@ constraint will launch an CloudFormation
+    --     stack set.
     --
     -- [TEMPLATE]
     --     Specify the @Rules@ property. For more information, see
     --     <http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html Template Constraint Rules>.
     parameters :: Prelude.Maybe Prelude.Text,
-    -- | The updated description of the constraint.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The identifier of the constraint.
     id :: Prelude.Text
   }
@@ -143,6 +144,8 @@ data UpdateConstraint = UpdateConstraint'
 -- -   @jp@ - Japanese
 --
 -- -   @zh@ - Chinese
+--
+-- 'description', 'updateConstraint_description' - The updated description of the constraint.
 --
 -- 'parameters', 'updateConstraint_parameters' - The constraint parameters, in JSON format. The syntax depends on the
 -- constraint type as follows:
@@ -197,14 +200,12 @@ data UpdateConstraint = UpdateConstraint'
 --     You also cannot have more than one @STACKSET@ constraint on a
 --     product and portfolio.
 --
---     Products with a @STACKSET@ constraint will launch an AWS
---     CloudFormation stack set.
+--     Products with a @STACKSET@ constraint will launch an CloudFormation
+--     stack set.
 --
 -- [TEMPLATE]
 --     Specify the @Rules@ property. For more information, see
 --     <http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html Template Constraint Rules>.
---
--- 'description', 'updateConstraint_description' - The updated description of the constraint.
 --
 -- 'id', 'updateConstraint_id' - The identifier of the constraint.
 newUpdateConstraint ::
@@ -214,8 +215,8 @@ newUpdateConstraint ::
 newUpdateConstraint pId_ =
   UpdateConstraint'
     { acceptLanguage = Prelude.Nothing,
-      parameters = Prelude.Nothing,
       description = Prelude.Nothing,
+      parameters = Prelude.Nothing,
       id = pId_
     }
 
@@ -228,6 +229,10 @@ newUpdateConstraint pId_ =
 -- -   @zh@ - Chinese
 updateConstraint_acceptLanguage :: Lens.Lens' UpdateConstraint (Prelude.Maybe Prelude.Text)
 updateConstraint_acceptLanguage = Lens.lens (\UpdateConstraint' {acceptLanguage} -> acceptLanguage) (\s@UpdateConstraint' {} a -> s {acceptLanguage = a} :: UpdateConstraint)
+
+-- | The updated description of the constraint.
+updateConstraint_description :: Lens.Lens' UpdateConstraint (Prelude.Maybe Prelude.Text)
+updateConstraint_description = Lens.lens (\UpdateConstraint' {description} -> description) (\s@UpdateConstraint' {} a -> s {description = a} :: UpdateConstraint)
 
 -- | The constraint parameters, in JSON format. The syntax depends on the
 -- constraint type as follows:
@@ -282,18 +287,14 @@ updateConstraint_acceptLanguage = Lens.lens (\UpdateConstraint' {acceptLanguage}
 --     You also cannot have more than one @STACKSET@ constraint on a
 --     product and portfolio.
 --
---     Products with a @STACKSET@ constraint will launch an AWS
---     CloudFormation stack set.
+--     Products with a @STACKSET@ constraint will launch an CloudFormation
+--     stack set.
 --
 -- [TEMPLATE]
 --     Specify the @Rules@ property. For more information, see
 --     <http://docs.aws.amazon.com/servicecatalog/latest/adminguide/reference-template_constraint_rules.html Template Constraint Rules>.
 updateConstraint_parameters :: Lens.Lens' UpdateConstraint (Prelude.Maybe Prelude.Text)
 updateConstraint_parameters = Lens.lens (\UpdateConstraint' {parameters} -> parameters) (\s@UpdateConstraint' {} a -> s {parameters = a} :: UpdateConstraint)
-
--- | The updated description of the constraint.
-updateConstraint_description :: Lens.Lens' UpdateConstraint (Prelude.Maybe Prelude.Text)
-updateConstraint_description = Lens.lens (\UpdateConstraint' {description} -> description) (\s@UpdateConstraint' {} a -> s {description = a} :: UpdateConstraint)
 
 -- | The identifier of the constraint.
 updateConstraint_id :: Lens.Lens' UpdateConstraint Prelude.Text
@@ -303,72 +304,73 @@ instance Core.AWSRequest UpdateConstraint where
   type
     AWSResponse UpdateConstraint =
       UpdateConstraintResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateConstraintResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "ConstraintDetail")
-            Prelude.<*> (x Core..?> "ConstraintParameters")
+            Prelude.<$> (x Data..?> "ConstraintDetail")
+            Prelude.<*> (x Data..?> "ConstraintParameters")
+            Prelude.<*> (x Data..?> "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateConstraint where
   hashWithSalt _salt UpdateConstraint' {..} =
     _salt `Prelude.hashWithSalt` acceptLanguage
-      `Prelude.hashWithSalt` parameters
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` parameters
       `Prelude.hashWithSalt` id
 
 instance Prelude.NFData UpdateConstraint where
   rnf UpdateConstraint' {..} =
     Prelude.rnf acceptLanguage
-      `Prelude.seq` Prelude.rnf parameters
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf parameters
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToHeaders UpdateConstraint where
+instance Data.ToHeaders UpdateConstraint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.UpdateConstraint" ::
+              Data.=# ( "AWS242ServiceCatalogService.UpdateConstraint" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateConstraint where
+instance Data.ToJSON UpdateConstraint where
   toJSON UpdateConstraint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            ("Parameters" Core..=) Prelude.<$> parameters,
-            ("Description" Core..=) Prelude.<$> description,
-            Prelude.Just ("Id" Core..= id)
+            ("Description" Data..=) Prelude.<$> description,
+            ("Parameters" Data..=) Prelude.<$> parameters,
+            Prelude.Just ("Id" Data..= id)
           ]
       )
 
-instance Core.ToPath UpdateConstraint where
+instance Data.ToPath UpdateConstraint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateConstraint where
+instance Data.ToQuery UpdateConstraint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateConstraintResponse' smart constructor.
 data UpdateConstraintResponse = UpdateConstraintResponse'
-  { -- | The status of the current request.
-    status :: Prelude.Maybe RequestStatus,
-    -- | Information about the constraint.
+  { -- | Information about the constraint.
     constraintDetail :: Prelude.Maybe ConstraintDetail,
     -- | The constraint parameters.
     constraintParameters :: Prelude.Maybe Prelude.Text,
+    -- | The status of the current request.
+    status :: Prelude.Maybe RequestStatus,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -382,11 +384,11 @@ data UpdateConstraintResponse = UpdateConstraintResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'updateConstraintResponse_status' - The status of the current request.
---
 -- 'constraintDetail', 'updateConstraintResponse_constraintDetail' - Information about the constraint.
 --
 -- 'constraintParameters', 'updateConstraintResponse_constraintParameters' - The constraint parameters.
+--
+-- 'status', 'updateConstraintResponse_status' - The status of the current request.
 --
 -- 'httpStatus', 'updateConstraintResponse_httpStatus' - The response's http status code.
 newUpdateConstraintResponse ::
@@ -395,15 +397,12 @@ newUpdateConstraintResponse ::
   UpdateConstraintResponse
 newUpdateConstraintResponse pHttpStatus_ =
   UpdateConstraintResponse'
-    { status = Prelude.Nothing,
-      constraintDetail = Prelude.Nothing,
+    { constraintDetail =
+        Prelude.Nothing,
       constraintParameters = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The status of the current request.
-updateConstraintResponse_status :: Lens.Lens' UpdateConstraintResponse (Prelude.Maybe RequestStatus)
-updateConstraintResponse_status = Lens.lens (\UpdateConstraintResponse' {status} -> status) (\s@UpdateConstraintResponse' {} a -> s {status = a} :: UpdateConstraintResponse)
 
 -- | Information about the constraint.
 updateConstraintResponse_constraintDetail :: Lens.Lens' UpdateConstraintResponse (Prelude.Maybe ConstraintDetail)
@@ -413,13 +412,17 @@ updateConstraintResponse_constraintDetail = Lens.lens (\UpdateConstraintResponse
 updateConstraintResponse_constraintParameters :: Lens.Lens' UpdateConstraintResponse (Prelude.Maybe Prelude.Text)
 updateConstraintResponse_constraintParameters = Lens.lens (\UpdateConstraintResponse' {constraintParameters} -> constraintParameters) (\s@UpdateConstraintResponse' {} a -> s {constraintParameters = a} :: UpdateConstraintResponse)
 
+-- | The status of the current request.
+updateConstraintResponse_status :: Lens.Lens' UpdateConstraintResponse (Prelude.Maybe RequestStatus)
+updateConstraintResponse_status = Lens.lens (\UpdateConstraintResponse' {status} -> status) (\s@UpdateConstraintResponse' {} a -> s {status = a} :: UpdateConstraintResponse)
+
 -- | The response's http status code.
 updateConstraintResponse_httpStatus :: Lens.Lens' UpdateConstraintResponse Prelude.Int
 updateConstraintResponse_httpStatus = Lens.lens (\UpdateConstraintResponse' {httpStatus} -> httpStatus) (\s@UpdateConstraintResponse' {} a -> s {httpStatus = a} :: UpdateConstraintResponse)
 
 instance Prelude.NFData UpdateConstraintResponse where
   rnf UpdateConstraintResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf constraintDetail
+    Prelude.rnf constraintDetail
       `Prelude.seq` Prelude.rnf constraintParameters
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

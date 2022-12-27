@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.AdminForgetDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,7 +54,7 @@ data AdminForgetDevice = AdminForgetDevice'
   { -- | The user pool ID.
     userPoolId :: Prelude.Text,
     -- | The user name.
-    username :: Core.Sensitive Prelude.Text,
+    username :: Data.Sensitive Prelude.Text,
     -- | The device key.
     deviceKey :: Prelude.Text
   }
@@ -86,7 +87,7 @@ newAdminForgetDevice
   pDeviceKey_ =
     AdminForgetDevice'
       { userPoolId = pUserPoolId_,
-        username = Core._Sensitive Lens.# pUsername_,
+        username = Data._Sensitive Lens.# pUsername_,
         deviceKey = pDeviceKey_
       }
 
@@ -96,7 +97,7 @@ adminForgetDevice_userPoolId = Lens.lens (\AdminForgetDevice' {userPoolId} -> us
 
 -- | The user name.
 adminForgetDevice_username :: Lens.Lens' AdminForgetDevice Prelude.Text
-adminForgetDevice_username = Lens.lens (\AdminForgetDevice' {username} -> username) (\s@AdminForgetDevice' {} a -> s {username = a} :: AdminForgetDevice) Prelude.. Core._Sensitive
+adminForgetDevice_username = Lens.lens (\AdminForgetDevice' {username} -> username) (\s@AdminForgetDevice' {} a -> s {username = a} :: AdminForgetDevice) Prelude.. Data._Sensitive
 
 -- | The device key.
 adminForgetDevice_deviceKey :: Lens.Lens' AdminForgetDevice Prelude.Text
@@ -106,7 +107,8 @@ instance Core.AWSRequest AdminForgetDevice where
   type
     AWSResponse AdminForgetDevice =
       AdminForgetDeviceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull AdminForgetDeviceResponse'
 
@@ -122,35 +124,35 @@ instance Prelude.NFData AdminForgetDevice where
       `Prelude.seq` Prelude.rnf username
       `Prelude.seq` Prelude.rnf deviceKey
 
-instance Core.ToHeaders AdminForgetDevice where
+instance Data.ToHeaders AdminForgetDevice where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.AdminForgetDevice" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.AdminForgetDevice" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AdminForgetDevice where
+instance Data.ToJSON AdminForgetDevice where
   toJSON AdminForgetDevice' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("UserPoolId" Core..= userPoolId),
-            Prelude.Just ("Username" Core..= username),
-            Prelude.Just ("DeviceKey" Core..= deviceKey)
+          [ Prelude.Just ("UserPoolId" Data..= userPoolId),
+            Prelude.Just ("Username" Data..= username),
+            Prelude.Just ("DeviceKey" Data..= deviceKey)
           ]
       )
 
-instance Core.ToPath AdminForgetDevice where
+instance Data.ToPath AdminForgetDevice where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AdminForgetDevice where
+instance Data.ToQuery AdminForgetDevice where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAdminForgetDeviceResponse' smart constructor.

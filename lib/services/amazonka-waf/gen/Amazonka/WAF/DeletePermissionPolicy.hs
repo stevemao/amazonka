@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.DeletePermissionPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ module Amazonka.WAF.DeletePermissionPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,7 +100,8 @@ instance Core.AWSRequest DeletePermissionPolicy where
   type
     AWSResponse DeletePermissionPolicy =
       DeletePermissionPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -115,32 +117,32 @@ instance Prelude.NFData DeletePermissionPolicy where
   rnf DeletePermissionPolicy' {..} =
     Prelude.rnf resourceArn
 
-instance Core.ToHeaders DeletePermissionPolicy where
+instance Data.ToHeaders DeletePermissionPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_20150824.DeletePermissionPolicy" ::
+              Data.=# ( "AWSWAF_20150824.DeletePermissionPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeletePermissionPolicy where
+instance Data.ToJSON DeletePermissionPolicy where
   toJSON DeletePermissionPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ResourceArn" Core..= resourceArn)]
+          [Prelude.Just ("ResourceArn" Data..= resourceArn)]
       )
 
-instance Core.ToPath DeletePermissionPolicy where
+instance Data.ToPath DeletePermissionPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeletePermissionPolicy where
+instance Data.ToQuery DeletePermissionPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeletePermissionPolicyResponse' smart constructor.

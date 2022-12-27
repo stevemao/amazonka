@@ -14,18 +14,18 @@
 
 -- |
 -- Module      : Amazonka.Proton.GetEnvironmentAccountConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- In an environment account, view the detail data for an environment
+-- In an environment account, get the detailed data for an environment
 -- account connection.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/proton/latest/adminguide/ag-env-account-connections.html Environment account connections>
--- in the /AWS Proton Administrator guide/.
+-- <https://docs.aws.amazon.com/proton/latest/userguide/ag-env-account-connections.html Environment account connections>
+-- in the /Proton User guide/.
 module Amazonka.Proton.GetEnvironmentAccountConnection
   ( -- * Creating a Request
     GetEnvironmentAccountConnection (..),
@@ -45,7 +45,8 @@ module Amazonka.Proton.GetEnvironmentAccountConnection
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -53,7 +54,8 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetEnvironmentAccountConnection' smart constructor.
 data GetEnvironmentAccountConnection = GetEnvironmentAccountConnection'
-  { -- | The ID of the environment account connection.
+  { -- | The ID of the environment account connection that you want to get the
+    -- detailed data for.
     id :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -66,7 +68,8 @@ data GetEnvironmentAccountConnection = GetEnvironmentAccountConnection'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'id', 'getEnvironmentAccountConnection_id' - The ID of the environment account connection.
+-- 'id', 'getEnvironmentAccountConnection_id' - The ID of the environment account connection that you want to get the
+-- detailed data for.
 newGetEnvironmentAccountConnection ::
   -- | 'id'
   Prelude.Text ->
@@ -74,7 +77,8 @@ newGetEnvironmentAccountConnection ::
 newGetEnvironmentAccountConnection pId_ =
   GetEnvironmentAccountConnection' {id = pId_}
 
--- | The ID of the environment account connection.
+-- | The ID of the environment account connection that you want to get the
+-- detailed data for.
 getEnvironmentAccountConnection_id :: Lens.Lens' GetEnvironmentAccountConnection Prelude.Text
 getEnvironmentAccountConnection_id = Lens.lens (\GetEnvironmentAccountConnection' {id} -> id) (\s@GetEnvironmentAccountConnection' {} a -> s {id = a} :: GetEnvironmentAccountConnection)
 
@@ -85,13 +89,14 @@ instance
   type
     AWSResponse GetEnvironmentAccountConnection =
       GetEnvironmentAccountConnectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetEnvironmentAccountConnectionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "environmentAccountConnection")
+            Prelude.<*> (x Data..:> "environmentAccountConnection")
       )
 
 instance
@@ -111,40 +116,39 @@ instance
     Prelude.rnf id
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetEnvironmentAccountConnection
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.GetEnvironmentAccountConnection" ::
+              Data.=# ( "AwsProton20200720.GetEnvironmentAccountConnection" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetEnvironmentAccountConnection where
+instance Data.ToJSON GetEnvironmentAccountConnection where
   toJSON GetEnvironmentAccountConnection' {..} =
-    Core.object
-      (Prelude.catMaybes [Prelude.Just ("id" Core..= id)])
+    Data.object
+      (Prelude.catMaybes [Prelude.Just ("id" Data..= id)])
 
-instance Core.ToPath GetEnvironmentAccountConnection where
+instance Data.ToPath GetEnvironmentAccountConnection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetEnvironmentAccountConnection where
+instance Data.ToQuery GetEnvironmentAccountConnection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetEnvironmentAccountConnectionResponse' smart constructor.
 data GetEnvironmentAccountConnectionResponse = GetEnvironmentAccountConnectionResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | The environment account connection detail data that\'s returned by AWS
-    -- Proton.
+    -- | The detailed data of the requested environment account connection.
     environmentAccountConnection :: EnvironmentAccountConnection
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -159,8 +163,7 @@ data GetEnvironmentAccountConnectionResponse = GetEnvironmentAccountConnectionRe
 --
 -- 'httpStatus', 'getEnvironmentAccountConnectionResponse_httpStatus' - The response's http status code.
 --
--- 'environmentAccountConnection', 'getEnvironmentAccountConnectionResponse_environmentAccountConnection' - The environment account connection detail data that\'s returned by AWS
--- Proton.
+-- 'environmentAccountConnection', 'getEnvironmentAccountConnectionResponse_environmentAccountConnection' - The detailed data of the requested environment account connection.
 newGetEnvironmentAccountConnectionResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -181,8 +184,7 @@ newGetEnvironmentAccountConnectionResponse
 getEnvironmentAccountConnectionResponse_httpStatus :: Lens.Lens' GetEnvironmentAccountConnectionResponse Prelude.Int
 getEnvironmentAccountConnectionResponse_httpStatus = Lens.lens (\GetEnvironmentAccountConnectionResponse' {httpStatus} -> httpStatus) (\s@GetEnvironmentAccountConnectionResponse' {} a -> s {httpStatus = a} :: GetEnvironmentAccountConnectionResponse)
 
--- | The environment account connection detail data that\'s returned by AWS
--- Proton.
+-- | The detailed data of the requested environment account connection.
 getEnvironmentAccountConnectionResponse_environmentAccountConnection :: Lens.Lens' GetEnvironmentAccountConnectionResponse EnvironmentAccountConnection
 getEnvironmentAccountConnectionResponse_environmentAccountConnection = Lens.lens (\GetEnvironmentAccountConnectionResponse' {environmentAccountConnection} -> environmentAccountConnection) (\s@GetEnvironmentAccountConnectionResponse' {} a -> s {environmentAccountConnection = a} :: GetEnvironmentAccountConnectionResponse)
 

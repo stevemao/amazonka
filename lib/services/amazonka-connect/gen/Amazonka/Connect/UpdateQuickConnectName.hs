@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.UpdateQuickConnectName
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Connect.UpdateQuickConnectName
     newUpdateQuickConnectName,
 
     -- * Request Lenses
-    updateQuickConnectName_name,
     updateQuickConnectName_description,
+    updateQuickConnectName_name,
     updateQuickConnectName_instanceId,
     updateQuickConnectName_quickConnectId,
 
@@ -42,17 +42,18 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateQuickConnectName' smart constructor.
 data UpdateQuickConnectName = UpdateQuickConnectName'
-  { -- | The name of the quick connect.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The description of the quick connect.
+  { -- | The description of the quick connect.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the quick connect.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
     instanceId :: Prelude.Text,
@@ -69,9 +70,9 @@ data UpdateQuickConnectName = UpdateQuickConnectName'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'updateQuickConnectName_name' - The name of the quick connect.
---
 -- 'description', 'updateQuickConnectName_description' - The description of the quick connect.
+--
+-- 'name', 'updateQuickConnectName_name' - The name of the quick connect.
 --
 -- 'instanceId', 'updateQuickConnectName_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -87,19 +88,20 @@ newUpdateQuickConnectName
   pInstanceId_
   pQuickConnectId_ =
     UpdateQuickConnectName'
-      { name = Prelude.Nothing,
-        description = Prelude.Nothing,
+      { description =
+          Prelude.Nothing,
+        name = Prelude.Nothing,
         instanceId = pInstanceId_,
         quickConnectId = pQuickConnectId_
       }
 
--- | The name of the quick connect.
-updateQuickConnectName_name :: Lens.Lens' UpdateQuickConnectName (Prelude.Maybe Prelude.Text)
-updateQuickConnectName_name = Lens.lens (\UpdateQuickConnectName' {name} -> name) (\s@UpdateQuickConnectName' {} a -> s {name = a} :: UpdateQuickConnectName)
-
 -- | The description of the quick connect.
 updateQuickConnectName_description :: Lens.Lens' UpdateQuickConnectName (Prelude.Maybe Prelude.Text)
 updateQuickConnectName_description = Lens.lens (\UpdateQuickConnectName' {description} -> description) (\s@UpdateQuickConnectName' {} a -> s {description = a} :: UpdateQuickConnectName)
+
+-- | The name of the quick connect.
+updateQuickConnectName_name :: Lens.Lens' UpdateQuickConnectName (Prelude.Maybe Prelude.Text)
+updateQuickConnectName_name = Lens.lens (\UpdateQuickConnectName' {name} -> name) (\s@UpdateQuickConnectName' {} a -> s {name = a} :: UpdateQuickConnectName)
 
 -- | The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -114,56 +116,57 @@ instance Core.AWSRequest UpdateQuickConnectName where
   type
     AWSResponse UpdateQuickConnectName =
       UpdateQuickConnectNameResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       UpdateQuickConnectNameResponse'
 
 instance Prelude.Hashable UpdateQuickConnectName where
   hashWithSalt _salt UpdateQuickConnectName' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` instanceId
       `Prelude.hashWithSalt` quickConnectId
 
 instance Prelude.NFData UpdateQuickConnectName where
   rnf UpdateQuickConnectName' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf quickConnectId
 
-instance Core.ToHeaders UpdateQuickConnectName where
+instance Data.ToHeaders UpdateQuickConnectName where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateQuickConnectName where
+instance Data.ToJSON UpdateQuickConnectName where
   toJSON UpdateQuickConnectName' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Name" Core..=) Prelude.<$> name,
-            ("Description" Core..=) Prelude.<$> description
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Name" Data..=) Prelude.<$> name
           ]
       )
 
-instance Core.ToPath UpdateQuickConnectName where
+instance Data.ToPath UpdateQuickConnectName where
   toPath UpdateQuickConnectName' {..} =
     Prelude.mconcat
       [ "/quick-connects/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/",
-        Core.toBS quickConnectId,
+        Data.toBS quickConnectId,
         "/name"
       ]
 
-instance Core.ToQuery UpdateQuickConnectName where
+instance Data.ToQuery UpdateQuickConnectName where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateQuickConnectNameResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutVision.DescribeModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.LookoutVision.DescribeModel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutVision.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -97,12 +98,13 @@ instance Core.AWSRequest DescribeModel where
   type
     AWSResponse DescribeModel =
       DescribeModelResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeModelResponse'
-            Prelude.<$> (x Core..?> "ModelDescription")
+            Prelude.<$> (x Data..?> "ModelDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,27 +118,27 @@ instance Prelude.NFData DescribeModel where
     Prelude.rnf projectName
       `Prelude.seq` Prelude.rnf modelVersion
 
-instance Core.ToHeaders DescribeModel where
+instance Data.ToHeaders DescribeModel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeModel where
+instance Data.ToPath DescribeModel where
   toPath DescribeModel' {..} =
     Prelude.mconcat
       [ "/2020-11-20/projects/",
-        Core.toBS projectName,
+        Data.toBS projectName,
         "/models/",
-        Core.toBS modelVersion
+        Data.toBS modelVersion
       ]
 
-instance Core.ToQuery DescribeModel where
+instance Data.ToQuery DescribeModel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeModelResponse' smart constructor.

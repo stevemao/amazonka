@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.CreateCapacityProvider
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,10 +24,10 @@
 -- an Amazon ECS cluster and are used in capacity provider strategies to
 -- facilitate cluster auto scaling.
 --
--- Only capacity providers using an Auto Scaling group can be created.
+-- Only capacity providers that use an Auto Scaling group can be created.
 -- Amazon ECS tasks on Fargate use the @FARGATE@ and @FARGATE_SPOT@
--- capacity providers which are already created and available to all
--- accounts in Regions supported by Fargate.
+-- capacity providers. These providers are available to all accounts in the
+-- Amazon Web Services Regions that Fargate supports.
 module Amazonka.ECS.CreateCapacityProvider
   ( -- * Creating a Request
     CreateCapacityProvider (..),
@@ -49,17 +49,18 @@ module Amazonka.ECS.CreateCapacityProvider
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateCapacityProvider' smart constructor.
 data CreateCapacityProvider = CreateCapacityProvider'
-  { -- | The metadata that you apply to the capacity provider to help you
-    -- categorize and organize them. Each tag consists of a key and an optional
-    -- value, both of which you define.
+  { -- | The metadata that you apply to the capacity provider to categorize and
+    -- organize them more conveniently. Each tag consists of a key and an
+    -- optional value. You define both of them.
     --
     -- The following basic restrictions apply to tags:
     --
@@ -86,10 +87,10 @@ data CreateCapacityProvider = CreateCapacityProvider'
     --     values with this prefix. Tags with this prefix do not count against
     --     your tags per resource limit.
     tags :: Prelude.Maybe [Tag],
-    -- | The name of the capacity provider. Up to 255 characters are allowed,
-    -- including letters (upper and lowercase), numbers, underscores, and
-    -- hyphens. The name cannot be prefixed with \"@aws@\", \"@ecs@\", or
-    -- \"@fargate@\".
+    -- | The name of the capacity provider. Up to 255 characters are allowed.
+    -- They include letters (both upper and lowercase letters), numbers,
+    -- underscores (_), and hyphens (-). The name can\'t be prefixed with
+    -- \"@aws@\", \"@ecs@\", or \"@fargate@\".
     name :: Prelude.Text,
     -- | The details of the Auto Scaling group for the capacity provider.
     autoScalingGroupProvider :: AutoScalingGroupProvider
@@ -104,9 +105,9 @@ data CreateCapacityProvider = CreateCapacityProvider'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tags', 'createCapacityProvider_tags' - The metadata that you apply to the capacity provider to help you
--- categorize and organize them. Each tag consists of a key and an optional
--- value, both of which you define.
+-- 'tags', 'createCapacityProvider_tags' - The metadata that you apply to the capacity provider to categorize and
+-- organize them more conveniently. Each tag consists of a key and an
+-- optional value. You define both of them.
 --
 -- The following basic restrictions apply to tags:
 --
@@ -133,10 +134,10 @@ data CreateCapacityProvider = CreateCapacityProvider'
 --     values with this prefix. Tags with this prefix do not count against
 --     your tags per resource limit.
 --
--- 'name', 'createCapacityProvider_name' - The name of the capacity provider. Up to 255 characters are allowed,
--- including letters (upper and lowercase), numbers, underscores, and
--- hyphens. The name cannot be prefixed with \"@aws@\", \"@ecs@\", or
--- \"@fargate@\".
+-- 'name', 'createCapacityProvider_name' - The name of the capacity provider. Up to 255 characters are allowed.
+-- They include letters (both upper and lowercase letters), numbers,
+-- underscores (_), and hyphens (-). The name can\'t be prefixed with
+-- \"@aws@\", \"@ecs@\", or \"@fargate@\".
 --
 -- 'autoScalingGroupProvider', 'createCapacityProvider_autoScalingGroupProvider' - The details of the Auto Scaling group for the capacity provider.
 newCreateCapacityProvider ::
@@ -155,9 +156,9 @@ newCreateCapacityProvider
           pAutoScalingGroupProvider_
       }
 
--- | The metadata that you apply to the capacity provider to help you
--- categorize and organize them. Each tag consists of a key and an optional
--- value, both of which you define.
+-- | The metadata that you apply to the capacity provider to categorize and
+-- organize them more conveniently. Each tag consists of a key and an
+-- optional value. You define both of them.
 --
 -- The following basic restrictions apply to tags:
 --
@@ -186,10 +187,10 @@ newCreateCapacityProvider
 createCapacityProvider_tags :: Lens.Lens' CreateCapacityProvider (Prelude.Maybe [Tag])
 createCapacityProvider_tags = Lens.lens (\CreateCapacityProvider' {tags} -> tags) (\s@CreateCapacityProvider' {} a -> s {tags = a} :: CreateCapacityProvider) Prelude.. Lens.mapping Lens.coerced
 
--- | The name of the capacity provider. Up to 255 characters are allowed,
--- including letters (upper and lowercase), numbers, underscores, and
--- hyphens. The name cannot be prefixed with \"@aws@\", \"@ecs@\", or
--- \"@fargate@\".
+-- | The name of the capacity provider. Up to 255 characters are allowed.
+-- They include letters (both upper and lowercase letters), numbers,
+-- underscores (_), and hyphens (-). The name can\'t be prefixed with
+-- \"@aws@\", \"@ecs@\", or \"@fargate@\".
 createCapacityProvider_name :: Lens.Lens' CreateCapacityProvider Prelude.Text
 createCapacityProvider_name = Lens.lens (\CreateCapacityProvider' {name} -> name) (\s@CreateCapacityProvider' {} a -> s {name = a} :: CreateCapacityProvider)
 
@@ -201,12 +202,13 @@ instance Core.AWSRequest CreateCapacityProvider where
   type
     AWSResponse CreateCapacityProvider =
       CreateCapacityProviderResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateCapacityProviderResponse'
-            Prelude.<$> (x Core..?> "capacityProvider")
+            Prelude.<$> (x Data..?> "capacityProvider")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -222,38 +224,38 @@ instance Prelude.NFData CreateCapacityProvider where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf autoScalingGroupProvider
 
-instance Core.ToHeaders CreateCapacityProvider where
+instance Data.ToHeaders CreateCapacityProvider where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.CreateCapacityProvider" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.CreateCapacityProvider" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateCapacityProvider where
+instance Data.ToJSON CreateCapacityProvider where
   toJSON CreateCapacityProvider' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("name" Core..= name),
+          [ ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("name" Data..= name),
             Prelude.Just
               ( "autoScalingGroupProvider"
-                  Core..= autoScalingGroupProvider
+                  Data..= autoScalingGroupProvider
               )
           ]
       )
 
-instance Core.ToPath CreateCapacityProvider where
+instance Data.ToPath CreateCapacityProvider where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateCapacityProvider where
+instance Data.ToQuery CreateCapacityProvider where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateCapacityProviderResponse' smart constructor.

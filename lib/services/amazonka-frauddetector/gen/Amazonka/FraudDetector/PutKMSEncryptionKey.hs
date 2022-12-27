@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.PutKMSEncryptionKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.FraudDetector.PutKMSEncryptionKey
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,6 +50,9 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newPutKMSEncryptionKey' smart constructor.
 data PutKMSEncryptionKey = PutKMSEncryptionKey'
   { -- | The KMS encryption key ARN.
+    --
+    -- The KMS key must be single-Region key. Amazon Fraud Detector does not
+    -- support multi-Region KMS key.
     kmsEncryptionKeyArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,6 +66,9 @@ data PutKMSEncryptionKey = PutKMSEncryptionKey'
 -- for backwards compatibility:
 --
 -- 'kmsEncryptionKeyArn', 'putKMSEncryptionKey_kmsEncryptionKeyArn' - The KMS encryption key ARN.
+--
+-- The KMS key must be single-Region key. Amazon Fraud Detector does not
+-- support multi-Region KMS key.
 newPutKMSEncryptionKey ::
   -- | 'kmsEncryptionKeyArn'
   Prelude.Text ->
@@ -73,6 +80,9 @@ newPutKMSEncryptionKey pKmsEncryptionKeyArn_ =
     }
 
 -- | The KMS encryption key ARN.
+--
+-- The KMS key must be single-Region key. Amazon Fraud Detector does not
+-- support multi-Region KMS key.
 putKMSEncryptionKey_kmsEncryptionKeyArn :: Lens.Lens' PutKMSEncryptionKey Prelude.Text
 putKMSEncryptionKey_kmsEncryptionKeyArn = Lens.lens (\PutKMSEncryptionKey' {kmsEncryptionKeyArn} -> kmsEncryptionKeyArn) (\s@PutKMSEncryptionKey' {} a -> s {kmsEncryptionKeyArn = a} :: PutKMSEncryptionKey)
 
@@ -80,7 +90,8 @@ instance Core.AWSRequest PutKMSEncryptionKey where
   type
     AWSResponse PutKMSEncryptionKey =
       PutKMSEncryptionKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -96,34 +107,34 @@ instance Prelude.NFData PutKMSEncryptionKey where
   rnf PutKMSEncryptionKey' {..} =
     Prelude.rnf kmsEncryptionKeyArn
 
-instance Core.ToHeaders PutKMSEncryptionKey where
+instance Data.ToHeaders PutKMSEncryptionKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.PutKMSEncryptionKey" ::
+              Data.=# ( "AWSHawksNestServiceFacade.PutKMSEncryptionKey" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutKMSEncryptionKey where
+instance Data.ToJSON PutKMSEncryptionKey where
   toJSON PutKMSEncryptionKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("kmsEncryptionKeyArn" Core..= kmsEncryptionKeyArn)
+              ("kmsEncryptionKeyArn" Data..= kmsEncryptionKeyArn)
           ]
       )
 
-instance Core.ToPath PutKMSEncryptionKey where
+instance Data.ToPath PutKMSEncryptionKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutKMSEncryptionKey where
+instance Data.ToQuery PutKMSEncryptionKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutKMSEncryptionKeyResponse' smart constructor.

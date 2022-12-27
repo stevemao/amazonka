@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.PutExternalEvaluation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,7 +96,8 @@ instance Core.AWSRequest PutExternalEvaluation where
   type
     AWSResponse PutExternalEvaluation =
       PutExternalEvaluationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -113,36 +115,36 @@ instance Prelude.NFData PutExternalEvaluation where
     Prelude.rnf configRuleName
       `Prelude.seq` Prelude.rnf externalEvaluation
 
-instance Core.ToHeaders PutExternalEvaluation where
+instance Data.ToHeaders PutExternalEvaluation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.PutExternalEvaluation" ::
+              Data.=# ( "StarlingDoveService.PutExternalEvaluation" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutExternalEvaluation where
+instance Data.ToJSON PutExternalEvaluation where
   toJSON PutExternalEvaluation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ConfigRuleName" Core..= configRuleName),
+              ("ConfigRuleName" Data..= configRuleName),
             Prelude.Just
-              ("ExternalEvaluation" Core..= externalEvaluation)
+              ("ExternalEvaluation" Data..= externalEvaluation)
           ]
       )
 
-instance Core.ToPath PutExternalEvaluation where
+instance Data.ToPath PutExternalEvaluation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutExternalEvaluation where
+instance Data.ToQuery PutExternalEvaluation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutExternalEvaluationResponse' smart constructor.

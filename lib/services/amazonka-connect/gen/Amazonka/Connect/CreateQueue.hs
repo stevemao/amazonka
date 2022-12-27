@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.CreateQueue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,16 +24,29 @@
 -- change.
 --
 -- Creates a new queue for the specified Amazon Connect instance.
+--
+-- If the number being used in the input is claimed to a traffic
+-- distribution group, and you are calling this API using an instance in
+-- the Amazon Web Services Region where the traffic distribution group was
+-- created, you can use either a full phone number ARN or UUID value for
+-- the @OutboundCallerIdNumberId@ value of the
+-- <https://docs.aws.amazon.com/connect/latest/APIReference/API_OutboundCallerConfig OutboundCallerConfig>
+-- request body parameter. However, if the number is claimed to a traffic
+-- distribution group and you are calling this API using an instance in the
+-- alternate Amazon Web Services Region associated with the traffic
+-- distribution group, you must provide a full phone number ARN. If a UUID
+-- is provided in this scenario, you will receive a
+-- @ResourceNotFoundException@.
 module Amazonka.Connect.CreateQueue
   ( -- * Creating a Request
     CreateQueue (..),
     newCreateQueue,
 
     -- * Request Lenses
-    createQueue_maxContacts,
-    createQueue_quickConnectIds,
-    createQueue_outboundCallerConfig,
     createQueue_description,
+    createQueue_maxContacts,
+    createQueue_outboundCallerConfig,
+    createQueue_quickConnectIds,
     createQueue_tags,
     createQueue_instanceId,
     createQueue_name,
@@ -52,23 +65,25 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateQueue' smart constructor.
 data CreateQueue = CreateQueue'
-  { -- | The maximum number of contacts that can be in the queue before it is
+  { -- | The description of the queue.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of contacts that can be in the queue before it is
     -- considered full.
     maxContacts :: Prelude.Maybe Prelude.Natural,
-    -- | The quick connects available to agents who are working the queue.
-    quickConnectIds :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
     -- | The outbound caller ID name, number, and outbound whisper flow.
     outboundCallerConfig :: Prelude.Maybe OutboundCallerConfig,
-    -- | The description of the queue.
-    description :: Prelude.Maybe Prelude.Text,
-    -- | One or more tags.
+    -- | The quick connects available to agents who are working the queue.
+    quickConnectIds :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | The tags used to organize, track, or control access for this resource.
+    -- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
@@ -88,16 +103,17 @@ data CreateQueue = CreateQueue'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createQueue_description' - The description of the queue.
+--
 -- 'maxContacts', 'createQueue_maxContacts' - The maximum number of contacts that can be in the queue before it is
 -- considered full.
 --
--- 'quickConnectIds', 'createQueue_quickConnectIds' - The quick connects available to agents who are working the queue.
---
 -- 'outboundCallerConfig', 'createQueue_outboundCallerConfig' - The outbound caller ID name, number, and outbound whisper flow.
 --
--- 'description', 'createQueue_description' - The description of the queue.
+-- 'quickConnectIds', 'createQueue_quickConnectIds' - The quick connects available to agents who are working the queue.
 --
--- 'tags', 'createQueue_tags' - One or more tags.
+-- 'tags', 'createQueue_tags' - The tags used to organize, track, or control access for this resource.
+-- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
 --
 -- 'instanceId', 'createQueue_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -118,34 +134,35 @@ newCreateQueue
   pName_
   pHoursOfOperationId_ =
     CreateQueue'
-      { maxContacts = Prelude.Nothing,
-        quickConnectIds = Prelude.Nothing,
+      { description = Prelude.Nothing,
+        maxContacts = Prelude.Nothing,
         outboundCallerConfig = Prelude.Nothing,
-        description = Prelude.Nothing,
+        quickConnectIds = Prelude.Nothing,
         tags = Prelude.Nothing,
         instanceId = pInstanceId_,
         name = pName_,
         hoursOfOperationId = pHoursOfOperationId_
       }
 
+-- | The description of the queue.
+createQueue_description :: Lens.Lens' CreateQueue (Prelude.Maybe Prelude.Text)
+createQueue_description = Lens.lens (\CreateQueue' {description} -> description) (\s@CreateQueue' {} a -> s {description = a} :: CreateQueue)
+
 -- | The maximum number of contacts that can be in the queue before it is
 -- considered full.
 createQueue_maxContacts :: Lens.Lens' CreateQueue (Prelude.Maybe Prelude.Natural)
 createQueue_maxContacts = Lens.lens (\CreateQueue' {maxContacts} -> maxContacts) (\s@CreateQueue' {} a -> s {maxContacts = a} :: CreateQueue)
 
--- | The quick connects available to agents who are working the queue.
-createQueue_quickConnectIds :: Lens.Lens' CreateQueue (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-createQueue_quickConnectIds = Lens.lens (\CreateQueue' {quickConnectIds} -> quickConnectIds) (\s@CreateQueue' {} a -> s {quickConnectIds = a} :: CreateQueue) Prelude.. Lens.mapping Lens.coerced
-
 -- | The outbound caller ID name, number, and outbound whisper flow.
 createQueue_outboundCallerConfig :: Lens.Lens' CreateQueue (Prelude.Maybe OutboundCallerConfig)
 createQueue_outboundCallerConfig = Lens.lens (\CreateQueue' {outboundCallerConfig} -> outboundCallerConfig) (\s@CreateQueue' {} a -> s {outboundCallerConfig = a} :: CreateQueue)
 
--- | The description of the queue.
-createQueue_description :: Lens.Lens' CreateQueue (Prelude.Maybe Prelude.Text)
-createQueue_description = Lens.lens (\CreateQueue' {description} -> description) (\s@CreateQueue' {} a -> s {description = a} :: CreateQueue)
+-- | The quick connects available to agents who are working the queue.
+createQueue_quickConnectIds :: Lens.Lens' CreateQueue (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+createQueue_quickConnectIds = Lens.lens (\CreateQueue' {quickConnectIds} -> quickConnectIds) (\s@CreateQueue' {} a -> s {quickConnectIds = a} :: CreateQueue) Prelude.. Lens.mapping Lens.coerced
 
--- | One or more tags.
+-- | The tags used to organize, track, or control access for this resource.
+-- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
 createQueue_tags :: Lens.Lens' CreateQueue (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createQueue_tags = Lens.lens (\CreateQueue' {tags} -> tags) (\s@CreateQueue' {} a -> s {tags = a} :: CreateQueue) Prelude.. Lens.mapping Lens.coerced
 
@@ -164,22 +181,23 @@ createQueue_hoursOfOperationId = Lens.lens (\CreateQueue' {hoursOfOperationId} -
 
 instance Core.AWSRequest CreateQueue where
   type AWSResponse CreateQueue = CreateQueueResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateQueueResponse'
-            Prelude.<$> (x Core..?> "QueueArn")
-            Prelude.<*> (x Core..?> "QueueId")
+            Prelude.<$> (x Data..?> "QueueArn")
+            Prelude.<*> (x Data..?> "QueueId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateQueue where
   hashWithSalt _salt CreateQueue' {..} =
-    _salt `Prelude.hashWithSalt` maxContacts
-      `Prelude.hashWithSalt` quickConnectIds
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` maxContacts
       `Prelude.hashWithSalt` outboundCallerConfig
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` quickConnectIds
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` instanceId
       `Prelude.hashWithSalt` name
@@ -187,48 +205,48 @@ instance Prelude.Hashable CreateQueue where
 
 instance Prelude.NFData CreateQueue where
   rnf CreateQueue' {..} =
-    Prelude.rnf maxContacts
-      `Prelude.seq` Prelude.rnf quickConnectIds
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf maxContacts
       `Prelude.seq` Prelude.rnf outboundCallerConfig
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf quickConnectIds
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf hoursOfOperationId
 
-instance Core.ToHeaders CreateQueue where
+instance Data.ToHeaders CreateQueue where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateQueue where
+instance Data.ToJSON CreateQueue where
   toJSON CreateQueue' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MaxContacts" Core..=) Prelude.<$> maxContacts,
-            ("QuickConnectIds" Core..=)
-              Prelude.<$> quickConnectIds,
-            ("OutboundCallerConfig" Core..=)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("MaxContacts" Data..=) Prelude.<$> maxContacts,
+            ("OutboundCallerConfig" Data..=)
               Prelude.<$> outboundCallerConfig,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
+            ("QuickConnectIds" Data..=)
+              Prelude.<$> quickConnectIds,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("HoursOfOperationId" Core..= hoursOfOperationId)
+              ("HoursOfOperationId" Data..= hoursOfOperationId)
           ]
       )
 
-instance Core.ToPath CreateQueue where
+instance Data.ToPath CreateQueue where
   toPath CreateQueue' {..} =
-    Prelude.mconcat ["/queues/", Core.toBS instanceId]
+    Prelude.mconcat ["/queues/", Data.toBS instanceId]
 
-instance Core.ToQuery CreateQueue where
+instance Data.ToQuery CreateQueue where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateQueueResponse' smart constructor.

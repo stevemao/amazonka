@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.Types.FeaturizationConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,15 @@
 module Amazonka.Forecast.Types.FeaturizationConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types.Featurization
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | In a CreatePredictor operation, the specified algorithm trains a model
+-- | This object belongs to the CreatePredictor operation. If you created
+-- your predictor with CreateAutoPredictor, see AttributeConfig.
+--
+-- In a CreatePredictor operation, the specified algorithm trains a model
 -- using the specified dataset group. You can optionally tell the operation
 -- to modify data fields prior to training a model. These modifications are
 -- referred to as /featurization/.
@@ -157,15 +161,15 @@ featurizationConfig_forecastDimensions = Lens.lens (\FeaturizationConfig' {forec
 featurizationConfig_forecastFrequency :: Lens.Lens' FeaturizationConfig Prelude.Text
 featurizationConfig_forecastFrequency = Lens.lens (\FeaturizationConfig' {forecastFrequency} -> forecastFrequency) (\s@FeaturizationConfig' {} a -> s {forecastFrequency = a} :: FeaturizationConfig)
 
-instance Core.FromJSON FeaturizationConfig where
+instance Data.FromJSON FeaturizationConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FeaturizationConfig"
       ( \x ->
           FeaturizationConfig'
-            Prelude.<$> (x Core..:? "Featurizations")
-            Prelude.<*> (x Core..:? "ForecastDimensions")
-            Prelude.<*> (x Core..: "ForecastFrequency")
+            Prelude.<$> (x Data..:? "Featurizations")
+            Prelude.<*> (x Data..:? "ForecastDimensions")
+            Prelude.<*> (x Data..: "ForecastFrequency")
       )
 
 instance Prelude.Hashable FeaturizationConfig where
@@ -180,15 +184,15 @@ instance Prelude.NFData FeaturizationConfig where
       `Prelude.seq` Prelude.rnf forecastDimensions
       `Prelude.seq` Prelude.rnf forecastFrequency
 
-instance Core.ToJSON FeaturizationConfig where
+instance Data.ToJSON FeaturizationConfig where
   toJSON FeaturizationConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Featurizations" Core..=)
+          [ ("Featurizations" Data..=)
               Prelude.<$> featurizations,
-            ("ForecastDimensions" Core..=)
+            ("ForecastDimensions" Data..=)
               Prelude.<$> forecastDimensions,
             Prelude.Just
-              ("ForecastFrequency" Core..= forecastFrequency)
+              ("ForecastFrequency" Data..= forecastFrequency)
           ]
       )

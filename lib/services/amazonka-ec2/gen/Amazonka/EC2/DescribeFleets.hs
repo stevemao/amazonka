@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeFleets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,7 @@
 -- Describes the specified EC2 Fleets or all of your EC2 Fleets.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-fleet.html#monitor-ec2-fleet Monitoring your EC2 Fleet>
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/manage-ec2-fleet.html#monitor-ec2-fleet Monitor your EC2 Fleet>
 -- in the /Amazon EC2 User Guide/.
 --
 -- This operation returns paginated results.
@@ -33,33 +33,39 @@ module Amazonka.EC2.DescribeFleets
     newDescribeFleets,
 
     -- * Request Lenses
-    describeFleets_filters,
-    describeFleets_nextToken,
-    describeFleets_fleetIds,
     describeFleets_dryRun,
+    describeFleets_filters,
+    describeFleets_fleetIds,
     describeFleets_maxResults,
+    describeFleets_nextToken,
 
     -- * Destructuring the Response
     DescribeFleetsResponse (..),
     newDescribeFleetsResponse,
 
     -- * Response Lenses
-    describeFleetsResponse_nextToken,
     describeFleetsResponse_fleets,
+    describeFleetsResponse_nextToken,
     describeFleetsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeFleets' smart constructor.
 data DescribeFleets = DescribeFleets'
-  { -- | The filters.
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The filters.
     --
     -- -   @activity-status@ - The progress of the EC2 Fleet ( @error@ |
     --     @pending-fulfillment@ | @pending-termination@ | @fulfilled@).
@@ -77,20 +83,18 @@ data DescribeFleets = DescribeFleets'
     --
     -- -   @type@ - The type of request (@instant@ | @request@ | @maintain@).
     filters :: Prelude.Maybe [Filter],
-    -- | The token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the EC2 Fleets.
+    -- | The IDs of the EC2 Fleets.
+    --
+    -- If a fleet is of type @instant@, you must specify the fleet ID,
+    -- otherwise it does not appear in the response.
     fleetIds :: Prelude.Maybe [Prelude.Text],
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of results to return in a single call. Specify a
     -- value between 1 and 1000. The default value is 1000. To retrieve the
     -- remaining results, make another call with the returned @NextToken@
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -101,6 +105,11 @@ data DescribeFleets = DescribeFleets'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dryRun', 'describeFleets_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeFleets_filters' - The filters.
 --
@@ -120,29 +129,34 @@ data DescribeFleets = DescribeFleets'
 --
 -- -   @type@ - The type of request (@instant@ | @request@ | @maintain@).
 --
--- 'nextToken', 'describeFleets_nextToken' - The token for the next set of results.
+-- 'fleetIds', 'describeFleets_fleetIds' - The IDs of the EC2 Fleets.
 --
--- 'fleetIds', 'describeFleets_fleetIds' - The ID of the EC2 Fleets.
---
--- 'dryRun', 'describeFleets_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
+-- If a fleet is of type @instant@, you must specify the fleet ID,
+-- otherwise it does not appear in the response.
 --
 -- 'maxResults', 'describeFleets_maxResults' - The maximum number of results to return in a single call. Specify a
 -- value between 1 and 1000. The default value is 1000. To retrieve the
 -- remaining results, make another call with the returned @NextToken@
 -- value.
+--
+-- 'nextToken', 'describeFleets_nextToken' - The token for the next set of results.
 newDescribeFleets ::
   DescribeFleets
 newDescribeFleets =
   DescribeFleets'
-    { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
+      filters = Prelude.Nothing,
       fleetIds = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeFleets_dryRun :: Lens.Lens' DescribeFleets (Prelude.Maybe Prelude.Bool)
+describeFleets_dryRun = Lens.lens (\DescribeFleets' {dryRun} -> dryRun) (\s@DescribeFleets' {} a -> s {dryRun = a} :: DescribeFleets)
 
 -- | The filters.
 --
@@ -164,20 +178,12 @@ newDescribeFleets =
 describeFleets_filters :: Lens.Lens' DescribeFleets (Prelude.Maybe [Filter])
 describeFleets_filters = Lens.lens (\DescribeFleets' {filters} -> filters) (\s@DescribeFleets' {} a -> s {filters = a} :: DescribeFleets) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next set of results.
-describeFleets_nextToken :: Lens.Lens' DescribeFleets (Prelude.Maybe Prelude.Text)
-describeFleets_nextToken = Lens.lens (\DescribeFleets' {nextToken} -> nextToken) (\s@DescribeFleets' {} a -> s {nextToken = a} :: DescribeFleets)
-
--- | The ID of the EC2 Fleets.
+-- | The IDs of the EC2 Fleets.
+--
+-- If a fleet is of type @instant@, you must specify the fleet ID,
+-- otherwise it does not appear in the response.
 describeFleets_fleetIds :: Lens.Lens' DescribeFleets (Prelude.Maybe [Prelude.Text])
 describeFleets_fleetIds = Lens.lens (\DescribeFleets' {fleetIds} -> fleetIds) (\s@DescribeFleets' {} a -> s {fleetIds = a} :: DescribeFleets) Prelude.. Lens.mapping Lens.coerced
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeFleets_dryRun :: Lens.Lens' DescribeFleets (Prelude.Maybe Prelude.Bool)
-describeFleets_dryRun = Lens.lens (\DescribeFleets' {dryRun} -> dryRun) (\s@DescribeFleets' {} a -> s {dryRun = a} :: DescribeFleets)
 
 -- | The maximum number of results to return in a single call. Specify a
 -- value between 1 and 1000. The default value is 1000. To retrieve the
@@ -185,6 +191,10 @@ describeFleets_dryRun = Lens.lens (\DescribeFleets' {dryRun} -> dryRun) (\s@Desc
 -- value.
 describeFleets_maxResults :: Lens.Lens' DescribeFleets (Prelude.Maybe Prelude.Int)
 describeFleets_maxResults = Lens.lens (\DescribeFleets' {maxResults} -> maxResults) (\s@DescribeFleets' {} a -> s {maxResults = a} :: DescribeFleets)
+
+-- | The token for the next set of results.
+describeFleets_nextToken :: Lens.Lens' DescribeFleets (Prelude.Maybe Prelude.Text)
+describeFleets_nextToken = Lens.lens (\DescribeFleets' {nextToken} -> nextToken) (\s@DescribeFleets' {} a -> s {nextToken = a} :: DescribeFleets)
 
 instance Core.AWSPager DescribeFleets where
   page rq rs
@@ -210,62 +220,63 @@ instance Core.AWSRequest DescribeFleets where
   type
     AWSResponse DescribeFleets =
       DescribeFleetsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeFleetsResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-            Prelude.<*> ( x Core..@? "fleetSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "fleetSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
+            Prelude.<*> (x Data..@? "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeFleets where
   hashWithSalt _salt DescribeFleets' {..} =
-    _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` fleetIds
-      `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeFleets where
   rnf DescribeFleets' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf fleetIds
-      `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeFleets where
+instance Data.ToHeaders DescribeFleets where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeFleets where
+instance Data.ToPath DescribeFleets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeFleets where
+instance Data.ToQuery DescribeFleets where
   toQuery DescribeFleets' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeFleets" :: Prelude.ByteString),
+          Data.=: ("DescribeFleets" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        Core.toQuery
-          (Core.toQueryList "FleetId" Prelude.<$> fleetIds),
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        Data.toQuery
+          (Data.toQueryList "FleetId" Prelude.<$> fleetIds),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeFleetsResponse' smart constructor.
 data DescribeFleetsResponse = DescribeFleetsResponse'
-  { -- | The token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Information about the EC2 Fleets.
+  { -- | Information about the EC2 Fleets.
     fleets :: Prelude.Maybe [FleetData],
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -279,9 +290,9 @@ data DescribeFleetsResponse = DescribeFleetsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeFleetsResponse_nextToken' - The token for the next set of results.
---
 -- 'fleets', 'describeFleetsResponse_fleets' - Information about the EC2 Fleets.
+--
+-- 'nextToken', 'describeFleetsResponse_nextToken' - The token for the next set of results.
 --
 -- 'httpStatus', 'describeFleetsResponse_httpStatus' - The response's http status code.
 newDescribeFleetsResponse ::
@@ -290,19 +301,18 @@ newDescribeFleetsResponse ::
   DescribeFleetsResponse
 newDescribeFleetsResponse pHttpStatus_ =
   DescribeFleetsResponse'
-    { nextToken =
-        Prelude.Nothing,
-      fleets = Prelude.Nothing,
+    { fleets = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The token for the next set of results.
-describeFleetsResponse_nextToken :: Lens.Lens' DescribeFleetsResponse (Prelude.Maybe Prelude.Text)
-describeFleetsResponse_nextToken = Lens.lens (\DescribeFleetsResponse' {nextToken} -> nextToken) (\s@DescribeFleetsResponse' {} a -> s {nextToken = a} :: DescribeFleetsResponse)
 
 -- | Information about the EC2 Fleets.
 describeFleetsResponse_fleets :: Lens.Lens' DescribeFleetsResponse (Prelude.Maybe [FleetData])
 describeFleetsResponse_fleets = Lens.lens (\DescribeFleetsResponse' {fleets} -> fleets) (\s@DescribeFleetsResponse' {} a -> s {fleets = a} :: DescribeFleetsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The token for the next set of results.
+describeFleetsResponse_nextToken :: Lens.Lens' DescribeFleetsResponse (Prelude.Maybe Prelude.Text)
+describeFleetsResponse_nextToken = Lens.lens (\DescribeFleetsResponse' {nextToken} -> nextToken) (\s@DescribeFleetsResponse' {} a -> s {nextToken = a} :: DescribeFleetsResponse)
 
 -- | The response's http status code.
 describeFleetsResponse_httpStatus :: Lens.Lens' DescribeFleetsResponse Prelude.Int
@@ -310,6 +320,6 @@ describeFleetsResponse_httpStatus = Lens.lens (\DescribeFleetsResponse' {httpSta
 
 instance Prelude.NFData DescribeFleetsResponse where
   rnf DescribeFleetsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf fleets
+    Prelude.rnf fleets
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

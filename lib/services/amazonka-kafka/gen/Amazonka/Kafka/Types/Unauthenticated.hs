@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.Unauthenticated
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.Kafka.Types.Unauthenticated where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newUnauthenticated' smart constructor.
 data Unauthenticated = Unauthenticated'
-  { -- | Specifies whether you want to enable or disable unauthenticated traffic
-    -- to your cluster.
+  { -- | Specifies whether you want to turn on or turn off unauthenticated
+    -- traffic to your cluster.
     enabled :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -39,24 +40,24 @@ data Unauthenticated = Unauthenticated'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'enabled', 'unauthenticated_enabled' - Specifies whether you want to enable or disable unauthenticated traffic
--- to your cluster.
+-- 'enabled', 'unauthenticated_enabled' - Specifies whether you want to turn on or turn off unauthenticated
+-- traffic to your cluster.
 newUnauthenticated ::
   Unauthenticated
 newUnauthenticated =
   Unauthenticated' {enabled = Prelude.Nothing}
 
--- | Specifies whether you want to enable or disable unauthenticated traffic
--- to your cluster.
+-- | Specifies whether you want to turn on or turn off unauthenticated
+-- traffic to your cluster.
 unauthenticated_enabled :: Lens.Lens' Unauthenticated (Prelude.Maybe Prelude.Bool)
 unauthenticated_enabled = Lens.lens (\Unauthenticated' {enabled} -> enabled) (\s@Unauthenticated' {} a -> s {enabled = a} :: Unauthenticated)
 
-instance Core.FromJSON Unauthenticated where
+instance Data.FromJSON Unauthenticated where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Unauthenticated"
       ( \x ->
-          Unauthenticated' Prelude.<$> (x Core..:? "enabled")
+          Unauthenticated' Prelude.<$> (x Data..:? "enabled")
       )
 
 instance Prelude.Hashable Unauthenticated where
@@ -66,9 +67,9 @@ instance Prelude.Hashable Unauthenticated where
 instance Prelude.NFData Unauthenticated where
   rnf Unauthenticated' {..} = Prelude.rnf enabled
 
-instance Core.ToJSON Unauthenticated where
+instance Data.ToJSON Unauthenticated where
   toJSON Unauthenticated' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("enabled" Core..=) Prelude.<$> enabled]
+          [("enabled" Data..=) Prelude.<$> enabled]
       )

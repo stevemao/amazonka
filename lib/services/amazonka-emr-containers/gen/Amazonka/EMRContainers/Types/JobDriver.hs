@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMRContainers.Types.JobDriver
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,21 @@
 module Amazonka.EMRContainers.Types.JobDriver where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.EMRContainers.Types.SparkSqlJobDriver
 import Amazonka.EMRContainers.Types.SparkSubmitJobDriver
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | Specify the driver that the job runs on.
+-- | Specify the driver that the job runs on. Exactly one of the two
+-- available job drivers is required, either sparkSqlJobDriver or
+-- sparkSubmitJobDriver.
 --
 -- /See:/ 'newJobDriver' smart constructor.
 data JobDriver = JobDriver'
-  { -- | The job driver parameters specified for spark submit.
+  { -- | The job driver for job type.
+    sparkSqlJobDriver :: Prelude.Maybe SparkSqlJobDriver,
+    -- | The job driver parameters specified for spark submit.
     sparkSubmitJobDriver :: Prelude.Maybe SparkSubmitJobDriver
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -41,37 +47,52 @@ data JobDriver = JobDriver'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'sparkSqlJobDriver', 'jobDriver_sparkSqlJobDriver' - The job driver for job type.
+--
 -- 'sparkSubmitJobDriver', 'jobDriver_sparkSubmitJobDriver' - The job driver parameters specified for spark submit.
 newJobDriver ::
   JobDriver
 newJobDriver =
-  JobDriver' {sparkSubmitJobDriver = Prelude.Nothing}
+  JobDriver'
+    { sparkSqlJobDriver = Prelude.Nothing,
+      sparkSubmitJobDriver = Prelude.Nothing
+    }
+
+-- | The job driver for job type.
+jobDriver_sparkSqlJobDriver :: Lens.Lens' JobDriver (Prelude.Maybe SparkSqlJobDriver)
+jobDriver_sparkSqlJobDriver = Lens.lens (\JobDriver' {sparkSqlJobDriver} -> sparkSqlJobDriver) (\s@JobDriver' {} a -> s {sparkSqlJobDriver = a} :: JobDriver)
 
 -- | The job driver parameters specified for spark submit.
 jobDriver_sparkSubmitJobDriver :: Lens.Lens' JobDriver (Prelude.Maybe SparkSubmitJobDriver)
 jobDriver_sparkSubmitJobDriver = Lens.lens (\JobDriver' {sparkSubmitJobDriver} -> sparkSubmitJobDriver) (\s@JobDriver' {} a -> s {sparkSubmitJobDriver = a} :: JobDriver)
 
-instance Core.FromJSON JobDriver where
+instance Data.FromJSON JobDriver where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "JobDriver"
       ( \x ->
           JobDriver'
-            Prelude.<$> (x Core..:? "sparkSubmitJobDriver")
+            Prelude.<$> (x Data..:? "sparkSqlJobDriver")
+            Prelude.<*> (x Data..:? "sparkSubmitJobDriver")
       )
 
 instance Prelude.Hashable JobDriver where
   hashWithSalt _salt JobDriver' {..} =
-    _salt `Prelude.hashWithSalt` sparkSubmitJobDriver
+    _salt `Prelude.hashWithSalt` sparkSqlJobDriver
+      `Prelude.hashWithSalt` sparkSubmitJobDriver
 
 instance Prelude.NFData JobDriver where
-  rnf JobDriver' {..} = Prelude.rnf sparkSubmitJobDriver
+  rnf JobDriver' {..} =
+    Prelude.rnf sparkSqlJobDriver
+      `Prelude.seq` Prelude.rnf sparkSubmitJobDriver
 
-instance Core.ToJSON JobDriver where
+instance Data.ToJSON JobDriver where
   toJSON JobDriver' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("sparkSubmitJobDriver" Core..=)
+          [ ("sparkSqlJobDriver" Data..=)
+              Prelude.<$> sparkSqlJobDriver,
+            ("sparkSubmitJobDriver" Data..=)
               Prelude.<$> sparkSubmitJobDriver
           ]
       )

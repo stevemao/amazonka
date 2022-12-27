@@ -14,14 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.ListDomains
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- This operation returns all the domain names registered with Amazon Route
--- 53 for the current AWS account.
+-- 53 for the current Amazon Web Services account if no filtering
+-- conditions are used.
 --
 -- This operation returns paginated results.
 module Amazonka.Route53Domains.ListDomains
@@ -30,8 +31,10 @@ module Amazonka.Route53Domains.ListDomains
     newListDomains,
 
     -- * Request Lenses
+    listDomains_filterConditions,
     listDomains_marker,
     listDomains_maxItems,
+    listDomains_sortCondition,
 
     -- * Destructuring the Response
     ListDomainsResponse (..),
@@ -45,7 +48,8 @@ module Amazonka.Route53Domains.ListDomains
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,12 +59,17 @@ import Amazonka.Route53Domains.Types
 --
 -- /See:/ 'newListDomains' smart constructor.
 data ListDomains = ListDomains'
-  { -- | For an initial request for a list of domains, omit this element. If the
-    -- number of domains that are associated with the current AWS account is
-    -- greater than the value that you specified for @MaxItems@, you can use
-    -- @Marker@ to return additional domains. Get the value of @NextPageMarker@
-    -- from the previous response, and submit another request that includes the
-    -- value of @NextPageMarker@ in the @Marker@ element.
+  { -- | A complex type that contains information about the filters applied
+    -- during the @ListDomains@ request. The filter conditions can include
+    -- domain name and domain expiration.
+    filterConditions :: Prelude.Maybe [FilterCondition],
+    -- | For an initial request for a list of domains, omit this element. If the
+    -- number of domains that are associated with the current Amazon Web
+    -- Services account is greater than the value that you specified for
+    -- @MaxItems@, you can use @Marker@ to return additional domains. Get the
+    -- value of @NextPageMarker@ from the previous response, and submit another
+    -- request that includes the value of @NextPageMarker@ in the @Marker@
+    -- element.
     --
     -- Constraints: The marker must match the value specified in the previous
     -- request.
@@ -68,7 +77,10 @@ data ListDomains = ListDomains'
     -- | Number of domains to be returned.
     --
     -- Default: 20
-    maxItems :: Prelude.Maybe Prelude.Int
+    maxItems :: Prelude.Maybe Prelude.Int,
+    -- | A complex type that contains information about the requested ordering of
+    -- domains in the returned list.
+    sortCondition :: Prelude.Maybe SortCondition
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -80,12 +92,17 @@ data ListDomains = ListDomains'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'filterConditions', 'listDomains_filterConditions' - A complex type that contains information about the filters applied
+-- during the @ListDomains@ request. The filter conditions can include
+-- domain name and domain expiration.
+--
 -- 'marker', 'listDomains_marker' - For an initial request for a list of domains, omit this element. If the
--- number of domains that are associated with the current AWS account is
--- greater than the value that you specified for @MaxItems@, you can use
--- @Marker@ to return additional domains. Get the value of @NextPageMarker@
--- from the previous response, and submit another request that includes the
--- value of @NextPageMarker@ in the @Marker@ element.
+-- number of domains that are associated with the current Amazon Web
+-- Services account is greater than the value that you specified for
+-- @MaxItems@, you can use @Marker@ to return additional domains. Get the
+-- value of @NextPageMarker@ from the previous response, and submit another
+-- request that includes the value of @NextPageMarker@ in the @Marker@
+-- element.
 --
 -- Constraints: The marker must match the value specified in the previous
 -- request.
@@ -93,20 +110,32 @@ data ListDomains = ListDomains'
 -- 'maxItems', 'listDomains_maxItems' - Number of domains to be returned.
 --
 -- Default: 20
+--
+-- 'sortCondition', 'listDomains_sortCondition' - A complex type that contains information about the requested ordering of
+-- domains in the returned list.
 newListDomains ::
   ListDomains
 newListDomains =
   ListDomains'
-    { marker = Prelude.Nothing,
-      maxItems = Prelude.Nothing
+    { filterConditions = Prelude.Nothing,
+      marker = Prelude.Nothing,
+      maxItems = Prelude.Nothing,
+      sortCondition = Prelude.Nothing
     }
 
+-- | A complex type that contains information about the filters applied
+-- during the @ListDomains@ request. The filter conditions can include
+-- domain name and domain expiration.
+listDomains_filterConditions :: Lens.Lens' ListDomains (Prelude.Maybe [FilterCondition])
+listDomains_filterConditions = Lens.lens (\ListDomains' {filterConditions} -> filterConditions) (\s@ListDomains' {} a -> s {filterConditions = a} :: ListDomains) Prelude.. Lens.mapping Lens.coerced
+
 -- | For an initial request for a list of domains, omit this element. If the
--- number of domains that are associated with the current AWS account is
--- greater than the value that you specified for @MaxItems@, you can use
--- @Marker@ to return additional domains. Get the value of @NextPageMarker@
--- from the previous response, and submit another request that includes the
--- value of @NextPageMarker@ in the @Marker@ element.
+-- number of domains that are associated with the current Amazon Web
+-- Services account is greater than the value that you specified for
+-- @MaxItems@, you can use @Marker@ to return additional domains. Get the
+-- value of @NextPageMarker@ from the previous response, and submit another
+-- request that includes the value of @NextPageMarker@ in the @Marker@
+-- element.
 --
 -- Constraints: The marker must match the value specified in the previous
 -- request.
@@ -118,6 +147,11 @@ listDomains_marker = Lens.lens (\ListDomains' {marker} -> marker) (\s@ListDomain
 -- Default: 20
 listDomains_maxItems :: Lens.Lens' ListDomains (Prelude.Maybe Prelude.Int)
 listDomains_maxItems = Lens.lens (\ListDomains' {maxItems} -> maxItems) (\s@ListDomains' {} a -> s {maxItems = a} :: ListDomains)
+
+-- | A complex type that contains information about the requested ordering of
+-- domains in the returned list.
+listDomains_sortCondition :: Lens.Lens' ListDomains (Prelude.Maybe SortCondition)
+listDomains_sortCondition = Lens.lens (\ListDomains' {sortCondition} -> sortCondition) (\s@ListDomains' {} a -> s {sortCondition = a} :: ListDomains)
 
 instance Core.AWSPager ListDomains where
   page rq rs
@@ -139,54 +173,62 @@ instance Core.AWSPager ListDomains where
 
 instance Core.AWSRequest ListDomains where
   type AWSResponse ListDomains = ListDomainsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDomainsResponse'
-            Prelude.<$> (x Core..?> "NextPageMarker")
+            Prelude.<$> (x Data..?> "NextPageMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Domains" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Domains" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListDomains where
   hashWithSalt _salt ListDomains' {..} =
-    _salt `Prelude.hashWithSalt` marker
+    _salt `Prelude.hashWithSalt` filterConditions
+      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxItems
+      `Prelude.hashWithSalt` sortCondition
 
 instance Prelude.NFData ListDomains where
   rnf ListDomains' {..} =
-    Prelude.rnf marker
+    Prelude.rnf filterConditions
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxItems
+      `Prelude.seq` Prelude.rnf sortCondition
 
-instance Core.ToHeaders ListDomains where
+instance Data.ToHeaders ListDomains where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Domains_v20140515.ListDomains" ::
+              Data.=# ( "Route53Domains_v20140515.ListDomains" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDomains where
+instance Data.ToJSON ListDomains where
   toJSON ListDomains' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Marker" Core..=) Prelude.<$> marker,
-            ("MaxItems" Core..=) Prelude.<$> maxItems
+          [ ("FilterConditions" Data..=)
+              Prelude.<$> filterConditions,
+            ("Marker" Data..=) Prelude.<$> marker,
+            ("MaxItems" Data..=) Prelude.<$> maxItems,
+            ("SortCondition" Data..=) Prelude.<$> sortCondition
           ]
       )
 
-instance Core.ToPath ListDomains where
+instance Data.ToPath ListDomains where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDomains where
+instance Data.ToQuery ListDomains where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The ListDomains response includes the following elements.
@@ -199,7 +241,7 @@ data ListDomainsResponse = ListDomainsResponse'
     nextPageMarker :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | A summary of domains.
+    -- | A list of domains.
     domains :: [DomainSummary]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -218,7 +260,7 @@ data ListDomainsResponse = ListDomainsResponse'
 --
 -- 'httpStatus', 'listDomainsResponse_httpStatus' - The response's http status code.
 --
--- 'domains', 'listDomainsResponse_domains' - A summary of domains.
+-- 'domains', 'listDomainsResponse_domains' - A list of domains.
 newListDomainsResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -241,7 +283,7 @@ listDomainsResponse_nextPageMarker = Lens.lens (\ListDomainsResponse' {nextPageM
 listDomainsResponse_httpStatus :: Lens.Lens' ListDomainsResponse Prelude.Int
 listDomainsResponse_httpStatus = Lens.lens (\ListDomainsResponse' {httpStatus} -> httpStatus) (\s@ListDomainsResponse' {} a -> s {httpStatus = a} :: ListDomainsResponse)
 
--- | A summary of domains.
+-- | A list of domains.
 listDomainsResponse_domains :: Lens.Lens' ListDomainsResponse [DomainSummary]
 listDomainsResponse_domains = Lens.lens (\ListDomainsResponse' {domains} -> domains) (\s@ListDomainsResponse' {} a -> s {domains = a} :: ListDomainsResponse) Prelude.. Lens.coerced
 

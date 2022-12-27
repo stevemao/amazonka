@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.CloudTrail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,35 +27,50 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestDescribeTrails $
---             newDescribeTrails
+--         [ requestAddTags $
+--             newAddTags
 --
---         , requestListPublicKeys $
---             newListPublicKeys
+--         , requestCancelQuery $
+--             newCancelQuery
 --
---         , requestRemoveTags $
---             newRemoveTags
---
---         , requestLookupEvents $
---             newLookupEvents
---
---         , requestStopLogging $
---             newStopLogging
---
---         , requestDeleteTrail $
---             newDeleteTrail
---
---         , requestUpdateTrail $
---             newUpdateTrail
+--         , requestCreateEventDataStore $
+--             newCreateEventDataStore
 --
 --         , requestCreateTrail $
 --             newCreateTrail
 --
---         , requestPutInsightSelectors $
---             newPutInsightSelectors
+--         , requestDeleteEventDataStore $
+--             newDeleteEventDataStore
+--
+--         , requestDeleteTrail $
+--             newDeleteTrail
+--
+--         , requestDeregisterOrganizationDelegatedAdmin $
+--             newDeregisterOrganizationDelegatedAdmin
+--
+--         , requestDescribeQuery $
+--             newDescribeQuery
+--
+--         , requestDescribeTrails $
+--             newDescribeTrails
+--
+--         , requestGetChannel $
+--             newGetChannel
+--
+--         , requestGetEventDataStore $
+--             newGetEventDataStore
 --
 --         , requestGetEventSelectors $
 --             newGetEventSelectors
+--
+--         , requestGetImport $
+--             newGetImport
+--
+--         , requestGetInsightSelectors $
+--             newGetInsightSelectors
+--
+--         , requestGetQueryResults $
+--             newGetQueryResults
 --
 --         , requestGetTrail $
 --             newGetTrail
@@ -63,56 +78,116 @@ import Test.Tasty
 --         , requestGetTrailStatus $
 --             newGetTrailStatus
 --
---         , requestAddTags $
---             newAddTags
+--         , requestListChannels $
+--             newListChannels
+--
+--         , requestListEventDataStores $
+--             newListEventDataStores
+--
+--         , requestListImportFailures $
+--             newListImportFailures
+--
+--         , requestListImports $
+--             newListImports
+--
+--         , requestListPublicKeys $
+--             newListPublicKeys
+--
+--         , requestListQueries $
+--             newListQueries
 --
 --         , requestListTags $
 --             newListTags
 --
+--         , requestListTrails $
+--             newListTrails
+--
+--         , requestLookupEvents $
+--             newLookupEvents
+--
 --         , requestPutEventSelectors $
 --             newPutEventSelectors
+--
+--         , requestPutInsightSelectors $
+--             newPutInsightSelectors
+--
+--         , requestRegisterOrganizationDelegatedAdmin $
+--             newRegisterOrganizationDelegatedAdmin
+--
+--         , requestRemoveTags $
+--             newRemoveTags
+--
+--         , requestRestoreEventDataStore $
+--             newRestoreEventDataStore
+--
+--         , requestStartImport $
+--             newStartImport
 --
 --         , requestStartLogging $
 --             newStartLogging
 --
---         , requestListTrails $
---             newListTrails
+--         , requestStartQuery $
+--             newStartQuery
 --
---         , requestGetInsightSelectors $
---             newGetInsightSelectors
+--         , requestStopImport $
+--             newStopImport
+--
+--         , requestStopLogging $
+--             newStopLogging
+--
+--         , requestUpdateEventDataStore $
+--             newUpdateEventDataStore
+--
+--         , requestUpdateTrail $
+--             newUpdateTrail
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseDescribeTrails $
---             newDescribeTrailsResponse
+--         [ responseAddTags $
+--             newAddTagsResponse
 --
---         , responseListPublicKeys $
---             newListPublicKeysResponse
+--         , responseCancelQuery $
+--             newCancelQueryResponse
 --
---         , responseRemoveTags $
---             newRemoveTagsResponse
---
---         , responseLookupEvents $
---             newLookupEventsResponse
---
---         , responseStopLogging $
---             newStopLoggingResponse
---
---         , responseDeleteTrail $
---             newDeleteTrailResponse
---
---         , responseUpdateTrail $
---             newUpdateTrailResponse
+--         , responseCreateEventDataStore $
+--             newCreateEventDataStoreResponse
 --
 --         , responseCreateTrail $
 --             newCreateTrailResponse
 --
---         , responsePutInsightSelectors $
---             newPutInsightSelectorsResponse
+--         , responseDeleteEventDataStore $
+--             newDeleteEventDataStoreResponse
+--
+--         , responseDeleteTrail $
+--             newDeleteTrailResponse
+--
+--         , responseDeregisterOrganizationDelegatedAdmin $
+--             newDeregisterOrganizationDelegatedAdminResponse
+--
+--         , responseDescribeQuery $
+--             newDescribeQueryResponse
+--
+--         , responseDescribeTrails $
+--             newDescribeTrailsResponse
+--
+--         , responseGetChannel $
+--             newGetChannelResponse
+--
+--         , responseGetEventDataStore $
+--             newGetEventDataStoreResponse
 --
 --         , responseGetEventSelectors $
 --             newGetEventSelectorsResponse
+--
+--         , responseGetImport $
+--             newGetImportResponse
+--
+--         , responseGetInsightSelectors $
+--             newGetInsightSelectorsResponse
+--
+--         , responseGetQueryResults $
+--             newGetQueryResultsResponse
 --
 --         , responseGetTrail $
 --             newGetTrailResponse
@@ -120,70 +195,91 @@ import Test.Tasty
 --         , responseGetTrailStatus $
 --             newGetTrailStatusResponse
 --
---         , responseAddTags $
---             newAddTagsResponse
+--         , responseListChannels $
+--             newListChannelsResponse
+--
+--         , responseListEventDataStores $
+--             newListEventDataStoresResponse
+--
+--         , responseListImportFailures $
+--             newListImportFailuresResponse
+--
+--         , responseListImports $
+--             newListImportsResponse
+--
+--         , responseListPublicKeys $
+--             newListPublicKeysResponse
+--
+--         , responseListQueries $
+--             newListQueriesResponse
 --
 --         , responseListTags $
 --             newListTagsResponse
 --
+--         , responseListTrails $
+--             newListTrailsResponse
+--
+--         , responseLookupEvents $
+--             newLookupEventsResponse
+--
 --         , responsePutEventSelectors $
 --             newPutEventSelectorsResponse
+--
+--         , responsePutInsightSelectors $
+--             newPutInsightSelectorsResponse
+--
+--         , responseRegisterOrganizationDelegatedAdmin $
+--             newRegisterOrganizationDelegatedAdminResponse
+--
+--         , responseRemoveTags $
+--             newRemoveTagsResponse
+--
+--         , responseRestoreEventDataStore $
+--             newRestoreEventDataStoreResponse
+--
+--         , responseStartImport $
+--             newStartImportResponse
 --
 --         , responseStartLogging $
 --             newStartLoggingResponse
 --
---         , responseListTrails $
---             newListTrailsResponse
+--         , responseStartQuery $
+--             newStartQueryResponse
 --
---         , responseGetInsightSelectors $
---             newGetInsightSelectorsResponse
+--         , responseStopImport $
+--             newStopImportResponse
+--
+--         , responseStopLogging $
+--             newStopLoggingResponse
+--
+--         , responseUpdateEventDataStore $
+--             newUpdateEventDataStoreResponse
+--
+--         , responseUpdateTrail $
+--             newUpdateTrailResponse
 --
 --           ]
 --     ]
 
 -- Requests
 
-requestDescribeTrails :: DescribeTrails -> TestTree
-requestDescribeTrails =
+requestAddTags :: AddTags -> TestTree
+requestAddTags =
   req
-    "DescribeTrails"
-    "fixture/DescribeTrails.yaml"
+    "AddTags"
+    "fixture/AddTags.yaml"
 
-requestListPublicKeys :: ListPublicKeys -> TestTree
-requestListPublicKeys =
+requestCancelQuery :: CancelQuery -> TestTree
+requestCancelQuery =
   req
-    "ListPublicKeys"
-    "fixture/ListPublicKeys.yaml"
+    "CancelQuery"
+    "fixture/CancelQuery.yaml"
 
-requestRemoveTags :: RemoveTags -> TestTree
-requestRemoveTags =
+requestCreateEventDataStore :: CreateEventDataStore -> TestTree
+requestCreateEventDataStore =
   req
-    "RemoveTags"
-    "fixture/RemoveTags.yaml"
-
-requestLookupEvents :: LookupEvents -> TestTree
-requestLookupEvents =
-  req
-    "LookupEvents"
-    "fixture/LookupEvents.yaml"
-
-requestStopLogging :: StopLogging -> TestTree
-requestStopLogging =
-  req
-    "StopLogging"
-    "fixture/StopLogging.yaml"
-
-requestDeleteTrail :: DeleteTrail -> TestTree
-requestDeleteTrail =
-  req
-    "DeleteTrail"
-    "fixture/DeleteTrail.yaml"
-
-requestUpdateTrail :: UpdateTrail -> TestTree
-requestUpdateTrail =
-  req
-    "UpdateTrail"
-    "fixture/UpdateTrail.yaml"
+    "CreateEventDataStore"
+    "fixture/CreateEventDataStore.yaml"
 
 requestCreateTrail :: CreateTrail -> TestTree
 requestCreateTrail =
@@ -191,17 +287,71 @@ requestCreateTrail =
     "CreateTrail"
     "fixture/CreateTrail.yaml"
 
-requestPutInsightSelectors :: PutInsightSelectors -> TestTree
-requestPutInsightSelectors =
+requestDeleteEventDataStore :: DeleteEventDataStore -> TestTree
+requestDeleteEventDataStore =
   req
-    "PutInsightSelectors"
-    "fixture/PutInsightSelectors.yaml"
+    "DeleteEventDataStore"
+    "fixture/DeleteEventDataStore.yaml"
+
+requestDeleteTrail :: DeleteTrail -> TestTree
+requestDeleteTrail =
+  req
+    "DeleteTrail"
+    "fixture/DeleteTrail.yaml"
+
+requestDeregisterOrganizationDelegatedAdmin :: DeregisterOrganizationDelegatedAdmin -> TestTree
+requestDeregisterOrganizationDelegatedAdmin =
+  req
+    "DeregisterOrganizationDelegatedAdmin"
+    "fixture/DeregisterOrganizationDelegatedAdmin.yaml"
+
+requestDescribeQuery :: DescribeQuery -> TestTree
+requestDescribeQuery =
+  req
+    "DescribeQuery"
+    "fixture/DescribeQuery.yaml"
+
+requestDescribeTrails :: DescribeTrails -> TestTree
+requestDescribeTrails =
+  req
+    "DescribeTrails"
+    "fixture/DescribeTrails.yaml"
+
+requestGetChannel :: GetChannel -> TestTree
+requestGetChannel =
+  req
+    "GetChannel"
+    "fixture/GetChannel.yaml"
+
+requestGetEventDataStore :: GetEventDataStore -> TestTree
+requestGetEventDataStore =
+  req
+    "GetEventDataStore"
+    "fixture/GetEventDataStore.yaml"
 
 requestGetEventSelectors :: GetEventSelectors -> TestTree
 requestGetEventSelectors =
   req
     "GetEventSelectors"
     "fixture/GetEventSelectors.yaml"
+
+requestGetImport :: GetImport -> TestTree
+requestGetImport =
+  req
+    "GetImport"
+    "fixture/GetImport.yaml"
+
+requestGetInsightSelectors :: GetInsightSelectors -> TestTree
+requestGetInsightSelectors =
+  req
+    "GetInsightSelectors"
+    "fixture/GetInsightSelectors.yaml"
+
+requestGetQueryResults :: GetQueryResults -> TestTree
+requestGetQueryResults =
+  req
+    "GetQueryResults"
+    "fixture/GetQueryResults.yaml"
 
 requestGetTrail :: GetTrail -> TestTree
 requestGetTrail =
@@ -215,11 +365,41 @@ requestGetTrailStatus =
     "GetTrailStatus"
     "fixture/GetTrailStatus.yaml"
 
-requestAddTags :: AddTags -> TestTree
-requestAddTags =
+requestListChannels :: ListChannels -> TestTree
+requestListChannels =
   req
-    "AddTags"
-    "fixture/AddTags.yaml"
+    "ListChannels"
+    "fixture/ListChannels.yaml"
+
+requestListEventDataStores :: ListEventDataStores -> TestTree
+requestListEventDataStores =
+  req
+    "ListEventDataStores"
+    "fixture/ListEventDataStores.yaml"
+
+requestListImportFailures :: ListImportFailures -> TestTree
+requestListImportFailures =
+  req
+    "ListImportFailures"
+    "fixture/ListImportFailures.yaml"
+
+requestListImports :: ListImports -> TestTree
+requestListImports =
+  req
+    "ListImports"
+    "fixture/ListImports.yaml"
+
+requestListPublicKeys :: ListPublicKeys -> TestTree
+requestListPublicKeys =
+  req
+    "ListPublicKeys"
+    "fixture/ListPublicKeys.yaml"
+
+requestListQueries :: ListQueries -> TestTree
+requestListQueries =
+  req
+    "ListQueries"
+    "fixture/ListQueries.yaml"
 
 requestListTags :: ListTags -> TestTree
 requestListTags =
@@ -227,11 +407,53 @@ requestListTags =
     "ListTags"
     "fixture/ListTags.yaml"
 
+requestListTrails :: ListTrails -> TestTree
+requestListTrails =
+  req
+    "ListTrails"
+    "fixture/ListTrails.yaml"
+
+requestLookupEvents :: LookupEvents -> TestTree
+requestLookupEvents =
+  req
+    "LookupEvents"
+    "fixture/LookupEvents.yaml"
+
 requestPutEventSelectors :: PutEventSelectors -> TestTree
 requestPutEventSelectors =
   req
     "PutEventSelectors"
     "fixture/PutEventSelectors.yaml"
+
+requestPutInsightSelectors :: PutInsightSelectors -> TestTree
+requestPutInsightSelectors =
+  req
+    "PutInsightSelectors"
+    "fixture/PutInsightSelectors.yaml"
+
+requestRegisterOrganizationDelegatedAdmin :: RegisterOrganizationDelegatedAdmin -> TestTree
+requestRegisterOrganizationDelegatedAdmin =
+  req
+    "RegisterOrganizationDelegatedAdmin"
+    "fixture/RegisterOrganizationDelegatedAdmin.yaml"
+
+requestRemoveTags :: RemoveTags -> TestTree
+requestRemoveTags =
+  req
+    "RemoveTags"
+    "fixture/RemoveTags.yaml"
+
+requestRestoreEventDataStore :: RestoreEventDataStore -> TestTree
+requestRestoreEventDataStore =
+  req
+    "RestoreEventDataStore"
+    "fixture/RestoreEventDataStore.yaml"
+
+requestStartImport :: StartImport -> TestTree
+requestStartImport =
+  req
+    "StartImport"
+    "fixture/StartImport.yaml"
 
 requestStartLogging :: StartLogging -> TestTree
 requestStartLogging =
@@ -239,75 +461,61 @@ requestStartLogging =
     "StartLogging"
     "fixture/StartLogging.yaml"
 
-requestListTrails :: ListTrails -> TestTree
-requestListTrails =
+requestStartQuery :: StartQuery -> TestTree
+requestStartQuery =
   req
-    "ListTrails"
-    "fixture/ListTrails.yaml"
+    "StartQuery"
+    "fixture/StartQuery.yaml"
 
-requestGetInsightSelectors :: GetInsightSelectors -> TestTree
-requestGetInsightSelectors =
+requestStopImport :: StopImport -> TestTree
+requestStopImport =
   req
-    "GetInsightSelectors"
-    "fixture/GetInsightSelectors.yaml"
+    "StopImport"
+    "fixture/StopImport.yaml"
+
+requestStopLogging :: StopLogging -> TestTree
+requestStopLogging =
+  req
+    "StopLogging"
+    "fixture/StopLogging.yaml"
+
+requestUpdateEventDataStore :: UpdateEventDataStore -> TestTree
+requestUpdateEventDataStore =
+  req
+    "UpdateEventDataStore"
+    "fixture/UpdateEventDataStore.yaml"
+
+requestUpdateTrail :: UpdateTrail -> TestTree
+requestUpdateTrail =
+  req
+    "UpdateTrail"
+    "fixture/UpdateTrail.yaml"
 
 -- Responses
 
-responseDescribeTrails :: DescribeTrailsResponse -> TestTree
-responseDescribeTrails =
+responseAddTags :: AddTagsResponse -> TestTree
+responseAddTags =
   res
-    "DescribeTrailsResponse"
-    "fixture/DescribeTrailsResponse.proto"
+    "AddTagsResponse"
+    "fixture/AddTagsResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeTrails)
+    (Proxy.Proxy :: Proxy.Proxy AddTags)
 
-responseListPublicKeys :: ListPublicKeysResponse -> TestTree
-responseListPublicKeys =
+responseCancelQuery :: CancelQueryResponse -> TestTree
+responseCancelQuery =
   res
-    "ListPublicKeysResponse"
-    "fixture/ListPublicKeysResponse.proto"
+    "CancelQueryResponse"
+    "fixture/CancelQueryResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListPublicKeys)
+    (Proxy.Proxy :: Proxy.Proxy CancelQuery)
 
-responseRemoveTags :: RemoveTagsResponse -> TestTree
-responseRemoveTags =
+responseCreateEventDataStore :: CreateEventDataStoreResponse -> TestTree
+responseCreateEventDataStore =
   res
-    "RemoveTagsResponse"
-    "fixture/RemoveTagsResponse.proto"
+    "CreateEventDataStoreResponse"
+    "fixture/CreateEventDataStoreResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy RemoveTags)
-
-responseLookupEvents :: LookupEventsResponse -> TestTree
-responseLookupEvents =
-  res
-    "LookupEventsResponse"
-    "fixture/LookupEventsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy LookupEvents)
-
-responseStopLogging :: StopLoggingResponse -> TestTree
-responseStopLogging =
-  res
-    "StopLoggingResponse"
-    "fixture/StopLoggingResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy StopLogging)
-
-responseDeleteTrail :: DeleteTrailResponse -> TestTree
-responseDeleteTrail =
-  res
-    "DeleteTrailResponse"
-    "fixture/DeleteTrailResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteTrail)
-
-responseUpdateTrail :: UpdateTrailResponse -> TestTree
-responseUpdateTrail =
-  res
-    "UpdateTrailResponse"
-    "fixture/UpdateTrailResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateTrail)
+    (Proxy.Proxy :: Proxy.Proxy CreateEventDataStore)
 
 responseCreateTrail :: CreateTrailResponse -> TestTree
 responseCreateTrail =
@@ -317,13 +525,61 @@ responseCreateTrail =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateTrail)
 
-responsePutInsightSelectors :: PutInsightSelectorsResponse -> TestTree
-responsePutInsightSelectors =
+responseDeleteEventDataStore :: DeleteEventDataStoreResponse -> TestTree
+responseDeleteEventDataStore =
   res
-    "PutInsightSelectorsResponse"
-    "fixture/PutInsightSelectorsResponse.proto"
+    "DeleteEventDataStoreResponse"
+    "fixture/DeleteEventDataStoreResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy PutInsightSelectors)
+    (Proxy.Proxy :: Proxy.Proxy DeleteEventDataStore)
+
+responseDeleteTrail :: DeleteTrailResponse -> TestTree
+responseDeleteTrail =
+  res
+    "DeleteTrailResponse"
+    "fixture/DeleteTrailResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteTrail)
+
+responseDeregisterOrganizationDelegatedAdmin :: DeregisterOrganizationDelegatedAdminResponse -> TestTree
+responseDeregisterOrganizationDelegatedAdmin =
+  res
+    "DeregisterOrganizationDelegatedAdminResponse"
+    "fixture/DeregisterOrganizationDelegatedAdminResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeregisterOrganizationDelegatedAdmin)
+
+responseDescribeQuery :: DescribeQueryResponse -> TestTree
+responseDescribeQuery =
+  res
+    "DescribeQueryResponse"
+    "fixture/DescribeQueryResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeQuery)
+
+responseDescribeTrails :: DescribeTrailsResponse -> TestTree
+responseDescribeTrails =
+  res
+    "DescribeTrailsResponse"
+    "fixture/DescribeTrailsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeTrails)
+
+responseGetChannel :: GetChannelResponse -> TestTree
+responseGetChannel =
+  res
+    "GetChannelResponse"
+    "fixture/GetChannelResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetChannel)
+
+responseGetEventDataStore :: GetEventDataStoreResponse -> TestTree
+responseGetEventDataStore =
+  res
+    "GetEventDataStoreResponse"
+    "fixture/GetEventDataStoreResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetEventDataStore)
 
 responseGetEventSelectors :: GetEventSelectorsResponse -> TestTree
 responseGetEventSelectors =
@@ -332,6 +588,30 @@ responseGetEventSelectors =
     "fixture/GetEventSelectorsResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetEventSelectors)
+
+responseGetImport :: GetImportResponse -> TestTree
+responseGetImport =
+  res
+    "GetImportResponse"
+    "fixture/GetImportResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetImport)
+
+responseGetInsightSelectors :: GetInsightSelectorsResponse -> TestTree
+responseGetInsightSelectors =
+  res
+    "GetInsightSelectorsResponse"
+    "fixture/GetInsightSelectorsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetInsightSelectors)
+
+responseGetQueryResults :: GetQueryResultsResponse -> TestTree
+responseGetQueryResults =
+  res
+    "GetQueryResultsResponse"
+    "fixture/GetQueryResultsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetQueryResults)
 
 responseGetTrail :: GetTrailResponse -> TestTree
 responseGetTrail =
@@ -349,13 +629,53 @@ responseGetTrailStatus =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetTrailStatus)
 
-responseAddTags :: AddTagsResponse -> TestTree
-responseAddTags =
+responseListChannels :: ListChannelsResponse -> TestTree
+responseListChannels =
   res
-    "AddTagsResponse"
-    "fixture/AddTagsResponse.proto"
+    "ListChannelsResponse"
+    "fixture/ListChannelsResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy AddTags)
+    (Proxy.Proxy :: Proxy.Proxy ListChannels)
+
+responseListEventDataStores :: ListEventDataStoresResponse -> TestTree
+responseListEventDataStores =
+  res
+    "ListEventDataStoresResponse"
+    "fixture/ListEventDataStoresResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListEventDataStores)
+
+responseListImportFailures :: ListImportFailuresResponse -> TestTree
+responseListImportFailures =
+  res
+    "ListImportFailuresResponse"
+    "fixture/ListImportFailuresResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListImportFailures)
+
+responseListImports :: ListImportsResponse -> TestTree
+responseListImports =
+  res
+    "ListImportsResponse"
+    "fixture/ListImportsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListImports)
+
+responseListPublicKeys :: ListPublicKeysResponse -> TestTree
+responseListPublicKeys =
+  res
+    "ListPublicKeysResponse"
+    "fixture/ListPublicKeysResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListPublicKeys)
+
+responseListQueries :: ListQueriesResponse -> TestTree
+responseListQueries =
+  res
+    "ListQueriesResponse"
+    "fixture/ListQueriesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListQueries)
 
 responseListTags :: ListTagsResponse -> TestTree
 responseListTags =
@@ -365,6 +685,22 @@ responseListTags =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy ListTags)
 
+responseListTrails :: ListTrailsResponse -> TestTree
+responseListTrails =
+  res
+    "ListTrailsResponse"
+    "fixture/ListTrailsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTrails)
+
+responseLookupEvents :: LookupEventsResponse -> TestTree
+responseLookupEvents =
+  res
+    "LookupEventsResponse"
+    "fixture/LookupEventsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy LookupEvents)
+
 responsePutEventSelectors :: PutEventSelectorsResponse -> TestTree
 responsePutEventSelectors =
   res
@@ -372,6 +708,46 @@ responsePutEventSelectors =
     "fixture/PutEventSelectorsResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy PutEventSelectors)
+
+responsePutInsightSelectors :: PutInsightSelectorsResponse -> TestTree
+responsePutInsightSelectors =
+  res
+    "PutInsightSelectorsResponse"
+    "fixture/PutInsightSelectorsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy PutInsightSelectors)
+
+responseRegisterOrganizationDelegatedAdmin :: RegisterOrganizationDelegatedAdminResponse -> TestTree
+responseRegisterOrganizationDelegatedAdmin =
+  res
+    "RegisterOrganizationDelegatedAdminResponse"
+    "fixture/RegisterOrganizationDelegatedAdminResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy RegisterOrganizationDelegatedAdmin)
+
+responseRemoveTags :: RemoveTagsResponse -> TestTree
+responseRemoveTags =
+  res
+    "RemoveTagsResponse"
+    "fixture/RemoveTagsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy RemoveTags)
+
+responseRestoreEventDataStore :: RestoreEventDataStoreResponse -> TestTree
+responseRestoreEventDataStore =
+  res
+    "RestoreEventDataStoreResponse"
+    "fixture/RestoreEventDataStoreResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy RestoreEventDataStore)
+
+responseStartImport :: StartImportResponse -> TestTree
+responseStartImport =
+  res
+    "StartImportResponse"
+    "fixture/StartImportResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StartImport)
 
 responseStartLogging :: StartLoggingResponse -> TestTree
 responseStartLogging =
@@ -381,18 +757,42 @@ responseStartLogging =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy StartLogging)
 
-responseListTrails :: ListTrailsResponse -> TestTree
-responseListTrails =
+responseStartQuery :: StartQueryResponse -> TestTree
+responseStartQuery =
   res
-    "ListTrailsResponse"
-    "fixture/ListTrailsResponse.proto"
+    "StartQueryResponse"
+    "fixture/StartQueryResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTrails)
+    (Proxy.Proxy :: Proxy.Proxy StartQuery)
 
-responseGetInsightSelectors :: GetInsightSelectorsResponse -> TestTree
-responseGetInsightSelectors =
+responseStopImport :: StopImportResponse -> TestTree
+responseStopImport =
   res
-    "GetInsightSelectorsResponse"
-    "fixture/GetInsightSelectorsResponse.proto"
+    "StopImportResponse"
+    "fixture/StopImportResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetInsightSelectors)
+    (Proxy.Proxy :: Proxy.Proxy StopImport)
+
+responseStopLogging :: StopLoggingResponse -> TestTree
+responseStopLogging =
+  res
+    "StopLoggingResponse"
+    "fixture/StopLoggingResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StopLogging)
+
+responseUpdateEventDataStore :: UpdateEventDataStoreResponse -> TestTree
+responseUpdateEventDataStore =
+  res
+    "UpdateEventDataStoreResponse"
+    "fixture/UpdateEventDataStoreResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateEventDataStore)
+
+responseUpdateTrail :: UpdateTrailResponse -> TestTree
+responseUpdateTrail =
+  res
+    "UpdateTrailResponse"
+    "fixture/UpdateTrailResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateTrail)

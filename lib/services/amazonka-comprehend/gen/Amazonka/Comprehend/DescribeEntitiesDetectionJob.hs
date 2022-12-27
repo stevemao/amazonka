@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.DescribeEntitiesDetectionJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,12 +82,13 @@ instance Core.AWSRequest DescribeEntitiesDetectionJob where
   type
     AWSResponse DescribeEntitiesDetectionJob =
       DescribeEntitiesDetectionJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEntitiesDetectionJobResponse'
-            Prelude.<$> (x Core..?> "EntitiesDetectionJobProperties")
+            Prelude.<$> (x Data..?> "EntitiesDetectionJobProperties")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,32 +103,32 @@ instance Prelude.NFData DescribeEntitiesDetectionJob where
   rnf DescribeEntitiesDetectionJob' {..} =
     Prelude.rnf jobId
 
-instance Core.ToHeaders DescribeEntitiesDetectionJob where
+instance Data.ToHeaders DescribeEntitiesDetectionJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.DescribeEntitiesDetectionJob" ::
+              Data.=# ( "Comprehend_20171127.DescribeEntitiesDetectionJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEntitiesDetectionJob where
+instance Data.ToJSON DescribeEntitiesDetectionJob where
   toJSON DescribeEntitiesDetectionJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("JobId" Core..= jobId)]
+          [Prelude.Just ("JobId" Data..= jobId)]
       )
 
-instance Core.ToPath DescribeEntitiesDetectionJob where
+instance Data.ToPath DescribeEntitiesDetectionJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEntitiesDetectionJob where
+instance Data.ToQuery DescribeEntitiesDetectionJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeEntitiesDetectionJobResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DeregisterGameServer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,12 +34,6 @@
 -- __Learn more__
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/fleetiqguide/gsg-intro.html GameLift FleetIQ Guide>
---
--- __Related actions__
---
--- RegisterGameServer | ListGameServers | ClaimGameServer |
--- DescribeGameServer | UpdateGameServer | DeregisterGameServer |
--- <https://docs.aws.amazon.com/gamelift/latest/fleetiqguide/reference-awssdk-fleetiq.html All APIs by task>
 module Amazonka.GameLift.DeregisterGameServer
   ( -- * Creating a Request
     DeregisterGameServer (..),
@@ -56,8 +50,9 @@ module Amazonka.GameLift.DeregisterGameServer
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,7 +60,7 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newDeregisterGameServer' smart constructor.
 data DeregisterGameServer = DeregisterGameServer'
   { -- | A unique identifier for the game server group where the game server is
-    -- running. Use either the GameServerGroup name or ARN value.
+    -- running.
     gameServerGroupName :: Prelude.Text,
     -- | A custom string that uniquely identifies the game server to deregister.
     gameServerId :: Prelude.Text
@@ -81,7 +76,7 @@ data DeregisterGameServer = DeregisterGameServer'
 -- for backwards compatibility:
 --
 -- 'gameServerGroupName', 'deregisterGameServer_gameServerGroupName' - A unique identifier for the game server group where the game server is
--- running. Use either the GameServerGroup name or ARN value.
+-- running.
 --
 -- 'gameServerId', 'deregisterGameServer_gameServerId' - A custom string that uniquely identifies the game server to deregister.
 newDeregisterGameServer ::
@@ -100,7 +95,7 @@ newDeregisterGameServer
       }
 
 -- | A unique identifier for the game server group where the game server is
--- running. Use either the GameServerGroup name or ARN value.
+-- running.
 deregisterGameServer_gameServerGroupName :: Lens.Lens' DeregisterGameServer Prelude.Text
 deregisterGameServer_gameServerGroupName = Lens.lens (\DeregisterGameServer' {gameServerGroupName} -> gameServerGroupName) (\s@DeregisterGameServer' {} a -> s {gameServerGroupName = a} :: DeregisterGameServer)
 
@@ -112,7 +107,8 @@ instance Core.AWSRequest DeregisterGameServer where
   type
     AWSResponse DeregisterGameServer =
       DeregisterGameServerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeregisterGameServerResponse'
 
@@ -126,35 +122,35 @@ instance Prelude.NFData DeregisterGameServer where
     Prelude.rnf gameServerGroupName
       `Prelude.seq` Prelude.rnf gameServerId
 
-instance Core.ToHeaders DeregisterGameServer where
+instance Data.ToHeaders DeregisterGameServer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DeregisterGameServer" ::
+              Data.=# ( "GameLift.DeregisterGameServer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeregisterGameServer where
+instance Data.ToJSON DeregisterGameServer where
   toJSON DeregisterGameServer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("GameServerGroupName" Core..= gameServerGroupName),
-            Prelude.Just ("GameServerId" Core..= gameServerId)
+              ("GameServerGroupName" Data..= gameServerGroupName),
+            Prelude.Just ("GameServerId" Data..= gameServerId)
           ]
       )
 
-instance Core.ToPath DeregisterGameServer where
+instance Data.ToPath DeregisterGameServer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeregisterGameServer where
+instance Data.ToQuery DeregisterGameServer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeregisterGameServerResponse' smart constructor.

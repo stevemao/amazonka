@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.UpdateResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,17 +36,18 @@ module Amazonka.APIGateway.UpdateResource
     newResource,
 
     -- * Response Lenses
-    resource_pathPart,
-    resource_path,
     resource_id,
-    resource_resourceMethods,
     resource_parentId,
+    resource_path,
+    resource_pathPart,
+    resource_resourceMethods,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,12 +56,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateResource' smart constructor.
 data UpdateResource = UpdateResource'
-  { -- | A list of update operations to be applied to the specified resource and
-    -- in the order specified in this list.
+  { -- | For more information about supported patch operations, see
+    -- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
     patchOperations :: Prelude.Maybe [PatchOperation],
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The identifier of the Resource resource.
+    -- | The identifier of the Resource resource.
     resourceId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -73,12 +74,12 @@ data UpdateResource = UpdateResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'patchOperations', 'updateResource_patchOperations' - A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- 'patchOperations', 'updateResource_patchOperations' - For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 --
--- 'restApiId', 'updateResource_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'updateResource_restApiId' - The string identifier of the associated RestApi.
 --
--- 'resourceId', 'updateResource_resourceId' - [Required] The identifier of the Resource resource.
+-- 'resourceId', 'updateResource_resourceId' - The identifier of the Resource resource.
 newUpdateResource ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -92,25 +93,26 @@ newUpdateResource pRestApiId_ pResourceId_ =
       resourceId = pResourceId_
     }
 
--- | A list of update operations to be applied to the specified resource and
--- in the order specified in this list.
+-- | For more information about supported patch operations, see
+-- <https://docs.aws.amazon.com/apigateway/latest/api/patch-operations.html Patch Operations>.
 updateResource_patchOperations :: Lens.Lens' UpdateResource (Prelude.Maybe [PatchOperation])
 updateResource_patchOperations = Lens.lens (\UpdateResource' {patchOperations} -> patchOperations) (\s@UpdateResource' {} a -> s {patchOperations = a} :: UpdateResource) Prelude.. Lens.mapping Lens.coerced
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 updateResource_restApiId :: Lens.Lens' UpdateResource Prelude.Text
 updateResource_restApiId = Lens.lens (\UpdateResource' {restApiId} -> restApiId) (\s@UpdateResource' {} a -> s {restApiId = a} :: UpdateResource)
 
--- | [Required] The identifier of the Resource resource.
+-- | The identifier of the Resource resource.
 updateResource_resourceId :: Lens.Lens' UpdateResource Prelude.Text
 updateResource_resourceId = Lens.lens (\UpdateResource' {resourceId} -> resourceId) (\s@UpdateResource' {} a -> s {resourceId = a} :: UpdateResource)
 
 instance Core.AWSRequest UpdateResource where
   type AWSResponse UpdateResource = Resource
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable UpdateResource where
   hashWithSalt _salt UpdateResource' {..} =
@@ -124,32 +126,32 @@ instance Prelude.NFData UpdateResource where
       `Prelude.seq` Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf resourceId
 
-instance Core.ToHeaders UpdateResource where
+instance Data.ToHeaders UpdateResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON UpdateResource where
+instance Data.ToJSON UpdateResource where
   toJSON UpdateResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("patchOperations" Core..=)
+          [ ("patchOperations" Data..=)
               Prelude.<$> patchOperations
           ]
       )
 
-instance Core.ToPath UpdateResource where
+instance Data.ToPath UpdateResource where
   toPath UpdateResource' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/resources/",
-        Core.toBS resourceId
+        Data.toBS resourceId
       ]
 
-instance Core.ToQuery UpdateResource where
+instance Data.ToQuery UpdateResource where
   toQuery = Prelude.const Prelude.mempty

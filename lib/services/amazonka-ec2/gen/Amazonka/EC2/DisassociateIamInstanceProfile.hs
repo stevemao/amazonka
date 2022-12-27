@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DisassociateIamInstanceProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.EC2.DisassociateIamInstanceProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,12 +87,13 @@ instance
   type
     AWSResponse DisassociateIamInstanceProfile =
       DisassociateIamInstanceProfileResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DisassociateIamInstanceProfileResponse'
-            Prelude.<$> (x Core..@? "iamInstanceProfileAssociation")
+            Prelude.<$> (x Data..@? "iamInstanceProfileAssociation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,24 +114,24 @@ instance
     Prelude.rnf associationId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DisassociateIamInstanceProfile
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DisassociateIamInstanceProfile where
+instance Data.ToPath DisassociateIamInstanceProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateIamInstanceProfile where
+instance Data.ToQuery DisassociateIamInstanceProfile where
   toQuery DisassociateIamInstanceProfile' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DisassociateIamInstanceProfile" ::
+          Data.=: ( "DisassociateIamInstanceProfile" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "AssociationId" Core.=: associationId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "AssociationId" Data.=: associationId
       ]
 
 -- | /See:/ 'newDisassociateIamInstanceProfileResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.UpdateDataSetPermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.QuickSight.UpdateDataSetPermissions
     newUpdateDataSetPermissions,
 
     -- * Request Lenses
-    updateDataSetPermissions_revokePermissions,
     updateDataSetPermissions_grantPermissions,
+    updateDataSetPermissions_revokePermissions,
     updateDataSetPermissions_awsAccountId,
     updateDataSetPermissions_dataSetId,
 
@@ -40,15 +40,16 @@ module Amazonka.QuickSight.UpdateDataSetPermissions
     newUpdateDataSetPermissionsResponse,
 
     -- * Response Lenses
-    updateDataSetPermissionsResponse_requestId,
     updateDataSetPermissionsResponse_dataSetArn,
     updateDataSetPermissionsResponse_dataSetId,
+    updateDataSetPermissionsResponse_requestId,
     updateDataSetPermissionsResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -56,10 +57,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateDataSetPermissions' smart constructor.
 data UpdateDataSetPermissions = UpdateDataSetPermissions'
-  { -- | The resource permissions that you want to revoke from the dataset.
-    revokePermissions :: Prelude.Maybe (Prelude.NonEmpty ResourcePermission),
-    -- | The resource permissions that you want to grant to the dataset.
+  { -- | The resource permissions that you want to grant to the dataset.
     grantPermissions :: Prelude.Maybe (Prelude.NonEmpty ResourcePermission),
+    -- | The resource permissions that you want to revoke from the dataset.
+    revokePermissions :: Prelude.Maybe (Prelude.NonEmpty ResourcePermission),
     -- | The Amazon Web Services account ID.
     awsAccountId :: Prelude.Text,
     -- | The ID for the dataset whose permissions you want to update. This ID is
@@ -77,9 +78,9 @@ data UpdateDataSetPermissions = UpdateDataSetPermissions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'revokePermissions', 'updateDataSetPermissions_revokePermissions' - The resource permissions that you want to revoke from the dataset.
---
 -- 'grantPermissions', 'updateDataSetPermissions_grantPermissions' - The resource permissions that you want to grant to the dataset.
+--
+-- 'revokePermissions', 'updateDataSetPermissions_revokePermissions' - The resource permissions that you want to revoke from the dataset.
 --
 -- 'awsAccountId', 'updateDataSetPermissions_awsAccountId' - The Amazon Web Services account ID.
 --
@@ -96,20 +97,20 @@ newUpdateDataSetPermissions
   pAwsAccountId_
   pDataSetId_ =
     UpdateDataSetPermissions'
-      { revokePermissions =
+      { grantPermissions =
           Prelude.Nothing,
-        grantPermissions = Prelude.Nothing,
+        revokePermissions = Prelude.Nothing,
         awsAccountId = pAwsAccountId_,
         dataSetId = pDataSetId_
       }
 
--- | The resource permissions that you want to revoke from the dataset.
-updateDataSetPermissions_revokePermissions :: Lens.Lens' UpdateDataSetPermissions (Prelude.Maybe (Prelude.NonEmpty ResourcePermission))
-updateDataSetPermissions_revokePermissions = Lens.lens (\UpdateDataSetPermissions' {revokePermissions} -> revokePermissions) (\s@UpdateDataSetPermissions' {} a -> s {revokePermissions = a} :: UpdateDataSetPermissions) Prelude.. Lens.mapping Lens.coerced
-
 -- | The resource permissions that you want to grant to the dataset.
 updateDataSetPermissions_grantPermissions :: Lens.Lens' UpdateDataSetPermissions (Prelude.Maybe (Prelude.NonEmpty ResourcePermission))
 updateDataSetPermissions_grantPermissions = Lens.lens (\UpdateDataSetPermissions' {grantPermissions} -> grantPermissions) (\s@UpdateDataSetPermissions' {} a -> s {grantPermissions = a} :: UpdateDataSetPermissions) Prelude.. Lens.mapping Lens.coerced
+
+-- | The resource permissions that you want to revoke from the dataset.
+updateDataSetPermissions_revokePermissions :: Lens.Lens' UpdateDataSetPermissions (Prelude.Maybe (Prelude.NonEmpty ResourcePermission))
+updateDataSetPermissions_revokePermissions = Lens.lens (\UpdateDataSetPermissions' {revokePermissions} -> revokePermissions) (\s@UpdateDataSetPermissions' {} a -> s {revokePermissions = a} :: UpdateDataSetPermissions) Prelude.. Lens.mapping Lens.coerced
 
 -- | The Amazon Web Services account ID.
 updateDataSetPermissions_awsAccountId :: Lens.Lens' UpdateDataSetPermissions Prelude.Text
@@ -125,76 +126,77 @@ instance Core.AWSRequest UpdateDataSetPermissions where
   type
     AWSResponse UpdateDataSetPermissions =
       UpdateDataSetPermissionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDataSetPermissionsResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "DataSetArn")
-            Prelude.<*> (x Core..?> "DataSetId")
+            Prelude.<$> (x Data..?> "DataSetArn")
+            Prelude.<*> (x Data..?> "DataSetId")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateDataSetPermissions where
   hashWithSalt _salt UpdateDataSetPermissions' {..} =
-    _salt `Prelude.hashWithSalt` revokePermissions
-      `Prelude.hashWithSalt` grantPermissions
+    _salt `Prelude.hashWithSalt` grantPermissions
+      `Prelude.hashWithSalt` revokePermissions
       `Prelude.hashWithSalt` awsAccountId
       `Prelude.hashWithSalt` dataSetId
 
 instance Prelude.NFData UpdateDataSetPermissions where
   rnf UpdateDataSetPermissions' {..} =
-    Prelude.rnf revokePermissions
-      `Prelude.seq` Prelude.rnf grantPermissions
+    Prelude.rnf grantPermissions
+      `Prelude.seq` Prelude.rnf revokePermissions
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf dataSetId
 
-instance Core.ToHeaders UpdateDataSetPermissions where
+instance Data.ToHeaders UpdateDataSetPermissions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDataSetPermissions where
+instance Data.ToJSON UpdateDataSetPermissions where
   toJSON UpdateDataSetPermissions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RevokePermissions" Core..=)
-              Prelude.<$> revokePermissions,
-            ("GrantPermissions" Core..=)
-              Prelude.<$> grantPermissions
+          [ ("GrantPermissions" Data..=)
+              Prelude.<$> grantPermissions,
+            ("RevokePermissions" Data..=)
+              Prelude.<$> revokePermissions
           ]
       )
 
-instance Core.ToPath UpdateDataSetPermissions where
+instance Data.ToPath UpdateDataSetPermissions where
   toPath UpdateDataSetPermissions' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/data-sets/",
-        Core.toBS dataSetId,
+        Data.toBS dataSetId,
         "/permissions"
       ]
 
-instance Core.ToQuery UpdateDataSetPermissions where
+instance Data.ToQuery UpdateDataSetPermissions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDataSetPermissionsResponse' smart constructor.
 data UpdateDataSetPermissionsResponse = UpdateDataSetPermissionsResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the dataset.
+  { -- | The Amazon Resource Name (ARN) of the dataset.
     dataSetArn :: Prelude.Maybe Prelude.Text,
     -- | The ID for the dataset whose permissions you want to update. This ID is
     -- unique per Amazon Web Services Region for each Amazon Web Services
     -- account.
     dataSetId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -208,13 +210,13 @@ data UpdateDataSetPermissionsResponse = UpdateDataSetPermissionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'updateDataSetPermissionsResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'dataSetArn', 'updateDataSetPermissionsResponse_dataSetArn' - The Amazon Resource Name (ARN) of the dataset.
 --
 -- 'dataSetId', 'updateDataSetPermissionsResponse_dataSetId' - The ID for the dataset whose permissions you want to update. This ID is
 -- unique per Amazon Web Services Region for each Amazon Web Services
 -- account.
+--
+-- 'requestId', 'updateDataSetPermissionsResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'updateDataSetPermissionsResponse_status' - The HTTP status of the request.
 newUpdateDataSetPermissionsResponse ::
@@ -223,16 +225,12 @@ newUpdateDataSetPermissionsResponse ::
   UpdateDataSetPermissionsResponse
 newUpdateDataSetPermissionsResponse pStatus_ =
   UpdateDataSetPermissionsResponse'
-    { requestId =
+    { dataSetArn =
         Prelude.Nothing,
-      dataSetArn = Prelude.Nothing,
       dataSetId = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-updateDataSetPermissionsResponse_requestId :: Lens.Lens' UpdateDataSetPermissionsResponse (Prelude.Maybe Prelude.Text)
-updateDataSetPermissionsResponse_requestId = Lens.lens (\UpdateDataSetPermissionsResponse' {requestId} -> requestId) (\s@UpdateDataSetPermissionsResponse' {} a -> s {requestId = a} :: UpdateDataSetPermissionsResponse)
 
 -- | The Amazon Resource Name (ARN) of the dataset.
 updateDataSetPermissionsResponse_dataSetArn :: Lens.Lens' UpdateDataSetPermissionsResponse (Prelude.Maybe Prelude.Text)
@@ -244,6 +242,10 @@ updateDataSetPermissionsResponse_dataSetArn = Lens.lens (\UpdateDataSetPermissio
 updateDataSetPermissionsResponse_dataSetId :: Lens.Lens' UpdateDataSetPermissionsResponse (Prelude.Maybe Prelude.Text)
 updateDataSetPermissionsResponse_dataSetId = Lens.lens (\UpdateDataSetPermissionsResponse' {dataSetId} -> dataSetId) (\s@UpdateDataSetPermissionsResponse' {} a -> s {dataSetId = a} :: UpdateDataSetPermissionsResponse)
 
+-- | The Amazon Web Services request ID for this operation.
+updateDataSetPermissionsResponse_requestId :: Lens.Lens' UpdateDataSetPermissionsResponse (Prelude.Maybe Prelude.Text)
+updateDataSetPermissionsResponse_requestId = Lens.lens (\UpdateDataSetPermissionsResponse' {requestId} -> requestId) (\s@UpdateDataSetPermissionsResponse' {} a -> s {requestId = a} :: UpdateDataSetPermissionsResponse)
+
 -- | The HTTP status of the request.
 updateDataSetPermissionsResponse_status :: Lens.Lens' UpdateDataSetPermissionsResponse Prelude.Int
 updateDataSetPermissionsResponse_status = Lens.lens (\UpdateDataSetPermissionsResponse' {status} -> status) (\s@UpdateDataSetPermissionsResponse' {} a -> s {status = a} :: UpdateDataSetPermissionsResponse)
@@ -253,7 +255,7 @@ instance
     UpdateDataSetPermissionsResponse
   where
   rnf UpdateDataSetPermissionsResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf dataSetArn
+    Prelude.rnf dataSetArn
       `Prelude.seq` Prelude.rnf dataSetId
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.Types.Role
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,11 +21,13 @@ module Amazonka.AuditManager.Types.Role where
 
 import Amazonka.AuditManager.Types.RoleType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The wrapper that contains the Audit Manager role information of the
--- current user, such as the role type and IAM Amazon Resource Name (ARN).
+-- current user. This includes the role type and IAM Amazon Resource Name
+-- (ARN).
 --
 -- /See:/ 'newRole' smart constructor.
 data Role = Role'
@@ -37,9 +39,9 @@ data Role = Role'
     --
     -- In @BatchCreateDelegationByAssessment@, @roleType@ can only be
     -- @RESOURCE_OWNER@.
-    roleType :: Prelude.Maybe RoleType,
+    roleType :: RoleType,
     -- | The Amazon Resource Name (ARN) of the IAM role.
-    roleArn :: Prelude.Maybe Prelude.Text
+    roleArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -62,12 +64,13 @@ data Role = Role'
 --
 -- 'roleArn', 'role_roleArn' - The Amazon Resource Name (ARN) of the IAM role.
 newRole ::
+  -- | 'roleType'
+  RoleType ->
+  -- | 'roleArn'
+  Prelude.Text ->
   Role
-newRole =
-  Role'
-    { roleType = Prelude.Nothing,
-      roleArn = Prelude.Nothing
-    }
+newRole pRoleType_ pRoleArn_ =
+  Role' {roleType = pRoleType_, roleArn = pRoleArn_}
 
 -- | The type of customer persona.
 --
@@ -77,21 +80,21 @@ newRole =
 --
 -- In @BatchCreateDelegationByAssessment@, @roleType@ can only be
 -- @RESOURCE_OWNER@.
-role_roleType :: Lens.Lens' Role (Prelude.Maybe RoleType)
+role_roleType :: Lens.Lens' Role RoleType
 role_roleType = Lens.lens (\Role' {roleType} -> roleType) (\s@Role' {} a -> s {roleType = a} :: Role)
 
 -- | The Amazon Resource Name (ARN) of the IAM role.
-role_roleArn :: Lens.Lens' Role (Prelude.Maybe Prelude.Text)
+role_roleArn :: Lens.Lens' Role Prelude.Text
 role_roleArn = Lens.lens (\Role' {roleArn} -> roleArn) (\s@Role' {} a -> s {roleArn = a} :: Role)
 
-instance Core.FromJSON Role where
+instance Data.FromJSON Role where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Role"
       ( \x ->
           Role'
-            Prelude.<$> (x Core..:? "roleType")
-            Prelude.<*> (x Core..:? "roleArn")
+            Prelude.<$> (x Data..: "roleType")
+            Prelude.<*> (x Data..: "roleArn")
       )
 
 instance Prelude.Hashable Role where
@@ -104,11 +107,11 @@ instance Prelude.NFData Role where
     Prelude.rnf roleType
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToJSON Role where
+instance Data.ToJSON Role where
   toJSON Role' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("roleType" Core..=) Prelude.<$> roleType,
-            ("roleArn" Core..=) Prelude.<$> roleArn
+          [ Prelude.Just ("roleType" Data..= roleType),
+            Prelude.Just ("roleArn" Data..= roleArn)
           ]
       )

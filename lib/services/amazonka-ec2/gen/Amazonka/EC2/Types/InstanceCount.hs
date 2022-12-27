@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.InstanceCount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.EC2.Types.InstanceCount where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ListingState
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a Reserved Instance listing state.
 --
 -- /See:/ 'newInstanceCount' smart constructor.
 data InstanceCount = InstanceCount'
-  { -- | The states of the listed Reserved Instances.
-    state :: Prelude.Maybe ListingState,
-    -- | The number of listed Reserved Instances in the state specified by the
+  { -- | The number of listed Reserved Instances in the state specified by the
     -- @state@.
-    instanceCount :: Prelude.Maybe Prelude.Int
+    instanceCount :: Prelude.Maybe Prelude.Int,
+    -- | The states of the listed Reserved Instances.
+    state :: Prelude.Maybe ListingState
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,39 +46,39 @@ data InstanceCount = InstanceCount'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'instanceCount_state' - The states of the listed Reserved Instances.
---
 -- 'instanceCount', 'instanceCount_instanceCount' - The number of listed Reserved Instances in the state specified by the
 -- @state@.
+--
+-- 'state', 'instanceCount_state' - The states of the listed Reserved Instances.
 newInstanceCount ::
   InstanceCount
 newInstanceCount =
   InstanceCount'
-    { state = Prelude.Nothing,
-      instanceCount = Prelude.Nothing
+    { instanceCount = Prelude.Nothing,
+      state = Prelude.Nothing
     }
-
--- | The states of the listed Reserved Instances.
-instanceCount_state :: Lens.Lens' InstanceCount (Prelude.Maybe ListingState)
-instanceCount_state = Lens.lens (\InstanceCount' {state} -> state) (\s@InstanceCount' {} a -> s {state = a} :: InstanceCount)
 
 -- | The number of listed Reserved Instances in the state specified by the
 -- @state@.
 instanceCount_instanceCount :: Lens.Lens' InstanceCount (Prelude.Maybe Prelude.Int)
 instanceCount_instanceCount = Lens.lens (\InstanceCount' {instanceCount} -> instanceCount) (\s@InstanceCount' {} a -> s {instanceCount = a} :: InstanceCount)
 
-instance Core.FromXML InstanceCount where
+-- | The states of the listed Reserved Instances.
+instanceCount_state :: Lens.Lens' InstanceCount (Prelude.Maybe ListingState)
+instanceCount_state = Lens.lens (\InstanceCount' {state} -> state) (\s@InstanceCount' {} a -> s {state = a} :: InstanceCount)
+
+instance Data.FromXML InstanceCount where
   parseXML x =
     InstanceCount'
-      Prelude.<$> (x Core..@? "state")
-      Prelude.<*> (x Core..@? "instanceCount")
+      Prelude.<$> (x Data..@? "instanceCount")
+      Prelude.<*> (x Data..@? "state")
 
 instance Prelude.Hashable InstanceCount where
   hashWithSalt _salt InstanceCount' {..} =
-    _salt `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` instanceCount
+    _salt `Prelude.hashWithSalt` instanceCount
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData InstanceCount where
   rnf InstanceCount' {..} =
-    Prelude.rnf state
-      `Prelude.seq` Prelude.rnf instanceCount
+    Prelude.rnf instanceCount
+      `Prelude.seq` Prelude.rnf state

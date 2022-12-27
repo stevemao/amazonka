@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.CreateBudgetAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ where
 
 import Amazonka.Budgets.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -189,15 +190,16 @@ instance Core.AWSRequest CreateBudgetAction where
   type
     AWSResponse CreateBudgetAction =
       CreateBudgetActionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateBudgetActionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "AccountId")
-            Prelude.<*> (x Core..:> "BudgetName")
-            Prelude.<*> (x Core..:> "ActionId")
+            Prelude.<*> (x Data..:> "AccountId")
+            Prelude.<*> (x Data..:> "BudgetName")
+            Prelude.<*> (x Data..:> "ActionId")
       )
 
 instance Prelude.Hashable CreateBudgetAction where
@@ -224,44 +226,44 @@ instance Prelude.NFData CreateBudgetAction where
       `Prelude.seq` Prelude.rnf approvalModel
       `Prelude.seq` Prelude.rnf subscribers
 
-instance Core.ToHeaders CreateBudgetAction where
+instance Data.ToHeaders CreateBudgetAction where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSBudgetServiceGateway.CreateBudgetAction" ::
+              Data.=# ( "AWSBudgetServiceGateway.CreateBudgetAction" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateBudgetAction where
+instance Data.ToJSON CreateBudgetAction where
   toJSON CreateBudgetAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("AccountId" Core..= accountId),
-            Prelude.Just ("BudgetName" Core..= budgetName),
+          [ Prelude.Just ("AccountId" Data..= accountId),
+            Prelude.Just ("BudgetName" Data..= budgetName),
             Prelude.Just
-              ("NotificationType" Core..= notificationType),
-            Prelude.Just ("ActionType" Core..= actionType),
+              ("NotificationType" Data..= notificationType),
+            Prelude.Just ("ActionType" Data..= actionType),
             Prelude.Just
-              ("ActionThreshold" Core..= actionThreshold),
-            Prelude.Just ("Definition" Core..= definition),
+              ("ActionThreshold" Data..= actionThreshold),
+            Prelude.Just ("Definition" Data..= definition),
             Prelude.Just
-              ("ExecutionRoleArn" Core..= executionRoleArn),
-            Prelude.Just ("ApprovalModel" Core..= approvalModel),
-            Prelude.Just ("Subscribers" Core..= subscribers)
+              ("ExecutionRoleArn" Data..= executionRoleArn),
+            Prelude.Just ("ApprovalModel" Data..= approvalModel),
+            Prelude.Just ("Subscribers" Data..= subscribers)
           ]
       )
 
-instance Core.ToPath CreateBudgetAction where
+instance Data.ToPath CreateBudgetAction where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateBudgetAction where
+instance Data.ToQuery CreateBudgetAction where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateBudgetActionResponse' smart constructor.

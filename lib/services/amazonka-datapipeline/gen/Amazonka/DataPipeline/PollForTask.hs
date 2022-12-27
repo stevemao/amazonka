@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.PollForTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -56,8 +56,9 @@ module Amazonka.DataPipeline.PollForTask
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataPipeline.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -149,12 +150,13 @@ pollForTask_workerGroup = Lens.lens (\PollForTask' {workerGroup} -> workerGroup)
 
 instance Core.AWSRequest PollForTask where
   type AWSResponse PollForTask = PollForTaskResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PollForTaskResponse'
-            Prelude.<$> (x Core..?> "taskObject")
+            Prelude.<$> (x Data..?> "taskObject")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -170,34 +172,34 @@ instance Prelude.NFData PollForTask where
       `Prelude.seq` Prelude.rnf instanceIdentity
       `Prelude.seq` Prelude.rnf workerGroup
 
-instance Core.ToHeaders PollForTask where
+instance Data.ToHeaders PollForTask where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("DataPipeline.PollForTask" :: Prelude.ByteString),
+              Data.=# ("DataPipeline.PollForTask" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PollForTask where
+instance Data.ToJSON PollForTask where
   toJSON PollForTask' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("hostname" Core..=) Prelude.<$> hostname,
-            ("instanceIdentity" Core..=)
+          [ ("hostname" Data..=) Prelude.<$> hostname,
+            ("instanceIdentity" Data..=)
               Prelude.<$> instanceIdentity,
-            Prelude.Just ("workerGroup" Core..= workerGroup)
+            Prelude.Just ("workerGroup" Data..= workerGroup)
           ]
       )
 
-instance Core.ToPath PollForTask where
+instance Data.ToPath PollForTask where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PollForTask where
+instance Data.ToQuery PollForTask where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of PollForTask.

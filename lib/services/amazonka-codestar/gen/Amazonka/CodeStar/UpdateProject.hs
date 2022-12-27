@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStar.UpdateProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.CodeStar.UpdateProject
     newUpdateProject,
 
     -- * Request Lenses
-    updateProject_name,
     updateProject_description,
+    updateProject_name,
     updateProject_id,
 
     -- * Destructuring the Response
@@ -42,17 +42,18 @@ where
 
 import Amazonka.CodeStar.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateProject' smart constructor.
 data UpdateProject = UpdateProject'
-  { -- | The name of the project you want to update.
-    name :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The description of the project, if any.
-    description :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+  { -- | The description of the project, if any.
+    description :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The name of the project you want to update.
+    name :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The ID of the project you want to update.
     id :: Prelude.Text
   }
@@ -66,9 +67,9 @@ data UpdateProject = UpdateProject'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'updateProject_name' - The name of the project you want to update.
---
 -- 'description', 'updateProject_description' - The description of the project, if any.
+--
+-- 'name', 'updateProject_name' - The name of the project you want to update.
 --
 -- 'id', 'updateProject_id' - The ID of the project you want to update.
 newUpdateProject ::
@@ -77,18 +78,18 @@ newUpdateProject ::
   UpdateProject
 newUpdateProject pId_ =
   UpdateProject'
-    { name = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      name = Prelude.Nothing,
       id = pId_
     }
 
--- | The name of the project you want to update.
-updateProject_name :: Lens.Lens' UpdateProject (Prelude.Maybe Prelude.Text)
-updateProject_name = Lens.lens (\UpdateProject' {name} -> name) (\s@UpdateProject' {} a -> s {name = a} :: UpdateProject) Prelude.. Lens.mapping Core._Sensitive
-
 -- | The description of the project, if any.
 updateProject_description :: Lens.Lens' UpdateProject (Prelude.Maybe Prelude.Text)
-updateProject_description = Lens.lens (\UpdateProject' {description} -> description) (\s@UpdateProject' {} a -> s {description = a} :: UpdateProject) Prelude.. Lens.mapping Core._Sensitive
+updateProject_description = Lens.lens (\UpdateProject' {description} -> description) (\s@UpdateProject' {} a -> s {description = a} :: UpdateProject) Prelude.. Lens.mapping Data._Sensitive
+
+-- | The name of the project you want to update.
+updateProject_name :: Lens.Lens' UpdateProject (Prelude.Maybe Prelude.Text)
+updateProject_name = Lens.lens (\UpdateProject' {name} -> name) (\s@UpdateProject' {} a -> s {name = a} :: UpdateProject) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The ID of the project you want to update.
 updateProject_id :: Lens.Lens' UpdateProject Prelude.Text
@@ -98,7 +99,8 @@ instance Core.AWSRequest UpdateProject where
   type
     AWSResponse UpdateProject =
       UpdateProjectResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -108,45 +110,45 @@ instance Core.AWSRequest UpdateProject where
 
 instance Prelude.Hashable UpdateProject where
   hashWithSalt _salt UpdateProject' {..} =
-    _salt `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` id
 
 instance Prelude.NFData UpdateProject where
   rnf UpdateProject' {..} =
-    Prelude.rnf name
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToHeaders UpdateProject where
+instance Data.ToHeaders UpdateProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeStar_20170419.UpdateProject" ::
+              Data.=# ( "CodeStar_20170419.UpdateProject" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateProject where
+instance Data.ToJSON UpdateProject where
   toJSON UpdateProject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("name" Core..=) Prelude.<$> name,
-            ("description" Core..=) Prelude.<$> description,
-            Prelude.Just ("id" Core..= id)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("name" Data..=) Prelude.<$> name,
+            Prelude.Just ("id" Data..= id)
           ]
       )
 
-instance Core.ToPath UpdateProject where
+instance Data.ToPath UpdateProject where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateProject where
+instance Data.ToQuery UpdateProject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateProjectResponse' smart constructor.

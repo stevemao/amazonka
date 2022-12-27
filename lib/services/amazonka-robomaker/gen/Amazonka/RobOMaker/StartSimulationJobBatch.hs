@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.StartSimulationJobBatch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,23 +38,24 @@ module Amazonka.RobOMaker.StartSimulationJobBatch
     newStartSimulationJobBatchResponse,
 
     -- * Response Lenses
-    startSimulationJobBatchResponse_failureReason,
-    startSimulationJobBatchResponse_status,
     startSimulationJobBatchResponse_arn,
-    startSimulationJobBatchResponse_createdAt,
-    startSimulationJobBatchResponse_failureCode,
-    startSimulationJobBatchResponse_failedRequests,
     startSimulationJobBatchResponse_batchPolicy,
-    startSimulationJobBatchResponse_createdRequests,
-    startSimulationJobBatchResponse_pendingRequests,
     startSimulationJobBatchResponse_clientRequestToken,
+    startSimulationJobBatchResponse_createdAt,
+    startSimulationJobBatchResponse_createdRequests,
+    startSimulationJobBatchResponse_failedRequests,
+    startSimulationJobBatchResponse_failureCode,
+    startSimulationJobBatchResponse_failureReason,
+    startSimulationJobBatchResponse_pendingRequests,
+    startSimulationJobBatchResponse_status,
     startSimulationJobBatchResponse_tags,
     startSimulationJobBatchResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -130,24 +131,25 @@ instance Core.AWSRequest StartSimulationJobBatch where
   type
     AWSResponse StartSimulationJobBatch =
       StartSimulationJobBatchResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartSimulationJobBatchResponse'
-            Prelude.<$> (x Core..?> "failureReason")
-            Prelude.<*> (x Core..?> "status")
-            Prelude.<*> (x Core..?> "arn")
-            Prelude.<*> (x Core..?> "createdAt")
-            Prelude.<*> (x Core..?> "failureCode")
-            Prelude.<*> (x Core..?> "failedRequests" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "batchPolicy")
-            Prelude.<*> ( x Core..?> "createdRequests"
+            Prelude.<$> (x Data..?> "arn")
+            Prelude.<*> (x Data..?> "batchPolicy")
+            Prelude.<*> (x Data..?> "clientRequestToken")
+            Prelude.<*> (x Data..?> "createdAt")
+            Prelude.<*> ( x Data..?> "createdRequests"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "pendingRequests")
-            Prelude.<*> (x Core..?> "clientRequestToken")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "failedRequests" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "failureCode")
+            Prelude.<*> (x Data..?> "failureReason")
+            Prelude.<*> (x Data..?> "pendingRequests")
+            Prelude.<*> (x Data..?> "status")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -165,42 +167,63 @@ instance Prelude.NFData StartSimulationJobBatch where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf createSimulationJobRequests
 
-instance Core.ToHeaders StartSimulationJobBatch where
+instance Data.ToHeaders StartSimulationJobBatch where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartSimulationJobBatch where
+instance Data.ToJSON StartSimulationJobBatch where
   toJSON StartSimulationJobBatch' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("batchPolicy" Core..=) Prelude.<$> batchPolicy,
-            ("clientRequestToken" Core..=)
+          [ ("batchPolicy" Data..=) Prelude.<$> batchPolicy,
+            ("clientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("tags" Core..=) Prelude.<$> tags,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
               ( "createSimulationJobRequests"
-                  Core..= createSimulationJobRequests
+                  Data..= createSimulationJobRequests
               )
           ]
       )
 
-instance Core.ToPath StartSimulationJobBatch where
+instance Data.ToPath StartSimulationJobBatch where
   toPath = Prelude.const "/startSimulationJobBatch"
 
-instance Core.ToQuery StartSimulationJobBatch where
+instance Data.ToQuery StartSimulationJobBatch where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartSimulationJobBatchResponse' smart constructor.
 data StartSimulationJobBatchResponse = StartSimulationJobBatchResponse'
-  { -- | The reason the simulation job batch failed.
+  { -- | The Amazon Resource Name (arn) of the batch.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The batch policy.
+    batchPolicy :: Prelude.Maybe BatchPolicy,
+    -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The time, in milliseconds since the epoch, when the simulation job batch
+    -- was created.
+    createdAt :: Prelude.Maybe Data.POSIX,
+    -- | A list of created simulation job request summaries.
+    createdRequests :: Prelude.Maybe [SimulationJobSummary],
+    -- | A list of failed simulation job requests. The request failed to be
+    -- created into a simulation job. Failed requests do not have a simulation
+    -- job ID.
+    failedRequests :: Prelude.Maybe [FailedCreateSimulationJobRequest],
+    -- | The failure code if the simulation job batch failed.
+    failureCode :: Prelude.Maybe SimulationJobBatchErrorCode,
+    -- | The reason the simulation job batch failed.
     failureReason :: Prelude.Maybe Prelude.Text,
+    -- | A list of pending simulation job requests. These requests have not yet
+    -- been created into simulation jobs.
+    pendingRequests :: Prelude.Maybe (Prelude.NonEmpty SimulationJobRequest),
     -- | The status of the simulation job batch.
     --
     -- [Pending]
@@ -242,27 +265,6 @@ data StartSimulationJobBatchResponse = StartSimulationJobBatchResponse'
     -- [TimedOut]
     --     The simulation batch job timed out.
     status :: Prelude.Maybe SimulationJobBatchStatus,
-    -- | The Amazon Resource Name (arn) of the batch.
-    arn :: Prelude.Maybe Prelude.Text,
-    -- | The time, in milliseconds since the epoch, when the simulation job batch
-    -- was created.
-    createdAt :: Prelude.Maybe Core.POSIX,
-    -- | The failure code if the simulation job batch failed.
-    failureCode :: Prelude.Maybe SimulationJobBatchErrorCode,
-    -- | A list of failed simulation job requests. The request failed to be
-    -- created into a simulation job. Failed requests do not have a simulation
-    -- job ID.
-    failedRequests :: Prelude.Maybe [FailedCreateSimulationJobRequest],
-    -- | The batch policy.
-    batchPolicy :: Prelude.Maybe BatchPolicy,
-    -- | A list of created simulation job request summaries.
-    createdRequests :: Prelude.Maybe [SimulationJobSummary],
-    -- | A list of pending simulation job requests. These requests have not yet
-    -- been created into simulation jobs.
-    pendingRequests :: Prelude.Maybe (Prelude.NonEmpty SimulationJobRequest),
-    -- | Unique, case-sensitive identifier that you provide to ensure the
-    -- idempotency of the request.
-    clientRequestToken :: Prelude.Maybe Prelude.Text,
     -- | A map that contains tag keys and tag values that are attached to the
     -- deployment job batch.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
@@ -279,7 +281,28 @@ data StartSimulationJobBatchResponse = StartSimulationJobBatchResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'arn', 'startSimulationJobBatchResponse_arn' - The Amazon Resource Name (arn) of the batch.
+--
+-- 'batchPolicy', 'startSimulationJobBatchResponse_batchPolicy' - The batch policy.
+--
+-- 'clientRequestToken', 'startSimulationJobBatchResponse_clientRequestToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request.
+--
+-- 'createdAt', 'startSimulationJobBatchResponse_createdAt' - The time, in milliseconds since the epoch, when the simulation job batch
+-- was created.
+--
+-- 'createdRequests', 'startSimulationJobBatchResponse_createdRequests' - A list of created simulation job request summaries.
+--
+-- 'failedRequests', 'startSimulationJobBatchResponse_failedRequests' - A list of failed simulation job requests. The request failed to be
+-- created into a simulation job. Failed requests do not have a simulation
+-- job ID.
+--
+-- 'failureCode', 'startSimulationJobBatchResponse_failureCode' - The failure code if the simulation job batch failed.
+--
 -- 'failureReason', 'startSimulationJobBatchResponse_failureReason' - The reason the simulation job batch failed.
+--
+-- 'pendingRequests', 'startSimulationJobBatchResponse_pendingRequests' - A list of pending simulation job requests. These requests have not yet
+-- been created into simulation jobs.
 --
 -- 'status', 'startSimulationJobBatchResponse_status' - The status of the simulation job batch.
 --
@@ -322,27 +345,6 @@ data StartSimulationJobBatchResponse = StartSimulationJobBatchResponse'
 -- [TimedOut]
 --     The simulation batch job timed out.
 --
--- 'arn', 'startSimulationJobBatchResponse_arn' - The Amazon Resource Name (arn) of the batch.
---
--- 'createdAt', 'startSimulationJobBatchResponse_createdAt' - The time, in milliseconds since the epoch, when the simulation job batch
--- was created.
---
--- 'failureCode', 'startSimulationJobBatchResponse_failureCode' - The failure code if the simulation job batch failed.
---
--- 'failedRequests', 'startSimulationJobBatchResponse_failedRequests' - A list of failed simulation job requests. The request failed to be
--- created into a simulation job. Failed requests do not have a simulation
--- job ID.
---
--- 'batchPolicy', 'startSimulationJobBatchResponse_batchPolicy' - The batch policy.
---
--- 'createdRequests', 'startSimulationJobBatchResponse_createdRequests' - A list of created simulation job request summaries.
---
--- 'pendingRequests', 'startSimulationJobBatchResponse_pendingRequests' - A list of pending simulation job requests. These requests have not yet
--- been created into simulation jobs.
---
--- 'clientRequestToken', 'startSimulationJobBatchResponse_clientRequestToken' - Unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
---
 -- 'tags', 'startSimulationJobBatchResponse_tags' - A map that contains tag keys and tag values that are attached to the
 -- deployment job batch.
 --
@@ -353,24 +355,61 @@ newStartSimulationJobBatchResponse ::
   StartSimulationJobBatchResponse
 newStartSimulationJobBatchResponse pHttpStatus_ =
   StartSimulationJobBatchResponse'
-    { failureReason =
+    { arn =
         Prelude.Nothing,
-      status = Prelude.Nothing,
-      arn = Prelude.Nothing,
-      createdAt = Prelude.Nothing,
-      failureCode = Prelude.Nothing,
-      failedRequests = Prelude.Nothing,
       batchPolicy = Prelude.Nothing,
-      createdRequests = Prelude.Nothing,
-      pendingRequests = Prelude.Nothing,
       clientRequestToken = Prelude.Nothing,
+      createdAt = Prelude.Nothing,
+      createdRequests = Prelude.Nothing,
+      failedRequests = Prelude.Nothing,
+      failureCode = Prelude.Nothing,
+      failureReason = Prelude.Nothing,
+      pendingRequests = Prelude.Nothing,
+      status = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
+-- | The Amazon Resource Name (arn) of the batch.
+startSimulationJobBatchResponse_arn :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe Prelude.Text)
+startSimulationJobBatchResponse_arn = Lens.lens (\StartSimulationJobBatchResponse' {arn} -> arn) (\s@StartSimulationJobBatchResponse' {} a -> s {arn = a} :: StartSimulationJobBatchResponse)
+
+-- | The batch policy.
+startSimulationJobBatchResponse_batchPolicy :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe BatchPolicy)
+startSimulationJobBatchResponse_batchPolicy = Lens.lens (\StartSimulationJobBatchResponse' {batchPolicy} -> batchPolicy) (\s@StartSimulationJobBatchResponse' {} a -> s {batchPolicy = a} :: StartSimulationJobBatchResponse)
+
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request.
+startSimulationJobBatchResponse_clientRequestToken :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe Prelude.Text)
+startSimulationJobBatchResponse_clientRequestToken = Lens.lens (\StartSimulationJobBatchResponse' {clientRequestToken} -> clientRequestToken) (\s@StartSimulationJobBatchResponse' {} a -> s {clientRequestToken = a} :: StartSimulationJobBatchResponse)
+
+-- | The time, in milliseconds since the epoch, when the simulation job batch
+-- was created.
+startSimulationJobBatchResponse_createdAt :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe Prelude.UTCTime)
+startSimulationJobBatchResponse_createdAt = Lens.lens (\StartSimulationJobBatchResponse' {createdAt} -> createdAt) (\s@StartSimulationJobBatchResponse' {} a -> s {createdAt = a} :: StartSimulationJobBatchResponse) Prelude.. Lens.mapping Data._Time
+
+-- | A list of created simulation job request summaries.
+startSimulationJobBatchResponse_createdRequests :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe [SimulationJobSummary])
+startSimulationJobBatchResponse_createdRequests = Lens.lens (\StartSimulationJobBatchResponse' {createdRequests} -> createdRequests) (\s@StartSimulationJobBatchResponse' {} a -> s {createdRequests = a} :: StartSimulationJobBatchResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A list of failed simulation job requests. The request failed to be
+-- created into a simulation job. Failed requests do not have a simulation
+-- job ID.
+startSimulationJobBatchResponse_failedRequests :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe [FailedCreateSimulationJobRequest])
+startSimulationJobBatchResponse_failedRequests = Lens.lens (\StartSimulationJobBatchResponse' {failedRequests} -> failedRequests) (\s@StartSimulationJobBatchResponse' {} a -> s {failedRequests = a} :: StartSimulationJobBatchResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The failure code if the simulation job batch failed.
+startSimulationJobBatchResponse_failureCode :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe SimulationJobBatchErrorCode)
+startSimulationJobBatchResponse_failureCode = Lens.lens (\StartSimulationJobBatchResponse' {failureCode} -> failureCode) (\s@StartSimulationJobBatchResponse' {} a -> s {failureCode = a} :: StartSimulationJobBatchResponse)
+
 -- | The reason the simulation job batch failed.
 startSimulationJobBatchResponse_failureReason :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe Prelude.Text)
 startSimulationJobBatchResponse_failureReason = Lens.lens (\StartSimulationJobBatchResponse' {failureReason} -> failureReason) (\s@StartSimulationJobBatchResponse' {} a -> s {failureReason = a} :: StartSimulationJobBatchResponse)
+
+-- | A list of pending simulation job requests. These requests have not yet
+-- been created into simulation jobs.
+startSimulationJobBatchResponse_pendingRequests :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe (Prelude.NonEmpty SimulationJobRequest))
+startSimulationJobBatchResponse_pendingRequests = Lens.lens (\StartSimulationJobBatchResponse' {pendingRequests} -> pendingRequests) (\s@StartSimulationJobBatchResponse' {} a -> s {pendingRequests = a} :: StartSimulationJobBatchResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The status of the simulation job batch.
 --
@@ -415,43 +454,6 @@ startSimulationJobBatchResponse_failureReason = Lens.lens (\StartSimulationJobBa
 startSimulationJobBatchResponse_status :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe SimulationJobBatchStatus)
 startSimulationJobBatchResponse_status = Lens.lens (\StartSimulationJobBatchResponse' {status} -> status) (\s@StartSimulationJobBatchResponse' {} a -> s {status = a} :: StartSimulationJobBatchResponse)
 
--- | The Amazon Resource Name (arn) of the batch.
-startSimulationJobBatchResponse_arn :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe Prelude.Text)
-startSimulationJobBatchResponse_arn = Lens.lens (\StartSimulationJobBatchResponse' {arn} -> arn) (\s@StartSimulationJobBatchResponse' {} a -> s {arn = a} :: StartSimulationJobBatchResponse)
-
--- | The time, in milliseconds since the epoch, when the simulation job batch
--- was created.
-startSimulationJobBatchResponse_createdAt :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe Prelude.UTCTime)
-startSimulationJobBatchResponse_createdAt = Lens.lens (\StartSimulationJobBatchResponse' {createdAt} -> createdAt) (\s@StartSimulationJobBatchResponse' {} a -> s {createdAt = a} :: StartSimulationJobBatchResponse) Prelude.. Lens.mapping Core._Time
-
--- | The failure code if the simulation job batch failed.
-startSimulationJobBatchResponse_failureCode :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe SimulationJobBatchErrorCode)
-startSimulationJobBatchResponse_failureCode = Lens.lens (\StartSimulationJobBatchResponse' {failureCode} -> failureCode) (\s@StartSimulationJobBatchResponse' {} a -> s {failureCode = a} :: StartSimulationJobBatchResponse)
-
--- | A list of failed simulation job requests. The request failed to be
--- created into a simulation job. Failed requests do not have a simulation
--- job ID.
-startSimulationJobBatchResponse_failedRequests :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe [FailedCreateSimulationJobRequest])
-startSimulationJobBatchResponse_failedRequests = Lens.lens (\StartSimulationJobBatchResponse' {failedRequests} -> failedRequests) (\s@StartSimulationJobBatchResponse' {} a -> s {failedRequests = a} :: StartSimulationJobBatchResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The batch policy.
-startSimulationJobBatchResponse_batchPolicy :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe BatchPolicy)
-startSimulationJobBatchResponse_batchPolicy = Lens.lens (\StartSimulationJobBatchResponse' {batchPolicy} -> batchPolicy) (\s@StartSimulationJobBatchResponse' {} a -> s {batchPolicy = a} :: StartSimulationJobBatchResponse)
-
--- | A list of created simulation job request summaries.
-startSimulationJobBatchResponse_createdRequests :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe [SimulationJobSummary])
-startSimulationJobBatchResponse_createdRequests = Lens.lens (\StartSimulationJobBatchResponse' {createdRequests} -> createdRequests) (\s@StartSimulationJobBatchResponse' {} a -> s {createdRequests = a} :: StartSimulationJobBatchResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | A list of pending simulation job requests. These requests have not yet
--- been created into simulation jobs.
-startSimulationJobBatchResponse_pendingRequests :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe (Prelude.NonEmpty SimulationJobRequest))
-startSimulationJobBatchResponse_pendingRequests = Lens.lens (\StartSimulationJobBatchResponse' {pendingRequests} -> pendingRequests) (\s@StartSimulationJobBatchResponse' {} a -> s {pendingRequests = a} :: StartSimulationJobBatchResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | Unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
-startSimulationJobBatchResponse_clientRequestToken :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe Prelude.Text)
-startSimulationJobBatchResponse_clientRequestToken = Lens.lens (\StartSimulationJobBatchResponse' {clientRequestToken} -> clientRequestToken) (\s@StartSimulationJobBatchResponse' {} a -> s {clientRequestToken = a} :: StartSimulationJobBatchResponse)
-
 -- | A map that contains tag keys and tag values that are attached to the
 -- deployment job batch.
 startSimulationJobBatchResponse_tags :: Lens.Lens' StartSimulationJobBatchResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -466,15 +468,15 @@ instance
     StartSimulationJobBatchResponse
   where
   rnf StartSimulationJobBatchResponse' {..} =
-    Prelude.rnf failureReason
-      `Prelude.seq` Prelude.rnf status
-      `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf createdAt
-      `Prelude.seq` Prelude.rnf failureCode
-      `Prelude.seq` Prelude.rnf failedRequests
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf batchPolicy
-      `Prelude.seq` Prelude.rnf createdRequests
-      `Prelude.seq` Prelude.rnf pendingRequests
       `Prelude.seq` Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf createdAt
+      `Prelude.seq` Prelude.rnf createdRequests
+      `Prelude.seq` Prelude.rnf failedRequests
+      `Prelude.seq` Prelude.rnf failureCode
+      `Prelude.seq` Prelude.rnf failureReason
+      `Prelude.seq` Prelude.rnf pendingRequests
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

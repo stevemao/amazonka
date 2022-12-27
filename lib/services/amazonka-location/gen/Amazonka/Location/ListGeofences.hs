@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.ListGeofences
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,6 +29,7 @@ module Amazonka.Location.ListGeofences
     newListGeofences,
 
     -- * Request Lenses
+    listGeofences_maxResults,
     listGeofences_nextToken,
     listGeofences_collectionName,
 
@@ -44,7 +45,8 @@ module Amazonka.Location.ListGeofences
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,7 +54,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListGeofences' smart constructor.
 data ListGeofences = ListGeofences'
-  { -- | The pagination token specifying which page of results to return in the
+  { -- | An optional limit for the number of geofences returned in a single call.
+    --
+    -- Default value: @100@
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token specifying which page of results to return in the
     -- response. If no token is provided, the default page is the first page.
     --
     -- Default value: @null@
@@ -70,6 +76,10 @@ data ListGeofences = ListGeofences'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listGeofences_maxResults' - An optional limit for the number of geofences returned in a single call.
+--
+-- Default value: @100@
+--
 -- 'nextToken', 'listGeofences_nextToken' - The pagination token specifying which page of results to return in the
 -- response. If no token is provided, the default page is the first page.
 --
@@ -82,9 +92,16 @@ newListGeofences ::
   ListGeofences
 newListGeofences pCollectionName_ =
   ListGeofences'
-    { nextToken = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       collectionName = pCollectionName_
     }
+
+-- | An optional limit for the number of geofences returned in a single call.
+--
+-- Default value: @100@
+listGeofences_maxResults :: Lens.Lens' ListGeofences (Prelude.Maybe Prelude.Natural)
+listGeofences_maxResults = Lens.lens (\ListGeofences' {maxResults} -> maxResults) (\s@ListGeofences' {} a -> s {maxResults = a} :: ListGeofences)
 
 -- | The pagination token specifying which page of results to return in the
 -- response. If no token is provided, the default page is the first page.
@@ -118,53 +135,58 @@ instance Core.AWSRequest ListGeofences where
   type
     AWSResponse ListGeofences =
       ListGeofencesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListGeofencesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Entries" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Entries" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListGeofences where
   hashWithSalt _salt ListGeofences' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` collectionName
 
 instance Prelude.NFData ListGeofences where
   rnf ListGeofences' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf collectionName
 
-instance Core.ToHeaders ListGeofences where
+instance Data.ToHeaders ListGeofences where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListGeofences where
+instance Data.ToJSON ListGeofences where
   toJSON ListGeofences' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("NextToken" Core..=) Prelude.<$> nextToken]
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
+          ]
       )
 
-instance Core.ToPath ListGeofences where
+instance Data.ToPath ListGeofences where
   toPath ListGeofences' {..} =
     Prelude.mconcat
       [ "/geofencing/v0/collections/",
-        Core.toBS collectionName,
+        Data.toBS collectionName,
         "/list-geofences"
       ]
 
-instance Core.ToQuery ListGeofences where
+instance Data.ToQuery ListGeofences where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListGeofencesResponse' smart constructor.

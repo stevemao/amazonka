@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.Types.LocalVolumeResourceData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.Greengrass.Types.LocalVolumeResourceData where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types.GroupOwnerSetting
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Attributes that define a local volume resource.
 --
 -- /See:/ 'newLocalVolumeResourceData' smart constructor.
 data LocalVolumeResourceData = LocalVolumeResourceData'
-  { -- | Allows you to configure additional group privileges for the Lambda
+  { -- | The absolute local path of the resource inside the Lambda environment.
+    destinationPath :: Prelude.Maybe Prelude.Text,
+    -- | Allows you to configure additional group privileges for the Lambda
     -- process. This field is optional.
     groupOwnerSetting :: Prelude.Maybe GroupOwnerSetting,
-    -- | The absolute local path of the resource inside the Lambda environment.
-    destinationPath :: Prelude.Maybe Prelude.Text,
     -- | The local absolute path of the volume resource on the host. The source
     -- path for a volume resource type cannot start with \'\'\/sys\'\'.
     sourcePath :: Prelude.Maybe Prelude.Text
@@ -47,10 +48,10 @@ data LocalVolumeResourceData = LocalVolumeResourceData'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'destinationPath', 'localVolumeResourceData_destinationPath' - The absolute local path of the resource inside the Lambda environment.
+--
 -- 'groupOwnerSetting', 'localVolumeResourceData_groupOwnerSetting' - Allows you to configure additional group privileges for the Lambda
 -- process. This field is optional.
---
--- 'destinationPath', 'localVolumeResourceData_destinationPath' - The absolute local path of the resource inside the Lambda environment.
 --
 -- 'sourcePath', 'localVolumeResourceData_sourcePath' - The local absolute path of the volume resource on the host. The source
 -- path for a volume resource type cannot start with \'\'\/sys\'\'.
@@ -58,57 +59,57 @@ newLocalVolumeResourceData ::
   LocalVolumeResourceData
 newLocalVolumeResourceData =
   LocalVolumeResourceData'
-    { groupOwnerSetting =
+    { destinationPath =
         Prelude.Nothing,
-      destinationPath = Prelude.Nothing,
+      groupOwnerSetting = Prelude.Nothing,
       sourcePath = Prelude.Nothing
     }
+
+-- | The absolute local path of the resource inside the Lambda environment.
+localVolumeResourceData_destinationPath :: Lens.Lens' LocalVolumeResourceData (Prelude.Maybe Prelude.Text)
+localVolumeResourceData_destinationPath = Lens.lens (\LocalVolumeResourceData' {destinationPath} -> destinationPath) (\s@LocalVolumeResourceData' {} a -> s {destinationPath = a} :: LocalVolumeResourceData)
 
 -- | Allows you to configure additional group privileges for the Lambda
 -- process. This field is optional.
 localVolumeResourceData_groupOwnerSetting :: Lens.Lens' LocalVolumeResourceData (Prelude.Maybe GroupOwnerSetting)
 localVolumeResourceData_groupOwnerSetting = Lens.lens (\LocalVolumeResourceData' {groupOwnerSetting} -> groupOwnerSetting) (\s@LocalVolumeResourceData' {} a -> s {groupOwnerSetting = a} :: LocalVolumeResourceData)
 
--- | The absolute local path of the resource inside the Lambda environment.
-localVolumeResourceData_destinationPath :: Lens.Lens' LocalVolumeResourceData (Prelude.Maybe Prelude.Text)
-localVolumeResourceData_destinationPath = Lens.lens (\LocalVolumeResourceData' {destinationPath} -> destinationPath) (\s@LocalVolumeResourceData' {} a -> s {destinationPath = a} :: LocalVolumeResourceData)
-
 -- | The local absolute path of the volume resource on the host. The source
 -- path for a volume resource type cannot start with \'\'\/sys\'\'.
 localVolumeResourceData_sourcePath :: Lens.Lens' LocalVolumeResourceData (Prelude.Maybe Prelude.Text)
 localVolumeResourceData_sourcePath = Lens.lens (\LocalVolumeResourceData' {sourcePath} -> sourcePath) (\s@LocalVolumeResourceData' {} a -> s {sourcePath = a} :: LocalVolumeResourceData)
 
-instance Core.FromJSON LocalVolumeResourceData where
+instance Data.FromJSON LocalVolumeResourceData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LocalVolumeResourceData"
       ( \x ->
           LocalVolumeResourceData'
-            Prelude.<$> (x Core..:? "GroupOwnerSetting")
-            Prelude.<*> (x Core..:? "DestinationPath")
-            Prelude.<*> (x Core..:? "SourcePath")
+            Prelude.<$> (x Data..:? "DestinationPath")
+            Prelude.<*> (x Data..:? "GroupOwnerSetting")
+            Prelude.<*> (x Data..:? "SourcePath")
       )
 
 instance Prelude.Hashable LocalVolumeResourceData where
   hashWithSalt _salt LocalVolumeResourceData' {..} =
-    _salt `Prelude.hashWithSalt` groupOwnerSetting
-      `Prelude.hashWithSalt` destinationPath
+    _salt `Prelude.hashWithSalt` destinationPath
+      `Prelude.hashWithSalt` groupOwnerSetting
       `Prelude.hashWithSalt` sourcePath
 
 instance Prelude.NFData LocalVolumeResourceData where
   rnf LocalVolumeResourceData' {..} =
-    Prelude.rnf groupOwnerSetting
-      `Prelude.seq` Prelude.rnf destinationPath
+    Prelude.rnf destinationPath
+      `Prelude.seq` Prelude.rnf groupOwnerSetting
       `Prelude.seq` Prelude.rnf sourcePath
 
-instance Core.ToJSON LocalVolumeResourceData where
+instance Data.ToJSON LocalVolumeResourceData where
   toJSON LocalVolumeResourceData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GroupOwnerSetting" Core..=)
-              Prelude.<$> groupOwnerSetting,
-            ("DestinationPath" Core..=)
+          [ ("DestinationPath" Data..=)
               Prelude.<$> destinationPath,
-            ("SourcePath" Core..=) Prelude.<$> sourcePath
+            ("GroupOwnerSetting" Data..=)
+              Prelude.<$> groupOwnerSetting,
+            ("SourcePath" Data..=) Prelude.<$> sourcePath
           ]
       )

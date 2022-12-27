@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.DescribeAlarmHistory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,6 +27,12 @@
 --
 -- CloudWatch retains the history of an alarm even if you delete the alarm.
 --
+-- To use this operation and return information about a composite alarm,
+-- you must be signed on with the @cloudwatch:DescribeAlarmHistory@
+-- permission that is scoped to @*@. You can\'t return information about
+-- composite alarms if your @cloudwatch:DescribeAlarmHistory@ permission
+-- has a narrower scope.
+--
 -- This operation returns paginated results.
 module Amazonka.CloudWatch.DescribeAlarmHistory
   ( -- * Creating a Request
@@ -35,13 +41,13 @@ module Amazonka.CloudWatch.DescribeAlarmHistory
 
     -- * Request Lenses
     describeAlarmHistory_alarmName,
-    describeAlarmHistory_historyItemType,
     describeAlarmHistory_alarmTypes,
     describeAlarmHistory_endDate,
-    describeAlarmHistory_startDate,
+    describeAlarmHistory_historyItemType,
+    describeAlarmHistory_maxRecords,
     describeAlarmHistory_nextToken,
     describeAlarmHistory_scanBy,
-    describeAlarmHistory_maxRecords,
+    describeAlarmHistory_startDate,
 
     -- * Destructuring the Response
     DescribeAlarmHistoryResponse (..),
@@ -56,7 +62,8 @@ where
 
 import Amazonka.CloudWatch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,16 +72,16 @@ import qualified Amazonka.Response as Response
 data DescribeAlarmHistory = DescribeAlarmHistory'
   { -- | The name of the alarm.
     alarmName :: Prelude.Maybe Prelude.Text,
-    -- | The type of alarm histories to retrieve.
-    historyItemType :: Prelude.Maybe HistoryItemType,
     -- | Use this parameter to specify whether you want the operation to return
     -- metric alarms or composite alarms. If you omit this parameter, only
     -- metric alarms are returned.
     alarmTypes :: Prelude.Maybe [AlarmType],
     -- | The ending date to retrieve alarm history.
-    endDate :: Prelude.Maybe Core.ISO8601,
-    -- | The starting date to retrieve alarm history.
-    startDate :: Prelude.Maybe Core.ISO8601,
+    endDate :: Prelude.Maybe Data.ISO8601,
+    -- | The type of alarm histories to retrieve.
+    historyItemType :: Prelude.Maybe HistoryItemType,
+    -- | The maximum number of alarm history records to retrieve.
+    maxRecords :: Prelude.Maybe Prelude.Natural,
     -- | The token returned by a previous call to indicate that there is more
     -- data available.
     nextToken :: Prelude.Maybe Prelude.Text,
@@ -83,8 +90,8 @@ data DescribeAlarmHistory = DescribeAlarmHistory'
     -- first, and specify @TimestampAscending@ to have the oldest history
     -- returned first.
     scanBy :: Prelude.Maybe ScanBy,
-    -- | The maximum number of alarm history records to retrieve.
-    maxRecords :: Prelude.Maybe Prelude.Natural
+    -- | The starting date to retrieve alarm history.
+    startDate :: Prelude.Maybe Data.ISO8601
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -98,15 +105,15 @@ data DescribeAlarmHistory = DescribeAlarmHistory'
 --
 -- 'alarmName', 'describeAlarmHistory_alarmName' - The name of the alarm.
 --
--- 'historyItemType', 'describeAlarmHistory_historyItemType' - The type of alarm histories to retrieve.
---
 -- 'alarmTypes', 'describeAlarmHistory_alarmTypes' - Use this parameter to specify whether you want the operation to return
 -- metric alarms or composite alarms. If you omit this parameter, only
 -- metric alarms are returned.
 --
 -- 'endDate', 'describeAlarmHistory_endDate' - The ending date to retrieve alarm history.
 --
--- 'startDate', 'describeAlarmHistory_startDate' - The starting date to retrieve alarm history.
+-- 'historyItemType', 'describeAlarmHistory_historyItemType' - The type of alarm histories to retrieve.
+--
+-- 'maxRecords', 'describeAlarmHistory_maxRecords' - The maximum number of alarm history records to retrieve.
 --
 -- 'nextToken', 'describeAlarmHistory_nextToken' - The token returned by a previous call to indicate that there is more
 -- data available.
@@ -116,28 +123,24 @@ data DescribeAlarmHistory = DescribeAlarmHistory'
 -- first, and specify @TimestampAscending@ to have the oldest history
 -- returned first.
 --
--- 'maxRecords', 'describeAlarmHistory_maxRecords' - The maximum number of alarm history records to retrieve.
+-- 'startDate', 'describeAlarmHistory_startDate' - The starting date to retrieve alarm history.
 newDescribeAlarmHistory ::
   DescribeAlarmHistory
 newDescribeAlarmHistory =
   DescribeAlarmHistory'
     { alarmName = Prelude.Nothing,
-      historyItemType = Prelude.Nothing,
       alarmTypes = Prelude.Nothing,
       endDate = Prelude.Nothing,
-      startDate = Prelude.Nothing,
+      historyItemType = Prelude.Nothing,
+      maxRecords = Prelude.Nothing,
       nextToken = Prelude.Nothing,
       scanBy = Prelude.Nothing,
-      maxRecords = Prelude.Nothing
+      startDate = Prelude.Nothing
     }
 
 -- | The name of the alarm.
 describeAlarmHistory_alarmName :: Lens.Lens' DescribeAlarmHistory (Prelude.Maybe Prelude.Text)
 describeAlarmHistory_alarmName = Lens.lens (\DescribeAlarmHistory' {alarmName} -> alarmName) (\s@DescribeAlarmHistory' {} a -> s {alarmName = a} :: DescribeAlarmHistory)
-
--- | The type of alarm histories to retrieve.
-describeAlarmHistory_historyItemType :: Lens.Lens' DescribeAlarmHistory (Prelude.Maybe HistoryItemType)
-describeAlarmHistory_historyItemType = Lens.lens (\DescribeAlarmHistory' {historyItemType} -> historyItemType) (\s@DescribeAlarmHistory' {} a -> s {historyItemType = a} :: DescribeAlarmHistory)
 
 -- | Use this parameter to specify whether you want the operation to return
 -- metric alarms or composite alarms. If you omit this parameter, only
@@ -147,11 +150,15 @@ describeAlarmHistory_alarmTypes = Lens.lens (\DescribeAlarmHistory' {alarmTypes}
 
 -- | The ending date to retrieve alarm history.
 describeAlarmHistory_endDate :: Lens.Lens' DescribeAlarmHistory (Prelude.Maybe Prelude.UTCTime)
-describeAlarmHistory_endDate = Lens.lens (\DescribeAlarmHistory' {endDate} -> endDate) (\s@DescribeAlarmHistory' {} a -> s {endDate = a} :: DescribeAlarmHistory) Prelude.. Lens.mapping Core._Time
+describeAlarmHistory_endDate = Lens.lens (\DescribeAlarmHistory' {endDate} -> endDate) (\s@DescribeAlarmHistory' {} a -> s {endDate = a} :: DescribeAlarmHistory) Prelude.. Lens.mapping Data._Time
 
--- | The starting date to retrieve alarm history.
-describeAlarmHistory_startDate :: Lens.Lens' DescribeAlarmHistory (Prelude.Maybe Prelude.UTCTime)
-describeAlarmHistory_startDate = Lens.lens (\DescribeAlarmHistory' {startDate} -> startDate) (\s@DescribeAlarmHistory' {} a -> s {startDate = a} :: DescribeAlarmHistory) Prelude.. Lens.mapping Core._Time
+-- | The type of alarm histories to retrieve.
+describeAlarmHistory_historyItemType :: Lens.Lens' DescribeAlarmHistory (Prelude.Maybe HistoryItemType)
+describeAlarmHistory_historyItemType = Lens.lens (\DescribeAlarmHistory' {historyItemType} -> historyItemType) (\s@DescribeAlarmHistory' {} a -> s {historyItemType = a} :: DescribeAlarmHistory)
+
+-- | The maximum number of alarm history records to retrieve.
+describeAlarmHistory_maxRecords :: Lens.Lens' DescribeAlarmHistory (Prelude.Maybe Prelude.Natural)
+describeAlarmHistory_maxRecords = Lens.lens (\DescribeAlarmHistory' {maxRecords} -> maxRecords) (\s@DescribeAlarmHistory' {} a -> s {maxRecords = a} :: DescribeAlarmHistory)
 
 -- | The token returned by a previous call to indicate that there is more
 -- data available.
@@ -165,9 +172,9 @@ describeAlarmHistory_nextToken = Lens.lens (\DescribeAlarmHistory' {nextToken} -
 describeAlarmHistory_scanBy :: Lens.Lens' DescribeAlarmHistory (Prelude.Maybe ScanBy)
 describeAlarmHistory_scanBy = Lens.lens (\DescribeAlarmHistory' {scanBy} -> scanBy) (\s@DescribeAlarmHistory' {} a -> s {scanBy = a} :: DescribeAlarmHistory)
 
--- | The maximum number of alarm history records to retrieve.
-describeAlarmHistory_maxRecords :: Lens.Lens' DescribeAlarmHistory (Prelude.Maybe Prelude.Natural)
-describeAlarmHistory_maxRecords = Lens.lens (\DescribeAlarmHistory' {maxRecords} -> maxRecords) (\s@DescribeAlarmHistory' {} a -> s {maxRecords = a} :: DescribeAlarmHistory)
+-- | The starting date to retrieve alarm history.
+describeAlarmHistory_startDate :: Lens.Lens' DescribeAlarmHistory (Prelude.Maybe Prelude.UTCTime)
+describeAlarmHistory_startDate = Lens.lens (\DescribeAlarmHistory' {startDate} -> startDate) (\s@DescribeAlarmHistory' {} a -> s {startDate = a} :: DescribeAlarmHistory) Prelude.. Lens.mapping Data._Time
 
 instance Core.AWSPager DescribeAlarmHistory where
   page rq rs
@@ -195,65 +202,66 @@ instance Core.AWSRequest DescribeAlarmHistory where
   type
     AWSResponse DescribeAlarmHistory =
       DescribeAlarmHistoryResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeAlarmHistoryResult"
       ( \s h x ->
           DescribeAlarmHistoryResponse'
-            Prelude.<$> ( x Core..@? "AlarmHistoryItems"
+            Prelude.<$> ( x Data..@? "AlarmHistoryItems"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "NextToken")
+            Prelude.<*> (x Data..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeAlarmHistory where
   hashWithSalt _salt DescribeAlarmHistory' {..} =
     _salt `Prelude.hashWithSalt` alarmName
-      `Prelude.hashWithSalt` historyItemType
       `Prelude.hashWithSalt` alarmTypes
       `Prelude.hashWithSalt` endDate
-      `Prelude.hashWithSalt` startDate
+      `Prelude.hashWithSalt` historyItemType
+      `Prelude.hashWithSalt` maxRecords
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` scanBy
-      `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` startDate
 
 instance Prelude.NFData DescribeAlarmHistory where
   rnf DescribeAlarmHistory' {..} =
     Prelude.rnf alarmName
-      `Prelude.seq` Prelude.rnf historyItemType
       `Prelude.seq` Prelude.rnf alarmTypes
       `Prelude.seq` Prelude.rnf endDate
-      `Prelude.seq` Prelude.rnf startDate
+      `Prelude.seq` Prelude.rnf historyItemType
+      `Prelude.seq` Prelude.rnf maxRecords
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf scanBy
-      `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf startDate
 
-instance Core.ToHeaders DescribeAlarmHistory where
+instance Data.ToHeaders DescribeAlarmHistory where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeAlarmHistory where
+instance Data.ToPath DescribeAlarmHistory where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAlarmHistory where
+instance Data.ToQuery DescribeAlarmHistory where
   toQuery DescribeAlarmHistory' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeAlarmHistory" :: Prelude.ByteString),
+          Data.=: ("DescribeAlarmHistory" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-08-01" :: Prelude.ByteString),
-        "AlarmName" Core.=: alarmName,
-        "HistoryItemType" Core.=: historyItemType,
+          Data.=: ("2010-08-01" :: Prelude.ByteString),
+        "AlarmName" Data.=: alarmName,
         "AlarmTypes"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> alarmTypes),
-        "EndDate" Core.=: endDate,
-        "StartDate" Core.=: startDate,
-        "NextToken" Core.=: nextToken,
-        "ScanBy" Core.=: scanBy,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> alarmTypes),
+        "EndDate" Data.=: endDate,
+        "HistoryItemType" Data.=: historyItemType,
+        "MaxRecords" Data.=: maxRecords,
+        "NextToken" Data.=: nextToken,
+        "ScanBy" Data.=: scanBy,
+        "StartDate" Data.=: startDate
       ]
 
 -- | /See:/ 'newDescribeAlarmHistoryResponse' smart constructor.

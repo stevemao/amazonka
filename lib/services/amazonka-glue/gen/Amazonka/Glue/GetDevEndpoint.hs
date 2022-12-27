@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetDevEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.Glue.GetDevEndpoint
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,12 +83,13 @@ instance Core.AWSRequest GetDevEndpoint where
   type
     AWSResponse GetDevEndpoint =
       GetDevEndpointResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDevEndpointResponse'
-            Prelude.<$> (x Core..?> "DevEndpoint")
+            Prelude.<$> (x Data..?> "DevEndpoint")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,30 +100,30 @@ instance Prelude.Hashable GetDevEndpoint where
 instance Prelude.NFData GetDevEndpoint where
   rnf GetDevEndpoint' {..} = Prelude.rnf endpointName
 
-instance Core.ToHeaders GetDevEndpoint where
+instance Data.ToHeaders GetDevEndpoint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetDevEndpoint" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetDevEndpoint" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetDevEndpoint where
+instance Data.ToJSON GetDevEndpoint where
   toJSON GetDevEndpoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("EndpointName" Core..= endpointName)]
+          [Prelude.Just ("EndpointName" Data..= endpointName)]
       )
 
-instance Core.ToPath GetDevEndpoint where
+instance Data.ToPath GetDevEndpoint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetDevEndpoint where
+instance Data.ToQuery GetDevEndpoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDevEndpointResponse' smart constructor.

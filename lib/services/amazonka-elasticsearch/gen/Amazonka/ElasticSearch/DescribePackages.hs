@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.DescribePackages
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,23 +29,24 @@ module Amazonka.ElasticSearch.DescribePackages
 
     -- * Request Lenses
     describePackages_filters,
-    describePackages_nextToken,
     describePackages_maxResults,
+    describePackages_nextToken,
 
     -- * Destructuring the Response
     DescribePackagesResponse (..),
     newDescribePackagesResponse,
 
     -- * Response Lenses
-    describePackagesResponse_packageDetailsList,
     describePackagesResponse_nextToken,
+    describePackagesResponse_packageDetailsList,
     describePackagesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,12 +58,12 @@ data DescribePackages = DescribePackages'
   { -- | Only returns packages that match the @DescribePackagesFilterList@
     -- values.
     filters :: Prelude.Maybe [DescribePackagesFilter],
+    -- | Limits results to a maximum number of packages.
+    maxResults :: Prelude.Maybe Prelude.Int,
     -- | Used for pagination. Only necessary if a previous API call includes a
     -- non-null NextToken value. If provided, returns results for the next
     -- page.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Limits results to a maximum number of packages.
-    maxResults :: Prelude.Maybe Prelude.Int
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -77,18 +78,18 @@ data DescribePackages = DescribePackages'
 -- 'filters', 'describePackages_filters' - Only returns packages that match the @DescribePackagesFilterList@
 -- values.
 --
+-- 'maxResults', 'describePackages_maxResults' - Limits results to a maximum number of packages.
+--
 -- 'nextToken', 'describePackages_nextToken' - Used for pagination. Only necessary if a previous API call includes a
 -- non-null NextToken value. If provided, returns results for the next
 -- page.
---
--- 'maxResults', 'describePackages_maxResults' - Limits results to a maximum number of packages.
 newDescribePackages ::
   DescribePackages
 newDescribePackages =
   DescribePackages'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | Only returns packages that match the @DescribePackagesFilterList@
@@ -96,71 +97,72 @@ newDescribePackages =
 describePackages_filters :: Lens.Lens' DescribePackages (Prelude.Maybe [DescribePackagesFilter])
 describePackages_filters = Lens.lens (\DescribePackages' {filters} -> filters) (\s@DescribePackages' {} a -> s {filters = a} :: DescribePackages) Prelude.. Lens.mapping Lens.coerced
 
+-- | Limits results to a maximum number of packages.
+describePackages_maxResults :: Lens.Lens' DescribePackages (Prelude.Maybe Prelude.Int)
+describePackages_maxResults = Lens.lens (\DescribePackages' {maxResults} -> maxResults) (\s@DescribePackages' {} a -> s {maxResults = a} :: DescribePackages)
+
 -- | Used for pagination. Only necessary if a previous API call includes a
 -- non-null NextToken value. If provided, returns results for the next
 -- page.
 describePackages_nextToken :: Lens.Lens' DescribePackages (Prelude.Maybe Prelude.Text)
 describePackages_nextToken = Lens.lens (\DescribePackages' {nextToken} -> nextToken) (\s@DescribePackages' {} a -> s {nextToken = a} :: DescribePackages)
 
--- | Limits results to a maximum number of packages.
-describePackages_maxResults :: Lens.Lens' DescribePackages (Prelude.Maybe Prelude.Int)
-describePackages_maxResults = Lens.lens (\DescribePackages' {maxResults} -> maxResults) (\s@DescribePackages' {} a -> s {maxResults = a} :: DescribePackages)
-
 instance Core.AWSRequest DescribePackages where
   type
     AWSResponse DescribePackages =
       DescribePackagesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePackagesResponse'
-            Prelude.<$> ( x Core..?> "PackageDetailsList"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "PackageDetailsList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribePackages where
   hashWithSalt _salt DescribePackages' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribePackages where
   rnf DescribePackages' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribePackages where
+instance Data.ToHeaders DescribePackages where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON DescribePackages where
+instance Data.ToJSON DescribePackages where
   toJSON DescribePackages' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath DescribePackages where
+instance Data.ToPath DescribePackages where
   toPath =
     Prelude.const "/2015-01-01/packages/describe"
 
-instance Core.ToQuery DescribePackages where
+instance Data.ToQuery DescribePackages where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Container for response returned by @ DescribePackages @ operation.
 --
 -- /See:/ 'newDescribePackagesResponse' smart constructor.
 data DescribePackagesResponse = DescribePackagesResponse'
-  { -- | List of @PackageDetails@ objects.
+  { nextToken :: Prelude.Maybe Prelude.Text,
+    -- | List of @PackageDetails@ objects.
     packageDetailsList :: Prelude.Maybe [PackageDetails],
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -174,9 +176,9 @@ data DescribePackagesResponse = DescribePackagesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'packageDetailsList', 'describePackagesResponse_packageDetailsList' - List of @PackageDetails@ objects.
---
 -- 'nextToken', 'describePackagesResponse_nextToken' - Undocumented member.
+--
+-- 'packageDetailsList', 'describePackagesResponse_packageDetailsList' - List of @PackageDetails@ objects.
 --
 -- 'httpStatus', 'describePackagesResponse_httpStatus' - The response's http status code.
 newDescribePackagesResponse ::
@@ -185,19 +187,19 @@ newDescribePackagesResponse ::
   DescribePackagesResponse
 newDescribePackagesResponse pHttpStatus_ =
   DescribePackagesResponse'
-    { packageDetailsList =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      packageDetailsList = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | List of @PackageDetails@ objects.
-describePackagesResponse_packageDetailsList :: Lens.Lens' DescribePackagesResponse (Prelude.Maybe [PackageDetails])
-describePackagesResponse_packageDetailsList = Lens.lens (\DescribePackagesResponse' {packageDetailsList} -> packageDetailsList) (\s@DescribePackagesResponse' {} a -> s {packageDetailsList = a} :: DescribePackagesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Undocumented member.
 describePackagesResponse_nextToken :: Lens.Lens' DescribePackagesResponse (Prelude.Maybe Prelude.Text)
 describePackagesResponse_nextToken = Lens.lens (\DescribePackagesResponse' {nextToken} -> nextToken) (\s@DescribePackagesResponse' {} a -> s {nextToken = a} :: DescribePackagesResponse)
+
+-- | List of @PackageDetails@ objects.
+describePackagesResponse_packageDetailsList :: Lens.Lens' DescribePackagesResponse (Prelude.Maybe [PackageDetails])
+describePackagesResponse_packageDetailsList = Lens.lens (\DescribePackagesResponse' {packageDetailsList} -> packageDetailsList) (\s@DescribePackagesResponse' {} a -> s {packageDetailsList = a} :: DescribePackagesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describePackagesResponse_httpStatus :: Lens.Lens' DescribePackagesResponse Prelude.Int
@@ -205,6 +207,6 @@ describePackagesResponse_httpStatus = Lens.lens (\DescribePackagesResponse' {htt
 
 instance Prelude.NFData DescribePackagesResponse where
   rnf DescribePackagesResponse' {..} =
-    Prelude.rnf packageDetailsList
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf packageDetailsList
       `Prelude.seq` Prelude.rnf httpStatus

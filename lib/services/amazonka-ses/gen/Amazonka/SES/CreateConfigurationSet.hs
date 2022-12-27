@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.CreateConfigurationSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.SES.CreateConfigurationSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +91,8 @@ instance Core.AWSRequest CreateConfigurationSet where
   type
     AWSResponse CreateConfigurationSet =
       CreateConfigurationSetResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateConfigurationSetResult"
@@ -107,20 +109,20 @@ instance Prelude.NFData CreateConfigurationSet where
   rnf CreateConfigurationSet' {..} =
     Prelude.rnf configurationSet
 
-instance Core.ToHeaders CreateConfigurationSet where
+instance Data.ToHeaders CreateConfigurationSet where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateConfigurationSet where
+instance Data.ToPath CreateConfigurationSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateConfigurationSet where
+instance Data.ToQuery CreateConfigurationSet where
   toQuery CreateConfigurationSet' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateConfigurationSet" :: Prelude.ByteString),
+          Data.=: ("CreateConfigurationSet" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "ConfigurationSet" Core.=: configurationSet
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "ConfigurationSet" Data.=: configurationSet
       ]
 
 -- | An empty element returned on a successful request.

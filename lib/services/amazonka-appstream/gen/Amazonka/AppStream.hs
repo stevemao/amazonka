@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,32 @@ module Amazonka.AppStream
     -- * Errors
     -- $errors
 
+    -- ** ConcurrentModificationException
+    _ConcurrentModificationException,
+
+    -- ** EntitlementAlreadyExistsException
+    _EntitlementAlreadyExistsException,
+
+    -- ** EntitlementNotFoundException
+    _EntitlementNotFoundException,
+
+    -- ** IncompatibleImageException
+    _IncompatibleImageException,
+
+    -- ** InvalidAccountStatusException
+    _InvalidAccountStatusException,
+
+    -- ** InvalidParameterCombinationException
+    _InvalidParameterCombinationException,
+
     -- ** InvalidRoleException
     _InvalidRoleException,
+
+    -- ** LimitExceededException
+    _LimitExceededException,
+
+    -- ** OperationNotPermittedException
+    _OperationNotPermittedException,
 
     -- ** RequestLimitExceededException
     _RequestLimitExceededException,
@@ -47,110 +71,38 @@ module Amazonka.AppStream
     -- ** ResourceAlreadyExistsException
     _ResourceAlreadyExistsException,
 
-    -- ** IncompatibleImageException
-    _IncompatibleImageException,
-
-    -- ** ConcurrentModificationException
-    _ConcurrentModificationException,
-
-    -- ** OperationNotPermittedException
-    _OperationNotPermittedException,
-
-    -- ** InvalidAccountStatusException
-    _InvalidAccountStatusException,
-
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
-
-    -- ** InvalidParameterCombinationException
-    _InvalidParameterCombinationException,
+    -- ** ResourceInUseException
+    _ResourceInUseException,
 
     -- ** ResourceNotAvailableException
     _ResourceNotAvailableException,
 
-    -- ** LimitExceededException
-    _LimitExceededException,
-
-    -- ** ResourceInUseException
-    _ResourceInUseException,
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
 
     -- * Waiters
     -- $waiters
 
-    -- ** FleetStopped
-    newFleetStopped,
-
     -- ** FleetStarted
     newFleetStarted,
+
+    -- ** FleetStopped
+    newFleetStopped,
 
     -- * Operations
     -- $operations
 
-    -- ** CreateUsageReportSubscription
-    CreateUsageReportSubscription (CreateUsageReportSubscription'),
-    newCreateUsageReportSubscription,
-    CreateUsageReportSubscriptionResponse (CreateUsageReportSubscriptionResponse'),
-    newCreateUsageReportSubscriptionResponse,
+    -- ** AssociateApplicationFleet
+    AssociateApplicationFleet (AssociateApplicationFleet'),
+    newAssociateApplicationFleet,
+    AssociateApplicationFleetResponse (AssociateApplicationFleetResponse'),
+    newAssociateApplicationFleetResponse,
 
-    -- ** DisassociateFleet
-    DisassociateFleet (DisassociateFleet'),
-    newDisassociateFleet,
-    DisassociateFleetResponse (DisassociateFleetResponse'),
-    newDisassociateFleetResponse,
-
-    -- ** ListAssociatedFleets (Paginated)
-    ListAssociatedFleets (ListAssociatedFleets'),
-    newListAssociatedFleets,
-    ListAssociatedFleetsResponse (ListAssociatedFleetsResponse'),
-    newListAssociatedFleetsResponse,
-
-    -- ** DeleteStack
-    DeleteStack (DeleteStack'),
-    newDeleteStack,
-    DeleteStackResponse (DeleteStackResponse'),
-    newDeleteStackResponse,
-
-    -- ** UpdateStack
-    UpdateStack (UpdateStack'),
-    newUpdateStack,
-    UpdateStackResponse (UpdateStackResponse'),
-    newUpdateStackResponse,
-
-    -- ** CreateDirectoryConfig
-    CreateDirectoryConfig (CreateDirectoryConfig'),
-    newCreateDirectoryConfig,
-    CreateDirectoryConfigResponse (CreateDirectoryConfigResponse'),
-    newCreateDirectoryConfigResponse,
-
-    -- ** DescribeUsers (Paginated)
-    DescribeUsers (DescribeUsers'),
-    newDescribeUsers,
-    DescribeUsersResponse (DescribeUsersResponse'),
-    newDescribeUsersResponse,
-
-    -- ** ListAssociatedStacks (Paginated)
-    ListAssociatedStacks (ListAssociatedStacks'),
-    newListAssociatedStacks,
-    ListAssociatedStacksResponse (ListAssociatedStacksResponse'),
-    newListAssociatedStacksResponse,
-
-    -- ** DeleteFleet
-    DeleteFleet (DeleteFleet'),
-    newDeleteFleet,
-    DeleteFleetResponse (DeleteFleetResponse'),
-    newDeleteFleetResponse,
-
-    -- ** UpdateFleet
-    UpdateFleet (UpdateFleet'),
-    newUpdateFleet,
-    UpdateFleetResponse (UpdateFleetResponse'),
-    newUpdateFleetResponse,
-
-    -- ** DeleteImageBuilder
-    DeleteImageBuilder (DeleteImageBuilder'),
-    newDeleteImageBuilder,
-    DeleteImageBuilderResponse (DeleteImageBuilderResponse'),
-    newDeleteImageBuilderResponse,
+    -- ** AssociateApplicationToEntitlement
+    AssociateApplicationToEntitlement (AssociateApplicationToEntitlement'),
+    newAssociateApplicationToEntitlement,
+    AssociateApplicationToEntitlementResponse (AssociateApplicationToEntitlementResponse'),
+    newAssociateApplicationToEntitlementResponse,
 
     -- ** AssociateFleet
     AssociateFleet (AssociateFleet'),
@@ -158,23 +110,59 @@ module Amazonka.AppStream
     AssociateFleetResponse (AssociateFleetResponse'),
     newAssociateFleetResponse,
 
+    -- ** BatchAssociateUserStack
+    BatchAssociateUserStack (BatchAssociateUserStack'),
+    newBatchAssociateUserStack,
+    BatchAssociateUserStackResponse (BatchAssociateUserStackResponse'),
+    newBatchAssociateUserStackResponse,
+
+    -- ** BatchDisassociateUserStack
+    BatchDisassociateUserStack (BatchDisassociateUserStack'),
+    newBatchDisassociateUserStack,
+    BatchDisassociateUserStackResponse (BatchDisassociateUserStackResponse'),
+    newBatchDisassociateUserStackResponse,
+
+    -- ** CopyImage
+    CopyImage (CopyImage'),
+    newCopyImage,
+    CopyImageResponse (CopyImageResponse'),
+    newCopyImageResponse,
+
+    -- ** CreateAppBlock
+    CreateAppBlock (CreateAppBlock'),
+    newCreateAppBlock,
+    CreateAppBlockResponse (CreateAppBlockResponse'),
+    newCreateAppBlockResponse,
+
+    -- ** CreateApplication
+    CreateApplication (CreateApplication'),
+    newCreateApplication,
+    CreateApplicationResponse (CreateApplicationResponse'),
+    newCreateApplicationResponse,
+
+    -- ** CreateDirectoryConfig
+    CreateDirectoryConfig (CreateDirectoryConfig'),
+    newCreateDirectoryConfig,
+    CreateDirectoryConfigResponse (CreateDirectoryConfigResponse'),
+    newCreateDirectoryConfigResponse,
+
+    -- ** CreateEntitlement
+    CreateEntitlement (CreateEntitlement'),
+    newCreateEntitlement,
+    CreateEntitlementResponse (CreateEntitlementResponse'),
+    newCreateEntitlementResponse,
+
+    -- ** CreateFleet
+    CreateFleet (CreateFleet'),
+    newCreateFleet,
+    CreateFleetResponse (CreateFleetResponse'),
+    newCreateFleetResponse,
+
     -- ** CreateImageBuilder
     CreateImageBuilder (CreateImageBuilder'),
     newCreateImageBuilder,
     CreateImageBuilderResponse (CreateImageBuilderResponse'),
     newCreateImageBuilderResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** DescribeDirectoryConfigs (Paginated)
-    DescribeDirectoryConfigs (DescribeDirectoryConfigs'),
-    newDescribeDirectoryConfigs,
-    DescribeDirectoryConfigsResponse (DescribeDirectoryConfigsResponse'),
-    newDescribeDirectoryConfigsResponse,
 
     -- ** CreateImageBuilderStreamingURL
     CreateImageBuilderStreamingURL (CreateImageBuilderStreamingURL'),
@@ -182,17 +170,131 @@ module Amazonka.AppStream
     CreateImageBuilderStreamingURLResponse (CreateImageBuilderStreamingURLResponse'),
     newCreateImageBuilderStreamingURLResponse,
 
-    -- ** DescribeSessions (Paginated)
-    DescribeSessions (DescribeSessions'),
-    newDescribeSessions,
-    DescribeSessionsResponse (DescribeSessionsResponse'),
-    newDescribeSessionsResponse,
+    -- ** CreateStack
+    CreateStack (CreateStack'),
+    newCreateStack,
+    CreateStackResponse (CreateStackResponse'),
+    newCreateStackResponse,
 
-    -- ** DescribeStacks (Paginated)
-    DescribeStacks (DescribeStacks'),
-    newDescribeStacks,
-    DescribeStacksResponse (DescribeStacksResponse'),
-    newDescribeStacksResponse,
+    -- ** CreateStreamingURL
+    CreateStreamingURL (CreateStreamingURL'),
+    newCreateStreamingURL,
+    CreateStreamingURLResponse (CreateStreamingURLResponse'),
+    newCreateStreamingURLResponse,
+
+    -- ** CreateUpdatedImage
+    CreateUpdatedImage (CreateUpdatedImage'),
+    newCreateUpdatedImage,
+    CreateUpdatedImageResponse (CreateUpdatedImageResponse'),
+    newCreateUpdatedImageResponse,
+
+    -- ** CreateUsageReportSubscription
+    CreateUsageReportSubscription (CreateUsageReportSubscription'),
+    newCreateUsageReportSubscription,
+    CreateUsageReportSubscriptionResponse (CreateUsageReportSubscriptionResponse'),
+    newCreateUsageReportSubscriptionResponse,
+
+    -- ** CreateUser
+    CreateUser (CreateUser'),
+    newCreateUser,
+    CreateUserResponse (CreateUserResponse'),
+    newCreateUserResponse,
+
+    -- ** DeleteAppBlock
+    DeleteAppBlock (DeleteAppBlock'),
+    newDeleteAppBlock,
+    DeleteAppBlockResponse (DeleteAppBlockResponse'),
+    newDeleteAppBlockResponse,
+
+    -- ** DeleteApplication
+    DeleteApplication (DeleteApplication'),
+    newDeleteApplication,
+    DeleteApplicationResponse (DeleteApplicationResponse'),
+    newDeleteApplicationResponse,
+
+    -- ** DeleteDirectoryConfig
+    DeleteDirectoryConfig (DeleteDirectoryConfig'),
+    newDeleteDirectoryConfig,
+    DeleteDirectoryConfigResponse (DeleteDirectoryConfigResponse'),
+    newDeleteDirectoryConfigResponse,
+
+    -- ** DeleteEntitlement
+    DeleteEntitlement (DeleteEntitlement'),
+    newDeleteEntitlement,
+    DeleteEntitlementResponse (DeleteEntitlementResponse'),
+    newDeleteEntitlementResponse,
+
+    -- ** DeleteFleet
+    DeleteFleet (DeleteFleet'),
+    newDeleteFleet,
+    DeleteFleetResponse (DeleteFleetResponse'),
+    newDeleteFleetResponse,
+
+    -- ** DeleteImage
+    DeleteImage (DeleteImage'),
+    newDeleteImage,
+    DeleteImageResponse (DeleteImageResponse'),
+    newDeleteImageResponse,
+
+    -- ** DeleteImageBuilder
+    DeleteImageBuilder (DeleteImageBuilder'),
+    newDeleteImageBuilder,
+    DeleteImageBuilderResponse (DeleteImageBuilderResponse'),
+    newDeleteImageBuilderResponse,
+
+    -- ** DeleteImagePermissions
+    DeleteImagePermissions (DeleteImagePermissions'),
+    newDeleteImagePermissions,
+    DeleteImagePermissionsResponse (DeleteImagePermissionsResponse'),
+    newDeleteImagePermissionsResponse,
+
+    -- ** DeleteStack
+    DeleteStack (DeleteStack'),
+    newDeleteStack,
+    DeleteStackResponse (DeleteStackResponse'),
+    newDeleteStackResponse,
+
+    -- ** DeleteUsageReportSubscription
+    DeleteUsageReportSubscription (DeleteUsageReportSubscription'),
+    newDeleteUsageReportSubscription,
+    DeleteUsageReportSubscriptionResponse (DeleteUsageReportSubscriptionResponse'),
+    newDeleteUsageReportSubscriptionResponse,
+
+    -- ** DeleteUser
+    DeleteUser (DeleteUser'),
+    newDeleteUser,
+    DeleteUserResponse (DeleteUserResponse'),
+    newDeleteUserResponse,
+
+    -- ** DescribeAppBlocks
+    DescribeAppBlocks (DescribeAppBlocks'),
+    newDescribeAppBlocks,
+    DescribeAppBlocksResponse (DescribeAppBlocksResponse'),
+    newDescribeAppBlocksResponse,
+
+    -- ** DescribeApplicationFleetAssociations
+    DescribeApplicationFleetAssociations (DescribeApplicationFleetAssociations'),
+    newDescribeApplicationFleetAssociations,
+    DescribeApplicationFleetAssociationsResponse (DescribeApplicationFleetAssociationsResponse'),
+    newDescribeApplicationFleetAssociationsResponse,
+
+    -- ** DescribeApplications
+    DescribeApplications (DescribeApplications'),
+    newDescribeApplications,
+    DescribeApplicationsResponse (DescribeApplicationsResponse'),
+    newDescribeApplicationsResponse,
+
+    -- ** DescribeDirectoryConfigs (Paginated)
+    DescribeDirectoryConfigs (DescribeDirectoryConfigs'),
+    newDescribeDirectoryConfigs,
+    DescribeDirectoryConfigsResponse (DescribeDirectoryConfigsResponse'),
+    newDescribeDirectoryConfigsResponse,
+
+    -- ** DescribeEntitlements
+    DescribeEntitlements (DescribeEntitlements'),
+    newDescribeEntitlements,
+    DescribeEntitlementsResponse (DescribeEntitlementsResponse'),
+    newDescribeEntitlementsResponse,
 
     -- ** DescribeFleets (Paginated)
     DescribeFleets (DescribeFleets'),
@@ -206,23 +308,29 @@ module Amazonka.AppStream
     DescribeImageBuildersResponse (DescribeImageBuildersResponse'),
     newDescribeImageBuildersResponse,
 
-    -- ** EnableUser
-    EnableUser (EnableUser'),
-    newEnableUser,
-    EnableUserResponse (EnableUserResponse'),
-    newEnableUserResponse,
+    -- ** DescribeImagePermissions
+    DescribeImagePermissions (DescribeImagePermissions'),
+    newDescribeImagePermissions,
+    DescribeImagePermissionsResponse (DescribeImagePermissionsResponse'),
+    newDescribeImagePermissionsResponse,
 
-    -- ** DescribeUserStackAssociations (Paginated)
-    DescribeUserStackAssociations (DescribeUserStackAssociations'),
-    newDescribeUserStackAssociations,
-    DescribeUserStackAssociationsResponse (DescribeUserStackAssociationsResponse'),
-    newDescribeUserStackAssociationsResponse,
+    -- ** DescribeImages (Paginated)
+    DescribeImages (DescribeImages'),
+    newDescribeImages,
+    DescribeImagesResponse (DescribeImagesResponse'),
+    newDescribeImagesResponse,
 
-    -- ** CreateUpdatedImage
-    CreateUpdatedImage (CreateUpdatedImage'),
-    newCreateUpdatedImage,
-    CreateUpdatedImageResponse (CreateUpdatedImageResponse'),
-    newCreateUpdatedImageResponse,
+    -- ** DescribeSessions (Paginated)
+    DescribeSessions (DescribeSessions'),
+    newDescribeSessions,
+    DescribeSessionsResponse (DescribeSessionsResponse'),
+    newDescribeSessionsResponse,
+
+    -- ** DescribeStacks (Paginated)
+    DescribeStacks (DescribeStacks'),
+    newDescribeStacks,
+    DescribeStacksResponse (DescribeStacksResponse'),
+    newDescribeStacksResponse,
 
     -- ** DescribeUsageReportSubscriptions
     DescribeUsageReportSubscriptions (DescribeUsageReportSubscriptions'),
@@ -230,83 +338,17 @@ module Amazonka.AppStream
     DescribeUsageReportSubscriptionsResponse (DescribeUsageReportSubscriptionsResponse'),
     newDescribeUsageReportSubscriptionsResponse,
 
-    -- ** UpdateImagePermissions
-    UpdateImagePermissions (UpdateImagePermissions'),
-    newUpdateImagePermissions,
-    UpdateImagePermissionsResponse (UpdateImagePermissionsResponse'),
-    newUpdateImagePermissionsResponse,
+    -- ** DescribeUserStackAssociations (Paginated)
+    DescribeUserStackAssociations (DescribeUserStackAssociations'),
+    newDescribeUserStackAssociations,
+    DescribeUserStackAssociationsResponse (DescribeUserStackAssociationsResponse'),
+    newDescribeUserStackAssociationsResponse,
 
-    -- ** DeleteImagePermissions
-    DeleteImagePermissions (DeleteImagePermissions'),
-    newDeleteImagePermissions,
-    DeleteImagePermissionsResponse (DeleteImagePermissionsResponse'),
-    newDeleteImagePermissionsResponse,
-
-    -- ** StopFleet
-    StopFleet (StopFleet'),
-    newStopFleet,
-    StopFleetResponse (StopFleetResponse'),
-    newStopFleetResponse,
-
-    -- ** StartImageBuilder
-    StartImageBuilder (StartImageBuilder'),
-    newStartImageBuilder,
-    StartImageBuilderResponse (StartImageBuilderResponse'),
-    newStartImageBuilderResponse,
-
-    -- ** BatchAssociateUserStack
-    BatchAssociateUserStack (BatchAssociateUserStack'),
-    newBatchAssociateUserStack,
-    BatchAssociateUserStackResponse (BatchAssociateUserStackResponse'),
-    newBatchAssociateUserStackResponse,
-
-    -- ** DescribeImagePermissions
-    DescribeImagePermissions (DescribeImagePermissions'),
-    newDescribeImagePermissions,
-    DescribeImagePermissionsResponse (DescribeImagePermissionsResponse'),
-    newDescribeImagePermissionsResponse,
-
-    -- ** DeleteDirectoryConfig
-    DeleteDirectoryConfig (DeleteDirectoryConfig'),
-    newDeleteDirectoryConfig,
-    DeleteDirectoryConfigResponse (DeleteDirectoryConfigResponse'),
-    newDeleteDirectoryConfigResponse,
-
-    -- ** UpdateDirectoryConfig
-    UpdateDirectoryConfig (UpdateDirectoryConfig'),
-    newUpdateDirectoryConfig,
-    UpdateDirectoryConfigResponse (UpdateDirectoryConfigResponse'),
-    newUpdateDirectoryConfigResponse,
-
-    -- ** CreateFleet
-    CreateFleet (CreateFleet'),
-    newCreateFleet,
-    CreateFleetResponse (CreateFleetResponse'),
-    newCreateFleetResponse,
-
-    -- ** CreateStack
-    CreateStack (CreateStack'),
-    newCreateStack,
-    CreateStackResponse (CreateStackResponse'),
-    newCreateStackResponse,
-
-    -- ** CopyImage
-    CopyImage (CopyImage'),
-    newCopyImage,
-    CopyImageResponse (CopyImageResponse'),
-    newCopyImageResponse,
-
-    -- ** ExpireSession
-    ExpireSession (ExpireSession'),
-    newExpireSession,
-    ExpireSessionResponse (ExpireSessionResponse'),
-    newExpireSessionResponse,
-
-    -- ** CreateUser
-    CreateUser (CreateUser'),
-    newCreateUser,
-    CreateUserResponse (CreateUserResponse'),
-    newCreateUserResponse,
+    -- ** DescribeUsers (Paginated)
+    DescribeUsers (DescribeUsers'),
+    newDescribeUsers,
+    DescribeUsersResponse (DescribeUsersResponse'),
+    newDescribeUsersResponse,
 
     -- ** DisableUser
     DisableUser (DisableUser'),
@@ -314,29 +356,59 @@ module Amazonka.AppStream
     DisableUserResponse (DisableUserResponse'),
     newDisableUserResponse,
 
-    -- ** DeleteUser
-    DeleteUser (DeleteUser'),
-    newDeleteUser,
-    DeleteUserResponse (DeleteUserResponse'),
-    newDeleteUserResponse,
+    -- ** DisassociateApplicationFleet
+    DisassociateApplicationFleet (DisassociateApplicationFleet'),
+    newDisassociateApplicationFleet,
+    DisassociateApplicationFleetResponse (DisassociateApplicationFleetResponse'),
+    newDisassociateApplicationFleetResponse,
 
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
+    -- ** DisassociateApplicationFromEntitlement
+    DisassociateApplicationFromEntitlement (DisassociateApplicationFromEntitlement'),
+    newDisassociateApplicationFromEntitlement,
+    DisassociateApplicationFromEntitlementResponse (DisassociateApplicationFromEntitlementResponse'),
+    newDisassociateApplicationFromEntitlementResponse,
 
-    -- ** CreateStreamingURL
-    CreateStreamingURL (CreateStreamingURL'),
-    newCreateStreamingURL,
-    CreateStreamingURLResponse (CreateStreamingURLResponse'),
-    newCreateStreamingURLResponse,
+    -- ** DisassociateFleet
+    DisassociateFleet (DisassociateFleet'),
+    newDisassociateFleet,
+    DisassociateFleetResponse (DisassociateFleetResponse'),
+    newDisassociateFleetResponse,
 
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** EnableUser
+    EnableUser (EnableUser'),
+    newEnableUser,
+    EnableUserResponse (EnableUserResponse'),
+    newEnableUserResponse,
+
+    -- ** ExpireSession
+    ExpireSession (ExpireSession'),
+    newExpireSession,
+    ExpireSessionResponse (ExpireSessionResponse'),
+    newExpireSessionResponse,
+
+    -- ** ListAssociatedFleets (Paginated)
+    ListAssociatedFleets (ListAssociatedFleets'),
+    newListAssociatedFleets,
+    ListAssociatedFleetsResponse (ListAssociatedFleetsResponse'),
+    newListAssociatedFleetsResponse,
+
+    -- ** ListAssociatedStacks (Paginated)
+    ListAssociatedStacks (ListAssociatedStacks'),
+    newListAssociatedStacks,
+    ListAssociatedStacksResponse (ListAssociatedStacksResponse'),
+    newListAssociatedStacksResponse,
+
+    -- ** ListEntitledApplications
+    ListEntitledApplications (ListEntitledApplications'),
+    newListEntitledApplications,
+    ListEntitledApplicationsResponse (ListEntitledApplicationsResponse'),
+    newListEntitledApplicationsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** StartFleet
     StartFleet (StartFleet'),
@@ -344,35 +416,71 @@ module Amazonka.AppStream
     StartFleetResponse (StartFleetResponse'),
     newStartFleetResponse,
 
+    -- ** StartImageBuilder
+    StartImageBuilder (StartImageBuilder'),
+    newStartImageBuilder,
+    StartImageBuilderResponse (StartImageBuilderResponse'),
+    newStartImageBuilderResponse,
+
+    -- ** StopFleet
+    StopFleet (StopFleet'),
+    newStopFleet,
+    StopFleetResponse (StopFleetResponse'),
+    newStopFleetResponse,
+
     -- ** StopImageBuilder
     StopImageBuilder (StopImageBuilder'),
     newStopImageBuilder,
     StopImageBuilderResponse (StopImageBuilderResponse'),
     newStopImageBuilderResponse,
 
-    -- ** DeleteImage
-    DeleteImage (DeleteImage'),
-    newDeleteImage,
-    DeleteImageResponse (DeleteImageResponse'),
-    newDeleteImageResponse,
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
-    -- ** DeleteUsageReportSubscription
-    DeleteUsageReportSubscription (DeleteUsageReportSubscription'),
-    newDeleteUsageReportSubscription,
-    DeleteUsageReportSubscriptionResponse (DeleteUsageReportSubscriptionResponse'),
-    newDeleteUsageReportSubscriptionResponse,
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
-    -- ** BatchDisassociateUserStack
-    BatchDisassociateUserStack (BatchDisassociateUserStack'),
-    newBatchDisassociateUserStack,
-    BatchDisassociateUserStackResponse (BatchDisassociateUserStackResponse'),
-    newBatchDisassociateUserStackResponse,
+    -- ** UpdateApplication
+    UpdateApplication (UpdateApplication'),
+    newUpdateApplication,
+    UpdateApplicationResponse (UpdateApplicationResponse'),
+    newUpdateApplicationResponse,
 
-    -- ** DescribeImages (Paginated)
-    DescribeImages (DescribeImages'),
-    newDescribeImages,
-    DescribeImagesResponse (DescribeImagesResponse'),
-    newDescribeImagesResponse,
+    -- ** UpdateDirectoryConfig
+    UpdateDirectoryConfig (UpdateDirectoryConfig'),
+    newUpdateDirectoryConfig,
+    UpdateDirectoryConfigResponse (UpdateDirectoryConfigResponse'),
+    newUpdateDirectoryConfigResponse,
+
+    -- ** UpdateEntitlement
+    UpdateEntitlement (UpdateEntitlement'),
+    newUpdateEntitlement,
+    UpdateEntitlementResponse (UpdateEntitlementResponse'),
+    newUpdateEntitlementResponse,
+
+    -- ** UpdateFleet
+    UpdateFleet (UpdateFleet'),
+    newUpdateFleet,
+    UpdateFleetResponse (UpdateFleetResponse'),
+    newUpdateFleetResponse,
+
+    -- ** UpdateImagePermissions
+    UpdateImagePermissions (UpdateImagePermissions'),
+    newUpdateImagePermissions,
+    UpdateImagePermissionsResponse (UpdateImagePermissionsResponse'),
+    newUpdateImagePermissionsResponse,
+
+    -- ** UpdateStack
+    UpdateStack (UpdateStack'),
+    newUpdateStack,
+    UpdateStackResponse (UpdateStackResponse'),
+    newUpdateStackResponse,
 
     -- * Types
 
@@ -382,8 +490,17 @@ module Amazonka.AppStream
     -- ** Action
     Action (..),
 
+    -- ** AppVisibility
+    AppVisibility (..),
+
+    -- ** ApplicationAttribute
+    ApplicationAttribute (..),
+
     -- ** AuthenticationType
     AuthenticationType (..),
+
+    -- ** CertificateBasedAuthStatus
+    CertificateBasedAuthStatus (..),
 
     -- ** FleetAttribute
     FleetAttribute (..),
@@ -417,6 +534,9 @@ module Amazonka.AppStream
 
     -- ** PlatformType
     PlatformType (..),
+
+    -- ** PreferredProtocol
+    PreferredProtocol (..),
 
     -- ** SessionConnectionState
     SessionConnectionState (..),
@@ -452,9 +572,17 @@ module Amazonka.AppStream
     AccessEndpoint (AccessEndpoint'),
     newAccessEndpoint,
 
+    -- ** AppBlock
+    AppBlock (AppBlock'),
+    newAppBlock,
+
     -- ** Application
     Application (Application'),
     newApplication,
+
+    -- ** ApplicationFleetAssociation
+    ApplicationFleetAssociation (ApplicationFleetAssociation'),
+    newApplicationFleetAssociation,
 
     -- ** ApplicationSettings
     ApplicationSettings (ApplicationSettings'),
@@ -463,6 +591,10 @@ module Amazonka.AppStream
     -- ** ApplicationSettingsResponse
     ApplicationSettingsResponse (ApplicationSettingsResponse'),
     newApplicationSettingsResponse,
+
+    -- ** CertificateBasedAuthProperties
+    CertificateBasedAuthProperties (CertificateBasedAuthProperties'),
+    newCertificateBasedAuthProperties,
 
     -- ** ComputeCapacity
     ComputeCapacity (ComputeCapacity'),
@@ -479,6 +611,18 @@ module Amazonka.AppStream
     -- ** DomainJoinInfo
     DomainJoinInfo (DomainJoinInfo'),
     newDomainJoinInfo,
+
+    -- ** EntitledApplication
+    EntitledApplication (EntitledApplication'),
+    newEntitledApplication,
+
+    -- ** Entitlement
+    Entitlement (Entitlement'),
+    newEntitlement,
+
+    -- ** EntitlementAttribute
+    EntitlementAttribute (EntitlementAttribute'),
+    newEntitlementAttribute,
 
     -- ** Fleet
     Fleet (Fleet'),
@@ -520,6 +664,14 @@ module Amazonka.AppStream
     ResourceError (ResourceError'),
     newResourceError,
 
+    -- ** S3Location
+    S3Location (S3Location'),
+    newS3Location,
+
+    -- ** ScriptDetails
+    ScriptDetails (ScriptDetails'),
+    newScriptDetails,
+
     -- ** ServiceAccountCredentials
     ServiceAccountCredentials (ServiceAccountCredentials'),
     newServiceAccountCredentials,
@@ -543,6 +695,10 @@ module Amazonka.AppStream
     -- ** StorageConnector
     StorageConnector (StorageConnector'),
     newStorageConnector,
+
+    -- ** StreamingExperienceSettings
+    StreamingExperienceSettings (StreamingExperienceSettings'),
+    newStreamingExperienceSettings,
 
     -- ** UsageReportSubscription
     UsageReportSubscription (UsageReportSubscription'),
@@ -570,11 +726,16 @@ module Amazonka.AppStream
   )
 where
 
+import Amazonka.AppStream.AssociateApplicationFleet
+import Amazonka.AppStream.AssociateApplicationToEntitlement
 import Amazonka.AppStream.AssociateFleet
 import Amazonka.AppStream.BatchAssociateUserStack
 import Amazonka.AppStream.BatchDisassociateUserStack
 import Amazonka.AppStream.CopyImage
+import Amazonka.AppStream.CreateAppBlock
+import Amazonka.AppStream.CreateApplication
 import Amazonka.AppStream.CreateDirectoryConfig
+import Amazonka.AppStream.CreateEntitlement
 import Amazonka.AppStream.CreateFleet
 import Amazonka.AppStream.CreateImageBuilder
 import Amazonka.AppStream.CreateImageBuilderStreamingURL
@@ -583,7 +744,10 @@ import Amazonka.AppStream.CreateStreamingURL
 import Amazonka.AppStream.CreateUpdatedImage
 import Amazonka.AppStream.CreateUsageReportSubscription
 import Amazonka.AppStream.CreateUser
+import Amazonka.AppStream.DeleteAppBlock
+import Amazonka.AppStream.DeleteApplication
 import Amazonka.AppStream.DeleteDirectoryConfig
+import Amazonka.AppStream.DeleteEntitlement
 import Amazonka.AppStream.DeleteFleet
 import Amazonka.AppStream.DeleteImage
 import Amazonka.AppStream.DeleteImageBuilder
@@ -591,7 +755,11 @@ import Amazonka.AppStream.DeleteImagePermissions
 import Amazonka.AppStream.DeleteStack
 import Amazonka.AppStream.DeleteUsageReportSubscription
 import Amazonka.AppStream.DeleteUser
+import Amazonka.AppStream.DescribeAppBlocks
+import Amazonka.AppStream.DescribeApplicationFleetAssociations
+import Amazonka.AppStream.DescribeApplications
 import Amazonka.AppStream.DescribeDirectoryConfigs
+import Amazonka.AppStream.DescribeEntitlements
 import Amazonka.AppStream.DescribeFleets
 import Amazonka.AppStream.DescribeImageBuilders
 import Amazonka.AppStream.DescribeImagePermissions
@@ -602,12 +770,15 @@ import Amazonka.AppStream.DescribeUsageReportSubscriptions
 import Amazonka.AppStream.DescribeUserStackAssociations
 import Amazonka.AppStream.DescribeUsers
 import Amazonka.AppStream.DisableUser
+import Amazonka.AppStream.DisassociateApplicationFleet
+import Amazonka.AppStream.DisassociateApplicationFromEntitlement
 import Amazonka.AppStream.DisassociateFleet
 import Amazonka.AppStream.EnableUser
 import Amazonka.AppStream.ExpireSession
 import Amazonka.AppStream.Lens
 import Amazonka.AppStream.ListAssociatedFleets
 import Amazonka.AppStream.ListAssociatedStacks
+import Amazonka.AppStream.ListEntitledApplications
 import Amazonka.AppStream.ListTagsForResource
 import Amazonka.AppStream.StartFleet
 import Amazonka.AppStream.StartImageBuilder
@@ -616,7 +787,9 @@ import Amazonka.AppStream.StopImageBuilder
 import Amazonka.AppStream.TagResource
 import Amazonka.AppStream.Types
 import Amazonka.AppStream.UntagResource
+import Amazonka.AppStream.UpdateApplication
 import Amazonka.AppStream.UpdateDirectoryConfig
+import Amazonka.AppStream.UpdateEntitlement
 import Amazonka.AppStream.UpdateFleet
 import Amazonka.AppStream.UpdateImagePermissions
 import Amazonka.AppStream.UpdateStack

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MQ.Types.AvailabilityZone
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MQ.Types.AvailabilityZone where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Name of the availability zone.
@@ -50,12 +51,12 @@ newAvailabilityZone =
 availabilityZone_name :: Lens.Lens' AvailabilityZone (Prelude.Maybe Prelude.Text)
 availabilityZone_name = Lens.lens (\AvailabilityZone' {name} -> name) (\s@AvailabilityZone' {} a -> s {name = a} :: AvailabilityZone)
 
-instance Core.FromJSON AvailabilityZone where
+instance Data.FromJSON AvailabilityZone where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AvailabilityZone"
       ( \x ->
-          AvailabilityZone' Prelude.<$> (x Core..:? "name")
+          AvailabilityZone' Prelude.<$> (x Data..:? "name")
       )
 
 instance Prelude.Hashable AvailabilityZone where

@@ -14,22 +14,19 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DescribeVpcPeeringAuthorizations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves valid VPC peering authorizations that are pending for the AWS
--- account. This operation returns all VPC peering authorizations and
--- requests for peering. This includes those initiated and received by this
--- account.
+-- Retrieves valid VPC peering authorizations that are pending for the
+-- Amazon Web Services account. This operation returns all VPC peering
+-- authorizations and requests for peering. This includes those initiated
+-- and received by this account.
 --
 -- __Related actions__
 --
--- CreateVpcPeeringAuthorization | DescribeVpcPeeringAuthorizations |
--- DeleteVpcPeeringAuthorization | CreateVpcPeeringConnection |
--- DescribeVpcPeeringConnections | DeleteVpcPeeringConnection |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.DescribeVpcPeeringAuthorizations
   ( -- * Creating a Request
@@ -47,8 +44,9 @@ module Amazonka.GameLift.DescribeVpcPeeringAuthorizations
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -75,12 +73,13 @@ instance
   type
     AWSResponse DescribeVpcPeeringAuthorizations =
       DescribeVpcPeeringAuthorizationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeVpcPeeringAuthorizationsResponse'
-            Prelude.<$> ( x Core..?> "VpcPeeringAuthorizations"
+            Prelude.<$> ( x Data..?> "VpcPeeringAuthorizations"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -100,31 +99,31 @@ instance
   rnf _ = ()
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeVpcPeeringAuthorizations
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DescribeVpcPeeringAuthorizations" ::
+              Data.=# ( "GameLift.DescribeVpcPeeringAuthorizations" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeVpcPeeringAuthorizations where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DescribeVpcPeeringAuthorizations where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DescribeVpcPeeringAuthorizations where
+instance Data.ToPath DescribeVpcPeeringAuthorizations where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeVpcPeeringAuthorizations
   where
   toQuery = Prelude.const Prelude.mempty
@@ -132,7 +131,7 @@ instance
 -- | /See:/ 'newDescribeVpcPeeringAuthorizationsResponse' smart constructor.
 data DescribeVpcPeeringAuthorizationsResponse = DescribeVpcPeeringAuthorizationsResponse'
   { -- | A collection of objects that describe all valid VPC peering operations
-    -- for the current AWS account.
+    -- for the current Amazon Web Services account.
     vpcPeeringAuthorizations :: Prelude.Maybe [VpcPeeringAuthorization],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -148,7 +147,7 @@ data DescribeVpcPeeringAuthorizationsResponse = DescribeVpcPeeringAuthorizations
 -- for backwards compatibility:
 --
 -- 'vpcPeeringAuthorizations', 'describeVpcPeeringAuthorizationsResponse_vpcPeeringAuthorizations' - A collection of objects that describe all valid VPC peering operations
--- for the current AWS account.
+-- for the current Amazon Web Services account.
 --
 -- 'httpStatus', 'describeVpcPeeringAuthorizationsResponse_httpStatus' - The response's http status code.
 newDescribeVpcPeeringAuthorizationsResponse ::
@@ -164,7 +163,7 @@ newDescribeVpcPeeringAuthorizationsResponse
       }
 
 -- | A collection of objects that describe all valid VPC peering operations
--- for the current AWS account.
+-- for the current Amazon Web Services account.
 describeVpcPeeringAuthorizationsResponse_vpcPeeringAuthorizations :: Lens.Lens' DescribeVpcPeeringAuthorizationsResponse (Prelude.Maybe [VpcPeeringAuthorization])
 describeVpcPeeringAuthorizationsResponse_vpcPeeringAuthorizations = Lens.lens (\DescribeVpcPeeringAuthorizationsResponse' {vpcPeeringAuthorizations} -> vpcPeeringAuthorizations) (\s@DescribeVpcPeeringAuthorizationsResponse' {} a -> s {vpcPeeringAuthorizations = a} :: DescribeVpcPeeringAuthorizationsResponse) Prelude.. Lens.mapping Lens.coerced
 

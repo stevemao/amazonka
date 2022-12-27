@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DeleteDBClusterSnapshot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,10 +26,12 @@
 -- The DB cluster snapshot must be in the @available@ state to be deleted.
 --
 -- For more information on Amazon Aurora, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?>
--- in the /Amazon Aurora User Guide./
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What is Amazon Aurora?>
+-- in the /Amazon Aurora User Guide/.
 --
--- This action only applies to Aurora DB clusters.
+-- For more information on Multi-AZ DB clusters, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html Multi-AZ deployments with two readable standby DB instances>
+-- in the /Amazon RDS User Guide/.
 module Amazonka.RDS.DeleteDBClusterSnapshot
   ( -- * Creating a Request
     DeleteDBClusterSnapshot (..),
@@ -49,7 +51,8 @@ module Amazonka.RDS.DeleteDBClusterSnapshot
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -101,13 +104,14 @@ instance Core.AWSRequest DeleteDBClusterSnapshot where
   type
     AWSResponse DeleteDBClusterSnapshot =
       DeleteDBClusterSnapshotResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteDBClusterSnapshotResult"
       ( \s h x ->
           DeleteDBClusterSnapshotResponse'
-            Prelude.<$> (x Core..@? "DBClusterSnapshot")
+            Prelude.<$> (x Data..@? "DBClusterSnapshot")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,21 +124,21 @@ instance Prelude.NFData DeleteDBClusterSnapshot where
   rnf DeleteDBClusterSnapshot' {..} =
     Prelude.rnf dbClusterSnapshotIdentifier
 
-instance Core.ToHeaders DeleteDBClusterSnapshot where
+instance Data.ToHeaders DeleteDBClusterSnapshot where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDBClusterSnapshot where
+instance Data.ToPath DeleteDBClusterSnapshot where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDBClusterSnapshot where
+instance Data.ToQuery DeleteDBClusterSnapshot where
   toQuery DeleteDBClusterSnapshot' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteDBClusterSnapshot" :: Prelude.ByteString),
+          Data.=: ("DeleteDBClusterSnapshot" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "DBClusterSnapshotIdentifier"
-          Core.=: dbClusterSnapshotIdentifier
+          Data.=: dbClusterSnapshotIdentifier
       ]
 
 -- | /See:/ 'newDeleteDBClusterSnapshotResponse' smart constructor.

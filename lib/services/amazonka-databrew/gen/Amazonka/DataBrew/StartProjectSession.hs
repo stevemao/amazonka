@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.StartProjectSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.DataBrew.StartProjectSession
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,14 +96,15 @@ instance Core.AWSRequest StartProjectSession where
   type
     AWSResponse StartProjectSession =
       StartProjectSessionResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartProjectSessionResponse'
-            Prelude.<$> (x Core..?> "ClientSessionId")
+            Prelude.<$> (x Data..?> "ClientSessionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Name")
+            Prelude.<*> (x Data..:> "Name")
       )
 
 instance Prelude.Hashable StartProjectSession where
@@ -115,47 +117,47 @@ instance Prelude.NFData StartProjectSession where
     Prelude.rnf assumeControl
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders StartProjectSession where
+instance Data.ToHeaders StartProjectSession where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartProjectSession where
+instance Data.ToJSON StartProjectSession where
   toJSON StartProjectSession' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AssumeControl" Core..=)
+          [ ("AssumeControl" Data..=)
               Prelude.<$> assumeControl
           ]
       )
 
-instance Core.ToPath StartProjectSession where
+instance Data.ToPath StartProjectSession where
   toPath StartProjectSession' {..} =
     Prelude.mconcat
       [ "/projects/",
-        Core.toBS name,
+        Data.toBS name,
         "/startProjectSession"
       ]
 
-instance Core.ToQuery StartProjectSession where
+instance Data.ToQuery StartProjectSession where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartProjectSessionResponse' smart constructor.
 data StartProjectSessionResponse = StartProjectSessionResponse'
   { -- | A system-generated identifier for the session.
-    clientSessionId :: Prelude.Maybe Prelude.Text,
+    clientSessionId :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The name of the project to be acted upon.
     name :: Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'StartProjectSessionResponse' with all optional fields omitted.
@@ -186,7 +188,7 @@ newStartProjectSessionResponse pHttpStatus_ pName_ =
 
 -- | A system-generated identifier for the session.
 startProjectSessionResponse_clientSessionId :: Lens.Lens' StartProjectSessionResponse (Prelude.Maybe Prelude.Text)
-startProjectSessionResponse_clientSessionId = Lens.lens (\StartProjectSessionResponse' {clientSessionId} -> clientSessionId) (\s@StartProjectSessionResponse' {} a -> s {clientSessionId = a} :: StartProjectSessionResponse)
+startProjectSessionResponse_clientSessionId = Lens.lens (\StartProjectSessionResponse' {clientSessionId} -> clientSessionId) (\s@StartProjectSessionResponse' {} a -> s {clientSessionId = a} :: StartProjectSessionResponse) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The response's http status code.
 startProjectSessionResponse_httpStatus :: Lens.Lens' StartProjectSessionResponse Prelude.Int

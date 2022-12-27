@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.UpdateGameSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,12 +27,6 @@
 --
 -- If successful, the updated @GameSession@ object is returned.
 --
--- __Related actions__
---
--- CreateGameSession | DescribeGameSessions | DescribeGameSessionDetails |
--- SearchGameSessions | UpdateGameSession | GetGameSessionLogUrl |
--- StartGameSessionPlacement | DescribeGameSessionPlacement |
--- StopGameSessionPlacement |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.UpdateGameSession
   ( -- * Creating a Request
@@ -41,8 +35,8 @@ module Amazonka.GameLift.UpdateGameSession
 
     -- * Request Lenses
     updateGameSession_maximumPlayerSessionCount,
-    updateGameSession_playerSessionCreationPolicy,
     updateGameSession_name,
+    updateGameSession_playerSessionCreationPolicy,
     updateGameSession_protectionPolicy,
     updateGameSession_gameSessionId,
 
@@ -57,25 +51,24 @@ module Amazonka.GameLift.UpdateGameSession
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newUpdateGameSession' smart constructor.
+-- | /See:/ 'newUpdateGameSession' smart constructor.
 data UpdateGameSession = UpdateGameSession'
   { -- | The maximum number of players that can be connected simultaneously to
     -- the game session.
     maximumPlayerSessionCount :: Prelude.Maybe Prelude.Natural,
-    -- | A policy that determines whether the game session is accepting new
-    -- players.
-    playerSessionCreationPolicy :: Prelude.Maybe PlayerSessionCreationPolicy,
     -- | A descriptive label that is associated with a game session. Session
     -- names do not need to be unique.
     name :: Prelude.Maybe Prelude.Text,
+    -- | A policy that determines whether the game session is accepting new
+    -- players.
+    playerSessionCreationPolicy :: Prelude.Maybe PlayerSessionCreationPolicy,
     -- | Game session protection policy to apply to this game session only.
     --
     -- -   __NoProtection__ -- The game session can be terminated during a
@@ -100,11 +93,11 @@ data UpdateGameSession = UpdateGameSession'
 -- 'maximumPlayerSessionCount', 'updateGameSession_maximumPlayerSessionCount' - The maximum number of players that can be connected simultaneously to
 -- the game session.
 --
--- 'playerSessionCreationPolicy', 'updateGameSession_playerSessionCreationPolicy' - A policy that determines whether the game session is accepting new
--- players.
---
 -- 'name', 'updateGameSession_name' - A descriptive label that is associated with a game session. Session
 -- names do not need to be unique.
+--
+-- 'playerSessionCreationPolicy', 'updateGameSession_playerSessionCreationPolicy' - A policy that determines whether the game session is accepting new
+-- players.
 --
 -- 'protectionPolicy', 'updateGameSession_protectionPolicy' - Game session protection policy to apply to this game session only.
 --
@@ -123,8 +116,8 @@ newUpdateGameSession pGameSessionId_ =
   UpdateGameSession'
     { maximumPlayerSessionCount =
         Prelude.Nothing,
-      playerSessionCreationPolicy = Prelude.Nothing,
       name = Prelude.Nothing,
+      playerSessionCreationPolicy = Prelude.Nothing,
       protectionPolicy = Prelude.Nothing,
       gameSessionId = pGameSessionId_
     }
@@ -134,15 +127,15 @@ newUpdateGameSession pGameSessionId_ =
 updateGameSession_maximumPlayerSessionCount :: Lens.Lens' UpdateGameSession (Prelude.Maybe Prelude.Natural)
 updateGameSession_maximumPlayerSessionCount = Lens.lens (\UpdateGameSession' {maximumPlayerSessionCount} -> maximumPlayerSessionCount) (\s@UpdateGameSession' {} a -> s {maximumPlayerSessionCount = a} :: UpdateGameSession)
 
--- | A policy that determines whether the game session is accepting new
--- players.
-updateGameSession_playerSessionCreationPolicy :: Lens.Lens' UpdateGameSession (Prelude.Maybe PlayerSessionCreationPolicy)
-updateGameSession_playerSessionCreationPolicy = Lens.lens (\UpdateGameSession' {playerSessionCreationPolicy} -> playerSessionCreationPolicy) (\s@UpdateGameSession' {} a -> s {playerSessionCreationPolicy = a} :: UpdateGameSession)
-
 -- | A descriptive label that is associated with a game session. Session
 -- names do not need to be unique.
 updateGameSession_name :: Lens.Lens' UpdateGameSession (Prelude.Maybe Prelude.Text)
 updateGameSession_name = Lens.lens (\UpdateGameSession' {name} -> name) (\s@UpdateGameSession' {} a -> s {name = a} :: UpdateGameSession)
+
+-- | A policy that determines whether the game session is accepting new
+-- players.
+updateGameSession_playerSessionCreationPolicy :: Lens.Lens' UpdateGameSession (Prelude.Maybe PlayerSessionCreationPolicy)
+updateGameSession_playerSessionCreationPolicy = Lens.lens (\UpdateGameSession' {playerSessionCreationPolicy} -> playerSessionCreationPolicy) (\s@UpdateGameSession' {} a -> s {playerSessionCreationPolicy = a} :: UpdateGameSession)
 
 -- | Game session protection policy to apply to this game session only.
 --
@@ -162,12 +155,13 @@ instance Core.AWSRequest UpdateGameSession where
   type
     AWSResponse UpdateGameSession =
       UpdateGameSessionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateGameSessionResponse'
-            Prelude.<$> (x Core..?> "GameSession")
+            Prelude.<$> (x Data..?> "GameSession")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -175,57 +169,55 @@ instance Prelude.Hashable UpdateGameSession where
   hashWithSalt _salt UpdateGameSession' {..} =
     _salt
       `Prelude.hashWithSalt` maximumPlayerSessionCount
-      `Prelude.hashWithSalt` playerSessionCreationPolicy
       `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` playerSessionCreationPolicy
       `Prelude.hashWithSalt` protectionPolicy
       `Prelude.hashWithSalt` gameSessionId
 
 instance Prelude.NFData UpdateGameSession where
   rnf UpdateGameSession' {..} =
     Prelude.rnf maximumPlayerSessionCount
-      `Prelude.seq` Prelude.rnf playerSessionCreationPolicy
       `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf playerSessionCreationPolicy
       `Prelude.seq` Prelude.rnf protectionPolicy
       `Prelude.seq` Prelude.rnf gameSessionId
 
-instance Core.ToHeaders UpdateGameSession where
+instance Data.ToHeaders UpdateGameSession where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.UpdateGameSession" :: Prelude.ByteString),
+              Data.=# ("GameLift.UpdateGameSession" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateGameSession where
+instance Data.ToJSON UpdateGameSession where
   toJSON UpdateGameSession' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MaximumPlayerSessionCount" Core..=)
+          [ ("MaximumPlayerSessionCount" Data..=)
               Prelude.<$> maximumPlayerSessionCount,
-            ("PlayerSessionCreationPolicy" Core..=)
+            ("Name" Data..=) Prelude.<$> name,
+            ("PlayerSessionCreationPolicy" Data..=)
               Prelude.<$> playerSessionCreationPolicy,
-            ("Name" Core..=) Prelude.<$> name,
-            ("ProtectionPolicy" Core..=)
+            ("ProtectionPolicy" Data..=)
               Prelude.<$> protectionPolicy,
             Prelude.Just
-              ("GameSessionId" Core..= gameSessionId)
+              ("GameSessionId" Data..= gameSessionId)
           ]
       )
 
-instance Core.ToPath UpdateGameSession where
+instance Data.ToPath UpdateGameSession where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateGameSession where
+instance Data.ToQuery UpdateGameSession where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newUpdateGameSessionResponse' smart constructor.
+-- | /See:/ 'newUpdateGameSessionResponse' smart constructor.
 data UpdateGameSessionResponse = UpdateGameSessionResponse'
   { -- | The updated game session properties.
     gameSession :: Prelude.Maybe GameSession,

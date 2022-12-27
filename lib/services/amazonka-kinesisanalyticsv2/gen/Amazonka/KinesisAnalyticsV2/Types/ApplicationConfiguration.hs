@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.ApplicationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,6 +20,8 @@
 module Amazonka.KinesisAnalyticsV2.Types.ApplicationConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.ApplicationCodeConfiguration
 import Amazonka.KinesisAnalyticsV2.Types.ApplicationSnapshotConfiguration
 import Amazonka.KinesisAnalyticsV2.Types.EnvironmentProperties
@@ -27,7 +29,6 @@ import Amazonka.KinesisAnalyticsV2.Types.FlinkApplicationConfiguration
 import Amazonka.KinesisAnalyticsV2.Types.SqlApplicationConfiguration
 import Amazonka.KinesisAnalyticsV2.Types.VpcConfiguration
 import Amazonka.KinesisAnalyticsV2.Types.ZeppelinApplicationConfiguration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the creation parameters for a Kinesis Data Analytics
@@ -35,12 +36,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newApplicationConfiguration' smart constructor.
 data ApplicationConfiguration = ApplicationConfiguration'
-  { -- | Describes whether snapshots are enabled for a Flink-based Kinesis Data
+  { -- | The code location and type parameters for a Flink-based Kinesis Data
+    -- Analytics application.
+    applicationCodeConfiguration :: Prelude.Maybe ApplicationCodeConfiguration,
+    -- | Describes whether snapshots are enabled for a Flink-based Kinesis Data
     -- Analytics application.
     applicationSnapshotConfiguration :: Prelude.Maybe ApplicationSnapshotConfiguration,
-    -- | The array of descriptions of VPC configurations available to the
-    -- application.
-    vpcConfigurations :: Prelude.Maybe [VpcConfiguration],
     -- | Describes execution properties for a Flink-based Kinesis Data Analytics
     -- application.
     environmentProperties :: Prelude.Maybe EnvironmentProperties,
@@ -50,9 +51,9 @@ data ApplicationConfiguration = ApplicationConfiguration'
     -- | The creation and update parameters for a SQL-based Kinesis Data
     -- Analytics application.
     sqlApplicationConfiguration :: Prelude.Maybe SqlApplicationConfiguration,
-    -- | The code location and type parameters for a Flink-based Kinesis Data
-    -- Analytics application.
-    applicationCodeConfiguration :: Prelude.Maybe ApplicationCodeConfiguration,
+    -- | The array of descriptions of VPC configurations available to the
+    -- application.
+    vpcConfigurations :: Prelude.Maybe [VpcConfiguration],
     -- | The configuration parameters for a Kinesis Data Analytics Studio
     -- notebook.
     zeppelinApplicationConfiguration :: Prelude.Maybe ZeppelinApplicationConfiguration
@@ -67,11 +68,11 @@ data ApplicationConfiguration = ApplicationConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'applicationSnapshotConfiguration', 'applicationConfiguration_applicationSnapshotConfiguration' - Describes whether snapshots are enabled for a Flink-based Kinesis Data
+-- 'applicationCodeConfiguration', 'applicationConfiguration_applicationCodeConfiguration' - The code location and type parameters for a Flink-based Kinesis Data
 -- Analytics application.
 --
--- 'vpcConfigurations', 'applicationConfiguration_vpcConfigurations' - The array of descriptions of VPC configurations available to the
--- application.
+-- 'applicationSnapshotConfiguration', 'applicationConfiguration_applicationSnapshotConfiguration' - Describes whether snapshots are enabled for a Flink-based Kinesis Data
+-- Analytics application.
 --
 -- 'environmentProperties', 'applicationConfiguration_environmentProperties' - Describes execution properties for a Flink-based Kinesis Data Analytics
 -- application.
@@ -82,8 +83,8 @@ data ApplicationConfiguration = ApplicationConfiguration'
 -- 'sqlApplicationConfiguration', 'applicationConfiguration_sqlApplicationConfiguration' - The creation and update parameters for a SQL-based Kinesis Data
 -- Analytics application.
 --
--- 'applicationCodeConfiguration', 'applicationConfiguration_applicationCodeConfiguration' - The code location and type parameters for a Flink-based Kinesis Data
--- Analytics application.
+-- 'vpcConfigurations', 'applicationConfiguration_vpcConfigurations' - The array of descriptions of VPC configurations available to the
+-- application.
 --
 -- 'zeppelinApplicationConfiguration', 'applicationConfiguration_zeppelinApplicationConfiguration' - The configuration parameters for a Kinesis Data Analytics Studio
 -- notebook.
@@ -91,26 +92,27 @@ newApplicationConfiguration ::
   ApplicationConfiguration
 newApplicationConfiguration =
   ApplicationConfiguration'
-    { applicationSnapshotConfiguration =
+    { applicationCodeConfiguration =
         Prelude.Nothing,
-      vpcConfigurations = Prelude.Nothing,
+      applicationSnapshotConfiguration =
+        Prelude.Nothing,
       environmentProperties = Prelude.Nothing,
       flinkApplicationConfiguration = Prelude.Nothing,
       sqlApplicationConfiguration = Prelude.Nothing,
-      applicationCodeConfiguration = Prelude.Nothing,
+      vpcConfigurations = Prelude.Nothing,
       zeppelinApplicationConfiguration =
         Prelude.Nothing
     }
+
+-- | The code location and type parameters for a Flink-based Kinesis Data
+-- Analytics application.
+applicationConfiguration_applicationCodeConfiguration :: Lens.Lens' ApplicationConfiguration (Prelude.Maybe ApplicationCodeConfiguration)
+applicationConfiguration_applicationCodeConfiguration = Lens.lens (\ApplicationConfiguration' {applicationCodeConfiguration} -> applicationCodeConfiguration) (\s@ApplicationConfiguration' {} a -> s {applicationCodeConfiguration = a} :: ApplicationConfiguration)
 
 -- | Describes whether snapshots are enabled for a Flink-based Kinesis Data
 -- Analytics application.
 applicationConfiguration_applicationSnapshotConfiguration :: Lens.Lens' ApplicationConfiguration (Prelude.Maybe ApplicationSnapshotConfiguration)
 applicationConfiguration_applicationSnapshotConfiguration = Lens.lens (\ApplicationConfiguration' {applicationSnapshotConfiguration} -> applicationSnapshotConfiguration) (\s@ApplicationConfiguration' {} a -> s {applicationSnapshotConfiguration = a} :: ApplicationConfiguration)
-
--- | The array of descriptions of VPC configurations available to the
--- application.
-applicationConfiguration_vpcConfigurations :: Lens.Lens' ApplicationConfiguration (Prelude.Maybe [VpcConfiguration])
-applicationConfiguration_vpcConfigurations = Lens.lens (\ApplicationConfiguration' {vpcConfigurations} -> vpcConfigurations) (\s@ApplicationConfiguration' {} a -> s {vpcConfigurations = a} :: ApplicationConfiguration) Prelude.. Lens.mapping Lens.coerced
 
 -- | Describes execution properties for a Flink-based Kinesis Data Analytics
 -- application.
@@ -127,10 +129,10 @@ applicationConfiguration_flinkApplicationConfiguration = Lens.lens (\Application
 applicationConfiguration_sqlApplicationConfiguration :: Lens.Lens' ApplicationConfiguration (Prelude.Maybe SqlApplicationConfiguration)
 applicationConfiguration_sqlApplicationConfiguration = Lens.lens (\ApplicationConfiguration' {sqlApplicationConfiguration} -> sqlApplicationConfiguration) (\s@ApplicationConfiguration' {} a -> s {sqlApplicationConfiguration = a} :: ApplicationConfiguration)
 
--- | The code location and type parameters for a Flink-based Kinesis Data
--- Analytics application.
-applicationConfiguration_applicationCodeConfiguration :: Lens.Lens' ApplicationConfiguration (Prelude.Maybe ApplicationCodeConfiguration)
-applicationConfiguration_applicationCodeConfiguration = Lens.lens (\ApplicationConfiguration' {applicationCodeConfiguration} -> applicationCodeConfiguration) (\s@ApplicationConfiguration' {} a -> s {applicationCodeConfiguration = a} :: ApplicationConfiguration)
+-- | The array of descriptions of VPC configurations available to the
+-- application.
+applicationConfiguration_vpcConfigurations :: Lens.Lens' ApplicationConfiguration (Prelude.Maybe [VpcConfiguration])
+applicationConfiguration_vpcConfigurations = Lens.lens (\ApplicationConfiguration' {vpcConfigurations} -> vpcConfigurations) (\s@ApplicationConfiguration' {} a -> s {vpcConfigurations = a} :: ApplicationConfiguration) Prelude.. Lens.mapping Lens.coerced
 
 -- | The configuration parameters for a Kinesis Data Analytics Studio
 -- notebook.
@@ -140,41 +142,41 @@ applicationConfiguration_zeppelinApplicationConfiguration = Lens.lens (\Applicat
 instance Prelude.Hashable ApplicationConfiguration where
   hashWithSalt _salt ApplicationConfiguration' {..} =
     _salt
+      `Prelude.hashWithSalt` applicationCodeConfiguration
       `Prelude.hashWithSalt` applicationSnapshotConfiguration
-      `Prelude.hashWithSalt` vpcConfigurations
       `Prelude.hashWithSalt` environmentProperties
       `Prelude.hashWithSalt` flinkApplicationConfiguration
       `Prelude.hashWithSalt` sqlApplicationConfiguration
-      `Prelude.hashWithSalt` applicationCodeConfiguration
+      `Prelude.hashWithSalt` vpcConfigurations
       `Prelude.hashWithSalt` zeppelinApplicationConfiguration
 
 instance Prelude.NFData ApplicationConfiguration where
   rnf ApplicationConfiguration' {..} =
-    Prelude.rnf applicationSnapshotConfiguration
-      `Prelude.seq` Prelude.rnf vpcConfigurations
+    Prelude.rnf applicationCodeConfiguration
+      `Prelude.seq` Prelude.rnf applicationSnapshotConfiguration
       `Prelude.seq` Prelude.rnf environmentProperties
       `Prelude.seq` Prelude.rnf flinkApplicationConfiguration
       `Prelude.seq` Prelude.rnf sqlApplicationConfiguration
-      `Prelude.seq` Prelude.rnf applicationCodeConfiguration
+      `Prelude.seq` Prelude.rnf vpcConfigurations
       `Prelude.seq` Prelude.rnf zeppelinApplicationConfiguration
 
-instance Core.ToJSON ApplicationConfiguration where
+instance Data.ToJSON ApplicationConfiguration where
   toJSON ApplicationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ApplicationSnapshotConfiguration" Core..=)
-              Prelude.<$> applicationSnapshotConfiguration,
-            ("VpcConfigurations" Core..=)
-              Prelude.<$> vpcConfigurations,
-            ("EnvironmentProperties" Core..=)
-              Prelude.<$> environmentProperties,
-            ("FlinkApplicationConfiguration" Core..=)
-              Prelude.<$> flinkApplicationConfiguration,
-            ("SqlApplicationConfiguration" Core..=)
-              Prelude.<$> sqlApplicationConfiguration,
-            ("ApplicationCodeConfiguration" Core..=)
+          [ ("ApplicationCodeConfiguration" Data..=)
               Prelude.<$> applicationCodeConfiguration,
-            ("ZeppelinApplicationConfiguration" Core..=)
+            ("ApplicationSnapshotConfiguration" Data..=)
+              Prelude.<$> applicationSnapshotConfiguration,
+            ("EnvironmentProperties" Data..=)
+              Prelude.<$> environmentProperties,
+            ("FlinkApplicationConfiguration" Data..=)
+              Prelude.<$> flinkApplicationConfiguration,
+            ("SqlApplicationConfiguration" Data..=)
+              Prelude.<$> sqlApplicationConfiguration,
+            ("VpcConfigurations" Data..=)
+              Prelude.<$> vpcConfigurations,
+            ("ZeppelinApplicationConfiguration" Data..=)
               Prelude.<$> zeppelinApplicationConfiguration
           ]
       )

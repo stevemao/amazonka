@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.Types.AgentVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.OpsWorks.Types.AgentVersion where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types.StackConfigurationManager
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAgentVersion' smart constructor.
 data AgentVersion = AgentVersion'
-  { -- | The agent version.
-    version :: Prelude.Maybe Prelude.Text,
-    -- | The configuration manager.
-    configurationManager :: Prelude.Maybe StackConfigurationManager
+  { -- | The configuration manager.
+    configurationManager :: Prelude.Maybe StackConfigurationManager,
+    -- | The agent version.
+    version :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,41 +44,42 @@ data AgentVersion = AgentVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'version', 'agentVersion_version' - The agent version.
---
 -- 'configurationManager', 'agentVersion_configurationManager' - The configuration manager.
+--
+-- 'version', 'agentVersion_version' - The agent version.
 newAgentVersion ::
   AgentVersion
 newAgentVersion =
   AgentVersion'
-    { version = Prelude.Nothing,
-      configurationManager = Prelude.Nothing
+    { configurationManager =
+        Prelude.Nothing,
+      version = Prelude.Nothing
     }
-
--- | The agent version.
-agentVersion_version :: Lens.Lens' AgentVersion (Prelude.Maybe Prelude.Text)
-agentVersion_version = Lens.lens (\AgentVersion' {version} -> version) (\s@AgentVersion' {} a -> s {version = a} :: AgentVersion)
 
 -- | The configuration manager.
 agentVersion_configurationManager :: Lens.Lens' AgentVersion (Prelude.Maybe StackConfigurationManager)
 agentVersion_configurationManager = Lens.lens (\AgentVersion' {configurationManager} -> configurationManager) (\s@AgentVersion' {} a -> s {configurationManager = a} :: AgentVersion)
 
-instance Core.FromJSON AgentVersion where
+-- | The agent version.
+agentVersion_version :: Lens.Lens' AgentVersion (Prelude.Maybe Prelude.Text)
+agentVersion_version = Lens.lens (\AgentVersion' {version} -> version) (\s@AgentVersion' {} a -> s {version = a} :: AgentVersion)
+
+instance Data.FromJSON AgentVersion where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AgentVersion"
       ( \x ->
           AgentVersion'
-            Prelude.<$> (x Core..:? "Version")
-            Prelude.<*> (x Core..:? "ConfigurationManager")
+            Prelude.<$> (x Data..:? "ConfigurationManager")
+            Prelude.<*> (x Data..:? "Version")
       )
 
 instance Prelude.Hashable AgentVersion where
   hashWithSalt _salt AgentVersion' {..} =
-    _salt `Prelude.hashWithSalt` version
-      `Prelude.hashWithSalt` configurationManager
+    _salt `Prelude.hashWithSalt` configurationManager
+      `Prelude.hashWithSalt` version
 
 instance Prelude.NFData AgentVersion where
   rnf AgentVersion' {..} =
-    Prelude.rnf version
-      `Prelude.seq` Prelude.rnf configurationManager
+    Prelude.rnf configurationManager
+      `Prelude.seq` Prelude.rnf version

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTJobsData.Types.JobExecutionState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTJobsData.Types.JobExecutionState where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTJobsData.Types.JobExecutionStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains data about the state of a job execution.
@@ -83,15 +84,15 @@ jobExecutionState_statusDetails = Lens.lens (\JobExecutionState' {statusDetails}
 jobExecutionState_versionNumber :: Lens.Lens' JobExecutionState (Prelude.Maybe Prelude.Integer)
 jobExecutionState_versionNumber = Lens.lens (\JobExecutionState' {versionNumber} -> versionNumber) (\s@JobExecutionState' {} a -> s {versionNumber = a} :: JobExecutionState)
 
-instance Core.FromJSON JobExecutionState where
+instance Data.FromJSON JobExecutionState where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "JobExecutionState"
       ( \x ->
           JobExecutionState'
-            Prelude.<$> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "statusDetails" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "versionNumber")
+            Prelude.<$> (x Data..:? "status")
+            Prelude.<*> (x Data..:? "statusDetails" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "versionNumber")
       )
 
 instance Prelude.Hashable JobExecutionState where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsElbLoadBalancerListenerDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsElbLoadBalancerListenerDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsElbLoadBalancerListener
 
@@ -28,10 +29,10 @@ import Amazonka.SecurityHub.Types.AwsElbLoadBalancerListener
 --
 -- /See:/ 'newAwsElbLoadBalancerListenerDescription' smart constructor.
 data AwsElbLoadBalancerListenerDescription = AwsElbLoadBalancerListenerDescription'
-  { -- | The policies enabled for the listener.
-    policyNames :: Prelude.Maybe [Prelude.Text],
-    -- | Information about the listener.
-    listener :: Prelude.Maybe AwsElbLoadBalancerListener
+  { -- | Information about the listener.
+    listener :: Prelude.Maybe AwsElbLoadBalancerListener,
+    -- | The policies enabled for the listener.
+    policyNames :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,37 +44,37 @@ data AwsElbLoadBalancerListenerDescription = AwsElbLoadBalancerListenerDescripti
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'policyNames', 'awsElbLoadBalancerListenerDescription_policyNames' - The policies enabled for the listener.
---
 -- 'listener', 'awsElbLoadBalancerListenerDescription_listener' - Information about the listener.
+--
+-- 'policyNames', 'awsElbLoadBalancerListenerDescription_policyNames' - The policies enabled for the listener.
 newAwsElbLoadBalancerListenerDescription ::
   AwsElbLoadBalancerListenerDescription
 newAwsElbLoadBalancerListenerDescription =
   AwsElbLoadBalancerListenerDescription'
-    { policyNames =
+    { listener =
         Prelude.Nothing,
-      listener = Prelude.Nothing
+      policyNames = Prelude.Nothing
     }
-
--- | The policies enabled for the listener.
-awsElbLoadBalancerListenerDescription_policyNames :: Lens.Lens' AwsElbLoadBalancerListenerDescription (Prelude.Maybe [Prelude.Text])
-awsElbLoadBalancerListenerDescription_policyNames = Lens.lens (\AwsElbLoadBalancerListenerDescription' {policyNames} -> policyNames) (\s@AwsElbLoadBalancerListenerDescription' {} a -> s {policyNames = a} :: AwsElbLoadBalancerListenerDescription) Prelude.. Lens.mapping Lens.coerced
 
 -- | Information about the listener.
 awsElbLoadBalancerListenerDescription_listener :: Lens.Lens' AwsElbLoadBalancerListenerDescription (Prelude.Maybe AwsElbLoadBalancerListener)
 awsElbLoadBalancerListenerDescription_listener = Lens.lens (\AwsElbLoadBalancerListenerDescription' {listener} -> listener) (\s@AwsElbLoadBalancerListenerDescription' {} a -> s {listener = a} :: AwsElbLoadBalancerListenerDescription)
 
+-- | The policies enabled for the listener.
+awsElbLoadBalancerListenerDescription_policyNames :: Lens.Lens' AwsElbLoadBalancerListenerDescription (Prelude.Maybe [Prelude.Text])
+awsElbLoadBalancerListenerDescription_policyNames = Lens.lens (\AwsElbLoadBalancerListenerDescription' {policyNames} -> policyNames) (\s@AwsElbLoadBalancerListenerDescription' {} a -> s {policyNames = a} :: AwsElbLoadBalancerListenerDescription) Prelude.. Lens.mapping Lens.coerced
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsElbLoadBalancerListenerDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsElbLoadBalancerListenerDescription"
       ( \x ->
           AwsElbLoadBalancerListenerDescription'
-            Prelude.<$> (x Core..:? "PolicyNames" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Listener")
+            Prelude.<$> (x Data..:? "Listener")
+            Prelude.<*> (x Data..:? "PolicyNames" Data..!= Prelude.mempty)
       )
 
 instance
@@ -83,25 +84,25 @@ instance
   hashWithSalt
     _salt
     AwsElbLoadBalancerListenerDescription' {..} =
-      _salt `Prelude.hashWithSalt` policyNames
-        `Prelude.hashWithSalt` listener
+      _salt `Prelude.hashWithSalt` listener
+        `Prelude.hashWithSalt` policyNames
 
 instance
   Prelude.NFData
     AwsElbLoadBalancerListenerDescription
   where
   rnf AwsElbLoadBalancerListenerDescription' {..} =
-    Prelude.rnf policyNames
-      `Prelude.seq` Prelude.rnf listener
+    Prelude.rnf listener
+      `Prelude.seq` Prelude.rnf policyNames
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsElbLoadBalancerListenerDescription
   where
   toJSON AwsElbLoadBalancerListenerDescription' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PolicyNames" Core..=) Prelude.<$> policyNames,
-            ("Listener" Core..=) Prelude.<$> listener
+          [ ("Listener" Data..=) Prelude.<$> listener,
+            ("PolicyNames" Data..=) Prelude.<$> policyNames
           ]
       )

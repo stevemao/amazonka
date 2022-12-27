@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.PlacementStrategy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudWatchEvents.Types.PlacementStrategy where
 
 import Amazonka.CloudWatchEvents.Types.PlacementStrategyType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The task placement strategy for a task or service. To learn more, see
@@ -100,13 +101,13 @@ placementStrategy_field = Lens.lens (\PlacementStrategy' {field} -> field) (\s@P
 placementStrategy_type :: Lens.Lens' PlacementStrategy (Prelude.Maybe PlacementStrategyType)
 placementStrategy_type = Lens.lens (\PlacementStrategy' {type'} -> type') (\s@PlacementStrategy' {} a -> s {type' = a} :: PlacementStrategy)
 
-instance Core.FromJSON PlacementStrategy where
+instance Data.FromJSON PlacementStrategy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PlacementStrategy"
       ( \x ->
           PlacementStrategy'
-            Prelude.<$> (x Core..:? "field") Prelude.<*> (x Core..:? "type")
+            Prelude.<$> (x Data..:? "field") Prelude.<*> (x Data..:? "type")
       )
 
 instance Prelude.Hashable PlacementStrategy where
@@ -118,11 +119,11 @@ instance Prelude.NFData PlacementStrategy where
   rnf PlacementStrategy' {..} =
     Prelude.rnf field `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON PlacementStrategy where
+instance Data.ToJSON PlacementStrategy where
   toJSON PlacementStrategy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("field" Core..=) Prelude.<$> field,
-            ("type" Core..=) Prelude.<$> type'
+          [ ("field" Data..=) Prelude.<$> field,
+            ("type" Data..=) Prelude.<$> type'
           ]
       )

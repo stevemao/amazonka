@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.CreateVirtualMFADevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -59,8 +59,9 @@ module Amazonka.IAM.CreateVirtualMFADevice
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -200,14 +201,15 @@ instance Core.AWSRequest CreateVirtualMFADevice where
   type
     AWSResponse CreateVirtualMFADevice =
       CreateVirtualMFADeviceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateVirtualMFADeviceResult"
       ( \s h x ->
           CreateVirtualMFADeviceResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "VirtualMFADevice")
+            Prelude.<*> (x Data..@ "VirtualMFADevice")
       )
 
 instance Prelude.Hashable CreateVirtualMFADevice where
@@ -222,24 +224,24 @@ instance Prelude.NFData CreateVirtualMFADevice where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf virtualMFADeviceName
 
-instance Core.ToHeaders CreateVirtualMFADevice where
+instance Data.ToHeaders CreateVirtualMFADevice where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateVirtualMFADevice where
+instance Data.ToPath CreateVirtualMFADevice where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateVirtualMFADevice where
+instance Data.ToQuery CreateVirtualMFADevice where
   toQuery CreateVirtualMFADevice' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateVirtualMFADevice" :: Prelude.ByteString),
+          Data.=: ("CreateVirtualMFADevice" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "Path" Core.=: path,
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "Path" Data.=: path,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tags),
-        "VirtualMFADeviceName" Core.=: virtualMFADeviceName
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tags),
+        "VirtualMFADeviceName" Data.=: virtualMFADeviceName
       ]
 
 -- | Contains the response to a successful CreateVirtualMFADevice request.

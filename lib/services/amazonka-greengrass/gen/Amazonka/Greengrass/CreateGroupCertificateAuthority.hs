@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.CreateGroupCertificateAuthority
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.Greengrass.CreateGroupCertificateAuthority
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,12 +95,13 @@ instance
   type
     AWSResponse CreateGroupCertificateAuthority =
       CreateGroupCertificateAuthorityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateGroupCertificateAuthorityResponse'
-            Prelude.<$> (x Core..?> "GroupCertificateAuthorityArn")
+            Prelude.<$> (x Data..?> "GroupCertificateAuthorityArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -122,28 +124,28 @@ instance
       `Prelude.seq` Prelude.rnf groupId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateGroupCertificateAuthority
   where
   toHeaders CreateGroupCertificateAuthority' {..} =
     Prelude.mconcat
-      [ "X-Amzn-Client-Token" Core.=# amznClientToken,
+      [ "X-Amzn-Client-Token" Data.=# amznClientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON CreateGroupCertificateAuthority where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON CreateGroupCertificateAuthority where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath CreateGroupCertificateAuthority where
+instance Data.ToPath CreateGroupCertificateAuthority where
   toPath CreateGroupCertificateAuthority' {..} =
     Prelude.mconcat
       [ "/greengrass/groups/",
-        Core.toBS groupId,
+        Data.toBS groupId,
         "/certificateauthorities"
       ]
 
-instance Core.ToQuery CreateGroupCertificateAuthority where
+instance Data.ToQuery CreateGroupCertificateAuthority where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateGroupCertificateAuthorityResponse' smart constructor.

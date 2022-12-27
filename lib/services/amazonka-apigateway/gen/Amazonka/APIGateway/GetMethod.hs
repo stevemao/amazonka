@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetMethod
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,23 +36,24 @@ module Amazonka.APIGateway.GetMethod
     newMethod,
 
     -- * Response Lenses
-    method_methodResponses,
-    method_httpMethod,
+    method_apiKeyRequired,
     method_authorizationScopes,
-    method_requestValidatorId,
+    method_authorizationType,
+    method_authorizerId,
+    method_httpMethod,
+    method_methodIntegration,
+    method_methodResponses,
+    method_operationName,
     method_requestModels,
     method_requestParameters,
-    method_authorizerId,
-    method_operationName,
-    method_authorizationType,
-    method_apiKeyRequired,
-    method_methodIntegration,
+    method_requestValidatorId,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,11 +62,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetMethod' smart constructor.
 data GetMethod = GetMethod'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The Resource identifier for the Method resource.
+    -- | The Resource identifier for the Method resource.
     resourceId :: Prelude.Text,
-    -- | [Required] Specifies the method request\'s HTTP method type.
+    -- | Specifies the method request\'s HTTP method type.
     httpMethod :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -78,11 +79,11 @@ data GetMethod = GetMethod'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'getMethod_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getMethod_restApiId' - The string identifier of the associated RestApi.
 --
--- 'resourceId', 'getMethod_resourceId' - [Required] The Resource identifier for the Method resource.
+-- 'resourceId', 'getMethod_resourceId' - The Resource identifier for the Method resource.
 --
--- 'httpMethod', 'getMethod_httpMethod' - [Required] Specifies the method request\'s HTTP method type.
+-- 'httpMethod', 'getMethod_httpMethod' - Specifies the method request\'s HTTP method type.
 newGetMethod ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -98,24 +99,25 @@ newGetMethod pRestApiId_ pResourceId_ pHttpMethod_ =
       httpMethod = pHttpMethod_
     }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getMethod_restApiId :: Lens.Lens' GetMethod Prelude.Text
 getMethod_restApiId = Lens.lens (\GetMethod' {restApiId} -> restApiId) (\s@GetMethod' {} a -> s {restApiId = a} :: GetMethod)
 
--- | [Required] The Resource identifier for the Method resource.
+-- | The Resource identifier for the Method resource.
 getMethod_resourceId :: Lens.Lens' GetMethod Prelude.Text
 getMethod_resourceId = Lens.lens (\GetMethod' {resourceId} -> resourceId) (\s@GetMethod' {} a -> s {resourceId = a} :: GetMethod)
 
--- | [Required] Specifies the method request\'s HTTP method type.
+-- | Specifies the method request\'s HTTP method type.
 getMethod_httpMethod :: Lens.Lens' GetMethod Prelude.Text
 getMethod_httpMethod = Lens.lens (\GetMethod' {httpMethod} -> httpMethod) (\s@GetMethod' {} a -> s {httpMethod = a} :: GetMethod)
 
 instance Core.AWSRequest GetMethod where
   type AWSResponse GetMethod = Method
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetMethod where
   hashWithSalt _salt GetMethod' {..} =
@@ -129,25 +131,25 @@ instance Prelude.NFData GetMethod where
       `Prelude.seq` Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf httpMethod
 
-instance Core.ToHeaders GetMethod where
+instance Data.ToHeaders GetMethod where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetMethod where
+instance Data.ToPath GetMethod where
   toPath GetMethod' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/resources/",
-        Core.toBS resourceId,
+        Data.toBS resourceId,
         "/methods/",
-        Core.toBS httpMethod
+        Data.toBS httpMethod
       ]
 
-instance Core.ToQuery GetMethod where
+instance Data.ToQuery GetMethod where
   toQuery = Prelude.const Prelude.mempty

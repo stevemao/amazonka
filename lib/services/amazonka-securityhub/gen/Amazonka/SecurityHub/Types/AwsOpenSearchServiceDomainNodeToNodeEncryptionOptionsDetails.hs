@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides details about the configuration for node-to-node encryption.
@@ -54,15 +55,15 @@ awsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails_enabled :: Lens.Len
 awsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails_enabled = Lens.lens (\AwsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails' {enabled} -> enabled) (\s@AwsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails' {} a -> s {enabled = a} :: AwsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails"
       ( \x ->
           AwsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails'
-            Prelude.<$> (x Core..:? "Enabled")
+            Prelude.<$> (x Data..:? "Enabled")
       )
 
 instance
@@ -83,12 +84,12 @@ instance
       Prelude.rnf enabled
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails
   where
   toJSON
     AwsOpenSearchServiceDomainNodeToNodeEncryptionOptionsDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [("Enabled" Core..=) Prelude.<$> enabled]
+            [("Enabled" Data..=) Prelude.<$> enabled]
         )

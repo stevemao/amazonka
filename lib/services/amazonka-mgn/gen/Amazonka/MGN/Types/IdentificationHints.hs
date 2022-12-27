@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.Types.IdentificationHints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,22 @@
 module Amazonka.MGN.Types.IdentificationHints where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Identification hints.
 --
 -- /See:/ 'newIdentificationHints' smart constructor.
 data IdentificationHints = IdentificationHints'
-  { -- | Hostname identification hint.
-    hostname :: Prelude.Maybe Prelude.Text,
+  { -- | AWS Instance ID identification hint.
+    awsInstanceID :: Prelude.Maybe Prelude.Text,
     -- | FQDN address identification hint.
     fqdn :: Prelude.Maybe Prelude.Text,
-    -- | AWS Instance ID identification hint.
-    awsInstanceID :: Prelude.Maybe Prelude.Text,
+    -- | Hostname identification hint.
+    hostname :: Prelude.Maybe Prelude.Text,
+    -- | vCenter VM path identification hint.
+    vmPath :: Prelude.Maybe Prelude.Text,
     -- | vmWare UUID identification hint.
     vmWareUuid :: Prelude.Maybe Prelude.Text
   }
@@ -46,61 +49,72 @@ data IdentificationHints = IdentificationHints'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'hostname', 'identificationHints_hostname' - Hostname identification hint.
+-- 'awsInstanceID', 'identificationHints_awsInstanceID' - AWS Instance ID identification hint.
 --
 -- 'fqdn', 'identificationHints_fqdn' - FQDN address identification hint.
 --
--- 'awsInstanceID', 'identificationHints_awsInstanceID' - AWS Instance ID identification hint.
+-- 'hostname', 'identificationHints_hostname' - Hostname identification hint.
+--
+-- 'vmPath', 'identificationHints_vmPath' - vCenter VM path identification hint.
 --
 -- 'vmWareUuid', 'identificationHints_vmWareUuid' - vmWare UUID identification hint.
 newIdentificationHints ::
   IdentificationHints
 newIdentificationHints =
   IdentificationHints'
-    { hostname = Prelude.Nothing,
+    { awsInstanceID =
+        Prelude.Nothing,
       fqdn = Prelude.Nothing,
-      awsInstanceID = Prelude.Nothing,
+      hostname = Prelude.Nothing,
+      vmPath = Prelude.Nothing,
       vmWareUuid = Prelude.Nothing
     }
-
--- | Hostname identification hint.
-identificationHints_hostname :: Lens.Lens' IdentificationHints (Prelude.Maybe Prelude.Text)
-identificationHints_hostname = Lens.lens (\IdentificationHints' {hostname} -> hostname) (\s@IdentificationHints' {} a -> s {hostname = a} :: IdentificationHints)
-
--- | FQDN address identification hint.
-identificationHints_fqdn :: Lens.Lens' IdentificationHints (Prelude.Maybe Prelude.Text)
-identificationHints_fqdn = Lens.lens (\IdentificationHints' {fqdn} -> fqdn) (\s@IdentificationHints' {} a -> s {fqdn = a} :: IdentificationHints)
 
 -- | AWS Instance ID identification hint.
 identificationHints_awsInstanceID :: Lens.Lens' IdentificationHints (Prelude.Maybe Prelude.Text)
 identificationHints_awsInstanceID = Lens.lens (\IdentificationHints' {awsInstanceID} -> awsInstanceID) (\s@IdentificationHints' {} a -> s {awsInstanceID = a} :: IdentificationHints)
 
+-- | FQDN address identification hint.
+identificationHints_fqdn :: Lens.Lens' IdentificationHints (Prelude.Maybe Prelude.Text)
+identificationHints_fqdn = Lens.lens (\IdentificationHints' {fqdn} -> fqdn) (\s@IdentificationHints' {} a -> s {fqdn = a} :: IdentificationHints)
+
+-- | Hostname identification hint.
+identificationHints_hostname :: Lens.Lens' IdentificationHints (Prelude.Maybe Prelude.Text)
+identificationHints_hostname = Lens.lens (\IdentificationHints' {hostname} -> hostname) (\s@IdentificationHints' {} a -> s {hostname = a} :: IdentificationHints)
+
+-- | vCenter VM path identification hint.
+identificationHints_vmPath :: Lens.Lens' IdentificationHints (Prelude.Maybe Prelude.Text)
+identificationHints_vmPath = Lens.lens (\IdentificationHints' {vmPath} -> vmPath) (\s@IdentificationHints' {} a -> s {vmPath = a} :: IdentificationHints)
+
 -- | vmWare UUID identification hint.
 identificationHints_vmWareUuid :: Lens.Lens' IdentificationHints (Prelude.Maybe Prelude.Text)
 identificationHints_vmWareUuid = Lens.lens (\IdentificationHints' {vmWareUuid} -> vmWareUuid) (\s@IdentificationHints' {} a -> s {vmWareUuid = a} :: IdentificationHints)
 
-instance Core.FromJSON IdentificationHints where
+instance Data.FromJSON IdentificationHints where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IdentificationHints"
       ( \x ->
           IdentificationHints'
-            Prelude.<$> (x Core..:? "hostname")
-            Prelude.<*> (x Core..:? "fqdn")
-            Prelude.<*> (x Core..:? "awsInstanceID")
-            Prelude.<*> (x Core..:? "vmWareUuid")
+            Prelude.<$> (x Data..:? "awsInstanceID")
+            Prelude.<*> (x Data..:? "fqdn")
+            Prelude.<*> (x Data..:? "hostname")
+            Prelude.<*> (x Data..:? "vmPath")
+            Prelude.<*> (x Data..:? "vmWareUuid")
       )
 
 instance Prelude.Hashable IdentificationHints where
   hashWithSalt _salt IdentificationHints' {..} =
-    _salt `Prelude.hashWithSalt` hostname
+    _salt `Prelude.hashWithSalt` awsInstanceID
       `Prelude.hashWithSalt` fqdn
-      `Prelude.hashWithSalt` awsInstanceID
+      `Prelude.hashWithSalt` hostname
+      `Prelude.hashWithSalt` vmPath
       `Prelude.hashWithSalt` vmWareUuid
 
 instance Prelude.NFData IdentificationHints where
   rnf IdentificationHints' {..} =
-    Prelude.rnf hostname
+    Prelude.rnf awsInstanceID
       `Prelude.seq` Prelude.rnf fqdn
-      `Prelude.seq` Prelude.rnf awsInstanceID
+      `Prelude.seq` Prelude.rnf hostname
+      `Prelude.seq` Prelude.rnf vmPath
       `Prelude.seq` Prelude.rnf vmWareUuid

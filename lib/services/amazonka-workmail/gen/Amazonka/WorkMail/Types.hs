@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,31 +18,37 @@ module Amazonka.WorkMail.Types
     defaultService,
 
     -- * Errors
-    _DirectoryUnavailableException,
-    _InvalidParameterException,
-    _UnsupportedOperationException,
+    _DirectoryInUseException,
     _DirectoryServiceAuthenticationFailedException,
-    _OrganizationStateException,
+    _DirectoryUnavailableException,
+    _EmailAddressInUseException,
+    _EntityAlreadyRegisteredException,
+    _EntityNotFoundException,
     _EntityStateException,
     _InvalidConfigurationException,
-    _TooManyTagsException,
-    _MailDomainStateException,
-    _ReservedNameException,
-    _OrganizationNotFoundException,
-    _EntityNotFoundException,
-    _EntityAlreadyRegisteredException,
-    _DirectoryInUseException,
+    _InvalidCustomSesConfigurationException,
+    _InvalidParameterException,
+    _InvalidPasswordException,
+    _LimitExceededException,
     _MailDomainInUseException,
     _MailDomainNotFoundException,
-    _InvalidCustomSesConfigurationException,
-    _ResourceNotFoundException,
-    _EmailAddressInUseException,
+    _MailDomainStateException,
     _NameAvailabilityException,
-    _LimitExceededException,
-    _InvalidPasswordException,
+    _OrganizationNotFoundException,
+    _OrganizationStateException,
+    _ReservedNameException,
+    _ResourceNotFoundException,
+    _TooManyTagsException,
+    _UnsupportedOperationException,
 
     -- * AccessControlRuleEffect
     AccessControlRuleEffect (..),
+
+    -- * AccessEffect
+    AccessEffect (..),
+
+    -- * AvailabilityProviderType
+    AvailabilityProviderType (..),
 
     -- * DnsRecordVerificationStatus
     DnsRecordVerificationStatus (..),
@@ -51,6 +58,9 @@ module Amazonka.WorkMail.Types
 
     -- * FolderName
     FolderName (..),
+
+    -- * ImpersonationRoleType
+    ImpersonationRoleType (..),
 
     -- * MailboxExportJobState
     MailboxExportJobState (..),
@@ -76,24 +86,36 @@ module Amazonka.WorkMail.Types
     -- * AccessControlRule
     AccessControlRule (..),
     newAccessControlRule,
-    accessControlRule_effect,
-    accessControlRule_userIds,
     accessControlRule_actions,
     accessControlRule_dateCreated,
-    accessControlRule_name,
-    accessControlRule_notUserIds,
     accessControlRule_dateModified,
-    accessControlRule_ipRanges,
-    accessControlRule_notIpRanges,
-    accessControlRule_notActions,
     accessControlRule_description,
+    accessControlRule_effect,
+    accessControlRule_impersonationRoleIds,
+    accessControlRule_ipRanges,
+    accessControlRule_name,
+    accessControlRule_notActions,
+    accessControlRule_notImpersonationRoleIds,
+    accessControlRule_notIpRanges,
+    accessControlRule_notUserIds,
+    accessControlRule_userIds,
+
+    -- * AvailabilityConfiguration
+    AvailabilityConfiguration (..),
+    newAvailabilityConfiguration,
+    availabilityConfiguration_dateCreated,
+    availabilityConfiguration_dateModified,
+    availabilityConfiguration_domainName,
+    availabilityConfiguration_ewsProvider,
+    availabilityConfiguration_lambdaProvider,
+    availabilityConfiguration_providerType,
 
     -- * BookingOptions
     BookingOptions (..),
     newBookingOptions,
+    bookingOptions_autoAcceptRequests,
     bookingOptions_autoDeclineConflictingRequests,
     bookingOptions_autoDeclineRecurringRequests,
-    bookingOptions_autoAcceptRequests,
 
     -- * Delegate
     Delegate (..),
@@ -105,14 +127,21 @@ module Amazonka.WorkMail.Types
     DnsRecord (..),
     newDnsRecord,
     dnsRecord_hostname,
-    dnsRecord_value,
     dnsRecord_type,
+    dnsRecord_value,
 
     -- * Domain
     Domain (..),
     newDomain,
-    domain_hostedZoneId,
     domain_domainName,
+    domain_hostedZoneId,
+
+    -- * EwsAvailabilityProvider
+    EwsAvailabilityProvider (..),
+    newEwsAvailabilityProvider,
+    ewsAvailabilityProvider_ewsEndpoint,
+    ewsAvailabilityProvider_ewsUsername,
+    ewsAvailabilityProvider_ewsPassword,
 
     -- * FolderConfiguration
     FolderConfiguration (..),
@@ -124,12 +153,42 @@ module Amazonka.WorkMail.Types
     -- * Group
     Group (..),
     newGroup,
-    group_email,
-    group_state,
     group_disabledDate,
-    group_name,
-    group_id,
+    group_email,
     group_enabledDate,
+    group_id,
+    group_name,
+    group_state,
+
+    -- * ImpersonationMatchedRule
+    ImpersonationMatchedRule (..),
+    newImpersonationMatchedRule,
+    impersonationMatchedRule_impersonationRuleId,
+    impersonationMatchedRule_name,
+
+    -- * ImpersonationRole
+    ImpersonationRole (..),
+    newImpersonationRole,
+    impersonationRole_dateCreated,
+    impersonationRole_dateModified,
+    impersonationRole_impersonationRoleId,
+    impersonationRole_name,
+    impersonationRole_type,
+
+    -- * ImpersonationRule
+    ImpersonationRule (..),
+    newImpersonationRule,
+    impersonationRule_description,
+    impersonationRule_name,
+    impersonationRule_notTargetUsers,
+    impersonationRule_targetUsers,
+    impersonationRule_impersonationRuleId,
+    impersonationRule_effect,
+
+    -- * LambdaAvailabilityProvider
+    LambdaAvailabilityProvider (..),
+    newLambdaAvailabilityProvider,
+    lambdaAvailabilityProvider_lambdaArn,
 
     -- * MailDomainSummary
     MailDomainSummary (..),
@@ -140,25 +199,25 @@ module Amazonka.WorkMail.Types
     -- * MailboxExportJob
     MailboxExportJob (..),
     newMailboxExportJob,
-    mailboxExportJob_state,
-    mailboxExportJob_jobId,
-    mailboxExportJob_startTime,
-    mailboxExportJob_estimatedProgress,
-    mailboxExportJob_endTime,
-    mailboxExportJob_s3Path,
-    mailboxExportJob_entityId,
     mailboxExportJob_description,
+    mailboxExportJob_endTime,
+    mailboxExportJob_entityId,
+    mailboxExportJob_estimatedProgress,
+    mailboxExportJob_jobId,
     mailboxExportJob_s3BucketName,
+    mailboxExportJob_s3Path,
+    mailboxExportJob_startTime,
+    mailboxExportJob_state,
 
     -- * Member
     Member (..),
     newMember,
-    member_state,
     member_disabledDate,
-    member_name,
-    member_id,
-    member_type,
     member_enabledDate,
+    member_id,
+    member_name,
+    member_state,
+    member_type,
 
     -- * MobileDeviceAccessMatchedRule
     MobileDeviceAccessMatchedRule (..),
@@ -169,39 +228,39 @@ module Amazonka.WorkMail.Types
     -- * MobileDeviceAccessOverride
     MobileDeviceAccessOverride (..),
     newMobileDeviceAccessOverride,
-    mobileDeviceAccessOverride_effect,
-    mobileDeviceAccessOverride_userId,
     mobileDeviceAccessOverride_dateCreated,
     mobileDeviceAccessOverride_dateModified,
-    mobileDeviceAccessOverride_deviceId,
     mobileDeviceAccessOverride_description,
+    mobileDeviceAccessOverride_deviceId,
+    mobileDeviceAccessOverride_effect,
+    mobileDeviceAccessOverride_userId,
 
     -- * MobileDeviceAccessRule
     MobileDeviceAccessRule (..),
     newMobileDeviceAccessRule,
-    mobileDeviceAccessRule_effect,
-    mobileDeviceAccessRule_deviceUserAgents,
-    mobileDeviceAccessRule_deviceTypes,
-    mobileDeviceAccessRule_notDeviceTypes,
-    mobileDeviceAccessRule_notDeviceOperatingSystems,
     mobileDeviceAccessRule_dateCreated,
+    mobileDeviceAccessRule_dateModified,
+    mobileDeviceAccessRule_description,
     mobileDeviceAccessRule_deviceModels,
+    mobileDeviceAccessRule_deviceOperatingSystems,
+    mobileDeviceAccessRule_deviceTypes,
+    mobileDeviceAccessRule_deviceUserAgents,
+    mobileDeviceAccessRule_effect,
     mobileDeviceAccessRule_mobileDeviceAccessRuleId,
     mobileDeviceAccessRule_name,
-    mobileDeviceAccessRule_dateModified,
-    mobileDeviceAccessRule_deviceOperatingSystems,
-    mobileDeviceAccessRule_description,
-    mobileDeviceAccessRule_notDeviceUserAgents,
     mobileDeviceAccessRule_notDeviceModels,
+    mobileDeviceAccessRule_notDeviceOperatingSystems,
+    mobileDeviceAccessRule_notDeviceTypes,
+    mobileDeviceAccessRule_notDeviceUserAgents,
 
     -- * OrganizationSummary
     OrganizationSummary (..),
     newOrganizationSummary,
-    organizationSummary_state,
     organizationSummary_alias,
     organizationSummary_defaultMailDomain,
     organizationSummary_errorMessage,
     organizationSummary_organizationId,
+    organizationSummary_state,
 
     -- * Permission
     Permission (..),
@@ -210,16 +269,22 @@ module Amazonka.WorkMail.Types
     permission_granteeType,
     permission_permissionValues,
 
+    -- * RedactedEwsAvailabilityProvider
+    RedactedEwsAvailabilityProvider (..),
+    newRedactedEwsAvailabilityProvider,
+    redactedEwsAvailabilityProvider_ewsEndpoint,
+    redactedEwsAvailabilityProvider_ewsUsername,
+
     -- * Resource
     Resource (..),
     newResource,
-    resource_email,
-    resource_state,
     resource_disabledDate,
-    resource_name,
-    resource_id,
-    resource_type,
+    resource_email,
     resource_enabledDate,
+    resource_id,
+    resource_name,
+    resource_state,
+    resource_type,
 
     -- * Tag
     Tag (..),
@@ -230,32 +295,41 @@ module Amazonka.WorkMail.Types
     -- * User
     User (..),
     newUser,
-    user_email,
-    user_state,
     user_disabledDate,
-    user_name,
-    user_id,
     user_displayName,
-    user_userRole,
+    user_email,
     user_enabledDate,
+    user_id,
+    user_name,
+    user_state,
+    user_userRole,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 import Amazonka.WorkMail.Types.AccessControlRule
 import Amazonka.WorkMail.Types.AccessControlRuleEffect
+import Amazonka.WorkMail.Types.AccessEffect
+import Amazonka.WorkMail.Types.AvailabilityConfiguration
+import Amazonka.WorkMail.Types.AvailabilityProviderType
 import Amazonka.WorkMail.Types.BookingOptions
 import Amazonka.WorkMail.Types.Delegate
 import Amazonka.WorkMail.Types.DnsRecord
 import Amazonka.WorkMail.Types.DnsRecordVerificationStatus
 import Amazonka.WorkMail.Types.Domain
 import Amazonka.WorkMail.Types.EntityState
+import Amazonka.WorkMail.Types.EwsAvailabilityProvider
 import Amazonka.WorkMail.Types.FolderConfiguration
 import Amazonka.WorkMail.Types.FolderName
 import Amazonka.WorkMail.Types.Group
+import Amazonka.WorkMail.Types.ImpersonationMatchedRule
+import Amazonka.WorkMail.Types.ImpersonationRole
+import Amazonka.WorkMail.Types.ImpersonationRoleType
+import Amazonka.WorkMail.Types.ImpersonationRule
+import Amazonka.WorkMail.Types.LambdaAvailabilityProvider
 import Amazonka.WorkMail.Types.MailDomainSummary
 import Amazonka.WorkMail.Types.MailboxExportJob
 import Amazonka.WorkMail.Types.MailboxExportJobState
@@ -268,6 +342,7 @@ import Amazonka.WorkMail.Types.MobileDeviceAccessRuleEffect
 import Amazonka.WorkMail.Types.OrganizationSummary
 import Amazonka.WorkMail.Types.Permission
 import Amazonka.WorkMail.Types.PermissionType
+import Amazonka.WorkMail.Types.RedactedEwsAvailabilityProvider
 import Amazonka.WorkMail.Types.Resource
 import Amazonka.WorkMail.Types.ResourceType
 import Amazonka.WorkMail.Types.RetentionAction
@@ -279,41 +354,49 @@ import Amazonka.WorkMail.Types.UserRole
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "WorkMail",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "workmail",
-      Core._serviceSigningName = "workmail",
-      Core._serviceVersion = "2017-10-01",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "WorkMail",
-      Core._serviceRetry = retry
+    { Core.abbrev = "WorkMail",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "workmail",
+      Core.signingName = "workmail",
+      Core.version = "2017-10-01",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "WorkMail",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -321,52 +404,29 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
--- | The directory is unavailable. It might be located in another Region or
--- deleted.
-_DirectoryUnavailableException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DirectoryUnavailableException =
+-- | The directory is already in use by another WorkMail organization in the
+-- same account and Region.
+_DirectoryInUseException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DirectoryInUseException =
   Core._MatchServiceError
     defaultService
-    "DirectoryUnavailableException"
-
--- | One or more of the input parameters don\'t match the service\'s
--- restrictions.
-_InvalidParameterException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidParameterException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidParameterException"
-
--- | You can\'t perform a write operation against a read-only directory.
-_UnsupportedOperationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_UnsupportedOperationException =
-  Core._MatchServiceError
-    defaultService
-    "UnsupportedOperationException"
+    "DirectoryInUseException"
 
 -- | The directory service doesn\'t recognize the credentials supplied by
 -- WorkMail.
@@ -376,13 +436,37 @@ _DirectoryServiceAuthenticationFailedException =
     defaultService
     "DirectoryServiceAuthenticationFailedException"
 
--- | The organization must have a valid state to perform certain operations
--- on the organization or its members.
-_OrganizationStateException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_OrganizationStateException =
+-- | The directory is unavailable. It might be located in another Region or
+-- deleted.
+_DirectoryUnavailableException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DirectoryUnavailableException =
   Core._MatchServiceError
     defaultService
-    "OrganizationStateException"
+    "DirectoryUnavailableException"
+
+-- | The email address that you\'re trying to assign is already created for a
+-- different user, group, or resource.
+_EmailAddressInUseException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_EmailAddressInUseException =
+  Core._MatchServiceError
+    defaultService
+    "EmailAddressInUseException"
+
+-- | The user, group, or resource that you\'re trying to register is already
+-- registered.
+_EntityAlreadyRegisteredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_EntityAlreadyRegisteredException =
+  Core._MatchServiceError
+    defaultService
+    "EntityAlreadyRegisteredException"
+
+-- | The identifier supplied for the user, group, or resource does not exist
+-- in your organization.
+_EntityNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_EntityNotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "EntityNotFoundException"
 
 -- | You are performing an operation on a user, group, or resource that
 -- isn\'t in the expected state, such as trying to delete an active user.
@@ -401,59 +485,38 @@ _InvalidConfigurationException =
     defaultService
     "InvalidConfigurationException"
 
--- | The resource can have up to 50 user-applied tags.
-_TooManyTagsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyTagsException =
+-- | You SES configuration has customizations that WorkMail cannot save. The
+-- error message lists the invalid setting. For examples of invalid
+-- settings, refer to
+-- <https://docs.aws.amazon.com/ses/latest/APIReference/API_CreateReceiptRule.html CreateReceiptRule>.
+_InvalidCustomSesConfigurationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidCustomSesConfigurationException =
   Core._MatchServiceError
     defaultService
-    "TooManyTagsException"
+    "InvalidCustomSesConfigurationException"
 
--- | After a domain has been added to the organization, it must be verified.
--- The domain is not yet verified.
-_MailDomainStateException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_MailDomainStateException =
+-- | One or more of the input parameters don\'t match the service\'s
+-- restrictions.
+_InvalidParameterException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidParameterException =
   Core._MatchServiceError
     defaultService
-    "MailDomainStateException"
+    "InvalidParameterException"
 
--- | This user, group, or resource name is not allowed in Amazon WorkMail.
-_ReservedNameException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ReservedNameException =
+-- | The supplied password doesn\'t match the minimum security constraints,
+-- such as length or use of special characters.
+_InvalidPasswordException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidPasswordException =
   Core._MatchServiceError
     defaultService
-    "ReservedNameException"
+    "InvalidPasswordException"
 
--- | An operation received a valid organization identifier that either
--- doesn\'t belong or exist in the system.
-_OrganizationNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_OrganizationNotFoundException =
+-- | The request exceeds the limit of the resource.
+_LimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_LimitExceededException =
   Core._MatchServiceError
     defaultService
-    "OrganizationNotFoundException"
-
--- | The identifier supplied for the user, group, or resource does not exist
--- in your organization.
-_EntityNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_EntityNotFoundException =
-  Core._MatchServiceError
-    defaultService
-    "EntityNotFoundException"
-
--- | The user, group, or resource that you\'re trying to register is already
--- registered.
-_EntityAlreadyRegisteredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_EntityAlreadyRegisteredException =
-  Core._MatchServiceError
-    defaultService
-    "EntityAlreadyRegisteredException"
-
--- | The directory is already in use by another WorkMail organization in the
--- same account and Region.
-_DirectoryInUseException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DirectoryInUseException =
-  Core._MatchServiceError
-    defaultService
-    "DirectoryInUseException"
+    "LimitExceededException"
 
 -- | The domain you\'re trying to change is in use by another user or
 -- organization in your account. See the error message for details.
@@ -470,15 +533,43 @@ _MailDomainNotFoundException =
     defaultService
     "MailDomainNotFoundException"
 
--- | You SES configuration has customizations that Amazon WorkMail cannot
--- save. The error message lists the invalid setting. For examples of
--- invalid settings, refer to
--- <https://docs.aws.amazon.com/ses/latest/APIReference/API_CreateReceiptRule.html CreateReceiptRule>.
-_InvalidCustomSesConfigurationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidCustomSesConfigurationException =
+-- | After a domain has been added to the organization, it must be verified.
+-- The domain is not yet verified.
+_MailDomainStateException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_MailDomainStateException =
   Core._MatchServiceError
     defaultService
-    "InvalidCustomSesConfigurationException"
+    "MailDomainStateException"
+
+-- | The user, group, or resource name isn\'t unique in WorkMail.
+_NameAvailabilityException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_NameAvailabilityException =
+  Core._MatchServiceError
+    defaultService
+    "NameAvailabilityException"
+
+-- | An operation received a valid organization identifier that either
+-- doesn\'t belong or exist in the system.
+_OrganizationNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_OrganizationNotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "OrganizationNotFoundException"
+
+-- | The organization must have a valid state to perform certain operations
+-- on the organization or its members.
+_OrganizationStateException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_OrganizationStateException =
+  Core._MatchServiceError
+    defaultService
+    "OrganizationStateException"
+
+-- | This user, group, or resource name is not allowed in WorkMail.
+_ReservedNameException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ReservedNameException =
+  Core._MatchServiceError
+    defaultService
+    "ReservedNameException"
 
 -- | The resource cannot be found.
 _ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -487,32 +578,16 @@ _ResourceNotFoundException =
     defaultService
     "ResourceNotFoundException"
 
--- | The email address that you\'re trying to assign is already created for a
--- different user, group, or resource.
-_EmailAddressInUseException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_EmailAddressInUseException =
+-- | The resource can have up to 50 user-applied tags.
+_TooManyTagsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyTagsException =
   Core._MatchServiceError
     defaultService
-    "EmailAddressInUseException"
+    "TooManyTagsException"
 
--- | The user, group, or resource name isn\'t unique in Amazon WorkMail.
-_NameAvailabilityException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_NameAvailabilityException =
+-- | You can\'t perform a write operation against a read-only directory.
+_UnsupportedOperationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_UnsupportedOperationException =
   Core._MatchServiceError
     defaultService
-    "NameAvailabilityException"
-
--- | The request exceeds the limit of the resource.
-_LimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_LimitExceededException =
-  Core._MatchServiceError
-    defaultService
-    "LimitExceededException"
-
--- | The supplied password doesn\'t match the minimum security constraints,
--- such as length or use of special characters.
-_InvalidPasswordException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidPasswordException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidPasswordException"
+    "UnsupportedOperationException"

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.DisassociateSigninDelegateGroupsFromAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,7 +101,8 @@ instance
     AWSResponse
       DisassociateSigninDelegateGroupsFromAccount =
       DisassociateSigninDelegateGroupsFromAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -127,32 +129,32 @@ instance
       `Prelude.seq` Prelude.rnf groupNames
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DisassociateSigninDelegateGroupsFromAccount
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DisassociateSigninDelegateGroupsFromAccount
   where
   toJSON
     DisassociateSigninDelegateGroupsFromAccount' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [Prelude.Just ("GroupNames" Core..= groupNames)]
+            [Prelude.Just ("GroupNames" Data..= groupNames)]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DisassociateSigninDelegateGroupsFromAccount
   where
   toPath
     DisassociateSigninDelegateGroupsFromAccount' {..} =
-      Prelude.mconcat ["/accounts/", Core.toBS accountId]
+      Prelude.mconcat ["/accounts/", Data.toBS accountId]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DisassociateSigninDelegateGroupsFromAccount
   where
   toQuery =

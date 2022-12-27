@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.TtmlDestinationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.TtmlDestinationSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.TtmlDestinationStyleControl
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,9 +29,8 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTtmlDestinationSettings' smart constructor.
 data TtmlDestinationSettings = TtmlDestinationSettings'
-  { -- | When set to passthrough, passes through style and position information
-    -- from a TTML-like input source (TTML, SMPTE-TT, CFF-TT) to the CFF-TT
-    -- output or TTML output.
+  { -- | This field is not currently supported and will not affect the output
+    -- styling. Leave the default value.
     styleControl :: Prelude.Maybe TtmlDestinationStyleControl
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -43,9 +43,8 @@ data TtmlDestinationSettings = TtmlDestinationSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'styleControl', 'ttmlDestinationSettings_styleControl' - When set to passthrough, passes through style and position information
--- from a TTML-like input source (TTML, SMPTE-TT, CFF-TT) to the CFF-TT
--- output or TTML output.
+-- 'styleControl', 'ttmlDestinationSettings_styleControl' - This field is not currently supported and will not affect the output
+-- styling. Leave the default value.
 newTtmlDestinationSettings ::
   TtmlDestinationSettings
 newTtmlDestinationSettings =
@@ -54,19 +53,18 @@ newTtmlDestinationSettings =
         Prelude.Nothing
     }
 
--- | When set to passthrough, passes through style and position information
--- from a TTML-like input source (TTML, SMPTE-TT, CFF-TT) to the CFF-TT
--- output or TTML output.
+-- | This field is not currently supported and will not affect the output
+-- styling. Leave the default value.
 ttmlDestinationSettings_styleControl :: Lens.Lens' TtmlDestinationSettings (Prelude.Maybe TtmlDestinationStyleControl)
 ttmlDestinationSettings_styleControl = Lens.lens (\TtmlDestinationSettings' {styleControl} -> styleControl) (\s@TtmlDestinationSettings' {} a -> s {styleControl = a} :: TtmlDestinationSettings)
 
-instance Core.FromJSON TtmlDestinationSettings where
+instance Data.FromJSON TtmlDestinationSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TtmlDestinationSettings"
       ( \x ->
           TtmlDestinationSettings'
-            Prelude.<$> (x Core..:? "styleControl")
+            Prelude.<$> (x Data..:? "styleControl")
       )
 
 instance Prelude.Hashable TtmlDestinationSettings where
@@ -77,9 +75,9 @@ instance Prelude.NFData TtmlDestinationSettings where
   rnf TtmlDestinationSettings' {..} =
     Prelude.rnf styleControl
 
-instance Core.ToJSON TtmlDestinationSettings where
+instance Data.ToJSON TtmlDestinationSettings where
   toJSON TtmlDestinationSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("styleControl" Core..=) Prelude.<$> styleControl]
+          [("styleControl" Data..=) Prelude.<$> styleControl]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.PrivateDnsDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.PrivateDnsDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the Private DNS name for interface endpoints.
@@ -54,10 +55,10 @@ newPrivateDnsDetails =
 privateDnsDetails_privateDnsName :: Lens.Lens' PrivateDnsDetails (Prelude.Maybe Prelude.Text)
 privateDnsDetails_privateDnsName = Lens.lens (\PrivateDnsDetails' {privateDnsName} -> privateDnsName) (\s@PrivateDnsDetails' {} a -> s {privateDnsName = a} :: PrivateDnsDetails)
 
-instance Core.FromXML PrivateDnsDetails where
+instance Data.FromXML PrivateDnsDetails where
   parseXML x =
     PrivateDnsDetails'
-      Prelude.<$> (x Core..@? "privateDnsName")
+      Prelude.<$> (x Data..@? "privateDnsName")
 
 instance Prelude.Hashable PrivateDnsDetails where
   hashWithSalt _salt PrivateDnsDetails' {..} =

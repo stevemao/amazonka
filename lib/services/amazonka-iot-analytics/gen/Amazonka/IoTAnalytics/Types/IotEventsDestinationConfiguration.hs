@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.IotEventsDestinationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTAnalytics.Types.IotEventsDestinationConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration information for delivery of dataset contents to IoT
@@ -76,16 +77,16 @@ iotEventsDestinationConfiguration_roleArn :: Lens.Lens' IotEventsDestinationConf
 iotEventsDestinationConfiguration_roleArn = Lens.lens (\IotEventsDestinationConfiguration' {roleArn} -> roleArn) (\s@IotEventsDestinationConfiguration' {} a -> s {roleArn = a} :: IotEventsDestinationConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     IotEventsDestinationConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IotEventsDestinationConfiguration"
       ( \x ->
           IotEventsDestinationConfiguration'
-            Prelude.<$> (x Core..: "inputName")
-            Prelude.<*> (x Core..: "roleArn")
+            Prelude.<$> (x Data..: "inputName")
+            Prelude.<*> (x Data..: "roleArn")
       )
 
 instance
@@ -107,13 +108,13 @@ instance
       `Prelude.seq` Prelude.rnf roleArn
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     IotEventsDestinationConfiguration
   where
   toJSON IotEventsDestinationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("inputName" Core..= inputName),
-            Prelude.Just ("roleArn" Core..= roleArn)
+          [ Prelude.Just ("inputName" Data..= inputName),
+            Prelude.Just ("roleArn" Data..= roleArn)
           ]
       )

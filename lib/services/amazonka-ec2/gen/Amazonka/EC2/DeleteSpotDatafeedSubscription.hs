@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteSpotDatafeedSubscription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,9 @@ module Amazonka.EC2.DeleteSpotDatafeedSubscription
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,7 +89,8 @@ instance
   type
     AWSResponse DeleteSpotDatafeedSubscription =
       DeleteSpotDatafeedSubscriptionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DeleteSpotDatafeedSubscriptionResponse'
@@ -110,24 +112,24 @@ instance
     Prelude.rnf dryRun
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteSpotDatafeedSubscription
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteSpotDatafeedSubscription where
+instance Data.ToPath DeleteSpotDatafeedSubscription where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteSpotDatafeedSubscription where
+instance Data.ToQuery DeleteSpotDatafeedSubscription where
   toQuery DeleteSpotDatafeedSubscription' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteSpotDatafeedSubscription" ::
+          Data.=: ( "DeleteSpotDatafeedSubscription" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun
       ]
 
 -- | /See:/ 'newDeleteSpotDatafeedSubscriptionResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.AddOn
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,16 @@
 module Amazonka.Lightsail.Types.AddOn where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an add-on that is enabled for an Amazon Lightsail resource.
 --
 -- /See:/ 'newAddOn' smart constructor.
 data AddOn = AddOn'
-  { -- | The status of the add-on.
-    status :: Prelude.Maybe Prelude.Text,
+  { -- | The name of the add-on.
+    name :: Prelude.Maybe Prelude.Text,
     -- | The next daily time an automatic snapshot will be created.
     --
     -- The time shown is in @HH:00@ format, and in Coordinated Universal Time
@@ -45,8 +46,8 @@ data AddOn = AddOn'
     -- The snapshot is automatically created between the time shown and up to
     -- 45 minutes after.
     snapshotTimeOfDay :: Prelude.Maybe Prelude.Text,
-    -- | The name of the add-on.
-    name :: Prelude.Maybe Prelude.Text
+    -- | The status of the add-on.
+    status :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,7 +59,7 @@ data AddOn = AddOn'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'addOn_status' - The status of the add-on.
+-- 'name', 'addOn_name' - The name of the add-on.
 --
 -- 'nextSnapshotTimeOfDay', 'addOn_nextSnapshotTimeOfDay' - The next daily time an automatic snapshot will be created.
 --
@@ -76,20 +77,20 @@ data AddOn = AddOn'
 -- The snapshot is automatically created between the time shown and up to
 -- 45 minutes after.
 --
--- 'name', 'addOn_name' - The name of the add-on.
+-- 'status', 'addOn_status' - The status of the add-on.
 newAddOn ::
   AddOn
 newAddOn =
   AddOn'
-    { status = Prelude.Nothing,
+    { name = Prelude.Nothing,
       nextSnapshotTimeOfDay = Prelude.Nothing,
       snapshotTimeOfDay = Prelude.Nothing,
-      name = Prelude.Nothing
+      status = Prelude.Nothing
     }
 
--- | The status of the add-on.
-addOn_status :: Lens.Lens' AddOn (Prelude.Maybe Prelude.Text)
-addOn_status = Lens.lens (\AddOn' {status} -> status) (\s@AddOn' {} a -> s {status = a} :: AddOn)
+-- | The name of the add-on.
+addOn_name :: Lens.Lens' AddOn (Prelude.Maybe Prelude.Text)
+addOn_name = Lens.lens (\AddOn' {name} -> name) (\s@AddOn' {} a -> s {name = a} :: AddOn)
 
 -- | The next daily time an automatic snapshot will be created.
 --
@@ -111,32 +112,32 @@ addOn_nextSnapshotTimeOfDay = Lens.lens (\AddOn' {nextSnapshotTimeOfDay} -> next
 addOn_snapshotTimeOfDay :: Lens.Lens' AddOn (Prelude.Maybe Prelude.Text)
 addOn_snapshotTimeOfDay = Lens.lens (\AddOn' {snapshotTimeOfDay} -> snapshotTimeOfDay) (\s@AddOn' {} a -> s {snapshotTimeOfDay = a} :: AddOn)
 
--- | The name of the add-on.
-addOn_name :: Lens.Lens' AddOn (Prelude.Maybe Prelude.Text)
-addOn_name = Lens.lens (\AddOn' {name} -> name) (\s@AddOn' {} a -> s {name = a} :: AddOn)
+-- | The status of the add-on.
+addOn_status :: Lens.Lens' AddOn (Prelude.Maybe Prelude.Text)
+addOn_status = Lens.lens (\AddOn' {status} -> status) (\s@AddOn' {} a -> s {status = a} :: AddOn)
 
-instance Core.FromJSON AddOn where
+instance Data.FromJSON AddOn where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AddOn"
       ( \x ->
           AddOn'
-            Prelude.<$> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "nextSnapshotTimeOfDay")
-            Prelude.<*> (x Core..:? "snapshotTimeOfDay")
-            Prelude.<*> (x Core..:? "name")
+            Prelude.<$> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "nextSnapshotTimeOfDay")
+            Prelude.<*> (x Data..:? "snapshotTimeOfDay")
+            Prelude.<*> (x Data..:? "status")
       )
 
 instance Prelude.Hashable AddOn where
   hashWithSalt _salt AddOn' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` nextSnapshotTimeOfDay
       `Prelude.hashWithSalt` snapshotTimeOfDay
-      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData AddOn where
   rnf AddOn' {..} =
-    Prelude.rnf status
+    Prelude.rnf name
       `Prelude.seq` Prelude.rnf nextSnapshotTimeOfDay
       `Prelude.seq` Prelude.rnf snapshotTimeOfDay
-      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf status

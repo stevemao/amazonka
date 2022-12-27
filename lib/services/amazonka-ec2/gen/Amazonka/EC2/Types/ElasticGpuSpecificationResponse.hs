@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ElasticGpuSpecificationResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.ElasticGpuSpecificationResponse where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an elastic GPU.
@@ -54,10 +55,10 @@ newElasticGpuSpecificationResponse =
 elasticGpuSpecificationResponse_type :: Lens.Lens' ElasticGpuSpecificationResponse (Prelude.Maybe Prelude.Text)
 elasticGpuSpecificationResponse_type = Lens.lens (\ElasticGpuSpecificationResponse' {type'} -> type') (\s@ElasticGpuSpecificationResponse' {} a -> s {type' = a} :: ElasticGpuSpecificationResponse)
 
-instance Core.FromXML ElasticGpuSpecificationResponse where
+instance Data.FromXML ElasticGpuSpecificationResponse where
   parseXML x =
     ElasticGpuSpecificationResponse'
-      Prelude.<$> (x Core..@? "type")
+      Prelude.<$> (x Data..@? "type")
 
 instance
   Prelude.Hashable

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.CreateReplicationConfigurationTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,26 +46,27 @@ module Amazonka.MGN.CreateReplicationConfigurationTemplate
     newReplicationConfigurationTemplate,
 
     -- * Response Lenses
-    replicationConfigurationTemplate_createPublicIP,
-    replicationConfigurationTemplate_stagingAreaTags,
     replicationConfigurationTemplate_arn,
-    replicationConfigurationTemplate_stagingAreaSubnetId,
-    replicationConfigurationTemplate_replicationServerInstanceType,
-    replicationConfigurationTemplate_ebsEncryption,
     replicationConfigurationTemplate_associateDefaultSecurityGroup,
-    replicationConfigurationTemplate_replicationServersSecurityGroupsIDs,
-    replicationConfigurationTemplate_ebsEncryptionKeyArn,
-    replicationConfigurationTemplate_defaultLargeStagingDiskType,
     replicationConfigurationTemplate_bandwidthThrottling,
+    replicationConfigurationTemplate_createPublicIP,
     replicationConfigurationTemplate_dataPlaneRouting,
-    replicationConfigurationTemplate_useDedicatedReplicationServer,
+    replicationConfigurationTemplate_defaultLargeStagingDiskType,
+    replicationConfigurationTemplate_ebsEncryption,
+    replicationConfigurationTemplate_ebsEncryptionKeyArn,
+    replicationConfigurationTemplate_replicationServerInstanceType,
+    replicationConfigurationTemplate_replicationServersSecurityGroupsIDs,
+    replicationConfigurationTemplate_stagingAreaSubnetId,
+    replicationConfigurationTemplate_stagingAreaTags,
     replicationConfigurationTemplate_tags,
+    replicationConfigurationTemplate_useDedicatedReplicationServer,
     replicationConfigurationTemplate_replicationConfigurationTemplateID,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -73,11 +74,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateReplicationConfigurationTemplate' smart constructor.
 data CreateReplicationConfigurationTemplate = CreateReplicationConfigurationTemplate'
-  { -- | Request to configure an EBS enryption key during Replication Settings
+  { -- | Request to configure an EBS encryption key during Replication Settings
     -- template creation.
     ebsEncryptionKeyArn :: Prelude.Maybe Prelude.Text,
     -- | Request to configure tags during Replication Settings template creation.
-    tags :: Prelude.Maybe (Core.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text)),
+    tags :: Prelude.Maybe (Data.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text)),
     -- | Request to associate the default Application Migration Service Security
     -- group with the Replication Settings template.
     associateDefaultSecurityGroup :: Prelude.Bool,
@@ -90,24 +91,24 @@ data CreateReplicationConfigurationTemplate = CreateReplicationConfigurationTemp
     -- | Request to configure data plane routing during Replication Settings
     -- template creation.
     dataPlaneRouting :: ReplicationConfigurationDataPlaneRouting,
-    -- | Request to configure the Staging Disk EBS volume type to \"gp2\" during
-    -- Replication Settings template creation.
+    -- | Request to configure the default large staging disk EBS volume type
+    -- during Replication Settings template creation.
     defaultLargeStagingDiskType :: ReplicationConfigurationDefaultLargeStagingDiskType,
-    -- | Request to configure EBS enryption during Replication Settings template
+    -- | Request to configure EBS encryption during Replication Settings template
     -- creation.
     ebsEncryption :: ReplicationConfigurationEbsEncryption,
     -- | Request to configure the Replication Server instance type during
     -- Replication Settings template creation.
     replicationServerInstanceType :: Prelude.Text,
-    -- | Request to configure the Replication Server Secuirity group ID during
+    -- | Request to configure the Replication Server Security group ID during
     -- Replication Settings template creation.
     replicationServersSecurityGroupsIDs :: [Prelude.Text],
     -- | Request to configure the Staging Area subnet ID during Replication
     -- Settings template creation.
     stagingAreaSubnetId :: Prelude.Text,
-    -- | Request to configure Staiging Area tags during Replication Settings
+    -- | Request to configure Staging Area tags during Replication Settings
     -- template creation.
-    stagingAreaTags :: Core.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text),
+    stagingAreaTags :: Data.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | Request to use Dedicated Replication Servers during Replication Settings
     -- template creation.
     useDedicatedReplicationServer :: Prelude.Bool
@@ -122,7 +123,7 @@ data CreateReplicationConfigurationTemplate = CreateReplicationConfigurationTemp
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ebsEncryptionKeyArn', 'createReplicationConfigurationTemplate_ebsEncryptionKeyArn' - Request to configure an EBS enryption key during Replication Settings
+-- 'ebsEncryptionKeyArn', 'createReplicationConfigurationTemplate_ebsEncryptionKeyArn' - Request to configure an EBS encryption key during Replication Settings
 -- template creation.
 --
 -- 'tags', 'createReplicationConfigurationTemplate_tags' - Request to configure tags during Replication Settings template creation.
@@ -139,22 +140,22 @@ data CreateReplicationConfigurationTemplate = CreateReplicationConfigurationTemp
 -- 'dataPlaneRouting', 'createReplicationConfigurationTemplate_dataPlaneRouting' - Request to configure data plane routing during Replication Settings
 -- template creation.
 --
--- 'defaultLargeStagingDiskType', 'createReplicationConfigurationTemplate_defaultLargeStagingDiskType' - Request to configure the Staging Disk EBS volume type to \"gp2\" during
--- Replication Settings template creation.
+-- 'defaultLargeStagingDiskType', 'createReplicationConfigurationTemplate_defaultLargeStagingDiskType' - Request to configure the default large staging disk EBS volume type
+-- during Replication Settings template creation.
 --
--- 'ebsEncryption', 'createReplicationConfigurationTemplate_ebsEncryption' - Request to configure EBS enryption during Replication Settings template
+-- 'ebsEncryption', 'createReplicationConfigurationTemplate_ebsEncryption' - Request to configure EBS encryption during Replication Settings template
 -- creation.
 --
 -- 'replicationServerInstanceType', 'createReplicationConfigurationTemplate_replicationServerInstanceType' - Request to configure the Replication Server instance type during
 -- Replication Settings template creation.
 --
--- 'replicationServersSecurityGroupsIDs', 'createReplicationConfigurationTemplate_replicationServersSecurityGroupsIDs' - Request to configure the Replication Server Secuirity group ID during
+-- 'replicationServersSecurityGroupsIDs', 'createReplicationConfigurationTemplate_replicationServersSecurityGroupsIDs' - Request to configure the Replication Server Security group ID during
 -- Replication Settings template creation.
 --
 -- 'stagingAreaSubnetId', 'createReplicationConfigurationTemplate_stagingAreaSubnetId' - Request to configure the Staging Area subnet ID during Replication
 -- Settings template creation.
 --
--- 'stagingAreaTags', 'createReplicationConfigurationTemplate_stagingAreaTags' - Request to configure Staiging Area tags during Replication Settings
+-- 'stagingAreaTags', 'createReplicationConfigurationTemplate_stagingAreaTags' - Request to configure Staging Area tags during Replication Settings
 -- template creation.
 --
 -- 'useDedicatedReplicationServer', 'createReplicationConfigurationTemplate_useDedicatedReplicationServer' - Request to use Dedicated Replication Servers during Replication Settings
@@ -214,14 +215,14 @@ newCreateReplicationConfigurationTemplate
           pUseDedicatedReplicationServer_
       }
 
--- | Request to configure an EBS enryption key during Replication Settings
+-- | Request to configure an EBS encryption key during Replication Settings
 -- template creation.
 createReplicationConfigurationTemplate_ebsEncryptionKeyArn :: Lens.Lens' CreateReplicationConfigurationTemplate (Prelude.Maybe Prelude.Text)
 createReplicationConfigurationTemplate_ebsEncryptionKeyArn = Lens.lens (\CreateReplicationConfigurationTemplate' {ebsEncryptionKeyArn} -> ebsEncryptionKeyArn) (\s@CreateReplicationConfigurationTemplate' {} a -> s {ebsEncryptionKeyArn = a} :: CreateReplicationConfigurationTemplate)
 
 -- | Request to configure tags during Replication Settings template creation.
 createReplicationConfigurationTemplate_tags :: Lens.Lens' CreateReplicationConfigurationTemplate (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-createReplicationConfigurationTemplate_tags = Lens.lens (\CreateReplicationConfigurationTemplate' {tags} -> tags) (\s@CreateReplicationConfigurationTemplate' {} a -> s {tags = a} :: CreateReplicationConfigurationTemplate) Prelude.. Lens.mapping (Core._Sensitive Prelude.. Lens.coerced)
+createReplicationConfigurationTemplate_tags = Lens.lens (\CreateReplicationConfigurationTemplate' {tags} -> tags) (\s@CreateReplicationConfigurationTemplate' {} a -> s {tags = a} :: CreateReplicationConfigurationTemplate) Prelude.. Lens.mapping (Data._Sensitive Prelude.. Lens.coerced)
 
 -- | Request to associate the default Application Migration Service Security
 -- group with the Replication Settings template.
@@ -243,12 +244,12 @@ createReplicationConfigurationTemplate_createPublicIP = Lens.lens (\CreateReplic
 createReplicationConfigurationTemplate_dataPlaneRouting :: Lens.Lens' CreateReplicationConfigurationTemplate ReplicationConfigurationDataPlaneRouting
 createReplicationConfigurationTemplate_dataPlaneRouting = Lens.lens (\CreateReplicationConfigurationTemplate' {dataPlaneRouting} -> dataPlaneRouting) (\s@CreateReplicationConfigurationTemplate' {} a -> s {dataPlaneRouting = a} :: CreateReplicationConfigurationTemplate)
 
--- | Request to configure the Staging Disk EBS volume type to \"gp2\" during
--- Replication Settings template creation.
+-- | Request to configure the default large staging disk EBS volume type
+-- during Replication Settings template creation.
 createReplicationConfigurationTemplate_defaultLargeStagingDiskType :: Lens.Lens' CreateReplicationConfigurationTemplate ReplicationConfigurationDefaultLargeStagingDiskType
 createReplicationConfigurationTemplate_defaultLargeStagingDiskType = Lens.lens (\CreateReplicationConfigurationTemplate' {defaultLargeStagingDiskType} -> defaultLargeStagingDiskType) (\s@CreateReplicationConfigurationTemplate' {} a -> s {defaultLargeStagingDiskType = a} :: CreateReplicationConfigurationTemplate)
 
--- | Request to configure EBS enryption during Replication Settings template
+-- | Request to configure EBS encryption during Replication Settings template
 -- creation.
 createReplicationConfigurationTemplate_ebsEncryption :: Lens.Lens' CreateReplicationConfigurationTemplate ReplicationConfigurationEbsEncryption
 createReplicationConfigurationTemplate_ebsEncryption = Lens.lens (\CreateReplicationConfigurationTemplate' {ebsEncryption} -> ebsEncryption) (\s@CreateReplicationConfigurationTemplate' {} a -> s {ebsEncryption = a} :: CreateReplicationConfigurationTemplate)
@@ -258,7 +259,7 @@ createReplicationConfigurationTemplate_ebsEncryption = Lens.lens (\CreateReplica
 createReplicationConfigurationTemplate_replicationServerInstanceType :: Lens.Lens' CreateReplicationConfigurationTemplate Prelude.Text
 createReplicationConfigurationTemplate_replicationServerInstanceType = Lens.lens (\CreateReplicationConfigurationTemplate' {replicationServerInstanceType} -> replicationServerInstanceType) (\s@CreateReplicationConfigurationTemplate' {} a -> s {replicationServerInstanceType = a} :: CreateReplicationConfigurationTemplate)
 
--- | Request to configure the Replication Server Secuirity group ID during
+-- | Request to configure the Replication Server Security group ID during
 -- Replication Settings template creation.
 createReplicationConfigurationTemplate_replicationServersSecurityGroupsIDs :: Lens.Lens' CreateReplicationConfigurationTemplate [Prelude.Text]
 createReplicationConfigurationTemplate_replicationServersSecurityGroupsIDs = Lens.lens (\CreateReplicationConfigurationTemplate' {replicationServersSecurityGroupsIDs} -> replicationServersSecurityGroupsIDs) (\s@CreateReplicationConfigurationTemplate' {} a -> s {replicationServersSecurityGroupsIDs = a} :: CreateReplicationConfigurationTemplate) Prelude.. Lens.coerced
@@ -268,10 +269,10 @@ createReplicationConfigurationTemplate_replicationServersSecurityGroupsIDs = Len
 createReplicationConfigurationTemplate_stagingAreaSubnetId :: Lens.Lens' CreateReplicationConfigurationTemplate Prelude.Text
 createReplicationConfigurationTemplate_stagingAreaSubnetId = Lens.lens (\CreateReplicationConfigurationTemplate' {stagingAreaSubnetId} -> stagingAreaSubnetId) (\s@CreateReplicationConfigurationTemplate' {} a -> s {stagingAreaSubnetId = a} :: CreateReplicationConfigurationTemplate)
 
--- | Request to configure Staiging Area tags during Replication Settings
+-- | Request to configure Staging Area tags during Replication Settings
 -- template creation.
 createReplicationConfigurationTemplate_stagingAreaTags :: Lens.Lens' CreateReplicationConfigurationTemplate (Prelude.HashMap Prelude.Text Prelude.Text)
-createReplicationConfigurationTemplate_stagingAreaTags = Lens.lens (\CreateReplicationConfigurationTemplate' {stagingAreaTags} -> stagingAreaTags) (\s@CreateReplicationConfigurationTemplate' {} a -> s {stagingAreaTags = a} :: CreateReplicationConfigurationTemplate) Prelude.. Core._Sensitive Prelude.. Lens.coerced
+createReplicationConfigurationTemplate_stagingAreaTags = Lens.lens (\CreateReplicationConfigurationTemplate' {stagingAreaTags} -> stagingAreaTags) (\s@CreateReplicationConfigurationTemplate' {} a -> s {stagingAreaTags = a} :: CreateReplicationConfigurationTemplate) Prelude.. Data._Sensitive Prelude.. Lens.coerced
 
 -- | Request to use Dedicated Replication Servers during Replication Settings
 -- template creation.
@@ -286,10 +287,11 @@ instance
     AWSResponse
       CreateReplicationConfigurationTemplate =
       ReplicationConfigurationTemplate
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance
   Prelude.Hashable
@@ -332,65 +334,65 @@ instance
       `Prelude.seq` Prelude.rnf useDedicatedReplicationServer
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateReplicationConfigurationTemplate
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CreateReplicationConfigurationTemplate
   where
   toJSON CreateReplicationConfigurationTemplate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ebsEncryptionKeyArn" Core..=)
+          [ ("ebsEncryptionKeyArn" Data..=)
               Prelude.<$> ebsEncryptionKeyArn,
-            ("tags" Core..=) Prelude.<$> tags,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
               ( "associateDefaultSecurityGroup"
-                  Core..= associateDefaultSecurityGroup
+                  Data..= associateDefaultSecurityGroup
               ),
             Prelude.Just
-              ("bandwidthThrottling" Core..= bandwidthThrottling),
+              ("bandwidthThrottling" Data..= bandwidthThrottling),
             Prelude.Just
-              ("createPublicIP" Core..= createPublicIP),
+              ("createPublicIP" Data..= createPublicIP),
             Prelude.Just
-              ("dataPlaneRouting" Core..= dataPlaneRouting),
+              ("dataPlaneRouting" Data..= dataPlaneRouting),
             Prelude.Just
               ( "defaultLargeStagingDiskType"
-                  Core..= defaultLargeStagingDiskType
+                  Data..= defaultLargeStagingDiskType
               ),
-            Prelude.Just ("ebsEncryption" Core..= ebsEncryption),
+            Prelude.Just ("ebsEncryption" Data..= ebsEncryption),
             Prelude.Just
               ( "replicationServerInstanceType"
-                  Core..= replicationServerInstanceType
+                  Data..= replicationServerInstanceType
               ),
             Prelude.Just
               ( "replicationServersSecurityGroupsIDs"
-                  Core..= replicationServersSecurityGroupsIDs
+                  Data..= replicationServersSecurityGroupsIDs
               ),
             Prelude.Just
-              ("stagingAreaSubnetId" Core..= stagingAreaSubnetId),
+              ("stagingAreaSubnetId" Data..= stagingAreaSubnetId),
             Prelude.Just
-              ("stagingAreaTags" Core..= stagingAreaTags),
+              ("stagingAreaTags" Data..= stagingAreaTags),
             Prelude.Just
               ( "useDedicatedReplicationServer"
-                  Core..= useDedicatedReplicationServer
+                  Data..= useDedicatedReplicationServer
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     CreateReplicationConfigurationTemplate
   where
   toPath =
@@ -398,7 +400,7 @@ instance
       "/CreateReplicationConfigurationTemplate"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CreateReplicationConfigurationTemplate
   where
   toQuery = Prelude.const Prelude.mempty

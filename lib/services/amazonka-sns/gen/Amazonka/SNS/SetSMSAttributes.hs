@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.SetSMSAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.SNS.SetSMSAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,8 +60,8 @@ import Amazonka.SNS.Types
 --
 -- /See:/ 'newSetSMSAttributes' smart constructor.
 data SetSMSAttributes = SetSMSAttributes'
-  { -- | The default settings for sending SMS messages from your account. You can
-    -- set values for the following attribute names:
+  { -- | The default settings for sending SMS messages from your Amazon Web
+    -- Services account. You can set values for the following attribute names:
     --
     -- @MonthlySpendLimit@ – The maximum amount in USD that you are willing to
     -- spend each month to send SMS messages. When Amazon SNS determines that
@@ -111,7 +112,7 @@ data SetSMSAttributes = SetSMSAttributes'
     -- daily SMS usage reports from Amazon SNS. Each day, Amazon SNS will
     -- deliver a usage report as a CSV file to the bucket. The report includes
     -- the following information for each SMS message that was successfully
-    -- delivered by your account:
+    -- delivered by your Amazon Web Services account:
     --
     -- -   Time that the message was published (in UTC)
     --
@@ -149,8 +150,8 @@ data SetSMSAttributes = SetSMSAttributes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'attributes', 'setSMSAttributes_attributes' - The default settings for sending SMS messages from your account. You can
--- set values for the following attribute names:
+-- 'attributes', 'setSMSAttributes_attributes' - The default settings for sending SMS messages from your Amazon Web
+-- Services account. You can set values for the following attribute names:
 --
 -- @MonthlySpendLimit@ – The maximum amount in USD that you are willing to
 -- spend each month to send SMS messages. When Amazon SNS determines that
@@ -201,7 +202,7 @@ data SetSMSAttributes = SetSMSAttributes'
 -- daily SMS usage reports from Amazon SNS. Each day, Amazon SNS will
 -- deliver a usage report as a CSV file to the bucket. The report includes
 -- the following information for each SMS message that was successfully
--- delivered by your account:
+-- delivered by your Amazon Web Services account:
 --
 -- -   Time that the message was published (in UTC)
 --
@@ -232,8 +233,8 @@ newSetSMSAttributes ::
 newSetSMSAttributes =
   SetSMSAttributes' {attributes = Prelude.mempty}
 
--- | The default settings for sending SMS messages from your account. You can
--- set values for the following attribute names:
+-- | The default settings for sending SMS messages from your Amazon Web
+-- Services account. You can set values for the following attribute names:
 --
 -- @MonthlySpendLimit@ – The maximum amount in USD that you are willing to
 -- spend each month to send SMS messages. When Amazon SNS determines that
@@ -284,7 +285,7 @@ newSetSMSAttributes =
 -- daily SMS usage reports from Amazon SNS. Each day, Amazon SNS will
 -- deliver a usage report as a CSV file to the bucket. The report includes
 -- the following information for each SMS message that was successfully
--- delivered by your account:
+-- delivered by your Amazon Web Services account:
 --
 -- -   Time that the message was published (in UTC)
 --
@@ -317,7 +318,8 @@ instance Core.AWSRequest SetSMSAttributes where
   type
     AWSResponse SetSMSAttributes =
       SetSMSAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SetSMSAttributesResult"
@@ -333,21 +335,21 @@ instance Prelude.Hashable SetSMSAttributes where
 instance Prelude.NFData SetSMSAttributes where
   rnf SetSMSAttributes' {..} = Prelude.rnf attributes
 
-instance Core.ToHeaders SetSMSAttributes where
+instance Data.ToHeaders SetSMSAttributes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetSMSAttributes where
+instance Data.ToPath SetSMSAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetSMSAttributes where
+instance Data.ToQuery SetSMSAttributes where
   toQuery SetSMSAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SetSMSAttributes" :: Prelude.ByteString),
+          Data.=: ("SetSMSAttributes" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
         "attributes"
-          Core.=: Core.toQueryMap "entry" "key" "value" attributes
+          Data.=: Data.toQueryMap "entry" "key" "value" attributes
       ]
 
 -- | The response for the SetSMSAttributes action.

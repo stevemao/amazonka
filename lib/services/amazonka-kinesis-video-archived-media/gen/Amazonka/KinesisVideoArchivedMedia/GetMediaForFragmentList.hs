@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideoArchivedMedia.GetMediaForFragmentList
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -72,8 +72,9 @@ module Amazonka.KinesisVideoArchivedMedia.GetMediaForFragmentList
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideoArchivedMedia.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -142,12 +143,13 @@ instance Core.AWSRequest GetMediaForFragmentList where
   type
     AWSResponse GetMediaForFragmentList =
       GetMediaForFragmentListResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveBody
       ( \s h x ->
           GetMediaForFragmentListResponse'
-            Prelude.<$> (h Core..#? "Content-Type")
+            Prelude.<$> (h Data..#? "Content-Type")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
             Prelude.<*> (Prelude.pure x)
       )
@@ -164,23 +166,23 @@ instance Prelude.NFData GetMediaForFragmentList where
       `Prelude.seq` Prelude.rnf streamName
       `Prelude.seq` Prelude.rnf fragments
 
-instance Core.ToHeaders GetMediaForFragmentList where
+instance Data.ToHeaders GetMediaForFragmentList where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON GetMediaForFragmentList where
+instance Data.ToJSON GetMediaForFragmentList where
   toJSON GetMediaForFragmentList' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StreamARN" Core..=) Prelude.<$> streamARN,
-            ("StreamName" Core..=) Prelude.<$> streamName,
-            Prelude.Just ("Fragments" Core..= fragments)
+          [ ("StreamARN" Data..=) Prelude.<$> streamARN,
+            ("StreamName" Data..=) Prelude.<$> streamName,
+            Prelude.Just ("Fragments" Data..= fragments)
           ]
       )
 
-instance Core.ToPath GetMediaForFragmentList where
+instance Data.ToPath GetMediaForFragmentList where
   toPath = Prelude.const "/getMediaForFragmentList"
 
-instance Core.ToQuery GetMediaForFragmentList where
+instance Data.ToQuery GetMediaForFragmentList where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetMediaForFragmentListResponse' smart constructor.
@@ -215,7 +217,7 @@ data GetMediaForFragmentListResponse = GetMediaForFragmentListResponse'
     --
     -- -   AWS_KINESISVIDEO_EXCEPTION_MESSAGE - A text description of the
     --     exception
-    payload :: Core.ResponseBody
+    payload :: Data.ResponseBody
   }
   deriving (Prelude.Show, Prelude.Generic)
 
@@ -261,7 +263,7 @@ newGetMediaForFragmentListResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
   -- | 'payload'
-  Core.ResponseBody ->
+  Data.ResponseBody ->
   GetMediaForFragmentListResponse
 newGetMediaForFragmentListResponse
   pHttpStatus_
@@ -307,5 +309,5 @@ getMediaForFragmentListResponse_httpStatus = Lens.lens (\GetMediaForFragmentList
 --
 -- -   AWS_KINESISVIDEO_EXCEPTION_MESSAGE - A text description of the
 --     exception
-getMediaForFragmentListResponse_payload :: Lens.Lens' GetMediaForFragmentListResponse Core.ResponseBody
+getMediaForFragmentListResponse_payload :: Lens.Lens' GetMediaForFragmentListResponse Data.ResponseBody
 getMediaForFragmentListResponse_payload = Lens.lens (\GetMediaForFragmentListResponse' {payload} -> payload) (\s@GetMediaForFragmentListResponse' {} a -> s {payload = a} :: GetMediaForFragmentListResponse)

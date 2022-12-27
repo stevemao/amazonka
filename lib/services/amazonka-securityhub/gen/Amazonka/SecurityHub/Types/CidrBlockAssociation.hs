@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.CidrBlockAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.CidrBlockAssociation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An IPv4 CIDR block association.
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 data CidrBlockAssociation = CidrBlockAssociation'
   { -- | The association ID for the IPv4 CIDR block.
     associationId :: Prelude.Maybe Prelude.Text,
-    -- | Information about the state of the IPv4 CIDR block.
-    cidrBlockState :: Prelude.Maybe Prelude.Text,
     -- | The IPv4 CIDR block.
-    cidrBlock :: Prelude.Maybe Prelude.Text
+    cidrBlock :: Prelude.Maybe Prelude.Text,
+    -- | Information about the state of the IPv4 CIDR block.
+    cidrBlockState :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,61 +47,61 @@ data CidrBlockAssociation = CidrBlockAssociation'
 --
 -- 'associationId', 'cidrBlockAssociation_associationId' - The association ID for the IPv4 CIDR block.
 --
--- 'cidrBlockState', 'cidrBlockAssociation_cidrBlockState' - Information about the state of the IPv4 CIDR block.
---
 -- 'cidrBlock', 'cidrBlockAssociation_cidrBlock' - The IPv4 CIDR block.
+--
+-- 'cidrBlockState', 'cidrBlockAssociation_cidrBlockState' - Information about the state of the IPv4 CIDR block.
 newCidrBlockAssociation ::
   CidrBlockAssociation
 newCidrBlockAssociation =
   CidrBlockAssociation'
     { associationId =
         Prelude.Nothing,
-      cidrBlockState = Prelude.Nothing,
-      cidrBlock = Prelude.Nothing
+      cidrBlock = Prelude.Nothing,
+      cidrBlockState = Prelude.Nothing
     }
 
 -- | The association ID for the IPv4 CIDR block.
 cidrBlockAssociation_associationId :: Lens.Lens' CidrBlockAssociation (Prelude.Maybe Prelude.Text)
 cidrBlockAssociation_associationId = Lens.lens (\CidrBlockAssociation' {associationId} -> associationId) (\s@CidrBlockAssociation' {} a -> s {associationId = a} :: CidrBlockAssociation)
 
--- | Information about the state of the IPv4 CIDR block.
-cidrBlockAssociation_cidrBlockState :: Lens.Lens' CidrBlockAssociation (Prelude.Maybe Prelude.Text)
-cidrBlockAssociation_cidrBlockState = Lens.lens (\CidrBlockAssociation' {cidrBlockState} -> cidrBlockState) (\s@CidrBlockAssociation' {} a -> s {cidrBlockState = a} :: CidrBlockAssociation)
-
 -- | The IPv4 CIDR block.
 cidrBlockAssociation_cidrBlock :: Lens.Lens' CidrBlockAssociation (Prelude.Maybe Prelude.Text)
 cidrBlockAssociation_cidrBlock = Lens.lens (\CidrBlockAssociation' {cidrBlock} -> cidrBlock) (\s@CidrBlockAssociation' {} a -> s {cidrBlock = a} :: CidrBlockAssociation)
 
-instance Core.FromJSON CidrBlockAssociation where
+-- | Information about the state of the IPv4 CIDR block.
+cidrBlockAssociation_cidrBlockState :: Lens.Lens' CidrBlockAssociation (Prelude.Maybe Prelude.Text)
+cidrBlockAssociation_cidrBlockState = Lens.lens (\CidrBlockAssociation' {cidrBlockState} -> cidrBlockState) (\s@CidrBlockAssociation' {} a -> s {cidrBlockState = a} :: CidrBlockAssociation)
+
+instance Data.FromJSON CidrBlockAssociation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CidrBlockAssociation"
       ( \x ->
           CidrBlockAssociation'
-            Prelude.<$> (x Core..:? "AssociationId")
-            Prelude.<*> (x Core..:? "CidrBlockState")
-            Prelude.<*> (x Core..:? "CidrBlock")
+            Prelude.<$> (x Data..:? "AssociationId")
+            Prelude.<*> (x Data..:? "CidrBlock")
+            Prelude.<*> (x Data..:? "CidrBlockState")
       )
 
 instance Prelude.Hashable CidrBlockAssociation where
   hashWithSalt _salt CidrBlockAssociation' {..} =
     _salt `Prelude.hashWithSalt` associationId
-      `Prelude.hashWithSalt` cidrBlockState
       `Prelude.hashWithSalt` cidrBlock
+      `Prelude.hashWithSalt` cidrBlockState
 
 instance Prelude.NFData CidrBlockAssociation where
   rnf CidrBlockAssociation' {..} =
     Prelude.rnf associationId
-      `Prelude.seq` Prelude.rnf cidrBlockState
       `Prelude.seq` Prelude.rnf cidrBlock
+      `Prelude.seq` Prelude.rnf cidrBlockState
 
-instance Core.ToJSON CidrBlockAssociation where
+instance Data.ToJSON CidrBlockAssociation where
   toJSON CidrBlockAssociation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AssociationId" Core..=) Prelude.<$> associationId,
-            ("CidrBlockState" Core..=)
-              Prelude.<$> cidrBlockState,
-            ("CidrBlock" Core..=) Prelude.<$> cidrBlock
+          [ ("AssociationId" Data..=) Prelude.<$> associationId,
+            ("CidrBlock" Data..=) Prelude.<$> cidrBlock,
+            ("CidrBlockState" Data..=)
+              Prelude.<$> cidrBlockState
           ]
       )

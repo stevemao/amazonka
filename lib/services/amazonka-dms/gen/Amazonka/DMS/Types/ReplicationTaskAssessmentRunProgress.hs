@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.Types.ReplicationTaskAssessmentRunProgress
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DMS.Types.ReplicationTaskAssessmentRunProgress where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The progress values reported by the @AssessmentProgress@ response
@@ -28,11 +29,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newReplicationTaskAssessmentRunProgress' smart constructor.
 data ReplicationTaskAssessmentRunProgress = ReplicationTaskAssessmentRunProgress'
-  { -- | The number of individual assessments that are specified to run.
-    individualAssessmentCount :: Prelude.Maybe Prelude.Int,
-    -- | The number of individual assessments that have completed, successfully
+  { -- | The number of individual assessments that have completed, successfully
     -- or not.
-    individualAssessmentCompletedCount :: Prelude.Maybe Prelude.Int
+    individualAssessmentCompletedCount :: Prelude.Maybe Prelude.Int,
+    -- | The number of individual assessments that are specified to run.
+    individualAssessmentCount :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,40 +45,40 @@ data ReplicationTaskAssessmentRunProgress = ReplicationTaskAssessmentRunProgress
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'individualAssessmentCount', 'replicationTaskAssessmentRunProgress_individualAssessmentCount' - The number of individual assessments that are specified to run.
---
 -- 'individualAssessmentCompletedCount', 'replicationTaskAssessmentRunProgress_individualAssessmentCompletedCount' - The number of individual assessments that have completed, successfully
 -- or not.
+--
+-- 'individualAssessmentCount', 'replicationTaskAssessmentRunProgress_individualAssessmentCount' - The number of individual assessments that are specified to run.
 newReplicationTaskAssessmentRunProgress ::
   ReplicationTaskAssessmentRunProgress
 newReplicationTaskAssessmentRunProgress =
   ReplicationTaskAssessmentRunProgress'
-    { individualAssessmentCount =
+    { individualAssessmentCompletedCount =
         Prelude.Nothing,
-      individualAssessmentCompletedCount =
+      individualAssessmentCount =
         Prelude.Nothing
     }
-
--- | The number of individual assessments that are specified to run.
-replicationTaskAssessmentRunProgress_individualAssessmentCount :: Lens.Lens' ReplicationTaskAssessmentRunProgress (Prelude.Maybe Prelude.Int)
-replicationTaskAssessmentRunProgress_individualAssessmentCount = Lens.lens (\ReplicationTaskAssessmentRunProgress' {individualAssessmentCount} -> individualAssessmentCount) (\s@ReplicationTaskAssessmentRunProgress' {} a -> s {individualAssessmentCount = a} :: ReplicationTaskAssessmentRunProgress)
 
 -- | The number of individual assessments that have completed, successfully
 -- or not.
 replicationTaskAssessmentRunProgress_individualAssessmentCompletedCount :: Lens.Lens' ReplicationTaskAssessmentRunProgress (Prelude.Maybe Prelude.Int)
 replicationTaskAssessmentRunProgress_individualAssessmentCompletedCount = Lens.lens (\ReplicationTaskAssessmentRunProgress' {individualAssessmentCompletedCount} -> individualAssessmentCompletedCount) (\s@ReplicationTaskAssessmentRunProgress' {} a -> s {individualAssessmentCompletedCount = a} :: ReplicationTaskAssessmentRunProgress)
 
+-- | The number of individual assessments that are specified to run.
+replicationTaskAssessmentRunProgress_individualAssessmentCount :: Lens.Lens' ReplicationTaskAssessmentRunProgress (Prelude.Maybe Prelude.Int)
+replicationTaskAssessmentRunProgress_individualAssessmentCount = Lens.lens (\ReplicationTaskAssessmentRunProgress' {individualAssessmentCount} -> individualAssessmentCount) (\s@ReplicationTaskAssessmentRunProgress' {} a -> s {individualAssessmentCount = a} :: ReplicationTaskAssessmentRunProgress)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     ReplicationTaskAssessmentRunProgress
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReplicationTaskAssessmentRunProgress"
       ( \x ->
           ReplicationTaskAssessmentRunProgress'
-            Prelude.<$> (x Core..:? "IndividualAssessmentCount")
-            Prelude.<*> (x Core..:? "IndividualAssessmentCompletedCount")
+            Prelude.<$> (x Data..:? "IndividualAssessmentCompletedCount")
+            Prelude.<*> (x Data..:? "IndividualAssessmentCount")
       )
 
 instance
@@ -88,13 +89,13 @@ instance
     _salt
     ReplicationTaskAssessmentRunProgress' {..} =
       _salt
-        `Prelude.hashWithSalt` individualAssessmentCount
         `Prelude.hashWithSalt` individualAssessmentCompletedCount
+        `Prelude.hashWithSalt` individualAssessmentCount
 
 instance
   Prelude.NFData
     ReplicationTaskAssessmentRunProgress
   where
   rnf ReplicationTaskAssessmentRunProgress' {..} =
-    Prelude.rnf individualAssessmentCount
-      `Prelude.seq` Prelude.rnf individualAssessmentCompletedCount
+    Prelude.rnf individualAssessmentCompletedCount
+      `Prelude.seq` Prelude.rnf individualAssessmentCount

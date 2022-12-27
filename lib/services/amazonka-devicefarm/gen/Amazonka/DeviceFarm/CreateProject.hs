@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.CreateProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,6 +28,7 @@ module Amazonka.DeviceFarm.CreateProject
 
     -- * Request Lenses
     createProject_defaultJobTimeoutMinutes,
+    createProject_vpcConfig,
     createProject_name,
 
     -- * Destructuring the Response
@@ -41,8 +42,9 @@ module Amazonka.DeviceFarm.CreateProject
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,6 +57,8 @@ data CreateProject = CreateProject'
     -- runs in this project use the specified execution timeout value unless
     -- overridden when scheduling a run.
     defaultJobTimeoutMinutes :: Prelude.Maybe Prelude.Int,
+    -- | The VPC security groups and subnets that are attached to a project.
+    vpcConfig :: Prelude.Maybe VpcConfig,
     -- | The project\'s name.
     name :: Prelude.Text
   }
@@ -72,6 +76,8 @@ data CreateProject = CreateProject'
 -- runs in this project use the specified execution timeout value unless
 -- overridden when scheduling a run.
 --
+-- 'vpcConfig', 'createProject_vpcConfig' - The VPC security groups and subnets that are attached to a project.
+--
 -- 'name', 'createProject_name' - The project\'s name.
 newCreateProject ::
   -- | 'name'
@@ -81,6 +87,7 @@ newCreateProject pName_ =
   CreateProject'
     { defaultJobTimeoutMinutes =
         Prelude.Nothing,
+      vpcConfig = Prelude.Nothing,
       name = pName_
     }
 
@@ -90,6 +97,10 @@ newCreateProject pName_ =
 createProject_defaultJobTimeoutMinutes :: Lens.Lens' CreateProject (Prelude.Maybe Prelude.Int)
 createProject_defaultJobTimeoutMinutes = Lens.lens (\CreateProject' {defaultJobTimeoutMinutes} -> defaultJobTimeoutMinutes) (\s@CreateProject' {} a -> s {defaultJobTimeoutMinutes = a} :: CreateProject)
 
+-- | The VPC security groups and subnets that are attached to a project.
+createProject_vpcConfig :: Lens.Lens' CreateProject (Prelude.Maybe VpcConfig)
+createProject_vpcConfig = Lens.lens (\CreateProject' {vpcConfig} -> vpcConfig) (\s@CreateProject' {} a -> s {vpcConfig = a} :: CreateProject)
+
 -- | The project\'s name.
 createProject_name :: Lens.Lens' CreateProject Prelude.Text
 createProject_name = Lens.lens (\CreateProject' {name} -> name) (\s@CreateProject' {} a -> s {name = a} :: CreateProject)
@@ -98,12 +109,13 @@ instance Core.AWSRequest CreateProject where
   type
     AWSResponse CreateProject =
       CreateProjectResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateProjectResponse'
-            Prelude.<$> (x Core..?> "project")
+            Prelude.<$> (x Data..?> "project")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,42 +123,45 @@ instance Prelude.Hashable CreateProject where
   hashWithSalt _salt CreateProject' {..} =
     _salt
       `Prelude.hashWithSalt` defaultJobTimeoutMinutes
+      `Prelude.hashWithSalt` vpcConfig
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData CreateProject where
   rnf CreateProject' {..} =
     Prelude.rnf defaultJobTimeoutMinutes
+      `Prelude.seq` Prelude.rnf vpcConfig
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateProject where
+instance Data.ToHeaders CreateProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.CreateProject" ::
+              Data.=# ( "DeviceFarm_20150623.CreateProject" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateProject where
+instance Data.ToJSON CreateProject where
   toJSON CreateProject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("defaultJobTimeoutMinutes" Core..=)
+          [ ("defaultJobTimeoutMinutes" Data..=)
               Prelude.<$> defaultJobTimeoutMinutes,
-            Prelude.Just ("name" Core..= name)
+            ("vpcConfig" Data..=) Prelude.<$> vpcConfig,
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateProject where
+instance Data.ToPath CreateProject where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateProject where
+instance Data.ToQuery CreateProject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a create project request.

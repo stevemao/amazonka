@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Braket.SearchQuantumTasks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Braket.SearchQuantumTasks
     newSearchQuantumTasks,
 
     -- * Request Lenses
-    searchQuantumTasks_nextToken,
     searchQuantumTasks_maxResults,
+    searchQuantumTasks_nextToken,
     searchQuantumTasks_filters,
 
     -- * Destructuring the Response
@@ -46,19 +46,20 @@ where
 
 import Amazonka.Braket.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newSearchQuantumTasks' smart constructor.
 data SearchQuantumTasks = SearchQuantumTasks'
-  { -- | A token used for pagination of results returned in the response. Use the
+  { -- | Maximum number of results to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token used for pagination of results returned in the response. Use the
     -- token returned from the previous request continue results where the
     -- previous request ended.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of results to return in the response.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | Array of @SearchQuantumTasksFilter@ objects.
     filters :: [SearchQuantumTasksFilter]
   }
@@ -72,31 +73,31 @@ data SearchQuantumTasks = SearchQuantumTasks'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'searchQuantumTasks_maxResults' - Maximum number of results to return in the response.
+--
 -- 'nextToken', 'searchQuantumTasks_nextToken' - A token used for pagination of results returned in the response. Use the
 -- token returned from the previous request continue results where the
 -- previous request ended.
---
--- 'maxResults', 'searchQuantumTasks_maxResults' - Maximum number of results to return in the response.
 --
 -- 'filters', 'searchQuantumTasks_filters' - Array of @SearchQuantumTasksFilter@ objects.
 newSearchQuantumTasks ::
   SearchQuantumTasks
 newSearchQuantumTasks =
   SearchQuantumTasks'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       filters = Prelude.mempty
     }
+
+-- | Maximum number of results to return in the response.
+searchQuantumTasks_maxResults :: Lens.Lens' SearchQuantumTasks (Prelude.Maybe Prelude.Natural)
+searchQuantumTasks_maxResults = Lens.lens (\SearchQuantumTasks' {maxResults} -> maxResults) (\s@SearchQuantumTasks' {} a -> s {maxResults = a} :: SearchQuantumTasks)
 
 -- | A token used for pagination of results returned in the response. Use the
 -- token returned from the previous request continue results where the
 -- previous request ended.
 searchQuantumTasks_nextToken :: Lens.Lens' SearchQuantumTasks (Prelude.Maybe Prelude.Text)
 searchQuantumTasks_nextToken = Lens.lens (\SearchQuantumTasks' {nextToken} -> nextToken) (\s@SearchQuantumTasks' {} a -> s {nextToken = a} :: SearchQuantumTasks)
-
--- | Maximum number of results to return in the response.
-searchQuantumTasks_maxResults :: Lens.Lens' SearchQuantumTasks (Prelude.Maybe Prelude.Natural)
-searchQuantumTasks_maxResults = Lens.lens (\SearchQuantumTasks' {maxResults} -> maxResults) (\s@SearchQuantumTasks' {} a -> s {maxResults = a} :: SearchQuantumTasks)
 
 -- | Array of @SearchQuantumTasksFilter@ objects.
 searchQuantumTasks_filters :: Lens.Lens' SearchQuantumTasks [SearchQuantumTasksFilter]
@@ -125,53 +126,54 @@ instance Core.AWSRequest SearchQuantumTasks where
   type
     AWSResponse SearchQuantumTasks =
       SearchQuantumTasksResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SearchQuantumTasksResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "quantumTasks" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "quantumTasks" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable SearchQuantumTasks where
   hashWithSalt _salt SearchQuantumTasks' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` filters
 
 instance Prelude.NFData SearchQuantumTasks where
   rnf SearchQuantumTasks' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf filters
 
-instance Core.ToHeaders SearchQuantumTasks where
+instance Data.ToHeaders SearchQuantumTasks where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SearchQuantumTasks where
+instance Data.ToJSON SearchQuantumTasks where
   toJSON SearchQuantumTasks' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("filters" Core..= filters)
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("filters" Data..= filters)
           ]
       )
 
-instance Core.ToPath SearchQuantumTasks where
+instance Data.ToPath SearchQuantumTasks where
   toPath = Prelude.const "/quantum-tasks"
 
-instance Core.ToQuery SearchQuantumTasks where
+instance Data.ToQuery SearchQuantumTasks where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSearchQuantumTasksResponse' smart constructor.

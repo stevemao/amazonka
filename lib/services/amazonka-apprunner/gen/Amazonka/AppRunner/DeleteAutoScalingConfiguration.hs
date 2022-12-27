@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.DeleteAutoScalingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.AppRunner.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,13 +102,14 @@ instance
   type
     AWSResponse DeleteAutoScalingConfiguration =
       DeleteAutoScalingConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteAutoScalingConfigurationResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "AutoScalingConfiguration")
+            Prelude.<*> (x Data..:> "AutoScalingConfiguration")
       )
 
 instance
@@ -128,38 +130,38 @@ instance
     Prelude.rnf autoScalingConfigurationArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteAutoScalingConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AppRunner.DeleteAutoScalingConfiguration" ::
+              Data.=# ( "AppRunner.DeleteAutoScalingConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteAutoScalingConfiguration where
+instance Data.ToJSON DeleteAutoScalingConfiguration where
   toJSON DeleteAutoScalingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "AutoScalingConfigurationArn"
-                  Core..= autoScalingConfigurationArn
+                  Data..= autoScalingConfigurationArn
               )
           ]
       )
 
-instance Core.ToPath DeleteAutoScalingConfiguration where
+instance Data.ToPath DeleteAutoScalingConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAutoScalingConfiguration where
+instance Data.ToQuery DeleteAutoScalingConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAutoScalingConfigurationResponse' smart constructor.

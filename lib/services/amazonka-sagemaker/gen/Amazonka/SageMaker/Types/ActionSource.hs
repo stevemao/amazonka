@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ActionSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SageMaker.Types.ActionSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure describing the source of an action.
 --
 -- /See:/ 'newActionSource' smart constructor.
 data ActionSource = ActionSource'
-  { -- | The type of the source.
-    sourceType :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the source.
+  { -- | The ID of the source.
     sourceId :: Prelude.Maybe Prelude.Text,
+    -- | The type of the source.
+    sourceType :: Prelude.Maybe Prelude.Text,
     -- | The URI of the source.
     sourceUri :: Prelude.Text
   }
@@ -44,9 +45,9 @@ data ActionSource = ActionSource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sourceType', 'actionSource_sourceType' - The type of the source.
---
 -- 'sourceId', 'actionSource_sourceId' - The ID of the source.
+--
+-- 'sourceType', 'actionSource_sourceType' - The type of the source.
 --
 -- 'sourceUri', 'actionSource_sourceUri' - The URI of the source.
 newActionSource ::
@@ -55,52 +56,52 @@ newActionSource ::
   ActionSource
 newActionSource pSourceUri_ =
   ActionSource'
-    { sourceType = Prelude.Nothing,
-      sourceId = Prelude.Nothing,
+    { sourceId = Prelude.Nothing,
+      sourceType = Prelude.Nothing,
       sourceUri = pSourceUri_
     }
-
--- | The type of the source.
-actionSource_sourceType :: Lens.Lens' ActionSource (Prelude.Maybe Prelude.Text)
-actionSource_sourceType = Lens.lens (\ActionSource' {sourceType} -> sourceType) (\s@ActionSource' {} a -> s {sourceType = a} :: ActionSource)
 
 -- | The ID of the source.
 actionSource_sourceId :: Lens.Lens' ActionSource (Prelude.Maybe Prelude.Text)
 actionSource_sourceId = Lens.lens (\ActionSource' {sourceId} -> sourceId) (\s@ActionSource' {} a -> s {sourceId = a} :: ActionSource)
 
+-- | The type of the source.
+actionSource_sourceType :: Lens.Lens' ActionSource (Prelude.Maybe Prelude.Text)
+actionSource_sourceType = Lens.lens (\ActionSource' {sourceType} -> sourceType) (\s@ActionSource' {} a -> s {sourceType = a} :: ActionSource)
+
 -- | The URI of the source.
 actionSource_sourceUri :: Lens.Lens' ActionSource Prelude.Text
 actionSource_sourceUri = Lens.lens (\ActionSource' {sourceUri} -> sourceUri) (\s@ActionSource' {} a -> s {sourceUri = a} :: ActionSource)
 
-instance Core.FromJSON ActionSource where
+instance Data.FromJSON ActionSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActionSource"
       ( \x ->
           ActionSource'
-            Prelude.<$> (x Core..:? "SourceType")
-            Prelude.<*> (x Core..:? "SourceId")
-            Prelude.<*> (x Core..: "SourceUri")
+            Prelude.<$> (x Data..:? "SourceId")
+            Prelude.<*> (x Data..:? "SourceType")
+            Prelude.<*> (x Data..: "SourceUri")
       )
 
 instance Prelude.Hashable ActionSource where
   hashWithSalt _salt ActionSource' {..} =
-    _salt `Prelude.hashWithSalt` sourceType
-      `Prelude.hashWithSalt` sourceId
+    _salt `Prelude.hashWithSalt` sourceId
+      `Prelude.hashWithSalt` sourceType
       `Prelude.hashWithSalt` sourceUri
 
 instance Prelude.NFData ActionSource where
   rnf ActionSource' {..} =
-    Prelude.rnf sourceType
-      `Prelude.seq` Prelude.rnf sourceId
+    Prelude.rnf sourceId
+      `Prelude.seq` Prelude.rnf sourceType
       `Prelude.seq` Prelude.rnf sourceUri
 
-instance Core.ToJSON ActionSource where
+instance Data.ToJSON ActionSource where
   toJSON ActionSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SourceType" Core..=) Prelude.<$> sourceType,
-            ("SourceId" Core..=) Prelude.<$> sourceId,
-            Prelude.Just ("SourceUri" Core..= sourceUri)
+          [ ("SourceId" Data..=) Prelude.<$> sourceId,
+            ("SourceType" Data..=) Prelude.<$> sourceType,
+            Prelude.Just ("SourceUri" Data..= sourceUri)
           ]
       )

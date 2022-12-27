@@ -14,18 +14,18 @@
 
 -- |
 -- Module      : Amazonka.Snowball.ListCompatibleImages
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- This action returns a list of the different Amazon EC2 Amazon Machine
--- Images (AMIs) that are owned by your AWS account that would be supported
--- for use on a Snow device. Currently, supported AMIs are based on the
--- CentOS 7 (x86_64) - with Updates HVM, Ubuntu Server 14.04 LTS (HVM), and
--- Ubuntu 16.04 LTS - Xenial (HVM) images, available on the AWS
--- Marketplace.
+-- Images (AMIs) that are owned by your Amazon Web Services accountthat
+-- would be supported for use on a Snow device. Currently, supported AMIs
+-- are based on the CentOS 7 (x86_64) - with Updates HVM, Ubuntu Server
+-- 14.04 LTS (HVM), and Ubuntu 16.04 LTS - Xenial (HVM) images, available
+-- on the Amazon Web Services Marketplace.
 --
 -- This operation returns paginated results.
 module Amazonka.Snowball.ListCompatibleImages
@@ -34,8 +34,8 @@ module Amazonka.Snowball.ListCompatibleImages
     newListCompatibleImages,
 
     -- * Request Lenses
-    listCompatibleImages_nextToken,
     listCompatibleImages_maxResults,
+    listCompatibleImages_nextToken,
 
     -- * Destructuring the Response
     ListCompatibleImagesResponse (..),
@@ -49,7 +49,8 @@ module Amazonka.Snowball.ListCompatibleImages
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,13 +58,13 @@ import Amazonka.Snowball.Types
 
 -- | /See:/ 'newListCompatibleImages' smart constructor.
 data ListCompatibleImages = ListCompatibleImages'
-  { -- | HTTP requests are stateless. To identify what object comes \"next\" in
+  { -- | The maximum number of results for the list of compatible images.
+    -- Currently, a Snowball Edge device can store 10 AMIs.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | HTTP requests are stateless. To identify what object comes \"next\" in
     -- the list of compatible images, you can specify a value for @NextToken@
     -- as the starting point for your list of returned images.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results for the list of compatible images.
-    -- Currently, a Snowball Edge device can store 10 AMIs.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,30 +76,30 @@ data ListCompatibleImages = ListCompatibleImages'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listCompatibleImages_maxResults' - The maximum number of results for the list of compatible images.
+-- Currently, a Snowball Edge device can store 10 AMIs.
+--
 -- 'nextToken', 'listCompatibleImages_nextToken' - HTTP requests are stateless. To identify what object comes \"next\" in
 -- the list of compatible images, you can specify a value for @NextToken@
 -- as the starting point for your list of returned images.
---
--- 'maxResults', 'listCompatibleImages_maxResults' - The maximum number of results for the list of compatible images.
--- Currently, a Snowball Edge device can store 10 AMIs.
 newListCompatibleImages ::
   ListCompatibleImages
 newListCompatibleImages =
   ListCompatibleImages'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results for the list of compatible images.
+-- Currently, a Snowball Edge device can store 10 AMIs.
+listCompatibleImages_maxResults :: Lens.Lens' ListCompatibleImages (Prelude.Maybe Prelude.Natural)
+listCompatibleImages_maxResults = Lens.lens (\ListCompatibleImages' {maxResults} -> maxResults) (\s@ListCompatibleImages' {} a -> s {maxResults = a} :: ListCompatibleImages)
 
 -- | HTTP requests are stateless. To identify what object comes \"next\" in
 -- the list of compatible images, you can specify a value for @NextToken@
 -- as the starting point for your list of returned images.
 listCompatibleImages_nextToken :: Lens.Lens' ListCompatibleImages (Prelude.Maybe Prelude.Text)
 listCompatibleImages_nextToken = Lens.lens (\ListCompatibleImages' {nextToken} -> nextToken) (\s@ListCompatibleImages' {} a -> s {nextToken = a} :: ListCompatibleImages)
-
--- | The maximum number of results for the list of compatible images.
--- Currently, a Snowball Edge device can store 10 AMIs.
-listCompatibleImages_maxResults :: Lens.Lens' ListCompatibleImages (Prelude.Maybe Prelude.Natural)
-listCompatibleImages_maxResults = Lens.lens (\ListCompatibleImages' {maxResults} -> maxResults) (\s@ListCompatibleImages' {} a -> s {maxResults = a} :: ListCompatibleImages)
 
 instance Core.AWSPager ListCompatibleImages where
   page rq rs
@@ -126,56 +127,57 @@ instance Core.AWSRequest ListCompatibleImages where
   type
     AWSResponse ListCompatibleImages =
       ListCompatibleImagesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListCompatibleImagesResponse'
-            Prelude.<$> ( x Core..?> "CompatibleImages"
+            Prelude.<$> ( x Data..?> "CompatibleImages"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListCompatibleImages where
   hashWithSalt _salt ListCompatibleImages' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListCompatibleImages where
   rnf ListCompatibleImages' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListCompatibleImages where
+instance Data.ToHeaders ListCompatibleImages where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSIESnowballJobManagementService.ListCompatibleImages" ::
+              Data.=# ( "AWSIESnowballJobManagementService.ListCompatibleImages" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListCompatibleImages where
+instance Data.ToJSON ListCompatibleImages where
   toJSON ListCompatibleImages' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListCompatibleImages where
+instance Data.ToPath ListCompatibleImages where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListCompatibleImages where
+instance Data.ToQuery ListCompatibleImages where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListCompatibleImagesResponse' smart constructor.

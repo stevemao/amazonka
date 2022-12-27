@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.PutClusterCapacityProviders
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,16 +27,16 @@
 -- capacity provider strategy for the cluster. If the specified cluster has
 -- existing capacity providers associated with it, you must specify all
 -- existing capacity providers in addition to any new ones you want to add.
--- Any existing capacity providers associated with a cluster that are
--- omitted from a PutClusterCapacityProviders API call will be
+-- Any existing capacity providers that are associated with a cluster that
+-- are omitted from a PutClusterCapacityProviders API call will be
 -- disassociated with the cluster. You can only disassociate an existing
 -- capacity provider from a cluster if it\'s not being used by any existing
 -- tasks.
 --
 -- When creating a service or running a task on a cluster, if no capacity
 -- provider or launch type is specified, then the cluster\'s default
--- capacity provider strategy is used. It is recommended to define a
--- default capacity provider strategy for your cluster, however you may
+-- capacity provider strategy is used. We recommend that you define a
+-- default capacity provider strategy for your cluster. However, you must
 -- specify an empty array (@[]@) to bypass defining a default strategy.
 module Amazonka.ECS.PutClusterCapacityProviders
   ( -- * Creating a Request
@@ -59,8 +59,9 @@ module Amazonka.ECS.PutClusterCapacityProviders
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,7 +69,7 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newPutClusterCapacityProviders' smart constructor.
 data PutClusterCapacityProviders = PutClusterCapacityProviders'
   { -- | The short name or full Amazon Resource Name (ARN) of the cluster to
-    -- modify the capacity provider settings for. If you do not specify a
+    -- modify the capacity provider settings for. If you don\'t specify a
     -- cluster, the default cluster is assumed.
     cluster :: Prelude.Text,
     -- | The name of one or more capacity providers to associate with the
@@ -117,7 +118,7 @@ data PutClusterCapacityProviders = PutClusterCapacityProviders'
 -- for backwards compatibility:
 --
 -- 'cluster', 'putClusterCapacityProviders_cluster' - The short name or full Amazon Resource Name (ARN) of the cluster to
--- modify the capacity provider settings for. If you do not specify a
+-- modify the capacity provider settings for. If you don\'t specify a
 -- cluster, the default cluster is assumed.
 --
 -- 'capacityProviders', 'putClusterCapacityProviders_capacityProviders' - The name of one or more capacity providers to associate with the
@@ -166,7 +167,7 @@ newPutClusterCapacityProviders pCluster_ =
     }
 
 -- | The short name or full Amazon Resource Name (ARN) of the cluster to
--- modify the capacity provider settings for. If you do not specify a
+-- modify the capacity provider settings for. If you don\'t specify a
 -- cluster, the default cluster is assumed.
 putClusterCapacityProviders_cluster :: Lens.Lens' PutClusterCapacityProviders Prelude.Text
 putClusterCapacityProviders_cluster = Lens.lens (\PutClusterCapacityProviders' {cluster} -> cluster) (\s@PutClusterCapacityProviders' {} a -> s {cluster = a} :: PutClusterCapacityProviders)
@@ -213,12 +214,13 @@ instance Core.AWSRequest PutClusterCapacityProviders where
   type
     AWSResponse PutClusterCapacityProviders =
       PutClusterCapacityProvidersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutClusterCapacityProvidersResponse'
-            Prelude.<$> (x Core..?> "cluster")
+            Prelude.<$> (x Data..?> "cluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -234,39 +236,39 @@ instance Prelude.NFData PutClusterCapacityProviders where
       `Prelude.seq` Prelude.rnf capacityProviders
       `Prelude.seq` Prelude.rnf defaultCapacityProviderStrategy
 
-instance Core.ToHeaders PutClusterCapacityProviders where
+instance Data.ToHeaders PutClusterCapacityProviders where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.PutClusterCapacityProviders" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.PutClusterCapacityProviders" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutClusterCapacityProviders where
+instance Data.ToJSON PutClusterCapacityProviders where
   toJSON PutClusterCapacityProviders' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("cluster" Core..= cluster),
+          [ Prelude.Just ("cluster" Data..= cluster),
             Prelude.Just
-              ("capacityProviders" Core..= capacityProviders),
+              ("capacityProviders" Data..= capacityProviders),
             Prelude.Just
               ( "defaultCapacityProviderStrategy"
-                  Core..= defaultCapacityProviderStrategy
+                  Data..= defaultCapacityProviderStrategy
               )
           ]
       )
 
-instance Core.ToPath PutClusterCapacityProviders where
+instance Data.ToPath PutClusterCapacityProviders where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutClusterCapacityProviders where
+instance Data.ToQuery PutClusterCapacityProviders where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutClusterCapacityProvidersResponse' smart constructor.

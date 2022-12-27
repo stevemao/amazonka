@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.HlsAdditionalManifest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.HlsAdditionalManifest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specify the details for each additional HLS manifest that you want the
@@ -91,15 +92,15 @@ hlsAdditionalManifest_manifestNameModifier = Lens.lens (\HlsAdditionalManifest' 
 hlsAdditionalManifest_selectedOutputs :: Lens.Lens' HlsAdditionalManifest (Prelude.Maybe [Prelude.Text])
 hlsAdditionalManifest_selectedOutputs = Lens.lens (\HlsAdditionalManifest' {selectedOutputs} -> selectedOutputs) (\s@HlsAdditionalManifest' {} a -> s {selectedOutputs = a} :: HlsAdditionalManifest) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON HlsAdditionalManifest where
+instance Data.FromJSON HlsAdditionalManifest where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HlsAdditionalManifest"
       ( \x ->
           HlsAdditionalManifest'
-            Prelude.<$> (x Core..:? "manifestNameModifier")
-            Prelude.<*> ( x Core..:? "selectedOutputs"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "manifestNameModifier")
+            Prelude.<*> ( x Data..:? "selectedOutputs"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -113,13 +114,13 @@ instance Prelude.NFData HlsAdditionalManifest where
     Prelude.rnf manifestNameModifier
       `Prelude.seq` Prelude.rnf selectedOutputs
 
-instance Core.ToJSON HlsAdditionalManifest where
+instance Data.ToJSON HlsAdditionalManifest where
   toJSON HlsAdditionalManifest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("manifestNameModifier" Core..=)
+          [ ("manifestNameModifier" Data..=)
               Prelude.<$> manifestNameModifier,
-            ("selectedOutputs" Core..=)
+            ("selectedOutputs" Data..=)
               Prelude.<$> selectedOutputs
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.ArchiveOutputSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.ArchiveOutputSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.ArchiveContainerSettings
 import qualified Amazonka.Prelude as Prelude
 
@@ -79,15 +80,15 @@ archiveOutputSettings_nameModifier = Lens.lens (\ArchiveOutputSettings' {nameMod
 archiveOutputSettings_containerSettings :: Lens.Lens' ArchiveOutputSettings ArchiveContainerSettings
 archiveOutputSettings_containerSettings = Lens.lens (\ArchiveOutputSettings' {containerSettings} -> containerSettings) (\s@ArchiveOutputSettings' {} a -> s {containerSettings = a} :: ArchiveOutputSettings)
 
-instance Core.FromJSON ArchiveOutputSettings where
+instance Data.FromJSON ArchiveOutputSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ArchiveOutputSettings"
       ( \x ->
           ArchiveOutputSettings'
-            Prelude.<$> (x Core..:? "extension")
-            Prelude.<*> (x Core..:? "nameModifier")
-            Prelude.<*> (x Core..: "containerSettings")
+            Prelude.<$> (x Data..:? "extension")
+            Prelude.<*> (x Data..:? "nameModifier")
+            Prelude.<*> (x Data..: "containerSettings")
       )
 
 instance Prelude.Hashable ArchiveOutputSettings where
@@ -102,13 +103,13 @@ instance Prelude.NFData ArchiveOutputSettings where
       `Prelude.seq` Prelude.rnf nameModifier
       `Prelude.seq` Prelude.rnf containerSettings
 
-instance Core.ToJSON ArchiveOutputSettings where
+instance Data.ToJSON ArchiveOutputSettings where
   toJSON ArchiveOutputSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("extension" Core..=) Prelude.<$> extension,
-            ("nameModifier" Core..=) Prelude.<$> nameModifier,
+          [ ("extension" Data..=) Prelude.<$> extension,
+            ("nameModifier" Data..=) Prelude.<$> nameModifier,
             Prelude.Just
-              ("containerSettings" Core..= containerSettings)
+              ("containerSettings" Data..= containerSettings)
           ]
       )

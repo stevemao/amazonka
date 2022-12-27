@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.ParameterizedStatement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,10 @@
 module Amazonka.DynamoDB.Types.ParameterizedStatement where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a PartiQL statment that uses parameters.
@@ -75,11 +77,11 @@ instance Prelude.NFData ParameterizedStatement where
     Prelude.rnf parameters
       `Prelude.seq` Prelude.rnf statement
 
-instance Core.ToJSON ParameterizedStatement where
+instance Data.ToJSON ParameterizedStatement where
   toJSON ParameterizedStatement' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Parameters" Core..=) Prelude.<$> parameters,
-            Prelude.Just ("Statement" Core..= statement)
+          [ ("Parameters" Data..=) Prelude.<$> parameters,
+            Prelude.Just ("Statement" Data..= statement)
           ]
       )

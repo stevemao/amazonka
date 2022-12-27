@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.DeregisterTargets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.ELBV2.DeregisterTargets
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ instance Core.AWSRequest DeregisterTargets where
   type
     AWSResponse DeregisterTargets =
       DeregisterTargetsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeregisterTargetsResult"
@@ -116,21 +118,21 @@ instance Prelude.NFData DeregisterTargets where
     Prelude.rnf targetGroupArn
       `Prelude.seq` Prelude.rnf targets
 
-instance Core.ToHeaders DeregisterTargets where
+instance Data.ToHeaders DeregisterTargets where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeregisterTargets where
+instance Data.ToPath DeregisterTargets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeregisterTargets where
+instance Data.ToQuery DeregisterTargets where
   toQuery DeregisterTargets' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeregisterTargets" :: Prelude.ByteString),
+          Data.=: ("DeregisterTargets" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-12-01" :: Prelude.ByteString),
-        "TargetGroupArn" Core.=: targetGroupArn,
-        "Targets" Core.=: Core.toQueryList "member" targets
+          Data.=: ("2015-12-01" :: Prelude.ByteString),
+        "TargetGroupArn" Data.=: targetGroupArn,
+        "Targets" Data.=: Data.toQueryList "member" targets
       ]
 
 -- | /See:/ 'newDeregisterTargetsResponse' smart constructor.

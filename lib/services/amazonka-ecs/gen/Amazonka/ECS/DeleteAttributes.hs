@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.DeleteAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.ECS.DeleteAttributes
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,9 +55,10 @@ data DeleteAttributes = DeleteAttributes'
     -- cluster, the default cluster is assumed.
     cluster :: Prelude.Maybe Prelude.Text,
     -- | The attributes to delete from your resource. You can specify up to 10
-    -- attributes per request. For custom attributes, specify the attribute
-    -- name and target ID, but do not specify the value. If you specify the
-    -- target ID using the short form, you must also specify the target type.
+    -- attributes for each request. For custom attributes, specify the
+    -- attribute name and target ID, but don\'t specify the value. If you
+    -- specify the target ID using the short form, you must also specify the
+    -- target type.
     attributes :: [Attribute]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -74,9 +76,10 @@ data DeleteAttributes = DeleteAttributes'
 -- cluster, the default cluster is assumed.
 --
 -- 'attributes', 'deleteAttributes_attributes' - The attributes to delete from your resource. You can specify up to 10
--- attributes per request. For custom attributes, specify the attribute
--- name and target ID, but do not specify the value. If you specify the
--- target ID using the short form, you must also specify the target type.
+-- attributes for each request. For custom attributes, specify the
+-- attribute name and target ID, but don\'t specify the value. If you
+-- specify the target ID using the short form, you must also specify the
+-- target type.
 newDeleteAttributes ::
   DeleteAttributes
 newDeleteAttributes =
@@ -92,9 +95,10 @@ deleteAttributes_cluster :: Lens.Lens' DeleteAttributes (Prelude.Maybe Prelude.T
 deleteAttributes_cluster = Lens.lens (\DeleteAttributes' {cluster} -> cluster) (\s@DeleteAttributes' {} a -> s {cluster = a} :: DeleteAttributes)
 
 -- | The attributes to delete from your resource. You can specify up to 10
--- attributes per request. For custom attributes, specify the attribute
--- name and target ID, but do not specify the value. If you specify the
--- target ID using the short form, you must also specify the target type.
+-- attributes for each request. For custom attributes, specify the
+-- attribute name and target ID, but don\'t specify the value. If you
+-- specify the target ID using the short form, you must also specify the
+-- target type.
 deleteAttributes_attributes :: Lens.Lens' DeleteAttributes [Attribute]
 deleteAttributes_attributes = Lens.lens (\DeleteAttributes' {attributes} -> attributes) (\s@DeleteAttributes' {} a -> s {attributes = a} :: DeleteAttributes) Prelude.. Lens.coerced
 
@@ -102,12 +106,13 @@ instance Core.AWSRequest DeleteAttributes where
   type
     AWSResponse DeleteAttributes =
       DeleteAttributesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteAttributesResponse'
-            Prelude.<$> (x Core..?> "attributes" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "attributes" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,34 +126,34 @@ instance Prelude.NFData DeleteAttributes where
     Prelude.rnf cluster
       `Prelude.seq` Prelude.rnf attributes
 
-instance Core.ToHeaders DeleteAttributes where
+instance Data.ToHeaders DeleteAttributes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.DeleteAttributes" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.DeleteAttributes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteAttributes where
+instance Data.ToJSON DeleteAttributes where
   toJSON DeleteAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("cluster" Core..=) Prelude.<$> cluster,
-            Prelude.Just ("attributes" Core..= attributes)
+          [ ("cluster" Data..=) Prelude.<$> cluster,
+            Prelude.Just ("attributes" Data..= attributes)
           ]
       )
 
-instance Core.ToPath DeleteAttributes where
+instance Data.ToPath DeleteAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAttributes where
+instance Data.ToQuery DeleteAttributes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAttributesResponse' smart constructor.

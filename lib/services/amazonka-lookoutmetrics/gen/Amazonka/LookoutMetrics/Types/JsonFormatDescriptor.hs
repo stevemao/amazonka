@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutMetrics.Types.JsonFormatDescriptor
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LookoutMetrics.Types.JsonFormatDescriptor where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutMetrics.Types.JsonFileCompression
 import qualified Amazonka.Prelude as Prelude
 
@@ -63,14 +64,14 @@ jsonFormatDescriptor_charset = Lens.lens (\JsonFormatDescriptor' {charset} -> ch
 jsonFormatDescriptor_fileCompression :: Lens.Lens' JsonFormatDescriptor (Prelude.Maybe JsonFileCompression)
 jsonFormatDescriptor_fileCompression = Lens.lens (\JsonFormatDescriptor' {fileCompression} -> fileCompression) (\s@JsonFormatDescriptor' {} a -> s {fileCompression = a} :: JsonFormatDescriptor)
 
-instance Core.FromJSON JsonFormatDescriptor where
+instance Data.FromJSON JsonFormatDescriptor where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "JsonFormatDescriptor"
       ( \x ->
           JsonFormatDescriptor'
-            Prelude.<$> (x Core..:? "Charset")
-            Prelude.<*> (x Core..:? "FileCompression")
+            Prelude.<$> (x Data..:? "Charset")
+            Prelude.<*> (x Data..:? "FileCompression")
       )
 
 instance Prelude.Hashable JsonFormatDescriptor where
@@ -83,12 +84,12 @@ instance Prelude.NFData JsonFormatDescriptor where
     Prelude.rnf charset
       `Prelude.seq` Prelude.rnf fileCompression
 
-instance Core.ToJSON JsonFormatDescriptor where
+instance Data.ToJSON JsonFormatDescriptor where
   toJSON JsonFormatDescriptor' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Charset" Core..=) Prelude.<$> charset,
-            ("FileCompression" Core..=)
+          [ ("Charset" Data..=) Prelude.<$> charset,
+            ("FileCompression" Data..=)
               Prelude.<$> fileCompression
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.Types.CustomRoutingListener
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,22 +20,23 @@
 module Amazonka.GlobalAccelerator.Types.CustomRoutingListener where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types.PortRange
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A complex type for a listener for a custom routing accelerator.
 --
 -- /See:/ 'newCustomRoutingListener' smart constructor.
 data CustomRoutingListener = CustomRoutingListener'
-  { -- | The port range to support for connections from clients to your
+  { -- | The Amazon Resource Name (ARN) of the listener.
+    listenerArn :: Prelude.Maybe Prelude.Text,
+    -- | The port range to support for connections from clients to your
     -- accelerator.
     --
     -- Separately, you set port ranges for endpoints. For more information, see
     -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/about-custom-routing-endpoints.html About endpoints for custom routing accelerators>.
-    portRanges :: Prelude.Maybe (Prelude.NonEmpty PortRange),
-    -- | The Amazon Resource Name (ARN) of the listener.
-    listenerArn :: Prelude.Maybe Prelude.Text
+    portRanges :: Prelude.Maybe (Prelude.NonEmpty PortRange)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,21 +48,25 @@ data CustomRoutingListener = CustomRoutingListener'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'listenerArn', 'customRoutingListener_listenerArn' - The Amazon Resource Name (ARN) of the listener.
+--
 -- 'portRanges', 'customRoutingListener_portRanges' - The port range to support for connections from clients to your
 -- accelerator.
 --
 -- Separately, you set port ranges for endpoints. For more information, see
 -- <https://docs.aws.amazon.com/global-accelerator/latest/dg/about-custom-routing-endpoints.html About endpoints for custom routing accelerators>.
---
--- 'listenerArn', 'customRoutingListener_listenerArn' - The Amazon Resource Name (ARN) of the listener.
 newCustomRoutingListener ::
   CustomRoutingListener
 newCustomRoutingListener =
   CustomRoutingListener'
-    { portRanges =
+    { listenerArn =
         Prelude.Nothing,
-      listenerArn = Prelude.Nothing
+      portRanges = Prelude.Nothing
     }
+
+-- | The Amazon Resource Name (ARN) of the listener.
+customRoutingListener_listenerArn :: Lens.Lens' CustomRoutingListener (Prelude.Maybe Prelude.Text)
+customRoutingListener_listenerArn = Lens.lens (\CustomRoutingListener' {listenerArn} -> listenerArn) (\s@CustomRoutingListener' {} a -> s {listenerArn = a} :: CustomRoutingListener)
 
 -- | The port range to support for connections from clients to your
 -- accelerator.
@@ -71,26 +76,22 @@ newCustomRoutingListener =
 customRoutingListener_portRanges :: Lens.Lens' CustomRoutingListener (Prelude.Maybe (Prelude.NonEmpty PortRange))
 customRoutingListener_portRanges = Lens.lens (\CustomRoutingListener' {portRanges} -> portRanges) (\s@CustomRoutingListener' {} a -> s {portRanges = a} :: CustomRoutingListener) Prelude.. Lens.mapping Lens.coerced
 
--- | The Amazon Resource Name (ARN) of the listener.
-customRoutingListener_listenerArn :: Lens.Lens' CustomRoutingListener (Prelude.Maybe Prelude.Text)
-customRoutingListener_listenerArn = Lens.lens (\CustomRoutingListener' {listenerArn} -> listenerArn) (\s@CustomRoutingListener' {} a -> s {listenerArn = a} :: CustomRoutingListener)
-
-instance Core.FromJSON CustomRoutingListener where
+instance Data.FromJSON CustomRoutingListener where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CustomRoutingListener"
       ( \x ->
           CustomRoutingListener'
-            Prelude.<$> (x Core..:? "PortRanges")
-            Prelude.<*> (x Core..:? "ListenerArn")
+            Prelude.<$> (x Data..:? "ListenerArn")
+            Prelude.<*> (x Data..:? "PortRanges")
       )
 
 instance Prelude.Hashable CustomRoutingListener where
   hashWithSalt _salt CustomRoutingListener' {..} =
-    _salt `Prelude.hashWithSalt` portRanges
-      `Prelude.hashWithSalt` listenerArn
+    _salt `Prelude.hashWithSalt` listenerArn
+      `Prelude.hashWithSalt` portRanges
 
 instance Prelude.NFData CustomRoutingListener where
   rnf CustomRoutingListener' {..} =
-    Prelude.rnf portRanges
-      `Prelude.seq` Prelude.rnf listenerArn
+    Prelude.rnf listenerArn
+      `Prelude.seq` Prelude.rnf portRanges

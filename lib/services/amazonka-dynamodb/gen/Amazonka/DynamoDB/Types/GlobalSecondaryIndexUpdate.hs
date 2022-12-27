@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.GlobalSecondaryIndexUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,13 @@
 module Amazonka.DynamoDB.Types.GlobalSecondaryIndexUpdate where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.CreateGlobalSecondaryIndexAction
 import Amazonka.DynamoDB.Types.DeleteGlobalSecondaryIndexAction
 import Amazonka.DynamoDB.Types.UpdateGlobalSecondaryIndexAction
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents one of the following:
@@ -131,12 +133,12 @@ instance Prelude.NFData GlobalSecondaryIndexUpdate where
       `Prelude.seq` Prelude.rnf delete'
       `Prelude.seq` Prelude.rnf update
 
-instance Core.ToJSON GlobalSecondaryIndexUpdate where
+instance Data.ToJSON GlobalSecondaryIndexUpdate where
   toJSON GlobalSecondaryIndexUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Create" Core..=) Prelude.<$> create,
-            ("Delete" Core..=) Prelude.<$> delete',
-            ("Update" Core..=) Prelude.<$> update
+          [ ("Create" Data..=) Prelude.<$> create,
+            ("Delete" Data..=) Prelude.<$> delete',
+            ("Update" Data..=) Prelude.<$> update
           ]
       )

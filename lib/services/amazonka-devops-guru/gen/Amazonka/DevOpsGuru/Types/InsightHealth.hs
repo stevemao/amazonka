@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.Types.InsightHealth
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DevOpsGuru.Types.InsightHealth where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the number of open reactive and proactive insights
@@ -30,10 +31,10 @@ import qualified Amazonka.Prelude as Prelude
 data InsightHealth = InsightHealth'
   { -- | The Meant Time to Recover (MTTR) for the insight.
     meanTimeToRecoverInMilliseconds :: Prelude.Maybe Prelude.Integer,
-    -- | The number of open reactive insights.
-    openReactiveInsights :: Prelude.Maybe Prelude.Int,
     -- | The number of open proactive insights.
-    openProactiveInsights :: Prelude.Maybe Prelude.Int
+    openProactiveInsights :: Prelude.Maybe Prelude.Int,
+    -- | The number of open reactive insights.
+    openReactiveInsights :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,51 +48,51 @@ data InsightHealth = InsightHealth'
 --
 -- 'meanTimeToRecoverInMilliseconds', 'insightHealth_meanTimeToRecoverInMilliseconds' - The Meant Time to Recover (MTTR) for the insight.
 --
--- 'openReactiveInsights', 'insightHealth_openReactiveInsights' - The number of open reactive insights.
---
 -- 'openProactiveInsights', 'insightHealth_openProactiveInsights' - The number of open proactive insights.
+--
+-- 'openReactiveInsights', 'insightHealth_openReactiveInsights' - The number of open reactive insights.
 newInsightHealth ::
   InsightHealth
 newInsightHealth =
   InsightHealth'
     { meanTimeToRecoverInMilliseconds =
         Prelude.Nothing,
-      openReactiveInsights = Prelude.Nothing,
-      openProactiveInsights = Prelude.Nothing
+      openProactiveInsights = Prelude.Nothing,
+      openReactiveInsights = Prelude.Nothing
     }
 
 -- | The Meant Time to Recover (MTTR) for the insight.
 insightHealth_meanTimeToRecoverInMilliseconds :: Lens.Lens' InsightHealth (Prelude.Maybe Prelude.Integer)
 insightHealth_meanTimeToRecoverInMilliseconds = Lens.lens (\InsightHealth' {meanTimeToRecoverInMilliseconds} -> meanTimeToRecoverInMilliseconds) (\s@InsightHealth' {} a -> s {meanTimeToRecoverInMilliseconds = a} :: InsightHealth)
 
--- | The number of open reactive insights.
-insightHealth_openReactiveInsights :: Lens.Lens' InsightHealth (Prelude.Maybe Prelude.Int)
-insightHealth_openReactiveInsights = Lens.lens (\InsightHealth' {openReactiveInsights} -> openReactiveInsights) (\s@InsightHealth' {} a -> s {openReactiveInsights = a} :: InsightHealth)
-
 -- | The number of open proactive insights.
 insightHealth_openProactiveInsights :: Lens.Lens' InsightHealth (Prelude.Maybe Prelude.Int)
 insightHealth_openProactiveInsights = Lens.lens (\InsightHealth' {openProactiveInsights} -> openProactiveInsights) (\s@InsightHealth' {} a -> s {openProactiveInsights = a} :: InsightHealth)
 
-instance Core.FromJSON InsightHealth where
+-- | The number of open reactive insights.
+insightHealth_openReactiveInsights :: Lens.Lens' InsightHealth (Prelude.Maybe Prelude.Int)
+insightHealth_openReactiveInsights = Lens.lens (\InsightHealth' {openReactiveInsights} -> openReactiveInsights) (\s@InsightHealth' {} a -> s {openReactiveInsights = a} :: InsightHealth)
+
+instance Data.FromJSON InsightHealth where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InsightHealth"
       ( \x ->
           InsightHealth'
-            Prelude.<$> (x Core..:? "MeanTimeToRecoverInMilliseconds")
-            Prelude.<*> (x Core..:? "OpenReactiveInsights")
-            Prelude.<*> (x Core..:? "OpenProactiveInsights")
+            Prelude.<$> (x Data..:? "MeanTimeToRecoverInMilliseconds")
+            Prelude.<*> (x Data..:? "OpenProactiveInsights")
+            Prelude.<*> (x Data..:? "OpenReactiveInsights")
       )
 
 instance Prelude.Hashable InsightHealth where
   hashWithSalt _salt InsightHealth' {..} =
     _salt
       `Prelude.hashWithSalt` meanTimeToRecoverInMilliseconds
-      `Prelude.hashWithSalt` openReactiveInsights
       `Prelude.hashWithSalt` openProactiveInsights
+      `Prelude.hashWithSalt` openReactiveInsights
 
 instance Prelude.NFData InsightHealth where
   rnf InsightHealth' {..} =
     Prelude.rnf meanTimeToRecoverInMilliseconds
-      `Prelude.seq` Prelude.rnf openReactiveInsights
       `Prelude.seq` Prelude.rnf openProactiveInsights
+      `Prelude.seq` Prelude.rnf openReactiveInsights

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.GetAppsList
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,15 +36,16 @@ module Amazonka.FMS.GetAppsList
     newGetAppsListResponse,
 
     -- * Response Lenses
-    getAppsListResponse_appsListArn,
     getAppsListResponse_appsList,
+    getAppsListResponse_appsListArn,
     getAppsListResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,13 +96,14 @@ getAppsList_listId = Lens.lens (\GetAppsList' {listId} -> listId) (\s@GetAppsLis
 
 instance Core.AWSRequest GetAppsList where
   type AWSResponse GetAppsList = GetAppsListResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAppsListResponse'
-            Prelude.<$> (x Core..?> "AppsListArn")
-            Prelude.<*> (x Core..?> "AppsList")
+            Prelude.<$> (x Data..?> "AppsList")
+            Prelude.<*> (x Data..?> "AppsListArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,42 +117,42 @@ instance Prelude.NFData GetAppsList where
     Prelude.rnf defaultList
       `Prelude.seq` Prelude.rnf listId
 
-instance Core.ToHeaders GetAppsList where
+instance Data.ToHeaders GetAppsList where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSFMS_20180101.GetAppsList" ::
+              Data.=# ( "AWSFMS_20180101.GetAppsList" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetAppsList where
+instance Data.ToJSON GetAppsList where
   toJSON GetAppsList' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DefaultList" Core..=) Prelude.<$> defaultList,
-            Prelude.Just ("ListId" Core..= listId)
+          [ ("DefaultList" Data..=) Prelude.<$> defaultList,
+            Prelude.Just ("ListId" Data..= listId)
           ]
       )
 
-instance Core.ToPath GetAppsList where
+instance Data.ToPath GetAppsList where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetAppsList where
+instance Data.ToQuery GetAppsList where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAppsListResponse' smart constructor.
 data GetAppsListResponse = GetAppsListResponse'
-  { -- | The Amazon Resource Name (ARN) of the applications list.
-    appsListArn :: Prelude.Maybe Prelude.Text,
-    -- | Information about the specified Firewall Manager applications list.
+  { -- | Information about the specified Firewall Manager applications list.
     appsList :: Prelude.Maybe AppsListData,
+    -- | The Amazon Resource Name (ARN) of the applications list.
+    appsListArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -164,9 +166,9 @@ data GetAppsListResponse = GetAppsListResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'appsListArn', 'getAppsListResponse_appsListArn' - The Amazon Resource Name (ARN) of the applications list.
---
 -- 'appsList', 'getAppsListResponse_appsList' - Information about the specified Firewall Manager applications list.
+--
+-- 'appsListArn', 'getAppsListResponse_appsListArn' - The Amazon Resource Name (ARN) of the applications list.
 --
 -- 'httpStatus', 'getAppsListResponse_httpStatus' - The response's http status code.
 newGetAppsListResponse ::
@@ -175,18 +177,18 @@ newGetAppsListResponse ::
   GetAppsListResponse
 newGetAppsListResponse pHttpStatus_ =
   GetAppsListResponse'
-    { appsListArn = Prelude.Nothing,
-      appsList = Prelude.Nothing,
+    { appsList = Prelude.Nothing,
+      appsListArn = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The Amazon Resource Name (ARN) of the applications list.
-getAppsListResponse_appsListArn :: Lens.Lens' GetAppsListResponse (Prelude.Maybe Prelude.Text)
-getAppsListResponse_appsListArn = Lens.lens (\GetAppsListResponse' {appsListArn} -> appsListArn) (\s@GetAppsListResponse' {} a -> s {appsListArn = a} :: GetAppsListResponse)
 
 -- | Information about the specified Firewall Manager applications list.
 getAppsListResponse_appsList :: Lens.Lens' GetAppsListResponse (Prelude.Maybe AppsListData)
 getAppsListResponse_appsList = Lens.lens (\GetAppsListResponse' {appsList} -> appsList) (\s@GetAppsListResponse' {} a -> s {appsList = a} :: GetAppsListResponse)
+
+-- | The Amazon Resource Name (ARN) of the applications list.
+getAppsListResponse_appsListArn :: Lens.Lens' GetAppsListResponse (Prelude.Maybe Prelude.Text)
+getAppsListResponse_appsListArn = Lens.lens (\GetAppsListResponse' {appsListArn} -> appsListArn) (\s@GetAppsListResponse' {} a -> s {appsListArn = a} :: GetAppsListResponse)
 
 -- | The response's http status code.
 getAppsListResponse_httpStatus :: Lens.Lens' GetAppsListResponse Prelude.Int
@@ -194,6 +196,6 @@ getAppsListResponse_httpStatus = Lens.lens (\GetAppsListResponse' {httpStatus} -
 
 instance Prelude.NFData GetAppsListResponse where
   rnf GetAppsListResponse' {..} =
-    Prelude.rnf appsListArn
-      `Prelude.seq` Prelude.rnf appsList
+    Prelude.rnf appsList
+      `Prelude.seq` Prelude.rnf appsListArn
       `Prelude.seq` Prelude.rnf httpStatus

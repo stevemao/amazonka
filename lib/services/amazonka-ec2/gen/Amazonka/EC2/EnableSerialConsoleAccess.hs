@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.EnableSerialConsoleAccess
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.EC2.EnableSerialConsoleAccess
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,12 +92,13 @@ instance Core.AWSRequest EnableSerialConsoleAccess where
   type
     AWSResponse EnableSerialConsoleAccess =
       EnableSerialConsoleAccessResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           EnableSerialConsoleAccessResponse'
-            Prelude.<$> (x Core..@? "serialConsoleAccessEnabled")
+            Prelude.<$> (x Data..@? "serialConsoleAccessEnabled")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,20 +110,20 @@ instance Prelude.NFData EnableSerialConsoleAccess where
   rnf EnableSerialConsoleAccess' {..} =
     Prelude.rnf dryRun
 
-instance Core.ToHeaders EnableSerialConsoleAccess where
+instance Data.ToHeaders EnableSerialConsoleAccess where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath EnableSerialConsoleAccess where
+instance Data.ToPath EnableSerialConsoleAccess where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableSerialConsoleAccess where
+instance Data.ToQuery EnableSerialConsoleAccess where
   toQuery EnableSerialConsoleAccess' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("EnableSerialConsoleAccess" :: Prelude.ByteString),
+          Data.=: ("EnableSerialConsoleAccess" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun
       ]
 
 -- | /See:/ 'newEnableSerialConsoleAccessResponse' smart constructor.

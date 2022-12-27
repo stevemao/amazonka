@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.Types.Change
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudFormation.Types.Change where
 import Amazonka.CloudFormation.Types.ChangeType
 import Amazonka.CloudFormation.Types.ResourceChange
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The @Change@ structure describes the changes CloudFormation will perform
@@ -30,7 +31,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newChange' smart constructor.
 data Change = Change'
-  { -- | A @ResourceChange@ structure that describes the resource and action that
+  { -- | Is either @null@, if no hooks invoke for the resource, or contains the
+    -- number of hooks that will invoke for the resource.
+    hookInvocationCount :: Prelude.Maybe Prelude.Natural,
+    -- | A @ResourceChange@ structure that describes the resource and action that
     -- CloudFormation will perform.
     resourceChange :: Prelude.Maybe ResourceChange,
     -- | The type of entity that CloudFormation changes. Currently, the only
@@ -47,6 +51,9 @@ data Change = Change'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'hookInvocationCount', 'change_hookInvocationCount' - Is either @null@, if no hooks invoke for the resource, or contains the
+-- number of hooks that will invoke for the resource.
+--
 -- 'resourceChange', 'change_resourceChange' - A @ResourceChange@ structure that describes the resource and action that
 -- CloudFormation will perform.
 --
@@ -56,9 +63,15 @@ newChange ::
   Change
 newChange =
   Change'
-    { resourceChange = Prelude.Nothing,
+    { hookInvocationCount = Prelude.Nothing,
+      resourceChange = Prelude.Nothing,
       type' = Prelude.Nothing
     }
+
+-- | Is either @null@, if no hooks invoke for the resource, or contains the
+-- number of hooks that will invoke for the resource.
+change_hookInvocationCount :: Lens.Lens' Change (Prelude.Maybe Prelude.Natural)
+change_hookInvocationCount = Lens.lens (\Change' {hookInvocationCount} -> hookInvocationCount) (\s@Change' {} a -> s {hookInvocationCount = a} :: Change)
 
 -- | A @ResourceChange@ structure that describes the resource and action that
 -- CloudFormation will perform.
@@ -70,18 +83,21 @@ change_resourceChange = Lens.lens (\Change' {resourceChange} -> resourceChange) 
 change_type :: Lens.Lens' Change (Prelude.Maybe ChangeType)
 change_type = Lens.lens (\Change' {type'} -> type') (\s@Change' {} a -> s {type' = a} :: Change)
 
-instance Core.FromXML Change where
+instance Data.FromXML Change where
   parseXML x =
     Change'
-      Prelude.<$> (x Core..@? "ResourceChange")
-      Prelude.<*> (x Core..@? "Type")
+      Prelude.<$> (x Data..@? "HookInvocationCount")
+      Prelude.<*> (x Data..@? "ResourceChange")
+      Prelude.<*> (x Data..@? "Type")
 
 instance Prelude.Hashable Change where
   hashWithSalt _salt Change' {..} =
-    _salt `Prelude.hashWithSalt` resourceChange
+    _salt `Prelude.hashWithSalt` hookInvocationCount
+      `Prelude.hashWithSalt` resourceChange
       `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData Change where
   rnf Change' {..} =
-    Prelude.rnf resourceChange
+    Prelude.rnf hookInvocationCount
+      `Prelude.seq` Prelude.rnf resourceChange
       `Prelude.seq` Prelude.rnf type'

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.Geometry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.Geometry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.BoundingBox
 import Amazonka.Rekognition.Types.Point
@@ -70,14 +71,14 @@ geometry_boundingBox = Lens.lens (\Geometry' {boundingBox} -> boundingBox) (\s@G
 geometry_polygon :: Lens.Lens' Geometry (Prelude.Maybe [Point])
 geometry_polygon = Lens.lens (\Geometry' {polygon} -> polygon) (\s@Geometry' {} a -> s {polygon = a} :: Geometry) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON Geometry where
+instance Data.FromJSON Geometry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Geometry"
       ( \x ->
           Geometry'
-            Prelude.<$> (x Core..:? "BoundingBox")
-            Prelude.<*> (x Core..:? "Polygon" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "BoundingBox")
+            Prelude.<*> (x Data..:? "Polygon" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Geometry where

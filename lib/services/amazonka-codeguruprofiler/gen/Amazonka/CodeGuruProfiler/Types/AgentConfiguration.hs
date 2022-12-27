@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruProfiler.Types.AgentConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodeGuruProfiler.Types.AgentConfiguration where
 
 import Amazonka.CodeGuruProfiler.Types.AgentParameterField
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The response of
@@ -153,17 +154,17 @@ agentConfiguration_periodInSeconds = Lens.lens (\AgentConfiguration' {periodInSe
 agentConfiguration_shouldProfile :: Lens.Lens' AgentConfiguration Prelude.Bool
 agentConfiguration_shouldProfile = Lens.lens (\AgentConfiguration' {shouldProfile} -> shouldProfile) (\s@AgentConfiguration' {} a -> s {shouldProfile = a} :: AgentConfiguration)
 
-instance Core.FromJSON AgentConfiguration where
+instance Data.FromJSON AgentConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AgentConfiguration"
       ( \x ->
           AgentConfiguration'
-            Prelude.<$> ( x Core..:? "agentParameters"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "agentParameters"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..: "periodInSeconds")
-            Prelude.<*> (x Core..: "shouldProfile")
+            Prelude.<*> (x Data..: "periodInSeconds")
+            Prelude.<*> (x Data..: "shouldProfile")
       )
 
 instance Prelude.Hashable AgentConfiguration where

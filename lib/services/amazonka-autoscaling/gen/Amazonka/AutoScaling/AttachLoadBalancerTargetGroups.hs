@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.AttachLoadBalancerTargetGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,11 @@
 -- DescribeLoadBalancerTargetGroups API. To detach the target group from
 -- the Auto Scaling group, call the DetachLoadBalancerTargetGroups API.
 --
+-- This operation is additive and does not detach existing target groups or
+-- Classic Load Balancers from the Auto Scaling group.
+--
 -- For more information, see
--- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html Elastic Load Balancing and Amazon EC2 Auto Scaling>
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html Use Elastic Load Balancing to distribute traffic across the instances in your Auto Scaling group>
 -- in the /Amazon EC2 Auto Scaling User Guide/.
 module Amazonka.AutoScaling.AttachLoadBalancerTargetGroups
   ( -- * Creating a Request
@@ -59,7 +62,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,9 +72,9 @@ import qualified Amazonka.Response as Response
 data AttachLoadBalancerTargetGroups = AttachLoadBalancerTargetGroups'
   { -- | The name of the Auto Scaling group.
     autoScalingGroupName :: Prelude.Text,
-    -- | The Amazon Resource Names (ARN) of the target groups. You can specify up
-    -- to 10 target groups. To get the ARN of a target group, use the Elastic
-    -- Load Balancing
+    -- | The Amazon Resource Names (ARNs) of the target groups. You can specify
+    -- up to 10 target groups. To get the ARN of a target group, use the
+    -- Elastic Load Balancing
     -- <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html DescribeTargetGroups>
     -- API operation.
     targetGroupARNs :: [Prelude.Text]
@@ -87,9 +91,9 @@ data AttachLoadBalancerTargetGroups = AttachLoadBalancerTargetGroups'
 --
 -- 'autoScalingGroupName', 'attachLoadBalancerTargetGroups_autoScalingGroupName' - The name of the Auto Scaling group.
 --
--- 'targetGroupARNs', 'attachLoadBalancerTargetGroups_targetGroupARNs' - The Amazon Resource Names (ARN) of the target groups. You can specify up
--- to 10 target groups. To get the ARN of a target group, use the Elastic
--- Load Balancing
+-- 'targetGroupARNs', 'attachLoadBalancerTargetGroups_targetGroupARNs' - The Amazon Resource Names (ARNs) of the target groups. You can specify
+-- up to 10 target groups. To get the ARN of a target group, use the
+-- Elastic Load Balancing
 -- <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html DescribeTargetGroups>
 -- API operation.
 newAttachLoadBalancerTargetGroups ::
@@ -108,9 +112,9 @@ newAttachLoadBalancerTargetGroups
 attachLoadBalancerTargetGroups_autoScalingGroupName :: Lens.Lens' AttachLoadBalancerTargetGroups Prelude.Text
 attachLoadBalancerTargetGroups_autoScalingGroupName = Lens.lens (\AttachLoadBalancerTargetGroups' {autoScalingGroupName} -> autoScalingGroupName) (\s@AttachLoadBalancerTargetGroups' {} a -> s {autoScalingGroupName = a} :: AttachLoadBalancerTargetGroups)
 
--- | The Amazon Resource Names (ARN) of the target groups. You can specify up
--- to 10 target groups. To get the ARN of a target group, use the Elastic
--- Load Balancing
+-- | The Amazon Resource Names (ARNs) of the target groups. You can specify
+-- up to 10 target groups. To get the ARN of a target group, use the
+-- Elastic Load Balancing
 -- <https://docs.aws.amazon.com/elasticloadbalancing/latest/APIReference/API_DescribeTargetGroups.html DescribeTargetGroups>
 -- API operation.
 attachLoadBalancerTargetGroups_targetGroupARNs :: Lens.Lens' AttachLoadBalancerTargetGroups [Prelude.Text]
@@ -123,7 +127,8 @@ instance
   type
     AWSResponse AttachLoadBalancerTargetGroups =
       AttachLoadBalancerTargetGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "AttachLoadBalancerTargetGroupsResult"
@@ -151,26 +156,26 @@ instance
       `Prelude.seq` Prelude.rnf targetGroupARNs
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AttachLoadBalancerTargetGroups
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AttachLoadBalancerTargetGroups where
+instance Data.ToPath AttachLoadBalancerTargetGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AttachLoadBalancerTargetGroups where
+instance Data.ToQuery AttachLoadBalancerTargetGroups where
   toQuery AttachLoadBalancerTargetGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "AttachLoadBalancerTargetGroups" ::
+          Data.=: ( "AttachLoadBalancerTargetGroups" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "AutoScalingGroupName" Core.=: autoScalingGroupName,
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "AutoScalingGroupName" Data.=: autoScalingGroupName,
         "TargetGroupARNs"
-          Core.=: Core.toQueryList "member" targetGroupARNs
+          Data.=: Data.toQueryList "member" targetGroupARNs
       ]
 
 -- | /See:/ 'newAttachLoadBalancerTargetGroupsResponse' smart constructor.

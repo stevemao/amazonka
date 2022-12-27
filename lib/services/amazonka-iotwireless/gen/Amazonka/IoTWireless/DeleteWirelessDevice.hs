@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.DeleteWirelessDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.IoTWireless.DeleteWirelessDevice
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteWirelessDevice where
   type
     AWSResponse DeleteWirelessDevice =
       DeleteWirelessDeviceResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,15 +93,15 @@ instance Prelude.Hashable DeleteWirelessDevice where
 instance Prelude.NFData DeleteWirelessDevice where
   rnf DeleteWirelessDevice' {..} = Prelude.rnf id
 
-instance Core.ToHeaders DeleteWirelessDevice where
+instance Data.ToHeaders DeleteWirelessDevice where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteWirelessDevice where
+instance Data.ToPath DeleteWirelessDevice where
   toPath DeleteWirelessDevice' {..} =
     Prelude.mconcat
-      ["/wireless-devices/", Core.toBS id]
+      ["/wireless-devices/", Data.toBS id]
 
-instance Core.ToQuery DeleteWirelessDevice where
+instance Data.ToQuery DeleteWirelessDevice where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteWirelessDeviceResponse' smart constructor.

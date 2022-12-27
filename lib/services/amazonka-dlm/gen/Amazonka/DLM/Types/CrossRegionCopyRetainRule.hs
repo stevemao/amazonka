@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DLM.Types.CrossRegionCopyRetainRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,25 @@
 module Amazonka.DLM.Types.CrossRegionCopyRetainRule where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DLM.Types.RetentionIntervalUnitValues
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Specifies the retention rule for cross-Region snapshot copies.
+-- | Specifies a retention rule for cross-Region snapshot copies created by
+-- snapshot or event-based policies, or cross-Region AMI copies created by
+-- AMI policies. After the retention period expires, the cross-Region copy
+-- is deleted.
 --
 -- /See:/ 'newCrossRegionCopyRetainRule' smart constructor.
 data CrossRegionCopyRetainRule = CrossRegionCopyRetainRule'
-  { -- | The amount of time to retain each snapshot. The maximum is 100 years.
-    -- This is equivalent to 1200 months, 5200 weeks, or 36500 days.
+  { -- | The amount of time to retain a cross-Region snapshot or AMI copy. The
+    -- maximum is 100 years. This is equivalent to 1200 months, 5200 weeks, or
+    -- 36500 days.
     interval :: Prelude.Maybe Prelude.Natural,
-    -- | The unit of time for time-based retention.
+    -- | The unit of time for time-based retention. For example, to retain a
+    -- cross-Region copy for 3 months, specify @Interval=3@ and
+    -- @IntervalUnit=MONTHS@.
     intervalUnit :: Prelude.Maybe RetentionIntervalUnitValues
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,10 +51,13 @@ data CrossRegionCopyRetainRule = CrossRegionCopyRetainRule'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'interval', 'crossRegionCopyRetainRule_interval' - The amount of time to retain each snapshot. The maximum is 100 years.
--- This is equivalent to 1200 months, 5200 weeks, or 36500 days.
+-- 'interval', 'crossRegionCopyRetainRule_interval' - The amount of time to retain a cross-Region snapshot or AMI copy. The
+-- maximum is 100 years. This is equivalent to 1200 months, 5200 weeks, or
+-- 36500 days.
 --
--- 'intervalUnit', 'crossRegionCopyRetainRule_intervalUnit' - The unit of time for time-based retention.
+-- 'intervalUnit', 'crossRegionCopyRetainRule_intervalUnit' - The unit of time for time-based retention. For example, to retain a
+-- cross-Region copy for 3 months, specify @Interval=3@ and
+-- @IntervalUnit=MONTHS@.
 newCrossRegionCopyRetainRule ::
   CrossRegionCopyRetainRule
 newCrossRegionCopyRetainRule =
@@ -57,23 +67,26 @@ newCrossRegionCopyRetainRule =
       intervalUnit = Prelude.Nothing
     }
 
--- | The amount of time to retain each snapshot. The maximum is 100 years.
--- This is equivalent to 1200 months, 5200 weeks, or 36500 days.
+-- | The amount of time to retain a cross-Region snapshot or AMI copy. The
+-- maximum is 100 years. This is equivalent to 1200 months, 5200 weeks, or
+-- 36500 days.
 crossRegionCopyRetainRule_interval :: Lens.Lens' CrossRegionCopyRetainRule (Prelude.Maybe Prelude.Natural)
 crossRegionCopyRetainRule_interval = Lens.lens (\CrossRegionCopyRetainRule' {interval} -> interval) (\s@CrossRegionCopyRetainRule' {} a -> s {interval = a} :: CrossRegionCopyRetainRule)
 
--- | The unit of time for time-based retention.
+-- | The unit of time for time-based retention. For example, to retain a
+-- cross-Region copy for 3 months, specify @Interval=3@ and
+-- @IntervalUnit=MONTHS@.
 crossRegionCopyRetainRule_intervalUnit :: Lens.Lens' CrossRegionCopyRetainRule (Prelude.Maybe RetentionIntervalUnitValues)
 crossRegionCopyRetainRule_intervalUnit = Lens.lens (\CrossRegionCopyRetainRule' {intervalUnit} -> intervalUnit) (\s@CrossRegionCopyRetainRule' {} a -> s {intervalUnit = a} :: CrossRegionCopyRetainRule)
 
-instance Core.FromJSON CrossRegionCopyRetainRule where
+instance Data.FromJSON CrossRegionCopyRetainRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CrossRegionCopyRetainRule"
       ( \x ->
           CrossRegionCopyRetainRule'
-            Prelude.<$> (x Core..:? "Interval")
-            Prelude.<*> (x Core..:? "IntervalUnit")
+            Prelude.<$> (x Data..:? "Interval")
+            Prelude.<*> (x Data..:? "IntervalUnit")
       )
 
 instance Prelude.Hashable CrossRegionCopyRetainRule where
@@ -86,11 +99,11 @@ instance Prelude.NFData CrossRegionCopyRetainRule where
     Prelude.rnf interval
       `Prelude.seq` Prelude.rnf intervalUnit
 
-instance Core.ToJSON CrossRegionCopyRetainRule where
+instance Data.ToJSON CrossRegionCopyRetainRule where
   toJSON CrossRegionCopyRetainRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Interval" Core..=) Prelude.<$> interval,
-            ("IntervalUnit" Core..=) Prelude.<$> intervalUnit
+          [ ("Interval" Data..=) Prelude.<$> interval,
+            ("IntervalUnit" Data..=) Prelude.<$> intervalUnit
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.GetAccessToken
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.LicenseManager.GetAccessToken
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -90,12 +91,13 @@ instance Core.AWSRequest GetAccessToken where
   type
     AWSResponse GetAccessToken =
       GetAccessTokenResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAccessTokenResponse'
-            Prelude.<$> (x Core..?> "AccessToken")
+            Prelude.<$> (x Data..?> "AccessToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,35 +111,35 @@ instance Prelude.NFData GetAccessToken where
     Prelude.rnf tokenProperties
       `Prelude.seq` Prelude.rnf token
 
-instance Core.ToHeaders GetAccessToken where
+instance Data.ToHeaders GetAccessToken where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLicenseManager.GetAccessToken" ::
+              Data.=# ( "AWSLicenseManager.GetAccessToken" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetAccessToken where
+instance Data.ToJSON GetAccessToken where
   toJSON GetAccessToken' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TokenProperties" Core..=)
+          [ ("TokenProperties" Data..=)
               Prelude.<$> tokenProperties,
-            Prelude.Just ("Token" Core..= token)
+            Prelude.Just ("Token" Data..= token)
           ]
       )
 
-instance Core.ToPath GetAccessToken where
+instance Data.ToPath GetAccessToken where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetAccessToken where
+instance Data.ToQuery GetAccessToken where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAccessTokenResponse' smart constructor.

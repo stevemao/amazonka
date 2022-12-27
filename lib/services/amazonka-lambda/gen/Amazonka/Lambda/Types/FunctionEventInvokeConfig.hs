@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.Types.FunctionEventInvokeConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,22 +20,14 @@
 module Amazonka.Lambda.Types.FunctionEventInvokeConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types.DestinationConfig
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | /See:/ 'newFunctionEventInvokeConfig' smart constructor.
 data FunctionEventInvokeConfig = FunctionEventInvokeConfig'
-  { -- | The Amazon Resource Name (ARN) of the function.
-    functionArn :: Prelude.Maybe Prelude.Text,
-    -- | The maximum age of a request that Lambda sends to a function for
-    -- processing.
-    maximumEventAgeInSeconds :: Prelude.Maybe Prelude.Natural,
-    -- | The maximum number of times to retry when the function returns an error.
-    maximumRetryAttempts :: Prelude.Maybe Prelude.Natural,
-    -- | The date and time that the configuration was last updated.
-    lastModified :: Prelude.Maybe Core.POSIX,
-    -- | A destination for events after they have been sent to a function for
+  { -- | A destination for events after they have been sent to a function for
     -- processing.
     --
     -- __Destinations__
@@ -47,7 +39,16 @@ data FunctionEventInvokeConfig = FunctionEventInvokeConfig'
     -- -   __Topic__ - The ARN of an SNS topic.
     --
     -- -   __Event Bus__ - The ARN of an Amazon EventBridge event bus.
-    destinationConfig :: Prelude.Maybe DestinationConfig
+    destinationConfig :: Prelude.Maybe DestinationConfig,
+    -- | The Amazon Resource Name (ARN) of the function.
+    functionArn :: Prelude.Maybe Prelude.Text,
+    -- | The date and time that the configuration was last updated.
+    lastModified :: Prelude.Maybe Data.POSIX,
+    -- | The maximum age of a request that Lambda sends to a function for
+    -- processing.
+    maximumEventAgeInSeconds :: Prelude.Maybe Prelude.Natural,
+    -- | The maximum number of times to retry when the function returns an error.
+    maximumRetryAttempts :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,15 +59,6 @@ data FunctionEventInvokeConfig = FunctionEventInvokeConfig'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'functionArn', 'functionEventInvokeConfig_functionArn' - The Amazon Resource Name (ARN) of the function.
---
--- 'maximumEventAgeInSeconds', 'functionEventInvokeConfig_maximumEventAgeInSeconds' - The maximum age of a request that Lambda sends to a function for
--- processing.
---
--- 'maximumRetryAttempts', 'functionEventInvokeConfig_maximumRetryAttempts' - The maximum number of times to retry when the function returns an error.
---
--- 'lastModified', 'functionEventInvokeConfig_lastModified' - The date and time that the configuration was last updated.
 --
 -- 'destinationConfig', 'functionEventInvokeConfig_destinationConfig' - A destination for events after they have been sent to a function for
 -- processing.
@@ -80,34 +72,26 @@ data FunctionEventInvokeConfig = FunctionEventInvokeConfig'
 -- -   __Topic__ - The ARN of an SNS topic.
 --
 -- -   __Event Bus__ - The ARN of an Amazon EventBridge event bus.
+--
+-- 'functionArn', 'functionEventInvokeConfig_functionArn' - The Amazon Resource Name (ARN) of the function.
+--
+-- 'lastModified', 'functionEventInvokeConfig_lastModified' - The date and time that the configuration was last updated.
+--
+-- 'maximumEventAgeInSeconds', 'functionEventInvokeConfig_maximumEventAgeInSeconds' - The maximum age of a request that Lambda sends to a function for
+-- processing.
+--
+-- 'maximumRetryAttempts', 'functionEventInvokeConfig_maximumRetryAttempts' - The maximum number of times to retry when the function returns an error.
 newFunctionEventInvokeConfig ::
   FunctionEventInvokeConfig
 newFunctionEventInvokeConfig =
   FunctionEventInvokeConfig'
-    { functionArn =
+    { destinationConfig =
         Prelude.Nothing,
-      maximumEventAgeInSeconds = Prelude.Nothing,
-      maximumRetryAttempts = Prelude.Nothing,
+      functionArn = Prelude.Nothing,
       lastModified = Prelude.Nothing,
-      destinationConfig = Prelude.Nothing
+      maximumEventAgeInSeconds = Prelude.Nothing,
+      maximumRetryAttempts = Prelude.Nothing
     }
-
--- | The Amazon Resource Name (ARN) of the function.
-functionEventInvokeConfig_functionArn :: Lens.Lens' FunctionEventInvokeConfig (Prelude.Maybe Prelude.Text)
-functionEventInvokeConfig_functionArn = Lens.lens (\FunctionEventInvokeConfig' {functionArn} -> functionArn) (\s@FunctionEventInvokeConfig' {} a -> s {functionArn = a} :: FunctionEventInvokeConfig)
-
--- | The maximum age of a request that Lambda sends to a function for
--- processing.
-functionEventInvokeConfig_maximumEventAgeInSeconds :: Lens.Lens' FunctionEventInvokeConfig (Prelude.Maybe Prelude.Natural)
-functionEventInvokeConfig_maximumEventAgeInSeconds = Lens.lens (\FunctionEventInvokeConfig' {maximumEventAgeInSeconds} -> maximumEventAgeInSeconds) (\s@FunctionEventInvokeConfig' {} a -> s {maximumEventAgeInSeconds = a} :: FunctionEventInvokeConfig)
-
--- | The maximum number of times to retry when the function returns an error.
-functionEventInvokeConfig_maximumRetryAttempts :: Lens.Lens' FunctionEventInvokeConfig (Prelude.Maybe Prelude.Natural)
-functionEventInvokeConfig_maximumRetryAttempts = Lens.lens (\FunctionEventInvokeConfig' {maximumRetryAttempts} -> maximumRetryAttempts) (\s@FunctionEventInvokeConfig' {} a -> s {maximumRetryAttempts = a} :: FunctionEventInvokeConfig)
-
--- | The date and time that the configuration was last updated.
-functionEventInvokeConfig_lastModified :: Lens.Lens' FunctionEventInvokeConfig (Prelude.Maybe Prelude.UTCTime)
-functionEventInvokeConfig_lastModified = Lens.lens (\FunctionEventInvokeConfig' {lastModified} -> lastModified) (\s@FunctionEventInvokeConfig' {} a -> s {lastModified = a} :: FunctionEventInvokeConfig) Prelude.. Lens.mapping Core._Time
 
 -- | A destination for events after they have been sent to a function for
 -- processing.
@@ -124,31 +108,48 @@ functionEventInvokeConfig_lastModified = Lens.lens (\FunctionEventInvokeConfig' 
 functionEventInvokeConfig_destinationConfig :: Lens.Lens' FunctionEventInvokeConfig (Prelude.Maybe DestinationConfig)
 functionEventInvokeConfig_destinationConfig = Lens.lens (\FunctionEventInvokeConfig' {destinationConfig} -> destinationConfig) (\s@FunctionEventInvokeConfig' {} a -> s {destinationConfig = a} :: FunctionEventInvokeConfig)
 
-instance Core.FromJSON FunctionEventInvokeConfig where
+-- | The Amazon Resource Name (ARN) of the function.
+functionEventInvokeConfig_functionArn :: Lens.Lens' FunctionEventInvokeConfig (Prelude.Maybe Prelude.Text)
+functionEventInvokeConfig_functionArn = Lens.lens (\FunctionEventInvokeConfig' {functionArn} -> functionArn) (\s@FunctionEventInvokeConfig' {} a -> s {functionArn = a} :: FunctionEventInvokeConfig)
+
+-- | The date and time that the configuration was last updated.
+functionEventInvokeConfig_lastModified :: Lens.Lens' FunctionEventInvokeConfig (Prelude.Maybe Prelude.UTCTime)
+functionEventInvokeConfig_lastModified = Lens.lens (\FunctionEventInvokeConfig' {lastModified} -> lastModified) (\s@FunctionEventInvokeConfig' {} a -> s {lastModified = a} :: FunctionEventInvokeConfig) Prelude.. Lens.mapping Data._Time
+
+-- | The maximum age of a request that Lambda sends to a function for
+-- processing.
+functionEventInvokeConfig_maximumEventAgeInSeconds :: Lens.Lens' FunctionEventInvokeConfig (Prelude.Maybe Prelude.Natural)
+functionEventInvokeConfig_maximumEventAgeInSeconds = Lens.lens (\FunctionEventInvokeConfig' {maximumEventAgeInSeconds} -> maximumEventAgeInSeconds) (\s@FunctionEventInvokeConfig' {} a -> s {maximumEventAgeInSeconds = a} :: FunctionEventInvokeConfig)
+
+-- | The maximum number of times to retry when the function returns an error.
+functionEventInvokeConfig_maximumRetryAttempts :: Lens.Lens' FunctionEventInvokeConfig (Prelude.Maybe Prelude.Natural)
+functionEventInvokeConfig_maximumRetryAttempts = Lens.lens (\FunctionEventInvokeConfig' {maximumRetryAttempts} -> maximumRetryAttempts) (\s@FunctionEventInvokeConfig' {} a -> s {maximumRetryAttempts = a} :: FunctionEventInvokeConfig)
+
+instance Data.FromJSON FunctionEventInvokeConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FunctionEventInvokeConfig"
       ( \x ->
           FunctionEventInvokeConfig'
-            Prelude.<$> (x Core..:? "FunctionArn")
-            Prelude.<*> (x Core..:? "MaximumEventAgeInSeconds")
-            Prelude.<*> (x Core..:? "MaximumRetryAttempts")
-            Prelude.<*> (x Core..:? "LastModified")
-            Prelude.<*> (x Core..:? "DestinationConfig")
+            Prelude.<$> (x Data..:? "DestinationConfig")
+            Prelude.<*> (x Data..:? "FunctionArn")
+            Prelude.<*> (x Data..:? "LastModified")
+            Prelude.<*> (x Data..:? "MaximumEventAgeInSeconds")
+            Prelude.<*> (x Data..:? "MaximumRetryAttempts")
       )
 
 instance Prelude.Hashable FunctionEventInvokeConfig where
   hashWithSalt _salt FunctionEventInvokeConfig' {..} =
-    _salt `Prelude.hashWithSalt` functionArn
+    _salt `Prelude.hashWithSalt` destinationConfig
+      `Prelude.hashWithSalt` functionArn
+      `Prelude.hashWithSalt` lastModified
       `Prelude.hashWithSalt` maximumEventAgeInSeconds
       `Prelude.hashWithSalt` maximumRetryAttempts
-      `Prelude.hashWithSalt` lastModified
-      `Prelude.hashWithSalt` destinationConfig
 
 instance Prelude.NFData FunctionEventInvokeConfig where
   rnf FunctionEventInvokeConfig' {..} =
-    Prelude.rnf functionArn
+    Prelude.rnf destinationConfig
+      `Prelude.seq` Prelude.rnf functionArn
+      `Prelude.seq` Prelude.rnf lastModified
       `Prelude.seq` Prelude.rnf maximumEventAgeInSeconds
       `Prelude.seq` Prelude.rnf maximumRetryAttempts
-      `Prelude.seq` Prelude.rnf lastModified
-      `Prelude.seq` Prelude.rnf destinationConfig

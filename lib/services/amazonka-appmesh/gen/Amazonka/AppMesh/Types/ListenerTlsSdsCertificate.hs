@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.ListenerTlsSdsCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppMesh.Types.ListenerTlsSdsCertificate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the listener\'s Secret Discovery Service
@@ -68,13 +69,13 @@ newListenerTlsSdsCertificate pSecretName_ =
 listenerTlsSdsCertificate_secretName :: Lens.Lens' ListenerTlsSdsCertificate Prelude.Text
 listenerTlsSdsCertificate_secretName = Lens.lens (\ListenerTlsSdsCertificate' {secretName} -> secretName) (\s@ListenerTlsSdsCertificate' {} a -> s {secretName = a} :: ListenerTlsSdsCertificate)
 
-instance Core.FromJSON ListenerTlsSdsCertificate where
+instance Data.FromJSON ListenerTlsSdsCertificate where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ListenerTlsSdsCertificate"
       ( \x ->
           ListenerTlsSdsCertificate'
-            Prelude.<$> (x Core..: "secretName")
+            Prelude.<$> (x Data..: "secretName")
       )
 
 instance Prelude.Hashable ListenerTlsSdsCertificate where
@@ -85,9 +86,9 @@ instance Prelude.NFData ListenerTlsSdsCertificate where
   rnf ListenerTlsSdsCertificate' {..} =
     Prelude.rnf secretName
 
-instance Core.ToJSON ListenerTlsSdsCertificate where
+instance Data.ToJSON ListenerTlsSdsCertificate where
   toJSON ListenerTlsSdsCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("secretName" Core..= secretName)]
+          [Prelude.Just ("secretName" Data..= secretName)]
       )

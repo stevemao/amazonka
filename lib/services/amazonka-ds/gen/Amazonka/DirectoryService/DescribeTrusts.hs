@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.DescribeTrusts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,9 +34,9 @@ module Amazonka.DirectoryService.DescribeTrusts
 
     -- * Request Lenses
     describeTrusts_directoryId,
+    describeTrusts_limit,
     describeTrusts_nextToken,
     describeTrusts_trustIds,
-    describeTrusts_limit,
 
     -- * Destructuring the Response
     DescribeTrustsResponse (..),
@@ -50,8 +50,9 @@ module Amazonka.DirectoryService.DescribeTrusts
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,6 +66,8 @@ data DescribeTrusts = DescribeTrusts'
   { -- | The Directory ID of the Amazon Web Services directory that is a part of
     -- the requested trust relationship.
     directoryId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of objects to return.
+    limit :: Prelude.Maybe Prelude.Natural,
     -- | The /DescribeTrustsResult.NextToken/ value from a previous call to
     -- DescribeTrusts. Pass null if this is the first call.
     nextToken :: Prelude.Maybe Prelude.Text,
@@ -73,9 +76,7 @@ data DescribeTrusts = DescribeTrusts'
     -- to the current account are returned.
     --
     -- An empty list results in an @InvalidParameterException@ being thrown.
-    trustIds :: Prelude.Maybe [Prelude.Text],
-    -- | The maximum number of objects to return.
-    limit :: Prelude.Maybe Prelude.Natural
+    trustIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -90,6 +91,8 @@ data DescribeTrusts = DescribeTrusts'
 -- 'directoryId', 'describeTrusts_directoryId' - The Directory ID of the Amazon Web Services directory that is a part of
 -- the requested trust relationship.
 --
+-- 'limit', 'describeTrusts_limit' - The maximum number of objects to return.
+--
 -- 'nextToken', 'describeTrusts_nextToken' - The /DescribeTrustsResult.NextToken/ value from a previous call to
 -- DescribeTrusts. Pass null if this is the first call.
 --
@@ -98,22 +101,24 @@ data DescribeTrusts = DescribeTrusts'
 -- to the current account are returned.
 --
 -- An empty list results in an @InvalidParameterException@ being thrown.
---
--- 'limit', 'describeTrusts_limit' - The maximum number of objects to return.
 newDescribeTrusts ::
   DescribeTrusts
 newDescribeTrusts =
   DescribeTrusts'
     { directoryId = Prelude.Nothing,
+      limit = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      trustIds = Prelude.Nothing,
-      limit = Prelude.Nothing
+      trustIds = Prelude.Nothing
     }
 
 -- | The Directory ID of the Amazon Web Services directory that is a part of
 -- the requested trust relationship.
 describeTrusts_directoryId :: Lens.Lens' DescribeTrusts (Prelude.Maybe Prelude.Text)
 describeTrusts_directoryId = Lens.lens (\DescribeTrusts' {directoryId} -> directoryId) (\s@DescribeTrusts' {} a -> s {directoryId = a} :: DescribeTrusts)
+
+-- | The maximum number of objects to return.
+describeTrusts_limit :: Lens.Lens' DescribeTrusts (Prelude.Maybe Prelude.Natural)
+describeTrusts_limit = Lens.lens (\DescribeTrusts' {limit} -> limit) (\s@DescribeTrusts' {} a -> s {limit = a} :: DescribeTrusts)
 
 -- | The /DescribeTrustsResult.NextToken/ value from a previous call to
 -- DescribeTrusts. Pass null if this is the first call.
@@ -127,10 +132,6 @@ describeTrusts_nextToken = Lens.lens (\DescribeTrusts' {nextToken} -> nextToken)
 -- An empty list results in an @InvalidParameterException@ being thrown.
 describeTrusts_trustIds :: Lens.Lens' DescribeTrusts (Prelude.Maybe [Prelude.Text])
 describeTrusts_trustIds = Lens.lens (\DescribeTrusts' {trustIds} -> trustIds) (\s@DescribeTrusts' {} a -> s {trustIds = a} :: DescribeTrusts) Prelude.. Lens.mapping Lens.coerced
-
--- | The maximum number of objects to return.
-describeTrusts_limit :: Lens.Lens' DescribeTrusts (Prelude.Maybe Prelude.Natural)
-describeTrusts_limit = Lens.lens (\DescribeTrusts' {limit} -> limit) (\s@DescribeTrusts' {} a -> s {limit = a} :: DescribeTrusts)
 
 instance Core.AWSPager DescribeTrusts where
   page rq rs
@@ -156,60 +157,61 @@ instance Core.AWSRequest DescribeTrusts where
   type
     AWSResponse DescribeTrusts =
       DescribeTrustsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTrustsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Trusts" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Trusts" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeTrusts where
   hashWithSalt _salt DescribeTrusts' {..} =
     _salt `Prelude.hashWithSalt` directoryId
+      `Prelude.hashWithSalt` limit
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` trustIds
-      `Prelude.hashWithSalt` limit
 
 instance Prelude.NFData DescribeTrusts where
   rnf DescribeTrusts' {..} =
     Prelude.rnf directoryId
+      `Prelude.seq` Prelude.rnf limit
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf trustIds
-      `Prelude.seq` Prelude.rnf limit
 
-instance Core.ToHeaders DescribeTrusts where
+instance Data.ToHeaders DescribeTrusts where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.DescribeTrusts" ::
+              Data.=# ( "DirectoryService_20150416.DescribeTrusts" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeTrusts where
+instance Data.ToJSON DescribeTrusts where
   toJSON DescribeTrusts' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DirectoryId" Core..=) Prelude.<$> directoryId,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("TrustIds" Core..=) Prelude.<$> trustIds,
-            ("Limit" Core..=) Prelude.<$> limit
+          [ ("DirectoryId" Data..=) Prelude.<$> directoryId,
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("TrustIds" Data..=) Prelude.<$> trustIds
           ]
       )
 
-instance Core.ToPath DescribeTrusts where
+instance Data.ToPath DescribeTrusts where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTrusts where
+instance Data.ToQuery DescribeTrusts where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The result of a DescribeTrust request.

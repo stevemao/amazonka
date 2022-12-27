@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ScheduledInstancesPlacement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.ScheduledInstancesPlacement where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the placement for a Scheduled Instance.
@@ -73,9 +74,9 @@ instance Prelude.NFData ScheduledInstancesPlacement where
     Prelude.rnf availabilityZone
       `Prelude.seq` Prelude.rnf groupName
 
-instance Core.ToQuery ScheduledInstancesPlacement where
+instance Data.ToQuery ScheduledInstancesPlacement where
   toQuery ScheduledInstancesPlacement' {..} =
     Prelude.mconcat
-      [ "AvailabilityZone" Core.=: availabilityZone,
-        "GroupName" Core.=: groupName
+      [ "AvailabilityZone" Data.=: availabilityZone,
+        "GroupName" Data.=: groupName
       ]

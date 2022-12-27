@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.DeleteSignalingChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.KinesisVideo.DeleteSignalingChannel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideo.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,7 +101,8 @@ instance Core.AWSRequest DeleteSignalingChannel where
   type
     AWSResponse DeleteSignalingChannel =
       DeleteSignalingChannelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -118,23 +120,23 @@ instance Prelude.NFData DeleteSignalingChannel where
     Prelude.rnf currentVersion
       `Prelude.seq` Prelude.rnf channelARN
 
-instance Core.ToHeaders DeleteSignalingChannel where
+instance Data.ToHeaders DeleteSignalingChannel where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON DeleteSignalingChannel where
+instance Data.ToJSON DeleteSignalingChannel where
   toJSON DeleteSignalingChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CurrentVersion" Core..=)
+          [ ("CurrentVersion" Data..=)
               Prelude.<$> currentVersion,
-            Prelude.Just ("ChannelARN" Core..= channelARN)
+            Prelude.Just ("ChannelARN" Data..= channelARN)
           ]
       )
 
-instance Core.ToPath DeleteSignalingChannel where
+instance Data.ToPath DeleteSignalingChannel where
   toPath = Prelude.const "/deleteSignalingChannel"
 
-instance Core.ToQuery DeleteSignalingChannel where
+instance Data.ToQuery DeleteSignalingChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteSignalingChannelResponse' smart constructor.

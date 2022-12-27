@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.ErrorDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTSiteWise.Types.ErrorDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.DetailedError
 import Amazonka.IoTSiteWise.Types.ErrorCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the details of an IoT SiteWise error.
@@ -76,15 +77,15 @@ errorDetails_code = Lens.lens (\ErrorDetails' {code} -> code) (\s@ErrorDetails' 
 errorDetails_message :: Lens.Lens' ErrorDetails Prelude.Text
 errorDetails_message = Lens.lens (\ErrorDetails' {message} -> message) (\s@ErrorDetails' {} a -> s {message = a} :: ErrorDetails)
 
-instance Core.FromJSON ErrorDetails where
+instance Data.FromJSON ErrorDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ErrorDetails"
       ( \x ->
           ErrorDetails'
-            Prelude.<$> (x Core..:? "details" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "code")
-            Prelude.<*> (x Core..: "message")
+            Prelude.<$> (x Data..:? "details" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "code")
+            Prelude.<*> (x Data..: "message")
       )
 
 instance Prelude.Hashable ErrorDetails where

@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,47 +22,50 @@ module Amazonka.Kinesis
     -- * Errors
     -- $errors
 
-    -- ** KMSInvalidStateException
-    _KMSInvalidStateException,
-
-    -- ** KMSThrottlingException
-    _KMSThrottlingException,
-
     -- ** ExpiredIteratorException
     _ExpiredIteratorException,
-
-    -- ** InvalidArgumentException
-    _InvalidArgumentException,
-
-    -- ** KMSOptInRequired
-    _KMSOptInRequired,
-
-    -- ** ProvisionedThroughputExceededException
-    _ProvisionedThroughputExceededException,
-
-    -- ** KMSNotFoundException
-    _KMSNotFoundException,
 
     -- ** ExpiredNextTokenException
     _ExpiredNextTokenException,
 
-    -- ** KMSDisabledException
-    _KMSDisabledException,
-
     -- ** InternalFailureException
     _InternalFailureException,
 
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
+    -- ** InvalidArgumentException
+    _InvalidArgumentException,
 
     -- ** KMSAccessDeniedException
     _KMSAccessDeniedException,
 
+    -- ** KMSDisabledException
+    _KMSDisabledException,
+
+    -- ** KMSInvalidStateException
+    _KMSInvalidStateException,
+
+    -- ** KMSNotFoundException
+    _KMSNotFoundException,
+
+    -- ** KMSOptInRequired
+    _KMSOptInRequired,
+
+    -- ** KMSThrottlingException
+    _KMSThrottlingException,
+
     -- ** LimitExceededException
     _LimitExceededException,
 
+    -- ** ProvisionedThroughputExceededException
+    _ProvisionedThroughputExceededException,
+
     -- ** ResourceInUseException
     _ResourceInUseException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
+
+    -- ** ValidationException
+    _ValidationException,
 
     -- * Waiters
     -- $waiters
@@ -76,137 +79,11 @@ module Amazonka.Kinesis
     -- * Operations
     -- $operations
 
-    -- ** PutRecord
-    PutRecord (PutRecord'),
-    newPutRecord,
-    PutRecordResponse (PutRecordResponse'),
-    newPutRecordResponse,
-
-    -- ** SubscribeToShard
-    SubscribeToShard (SubscribeToShard'),
-    newSubscribeToShard,
-    SubscribeToShardResponse (SubscribeToShardResponse'),
-    newSubscribeToShardResponse,
-
-    -- ** DecreaseStreamRetentionPeriod
-    DecreaseStreamRetentionPeriod (DecreaseStreamRetentionPeriod'),
-    newDecreaseStreamRetentionPeriod,
-    DecreaseStreamRetentionPeriodResponse (DecreaseStreamRetentionPeriodResponse'),
-    newDecreaseStreamRetentionPeriodResponse,
-
-    -- ** MergeShards
-    MergeShards (MergeShards'),
-    newMergeShards,
-    MergeShardsResponse (MergeShardsResponse'),
-    newMergeShardsResponse,
-
-    -- ** DeregisterStreamConsumer
-    DeregisterStreamConsumer (DeregisterStreamConsumer'),
-    newDeregisterStreamConsumer,
-    DeregisterStreamConsumerResponse (DeregisterStreamConsumerResponse'),
-    newDeregisterStreamConsumerResponse,
-
-    -- ** DescribeStreamSummary
-    DescribeStreamSummary (DescribeStreamSummary'),
-    newDescribeStreamSummary,
-    DescribeStreamSummaryResponse (DescribeStreamSummaryResponse'),
-    newDescribeStreamSummaryResponse,
-
-    -- ** GetShardIterator
-    GetShardIterator (GetShardIterator'),
-    newGetShardIterator,
-    GetShardIteratorResponse (GetShardIteratorResponse'),
-    newGetShardIteratorResponse,
-
-    -- ** GetRecords
-    GetRecords (GetRecords'),
-    newGetRecords,
-    GetRecordsResponse (GetRecordsResponse'),
-    newGetRecordsResponse,
-
-    -- ** StopStreamEncryption
-    StopStreamEncryption (StopStreamEncryption'),
-    newStopStreamEncryption,
-    StopStreamEncryptionResponse (StopStreamEncryptionResponse'),
-    newStopStreamEncryptionResponse,
-
-    -- ** EnableEnhancedMonitoring
-    EnableEnhancedMonitoring (EnableEnhancedMonitoring'),
-    newEnableEnhancedMonitoring,
-    EnhancedMonitoringOutput (EnhancedMonitoringOutput'),
-    newEnhancedMonitoringOutput,
-
-    -- ** DescribeLimits
-    DescribeLimits (DescribeLimits'),
-    newDescribeLimits,
-    DescribeLimitsResponse (DescribeLimitsResponse'),
-    newDescribeLimitsResponse,
-
-    -- ** RegisterStreamConsumer
-    RegisterStreamConsumer (RegisterStreamConsumer'),
-    newRegisterStreamConsumer,
-    RegisterStreamConsumerResponse (RegisterStreamConsumerResponse'),
-    newRegisterStreamConsumerResponse,
-
-    -- ** DisableEnhancedMonitoring
-    DisableEnhancedMonitoring (DisableEnhancedMonitoring'),
-    newDisableEnhancedMonitoring,
-    EnhancedMonitoringOutput (EnhancedMonitoringOutput'),
-    newEnhancedMonitoringOutput,
-
-    -- ** UpdateShardCount
-    UpdateShardCount (UpdateShardCount'),
-    newUpdateShardCount,
-    UpdateShardCountResponse (UpdateShardCountResponse'),
-    newUpdateShardCountResponse,
-
-    -- ** ListTagsForStream
-    ListTagsForStream (ListTagsForStream'),
-    newListTagsForStream,
-    ListTagsForStreamResponse (ListTagsForStreamResponse'),
-    newListTagsForStreamResponse,
-
-    -- ** DescribeStreamConsumer
-    DescribeStreamConsumer (DescribeStreamConsumer'),
-    newDescribeStreamConsumer,
-    DescribeStreamConsumerResponse (DescribeStreamConsumerResponse'),
-    newDescribeStreamConsumerResponse,
-
     -- ** AddTagsToStream
     AddTagsToStream (AddTagsToStream'),
     newAddTagsToStream,
     AddTagsToStreamResponse (AddTagsToStreamResponse'),
     newAddTagsToStreamResponse,
-
-    -- ** PutRecords
-    PutRecords (PutRecords'),
-    newPutRecords,
-    PutRecordsResponse (PutRecordsResponse'),
-    newPutRecordsResponse,
-
-    -- ** ListShards (Paginated)
-    ListShards (ListShards'),
-    newListShards,
-    ListShardsResponse (ListShardsResponse'),
-    newListShardsResponse,
-
-    -- ** DeleteStream
-    DeleteStream (DeleteStream'),
-    newDeleteStream,
-    DeleteStreamResponse (DeleteStreamResponse'),
-    newDeleteStreamResponse,
-
-    -- ** RemoveTagsFromStream
-    RemoveTagsFromStream (RemoveTagsFromStream'),
-    newRemoveTagsFromStream,
-    RemoveTagsFromStreamResponse (RemoveTagsFromStreamResponse'),
-    newRemoveTagsFromStreamResponse,
-
-    -- ** ListStreams (Paginated)
-    ListStreams (ListStreams'),
-    newListStreams,
-    ListStreamsResponse (ListStreamsResponse'),
-    newListStreamsResponse,
 
     -- ** CreateStream
     CreateStream (CreateStream'),
@@ -214,23 +91,71 @@ module Amazonka.Kinesis
     CreateStreamResponse (CreateStreamResponse'),
     newCreateStreamResponse,
 
-    -- ** StartStreamEncryption
-    StartStreamEncryption (StartStreamEncryption'),
-    newStartStreamEncryption,
-    StartStreamEncryptionResponse (StartStreamEncryptionResponse'),
-    newStartStreamEncryptionResponse,
+    -- ** DecreaseStreamRetentionPeriod
+    DecreaseStreamRetentionPeriod (DecreaseStreamRetentionPeriod'),
+    newDecreaseStreamRetentionPeriod,
+    DecreaseStreamRetentionPeriodResponse (DecreaseStreamRetentionPeriodResponse'),
+    newDecreaseStreamRetentionPeriodResponse,
 
-    -- ** ListStreamConsumers (Paginated)
-    ListStreamConsumers (ListStreamConsumers'),
-    newListStreamConsumers,
-    ListStreamConsumersResponse (ListStreamConsumersResponse'),
-    newListStreamConsumersResponse,
+    -- ** DeleteStream
+    DeleteStream (DeleteStream'),
+    newDeleteStream,
+    DeleteStreamResponse (DeleteStreamResponse'),
+    newDeleteStreamResponse,
 
-    -- ** SplitShard
-    SplitShard (SplitShard'),
-    newSplitShard,
-    SplitShardResponse (SplitShardResponse'),
-    newSplitShardResponse,
+    -- ** DeregisterStreamConsumer
+    DeregisterStreamConsumer (DeregisterStreamConsumer'),
+    newDeregisterStreamConsumer,
+    DeregisterStreamConsumerResponse (DeregisterStreamConsumerResponse'),
+    newDeregisterStreamConsumerResponse,
+
+    -- ** DescribeLimits
+    DescribeLimits (DescribeLimits'),
+    newDescribeLimits,
+    DescribeLimitsResponse (DescribeLimitsResponse'),
+    newDescribeLimitsResponse,
+
+    -- ** DescribeStream (Paginated)
+    DescribeStream (DescribeStream'),
+    newDescribeStream,
+    DescribeStreamResponse (DescribeStreamResponse'),
+    newDescribeStreamResponse,
+
+    -- ** DescribeStreamConsumer
+    DescribeStreamConsumer (DescribeStreamConsumer'),
+    newDescribeStreamConsumer,
+    DescribeStreamConsumerResponse (DescribeStreamConsumerResponse'),
+    newDescribeStreamConsumerResponse,
+
+    -- ** DescribeStreamSummary
+    DescribeStreamSummary (DescribeStreamSummary'),
+    newDescribeStreamSummary,
+    DescribeStreamSummaryResponse (DescribeStreamSummaryResponse'),
+    newDescribeStreamSummaryResponse,
+
+    -- ** DisableEnhancedMonitoring
+    DisableEnhancedMonitoring (DisableEnhancedMonitoring'),
+    newDisableEnhancedMonitoring,
+    EnhancedMonitoringOutput (EnhancedMonitoringOutput'),
+    newEnhancedMonitoringOutput,
+
+    -- ** EnableEnhancedMonitoring
+    EnableEnhancedMonitoring (EnableEnhancedMonitoring'),
+    newEnableEnhancedMonitoring,
+    EnhancedMonitoringOutput (EnhancedMonitoringOutput'),
+    newEnhancedMonitoringOutput,
+
+    -- ** GetRecords
+    GetRecords (GetRecords'),
+    newGetRecords,
+    GetRecordsResponse (GetRecordsResponse'),
+    newGetRecordsResponse,
+
+    -- ** GetShardIterator
+    GetShardIterator (GetShardIterator'),
+    newGetShardIterator,
+    GetShardIteratorResponse (GetShardIteratorResponse'),
+    newGetShardIteratorResponse,
 
     -- ** IncreaseStreamRetentionPeriod
     IncreaseStreamRetentionPeriod (IncreaseStreamRetentionPeriod'),
@@ -238,11 +163,95 @@ module Amazonka.Kinesis
     IncreaseStreamRetentionPeriodResponse (IncreaseStreamRetentionPeriodResponse'),
     newIncreaseStreamRetentionPeriodResponse,
 
-    -- ** DescribeStream (Paginated)
-    DescribeStream (DescribeStream'),
-    newDescribeStream,
-    DescribeStreamResponse (DescribeStreamResponse'),
-    newDescribeStreamResponse,
+    -- ** ListShards (Paginated)
+    ListShards (ListShards'),
+    newListShards,
+    ListShardsResponse (ListShardsResponse'),
+    newListShardsResponse,
+
+    -- ** ListStreamConsumers (Paginated)
+    ListStreamConsumers (ListStreamConsumers'),
+    newListStreamConsumers,
+    ListStreamConsumersResponse (ListStreamConsumersResponse'),
+    newListStreamConsumersResponse,
+
+    -- ** ListStreams (Paginated)
+    ListStreams (ListStreams'),
+    newListStreams,
+    ListStreamsResponse (ListStreamsResponse'),
+    newListStreamsResponse,
+
+    -- ** ListTagsForStream
+    ListTagsForStream (ListTagsForStream'),
+    newListTagsForStream,
+    ListTagsForStreamResponse (ListTagsForStreamResponse'),
+    newListTagsForStreamResponse,
+
+    -- ** MergeShards
+    MergeShards (MergeShards'),
+    newMergeShards,
+    MergeShardsResponse (MergeShardsResponse'),
+    newMergeShardsResponse,
+
+    -- ** PutRecord
+    PutRecord (PutRecord'),
+    newPutRecord,
+    PutRecordResponse (PutRecordResponse'),
+    newPutRecordResponse,
+
+    -- ** PutRecords
+    PutRecords (PutRecords'),
+    newPutRecords,
+    PutRecordsResponse (PutRecordsResponse'),
+    newPutRecordsResponse,
+
+    -- ** RegisterStreamConsumer
+    RegisterStreamConsumer (RegisterStreamConsumer'),
+    newRegisterStreamConsumer,
+    RegisterStreamConsumerResponse (RegisterStreamConsumerResponse'),
+    newRegisterStreamConsumerResponse,
+
+    -- ** RemoveTagsFromStream
+    RemoveTagsFromStream (RemoveTagsFromStream'),
+    newRemoveTagsFromStream,
+    RemoveTagsFromStreamResponse (RemoveTagsFromStreamResponse'),
+    newRemoveTagsFromStreamResponse,
+
+    -- ** SplitShard
+    SplitShard (SplitShard'),
+    newSplitShard,
+    SplitShardResponse (SplitShardResponse'),
+    newSplitShardResponse,
+
+    -- ** StartStreamEncryption
+    StartStreamEncryption (StartStreamEncryption'),
+    newStartStreamEncryption,
+    StartStreamEncryptionResponse (StartStreamEncryptionResponse'),
+    newStartStreamEncryptionResponse,
+
+    -- ** StopStreamEncryption
+    StopStreamEncryption (StopStreamEncryption'),
+    newStopStreamEncryption,
+    StopStreamEncryptionResponse (StopStreamEncryptionResponse'),
+    newStopStreamEncryptionResponse,
+
+    -- ** SubscribeToShard
+    SubscribeToShard (SubscribeToShard'),
+    newSubscribeToShard,
+    SubscribeToShardResponse (SubscribeToShardResponse'),
+    newSubscribeToShardResponse,
+
+    -- ** UpdateShardCount
+    UpdateShardCount (UpdateShardCount'),
+    newUpdateShardCount,
+    UpdateShardCountResponse (UpdateShardCountResponse'),
+    newUpdateShardCountResponse,
+
+    -- ** UpdateStreamMode
+    UpdateStreamMode (UpdateStreamMode'),
+    newUpdateStreamMode,
+    UpdateStreamModeResponse (UpdateStreamModeResponse'),
+    newUpdateStreamModeResponse,
 
     -- * Types
 
@@ -263,6 +272,9 @@ module Amazonka.Kinesis
 
     -- ** ShardIteratorType
     ShardIteratorType (..),
+
+    -- ** StreamMode
+    StreamMode (..),
 
     -- ** StreamStatus
     StreamStatus (..),
@@ -327,6 +339,10 @@ module Amazonka.Kinesis
     StreamDescriptionSummary (StreamDescriptionSummary'),
     newStreamDescriptionSummary,
 
+    -- ** StreamModeDetails
+    StreamModeDetails (StreamModeDetails'),
+    newStreamModeDetails,
+
     -- ** SubscribeToShardEvent
     SubscribeToShardEvent (SubscribeToShardEvent'),
     newSubscribeToShardEvent,
@@ -367,6 +383,7 @@ import Amazonka.Kinesis.StopStreamEncryption
 import Amazonka.Kinesis.SubscribeToShard
 import Amazonka.Kinesis.Types
 import Amazonka.Kinesis.UpdateShardCount
+import Amazonka.Kinesis.UpdateStreamMode
 import Amazonka.Kinesis.Waiters
 
 -- $errors

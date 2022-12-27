@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.ConnectParticipant.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,60 +14,42 @@
 module Amazonka.ConnectParticipant.Lens
   ( -- * Operations
 
-    -- ** SendMessage
-    sendMessage_clientToken,
-    sendMessage_contentType,
-    sendMessage_content,
-    sendMessage_connectionToken,
-    sendMessageResponse_absoluteTime,
-    sendMessageResponse_id,
-    sendMessageResponse_httpStatus,
-
-    -- ** DisconnectParticipant
-    disconnectParticipant_clientToken,
-    disconnectParticipant_connectionToken,
-    disconnectParticipantResponse_httpStatus,
-
     -- ** CompleteAttachmentUpload
     completeAttachmentUpload_attachmentIds,
     completeAttachmentUpload_clientToken,
     completeAttachmentUpload_connectionToken,
     completeAttachmentUploadResponse_httpStatus,
 
-    -- ** GetAttachment
-    getAttachment_attachmentId,
-    getAttachment_connectionToken,
-    getAttachmentResponse_urlExpiry,
-    getAttachmentResponse_url,
-    getAttachmentResponse_httpStatus,
-
-    -- ** StartAttachmentUpload
-    startAttachmentUpload_contentType,
-    startAttachmentUpload_attachmentSizeInBytes,
-    startAttachmentUpload_attachmentName,
-    startAttachmentUpload_clientToken,
-    startAttachmentUpload_connectionToken,
-    startAttachmentUploadResponse_attachmentId,
-    startAttachmentUploadResponse_uploadMetadata,
-    startAttachmentUploadResponse_httpStatus,
-
     -- ** CreateParticipantConnection
+    createParticipantConnection_connectParticipant,
     createParticipantConnection_type,
     createParticipantConnection_participantToken,
     createParticipantConnectionResponse_connectionCredentials,
     createParticipantConnectionResponse_websocket,
     createParticipantConnectionResponse_httpStatus,
 
+    -- ** DisconnectParticipant
+    disconnectParticipant_clientToken,
+    disconnectParticipant_connectionToken,
+    disconnectParticipantResponse_httpStatus,
+
+    -- ** GetAttachment
+    getAttachment_attachmentId,
+    getAttachment_connectionToken,
+    getAttachmentResponse_url,
+    getAttachmentResponse_urlExpiry,
+    getAttachmentResponse_httpStatus,
+
     -- ** GetTranscript
-    getTranscript_scanDirection,
-    getTranscript_nextToken,
-    getTranscript_sortOrder,
     getTranscript_contactId,
     getTranscript_maxResults,
+    getTranscript_nextToken,
+    getTranscript_scanDirection,
+    getTranscript_sortOrder,
     getTranscript_startPosition,
     getTranscript_connectionToken,
-    getTranscriptResponse_nextToken,
     getTranscriptResponse_initialContactId,
+    getTranscriptResponse_nextToken,
     getTranscriptResponse_transcript,
     getTranscriptResponse_httpStatus,
 
@@ -80,28 +62,47 @@ module Amazonka.ConnectParticipant.Lens
     sendEventResponse_id,
     sendEventResponse_httpStatus,
 
+    -- ** SendMessage
+    sendMessage_clientToken,
+    sendMessage_contentType,
+    sendMessage_content,
+    sendMessage_connectionToken,
+    sendMessageResponse_absoluteTime,
+    sendMessageResponse_id,
+    sendMessageResponse_httpStatus,
+
+    -- ** StartAttachmentUpload
+    startAttachmentUpload_contentType,
+    startAttachmentUpload_attachmentSizeInBytes,
+    startAttachmentUpload_attachmentName,
+    startAttachmentUpload_clientToken,
+    startAttachmentUpload_connectionToken,
+    startAttachmentUploadResponse_attachmentId,
+    startAttachmentUploadResponse_uploadMetadata,
+    startAttachmentUploadResponse_httpStatus,
+
     -- * Types
 
     -- ** AttachmentItem
-    attachmentItem_status,
-    attachmentItem_attachmentName,
     attachmentItem_attachmentId,
+    attachmentItem_attachmentName,
     attachmentItem_contentType,
+    attachmentItem_status,
 
     -- ** ConnectionCredentials
-    connectionCredentials_expiry,
     connectionCredentials_connectionToken,
+    connectionCredentials_expiry,
 
     -- ** Item
-    item_participantId,
     item_absoluteTime,
     item_attachments,
-    item_participantRole,
     item_content,
-    item_id,
-    item_displayName,
-    item_type,
     item_contentType,
+    item_displayName,
+    item_id,
+    item_participantId,
+    item_participantRole,
+    item_type,
 
     -- ** StartPosition
     startPosition_absoluteTime,
@@ -109,13 +110,13 @@ module Amazonka.ConnectParticipant.Lens
     startPosition_mostRecent,
 
     -- ** UploadMetadata
-    uploadMetadata_urlExpiry,
     uploadMetadata_headersToInclude,
     uploadMetadata_url,
+    uploadMetadata_urlExpiry,
 
     -- ** Websocket
-    websocket_url,
     websocket_connectionExpiry,
+    websocket_url,
   )
 where
 

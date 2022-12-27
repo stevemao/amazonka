@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.GetTestGridSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,8 +35,8 @@ module Amazonka.DeviceFarm.GetTestGridSession
     newGetTestGridSession,
 
     -- * Request Lenses
-    getTestGridSession_sessionArn,
     getTestGridSession_projectArn,
+    getTestGridSession_sessionArn,
     getTestGridSession_sessionId,
 
     -- * Destructuring the Response
@@ -50,19 +50,20 @@ module Amazonka.DeviceFarm.GetTestGridSession
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetTestGridSession' smart constructor.
 data GetTestGridSession = GetTestGridSession'
-  { -- | An ARN that uniquely identifies a TestGridSession.
-    sessionArn :: Prelude.Maybe Prelude.Text,
-    -- | The ARN for the project that this session belongs to. See
+  { -- | The ARN for the project that this session belongs to. See
     -- CreateTestGridProject and ListTestGridProjects.
     projectArn :: Prelude.Maybe Prelude.Text,
+    -- | An ARN that uniquely identifies a TestGridSession.
+    sessionArn :: Prelude.Maybe Prelude.Text,
     -- | An ID associated with this session.
     sessionId :: Prelude.Maybe Prelude.Text
   }
@@ -76,29 +77,29 @@ data GetTestGridSession = GetTestGridSession'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sessionArn', 'getTestGridSession_sessionArn' - An ARN that uniquely identifies a TestGridSession.
---
 -- 'projectArn', 'getTestGridSession_projectArn' - The ARN for the project that this session belongs to. See
 -- CreateTestGridProject and ListTestGridProjects.
+--
+-- 'sessionArn', 'getTestGridSession_sessionArn' - An ARN that uniquely identifies a TestGridSession.
 --
 -- 'sessionId', 'getTestGridSession_sessionId' - An ID associated with this session.
 newGetTestGridSession ::
   GetTestGridSession
 newGetTestGridSession =
   GetTestGridSession'
-    { sessionArn = Prelude.Nothing,
-      projectArn = Prelude.Nothing,
+    { projectArn = Prelude.Nothing,
+      sessionArn = Prelude.Nothing,
       sessionId = Prelude.Nothing
     }
-
--- | An ARN that uniquely identifies a TestGridSession.
-getTestGridSession_sessionArn :: Lens.Lens' GetTestGridSession (Prelude.Maybe Prelude.Text)
-getTestGridSession_sessionArn = Lens.lens (\GetTestGridSession' {sessionArn} -> sessionArn) (\s@GetTestGridSession' {} a -> s {sessionArn = a} :: GetTestGridSession)
 
 -- | The ARN for the project that this session belongs to. See
 -- CreateTestGridProject and ListTestGridProjects.
 getTestGridSession_projectArn :: Lens.Lens' GetTestGridSession (Prelude.Maybe Prelude.Text)
 getTestGridSession_projectArn = Lens.lens (\GetTestGridSession' {projectArn} -> projectArn) (\s@GetTestGridSession' {} a -> s {projectArn = a} :: GetTestGridSession)
+
+-- | An ARN that uniquely identifies a TestGridSession.
+getTestGridSession_sessionArn :: Lens.Lens' GetTestGridSession (Prelude.Maybe Prelude.Text)
+getTestGridSession_sessionArn = Lens.lens (\GetTestGridSession' {sessionArn} -> sessionArn) (\s@GetTestGridSession' {} a -> s {sessionArn = a} :: GetTestGridSession)
 
 -- | An ID associated with this session.
 getTestGridSession_sessionId :: Lens.Lens' GetTestGridSession (Prelude.Maybe Prelude.Text)
@@ -108,56 +109,57 @@ instance Core.AWSRequest GetTestGridSession where
   type
     AWSResponse GetTestGridSession =
       GetTestGridSessionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetTestGridSessionResponse'
-            Prelude.<$> (x Core..?> "testGridSession")
+            Prelude.<$> (x Data..?> "testGridSession")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetTestGridSession where
   hashWithSalt _salt GetTestGridSession' {..} =
-    _salt `Prelude.hashWithSalt` sessionArn
-      `Prelude.hashWithSalt` projectArn
+    _salt `Prelude.hashWithSalt` projectArn
+      `Prelude.hashWithSalt` sessionArn
       `Prelude.hashWithSalt` sessionId
 
 instance Prelude.NFData GetTestGridSession where
   rnf GetTestGridSession' {..} =
-    Prelude.rnf sessionArn
-      `Prelude.seq` Prelude.rnf projectArn
+    Prelude.rnf projectArn
+      `Prelude.seq` Prelude.rnf sessionArn
       `Prelude.seq` Prelude.rnf sessionId
 
-instance Core.ToHeaders GetTestGridSession where
+instance Data.ToHeaders GetTestGridSession where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.GetTestGridSession" ::
+              Data.=# ( "DeviceFarm_20150623.GetTestGridSession" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetTestGridSession where
+instance Data.ToJSON GetTestGridSession where
   toJSON GetTestGridSession' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("sessionArn" Core..=) Prelude.<$> sessionArn,
-            ("projectArn" Core..=) Prelude.<$> projectArn,
-            ("sessionId" Core..=) Prelude.<$> sessionId
+          [ ("projectArn" Data..=) Prelude.<$> projectArn,
+            ("sessionArn" Data..=) Prelude.<$> sessionArn,
+            ("sessionId" Data..=) Prelude.<$> sessionId
           ]
       )
 
-instance Core.ToPath GetTestGridSession where
+instance Data.ToPath GetTestGridSession where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetTestGridSession where
+instance Data.ToQuery GetTestGridSession where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetTestGridSessionResponse' smart constructor.

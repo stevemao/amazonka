@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.DetectionFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.DetectionFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A set of parameters that allow you to filter out certain results from
@@ -37,8 +38,8 @@ data DetectionFilter = DetectionFilter'
     -- Value is relative to the video frame width.
     minBoundingBoxWidth :: Prelude.Maybe Prelude.Double,
     -- | Sets the confidence of word detection. Words with detection confidence
-    -- below this will be excluded from the result. Values should be between 50
-    -- and 100 as Text in Video will not return any result below 50.
+    -- below this will be excluded from the result. Values should be between 0
+    -- and 100. The default MinConfidence is 80.
     minConfidence :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,8 +61,8 @@ data DetectionFilter = DetectionFilter'
 -- Value is relative to the video frame width.
 --
 -- 'minConfidence', 'detectionFilter_minConfidence' - Sets the confidence of word detection. Words with detection confidence
--- below this will be excluded from the result. Values should be between 50
--- and 100 as Text in Video will not return any result below 50.
+-- below this will be excluded from the result. Values should be between 0
+-- and 100. The default MinConfidence is 80.
 newDetectionFilter ::
   DetectionFilter
 newDetectionFilter =
@@ -85,8 +86,8 @@ detectionFilter_minBoundingBoxWidth :: Lens.Lens' DetectionFilter (Prelude.Maybe
 detectionFilter_minBoundingBoxWidth = Lens.lens (\DetectionFilter' {minBoundingBoxWidth} -> minBoundingBoxWidth) (\s@DetectionFilter' {} a -> s {minBoundingBoxWidth = a} :: DetectionFilter)
 
 -- | Sets the confidence of word detection. Words with detection confidence
--- below this will be excluded from the result. Values should be between 50
--- and 100 as Text in Video will not return any result below 50.
+-- below this will be excluded from the result. Values should be between 0
+-- and 100. The default MinConfidence is 80.
 detectionFilter_minConfidence :: Lens.Lens' DetectionFilter (Prelude.Maybe Prelude.Double)
 detectionFilter_minConfidence = Lens.lens (\DetectionFilter' {minConfidence} -> minConfidence) (\s@DetectionFilter' {} a -> s {minConfidence = a} :: DetectionFilter)
 
@@ -102,14 +103,14 @@ instance Prelude.NFData DetectionFilter where
       `Prelude.seq` Prelude.rnf minBoundingBoxWidth
       `Prelude.seq` Prelude.rnf minConfidence
 
-instance Core.ToJSON DetectionFilter where
+instance Data.ToJSON DetectionFilter where
   toJSON DetectionFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MinBoundingBoxHeight" Core..=)
+          [ ("MinBoundingBoxHeight" Data..=)
               Prelude.<$> minBoundingBoxHeight,
-            ("MinBoundingBoxWidth" Core..=)
+            ("MinBoundingBoxWidth" Data..=)
               Prelude.<$> minBoundingBoxWidth,
-            ("MinConfidence" Core..=) Prelude.<$> minConfidence
+            ("MinConfidence" Data..=) Prelude.<$> minConfidence
           ]
       )

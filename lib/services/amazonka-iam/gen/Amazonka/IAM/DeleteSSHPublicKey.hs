@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.DeleteSSHPublicKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IAM.DeleteSSHPublicKey
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,7 +122,8 @@ instance Core.AWSRequest DeleteSSHPublicKey where
   type
     AWSResponse DeleteSSHPublicKey =
       DeleteSSHPublicKeyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteSSHPublicKeyResponse'
 
@@ -135,21 +137,21 @@ instance Prelude.NFData DeleteSSHPublicKey where
     Prelude.rnf userName
       `Prelude.seq` Prelude.rnf sSHPublicKeyId
 
-instance Core.ToHeaders DeleteSSHPublicKey where
+instance Data.ToHeaders DeleteSSHPublicKey where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteSSHPublicKey where
+instance Data.ToPath DeleteSSHPublicKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteSSHPublicKey where
+instance Data.ToQuery DeleteSSHPublicKey where
   toQuery DeleteSSHPublicKey' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteSSHPublicKey" :: Prelude.ByteString),
+          Data.=: ("DeleteSSHPublicKey" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "UserName" Core.=: userName,
-        "SSHPublicKeyId" Core.=: sSHPublicKeyId
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Data.=: userName,
+        "SSHPublicKeyId" Data.=: sSHPublicKeyId
       ]
 
 -- | /See:/ 'newDeleteSSHPublicKeyResponse' smart constructor.

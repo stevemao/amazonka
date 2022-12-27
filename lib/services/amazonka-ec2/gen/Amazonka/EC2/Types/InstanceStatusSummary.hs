@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.InstanceStatusSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.EC2.Types.InstanceStatusSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.InstanceStatusDetails
 import Amazonka.EC2.Types.SummaryStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the status of an instance.
@@ -66,13 +67,13 @@ instanceStatusSummary_details = Lens.lens (\InstanceStatusSummary' {details} -> 
 instanceStatusSummary_status :: Lens.Lens' InstanceStatusSummary SummaryStatus
 instanceStatusSummary_status = Lens.lens (\InstanceStatusSummary' {status} -> status) (\s@InstanceStatusSummary' {} a -> s {status = a} :: InstanceStatusSummary)
 
-instance Core.FromXML InstanceStatusSummary where
+instance Data.FromXML InstanceStatusSummary where
   parseXML x =
     InstanceStatusSummary'
-      Prelude.<$> ( x Core..@? "details" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<$> ( x Data..@? "details" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@ "status")
+      Prelude.<*> (x Data..@ "status")
 
 instance Prelude.Hashable InstanceStatusSummary where
   hashWithSalt _salt InstanceStatusSummary' {..} =

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QLDBSession.Types.StartSessionResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QLDBSession.Types.StartSessionResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QLDBSession.Types.TimingInformation
 
@@ -28,11 +29,11 @@ import Amazonka.QLDBSession.Types.TimingInformation
 --
 -- /See:/ 'newStartSessionResult' smart constructor.
 data StartSessionResult = StartSessionResult'
-  { -- | Contains server-side performance information for the command.
-    timingInformation :: Prelude.Maybe TimingInformation,
-    -- | Session token of the started session. This @SessionToken@ is required
+  { -- | Session token of the started session. This @SessionToken@ is required
     -- for every subsequent command that is issued during the current session.
-    sessionToken :: Prelude.Maybe Prelude.Text
+    sessionToken :: Prelude.Maybe Prelude.Text,
+    -- | Contains server-side performance information for the command.
+    timingInformation :: Prelude.Maybe TimingInformation
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,44 +45,43 @@ data StartSessionResult = StartSessionResult'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'timingInformation', 'startSessionResult_timingInformation' - Contains server-side performance information for the command.
---
 -- 'sessionToken', 'startSessionResult_sessionToken' - Session token of the started session. This @SessionToken@ is required
 -- for every subsequent command that is issued during the current session.
+--
+-- 'timingInformation', 'startSessionResult_timingInformation' - Contains server-side performance information for the command.
 newStartSessionResult ::
   StartSessionResult
 newStartSessionResult =
   StartSessionResult'
-    { timingInformation =
-        Prelude.Nothing,
-      sessionToken = Prelude.Nothing
+    { sessionToken = Prelude.Nothing,
+      timingInformation = Prelude.Nothing
     }
-
--- | Contains server-side performance information for the command.
-startSessionResult_timingInformation :: Lens.Lens' StartSessionResult (Prelude.Maybe TimingInformation)
-startSessionResult_timingInformation = Lens.lens (\StartSessionResult' {timingInformation} -> timingInformation) (\s@StartSessionResult' {} a -> s {timingInformation = a} :: StartSessionResult)
 
 -- | Session token of the started session. This @SessionToken@ is required
 -- for every subsequent command that is issued during the current session.
 startSessionResult_sessionToken :: Lens.Lens' StartSessionResult (Prelude.Maybe Prelude.Text)
 startSessionResult_sessionToken = Lens.lens (\StartSessionResult' {sessionToken} -> sessionToken) (\s@StartSessionResult' {} a -> s {sessionToken = a} :: StartSessionResult)
 
-instance Core.FromJSON StartSessionResult where
+-- | Contains server-side performance information for the command.
+startSessionResult_timingInformation :: Lens.Lens' StartSessionResult (Prelude.Maybe TimingInformation)
+startSessionResult_timingInformation = Lens.lens (\StartSessionResult' {timingInformation} -> timingInformation) (\s@StartSessionResult' {} a -> s {timingInformation = a} :: StartSessionResult)
+
+instance Data.FromJSON StartSessionResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StartSessionResult"
       ( \x ->
           StartSessionResult'
-            Prelude.<$> (x Core..:? "TimingInformation")
-            Prelude.<*> (x Core..:? "SessionToken")
+            Prelude.<$> (x Data..:? "SessionToken")
+            Prelude.<*> (x Data..:? "TimingInformation")
       )
 
 instance Prelude.Hashable StartSessionResult where
   hashWithSalt _salt StartSessionResult' {..} =
-    _salt `Prelude.hashWithSalt` timingInformation
-      `Prelude.hashWithSalt` sessionToken
+    _salt `Prelude.hashWithSalt` sessionToken
+      `Prelude.hashWithSalt` timingInformation
 
 instance Prelude.NFData StartSessionResult where
   rnf StartSessionResult' {..} =
-    Prelude.rnf timingInformation
-      `Prelude.seq` Prelude.rnf sessionToken
+    Prelude.rnf sessionToken
+      `Prelude.seq` Prelude.rnf timingInformation

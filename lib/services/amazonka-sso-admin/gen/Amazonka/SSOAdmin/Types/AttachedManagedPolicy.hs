@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.Types.AttachedManagedPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.SSOAdmin.Types.AttachedManagedPolicy where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | A structure that stores the details of the IAM managed policy.
+-- | A structure that stores the details of the AWS managed policy.
 --
 -- /See:/ 'newAttachedManagedPolicy' smart constructor.
 data AttachedManagedPolicy = AttachedManagedPolicy'
-  { -- | The ARN of the IAM managed policy. For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
+  { -- | The ARN of the AWS managed policy. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the IAM managed policy.
+    -- | The name of the AWS managed policy.
     name :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,11 +45,11 @@ data AttachedManagedPolicy = AttachedManagedPolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'arn', 'attachedManagedPolicy_arn' - The ARN of the IAM managed policy. For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- 'arn', 'attachedManagedPolicy_arn' - The ARN of the AWS managed policy. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 --
--- 'name', 'attachedManagedPolicy_name' - The name of the IAM managed policy.
+-- 'name', 'attachedManagedPolicy_name' - The name of the AWS managed policy.
 newAttachedManagedPolicy ::
   AttachedManagedPolicy
 newAttachedManagedPolicy =
@@ -57,23 +58,23 @@ newAttachedManagedPolicy =
       name = Prelude.Nothing
     }
 
--- | The ARN of the IAM managed policy. For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- | The ARN of the AWS managed policy. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 attachedManagedPolicy_arn :: Lens.Lens' AttachedManagedPolicy (Prelude.Maybe Prelude.Text)
 attachedManagedPolicy_arn = Lens.lens (\AttachedManagedPolicy' {arn} -> arn) (\s@AttachedManagedPolicy' {} a -> s {arn = a} :: AttachedManagedPolicy)
 
--- | The name of the IAM managed policy.
+-- | The name of the AWS managed policy.
 attachedManagedPolicy_name :: Lens.Lens' AttachedManagedPolicy (Prelude.Maybe Prelude.Text)
 attachedManagedPolicy_name = Lens.lens (\AttachedManagedPolicy' {name} -> name) (\s@AttachedManagedPolicy' {} a -> s {name = a} :: AttachedManagedPolicy)
 
-instance Core.FromJSON AttachedManagedPolicy where
+instance Data.FromJSON AttachedManagedPolicy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AttachedManagedPolicy"
       ( \x ->
           AttachedManagedPolicy'
-            Prelude.<$> (x Core..:? "Arn") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Arn") Prelude.<*> (x Data..:? "Name")
       )
 
 instance Prelude.Hashable AttachedManagedPolicy where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.Types.ActiveDirectoryComputerAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Nimble.Types.ActiveDirectoryComputerAttribute where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An LDAP attribute of an Active Directory computer account, in the form
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newActiveDirectoryComputerAttribute' smart constructor.
 data ActiveDirectoryComputerAttribute = ActiveDirectoryComputerAttribute'
-  { -- | The value for the LDAP attribute.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The name for the LDAP attribute.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | The name for the LDAP attribute.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value for the LDAP attribute.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,36 +44,36 @@ data ActiveDirectoryComputerAttribute = ActiveDirectoryComputerAttribute'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'activeDirectoryComputerAttribute_value' - The value for the LDAP attribute.
---
 -- 'name', 'activeDirectoryComputerAttribute_name' - The name for the LDAP attribute.
+--
+-- 'value', 'activeDirectoryComputerAttribute_value' - The value for the LDAP attribute.
 newActiveDirectoryComputerAttribute ::
   ActiveDirectoryComputerAttribute
 newActiveDirectoryComputerAttribute =
   ActiveDirectoryComputerAttribute'
-    { value =
+    { name =
         Prelude.Nothing,
-      name = Prelude.Nothing
+      value = Prelude.Nothing
     }
-
--- | The value for the LDAP attribute.
-activeDirectoryComputerAttribute_value :: Lens.Lens' ActiveDirectoryComputerAttribute (Prelude.Maybe Prelude.Text)
-activeDirectoryComputerAttribute_value = Lens.lens (\ActiveDirectoryComputerAttribute' {value} -> value) (\s@ActiveDirectoryComputerAttribute' {} a -> s {value = a} :: ActiveDirectoryComputerAttribute)
 
 -- | The name for the LDAP attribute.
 activeDirectoryComputerAttribute_name :: Lens.Lens' ActiveDirectoryComputerAttribute (Prelude.Maybe Prelude.Text)
 activeDirectoryComputerAttribute_name = Lens.lens (\ActiveDirectoryComputerAttribute' {name} -> name) (\s@ActiveDirectoryComputerAttribute' {} a -> s {name = a} :: ActiveDirectoryComputerAttribute)
 
+-- | The value for the LDAP attribute.
+activeDirectoryComputerAttribute_value :: Lens.Lens' ActiveDirectoryComputerAttribute (Prelude.Maybe Prelude.Text)
+activeDirectoryComputerAttribute_value = Lens.lens (\ActiveDirectoryComputerAttribute' {value} -> value) (\s@ActiveDirectoryComputerAttribute' {} a -> s {value = a} :: ActiveDirectoryComputerAttribute)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     ActiveDirectoryComputerAttribute
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActiveDirectoryComputerAttribute"
       ( \x ->
           ActiveDirectoryComputerAttribute'
-            Prelude.<$> (x Core..:? "value") Prelude.<*> (x Core..:? "name")
+            Prelude.<$> (x Data..:? "name") Prelude.<*> (x Data..:? "value")
       )
 
 instance
@@ -82,21 +83,21 @@ instance
   hashWithSalt
     _salt
     ActiveDirectoryComputerAttribute' {..} =
-      _salt `Prelude.hashWithSalt` value
-        `Prelude.hashWithSalt` name
+      _salt `Prelude.hashWithSalt` name
+        `Prelude.hashWithSalt` value
 
 instance
   Prelude.NFData
     ActiveDirectoryComputerAttribute
   where
   rnf ActiveDirectoryComputerAttribute' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON ActiveDirectoryComputerAttribute where
+instance Data.ToJSON ActiveDirectoryComputerAttribute where
   toJSON ActiveDirectoryComputerAttribute' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("value" Core..=) Prelude.<$> value,
-            ("name" Core..=) Prelude.<$> name
+          [ ("name" Data..=) Prelude.<$> name,
+            ("value" Data..=) Prelude.<$> value
           ]
       )

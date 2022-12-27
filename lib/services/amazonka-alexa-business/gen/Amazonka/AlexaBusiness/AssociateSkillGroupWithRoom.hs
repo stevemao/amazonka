@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.AssociateSkillGroupWithRoom
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.AlexaBusiness.AssociateSkillGroupWithRoom
     newAssociateSkillGroupWithRoom,
 
     -- * Request Lenses
-    associateSkillGroupWithRoom_skillGroupArn,
     associateSkillGroupWithRoom_roomArn,
+    associateSkillGroupWithRoom_skillGroupArn,
 
     -- * Destructuring the Response
     AssociateSkillGroupWithRoomResponse (..),
@@ -42,17 +42,18 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newAssociateSkillGroupWithRoom' smart constructor.
 data AssociateSkillGroupWithRoom = AssociateSkillGroupWithRoom'
-  { -- | The ARN of the skill group to associate with a room. Required.
-    skillGroupArn :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the room with which to associate the skill group. Required.
-    roomArn :: Prelude.Maybe Prelude.Text
+  { -- | The ARN of the room with which to associate the skill group. Required.
+    roomArn :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the skill group to associate with a room. Required.
+    skillGroupArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -64,31 +65,32 @@ data AssociateSkillGroupWithRoom = AssociateSkillGroupWithRoom'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'skillGroupArn', 'associateSkillGroupWithRoom_skillGroupArn' - The ARN of the skill group to associate with a room. Required.
---
 -- 'roomArn', 'associateSkillGroupWithRoom_roomArn' - The ARN of the room with which to associate the skill group. Required.
+--
+-- 'skillGroupArn', 'associateSkillGroupWithRoom_skillGroupArn' - The ARN of the skill group to associate with a room. Required.
 newAssociateSkillGroupWithRoom ::
   AssociateSkillGroupWithRoom
 newAssociateSkillGroupWithRoom =
   AssociateSkillGroupWithRoom'
-    { skillGroupArn =
+    { roomArn =
         Prelude.Nothing,
-      roomArn = Prelude.Nothing
+      skillGroupArn = Prelude.Nothing
     }
-
--- | The ARN of the skill group to associate with a room. Required.
-associateSkillGroupWithRoom_skillGroupArn :: Lens.Lens' AssociateSkillGroupWithRoom (Prelude.Maybe Prelude.Text)
-associateSkillGroupWithRoom_skillGroupArn = Lens.lens (\AssociateSkillGroupWithRoom' {skillGroupArn} -> skillGroupArn) (\s@AssociateSkillGroupWithRoom' {} a -> s {skillGroupArn = a} :: AssociateSkillGroupWithRoom)
 
 -- | The ARN of the room with which to associate the skill group. Required.
 associateSkillGroupWithRoom_roomArn :: Lens.Lens' AssociateSkillGroupWithRoom (Prelude.Maybe Prelude.Text)
 associateSkillGroupWithRoom_roomArn = Lens.lens (\AssociateSkillGroupWithRoom' {roomArn} -> roomArn) (\s@AssociateSkillGroupWithRoom' {} a -> s {roomArn = a} :: AssociateSkillGroupWithRoom)
 
+-- | The ARN of the skill group to associate with a room. Required.
+associateSkillGroupWithRoom_skillGroupArn :: Lens.Lens' AssociateSkillGroupWithRoom (Prelude.Maybe Prelude.Text)
+associateSkillGroupWithRoom_skillGroupArn = Lens.lens (\AssociateSkillGroupWithRoom' {skillGroupArn} -> skillGroupArn) (\s@AssociateSkillGroupWithRoom' {} a -> s {skillGroupArn = a} :: AssociateSkillGroupWithRoom)
+
 instance Core.AWSRequest AssociateSkillGroupWithRoom where
   type
     AWSResponse AssociateSkillGroupWithRoom =
       AssociateSkillGroupWithRoomResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -98,42 +100,42 @@ instance Core.AWSRequest AssociateSkillGroupWithRoom where
 
 instance Prelude.Hashable AssociateSkillGroupWithRoom where
   hashWithSalt _salt AssociateSkillGroupWithRoom' {..} =
-    _salt `Prelude.hashWithSalt` skillGroupArn
-      `Prelude.hashWithSalt` roomArn
+    _salt `Prelude.hashWithSalt` roomArn
+      `Prelude.hashWithSalt` skillGroupArn
 
 instance Prelude.NFData AssociateSkillGroupWithRoom where
   rnf AssociateSkillGroupWithRoom' {..} =
-    Prelude.rnf skillGroupArn
-      `Prelude.seq` Prelude.rnf roomArn
+    Prelude.rnf roomArn
+      `Prelude.seq` Prelude.rnf skillGroupArn
 
-instance Core.ToHeaders AssociateSkillGroupWithRoom where
+instance Data.ToHeaders AssociateSkillGroupWithRoom where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.AssociateSkillGroupWithRoom" ::
+              Data.=# ( "AlexaForBusiness.AssociateSkillGroupWithRoom" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateSkillGroupWithRoom where
+instance Data.ToJSON AssociateSkillGroupWithRoom where
   toJSON AssociateSkillGroupWithRoom' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SkillGroupArn" Core..=) Prelude.<$> skillGroupArn,
-            ("RoomArn" Core..=) Prelude.<$> roomArn
+          [ ("RoomArn" Data..=) Prelude.<$> roomArn,
+            ("SkillGroupArn" Data..=) Prelude.<$> skillGroupArn
           ]
       )
 
-instance Core.ToPath AssociateSkillGroupWithRoom where
+instance Data.ToPath AssociateSkillGroupWithRoom where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateSkillGroupWithRoom where
+instance Data.ToQuery AssociateSkillGroupWithRoom where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateSkillGroupWithRoomResponse' smart constructor.

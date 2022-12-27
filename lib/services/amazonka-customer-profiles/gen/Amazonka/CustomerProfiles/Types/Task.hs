@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.Types.Task
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.CustomerProfiles.Types.Task where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CustomerProfiles.Types.ConnectorOperator
 import Amazonka.CustomerProfiles.Types.OperatorPropertiesKeys
 import Amazonka.CustomerProfiles.Types.TaskType
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A class for modeling different type of tasks. Task implementation varies
@@ -31,14 +32,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTask' smart constructor.
 data Task = Task'
-  { -- | A map used to store task-related information. The service looks for
-    -- particular information based on the TaskType.
-    taskProperties :: Prelude.Maybe (Prelude.HashMap OperatorPropertiesKeys Prelude.Text),
-    -- | The operation to be performed on the provided source fields.
+  { -- | The operation to be performed on the provided source fields.
     connectorOperator :: Prelude.Maybe ConnectorOperator,
     -- | A field in a destination connector, or a field value against which
     -- Amazon AppFlow validates a source field.
     destinationField :: Prelude.Maybe Prelude.Text,
+    -- | A map used to store task-related information. The service looks for
+    -- particular information based on the TaskType.
+    taskProperties :: Prelude.Maybe (Prelude.HashMap OperatorPropertiesKeys Prelude.Text),
     -- | The source fields to which a particular task is applied.
     sourceFields :: [Prelude.Text],
     -- | Specifies the particular task implementation that Amazon AppFlow
@@ -55,13 +56,13 @@ data Task = Task'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'taskProperties', 'task_taskProperties' - A map used to store task-related information. The service looks for
--- particular information based on the TaskType.
---
 -- 'connectorOperator', 'task_connectorOperator' - The operation to be performed on the provided source fields.
 --
 -- 'destinationField', 'task_destinationField' - A field in a destination connector, or a field value against which
 -- Amazon AppFlow validates a source field.
+--
+-- 'taskProperties', 'task_taskProperties' - A map used to store task-related information. The service looks for
+-- particular information based on the TaskType.
 --
 -- 'sourceFields', 'task_sourceFields' - The source fields to which a particular task is applied.
 --
@@ -73,17 +74,12 @@ newTask ::
   Task
 newTask pTaskType_ =
   Task'
-    { taskProperties = Prelude.Nothing,
-      connectorOperator = Prelude.Nothing,
+    { connectorOperator = Prelude.Nothing,
       destinationField = Prelude.Nothing,
+      taskProperties = Prelude.Nothing,
       sourceFields = Prelude.mempty,
       taskType = pTaskType_
     }
-
--- | A map used to store task-related information. The service looks for
--- particular information based on the TaskType.
-task_taskProperties :: Lens.Lens' Task (Prelude.Maybe (Prelude.HashMap OperatorPropertiesKeys Prelude.Text))
-task_taskProperties = Lens.lens (\Task' {taskProperties} -> taskProperties) (\s@Task' {} a -> s {taskProperties = a} :: Task) Prelude.. Lens.mapping Lens.coerced
 
 -- | The operation to be performed on the provided source fields.
 task_connectorOperator :: Lens.Lens' Task (Prelude.Maybe ConnectorOperator)
@@ -93,6 +89,11 @@ task_connectorOperator = Lens.lens (\Task' {connectorOperator} -> connectorOpera
 -- Amazon AppFlow validates a source field.
 task_destinationField :: Lens.Lens' Task (Prelude.Maybe Prelude.Text)
 task_destinationField = Lens.lens (\Task' {destinationField} -> destinationField) (\s@Task' {} a -> s {destinationField = a} :: Task)
+
+-- | A map used to store task-related information. The service looks for
+-- particular information based on the TaskType.
+task_taskProperties :: Lens.Lens' Task (Prelude.Maybe (Prelude.HashMap OperatorPropertiesKeys Prelude.Text))
+task_taskProperties = Lens.lens (\Task' {taskProperties} -> taskProperties) (\s@Task' {} a -> s {taskProperties = a} :: Task) Prelude.. Lens.mapping Lens.coerced
 
 -- | The source fields to which a particular task is applied.
 task_sourceFields :: Lens.Lens' Task [Prelude.Text]
@@ -105,31 +106,31 @@ task_taskType = Lens.lens (\Task' {taskType} -> taskType) (\s@Task' {} a -> s {t
 
 instance Prelude.Hashable Task where
   hashWithSalt _salt Task' {..} =
-    _salt `Prelude.hashWithSalt` taskProperties
-      `Prelude.hashWithSalt` connectorOperator
+    _salt `Prelude.hashWithSalt` connectorOperator
       `Prelude.hashWithSalt` destinationField
+      `Prelude.hashWithSalt` taskProperties
       `Prelude.hashWithSalt` sourceFields
       `Prelude.hashWithSalt` taskType
 
 instance Prelude.NFData Task where
   rnf Task' {..} =
-    Prelude.rnf taskProperties
-      `Prelude.seq` Prelude.rnf connectorOperator
+    Prelude.rnf connectorOperator
       `Prelude.seq` Prelude.rnf destinationField
+      `Prelude.seq` Prelude.rnf taskProperties
       `Prelude.seq` Prelude.rnf sourceFields
       `Prelude.seq` Prelude.rnf taskType
 
-instance Core.ToJSON Task where
+instance Data.ToJSON Task where
   toJSON Task' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TaskProperties" Core..=)
-              Prelude.<$> taskProperties,
-            ("ConnectorOperator" Core..=)
+          [ ("ConnectorOperator" Data..=)
               Prelude.<$> connectorOperator,
-            ("DestinationField" Core..=)
+            ("DestinationField" Data..=)
               Prelude.<$> destinationField,
-            Prelude.Just ("SourceFields" Core..= sourceFields),
-            Prelude.Just ("TaskType" Core..= taskType)
+            ("TaskProperties" Data..=)
+              Prelude.<$> taskProperties,
+            Prelude.Just ("SourceFields" Data..= sourceFields),
+            Prelude.Just ("TaskType" Data..= taskType)
           ]
       )

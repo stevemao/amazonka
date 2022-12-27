@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackage.Types.UtcTiming
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,17 +22,19 @@ module Amazonka.MediaPackage.Types.UtcTiming
       ( ..,
         UtcTiming_HTTP_HEAD,
         UtcTiming_HTTP_ISO,
+        UtcTiming_HTTP_XSDATE,
         UtcTiming_NONE
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype UtcTiming = UtcTiming'
   { fromUtcTiming ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -44,18 +46,18 @@ newtype UtcTiming = UtcTiming'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern UtcTiming_HTTP_HEAD :: UtcTiming
@@ -64,12 +66,16 @@ pattern UtcTiming_HTTP_HEAD = UtcTiming' "HTTP-HEAD"
 pattern UtcTiming_HTTP_ISO :: UtcTiming
 pattern UtcTiming_HTTP_ISO = UtcTiming' "HTTP-ISO"
 
+pattern UtcTiming_HTTP_XSDATE :: UtcTiming
+pattern UtcTiming_HTTP_XSDATE = UtcTiming' "HTTP-XSDATE"
+
 pattern UtcTiming_NONE :: UtcTiming
 pattern UtcTiming_NONE = UtcTiming' "NONE"
 
 {-# COMPLETE
   UtcTiming_HTTP_HEAD,
   UtcTiming_HTTP_ISO,
+  UtcTiming_HTTP_XSDATE,
   UtcTiming_NONE,
   UtcTiming'
   #-}

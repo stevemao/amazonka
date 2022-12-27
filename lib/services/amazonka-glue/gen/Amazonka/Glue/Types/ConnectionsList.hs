@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.ConnectionsList
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.ConnectionsList where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the connections used by a job.
@@ -50,13 +51,13 @@ newConnectionsList =
 connectionsList_connections :: Lens.Lens' ConnectionsList (Prelude.Maybe [Prelude.Text])
 connectionsList_connections = Lens.lens (\ConnectionsList' {connections} -> connections) (\s@ConnectionsList' {} a -> s {connections = a} :: ConnectionsList) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ConnectionsList where
+instance Data.FromJSON ConnectionsList where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConnectionsList"
       ( \x ->
           ConnectionsList'
-            Prelude.<$> (x Core..:? "Connections" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Connections" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable ConnectionsList where
@@ -66,9 +67,9 @@ instance Prelude.Hashable ConnectionsList where
 instance Prelude.NFData ConnectionsList where
   rnf ConnectionsList' {..} = Prelude.rnf connections
 
-instance Core.ToJSON ConnectionsList where
+instance Data.ToJSON ConnectionsList where
   toJSON ConnectionsList' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Connections" Core..=) Prelude.<$> connections]
+          [("Connections" Data..=) Prelude.<$> connections]
       )

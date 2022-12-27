@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.GetIPSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.GuardDuty.GetIPSet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,17 +94,18 @@ getIPSet_ipSetId = Lens.lens (\GetIPSet' {ipSetId} -> ipSetId) (\s@GetIPSet' {} 
 
 instance Core.AWSRequest GetIPSet where
   type AWSResponse GetIPSet = GetIPSetResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetIPSetResponse'
-            Prelude.<$> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "name")
-            Prelude.<*> (x Core..:> "format")
-            Prelude.<*> (x Core..:> "location")
-            Prelude.<*> (x Core..:> "status")
+            Prelude.<*> (x Data..:> "name")
+            Prelude.<*> (x Data..:> "format")
+            Prelude.<*> (x Data..:> "location")
+            Prelude.<*> (x Data..:> "status")
       )
 
 instance Prelude.Hashable GetIPSet where
@@ -116,27 +118,27 @@ instance Prelude.NFData GetIPSet where
     Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf ipSetId
 
-instance Core.ToHeaders GetIPSet where
+instance Data.ToHeaders GetIPSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetIPSet where
+instance Data.ToPath GetIPSet where
   toPath GetIPSet' {..} =
     Prelude.mconcat
       [ "/detector/",
-        Core.toBS detectorId,
+        Data.toBS detectorId,
         "/ipset/",
-        Core.toBS ipSetId
+        Data.toBS ipSetId
       ]
 
-instance Core.ToQuery GetIPSet where
+instance Data.ToQuery GetIPSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetIPSetResponse' smart constructor.
@@ -149,8 +151,7 @@ data GetIPSetResponse = GetIPSetResponse'
     name :: Prelude.Text,
     -- | The format of the file that contains the IPSet.
     format :: IpSetFormat,
-    -- | The URI of the file that contains the IPSet. For example:
-    -- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
+    -- | The URI of the file that contains the IPSet.
     location :: Prelude.Text,
     -- | The status of IPSet file that was uploaded.
     status :: IpSetStatus
@@ -173,8 +174,7 @@ data GetIPSetResponse = GetIPSetResponse'
 --
 -- 'format', 'getIPSetResponse_format' - The format of the file that contains the IPSet.
 --
--- 'location', 'getIPSetResponse_location' - The URI of the file that contains the IPSet. For example:
--- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
+-- 'location', 'getIPSetResponse_location' - The URI of the file that contains the IPSet.
 --
 -- 'status', 'getIPSetResponse_status' - The status of IPSet file that was uploaded.
 newGetIPSetResponse ::
@@ -220,8 +220,7 @@ getIPSetResponse_name = Lens.lens (\GetIPSetResponse' {name} -> name) (\s@GetIPS
 getIPSetResponse_format :: Lens.Lens' GetIPSetResponse IpSetFormat
 getIPSetResponse_format = Lens.lens (\GetIPSetResponse' {format} -> format) (\s@GetIPSetResponse' {} a -> s {format = a} :: GetIPSetResponse)
 
--- | The URI of the file that contains the IPSet. For example:
--- https:\/\/s3.us-west-2.amazonaws.com\/my-bucket\/my-object-key.
+-- | The URI of the file that contains the IPSet.
 getIPSetResponse_location :: Lens.Lens' GetIPSetResponse Prelude.Text
 getIPSetResponse_location = Lens.lens (\GetIPSetResponse' {location} -> location) (\s@GetIPSetResponse' {} a -> s {location = a} :: GetIPSetResponse)
 

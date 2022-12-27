@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.CampaignState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.CampaignState where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.CampaignStatus
 import qualified Amazonka.Prelude as Prelude
 
@@ -69,13 +70,13 @@ newCampaignState =
 campaignState_campaignStatus :: Lens.Lens' CampaignState (Prelude.Maybe CampaignStatus)
 campaignState_campaignStatus = Lens.lens (\CampaignState' {campaignStatus} -> campaignStatus) (\s@CampaignState' {} a -> s {campaignStatus = a} :: CampaignState)
 
-instance Core.FromJSON CampaignState where
+instance Data.FromJSON CampaignState where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CampaignState"
       ( \x ->
           CampaignState'
-            Prelude.<$> (x Core..:? "CampaignStatus")
+            Prelude.<$> (x Data..:? "CampaignStatus")
       )
 
 instance Prelude.Hashable CampaignState where

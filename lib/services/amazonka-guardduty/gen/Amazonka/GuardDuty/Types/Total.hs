@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.Total
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GuardDuty.Types.Total where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the total usage with the corresponding currency unit for that
@@ -62,14 +63,14 @@ total_amount = Lens.lens (\Total' {amount} -> amount) (\s@Total' {} a -> s {amou
 total_unit :: Lens.Lens' Total (Prelude.Maybe Prelude.Text)
 total_unit = Lens.lens (\Total' {unit} -> unit) (\s@Total' {} a -> s {unit = a} :: Total)
 
-instance Core.FromJSON Total where
+instance Data.FromJSON Total where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Total"
       ( \x ->
           Total'
-            Prelude.<$> (x Core..:? "amount")
-            Prelude.<*> (x Core..:? "unit")
+            Prelude.<$> (x Data..:? "amount")
+            Prelude.<*> (x Data..:? "unit")
       )
 
 instance Prelude.Hashable Total where

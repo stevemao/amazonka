@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.WithdrawByoipCidr
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,11 +25,11 @@
 -- if you specify different address ranges each time.
 --
 -- It can take a few minutes before traffic to the specified addresses
--- stops routing to AWS because of propagation delays.
+-- stops routing to Amazon Web Services because of propagation delays.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring Your Own IP Addresses (BYOIP)>
--- in the /AWS Global Accelerator Developer Guide/.
+-- <https://docs.aws.amazon.com/global-accelerator/latest/dg/using-byoip.html Bring your own IP addresses (BYOIP)>
+-- in the /Global Accelerator Developer Guide/.
 module Amazonka.GlobalAccelerator.WithdrawByoipCidr
   ( -- * Creating a Request
     WithdrawByoipCidr (..),
@@ -49,8 +49,9 @@ module Amazonka.GlobalAccelerator.WithdrawByoipCidr
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,12 +87,13 @@ instance Core.AWSRequest WithdrawByoipCidr where
   type
     AWSResponse WithdrawByoipCidr =
       WithdrawByoipCidrResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           WithdrawByoipCidrResponse'
-            Prelude.<$> (x Core..?> "ByoipCidr")
+            Prelude.<$> (x Data..?> "ByoipCidr")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -102,32 +104,32 @@ instance Prelude.Hashable WithdrawByoipCidr where
 instance Prelude.NFData WithdrawByoipCidr where
   rnf WithdrawByoipCidr' {..} = Prelude.rnf cidr
 
-instance Core.ToHeaders WithdrawByoipCidr where
+instance Data.ToHeaders WithdrawByoipCidr where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.WithdrawByoipCidr" ::
+              Data.=# ( "GlobalAccelerator_V20180706.WithdrawByoipCidr" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON WithdrawByoipCidr where
+instance Data.ToJSON WithdrawByoipCidr where
   toJSON WithdrawByoipCidr' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Cidr" Core..= cidr)]
+          [Prelude.Just ("Cidr" Data..= cidr)]
       )
 
-instance Core.ToPath WithdrawByoipCidr where
+instance Data.ToPath WithdrawByoipCidr where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery WithdrawByoipCidr where
+instance Data.ToQuery WithdrawByoipCidr where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newWithdrawByoipCidrResponse' smart constructor.

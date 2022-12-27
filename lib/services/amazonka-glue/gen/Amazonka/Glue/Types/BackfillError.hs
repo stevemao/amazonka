@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.BackfillError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Glue.Types.BackfillError where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.BackfillErrorCode
 import Amazonka.Glue.Types.PartitionValueList
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of errors that can occur when registering partition indexes for
@@ -47,11 +48,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newBackfillError' smart constructor.
 data BackfillError = BackfillError'
-  { -- | A list of a limited number of partitions in the response.
-    partitions :: Prelude.Maybe [PartitionValueList],
-    -- | The error code for an error that occurred when registering partition
+  { -- | The error code for an error that occurred when registering partition
     -- indexes for an existing table.
-    code :: Prelude.Maybe BackfillErrorCode
+    code :: Prelude.Maybe BackfillErrorCode,
+    -- | A list of a limited number of partitions in the response.
+    partitions :: Prelude.Maybe [PartitionValueList]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -63,43 +64,43 @@ data BackfillError = BackfillError'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'partitions', 'backfillError_partitions' - A list of a limited number of partitions in the response.
---
 -- 'code', 'backfillError_code' - The error code for an error that occurred when registering partition
 -- indexes for an existing table.
+--
+-- 'partitions', 'backfillError_partitions' - A list of a limited number of partitions in the response.
 newBackfillError ::
   BackfillError
 newBackfillError =
   BackfillError'
-    { partitions = Prelude.Nothing,
-      code = Prelude.Nothing
+    { code = Prelude.Nothing,
+      partitions = Prelude.Nothing
     }
-
--- | A list of a limited number of partitions in the response.
-backfillError_partitions :: Lens.Lens' BackfillError (Prelude.Maybe [PartitionValueList])
-backfillError_partitions = Lens.lens (\BackfillError' {partitions} -> partitions) (\s@BackfillError' {} a -> s {partitions = a} :: BackfillError) Prelude.. Lens.mapping Lens.coerced
 
 -- | The error code for an error that occurred when registering partition
 -- indexes for an existing table.
 backfillError_code :: Lens.Lens' BackfillError (Prelude.Maybe BackfillErrorCode)
 backfillError_code = Lens.lens (\BackfillError' {code} -> code) (\s@BackfillError' {} a -> s {code = a} :: BackfillError)
 
-instance Core.FromJSON BackfillError where
+-- | A list of a limited number of partitions in the response.
+backfillError_partitions :: Lens.Lens' BackfillError (Prelude.Maybe [PartitionValueList])
+backfillError_partitions = Lens.lens (\BackfillError' {partitions} -> partitions) (\s@BackfillError' {} a -> s {partitions = a} :: BackfillError) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON BackfillError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BackfillError"
       ( \x ->
           BackfillError'
-            Prelude.<$> (x Core..:? "Partitions" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Code")
+            Prelude.<$> (x Data..:? "Code")
+            Prelude.<*> (x Data..:? "Partitions" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable BackfillError where
   hashWithSalt _salt BackfillError' {..} =
-    _salt `Prelude.hashWithSalt` partitions
-      `Prelude.hashWithSalt` code
+    _salt `Prelude.hashWithSalt` code
+      `Prelude.hashWithSalt` partitions
 
 instance Prelude.NFData BackfillError where
   rnf BackfillError' {..} =
-    Prelude.rnf partitions
-      `Prelude.seq` Prelude.rnf code
+    Prelude.rnf code
+      `Prelude.seq` Prelude.rnf partitions

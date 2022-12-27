@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.PutMetricData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,16 +34,16 @@
 -- up to 150 values per metric with one @PutMetricData@ request, and
 -- supports retrieving percentile statistics on this data.
 --
--- Each @PutMetricData@ request is limited to 40 KB in size for HTTP POST
+-- Each @PutMetricData@ request is limited to 1 MB in size for HTTP POST
 -- requests. You can send a payload compressed by gzip. Each request is
--- also limited to no more than 20 different metrics.
+-- also limited to no more than 1000 different metrics.
 --
 -- Although the @Value@ parameter accepts numbers of type @Double@,
 -- CloudWatch rejects values that are either too small or too large. Values
 -- must be in the range of -2^360 to 2^360. In addition, special values
 -- (for example, NaN, +Infinity, -Infinity) are not supported.
 --
--- You can use up to 10 dimensions per metric to further clarify what data
+-- You can use up to 30 dimensions per metric to further clarify what data
 -- the metric collects. Each dimension consists of a Name and Value pair.
 -- For more information about specifying dimensions, see
 -- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/publishingMetrics.html Publishing Metrics>
@@ -91,7 +91,8 @@ where
 
 import Amazonka.CloudWatch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,7 +104,7 @@ data PutMetricData = PutMetricData'
     -- To avoid conflicts with Amazon Web Services service namespaces, you
     -- should not specify a namespace that begins with @AWS\/@
     namespace :: Prelude.Text,
-    -- | The data for the metric. The array can include no more than 20 metrics
+    -- | The data for the metric. The array can include no more than 1000 metrics
     -- per call.
     metricData :: [MetricDatum]
   }
@@ -122,7 +123,7 @@ data PutMetricData = PutMetricData'
 -- To avoid conflicts with Amazon Web Services service namespaces, you
 -- should not specify a namespace that begins with @AWS\/@
 --
--- 'metricData', 'putMetricData_metricData' - The data for the metric. The array can include no more than 20 metrics
+-- 'metricData', 'putMetricData_metricData' - The data for the metric. The array can include no more than 1000 metrics
 -- per call.
 newPutMetricData ::
   -- | 'namespace'
@@ -141,7 +142,7 @@ newPutMetricData pNamespace_ =
 putMetricData_namespace :: Lens.Lens' PutMetricData Prelude.Text
 putMetricData_namespace = Lens.lens (\PutMetricData' {namespace} -> namespace) (\s@PutMetricData' {} a -> s {namespace = a} :: PutMetricData)
 
--- | The data for the metric. The array can include no more than 20 metrics
+-- | The data for the metric. The array can include no more than 1000 metrics
 -- per call.
 putMetricData_metricData :: Lens.Lens' PutMetricData [MetricDatum]
 putMetricData_metricData = Lens.lens (\PutMetricData' {metricData} -> metricData) (\s@PutMetricData' {} a -> s {metricData = a} :: PutMetricData) Prelude.. Lens.coerced
@@ -150,7 +151,8 @@ instance Core.AWSRequest PutMetricData where
   type
     AWSResponse PutMetricData =
       PutMetricDataResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull PutMetricDataResponse'
 
@@ -164,22 +166,22 @@ instance Prelude.NFData PutMetricData where
     Prelude.rnf namespace
       `Prelude.seq` Prelude.rnf metricData
 
-instance Core.ToHeaders PutMetricData where
+instance Data.ToHeaders PutMetricData where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath PutMetricData where
+instance Data.ToPath PutMetricData where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutMetricData where
+instance Data.ToQuery PutMetricData where
   toQuery PutMetricData' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("PutMetricData" :: Prelude.ByteString),
+          Data.=: ("PutMetricData" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-08-01" :: Prelude.ByteString),
-        "Namespace" Core.=: namespace,
+          Data.=: ("2010-08-01" :: Prelude.ByteString),
+        "Namespace" Data.=: namespace,
         "MetricData"
-          Core.=: Core.toQueryList "member" metricData
+          Data.=: Data.toQueryList "member" metricData
       ]
 
 -- | /See:/ 'newPutMetricDataResponse' smart constructor.

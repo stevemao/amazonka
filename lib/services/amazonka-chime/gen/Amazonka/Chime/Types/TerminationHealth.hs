@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.TerminationHealth
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Chime.Types.TerminationHealth where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The termination health details, including the source IP address and
@@ -32,7 +33,7 @@ data TerminationHealth = TerminationHealth'
   { -- | The source IP address.
     source :: Prelude.Maybe Prelude.Text,
     -- | The timestamp, in ISO 8601 format.
-    timestamp :: Prelude.Maybe Core.POSIX
+    timestamp :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -61,16 +62,16 @@ terminationHealth_source = Lens.lens (\TerminationHealth' {source} -> source) (\
 
 -- | The timestamp, in ISO 8601 format.
 terminationHealth_timestamp :: Lens.Lens' TerminationHealth (Prelude.Maybe Prelude.UTCTime)
-terminationHealth_timestamp = Lens.lens (\TerminationHealth' {timestamp} -> timestamp) (\s@TerminationHealth' {} a -> s {timestamp = a} :: TerminationHealth) Prelude.. Lens.mapping Core._Time
+terminationHealth_timestamp = Lens.lens (\TerminationHealth' {timestamp} -> timestamp) (\s@TerminationHealth' {} a -> s {timestamp = a} :: TerminationHealth) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON TerminationHealth where
+instance Data.FromJSON TerminationHealth where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TerminationHealth"
       ( \x ->
           TerminationHealth'
-            Prelude.<$> (x Core..:? "Source")
-            Prelude.<*> (x Core..:? "Timestamp")
+            Prelude.<$> (x Data..:? "Source")
+            Prelude.<*> (x Data..:? "Timestamp")
       )
 
 instance Prelude.Hashable TerminationHealth where

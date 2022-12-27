@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.Types.HomeDirectoryMapEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Transfer.Types.HomeDirectoryMapEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents an object that contains entries and targets for
@@ -28,17 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- The following is an @Entry@ and @Target@ pair example for @chroot@.
 --
--- @[ { \"Entry:\": \"\/\", \"Target\": \"\/bucket_name\/home\/mydirectory\" } ]@
---
--- If the target of a logical directory entry does not exist in Amazon S3
--- or EFS, the entry is ignored. As a workaround, you can use the Amazon S3
--- API or EFS API to create 0 byte objects as place holders for your
--- directory. If using the CLI, use the @s3api@ or @efsapi@ call instead of
--- @s3@ or @efs@ so you can use the put-object operation. For example, you
--- use the following:
--- @aws s3api put-object --bucket bucketname --key path\/to\/folder\/@.
--- Make sure that the end of the key name ends in a @\/@ for it to be
--- considered a folder.
+-- @[ { \"Entry\": \"\/\", \"Target\": \"\/bucket_name\/home\/mydirectory\" } ]@
 --
 -- /See:/ 'newHomeDirectoryMapEntry' smart constructor.
 data HomeDirectoryMapEntry = HomeDirectoryMapEntry'
@@ -80,13 +71,13 @@ homeDirectoryMapEntry_entry = Lens.lens (\HomeDirectoryMapEntry' {entry} -> entr
 homeDirectoryMapEntry_target :: Lens.Lens' HomeDirectoryMapEntry Prelude.Text
 homeDirectoryMapEntry_target = Lens.lens (\HomeDirectoryMapEntry' {target} -> target) (\s@HomeDirectoryMapEntry' {} a -> s {target = a} :: HomeDirectoryMapEntry)
 
-instance Core.FromJSON HomeDirectoryMapEntry where
+instance Data.FromJSON HomeDirectoryMapEntry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HomeDirectoryMapEntry"
       ( \x ->
           HomeDirectoryMapEntry'
-            Prelude.<$> (x Core..: "Entry") Prelude.<*> (x Core..: "Target")
+            Prelude.<$> (x Data..: "Entry") Prelude.<*> (x Data..: "Target")
       )
 
 instance Prelude.Hashable HomeDirectoryMapEntry where
@@ -98,11 +89,11 @@ instance Prelude.NFData HomeDirectoryMapEntry where
   rnf HomeDirectoryMapEntry' {..} =
     Prelude.rnf entry `Prelude.seq` Prelude.rnf target
 
-instance Core.ToJSON HomeDirectoryMapEntry where
+instance Data.ToJSON HomeDirectoryMapEntry where
   toJSON HomeDirectoryMapEntry' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Entry" Core..= entry),
-            Prelude.Just ("Target" Core..= target)
+          [ Prelude.Just ("Entry" Data..= entry),
+            Prelude.Just ("Target" Data..= target)
           ]
       )

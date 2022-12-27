@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.Types.TimeBasedAutoScalingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.OpsWorks.Types.TimeBasedAutoScalingConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types.WeeklyAutoScalingSchedule
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTimeBasedAutoScalingConfiguration' smart constructor.
 data TimeBasedAutoScalingConfiguration = TimeBasedAutoScalingConfiguration'
-  { -- | The instance ID.
-    instanceId :: Prelude.Maybe Prelude.Text,
-    -- | A @WeeklyAutoScalingSchedule@ object with the instance schedule.
-    autoScalingSchedule :: Prelude.Maybe WeeklyAutoScalingSchedule
+  { -- | A @WeeklyAutoScalingSchedule@ object with the instance schedule.
+    autoScalingSchedule :: Prelude.Maybe WeeklyAutoScalingSchedule,
+    -- | The instance ID.
+    instanceId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,37 +44,37 @@ data TimeBasedAutoScalingConfiguration = TimeBasedAutoScalingConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceId', 'timeBasedAutoScalingConfiguration_instanceId' - The instance ID.
---
 -- 'autoScalingSchedule', 'timeBasedAutoScalingConfiguration_autoScalingSchedule' - A @WeeklyAutoScalingSchedule@ object with the instance schedule.
+--
+-- 'instanceId', 'timeBasedAutoScalingConfiguration_instanceId' - The instance ID.
 newTimeBasedAutoScalingConfiguration ::
   TimeBasedAutoScalingConfiguration
 newTimeBasedAutoScalingConfiguration =
   TimeBasedAutoScalingConfiguration'
-    { instanceId =
+    { autoScalingSchedule =
         Prelude.Nothing,
-      autoScalingSchedule = Prelude.Nothing
+      instanceId = Prelude.Nothing
     }
-
--- | The instance ID.
-timeBasedAutoScalingConfiguration_instanceId :: Lens.Lens' TimeBasedAutoScalingConfiguration (Prelude.Maybe Prelude.Text)
-timeBasedAutoScalingConfiguration_instanceId = Lens.lens (\TimeBasedAutoScalingConfiguration' {instanceId} -> instanceId) (\s@TimeBasedAutoScalingConfiguration' {} a -> s {instanceId = a} :: TimeBasedAutoScalingConfiguration)
 
 -- | A @WeeklyAutoScalingSchedule@ object with the instance schedule.
 timeBasedAutoScalingConfiguration_autoScalingSchedule :: Lens.Lens' TimeBasedAutoScalingConfiguration (Prelude.Maybe WeeklyAutoScalingSchedule)
 timeBasedAutoScalingConfiguration_autoScalingSchedule = Lens.lens (\TimeBasedAutoScalingConfiguration' {autoScalingSchedule} -> autoScalingSchedule) (\s@TimeBasedAutoScalingConfiguration' {} a -> s {autoScalingSchedule = a} :: TimeBasedAutoScalingConfiguration)
 
+-- | The instance ID.
+timeBasedAutoScalingConfiguration_instanceId :: Lens.Lens' TimeBasedAutoScalingConfiguration (Prelude.Maybe Prelude.Text)
+timeBasedAutoScalingConfiguration_instanceId = Lens.lens (\TimeBasedAutoScalingConfiguration' {instanceId} -> instanceId) (\s@TimeBasedAutoScalingConfiguration' {} a -> s {instanceId = a} :: TimeBasedAutoScalingConfiguration)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     TimeBasedAutoScalingConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TimeBasedAutoScalingConfiguration"
       ( \x ->
           TimeBasedAutoScalingConfiguration'
-            Prelude.<$> (x Core..:? "InstanceId")
-            Prelude.<*> (x Core..:? "AutoScalingSchedule")
+            Prelude.<$> (x Data..:? "AutoScalingSchedule")
+            Prelude.<*> (x Data..:? "InstanceId")
       )
 
 instance
@@ -83,13 +84,13 @@ instance
   hashWithSalt
     _salt
     TimeBasedAutoScalingConfiguration' {..} =
-      _salt `Prelude.hashWithSalt` instanceId
-        `Prelude.hashWithSalt` autoScalingSchedule
+      _salt `Prelude.hashWithSalt` autoScalingSchedule
+        `Prelude.hashWithSalt` instanceId
 
 instance
   Prelude.NFData
     TimeBasedAutoScalingConfiguration
   where
   rnf TimeBasedAutoScalingConfiguration' {..} =
-    Prelude.rnf instanceId
-      `Prelude.seq` Prelude.rnf autoScalingSchedule
+    Prelude.rnf autoScalingSchedule
+      `Prelude.seq` Prelude.rnf instanceId

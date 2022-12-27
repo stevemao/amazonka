@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Config.Types.ConfigurationRecorder
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Config.Types.ConfigurationRecorder where
 
 import Amazonka.Config.Types.RecordingGroup
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the recording of configuration changes of an
@@ -38,6 +39,9 @@ data ConfigurationRecorder = ConfigurationRecorder'
     recordingGroup :: Prelude.Maybe RecordingGroup,
     -- | Amazon Resource Name (ARN) of the IAM role used to describe the Amazon
     -- Web Services resources associated with the account.
+    --
+    -- While the API model does not require this field, the server will reject
+    -- a request without a defined roleARN for the configuration recorder.
     roleARN :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -59,6 +63,9 @@ data ConfigurationRecorder = ConfigurationRecorder'
 --
 -- 'roleARN', 'configurationRecorder_roleARN' - Amazon Resource Name (ARN) of the IAM role used to describe the Amazon
 -- Web Services resources associated with the account.
+--
+-- While the API model does not require this field, the server will reject
+-- a request without a defined roleARN for the configuration recorder.
 newConfigurationRecorder ::
   ConfigurationRecorder
 newConfigurationRecorder =
@@ -81,18 +88,21 @@ configurationRecorder_recordingGroup = Lens.lens (\ConfigurationRecorder' {recor
 
 -- | Amazon Resource Name (ARN) of the IAM role used to describe the Amazon
 -- Web Services resources associated with the account.
+--
+-- While the API model does not require this field, the server will reject
+-- a request without a defined roleARN for the configuration recorder.
 configurationRecorder_roleARN :: Lens.Lens' ConfigurationRecorder (Prelude.Maybe Prelude.Text)
 configurationRecorder_roleARN = Lens.lens (\ConfigurationRecorder' {roleARN} -> roleARN) (\s@ConfigurationRecorder' {} a -> s {roleARN = a} :: ConfigurationRecorder)
 
-instance Core.FromJSON ConfigurationRecorder where
+instance Data.FromJSON ConfigurationRecorder where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConfigurationRecorder"
       ( \x ->
           ConfigurationRecorder'
-            Prelude.<$> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "recordingGroup")
-            Prelude.<*> (x Core..:? "roleARN")
+            Prelude.<$> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "recordingGroup")
+            Prelude.<*> (x Data..:? "roleARN")
       )
 
 instance Prelude.Hashable ConfigurationRecorder where
@@ -107,13 +117,13 @@ instance Prelude.NFData ConfigurationRecorder where
       `Prelude.seq` Prelude.rnf recordingGroup
       `Prelude.seq` Prelude.rnf roleARN
 
-instance Core.ToJSON ConfigurationRecorder where
+instance Data.ToJSON ConfigurationRecorder where
   toJSON ConfigurationRecorder' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("name" Core..=) Prelude.<$> name,
-            ("recordingGroup" Core..=)
+          [ ("name" Data..=) Prelude.<$> name,
+            ("recordingGroup" Data..=)
               Prelude.<$> recordingGroup,
-            ("roleARN" Core..=) Prelude.<$> roleARN
+            ("roleARN" Data..=) Prelude.<$> roleARN
           ]
       )

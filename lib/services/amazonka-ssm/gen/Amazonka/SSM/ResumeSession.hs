@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.SSM.ResumeSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Reconnects a session to an instance after it has been disconnected.
+-- Reconnects a session to a managed node after it has been disconnected.
 -- Connections can be resumed for disconnected sessions, but not terminated
 -- sessions.
 --
@@ -40,15 +40,16 @@ module Amazonka.SSM.ResumeSession
     newResumeSessionResponse,
 
     -- * Response Lenses
+    resumeSessionResponse_sessionId,
     resumeSessionResponse_streamUrl,
     resumeSessionResponse_tokenValue,
-    resumeSessionResponse_sessionId,
     resumeSessionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,14 +86,15 @@ instance Core.AWSRequest ResumeSession where
   type
     AWSResponse ResumeSession =
       ResumeSessionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ResumeSessionResponse'
-            Prelude.<$> (x Core..?> "StreamUrl")
-            Prelude.<*> (x Core..?> "TokenValue")
-            Prelude.<*> (x Core..?> "SessionId")
+            Prelude.<$> (x Data..?> "SessionId")
+            Prelude.<*> (x Data..?> "StreamUrl")
+            Prelude.<*> (x Data..?> "TokenValue")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -103,36 +105,39 @@ instance Prelude.Hashable ResumeSession where
 instance Prelude.NFData ResumeSession where
   rnf ResumeSession' {..} = Prelude.rnf sessionId
 
-instance Core.ToHeaders ResumeSession where
+instance Data.ToHeaders ResumeSession where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonSSM.ResumeSession" :: Prelude.ByteString),
+              Data.=# ("AmazonSSM.ResumeSession" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ResumeSession where
+instance Data.ToJSON ResumeSession where
   toJSON ResumeSession' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("SessionId" Core..= sessionId)]
+          [Prelude.Just ("SessionId" Data..= sessionId)]
       )
 
-instance Core.ToPath ResumeSession where
+instance Data.ToPath ResumeSession where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ResumeSession where
+instance Data.ToQuery ResumeSession where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newResumeSessionResponse' smart constructor.
 data ResumeSessionResponse = ResumeSessionResponse'
-  { -- | A URL back to SSM Agent on the instance that the Session Manager client
-    -- uses to send commands and receive output from the instance. Format:
+  { -- | The ID of the session.
+    sessionId :: Prelude.Maybe Prelude.Text,
+    -- | A URL back to SSM Agent on the managed node that the Session Manager
+    -- client uses to send commands and receive output from the managed node.
+    -- Format:
     -- @wss:\/\/ssmmessages.region.amazonaws.com\/v1\/data-channel\/session-id?stream=(input|output)@.
     --
     -- __region__ represents the Region identifier for an Amazon Web Services
@@ -146,10 +151,8 @@ data ResumeSessionResponse = ResumeSessionResponse'
     -- @1a2b3c4dEXAMPLE@.
     streamUrl :: Prelude.Maybe Prelude.Text,
     -- | An encrypted token value containing session and caller information. Used
-    -- to authenticate the connection to the instance.
+    -- to authenticate the connection to the managed node.
     tokenValue :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the session.
-    sessionId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -163,8 +166,11 @@ data ResumeSessionResponse = ResumeSessionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'streamUrl', 'resumeSessionResponse_streamUrl' - A URL back to SSM Agent on the instance that the Session Manager client
--- uses to send commands and receive output from the instance. Format:
+-- 'sessionId', 'resumeSessionResponse_sessionId' - The ID of the session.
+--
+-- 'streamUrl', 'resumeSessionResponse_streamUrl' - A URL back to SSM Agent on the managed node that the Session Manager
+-- client uses to send commands and receive output from the managed node.
+-- Format:
 -- @wss:\/\/ssmmessages.region.amazonaws.com\/v1\/data-channel\/session-id?stream=(input|output)@.
 --
 -- __region__ represents the Region identifier for an Amazon Web Services
@@ -178,9 +184,7 @@ data ResumeSessionResponse = ResumeSessionResponse'
 -- @1a2b3c4dEXAMPLE@.
 --
 -- 'tokenValue', 'resumeSessionResponse_tokenValue' - An encrypted token value containing session and caller information. Used
--- to authenticate the connection to the instance.
---
--- 'sessionId', 'resumeSessionResponse_sessionId' - The ID of the session.
+-- to authenticate the connection to the managed node.
 --
 -- 'httpStatus', 'resumeSessionResponse_httpStatus' - The response's http status code.
 newResumeSessionResponse ::
@@ -189,14 +193,19 @@ newResumeSessionResponse ::
   ResumeSessionResponse
 newResumeSessionResponse pHttpStatus_ =
   ResumeSessionResponse'
-    { streamUrl = Prelude.Nothing,
+    { sessionId = Prelude.Nothing,
+      streamUrl = Prelude.Nothing,
       tokenValue = Prelude.Nothing,
-      sessionId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | A URL back to SSM Agent on the instance that the Session Manager client
--- uses to send commands and receive output from the instance. Format:
+-- | The ID of the session.
+resumeSessionResponse_sessionId :: Lens.Lens' ResumeSessionResponse (Prelude.Maybe Prelude.Text)
+resumeSessionResponse_sessionId = Lens.lens (\ResumeSessionResponse' {sessionId} -> sessionId) (\s@ResumeSessionResponse' {} a -> s {sessionId = a} :: ResumeSessionResponse)
+
+-- | A URL back to SSM Agent on the managed node that the Session Manager
+-- client uses to send commands and receive output from the managed node.
+-- Format:
 -- @wss:\/\/ssmmessages.region.amazonaws.com\/v1\/data-channel\/session-id?stream=(input|output)@.
 --
 -- __region__ represents the Region identifier for an Amazon Web Services
@@ -212,13 +221,9 @@ resumeSessionResponse_streamUrl :: Lens.Lens' ResumeSessionResponse (Prelude.May
 resumeSessionResponse_streamUrl = Lens.lens (\ResumeSessionResponse' {streamUrl} -> streamUrl) (\s@ResumeSessionResponse' {} a -> s {streamUrl = a} :: ResumeSessionResponse)
 
 -- | An encrypted token value containing session and caller information. Used
--- to authenticate the connection to the instance.
+-- to authenticate the connection to the managed node.
 resumeSessionResponse_tokenValue :: Lens.Lens' ResumeSessionResponse (Prelude.Maybe Prelude.Text)
 resumeSessionResponse_tokenValue = Lens.lens (\ResumeSessionResponse' {tokenValue} -> tokenValue) (\s@ResumeSessionResponse' {} a -> s {tokenValue = a} :: ResumeSessionResponse)
-
--- | The ID of the session.
-resumeSessionResponse_sessionId :: Lens.Lens' ResumeSessionResponse (Prelude.Maybe Prelude.Text)
-resumeSessionResponse_sessionId = Lens.lens (\ResumeSessionResponse' {sessionId} -> sessionId) (\s@ResumeSessionResponse' {} a -> s {sessionId = a} :: ResumeSessionResponse)
 
 -- | The response's http status code.
 resumeSessionResponse_httpStatus :: Lens.Lens' ResumeSessionResponse Prelude.Int
@@ -226,7 +231,7 @@ resumeSessionResponse_httpStatus = Lens.lens (\ResumeSessionResponse' {httpStatu
 
 instance Prelude.NFData ResumeSessionResponse where
   rnf ResumeSessionResponse' {..} =
-    Prelude.rnf streamUrl
+    Prelude.rnf sessionId
+      `Prelude.seq` Prelude.rnf streamUrl
       `Prelude.seq` Prelude.rnf tokenValue
-      `Prelude.seq` Prelude.rnf sessionId
       `Prelude.seq` Prelude.rnf httpStatus

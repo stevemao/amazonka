@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.PinpointEmail.PutAccountSendingAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.PinpointEmail.PutAccountSendingAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.PinpointEmail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -91,7 +92,8 @@ instance Core.AWSRequest PutAccountSendingAttributes where
   type
     AWSResponse PutAccountSendingAttributes =
       PutAccountSendingAttributesResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -107,30 +109,30 @@ instance Prelude.NFData PutAccountSendingAttributes where
   rnf PutAccountSendingAttributes' {..} =
     Prelude.rnf sendingEnabled
 
-instance Core.ToHeaders PutAccountSendingAttributes where
+instance Data.ToHeaders PutAccountSendingAttributes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutAccountSendingAttributes where
+instance Data.ToJSON PutAccountSendingAttributes where
   toJSON PutAccountSendingAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SendingEnabled" Core..=)
+          [ ("SendingEnabled" Data..=)
               Prelude.<$> sendingEnabled
           ]
       )
 
-instance Core.ToPath PutAccountSendingAttributes where
+instance Data.ToPath PutAccountSendingAttributes where
   toPath = Prelude.const "/v1/email/account/sending"
 
-instance Core.ToQuery PutAccountSendingAttributes where
+instance Data.ToQuery PutAccountSendingAttributes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | An HTTP 200 response if the request succeeds, or an error message if the

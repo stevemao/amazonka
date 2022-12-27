@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.ExecuteChangeSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,7 +33,7 @@
 -- the policy during the update. You can\'t specify a temporary stack
 -- policy that overrides the current policy.
 --
--- To create a change set for the entire stack hierachy,
+-- To create a change set for the entire stack hierarchy,
 -- @IncludeNestedStacks@ must have been set to @True@.
 module Amazonka.CloudFormation.ExecuteChangeSet
   ( -- * Creating a Request
@@ -41,8 +41,8 @@ module Amazonka.CloudFormation.ExecuteChangeSet
     newExecuteChangeSet,
 
     -- * Request Lenses
-    executeChangeSet_disableRollback,
     executeChangeSet_clientRequestToken,
+    executeChangeSet_disableRollback,
     executeChangeSet_stackName,
     executeChangeSet_changeSetName,
 
@@ -57,7 +57,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,22 +67,23 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newExecuteChangeSet' smart constructor.
 data ExecuteChangeSet = ExecuteChangeSet'
-  { -- | Preserves the state of previously provisioned resources when an
-    -- operation fails.
-    --
-    -- Default: @True@
-    disableRollback :: Prelude.Maybe Prelude.Bool,
-    -- | A unique identifier for this @ExecuteChangeSet@ request. Specify this
+  { -- | A unique identifier for this @ExecuteChangeSet@ request. Specify this
     -- token if you plan to retry requests so that CloudFormation knows that
     -- you\'re not attempting to execute a change set to update a stack with
     -- the same name. You might retry @ExecuteChangeSet@ requests to ensure
     -- that CloudFormation successfully received them.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
-    -- | If you specified the name of a change set, specify the stack name or ID
-    -- (ARN) that is associated with the change set you want to execute.
+    -- | Preserves the state of previously provisioned resources when an
+    -- operation fails.
+    --
+    -- Default: @True@
+    disableRollback :: Prelude.Maybe Prelude.Bool,
+    -- | If you specified the name of a change set, specify the stack name or
+    -- Amazon Resource Name (ARN) that\'s associated with the change set you
+    -- want to execute.
     stackName :: Prelude.Maybe Prelude.Text,
-    -- | The name or ARN of the change set that you want use to update the
-    -- specified stack.
+    -- | The name or Amazon Resource Name (ARN) of the change set that you want
+    -- use to update the specified stack.
     changeSetName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -94,41 +96,35 @@ data ExecuteChangeSet = ExecuteChangeSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'disableRollback', 'executeChangeSet_disableRollback' - Preserves the state of previously provisioned resources when an
--- operation fails.
---
--- Default: @True@
---
 -- 'clientRequestToken', 'executeChangeSet_clientRequestToken' - A unique identifier for this @ExecuteChangeSet@ request. Specify this
 -- token if you plan to retry requests so that CloudFormation knows that
 -- you\'re not attempting to execute a change set to update a stack with
 -- the same name. You might retry @ExecuteChangeSet@ requests to ensure
 -- that CloudFormation successfully received them.
 --
--- 'stackName', 'executeChangeSet_stackName' - If you specified the name of a change set, specify the stack name or ID
--- (ARN) that is associated with the change set you want to execute.
+-- 'disableRollback', 'executeChangeSet_disableRollback' - Preserves the state of previously provisioned resources when an
+-- operation fails.
 --
--- 'changeSetName', 'executeChangeSet_changeSetName' - The name or ARN of the change set that you want use to update the
--- specified stack.
+-- Default: @True@
+--
+-- 'stackName', 'executeChangeSet_stackName' - If you specified the name of a change set, specify the stack name or
+-- Amazon Resource Name (ARN) that\'s associated with the change set you
+-- want to execute.
+--
+-- 'changeSetName', 'executeChangeSet_changeSetName' - The name or Amazon Resource Name (ARN) of the change set that you want
+-- use to update the specified stack.
 newExecuteChangeSet ::
   -- | 'changeSetName'
   Prelude.Text ->
   ExecuteChangeSet
 newExecuteChangeSet pChangeSetName_ =
   ExecuteChangeSet'
-    { disableRollback =
+    { clientRequestToken =
         Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
+      disableRollback = Prelude.Nothing,
       stackName = Prelude.Nothing,
       changeSetName = pChangeSetName_
     }
-
--- | Preserves the state of previously provisioned resources when an
--- operation fails.
---
--- Default: @True@
-executeChangeSet_disableRollback :: Lens.Lens' ExecuteChangeSet (Prelude.Maybe Prelude.Bool)
-executeChangeSet_disableRollback = Lens.lens (\ExecuteChangeSet' {disableRollback} -> disableRollback) (\s@ExecuteChangeSet' {} a -> s {disableRollback = a} :: ExecuteChangeSet)
 
 -- | A unique identifier for this @ExecuteChangeSet@ request. Specify this
 -- token if you plan to retry requests so that CloudFormation knows that
@@ -138,13 +134,21 @@ executeChangeSet_disableRollback = Lens.lens (\ExecuteChangeSet' {disableRollbac
 executeChangeSet_clientRequestToken :: Lens.Lens' ExecuteChangeSet (Prelude.Maybe Prelude.Text)
 executeChangeSet_clientRequestToken = Lens.lens (\ExecuteChangeSet' {clientRequestToken} -> clientRequestToken) (\s@ExecuteChangeSet' {} a -> s {clientRequestToken = a} :: ExecuteChangeSet)
 
--- | If you specified the name of a change set, specify the stack name or ID
--- (ARN) that is associated with the change set you want to execute.
+-- | Preserves the state of previously provisioned resources when an
+-- operation fails.
+--
+-- Default: @True@
+executeChangeSet_disableRollback :: Lens.Lens' ExecuteChangeSet (Prelude.Maybe Prelude.Bool)
+executeChangeSet_disableRollback = Lens.lens (\ExecuteChangeSet' {disableRollback} -> disableRollback) (\s@ExecuteChangeSet' {} a -> s {disableRollback = a} :: ExecuteChangeSet)
+
+-- | If you specified the name of a change set, specify the stack name or
+-- Amazon Resource Name (ARN) that\'s associated with the change set you
+-- want to execute.
 executeChangeSet_stackName :: Lens.Lens' ExecuteChangeSet (Prelude.Maybe Prelude.Text)
 executeChangeSet_stackName = Lens.lens (\ExecuteChangeSet' {stackName} -> stackName) (\s@ExecuteChangeSet' {} a -> s {stackName = a} :: ExecuteChangeSet)
 
--- | The name or ARN of the change set that you want use to update the
--- specified stack.
+-- | The name or Amazon Resource Name (ARN) of the change set that you want
+-- use to update the specified stack.
 executeChangeSet_changeSetName :: Lens.Lens' ExecuteChangeSet Prelude.Text
 executeChangeSet_changeSetName = Lens.lens (\ExecuteChangeSet' {changeSetName} -> changeSetName) (\s@ExecuteChangeSet' {} a -> s {changeSetName = a} :: ExecuteChangeSet)
 
@@ -152,7 +156,8 @@ instance Core.AWSRequest ExecuteChangeSet where
   type
     AWSResponse ExecuteChangeSet =
       ExecuteChangeSetResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ExecuteChangeSetResult"
@@ -163,35 +168,35 @@ instance Core.AWSRequest ExecuteChangeSet where
 
 instance Prelude.Hashable ExecuteChangeSet where
   hashWithSalt _salt ExecuteChangeSet' {..} =
-    _salt `Prelude.hashWithSalt` disableRollback
-      `Prelude.hashWithSalt` clientRequestToken
+    _salt `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` disableRollback
       `Prelude.hashWithSalt` stackName
       `Prelude.hashWithSalt` changeSetName
 
 instance Prelude.NFData ExecuteChangeSet where
   rnf ExecuteChangeSet' {..} =
-    Prelude.rnf disableRollback
-      `Prelude.seq` Prelude.rnf clientRequestToken
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf disableRollback
       `Prelude.seq` Prelude.rnf stackName
       `Prelude.seq` Prelude.rnf changeSetName
 
-instance Core.ToHeaders ExecuteChangeSet where
+instance Data.ToHeaders ExecuteChangeSet where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ExecuteChangeSet where
+instance Data.ToPath ExecuteChangeSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ExecuteChangeSet where
+instance Data.ToQuery ExecuteChangeSet where
   toQuery ExecuteChangeSet' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ExecuteChangeSet" :: Prelude.ByteString),
+          Data.=: ("ExecuteChangeSet" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "DisableRollback" Core.=: disableRollback,
-        "ClientRequestToken" Core.=: clientRequestToken,
-        "StackName" Core.=: stackName,
-        "ChangeSetName" Core.=: changeSetName
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "ClientRequestToken" Data.=: clientRequestToken,
+        "DisableRollback" Data.=: disableRollback,
+        "StackName" Data.=: stackName,
+        "ChangeSetName" Data.=: changeSetName
       ]
 
 -- | The output for the ExecuteChangeSet action.

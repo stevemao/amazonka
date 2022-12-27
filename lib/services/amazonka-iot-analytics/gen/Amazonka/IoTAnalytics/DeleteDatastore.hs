@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.DeleteDatastore
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,9 @@ module Amazonka.IoTAnalytics.DeleteDatastore
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,7 +74,8 @@ instance Core.AWSRequest DeleteDatastore where
   type
     AWSResponse DeleteDatastore =
       DeleteDatastoreResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteDatastoreResponse'
 
@@ -84,15 +86,15 @@ instance Prelude.Hashable DeleteDatastore where
 instance Prelude.NFData DeleteDatastore where
   rnf DeleteDatastore' {..} = Prelude.rnf datastoreName
 
-instance Core.ToHeaders DeleteDatastore where
+instance Data.ToHeaders DeleteDatastore where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDatastore where
+instance Data.ToPath DeleteDatastore where
   toPath DeleteDatastore' {..} =
     Prelude.mconcat
-      ["/datastores/", Core.toBS datastoreName]
+      ["/datastores/", Data.toBS datastoreName]
 
-instance Core.ToQuery DeleteDatastore where
+instance Data.ToQuery DeleteDatastore where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDatastoreResponse' smart constructor.

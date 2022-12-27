@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.Types.RecoveryGroupOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,22 @@
 module Amazonka.Route53RecoveryReadiness.Types.RecoveryGroupOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | A Recovery Group generally containing multiple Cells
+-- | A representation of the application, typically containing multiple
+-- cells.
 --
 -- /See:/ 'newRecoveryGroupOutput' smart constructor.
 data RecoveryGroupOutput = RecoveryGroupOutput'
-  { tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The arn for the RecoveryGroup
+  { -- | The tags associated with the recovery group.
+    tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The Amazon Resource Name (ARN) for the recovery group.
     recoveryGroupArn :: Prelude.Text,
-    -- | The name of the RecoveryGroup
+    -- | The name of the recovery group.
     recoveryGroupName :: Prelude.Text,
-    -- | A list of Cell arns
+    -- | A list of a cell\'s Amazon Resource Names (ARNs).
     cells :: [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -45,13 +48,13 @@ data RecoveryGroupOutput = RecoveryGroupOutput'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tags', 'recoveryGroupOutput_tags' - Undocumented member.
+-- 'tags', 'recoveryGroupOutput_tags' - The tags associated with the recovery group.
 --
--- 'recoveryGroupArn', 'recoveryGroupOutput_recoveryGroupArn' - The arn for the RecoveryGroup
+-- 'recoveryGroupArn', 'recoveryGroupOutput_recoveryGroupArn' - The Amazon Resource Name (ARN) for the recovery group.
 --
--- 'recoveryGroupName', 'recoveryGroupOutput_recoveryGroupName' - The name of the RecoveryGroup
+-- 'recoveryGroupName', 'recoveryGroupOutput_recoveryGroupName' - The name of the recovery group.
 --
--- 'cells', 'recoveryGroupOutput_cells' - A list of Cell arns
+-- 'cells', 'recoveryGroupOutput_cells' - A list of a cell\'s Amazon Resource Names (ARNs).
 newRecoveryGroupOutput ::
   -- | 'recoveryGroupArn'
   Prelude.Text ->
@@ -68,32 +71,32 @@ newRecoveryGroupOutput
         cells = Prelude.mempty
       }
 
--- | Undocumented member.
+-- | The tags associated with the recovery group.
 recoveryGroupOutput_tags :: Lens.Lens' RecoveryGroupOutput (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 recoveryGroupOutput_tags = Lens.lens (\RecoveryGroupOutput' {tags} -> tags) (\s@RecoveryGroupOutput' {} a -> s {tags = a} :: RecoveryGroupOutput) Prelude.. Lens.mapping Lens.coerced
 
--- | The arn for the RecoveryGroup
+-- | The Amazon Resource Name (ARN) for the recovery group.
 recoveryGroupOutput_recoveryGroupArn :: Lens.Lens' RecoveryGroupOutput Prelude.Text
 recoveryGroupOutput_recoveryGroupArn = Lens.lens (\RecoveryGroupOutput' {recoveryGroupArn} -> recoveryGroupArn) (\s@RecoveryGroupOutput' {} a -> s {recoveryGroupArn = a} :: RecoveryGroupOutput)
 
--- | The name of the RecoveryGroup
+-- | The name of the recovery group.
 recoveryGroupOutput_recoveryGroupName :: Lens.Lens' RecoveryGroupOutput Prelude.Text
 recoveryGroupOutput_recoveryGroupName = Lens.lens (\RecoveryGroupOutput' {recoveryGroupName} -> recoveryGroupName) (\s@RecoveryGroupOutput' {} a -> s {recoveryGroupName = a} :: RecoveryGroupOutput)
 
--- | A list of Cell arns
+-- | A list of a cell\'s Amazon Resource Names (ARNs).
 recoveryGroupOutput_cells :: Lens.Lens' RecoveryGroupOutput [Prelude.Text]
 recoveryGroupOutput_cells = Lens.lens (\RecoveryGroupOutput' {cells} -> cells) (\s@RecoveryGroupOutput' {} a -> s {cells = a} :: RecoveryGroupOutput) Prelude.. Lens.coerced
 
-instance Core.FromJSON RecoveryGroupOutput where
+instance Data.FromJSON RecoveryGroupOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RecoveryGroupOutput"
       ( \x ->
           RecoveryGroupOutput'
-            Prelude.<$> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "recoveryGroupArn")
-            Prelude.<*> (x Core..: "recoveryGroupName")
-            Prelude.<*> (x Core..:? "cells" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "recoveryGroupArn")
+            Prelude.<*> (x Data..: "recoveryGroupName")
+            Prelude.<*> (x Data..:? "cells" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable RecoveryGroupOutput where

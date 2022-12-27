@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.Types.Disk
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.MGN.Types.Disk where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The disk identifier.
 --
 -- /See:/ 'newDisk' smart constructor.
 data Disk = Disk'
-  { -- | The disk or device name.
-    deviceName :: Prelude.Maybe Prelude.Text,
-    -- | The amount of storage on the disk in bytes.
-    bytes :: Prelude.Maybe Prelude.Natural
+  { -- | The amount of storage on the disk in bytes.
+    bytes :: Prelude.Maybe Prelude.Natural,
+    -- | The disk or device name.
+    deviceName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,41 +43,41 @@ data Disk = Disk'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'deviceName', 'disk_deviceName' - The disk or device name.
---
 -- 'bytes', 'disk_bytes' - The amount of storage on the disk in bytes.
+--
+-- 'deviceName', 'disk_deviceName' - The disk or device name.
 newDisk ::
   Disk
 newDisk =
   Disk'
-    { deviceName = Prelude.Nothing,
-      bytes = Prelude.Nothing
+    { bytes = Prelude.Nothing,
+      deviceName = Prelude.Nothing
     }
-
--- | The disk or device name.
-disk_deviceName :: Lens.Lens' Disk (Prelude.Maybe Prelude.Text)
-disk_deviceName = Lens.lens (\Disk' {deviceName} -> deviceName) (\s@Disk' {} a -> s {deviceName = a} :: Disk)
 
 -- | The amount of storage on the disk in bytes.
 disk_bytes :: Lens.Lens' Disk (Prelude.Maybe Prelude.Natural)
 disk_bytes = Lens.lens (\Disk' {bytes} -> bytes) (\s@Disk' {} a -> s {bytes = a} :: Disk)
 
-instance Core.FromJSON Disk where
+-- | The disk or device name.
+disk_deviceName :: Lens.Lens' Disk (Prelude.Maybe Prelude.Text)
+disk_deviceName = Lens.lens (\Disk' {deviceName} -> deviceName) (\s@Disk' {} a -> s {deviceName = a} :: Disk)
+
+instance Data.FromJSON Disk where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Disk"
       ( \x ->
           Disk'
-            Prelude.<$> (x Core..:? "deviceName")
-            Prelude.<*> (x Core..:? "bytes")
+            Prelude.<$> (x Data..:? "bytes")
+            Prelude.<*> (x Data..:? "deviceName")
       )
 
 instance Prelude.Hashable Disk where
   hashWithSalt _salt Disk' {..} =
-    _salt `Prelude.hashWithSalt` deviceName
-      `Prelude.hashWithSalt` bytes
+    _salt `Prelude.hashWithSalt` bytes
+      `Prelude.hashWithSalt` deviceName
 
 instance Prelude.NFData Disk where
   rnf Disk' {..} =
-    Prelude.rnf deviceName
-      `Prelude.seq` Prelude.rnf bytes
+    Prelude.rnf bytes
+      `Prelude.seq` Prelude.rnf deviceName

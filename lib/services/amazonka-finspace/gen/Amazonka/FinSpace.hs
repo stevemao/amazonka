@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.FinSpace
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -11,8 +11,8 @@
 --
 -- Derived from API version @2021-03-12@ of the AWS service descriptions, licensed under Apache 2.0.
 --
--- The FinSpace management service provides the APIs for managing the
--- FinSpace environments.
+-- The FinSpace management service provides the APIs for managing FinSpace
+-- environments.
 module Amazonka.FinSpace
   ( -- * Service Configuration
     defaultService,
@@ -20,14 +20,20 @@ module Amazonka.FinSpace
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
 
+    -- ** InternalServerException
+    _InternalServerException,
+
     -- ** InvalidRequestException
     _InvalidRequestException,
+
+    -- ** LimitExceededException
+    _LimitExceededException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
 
     -- ** ServiceQuotaExceededException
     _ServiceQuotaExceededException,
@@ -35,14 +41,8 @@ module Amazonka.FinSpace
     -- ** ThrottlingException
     _ThrottlingException,
 
-    -- ** InternalServerException
-    _InternalServerException,
-
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
-
-    -- ** LimitExceededException
-    _LimitExceededException,
+    -- ** ValidationException
+    _ValidationException,
 
     -- * Waiters
     -- $waiters
@@ -50,23 +50,29 @@ module Amazonka.FinSpace
     -- * Operations
     -- $operations
 
-    -- ** ListEnvironments
-    ListEnvironments (ListEnvironments'),
-    newListEnvironments,
-    ListEnvironmentsResponse (ListEnvironmentsResponse'),
-    newListEnvironmentsResponse,
-
-    -- ** UpdateEnvironment
-    UpdateEnvironment (UpdateEnvironment'),
-    newUpdateEnvironment,
-    UpdateEnvironmentResponse (UpdateEnvironmentResponse'),
-    newUpdateEnvironmentResponse,
+    -- ** CreateEnvironment
+    CreateEnvironment (CreateEnvironment'),
+    newCreateEnvironment,
+    CreateEnvironmentResponse (CreateEnvironmentResponse'),
+    newCreateEnvironmentResponse,
 
     -- ** DeleteEnvironment
     DeleteEnvironment (DeleteEnvironment'),
     newDeleteEnvironment,
     DeleteEnvironmentResponse (DeleteEnvironmentResponse'),
     newDeleteEnvironmentResponse,
+
+    -- ** GetEnvironment
+    GetEnvironment (GetEnvironment'),
+    newGetEnvironment,
+    GetEnvironmentResponse (GetEnvironmentResponse'),
+    newGetEnvironmentResponse,
+
+    -- ** ListEnvironments
+    ListEnvironments (ListEnvironments'),
+    newListEnvironments,
+    ListEnvironmentsResponse (ListEnvironmentsResponse'),
+    newListEnvironmentsResponse,
 
     -- ** ListTagsForResource
     ListTagsForResource (ListTagsForResource'),
@@ -80,23 +86,17 @@ module Amazonka.FinSpace
     TagResourceResponse (TagResourceResponse'),
     newTagResourceResponse,
 
-    -- ** GetEnvironment
-    GetEnvironment (GetEnvironment'),
-    newGetEnvironment,
-    GetEnvironmentResponse (GetEnvironmentResponse'),
-    newGetEnvironmentResponse,
-
     -- ** UntagResource
     UntagResource (UntagResource'),
     newUntagResource,
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** CreateEnvironment
-    CreateEnvironment (CreateEnvironment'),
-    newCreateEnvironment,
-    CreateEnvironmentResponse (CreateEnvironmentResponse'),
-    newCreateEnvironmentResponse,
+    -- ** UpdateEnvironment
+    UpdateEnvironment (UpdateEnvironment'),
+    newUpdateEnvironment,
+    UpdateEnvironmentResponse (UpdateEnvironmentResponse'),
+    newUpdateEnvironmentResponse,
 
     -- * Types
 
@@ -113,6 +113,10 @@ module Amazonka.FinSpace
     -- ** FederationParameters
     FederationParameters (FederationParameters'),
     newFederationParameters,
+
+    -- ** SuperuserParameters
+    SuperuserParameters (SuperuserParameters'),
+    newSuperuserParameters,
   )
 where
 

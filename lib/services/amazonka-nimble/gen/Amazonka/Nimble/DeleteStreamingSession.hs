@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.DeleteStreamingSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.Nimble.DeleteStreamingSession
 
     -- * Request Lenses
     deleteStreamingSession_clientToken,
-    deleteStreamingSession_studioId,
     deleteStreamingSession_sessionId,
+    deleteStreamingSession_studioId,
 
     -- * Destructuring the Response
     DeleteStreamingSessionResponse (..),
@@ -48,7 +48,8 @@ module Amazonka.Nimble.DeleteStreamingSession
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -56,19 +57,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteStreamingSession' smart constructor.
 data DeleteStreamingSession = DeleteStreamingSession'
-  { -- | To make an idempotent API request using one of these actions, specify a
-    -- client token in the request. You should not reuse the same client token
-    -- for other API requests. If you retry a request that completed
-    -- successfully using the same client token and the same parameters, the
-    -- retry succeeds without performing any further actions. If you retry a
-    -- successful request using the same client token, but one or more of the
-    -- parameters are different, the retry fails with a ValidationException
-    -- error.
+  { -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. If you don’t specify a client token, the AWS
+    -- SDK automatically generates a client token and uses it for the request
+    -- to ensure idempotency.
     clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The streaming session ID.
+    sessionId :: Prelude.Text,
     -- | The studio ID.
-    studioId :: Prelude.Text,
-    -- | The session ID.
-    sessionId :: Prelude.Text
+    studioId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -80,94 +77,87 @@ data DeleteStreamingSession = DeleteStreamingSession'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'deleteStreamingSession_clientToken' - To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- 'clientToken', 'deleteStreamingSession_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
+--
+-- 'sessionId', 'deleteStreamingSession_sessionId' - The streaming session ID.
 --
 -- 'studioId', 'deleteStreamingSession_studioId' - The studio ID.
---
--- 'sessionId', 'deleteStreamingSession_sessionId' - The session ID.
 newDeleteStreamingSession ::
-  -- | 'studioId'
-  Prelude.Text ->
   -- | 'sessionId'
   Prelude.Text ->
+  -- | 'studioId'
+  Prelude.Text ->
   DeleteStreamingSession
-newDeleteStreamingSession pStudioId_ pSessionId_ =
+newDeleteStreamingSession pSessionId_ pStudioId_ =
   DeleteStreamingSession'
     { clientToken =
         Prelude.Nothing,
-      studioId = pStudioId_,
-      sessionId = pSessionId_
+      sessionId = pSessionId_,
+      studioId = pStudioId_
     }
 
--- | To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 deleteStreamingSession_clientToken :: Lens.Lens' DeleteStreamingSession (Prelude.Maybe Prelude.Text)
 deleteStreamingSession_clientToken = Lens.lens (\DeleteStreamingSession' {clientToken} -> clientToken) (\s@DeleteStreamingSession' {} a -> s {clientToken = a} :: DeleteStreamingSession)
+
+-- | The streaming session ID.
+deleteStreamingSession_sessionId :: Lens.Lens' DeleteStreamingSession Prelude.Text
+deleteStreamingSession_sessionId = Lens.lens (\DeleteStreamingSession' {sessionId} -> sessionId) (\s@DeleteStreamingSession' {} a -> s {sessionId = a} :: DeleteStreamingSession)
 
 -- | The studio ID.
 deleteStreamingSession_studioId :: Lens.Lens' DeleteStreamingSession Prelude.Text
 deleteStreamingSession_studioId = Lens.lens (\DeleteStreamingSession' {studioId} -> studioId) (\s@DeleteStreamingSession' {} a -> s {studioId = a} :: DeleteStreamingSession)
 
--- | The session ID.
-deleteStreamingSession_sessionId :: Lens.Lens' DeleteStreamingSession Prelude.Text
-deleteStreamingSession_sessionId = Lens.lens (\DeleteStreamingSession' {sessionId} -> sessionId) (\s@DeleteStreamingSession' {} a -> s {sessionId = a} :: DeleteStreamingSession)
-
 instance Core.AWSRequest DeleteStreamingSession where
   type
     AWSResponse DeleteStreamingSession =
       DeleteStreamingSessionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteStreamingSessionResponse'
-            Prelude.<$> (x Core..?> "session")
+            Prelude.<$> (x Data..?> "session")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DeleteStreamingSession where
   hashWithSalt _salt DeleteStreamingSession' {..} =
     _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` studioId
       `Prelude.hashWithSalt` sessionId
+      `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData DeleteStreamingSession where
   rnf DeleteStreamingSession' {..} =
     Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf studioId
       `Prelude.seq` Prelude.rnf sessionId
+      `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders DeleteStreamingSession where
+instance Data.ToHeaders DeleteStreamingSession where
   toHeaders DeleteStreamingSession' {..} =
     Prelude.mconcat
-      [ "X-Amz-Client-Token" Core.=# clientToken,
+      [ "X-Amz-Client-Token" Data.=# clientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath DeleteStreamingSession where
+instance Data.ToPath DeleteStreamingSession where
   toPath DeleteStreamingSession' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/streaming-sessions/",
-        Core.toBS sessionId
+        Data.toBS sessionId
       ]
 
-instance Core.ToQuery DeleteStreamingSession where
+instance Data.ToQuery DeleteStreamingSession where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteStreamingSessionResponse' smart constructor.

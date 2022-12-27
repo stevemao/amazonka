@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.DeleteFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,7 +36,8 @@ module Amazonka.Personalize.DeleteFilter
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -71,7 +72,8 @@ deleteFilter_filterArn = Lens.lens (\DeleteFilter' {filterArn} -> filterArn) (\s
 
 instance Core.AWSRequest DeleteFilter where
   type AWSResponse DeleteFilter = DeleteFilterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DeleteFilterResponse'
 
 instance Prelude.Hashable DeleteFilter where
@@ -81,32 +83,32 @@ instance Prelude.Hashable DeleteFilter where
 instance Prelude.NFData DeleteFilter where
   rnf DeleteFilter' {..} = Prelude.rnf filterArn
 
-instance Core.ToHeaders DeleteFilter where
+instance Data.ToHeaders DeleteFilter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.DeleteFilter" ::
+              Data.=# ( "AmazonPersonalize.DeleteFilter" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteFilter where
+instance Data.ToJSON DeleteFilter where
   toJSON DeleteFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("filterArn" Core..= filterArn)]
+          [Prelude.Just ("filterArn" Data..= filterArn)]
       )
 
-instance Core.ToPath DeleteFilter where
+instance Data.ToPath DeleteFilter where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteFilter where
+instance Data.ToQuery DeleteFilter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFilterResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetLoadBalancerTlsCertificates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.Lightsail.GetLoadBalancerTlsCertificates
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -93,12 +94,13 @@ instance
   type
     AWSResponse GetLoadBalancerTlsCertificates =
       GetLoadBalancerTlsCertificatesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetLoadBalancerTlsCertificatesResponse'
-            Prelude.<$> ( x Core..?> "tlsCertificates"
+            Prelude.<$> ( x Data..?> "tlsCertificates"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -121,36 +123,36 @@ instance
     Prelude.rnf loadBalancerName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetLoadBalancerTlsCertificates
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetLoadBalancerTlsCertificates" ::
+              Data.=# ( "Lightsail_20161128.GetLoadBalancerTlsCertificates" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetLoadBalancerTlsCertificates where
+instance Data.ToJSON GetLoadBalancerTlsCertificates where
   toJSON GetLoadBalancerTlsCertificates' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("loadBalancerName" Core..= loadBalancerName)
+              ("loadBalancerName" Data..= loadBalancerName)
           ]
       )
 
-instance Core.ToPath GetLoadBalancerTlsCertificates where
+instance Data.ToPath GetLoadBalancerTlsCertificates where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetLoadBalancerTlsCertificates where
+instance Data.ToQuery GetLoadBalancerTlsCertificates where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetLoadBalancerTlsCertificatesResponse' smart constructor.

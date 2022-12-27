@@ -42,7 +42,9 @@ haskell_library(
         "gen/Amazonka/LicenseManager/ListLicenseVersions.hs",
         "gen/Amazonka/LicenseManager/ListLicenses.hs",
         "gen/Amazonka/LicenseManager/ListReceivedGrants.hs",
+        "gen/Amazonka/LicenseManager/ListReceivedGrantsForOrganization.hs",
         "gen/Amazonka/LicenseManager/ListReceivedLicenses.hs",
+        "gen/Amazonka/LicenseManager/ListReceivedLicensesForOrganization.hs",
         "gen/Amazonka/LicenseManager/ListResourceInventory.hs",
         "gen/Amazonka/LicenseManager/ListTagsForResource.hs",
         "gen/Amazonka/LicenseManager/ListTokens.hs",
@@ -112,14 +114,13 @@ haskell_library(
         "gen/Amazonka/LicenseManager/UpdateServiceSettings.hs",
         "gen/Amazonka/LicenseManager/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_license_manager=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -137,11 +138,12 @@ haskell_test(
         "test/Test/Amazonka/LicenseManager.hs",
         "test/Test/Amazonka/LicenseManager/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_license_manager=\"2.0\"",
         "-Wall",
         "-threaded",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

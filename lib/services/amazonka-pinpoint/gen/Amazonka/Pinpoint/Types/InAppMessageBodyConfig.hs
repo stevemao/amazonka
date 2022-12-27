@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.InAppMessageBodyConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.InAppMessageBodyConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.Alignment
 import qualified Amazonka.Prelude as Prelude
 
@@ -80,15 +81,15 @@ inAppMessageBodyConfig_textColor = Lens.lens (\InAppMessageBodyConfig' {textColo
 inAppMessageBodyConfig_body :: Lens.Lens' InAppMessageBodyConfig Prelude.Text
 inAppMessageBodyConfig_body = Lens.lens (\InAppMessageBodyConfig' {body} -> body) (\s@InAppMessageBodyConfig' {} a -> s {body = a} :: InAppMessageBodyConfig)
 
-instance Core.FromJSON InAppMessageBodyConfig where
+instance Data.FromJSON InAppMessageBodyConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InAppMessageBodyConfig"
       ( \x ->
           InAppMessageBodyConfig'
-            Prelude.<$> (x Core..: "Alignment")
-            Prelude.<*> (x Core..: "TextColor")
-            Prelude.<*> (x Core..: "Body")
+            Prelude.<$> (x Data..: "Alignment")
+            Prelude.<*> (x Data..: "TextColor")
+            Prelude.<*> (x Data..: "Body")
       )
 
 instance Prelude.Hashable InAppMessageBodyConfig where
@@ -103,12 +104,12 @@ instance Prelude.NFData InAppMessageBodyConfig where
       `Prelude.seq` Prelude.rnf textColor
       `Prelude.seq` Prelude.rnf body
 
-instance Core.ToJSON InAppMessageBodyConfig where
+instance Data.ToJSON InAppMessageBodyConfig where
   toJSON InAppMessageBodyConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Alignment" Core..= alignment),
-            Prelude.Just ("TextColor" Core..= textColor),
-            Prelude.Just ("Body" Core..= body)
+          [ Prelude.Just ("Alignment" Data..= alignment),
+            Prelude.Just ("TextColor" Data..= textColor),
+            Prelude.Just ("Body" Data..= body)
           ]
       )

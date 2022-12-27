@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.AttributeNameAndValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudDirectory.Types.AttributeNameAndValue where
 
 import Amazonka.CloudDirectory.Types.TypedAttributeValue
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Identifies the attribute name and value for a typed link.
@@ -67,14 +68,14 @@ attributeNameAndValue_attributeName = Lens.lens (\AttributeNameAndValue' {attrib
 attributeNameAndValue_value :: Lens.Lens' AttributeNameAndValue TypedAttributeValue
 attributeNameAndValue_value = Lens.lens (\AttributeNameAndValue' {value} -> value) (\s@AttributeNameAndValue' {} a -> s {value = a} :: AttributeNameAndValue)
 
-instance Core.FromJSON AttributeNameAndValue where
+instance Data.FromJSON AttributeNameAndValue where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AttributeNameAndValue"
       ( \x ->
           AttributeNameAndValue'
-            Prelude.<$> (x Core..: "AttributeName")
-            Prelude.<*> (x Core..: "Value")
+            Prelude.<$> (x Data..: "AttributeName")
+            Prelude.<*> (x Data..: "Value")
       )
 
 instance Prelude.Hashable AttributeNameAndValue where
@@ -87,12 +88,12 @@ instance Prelude.NFData AttributeNameAndValue where
     Prelude.rnf attributeName
       `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON AttributeNameAndValue where
+instance Data.ToJSON AttributeNameAndValue where
   toJSON AttributeNameAndValue' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("AttributeName" Core..= attributeName),
-            Prelude.Just ("Value" Core..= value)
+              ("AttributeName" Data..= attributeName),
+            Prelude.Just ("Value" Data..= value)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.AppSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.AppSpecification where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration to run a processing job in a specified container image.
@@ -73,15 +74,15 @@ appSpecification_containerEntrypoint = Lens.lens (\AppSpecification' {containerE
 appSpecification_imageUri :: Lens.Lens' AppSpecification Prelude.Text
 appSpecification_imageUri = Lens.lens (\AppSpecification' {imageUri} -> imageUri) (\s@AppSpecification' {} a -> s {imageUri = a} :: AppSpecification)
 
-instance Core.FromJSON AppSpecification where
+instance Data.FromJSON AppSpecification where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AppSpecification"
       ( \x ->
           AppSpecification'
-            Prelude.<$> (x Core..:? "ContainerArguments")
-            Prelude.<*> (x Core..:? "ContainerEntrypoint")
-            Prelude.<*> (x Core..: "ImageUri")
+            Prelude.<$> (x Data..:? "ContainerArguments")
+            Prelude.<*> (x Data..:? "ContainerEntrypoint")
+            Prelude.<*> (x Data..: "ImageUri")
       )
 
 instance Prelude.Hashable AppSpecification where
@@ -96,14 +97,14 @@ instance Prelude.NFData AppSpecification where
       `Prelude.seq` Prelude.rnf containerEntrypoint
       `Prelude.seq` Prelude.rnf imageUri
 
-instance Core.ToJSON AppSpecification where
+instance Data.ToJSON AppSpecification where
   toJSON AppSpecification' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ContainerArguments" Core..=)
+          [ ("ContainerArguments" Data..=)
               Prelude.<$> containerArguments,
-            ("ContainerEntrypoint" Core..=)
+            ("ContainerEntrypoint" Data..=)
               Prelude.<$> containerEntrypoint,
-            Prelude.Just ("ImageUri" Core..= imageUri)
+            Prelude.Just ("ImageUri" Data..= imageUri)
           ]
       )

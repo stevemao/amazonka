@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.DeleteMobileDeviceAccessRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a mobile device access rule for the specified Amazon WorkMail
+-- Deletes a mobile device access rule for the specified WorkMail
 -- organization.
 --
 -- Deleting already deleted and non-existing rules does not produce an
@@ -45,7 +45,8 @@ module Amazonka.WorkMail.DeleteMobileDeviceAccessRule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,7 +54,7 @@ import Amazonka.WorkMail.Types
 
 -- | /See:/ 'newDeleteMobileDeviceAccessRule' smart constructor.
 data DeleteMobileDeviceAccessRule = DeleteMobileDeviceAccessRule'
-  { -- | The Amazon WorkMail organization under which the rule will be deleted.
+  { -- | The WorkMail organization under which the rule will be deleted.
     organizationId :: Prelude.Text,
     -- | The identifier of the rule to be deleted.
     mobileDeviceAccessRuleId :: Prelude.Text
@@ -68,7 +69,7 @@ data DeleteMobileDeviceAccessRule = DeleteMobileDeviceAccessRule'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'organizationId', 'deleteMobileDeviceAccessRule_organizationId' - The Amazon WorkMail organization under which the rule will be deleted.
+-- 'organizationId', 'deleteMobileDeviceAccessRule_organizationId' - The WorkMail organization under which the rule will be deleted.
 --
 -- 'mobileDeviceAccessRuleId', 'deleteMobileDeviceAccessRule_mobileDeviceAccessRuleId' - The identifier of the rule to be deleted.
 newDeleteMobileDeviceAccessRule ::
@@ -87,7 +88,7 @@ newDeleteMobileDeviceAccessRule
           pMobileDeviceAccessRuleId_
       }
 
--- | The Amazon WorkMail organization under which the rule will be deleted.
+-- | The WorkMail organization under which the rule will be deleted.
 deleteMobileDeviceAccessRule_organizationId :: Lens.Lens' DeleteMobileDeviceAccessRule Prelude.Text
 deleteMobileDeviceAccessRule_organizationId = Lens.lens (\DeleteMobileDeviceAccessRule' {organizationId} -> organizationId) (\s@DeleteMobileDeviceAccessRule' {} a -> s {organizationId = a} :: DeleteMobileDeviceAccessRule)
 
@@ -99,7 +100,8 @@ instance Core.AWSRequest DeleteMobileDeviceAccessRule where
   type
     AWSResponse DeleteMobileDeviceAccessRule =
       DeleteMobileDeviceAccessRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -120,38 +122,38 @@ instance Prelude.NFData DeleteMobileDeviceAccessRule where
     Prelude.rnf organizationId
       `Prelude.seq` Prelude.rnf mobileDeviceAccessRuleId
 
-instance Core.ToHeaders DeleteMobileDeviceAccessRule where
+instance Data.ToHeaders DeleteMobileDeviceAccessRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.DeleteMobileDeviceAccessRule" ::
+              Data.=# ( "WorkMailService.DeleteMobileDeviceAccessRule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteMobileDeviceAccessRule where
+instance Data.ToJSON DeleteMobileDeviceAccessRule where
   toJSON DeleteMobileDeviceAccessRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId),
+              ("OrganizationId" Data..= organizationId),
             Prelude.Just
               ( "MobileDeviceAccessRuleId"
-                  Core..= mobileDeviceAccessRuleId
+                  Data..= mobileDeviceAccessRuleId
               )
           ]
       )
 
-instance Core.ToPath DeleteMobileDeviceAccessRule where
+instance Data.ToPath DeleteMobileDeviceAccessRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteMobileDeviceAccessRule where
+instance Data.ToQuery DeleteMobileDeviceAccessRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteMobileDeviceAccessRuleResponse' smart constructor.

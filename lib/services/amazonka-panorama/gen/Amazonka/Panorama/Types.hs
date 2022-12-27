@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,12 +18,12 @@ module Amazonka.Panorama.Types
     defaultService,
 
     -- * Errors
-    _ValidationException,
     _AccessDeniedException,
     _ConflictException,
-    _ServiceQuotaExceededException,
     _InternalServerException,
     _ResourceNotFoundException,
+    _ServiceQuotaExceededException,
+    _ValidationException,
 
     -- * ApplicationInstanceHealthStatus
     ApplicationInstanceHealthStatus (..),
@@ -33,8 +34,20 @@ module Amazonka.Panorama.Types
     -- * ConnectionType
     ConnectionType (..),
 
+    -- * DesiredState
+    DesiredState (..),
+
+    -- * DeviceAggregatedStatus
+    DeviceAggregatedStatus (..),
+
+    -- * DeviceBrand
+    DeviceBrand (..),
+
     -- * DeviceConnectionStatus
     DeviceConnectionStatus (..),
+
+    -- * DeviceReportedStatus
+    DeviceReportedStatus (..),
 
     -- * DeviceStatus
     DeviceStatus (..),
@@ -48,6 +61,9 @@ module Amazonka.Panorama.Types
     -- * JobType
     JobType (..),
 
+    -- * ListDevicesSortBy
+    ListDevicesSortBy (..),
+
     -- * NetworkConnectionStatus
     NetworkConnectionStatus (..),
 
@@ -59,6 +75,9 @@ module Amazonka.Panorama.Types
 
     -- * NodeInstanceStatus
     NodeInstanceStatus (..),
+
+    -- * NodeSignalValue
+    NodeSignalValue (..),
 
     -- * PackageImportJobStatus
     PackageImportJobStatus (..),
@@ -72,6 +91,9 @@ module Amazonka.Panorama.Types
     -- * PortType
     PortType (..),
 
+    -- * SortOrder
+    SortOrder (..),
+
     -- * StatusFilter
     StatusFilter (..),
 
@@ -81,38 +103,52 @@ module Amazonka.Panorama.Types
     -- * UpdateProgress
     UpdateProgress (..),
 
+    -- * AlternateSoftwareMetadata
+    AlternateSoftwareMetadata (..),
+    newAlternateSoftwareMetadata,
+    alternateSoftwareMetadata_version,
+
     -- * ApplicationInstance
     ApplicationInstance (..),
     newApplicationInstance,
-    applicationInstance_status,
-    applicationInstance_statusDescription,
+    applicationInstance_applicationInstanceId,
     applicationInstance_arn,
     applicationInstance_createdTime,
     applicationInstance_defaultRuntimeContextDevice,
     applicationInstance_defaultRuntimeContextDeviceName,
-    applicationInstance_name,
-    applicationInstance_healthStatus,
-    applicationInstance_applicationInstanceId,
     applicationInstance_description,
+    applicationInstance_healthStatus,
+    applicationInstance_name,
+    applicationInstance_runtimeContextStates,
+    applicationInstance_status,
+    applicationInstance_statusDescription,
     applicationInstance_tags,
 
     -- * Device
     Device (..),
     newDevice,
-    device_lastUpdatedTime,
-    device_provisioningStatus,
+    device_brand,
     device_createdTime,
-    device_name,
+    device_currentSoftware,
+    device_description,
+    device_deviceAggregatedStatus,
     device_deviceId,
+    device_lastUpdatedTime,
+    device_latestDeviceJob,
     device_leaseExpirationTime,
+    device_name,
+    device_provisioningStatus,
+    device_tags,
+    device_type,
 
     -- * DeviceJob
     DeviceJob (..),
     newDeviceJob,
-    deviceJob_jobId,
     deviceJob_createdTime,
-    deviceJob_deviceName,
     deviceJob_deviceId,
+    deviceJob_deviceName,
+    deviceJob_jobId,
+    deviceJob_jobType,
 
     -- * DeviceJobConfig
     DeviceJobConfig (..),
@@ -128,21 +164,28 @@ module Amazonka.Panorama.Types
     -- * EthernetStatus
     EthernetStatus (..),
     newEthernetStatus,
-    ethernetStatus_ipAddress,
     ethernetStatus_connectionStatus,
     ethernetStatus_hwAddress,
+    ethernetStatus_ipAddress,
 
     -- * Job
     Job (..),
     newJob,
-    job_jobId,
     job_deviceId,
+    job_jobId,
 
     -- * JobResourceTags
     JobResourceTags (..),
     newJobResourceTags,
     jobResourceTags_resourceType,
     jobResourceTags_tags,
+
+    -- * LatestDeviceJob
+    LatestDeviceJob (..),
+    newLatestDeviceJob,
+    latestDeviceJob_imageVersion,
+    latestDeviceJob_jobType,
+    latestDeviceJob_status,
 
     -- * ManifestOverridesPayload
     ManifestOverridesPayload (..),
@@ -157,59 +200,62 @@ module Amazonka.Panorama.Types
     -- * NetworkPayload
     NetworkPayload (..),
     newNetworkPayload,
-    networkPayload_ethernet1,
     networkPayload_ethernet0,
+    networkPayload_ethernet1,
+    networkPayload_ntp,
 
     -- * NetworkStatus
     NetworkStatus (..),
     newNetworkStatus,
-    networkStatus_ethernet1Status,
     networkStatus_ethernet0Status,
+    networkStatus_ethernet1Status,
+    networkStatus_lastUpdatedTime,
+    networkStatus_ntpStatus,
 
     -- * Node
     Node (..),
     newNode,
-    node_packageArn,
-    node_ownerAccount,
     node_description,
-    node_nodeId,
-    node_name,
+    node_ownerAccount,
+    node_packageArn,
     node_category,
-    node_packageName,
+    node_createdTime,
+    node_name,
+    node_nodeId,
     node_packageId,
+    node_packageName,
     node_packageVersion,
     node_patchVersion,
-    node_createdTime,
 
     -- * NodeFromTemplateJob
     NodeFromTemplateJob (..),
     newNodeFromTemplateJob,
-    nodeFromTemplateJob_status,
-    nodeFromTemplateJob_jobId,
     nodeFromTemplateJob_createdTime,
-    nodeFromTemplateJob_templateType,
+    nodeFromTemplateJob_jobId,
     nodeFromTemplateJob_nodeName,
+    nodeFromTemplateJob_status,
     nodeFromTemplateJob_statusMessage,
+    nodeFromTemplateJob_templateType,
 
     -- * NodeInputPort
     NodeInputPort (..),
     newNodeInputPort,
+    nodeInputPort_defaultValue,
+    nodeInputPort_description,
     nodeInputPort_maxConnections,
     nodeInputPort_name,
-    nodeInputPort_defaultValue,
     nodeInputPort_type,
-    nodeInputPort_description,
 
     -- * NodeInstance
     NodeInstance (..),
     newNodeInstance,
-    nodeInstance_packageName,
-    nodeInstance_packageVersion,
-    nodeInstance_packagePatchVersion,
-    nodeInstance_nodeName,
     nodeInstance_nodeId,
-    nodeInstance_nodeInstanceId,
+    nodeInstance_nodeName,
+    nodeInstance_packageName,
+    nodeInstance_packagePatchVersion,
+    nodeInstance_packageVersion,
     nodeInstance_currentStatus,
+    nodeInstance_nodeInstanceId,
 
     -- * NodeInterface
     NodeInterface (..),
@@ -220,9 +266,27 @@ module Amazonka.Panorama.Types
     -- * NodeOutputPort
     NodeOutputPort (..),
     newNodeOutputPort,
+    nodeOutputPort_description,
     nodeOutputPort_name,
     nodeOutputPort_type,
-    nodeOutputPort_description,
+
+    -- * NodeSignal
+    NodeSignal (..),
+    newNodeSignal,
+    nodeSignal_nodeInstanceId,
+    nodeSignal_signal,
+
+    -- * NtpPayload
+    NtpPayload (..),
+    newNtpPayload,
+    ntpPayload_ntpServers,
+
+    -- * NtpStatus
+    NtpStatus (..),
+    newNtpStatus,
+    ntpStatus_connectionStatus,
+    ntpStatus_ipAddress,
+    ntpStatus_ntpServerName,
 
     -- * OTAJobConfig
     OTAJobConfig (..),
@@ -238,11 +302,11 @@ module Amazonka.Panorama.Types
     -- * PackageImportJob
     PackageImportJob (..),
     newPackageImportJob,
-    packageImportJob_status,
+    packageImportJob_createdTime,
+    packageImportJob_jobId,
     packageImportJob_jobType,
     packageImportJob_lastUpdatedTime,
-    packageImportJob_jobId,
-    packageImportJob_createdTime,
+    packageImportJob_status,
     packageImportJob_statusMessage,
 
     -- * PackageImportJobInputConfig
@@ -253,10 +317,10 @@ module Amazonka.Panorama.Types
     -- * PackageImportJobOutput
     PackageImportJobOutput (..),
     newPackageImportJobOutput,
+    packageImportJobOutput_outputS3Location,
     packageImportJobOutput_packageId,
     packageImportJobOutput_packageVersion,
     packageImportJobOutput_patchVersion,
-    packageImportJobOutput_outputS3Location,
 
     -- * PackageImportJobOutputConfig
     PackageImportJobOutputConfig (..),
@@ -266,9 +330,9 @@ module Amazonka.Panorama.Types
     -- * PackageListItem
     PackageListItem (..),
     newPackageListItem,
-    packageListItem_packageId,
     packageListItem_arn,
     packageListItem_createdTime,
+    packageListItem_packageId,
     packageListItem_packageName,
     packageListItem_tags,
 
@@ -291,6 +355,14 @@ module Amazonka.Panorama.Types
     packageVersionOutputConfig_packageName,
     packageVersionOutputConfig_packageVersion,
 
+    -- * ReportedRuntimeContextState
+    ReportedRuntimeContextState (..),
+    newReportedRuntimeContextState,
+    reportedRuntimeContextState_desiredState,
+    reportedRuntimeContextState_deviceReportedStatus,
+    reportedRuntimeContextState_deviceReportedTime,
+    reportedRuntimeContextState_runtimeContextName,
+
     -- * S3Location
     S3Location (..),
     newS3Location,
@@ -301,32 +373,37 @@ module Amazonka.Panorama.Types
     -- * StaticIpConnectionInfo
     StaticIpConnectionInfo (..),
     newStaticIpConnectionInfo,
+    staticIpConnectionInfo_defaultGateway,
+    staticIpConnectionInfo_dns,
     staticIpConnectionInfo_ipAddress,
     staticIpConnectionInfo_mask,
-    staticIpConnectionInfo_dns,
-    staticIpConnectionInfo_defaultGateway,
 
     -- * StorageLocation
     StorageLocation (..),
     newStorageLocation,
-    storageLocation_bucket,
-    storageLocation_repoPrefixLocation,
-    storageLocation_generatedPrefixLocation,
     storageLocation_binaryPrefixLocation,
+    storageLocation_bucket,
+    storageLocation_generatedPrefixLocation,
     storageLocation_manifestPrefixLocation,
+    storageLocation_repoPrefixLocation,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import Amazonka.Panorama.Types.AlternateSoftwareMetadata
 import Amazonka.Panorama.Types.ApplicationInstance
 import Amazonka.Panorama.Types.ApplicationInstanceHealthStatus
 import Amazonka.Panorama.Types.ApplicationInstanceStatus
 import Amazonka.Panorama.Types.ConnectionType
+import Amazonka.Panorama.Types.DesiredState
 import Amazonka.Panorama.Types.Device
+import Amazonka.Panorama.Types.DeviceAggregatedStatus
+import Amazonka.Panorama.Types.DeviceBrand
 import Amazonka.Panorama.Types.DeviceConnectionStatus
 import Amazonka.Panorama.Types.DeviceJob
 import Amazonka.Panorama.Types.DeviceJobConfig
+import Amazonka.Panorama.Types.DeviceReportedStatus
 import Amazonka.Panorama.Types.DeviceStatus
 import Amazonka.Panorama.Types.DeviceType
 import Amazonka.Panorama.Types.EthernetPayload
@@ -335,6 +412,8 @@ import Amazonka.Panorama.Types.Job
 import Amazonka.Panorama.Types.JobResourceTags
 import Amazonka.Panorama.Types.JobResourceType
 import Amazonka.Panorama.Types.JobType
+import Amazonka.Panorama.Types.LatestDeviceJob
+import Amazonka.Panorama.Types.ListDevicesSortBy
 import Amazonka.Panorama.Types.ManifestOverridesPayload
 import Amazonka.Panorama.Types.ManifestPayload
 import Amazonka.Panorama.Types.NetworkConnectionStatus
@@ -349,6 +428,10 @@ import Amazonka.Panorama.Types.NodeInstance
 import Amazonka.Panorama.Types.NodeInstanceStatus
 import Amazonka.Panorama.Types.NodeInterface
 import Amazonka.Panorama.Types.NodeOutputPort
+import Amazonka.Panorama.Types.NodeSignal
+import Amazonka.Panorama.Types.NodeSignalValue
+import Amazonka.Panorama.Types.NtpPayload
+import Amazonka.Panorama.Types.NtpStatus
 import Amazonka.Panorama.Types.OTAJobConfig
 import Amazonka.Panorama.Types.OutPutS3Location
 import Amazonka.Panorama.Types.PackageImportJob
@@ -363,7 +446,9 @@ import Amazonka.Panorama.Types.PackageVersionInputConfig
 import Amazonka.Panorama.Types.PackageVersionOutputConfig
 import Amazonka.Panorama.Types.PackageVersionStatus
 import Amazonka.Panorama.Types.PortType
+import Amazonka.Panorama.Types.ReportedRuntimeContextState
 import Amazonka.Panorama.Types.S3Location
+import Amazonka.Panorama.Types.SortOrder
 import Amazonka.Panorama.Types.StaticIpConnectionInfo
 import Amazonka.Panorama.Types.StatusFilter
 import Amazonka.Panorama.Types.StorageLocation
@@ -376,41 +461,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "Panorama",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "panorama",
-      Core._serviceSigningName = "panorama",
-      Core._serviceVersion = "2019-07-24",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "Panorama",
-      Core._serviceRetry = retry
+    { Core.abbrev = "Panorama",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "panorama",
+      Core.signingName = "panorama",
+      Core.version = "2019-07-24",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "Panorama",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -418,37 +511,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | The request contains an invalid parameter value.
-_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ValidationException =
-  Core._MatchServiceError
-    defaultService
-    "ValidationException"
-    Prelude.. Core.hasStatus 400
 
 -- | The requestor does not have permission to access the target action or
 -- resource.
@@ -467,14 +544,6 @@ _ConflictException =
     "ConflictException"
     Prelude.. Core.hasStatus 409
 
--- | The request would cause a limit to be exceeded.
-_ServiceQuotaExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ServiceQuotaExceededException =
-  Core._MatchServiceError
-    defaultService
-    "ServiceQuotaExceededException"
-    Prelude.. Core.hasStatus 402
-
 -- | An internal error occurred.
 _InternalServerException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _InternalServerException =
@@ -490,3 +559,19 @@ _ResourceNotFoundException =
     defaultService
     "ResourceNotFoundException"
     Prelude.. Core.hasStatus 404
+
+-- | The request would cause a limit to be exceeded.
+_ServiceQuotaExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ServiceQuotaExceededException =
+  Core._MatchServiceError
+    defaultService
+    "ServiceQuotaExceededException"
+    Prelude.. Core.hasStatus 402
+
+-- | The request contains an invalid parameter value.
+_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ValidationException =
+  Core._MatchServiceError
+    defaultService
+    "ValidationException"
+    Prelude.. Core.hasStatus 400

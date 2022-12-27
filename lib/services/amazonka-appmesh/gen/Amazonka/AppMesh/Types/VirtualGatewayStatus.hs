@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualGatewayStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.VirtualGatewayStatus where
 
 import Amazonka.AppMesh.Types.VirtualGatewayStatusCode
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the status of the mesh resource.
@@ -53,13 +54,13 @@ newVirtualGatewayStatus pStatus_ =
 virtualGatewayStatus_status :: Lens.Lens' VirtualGatewayStatus VirtualGatewayStatusCode
 virtualGatewayStatus_status = Lens.lens (\VirtualGatewayStatus' {status} -> status) (\s@VirtualGatewayStatus' {} a -> s {status = a} :: VirtualGatewayStatus)
 
-instance Core.FromJSON VirtualGatewayStatus where
+instance Data.FromJSON VirtualGatewayStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualGatewayStatus"
       ( \x ->
           VirtualGatewayStatus'
-            Prelude.<$> (x Core..: "status")
+            Prelude.<$> (x Data..: "status")
       )
 
 instance Prelude.Hashable VirtualGatewayStatus where

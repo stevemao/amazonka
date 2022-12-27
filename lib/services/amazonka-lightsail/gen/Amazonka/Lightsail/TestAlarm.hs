@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.TestAlarm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ module Amazonka.Lightsail.TestAlarm
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -128,12 +129,13 @@ testAlarm_state = Lens.lens (\TestAlarm' {state} -> state) (\s@TestAlarm' {} a -
 
 instance Core.AWSRequest TestAlarm where
   type AWSResponse TestAlarm = TestAlarmResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           TestAlarmResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,34 +149,34 @@ instance Prelude.NFData TestAlarm where
     Prelude.rnf alarmName
       `Prelude.seq` Prelude.rnf state
 
-instance Core.ToHeaders TestAlarm where
+instance Data.ToHeaders TestAlarm where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.TestAlarm" ::
+              Data.=# ( "Lightsail_20161128.TestAlarm" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TestAlarm where
+instance Data.ToJSON TestAlarm where
   toJSON TestAlarm' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("alarmName" Core..= alarmName),
-            Prelude.Just ("state" Core..= state)
+          [ Prelude.Just ("alarmName" Data..= alarmName),
+            Prelude.Just ("state" Data..= state)
           ]
       )
 
-instance Core.ToPath TestAlarm where
+instance Data.ToPath TestAlarm where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TestAlarm where
+instance Data.ToQuery TestAlarm where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTestAlarmResponse' smart constructor.

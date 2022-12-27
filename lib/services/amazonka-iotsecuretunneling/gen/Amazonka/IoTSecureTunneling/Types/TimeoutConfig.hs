@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSecureTunneling.Types.TimeoutConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTSecureTunneling.Types.TimeoutConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Tunnel timeout configuration.
@@ -59,13 +60,13 @@ newTimeoutConfig =
 timeoutConfig_maxLifetimeTimeoutMinutes :: Lens.Lens' TimeoutConfig (Prelude.Maybe Prelude.Natural)
 timeoutConfig_maxLifetimeTimeoutMinutes = Lens.lens (\TimeoutConfig' {maxLifetimeTimeoutMinutes} -> maxLifetimeTimeoutMinutes) (\s@TimeoutConfig' {} a -> s {maxLifetimeTimeoutMinutes = a} :: TimeoutConfig)
 
-instance Core.FromJSON TimeoutConfig where
+instance Data.FromJSON TimeoutConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TimeoutConfig"
       ( \x ->
           TimeoutConfig'
-            Prelude.<$> (x Core..:? "maxLifetimeTimeoutMinutes")
+            Prelude.<$> (x Data..:? "maxLifetimeTimeoutMinutes")
       )
 
 instance Prelude.Hashable TimeoutConfig where
@@ -77,11 +78,11 @@ instance Prelude.NFData TimeoutConfig where
   rnf TimeoutConfig' {..} =
     Prelude.rnf maxLifetimeTimeoutMinutes
 
-instance Core.ToJSON TimeoutConfig where
+instance Data.ToJSON TimeoutConfig where
   toJSON TimeoutConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("maxLifetimeTimeoutMinutes" Core..=)
+          [ ("maxLifetimeTimeoutMinutes" Data..=)
               Prelude.<$> maxLifetimeTimeoutMinutes
           ]
       )

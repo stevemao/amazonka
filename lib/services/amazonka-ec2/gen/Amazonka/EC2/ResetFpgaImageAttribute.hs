@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ResetFpgaImageAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.EC2.ResetFpgaImageAttribute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,12 +111,13 @@ instance Core.AWSRequest ResetFpgaImageAttribute where
   type
     AWSResponse ResetFpgaImageAttribute =
       ResetFpgaImageAttributeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ResetFpgaImageAttributeResponse'
-            Prelude.<$> (x Core..@? "return")
+            Prelude.<$> (x Data..@? "return")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -131,22 +133,22 @@ instance Prelude.NFData ResetFpgaImageAttribute where
       `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf fpgaImageId
 
-instance Core.ToHeaders ResetFpgaImageAttribute where
+instance Data.ToHeaders ResetFpgaImageAttribute where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ResetFpgaImageAttribute where
+instance Data.ToPath ResetFpgaImageAttribute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ResetFpgaImageAttribute where
+instance Data.ToQuery ResetFpgaImageAttribute where
   toQuery ResetFpgaImageAttribute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ResetFpgaImageAttribute" :: Prelude.ByteString),
+          Data.=: ("ResetFpgaImageAttribute" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "Attribute" Core.=: attribute,
-        "DryRun" Core.=: dryRun,
-        "FpgaImageId" Core.=: fpgaImageId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "Attribute" Data.=: attribute,
+        "DryRun" Data.=: dryRun,
+        "FpgaImageId" Data.=: fpgaImageId
       ]
 
 -- | /See:/ 'newResetFpgaImageAttributeResponse' smart constructor.

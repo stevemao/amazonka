@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.TerminateWorkspaces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -68,7 +68,8 @@ module Amazonka.WorkSpaces.TerminateWorkspaces
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,12 +109,13 @@ instance Core.AWSRequest TerminateWorkspaces where
   type
     AWSResponse TerminateWorkspaces =
       TerminateWorkspacesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           TerminateWorkspacesResponse'
-            Prelude.<$> (x Core..?> "FailedRequests" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "FailedRequests" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,36 +128,36 @@ instance Prelude.NFData TerminateWorkspaces where
   rnf TerminateWorkspaces' {..} =
     Prelude.rnf terminateWorkspaceRequests
 
-instance Core.ToHeaders TerminateWorkspaces where
+instance Data.ToHeaders TerminateWorkspaces where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.TerminateWorkspaces" ::
+              Data.=# ( "WorkspacesService.TerminateWorkspaces" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TerminateWorkspaces where
+instance Data.ToJSON TerminateWorkspaces where
   toJSON TerminateWorkspaces' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "TerminateWorkspaceRequests"
-                  Core..= terminateWorkspaceRequests
+                  Data..= terminateWorkspaceRequests
               )
           ]
       )
 
-instance Core.ToPath TerminateWorkspaces where
+instance Data.ToPath TerminateWorkspaces where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TerminateWorkspaces where
+instance Data.ToQuery TerminateWorkspaces where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTerminateWorkspacesResponse' smart constructor.

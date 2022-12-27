@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.ListJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.DeviceFarm.ListJobs
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -114,13 +115,14 @@ instance Core.AWSPager ListJobs where
 
 instance Core.AWSRequest ListJobs where
   type AWSResponse ListJobs = ListJobsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListJobsResponse'
-            Prelude.<$> (x Core..?> "jobs" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "jobs" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -133,34 +135,34 @@ instance Prelude.NFData ListJobs where
   rnf ListJobs' {..} =
     Prelude.rnf nextToken `Prelude.seq` Prelude.rnf arn
 
-instance Core.ToHeaders ListJobs where
+instance Data.ToHeaders ListJobs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.ListJobs" ::
+              Data.=# ( "DeviceFarm_20150623.ListJobs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListJobs where
+instance Data.ToJSON ListJobs where
   toJSON ListJobs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            Prelude.Just ("arn" Core..= arn)
+          [ ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("arn" Data..= arn)
           ]
       )
 
-instance Core.ToPath ListJobs where
+instance Data.ToPath ListJobs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListJobs where
+instance Data.ToQuery ListJobs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a list jobs request.

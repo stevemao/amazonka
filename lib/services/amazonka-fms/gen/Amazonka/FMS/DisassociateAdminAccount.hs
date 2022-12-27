@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.DisassociateAdminAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,8 +35,9 @@ module Amazonka.FMS.DisassociateAdminAccount
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,7 +61,8 @@ instance Core.AWSRequest DisassociateAdminAccount where
   type
     AWSResponse DisassociateAdminAccount =
       DisassociateAdminAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DisassociateAdminAccountResponse'
@@ -72,28 +74,28 @@ instance Prelude.Hashable DisassociateAdminAccount where
 instance Prelude.NFData DisassociateAdminAccount where
   rnf _ = ()
 
-instance Core.ToHeaders DisassociateAdminAccount where
+instance Data.ToHeaders DisassociateAdminAccount where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSFMS_20180101.DisassociateAdminAccount" ::
+              Data.=# ( "AWSFMS_20180101.DisassociateAdminAccount" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateAdminAccount where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DisassociateAdminAccount where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DisassociateAdminAccount where
+instance Data.ToPath DisassociateAdminAccount where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateAdminAccount where
+instance Data.ToQuery DisassociateAdminAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateAdminAccountResponse' smart constructor.

@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteDocumentationVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- -- | Undocumented operation.
+-- Deletes a documentation version.
 module Amazonka.APIGateway.DeleteDocumentationVersion
   ( -- * Creating a Request
     DeleteDocumentationVersion (..),
@@ -38,7 +38,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -47,10 +48,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteDocumentationVersion' smart constructor.
 data DeleteDocumentationVersion = DeleteDocumentationVersion'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The version identifier of a to-be-deleted documentation
-    -- snapshot.
+    -- | The version identifier of a to-be-deleted documentation snapshot.
     documentationVersion :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -63,10 +63,9 @@ data DeleteDocumentationVersion = DeleteDocumentationVersion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'deleteDocumentationVersion_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'deleteDocumentationVersion_restApiId' - The string identifier of the associated RestApi.
 --
--- 'documentationVersion', 'deleteDocumentationVersion_documentationVersion' - [Required] The version identifier of a to-be-deleted documentation
--- snapshot.
+-- 'documentationVersion', 'deleteDocumentationVersion_documentationVersion' - The version identifier of a to-be-deleted documentation snapshot.
 newDeleteDocumentationVersion ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -82,12 +81,11 @@ newDeleteDocumentationVersion
         documentationVersion = pDocumentationVersion_
       }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 deleteDocumentationVersion_restApiId :: Lens.Lens' DeleteDocumentationVersion Prelude.Text
 deleteDocumentationVersion_restApiId = Lens.lens (\DeleteDocumentationVersion' {restApiId} -> restApiId) (\s@DeleteDocumentationVersion' {} a -> s {restApiId = a} :: DeleteDocumentationVersion)
 
--- | [Required] The version identifier of a to-be-deleted documentation
--- snapshot.
+-- | The version identifier of a to-be-deleted documentation snapshot.
 deleteDocumentationVersion_documentationVersion :: Lens.Lens' DeleteDocumentationVersion Prelude.Text
 deleteDocumentationVersion_documentationVersion = Lens.lens (\DeleteDocumentationVersion' {documentationVersion} -> documentationVersion) (\s@DeleteDocumentationVersion' {} a -> s {documentationVersion = a} :: DeleteDocumentationVersion)
 
@@ -95,7 +93,8 @@ instance Core.AWSRequest DeleteDocumentationVersion where
   type
     AWSResponse DeleteDocumentationVersion =
       DeleteDocumentationVersionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteDocumentationVersionResponse'
@@ -110,25 +109,25 @@ instance Prelude.NFData DeleteDocumentationVersion where
     Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf documentationVersion
 
-instance Core.ToHeaders DeleteDocumentationVersion where
+instance Data.ToHeaders DeleteDocumentationVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteDocumentationVersion where
+instance Data.ToPath DeleteDocumentationVersion where
   toPath DeleteDocumentationVersion' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/documentation/versions/",
-        Core.toBS documentationVersion
+        Data.toBS documentationVersion
       ]
 
-instance Core.ToQuery DeleteDocumentationVersion where
+instance Data.ToQuery DeleteDocumentationVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDocumentationVersionResponse' smart constructor.

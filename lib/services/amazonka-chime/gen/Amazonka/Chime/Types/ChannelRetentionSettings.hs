@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.ChannelRetentionSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Chime.Types.ChannelRetentionSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of the retention settings for a channel.
@@ -53,13 +54,13 @@ newChannelRetentionSettings =
 channelRetentionSettings_retentionDays :: Lens.Lens' ChannelRetentionSettings (Prelude.Maybe Prelude.Natural)
 channelRetentionSettings_retentionDays = Lens.lens (\ChannelRetentionSettings' {retentionDays} -> retentionDays) (\s@ChannelRetentionSettings' {} a -> s {retentionDays = a} :: ChannelRetentionSettings)
 
-instance Core.FromJSON ChannelRetentionSettings where
+instance Data.FromJSON ChannelRetentionSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ChannelRetentionSettings"
       ( \x ->
           ChannelRetentionSettings'
-            Prelude.<$> (x Core..:? "RetentionDays")
+            Prelude.<$> (x Data..:? "RetentionDays")
       )
 
 instance Prelude.Hashable ChannelRetentionSettings where
@@ -70,11 +71,11 @@ instance Prelude.NFData ChannelRetentionSettings where
   rnf ChannelRetentionSettings' {..} =
     Prelude.rnf retentionDays
 
-instance Core.ToJSON ChannelRetentionSettings where
+instance Data.ToJSON ChannelRetentionSettings where
   toJSON ChannelRetentionSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RetentionDays" Core..=)
+          [ ("RetentionDays" Data..=)
               Prelude.<$> retentionDays
           ]
       )

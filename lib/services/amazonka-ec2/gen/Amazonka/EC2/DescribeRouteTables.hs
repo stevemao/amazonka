@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeRouteTables
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,10 +38,10 @@ module Amazonka.EC2.DescribeRouteTables
     newDescribeRouteTables,
 
     -- * Request Lenses
-    describeRouteTables_filters,
-    describeRouteTables_nextToken,
     describeRouteTables_dryRun,
+    describeRouteTables_filters,
     describeRouteTables_maxResults,
+    describeRouteTables_nextToken,
     describeRouteTables_routeTableIds,
 
     -- * Destructuring the Response
@@ -56,15 +56,21 @@ module Amazonka.EC2.DescribeRouteTables
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeRouteTables' smart constructor.
 data DescribeRouteTables = DescribeRouteTables'
-  { -- | One or more filters.
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters.
     --
     -- -   @association.route-table-association-id@ - The ID of an association
     --     ID for the route table.
@@ -134,17 +140,12 @@ data DescribeRouteTables = DescribeRouteTables'
     --
     -- -   @vpc-id@ - The ID of the VPC for the route table.
     filters :: Prelude.Maybe [Filter],
-    -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | One or more route table IDs.
     --
     -- Default: Describes all your route tables.
@@ -159,6 +160,11 @@ data DescribeRouteTables = DescribeRouteTables'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dryRun', 'describeRouteTables_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeRouteTables_filters' - One or more filters.
 --
@@ -230,16 +236,11 @@ data DescribeRouteTables = DescribeRouteTables'
 --
 -- -   @vpc-id@ - The ID of the VPC for the route table.
 --
--- 'nextToken', 'describeRouteTables_nextToken' - The token for the next page of results.
---
--- 'dryRun', 'describeRouteTables_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
 -- 'maxResults', 'describeRouteTables_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'describeRouteTables_nextToken' - The token for the next page of results.
 --
 -- 'routeTableIds', 'describeRouteTables_routeTableIds' - One or more route table IDs.
 --
@@ -248,12 +249,19 @@ newDescribeRouteTables ::
   DescribeRouteTables
 newDescribeRouteTables =
   DescribeRouteTables'
-    { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
+      filters = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       routeTableIds = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeRouteTables_dryRun :: Lens.Lens' DescribeRouteTables (Prelude.Maybe Prelude.Bool)
+describeRouteTables_dryRun = Lens.lens (\DescribeRouteTables' {dryRun} -> dryRun) (\s@DescribeRouteTables' {} a -> s {dryRun = a} :: DescribeRouteTables)
 
 -- | One or more filters.
 --
@@ -327,22 +335,15 @@ newDescribeRouteTables =
 describeRouteTables_filters :: Lens.Lens' DescribeRouteTables (Prelude.Maybe [Filter])
 describeRouteTables_filters = Lens.lens (\DescribeRouteTables' {filters} -> filters) (\s@DescribeRouteTables' {} a -> s {filters = a} :: DescribeRouteTables) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next page of results.
-describeRouteTables_nextToken :: Lens.Lens' DescribeRouteTables (Prelude.Maybe Prelude.Text)
-describeRouteTables_nextToken = Lens.lens (\DescribeRouteTables' {nextToken} -> nextToken) (\s@DescribeRouteTables' {} a -> s {nextToken = a} :: DescribeRouteTables)
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeRouteTables_dryRun :: Lens.Lens' DescribeRouteTables (Prelude.Maybe Prelude.Bool)
-describeRouteTables_dryRun = Lens.lens (\DescribeRouteTables' {dryRun} -> dryRun) (\s@DescribeRouteTables' {} a -> s {dryRun = a} :: DescribeRouteTables)
-
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
 describeRouteTables_maxResults :: Lens.Lens' DescribeRouteTables (Prelude.Maybe Prelude.Natural)
 describeRouteTables_maxResults = Lens.lens (\DescribeRouteTables' {maxResults} -> maxResults) (\s@DescribeRouteTables' {} a -> s {maxResults = a} :: DescribeRouteTables)
+
+-- | The token for the next page of results.
+describeRouteTables_nextToken :: Lens.Lens' DescribeRouteTables (Prelude.Maybe Prelude.Text)
+describeRouteTables_nextToken = Lens.lens (\DescribeRouteTables' {nextToken} -> nextToken) (\s@DescribeRouteTables' {} a -> s {nextToken = a} :: DescribeRouteTables)
 
 -- | One or more route table IDs.
 --
@@ -376,54 +377,55 @@ instance Core.AWSRequest DescribeRouteTables where
   type
     AWSResponse DescribeRouteTables =
       DescribeRouteTablesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeRouteTablesResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-            Prelude.<*> ( x Core..@? "routeTableSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> (x Data..@? "nextToken")
+            Prelude.<*> ( x Data..@? "routeTableSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeRouteTables where
   hashWithSalt _salt DescribeRouteTables' {..} =
-    _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` dryRun
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` routeTableIds
 
 instance Prelude.NFData DescribeRouteTables where
   rnf DescribeRouteTables' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf routeTableIds
 
-instance Core.ToHeaders DescribeRouteTables where
+instance Data.ToHeaders DescribeRouteTables where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeRouteTables where
+instance Data.ToPath DescribeRouteTables where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeRouteTables where
+instance Data.ToQuery DescribeRouteTables where
   toQuery DescribeRouteTables' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeRouteTables" :: Prelude.ByteString),
+          Data.=: ("DescribeRouteTables" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults,
-        Core.toQuery
-          ( Core.toQueryList "RouteTableId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        Data.toQuery
+          ( Data.toQueryList "RouteTableId"
               Prelude.<$> routeTableIds
           )
       ]

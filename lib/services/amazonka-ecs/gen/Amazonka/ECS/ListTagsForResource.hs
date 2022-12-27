@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.ListTagsForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,16 +40,17 @@ module Amazonka.ECS.ListTagsForResource
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListTagsForResource' smart constructor.
 data ListTagsForResource = ListTagsForResource'
-  { -- | The Amazon Resource Name (ARN) that identifies the resource for which to
-    -- list the tags. Currently, the supported resources are Amazon ECS tasks,
+  { -- | The Amazon Resource Name (ARN) that identifies the resource to list the
+    -- tags for. Currently, the supported resources are Amazon ECS tasks,
     -- services, task definitions, clusters, and container instances.
     resourceArn :: Prelude.Text
   }
@@ -63,8 +64,8 @@ data ListTagsForResource = ListTagsForResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceArn', 'listTagsForResource_resourceArn' - The Amazon Resource Name (ARN) that identifies the resource for which to
--- list the tags. Currently, the supported resources are Amazon ECS tasks,
+-- 'resourceArn', 'listTagsForResource_resourceArn' - The Amazon Resource Name (ARN) that identifies the resource to list the
+-- tags for. Currently, the supported resources are Amazon ECS tasks,
 -- services, task definitions, clusters, and container instances.
 newListTagsForResource ::
   -- | 'resourceArn'
@@ -73,8 +74,8 @@ newListTagsForResource ::
 newListTagsForResource pResourceArn_ =
   ListTagsForResource' {resourceArn = pResourceArn_}
 
--- | The Amazon Resource Name (ARN) that identifies the resource for which to
--- list the tags. Currently, the supported resources are Amazon ECS tasks,
+-- | The Amazon Resource Name (ARN) that identifies the resource to list the
+-- tags for. Currently, the supported resources are Amazon ECS tasks,
 -- services, task definitions, clusters, and container instances.
 listTagsForResource_resourceArn :: Lens.Lens' ListTagsForResource Prelude.Text
 listTagsForResource_resourceArn = Lens.lens (\ListTagsForResource' {resourceArn} -> resourceArn) (\s@ListTagsForResource' {} a -> s {resourceArn = a} :: ListTagsForResource)
@@ -83,12 +84,13 @@ instance Core.AWSRequest ListTagsForResource where
   type
     AWSResponse ListTagsForResource =
       ListTagsForResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForResourceResponse'
-            Prelude.<$> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,32 +102,32 @@ instance Prelude.NFData ListTagsForResource where
   rnf ListTagsForResource' {..} =
     Prelude.rnf resourceArn
 
-instance Core.ToHeaders ListTagsForResource where
+instance Data.ToHeaders ListTagsForResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.ListTagsForResource" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.ListTagsForResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTagsForResource where
+instance Data.ToJSON ListTagsForResource where
   toJSON ListTagsForResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("resourceArn" Core..= resourceArn)]
+          [Prelude.Just ("resourceArn" Data..= resourceArn)]
       )
 
-instance Core.ToPath ListTagsForResource where
+instance Data.ToPath ListTagsForResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTagsForResource where
+instance Data.ToQuery ListTagsForResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagsForResourceResponse' smart constructor.

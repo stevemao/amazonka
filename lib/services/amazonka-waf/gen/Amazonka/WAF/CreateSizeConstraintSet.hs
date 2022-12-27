@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.CreateSizeConstraintSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -68,14 +68,15 @@ module Amazonka.WAF.CreateSizeConstraintSet
     newCreateSizeConstraintSetResponse,
 
     -- * Response Lenses
-    createSizeConstraintSetResponse_sizeConstraintSet,
     createSizeConstraintSetResponse_changeToken,
+    createSizeConstraintSetResponse_sizeConstraintSet,
     createSizeConstraintSetResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -128,13 +129,14 @@ instance Core.AWSRequest CreateSizeConstraintSet where
   type
     AWSResponse CreateSizeConstraintSet =
       CreateSizeConstraintSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateSizeConstraintSetResponse'
-            Prelude.<$> (x Core..?> "SizeConstraintSet")
-            Prelude.<*> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
+            Prelude.<*> (x Data..?> "SizeConstraintSet")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -148,44 +150,44 @@ instance Prelude.NFData CreateSizeConstraintSet where
     Prelude.rnf name
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders CreateSizeConstraintSet where
+instance Data.ToHeaders CreateSizeConstraintSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_20150824.CreateSizeConstraintSet" ::
+              Data.=# ( "AWSWAF_20150824.CreateSizeConstraintSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateSizeConstraintSet where
+instance Data.ToJSON CreateSizeConstraintSet where
   toJSON CreateSizeConstraintSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath CreateSizeConstraintSet where
+instance Data.ToPath CreateSizeConstraintSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateSizeConstraintSet where
+instance Data.ToQuery CreateSizeConstraintSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateSizeConstraintSetResponse' smart constructor.
 data CreateSizeConstraintSetResponse = CreateSizeConstraintSetResponse'
-  { -- | A SizeConstraintSet that contains no @SizeConstraint@ objects.
-    sizeConstraintSet :: Prelude.Maybe SizeConstraintSet,
-    -- | The @ChangeToken@ that you used to submit the @CreateSizeConstraintSet@
+  { -- | The @ChangeToken@ that you used to submit the @CreateSizeConstraintSet@
     -- request. You can also use this value to query the status of the request.
     -- For more information, see GetChangeTokenStatus.
     changeToken :: Prelude.Maybe Prelude.Text,
+    -- | A SizeConstraintSet that contains no @SizeConstraint@ objects.
+    sizeConstraintSet :: Prelude.Maybe SizeConstraintSet,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -199,11 +201,11 @@ data CreateSizeConstraintSetResponse = CreateSizeConstraintSetResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sizeConstraintSet', 'createSizeConstraintSetResponse_sizeConstraintSet' - A SizeConstraintSet that contains no @SizeConstraint@ objects.
---
 -- 'changeToken', 'createSizeConstraintSetResponse_changeToken' - The @ChangeToken@ that you used to submit the @CreateSizeConstraintSet@
 -- request. You can also use this value to query the status of the request.
 -- For more information, see GetChangeTokenStatus.
+--
+-- 'sizeConstraintSet', 'createSizeConstraintSetResponse_sizeConstraintSet' - A SizeConstraintSet that contains no @SizeConstraint@ objects.
 --
 -- 'httpStatus', 'createSizeConstraintSetResponse_httpStatus' - The response's http status code.
 newCreateSizeConstraintSetResponse ::
@@ -212,21 +214,21 @@ newCreateSizeConstraintSetResponse ::
   CreateSizeConstraintSetResponse
 newCreateSizeConstraintSetResponse pHttpStatus_ =
   CreateSizeConstraintSetResponse'
-    { sizeConstraintSet =
+    { changeToken =
         Prelude.Nothing,
-      changeToken = Prelude.Nothing,
+      sizeConstraintSet = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A SizeConstraintSet that contains no @SizeConstraint@ objects.
-createSizeConstraintSetResponse_sizeConstraintSet :: Lens.Lens' CreateSizeConstraintSetResponse (Prelude.Maybe SizeConstraintSet)
-createSizeConstraintSetResponse_sizeConstraintSet = Lens.lens (\CreateSizeConstraintSetResponse' {sizeConstraintSet} -> sizeConstraintSet) (\s@CreateSizeConstraintSetResponse' {} a -> s {sizeConstraintSet = a} :: CreateSizeConstraintSetResponse)
 
 -- | The @ChangeToken@ that you used to submit the @CreateSizeConstraintSet@
 -- request. You can also use this value to query the status of the request.
 -- For more information, see GetChangeTokenStatus.
 createSizeConstraintSetResponse_changeToken :: Lens.Lens' CreateSizeConstraintSetResponse (Prelude.Maybe Prelude.Text)
 createSizeConstraintSetResponse_changeToken = Lens.lens (\CreateSizeConstraintSetResponse' {changeToken} -> changeToken) (\s@CreateSizeConstraintSetResponse' {} a -> s {changeToken = a} :: CreateSizeConstraintSetResponse)
+
+-- | A SizeConstraintSet that contains no @SizeConstraint@ objects.
+createSizeConstraintSetResponse_sizeConstraintSet :: Lens.Lens' CreateSizeConstraintSetResponse (Prelude.Maybe SizeConstraintSet)
+createSizeConstraintSetResponse_sizeConstraintSet = Lens.lens (\CreateSizeConstraintSetResponse' {sizeConstraintSet} -> sizeConstraintSet) (\s@CreateSizeConstraintSetResponse' {} a -> s {sizeConstraintSet = a} :: CreateSizeConstraintSetResponse)
 
 -- | The response's http status code.
 createSizeConstraintSetResponse_httpStatus :: Lens.Lens' CreateSizeConstraintSetResponse Prelude.Int
@@ -237,6 +239,6 @@ instance
     CreateSizeConstraintSetResponse
   where
   rnf CreateSizeConstraintSetResponse' {..} =
-    Prelude.rnf sizeConstraintSet
-      `Prelude.seq` Prelude.rnf changeToken
+    Prelude.rnf changeToken
+      `Prelude.seq` Prelude.rnf sizeConstraintSet
       `Prelude.seq` Prelude.rnf httpStatus

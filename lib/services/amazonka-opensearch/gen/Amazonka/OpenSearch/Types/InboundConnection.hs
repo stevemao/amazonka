@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.InboundConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +20,26 @@
 module Amazonka.OpenSearch.Types.InboundConnection where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types.DomainInformationContainer
 import Amazonka.OpenSearch.Types.InboundConnectionStatus
 import qualified Amazonka.Prelude as Prelude
 
--- | Details of an inbound connection.
+-- | Describes an inbound cross-cluster connection for Amazon OpenSearch
+-- Service. For more information, see
+-- <https://docs.aws.amazon.com/opensearch-service/latest/developerguide/cross-cluster-search.html Cross-cluster search for Amazon OpenSearch Service>.
 --
 -- /See:/ 'newInboundConnection' smart constructor.
 data InboundConnection = InboundConnection'
-  { -- | The @ AWSDomainInformation @ for the remote OpenSearch domain.
-    remoteDomainInfo :: Prelude.Maybe DomainInformationContainer,
-    -- | The @ AWSDomainInformation @ for the local OpenSearch domain.
-    localDomainInfo :: Prelude.Maybe DomainInformationContainer,
-    -- | The connection ID for the inbound cross-cluster connection.
+  { -- | The unique identifier of the connection.
     connectionId :: Prelude.Maybe Prelude.Text,
-    -- | The @ InboundConnectionStatus @ for the outbound connection.
-    connectionStatus :: Prelude.Maybe InboundConnectionStatus
+    -- | The current status of the connection.
+    connectionStatus :: Prelude.Maybe InboundConnectionStatus,
+    -- | Information about the source (local) domain.
+    localDomainInfo :: Prelude.Maybe DomainInformationContainer,
+    -- | Information about the destination (remote) domain.
+    remoteDomainInfo :: Prelude.Maybe DomainInformationContainer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,62 +51,61 @@ data InboundConnection = InboundConnection'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'remoteDomainInfo', 'inboundConnection_remoteDomainInfo' - The @ AWSDomainInformation @ for the remote OpenSearch domain.
+-- 'connectionId', 'inboundConnection_connectionId' - The unique identifier of the connection.
 --
--- 'localDomainInfo', 'inboundConnection_localDomainInfo' - The @ AWSDomainInformation @ for the local OpenSearch domain.
+-- 'connectionStatus', 'inboundConnection_connectionStatus' - The current status of the connection.
 --
--- 'connectionId', 'inboundConnection_connectionId' - The connection ID for the inbound cross-cluster connection.
+-- 'localDomainInfo', 'inboundConnection_localDomainInfo' - Information about the source (local) domain.
 --
--- 'connectionStatus', 'inboundConnection_connectionStatus' - The @ InboundConnectionStatus @ for the outbound connection.
+-- 'remoteDomainInfo', 'inboundConnection_remoteDomainInfo' - Information about the destination (remote) domain.
 newInboundConnection ::
   InboundConnection
 newInboundConnection =
   InboundConnection'
-    { remoteDomainInfo =
-        Prelude.Nothing,
+    { connectionId = Prelude.Nothing,
+      connectionStatus = Prelude.Nothing,
       localDomainInfo = Prelude.Nothing,
-      connectionId = Prelude.Nothing,
-      connectionStatus = Prelude.Nothing
+      remoteDomainInfo = Prelude.Nothing
     }
 
--- | The @ AWSDomainInformation @ for the remote OpenSearch domain.
-inboundConnection_remoteDomainInfo :: Lens.Lens' InboundConnection (Prelude.Maybe DomainInformationContainer)
-inboundConnection_remoteDomainInfo = Lens.lens (\InboundConnection' {remoteDomainInfo} -> remoteDomainInfo) (\s@InboundConnection' {} a -> s {remoteDomainInfo = a} :: InboundConnection)
-
--- | The @ AWSDomainInformation @ for the local OpenSearch domain.
-inboundConnection_localDomainInfo :: Lens.Lens' InboundConnection (Prelude.Maybe DomainInformationContainer)
-inboundConnection_localDomainInfo = Lens.lens (\InboundConnection' {localDomainInfo} -> localDomainInfo) (\s@InboundConnection' {} a -> s {localDomainInfo = a} :: InboundConnection)
-
--- | The connection ID for the inbound cross-cluster connection.
+-- | The unique identifier of the connection.
 inboundConnection_connectionId :: Lens.Lens' InboundConnection (Prelude.Maybe Prelude.Text)
 inboundConnection_connectionId = Lens.lens (\InboundConnection' {connectionId} -> connectionId) (\s@InboundConnection' {} a -> s {connectionId = a} :: InboundConnection)
 
--- | The @ InboundConnectionStatus @ for the outbound connection.
+-- | The current status of the connection.
 inboundConnection_connectionStatus :: Lens.Lens' InboundConnection (Prelude.Maybe InboundConnectionStatus)
 inboundConnection_connectionStatus = Lens.lens (\InboundConnection' {connectionStatus} -> connectionStatus) (\s@InboundConnection' {} a -> s {connectionStatus = a} :: InboundConnection)
 
-instance Core.FromJSON InboundConnection where
+-- | Information about the source (local) domain.
+inboundConnection_localDomainInfo :: Lens.Lens' InboundConnection (Prelude.Maybe DomainInformationContainer)
+inboundConnection_localDomainInfo = Lens.lens (\InboundConnection' {localDomainInfo} -> localDomainInfo) (\s@InboundConnection' {} a -> s {localDomainInfo = a} :: InboundConnection)
+
+-- | Information about the destination (remote) domain.
+inboundConnection_remoteDomainInfo :: Lens.Lens' InboundConnection (Prelude.Maybe DomainInformationContainer)
+inboundConnection_remoteDomainInfo = Lens.lens (\InboundConnection' {remoteDomainInfo} -> remoteDomainInfo) (\s@InboundConnection' {} a -> s {remoteDomainInfo = a} :: InboundConnection)
+
+instance Data.FromJSON InboundConnection where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InboundConnection"
       ( \x ->
           InboundConnection'
-            Prelude.<$> (x Core..:? "RemoteDomainInfo")
-            Prelude.<*> (x Core..:? "LocalDomainInfo")
-            Prelude.<*> (x Core..:? "ConnectionId")
-            Prelude.<*> (x Core..:? "ConnectionStatus")
+            Prelude.<$> (x Data..:? "ConnectionId")
+            Prelude.<*> (x Data..:? "ConnectionStatus")
+            Prelude.<*> (x Data..:? "LocalDomainInfo")
+            Prelude.<*> (x Data..:? "RemoteDomainInfo")
       )
 
 instance Prelude.Hashable InboundConnection where
   hashWithSalt _salt InboundConnection' {..} =
-    _salt `Prelude.hashWithSalt` remoteDomainInfo
-      `Prelude.hashWithSalt` localDomainInfo
-      `Prelude.hashWithSalt` connectionId
+    _salt `Prelude.hashWithSalt` connectionId
       `Prelude.hashWithSalt` connectionStatus
+      `Prelude.hashWithSalt` localDomainInfo
+      `Prelude.hashWithSalt` remoteDomainInfo
 
 instance Prelude.NFData InboundConnection where
   rnf InboundConnection' {..} =
-    Prelude.rnf remoteDomainInfo
-      `Prelude.seq` Prelude.rnf localDomainInfo
-      `Prelude.seq` Prelude.rnf connectionId
+    Prelude.rnf connectionId
       `Prelude.seq` Prelude.rnf connectionStatus
+      `Prelude.seq` Prelude.rnf localDomainInfo
+      `Prelude.seq` Prelude.rnf remoteDomainInfo

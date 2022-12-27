@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.Types.OfferingPromotion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.DeviceFarm.Types.OfferingPromotion where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents information about an offering promotion.
 --
 -- /See:/ 'newOfferingPromotion' smart constructor.
 data OfferingPromotion = OfferingPromotion'
-  { -- | The ID of the offering promotion.
-    id :: Prelude.Maybe Prelude.Text,
-    -- | A string that describes the offering promotion.
-    description :: Prelude.Maybe Prelude.Text
+  { -- | A string that describes the offering promotion.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the offering promotion.
+    id :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,41 +43,41 @@ data OfferingPromotion = OfferingPromotion'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'id', 'offeringPromotion_id' - The ID of the offering promotion.
---
 -- 'description', 'offeringPromotion_description' - A string that describes the offering promotion.
+--
+-- 'id', 'offeringPromotion_id' - The ID of the offering promotion.
 newOfferingPromotion ::
   OfferingPromotion
 newOfferingPromotion =
   OfferingPromotion'
-    { id = Prelude.Nothing,
-      description = Prelude.Nothing
+    { description = Prelude.Nothing,
+      id = Prelude.Nothing
     }
-
--- | The ID of the offering promotion.
-offeringPromotion_id :: Lens.Lens' OfferingPromotion (Prelude.Maybe Prelude.Text)
-offeringPromotion_id = Lens.lens (\OfferingPromotion' {id} -> id) (\s@OfferingPromotion' {} a -> s {id = a} :: OfferingPromotion)
 
 -- | A string that describes the offering promotion.
 offeringPromotion_description :: Lens.Lens' OfferingPromotion (Prelude.Maybe Prelude.Text)
 offeringPromotion_description = Lens.lens (\OfferingPromotion' {description} -> description) (\s@OfferingPromotion' {} a -> s {description = a} :: OfferingPromotion)
 
-instance Core.FromJSON OfferingPromotion where
+-- | The ID of the offering promotion.
+offeringPromotion_id :: Lens.Lens' OfferingPromotion (Prelude.Maybe Prelude.Text)
+offeringPromotion_id = Lens.lens (\OfferingPromotion' {id} -> id) (\s@OfferingPromotion' {} a -> s {id = a} :: OfferingPromotion)
+
+instance Data.FromJSON OfferingPromotion where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OfferingPromotion"
       ( \x ->
           OfferingPromotion'
-            Prelude.<$> (x Core..:? "id")
-            Prelude.<*> (x Core..:? "description")
+            Prelude.<$> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "id")
       )
 
 instance Prelude.Hashable OfferingPromotion where
   hashWithSalt _salt OfferingPromotion' {..} =
-    _salt `Prelude.hashWithSalt` id
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` id
 
 instance Prelude.NFData OfferingPromotion where
   rnf OfferingPromotion' {..} =
-    Prelude.rnf id
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf id

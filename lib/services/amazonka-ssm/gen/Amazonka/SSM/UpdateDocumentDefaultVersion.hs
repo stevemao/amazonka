@@ -14,13 +14,17 @@
 
 -- |
 -- Module      : Amazonka.SSM.UpdateDocumentDefaultVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Set the default version of a document.
+--
+-- If you change a document version for a State Manager association,
+-- Systems Manager immediately runs the association unless you previously
+-- specifed the @apply-only-at-cron-interval@ parameter.
 module Amazonka.SSM.UpdateDocumentDefaultVersion
   ( -- * Creating a Request
     UpdateDocumentDefaultVersion (..),
@@ -41,7 +45,8 @@ module Amazonka.SSM.UpdateDocumentDefaultVersion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,12 +104,13 @@ instance Core.AWSRequest UpdateDocumentDefaultVersion where
   type
     AWSResponse UpdateDocumentDefaultVersion =
       UpdateDocumentDefaultVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDocumentDefaultVersionResponse'
-            Prelude.<$> (x Core..?> "Description")
+            Prelude.<$> (x Data..?> "Description")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,35 +127,35 @@ instance Prelude.NFData UpdateDocumentDefaultVersion where
     Prelude.rnf name
       `Prelude.seq` Prelude.rnf documentVersion
 
-instance Core.ToHeaders UpdateDocumentDefaultVersion where
+instance Data.ToHeaders UpdateDocumentDefaultVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.UpdateDocumentDefaultVersion" ::
+              Data.=# ( "AmazonSSM.UpdateDocumentDefaultVersion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDocumentDefaultVersion where
+instance Data.ToJSON UpdateDocumentDefaultVersion where
   toJSON UpdateDocumentDefaultVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
+          [ Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("DocumentVersion" Core..= documentVersion)
+              ("DocumentVersion" Data..= documentVersion)
           ]
       )
 
-instance Core.ToPath UpdateDocumentDefaultVersion where
+instance Data.ToPath UpdateDocumentDefaultVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateDocumentDefaultVersion where
+instance Data.ToQuery UpdateDocumentDefaultVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDocumentDefaultVersionResponse' smart constructor.

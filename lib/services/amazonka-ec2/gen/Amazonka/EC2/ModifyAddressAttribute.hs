@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyAddressAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.EC2.ModifyAddressAttribute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,12 +112,13 @@ instance Core.AWSRequest ModifyAddressAttribute where
   type
     AWSResponse ModifyAddressAttribute =
       ModifyAddressAttributeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ModifyAddressAttributeResponse'
-            Prelude.<$> (x Core..@? "address")
+            Prelude.<$> (x Data..@? "address")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -132,22 +134,22 @@ instance Prelude.NFData ModifyAddressAttribute where
       `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf allocationId
 
-instance Core.ToHeaders ModifyAddressAttribute where
+instance Data.ToHeaders ModifyAddressAttribute where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyAddressAttribute where
+instance Data.ToPath ModifyAddressAttribute where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyAddressAttribute where
+instance Data.ToQuery ModifyAddressAttribute where
   toQuery ModifyAddressAttribute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyAddressAttribute" :: Prelude.ByteString),
+          Data.=: ("ModifyAddressAttribute" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DomainName" Core.=: domainName,
-        "DryRun" Core.=: dryRun,
-        "AllocationId" Core.=: allocationId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DomainName" Data.=: domainName,
+        "DryRun" Data.=: dryRun,
+        "AllocationId" Data.=: allocationId
       ]
 
 -- | /See:/ 'newModifyAddressAttributeResponse' smart constructor.

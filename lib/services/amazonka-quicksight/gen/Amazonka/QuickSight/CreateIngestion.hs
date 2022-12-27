@@ -14,13 +14,17 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.CreateIngestion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates and starts a new SPICE ingestion on a dataset
+-- Creates and starts a new SPICE ingestion for a dataset. You can manually
+-- refresh datasets in an Enterprise edition account 32 times in a 24-hour
+-- period. You can manually refresh datasets in a Standard edition account
+-- 8 times in a 24-hour period. Each 24-hour period is measured starting 24
+-- hours before the current date and time.
 --
 -- Any ingestions operating on tagged datasets inherit the same tags
 -- automatically for use in access control. For an example, see
@@ -43,16 +47,17 @@ module Amazonka.QuickSight.CreateIngestion
     newCreateIngestionResponse,
 
     -- * Response Lenses
-    createIngestionResponse_requestId,
     createIngestionResponse_arn,
     createIngestionResponse_ingestionId,
     createIngestionResponse_ingestionStatus,
+    createIngestionResponse_requestId,
     createIngestionResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -125,15 +130,16 @@ instance Core.AWSRequest CreateIngestion where
   type
     AWSResponse CreateIngestion =
       CreateIngestionResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateIngestionResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "IngestionId")
-            Prelude.<*> (x Core..?> "IngestionStatus")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "IngestionId")
+            Prelude.<*> (x Data..?> "IngestionStatus")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -151,50 +157,50 @@ instance Prelude.NFData CreateIngestion where
       `Prelude.seq` Prelude.rnf ingestionId
       `Prelude.seq` Prelude.rnf awsAccountId
 
-instance Core.ToHeaders CreateIngestion where
+instance Data.ToHeaders CreateIngestion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateIngestion where
+instance Data.ToJSON CreateIngestion where
   toJSON CreateIngestion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IngestionType" Core..=)
+          [ ("IngestionType" Data..=)
               Prelude.<$> ingestionType
           ]
       )
 
-instance Core.ToPath CreateIngestion where
+instance Data.ToPath CreateIngestion where
   toPath CreateIngestion' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/data-sets/",
-        Core.toBS dataSetId,
+        Data.toBS dataSetId,
         "/ingestions/",
-        Core.toBS ingestionId
+        Data.toBS ingestionId
       ]
 
-instance Core.ToQuery CreateIngestion where
+instance Data.ToQuery CreateIngestion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateIngestionResponse' smart constructor.
 data CreateIngestionResponse = CreateIngestionResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) for the data ingestion.
+  { -- | The Amazon Resource Name (ARN) for the data ingestion.
     arn :: Prelude.Maybe Prelude.Text,
     -- | An ID for the ingestion.
     ingestionId :: Prelude.Maybe Prelude.Text,
     -- | The ingestion status.
     ingestionStatus :: Prelude.Maybe IngestionStatus,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -208,13 +214,13 @@ data CreateIngestionResponse = CreateIngestionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'createIngestionResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'arn', 'createIngestionResponse_arn' - The Amazon Resource Name (ARN) for the data ingestion.
 --
 -- 'ingestionId', 'createIngestionResponse_ingestionId' - An ID for the ingestion.
 --
 -- 'ingestionStatus', 'createIngestionResponse_ingestionStatus' - The ingestion status.
+--
+-- 'requestId', 'createIngestionResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'createIngestionResponse_status' - The HTTP status of the request.
 newCreateIngestionResponse ::
@@ -223,17 +229,12 @@ newCreateIngestionResponse ::
   CreateIngestionResponse
 newCreateIngestionResponse pStatus_ =
   CreateIngestionResponse'
-    { requestId =
-        Prelude.Nothing,
-      arn = Prelude.Nothing,
+    { arn = Prelude.Nothing,
       ingestionId = Prelude.Nothing,
       ingestionStatus = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-createIngestionResponse_requestId :: Lens.Lens' CreateIngestionResponse (Prelude.Maybe Prelude.Text)
-createIngestionResponse_requestId = Lens.lens (\CreateIngestionResponse' {requestId} -> requestId) (\s@CreateIngestionResponse' {} a -> s {requestId = a} :: CreateIngestionResponse)
 
 -- | The Amazon Resource Name (ARN) for the data ingestion.
 createIngestionResponse_arn :: Lens.Lens' CreateIngestionResponse (Prelude.Maybe Prelude.Text)
@@ -247,14 +248,18 @@ createIngestionResponse_ingestionId = Lens.lens (\CreateIngestionResponse' {inge
 createIngestionResponse_ingestionStatus :: Lens.Lens' CreateIngestionResponse (Prelude.Maybe IngestionStatus)
 createIngestionResponse_ingestionStatus = Lens.lens (\CreateIngestionResponse' {ingestionStatus} -> ingestionStatus) (\s@CreateIngestionResponse' {} a -> s {ingestionStatus = a} :: CreateIngestionResponse)
 
+-- | The Amazon Web Services request ID for this operation.
+createIngestionResponse_requestId :: Lens.Lens' CreateIngestionResponse (Prelude.Maybe Prelude.Text)
+createIngestionResponse_requestId = Lens.lens (\CreateIngestionResponse' {requestId} -> requestId) (\s@CreateIngestionResponse' {} a -> s {requestId = a} :: CreateIngestionResponse)
+
 -- | The HTTP status of the request.
 createIngestionResponse_status :: Lens.Lens' CreateIngestionResponse Prelude.Int
 createIngestionResponse_status = Lens.lens (\CreateIngestionResponse' {status} -> status) (\s@CreateIngestionResponse' {} a -> s {status = a} :: CreateIngestionResponse)
 
 instance Prelude.NFData CreateIngestionResponse where
   rnf CreateIngestionResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf arn
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf ingestionId
       `Prelude.seq` Prelude.rnf ingestionStatus
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

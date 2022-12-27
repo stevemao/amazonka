@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.CreatePolicyVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,8 +54,9 @@ module Amazonka.IAM.CreatePolicyVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -222,13 +223,14 @@ instance Core.AWSRequest CreatePolicyVersion where
   type
     AWSResponse CreatePolicyVersion =
       CreatePolicyVersionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreatePolicyVersionResult"
       ( \s h x ->
           CreatePolicyVersionResponse'
-            Prelude.<$> (x Core..@? "PolicyVersion")
+            Prelude.<$> (x Data..@? "PolicyVersion")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -244,22 +246,22 @@ instance Prelude.NFData CreatePolicyVersion where
       `Prelude.seq` Prelude.rnf policyArn
       `Prelude.seq` Prelude.rnf policyDocument
 
-instance Core.ToHeaders CreatePolicyVersion where
+instance Data.ToHeaders CreatePolicyVersion where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreatePolicyVersion where
+instance Data.ToPath CreatePolicyVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreatePolicyVersion where
+instance Data.ToQuery CreatePolicyVersion where
   toQuery CreatePolicyVersion' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreatePolicyVersion" :: Prelude.ByteString),
+          Data.=: ("CreatePolicyVersion" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "SetAsDefault" Core.=: setAsDefault,
-        "PolicyArn" Core.=: policyArn,
-        "PolicyDocument" Core.=: policyDocument
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "SetAsDefault" Data.=: setAsDefault,
+        "PolicyArn" Data.=: policyArn,
+        "PolicyDocument" Data.=: policyDocument
       ]
 
 -- | Contains the response to a successful CreatePolicyVersion request.

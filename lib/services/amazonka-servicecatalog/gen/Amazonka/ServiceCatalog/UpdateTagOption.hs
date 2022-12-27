@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.UpdateTagOption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.ServiceCatalog.UpdateTagOption
     newUpdateTagOption,
 
     -- * Request Lenses
-    updateTagOption_value,
     updateTagOption_active,
+    updateTagOption_value,
     updateTagOption_id,
 
     -- * Destructuring the Response
@@ -42,7 +42,8 @@ module Amazonka.ServiceCatalog.UpdateTagOption
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -50,10 +51,10 @@ import Amazonka.ServiceCatalog.Types
 
 -- | /See:/ 'newUpdateTagOption' smart constructor.
 data UpdateTagOption = UpdateTagOption'
-  { -- | The updated value.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The updated active state.
+  { -- | The updated active state.
     active :: Prelude.Maybe Prelude.Bool,
+    -- | The updated value.
+    value :: Prelude.Maybe Prelude.Text,
     -- | The TagOption identifier.
     id :: Prelude.Text
   }
@@ -67,9 +68,9 @@ data UpdateTagOption = UpdateTagOption'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'updateTagOption_value' - The updated value.
---
 -- 'active', 'updateTagOption_active' - The updated active state.
+--
+-- 'value', 'updateTagOption_value' - The updated value.
 --
 -- 'id', 'updateTagOption_id' - The TagOption identifier.
 newUpdateTagOption ::
@@ -78,18 +79,18 @@ newUpdateTagOption ::
   UpdateTagOption
 newUpdateTagOption pId_ =
   UpdateTagOption'
-    { value = Prelude.Nothing,
-      active = Prelude.Nothing,
+    { active = Prelude.Nothing,
+      value = Prelude.Nothing,
       id = pId_
     }
-
--- | The updated value.
-updateTagOption_value :: Lens.Lens' UpdateTagOption (Prelude.Maybe Prelude.Text)
-updateTagOption_value = Lens.lens (\UpdateTagOption' {value} -> value) (\s@UpdateTagOption' {} a -> s {value = a} :: UpdateTagOption)
 
 -- | The updated active state.
 updateTagOption_active :: Lens.Lens' UpdateTagOption (Prelude.Maybe Prelude.Bool)
 updateTagOption_active = Lens.lens (\UpdateTagOption' {active} -> active) (\s@UpdateTagOption' {} a -> s {active = a} :: UpdateTagOption)
+
+-- | The updated value.
+updateTagOption_value :: Lens.Lens' UpdateTagOption (Prelude.Maybe Prelude.Text)
+updateTagOption_value = Lens.lens (\UpdateTagOption' {value} -> value) (\s@UpdateTagOption' {} a -> s {value = a} :: UpdateTagOption)
 
 -- | The TagOption identifier.
 updateTagOption_id :: Lens.Lens' UpdateTagOption Prelude.Text
@@ -99,56 +100,57 @@ instance Core.AWSRequest UpdateTagOption where
   type
     AWSResponse UpdateTagOption =
       UpdateTagOptionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateTagOptionResponse'
-            Prelude.<$> (x Core..?> "TagOptionDetail")
+            Prelude.<$> (x Data..?> "TagOptionDetail")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateTagOption where
   hashWithSalt _salt UpdateTagOption' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` active
+    _salt `Prelude.hashWithSalt` active
+      `Prelude.hashWithSalt` value
       `Prelude.hashWithSalt` id
 
 instance Prelude.NFData UpdateTagOption where
   rnf UpdateTagOption' {..} =
-    Prelude.rnf value
-      `Prelude.seq` Prelude.rnf active
+    Prelude.rnf active
+      `Prelude.seq` Prelude.rnf value
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToHeaders UpdateTagOption where
+instance Data.ToHeaders UpdateTagOption where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.UpdateTagOption" ::
+              Data.=# ( "AWS242ServiceCatalogService.UpdateTagOption" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateTagOption where
+instance Data.ToJSON UpdateTagOption where
   toJSON UpdateTagOption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Active" Core..=) Prelude.<$> active,
-            Prelude.Just ("Id" Core..= id)
+          [ ("Active" Data..=) Prelude.<$> active,
+            ("Value" Data..=) Prelude.<$> value,
+            Prelude.Just ("Id" Data..= id)
           ]
       )
 
-instance Core.ToPath UpdateTagOption where
+instance Data.ToPath UpdateTagOption where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateTagOption where
+instance Data.ToQuery UpdateTagOption where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateTagOptionResponse' smart constructor.

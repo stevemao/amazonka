@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.DeleteUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a user from Amazon WorkMail and all subsequent systems. Before
--- you can delete a user, the user state must be @DISABLED@. Use the
--- DescribeUser action to confirm the user state.
+-- Deletes a user from WorkMail and all subsequent systems. Before you can
+-- delete a user, the user state must be @DISABLED@. Use the DescribeUser
+-- action to confirm the user state.
 --
 -- Deleting a user is permanent and cannot be undone. WorkMail archives
 -- user mailboxes for 30 days before they are permanently removed.
@@ -45,7 +45,8 @@ module Amazonka.WorkMail.DeleteUser
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,7 +94,8 @@ deleteUser_userId = Lens.lens (\DeleteUser' {userId} -> userId) (\s@DeleteUser' 
 
 instance Core.AWSRequest DeleteUser where
   type AWSResponse DeleteUser = DeleteUserResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -111,33 +113,33 @@ instance Prelude.NFData DeleteUser where
     Prelude.rnf organizationId
       `Prelude.seq` Prelude.rnf userId
 
-instance Core.ToHeaders DeleteUser where
+instance Data.ToHeaders DeleteUser where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("WorkMailService.DeleteUser" :: Prelude.ByteString),
+              Data.=# ("WorkMailService.DeleteUser" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteUser where
+instance Data.ToJSON DeleteUser where
   toJSON DeleteUser' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("UserId" Core..= userId)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("UserId" Data..= userId)
           ]
       )
 
-instance Core.ToPath DeleteUser where
+instance Data.ToPath DeleteUser where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteUser where
+instance Data.ToQuery DeleteUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteUserResponse' smart constructor.

@@ -6,25 +6,13 @@
 
 -- |
 -- Module      : Amazonka.PersonalizeRuntime.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.PersonalizeRuntime.Lens
   ( -- * Operations
-
-    -- ** GetRecommendations
-    getRecommendations_context,
-    getRecommendations_itemId,
-    getRecommendations_userId,
-    getRecommendations_numResults,
-    getRecommendations_filterArn,
-    getRecommendations_filterValues,
-    getRecommendations_campaignArn,
-    getRecommendationsResponse_recommendationId,
-    getRecommendationsResponse_itemList,
-    getRecommendationsResponse_httpStatus,
 
     -- ** GetPersonalizedRanking
     getPersonalizedRanking_context,
@@ -37,14 +25,36 @@ module Amazonka.PersonalizeRuntime.Lens
     getPersonalizedRankingResponse_recommendationId,
     getPersonalizedRankingResponse_httpStatus,
 
+    -- ** GetRecommendations
+    getRecommendations_campaignArn,
+    getRecommendations_context,
+    getRecommendations_filterArn,
+    getRecommendations_filterValues,
+    getRecommendations_itemId,
+    getRecommendations_numResults,
+    getRecommendations_promotions,
+    getRecommendations_recommenderArn,
+    getRecommendations_userId,
+    getRecommendationsResponse_itemList,
+    getRecommendationsResponse_recommendationId,
+    getRecommendationsResponse_httpStatus,
+
     -- * Types
 
     -- ** PredictedItem
-    predictedItem_score,
     predictedItem_itemId,
+    predictedItem_promotionName,
+    predictedItem_score,
+
+    -- ** Promotion
+    promotion_filterArn,
+    promotion_filterValues,
+    promotion_name,
+    promotion_percentPromotedItems,
   )
 where
 
 import Amazonka.PersonalizeRuntime.GetPersonalizedRanking
 import Amazonka.PersonalizeRuntime.GetRecommendations
 import Amazonka.PersonalizeRuntime.Types.PredictedItem
+import Amazonka.PersonalizeRuntime.Types.Promotion

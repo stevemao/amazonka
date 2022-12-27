@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.EmailMessageActivity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.EmailMessageActivity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.JourneyEmailMessage
 import qualified Amazonka.Prelude as Prelude
 
@@ -29,7 +30,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEmailMessageActivity' smart constructor.
 data EmailMessageActivity = EmailMessageActivity'
-  { -- | The name of the email message template to use for the message. If
+  { -- | Specifies the sender address for an email message that\'s sent to
+    -- participants in the journey.
+    messageConfig :: Prelude.Maybe JourneyEmailMessage,
+    -- | The unique identifier for the next activity to perform, after the
+    -- message is sent.
+    nextActivity :: Prelude.Maybe Prelude.Text,
+    -- | The name of the email message template to use for the message. If
     -- specified, this value must match the name of an existing message
     -- template.
     templateName :: Prelude.Maybe Prelude.Text,
@@ -43,13 +50,7 @@ data EmailMessageActivity = EmailMessageActivity'
     -- the version of a template that\'s been most recently reviewed and
     -- approved for use, depending on your workflow. It isn\'t necessarily the
     -- latest version of a template.
-    templateVersion :: Prelude.Maybe Prelude.Text,
-    -- | The unique identifier for the next activity to perform, after the
-    -- message is sent.
-    nextActivity :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the sender address for an email message that\'s sent to
-    -- participants in the journey.
-    messageConfig :: Prelude.Maybe JourneyEmailMessage
+    templateVersion :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -60,6 +61,12 @@ data EmailMessageActivity = EmailMessageActivity'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'messageConfig', 'emailMessageActivity_messageConfig' - Specifies the sender address for an email message that\'s sent to
+-- participants in the journey.
+--
+-- 'nextActivity', 'emailMessageActivity_nextActivity' - The unique identifier for the next activity to perform, after the
+-- message is sent.
 --
 -- 'templateName', 'emailMessageActivity_templateName' - The name of the email message template to use for the message. If
 -- specified, this value must match the name of an existing message
@@ -75,22 +82,26 @@ data EmailMessageActivity = EmailMessageActivity'
 -- the version of a template that\'s been most recently reviewed and
 -- approved for use, depending on your workflow. It isn\'t necessarily the
 -- latest version of a template.
---
--- 'nextActivity', 'emailMessageActivity_nextActivity' - The unique identifier for the next activity to perform, after the
--- message is sent.
---
--- 'messageConfig', 'emailMessageActivity_messageConfig' - Specifies the sender address for an email message that\'s sent to
--- participants in the journey.
 newEmailMessageActivity ::
   EmailMessageActivity
 newEmailMessageActivity =
   EmailMessageActivity'
-    { templateName =
+    { messageConfig =
         Prelude.Nothing,
-      templateVersion = Prelude.Nothing,
       nextActivity = Prelude.Nothing,
-      messageConfig = Prelude.Nothing
+      templateName = Prelude.Nothing,
+      templateVersion = Prelude.Nothing
     }
+
+-- | Specifies the sender address for an email message that\'s sent to
+-- participants in the journey.
+emailMessageActivity_messageConfig :: Lens.Lens' EmailMessageActivity (Prelude.Maybe JourneyEmailMessage)
+emailMessageActivity_messageConfig = Lens.lens (\EmailMessageActivity' {messageConfig} -> messageConfig) (\s@EmailMessageActivity' {} a -> s {messageConfig = a} :: EmailMessageActivity)
+
+-- | The unique identifier for the next activity to perform, after the
+-- message is sent.
+emailMessageActivity_nextActivity :: Lens.Lens' EmailMessageActivity (Prelude.Maybe Prelude.Text)
+emailMessageActivity_nextActivity = Lens.lens (\EmailMessageActivity' {nextActivity} -> nextActivity) (\s@EmailMessageActivity' {} a -> s {nextActivity = a} :: EmailMessageActivity)
 
 -- | The name of the email message template to use for the message. If
 -- specified, this value must match the name of an existing message
@@ -111,50 +122,40 @@ emailMessageActivity_templateName = Lens.lens (\EmailMessageActivity' {templateN
 emailMessageActivity_templateVersion :: Lens.Lens' EmailMessageActivity (Prelude.Maybe Prelude.Text)
 emailMessageActivity_templateVersion = Lens.lens (\EmailMessageActivity' {templateVersion} -> templateVersion) (\s@EmailMessageActivity' {} a -> s {templateVersion = a} :: EmailMessageActivity)
 
--- | The unique identifier for the next activity to perform, after the
--- message is sent.
-emailMessageActivity_nextActivity :: Lens.Lens' EmailMessageActivity (Prelude.Maybe Prelude.Text)
-emailMessageActivity_nextActivity = Lens.lens (\EmailMessageActivity' {nextActivity} -> nextActivity) (\s@EmailMessageActivity' {} a -> s {nextActivity = a} :: EmailMessageActivity)
-
--- | Specifies the sender address for an email message that\'s sent to
--- participants in the journey.
-emailMessageActivity_messageConfig :: Lens.Lens' EmailMessageActivity (Prelude.Maybe JourneyEmailMessage)
-emailMessageActivity_messageConfig = Lens.lens (\EmailMessageActivity' {messageConfig} -> messageConfig) (\s@EmailMessageActivity' {} a -> s {messageConfig = a} :: EmailMessageActivity)
-
-instance Core.FromJSON EmailMessageActivity where
+instance Data.FromJSON EmailMessageActivity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EmailMessageActivity"
       ( \x ->
           EmailMessageActivity'
-            Prelude.<$> (x Core..:? "TemplateName")
-            Prelude.<*> (x Core..:? "TemplateVersion")
-            Prelude.<*> (x Core..:? "NextActivity")
-            Prelude.<*> (x Core..:? "MessageConfig")
+            Prelude.<$> (x Data..:? "MessageConfig")
+            Prelude.<*> (x Data..:? "NextActivity")
+            Prelude.<*> (x Data..:? "TemplateName")
+            Prelude.<*> (x Data..:? "TemplateVersion")
       )
 
 instance Prelude.Hashable EmailMessageActivity where
   hashWithSalt _salt EmailMessageActivity' {..} =
-    _salt `Prelude.hashWithSalt` templateName
-      `Prelude.hashWithSalt` templateVersion
+    _salt `Prelude.hashWithSalt` messageConfig
       `Prelude.hashWithSalt` nextActivity
-      `Prelude.hashWithSalt` messageConfig
+      `Prelude.hashWithSalt` templateName
+      `Prelude.hashWithSalt` templateVersion
 
 instance Prelude.NFData EmailMessageActivity where
   rnf EmailMessageActivity' {..} =
-    Prelude.rnf templateName
-      `Prelude.seq` Prelude.rnf templateVersion
+    Prelude.rnf messageConfig
       `Prelude.seq` Prelude.rnf nextActivity
-      `Prelude.seq` Prelude.rnf messageConfig
+      `Prelude.seq` Prelude.rnf templateName
+      `Prelude.seq` Prelude.rnf templateVersion
 
-instance Core.ToJSON EmailMessageActivity where
+instance Data.ToJSON EmailMessageActivity where
   toJSON EmailMessageActivity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TemplateName" Core..=) Prelude.<$> templateName,
-            ("TemplateVersion" Core..=)
-              Prelude.<$> templateVersion,
-            ("NextActivity" Core..=) Prelude.<$> nextActivity,
-            ("MessageConfig" Core..=) Prelude.<$> messageConfig
+          [ ("MessageConfig" Data..=) Prelude.<$> messageConfig,
+            ("NextActivity" Data..=) Prelude.<$> nextActivity,
+            ("TemplateName" Data..=) Prelude.<$> templateName,
+            ("TemplateVersion" Data..=)
+              Prelude.<$> templateVersion
           ]
       )

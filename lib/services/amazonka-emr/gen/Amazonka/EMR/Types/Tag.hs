@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.Tag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EMR.Types.Tag where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A key-value pair containing user-defined metadata that you can associate
@@ -31,15 +32,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newTag' smart constructor.
 data Tag = Tag'
-  { -- | A user-defined value, which is optional in a tag. For more information,
+  { -- | A user-defined key, which is the minimum required information for a
+    -- valid tag. For more information, see
+    -- <https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html Tag>.
+    key :: Prelude.Maybe Prelude.Text,
+    -- | A user-defined value, which is optional in a tag. For more information,
     -- see
     -- <https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html Tag Clusters>.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | A user-defined key, which is the minimum required information for a
-    -- valid tag. For more information, see
-    -- <https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html Tag>
-    -- .
-    key :: Prelude.Maybe Prelude.Text
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,21 +51,26 @@ data Tag = Tag'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'key', 'tag_key' - A user-defined key, which is the minimum required information for a
+-- valid tag. For more information, see
+-- <https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html Tag>.
+--
 -- 'value', 'tag_value' - A user-defined value, which is optional in a tag. For more information,
 -- see
 -- <https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html Tag Clusters>.
---
--- 'key', 'tag_key' - A user-defined key, which is the minimum required information for a
--- valid tag. For more information, see
--- <https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html Tag>
--- .
 newTag ::
   Tag
 newTag =
   Tag'
-    { value = Prelude.Nothing,
-      key = Prelude.Nothing
+    { key = Prelude.Nothing,
+      value = Prelude.Nothing
     }
+
+-- | A user-defined key, which is the minimum required information for a
+-- valid tag. For more information, see
+-- <https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html Tag>.
+tag_key :: Lens.Lens' Tag (Prelude.Maybe Prelude.Text)
+tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 
 -- | A user-defined value, which is optional in a tag. For more information,
 -- see
@@ -73,36 +78,29 @@ newTag =
 tag_value :: Lens.Lens' Tag (Prelude.Maybe Prelude.Text)
 tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
 
--- | A user-defined key, which is the minimum required information for a
--- valid tag. For more information, see
--- <https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-plan-tags.html Tag>
--- .
-tag_key :: Lens.Lens' Tag (Prelude.Maybe Prelude.Text)
-tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
-
-instance Core.FromJSON Tag where
+instance Data.FromJSON Tag where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Tag"
       ( \x ->
           Tag'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Key")
+            Prelude.<$> (x Data..:? "Key") Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable Tag where
   hashWithSalt _salt Tag' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` key
+    _salt `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData Tag where
   rnf Tag' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf key
+    Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON Tag where
+instance Data.ToJSON Tag where
   toJSON Tag' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Key" Core..=) Prelude.<$> key
+          [ ("Key" Data..=) Prelude.<$> key,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

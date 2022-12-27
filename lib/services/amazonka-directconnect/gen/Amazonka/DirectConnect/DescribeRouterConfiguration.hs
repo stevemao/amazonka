@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.DescribeRouterConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,17 +35,18 @@ module Amazonka.DirectConnect.DescribeRouterConfiguration
     newDescribeRouterConfigurationResponse,
 
     -- * Response Lenses
-    describeRouterConfigurationResponse_router,
     describeRouterConfigurationResponse_customerRouterConfig,
-    describeRouterConfigurationResponse_virtualInterfaceName,
+    describeRouterConfigurationResponse_router,
     describeRouterConfigurationResponse_virtualInterfaceId,
+    describeRouterConfigurationResponse_virtualInterfaceName,
     describeRouterConfigurationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,15 +99,16 @@ instance Core.AWSRequest DescribeRouterConfiguration where
   type
     AWSResponse DescribeRouterConfiguration =
       DescribeRouterConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRouterConfigurationResponse'
-            Prelude.<$> (x Core..?> "router")
-            Prelude.<*> (x Core..?> "customerRouterConfig")
-            Prelude.<*> (x Core..?> "virtualInterfaceName")
-            Prelude.<*> (x Core..?> "virtualInterfaceId")
+            Prelude.<$> (x Data..?> "customerRouterConfig")
+            Prelude.<*> (x Data..?> "router")
+            Prelude.<*> (x Data..?> "virtualInterfaceId")
+            Prelude.<*> (x Data..?> "virtualInterfaceName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,48 +122,48 @@ instance Prelude.NFData DescribeRouterConfiguration where
     Prelude.rnf routerTypeIdentifier
       `Prelude.seq` Prelude.rnf virtualInterfaceId
 
-instance Core.ToHeaders DescribeRouterConfiguration where
+instance Data.ToHeaders DescribeRouterConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.DescribeRouterConfiguration" ::
+              Data.=# ( "OvertureService.DescribeRouterConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeRouterConfiguration where
+instance Data.ToJSON DescribeRouterConfiguration where
   toJSON DescribeRouterConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("routerTypeIdentifier" Core..=)
+          [ ("routerTypeIdentifier" Data..=)
               Prelude.<$> routerTypeIdentifier,
             Prelude.Just
-              ("virtualInterfaceId" Core..= virtualInterfaceId)
+              ("virtualInterfaceId" Data..= virtualInterfaceId)
           ]
       )
 
-instance Core.ToPath DescribeRouterConfiguration where
+instance Data.ToPath DescribeRouterConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeRouterConfiguration where
+instance Data.ToQuery DescribeRouterConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeRouterConfigurationResponse' smart constructor.
 data DescribeRouterConfigurationResponse = DescribeRouterConfigurationResponse'
-  { -- | The details about the router.
-    router :: Prelude.Maybe RouterType,
-    -- | The customer router configuration.
+  { -- | The customer router configuration.
     customerRouterConfig :: Prelude.Maybe Prelude.Text,
-    -- | The name of the virtual interface assigned by the customer network.
-    virtualInterfaceName :: Prelude.Maybe Prelude.Text,
+    -- | The details about the router.
+    router :: Prelude.Maybe RouterType,
     -- | The ID assigned to the virtual interface.
     virtualInterfaceId :: Prelude.Maybe Prelude.Text,
+    -- | Provides the details about a virtual interface\'s router.
+    virtualInterfaceName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -175,13 +177,13 @@ data DescribeRouterConfigurationResponse = DescribeRouterConfigurationResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'router', 'describeRouterConfigurationResponse_router' - The details about the router.
---
 -- 'customerRouterConfig', 'describeRouterConfigurationResponse_customerRouterConfig' - The customer router configuration.
 --
--- 'virtualInterfaceName', 'describeRouterConfigurationResponse_virtualInterfaceName' - The name of the virtual interface assigned by the customer network.
+-- 'router', 'describeRouterConfigurationResponse_router' - The details about the router.
 --
 -- 'virtualInterfaceId', 'describeRouterConfigurationResponse_virtualInterfaceId' - The ID assigned to the virtual interface.
+--
+-- 'virtualInterfaceName', 'describeRouterConfigurationResponse_virtualInterfaceName' - Provides the details about a virtual interface\'s router.
 --
 -- 'httpStatus', 'describeRouterConfigurationResponse_httpStatus' - The response's http status code.
 newDescribeRouterConfigurationResponse ::
@@ -190,29 +192,29 @@ newDescribeRouterConfigurationResponse ::
   DescribeRouterConfigurationResponse
 newDescribeRouterConfigurationResponse pHttpStatus_ =
   DescribeRouterConfigurationResponse'
-    { router =
+    { customerRouterConfig =
         Prelude.Nothing,
-      customerRouterConfig = Prelude.Nothing,
-      virtualInterfaceName = Prelude.Nothing,
+      router = Prelude.Nothing,
       virtualInterfaceId = Prelude.Nothing,
+      virtualInterfaceName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The details about the router.
-describeRouterConfigurationResponse_router :: Lens.Lens' DescribeRouterConfigurationResponse (Prelude.Maybe RouterType)
-describeRouterConfigurationResponse_router = Lens.lens (\DescribeRouterConfigurationResponse' {router} -> router) (\s@DescribeRouterConfigurationResponse' {} a -> s {router = a} :: DescribeRouterConfigurationResponse)
 
 -- | The customer router configuration.
 describeRouterConfigurationResponse_customerRouterConfig :: Lens.Lens' DescribeRouterConfigurationResponse (Prelude.Maybe Prelude.Text)
 describeRouterConfigurationResponse_customerRouterConfig = Lens.lens (\DescribeRouterConfigurationResponse' {customerRouterConfig} -> customerRouterConfig) (\s@DescribeRouterConfigurationResponse' {} a -> s {customerRouterConfig = a} :: DescribeRouterConfigurationResponse)
 
--- | The name of the virtual interface assigned by the customer network.
-describeRouterConfigurationResponse_virtualInterfaceName :: Lens.Lens' DescribeRouterConfigurationResponse (Prelude.Maybe Prelude.Text)
-describeRouterConfigurationResponse_virtualInterfaceName = Lens.lens (\DescribeRouterConfigurationResponse' {virtualInterfaceName} -> virtualInterfaceName) (\s@DescribeRouterConfigurationResponse' {} a -> s {virtualInterfaceName = a} :: DescribeRouterConfigurationResponse)
+-- | The details about the router.
+describeRouterConfigurationResponse_router :: Lens.Lens' DescribeRouterConfigurationResponse (Prelude.Maybe RouterType)
+describeRouterConfigurationResponse_router = Lens.lens (\DescribeRouterConfigurationResponse' {router} -> router) (\s@DescribeRouterConfigurationResponse' {} a -> s {router = a} :: DescribeRouterConfigurationResponse)
 
 -- | The ID assigned to the virtual interface.
 describeRouterConfigurationResponse_virtualInterfaceId :: Lens.Lens' DescribeRouterConfigurationResponse (Prelude.Maybe Prelude.Text)
 describeRouterConfigurationResponse_virtualInterfaceId = Lens.lens (\DescribeRouterConfigurationResponse' {virtualInterfaceId} -> virtualInterfaceId) (\s@DescribeRouterConfigurationResponse' {} a -> s {virtualInterfaceId = a} :: DescribeRouterConfigurationResponse)
+
+-- | Provides the details about a virtual interface\'s router.
+describeRouterConfigurationResponse_virtualInterfaceName :: Lens.Lens' DescribeRouterConfigurationResponse (Prelude.Maybe Prelude.Text)
+describeRouterConfigurationResponse_virtualInterfaceName = Lens.lens (\DescribeRouterConfigurationResponse' {virtualInterfaceName} -> virtualInterfaceName) (\s@DescribeRouterConfigurationResponse' {} a -> s {virtualInterfaceName = a} :: DescribeRouterConfigurationResponse)
 
 -- | The response's http status code.
 describeRouterConfigurationResponse_httpStatus :: Lens.Lens' DescribeRouterConfigurationResponse Prelude.Int
@@ -223,8 +225,8 @@ instance
     DescribeRouterConfigurationResponse
   where
   rnf DescribeRouterConfigurationResponse' {..} =
-    Prelude.rnf router
-      `Prelude.seq` Prelude.rnf customerRouterConfig
-      `Prelude.seq` Prelude.rnf virtualInterfaceName
+    Prelude.rnf customerRouterConfig
+      `Prelude.seq` Prelude.rnf router
       `Prelude.seq` Prelude.rnf virtualInterfaceId
+      `Prelude.seq` Prelude.rnf virtualInterfaceName
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruReviewer.AssociateRepository
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Use to associate an Amazon Web Services CodeCommit repository or a
--- repostory managed by Amazon Web Services CodeStar Connections with
+-- repository managed by Amazon Web Services CodeStar Connections with
 -- Amazon CodeGuru Reviewer. When you associate a repository, CodeGuru
 -- Reviewer reviews source code changes in the repository\'s pull requests
 -- and provides automatic recommendations. You can view recommendations
@@ -51,8 +51,8 @@ module Amazonka.CodeGuruReviewer.AssociateRepository
     newAssociateRepository,
 
     -- * Request Lenses
-    associateRepository_kmsKeyDetails,
     associateRepository_clientRequestToken,
+    associateRepository_kmsKeyDetails,
     associateRepository_tags,
     associateRepository_repository,
 
@@ -69,26 +69,27 @@ where
 
 import Amazonka.CodeGuruReviewer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newAssociateRepository' smart constructor.
 data AssociateRepository = AssociateRepository'
-  { -- | A @KMSKeyDetails@ object that contains:
+  { -- | Amazon CodeGuru Reviewer uses this value to prevent the accidental
+    -- creation of duplicate repository associations if there are failures and
+    -- retries.
+    clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | A @KMSKeyDetails@ object that contains:
     --
     -- -   The encryption option for this repository association. It is either
     --     owned by Amazon Web Services Key Management Service (KMS)
     --     (@AWS_OWNED_CMK@) or customer managed (@CUSTOMER_MANAGED_CMK@).
     --
     -- -   The ID of the Amazon Web Services KMS key that is associated with
-    --     this respository association.
+    --     this repository association.
     kmsKeyDetails :: Prelude.Maybe KMSKeyDetails,
-    -- | Amazon CodeGuru Reviewer uses this value to prevent the accidental
-    -- creation of duplicate repository associations if there are failures and
-    -- retries.
-    clientRequestToken :: Prelude.Maybe Prelude.Text,
     -- | An array of key-value pairs used to tag an associated repository. A tag
     -- is a custom attribute label with two parts:
     --
@@ -113,6 +114,10 @@ data AssociateRepository = AssociateRepository'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'clientRequestToken', 'associateRepository_clientRequestToken' - Amazon CodeGuru Reviewer uses this value to prevent the accidental
+-- creation of duplicate repository associations if there are failures and
+-- retries.
+--
 -- 'kmsKeyDetails', 'associateRepository_kmsKeyDetails' - A @KMSKeyDetails@ object that contains:
 --
 -- -   The encryption option for this repository association. It is either
@@ -120,11 +125,7 @@ data AssociateRepository = AssociateRepository'
 --     (@AWS_OWNED_CMK@) or customer managed (@CUSTOMER_MANAGED_CMK@).
 --
 -- -   The ID of the Amazon Web Services KMS key that is associated with
---     this respository association.
---
--- 'clientRequestToken', 'associateRepository_clientRequestToken' - Amazon CodeGuru Reviewer uses this value to prevent the accidental
--- creation of duplicate repository associations if there are failures and
--- retries.
+--     this repository association.
 --
 -- 'tags', 'associateRepository_tags' - An array of key-value pairs used to tag an associated repository. A tag
 -- is a custom attribute label with two parts:
@@ -144,12 +145,18 @@ newAssociateRepository ::
   AssociateRepository
 newAssociateRepository pRepository_ =
   AssociateRepository'
-    { kmsKeyDetails =
+    { clientRequestToken =
         Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
+      kmsKeyDetails = Prelude.Nothing,
       tags = Prelude.Nothing,
       repository = pRepository_
     }
+
+-- | Amazon CodeGuru Reviewer uses this value to prevent the accidental
+-- creation of duplicate repository associations if there are failures and
+-- retries.
+associateRepository_clientRequestToken :: Lens.Lens' AssociateRepository (Prelude.Maybe Prelude.Text)
+associateRepository_clientRequestToken = Lens.lens (\AssociateRepository' {clientRequestToken} -> clientRequestToken) (\s@AssociateRepository' {} a -> s {clientRequestToken = a} :: AssociateRepository)
 
 -- | A @KMSKeyDetails@ object that contains:
 --
@@ -158,15 +165,9 @@ newAssociateRepository pRepository_ =
 --     (@AWS_OWNED_CMK@) or customer managed (@CUSTOMER_MANAGED_CMK@).
 --
 -- -   The ID of the Amazon Web Services KMS key that is associated with
---     this respository association.
+--     this repository association.
 associateRepository_kmsKeyDetails :: Lens.Lens' AssociateRepository (Prelude.Maybe KMSKeyDetails)
 associateRepository_kmsKeyDetails = Lens.lens (\AssociateRepository' {kmsKeyDetails} -> kmsKeyDetails) (\s@AssociateRepository' {} a -> s {kmsKeyDetails = a} :: AssociateRepository)
-
--- | Amazon CodeGuru Reviewer uses this value to prevent the accidental
--- creation of duplicate repository associations if there are failures and
--- retries.
-associateRepository_clientRequestToken :: Lens.Lens' AssociateRepository (Prelude.Maybe Prelude.Text)
-associateRepository_clientRequestToken = Lens.lens (\AssociateRepository' {clientRequestToken} -> clientRequestToken) (\s@AssociateRepository' {} a -> s {clientRequestToken = a} :: AssociateRepository)
 
 -- | An array of key-value pairs used to tag an associated repository. A tag
 -- is a custom attribute label with two parts:
@@ -189,57 +190,58 @@ instance Core.AWSRequest AssociateRepository where
   type
     AWSResponse AssociateRepository =
       AssociateRepositoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AssociateRepositoryResponse'
-            Prelude.<$> (x Core..?> "RepositoryAssociation")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "RepositoryAssociation")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable AssociateRepository where
   hashWithSalt _salt AssociateRepository' {..} =
-    _salt `Prelude.hashWithSalt` kmsKeyDetails
-      `Prelude.hashWithSalt` clientRequestToken
+    _salt `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` kmsKeyDetails
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` repository
 
 instance Prelude.NFData AssociateRepository where
   rnf AssociateRepository' {..} =
-    Prelude.rnf kmsKeyDetails
-      `Prelude.seq` Prelude.rnf clientRequestToken
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf kmsKeyDetails
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf repository
 
-instance Core.ToHeaders AssociateRepository where
+instance Data.ToHeaders AssociateRepository where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateRepository where
+instance Data.ToJSON AssociateRepository where
   toJSON AssociateRepository' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KMSKeyDetails" Core..=) Prelude.<$> kmsKeyDetails,
-            ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Repository" Core..= repository)
+            ("KMSKeyDetails" Data..=) Prelude.<$> kmsKeyDetails,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Repository" Data..= repository)
           ]
       )
 
-instance Core.ToPath AssociateRepository where
+instance Data.ToPath AssociateRepository where
   toPath = Prelude.const "/associations"
 
-instance Core.ToQuery AssociateRepository where
+instance Data.ToQuery AssociateRepository where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateRepositoryResponse' smart constructor.

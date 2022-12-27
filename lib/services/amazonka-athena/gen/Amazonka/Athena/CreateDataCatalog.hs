@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Athena.CreateDataCatalog
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Athena.CreateDataCatalog
     newCreateDataCatalog,
 
     -- * Request Lenses
-    createDataCatalog_parameters,
     createDataCatalog_description,
+    createDataCatalog_parameters,
     createDataCatalog_tags,
     createDataCatalog_name,
     createDataCatalog_type,
@@ -46,14 +46,17 @@ where
 
 import Amazonka.Athena.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateDataCatalog' smart constructor.
 data CreateDataCatalog = CreateDataCatalog'
-  { -- | Specifies the Lambda function or functions to use for creating the data
+  { -- | A description of the data catalog to be created.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the Lambda function or functions to use for creating the data
     -- catalog. This is a mapping whose values depend on the catalog type.
     --
     -- -   For the @HIVE@ data catalog type, use the following syntax. The
@@ -95,14 +98,13 @@ data CreateDataCatalog = CreateDataCatalog'
     --         creating new Glue data catalogs results in an @INVALID_INPUT@
     --         error.
     parameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | A description of the data catalog to be created.
-    description :: Prelude.Maybe Prelude.Text,
     -- | A list of comma separated tags to add to the data catalog that is
     -- created.
     tags :: Prelude.Maybe [Tag],
     -- | The name of the data catalog to create. The catalog name must be unique
-    -- for the Amazon Web Services account and can use a maximum of 128
-    -- alphanumeric, underscore, at sign, or hyphen characters.
+    -- for the Amazon Web Services account and can use a maximum of 127
+    -- alphanumeric, underscore, at sign, or hyphen characters. The remainder
+    -- of the length constraint of 256 is reserved for use by Athena.
     name :: Prelude.Text,
     -- | The type of data catalog to create: @LAMBDA@ for a federated catalog,
     -- @HIVE@ for an external hive metastore, or @GLUE@ for an Glue Data
@@ -118,6 +120,8 @@ data CreateDataCatalog = CreateDataCatalog'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'description', 'createDataCatalog_description' - A description of the data catalog to be created.
 --
 -- 'parameters', 'createDataCatalog_parameters' - Specifies the Lambda function or functions to use for creating the data
 -- catalog. This is a mapping whose values depend on the catalog type.
@@ -161,14 +165,13 @@ data CreateDataCatalog = CreateDataCatalog'
 --         creating new Glue data catalogs results in an @INVALID_INPUT@
 --         error.
 --
--- 'description', 'createDataCatalog_description' - A description of the data catalog to be created.
---
 -- 'tags', 'createDataCatalog_tags' - A list of comma separated tags to add to the data catalog that is
 -- created.
 --
 -- 'name', 'createDataCatalog_name' - The name of the data catalog to create. The catalog name must be unique
--- for the Amazon Web Services account and can use a maximum of 128
--- alphanumeric, underscore, at sign, or hyphen characters.
+-- for the Amazon Web Services account and can use a maximum of 127
+-- alphanumeric, underscore, at sign, or hyphen characters. The remainder
+-- of the length constraint of 256 is reserved for use by Athena.
 --
 -- 'type'', 'createDataCatalog_type' - The type of data catalog to create: @LAMBDA@ for a federated catalog,
 -- @HIVE@ for an external hive metastore, or @GLUE@ for an Glue Data
@@ -181,12 +184,16 @@ newCreateDataCatalog ::
   CreateDataCatalog
 newCreateDataCatalog pName_ pType_ =
   CreateDataCatalog'
-    { parameters = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      parameters = Prelude.Nothing,
       tags = Prelude.Nothing,
       name = pName_,
       type' = pType_
     }
+
+-- | A description of the data catalog to be created.
+createDataCatalog_description :: Lens.Lens' CreateDataCatalog (Prelude.Maybe Prelude.Text)
+createDataCatalog_description = Lens.lens (\CreateDataCatalog' {description} -> description) (\s@CreateDataCatalog' {} a -> s {description = a} :: CreateDataCatalog)
 
 -- | Specifies the Lambda function or functions to use for creating the data
 -- catalog. This is a mapping whose values depend on the catalog type.
@@ -232,18 +239,15 @@ newCreateDataCatalog pName_ pType_ =
 createDataCatalog_parameters :: Lens.Lens' CreateDataCatalog (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createDataCatalog_parameters = Lens.lens (\CreateDataCatalog' {parameters} -> parameters) (\s@CreateDataCatalog' {} a -> s {parameters = a} :: CreateDataCatalog) Prelude.. Lens.mapping Lens.coerced
 
--- | A description of the data catalog to be created.
-createDataCatalog_description :: Lens.Lens' CreateDataCatalog (Prelude.Maybe Prelude.Text)
-createDataCatalog_description = Lens.lens (\CreateDataCatalog' {description} -> description) (\s@CreateDataCatalog' {} a -> s {description = a} :: CreateDataCatalog)
-
 -- | A list of comma separated tags to add to the data catalog that is
 -- created.
 createDataCatalog_tags :: Lens.Lens' CreateDataCatalog (Prelude.Maybe [Tag])
 createDataCatalog_tags = Lens.lens (\CreateDataCatalog' {tags} -> tags) (\s@CreateDataCatalog' {} a -> s {tags = a} :: CreateDataCatalog) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the data catalog to create. The catalog name must be unique
--- for the Amazon Web Services account and can use a maximum of 128
--- alphanumeric, underscore, at sign, or hyphen characters.
+-- for the Amazon Web Services account and can use a maximum of 127
+-- alphanumeric, underscore, at sign, or hyphen characters. The remainder
+-- of the length constraint of 256 is reserved for use by Athena.
 createDataCatalog_name :: Lens.Lens' CreateDataCatalog Prelude.Text
 createDataCatalog_name = Lens.lens (\CreateDataCatalog' {name} -> name) (\s@CreateDataCatalog' {} a -> s {name = a} :: CreateDataCatalog)
 
@@ -257,7 +261,8 @@ instance Core.AWSRequest CreateDataCatalog where
   type
     AWSResponse CreateDataCatalog =
       CreateDataCatalogResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -267,51 +272,51 @@ instance Core.AWSRequest CreateDataCatalog where
 
 instance Prelude.Hashable CreateDataCatalog where
   hashWithSalt _salt CreateDataCatalog' {..} =
-    _salt `Prelude.hashWithSalt` parameters
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` parameters
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData CreateDataCatalog where
   rnf CreateDataCatalog' {..} =
-    Prelude.rnf parameters
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf parameters
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToHeaders CreateDataCatalog where
+instance Data.ToHeaders CreateDataCatalog where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonAthena.CreateDataCatalog" ::
+              Data.=# ( "AmazonAthena.CreateDataCatalog" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDataCatalog where
+instance Data.ToJSON CreateDataCatalog where
   toJSON CreateDataCatalog' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Parameters" Core..=) Prelude.<$> parameters,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Type" Core..= type')
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Parameters" Data..=) Prelude.<$> parameters,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Type" Data..= type')
           ]
       )
 
-instance Core.ToPath CreateDataCatalog where
+instance Data.ToPath CreateDataCatalog where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDataCatalog where
+instance Data.ToQuery CreateDataCatalog where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateDataCatalogResponse' smart constructor.

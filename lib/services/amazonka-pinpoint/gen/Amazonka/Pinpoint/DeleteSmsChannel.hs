@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.DeleteSmsChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Pinpoint.DeleteSmsChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -81,13 +82,14 @@ instance Core.AWSRequest DeleteSmsChannel where
   type
     AWSResponse DeleteSmsChannel =
       DeleteSmsChannelResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteSmsChannelResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable DeleteSmsChannel where
@@ -97,26 +99,26 @@ instance Prelude.Hashable DeleteSmsChannel where
 instance Prelude.NFData DeleteSmsChannel where
   rnf DeleteSmsChannel' {..} = Prelude.rnf applicationId
 
-instance Core.ToHeaders DeleteSmsChannel where
+instance Data.ToHeaders DeleteSmsChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteSmsChannel where
+instance Data.ToPath DeleteSmsChannel where
   toPath DeleteSmsChannel' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/channels/sms"
       ]
 
-instance Core.ToQuery DeleteSmsChannel where
+instance Data.ToQuery DeleteSmsChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteSmsChannelResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.UpdateRegexMatchSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -88,7 +88,8 @@ module Amazonka.WAF.UpdateRegexMatchSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -165,12 +166,13 @@ instance Core.AWSRequest UpdateRegexMatchSet where
   type
     AWSResponse UpdateRegexMatchSet =
       UpdateRegexMatchSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateRegexMatchSetResponse'
-            Prelude.<$> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -186,36 +188,36 @@ instance Prelude.NFData UpdateRegexMatchSet where
       `Prelude.seq` Prelude.rnf updates
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders UpdateRegexMatchSet where
+instance Data.ToHeaders UpdateRegexMatchSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_20150824.UpdateRegexMatchSet" ::
+              Data.=# ( "AWSWAF_20150824.UpdateRegexMatchSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRegexMatchSet where
+instance Data.ToJSON UpdateRegexMatchSet where
   toJSON UpdateRegexMatchSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("RegexMatchSetId" Core..= regexMatchSetId),
-            Prelude.Just ("Updates" Core..= updates),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+              ("RegexMatchSetId" Data..= regexMatchSetId),
+            Prelude.Just ("Updates" Data..= updates),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath UpdateRegexMatchSet where
+instance Data.ToPath UpdateRegexMatchSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateRegexMatchSet where
+instance Data.ToQuery UpdateRegexMatchSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateRegexMatchSetResponse' smart constructor.

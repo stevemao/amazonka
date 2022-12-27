@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.UpdateTaskExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.DataSync.UpdateTaskExecution
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,7 +101,8 @@ instance Core.AWSRequest UpdateTaskExecution where
   type
     AWSResponse UpdateTaskExecution =
       UpdateTaskExecutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -118,35 +120,35 @@ instance Prelude.NFData UpdateTaskExecution where
     Prelude.rnf taskExecutionArn
       `Prelude.seq` Prelude.rnf options
 
-instance Core.ToHeaders UpdateTaskExecution where
+instance Data.ToHeaders UpdateTaskExecution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "FmrsService.UpdateTaskExecution" ::
+              Data.=# ( "FmrsService.UpdateTaskExecution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateTaskExecution where
+instance Data.ToJSON UpdateTaskExecution where
   toJSON UpdateTaskExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("TaskExecutionArn" Core..= taskExecutionArn),
-            Prelude.Just ("Options" Core..= options)
+              ("TaskExecutionArn" Data..= taskExecutionArn),
+            Prelude.Just ("Options" Data..= options)
           ]
       )
 
-instance Core.ToPath UpdateTaskExecution where
+instance Data.ToPath UpdateTaskExecution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateTaskExecution where
+instance Data.ToQuery UpdateTaskExecution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateTaskExecutionResponse' smart constructor.

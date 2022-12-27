@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Synthetics.Types.CanaryRunConfigOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.Synthetics.Types.CanaryRunConfigOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure that contains information about a canary run.
 --
 -- /See:/ 'newCanaryRunConfigOutput' smart constructor.
 data CanaryRunConfigOutput = CanaryRunConfigOutput'
-  { -- | How long the canary is allowed to run before it must stop.
-    timeoutInSeconds :: Prelude.Maybe Prelude.Natural,
-    -- | Displays whether this canary run used active X-Ray tracing.
+  { -- | Displays whether this canary run used active X-Ray tracing.
     activeTracing :: Prelude.Maybe Prelude.Bool,
     -- | The maximum amount of memory available to the canary while it is
     -- running, in MB. This value must be a multiple of 64.
-    memoryInMB :: Prelude.Maybe Prelude.Natural
+    memoryInMB :: Prelude.Maybe Prelude.Natural,
+    -- | How long the canary is allowed to run before it must stop.
+    timeoutInSeconds :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,25 +46,21 @@ data CanaryRunConfigOutput = CanaryRunConfigOutput'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'timeoutInSeconds', 'canaryRunConfigOutput_timeoutInSeconds' - How long the canary is allowed to run before it must stop.
---
 -- 'activeTracing', 'canaryRunConfigOutput_activeTracing' - Displays whether this canary run used active X-Ray tracing.
 --
 -- 'memoryInMB', 'canaryRunConfigOutput_memoryInMB' - The maximum amount of memory available to the canary while it is
 -- running, in MB. This value must be a multiple of 64.
+--
+-- 'timeoutInSeconds', 'canaryRunConfigOutput_timeoutInSeconds' - How long the canary is allowed to run before it must stop.
 newCanaryRunConfigOutput ::
   CanaryRunConfigOutput
 newCanaryRunConfigOutput =
   CanaryRunConfigOutput'
-    { timeoutInSeconds =
+    { activeTracing =
         Prelude.Nothing,
-      activeTracing = Prelude.Nothing,
-      memoryInMB = Prelude.Nothing
+      memoryInMB = Prelude.Nothing,
+      timeoutInSeconds = Prelude.Nothing
     }
-
--- | How long the canary is allowed to run before it must stop.
-canaryRunConfigOutput_timeoutInSeconds :: Lens.Lens' CanaryRunConfigOutput (Prelude.Maybe Prelude.Natural)
-canaryRunConfigOutput_timeoutInSeconds = Lens.lens (\CanaryRunConfigOutput' {timeoutInSeconds} -> timeoutInSeconds) (\s@CanaryRunConfigOutput' {} a -> s {timeoutInSeconds = a} :: CanaryRunConfigOutput)
 
 -- | Displays whether this canary run used active X-Ray tracing.
 canaryRunConfigOutput_activeTracing :: Lens.Lens' CanaryRunConfigOutput (Prelude.Maybe Prelude.Bool)
@@ -74,25 +71,29 @@ canaryRunConfigOutput_activeTracing = Lens.lens (\CanaryRunConfigOutput' {active
 canaryRunConfigOutput_memoryInMB :: Lens.Lens' CanaryRunConfigOutput (Prelude.Maybe Prelude.Natural)
 canaryRunConfigOutput_memoryInMB = Lens.lens (\CanaryRunConfigOutput' {memoryInMB} -> memoryInMB) (\s@CanaryRunConfigOutput' {} a -> s {memoryInMB = a} :: CanaryRunConfigOutput)
 
-instance Core.FromJSON CanaryRunConfigOutput where
+-- | How long the canary is allowed to run before it must stop.
+canaryRunConfigOutput_timeoutInSeconds :: Lens.Lens' CanaryRunConfigOutput (Prelude.Maybe Prelude.Natural)
+canaryRunConfigOutput_timeoutInSeconds = Lens.lens (\CanaryRunConfigOutput' {timeoutInSeconds} -> timeoutInSeconds) (\s@CanaryRunConfigOutput' {} a -> s {timeoutInSeconds = a} :: CanaryRunConfigOutput)
+
+instance Data.FromJSON CanaryRunConfigOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CanaryRunConfigOutput"
       ( \x ->
           CanaryRunConfigOutput'
-            Prelude.<$> (x Core..:? "TimeoutInSeconds")
-            Prelude.<*> (x Core..:? "ActiveTracing")
-            Prelude.<*> (x Core..:? "MemoryInMB")
+            Prelude.<$> (x Data..:? "ActiveTracing")
+            Prelude.<*> (x Data..:? "MemoryInMB")
+            Prelude.<*> (x Data..:? "TimeoutInSeconds")
       )
 
 instance Prelude.Hashable CanaryRunConfigOutput where
   hashWithSalt _salt CanaryRunConfigOutput' {..} =
-    _salt `Prelude.hashWithSalt` timeoutInSeconds
-      `Prelude.hashWithSalt` activeTracing
+    _salt `Prelude.hashWithSalt` activeTracing
       `Prelude.hashWithSalt` memoryInMB
+      `Prelude.hashWithSalt` timeoutInSeconds
 
 instance Prelude.NFData CanaryRunConfigOutput where
   rnf CanaryRunConfigOutput' {..} =
-    Prelude.rnf timeoutInSeconds
-      `Prelude.seq` Prelude.rnf activeTracing
+    Prelude.rnf activeTracing
       `Prelude.seq` Prelude.rnf memoryInMB
+      `Prelude.seq` Prelude.rnf timeoutInSeconds

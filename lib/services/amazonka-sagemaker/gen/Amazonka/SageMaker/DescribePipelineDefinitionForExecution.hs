@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DescribePipelineDefinitionForExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.SageMaker.DescribePipelineDefinitionForExecution
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,13 +87,14 @@ instance
     AWSResponse
       DescribePipelineDefinitionForExecution =
       DescribePipelineDefinitionForExecutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePipelineDefinitionForExecutionResponse'
-            Prelude.<$> (x Core..?> "CreationTime")
-              Prelude.<*> (x Core..?> "PipelineDefinition")
+            Prelude.<$> (x Data..?> "CreationTime")
+              Prelude.<*> (x Data..?> "PipelineDefinition")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,45 +115,45 @@ instance
     Prelude.rnf pipelineExecutionArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribePipelineDefinitionForExecution
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DescribePipelineDefinitionForExecution" ::
+              Data.=# ( "SageMaker.DescribePipelineDefinitionForExecution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribePipelineDefinitionForExecution
   where
   toJSON DescribePipelineDefinitionForExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "PipelineExecutionArn"
-                  Core..= pipelineExecutionArn
+                  Data..= pipelineExecutionArn
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribePipelineDefinitionForExecution
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribePipelineDefinitionForExecution
   where
   toQuery = Prelude.const Prelude.mempty
@@ -159,7 +161,7 @@ instance
 -- | /See:/ 'newDescribePipelineDefinitionForExecutionResponse' smart constructor.
 data DescribePipelineDefinitionForExecutionResponse = DescribePipelineDefinitionForExecutionResponse'
   { -- | The time when the pipeline was created.
-    creationTime :: Prelude.Maybe Core.POSIX,
+    creationTime :: Prelude.Maybe Data.POSIX,
     -- | The JSON pipeline definition.
     pipelineDefinition :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
@@ -196,7 +198,7 @@ newDescribePipelineDefinitionForExecutionResponse
 
 -- | The time when the pipeline was created.
 describePipelineDefinitionForExecutionResponse_creationTime :: Lens.Lens' DescribePipelineDefinitionForExecutionResponse (Prelude.Maybe Prelude.UTCTime)
-describePipelineDefinitionForExecutionResponse_creationTime = Lens.lens (\DescribePipelineDefinitionForExecutionResponse' {creationTime} -> creationTime) (\s@DescribePipelineDefinitionForExecutionResponse' {} a -> s {creationTime = a} :: DescribePipelineDefinitionForExecutionResponse) Prelude.. Lens.mapping Core._Time
+describePipelineDefinitionForExecutionResponse_creationTime = Lens.lens (\DescribePipelineDefinitionForExecutionResponse' {creationTime} -> creationTime) (\s@DescribePipelineDefinitionForExecutionResponse' {} a -> s {creationTime = a} :: DescribePipelineDefinitionForExecutionResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The JSON pipeline definition.
 describePipelineDefinitionForExecutionResponse_pipelineDefinition :: Lens.Lens' DescribePipelineDefinitionForExecutionResponse (Prelude.Maybe Prelude.Text)

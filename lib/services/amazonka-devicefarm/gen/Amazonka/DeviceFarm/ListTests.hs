@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.ListTests
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,15 +37,16 @@ module Amazonka.DeviceFarm.ListTests
     newListTestsResponse,
 
     -- * Response Lenses
-    listTestsResponse_tests,
     listTestsResponse_nextToken,
+    listTestsResponse_tests,
     listTestsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,13 +118,14 @@ instance Core.AWSPager ListTests where
 
 instance Core.AWSRequest ListTests where
   type AWSResponse ListTests = ListTestsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTestsResponse'
-            Prelude.<$> (x Core..?> "tests" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "tests" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,46 +138,46 @@ instance Prelude.NFData ListTests where
   rnf ListTests' {..} =
     Prelude.rnf nextToken `Prelude.seq` Prelude.rnf arn
 
-instance Core.ToHeaders ListTests where
+instance Data.ToHeaders ListTests where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.ListTests" ::
+              Data.=# ( "DeviceFarm_20150623.ListTests" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTests where
+instance Data.ToJSON ListTests where
   toJSON ListTests' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            Prelude.Just ("arn" Core..= arn)
+          [ ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("arn" Data..= arn)
           ]
       )
 
-instance Core.ToPath ListTests where
+instance Data.ToPath ListTests where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTests where
+instance Data.ToQuery ListTests where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the result of a list tests request.
 --
 -- /See:/ 'newListTestsResponse' smart constructor.
 data ListTestsResponse = ListTestsResponse'
-  { -- | Information about the tests.
-    tests :: Prelude.Maybe [Test],
-    -- | If the number of items that are returned is significantly large, this is
+  { -- | If the number of items that are returned is significantly large, this is
     -- an identifier that is also returned. It can be used in a subsequent call
     -- to this operation to return the next set of items in the list.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about the tests.
+    tests :: Prelude.Maybe [Test],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -189,11 +191,11 @@ data ListTestsResponse = ListTestsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tests', 'listTestsResponse_tests' - Information about the tests.
---
 -- 'nextToken', 'listTestsResponse_nextToken' - If the number of items that are returned is significantly large, this is
 -- an identifier that is also returned. It can be used in a subsequent call
 -- to this operation to return the next set of items in the list.
+--
+-- 'tests', 'listTestsResponse_tests' - Information about the tests.
 --
 -- 'httpStatus', 'listTestsResponse_httpStatus' - The response's http status code.
 newListTestsResponse ::
@@ -202,14 +204,10 @@ newListTestsResponse ::
   ListTestsResponse
 newListTestsResponse pHttpStatus_ =
   ListTestsResponse'
-    { tests = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      tests = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Information about the tests.
-listTestsResponse_tests :: Lens.Lens' ListTestsResponse (Prelude.Maybe [Test])
-listTestsResponse_tests = Lens.lens (\ListTestsResponse' {tests} -> tests) (\s@ListTestsResponse' {} a -> s {tests = a} :: ListTestsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If the number of items that are returned is significantly large, this is
 -- an identifier that is also returned. It can be used in a subsequent call
@@ -217,12 +215,16 @@ listTestsResponse_tests = Lens.lens (\ListTestsResponse' {tests} -> tests) (\s@L
 listTestsResponse_nextToken :: Lens.Lens' ListTestsResponse (Prelude.Maybe Prelude.Text)
 listTestsResponse_nextToken = Lens.lens (\ListTestsResponse' {nextToken} -> nextToken) (\s@ListTestsResponse' {} a -> s {nextToken = a} :: ListTestsResponse)
 
+-- | Information about the tests.
+listTestsResponse_tests :: Lens.Lens' ListTestsResponse (Prelude.Maybe [Test])
+listTestsResponse_tests = Lens.lens (\ListTestsResponse' {tests} -> tests) (\s@ListTestsResponse' {} a -> s {tests = a} :: ListTestsResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 listTestsResponse_httpStatus :: Lens.Lens' ListTestsResponse Prelude.Int
 listTestsResponse_httpStatus = Lens.lens (\ListTestsResponse' {httpStatus} -> httpStatus) (\s@ListTestsResponse' {} a -> s {httpStatus = a} :: ListTestsResponse)
 
 instance Prelude.NFData ListTestsResponse where
   rnf ListTestsResponse' {..} =
-    Prelude.rnf tests
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf tests
       `Prelude.seq` Prelude.rnf httpStatus

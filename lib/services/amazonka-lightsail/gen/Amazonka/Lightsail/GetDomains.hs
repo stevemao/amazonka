@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetDomains
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,14 +36,15 @@ module Amazonka.Lightsail.GetDomains
     newGetDomainsResponse,
 
     -- * Response Lenses
-    getDomainsResponse_nextPageToken,
     getDomainsResponse_domains,
+    getDomainsResponse_nextPageToken,
     getDomainsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -108,13 +109,14 @@ instance Core.AWSPager GetDomains where
 
 instance Core.AWSRequest GetDomains where
   type AWSResponse GetDomains = GetDomainsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDomainsResponse'
-            Prelude.<$> (x Core..?> "nextPageToken")
-            Prelude.<*> (x Core..?> "domains" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "domains" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextPageToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,37 +127,40 @@ instance Prelude.Hashable GetDomains where
 instance Prelude.NFData GetDomains where
   rnf GetDomains' {..} = Prelude.rnf pageToken
 
-instance Core.ToHeaders GetDomains where
+instance Data.ToHeaders GetDomains where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetDomains" ::
+              Data.=# ( "Lightsail_20161128.GetDomains" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetDomains where
+instance Data.ToJSON GetDomains where
   toJSON GetDomains' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("pageToken" Core..=) Prelude.<$> pageToken]
+          [("pageToken" Data..=) Prelude.<$> pageToken]
       )
 
-instance Core.ToPath GetDomains where
+instance Data.ToPath GetDomains where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetDomains where
+instance Data.ToQuery GetDomains where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDomainsResponse' smart constructor.
 data GetDomainsResponse = GetDomainsResponse'
-  { -- | The token to advance to the next page of results from your request.
+  { -- | An array of key-value pairs containing information about each of the
+    -- domain entries in the user\'s account.
+    domains :: Prelude.Maybe [Domain],
+    -- | The token to advance to the next page of results from your request.
     --
     -- A next page token is not returned if there are no more results to
     -- display.
@@ -163,9 +168,6 @@ data GetDomainsResponse = GetDomainsResponse'
     -- To get the next page of results, perform another @GetDomains@ request
     -- and specify the next page token using the @pageToken@ parameter.
     nextPageToken :: Prelude.Maybe Prelude.Text,
-    -- | An array of key-value pairs containing information about each of the
-    -- domain entries in the user\'s account.
-    domains :: Prelude.Maybe [Domain],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -179,6 +181,9 @@ data GetDomainsResponse = GetDomainsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'domains', 'getDomainsResponse_domains' - An array of key-value pairs containing information about each of the
+-- domain entries in the user\'s account.
+--
 -- 'nextPageToken', 'getDomainsResponse_nextPageToken' - The token to advance to the next page of results from your request.
 --
 -- A next page token is not returned if there are no more results to
@@ -187,9 +192,6 @@ data GetDomainsResponse = GetDomainsResponse'
 -- To get the next page of results, perform another @GetDomains@ request
 -- and specify the next page token using the @pageToken@ parameter.
 --
--- 'domains', 'getDomainsResponse_domains' - An array of key-value pairs containing information about each of the
--- domain entries in the user\'s account.
---
 -- 'httpStatus', 'getDomainsResponse_httpStatus' - The response's http status code.
 newGetDomainsResponse ::
   -- | 'httpStatus'
@@ -197,11 +199,15 @@ newGetDomainsResponse ::
   GetDomainsResponse
 newGetDomainsResponse pHttpStatus_ =
   GetDomainsResponse'
-    { nextPageToken =
-        Prelude.Nothing,
-      domains = Prelude.Nothing,
+    { domains = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | An array of key-value pairs containing information about each of the
+-- domain entries in the user\'s account.
+getDomainsResponse_domains :: Lens.Lens' GetDomainsResponse (Prelude.Maybe [Domain])
+getDomainsResponse_domains = Lens.lens (\GetDomainsResponse' {domains} -> domains) (\s@GetDomainsResponse' {} a -> s {domains = a} :: GetDomainsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to advance to the next page of results from your request.
 --
@@ -213,17 +219,12 @@ newGetDomainsResponse pHttpStatus_ =
 getDomainsResponse_nextPageToken :: Lens.Lens' GetDomainsResponse (Prelude.Maybe Prelude.Text)
 getDomainsResponse_nextPageToken = Lens.lens (\GetDomainsResponse' {nextPageToken} -> nextPageToken) (\s@GetDomainsResponse' {} a -> s {nextPageToken = a} :: GetDomainsResponse)
 
--- | An array of key-value pairs containing information about each of the
--- domain entries in the user\'s account.
-getDomainsResponse_domains :: Lens.Lens' GetDomainsResponse (Prelude.Maybe [Domain])
-getDomainsResponse_domains = Lens.lens (\GetDomainsResponse' {domains} -> domains) (\s@GetDomainsResponse' {} a -> s {domains = a} :: GetDomainsResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The response's http status code.
 getDomainsResponse_httpStatus :: Lens.Lens' GetDomainsResponse Prelude.Int
 getDomainsResponse_httpStatus = Lens.lens (\GetDomainsResponse' {httpStatus} -> httpStatus) (\s@GetDomainsResponse' {} a -> s {httpStatus = a} :: GetDomainsResponse)
 
 instance Prelude.NFData GetDomainsResponse where
   rnf GetDomainsResponse' {..} =
-    Prelude.rnf nextPageToken
-      `Prelude.seq` Prelude.rnf domains
+    Prelude.rnf domains
+      `Prelude.seq` Prelude.rnf nextPageToken
       `Prelude.seq` Prelude.rnf httpStatus

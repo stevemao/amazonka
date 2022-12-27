@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.CreateReplicaAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,10 @@
 module Amazonka.DynamoDB.Types.CreateReplicaAction where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a replica to be added.
@@ -60,9 +62,9 @@ instance Prelude.Hashable CreateReplicaAction where
 instance Prelude.NFData CreateReplicaAction where
   rnf CreateReplicaAction' {..} = Prelude.rnf regionName
 
-instance Core.ToJSON CreateReplicaAction where
+instance Data.ToJSON CreateReplicaAction where
   toJSON CreateReplicaAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("RegionName" Core..= regionName)]
+          [Prelude.Just ("RegionName" Data..= regionName)]
       )

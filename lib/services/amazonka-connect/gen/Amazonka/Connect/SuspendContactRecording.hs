@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.SuspendContactRecording
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -119,7 +120,8 @@ instance Core.AWSRequest SuspendContactRecording where
   type
     AWSResponse SuspendContactRecording =
       SuspendContactRecordingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -139,32 +141,32 @@ instance Prelude.NFData SuspendContactRecording where
       `Prelude.seq` Prelude.rnf contactId
       `Prelude.seq` Prelude.rnf initialContactId
 
-instance Core.ToHeaders SuspendContactRecording where
+instance Data.ToHeaders SuspendContactRecording where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SuspendContactRecording where
+instance Data.ToJSON SuspendContactRecording where
   toJSON SuspendContactRecording' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("InstanceId" Core..= instanceId),
-            Prelude.Just ("ContactId" Core..= contactId),
+          [ Prelude.Just ("InstanceId" Data..= instanceId),
+            Prelude.Just ("ContactId" Data..= contactId),
             Prelude.Just
-              ("InitialContactId" Core..= initialContactId)
+              ("InitialContactId" Data..= initialContactId)
           ]
       )
 
-instance Core.ToPath SuspendContactRecording where
+instance Data.ToPath SuspendContactRecording where
   toPath = Prelude.const "/contact/suspend-recording"
 
-instance Core.ToQuery SuspendContactRecording where
+instance Data.ToQuery SuspendContactRecording where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSuspendContactRecordingResponse' smart constructor.

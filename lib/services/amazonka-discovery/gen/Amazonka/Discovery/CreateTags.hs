@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Discovery.CreateTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,6 +23,8 @@
 -- Creates one or more tags for configuration items. Tags are metadata that
 -- help you categorize IT assets. This API accepts a list of multiple
 -- configuration items.
+--
+-- Do not store sensitive information (like personal data) in tags.
 module Amazonka.Discovery.CreateTags
   ( -- * Creating a Request
     CreateTags (..),
@@ -42,8 +44,9 @@ module Amazonka.Discovery.CreateTags
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Discovery.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,7 +101,8 @@ createTags_tags = Lens.lens (\CreateTags' {tags} -> tags) (\s@CreateTags' {} a -
 
 instance Core.AWSRequest CreateTags where
   type AWSResponse CreateTags = CreateTagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -116,35 +120,35 @@ instance Prelude.NFData CreateTags where
     Prelude.rnf configurationIds
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders CreateTags where
+instance Data.ToHeaders CreateTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSPoseidonService_V2015_11_01.CreateTags" ::
+              Data.=# ( "AWSPoseidonService_V2015_11_01.CreateTags" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateTags where
+instance Data.ToJSON CreateTags where
   toJSON CreateTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("configurationIds" Core..= configurationIds),
-            Prelude.Just ("tags" Core..= tags)
+              ("configurationIds" Data..= configurationIds),
+            Prelude.Just ("tags" Data..= tags)
           ]
       )
 
-instance Core.ToPath CreateTags where
+instance Data.ToPath CreateTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateTags where
+instance Data.ToQuery CreateTags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateTagsResponse' smart constructor.

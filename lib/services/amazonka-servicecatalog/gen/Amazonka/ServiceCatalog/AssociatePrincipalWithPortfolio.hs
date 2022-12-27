@@ -14,13 +14,34 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.AssociatePrincipalWithPortfolio
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Associates the specified principal ARN with the specified portfolio.
+--
+-- If you share the portfolio with principal name sharing enabled, the
+-- @PrincipalARN@ association is included in the share.
+--
+-- The @PortfolioID@, @PrincipalARN@, and @PrincipalType@ parameters are
+-- required.
+--
+-- You can associate a maximum of 10 Principals with a portfolio using
+-- @PrincipalType@ as @IAM_PATTERN@
+--
+-- When you associate a principal with portfolio, a potential privilege
+-- escalation path may occur when that portfolio is then shared with other
+-- accounts. For a user in a recipient account who is /not/ an Service
+-- Catalog Admin, but still has the ability to create Principals
+-- (Users\/Groups\/Roles), that user could create a role that matches a
+-- principal name association for the portfolio. Although this user may not
+-- know which principal names are associated through Service Catalog, they
+-- may be able to guess the user. If this potential escalation path is a
+-- concern, then Service Catalog recommends using @PrincipalType@ as @IAM@.
+-- With this configuration, the @PrincipalARN@ must already exist in the
+-- recipient account before it can be associated.
 module Amazonka.ServiceCatalog.AssociatePrincipalWithPortfolio
   ( -- * Creating a Request
     AssociatePrincipalWithPortfolio (..),
@@ -42,7 +63,8 @@ module Amazonka.ServiceCatalog.AssociatePrincipalWithPortfolio
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,9 +82,16 @@ data AssociatePrincipalWithPortfolio = AssociatePrincipalWithPortfolio'
     acceptLanguage :: Prelude.Maybe Prelude.Text,
     -- | The portfolio identifier.
     portfolioId :: Prelude.Text,
-    -- | The ARN of the principal (IAM user, role, or group).
+    -- | The ARN of the principal (IAM user, role, or group). This field allows
+    -- an ARN with no @accountID@ if @PrincipalType@ is @IAM_PATTERN@.
+    --
+    -- You can associate multiple @IAM@ patterns even if the account has no
+    -- principal with that name. This is useful in Principal Name Sharing if
+    -- you want to share a principal without creating it in the account that
+    -- owns the portfolio.
     principalARN :: Prelude.Text,
-    -- | The principal type. The supported value is @IAM@.
+    -- | The principal type. The supported value is @IAM@ if you use a fully
+    -- defined ARN, or @IAM_PATTERN@ if you use an ARN with no @accountID@.
     principalType :: PrincipalType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -85,9 +114,16 @@ data AssociatePrincipalWithPortfolio = AssociatePrincipalWithPortfolio'
 --
 -- 'portfolioId', 'associatePrincipalWithPortfolio_portfolioId' - The portfolio identifier.
 --
--- 'principalARN', 'associatePrincipalWithPortfolio_principalARN' - The ARN of the principal (IAM user, role, or group).
+-- 'principalARN', 'associatePrincipalWithPortfolio_principalARN' - The ARN of the principal (IAM user, role, or group). This field allows
+-- an ARN with no @accountID@ if @PrincipalType@ is @IAM_PATTERN@.
 --
--- 'principalType', 'associatePrincipalWithPortfolio_principalType' - The principal type. The supported value is @IAM@.
+-- You can associate multiple @IAM@ patterns even if the account has no
+-- principal with that name. This is useful in Principal Name Sharing if
+-- you want to share a principal without creating it in the account that
+-- owns the portfolio.
+--
+-- 'principalType', 'associatePrincipalWithPortfolio_principalType' - The principal type. The supported value is @IAM@ if you use a fully
+-- defined ARN, or @IAM_PATTERN@ if you use an ARN with no @accountID@.
 newAssociatePrincipalWithPortfolio ::
   -- | 'portfolioId'
   Prelude.Text ->
@@ -122,11 +158,18 @@ associatePrincipalWithPortfolio_acceptLanguage = Lens.lens (\AssociatePrincipalW
 associatePrincipalWithPortfolio_portfolioId :: Lens.Lens' AssociatePrincipalWithPortfolio Prelude.Text
 associatePrincipalWithPortfolio_portfolioId = Lens.lens (\AssociatePrincipalWithPortfolio' {portfolioId} -> portfolioId) (\s@AssociatePrincipalWithPortfolio' {} a -> s {portfolioId = a} :: AssociatePrincipalWithPortfolio)
 
--- | The ARN of the principal (IAM user, role, or group).
+-- | The ARN of the principal (IAM user, role, or group). This field allows
+-- an ARN with no @accountID@ if @PrincipalType@ is @IAM_PATTERN@.
+--
+-- You can associate multiple @IAM@ patterns even if the account has no
+-- principal with that name. This is useful in Principal Name Sharing if
+-- you want to share a principal without creating it in the account that
+-- owns the portfolio.
 associatePrincipalWithPortfolio_principalARN :: Lens.Lens' AssociatePrincipalWithPortfolio Prelude.Text
 associatePrincipalWithPortfolio_principalARN = Lens.lens (\AssociatePrincipalWithPortfolio' {principalARN} -> principalARN) (\s@AssociatePrincipalWithPortfolio' {} a -> s {principalARN = a} :: AssociatePrincipalWithPortfolio)
 
--- | The principal type. The supported value is @IAM@.
+-- | The principal type. The supported value is @IAM@ if you use a fully
+-- defined ARN, or @IAM_PATTERN@ if you use an ARN with no @accountID@.
 associatePrincipalWithPortfolio_principalType :: Lens.Lens' AssociatePrincipalWithPortfolio PrincipalType
 associatePrincipalWithPortfolio_principalType = Lens.lens (\AssociatePrincipalWithPortfolio' {principalType} -> principalType) (\s@AssociatePrincipalWithPortfolio' {} a -> s {principalType = a} :: AssociatePrincipalWithPortfolio)
 
@@ -137,7 +180,8 @@ instance
   type
     AWSResponse AssociatePrincipalWithPortfolio =
       AssociatePrincipalWithPortfolioResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -168,40 +212,40 @@ instance
       `Prelude.seq` Prelude.rnf principalType
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AssociatePrincipalWithPortfolio
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.AssociatePrincipalWithPortfolio" ::
+              Data.=# ( "AWS242ServiceCatalogService.AssociatePrincipalWithPortfolio" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociatePrincipalWithPortfolio where
+instance Data.ToJSON AssociatePrincipalWithPortfolio where
   toJSON AssociatePrincipalWithPortfolio' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AcceptLanguage" Core..=)
+          [ ("AcceptLanguage" Data..=)
               Prelude.<$> acceptLanguage,
-            Prelude.Just ("PortfolioId" Core..= portfolioId),
-            Prelude.Just ("PrincipalARN" Core..= principalARN),
+            Prelude.Just ("PortfolioId" Data..= portfolioId),
+            Prelude.Just ("PrincipalARN" Data..= principalARN),
             Prelude.Just
-              ("PrincipalType" Core..= principalType)
+              ("PrincipalType" Data..= principalType)
           ]
       )
 
-instance Core.ToPath AssociatePrincipalWithPortfolio where
+instance Data.ToPath AssociatePrincipalWithPortfolio where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociatePrincipalWithPortfolio where
+instance Data.ToQuery AssociatePrincipalWithPortfolio where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociatePrincipalWithPortfolioResponse' smart constructor.

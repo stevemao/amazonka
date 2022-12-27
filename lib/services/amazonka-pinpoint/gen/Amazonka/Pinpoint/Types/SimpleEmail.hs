@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.SimpleEmail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.SimpleEmail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.SimpleEmailPart
 import qualified Amazonka.Prelude as Prelude
 
@@ -29,17 +30,17 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSimpleEmail' smart constructor.
 data SimpleEmail = SimpleEmail'
-  { -- | The subject line, or title, of the email.
+  { -- | The body of the email message, in HTML format. We recommend using HTML
+    -- format for email clients that render HTML content. You can include
+    -- links, formatted text, and more in an HTML message.
+    htmlPart :: Prelude.Maybe SimpleEmailPart,
+    -- | The subject line, or title, of the email.
     subject :: Prelude.Maybe SimpleEmailPart,
     -- | The body of the email message, in plain text format. We recommend using
     -- plain text format for email clients that don\'t render HTML content and
     -- clients that are connected to high-latency networks, such as mobile
     -- devices.
-    textPart :: Prelude.Maybe SimpleEmailPart,
-    -- | The body of the email message, in HTML format. We recommend using HTML
-    -- format for email clients that render HTML content. You can include
-    -- links, formatted text, and more in an HTML message.
-    htmlPart :: Prelude.Maybe SimpleEmailPart
+    textPart :: Prelude.Maybe SimpleEmailPart
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,24 +52,30 @@ data SimpleEmail = SimpleEmail'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'htmlPart', 'simpleEmail_htmlPart' - The body of the email message, in HTML format. We recommend using HTML
+-- format for email clients that render HTML content. You can include
+-- links, formatted text, and more in an HTML message.
+--
 -- 'subject', 'simpleEmail_subject' - The subject line, or title, of the email.
 --
 -- 'textPart', 'simpleEmail_textPart' - The body of the email message, in plain text format. We recommend using
 -- plain text format for email clients that don\'t render HTML content and
 -- clients that are connected to high-latency networks, such as mobile
 -- devices.
---
--- 'htmlPart', 'simpleEmail_htmlPart' - The body of the email message, in HTML format. We recommend using HTML
--- format for email clients that render HTML content. You can include
--- links, formatted text, and more in an HTML message.
 newSimpleEmail ::
   SimpleEmail
 newSimpleEmail =
   SimpleEmail'
-    { subject = Prelude.Nothing,
-      textPart = Prelude.Nothing,
-      htmlPart = Prelude.Nothing
+    { htmlPart = Prelude.Nothing,
+      subject = Prelude.Nothing,
+      textPart = Prelude.Nothing
     }
+
+-- | The body of the email message, in HTML format. We recommend using HTML
+-- format for email clients that render HTML content. You can include
+-- links, formatted text, and more in an HTML message.
+simpleEmail_htmlPart :: Lens.Lens' SimpleEmail (Prelude.Maybe SimpleEmailPart)
+simpleEmail_htmlPart = Lens.lens (\SimpleEmail' {htmlPart} -> htmlPart) (\s@SimpleEmail' {} a -> s {htmlPart = a} :: SimpleEmail)
 
 -- | The subject line, or title, of the email.
 simpleEmail_subject :: Lens.Lens' SimpleEmail (Prelude.Maybe SimpleEmailPart)
@@ -81,30 +88,24 @@ simpleEmail_subject = Lens.lens (\SimpleEmail' {subject} -> subject) (\s@SimpleE
 simpleEmail_textPart :: Lens.Lens' SimpleEmail (Prelude.Maybe SimpleEmailPart)
 simpleEmail_textPart = Lens.lens (\SimpleEmail' {textPart} -> textPart) (\s@SimpleEmail' {} a -> s {textPart = a} :: SimpleEmail)
 
--- | The body of the email message, in HTML format. We recommend using HTML
--- format for email clients that render HTML content. You can include
--- links, formatted text, and more in an HTML message.
-simpleEmail_htmlPart :: Lens.Lens' SimpleEmail (Prelude.Maybe SimpleEmailPart)
-simpleEmail_htmlPart = Lens.lens (\SimpleEmail' {htmlPart} -> htmlPart) (\s@SimpleEmail' {} a -> s {htmlPart = a} :: SimpleEmail)
-
 instance Prelude.Hashable SimpleEmail where
   hashWithSalt _salt SimpleEmail' {..} =
-    _salt `Prelude.hashWithSalt` subject
+    _salt `Prelude.hashWithSalt` htmlPart
+      `Prelude.hashWithSalt` subject
       `Prelude.hashWithSalt` textPart
-      `Prelude.hashWithSalt` htmlPart
 
 instance Prelude.NFData SimpleEmail where
   rnf SimpleEmail' {..} =
-    Prelude.rnf subject
+    Prelude.rnf htmlPart
+      `Prelude.seq` Prelude.rnf subject
       `Prelude.seq` Prelude.rnf textPart
-      `Prelude.seq` Prelude.rnf htmlPart
 
-instance Core.ToJSON SimpleEmail where
+instance Data.ToJSON SimpleEmail where
   toJSON SimpleEmail' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Subject" Core..=) Prelude.<$> subject,
-            ("TextPart" Core..=) Prelude.<$> textPart,
-            ("HtmlPart" Core..=) Prelude.<$> htmlPart
+          [ ("HtmlPart" Data..=) Prelude.<$> htmlPart,
+            ("Subject" Data..=) Prelude.<$> subject,
+            ("TextPart" Data..=) Prelude.<$> textPart
           ]
       )

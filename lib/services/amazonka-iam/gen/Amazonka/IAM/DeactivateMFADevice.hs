@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.DeactivateMFADevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IAM.DeactivateMFADevice
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -126,7 +127,8 @@ instance Core.AWSRequest DeactivateMFADevice where
   type
     AWSResponse DeactivateMFADevice =
       DeactivateMFADeviceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeactivateMFADeviceResponse'
 
@@ -140,21 +142,21 @@ instance Prelude.NFData DeactivateMFADevice where
     Prelude.rnf userName
       `Prelude.seq` Prelude.rnf serialNumber
 
-instance Core.ToHeaders DeactivateMFADevice where
+instance Data.ToHeaders DeactivateMFADevice where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeactivateMFADevice where
+instance Data.ToPath DeactivateMFADevice where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeactivateMFADevice where
+instance Data.ToQuery DeactivateMFADevice where
   toQuery DeactivateMFADevice' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeactivateMFADevice" :: Prelude.ByteString),
+          Data.=: ("DeactivateMFADevice" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "UserName" Core.=: userName,
-        "SerialNumber" Core.=: serialNumber
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Data.=: userName,
+        "SerialNumber" Data.=: serialNumber
       ]
 
 -- | /See:/ 'newDeactivateMFADeviceResponse' smart constructor.

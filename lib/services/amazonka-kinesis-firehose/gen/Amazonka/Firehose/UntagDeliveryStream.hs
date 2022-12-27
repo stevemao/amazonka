@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Firehose.UntagDeliveryStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.Firehose.UntagDeliveryStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Firehose.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -100,7 +101,8 @@ instance Core.AWSRequest UntagDeliveryStream where
   type
     AWSResponse UntagDeliveryStream =
       UntagDeliveryStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -118,35 +120,35 @@ instance Prelude.NFData UntagDeliveryStream where
     Prelude.rnf deliveryStreamName
       `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagDeliveryStream where
+instance Data.ToHeaders UntagDeliveryStream where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Firehose_20150804.UntagDeliveryStream" ::
+              Data.=# ( "Firehose_20150804.UntagDeliveryStream" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UntagDeliveryStream where
+instance Data.ToJSON UntagDeliveryStream where
   toJSON UntagDeliveryStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("DeliveryStreamName" Core..= deliveryStreamName),
-            Prelude.Just ("TagKeys" Core..= tagKeys)
+              ("DeliveryStreamName" Data..= deliveryStreamName),
+            Prelude.Just ("TagKeys" Data..= tagKeys)
           ]
       )
 
-instance Core.ToPath UntagDeliveryStream where
+instance Data.ToPath UntagDeliveryStream where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UntagDeliveryStream where
+instance Data.ToQuery UntagDeliveryStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUntagDeliveryStreamResponse' smart constructor.

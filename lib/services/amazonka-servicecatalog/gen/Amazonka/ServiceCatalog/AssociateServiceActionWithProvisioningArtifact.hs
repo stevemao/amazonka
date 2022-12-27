@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.AssociateServiceActionWithProvisioningArtifact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.ServiceCatalog.AssociateServiceActionWithProvisioningArtifact
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -143,7 +144,8 @@ instance
     AWSResponse
       AssociateServiceActionWithProvisioningArtifact =
       AssociateServiceActionWithProvisioningArtifactResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -175,51 +177,51 @@ instance
         `Prelude.seq` Prelude.rnf serviceActionId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AssociateServiceActionWithProvisioningArtifact
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWS242ServiceCatalogService.AssociateServiceActionWithProvisioningArtifact" ::
+              Data.=# ( "AWS242ServiceCatalogService.AssociateServiceActionWithProvisioningArtifact" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AssociateServiceActionWithProvisioningArtifact
   where
   toJSON
     AssociateServiceActionWithProvisioningArtifact' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("AcceptLanguage" Core..=)
+            [ ("AcceptLanguage" Data..=)
                 Prelude.<$> acceptLanguage,
-              Prelude.Just ("ProductId" Core..= productId),
+              Prelude.Just ("ProductId" Data..= productId),
               Prelude.Just
                 ( "ProvisioningArtifactId"
-                    Core..= provisioningArtifactId
+                    Data..= provisioningArtifactId
                 ),
               Prelude.Just
-                ("ServiceActionId" Core..= serviceActionId)
+                ("ServiceActionId" Data..= serviceActionId)
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     AssociateServiceActionWithProvisioningArtifact
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     AssociateServiceActionWithProvisioningArtifact
   where
   toQuery = Prelude.const Prelude.mempty

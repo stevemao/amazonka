@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.GetAppliedSchemaVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,12 +79,13 @@ instance Core.AWSRequest GetAppliedSchemaVersion where
   type
     AWSResponse GetAppliedSchemaVersion =
       GetAppliedSchemaVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAppliedSchemaVersionResponse'
-            Prelude.<$> (x Core..?> "AppliedSchemaArn")
+            Prelude.<$> (x Data..?> "AppliedSchemaArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,22 +97,22 @@ instance Prelude.NFData GetAppliedSchemaVersion where
   rnf GetAppliedSchemaVersion' {..} =
     Prelude.rnf schemaArn
 
-instance Core.ToHeaders GetAppliedSchemaVersion where
+instance Data.ToHeaders GetAppliedSchemaVersion where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON GetAppliedSchemaVersion where
+instance Data.ToJSON GetAppliedSchemaVersion where
   toJSON GetAppliedSchemaVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("SchemaArn" Core..= schemaArn)]
+          [Prelude.Just ("SchemaArn" Data..= schemaArn)]
       )
 
-instance Core.ToPath GetAppliedSchemaVersion where
+instance Data.ToPath GetAppliedSchemaVersion where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/schema/getappliedschema"
 
-instance Core.ToQuery GetAppliedSchemaVersion where
+instance Data.ToQuery GetAppliedSchemaVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAppliedSchemaVersionResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.Types.UpdateInstantBooking
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AlexaBusiness.Types.UpdateInstantBooking where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Updates settings for the instant booking feature that are applied to a
@@ -29,11 +30,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newUpdateInstantBooking' smart constructor.
 data UpdateInstantBooking = UpdateInstantBooking'
-  { -- | Whether instant booking is enabled or not.
-    enabled :: Prelude.Maybe Prelude.Bool,
-    -- | Duration between 15 and 240 minutes at increments of 15 that determines
+  { -- | Duration between 15 and 240 minutes at increments of 15 that determines
     -- how long to book an available room when a meeting is started with Alexa.
-    durationInMinutes :: Prelude.Maybe Prelude.Int
+    durationInMinutes :: Prelude.Maybe Prelude.Int,
+    -- | Whether instant booking is enabled or not.
+    enabled :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,43 +46,44 @@ data UpdateInstantBooking = UpdateInstantBooking'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'enabled', 'updateInstantBooking_enabled' - Whether instant booking is enabled or not.
---
 -- 'durationInMinutes', 'updateInstantBooking_durationInMinutes' - Duration between 15 and 240 minutes at increments of 15 that determines
 -- how long to book an available room when a meeting is started with Alexa.
+--
+-- 'enabled', 'updateInstantBooking_enabled' - Whether instant booking is enabled or not.
 newUpdateInstantBooking ::
   UpdateInstantBooking
 newUpdateInstantBooking =
   UpdateInstantBooking'
-    { enabled = Prelude.Nothing,
-      durationInMinutes = Prelude.Nothing
+    { durationInMinutes =
+        Prelude.Nothing,
+      enabled = Prelude.Nothing
     }
-
--- | Whether instant booking is enabled or not.
-updateInstantBooking_enabled :: Lens.Lens' UpdateInstantBooking (Prelude.Maybe Prelude.Bool)
-updateInstantBooking_enabled = Lens.lens (\UpdateInstantBooking' {enabled} -> enabled) (\s@UpdateInstantBooking' {} a -> s {enabled = a} :: UpdateInstantBooking)
 
 -- | Duration between 15 and 240 minutes at increments of 15 that determines
 -- how long to book an available room when a meeting is started with Alexa.
 updateInstantBooking_durationInMinutes :: Lens.Lens' UpdateInstantBooking (Prelude.Maybe Prelude.Int)
 updateInstantBooking_durationInMinutes = Lens.lens (\UpdateInstantBooking' {durationInMinutes} -> durationInMinutes) (\s@UpdateInstantBooking' {} a -> s {durationInMinutes = a} :: UpdateInstantBooking)
 
+-- | Whether instant booking is enabled or not.
+updateInstantBooking_enabled :: Lens.Lens' UpdateInstantBooking (Prelude.Maybe Prelude.Bool)
+updateInstantBooking_enabled = Lens.lens (\UpdateInstantBooking' {enabled} -> enabled) (\s@UpdateInstantBooking' {} a -> s {enabled = a} :: UpdateInstantBooking)
+
 instance Prelude.Hashable UpdateInstantBooking where
   hashWithSalt _salt UpdateInstantBooking' {..} =
-    _salt `Prelude.hashWithSalt` enabled
-      `Prelude.hashWithSalt` durationInMinutes
+    _salt `Prelude.hashWithSalt` durationInMinutes
+      `Prelude.hashWithSalt` enabled
 
 instance Prelude.NFData UpdateInstantBooking where
   rnf UpdateInstantBooking' {..} =
-    Prelude.rnf enabled
-      `Prelude.seq` Prelude.rnf durationInMinutes
+    Prelude.rnf durationInMinutes
+      `Prelude.seq` Prelude.rnf enabled
 
-instance Core.ToJSON UpdateInstantBooking where
+instance Data.ToJSON UpdateInstantBooking where
   toJSON UpdateInstantBooking' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Enabled" Core..=) Prelude.<$> enabled,
-            ("DurationInMinutes" Core..=)
-              Prelude.<$> durationInMinutes
+          [ ("DurationInMinutes" Data..=)
+              Prelude.<$> durationInMinutes,
+            ("Enabled" Data..=) Prelude.<$> enabled
           ]
       )

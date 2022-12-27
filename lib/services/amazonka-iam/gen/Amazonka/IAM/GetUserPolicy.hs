@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.GetUserPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -60,8 +60,9 @@ module Amazonka.IAM.GetUserPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -140,16 +141,17 @@ instance Core.AWSRequest GetUserPolicy where
   type
     AWSResponse GetUserPolicy =
       GetUserPolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetUserPolicyResult"
       ( \s h x ->
           GetUserPolicyResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "UserName")
-            Prelude.<*> (x Core..@ "PolicyName")
-            Prelude.<*> (x Core..@ "PolicyDocument")
+            Prelude.<*> (x Data..@ "UserName")
+            Prelude.<*> (x Data..@ "PolicyName")
+            Prelude.<*> (x Data..@ "PolicyDocument")
       )
 
 instance Prelude.Hashable GetUserPolicy where
@@ -162,21 +164,21 @@ instance Prelude.NFData GetUserPolicy where
     Prelude.rnf userName
       `Prelude.seq` Prelude.rnf policyName
 
-instance Core.ToHeaders GetUserPolicy where
+instance Data.ToHeaders GetUserPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetUserPolicy where
+instance Data.ToPath GetUserPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetUserPolicy where
+instance Data.ToQuery GetUserPolicy where
   toQuery GetUserPolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetUserPolicy" :: Prelude.ByteString),
+          Data.=: ("GetUserPolicy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "UserName" Core.=: userName,
-        "PolicyName" Core.=: policyName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Data.=: userName,
+        "PolicyName" Data.=: policyName
       ]
 
 -- | Contains the response to a successful GetUserPolicy request.

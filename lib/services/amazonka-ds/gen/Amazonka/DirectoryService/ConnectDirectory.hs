@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.ConnectDirectory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.DirectoryService.ConnectDirectory
     newConnectDirectory,
 
     -- * Request Lenses
-    connectDirectory_shortName,
     connectDirectory_description,
+    connectDirectory_shortName,
     connectDirectory_tags,
     connectDirectory_name,
     connectDirectory_password,
@@ -52,8 +52,9 @@ module Amazonka.DirectoryService.ConnectDirectory
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,17 +63,17 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newConnectDirectory' smart constructor.
 data ConnectDirectory = ConnectDirectory'
-  { -- | The NetBIOS name of your self-managed directory, such as @CORP@.
-    shortName :: Prelude.Maybe Prelude.Text,
-    -- | A description for the directory.
+  { -- | A description for the directory.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The NetBIOS name of your self-managed directory, such as @CORP@.
+    shortName :: Prelude.Maybe Prelude.Text,
     -- | The tags to be assigned to AD Connector.
     tags :: Prelude.Maybe [Tag],
     -- | The fully qualified name of your self-managed directory, such as
     -- @corp.example.com@.
     name :: Prelude.Text,
     -- | The password for your self-managed user account.
-    password :: Core.Sensitive Prelude.Text,
+    password :: Data.Sensitive Prelude.Text,
     -- | The size of the directory.
     size :: DirectorySize,
     -- | A DirectoryConnectSettings object that contains additional information
@@ -89,9 +90,9 @@ data ConnectDirectory = ConnectDirectory'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'shortName', 'connectDirectory_shortName' - The NetBIOS name of your self-managed directory, such as @CORP@.
---
 -- 'description', 'connectDirectory_description' - A description for the directory.
+--
+-- 'shortName', 'connectDirectory_shortName' - The NetBIOS name of your self-managed directory, such as @CORP@.
 --
 -- 'tags', 'connectDirectory_tags' - The tags to be assigned to AD Connector.
 --
@@ -120,22 +121,22 @@ newConnectDirectory
   pSize_
   pConnectSettings_ =
     ConnectDirectory'
-      { shortName = Prelude.Nothing,
-        description = Prelude.Nothing,
+      { description = Prelude.Nothing,
+        shortName = Prelude.Nothing,
         tags = Prelude.Nothing,
         name = pName_,
-        password = Core._Sensitive Lens.# pPassword_,
+        password = Data._Sensitive Lens.# pPassword_,
         size = pSize_,
         connectSettings = pConnectSettings_
       }
 
--- | The NetBIOS name of your self-managed directory, such as @CORP@.
-connectDirectory_shortName :: Lens.Lens' ConnectDirectory (Prelude.Maybe Prelude.Text)
-connectDirectory_shortName = Lens.lens (\ConnectDirectory' {shortName} -> shortName) (\s@ConnectDirectory' {} a -> s {shortName = a} :: ConnectDirectory)
-
 -- | A description for the directory.
 connectDirectory_description :: Lens.Lens' ConnectDirectory (Prelude.Maybe Prelude.Text)
 connectDirectory_description = Lens.lens (\ConnectDirectory' {description} -> description) (\s@ConnectDirectory' {} a -> s {description = a} :: ConnectDirectory)
+
+-- | The NetBIOS name of your self-managed directory, such as @CORP@.
+connectDirectory_shortName :: Lens.Lens' ConnectDirectory (Prelude.Maybe Prelude.Text)
+connectDirectory_shortName = Lens.lens (\ConnectDirectory' {shortName} -> shortName) (\s@ConnectDirectory' {} a -> s {shortName = a} :: ConnectDirectory)
 
 -- | The tags to be assigned to AD Connector.
 connectDirectory_tags :: Lens.Lens' ConnectDirectory (Prelude.Maybe [Tag])
@@ -148,7 +149,7 @@ connectDirectory_name = Lens.lens (\ConnectDirectory' {name} -> name) (\s@Connec
 
 -- | The password for your self-managed user account.
 connectDirectory_password :: Lens.Lens' ConnectDirectory Prelude.Text
-connectDirectory_password = Lens.lens (\ConnectDirectory' {password} -> password) (\s@ConnectDirectory' {} a -> s {password = a} :: ConnectDirectory) Prelude.. Core._Sensitive
+connectDirectory_password = Lens.lens (\ConnectDirectory' {password} -> password) (\s@ConnectDirectory' {} a -> s {password = a} :: ConnectDirectory) Prelude.. Data._Sensitive
 
 -- | The size of the directory.
 connectDirectory_size :: Lens.Lens' ConnectDirectory DirectorySize
@@ -163,19 +164,20 @@ instance Core.AWSRequest ConnectDirectory where
   type
     AWSResponse ConnectDirectory =
       ConnectDirectoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ConnectDirectoryResponse'
-            Prelude.<$> (x Core..?> "DirectoryId")
+            Prelude.<$> (x Data..?> "DirectoryId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ConnectDirectory where
   hashWithSalt _salt ConnectDirectory' {..} =
-    _salt `Prelude.hashWithSalt` shortName
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` shortName
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` password
@@ -184,48 +186,48 @@ instance Prelude.Hashable ConnectDirectory where
 
 instance Prelude.NFData ConnectDirectory where
   rnf ConnectDirectory' {..} =
-    Prelude.rnf shortName
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf shortName
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf password
       `Prelude.seq` Prelude.rnf size
       `Prelude.seq` Prelude.rnf connectSettings
 
-instance Core.ToHeaders ConnectDirectory where
+instance Data.ToHeaders ConnectDirectory where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.ConnectDirectory" ::
+              Data.=# ( "DirectoryService_20150416.ConnectDirectory" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ConnectDirectory where
+instance Data.ToJSON ConnectDirectory where
   toJSON ConnectDirectory' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ShortName" Core..=) Prelude.<$> shortName,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Password" Core..= password),
-            Prelude.Just ("Size" Core..= size),
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("ShortName" Data..=) Prelude.<$> shortName,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Password" Data..= password),
+            Prelude.Just ("Size" Data..= size),
             Prelude.Just
-              ("ConnectSettings" Core..= connectSettings)
+              ("ConnectSettings" Data..= connectSettings)
           ]
       )
 
-instance Core.ToPath ConnectDirectory where
+instance Data.ToPath ConnectDirectory where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ConnectDirectory where
+instance Data.ToQuery ConnectDirectory where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the results of the ConnectDirectory operation.

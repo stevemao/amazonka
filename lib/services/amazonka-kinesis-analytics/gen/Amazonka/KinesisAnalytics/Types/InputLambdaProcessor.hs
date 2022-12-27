@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.Types.InputLambdaProcessor
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalytics.Types.InputLambdaProcessor where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that contains the Amazon Resource Name (ARN) of the
@@ -96,11 +97,11 @@ instance Prelude.NFData InputLambdaProcessor where
     Prelude.rnf resourceARN
       `Prelude.seq` Prelude.rnf roleARN
 
-instance Core.ToJSON InputLambdaProcessor where
+instance Data.ToJSON InputLambdaProcessor where
   toJSON InputLambdaProcessor' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceARN" Core..= resourceARN),
-            Prelude.Just ("RoleARN" Core..= roleARN)
+          [ Prelude.Just ("ResourceARN" Data..= resourceARN),
+            Prelude.Just ("RoleARN" Data..= roleARN)
           ]
       )

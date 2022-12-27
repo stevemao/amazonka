@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.CreateProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,27 +30,27 @@ module Amazonka.CustomerProfiles.CreateProfile
     newCreateProfile,
 
     -- * Request Lenses
-    createProfile_shippingAddress,
-    createProfile_mobilePhoneNumber,
-    createProfile_mailingAddress,
-    createProfile_middleName,
-    createProfile_personalEmailAddress,
-    createProfile_lastName,
-    createProfile_additionalInformation,
-    createProfile_homePhoneNumber,
-    createProfile_address,
-    createProfile_partyType,
-    createProfile_businessEmailAddress,
-    createProfile_attributes,
-    createProfile_gender,
-    createProfile_phoneNumber,
     createProfile_accountNumber,
+    createProfile_additionalInformation,
+    createProfile_address,
+    createProfile_attributes,
+    createProfile_billingAddress,
+    createProfile_birthDate,
+    createProfile_businessEmailAddress,
+    createProfile_businessName,
+    createProfile_businessPhoneNumber,
     createProfile_emailAddress,
     createProfile_firstName,
-    createProfile_billingAddress,
-    createProfile_businessPhoneNumber,
-    createProfile_birthDate,
-    createProfile_businessName,
+    createProfile_gender,
+    createProfile_homePhoneNumber,
+    createProfile_lastName,
+    createProfile_mailingAddress,
+    createProfile_middleName,
+    createProfile_mobilePhoneNumber,
+    createProfile_partyType,
+    createProfile_personalEmailAddress,
+    createProfile_phoneNumber,
+    createProfile_shippingAddress,
     createProfile_domainName,
 
     -- * Destructuring the Response
@@ -64,59 +64,60 @@ module Amazonka.CustomerProfiles.CreateProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CustomerProfiles.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateProfile' smart constructor.
 data CreateProfile = CreateProfile'
-  { -- | The customer’s shipping address.
-    shippingAddress :: Prelude.Maybe Address,
-    -- | The customer’s mobile phone number.
-    mobilePhoneNumber :: Prelude.Maybe Prelude.Text,
-    -- | The customer’s mailing address.
-    mailingAddress :: Prelude.Maybe Address,
-    -- | The customer’s middle name.
-    middleName :: Prelude.Maybe Prelude.Text,
-    -- | The customer’s personal email address.
-    personalEmailAddress :: Prelude.Maybe Prelude.Text,
-    -- | The customer’s last name.
-    lastName :: Prelude.Maybe Prelude.Text,
+  { -- | A unique account number that you have given to the customer.
+    accountNumber :: Prelude.Maybe Prelude.Text,
     -- | Any additional information relevant to the customer’s profile.
     additionalInformation :: Prelude.Maybe Prelude.Text,
-    -- | The customer’s home phone number.
-    homePhoneNumber :: Prelude.Maybe Prelude.Text,
     -- | A generic address associated with the customer that is not mailing,
     -- shipping, or billing.
     address :: Prelude.Maybe Address,
-    -- | The type of profile used to describe the customer.
-    partyType :: Prelude.Maybe PartyType,
-    -- | The customer’s business email address.
-    businessEmailAddress :: Prelude.Maybe Prelude.Text,
     -- | A key value pair of attributes of a customer profile.
     attributes :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The gender with which the customer identifies.
-    gender :: Prelude.Maybe Gender,
-    -- | The customer’s phone number, which has not been specified as a mobile,
-    -- home, or business number.
-    phoneNumber :: Prelude.Maybe Prelude.Text,
-    -- | A unique account number that you have given to the customer.
-    accountNumber :: Prelude.Maybe Prelude.Text,
+    -- | The customer’s billing address.
+    billingAddress :: Prelude.Maybe Address,
+    -- | The customer’s birth date.
+    birthDate :: Prelude.Maybe Prelude.Text,
+    -- | The customer’s business email address.
+    businessEmailAddress :: Prelude.Maybe Prelude.Text,
+    -- | The name of the customer’s business.
+    businessName :: Prelude.Maybe Prelude.Text,
+    -- | The customer’s business phone number.
+    businessPhoneNumber :: Prelude.Maybe Prelude.Text,
     -- | The customer’s email address, which has not been specified as a personal
     -- or business address.
     emailAddress :: Prelude.Maybe Prelude.Text,
     -- | The customer’s first name.
     firstName :: Prelude.Maybe Prelude.Text,
-    -- | The customer’s billing address.
-    billingAddress :: Prelude.Maybe Address,
-    -- | The customer’s business phone number.
-    businessPhoneNumber :: Prelude.Maybe Prelude.Text,
-    -- | The customer’s birth date.
-    birthDate :: Prelude.Maybe Prelude.Text,
-    -- | The name of the customer’s business.
-    businessName :: Prelude.Maybe Prelude.Text,
+    -- | The gender with which the customer identifies.
+    gender :: Prelude.Maybe Gender,
+    -- | The customer’s home phone number.
+    homePhoneNumber :: Prelude.Maybe Prelude.Text,
+    -- | The customer’s last name.
+    lastName :: Prelude.Maybe Prelude.Text,
+    -- | The customer’s mailing address.
+    mailingAddress :: Prelude.Maybe Address,
+    -- | The customer’s middle name.
+    middleName :: Prelude.Maybe Prelude.Text,
+    -- | The customer’s mobile phone number.
+    mobilePhoneNumber :: Prelude.Maybe Prelude.Text,
+    -- | The type of profile used to describe the customer.
+    partyType :: Prelude.Maybe PartyType,
+    -- | The customer’s personal email address.
+    personalEmailAddress :: Prelude.Maybe Prelude.Text,
+    -- | The customer’s phone number, which has not been specified as a mobile,
+    -- home, or business number.
+    phoneNumber :: Prelude.Maybe Prelude.Text,
+    -- | The customer’s shipping address.
+    shippingAddress :: Prelude.Maybe Address,
     -- | The unique name of the domain.
     domainName :: Prelude.Text
   }
@@ -130,50 +131,50 @@ data CreateProfile = CreateProfile'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'shippingAddress', 'createProfile_shippingAddress' - The customer’s shipping address.
---
--- 'mobilePhoneNumber', 'createProfile_mobilePhoneNumber' - The customer’s mobile phone number.
---
--- 'mailingAddress', 'createProfile_mailingAddress' - The customer’s mailing address.
---
--- 'middleName', 'createProfile_middleName' - The customer’s middle name.
---
--- 'personalEmailAddress', 'createProfile_personalEmailAddress' - The customer’s personal email address.
---
--- 'lastName', 'createProfile_lastName' - The customer’s last name.
+-- 'accountNumber', 'createProfile_accountNumber' - A unique account number that you have given to the customer.
 --
 -- 'additionalInformation', 'createProfile_additionalInformation' - Any additional information relevant to the customer’s profile.
---
--- 'homePhoneNumber', 'createProfile_homePhoneNumber' - The customer’s home phone number.
 --
 -- 'address', 'createProfile_address' - A generic address associated with the customer that is not mailing,
 -- shipping, or billing.
 --
--- 'partyType', 'createProfile_partyType' - The type of profile used to describe the customer.
+-- 'attributes', 'createProfile_attributes' - A key value pair of attributes of a customer profile.
+--
+-- 'billingAddress', 'createProfile_billingAddress' - The customer’s billing address.
+--
+-- 'birthDate', 'createProfile_birthDate' - The customer’s birth date.
 --
 -- 'businessEmailAddress', 'createProfile_businessEmailAddress' - The customer’s business email address.
 --
--- 'attributes', 'createProfile_attributes' - A key value pair of attributes of a customer profile.
+-- 'businessName', 'createProfile_businessName' - The name of the customer’s business.
 --
--- 'gender', 'createProfile_gender' - The gender with which the customer identifies.
---
--- 'phoneNumber', 'createProfile_phoneNumber' - The customer’s phone number, which has not been specified as a mobile,
--- home, or business number.
---
--- 'accountNumber', 'createProfile_accountNumber' - A unique account number that you have given to the customer.
+-- 'businessPhoneNumber', 'createProfile_businessPhoneNumber' - The customer’s business phone number.
 --
 -- 'emailAddress', 'createProfile_emailAddress' - The customer’s email address, which has not been specified as a personal
 -- or business address.
 --
 -- 'firstName', 'createProfile_firstName' - The customer’s first name.
 --
--- 'billingAddress', 'createProfile_billingAddress' - The customer’s billing address.
+-- 'gender', 'createProfile_gender' - The gender with which the customer identifies.
 --
--- 'businessPhoneNumber', 'createProfile_businessPhoneNumber' - The customer’s business phone number.
+-- 'homePhoneNumber', 'createProfile_homePhoneNumber' - The customer’s home phone number.
 --
--- 'birthDate', 'createProfile_birthDate' - The customer’s birth date.
+-- 'lastName', 'createProfile_lastName' - The customer’s last name.
 --
--- 'businessName', 'createProfile_businessName' - The name of the customer’s business.
+-- 'mailingAddress', 'createProfile_mailingAddress' - The customer’s mailing address.
+--
+-- 'middleName', 'createProfile_middleName' - The customer’s middle name.
+--
+-- 'mobilePhoneNumber', 'createProfile_mobilePhoneNumber' - The customer’s mobile phone number.
+--
+-- 'partyType', 'createProfile_partyType' - The type of profile used to describe the customer.
+--
+-- 'personalEmailAddress', 'createProfile_personalEmailAddress' - The customer’s personal email address.
+--
+-- 'phoneNumber', 'createProfile_phoneNumber' - The customer’s phone number, which has not been specified as a mobile,
+-- home, or business number.
+--
+-- 'shippingAddress', 'createProfile_shippingAddress' - The customer’s shipping address.
 --
 -- 'domainName', 'createProfile_domainName' - The unique name of the domain.
 newCreateProfile ::
@@ -182,91 +183,66 @@ newCreateProfile ::
   CreateProfile
 newCreateProfile pDomainName_ =
   CreateProfile'
-    { shippingAddress = Prelude.Nothing,
-      mobilePhoneNumber = Prelude.Nothing,
-      mailingAddress = Prelude.Nothing,
-      middleName = Prelude.Nothing,
-      personalEmailAddress = Prelude.Nothing,
-      lastName = Prelude.Nothing,
+    { accountNumber = Prelude.Nothing,
       additionalInformation = Prelude.Nothing,
-      homePhoneNumber = Prelude.Nothing,
       address = Prelude.Nothing,
-      partyType = Prelude.Nothing,
-      businessEmailAddress = Prelude.Nothing,
       attributes = Prelude.Nothing,
-      gender = Prelude.Nothing,
-      phoneNumber = Prelude.Nothing,
-      accountNumber = Prelude.Nothing,
+      billingAddress = Prelude.Nothing,
+      birthDate = Prelude.Nothing,
+      businessEmailAddress = Prelude.Nothing,
+      businessName = Prelude.Nothing,
+      businessPhoneNumber = Prelude.Nothing,
       emailAddress = Prelude.Nothing,
       firstName = Prelude.Nothing,
-      billingAddress = Prelude.Nothing,
-      businessPhoneNumber = Prelude.Nothing,
-      birthDate = Prelude.Nothing,
-      businessName = Prelude.Nothing,
+      gender = Prelude.Nothing,
+      homePhoneNumber = Prelude.Nothing,
+      lastName = Prelude.Nothing,
+      mailingAddress = Prelude.Nothing,
+      middleName = Prelude.Nothing,
+      mobilePhoneNumber = Prelude.Nothing,
+      partyType = Prelude.Nothing,
+      personalEmailAddress = Prelude.Nothing,
+      phoneNumber = Prelude.Nothing,
+      shippingAddress = Prelude.Nothing,
       domainName = pDomainName_
     }
 
--- | The customer’s shipping address.
-createProfile_shippingAddress :: Lens.Lens' CreateProfile (Prelude.Maybe Address)
-createProfile_shippingAddress = Lens.lens (\CreateProfile' {shippingAddress} -> shippingAddress) (\s@CreateProfile' {} a -> s {shippingAddress = a} :: CreateProfile)
-
--- | The customer’s mobile phone number.
-createProfile_mobilePhoneNumber :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
-createProfile_mobilePhoneNumber = Lens.lens (\CreateProfile' {mobilePhoneNumber} -> mobilePhoneNumber) (\s@CreateProfile' {} a -> s {mobilePhoneNumber = a} :: CreateProfile)
-
--- | The customer’s mailing address.
-createProfile_mailingAddress :: Lens.Lens' CreateProfile (Prelude.Maybe Address)
-createProfile_mailingAddress = Lens.lens (\CreateProfile' {mailingAddress} -> mailingAddress) (\s@CreateProfile' {} a -> s {mailingAddress = a} :: CreateProfile)
-
--- | The customer’s middle name.
-createProfile_middleName :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
-createProfile_middleName = Lens.lens (\CreateProfile' {middleName} -> middleName) (\s@CreateProfile' {} a -> s {middleName = a} :: CreateProfile)
-
--- | The customer’s personal email address.
-createProfile_personalEmailAddress :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
-createProfile_personalEmailAddress = Lens.lens (\CreateProfile' {personalEmailAddress} -> personalEmailAddress) (\s@CreateProfile' {} a -> s {personalEmailAddress = a} :: CreateProfile)
-
--- | The customer’s last name.
-createProfile_lastName :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
-createProfile_lastName = Lens.lens (\CreateProfile' {lastName} -> lastName) (\s@CreateProfile' {} a -> s {lastName = a} :: CreateProfile)
+-- | A unique account number that you have given to the customer.
+createProfile_accountNumber :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
+createProfile_accountNumber = Lens.lens (\CreateProfile' {accountNumber} -> accountNumber) (\s@CreateProfile' {} a -> s {accountNumber = a} :: CreateProfile)
 
 -- | Any additional information relevant to the customer’s profile.
 createProfile_additionalInformation :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
 createProfile_additionalInformation = Lens.lens (\CreateProfile' {additionalInformation} -> additionalInformation) (\s@CreateProfile' {} a -> s {additionalInformation = a} :: CreateProfile)
-
--- | The customer’s home phone number.
-createProfile_homePhoneNumber :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
-createProfile_homePhoneNumber = Lens.lens (\CreateProfile' {homePhoneNumber} -> homePhoneNumber) (\s@CreateProfile' {} a -> s {homePhoneNumber = a} :: CreateProfile)
 
 -- | A generic address associated with the customer that is not mailing,
 -- shipping, or billing.
 createProfile_address :: Lens.Lens' CreateProfile (Prelude.Maybe Address)
 createProfile_address = Lens.lens (\CreateProfile' {address} -> address) (\s@CreateProfile' {} a -> s {address = a} :: CreateProfile)
 
--- | The type of profile used to describe the customer.
-createProfile_partyType :: Lens.Lens' CreateProfile (Prelude.Maybe PartyType)
-createProfile_partyType = Lens.lens (\CreateProfile' {partyType} -> partyType) (\s@CreateProfile' {} a -> s {partyType = a} :: CreateProfile)
+-- | A key value pair of attributes of a customer profile.
+createProfile_attributes :: Lens.Lens' CreateProfile (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+createProfile_attributes = Lens.lens (\CreateProfile' {attributes} -> attributes) (\s@CreateProfile' {} a -> s {attributes = a} :: CreateProfile) Prelude.. Lens.mapping Lens.coerced
+
+-- | The customer’s billing address.
+createProfile_billingAddress :: Lens.Lens' CreateProfile (Prelude.Maybe Address)
+createProfile_billingAddress = Lens.lens (\CreateProfile' {billingAddress} -> billingAddress) (\s@CreateProfile' {} a -> s {billingAddress = a} :: CreateProfile)
+
+-- | The customer’s birth date.
+createProfile_birthDate :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
+createProfile_birthDate = Lens.lens (\CreateProfile' {birthDate} -> birthDate) (\s@CreateProfile' {} a -> s {birthDate = a} :: CreateProfile)
 
 -- | The customer’s business email address.
 createProfile_businessEmailAddress :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
 createProfile_businessEmailAddress = Lens.lens (\CreateProfile' {businessEmailAddress} -> businessEmailAddress) (\s@CreateProfile' {} a -> s {businessEmailAddress = a} :: CreateProfile)
 
--- | A key value pair of attributes of a customer profile.
-createProfile_attributes :: Lens.Lens' CreateProfile (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-createProfile_attributes = Lens.lens (\CreateProfile' {attributes} -> attributes) (\s@CreateProfile' {} a -> s {attributes = a} :: CreateProfile) Prelude.. Lens.mapping Lens.coerced
+-- | The name of the customer’s business.
+createProfile_businessName :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
+createProfile_businessName = Lens.lens (\CreateProfile' {businessName} -> businessName) (\s@CreateProfile' {} a -> s {businessName = a} :: CreateProfile)
 
--- | The gender with which the customer identifies.
-createProfile_gender :: Lens.Lens' CreateProfile (Prelude.Maybe Gender)
-createProfile_gender = Lens.lens (\CreateProfile' {gender} -> gender) (\s@CreateProfile' {} a -> s {gender = a} :: CreateProfile)
-
--- | The customer’s phone number, which has not been specified as a mobile,
--- home, or business number.
-createProfile_phoneNumber :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
-createProfile_phoneNumber = Lens.lens (\CreateProfile' {phoneNumber} -> phoneNumber) (\s@CreateProfile' {} a -> s {phoneNumber = a} :: CreateProfile)
-
--- | A unique account number that you have given to the customer.
-createProfile_accountNumber :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
-createProfile_accountNumber = Lens.lens (\CreateProfile' {accountNumber} -> accountNumber) (\s@CreateProfile' {} a -> s {accountNumber = a} :: CreateProfile)
+-- | The customer’s business phone number.
+createProfile_businessPhoneNumber :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
+createProfile_businessPhoneNumber = Lens.lens (\CreateProfile' {businessPhoneNumber} -> businessPhoneNumber) (\s@CreateProfile' {} a -> s {businessPhoneNumber = a} :: CreateProfile)
 
 -- | The customer’s email address, which has not been specified as a personal
 -- or business address.
@@ -277,21 +253,46 @@ createProfile_emailAddress = Lens.lens (\CreateProfile' {emailAddress} -> emailA
 createProfile_firstName :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
 createProfile_firstName = Lens.lens (\CreateProfile' {firstName} -> firstName) (\s@CreateProfile' {} a -> s {firstName = a} :: CreateProfile)
 
--- | The customer’s billing address.
-createProfile_billingAddress :: Lens.Lens' CreateProfile (Prelude.Maybe Address)
-createProfile_billingAddress = Lens.lens (\CreateProfile' {billingAddress} -> billingAddress) (\s@CreateProfile' {} a -> s {billingAddress = a} :: CreateProfile)
+-- | The gender with which the customer identifies.
+createProfile_gender :: Lens.Lens' CreateProfile (Prelude.Maybe Gender)
+createProfile_gender = Lens.lens (\CreateProfile' {gender} -> gender) (\s@CreateProfile' {} a -> s {gender = a} :: CreateProfile)
 
--- | The customer’s business phone number.
-createProfile_businessPhoneNumber :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
-createProfile_businessPhoneNumber = Lens.lens (\CreateProfile' {businessPhoneNumber} -> businessPhoneNumber) (\s@CreateProfile' {} a -> s {businessPhoneNumber = a} :: CreateProfile)
+-- | The customer’s home phone number.
+createProfile_homePhoneNumber :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
+createProfile_homePhoneNumber = Lens.lens (\CreateProfile' {homePhoneNumber} -> homePhoneNumber) (\s@CreateProfile' {} a -> s {homePhoneNumber = a} :: CreateProfile)
 
--- | The customer’s birth date.
-createProfile_birthDate :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
-createProfile_birthDate = Lens.lens (\CreateProfile' {birthDate} -> birthDate) (\s@CreateProfile' {} a -> s {birthDate = a} :: CreateProfile)
+-- | The customer’s last name.
+createProfile_lastName :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
+createProfile_lastName = Lens.lens (\CreateProfile' {lastName} -> lastName) (\s@CreateProfile' {} a -> s {lastName = a} :: CreateProfile)
 
--- | The name of the customer’s business.
-createProfile_businessName :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
-createProfile_businessName = Lens.lens (\CreateProfile' {businessName} -> businessName) (\s@CreateProfile' {} a -> s {businessName = a} :: CreateProfile)
+-- | The customer’s mailing address.
+createProfile_mailingAddress :: Lens.Lens' CreateProfile (Prelude.Maybe Address)
+createProfile_mailingAddress = Lens.lens (\CreateProfile' {mailingAddress} -> mailingAddress) (\s@CreateProfile' {} a -> s {mailingAddress = a} :: CreateProfile)
+
+-- | The customer’s middle name.
+createProfile_middleName :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
+createProfile_middleName = Lens.lens (\CreateProfile' {middleName} -> middleName) (\s@CreateProfile' {} a -> s {middleName = a} :: CreateProfile)
+
+-- | The customer’s mobile phone number.
+createProfile_mobilePhoneNumber :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
+createProfile_mobilePhoneNumber = Lens.lens (\CreateProfile' {mobilePhoneNumber} -> mobilePhoneNumber) (\s@CreateProfile' {} a -> s {mobilePhoneNumber = a} :: CreateProfile)
+
+-- | The type of profile used to describe the customer.
+createProfile_partyType :: Lens.Lens' CreateProfile (Prelude.Maybe PartyType)
+createProfile_partyType = Lens.lens (\CreateProfile' {partyType} -> partyType) (\s@CreateProfile' {} a -> s {partyType = a} :: CreateProfile)
+
+-- | The customer’s personal email address.
+createProfile_personalEmailAddress :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
+createProfile_personalEmailAddress = Lens.lens (\CreateProfile' {personalEmailAddress} -> personalEmailAddress) (\s@CreateProfile' {} a -> s {personalEmailAddress = a} :: CreateProfile)
+
+-- | The customer’s phone number, which has not been specified as a mobile,
+-- home, or business number.
+createProfile_phoneNumber :: Lens.Lens' CreateProfile (Prelude.Maybe Prelude.Text)
+createProfile_phoneNumber = Lens.lens (\CreateProfile' {phoneNumber} -> phoneNumber) (\s@CreateProfile' {} a -> s {phoneNumber = a} :: CreateProfile)
+
+-- | The customer’s shipping address.
+createProfile_shippingAddress :: Lens.Lens' CreateProfile (Prelude.Maybe Address)
+createProfile_shippingAddress = Lens.lens (\CreateProfile' {shippingAddress} -> shippingAddress) (\s@CreateProfile' {} a -> s {shippingAddress = a} :: CreateProfile)
 
 -- | The unique name of the domain.
 createProfile_domainName :: Lens.Lens' CreateProfile Prelude.Text
@@ -301,119 +302,120 @@ instance Core.AWSRequest CreateProfile where
   type
     AWSResponse CreateProfile =
       CreateProfileResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateProfileResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ProfileId")
+            Prelude.<*> (x Data..:> "ProfileId")
       )
 
 instance Prelude.Hashable CreateProfile where
   hashWithSalt _salt CreateProfile' {..} =
-    _salt `Prelude.hashWithSalt` shippingAddress
-      `Prelude.hashWithSalt` mobilePhoneNumber
-      `Prelude.hashWithSalt` mailingAddress
-      `Prelude.hashWithSalt` middleName
-      `Prelude.hashWithSalt` personalEmailAddress
-      `Prelude.hashWithSalt` lastName
+    _salt `Prelude.hashWithSalt` accountNumber
       `Prelude.hashWithSalt` additionalInformation
-      `Prelude.hashWithSalt` homePhoneNumber
       `Prelude.hashWithSalt` address
-      `Prelude.hashWithSalt` partyType
-      `Prelude.hashWithSalt` businessEmailAddress
       `Prelude.hashWithSalt` attributes
-      `Prelude.hashWithSalt` gender
-      `Prelude.hashWithSalt` phoneNumber
-      `Prelude.hashWithSalt` accountNumber
+      `Prelude.hashWithSalt` billingAddress
+      `Prelude.hashWithSalt` birthDate
+      `Prelude.hashWithSalt` businessEmailAddress
+      `Prelude.hashWithSalt` businessName
+      `Prelude.hashWithSalt` businessPhoneNumber
       `Prelude.hashWithSalt` emailAddress
       `Prelude.hashWithSalt` firstName
-      `Prelude.hashWithSalt` billingAddress
-      `Prelude.hashWithSalt` businessPhoneNumber
-      `Prelude.hashWithSalt` birthDate
-      `Prelude.hashWithSalt` businessName
+      `Prelude.hashWithSalt` gender
+      `Prelude.hashWithSalt` homePhoneNumber
+      `Prelude.hashWithSalt` lastName
+      `Prelude.hashWithSalt` mailingAddress
+      `Prelude.hashWithSalt` middleName
+      `Prelude.hashWithSalt` mobilePhoneNumber
+      `Prelude.hashWithSalt` partyType
+      `Prelude.hashWithSalt` personalEmailAddress
+      `Prelude.hashWithSalt` phoneNumber
+      `Prelude.hashWithSalt` shippingAddress
       `Prelude.hashWithSalt` domainName
 
 instance Prelude.NFData CreateProfile where
   rnf CreateProfile' {..} =
-    Prelude.rnf shippingAddress
-      `Prelude.seq` Prelude.rnf mobilePhoneNumber
-      `Prelude.seq` Prelude.rnf mailingAddress
-      `Prelude.seq` Prelude.rnf middleName
-      `Prelude.seq` Prelude.rnf personalEmailAddress
-      `Prelude.seq` Prelude.rnf lastName
+    Prelude.rnf accountNumber
       `Prelude.seq` Prelude.rnf additionalInformation
-      `Prelude.seq` Prelude.rnf homePhoneNumber
       `Prelude.seq` Prelude.rnf address
-      `Prelude.seq` Prelude.rnf partyType
-      `Prelude.seq` Prelude.rnf businessEmailAddress
       `Prelude.seq` Prelude.rnf attributes
-      `Prelude.seq` Prelude.rnf gender
-      `Prelude.seq` Prelude.rnf phoneNumber
-      `Prelude.seq` Prelude.rnf accountNumber
+      `Prelude.seq` Prelude.rnf billingAddress
+      `Prelude.seq` Prelude.rnf birthDate
+      `Prelude.seq` Prelude.rnf businessEmailAddress
+      `Prelude.seq` Prelude.rnf businessName
+      `Prelude.seq` Prelude.rnf businessPhoneNumber
       `Prelude.seq` Prelude.rnf emailAddress
       `Prelude.seq` Prelude.rnf firstName
-      `Prelude.seq` Prelude.rnf billingAddress
-      `Prelude.seq` Prelude.rnf businessPhoneNumber
-      `Prelude.seq` Prelude.rnf birthDate
-      `Prelude.seq` Prelude.rnf businessName
+      `Prelude.seq` Prelude.rnf gender
+      `Prelude.seq` Prelude.rnf homePhoneNumber
+      `Prelude.seq` Prelude.rnf lastName
+      `Prelude.seq` Prelude.rnf mailingAddress
+      `Prelude.seq` Prelude.rnf middleName
+      `Prelude.seq` Prelude.rnf mobilePhoneNumber
+      `Prelude.seq` Prelude.rnf partyType
+      `Prelude.seq` Prelude.rnf personalEmailAddress
+      `Prelude.seq` Prelude.rnf phoneNumber
+      `Prelude.seq` Prelude.rnf shippingAddress
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders CreateProfile where
+instance Data.ToHeaders CreateProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateProfile where
+instance Data.ToJSON CreateProfile where
   toJSON CreateProfile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ShippingAddress" Core..=)
-              Prelude.<$> shippingAddress,
-            ("MobilePhoneNumber" Core..=)
-              Prelude.<$> mobilePhoneNumber,
-            ("MailingAddress" Core..=)
-              Prelude.<$> mailingAddress,
-            ("MiddleName" Core..=) Prelude.<$> middleName,
-            ("PersonalEmailAddress" Core..=)
-              Prelude.<$> personalEmailAddress,
-            ("LastName" Core..=) Prelude.<$> lastName,
-            ("AdditionalInformation" Core..=)
+          [ ("AccountNumber" Data..=) Prelude.<$> accountNumber,
+            ("AdditionalInformation" Data..=)
               Prelude.<$> additionalInformation,
-            ("HomePhoneNumber" Core..=)
-              Prelude.<$> homePhoneNumber,
-            ("Address" Core..=) Prelude.<$> address,
-            ("PartyType" Core..=) Prelude.<$> partyType,
-            ("BusinessEmailAddress" Core..=)
-              Prelude.<$> businessEmailAddress,
-            ("Attributes" Core..=) Prelude.<$> attributes,
-            ("Gender" Core..=) Prelude.<$> gender,
-            ("PhoneNumber" Core..=) Prelude.<$> phoneNumber,
-            ("AccountNumber" Core..=) Prelude.<$> accountNumber,
-            ("EmailAddress" Core..=) Prelude.<$> emailAddress,
-            ("FirstName" Core..=) Prelude.<$> firstName,
-            ("BillingAddress" Core..=)
+            ("Address" Data..=) Prelude.<$> address,
+            ("Attributes" Data..=) Prelude.<$> attributes,
+            ("BillingAddress" Data..=)
               Prelude.<$> billingAddress,
-            ("BusinessPhoneNumber" Core..=)
+            ("BirthDate" Data..=) Prelude.<$> birthDate,
+            ("BusinessEmailAddress" Data..=)
+              Prelude.<$> businessEmailAddress,
+            ("BusinessName" Data..=) Prelude.<$> businessName,
+            ("BusinessPhoneNumber" Data..=)
               Prelude.<$> businessPhoneNumber,
-            ("BirthDate" Core..=) Prelude.<$> birthDate,
-            ("BusinessName" Core..=) Prelude.<$> businessName
+            ("EmailAddress" Data..=) Prelude.<$> emailAddress,
+            ("FirstName" Data..=) Prelude.<$> firstName,
+            ("Gender" Data..=) Prelude.<$> gender,
+            ("HomePhoneNumber" Data..=)
+              Prelude.<$> homePhoneNumber,
+            ("LastName" Data..=) Prelude.<$> lastName,
+            ("MailingAddress" Data..=)
+              Prelude.<$> mailingAddress,
+            ("MiddleName" Data..=) Prelude.<$> middleName,
+            ("MobilePhoneNumber" Data..=)
+              Prelude.<$> mobilePhoneNumber,
+            ("PartyType" Data..=) Prelude.<$> partyType,
+            ("PersonalEmailAddress" Data..=)
+              Prelude.<$> personalEmailAddress,
+            ("PhoneNumber" Data..=) Prelude.<$> phoneNumber,
+            ("ShippingAddress" Data..=)
+              Prelude.<$> shippingAddress
           ]
       )
 
-instance Core.ToPath CreateProfile where
+instance Data.ToPath CreateProfile where
   toPath CreateProfile' {..} =
     Prelude.mconcat
-      ["/domains/", Core.toBS domainName, "/profiles"]
+      ["/domains/", Data.toBS domainName, "/profiles"]
 
-instance Core.ToQuery CreateProfile where
+instance Data.ToQuery CreateProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateProfileResponse' smart constructor.

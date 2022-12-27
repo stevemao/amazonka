@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListThingRegistrationTasks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,9 +33,9 @@ module Amazonka.IoT.ListThingRegistrationTasks
     newListThingRegistrationTasks,
 
     -- * Request Lenses
-    listThingRegistrationTasks_status,
-    listThingRegistrationTasks_nextToken,
     listThingRegistrationTasks_maxResults,
+    listThingRegistrationTasks_nextToken,
+    listThingRegistrationTasks_status,
 
     -- * Destructuring the Response
     ListThingRegistrationTasksResponse (..),
@@ -49,22 +49,23 @@ module Amazonka.IoT.ListThingRegistrationTasks
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListThingRegistrationTasks' smart constructor.
 data ListThingRegistrationTasks = ListThingRegistrationTasks'
-  { -- | The status of the bulk thing provisioning task.
-    status :: Prelude.Maybe TaskStatus,
+  { -- | The maximum number of results to return at one time.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | To retrieve the next set of results, the @nextToken@ value from a
     -- previous response; otherwise __null__ to receive the first set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return at one time.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | The status of the bulk thing provisioning task.
+    status :: Prelude.Maybe TaskStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -76,26 +77,26 @@ data ListThingRegistrationTasks = ListThingRegistrationTasks'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'listThingRegistrationTasks_status' - The status of the bulk thing provisioning task.
+-- 'maxResults', 'listThingRegistrationTasks_maxResults' - The maximum number of results to return at one time.
 --
 -- 'nextToken', 'listThingRegistrationTasks_nextToken' - To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
 -- results.
 --
--- 'maxResults', 'listThingRegistrationTasks_maxResults' - The maximum number of results to return at one time.
+-- 'status', 'listThingRegistrationTasks_status' - The status of the bulk thing provisioning task.
 newListThingRegistrationTasks ::
   ListThingRegistrationTasks
 newListThingRegistrationTasks =
   ListThingRegistrationTasks'
-    { status =
+    { maxResults =
         Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      status = Prelude.Nothing
     }
 
--- | The status of the bulk thing provisioning task.
-listThingRegistrationTasks_status :: Lens.Lens' ListThingRegistrationTasks (Prelude.Maybe TaskStatus)
-listThingRegistrationTasks_status = Lens.lens (\ListThingRegistrationTasks' {status} -> status) (\s@ListThingRegistrationTasks' {} a -> s {status = a} :: ListThingRegistrationTasks)
+-- | The maximum number of results to return at one time.
+listThingRegistrationTasks_maxResults :: Lens.Lens' ListThingRegistrationTasks (Prelude.Maybe Prelude.Natural)
+listThingRegistrationTasks_maxResults = Lens.lens (\ListThingRegistrationTasks' {maxResults} -> maxResults) (\s@ListThingRegistrationTasks' {} a -> s {maxResults = a} :: ListThingRegistrationTasks)
 
 -- | To retrieve the next set of results, the @nextToken@ value from a
 -- previous response; otherwise __null__ to receive the first set of
@@ -103,9 +104,9 @@ listThingRegistrationTasks_status = Lens.lens (\ListThingRegistrationTasks' {sta
 listThingRegistrationTasks_nextToken :: Lens.Lens' ListThingRegistrationTasks (Prelude.Maybe Prelude.Text)
 listThingRegistrationTasks_nextToken = Lens.lens (\ListThingRegistrationTasks' {nextToken} -> nextToken) (\s@ListThingRegistrationTasks' {} a -> s {nextToken = a} :: ListThingRegistrationTasks)
 
--- | The maximum number of results to return at one time.
-listThingRegistrationTasks_maxResults :: Lens.Lens' ListThingRegistrationTasks (Prelude.Maybe Prelude.Natural)
-listThingRegistrationTasks_maxResults = Lens.lens (\ListThingRegistrationTasks' {maxResults} -> maxResults) (\s@ListThingRegistrationTasks' {} a -> s {maxResults = a} :: ListThingRegistrationTasks)
+-- | The status of the bulk thing provisioning task.
+listThingRegistrationTasks_status :: Lens.Lens' ListThingRegistrationTasks (Prelude.Maybe TaskStatus)
+listThingRegistrationTasks_status = Lens.lens (\ListThingRegistrationTasks' {status} -> status) (\s@ListThingRegistrationTasks' {} a -> s {status = a} :: ListThingRegistrationTasks)
 
 instance Core.AWSPager ListThingRegistrationTasks where
   page rq rs
@@ -133,40 +134,41 @@ instance Core.AWSRequest ListThingRegistrationTasks where
   type
     AWSResponse ListThingRegistrationTasks =
       ListThingRegistrationTasksResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListThingRegistrationTasksResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "taskIds" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "taskIds" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListThingRegistrationTasks where
   hashWithSalt _salt ListThingRegistrationTasks' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData ListThingRegistrationTasks where
   rnf ListThingRegistrationTasks' {..} =
-    Prelude.rnf status
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders ListThingRegistrationTasks where
+instance Data.ToHeaders ListThingRegistrationTasks where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListThingRegistrationTasks where
+instance Data.ToPath ListThingRegistrationTasks where
   toPath = Prelude.const "/thing-registration-tasks"
 
-instance Core.ToQuery ListThingRegistrationTasks where
+instance Data.ToQuery ListThingRegistrationTasks where
   toQuery ListThingRegistrationTasks' {..} =
     Prelude.mconcat
-      [ "status" Core.=: status,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "status" Data.=: status
       ]
 
 -- | /See:/ 'newListThingRegistrationTasksResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.ZookeeperNodeInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +20,24 @@
 module Amazonka.Kafka.Types.ZookeeperNodeInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Zookeeper node information.
 --
 -- /See:/ 'newZookeeperNodeInfo' smart constructor.
 data ZookeeperNodeInfo = ZookeeperNodeInfo'
-  { -- | The version of Zookeeper.
-    zookeeperVersion :: Prelude.Maybe Prelude.Text,
-    -- | The attached elastic network interface of the broker.
+  { -- | The attached elastic network interface of the broker.
     attachedENIId :: Prelude.Maybe Prelude.Text,
-    -- | Endpoints for accessing the ZooKeeper.
-    endpoints :: Prelude.Maybe [Prelude.Text],
     -- | The virtual private cloud (VPC) IP address of the client.
     clientVpcIpAddress :: Prelude.Maybe Prelude.Text,
+    -- | Endpoints for accessing the ZooKeeper.
+    endpoints :: Prelude.Maybe [Prelude.Text],
     -- | The role-specific ID for Zookeeper.
-    zookeeperId :: Prelude.Maybe Prelude.Double
+    zookeeperId :: Prelude.Maybe Prelude.Double,
+    -- | The version of Zookeeper.
+    zookeeperVersion :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,72 +49,71 @@ data ZookeeperNodeInfo = ZookeeperNodeInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'zookeeperVersion', 'zookeeperNodeInfo_zookeeperVersion' - The version of Zookeeper.
---
 -- 'attachedENIId', 'zookeeperNodeInfo_attachedENIId' - The attached elastic network interface of the broker.
---
--- 'endpoints', 'zookeeperNodeInfo_endpoints' - Endpoints for accessing the ZooKeeper.
 --
 -- 'clientVpcIpAddress', 'zookeeperNodeInfo_clientVpcIpAddress' - The virtual private cloud (VPC) IP address of the client.
 --
+-- 'endpoints', 'zookeeperNodeInfo_endpoints' - Endpoints for accessing the ZooKeeper.
+--
 -- 'zookeeperId', 'zookeeperNodeInfo_zookeeperId' - The role-specific ID for Zookeeper.
+--
+-- 'zookeeperVersion', 'zookeeperNodeInfo_zookeeperVersion' - The version of Zookeeper.
 newZookeeperNodeInfo ::
   ZookeeperNodeInfo
 newZookeeperNodeInfo =
   ZookeeperNodeInfo'
-    { zookeeperVersion =
-        Prelude.Nothing,
-      attachedENIId = Prelude.Nothing,
-      endpoints = Prelude.Nothing,
+    { attachedENIId = Prelude.Nothing,
       clientVpcIpAddress = Prelude.Nothing,
-      zookeeperId = Prelude.Nothing
+      endpoints = Prelude.Nothing,
+      zookeeperId = Prelude.Nothing,
+      zookeeperVersion = Prelude.Nothing
     }
-
--- | The version of Zookeeper.
-zookeeperNodeInfo_zookeeperVersion :: Lens.Lens' ZookeeperNodeInfo (Prelude.Maybe Prelude.Text)
-zookeeperNodeInfo_zookeeperVersion = Lens.lens (\ZookeeperNodeInfo' {zookeeperVersion} -> zookeeperVersion) (\s@ZookeeperNodeInfo' {} a -> s {zookeeperVersion = a} :: ZookeeperNodeInfo)
 
 -- | The attached elastic network interface of the broker.
 zookeeperNodeInfo_attachedENIId :: Lens.Lens' ZookeeperNodeInfo (Prelude.Maybe Prelude.Text)
 zookeeperNodeInfo_attachedENIId = Lens.lens (\ZookeeperNodeInfo' {attachedENIId} -> attachedENIId) (\s@ZookeeperNodeInfo' {} a -> s {attachedENIId = a} :: ZookeeperNodeInfo)
 
--- | Endpoints for accessing the ZooKeeper.
-zookeeperNodeInfo_endpoints :: Lens.Lens' ZookeeperNodeInfo (Prelude.Maybe [Prelude.Text])
-zookeeperNodeInfo_endpoints = Lens.lens (\ZookeeperNodeInfo' {endpoints} -> endpoints) (\s@ZookeeperNodeInfo' {} a -> s {endpoints = a} :: ZookeeperNodeInfo) Prelude.. Lens.mapping Lens.coerced
-
 -- | The virtual private cloud (VPC) IP address of the client.
 zookeeperNodeInfo_clientVpcIpAddress :: Lens.Lens' ZookeeperNodeInfo (Prelude.Maybe Prelude.Text)
 zookeeperNodeInfo_clientVpcIpAddress = Lens.lens (\ZookeeperNodeInfo' {clientVpcIpAddress} -> clientVpcIpAddress) (\s@ZookeeperNodeInfo' {} a -> s {clientVpcIpAddress = a} :: ZookeeperNodeInfo)
+
+-- | Endpoints for accessing the ZooKeeper.
+zookeeperNodeInfo_endpoints :: Lens.Lens' ZookeeperNodeInfo (Prelude.Maybe [Prelude.Text])
+zookeeperNodeInfo_endpoints = Lens.lens (\ZookeeperNodeInfo' {endpoints} -> endpoints) (\s@ZookeeperNodeInfo' {} a -> s {endpoints = a} :: ZookeeperNodeInfo) Prelude.. Lens.mapping Lens.coerced
 
 -- | The role-specific ID for Zookeeper.
 zookeeperNodeInfo_zookeeperId :: Lens.Lens' ZookeeperNodeInfo (Prelude.Maybe Prelude.Double)
 zookeeperNodeInfo_zookeeperId = Lens.lens (\ZookeeperNodeInfo' {zookeeperId} -> zookeeperId) (\s@ZookeeperNodeInfo' {} a -> s {zookeeperId = a} :: ZookeeperNodeInfo)
 
-instance Core.FromJSON ZookeeperNodeInfo where
+-- | The version of Zookeeper.
+zookeeperNodeInfo_zookeeperVersion :: Lens.Lens' ZookeeperNodeInfo (Prelude.Maybe Prelude.Text)
+zookeeperNodeInfo_zookeeperVersion = Lens.lens (\ZookeeperNodeInfo' {zookeeperVersion} -> zookeeperVersion) (\s@ZookeeperNodeInfo' {} a -> s {zookeeperVersion = a} :: ZookeeperNodeInfo)
+
+instance Data.FromJSON ZookeeperNodeInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ZookeeperNodeInfo"
       ( \x ->
           ZookeeperNodeInfo'
-            Prelude.<$> (x Core..:? "zookeeperVersion")
-            Prelude.<*> (x Core..:? "attachedENIId")
-            Prelude.<*> (x Core..:? "endpoints" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "clientVpcIpAddress")
-            Prelude.<*> (x Core..:? "zookeeperId")
+            Prelude.<$> (x Data..:? "attachedENIId")
+            Prelude.<*> (x Data..:? "clientVpcIpAddress")
+            Prelude.<*> (x Data..:? "endpoints" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "zookeeperId")
+            Prelude.<*> (x Data..:? "zookeeperVersion")
       )
 
 instance Prelude.Hashable ZookeeperNodeInfo where
   hashWithSalt _salt ZookeeperNodeInfo' {..} =
-    _salt `Prelude.hashWithSalt` zookeeperVersion
-      `Prelude.hashWithSalt` attachedENIId
-      `Prelude.hashWithSalt` endpoints
+    _salt `Prelude.hashWithSalt` attachedENIId
       `Prelude.hashWithSalt` clientVpcIpAddress
+      `Prelude.hashWithSalt` endpoints
       `Prelude.hashWithSalt` zookeeperId
+      `Prelude.hashWithSalt` zookeeperVersion
 
 instance Prelude.NFData ZookeeperNodeInfo where
   rnf ZookeeperNodeInfo' {..} =
-    Prelude.rnf zookeeperVersion
-      `Prelude.seq` Prelude.rnf attachedENIId
-      `Prelude.seq` Prelude.rnf endpoints
+    Prelude.rnf attachedENIId
       `Prelude.seq` Prelude.rnf clientVpcIpAddress
+      `Prelude.seq` Prelude.rnf endpoints
       `Prelude.seq` Prelude.rnf zookeeperId
+      `Prelude.seq` Prelude.rnf zookeeperVersion

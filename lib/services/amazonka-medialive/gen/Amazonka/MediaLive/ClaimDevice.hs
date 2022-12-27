@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.ClaimDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.MediaLive.ClaimDevice
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -76,7 +77,8 @@ claimDevice_id = Lens.lens (\ClaimDevice' {id} -> id) (\s@ClaimDevice' {} a -> s
 
 instance Core.AWSRequest ClaimDevice where
   type AWSResponse ClaimDevice = ClaimDeviceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,26 +93,26 @@ instance Prelude.Hashable ClaimDevice where
 instance Prelude.NFData ClaimDevice where
   rnf ClaimDevice' {..} = Prelude.rnf id
 
-instance Core.ToHeaders ClaimDevice where
+instance Data.ToHeaders ClaimDevice where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ClaimDevice where
+instance Data.ToJSON ClaimDevice where
   toJSON ClaimDevice' {..} =
-    Core.object
-      (Prelude.catMaybes [("id" Core..=) Prelude.<$> id])
+    Data.object
+      (Prelude.catMaybes [("id" Data..=) Prelude.<$> id])
 
-instance Core.ToPath ClaimDevice where
+instance Data.ToPath ClaimDevice where
   toPath = Prelude.const "/prod/claimDevice"
 
-instance Core.ToQuery ClaimDevice where
+instance Data.ToQuery ClaimDevice where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Placeholder documentation for ClaimDeviceResponse

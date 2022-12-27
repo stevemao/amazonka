@@ -14,19 +14,20 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.GetReservationCoverage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the reservation coverage for your account. This enables you to
--- see how much of your Amazon Elastic Compute Cloud, Amazon ElastiCache,
--- Amazon Relational Database Service, or Amazon Redshift usage is covered
--- by a reservation. An organization\'s management account can see the
--- coverage of the associated member accounts. This supports dimensions,
--- Cost Categories, and nested expressions. For any time period, you can
--- filter data about reservation usage by the following dimensions:
+-- Retrieves the reservation coverage for your account, which you can use
+-- to see how much of your Amazon Elastic Compute Cloud, Amazon
+-- ElastiCache, Amazon Relational Database Service, or Amazon Redshift
+-- usage is covered by a reservation. An organization\'s management account
+-- can see the coverage of the associated member accounts. This supports
+-- dimensions, Cost Categories, and nested expressions. For any time
+-- period, you can filter data about reservation usage by the following
+-- dimensions:
 --
 -- -   AZ
 --
@@ -60,12 +61,12 @@ module Amazonka.CostExplorer.GetReservationCoverage
     newGetReservationCoverage,
 
     -- * Request Lenses
-    getReservationCoverage_groupBy,
-    getReservationCoverage_nextPageToken,
-    getReservationCoverage_metrics,
-    getReservationCoverage_granularity,
     getReservationCoverage_filter,
+    getReservationCoverage_granularity,
+    getReservationCoverage_groupBy,
     getReservationCoverage_maxResults,
+    getReservationCoverage_metrics,
+    getReservationCoverage_nextPageToken,
     getReservationCoverage_sortBy,
     getReservationCoverage_timePeriod,
 
@@ -82,8 +83,9 @@ module Amazonka.CostExplorer.GetReservationCoverage
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,48 +95,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetReservationCoverage' smart constructor.
 data GetReservationCoverage = GetReservationCoverage'
-  { -- | You can group the data by the following attributes:
-    --
-    -- -   AZ
-    --
-    -- -   CACHE_ENGINE
-    --
-    -- -   DATABASE_ENGINE
-    --
-    -- -   DEPLOYMENT_OPTION
-    --
-    -- -   INSTANCE_TYPE
-    --
-    -- -   LINKED_ACCOUNT
-    --
-    -- -   OPERATING_SYSTEM
-    --
-    -- -   PLATFORM
-    --
-    -- -   REGION
-    --
-    -- -   TENANCY
-    groupBy :: Prelude.Maybe [GroupDefinition],
-    -- | The token to retrieve the next set of results. Amazon Web Services
-    -- provides the token when the response from a previous call has more
-    -- results than the maximum page size.
-    nextPageToken :: Prelude.Maybe Prelude.Text,
-    -- | The measurement that you want your reservation coverage reported in.
-    --
-    -- Valid values are @Hour@, @Unit@, and @Cost@. You can use multiple values
-    -- in a request.
-    metrics :: Prelude.Maybe [Prelude.Text],
-    -- | The granularity of the Amazon Web Services cost data for the
-    -- reservation. Valid values are @MONTHLY@ and @DAILY@.
-    --
-    -- If @GroupBy@ is set, @Granularity@ can\'t be set. If @Granularity@
-    -- isn\'t set, the response object doesn\'t include @Granularity@, either
-    -- @MONTHLY@ or @DAILY@.
-    --
-    -- The @GetReservationCoverage@ operation supports only @DAILY@ and
-    -- @MONTHLY@ granularities.
-    granularity :: Prelude.Maybe Granularity,
-    -- | Filters utilization data by dimensions. You can filter by the following
+  { -- | Filters utilization data by dimensions. You can filter by the following
     -- dimensions:
     --
     -- -   AZ
@@ -171,11 +132,54 @@ data GetReservationCoverage = GetReservationCoverage'
     --
     -- Cost category is also supported.
     filter' :: Prelude.Maybe Expression,
+    -- | The granularity of the Amazon Web Services cost data for the
+    -- reservation. Valid values are @MONTHLY@ and @DAILY@.
+    --
+    -- If @GroupBy@ is set, @Granularity@ can\'t be set. If @Granularity@
+    -- isn\'t set, the response object doesn\'t include @Granularity@, either
+    -- @MONTHLY@ or @DAILY@.
+    --
+    -- The @GetReservationCoverage@ operation supports only @DAILY@ and
+    -- @MONTHLY@ granularities.
+    granularity :: Prelude.Maybe Granularity,
+    -- | You can group the data by the following attributes:
+    --
+    -- -   AZ
+    --
+    -- -   CACHE_ENGINE
+    --
+    -- -   DATABASE_ENGINE
+    --
+    -- -   DEPLOYMENT_OPTION
+    --
+    -- -   INSTANCE_TYPE
+    --
+    -- -   INVOICING_ENTITY
+    --
+    -- -   LINKED_ACCOUNT
+    --
+    -- -   OPERATING_SYSTEM
+    --
+    -- -   PLATFORM
+    --
+    -- -   REGION
+    --
+    -- -   TENANCY
+    groupBy :: Prelude.Maybe [GroupDefinition],
     -- | The maximum number of objects that you returned for this request. If
     -- more objects are available, in the response, Amazon Web Services
     -- provides a NextPageToken value that you can use in a subsequent call to
     -- get the next batch of objects.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The measurement that you want your reservation coverage reported in.
+    --
+    -- Valid values are @Hour@, @Unit@, and @Cost@. You can use multiple values
+    -- in a request.
+    metrics :: Prelude.Maybe [Prelude.Text],
+    -- | The token to retrieve the next set of results. Amazon Web Services
+    -- provides the token when the response from a previous call has more
+    -- results than the maximum page size.
+    nextPageToken :: Prelude.Maybe Prelude.Text,
     -- | The value by which you want to sort the data.
     --
     -- The following values are supported for @Key@:
@@ -221,47 +225,6 @@ data GetReservationCoverage = GetReservationCoverage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'groupBy', 'getReservationCoverage_groupBy' - You can group the data by the following attributes:
---
--- -   AZ
---
--- -   CACHE_ENGINE
---
--- -   DATABASE_ENGINE
---
--- -   DEPLOYMENT_OPTION
---
--- -   INSTANCE_TYPE
---
--- -   LINKED_ACCOUNT
---
--- -   OPERATING_SYSTEM
---
--- -   PLATFORM
---
--- -   REGION
---
--- -   TENANCY
---
--- 'nextPageToken', 'getReservationCoverage_nextPageToken' - The token to retrieve the next set of results. Amazon Web Services
--- provides the token when the response from a previous call has more
--- results than the maximum page size.
---
--- 'metrics', 'getReservationCoverage_metrics' - The measurement that you want your reservation coverage reported in.
---
--- Valid values are @Hour@, @Unit@, and @Cost@. You can use multiple values
--- in a request.
---
--- 'granularity', 'getReservationCoverage_granularity' - The granularity of the Amazon Web Services cost data for the
--- reservation. Valid values are @MONTHLY@ and @DAILY@.
---
--- If @GroupBy@ is set, @Granularity@ can\'t be set. If @Granularity@
--- isn\'t set, the response object doesn\'t include @Granularity@, either
--- @MONTHLY@ or @DAILY@.
---
--- The @GetReservationCoverage@ operation supports only @DAILY@ and
--- @MONTHLY@ granularities.
---
 -- 'filter'', 'getReservationCoverage_filter' - Filters utilization data by dimensions. You can filter by the following
 -- dimensions:
 --
@@ -299,10 +262,53 @@ data GetReservationCoverage = GetReservationCoverage'
 --
 -- Cost category is also supported.
 --
+-- 'granularity', 'getReservationCoverage_granularity' - The granularity of the Amazon Web Services cost data for the
+-- reservation. Valid values are @MONTHLY@ and @DAILY@.
+--
+-- If @GroupBy@ is set, @Granularity@ can\'t be set. If @Granularity@
+-- isn\'t set, the response object doesn\'t include @Granularity@, either
+-- @MONTHLY@ or @DAILY@.
+--
+-- The @GetReservationCoverage@ operation supports only @DAILY@ and
+-- @MONTHLY@ granularities.
+--
+-- 'groupBy', 'getReservationCoverage_groupBy' - You can group the data by the following attributes:
+--
+-- -   AZ
+--
+-- -   CACHE_ENGINE
+--
+-- -   DATABASE_ENGINE
+--
+-- -   DEPLOYMENT_OPTION
+--
+-- -   INSTANCE_TYPE
+--
+-- -   INVOICING_ENTITY
+--
+-- -   LINKED_ACCOUNT
+--
+-- -   OPERATING_SYSTEM
+--
+-- -   PLATFORM
+--
+-- -   REGION
+--
+-- -   TENANCY
+--
 -- 'maxResults', 'getReservationCoverage_maxResults' - The maximum number of objects that you returned for this request. If
 -- more objects are available, in the response, Amazon Web Services
 -- provides a NextPageToken value that you can use in a subsequent call to
 -- get the next batch of objects.
+--
+-- 'metrics', 'getReservationCoverage_metrics' - The measurement that you want your reservation coverage reported in.
+--
+-- Valid values are @Hour@, @Unit@, and @Cost@. You can use multiple values
+-- in a request.
+--
+-- 'nextPageToken', 'getReservationCoverage_nextPageToken' - The token to retrieve the next set of results. Amazon Web Services
+-- provides the token when the response from a previous call has more
+-- results than the maximum page size.
 --
 -- 'sortBy', 'getReservationCoverage_sortBy' - The value by which you want to sort the data.
 --
@@ -343,64 +349,15 @@ newGetReservationCoverage ::
   GetReservationCoverage
 newGetReservationCoverage pTimePeriod_ =
   GetReservationCoverage'
-    { groupBy = Prelude.Nothing,
-      nextPageToken = Prelude.Nothing,
-      metrics = Prelude.Nothing,
+    { filter' = Prelude.Nothing,
       granularity = Prelude.Nothing,
-      filter' = Prelude.Nothing,
+      groupBy = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      metrics = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
       sortBy = Prelude.Nothing,
       timePeriod = pTimePeriod_
     }
-
--- | You can group the data by the following attributes:
---
--- -   AZ
---
--- -   CACHE_ENGINE
---
--- -   DATABASE_ENGINE
---
--- -   DEPLOYMENT_OPTION
---
--- -   INSTANCE_TYPE
---
--- -   LINKED_ACCOUNT
---
--- -   OPERATING_SYSTEM
---
--- -   PLATFORM
---
--- -   REGION
---
--- -   TENANCY
-getReservationCoverage_groupBy :: Lens.Lens' GetReservationCoverage (Prelude.Maybe [GroupDefinition])
-getReservationCoverage_groupBy = Lens.lens (\GetReservationCoverage' {groupBy} -> groupBy) (\s@GetReservationCoverage' {} a -> s {groupBy = a} :: GetReservationCoverage) Prelude.. Lens.mapping Lens.coerced
-
--- | The token to retrieve the next set of results. Amazon Web Services
--- provides the token when the response from a previous call has more
--- results than the maximum page size.
-getReservationCoverage_nextPageToken :: Lens.Lens' GetReservationCoverage (Prelude.Maybe Prelude.Text)
-getReservationCoverage_nextPageToken = Lens.lens (\GetReservationCoverage' {nextPageToken} -> nextPageToken) (\s@GetReservationCoverage' {} a -> s {nextPageToken = a} :: GetReservationCoverage)
-
--- | The measurement that you want your reservation coverage reported in.
---
--- Valid values are @Hour@, @Unit@, and @Cost@. You can use multiple values
--- in a request.
-getReservationCoverage_metrics :: Lens.Lens' GetReservationCoverage (Prelude.Maybe [Prelude.Text])
-getReservationCoverage_metrics = Lens.lens (\GetReservationCoverage' {metrics} -> metrics) (\s@GetReservationCoverage' {} a -> s {metrics = a} :: GetReservationCoverage) Prelude.. Lens.mapping Lens.coerced
-
--- | The granularity of the Amazon Web Services cost data for the
--- reservation. Valid values are @MONTHLY@ and @DAILY@.
---
--- If @GroupBy@ is set, @Granularity@ can\'t be set. If @Granularity@
--- isn\'t set, the response object doesn\'t include @Granularity@, either
--- @MONTHLY@ or @DAILY@.
---
--- The @GetReservationCoverage@ operation supports only @DAILY@ and
--- @MONTHLY@ granularities.
-getReservationCoverage_granularity :: Lens.Lens' GetReservationCoverage (Prelude.Maybe Granularity)
-getReservationCoverage_granularity = Lens.lens (\GetReservationCoverage' {granularity} -> granularity) (\s@GetReservationCoverage' {} a -> s {granularity = a} :: GetReservationCoverage)
 
 -- | Filters utilization data by dimensions. You can filter by the following
 -- dimensions:
@@ -441,12 +398,63 @@ getReservationCoverage_granularity = Lens.lens (\GetReservationCoverage' {granul
 getReservationCoverage_filter :: Lens.Lens' GetReservationCoverage (Prelude.Maybe Expression)
 getReservationCoverage_filter = Lens.lens (\GetReservationCoverage' {filter'} -> filter') (\s@GetReservationCoverage' {} a -> s {filter' = a} :: GetReservationCoverage)
 
+-- | The granularity of the Amazon Web Services cost data for the
+-- reservation. Valid values are @MONTHLY@ and @DAILY@.
+--
+-- If @GroupBy@ is set, @Granularity@ can\'t be set. If @Granularity@
+-- isn\'t set, the response object doesn\'t include @Granularity@, either
+-- @MONTHLY@ or @DAILY@.
+--
+-- The @GetReservationCoverage@ operation supports only @DAILY@ and
+-- @MONTHLY@ granularities.
+getReservationCoverage_granularity :: Lens.Lens' GetReservationCoverage (Prelude.Maybe Granularity)
+getReservationCoverage_granularity = Lens.lens (\GetReservationCoverage' {granularity} -> granularity) (\s@GetReservationCoverage' {} a -> s {granularity = a} :: GetReservationCoverage)
+
+-- | You can group the data by the following attributes:
+--
+-- -   AZ
+--
+-- -   CACHE_ENGINE
+--
+-- -   DATABASE_ENGINE
+--
+-- -   DEPLOYMENT_OPTION
+--
+-- -   INSTANCE_TYPE
+--
+-- -   INVOICING_ENTITY
+--
+-- -   LINKED_ACCOUNT
+--
+-- -   OPERATING_SYSTEM
+--
+-- -   PLATFORM
+--
+-- -   REGION
+--
+-- -   TENANCY
+getReservationCoverage_groupBy :: Lens.Lens' GetReservationCoverage (Prelude.Maybe [GroupDefinition])
+getReservationCoverage_groupBy = Lens.lens (\GetReservationCoverage' {groupBy} -> groupBy) (\s@GetReservationCoverage' {} a -> s {groupBy = a} :: GetReservationCoverage) Prelude.. Lens.mapping Lens.coerced
+
 -- | The maximum number of objects that you returned for this request. If
 -- more objects are available, in the response, Amazon Web Services
 -- provides a NextPageToken value that you can use in a subsequent call to
 -- get the next batch of objects.
 getReservationCoverage_maxResults :: Lens.Lens' GetReservationCoverage (Prelude.Maybe Prelude.Natural)
 getReservationCoverage_maxResults = Lens.lens (\GetReservationCoverage' {maxResults} -> maxResults) (\s@GetReservationCoverage' {} a -> s {maxResults = a} :: GetReservationCoverage)
+
+-- | The measurement that you want your reservation coverage reported in.
+--
+-- Valid values are @Hour@, @Unit@, and @Cost@. You can use multiple values
+-- in a request.
+getReservationCoverage_metrics :: Lens.Lens' GetReservationCoverage (Prelude.Maybe [Prelude.Text])
+getReservationCoverage_metrics = Lens.lens (\GetReservationCoverage' {metrics} -> metrics) (\s@GetReservationCoverage' {} a -> s {metrics = a} :: GetReservationCoverage) Prelude.. Lens.mapping Lens.coerced
+
+-- | The token to retrieve the next set of results. Amazon Web Services
+-- provides the token when the response from a previous call has more
+-- results than the maximum page size.
+getReservationCoverage_nextPageToken :: Lens.Lens' GetReservationCoverage (Prelude.Maybe Prelude.Text)
+getReservationCoverage_nextPageToken = Lens.lens (\GetReservationCoverage' {nextPageToken} -> nextPageToken) (\s@GetReservationCoverage' {} a -> s {nextPageToken = a} :: GetReservationCoverage)
 
 -- | The value by which you want to sort the data.
 --
@@ -490,75 +498,76 @@ instance Core.AWSRequest GetReservationCoverage where
   type
     AWSResponse GetReservationCoverage =
       GetReservationCoverageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetReservationCoverageResponse'
-            Prelude.<$> (x Core..?> "NextPageToken")
-            Prelude.<*> (x Core..?> "Total")
+            Prelude.<$> (x Data..?> "NextPageToken")
+            Prelude.<*> (x Data..?> "Total")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "CoveragesByTime"
+            Prelude.<*> ( x Data..?> "CoveragesByTime"
                             Core..!@ Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable GetReservationCoverage where
   hashWithSalt _salt GetReservationCoverage' {..} =
-    _salt `Prelude.hashWithSalt` groupBy
-      `Prelude.hashWithSalt` nextPageToken
-      `Prelude.hashWithSalt` metrics
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` granularity
-      `Prelude.hashWithSalt` filter'
+      `Prelude.hashWithSalt` groupBy
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` metrics
+      `Prelude.hashWithSalt` nextPageToken
       `Prelude.hashWithSalt` sortBy
       `Prelude.hashWithSalt` timePeriod
 
 instance Prelude.NFData GetReservationCoverage where
   rnf GetReservationCoverage' {..} =
-    Prelude.rnf groupBy
-      `Prelude.seq` Prelude.rnf nextPageToken
-      `Prelude.seq` Prelude.rnf metrics
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf granularity
-      `Prelude.seq` Prelude.rnf filter'
+      `Prelude.seq` Prelude.rnf groupBy
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf metrics
+      `Prelude.seq` Prelude.rnf nextPageToken
       `Prelude.seq` Prelude.rnf sortBy
       `Prelude.seq` Prelude.rnf timePeriod
 
-instance Core.ToHeaders GetReservationCoverage where
+instance Data.ToHeaders GetReservationCoverage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSInsightsIndexService.GetReservationCoverage" ::
+              Data.=# ( "AWSInsightsIndexService.GetReservationCoverage" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetReservationCoverage where
+instance Data.ToJSON GetReservationCoverage where
   toJSON GetReservationCoverage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GroupBy" Core..=) Prelude.<$> groupBy,
-            ("NextPageToken" Core..=) Prelude.<$> nextPageToken,
-            ("Metrics" Core..=) Prelude.<$> metrics,
-            ("Granularity" Core..=) Prelude.<$> granularity,
-            ("Filter" Core..=) Prelude.<$> filter',
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("SortBy" Core..=) Prelude.<$> sortBy,
-            Prelude.Just ("TimePeriod" Core..= timePeriod)
+          [ ("Filter" Data..=) Prelude.<$> filter',
+            ("Granularity" Data..=) Prelude.<$> granularity,
+            ("GroupBy" Data..=) Prelude.<$> groupBy,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("Metrics" Data..=) Prelude.<$> metrics,
+            ("NextPageToken" Data..=) Prelude.<$> nextPageToken,
+            ("SortBy" Data..=) Prelude.<$> sortBy,
+            Prelude.Just ("TimePeriod" Data..= timePeriod)
           ]
       )
 
-instance Core.ToPath GetReservationCoverage where
+instance Data.ToPath GetReservationCoverage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetReservationCoverage where
+instance Data.ToQuery GetReservationCoverage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetReservationCoverageResponse' smart constructor.

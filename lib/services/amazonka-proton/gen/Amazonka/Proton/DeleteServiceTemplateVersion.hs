@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.DeleteServiceTemplateVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,7 +53,8 @@ module Amazonka.Proton.DeleteServiceTemplateVersion
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -118,12 +119,13 @@ instance Core.AWSRequest DeleteServiceTemplateVersion where
   type
     AWSResponse DeleteServiceTemplateVersion =
       DeleteServiceTemplateVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteServiceTemplateVersionResponse'
-            Prelude.<$> (x Core..?> "serviceTemplateVersion")
+            Prelude.<$> (x Data..?> "serviceTemplateVersion")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -142,40 +144,40 @@ instance Prelude.NFData DeleteServiceTemplateVersion where
       `Prelude.seq` Prelude.rnf minorVersion
       `Prelude.seq` Prelude.rnf templateName
 
-instance Core.ToHeaders DeleteServiceTemplateVersion where
+instance Data.ToHeaders DeleteServiceTemplateVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.DeleteServiceTemplateVersion" ::
+              Data.=# ( "AwsProton20200720.DeleteServiceTemplateVersion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteServiceTemplateVersion where
+instance Data.ToJSON DeleteServiceTemplateVersion where
   toJSON DeleteServiceTemplateVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("majorVersion" Core..= majorVersion),
-            Prelude.Just ("minorVersion" Core..= minorVersion),
-            Prelude.Just ("templateName" Core..= templateName)
+          [ Prelude.Just ("majorVersion" Data..= majorVersion),
+            Prelude.Just ("minorVersion" Data..= minorVersion),
+            Prelude.Just ("templateName" Data..= templateName)
           ]
       )
 
-instance Core.ToPath DeleteServiceTemplateVersion where
+instance Data.ToPath DeleteServiceTemplateVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteServiceTemplateVersion where
+instance Data.ToQuery DeleteServiceTemplateVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteServiceTemplateVersionResponse' smart constructor.
 data DeleteServiceTemplateVersionResponse = DeleteServiceTemplateVersionResponse'
-  { -- | The service template version detail data that\'s returned by AWS Proton.
+  { -- | The detailed data of the service template version being deleted.
     serviceTemplateVersion :: Prelude.Maybe ServiceTemplateVersion,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -190,7 +192,7 @@ data DeleteServiceTemplateVersionResponse = DeleteServiceTemplateVersionResponse
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'serviceTemplateVersion', 'deleteServiceTemplateVersionResponse_serviceTemplateVersion' - The service template version detail data that\'s returned by AWS Proton.
+-- 'serviceTemplateVersion', 'deleteServiceTemplateVersionResponse_serviceTemplateVersion' - The detailed data of the service template version being deleted.
 --
 -- 'httpStatus', 'deleteServiceTemplateVersionResponse_httpStatus' - The response's http status code.
 newDeleteServiceTemplateVersionResponse ::
@@ -204,7 +206,7 @@ newDeleteServiceTemplateVersionResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The service template version detail data that\'s returned by AWS Proton.
+-- | The detailed data of the service template version being deleted.
 deleteServiceTemplateVersionResponse_serviceTemplateVersion :: Lens.Lens' DeleteServiceTemplateVersionResponse (Prelude.Maybe ServiceTemplateVersion)
 deleteServiceTemplateVersionResponse_serviceTemplateVersion = Lens.lens (\DeleteServiceTemplateVersionResponse' {serviceTemplateVersion} -> serviceTemplateVersion) (\s@DeleteServiceTemplateVersionResponse' {} a -> s {serviceTemplateVersion = a} :: DeleteServiceTemplateVersionResponse)
 

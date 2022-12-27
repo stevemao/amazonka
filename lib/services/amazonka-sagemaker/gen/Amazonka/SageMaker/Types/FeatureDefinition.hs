@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.FeatureDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.FeatureDefinition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.FeatureType
 
@@ -29,13 +30,13 @@ import Amazonka.SageMaker.Types.FeatureType
 --
 -- /See:/ 'newFeatureDefinition' smart constructor.
 data FeatureDefinition = FeatureDefinition'
-  { -- | The value type of a feature. Valid values are Integral, Fractional, or
-    -- String.
-    featureType :: Prelude.Maybe FeatureType,
-    -- | The name of a feature. The type must be a string. @FeatureName@ cannot
+  { -- | The name of a feature. The type must be a string. @FeatureName@ cannot
     -- be any of the following: @is_deleted@, @write_time@,
     -- @api_invocation_time@.
-    featureName :: Prelude.Maybe Prelude.Text
+    featureName :: Prelude.Maybe Prelude.Text,
+    -- | The value type of a feature. Valid values are Integral, Fractional, or
+    -- String.
+    featureType :: Prelude.Maybe FeatureType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,24 +48,19 @@ data FeatureDefinition = FeatureDefinition'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'featureType', 'featureDefinition_featureType' - The value type of a feature. Valid values are Integral, Fractional, or
--- String.
---
 -- 'featureName', 'featureDefinition_featureName' - The name of a feature. The type must be a string. @FeatureName@ cannot
 -- be any of the following: @is_deleted@, @write_time@,
 -- @api_invocation_time@.
+--
+-- 'featureType', 'featureDefinition_featureType' - The value type of a feature. Valid values are Integral, Fractional, or
+-- String.
 newFeatureDefinition ::
   FeatureDefinition
 newFeatureDefinition =
   FeatureDefinition'
-    { featureType = Prelude.Nothing,
-      featureName = Prelude.Nothing
+    { featureName = Prelude.Nothing,
+      featureType = Prelude.Nothing
     }
-
--- | The value type of a feature. Valid values are Integral, Fractional, or
--- String.
-featureDefinition_featureType :: Lens.Lens' FeatureDefinition (Prelude.Maybe FeatureType)
-featureDefinition_featureType = Lens.lens (\FeatureDefinition' {featureType} -> featureType) (\s@FeatureDefinition' {} a -> s {featureType = a} :: FeatureDefinition)
 
 -- | The name of a feature. The type must be a string. @FeatureName@ cannot
 -- be any of the following: @is_deleted@, @write_time@,
@@ -72,31 +68,36 @@ featureDefinition_featureType = Lens.lens (\FeatureDefinition' {featureType} -> 
 featureDefinition_featureName :: Lens.Lens' FeatureDefinition (Prelude.Maybe Prelude.Text)
 featureDefinition_featureName = Lens.lens (\FeatureDefinition' {featureName} -> featureName) (\s@FeatureDefinition' {} a -> s {featureName = a} :: FeatureDefinition)
 
-instance Core.FromJSON FeatureDefinition where
+-- | The value type of a feature. Valid values are Integral, Fractional, or
+-- String.
+featureDefinition_featureType :: Lens.Lens' FeatureDefinition (Prelude.Maybe FeatureType)
+featureDefinition_featureType = Lens.lens (\FeatureDefinition' {featureType} -> featureType) (\s@FeatureDefinition' {} a -> s {featureType = a} :: FeatureDefinition)
+
+instance Data.FromJSON FeatureDefinition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FeatureDefinition"
       ( \x ->
           FeatureDefinition'
-            Prelude.<$> (x Core..:? "FeatureType")
-            Prelude.<*> (x Core..:? "FeatureName")
+            Prelude.<$> (x Data..:? "FeatureName")
+            Prelude.<*> (x Data..:? "FeatureType")
       )
 
 instance Prelude.Hashable FeatureDefinition where
   hashWithSalt _salt FeatureDefinition' {..} =
-    _salt `Prelude.hashWithSalt` featureType
-      `Prelude.hashWithSalt` featureName
+    _salt `Prelude.hashWithSalt` featureName
+      `Prelude.hashWithSalt` featureType
 
 instance Prelude.NFData FeatureDefinition where
   rnf FeatureDefinition' {..} =
-    Prelude.rnf featureType
-      `Prelude.seq` Prelude.rnf featureName
+    Prelude.rnf featureName
+      `Prelude.seq` Prelude.rnf featureType
 
-instance Core.ToJSON FeatureDefinition where
+instance Data.ToJSON FeatureDefinition where
   toJSON FeatureDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FeatureType" Core..=) Prelude.<$> featureType,
-            ("FeatureName" Core..=) Prelude.<$> featureName
+          [ ("FeatureName" Data..=) Prelude.<$> featureName,
+            ("FeatureType" Data..=) Prelude.<$> featureType
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetSegments
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Pinpoint.GetSegments
     newGetSegments,
 
     -- * Request Lenses
-    getSegments_token,
     getSegments_pageSize,
+    getSegments_token,
     getSegments_applicationId,
 
     -- * Destructuring the Response
@@ -43,7 +43,8 @@ module Amazonka.Pinpoint.GetSegments
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -51,13 +52,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetSegments' smart constructor.
 data GetSegments = GetSegments'
-  { -- | The NextToken string that specifies which page of results to return in a
-    -- paginated response.
-    token :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to include in each page of a paginated
+  { -- | The maximum number of items to include in each page of a paginated
     -- response. This parameter is not supported for application, campaign, and
     -- journey metrics.
     pageSize :: Prelude.Maybe Prelude.Text,
+    -- | The NextToken string that specifies which page of results to return in a
+    -- paginated response.
+    token :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier for the application. This identifier is displayed
     -- as the __Project ID__ on the Amazon Pinpoint console.
     applicationId :: Prelude.Text
@@ -72,12 +73,12 @@ data GetSegments = GetSegments'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'token', 'getSegments_token' - The NextToken string that specifies which page of results to return in a
--- paginated response.
---
 -- 'pageSize', 'getSegments_pageSize' - The maximum number of items to include in each page of a paginated
 -- response. This parameter is not supported for application, campaign, and
 -- journey metrics.
+--
+-- 'token', 'getSegments_token' - The NextToken string that specifies which page of results to return in a
+-- paginated response.
 --
 -- 'applicationId', 'getSegments_applicationId' - The unique identifier for the application. This identifier is displayed
 -- as the __Project ID__ on the Amazon Pinpoint console.
@@ -87,21 +88,21 @@ newGetSegments ::
   GetSegments
 newGetSegments pApplicationId_ =
   GetSegments'
-    { token = Prelude.Nothing,
-      pageSize = Prelude.Nothing,
+    { pageSize = Prelude.Nothing,
+      token = Prelude.Nothing,
       applicationId = pApplicationId_
     }
-
--- | The NextToken string that specifies which page of results to return in a
--- paginated response.
-getSegments_token :: Lens.Lens' GetSegments (Prelude.Maybe Prelude.Text)
-getSegments_token = Lens.lens (\GetSegments' {token} -> token) (\s@GetSegments' {} a -> s {token = a} :: GetSegments)
 
 -- | The maximum number of items to include in each page of a paginated
 -- response. This parameter is not supported for application, campaign, and
 -- journey metrics.
 getSegments_pageSize :: Lens.Lens' GetSegments (Prelude.Maybe Prelude.Text)
 getSegments_pageSize = Lens.lens (\GetSegments' {pageSize} -> pageSize) (\s@GetSegments' {} a -> s {pageSize = a} :: GetSegments)
+
+-- | The NextToken string that specifies which page of results to return in a
+-- paginated response.
+getSegments_token :: Lens.Lens' GetSegments (Prelude.Maybe Prelude.Text)
+getSegments_token = Lens.lens (\GetSegments' {token} -> token) (\s@GetSegments' {} a -> s {token = a} :: GetSegments)
 
 -- | The unique identifier for the application. This identifier is displayed
 -- as the __Project ID__ on the Amazon Pinpoint console.
@@ -110,47 +111,48 @@ getSegments_applicationId = Lens.lens (\GetSegments' {applicationId} -> applicat
 
 instance Core.AWSRequest GetSegments where
   type AWSResponse GetSegments = GetSegmentsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSegmentsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetSegments where
   hashWithSalt _salt GetSegments' {..} =
-    _salt `Prelude.hashWithSalt` token
-      `Prelude.hashWithSalt` pageSize
+    _salt `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` token
       `Prelude.hashWithSalt` applicationId
 
 instance Prelude.NFData GetSegments where
   rnf GetSegments' {..} =
-    Prelude.rnf token
-      `Prelude.seq` Prelude.rnf pageSize
+    Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf token
       `Prelude.seq` Prelude.rnf applicationId
 
-instance Core.ToHeaders GetSegments where
+instance Data.ToHeaders GetSegments where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetSegments where
+instance Data.ToPath GetSegments where
   toPath GetSegments' {..} =
     Prelude.mconcat
-      ["/v1/apps/", Core.toBS applicationId, "/segments"]
+      ["/v1/apps/", Data.toBS applicationId, "/segments"]
 
-instance Core.ToQuery GetSegments where
+instance Data.ToQuery GetSegments where
   toQuery GetSegments' {..} =
     Prelude.mconcat
-      ["token" Core.=: token, "page-size" Core.=: pageSize]
+      ["page-size" Data.=: pageSize, "token" Data.=: token]
 
 -- | /See:/ 'newGetSegmentsResponse' smart constructor.
 data GetSegmentsResponse = GetSegmentsResponse'

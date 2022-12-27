@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.DeleteVirtualService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,9 +53,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteVirtualService' smart constructor.
 data DeleteVirtualService = DeleteVirtualService'
-  { -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then it\'s the ID of the account that shared the mesh with
-    -- your account. For more information about mesh sharing, see
+  { -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then it\'s the ID of the account that shared
+    -- the mesh with your account. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the service mesh to delete the virtual service in.
@@ -72,9 +73,9 @@ data DeleteVirtualService = DeleteVirtualService'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'meshOwner', 'deleteVirtualService_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- 'meshOwner', 'deleteVirtualService_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'meshName', 'deleteVirtualService_meshName' - The name of the service mesh to delete the virtual service in.
@@ -95,9 +96,9 @@ newDeleteVirtualService
         virtualServiceName = pVirtualServiceName_
       }
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 deleteVirtualService_meshOwner :: Lens.Lens' DeleteVirtualService (Prelude.Maybe Prelude.Text)
 deleteVirtualService_meshOwner = Lens.lens (\DeleteVirtualService' {meshOwner} -> meshOwner) (\s@DeleteVirtualService' {} a -> s {meshOwner = a} :: DeleteVirtualService)
@@ -114,13 +115,14 @@ instance Core.AWSRequest DeleteVirtualService where
   type
     AWSResponse DeleteVirtualService =
       DeleteVirtualServiceResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteVirtualServiceResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable DeleteVirtualService where
@@ -135,29 +137,29 @@ instance Prelude.NFData DeleteVirtualService where
       `Prelude.seq` Prelude.rnf meshName
       `Prelude.seq` Prelude.rnf virtualServiceName
 
-instance Core.ToHeaders DeleteVirtualService where
+instance Data.ToHeaders DeleteVirtualService where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteVirtualService where
+instance Data.ToPath DeleteVirtualService where
   toPath DeleteVirtualService' {..} =
     Prelude.mconcat
       [ "/v20190125/meshes/",
-        Core.toBS meshName,
+        Data.toBS meshName,
         "/virtualServices/",
-        Core.toBS virtualServiceName
+        Data.toBS virtualServiceName
       ]
 
-instance Core.ToQuery DeleteVirtualService where
+instance Data.ToQuery DeleteVirtualService where
   toQuery DeleteVirtualService' {..} =
-    Prelude.mconcat ["meshOwner" Core.=: meshOwner]
+    Prelude.mconcat ["meshOwner" Data.=: meshOwner]
 
 -- |
 --

@@ -14,22 +14,22 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.ListHostedConfigurationVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- View a list of configurations stored in the AppConfig configuration
--- store by version.
+-- Lists configurations stored in the AppConfig hosted configuration store
+-- by version.
 module Amazonka.AppConfig.ListHostedConfigurationVersions
   ( -- * Creating a Request
     ListHostedConfigurationVersions (..),
     newListHostedConfigurationVersions,
 
     -- * Request Lenses
-    listHostedConfigurationVersions_nextToken,
     listHostedConfigurationVersions_maxResults,
+    listHostedConfigurationVersions_nextToken,
     listHostedConfigurationVersions_applicationId,
     listHostedConfigurationVersions_configurationProfileId,
 
@@ -46,20 +46,21 @@ where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListHostedConfigurationVersions' smart constructor.
 data ListHostedConfigurationVersions = ListHostedConfigurationVersions'
-  { -- | A token to start the list. Use this token to get the next set of
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return for this call. The call also
+  { -- | The maximum number of items to return for this call. The call also
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token to start the list. Use this token to get the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The application ID.
     applicationId :: Prelude.Text,
     -- | The configuration profile ID.
@@ -75,12 +76,12 @@ data ListHostedConfigurationVersions = ListHostedConfigurationVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listHostedConfigurationVersions_nextToken' - A token to start the list. Use this token to get the next set of
--- results.
---
 -- 'maxResults', 'listHostedConfigurationVersions_maxResults' - The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
+--
+-- 'nextToken', 'listHostedConfigurationVersions_nextToken' - A token to start the list. Use this token to get the next set of
+-- results.
 --
 -- 'applicationId', 'listHostedConfigurationVersions_applicationId' - The application ID.
 --
@@ -95,24 +96,24 @@ newListHostedConfigurationVersions
   pApplicationId_
   pConfigurationProfileId_ =
     ListHostedConfigurationVersions'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         applicationId = pApplicationId_,
         configurationProfileId =
           pConfigurationProfileId_
       }
-
--- | A token to start the list. Use this token to get the next set of
--- results.
-listHostedConfigurationVersions_nextToken :: Lens.Lens' ListHostedConfigurationVersions (Prelude.Maybe Prelude.Text)
-listHostedConfigurationVersions_nextToken = Lens.lens (\ListHostedConfigurationVersions' {nextToken} -> nextToken) (\s@ListHostedConfigurationVersions' {} a -> s {nextToken = a} :: ListHostedConfigurationVersions)
 
 -- | The maximum number of items to return for this call. The call also
 -- returns a token that you can specify in a subsequent call to get the
 -- next set of results.
 listHostedConfigurationVersions_maxResults :: Lens.Lens' ListHostedConfigurationVersions (Prelude.Maybe Prelude.Natural)
 listHostedConfigurationVersions_maxResults = Lens.lens (\ListHostedConfigurationVersions' {maxResults} -> maxResults) (\s@ListHostedConfigurationVersions' {} a -> s {maxResults = a} :: ListHostedConfigurationVersions)
+
+-- | A token to start the list. Use this token to get the next set of
+-- results.
+listHostedConfigurationVersions_nextToken :: Lens.Lens' ListHostedConfigurationVersions (Prelude.Maybe Prelude.Text)
+listHostedConfigurationVersions_nextToken = Lens.lens (\ListHostedConfigurationVersions' {nextToken} -> nextToken) (\s@ListHostedConfigurationVersions' {} a -> s {nextToken = a} :: ListHostedConfigurationVersions)
 
 -- | The application ID.
 listHostedConfigurationVersions_applicationId :: Lens.Lens' ListHostedConfigurationVersions Prelude.Text
@@ -129,13 +130,14 @@ instance
   type
     AWSResponse ListHostedConfigurationVersions =
       ListHostedConfigurationVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListHostedConfigurationVersionsResponse'
-            Prelude.<$> (x Core..?> "Items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -146,8 +148,8 @@ instance
   hashWithSalt
     _salt
     ListHostedConfigurationVersions' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` applicationId
         `Prelude.hashWithSalt` configurationProfileId
 
@@ -156,40 +158,40 @@ instance
     ListHostedConfigurationVersions
   where
   rnf ListHostedConfigurationVersions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf configurationProfileId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListHostedConfigurationVersions
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListHostedConfigurationVersions where
+instance Data.ToPath ListHostedConfigurationVersions where
   toPath ListHostedConfigurationVersions' {..} =
     Prelude.mconcat
       [ "/applications/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/configurationprofiles/",
-        Core.toBS configurationProfileId,
+        Data.toBS configurationProfileId,
         "/hostedconfigurationversions"
       ]
 
-instance Core.ToQuery ListHostedConfigurationVersions where
+instance Data.ToQuery ListHostedConfigurationVersions where
   toQuery ListHostedConfigurationVersions' {..} =
     Prelude.mconcat
-      [ "next_token" Core.=: nextToken,
-        "max_results" Core.=: maxResults
+      [ "max_results" Data.=: maxResults,
+        "next_token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListHostedConfigurationVersionsResponse' smart constructor.

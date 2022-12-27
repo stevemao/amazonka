@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.DeleteSkillAuthorization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,7 +90,8 @@ instance Core.AWSRequest DeleteSkillAuthorization where
   type
     AWSResponse DeleteSkillAuthorization =
       DeleteSkillAuthorizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -107,34 +109,34 @@ instance Prelude.NFData DeleteSkillAuthorization where
     Prelude.rnf roomArn
       `Prelude.seq` Prelude.rnf skillId
 
-instance Core.ToHeaders DeleteSkillAuthorization where
+instance Data.ToHeaders DeleteSkillAuthorization where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.DeleteSkillAuthorization" ::
+              Data.=# ( "AlexaForBusiness.DeleteSkillAuthorization" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteSkillAuthorization where
+instance Data.ToJSON DeleteSkillAuthorization where
   toJSON DeleteSkillAuthorization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RoomArn" Core..=) Prelude.<$> roomArn,
-            Prelude.Just ("SkillId" Core..= skillId)
+          [ ("RoomArn" Data..=) Prelude.<$> roomArn,
+            Prelude.Just ("SkillId" Data..= skillId)
           ]
       )
 
-instance Core.ToPath DeleteSkillAuthorization where
+instance Data.ToPath DeleteSkillAuthorization where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteSkillAuthorization where
+instance Data.ToQuery DeleteSkillAuthorization where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteSkillAuthorizationResponse' smart constructor.

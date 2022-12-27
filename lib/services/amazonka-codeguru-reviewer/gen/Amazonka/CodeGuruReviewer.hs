@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruReviewer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,26 +34,26 @@ module Amazonka.CodeGuruReviewer
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
 
     -- ** ConflictException
     _ConflictException,
 
+    -- ** InternalServerException
+    _InternalServerException,
+
     -- ** NotFoundException
     _NotFoundException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
 
     -- ** ThrottlingException
     _ThrottlingException,
 
-    -- ** InternalServerException
-    _InternalServerException,
-
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
+    -- ** ValidationException
+    _ValidationException,
 
     -- * Waiters
     -- $waiters
@@ -67,59 +67,11 @@ module Amazonka.CodeGuruReviewer
     -- * Operations
     -- $operations
 
-    -- ** ListRecommendationFeedback
-    ListRecommendationFeedback (ListRecommendationFeedback'),
-    newListRecommendationFeedback,
-    ListRecommendationFeedbackResponse (ListRecommendationFeedbackResponse'),
-    newListRecommendationFeedbackResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** DisassociateRepository
-    DisassociateRepository (DisassociateRepository'),
-    newDisassociateRepository,
-    DisassociateRepositoryResponse (DisassociateRepositoryResponse'),
-    newDisassociateRepositoryResponse,
-
-    -- ** DescribeRepositoryAssociation
-    DescribeRepositoryAssociation (DescribeRepositoryAssociation'),
-    newDescribeRepositoryAssociation,
-    DescribeRepositoryAssociationResponse (DescribeRepositoryAssociationResponse'),
-    newDescribeRepositoryAssociationResponse,
-
-    -- ** DescribeCodeReview
-    DescribeCodeReview (DescribeCodeReview'),
-    newDescribeCodeReview,
-    DescribeCodeReviewResponse (DescribeCodeReviewResponse'),
-    newDescribeCodeReviewResponse,
-
-    -- ** ListRepositoryAssociations (Paginated)
-    ListRepositoryAssociations (ListRepositoryAssociations'),
-    newListRepositoryAssociations,
-    ListRepositoryAssociationsResponse (ListRepositoryAssociationsResponse'),
-    newListRepositoryAssociationsResponse,
-
-    -- ** DescribeRecommendationFeedback
-    DescribeRecommendationFeedback (DescribeRecommendationFeedback'),
-    newDescribeRecommendationFeedback,
-    DescribeRecommendationFeedbackResponse (DescribeRecommendationFeedbackResponse'),
-    newDescribeRecommendationFeedbackResponse,
-
-    -- ** ListRecommendations
-    ListRecommendations (ListRecommendations'),
-    newListRecommendations,
-    ListRecommendationsResponse (ListRecommendationsResponse'),
-    newListRecommendationsResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
+    -- ** AssociateRepository
+    AssociateRepository (AssociateRepository'),
+    newAssociateRepository,
+    AssociateRepositoryResponse (AssociateRepositoryResponse'),
+    newAssociateRepositoryResponse,
 
     -- ** CreateCodeReview
     CreateCodeReview (CreateCodeReview'),
@@ -127,11 +79,29 @@ module Amazonka.CodeGuruReviewer
     CreateCodeReviewResponse (CreateCodeReviewResponse'),
     newCreateCodeReviewResponse,
 
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** DescribeCodeReview
+    DescribeCodeReview (DescribeCodeReview'),
+    newDescribeCodeReview,
+    DescribeCodeReviewResponse (DescribeCodeReviewResponse'),
+    newDescribeCodeReviewResponse,
+
+    -- ** DescribeRecommendationFeedback
+    DescribeRecommendationFeedback (DescribeRecommendationFeedback'),
+    newDescribeRecommendationFeedback,
+    DescribeRecommendationFeedbackResponse (DescribeRecommendationFeedbackResponse'),
+    newDescribeRecommendationFeedbackResponse,
+
+    -- ** DescribeRepositoryAssociation
+    DescribeRepositoryAssociation (DescribeRepositoryAssociation'),
+    newDescribeRepositoryAssociation,
+    DescribeRepositoryAssociationResponse (DescribeRepositoryAssociationResponse'),
+    newDescribeRepositoryAssociationResponse,
+
+    -- ** DisassociateRepository
+    DisassociateRepository (DisassociateRepository'),
+    newDisassociateRepository,
+    DisassociateRepositoryResponse (DisassociateRepositoryResponse'),
+    newDisassociateRepositoryResponse,
 
     -- ** ListCodeReviews
     ListCodeReviews (ListCodeReviews'),
@@ -139,11 +109,29 @@ module Amazonka.CodeGuruReviewer
     ListCodeReviewsResponse (ListCodeReviewsResponse'),
     newListCodeReviewsResponse,
 
-    -- ** AssociateRepository
-    AssociateRepository (AssociateRepository'),
-    newAssociateRepository,
-    AssociateRepositoryResponse (AssociateRepositoryResponse'),
-    newAssociateRepositoryResponse,
+    -- ** ListRecommendationFeedback
+    ListRecommendationFeedback (ListRecommendationFeedback'),
+    newListRecommendationFeedback,
+    ListRecommendationFeedbackResponse (ListRecommendationFeedbackResponse'),
+    newListRecommendationFeedbackResponse,
+
+    -- ** ListRecommendations
+    ListRecommendations (ListRecommendations'),
+    newListRecommendations,
+    ListRecommendationsResponse (ListRecommendationsResponse'),
+    newListRecommendationsResponse,
+
+    -- ** ListRepositoryAssociations (Paginated)
+    ListRepositoryAssociations (ListRepositoryAssociations'),
+    newListRepositoryAssociations,
+    ListRepositoryAssociationsResponse (ListRepositoryAssociationsResponse'),
+    newListRepositoryAssociationsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** PutRecommendationFeedback
     PutRecommendationFeedback (PutRecommendationFeedback'),
@@ -151,10 +139,25 @@ module Amazonka.CodeGuruReviewer
     PutRecommendationFeedbackResponse (PutRecommendationFeedbackResponse'),
     newPutRecommendationFeedbackResponse,
 
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
     -- * Types
 
     -- ** AnalysisType
     AnalysisType (..),
+
+    -- ** ConfigFileState
+    ConfigFileState (..),
 
     -- ** EncryptionOption
     EncryptionOption (..),

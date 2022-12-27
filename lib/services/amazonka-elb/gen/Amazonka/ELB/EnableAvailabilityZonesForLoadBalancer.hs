@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.EnableAvailabilityZonesForLoadBalancer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,8 +50,9 @@ module Amazonka.ELB.EnableAvailabilityZonesForLoadBalancer
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,15 +110,16 @@ instance
     AWSResponse
       EnableAvailabilityZonesForLoadBalancer =
       EnableAvailabilityZonesForLoadBalancerResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "EnableAvailabilityZonesForLoadBalancerResult"
       ( \s h x ->
           EnableAvailabilityZonesForLoadBalancerResponse'
-            Prelude.<$> ( x Core..@? "AvailabilityZones"
+            Prelude.<$> ( x Data..@? "AvailabilityZones"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -141,32 +143,32 @@ instance
       `Prelude.seq` Prelude.rnf availabilityZones
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     EnableAvailabilityZonesForLoadBalancer
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     EnableAvailabilityZonesForLoadBalancer
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     EnableAvailabilityZonesForLoadBalancer
   where
   toQuery EnableAvailabilityZonesForLoadBalancer' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "EnableAvailabilityZonesForLoadBalancer" ::
+          Data.=: ( "EnableAvailabilityZonesForLoadBalancer" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-06-01" :: Prelude.ByteString),
-        "LoadBalancerName" Core.=: loadBalancerName,
+          Data.=: ("2012-06-01" :: Prelude.ByteString),
+        "LoadBalancerName" Data.=: loadBalancerName,
         "AvailabilityZones"
-          Core.=: Core.toQueryList "member" availabilityZones
+          Data.=: Data.toQueryList "member" availabilityZones
       ]
 
 -- | Contains the output of EnableAvailabilityZonesForLoadBalancer.

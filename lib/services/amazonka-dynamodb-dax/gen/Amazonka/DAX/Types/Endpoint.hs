@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DAX.Types.Endpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DAX.Types.Endpoint where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the information required for client programs to connect to
@@ -28,14 +29,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEndpoint' smart constructor.
 data Endpoint = Endpoint'
-  { -- | The URL that applications should use to connect to the endpoint. The
-    -- default ports are 8111 for the \"dax\" protocol and 9111 for the
-    -- \"daxs\" protocol.
-    url :: Prelude.Maybe Prelude.Text,
-    -- | The DNS hostname of the endpoint.
+  { -- | The DNS hostname of the endpoint.
     address :: Prelude.Maybe Prelude.Text,
     -- | The port number that applications should use to connect to the endpoint.
-    port :: Prelude.Maybe Prelude.Int
+    port :: Prelude.Maybe Prelude.Int,
+    -- | The URL that applications should use to connect to the endpoint. The
+    -- default ports are 8111 for the \"dax\" protocol and 9111 for the
+    -- \"daxs\" protocol.
+    url :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,27 +48,21 @@ data Endpoint = Endpoint'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'url', 'endpoint_url' - The URL that applications should use to connect to the endpoint. The
--- default ports are 8111 for the \"dax\" protocol and 9111 for the
--- \"daxs\" protocol.
---
 -- 'address', 'endpoint_address' - The DNS hostname of the endpoint.
 --
 -- 'port', 'endpoint_port' - The port number that applications should use to connect to the endpoint.
+--
+-- 'url', 'endpoint_url' - The URL that applications should use to connect to the endpoint. The
+-- default ports are 8111 for the \"dax\" protocol and 9111 for the
+-- \"daxs\" protocol.
 newEndpoint ::
   Endpoint
 newEndpoint =
   Endpoint'
-    { url = Prelude.Nothing,
-      address = Prelude.Nothing,
-      port = Prelude.Nothing
+    { address = Prelude.Nothing,
+      port = Prelude.Nothing,
+      url = Prelude.Nothing
     }
-
--- | The URL that applications should use to connect to the endpoint. The
--- default ports are 8111 for the \"dax\" protocol and 9111 for the
--- \"daxs\" protocol.
-endpoint_url :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
-endpoint_url = Lens.lens (\Endpoint' {url} -> url) (\s@Endpoint' {} a -> s {url = a} :: Endpoint)
 
 -- | The DNS hostname of the endpoint.
 endpoint_address :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
@@ -77,25 +72,31 @@ endpoint_address = Lens.lens (\Endpoint' {address} -> address) (\s@Endpoint' {} 
 endpoint_port :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Int)
 endpoint_port = Lens.lens (\Endpoint' {port} -> port) (\s@Endpoint' {} a -> s {port = a} :: Endpoint)
 
-instance Core.FromJSON Endpoint where
+-- | The URL that applications should use to connect to the endpoint. The
+-- default ports are 8111 for the \"dax\" protocol and 9111 for the
+-- \"daxs\" protocol.
+endpoint_url :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
+endpoint_url = Lens.lens (\Endpoint' {url} -> url) (\s@Endpoint' {} a -> s {url = a} :: Endpoint)
+
+instance Data.FromJSON Endpoint where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Endpoint"
       ( \x ->
           Endpoint'
-            Prelude.<$> (x Core..:? "URL")
-            Prelude.<*> (x Core..:? "Address")
-            Prelude.<*> (x Core..:? "Port")
+            Prelude.<$> (x Data..:? "Address")
+            Prelude.<*> (x Data..:? "Port")
+            Prelude.<*> (x Data..:? "URL")
       )
 
 instance Prelude.Hashable Endpoint where
   hashWithSalt _salt Endpoint' {..} =
-    _salt `Prelude.hashWithSalt` url
-      `Prelude.hashWithSalt` address
+    _salt `Prelude.hashWithSalt` address
       `Prelude.hashWithSalt` port
+      `Prelude.hashWithSalt` url
 
 instance Prelude.NFData Endpoint where
   rnf Endpoint' {..} =
-    Prelude.rnf url
-      `Prelude.seq` Prelude.rnf address
+    Prelude.rnf address
       `Prelude.seq` Prelude.rnf port
+      `Prelude.seq` Prelude.rnf url

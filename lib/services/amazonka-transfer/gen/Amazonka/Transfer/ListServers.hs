@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.ListServers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.Transfer.ListServers
     newListServers,
 
     -- * Request Lenses
-    listServers_nextToken,
     listServers_maxResults,
+    listServers_nextToken,
 
     -- * Destructuring the Response
     ListServersResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.Transfer.ListServers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,14 +54,14 @@ import Amazonka.Transfer.Types
 
 -- | /See:/ 'newListServers' smart constructor.
 data ListServers = ListServers'
-  { -- | When additional results are obtained from the @ListServers@ command, a
+  { -- | Specifies the number of servers to return as a response to the
+    -- @ListServers@ query.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | When additional results are obtained from the @ListServers@ command, a
     -- @NextToken@ parameter is returned in the output. You can then pass the
     -- @NextToken@ parameter in a subsequent command to continue listing
     -- additional servers.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the number of servers to return as a response to the
-    -- @ListServers@ query.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,20 +73,25 @@ data ListServers = ListServers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listServers_maxResults' - Specifies the number of servers to return as a response to the
+-- @ListServers@ query.
+--
 -- 'nextToken', 'listServers_nextToken' - When additional results are obtained from the @ListServers@ command, a
 -- @NextToken@ parameter is returned in the output. You can then pass the
 -- @NextToken@ parameter in a subsequent command to continue listing
 -- additional servers.
---
--- 'maxResults', 'listServers_maxResults' - Specifies the number of servers to return as a response to the
--- @ListServers@ query.
 newListServers ::
   ListServers
 newListServers =
   ListServers'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | Specifies the number of servers to return as a response to the
+-- @ListServers@ query.
+listServers_maxResults :: Lens.Lens' ListServers (Prelude.Maybe Prelude.Natural)
+listServers_maxResults = Lens.lens (\ListServers' {maxResults} -> maxResults) (\s@ListServers' {} a -> s {maxResults = a} :: ListServers)
 
 -- | When additional results are obtained from the @ListServers@ command, a
 -- @NextToken@ parameter is returned in the output. You can then pass the
@@ -93,11 +99,6 @@ newListServers =
 -- additional servers.
 listServers_nextToken :: Lens.Lens' ListServers (Prelude.Maybe Prelude.Text)
 listServers_nextToken = Lens.lens (\ListServers' {nextToken} -> nextToken) (\s@ListServers' {} a -> s {nextToken = a} :: ListServers)
-
--- | Specifies the number of servers to return as a response to the
--- @ListServers@ query.
-listServers_maxResults :: Lens.Lens' ListServers (Prelude.Maybe Prelude.Natural)
-listServers_maxResults = Lens.lens (\ListServers' {maxResults} -> maxResults) (\s@ListServers' {} a -> s {maxResults = a} :: ListServers)
 
 instance Core.AWSPager ListServers where
   page rq rs
@@ -117,54 +118,55 @@ instance Core.AWSPager ListServers where
 
 instance Core.AWSRequest ListServers where
   type AWSResponse ListServers = ListServersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListServersResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Servers" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Servers" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListServers where
   hashWithSalt _salt ListServers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListServers where
   rnf ListServers' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListServers where
+instance Data.ToHeaders ListServers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "TransferService.ListServers" ::
+              Data.=# ( "TransferService.ListServers" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListServers where
+instance Data.ToJSON ListServers where
   toJSON ListServers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListServers where
+instance Data.ToPath ListServers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListServers where
+instance Data.ToQuery ListServers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListServersResponse' smart constructor.

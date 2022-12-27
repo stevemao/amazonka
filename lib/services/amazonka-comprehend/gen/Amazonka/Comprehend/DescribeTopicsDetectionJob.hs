@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.DescribeTopicsDetectionJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,12 +79,13 @@ instance Core.AWSRequest DescribeTopicsDetectionJob where
   type
     AWSResponse DescribeTopicsDetectionJob =
       DescribeTopicsDetectionJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTopicsDetectionJobResponse'
-            Prelude.<$> (x Core..?> "TopicsDetectionJobProperties")
+            Prelude.<$> (x Data..?> "TopicsDetectionJobProperties")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,32 +97,32 @@ instance Prelude.NFData DescribeTopicsDetectionJob where
   rnf DescribeTopicsDetectionJob' {..} =
     Prelude.rnf jobId
 
-instance Core.ToHeaders DescribeTopicsDetectionJob where
+instance Data.ToHeaders DescribeTopicsDetectionJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.DescribeTopicsDetectionJob" ::
+              Data.=# ( "Comprehend_20171127.DescribeTopicsDetectionJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeTopicsDetectionJob where
+instance Data.ToJSON DescribeTopicsDetectionJob where
   toJSON DescribeTopicsDetectionJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("JobId" Core..= jobId)]
+          [Prelude.Just ("JobId" Data..= jobId)]
       )
 
-instance Core.ToPath DescribeTopicsDetectionJob where
+instance Data.ToPath DescribeTopicsDetectionJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTopicsDetectionJob where
+instance Data.ToQuery DescribeTopicsDetectionJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeTopicsDetectionJobResponse' smart constructor.

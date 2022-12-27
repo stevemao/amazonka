@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.InputVpcRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.InputVpcRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Settings for a private VPC Input. When this property is specified, the
@@ -85,12 +86,12 @@ instance Prelude.NFData InputVpcRequest where
     Prelude.rnf securityGroupIds
       `Prelude.seq` Prelude.rnf subnetIds
 
-instance Core.ToJSON InputVpcRequest where
+instance Data.ToJSON InputVpcRequest where
   toJSON InputVpcRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("securityGroupIds" Core..=)
+          [ ("securityGroupIds" Data..=)
               Prelude.<$> securityGroupIds,
-            Prelude.Just ("subnetIds" Core..= subnetIds)
+            Prelude.Just ("subnetIds" Data..= subnetIds)
           ]
       )

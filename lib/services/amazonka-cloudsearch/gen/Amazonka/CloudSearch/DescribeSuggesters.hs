@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearch.DescribeSuggesters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ where
 
 import Amazonka.CloudSearch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,15 +116,16 @@ instance Core.AWSRequest DescribeSuggesters where
   type
     AWSResponse DescribeSuggesters =
       DescribeSuggestersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeSuggestersResult"
       ( \s h x ->
           DescribeSuggestersResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "Suggesters" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "member"
+            Prelude.<*> ( x Data..@? "Suggesters" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "member"
                         )
       )
 
@@ -139,26 +141,26 @@ instance Prelude.NFData DescribeSuggesters where
       `Prelude.seq` Prelude.rnf suggesterNames
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders DescribeSuggesters where
+instance Data.ToHeaders DescribeSuggesters where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeSuggesters where
+instance Data.ToPath DescribeSuggesters where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeSuggesters where
+instance Data.ToQuery DescribeSuggesters where
   toQuery DescribeSuggesters' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeSuggesters" :: Prelude.ByteString),
+          Data.=: ("DescribeSuggesters" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2013-01-01" :: Prelude.ByteString),
-        "Deployed" Core.=: deployed,
+          Data.=: ("2013-01-01" :: Prelude.ByteString),
+        "Deployed" Data.=: deployed,
         "SuggesterNames"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> suggesterNames
             ),
-        "DomainName" Core.=: domainName
+        "DomainName" Data.=: domainName
       ]
 
 -- | The result of a @DescribeSuggesters@ request.

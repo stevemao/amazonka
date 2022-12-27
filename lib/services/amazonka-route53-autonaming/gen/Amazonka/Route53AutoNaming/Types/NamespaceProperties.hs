@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.Types.NamespaceProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53AutoNaming.Types.NamespaceProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53AutoNaming.Types.DnsProperties
 import Amazonka.Route53AutoNaming.Types.HttpProperties
@@ -30,7 +31,7 @@ import Amazonka.Route53AutoNaming.Types.HttpProperties
 --
 -- /See:/ 'newNamespaceProperties' smart constructor.
 data NamespaceProperties = NamespaceProperties'
-  { -- | A complex type that contains the ID for the Route 53 hosted zone that
+  { -- | A complex type that contains the ID for the Route 53 hosted zone that
     -- Cloud Map creates when you create a namespace.
     dnsProperties :: Prelude.Maybe DnsProperties,
     -- | A complex type that contains the name of an HTTP namespace.
@@ -46,7 +47,7 @@ data NamespaceProperties = NamespaceProperties'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'dnsProperties', 'namespaceProperties_dnsProperties' - A complex type that contains the ID for the Route 53 hosted zone that
+-- 'dnsProperties', 'namespaceProperties_dnsProperties' - A complex type that contains the ID for the Route 53 hosted zone that
 -- Cloud Map creates when you create a namespace.
 --
 -- 'httpProperties', 'namespaceProperties_httpProperties' - A complex type that contains the name of an HTTP namespace.
@@ -59,7 +60,7 @@ newNamespaceProperties =
       httpProperties = Prelude.Nothing
     }
 
--- | A complex type that contains the ID for the Route 53 hosted zone that
+-- | A complex type that contains the ID for the Route 53 hosted zone that
 -- Cloud Map creates when you create a namespace.
 namespaceProperties_dnsProperties :: Lens.Lens' NamespaceProperties (Prelude.Maybe DnsProperties)
 namespaceProperties_dnsProperties = Lens.lens (\NamespaceProperties' {dnsProperties} -> dnsProperties) (\s@NamespaceProperties' {} a -> s {dnsProperties = a} :: NamespaceProperties)
@@ -68,14 +69,14 @@ namespaceProperties_dnsProperties = Lens.lens (\NamespaceProperties' {dnsPropert
 namespaceProperties_httpProperties :: Lens.Lens' NamespaceProperties (Prelude.Maybe HttpProperties)
 namespaceProperties_httpProperties = Lens.lens (\NamespaceProperties' {httpProperties} -> httpProperties) (\s@NamespaceProperties' {} a -> s {httpProperties = a} :: NamespaceProperties)
 
-instance Core.FromJSON NamespaceProperties where
+instance Data.FromJSON NamespaceProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NamespaceProperties"
       ( \x ->
           NamespaceProperties'
-            Prelude.<$> (x Core..:? "DnsProperties")
-            Prelude.<*> (x Core..:? "HttpProperties")
+            Prelude.<$> (x Data..:? "DnsProperties")
+            Prelude.<*> (x Data..:? "HttpProperties")
       )
 
 instance Prelude.Hashable NamespaceProperties where

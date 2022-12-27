@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.AvailableCapacity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.AvailableCapacity where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.InstanceCapacity
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The capacity information for instances that can be launched onto the
@@ -77,14 +78,14 @@ availableCapacity_availableInstanceCapacity = Lens.lens (\AvailableCapacity' {av
 availableCapacity_availableVCpus :: Lens.Lens' AvailableCapacity (Prelude.Maybe Prelude.Int)
 availableCapacity_availableVCpus = Lens.lens (\AvailableCapacity' {availableVCpus} -> availableVCpus) (\s@AvailableCapacity' {} a -> s {availableVCpus = a} :: AvailableCapacity)
 
-instance Core.FromXML AvailableCapacity where
+instance Data.FromXML AvailableCapacity where
   parseXML x =
     AvailableCapacity'
-      Prelude.<$> ( x Core..@? "availableInstanceCapacity"
+      Prelude.<$> ( x Data..@? "availableInstanceCapacity"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@? "availableVCpus")
+      Prelude.<*> (x Data..@? "availableVCpus")
 
 instance Prelude.Hashable AvailableCapacity where
   hashWithSalt _salt AvailableCapacity' {..} =

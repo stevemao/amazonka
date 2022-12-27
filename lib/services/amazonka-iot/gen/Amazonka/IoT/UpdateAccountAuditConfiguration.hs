@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.UpdateAccountAuditConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.IoT.UpdateAccountAuditConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -152,7 +153,8 @@ instance
   type
     AWSResponse UpdateAccountAuditConfiguration =
       UpdateAccountAuditConfigurationResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -182,27 +184,27 @@ instance
       `Prelude.seq` Prelude.rnf roleArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateAccountAuditConfiguration
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateAccountAuditConfiguration where
+instance Data.ToJSON UpdateAccountAuditConfiguration where
   toJSON UpdateAccountAuditConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("auditCheckConfigurations" Core..=)
+          [ ("auditCheckConfigurations" Data..=)
               Prelude.<$> auditCheckConfigurations,
-            ("auditNotificationTargetConfigurations" Core..=)
+            ("auditNotificationTargetConfigurations" Data..=)
               Prelude.<$> auditNotificationTargetConfigurations,
-            ("roleArn" Core..=) Prelude.<$> roleArn
+            ("roleArn" Data..=) Prelude.<$> roleArn
           ]
       )
 
-instance Core.ToPath UpdateAccountAuditConfiguration where
+instance Data.ToPath UpdateAccountAuditConfiguration where
   toPath = Prelude.const "/audit/configuration"
 
-instance Core.ToQuery UpdateAccountAuditConfiguration where
+instance Data.ToQuery UpdateAccountAuditConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAccountAuditConfigurationResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.DescribeGlobalClusters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.DocumentDB.DescribeGlobalClusters
     newDescribeGlobalClusters,
 
     -- * Request Lenses
-    describeGlobalClusters_globalClusterIdentifier,
     describeGlobalClusters_filters,
+    describeGlobalClusters_globalClusterIdentifier,
     describeGlobalClusters_marker,
     describeGlobalClusters_maxRecords,
 
@@ -49,24 +49,25 @@ module Amazonka.DocumentDB.DescribeGlobalClusters
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeGlobalClusters' smart constructor.
 data DescribeGlobalClusters = DescribeGlobalClusters'
-  { -- | The user-supplied cluster identifier. If this parameter is specified,
-    -- information from only the specific cluster is returned. This parameter
-    -- isn\'t case-sensitive.
-    globalClusterIdentifier :: Prelude.Maybe Prelude.Text,
-    -- | A filter that specifies one or more global DB clusters to describe.
+  { -- | A filter that specifies one or more global DB clusters to describe.
     --
     -- Supported filters: @db-cluster-id@ accepts cluster identifiers and
     -- cluster Amazon Resource Names (ARNs). The results list will only include
     -- information about the clusters identified by these ARNs.
     filters :: Prelude.Maybe [Filter],
+    -- | The user-supplied cluster identifier. If this parameter is specified,
+    -- information from only the specific cluster is returned. This parameter
+    -- isn\'t case-sensitive.
+    globalClusterIdentifier :: Prelude.Maybe Prelude.Text,
     -- | An optional pagination token provided by a previous
     -- @DescribeGlobalClusters@ request. If this parameter is specified, the
     -- response includes only records beyond the marker, up to the value
@@ -88,15 +89,15 @@ data DescribeGlobalClusters = DescribeGlobalClusters'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'globalClusterIdentifier', 'describeGlobalClusters_globalClusterIdentifier' - The user-supplied cluster identifier. If this parameter is specified,
--- information from only the specific cluster is returned. This parameter
--- isn\'t case-sensitive.
---
 -- 'filters', 'describeGlobalClusters_filters' - A filter that specifies one or more global DB clusters to describe.
 --
 -- Supported filters: @db-cluster-id@ accepts cluster identifiers and
 -- cluster Amazon Resource Names (ARNs). The results list will only include
 -- information about the clusters identified by these ARNs.
+--
+-- 'globalClusterIdentifier', 'describeGlobalClusters_globalClusterIdentifier' - The user-supplied cluster identifier. If this parameter is specified,
+-- information from only the specific cluster is returned. This parameter
+-- isn\'t case-sensitive.
 --
 -- 'marker', 'describeGlobalClusters_marker' - An optional pagination token provided by a previous
 -- @DescribeGlobalClusters@ request. If this parameter is specified, the
@@ -111,18 +112,11 @@ newDescribeGlobalClusters ::
   DescribeGlobalClusters
 newDescribeGlobalClusters =
   DescribeGlobalClusters'
-    { globalClusterIdentifier =
-        Prelude.Nothing,
-      filters = Prelude.Nothing,
+    { filters = Prelude.Nothing,
+      globalClusterIdentifier = Prelude.Nothing,
       marker = Prelude.Nothing,
       maxRecords = Prelude.Nothing
     }
-
--- | The user-supplied cluster identifier. If this parameter is specified,
--- information from only the specific cluster is returned. This parameter
--- isn\'t case-sensitive.
-describeGlobalClusters_globalClusterIdentifier :: Lens.Lens' DescribeGlobalClusters (Prelude.Maybe Prelude.Text)
-describeGlobalClusters_globalClusterIdentifier = Lens.lens (\DescribeGlobalClusters' {globalClusterIdentifier} -> globalClusterIdentifier) (\s@DescribeGlobalClusters' {} a -> s {globalClusterIdentifier = a} :: DescribeGlobalClusters)
 
 -- | A filter that specifies one or more global DB clusters to describe.
 --
@@ -131,6 +125,12 @@ describeGlobalClusters_globalClusterIdentifier = Lens.lens (\DescribeGlobalClust
 -- information about the clusters identified by these ARNs.
 describeGlobalClusters_filters :: Lens.Lens' DescribeGlobalClusters (Prelude.Maybe [Filter])
 describeGlobalClusters_filters = Lens.lens (\DescribeGlobalClusters' {filters} -> filters) (\s@DescribeGlobalClusters' {} a -> s {filters = a} :: DescribeGlobalClusters) Prelude.. Lens.mapping Lens.coerced
+
+-- | The user-supplied cluster identifier. If this parameter is specified,
+-- information from only the specific cluster is returned. This parameter
+-- isn\'t case-sensitive.
+describeGlobalClusters_globalClusterIdentifier :: Lens.Lens' DescribeGlobalClusters (Prelude.Maybe Prelude.Text)
+describeGlobalClusters_globalClusterIdentifier = Lens.lens (\DescribeGlobalClusters' {globalClusterIdentifier} -> globalClusterIdentifier) (\s@DescribeGlobalClusters' {} a -> s {globalClusterIdentifier = a} :: DescribeGlobalClusters)
 
 -- | An optional pagination token provided by a previous
 -- @DescribeGlobalClusters@ request. If this parameter is specified, the
@@ -172,54 +172,54 @@ instance Core.AWSRequest DescribeGlobalClusters where
   type
     AWSResponse DescribeGlobalClusters =
       DescribeGlobalClustersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeGlobalClustersResult"
       ( \s h x ->
           DescribeGlobalClustersResponse'
-            Prelude.<$> ( x Core..@? "GlobalClusters" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "GlobalClusterMember")
+            Prelude.<$> ( x Data..@? "GlobalClusters" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "GlobalClusterMember")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeGlobalClusters where
   hashWithSalt _salt DescribeGlobalClusters' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` globalClusterIdentifier
-      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
 
 instance Prelude.NFData DescribeGlobalClusters where
   rnf DescribeGlobalClusters' {..} =
-    Prelude.rnf globalClusterIdentifier
-      `Prelude.seq` Prelude.rnf filters
+    Prelude.rnf filters
+      `Prelude.seq` Prelude.rnf globalClusterIdentifier
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
 
-instance Core.ToHeaders DescribeGlobalClusters where
+instance Data.ToHeaders DescribeGlobalClusters where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeGlobalClusters where
+instance Data.ToPath DescribeGlobalClusters where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeGlobalClusters where
+instance Data.ToQuery DescribeGlobalClusters where
   toQuery DescribeGlobalClusters' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeGlobalClusters" :: Prelude.ByteString),
+          Data.=: ("DescribeGlobalClusters" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "GlobalClusterIdentifier"
-          Core.=: globalClusterIdentifier,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "GlobalClusterIdentifier"
+          Data.=: globalClusterIdentifier,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords
       ]
 
 -- | /See:/ 'newDescribeGlobalClustersResponse' smart constructor.

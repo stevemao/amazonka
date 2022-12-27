@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.DescribeMap
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,6 +34,7 @@ module Amazonka.Location.DescribeMap
     newDescribeMapResponse,
 
     -- * Response Lenses
+    describeMapResponse_pricingPlan,
     describeMapResponse_tags,
     describeMapResponse_httpStatus,
     describeMapResponse_configuration,
@@ -42,13 +43,13 @@ module Amazonka.Location.DescribeMap
     describeMapResponse_description,
     describeMapResponse_mapArn,
     describeMapResponse_mapName,
-    describeMapResponse_pricingPlan,
     describeMapResponse_updateTime,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -83,21 +84,22 @@ describeMap_mapName = Lens.lens (\DescribeMap' {mapName} -> mapName) (\s@Describ
 
 instance Core.AWSRequest DescribeMap where
   type AWSResponse DescribeMap = DescribeMapResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeMapResponse'
-            Prelude.<$> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "PricingPlan")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Configuration")
-            Prelude.<*> (x Core..:> "CreateTime")
-            Prelude.<*> (x Core..:> "DataSource")
-            Prelude.<*> (x Core..:> "Description")
-            Prelude.<*> (x Core..:> "MapArn")
-            Prelude.<*> (x Core..:> "MapName")
-            Prelude.<*> (x Core..:> "PricingPlan")
-            Prelude.<*> (x Core..:> "UpdateTime")
+            Prelude.<*> (x Data..:> "Configuration")
+            Prelude.<*> (x Data..:> "CreateTime")
+            Prelude.<*> (x Data..:> "DataSource")
+            Prelude.<*> (x Data..:> "Description")
+            Prelude.<*> (x Data..:> "MapArn")
+            Prelude.<*> (x Data..:> "MapName")
+            Prelude.<*> (x Data..:> "UpdateTime")
       )
 
 instance Prelude.Hashable DescribeMap where
@@ -107,28 +109,30 @@ instance Prelude.Hashable DescribeMap where
 instance Prelude.NFData DescribeMap where
   rnf DescribeMap' {..} = Prelude.rnf mapName
 
-instance Core.ToHeaders DescribeMap where
+instance Data.ToHeaders DescribeMap where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeMap where
+instance Data.ToPath DescribeMap where
   toPath DescribeMap' {..} =
     Prelude.mconcat
-      ["/maps/v0/maps/", Core.toBS mapName]
+      ["/maps/v0/maps/", Data.toBS mapName]
 
-instance Core.ToQuery DescribeMap where
+instance Data.ToQuery DescribeMap where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeMapResponse' smart constructor.
 data DescribeMapResponse = DescribeMapResponse'
-  { -- | Tags associated with the map resource.
+  { -- | No longer used. Always returns @RequestBasedUsage@.
+    pricingPlan :: Prelude.Maybe PricingPlan,
+    -- | Tags associated with the map resource.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
@@ -137,7 +141,7 @@ data DescribeMapResponse = DescribeMapResponse'
     -- | The timestamp for when the map resource was created in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    createTime :: Core.POSIX,
+    createTime :: Data.POSIX,
     -- | Specifies the data provider for the associated map tiles.
     dataSource :: Prelude.Text,
     -- | The optional description for the map resource.
@@ -145,18 +149,14 @@ data DescribeMapResponse = DescribeMapResponse'
     -- | The Amazon Resource Name (ARN) for the map resource. Used to specify a
     -- resource across all AWS.
     --
-    -- -   Format example: @arn:aws:geo:region:account-id:maps\/ExampleMap@
+    -- -   Format example: @arn:aws:geo:region:account-id:map\/ExampleMap@
     mapArn :: Prelude.Text,
     -- | The map style selected from an available provider.
     mapName :: Prelude.Text,
-    -- | The pricing plan selected for the specified map resource.
-    --
-    -- >  <p>For additional details and restrictions on each pricing plan option, see <a href="https://aws.amazon.com/location/pricing/">Amazon Location Service pricing</a>.</p>
-    pricingPlan :: PricingPlan,
     -- | The timestamp for when the map resource was last update in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    updateTime :: Core.POSIX
+    updateTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -167,6 +167,8 @@ data DescribeMapResponse = DescribeMapResponse'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'pricingPlan', 'describeMapResponse_pricingPlan' - No longer used. Always returns @RequestBasedUsage@.
 --
 -- 'tags', 'describeMapResponse_tags' - Tags associated with the map resource.
 --
@@ -185,13 +187,9 @@ data DescribeMapResponse = DescribeMapResponse'
 -- 'mapArn', 'describeMapResponse_mapArn' - The Amazon Resource Name (ARN) for the map resource. Used to specify a
 -- resource across all AWS.
 --
--- -   Format example: @arn:aws:geo:region:account-id:maps\/ExampleMap@
+-- -   Format example: @arn:aws:geo:region:account-id:map\/ExampleMap@
 --
 -- 'mapName', 'describeMapResponse_mapName' - The map style selected from an available provider.
---
--- 'pricingPlan', 'describeMapResponse_pricingPlan' - The pricing plan selected for the specified map resource.
---
--- >  <p>For additional details and restrictions on each pricing plan option, see <a href="https://aws.amazon.com/location/pricing/">Amazon Location Service pricing</a>.</p>
 --
 -- 'updateTime', 'describeMapResponse_updateTime' - The timestamp for when the map resource was last update in
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
@@ -211,8 +209,6 @@ newDescribeMapResponse ::
   Prelude.Text ->
   -- | 'mapName'
   Prelude.Text ->
-  -- | 'pricingPlan'
-  PricingPlan ->
   -- | 'updateTime'
   Prelude.UTCTime ->
   DescribeMapResponse
@@ -224,20 +220,23 @@ newDescribeMapResponse
   pDescription_
   pMapArn_
   pMapName_
-  pPricingPlan_
   pUpdateTime_ =
     DescribeMapResponse'
-      { tags = Prelude.Nothing,
+      { pricingPlan = Prelude.Nothing,
+        tags = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         configuration = pConfiguration_,
-        createTime = Core._Time Lens.# pCreateTime_,
+        createTime = Data._Time Lens.# pCreateTime_,
         dataSource = pDataSource_,
         description = pDescription_,
         mapArn = pMapArn_,
         mapName = pMapName_,
-        pricingPlan = pPricingPlan_,
-        updateTime = Core._Time Lens.# pUpdateTime_
+        updateTime = Data._Time Lens.# pUpdateTime_
       }
+
+-- | No longer used. Always returns @RequestBasedUsage@.
+describeMapResponse_pricingPlan :: Lens.Lens' DescribeMapResponse (Prelude.Maybe PricingPlan)
+describeMapResponse_pricingPlan = Lens.lens (\DescribeMapResponse' {pricingPlan} -> pricingPlan) (\s@DescribeMapResponse' {} a -> s {pricingPlan = a} :: DescribeMapResponse)
 
 -- | Tags associated with the map resource.
 describeMapResponse_tags :: Lens.Lens' DescribeMapResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -255,7 +254,7 @@ describeMapResponse_configuration = Lens.lens (\DescribeMapResponse' {configurat
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 describeMapResponse_createTime :: Lens.Lens' DescribeMapResponse Prelude.UTCTime
-describeMapResponse_createTime = Lens.lens (\DescribeMapResponse' {createTime} -> createTime) (\s@DescribeMapResponse' {} a -> s {createTime = a} :: DescribeMapResponse) Prelude.. Core._Time
+describeMapResponse_createTime = Lens.lens (\DescribeMapResponse' {createTime} -> createTime) (\s@DescribeMapResponse' {} a -> s {createTime = a} :: DescribeMapResponse) Prelude.. Data._Time
 
 -- | Specifies the data provider for the associated map tiles.
 describeMapResponse_dataSource :: Lens.Lens' DescribeMapResponse Prelude.Text
@@ -268,7 +267,7 @@ describeMapResponse_description = Lens.lens (\DescribeMapResponse' {description}
 -- | The Amazon Resource Name (ARN) for the map resource. Used to specify a
 -- resource across all AWS.
 --
--- -   Format example: @arn:aws:geo:region:account-id:maps\/ExampleMap@
+-- -   Format example: @arn:aws:geo:region:account-id:map\/ExampleMap@
 describeMapResponse_mapArn :: Lens.Lens' DescribeMapResponse Prelude.Text
 describeMapResponse_mapArn = Lens.lens (\DescribeMapResponse' {mapArn} -> mapArn) (\s@DescribeMapResponse' {} a -> s {mapArn = a} :: DescribeMapResponse)
 
@@ -276,21 +275,16 @@ describeMapResponse_mapArn = Lens.lens (\DescribeMapResponse' {mapArn} -> mapArn
 describeMapResponse_mapName :: Lens.Lens' DescribeMapResponse Prelude.Text
 describeMapResponse_mapName = Lens.lens (\DescribeMapResponse' {mapName} -> mapName) (\s@DescribeMapResponse' {} a -> s {mapName = a} :: DescribeMapResponse)
 
--- | The pricing plan selected for the specified map resource.
---
--- >  <p>For additional details and restrictions on each pricing plan option, see <a href="https://aws.amazon.com/location/pricing/">Amazon Location Service pricing</a>.</p>
-describeMapResponse_pricingPlan :: Lens.Lens' DescribeMapResponse PricingPlan
-describeMapResponse_pricingPlan = Lens.lens (\DescribeMapResponse' {pricingPlan} -> pricingPlan) (\s@DescribeMapResponse' {} a -> s {pricingPlan = a} :: DescribeMapResponse)
-
 -- | The timestamp for when the map resource was last update in
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 describeMapResponse_updateTime :: Lens.Lens' DescribeMapResponse Prelude.UTCTime
-describeMapResponse_updateTime = Lens.lens (\DescribeMapResponse' {updateTime} -> updateTime) (\s@DescribeMapResponse' {} a -> s {updateTime = a} :: DescribeMapResponse) Prelude.. Core._Time
+describeMapResponse_updateTime = Lens.lens (\DescribeMapResponse' {updateTime} -> updateTime) (\s@DescribeMapResponse' {} a -> s {updateTime = a} :: DescribeMapResponse) Prelude.. Data._Time
 
 instance Prelude.NFData DescribeMapResponse where
   rnf DescribeMapResponse' {..} =
-    Prelude.rnf tags
+    Prelude.rnf pricingPlan
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf configuration
       `Prelude.seq` Prelude.rnf createTime
@@ -298,5 +292,4 @@ instance Prelude.NFData DescribeMapResponse where
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf mapArn
       `Prelude.seq` Prelude.rnf mapName
-      `Prelude.seq` Prelude.rnf pricingPlan
       `Prelude.seq` Prelude.rnf updateTime

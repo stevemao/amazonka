@@ -14,18 +14,22 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.DescribeExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Describes an execution.
+-- Provides all information about a state machine execution, such as the
+-- state machine associated with the execution, the execution input and
+-- output, and relevant execution metadata. Use this API action to return
+-- the Map Run ARN if the execution was dispatched by a Map Run.
 --
 -- This operation is eventually consistent. The results are best effort and
 -- may not reflect very recent updates and changes.
 --
--- This API action is not supported by @EXPRESS@ state machines.
+-- This API action is not supported by @EXPRESS@ state machine executions
+-- unless they were dispatched by a Map Run.
 module Amazonka.StepFunctions.DescribeExecution
   ( -- * Creating a Request
     DescribeExecution (..),
@@ -39,12 +43,15 @@ module Amazonka.StepFunctions.DescribeExecution
     newDescribeExecutionResponse,
 
     -- * Response Lenses
-    describeExecutionResponse_stopDate,
-    describeExecutionResponse_inputDetails,
+    describeExecutionResponse_cause,
+    describeExecutionResponse_error,
     describeExecutionResponse_input,
+    describeExecutionResponse_inputDetails,
+    describeExecutionResponse_mapRunArn,
     describeExecutionResponse_name,
     describeExecutionResponse_output,
     describeExecutionResponse_outputDetails,
+    describeExecutionResponse_stopDate,
     describeExecutionResponse_traceHeader,
     describeExecutionResponse_httpStatus,
     describeExecutionResponse_executionArn,
@@ -55,7 +62,8 @@ module Amazonka.StepFunctions.DescribeExecution
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,23 +100,27 @@ instance Core.AWSRequest DescribeExecution where
   type
     AWSResponse DescribeExecution =
       DescribeExecutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeExecutionResponse'
-            Prelude.<$> (x Core..?> "stopDate")
-            Prelude.<*> (x Core..?> "inputDetails")
-            Prelude.<*> (x Core..?> "input")
-            Prelude.<*> (x Core..?> "name")
-            Prelude.<*> (x Core..?> "output")
-            Prelude.<*> (x Core..?> "outputDetails")
-            Prelude.<*> (x Core..?> "traceHeader")
+            Prelude.<$> (x Data..?> "cause")
+            Prelude.<*> (x Data..?> "error")
+            Prelude.<*> (x Data..?> "input")
+            Prelude.<*> (x Data..?> "inputDetails")
+            Prelude.<*> (x Data..?> "mapRunArn")
+            Prelude.<*> (x Data..?> "name")
+            Prelude.<*> (x Data..?> "output")
+            Prelude.<*> (x Data..?> "outputDetails")
+            Prelude.<*> (x Data..?> "stopDate")
+            Prelude.<*> (x Data..?> "traceHeader")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "executionArn")
-            Prelude.<*> (x Core..:> "stateMachineArn")
-            Prelude.<*> (x Core..:> "status")
-            Prelude.<*> (x Core..:> "startDate")
+            Prelude.<*> (x Data..:> "executionArn")
+            Prelude.<*> (x Data..:> "stateMachineArn")
+            Prelude.<*> (x Data..:> "status")
+            Prelude.<*> (x Data..:> "startDate")
       )
 
 instance Prelude.Hashable DescribeExecution where
@@ -118,43 +130,48 @@ instance Prelude.Hashable DescribeExecution where
 instance Prelude.NFData DescribeExecution where
   rnf DescribeExecution' {..} = Prelude.rnf executionArn
 
-instance Core.ToHeaders DescribeExecution where
+instance Data.ToHeaders DescribeExecution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSStepFunctions.DescribeExecution" ::
+              Data.=# ( "AWSStepFunctions.DescribeExecution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeExecution where
+instance Data.ToJSON DescribeExecution where
   toJSON DescribeExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("executionArn" Core..= executionArn)]
+          [Prelude.Just ("executionArn" Data..= executionArn)]
       )
 
-instance Core.ToPath DescribeExecution where
+instance Data.ToPath DescribeExecution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeExecution where
+instance Data.ToQuery DescribeExecution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeExecutionResponse' smart constructor.
 data DescribeExecutionResponse = DescribeExecutionResponse'
-  { -- | If the execution has already ended, the date the execution stopped.
-    stopDate :: Prelude.Maybe Core.POSIX,
-    inputDetails :: Prelude.Maybe CloudWatchEventsExecutionDataDetails,
+  { -- | The cause string if the state machine execution failed.
+    cause :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The error string if the state machine execution failed.
+    error :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The string that contains the JSON input data of the execution. Length
     -- constraints apply to the payload size, and are expressed as bytes in
     -- UTF-8 encoding.
-    input :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    input :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    inputDetails :: Prelude.Maybe CloudWatchEventsExecutionDataDetails,
+    -- | The Amazon Resource Name (ARN) that identifies a Map Run, which
+    -- dispatched this execution.
+    mapRunArn :: Prelude.Maybe Prelude.Text,
     -- | The name of the execution.
     --
     -- A name must /not/ contain:
@@ -177,9 +194,11 @@ data DescribeExecutionResponse = DescribeExecutionResponse'
     --
     -- This field is set only if the execution succeeds. If the execution
     -- fails, this field is null.
-    output :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    output :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     outputDetails :: Prelude.Maybe CloudWatchEventsExecutionDataDetails,
-    -- | The AWS X-Ray trace header that was passed to the execution.
+    -- | If the execution has already ended, the date the execution stopped.
+    stopDate :: Prelude.Maybe Data.POSIX,
+    -- | The X-Ray trace header that was passed to the execution.
     traceHeader :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
@@ -190,7 +209,7 @@ data DescribeExecutionResponse = DescribeExecutionResponse'
     -- | The current status of the execution.
     status :: ExecutionStatus,
     -- | The date the execution is started.
-    startDate :: Core.POSIX
+    startDate :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -202,13 +221,18 @@ data DescribeExecutionResponse = DescribeExecutionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'stopDate', 'describeExecutionResponse_stopDate' - If the execution has already ended, the date the execution stopped.
+-- 'cause', 'describeExecutionResponse_cause' - The cause string if the state machine execution failed.
 --
--- 'inputDetails', 'describeExecutionResponse_inputDetails' - Undocumented member.
+-- 'error', 'describeExecutionResponse_error' - The error string if the state machine execution failed.
 --
 -- 'input', 'describeExecutionResponse_input' - The string that contains the JSON input data of the execution. Length
 -- constraints apply to the payload size, and are expressed as bytes in
 -- UTF-8 encoding.
+--
+-- 'inputDetails', 'describeExecutionResponse_inputDetails' - Undocumented member.
+--
+-- 'mapRunArn', 'describeExecutionResponse_mapRunArn' - The Amazon Resource Name (ARN) that identifies a Map Run, which
+-- dispatched this execution.
 --
 -- 'name', 'describeExecutionResponse_name' - The name of the execution.
 --
@@ -235,7 +259,9 @@ data DescribeExecutionResponse = DescribeExecutionResponse'
 --
 -- 'outputDetails', 'describeExecutionResponse_outputDetails' - Undocumented member.
 --
--- 'traceHeader', 'describeExecutionResponse_traceHeader' - The AWS X-Ray trace header that was passed to the execution.
+-- 'stopDate', 'describeExecutionResponse_stopDate' - If the execution has already ended, the date the execution stopped.
+--
+-- 'traceHeader', 'describeExecutionResponse_traceHeader' - The X-Ray trace header that was passed to the execution.
 --
 -- 'httpStatus', 'describeExecutionResponse_httpStatus' - The response's http status code.
 --
@@ -265,34 +291,45 @@ newDescribeExecutionResponse
   pStatus_
   pStartDate_ =
     DescribeExecutionResponse'
-      { stopDate =
-          Prelude.Nothing,
-        inputDetails = Prelude.Nothing,
+      { cause = Prelude.Nothing,
+        error = Prelude.Nothing,
         input = Prelude.Nothing,
+        inputDetails = Prelude.Nothing,
+        mapRunArn = Prelude.Nothing,
         name = Prelude.Nothing,
         output = Prelude.Nothing,
         outputDetails = Prelude.Nothing,
+        stopDate = Prelude.Nothing,
         traceHeader = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         executionArn = pExecutionArn_,
         stateMachineArn = pStateMachineArn_,
         status = pStatus_,
-        startDate = Core._Time Lens.# pStartDate_
+        startDate = Data._Time Lens.# pStartDate_
       }
 
--- | If the execution has already ended, the date the execution stopped.
-describeExecutionResponse_stopDate :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe Prelude.UTCTime)
-describeExecutionResponse_stopDate = Lens.lens (\DescribeExecutionResponse' {stopDate} -> stopDate) (\s@DescribeExecutionResponse' {} a -> s {stopDate = a} :: DescribeExecutionResponse) Prelude.. Lens.mapping Core._Time
+-- | The cause string if the state machine execution failed.
+describeExecutionResponse_cause :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe Prelude.Text)
+describeExecutionResponse_cause = Lens.lens (\DescribeExecutionResponse' {cause} -> cause) (\s@DescribeExecutionResponse' {} a -> s {cause = a} :: DescribeExecutionResponse) Prelude.. Lens.mapping Data._Sensitive
 
--- | Undocumented member.
-describeExecutionResponse_inputDetails :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe CloudWatchEventsExecutionDataDetails)
-describeExecutionResponse_inputDetails = Lens.lens (\DescribeExecutionResponse' {inputDetails} -> inputDetails) (\s@DescribeExecutionResponse' {} a -> s {inputDetails = a} :: DescribeExecutionResponse)
+-- | The error string if the state machine execution failed.
+describeExecutionResponse_error :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe Prelude.Text)
+describeExecutionResponse_error = Lens.lens (\DescribeExecutionResponse' {error} -> error) (\s@DescribeExecutionResponse' {} a -> s {error = a} :: DescribeExecutionResponse) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The string that contains the JSON input data of the execution. Length
 -- constraints apply to the payload size, and are expressed as bytes in
 -- UTF-8 encoding.
 describeExecutionResponse_input :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe Prelude.Text)
-describeExecutionResponse_input = Lens.lens (\DescribeExecutionResponse' {input} -> input) (\s@DescribeExecutionResponse' {} a -> s {input = a} :: DescribeExecutionResponse) Prelude.. Lens.mapping Core._Sensitive
+describeExecutionResponse_input = Lens.lens (\DescribeExecutionResponse' {input} -> input) (\s@DescribeExecutionResponse' {} a -> s {input = a} :: DescribeExecutionResponse) Prelude.. Lens.mapping Data._Sensitive
+
+-- | Undocumented member.
+describeExecutionResponse_inputDetails :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe CloudWatchEventsExecutionDataDetails)
+describeExecutionResponse_inputDetails = Lens.lens (\DescribeExecutionResponse' {inputDetails} -> inputDetails) (\s@DescribeExecutionResponse' {} a -> s {inputDetails = a} :: DescribeExecutionResponse)
+
+-- | The Amazon Resource Name (ARN) that identifies a Map Run, which
+-- dispatched this execution.
+describeExecutionResponse_mapRunArn :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe Prelude.Text)
+describeExecutionResponse_mapRunArn = Lens.lens (\DescribeExecutionResponse' {mapRunArn} -> mapRunArn) (\s@DescribeExecutionResponse' {} a -> s {mapRunArn = a} :: DescribeExecutionResponse)
 
 -- | The name of the execution.
 --
@@ -319,13 +356,17 @@ describeExecutionResponse_name = Lens.lens (\DescribeExecutionResponse' {name} -
 -- This field is set only if the execution succeeds. If the execution
 -- fails, this field is null.
 describeExecutionResponse_output :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe Prelude.Text)
-describeExecutionResponse_output = Lens.lens (\DescribeExecutionResponse' {output} -> output) (\s@DescribeExecutionResponse' {} a -> s {output = a} :: DescribeExecutionResponse) Prelude.. Lens.mapping Core._Sensitive
+describeExecutionResponse_output = Lens.lens (\DescribeExecutionResponse' {output} -> output) (\s@DescribeExecutionResponse' {} a -> s {output = a} :: DescribeExecutionResponse) Prelude.. Lens.mapping Data._Sensitive
 
 -- | Undocumented member.
 describeExecutionResponse_outputDetails :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe CloudWatchEventsExecutionDataDetails)
 describeExecutionResponse_outputDetails = Lens.lens (\DescribeExecutionResponse' {outputDetails} -> outputDetails) (\s@DescribeExecutionResponse' {} a -> s {outputDetails = a} :: DescribeExecutionResponse)
 
--- | The AWS X-Ray trace header that was passed to the execution.
+-- | If the execution has already ended, the date the execution stopped.
+describeExecutionResponse_stopDate :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe Prelude.UTCTime)
+describeExecutionResponse_stopDate = Lens.lens (\DescribeExecutionResponse' {stopDate} -> stopDate) (\s@DescribeExecutionResponse' {} a -> s {stopDate = a} :: DescribeExecutionResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The X-Ray trace header that was passed to the execution.
 describeExecutionResponse_traceHeader :: Lens.Lens' DescribeExecutionResponse (Prelude.Maybe Prelude.Text)
 describeExecutionResponse_traceHeader = Lens.lens (\DescribeExecutionResponse' {traceHeader} -> traceHeader) (\s@DescribeExecutionResponse' {} a -> s {traceHeader = a} :: DescribeExecutionResponse)
 
@@ -347,16 +388,19 @@ describeExecutionResponse_status = Lens.lens (\DescribeExecutionResponse' {statu
 
 -- | The date the execution is started.
 describeExecutionResponse_startDate :: Lens.Lens' DescribeExecutionResponse Prelude.UTCTime
-describeExecutionResponse_startDate = Lens.lens (\DescribeExecutionResponse' {startDate} -> startDate) (\s@DescribeExecutionResponse' {} a -> s {startDate = a} :: DescribeExecutionResponse) Prelude.. Core._Time
+describeExecutionResponse_startDate = Lens.lens (\DescribeExecutionResponse' {startDate} -> startDate) (\s@DescribeExecutionResponse' {} a -> s {startDate = a} :: DescribeExecutionResponse) Prelude.. Data._Time
 
 instance Prelude.NFData DescribeExecutionResponse where
   rnf DescribeExecutionResponse' {..} =
-    Prelude.rnf stopDate
-      `Prelude.seq` Prelude.rnf inputDetails
+    Prelude.rnf cause
+      `Prelude.seq` Prelude.rnf error
       `Prelude.seq` Prelude.rnf input
+      `Prelude.seq` Prelude.rnf inputDetails
+      `Prelude.seq` Prelude.rnf mapRunArn
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf output
       `Prelude.seq` Prelude.rnf outputDetails
+      `Prelude.seq` Prelude.rnf stopDate
       `Prelude.seq` Prelude.rnf traceHeader
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf executionArn

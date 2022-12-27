@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.SSM.GetConnectionStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the Session Manager connection status for an instance to
+-- Retrieves the Session Manager connection status for a managed node to
 -- determine whether it is running and ready to receive Session Manager
 -- connections.
 module Amazonka.SSM.GetConnectionStatus
@@ -43,7 +43,8 @@ module Amazonka.SSM.GetConnectionStatus
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,7 +52,7 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newGetConnectionStatus' smart constructor.
 data GetConnectionStatus = GetConnectionStatus'
-  { -- | The instance ID.
+  { -- | The managed node ID.
     target :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -64,7 +65,7 @@ data GetConnectionStatus = GetConnectionStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'target', 'getConnectionStatus_target' - The instance ID.
+-- 'target', 'getConnectionStatus_target' - The managed node ID.
 newGetConnectionStatus ::
   -- | 'target'
   Prelude.Text ->
@@ -72,7 +73,7 @@ newGetConnectionStatus ::
 newGetConnectionStatus pTarget_ =
   GetConnectionStatus' {target = pTarget_}
 
--- | The instance ID.
+-- | The managed node ID.
 getConnectionStatus_target :: Lens.Lens' GetConnectionStatus Prelude.Text
 getConnectionStatus_target = Lens.lens (\GetConnectionStatus' {target} -> target) (\s@GetConnectionStatus' {} a -> s {target = a} :: GetConnectionStatus)
 
@@ -80,13 +81,14 @@ instance Core.AWSRequest GetConnectionStatus where
   type
     AWSResponse GetConnectionStatus =
       GetConnectionStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetConnectionStatusResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "Target")
+            Prelude.<$> (x Data..?> "Status")
+            Prelude.<*> (x Data..?> "Target")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,40 +99,40 @@ instance Prelude.Hashable GetConnectionStatus where
 instance Prelude.NFData GetConnectionStatus where
   rnf GetConnectionStatus' {..} = Prelude.rnf target
 
-instance Core.ToHeaders GetConnectionStatus where
+instance Data.ToHeaders GetConnectionStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.GetConnectionStatus" ::
+              Data.=# ( "AmazonSSM.GetConnectionStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetConnectionStatus where
+instance Data.ToJSON GetConnectionStatus where
   toJSON GetConnectionStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Target" Core..= target)]
+          [Prelude.Just ("Target" Data..= target)]
       )
 
-instance Core.ToPath GetConnectionStatus where
+instance Data.ToPath GetConnectionStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetConnectionStatus where
+instance Data.ToQuery GetConnectionStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetConnectionStatusResponse' smart constructor.
 data GetConnectionStatusResponse = GetConnectionStatusResponse'
-  { -- | The status of the connection to the instance. For example, \'Connected\'
-    -- or \'Not Connected\'.
+  { -- | The status of the connection to the managed node. For example,
+    -- \'Connected\' or \'Not Connected\'.
     status :: Prelude.Maybe ConnectionStatus,
-    -- | The ID of the instance to check connection status.
+    -- | The ID of the managed node to check connection status.
     target :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -145,10 +147,10 @@ data GetConnectionStatusResponse = GetConnectionStatusResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'getConnectionStatusResponse_status' - The status of the connection to the instance. For example, \'Connected\'
--- or \'Not Connected\'.
+-- 'status', 'getConnectionStatusResponse_status' - The status of the connection to the managed node. For example,
+-- \'Connected\' or \'Not Connected\'.
 --
--- 'target', 'getConnectionStatusResponse_target' - The ID of the instance to check connection status.
+-- 'target', 'getConnectionStatusResponse_target' - The ID of the managed node to check connection status.
 --
 -- 'httpStatus', 'getConnectionStatusResponse_httpStatus' - The response's http status code.
 newGetConnectionStatusResponse ::
@@ -163,12 +165,12 @@ newGetConnectionStatusResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The status of the connection to the instance. For example, \'Connected\'
--- or \'Not Connected\'.
+-- | The status of the connection to the managed node. For example,
+-- \'Connected\' or \'Not Connected\'.
 getConnectionStatusResponse_status :: Lens.Lens' GetConnectionStatusResponse (Prelude.Maybe ConnectionStatus)
 getConnectionStatusResponse_status = Lens.lens (\GetConnectionStatusResponse' {status} -> status) (\s@GetConnectionStatusResponse' {} a -> s {status = a} :: GetConnectionStatusResponse)
 
--- | The ID of the instance to check connection status.
+-- | The ID of the managed node to check connection status.
 getConnectionStatusResponse_target :: Lens.Lens' GetConnectionStatusResponse (Prelude.Maybe Prelude.Text)
 getConnectionStatusResponse_target = Lens.lens (\GetConnectionStatusResponse' {target} -> target) (\s@GetConnectionStatusResponse' {} a -> s {target = a} :: GetConnectionStatusResponse)
 

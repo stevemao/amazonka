@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Signer.Types.SigningJobRevocationRecord
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.Signer.Types.SigningJobRevocationRecord where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Revocation information for a signing job.
 --
 -- /See:/ 'newSigningJobRevocationRecord' smart constructor.
 data SigningJobRevocationRecord = SigningJobRevocationRecord'
-  { -- | The identity of the revoker.
-    revokedBy :: Prelude.Maybe Prelude.Text,
+  { -- | A caller-supplied reason for revocation.
+    reason :: Prelude.Maybe Prelude.Text,
     -- | The time of revocation.
-    revokedAt :: Prelude.Maybe Core.POSIX,
-    -- | A caller-supplied reason for revocation.
-    reason :: Prelude.Maybe Prelude.Text
+    revokedAt :: Prelude.Maybe Data.POSIX,
+    -- | The identity of the revoker.
+    revokedBy :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,52 +45,52 @@ data SigningJobRevocationRecord = SigningJobRevocationRecord'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'revokedBy', 'signingJobRevocationRecord_revokedBy' - The identity of the revoker.
+-- 'reason', 'signingJobRevocationRecord_reason' - A caller-supplied reason for revocation.
 --
 -- 'revokedAt', 'signingJobRevocationRecord_revokedAt' - The time of revocation.
 --
--- 'reason', 'signingJobRevocationRecord_reason' - A caller-supplied reason for revocation.
+-- 'revokedBy', 'signingJobRevocationRecord_revokedBy' - The identity of the revoker.
 newSigningJobRevocationRecord ::
   SigningJobRevocationRecord
 newSigningJobRevocationRecord =
   SigningJobRevocationRecord'
-    { revokedBy =
+    { reason =
         Prelude.Nothing,
       revokedAt = Prelude.Nothing,
-      reason = Prelude.Nothing
+      revokedBy = Prelude.Nothing
     }
-
--- | The identity of the revoker.
-signingJobRevocationRecord_revokedBy :: Lens.Lens' SigningJobRevocationRecord (Prelude.Maybe Prelude.Text)
-signingJobRevocationRecord_revokedBy = Lens.lens (\SigningJobRevocationRecord' {revokedBy} -> revokedBy) (\s@SigningJobRevocationRecord' {} a -> s {revokedBy = a} :: SigningJobRevocationRecord)
-
--- | The time of revocation.
-signingJobRevocationRecord_revokedAt :: Lens.Lens' SigningJobRevocationRecord (Prelude.Maybe Prelude.UTCTime)
-signingJobRevocationRecord_revokedAt = Lens.lens (\SigningJobRevocationRecord' {revokedAt} -> revokedAt) (\s@SigningJobRevocationRecord' {} a -> s {revokedAt = a} :: SigningJobRevocationRecord) Prelude.. Lens.mapping Core._Time
 
 -- | A caller-supplied reason for revocation.
 signingJobRevocationRecord_reason :: Lens.Lens' SigningJobRevocationRecord (Prelude.Maybe Prelude.Text)
 signingJobRevocationRecord_reason = Lens.lens (\SigningJobRevocationRecord' {reason} -> reason) (\s@SigningJobRevocationRecord' {} a -> s {reason = a} :: SigningJobRevocationRecord)
 
-instance Core.FromJSON SigningJobRevocationRecord where
+-- | The time of revocation.
+signingJobRevocationRecord_revokedAt :: Lens.Lens' SigningJobRevocationRecord (Prelude.Maybe Prelude.UTCTime)
+signingJobRevocationRecord_revokedAt = Lens.lens (\SigningJobRevocationRecord' {revokedAt} -> revokedAt) (\s@SigningJobRevocationRecord' {} a -> s {revokedAt = a} :: SigningJobRevocationRecord) Prelude.. Lens.mapping Data._Time
+
+-- | The identity of the revoker.
+signingJobRevocationRecord_revokedBy :: Lens.Lens' SigningJobRevocationRecord (Prelude.Maybe Prelude.Text)
+signingJobRevocationRecord_revokedBy = Lens.lens (\SigningJobRevocationRecord' {revokedBy} -> revokedBy) (\s@SigningJobRevocationRecord' {} a -> s {revokedBy = a} :: SigningJobRevocationRecord)
+
+instance Data.FromJSON SigningJobRevocationRecord where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SigningJobRevocationRecord"
       ( \x ->
           SigningJobRevocationRecord'
-            Prelude.<$> (x Core..:? "revokedBy")
-            Prelude.<*> (x Core..:? "revokedAt")
-            Prelude.<*> (x Core..:? "reason")
+            Prelude.<$> (x Data..:? "reason")
+            Prelude.<*> (x Data..:? "revokedAt")
+            Prelude.<*> (x Data..:? "revokedBy")
       )
 
 instance Prelude.Hashable SigningJobRevocationRecord where
   hashWithSalt _salt SigningJobRevocationRecord' {..} =
-    _salt `Prelude.hashWithSalt` revokedBy
+    _salt `Prelude.hashWithSalt` reason
       `Prelude.hashWithSalt` revokedAt
-      `Prelude.hashWithSalt` reason
+      `Prelude.hashWithSalt` revokedBy
 
 instance Prelude.NFData SigningJobRevocationRecord where
   rnf SigningJobRevocationRecord' {..} =
-    Prelude.rnf revokedBy
+    Prelude.rnf reason
       `Prelude.seq` Prelude.rnf revokedAt
-      `Prelude.seq` Prelude.rnf reason
+      `Prelude.seq` Prelude.rnf revokedBy

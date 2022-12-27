@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.ListWebhookItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CodePipeline.Types.ListWebhookItem where
 import Amazonka.CodePipeline.Types.Tag
 import Amazonka.CodePipeline.Types.WebhookDefinition
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The detail returned for each webhook after listing webhooks, such as the
@@ -34,11 +35,11 @@ data ListWebhookItem = ListWebhookItem'
     arn :: Prelude.Maybe Prelude.Text,
     -- | The number code of the error.
     errorCode :: Prelude.Maybe Prelude.Text,
-    -- | The date and time a webhook was last successfully triggered, in
-    -- timestamp format.
-    lastTriggered :: Prelude.Maybe Core.POSIX,
     -- | The text of the error message about the webhook.
     errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The date and time a webhook was last successfully triggered, in
+    -- timestamp format.
+    lastTriggered :: Prelude.Maybe Data.POSIX,
     -- | Specifies the tags applied to the webhook.
     tags :: Prelude.Maybe [Tag],
     -- | The detail returned for each webhook, such as the webhook authentication
@@ -65,10 +66,10 @@ data ListWebhookItem = ListWebhookItem'
 --
 -- 'errorCode', 'listWebhookItem_errorCode' - The number code of the error.
 --
+-- 'errorMessage', 'listWebhookItem_errorMessage' - The text of the error message about the webhook.
+--
 -- 'lastTriggered', 'listWebhookItem_lastTriggered' - The date and time a webhook was last successfully triggered, in
 -- timestamp format.
---
--- 'errorMessage', 'listWebhookItem_errorMessage' - The text of the error message about the webhook.
 --
 -- 'tags', 'listWebhookItem_tags' - Specifies the tags applied to the webhook.
 --
@@ -90,8 +91,8 @@ newListWebhookItem pDefinition_ pUrl_ =
   ListWebhookItem'
     { arn = Prelude.Nothing,
       errorCode = Prelude.Nothing,
-      lastTriggered = Prelude.Nothing,
       errorMessage = Prelude.Nothing,
+      lastTriggered = Prelude.Nothing,
       tags = Prelude.Nothing,
       definition = pDefinition_,
       url = pUrl_
@@ -105,14 +106,14 @@ listWebhookItem_arn = Lens.lens (\ListWebhookItem' {arn} -> arn) (\s@ListWebhook
 listWebhookItem_errorCode :: Lens.Lens' ListWebhookItem (Prelude.Maybe Prelude.Text)
 listWebhookItem_errorCode = Lens.lens (\ListWebhookItem' {errorCode} -> errorCode) (\s@ListWebhookItem' {} a -> s {errorCode = a} :: ListWebhookItem)
 
--- | The date and time a webhook was last successfully triggered, in
--- timestamp format.
-listWebhookItem_lastTriggered :: Lens.Lens' ListWebhookItem (Prelude.Maybe Prelude.UTCTime)
-listWebhookItem_lastTriggered = Lens.lens (\ListWebhookItem' {lastTriggered} -> lastTriggered) (\s@ListWebhookItem' {} a -> s {lastTriggered = a} :: ListWebhookItem) Prelude.. Lens.mapping Core._Time
-
 -- | The text of the error message about the webhook.
 listWebhookItem_errorMessage :: Lens.Lens' ListWebhookItem (Prelude.Maybe Prelude.Text)
 listWebhookItem_errorMessage = Lens.lens (\ListWebhookItem' {errorMessage} -> errorMessage) (\s@ListWebhookItem' {} a -> s {errorMessage = a} :: ListWebhookItem)
+
+-- | The date and time a webhook was last successfully triggered, in
+-- timestamp format.
+listWebhookItem_lastTriggered :: Lens.Lens' ListWebhookItem (Prelude.Maybe Prelude.UTCTime)
+listWebhookItem_lastTriggered = Lens.lens (\ListWebhookItem' {lastTriggered} -> lastTriggered) (\s@ListWebhookItem' {} a -> s {lastTriggered = a} :: ListWebhookItem) Prelude.. Lens.mapping Data._Time
 
 -- | Specifies the tags applied to the webhook.
 listWebhookItem_tags :: Lens.Lens' ListWebhookItem (Prelude.Maybe [Tag])
@@ -131,27 +132,27 @@ listWebhookItem_definition = Lens.lens (\ListWebhookItem' {definition} -> defini
 listWebhookItem_url :: Lens.Lens' ListWebhookItem Prelude.Text
 listWebhookItem_url = Lens.lens (\ListWebhookItem' {url} -> url) (\s@ListWebhookItem' {} a -> s {url = a} :: ListWebhookItem)
 
-instance Core.FromJSON ListWebhookItem where
+instance Data.FromJSON ListWebhookItem where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ListWebhookItem"
       ( \x ->
           ListWebhookItem'
-            Prelude.<$> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "errorCode")
-            Prelude.<*> (x Core..:? "lastTriggered")
-            Prelude.<*> (x Core..:? "errorMessage")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "definition")
-            Prelude.<*> (x Core..: "url")
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "errorCode")
+            Prelude.<*> (x Data..:? "errorMessage")
+            Prelude.<*> (x Data..:? "lastTriggered")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "definition")
+            Prelude.<*> (x Data..: "url")
       )
 
 instance Prelude.Hashable ListWebhookItem where
   hashWithSalt _salt ListWebhookItem' {..} =
     _salt `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` errorCode
-      `Prelude.hashWithSalt` lastTriggered
       `Prelude.hashWithSalt` errorMessage
+      `Prelude.hashWithSalt` lastTriggered
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` definition
       `Prelude.hashWithSalt` url
@@ -160,8 +161,8 @@ instance Prelude.NFData ListWebhookItem where
   rnf ListWebhookItem' {..} =
     Prelude.rnf arn
       `Prelude.seq` Prelude.rnf errorCode
-      `Prelude.seq` Prelude.rnf lastTriggered
       `Prelude.seq` Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf lastTriggered
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf definition
       `Prelude.seq` Prelude.rnf url

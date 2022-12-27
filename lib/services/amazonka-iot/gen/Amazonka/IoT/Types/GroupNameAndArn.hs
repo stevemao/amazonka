@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.GroupNameAndArn
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.GroupNameAndArn where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The name and ARN of a group.
@@ -61,14 +62,14 @@ groupNameAndArn_groupArn = Lens.lens (\GroupNameAndArn' {groupArn} -> groupArn) 
 groupNameAndArn_groupName :: Lens.Lens' GroupNameAndArn (Prelude.Maybe Prelude.Text)
 groupNameAndArn_groupName = Lens.lens (\GroupNameAndArn' {groupName} -> groupName) (\s@GroupNameAndArn' {} a -> s {groupName = a} :: GroupNameAndArn)
 
-instance Core.FromJSON GroupNameAndArn where
+instance Data.FromJSON GroupNameAndArn where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GroupNameAndArn"
       ( \x ->
           GroupNameAndArn'
-            Prelude.<$> (x Core..:? "groupArn")
-            Prelude.<*> (x Core..:? "groupName")
+            Prelude.<$> (x Data..:? "groupArn")
+            Prelude.<*> (x Data..:? "groupName")
       )
 
 instance Prelude.Hashable GroupNameAndArn where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkManager.DeregisterTransitGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.NetworkManager.DeregisterTransitGateway
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -96,12 +97,13 @@ instance Core.AWSRequest DeregisterTransitGateway where
   type
     AWSResponse DeregisterTransitGateway =
       DeregisterTransitGatewayResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeregisterTransitGatewayResponse'
-            Prelude.<$> (x Core..?> "TransitGatewayRegistration")
+            Prelude.<$> (x Data..?> "TransitGatewayRegistration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,27 +117,27 @@ instance Prelude.NFData DeregisterTransitGateway where
     Prelude.rnf globalNetworkId
       `Prelude.seq` Prelude.rnf transitGatewayArn
 
-instance Core.ToHeaders DeregisterTransitGateway where
+instance Data.ToHeaders DeregisterTransitGateway where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeregisterTransitGateway where
+instance Data.ToPath DeregisterTransitGateway where
   toPath DeregisterTransitGateway' {..} =
     Prelude.mconcat
       [ "/global-networks/",
-        Core.toBS globalNetworkId,
+        Data.toBS globalNetworkId,
         "/transit-gateway-registrations/",
-        Core.toBS transitGatewayArn
+        Data.toBS transitGatewayArn
       ]
 
-instance Core.ToQuery DeregisterTransitGateway where
+instance Data.ToQuery DeregisterTransitGateway where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeregisterTransitGatewayResponse' smart constructor.

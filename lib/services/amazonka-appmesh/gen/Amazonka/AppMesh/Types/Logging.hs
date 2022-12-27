@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.Logging
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.Logging where
 
 import Amazonka.AppMesh.Types.AccessLog
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the logging information for a virtual node.
@@ -50,12 +51,12 @@ newLogging = Logging' {accessLog = Prelude.Nothing}
 logging_accessLog :: Lens.Lens' Logging (Prelude.Maybe AccessLog)
 logging_accessLog = Lens.lens (\Logging' {accessLog} -> accessLog) (\s@Logging' {} a -> s {accessLog = a} :: Logging)
 
-instance Core.FromJSON Logging where
+instance Data.FromJSON Logging where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Logging"
       ( \x ->
-          Logging' Prelude.<$> (x Core..:? "accessLog")
+          Logging' Prelude.<$> (x Data..:? "accessLog")
       )
 
 instance Prelude.Hashable Logging where
@@ -65,9 +66,9 @@ instance Prelude.Hashable Logging where
 instance Prelude.NFData Logging where
   rnf Logging' {..} = Prelude.rnf accessLog
 
-instance Core.ToJSON Logging where
+instance Data.ToJSON Logging where
   toJSON Logging' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("accessLog" Core..=) Prelude.<$> accessLog]
+          [("accessLog" Data..=) Prelude.<$> accessLog]
       )

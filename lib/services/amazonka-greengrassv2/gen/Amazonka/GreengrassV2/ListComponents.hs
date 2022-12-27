@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.ListComponents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.GreengrassV2.ListComponents
     newListComponents,
 
     -- * Request Lenses
+    listComponents_maxResults,
     listComponents_nextToken,
     listComponents_scope,
-    listComponents_maxResults,
 
     -- * Destructuring the Response
     ListComponentsResponse (..),
@@ -46,22 +46,23 @@ module Amazonka.GreengrassV2.ListComponents
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListComponents' smart constructor.
 data ListComponents = ListComponents'
-  { -- | The token to be used for the next set of paginated results.
+  { -- | The maximum number of results to be returned per paginated request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to be used for the next set of paginated results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The scope of the components to list.
     --
     -- Default: @PRIVATE@
-    scope :: Prelude.Maybe ComponentVisibilityScope,
-    -- | The maximum number of results to be returned per paginated request.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    scope :: Prelude.Maybe ComponentVisibilityScope
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,21 +74,25 @@ data ListComponents = ListComponents'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listComponents_maxResults' - The maximum number of results to be returned per paginated request.
+--
 -- 'nextToken', 'listComponents_nextToken' - The token to be used for the next set of paginated results.
 --
 -- 'scope', 'listComponents_scope' - The scope of the components to list.
 --
 -- Default: @PRIVATE@
---
--- 'maxResults', 'listComponents_maxResults' - The maximum number of results to be returned per paginated request.
 newListComponents ::
   ListComponents
 newListComponents =
   ListComponents'
-    { nextToken = Prelude.Nothing,
-      scope = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      scope = Prelude.Nothing
     }
+
+-- | The maximum number of results to be returned per paginated request.
+listComponents_maxResults :: Lens.Lens' ListComponents (Prelude.Maybe Prelude.Natural)
+listComponents_maxResults = Lens.lens (\ListComponents' {maxResults} -> maxResults) (\s@ListComponents' {} a -> s {maxResults = a} :: ListComponents)
 
 -- | The token to be used for the next set of paginated results.
 listComponents_nextToken :: Lens.Lens' ListComponents (Prelude.Maybe Prelude.Text)
@@ -98,10 +103,6 @@ listComponents_nextToken = Lens.lens (\ListComponents' {nextToken} -> nextToken)
 -- Default: @PRIVATE@
 listComponents_scope :: Lens.Lens' ListComponents (Prelude.Maybe ComponentVisibilityScope)
 listComponents_scope = Lens.lens (\ListComponents' {scope} -> scope) (\s@ListComponents' {} a -> s {scope = a} :: ListComponents)
-
--- | The maximum number of results to be returned per paginated request.
-listComponents_maxResults :: Lens.Lens' ListComponents (Prelude.Maybe Prelude.Natural)
-listComponents_maxResults = Lens.lens (\ListComponents' {maxResults} -> maxResults) (\s@ListComponents' {} a -> s {maxResults = a} :: ListComponents)
 
 instance Core.AWSPager ListComponents where
   page rq rs
@@ -128,48 +129,41 @@ instance Core.AWSRequest ListComponents where
   type
     AWSResponse ListComponents =
       ListComponentsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListComponentsResponse'
-            Prelude.<$> (x Core..?> "components" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "components" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListComponents where
   hashWithSalt _salt ListComponents' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` scope
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData ListComponents where
   rnf ListComponents' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf scope
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders ListComponents where
-  toHeaders =
-    Prelude.const
-      ( Prelude.mconcat
-          [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
-                          Prelude.ByteString
-                      )
-          ]
-      )
+instance Data.ToHeaders ListComponents where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListComponents where
+instance Data.ToPath ListComponents where
   toPath = Prelude.const "/greengrass/v2/components"
 
-instance Core.ToQuery ListComponents where
+instance Data.ToQuery ListComponents where
   toQuery ListComponents' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "scope" Core.=: scope,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "scope" Data.=: scope
       ]
 
 -- | /See:/ 'newListComponentsResponse' smart constructor.

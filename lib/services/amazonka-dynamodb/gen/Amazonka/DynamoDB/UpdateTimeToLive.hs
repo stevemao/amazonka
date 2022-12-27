@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.UpdateTimeToLive
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -70,8 +70,9 @@ module Amazonka.DynamoDB.UpdateTimeToLive
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -127,12 +128,13 @@ instance Core.AWSRequest UpdateTimeToLive where
   type
     AWSResponse UpdateTimeToLive =
       UpdateTimeToLiveResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateTimeToLiveResponse'
-            Prelude.<$> (x Core..?> "TimeToLiveSpecification")
+            Prelude.<$> (x Data..?> "TimeToLiveSpecification")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -146,37 +148,37 @@ instance Prelude.NFData UpdateTimeToLive where
     Prelude.rnf tableName
       `Prelude.seq` Prelude.rnf timeToLiveSpecification
 
-instance Core.ToHeaders UpdateTimeToLive where
+instance Data.ToHeaders UpdateTimeToLive where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.UpdateTimeToLive" ::
+              Data.=# ( "DynamoDB_20120810.UpdateTimeToLive" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateTimeToLive where
+instance Data.ToJSON UpdateTimeToLive where
   toJSON UpdateTimeToLive' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("TableName" Core..= tableName),
+          [ Prelude.Just ("TableName" Data..= tableName),
             Prelude.Just
               ( "TimeToLiveSpecification"
-                  Core..= timeToLiveSpecification
+                  Data..= timeToLiveSpecification
               )
           ]
       )
 
-instance Core.ToPath UpdateTimeToLive where
+instance Data.ToPath UpdateTimeToLive where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateTimeToLive where
+instance Data.ToQuery UpdateTimeToLive where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateTimeToLiveResponse' smart constructor.

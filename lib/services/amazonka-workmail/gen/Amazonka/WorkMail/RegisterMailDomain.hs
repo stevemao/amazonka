@@ -14,16 +14,16 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.RegisterMailDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Registers a new domain in Amazon WorkMail and SES, and configures it for
--- use by WorkMail. Emails received by SES for this domain are routed to
--- the specified WorkMail organization, and WorkMail has permanent
--- permission to use the specified domain for sending your users\' emails.
+-- Registers a new domain in WorkMail and SES, and configures it for use by
+-- WorkMail. Emails received by SES for this domain are routed to the
+-- specified WorkMail organization, and WorkMail has permanent permission
+-- to use the specified domain for sending your users\' emails.
 module Amazonka.WorkMail.RegisterMailDomain
   ( -- * Creating a Request
     RegisterMailDomain (..),
@@ -44,7 +44,8 @@ module Amazonka.WorkMail.RegisterMailDomain
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,10 +55,9 @@ import Amazonka.WorkMail.Types
 data RegisterMailDomain = RegisterMailDomain'
   { -- | Idempotency token used when retrying requests.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon WorkMail organization under which you\'re creating the
-    -- domain.
+    -- | The WorkMail organization under which you\'re creating the domain.
     organizationId :: Prelude.Text,
-    -- | The name of the mail domain to create in Amazon WorkMail and SES.
+    -- | The name of the mail domain to create in WorkMail and SES.
     domainName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -72,10 +72,9 @@ data RegisterMailDomain = RegisterMailDomain'
 --
 -- 'clientToken', 'registerMailDomain_clientToken' - Idempotency token used when retrying requests.
 --
--- 'organizationId', 'registerMailDomain_organizationId' - The Amazon WorkMail organization under which you\'re creating the
--- domain.
+-- 'organizationId', 'registerMailDomain_organizationId' - The WorkMail organization under which you\'re creating the domain.
 --
--- 'domainName', 'registerMailDomain_domainName' - The name of the mail domain to create in Amazon WorkMail and SES.
+-- 'domainName', 'registerMailDomain_domainName' - The name of the mail domain to create in WorkMail and SES.
 newRegisterMailDomain ::
   -- | 'organizationId'
   Prelude.Text ->
@@ -93,12 +92,11 @@ newRegisterMailDomain pOrganizationId_ pDomainName_ =
 registerMailDomain_clientToken :: Lens.Lens' RegisterMailDomain (Prelude.Maybe Prelude.Text)
 registerMailDomain_clientToken = Lens.lens (\RegisterMailDomain' {clientToken} -> clientToken) (\s@RegisterMailDomain' {} a -> s {clientToken = a} :: RegisterMailDomain)
 
--- | The Amazon WorkMail organization under which you\'re creating the
--- domain.
+-- | The WorkMail organization under which you\'re creating the domain.
 registerMailDomain_organizationId :: Lens.Lens' RegisterMailDomain Prelude.Text
 registerMailDomain_organizationId = Lens.lens (\RegisterMailDomain' {organizationId} -> organizationId) (\s@RegisterMailDomain' {} a -> s {organizationId = a} :: RegisterMailDomain)
 
--- | The name of the mail domain to create in Amazon WorkMail and SES.
+-- | The name of the mail domain to create in WorkMail and SES.
 registerMailDomain_domainName :: Lens.Lens' RegisterMailDomain Prelude.Text
 registerMailDomain_domainName = Lens.lens (\RegisterMailDomain' {domainName} -> domainName) (\s@RegisterMailDomain' {} a -> s {domainName = a} :: RegisterMailDomain)
 
@@ -106,7 +104,8 @@ instance Core.AWSRequest RegisterMailDomain where
   type
     AWSResponse RegisterMailDomain =
       RegisterMailDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -126,36 +125,36 @@ instance Prelude.NFData RegisterMailDomain where
       `Prelude.seq` Prelude.rnf organizationId
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders RegisterMailDomain where
+instance Data.ToHeaders RegisterMailDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.RegisterMailDomain" ::
+              Data.=# ( "WorkMailService.RegisterMailDomain" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterMailDomain where
+instance Data.ToJSON RegisterMailDomain where
   toJSON RegisterMailDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientToken" Core..=) Prelude.<$> clientToken,
+          [ ("ClientToken" Data..=) Prelude.<$> clientToken,
             Prelude.Just
-              ("OrganizationId" Core..= organizationId),
-            Prelude.Just ("DomainName" Core..= domainName)
+              ("OrganizationId" Data..= organizationId),
+            Prelude.Just ("DomainName" Data..= domainName)
           ]
       )
 
-instance Core.ToPath RegisterMailDomain where
+instance Data.ToPath RegisterMailDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterMailDomain where
+instance Data.ToQuery RegisterMailDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRegisterMailDomainResponse' smart constructor.

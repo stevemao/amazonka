@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEcsServicePlacementConstraintsDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEcsServicePlacementConstraintsDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A placement constraint for the tasks in the service.
@@ -81,16 +82,16 @@ awsEcsServicePlacementConstraintsDetails_type :: Lens.Lens' AwsEcsServicePlaceme
 awsEcsServicePlacementConstraintsDetails_type = Lens.lens (\AwsEcsServicePlacementConstraintsDetails' {type'} -> type') (\s@AwsEcsServicePlacementConstraintsDetails' {} a -> s {type' = a} :: AwsEcsServicePlacementConstraintsDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEcsServicePlacementConstraintsDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEcsServicePlacementConstraintsDetails"
       ( \x ->
           AwsEcsServicePlacementConstraintsDetails'
-            Prelude.<$> (x Core..:? "Expression")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Expression")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance
@@ -112,13 +113,13 @@ instance
       `Prelude.seq` Prelude.rnf type'
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEcsServicePlacementConstraintsDetails
   where
   toJSON AwsEcsServicePlacementConstraintsDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Expression" Core..=) Prelude.<$> expression,
-            ("Type" Core..=) Prelude.<$> type'
+          [ ("Expression" Data..=) Prelude.<$> expression,
+            ("Type" Data..=) Prelude.<$> type'
           ]
       )

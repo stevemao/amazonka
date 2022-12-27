@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkManager.DisassociateCustomerGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.NetworkManager.DisassociateCustomerGateway
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -51,9 +52,7 @@ import qualified Amazonka.Response as Response
 data DisassociateCustomerGateway = DisassociateCustomerGateway'
   { -- | The ID of the global network.
     globalNetworkId :: Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the customer gateway. For more
-    -- information, see
-    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazonec2.html#amazonec2-resources-for-iam-policies Resources Defined by Amazon EC2>.
+    -- | The Amazon Resource Name (ARN) of the customer gateway.
     customerGatewayArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -68,9 +67,7 @@ data DisassociateCustomerGateway = DisassociateCustomerGateway'
 --
 -- 'globalNetworkId', 'disassociateCustomerGateway_globalNetworkId' - The ID of the global network.
 --
--- 'customerGatewayArn', 'disassociateCustomerGateway_customerGatewayArn' - The Amazon Resource Name (ARN) of the customer gateway. For more
--- information, see
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazonec2.html#amazonec2-resources-for-iam-policies Resources Defined by Amazon EC2>.
+-- 'customerGatewayArn', 'disassociateCustomerGateway_customerGatewayArn' - The Amazon Resource Name (ARN) of the customer gateway.
 newDisassociateCustomerGateway ::
   -- | 'globalNetworkId'
   Prelude.Text ->
@@ -90,9 +87,7 @@ newDisassociateCustomerGateway
 disassociateCustomerGateway_globalNetworkId :: Lens.Lens' DisassociateCustomerGateway Prelude.Text
 disassociateCustomerGateway_globalNetworkId = Lens.lens (\DisassociateCustomerGateway' {globalNetworkId} -> globalNetworkId) (\s@DisassociateCustomerGateway' {} a -> s {globalNetworkId = a} :: DisassociateCustomerGateway)
 
--- | The Amazon Resource Name (ARN) of the customer gateway. For more
--- information, see
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/list_amazonec2.html#amazonec2-resources-for-iam-policies Resources Defined by Amazon EC2>.
+-- | The Amazon Resource Name (ARN) of the customer gateway.
 disassociateCustomerGateway_customerGatewayArn :: Lens.Lens' DisassociateCustomerGateway Prelude.Text
 disassociateCustomerGateway_customerGatewayArn = Lens.lens (\DisassociateCustomerGateway' {customerGatewayArn} -> customerGatewayArn) (\s@DisassociateCustomerGateway' {} a -> s {customerGatewayArn = a} :: DisassociateCustomerGateway)
 
@@ -100,12 +95,13 @@ instance Core.AWSRequest DisassociateCustomerGateway where
   type
     AWSResponse DisassociateCustomerGateway =
       DisassociateCustomerGatewayResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DisassociateCustomerGatewayResponse'
-            Prelude.<$> (x Core..?> "CustomerGatewayAssociation")
+            Prelude.<$> (x Data..?> "CustomerGatewayAssociation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -119,27 +115,27 @@ instance Prelude.NFData DisassociateCustomerGateway where
     Prelude.rnf globalNetworkId
       `Prelude.seq` Prelude.rnf customerGatewayArn
 
-instance Core.ToHeaders DisassociateCustomerGateway where
+instance Data.ToHeaders DisassociateCustomerGateway where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DisassociateCustomerGateway where
+instance Data.ToPath DisassociateCustomerGateway where
   toPath DisassociateCustomerGateway' {..} =
     Prelude.mconcat
       [ "/global-networks/",
-        Core.toBS globalNetworkId,
+        Data.toBS globalNetworkId,
         "/customer-gateway-associations/",
-        Core.toBS customerGatewayArn
+        Data.toBS customerGatewayArn
       ]
 
-instance Core.ToQuery DisassociateCustomerGateway where
+instance Data.ToQuery DisassociateCustomerGateway where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateCustomerGatewayResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.EnvironmentProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.EnvironmentProperties where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.PropertyGroup
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes execution properties for a Flink-based Kinesis Data Analytics
@@ -63,11 +64,11 @@ instance Prelude.NFData EnvironmentProperties where
   rnf EnvironmentProperties' {..} =
     Prelude.rnf propertyGroups
 
-instance Core.ToJSON EnvironmentProperties where
+instance Data.ToJSON EnvironmentProperties where
   toJSON EnvironmentProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("PropertyGroups" Core..= propertyGroups)
+              ("PropertyGroups" Data..= propertyGroups)
           ]
       )

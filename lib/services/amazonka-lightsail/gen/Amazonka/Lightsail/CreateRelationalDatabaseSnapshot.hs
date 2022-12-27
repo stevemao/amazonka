@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.CreateRelationalDatabaseSnapshot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.Lightsail.CreateRelationalDatabaseSnapshot
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -139,12 +140,13 @@ instance
   type
     AWSResponse CreateRelationalDatabaseSnapshot =
       CreateRelationalDatabaseSnapshotResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateRelationalDatabaseSnapshotResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -169,44 +171,44 @@ instance
       `Prelude.seq` Prelude.rnf relationalDatabaseSnapshotName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     CreateRelationalDatabaseSnapshot
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.CreateRelationalDatabaseSnapshot" ::
+              Data.=# ( "Lightsail_20161128.CreateRelationalDatabaseSnapshot" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateRelationalDatabaseSnapshot where
+instance Data.ToJSON CreateRelationalDatabaseSnapshot where
   toJSON CreateRelationalDatabaseSnapshot' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("tags" Core..=) Prelude.<$> tags,
+          [ ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
               ( "relationalDatabaseName"
-                  Core..= relationalDatabaseName
+                  Data..= relationalDatabaseName
               ),
             Prelude.Just
               ( "relationalDatabaseSnapshotName"
-                  Core..= relationalDatabaseSnapshotName
+                  Data..= relationalDatabaseSnapshotName
               )
           ]
       )
 
-instance Core.ToPath CreateRelationalDatabaseSnapshot where
+instance Data.ToPath CreateRelationalDatabaseSnapshot where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CreateRelationalDatabaseSnapshot
   where
   toQuery = Prelude.const Prelude.mempty

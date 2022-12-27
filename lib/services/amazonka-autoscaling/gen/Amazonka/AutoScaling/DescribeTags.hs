@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.DescribeTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,7 +32,7 @@
 -- match, no special message is returned.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-tagging.html Tagging Auto Scaling groups and instances>
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/ec2-auto-scaling-tagging.html Tag Auto Scaling groups and instances>
 -- in the /Amazon EC2 Auto Scaling User Guide/.
 --
 -- This operation returns paginated results.
@@ -43,8 +43,8 @@ module Amazonka.AutoScaling.DescribeTags
 
     -- * Request Lenses
     describeTags_filters,
-    describeTags_nextToken,
     describeTags_maxRecords,
+    describeTags_nextToken,
 
     -- * Destructuring the Response
     DescribeTagsResponse (..),
@@ -59,7 +59,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,12 +70,12 @@ data DescribeTags = DescribeTags'
   { -- | One or more filters to scope the tags to return. The maximum number of
     -- filters per filter type (for example, @auto-scaling-group@) is 1000.
     filters :: Prelude.Maybe [Filter],
-    -- | The token for the next set of items to return. (You received this token
-    -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of items to return with this call. The default value
     -- is @50@ and the maximum value is @100@.
-    maxRecords :: Prelude.Maybe Prelude.Int
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -89,18 +90,18 @@ data DescribeTags = DescribeTags'
 -- 'filters', 'describeTags_filters' - One or more filters to scope the tags to return. The maximum number of
 -- filters per filter type (for example, @auto-scaling-group@) is 1000.
 --
--- 'nextToken', 'describeTags_nextToken' - The token for the next set of items to return. (You received this token
--- from a previous call.)
---
 -- 'maxRecords', 'describeTags_maxRecords' - The maximum number of items to return with this call. The default value
 -- is @50@ and the maximum value is @100@.
+--
+-- 'nextToken', 'describeTags_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 newDescribeTags ::
   DescribeTags
 newDescribeTags =
   DescribeTags'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxRecords = Prelude.Nothing
+      maxRecords = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | One or more filters to scope the tags to return. The maximum number of
@@ -108,15 +109,15 @@ newDescribeTags =
 describeTags_filters :: Lens.Lens' DescribeTags (Prelude.Maybe [Filter])
 describeTags_filters = Lens.lens (\DescribeTags' {filters} -> filters) (\s@DescribeTags' {} a -> s {filters = a} :: DescribeTags) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next set of items to return. (You received this token
--- from a previous call.)
-describeTags_nextToken :: Lens.Lens' DescribeTags (Prelude.Maybe Prelude.Text)
-describeTags_nextToken = Lens.lens (\DescribeTags' {nextToken} -> nextToken) (\s@DescribeTags' {} a -> s {nextToken = a} :: DescribeTags)
-
 -- | The maximum number of items to return with this call. The default value
 -- is @50@ and the maximum value is @100@.
 describeTags_maxRecords :: Lens.Lens' DescribeTags (Prelude.Maybe Prelude.Int)
 describeTags_maxRecords = Lens.lens (\DescribeTags' {maxRecords} -> maxRecords) (\s@DescribeTags' {} a -> s {maxRecords = a} :: DescribeTags)
+
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeTags_nextToken :: Lens.Lens' DescribeTags (Prelude.Maybe Prelude.Text)
+describeTags_nextToken = Lens.lens (\DescribeTags' {nextToken} -> nextToken) (\s@DescribeTags' {} a -> s {nextToken = a} :: DescribeTags)
 
 instance Core.AWSPager DescribeTags where
   page rq rs
@@ -139,15 +140,16 @@ instance Core.AWSPager DescribeTags where
 
 instance Core.AWSRequest DescribeTags where
   type AWSResponse DescribeTags = DescribeTagsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeTagsResult"
       ( \s h x ->
           DescribeTagsResponse'
-            Prelude.<$> (x Core..@? "NextToken")
-            Prelude.<*> ( x Core..@? "Tags" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "NextToken")
+            Prelude.<*> ( x Data..@? "Tags" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -155,33 +157,33 @@ instance Core.AWSRequest DescribeTags where
 instance Prelude.Hashable DescribeTags where
   hashWithSalt _salt DescribeTags' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeTags where
   rnf DescribeTags' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeTags where
+instance Data.ToHeaders DescribeTags where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeTags where
+instance Data.ToPath DescribeTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTags where
+instance Data.ToQuery DescribeTags where
   toQuery DescribeTags' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeTags" :: Prelude.ByteString),
+          Data.=: ("DescribeTags" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> filters),
+        "MaxRecords" Data.=: maxRecords,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeTagsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.AddSourceIdentifierToSubscription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.RDS.AddSourceIdentifierToSubscription
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -76,6 +77,9 @@ data AddSourceIdentifierToSubscription = AddSourceIdentifierToSubscription'
     --
     -- -   If the source type is a DB cluster snapshot, a
     --     @DBClusterSnapshotIdentifier@ value must be supplied.
+    --
+    -- -   If the source type is an RDS Proxy, a @DBProxyName@ value must be
+    --     supplied.
     sourceIdentifier :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -112,6 +116,9 @@ data AddSourceIdentifierToSubscription = AddSourceIdentifierToSubscription'
 --
 -- -   If the source type is a DB cluster snapshot, a
 --     @DBClusterSnapshotIdentifier@ value must be supplied.
+--
+-- -   If the source type is an RDS Proxy, a @DBProxyName@ value must be
+--     supplied.
 newAddSourceIdentifierToSubscription ::
   -- | 'subscriptionName'
   Prelude.Text ->
@@ -153,6 +160,9 @@ addSourceIdentifierToSubscription_subscriptionName = Lens.lens (\AddSourceIdenti
 --
 -- -   If the source type is a DB cluster snapshot, a
 --     @DBClusterSnapshotIdentifier@ value must be supplied.
+--
+-- -   If the source type is an RDS Proxy, a @DBProxyName@ value must be
+--     supplied.
 addSourceIdentifierToSubscription_sourceIdentifier :: Lens.Lens' AddSourceIdentifierToSubscription Prelude.Text
 addSourceIdentifierToSubscription_sourceIdentifier = Lens.lens (\AddSourceIdentifierToSubscription' {sourceIdentifier} -> sourceIdentifier) (\s@AddSourceIdentifierToSubscription' {} a -> s {sourceIdentifier = a} :: AddSourceIdentifierToSubscription)
 
@@ -163,13 +173,14 @@ instance
   type
     AWSResponse AddSourceIdentifierToSubscription =
       AddSourceIdentifierToSubscriptionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "AddSourceIdentifierToSubscriptionResult"
       ( \s h x ->
           AddSourceIdentifierToSubscriptionResponse'
-            Prelude.<$> (x Core..@? "EventSubscription")
+            Prelude.<$> (x Data..@? "EventSubscription")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -192,31 +203,31 @@ instance
       `Prelude.seq` Prelude.rnf sourceIdentifier
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AddSourceIdentifierToSubscription
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     AddSourceIdentifierToSubscription
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     AddSourceIdentifierToSubscription
   where
   toQuery AddSourceIdentifierToSubscription' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "AddSourceIdentifierToSubscription" ::
+          Data.=: ( "AddSourceIdentifierToSubscription" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "SubscriptionName" Core.=: subscriptionName,
-        "SourceIdentifier" Core.=: sourceIdentifier
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "SubscriptionName" Data.=: subscriptionName,
+        "SourceIdentifier" Data.=: sourceIdentifier
       ]
 
 -- | /See:/ 'newAddSourceIdentifierToSubscriptionResponse' smart constructor.

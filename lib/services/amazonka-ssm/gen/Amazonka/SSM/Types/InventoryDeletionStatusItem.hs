@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.InventoryDeletionStatusItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.InventoryDeletionStatusItem where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.InventoryDeletionStatus
 import Amazonka.SSM.Types.InventoryDeletionSummary
@@ -29,12 +30,10 @@ import Amazonka.SSM.Types.InventoryDeletionSummary
 --
 -- /See:/ 'newInventoryDeletionStatusItem' smart constructor.
 data InventoryDeletionStatusItem = InventoryDeletionStatusItem'
-  { -- | The name of the inventory data type.
-    typeName :: Prelude.Maybe Prelude.Text,
-    -- | The UTC timestamp of when the last status report.
-    lastStatusUpdateTime :: Prelude.Maybe Core.POSIX,
-    -- | Information about the status.
-    lastStatusMessage :: Prelude.Maybe Prelude.Text,
+  { -- | The deletion ID returned by the @DeleteInventory@ operation.
+    deletionId :: Prelude.Maybe Prelude.Text,
+    -- | The UTC timestamp when the delete operation started.
+    deletionStartTime :: Prelude.Maybe Data.POSIX,
     -- | Information about the delete operation. For more information about this
     -- summary, see
     -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-inventory-custom.html#sysman-inventory-delete Understanding the delete inventory summary>
@@ -43,10 +42,12 @@ data InventoryDeletionStatusItem = InventoryDeletionStatusItem'
     -- | The status of the operation. Possible values are InProgress and
     -- Complete.
     lastStatus :: Prelude.Maybe InventoryDeletionStatus,
-    -- | The UTC timestamp when the delete operation started.
-    deletionStartTime :: Prelude.Maybe Core.POSIX,
-    -- | The deletion ID returned by the @DeleteInventory@ operation.
-    deletionId :: Prelude.Maybe Prelude.Text
+    -- | Information about the status.
+    lastStatusMessage :: Prelude.Maybe Prelude.Text,
+    -- | The UTC timestamp of when the last status report.
+    lastStatusUpdateTime :: Prelude.Maybe Data.POSIX,
+    -- | The name of the inventory data type.
+    typeName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,11 +59,9 @@ data InventoryDeletionStatusItem = InventoryDeletionStatusItem'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'typeName', 'inventoryDeletionStatusItem_typeName' - The name of the inventory data type.
+-- 'deletionId', 'inventoryDeletionStatusItem_deletionId' - The deletion ID returned by the @DeleteInventory@ operation.
 --
--- 'lastStatusUpdateTime', 'inventoryDeletionStatusItem_lastStatusUpdateTime' - The UTC timestamp of when the last status report.
---
--- 'lastStatusMessage', 'inventoryDeletionStatusItem_lastStatusMessage' - Information about the status.
+-- 'deletionStartTime', 'inventoryDeletionStatusItem_deletionStartTime' - The UTC timestamp when the delete operation started.
 --
 -- 'deletionSummary', 'inventoryDeletionStatusItem_deletionSummary' - Information about the delete operation. For more information about this
 -- summary, see
@@ -72,34 +71,32 @@ data InventoryDeletionStatusItem = InventoryDeletionStatusItem'
 -- 'lastStatus', 'inventoryDeletionStatusItem_lastStatus' - The status of the operation. Possible values are InProgress and
 -- Complete.
 --
--- 'deletionStartTime', 'inventoryDeletionStatusItem_deletionStartTime' - The UTC timestamp when the delete operation started.
+-- 'lastStatusMessage', 'inventoryDeletionStatusItem_lastStatusMessage' - Information about the status.
 --
--- 'deletionId', 'inventoryDeletionStatusItem_deletionId' - The deletion ID returned by the @DeleteInventory@ operation.
+-- 'lastStatusUpdateTime', 'inventoryDeletionStatusItem_lastStatusUpdateTime' - The UTC timestamp of when the last status report.
+--
+-- 'typeName', 'inventoryDeletionStatusItem_typeName' - The name of the inventory data type.
 newInventoryDeletionStatusItem ::
   InventoryDeletionStatusItem
 newInventoryDeletionStatusItem =
   InventoryDeletionStatusItem'
-    { typeName =
+    { deletionId =
         Prelude.Nothing,
-      lastStatusUpdateTime = Prelude.Nothing,
-      lastStatusMessage = Prelude.Nothing,
+      deletionStartTime = Prelude.Nothing,
       deletionSummary = Prelude.Nothing,
       lastStatus = Prelude.Nothing,
-      deletionStartTime = Prelude.Nothing,
-      deletionId = Prelude.Nothing
+      lastStatusMessage = Prelude.Nothing,
+      lastStatusUpdateTime = Prelude.Nothing,
+      typeName = Prelude.Nothing
     }
 
--- | The name of the inventory data type.
-inventoryDeletionStatusItem_typeName :: Lens.Lens' InventoryDeletionStatusItem (Prelude.Maybe Prelude.Text)
-inventoryDeletionStatusItem_typeName = Lens.lens (\InventoryDeletionStatusItem' {typeName} -> typeName) (\s@InventoryDeletionStatusItem' {} a -> s {typeName = a} :: InventoryDeletionStatusItem)
+-- | The deletion ID returned by the @DeleteInventory@ operation.
+inventoryDeletionStatusItem_deletionId :: Lens.Lens' InventoryDeletionStatusItem (Prelude.Maybe Prelude.Text)
+inventoryDeletionStatusItem_deletionId = Lens.lens (\InventoryDeletionStatusItem' {deletionId} -> deletionId) (\s@InventoryDeletionStatusItem' {} a -> s {deletionId = a} :: InventoryDeletionStatusItem)
 
--- | The UTC timestamp of when the last status report.
-inventoryDeletionStatusItem_lastStatusUpdateTime :: Lens.Lens' InventoryDeletionStatusItem (Prelude.Maybe Prelude.UTCTime)
-inventoryDeletionStatusItem_lastStatusUpdateTime = Lens.lens (\InventoryDeletionStatusItem' {lastStatusUpdateTime} -> lastStatusUpdateTime) (\s@InventoryDeletionStatusItem' {} a -> s {lastStatusUpdateTime = a} :: InventoryDeletionStatusItem) Prelude.. Lens.mapping Core._Time
-
--- | Information about the status.
-inventoryDeletionStatusItem_lastStatusMessage :: Lens.Lens' InventoryDeletionStatusItem (Prelude.Maybe Prelude.Text)
-inventoryDeletionStatusItem_lastStatusMessage = Lens.lens (\InventoryDeletionStatusItem' {lastStatusMessage} -> lastStatusMessage) (\s@InventoryDeletionStatusItem' {} a -> s {lastStatusMessage = a} :: InventoryDeletionStatusItem)
+-- | The UTC timestamp when the delete operation started.
+inventoryDeletionStatusItem_deletionStartTime :: Lens.Lens' InventoryDeletionStatusItem (Prelude.Maybe Prelude.UTCTime)
+inventoryDeletionStatusItem_deletionStartTime = Lens.lens (\InventoryDeletionStatusItem' {deletionStartTime} -> deletionStartTime) (\s@InventoryDeletionStatusItem' {} a -> s {deletionStartTime = a} :: InventoryDeletionStatusItem) Prelude.. Lens.mapping Data._Time
 
 -- | Information about the delete operation. For more information about this
 -- summary, see
@@ -113,45 +110,49 @@ inventoryDeletionStatusItem_deletionSummary = Lens.lens (\InventoryDeletionStatu
 inventoryDeletionStatusItem_lastStatus :: Lens.Lens' InventoryDeletionStatusItem (Prelude.Maybe InventoryDeletionStatus)
 inventoryDeletionStatusItem_lastStatus = Lens.lens (\InventoryDeletionStatusItem' {lastStatus} -> lastStatus) (\s@InventoryDeletionStatusItem' {} a -> s {lastStatus = a} :: InventoryDeletionStatusItem)
 
--- | The UTC timestamp when the delete operation started.
-inventoryDeletionStatusItem_deletionStartTime :: Lens.Lens' InventoryDeletionStatusItem (Prelude.Maybe Prelude.UTCTime)
-inventoryDeletionStatusItem_deletionStartTime = Lens.lens (\InventoryDeletionStatusItem' {deletionStartTime} -> deletionStartTime) (\s@InventoryDeletionStatusItem' {} a -> s {deletionStartTime = a} :: InventoryDeletionStatusItem) Prelude.. Lens.mapping Core._Time
+-- | Information about the status.
+inventoryDeletionStatusItem_lastStatusMessage :: Lens.Lens' InventoryDeletionStatusItem (Prelude.Maybe Prelude.Text)
+inventoryDeletionStatusItem_lastStatusMessage = Lens.lens (\InventoryDeletionStatusItem' {lastStatusMessage} -> lastStatusMessage) (\s@InventoryDeletionStatusItem' {} a -> s {lastStatusMessage = a} :: InventoryDeletionStatusItem)
 
--- | The deletion ID returned by the @DeleteInventory@ operation.
-inventoryDeletionStatusItem_deletionId :: Lens.Lens' InventoryDeletionStatusItem (Prelude.Maybe Prelude.Text)
-inventoryDeletionStatusItem_deletionId = Lens.lens (\InventoryDeletionStatusItem' {deletionId} -> deletionId) (\s@InventoryDeletionStatusItem' {} a -> s {deletionId = a} :: InventoryDeletionStatusItem)
+-- | The UTC timestamp of when the last status report.
+inventoryDeletionStatusItem_lastStatusUpdateTime :: Lens.Lens' InventoryDeletionStatusItem (Prelude.Maybe Prelude.UTCTime)
+inventoryDeletionStatusItem_lastStatusUpdateTime = Lens.lens (\InventoryDeletionStatusItem' {lastStatusUpdateTime} -> lastStatusUpdateTime) (\s@InventoryDeletionStatusItem' {} a -> s {lastStatusUpdateTime = a} :: InventoryDeletionStatusItem) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON InventoryDeletionStatusItem where
+-- | The name of the inventory data type.
+inventoryDeletionStatusItem_typeName :: Lens.Lens' InventoryDeletionStatusItem (Prelude.Maybe Prelude.Text)
+inventoryDeletionStatusItem_typeName = Lens.lens (\InventoryDeletionStatusItem' {typeName} -> typeName) (\s@InventoryDeletionStatusItem' {} a -> s {typeName = a} :: InventoryDeletionStatusItem)
+
+instance Data.FromJSON InventoryDeletionStatusItem where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InventoryDeletionStatusItem"
       ( \x ->
           InventoryDeletionStatusItem'
-            Prelude.<$> (x Core..:? "TypeName")
-            Prelude.<*> (x Core..:? "LastStatusUpdateTime")
-            Prelude.<*> (x Core..:? "LastStatusMessage")
-            Prelude.<*> (x Core..:? "DeletionSummary")
-            Prelude.<*> (x Core..:? "LastStatus")
-            Prelude.<*> (x Core..:? "DeletionStartTime")
-            Prelude.<*> (x Core..:? "DeletionId")
+            Prelude.<$> (x Data..:? "DeletionId")
+            Prelude.<*> (x Data..:? "DeletionStartTime")
+            Prelude.<*> (x Data..:? "DeletionSummary")
+            Prelude.<*> (x Data..:? "LastStatus")
+            Prelude.<*> (x Data..:? "LastStatusMessage")
+            Prelude.<*> (x Data..:? "LastStatusUpdateTime")
+            Prelude.<*> (x Data..:? "TypeName")
       )
 
 instance Prelude.Hashable InventoryDeletionStatusItem where
   hashWithSalt _salt InventoryDeletionStatusItem' {..} =
-    _salt `Prelude.hashWithSalt` typeName
-      `Prelude.hashWithSalt` lastStatusUpdateTime
-      `Prelude.hashWithSalt` lastStatusMessage
+    _salt `Prelude.hashWithSalt` deletionId
+      `Prelude.hashWithSalt` deletionStartTime
       `Prelude.hashWithSalt` deletionSummary
       `Prelude.hashWithSalt` lastStatus
-      `Prelude.hashWithSalt` deletionStartTime
-      `Prelude.hashWithSalt` deletionId
+      `Prelude.hashWithSalt` lastStatusMessage
+      `Prelude.hashWithSalt` lastStatusUpdateTime
+      `Prelude.hashWithSalt` typeName
 
 instance Prelude.NFData InventoryDeletionStatusItem where
   rnf InventoryDeletionStatusItem' {..} =
-    Prelude.rnf typeName
-      `Prelude.seq` Prelude.rnf lastStatusUpdateTime
-      `Prelude.seq` Prelude.rnf lastStatusMessage
+    Prelude.rnf deletionId
+      `Prelude.seq` Prelude.rnf deletionStartTime
       `Prelude.seq` Prelude.rnf deletionSummary
       `Prelude.seq` Prelude.rnf lastStatus
-      `Prelude.seq` Prelude.rnf deletionStartTime
-      `Prelude.seq` Prelude.rnf deletionId
+      `Prelude.seq` Prelude.rnf lastStatusMessage
+      `Prelude.seq` Prelude.rnf lastStatusUpdateTime
+      `Prelude.seq` Prelude.rnf typeName

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.HadoopStepConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EMR.Types.HadoopStepConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A cluster step consisting of a JAR file whose main function will be
@@ -90,16 +91,16 @@ hadoopStepConfig_mainClass = Lens.lens (\HadoopStepConfig' {mainClass} -> mainCl
 hadoopStepConfig_properties :: Lens.Lens' HadoopStepConfig (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 hadoopStepConfig_properties = Lens.lens (\HadoopStepConfig' {properties} -> properties) (\s@HadoopStepConfig' {} a -> s {properties = a} :: HadoopStepConfig) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON HadoopStepConfig where
+instance Data.FromJSON HadoopStepConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HadoopStepConfig"
       ( \x ->
           HadoopStepConfig'
-            Prelude.<$> (x Core..:? "Args" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Jar")
-            Prelude.<*> (x Core..:? "MainClass")
-            Prelude.<*> (x Core..:? "Properties" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Args" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Jar")
+            Prelude.<*> (x Data..:? "MainClass")
+            Prelude.<*> (x Data..:? "Properties" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable HadoopStepConfig where

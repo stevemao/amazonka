@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.UpdateAccountSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,6 +29,7 @@ module Amazonka.QuickSight.UpdateAccountSettings
 
     -- * Request Lenses
     updateAccountSettings_notificationEmail,
+    updateAccountSettings_terminationProtectionEnabled,
     updateAccountSettings_awsAccountId,
     updateAccountSettings_defaultNamespace,
 
@@ -43,7 +44,8 @@ module Amazonka.QuickSight.UpdateAccountSettings
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -55,13 +57,19 @@ data UpdateAccountSettings = UpdateAccountSettings'
     -- to regarding your Amazon Web Services account or Amazon QuickSight
     -- subscription.
     notificationEmail :: Prelude.Maybe Prelude.Text,
+    -- | A boolean value that determines whether or not an Amazon QuickSight
+    -- account can be deleted. A @True@ value doesn\'t allow the account to be
+    -- deleted and results in an error message if a user tries to make a
+    -- @DeleteAccountSubscription@ request. A @False@ value will allow the
+    -- account to be deleted.
+    terminationProtectionEnabled :: Prelude.Maybe Prelude.Bool,
     -- | The ID for the Amazon Web Services account that contains the Amazon
     -- QuickSight settings that you want to list.
     awsAccountId :: Prelude.Text,
     -- | The default namespace for this Amazon Web Services account. Currently,
     -- the default is @default@. Identity and Access Management (IAM) users
     -- that register for the first time with Amazon QuickSight provide an email
-    -- that becomes associated with the default namespace.
+    -- address that becomes associated with the default namespace.
     defaultNamespace :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -78,13 +86,19 @@ data UpdateAccountSettings = UpdateAccountSettings'
 -- to regarding your Amazon Web Services account or Amazon QuickSight
 -- subscription.
 --
+-- 'terminationProtectionEnabled', 'updateAccountSettings_terminationProtectionEnabled' - A boolean value that determines whether or not an Amazon QuickSight
+-- account can be deleted. A @True@ value doesn\'t allow the account to be
+-- deleted and results in an error message if a user tries to make a
+-- @DeleteAccountSubscription@ request. A @False@ value will allow the
+-- account to be deleted.
+--
 -- 'awsAccountId', 'updateAccountSettings_awsAccountId' - The ID for the Amazon Web Services account that contains the Amazon
 -- QuickSight settings that you want to list.
 --
 -- 'defaultNamespace', 'updateAccountSettings_defaultNamespace' - The default namespace for this Amazon Web Services account. Currently,
 -- the default is @default@. Identity and Access Management (IAM) users
 -- that register for the first time with Amazon QuickSight provide an email
--- that becomes associated with the default namespace.
+-- address that becomes associated with the default namespace.
 newUpdateAccountSettings ::
   -- | 'awsAccountId'
   Prelude.Text ->
@@ -97,6 +111,7 @@ newUpdateAccountSettings
     UpdateAccountSettings'
       { notificationEmail =
           Prelude.Nothing,
+        terminationProtectionEnabled = Prelude.Nothing,
         awsAccountId = pAwsAccountId_,
         defaultNamespace = pDefaultNamespace_
       }
@@ -107,6 +122,14 @@ newUpdateAccountSettings
 updateAccountSettings_notificationEmail :: Lens.Lens' UpdateAccountSettings (Prelude.Maybe Prelude.Text)
 updateAccountSettings_notificationEmail = Lens.lens (\UpdateAccountSettings' {notificationEmail} -> notificationEmail) (\s@UpdateAccountSettings' {} a -> s {notificationEmail = a} :: UpdateAccountSettings)
 
+-- | A boolean value that determines whether or not an Amazon QuickSight
+-- account can be deleted. A @True@ value doesn\'t allow the account to be
+-- deleted and results in an error message if a user tries to make a
+-- @DeleteAccountSubscription@ request. A @False@ value will allow the
+-- account to be deleted.
+updateAccountSettings_terminationProtectionEnabled :: Lens.Lens' UpdateAccountSettings (Prelude.Maybe Prelude.Bool)
+updateAccountSettings_terminationProtectionEnabled = Lens.lens (\UpdateAccountSettings' {terminationProtectionEnabled} -> terminationProtectionEnabled) (\s@UpdateAccountSettings' {} a -> s {terminationProtectionEnabled = a} :: UpdateAccountSettings)
+
 -- | The ID for the Amazon Web Services account that contains the Amazon
 -- QuickSight settings that you want to list.
 updateAccountSettings_awsAccountId :: Lens.Lens' UpdateAccountSettings Prelude.Text
@@ -115,7 +138,7 @@ updateAccountSettings_awsAccountId = Lens.lens (\UpdateAccountSettings' {awsAcco
 -- | The default namespace for this Amazon Web Services account. Currently,
 -- the default is @default@. Identity and Access Management (IAM) users
 -- that register for the first time with Amazon QuickSight provide an email
--- that becomes associated with the default namespace.
+-- address that becomes associated with the default namespace.
 updateAccountSettings_defaultNamespace :: Lens.Lens' UpdateAccountSettings Prelude.Text
 updateAccountSettings_defaultNamespace = Lens.lens (\UpdateAccountSettings' {defaultNamespace} -> defaultNamespace) (\s@UpdateAccountSettings' {} a -> s {defaultNamespace = a} :: UpdateAccountSettings)
 
@@ -123,55 +146,60 @@ instance Core.AWSRequest UpdateAccountSettings where
   type
     AWSResponse UpdateAccountSettings =
       UpdateAccountSettingsResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateAccountSettingsResponse'
-            Prelude.<$> (x Core..?> "RequestId")
+            Prelude.<$> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateAccountSettings where
   hashWithSalt _salt UpdateAccountSettings' {..} =
     _salt `Prelude.hashWithSalt` notificationEmail
+      `Prelude.hashWithSalt` terminationProtectionEnabled
       `Prelude.hashWithSalt` awsAccountId
       `Prelude.hashWithSalt` defaultNamespace
 
 instance Prelude.NFData UpdateAccountSettings where
   rnf UpdateAccountSettings' {..} =
     Prelude.rnf notificationEmail
+      `Prelude.seq` Prelude.rnf terminationProtectionEnabled
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf defaultNamespace
 
-instance Core.ToHeaders UpdateAccountSettings where
+instance Data.ToHeaders UpdateAccountSettings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAccountSettings where
+instance Data.ToJSON UpdateAccountSettings where
   toJSON UpdateAccountSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NotificationEmail" Core..=)
+          [ ("NotificationEmail" Data..=)
               Prelude.<$> notificationEmail,
+            ("TerminationProtectionEnabled" Data..=)
+              Prelude.<$> terminationProtectionEnabled,
             Prelude.Just
-              ("DefaultNamespace" Core..= defaultNamespace)
+              ("DefaultNamespace" Data..= defaultNamespace)
           ]
       )
 
-instance Core.ToPath UpdateAccountSettings where
+instance Data.ToPath UpdateAccountSettings where
   toPath UpdateAccountSettings' {..} =
     Prelude.mconcat
-      ["/accounts/", Core.toBS awsAccountId, "/settings"]
+      ["/accounts/", Data.toBS awsAccountId, "/settings"]
 
-instance Core.ToQuery UpdateAccountSettings where
+instance Data.ToQuery UpdateAccountSettings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAccountSettingsResponse' smart constructor.

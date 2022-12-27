@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.CreateGlobalReplicationGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,8 +54,9 @@ module Amazonka.ElastiCache.CreateGlobalReplicationGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -154,13 +155,14 @@ instance Core.AWSRequest CreateGlobalReplicationGroup where
   type
     AWSResponse CreateGlobalReplicationGroup =
       CreateGlobalReplicationGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateGlobalReplicationGroupResult"
       ( \s h x ->
           CreateGlobalReplicationGroupResponse'
-            Prelude.<$> (x Core..@? "GlobalReplicationGroup")
+            Prelude.<$> (x Data..@? "GlobalReplicationGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -180,27 +182,27 @@ instance Prelude.NFData CreateGlobalReplicationGroup where
       `Prelude.seq` Prelude.rnf globalReplicationGroupIdSuffix
       `Prelude.seq` Prelude.rnf primaryReplicationGroupId
 
-instance Core.ToHeaders CreateGlobalReplicationGroup where
+instance Data.ToHeaders CreateGlobalReplicationGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateGlobalReplicationGroup where
+instance Data.ToPath CreateGlobalReplicationGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateGlobalReplicationGroup where
+instance Data.ToQuery CreateGlobalReplicationGroup where
   toQuery CreateGlobalReplicationGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "CreateGlobalReplicationGroup" ::
+          Data.=: ( "CreateGlobalReplicationGroup" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
         "GlobalReplicationGroupDescription"
-          Core.=: globalReplicationGroupDescription,
+          Data.=: globalReplicationGroupDescription,
         "GlobalReplicationGroupIdSuffix"
-          Core.=: globalReplicationGroupIdSuffix,
+          Data.=: globalReplicationGroupIdSuffix,
         "PrimaryReplicationGroupId"
-          Core.=: primaryReplicationGroupId
+          Data.=: primaryReplicationGroupId
       ]
 
 -- | /See:/ 'newCreateGlobalReplicationGroupResponse' smart constructor.

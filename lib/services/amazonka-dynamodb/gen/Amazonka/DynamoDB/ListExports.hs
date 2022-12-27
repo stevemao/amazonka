@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.ListExports
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.DynamoDB.ListExports
     newListExports,
 
     -- * Request Lenses
-    listExports_tableArn,
-    listExports_nextToken,
     listExports_maxResults,
+    listExports_nextToken,
+    listExports_tableArn,
 
     -- * Destructuring the Response
     ListExportsResponse (..),
@@ -43,22 +43,23 @@ module Amazonka.DynamoDB.ListExports
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListExports' smart constructor.
 data ListExports = ListExports'
-  { -- | The Amazon Resource Name (ARN) associated with the exported table.
-    tableArn :: Prelude.Maybe Prelude.Text,
+  { -- | Maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | An optional string that, if supplied, must be copied from the output of
     -- a previous call to @ListExports@. When provided in this manner, the API
     -- fetches the next page of results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | The Amazon Resource Name (ARN) associated with the exported table.
+    tableArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,25 +71,25 @@ data ListExports = ListExports'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tableArn', 'listExports_tableArn' - The Amazon Resource Name (ARN) associated with the exported table.
+-- 'maxResults', 'listExports_maxResults' - Maximum number of results to return per page.
 --
 -- 'nextToken', 'listExports_nextToken' - An optional string that, if supplied, must be copied from the output of
 -- a previous call to @ListExports@. When provided in this manner, the API
 -- fetches the next page of results.
 --
--- 'maxResults', 'listExports_maxResults' - Maximum number of results to return per page.
+-- 'tableArn', 'listExports_tableArn' - The Amazon Resource Name (ARN) associated with the exported table.
 newListExports ::
   ListExports
 newListExports =
   ListExports'
-    { tableArn = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      tableArn = Prelude.Nothing
     }
 
--- | The Amazon Resource Name (ARN) associated with the exported table.
-listExports_tableArn :: Lens.Lens' ListExports (Prelude.Maybe Prelude.Text)
-listExports_tableArn = Lens.lens (\ListExports' {tableArn} -> tableArn) (\s@ListExports' {} a -> s {tableArn = a} :: ListExports)
+-- | Maximum number of results to return per page.
+listExports_maxResults :: Lens.Lens' ListExports (Prelude.Maybe Prelude.Natural)
+listExports_maxResults = Lens.lens (\ListExports' {maxResults} -> maxResults) (\s@ListExports' {} a -> s {maxResults = a} :: ListExports)
 
 -- | An optional string that, if supplied, must be copied from the output of
 -- a previous call to @ListExports@. When provided in this manner, the API
@@ -96,65 +97,66 @@ listExports_tableArn = Lens.lens (\ListExports' {tableArn} -> tableArn) (\s@List
 listExports_nextToken :: Lens.Lens' ListExports (Prelude.Maybe Prelude.Text)
 listExports_nextToken = Lens.lens (\ListExports' {nextToken} -> nextToken) (\s@ListExports' {} a -> s {nextToken = a} :: ListExports)
 
--- | Maximum number of results to return per page.
-listExports_maxResults :: Lens.Lens' ListExports (Prelude.Maybe Prelude.Natural)
-listExports_maxResults = Lens.lens (\ListExports' {maxResults} -> maxResults) (\s@ListExports' {} a -> s {maxResults = a} :: ListExports)
+-- | The Amazon Resource Name (ARN) associated with the exported table.
+listExports_tableArn :: Lens.Lens' ListExports (Prelude.Maybe Prelude.Text)
+listExports_tableArn = Lens.lens (\ListExports' {tableArn} -> tableArn) (\s@ListExports' {} a -> s {tableArn = a} :: ListExports)
 
 instance Core.AWSRequest ListExports where
   type AWSResponse ListExports = ListExportsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListExportsResponse'
-            Prelude.<$> ( x Core..?> "ExportSummaries"
+            Prelude.<$> ( x Data..?> "ExportSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListExports where
   hashWithSalt _salt ListExports' {..} =
-    _salt `Prelude.hashWithSalt` tableArn
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` tableArn
 
 instance Prelude.NFData ListExports where
   rnf ListExports' {..} =
-    Prelude.rnf tableArn
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf tableArn
 
-instance Core.ToHeaders ListExports where
+instance Data.ToHeaders ListExports where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.ListExports" ::
+              Data.=# ( "DynamoDB_20120810.ListExports" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListExports where
+instance Data.ToJSON ListExports where
   toJSON ListExports' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TableArn" Core..=) Prelude.<$> tableArn,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("TableArn" Data..=) Prelude.<$> tableArn
           ]
       )
 
-instance Core.ToPath ListExports where
+instance Data.ToPath ListExports where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListExports where
+instance Data.ToQuery ListExports where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListExportsResponse' smart constructor.

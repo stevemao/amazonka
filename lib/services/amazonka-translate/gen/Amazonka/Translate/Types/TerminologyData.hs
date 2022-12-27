@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Translate.Types.TerminologyData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,44 @@
 module Amazonka.Translate.Types.TerminologyData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
+import Amazonka.Translate.Types.Directionality
 import Amazonka.Translate.Types.TerminologyDataFormat
 
--- | The data associated with the custom terminology.
+-- | The data associated with the custom terminology. For information about
+-- the custom terminology file, see
+-- <https://docs.aws.amazon.com/translate/latest/dg/creating-custom-terminology.html Creating a Custom Terminology>.
 --
 -- /See:/ 'newTerminologyData' smart constructor.
 data TerminologyData = TerminologyData'
-  { -- | The file containing the custom terminology data. Your version of the AWS
+  { -- | The directionality of your terminology resource indicates whether it has
+    -- one source language (uni-directional) or multiple (multi-directional).
+    --
+    -- [UNI]
+    --     The terminology resource has one source language (for example, the
+    --     first column in a CSV file), and all of its other languages are
+    --     target languages.
+    --
+    -- [MULTI]
+    --     Any language in the terminology resource can be the source language
+    --     or a target language. A single multi-directional terminology
+    --     resource can be used for jobs that translate different language
+    --     pairs. For example, if the terminology contains English and Spanish
+    --     terms, it can be used for jobs that translate English to Spanish and
+    --     Spanish to English.
+    --
+    -- When you create a custom terminology resource without specifying the
+    -- directionality, it behaves as uni-directional terminology, although this
+    -- parameter will have a null value.
+    directionality :: Prelude.Maybe Directionality,
+    -- | The file containing the custom terminology data. Your version of the AWS
     -- SDK performs a Base64-encoding on this field before sending a request to
     -- the AWS service. Users of the SDK should not perform Base64-encoding
     -- themselves.
-    file :: Core.Sensitive Core.Base64,
-    -- | The data format of the custom terminology. Either CSV or TMX.
+    file :: Data.Sensitive Data.Base64,
+    -- | The data format of the custom terminology.
     format :: TerminologyDataFormat
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -46,6 +70,26 @@ data TerminologyData = TerminologyData'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'directionality', 'terminologyData_directionality' - The directionality of your terminology resource indicates whether it has
+-- one source language (uni-directional) or multiple (multi-directional).
+--
+-- [UNI]
+--     The terminology resource has one source language (for example, the
+--     first column in a CSV file), and all of its other languages are
+--     target languages.
+--
+-- [MULTI]
+--     Any language in the terminology resource can be the source language
+--     or a target language. A single multi-directional terminology
+--     resource can be used for jobs that translate different language
+--     pairs. For example, if the terminology contains English and Spanish
+--     terms, it can be used for jobs that translate English to Spanish and
+--     Spanish to English.
+--
+-- When you create a custom terminology resource without specifying the
+-- directionality, it behaves as uni-directional terminology, although this
+-- parameter will have a null value.
+--
 -- 'file', 'terminologyData_file' - The file containing the custom terminology data. Your version of the AWS
 -- SDK performs a Base64-encoding on this field before sending a request to
 -- the AWS service. Users of the SDK should not perform Base64-encoding
@@ -55,7 +99,7 @@ data TerminologyData = TerminologyData'
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 --
--- 'format', 'terminologyData_format' - The data format of the custom terminology. Either CSV or TMX.
+-- 'format', 'terminologyData_format' - The data format of the custom terminology.
 newTerminologyData ::
   -- | 'file'
   Prelude.ByteString ->
@@ -64,10 +108,33 @@ newTerminologyData ::
   TerminologyData
 newTerminologyData pFile_ pFormat_ =
   TerminologyData'
-    { file =
-        Core._Sensitive Prelude.. Core._Base64 Lens.# pFile_,
+    { directionality = Prelude.Nothing,
+      file =
+        Data._Sensitive Prelude.. Data._Base64 Lens.# pFile_,
       format = pFormat_
     }
+
+-- | The directionality of your terminology resource indicates whether it has
+-- one source language (uni-directional) or multiple (multi-directional).
+--
+-- [UNI]
+--     The terminology resource has one source language (for example, the
+--     first column in a CSV file), and all of its other languages are
+--     target languages.
+--
+-- [MULTI]
+--     Any language in the terminology resource can be the source language
+--     or a target language. A single multi-directional terminology
+--     resource can be used for jobs that translate different language
+--     pairs. For example, if the terminology contains English and Spanish
+--     terms, it can be used for jobs that translate English to Spanish and
+--     Spanish to English.
+--
+-- When you create a custom terminology resource without specifying the
+-- directionality, it behaves as uni-directional terminology, although this
+-- parameter will have a null value.
+terminologyData_directionality :: Lens.Lens' TerminologyData (Prelude.Maybe Directionality)
+terminologyData_directionality = Lens.lens (\TerminologyData' {directionality} -> directionality) (\s@TerminologyData' {} a -> s {directionality = a} :: TerminologyData)
 
 -- | The file containing the custom terminology data. Your version of the AWS
 -- SDK performs a Base64-encoding on this field before sending a request to
@@ -78,26 +145,31 @@ newTerminologyData pFile_ pFormat_ =
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 terminologyData_file :: Lens.Lens' TerminologyData Prelude.ByteString
-terminologyData_file = Lens.lens (\TerminologyData' {file} -> file) (\s@TerminologyData' {} a -> s {file = a} :: TerminologyData) Prelude.. Core._Sensitive Prelude.. Core._Base64
+terminologyData_file = Lens.lens (\TerminologyData' {file} -> file) (\s@TerminologyData' {} a -> s {file = a} :: TerminologyData) Prelude.. Data._Sensitive Prelude.. Data._Base64
 
--- | The data format of the custom terminology. Either CSV or TMX.
+-- | The data format of the custom terminology.
 terminologyData_format :: Lens.Lens' TerminologyData TerminologyDataFormat
 terminologyData_format = Lens.lens (\TerminologyData' {format} -> format) (\s@TerminologyData' {} a -> s {format = a} :: TerminologyData)
 
 instance Prelude.Hashable TerminologyData where
   hashWithSalt _salt TerminologyData' {..} =
-    _salt `Prelude.hashWithSalt` file
+    _salt `Prelude.hashWithSalt` directionality
+      `Prelude.hashWithSalt` file
       `Prelude.hashWithSalt` format
 
 instance Prelude.NFData TerminologyData where
   rnf TerminologyData' {..} =
-    Prelude.rnf file `Prelude.seq` Prelude.rnf format
+    Prelude.rnf directionality
+      `Prelude.seq` Prelude.rnf file
+      `Prelude.seq` Prelude.rnf format
 
-instance Core.ToJSON TerminologyData where
+instance Data.ToJSON TerminologyData where
   toJSON TerminologyData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("File" Core..= file),
-            Prelude.Just ("Format" Core..= format)
+          [ ("Directionality" Data..=)
+              Prelude.<$> directionality,
+            Prelude.Just ("File" Data..= file),
+            Prelude.Just ("Format" Data..= format)
           ]
       )

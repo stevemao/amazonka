@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ComputeOptimizer.Types.RecommendedOptionProjectedMetric
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.ComputeOptimizer.Types.RecommendedOptionProjectedMetric where
 
 import Amazonka.ComputeOptimizer.Types.ProjectedMetric
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a projected utilization metric of a recommendation option.
@@ -35,9 +36,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newRecommendedOptionProjectedMetric' smart constructor.
 data RecommendedOptionProjectedMetric = RecommendedOptionProjectedMetric'
-  { -- | The recommended instance type.
-    recommendedInstanceType :: Prelude.Maybe Prelude.Text,
-    -- | An array of objects that describe a projected utilization metric.
+  { -- | An array of objects that describe a projected utilization metric.
     projectedMetrics :: Prelude.Maybe [ProjectedMetric],
     -- | The rank of the recommendation option projected metric.
     --
@@ -46,7 +45,9 @@ data RecommendedOptionProjectedMetric = RecommendedOptionProjectedMetric'
     -- The projected metric rank correlates to the recommendation option rank.
     -- For example, the projected metric ranked as @1@ is related to the
     -- recommendation option that is also ranked as @1@ in the same response.
-    rank :: Prelude.Maybe Prelude.Int
+    rank :: Prelude.Maybe Prelude.Int,
+    -- | The recommended instance type.
+    recommendedInstanceType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,8 +59,6 @@ data RecommendedOptionProjectedMetric = RecommendedOptionProjectedMetric'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'recommendedInstanceType', 'recommendedOptionProjectedMetric_recommendedInstanceType' - The recommended instance type.
---
 -- 'projectedMetrics', 'recommendedOptionProjectedMetric_projectedMetrics' - An array of objects that describe a projected utilization metric.
 --
 -- 'rank', 'recommendedOptionProjectedMetric_rank' - The rank of the recommendation option projected metric.
@@ -69,19 +68,17 @@ data RecommendedOptionProjectedMetric = RecommendedOptionProjectedMetric'
 -- The projected metric rank correlates to the recommendation option rank.
 -- For example, the projected metric ranked as @1@ is related to the
 -- recommendation option that is also ranked as @1@ in the same response.
+--
+-- 'recommendedInstanceType', 'recommendedOptionProjectedMetric_recommendedInstanceType' - The recommended instance type.
 newRecommendedOptionProjectedMetric ::
   RecommendedOptionProjectedMetric
 newRecommendedOptionProjectedMetric =
   RecommendedOptionProjectedMetric'
-    { recommendedInstanceType =
+    { projectedMetrics =
         Prelude.Nothing,
-      projectedMetrics = Prelude.Nothing,
-      rank = Prelude.Nothing
+      rank = Prelude.Nothing,
+      recommendedInstanceType = Prelude.Nothing
     }
-
--- | The recommended instance type.
-recommendedOptionProjectedMetric_recommendedInstanceType :: Lens.Lens' RecommendedOptionProjectedMetric (Prelude.Maybe Prelude.Text)
-recommendedOptionProjectedMetric_recommendedInstanceType = Lens.lens (\RecommendedOptionProjectedMetric' {recommendedInstanceType} -> recommendedInstanceType) (\s@RecommendedOptionProjectedMetric' {} a -> s {recommendedInstanceType = a} :: RecommendedOptionProjectedMetric)
 
 -- | An array of objects that describe a projected utilization metric.
 recommendedOptionProjectedMetric_projectedMetrics :: Lens.Lens' RecommendedOptionProjectedMetric (Prelude.Maybe [ProjectedMetric])
@@ -97,20 +94,24 @@ recommendedOptionProjectedMetric_projectedMetrics = Lens.lens (\RecommendedOptio
 recommendedOptionProjectedMetric_rank :: Lens.Lens' RecommendedOptionProjectedMetric (Prelude.Maybe Prelude.Int)
 recommendedOptionProjectedMetric_rank = Lens.lens (\RecommendedOptionProjectedMetric' {rank} -> rank) (\s@RecommendedOptionProjectedMetric' {} a -> s {rank = a} :: RecommendedOptionProjectedMetric)
 
+-- | The recommended instance type.
+recommendedOptionProjectedMetric_recommendedInstanceType :: Lens.Lens' RecommendedOptionProjectedMetric (Prelude.Maybe Prelude.Text)
+recommendedOptionProjectedMetric_recommendedInstanceType = Lens.lens (\RecommendedOptionProjectedMetric' {recommendedInstanceType} -> recommendedInstanceType) (\s@RecommendedOptionProjectedMetric' {} a -> s {recommendedInstanceType = a} :: RecommendedOptionProjectedMetric)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     RecommendedOptionProjectedMetric
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RecommendedOptionProjectedMetric"
       ( \x ->
           RecommendedOptionProjectedMetric'
-            Prelude.<$> (x Core..:? "recommendedInstanceType")
-            Prelude.<*> ( x Core..:? "projectedMetrics"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "projectedMetrics"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "rank")
+            Prelude.<*> (x Data..:? "rank")
+            Prelude.<*> (x Data..:? "recommendedInstanceType")
       )
 
 instance
@@ -120,16 +121,15 @@ instance
   hashWithSalt
     _salt
     RecommendedOptionProjectedMetric' {..} =
-      _salt
-        `Prelude.hashWithSalt` recommendedInstanceType
-        `Prelude.hashWithSalt` projectedMetrics
+      _salt `Prelude.hashWithSalt` projectedMetrics
         `Prelude.hashWithSalt` rank
+        `Prelude.hashWithSalt` recommendedInstanceType
 
 instance
   Prelude.NFData
     RecommendedOptionProjectedMetric
   where
   rnf RecommendedOptionProjectedMetric' {..} =
-    Prelude.rnf recommendedInstanceType
-      `Prelude.seq` Prelude.rnf projectedMetrics
+    Prelude.rnf projectedMetrics
       `Prelude.seq` Prelude.rnf rank
+      `Prelude.seq` Prelude.rnf recommendedInstanceType

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.AssociateEnclaveCertificateIamRole
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,7 +29,7 @@
 --
 -- When the IAM role is associated with the ACM certificate, the
 -- certificate, certificate chain, and encrypted private key are placed in
--- an Amazon S3 bucket that only the associated IAM role can access. The
+-- an Amazon S3 location that only the associated IAM role can access. The
 -- private key of the certificate is encrypted with an Amazon Web Services
 -- managed key that has an attached attestation-based key policy.
 --
@@ -63,8 +63,9 @@ module Amazonka.EC2.AssociateEnclaveCertificateIamRole
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -134,14 +135,15 @@ instance
   type
     AWSResponse AssociateEnclaveCertificateIamRole =
       AssociateEnclaveCertificateIamRoleResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           AssociateEnclaveCertificateIamRoleResponse'
-            Prelude.<$> (x Core..@? "certificateS3BucketName")
-              Prelude.<*> (x Core..@? "certificateS3ObjectKey")
-              Prelude.<*> (x Core..@? "encryptionKmsKeyId")
+            Prelude.<$> (x Data..@? "certificateS3BucketName")
+              Prelude.<*> (x Data..@? "certificateS3ObjectKey")
+              Prelude.<*> (x Data..@? "encryptionKmsKeyId")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -166,32 +168,32 @@ instance
       `Prelude.seq` Prelude.rnf roleArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AssociateEnclaveCertificateIamRole
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     AssociateEnclaveCertificateIamRole
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     AssociateEnclaveCertificateIamRole
   where
   toQuery AssociateEnclaveCertificateIamRole' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "AssociateEnclaveCertificateIamRole" ::
+          Data.=: ( "AssociateEnclaveCertificateIamRole" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "CertificateArn" Core.=: certificateArn,
-        "DryRun" Core.=: dryRun,
-        "RoleArn" Core.=: roleArn
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "CertificateArn" Data.=: certificateArn,
+        "DryRun" Data.=: dryRun,
+        "RoleArn" Data.=: roleArn
       ]
 
 -- | /See:/ 'newAssociateEnclaveCertificateIamRoleResponse' smart constructor.

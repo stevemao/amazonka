@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.STS.AssumeRoleWithSAML
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,7 +28,7 @@
 -- with the other API operations that produce temporary credentials, see
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html Requesting Temporary Security Credentials>
 -- and
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison Comparing the STS API operations>
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_temp_request.html#stsapi_comparison Comparing the Amazon Web Services STS API operations>
 -- in the /IAM User Guide/.
 --
 -- The temporary security credentials returned by this operation consist of
@@ -76,17 +76,17 @@
 -- (Optional) You can pass inline or managed
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session session policies>
 -- to this operation. You can pass a single JSON policy document to use as
--- an inline session policy. You can also specify up to 10 managed policies
--- to use as managed session policies. The plaintext that you use for both
--- inline and managed session policies can\'t exceed 2,048 characters.
--- Passing policies to this operation returns new temporary credentials.
--- The resulting session\'s permissions are the intersection of the role\'s
--- identity-based policy and the session policies. You can use the role\'s
--- temporary credentials in subsequent Amazon Web Services API calls to
--- access resources in the account that owns the role. You cannot use
--- session policies to grant more permissions than those allowed by the
--- identity-based policy of the role that is being assumed. For more
--- information, see
+-- an inline session policy. You can also specify up to 10 managed policy
+-- Amazon Resource Names (ARNs) to use as managed session policies. The
+-- plaintext that you use for both inline and managed session policies
+-- can\'t exceed 2,048 characters. Passing policies to this operation
+-- returns new temporary credentials. The resulting session\'s permissions
+-- are the intersection of the role\'s identity-based policy and the
+-- session policies. You can use the role\'s temporary credentials in
+-- subsequent Amazon Web Services API calls to access resources in the
+-- account that owns the role. You cannot use session policies to grant
+-- more permissions than those allowed by the identity-based policy of the
+-- role that is being assumed. For more information, see
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session Session Policies>
 -- in the /IAM User Guide/.
 --
@@ -116,12 +116,12 @@
 -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-limits.html#reference_iam-limits-entity-length IAM and STS Character Limits>
 -- in the /IAM User Guide/.
 --
--- An Amazon Web Services conversion compresses the passed session policies
--- and session tags into a packed binary format that has a separate limit.
--- Your request can fail for this limit even if your plaintext meets the
--- other requirements. The @PackedPolicySize@ response element indicates by
--- percentage how close the policies and tags for your request are to the
--- upper size limit.
+-- An Amazon Web Services conversion compresses the passed inline session
+-- policy, managed policy ARNs, and session tags into a packed binary
+-- format that has a separate limit. Your request can fail for this limit
+-- even if your plaintext meets the other requirements. The
+-- @PackedPolicySize@ response element indicates by percentage how close
+-- the policies and tags for your request are to the upper size limit.
 --
 -- You can pass a session tag with the same key as a tag that is attached
 -- to the role. When you do, session tags override the role\'s tags with
@@ -167,9 +167,9 @@ module Amazonka.STS.AssumeRoleWithSAML
     newAssumeRoleWithSAML,
 
     -- * Request Lenses
-    assumeRoleWithSAML_policyArns,
     assumeRoleWithSAML_durationSeconds,
     assumeRoleWithSAML_policy,
+    assumeRoleWithSAML_policyArns,
     assumeRoleWithSAML_roleArn,
     assumeRoleWithSAML_principalArn,
     assumeRoleWithSAML_sAMLAssertion,
@@ -179,21 +179,22 @@ module Amazonka.STS.AssumeRoleWithSAML
     newAssumeRoleWithSAMLResponse,
 
     -- * Response Lenses
-    assumeRoleWithSAMLResponse_subject,
-    assumeRoleWithSAMLResponse_audience,
-    assumeRoleWithSAMLResponse_packedPolicySize,
-    assumeRoleWithSAMLResponse_credentials,
-    assumeRoleWithSAMLResponse_subjectType,
-    assumeRoleWithSAMLResponse_nameQualifier,
     assumeRoleWithSAMLResponse_assumedRoleUser,
-    assumeRoleWithSAMLResponse_sourceIdentity,
+    assumeRoleWithSAMLResponse_audience,
+    assumeRoleWithSAMLResponse_credentials,
     assumeRoleWithSAMLResponse_issuer,
+    assumeRoleWithSAMLResponse_nameQualifier,
+    assumeRoleWithSAMLResponse_packedPolicySize,
+    assumeRoleWithSAMLResponse_sourceIdentity,
+    assumeRoleWithSAMLResponse_subject,
+    assumeRoleWithSAMLResponse_subjectType,
     assumeRoleWithSAMLResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -201,36 +202,7 @@ import Amazonka.STS.Types
 
 -- | /See:/ 'newAssumeRoleWithSAML' smart constructor.
 data AssumeRoleWithSAML = AssumeRoleWithSAML'
-  { -- | The Amazon Resource Names (ARNs) of the IAM managed policies that you
-    -- want to use as managed session policies. The policies must exist in the
-    -- same account as the role.
-    --
-    -- This parameter is optional. You can provide up to 10 managed policy
-    -- ARNs. However, the plaintext that you use for both inline and managed
-    -- session policies can\'t exceed 2,048 characters. For more information
-    -- about ARNs, see
-    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the Amazon Web Services General Reference.
-    --
-    -- An Amazon Web Services conversion compresses the passed session policies
-    -- and session tags into a packed binary format that has a separate limit.
-    -- Your request can fail for this limit even if your plaintext meets the
-    -- other requirements. The @PackedPolicySize@ response element indicates by
-    -- percentage how close the policies and tags for your request are to the
-    -- upper size limit.
-    --
-    -- Passing policies to this operation returns new temporary credentials.
-    -- The resulting session\'s permissions are the intersection of the role\'s
-    -- identity-based policy and the session policies. You can use the role\'s
-    -- temporary credentials in subsequent Amazon Web Services API calls to
-    -- access resources in the account that owns the role. You cannot use
-    -- session policies to grant more permissions than those allowed by the
-    -- identity-based policy of the role that is being assumed. For more
-    -- information, see
-    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session Session Policies>
-    -- in the /IAM User Guide/.
-    policyArns :: Prelude.Maybe [PolicyDescriptorType],
-    -- | The duration, in seconds, of the role session. Your role session lasts
+  { -- | The duration, in seconds, of the role session. Your role session lasts
     -- for the duration that you specify for the @DurationSeconds@ parameter,
     -- or until the time specified in the SAML authentication response\'s
     -- @SessionNotOnOrAfter@ value, whichever is shorter. You can provide a
@@ -251,7 +223,7 @@ data AssumeRoleWithSAML = AssumeRoleWithSAML'
     -- The request to the federation endpoint for a console sign-in token takes
     -- a @SessionDuration@ parameter that specifies the maximum length of the
     -- console session. For more information, see
-    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html Creating a URL that Enables Federated Users to Access the Management Console>
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html Creating a URL that Enables Federated Users to Access the Amazon Web Services Management Console>
     -- in the /IAM User Guide/.
     durationSeconds :: Prelude.Maybe Prelude.Natural,
     -- | An IAM policy in JSON format that you want to use as an inline session
@@ -274,13 +246,42 @@ data AssumeRoleWithSAML = AssumeRoleWithSAML'
     -- character list (\\u0020 through \\u00FF). It can also include the tab
     -- (\\u0009), linefeed (\\u000A), and carriage return (\\u000D) characters.
     --
-    -- An Amazon Web Services conversion compresses the passed session policies
-    -- and session tags into a packed binary format that has a separate limit.
-    -- Your request can fail for this limit even if your plaintext meets the
-    -- other requirements. The @PackedPolicySize@ response element indicates by
-    -- percentage how close the policies and tags for your request are to the
-    -- upper size limit.
+    -- An Amazon Web Services conversion compresses the passed inline session
+    -- policy, managed policy ARNs, and session tags into a packed binary
+    -- format that has a separate limit. Your request can fail for this limit
+    -- even if your plaintext meets the other requirements. The
+    -- @PackedPolicySize@ response element indicates by percentage how close
+    -- the policies and tags for your request are to the upper size limit.
     policy :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Names (ARNs) of the IAM managed policies that you
+    -- want to use as managed session policies. The policies must exist in the
+    -- same account as the role.
+    --
+    -- This parameter is optional. You can provide up to 10 managed policy
+    -- ARNs. However, the plaintext that you use for both inline and managed
+    -- session policies can\'t exceed 2,048 characters. For more information
+    -- about ARNs, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
+    -- in the Amazon Web Services General Reference.
+    --
+    -- An Amazon Web Services conversion compresses the passed inline session
+    -- policy, managed policy ARNs, and session tags into a packed binary
+    -- format that has a separate limit. Your request can fail for this limit
+    -- even if your plaintext meets the other requirements. The
+    -- @PackedPolicySize@ response element indicates by percentage how close
+    -- the policies and tags for your request are to the upper size limit.
+    --
+    -- Passing policies to this operation returns new temporary credentials.
+    -- The resulting session\'s permissions are the intersection of the role\'s
+    -- identity-based policy and the session policies. You can use the role\'s
+    -- temporary credentials in subsequent Amazon Web Services API calls to
+    -- access resources in the account that owns the role. You cannot use
+    -- session policies to grant more permissions than those allowed by the
+    -- identity-based policy of the role that is being assumed. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session Session Policies>
+    -- in the /IAM User Guide/.
+    policyArns :: Prelude.Maybe [PolicyDescriptorType],
     -- | The Amazon Resource Name (ARN) of the role that the caller is assuming.
     roleArn :: Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the SAML provider in IAM that
@@ -303,35 +304,6 @@ data AssumeRoleWithSAML = AssumeRoleWithSAML'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'policyArns', 'assumeRoleWithSAML_policyArns' - The Amazon Resource Names (ARNs) of the IAM managed policies that you
--- want to use as managed session policies. The policies must exist in the
--- same account as the role.
---
--- This parameter is optional. You can provide up to 10 managed policy
--- ARNs. However, the plaintext that you use for both inline and managed
--- session policies can\'t exceed 2,048 characters. For more information
--- about ARNs, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the Amazon Web Services General Reference.
---
--- An Amazon Web Services conversion compresses the passed session policies
--- and session tags into a packed binary format that has a separate limit.
--- Your request can fail for this limit even if your plaintext meets the
--- other requirements. The @PackedPolicySize@ response element indicates by
--- percentage how close the policies and tags for your request are to the
--- upper size limit.
---
--- Passing policies to this operation returns new temporary credentials.
--- The resulting session\'s permissions are the intersection of the role\'s
--- identity-based policy and the session policies. You can use the role\'s
--- temporary credentials in subsequent Amazon Web Services API calls to
--- access resources in the account that owns the role. You cannot use
--- session policies to grant more permissions than those allowed by the
--- identity-based policy of the role that is being assumed. For more
--- information, see
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session Session Policies>
--- in the /IAM User Guide/.
---
 -- 'durationSeconds', 'assumeRoleWithSAML_durationSeconds' - The duration, in seconds, of the role session. Your role session lasts
 -- for the duration that you specify for the @DurationSeconds@ parameter,
 -- or until the time specified in the SAML authentication response\'s
@@ -353,7 +325,7 @@ data AssumeRoleWithSAML = AssumeRoleWithSAML'
 -- The request to the federation endpoint for a console sign-in token takes
 -- a @SessionDuration@ parameter that specifies the maximum length of the
 -- console session. For more information, see
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html Creating a URL that Enables Federated Users to Access the Management Console>
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html Creating a URL that Enables Federated Users to Access the Amazon Web Services Management Console>
 -- in the /IAM User Guide/.
 --
 -- 'policy', 'assumeRoleWithSAML_policy' - An IAM policy in JSON format that you want to use as an inline session
@@ -376,12 +348,41 @@ data AssumeRoleWithSAML = AssumeRoleWithSAML'
 -- character list (\\u0020 through \\u00FF). It can also include the tab
 -- (\\u0009), linefeed (\\u000A), and carriage return (\\u000D) characters.
 --
--- An Amazon Web Services conversion compresses the passed session policies
--- and session tags into a packed binary format that has a separate limit.
--- Your request can fail for this limit even if your plaintext meets the
--- other requirements. The @PackedPolicySize@ response element indicates by
--- percentage how close the policies and tags for your request are to the
--- upper size limit.
+-- An Amazon Web Services conversion compresses the passed inline session
+-- policy, managed policy ARNs, and session tags into a packed binary
+-- format that has a separate limit. Your request can fail for this limit
+-- even if your plaintext meets the other requirements. The
+-- @PackedPolicySize@ response element indicates by percentage how close
+-- the policies and tags for your request are to the upper size limit.
+--
+-- 'policyArns', 'assumeRoleWithSAML_policyArns' - The Amazon Resource Names (ARNs) of the IAM managed policies that you
+-- want to use as managed session policies. The policies must exist in the
+-- same account as the role.
+--
+-- This parameter is optional. You can provide up to 10 managed policy
+-- ARNs. However, the plaintext that you use for both inline and managed
+-- session policies can\'t exceed 2,048 characters. For more information
+-- about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
+-- in the Amazon Web Services General Reference.
+--
+-- An Amazon Web Services conversion compresses the passed inline session
+-- policy, managed policy ARNs, and session tags into a packed binary
+-- format that has a separate limit. Your request can fail for this limit
+-- even if your plaintext meets the other requirements. The
+-- @PackedPolicySize@ response element indicates by percentage how close
+-- the policies and tags for your request are to the upper size limit.
+--
+-- Passing policies to this operation returns new temporary credentials.
+-- The resulting session\'s permissions are the intersection of the role\'s
+-- identity-based policy and the session policies. You can use the role\'s
+-- temporary credentials in subsequent Amazon Web Services API calls to
+-- access resources in the account that owns the role. You cannot use
+-- session policies to grant more permissions than those allowed by the
+-- identity-based policy of the role that is being assumed. For more
+-- information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session Session Policies>
+-- in the /IAM User Guide/.
 --
 -- 'roleArn', 'assumeRoleWithSAML_roleArn' - The Amazon Resource Name (ARN) of the role that the caller is assuming.
 --
@@ -406,44 +407,14 @@ newAssumeRoleWithSAML
   pPrincipalArn_
   pSAMLAssertion_ =
     AssumeRoleWithSAML'
-      { policyArns = Prelude.Nothing,
-        durationSeconds = Prelude.Nothing,
+      { durationSeconds =
+          Prelude.Nothing,
         policy = Prelude.Nothing,
+        policyArns = Prelude.Nothing,
         roleArn = pRoleArn_,
         principalArn = pPrincipalArn_,
         sAMLAssertion = pSAMLAssertion_
       }
-
--- | The Amazon Resource Names (ARNs) of the IAM managed policies that you
--- want to use as managed session policies. The policies must exist in the
--- same account as the role.
---
--- This parameter is optional. You can provide up to 10 managed policy
--- ARNs. However, the plaintext that you use for both inline and managed
--- session policies can\'t exceed 2,048 characters. For more information
--- about ARNs, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the Amazon Web Services General Reference.
---
--- An Amazon Web Services conversion compresses the passed session policies
--- and session tags into a packed binary format that has a separate limit.
--- Your request can fail for this limit even if your plaintext meets the
--- other requirements. The @PackedPolicySize@ response element indicates by
--- percentage how close the policies and tags for your request are to the
--- upper size limit.
---
--- Passing policies to this operation returns new temporary credentials.
--- The resulting session\'s permissions are the intersection of the role\'s
--- identity-based policy and the session policies. You can use the role\'s
--- temporary credentials in subsequent Amazon Web Services API calls to
--- access resources in the account that owns the role. You cannot use
--- session policies to grant more permissions than those allowed by the
--- identity-based policy of the role that is being assumed. For more
--- information, see
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session Session Policies>
--- in the /IAM User Guide/.
-assumeRoleWithSAML_policyArns :: Lens.Lens' AssumeRoleWithSAML (Prelude.Maybe [PolicyDescriptorType])
-assumeRoleWithSAML_policyArns = Lens.lens (\AssumeRoleWithSAML' {policyArns} -> policyArns) (\s@AssumeRoleWithSAML' {} a -> s {policyArns = a} :: AssumeRoleWithSAML) Prelude.. Lens.mapping Lens.coerced
 
 -- | The duration, in seconds, of the role session. Your role session lasts
 -- for the duration that you specify for the @DurationSeconds@ parameter,
@@ -466,7 +437,7 @@ assumeRoleWithSAML_policyArns = Lens.lens (\AssumeRoleWithSAML' {policyArns} -> 
 -- The request to the federation endpoint for a console sign-in token takes
 -- a @SessionDuration@ parameter that specifies the maximum length of the
 -- console session. For more information, see
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html Creating a URL that Enables Federated Users to Access the Management Console>
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_providers_enable-console-custom-url.html Creating a URL that Enables Federated Users to Access the Amazon Web Services Management Console>
 -- in the /IAM User Guide/.
 assumeRoleWithSAML_durationSeconds :: Lens.Lens' AssumeRoleWithSAML (Prelude.Maybe Prelude.Natural)
 assumeRoleWithSAML_durationSeconds = Lens.lens (\AssumeRoleWithSAML' {durationSeconds} -> durationSeconds) (\s@AssumeRoleWithSAML' {} a -> s {durationSeconds = a} :: AssumeRoleWithSAML)
@@ -491,14 +462,45 @@ assumeRoleWithSAML_durationSeconds = Lens.lens (\AssumeRoleWithSAML' {durationSe
 -- character list (\\u0020 through \\u00FF). It can also include the tab
 -- (\\u0009), linefeed (\\u000A), and carriage return (\\u000D) characters.
 --
--- An Amazon Web Services conversion compresses the passed session policies
--- and session tags into a packed binary format that has a separate limit.
--- Your request can fail for this limit even if your plaintext meets the
--- other requirements. The @PackedPolicySize@ response element indicates by
--- percentage how close the policies and tags for your request are to the
--- upper size limit.
+-- An Amazon Web Services conversion compresses the passed inline session
+-- policy, managed policy ARNs, and session tags into a packed binary
+-- format that has a separate limit. Your request can fail for this limit
+-- even if your plaintext meets the other requirements. The
+-- @PackedPolicySize@ response element indicates by percentage how close
+-- the policies and tags for your request are to the upper size limit.
 assumeRoleWithSAML_policy :: Lens.Lens' AssumeRoleWithSAML (Prelude.Maybe Prelude.Text)
 assumeRoleWithSAML_policy = Lens.lens (\AssumeRoleWithSAML' {policy} -> policy) (\s@AssumeRoleWithSAML' {} a -> s {policy = a} :: AssumeRoleWithSAML)
+
+-- | The Amazon Resource Names (ARNs) of the IAM managed policies that you
+-- want to use as managed session policies. The policies must exist in the
+-- same account as the role.
+--
+-- This parameter is optional. You can provide up to 10 managed policy
+-- ARNs. However, the plaintext that you use for both inline and managed
+-- session policies can\'t exceed 2,048 characters. For more information
+-- about ARNs, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
+-- in the Amazon Web Services General Reference.
+--
+-- An Amazon Web Services conversion compresses the passed inline session
+-- policy, managed policy ARNs, and session tags into a packed binary
+-- format that has a separate limit. Your request can fail for this limit
+-- even if your plaintext meets the other requirements. The
+-- @PackedPolicySize@ response element indicates by percentage how close
+-- the policies and tags for your request are to the upper size limit.
+--
+-- Passing policies to this operation returns new temporary credentials.
+-- The resulting session\'s permissions are the intersection of the role\'s
+-- identity-based policy and the session policies. You can use the role\'s
+-- temporary credentials in subsequent Amazon Web Services API calls to
+-- access resources in the account that owns the role. You cannot use
+-- session policies to grant more permissions than those allowed by the
+-- identity-based policy of the role that is being assumed. For more
+-- information, see
+-- <https://docs.aws.amazon.com/IAM/latest/UserGuide/access_policies.html#policies_session Session Policies>
+-- in the /IAM User Guide/.
+assumeRoleWithSAML_policyArns :: Lens.Lens' AssumeRoleWithSAML (Prelude.Maybe [PolicyDescriptorType])
+assumeRoleWithSAML_policyArns = Lens.lens (\AssumeRoleWithSAML' {policyArns} -> policyArns) (\s@AssumeRoleWithSAML' {} a -> s {policyArns = a} :: AssumeRoleWithSAML) Prelude.. Lens.mapping Lens.coerced
 
 -- | The Amazon Resource Name (ARN) of the role that the caller is assuming.
 assumeRoleWithSAML_roleArn :: Lens.Lens' AssumeRoleWithSAML Prelude.Text
@@ -521,63 +523,64 @@ instance Core.AWSRequest AssumeRoleWithSAML where
   type
     AWSResponse AssumeRoleWithSAML =
       AssumeRoleWithSAMLResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "AssumeRoleWithSAMLResult"
       ( \s h x ->
           AssumeRoleWithSAMLResponse'
-            Prelude.<$> (x Core..@? "Subject")
-            Prelude.<*> (x Core..@? "Audience")
-            Prelude.<*> (x Core..@? "PackedPolicySize")
-            Prelude.<*> (x Core..@? "Credentials")
-            Prelude.<*> (x Core..@? "SubjectType")
-            Prelude.<*> (x Core..@? "NameQualifier")
-            Prelude.<*> (x Core..@? "AssumedRoleUser")
-            Prelude.<*> (x Core..@? "SourceIdentity")
-            Prelude.<*> (x Core..@? "Issuer")
+            Prelude.<$> (x Data..@? "AssumedRoleUser")
+            Prelude.<*> (x Data..@? "Audience")
+            Prelude.<*> (x Data..@? "Credentials")
+            Prelude.<*> (x Data..@? "Issuer")
+            Prelude.<*> (x Data..@? "NameQualifier")
+            Prelude.<*> (x Data..@? "PackedPolicySize")
+            Prelude.<*> (x Data..@? "SourceIdentity")
+            Prelude.<*> (x Data..@? "Subject")
+            Prelude.<*> (x Data..@? "SubjectType")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable AssumeRoleWithSAML where
   hashWithSalt _salt AssumeRoleWithSAML' {..} =
-    _salt `Prelude.hashWithSalt` policyArns
-      `Prelude.hashWithSalt` durationSeconds
+    _salt `Prelude.hashWithSalt` durationSeconds
       `Prelude.hashWithSalt` policy
+      `Prelude.hashWithSalt` policyArns
       `Prelude.hashWithSalt` roleArn
       `Prelude.hashWithSalt` principalArn
       `Prelude.hashWithSalt` sAMLAssertion
 
 instance Prelude.NFData AssumeRoleWithSAML where
   rnf AssumeRoleWithSAML' {..} =
-    Prelude.rnf policyArns
-      `Prelude.seq` Prelude.rnf durationSeconds
+    Prelude.rnf durationSeconds
       `Prelude.seq` Prelude.rnf policy
+      `Prelude.seq` Prelude.rnf policyArns
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf principalArn
       `Prelude.seq` Prelude.rnf sAMLAssertion
 
-instance Core.ToHeaders AssumeRoleWithSAML where
+instance Data.ToHeaders AssumeRoleWithSAML where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AssumeRoleWithSAML where
+instance Data.ToPath AssumeRoleWithSAML where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssumeRoleWithSAML where
+instance Data.ToQuery AssumeRoleWithSAML where
   toQuery AssumeRoleWithSAML' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("AssumeRoleWithSAML" :: Prelude.ByteString),
+          Data.=: ("AssumeRoleWithSAML" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-06-15" :: Prelude.ByteString),
+          Data.=: ("2011-06-15" :: Prelude.ByteString),
+        "DurationSeconds" Data.=: durationSeconds,
+        "Policy" Data.=: policy,
         "PolicyArns"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> policyArns),
-        "DurationSeconds" Core.=: durationSeconds,
-        "Policy" Core.=: policy,
-        "RoleArn" Core.=: roleArn,
-        "PrincipalArn" Core.=: principalArn,
-        "SAMLAssertion" Core.=: sAMLAssertion
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> policyArns),
+        "RoleArn" Data.=: roleArn,
+        "PrincipalArn" Data.=: principalArn,
+        "SAMLAssertion" Data.=: sAMLAssertion
       ]
 
 -- | Contains the response to a successful AssumeRoleWithSAML request,
@@ -586,17 +589,12 @@ instance Core.ToQuery AssumeRoleWithSAML where
 --
 -- /See:/ 'newAssumeRoleWithSAMLResponse' smart constructor.
 data AssumeRoleWithSAMLResponse = AssumeRoleWithSAMLResponse'
-  { -- | The value of the @NameID@ element in the @Subject@ element of the SAML
-    -- assertion.
-    subject :: Prelude.Maybe Prelude.Text,
+  { -- | The identifiers for the temporary security credentials that the
+    -- operation returns.
+    assumedRoleUser :: Prelude.Maybe AssumedRoleUser,
     -- | The value of the @Recipient@ attribute of the @SubjectConfirmationData@
     -- element of the SAML assertion.
     audience :: Prelude.Maybe Prelude.Text,
-    -- | A percentage value that indicates the packed size of the session
-    -- policies and session tags combined passed in the request. The request
-    -- fails if the packed size is greater than 100 percent, which means the
-    -- policies and tags exceeded the allowed space.
-    packedPolicySize :: Prelude.Maybe Prelude.Natural,
     -- | The temporary security credentials, which include an access key ID, a
     -- secret access key, and a security (or session) token.
     --
@@ -604,16 +602,8 @@ data AssumeRoleWithSAMLResponse = AssumeRoleWithSAMLResponse'
     -- fixed. We strongly recommend that you make no assumptions about the
     -- maximum size.
     credentials :: Prelude.Maybe Core.AuthEnv,
-    -- | The format of the name ID, as defined by the @Format@ attribute in the
-    -- @NameID@ element of the SAML assertion. Typical examples of the format
-    -- are @transient@ or @persistent@.
-    --
-    -- If the format includes the prefix
-    -- @urn:oasis:names:tc:SAML:2.0:nameid-format@, that prefix is removed. For
-    -- example, @urn:oasis:names:tc:SAML:2.0:nameid-format:transient@ is
-    -- returned as @transient@. If the format includes any other prefix, the
-    -- format is returned with no modifications.
-    subjectType :: Prelude.Maybe Prelude.Text,
+    -- | The value of the @Issuer@ element of the SAML assertion.
+    issuer :: Prelude.Maybe Prelude.Text,
     -- | A hash value based on the concatenation of the following:
     --
     -- -   The @Issuer@ response value.
@@ -630,9 +620,11 @@ data AssumeRoleWithSAMLResponse = AssumeRoleWithSAMLResponse'
     --
     -- @BASE64 ( SHA1 ( \"https:\/\/example.com\/saml\" + \"123456789012\" + \"\/MySAMLIdP\" ) )@
     nameQualifier :: Prelude.Maybe Prelude.Text,
-    -- | The identifiers for the temporary security credentials that the
-    -- operation returns.
-    assumedRoleUser :: Prelude.Maybe AssumedRoleUser,
+    -- | A percentage value that indicates the packed size of the session
+    -- policies and session tags combined passed in the request. The request
+    -- fails if the packed size is greater than 100 percent, which means the
+    -- policies and tags exceeded the allowed space.
+    packedPolicySize :: Prelude.Maybe Prelude.Natural,
     -- | The value in the @SourceIdentity@ attribute in the SAML assertion.
     --
     -- You can require users to set a source identity value when they assume a
@@ -655,8 +647,19 @@ data AssumeRoleWithSAMLResponse = AssumeRoleWithSAMLResponse'
     -- spaces. You can also include underscores or any of the following
     -- characters: =,.\@-
     sourceIdentity :: Prelude.Maybe Prelude.Text,
-    -- | The value of the @Issuer@ element of the SAML assertion.
-    issuer :: Prelude.Maybe Prelude.Text,
+    -- | The value of the @NameID@ element in the @Subject@ element of the SAML
+    -- assertion.
+    subject :: Prelude.Maybe Prelude.Text,
+    -- | The format of the name ID, as defined by the @Format@ attribute in the
+    -- @NameID@ element of the SAML assertion. Typical examples of the format
+    -- are @transient@ or @persistent@.
+    --
+    -- If the format includes the prefix
+    -- @urn:oasis:names:tc:SAML:2.0:nameid-format@, that prefix is removed. For
+    -- example, @urn:oasis:names:tc:SAML:2.0:nameid-format:transient@ is
+    -- returned as @transient@. If the format includes any other prefix, the
+    -- format is returned with no modifications.
+    subjectType :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -670,16 +673,11 @@ data AssumeRoleWithSAMLResponse = AssumeRoleWithSAMLResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subject', 'assumeRoleWithSAMLResponse_subject' - The value of the @NameID@ element in the @Subject@ element of the SAML
--- assertion.
+-- 'assumedRoleUser', 'assumeRoleWithSAMLResponse_assumedRoleUser' - The identifiers for the temporary security credentials that the
+-- operation returns.
 --
 -- 'audience', 'assumeRoleWithSAMLResponse_audience' - The value of the @Recipient@ attribute of the @SubjectConfirmationData@
 -- element of the SAML assertion.
---
--- 'packedPolicySize', 'assumeRoleWithSAMLResponse_packedPolicySize' - A percentage value that indicates the packed size of the session
--- policies and session tags combined passed in the request. The request
--- fails if the packed size is greater than 100 percent, which means the
--- policies and tags exceeded the allowed space.
 --
 -- 'credentials', 'assumeRoleWithSAMLResponse_credentials' - The temporary security credentials, which include an access key ID, a
 -- secret access key, and a security (or session) token.
@@ -688,15 +686,7 @@ data AssumeRoleWithSAMLResponse = AssumeRoleWithSAMLResponse'
 -- fixed. We strongly recommend that you make no assumptions about the
 -- maximum size.
 --
--- 'subjectType', 'assumeRoleWithSAMLResponse_subjectType' - The format of the name ID, as defined by the @Format@ attribute in the
--- @NameID@ element of the SAML assertion. Typical examples of the format
--- are @transient@ or @persistent@.
---
--- If the format includes the prefix
--- @urn:oasis:names:tc:SAML:2.0:nameid-format@, that prefix is removed. For
--- example, @urn:oasis:names:tc:SAML:2.0:nameid-format:transient@ is
--- returned as @transient@. If the format includes any other prefix, the
--- format is returned with no modifications.
+-- 'issuer', 'assumeRoleWithSAMLResponse_issuer' - The value of the @Issuer@ element of the SAML assertion.
 --
 -- 'nameQualifier', 'assumeRoleWithSAMLResponse_nameQualifier' - A hash value based on the concatenation of the following:
 --
@@ -714,8 +704,10 @@ data AssumeRoleWithSAMLResponse = AssumeRoleWithSAMLResponse'
 --
 -- @BASE64 ( SHA1 ( \"https:\/\/example.com\/saml\" + \"123456789012\" + \"\/MySAMLIdP\" ) )@
 --
--- 'assumedRoleUser', 'assumeRoleWithSAMLResponse_assumedRoleUser' - The identifiers for the temporary security credentials that the
--- operation returns.
+-- 'packedPolicySize', 'assumeRoleWithSAMLResponse_packedPolicySize' - A percentage value that indicates the packed size of the session
+-- policies and session tags combined passed in the request. The request
+-- fails if the packed size is greater than 100 percent, which means the
+-- policies and tags exceeded the allowed space.
 --
 -- 'sourceIdentity', 'assumeRoleWithSAMLResponse_sourceIdentity' - The value in the @SourceIdentity@ attribute in the SAML assertion.
 --
@@ -739,7 +731,18 @@ data AssumeRoleWithSAMLResponse = AssumeRoleWithSAMLResponse'
 -- spaces. You can also include underscores or any of the following
 -- characters: =,.\@-
 --
--- 'issuer', 'assumeRoleWithSAMLResponse_issuer' - The value of the @Issuer@ element of the SAML assertion.
+-- 'subject', 'assumeRoleWithSAMLResponse_subject' - The value of the @NameID@ element in the @Subject@ element of the SAML
+-- assertion.
+--
+-- 'subjectType', 'assumeRoleWithSAMLResponse_subjectType' - The format of the name ID, as defined by the @Format@ attribute in the
+-- @NameID@ element of the SAML assertion. Typical examples of the format
+-- are @transient@ or @persistent@.
+--
+-- If the format includes the prefix
+-- @urn:oasis:names:tc:SAML:2.0:nameid-format@, that prefix is removed. For
+-- example, @urn:oasis:names:tc:SAML:2.0:nameid-format:transient@ is
+-- returned as @transient@. If the format includes any other prefix, the
+-- format is returned with no modifications.
 --
 -- 'httpStatus', 'assumeRoleWithSAMLResponse_httpStatus' - The response's http status code.
 newAssumeRoleWithSAMLResponse ::
@@ -748,35 +751,28 @@ newAssumeRoleWithSAMLResponse ::
   AssumeRoleWithSAMLResponse
 newAssumeRoleWithSAMLResponse pHttpStatus_ =
   AssumeRoleWithSAMLResponse'
-    { subject =
+    { assumedRoleUser =
         Prelude.Nothing,
       audience = Prelude.Nothing,
-      packedPolicySize = Prelude.Nothing,
       credentials = Prelude.Nothing,
-      subjectType = Prelude.Nothing,
-      nameQualifier = Prelude.Nothing,
-      assumedRoleUser = Prelude.Nothing,
-      sourceIdentity = Prelude.Nothing,
       issuer = Prelude.Nothing,
+      nameQualifier = Prelude.Nothing,
+      packedPolicySize = Prelude.Nothing,
+      sourceIdentity = Prelude.Nothing,
+      subject = Prelude.Nothing,
+      subjectType = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The value of the @NameID@ element in the @Subject@ element of the SAML
--- assertion.
-assumeRoleWithSAMLResponse_subject :: Lens.Lens' AssumeRoleWithSAMLResponse (Prelude.Maybe Prelude.Text)
-assumeRoleWithSAMLResponse_subject = Lens.lens (\AssumeRoleWithSAMLResponse' {subject} -> subject) (\s@AssumeRoleWithSAMLResponse' {} a -> s {subject = a} :: AssumeRoleWithSAMLResponse)
+-- | The identifiers for the temporary security credentials that the
+-- operation returns.
+assumeRoleWithSAMLResponse_assumedRoleUser :: Lens.Lens' AssumeRoleWithSAMLResponse (Prelude.Maybe AssumedRoleUser)
+assumeRoleWithSAMLResponse_assumedRoleUser = Lens.lens (\AssumeRoleWithSAMLResponse' {assumedRoleUser} -> assumedRoleUser) (\s@AssumeRoleWithSAMLResponse' {} a -> s {assumedRoleUser = a} :: AssumeRoleWithSAMLResponse)
 
 -- | The value of the @Recipient@ attribute of the @SubjectConfirmationData@
 -- element of the SAML assertion.
 assumeRoleWithSAMLResponse_audience :: Lens.Lens' AssumeRoleWithSAMLResponse (Prelude.Maybe Prelude.Text)
 assumeRoleWithSAMLResponse_audience = Lens.lens (\AssumeRoleWithSAMLResponse' {audience} -> audience) (\s@AssumeRoleWithSAMLResponse' {} a -> s {audience = a} :: AssumeRoleWithSAMLResponse)
-
--- | A percentage value that indicates the packed size of the session
--- policies and session tags combined passed in the request. The request
--- fails if the packed size is greater than 100 percent, which means the
--- policies and tags exceeded the allowed space.
-assumeRoleWithSAMLResponse_packedPolicySize :: Lens.Lens' AssumeRoleWithSAMLResponse (Prelude.Maybe Prelude.Natural)
-assumeRoleWithSAMLResponse_packedPolicySize = Lens.lens (\AssumeRoleWithSAMLResponse' {packedPolicySize} -> packedPolicySize) (\s@AssumeRoleWithSAMLResponse' {} a -> s {packedPolicySize = a} :: AssumeRoleWithSAMLResponse)
 
 -- | The temporary security credentials, which include an access key ID, a
 -- secret access key, and a security (or session) token.
@@ -787,17 +783,9 @@ assumeRoleWithSAMLResponse_packedPolicySize = Lens.lens (\AssumeRoleWithSAMLResp
 assumeRoleWithSAMLResponse_credentials :: Lens.Lens' AssumeRoleWithSAMLResponse (Prelude.Maybe Core.AuthEnv)
 assumeRoleWithSAMLResponse_credentials = Lens.lens (\AssumeRoleWithSAMLResponse' {credentials} -> credentials) (\s@AssumeRoleWithSAMLResponse' {} a -> s {credentials = a} :: AssumeRoleWithSAMLResponse)
 
--- | The format of the name ID, as defined by the @Format@ attribute in the
--- @NameID@ element of the SAML assertion. Typical examples of the format
--- are @transient@ or @persistent@.
---
--- If the format includes the prefix
--- @urn:oasis:names:tc:SAML:2.0:nameid-format@, that prefix is removed. For
--- example, @urn:oasis:names:tc:SAML:2.0:nameid-format:transient@ is
--- returned as @transient@. If the format includes any other prefix, the
--- format is returned with no modifications.
-assumeRoleWithSAMLResponse_subjectType :: Lens.Lens' AssumeRoleWithSAMLResponse (Prelude.Maybe Prelude.Text)
-assumeRoleWithSAMLResponse_subjectType = Lens.lens (\AssumeRoleWithSAMLResponse' {subjectType} -> subjectType) (\s@AssumeRoleWithSAMLResponse' {} a -> s {subjectType = a} :: AssumeRoleWithSAMLResponse)
+-- | The value of the @Issuer@ element of the SAML assertion.
+assumeRoleWithSAMLResponse_issuer :: Lens.Lens' AssumeRoleWithSAMLResponse (Prelude.Maybe Prelude.Text)
+assumeRoleWithSAMLResponse_issuer = Lens.lens (\AssumeRoleWithSAMLResponse' {issuer} -> issuer) (\s@AssumeRoleWithSAMLResponse' {} a -> s {issuer = a} :: AssumeRoleWithSAMLResponse)
 
 -- | A hash value based on the concatenation of the following:
 --
@@ -817,10 +805,12 @@ assumeRoleWithSAMLResponse_subjectType = Lens.lens (\AssumeRoleWithSAMLResponse'
 assumeRoleWithSAMLResponse_nameQualifier :: Lens.Lens' AssumeRoleWithSAMLResponse (Prelude.Maybe Prelude.Text)
 assumeRoleWithSAMLResponse_nameQualifier = Lens.lens (\AssumeRoleWithSAMLResponse' {nameQualifier} -> nameQualifier) (\s@AssumeRoleWithSAMLResponse' {} a -> s {nameQualifier = a} :: AssumeRoleWithSAMLResponse)
 
--- | The identifiers for the temporary security credentials that the
--- operation returns.
-assumeRoleWithSAMLResponse_assumedRoleUser :: Lens.Lens' AssumeRoleWithSAMLResponse (Prelude.Maybe AssumedRoleUser)
-assumeRoleWithSAMLResponse_assumedRoleUser = Lens.lens (\AssumeRoleWithSAMLResponse' {assumedRoleUser} -> assumedRoleUser) (\s@AssumeRoleWithSAMLResponse' {} a -> s {assumedRoleUser = a} :: AssumeRoleWithSAMLResponse)
+-- | A percentage value that indicates the packed size of the session
+-- policies and session tags combined passed in the request. The request
+-- fails if the packed size is greater than 100 percent, which means the
+-- policies and tags exceeded the allowed space.
+assumeRoleWithSAMLResponse_packedPolicySize :: Lens.Lens' AssumeRoleWithSAMLResponse (Prelude.Maybe Prelude.Natural)
+assumeRoleWithSAMLResponse_packedPolicySize = Lens.lens (\AssumeRoleWithSAMLResponse' {packedPolicySize} -> packedPolicySize) (\s@AssumeRoleWithSAMLResponse' {} a -> s {packedPolicySize = a} :: AssumeRoleWithSAMLResponse)
 
 -- | The value in the @SourceIdentity@ attribute in the SAML assertion.
 --
@@ -846,9 +836,22 @@ assumeRoleWithSAMLResponse_assumedRoleUser = Lens.lens (\AssumeRoleWithSAMLRespo
 assumeRoleWithSAMLResponse_sourceIdentity :: Lens.Lens' AssumeRoleWithSAMLResponse (Prelude.Maybe Prelude.Text)
 assumeRoleWithSAMLResponse_sourceIdentity = Lens.lens (\AssumeRoleWithSAMLResponse' {sourceIdentity} -> sourceIdentity) (\s@AssumeRoleWithSAMLResponse' {} a -> s {sourceIdentity = a} :: AssumeRoleWithSAMLResponse)
 
--- | The value of the @Issuer@ element of the SAML assertion.
-assumeRoleWithSAMLResponse_issuer :: Lens.Lens' AssumeRoleWithSAMLResponse (Prelude.Maybe Prelude.Text)
-assumeRoleWithSAMLResponse_issuer = Lens.lens (\AssumeRoleWithSAMLResponse' {issuer} -> issuer) (\s@AssumeRoleWithSAMLResponse' {} a -> s {issuer = a} :: AssumeRoleWithSAMLResponse)
+-- | The value of the @NameID@ element in the @Subject@ element of the SAML
+-- assertion.
+assumeRoleWithSAMLResponse_subject :: Lens.Lens' AssumeRoleWithSAMLResponse (Prelude.Maybe Prelude.Text)
+assumeRoleWithSAMLResponse_subject = Lens.lens (\AssumeRoleWithSAMLResponse' {subject} -> subject) (\s@AssumeRoleWithSAMLResponse' {} a -> s {subject = a} :: AssumeRoleWithSAMLResponse)
+
+-- | The format of the name ID, as defined by the @Format@ attribute in the
+-- @NameID@ element of the SAML assertion. Typical examples of the format
+-- are @transient@ or @persistent@.
+--
+-- If the format includes the prefix
+-- @urn:oasis:names:tc:SAML:2.0:nameid-format@, that prefix is removed. For
+-- example, @urn:oasis:names:tc:SAML:2.0:nameid-format:transient@ is
+-- returned as @transient@. If the format includes any other prefix, the
+-- format is returned with no modifications.
+assumeRoleWithSAMLResponse_subjectType :: Lens.Lens' AssumeRoleWithSAMLResponse (Prelude.Maybe Prelude.Text)
+assumeRoleWithSAMLResponse_subjectType = Lens.lens (\AssumeRoleWithSAMLResponse' {subjectType} -> subjectType) (\s@AssumeRoleWithSAMLResponse' {} a -> s {subjectType = a} :: AssumeRoleWithSAMLResponse)
 
 -- | The response's http status code.
 assumeRoleWithSAMLResponse_httpStatus :: Lens.Lens' AssumeRoleWithSAMLResponse Prelude.Int
@@ -856,13 +859,13 @@ assumeRoleWithSAMLResponse_httpStatus = Lens.lens (\AssumeRoleWithSAMLResponse' 
 
 instance Prelude.NFData AssumeRoleWithSAMLResponse where
   rnf AssumeRoleWithSAMLResponse' {..} =
-    Prelude.rnf subject
+    Prelude.rnf assumedRoleUser
       `Prelude.seq` Prelude.rnf audience
-      `Prelude.seq` Prelude.rnf packedPolicySize
       `Prelude.seq` Prelude.rnf credentials
-      `Prelude.seq` Prelude.rnf subjectType
-      `Prelude.seq` Prelude.rnf nameQualifier
-      `Prelude.seq` Prelude.rnf assumedRoleUser
-      `Prelude.seq` Prelude.rnf sourceIdentity
       `Prelude.seq` Prelude.rnf issuer
+      `Prelude.seq` Prelude.rnf nameQualifier
+      `Prelude.seq` Prelude.rnf packedPolicySize
+      `Prelude.seq` Prelude.rnf sourceIdentity
+      `Prelude.seq` Prelude.rnf subject
+      `Prelude.seq` Prelude.rnf subjectType
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.RegisterEventTopic
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.DirectoryService.RegisterEventTopic
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,7 +107,8 @@ instance Core.AWSRequest RegisterEventTopic where
   type
     AWSResponse RegisterEventTopic =
       RegisterEventTopicResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -124,34 +126,34 @@ instance Prelude.NFData RegisterEventTopic where
     Prelude.rnf directoryId
       `Prelude.seq` Prelude.rnf topicName
 
-instance Core.ToHeaders RegisterEventTopic where
+instance Data.ToHeaders RegisterEventTopic where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.RegisterEventTopic" ::
+              Data.=# ( "DirectoryService_20150416.RegisterEventTopic" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterEventTopic where
+instance Data.ToJSON RegisterEventTopic where
   toJSON RegisterEventTopic' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DirectoryId" Core..= directoryId),
-            Prelude.Just ("TopicName" Core..= topicName)
+          [ Prelude.Just ("DirectoryId" Data..= directoryId),
+            Prelude.Just ("TopicName" Data..= topicName)
           ]
       )
 
-instance Core.ToPath RegisterEventTopic where
+instance Data.ToPath RegisterEventTopic where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterEventTopic where
+instance Data.ToQuery RegisterEventTopic where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The result of a RegisterEventTopic request.

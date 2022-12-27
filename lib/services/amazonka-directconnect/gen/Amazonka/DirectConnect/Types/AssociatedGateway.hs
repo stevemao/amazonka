@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.Types.AssociatedGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DirectConnect.Types.AssociatedGateway where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types.GatewayType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the associated gateway.
@@ -83,16 +84,16 @@ associatedGateway_region = Lens.lens (\AssociatedGateway' {region} -> region) (\
 associatedGateway_type :: Lens.Lens' AssociatedGateway (Prelude.Maybe GatewayType)
 associatedGateway_type = Lens.lens (\AssociatedGateway' {type'} -> type') (\s@AssociatedGateway' {} a -> s {type' = a} :: AssociatedGateway)
 
-instance Core.FromJSON AssociatedGateway where
+instance Data.FromJSON AssociatedGateway where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssociatedGateway"
       ( \x ->
           AssociatedGateway'
-            Prelude.<$> (x Core..:? "id")
-            Prelude.<*> (x Core..:? "ownerAccount")
-            Prelude.<*> (x Core..:? "region")
-            Prelude.<*> (x Core..:? "type")
+            Prelude.<$> (x Data..:? "id")
+            Prelude.<*> (x Data..:? "ownerAccount")
+            Prelude.<*> (x Data..:? "region")
+            Prelude.<*> (x Data..:? "type")
       )
 
 instance Prelude.Hashable AssociatedGateway where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.ServerSideEncryptionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.ServerSideEncryptionConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.ServerSideEncryptionRule
@@ -59,12 +60,12 @@ serverSideEncryptionConfiguration_rules :: Lens.Lens' ServerSideEncryptionConfig
 serverSideEncryptionConfiguration_rules = Lens.lens (\ServerSideEncryptionConfiguration' {rules} -> rules) (\s@ServerSideEncryptionConfiguration' {} a -> s {rules = a} :: ServerSideEncryptionConfiguration) Prelude.. Lens.coerced
 
 instance
-  Core.FromXML
+  Data.FromXML
     ServerSideEncryptionConfiguration
   where
   parseXML x =
     ServerSideEncryptionConfiguration'
-      Prelude.<$> (Core.parseXMLList "Rule" x)
+      Prelude.<$> (Data.parseXMLList "Rule" x)
 
 instance
   Prelude.Hashable
@@ -82,6 +83,6 @@ instance
   rnf ServerSideEncryptionConfiguration' {..} =
     Prelude.rnf rules
 
-instance Core.ToXML ServerSideEncryptionConfiguration where
+instance Data.ToXML ServerSideEncryptionConfiguration where
   toXML ServerSideEncryptionConfiguration' {..} =
-    Prelude.mconcat [Core.toXMLList "Rule" rules]
+    Prelude.mconcat [Data.toXMLList "Rule" rules]

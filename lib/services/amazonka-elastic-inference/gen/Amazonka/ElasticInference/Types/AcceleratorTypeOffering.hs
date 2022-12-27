@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticInference.Types.AcceleratorTypeOffering
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ElasticInference.Types.AcceleratorTypeOffering where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticInference.Types.LocationType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The offering for an Elastic Inference Accelerator type.
@@ -90,15 +91,15 @@ acceleratorTypeOffering_location = Lens.lens (\AcceleratorTypeOffering' {locatio
 acceleratorTypeOffering_locationType :: Lens.Lens' AcceleratorTypeOffering (Prelude.Maybe LocationType)
 acceleratorTypeOffering_locationType = Lens.lens (\AcceleratorTypeOffering' {locationType} -> locationType) (\s@AcceleratorTypeOffering' {} a -> s {locationType = a} :: AcceleratorTypeOffering)
 
-instance Core.FromJSON AcceleratorTypeOffering where
+instance Data.FromJSON AcceleratorTypeOffering where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AcceleratorTypeOffering"
       ( \x ->
           AcceleratorTypeOffering'
-            Prelude.<$> (x Core..:? "acceleratorType")
-            Prelude.<*> (x Core..:? "location")
-            Prelude.<*> (x Core..:? "locationType")
+            Prelude.<$> (x Data..:? "acceleratorType")
+            Prelude.<*> (x Data..:? "location")
+            Prelude.<*> (x Data..:? "locationType")
       )
 
 instance Prelude.Hashable AcceleratorTypeOffering where

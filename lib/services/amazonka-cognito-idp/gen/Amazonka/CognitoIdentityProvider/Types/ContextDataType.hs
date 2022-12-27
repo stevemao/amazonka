@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.ContextDataType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CognitoIdentityProvider.Types.ContextDataType where
 
 import Amazonka.CognitoIdentityProvider.Types.HttpHeader
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contextual user data type used for evaluating the risk of an unexpected
@@ -29,10 +30,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newContextDataType' smart constructor.
 data ContextDataType = ContextDataType'
-  { -- | Encoded data containing device fingerprinting details, collected using
-    -- the Amazon Cognito context data collection library.
+  { -- | Encoded device-fingerprint details that your app collected with the
+    -- Amazon Cognito context data collection library. For more information,
+    -- see
+    -- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html#user-pool-settings-adaptive-authentication-device-fingerprint Adding user device and session data to API requests>.
     encodedData :: Prelude.Maybe Prelude.Text,
-    -- | Source IP address of your user.
+    -- | The source IP address of your user\'s device.
     ipAddress :: Prelude.Text,
     -- | Your server endpoint where this API is invoked.
     serverName :: Prelude.Text,
@@ -51,10 +54,12 @@ data ContextDataType = ContextDataType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'encodedData', 'contextDataType_encodedData' - Encoded data containing device fingerprinting details, collected using
--- the Amazon Cognito context data collection library.
+-- 'encodedData', 'contextDataType_encodedData' - Encoded device-fingerprint details that your app collected with the
+-- Amazon Cognito context data collection library. For more information,
+-- see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html#user-pool-settings-adaptive-authentication-device-fingerprint Adding user device and session data to API requests>.
 --
--- 'ipAddress', 'contextDataType_ipAddress' - Source IP address of your user.
+-- 'ipAddress', 'contextDataType_ipAddress' - The source IP address of your user\'s device.
 --
 -- 'serverName', 'contextDataType_serverName' - Your server endpoint where this API is invoked.
 --
@@ -81,12 +86,14 @@ newContextDataType
         httpHeaders = Prelude.mempty
       }
 
--- | Encoded data containing device fingerprinting details, collected using
--- the Amazon Cognito context data collection library.
+-- | Encoded device-fingerprint details that your app collected with the
+-- Amazon Cognito context data collection library. For more information,
+-- see
+-- <https://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-pool-settings-adaptive-authentication.html#user-pool-settings-adaptive-authentication-device-fingerprint Adding user device and session data to API requests>.
 contextDataType_encodedData :: Lens.Lens' ContextDataType (Prelude.Maybe Prelude.Text)
 contextDataType_encodedData = Lens.lens (\ContextDataType' {encodedData} -> encodedData) (\s@ContextDataType' {} a -> s {encodedData = a} :: ContextDataType)
 
--- | Source IP address of your user.
+-- | The source IP address of your user\'s device.
 contextDataType_ipAddress :: Lens.Lens' ContextDataType Prelude.Text
 contextDataType_ipAddress = Lens.lens (\ContextDataType' {ipAddress} -> ipAddress) (\s@ContextDataType' {} a -> s {ipAddress = a} :: ContextDataType)
 
@@ -118,14 +125,14 @@ instance Prelude.NFData ContextDataType where
       `Prelude.seq` Prelude.rnf serverPath
       `Prelude.seq` Prelude.rnf httpHeaders
 
-instance Core.ToJSON ContextDataType where
+instance Data.ToJSON ContextDataType where
   toJSON ContextDataType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EncodedData" Core..=) Prelude.<$> encodedData,
-            Prelude.Just ("IpAddress" Core..= ipAddress),
-            Prelude.Just ("ServerName" Core..= serverName),
-            Prelude.Just ("ServerPath" Core..= serverPath),
-            Prelude.Just ("HttpHeaders" Core..= httpHeaders)
+          [ ("EncodedData" Data..=) Prelude.<$> encodedData,
+            Prelude.Just ("IpAddress" Data..= ipAddress),
+            Prelude.Just ("ServerName" Data..= serverName),
+            Prelude.Just ("ServerPath" Data..= serverPath),
+            Prelude.Just ("HttpHeaders" Data..= httpHeaders)
           ]
       )

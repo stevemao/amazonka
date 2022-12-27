@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.GetEbsDefaultKmsKeyId
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.EC2.GetEbsDefaultKmsKeyId
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,12 +92,13 @@ instance Core.AWSRequest GetEbsDefaultKmsKeyId where
   type
     AWSResponse GetEbsDefaultKmsKeyId =
       GetEbsDefaultKmsKeyIdResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetEbsDefaultKmsKeyIdResponse'
-            Prelude.<$> (x Core..@? "kmsKeyId")
+            Prelude.<$> (x Data..@? "kmsKeyId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -107,20 +109,20 @@ instance Prelude.Hashable GetEbsDefaultKmsKeyId where
 instance Prelude.NFData GetEbsDefaultKmsKeyId where
   rnf GetEbsDefaultKmsKeyId' {..} = Prelude.rnf dryRun
 
-instance Core.ToHeaders GetEbsDefaultKmsKeyId where
+instance Data.ToHeaders GetEbsDefaultKmsKeyId where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetEbsDefaultKmsKeyId where
+instance Data.ToPath GetEbsDefaultKmsKeyId where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetEbsDefaultKmsKeyId where
+instance Data.ToQuery GetEbsDefaultKmsKeyId where
   toQuery GetEbsDefaultKmsKeyId' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetEbsDefaultKmsKeyId" :: Prelude.ByteString),
+          Data.=: ("GetEbsDefaultKmsKeyId" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun
       ]
 
 -- | /See:/ 'newGetEbsDefaultKmsKeyIdResponse' smart constructor.

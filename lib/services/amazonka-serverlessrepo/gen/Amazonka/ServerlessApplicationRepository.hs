@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.ServerlessApplicationRepository
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,11 +51,17 @@ module Amazonka.ServerlessApplicationRepository
     -- * Errors
     -- $errors
 
+    -- ** BadRequestException
+    _BadRequestException,
+
     -- ** ConflictException
     _ConflictException,
 
     -- ** ForbiddenException
     _ForbiddenException,
+
+    -- ** InternalServerErrorException
+    _InternalServerErrorException,
 
     -- ** NotFoundException
     _NotFoundException,
@@ -63,23 +69,17 @@ module Amazonka.ServerlessApplicationRepository
     -- ** TooManyRequestsException
     _TooManyRequestsException,
 
-    -- ** InternalServerErrorException
-    _InternalServerErrorException,
-
-    -- ** BadRequestException
-    _BadRequestException,
-
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
 
-    -- ** GetApplicationPolicy
-    GetApplicationPolicy (GetApplicationPolicy'),
-    newGetApplicationPolicy,
-    GetApplicationPolicyResponse (GetApplicationPolicyResponse'),
-    newGetApplicationPolicyResponse,
+    -- ** CreateApplication
+    CreateApplication (CreateApplication'),
+    newCreateApplication,
+    CreateApplicationResponse (CreateApplicationResponse'),
+    newCreateApplicationResponse,
 
     -- ** CreateApplicationVersion
     CreateApplicationVersion (CreateApplicationVersion'),
@@ -87,23 +87,11 @@ module Amazonka.ServerlessApplicationRepository
     CreateApplicationVersionResponse (CreateApplicationVersionResponse'),
     newCreateApplicationVersionResponse,
 
-    -- ** UnshareApplication
-    UnshareApplication (UnshareApplication'),
-    newUnshareApplication,
-    UnshareApplicationResponse (UnshareApplicationResponse'),
-    newUnshareApplicationResponse,
-
-    -- ** DeleteApplication
-    DeleteApplication (DeleteApplication'),
-    newDeleteApplication,
-    DeleteApplicationResponse (DeleteApplicationResponse'),
-    newDeleteApplicationResponse,
-
-    -- ** UpdateApplication
-    UpdateApplication (UpdateApplication'),
-    newUpdateApplication,
-    UpdateApplicationResponse (UpdateApplicationResponse'),
-    newUpdateApplicationResponse,
+    -- ** CreateCloudFormationChangeSet
+    CreateCloudFormationChangeSet (CreateCloudFormationChangeSet'),
+    newCreateCloudFormationChangeSet,
+    CreateCloudFormationChangeSetResponse (CreateCloudFormationChangeSetResponse'),
+    newCreateCloudFormationChangeSetResponse,
 
     -- ** CreateCloudFormationTemplate
     CreateCloudFormationTemplate (CreateCloudFormationTemplate'),
@@ -111,11 +99,29 @@ module Amazonka.ServerlessApplicationRepository
     CreateCloudFormationTemplateResponse (CreateCloudFormationTemplateResponse'),
     newCreateCloudFormationTemplateResponse,
 
-    -- ** CreateApplication
-    CreateApplication (CreateApplication'),
-    newCreateApplication,
-    CreateApplicationResponse (CreateApplicationResponse'),
-    newCreateApplicationResponse,
+    -- ** DeleteApplication
+    DeleteApplication (DeleteApplication'),
+    newDeleteApplication,
+    DeleteApplicationResponse (DeleteApplicationResponse'),
+    newDeleteApplicationResponse,
+
+    -- ** GetApplication
+    GetApplication (GetApplication'),
+    newGetApplication,
+    GetApplicationResponse (GetApplicationResponse'),
+    newGetApplicationResponse,
+
+    -- ** GetApplicationPolicy
+    GetApplicationPolicy (GetApplicationPolicy'),
+    newGetApplicationPolicy,
+    GetApplicationPolicyResponse (GetApplicationPolicyResponse'),
+    newGetApplicationPolicyResponse,
+
+    -- ** GetCloudFormationTemplate
+    GetCloudFormationTemplate (GetCloudFormationTemplate'),
+    newGetCloudFormationTemplate,
+    GetCloudFormationTemplateResponse (GetCloudFormationTemplateResponse'),
+    newGetCloudFormationTemplateResponse,
 
     -- ** ListApplicationDependencies (Paginated)
     ListApplicationDependencies (ListApplicationDependencies'),
@@ -129,23 +135,11 @@ module Amazonka.ServerlessApplicationRepository
     ListApplicationVersionsResponse (ListApplicationVersionsResponse'),
     newListApplicationVersionsResponse,
 
-    -- ** GetApplication
-    GetApplication (GetApplication'),
-    newGetApplication,
-    GetApplicationResponse (GetApplicationResponse'),
-    newGetApplicationResponse,
-
-    -- ** GetCloudFormationTemplate
-    GetCloudFormationTemplate (GetCloudFormationTemplate'),
-    newGetCloudFormationTemplate,
-    GetCloudFormationTemplateResponse (GetCloudFormationTemplateResponse'),
-    newGetCloudFormationTemplateResponse,
-
-    -- ** CreateCloudFormationChangeSet
-    CreateCloudFormationChangeSet (CreateCloudFormationChangeSet'),
-    newCreateCloudFormationChangeSet,
-    CreateCloudFormationChangeSetResponse (CreateCloudFormationChangeSetResponse'),
-    newCreateCloudFormationChangeSetResponse,
+    -- ** ListApplications (Paginated)
+    ListApplications (ListApplications'),
+    newListApplications,
+    ListApplicationsResponse (ListApplicationsResponse'),
+    newListApplicationsResponse,
 
     -- ** PutApplicationPolicy
     PutApplicationPolicy (PutApplicationPolicy'),
@@ -153,11 +147,17 @@ module Amazonka.ServerlessApplicationRepository
     PutApplicationPolicyResponse (PutApplicationPolicyResponse'),
     newPutApplicationPolicyResponse,
 
-    -- ** ListApplications (Paginated)
-    ListApplications (ListApplications'),
-    newListApplications,
-    ListApplicationsResponse (ListApplicationsResponse'),
-    newListApplicationsResponse,
+    -- ** UnshareApplication
+    UnshareApplication (UnshareApplication'),
+    newUnshareApplication,
+    UnshareApplicationResponse (UnshareApplicationResponse'),
+    newUnshareApplicationResponse,
+
+    -- ** UpdateApplication
+    UpdateApplication (UpdateApplication'),
+    newUpdateApplication,
+    UpdateApplicationResponse (UpdateApplicationResponse'),
+    newUpdateApplicationResponse,
 
     -- * Types
 

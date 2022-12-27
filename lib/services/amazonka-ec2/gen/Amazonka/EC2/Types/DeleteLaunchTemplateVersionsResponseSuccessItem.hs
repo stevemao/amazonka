@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.DeleteLaunchTemplateVersionsResponseSuccessItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.EC2.Types.DeleteLaunchTemplateVersionsResponseSuccessItem where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a launch template version that was successfully deleted.
 --
 -- /See:/ 'newDeleteLaunchTemplateVersionsResponseSuccessItem' smart constructor.
 data DeleteLaunchTemplateVersionsResponseSuccessItem = DeleteLaunchTemplateVersionsResponseSuccessItem'
-  { -- | The name of the launch template.
-    launchTemplateName :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the launch template.
+  { -- | The ID of the launch template.
     launchTemplateId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the launch template.
+    launchTemplateName :: Prelude.Maybe Prelude.Text,
     -- | The version number of the launch template.
     versionNumber :: Prelude.Maybe Prelude.Integer
   }
@@ -45,44 +46,44 @@ data DeleteLaunchTemplateVersionsResponseSuccessItem = DeleteLaunchTemplateVersi
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'launchTemplateName', 'deleteLaunchTemplateVersionsResponseSuccessItem_launchTemplateName' - The name of the launch template.
---
 -- 'launchTemplateId', 'deleteLaunchTemplateVersionsResponseSuccessItem_launchTemplateId' - The ID of the launch template.
+--
+-- 'launchTemplateName', 'deleteLaunchTemplateVersionsResponseSuccessItem_launchTemplateName' - The name of the launch template.
 --
 -- 'versionNumber', 'deleteLaunchTemplateVersionsResponseSuccessItem_versionNumber' - The version number of the launch template.
 newDeleteLaunchTemplateVersionsResponseSuccessItem ::
   DeleteLaunchTemplateVersionsResponseSuccessItem
 newDeleteLaunchTemplateVersionsResponseSuccessItem =
   DeleteLaunchTemplateVersionsResponseSuccessItem'
-    { launchTemplateName =
+    { launchTemplateId =
         Prelude.Nothing,
-      launchTemplateId =
+      launchTemplateName =
         Prelude.Nothing,
       versionNumber =
         Prelude.Nothing
     }
 
--- | The name of the launch template.
-deleteLaunchTemplateVersionsResponseSuccessItem_launchTemplateName :: Lens.Lens' DeleteLaunchTemplateVersionsResponseSuccessItem (Prelude.Maybe Prelude.Text)
-deleteLaunchTemplateVersionsResponseSuccessItem_launchTemplateName = Lens.lens (\DeleteLaunchTemplateVersionsResponseSuccessItem' {launchTemplateName} -> launchTemplateName) (\s@DeleteLaunchTemplateVersionsResponseSuccessItem' {} a -> s {launchTemplateName = a} :: DeleteLaunchTemplateVersionsResponseSuccessItem)
-
 -- | The ID of the launch template.
 deleteLaunchTemplateVersionsResponseSuccessItem_launchTemplateId :: Lens.Lens' DeleteLaunchTemplateVersionsResponseSuccessItem (Prelude.Maybe Prelude.Text)
 deleteLaunchTemplateVersionsResponseSuccessItem_launchTemplateId = Lens.lens (\DeleteLaunchTemplateVersionsResponseSuccessItem' {launchTemplateId} -> launchTemplateId) (\s@DeleteLaunchTemplateVersionsResponseSuccessItem' {} a -> s {launchTemplateId = a} :: DeleteLaunchTemplateVersionsResponseSuccessItem)
+
+-- | The name of the launch template.
+deleteLaunchTemplateVersionsResponseSuccessItem_launchTemplateName :: Lens.Lens' DeleteLaunchTemplateVersionsResponseSuccessItem (Prelude.Maybe Prelude.Text)
+deleteLaunchTemplateVersionsResponseSuccessItem_launchTemplateName = Lens.lens (\DeleteLaunchTemplateVersionsResponseSuccessItem' {launchTemplateName} -> launchTemplateName) (\s@DeleteLaunchTemplateVersionsResponseSuccessItem' {} a -> s {launchTemplateName = a} :: DeleteLaunchTemplateVersionsResponseSuccessItem)
 
 -- | The version number of the launch template.
 deleteLaunchTemplateVersionsResponseSuccessItem_versionNumber :: Lens.Lens' DeleteLaunchTemplateVersionsResponseSuccessItem (Prelude.Maybe Prelude.Integer)
 deleteLaunchTemplateVersionsResponseSuccessItem_versionNumber = Lens.lens (\DeleteLaunchTemplateVersionsResponseSuccessItem' {versionNumber} -> versionNumber) (\s@DeleteLaunchTemplateVersionsResponseSuccessItem' {} a -> s {versionNumber = a} :: DeleteLaunchTemplateVersionsResponseSuccessItem)
 
 instance
-  Core.FromXML
+  Data.FromXML
     DeleteLaunchTemplateVersionsResponseSuccessItem
   where
   parseXML x =
     DeleteLaunchTemplateVersionsResponseSuccessItem'
-      Prelude.<$> (x Core..@? "launchTemplateName")
-        Prelude.<*> (x Core..@? "launchTemplateId")
-        Prelude.<*> (x Core..@? "versionNumber")
+      Prelude.<$> (x Data..@? "launchTemplateId")
+        Prelude.<*> (x Data..@? "launchTemplateName")
+        Prelude.<*> (x Data..@? "versionNumber")
 
 instance
   Prelude.Hashable
@@ -91,8 +92,8 @@ instance
   hashWithSalt
     _salt
     DeleteLaunchTemplateVersionsResponseSuccessItem' {..} =
-      _salt `Prelude.hashWithSalt` launchTemplateName
-        `Prelude.hashWithSalt` launchTemplateId
+      _salt `Prelude.hashWithSalt` launchTemplateId
+        `Prelude.hashWithSalt` launchTemplateName
         `Prelude.hashWithSalt` versionNumber
 
 instance
@@ -101,6 +102,6 @@ instance
   where
   rnf
     DeleteLaunchTemplateVersionsResponseSuccessItem' {..} =
-      Prelude.rnf launchTemplateName
-        `Prelude.seq` Prelude.rnf launchTemplateId
+      Prelude.rnf launchTemplateId
+        `Prelude.seq` Prelude.rnf launchTemplateName
         `Prelude.seq` Prelude.rnf versionNumber

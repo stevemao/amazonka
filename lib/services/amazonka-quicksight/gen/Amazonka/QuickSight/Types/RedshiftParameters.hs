@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.RedshiftParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.RedshiftParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The parameters for Amazon Redshift. The @ClusterId@ field can be blank
@@ -86,16 +87,16 @@ redshiftParameters_port = Lens.lens (\RedshiftParameters' {port} -> port) (\s@Re
 redshiftParameters_database :: Lens.Lens' RedshiftParameters Prelude.Text
 redshiftParameters_database = Lens.lens (\RedshiftParameters' {database} -> database) (\s@RedshiftParameters' {} a -> s {database = a} :: RedshiftParameters)
 
-instance Core.FromJSON RedshiftParameters where
+instance Data.FromJSON RedshiftParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RedshiftParameters"
       ( \x ->
           RedshiftParameters'
-            Prelude.<$> (x Core..:? "ClusterId")
-            Prelude.<*> (x Core..:? "Host")
-            Prelude.<*> (x Core..:? "Port")
-            Prelude.<*> (x Core..: "Database")
+            Prelude.<$> (x Data..:? "ClusterId")
+            Prelude.<*> (x Data..:? "Host")
+            Prelude.<*> (x Data..:? "Port")
+            Prelude.<*> (x Data..: "Database")
       )
 
 instance Prelude.Hashable RedshiftParameters where
@@ -112,13 +113,13 @@ instance Prelude.NFData RedshiftParameters where
       `Prelude.seq` Prelude.rnf port
       `Prelude.seq` Prelude.rnf database
 
-instance Core.ToJSON RedshiftParameters where
+instance Data.ToJSON RedshiftParameters where
   toJSON RedshiftParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClusterId" Core..=) Prelude.<$> clusterId,
-            ("Host" Core..=) Prelude.<$> host,
-            ("Port" Core..=) Prelude.<$> port,
-            Prelude.Just ("Database" Core..= database)
+          [ ("ClusterId" Data..=) Prelude.<$> clusterId,
+            ("Host" Data..=) Prelude.<$> host,
+            ("Port" Data..=) Prelude.<$> port,
+            Prelude.Just ("Database" Data..= database)
           ]
       )

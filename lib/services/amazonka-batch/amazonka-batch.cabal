@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -47,15 +47,19 @@ library
     Amazonka.Batch.CancelJob
     Amazonka.Batch.CreateComputeEnvironment
     Amazonka.Batch.CreateJobQueue
+    Amazonka.Batch.CreateSchedulingPolicy
     Amazonka.Batch.DeleteComputeEnvironment
     Amazonka.Batch.DeleteJobQueue
+    Amazonka.Batch.DeleteSchedulingPolicy
     Amazonka.Batch.DeregisterJobDefinition
     Amazonka.Batch.DescribeComputeEnvironments
     Amazonka.Batch.DescribeJobDefinitions
     Amazonka.Batch.DescribeJobQueues
     Amazonka.Batch.DescribeJobs
+    Amazonka.Batch.DescribeSchedulingPolicies
     Amazonka.Batch.Lens
     Amazonka.Batch.ListJobs
+    Amazonka.Batch.ListSchedulingPolicies
     Amazonka.Batch.ListTagsForResource
     Amazonka.Batch.RegisterJobDefinition
     Amazonka.Batch.SubmitJob
@@ -82,6 +86,7 @@ library
     Amazonka.Batch.Types.ContainerSummary
     Amazonka.Batch.Types.CRAllocationStrategy
     Amazonka.Batch.Types.CRType
+    Amazonka.Batch.Types.CRUpdateAllocationStrategy
     Amazonka.Batch.Types.Device
     Amazonka.Batch.Types.DeviceCgroupPermission
     Amazonka.Batch.Types.Ec2Configuration
@@ -89,7 +94,28 @@ library
     Amazonka.Batch.Types.EFSAuthorizationConfigIAM
     Amazonka.Batch.Types.EFSTransitEncryption
     Amazonka.Batch.Types.EFSVolumeConfiguration
+    Amazonka.Batch.Types.EksAttemptContainerDetail
+    Amazonka.Batch.Types.EksAttemptDetail
+    Amazonka.Batch.Types.EksConfiguration
+    Amazonka.Batch.Types.EksContainer
+    Amazonka.Batch.Types.EksContainerDetail
+    Amazonka.Batch.Types.EksContainerEnvironmentVariable
+    Amazonka.Batch.Types.EksContainerOverride
+    Amazonka.Batch.Types.EksContainerResourceRequirements
+    Amazonka.Batch.Types.EksContainerSecurityContext
+    Amazonka.Batch.Types.EksContainerVolumeMount
+    Amazonka.Batch.Types.EksEmptyDir
+    Amazonka.Batch.Types.EksHostPath
+    Amazonka.Batch.Types.EksPodProperties
+    Amazonka.Batch.Types.EksPodPropertiesDetail
+    Amazonka.Batch.Types.EksPodPropertiesOverride
+    Amazonka.Batch.Types.EksProperties
+    Amazonka.Batch.Types.EksPropertiesDetail
+    Amazonka.Batch.Types.EksPropertiesOverride
+    Amazonka.Batch.Types.EksSecret
+    Amazonka.Batch.Types.EksVolume
     Amazonka.Batch.Types.EvaluateOnExit
+    Amazonka.Batch.Types.FairsharePolicy
     Amazonka.Batch.Types.FargatePlatformConfiguration
     Amazonka.Batch.Types.Host
     Amazonka.Batch.Types.JobDefinition
@@ -117,22 +143,28 @@ library
     Amazonka.Batch.Types.NodePropertiesSummary
     Amazonka.Batch.Types.NodePropertyOverride
     Amazonka.Batch.Types.NodeRangeProperty
+    Amazonka.Batch.Types.OrchestrationType
     Amazonka.Batch.Types.PlatformCapability
     Amazonka.Batch.Types.ResourceRequirement
     Amazonka.Batch.Types.ResourceType
     Amazonka.Batch.Types.RetryAction
     Amazonka.Batch.Types.RetryStrategy
+    Amazonka.Batch.Types.SchedulingPolicyDetail
+    Amazonka.Batch.Types.SchedulingPolicyListingDetail
     Amazonka.Batch.Types.Secret
+    Amazonka.Batch.Types.ShareAttributes
     Amazonka.Batch.Types.Tmpfs
     Amazonka.Batch.Types.Ulimit
+    Amazonka.Batch.Types.UpdatePolicy
     Amazonka.Batch.Types.Volume
     Amazonka.Batch.UntagResource
     Amazonka.Batch.UpdateComputeEnvironment
     Amazonka.Batch.UpdateJobQueue
+    Amazonka.Batch.UpdateSchedulingPolicy
     Amazonka.Batch.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-batch-test
@@ -152,8 +184,8 @@ test-suite amazonka-batch-test
 
   build-depends:
     , amazonka-batch
-    , amazonka-core         ^>=2.0
-    , amazonka-test         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

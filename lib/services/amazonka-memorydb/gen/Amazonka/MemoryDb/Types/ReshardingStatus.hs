@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MemoryDb.Types.ReshardingStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MemoryDb.Types.ReshardingStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MemoryDb.Types.SlotMigration
 import qualified Amazonka.Prelude as Prelude
 
@@ -51,13 +52,13 @@ newReshardingStatus =
 reshardingStatus_slotMigration :: Lens.Lens' ReshardingStatus (Prelude.Maybe SlotMigration)
 reshardingStatus_slotMigration = Lens.lens (\ReshardingStatus' {slotMigration} -> slotMigration) (\s@ReshardingStatus' {} a -> s {slotMigration = a} :: ReshardingStatus)
 
-instance Core.FromJSON ReshardingStatus where
+instance Data.FromJSON ReshardingStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReshardingStatus"
       ( \x ->
           ReshardingStatus'
-            Prelude.<$> (x Core..:? "SlotMigration")
+            Prelude.<$> (x Data..:? "SlotMigration")
       )
 
 instance Prelude.Hashable ReshardingStatus where

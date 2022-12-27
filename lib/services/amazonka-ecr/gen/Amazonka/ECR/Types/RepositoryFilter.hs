@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.Types.RepositoryFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ECR.Types.RepositoryFilter where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types.RepositoryFilterType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The filter settings used with image replication. Specifying a repository
@@ -78,14 +79,14 @@ repositoryFilter_filter = Lens.lens (\RepositoryFilter' {filter'} -> filter') (\
 repositoryFilter_filterType :: Lens.Lens' RepositoryFilter RepositoryFilterType
 repositoryFilter_filterType = Lens.lens (\RepositoryFilter' {filterType} -> filterType) (\s@RepositoryFilter' {} a -> s {filterType = a} :: RepositoryFilter)
 
-instance Core.FromJSON RepositoryFilter where
+instance Data.FromJSON RepositoryFilter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RepositoryFilter"
       ( \x ->
           RepositoryFilter'
-            Prelude.<$> (x Core..: "filter")
-            Prelude.<*> (x Core..: "filterType")
+            Prelude.<$> (x Data..: "filter")
+            Prelude.<*> (x Data..: "filterType")
       )
 
 instance Prelude.Hashable RepositoryFilter where
@@ -98,11 +99,11 @@ instance Prelude.NFData RepositoryFilter where
     Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf filterType
 
-instance Core.ToJSON RepositoryFilter where
+instance Data.ToJSON RepositoryFilter where
   toJSON RepositoryFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("filter" Core..= filter'),
-            Prelude.Just ("filterType" Core..= filterType)
+          [ Prelude.Just ("filter" Data..= filter'),
+            Prelude.Just ("filterType" Data..= filterType)
           ]
       )

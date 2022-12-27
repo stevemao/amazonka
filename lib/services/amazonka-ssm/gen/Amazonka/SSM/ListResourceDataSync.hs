@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.ListResourceDataSync
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,23 +39,24 @@ module Amazonka.SSM.ListResourceDataSync
     newListResourceDataSync,
 
     -- * Request Lenses
-    listResourceDataSync_syncType,
-    listResourceDataSync_nextToken,
     listResourceDataSync_maxResults,
+    listResourceDataSync_nextToken,
+    listResourceDataSync_syncType,
 
     -- * Destructuring the Response
     ListResourceDataSyncResponse (..),
     newListResourceDataSyncResponse,
 
     -- * Response Lenses
-    listResourceDataSyncResponse_resourceDataSyncItems,
     listResourceDataSyncResponse_nextToken,
+    listResourceDataSyncResponse_resourceDataSyncItems,
     listResourceDataSyncResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,18 +64,18 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newListResourceDataSync' smart constructor.
 data ListResourceDataSync = ListResourceDataSync'
-  { -- | View a list of resource data syncs according to the sync type. Specify
-    -- @SyncToDestination@ to view resource data syncs that synchronize data to
-    -- an Amazon S3 bucket. Specify @SyncFromSource@ to view resource data
-    -- syncs from Organizations or from multiple Amazon Web Services Regions.
-    syncType :: Prelude.Maybe Prelude.Text,
+  { -- | The maximum number of items to return for this call. The call also
+    -- returns a token that you can specify in a subsequent call to get the
+    -- next set of results.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | A token to start the list. Use this token to get the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return for this call. The call also
-    -- returns a token that you can specify in a subsequent call to get the
-    -- next set of results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | View a list of resource data syncs according to the sync type. Specify
+    -- @SyncToDestination@ to view resource data syncs that synchronize data to
+    -- an Amazon S3 bucket. Specify @SyncFromSource@ to view resource data
+    -- syncs from Organizations or from multiple Amazon Web Services Regions.
+    syncType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -86,25 +87,36 @@ data ListResourceDataSync = ListResourceDataSync'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'syncType', 'listResourceDataSync_syncType' - View a list of resource data syncs according to the sync type. Specify
--- @SyncToDestination@ to view resource data syncs that synchronize data to
--- an Amazon S3 bucket. Specify @SyncFromSource@ to view resource data
--- syncs from Organizations or from multiple Amazon Web Services Regions.
+-- 'maxResults', 'listResourceDataSync_maxResults' - The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
 --
 -- 'nextToken', 'listResourceDataSync_nextToken' - A token to start the list. Use this token to get the next set of
 -- results.
 --
--- 'maxResults', 'listResourceDataSync_maxResults' - The maximum number of items to return for this call. The call also
--- returns a token that you can specify in a subsequent call to get the
--- next set of results.
+-- 'syncType', 'listResourceDataSync_syncType' - View a list of resource data syncs according to the sync type. Specify
+-- @SyncToDestination@ to view resource data syncs that synchronize data to
+-- an Amazon S3 bucket. Specify @SyncFromSource@ to view resource data
+-- syncs from Organizations or from multiple Amazon Web Services Regions.
 newListResourceDataSync ::
   ListResourceDataSync
 newListResourceDataSync =
   ListResourceDataSync'
-    { syncType = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      syncType = Prelude.Nothing
     }
+
+-- | The maximum number of items to return for this call. The call also
+-- returns a token that you can specify in a subsequent call to get the
+-- next set of results.
+listResourceDataSync_maxResults :: Lens.Lens' ListResourceDataSync (Prelude.Maybe Prelude.Natural)
+listResourceDataSync_maxResults = Lens.lens (\ListResourceDataSync' {maxResults} -> maxResults) (\s@ListResourceDataSync' {} a -> s {maxResults = a} :: ListResourceDataSync)
+
+-- | A token to start the list. Use this token to get the next set of
+-- results.
+listResourceDataSync_nextToken :: Lens.Lens' ListResourceDataSync (Prelude.Maybe Prelude.Text)
+listResourceDataSync_nextToken = Lens.lens (\ListResourceDataSync' {nextToken} -> nextToken) (\s@ListResourceDataSync' {} a -> s {nextToken = a} :: ListResourceDataSync)
 
 -- | View a list of resource data syncs according to the sync type. Specify
 -- @SyncToDestination@ to view resource data syncs that synchronize data to
@@ -112,17 +124,6 @@ newListResourceDataSync =
 -- syncs from Organizations or from multiple Amazon Web Services Regions.
 listResourceDataSync_syncType :: Lens.Lens' ListResourceDataSync (Prelude.Maybe Prelude.Text)
 listResourceDataSync_syncType = Lens.lens (\ListResourceDataSync' {syncType} -> syncType) (\s@ListResourceDataSync' {} a -> s {syncType = a} :: ListResourceDataSync)
-
--- | A token to start the list. Use this token to get the next set of
--- results.
-listResourceDataSync_nextToken :: Lens.Lens' ListResourceDataSync (Prelude.Maybe Prelude.Text)
-listResourceDataSync_nextToken = Lens.lens (\ListResourceDataSync' {nextToken} -> nextToken) (\s@ListResourceDataSync' {} a -> s {nextToken = a} :: ListResourceDataSync)
-
--- | The maximum number of items to return for this call. The call also
--- returns a token that you can specify in a subsequent call to get the
--- next set of results.
-listResourceDataSync_maxResults :: Lens.Lens' ListResourceDataSync (Prelude.Maybe Prelude.Natural)
-listResourceDataSync_maxResults = Lens.lens (\ListResourceDataSync' {maxResults} -> maxResults) (\s@ListResourceDataSync' {} a -> s {maxResults = a} :: ListResourceDataSync)
 
 instance Core.AWSPager ListResourceDataSync where
   page rq rs
@@ -150,69 +151,70 @@ instance Core.AWSRequest ListResourceDataSync where
   type
     AWSResponse ListResourceDataSync =
       ListResourceDataSyncResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListResourceDataSyncResponse'
-            Prelude.<$> ( x Core..?> "ResourceDataSyncItems"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "ResourceDataSyncItems"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListResourceDataSync where
   hashWithSalt _salt ListResourceDataSync' {..} =
-    _salt `Prelude.hashWithSalt` syncType
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` syncType
 
 instance Prelude.NFData ListResourceDataSync where
   rnf ListResourceDataSync' {..} =
-    Prelude.rnf syncType
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf syncType
 
-instance Core.ToHeaders ListResourceDataSync where
+instance Data.ToHeaders ListResourceDataSync where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.ListResourceDataSync" ::
+              Data.=# ( "AmazonSSM.ListResourceDataSync" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListResourceDataSync where
+instance Data.ToJSON ListResourceDataSync where
   toJSON ListResourceDataSync' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SyncType" Core..=) Prelude.<$> syncType,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SyncType" Data..=) Prelude.<$> syncType
           ]
       )
 
-instance Core.ToPath ListResourceDataSync where
+instance Data.ToPath ListResourceDataSync where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListResourceDataSync where
+instance Data.ToQuery ListResourceDataSync where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListResourceDataSyncResponse' smart constructor.
 data ListResourceDataSyncResponse = ListResourceDataSyncResponse'
-  { -- | A list of your current resource data sync configurations and their
-    -- statuses.
-    resourceDataSyncItems :: Prelude.Maybe [ResourceDataSyncItem],
-    -- | The token for the next set of items to return. Use this token to get the
+  { -- | The token for the next set of items to return. Use this token to get the
     -- next set of results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of your current resource data sync configurations and their
+    -- statuses.
+    resourceDataSyncItems :: Prelude.Maybe [ResourceDataSyncItem],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -226,11 +228,11 @@ data ListResourceDataSyncResponse = ListResourceDataSyncResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceDataSyncItems', 'listResourceDataSyncResponse_resourceDataSyncItems' - A list of your current resource data sync configurations and their
--- statuses.
---
 -- 'nextToken', 'listResourceDataSyncResponse_nextToken' - The token for the next set of items to return. Use this token to get the
 -- next set of results.
+--
+-- 'resourceDataSyncItems', 'listResourceDataSyncResponse_resourceDataSyncItems' - A list of your current resource data sync configurations and their
+-- statuses.
 --
 -- 'httpStatus', 'listResourceDataSyncResponse_httpStatus' - The response's http status code.
 newListResourceDataSyncResponse ::
@@ -239,21 +241,21 @@ newListResourceDataSyncResponse ::
   ListResourceDataSyncResponse
 newListResourceDataSyncResponse pHttpStatus_ =
   ListResourceDataSyncResponse'
-    { resourceDataSyncItems =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      resourceDataSyncItems = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of your current resource data sync configurations and their
--- statuses.
-listResourceDataSyncResponse_resourceDataSyncItems :: Lens.Lens' ListResourceDataSyncResponse (Prelude.Maybe [ResourceDataSyncItem])
-listResourceDataSyncResponse_resourceDataSyncItems = Lens.lens (\ListResourceDataSyncResponse' {resourceDataSyncItems} -> resourceDataSyncItems) (\s@ListResourceDataSyncResponse' {} a -> s {resourceDataSyncItems = a} :: ListResourceDataSyncResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token for the next set of items to return. Use this token to get the
 -- next set of results.
 listResourceDataSyncResponse_nextToken :: Lens.Lens' ListResourceDataSyncResponse (Prelude.Maybe Prelude.Text)
 listResourceDataSyncResponse_nextToken = Lens.lens (\ListResourceDataSyncResponse' {nextToken} -> nextToken) (\s@ListResourceDataSyncResponse' {} a -> s {nextToken = a} :: ListResourceDataSyncResponse)
+
+-- | A list of your current resource data sync configurations and their
+-- statuses.
+listResourceDataSyncResponse_resourceDataSyncItems :: Lens.Lens' ListResourceDataSyncResponse (Prelude.Maybe [ResourceDataSyncItem])
+listResourceDataSyncResponse_resourceDataSyncItems = Lens.lens (\ListResourceDataSyncResponse' {resourceDataSyncItems} -> resourceDataSyncItems) (\s@ListResourceDataSyncResponse' {} a -> s {resourceDataSyncItems = a} :: ListResourceDataSyncResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listResourceDataSyncResponse_httpStatus :: Lens.Lens' ListResourceDataSyncResponse Prelude.Int
@@ -261,6 +263,6 @@ listResourceDataSyncResponse_httpStatus = Lens.lens (\ListResourceDataSyncRespon
 
 instance Prelude.NFData ListResourceDataSyncResponse where
   rnf ListResourceDataSyncResponse' {..} =
-    Prelude.rnf resourceDataSyncItems
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf resourceDataSyncItems
       `Prelude.seq` Prelude.rnf httpStatus

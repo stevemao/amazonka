@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.DeleteVoiceChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Pinpoint.DeleteVoiceChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -84,13 +85,14 @@ instance Core.AWSRequest DeleteVoiceChannel where
   type
     AWSResponse DeleteVoiceChannel =
       DeleteVoiceChannelResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteVoiceChannelResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable DeleteVoiceChannel where
@@ -101,26 +103,26 @@ instance Prelude.NFData DeleteVoiceChannel where
   rnf DeleteVoiceChannel' {..} =
     Prelude.rnf applicationId
 
-instance Core.ToHeaders DeleteVoiceChannel where
+instance Data.ToHeaders DeleteVoiceChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteVoiceChannel where
+instance Data.ToPath DeleteVoiceChannel where
   toPath DeleteVoiceChannel' {..} =
     Prelude.mconcat
       [ "/v1/apps/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/channels/voice"
       ]
 
-instance Core.ToQuery DeleteVoiceChannel where
+instance Data.ToQuery DeleteVoiceChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteVoiceChannelResponse' smart constructor.

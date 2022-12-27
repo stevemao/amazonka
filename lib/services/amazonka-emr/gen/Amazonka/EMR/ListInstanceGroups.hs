@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.ListInstanceGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,15 +37,16 @@ module Amazonka.EMR.ListInstanceGroups
     newListInstanceGroupsResponse,
 
     -- * Response Lenses
-    listInstanceGroupsResponse_marker,
     listInstanceGroupsResponse_instanceGroups,
+    listInstanceGroupsResponse_marker,
     listInstanceGroupsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,13 +117,14 @@ instance Core.AWSRequest ListInstanceGroups where
   type
     AWSResponse ListInstanceGroups =
       ListInstanceGroupsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListInstanceGroupsResponse'
-            Prelude.<$> (x Core..?> "Marker")
-            Prelude.<*> (x Core..?> "InstanceGroups" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "InstanceGroups" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,44 +138,44 @@ instance Prelude.NFData ListInstanceGroups where
     Prelude.rnf marker
       `Prelude.seq` Prelude.rnf clusterId
 
-instance Core.ToHeaders ListInstanceGroups where
+instance Data.ToHeaders ListInstanceGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ElasticMapReduce.ListInstanceGroups" ::
+              Data.=# ( "ElasticMapReduce.ListInstanceGroups" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListInstanceGroups where
+instance Data.ToJSON ListInstanceGroups where
   toJSON ListInstanceGroups' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Marker" Core..=) Prelude.<$> marker,
-            Prelude.Just ("ClusterId" Core..= clusterId)
+          [ ("Marker" Data..=) Prelude.<$> marker,
+            Prelude.Just ("ClusterId" Data..= clusterId)
           ]
       )
 
-instance Core.ToPath ListInstanceGroups where
+instance Data.ToPath ListInstanceGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListInstanceGroups where
+instance Data.ToQuery ListInstanceGroups where
   toQuery = Prelude.const Prelude.mempty
 
 -- | This input determines which instance groups to retrieve.
 --
 -- /See:/ 'newListInstanceGroupsResponse' smart constructor.
 data ListInstanceGroupsResponse = ListInstanceGroupsResponse'
-  { -- | The pagination token that indicates the next set of results to retrieve.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | The list of instance groups for the cluster and given filters.
+  { -- | The list of instance groups for the cluster and given filters.
     instanceGroups :: Prelude.Maybe [InstanceGroup],
+    -- | The pagination token that indicates the next set of results to retrieve.
+    marker :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -187,9 +189,9 @@ data ListInstanceGroupsResponse = ListInstanceGroupsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'marker', 'listInstanceGroupsResponse_marker' - The pagination token that indicates the next set of results to retrieve.
---
 -- 'instanceGroups', 'listInstanceGroupsResponse_instanceGroups' - The list of instance groups for the cluster and given filters.
+--
+-- 'marker', 'listInstanceGroupsResponse_marker' - The pagination token that indicates the next set of results to retrieve.
 --
 -- 'httpStatus', 'listInstanceGroupsResponse_httpStatus' - The response's http status code.
 newListInstanceGroupsResponse ::
@@ -198,19 +200,19 @@ newListInstanceGroupsResponse ::
   ListInstanceGroupsResponse
 newListInstanceGroupsResponse pHttpStatus_ =
   ListInstanceGroupsResponse'
-    { marker =
+    { instanceGroups =
         Prelude.Nothing,
-      instanceGroups = Prelude.Nothing,
+      marker = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The pagination token that indicates the next set of results to retrieve.
-listInstanceGroupsResponse_marker :: Lens.Lens' ListInstanceGroupsResponse (Prelude.Maybe Prelude.Text)
-listInstanceGroupsResponse_marker = Lens.lens (\ListInstanceGroupsResponse' {marker} -> marker) (\s@ListInstanceGroupsResponse' {} a -> s {marker = a} :: ListInstanceGroupsResponse)
 
 -- | The list of instance groups for the cluster and given filters.
 listInstanceGroupsResponse_instanceGroups :: Lens.Lens' ListInstanceGroupsResponse (Prelude.Maybe [InstanceGroup])
 listInstanceGroupsResponse_instanceGroups = Lens.lens (\ListInstanceGroupsResponse' {instanceGroups} -> instanceGroups) (\s@ListInstanceGroupsResponse' {} a -> s {instanceGroups = a} :: ListInstanceGroupsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The pagination token that indicates the next set of results to retrieve.
+listInstanceGroupsResponse_marker :: Lens.Lens' ListInstanceGroupsResponse (Prelude.Maybe Prelude.Text)
+listInstanceGroupsResponse_marker = Lens.lens (\ListInstanceGroupsResponse' {marker} -> marker) (\s@ListInstanceGroupsResponse' {} a -> s {marker = a} :: ListInstanceGroupsResponse)
 
 -- | The response's http status code.
 listInstanceGroupsResponse_httpStatus :: Lens.Lens' ListInstanceGroupsResponse Prelude.Int
@@ -218,6 +220,6 @@ listInstanceGroupsResponse_httpStatus = Lens.lens (\ListInstanceGroupsResponse' 
 
 instance Prelude.NFData ListInstanceGroupsResponse where
   rnf ListInstanceGroupsResponse' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf instanceGroups
+    Prelude.rnf instanceGroups
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf httpStatus

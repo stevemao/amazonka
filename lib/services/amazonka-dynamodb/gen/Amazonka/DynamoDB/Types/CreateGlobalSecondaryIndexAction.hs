@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.CreateGlobalSecondaryIndexAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,13 @@
 module Amazonka.DynamoDB.Types.CreateGlobalSecondaryIndexAction where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.KeySchemaElement
 import Amazonka.DynamoDB.Types.Projection
 import Amazonka.DynamoDB.Types.ProvisionedThroughput
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a new global secondary index to be added to an existing
@@ -138,14 +140,14 @@ instance
       `Prelude.seq` Prelude.rnf keySchema
       `Prelude.seq` Prelude.rnf projection
 
-instance Core.ToJSON CreateGlobalSecondaryIndexAction where
+instance Data.ToJSON CreateGlobalSecondaryIndexAction where
   toJSON CreateGlobalSecondaryIndexAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ProvisionedThroughput" Core..=)
+          [ ("ProvisionedThroughput" Data..=)
               Prelude.<$> provisionedThroughput,
-            Prelude.Just ("IndexName" Core..= indexName),
-            Prelude.Just ("KeySchema" Core..= keySchema),
-            Prelude.Just ("Projection" Core..= projection)
+            Prelude.Just ("IndexName" Data..= indexName),
+            Prelude.Just ("KeySchema" Data..= keySchema),
+            Prelude.Just ("Projection" Data..= projection)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.Types.SuppressedDestination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SESV2.Types.SuppressedDestination where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SESV2.Types.SuppressedDestinationAttributes
 import Amazonka.SESV2.Types.SuppressionListReason
@@ -41,7 +42,7 @@ data SuppressedDestination = SuppressedDestination'
     reason :: SuppressionListReason,
     -- | The date and time when the suppressed destination was last updated,
     -- shown in Unix time format.
-    lastUpdateTime :: Core.POSIX
+    lastUpdateTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -81,7 +82,7 @@ newSuppressedDestination
           Prelude.Nothing,
         emailAddress = pEmailAddress_,
         reason = pReason_,
-        lastUpdateTime = Core._Time Lens.# pLastUpdateTime_
+        lastUpdateTime = Data._Time Lens.# pLastUpdateTime_
       }
 
 -- | An optional value that can contain additional information about the
@@ -102,18 +103,18 @@ suppressedDestination_reason = Lens.lens (\SuppressedDestination' {reason} -> re
 -- | The date and time when the suppressed destination was last updated,
 -- shown in Unix time format.
 suppressedDestination_lastUpdateTime :: Lens.Lens' SuppressedDestination Prelude.UTCTime
-suppressedDestination_lastUpdateTime = Lens.lens (\SuppressedDestination' {lastUpdateTime} -> lastUpdateTime) (\s@SuppressedDestination' {} a -> s {lastUpdateTime = a} :: SuppressedDestination) Prelude.. Core._Time
+suppressedDestination_lastUpdateTime = Lens.lens (\SuppressedDestination' {lastUpdateTime} -> lastUpdateTime) (\s@SuppressedDestination' {} a -> s {lastUpdateTime = a} :: SuppressedDestination) Prelude.. Data._Time
 
-instance Core.FromJSON SuppressedDestination where
+instance Data.FromJSON SuppressedDestination where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SuppressedDestination"
       ( \x ->
           SuppressedDestination'
-            Prelude.<$> (x Core..:? "Attributes")
-            Prelude.<*> (x Core..: "EmailAddress")
-            Prelude.<*> (x Core..: "Reason")
-            Prelude.<*> (x Core..: "LastUpdateTime")
+            Prelude.<$> (x Data..:? "Attributes")
+            Prelude.<*> (x Data..: "EmailAddress")
+            Prelude.<*> (x Data..: "Reason")
+            Prelude.<*> (x Data..: "LastUpdateTime")
       )
 
 instance Prelude.Hashable SuppressedDestination where

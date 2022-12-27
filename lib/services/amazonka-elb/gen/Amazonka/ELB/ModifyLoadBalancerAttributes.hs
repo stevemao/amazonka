@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.ModifyLoadBalancerAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,15 +52,16 @@ module Amazonka.ELB.ModifyLoadBalancerAttributes
     newModifyLoadBalancerAttributesResponse,
 
     -- * Response Lenses
-    modifyLoadBalancerAttributesResponse_loadBalancerName,
     modifyLoadBalancerAttributesResponse_loadBalancerAttributes,
+    modifyLoadBalancerAttributesResponse_loadBalancerName,
     modifyLoadBalancerAttributesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -115,14 +116,15 @@ instance Core.AWSRequest ModifyLoadBalancerAttributes where
   type
     AWSResponse ModifyLoadBalancerAttributes =
       ModifyLoadBalancerAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyLoadBalancerAttributesResult"
       ( \s h x ->
           ModifyLoadBalancerAttributesResponse'
-            Prelude.<$> (x Core..@? "LoadBalancerName")
-            Prelude.<*> (x Core..@? "LoadBalancerAttributes")
+            Prelude.<$> (x Data..@? "LoadBalancerAttributes")
+            Prelude.<*> (x Data..@? "LoadBalancerName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -139,34 +141,34 @@ instance Prelude.NFData ModifyLoadBalancerAttributes where
     Prelude.rnf loadBalancerName
       `Prelude.seq` Prelude.rnf loadBalancerAttributes
 
-instance Core.ToHeaders ModifyLoadBalancerAttributes where
+instance Data.ToHeaders ModifyLoadBalancerAttributes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyLoadBalancerAttributes where
+instance Data.ToPath ModifyLoadBalancerAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyLoadBalancerAttributes where
+instance Data.ToQuery ModifyLoadBalancerAttributes where
   toQuery ModifyLoadBalancerAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ModifyLoadBalancerAttributes" ::
+          Data.=: ( "ModifyLoadBalancerAttributes" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-06-01" :: Prelude.ByteString),
-        "LoadBalancerName" Core.=: loadBalancerName,
+          Data.=: ("2012-06-01" :: Prelude.ByteString),
+        "LoadBalancerName" Data.=: loadBalancerName,
         "LoadBalancerAttributes"
-          Core.=: loadBalancerAttributes
+          Data.=: loadBalancerAttributes
       ]
 
 -- | Contains the output of ModifyLoadBalancerAttributes.
 --
 -- /See:/ 'newModifyLoadBalancerAttributesResponse' smart constructor.
 data ModifyLoadBalancerAttributesResponse = ModifyLoadBalancerAttributesResponse'
-  { -- | The name of the load balancer.
-    loadBalancerName :: Prelude.Maybe Prelude.Text,
-    -- | Information about the load balancer attributes.
+  { -- | Information about the load balancer attributes.
     loadBalancerAttributes :: Prelude.Maybe LoadBalancerAttributes,
+    -- | The name of the load balancer.
+    loadBalancerName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -180,9 +182,9 @@ data ModifyLoadBalancerAttributesResponse = ModifyLoadBalancerAttributesResponse
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'loadBalancerName', 'modifyLoadBalancerAttributesResponse_loadBalancerName' - The name of the load balancer.
---
 -- 'loadBalancerAttributes', 'modifyLoadBalancerAttributesResponse_loadBalancerAttributes' - Information about the load balancer attributes.
+--
+-- 'loadBalancerName', 'modifyLoadBalancerAttributesResponse_loadBalancerName' - The name of the load balancer.
 --
 -- 'httpStatus', 'modifyLoadBalancerAttributesResponse_httpStatus' - The response's http status code.
 newModifyLoadBalancerAttributesResponse ::
@@ -191,20 +193,19 @@ newModifyLoadBalancerAttributesResponse ::
   ModifyLoadBalancerAttributesResponse
 newModifyLoadBalancerAttributesResponse pHttpStatus_ =
   ModifyLoadBalancerAttributesResponse'
-    { loadBalancerName =
+    { loadBalancerAttributes =
         Prelude.Nothing,
-      loadBalancerAttributes =
-        Prelude.Nothing,
+      loadBalancerName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The name of the load balancer.
-modifyLoadBalancerAttributesResponse_loadBalancerName :: Lens.Lens' ModifyLoadBalancerAttributesResponse (Prelude.Maybe Prelude.Text)
-modifyLoadBalancerAttributesResponse_loadBalancerName = Lens.lens (\ModifyLoadBalancerAttributesResponse' {loadBalancerName} -> loadBalancerName) (\s@ModifyLoadBalancerAttributesResponse' {} a -> s {loadBalancerName = a} :: ModifyLoadBalancerAttributesResponse)
 
 -- | Information about the load balancer attributes.
 modifyLoadBalancerAttributesResponse_loadBalancerAttributes :: Lens.Lens' ModifyLoadBalancerAttributesResponse (Prelude.Maybe LoadBalancerAttributes)
 modifyLoadBalancerAttributesResponse_loadBalancerAttributes = Lens.lens (\ModifyLoadBalancerAttributesResponse' {loadBalancerAttributes} -> loadBalancerAttributes) (\s@ModifyLoadBalancerAttributesResponse' {} a -> s {loadBalancerAttributes = a} :: ModifyLoadBalancerAttributesResponse)
+
+-- | The name of the load balancer.
+modifyLoadBalancerAttributesResponse_loadBalancerName :: Lens.Lens' ModifyLoadBalancerAttributesResponse (Prelude.Maybe Prelude.Text)
+modifyLoadBalancerAttributesResponse_loadBalancerName = Lens.lens (\ModifyLoadBalancerAttributesResponse' {loadBalancerName} -> loadBalancerName) (\s@ModifyLoadBalancerAttributesResponse' {} a -> s {loadBalancerName = a} :: ModifyLoadBalancerAttributesResponse)
 
 -- | The response's http status code.
 modifyLoadBalancerAttributesResponse_httpStatus :: Lens.Lens' ModifyLoadBalancerAttributesResponse Prelude.Int
@@ -215,6 +216,6 @@ instance
     ModifyLoadBalancerAttributesResponse
   where
   rnf ModifyLoadBalancerAttributesResponse' {..} =
-    Prelude.rnf loadBalancerName
-      `Prelude.seq` Prelude.rnf loadBalancerAttributes
+    Prelude.rnf loadBalancerAttributes
+      `Prelude.seq` Prelude.rnf loadBalancerName
       `Prelude.seq` Prelude.rnf httpStatus

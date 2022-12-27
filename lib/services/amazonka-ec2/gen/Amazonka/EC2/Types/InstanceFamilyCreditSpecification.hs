@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.InstanceFamilyCreditSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.InstanceFamilyCreditSpecification where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.UnlimitedSupportedInstanceFamily
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the default credit option for CPU usage of a burstable
@@ -30,11 +31,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newInstanceFamilyCreditSpecification' smart constructor.
 data InstanceFamilyCreditSpecification = InstanceFamilyCreditSpecification'
-  { -- | The instance family.
-    instanceFamily :: Prelude.Maybe UnlimitedSupportedInstanceFamily,
-    -- | The default credit option for CPU usage of the instance family. Valid
+  { -- | The default credit option for CPU usage of the instance family. Valid
     -- values are @standard@ and @unlimited@.
-    cpuCredits :: Prelude.Maybe Prelude.Text
+    cpuCredits :: Prelude.Maybe Prelude.Text,
+    -- | The instance family.
+    instanceFamily :: Prelude.Maybe UnlimitedSupportedInstanceFamily
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,36 +47,36 @@ data InstanceFamilyCreditSpecification = InstanceFamilyCreditSpecification'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceFamily', 'instanceFamilyCreditSpecification_instanceFamily' - The instance family.
---
 -- 'cpuCredits', 'instanceFamilyCreditSpecification_cpuCredits' - The default credit option for CPU usage of the instance family. Valid
 -- values are @standard@ and @unlimited@.
+--
+-- 'instanceFamily', 'instanceFamilyCreditSpecification_instanceFamily' - The instance family.
 newInstanceFamilyCreditSpecification ::
   InstanceFamilyCreditSpecification
 newInstanceFamilyCreditSpecification =
   InstanceFamilyCreditSpecification'
-    { instanceFamily =
+    { cpuCredits =
         Prelude.Nothing,
-      cpuCredits = Prelude.Nothing
+      instanceFamily = Prelude.Nothing
     }
-
--- | The instance family.
-instanceFamilyCreditSpecification_instanceFamily :: Lens.Lens' InstanceFamilyCreditSpecification (Prelude.Maybe UnlimitedSupportedInstanceFamily)
-instanceFamilyCreditSpecification_instanceFamily = Lens.lens (\InstanceFamilyCreditSpecification' {instanceFamily} -> instanceFamily) (\s@InstanceFamilyCreditSpecification' {} a -> s {instanceFamily = a} :: InstanceFamilyCreditSpecification)
 
 -- | The default credit option for CPU usage of the instance family. Valid
 -- values are @standard@ and @unlimited@.
 instanceFamilyCreditSpecification_cpuCredits :: Lens.Lens' InstanceFamilyCreditSpecification (Prelude.Maybe Prelude.Text)
 instanceFamilyCreditSpecification_cpuCredits = Lens.lens (\InstanceFamilyCreditSpecification' {cpuCredits} -> cpuCredits) (\s@InstanceFamilyCreditSpecification' {} a -> s {cpuCredits = a} :: InstanceFamilyCreditSpecification)
 
+-- | The instance family.
+instanceFamilyCreditSpecification_instanceFamily :: Lens.Lens' InstanceFamilyCreditSpecification (Prelude.Maybe UnlimitedSupportedInstanceFamily)
+instanceFamilyCreditSpecification_instanceFamily = Lens.lens (\InstanceFamilyCreditSpecification' {instanceFamily} -> instanceFamily) (\s@InstanceFamilyCreditSpecification' {} a -> s {instanceFamily = a} :: InstanceFamilyCreditSpecification)
+
 instance
-  Core.FromXML
+  Data.FromXML
     InstanceFamilyCreditSpecification
   where
   parseXML x =
     InstanceFamilyCreditSpecification'
-      Prelude.<$> (x Core..@? "instanceFamily")
-      Prelude.<*> (x Core..@? "cpuCredits")
+      Prelude.<$> (x Data..@? "cpuCredits")
+      Prelude.<*> (x Data..@? "instanceFamily")
 
 instance
   Prelude.Hashable
@@ -84,13 +85,13 @@ instance
   hashWithSalt
     _salt
     InstanceFamilyCreditSpecification' {..} =
-      _salt `Prelude.hashWithSalt` instanceFamily
-        `Prelude.hashWithSalt` cpuCredits
+      _salt `Prelude.hashWithSalt` cpuCredits
+        `Prelude.hashWithSalt` instanceFamily
 
 instance
   Prelude.NFData
     InstanceFamilyCreditSpecification
   where
   rnf InstanceFamilyCreditSpecification' {..} =
-    Prelude.rnf instanceFamily
-      `Prelude.seq` Prelude.rnf cpuCredits
+    Prelude.rnf cpuCredits
+      `Prelude.seq` Prelude.rnf instanceFamily

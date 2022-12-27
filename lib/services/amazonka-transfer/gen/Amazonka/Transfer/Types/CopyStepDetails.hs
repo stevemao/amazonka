@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.Types.CopyStepDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Transfer.Types.CopyStepDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Transfer.Types.InputFileLocation
 import Amazonka.Transfer.Types.OverwriteExisting
@@ -29,12 +30,26 @@ import Amazonka.Transfer.Types.OverwriteExisting
 --
 -- /See:/ 'newCopyStepDetails' smart constructor.
 data CopyStepDetails = CopyStepDetails'
-  { destinationFileLocation :: Prelude.Maybe InputFileLocation,
+  { -- | Specifies the location for the file being copied. Only applicable for
+    -- Copy type workflow steps. Use @${Transfer:username}@ in this field to
+    -- parametrize the destination prefix by username.
+    destinationFileLocation :: Prelude.Maybe InputFileLocation,
+    -- | The name of the step, used as an identifier.
+    name :: Prelude.Maybe Prelude.Text,
     -- | A flag that indicates whether or not to overwrite an existing file of
     -- the same name. The default is @FALSE@.
     overwriteExisting :: Prelude.Maybe OverwriteExisting,
-    -- | The name of the step, used as an identifier.
-    name :: Prelude.Maybe Prelude.Text
+    -- | Specifies which file to use as input to the workflow step: either the
+    -- output from the previous step, or the originally uploaded file for the
+    -- workflow.
+    --
+    -- -   Enter @${previous.file}@ to use the previous file as the input. In
+    --     this case, this workflow step uses the output file from the previous
+    --     workflow step as input. This is the default value.
+    --
+    -- -   Enter @${original.file}@ to use the originally-uploaded file
+    --     location as input for this step.
+    sourceFileLocation :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,67 +61,101 @@ data CopyStepDetails = CopyStepDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'destinationFileLocation', 'copyStepDetails_destinationFileLocation' - Undocumented member.
+-- 'destinationFileLocation', 'copyStepDetails_destinationFileLocation' - Specifies the location for the file being copied. Only applicable for
+-- Copy type workflow steps. Use @${Transfer:username}@ in this field to
+-- parametrize the destination prefix by username.
+--
+-- 'name', 'copyStepDetails_name' - The name of the step, used as an identifier.
 --
 -- 'overwriteExisting', 'copyStepDetails_overwriteExisting' - A flag that indicates whether or not to overwrite an existing file of
 -- the same name. The default is @FALSE@.
 --
--- 'name', 'copyStepDetails_name' - The name of the step, used as an identifier.
+-- 'sourceFileLocation', 'copyStepDetails_sourceFileLocation' - Specifies which file to use as input to the workflow step: either the
+-- output from the previous step, or the originally uploaded file for the
+-- workflow.
+--
+-- -   Enter @${previous.file}@ to use the previous file as the input. In
+--     this case, this workflow step uses the output file from the previous
+--     workflow step as input. This is the default value.
+--
+-- -   Enter @${original.file}@ to use the originally-uploaded file
+--     location as input for this step.
 newCopyStepDetails ::
   CopyStepDetails
 newCopyStepDetails =
   CopyStepDetails'
     { destinationFileLocation =
         Prelude.Nothing,
+      name = Prelude.Nothing,
       overwriteExisting = Prelude.Nothing,
-      name = Prelude.Nothing
+      sourceFileLocation = Prelude.Nothing
     }
 
--- | Undocumented member.
+-- | Specifies the location for the file being copied. Only applicable for
+-- Copy type workflow steps. Use @${Transfer:username}@ in this field to
+-- parametrize the destination prefix by username.
 copyStepDetails_destinationFileLocation :: Lens.Lens' CopyStepDetails (Prelude.Maybe InputFileLocation)
 copyStepDetails_destinationFileLocation = Lens.lens (\CopyStepDetails' {destinationFileLocation} -> destinationFileLocation) (\s@CopyStepDetails' {} a -> s {destinationFileLocation = a} :: CopyStepDetails)
+
+-- | The name of the step, used as an identifier.
+copyStepDetails_name :: Lens.Lens' CopyStepDetails (Prelude.Maybe Prelude.Text)
+copyStepDetails_name = Lens.lens (\CopyStepDetails' {name} -> name) (\s@CopyStepDetails' {} a -> s {name = a} :: CopyStepDetails)
 
 -- | A flag that indicates whether or not to overwrite an existing file of
 -- the same name. The default is @FALSE@.
 copyStepDetails_overwriteExisting :: Lens.Lens' CopyStepDetails (Prelude.Maybe OverwriteExisting)
 copyStepDetails_overwriteExisting = Lens.lens (\CopyStepDetails' {overwriteExisting} -> overwriteExisting) (\s@CopyStepDetails' {} a -> s {overwriteExisting = a} :: CopyStepDetails)
 
--- | The name of the step, used as an identifier.
-copyStepDetails_name :: Lens.Lens' CopyStepDetails (Prelude.Maybe Prelude.Text)
-copyStepDetails_name = Lens.lens (\CopyStepDetails' {name} -> name) (\s@CopyStepDetails' {} a -> s {name = a} :: CopyStepDetails)
+-- | Specifies which file to use as input to the workflow step: either the
+-- output from the previous step, or the originally uploaded file for the
+-- workflow.
+--
+-- -   Enter @${previous.file}@ to use the previous file as the input. In
+--     this case, this workflow step uses the output file from the previous
+--     workflow step as input. This is the default value.
+--
+-- -   Enter @${original.file}@ to use the originally-uploaded file
+--     location as input for this step.
+copyStepDetails_sourceFileLocation :: Lens.Lens' CopyStepDetails (Prelude.Maybe Prelude.Text)
+copyStepDetails_sourceFileLocation = Lens.lens (\CopyStepDetails' {sourceFileLocation} -> sourceFileLocation) (\s@CopyStepDetails' {} a -> s {sourceFileLocation = a} :: CopyStepDetails)
 
-instance Core.FromJSON CopyStepDetails where
+instance Data.FromJSON CopyStepDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CopyStepDetails"
       ( \x ->
           CopyStepDetails'
-            Prelude.<$> (x Core..:? "DestinationFileLocation")
-            Prelude.<*> (x Core..:? "OverwriteExisting")
-            Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "DestinationFileLocation")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "OverwriteExisting")
+            Prelude.<*> (x Data..:? "SourceFileLocation")
       )
 
 instance Prelude.Hashable CopyStepDetails where
   hashWithSalt _salt CopyStepDetails' {..} =
     _salt
       `Prelude.hashWithSalt` destinationFileLocation
-      `Prelude.hashWithSalt` overwriteExisting
       `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` overwriteExisting
+      `Prelude.hashWithSalt` sourceFileLocation
 
 instance Prelude.NFData CopyStepDetails where
   rnf CopyStepDetails' {..} =
     Prelude.rnf destinationFileLocation
-      `Prelude.seq` Prelude.rnf overwriteExisting
       `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf overwriteExisting
+      `Prelude.seq` Prelude.rnf sourceFileLocation
 
-instance Core.ToJSON CopyStepDetails where
+instance Data.ToJSON CopyStepDetails where
   toJSON CopyStepDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DestinationFileLocation" Core..=)
+          [ ("DestinationFileLocation" Data..=)
               Prelude.<$> destinationFileLocation,
-            ("OverwriteExisting" Core..=)
+            ("Name" Data..=) Prelude.<$> name,
+            ("OverwriteExisting" Data..=)
               Prelude.<$> overwriteExisting,
-            ("Name" Core..=) Prelude.<$> name
+            ("SourceFileLocation" Data..=)
+              Prelude.<$> sourceFileLocation
           ]
       )

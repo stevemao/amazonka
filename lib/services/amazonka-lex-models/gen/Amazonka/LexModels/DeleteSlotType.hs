@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.DeleteSlotType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ module Amazonka.LexModels.DeleteSlotType
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -88,7 +89,8 @@ instance Core.AWSRequest DeleteSlotType where
   type
     AWSResponse DeleteSlotType =
       DeleteSlotTypeResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteSlotTypeResponse'
 
@@ -99,22 +101,22 @@ instance Prelude.Hashable DeleteSlotType where
 instance Prelude.NFData DeleteSlotType where
   rnf DeleteSlotType' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteSlotType where
+instance Data.ToHeaders DeleteSlotType where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteSlotType where
+instance Data.ToPath DeleteSlotType where
   toPath DeleteSlotType' {..} =
-    Prelude.mconcat ["/slottypes/", Core.toBS name]
+    Prelude.mconcat ["/slottypes/", Data.toBS name]
 
-instance Core.ToQuery DeleteSlotType where
+instance Data.ToQuery DeleteSlotType where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteSlotTypeResponse' smart constructor.

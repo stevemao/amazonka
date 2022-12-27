@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.CachePolicySummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudFront.Types.CachePolicySummary where
 import Amazonka.CloudFront.Types.CachePolicy
 import Amazonka.CloudFront.Types.CachePolicyType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains a cache policy.
@@ -30,7 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newCachePolicySummary' smart constructor.
 data CachePolicySummary = CachePolicySummary'
   { -- | The type of cache policy, either @managed@ (created by Amazon Web
-    -- Services) or @custom@ (created in this account).
+    -- Services) or @custom@ (created in this Amazon Web Services account).
     type' :: CachePolicyType,
     -- | The cache policy.
     cachePolicy :: CachePolicy
@@ -46,7 +47,7 @@ data CachePolicySummary = CachePolicySummary'
 -- for backwards compatibility:
 --
 -- 'type'', 'cachePolicySummary_type' - The type of cache policy, either @managed@ (created by Amazon Web
--- Services) or @custom@ (created in this account).
+-- Services) or @custom@ (created in this Amazon Web Services account).
 --
 -- 'cachePolicy', 'cachePolicySummary_cachePolicy' - The cache policy.
 newCachePolicySummary ::
@@ -62,7 +63,7 @@ newCachePolicySummary pType_ pCachePolicy_ =
     }
 
 -- | The type of cache policy, either @managed@ (created by Amazon Web
--- Services) or @custom@ (created in this account).
+-- Services) or @custom@ (created in this Amazon Web Services account).
 cachePolicySummary_type :: Lens.Lens' CachePolicySummary CachePolicyType
 cachePolicySummary_type = Lens.lens (\CachePolicySummary' {type'} -> type') (\s@CachePolicySummary' {} a -> s {type' = a} :: CachePolicySummary)
 
@@ -70,11 +71,11 @@ cachePolicySummary_type = Lens.lens (\CachePolicySummary' {type'} -> type') (\s@
 cachePolicySummary_cachePolicy :: Lens.Lens' CachePolicySummary CachePolicy
 cachePolicySummary_cachePolicy = Lens.lens (\CachePolicySummary' {cachePolicy} -> cachePolicy) (\s@CachePolicySummary' {} a -> s {cachePolicy = a} :: CachePolicySummary)
 
-instance Core.FromXML CachePolicySummary where
+instance Data.FromXML CachePolicySummary where
   parseXML x =
     CachePolicySummary'
-      Prelude.<$> (x Core..@ "Type")
-      Prelude.<*> (x Core..@ "CachePolicy")
+      Prelude.<$> (x Data..@ "Type")
+      Prelude.<*> (x Data..@ "CachePolicy")
 
 instance Prelude.Hashable CachePolicySummary where
   hashWithSalt _salt CachePolicySummary' {..} =

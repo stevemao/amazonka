@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.ListSchemaVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.Glue.ListSchemaVersions
     newListSchemaVersions,
 
     -- * Request Lenses
-    listSchemaVersions_nextToken,
     listSchemaVersions_maxResults,
+    listSchemaVersions_nextToken,
     listSchemaVersions_schemaId,
 
     -- * Destructuring the Response
@@ -41,26 +41,27 @@ module Amazonka.Glue.ListSchemaVersions
     newListSchemaVersionsResponse,
 
     -- * Response Lenses
-    listSchemaVersionsResponse_schemas,
     listSchemaVersionsResponse_nextToken,
+    listSchemaVersionsResponse_schemas,
     listSchemaVersionsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListSchemaVersions' smart constructor.
 data ListSchemaVersions = ListSchemaVersions'
-  { -- | A continuation token, if this is a continuation call.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of results required per page. If the value is not
+  { -- | Maximum number of results required per page. If the value is not
     -- supplied, this will be defaulted to 25 per page.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A continuation token, if this is a continuation call.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | This is a wrapper structure to contain schema identity fields. The
     -- structure contains:
     --
@@ -82,10 +83,10 @@ data ListSchemaVersions = ListSchemaVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listSchemaVersions_nextToken' - A continuation token, if this is a continuation call.
---
 -- 'maxResults', 'listSchemaVersions_maxResults' - Maximum number of results required per page. If the value is not
 -- supplied, this will be defaulted to 25 per page.
+--
+-- 'nextToken', 'listSchemaVersions_nextToken' - A continuation token, if this is a continuation call.
 --
 -- 'schemaId', 'listSchemaVersions_schemaId' - This is a wrapper structure to contain schema identity fields. The
 -- structure contains:
@@ -102,19 +103,19 @@ newListSchemaVersions ::
   ListSchemaVersions
 newListSchemaVersions pSchemaId_ =
   ListSchemaVersions'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       schemaId = pSchemaId_
     }
-
--- | A continuation token, if this is a continuation call.
-listSchemaVersions_nextToken :: Lens.Lens' ListSchemaVersions (Prelude.Maybe Prelude.Text)
-listSchemaVersions_nextToken = Lens.lens (\ListSchemaVersions' {nextToken} -> nextToken) (\s@ListSchemaVersions' {} a -> s {nextToken = a} :: ListSchemaVersions)
 
 -- | Maximum number of results required per page. If the value is not
 -- supplied, this will be defaulted to 25 per page.
 listSchemaVersions_maxResults :: Lens.Lens' ListSchemaVersions (Prelude.Maybe Prelude.Natural)
 listSchemaVersions_maxResults = Lens.lens (\ListSchemaVersions' {maxResults} -> maxResults) (\s@ListSchemaVersions' {} a -> s {maxResults = a} :: ListSchemaVersions)
+
+-- | A continuation token, if this is a continuation call.
+listSchemaVersions_nextToken :: Lens.Lens' ListSchemaVersions (Prelude.Maybe Prelude.Text)
+listSchemaVersions_nextToken = Lens.lens (\ListSchemaVersions' {nextToken} -> nextToken) (\s@ListSchemaVersions' {} a -> s {nextToken = a} :: ListSchemaVersions)
 
 -- | This is a wrapper structure to contain schema identity fields. The
 -- structure contains:
@@ -154,65 +155,66 @@ instance Core.AWSRequest ListSchemaVersions where
   type
     AWSResponse ListSchemaVersions =
       ListSchemaVersionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSchemaVersionsResponse'
-            Prelude.<$> (x Core..?> "Schemas" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Schemas" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListSchemaVersions where
   hashWithSalt _salt ListSchemaVersions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` schemaId
 
 instance Prelude.NFData ListSchemaVersions where
   rnf ListSchemaVersions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf schemaId
 
-instance Core.ToHeaders ListSchemaVersions where
+instance Data.ToHeaders ListSchemaVersions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.ListSchemaVersions" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.ListSchemaVersions" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListSchemaVersions where
+instance Data.ToJSON ListSchemaVersions where
   toJSON ListSchemaVersions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("SchemaId" Core..= schemaId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("SchemaId" Data..= schemaId)
           ]
       )
 
-instance Core.ToPath ListSchemaVersions where
+instance Data.ToPath ListSchemaVersions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListSchemaVersions where
+instance Data.ToQuery ListSchemaVersions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListSchemaVersionsResponse' smart constructor.
 data ListSchemaVersionsResponse = ListSchemaVersionsResponse'
-  { -- | An array of @SchemaVersionList@ objects containing details of each
-    -- schema version.
-    schemas :: Prelude.Maybe [SchemaVersionListItem],
-    -- | A continuation token for paginating the returned list of tokens,
+  { -- | A continuation token for paginating the returned list of tokens,
     -- returned if the current segment of the list is not the last.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of @SchemaVersionList@ objects containing details of each
+    -- schema version.
+    schemas :: Prelude.Maybe [SchemaVersionListItem],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -226,11 +228,11 @@ data ListSchemaVersionsResponse = ListSchemaVersionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'schemas', 'listSchemaVersionsResponse_schemas' - An array of @SchemaVersionList@ objects containing details of each
--- schema version.
---
 -- 'nextToken', 'listSchemaVersionsResponse_nextToken' - A continuation token for paginating the returned list of tokens,
 -- returned if the current segment of the list is not the last.
+--
+-- 'schemas', 'listSchemaVersionsResponse_schemas' - An array of @SchemaVersionList@ objects containing details of each
+-- schema version.
 --
 -- 'httpStatus', 'listSchemaVersionsResponse_httpStatus' - The response's http status code.
 newListSchemaVersionsResponse ::
@@ -239,21 +241,21 @@ newListSchemaVersionsResponse ::
   ListSchemaVersionsResponse
 newListSchemaVersionsResponse pHttpStatus_ =
   ListSchemaVersionsResponse'
-    { schemas =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      schemas = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | An array of @SchemaVersionList@ objects containing details of each
--- schema version.
-listSchemaVersionsResponse_schemas :: Lens.Lens' ListSchemaVersionsResponse (Prelude.Maybe [SchemaVersionListItem])
-listSchemaVersionsResponse_schemas = Lens.lens (\ListSchemaVersionsResponse' {schemas} -> schemas) (\s@ListSchemaVersionsResponse' {} a -> s {schemas = a} :: ListSchemaVersionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A continuation token for paginating the returned list of tokens,
 -- returned if the current segment of the list is not the last.
 listSchemaVersionsResponse_nextToken :: Lens.Lens' ListSchemaVersionsResponse (Prelude.Maybe Prelude.Text)
 listSchemaVersionsResponse_nextToken = Lens.lens (\ListSchemaVersionsResponse' {nextToken} -> nextToken) (\s@ListSchemaVersionsResponse' {} a -> s {nextToken = a} :: ListSchemaVersionsResponse)
+
+-- | An array of @SchemaVersionList@ objects containing details of each
+-- schema version.
+listSchemaVersionsResponse_schemas :: Lens.Lens' ListSchemaVersionsResponse (Prelude.Maybe [SchemaVersionListItem])
+listSchemaVersionsResponse_schemas = Lens.lens (\ListSchemaVersionsResponse' {schemas} -> schemas) (\s@ListSchemaVersionsResponse' {} a -> s {schemas = a} :: ListSchemaVersionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listSchemaVersionsResponse_httpStatus :: Lens.Lens' ListSchemaVersionsResponse Prelude.Int
@@ -261,6 +263,6 @@ listSchemaVersionsResponse_httpStatus = Lens.lens (\ListSchemaVersionsResponse' 
 
 instance Prelude.NFData ListSchemaVersionsResponse where
   rnf ListSchemaVersionsResponse' {..} =
-    Prelude.rnf schemas
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf schemas
       `Prelude.seq` Prelude.rnf httpStatus

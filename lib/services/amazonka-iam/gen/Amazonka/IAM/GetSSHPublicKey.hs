@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.GetSSHPublicKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,8 +50,9 @@ module Amazonka.IAM.GetSSHPublicKey
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -147,13 +148,14 @@ instance Core.AWSRequest GetSSHPublicKey where
   type
     AWSResponse GetSSHPublicKey =
       GetSSHPublicKeyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetSSHPublicKeyResult"
       ( \s h x ->
           GetSSHPublicKeyResponse'
-            Prelude.<$> (x Core..@? "SSHPublicKey")
+            Prelude.<$> (x Data..@? "SSHPublicKey")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -169,22 +171,22 @@ instance Prelude.NFData GetSSHPublicKey where
       `Prelude.seq` Prelude.rnf sSHPublicKeyId
       `Prelude.seq` Prelude.rnf encoding
 
-instance Core.ToHeaders GetSSHPublicKey where
+instance Data.ToHeaders GetSSHPublicKey where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetSSHPublicKey where
+instance Data.ToPath GetSSHPublicKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetSSHPublicKey where
+instance Data.ToQuery GetSSHPublicKey where
   toQuery GetSSHPublicKey' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetSSHPublicKey" :: Prelude.ByteString),
+          Data.=: ("GetSSHPublicKey" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "UserName" Core.=: userName,
-        "SSHPublicKeyId" Core.=: sSHPublicKeyId,
-        "Encoding" Core.=: encoding
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Data.=: userName,
+        "SSHPublicKeyId" Data.=: sSHPublicKeyId,
+        "Encoding" Data.=: encoding
       ]
 
 -- | Contains the response to a successful GetSSHPublicKey request.

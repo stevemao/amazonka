@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.Stream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.Stream where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a group of files that can be streamed.
@@ -61,14 +62,14 @@ stream_fileId = Lens.lens (\Stream' {fileId} -> fileId) (\s@Stream' {} a -> s {f
 stream_streamId :: Lens.Lens' Stream (Prelude.Maybe Prelude.Text)
 stream_streamId = Lens.lens (\Stream' {streamId} -> streamId) (\s@Stream' {} a -> s {streamId = a} :: Stream)
 
-instance Core.FromJSON Stream where
+instance Data.FromJSON Stream where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Stream"
       ( \x ->
           Stream'
-            Prelude.<$> (x Core..:? "fileId")
-            Prelude.<*> (x Core..:? "streamId")
+            Prelude.<$> (x Data..:? "fileId")
+            Prelude.<*> (x Data..:? "streamId")
       )
 
 instance Prelude.Hashable Stream where
@@ -81,11 +82,11 @@ instance Prelude.NFData Stream where
     Prelude.rnf fileId
       `Prelude.seq` Prelude.rnf streamId
 
-instance Core.ToJSON Stream where
+instance Data.ToJSON Stream where
   toJSON Stream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("fileId" Core..=) Prelude.<$> fileId,
-            ("streamId" Core..=) Prelude.<$> streamId
+          [ ("fileId" Data..=) Prelude.<$> fileId,
+            ("streamId" Data..=) Prelude.<$> streamId
           ]
       )

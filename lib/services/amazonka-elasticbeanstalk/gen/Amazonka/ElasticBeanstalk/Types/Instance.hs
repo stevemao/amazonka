@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.Types.Instance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticBeanstalk.Types.Instance where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The description of an Amazon EC2 instance.
@@ -49,8 +50,8 @@ newInstance = Instance' {id = Prelude.Nothing}
 instance_id :: Lens.Lens' Instance (Prelude.Maybe Prelude.Text)
 instance_id = Lens.lens (\Instance' {id} -> id) (\s@Instance' {} a -> s {id = a} :: Instance)
 
-instance Core.FromXML Instance where
-  parseXML x = Instance' Prelude.<$> (x Core..@? "Id")
+instance Data.FromXML Instance where
+  parseXML x = Instance' Prelude.<$> (x Data..@? "Id")
 
 instance Prelude.Hashable Instance where
   hashWithSalt _salt Instance' {..} =

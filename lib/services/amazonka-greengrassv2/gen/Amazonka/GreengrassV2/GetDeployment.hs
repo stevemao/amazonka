@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.GetDeployment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,26 +35,28 @@ module Amazonka.GreengrassV2.GetDeployment
     newGetDeploymentResponse,
 
     -- * Response Lenses
-    getDeploymentResponse_targetArn,
     getDeploymentResponse_components,
-    getDeploymentResponse_deploymentId,
-    getDeploymentResponse_iotJobId,
-    getDeploymentResponse_iotJobArn,
-    getDeploymentResponse_deploymentPolicies,
     getDeploymentResponse_creationTimestamp,
-    getDeploymentResponse_iotJobConfiguration,
-    getDeploymentResponse_deploymentStatus,
-    getDeploymentResponse_isLatestForTarget,
-    getDeploymentResponse_revisionId,
+    getDeploymentResponse_deploymentId,
     getDeploymentResponse_deploymentName,
+    getDeploymentResponse_deploymentPolicies,
+    getDeploymentResponse_deploymentStatus,
+    getDeploymentResponse_iotJobArn,
+    getDeploymentResponse_iotJobConfiguration,
+    getDeploymentResponse_iotJobId,
+    getDeploymentResponse_isLatestForTarget,
+    getDeploymentResponse_parentTargetArn,
+    getDeploymentResponse_revisionId,
     getDeploymentResponse_tags,
+    getDeploymentResponse_targetArn,
     getDeploymentResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,24 +92,26 @@ instance Core.AWSRequest GetDeployment where
   type
     AWSResponse GetDeployment =
       GetDeploymentResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDeploymentResponse'
-            Prelude.<$> (x Core..?> "targetArn")
-            Prelude.<*> (x Core..?> "components" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "deploymentId")
-            Prelude.<*> (x Core..?> "iotJobId")
-            Prelude.<*> (x Core..?> "iotJobArn")
-            Prelude.<*> (x Core..?> "deploymentPolicies")
-            Prelude.<*> (x Core..?> "creationTimestamp")
-            Prelude.<*> (x Core..?> "iotJobConfiguration")
-            Prelude.<*> (x Core..?> "deploymentStatus")
-            Prelude.<*> (x Core..?> "isLatestForTarget")
-            Prelude.<*> (x Core..?> "revisionId")
-            Prelude.<*> (x Core..?> "deploymentName")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "components" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "creationTimestamp")
+            Prelude.<*> (x Data..?> "deploymentId")
+            Prelude.<*> (x Data..?> "deploymentName")
+            Prelude.<*> (x Data..?> "deploymentPolicies")
+            Prelude.<*> (x Data..?> "deploymentStatus")
+            Prelude.<*> (x Data..?> "iotJobArn")
+            Prelude.<*> (x Data..?> "iotJobConfiguration")
+            Prelude.<*> (x Data..?> "iotJobId")
+            Prelude.<*> (x Data..?> "isLatestForTarget")
+            Prelude.<*> (x Data..?> "parentTargetArn")
+            Prelude.<*> (x Data..?> "revisionId")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "targetArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,68 +122,64 @@ instance Prelude.Hashable GetDeployment where
 instance Prelude.NFData GetDeployment where
   rnf GetDeployment' {..} = Prelude.rnf deploymentId
 
-instance Core.ToHeaders GetDeployment where
-  toHeaders =
-    Prelude.const
-      ( Prelude.mconcat
-          [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
-                          Prelude.ByteString
-                      )
-          ]
-      )
+instance Data.ToHeaders GetDeployment where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetDeployment where
+instance Data.ToPath GetDeployment where
   toPath GetDeployment' {..} =
     Prelude.mconcat
       [ "/greengrass/v2/deployments/",
-        Core.toBS deploymentId
+        Data.toBS deploymentId
       ]
 
-instance Core.ToQuery GetDeployment where
+instance Data.ToQuery GetDeployment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDeploymentResponse' smart constructor.
 data GetDeploymentResponse = GetDeploymentResponse'
-  { -- | The
-    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
-    -- of the target IoT thing or thing group.
-    targetArn :: Prelude.Maybe Prelude.Text,
-    -- | The components to deploy. This is a dictionary, where each key is the
+  { -- | The components to deploy. This is a dictionary, where each key is the
     -- name of a component, and each key\'s value is the version and
     -- configuration to deploy for that component.
     components :: Prelude.Maybe (Prelude.HashMap Prelude.Text ComponentDeploymentSpecification),
+    -- | The time at which the deployment was created, expressed in ISO 8601
+    -- format.
+    creationTimestamp :: Prelude.Maybe Data.POSIX,
     -- | The ID of the deployment.
     deploymentId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the IoT job that applies the deployment to target devices.
-    iotJobId :: Prelude.Maybe Prelude.Text,
+    -- | The name of the deployment.
+    deploymentName :: Prelude.Maybe Prelude.Text,
+    -- | The deployment policies for the deployment. These policies define how
+    -- the deployment updates components and handles failure.
+    deploymentPolicies :: Prelude.Maybe DeploymentPolicies,
+    -- | The status of the deployment.
+    deploymentStatus :: Prelude.Maybe DeploymentStatus,
     -- | The
     -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
     -- of the IoT job that applies the deployment to target devices.
     iotJobArn :: Prelude.Maybe Prelude.Text,
-    -- | The deployment policies for the deployment. These policies define how
-    -- the deployment updates components and handles failure.
-    deploymentPolicies :: Prelude.Maybe DeploymentPolicies,
-    -- | The time at which the deployment was created, expressed in ISO 8601
-    -- format.
-    creationTimestamp :: Prelude.Maybe Core.POSIX,
     -- | The job configuration for the deployment configuration. The job
     -- configuration specifies the rollout, timeout, and stop configurations
     -- for the deployment configuration.
     iotJobConfiguration :: Prelude.Maybe DeploymentIoTJobConfiguration,
-    -- | The status of the deployment.
-    deploymentStatus :: Prelude.Maybe DeploymentStatus,
+    -- | The ID of the IoT job that applies the deployment to target devices.
+    iotJobId :: Prelude.Maybe Prelude.Text,
     -- | Whether or not the deployment is the latest revision for its target.
     isLatestForTarget :: Prelude.Maybe Prelude.Bool,
+    -- | The parent deployment\'s target
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+    -- within a subdeployment.
+    parentTargetArn :: Prelude.Maybe Prelude.Text,
     -- | The revision number of the deployment.
     revisionId :: Prelude.Maybe Prelude.Text,
-    -- | The name of the deployment.
-    deploymentName :: Prelude.Maybe Prelude.Text,
     -- | A list of key-value pairs that contain metadata for the resource. For
     -- more information, see
     -- <https://docs.aws.amazon.com/greengrass/v2/developerguide/tag-resources.html Tag your resources>
     -- in the /IoT Greengrass V2 Developer Guide/.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+    -- of the target IoT thing or thing group.
+    targetArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -193,44 +193,48 @@ data GetDeploymentResponse = GetDeploymentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'targetArn', 'getDeploymentResponse_targetArn' - The
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
--- of the target IoT thing or thing group.
---
 -- 'components', 'getDeploymentResponse_components' - The components to deploy. This is a dictionary, where each key is the
 -- name of a component, and each key\'s value is the version and
 -- configuration to deploy for that component.
 --
+-- 'creationTimestamp', 'getDeploymentResponse_creationTimestamp' - The time at which the deployment was created, expressed in ISO 8601
+-- format.
+--
 -- 'deploymentId', 'getDeploymentResponse_deploymentId' - The ID of the deployment.
 --
--- 'iotJobId', 'getDeploymentResponse_iotJobId' - The ID of the IoT job that applies the deployment to target devices.
+-- 'deploymentName', 'getDeploymentResponse_deploymentName' - The name of the deployment.
+--
+-- 'deploymentPolicies', 'getDeploymentResponse_deploymentPolicies' - The deployment policies for the deployment. These policies define how
+-- the deployment updates components and handles failure.
+--
+-- 'deploymentStatus', 'getDeploymentResponse_deploymentStatus' - The status of the deployment.
 --
 -- 'iotJobArn', 'getDeploymentResponse_iotJobArn' - The
 -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
 -- of the IoT job that applies the deployment to target devices.
 --
--- 'deploymentPolicies', 'getDeploymentResponse_deploymentPolicies' - The deployment policies for the deployment. These policies define how
--- the deployment updates components and handles failure.
---
--- 'creationTimestamp', 'getDeploymentResponse_creationTimestamp' - The time at which the deployment was created, expressed in ISO 8601
--- format.
---
 -- 'iotJobConfiguration', 'getDeploymentResponse_iotJobConfiguration' - The job configuration for the deployment configuration. The job
 -- configuration specifies the rollout, timeout, and stop configurations
 -- for the deployment configuration.
 --
--- 'deploymentStatus', 'getDeploymentResponse_deploymentStatus' - The status of the deployment.
+-- 'iotJobId', 'getDeploymentResponse_iotJobId' - The ID of the IoT job that applies the deployment to target devices.
 --
 -- 'isLatestForTarget', 'getDeploymentResponse_isLatestForTarget' - Whether or not the deployment is the latest revision for its target.
 --
--- 'revisionId', 'getDeploymentResponse_revisionId' - The revision number of the deployment.
+-- 'parentTargetArn', 'getDeploymentResponse_parentTargetArn' - The parent deployment\'s target
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+-- within a subdeployment.
 --
--- 'deploymentName', 'getDeploymentResponse_deploymentName' - The name of the deployment.
+-- 'revisionId', 'getDeploymentResponse_revisionId' - The revision number of the deployment.
 --
 -- 'tags', 'getDeploymentResponse_tags' - A list of key-value pairs that contain metadata for the resource. For
 -- more information, see
 -- <https://docs.aws.amazon.com/greengrass/v2/developerguide/tag-resources.html Tag your resources>
 -- in the /IoT Greengrass V2 Developer Guide/.
+--
+-- 'targetArn', 'getDeploymentResponse_targetArn' - The
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+-- of the target IoT thing or thing group.
 --
 -- 'httpStatus', 'getDeploymentResponse_httpStatus' - The response's http status code.
 newGetDeploymentResponse ::
@@ -239,27 +243,23 @@ newGetDeploymentResponse ::
   GetDeploymentResponse
 newGetDeploymentResponse pHttpStatus_ =
   GetDeploymentResponse'
-    { targetArn = Prelude.Nothing,
-      components = Prelude.Nothing,
-      deploymentId = Prelude.Nothing,
-      iotJobId = Prelude.Nothing,
-      iotJobArn = Prelude.Nothing,
-      deploymentPolicies = Prelude.Nothing,
+    { components =
+        Prelude.Nothing,
       creationTimestamp = Prelude.Nothing,
-      iotJobConfiguration = Prelude.Nothing,
-      deploymentStatus = Prelude.Nothing,
-      isLatestForTarget = Prelude.Nothing,
-      revisionId = Prelude.Nothing,
+      deploymentId = Prelude.Nothing,
       deploymentName = Prelude.Nothing,
+      deploymentPolicies = Prelude.Nothing,
+      deploymentStatus = Prelude.Nothing,
+      iotJobArn = Prelude.Nothing,
+      iotJobConfiguration = Prelude.Nothing,
+      iotJobId = Prelude.Nothing,
+      isLatestForTarget = Prelude.Nothing,
+      parentTargetArn = Prelude.Nothing,
+      revisionId = Prelude.Nothing,
       tags = Prelude.Nothing,
+      targetArn = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
--- of the target IoT thing or thing group.
-getDeploymentResponse_targetArn :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe Prelude.Text)
-getDeploymentResponse_targetArn = Lens.lens (\GetDeploymentResponse' {targetArn} -> targetArn) (\s@GetDeploymentResponse' {} a -> s {targetArn = a} :: GetDeploymentResponse)
 
 -- | The components to deploy. This is a dictionary, where each key is the
 -- name of a component, and each key\'s value is the version and
@@ -267,13 +267,27 @@ getDeploymentResponse_targetArn = Lens.lens (\GetDeploymentResponse' {targetArn}
 getDeploymentResponse_components :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text ComponentDeploymentSpecification))
 getDeploymentResponse_components = Lens.lens (\GetDeploymentResponse' {components} -> components) (\s@GetDeploymentResponse' {} a -> s {components = a} :: GetDeploymentResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | The time at which the deployment was created, expressed in ISO 8601
+-- format.
+getDeploymentResponse_creationTimestamp :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe Prelude.UTCTime)
+getDeploymentResponse_creationTimestamp = Lens.lens (\GetDeploymentResponse' {creationTimestamp} -> creationTimestamp) (\s@GetDeploymentResponse' {} a -> s {creationTimestamp = a} :: GetDeploymentResponse) Prelude.. Lens.mapping Data._Time
+
 -- | The ID of the deployment.
 getDeploymentResponse_deploymentId :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe Prelude.Text)
 getDeploymentResponse_deploymentId = Lens.lens (\GetDeploymentResponse' {deploymentId} -> deploymentId) (\s@GetDeploymentResponse' {} a -> s {deploymentId = a} :: GetDeploymentResponse)
 
--- | The ID of the IoT job that applies the deployment to target devices.
-getDeploymentResponse_iotJobId :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe Prelude.Text)
-getDeploymentResponse_iotJobId = Lens.lens (\GetDeploymentResponse' {iotJobId} -> iotJobId) (\s@GetDeploymentResponse' {} a -> s {iotJobId = a} :: GetDeploymentResponse)
+-- | The name of the deployment.
+getDeploymentResponse_deploymentName :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe Prelude.Text)
+getDeploymentResponse_deploymentName = Lens.lens (\GetDeploymentResponse' {deploymentName} -> deploymentName) (\s@GetDeploymentResponse' {} a -> s {deploymentName = a} :: GetDeploymentResponse)
+
+-- | The deployment policies for the deployment. These policies define how
+-- the deployment updates components and handles failure.
+getDeploymentResponse_deploymentPolicies :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe DeploymentPolicies)
+getDeploymentResponse_deploymentPolicies = Lens.lens (\GetDeploymentResponse' {deploymentPolicies} -> deploymentPolicies) (\s@GetDeploymentResponse' {} a -> s {deploymentPolicies = a} :: GetDeploymentResponse)
+
+-- | The status of the deployment.
+getDeploymentResponse_deploymentStatus :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe DeploymentStatus)
+getDeploymentResponse_deploymentStatus = Lens.lens (\GetDeploymentResponse' {deploymentStatus} -> deploymentStatus) (\s@GetDeploymentResponse' {} a -> s {deploymentStatus = a} :: GetDeploymentResponse)
 
 -- | The
 -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
@@ -281,37 +295,29 @@ getDeploymentResponse_iotJobId = Lens.lens (\GetDeploymentResponse' {iotJobId} -
 getDeploymentResponse_iotJobArn :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe Prelude.Text)
 getDeploymentResponse_iotJobArn = Lens.lens (\GetDeploymentResponse' {iotJobArn} -> iotJobArn) (\s@GetDeploymentResponse' {} a -> s {iotJobArn = a} :: GetDeploymentResponse)
 
--- | The deployment policies for the deployment. These policies define how
--- the deployment updates components and handles failure.
-getDeploymentResponse_deploymentPolicies :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe DeploymentPolicies)
-getDeploymentResponse_deploymentPolicies = Lens.lens (\GetDeploymentResponse' {deploymentPolicies} -> deploymentPolicies) (\s@GetDeploymentResponse' {} a -> s {deploymentPolicies = a} :: GetDeploymentResponse)
-
--- | The time at which the deployment was created, expressed in ISO 8601
--- format.
-getDeploymentResponse_creationTimestamp :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe Prelude.UTCTime)
-getDeploymentResponse_creationTimestamp = Lens.lens (\GetDeploymentResponse' {creationTimestamp} -> creationTimestamp) (\s@GetDeploymentResponse' {} a -> s {creationTimestamp = a} :: GetDeploymentResponse) Prelude.. Lens.mapping Core._Time
-
 -- | The job configuration for the deployment configuration. The job
 -- configuration specifies the rollout, timeout, and stop configurations
 -- for the deployment configuration.
 getDeploymentResponse_iotJobConfiguration :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe DeploymentIoTJobConfiguration)
 getDeploymentResponse_iotJobConfiguration = Lens.lens (\GetDeploymentResponse' {iotJobConfiguration} -> iotJobConfiguration) (\s@GetDeploymentResponse' {} a -> s {iotJobConfiguration = a} :: GetDeploymentResponse)
 
--- | The status of the deployment.
-getDeploymentResponse_deploymentStatus :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe DeploymentStatus)
-getDeploymentResponse_deploymentStatus = Lens.lens (\GetDeploymentResponse' {deploymentStatus} -> deploymentStatus) (\s@GetDeploymentResponse' {} a -> s {deploymentStatus = a} :: GetDeploymentResponse)
+-- | The ID of the IoT job that applies the deployment to target devices.
+getDeploymentResponse_iotJobId :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe Prelude.Text)
+getDeploymentResponse_iotJobId = Lens.lens (\GetDeploymentResponse' {iotJobId} -> iotJobId) (\s@GetDeploymentResponse' {} a -> s {iotJobId = a} :: GetDeploymentResponse)
 
 -- | Whether or not the deployment is the latest revision for its target.
 getDeploymentResponse_isLatestForTarget :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe Prelude.Bool)
 getDeploymentResponse_isLatestForTarget = Lens.lens (\GetDeploymentResponse' {isLatestForTarget} -> isLatestForTarget) (\s@GetDeploymentResponse' {} a -> s {isLatestForTarget = a} :: GetDeploymentResponse)
 
+-- | The parent deployment\'s target
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+-- within a subdeployment.
+getDeploymentResponse_parentTargetArn :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe Prelude.Text)
+getDeploymentResponse_parentTargetArn = Lens.lens (\GetDeploymentResponse' {parentTargetArn} -> parentTargetArn) (\s@GetDeploymentResponse' {} a -> s {parentTargetArn = a} :: GetDeploymentResponse)
+
 -- | The revision number of the deployment.
 getDeploymentResponse_revisionId :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe Prelude.Text)
 getDeploymentResponse_revisionId = Lens.lens (\GetDeploymentResponse' {revisionId} -> revisionId) (\s@GetDeploymentResponse' {} a -> s {revisionId = a} :: GetDeploymentResponse)
-
--- | The name of the deployment.
-getDeploymentResponse_deploymentName :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe Prelude.Text)
-getDeploymentResponse_deploymentName = Lens.lens (\GetDeploymentResponse' {deploymentName} -> deploymentName) (\s@GetDeploymentResponse' {} a -> s {deploymentName = a} :: GetDeploymentResponse)
 
 -- | A list of key-value pairs that contain metadata for the resource. For
 -- more information, see
@@ -320,23 +326,30 @@ getDeploymentResponse_deploymentName = Lens.lens (\GetDeploymentResponse' {deplo
 getDeploymentResponse_tags :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 getDeploymentResponse_tags = Lens.lens (\GetDeploymentResponse' {tags} -> tags) (\s@GetDeploymentResponse' {} a -> s {tags = a} :: GetDeploymentResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | The
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
+-- of the target IoT thing or thing group.
+getDeploymentResponse_targetArn :: Lens.Lens' GetDeploymentResponse (Prelude.Maybe Prelude.Text)
+getDeploymentResponse_targetArn = Lens.lens (\GetDeploymentResponse' {targetArn} -> targetArn) (\s@GetDeploymentResponse' {} a -> s {targetArn = a} :: GetDeploymentResponse)
+
 -- | The response's http status code.
 getDeploymentResponse_httpStatus :: Lens.Lens' GetDeploymentResponse Prelude.Int
 getDeploymentResponse_httpStatus = Lens.lens (\GetDeploymentResponse' {httpStatus} -> httpStatus) (\s@GetDeploymentResponse' {} a -> s {httpStatus = a} :: GetDeploymentResponse)
 
 instance Prelude.NFData GetDeploymentResponse where
   rnf GetDeploymentResponse' {..} =
-    Prelude.rnf targetArn
-      `Prelude.seq` Prelude.rnf components
-      `Prelude.seq` Prelude.rnf deploymentId
-      `Prelude.seq` Prelude.rnf iotJobId
-      `Prelude.seq` Prelude.rnf iotJobArn
-      `Prelude.seq` Prelude.rnf deploymentPolicies
+    Prelude.rnf components
       `Prelude.seq` Prelude.rnf creationTimestamp
-      `Prelude.seq` Prelude.rnf iotJobConfiguration
-      `Prelude.seq` Prelude.rnf deploymentStatus
-      `Prelude.seq` Prelude.rnf isLatestForTarget
-      `Prelude.seq` Prelude.rnf revisionId
+      `Prelude.seq` Prelude.rnf deploymentId
       `Prelude.seq` Prelude.rnf deploymentName
+      `Prelude.seq` Prelude.rnf deploymentPolicies
+      `Prelude.seq` Prelude.rnf deploymentStatus
+      `Prelude.seq` Prelude.rnf iotJobArn
+      `Prelude.seq` Prelude.rnf iotJobConfiguration
+      `Prelude.seq` Prelude.rnf iotJobId
+      `Prelude.seq` Prelude.rnf isLatestForTarget
+      `Prelude.seq` Prelude.rnf parentTargetArn
+      `Prelude.seq` Prelude.rnf revisionId
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf targetArn
       `Prelude.seq` Prelude.rnf httpStatus

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.CreateGameSessionQueue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,10 +28,10 @@
 -- A game session queue is configured with a set of destinations (GameLift
 -- fleets or aliases), which determine the locations where the queue can
 -- place new game sessions. These destinations can span multiple fleet
--- types (Spot and On-Demand), instance types, and AWS Regions. If the
--- queue includes multi-location fleets, the queue is able to place game
--- sessions in all of a fleet\'s remote locations. You can opt to filter
--- out individual locations if needed.
+-- types (Spot and On-Demand), instance types, and Amazon Web Services
+-- Regions. If the queue includes multi-location fleets, the queue is able
+-- to place game sessions in all of a fleet\'s remote locations. You can
+-- opt to filter out individual locations if needed.
 --
 -- The queue configuration also determines how FleetIQ selects the best
 -- available placement for a new game session. Before searching for an
@@ -50,8 +50,11 @@
 --
 -- If successful, a new @GameSessionQueue@ object is returned with an
 -- assigned queue ARN. New game session requests, which are submitted to
--- the queue with StartGameSessionPlacement or StartMatchmaking, reference
--- a queue\'s name or ARN.
+-- queue with
+-- <https://docs.aws.amazon.com/gamelift/latest/apireference/API_StartGameSessionPlacement.html StartGameSessionPlacement>
+-- or
+-- <https://docs.aws.amazon.com/gamelift/latest/apireference/API_StartMatchmaking.html StartMatchmaking>,
+-- reference a queue\'s name or ARN.
 --
 -- __Learn more__
 --
@@ -61,8 +64,14 @@
 --
 -- __Related actions__
 --
--- CreateGameSessionQueue | DescribeGameSessionQueues |
--- UpdateGameSessionQueue | DeleteGameSessionQueue |
+-- <https://docs.aws.amazon.com/gamelift/latest/apireference/API_CreateGameSessionQueue.html CreateGameSessionQueue>
+-- |
+-- <https://docs.aws.amazon.com/gamelift/latest/apireference/API_DescribeGameSessionQueues.html DescribeGameSessionQueues>
+-- |
+-- <https://docs.aws.amazon.com/gamelift/latest/apireference/API_UpdateGameSessionQueue.html UpdateGameSessionQueue>
+-- |
+-- <https://docs.aws.amazon.com/gamelift/latest/apireference/API_DeleteGameSessionQueue.html DeleteGameSessionQueue>
+-- |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.CreateGameSessionQueue
   ( -- * Creating a Request
@@ -70,14 +79,14 @@ module Amazonka.GameLift.CreateGameSessionQueue
     newCreateGameSessionQueue,
 
     -- * Request Lenses
-    createGameSessionQueue_playerLatencyPolicies,
+    createGameSessionQueue_customEventData,
+    createGameSessionQueue_destinations,
     createGameSessionQueue_filterConfiguration,
     createGameSessionQueue_notificationTarget,
-    createGameSessionQueue_timeoutInSeconds,
-    createGameSessionQueue_destinations,
-    createGameSessionQueue_customEventData,
+    createGameSessionQueue_playerLatencyPolicies,
     createGameSessionQueue_priorityConfiguration,
     createGameSessionQueue_tags,
+    createGameSessionQueue_timeoutInSeconds,
     createGameSessionQueue_name,
 
     -- * Destructuring the Response
@@ -91,59 +100,55 @@ module Amazonka.GameLift.CreateGameSessionQueue
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newCreateGameSessionQueue' smart constructor.
+-- | /See:/ 'newCreateGameSessionQueue' smart constructor.
 data CreateGameSessionQueue = CreateGameSessionQueue'
-  { -- | A set of policies that act as a sliding cap on player latency. FleetIQ
+  { -- | Information to be added to all events that are related to this game
+    -- session queue.
+    customEventData :: Prelude.Maybe Prelude.Text,
+    -- | A list of fleets and\/or fleet aliases that can be used to fulfill game
+    -- session placement requests in the queue. Destinations are identified by
+    -- either a fleet ARN or a fleet alias ARN, and are listed in order of
+    -- placement preference.
+    destinations :: Prelude.Maybe [GameSessionQueueDestination],
+    -- | A list of locations where a queue is allowed to place new game sessions.
+    -- Locations are specified in the form of Amazon Web Services Region codes,
+    -- such as @us-west-2@. If this parameter is not set, game sessions can be
+    -- placed in any queue location.
+    filterConfiguration :: Prelude.Maybe FilterConfiguration,
+    -- | An SNS topic ARN that is set up to receive game session placement
+    -- notifications. See
+    -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/queue-notification.html Setting up notifications for game session placement>.
+    notificationTarget :: Prelude.Maybe Prelude.Text,
+    -- | A set of policies that act as a sliding cap on player latency. FleetIQ
     -- works to deliver low latency for most players in a game session. These
     -- policies ensure that no individual player can be placed into a game with
     -- unreasonably high latency. Use multiple policies to gradually relax
     -- latency requirements a step at a time. Multiple policies are applied
     -- based on their maximum allowed latency, starting with the lowest value.
     playerLatencyPolicies :: Prelude.Maybe [PlayerLatencyPolicy],
-    -- | A list of locations where a queue is allowed to place new game sessions.
-    -- Locations are specified in the form of AWS Region codes, such as
-    -- @us-west-2@. If this parameter is not set, game sessions can be placed
-    -- in any queue location.
-    filterConfiguration :: Prelude.Maybe FilterConfiguration,
-    -- | An SNS topic ARN that is set up to receive game session placement
-    -- notifications. See
-    -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/queue-notification.html Setting up notifications for game session placement>.
-    notificationTarget :: Prelude.Maybe Prelude.Text,
-    -- | The maximum time, in seconds, that a new game session placement request
-    -- remains in the queue. When a request exceeds this time, the game session
-    -- placement changes to a @TIMED_OUT@ status.
-    timeoutInSeconds :: Prelude.Maybe Prelude.Natural,
-    -- | A list of fleets and\/or fleet aliases that can be used to fulfill game
-    -- session placement requests in the queue. Destinations are identified by
-    -- either a fleet ARN or a fleet alias ARN, and are listed in order of
-    -- placement preference.
-    destinations :: Prelude.Maybe [GameSessionQueueDestination],
-    -- | Information to be added to all events that are related to this game
-    -- session queue.
-    customEventData :: Prelude.Maybe Prelude.Text,
     -- | Custom settings to use when prioritizing destinations and locations for
     -- game session placements. This configuration replaces the FleetIQ default
     -- prioritization process. Priority types that are not explicitly named
     -- will be automatically applied at the end of the prioritization process.
     priorityConfiguration :: Prelude.Maybe PriorityConfiguration,
     -- | A list of labels to assign to the new game session queue resource. Tags
-    -- are developer-defined key-value pairs. Tagging AWS resources are useful
-    -- for resource management, access management and cost allocation. For more
-    -- information, see
-    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>
-    -- in the /AWS General Reference/. Once the resource is created, you can
-    -- use TagResource, UntagResource, and ListTagsForResource to add, remove,
-    -- and view tags. The maximum tag limit may be lower than stated. See the
-    -- AWS General Reference for actual tagging limits.
+    -- are developer-defined key-value pairs. Tagging Amazon Web Services
+    -- resources are useful for resource management, access management and cost
+    -- allocation. For more information, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+    -- in the /Amazon Web Services General Reference/.
     tags :: Prelude.Maybe [Tag],
+    -- | The maximum time, in seconds, that a new game session placement request
+    -- remains in the queue. When a request exceeds this time, the game session
+    -- placement changes to a @TIMED_OUT@ status.
+    timeoutInSeconds :: Prelude.Maybe Prelude.Natural,
     -- | A descriptive label that is associated with game session queue. Queue
     -- names must be unique within each Region.
     name :: Prelude.Text
@@ -158,6 +163,23 @@ data CreateGameSessionQueue = CreateGameSessionQueue'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'customEventData', 'createGameSessionQueue_customEventData' - Information to be added to all events that are related to this game
+-- session queue.
+--
+-- 'destinations', 'createGameSessionQueue_destinations' - A list of fleets and\/or fleet aliases that can be used to fulfill game
+-- session placement requests in the queue. Destinations are identified by
+-- either a fleet ARN or a fleet alias ARN, and are listed in order of
+-- placement preference.
+--
+-- 'filterConfiguration', 'createGameSessionQueue_filterConfiguration' - A list of locations where a queue is allowed to place new game sessions.
+-- Locations are specified in the form of Amazon Web Services Region codes,
+-- such as @us-west-2@. If this parameter is not set, game sessions can be
+-- placed in any queue location.
+--
+-- 'notificationTarget', 'createGameSessionQueue_notificationTarget' - An SNS topic ARN that is set up to receive game session placement
+-- notifications. See
+-- <https://docs.aws.amazon.com/gamelift/latest/developerguide/queue-notification.html Setting up notifications for game session placement>.
+--
 -- 'playerLatencyPolicies', 'createGameSessionQueue_playerLatencyPolicies' - A set of policies that act as a sliding cap on player latency. FleetIQ
 -- works to deliver low latency for most players in a game session. These
 -- policies ensure that no individual player can be placed into a game with
@@ -165,41 +187,21 @@ data CreateGameSessionQueue = CreateGameSessionQueue'
 -- latency requirements a step at a time. Multiple policies are applied
 -- based on their maximum allowed latency, starting with the lowest value.
 --
--- 'filterConfiguration', 'createGameSessionQueue_filterConfiguration' - A list of locations where a queue is allowed to place new game sessions.
--- Locations are specified in the form of AWS Region codes, such as
--- @us-west-2@. If this parameter is not set, game sessions can be placed
--- in any queue location.
---
--- 'notificationTarget', 'createGameSessionQueue_notificationTarget' - An SNS topic ARN that is set up to receive game session placement
--- notifications. See
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/queue-notification.html Setting up notifications for game session placement>.
---
--- 'timeoutInSeconds', 'createGameSessionQueue_timeoutInSeconds' - The maximum time, in seconds, that a new game session placement request
--- remains in the queue. When a request exceeds this time, the game session
--- placement changes to a @TIMED_OUT@ status.
---
--- 'destinations', 'createGameSessionQueue_destinations' - A list of fleets and\/or fleet aliases that can be used to fulfill game
--- session placement requests in the queue. Destinations are identified by
--- either a fleet ARN or a fleet alias ARN, and are listed in order of
--- placement preference.
---
--- 'customEventData', 'createGameSessionQueue_customEventData' - Information to be added to all events that are related to this game
--- session queue.
---
 -- 'priorityConfiguration', 'createGameSessionQueue_priorityConfiguration' - Custom settings to use when prioritizing destinations and locations for
 -- game session placements. This configuration replaces the FleetIQ default
 -- prioritization process. Priority types that are not explicitly named
 -- will be automatically applied at the end of the prioritization process.
 --
 -- 'tags', 'createGameSessionQueue_tags' - A list of labels to assign to the new game session queue resource. Tags
--- are developer-defined key-value pairs. Tagging AWS resources are useful
--- for resource management, access management and cost allocation. For more
--- information, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>
--- in the /AWS General Reference/. Once the resource is created, you can
--- use TagResource, UntagResource, and ListTagsForResource to add, remove,
--- and view tags. The maximum tag limit may be lower than stated. See the
--- AWS General Reference for actual tagging limits.
+-- are developer-defined key-value pairs. Tagging Amazon Web Services
+-- resources are useful for resource management, access management and cost
+-- allocation. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- in the /Amazon Web Services General Reference/.
+--
+-- 'timeoutInSeconds', 'createGameSessionQueue_timeoutInSeconds' - The maximum time, in seconds, that a new game session placement request
+-- remains in the queue. When a request exceeds this time, the game session
+-- placement changes to a @TIMED_OUT@ status.
 --
 -- 'name', 'createGameSessionQueue_name' - A descriptive label that is associated with game session queue. Queue
 -- names must be unique within each Region.
@@ -209,17 +211,42 @@ newCreateGameSessionQueue ::
   CreateGameSessionQueue
 newCreateGameSessionQueue pName_ =
   CreateGameSessionQueue'
-    { playerLatencyPolicies =
+    { customEventData =
         Prelude.Nothing,
+      destinations = Prelude.Nothing,
       filterConfiguration = Prelude.Nothing,
       notificationTarget = Prelude.Nothing,
-      timeoutInSeconds = Prelude.Nothing,
-      destinations = Prelude.Nothing,
-      customEventData = Prelude.Nothing,
+      playerLatencyPolicies = Prelude.Nothing,
       priorityConfiguration = Prelude.Nothing,
       tags = Prelude.Nothing,
+      timeoutInSeconds = Prelude.Nothing,
       name = pName_
     }
+
+-- | Information to be added to all events that are related to this game
+-- session queue.
+createGameSessionQueue_customEventData :: Lens.Lens' CreateGameSessionQueue (Prelude.Maybe Prelude.Text)
+createGameSessionQueue_customEventData = Lens.lens (\CreateGameSessionQueue' {customEventData} -> customEventData) (\s@CreateGameSessionQueue' {} a -> s {customEventData = a} :: CreateGameSessionQueue)
+
+-- | A list of fleets and\/or fleet aliases that can be used to fulfill game
+-- session placement requests in the queue. Destinations are identified by
+-- either a fleet ARN or a fleet alias ARN, and are listed in order of
+-- placement preference.
+createGameSessionQueue_destinations :: Lens.Lens' CreateGameSessionQueue (Prelude.Maybe [GameSessionQueueDestination])
+createGameSessionQueue_destinations = Lens.lens (\CreateGameSessionQueue' {destinations} -> destinations) (\s@CreateGameSessionQueue' {} a -> s {destinations = a} :: CreateGameSessionQueue) Prelude.. Lens.mapping Lens.coerced
+
+-- | A list of locations where a queue is allowed to place new game sessions.
+-- Locations are specified in the form of Amazon Web Services Region codes,
+-- such as @us-west-2@. If this parameter is not set, game sessions can be
+-- placed in any queue location.
+createGameSessionQueue_filterConfiguration :: Lens.Lens' CreateGameSessionQueue (Prelude.Maybe FilterConfiguration)
+createGameSessionQueue_filterConfiguration = Lens.lens (\CreateGameSessionQueue' {filterConfiguration} -> filterConfiguration) (\s@CreateGameSessionQueue' {} a -> s {filterConfiguration = a} :: CreateGameSessionQueue)
+
+-- | An SNS topic ARN that is set up to receive game session placement
+-- notifications. See
+-- <https://docs.aws.amazon.com/gamelift/latest/developerguide/queue-notification.html Setting up notifications for game session placement>.
+createGameSessionQueue_notificationTarget :: Lens.Lens' CreateGameSessionQueue (Prelude.Maybe Prelude.Text)
+createGameSessionQueue_notificationTarget = Lens.lens (\CreateGameSessionQueue' {notificationTarget} -> notificationTarget) (\s@CreateGameSessionQueue' {} a -> s {notificationTarget = a} :: CreateGameSessionQueue)
 
 -- | A set of policies that act as a sliding cap on player latency. FleetIQ
 -- works to deliver low latency for most players in a game session. These
@@ -230,37 +257,6 @@ newCreateGameSessionQueue pName_ =
 createGameSessionQueue_playerLatencyPolicies :: Lens.Lens' CreateGameSessionQueue (Prelude.Maybe [PlayerLatencyPolicy])
 createGameSessionQueue_playerLatencyPolicies = Lens.lens (\CreateGameSessionQueue' {playerLatencyPolicies} -> playerLatencyPolicies) (\s@CreateGameSessionQueue' {} a -> s {playerLatencyPolicies = a} :: CreateGameSessionQueue) Prelude.. Lens.mapping Lens.coerced
 
--- | A list of locations where a queue is allowed to place new game sessions.
--- Locations are specified in the form of AWS Region codes, such as
--- @us-west-2@. If this parameter is not set, game sessions can be placed
--- in any queue location.
-createGameSessionQueue_filterConfiguration :: Lens.Lens' CreateGameSessionQueue (Prelude.Maybe FilterConfiguration)
-createGameSessionQueue_filterConfiguration = Lens.lens (\CreateGameSessionQueue' {filterConfiguration} -> filterConfiguration) (\s@CreateGameSessionQueue' {} a -> s {filterConfiguration = a} :: CreateGameSessionQueue)
-
--- | An SNS topic ARN that is set up to receive game session placement
--- notifications. See
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/queue-notification.html Setting up notifications for game session placement>.
-createGameSessionQueue_notificationTarget :: Lens.Lens' CreateGameSessionQueue (Prelude.Maybe Prelude.Text)
-createGameSessionQueue_notificationTarget = Lens.lens (\CreateGameSessionQueue' {notificationTarget} -> notificationTarget) (\s@CreateGameSessionQueue' {} a -> s {notificationTarget = a} :: CreateGameSessionQueue)
-
--- | The maximum time, in seconds, that a new game session placement request
--- remains in the queue. When a request exceeds this time, the game session
--- placement changes to a @TIMED_OUT@ status.
-createGameSessionQueue_timeoutInSeconds :: Lens.Lens' CreateGameSessionQueue (Prelude.Maybe Prelude.Natural)
-createGameSessionQueue_timeoutInSeconds = Lens.lens (\CreateGameSessionQueue' {timeoutInSeconds} -> timeoutInSeconds) (\s@CreateGameSessionQueue' {} a -> s {timeoutInSeconds = a} :: CreateGameSessionQueue)
-
--- | A list of fleets and\/or fleet aliases that can be used to fulfill game
--- session placement requests in the queue. Destinations are identified by
--- either a fleet ARN or a fleet alias ARN, and are listed in order of
--- placement preference.
-createGameSessionQueue_destinations :: Lens.Lens' CreateGameSessionQueue (Prelude.Maybe [GameSessionQueueDestination])
-createGameSessionQueue_destinations = Lens.lens (\CreateGameSessionQueue' {destinations} -> destinations) (\s@CreateGameSessionQueue' {} a -> s {destinations = a} :: CreateGameSessionQueue) Prelude.. Lens.mapping Lens.coerced
-
--- | Information to be added to all events that are related to this game
--- session queue.
-createGameSessionQueue_customEventData :: Lens.Lens' CreateGameSessionQueue (Prelude.Maybe Prelude.Text)
-createGameSessionQueue_customEventData = Lens.lens (\CreateGameSessionQueue' {customEventData} -> customEventData) (\s@CreateGameSessionQueue' {} a -> s {customEventData = a} :: CreateGameSessionQueue)
-
 -- | Custom settings to use when prioritizing destinations and locations for
 -- game session placements. This configuration replaces the FleetIQ default
 -- prioritization process. Priority types that are not explicitly named
@@ -269,16 +265,19 @@ createGameSessionQueue_priorityConfiguration :: Lens.Lens' CreateGameSessionQueu
 createGameSessionQueue_priorityConfiguration = Lens.lens (\CreateGameSessionQueue' {priorityConfiguration} -> priorityConfiguration) (\s@CreateGameSessionQueue' {} a -> s {priorityConfiguration = a} :: CreateGameSessionQueue)
 
 -- | A list of labels to assign to the new game session queue resource. Tags
--- are developer-defined key-value pairs. Tagging AWS resources are useful
--- for resource management, access management and cost allocation. For more
--- information, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>
--- in the /AWS General Reference/. Once the resource is created, you can
--- use TagResource, UntagResource, and ListTagsForResource to add, remove,
--- and view tags. The maximum tag limit may be lower than stated. See the
--- AWS General Reference for actual tagging limits.
+-- are developer-defined key-value pairs. Tagging Amazon Web Services
+-- resources are useful for resource management, access management and cost
+-- allocation. For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- in the /Amazon Web Services General Reference/.
 createGameSessionQueue_tags :: Lens.Lens' CreateGameSessionQueue (Prelude.Maybe [Tag])
 createGameSessionQueue_tags = Lens.lens (\CreateGameSessionQueue' {tags} -> tags) (\s@CreateGameSessionQueue' {} a -> s {tags = a} :: CreateGameSessionQueue) Prelude.. Lens.mapping Lens.coerced
+
+-- | The maximum time, in seconds, that a new game session placement request
+-- remains in the queue. When a request exceeds this time, the game session
+-- placement changes to a @TIMED_OUT@ status.
+createGameSessionQueue_timeoutInSeconds :: Lens.Lens' CreateGameSessionQueue (Prelude.Maybe Prelude.Natural)
+createGameSessionQueue_timeoutInSeconds = Lens.lens (\CreateGameSessionQueue' {timeoutInSeconds} -> timeoutInSeconds) (\s@CreateGameSessionQueue' {} a -> s {timeoutInSeconds = a} :: CreateGameSessionQueue)
 
 -- | A descriptive label that is associated with game session queue. Queue
 -- names must be unique within each Region.
@@ -289,85 +288,84 @@ instance Core.AWSRequest CreateGameSessionQueue where
   type
     AWSResponse CreateGameSessionQueue =
       CreateGameSessionQueueResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateGameSessionQueueResponse'
-            Prelude.<$> (x Core..?> "GameSessionQueue")
+            Prelude.<$> (x Data..?> "GameSessionQueue")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateGameSessionQueue where
   hashWithSalt _salt CreateGameSessionQueue' {..} =
-    _salt `Prelude.hashWithSalt` playerLatencyPolicies
+    _salt `Prelude.hashWithSalt` customEventData
+      `Prelude.hashWithSalt` destinations
       `Prelude.hashWithSalt` filterConfiguration
       `Prelude.hashWithSalt` notificationTarget
-      `Prelude.hashWithSalt` timeoutInSeconds
-      `Prelude.hashWithSalt` destinations
-      `Prelude.hashWithSalt` customEventData
+      `Prelude.hashWithSalt` playerLatencyPolicies
       `Prelude.hashWithSalt` priorityConfiguration
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` timeoutInSeconds
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData CreateGameSessionQueue where
   rnf CreateGameSessionQueue' {..} =
-    Prelude.rnf playerLatencyPolicies
+    Prelude.rnf customEventData
+      `Prelude.seq` Prelude.rnf destinations
       `Prelude.seq` Prelude.rnf filterConfiguration
       `Prelude.seq` Prelude.rnf notificationTarget
-      `Prelude.seq` Prelude.rnf timeoutInSeconds
-      `Prelude.seq` Prelude.rnf destinations
-      `Prelude.seq` Prelude.rnf customEventData
+      `Prelude.seq` Prelude.rnf playerLatencyPolicies
       `Prelude.seq` Prelude.rnf priorityConfiguration
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf timeoutInSeconds
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateGameSessionQueue where
+instance Data.ToHeaders CreateGameSessionQueue where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.CreateGameSessionQueue" ::
+              Data.=# ( "GameLift.CreateGameSessionQueue" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateGameSessionQueue where
+instance Data.ToJSON CreateGameSessionQueue where
   toJSON CreateGameSessionQueue' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PlayerLatencyPolicies" Core..=)
-              Prelude.<$> playerLatencyPolicies,
-            ("FilterConfiguration" Core..=)
-              Prelude.<$> filterConfiguration,
-            ("NotificationTarget" Core..=)
-              Prelude.<$> notificationTarget,
-            ("TimeoutInSeconds" Core..=)
-              Prelude.<$> timeoutInSeconds,
-            ("Destinations" Core..=) Prelude.<$> destinations,
-            ("CustomEventData" Core..=)
+          [ ("CustomEventData" Data..=)
               Prelude.<$> customEventData,
-            ("PriorityConfiguration" Core..=)
+            ("Destinations" Data..=) Prelude.<$> destinations,
+            ("FilterConfiguration" Data..=)
+              Prelude.<$> filterConfiguration,
+            ("NotificationTarget" Data..=)
+              Prelude.<$> notificationTarget,
+            ("PlayerLatencyPolicies" Data..=)
+              Prelude.<$> playerLatencyPolicies,
+            ("PriorityConfiguration" Data..=)
               Prelude.<$> priorityConfiguration,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name)
+            ("Tags" Data..=) Prelude.<$> tags,
+            ("TimeoutInSeconds" Data..=)
+              Prelude.<$> timeoutInSeconds,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateGameSessionQueue where
+instance Data.ToPath CreateGameSessionQueue where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateGameSessionQueue where
+instance Data.ToQuery CreateGameSessionQueue where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newCreateGameSessionQueueResponse' smart constructor.
+-- | /See:/ 'newCreateGameSessionQueueResponse' smart constructor.
 data CreateGameSessionQueueResponse = CreateGameSessionQueueResponse'
   { -- | An object that describes the newly created game session queue.
     gameSessionQueue :: Prelude.Maybe GameSessionQueue,

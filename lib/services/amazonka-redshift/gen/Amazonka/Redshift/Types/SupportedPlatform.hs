@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.Types.SupportedPlatform
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Redshift.Types.SupportedPlatform where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Internal
 
@@ -50,9 +51,9 @@ newSupportedPlatform =
 supportedPlatform_name :: Lens.Lens' SupportedPlatform (Prelude.Maybe Prelude.Text)
 supportedPlatform_name = Lens.lens (\SupportedPlatform' {name} -> name) (\s@SupportedPlatform' {} a -> s {name = a} :: SupportedPlatform)
 
-instance Core.FromXML SupportedPlatform where
+instance Data.FromXML SupportedPlatform where
   parseXML x =
-    SupportedPlatform' Prelude.<$> (x Core..@? "Name")
+    SupportedPlatform' Prelude.<$> (x Data..@? "Name")
 
 instance Prelude.Hashable SupportedPlatform where
   hashWithSalt _salt SupportedPlatform' {..} =

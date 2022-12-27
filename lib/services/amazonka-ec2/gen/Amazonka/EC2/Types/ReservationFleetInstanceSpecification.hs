@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ReservationFleetInstanceSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.EC2.Types.ReservationFleetInstanceSpecification where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.CapacityReservationInstancePlatform
 import Amazonka.EC2.Types.InstanceType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an instance type to use in a Capacity Reservation
@@ -31,18 +32,35 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newReservationFleetInstanceSpecification' smart constructor.
 data ReservationFleetInstanceSpecification = ReservationFleetInstanceSpecification'
-  { -- | The priority to assign to the instance type. This value is used to
+  { -- | The Availability Zone in which the Capacity Reservation Fleet reserves
+    -- the capacity. A Capacity Reservation Fleet can\'t span Availability
+    -- Zones. All instance type specifications that you specify for the Fleet
+    -- must use the same Availability Zone.
+    availabilityZone :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Availability Zone in which the Capacity Reservation Fleet
+    -- reserves the capacity. A Capacity Reservation Fleet can\'t span
+    -- Availability Zones. All instance type specifications that you specify
+    -- for the Fleet must use the same Availability Zone.
+    availabilityZoneId :: Prelude.Maybe Prelude.Text,
+    -- | Indicates whether the Capacity Reservation Fleet supports EBS-optimized
+    -- instances types. This optimization provides dedicated throughput to
+    -- Amazon EBS and an optimized configuration stack to provide optimal I\/O
+    -- performance. This optimization isn\'t available with all instance types.
+    -- Additional usage charges apply when using EBS-optimized instance types.
+    ebsOptimized :: Prelude.Maybe Prelude.Bool,
+    -- | The type of operating system for which the Capacity Reservation Fleet
+    -- reserves capacity.
+    instancePlatform :: Prelude.Maybe CapacityReservationInstancePlatform,
+    -- | The instance type for which the Capacity Reservation Fleet reserves
+    -- capacity.
+    instanceType :: Prelude.Maybe InstanceType,
+    -- | The priority to assign to the instance type. This value is used to
     -- determine which of the instance types specified for the Fleet should be
     -- prioritized for use. A lower value indicates a high priority. For more
     -- information, see
     -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#instance-priority Instance type priority>
     -- in the Amazon EC2 User Guide.
     priority :: Prelude.Maybe Prelude.Natural,
-    -- | The ID of the Availability Zone in which the Capacity Reservation Fleet
-    -- reserves the capacity. A Capacity Reservation Fleet can\'t span
-    -- Availability Zones. All instance type specifications that you specify
-    -- for the Fleet must use the same Availability Zone.
-    availabilityZoneId :: Prelude.Maybe Prelude.Text,
     -- | The number of capacity units provided by the specified instance type.
     -- This value, together with the total target capacity that you specify for
     -- the Fleet determine the number of instances for which the Fleet reserves
@@ -50,24 +68,7 @@ data ReservationFleetInstanceSpecification = ReservationFleetInstanceSpecificati
     -- workload. For more information, see
     -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity Total target capacity>
     -- in the Amazon EC2 User Guide.
-    weight :: Prelude.Maybe Prelude.Double,
-    -- | The type of operating system for which the Capacity Reservation Fleet
-    -- reserves capacity.
-    instancePlatform :: Prelude.Maybe CapacityReservationInstancePlatform,
-    -- | The instance type for which the Capacity Reservation Fleet reserves
-    -- capacity.
-    instanceType :: Prelude.Maybe InstanceType,
-    -- | Indicates whether the Capacity Reservation Fleet supports EBS-optimized
-    -- instances types. This optimization provides dedicated throughput to
-    -- Amazon EBS and an optimized configuration stack to provide optimal I\/O
-    -- performance. This optimization isn\'t available with all instance types.
-    -- Additional usage charges apply when using EBS-optimized instance types.
-    ebsOptimized :: Prelude.Maybe Prelude.Bool,
-    -- | The Availability Zone in which the Capacity Reservation Fleet reserves
-    -- the capacity. A Capacity Reservation Fleet can\'t span Availability
-    -- Zones. All instance type specifications that you specify for the Fleet
-    -- must use the same Availability Zone.
-    availabilityZone :: Prelude.Maybe Prelude.Text
+    weight :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -79,17 +80,34 @@ data ReservationFleetInstanceSpecification = ReservationFleetInstanceSpecificati
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'availabilityZone', 'reservationFleetInstanceSpecification_availabilityZone' - The Availability Zone in which the Capacity Reservation Fleet reserves
+-- the capacity. A Capacity Reservation Fleet can\'t span Availability
+-- Zones. All instance type specifications that you specify for the Fleet
+-- must use the same Availability Zone.
+--
+-- 'availabilityZoneId', 'reservationFleetInstanceSpecification_availabilityZoneId' - The ID of the Availability Zone in which the Capacity Reservation Fleet
+-- reserves the capacity. A Capacity Reservation Fleet can\'t span
+-- Availability Zones. All instance type specifications that you specify
+-- for the Fleet must use the same Availability Zone.
+--
+-- 'ebsOptimized', 'reservationFleetInstanceSpecification_ebsOptimized' - Indicates whether the Capacity Reservation Fleet supports EBS-optimized
+-- instances types. This optimization provides dedicated throughput to
+-- Amazon EBS and an optimized configuration stack to provide optimal I\/O
+-- performance. This optimization isn\'t available with all instance types.
+-- Additional usage charges apply when using EBS-optimized instance types.
+--
+-- 'instancePlatform', 'reservationFleetInstanceSpecification_instancePlatform' - The type of operating system for which the Capacity Reservation Fleet
+-- reserves capacity.
+--
+-- 'instanceType', 'reservationFleetInstanceSpecification_instanceType' - The instance type for which the Capacity Reservation Fleet reserves
+-- capacity.
+--
 -- 'priority', 'reservationFleetInstanceSpecification_priority' - The priority to assign to the instance type. This value is used to
 -- determine which of the instance types specified for the Fleet should be
 -- prioritized for use. A lower value indicates a high priority. For more
 -- information, see
 -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#instance-priority Instance type priority>
 -- in the Amazon EC2 User Guide.
---
--- 'availabilityZoneId', 'reservationFleetInstanceSpecification_availabilityZoneId' - The ID of the Availability Zone in which the Capacity Reservation Fleet
--- reserves the capacity. A Capacity Reservation Fleet can\'t span
--- Availability Zones. All instance type specifications that you specify
--- for the Fleet must use the same Availability Zone.
 --
 -- 'weight', 'reservationFleetInstanceSpecification_weight' - The number of capacity units provided by the specified instance type.
 -- This value, together with the total target capacity that you specify for
@@ -98,45 +116,26 @@ data ReservationFleetInstanceSpecification = ReservationFleetInstanceSpecificati
 -- workload. For more information, see
 -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity Total target capacity>
 -- in the Amazon EC2 User Guide.
---
--- 'instancePlatform', 'reservationFleetInstanceSpecification_instancePlatform' - The type of operating system for which the Capacity Reservation Fleet
--- reserves capacity.
---
--- 'instanceType', 'reservationFleetInstanceSpecification_instanceType' - The instance type for which the Capacity Reservation Fleet reserves
--- capacity.
---
--- 'ebsOptimized', 'reservationFleetInstanceSpecification_ebsOptimized' - Indicates whether the Capacity Reservation Fleet supports EBS-optimized
--- instances types. This optimization provides dedicated throughput to
--- Amazon EBS and an optimized configuration stack to provide optimal I\/O
--- performance. This optimization isn\'t available with all instance types.
--- Additional usage charges apply when using EBS-optimized instance types.
---
--- 'availabilityZone', 'reservationFleetInstanceSpecification_availabilityZone' - The Availability Zone in which the Capacity Reservation Fleet reserves
--- the capacity. A Capacity Reservation Fleet can\'t span Availability
--- Zones. All instance type specifications that you specify for the Fleet
--- must use the same Availability Zone.
 newReservationFleetInstanceSpecification ::
   ReservationFleetInstanceSpecification
 newReservationFleetInstanceSpecification =
   ReservationFleetInstanceSpecification'
-    { priority =
+    { availabilityZone =
         Prelude.Nothing,
       availabilityZoneId = Prelude.Nothing,
-      weight = Prelude.Nothing,
+      ebsOptimized = Prelude.Nothing,
       instancePlatform = Prelude.Nothing,
       instanceType = Prelude.Nothing,
-      ebsOptimized = Prelude.Nothing,
-      availabilityZone = Prelude.Nothing
+      priority = Prelude.Nothing,
+      weight = Prelude.Nothing
     }
 
--- | The priority to assign to the instance type. This value is used to
--- determine which of the instance types specified for the Fleet should be
--- prioritized for use. A lower value indicates a high priority. For more
--- information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#instance-priority Instance type priority>
--- in the Amazon EC2 User Guide.
-reservationFleetInstanceSpecification_priority :: Lens.Lens' ReservationFleetInstanceSpecification (Prelude.Maybe Prelude.Natural)
-reservationFleetInstanceSpecification_priority = Lens.lens (\ReservationFleetInstanceSpecification' {priority} -> priority) (\s@ReservationFleetInstanceSpecification' {} a -> s {priority = a} :: ReservationFleetInstanceSpecification)
+-- | The Availability Zone in which the Capacity Reservation Fleet reserves
+-- the capacity. A Capacity Reservation Fleet can\'t span Availability
+-- Zones. All instance type specifications that you specify for the Fleet
+-- must use the same Availability Zone.
+reservationFleetInstanceSpecification_availabilityZone :: Lens.Lens' ReservationFleetInstanceSpecification (Prelude.Maybe Prelude.Text)
+reservationFleetInstanceSpecification_availabilityZone = Lens.lens (\ReservationFleetInstanceSpecification' {availabilityZone} -> availabilityZone) (\s@ReservationFleetInstanceSpecification' {} a -> s {availabilityZone = a} :: ReservationFleetInstanceSpecification)
 
 -- | The ID of the Availability Zone in which the Capacity Reservation Fleet
 -- reserves the capacity. A Capacity Reservation Fleet can\'t span
@@ -145,15 +144,13 @@ reservationFleetInstanceSpecification_priority = Lens.lens (\ReservationFleetIns
 reservationFleetInstanceSpecification_availabilityZoneId :: Lens.Lens' ReservationFleetInstanceSpecification (Prelude.Maybe Prelude.Text)
 reservationFleetInstanceSpecification_availabilityZoneId = Lens.lens (\ReservationFleetInstanceSpecification' {availabilityZoneId} -> availabilityZoneId) (\s@ReservationFleetInstanceSpecification' {} a -> s {availabilityZoneId = a} :: ReservationFleetInstanceSpecification)
 
--- | The number of capacity units provided by the specified instance type.
--- This value, together with the total target capacity that you specify for
--- the Fleet determine the number of instances for which the Fleet reserves
--- capacity. Both values are based on units that make sense for your
--- workload. For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity Total target capacity>
--- in the Amazon EC2 User Guide.
-reservationFleetInstanceSpecification_weight :: Lens.Lens' ReservationFleetInstanceSpecification (Prelude.Maybe Prelude.Double)
-reservationFleetInstanceSpecification_weight = Lens.lens (\ReservationFleetInstanceSpecification' {weight} -> weight) (\s@ReservationFleetInstanceSpecification' {} a -> s {weight = a} :: ReservationFleetInstanceSpecification)
+-- | Indicates whether the Capacity Reservation Fleet supports EBS-optimized
+-- instances types. This optimization provides dedicated throughput to
+-- Amazon EBS and an optimized configuration stack to provide optimal I\/O
+-- performance. This optimization isn\'t available with all instance types.
+-- Additional usage charges apply when using EBS-optimized instance types.
+reservationFleetInstanceSpecification_ebsOptimized :: Lens.Lens' ReservationFleetInstanceSpecification (Prelude.Maybe Prelude.Bool)
+reservationFleetInstanceSpecification_ebsOptimized = Lens.lens (\ReservationFleetInstanceSpecification' {ebsOptimized} -> ebsOptimized) (\s@ReservationFleetInstanceSpecification' {} a -> s {ebsOptimized = a} :: ReservationFleetInstanceSpecification)
 
 -- | The type of operating system for which the Capacity Reservation Fleet
 -- reserves capacity.
@@ -165,20 +162,24 @@ reservationFleetInstanceSpecification_instancePlatform = Lens.lens (\Reservation
 reservationFleetInstanceSpecification_instanceType :: Lens.Lens' ReservationFleetInstanceSpecification (Prelude.Maybe InstanceType)
 reservationFleetInstanceSpecification_instanceType = Lens.lens (\ReservationFleetInstanceSpecification' {instanceType} -> instanceType) (\s@ReservationFleetInstanceSpecification' {} a -> s {instanceType = a} :: ReservationFleetInstanceSpecification)
 
--- | Indicates whether the Capacity Reservation Fleet supports EBS-optimized
--- instances types. This optimization provides dedicated throughput to
--- Amazon EBS and an optimized configuration stack to provide optimal I\/O
--- performance. This optimization isn\'t available with all instance types.
--- Additional usage charges apply when using EBS-optimized instance types.
-reservationFleetInstanceSpecification_ebsOptimized :: Lens.Lens' ReservationFleetInstanceSpecification (Prelude.Maybe Prelude.Bool)
-reservationFleetInstanceSpecification_ebsOptimized = Lens.lens (\ReservationFleetInstanceSpecification' {ebsOptimized} -> ebsOptimized) (\s@ReservationFleetInstanceSpecification' {} a -> s {ebsOptimized = a} :: ReservationFleetInstanceSpecification)
+-- | The priority to assign to the instance type. This value is used to
+-- determine which of the instance types specified for the Fleet should be
+-- prioritized for use. A lower value indicates a high priority. For more
+-- information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#instance-priority Instance type priority>
+-- in the Amazon EC2 User Guide.
+reservationFleetInstanceSpecification_priority :: Lens.Lens' ReservationFleetInstanceSpecification (Prelude.Maybe Prelude.Natural)
+reservationFleetInstanceSpecification_priority = Lens.lens (\ReservationFleetInstanceSpecification' {priority} -> priority) (\s@ReservationFleetInstanceSpecification' {} a -> s {priority = a} :: ReservationFleetInstanceSpecification)
 
--- | The Availability Zone in which the Capacity Reservation Fleet reserves
--- the capacity. A Capacity Reservation Fleet can\'t span Availability
--- Zones. All instance type specifications that you specify for the Fleet
--- must use the same Availability Zone.
-reservationFleetInstanceSpecification_availabilityZone :: Lens.Lens' ReservationFleetInstanceSpecification (Prelude.Maybe Prelude.Text)
-reservationFleetInstanceSpecification_availabilityZone = Lens.lens (\ReservationFleetInstanceSpecification' {availabilityZone} -> availabilityZone) (\s@ReservationFleetInstanceSpecification' {} a -> s {availabilityZone = a} :: ReservationFleetInstanceSpecification)
+-- | The number of capacity units provided by the specified instance type.
+-- This value, together with the total target capacity that you specify for
+-- the Fleet determine the number of instances for which the Fleet reserves
+-- capacity. Both values are based on units that make sense for your
+-- workload. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity Total target capacity>
+-- in the Amazon EC2 User Guide.
+reservationFleetInstanceSpecification_weight :: Lens.Lens' ReservationFleetInstanceSpecification (Prelude.Maybe Prelude.Double)
+reservationFleetInstanceSpecification_weight = Lens.lens (\ReservationFleetInstanceSpecification' {weight} -> weight) (\s@ReservationFleetInstanceSpecification' {} a -> s {weight = a} :: ReservationFleetInstanceSpecification)
 
 instance
   Prelude.Hashable
@@ -187,38 +188,38 @@ instance
   hashWithSalt
     _salt
     ReservationFleetInstanceSpecification' {..} =
-      _salt `Prelude.hashWithSalt` priority
+      _salt `Prelude.hashWithSalt` availabilityZone
         `Prelude.hashWithSalt` availabilityZoneId
-        `Prelude.hashWithSalt` weight
+        `Prelude.hashWithSalt` ebsOptimized
         `Prelude.hashWithSalt` instancePlatform
         `Prelude.hashWithSalt` instanceType
-        `Prelude.hashWithSalt` ebsOptimized
-        `Prelude.hashWithSalt` availabilityZone
+        `Prelude.hashWithSalt` priority
+        `Prelude.hashWithSalt` weight
 
 instance
   Prelude.NFData
     ReservationFleetInstanceSpecification
   where
   rnf ReservationFleetInstanceSpecification' {..} =
-    Prelude.rnf priority
+    Prelude.rnf availabilityZone
       `Prelude.seq` Prelude.rnf availabilityZoneId
-      `Prelude.seq` Prelude.rnf weight
+      `Prelude.seq` Prelude.rnf ebsOptimized
       `Prelude.seq` Prelude.rnf instancePlatform
       `Prelude.seq` Prelude.rnf instanceType
-      `Prelude.seq` Prelude.rnf ebsOptimized
-      `Prelude.seq` Prelude.rnf availabilityZone
+      `Prelude.seq` Prelude.rnf priority
+      `Prelude.seq` Prelude.rnf weight
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ReservationFleetInstanceSpecification
   where
   toQuery ReservationFleetInstanceSpecification' {..} =
     Prelude.mconcat
-      [ "Priority" Core.=: priority,
-        "AvailabilityZoneId" Core.=: availabilityZoneId,
-        "Weight" Core.=: weight,
-        "InstancePlatform" Core.=: instancePlatform,
-        "InstanceType" Core.=: instanceType,
-        "EbsOptimized" Core.=: ebsOptimized,
-        "AvailabilityZone" Core.=: availabilityZone
+      [ "AvailabilityZone" Data.=: availabilityZone,
+        "AvailabilityZoneId" Data.=: availabilityZoneId,
+        "EbsOptimized" Data.=: ebsOptimized,
+        "InstancePlatform" Data.=: instancePlatform,
+        "InstanceType" Data.=: instanceType,
+        "Priority" Data.=: priority,
+        "Weight" Data.=: weight
       ]

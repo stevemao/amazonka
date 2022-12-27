@@ -14,27 +14,27 @@
 
 -- |
 -- Module      : Amazonka.Support.DescribeTrustedAdvisorChecks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about all available AWS Trusted Advisor checks,
+-- Returns information about all available Trusted Advisor checks,
 -- including the name, ID, category, description, and metadata. You must
--- specify a language code. The AWS Support API currently supports English
--- (\"en\") and Japanese (\"ja\"). The response contains a
+-- specify a language code. The Amazon Web Services Support API currently
+-- supports English (\"en\") and Japanese (\"ja\"). The response contains a
 -- TrustedAdvisorCheckDescription object for each check. You must set the
--- AWS Region to us-east-1.
+-- Amazon Web Services Region to us-east-1.
 --
--- -   You must have a Business or Enterprise Support plan to use the AWS
---     Support API.
+-- -   You must have a Business, Enterprise On-Ramp, or Enterprise Support
+--     plan to use the Amazon Web Services Support API.
 --
--- -   If you call the AWS Support API from an account that does not have a
---     Business or Enterprise Support plan, the
---     @SubscriptionRequiredException@ error message appears. For
+-- -   If you call the Amazon Web Services Support API from an account that
+--     does not have a Business, Enterprise On-Ramp, or Enterprise Support
+--     plan, the @SubscriptionRequiredException@ error message appears. For
 --     information about changing your support plan, see
---     <http://aws.amazon.com/premiumsupport/ AWS Support>.
+--     <http://aws.amazon.com/premiumsupport/ Amazon Web Services Support>.
 --
 -- -   The names and descriptions for Trusted Advisor checks are subject to
 --     change. We recommend that you specify the check ID in your code to
@@ -58,7 +58,8 @@ module Amazonka.Support.DescribeTrustedAdvisorChecks
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,10 +67,10 @@ import Amazonka.Support.Types
 
 -- | /See:/ 'newDescribeTrustedAdvisorChecks' smart constructor.
 data DescribeTrustedAdvisorChecks = DescribeTrustedAdvisorChecks'
-  { -- | The ISO 639-1 code for the language in which AWS provides support. AWS
-    -- Support currently supports English (\"en\") and Japanese (\"ja\").
-    -- Language parameters must be passed explicitly for operations that take
-    -- them.
+  { -- | The ISO 639-1 code for the language in which Amazon Web Services
+    -- provides support. Amazon Web Services Support currently supports English
+    -- (\"en\") and Japanese (\"ja\"). Language parameters must be passed
+    -- explicitly for operations that take them.
     language :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -82,10 +83,10 @@ data DescribeTrustedAdvisorChecks = DescribeTrustedAdvisorChecks'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'language', 'describeTrustedAdvisorChecks_language' - The ISO 639-1 code for the language in which AWS provides support. AWS
--- Support currently supports English (\"en\") and Japanese (\"ja\").
--- Language parameters must be passed explicitly for operations that take
--- them.
+-- 'language', 'describeTrustedAdvisorChecks_language' - The ISO 639-1 code for the language in which Amazon Web Services
+-- provides support. Amazon Web Services Support currently supports English
+-- (\"en\") and Japanese (\"ja\"). Language parameters must be passed
+-- explicitly for operations that take them.
 newDescribeTrustedAdvisorChecks ::
   -- | 'language'
   Prelude.Text ->
@@ -96,10 +97,10 @@ newDescribeTrustedAdvisorChecks pLanguage_ =
         pLanguage_
     }
 
--- | The ISO 639-1 code for the language in which AWS provides support. AWS
--- Support currently supports English (\"en\") and Japanese (\"ja\").
--- Language parameters must be passed explicitly for operations that take
--- them.
+-- | The ISO 639-1 code for the language in which Amazon Web Services
+-- provides support. Amazon Web Services Support currently supports English
+-- (\"en\") and Japanese (\"ja\"). Language parameters must be passed
+-- explicitly for operations that take them.
 describeTrustedAdvisorChecks_language :: Lens.Lens' DescribeTrustedAdvisorChecks Prelude.Text
 describeTrustedAdvisorChecks_language = Lens.lens (\DescribeTrustedAdvisorChecks' {language} -> language) (\s@DescribeTrustedAdvisorChecks' {} a -> s {language = a} :: DescribeTrustedAdvisorChecks)
 
@@ -107,13 +108,14 @@ instance Core.AWSRequest DescribeTrustedAdvisorChecks where
   type
     AWSResponse DescribeTrustedAdvisorChecks =
       DescribeTrustedAdvisorChecksResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTrustedAdvisorChecksResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "checks" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "checks" Core..!@ Prelude.mempty)
       )
 
 instance
@@ -127,32 +129,32 @@ instance Prelude.NFData DescribeTrustedAdvisorChecks where
   rnf DescribeTrustedAdvisorChecks' {..} =
     Prelude.rnf language
 
-instance Core.ToHeaders DescribeTrustedAdvisorChecks where
+instance Data.ToHeaders DescribeTrustedAdvisorChecks where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSSupport_20130415.DescribeTrustedAdvisorChecks" ::
+              Data.=# ( "AWSSupport_20130415.DescribeTrustedAdvisorChecks" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeTrustedAdvisorChecks where
+instance Data.ToJSON DescribeTrustedAdvisorChecks where
   toJSON DescribeTrustedAdvisorChecks' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("language" Core..= language)]
+          [Prelude.Just ("language" Data..= language)]
       )
 
-instance Core.ToPath DescribeTrustedAdvisorChecks where
+instance Data.ToPath DescribeTrustedAdvisorChecks where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTrustedAdvisorChecks where
+instance Data.ToQuery DescribeTrustedAdvisorChecks where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Information about the Trusted Advisor checks returned by the

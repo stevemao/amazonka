@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteKeyPair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,9 +28,9 @@ module Amazonka.EC2.DeleteKeyPair
     newDeleteKeyPair,
 
     -- * Request Lenses
+    deleteKeyPair_dryRun,
     deleteKeyPair_keyName,
     deleteKeyPair_keyPairId,
-    deleteKeyPair_dryRun,
 
     -- * Destructuring the Response
     DeleteKeyPairResponse (..),
@@ -39,23 +39,24 @@ module Amazonka.EC2.DeleteKeyPair
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteKeyPair' smart constructor.
 data DeleteKeyPair = DeleteKeyPair'
-  { -- | The name of the key pair.
-    keyName :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the key pair.
-    keyPairId :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
+  { -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the key pair.
+    keyName :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the key pair.
+    keyPairId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,22 +68,29 @@ data DeleteKeyPair = DeleteKeyPair'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'keyName', 'deleteKeyPair_keyName' - The name of the key pair.
---
--- 'keyPairId', 'deleteKeyPair_keyPairId' - The ID of the key pair.
---
 -- 'dryRun', 'deleteKeyPair_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'keyName', 'deleteKeyPair_keyName' - The name of the key pair.
+--
+-- 'keyPairId', 'deleteKeyPair_keyPairId' - The ID of the key pair.
 newDeleteKeyPair ::
   DeleteKeyPair
 newDeleteKeyPair =
   DeleteKeyPair'
-    { keyName = Prelude.Nothing,
-      keyPairId = Prelude.Nothing,
-      dryRun = Prelude.Nothing
+    { dryRun = Prelude.Nothing,
+      keyName = Prelude.Nothing,
+      keyPairId = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+deleteKeyPair_dryRun :: Lens.Lens' DeleteKeyPair (Prelude.Maybe Prelude.Bool)
+deleteKeyPair_dryRun = Lens.lens (\DeleteKeyPair' {dryRun} -> dryRun) (\s@DeleteKeyPair' {} a -> s {dryRun = a} :: DeleteKeyPair)
 
 -- | The name of the key pair.
 deleteKeyPair_keyName :: Lens.Lens' DeleteKeyPair (Prelude.Maybe Prelude.Text)
@@ -92,49 +100,43 @@ deleteKeyPair_keyName = Lens.lens (\DeleteKeyPair' {keyName} -> keyName) (\s@Del
 deleteKeyPair_keyPairId :: Lens.Lens' DeleteKeyPair (Prelude.Maybe Prelude.Text)
 deleteKeyPair_keyPairId = Lens.lens (\DeleteKeyPair' {keyPairId} -> keyPairId) (\s@DeleteKeyPair' {} a -> s {keyPairId = a} :: DeleteKeyPair)
 
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-deleteKeyPair_dryRun :: Lens.Lens' DeleteKeyPair (Prelude.Maybe Prelude.Bool)
-deleteKeyPair_dryRun = Lens.lens (\DeleteKeyPair' {dryRun} -> dryRun) (\s@DeleteKeyPair' {} a -> s {dryRun = a} :: DeleteKeyPair)
-
 instance Core.AWSRequest DeleteKeyPair where
   type
     AWSResponse DeleteKeyPair =
       DeleteKeyPairResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteKeyPairResponse'
 
 instance Prelude.Hashable DeleteKeyPair where
   hashWithSalt _salt DeleteKeyPair' {..} =
-    _salt `Prelude.hashWithSalt` keyName
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` keyName
       `Prelude.hashWithSalt` keyPairId
-      `Prelude.hashWithSalt` dryRun
 
 instance Prelude.NFData DeleteKeyPair where
   rnf DeleteKeyPair' {..} =
-    Prelude.rnf keyName
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf keyName
       `Prelude.seq` Prelude.rnf keyPairId
-      `Prelude.seq` Prelude.rnf dryRun
 
-instance Core.ToHeaders DeleteKeyPair where
+instance Data.ToHeaders DeleteKeyPair where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteKeyPair where
+instance Data.ToPath DeleteKeyPair where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteKeyPair where
+instance Data.ToQuery DeleteKeyPair where
   toQuery DeleteKeyPair' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteKeyPair" :: Prelude.ByteString),
+          Data.=: ("DeleteKeyPair" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "KeyName" Core.=: keyName,
-        "KeyPairId" Core.=: keyPairId,
-        "DryRun" Core.=: dryRun
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "KeyName" Data.=: keyName,
+        "KeyPairId" Data.=: keyPairId
       ]
 
 -- | /See:/ 'newDeleteKeyPairResponse' smart constructor.

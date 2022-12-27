@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ResourceLimits
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ResourceLimits where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the maximum number of training jobs and parallel training jobs
@@ -30,7 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 data ResourceLimits = ResourceLimits'
   { -- | The maximum number of training jobs that a hyperparameter tuning job can
     -- launch.
-    maxNumberOfTrainingJobs :: Prelude.Natural,
+    maxNumberOfTrainingJobs :: Prelude.Maybe Prelude.Natural,
     -- | The maximum number of concurrent training jobs that a hyperparameter
     -- tuning job can launch.
     maxParallelTrainingJobs :: Prelude.Natural
@@ -51,23 +52,19 @@ data ResourceLimits = ResourceLimits'
 -- 'maxParallelTrainingJobs', 'resourceLimits_maxParallelTrainingJobs' - The maximum number of concurrent training jobs that a hyperparameter
 -- tuning job can launch.
 newResourceLimits ::
-  -- | 'maxNumberOfTrainingJobs'
-  Prelude.Natural ->
   -- | 'maxParallelTrainingJobs'
   Prelude.Natural ->
   ResourceLimits
-newResourceLimits
-  pMaxNumberOfTrainingJobs_
-  pMaxParallelTrainingJobs_ =
-    ResourceLimits'
-      { maxNumberOfTrainingJobs =
-          pMaxNumberOfTrainingJobs_,
-        maxParallelTrainingJobs = pMaxParallelTrainingJobs_
-      }
+newResourceLimits pMaxParallelTrainingJobs_ =
+  ResourceLimits'
+    { maxNumberOfTrainingJobs =
+        Prelude.Nothing,
+      maxParallelTrainingJobs = pMaxParallelTrainingJobs_
+    }
 
 -- | The maximum number of training jobs that a hyperparameter tuning job can
 -- launch.
-resourceLimits_maxNumberOfTrainingJobs :: Lens.Lens' ResourceLimits Prelude.Natural
+resourceLimits_maxNumberOfTrainingJobs :: Lens.Lens' ResourceLimits (Prelude.Maybe Prelude.Natural)
 resourceLimits_maxNumberOfTrainingJobs = Lens.lens (\ResourceLimits' {maxNumberOfTrainingJobs} -> maxNumberOfTrainingJobs) (\s@ResourceLimits' {} a -> s {maxNumberOfTrainingJobs = a} :: ResourceLimits)
 
 -- | The maximum number of concurrent training jobs that a hyperparameter
@@ -75,14 +72,14 @@ resourceLimits_maxNumberOfTrainingJobs = Lens.lens (\ResourceLimits' {maxNumberO
 resourceLimits_maxParallelTrainingJobs :: Lens.Lens' ResourceLimits Prelude.Natural
 resourceLimits_maxParallelTrainingJobs = Lens.lens (\ResourceLimits' {maxParallelTrainingJobs} -> maxParallelTrainingJobs) (\s@ResourceLimits' {} a -> s {maxParallelTrainingJobs = a} :: ResourceLimits)
 
-instance Core.FromJSON ResourceLimits where
+instance Data.FromJSON ResourceLimits where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceLimits"
       ( \x ->
           ResourceLimits'
-            Prelude.<$> (x Core..: "MaxNumberOfTrainingJobs")
-            Prelude.<*> (x Core..: "MaxParallelTrainingJobs")
+            Prelude.<$> (x Data..:? "MaxNumberOfTrainingJobs")
+            Prelude.<*> (x Data..: "MaxParallelTrainingJobs")
       )
 
 instance Prelude.Hashable ResourceLimits where
@@ -96,17 +93,15 @@ instance Prelude.NFData ResourceLimits where
     Prelude.rnf maxNumberOfTrainingJobs
       `Prelude.seq` Prelude.rnf maxParallelTrainingJobs
 
-instance Core.ToJSON ResourceLimits where
+instance Data.ToJSON ResourceLimits where
   toJSON ResourceLimits' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just
-              ( "MaxNumberOfTrainingJobs"
-                  Core..= maxNumberOfTrainingJobs
-              ),
+          [ ("MaxNumberOfTrainingJobs" Data..=)
+              Prelude.<$> maxNumberOfTrainingJobs,
             Prelude.Just
               ( "MaxParallelTrainingJobs"
-                  Core..= maxParallelTrainingJobs
+                  Data..= maxParallelTrainingJobs
               )
           ]
       )

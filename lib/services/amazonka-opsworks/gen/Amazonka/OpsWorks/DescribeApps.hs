@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DescribeApps
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.OpsWorks.DescribeApps
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -102,12 +103,13 @@ describeApps_stackId = Lens.lens (\DescribeApps' {stackId} -> stackId) (\s@Descr
 
 instance Core.AWSRequest DescribeApps where
   type AWSResponse DescribeApps = DescribeAppsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAppsResponse'
-            Prelude.<$> (x Core..?> "Apps" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Apps" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,34 +123,34 @@ instance Prelude.NFData DescribeApps where
     Prelude.rnf appIds
       `Prelude.seq` Prelude.rnf stackId
 
-instance Core.ToHeaders DescribeApps where
+instance Data.ToHeaders DescribeApps where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DescribeApps" ::
+              Data.=# ( "OpsWorks_20130218.DescribeApps" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeApps where
+instance Data.ToJSON DescribeApps where
   toJSON DescribeApps' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AppIds" Core..=) Prelude.<$> appIds,
-            ("StackId" Core..=) Prelude.<$> stackId
+          [ ("AppIds" Data..=) Prelude.<$> appIds,
+            ("StackId" Data..=) Prelude.<$> stackId
           ]
       )
 
-instance Core.ToPath DescribeApps where
+instance Data.ToPath DescribeApps where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeApps where
+instance Data.ToQuery DescribeApps where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribeApps@ request.

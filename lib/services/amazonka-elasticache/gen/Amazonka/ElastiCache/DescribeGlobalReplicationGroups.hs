@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.DescribeGlobalReplicationGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,33 +31,34 @@ module Amazonka.ElastiCache.DescribeGlobalReplicationGroups
     newDescribeGlobalReplicationGroups,
 
     -- * Request Lenses
-    describeGlobalReplicationGroups_showMemberInfo,
+    describeGlobalReplicationGroups_globalReplicationGroupId,
     describeGlobalReplicationGroups_marker,
     describeGlobalReplicationGroups_maxRecords,
-    describeGlobalReplicationGroups_globalReplicationGroupId,
+    describeGlobalReplicationGroups_showMemberInfo,
 
     -- * Destructuring the Response
     DescribeGlobalReplicationGroupsResponse (..),
     newDescribeGlobalReplicationGroupsResponse,
 
     -- * Response Lenses
-    describeGlobalReplicationGroupsResponse_marker,
     describeGlobalReplicationGroupsResponse_globalReplicationGroups,
+    describeGlobalReplicationGroupsResponse_marker,
     describeGlobalReplicationGroupsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeGlobalReplicationGroups' smart constructor.
 data DescribeGlobalReplicationGroups = DescribeGlobalReplicationGroups'
-  { -- | Returns the list of members that comprise the Global datastore.
-    showMemberInfo :: Prelude.Maybe Prelude.Bool,
+  { -- | The name of the Global datastore
+    globalReplicationGroupId :: Prelude.Maybe Prelude.Text,
     -- | An optional marker returned from a prior request. Use this marker for
     -- pagination of results from this operation. If this parameter is
     -- specified, the response includes only records beyond the marker, up to
@@ -67,8 +68,8 @@ data DescribeGlobalReplicationGroups = DescribeGlobalReplicationGroups'
     -- records exist than the specified MaxRecords value, a marker is included
     -- in the response so that the remaining results can be retrieved.
     maxRecords :: Prelude.Maybe Prelude.Int,
-    -- | The name of the Global datastore
-    globalReplicationGroupId :: Prelude.Maybe Prelude.Text
+    -- | Returns the list of members that comprise the Global datastore.
+    showMemberInfo :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -80,7 +81,7 @@ data DescribeGlobalReplicationGroups = DescribeGlobalReplicationGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'showMemberInfo', 'describeGlobalReplicationGroups_showMemberInfo' - Returns the list of members that comprise the Global datastore.
+-- 'globalReplicationGroupId', 'describeGlobalReplicationGroups_globalReplicationGroupId' - The name of the Global datastore
 --
 -- 'marker', 'describeGlobalReplicationGroups_marker' - An optional marker returned from a prior request. Use this marker for
 -- pagination of results from this operation. If this parameter is
@@ -91,21 +92,21 @@ data DescribeGlobalReplicationGroups = DescribeGlobalReplicationGroups'
 -- records exist than the specified MaxRecords value, a marker is included
 -- in the response so that the remaining results can be retrieved.
 --
--- 'globalReplicationGroupId', 'describeGlobalReplicationGroups_globalReplicationGroupId' - The name of the Global datastore
+-- 'showMemberInfo', 'describeGlobalReplicationGroups_showMemberInfo' - Returns the list of members that comprise the Global datastore.
 newDescribeGlobalReplicationGroups ::
   DescribeGlobalReplicationGroups
 newDescribeGlobalReplicationGroups =
   DescribeGlobalReplicationGroups'
-    { showMemberInfo =
+    { globalReplicationGroupId =
         Prelude.Nothing,
       marker = Prelude.Nothing,
       maxRecords = Prelude.Nothing,
-      globalReplicationGroupId = Prelude.Nothing
+      showMemberInfo = Prelude.Nothing
     }
 
--- | Returns the list of members that comprise the Global datastore.
-describeGlobalReplicationGroups_showMemberInfo :: Lens.Lens' DescribeGlobalReplicationGroups (Prelude.Maybe Prelude.Bool)
-describeGlobalReplicationGroups_showMemberInfo = Lens.lens (\DescribeGlobalReplicationGroups' {showMemberInfo} -> showMemberInfo) (\s@DescribeGlobalReplicationGroups' {} a -> s {showMemberInfo = a} :: DescribeGlobalReplicationGroups)
+-- | The name of the Global datastore
+describeGlobalReplicationGroups_globalReplicationGroupId :: Lens.Lens' DescribeGlobalReplicationGroups (Prelude.Maybe Prelude.Text)
+describeGlobalReplicationGroups_globalReplicationGroupId = Lens.lens (\DescribeGlobalReplicationGroups' {globalReplicationGroupId} -> globalReplicationGroupId) (\s@DescribeGlobalReplicationGroups' {} a -> s {globalReplicationGroupId = a} :: DescribeGlobalReplicationGroups)
 
 -- | An optional marker returned from a prior request. Use this marker for
 -- pagination of results from this operation. If this parameter is
@@ -120,9 +121,9 @@ describeGlobalReplicationGroups_marker = Lens.lens (\DescribeGlobalReplicationGr
 describeGlobalReplicationGroups_maxRecords :: Lens.Lens' DescribeGlobalReplicationGroups (Prelude.Maybe Prelude.Int)
 describeGlobalReplicationGroups_maxRecords = Lens.lens (\DescribeGlobalReplicationGroups' {maxRecords} -> maxRecords) (\s@DescribeGlobalReplicationGroups' {} a -> s {maxRecords = a} :: DescribeGlobalReplicationGroups)
 
--- | The name of the Global datastore
-describeGlobalReplicationGroups_globalReplicationGroupId :: Lens.Lens' DescribeGlobalReplicationGroups (Prelude.Maybe Prelude.Text)
-describeGlobalReplicationGroups_globalReplicationGroupId = Lens.lens (\DescribeGlobalReplicationGroups' {globalReplicationGroupId} -> globalReplicationGroupId) (\s@DescribeGlobalReplicationGroups' {} a -> s {globalReplicationGroupId = a} :: DescribeGlobalReplicationGroups)
+-- | Returns the list of members that comprise the Global datastore.
+describeGlobalReplicationGroups_showMemberInfo :: Lens.Lens' DescribeGlobalReplicationGroups (Prelude.Maybe Prelude.Bool)
+describeGlobalReplicationGroups_showMemberInfo = Lens.lens (\DescribeGlobalReplicationGroups' {showMemberInfo} -> showMemberInfo) (\s@DescribeGlobalReplicationGroups' {} a -> s {showMemberInfo = a} :: DescribeGlobalReplicationGroups)
 
 instance
   Core.AWSPager
@@ -156,18 +157,19 @@ instance
   type
     AWSResponse DescribeGlobalReplicationGroups =
       DescribeGlobalReplicationGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeGlobalReplicationGroupsResult"
       ( \s h x ->
           DescribeGlobalReplicationGroupsResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> ( x Core..@? "GlobalReplicationGroups"
+            Prelude.<$> ( x Data..@? "GlobalReplicationGroups"
                             Core..!@ Prelude.mempty
                             Prelude.>>= Core.may
-                              (Core.parseXMLList "GlobalReplicationGroup")
+                              (Data.parseXMLList "GlobalReplicationGroup")
                         )
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -178,56 +180,57 @@ instance
   hashWithSalt
     _salt
     DescribeGlobalReplicationGroups' {..} =
-      _salt `Prelude.hashWithSalt` showMemberInfo
+      _salt
+        `Prelude.hashWithSalt` globalReplicationGroupId
         `Prelude.hashWithSalt` marker
         `Prelude.hashWithSalt` maxRecords
-        `Prelude.hashWithSalt` globalReplicationGroupId
+        `Prelude.hashWithSalt` showMemberInfo
 
 instance
   Prelude.NFData
     DescribeGlobalReplicationGroups
   where
   rnf DescribeGlobalReplicationGroups' {..} =
-    Prelude.rnf showMemberInfo
+    Prelude.rnf globalReplicationGroupId
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
-      `Prelude.seq` Prelude.rnf globalReplicationGroupId
+      `Prelude.seq` Prelude.rnf showMemberInfo
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeGlobalReplicationGroups
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeGlobalReplicationGroups where
+instance Data.ToPath DescribeGlobalReplicationGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeGlobalReplicationGroups where
+instance Data.ToQuery DescribeGlobalReplicationGroups where
   toQuery DescribeGlobalReplicationGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeGlobalReplicationGroups" ::
+          Data.=: ( "DescribeGlobalReplicationGroups" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "ShowMemberInfo" Core.=: showMemberInfo,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
         "GlobalReplicationGroupId"
-          Core.=: globalReplicationGroupId
+          Data.=: globalReplicationGroupId,
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "ShowMemberInfo" Data.=: showMemberInfo
       ]
 
 -- | /See:/ 'newDescribeGlobalReplicationGroupsResponse' smart constructor.
 data DescribeGlobalReplicationGroupsResponse = DescribeGlobalReplicationGroupsResponse'
-  { -- | An optional marker returned from a prior request. Use this marker for
+  { -- | Indicates the slot configuration and global identifier for each slice
+    -- group.
+    globalReplicationGroups :: Prelude.Maybe [GlobalReplicationGroup],
+    -- | An optional marker returned from a prior request. Use this marker for
     -- pagination of results from this operation. If this parameter is
     -- specified, the response includes only records beyond the marker, up to
     -- the value specified by MaxRecords. >
     marker :: Prelude.Maybe Prelude.Text,
-    -- | Indicates the slot configuration and global identifier for each slice
-    -- group.
-    globalReplicationGroups :: Prelude.Maybe [GlobalReplicationGroup],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -241,13 +244,13 @@ data DescribeGlobalReplicationGroupsResponse = DescribeGlobalReplicationGroupsRe
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'globalReplicationGroups', 'describeGlobalReplicationGroupsResponse_globalReplicationGroups' - Indicates the slot configuration and global identifier for each slice
+-- group.
+--
 -- 'marker', 'describeGlobalReplicationGroupsResponse_marker' - An optional marker returned from a prior request. Use this marker for
 -- pagination of results from this operation. If this parameter is
 -- specified, the response includes only records beyond the marker, up to
 -- the value specified by MaxRecords. >
---
--- 'globalReplicationGroups', 'describeGlobalReplicationGroupsResponse_globalReplicationGroups' - Indicates the slot configuration and global identifier for each slice
--- group.
 --
 -- 'httpStatus', 'describeGlobalReplicationGroupsResponse_httpStatus' - The response's http status code.
 newDescribeGlobalReplicationGroupsResponse ::
@@ -257,12 +260,16 @@ newDescribeGlobalReplicationGroupsResponse ::
 newDescribeGlobalReplicationGroupsResponse
   pHttpStatus_ =
     DescribeGlobalReplicationGroupsResponse'
-      { marker =
+      { globalReplicationGroups =
           Prelude.Nothing,
-        globalReplicationGroups =
-          Prelude.Nothing,
+        marker = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
+
+-- | Indicates the slot configuration and global identifier for each slice
+-- group.
+describeGlobalReplicationGroupsResponse_globalReplicationGroups :: Lens.Lens' DescribeGlobalReplicationGroupsResponse (Prelude.Maybe [GlobalReplicationGroup])
+describeGlobalReplicationGroupsResponse_globalReplicationGroups = Lens.lens (\DescribeGlobalReplicationGroupsResponse' {globalReplicationGroups} -> globalReplicationGroups) (\s@DescribeGlobalReplicationGroupsResponse' {} a -> s {globalReplicationGroups = a} :: DescribeGlobalReplicationGroupsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | An optional marker returned from a prior request. Use this marker for
 -- pagination of results from this operation. If this parameter is
@@ -270,11 +277,6 @@ newDescribeGlobalReplicationGroupsResponse
 -- the value specified by MaxRecords. >
 describeGlobalReplicationGroupsResponse_marker :: Lens.Lens' DescribeGlobalReplicationGroupsResponse (Prelude.Maybe Prelude.Text)
 describeGlobalReplicationGroupsResponse_marker = Lens.lens (\DescribeGlobalReplicationGroupsResponse' {marker} -> marker) (\s@DescribeGlobalReplicationGroupsResponse' {} a -> s {marker = a} :: DescribeGlobalReplicationGroupsResponse)
-
--- | Indicates the slot configuration and global identifier for each slice
--- group.
-describeGlobalReplicationGroupsResponse_globalReplicationGroups :: Lens.Lens' DescribeGlobalReplicationGroupsResponse (Prelude.Maybe [GlobalReplicationGroup])
-describeGlobalReplicationGroupsResponse_globalReplicationGroups = Lens.lens (\DescribeGlobalReplicationGroupsResponse' {globalReplicationGroups} -> globalReplicationGroups) (\s@DescribeGlobalReplicationGroupsResponse' {} a -> s {globalReplicationGroups = a} :: DescribeGlobalReplicationGroupsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeGlobalReplicationGroupsResponse_httpStatus :: Lens.Lens' DescribeGlobalReplicationGroupsResponse Prelude.Int
@@ -285,6 +287,6 @@ instance
     DescribeGlobalReplicationGroupsResponse
   where
   rnf DescribeGlobalReplicationGroupsResponse' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf globalReplicationGroups
+    Prelude.rnf globalReplicationGroups
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf httpStatus

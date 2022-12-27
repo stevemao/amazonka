@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.CancelAuditTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IoT.CancelAuditTask
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,7 +86,8 @@ instance Core.AWSRequest CancelAuditTask where
   type
     AWSResponse CancelAuditTask =
       CancelAuditTaskResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -100,18 +102,18 @@ instance Prelude.Hashable CancelAuditTask where
 instance Prelude.NFData CancelAuditTask where
   rnf CancelAuditTask' {..} = Prelude.rnf taskId
 
-instance Core.ToHeaders CancelAuditTask where
+instance Data.ToHeaders CancelAuditTask where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CancelAuditTask where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON CancelAuditTask where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath CancelAuditTask where
+instance Data.ToPath CancelAuditTask where
   toPath CancelAuditTask' {..} =
     Prelude.mconcat
-      ["/audit/tasks/", Core.toBS taskId, "/cancel"]
+      ["/audit/tasks/", Data.toBS taskId, "/cancel"]
 
-instance Core.ToQuery CancelAuditTask where
+instance Data.ToQuery CancelAuditTask where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCancelAuditTaskResponse' smart constructor.

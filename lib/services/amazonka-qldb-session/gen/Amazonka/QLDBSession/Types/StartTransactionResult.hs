@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QLDBSession.Types.StartTransactionResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QLDBSession.Types.StartTransactionResult where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QLDBSession.Types.TimingInformation
 
@@ -63,14 +64,14 @@ startTransactionResult_timingInformation = Lens.lens (\StartTransactionResult' {
 startTransactionResult_transactionId :: Lens.Lens' StartTransactionResult (Prelude.Maybe Prelude.Text)
 startTransactionResult_transactionId = Lens.lens (\StartTransactionResult' {transactionId} -> transactionId) (\s@StartTransactionResult' {} a -> s {transactionId = a} :: StartTransactionResult)
 
-instance Core.FromJSON StartTransactionResult where
+instance Data.FromJSON StartTransactionResult where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StartTransactionResult"
       ( \x ->
           StartTransactionResult'
-            Prelude.<$> (x Core..:? "TimingInformation")
-            Prelude.<*> (x Core..:? "TransactionId")
+            Prelude.<$> (x Data..:? "TimingInformation")
+            Prelude.<*> (x Data..:? "TransactionId")
       )
 
 instance Prelude.Hashable StartTransactionResult where

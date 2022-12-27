@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.GetBucketLifecycleConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -79,7 +79,8 @@ module Amazonka.S3.GetBucketLifecycleConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,8 +89,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newGetBucketLifecycleConfiguration' smart constructor.
 data GetBucketLifecycleConfiguration = GetBucketLifecycleConfiguration'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket for which to get the lifecycle information.
     bucket :: BucketName
@@ -105,8 +106,8 @@ data GetBucketLifecycleConfiguration = GetBucketLifecycleConfiguration'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'getBucketLifecycleConfiguration_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'getBucketLifecycleConfiguration_bucket' - The name of the bucket for which to get the lifecycle information.
 newGetBucketLifecycleConfiguration ::
@@ -121,8 +122,8 @@ newGetBucketLifecycleConfiguration pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 getBucketLifecycleConfiguration_expectedBucketOwner :: Lens.Lens' GetBucketLifecycleConfiguration (Prelude.Maybe Prelude.Text)
 getBucketLifecycleConfiguration_expectedBucketOwner = Lens.lens (\GetBucketLifecycleConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetBucketLifecycleConfiguration' {} a -> s {expectedBucketOwner = a} :: GetBucketLifecycleConfiguration)
 
@@ -137,14 +138,14 @@ instance
   type
     AWSResponse GetBucketLifecycleConfiguration =
       GetBucketLifecycleConfigurationResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetBucketLifecycleConfigurationResponse'
-            Prelude.<$> (Core.may (Core.parseXMLList "Rule") x)
+            Prelude.<$> (Core.may (Data.parseXMLList "Rule") x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -167,20 +168,20 @@ instance
       `Prelude.seq` Prelude.rnf bucket
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetBucketLifecycleConfiguration
   where
   toHeaders GetBucketLifecycleConfiguration' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath GetBucketLifecycleConfiguration where
+instance Data.ToPath GetBucketLifecycleConfiguration where
   toPath GetBucketLifecycleConfiguration' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery GetBucketLifecycleConfiguration where
+instance Data.ToQuery GetBucketLifecycleConfiguration where
   toQuery =
     Prelude.const (Prelude.mconcat ["lifecycle"])
 

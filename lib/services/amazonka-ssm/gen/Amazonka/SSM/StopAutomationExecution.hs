@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.StopAutomationExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.SSM.StopAutomationExecution
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ instance Core.AWSRequest StopAutomationExecution where
   type
     AWSResponse StopAutomationExecution =
       StopAutomationExecutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -109,37 +111,37 @@ instance Prelude.NFData StopAutomationExecution where
     Prelude.rnf type'
       `Prelude.seq` Prelude.rnf automationExecutionId
 
-instance Core.ToHeaders StopAutomationExecution where
+instance Data.ToHeaders StopAutomationExecution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.StopAutomationExecution" ::
+              Data.=# ( "AmazonSSM.StopAutomationExecution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopAutomationExecution where
+instance Data.ToJSON StopAutomationExecution where
   toJSON StopAutomationExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Type" Core..=) Prelude.<$> type',
+          [ ("Type" Data..=) Prelude.<$> type',
             Prelude.Just
               ( "AutomationExecutionId"
-                  Core..= automationExecutionId
+                  Data..= automationExecutionId
               )
           ]
       )
 
-instance Core.ToPath StopAutomationExecution where
+instance Data.ToPath StopAutomationExecution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopAutomationExecution where
+instance Data.ToQuery StopAutomationExecution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopAutomationExecutionResponse' smart constructor.

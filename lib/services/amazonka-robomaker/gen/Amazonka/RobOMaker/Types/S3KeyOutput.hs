@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.Types.S3KeyOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RobOMaker.Types.S3KeyOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about S3 keys.
@@ -61,13 +62,13 @@ s3KeyOutput_etag = Lens.lens (\S3KeyOutput' {etag} -> etag) (\s@S3KeyOutput' {} 
 s3KeyOutput_s3Key :: Lens.Lens' S3KeyOutput (Prelude.Maybe Prelude.Text)
 s3KeyOutput_s3Key = Lens.lens (\S3KeyOutput' {s3Key} -> s3Key) (\s@S3KeyOutput' {} a -> s {s3Key = a} :: S3KeyOutput)
 
-instance Core.FromJSON S3KeyOutput where
+instance Data.FromJSON S3KeyOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3KeyOutput"
       ( \x ->
           S3KeyOutput'
-            Prelude.<$> (x Core..:? "etag") Prelude.<*> (x Core..:? "s3Key")
+            Prelude.<$> (x Data..:? "etag") Prelude.<*> (x Data..:? "s3Key")
       )
 
 instance Prelude.Hashable S3KeyOutput where

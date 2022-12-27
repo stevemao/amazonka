@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.ReplicaGlobalSecondaryIndexDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,21 @@
 module Amazonka.DynamoDB.Types.ReplicaGlobalSecondaryIndexDescription where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.ProvisionedThroughputOverride
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the properties of a replica global secondary index.
 --
 -- /See:/ 'newReplicaGlobalSecondaryIndexDescription' smart constructor.
 data ReplicaGlobalSecondaryIndexDescription = ReplicaGlobalSecondaryIndexDescription'
-  { -- | If not described, uses the source table GSI\'s read capacity settings.
-    provisionedThroughputOverride :: Prelude.Maybe ProvisionedThroughputOverride,
-    -- | The name of the global secondary index.
-    indexName :: Prelude.Maybe Prelude.Text
+  { -- | The name of the global secondary index.
+    indexName :: Prelude.Maybe Prelude.Text,
+    -- | If not described, uses the source table GSI\'s read capacity settings.
+    provisionedThroughputOverride :: Prelude.Maybe ProvisionedThroughputOverride
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,37 +46,38 @@ data ReplicaGlobalSecondaryIndexDescription = ReplicaGlobalSecondaryIndexDescrip
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'provisionedThroughputOverride', 'replicaGlobalSecondaryIndexDescription_provisionedThroughputOverride' - If not described, uses the source table GSI\'s read capacity settings.
---
 -- 'indexName', 'replicaGlobalSecondaryIndexDescription_indexName' - The name of the global secondary index.
+--
+-- 'provisionedThroughputOverride', 'replicaGlobalSecondaryIndexDescription_provisionedThroughputOverride' - If not described, uses the source table GSI\'s read capacity settings.
 newReplicaGlobalSecondaryIndexDescription ::
   ReplicaGlobalSecondaryIndexDescription
 newReplicaGlobalSecondaryIndexDescription =
   ReplicaGlobalSecondaryIndexDescription'
-    { provisionedThroughputOverride =
+    { indexName =
         Prelude.Nothing,
-      indexName = Prelude.Nothing
+      provisionedThroughputOverride =
+        Prelude.Nothing
     }
-
--- | If not described, uses the source table GSI\'s read capacity settings.
-replicaGlobalSecondaryIndexDescription_provisionedThroughputOverride :: Lens.Lens' ReplicaGlobalSecondaryIndexDescription (Prelude.Maybe ProvisionedThroughputOverride)
-replicaGlobalSecondaryIndexDescription_provisionedThroughputOverride = Lens.lens (\ReplicaGlobalSecondaryIndexDescription' {provisionedThroughputOverride} -> provisionedThroughputOverride) (\s@ReplicaGlobalSecondaryIndexDescription' {} a -> s {provisionedThroughputOverride = a} :: ReplicaGlobalSecondaryIndexDescription)
 
 -- | The name of the global secondary index.
 replicaGlobalSecondaryIndexDescription_indexName :: Lens.Lens' ReplicaGlobalSecondaryIndexDescription (Prelude.Maybe Prelude.Text)
 replicaGlobalSecondaryIndexDescription_indexName = Lens.lens (\ReplicaGlobalSecondaryIndexDescription' {indexName} -> indexName) (\s@ReplicaGlobalSecondaryIndexDescription' {} a -> s {indexName = a} :: ReplicaGlobalSecondaryIndexDescription)
 
+-- | If not described, uses the source table GSI\'s read capacity settings.
+replicaGlobalSecondaryIndexDescription_provisionedThroughputOverride :: Lens.Lens' ReplicaGlobalSecondaryIndexDescription (Prelude.Maybe ProvisionedThroughputOverride)
+replicaGlobalSecondaryIndexDescription_provisionedThroughputOverride = Lens.lens (\ReplicaGlobalSecondaryIndexDescription' {provisionedThroughputOverride} -> provisionedThroughputOverride) (\s@ReplicaGlobalSecondaryIndexDescription' {} a -> s {provisionedThroughputOverride = a} :: ReplicaGlobalSecondaryIndexDescription)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     ReplicaGlobalSecondaryIndexDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReplicaGlobalSecondaryIndexDescription"
       ( \x ->
           ReplicaGlobalSecondaryIndexDescription'
-            Prelude.<$> (x Core..:? "ProvisionedThroughputOverride")
-            Prelude.<*> (x Core..:? "IndexName")
+            Prelude.<$> (x Data..:? "IndexName")
+            Prelude.<*> (x Data..:? "ProvisionedThroughputOverride")
       )
 
 instance
@@ -84,14 +87,13 @@ instance
   hashWithSalt
     _salt
     ReplicaGlobalSecondaryIndexDescription' {..} =
-      _salt
+      _salt `Prelude.hashWithSalt` indexName
         `Prelude.hashWithSalt` provisionedThroughputOverride
-        `Prelude.hashWithSalt` indexName
 
 instance
   Prelude.NFData
     ReplicaGlobalSecondaryIndexDescription
   where
   rnf ReplicaGlobalSecondaryIndexDescription' {..} =
-    Prelude.rnf provisionedThroughputOverride
-      `Prelude.seq` Prelude.rnf indexName
+    Prelude.rnf indexName
+      `Prelude.seq` Prelude.rnf provisionedThroughputOverride

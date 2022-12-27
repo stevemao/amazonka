@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QLDBSession.Types.TimingInformation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QLDBSession.Types.TimingInformation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains server-side performance information for a command. Amazon QLDB
@@ -58,13 +59,13 @@ newTimingInformation =
 timingInformation_processingTimeMilliseconds :: Lens.Lens' TimingInformation (Prelude.Maybe Prelude.Integer)
 timingInformation_processingTimeMilliseconds = Lens.lens (\TimingInformation' {processingTimeMilliseconds} -> processingTimeMilliseconds) (\s@TimingInformation' {} a -> s {processingTimeMilliseconds = a} :: TimingInformation)
 
-instance Core.FromJSON TimingInformation where
+instance Data.FromJSON TimingInformation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TimingInformation"
       ( \x ->
           TimingInformation'
-            Prelude.<$> (x Core..:? "ProcessingTimeMilliseconds")
+            Prelude.<$> (x Data..:? "ProcessingTimeMilliseconds")
       )
 
 instance Prelude.Hashable TimingInformation where

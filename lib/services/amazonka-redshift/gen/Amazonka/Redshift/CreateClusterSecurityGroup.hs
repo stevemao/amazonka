@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.CreateClusterSecurityGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.Redshift.CreateClusterSecurityGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -147,13 +148,14 @@ instance Core.AWSRequest CreateClusterSecurityGroup where
   type
     AWSResponse CreateClusterSecurityGroup =
       CreateClusterSecurityGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateClusterSecurityGroupResult"
       ( \s h x ->
           CreateClusterSecurityGroupResponse'
-            Prelude.<$> (x Core..@? "ClusterSecurityGroup")
+            Prelude.<$> (x Data..@? "ClusterSecurityGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -169,25 +171,25 @@ instance Prelude.NFData CreateClusterSecurityGroup where
       `Prelude.seq` Prelude.rnf clusterSecurityGroupName
       `Prelude.seq` Prelude.rnf description
 
-instance Core.ToHeaders CreateClusterSecurityGroup where
+instance Data.ToHeaders CreateClusterSecurityGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateClusterSecurityGroup where
+instance Data.ToPath CreateClusterSecurityGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateClusterSecurityGroup where
+instance Data.ToQuery CreateClusterSecurityGroup where
   toQuery CreateClusterSecurityGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateClusterSecurityGroup" :: Prelude.ByteString),
+          Data.=: ("CreateClusterSecurityGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
         "ClusterSecurityGroupName"
-          Core.=: clusterSecurityGroupName,
-        "Description" Core.=: description
+          Data.=: clusterSecurityGroupName,
+        "Description" Data.=: description
       ]
 
 -- | /See:/ 'newCreateClusterSecurityGroupResponse' smart constructor.

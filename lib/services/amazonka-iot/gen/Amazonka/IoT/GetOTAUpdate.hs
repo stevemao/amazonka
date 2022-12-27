@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.GetOTAUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IoT.GetOTAUpdate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,12 +80,13 @@ getOTAUpdate_otaUpdateId = Lens.lens (\GetOTAUpdate' {otaUpdateId} -> otaUpdateI
 
 instance Core.AWSRequest GetOTAUpdate where
   type AWSResponse GetOTAUpdate = GetOTAUpdateResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetOTAUpdateResponse'
-            Prelude.<$> (x Core..?> "otaUpdateInfo")
+            Prelude.<$> (x Data..?> "otaUpdateInfo")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,15 +97,15 @@ instance Prelude.Hashable GetOTAUpdate where
 instance Prelude.NFData GetOTAUpdate where
   rnf GetOTAUpdate' {..} = Prelude.rnf otaUpdateId
 
-instance Core.ToHeaders GetOTAUpdate where
+instance Data.ToHeaders GetOTAUpdate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetOTAUpdate where
+instance Data.ToPath GetOTAUpdate where
   toPath GetOTAUpdate' {..} =
     Prelude.mconcat
-      ["/otaUpdates/", Core.toBS otaUpdateId]
+      ["/otaUpdates/", Data.toBS otaUpdateId]
 
-instance Core.ToQuery GetOTAUpdate where
+instance Data.ToQuery GetOTAUpdate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetOTAUpdateResponse' smart constructor.

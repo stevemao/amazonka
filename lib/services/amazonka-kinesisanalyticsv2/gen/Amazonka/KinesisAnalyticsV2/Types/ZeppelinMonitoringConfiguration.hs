@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.ZeppelinMonitoringConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.ZeppelinMonitoringConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.LogLevel
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes configuration parameters for Amazon CloudWatch logging for a
@@ -75,9 +76,9 @@ instance
   rnf ZeppelinMonitoringConfiguration' {..} =
     Prelude.rnf logLevel
 
-instance Core.ToJSON ZeppelinMonitoringConfiguration where
+instance Data.ToJSON ZeppelinMonitoringConfiguration where
   toJSON ZeppelinMonitoringConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("LogLevel" Core..= logLevel)]
+          [Prelude.Just ("LogLevel" Data..= logLevel)]
       )

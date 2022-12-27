@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.Types.ExcludedRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAFRegional.Types.ExcludedRule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This is __AWS WAF Classic__ documentation. For more information, see
@@ -63,12 +64,12 @@ newExcludedRule pRuleId_ =
 excludedRule_ruleId :: Lens.Lens' ExcludedRule Prelude.Text
 excludedRule_ruleId = Lens.lens (\ExcludedRule' {ruleId} -> ruleId) (\s@ExcludedRule' {} a -> s {ruleId = a} :: ExcludedRule)
 
-instance Core.FromJSON ExcludedRule where
+instance Data.FromJSON ExcludedRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExcludedRule"
       ( \x ->
-          ExcludedRule' Prelude.<$> (x Core..: "RuleId")
+          ExcludedRule' Prelude.<$> (x Data..: "RuleId")
       )
 
 instance Prelude.Hashable ExcludedRule where
@@ -78,9 +79,9 @@ instance Prelude.Hashable ExcludedRule where
 instance Prelude.NFData ExcludedRule where
   rnf ExcludedRule' {..} = Prelude.rnf ruleId
 
-instance Core.ToJSON ExcludedRule where
+instance Data.ToJSON ExcludedRule where
   toJSON ExcludedRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("RuleId" Core..= ruleId)]
+          [Prelude.Just ("RuleId" Data..= ruleId)]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.DeleteDatasetContent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,9 @@ module Amazonka.IoTAnalytics.DeleteDatasetContent
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,7 +95,8 @@ instance Core.AWSRequest DeleteDatasetContent where
   type
     AWSResponse DeleteDatasetContent =
       DeleteDatasetContentResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteDatasetContentResponse'
 
@@ -108,17 +110,17 @@ instance Prelude.NFData DeleteDatasetContent where
     Prelude.rnf versionId
       `Prelude.seq` Prelude.rnf datasetName
 
-instance Core.ToHeaders DeleteDatasetContent where
+instance Data.ToHeaders DeleteDatasetContent where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDatasetContent where
+instance Data.ToPath DeleteDatasetContent where
   toPath DeleteDatasetContent' {..} =
     Prelude.mconcat
-      ["/datasets/", Core.toBS datasetName, "/content"]
+      ["/datasets/", Data.toBS datasetName, "/content"]
 
-instance Core.ToQuery DeleteDatasetContent where
+instance Data.ToQuery DeleteDatasetContent where
   toQuery DeleteDatasetContent' {..} =
-    Prelude.mconcat ["versionId" Core.=: versionId]
+    Prelude.mconcat ["versionId" Data.=: versionId]
 
 -- | /See:/ 'newDeleteDatasetContentResponse' smart constructor.
 data DeleteDatasetContentResponse = DeleteDatasetContentResponse'

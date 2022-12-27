@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Translate.Types.EncryptionKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Translate.Types.EncryptionKey where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Translate.Types.EncryptionKeyType
 
@@ -28,11 +29,11 @@ import Amazonka.Translate.Types.EncryptionKeyType
 --
 -- /See:/ 'newEncryptionKey' smart constructor.
 data EncryptionKey = EncryptionKey'
-  { -- | The type of encryption key used by Amazon Translate to encrypt custom
-    -- terminologies.
+  { -- | The type of encryption key used by Amazon Translate to encrypt this
+    -- object.
     type' :: EncryptionKeyType,
     -- | The Amazon Resource Name (ARN) of the encryption key being used to
-    -- encrypt the custom terminology.
+    -- encrypt this object.
     id :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -45,11 +46,11 @@ data EncryptionKey = EncryptionKey'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'type'', 'encryptionKey_type' - The type of encryption key used by Amazon Translate to encrypt custom
--- terminologies.
+-- 'type'', 'encryptionKey_type' - The type of encryption key used by Amazon Translate to encrypt this
+-- object.
 --
 -- 'id', 'encryptionKey_id' - The Amazon Resource Name (ARN) of the encryption key being used to
--- encrypt the custom terminology.
+-- encrypt this object.
 newEncryptionKey ::
   -- | 'type''
   EncryptionKeyType ->
@@ -59,23 +60,23 @@ newEncryptionKey ::
 newEncryptionKey pType_ pId_ =
   EncryptionKey' {type' = pType_, id = pId_}
 
--- | The type of encryption key used by Amazon Translate to encrypt custom
--- terminologies.
+-- | The type of encryption key used by Amazon Translate to encrypt this
+-- object.
 encryptionKey_type :: Lens.Lens' EncryptionKey EncryptionKeyType
 encryptionKey_type = Lens.lens (\EncryptionKey' {type'} -> type') (\s@EncryptionKey' {} a -> s {type' = a} :: EncryptionKey)
 
 -- | The Amazon Resource Name (ARN) of the encryption key being used to
--- encrypt the custom terminology.
+-- encrypt this object.
 encryptionKey_id :: Lens.Lens' EncryptionKey Prelude.Text
 encryptionKey_id = Lens.lens (\EncryptionKey' {id} -> id) (\s@EncryptionKey' {} a -> s {id = a} :: EncryptionKey)
 
-instance Core.FromJSON EncryptionKey where
+instance Data.FromJSON EncryptionKey where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EncryptionKey"
       ( \x ->
           EncryptionKey'
-            Prelude.<$> (x Core..: "Type") Prelude.<*> (x Core..: "Id")
+            Prelude.<$> (x Data..: "Type") Prelude.<*> (x Data..: "Id")
       )
 
 instance Prelude.Hashable EncryptionKey where
@@ -87,11 +88,11 @@ instance Prelude.NFData EncryptionKey where
   rnf EncryptionKey' {..} =
     Prelude.rnf type' `Prelude.seq` Prelude.rnf id
 
-instance Core.ToJSON EncryptionKey where
+instance Data.ToJSON EncryptionKey where
   toJSON EncryptionKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Type" Core..= type'),
-            Prelude.Just ("Id" Core..= id)
+          [ Prelude.Just ("Type" Data..= type'),
+            Prelude.Just ("Id" Data..= id)
           ]
       )

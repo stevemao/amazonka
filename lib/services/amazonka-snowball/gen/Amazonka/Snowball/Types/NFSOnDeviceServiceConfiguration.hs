@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.Types.NFSOnDeviceServiceConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,18 @@
 module Amazonka.Snowball.Types.NFSOnDeviceServiceConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Snowball.Types.StorageUnit
 
--- | An object that represents metadata and configuration settings for NFS
--- service on an AWS Snow Family device.
+-- | An object that represents the metadata and configuration settings for
+-- the NFS (Network File System) service on an Amazon Web Services Snow
+-- Family device.
 --
 -- /See:/ 'newNFSOnDeviceServiceConfiguration' smart constructor.
 data NFSOnDeviceServiceConfiguration = NFSOnDeviceServiceConfiguration'
-  { -- | The maximum NFS storage for one Snowball Family device.
+  { -- | The maximum NFS storage for one Snow Family device.
     storageLimit :: Prelude.Maybe Prelude.Natural,
     -- | The scale unit of the NFS storage on the device.
     --
@@ -46,7 +48,7 @@ data NFSOnDeviceServiceConfiguration = NFSOnDeviceServiceConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'storageLimit', 'nFSOnDeviceServiceConfiguration_storageLimit' - The maximum NFS storage for one Snowball Family device.
+-- 'storageLimit', 'nFSOnDeviceServiceConfiguration_storageLimit' - The maximum NFS storage for one Snow Family device.
 --
 -- 'storageUnit', 'nFSOnDeviceServiceConfiguration_storageUnit' - The scale unit of the NFS storage on the device.
 --
@@ -60,7 +62,7 @@ newNFSOnDeviceServiceConfiguration =
       storageUnit = Prelude.Nothing
     }
 
--- | The maximum NFS storage for one Snowball Family device.
+-- | The maximum NFS storage for one Snow Family device.
 nFSOnDeviceServiceConfiguration_storageLimit :: Lens.Lens' NFSOnDeviceServiceConfiguration (Prelude.Maybe Prelude.Natural)
 nFSOnDeviceServiceConfiguration_storageLimit = Lens.lens (\NFSOnDeviceServiceConfiguration' {storageLimit} -> storageLimit) (\s@NFSOnDeviceServiceConfiguration' {} a -> s {storageLimit = a} :: NFSOnDeviceServiceConfiguration)
 
@@ -71,16 +73,16 @@ nFSOnDeviceServiceConfiguration_storageUnit :: Lens.Lens' NFSOnDeviceServiceConf
 nFSOnDeviceServiceConfiguration_storageUnit = Lens.lens (\NFSOnDeviceServiceConfiguration' {storageUnit} -> storageUnit) (\s@NFSOnDeviceServiceConfiguration' {} a -> s {storageUnit = a} :: NFSOnDeviceServiceConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     NFSOnDeviceServiceConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NFSOnDeviceServiceConfiguration"
       ( \x ->
           NFSOnDeviceServiceConfiguration'
-            Prelude.<$> (x Core..:? "StorageLimit")
-            Prelude.<*> (x Core..:? "StorageUnit")
+            Prelude.<$> (x Data..:? "StorageLimit")
+            Prelude.<*> (x Data..:? "StorageUnit")
       )
 
 instance
@@ -101,11 +103,11 @@ instance
     Prelude.rnf storageLimit
       `Prelude.seq` Prelude.rnf storageUnit
 
-instance Core.ToJSON NFSOnDeviceServiceConfiguration where
+instance Data.ToJSON NFSOnDeviceServiceConfiguration where
   toJSON NFSOnDeviceServiceConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StorageLimit" Core..=) Prelude.<$> storageLimit,
-            ("StorageUnit" Core..=) Prelude.<$> storageUnit
+          [ ("StorageLimit" Data..=) Prelude.<$> storageLimit,
+            ("StorageUnit" Data..=) Prelude.<$> storageUnit
           ]
       )

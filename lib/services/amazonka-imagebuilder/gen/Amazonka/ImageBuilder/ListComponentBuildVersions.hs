@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.ListComponentBuildVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,8 @@ module Amazonka.ImageBuilder.ListComponentBuildVersions
     newListComponentBuildVersions,
 
     -- * Request Lenses
-    listComponentBuildVersions_nextToken,
     listComponentBuildVersions_maxResults,
+    listComponentBuildVersions_nextToken,
     listComponentBuildVersions_componentVersionArn,
 
     -- * Destructuring the Response
@@ -47,27 +47,28 @@ module Amazonka.ImageBuilder.ListComponentBuildVersions
     newListComponentBuildVersionsResponse,
 
     -- * Response Lenses
-    listComponentBuildVersionsResponse_requestId,
-    listComponentBuildVersionsResponse_nextToken,
     listComponentBuildVersionsResponse_componentSummaryList,
+    listComponentBuildVersionsResponse_nextToken,
+    listComponentBuildVersionsResponse_requestId,
     listComponentBuildVersionsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListComponentBuildVersions' smart constructor.
 data ListComponentBuildVersions = ListComponentBuildVersions'
-  { -- | A token to specify where to start paginating. This is the NextToken from
+  { -- | The maximum items to return in a request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token to specify where to start paginating. This is the NextToken from
     -- a previously truncated response.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum items to return in a request.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The component version Amazon Resource Name (ARN) whose versions you want
     -- to list.
     componentVersionArn :: Prelude.Text
@@ -82,10 +83,10 @@ data ListComponentBuildVersions = ListComponentBuildVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listComponentBuildVersions_maxResults' - The maximum items to return in a request.
+--
 -- 'nextToken', 'listComponentBuildVersions_nextToken' - A token to specify where to start paginating. This is the NextToken from
 -- a previously truncated response.
---
--- 'maxResults', 'listComponentBuildVersions_maxResults' - The maximum items to return in a request.
 --
 -- 'componentVersionArn', 'listComponentBuildVersions_componentVersionArn' - The component version Amazon Resource Name (ARN) whose versions you want
 -- to list.
@@ -95,20 +96,20 @@ newListComponentBuildVersions ::
   ListComponentBuildVersions
 newListComponentBuildVersions pComponentVersionArn_ =
   ListComponentBuildVersions'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       componentVersionArn = pComponentVersionArn_
     }
+
+-- | The maximum items to return in a request.
+listComponentBuildVersions_maxResults :: Lens.Lens' ListComponentBuildVersions (Prelude.Maybe Prelude.Natural)
+listComponentBuildVersions_maxResults = Lens.lens (\ListComponentBuildVersions' {maxResults} -> maxResults) (\s@ListComponentBuildVersions' {} a -> s {maxResults = a} :: ListComponentBuildVersions)
 
 -- | A token to specify where to start paginating. This is the NextToken from
 -- a previously truncated response.
 listComponentBuildVersions_nextToken :: Lens.Lens' ListComponentBuildVersions (Prelude.Maybe Prelude.Text)
 listComponentBuildVersions_nextToken = Lens.lens (\ListComponentBuildVersions' {nextToken} -> nextToken) (\s@ListComponentBuildVersions' {} a -> s {nextToken = a} :: ListComponentBuildVersions)
-
--- | The maximum items to return in a request.
-listComponentBuildVersions_maxResults :: Lens.Lens' ListComponentBuildVersions (Prelude.Maybe Prelude.Natural)
-listComponentBuildVersions_maxResults = Lens.lens (\ListComponentBuildVersions' {maxResults} -> maxResults) (\s@ListComponentBuildVersions' {} a -> s {maxResults = a} :: ListComponentBuildVersions)
 
 -- | The component version Amazon Resource Name (ARN) whose versions you want
 -- to list.
@@ -119,70 +120,71 @@ instance Core.AWSRequest ListComponentBuildVersions where
   type
     AWSResponse ListComponentBuildVersions =
       ListComponentBuildVersionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListComponentBuildVersionsResponse'
-            Prelude.<$> (x Core..?> "requestId")
-            Prelude.<*> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "componentSummaryList"
+            Prelude.<$> ( x Data..?> "componentSummaryList"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "requestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListComponentBuildVersions where
   hashWithSalt _salt ListComponentBuildVersions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` componentVersionArn
 
 instance Prelude.NFData ListComponentBuildVersions where
   rnf ListComponentBuildVersions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf componentVersionArn
 
-instance Core.ToHeaders ListComponentBuildVersions where
+instance Data.ToHeaders ListComponentBuildVersions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListComponentBuildVersions where
+instance Data.ToJSON ListComponentBuildVersions where
   toJSON ListComponentBuildVersions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("componentVersionArn" Core..= componentVersionArn)
+              ("componentVersionArn" Data..= componentVersionArn)
           ]
       )
 
-instance Core.ToPath ListComponentBuildVersions where
+instance Data.ToPath ListComponentBuildVersions where
   toPath = Prelude.const "/ListComponentBuildVersions"
 
-instance Core.ToQuery ListComponentBuildVersions where
+instance Data.ToQuery ListComponentBuildVersions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListComponentBuildVersionsResponse' smart constructor.
 data ListComponentBuildVersionsResponse = ListComponentBuildVersionsResponse'
-  { -- | The request ID that uniquely identifies this request.
-    requestId :: Prelude.Maybe Prelude.Text,
+  { -- | The list of component summaries for the specified semantic version.
+    componentSummaryList :: Prelude.Maybe [ComponentSummary],
     -- | The next token used for paginated responses. When this is not empty,
     -- there are additional elements that the service has not included in this
     -- request. Use this token with the next request to retrieve additional
     -- objects.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The list of component summaries for the specified semantic version.
-    componentSummaryList :: Prelude.Maybe [ComponentSummary],
+    -- | The request ID that uniquely identifies this request.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -196,14 +198,14 @@ data ListComponentBuildVersionsResponse = ListComponentBuildVersionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'listComponentBuildVersionsResponse_requestId' - The request ID that uniquely identifies this request.
+-- 'componentSummaryList', 'listComponentBuildVersionsResponse_componentSummaryList' - The list of component summaries for the specified semantic version.
 --
 -- 'nextToken', 'listComponentBuildVersionsResponse_nextToken' - The next token used for paginated responses. When this is not empty,
 -- there are additional elements that the service has not included in this
 -- request. Use this token with the next request to retrieve additional
 -- objects.
 --
--- 'componentSummaryList', 'listComponentBuildVersionsResponse_componentSummaryList' - The list of component summaries for the specified semantic version.
+-- 'requestId', 'listComponentBuildVersionsResponse_requestId' - The request ID that uniquely identifies this request.
 --
 -- 'httpStatus', 'listComponentBuildVersionsResponse_httpStatus' - The response's http status code.
 newListComponentBuildVersionsResponse ::
@@ -212,16 +214,16 @@ newListComponentBuildVersionsResponse ::
   ListComponentBuildVersionsResponse
 newListComponentBuildVersionsResponse pHttpStatus_ =
   ListComponentBuildVersionsResponse'
-    { requestId =
+    { componentSummaryList =
         Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      componentSummaryList = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The request ID that uniquely identifies this request.
-listComponentBuildVersionsResponse_requestId :: Lens.Lens' ListComponentBuildVersionsResponse (Prelude.Maybe Prelude.Text)
-listComponentBuildVersionsResponse_requestId = Lens.lens (\ListComponentBuildVersionsResponse' {requestId} -> requestId) (\s@ListComponentBuildVersionsResponse' {} a -> s {requestId = a} :: ListComponentBuildVersionsResponse)
+-- | The list of component summaries for the specified semantic version.
+listComponentBuildVersionsResponse_componentSummaryList :: Lens.Lens' ListComponentBuildVersionsResponse (Prelude.Maybe [ComponentSummary])
+listComponentBuildVersionsResponse_componentSummaryList = Lens.lens (\ListComponentBuildVersionsResponse' {componentSummaryList} -> componentSummaryList) (\s@ListComponentBuildVersionsResponse' {} a -> s {componentSummaryList = a} :: ListComponentBuildVersionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The next token used for paginated responses. When this is not empty,
 -- there are additional elements that the service has not included in this
@@ -230,9 +232,9 @@ listComponentBuildVersionsResponse_requestId = Lens.lens (\ListComponentBuildVer
 listComponentBuildVersionsResponse_nextToken :: Lens.Lens' ListComponentBuildVersionsResponse (Prelude.Maybe Prelude.Text)
 listComponentBuildVersionsResponse_nextToken = Lens.lens (\ListComponentBuildVersionsResponse' {nextToken} -> nextToken) (\s@ListComponentBuildVersionsResponse' {} a -> s {nextToken = a} :: ListComponentBuildVersionsResponse)
 
--- | The list of component summaries for the specified semantic version.
-listComponentBuildVersionsResponse_componentSummaryList :: Lens.Lens' ListComponentBuildVersionsResponse (Prelude.Maybe [ComponentSummary])
-listComponentBuildVersionsResponse_componentSummaryList = Lens.lens (\ListComponentBuildVersionsResponse' {componentSummaryList} -> componentSummaryList) (\s@ListComponentBuildVersionsResponse' {} a -> s {componentSummaryList = a} :: ListComponentBuildVersionsResponse) Prelude.. Lens.mapping Lens.coerced
+-- | The request ID that uniquely identifies this request.
+listComponentBuildVersionsResponse_requestId :: Lens.Lens' ListComponentBuildVersionsResponse (Prelude.Maybe Prelude.Text)
+listComponentBuildVersionsResponse_requestId = Lens.lens (\ListComponentBuildVersionsResponse' {requestId} -> requestId) (\s@ListComponentBuildVersionsResponse' {} a -> s {requestId = a} :: ListComponentBuildVersionsResponse)
 
 -- | The response's http status code.
 listComponentBuildVersionsResponse_httpStatus :: Lens.Lens' ListComponentBuildVersionsResponse Prelude.Int
@@ -243,7 +245,7 @@ instance
     ListComponentBuildVersionsResponse
   where
   rnf ListComponentBuildVersionsResponse' {..} =
-    Prelude.rnf requestId
+    Prelude.rnf componentSummaryList
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf componentSummaryList
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf httpStatus

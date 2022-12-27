@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Config.DescribeRemediationExceptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,8 @@ module Amazonka.Config.DescribeRemediationExceptions
     newDescribeRemediationExceptions,
 
     -- * Request Lenses
-    describeRemediationExceptions_nextToken,
     describeRemediationExceptions_limit,
+    describeRemediationExceptions_nextToken,
     describeRemediationExceptions_resourceKeys,
     describeRemediationExceptions_configRuleName,
 
@@ -59,19 +59,20 @@ where
 
 import Amazonka.Config.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeRemediationExceptions' smart constructor.
 data DescribeRemediationExceptions = DescribeRemediationExceptions'
-  { -- | The @nextToken@ string returned in a previous request that you use to
-    -- request the next page of results in a paginated response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of RemediationExceptionResourceKey returned on each
+  { -- | The maximum number of RemediationExceptionResourceKey returned on each
     -- page. The default is 25. If you specify 0, Config uses the default.
     limit :: Prelude.Maybe Prelude.Natural,
+    -- | The @nextToken@ string returned in a previous request that you use to
+    -- request the next page of results in a paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | An exception list of resource exception keys to be processed with the
     -- current request. Config adds exception for each resource key. For
     -- example, Config adds 3 exceptions for 3 resource keys.
@@ -89,11 +90,11 @@ data DescribeRemediationExceptions = DescribeRemediationExceptions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeRemediationExceptions_nextToken' - The @nextToken@ string returned in a previous request that you use to
--- request the next page of results in a paginated response.
---
 -- 'limit', 'describeRemediationExceptions_limit' - The maximum number of RemediationExceptionResourceKey returned on each
 -- page. The default is 25. If you specify 0, Config uses the default.
+--
+-- 'nextToken', 'describeRemediationExceptions_nextToken' - The @nextToken@ string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
 --
 -- 'resourceKeys', 'describeRemediationExceptions_resourceKeys' - An exception list of resource exception keys to be processed with the
 -- current request. Config adds exception for each resource key. For
@@ -106,22 +107,22 @@ newDescribeRemediationExceptions ::
   DescribeRemediationExceptions
 newDescribeRemediationExceptions pConfigRuleName_ =
   DescribeRemediationExceptions'
-    { nextToken =
+    { limit =
         Prelude.Nothing,
-      limit = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       resourceKeys = Prelude.Nothing,
       configRuleName = pConfigRuleName_
     }
-
--- | The @nextToken@ string returned in a previous request that you use to
--- request the next page of results in a paginated response.
-describeRemediationExceptions_nextToken :: Lens.Lens' DescribeRemediationExceptions (Prelude.Maybe Prelude.Text)
-describeRemediationExceptions_nextToken = Lens.lens (\DescribeRemediationExceptions' {nextToken} -> nextToken) (\s@DescribeRemediationExceptions' {} a -> s {nextToken = a} :: DescribeRemediationExceptions)
 
 -- | The maximum number of RemediationExceptionResourceKey returned on each
 -- page. The default is 25. If you specify 0, Config uses the default.
 describeRemediationExceptions_limit :: Lens.Lens' DescribeRemediationExceptions (Prelude.Maybe Prelude.Natural)
 describeRemediationExceptions_limit = Lens.lens (\DescribeRemediationExceptions' {limit} -> limit) (\s@DescribeRemediationExceptions' {} a -> s {limit = a} :: DescribeRemediationExceptions)
+
+-- | The @nextToken@ string returned in a previous request that you use to
+-- request the next page of results in a paginated response.
+describeRemediationExceptions_nextToken :: Lens.Lens' DescribeRemediationExceptions (Prelude.Maybe Prelude.Text)
+describeRemediationExceptions_nextToken = Lens.lens (\DescribeRemediationExceptions' {nextToken} -> nextToken) (\s@DescribeRemediationExceptions' {} a -> s {nextToken = a} :: DescribeRemediationExceptions)
 
 -- | An exception list of resource exception keys to be processed with the
 -- current request. Config adds exception for each resource key. For
@@ -140,13 +141,14 @@ instance
   type
     AWSResponse DescribeRemediationExceptions =
       DescribeRemediationExceptionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRemediationExceptionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "RemediationExceptions"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "RemediationExceptions"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -157,49 +159,49 @@ instance
     DescribeRemediationExceptions
   where
   hashWithSalt _salt DescribeRemediationExceptions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` resourceKeys
       `Prelude.hashWithSalt` configRuleName
 
 instance Prelude.NFData DescribeRemediationExceptions where
   rnf DescribeRemediationExceptions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceKeys
       `Prelude.seq` Prelude.rnf configRuleName
 
-instance Core.ToHeaders DescribeRemediationExceptions where
+instance Data.ToHeaders DescribeRemediationExceptions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StarlingDoveService.DescribeRemediationExceptions" ::
+              Data.=# ( "StarlingDoveService.DescribeRemediationExceptions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeRemediationExceptions where
+instance Data.ToJSON DescribeRemediationExceptions where
   toJSON DescribeRemediationExceptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit,
-            ("ResourceKeys" Core..=) Prelude.<$> resourceKeys,
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("ResourceKeys" Data..=) Prelude.<$> resourceKeys,
             Prelude.Just
-              ("ConfigRuleName" Core..= configRuleName)
+              ("ConfigRuleName" Data..= configRuleName)
           ]
       )
 
-instance Core.ToPath DescribeRemediationExceptions where
+instance Data.ToPath DescribeRemediationExceptions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeRemediationExceptions where
+instance Data.ToQuery DescribeRemediationExceptions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeRemediationExceptionsResponse' smart constructor.

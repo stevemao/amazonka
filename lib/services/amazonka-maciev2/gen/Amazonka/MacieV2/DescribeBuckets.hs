@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.DescribeBuckets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Retrieves (queries) statistical data and other information about one or
--- more S3 buckets that Amazon Macie monitors and analyzes.
+-- more S3 buckets that Amazon Macie monitors and analyzes for an account.
 --
 -- This operation returns paginated results.
 module Amazonka.MacieV2.DescribeBuckets
@@ -30,10 +30,10 @@ module Amazonka.MacieV2.DescribeBuckets
     newDescribeBuckets,
 
     -- * Request Lenses
-    describeBuckets_sortCriteria,
-    describeBuckets_nextToken,
     describeBuckets_criteria,
     describeBuckets_maxResults,
+    describeBuckets_nextToken,
+    describeBuckets_sortCriteria,
 
     -- * Destructuring the Response
     DescribeBucketsResponse (..),
@@ -47,7 +47,8 @@ module Amazonka.MacieV2.DescribeBuckets
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,16 +56,16 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeBuckets' smart constructor.
 data DescribeBuckets = DescribeBuckets'
-  { -- | The criteria to use to sort the query results.
-    sortCriteria :: Prelude.Maybe BucketSortCriteria,
-    -- | The nextToken string that specifies which page of results to return in a
-    -- paginated response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The criteria to use to filter the query results.
+  { -- | The criteria to use to filter the query results.
     criteria :: Prelude.Maybe (Prelude.HashMap Prelude.Text BucketCriteriaAdditionalProperties),
     -- | The maximum number of items to include in each page of the response. The
     -- default value is 50.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The nextToken string that specifies which page of results to return in a
+    -- paginated response.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The criteria to use to sort the query results.
+    sortCriteria :: Prelude.Maybe BucketSortCriteria
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -76,33 +77,24 @@ data DescribeBuckets = DescribeBuckets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sortCriteria', 'describeBuckets_sortCriteria' - The criteria to use to sort the query results.
---
--- 'nextToken', 'describeBuckets_nextToken' - The nextToken string that specifies which page of results to return in a
--- paginated response.
---
 -- 'criteria', 'describeBuckets_criteria' - The criteria to use to filter the query results.
 --
 -- 'maxResults', 'describeBuckets_maxResults' - The maximum number of items to include in each page of the response. The
 -- default value is 50.
+--
+-- 'nextToken', 'describeBuckets_nextToken' - The nextToken string that specifies which page of results to return in a
+-- paginated response.
+--
+-- 'sortCriteria', 'describeBuckets_sortCriteria' - The criteria to use to sort the query results.
 newDescribeBuckets ::
   DescribeBuckets
 newDescribeBuckets =
   DescribeBuckets'
-    { sortCriteria = Prelude.Nothing,
+    { criteria = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      criteria = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      sortCriteria = Prelude.Nothing
     }
-
--- | The criteria to use to sort the query results.
-describeBuckets_sortCriteria :: Lens.Lens' DescribeBuckets (Prelude.Maybe BucketSortCriteria)
-describeBuckets_sortCriteria = Lens.lens (\DescribeBuckets' {sortCriteria} -> sortCriteria) (\s@DescribeBuckets' {} a -> s {sortCriteria = a} :: DescribeBuckets)
-
--- | The nextToken string that specifies which page of results to return in a
--- paginated response.
-describeBuckets_nextToken :: Lens.Lens' DescribeBuckets (Prelude.Maybe Prelude.Text)
-describeBuckets_nextToken = Lens.lens (\DescribeBuckets' {nextToken} -> nextToken) (\s@DescribeBuckets' {} a -> s {nextToken = a} :: DescribeBuckets)
 
 -- | The criteria to use to filter the query results.
 describeBuckets_criteria :: Lens.Lens' DescribeBuckets (Prelude.Maybe (Prelude.HashMap Prelude.Text BucketCriteriaAdditionalProperties))
@@ -112,6 +104,15 @@ describeBuckets_criteria = Lens.lens (\DescribeBuckets' {criteria} -> criteria) 
 -- default value is 50.
 describeBuckets_maxResults :: Lens.Lens' DescribeBuckets (Prelude.Maybe Prelude.Int)
 describeBuckets_maxResults = Lens.lens (\DescribeBuckets' {maxResults} -> maxResults) (\s@DescribeBuckets' {} a -> s {maxResults = a} :: DescribeBuckets)
+
+-- | The nextToken string that specifies which page of results to return in a
+-- paginated response.
+describeBuckets_nextToken :: Lens.Lens' DescribeBuckets (Prelude.Maybe Prelude.Text)
+describeBuckets_nextToken = Lens.lens (\DescribeBuckets' {nextToken} -> nextToken) (\s@DescribeBuckets' {} a -> s {nextToken = a} :: DescribeBuckets)
+
+-- | The criteria to use to sort the query results.
+describeBuckets_sortCriteria :: Lens.Lens' DescribeBuckets (Prelude.Maybe BucketSortCriteria)
+describeBuckets_sortCriteria = Lens.lens (\DescribeBuckets' {sortCriteria} -> sortCriteria) (\s@DescribeBuckets' {} a -> s {sortCriteria = a} :: DescribeBuckets)
 
 instance Core.AWSPager DescribeBuckets where
   page rq rs
@@ -138,62 +139,63 @@ instance Core.AWSRequest DescribeBuckets where
   type
     AWSResponse DescribeBuckets =
       DescribeBucketsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeBucketsResponse'
-            Prelude.<$> (x Core..?> "buckets" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "buckets" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeBuckets where
   hashWithSalt _salt DescribeBuckets' {..} =
-    _salt `Prelude.hashWithSalt` sortCriteria
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` criteria
+    _salt `Prelude.hashWithSalt` criteria
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sortCriteria
 
 instance Prelude.NFData DescribeBuckets where
   rnf DescribeBuckets' {..} =
-    Prelude.rnf sortCriteria
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf criteria
+    Prelude.rnf criteria
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sortCriteria
 
-instance Core.ToHeaders DescribeBuckets where
+instance Data.ToHeaders DescribeBuckets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeBuckets where
+instance Data.ToJSON DescribeBuckets where
   toJSON DescribeBuckets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("sortCriteria" Core..=) Prelude.<$> sortCriteria,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("criteria" Core..=) Prelude.<$> criteria,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("criteria" Data..=) Prelude.<$> criteria,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("sortCriteria" Data..=) Prelude.<$> sortCriteria
           ]
       )
 
-instance Core.ToPath DescribeBuckets where
+instance Data.ToPath DescribeBuckets where
   toPath = Prelude.const "/datasources/s3"
 
-instance Core.ToQuery DescribeBuckets where
+instance Data.ToQuery DescribeBuckets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeBucketsResponse' smart constructor.
 data DescribeBucketsResponse = DescribeBucketsResponse'
-  { -- | An array of objects, one for each bucket that meets the filter criteria
-    -- specified in the request.
+  { -- | An array of objects, one for each bucket that matches the filter
+    -- criteria specified in the request.
     buckets :: Prelude.Maybe [BucketMetadata],
     -- | The string to use in a subsequent request to get the next page of
     -- results in a paginated response. This value is null if there are no
@@ -212,8 +214,8 @@ data DescribeBucketsResponse = DescribeBucketsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'buckets', 'describeBucketsResponse_buckets' - An array of objects, one for each bucket that meets the filter criteria
--- specified in the request.
+-- 'buckets', 'describeBucketsResponse_buckets' - An array of objects, one for each bucket that matches the filter
+-- criteria specified in the request.
 --
 -- 'nextToken', 'describeBucketsResponse_nextToken' - The string to use in a subsequent request to get the next page of
 -- results in a paginated response. This value is null if there are no
@@ -231,8 +233,8 @@ newDescribeBucketsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | An array of objects, one for each bucket that meets the filter criteria
--- specified in the request.
+-- | An array of objects, one for each bucket that matches the filter
+-- criteria specified in the request.
 describeBucketsResponse_buckets :: Lens.Lens' DescribeBucketsResponse (Prelude.Maybe [BucketMetadata])
 describeBucketsResponse_buckets = Lens.lens (\DescribeBucketsResponse' {buckets} -> buckets) (\s@DescribeBucketsResponse' {} a -> s {buckets = a} :: DescribeBucketsResponse) Prelude.. Lens.mapping Lens.coerced
 

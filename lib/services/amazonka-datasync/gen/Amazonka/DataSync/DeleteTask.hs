@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.DeleteTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.DataSync.DeleteTask
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ deleteTask_taskArn = Lens.lens (\DeleteTask' {taskArn} -> taskArn) (\s@DeleteTas
 
 instance Core.AWSRequest DeleteTask where
   type AWSResponse DeleteTask = DeleteTaskResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,30 +93,30 @@ instance Prelude.Hashable DeleteTask where
 instance Prelude.NFData DeleteTask where
   rnf DeleteTask' {..} = Prelude.rnf taskArn
 
-instance Core.ToHeaders DeleteTask where
+instance Data.ToHeaders DeleteTask where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("FmrsService.DeleteTask" :: Prelude.ByteString),
+              Data.=# ("FmrsService.DeleteTask" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteTask where
+instance Data.ToJSON DeleteTask where
   toJSON DeleteTask' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("TaskArn" Core..= taskArn)]
+          [Prelude.Just ("TaskArn" Data..= taskArn)]
       )
 
-instance Core.ToPath DeleteTask where
+instance Data.ToPath DeleteTask where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteTask where
+instance Data.ToQuery DeleteTask where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteTaskResponse' smart constructor.

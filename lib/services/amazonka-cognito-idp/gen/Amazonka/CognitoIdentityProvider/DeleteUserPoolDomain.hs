@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.DeleteUserPoolDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,14 +41,17 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteUserPoolDomain' smart constructor.
 data DeleteUserPoolDomain = DeleteUserPoolDomain'
-  { -- | The domain string.
+  { -- | The domain string. For custom domains, this is the fully-qualified
+    -- domain name, such as @auth.example.com@. For Amazon Cognito prefix
+    -- domains, this is the prefix alone, such as @auth@.
     domain :: Prelude.Text,
     -- | The user pool ID.
     userPoolId :: Prelude.Text
@@ -63,7 +66,9 @@ data DeleteUserPoolDomain = DeleteUserPoolDomain'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domain', 'deleteUserPoolDomain_domain' - The domain string.
+-- 'domain', 'deleteUserPoolDomain_domain' - The domain string. For custom domains, this is the fully-qualified
+-- domain name, such as @auth.example.com@. For Amazon Cognito prefix
+-- domains, this is the prefix alone, such as @auth@.
 --
 -- 'userPoolId', 'deleteUserPoolDomain_userPoolId' - The user pool ID.
 newDeleteUserPoolDomain ::
@@ -78,7 +83,9 @@ newDeleteUserPoolDomain pDomain_ pUserPoolId_ =
       userPoolId = pUserPoolId_
     }
 
--- | The domain string.
+-- | The domain string. For custom domains, this is the fully-qualified
+-- domain name, such as @auth.example.com@. For Amazon Cognito prefix
+-- domains, this is the prefix alone, such as @auth@.
 deleteUserPoolDomain_domain :: Lens.Lens' DeleteUserPoolDomain Prelude.Text
 deleteUserPoolDomain_domain = Lens.lens (\DeleteUserPoolDomain' {domain} -> domain) (\s@DeleteUserPoolDomain' {} a -> s {domain = a} :: DeleteUserPoolDomain)
 
@@ -90,7 +97,8 @@ instance Core.AWSRequest DeleteUserPoolDomain where
   type
     AWSResponse DeleteUserPoolDomain =
       DeleteUserPoolDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -108,34 +116,34 @@ instance Prelude.NFData DeleteUserPoolDomain where
     Prelude.rnf domain
       `Prelude.seq` Prelude.rnf userPoolId
 
-instance Core.ToHeaders DeleteUserPoolDomain where
+instance Data.ToHeaders DeleteUserPoolDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.DeleteUserPoolDomain" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.DeleteUserPoolDomain" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteUserPoolDomain where
+instance Data.ToJSON DeleteUserPoolDomain where
   toJSON DeleteUserPoolDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Domain" Core..= domain),
-            Prelude.Just ("UserPoolId" Core..= userPoolId)
+          [ Prelude.Just ("Domain" Data..= domain),
+            Prelude.Just ("UserPoolId" Data..= userPoolId)
           ]
       )
 
-instance Core.ToPath DeleteUserPoolDomain where
+instance Data.ToPath DeleteUserPoolDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteUserPoolDomain where
+instance Data.ToQuery DeleteUserPoolDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteUserPoolDomainResponse' smart constructor.

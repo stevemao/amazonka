@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.ListDatasetContents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.IoTAnalytics.ListDatasetContents
     newListDatasetContents,
 
     -- * Request Lenses
+    listDatasetContents_maxResults,
     listDatasetContents_nextToken,
     listDatasetContents_scheduledBefore,
-    listDatasetContents_maxResults,
     listDatasetContents_scheduledOnOrAfter,
     listDatasetContents_datasetName,
 
@@ -47,26 +47,27 @@ module Amazonka.IoTAnalytics.ListDatasetContents
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDatasetContents' smart constructor.
 data ListDatasetContents = ListDatasetContents'
-  { -- | The token for the next set of results.
+  { -- | The maximum number of results to return in this request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | A filter to limit results to those dataset contents whose creation is
     -- scheduled before the given time. See the field @triggers.schedule@ in
     -- the @CreateDataset@ request. (timestamp)
-    scheduledBefore :: Prelude.Maybe Core.POSIX,
-    -- | The maximum number of results to return in this request.
-    maxResults :: Prelude.Maybe Prelude.Natural,
+    scheduledBefore :: Prelude.Maybe Data.POSIX,
     -- | A filter to limit results to those dataset contents whose creation is
     -- scheduled on or after the given time. See the field @triggers.schedule@
     -- in the @CreateDataset@ request. (timestamp)
-    scheduledOnOrAfter :: Prelude.Maybe Core.POSIX,
+    scheduledOnOrAfter :: Prelude.Maybe Data.POSIX,
     -- | The name of the dataset whose contents information you want to list.
     datasetName :: Prelude.Text
   }
@@ -80,13 +81,13 @@ data ListDatasetContents = ListDatasetContents'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listDatasetContents_maxResults' - The maximum number of results to return in this request.
+--
 -- 'nextToken', 'listDatasetContents_nextToken' - The token for the next set of results.
 --
 -- 'scheduledBefore', 'listDatasetContents_scheduledBefore' - A filter to limit results to those dataset contents whose creation is
 -- scheduled before the given time. See the field @triggers.schedule@ in
 -- the @CreateDataset@ request. (timestamp)
---
--- 'maxResults', 'listDatasetContents_maxResults' - The maximum number of results to return in this request.
 --
 -- 'scheduledOnOrAfter', 'listDatasetContents_scheduledOnOrAfter' - A filter to limit results to those dataset contents whose creation is
 -- scheduled on or after the given time. See the field @triggers.schedule@
@@ -99,12 +100,16 @@ newListDatasetContents ::
   ListDatasetContents
 newListDatasetContents pDatasetName_ =
   ListDatasetContents'
-    { nextToken = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       scheduledBefore = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
       scheduledOnOrAfter = Prelude.Nothing,
       datasetName = pDatasetName_
     }
+
+-- | The maximum number of results to return in this request.
+listDatasetContents_maxResults :: Lens.Lens' ListDatasetContents (Prelude.Maybe Prelude.Natural)
+listDatasetContents_maxResults = Lens.lens (\ListDatasetContents' {maxResults} -> maxResults) (\s@ListDatasetContents' {} a -> s {maxResults = a} :: ListDatasetContents)
 
 -- | The token for the next set of results.
 listDatasetContents_nextToken :: Lens.Lens' ListDatasetContents (Prelude.Maybe Prelude.Text)
@@ -114,17 +119,13 @@ listDatasetContents_nextToken = Lens.lens (\ListDatasetContents' {nextToken} -> 
 -- scheduled before the given time. See the field @triggers.schedule@ in
 -- the @CreateDataset@ request. (timestamp)
 listDatasetContents_scheduledBefore :: Lens.Lens' ListDatasetContents (Prelude.Maybe Prelude.UTCTime)
-listDatasetContents_scheduledBefore = Lens.lens (\ListDatasetContents' {scheduledBefore} -> scheduledBefore) (\s@ListDatasetContents' {} a -> s {scheduledBefore = a} :: ListDatasetContents) Prelude.. Lens.mapping Core._Time
-
--- | The maximum number of results to return in this request.
-listDatasetContents_maxResults :: Lens.Lens' ListDatasetContents (Prelude.Maybe Prelude.Natural)
-listDatasetContents_maxResults = Lens.lens (\ListDatasetContents' {maxResults} -> maxResults) (\s@ListDatasetContents' {} a -> s {maxResults = a} :: ListDatasetContents)
+listDatasetContents_scheduledBefore = Lens.lens (\ListDatasetContents' {scheduledBefore} -> scheduledBefore) (\s@ListDatasetContents' {} a -> s {scheduledBefore = a} :: ListDatasetContents) Prelude.. Lens.mapping Data._Time
 
 -- | A filter to limit results to those dataset contents whose creation is
 -- scheduled on or after the given time. See the field @triggers.schedule@
 -- in the @CreateDataset@ request. (timestamp)
 listDatasetContents_scheduledOnOrAfter :: Lens.Lens' ListDatasetContents (Prelude.Maybe Prelude.UTCTime)
-listDatasetContents_scheduledOnOrAfter = Lens.lens (\ListDatasetContents' {scheduledOnOrAfter} -> scheduledOnOrAfter) (\s@ListDatasetContents' {} a -> s {scheduledOnOrAfter = a} :: ListDatasetContents) Prelude.. Lens.mapping Core._Time
+listDatasetContents_scheduledOnOrAfter = Lens.lens (\ListDatasetContents' {scheduledOnOrAfter} -> scheduledOnOrAfter) (\s@ListDatasetContents' {} a -> s {scheduledOnOrAfter = a} :: ListDatasetContents) Prelude.. Lens.mapping Data._Time
 
 -- | The name of the dataset whose contents information you want to list.
 listDatasetContents_datasetName :: Lens.Lens' ListDatasetContents Prelude.Text
@@ -156,49 +157,50 @@ instance Core.AWSRequest ListDatasetContents where
   type
     AWSResponse ListDatasetContents =
       ListDatasetContentsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDatasetContentsResponse'
-            Prelude.<$> ( x Core..?> "datasetContentSummaries"
+            Prelude.<$> ( x Data..?> "datasetContentSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDatasetContents where
   hashWithSalt _salt ListDatasetContents' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` scheduledBefore
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` scheduledOnOrAfter
       `Prelude.hashWithSalt` datasetName
 
 instance Prelude.NFData ListDatasetContents where
   rnf ListDatasetContents' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf scheduledBefore
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf scheduledOnOrAfter
       `Prelude.seq` Prelude.rnf datasetName
 
-instance Core.ToHeaders ListDatasetContents where
+instance Data.ToHeaders ListDatasetContents where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListDatasetContents where
+instance Data.ToPath ListDatasetContents where
   toPath ListDatasetContents' {..} =
     Prelude.mconcat
-      ["/datasets/", Core.toBS datasetName, "/contents"]
+      ["/datasets/", Data.toBS datasetName, "/contents"]
 
-instance Core.ToQuery ListDatasetContents where
+instance Data.ToQuery ListDatasetContents where
   toQuery ListDatasetContents' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "scheduledBefore" Core.=: scheduledBefore,
-        "maxResults" Core.=: maxResults,
-        "scheduledOnOrAfter" Core.=: scheduledOnOrAfter
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "scheduledBefore" Data.=: scheduledBefore,
+        "scheduledOnOrAfter" Data.=: scheduledOnOrAfter
       ]
 
 -- | /See:/ 'newListDatasetContentsResponse' smart constructor.

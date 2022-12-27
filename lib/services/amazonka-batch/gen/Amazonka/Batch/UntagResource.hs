@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.UntagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,17 +41,20 @@ where
 
 import Amazonka.Batch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | /See:/ 'newUntagResource' smart constructor.
+-- | Contains the parameters for @UntagResource@.
+--
+-- /See:/ 'newUntagResource' smart constructor.
 data UntagResource = UntagResource'
   { -- | The Amazon Resource Name (ARN) of the resource from which to delete
     -- tags. Batch resources that support tags are compute environments, jobs,
-    -- job definitions, and job queues. ARNs for child jobs of array and
-    -- multi-node parallel (MNP) jobs are not supported.
+    -- job definitions, job queues, and scheduling policies. ARNs for child
+    -- jobs of array and multi-node parallel (MNP) jobs aren\'t supported.
     resourceArn :: Prelude.Text,
     -- | The keys of the tags to be removed.
     tagKeys :: Prelude.NonEmpty Prelude.Text
@@ -68,8 +71,8 @@ data UntagResource = UntagResource'
 --
 -- 'resourceArn', 'untagResource_resourceArn' - The Amazon Resource Name (ARN) of the resource from which to delete
 -- tags. Batch resources that support tags are compute environments, jobs,
--- job definitions, and job queues. ARNs for child jobs of array and
--- multi-node parallel (MNP) jobs are not supported.
+-- job definitions, job queues, and scheduling policies. ARNs for child
+-- jobs of array and multi-node parallel (MNP) jobs aren\'t supported.
 --
 -- 'tagKeys', 'untagResource_tagKeys' - The keys of the tags to be removed.
 newUntagResource ::
@@ -86,8 +89,8 @@ newUntagResource pResourceArn_ pTagKeys_ =
 
 -- | The Amazon Resource Name (ARN) of the resource from which to delete
 -- tags. Batch resources that support tags are compute environments, jobs,
--- job definitions, and job queues. ARNs for child jobs of array and
--- multi-node parallel (MNP) jobs are not supported.
+-- job definitions, job queues, and scheduling policies. ARNs for child
+-- jobs of array and multi-node parallel (MNP) jobs aren\'t supported.
 untagResource_resourceArn :: Lens.Lens' UntagResource Prelude.Text
 untagResource_resourceArn = Lens.lens (\UntagResource' {resourceArn} -> resourceArn) (\s@UntagResource' {} a -> s {resourceArn = a} :: UntagResource)
 
@@ -99,7 +102,8 @@ instance Core.AWSRequest UntagResource where
   type
     AWSResponse UntagResource =
       UntagResourceResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -117,26 +121,26 @@ instance Prelude.NFData UntagResource where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagResource where
+instance Data.ToHeaders UntagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath UntagResource where
+instance Data.ToPath UntagResource where
   toPath UntagResource' {..} =
     Prelude.mconcat
-      ["/v1/tags/", Core.toBS resourceArn]
+      ["/v1/tags/", Data.toBS resourceArn]
 
-instance Core.ToQuery UntagResource where
+instance Data.ToQuery UntagResource where
   toQuery UntagResource' {..} =
     Prelude.mconcat
-      ["tagKeys" Core.=: Core.toQueryList "member" tagKeys]
+      ["tagKeys" Data.=: Data.toQueryList "member" tagKeys]
 
 -- | /See:/ 'newUntagResourceResponse' smart constructor.
 data UntagResourceResponse = UntagResourceResponse'

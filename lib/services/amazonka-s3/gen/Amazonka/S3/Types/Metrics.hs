@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.Metrics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.Metrics where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.MetricsStatus
@@ -70,11 +71,11 @@ metrics_eventThreshold = Lens.lens (\Metrics' {eventThreshold} -> eventThreshold
 metrics_status :: Lens.Lens' Metrics MetricsStatus
 metrics_status = Lens.lens (\Metrics' {status} -> status) (\s@Metrics' {} a -> s {status = a} :: Metrics)
 
-instance Core.FromXML Metrics where
+instance Data.FromXML Metrics where
   parseXML x =
     Metrics'
-      Prelude.<$> (x Core..@? "EventThreshold")
-      Prelude.<*> (x Core..@ "Status")
+      Prelude.<$> (x Data..@? "EventThreshold")
+      Prelude.<*> (x Data..@ "Status")
 
 instance Prelude.Hashable Metrics where
   hashWithSalt _salt Metrics' {..} =
@@ -86,9 +87,9 @@ instance Prelude.NFData Metrics where
     Prelude.rnf eventThreshold
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToXML Metrics where
+instance Data.ToXML Metrics where
   toXML Metrics' {..} =
     Prelude.mconcat
-      [ "EventThreshold" Core.@= eventThreshold,
-        "Status" Core.@= status
+      [ "EventThreshold" Data.@= eventThreshold,
+        "Status" Data.@= status
       ]

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.ListStudios
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,14 +37,15 @@ module Amazonka.Nimble.ListStudios
     newListStudiosResponse,
 
     -- * Response Lenses
-    listStudiosResponse_studios,
     listStudiosResponse_nextToken,
     listStudiosResponse_httpStatus,
+    listStudiosResponse_studios,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,8 +53,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListStudios' smart constructor.
 data ListStudios = ListStudios'
-  { -- | The token for the next set of results, or null if there are no more
-    -- results.
+  { -- | The token to request the next page of results.
     nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -66,15 +66,13 @@ data ListStudios = ListStudios'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listStudios_nextToken' - The token for the next set of results, or null if there are no more
--- results.
+-- 'nextToken', 'listStudios_nextToken' - The token to request the next page of results.
 newListStudios ::
   ListStudios
 newListStudios =
   ListStudios' {nextToken = Prelude.Nothing}
 
--- | The token for the next set of results, or null if there are no more
--- results.
+-- | The token to request the next page of results.
 listStudios_nextToken :: Lens.Lens' ListStudios (Prelude.Maybe Prelude.Text)
 listStudios_nextToken = Lens.lens (\ListStudios' {nextToken} -> nextToken) (\s@ListStudios' {} a -> s {nextToken = a} :: ListStudios)
 
@@ -85,10 +83,7 @@ instance Core.AWSPager ListStudios where
             Lens.^? listStudiosResponse_nextToken Prelude.. Lens._Just
         ) =
       Prelude.Nothing
-    | Core.stop
-        ( rs
-            Lens.^? listStudiosResponse_studios Prelude.. Lens._Just
-        ) =
+    | Core.stop (rs Lens.^. listStudiosResponse_studios) =
       Prelude.Nothing
     | Prelude.otherwise =
       Prelude.Just Prelude.$
@@ -99,14 +94,15 @@ instance Core.AWSPager ListStudios where
 
 instance Core.AWSRequest ListStudios where
   type AWSResponse ListStudios = ListStudiosResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListStudiosResponse'
-            Prelude.<$> (x Core..?> "studios" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
+            Prelude.<*> (x Data..?> "studios" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListStudios where
@@ -116,35 +112,35 @@ instance Prelude.Hashable ListStudios where
 instance Prelude.NFData ListStudios where
   rnf ListStudios' {..} = Prelude.rnf nextToken
 
-instance Core.ToHeaders ListStudios where
+instance Data.ToHeaders ListStudios where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListStudios where
+instance Data.ToPath ListStudios where
   toPath = Prelude.const "/2020-08-01/studios"
 
-instance Core.ToQuery ListStudios where
+instance Data.ToQuery ListStudios where
   toQuery ListStudios' {..} =
-    Prelude.mconcat ["nextToken" Core.=: nextToken]
+    Prelude.mconcat ["nextToken" Data.=: nextToken]
 
 -- | /See:/ 'newListStudiosResponse' smart constructor.
 data ListStudiosResponse = ListStudiosResponse'
-  { -- | A collection of studios.
-    studios :: Prelude.Maybe [Studio],
-    -- | The token for the next set of results, or null if there are no more
+  { -- | The token for the next set of results, or null if there are no more
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
-    httpStatus :: Prelude.Int
+    httpStatus :: Prelude.Int,
+    -- | A collection of studios.
+    studios :: [Studio]
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'ListStudiosResponse' with all optional fields omitted.
@@ -154,26 +150,22 @@ data ListStudiosResponse = ListStudiosResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'studios', 'listStudiosResponse_studios' - A collection of studios.
---
 -- 'nextToken', 'listStudiosResponse_nextToken' - The token for the next set of results, or null if there are no more
 -- results.
 --
 -- 'httpStatus', 'listStudiosResponse_httpStatus' - The response's http status code.
+--
+-- 'studios', 'listStudiosResponse_studios' - A collection of studios.
 newListStudiosResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
   ListStudiosResponse
 newListStudiosResponse pHttpStatus_ =
   ListStudiosResponse'
-    { studios = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      httpStatus = pHttpStatus_
+    { nextToken = Prelude.Nothing,
+      httpStatus = pHttpStatus_,
+      studios = Prelude.mempty
     }
-
--- | A collection of studios.
-listStudiosResponse_studios :: Lens.Lens' ListStudiosResponse (Prelude.Maybe [Studio])
-listStudiosResponse_studios = Lens.lens (\ListStudiosResponse' {studios} -> studios) (\s@ListStudiosResponse' {} a -> s {studios = a} :: ListStudiosResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token for the next set of results, or null if there are no more
 -- results.
@@ -184,8 +176,12 @@ listStudiosResponse_nextToken = Lens.lens (\ListStudiosResponse' {nextToken} -> 
 listStudiosResponse_httpStatus :: Lens.Lens' ListStudiosResponse Prelude.Int
 listStudiosResponse_httpStatus = Lens.lens (\ListStudiosResponse' {httpStatus} -> httpStatus) (\s@ListStudiosResponse' {} a -> s {httpStatus = a} :: ListStudiosResponse)
 
+-- | A collection of studios.
+listStudiosResponse_studios :: Lens.Lens' ListStudiosResponse [Studio]
+listStudiosResponse_studios = Lens.lens (\ListStudiosResponse' {studios} -> studios) (\s@ListStudiosResponse' {} a -> s {studios = a} :: ListStudiosResponse) Prelude.. Lens.coerced
+
 instance Prelude.NFData ListStudiosResponse where
   rnf ListStudiosResponse' {..} =
-    Prelude.rnf studios
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus
+      `Prelude.seq` Prelude.rnf studios

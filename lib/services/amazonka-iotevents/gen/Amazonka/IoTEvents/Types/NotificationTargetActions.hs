@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.NotificationTargetActions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTEvents.Types.NotificationTargetActions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types.LambdaAction
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies an AWS Lambda function to manage alarm notifications. You can
@@ -55,13 +56,13 @@ newNotificationTargetActions =
 notificationTargetActions_lambdaAction :: Lens.Lens' NotificationTargetActions (Prelude.Maybe LambdaAction)
 notificationTargetActions_lambdaAction = Lens.lens (\NotificationTargetActions' {lambdaAction} -> lambdaAction) (\s@NotificationTargetActions' {} a -> s {lambdaAction = a} :: NotificationTargetActions)
 
-instance Core.FromJSON NotificationTargetActions where
+instance Data.FromJSON NotificationTargetActions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NotificationTargetActions"
       ( \x ->
           NotificationTargetActions'
-            Prelude.<$> (x Core..:? "lambdaAction")
+            Prelude.<$> (x Data..:? "lambdaAction")
       )
 
 instance Prelude.Hashable NotificationTargetActions where
@@ -72,9 +73,9 @@ instance Prelude.NFData NotificationTargetActions where
   rnf NotificationTargetActions' {..} =
     Prelude.rnf lambdaAction
 
-instance Core.ToJSON NotificationTargetActions where
+instance Data.ToJSON NotificationTargetActions where
   toJSON NotificationTargetActions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("lambdaAction" Core..=) Prelude.<$> lambdaAction]
+          [("lambdaAction" Data..=) Prelude.<$> lambdaAction]
       )

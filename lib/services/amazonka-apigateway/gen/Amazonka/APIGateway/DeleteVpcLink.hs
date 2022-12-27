@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteVpcLink
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -46,8 +47,8 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteVpcLink' smart constructor.
 data DeleteVpcLink = DeleteVpcLink'
-  { -- | [Required] The identifier of the VpcLink. It is used in an Integration
-    -- to reference this VpcLink.
+  { -- | The identifier of the VpcLink. It is used in an Integration to reference
+    -- this VpcLink.
     vpcLinkId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,8 +61,8 @@ data DeleteVpcLink = DeleteVpcLink'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vpcLinkId', 'deleteVpcLink_vpcLinkId' - [Required] The identifier of the VpcLink. It is used in an Integration
--- to reference this VpcLink.
+-- 'vpcLinkId', 'deleteVpcLink_vpcLinkId' - The identifier of the VpcLink. It is used in an Integration to reference
+-- this VpcLink.
 newDeleteVpcLink ::
   -- | 'vpcLinkId'
   Prelude.Text ->
@@ -69,8 +70,8 @@ newDeleteVpcLink ::
 newDeleteVpcLink pVpcLinkId_ =
   DeleteVpcLink' {vpcLinkId = pVpcLinkId_}
 
--- | [Required] The identifier of the VpcLink. It is used in an Integration
--- to reference this VpcLink.
+-- | The identifier of the VpcLink. It is used in an Integration to reference
+-- this VpcLink.
 deleteVpcLink_vpcLinkId :: Lens.Lens' DeleteVpcLink Prelude.Text
 deleteVpcLink_vpcLinkId = Lens.lens (\DeleteVpcLink' {vpcLinkId} -> vpcLinkId) (\s@DeleteVpcLink' {} a -> s {vpcLinkId = a} :: DeleteVpcLink)
 
@@ -78,7 +79,8 @@ instance Core.AWSRequest DeleteVpcLink where
   type
     AWSResponse DeleteVpcLink =
       DeleteVpcLinkResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteVpcLinkResponse'
 
@@ -89,20 +91,20 @@ instance Prelude.Hashable DeleteVpcLink where
 instance Prelude.NFData DeleteVpcLink where
   rnf DeleteVpcLink' {..} = Prelude.rnf vpcLinkId
 
-instance Core.ToHeaders DeleteVpcLink where
+instance Data.ToHeaders DeleteVpcLink where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteVpcLink where
+instance Data.ToPath DeleteVpcLink where
   toPath DeleteVpcLink' {..} =
-    Prelude.mconcat ["/vpclinks/", Core.toBS vpcLinkId]
+    Prelude.mconcat ["/vpclinks/", Data.toBS vpcLinkId]
 
-instance Core.ToQuery DeleteVpcLink where
+instance Data.ToQuery DeleteVpcLink where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteVpcLinkResponse' smart constructor.

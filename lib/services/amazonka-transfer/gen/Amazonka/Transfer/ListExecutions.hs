@@ -14,21 +14,23 @@
 
 -- |
 -- Module      : Amazonka.Transfer.ListExecutions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Lists all executions for the specified workflow.
+--
+-- This operation returns paginated results.
 module Amazonka.Transfer.ListExecutions
   ( -- * Creating a Request
     ListExecutions (..),
     newListExecutions,
 
     -- * Request Lenses
-    listExecutions_nextToken,
     listExecutions_maxResults,
+    listExecutions_nextToken,
     listExecutions_workflowId,
 
     -- * Destructuring the Response
@@ -44,7 +46,8 @@ module Amazonka.Transfer.ListExecutions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,19 +55,21 @@ import Amazonka.Transfer.Types
 
 -- | /See:/ 'newListExecutions' smart constructor.
 data ListExecutions = ListExecutions'
-  { -- | @ListExecutions@ returns the @NextToken@ parameter in the output. You
+  { -- | Specifies the maximum number of executions to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | @ListExecutions@ returns the @NextToken@ parameter in the output. You
     -- can then pass the @NextToken@ parameter in a subsequent command to
     -- continue listing additional executions.
     --
     -- This is useful for pagination, for instance. If you have 100 executions
-    -- for a workflow, you might only want to list first 10. If so, callthe API
-    -- by specifing the @max-results@:
+    -- for a workflow, you might only want to list first 10. If so, call the
+    -- API by specifying the @max-results@:
     --
     -- @aws transfer list-executions --max-results 10@
     --
     -- This returns details for the first 10 executions, as well as the pointer
     -- (@NextToken@) to the eleventh execution. You can now call the API again,
-    -- suppling the @NextToken@ value you received:
+    -- supplying the @NextToken@ value you received:
     --
     -- @aws transfer list-executions --max-results 10 --next-token $somePointerReturnedFromPreviousListResult@
     --
@@ -72,8 +77,6 @@ data ListExecutions = ListExecutions'
     -- can then repeat the call until the details for all 100 executions have
     -- been returned.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the aximum number of executions to return.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | A unique identifier for the workflow.
     workflowId :: Prelude.Text
   }
@@ -87,27 +90,27 @@ data ListExecutions = ListExecutions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listExecutions_maxResults' - Specifies the maximum number of executions to return.
+--
 -- 'nextToken', 'listExecutions_nextToken' - @ListExecutions@ returns the @NextToken@ parameter in the output. You
 -- can then pass the @NextToken@ parameter in a subsequent command to
 -- continue listing additional executions.
 --
 -- This is useful for pagination, for instance. If you have 100 executions
--- for a workflow, you might only want to list first 10. If so, callthe API
--- by specifing the @max-results@:
+-- for a workflow, you might only want to list first 10. If so, call the
+-- API by specifying the @max-results@:
 --
 -- @aws transfer list-executions --max-results 10@
 --
 -- This returns details for the first 10 executions, as well as the pointer
 -- (@NextToken@) to the eleventh execution. You can now call the API again,
--- suppling the @NextToken@ value you received:
+-- supplying the @NextToken@ value you received:
 --
 -- @aws transfer list-executions --max-results 10 --next-token $somePointerReturnedFromPreviousListResult@
 --
 -- This call returns the next 10 executions, the 11th through the 20th. You
 -- can then repeat the call until the details for all 100 executions have
 -- been returned.
---
--- 'maxResults', 'listExecutions_maxResults' - Specifies the aximum number of executions to return.
 --
 -- 'workflowId', 'listExecutions_workflowId' - A unique identifier for the workflow.
 newListExecutions ::
@@ -116,24 +119,28 @@ newListExecutions ::
   ListExecutions
 newListExecutions pWorkflowId_ =
   ListExecutions'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       workflowId = pWorkflowId_
     }
+
+-- | Specifies the maximum number of executions to return.
+listExecutions_maxResults :: Lens.Lens' ListExecutions (Prelude.Maybe Prelude.Natural)
+listExecutions_maxResults = Lens.lens (\ListExecutions' {maxResults} -> maxResults) (\s@ListExecutions' {} a -> s {maxResults = a} :: ListExecutions)
 
 -- | @ListExecutions@ returns the @NextToken@ parameter in the output. You
 -- can then pass the @NextToken@ parameter in a subsequent command to
 -- continue listing additional executions.
 --
 -- This is useful for pagination, for instance. If you have 100 executions
--- for a workflow, you might only want to list first 10. If so, callthe API
--- by specifing the @max-results@:
+-- for a workflow, you might only want to list first 10. If so, call the
+-- API by specifying the @max-results@:
 --
 -- @aws transfer list-executions --max-results 10@
 --
 -- This returns details for the first 10 executions, as well as the pointer
 -- (@NextToken@) to the eleventh execution. You can now call the API again,
--- suppling the @NextToken@ value you received:
+-- supplying the @NextToken@ value you received:
 --
 -- @aws transfer list-executions --max-results 10 --next-token $somePointerReturnedFromPreviousListResult@
 --
@@ -143,70 +150,85 @@ newListExecutions pWorkflowId_ =
 listExecutions_nextToken :: Lens.Lens' ListExecutions (Prelude.Maybe Prelude.Text)
 listExecutions_nextToken = Lens.lens (\ListExecutions' {nextToken} -> nextToken) (\s@ListExecutions' {} a -> s {nextToken = a} :: ListExecutions)
 
--- | Specifies the aximum number of executions to return.
-listExecutions_maxResults :: Lens.Lens' ListExecutions (Prelude.Maybe Prelude.Natural)
-listExecutions_maxResults = Lens.lens (\ListExecutions' {maxResults} -> maxResults) (\s@ListExecutions' {} a -> s {maxResults = a} :: ListExecutions)
-
 -- | A unique identifier for the workflow.
 listExecutions_workflowId :: Lens.Lens' ListExecutions Prelude.Text
 listExecutions_workflowId = Lens.lens (\ListExecutions' {workflowId} -> workflowId) (\s@ListExecutions' {} a -> s {workflowId = a} :: ListExecutions)
+
+instance Core.AWSPager ListExecutions where
+  page rq rs
+    | Core.stop
+        ( rs
+            Lens.^? listExecutionsResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Core.stop
+        (rs Lens.^. listExecutionsResponse_executions) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Prelude.& listExecutions_nextToken
+          Lens..~ rs
+          Lens.^? listExecutionsResponse_nextToken Prelude.. Lens._Just
 
 instance Core.AWSRequest ListExecutions where
   type
     AWSResponse ListExecutions =
       ListExecutionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListExecutionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "WorkflowId")
-            Prelude.<*> (x Core..?> "Executions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "WorkflowId")
+            Prelude.<*> (x Data..?> "Executions" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListExecutions where
   hashWithSalt _salt ListExecutions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` workflowId
 
 instance Prelude.NFData ListExecutions where
   rnf ListExecutions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf workflowId
 
-instance Core.ToHeaders ListExecutions where
+instance Data.ToHeaders ListExecutions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "TransferService.ListExecutions" ::
+              Data.=# ( "TransferService.ListExecutions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListExecutions where
+instance Data.ToJSON ListExecutions where
   toJSON ListExecutions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("WorkflowId" Core..= workflowId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("WorkflowId" Data..= workflowId)
           ]
       )
 
-instance Core.ToPath ListExecutions where
+instance Data.ToPath ListExecutions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListExecutions where
+instance Data.ToQuery ListExecutions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListExecutionsResponse' smart constructor.

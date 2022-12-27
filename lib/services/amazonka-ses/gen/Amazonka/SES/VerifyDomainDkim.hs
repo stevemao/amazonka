@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.VerifyDomainDkim
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -74,7 +74,8 @@ module Amazonka.SES.VerifyDomainDkim
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -116,15 +117,16 @@ instance Core.AWSRequest VerifyDomainDkim where
   type
     AWSResponse VerifyDomainDkim =
       VerifyDomainDkimResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "VerifyDomainDkimResult"
       ( \s h x ->
           VerifyDomainDkimResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "DkimTokens" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "member"
+            Prelude.<*> ( x Data..@? "DkimTokens" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "member"
                         )
       )
 
@@ -135,20 +137,20 @@ instance Prelude.Hashable VerifyDomainDkim where
 instance Prelude.NFData VerifyDomainDkim where
   rnf VerifyDomainDkim' {..} = Prelude.rnf domain
 
-instance Core.ToHeaders VerifyDomainDkim where
+instance Data.ToHeaders VerifyDomainDkim where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath VerifyDomainDkim where
+instance Data.ToPath VerifyDomainDkim where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery VerifyDomainDkim where
+instance Data.ToQuery VerifyDomainDkim where
   toQuery VerifyDomainDkim' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("VerifyDomainDkim" :: Prelude.ByteString),
+          Data.=: ("VerifyDomainDkim" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "Domain" Core.=: domain
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "Domain" Data.=: domain
       ]
 
 -- | Returns CNAME records that you must publish to the DNS server of your

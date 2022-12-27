@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.S3Destination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.S3Destination where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies an S3 bucket to store data classification results in, and the
@@ -33,10 +34,10 @@ data S3Destination = S3Destination'
     keyPrefix :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket.
     bucketName :: Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the KMS key to use for encryption of
-    -- the results. This must be the ARN of an existing, symmetric, customer
-    -- managed KMS key that\'s in the same Amazon Web Services Region as the
-    -- bucket.
+    -- | The Amazon Resource Name (ARN) of the customer managed KMS key to use
+    -- for encryption of the results. This must be the ARN of an existing,
+    -- symmetric encryption KMS key that\'s in the same Amazon Web Services
+    -- Region as the bucket.
     kmsKeyArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -54,10 +55,10 @@ data S3Destination = S3Destination'
 --
 -- 'bucketName', 's3Destination_bucketName' - The name of the bucket.
 --
--- 'kmsKeyArn', 's3Destination_kmsKeyArn' - The Amazon Resource Name (ARN) of the KMS key to use for encryption of
--- the results. This must be the ARN of an existing, symmetric, customer
--- managed KMS key that\'s in the same Amazon Web Services Region as the
--- bucket.
+-- 'kmsKeyArn', 's3Destination_kmsKeyArn' - The Amazon Resource Name (ARN) of the customer managed KMS key to use
+-- for encryption of the results. This must be the ARN of an existing,
+-- symmetric encryption KMS key that\'s in the same Amazon Web Services
+-- Region as the bucket.
 newS3Destination ::
   -- | 'bucketName'
   Prelude.Text ->
@@ -80,22 +81,22 @@ s3Destination_keyPrefix = Lens.lens (\S3Destination' {keyPrefix} -> keyPrefix) (
 s3Destination_bucketName :: Lens.Lens' S3Destination Prelude.Text
 s3Destination_bucketName = Lens.lens (\S3Destination' {bucketName} -> bucketName) (\s@S3Destination' {} a -> s {bucketName = a} :: S3Destination)
 
--- | The Amazon Resource Name (ARN) of the KMS key to use for encryption of
--- the results. This must be the ARN of an existing, symmetric, customer
--- managed KMS key that\'s in the same Amazon Web Services Region as the
--- bucket.
+-- | The Amazon Resource Name (ARN) of the customer managed KMS key to use
+-- for encryption of the results. This must be the ARN of an existing,
+-- symmetric encryption KMS key that\'s in the same Amazon Web Services
+-- Region as the bucket.
 s3Destination_kmsKeyArn :: Lens.Lens' S3Destination Prelude.Text
 s3Destination_kmsKeyArn = Lens.lens (\S3Destination' {kmsKeyArn} -> kmsKeyArn) (\s@S3Destination' {} a -> s {kmsKeyArn = a} :: S3Destination)
 
-instance Core.FromJSON S3Destination where
+instance Data.FromJSON S3Destination where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3Destination"
       ( \x ->
           S3Destination'
-            Prelude.<$> (x Core..:? "keyPrefix")
-            Prelude.<*> (x Core..: "bucketName")
-            Prelude.<*> (x Core..: "kmsKeyArn")
+            Prelude.<$> (x Data..:? "keyPrefix")
+            Prelude.<*> (x Data..: "bucketName")
+            Prelude.<*> (x Data..: "kmsKeyArn")
       )
 
 instance Prelude.Hashable S3Destination where
@@ -110,12 +111,12 @@ instance Prelude.NFData S3Destination where
       `Prelude.seq` Prelude.rnf bucketName
       `Prelude.seq` Prelude.rnf kmsKeyArn
 
-instance Core.ToJSON S3Destination where
+instance Data.ToJSON S3Destination where
   toJSON S3Destination' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("keyPrefix" Core..=) Prelude.<$> keyPrefix,
-            Prelude.Just ("bucketName" Core..= bucketName),
-            Prelude.Just ("kmsKeyArn" Core..= kmsKeyArn)
+          [ ("keyPrefix" Data..=) Prelude.<$> keyPrefix,
+            Prelude.Just ("bucketName" Data..= bucketName),
+            Prelude.Just ("kmsKeyArn" Data..= kmsKeyArn)
           ]
       )

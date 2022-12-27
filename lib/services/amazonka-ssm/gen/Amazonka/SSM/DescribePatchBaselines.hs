@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.DescribePatchBaselines
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.SSM.DescribePatchBaselines
 
     -- * Request Lenses
     describePatchBaselines_filters,
-    describePatchBaselines_nextToken,
     describePatchBaselines_maxResults,
+    describePatchBaselines_nextToken,
 
     -- * Destructuring the Response
     DescribePatchBaselinesResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.SSM.DescribePatchBaselines
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,11 +70,11 @@ data DescribePatchBaselines = DescribePatchBaselines'
     --
     --     Sample values: @AMAZON_LINUX@ | @SUSE@ | @WINDOWS@
     filters :: Prelude.Maybe [PatchOrchestratorFilter],
+    -- | The maximum number of patch baselines to return (per page).
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The token for the next set of items to return. (You received this token
     -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of patch baselines to return (per page).
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -101,17 +102,17 @@ data DescribePatchBaselines = DescribePatchBaselines'
 --
 --     Sample values: @AMAZON_LINUX@ | @SUSE@ | @WINDOWS@
 --
+-- 'maxResults', 'describePatchBaselines_maxResults' - The maximum number of patch baselines to return (per page).
+--
 -- 'nextToken', 'describePatchBaselines_nextToken' - The token for the next set of items to return. (You received this token
 -- from a previous call.)
---
--- 'maxResults', 'describePatchBaselines_maxResults' - The maximum number of patch baselines to return (per page).
 newDescribePatchBaselines ::
   DescribePatchBaselines
 newDescribePatchBaselines =
   DescribePatchBaselines'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | Each element in the array is a structure containing a key-value pair.
@@ -132,14 +133,14 @@ newDescribePatchBaselines =
 describePatchBaselines_filters :: Lens.Lens' DescribePatchBaselines (Prelude.Maybe [PatchOrchestratorFilter])
 describePatchBaselines_filters = Lens.lens (\DescribePatchBaselines' {filters} -> filters) (\s@DescribePatchBaselines' {} a -> s {filters = a} :: DescribePatchBaselines) Prelude.. Lens.mapping Lens.coerced
 
+-- | The maximum number of patch baselines to return (per page).
+describePatchBaselines_maxResults :: Lens.Lens' DescribePatchBaselines (Prelude.Maybe Prelude.Natural)
+describePatchBaselines_maxResults = Lens.lens (\DescribePatchBaselines' {maxResults} -> maxResults) (\s@DescribePatchBaselines' {} a -> s {maxResults = a} :: DescribePatchBaselines)
+
 -- | The token for the next set of items to return. (You received this token
 -- from a previous call.)
 describePatchBaselines_nextToken :: Lens.Lens' DescribePatchBaselines (Prelude.Maybe Prelude.Text)
 describePatchBaselines_nextToken = Lens.lens (\DescribePatchBaselines' {nextToken} -> nextToken) (\s@DescribePatchBaselines' {} a -> s {nextToken = a} :: DescribePatchBaselines)
-
--- | The maximum number of patch baselines to return (per page).
-describePatchBaselines_maxResults :: Lens.Lens' DescribePatchBaselines (Prelude.Maybe Prelude.Natural)
-describePatchBaselines_maxResults = Lens.lens (\DescribePatchBaselines' {maxResults} -> maxResults) (\s@DescribePatchBaselines' {} a -> s {maxResults = a} :: DescribePatchBaselines)
 
 instance Core.AWSPager DescribePatchBaselines where
   page rq rs
@@ -167,59 +168,60 @@ instance Core.AWSRequest DescribePatchBaselines where
   type
     AWSResponse DescribePatchBaselines =
       DescribePatchBaselinesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePatchBaselinesResponse'
-            Prelude.<$> ( x Core..?> "BaselineIdentities"
+            Prelude.<$> ( x Data..?> "BaselineIdentities"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribePatchBaselines where
   hashWithSalt _salt DescribePatchBaselines' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribePatchBaselines where
   rnf DescribePatchBaselines' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribePatchBaselines where
+instance Data.ToHeaders DescribePatchBaselines where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.DescribePatchBaselines" ::
+              Data.=# ( "AmazonSSM.DescribePatchBaselines" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribePatchBaselines where
+instance Data.ToJSON DescribePatchBaselines where
   toJSON DescribePatchBaselines' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath DescribePatchBaselines where
+instance Data.ToPath DescribePatchBaselines where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribePatchBaselines where
+instance Data.ToQuery DescribePatchBaselines where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribePatchBaselinesResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.CapacityReservationOptionsRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.CapacityReservationOptionsRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.FleetCapacityReservationUsageStrategy
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the strategy for using unused Capacity Reservations for
@@ -121,9 +122,9 @@ instance
     Prelude.rnf usageStrategy
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     CapacityReservationOptionsRequest
   where
   toQuery CapacityReservationOptionsRequest' {..} =
     Prelude.mconcat
-      ["UsageStrategy" Core.=: usageStrategy]
+      ["UsageStrategy" Data.=: usageStrategy]

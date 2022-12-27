@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.StopStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IVS.StopStream
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +81,8 @@ stopStream_channelArn = Lens.lens (\StopStream' {channelArn} -> channelArn) (\s@
 
 instance Core.AWSRequest StopStream where
   type AWSResponse StopStream = StopStreamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,28 +97,28 @@ instance Prelude.Hashable StopStream where
 instance Prelude.NFData StopStream where
   rnf StopStream' {..} = Prelude.rnf channelArn
 
-instance Core.ToHeaders StopStream where
+instance Data.ToHeaders StopStream where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopStream where
+instance Data.ToJSON StopStream where
   toJSON StopStream' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("channelArn" Core..= channelArn)]
+          [Prelude.Just ("channelArn" Data..= channelArn)]
       )
 
-instance Core.ToPath StopStream where
+instance Data.ToPath StopStream where
   toPath = Prelude.const "/StopStream"
 
-instance Core.ToQuery StopStream where
+instance Data.ToQuery StopStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopStreamResponse' smart constructor.

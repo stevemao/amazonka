@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeVpcPeeringConnections
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,11 +29,11 @@ module Amazonka.EC2.DescribeVpcPeeringConnections
     newDescribeVpcPeeringConnections,
 
     -- * Request Lenses
+    describeVpcPeeringConnections_dryRun,
     describeVpcPeeringConnections_filters,
+    describeVpcPeeringConnections_maxResults,
     describeVpcPeeringConnections_nextToken,
     describeVpcPeeringConnections_vpcPeeringConnectionIds,
-    describeVpcPeeringConnections_dryRun,
-    describeVpcPeeringConnections_maxResults,
 
     -- * Destructuring the Response
     DescribeVpcPeeringConnectionsResponse (..),
@@ -47,15 +47,21 @@ module Amazonka.EC2.DescribeVpcPeeringConnections
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeVpcPeeringConnections' smart constructor.
 data DescribeVpcPeeringConnections = DescribeVpcPeeringConnections'
-  { -- | One or more filters.
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters.
     --
     -- -   @accepter-vpc-info.cidr-block@ - The IPv4 CIDR block of the accepter
     --     VPC.
@@ -95,21 +101,16 @@ data DescribeVpcPeeringConnections = DescribeVpcPeeringConnections'
     --
     -- -   @vpc-peering-connection-id@ - The ID of the VPC peering connection.
     filters :: Prelude.Maybe [Filter],
+    -- | The maximum number of results to return with a single call. To retrieve
+    -- the remaining results, make another call with the returned @nextToken@
+    -- value.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The token for the next page of results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | One or more VPC peering connection IDs.
     --
     -- Default: Describes all your VPC peering connections.
-    vpcPeeringConnectionIds :: Prelude.Maybe [Prelude.Text],
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
-    -- | The maximum number of results to return with a single call. To retrieve
-    -- the remaining results, make another call with the returned @nextToken@
-    -- value.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    vpcPeeringConnectionIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -120,6 +121,11 @@ data DescribeVpcPeeringConnections = DescribeVpcPeeringConnections'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dryRun', 'describeVpcPeeringConnections_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeVpcPeeringConnections_filters' - One or more filters.
 --
@@ -161,31 +167,33 @@ data DescribeVpcPeeringConnections = DescribeVpcPeeringConnections'
 --
 -- -   @vpc-peering-connection-id@ - The ID of the VPC peering connection.
 --
+-- 'maxResults', 'describeVpcPeeringConnections_maxResults' - The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+--
 -- 'nextToken', 'describeVpcPeeringConnections_nextToken' - The token for the next page of results.
 --
 -- 'vpcPeeringConnectionIds', 'describeVpcPeeringConnections_vpcPeeringConnectionIds' - One or more VPC peering connection IDs.
 --
 -- Default: Describes all your VPC peering connections.
---
--- 'dryRun', 'describeVpcPeeringConnections_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
--- 'maxResults', 'describeVpcPeeringConnections_maxResults' - The maximum number of results to return with a single call. To retrieve
--- the remaining results, make another call with the returned @nextToken@
--- value.
 newDescribeVpcPeeringConnections ::
   DescribeVpcPeeringConnections
 newDescribeVpcPeeringConnections =
   DescribeVpcPeeringConnections'
-    { filters =
+    { dryRun =
         Prelude.Nothing,
+      filters = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      vpcPeeringConnectionIds = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      vpcPeeringConnectionIds = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeVpcPeeringConnections_dryRun :: Lens.Lens' DescribeVpcPeeringConnections (Prelude.Maybe Prelude.Bool)
+describeVpcPeeringConnections_dryRun = Lens.lens (\DescribeVpcPeeringConnections' {dryRun} -> dryRun) (\s@DescribeVpcPeeringConnections' {} a -> s {dryRun = a} :: DescribeVpcPeeringConnections)
 
 -- | One or more filters.
 --
@@ -229,6 +237,12 @@ newDescribeVpcPeeringConnections =
 describeVpcPeeringConnections_filters :: Lens.Lens' DescribeVpcPeeringConnections (Prelude.Maybe [Filter])
 describeVpcPeeringConnections_filters = Lens.lens (\DescribeVpcPeeringConnections' {filters} -> filters) (\s@DescribeVpcPeeringConnections' {} a -> s {filters = a} :: DescribeVpcPeeringConnections) Prelude.. Lens.mapping Lens.coerced
 
+-- | The maximum number of results to return with a single call. To retrieve
+-- the remaining results, make another call with the returned @nextToken@
+-- value.
+describeVpcPeeringConnections_maxResults :: Lens.Lens' DescribeVpcPeeringConnections (Prelude.Maybe Prelude.Natural)
+describeVpcPeeringConnections_maxResults = Lens.lens (\DescribeVpcPeeringConnections' {maxResults} -> maxResults) (\s@DescribeVpcPeeringConnections' {} a -> s {maxResults = a} :: DescribeVpcPeeringConnections)
+
 -- | The token for the next page of results.
 describeVpcPeeringConnections_nextToken :: Lens.Lens' DescribeVpcPeeringConnections (Prelude.Maybe Prelude.Text)
 describeVpcPeeringConnections_nextToken = Lens.lens (\DescribeVpcPeeringConnections' {nextToken} -> nextToken) (\s@DescribeVpcPeeringConnections' {} a -> s {nextToken = a} :: DescribeVpcPeeringConnections)
@@ -238,19 +252,6 @@ describeVpcPeeringConnections_nextToken = Lens.lens (\DescribeVpcPeeringConnecti
 -- Default: Describes all your VPC peering connections.
 describeVpcPeeringConnections_vpcPeeringConnectionIds :: Lens.Lens' DescribeVpcPeeringConnections (Prelude.Maybe [Prelude.Text])
 describeVpcPeeringConnections_vpcPeeringConnectionIds = Lens.lens (\DescribeVpcPeeringConnections' {vpcPeeringConnectionIds} -> vpcPeeringConnectionIds) (\s@DescribeVpcPeeringConnections' {} a -> s {vpcPeeringConnectionIds = a} :: DescribeVpcPeeringConnections) Prelude.. Lens.mapping Lens.coerced
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeVpcPeeringConnections_dryRun :: Lens.Lens' DescribeVpcPeeringConnections (Prelude.Maybe Prelude.Bool)
-describeVpcPeeringConnections_dryRun = Lens.lens (\DescribeVpcPeeringConnections' {dryRun} -> dryRun) (\s@DescribeVpcPeeringConnections' {} a -> s {dryRun = a} :: DescribeVpcPeeringConnections)
-
--- | The maximum number of results to return with a single call. To retrieve
--- the remaining results, make another call with the returned @nextToken@
--- value.
-describeVpcPeeringConnections_maxResults :: Lens.Lens' DescribeVpcPeeringConnections (Prelude.Maybe Prelude.Natural)
-describeVpcPeeringConnections_maxResults = Lens.lens (\DescribeVpcPeeringConnections' {maxResults} -> maxResults) (\s@DescribeVpcPeeringConnections' {} a -> s {maxResults = a} :: DescribeVpcPeeringConnections)
 
 instance Core.AWSPager DescribeVpcPeeringConnections where
   page rq rs
@@ -281,15 +282,16 @@ instance
   type
     AWSResponse DescribeVpcPeeringConnections =
       DescribeVpcPeeringConnectionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeVpcPeeringConnectionsResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-            Prelude.<*> ( x Core..@? "vpcPeeringConnectionSet"
+            Prelude.<$> (x Data..@? "nextToken")
+            Prelude.<*> ( x Data..@? "vpcPeeringConnectionSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -299,44 +301,44 @@ instance
     DescribeVpcPeeringConnections
   where
   hashWithSalt _salt DescribeVpcPeeringConnections' {..} =
-    _salt `Prelude.hashWithSalt` filters
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` vpcPeeringConnectionIds
-      `Prelude.hashWithSalt` dryRun
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData DescribeVpcPeeringConnections where
   rnf DescribeVpcPeeringConnections' {..} =
-    Prelude.rnf filters
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf vpcPeeringConnectionIds
-      `Prelude.seq` Prelude.rnf dryRun
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders DescribeVpcPeeringConnections where
+instance Data.ToHeaders DescribeVpcPeeringConnections where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeVpcPeeringConnections where
+instance Data.ToPath DescribeVpcPeeringConnections where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeVpcPeeringConnections where
+instance Data.ToQuery DescribeVpcPeeringConnections where
   toQuery DescribeVpcPeeringConnections' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeVpcPeeringConnections" ::
+          Data.=: ( "DescribeVpcPeeringConnections" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        Core.toQuery
-          ( Core.toQueryList "VpcPeeringConnectionId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        Data.toQuery
+          ( Data.toQueryList "VpcPeeringConnectionId"
               Prelude.<$> vpcPeeringConnectionIds
-          ),
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+          )
       ]
 
 -- | /See:/ 'newDescribeVpcPeeringConnectionsResponse' smart constructor.

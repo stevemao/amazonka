@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.TransitGatewayRouteAttachment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.TransitGatewayRouteAttachment where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.TransitGatewayAttachmentResourceType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a route attachment.
@@ -76,12 +77,12 @@ transitGatewayRouteAttachment_resourceType = Lens.lens (\TransitGatewayRouteAtta
 transitGatewayRouteAttachment_transitGatewayAttachmentId :: Lens.Lens' TransitGatewayRouteAttachment (Prelude.Maybe Prelude.Text)
 transitGatewayRouteAttachment_transitGatewayAttachmentId = Lens.lens (\TransitGatewayRouteAttachment' {transitGatewayAttachmentId} -> transitGatewayAttachmentId) (\s@TransitGatewayRouteAttachment' {} a -> s {transitGatewayAttachmentId = a} :: TransitGatewayRouteAttachment)
 
-instance Core.FromXML TransitGatewayRouteAttachment where
+instance Data.FromXML TransitGatewayRouteAttachment where
   parseXML x =
     TransitGatewayRouteAttachment'
-      Prelude.<$> (x Core..@? "resourceId")
-      Prelude.<*> (x Core..@? "resourceType")
-      Prelude.<*> (x Core..@? "transitGatewayAttachmentId")
+      Prelude.<$> (x Data..@? "resourceId")
+      Prelude.<*> (x Data..@? "resourceType")
+      Prelude.<*> (x Data..@? "transitGatewayAttachmentId")
 
 instance
   Prelude.Hashable

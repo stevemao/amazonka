@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.SearchPlaceIndexForText
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,21 +23,24 @@
 -- Geocodes free-form text, such as an address, name, city, or region to
 -- allow you to search for Places or points of interest.
 --
--- Includes the option to apply additional parameters to narrow your list
--- of results.
+-- Optional parameters let you narrow your search results by bounding box
+-- or country, or bias your search toward a specific position on the globe.
 --
 -- You can search for places near a given position using @BiasPosition@, or
 -- filter results within a bounding box using @FilterBBox@. Providing both
 -- parameters simultaneously returns an error.
+--
+-- Search results are returned in order of highest to lowest relevance.
 module Amazonka.Location.SearchPlaceIndexForText
   ( -- * Creating a Request
     SearchPlaceIndexForText (..),
     newSearchPlaceIndexForText,
 
     -- * Request Lenses
-    searchPlaceIndexForText_filterBBox,
     searchPlaceIndexForText_biasPosition,
+    searchPlaceIndexForText_filterBBox,
     searchPlaceIndexForText_filterCountries,
+    searchPlaceIndexForText_language,
     searchPlaceIndexForText_maxResults,
     searchPlaceIndexForText_indexName,
     searchPlaceIndexForText_text,
@@ -54,7 +57,8 @@ module Amazonka.Location.SearchPlaceIndexForText
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -62,45 +66,64 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newSearchPlaceIndexForText' smart constructor.
 data SearchPlaceIndexForText = SearchPlaceIndexForText'
-  { -- | Filters the results by returning only Places within the provided
-    -- bounding box. An optional parameter.
+  { -- | An optional parameter that indicates a preference for places that are
+    -- closer to a specified position.
     --
-    -- The first 2 @bbox@ parameters describe the lower southwest corner:
+    -- If provided, this parameter must contain a pair of numbers. The first
+    -- number represents the X coordinate, or longitude; the second number
+    -- represents the Y coordinate, or latitude.
     --
-    -- -   The first @bbox@ position is the X coordinate or longitude of the
-    --     lower southwest corner.
+    -- For example, @[-123.1174, 49.2847]@ represents the position with
+    -- longitude @-123.1174@ and latitude @49.2847@.
     --
-    -- -   The second @bbox@ position is the Y coordinate or latitude of the
-    --     lower southwest corner.
+    -- @BiasPosition@ and @FilterBBox@ are mutually exclusive. Specifying both
+    -- options results in an error.
+    biasPosition :: Prelude.Maybe (Data.Sensitive (Prelude.NonEmpty Prelude.Double)),
+    -- | An optional parameter that limits the search results by returning only
+    -- places that are within the provided bounding box.
     --
-    -- For example, @bbox=xLongitudeSW&bbox=yLatitudeSW@.
+    -- If provided, this parameter must contain a total of four consecutive
+    -- numbers in two pairs. The first pair of numbers represents the X and Y
+    -- coordinates (longitude and latitude, respectively) of the southwest
+    -- corner of the bounding box; the second pair of numbers represents the X
+    -- and Y coordinates (longitude and latitude, respectively) of the
+    -- northeast corner of the bounding box.
     --
-    -- The next @bbox@ parameters describe the upper northeast corner:
+    -- For example, @[-12.7935, -37.4835, -12.0684, -36.9542]@ represents a
+    -- bounding box where the southwest corner has longitude @-12.7935@ and
+    -- latitude @-37.4835@, and the northeast corner has longitude @-12.0684@
+    -- and latitude @-36.9542@.
     --
-    -- -   The third @bbox@ position is the X coordinate, or longitude of the
-    --     upper northeast corner.
+    -- @FilterBBox@ and @BiasPosition@ are mutually exclusive. Specifying both
+    -- options results in an error.
+    filterBBox :: Prelude.Maybe (Data.Sensitive (Prelude.NonEmpty Prelude.Double)),
+    -- | An optional parameter that limits the search results by returning only
+    -- places that are in a specified list of countries.
     --
-    -- -   The fourth @bbox@ position is the Y coordinate, or longitude of the
-    --     upper northeast corner.
-    --
-    -- For example, @bbox=xLongitudeNE&bbox=yLatitudeNE@
-    filterBBox :: Prelude.Maybe (Core.Sensitive (Prelude.NonEmpty Prelude.Double)),
-    -- | Searches for results closest to the given position. An optional
-    -- parameter defined by longitude, and latitude.
-    --
-    -- -   The first @bias@ position is the X coordinate, or longitude.
-    --
-    -- -   The second @bias@ position is the Y coordinate, or latitude.
-    --
-    -- For example, @bias=xLongitude&bias=yLatitude@.
-    biasPosition :: Prelude.Maybe (Core.Sensitive (Prelude.NonEmpty Prelude.Double)),
-    -- | Limits the search to the given a list of countries\/regions. An optional
-    -- parameter.
-    --
-    -- -   Use the <https://www.iso.org/iso-3166-country-codes.html ISO 3166>
-    --     3-digit country code. For example, Australia uses three upper-case
+    -- -   Valid values include
+    --     <https://www.iso.org/iso-3166-country-codes.html ISO 3166> 3-digit
+    --     country codes. For example, Australia uses three upper-case
     --     characters: @AUS@.
     filterCountries :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | The preferred language used to return results. The value must be a valid
+    -- <https://tools.ietf.org/search/bcp47 BCP 47> language tag, for example,
+    -- @en@ for English.
+    --
+    -- This setting affects the languages used in the results, but not the
+    -- results themselves. If no language is specified, or not supported for a
+    -- particular result, the partner automatically chooses a language for the
+    -- result.
+    --
+    -- For an example, we\'ll use the Greek language. You search for
+    -- @Athens, Greece@, with the @language@ parameter set to @en@. The result
+    -- found will most likely be returned as @Athens@.
+    --
+    -- If you set the @language@ parameter to @el@, for Greek, then the result
+    -- found will more likely be returned as @Αθήνα@.
+    --
+    -- If the data provider does not have a value for Greek, the result will be
+    -- in a language that the provider does support.
+    language :: Prelude.Maybe Prelude.Text,
     -- | An optional parameter. The maximum number of results returned per
     -- request.
     --
@@ -108,9 +131,9 @@ data SearchPlaceIndexForText = SearchPlaceIndexForText'
     maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The name of the place index resource you want to use for the search.
     indexName :: Prelude.Text,
-    -- | The address, name, city, or region to be used in the search. In
-    -- free-form text format. For example, @123 Any Street@.
-    text :: Core.Sensitive Prelude.Text
+    -- | The address, name, city, or region to be used in the search in free-form
+    -- text format. For example, @123 Any Street@.
+    text :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -122,44 +145,63 @@ data SearchPlaceIndexForText = SearchPlaceIndexForText'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'filterBBox', 'searchPlaceIndexForText_filterBBox' - Filters the results by returning only Places within the provided
--- bounding box. An optional parameter.
+-- 'biasPosition', 'searchPlaceIndexForText_biasPosition' - An optional parameter that indicates a preference for places that are
+-- closer to a specified position.
 --
--- The first 2 @bbox@ parameters describe the lower southwest corner:
+-- If provided, this parameter must contain a pair of numbers. The first
+-- number represents the X coordinate, or longitude; the second number
+-- represents the Y coordinate, or latitude.
 --
--- -   The first @bbox@ position is the X coordinate or longitude of the
---     lower southwest corner.
+-- For example, @[-123.1174, 49.2847]@ represents the position with
+-- longitude @-123.1174@ and latitude @49.2847@.
 --
--- -   The second @bbox@ position is the Y coordinate or latitude of the
---     lower southwest corner.
+-- @BiasPosition@ and @FilterBBox@ are mutually exclusive. Specifying both
+-- options results in an error.
 --
--- For example, @bbox=xLongitudeSW&bbox=yLatitudeSW@.
+-- 'filterBBox', 'searchPlaceIndexForText_filterBBox' - An optional parameter that limits the search results by returning only
+-- places that are within the provided bounding box.
 --
--- The next @bbox@ parameters describe the upper northeast corner:
+-- If provided, this parameter must contain a total of four consecutive
+-- numbers in two pairs. The first pair of numbers represents the X and Y
+-- coordinates (longitude and latitude, respectively) of the southwest
+-- corner of the bounding box; the second pair of numbers represents the X
+-- and Y coordinates (longitude and latitude, respectively) of the
+-- northeast corner of the bounding box.
 --
--- -   The third @bbox@ position is the X coordinate, or longitude of the
---     upper northeast corner.
+-- For example, @[-12.7935, -37.4835, -12.0684, -36.9542]@ represents a
+-- bounding box where the southwest corner has longitude @-12.7935@ and
+-- latitude @-37.4835@, and the northeast corner has longitude @-12.0684@
+-- and latitude @-36.9542@.
 --
--- -   The fourth @bbox@ position is the Y coordinate, or longitude of the
---     upper northeast corner.
+-- @FilterBBox@ and @BiasPosition@ are mutually exclusive. Specifying both
+-- options results in an error.
 --
--- For example, @bbox=xLongitudeNE&bbox=yLatitudeNE@
+-- 'filterCountries', 'searchPlaceIndexForText_filterCountries' - An optional parameter that limits the search results by returning only
+-- places that are in a specified list of countries.
 --
--- 'biasPosition', 'searchPlaceIndexForText_biasPosition' - Searches for results closest to the given position. An optional
--- parameter defined by longitude, and latitude.
---
--- -   The first @bias@ position is the X coordinate, or longitude.
---
--- -   The second @bias@ position is the Y coordinate, or latitude.
---
--- For example, @bias=xLongitude&bias=yLatitude@.
---
--- 'filterCountries', 'searchPlaceIndexForText_filterCountries' - Limits the search to the given a list of countries\/regions. An optional
--- parameter.
---
--- -   Use the <https://www.iso.org/iso-3166-country-codes.html ISO 3166>
---     3-digit country code. For example, Australia uses three upper-case
+-- -   Valid values include
+--     <https://www.iso.org/iso-3166-country-codes.html ISO 3166> 3-digit
+--     country codes. For example, Australia uses three upper-case
 --     characters: @AUS@.
+--
+-- 'language', 'searchPlaceIndexForText_language' - The preferred language used to return results. The value must be a valid
+-- <https://tools.ietf.org/search/bcp47 BCP 47> language tag, for example,
+-- @en@ for English.
+--
+-- This setting affects the languages used in the results, but not the
+-- results themselves. If no language is specified, or not supported for a
+-- particular result, the partner automatically chooses a language for the
+-- result.
+--
+-- For an example, we\'ll use the Greek language. You search for
+-- @Athens, Greece@, with the @language@ parameter set to @en@. The result
+-- found will most likely be returned as @Athens@.
+--
+-- If you set the @language@ parameter to @el@, for Greek, then the result
+-- found will more likely be returned as @Αθήνα@.
+--
+-- If the data provider does not have a value for Greek, the result will be
+-- in a language that the provider does support.
 --
 -- 'maxResults', 'searchPlaceIndexForText_maxResults' - An optional parameter. The maximum number of results returned per
 -- request.
@@ -168,8 +210,8 @@ data SearchPlaceIndexForText = SearchPlaceIndexForText'
 --
 -- 'indexName', 'searchPlaceIndexForText_indexName' - The name of the place index resource you want to use for the search.
 --
--- 'text', 'searchPlaceIndexForText_text' - The address, name, city, or region to be used in the search. In
--- free-form text format. For example, @123 Any Street@.
+-- 'text', 'searchPlaceIndexForText_text' - The address, name, city, or region to be used in the search in free-form
+-- text format. For example, @123 Any Street@.
 newSearchPlaceIndexForText ::
   -- | 'indexName'
   Prelude.Text ->
@@ -178,59 +220,81 @@ newSearchPlaceIndexForText ::
   SearchPlaceIndexForText
 newSearchPlaceIndexForText pIndexName_ pText_ =
   SearchPlaceIndexForText'
-    { filterBBox =
+    { biasPosition =
         Prelude.Nothing,
-      biasPosition = Prelude.Nothing,
+      filterBBox = Prelude.Nothing,
       filterCountries = Prelude.Nothing,
+      language = Prelude.Nothing,
       maxResults = Prelude.Nothing,
       indexName = pIndexName_,
-      text = Core._Sensitive Lens.# pText_
+      text = Data._Sensitive Lens.# pText_
     }
 
--- | Filters the results by returning only Places within the provided
--- bounding box. An optional parameter.
+-- | An optional parameter that indicates a preference for places that are
+-- closer to a specified position.
 --
--- The first 2 @bbox@ parameters describe the lower southwest corner:
+-- If provided, this parameter must contain a pair of numbers. The first
+-- number represents the X coordinate, or longitude; the second number
+-- represents the Y coordinate, or latitude.
 --
--- -   The first @bbox@ position is the X coordinate or longitude of the
---     lower southwest corner.
+-- For example, @[-123.1174, 49.2847]@ represents the position with
+-- longitude @-123.1174@ and latitude @49.2847@.
 --
--- -   The second @bbox@ position is the Y coordinate or latitude of the
---     lower southwest corner.
---
--- For example, @bbox=xLongitudeSW&bbox=yLatitudeSW@.
---
--- The next @bbox@ parameters describe the upper northeast corner:
---
--- -   The third @bbox@ position is the X coordinate, or longitude of the
---     upper northeast corner.
---
--- -   The fourth @bbox@ position is the Y coordinate, or longitude of the
---     upper northeast corner.
---
--- For example, @bbox=xLongitudeNE&bbox=yLatitudeNE@
-searchPlaceIndexForText_filterBBox :: Lens.Lens' SearchPlaceIndexForText (Prelude.Maybe (Prelude.NonEmpty Prelude.Double))
-searchPlaceIndexForText_filterBBox = Lens.lens (\SearchPlaceIndexForText' {filterBBox} -> filterBBox) (\s@SearchPlaceIndexForText' {} a -> s {filterBBox = a} :: SearchPlaceIndexForText) Prelude.. Lens.mapping (Core._Sensitive Prelude.. Lens.coerced)
-
--- | Searches for results closest to the given position. An optional
--- parameter defined by longitude, and latitude.
---
--- -   The first @bias@ position is the X coordinate, or longitude.
---
--- -   The second @bias@ position is the Y coordinate, or latitude.
---
--- For example, @bias=xLongitude&bias=yLatitude@.
+-- @BiasPosition@ and @FilterBBox@ are mutually exclusive. Specifying both
+-- options results in an error.
 searchPlaceIndexForText_biasPosition :: Lens.Lens' SearchPlaceIndexForText (Prelude.Maybe (Prelude.NonEmpty Prelude.Double))
-searchPlaceIndexForText_biasPosition = Lens.lens (\SearchPlaceIndexForText' {biasPosition} -> biasPosition) (\s@SearchPlaceIndexForText' {} a -> s {biasPosition = a} :: SearchPlaceIndexForText) Prelude.. Lens.mapping (Core._Sensitive Prelude.. Lens.coerced)
+searchPlaceIndexForText_biasPosition = Lens.lens (\SearchPlaceIndexForText' {biasPosition} -> biasPosition) (\s@SearchPlaceIndexForText' {} a -> s {biasPosition = a} :: SearchPlaceIndexForText) Prelude.. Lens.mapping (Data._Sensitive Prelude.. Lens.coerced)
 
--- | Limits the search to the given a list of countries\/regions. An optional
--- parameter.
+-- | An optional parameter that limits the search results by returning only
+-- places that are within the provided bounding box.
 --
--- -   Use the <https://www.iso.org/iso-3166-country-codes.html ISO 3166>
---     3-digit country code. For example, Australia uses three upper-case
+-- If provided, this parameter must contain a total of four consecutive
+-- numbers in two pairs. The first pair of numbers represents the X and Y
+-- coordinates (longitude and latitude, respectively) of the southwest
+-- corner of the bounding box; the second pair of numbers represents the X
+-- and Y coordinates (longitude and latitude, respectively) of the
+-- northeast corner of the bounding box.
+--
+-- For example, @[-12.7935, -37.4835, -12.0684, -36.9542]@ represents a
+-- bounding box where the southwest corner has longitude @-12.7935@ and
+-- latitude @-37.4835@, and the northeast corner has longitude @-12.0684@
+-- and latitude @-36.9542@.
+--
+-- @FilterBBox@ and @BiasPosition@ are mutually exclusive. Specifying both
+-- options results in an error.
+searchPlaceIndexForText_filterBBox :: Lens.Lens' SearchPlaceIndexForText (Prelude.Maybe (Prelude.NonEmpty Prelude.Double))
+searchPlaceIndexForText_filterBBox = Lens.lens (\SearchPlaceIndexForText' {filterBBox} -> filterBBox) (\s@SearchPlaceIndexForText' {} a -> s {filterBBox = a} :: SearchPlaceIndexForText) Prelude.. Lens.mapping (Data._Sensitive Prelude.. Lens.coerced)
+
+-- | An optional parameter that limits the search results by returning only
+-- places that are in a specified list of countries.
+--
+-- -   Valid values include
+--     <https://www.iso.org/iso-3166-country-codes.html ISO 3166> 3-digit
+--     country codes. For example, Australia uses three upper-case
 --     characters: @AUS@.
 searchPlaceIndexForText_filterCountries :: Lens.Lens' SearchPlaceIndexForText (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 searchPlaceIndexForText_filterCountries = Lens.lens (\SearchPlaceIndexForText' {filterCountries} -> filterCountries) (\s@SearchPlaceIndexForText' {} a -> s {filterCountries = a} :: SearchPlaceIndexForText) Prelude.. Lens.mapping Lens.coerced
+
+-- | The preferred language used to return results. The value must be a valid
+-- <https://tools.ietf.org/search/bcp47 BCP 47> language tag, for example,
+-- @en@ for English.
+--
+-- This setting affects the languages used in the results, but not the
+-- results themselves. If no language is specified, or not supported for a
+-- particular result, the partner automatically chooses a language for the
+-- result.
+--
+-- For an example, we\'ll use the Greek language. You search for
+-- @Athens, Greece@, with the @language@ parameter set to @en@. The result
+-- found will most likely be returned as @Athens@.
+--
+-- If you set the @language@ parameter to @el@, for Greek, then the result
+-- found will more likely be returned as @Αθήνα@.
+--
+-- If the data provider does not have a value for Greek, the result will be
+-- in a language that the provider does support.
+searchPlaceIndexForText_language :: Lens.Lens' SearchPlaceIndexForText (Prelude.Maybe Prelude.Text)
+searchPlaceIndexForText_language = Lens.lens (\SearchPlaceIndexForText' {language} -> language) (\s@SearchPlaceIndexForText' {} a -> s {language = a} :: SearchPlaceIndexForText)
 
 -- | An optional parameter. The maximum number of results returned per
 -- request.
@@ -243,88 +307,97 @@ searchPlaceIndexForText_maxResults = Lens.lens (\SearchPlaceIndexForText' {maxRe
 searchPlaceIndexForText_indexName :: Lens.Lens' SearchPlaceIndexForText Prelude.Text
 searchPlaceIndexForText_indexName = Lens.lens (\SearchPlaceIndexForText' {indexName} -> indexName) (\s@SearchPlaceIndexForText' {} a -> s {indexName = a} :: SearchPlaceIndexForText)
 
--- | The address, name, city, or region to be used in the search. In
--- free-form text format. For example, @123 Any Street@.
+-- | The address, name, city, or region to be used in the search in free-form
+-- text format. For example, @123 Any Street@.
 searchPlaceIndexForText_text :: Lens.Lens' SearchPlaceIndexForText Prelude.Text
-searchPlaceIndexForText_text = Lens.lens (\SearchPlaceIndexForText' {text} -> text) (\s@SearchPlaceIndexForText' {} a -> s {text = a} :: SearchPlaceIndexForText) Prelude.. Core._Sensitive
+searchPlaceIndexForText_text = Lens.lens (\SearchPlaceIndexForText' {text} -> text) (\s@SearchPlaceIndexForText' {} a -> s {text = a} :: SearchPlaceIndexForText) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest SearchPlaceIndexForText where
   type
     AWSResponse SearchPlaceIndexForText =
       SearchPlaceIndexForTextResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SearchPlaceIndexForTextResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Results" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..:> "Summary")
+            Prelude.<*> (x Data..?> "Results" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "Summary")
       )
 
 instance Prelude.Hashable SearchPlaceIndexForText where
   hashWithSalt _salt SearchPlaceIndexForText' {..} =
-    _salt `Prelude.hashWithSalt` filterBBox
-      `Prelude.hashWithSalt` biasPosition
+    _salt `Prelude.hashWithSalt` biasPosition
+      `Prelude.hashWithSalt` filterBBox
       `Prelude.hashWithSalt` filterCountries
+      `Prelude.hashWithSalt` language
       `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` indexName
       `Prelude.hashWithSalt` text
 
 instance Prelude.NFData SearchPlaceIndexForText where
   rnf SearchPlaceIndexForText' {..} =
-    Prelude.rnf filterBBox
-      `Prelude.seq` Prelude.rnf biasPosition
+    Prelude.rnf biasPosition
+      `Prelude.seq` Prelude.rnf filterBBox
       `Prelude.seq` Prelude.rnf filterCountries
+      `Prelude.seq` Prelude.rnf language
       `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf indexName
       `Prelude.seq` Prelude.rnf text
 
-instance Core.ToHeaders SearchPlaceIndexForText where
+instance Data.ToHeaders SearchPlaceIndexForText where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SearchPlaceIndexForText where
+instance Data.ToJSON SearchPlaceIndexForText where
   toJSON SearchPlaceIndexForText' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FilterBBox" Core..=) Prelude.<$> filterBBox,
-            ("BiasPosition" Core..=) Prelude.<$> biasPosition,
-            ("FilterCountries" Core..=)
+          [ ("BiasPosition" Data..=) Prelude.<$> biasPosition,
+            ("FilterBBox" Data..=) Prelude.<$> filterBBox,
+            ("FilterCountries" Data..=)
               Prelude.<$> filterCountries,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("Text" Core..= text)
+            ("Language" Data..=) Prelude.<$> language,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            Prelude.Just ("Text" Data..= text)
           ]
       )
 
-instance Core.ToPath SearchPlaceIndexForText where
+instance Data.ToPath SearchPlaceIndexForText where
   toPath SearchPlaceIndexForText' {..} =
     Prelude.mconcat
       [ "/places/v0/indexes/",
-        Core.toBS indexName,
+        Data.toBS indexName,
         "/search/text"
       ]
 
-instance Core.ToQuery SearchPlaceIndexForText where
+instance Data.ToQuery SearchPlaceIndexForText where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSearchPlaceIndexForTextResponse' smart constructor.
 data SearchPlaceIndexForTextResponse = SearchPlaceIndexForTextResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | A list of Places closest to the specified position. Each result contains
+    -- | A list of Places matching the input text. Each result contains
     -- additional information about the specific point of interest.
+    --
+    -- Not all response properties are included with all responses. Some
+    -- properties may only be returned by specific data partners.
     results :: [SearchForTextResult],
-    -- | Contains a summary of the request. Contains the @BiasPosition@,
-    -- @DataSource@, @FilterBBox@, @FilterCountries@, @MaxResults@,
-    -- @ResultBBox@, and @Text@.
+    -- | Contains a summary of the request. Echoes the input values for
+    -- @BiasPosition@, @FilterBBox@, @FilterCountries@, @Language@,
+    -- @MaxResults@, and @Text@. Also includes the @DataSource@ of the place
+    -- index and the bounding box, @ResultBBox@, which surrounds the search
+    -- results.
     summary :: SearchPlaceIndexForTextSummary
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
@@ -339,12 +412,17 @@ data SearchPlaceIndexForTextResponse = SearchPlaceIndexForTextResponse'
 --
 -- 'httpStatus', 'searchPlaceIndexForTextResponse_httpStatus' - The response's http status code.
 --
--- 'results', 'searchPlaceIndexForTextResponse_results' - A list of Places closest to the specified position. Each result contains
+-- 'results', 'searchPlaceIndexForTextResponse_results' - A list of Places matching the input text. Each result contains
 -- additional information about the specific point of interest.
 --
--- 'summary', 'searchPlaceIndexForTextResponse_summary' - Contains a summary of the request. Contains the @BiasPosition@,
--- @DataSource@, @FilterBBox@, @FilterCountries@, @MaxResults@,
--- @ResultBBox@, and @Text@.
+-- Not all response properties are included with all responses. Some
+-- properties may only be returned by specific data partners.
+--
+-- 'summary', 'searchPlaceIndexForTextResponse_summary' - Contains a summary of the request. Echoes the input values for
+-- @BiasPosition@, @FilterBBox@, @FilterCountries@, @Language@,
+-- @MaxResults@, and @Text@. Also includes the @DataSource@ of the place
+-- index and the bounding box, @ResultBBox@, which surrounds the search
+-- results.
 newSearchPlaceIndexForTextResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -365,14 +443,19 @@ newSearchPlaceIndexForTextResponse
 searchPlaceIndexForTextResponse_httpStatus :: Lens.Lens' SearchPlaceIndexForTextResponse Prelude.Int
 searchPlaceIndexForTextResponse_httpStatus = Lens.lens (\SearchPlaceIndexForTextResponse' {httpStatus} -> httpStatus) (\s@SearchPlaceIndexForTextResponse' {} a -> s {httpStatus = a} :: SearchPlaceIndexForTextResponse)
 
--- | A list of Places closest to the specified position. Each result contains
+-- | A list of Places matching the input text. Each result contains
 -- additional information about the specific point of interest.
+--
+-- Not all response properties are included with all responses. Some
+-- properties may only be returned by specific data partners.
 searchPlaceIndexForTextResponse_results :: Lens.Lens' SearchPlaceIndexForTextResponse [SearchForTextResult]
 searchPlaceIndexForTextResponse_results = Lens.lens (\SearchPlaceIndexForTextResponse' {results} -> results) (\s@SearchPlaceIndexForTextResponse' {} a -> s {results = a} :: SearchPlaceIndexForTextResponse) Prelude.. Lens.coerced
 
--- | Contains a summary of the request. Contains the @BiasPosition@,
--- @DataSource@, @FilterBBox@, @FilterCountries@, @MaxResults@,
--- @ResultBBox@, and @Text@.
+-- | Contains a summary of the request. Echoes the input values for
+-- @BiasPosition@, @FilterBBox@, @FilterCountries@, @Language@,
+-- @MaxResults@, and @Text@. Also includes the @DataSource@ of the place
+-- index and the bounding box, @ResultBBox@, which surrounds the search
+-- results.
 searchPlaceIndexForTextResponse_summary :: Lens.Lens' SearchPlaceIndexForTextResponse SearchPlaceIndexForTextSummary
 searchPlaceIndexForTextResponse_summary = Lens.lens (\SearchPlaceIndexForTextResponse' {summary} -> summary) (\s@SearchPlaceIndexForTextResponse' {} a -> s {summary = a} :: SearchPlaceIndexForTextResponse)
 

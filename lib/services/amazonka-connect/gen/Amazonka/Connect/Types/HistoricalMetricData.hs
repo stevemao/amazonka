@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.HistoricalMetricData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,17 +21,18 @@ module Amazonka.Connect.Types.HistoricalMetricData where
 
 import Amazonka.Connect.Types.HistoricalMetric
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the data for a historical metric.
 --
 -- /See:/ 'newHistoricalMetricData' smart constructor.
 data HistoricalMetricData = HistoricalMetricData'
-  { -- | The value of the metric.
-    value :: Prelude.Maybe Prelude.Double,
-    -- | Information about the metric.
-    metric :: Prelude.Maybe HistoricalMetric
+  { -- | Information about the metric.
+    metric :: Prelude.Maybe HistoricalMetric,
+    -- | The value of the metric.
+    value :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,40 +44,40 @@ data HistoricalMetricData = HistoricalMetricData'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'historicalMetricData_value' - The value of the metric.
---
 -- 'metric', 'historicalMetricData_metric' - Information about the metric.
+--
+-- 'value', 'historicalMetricData_value' - The value of the metric.
 newHistoricalMetricData ::
   HistoricalMetricData
 newHistoricalMetricData =
   HistoricalMetricData'
-    { value = Prelude.Nothing,
-      metric = Prelude.Nothing
+    { metric = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The value of the metric.
-historicalMetricData_value :: Lens.Lens' HistoricalMetricData (Prelude.Maybe Prelude.Double)
-historicalMetricData_value = Lens.lens (\HistoricalMetricData' {value} -> value) (\s@HistoricalMetricData' {} a -> s {value = a} :: HistoricalMetricData)
 
 -- | Information about the metric.
 historicalMetricData_metric :: Lens.Lens' HistoricalMetricData (Prelude.Maybe HistoricalMetric)
 historicalMetricData_metric = Lens.lens (\HistoricalMetricData' {metric} -> metric) (\s@HistoricalMetricData' {} a -> s {metric = a} :: HistoricalMetricData)
 
-instance Core.FromJSON HistoricalMetricData where
+-- | The value of the metric.
+historicalMetricData_value :: Lens.Lens' HistoricalMetricData (Prelude.Maybe Prelude.Double)
+historicalMetricData_value = Lens.lens (\HistoricalMetricData' {value} -> value) (\s@HistoricalMetricData' {} a -> s {value = a} :: HistoricalMetricData)
+
+instance Data.FromJSON HistoricalMetricData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HistoricalMetricData"
       ( \x ->
           HistoricalMetricData'
-            Prelude.<$> (x Core..:? "Value")
-            Prelude.<*> (x Core..:? "Metric")
+            Prelude.<$> (x Data..:? "Metric")
+            Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable HistoricalMetricData where
   hashWithSalt _salt HistoricalMetricData' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` metric
+    _salt `Prelude.hashWithSalt` metric
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData HistoricalMetricData where
   rnf HistoricalMetricData' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf metric
+    Prelude.rnf metric `Prelude.seq` Prelude.rnf value

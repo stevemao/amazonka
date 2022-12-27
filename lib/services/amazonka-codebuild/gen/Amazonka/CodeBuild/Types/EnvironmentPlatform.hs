@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.Types.EnvironmentPlatform
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CodeBuild.Types.EnvironmentPlatform where
 import Amazonka.CodeBuild.Types.EnvironmentLanguage
 import Amazonka.CodeBuild.Types.PlatformType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A set of Docker images that are related by platform and are managed by
@@ -30,11 +31,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEnvironmentPlatform' smart constructor.
 data EnvironmentPlatform = EnvironmentPlatform'
-  { -- | The platform\'s name.
-    platform :: Prelude.Maybe PlatformType,
-    -- | The list of programming languages that are available for the specified
+  { -- | The list of programming languages that are available for the specified
     -- platform.
-    languages :: Prelude.Maybe [EnvironmentLanguage]
+    languages :: Prelude.Maybe [EnvironmentLanguage],
+    -- | The platform\'s name.
+    platform :: Prelude.Maybe PlatformType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,43 +47,43 @@ data EnvironmentPlatform = EnvironmentPlatform'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'platform', 'environmentPlatform_platform' - The platform\'s name.
---
 -- 'languages', 'environmentPlatform_languages' - The list of programming languages that are available for the specified
 -- platform.
+--
+-- 'platform', 'environmentPlatform_platform' - The platform\'s name.
 newEnvironmentPlatform ::
   EnvironmentPlatform
 newEnvironmentPlatform =
   EnvironmentPlatform'
-    { platform = Prelude.Nothing,
-      languages = Prelude.Nothing
+    { languages = Prelude.Nothing,
+      platform = Prelude.Nothing
     }
-
--- | The platform\'s name.
-environmentPlatform_platform :: Lens.Lens' EnvironmentPlatform (Prelude.Maybe PlatformType)
-environmentPlatform_platform = Lens.lens (\EnvironmentPlatform' {platform} -> platform) (\s@EnvironmentPlatform' {} a -> s {platform = a} :: EnvironmentPlatform)
 
 -- | The list of programming languages that are available for the specified
 -- platform.
 environmentPlatform_languages :: Lens.Lens' EnvironmentPlatform (Prelude.Maybe [EnvironmentLanguage])
 environmentPlatform_languages = Lens.lens (\EnvironmentPlatform' {languages} -> languages) (\s@EnvironmentPlatform' {} a -> s {languages = a} :: EnvironmentPlatform) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON EnvironmentPlatform where
+-- | The platform\'s name.
+environmentPlatform_platform :: Lens.Lens' EnvironmentPlatform (Prelude.Maybe PlatformType)
+environmentPlatform_platform = Lens.lens (\EnvironmentPlatform' {platform} -> platform) (\s@EnvironmentPlatform' {} a -> s {platform = a} :: EnvironmentPlatform)
+
+instance Data.FromJSON EnvironmentPlatform where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EnvironmentPlatform"
       ( \x ->
           EnvironmentPlatform'
-            Prelude.<$> (x Core..:? "platform")
-            Prelude.<*> (x Core..:? "languages" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "languages" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "platform")
       )
 
 instance Prelude.Hashable EnvironmentPlatform where
   hashWithSalt _salt EnvironmentPlatform' {..} =
-    _salt `Prelude.hashWithSalt` platform
-      `Prelude.hashWithSalt` languages
+    _salt `Prelude.hashWithSalt` languages
+      `Prelude.hashWithSalt` platform
 
 instance Prelude.NFData EnvironmentPlatform where
   rnf EnvironmentPlatform' {..} =
-    Prelude.rnf platform
-      `Prelude.seq` Prelude.rnf languages
+    Prelude.rnf languages
+      `Prelude.seq` Prelude.rnf platform

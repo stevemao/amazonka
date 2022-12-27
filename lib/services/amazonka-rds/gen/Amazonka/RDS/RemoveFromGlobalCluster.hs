@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.RemoveFromGlobalCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,7 @@
 -- Detaches an Aurora secondary cluster from an Aurora global database
 -- cluster. The cluster becomes a standalone cluster with read-write
 -- capability instead of being read-only and receiving data from a primary
--- cluster in a different region.
+-- cluster in a different Region.
 --
 -- This action only applies to Aurora DB clusters.
 module Amazonka.RDS.RemoveFromGlobalCluster
@@ -46,7 +46,8 @@ module Amazonka.RDS.RemoveFromGlobalCluster
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -99,13 +100,14 @@ instance Core.AWSRequest RemoveFromGlobalCluster where
   type
     AWSResponse RemoveFromGlobalCluster =
       RemoveFromGlobalClusterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "RemoveFromGlobalClusterResult"
       ( \s h x ->
           RemoveFromGlobalClusterResponse'
-            Prelude.<$> (x Core..@? "GlobalCluster")
+            Prelude.<$> (x Data..@? "GlobalCluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -119,22 +121,22 @@ instance Prelude.NFData RemoveFromGlobalCluster where
     Prelude.rnf dbClusterIdentifier
       `Prelude.seq` Prelude.rnf globalClusterIdentifier
 
-instance Core.ToHeaders RemoveFromGlobalCluster where
+instance Data.ToHeaders RemoveFromGlobalCluster where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RemoveFromGlobalCluster where
+instance Data.ToPath RemoveFromGlobalCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemoveFromGlobalCluster where
+instance Data.ToQuery RemoveFromGlobalCluster where
   toQuery RemoveFromGlobalCluster' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RemoveFromGlobalCluster" :: Prelude.ByteString),
+          Data.=: ("RemoveFromGlobalCluster" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DbClusterIdentifier" Core.=: dbClusterIdentifier,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DbClusterIdentifier" Data.=: dbClusterIdentifier,
         "GlobalClusterIdentifier"
-          Core.=: globalClusterIdentifier
+          Data.=: globalClusterIdentifier
       ]
 
 -- | /See:/ 'newRemoveFromGlobalClusterResponse' smart constructor.

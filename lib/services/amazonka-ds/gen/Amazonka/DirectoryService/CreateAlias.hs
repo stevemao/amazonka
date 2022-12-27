@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.CreateAlias
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,15 +40,16 @@ module Amazonka.DirectoryService.CreateAlias
     newCreateAliasResponse,
 
     -- * Response Lenses
-    createAliasResponse_directoryId,
     createAliasResponse_alias,
+    createAliasResponse_directoryId,
     createAliasResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,13 +110,14 @@ createAlias_alias = Lens.lens (\CreateAlias' {alias} -> alias) (\s@CreateAlias' 
 
 instance Core.AWSRequest CreateAlias where
   type AWSResponse CreateAlias = CreateAliasResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAliasResponse'
-            Prelude.<$> (x Core..?> "DirectoryId")
-            Prelude.<*> (x Core..?> "Alias")
+            Prelude.<$> (x Data..?> "Alias")
+            Prelude.<*> (x Data..?> "DirectoryId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,44 +131,44 @@ instance Prelude.NFData CreateAlias where
     Prelude.rnf directoryId
       `Prelude.seq` Prelude.rnf alias
 
-instance Core.ToHeaders CreateAlias where
+instance Data.ToHeaders CreateAlias where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.CreateAlias" ::
+              Data.=# ( "DirectoryService_20150416.CreateAlias" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAlias where
+instance Data.ToJSON CreateAlias where
   toJSON CreateAlias' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DirectoryId" Core..= directoryId),
-            Prelude.Just ("Alias" Core..= alias)
+          [ Prelude.Just ("DirectoryId" Data..= directoryId),
+            Prelude.Just ("Alias" Data..= alias)
           ]
       )
 
-instance Core.ToPath CreateAlias where
+instance Data.ToPath CreateAlias where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAlias where
+instance Data.ToQuery CreateAlias where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the results of the CreateAlias operation.
 --
 -- /See:/ 'newCreateAliasResponse' smart constructor.
 data CreateAliasResponse = CreateAliasResponse'
-  { -- | The identifier of the directory.
-    directoryId :: Prelude.Maybe Prelude.Text,
-    -- | The alias for the directory.
+  { -- | The alias for the directory.
     alias :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the directory.
+    directoryId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -180,9 +182,9 @@ data CreateAliasResponse = CreateAliasResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'directoryId', 'createAliasResponse_directoryId' - The identifier of the directory.
---
 -- 'alias', 'createAliasResponse_alias' - The alias for the directory.
+--
+-- 'directoryId', 'createAliasResponse_directoryId' - The identifier of the directory.
 --
 -- 'httpStatus', 'createAliasResponse_httpStatus' - The response's http status code.
 newCreateAliasResponse ::
@@ -191,18 +193,18 @@ newCreateAliasResponse ::
   CreateAliasResponse
 newCreateAliasResponse pHttpStatus_ =
   CreateAliasResponse'
-    { directoryId = Prelude.Nothing,
-      alias = Prelude.Nothing,
+    { alias = Prelude.Nothing,
+      directoryId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The identifier of the directory.
-createAliasResponse_directoryId :: Lens.Lens' CreateAliasResponse (Prelude.Maybe Prelude.Text)
-createAliasResponse_directoryId = Lens.lens (\CreateAliasResponse' {directoryId} -> directoryId) (\s@CreateAliasResponse' {} a -> s {directoryId = a} :: CreateAliasResponse)
 
 -- | The alias for the directory.
 createAliasResponse_alias :: Lens.Lens' CreateAliasResponse (Prelude.Maybe Prelude.Text)
 createAliasResponse_alias = Lens.lens (\CreateAliasResponse' {alias} -> alias) (\s@CreateAliasResponse' {} a -> s {alias = a} :: CreateAliasResponse)
+
+-- | The identifier of the directory.
+createAliasResponse_directoryId :: Lens.Lens' CreateAliasResponse (Prelude.Maybe Prelude.Text)
+createAliasResponse_directoryId = Lens.lens (\CreateAliasResponse' {directoryId} -> directoryId) (\s@CreateAliasResponse' {} a -> s {directoryId = a} :: CreateAliasResponse)
 
 -- | The response's http status code.
 createAliasResponse_httpStatus :: Lens.Lens' CreateAliasResponse Prelude.Int
@@ -210,6 +212,6 @@ createAliasResponse_httpStatus = Lens.lens (\CreateAliasResponse' {httpStatus} -
 
 instance Prelude.NFData CreateAliasResponse where
   rnf CreateAliasResponse' {..} =
-    Prelude.rnf directoryId
-      `Prelude.seq` Prelude.rnf alias
+    Prelude.rnf alias
+      `Prelude.seq` Prelude.rnf directoryId
       `Prelude.seq` Prelude.rnf httpStatus

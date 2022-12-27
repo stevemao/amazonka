@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.Types.PredictorExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Forecast.Types.PredictorExecution where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types.TestWindowSummary
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The algorithm used to perform a backtest and the status of those tests.
@@ -68,14 +69,14 @@ predictorExecution_algorithmArn = Lens.lens (\PredictorExecution' {algorithmArn}
 predictorExecution_testWindows :: Lens.Lens' PredictorExecution (Prelude.Maybe [TestWindowSummary])
 predictorExecution_testWindows = Lens.lens (\PredictorExecution' {testWindows} -> testWindows) (\s@PredictorExecution' {} a -> s {testWindows = a} :: PredictorExecution) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON PredictorExecution where
+instance Data.FromJSON PredictorExecution where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PredictorExecution"
       ( \x ->
           PredictorExecution'
-            Prelude.<$> (x Core..:? "AlgorithmArn")
-            Prelude.<*> (x Core..:? "TestWindows" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "AlgorithmArn")
+            Prelude.<*> (x Data..:? "TestWindows" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable PredictorExecution where

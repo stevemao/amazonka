@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Signer.Types.SignedObject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Signer.Types.SignedObject where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Signer.Types.S3SignedObject
 
@@ -51,11 +52,11 @@ newSignedObject = SignedObject' {s3 = Prelude.Nothing}
 signedObject_s3 :: Lens.Lens' SignedObject (Prelude.Maybe S3SignedObject)
 signedObject_s3 = Lens.lens (\SignedObject' {s3} -> s3) (\s@SignedObject' {} a -> s {s3 = a} :: SignedObject)
 
-instance Core.FromJSON SignedObject where
+instance Data.FromJSON SignedObject where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SignedObject"
-      (\x -> SignedObject' Prelude.<$> (x Core..:? "s3"))
+      (\x -> SignedObject' Prelude.<$> (x Data..:? "s3"))
 
 instance Prelude.Hashable SignedObject where
   hashWithSalt _salt SignedObject' {..} =

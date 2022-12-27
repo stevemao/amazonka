@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MemoryDb.Types.UnprocessedCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MemoryDb.Types.UnprocessedCluster where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A cluster whose updates have failed
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 data UnprocessedCluster = UnprocessedCluster'
   { -- | The name of the cluster
     clusterName :: Prelude.Maybe Prelude.Text,
-    -- | The error type associated with the update failure
-    errorType :: Prelude.Maybe Prelude.Text,
     -- | The error message associated with the update failure
-    errorMessage :: Prelude.Maybe Prelude.Text
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The error type associated with the update failure
+    errorType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,49 +47,49 @@ data UnprocessedCluster = UnprocessedCluster'
 --
 -- 'clusterName', 'unprocessedCluster_clusterName' - The name of the cluster
 --
--- 'errorType', 'unprocessedCluster_errorType' - The error type associated with the update failure
---
 -- 'errorMessage', 'unprocessedCluster_errorMessage' - The error message associated with the update failure
+--
+-- 'errorType', 'unprocessedCluster_errorType' - The error type associated with the update failure
 newUnprocessedCluster ::
   UnprocessedCluster
 newUnprocessedCluster =
   UnprocessedCluster'
     { clusterName = Prelude.Nothing,
-      errorType = Prelude.Nothing,
-      errorMessage = Prelude.Nothing
+      errorMessage = Prelude.Nothing,
+      errorType = Prelude.Nothing
     }
 
 -- | The name of the cluster
 unprocessedCluster_clusterName :: Lens.Lens' UnprocessedCluster (Prelude.Maybe Prelude.Text)
 unprocessedCluster_clusterName = Lens.lens (\UnprocessedCluster' {clusterName} -> clusterName) (\s@UnprocessedCluster' {} a -> s {clusterName = a} :: UnprocessedCluster)
 
--- | The error type associated with the update failure
-unprocessedCluster_errorType :: Lens.Lens' UnprocessedCluster (Prelude.Maybe Prelude.Text)
-unprocessedCluster_errorType = Lens.lens (\UnprocessedCluster' {errorType} -> errorType) (\s@UnprocessedCluster' {} a -> s {errorType = a} :: UnprocessedCluster)
-
 -- | The error message associated with the update failure
 unprocessedCluster_errorMessage :: Lens.Lens' UnprocessedCluster (Prelude.Maybe Prelude.Text)
 unprocessedCluster_errorMessage = Lens.lens (\UnprocessedCluster' {errorMessage} -> errorMessage) (\s@UnprocessedCluster' {} a -> s {errorMessage = a} :: UnprocessedCluster)
 
-instance Core.FromJSON UnprocessedCluster where
+-- | The error type associated with the update failure
+unprocessedCluster_errorType :: Lens.Lens' UnprocessedCluster (Prelude.Maybe Prelude.Text)
+unprocessedCluster_errorType = Lens.lens (\UnprocessedCluster' {errorType} -> errorType) (\s@UnprocessedCluster' {} a -> s {errorType = a} :: UnprocessedCluster)
+
+instance Data.FromJSON UnprocessedCluster where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UnprocessedCluster"
       ( \x ->
           UnprocessedCluster'
-            Prelude.<$> (x Core..:? "ClusterName")
-            Prelude.<*> (x Core..:? "ErrorType")
-            Prelude.<*> (x Core..:? "ErrorMessage")
+            Prelude.<$> (x Data..:? "ClusterName")
+            Prelude.<*> (x Data..:? "ErrorMessage")
+            Prelude.<*> (x Data..:? "ErrorType")
       )
 
 instance Prelude.Hashable UnprocessedCluster where
   hashWithSalt _salt UnprocessedCluster' {..} =
     _salt `Prelude.hashWithSalt` clusterName
-      `Prelude.hashWithSalt` errorType
       `Prelude.hashWithSalt` errorMessage
+      `Prelude.hashWithSalt` errorType
 
 instance Prelude.NFData UnprocessedCluster where
   rnf UnprocessedCluster' {..} =
     Prelude.rnf clusterName
-      `Prelude.seq` Prelude.rnf errorType
       `Prelude.seq` Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf errorType

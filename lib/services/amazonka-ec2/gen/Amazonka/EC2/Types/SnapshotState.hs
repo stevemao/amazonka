@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.SnapshotState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,18 +22,21 @@ module Amazonka.EC2.Types.SnapshotState
       ( ..,
         SnapshotState_Completed,
         SnapshotState_Error,
-        SnapshotState_Pending
+        SnapshotState_Pending,
+        SnapshotState_Recoverable,
+        SnapshotState_Recovering
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import qualified Amazonka.Prelude as Prelude
 
 newtype SnapshotState = SnapshotState'
   { fromSnapshotState ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -45,18 +48,18 @@ newtype SnapshotState = SnapshotState'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern SnapshotState_Completed :: SnapshotState
@@ -68,9 +71,17 @@ pattern SnapshotState_Error = SnapshotState' "error"
 pattern SnapshotState_Pending :: SnapshotState
 pattern SnapshotState_Pending = SnapshotState' "pending"
 
+pattern SnapshotState_Recoverable :: SnapshotState
+pattern SnapshotState_Recoverable = SnapshotState' "recoverable"
+
+pattern SnapshotState_Recovering :: SnapshotState
+pattern SnapshotState_Recovering = SnapshotState' "recovering"
+
 {-# COMPLETE
   SnapshotState_Completed,
   SnapshotState_Error,
   SnapshotState_Pending,
+  SnapshotState_Recoverable,
+  SnapshotState_Recovering,
   SnapshotState'
   #-}

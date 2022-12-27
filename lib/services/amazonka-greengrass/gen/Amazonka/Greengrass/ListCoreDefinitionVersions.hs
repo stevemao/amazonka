@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.ListCoreDefinitionVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Greengrass.ListCoreDefinitionVersions
     newListCoreDefinitionVersions,
 
     -- * Request Lenses
-    listCoreDefinitionVersions_nextToken,
     listCoreDefinitionVersions_maxResults,
+    listCoreDefinitionVersions_nextToken,
     listCoreDefinitionVersions_coreDefinitionId,
 
     -- * Destructuring the Response
@@ -38,26 +38,27 @@ module Amazonka.Greengrass.ListCoreDefinitionVersions
     newListCoreDefinitionVersionsResponse,
 
     -- * Response Lenses
-    listCoreDefinitionVersionsResponse_versions,
     listCoreDefinitionVersionsResponse_nextToken,
+    listCoreDefinitionVersionsResponse_versions,
     listCoreDefinitionVersionsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListCoreDefinitionVersions' smart constructor.
 data ListCoreDefinitionVersions = ListCoreDefinitionVersions'
-  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+  { -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | The token for the next set of results, or \'\'null\'\' if there are no
     -- additional results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
-    maxResults :: Prelude.Maybe Prelude.Text,
     -- | The ID of the core definition.
     coreDefinitionId :: Prelude.Text
   }
@@ -71,10 +72,10 @@ data ListCoreDefinitionVersions = ListCoreDefinitionVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listCoreDefinitionVersions_maxResults' - The maximum number of results to be returned per request.
+--
 -- 'nextToken', 'listCoreDefinitionVersions_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
 -- additional results.
---
--- 'maxResults', 'listCoreDefinitionVersions_maxResults' - The maximum number of results to be returned per request.
 --
 -- 'coreDefinitionId', 'listCoreDefinitionVersions_coreDefinitionId' - The ID of the core definition.
 newListCoreDefinitionVersions ::
@@ -83,20 +84,20 @@ newListCoreDefinitionVersions ::
   ListCoreDefinitionVersions
 newListCoreDefinitionVersions pCoreDefinitionId_ =
   ListCoreDefinitionVersions'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       coreDefinitionId = pCoreDefinitionId_
     }
+
+-- | The maximum number of results to be returned per request.
+listCoreDefinitionVersions_maxResults :: Lens.Lens' ListCoreDefinitionVersions (Prelude.Maybe Prelude.Text)
+listCoreDefinitionVersions_maxResults = Lens.lens (\ListCoreDefinitionVersions' {maxResults} -> maxResults) (\s@ListCoreDefinitionVersions' {} a -> s {maxResults = a} :: ListCoreDefinitionVersions)
 
 -- | The token for the next set of results, or \'\'null\'\' if there are no
 -- additional results.
 listCoreDefinitionVersions_nextToken :: Lens.Lens' ListCoreDefinitionVersions (Prelude.Maybe Prelude.Text)
 listCoreDefinitionVersions_nextToken = Lens.lens (\ListCoreDefinitionVersions' {nextToken} -> nextToken) (\s@ListCoreDefinitionVersions' {} a -> s {nextToken = a} :: ListCoreDefinitionVersions)
-
--- | The maximum number of results to be returned per request.
-listCoreDefinitionVersions_maxResults :: Lens.Lens' ListCoreDefinitionVersions (Prelude.Maybe Prelude.Text)
-listCoreDefinitionVersions_maxResults = Lens.lens (\ListCoreDefinitionVersions' {maxResults} -> maxResults) (\s@ListCoreDefinitionVersions' {} a -> s {maxResults = a} :: ListCoreDefinitionVersions)
 
 -- | The ID of the core definition.
 listCoreDefinitionVersions_coreDefinitionId :: Lens.Lens' ListCoreDefinitionVersions Prelude.Text
@@ -128,61 +129,62 @@ instance Core.AWSRequest ListCoreDefinitionVersions where
   type
     AWSResponse ListCoreDefinitionVersions =
       ListCoreDefinitionVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListCoreDefinitionVersionsResponse'
-            Prelude.<$> (x Core..?> "Versions" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Versions" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListCoreDefinitionVersions where
   hashWithSalt _salt ListCoreDefinitionVersions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` coreDefinitionId
 
 instance Prelude.NFData ListCoreDefinitionVersions where
   rnf ListCoreDefinitionVersions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf coreDefinitionId
 
-instance Core.ToHeaders ListCoreDefinitionVersions where
+instance Data.ToHeaders ListCoreDefinitionVersions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListCoreDefinitionVersions where
+instance Data.ToPath ListCoreDefinitionVersions where
   toPath ListCoreDefinitionVersions' {..} =
     Prelude.mconcat
       [ "/greengrass/definition/cores/",
-        Core.toBS coreDefinitionId,
+        Data.toBS coreDefinitionId,
         "/versions"
       ]
 
-instance Core.ToQuery ListCoreDefinitionVersions where
+instance Data.ToQuery ListCoreDefinitionVersions where
   toQuery ListCoreDefinitionVersions' {..} =
     Prelude.mconcat
-      [ "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+      [ "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListCoreDefinitionVersionsResponse' smart constructor.
 data ListCoreDefinitionVersionsResponse = ListCoreDefinitionVersionsResponse'
-  { -- | Information about a version.
-    versions :: Prelude.Maybe [VersionInformation],
-    -- | The token for the next set of results, or \'\'null\'\' if there are no
+  { -- | The token for the next set of results, or \'\'null\'\' if there are no
     -- additional results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Information about a version.
+    versions :: Prelude.Maybe [VersionInformation],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -196,10 +198,10 @@ data ListCoreDefinitionVersionsResponse = ListCoreDefinitionVersionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'versions', 'listCoreDefinitionVersionsResponse_versions' - Information about a version.
---
 -- 'nextToken', 'listCoreDefinitionVersionsResponse_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
 -- additional results.
+--
+-- 'versions', 'listCoreDefinitionVersionsResponse_versions' - Information about a version.
 --
 -- 'httpStatus', 'listCoreDefinitionVersionsResponse_httpStatus' - The response's http status code.
 newListCoreDefinitionVersionsResponse ::
@@ -208,20 +210,20 @@ newListCoreDefinitionVersionsResponse ::
   ListCoreDefinitionVersionsResponse
 newListCoreDefinitionVersionsResponse pHttpStatus_ =
   ListCoreDefinitionVersionsResponse'
-    { versions =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      versions = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Information about a version.
-listCoreDefinitionVersionsResponse_versions :: Lens.Lens' ListCoreDefinitionVersionsResponse (Prelude.Maybe [VersionInformation])
-listCoreDefinitionVersionsResponse_versions = Lens.lens (\ListCoreDefinitionVersionsResponse' {versions} -> versions) (\s@ListCoreDefinitionVersionsResponse' {} a -> s {versions = a} :: ListCoreDefinitionVersionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token for the next set of results, or \'\'null\'\' if there are no
 -- additional results.
 listCoreDefinitionVersionsResponse_nextToken :: Lens.Lens' ListCoreDefinitionVersionsResponse (Prelude.Maybe Prelude.Text)
 listCoreDefinitionVersionsResponse_nextToken = Lens.lens (\ListCoreDefinitionVersionsResponse' {nextToken} -> nextToken) (\s@ListCoreDefinitionVersionsResponse' {} a -> s {nextToken = a} :: ListCoreDefinitionVersionsResponse)
+
+-- | Information about a version.
+listCoreDefinitionVersionsResponse_versions :: Lens.Lens' ListCoreDefinitionVersionsResponse (Prelude.Maybe [VersionInformation])
+listCoreDefinitionVersionsResponse_versions = Lens.lens (\ListCoreDefinitionVersionsResponse' {versions} -> versions) (\s@ListCoreDefinitionVersionsResponse' {} a -> s {versions = a} :: ListCoreDefinitionVersionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listCoreDefinitionVersionsResponse_httpStatus :: Lens.Lens' ListCoreDefinitionVersionsResponse Prelude.Int
@@ -232,6 +234,6 @@ instance
     ListCoreDefinitionVersionsResponse
   where
   rnf ListCoreDefinitionVersionsResponse' {..} =
-    Prelude.rnf versions
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf versions
       `Prelude.seq` Prelude.rnf httpStatus

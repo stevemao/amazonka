@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-servicecatalog/amazonka-servicecatalog.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-servicecatalog/amazonka-servicecatalog.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-servicecatalog",
     srcs = [
@@ -91,6 +91,7 @@ haskell_library(
         "gen/Amazonka/ServiceCatalog/Types/BudgetDetail.hs",
         "gen/Amazonka/ServiceCatalog/Types/ChangeAction.hs",
         "gen/Amazonka/ServiceCatalog/Types/CloudWatchDashboard.hs",
+        "gen/Amazonka/ServiceCatalog/Types/CodeStarParameters.hs",
         "gen/Amazonka/ServiceCatalog/Types/ConstraintDetail.hs",
         "gen/Amazonka/ServiceCatalog/Types/ConstraintSummary.hs",
         "gen/Amazonka/ServiceCatalog/Types/CopyOption.hs",
@@ -99,6 +100,8 @@ haskell_library(
         "gen/Amazonka/ServiceCatalog/Types/EvaluationType.hs",
         "gen/Amazonka/ServiceCatalog/Types/ExecutionParameter.hs",
         "gen/Amazonka/ServiceCatalog/Types/FailedServiceActionAssociation.hs",
+        "gen/Amazonka/ServiceCatalog/Types/LastSync.hs",
+        "gen/Amazonka/ServiceCatalog/Types/LastSyncStatus.hs",
         "gen/Amazonka/ServiceCatalog/Types/LaunchPath.hs",
         "gen/Amazonka/ServiceCatalog/Types/LaunchPathSummary.hs",
         "gen/Amazonka/ServiceCatalog/Types/ListRecordHistorySearchFilter.hs",
@@ -163,6 +166,10 @@ haskell_library(
         "gen/Amazonka/ServiceCatalog/Types/ShareError.hs",
         "gen/Amazonka/ServiceCatalog/Types/ShareStatus.hs",
         "gen/Amazonka/ServiceCatalog/Types/SortOrder.hs",
+        "gen/Amazonka/ServiceCatalog/Types/SourceConnection.hs",
+        "gen/Amazonka/ServiceCatalog/Types/SourceConnectionDetail.hs",
+        "gen/Amazonka/ServiceCatalog/Types/SourceConnectionParameters.hs",
+        "gen/Amazonka/ServiceCatalog/Types/SourceType.hs",
         "gen/Amazonka/ServiceCatalog/Types/StackInstance.hs",
         "gen/Amazonka/ServiceCatalog/Types/StackInstanceStatus.hs",
         "gen/Amazonka/ServiceCatalog/Types/StackSetOperationType.hs",
@@ -183,14 +190,13 @@ haskell_library(
         "gen/Amazonka/ServiceCatalog/UpdateTagOption.hs",
         "gen/Amazonka/ServiceCatalog/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_servicecatalog=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_servicecatalog=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -199,7 +205,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-servicecatalog/amazonka-servicecatalog.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-servicecatalog/amazonka-servicecatalog.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-servicecatalog-test",
     srcs = [
@@ -208,11 +214,12 @@ haskell_test(
         "test/Test/Amazonka/ServiceCatalog.hs",
         "test/Test/Amazonka/ServiceCatalog/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_servicecatalog=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_servicecatalog=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.DeleteAppsList
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,9 @@ module Amazonka.FMS.DeleteAppsList
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteAppsList where
   type
     AWSResponse DeleteAppsList =
       DeleteAppsListResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteAppsListResponse'
 
@@ -87,32 +89,32 @@ instance Prelude.Hashable DeleteAppsList where
 instance Prelude.NFData DeleteAppsList where
   rnf DeleteAppsList' {..} = Prelude.rnf listId
 
-instance Core.ToHeaders DeleteAppsList where
+instance Data.ToHeaders DeleteAppsList where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSFMS_20180101.DeleteAppsList" ::
+              Data.=# ( "AWSFMS_20180101.DeleteAppsList" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteAppsList where
+instance Data.ToJSON DeleteAppsList where
   toJSON DeleteAppsList' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ListId" Core..= listId)]
+          [Prelude.Just ("ListId" Data..= listId)]
       )
 
-instance Core.ToPath DeleteAppsList where
+instance Data.ToPath DeleteAppsList where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAppsList where
+instance Data.ToQuery DeleteAppsList where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAppsListResponse' smart constructor.

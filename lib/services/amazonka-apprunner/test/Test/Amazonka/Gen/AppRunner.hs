@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.AppRunner
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,56 +27,98 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestListServices $
---             newListServices
---
---         , requestResumeService $
---             newResumeService
---
---         , requestDeleteService $
---             newDeleteService
---
---         , requestUpdateService $
---             newUpdateService
---
---         , requestListOperations $
---             newListOperations
---
---         , requestAssociateCustomDomain $
+--         [ requestAssociateCustomDomain $
 --             newAssociateCustomDomain
 --
---         , requestListConnections $
---             newListConnections
---
---         , requestDeleteConnection $
---             newDeleteConnection
---
---         , requestDescribeAutoScalingConfiguration $
---             newDescribeAutoScalingConfiguration
---
---         , requestListTagsForResource $
---             newListTagsForResource
+--         , requestCreateAutoScalingConfiguration $
+--             newCreateAutoScalingConfiguration
 --
 --         , requestCreateConnection $
 --             newCreateConnection
 --
---         , requestDescribeCustomDomains $
---             newDescribeCustomDomains
+--         , requestCreateObservabilityConfiguration $
+--             newCreateObservabilityConfiguration
 --
---         , requestDescribeService $
---             newDescribeService
+--         , requestCreateService $
+--             newCreateService
+--
+--         , requestCreateVpcConnector $
+--             newCreateVpcConnector
+--
+--         , requestCreateVpcIngressConnection $
+--             newCreateVpcIngressConnection
 --
 --         , requestDeleteAutoScalingConfiguration $
 --             newDeleteAutoScalingConfiguration
 --
---         , requestListAutoScalingConfigurations $
---             newListAutoScalingConfigurations
+--         , requestDeleteConnection $
+--             newDeleteConnection
+--
+--         , requestDeleteObservabilityConfiguration $
+--             newDeleteObservabilityConfiguration
+--
+--         , requestDeleteService $
+--             newDeleteService
+--
+--         , requestDeleteVpcConnector $
+--             newDeleteVpcConnector
+--
+--         , requestDeleteVpcIngressConnection $
+--             newDeleteVpcIngressConnection
+--
+--         , requestDescribeAutoScalingConfiguration $
+--             newDescribeAutoScalingConfiguration
+--
+--         , requestDescribeCustomDomains $
+--             newDescribeCustomDomains
+--
+--         , requestDescribeObservabilityConfiguration $
+--             newDescribeObservabilityConfiguration
+--
+--         , requestDescribeService $
+--             newDescribeService
+--
+--         , requestDescribeVpcConnector $
+--             newDescribeVpcConnector
+--
+--         , requestDescribeVpcIngressConnection $
+--             newDescribeVpcIngressConnection
 --
 --         , requestDisassociateCustomDomain $
 --             newDisassociateCustomDomain
 --
+--         , requestListAutoScalingConfigurations $
+--             newListAutoScalingConfigurations
+--
+--         , requestListConnections $
+--             newListConnections
+--
+--         , requestListObservabilityConfigurations $
+--             newListObservabilityConfigurations
+--
+--         , requestListOperations $
+--             newListOperations
+--
+--         , requestListServices $
+--             newListServices
+--
+--         , requestListTagsForResource $
+--             newListTagsForResource
+--
+--         , requestListVpcConnectors $
+--             newListVpcConnectors
+--
+--         , requestListVpcIngressConnections $
+--             newListVpcIngressConnections
+--
 --         , requestPauseService $
 --             newPauseService
+--
+--         , requestResumeService $
+--             newResumeService
+--
+--         , requestStartDeployment $
+--             newStartDeployment
 --
 --         , requestTagResource $
 --             newTagResource
@@ -84,68 +126,107 @@ import Test.Tasty
 --         , requestUntagResource $
 --             newUntagResource
 --
---         , requestCreateAutoScalingConfiguration $
---             newCreateAutoScalingConfiguration
+--         , requestUpdateService $
+--             newUpdateService
 --
---         , requestStartDeployment $
---             newStartDeployment
---
---         , requestCreateService $
---             newCreateService
+--         , requestUpdateVpcIngressConnection $
+--             newUpdateVpcIngressConnection
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseListServices $
---             newListServicesResponse
---
---         , responseResumeService $
---             newResumeServiceResponse
---
---         , responseDeleteService $
---             newDeleteServiceResponse
---
---         , responseUpdateService $
---             newUpdateServiceResponse
---
---         , responseListOperations $
---             newListOperationsResponse
---
---         , responseAssociateCustomDomain $
+--         [ responseAssociateCustomDomain $
 --             newAssociateCustomDomainResponse
 --
---         , responseListConnections $
---             newListConnectionsResponse
---
---         , responseDeleteConnection $
---             newDeleteConnectionResponse
---
---         , responseDescribeAutoScalingConfiguration $
---             newDescribeAutoScalingConfigurationResponse
---
---         , responseListTagsForResource $
---             newListTagsForResourceResponse
+--         , responseCreateAutoScalingConfiguration $
+--             newCreateAutoScalingConfigurationResponse
 --
 --         , responseCreateConnection $
 --             newCreateConnectionResponse
 --
---         , responseDescribeCustomDomains $
---             newDescribeCustomDomainsResponse
+--         , responseCreateObservabilityConfiguration $
+--             newCreateObservabilityConfigurationResponse
 --
---         , responseDescribeService $
---             newDescribeServiceResponse
+--         , responseCreateService $
+--             newCreateServiceResponse
+--
+--         , responseCreateVpcConnector $
+--             newCreateVpcConnectorResponse
+--
+--         , responseCreateVpcIngressConnection $
+--             newCreateVpcIngressConnectionResponse
 --
 --         , responseDeleteAutoScalingConfiguration $
 --             newDeleteAutoScalingConfigurationResponse
 --
---         , responseListAutoScalingConfigurations $
---             newListAutoScalingConfigurationsResponse
+--         , responseDeleteConnection $
+--             newDeleteConnectionResponse
+--
+--         , responseDeleteObservabilityConfiguration $
+--             newDeleteObservabilityConfigurationResponse
+--
+--         , responseDeleteService $
+--             newDeleteServiceResponse
+--
+--         , responseDeleteVpcConnector $
+--             newDeleteVpcConnectorResponse
+--
+--         , responseDeleteVpcIngressConnection $
+--             newDeleteVpcIngressConnectionResponse
+--
+--         , responseDescribeAutoScalingConfiguration $
+--             newDescribeAutoScalingConfigurationResponse
+--
+--         , responseDescribeCustomDomains $
+--             newDescribeCustomDomainsResponse
+--
+--         , responseDescribeObservabilityConfiguration $
+--             newDescribeObservabilityConfigurationResponse
+--
+--         , responseDescribeService $
+--             newDescribeServiceResponse
+--
+--         , responseDescribeVpcConnector $
+--             newDescribeVpcConnectorResponse
+--
+--         , responseDescribeVpcIngressConnection $
+--             newDescribeVpcIngressConnectionResponse
 --
 --         , responseDisassociateCustomDomain $
 --             newDisassociateCustomDomainResponse
 --
+--         , responseListAutoScalingConfigurations $
+--             newListAutoScalingConfigurationsResponse
+--
+--         , responseListConnections $
+--             newListConnectionsResponse
+--
+--         , responseListObservabilityConfigurations $
+--             newListObservabilityConfigurationsResponse
+--
+--         , responseListOperations $
+--             newListOperationsResponse
+--
+--         , responseListServices $
+--             newListServicesResponse
+--
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
+--
+--         , responseListVpcConnectors $
+--             newListVpcConnectorsResponse
+--
+--         , responseListVpcIngressConnections $
+--             newListVpcIngressConnectionsResponse
+--
 --         , responsePauseService $
 --             newPauseServiceResponse
+--
+--         , responseResumeService $
+--             newResumeServiceResponse
+--
+--         , responseStartDeployment $
+--             newStartDeploymentResponse
 --
 --         , responseTagResource $
 --             newTagResourceResponse
@@ -153,49 +234,16 @@ import Test.Tasty
 --         , responseUntagResource $
 --             newUntagResourceResponse
 --
---         , responseCreateAutoScalingConfiguration $
---             newCreateAutoScalingConfigurationResponse
+--         , responseUpdateService $
+--             newUpdateServiceResponse
 --
---         , responseStartDeployment $
---             newStartDeploymentResponse
---
---         , responseCreateService $
---             newCreateServiceResponse
+--         , responseUpdateVpcIngressConnection $
+--             newUpdateVpcIngressConnectionResponse
 --
 --           ]
 --     ]
 
 -- Requests
-
-requestListServices :: ListServices -> TestTree
-requestListServices =
-  req
-    "ListServices"
-    "fixture/ListServices.yaml"
-
-requestResumeService :: ResumeService -> TestTree
-requestResumeService =
-  req
-    "ResumeService"
-    "fixture/ResumeService.yaml"
-
-requestDeleteService :: DeleteService -> TestTree
-requestDeleteService =
-  req
-    "DeleteService"
-    "fixture/DeleteService.yaml"
-
-requestUpdateService :: UpdateService -> TestTree
-requestUpdateService =
-  req
-    "UpdateService"
-    "fixture/UpdateService.yaml"
-
-requestListOperations :: ListOperations -> TestTree
-requestListOperations =
-  req
-    "ListOperations"
-    "fixture/ListOperations.yaml"
 
 requestAssociateCustomDomain :: AssociateCustomDomain -> TestTree
 requestAssociateCustomDomain =
@@ -203,29 +251,11 @@ requestAssociateCustomDomain =
     "AssociateCustomDomain"
     "fixture/AssociateCustomDomain.yaml"
 
-requestListConnections :: ListConnections -> TestTree
-requestListConnections =
+requestCreateAutoScalingConfiguration :: CreateAutoScalingConfiguration -> TestTree
+requestCreateAutoScalingConfiguration =
   req
-    "ListConnections"
-    "fixture/ListConnections.yaml"
-
-requestDeleteConnection :: DeleteConnection -> TestTree
-requestDeleteConnection =
-  req
-    "DeleteConnection"
-    "fixture/DeleteConnection.yaml"
-
-requestDescribeAutoScalingConfiguration :: DescribeAutoScalingConfiguration -> TestTree
-requestDescribeAutoScalingConfiguration =
-  req
-    "DescribeAutoScalingConfiguration"
-    "fixture/DescribeAutoScalingConfiguration.yaml"
-
-requestListTagsForResource :: ListTagsForResource -> TestTree
-requestListTagsForResource =
-  req
-    "ListTagsForResource"
-    "fixture/ListTagsForResource.yaml"
+    "CreateAutoScalingConfiguration"
+    "fixture/CreateAutoScalingConfiguration.yaml"
 
 requestCreateConnection :: CreateConnection -> TestTree
 requestCreateConnection =
@@ -233,17 +263,29 @@ requestCreateConnection =
     "CreateConnection"
     "fixture/CreateConnection.yaml"
 
-requestDescribeCustomDomains :: DescribeCustomDomains -> TestTree
-requestDescribeCustomDomains =
+requestCreateObservabilityConfiguration :: CreateObservabilityConfiguration -> TestTree
+requestCreateObservabilityConfiguration =
   req
-    "DescribeCustomDomains"
-    "fixture/DescribeCustomDomains.yaml"
+    "CreateObservabilityConfiguration"
+    "fixture/CreateObservabilityConfiguration.yaml"
 
-requestDescribeService :: DescribeService -> TestTree
-requestDescribeService =
+requestCreateService :: CreateService -> TestTree
+requestCreateService =
   req
-    "DescribeService"
-    "fixture/DescribeService.yaml"
+    "CreateService"
+    "fixture/CreateService.yaml"
+
+requestCreateVpcConnector :: CreateVpcConnector -> TestTree
+requestCreateVpcConnector =
+  req
+    "CreateVpcConnector"
+    "fixture/CreateVpcConnector.yaml"
+
+requestCreateVpcIngressConnection :: CreateVpcIngressConnection -> TestTree
+requestCreateVpcIngressConnection =
+  req
+    "CreateVpcIngressConnection"
+    "fixture/CreateVpcIngressConnection.yaml"
 
 requestDeleteAutoScalingConfiguration :: DeleteAutoScalingConfiguration -> TestTree
 requestDeleteAutoScalingConfiguration =
@@ -251,11 +293,71 @@ requestDeleteAutoScalingConfiguration =
     "DeleteAutoScalingConfiguration"
     "fixture/DeleteAutoScalingConfiguration.yaml"
 
-requestListAutoScalingConfigurations :: ListAutoScalingConfigurations -> TestTree
-requestListAutoScalingConfigurations =
+requestDeleteConnection :: DeleteConnection -> TestTree
+requestDeleteConnection =
   req
-    "ListAutoScalingConfigurations"
-    "fixture/ListAutoScalingConfigurations.yaml"
+    "DeleteConnection"
+    "fixture/DeleteConnection.yaml"
+
+requestDeleteObservabilityConfiguration :: DeleteObservabilityConfiguration -> TestTree
+requestDeleteObservabilityConfiguration =
+  req
+    "DeleteObservabilityConfiguration"
+    "fixture/DeleteObservabilityConfiguration.yaml"
+
+requestDeleteService :: DeleteService -> TestTree
+requestDeleteService =
+  req
+    "DeleteService"
+    "fixture/DeleteService.yaml"
+
+requestDeleteVpcConnector :: DeleteVpcConnector -> TestTree
+requestDeleteVpcConnector =
+  req
+    "DeleteVpcConnector"
+    "fixture/DeleteVpcConnector.yaml"
+
+requestDeleteVpcIngressConnection :: DeleteVpcIngressConnection -> TestTree
+requestDeleteVpcIngressConnection =
+  req
+    "DeleteVpcIngressConnection"
+    "fixture/DeleteVpcIngressConnection.yaml"
+
+requestDescribeAutoScalingConfiguration :: DescribeAutoScalingConfiguration -> TestTree
+requestDescribeAutoScalingConfiguration =
+  req
+    "DescribeAutoScalingConfiguration"
+    "fixture/DescribeAutoScalingConfiguration.yaml"
+
+requestDescribeCustomDomains :: DescribeCustomDomains -> TestTree
+requestDescribeCustomDomains =
+  req
+    "DescribeCustomDomains"
+    "fixture/DescribeCustomDomains.yaml"
+
+requestDescribeObservabilityConfiguration :: DescribeObservabilityConfiguration -> TestTree
+requestDescribeObservabilityConfiguration =
+  req
+    "DescribeObservabilityConfiguration"
+    "fixture/DescribeObservabilityConfiguration.yaml"
+
+requestDescribeService :: DescribeService -> TestTree
+requestDescribeService =
+  req
+    "DescribeService"
+    "fixture/DescribeService.yaml"
+
+requestDescribeVpcConnector :: DescribeVpcConnector -> TestTree
+requestDescribeVpcConnector =
+  req
+    "DescribeVpcConnector"
+    "fixture/DescribeVpcConnector.yaml"
+
+requestDescribeVpcIngressConnection :: DescribeVpcIngressConnection -> TestTree
+requestDescribeVpcIngressConnection =
+  req
+    "DescribeVpcIngressConnection"
+    "fixture/DescribeVpcIngressConnection.yaml"
 
 requestDisassociateCustomDomain :: DisassociateCustomDomain -> TestTree
 requestDisassociateCustomDomain =
@@ -263,11 +365,71 @@ requestDisassociateCustomDomain =
     "DisassociateCustomDomain"
     "fixture/DisassociateCustomDomain.yaml"
 
+requestListAutoScalingConfigurations :: ListAutoScalingConfigurations -> TestTree
+requestListAutoScalingConfigurations =
+  req
+    "ListAutoScalingConfigurations"
+    "fixture/ListAutoScalingConfigurations.yaml"
+
+requestListConnections :: ListConnections -> TestTree
+requestListConnections =
+  req
+    "ListConnections"
+    "fixture/ListConnections.yaml"
+
+requestListObservabilityConfigurations :: ListObservabilityConfigurations -> TestTree
+requestListObservabilityConfigurations =
+  req
+    "ListObservabilityConfigurations"
+    "fixture/ListObservabilityConfigurations.yaml"
+
+requestListOperations :: ListOperations -> TestTree
+requestListOperations =
+  req
+    "ListOperations"
+    "fixture/ListOperations.yaml"
+
+requestListServices :: ListServices -> TestTree
+requestListServices =
+  req
+    "ListServices"
+    "fixture/ListServices.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
+requestListVpcConnectors :: ListVpcConnectors -> TestTree
+requestListVpcConnectors =
+  req
+    "ListVpcConnectors"
+    "fixture/ListVpcConnectors.yaml"
+
+requestListVpcIngressConnections :: ListVpcIngressConnections -> TestTree
+requestListVpcIngressConnections =
+  req
+    "ListVpcIngressConnections"
+    "fixture/ListVpcIngressConnections.yaml"
+
 requestPauseService :: PauseService -> TestTree
 requestPauseService =
   req
     "PauseService"
     "fixture/PauseService.yaml"
+
+requestResumeService :: ResumeService -> TestTree
+requestResumeService =
+  req
+    "ResumeService"
+    "fixture/ResumeService.yaml"
+
+requestStartDeployment :: StartDeployment -> TestTree
+requestStartDeployment =
+  req
+    "StartDeployment"
+    "fixture/StartDeployment.yaml"
 
 requestTagResource :: TagResource -> TestTree
 requestTagResource =
@@ -281,65 +443,19 @@ requestUntagResource =
     "UntagResource"
     "fixture/UntagResource.yaml"
 
-requestCreateAutoScalingConfiguration :: CreateAutoScalingConfiguration -> TestTree
-requestCreateAutoScalingConfiguration =
+requestUpdateService :: UpdateService -> TestTree
+requestUpdateService =
   req
-    "CreateAutoScalingConfiguration"
-    "fixture/CreateAutoScalingConfiguration.yaml"
+    "UpdateService"
+    "fixture/UpdateService.yaml"
 
-requestStartDeployment :: StartDeployment -> TestTree
-requestStartDeployment =
+requestUpdateVpcIngressConnection :: UpdateVpcIngressConnection -> TestTree
+requestUpdateVpcIngressConnection =
   req
-    "StartDeployment"
-    "fixture/StartDeployment.yaml"
-
-requestCreateService :: CreateService -> TestTree
-requestCreateService =
-  req
-    "CreateService"
-    "fixture/CreateService.yaml"
+    "UpdateVpcIngressConnection"
+    "fixture/UpdateVpcIngressConnection.yaml"
 
 -- Responses
-
-responseListServices :: ListServicesResponse -> TestTree
-responseListServices =
-  res
-    "ListServicesResponse"
-    "fixture/ListServicesResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListServices)
-
-responseResumeService :: ResumeServiceResponse -> TestTree
-responseResumeService =
-  res
-    "ResumeServiceResponse"
-    "fixture/ResumeServiceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ResumeService)
-
-responseDeleteService :: DeleteServiceResponse -> TestTree
-responseDeleteService =
-  res
-    "DeleteServiceResponse"
-    "fixture/DeleteServiceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteService)
-
-responseUpdateService :: UpdateServiceResponse -> TestTree
-responseUpdateService =
-  res
-    "UpdateServiceResponse"
-    "fixture/UpdateServiceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateService)
-
-responseListOperations :: ListOperationsResponse -> TestTree
-responseListOperations =
-  res
-    "ListOperationsResponse"
-    "fixture/ListOperationsResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListOperations)
 
 responseAssociateCustomDomain :: AssociateCustomDomainResponse -> TestTree
 responseAssociateCustomDomain =
@@ -349,37 +465,13 @@ responseAssociateCustomDomain =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy AssociateCustomDomain)
 
-responseListConnections :: ListConnectionsResponse -> TestTree
-responseListConnections =
+responseCreateAutoScalingConfiguration :: CreateAutoScalingConfigurationResponse -> TestTree
+responseCreateAutoScalingConfiguration =
   res
-    "ListConnectionsResponse"
-    "fixture/ListConnectionsResponse.proto"
+    "CreateAutoScalingConfigurationResponse"
+    "fixture/CreateAutoScalingConfigurationResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListConnections)
-
-responseDeleteConnection :: DeleteConnectionResponse -> TestTree
-responseDeleteConnection =
-  res
-    "DeleteConnectionResponse"
-    "fixture/DeleteConnectionResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteConnection)
-
-responseDescribeAutoScalingConfiguration :: DescribeAutoScalingConfigurationResponse -> TestTree
-responseDescribeAutoScalingConfiguration =
-  res
-    "DescribeAutoScalingConfigurationResponse"
-    "fixture/DescribeAutoScalingConfigurationResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeAutoScalingConfiguration)
-
-responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
-responseListTagsForResource =
-  res
-    "ListTagsForResourceResponse"
-    "fixture/ListTagsForResourceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+    (Proxy.Proxy :: Proxy.Proxy CreateAutoScalingConfiguration)
 
 responseCreateConnection :: CreateConnectionResponse -> TestTree
 responseCreateConnection =
@@ -389,21 +481,37 @@ responseCreateConnection =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateConnection)
 
-responseDescribeCustomDomains :: DescribeCustomDomainsResponse -> TestTree
-responseDescribeCustomDomains =
+responseCreateObservabilityConfiguration :: CreateObservabilityConfigurationResponse -> TestTree
+responseCreateObservabilityConfiguration =
   res
-    "DescribeCustomDomainsResponse"
-    "fixture/DescribeCustomDomainsResponse.proto"
+    "CreateObservabilityConfigurationResponse"
+    "fixture/CreateObservabilityConfigurationResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeCustomDomains)
+    (Proxy.Proxy :: Proxy.Proxy CreateObservabilityConfiguration)
 
-responseDescribeService :: DescribeServiceResponse -> TestTree
-responseDescribeService =
+responseCreateService :: CreateServiceResponse -> TestTree
+responseCreateService =
   res
-    "DescribeServiceResponse"
-    "fixture/DescribeServiceResponse.proto"
+    "CreateServiceResponse"
+    "fixture/CreateServiceResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeService)
+    (Proxy.Proxy :: Proxy.Proxy CreateService)
+
+responseCreateVpcConnector :: CreateVpcConnectorResponse -> TestTree
+responseCreateVpcConnector =
+  res
+    "CreateVpcConnectorResponse"
+    "fixture/CreateVpcConnectorResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy CreateVpcConnector)
+
+responseCreateVpcIngressConnection :: CreateVpcIngressConnectionResponse -> TestTree
+responseCreateVpcIngressConnection =
+  res
+    "CreateVpcIngressConnectionResponse"
+    "fixture/CreateVpcIngressConnectionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy CreateVpcIngressConnection)
 
 responseDeleteAutoScalingConfiguration :: DeleteAutoScalingConfigurationResponse -> TestTree
 responseDeleteAutoScalingConfiguration =
@@ -413,13 +521,93 @@ responseDeleteAutoScalingConfiguration =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DeleteAutoScalingConfiguration)
 
-responseListAutoScalingConfigurations :: ListAutoScalingConfigurationsResponse -> TestTree
-responseListAutoScalingConfigurations =
+responseDeleteConnection :: DeleteConnectionResponse -> TestTree
+responseDeleteConnection =
   res
-    "ListAutoScalingConfigurationsResponse"
-    "fixture/ListAutoScalingConfigurationsResponse.proto"
+    "DeleteConnectionResponse"
+    "fixture/DeleteConnectionResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListAutoScalingConfigurations)
+    (Proxy.Proxy :: Proxy.Proxy DeleteConnection)
+
+responseDeleteObservabilityConfiguration :: DeleteObservabilityConfigurationResponse -> TestTree
+responseDeleteObservabilityConfiguration =
+  res
+    "DeleteObservabilityConfigurationResponse"
+    "fixture/DeleteObservabilityConfigurationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteObservabilityConfiguration)
+
+responseDeleteService :: DeleteServiceResponse -> TestTree
+responseDeleteService =
+  res
+    "DeleteServiceResponse"
+    "fixture/DeleteServiceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteService)
+
+responseDeleteVpcConnector :: DeleteVpcConnectorResponse -> TestTree
+responseDeleteVpcConnector =
+  res
+    "DeleteVpcConnectorResponse"
+    "fixture/DeleteVpcConnectorResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteVpcConnector)
+
+responseDeleteVpcIngressConnection :: DeleteVpcIngressConnectionResponse -> TestTree
+responseDeleteVpcIngressConnection =
+  res
+    "DeleteVpcIngressConnectionResponse"
+    "fixture/DeleteVpcIngressConnectionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteVpcIngressConnection)
+
+responseDescribeAutoScalingConfiguration :: DescribeAutoScalingConfigurationResponse -> TestTree
+responseDescribeAutoScalingConfiguration =
+  res
+    "DescribeAutoScalingConfigurationResponse"
+    "fixture/DescribeAutoScalingConfigurationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeAutoScalingConfiguration)
+
+responseDescribeCustomDomains :: DescribeCustomDomainsResponse -> TestTree
+responseDescribeCustomDomains =
+  res
+    "DescribeCustomDomainsResponse"
+    "fixture/DescribeCustomDomainsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeCustomDomains)
+
+responseDescribeObservabilityConfiguration :: DescribeObservabilityConfigurationResponse -> TestTree
+responseDescribeObservabilityConfiguration =
+  res
+    "DescribeObservabilityConfigurationResponse"
+    "fixture/DescribeObservabilityConfigurationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeObservabilityConfiguration)
+
+responseDescribeService :: DescribeServiceResponse -> TestTree
+responseDescribeService =
+  res
+    "DescribeServiceResponse"
+    "fixture/DescribeServiceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeService)
+
+responseDescribeVpcConnector :: DescribeVpcConnectorResponse -> TestTree
+responseDescribeVpcConnector =
+  res
+    "DescribeVpcConnectorResponse"
+    "fixture/DescribeVpcConnectorResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeVpcConnector)
+
+responseDescribeVpcIngressConnection :: DescribeVpcIngressConnectionResponse -> TestTree
+responseDescribeVpcIngressConnection =
+  res
+    "DescribeVpcIngressConnectionResponse"
+    "fixture/DescribeVpcIngressConnectionResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeVpcIngressConnection)
 
 responseDisassociateCustomDomain :: DisassociateCustomDomainResponse -> TestTree
 responseDisassociateCustomDomain =
@@ -429,6 +617,70 @@ responseDisassociateCustomDomain =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DisassociateCustomDomain)
 
+responseListAutoScalingConfigurations :: ListAutoScalingConfigurationsResponse -> TestTree
+responseListAutoScalingConfigurations =
+  res
+    "ListAutoScalingConfigurationsResponse"
+    "fixture/ListAutoScalingConfigurationsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListAutoScalingConfigurations)
+
+responseListConnections :: ListConnectionsResponse -> TestTree
+responseListConnections =
+  res
+    "ListConnectionsResponse"
+    "fixture/ListConnectionsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListConnections)
+
+responseListObservabilityConfigurations :: ListObservabilityConfigurationsResponse -> TestTree
+responseListObservabilityConfigurations =
+  res
+    "ListObservabilityConfigurationsResponse"
+    "fixture/ListObservabilityConfigurationsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListObservabilityConfigurations)
+
+responseListOperations :: ListOperationsResponse -> TestTree
+responseListOperations =
+  res
+    "ListOperationsResponse"
+    "fixture/ListOperationsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListOperations)
+
+responseListServices :: ListServicesResponse -> TestTree
+responseListServices =
+  res
+    "ListServicesResponse"
+    "fixture/ListServicesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListServices)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+
+responseListVpcConnectors :: ListVpcConnectorsResponse -> TestTree
+responseListVpcConnectors =
+  res
+    "ListVpcConnectorsResponse"
+    "fixture/ListVpcConnectorsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListVpcConnectors)
+
+responseListVpcIngressConnections :: ListVpcIngressConnectionsResponse -> TestTree
+responseListVpcIngressConnections =
+  res
+    "ListVpcIngressConnectionsResponse"
+    "fixture/ListVpcIngressConnectionsResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListVpcIngressConnections)
+
 responsePauseService :: PauseServiceResponse -> TestTree
 responsePauseService =
   res
@@ -436,6 +688,22 @@ responsePauseService =
     "fixture/PauseServiceResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy PauseService)
+
+responseResumeService :: ResumeServiceResponse -> TestTree
+responseResumeService =
+  res
+    "ResumeServiceResponse"
+    "fixture/ResumeServiceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ResumeService)
+
+responseStartDeployment :: StartDeploymentResponse -> TestTree
+responseStartDeployment =
+  res
+    "StartDeploymentResponse"
+    "fixture/StartDeploymentResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy StartDeployment)
 
 responseTagResource :: TagResourceResponse -> TestTree
 responseTagResource =
@@ -453,26 +721,18 @@ responseUntagResource =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy UntagResource)
 
-responseCreateAutoScalingConfiguration :: CreateAutoScalingConfigurationResponse -> TestTree
-responseCreateAutoScalingConfiguration =
+responseUpdateService :: UpdateServiceResponse -> TestTree
+responseUpdateService =
   res
-    "CreateAutoScalingConfigurationResponse"
-    "fixture/CreateAutoScalingConfigurationResponse.proto"
+    "UpdateServiceResponse"
+    "fixture/UpdateServiceResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateAutoScalingConfiguration)
+    (Proxy.Proxy :: Proxy.Proxy UpdateService)
 
-responseStartDeployment :: StartDeploymentResponse -> TestTree
-responseStartDeployment =
+responseUpdateVpcIngressConnection :: UpdateVpcIngressConnectionResponse -> TestTree
+responseUpdateVpcIngressConnection =
   res
-    "StartDeploymentResponse"
-    "fixture/StartDeploymentResponse.proto"
+    "UpdateVpcIngressConnectionResponse"
+    "fixture/UpdateVpcIngressConnectionResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy StartDeployment)
-
-responseCreateService :: CreateServiceResponse -> TestTree
-responseCreateService =
-  res
-    "CreateServiceResponse"
-    "fixture/CreateServiceResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy CreateService)
+    (Proxy.Proxy :: Proxy.Proxy UpdateVpcIngressConnection)

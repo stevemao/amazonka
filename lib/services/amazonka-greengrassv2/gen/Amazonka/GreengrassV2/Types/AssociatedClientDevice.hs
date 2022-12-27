@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.Types.AssociatedClientDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GreengrassV2.Types.AssociatedClientDevice where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a client device that is associated to a core
@@ -30,7 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 data AssociatedClientDevice = AssociatedClientDevice'
   { -- | The time that the client device was associated, expressed in ISO 8601
     -- format.
-    associationTimestamp :: Prelude.Maybe Core.POSIX,
+    associationTimestamp :: Prelude.Maybe Data.POSIX,
     -- | The name of the IoT thing that represents the associated client device.
     thingName :: Prelude.Maybe Prelude.Text
   }
@@ -60,20 +61,20 @@ newAssociatedClientDevice =
 -- | The time that the client device was associated, expressed in ISO 8601
 -- format.
 associatedClientDevice_associationTimestamp :: Lens.Lens' AssociatedClientDevice (Prelude.Maybe Prelude.UTCTime)
-associatedClientDevice_associationTimestamp = Lens.lens (\AssociatedClientDevice' {associationTimestamp} -> associationTimestamp) (\s@AssociatedClientDevice' {} a -> s {associationTimestamp = a} :: AssociatedClientDevice) Prelude.. Lens.mapping Core._Time
+associatedClientDevice_associationTimestamp = Lens.lens (\AssociatedClientDevice' {associationTimestamp} -> associationTimestamp) (\s@AssociatedClientDevice' {} a -> s {associationTimestamp = a} :: AssociatedClientDevice) Prelude.. Lens.mapping Data._Time
 
 -- | The name of the IoT thing that represents the associated client device.
 associatedClientDevice_thingName :: Lens.Lens' AssociatedClientDevice (Prelude.Maybe Prelude.Text)
 associatedClientDevice_thingName = Lens.lens (\AssociatedClientDevice' {thingName} -> thingName) (\s@AssociatedClientDevice' {} a -> s {thingName = a} :: AssociatedClientDevice)
 
-instance Core.FromJSON AssociatedClientDevice where
+instance Data.FromJSON AssociatedClientDevice where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AssociatedClientDevice"
       ( \x ->
           AssociatedClientDevice'
-            Prelude.<$> (x Core..:? "associationTimestamp")
-            Prelude.<*> (x Core..:? "thingName")
+            Prelude.<$> (x Data..:? "associationTimestamp")
+            Prelude.<*> (x Data..:? "thingName")
       )
 
 instance Prelude.Hashable AssociatedClientDevice where

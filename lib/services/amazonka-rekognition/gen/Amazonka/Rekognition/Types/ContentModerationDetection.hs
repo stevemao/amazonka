@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.ContentModerationDetection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.ContentModerationDetection where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.ModerationLabel
 
@@ -32,7 +33,9 @@ data ContentModerationDetection = ContentModerationDetection'
   { -- | The content moderation label detected by in the stored video.
     moderationLabel :: Prelude.Maybe ModerationLabel,
     -- | Time, in milliseconds from the beginning of the video, that the content
-    -- moderation label was detected.
+    -- moderation label was detected. Note that @Timestamp@ is not guaranteed
+    -- to be accurate to the individual frame where the moderated content first
+    -- appears.
     timestamp :: Prelude.Maybe Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -48,7 +51,9 @@ data ContentModerationDetection = ContentModerationDetection'
 -- 'moderationLabel', 'contentModerationDetection_moderationLabel' - The content moderation label detected by in the stored video.
 --
 -- 'timestamp', 'contentModerationDetection_timestamp' - Time, in milliseconds from the beginning of the video, that the content
--- moderation label was detected.
+-- moderation label was detected. Note that @Timestamp@ is not guaranteed
+-- to be accurate to the individual frame where the moderated content first
+-- appears.
 newContentModerationDetection ::
   ContentModerationDetection
 newContentModerationDetection =
@@ -63,18 +68,20 @@ contentModerationDetection_moderationLabel :: Lens.Lens' ContentModerationDetect
 contentModerationDetection_moderationLabel = Lens.lens (\ContentModerationDetection' {moderationLabel} -> moderationLabel) (\s@ContentModerationDetection' {} a -> s {moderationLabel = a} :: ContentModerationDetection)
 
 -- | Time, in milliseconds from the beginning of the video, that the content
--- moderation label was detected.
+-- moderation label was detected. Note that @Timestamp@ is not guaranteed
+-- to be accurate to the individual frame where the moderated content first
+-- appears.
 contentModerationDetection_timestamp :: Lens.Lens' ContentModerationDetection (Prelude.Maybe Prelude.Integer)
 contentModerationDetection_timestamp = Lens.lens (\ContentModerationDetection' {timestamp} -> timestamp) (\s@ContentModerationDetection' {} a -> s {timestamp = a} :: ContentModerationDetection)
 
-instance Core.FromJSON ContentModerationDetection where
+instance Data.FromJSON ContentModerationDetection where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContentModerationDetection"
       ( \x ->
           ContentModerationDetection'
-            Prelude.<$> (x Core..:? "ModerationLabel")
-            Prelude.<*> (x Core..:? "Timestamp")
+            Prelude.<$> (x Data..:? "ModerationLabel")
+            Prelude.<*> (x Data..:? "Timestamp")
       )
 
 instance Prelude.Hashable ContentModerationDetection where

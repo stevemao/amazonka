@@ -14,40 +14,29 @@
 
 -- |
 -- Module      : Amazonka.SecretsManager.PutResourcePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Attaches the contents of the specified resource-based permission policy
--- to a secret. A resource-based policy is optional. Alternatively, you can
--- use IAM identity-based policies that specify the secret\'s Amazon
--- Resource Name (ARN) in the policy statement\'s @Resources@ element. You
--- can also use a combination of both identity-based and resource-based
--- policies. The affected users and roles receive the permissions that are
--- permitted by all of the relevant policies. For more information, see
--- <http://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_resource-based-policies.html Using Resource-Based Policies for Amazon Web Services Secrets Manager>.
--- For the complete description of the Amazon Web Services policy syntax
--- and grammar, see
--- <https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_policies.html IAM JSON Policy Reference>
--- in the /IAM User Guide/.
+-- Attaches a resource-based permission policy to a secret. A
+-- resource-based policy is optional. For more information, see
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html Authentication and access control for Secrets Manager>
 --
--- __Minimum permissions__
+-- For information about attaching a policy in the console, see
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_resource-based-policies.html Attach a permissions policy to a secret>.
 --
--- To run this command, you must have the following permissions:
+-- Secrets Manager generates a CloudTrail log entry when you call this
+-- action. Do not include sensitive information in request parameters
+-- because it might be logged. For more information, see
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/retrieve-ct-entries.html Logging Secrets Manager events with CloudTrail>.
 --
--- -   secretsmanager:PutResourcePolicy
---
--- __Related operations__
---
--- -   To retrieve the resource policy attached to a secret, use
---     GetResourcePolicy.
---
--- -   To delete the resource-based policy attached to a secret, use
---     DeleteResourcePolicy.
---
--- -   To list all of the currently available secrets, use ListSecrets.
+-- __Required permissions:__ @secretsmanager:PutResourcePolicy@. For more
+-- information, see
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/reference_iam-permissions.html#reference_iam-permissions_actions IAM policy actions for Secrets Manager>
+-- and
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access.html Authentication and access control in Secrets Manager>.
 module Amazonka.SecretsManager.PutResourcePolicy
   ( -- * Creating a Request
     PutResourcePolicy (..),
@@ -70,7 +59,8 @@ module Amazonka.SecretsManager.PutResourcePolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,22 +68,19 @@ import Amazonka.SecretsManager.Types
 
 -- | /See:/ 'newPutResourcePolicy' smart constructor.
 data PutResourcePolicy = PutResourcePolicy'
-  { -- | (Optional) If you set the parameter, @BlockPublicPolicy@ to true, then
-    -- you block resource-based policies that allow broad access to the secret.
+  { -- | Specifies whether to block resource-based policies that allow broad
+    -- access to the secret, for example those that use a wildcard for the
+    -- principal.
     blockPublicPolicy :: Prelude.Maybe Prelude.Bool,
-    -- | Specifies the secret that you want to attach the resource-based policy.
-    -- You can specify either the ARN or the friendly name of the secret.
+    -- | The ARN or name of the secret to attach the resource-based policy.
     --
     -- For an ARN, we recommend that you specify a complete ARN rather than a
-    -- partial ARN.
+    -- partial ARN. See
+    -- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen Finding a secret from a partial ARN>.
     secretId :: Prelude.Text,
-    -- | A JSON-formatted string constructed according to the grammar and syntax
-    -- for an Amazon Web Services resource-based policy. The policy in the
-    -- string identifies who can access or manage this secret and its versions.
-    -- For information on how to format a JSON parameter for the various
-    -- command line tool environments, see
-    -- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json Using JSON for Parameters>
-    -- in the /CLI User Guide/.
+    -- | A JSON-formatted string for an Amazon Web Services resource-based
+    -- policy. For example policies, see
+    -- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html Permissions policy examples>.
     resourcePolicy :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -106,22 +93,19 @@ data PutResourcePolicy = PutResourcePolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'blockPublicPolicy', 'putResourcePolicy_blockPublicPolicy' - (Optional) If you set the parameter, @BlockPublicPolicy@ to true, then
--- you block resource-based policies that allow broad access to the secret.
+-- 'blockPublicPolicy', 'putResourcePolicy_blockPublicPolicy' - Specifies whether to block resource-based policies that allow broad
+-- access to the secret, for example those that use a wildcard for the
+-- principal.
 --
--- 'secretId', 'putResourcePolicy_secretId' - Specifies the secret that you want to attach the resource-based policy.
--- You can specify either the ARN or the friendly name of the secret.
+-- 'secretId', 'putResourcePolicy_secretId' - The ARN or name of the secret to attach the resource-based policy.
 --
 -- For an ARN, we recommend that you specify a complete ARN rather than a
--- partial ARN.
+-- partial ARN. See
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen Finding a secret from a partial ARN>.
 --
--- 'resourcePolicy', 'putResourcePolicy_resourcePolicy' - A JSON-formatted string constructed according to the grammar and syntax
--- for an Amazon Web Services resource-based policy. The policy in the
--- string identifies who can access or manage this secret and its versions.
--- For information on how to format a JSON parameter for the various
--- command line tool environments, see
--- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json Using JSON for Parameters>
--- in the /CLI User Guide/.
+-- 'resourcePolicy', 'putResourcePolicy_resourcePolicy' - A JSON-formatted string for an Amazon Web Services resource-based
+-- policy. For example policies, see
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html Permissions policy examples>.
 newPutResourcePolicy ::
   -- | 'secretId'
   Prelude.Text ->
@@ -136,26 +120,23 @@ newPutResourcePolicy pSecretId_ pResourcePolicy_ =
       resourcePolicy = pResourcePolicy_
     }
 
--- | (Optional) If you set the parameter, @BlockPublicPolicy@ to true, then
--- you block resource-based policies that allow broad access to the secret.
+-- | Specifies whether to block resource-based policies that allow broad
+-- access to the secret, for example those that use a wildcard for the
+-- principal.
 putResourcePolicy_blockPublicPolicy :: Lens.Lens' PutResourcePolicy (Prelude.Maybe Prelude.Bool)
 putResourcePolicy_blockPublicPolicy = Lens.lens (\PutResourcePolicy' {blockPublicPolicy} -> blockPublicPolicy) (\s@PutResourcePolicy' {} a -> s {blockPublicPolicy = a} :: PutResourcePolicy)
 
--- | Specifies the secret that you want to attach the resource-based policy.
--- You can specify either the ARN or the friendly name of the secret.
+-- | The ARN or name of the secret to attach the resource-based policy.
 --
 -- For an ARN, we recommend that you specify a complete ARN rather than a
--- partial ARN.
+-- partial ARN. See
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/troubleshoot.html#ARN_secretnamehyphen Finding a secret from a partial ARN>.
 putResourcePolicy_secretId :: Lens.Lens' PutResourcePolicy Prelude.Text
 putResourcePolicy_secretId = Lens.lens (\PutResourcePolicy' {secretId} -> secretId) (\s@PutResourcePolicy' {} a -> s {secretId = a} :: PutResourcePolicy)
 
--- | A JSON-formatted string constructed according to the grammar and syntax
--- for an Amazon Web Services resource-based policy. The policy in the
--- string identifies who can access or manage this secret and its versions.
--- For information on how to format a JSON parameter for the various
--- command line tool environments, see
--- <http://docs.aws.amazon.com/cli/latest/userguide/cli-using-param.html#cli-using-param-json Using JSON for Parameters>
--- in the /CLI User Guide/.
+-- | A JSON-formatted string for an Amazon Web Services resource-based
+-- policy. For example policies, see
+-- <https://docs.aws.amazon.com/secretsmanager/latest/userguide/auth-and-access_examples.html Permissions policy examples>.
 putResourcePolicy_resourcePolicy :: Lens.Lens' PutResourcePolicy Prelude.Text
 putResourcePolicy_resourcePolicy = Lens.lens (\PutResourcePolicy' {resourcePolicy} -> resourcePolicy) (\s@PutResourcePolicy' {} a -> s {resourcePolicy = a} :: PutResourcePolicy)
 
@@ -163,13 +144,14 @@ instance Core.AWSRequest PutResourcePolicy where
   type
     AWSResponse PutResourcePolicy =
       PutResourcePolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutResourcePolicyResponse'
-            Prelude.<$> (x Core..?> "ARN")
-            Prelude.<*> (x Core..?> "Name")
+            Prelude.<$> (x Data..?> "ARN")
+            Prelude.<*> (x Data..?> "Name")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -185,44 +167,44 @@ instance Prelude.NFData PutResourcePolicy where
       `Prelude.seq` Prelude.rnf secretId
       `Prelude.seq` Prelude.rnf resourcePolicy
 
-instance Core.ToHeaders PutResourcePolicy where
+instance Data.ToHeaders PutResourcePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "secretsmanager.PutResourcePolicy" ::
+              Data.=# ( "secretsmanager.PutResourcePolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutResourcePolicy where
+instance Data.ToJSON PutResourcePolicy where
   toJSON PutResourcePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BlockPublicPolicy" Core..=)
+          [ ("BlockPublicPolicy" Data..=)
               Prelude.<$> blockPublicPolicy,
-            Prelude.Just ("SecretId" Core..= secretId),
+            Prelude.Just ("SecretId" Data..= secretId),
             Prelude.Just
-              ("ResourcePolicy" Core..= resourcePolicy)
+              ("ResourcePolicy" Data..= resourcePolicy)
           ]
       )
 
-instance Core.ToPath PutResourcePolicy where
+instance Data.ToPath PutResourcePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutResourcePolicy where
+instance Data.ToQuery PutResourcePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutResourcePolicyResponse' smart constructor.
 data PutResourcePolicyResponse = PutResourcePolicyResponse'
-  { -- | The ARN of the secret retrieved by the resource-based policy.
+  { -- | The ARN of the secret.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The friendly name of the secret retrieved by the resource-based policy.
+    -- | The name of the secret.
     name :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -237,9 +219,9 @@ data PutResourcePolicyResponse = PutResourcePolicyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'arn', 'putResourcePolicyResponse_arn' - The ARN of the secret retrieved by the resource-based policy.
+-- 'arn', 'putResourcePolicyResponse_arn' - The ARN of the secret.
 --
--- 'name', 'putResourcePolicyResponse_name' - The friendly name of the secret retrieved by the resource-based policy.
+-- 'name', 'putResourcePolicyResponse_name' - The name of the secret.
 --
 -- 'httpStatus', 'putResourcePolicyResponse_httpStatus' - The response's http status code.
 newPutResourcePolicyResponse ::
@@ -253,11 +235,11 @@ newPutResourcePolicyResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The ARN of the secret retrieved by the resource-based policy.
+-- | The ARN of the secret.
 putResourcePolicyResponse_arn :: Lens.Lens' PutResourcePolicyResponse (Prelude.Maybe Prelude.Text)
 putResourcePolicyResponse_arn = Lens.lens (\PutResourcePolicyResponse' {arn} -> arn) (\s@PutResourcePolicyResponse' {} a -> s {arn = a} :: PutResourcePolicyResponse)
 
--- | The friendly name of the secret retrieved by the resource-based policy.
+-- | The name of the secret.
 putResourcePolicyResponse_name :: Lens.Lens' PutResourcePolicyResponse (Prelude.Maybe Prelude.Text)
 putResourcePolicyResponse_name = Lens.lens (\PutResourcePolicyResponse' {name} -> name) (\s@PutResourcePolicyResponse' {} a -> s {name = a} :: PutResourcePolicyResponse)
 

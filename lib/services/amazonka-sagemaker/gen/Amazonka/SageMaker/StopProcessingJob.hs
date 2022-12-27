@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.StopProcessingJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,7 +36,8 @@ module Amazonka.SageMaker.StopProcessingJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest StopProcessingJob where
   type
     AWSResponse StopProcessingJob =
       StopProcessingJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull StopProcessingJobResponse'
 
@@ -88,34 +90,34 @@ instance Prelude.NFData StopProcessingJob where
   rnf StopProcessingJob' {..} =
     Prelude.rnf processingJobName
 
-instance Core.ToHeaders StopProcessingJob where
+instance Data.ToHeaders StopProcessingJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.StopProcessingJob" ::
+              Data.=# ( "SageMaker.StopProcessingJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopProcessingJob where
+instance Data.ToJSON StopProcessingJob where
   toJSON StopProcessingJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ProcessingJobName" Core..= processingJobName)
+              ("ProcessingJobName" Data..= processingJobName)
           ]
       )
 
-instance Core.ToPath StopProcessingJob where
+instance Data.ToPath StopProcessingJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopProcessingJob where
+instance Data.ToQuery StopProcessingJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopProcessingJobResponse' smart constructor.

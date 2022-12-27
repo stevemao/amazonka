@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScalingPlans.DeleteScalingPlan
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ where
 
 import Amazonka.AutoScalingPlans.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,7 +103,8 @@ instance Core.AWSRequest DeleteScalingPlan where
   type
     AWSResponse DeleteScalingPlan =
       DeleteScalingPlanResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -120,36 +122,36 @@ instance Prelude.NFData DeleteScalingPlan where
     Prelude.rnf scalingPlanName
       `Prelude.seq` Prelude.rnf scalingPlanVersion
 
-instance Core.ToHeaders DeleteScalingPlan where
+instance Data.ToHeaders DeleteScalingPlan where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AnyScaleScalingPlannerFrontendService.DeleteScalingPlan" ::
+              Data.=# ( "AnyScaleScalingPlannerFrontendService.DeleteScalingPlan" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteScalingPlan where
+instance Data.ToJSON DeleteScalingPlan where
   toJSON DeleteScalingPlan' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ScalingPlanName" Core..= scalingPlanName),
+              ("ScalingPlanName" Data..= scalingPlanName),
             Prelude.Just
-              ("ScalingPlanVersion" Core..= scalingPlanVersion)
+              ("ScalingPlanVersion" Data..= scalingPlanVersion)
           ]
       )
 
-instance Core.ToPath DeleteScalingPlan where
+instance Data.ToPath DeleteScalingPlan where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteScalingPlan where
+instance Data.ToQuery DeleteScalingPlan where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteScalingPlanResponse' smart constructor.

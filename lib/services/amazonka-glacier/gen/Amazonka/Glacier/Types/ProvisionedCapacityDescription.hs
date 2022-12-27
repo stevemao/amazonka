@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.Types.ProvisionedCapacityDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glacier.Types.ProvisionedCapacityDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The definition for a provisioned capacity unit.
@@ -29,12 +30,12 @@ import qualified Amazonka.Prelude as Prelude
 data ProvisionedCapacityDescription = ProvisionedCapacityDescription'
   { -- | The ID that identifies the provisioned capacity unit.
     capacityId :: Prelude.Maybe Prelude.Text,
-    -- | The date that the provisioned capacity unit was purchased, in Universal
-    -- Coordinated Time (UTC).
-    startDate :: Prelude.Maybe Prelude.Text,
     -- | The date that the provisioned capacity unit expires, in Universal
     -- Coordinated Time (UTC).
-    expirationDate :: Prelude.Maybe Prelude.Text
+    expirationDate :: Prelude.Maybe Prelude.Text,
+    -- | The date that the provisioned capacity unit was purchased, in Universal
+    -- Coordinated Time (UTC).
+    startDate :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,10 +49,10 @@ data ProvisionedCapacityDescription = ProvisionedCapacityDescription'
 --
 -- 'capacityId', 'provisionedCapacityDescription_capacityId' - The ID that identifies the provisioned capacity unit.
 --
--- 'startDate', 'provisionedCapacityDescription_startDate' - The date that the provisioned capacity unit was purchased, in Universal
+-- 'expirationDate', 'provisionedCapacityDescription_expirationDate' - The date that the provisioned capacity unit expires, in Universal
 -- Coordinated Time (UTC).
 --
--- 'expirationDate', 'provisionedCapacityDescription_expirationDate' - The date that the provisioned capacity unit expires, in Universal
+-- 'startDate', 'provisionedCapacityDescription_startDate' - The date that the provisioned capacity unit was purchased, in Universal
 -- Coordinated Time (UTC).
 newProvisionedCapacityDescription ::
   ProvisionedCapacityDescription
@@ -59,33 +60,33 @@ newProvisionedCapacityDescription =
   ProvisionedCapacityDescription'
     { capacityId =
         Prelude.Nothing,
-      startDate = Prelude.Nothing,
-      expirationDate = Prelude.Nothing
+      expirationDate = Prelude.Nothing,
+      startDate = Prelude.Nothing
     }
 
 -- | The ID that identifies the provisioned capacity unit.
 provisionedCapacityDescription_capacityId :: Lens.Lens' ProvisionedCapacityDescription (Prelude.Maybe Prelude.Text)
 provisionedCapacityDescription_capacityId = Lens.lens (\ProvisionedCapacityDescription' {capacityId} -> capacityId) (\s@ProvisionedCapacityDescription' {} a -> s {capacityId = a} :: ProvisionedCapacityDescription)
 
--- | The date that the provisioned capacity unit was purchased, in Universal
--- Coordinated Time (UTC).
-provisionedCapacityDescription_startDate :: Lens.Lens' ProvisionedCapacityDescription (Prelude.Maybe Prelude.Text)
-provisionedCapacityDescription_startDate = Lens.lens (\ProvisionedCapacityDescription' {startDate} -> startDate) (\s@ProvisionedCapacityDescription' {} a -> s {startDate = a} :: ProvisionedCapacityDescription)
-
 -- | The date that the provisioned capacity unit expires, in Universal
 -- Coordinated Time (UTC).
 provisionedCapacityDescription_expirationDate :: Lens.Lens' ProvisionedCapacityDescription (Prelude.Maybe Prelude.Text)
 provisionedCapacityDescription_expirationDate = Lens.lens (\ProvisionedCapacityDescription' {expirationDate} -> expirationDate) (\s@ProvisionedCapacityDescription' {} a -> s {expirationDate = a} :: ProvisionedCapacityDescription)
 
-instance Core.FromJSON ProvisionedCapacityDescription where
+-- | The date that the provisioned capacity unit was purchased, in Universal
+-- Coordinated Time (UTC).
+provisionedCapacityDescription_startDate :: Lens.Lens' ProvisionedCapacityDescription (Prelude.Maybe Prelude.Text)
+provisionedCapacityDescription_startDate = Lens.lens (\ProvisionedCapacityDescription' {startDate} -> startDate) (\s@ProvisionedCapacityDescription' {} a -> s {startDate = a} :: ProvisionedCapacityDescription)
+
+instance Data.FromJSON ProvisionedCapacityDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProvisionedCapacityDescription"
       ( \x ->
           ProvisionedCapacityDescription'
-            Prelude.<$> (x Core..:? "CapacityId")
-            Prelude.<*> (x Core..:? "StartDate")
-            Prelude.<*> (x Core..:? "ExpirationDate")
+            Prelude.<$> (x Data..:? "CapacityId")
+            Prelude.<*> (x Data..:? "ExpirationDate")
+            Prelude.<*> (x Data..:? "StartDate")
       )
 
 instance
@@ -96,8 +97,8 @@ instance
     _salt
     ProvisionedCapacityDescription' {..} =
       _salt `Prelude.hashWithSalt` capacityId
-        `Prelude.hashWithSalt` startDate
         `Prelude.hashWithSalt` expirationDate
+        `Prelude.hashWithSalt` startDate
 
 instance
   Prelude.NFData
@@ -105,5 +106,5 @@ instance
   where
   rnf ProvisionedCapacityDescription' {..} =
     Prelude.rnf capacityId
-      `Prelude.seq` Prelude.rnf startDate
       `Prelude.seq` Prelude.rnf expirationDate
+      `Prelude.seq` Prelude.rnf startDate

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.InstanceCapacity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.InstanceCapacity where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the number of instances that can be launched onto the
@@ -79,12 +80,12 @@ instanceCapacity_instanceType = Lens.lens (\InstanceCapacity' {instanceType} -> 
 instanceCapacity_totalCapacity :: Lens.Lens' InstanceCapacity (Prelude.Maybe Prelude.Int)
 instanceCapacity_totalCapacity = Lens.lens (\InstanceCapacity' {totalCapacity} -> totalCapacity) (\s@InstanceCapacity' {} a -> s {totalCapacity = a} :: InstanceCapacity)
 
-instance Core.FromXML InstanceCapacity where
+instance Data.FromXML InstanceCapacity where
   parseXML x =
     InstanceCapacity'
-      Prelude.<$> (x Core..@? "availableCapacity")
-      Prelude.<*> (x Core..@? "instanceType")
-      Prelude.<*> (x Core..@? "totalCapacity")
+      Prelude.<$> (x Data..@? "availableCapacity")
+      Prelude.<*> (x Data..@? "instanceType")
+      Prelude.<*> (x Data..@? "totalCapacity")
 
 instance Prelude.Hashable InstanceCapacity where
   hashWithSalt _salt InstanceCapacity' {..} =

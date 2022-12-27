@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Types.RuleGroupMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.NetworkFirewall.Types.RuleGroupMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | High-level information about a rule group, returned by ListRuleGroups.
@@ -66,13 +67,13 @@ ruleGroupMetadata_arn = Lens.lens (\RuleGroupMetadata' {arn} -> arn) (\s@RuleGro
 ruleGroupMetadata_name :: Lens.Lens' RuleGroupMetadata (Prelude.Maybe Prelude.Text)
 ruleGroupMetadata_name = Lens.lens (\RuleGroupMetadata' {name} -> name) (\s@RuleGroupMetadata' {} a -> s {name = a} :: RuleGroupMetadata)
 
-instance Core.FromJSON RuleGroupMetadata where
+instance Data.FromJSON RuleGroupMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RuleGroupMetadata"
       ( \x ->
           RuleGroupMetadata'
-            Prelude.<$> (x Core..:? "Arn") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Arn") Prelude.<*> (x Data..:? "Name")
       )
 
 instance Prelude.Hashable RuleGroupMetadata where

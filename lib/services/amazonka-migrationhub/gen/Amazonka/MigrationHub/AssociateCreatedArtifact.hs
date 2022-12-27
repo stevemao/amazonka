@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MigrationHub.AssociateCreatedArtifact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -55,7 +55,8 @@ module Amazonka.MigrationHub.AssociateCreatedArtifact
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MigrationHub.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -137,7 +138,8 @@ instance Core.AWSRequest AssociateCreatedArtifact where
   type
     AWSResponse AssociateCreatedArtifact =
       AssociateCreatedArtifactResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -159,41 +161,41 @@ instance Prelude.NFData AssociateCreatedArtifact where
       `Prelude.seq` Prelude.rnf migrationTaskName
       `Prelude.seq` Prelude.rnf createdArtifact
 
-instance Core.ToHeaders AssociateCreatedArtifact where
+instance Data.ToHeaders AssociateCreatedArtifact where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSMigrationHub.AssociateCreatedArtifact" ::
+              Data.=# ( "AWSMigrationHub.AssociateCreatedArtifact" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateCreatedArtifact where
+instance Data.ToJSON AssociateCreatedArtifact where
   toJSON AssociateCreatedArtifact' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DryRun" Core..=) Prelude.<$> dryRun,
+          [ ("DryRun" Data..=) Prelude.<$> dryRun,
             Prelude.Just
               ( "ProgressUpdateStream"
-                  Core..= progressUpdateStream
+                  Data..= progressUpdateStream
               ),
             Prelude.Just
-              ("MigrationTaskName" Core..= migrationTaskName),
+              ("MigrationTaskName" Data..= migrationTaskName),
             Prelude.Just
-              ("CreatedArtifact" Core..= createdArtifact)
+              ("CreatedArtifact" Data..= createdArtifact)
           ]
       )
 
-instance Core.ToPath AssociateCreatedArtifact where
+instance Data.ToPath AssociateCreatedArtifact where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateCreatedArtifact where
+instance Data.ToQuery AssociateCreatedArtifact where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateCreatedArtifactResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.LanguageCode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -177,6 +177,7 @@ module Amazonka.MediaConvert.Types.LanguageCode
         LanguageCode_SQI,
         LanguageCode_SRB,
         LanguageCode_SRD,
+        LanguageCode_SRP,
         LanguageCode_SSW,
         LanguageCode_SUN,
         LanguageCode_SWA,
@@ -216,13 +217,14 @@ module Amazonka.MediaConvert.Types.LanguageCode
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specify the language, using the ISO 639-2 three-letter code listed at
 -- https:\/\/www.loc.gov\/standards\/iso639-2\/php\/code_list.php.
 newtype LanguageCode = LanguageCode'
   { fromLanguageCode ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -234,18 +236,18 @@ newtype LanguageCode = LanguageCode'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern LanguageCode_AAR :: LanguageCode
@@ -719,6 +721,9 @@ pattern LanguageCode_SRB = LanguageCode' "SRB"
 pattern LanguageCode_SRD :: LanguageCode
 pattern LanguageCode_SRD = LanguageCode' "SRD"
 
+pattern LanguageCode_SRP :: LanguageCode
+pattern LanguageCode_SRP = LanguageCode' "SRP"
+
 pattern LanguageCode_SSW :: LanguageCode
 pattern LanguageCode_SSW = LanguageCode' "SSW"
 
@@ -979,6 +984,7 @@ pattern LanguageCode_ZUL = LanguageCode' "ZUL"
   LanguageCode_SQI,
   LanguageCode_SRB,
   LanguageCode_SRD,
+  LanguageCode_SRP,
   LanguageCode_SSW,
   LanguageCode_SUN,
   LanguageCode_SWA,

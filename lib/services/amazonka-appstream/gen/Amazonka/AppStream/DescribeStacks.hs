@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.DescribeStacks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.AppStream.DescribeStacks
     newDescribeStacks,
 
     -- * Request Lenses
-    describeStacks_nextToken,
     describeStacks_names,
+    describeStacks_nextToken,
 
     -- * Destructuring the Response
     DescribeStacksResponse (..),
@@ -47,18 +47,19 @@ where
 
 import Amazonka.AppStream.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeStacks' smart constructor.
 data DescribeStacks = DescribeStacks'
-  { -- | The pagination token to use to retrieve the next page of results for
+  { -- | The names of the stacks to describe.
+    names :: Prelude.Maybe [Prelude.Text],
+    -- | The pagination token to use to retrieve the next page of results for
     -- this operation. If this value is null, it retrieves the first page.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The names of the stacks to describe.
-    names :: Prelude.Maybe [Prelude.Text]
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,26 +71,26 @@ data DescribeStacks = DescribeStacks'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'names', 'describeStacks_names' - The names of the stacks to describe.
+--
 -- 'nextToken', 'describeStacks_nextToken' - The pagination token to use to retrieve the next page of results for
 -- this operation. If this value is null, it retrieves the first page.
---
--- 'names', 'describeStacks_names' - The names of the stacks to describe.
 newDescribeStacks ::
   DescribeStacks
 newDescribeStacks =
   DescribeStacks'
-    { nextToken = Prelude.Nothing,
-      names = Prelude.Nothing
+    { names = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The names of the stacks to describe.
+describeStacks_names :: Lens.Lens' DescribeStacks (Prelude.Maybe [Prelude.Text])
+describeStacks_names = Lens.lens (\DescribeStacks' {names} -> names) (\s@DescribeStacks' {} a -> s {names = a} :: DescribeStacks) Prelude.. Lens.mapping Lens.coerced
 
 -- | The pagination token to use to retrieve the next page of results for
 -- this operation. If this value is null, it retrieves the first page.
 describeStacks_nextToken :: Lens.Lens' DescribeStacks (Prelude.Maybe Prelude.Text)
 describeStacks_nextToken = Lens.lens (\DescribeStacks' {nextToken} -> nextToken) (\s@DescribeStacks' {} a -> s {nextToken = a} :: DescribeStacks)
-
--- | The names of the stacks to describe.
-describeStacks_names :: Lens.Lens' DescribeStacks (Prelude.Maybe [Prelude.Text])
-describeStacks_names = Lens.lens (\DescribeStacks' {names} -> names) (\s@DescribeStacks' {} a -> s {names = a} :: DescribeStacks) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSPager DescribeStacks where
   page rq rs
@@ -115,54 +116,55 @@ instance Core.AWSRequest DescribeStacks where
   type
     AWSResponse DescribeStacks =
       DescribeStacksResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeStacksResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Stacks" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Stacks" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeStacks where
   hashWithSalt _salt DescribeStacks' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` names
+    _salt `Prelude.hashWithSalt` names
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeStacks where
   rnf DescribeStacks' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf names
+    Prelude.rnf names
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeStacks where
+instance Data.ToHeaders DescribeStacks where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "PhotonAdminProxyService.DescribeStacks" ::
+              Data.=# ( "PhotonAdminProxyService.DescribeStacks" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeStacks where
+instance Data.ToJSON DescribeStacks where
   toJSON DescribeStacks' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Names" Core..=) Prelude.<$> names
+          [ ("Names" Data..=) Prelude.<$> names,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath DescribeStacks where
+instance Data.ToPath DescribeStacks where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeStacks where
+instance Data.ToQuery DescribeStacks where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeStacksResponse' smart constructor.

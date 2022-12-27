@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.GetJobTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.MediaConvert.GetJobTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -77,12 +78,13 @@ instance Core.AWSRequest GetJobTemplate where
   type
     AWSResponse GetJobTemplate =
       GetJobTemplateResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetJobTemplateResponse'
-            Prelude.<$> (x Core..?> "jobTemplate")
+            Prelude.<$> (x Data..?> "jobTemplate")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,23 +95,23 @@ instance Prelude.Hashable GetJobTemplate where
 instance Prelude.NFData GetJobTemplate where
   rnf GetJobTemplate' {..} = Prelude.rnf name
 
-instance Core.ToHeaders GetJobTemplate where
+instance Data.ToHeaders GetJobTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetJobTemplate where
+instance Data.ToPath GetJobTemplate where
   toPath GetJobTemplate' {..} =
     Prelude.mconcat
-      ["/2017-08-29/jobTemplates/", Core.toBS name]
+      ["/2017-08-29/jobTemplates/", Data.toBS name]
 
-instance Core.ToQuery GetJobTemplate where
+instance Data.ToQuery GetJobTemplate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetJobTemplateResponse' smart constructor.

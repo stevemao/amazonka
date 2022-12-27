@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.ListEventSubscriptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.Inspector.ListEventSubscriptions
     newListEventSubscriptions,
 
     -- * Request Lenses
+    listEventSubscriptions_maxResults,
     listEventSubscriptions_nextToken,
     listEventSubscriptions_resourceArn,
-    listEventSubscriptions_maxResults,
 
     -- * Destructuring the Response
     ListEventSubscriptionsResponse (..),
@@ -47,15 +47,19 @@ module Amazonka.Inspector.ListEventSubscriptions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListEventSubscriptions' smart constructor.
 data ListEventSubscriptions = ListEventSubscriptions'
-  { -- | You can use this parameter when paginating results. Set the value of
+  { -- | You can use this parameter to indicate the maximum number of items you
+    -- want in the response. The default value is 10. The maximum value is 500.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | You can use this parameter when paginating results. Set the value of
     -- this parameter to null on your first call to the
     -- __ListEventSubscriptions__ action. Subsequent calls to the action fill
     -- __nextToken__ in the request with the value of __NextToken__ from the
@@ -63,10 +67,7 @@ data ListEventSubscriptions = ListEventSubscriptions'
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the assessment template for which you want to list the
     -- existing event subscriptions.
-    resourceArn :: Prelude.Maybe Prelude.Text,
-    -- | You can use this parameter to indicate the maximum number of items you
-    -- want in the response. The default value is 10. The maximum value is 500.
-    maxResults :: Prelude.Maybe Prelude.Int
+    resourceArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -78,6 +79,9 @@ data ListEventSubscriptions = ListEventSubscriptions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listEventSubscriptions_maxResults' - You can use this parameter to indicate the maximum number of items you
+-- want in the response. The default value is 10. The maximum value is 500.
+--
 -- 'nextToken', 'listEventSubscriptions_nextToken' - You can use this parameter when paginating results. Set the value of
 -- this parameter to null on your first call to the
 -- __ListEventSubscriptions__ action. Subsequent calls to the action fill
@@ -86,18 +90,20 @@ data ListEventSubscriptions = ListEventSubscriptions'
 --
 -- 'resourceArn', 'listEventSubscriptions_resourceArn' - The ARN of the assessment template for which you want to list the
 -- existing event subscriptions.
---
--- 'maxResults', 'listEventSubscriptions_maxResults' - You can use this parameter to indicate the maximum number of items you
--- want in the response. The default value is 10. The maximum value is 500.
 newListEventSubscriptions ::
   ListEventSubscriptions
 newListEventSubscriptions =
   ListEventSubscriptions'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      resourceArn = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing,
+      resourceArn = Prelude.Nothing
     }
+
+-- | You can use this parameter to indicate the maximum number of items you
+-- want in the response. The default value is 10. The maximum value is 500.
+listEventSubscriptions_maxResults :: Lens.Lens' ListEventSubscriptions (Prelude.Maybe Prelude.Int)
+listEventSubscriptions_maxResults = Lens.lens (\ListEventSubscriptions' {maxResults} -> maxResults) (\s@ListEventSubscriptions' {} a -> s {maxResults = a} :: ListEventSubscriptions)
 
 -- | You can use this parameter when paginating results. Set the value of
 -- this parameter to null on your first call to the
@@ -111,11 +117,6 @@ listEventSubscriptions_nextToken = Lens.lens (\ListEventSubscriptions' {nextToke
 -- existing event subscriptions.
 listEventSubscriptions_resourceArn :: Lens.Lens' ListEventSubscriptions (Prelude.Maybe Prelude.Text)
 listEventSubscriptions_resourceArn = Lens.lens (\ListEventSubscriptions' {resourceArn} -> resourceArn) (\s@ListEventSubscriptions' {} a -> s {resourceArn = a} :: ListEventSubscriptions)
-
--- | You can use this parameter to indicate the maximum number of items you
--- want in the response. The default value is 10. The maximum value is 500.
-listEventSubscriptions_maxResults :: Lens.Lens' ListEventSubscriptions (Prelude.Maybe Prelude.Int)
-listEventSubscriptions_maxResults = Lens.lens (\ListEventSubscriptions' {maxResults} -> maxResults) (\s@ListEventSubscriptions' {} a -> s {maxResults = a} :: ListEventSubscriptions)
 
 instance Core.AWSPager ListEventSubscriptions where
   page rq rs
@@ -142,57 +143,58 @@ instance Core.AWSRequest ListEventSubscriptions where
   type
     AWSResponse ListEventSubscriptions =
       ListEventSubscriptionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEventSubscriptionsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "subscriptions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "subscriptions" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListEventSubscriptions where
   hashWithSalt _salt ListEventSubscriptions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` resourceArn
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData ListEventSubscriptions where
   rnf ListEventSubscriptions' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceArn
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders ListEventSubscriptions where
+instance Data.ToHeaders ListEventSubscriptions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.ListEventSubscriptions" ::
+              Data.=# ( "InspectorService.ListEventSubscriptions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListEventSubscriptions where
+instance Data.ToJSON ListEventSubscriptions where
   toJSON ListEventSubscriptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("resourceArn" Core..=) Prelude.<$> resourceArn,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("resourceArn" Data..=) Prelude.<$> resourceArn
           ]
       )
 
-instance Core.ToPath ListEventSubscriptions where
+instance Data.ToPath ListEventSubscriptions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListEventSubscriptions where
+instance Data.ToQuery ListEventSubscriptions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListEventSubscriptionsResponse' smart constructor.

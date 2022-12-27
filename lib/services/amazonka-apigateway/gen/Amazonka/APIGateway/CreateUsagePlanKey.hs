@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.CreateUsagePlanKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,16 +36,17 @@ module Amazonka.APIGateway.CreateUsagePlanKey
     newUsagePlanKey,
 
     -- * Response Lenses
-    usagePlanKey_value,
-    usagePlanKey_name,
     usagePlanKey_id,
+    usagePlanKey_name,
     usagePlanKey_type,
+    usagePlanKey_value,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,14 +56,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateUsagePlanKey' smart constructor.
 data CreateUsagePlanKey = CreateUsagePlanKey'
-  { -- | [Required] The Id of the UsagePlan resource representing the usage plan
-    -- containing the to-be-created UsagePlanKey resource representing a plan
-    -- customer.
+  { -- | The Id of the UsagePlan resource representing the usage plan containing
+    -- the to-be-created UsagePlanKey resource representing a plan customer.
     usagePlanId :: Prelude.Text,
-    -- | [Required] The identifier of a UsagePlanKey resource for a plan
-    -- customer.
+    -- | The identifier of a UsagePlanKey resource for a plan customer.
     keyId :: Prelude.Text,
-    -- | [Required] The type of a UsagePlanKey resource for a plan customer.
+    -- | The type of a UsagePlanKey resource for a plan customer.
     keyType :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -75,14 +74,12 @@ data CreateUsagePlanKey = CreateUsagePlanKey'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'usagePlanId', 'createUsagePlanKey_usagePlanId' - [Required] The Id of the UsagePlan resource representing the usage plan
--- containing the to-be-created UsagePlanKey resource representing a plan
--- customer.
+-- 'usagePlanId', 'createUsagePlanKey_usagePlanId' - The Id of the UsagePlan resource representing the usage plan containing
+-- the to-be-created UsagePlanKey resource representing a plan customer.
 --
--- 'keyId', 'createUsagePlanKey_keyId' - [Required] The identifier of a UsagePlanKey resource for a plan
--- customer.
+-- 'keyId', 'createUsagePlanKey_keyId' - The identifier of a UsagePlanKey resource for a plan customer.
 --
--- 'keyType', 'createUsagePlanKey_keyType' - [Required] The type of a UsagePlanKey resource for a plan customer.
+-- 'keyType', 'createUsagePlanKey_keyType' - The type of a UsagePlanKey resource for a plan customer.
 newCreateUsagePlanKey ::
   -- | 'usagePlanId'
   Prelude.Text ->
@@ -98,27 +95,26 @@ newCreateUsagePlanKey pUsagePlanId_ pKeyId_ pKeyType_ =
       keyType = pKeyType_
     }
 
--- | [Required] The Id of the UsagePlan resource representing the usage plan
--- containing the to-be-created UsagePlanKey resource representing a plan
--- customer.
+-- | The Id of the UsagePlan resource representing the usage plan containing
+-- the to-be-created UsagePlanKey resource representing a plan customer.
 createUsagePlanKey_usagePlanId :: Lens.Lens' CreateUsagePlanKey Prelude.Text
 createUsagePlanKey_usagePlanId = Lens.lens (\CreateUsagePlanKey' {usagePlanId} -> usagePlanId) (\s@CreateUsagePlanKey' {} a -> s {usagePlanId = a} :: CreateUsagePlanKey)
 
--- | [Required] The identifier of a UsagePlanKey resource for a plan
--- customer.
+-- | The identifier of a UsagePlanKey resource for a plan customer.
 createUsagePlanKey_keyId :: Lens.Lens' CreateUsagePlanKey Prelude.Text
 createUsagePlanKey_keyId = Lens.lens (\CreateUsagePlanKey' {keyId} -> keyId) (\s@CreateUsagePlanKey' {} a -> s {keyId = a} :: CreateUsagePlanKey)
 
--- | [Required] The type of a UsagePlanKey resource for a plan customer.
+-- | The type of a UsagePlanKey resource for a plan customer.
 createUsagePlanKey_keyType :: Lens.Lens' CreateUsagePlanKey Prelude.Text
 createUsagePlanKey_keyType = Lens.lens (\CreateUsagePlanKey' {keyType} -> keyType) (\s@CreateUsagePlanKey' {} a -> s {keyType = a} :: CreateUsagePlanKey)
 
 instance Core.AWSRequest CreateUsagePlanKey where
   type AWSResponse CreateUsagePlanKey = UsagePlanKey
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable CreateUsagePlanKey where
   hashWithSalt _salt CreateUsagePlanKey' {..} =
@@ -132,28 +128,28 @@ instance Prelude.NFData CreateUsagePlanKey where
       `Prelude.seq` Prelude.rnf keyId
       `Prelude.seq` Prelude.rnf keyType
 
-instance Core.ToHeaders CreateUsagePlanKey where
+instance Data.ToHeaders CreateUsagePlanKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToJSON CreateUsagePlanKey where
+instance Data.ToJSON CreateUsagePlanKey where
   toJSON CreateUsagePlanKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("keyId" Core..= keyId),
-            Prelude.Just ("keyType" Core..= keyType)
+          [ Prelude.Just ("keyId" Data..= keyId),
+            Prelude.Just ("keyType" Data..= keyType)
           ]
       )
 
-instance Core.ToPath CreateUsagePlanKey where
+instance Data.ToPath CreateUsagePlanKey where
   toPath CreateUsagePlanKey' {..} =
     Prelude.mconcat
-      ["/usageplans/", Core.toBS usagePlanId, "/keys"]
+      ["/usageplans/", Data.toBS usagePlanId, "/keys"]
 
-instance Core.ToQuery CreateUsagePlanKey where
+instance Data.ToQuery CreateUsagePlanKey where
   toQuery = Prelude.const Prelude.mempty

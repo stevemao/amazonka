@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EMRContainers.DescribeManagedEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.EMRContainers.DescribeManagedEndpoint
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMRContainers.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,12 +94,13 @@ instance Core.AWSRequest DescribeManagedEndpoint where
   type
     AWSResponse DescribeManagedEndpoint =
       DescribeManagedEndpointResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeManagedEndpointResponse'
-            Prelude.<$> (x Core..?> "endpoint")
+            Prelude.<$> (x Data..?> "endpoint")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -112,27 +114,27 @@ instance Prelude.NFData DescribeManagedEndpoint where
     Prelude.rnf id
       `Prelude.seq` Prelude.rnf virtualClusterId
 
-instance Core.ToHeaders DescribeManagedEndpoint where
+instance Data.ToHeaders DescribeManagedEndpoint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeManagedEndpoint where
+instance Data.ToPath DescribeManagedEndpoint where
   toPath DescribeManagedEndpoint' {..} =
     Prelude.mconcat
       [ "/virtualclusters/",
-        Core.toBS virtualClusterId,
+        Data.toBS virtualClusterId,
         "/endpoints/",
-        Core.toBS id
+        Data.toBS id
       ]
 
-instance Core.ToQuery DescribeManagedEndpoint where
+instance Data.ToQuery DescribeManagedEndpoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeManagedEndpointResponse' smart constructor.
@@ -142,7 +144,7 @@ data DescribeManagedEndpointResponse = DescribeManagedEndpointResponse'
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
-  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'DescribeManagedEndpointResponse' with all optional fields omitted.

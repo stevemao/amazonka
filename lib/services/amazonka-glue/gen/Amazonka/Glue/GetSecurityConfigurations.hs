@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetSecurityConfigurations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,33 +29,34 @@ module Amazonka.Glue.GetSecurityConfigurations
     newGetSecurityConfigurations,
 
     -- * Request Lenses
-    getSecurityConfigurations_nextToken,
     getSecurityConfigurations_maxResults,
+    getSecurityConfigurations_nextToken,
 
     -- * Destructuring the Response
     GetSecurityConfigurationsResponse (..),
     newGetSecurityConfigurationsResponse,
 
     -- * Response Lenses
-    getSecurityConfigurationsResponse_securityConfigurations,
     getSecurityConfigurationsResponse_nextToken,
+    getSecurityConfigurationsResponse_securityConfigurations,
     getSecurityConfigurationsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetSecurityConfigurations' smart constructor.
 data GetSecurityConfigurations = GetSecurityConfigurations'
-  { -- | A continuation token, if this is a continuation call.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of results to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A continuation token, if this is a continuation call.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,25 +68,25 @@ data GetSecurityConfigurations = GetSecurityConfigurations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getSecurityConfigurations_nextToken' - A continuation token, if this is a continuation call.
---
 -- 'maxResults', 'getSecurityConfigurations_maxResults' - The maximum number of results to return.
+--
+-- 'nextToken', 'getSecurityConfigurations_nextToken' - A continuation token, if this is a continuation call.
 newGetSecurityConfigurations ::
   GetSecurityConfigurations
 newGetSecurityConfigurations =
   GetSecurityConfigurations'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | A continuation token, if this is a continuation call.
-getSecurityConfigurations_nextToken :: Lens.Lens' GetSecurityConfigurations (Prelude.Maybe Prelude.Text)
-getSecurityConfigurations_nextToken = Lens.lens (\GetSecurityConfigurations' {nextToken} -> nextToken) (\s@GetSecurityConfigurations' {} a -> s {nextToken = a} :: GetSecurityConfigurations)
 
 -- | The maximum number of results to return.
 getSecurityConfigurations_maxResults :: Lens.Lens' GetSecurityConfigurations (Prelude.Maybe Prelude.Natural)
 getSecurityConfigurations_maxResults = Lens.lens (\GetSecurityConfigurations' {maxResults} -> maxResults) (\s@GetSecurityConfigurations' {} a -> s {maxResults = a} :: GetSecurityConfigurations)
+
+-- | A continuation token, if this is a continuation call.
+getSecurityConfigurations_nextToken :: Lens.Lens' GetSecurityConfigurations (Prelude.Maybe Prelude.Text)
+getSecurityConfigurations_nextToken = Lens.lens (\GetSecurityConfigurations' {nextToken} -> nextToken) (\s@GetSecurityConfigurations' {} a -> s {nextToken = a} :: GetSecurityConfigurations)
 
 instance Core.AWSPager GetSecurityConfigurations where
   page rq rs
@@ -113,65 +114,66 @@ instance Core.AWSRequest GetSecurityConfigurations where
   type
     AWSResponse GetSecurityConfigurations =
       GetSecurityConfigurationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetSecurityConfigurationsResponse'
-            Prelude.<$> ( x Core..?> "SecurityConfigurations"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "SecurityConfigurations"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetSecurityConfigurations where
   hashWithSalt _salt GetSecurityConfigurations' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData GetSecurityConfigurations where
   rnf GetSecurityConfigurations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders GetSecurityConfigurations where
+instance Data.ToHeaders GetSecurityConfigurations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSGlue.GetSecurityConfigurations" ::
+              Data.=# ( "AWSGlue.GetSecurityConfigurations" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetSecurityConfigurations where
+instance Data.ToJSON GetSecurityConfigurations where
   toJSON GetSecurityConfigurations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath GetSecurityConfigurations where
+instance Data.ToPath GetSecurityConfigurations where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetSecurityConfigurations where
+instance Data.ToQuery GetSecurityConfigurations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetSecurityConfigurationsResponse' smart constructor.
 data GetSecurityConfigurationsResponse = GetSecurityConfigurationsResponse'
-  { -- | A list of security configurations.
-    securityConfigurations :: Prelude.Maybe [SecurityConfiguration],
-    -- | A continuation token, if there are more security configurations to
+  { -- | A continuation token, if there are more security configurations to
     -- return.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of security configurations.
+    securityConfigurations :: Prelude.Maybe [SecurityConfiguration],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -185,10 +187,10 @@ data GetSecurityConfigurationsResponse = GetSecurityConfigurationsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'securityConfigurations', 'getSecurityConfigurationsResponse_securityConfigurations' - A list of security configurations.
---
 -- 'nextToken', 'getSecurityConfigurationsResponse_nextToken' - A continuation token, if there are more security configurations to
 -- return.
+--
+-- 'securityConfigurations', 'getSecurityConfigurationsResponse_securityConfigurations' - A list of security configurations.
 --
 -- 'httpStatus', 'getSecurityConfigurationsResponse_httpStatus' - The response's http status code.
 newGetSecurityConfigurationsResponse ::
@@ -197,20 +199,20 @@ newGetSecurityConfigurationsResponse ::
   GetSecurityConfigurationsResponse
 newGetSecurityConfigurationsResponse pHttpStatus_ =
   GetSecurityConfigurationsResponse'
-    { securityConfigurations =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      securityConfigurations = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of security configurations.
-getSecurityConfigurationsResponse_securityConfigurations :: Lens.Lens' GetSecurityConfigurationsResponse (Prelude.Maybe [SecurityConfiguration])
-getSecurityConfigurationsResponse_securityConfigurations = Lens.lens (\GetSecurityConfigurationsResponse' {securityConfigurations} -> securityConfigurations) (\s@GetSecurityConfigurationsResponse' {} a -> s {securityConfigurations = a} :: GetSecurityConfigurationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A continuation token, if there are more security configurations to
 -- return.
 getSecurityConfigurationsResponse_nextToken :: Lens.Lens' GetSecurityConfigurationsResponse (Prelude.Maybe Prelude.Text)
 getSecurityConfigurationsResponse_nextToken = Lens.lens (\GetSecurityConfigurationsResponse' {nextToken} -> nextToken) (\s@GetSecurityConfigurationsResponse' {} a -> s {nextToken = a} :: GetSecurityConfigurationsResponse)
+
+-- | A list of security configurations.
+getSecurityConfigurationsResponse_securityConfigurations :: Lens.Lens' GetSecurityConfigurationsResponse (Prelude.Maybe [SecurityConfiguration])
+getSecurityConfigurationsResponse_securityConfigurations = Lens.lens (\GetSecurityConfigurationsResponse' {securityConfigurations} -> securityConfigurations) (\s@GetSecurityConfigurationsResponse' {} a -> s {securityConfigurations = a} :: GetSecurityConfigurationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 getSecurityConfigurationsResponse_httpStatus :: Lens.Lens' GetSecurityConfigurationsResponse Prelude.Int
@@ -221,6 +223,6 @@ instance
     GetSecurityConfigurationsResponse
   where
   rnf GetSecurityConfigurationsResponse' {..} =
-    Prelude.rnf securityConfigurations
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf securityConfigurations
       `Prelude.seq` Prelude.rnf httpStatus

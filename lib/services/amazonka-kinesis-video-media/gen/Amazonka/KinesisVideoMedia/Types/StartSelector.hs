@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideoMedia.Types.StartSelector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisVideoMedia.Types.StartSelector where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideoMedia.Types.StartSelectorType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Identifies the chunk on the Kinesis video stream where you want the
@@ -41,18 +42,18 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newStartSelector' smart constructor.
 data StartSelector = StartSelector'
-  { -- | Continuation token that Kinesis Video Streams returned in the previous
+  { -- | Specifies the fragment number from where you want the @GetMedia@ API to
+    -- start returning the fragments.
+    afterFragmentNumber :: Prelude.Maybe Prelude.Text,
+    -- | Continuation token that Kinesis Video Streams returned in the previous
     -- @GetMedia@ response. The @GetMedia@ API then starts with the chunk
     -- identified by the continuation token.
     continuationToken :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the fragment number from where you want the @GetMedia@ API to
-    -- start returning the fragments.
-    afterFragmentNumber :: Prelude.Maybe Prelude.Text,
     -- | A timestamp value. This value is required if you choose the
     -- PRODUCER_TIMESTAMP or the SERVER_TIMESTAMP as the @startSelectorType@.
     -- The @GetMedia@ API then starts with the chunk containing the fragment
     -- that has the specified timestamp.
-    startTimestamp :: Prelude.Maybe Core.POSIX,
+    startTimestamp :: Prelude.Maybe Data.POSIX,
     -- | Identifies the fragment on the Kinesis video stream where you want to
     -- start getting the data from.
     --
@@ -84,12 +85,12 @@ data StartSelector = StartSelector'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'afterFragmentNumber', 'startSelector_afterFragmentNumber' - Specifies the fragment number from where you want the @GetMedia@ API to
+-- start returning the fragments.
+--
 -- 'continuationToken', 'startSelector_continuationToken' - Continuation token that Kinesis Video Streams returned in the previous
 -- @GetMedia@ response. The @GetMedia@ API then starts with the chunk
 -- identified by the continuation token.
---
--- 'afterFragmentNumber', 'startSelector_afterFragmentNumber' - Specifies the fragment number from where you want the @GetMedia@ API to
--- start returning the fragments.
 --
 -- 'startTimestamp', 'startSelector_startTimestamp' - A timestamp value. This value is required if you choose the
 -- PRODUCER_TIMESTAMP or the SERVER_TIMESTAMP as the @startSelectorType@.
@@ -121,11 +122,17 @@ newStartSelector ::
   StartSelector
 newStartSelector pStartSelectorType_ =
   StartSelector'
-    { continuationToken = Prelude.Nothing,
-      afterFragmentNumber = Prelude.Nothing,
+    { afterFragmentNumber =
+        Prelude.Nothing,
+      continuationToken = Prelude.Nothing,
       startTimestamp = Prelude.Nothing,
       startSelectorType = pStartSelectorType_
     }
+
+-- | Specifies the fragment number from where you want the @GetMedia@ API to
+-- start returning the fragments.
+startSelector_afterFragmentNumber :: Lens.Lens' StartSelector (Prelude.Maybe Prelude.Text)
+startSelector_afterFragmentNumber = Lens.lens (\StartSelector' {afterFragmentNumber} -> afterFragmentNumber) (\s@StartSelector' {} a -> s {afterFragmentNumber = a} :: StartSelector)
 
 -- | Continuation token that Kinesis Video Streams returned in the previous
 -- @GetMedia@ response. The @GetMedia@ API then starts with the chunk
@@ -133,17 +140,12 @@ newStartSelector pStartSelectorType_ =
 startSelector_continuationToken :: Lens.Lens' StartSelector (Prelude.Maybe Prelude.Text)
 startSelector_continuationToken = Lens.lens (\StartSelector' {continuationToken} -> continuationToken) (\s@StartSelector' {} a -> s {continuationToken = a} :: StartSelector)
 
--- | Specifies the fragment number from where you want the @GetMedia@ API to
--- start returning the fragments.
-startSelector_afterFragmentNumber :: Lens.Lens' StartSelector (Prelude.Maybe Prelude.Text)
-startSelector_afterFragmentNumber = Lens.lens (\StartSelector' {afterFragmentNumber} -> afterFragmentNumber) (\s@StartSelector' {} a -> s {afterFragmentNumber = a} :: StartSelector)
-
 -- | A timestamp value. This value is required if you choose the
 -- PRODUCER_TIMESTAMP or the SERVER_TIMESTAMP as the @startSelectorType@.
 -- The @GetMedia@ API then starts with the chunk containing the fragment
 -- that has the specified timestamp.
 startSelector_startTimestamp :: Lens.Lens' StartSelector (Prelude.Maybe Prelude.UTCTime)
-startSelector_startTimestamp = Lens.lens (\StartSelector' {startTimestamp} -> startTimestamp) (\s@StartSelector' {} a -> s {startTimestamp = a} :: StartSelector) Prelude.. Lens.mapping Core._Time
+startSelector_startTimestamp = Lens.lens (\StartSelector' {startTimestamp} -> startTimestamp) (\s@StartSelector' {} a -> s {startTimestamp = a} :: StartSelector) Prelude.. Lens.mapping Data._Time
 
 -- | Identifies the fragment on the Kinesis video stream where you want to
 -- start getting the data from.
@@ -169,29 +171,29 @@ startSelector_startSelectorType = Lens.lens (\StartSelector' {startSelectorType}
 
 instance Prelude.Hashable StartSelector where
   hashWithSalt _salt StartSelector' {..} =
-    _salt `Prelude.hashWithSalt` continuationToken
-      `Prelude.hashWithSalt` afterFragmentNumber
+    _salt `Prelude.hashWithSalt` afterFragmentNumber
+      `Prelude.hashWithSalt` continuationToken
       `Prelude.hashWithSalt` startTimestamp
       `Prelude.hashWithSalt` startSelectorType
 
 instance Prelude.NFData StartSelector where
   rnf StartSelector' {..} =
-    Prelude.rnf continuationToken
-      `Prelude.seq` Prelude.rnf afterFragmentNumber
+    Prelude.rnf afterFragmentNumber
+      `Prelude.seq` Prelude.rnf continuationToken
       `Prelude.seq` Prelude.rnf startTimestamp
       `Prelude.seq` Prelude.rnf startSelectorType
 
-instance Core.ToJSON StartSelector where
+instance Data.ToJSON StartSelector where
   toJSON StartSelector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ContinuationToken" Core..=)
-              Prelude.<$> continuationToken,
-            ("AfterFragmentNumber" Core..=)
+          [ ("AfterFragmentNumber" Data..=)
               Prelude.<$> afterFragmentNumber,
-            ("StartTimestamp" Core..=)
+            ("ContinuationToken" Data..=)
+              Prelude.<$> continuationToken,
+            ("StartTimestamp" Data..=)
               Prelude.<$> startTimestamp,
             Prelude.Just
-              ("StartSelectorType" Core..= startSelectorType)
+              ("StartSelectorType" Data..= startSelectorType)
           ]
       )

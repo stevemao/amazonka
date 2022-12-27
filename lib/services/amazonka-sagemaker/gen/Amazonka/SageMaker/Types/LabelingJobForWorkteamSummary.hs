@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.LabelingJobForWorkteamSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.LabelingJobForWorkteamSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.LabelCountersForWorkteam
 
@@ -28,12 +29,12 @@ import Amazonka.SageMaker.Types.LabelCountersForWorkteam
 --
 -- /See:/ 'newLabelingJobForWorkteamSummary' smart constructor.
 data LabelingJobForWorkteamSummary = LabelingJobForWorkteamSummary'
-  { -- | The configured number of workers per data object.
-    numberOfHumanWorkersPerDataObject :: Prelude.Maybe Prelude.Natural,
-    -- | Provides information about the progress of a labeling job.
+  { -- | Provides information about the progress of a labeling job.
     labelCounters :: Prelude.Maybe LabelCountersForWorkteam,
     -- | The name of the labeling job that the work team is assigned to.
     labelingJobName :: Prelude.Maybe Prelude.Text,
+    -- | The configured number of workers per data object.
+    numberOfHumanWorkersPerDataObject :: Prelude.Maybe Prelude.Natural,
     -- | A unique identifier for a labeling job. You can use this to refer to a
     -- specific labeling job.
     jobReferenceCode :: Prelude.Text,
@@ -41,7 +42,7 @@ data LabelingJobForWorkteamSummary = LabelingJobForWorkteamSummary'
     -- labeling job.
     workRequesterAccountId :: Prelude.Text,
     -- | The date and time that the labeling job was created.
-    creationTime :: Core.POSIX
+    creationTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -53,11 +54,11 @@ data LabelingJobForWorkteamSummary = LabelingJobForWorkteamSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'numberOfHumanWorkersPerDataObject', 'labelingJobForWorkteamSummary_numberOfHumanWorkersPerDataObject' - The configured number of workers per data object.
---
 -- 'labelCounters', 'labelingJobForWorkteamSummary_labelCounters' - Provides information about the progress of a labeling job.
 --
 -- 'labelingJobName', 'labelingJobForWorkteamSummary_labelingJobName' - The name of the labeling job that the work team is assigned to.
+--
+-- 'numberOfHumanWorkersPerDataObject', 'labelingJobForWorkteamSummary_numberOfHumanWorkersPerDataObject' - The configured number of workers per data object.
 --
 -- 'jobReferenceCode', 'labelingJobForWorkteamSummary_jobReferenceCode' - A unique identifier for a labeling job. You can use this to refer to a
 -- specific labeling job.
@@ -79,20 +80,17 @@ newLabelingJobForWorkteamSummary
   pWorkRequesterAccountId_
   pCreationTime_ =
     LabelingJobForWorkteamSummary'
-      { numberOfHumanWorkersPerDataObject =
+      { labelCounters =
           Prelude.Nothing,
-        labelCounters = Prelude.Nothing,
         labelingJobName = Prelude.Nothing,
+        numberOfHumanWorkersPerDataObject =
+          Prelude.Nothing,
         jobReferenceCode = pJobReferenceCode_,
         workRequesterAccountId =
           pWorkRequesterAccountId_,
         creationTime =
-          Core._Time Lens.# pCreationTime_
+          Data._Time Lens.# pCreationTime_
       }
-
--- | The configured number of workers per data object.
-labelingJobForWorkteamSummary_numberOfHumanWorkersPerDataObject :: Lens.Lens' LabelingJobForWorkteamSummary (Prelude.Maybe Prelude.Natural)
-labelingJobForWorkteamSummary_numberOfHumanWorkersPerDataObject = Lens.lens (\LabelingJobForWorkteamSummary' {numberOfHumanWorkersPerDataObject} -> numberOfHumanWorkersPerDataObject) (\s@LabelingJobForWorkteamSummary' {} a -> s {numberOfHumanWorkersPerDataObject = a} :: LabelingJobForWorkteamSummary)
 
 -- | Provides information about the progress of a labeling job.
 labelingJobForWorkteamSummary_labelCounters :: Lens.Lens' LabelingJobForWorkteamSummary (Prelude.Maybe LabelCountersForWorkteam)
@@ -101,6 +99,10 @@ labelingJobForWorkteamSummary_labelCounters = Lens.lens (\LabelingJobForWorkteam
 -- | The name of the labeling job that the work team is assigned to.
 labelingJobForWorkteamSummary_labelingJobName :: Lens.Lens' LabelingJobForWorkteamSummary (Prelude.Maybe Prelude.Text)
 labelingJobForWorkteamSummary_labelingJobName = Lens.lens (\LabelingJobForWorkteamSummary' {labelingJobName} -> labelingJobName) (\s@LabelingJobForWorkteamSummary' {} a -> s {labelingJobName = a} :: LabelingJobForWorkteamSummary)
+
+-- | The configured number of workers per data object.
+labelingJobForWorkteamSummary_numberOfHumanWorkersPerDataObject :: Lens.Lens' LabelingJobForWorkteamSummary (Prelude.Maybe Prelude.Natural)
+labelingJobForWorkteamSummary_numberOfHumanWorkersPerDataObject = Lens.lens (\LabelingJobForWorkteamSummary' {numberOfHumanWorkersPerDataObject} -> numberOfHumanWorkersPerDataObject) (\s@LabelingJobForWorkteamSummary' {} a -> s {numberOfHumanWorkersPerDataObject = a} :: LabelingJobForWorkteamSummary)
 
 -- | A unique identifier for a labeling job. You can use this to refer to a
 -- specific labeling job.
@@ -114,20 +116,20 @@ labelingJobForWorkteamSummary_workRequesterAccountId = Lens.lens (\LabelingJobFo
 
 -- | The date and time that the labeling job was created.
 labelingJobForWorkteamSummary_creationTime :: Lens.Lens' LabelingJobForWorkteamSummary Prelude.UTCTime
-labelingJobForWorkteamSummary_creationTime = Lens.lens (\LabelingJobForWorkteamSummary' {creationTime} -> creationTime) (\s@LabelingJobForWorkteamSummary' {} a -> s {creationTime = a} :: LabelingJobForWorkteamSummary) Prelude.. Core._Time
+labelingJobForWorkteamSummary_creationTime = Lens.lens (\LabelingJobForWorkteamSummary' {creationTime} -> creationTime) (\s@LabelingJobForWorkteamSummary' {} a -> s {creationTime = a} :: LabelingJobForWorkteamSummary) Prelude.. Data._Time
 
-instance Core.FromJSON LabelingJobForWorkteamSummary where
+instance Data.FromJSON LabelingJobForWorkteamSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LabelingJobForWorkteamSummary"
       ( \x ->
           LabelingJobForWorkteamSummary'
-            Prelude.<$> (x Core..:? "NumberOfHumanWorkersPerDataObject")
-            Prelude.<*> (x Core..:? "LabelCounters")
-            Prelude.<*> (x Core..:? "LabelingJobName")
-            Prelude.<*> (x Core..: "JobReferenceCode")
-            Prelude.<*> (x Core..: "WorkRequesterAccountId")
-            Prelude.<*> (x Core..: "CreationTime")
+            Prelude.<$> (x Data..:? "LabelCounters")
+            Prelude.<*> (x Data..:? "LabelingJobName")
+            Prelude.<*> (x Data..:? "NumberOfHumanWorkersPerDataObject")
+            Prelude.<*> (x Data..: "JobReferenceCode")
+            Prelude.<*> (x Data..: "WorkRequesterAccountId")
+            Prelude.<*> (x Data..: "CreationTime")
       )
 
 instance
@@ -135,19 +137,18 @@ instance
     LabelingJobForWorkteamSummary
   where
   hashWithSalt _salt LabelingJobForWorkteamSummary' {..} =
-    _salt
-      `Prelude.hashWithSalt` numberOfHumanWorkersPerDataObject
-      `Prelude.hashWithSalt` labelCounters
+    _salt `Prelude.hashWithSalt` labelCounters
       `Prelude.hashWithSalt` labelingJobName
+      `Prelude.hashWithSalt` numberOfHumanWorkersPerDataObject
       `Prelude.hashWithSalt` jobReferenceCode
       `Prelude.hashWithSalt` workRequesterAccountId
       `Prelude.hashWithSalt` creationTime
 
 instance Prelude.NFData LabelingJobForWorkteamSummary where
   rnf LabelingJobForWorkteamSummary' {..} =
-    Prelude.rnf numberOfHumanWorkersPerDataObject
-      `Prelude.seq` Prelude.rnf labelCounters
+    Prelude.rnf labelCounters
       `Prelude.seq` Prelude.rnf labelingJobName
+      `Prelude.seq` Prelude.rnf numberOfHumanWorkersPerDataObject
       `Prelude.seq` Prelude.rnf jobReferenceCode
       `Prelude.seq` Prelude.rnf workRequesterAccountId
       `Prelude.seq` Prelude.rnf creationTime

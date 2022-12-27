@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.GetWorkflowExecutionHistory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,9 +54,9 @@ module Amazonka.SWF.GetWorkflowExecutionHistory
     newGetWorkflowExecutionHistory,
 
     -- * Request Lenses
+    getWorkflowExecutionHistory_maximumPageSize,
     getWorkflowExecutionHistory_nextPageToken,
     getWorkflowExecutionHistory_reverseOrder,
-    getWorkflowExecutionHistory_maximumPageSize,
     getWorkflowExecutionHistory_domain,
     getWorkflowExecutionHistory_execution,
 
@@ -72,7 +72,8 @@ module Amazonka.SWF.GetWorkflowExecutionHistory
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +81,10 @@ import Amazonka.SWF.Types
 
 -- | /See:/ 'newGetWorkflowExecutionHistory' smart constructor.
 data GetWorkflowExecutionHistory = GetWorkflowExecutionHistory'
-  { -- | If @NextPageToken@ is returned there are more results available. The
+  { -- | The maximum number of results that are returned per call. Use
+    -- @nextPageToken@ to obtain further pages of results.
+    maximumPageSize :: Prelude.Maybe Prelude.Natural,
+    -- | If @NextPageToken@ is returned there are more results available. The
     -- value of @NextPageToken@ is a unique pagination token for each page.
     -- Make the call again using the returned token to retrieve the next page.
     -- Keep all other arguments unchanged. Each pagination token expires after
@@ -94,9 +98,6 @@ data GetWorkflowExecutionHistory = GetWorkflowExecutionHistory'
     -- results are returned in ascending order of the @eventTimeStamp@ of the
     -- events.
     reverseOrder :: Prelude.Maybe Prelude.Bool,
-    -- | The maximum number of results that are returned per call. Use
-    -- @nextPageToken@ to obtain further pages of results.
-    maximumPageSize :: Prelude.Maybe Prelude.Natural,
     -- | The name of the domain containing the workflow execution.
     domain :: Prelude.Text,
     -- | Specifies the workflow execution for which to return the history.
@@ -112,6 +113,9 @@ data GetWorkflowExecutionHistory = GetWorkflowExecutionHistory'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maximumPageSize', 'getWorkflowExecutionHistory_maximumPageSize' - The maximum number of results that are returned per call. Use
+-- @nextPageToken@ to obtain further pages of results.
+--
 -- 'nextPageToken', 'getWorkflowExecutionHistory_nextPageToken' - If @NextPageToken@ is returned there are more results available. The
 -- value of @NextPageToken@ is a unique pagination token for each page.
 -- Make the call again using the returned token to retrieve the next page.
@@ -126,9 +130,6 @@ data GetWorkflowExecutionHistory = GetWorkflowExecutionHistory'
 -- results are returned in ascending order of the @eventTimeStamp@ of the
 -- events.
 --
--- 'maximumPageSize', 'getWorkflowExecutionHistory_maximumPageSize' - The maximum number of results that are returned per call. Use
--- @nextPageToken@ to obtain further pages of results.
---
 -- 'domain', 'getWorkflowExecutionHistory_domain' - The name of the domain containing the workflow execution.
 --
 -- 'execution', 'getWorkflowExecutionHistory_execution' - Specifies the workflow execution for which to return the history.
@@ -140,13 +141,18 @@ newGetWorkflowExecutionHistory ::
   GetWorkflowExecutionHistory
 newGetWorkflowExecutionHistory pDomain_ pExecution_ =
   GetWorkflowExecutionHistory'
-    { nextPageToken =
+    { maximumPageSize =
         Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
       reverseOrder = Prelude.Nothing,
-      maximumPageSize = Prelude.Nothing,
       domain = pDomain_,
       execution = pExecution_
     }
+
+-- | The maximum number of results that are returned per call. Use
+-- @nextPageToken@ to obtain further pages of results.
+getWorkflowExecutionHistory_maximumPageSize :: Lens.Lens' GetWorkflowExecutionHistory (Prelude.Maybe Prelude.Natural)
+getWorkflowExecutionHistory_maximumPageSize = Lens.lens (\GetWorkflowExecutionHistory' {maximumPageSize} -> maximumPageSize) (\s@GetWorkflowExecutionHistory' {} a -> s {maximumPageSize = a} :: GetWorkflowExecutionHistory)
 
 -- | If @NextPageToken@ is returned there are more results available. The
 -- value of @NextPageToken@ is a unique pagination token for each page.
@@ -165,11 +171,6 @@ getWorkflowExecutionHistory_nextPageToken = Lens.lens (\GetWorkflowExecutionHist
 -- events.
 getWorkflowExecutionHistory_reverseOrder :: Lens.Lens' GetWorkflowExecutionHistory (Prelude.Maybe Prelude.Bool)
 getWorkflowExecutionHistory_reverseOrder = Lens.lens (\GetWorkflowExecutionHistory' {reverseOrder} -> reverseOrder) (\s@GetWorkflowExecutionHistory' {} a -> s {reverseOrder = a} :: GetWorkflowExecutionHistory)
-
--- | The maximum number of results that are returned per call. Use
--- @nextPageToken@ to obtain further pages of results.
-getWorkflowExecutionHistory_maximumPageSize :: Lens.Lens' GetWorkflowExecutionHistory (Prelude.Maybe Prelude.Natural)
-getWorkflowExecutionHistory_maximumPageSize = Lens.lens (\GetWorkflowExecutionHistory' {maximumPageSize} -> maximumPageSize) (\s@GetWorkflowExecutionHistory' {} a -> s {maximumPageSize = a} :: GetWorkflowExecutionHistory)
 
 -- | The name of the domain containing the workflow execution.
 getWorkflowExecutionHistory_domain :: Lens.Lens' GetWorkflowExecutionHistory Prelude.Text
@@ -204,64 +205,65 @@ instance Core.AWSRequest GetWorkflowExecutionHistory where
   type
     AWSResponse GetWorkflowExecutionHistory =
       GetWorkflowExecutionHistoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetWorkflowExecutionHistoryResponse'
-            Prelude.<$> (x Core..?> "nextPageToken")
+            Prelude.<$> (x Data..?> "nextPageToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "events" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "events" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable GetWorkflowExecutionHistory where
   hashWithSalt _salt GetWorkflowExecutionHistory' {..} =
-    _salt `Prelude.hashWithSalt` nextPageToken
+    _salt `Prelude.hashWithSalt` maximumPageSize
+      `Prelude.hashWithSalt` nextPageToken
       `Prelude.hashWithSalt` reverseOrder
-      `Prelude.hashWithSalt` maximumPageSize
       `Prelude.hashWithSalt` domain
       `Prelude.hashWithSalt` execution
 
 instance Prelude.NFData GetWorkflowExecutionHistory where
   rnf GetWorkflowExecutionHistory' {..} =
-    Prelude.rnf nextPageToken
+    Prelude.rnf maximumPageSize
+      `Prelude.seq` Prelude.rnf nextPageToken
       `Prelude.seq` Prelude.rnf reverseOrder
-      `Prelude.seq` Prelude.rnf maximumPageSize
       `Prelude.seq` Prelude.rnf domain
       `Prelude.seq` Prelude.rnf execution
 
-instance Core.ToHeaders GetWorkflowExecutionHistory where
+instance Data.ToHeaders GetWorkflowExecutionHistory where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SimpleWorkflowService.GetWorkflowExecutionHistory" ::
+              Data.=# ( "SimpleWorkflowService.GetWorkflowExecutionHistory" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetWorkflowExecutionHistory where
+instance Data.ToJSON GetWorkflowExecutionHistory where
   toJSON GetWorkflowExecutionHistory' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextPageToken" Core..=) Prelude.<$> nextPageToken,
-            ("reverseOrder" Core..=) Prelude.<$> reverseOrder,
-            ("maximumPageSize" Core..=)
+          [ ("maximumPageSize" Data..=)
               Prelude.<$> maximumPageSize,
-            Prelude.Just ("domain" Core..= domain),
-            Prelude.Just ("execution" Core..= execution)
+            ("nextPageToken" Data..=) Prelude.<$> nextPageToken,
+            ("reverseOrder" Data..=) Prelude.<$> reverseOrder,
+            Prelude.Just ("domain" Data..= domain),
+            Prelude.Just ("execution" Data..= execution)
           ]
       )
 
-instance Core.ToPath GetWorkflowExecutionHistory where
+instance Data.ToPath GetWorkflowExecutionHistory where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetWorkflowExecutionHistory where
+instance Data.ToQuery GetWorkflowExecutionHistory where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Paginated representation of a workflow history for a workflow execution.

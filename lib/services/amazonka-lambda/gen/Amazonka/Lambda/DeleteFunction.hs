@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.DeleteFunction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,9 +25,9 @@
 -- deleted.
 --
 -- To delete Lambda event source mappings that invoke a function, use
--- DeleteEventSourceMapping. For Amazon Web Services services and resources
--- that invoke your function directly, delete the trigger in the service
--- where you originally configured it.
+-- DeleteEventSourceMapping. For Amazon Web Services and resources that
+-- invoke your function directly, delete the trigger in the service where
+-- you originally configured it.
 module Amazonka.Lambda.DeleteFunction
   ( -- * Creating a Request
     DeleteFunction (..),
@@ -44,28 +44,29 @@ module Amazonka.Lambda.DeleteFunction
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteFunction' smart constructor.
 data DeleteFunction = DeleteFunction'
-  { -- | Specify a version to delete. You can\'t delete a version that\'s
-    -- referenced by an alias.
+  { -- | Specify a version to delete. You can\'t delete a version that an alias
+    -- references.
     qualifier :: Prelude.Maybe Prelude.Text,
     -- | The name of the Lambda function or version.
     --
     -- __Name formats__
     --
-    -- -   __Function name__ - @my-function@ (name-only), @my-function:1@ (with
+    -- -   __Function name__ – @my-function@ (name-only), @my-function:1@ (with
     --     version).
     --
-    -- -   __Function ARN__ -
+    -- -   __Function ARN__ –
     --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
     --
-    -- -   __Partial ARN__ - @123456789012:function:my-function@.
+    -- -   __Partial ARN__ – @123456789012:function:my-function@.
     --
     -- You can append a version number or alias to any of the formats. The
     -- length constraint applies only to the full ARN. If you specify only the
@@ -82,20 +83,20 @@ data DeleteFunction = DeleteFunction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'qualifier', 'deleteFunction_qualifier' - Specify a version to delete. You can\'t delete a version that\'s
--- referenced by an alias.
+-- 'qualifier', 'deleteFunction_qualifier' - Specify a version to delete. You can\'t delete a version that an alias
+-- references.
 --
 -- 'functionName', 'deleteFunction_functionName' - The name of the Lambda function or version.
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@ (name-only), @my-function:1@ (with
+-- -   __Function name__ – @my-function@ (name-only), @my-function:1@ (with
 --     version).
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- You can append a version number or alias to any of the formats. The
 -- length constraint applies only to the full ARN. If you specify only the
@@ -110,8 +111,8 @@ newDeleteFunction pFunctionName_ =
       functionName = pFunctionName_
     }
 
--- | Specify a version to delete. You can\'t delete a version that\'s
--- referenced by an alias.
+-- | Specify a version to delete. You can\'t delete a version that an alias
+-- references.
 deleteFunction_qualifier :: Lens.Lens' DeleteFunction (Prelude.Maybe Prelude.Text)
 deleteFunction_qualifier = Lens.lens (\DeleteFunction' {qualifier} -> qualifier) (\s@DeleteFunction' {} a -> s {qualifier = a} :: DeleteFunction)
 
@@ -119,13 +120,13 @@ deleteFunction_qualifier = Lens.lens (\DeleteFunction' {qualifier} -> qualifier)
 --
 -- __Name formats__
 --
--- -   __Function name__ - @my-function@ (name-only), @my-function:1@ (with
+-- -   __Function name__ – @my-function@ (name-only), @my-function:1@ (with
 --     version).
 --
--- -   __Function ARN__ -
+-- -   __Function ARN__ –
 --     @arn:aws:lambda:us-west-2:123456789012:function:my-function@.
 --
--- -   __Partial ARN__ - @123456789012:function:my-function@.
+-- -   __Partial ARN__ – @123456789012:function:my-function@.
 --
 -- You can append a version number or alias to any of the formats. The
 -- length constraint applies only to the full ARN. If you specify only the
@@ -137,7 +138,8 @@ instance Core.AWSRequest DeleteFunction where
   type
     AWSResponse DeleteFunction =
       DeleteFunctionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteFunctionResponse'
 
@@ -151,17 +153,17 @@ instance Prelude.NFData DeleteFunction where
     Prelude.rnf qualifier
       `Prelude.seq` Prelude.rnf functionName
 
-instance Core.ToHeaders DeleteFunction where
+instance Data.ToHeaders DeleteFunction where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteFunction where
+instance Data.ToPath DeleteFunction where
   toPath DeleteFunction' {..} =
     Prelude.mconcat
-      ["/2015-03-31/functions/", Core.toBS functionName]
+      ["/2015-03-31/functions/", Data.toBS functionName]
 
-instance Core.ToQuery DeleteFunction where
+instance Data.ToQuery DeleteFunction where
   toQuery DeleteFunction' {..} =
-    Prelude.mconcat ["Qualifier" Core.=: qualifier]
+    Prelude.mconcat ["Qualifier" Data.=: qualifier]
 
 -- | /See:/ 'newDeleteFunctionResponse' smart constructor.
 data DeleteFunctionResponse = DeleteFunctionResponse'

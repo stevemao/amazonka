@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.LoggingOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTSiteWise.Types.LoggingOptions where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.LoggingLevel
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains logging options.
@@ -53,12 +54,12 @@ newLoggingOptions pLevel_ =
 loggingOptions_level :: Lens.Lens' LoggingOptions LoggingLevel
 loggingOptions_level = Lens.lens (\LoggingOptions' {level} -> level) (\s@LoggingOptions' {} a -> s {level = a} :: LoggingOptions)
 
-instance Core.FromJSON LoggingOptions where
+instance Data.FromJSON LoggingOptions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LoggingOptions"
       ( \x ->
-          LoggingOptions' Prelude.<$> (x Core..: "level")
+          LoggingOptions' Prelude.<$> (x Data..: "level")
       )
 
 instance Prelude.Hashable LoggingOptions where
@@ -68,9 +69,9 @@ instance Prelude.Hashable LoggingOptions where
 instance Prelude.NFData LoggingOptions where
   rnf LoggingOptions' {..} = Prelude.rnf level
 
-instance Core.ToJSON LoggingOptions where
+instance Data.ToJSON LoggingOptions where
   toJSON LoggingOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("level" Core..= level)]
+          [Prelude.Just ("level" Data..= level)]
       )

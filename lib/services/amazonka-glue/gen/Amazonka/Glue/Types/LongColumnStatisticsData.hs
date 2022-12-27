@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.LongColumnStatisticsData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.LongColumnStatisticsData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Defines column statistics supported for integer data columns.
@@ -86,16 +87,16 @@ longColumnStatisticsData_numberOfNulls = Lens.lens (\LongColumnStatisticsData' {
 longColumnStatisticsData_numberOfDistinctValues :: Lens.Lens' LongColumnStatisticsData Prelude.Natural
 longColumnStatisticsData_numberOfDistinctValues = Lens.lens (\LongColumnStatisticsData' {numberOfDistinctValues} -> numberOfDistinctValues) (\s@LongColumnStatisticsData' {} a -> s {numberOfDistinctValues = a} :: LongColumnStatisticsData)
 
-instance Core.FromJSON LongColumnStatisticsData where
+instance Data.FromJSON LongColumnStatisticsData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LongColumnStatisticsData"
       ( \x ->
           LongColumnStatisticsData'
-            Prelude.<$> (x Core..:? "MaximumValue")
-            Prelude.<*> (x Core..:? "MinimumValue")
-            Prelude.<*> (x Core..: "NumberOfNulls")
-            Prelude.<*> (x Core..: "NumberOfDistinctValues")
+            Prelude.<$> (x Data..:? "MaximumValue")
+            Prelude.<*> (x Data..:? "MinimumValue")
+            Prelude.<*> (x Data..: "NumberOfNulls")
+            Prelude.<*> (x Data..: "NumberOfDistinctValues")
       )
 
 instance Prelude.Hashable LongColumnStatisticsData where
@@ -112,16 +113,16 @@ instance Prelude.NFData LongColumnStatisticsData where
       `Prelude.seq` Prelude.rnf numberOfNulls
       `Prelude.seq` Prelude.rnf numberOfDistinctValues
 
-instance Core.ToJSON LongColumnStatisticsData where
+instance Data.ToJSON LongColumnStatisticsData where
   toJSON LongColumnStatisticsData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MaximumValue" Core..=) Prelude.<$> maximumValue,
-            ("MinimumValue" Core..=) Prelude.<$> minimumValue,
-            Prelude.Just ("NumberOfNulls" Core..= numberOfNulls),
+          [ ("MaximumValue" Data..=) Prelude.<$> maximumValue,
+            ("MinimumValue" Data..=) Prelude.<$> minimumValue,
+            Prelude.Just ("NumberOfNulls" Data..= numberOfNulls),
             Prelude.Just
               ( "NumberOfDistinctValues"
-                  Core..= numberOfDistinctValues
+                  Data..= numberOfDistinctValues
               )
           ]
       )

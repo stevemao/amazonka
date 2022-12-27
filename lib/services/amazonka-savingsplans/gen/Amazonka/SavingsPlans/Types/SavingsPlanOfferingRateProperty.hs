@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SavingsPlans.Types.SavingsPlanOfferingRateProperty
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SavingsPlans.Types.SavingsPlanOfferingRateProperty where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a property.
 --
 -- /See:/ 'newSavingsPlanOfferingRateProperty' smart constructor.
 data SavingsPlanOfferingRateProperty = SavingsPlanOfferingRateProperty'
-  { -- | The property value.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The property name.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | The property name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The property value.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,36 +43,36 @@ data SavingsPlanOfferingRateProperty = SavingsPlanOfferingRateProperty'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'savingsPlanOfferingRateProperty_value' - The property value.
---
 -- 'name', 'savingsPlanOfferingRateProperty_name' - The property name.
+--
+-- 'value', 'savingsPlanOfferingRateProperty_value' - The property value.
 newSavingsPlanOfferingRateProperty ::
   SavingsPlanOfferingRateProperty
 newSavingsPlanOfferingRateProperty =
   SavingsPlanOfferingRateProperty'
-    { value =
+    { name =
         Prelude.Nothing,
-      name = Prelude.Nothing
+      value = Prelude.Nothing
     }
-
--- | The property value.
-savingsPlanOfferingRateProperty_value :: Lens.Lens' SavingsPlanOfferingRateProperty (Prelude.Maybe Prelude.Text)
-savingsPlanOfferingRateProperty_value = Lens.lens (\SavingsPlanOfferingRateProperty' {value} -> value) (\s@SavingsPlanOfferingRateProperty' {} a -> s {value = a} :: SavingsPlanOfferingRateProperty)
 
 -- | The property name.
 savingsPlanOfferingRateProperty_name :: Lens.Lens' SavingsPlanOfferingRateProperty (Prelude.Maybe Prelude.Text)
 savingsPlanOfferingRateProperty_name = Lens.lens (\SavingsPlanOfferingRateProperty' {name} -> name) (\s@SavingsPlanOfferingRateProperty' {} a -> s {name = a} :: SavingsPlanOfferingRateProperty)
 
+-- | The property value.
+savingsPlanOfferingRateProperty_value :: Lens.Lens' SavingsPlanOfferingRateProperty (Prelude.Maybe Prelude.Text)
+savingsPlanOfferingRateProperty_value = Lens.lens (\SavingsPlanOfferingRateProperty' {value} -> value) (\s@SavingsPlanOfferingRateProperty' {} a -> s {value = a} :: SavingsPlanOfferingRateProperty)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     SavingsPlanOfferingRateProperty
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SavingsPlanOfferingRateProperty"
       ( \x ->
           SavingsPlanOfferingRateProperty'
-            Prelude.<$> (x Core..:? "value") Prelude.<*> (x Core..:? "name")
+            Prelude.<$> (x Data..:? "name") Prelude.<*> (x Data..:? "value")
       )
 
 instance
@@ -81,12 +82,12 @@ instance
   hashWithSalt
     _salt
     SavingsPlanOfferingRateProperty' {..} =
-      _salt `Prelude.hashWithSalt` value
-        `Prelude.hashWithSalt` name
+      _salt `Prelude.hashWithSalt` name
+        `Prelude.hashWithSalt` value
 
 instance
   Prelude.NFData
     SavingsPlanOfferingRateProperty
   where
   rnf SavingsPlanOfferingRateProperty' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf value

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.OAuthCredentials
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppFlow.Types.OAuthCredentials where
 
 import Amazonka.AppFlow.Types.ConnectorOAuthRequest
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The OAuth credentials required for OAuth type authentication.
@@ -29,17 +30,17 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newOAuthCredentials' smart constructor.
 data OAuthCredentials = OAuthCredentials'
   { -- | The access token used to access protected SAPOData resources.
-    accessToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The refresh token used to refresh expired access token.
-    refreshToken :: Prelude.Maybe Prelude.Text,
+    accessToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The OAuth requirement needed to request security tokens from the
     -- connector endpoint.
     oAuthRequest :: Prelude.Maybe ConnectorOAuthRequest,
+    -- | The refresh token used to refresh expired access token.
+    refreshToken :: Prelude.Maybe Prelude.Text,
     -- | The identifier for the desired client.
     clientId :: Prelude.Text,
     -- | The client secret used by the OAuth client to authenticate to the
     -- authorization server.
-    clientSecret :: Core.Sensitive Prelude.Text
+    clientSecret :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -53,10 +54,10 @@ data OAuthCredentials = OAuthCredentials'
 --
 -- 'accessToken', 'oAuthCredentials_accessToken' - The access token used to access protected SAPOData resources.
 --
--- 'refreshToken', 'oAuthCredentials_refreshToken' - The refresh token used to refresh expired access token.
---
 -- 'oAuthRequest', 'oAuthCredentials_oAuthRequest' - The OAuth requirement needed to request security tokens from the
 -- connector endpoint.
+--
+-- 'refreshToken', 'oAuthCredentials_refreshToken' - The refresh token used to refresh expired access token.
 --
 -- 'clientId', 'oAuthCredentials_clientId' - The identifier for the desired client.
 --
@@ -71,24 +72,24 @@ newOAuthCredentials ::
 newOAuthCredentials pClientId_ pClientSecret_ =
   OAuthCredentials'
     { accessToken = Prelude.Nothing,
-      refreshToken = Prelude.Nothing,
       oAuthRequest = Prelude.Nothing,
+      refreshToken = Prelude.Nothing,
       clientId = pClientId_,
-      clientSecret = Core._Sensitive Lens.# pClientSecret_
+      clientSecret = Data._Sensitive Lens.# pClientSecret_
     }
 
 -- | The access token used to access protected SAPOData resources.
 oAuthCredentials_accessToken :: Lens.Lens' OAuthCredentials (Prelude.Maybe Prelude.Text)
-oAuthCredentials_accessToken = Lens.lens (\OAuthCredentials' {accessToken} -> accessToken) (\s@OAuthCredentials' {} a -> s {accessToken = a} :: OAuthCredentials) Prelude.. Lens.mapping Core._Sensitive
-
--- | The refresh token used to refresh expired access token.
-oAuthCredentials_refreshToken :: Lens.Lens' OAuthCredentials (Prelude.Maybe Prelude.Text)
-oAuthCredentials_refreshToken = Lens.lens (\OAuthCredentials' {refreshToken} -> refreshToken) (\s@OAuthCredentials' {} a -> s {refreshToken = a} :: OAuthCredentials)
+oAuthCredentials_accessToken = Lens.lens (\OAuthCredentials' {accessToken} -> accessToken) (\s@OAuthCredentials' {} a -> s {accessToken = a} :: OAuthCredentials) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The OAuth requirement needed to request security tokens from the
 -- connector endpoint.
 oAuthCredentials_oAuthRequest :: Lens.Lens' OAuthCredentials (Prelude.Maybe ConnectorOAuthRequest)
 oAuthCredentials_oAuthRequest = Lens.lens (\OAuthCredentials' {oAuthRequest} -> oAuthRequest) (\s@OAuthCredentials' {} a -> s {oAuthRequest = a} :: OAuthCredentials)
+
+-- | The refresh token used to refresh expired access token.
+oAuthCredentials_refreshToken :: Lens.Lens' OAuthCredentials (Prelude.Maybe Prelude.Text)
+oAuthCredentials_refreshToken = Lens.lens (\OAuthCredentials' {refreshToken} -> refreshToken) (\s@OAuthCredentials' {} a -> s {refreshToken = a} :: OAuthCredentials)
 
 -- | The identifier for the desired client.
 oAuthCredentials_clientId :: Lens.Lens' OAuthCredentials Prelude.Text
@@ -97,32 +98,32 @@ oAuthCredentials_clientId = Lens.lens (\OAuthCredentials' {clientId} -> clientId
 -- | The client secret used by the OAuth client to authenticate to the
 -- authorization server.
 oAuthCredentials_clientSecret :: Lens.Lens' OAuthCredentials Prelude.Text
-oAuthCredentials_clientSecret = Lens.lens (\OAuthCredentials' {clientSecret} -> clientSecret) (\s@OAuthCredentials' {} a -> s {clientSecret = a} :: OAuthCredentials) Prelude.. Core._Sensitive
+oAuthCredentials_clientSecret = Lens.lens (\OAuthCredentials' {clientSecret} -> clientSecret) (\s@OAuthCredentials' {} a -> s {clientSecret = a} :: OAuthCredentials) Prelude.. Data._Sensitive
 
 instance Prelude.Hashable OAuthCredentials where
   hashWithSalt _salt OAuthCredentials' {..} =
     _salt `Prelude.hashWithSalt` accessToken
-      `Prelude.hashWithSalt` refreshToken
       `Prelude.hashWithSalt` oAuthRequest
+      `Prelude.hashWithSalt` refreshToken
       `Prelude.hashWithSalt` clientId
       `Prelude.hashWithSalt` clientSecret
 
 instance Prelude.NFData OAuthCredentials where
   rnf OAuthCredentials' {..} =
     Prelude.rnf accessToken
-      `Prelude.seq` Prelude.rnf refreshToken
       `Prelude.seq` Prelude.rnf oAuthRequest
+      `Prelude.seq` Prelude.rnf refreshToken
       `Prelude.seq` Prelude.rnf clientId
       `Prelude.seq` Prelude.rnf clientSecret
 
-instance Core.ToJSON OAuthCredentials where
+instance Data.ToJSON OAuthCredentials where
   toJSON OAuthCredentials' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("accessToken" Core..=) Prelude.<$> accessToken,
-            ("refreshToken" Core..=) Prelude.<$> refreshToken,
-            ("oAuthRequest" Core..=) Prelude.<$> oAuthRequest,
-            Prelude.Just ("clientId" Core..= clientId),
-            Prelude.Just ("clientSecret" Core..= clientSecret)
+          [ ("accessToken" Data..=) Prelude.<$> accessToken,
+            ("oAuthRequest" Data..=) Prelude.<$> oAuthRequest,
+            ("refreshToken" Data..=) Prelude.<$> refreshToken,
+            Prelude.Just ("clientId" Data..= clientId),
+            Prelude.Just ("clientSecret" Data..= clientSecret)
           ]
       )

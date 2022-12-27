@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsS3BucketBucketLifecycleConfigurationRulesAbortIncompleteMultipartUploadDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsS3BucketBucketLifecycleConfigurationRulesAbortIncompleteMultipartUploadDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about what Amazon S3 does when a multipart upload is
@@ -58,15 +59,15 @@ awsS3BucketBucketLifecycleConfigurationRulesAbortIncompleteMultipartUploadDetail
 awsS3BucketBucketLifecycleConfigurationRulesAbortIncompleteMultipartUploadDetails_daysAfterInitiation = Lens.lens (\AwsS3BucketBucketLifecycleConfigurationRulesAbortIncompleteMultipartUploadDetails' {daysAfterInitiation} -> daysAfterInitiation) (\s@AwsS3BucketBucketLifecycleConfigurationRulesAbortIncompleteMultipartUploadDetails' {} a -> s {daysAfterInitiation = a} :: AwsS3BucketBucketLifecycleConfigurationRulesAbortIncompleteMultipartUploadDetails)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsS3BucketBucketLifecycleConfigurationRulesAbortIncompleteMultipartUploadDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsS3BucketBucketLifecycleConfigurationRulesAbortIncompleteMultipartUploadDetails"
       ( \x ->
           AwsS3BucketBucketLifecycleConfigurationRulesAbortIncompleteMultipartUploadDetails'
-            Prelude.<$> (x Core..:? "DaysAfterInitiation")
+            Prelude.<$> (x Data..:? "DaysAfterInitiation")
       )
 
 instance
@@ -87,14 +88,14 @@ instance
       Prelude.rnf daysAfterInitiation
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsS3BucketBucketLifecycleConfigurationRulesAbortIncompleteMultipartUploadDetails
   where
   toJSON
     AwsS3BucketBucketLifecycleConfigurationRulesAbortIncompleteMultipartUploadDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("DaysAfterInitiation" Core..=)
+            [ ("DaysAfterInitiation" Data..=)
                 Prelude.<$> daysAfterInitiation
             ]
         )

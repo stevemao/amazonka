@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.InstanceMonitoring
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.InstanceMonitoring where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.Monitoring
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the monitoring of an instance.
@@ -63,11 +64,11 @@ instanceMonitoring_instanceId = Lens.lens (\InstanceMonitoring' {instanceId} -> 
 instanceMonitoring_monitoring :: Lens.Lens' InstanceMonitoring (Prelude.Maybe Monitoring)
 instanceMonitoring_monitoring = Lens.lens (\InstanceMonitoring' {monitoring} -> monitoring) (\s@InstanceMonitoring' {} a -> s {monitoring = a} :: InstanceMonitoring)
 
-instance Core.FromXML InstanceMonitoring where
+instance Data.FromXML InstanceMonitoring where
   parseXML x =
     InstanceMonitoring'
-      Prelude.<$> (x Core..@? "instanceId")
-      Prelude.<*> (x Core..@? "monitoring")
+      Prelude.<$> (x Data..@? "instanceId")
+      Prelude.<*> (x Data..@? "monitoring")
 
 instance Prelude.Hashable InstanceMonitoring where
   hashWithSalt _salt InstanceMonitoring' {..} =

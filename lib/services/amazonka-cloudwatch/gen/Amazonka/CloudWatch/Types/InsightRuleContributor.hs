@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.Types.InsightRuleContributor
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudWatch.Types.InsightRuleContributor where
 
 import Amazonka.CloudWatch.Types.InsightRuleContributorDatapoint
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | One of the unique contributors found by a Contributor Insights rule. If
@@ -91,15 +92,15 @@ insightRuleContributor_approximateAggregateValue = Lens.lens (\InsightRuleContri
 insightRuleContributor_datapoints :: Lens.Lens' InsightRuleContributor [InsightRuleContributorDatapoint]
 insightRuleContributor_datapoints = Lens.lens (\InsightRuleContributor' {datapoints} -> datapoints) (\s@InsightRuleContributor' {} a -> s {datapoints = a} :: InsightRuleContributor) Prelude.. Lens.coerced
 
-instance Core.FromXML InsightRuleContributor where
+instance Data.FromXML InsightRuleContributor where
   parseXML x =
     InsightRuleContributor'
-      Prelude.<$> ( x Core..@? "Keys" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.parseXMLList "member"
+      Prelude.<$> ( x Data..@? "Keys" Core..!@ Prelude.mempty
+                      Prelude.>>= Data.parseXMLList "member"
                   )
-      Prelude.<*> (x Core..@ "ApproximateAggregateValue")
-      Prelude.<*> ( x Core..@? "Datapoints" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.parseXMLList "member"
+      Prelude.<*> (x Data..@ "ApproximateAggregateValue")
+      Prelude.<*> ( x Data..@? "Datapoints" Core..!@ Prelude.mempty
+                      Prelude.>>= Data.parseXMLList "member"
                   )
 
 instance Prelude.Hashable InsightRuleContributor where

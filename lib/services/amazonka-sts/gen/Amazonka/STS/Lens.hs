@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.STS.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,92 +14,92 @@
 module Amazonka.STS.Lens
   ( -- * Operations
 
-    -- ** GetCallerIdentity
-    getCallerIdentityResponse_arn,
-    getCallerIdentityResponse_account,
-    getCallerIdentityResponse_userId,
-    getCallerIdentityResponse_httpStatus,
-
     -- ** AssumeRole
-    assumeRole_transitiveTagKeys,
-    assumeRole_tokenCode,
-    assumeRole_policyArns,
     assumeRole_durationSeconds,
-    assumeRole_policy,
     assumeRole_externalId,
-    assumeRole_sourceIdentity,
+    assumeRole_policy,
+    assumeRole_policyArns,
     assumeRole_serialNumber,
+    assumeRole_sourceIdentity,
     assumeRole_tags,
+    assumeRole_tokenCode,
+    assumeRole_transitiveTagKeys,
     assumeRole_roleArn,
     assumeRole_roleSessionName,
-    assumeRoleResponse_packedPolicySize,
-    assumeRoleResponse_credentials,
     assumeRoleResponse_assumedRoleUser,
+    assumeRoleResponse_packedPolicySize,
     assumeRoleResponse_sourceIdentity,
     assumeRoleResponse_httpStatus,
+    assumeRoleResponse_credentials,
 
-    -- ** GetAccessKeyInfo
-    getAccessKeyInfo_accessKeyId,
-    getAccessKeyInfoResponse_account,
-    getAccessKeyInfoResponse_httpStatus,
+    -- ** AssumeRoleWithSAML
+    assumeRoleWithSAML_durationSeconds,
+    assumeRoleWithSAML_policy,
+    assumeRoleWithSAML_policyArns,
+    assumeRoleWithSAML_roleArn,
+    assumeRoleWithSAML_principalArn,
+    assumeRoleWithSAML_sAMLAssertion,
+    assumeRoleWithSAMLResponse_assumedRoleUser,
+    assumeRoleWithSAMLResponse_audience,
+    assumeRoleWithSAMLResponse_credentials,
+    assumeRoleWithSAMLResponse_issuer,
+    assumeRoleWithSAMLResponse_nameQualifier,
+    assumeRoleWithSAMLResponse_packedPolicySize,
+    assumeRoleWithSAMLResponse_sourceIdentity,
+    assumeRoleWithSAMLResponse_subject,
+    assumeRoleWithSAMLResponse_subjectType,
+    assumeRoleWithSAMLResponse_httpStatus,
+
+    -- ** AssumeRoleWithWebIdentity
+    assumeRoleWithWebIdentity_durationSeconds,
+    assumeRoleWithWebIdentity_policy,
+    assumeRoleWithWebIdentity_policyArns,
+    assumeRoleWithWebIdentity_providerId,
+    assumeRoleWithWebIdentity_roleArn,
+    assumeRoleWithWebIdentity_roleSessionName,
+    assumeRoleWithWebIdentity_webIdentityToken,
+    assumeRoleWithWebIdentityResponse_assumedRoleUser,
+    assumeRoleWithWebIdentityResponse_audience,
+    assumeRoleWithWebIdentityResponse_packedPolicySize,
+    assumeRoleWithWebIdentityResponse_provider,
+    assumeRoleWithWebIdentityResponse_sourceIdentity,
+    assumeRoleWithWebIdentityResponse_subjectFromWebIdentityToken,
+    assumeRoleWithWebIdentityResponse_httpStatus,
+    assumeRoleWithWebIdentityResponse_credentials,
 
     -- ** DecodeAuthorizationMessage
     decodeAuthorizationMessage_encodedMessage,
     decodeAuthorizationMessageResponse_decodedMessage,
     decodeAuthorizationMessageResponse_httpStatus,
 
-    -- ** AssumeRoleWithWebIdentity
-    assumeRoleWithWebIdentity_providerId,
-    assumeRoleWithWebIdentity_policyArns,
-    assumeRoleWithWebIdentity_durationSeconds,
-    assumeRoleWithWebIdentity_policy,
-    assumeRoleWithWebIdentity_roleArn,
-    assumeRoleWithWebIdentity_roleSessionName,
-    assumeRoleWithWebIdentity_webIdentityToken,
-    assumeRoleWithWebIdentityResponse_audience,
-    assumeRoleWithWebIdentityResponse_subjectFromWebIdentityToken,
-    assumeRoleWithWebIdentityResponse_packedPolicySize,
-    assumeRoleWithWebIdentityResponse_credentials,
-    assumeRoleWithWebIdentityResponse_assumedRoleUser,
-    assumeRoleWithWebIdentityResponse_sourceIdentity,
-    assumeRoleWithWebIdentityResponse_provider,
-    assumeRoleWithWebIdentityResponse_httpStatus,
+    -- ** GetAccessKeyInfo
+    getAccessKeyInfo_accessKeyId,
+    getAccessKeyInfoResponse_account,
+    getAccessKeyInfoResponse_httpStatus,
+
+    -- ** GetCallerIdentity
+    getCallerIdentityResponse_account,
+    getCallerIdentityResponse_arn,
+    getCallerIdentityResponse_userId,
+    getCallerIdentityResponse_httpStatus,
 
     -- ** GetFederationToken
-    getFederationToken_policyArns,
     getFederationToken_durationSeconds,
     getFederationToken_policy,
+    getFederationToken_policyArns,
     getFederationToken_tags,
     getFederationToken_name,
-    getFederationTokenResponse_packedPolicySize,
     getFederationTokenResponse_credentials,
     getFederationTokenResponse_federatedUser,
+    getFederationTokenResponse_packedPolicySize,
     getFederationTokenResponse_httpStatus,
 
     -- ** GetSessionToken
-    getSessionToken_tokenCode,
     getSessionToken_durationSeconds,
     getSessionToken_serialNumber,
+    getSessionToken_tokenCode,
     getSessionTokenResponse_credentials,
     getSessionTokenResponse_httpStatus,
-
-    -- ** AssumeRoleWithSAML
-    assumeRoleWithSAML_policyArns,
-    assumeRoleWithSAML_durationSeconds,
-    assumeRoleWithSAML_policy,
-    assumeRoleWithSAML_roleArn,
-    assumeRoleWithSAML_principalArn,
-    assumeRoleWithSAML_sAMLAssertion,
-    assumeRoleWithSAMLResponse_subject,
-    assumeRoleWithSAMLResponse_audience,
-    assumeRoleWithSAMLResponse_packedPolicySize,
-    assumeRoleWithSAMLResponse_credentials,
-    assumeRoleWithSAMLResponse_subjectType,
-    assumeRoleWithSAMLResponse_nameQualifier,
-    assumeRoleWithSAMLResponse_assumedRoleUser,
-    assumeRoleWithSAMLResponse_sourceIdentity,
-    assumeRoleWithSAMLResponse_issuer,
-    assumeRoleWithSAMLResponse_httpStatus,
 
     -- * Types
 

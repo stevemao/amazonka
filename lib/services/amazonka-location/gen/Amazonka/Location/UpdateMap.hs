@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.UpdateMap
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.Location.UpdateMap
     newUpdateMap,
 
     -- * Request Lenses
-    updateMap_pricingPlan,
     updateMap_description,
+    updateMap_pricingPlan,
     updateMap_mapName,
 
     -- * Destructuring the Response
@@ -44,7 +44,8 @@ module Amazonka.Location.UpdateMap
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,13 +53,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateMap' smart constructor.
 data UpdateMap = UpdateMap'
-  { -- | Updates the pricing plan for the map resource.
-    --
-    -- For more information about each pricing plan option restrictions, see
-    -- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-    pricingPlan :: Prelude.Maybe PricingPlan,
-    -- | Updates the description for the map resource.
+  { -- | Updates the description for the map resource.
     description :: Prelude.Maybe Prelude.Text,
+    -- | No longer used. If included, the only allowed value is
+    -- @RequestBasedUsage@.
+    pricingPlan :: Prelude.Maybe PricingPlan,
     -- | The name of the map resource to update.
     mapName :: Prelude.Text
   }
@@ -72,12 +71,10 @@ data UpdateMap = UpdateMap'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'pricingPlan', 'updateMap_pricingPlan' - Updates the pricing plan for the map resource.
---
--- For more information about each pricing plan option restrictions, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
---
 -- 'description', 'updateMap_description' - Updates the description for the map resource.
+--
+-- 'pricingPlan', 'updateMap_pricingPlan' - No longer used. If included, the only allowed value is
+-- @RequestBasedUsage@.
 --
 -- 'mapName', 'updateMap_mapName' - The name of the map resource to update.
 newUpdateMap ::
@@ -86,21 +83,19 @@ newUpdateMap ::
   UpdateMap
 newUpdateMap pMapName_ =
   UpdateMap'
-    { pricingPlan = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      pricingPlan = Prelude.Nothing,
       mapName = pMapName_
     }
-
--- | Updates the pricing plan for the map resource.
---
--- For more information about each pricing plan option restrictions, see
--- <https://aws.amazon.com/location/pricing/ Amazon Location Service pricing>.
-updateMap_pricingPlan :: Lens.Lens' UpdateMap (Prelude.Maybe PricingPlan)
-updateMap_pricingPlan = Lens.lens (\UpdateMap' {pricingPlan} -> pricingPlan) (\s@UpdateMap' {} a -> s {pricingPlan = a} :: UpdateMap)
 
 -- | Updates the description for the map resource.
 updateMap_description :: Lens.Lens' UpdateMap (Prelude.Maybe Prelude.Text)
 updateMap_description = Lens.lens (\UpdateMap' {description} -> description) (\s@UpdateMap' {} a -> s {description = a} :: UpdateMap)
+
+-- | No longer used. If included, the only allowed value is
+-- @RequestBasedUsage@.
+updateMap_pricingPlan :: Lens.Lens' UpdateMap (Prelude.Maybe PricingPlan)
+updateMap_pricingPlan = Lens.lens (\UpdateMap' {pricingPlan} -> pricingPlan) (\s@UpdateMap' {} a -> s {pricingPlan = a} :: UpdateMap)
 
 -- | The name of the map resource to update.
 updateMap_mapName :: Lens.Lens' UpdateMap Prelude.Text
@@ -108,55 +103,56 @@ updateMap_mapName = Lens.lens (\UpdateMap' {mapName} -> mapName) (\s@UpdateMap' 
 
 instance Core.AWSRequest UpdateMap where
   type AWSResponse UpdateMap = UpdateMapResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateMapResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "MapArn")
-            Prelude.<*> (x Core..:> "MapName")
-            Prelude.<*> (x Core..:> "UpdateTime")
+            Prelude.<*> (x Data..:> "MapArn")
+            Prelude.<*> (x Data..:> "MapName")
+            Prelude.<*> (x Data..:> "UpdateTime")
       )
 
 instance Prelude.Hashable UpdateMap where
   hashWithSalt _salt UpdateMap' {..} =
-    _salt `Prelude.hashWithSalt` pricingPlan
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` pricingPlan
       `Prelude.hashWithSalt` mapName
 
 instance Prelude.NFData UpdateMap where
   rnf UpdateMap' {..} =
-    Prelude.rnf pricingPlan
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf pricingPlan
       `Prelude.seq` Prelude.rnf mapName
 
-instance Core.ToHeaders UpdateMap where
+instance Data.ToHeaders UpdateMap where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateMap where
+instance Data.ToJSON UpdateMap where
   toJSON UpdateMap' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PricingPlan" Core..=) Prelude.<$> pricingPlan,
-            ("Description" Core..=) Prelude.<$> description
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("PricingPlan" Data..=) Prelude.<$> pricingPlan
           ]
       )
 
-instance Core.ToPath UpdateMap where
+instance Data.ToPath UpdateMap where
   toPath UpdateMap' {..} =
     Prelude.mconcat
-      ["/maps/v0/maps/", Core.toBS mapName]
+      ["/maps/v0/maps/", Data.toBS mapName]
 
-instance Core.ToQuery UpdateMap where
+instance Data.ToQuery UpdateMap where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateMapResponse' smart constructor.
@@ -166,14 +162,14 @@ data UpdateMapResponse = UpdateMapResponse'
     -- | The Amazon Resource Name (ARN) of the updated map resource. Used to
     -- specify a resource across AWS.
     --
-    -- -   Format example: @arn:aws:geo:region:account-id:maps\/ExampleMap@
+    -- -   Format example: @arn:aws:geo:region:account-id:map\/ExampleMap@
     mapArn :: Prelude.Text,
     -- | The name of the updated map resource.
     mapName :: Prelude.Text,
     -- | The timestamp for when the map resource was last updated in
     -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
     -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
-    updateTime :: Core.POSIX
+    updateTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -190,7 +186,7 @@ data UpdateMapResponse = UpdateMapResponse'
 -- 'mapArn', 'updateMapResponse_mapArn' - The Amazon Resource Name (ARN) of the updated map resource. Used to
 -- specify a resource across AWS.
 --
--- -   Format example: @arn:aws:geo:region:account-id:maps\/ExampleMap@
+-- -   Format example: @arn:aws:geo:region:account-id:map\/ExampleMap@
 --
 -- 'mapName', 'updateMapResponse_mapName' - The name of the updated map resource.
 --
@@ -216,7 +212,7 @@ newUpdateMapResponse
       { httpStatus = pHttpStatus_,
         mapArn = pMapArn_,
         mapName = pMapName_,
-        updateTime = Core._Time Lens.# pUpdateTime_
+        updateTime = Data._Time Lens.# pUpdateTime_
       }
 
 -- | The response's http status code.
@@ -226,7 +222,7 @@ updateMapResponse_httpStatus = Lens.lens (\UpdateMapResponse' {httpStatus} -> ht
 -- | The Amazon Resource Name (ARN) of the updated map resource. Used to
 -- specify a resource across AWS.
 --
--- -   Format example: @arn:aws:geo:region:account-id:maps\/ExampleMap@
+-- -   Format example: @arn:aws:geo:region:account-id:map\/ExampleMap@
 updateMapResponse_mapArn :: Lens.Lens' UpdateMapResponse Prelude.Text
 updateMapResponse_mapArn = Lens.lens (\UpdateMapResponse' {mapArn} -> mapArn) (\s@UpdateMapResponse' {} a -> s {mapArn = a} :: UpdateMapResponse)
 
@@ -238,7 +234,7 @@ updateMapResponse_mapName = Lens.lens (\UpdateMapResponse' {mapName} -> mapName)
 -- <https://www.iso.org/iso-8601-date-and-time-format.html ISO 8601>
 -- format: @YYYY-MM-DDThh:mm:ss.sssZ@.
 updateMapResponse_updateTime :: Lens.Lens' UpdateMapResponse Prelude.UTCTime
-updateMapResponse_updateTime = Lens.lens (\UpdateMapResponse' {updateTime} -> updateTime) (\s@UpdateMapResponse' {} a -> s {updateTime = a} :: UpdateMapResponse) Prelude.. Core._Time
+updateMapResponse_updateTime = Lens.lens (\UpdateMapResponse' {updateTime} -> updateTime) (\s@UpdateMapResponse' {} a -> s {updateTime = a} :: UpdateMapResponse) Prelude.. Data._Time
 
 instance Prelude.NFData UpdateMapResponse where
   rnf UpdateMapResponse' {..} =

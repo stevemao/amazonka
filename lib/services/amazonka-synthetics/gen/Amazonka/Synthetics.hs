@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Synthetics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,17 +35,35 @@ module Amazonka.Synthetics
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
+    -- ** BadRequestException
+    _BadRequestException,
 
     -- ** ConflictException
     _ConflictException,
 
+    -- ** InternalFailureException
+    _InternalFailureException,
+
     -- ** InternalServerException
     _InternalServerException,
 
+    -- ** NotFoundException
+    _NotFoundException,
+
+    -- ** RequestEntityTooLargeException
+    _RequestEntityTooLargeException,
+
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
+
+    -- ** ServiceQuotaExceededException
+    _ServiceQuotaExceededException,
+
+    -- ** TooManyRequestsException
+    _TooManyRequestsException,
+
+    -- ** ValidationException
+    _ValidationException,
 
     -- * Waiters
     -- $waiters
@@ -53,17 +71,11 @@ module Amazonka.Synthetics
     -- * Operations
     -- $operations
 
-    -- ** UpdateCanary
-    UpdateCanary (UpdateCanary'),
-    newUpdateCanary,
-    UpdateCanaryResponse (UpdateCanaryResponse'),
-    newUpdateCanaryResponse,
-
-    -- ** DeleteCanary
-    DeleteCanary (DeleteCanary'),
-    newDeleteCanary,
-    DeleteCanaryResponse (DeleteCanaryResponse'),
-    newDeleteCanaryResponse,
+    -- ** AssociateResource
+    AssociateResource (AssociateResource'),
+    newAssociateResource,
+    AssociateResourceResponse (AssociateResourceResponse'),
+    newAssociateResourceResponse,
 
     -- ** CreateCanary
     CreateCanary (CreateCanary'),
@@ -71,29 +83,29 @@ module Amazonka.Synthetics
     CreateCanaryResponse (CreateCanaryResponse'),
     newCreateCanaryResponse,
 
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
+    -- ** CreateGroup
+    CreateGroup (CreateGroup'),
+    newCreateGroup,
+    CreateGroupResponse (CreateGroupResponse'),
+    newCreateGroupResponse,
 
-    -- ** GetCanaryRuns
-    GetCanaryRuns (GetCanaryRuns'),
-    newGetCanaryRuns,
-    GetCanaryRunsResponse (GetCanaryRunsResponse'),
-    newGetCanaryRunsResponse,
+    -- ** DeleteCanary
+    DeleteCanary (DeleteCanary'),
+    newDeleteCanary,
+    DeleteCanaryResponse (DeleteCanaryResponse'),
+    newDeleteCanaryResponse,
 
-    -- ** GetCanary
-    GetCanary (GetCanary'),
-    newGetCanary,
-    GetCanaryResponse (GetCanaryResponse'),
-    newGetCanaryResponse,
+    -- ** DeleteGroup
+    DeleteGroup (DeleteGroup'),
+    newDeleteGroup,
+    DeleteGroupResponse (DeleteGroupResponse'),
+    newDeleteGroupResponse,
 
-    -- ** DescribeRuntimeVersions
-    DescribeRuntimeVersions (DescribeRuntimeVersions'),
-    newDescribeRuntimeVersions,
-    DescribeRuntimeVersionsResponse (DescribeRuntimeVersionsResponse'),
-    newDescribeRuntimeVersionsResponse,
+    -- ** DescribeCanaries
+    DescribeCanaries (DescribeCanaries'),
+    newDescribeCanaries,
+    DescribeCanariesResponse (DescribeCanariesResponse'),
+    newDescribeCanariesResponse,
 
     -- ** DescribeCanariesLastRun
     DescribeCanariesLastRun (DescribeCanariesLastRun'),
@@ -101,17 +113,71 @@ module Amazonka.Synthetics
     DescribeCanariesLastRunResponse (DescribeCanariesLastRunResponse'),
     newDescribeCanariesLastRunResponse,
 
+    -- ** DescribeRuntimeVersions
+    DescribeRuntimeVersions (DescribeRuntimeVersions'),
+    newDescribeRuntimeVersions,
+    DescribeRuntimeVersionsResponse (DescribeRuntimeVersionsResponse'),
+    newDescribeRuntimeVersionsResponse,
+
+    -- ** DisassociateResource
+    DisassociateResource (DisassociateResource'),
+    newDisassociateResource,
+    DisassociateResourceResponse (DisassociateResourceResponse'),
+    newDisassociateResourceResponse,
+
+    -- ** GetCanary
+    GetCanary (GetCanary'),
+    newGetCanary,
+    GetCanaryResponse (GetCanaryResponse'),
+    newGetCanaryResponse,
+
+    -- ** GetCanaryRuns
+    GetCanaryRuns (GetCanaryRuns'),
+    newGetCanaryRuns,
+    GetCanaryRunsResponse (GetCanaryRunsResponse'),
+    newGetCanaryRunsResponse,
+
+    -- ** GetGroup
+    GetGroup (GetGroup'),
+    newGetGroup,
+    GetGroupResponse (GetGroupResponse'),
+    newGetGroupResponse,
+
+    -- ** ListAssociatedGroups
+    ListAssociatedGroups (ListAssociatedGroups'),
+    newListAssociatedGroups,
+    ListAssociatedGroupsResponse (ListAssociatedGroupsResponse'),
+    newListAssociatedGroupsResponse,
+
+    -- ** ListGroupResources
+    ListGroupResources (ListGroupResources'),
+    newListGroupResources,
+    ListGroupResourcesResponse (ListGroupResourcesResponse'),
+    newListGroupResourcesResponse,
+
+    -- ** ListGroups
+    ListGroups (ListGroups'),
+    newListGroups,
+    ListGroupsResponse (ListGroupsResponse'),
+    newListGroupsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
     -- ** StartCanary
     StartCanary (StartCanary'),
     newStartCanary,
     StartCanaryResponse (StartCanaryResponse'),
     newStartCanaryResponse,
 
-    -- ** DescribeCanaries
-    DescribeCanaries (DescribeCanaries'),
-    newDescribeCanaries,
-    DescribeCanariesResponse (DescribeCanariesResponse'),
-    newDescribeCanariesResponse,
+    -- ** StopCanary
+    StopCanary (StopCanary'),
+    newStopCanary,
+    StopCanaryResponse (StopCanaryResponse'),
+    newStopCanaryResponse,
 
     -- ** TagResource
     TagResource (TagResource'),
@@ -125,11 +191,11 @@ module Amazonka.Synthetics
     UntagResourceResponse (UntagResourceResponse'),
     newUntagResourceResponse,
 
-    -- ** StopCanary
-    StopCanary (StopCanary'),
-    newStopCanary,
-    StopCanaryResponse (StopCanaryResponse'),
-    newStopCanaryResponse,
+    -- ** UpdateCanary
+    UpdateCanary (UpdateCanary'),
+    newUpdateCanary,
+    UpdateCanaryResponse (UpdateCanaryResponse'),
+    newUpdateCanaryResponse,
 
     -- * Types
 
@@ -212,6 +278,14 @@ module Amazonka.Synthetics
     CanaryTimeline (CanaryTimeline'),
     newCanaryTimeline,
 
+    -- ** Group
+    Group (Group'),
+    newGroup,
+
+    -- ** GroupSummary
+    GroupSummary (GroupSummary'),
+    newGroupSummary,
+
     -- ** RuntimeVersion
     RuntimeVersion (RuntimeVersion'),
     newRuntimeVersion,
@@ -238,14 +312,22 @@ module Amazonka.Synthetics
   )
 where
 
+import Amazonka.Synthetics.AssociateResource
 import Amazonka.Synthetics.CreateCanary
+import Amazonka.Synthetics.CreateGroup
 import Amazonka.Synthetics.DeleteCanary
+import Amazonka.Synthetics.DeleteGroup
 import Amazonka.Synthetics.DescribeCanaries
 import Amazonka.Synthetics.DescribeCanariesLastRun
 import Amazonka.Synthetics.DescribeRuntimeVersions
+import Amazonka.Synthetics.DisassociateResource
 import Amazonka.Synthetics.GetCanary
 import Amazonka.Synthetics.GetCanaryRuns
+import Amazonka.Synthetics.GetGroup
 import Amazonka.Synthetics.Lens
+import Amazonka.Synthetics.ListAssociatedGroups
+import Amazonka.Synthetics.ListGroupResources
+import Amazonka.Synthetics.ListGroups
 import Amazonka.Synthetics.ListTagsForResource
 import Amazonka.Synthetics.StartCanary
 import Amazonka.Synthetics.StopCanary

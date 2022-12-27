@@ -14,11 +14,15 @@
 
 -- |
 -- Module      : Amazonka.EMR.PutAutoTerminationPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
+--
+-- Auto-termination is supported in Amazon EMR versions 5.30.0 and 6.1.0
+-- and later. For more information, see
+-- <https://docs.aws.amazon.com/emr/latest/ManagementGuide/emr-auto-termination-policy.html Using an auto-termination policy>.
 --
 -- Creates or updates an auto-termination policy for an Amazon EMR cluster.
 -- An auto-termination policy defines the amount of idle time in seconds
@@ -44,8 +48,9 @@ module Amazonka.EMR.PutAutoTerminationPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,7 +101,8 @@ instance Core.AWSRequest PutAutoTerminationPolicy where
   type
     AWSResponse PutAutoTerminationPolicy =
       PutAutoTerminationPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,35 +120,35 @@ instance Prelude.NFData PutAutoTerminationPolicy where
     Prelude.rnf autoTerminationPolicy
       `Prelude.seq` Prelude.rnf clusterId
 
-instance Core.ToHeaders PutAutoTerminationPolicy where
+instance Data.ToHeaders PutAutoTerminationPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ElasticMapReduce.PutAutoTerminationPolicy" ::
+              Data.=# ( "ElasticMapReduce.PutAutoTerminationPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutAutoTerminationPolicy where
+instance Data.ToJSON PutAutoTerminationPolicy where
   toJSON PutAutoTerminationPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AutoTerminationPolicy" Core..=)
+          [ ("AutoTerminationPolicy" Data..=)
               Prelude.<$> autoTerminationPolicy,
-            Prelude.Just ("ClusterId" Core..= clusterId)
+            Prelude.Just ("ClusterId" Data..= clusterId)
           ]
       )
 
-instance Core.ToPath PutAutoTerminationPolicy where
+instance Data.ToPath PutAutoTerminationPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutAutoTerminationPolicy where
+instance Data.ToQuery PutAutoTerminationPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutAutoTerminationPolicyResponse' smart constructor.

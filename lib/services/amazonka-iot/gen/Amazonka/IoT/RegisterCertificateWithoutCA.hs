@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.IoT.RegisterCertificateWithoutCA
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Register a certificate that does not have a certificate authority (CA).
+-- For supported certificates, consult
+-- <https://docs.aws.amazon.com/iot/latest/developerguide/x509-client-certs.html#x509-cert-algorithms Certificate signing algorithms supported by IoT>.
 module Amazonka.IoT.RegisterCertificateWithoutCA
   ( -- * Creating a Request
     RegisterCertificateWithoutCA (..),
@@ -42,8 +44,9 @@ module Amazonka.IoT.RegisterCertificateWithoutCA
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,13 +94,14 @@ instance Core.AWSRequest RegisterCertificateWithoutCA where
   type
     AWSResponse RegisterCertificateWithoutCA =
       RegisterCertificateWithoutCAResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RegisterCertificateWithoutCAResponse'
-            Prelude.<$> (x Core..?> "certificateArn")
-            Prelude.<*> (x Core..?> "certificateId")
+            Prelude.<$> (x Data..?> "certificateArn")
+            Prelude.<*> (x Data..?> "certificateId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,23 +118,23 @@ instance Prelude.NFData RegisterCertificateWithoutCA where
     Prelude.rnf status
       `Prelude.seq` Prelude.rnf certificatePem
 
-instance Core.ToHeaders RegisterCertificateWithoutCA where
+instance Data.ToHeaders RegisterCertificateWithoutCA where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON RegisterCertificateWithoutCA where
+instance Data.ToJSON RegisterCertificateWithoutCA where
   toJSON RegisterCertificateWithoutCA' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("status" Core..=) Prelude.<$> status,
+          [ ("status" Data..=) Prelude.<$> status,
             Prelude.Just
-              ("certificatePem" Core..= certificatePem)
+              ("certificatePem" Data..= certificatePem)
           ]
       )
 
-instance Core.ToPath RegisterCertificateWithoutCA where
+instance Data.ToPath RegisterCertificateWithoutCA where
   toPath = Prelude.const "/certificate/register-no-ca"
 
-instance Core.ToQuery RegisterCertificateWithoutCA where
+instance Data.ToQuery RegisterCertificateWithoutCA where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRegisterCertificateWithoutCAResponse' smart constructor.

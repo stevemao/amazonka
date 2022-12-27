@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.Types.PartnerIntegrationInputMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Redshift.Types.PartnerIntegrationInputMessage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Internal
 
@@ -116,11 +117,11 @@ instance
       `Prelude.seq` Prelude.rnf databaseName
       `Prelude.seq` Prelude.rnf partnerName
 
-instance Core.ToQuery PartnerIntegrationInputMessage where
+instance Data.ToQuery PartnerIntegrationInputMessage where
   toQuery PartnerIntegrationInputMessage' {..} =
     Prelude.mconcat
-      [ "AccountId" Core.=: accountId,
-        "ClusterIdentifier" Core.=: clusterIdentifier,
-        "DatabaseName" Core.=: databaseName,
-        "PartnerName" Core.=: partnerName
+      [ "AccountId" Data.=: accountId,
+        "ClusterIdentifier" Data.=: clusterIdentifier,
+        "DatabaseName" Data.=: databaseName,
+        "PartnerName" Data.=: partnerName
       ]

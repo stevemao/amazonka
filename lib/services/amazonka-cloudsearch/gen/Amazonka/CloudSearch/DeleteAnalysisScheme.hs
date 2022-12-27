@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearch.DeleteAnalysisScheme
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CloudSearch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,14 +99,15 @@ instance Core.AWSRequest DeleteAnalysisScheme where
   type
     AWSResponse DeleteAnalysisScheme =
       DeleteAnalysisSchemeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteAnalysisSchemeResult"
       ( \s h x ->
           DeleteAnalysisSchemeResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "AnalysisScheme")
+            Prelude.<*> (x Data..@ "AnalysisScheme")
       )
 
 instance Prelude.Hashable DeleteAnalysisScheme where
@@ -118,21 +120,21 @@ instance Prelude.NFData DeleteAnalysisScheme where
     Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf analysisSchemeName
 
-instance Core.ToHeaders DeleteAnalysisScheme where
+instance Data.ToHeaders DeleteAnalysisScheme where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteAnalysisScheme where
+instance Data.ToPath DeleteAnalysisScheme where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAnalysisScheme where
+instance Data.ToQuery DeleteAnalysisScheme where
   toQuery DeleteAnalysisScheme' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteAnalysisScheme" :: Prelude.ByteString),
+          Data.=: ("DeleteAnalysisScheme" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2013-01-01" :: Prelude.ByteString),
-        "DomainName" Core.=: domainName,
-        "AnalysisSchemeName" Core.=: analysisSchemeName
+          Data.=: ("2013-01-01" :: Prelude.ByteString),
+        "DomainName" Data.=: domainName,
+        "AnalysisSchemeName" Data.=: analysisSchemeName
       ]
 
 -- | The result of a @DeleteAnalysisScheme@ request. Contains the status of

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.ListLabelingJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,16 +29,16 @@ module Amazonka.SageMaker.ListLabelingJobs
     newListLabelingJobs,
 
     -- * Request Lenses
-    listLabelingJobs_nameContains,
-    listLabelingJobs_lastModifiedTimeBefore,
     listLabelingJobs_creationTimeAfter,
-    listLabelingJobs_nextToken,
-    listLabelingJobs_sortOrder,
-    listLabelingJobs_lastModifiedTimeAfter,
     listLabelingJobs_creationTimeBefore,
-    listLabelingJobs_statusEquals,
+    listLabelingJobs_lastModifiedTimeAfter,
+    listLabelingJobs_lastModifiedTimeBefore,
     listLabelingJobs_maxResults,
+    listLabelingJobs_nameContains,
+    listLabelingJobs_nextToken,
     listLabelingJobs_sortBy,
+    listLabelingJobs_sortOrder,
+    listLabelingJobs_statusEquals,
 
     -- * Destructuring the Response
     ListLabelingJobsResponse (..),
@@ -52,7 +52,8 @@ module Amazonka.SageMaker.ListLabelingJobs
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,34 +61,34 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newListLabelingJobs' smart constructor.
 data ListLabelingJobs = ListLabelingJobs'
-  { -- | A string in the labeling job name. This filter returns only labeling
-    -- jobs whose name contains the specified string.
-    nameContains :: Prelude.Maybe Prelude.Text,
+  { -- | A filter that returns only labeling jobs created after the specified
+    -- time (timestamp).
+    creationTimeAfter :: Prelude.Maybe Data.POSIX,
+    -- | A filter that returns only labeling jobs created before the specified
+    -- time (timestamp).
+    creationTimeBefore :: Prelude.Maybe Data.POSIX,
+    -- | A filter that returns only labeling jobs modified after the specified
+    -- time (timestamp).
+    lastModifiedTimeAfter :: Prelude.Maybe Data.POSIX,
     -- | A filter that returns only labeling jobs modified before the specified
     -- time (timestamp).
-    lastModifiedTimeBefore :: Prelude.Maybe Core.POSIX,
-    -- | A filter that returns only labeling jobs created after the specified
-    -- time (timestamp).
-    creationTimeAfter :: Prelude.Maybe Core.POSIX,
+    lastModifiedTimeBefore :: Prelude.Maybe Data.POSIX,
+    -- | The maximum number of labeling jobs to return in each page of the
+    -- response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A string in the labeling job name. This filter returns only labeling
+    -- jobs whose name contains the specified string.
+    nameContains :: Prelude.Maybe Prelude.Text,
     -- | If the result of the previous @ListLabelingJobs@ request was truncated,
     -- the response includes a @NextToken@. To retrieve the next set of
     -- labeling jobs, use the token in the next request.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The field to sort results by. The default is @CreationTime@.
+    sortBy :: Prelude.Maybe SortBy,
     -- | The sort order for results. The default is @Ascending@.
     sortOrder :: Prelude.Maybe SortOrder,
-    -- | A filter that returns only labeling jobs modified after the specified
-    -- time (timestamp).
-    lastModifiedTimeAfter :: Prelude.Maybe Core.POSIX,
-    -- | A filter that returns only labeling jobs created before the specified
-    -- time (timestamp).
-    creationTimeBefore :: Prelude.Maybe Core.POSIX,
     -- | A filter that retrieves only labeling jobs with a specific status.
-    statusEquals :: Prelude.Maybe LabelingJobStatus,
-    -- | The maximum number of labeling jobs to return in each page of the
-    -- response.
-    maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The field to sort results by. The default is @CreationTime@.
-    sortBy :: Prelude.Maybe SortBy
+    statusEquals :: Prelude.Maybe LabelingJobStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -99,63 +100,79 @@ data ListLabelingJobs = ListLabelingJobs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nameContains', 'listLabelingJobs_nameContains' - A string in the labeling job name. This filter returns only labeling
--- jobs whose name contains the specified string.
---
--- 'lastModifiedTimeBefore', 'listLabelingJobs_lastModifiedTimeBefore' - A filter that returns only labeling jobs modified before the specified
--- time (timestamp).
---
 -- 'creationTimeAfter', 'listLabelingJobs_creationTimeAfter' - A filter that returns only labeling jobs created after the specified
--- time (timestamp).
---
--- 'nextToken', 'listLabelingJobs_nextToken' - If the result of the previous @ListLabelingJobs@ request was truncated,
--- the response includes a @NextToken@. To retrieve the next set of
--- labeling jobs, use the token in the next request.
---
--- 'sortOrder', 'listLabelingJobs_sortOrder' - The sort order for results. The default is @Ascending@.
---
--- 'lastModifiedTimeAfter', 'listLabelingJobs_lastModifiedTimeAfter' - A filter that returns only labeling jobs modified after the specified
 -- time (timestamp).
 --
 -- 'creationTimeBefore', 'listLabelingJobs_creationTimeBefore' - A filter that returns only labeling jobs created before the specified
 -- time (timestamp).
 --
--- 'statusEquals', 'listLabelingJobs_statusEquals' - A filter that retrieves only labeling jobs with a specific status.
+-- 'lastModifiedTimeAfter', 'listLabelingJobs_lastModifiedTimeAfter' - A filter that returns only labeling jobs modified after the specified
+-- time (timestamp).
+--
+-- 'lastModifiedTimeBefore', 'listLabelingJobs_lastModifiedTimeBefore' - A filter that returns only labeling jobs modified before the specified
+-- time (timestamp).
 --
 -- 'maxResults', 'listLabelingJobs_maxResults' - The maximum number of labeling jobs to return in each page of the
 -- response.
 --
+-- 'nameContains', 'listLabelingJobs_nameContains' - A string in the labeling job name. This filter returns only labeling
+-- jobs whose name contains the specified string.
+--
+-- 'nextToken', 'listLabelingJobs_nextToken' - If the result of the previous @ListLabelingJobs@ request was truncated,
+-- the response includes a @NextToken@. To retrieve the next set of
+-- labeling jobs, use the token in the next request.
+--
 -- 'sortBy', 'listLabelingJobs_sortBy' - The field to sort results by. The default is @CreationTime@.
+--
+-- 'sortOrder', 'listLabelingJobs_sortOrder' - The sort order for results. The default is @Ascending@.
+--
+-- 'statusEquals', 'listLabelingJobs_statusEquals' - A filter that retrieves only labeling jobs with a specific status.
 newListLabelingJobs ::
   ListLabelingJobs
 newListLabelingJobs =
   ListLabelingJobs'
-    { nameContains = Prelude.Nothing,
-      lastModifiedTimeBefore = Prelude.Nothing,
-      creationTimeAfter = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      sortOrder = Prelude.Nothing,
-      lastModifiedTimeAfter = Prelude.Nothing,
+    { creationTimeAfter =
+        Prelude.Nothing,
       creationTimeBefore = Prelude.Nothing,
-      statusEquals = Prelude.Nothing,
+      lastModifiedTimeAfter = Prelude.Nothing,
+      lastModifiedTimeBefore = Prelude.Nothing,
       maxResults = Prelude.Nothing,
-      sortBy = Prelude.Nothing
+      nameContains = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      sortOrder = Prelude.Nothing,
+      statusEquals = Prelude.Nothing
     }
+
+-- | A filter that returns only labeling jobs created after the specified
+-- time (timestamp).
+listLabelingJobs_creationTimeAfter :: Lens.Lens' ListLabelingJobs (Prelude.Maybe Prelude.UTCTime)
+listLabelingJobs_creationTimeAfter = Lens.lens (\ListLabelingJobs' {creationTimeAfter} -> creationTimeAfter) (\s@ListLabelingJobs' {} a -> s {creationTimeAfter = a} :: ListLabelingJobs) Prelude.. Lens.mapping Data._Time
+
+-- | A filter that returns only labeling jobs created before the specified
+-- time (timestamp).
+listLabelingJobs_creationTimeBefore :: Lens.Lens' ListLabelingJobs (Prelude.Maybe Prelude.UTCTime)
+listLabelingJobs_creationTimeBefore = Lens.lens (\ListLabelingJobs' {creationTimeBefore} -> creationTimeBefore) (\s@ListLabelingJobs' {} a -> s {creationTimeBefore = a} :: ListLabelingJobs) Prelude.. Lens.mapping Data._Time
+
+-- | A filter that returns only labeling jobs modified after the specified
+-- time (timestamp).
+listLabelingJobs_lastModifiedTimeAfter :: Lens.Lens' ListLabelingJobs (Prelude.Maybe Prelude.UTCTime)
+listLabelingJobs_lastModifiedTimeAfter = Lens.lens (\ListLabelingJobs' {lastModifiedTimeAfter} -> lastModifiedTimeAfter) (\s@ListLabelingJobs' {} a -> s {lastModifiedTimeAfter = a} :: ListLabelingJobs) Prelude.. Lens.mapping Data._Time
+
+-- | A filter that returns only labeling jobs modified before the specified
+-- time (timestamp).
+listLabelingJobs_lastModifiedTimeBefore :: Lens.Lens' ListLabelingJobs (Prelude.Maybe Prelude.UTCTime)
+listLabelingJobs_lastModifiedTimeBefore = Lens.lens (\ListLabelingJobs' {lastModifiedTimeBefore} -> lastModifiedTimeBefore) (\s@ListLabelingJobs' {} a -> s {lastModifiedTimeBefore = a} :: ListLabelingJobs) Prelude.. Lens.mapping Data._Time
+
+-- | The maximum number of labeling jobs to return in each page of the
+-- response.
+listLabelingJobs_maxResults :: Lens.Lens' ListLabelingJobs (Prelude.Maybe Prelude.Natural)
+listLabelingJobs_maxResults = Lens.lens (\ListLabelingJobs' {maxResults} -> maxResults) (\s@ListLabelingJobs' {} a -> s {maxResults = a} :: ListLabelingJobs)
 
 -- | A string in the labeling job name. This filter returns only labeling
 -- jobs whose name contains the specified string.
 listLabelingJobs_nameContains :: Lens.Lens' ListLabelingJobs (Prelude.Maybe Prelude.Text)
 listLabelingJobs_nameContains = Lens.lens (\ListLabelingJobs' {nameContains} -> nameContains) (\s@ListLabelingJobs' {} a -> s {nameContains = a} :: ListLabelingJobs)
-
--- | A filter that returns only labeling jobs modified before the specified
--- time (timestamp).
-listLabelingJobs_lastModifiedTimeBefore :: Lens.Lens' ListLabelingJobs (Prelude.Maybe Prelude.UTCTime)
-listLabelingJobs_lastModifiedTimeBefore = Lens.lens (\ListLabelingJobs' {lastModifiedTimeBefore} -> lastModifiedTimeBefore) (\s@ListLabelingJobs' {} a -> s {lastModifiedTimeBefore = a} :: ListLabelingJobs) Prelude.. Lens.mapping Core._Time
-
--- | A filter that returns only labeling jobs created after the specified
--- time (timestamp).
-listLabelingJobs_creationTimeAfter :: Lens.Lens' ListLabelingJobs (Prelude.Maybe Prelude.UTCTime)
-listLabelingJobs_creationTimeAfter = Lens.lens (\ListLabelingJobs' {creationTimeAfter} -> creationTimeAfter) (\s@ListLabelingJobs' {} a -> s {creationTimeAfter = a} :: ListLabelingJobs) Prelude.. Lens.mapping Core._Time
 
 -- | If the result of the previous @ListLabelingJobs@ request was truncated,
 -- the response includes a @NextToken@. To retrieve the next set of
@@ -163,32 +180,17 @@ listLabelingJobs_creationTimeAfter = Lens.lens (\ListLabelingJobs' {creationTime
 listLabelingJobs_nextToken :: Lens.Lens' ListLabelingJobs (Prelude.Maybe Prelude.Text)
 listLabelingJobs_nextToken = Lens.lens (\ListLabelingJobs' {nextToken} -> nextToken) (\s@ListLabelingJobs' {} a -> s {nextToken = a} :: ListLabelingJobs)
 
+-- | The field to sort results by. The default is @CreationTime@.
+listLabelingJobs_sortBy :: Lens.Lens' ListLabelingJobs (Prelude.Maybe SortBy)
+listLabelingJobs_sortBy = Lens.lens (\ListLabelingJobs' {sortBy} -> sortBy) (\s@ListLabelingJobs' {} a -> s {sortBy = a} :: ListLabelingJobs)
+
 -- | The sort order for results. The default is @Ascending@.
 listLabelingJobs_sortOrder :: Lens.Lens' ListLabelingJobs (Prelude.Maybe SortOrder)
 listLabelingJobs_sortOrder = Lens.lens (\ListLabelingJobs' {sortOrder} -> sortOrder) (\s@ListLabelingJobs' {} a -> s {sortOrder = a} :: ListLabelingJobs)
 
--- | A filter that returns only labeling jobs modified after the specified
--- time (timestamp).
-listLabelingJobs_lastModifiedTimeAfter :: Lens.Lens' ListLabelingJobs (Prelude.Maybe Prelude.UTCTime)
-listLabelingJobs_lastModifiedTimeAfter = Lens.lens (\ListLabelingJobs' {lastModifiedTimeAfter} -> lastModifiedTimeAfter) (\s@ListLabelingJobs' {} a -> s {lastModifiedTimeAfter = a} :: ListLabelingJobs) Prelude.. Lens.mapping Core._Time
-
--- | A filter that returns only labeling jobs created before the specified
--- time (timestamp).
-listLabelingJobs_creationTimeBefore :: Lens.Lens' ListLabelingJobs (Prelude.Maybe Prelude.UTCTime)
-listLabelingJobs_creationTimeBefore = Lens.lens (\ListLabelingJobs' {creationTimeBefore} -> creationTimeBefore) (\s@ListLabelingJobs' {} a -> s {creationTimeBefore = a} :: ListLabelingJobs) Prelude.. Lens.mapping Core._Time
-
 -- | A filter that retrieves only labeling jobs with a specific status.
 listLabelingJobs_statusEquals :: Lens.Lens' ListLabelingJobs (Prelude.Maybe LabelingJobStatus)
 listLabelingJobs_statusEquals = Lens.lens (\ListLabelingJobs' {statusEquals} -> statusEquals) (\s@ListLabelingJobs' {} a -> s {statusEquals = a} :: ListLabelingJobs)
-
--- | The maximum number of labeling jobs to return in each page of the
--- response.
-listLabelingJobs_maxResults :: Lens.Lens' ListLabelingJobs (Prelude.Maybe Prelude.Natural)
-listLabelingJobs_maxResults = Lens.lens (\ListLabelingJobs' {maxResults} -> maxResults) (\s@ListLabelingJobs' {} a -> s {maxResults = a} :: ListLabelingJobs)
-
--- | The field to sort results by. The default is @CreationTime@.
-listLabelingJobs_sortBy :: Lens.Lens' ListLabelingJobs (Prelude.Maybe SortBy)
-listLabelingJobs_sortBy = Lens.lens (\ListLabelingJobs' {sortBy} -> sortBy) (\s@ListLabelingJobs' {} a -> s {sortBy = a} :: ListLabelingJobs)
 
 instance Core.AWSPager ListLabelingJobs where
   page rq rs
@@ -216,82 +218,83 @@ instance Core.AWSRequest ListLabelingJobs where
   type
     AWSResponse ListLabelingJobs =
       ListLabelingJobsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListLabelingJobsResponse'
-            Prelude.<$> ( x Core..?> "LabelingJobSummaryList"
+            Prelude.<$> ( x Data..?> "LabelingJobSummaryList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListLabelingJobs where
   hashWithSalt _salt ListLabelingJobs' {..} =
-    _salt `Prelude.hashWithSalt` nameContains
-      `Prelude.hashWithSalt` lastModifiedTimeBefore
-      `Prelude.hashWithSalt` creationTimeAfter
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` sortOrder
-      `Prelude.hashWithSalt` lastModifiedTimeAfter
+    _salt `Prelude.hashWithSalt` creationTimeAfter
       `Prelude.hashWithSalt` creationTimeBefore
-      `Prelude.hashWithSalt` statusEquals
+      `Prelude.hashWithSalt` lastModifiedTimeAfter
+      `Prelude.hashWithSalt` lastModifiedTimeBefore
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nameContains
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` sortBy
+      `Prelude.hashWithSalt` sortOrder
+      `Prelude.hashWithSalt` statusEquals
 
 instance Prelude.NFData ListLabelingJobs where
   rnf ListLabelingJobs' {..} =
-    Prelude.rnf nameContains
-      `Prelude.seq` Prelude.rnf lastModifiedTimeBefore
-      `Prelude.seq` Prelude.rnf creationTimeAfter
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf sortOrder
-      `Prelude.seq` Prelude.rnf lastModifiedTimeAfter
+    Prelude.rnf creationTimeAfter
       `Prelude.seq` Prelude.rnf creationTimeBefore
-      `Prelude.seq` Prelude.rnf statusEquals
+      `Prelude.seq` Prelude.rnf lastModifiedTimeAfter
+      `Prelude.seq` Prelude.rnf lastModifiedTimeBefore
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nameContains
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf sortBy
+      `Prelude.seq` Prelude.rnf sortOrder
+      `Prelude.seq` Prelude.rnf statusEquals
 
-instance Core.ToHeaders ListLabelingJobs where
+instance Data.ToHeaders ListLabelingJobs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.ListLabelingJobs" :: Prelude.ByteString),
+              Data.=# ("SageMaker.ListLabelingJobs" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListLabelingJobs where
+instance Data.ToJSON ListLabelingJobs where
   toJSON ListLabelingJobs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NameContains" Core..=) Prelude.<$> nameContains,
-            ("LastModifiedTimeBefore" Core..=)
-              Prelude.<$> lastModifiedTimeBefore,
-            ("CreationTimeAfter" Core..=)
+          [ ("CreationTimeAfter" Data..=)
               Prelude.<$> creationTimeAfter,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("SortOrder" Core..=) Prelude.<$> sortOrder,
-            ("LastModifiedTimeAfter" Core..=)
-              Prelude.<$> lastModifiedTimeAfter,
-            ("CreationTimeBefore" Core..=)
+            ("CreationTimeBefore" Data..=)
               Prelude.<$> creationTimeBefore,
-            ("StatusEquals" Core..=) Prelude.<$> statusEquals,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("SortBy" Core..=) Prelude.<$> sortBy
+            ("LastModifiedTimeAfter" Data..=)
+              Prelude.<$> lastModifiedTimeAfter,
+            ("LastModifiedTimeBefore" Data..=)
+              Prelude.<$> lastModifiedTimeBefore,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NameContains" Data..=) Prelude.<$> nameContains,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SortBy" Data..=) Prelude.<$> sortBy,
+            ("SortOrder" Data..=) Prelude.<$> sortOrder,
+            ("StatusEquals" Data..=) Prelude.<$> statusEquals
           ]
       )
 
-instance Core.ToPath ListLabelingJobs where
+instance Data.ToPath ListLabelingJobs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListLabelingJobs where
+instance Data.ToQuery ListLabelingJobs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListLabelingJobsResponse' smart constructor.
@@ -299,9 +302,8 @@ data ListLabelingJobsResponse = ListLabelingJobsResponse'
   { -- | An array of @LabelingJobSummary@ objects, each describing a labeling
     -- job.
     labelingJobSummaryList :: Prelude.Maybe [LabelingJobSummary],
-    -- | If the response is truncated, Amazon SageMaker returns this token. To
-    -- retrieve the next set of labeling jobs, use it in the subsequent
-    -- request.
+    -- | If the response is truncated, SageMaker returns this token. To retrieve
+    -- the next set of labeling jobs, use it in the subsequent request.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -319,9 +321,8 @@ data ListLabelingJobsResponse = ListLabelingJobsResponse'
 -- 'labelingJobSummaryList', 'listLabelingJobsResponse_labelingJobSummaryList' - An array of @LabelingJobSummary@ objects, each describing a labeling
 -- job.
 --
--- 'nextToken', 'listLabelingJobsResponse_nextToken' - If the response is truncated, Amazon SageMaker returns this token. To
--- retrieve the next set of labeling jobs, use it in the subsequent
--- request.
+-- 'nextToken', 'listLabelingJobsResponse_nextToken' - If the response is truncated, SageMaker returns this token. To retrieve
+-- the next set of labeling jobs, use it in the subsequent request.
 --
 -- 'httpStatus', 'listLabelingJobsResponse_httpStatus' - The response's http status code.
 newListLabelingJobsResponse ::
@@ -341,9 +342,8 @@ newListLabelingJobsResponse pHttpStatus_ =
 listLabelingJobsResponse_labelingJobSummaryList :: Lens.Lens' ListLabelingJobsResponse (Prelude.Maybe [LabelingJobSummary])
 listLabelingJobsResponse_labelingJobSummaryList = Lens.lens (\ListLabelingJobsResponse' {labelingJobSummaryList} -> labelingJobSummaryList) (\s@ListLabelingJobsResponse' {} a -> s {labelingJobSummaryList = a} :: ListLabelingJobsResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | If the response is truncated, Amazon SageMaker returns this token. To
--- retrieve the next set of labeling jobs, use it in the subsequent
--- request.
+-- | If the response is truncated, SageMaker returns this token. To retrieve
+-- the next set of labeling jobs, use it in the subsequent request.
 listLabelingJobsResponse_nextToken :: Lens.Lens' ListLabelingJobsResponse (Prelude.Maybe Prelude.Text)
 listLabelingJobsResponse_nextToken = Lens.lens (\ListLabelingJobsResponse' {nextToken} -> nextToken) (\s@ListLabelingJobsResponse' {} a -> s {nextToken = a} :: ListLabelingJobsResponse)
 

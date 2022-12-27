@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.CreateDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,9 +22,9 @@
 --
 -- Creates a domain. CodeArtifact /domains/ make it easier to manage
 -- multiple repositories across an organization. You can use a domain to
--- apply permissions across many repositories owned by different AWS
--- accounts. An asset is stored only once in a domain, even if it\'s in
--- multiple repositories.
+-- apply permissions across many repositories owned by different Amazon Web
+-- Services accounts. An asset is stored only once in a domain, even if
+-- it\'s in multiple repositories.
 --
 -- Although you can have multiple domains, we recommend a single production
 -- domain that contains all published artifacts so that your development
@@ -52,7 +52,8 @@ where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,21 +67,22 @@ data CreateDomain = CreateDomain'
     -- @kms:CreateGrant@ permissions on the encryption key that is used. For
     -- more information, see
     -- <https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestSyntax DescribeKey>
-    -- in the /AWS Key Management Service API Reference/ and
-    -- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html AWS KMS API Permissions Reference>
-    -- in the /AWS Key Management Service Developer Guide/.
+    -- in the /Key Management Service API Reference/ and
+    -- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html Key Management Service API Permissions Reference>
+    -- in the /Key Management Service Developer Guide/.
     --
     -- CodeArtifact supports only symmetric CMKs. Do not associate an
     -- asymmetric CMK with your domain. For more information, see
     -- <https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html Using symmetric and asymmetric keys>
-    -- in the /AWS Key Management Service Developer Guide/.
+    -- in the /Key Management Service Developer Guide/.
     encryptionKey :: Prelude.Maybe Prelude.Text,
     -- | One or more tag key-value pairs for the domain.
     tags :: Prelude.Maybe [Tag],
-    -- | The name of the domain to create. All domain names in an AWS Region that
-    -- are in the same AWS account must be unique. The domain name is used as
-    -- the prefix in DNS hostnames. Do not use sensitive information in a
-    -- domain name because it is publicly discoverable.
+    -- | The name of the domain to create. All domain names in an Amazon Web
+    -- Services Region that are in the same Amazon Web Services account must be
+    -- unique. The domain name is used as the prefix in DNS hostnames. Do not
+    -- use sensitive information in a domain name because it is publicly
+    -- discoverable.
     domain :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -100,21 +102,22 @@ data CreateDomain = CreateDomain'
 -- @kms:CreateGrant@ permissions on the encryption key that is used. For
 -- more information, see
 -- <https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestSyntax DescribeKey>
--- in the /AWS Key Management Service API Reference/ and
--- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html AWS KMS API Permissions Reference>
--- in the /AWS Key Management Service Developer Guide/.
+-- in the /Key Management Service API Reference/ and
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html Key Management Service API Permissions Reference>
+-- in the /Key Management Service Developer Guide/.
 --
 -- CodeArtifact supports only symmetric CMKs. Do not associate an
 -- asymmetric CMK with your domain. For more information, see
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html Using symmetric and asymmetric keys>
--- in the /AWS Key Management Service Developer Guide/.
+-- in the /Key Management Service Developer Guide/.
 --
 -- 'tags', 'createDomain_tags' - One or more tag key-value pairs for the domain.
 --
--- 'domain', 'createDomain_domain' - The name of the domain to create. All domain names in an AWS Region that
--- are in the same AWS account must be unique. The domain name is used as
--- the prefix in DNS hostnames. Do not use sensitive information in a
--- domain name because it is publicly discoverable.
+-- 'domain', 'createDomain_domain' - The name of the domain to create. All domain names in an Amazon Web
+-- Services Region that are in the same Amazon Web Services account must be
+-- unique. The domain name is used as the prefix in DNS hostnames. Do not
+-- use sensitive information in a domain name because it is publicly
+-- discoverable.
 newCreateDomain ::
   -- | 'domain'
   Prelude.Text ->
@@ -133,14 +136,14 @@ newCreateDomain pDomain_ =
 -- @kms:CreateGrant@ permissions on the encryption key that is used. For
 -- more information, see
 -- <https://docs.aws.amazon.com/kms/latest/APIReference/API_DescribeKey.html#API_DescribeKey_RequestSyntax DescribeKey>
--- in the /AWS Key Management Service API Reference/ and
--- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html AWS KMS API Permissions Reference>
--- in the /AWS Key Management Service Developer Guide/.
+-- in the /Key Management Service API Reference/ and
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html Key Management Service API Permissions Reference>
+-- in the /Key Management Service Developer Guide/.
 --
 -- CodeArtifact supports only symmetric CMKs. Do not associate an
 -- asymmetric CMK with your domain. For more information, see
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html Using symmetric and asymmetric keys>
--- in the /AWS Key Management Service Developer Guide/.
+-- in the /Key Management Service Developer Guide/.
 createDomain_encryptionKey :: Lens.Lens' CreateDomain (Prelude.Maybe Prelude.Text)
 createDomain_encryptionKey = Lens.lens (\CreateDomain' {encryptionKey} -> encryptionKey) (\s@CreateDomain' {} a -> s {encryptionKey = a} :: CreateDomain)
 
@@ -148,21 +151,23 @@ createDomain_encryptionKey = Lens.lens (\CreateDomain' {encryptionKey} -> encryp
 createDomain_tags :: Lens.Lens' CreateDomain (Prelude.Maybe [Tag])
 createDomain_tags = Lens.lens (\CreateDomain' {tags} -> tags) (\s@CreateDomain' {} a -> s {tags = a} :: CreateDomain) Prelude.. Lens.mapping Lens.coerced
 
--- | The name of the domain to create. All domain names in an AWS Region that
--- are in the same AWS account must be unique. The domain name is used as
--- the prefix in DNS hostnames. Do not use sensitive information in a
--- domain name because it is publicly discoverable.
+-- | The name of the domain to create. All domain names in an Amazon Web
+-- Services Region that are in the same Amazon Web Services account must be
+-- unique. The domain name is used as the prefix in DNS hostnames. Do not
+-- use sensitive information in a domain name because it is publicly
+-- discoverable.
 createDomain_domain :: Lens.Lens' CreateDomain Prelude.Text
 createDomain_domain = Lens.lens (\CreateDomain' {domain} -> domain) (\s@CreateDomain' {} a -> s {domain = a} :: CreateDomain)
 
 instance Core.AWSRequest CreateDomain where
   type AWSResponse CreateDomain = CreateDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateDomainResponse'
-            Prelude.<$> (x Core..?> "domain")
+            Prelude.<$> (x Data..?> "domain")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -178,32 +183,32 @@ instance Prelude.NFData CreateDomain where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf domain
 
-instance Core.ToHeaders CreateDomain where
+instance Data.ToHeaders CreateDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateDomain where
+instance Data.ToJSON CreateDomain where
   toJSON CreateDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("encryptionKey" Core..=) Prelude.<$> encryptionKey,
-            ("tags" Core..=) Prelude.<$> tags
+          [ ("encryptionKey" Data..=) Prelude.<$> encryptionKey,
+            ("tags" Data..=) Prelude.<$> tags
           ]
       )
 
-instance Core.ToPath CreateDomain where
+instance Data.ToPath CreateDomain where
   toPath = Prelude.const "/v1/domain"
 
-instance Core.ToQuery CreateDomain where
+instance Data.ToQuery CreateDomain where
   toQuery CreateDomain' {..} =
-    Prelude.mconcat ["domain" Core.=: domain]
+    Prelude.mconcat ["domain" Data.=: domain]
 
 -- | /See:/ 'newCreateDomainResponse' smart constructor.
 data CreateDomainResponse = CreateDomainResponse'

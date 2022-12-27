@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.StreamProcessor
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,13 @@
 module Amazonka.Rekognition.Types.StreamProcessor where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.StreamProcessorStatus
 
--- | An object that recognizes faces in a streaming video. An Amazon
--- Rekognition stream processor is created by a call to
+-- | An object that recognizes faces or labels in a streaming video. An
+-- Amazon Rekognition stream processor is created by a call to
 -- CreateStreamProcessor. The request parameters for
 -- @CreateStreamProcessor@ describe the Kinesis video stream source for the
 -- streaming video, face recognition parameters, and where to stream the
@@ -33,10 +34,10 @@ import Amazonka.Rekognition.Types.StreamProcessorStatus
 --
 -- /See:/ 'newStreamProcessor' smart constructor.
 data StreamProcessor = StreamProcessor'
-  { -- | Current status of the Amazon Rekognition stream processor.
-    status :: Prelude.Maybe StreamProcessorStatus,
-    -- | Name of the Amazon Rekognition stream processor.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | Name of the Amazon Rekognition stream processor.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Current status of the Amazon Rekognition stream processor.
+    status :: Prelude.Maybe StreamProcessorStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,40 +49,40 @@ data StreamProcessor = StreamProcessor'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'streamProcessor_status' - Current status of the Amazon Rekognition stream processor.
---
 -- 'name', 'streamProcessor_name' - Name of the Amazon Rekognition stream processor.
+--
+-- 'status', 'streamProcessor_status' - Current status of the Amazon Rekognition stream processor.
 newStreamProcessor ::
   StreamProcessor
 newStreamProcessor =
   StreamProcessor'
-    { status = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      status = Prelude.Nothing
     }
-
--- | Current status of the Amazon Rekognition stream processor.
-streamProcessor_status :: Lens.Lens' StreamProcessor (Prelude.Maybe StreamProcessorStatus)
-streamProcessor_status = Lens.lens (\StreamProcessor' {status} -> status) (\s@StreamProcessor' {} a -> s {status = a} :: StreamProcessor)
 
 -- | Name of the Amazon Rekognition stream processor.
 streamProcessor_name :: Lens.Lens' StreamProcessor (Prelude.Maybe Prelude.Text)
 streamProcessor_name = Lens.lens (\StreamProcessor' {name} -> name) (\s@StreamProcessor' {} a -> s {name = a} :: StreamProcessor)
 
-instance Core.FromJSON StreamProcessor where
+-- | Current status of the Amazon Rekognition stream processor.
+streamProcessor_status :: Lens.Lens' StreamProcessor (Prelude.Maybe StreamProcessorStatus)
+streamProcessor_status = Lens.lens (\StreamProcessor' {status} -> status) (\s@StreamProcessor' {} a -> s {status = a} :: StreamProcessor)
+
+instance Data.FromJSON StreamProcessor where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StreamProcessor"
       ( \x ->
           StreamProcessor'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "Status")
       )
 
 instance Prelude.Hashable StreamProcessor where
   hashWithSalt _salt StreamProcessor' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData StreamProcessor where
   rnf StreamProcessor' {..} =
-    Prelude.rnf status `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf status

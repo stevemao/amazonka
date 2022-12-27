@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.DeleteFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.GuardDuty.DeleteFilter
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,7 +89,8 @@ deleteFilter_filterName = Lens.lens (\DeleteFilter' {filterName} -> filterName) 
 
 instance Core.AWSRequest DeleteFilter where
   type AWSResponse DeleteFilter = DeleteFilterResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -106,27 +108,27 @@ instance Prelude.NFData DeleteFilter where
     Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf filterName
 
-instance Core.ToHeaders DeleteFilter where
+instance Data.ToHeaders DeleteFilter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteFilter where
+instance Data.ToPath DeleteFilter where
   toPath DeleteFilter' {..} =
     Prelude.mconcat
       [ "/detector/",
-        Core.toBS detectorId,
+        Data.toBS detectorId,
         "/filter/",
-        Core.toBS filterName
+        Data.toBS filterName
       ]
 
-instance Core.ToQuery DeleteFilter where
+instance Data.ToQuery DeleteFilter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteFilterResponse' smart constructor.

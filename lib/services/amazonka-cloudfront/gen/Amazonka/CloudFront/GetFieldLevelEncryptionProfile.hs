@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.GetFieldLevelEncryptionProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,13 +82,14 @@ instance
   type
     AWSResponse GetFieldLevelEncryptionProfile =
       GetFieldLevelEncryptionProfileResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetFieldLevelEncryptionProfileResponse'
-            Prelude.<$> (h Core..#? "ETag")
-            Prelude.<*> (Core.parseXML x)
+            Prelude.<$> (h Data..#? "ETag")
+            Prelude.<*> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,19 +110,19 @@ instance
     Prelude.rnf id
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetFieldLevelEncryptionProfile
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetFieldLevelEncryptionProfile where
+instance Data.ToPath GetFieldLevelEncryptionProfile where
   toPath GetFieldLevelEncryptionProfile' {..} =
     Prelude.mconcat
       [ "/2020-05-31/field-level-encryption-profile/",
-        Core.toBS id
+        Data.toBS id
       ]
 
-instance Core.ToQuery GetFieldLevelEncryptionProfile where
+instance Data.ToQuery GetFieldLevelEncryptionProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetFieldLevelEncryptionProfileResponse' smart constructor.

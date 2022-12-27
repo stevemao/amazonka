@@ -14,22 +14,26 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.ListEndpoints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a list of all existing endpoints that you\'ve created.
+-- Gets a list of all existing endpoints that you\'ve created. For
+-- information about endpoints, see
+-- <https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html Managing endpoints>.
+--
+-- This operation returns paginated results.
 module Amazonka.Comprehend.ListEndpoints
   ( -- * Creating a Request
     ListEndpoints (..),
     newListEndpoints,
 
     -- * Request Lenses
-    listEndpoints_nextToken,
     listEndpoints_filter,
     listEndpoints_maxResults,
+    listEndpoints_nextToken,
 
     -- * Destructuring the Response
     ListEndpointsResponse (..),
@@ -44,22 +48,23 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListEndpoints' smart constructor.
 data ListEndpoints = ListEndpoints'
-  { -- | Identifies the next page of results to return.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Filters the endpoints that are returned. You can filter endpoints on
+  { -- | Filters the endpoints that are returned. You can filter endpoints on
     -- their name, model, status, or the date and time that they were created.
     -- You can only set one filter at a time.
     filter' :: Prelude.Maybe EndpointFilter,
     -- | The maximum number of results to return in each page. The default is
     -- 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,26 +76,22 @@ data ListEndpoints = ListEndpoints'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listEndpoints_nextToken' - Identifies the next page of results to return.
---
 -- 'filter'', 'listEndpoints_filter' - Filters the endpoints that are returned. You can filter endpoints on
 -- their name, model, status, or the date and time that they were created.
 -- You can only set one filter at a time.
 --
 -- 'maxResults', 'listEndpoints_maxResults' - The maximum number of results to return in each page. The default is
 -- 100.
+--
+-- 'nextToken', 'listEndpoints_nextToken' - Identifies the next page of results to return.
 newListEndpoints ::
   ListEndpoints
 newListEndpoints =
   ListEndpoints'
-    { nextToken = Prelude.Nothing,
-      filter' = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { filter' = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | Identifies the next page of results to return.
-listEndpoints_nextToken :: Lens.Lens' ListEndpoints (Prelude.Maybe Prelude.Text)
-listEndpoints_nextToken = Lens.lens (\ListEndpoints' {nextToken} -> nextToken) (\s@ListEndpoints' {} a -> s {nextToken = a} :: ListEndpoints)
 
 -- | Filters the endpoints that are returned. You can filter endpoints on
 -- their name, model, status, or the date and time that they were created.
@@ -103,63 +104,88 @@ listEndpoints_filter = Lens.lens (\ListEndpoints' {filter'} -> filter') (\s@List
 listEndpoints_maxResults :: Lens.Lens' ListEndpoints (Prelude.Maybe Prelude.Natural)
 listEndpoints_maxResults = Lens.lens (\ListEndpoints' {maxResults} -> maxResults) (\s@ListEndpoints' {} a -> s {maxResults = a} :: ListEndpoints)
 
+-- | Identifies the next page of results to return.
+listEndpoints_nextToken :: Lens.Lens' ListEndpoints (Prelude.Maybe Prelude.Text)
+listEndpoints_nextToken = Lens.lens (\ListEndpoints' {nextToken} -> nextToken) (\s@ListEndpoints' {} a -> s {nextToken = a} :: ListEndpoints)
+
+instance Core.AWSPager ListEndpoints where
+  page rq rs
+    | Core.stop
+        ( rs
+            Lens.^? listEndpointsResponse_nextToken Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Core.stop
+        ( rs
+            Lens.^? listEndpointsResponse_endpointPropertiesList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Prelude.& listEndpoints_nextToken
+          Lens..~ rs
+          Lens.^? listEndpointsResponse_nextToken Prelude.. Lens._Just
+
 instance Core.AWSRequest ListEndpoints where
   type
     AWSResponse ListEndpoints =
       ListEndpointsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEndpointsResponse'
-            Prelude.<$> ( x Core..?> "EndpointPropertiesList"
+            Prelude.<$> ( x Data..?> "EndpointPropertiesList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListEndpoints where
   hashWithSalt _salt ListEndpoints' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListEndpoints where
   rnf ListEndpoints' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListEndpoints where
+instance Data.ToHeaders ListEndpoints where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.ListEndpoints" ::
+              Data.=# ( "Comprehend_20171127.ListEndpoints" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListEndpoints where
+instance Data.ToJSON ListEndpoints where
   toJSON ListEndpoints' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Filter" Core..=) Prelude.<$> filter',
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filter" Data..=) Prelude.<$> filter',
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListEndpoints where
+instance Data.ToPath ListEndpoints where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListEndpoints where
+instance Data.ToQuery ListEndpoints where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListEndpointsResponse' smart constructor.

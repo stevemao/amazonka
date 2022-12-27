@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorksCM.StartMaintenance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ module Amazonka.OpsWorksCM.StartMaintenance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorksCM.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -126,12 +127,13 @@ instance Core.AWSRequest StartMaintenance where
   type
     AWSResponse StartMaintenance =
       StartMaintenanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartMaintenanceResponse'
-            Prelude.<$> (x Core..?> "Server")
+            Prelude.<$> (x Data..?> "Server")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -145,35 +147,35 @@ instance Prelude.NFData StartMaintenance where
     Prelude.rnf engineAttributes
       `Prelude.seq` Prelude.rnf serverName
 
-instance Core.ToHeaders StartMaintenance where
+instance Data.ToHeaders StartMaintenance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorksCM_V2016_11_01.StartMaintenance" ::
+              Data.=# ( "OpsWorksCM_V2016_11_01.StartMaintenance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartMaintenance where
+instance Data.ToJSON StartMaintenance where
   toJSON StartMaintenance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EngineAttributes" Core..=)
+          [ ("EngineAttributes" Data..=)
               Prelude.<$> engineAttributes,
-            Prelude.Just ("ServerName" Core..= serverName)
+            Prelude.Just ("ServerName" Data..= serverName)
           ]
       )
 
-instance Core.ToPath StartMaintenance where
+instance Data.ToPath StartMaintenance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartMaintenance where
+instance Data.ToQuery StartMaintenance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartMaintenanceResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.RelatedOpsItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.RelatedOpsItem where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An OpsItems that shares something in common with the current OpsItem.
@@ -54,12 +55,12 @@ newRelatedOpsItem pOpsItemId_ =
 relatedOpsItem_opsItemId :: Lens.Lens' RelatedOpsItem Prelude.Text
 relatedOpsItem_opsItemId = Lens.lens (\RelatedOpsItem' {opsItemId} -> opsItemId) (\s@RelatedOpsItem' {} a -> s {opsItemId = a} :: RelatedOpsItem)
 
-instance Core.FromJSON RelatedOpsItem where
+instance Data.FromJSON RelatedOpsItem where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RelatedOpsItem"
       ( \x ->
-          RelatedOpsItem' Prelude.<$> (x Core..: "OpsItemId")
+          RelatedOpsItem' Prelude.<$> (x Data..: "OpsItemId")
       )
 
 instance Prelude.Hashable RelatedOpsItem where
@@ -69,9 +70,9 @@ instance Prelude.Hashable RelatedOpsItem where
 instance Prelude.NFData RelatedOpsItem where
   rnf RelatedOpsItem' {..} = Prelude.rnf opsItemId
 
-instance Core.ToJSON RelatedOpsItem where
+instance Data.ToJSON RelatedOpsItem where
   toJSON RelatedOpsItem' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("OpsItemId" Core..= opsItemId)]
+          [Prelude.Just ("OpsItemId" Data..= opsItemId)]
       )

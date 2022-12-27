@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.DescribeElasticsearchDomainConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.ElasticSearch.DescribeElasticsearchDomainConfig
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,13 +90,14 @@ instance
   type
     AWSResponse DescribeElasticsearchDomainConfig =
       DescribeElasticsearchDomainConfigResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeElasticsearchDomainConfigResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> (x Core..:> "DomainConfig")
+              Prelude.<*> (x Data..:> "DomainConfig")
       )
 
 instance
@@ -115,24 +117,24 @@ instance
     Prelude.rnf domainName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeElasticsearchDomainConfig
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeElasticsearchDomainConfig
   where
   toPath DescribeElasticsearchDomainConfig' {..} =
     Prelude.mconcat
       [ "/2015-01-01/es/domain/",
-        Core.toBS domainName,
+        Data.toBS domainName,
         "/config"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeElasticsearchDomainConfig
   where
   toQuery = Prelude.const Prelude.mempty

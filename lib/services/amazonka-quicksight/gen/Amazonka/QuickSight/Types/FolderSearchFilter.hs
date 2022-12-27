@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.FolderSearchFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,25 +20,74 @@
 module Amazonka.QuickSight.Types.FolderSearchFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.FilterOperator
 import Amazonka.QuickSight.Types.FolderFilterAttribute
 
--- | Searches a folder by a filter.
+-- | A filter to use to search an Amazon QuickSight folder.
 --
 -- /See:/ 'newFolderSearchFilter' smart constructor.
 data FolderSearchFilter = FolderSearchFilter'
-  { -- | The comparison operator that you want to use as a filter. For example,
-    -- @\"Operator\": \"StringEquals\"@.
+  { -- | The name of a value that you want to use in the filter. For example,
+    -- @\"Name\": \"QUICKSIGHT_OWNER\"@.
+    --
+    -- Valid values are defined as follows:
+    --
+    -- -   @QUICKSIGHT_VIEWER_OR_OWNER@: Provide an ARN of a user or group, and
+    --     any folders with that ARN listed as one of the folder\'s owners or
+    --     viewers are returned. Implicit permissions from folders or groups
+    --     are considered.
+    --
+    -- -   @QUICKSIGHT_OWNER@: Provide an ARN of a user or group, and any
+    --     folders with that ARN listed as one of the owners of the folders are
+    --     returned. Implicit permissions from folders or groups are
+    --     considered.
+    --
+    -- -   @DIRECT_QUICKSIGHT_SOLE_OWNER@: Provide an ARN of a user or group,
+    --     and any folders with that ARN listed as the only owner of the folder
+    --     are returned. Implicit permissions from folders or groups are not
+    --     considered.
+    --
+    -- -   @DIRECT_QUICKSIGHT_OWNER@: Provide an ARN of a user or group, and
+    --     any folders with that ARN listed as one of the owners of the folders
+    --     are returned. Implicit permissions from folders or groups are not
+    --     considered.
+    --
+    -- -   @DIRECT_QUICKSIGHT_VIEWER_OR_OWNER@: Provide an ARN of a user or
+    --     group, and any folders with that ARN listed as one of the owners or
+    --     viewers of the folders are returned. Implicit permissions from
+    --     folders or groups are not considered.
+    --
+    -- -   @FOLDER_NAME@: Any folders whose names have a substring match to
+    --     this value will be returned.
+    --
+    -- -   @PARENT_FOLDER_ARN@: Provide an ARN of a folder, and any folders
+    --     that are directly under that parent folder are returned. If you
+    --     choose to use this option and leave the value blank, all root-level
+    --     folders in the account are returned.
+    name :: Prelude.Maybe FolderFilterAttribute,
+    -- | The comparison operator that you want to use as a filter, for example
+    -- @\"Operator\": \"StringEquals\"@. Valid values are @\"StringEquals\"@
+    -- and @\"StringLike\"@.
+    --
+    -- If you set the operator value to @\"StringEquals\"@, you need to provide
+    -- an ownership related filter in the @\"NAME\"@ field and the arn of the
+    -- user or group whose folders you want to search in the @\"Value\"@ field.
+    -- For example,
+    -- @\"Name\":\"DIRECT_QUICKSIGHT_OWNER\", \"Operator\": \"StringEquals\", \"Value\": \"arn:aws:quicksight:us-east-1:1:user\/default\/UserName1\"@.
+    --
+    -- If you set the value to @\"StringLike\"@, you need to provide the name
+    -- of the folders you are searching for. For example,
+    -- @\"Name\":\"FOLDER_NAME\", \"Operator\": \"StringLike\", \"Value\": \"Test\"@.
+    -- The @\"StringLike\"@ operator only supports the @NAME@ value
+    -- @FOLDER_NAME@.
     operator :: Prelude.Maybe FilterOperator,
     -- | The value of the named item (in this example, @PARENT_FOLDER_ARN@), that
     -- you want to use as a filter. For example,
     -- @\"Value\": \"arn:aws:quicksight:us-east-1:1:folder\/folderId\"@.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The name of the value that you want to use as a filter. For example,
-    -- @\"Name\": \"PARENT_FOLDER_ARN\"@.
-    name :: Prelude.Maybe FolderFilterAttribute
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,26 +99,127 @@ data FolderSearchFilter = FolderSearchFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'operator', 'folderSearchFilter_operator' - The comparison operator that you want to use as a filter. For example,
--- @\"Operator\": \"StringEquals\"@.
+-- 'name', 'folderSearchFilter_name' - The name of a value that you want to use in the filter. For example,
+-- @\"Name\": \"QUICKSIGHT_OWNER\"@.
+--
+-- Valid values are defined as follows:
+--
+-- -   @QUICKSIGHT_VIEWER_OR_OWNER@: Provide an ARN of a user or group, and
+--     any folders with that ARN listed as one of the folder\'s owners or
+--     viewers are returned. Implicit permissions from folders or groups
+--     are considered.
+--
+-- -   @QUICKSIGHT_OWNER@: Provide an ARN of a user or group, and any
+--     folders with that ARN listed as one of the owners of the folders are
+--     returned. Implicit permissions from folders or groups are
+--     considered.
+--
+-- -   @DIRECT_QUICKSIGHT_SOLE_OWNER@: Provide an ARN of a user or group,
+--     and any folders with that ARN listed as the only owner of the folder
+--     are returned. Implicit permissions from folders or groups are not
+--     considered.
+--
+-- -   @DIRECT_QUICKSIGHT_OWNER@: Provide an ARN of a user or group, and
+--     any folders with that ARN listed as one of the owners of the folders
+--     are returned. Implicit permissions from folders or groups are not
+--     considered.
+--
+-- -   @DIRECT_QUICKSIGHT_VIEWER_OR_OWNER@: Provide an ARN of a user or
+--     group, and any folders with that ARN listed as one of the owners or
+--     viewers of the folders are returned. Implicit permissions from
+--     folders or groups are not considered.
+--
+-- -   @FOLDER_NAME@: Any folders whose names have a substring match to
+--     this value will be returned.
+--
+-- -   @PARENT_FOLDER_ARN@: Provide an ARN of a folder, and any folders
+--     that are directly under that parent folder are returned. If you
+--     choose to use this option and leave the value blank, all root-level
+--     folders in the account are returned.
+--
+-- 'operator', 'folderSearchFilter_operator' - The comparison operator that you want to use as a filter, for example
+-- @\"Operator\": \"StringEquals\"@. Valid values are @\"StringEquals\"@
+-- and @\"StringLike\"@.
+--
+-- If you set the operator value to @\"StringEquals\"@, you need to provide
+-- an ownership related filter in the @\"NAME\"@ field and the arn of the
+-- user or group whose folders you want to search in the @\"Value\"@ field.
+-- For example,
+-- @\"Name\":\"DIRECT_QUICKSIGHT_OWNER\", \"Operator\": \"StringEquals\", \"Value\": \"arn:aws:quicksight:us-east-1:1:user\/default\/UserName1\"@.
+--
+-- If you set the value to @\"StringLike\"@, you need to provide the name
+-- of the folders you are searching for. For example,
+-- @\"Name\":\"FOLDER_NAME\", \"Operator\": \"StringLike\", \"Value\": \"Test\"@.
+-- The @\"StringLike\"@ operator only supports the @NAME@ value
+-- @FOLDER_NAME@.
 --
 -- 'value', 'folderSearchFilter_value' - The value of the named item (in this example, @PARENT_FOLDER_ARN@), that
 -- you want to use as a filter. For example,
 -- @\"Value\": \"arn:aws:quicksight:us-east-1:1:folder\/folderId\"@.
---
--- 'name', 'folderSearchFilter_name' - The name of the value that you want to use as a filter. For example,
--- @\"Name\": \"PARENT_FOLDER_ARN\"@.
 newFolderSearchFilter ::
   FolderSearchFilter
 newFolderSearchFilter =
   FolderSearchFilter'
-    { operator = Prelude.Nothing,
-      value = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      operator = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
--- | The comparison operator that you want to use as a filter. For example,
--- @\"Operator\": \"StringEquals\"@.
+-- | The name of a value that you want to use in the filter. For example,
+-- @\"Name\": \"QUICKSIGHT_OWNER\"@.
+--
+-- Valid values are defined as follows:
+--
+-- -   @QUICKSIGHT_VIEWER_OR_OWNER@: Provide an ARN of a user or group, and
+--     any folders with that ARN listed as one of the folder\'s owners or
+--     viewers are returned. Implicit permissions from folders or groups
+--     are considered.
+--
+-- -   @QUICKSIGHT_OWNER@: Provide an ARN of a user or group, and any
+--     folders with that ARN listed as one of the owners of the folders are
+--     returned. Implicit permissions from folders or groups are
+--     considered.
+--
+-- -   @DIRECT_QUICKSIGHT_SOLE_OWNER@: Provide an ARN of a user or group,
+--     and any folders with that ARN listed as the only owner of the folder
+--     are returned. Implicit permissions from folders or groups are not
+--     considered.
+--
+-- -   @DIRECT_QUICKSIGHT_OWNER@: Provide an ARN of a user or group, and
+--     any folders with that ARN listed as one of the owners of the folders
+--     are returned. Implicit permissions from folders or groups are not
+--     considered.
+--
+-- -   @DIRECT_QUICKSIGHT_VIEWER_OR_OWNER@: Provide an ARN of a user or
+--     group, and any folders with that ARN listed as one of the owners or
+--     viewers of the folders are returned. Implicit permissions from
+--     folders or groups are not considered.
+--
+-- -   @FOLDER_NAME@: Any folders whose names have a substring match to
+--     this value will be returned.
+--
+-- -   @PARENT_FOLDER_ARN@: Provide an ARN of a folder, and any folders
+--     that are directly under that parent folder are returned. If you
+--     choose to use this option and leave the value blank, all root-level
+--     folders in the account are returned.
+folderSearchFilter_name :: Lens.Lens' FolderSearchFilter (Prelude.Maybe FolderFilterAttribute)
+folderSearchFilter_name = Lens.lens (\FolderSearchFilter' {name} -> name) (\s@FolderSearchFilter' {} a -> s {name = a} :: FolderSearchFilter)
+
+-- | The comparison operator that you want to use as a filter, for example
+-- @\"Operator\": \"StringEquals\"@. Valid values are @\"StringEquals\"@
+-- and @\"StringLike\"@.
+--
+-- If you set the operator value to @\"StringEquals\"@, you need to provide
+-- an ownership related filter in the @\"NAME\"@ field and the arn of the
+-- user or group whose folders you want to search in the @\"Value\"@ field.
+-- For example,
+-- @\"Name\":\"DIRECT_QUICKSIGHT_OWNER\", \"Operator\": \"StringEquals\", \"Value\": \"arn:aws:quicksight:us-east-1:1:user\/default\/UserName1\"@.
+--
+-- If you set the value to @\"StringLike\"@, you need to provide the name
+-- of the folders you are searching for. For example,
+-- @\"Name\":\"FOLDER_NAME\", \"Operator\": \"StringLike\", \"Value\": \"Test\"@.
+-- The @\"StringLike\"@ operator only supports the @NAME@ value
+-- @FOLDER_NAME@.
 folderSearchFilter_operator :: Lens.Lens' FolderSearchFilter (Prelude.Maybe FilterOperator)
 folderSearchFilter_operator = Lens.lens (\FolderSearchFilter' {operator} -> operator) (\s@FolderSearchFilter' {} a -> s {operator = a} :: FolderSearchFilter)
 
@@ -79,29 +229,24 @@ folderSearchFilter_operator = Lens.lens (\FolderSearchFilter' {operator} -> oper
 folderSearchFilter_value :: Lens.Lens' FolderSearchFilter (Prelude.Maybe Prelude.Text)
 folderSearchFilter_value = Lens.lens (\FolderSearchFilter' {value} -> value) (\s@FolderSearchFilter' {} a -> s {value = a} :: FolderSearchFilter)
 
--- | The name of the value that you want to use as a filter. For example,
--- @\"Name\": \"PARENT_FOLDER_ARN\"@.
-folderSearchFilter_name :: Lens.Lens' FolderSearchFilter (Prelude.Maybe FolderFilterAttribute)
-folderSearchFilter_name = Lens.lens (\FolderSearchFilter' {name} -> name) (\s@FolderSearchFilter' {} a -> s {name = a} :: FolderSearchFilter)
-
 instance Prelude.Hashable FolderSearchFilter where
   hashWithSalt _salt FolderSearchFilter' {..} =
-    _salt `Prelude.hashWithSalt` operator
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` operator
       `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` name
 
 instance Prelude.NFData FolderSearchFilter where
   rnf FolderSearchFilter' {..} =
-    Prelude.rnf operator
+    Prelude.rnf name
+      `Prelude.seq` Prelude.rnf operator
       `Prelude.seq` Prelude.rnf value
-      `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON FolderSearchFilter where
+instance Data.ToJSON FolderSearchFilter where
   toJSON FolderSearchFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Operator" Core..=) Prelude.<$> operator,
-            ("Value" Core..=) Prelude.<$> value,
-            ("Name" Core..=) Prelude.<$> name
+          [ ("Name" Data..=) Prelude.<$> name,
+            ("Operator" Data..=) Prelude.<$> operator,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

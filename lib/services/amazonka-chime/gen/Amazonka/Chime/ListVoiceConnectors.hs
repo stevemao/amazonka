@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.ListVoiceConnectors
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Chime.ListVoiceConnectors
     newListVoiceConnectors,
 
     -- * Request Lenses
-    listVoiceConnectors_nextToken,
     listVoiceConnectors_maxResults,
+    listVoiceConnectors_nextToken,
 
     -- * Destructuring the Response
     ListVoiceConnectorsResponse (..),
@@ -44,17 +44,18 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListVoiceConnectors' smart constructor.
 data ListVoiceConnectors = ListVoiceConnectors'
-  { -- | The token to use to retrieve the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of results to return in a single call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to use to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -66,36 +67,37 @@ data ListVoiceConnectors = ListVoiceConnectors'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listVoiceConnectors_nextToken' - The token to use to retrieve the next page of results.
---
 -- 'maxResults', 'listVoiceConnectors_maxResults' - The maximum number of results to return in a single call.
+--
+-- 'nextToken', 'listVoiceConnectors_nextToken' - The token to use to retrieve the next page of results.
 newListVoiceConnectors ::
   ListVoiceConnectors
 newListVoiceConnectors =
   ListVoiceConnectors'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token to use to retrieve the next page of results.
-listVoiceConnectors_nextToken :: Lens.Lens' ListVoiceConnectors (Prelude.Maybe Prelude.Text)
-listVoiceConnectors_nextToken = Lens.lens (\ListVoiceConnectors' {nextToken} -> nextToken) (\s@ListVoiceConnectors' {} a -> s {nextToken = a} :: ListVoiceConnectors)
 
 -- | The maximum number of results to return in a single call.
 listVoiceConnectors_maxResults :: Lens.Lens' ListVoiceConnectors (Prelude.Maybe Prelude.Natural)
 listVoiceConnectors_maxResults = Lens.lens (\ListVoiceConnectors' {maxResults} -> maxResults) (\s@ListVoiceConnectors' {} a -> s {maxResults = a} :: ListVoiceConnectors)
 
+-- | The token to use to retrieve the next page of results.
+listVoiceConnectors_nextToken :: Lens.Lens' ListVoiceConnectors (Prelude.Maybe Prelude.Text)
+listVoiceConnectors_nextToken = Lens.lens (\ListVoiceConnectors' {nextToken} -> nextToken) (\s@ListVoiceConnectors' {} a -> s {nextToken = a} :: ListVoiceConnectors)
+
 instance Core.AWSRequest ListVoiceConnectors where
   type
     AWSResponse ListVoiceConnectors =
       ListVoiceConnectorsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListVoiceConnectorsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "VoiceConnectors"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "VoiceConnectors"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -103,25 +105,25 @@ instance Core.AWSRequest ListVoiceConnectors where
 
 instance Prelude.Hashable ListVoiceConnectors where
   hashWithSalt _salt ListVoiceConnectors' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListVoiceConnectors where
   rnf ListVoiceConnectors' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListVoiceConnectors where
+instance Data.ToHeaders ListVoiceConnectors where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListVoiceConnectors where
+instance Data.ToPath ListVoiceConnectors where
   toPath = Prelude.const "/voice-connectors"
 
-instance Core.ToQuery ListVoiceConnectors where
+instance Data.ToQuery ListVoiceConnectors where
   toQuery ListVoiceConnectors' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListVoiceConnectorsResponse' smart constructor.

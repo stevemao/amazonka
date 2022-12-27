@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.ListMembers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.GuardDuty.ListMembers
     newListMembers,
 
     -- * Request Lenses
-    listMembers_onlyAssociated,
-    listMembers_nextToken,
     listMembers_maxResults,
+    listMembers_nextToken,
+    listMembers_onlyAssociated,
     listMembers_detectorId,
 
     -- * Destructuring the Response
@@ -47,26 +47,30 @@ module Amazonka.GuardDuty.ListMembers
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListMembers' smart constructor.
 data ListMembers = ListMembers'
-  { -- | Specifies whether to only return associated members or to return all
-    -- members (including members who haven\'t been invited yet or have been
-    -- disassociated).
-    onlyAssociated :: Prelude.Maybe Prelude.Text,
+  { -- | You can use this parameter to indicate the maximum number of items you
+    -- want in the response. The default value is 50. The maximum value is 50.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | You can use this parameter when paginating results. Set the value of
     -- this parameter to null on your first call to the list action. For
     -- subsequent calls to the action, fill nextToken in the request with the
     -- value of NextToken from the previous response to continue listing data.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | You can use this parameter to indicate the maximum number of items you
-    -- want in the response. The default value is 50. The maximum value is 50.
-    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Specifies whether to only return associated members or to return all
+    -- members (including members who haven\'t been invited yet or have been
+    -- disassociated). Member accounts must have been previously associated
+    -- with the GuardDuty administrator account using
+    -- <https://docs.aws.amazon.com/guardduty/latest/APIReference/API_CreateMembers.html Create Members>
+    -- .
+    onlyAssociated :: Prelude.Maybe Prelude.Text,
     -- | The unique ID of the detector the member is associated with.
     detectorId :: Prelude.Text
   }
@@ -80,17 +84,20 @@ data ListMembers = ListMembers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'onlyAssociated', 'listMembers_onlyAssociated' - Specifies whether to only return associated members or to return all
--- members (including members who haven\'t been invited yet or have been
--- disassociated).
+-- 'maxResults', 'listMembers_maxResults' - You can use this parameter to indicate the maximum number of items you
+-- want in the response. The default value is 50. The maximum value is 50.
 --
 -- 'nextToken', 'listMembers_nextToken' - You can use this parameter when paginating results. Set the value of
 -- this parameter to null on your first call to the list action. For
 -- subsequent calls to the action, fill nextToken in the request with the
 -- value of NextToken from the previous response to continue listing data.
 --
--- 'maxResults', 'listMembers_maxResults' - You can use this parameter to indicate the maximum number of items you
--- want in the response. The default value is 50. The maximum value is 50.
+-- 'onlyAssociated', 'listMembers_onlyAssociated' - Specifies whether to only return associated members or to return all
+-- members (including members who haven\'t been invited yet or have been
+-- disassociated). Member accounts must have been previously associated
+-- with the GuardDuty administrator account using
+-- <https://docs.aws.amazon.com/guardduty/latest/APIReference/API_CreateMembers.html Create Members>
+-- .
 --
 -- 'detectorId', 'listMembers_detectorId' - The unique ID of the detector the member is associated with.
 newListMembers ::
@@ -99,17 +106,16 @@ newListMembers ::
   ListMembers
 newListMembers pDetectorId_ =
   ListMembers'
-    { onlyAssociated = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      onlyAssociated = Prelude.Nothing,
       detectorId = pDetectorId_
     }
 
--- | Specifies whether to only return associated members or to return all
--- members (including members who haven\'t been invited yet or have been
--- disassociated).
-listMembers_onlyAssociated :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Text)
-listMembers_onlyAssociated = Lens.lens (\ListMembers' {onlyAssociated} -> onlyAssociated) (\s@ListMembers' {} a -> s {onlyAssociated = a} :: ListMembers)
+-- | You can use this parameter to indicate the maximum number of items you
+-- want in the response. The default value is 50. The maximum value is 50.
+listMembers_maxResults :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Natural)
+listMembers_maxResults = Lens.lens (\ListMembers' {maxResults} -> maxResults) (\s@ListMembers' {} a -> s {maxResults = a} :: ListMembers)
 
 -- | You can use this parameter when paginating results. Set the value of
 -- this parameter to null on your first call to the list action. For
@@ -118,10 +124,14 @@ listMembers_onlyAssociated = Lens.lens (\ListMembers' {onlyAssociated} -> onlyAs
 listMembers_nextToken :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Text)
 listMembers_nextToken = Lens.lens (\ListMembers' {nextToken} -> nextToken) (\s@ListMembers' {} a -> s {nextToken = a} :: ListMembers)
 
--- | You can use this parameter to indicate the maximum number of items you
--- want in the response. The default value is 50. The maximum value is 50.
-listMembers_maxResults :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Natural)
-listMembers_maxResults = Lens.lens (\ListMembers' {maxResults} -> maxResults) (\s@ListMembers' {} a -> s {maxResults = a} :: ListMembers)
+-- | Specifies whether to only return associated members or to return all
+-- members (including members who haven\'t been invited yet or have been
+-- disassociated). Member accounts must have been previously associated
+-- with the GuardDuty administrator account using
+-- <https://docs.aws.amazon.com/guardduty/latest/APIReference/API_CreateMembers.html Create Members>
+-- .
+listMembers_onlyAssociated :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Text)
+listMembers_onlyAssociated = Lens.lens (\ListMembers' {onlyAssociated} -> onlyAssociated) (\s@ListMembers' {} a -> s {onlyAssociated = a} :: ListMembers)
 
 -- | The unique ID of the detector the member is associated with.
 listMembers_detectorId :: Lens.Lens' ListMembers Prelude.Text
@@ -148,52 +158,53 @@ instance Core.AWSPager ListMembers where
 
 instance Core.AWSRequest ListMembers where
   type AWSResponse ListMembers = ListMembersResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListMembersResponse'
-            Prelude.<$> (x Core..?> "members" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "members" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListMembers where
   hashWithSalt _salt ListMembers' {..} =
-    _salt `Prelude.hashWithSalt` onlyAssociated
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` onlyAssociated
       `Prelude.hashWithSalt` detectorId
 
 instance Prelude.NFData ListMembers where
   rnf ListMembers' {..} =
-    Prelude.rnf onlyAssociated
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf onlyAssociated
       `Prelude.seq` Prelude.rnf detectorId
 
-instance Core.ToHeaders ListMembers where
+instance Data.ToHeaders ListMembers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListMembers where
+instance Data.ToPath ListMembers where
   toPath ListMembers' {..} =
     Prelude.mconcat
-      ["/detector/", Core.toBS detectorId, "/member"]
+      ["/detector/", Data.toBS detectorId, "/member"]
 
-instance Core.ToQuery ListMembers where
+instance Data.ToQuery ListMembers where
   toQuery ListMembers' {..} =
     Prelude.mconcat
-      [ "onlyAssociated" Core.=: onlyAssociated,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "onlyAssociated" Data.=: onlyAssociated
       ]
 
 -- | /See:/ 'newListMembersResponse' smart constructor.

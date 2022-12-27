@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.StartDBInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@
 -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_StartInstance.html Starting an Amazon RDS DB instance That Was Previously Stopped>
 -- in the /Amazon RDS User Guide./
 --
--- This command doesn\'t apply to Aurora MySQL and Aurora PostgreSQL. For
--- Aurora DB clusters, use @StartDBCluster@ instead.
+-- This command doesn\'t apply to RDS Custom, Aurora MySQL, and Aurora
+-- PostgreSQL. For Aurora DB clusters, use @StartDBCluster@ instead.
 module Amazonka.RDS.StartDBInstance
   ( -- * Creating a Request
     StartDBInstance (..),
@@ -49,7 +49,8 @@ module Amazonka.RDS.StartDBInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -89,13 +90,14 @@ instance Core.AWSRequest StartDBInstance where
   type
     AWSResponse StartDBInstance =
       StartDBInstanceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "StartDBInstanceResult"
       ( \s h x ->
           StartDBInstanceResponse'
-            Prelude.<$> (x Core..@? "DBInstance")
+            Prelude.<$> (x Data..@? "DBInstance")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -107,20 +109,20 @@ instance Prelude.NFData StartDBInstance where
   rnf StartDBInstance' {..} =
     Prelude.rnf dbInstanceIdentifier
 
-instance Core.ToHeaders StartDBInstance where
+instance Data.ToHeaders StartDBInstance where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath StartDBInstance where
+instance Data.ToPath StartDBInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartDBInstance where
+instance Data.ToQuery StartDBInstance where
   toQuery StartDBInstance' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("StartDBInstance" :: Prelude.ByteString),
+          Data.=: ("StartDBInstance" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBInstanceIdentifier" Core.=: dbInstanceIdentifier
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBInstanceIdentifier" Data.=: dbInstanceIdentifier
       ]
 
 -- | /See:/ 'newStartDBInstanceResponse' smart constructor.

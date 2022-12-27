@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.ReturnConsumedCapacity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,11 +28,13 @@ module Amazonka.DynamoDB.Types.ReturnConsumedCapacity
 where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
--- | Determines the level of detail about provisioned throughput consumption
--- that is returned in the response:
+-- | Determines the level of detail about either provisioned or on-demand
+-- throughput consumption that is returned in the response:
 --
 -- -   @INDEXES@ - The response includes the aggregate @ConsumedCapacity@
 --     for the operation, together with @ConsumedCapacity@ for each table
@@ -48,7 +50,7 @@ import qualified Amazonka.Prelude as Prelude
 -- -   @NONE@ - No @ConsumedCapacity@ details are included in the response.
 newtype ReturnConsumedCapacity = ReturnConsumedCapacity'
   { fromReturnConsumedCapacity ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -60,18 +62,18 @@ newtype ReturnConsumedCapacity = ReturnConsumedCapacity'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern ReturnConsumedCapacity_INDEXES :: ReturnConsumedCapacity

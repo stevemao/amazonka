@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.LambdaOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalyticsV2.Types.LambdaOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | When you configure a SQL-based Kinesis Data Analytics application\'s
@@ -79,9 +80,9 @@ instance Prelude.Hashable LambdaOutput where
 instance Prelude.NFData LambdaOutput where
   rnf LambdaOutput' {..} = Prelude.rnf resourceARN
 
-instance Core.ToJSON LambdaOutput where
+instance Data.ToJSON LambdaOutput where
   toJSON LambdaOutput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ResourceARN" Core..= resourceARN)]
+          [Prelude.Just ("ResourceARN" Data..= resourceARN)]
       )

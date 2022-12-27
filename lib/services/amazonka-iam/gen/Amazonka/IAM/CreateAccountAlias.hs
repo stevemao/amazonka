@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.CreateAccountAlias
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.IAM.CreateAccountAlias
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ instance Core.AWSRequest CreateAccountAlias where
   type
     AWSResponse CreateAccountAlias =
       CreateAccountAliasResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull CreateAccountAliasResponse'
 
@@ -103,20 +105,20 @@ instance Prelude.NFData CreateAccountAlias where
   rnf CreateAccountAlias' {..} =
     Prelude.rnf accountAlias
 
-instance Core.ToHeaders CreateAccountAlias where
+instance Data.ToHeaders CreateAccountAlias where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateAccountAlias where
+instance Data.ToPath CreateAccountAlias where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAccountAlias where
+instance Data.ToQuery CreateAccountAlias where
   toQuery CreateAccountAlias' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateAccountAlias" :: Prelude.ByteString),
+          Data.=: ("CreateAccountAlias" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "AccountAlias" Core.=: accountAlias
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "AccountAlias" Data.=: accountAlias
       ]
 
 -- | /See:/ 'newCreateAccountAliasResponse' smart constructor.

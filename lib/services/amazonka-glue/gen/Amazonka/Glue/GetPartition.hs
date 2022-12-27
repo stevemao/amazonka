@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetPartition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.Glue.GetPartition
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,12 +113,13 @@ getPartition_partitionValues = Lens.lens (\GetPartition' {partitionValues} -> pa
 
 instance Core.AWSRequest GetPartition where
   type AWSResponse GetPartition = GetPartitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPartitionResponse'
-            Prelude.<$> (x Core..?> "Partition")
+            Prelude.<$> (x Data..?> "Partition")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -135,35 +137,35 @@ instance Prelude.NFData GetPartition where
       `Prelude.seq` Prelude.rnf tableName
       `Prelude.seq` Prelude.rnf partitionValues
 
-instance Core.ToHeaders GetPartition where
+instance Data.ToHeaders GetPartition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetPartition" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetPartition" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetPartition where
+instance Data.ToJSON GetPartition where
   toJSON GetPartition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("DatabaseName" Core..= databaseName),
-            Prelude.Just ("TableName" Core..= tableName),
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            Prelude.Just ("DatabaseName" Data..= databaseName),
+            Prelude.Just ("TableName" Data..= tableName),
             Prelude.Just
-              ("PartitionValues" Core..= partitionValues)
+              ("PartitionValues" Data..= partitionValues)
           ]
       )
 
-instance Core.ToPath GetPartition where
+instance Data.ToPath GetPartition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetPartition where
+instance Data.ToQuery GetPartition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetPartitionResponse' smart constructor.

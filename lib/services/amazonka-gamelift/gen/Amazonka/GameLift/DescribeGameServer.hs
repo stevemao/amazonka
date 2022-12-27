@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DescribeGameServer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,12 +33,6 @@
 -- __Learn more__
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/fleetiqguide/gsg-intro.html GameLift FleetIQ Guide>
---
--- __Related actions__
---
--- RegisterGameServer | ListGameServers | ClaimGameServer |
--- DescribeGameServer | UpdateGameServer | DeregisterGameServer |
--- <https://docs.aws.amazon.com/gamelift/latest/fleetiqguide/reference-awssdk-fleetiq.html All APIs by task>
 module Amazonka.GameLift.DescribeGameServer
   ( -- * Creating a Request
     DescribeGameServer (..),
@@ -59,8 +53,9 @@ module Amazonka.GameLift.DescribeGameServer
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,7 +63,7 @@ import qualified Amazonka.Response as Response
 -- | /See:/ 'newDescribeGameServer' smart constructor.
 data DescribeGameServer = DescribeGameServer'
   { -- | A unique identifier for the game server group where the game server is
-    -- running. Use either the GameServerGroup name or ARN value.
+    -- running.
     gameServerGroupName :: Prelude.Text,
     -- | A custom string that uniquely identifies the game server information to
     -- be retrieved.
@@ -85,7 +80,7 @@ data DescribeGameServer = DescribeGameServer'
 -- for backwards compatibility:
 --
 -- 'gameServerGroupName', 'describeGameServer_gameServerGroupName' - A unique identifier for the game server group where the game server is
--- running. Use either the GameServerGroup name or ARN value.
+-- running.
 --
 -- 'gameServerId', 'describeGameServer_gameServerId' - A custom string that uniquely identifies the game server information to
 -- be retrieved.
@@ -105,7 +100,7 @@ newDescribeGameServer
       }
 
 -- | A unique identifier for the game server group where the game server is
--- running. Use either the GameServerGroup name or ARN value.
+-- running.
 describeGameServer_gameServerGroupName :: Lens.Lens' DescribeGameServer Prelude.Text
 describeGameServer_gameServerGroupName = Lens.lens (\DescribeGameServer' {gameServerGroupName} -> gameServerGroupName) (\s@DescribeGameServer' {} a -> s {gameServerGroupName = a} :: DescribeGameServer)
 
@@ -118,12 +113,13 @@ instance Core.AWSRequest DescribeGameServer where
   type
     AWSResponse DescribeGameServer =
       DescribeGameServerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeGameServerResponse'
-            Prelude.<$> (x Core..?> "GameServer")
+            Prelude.<$> (x Data..?> "GameServer")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -137,35 +133,35 @@ instance Prelude.NFData DescribeGameServer where
     Prelude.rnf gameServerGroupName
       `Prelude.seq` Prelude.rnf gameServerId
 
-instance Core.ToHeaders DescribeGameServer where
+instance Data.ToHeaders DescribeGameServer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DescribeGameServer" ::
+              Data.=# ( "GameLift.DescribeGameServer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeGameServer where
+instance Data.ToJSON DescribeGameServer where
   toJSON DescribeGameServer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("GameServerGroupName" Core..= gameServerGroupName),
-            Prelude.Just ("GameServerId" Core..= gameServerId)
+              ("GameServerGroupName" Data..= gameServerGroupName),
+            Prelude.Just ("GameServerId" Data..= gameServerId)
           ]
       )
 
-instance Core.ToPath DescribeGameServer where
+instance Data.ToPath DescribeGameServer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeGameServer where
+instance Data.ToQuery DescribeGameServer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeGameServerResponse' smart constructor.

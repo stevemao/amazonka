@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -69,6 +69,7 @@ library
     Amazonka.Route53Resolver.GetFirewallRuleGroup
     Amazonka.Route53Resolver.GetFirewallRuleGroupAssociation
     Amazonka.Route53Resolver.GetFirewallRuleGroupPolicy
+    Amazonka.Route53Resolver.GetResolverConfig
     Amazonka.Route53Resolver.GetResolverDnssecConfig
     Amazonka.Route53Resolver.GetResolverEndpoint
     Amazonka.Route53Resolver.GetResolverQueryLogConfig
@@ -85,6 +86,7 @@ library
     Amazonka.Route53Resolver.ListFirewallRuleGroupAssociations
     Amazonka.Route53Resolver.ListFirewallRuleGroups
     Amazonka.Route53Resolver.ListFirewallRules
+    Amazonka.Route53Resolver.ListResolverConfigs
     Amazonka.Route53Resolver.ListResolverDnssecConfigs
     Amazonka.Route53Resolver.ListResolverEndpointIpAddresses
     Amazonka.Route53Resolver.ListResolverEndpoints
@@ -99,6 +101,7 @@ library
     Amazonka.Route53Resolver.TagResource
     Amazonka.Route53Resolver.Types
     Amazonka.Route53Resolver.Types.Action
+    Amazonka.Route53Resolver.Types.AutodefinedReverseFlag
     Amazonka.Route53Resolver.Types.BlockOverrideDnsType
     Amazonka.Route53Resolver.Types.BlockResponse
     Amazonka.Route53Resolver.Types.Filter
@@ -120,6 +123,8 @@ library
     Amazonka.Route53Resolver.Types.IpAddressStatus
     Amazonka.Route53Resolver.Types.IpAddressUpdate
     Amazonka.Route53Resolver.Types.MutationProtectionStatus
+    Amazonka.Route53Resolver.Types.ResolverAutodefinedReverseStatus
+    Amazonka.Route53Resolver.Types.ResolverConfig
     Amazonka.Route53Resolver.Types.ResolverDnssecConfig
     Amazonka.Route53Resolver.Types.ResolverDNSSECValidationStatus
     Amazonka.Route53Resolver.Types.ResolverEndpoint
@@ -146,13 +151,14 @@ library
     Amazonka.Route53Resolver.UpdateFirewallDomains
     Amazonka.Route53Resolver.UpdateFirewallRule
     Amazonka.Route53Resolver.UpdateFirewallRuleGroupAssociation
+    Amazonka.Route53Resolver.UpdateResolverConfig
     Amazonka.Route53Resolver.UpdateResolverDnssecConfig
     Amazonka.Route53Resolver.UpdateResolverEndpoint
     Amazonka.Route53Resolver.UpdateResolverRule
     Amazonka.Route53Resolver.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-route53resolver-test
@@ -171,9 +177,9 @@ test-suite amazonka-route53resolver-test
     Test.Amazonka.Route53Resolver.Internal
 
   build-depends:
-    , amazonka-core             ^>=2.0
+    , amazonka-core             >=2.0 && <2.1
     , amazonka-route53resolver
-    , amazonka-test             ^>=2.0
+    , amazonka-test             >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

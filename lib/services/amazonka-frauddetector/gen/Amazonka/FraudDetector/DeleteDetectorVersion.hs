@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.DeleteDetectorVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.FraudDetector.DeleteDetectorVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ instance Core.AWSRequest DeleteDetectorVersion where
   type
     AWSResponse DeleteDetectorVersion =
       DeleteDetectorVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -115,35 +117,35 @@ instance Prelude.NFData DeleteDetectorVersion where
     Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf detectorVersionId
 
-instance Core.ToHeaders DeleteDetectorVersion where
+instance Data.ToHeaders DeleteDetectorVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.DeleteDetectorVersion" ::
+              Data.=# ( "AWSHawksNestServiceFacade.DeleteDetectorVersion" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteDetectorVersion where
+instance Data.ToJSON DeleteDetectorVersion where
   toJSON DeleteDetectorVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("detectorId" Core..= detectorId),
+          [ Prelude.Just ("detectorId" Data..= detectorId),
             Prelude.Just
-              ("detectorVersionId" Core..= detectorVersionId)
+              ("detectorVersionId" Data..= detectorVersionId)
           ]
       )
 
-instance Core.ToPath DeleteDetectorVersion where
+instance Data.ToPath DeleteDetectorVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDetectorVersion where
+instance Data.ToQuery DeleteDetectorVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDetectorVersionResponse' smart constructor.

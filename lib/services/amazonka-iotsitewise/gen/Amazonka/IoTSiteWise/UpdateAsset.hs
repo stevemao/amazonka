@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.UpdateAsset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,6 +29,7 @@ module Amazonka.IoTSiteWise.UpdateAsset
     newUpdateAsset,
 
     -- * Request Lenses
+    updateAsset_assetDescription,
     updateAsset_clientToken,
     updateAsset_assetId,
     updateAsset_assetName,
@@ -44,21 +45,24 @@ module Amazonka.IoTSiteWise.UpdateAsset
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateAsset' smart constructor.
 data UpdateAsset = UpdateAsset'
-  { -- | A unique case-sensitive identifier that you can provide to ensure the
+  { -- | A description for the asset.
+    assetDescription :: Prelude.Maybe Prelude.Text,
+    -- | A unique case-sensitive identifier that you can provide to ensure the
     -- idempotency of the request. Don\'t reuse this client token if a new
     -- idempotent request is required.
     clientToken :: Prelude.Maybe Prelude.Text,
     -- | The ID of the asset to update.
     assetId :: Prelude.Text,
-    -- | A unique, friendly name for the asset.
+    -- | A friendly name for the asset.
     assetName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -71,13 +75,15 @@ data UpdateAsset = UpdateAsset'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'assetDescription', 'updateAsset_assetDescription' - A description for the asset.
+--
 -- 'clientToken', 'updateAsset_clientToken' - A unique case-sensitive identifier that you can provide to ensure the
 -- idempotency of the request. Don\'t reuse this client token if a new
 -- idempotent request is required.
 --
 -- 'assetId', 'updateAsset_assetId' - The ID of the asset to update.
 --
--- 'assetName', 'updateAsset_assetName' - A unique, friendly name for the asset.
+-- 'assetName', 'updateAsset_assetName' - A friendly name for the asset.
 newUpdateAsset ::
   -- | 'assetId'
   Prelude.Text ->
@@ -86,10 +92,15 @@ newUpdateAsset ::
   UpdateAsset
 newUpdateAsset pAssetId_ pAssetName_ =
   UpdateAsset'
-    { clientToken = Prelude.Nothing,
+    { assetDescription = Prelude.Nothing,
+      clientToken = Prelude.Nothing,
       assetId = pAssetId_,
       assetName = pAssetName_
     }
+
+-- | A description for the asset.
+updateAsset_assetDescription :: Lens.Lens' UpdateAsset (Prelude.Maybe Prelude.Text)
+updateAsset_assetDescription = Lens.lens (\UpdateAsset' {assetDescription} -> assetDescription) (\s@UpdateAsset' {} a -> s {assetDescription = a} :: UpdateAsset)
 
 -- | A unique case-sensitive identifier that you can provide to ensure the
 -- idempotency of the request. Don\'t reuse this client token if a new
@@ -101,58 +112,63 @@ updateAsset_clientToken = Lens.lens (\UpdateAsset' {clientToken} -> clientToken)
 updateAsset_assetId :: Lens.Lens' UpdateAsset Prelude.Text
 updateAsset_assetId = Lens.lens (\UpdateAsset' {assetId} -> assetId) (\s@UpdateAsset' {} a -> s {assetId = a} :: UpdateAsset)
 
--- | A unique, friendly name for the asset.
+-- | A friendly name for the asset.
 updateAsset_assetName :: Lens.Lens' UpdateAsset Prelude.Text
 updateAsset_assetName = Lens.lens (\UpdateAsset' {assetName} -> assetName) (\s@UpdateAsset' {} a -> s {assetName = a} :: UpdateAsset)
 
 instance Core.AWSRequest UpdateAsset where
   type AWSResponse UpdateAsset = UpdateAssetResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateAssetResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "assetStatus")
+            Prelude.<*> (x Data..:> "assetStatus")
       )
 
 instance Prelude.Hashable UpdateAsset where
   hashWithSalt _salt UpdateAsset' {..} =
-    _salt `Prelude.hashWithSalt` clientToken
+    _salt `Prelude.hashWithSalt` assetDescription
+      `Prelude.hashWithSalt` clientToken
       `Prelude.hashWithSalt` assetId
       `Prelude.hashWithSalt` assetName
 
 instance Prelude.NFData UpdateAsset where
   rnf UpdateAsset' {..} =
-    Prelude.rnf clientToken
+    Prelude.rnf assetDescription
+      `Prelude.seq` Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf assetId
       `Prelude.seq` Prelude.rnf assetName
 
-instance Core.ToHeaders UpdateAsset where
+instance Data.ToHeaders UpdateAsset where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAsset where
+instance Data.ToJSON UpdateAsset where
   toJSON UpdateAsset' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            Prelude.Just ("assetName" Core..= assetName)
+          [ ("assetDescription" Data..=)
+              Prelude.<$> assetDescription,
+            ("clientToken" Data..=) Prelude.<$> clientToken,
+            Prelude.Just ("assetName" Data..= assetName)
           ]
       )
 
-instance Core.ToPath UpdateAsset where
+instance Data.ToPath UpdateAsset where
   toPath UpdateAsset' {..} =
-    Prelude.mconcat ["/assets/", Core.toBS assetId]
+    Prelude.mconcat ["/assets/", Data.toBS assetId]
 
-instance Core.ToQuery UpdateAsset where
+instance Data.ToQuery UpdateAsset where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateAssetResponse' smart constructor.

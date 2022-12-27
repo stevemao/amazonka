@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.DescribeEndpoints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,15 +39,16 @@ module Amazonka.DMS.DescribeEndpoints
     newDescribeEndpointsResponse,
 
     -- * Response Lenses
-    describeEndpointsResponse_marker,
     describeEndpointsResponse_endpoints,
+    describeEndpointsResponse_marker,
     describeEndpointsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DMS.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -160,13 +161,14 @@ instance Core.AWSRequest DescribeEndpoints where
   type
     AWSResponse DescribeEndpoints =
       DescribeEndpointsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEndpointsResponse'
-            Prelude.<$> (x Core..?> "Marker")
-            Prelude.<*> (x Core..?> "Endpoints" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Endpoints" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -182,47 +184,47 @@ instance Prelude.NFData DescribeEndpoints where
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
 
-instance Core.ToHeaders DescribeEndpoints where
+instance Data.ToHeaders DescribeEndpoints where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDMSv20160101.DescribeEndpoints" ::
+              Data.=# ( "AmazonDMSv20160101.DescribeEndpoints" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEndpoints where
+instance Data.ToJSON DescribeEndpoints where
   toJSON DescribeEndpoints' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("Marker" Core..=) Prelude.<$> marker,
-            ("MaxRecords" Core..=) Prelude.<$> maxRecords
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("Marker" Data..=) Prelude.<$> marker,
+            ("MaxRecords" Data..=) Prelude.<$> maxRecords
           ]
       )
 
-instance Core.ToPath DescribeEndpoints where
+instance Data.ToPath DescribeEndpoints where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEndpoints where
+instance Data.ToQuery DescribeEndpoints where
   toQuery = Prelude.const Prelude.mempty
 
 -- |
 --
 -- /See:/ 'newDescribeEndpointsResponse' smart constructor.
 data DescribeEndpointsResponse = DescribeEndpointsResponse'
-  { -- | An optional pagination token provided by a previous request. If this
+  { -- | Endpoint description.
+    endpoints :: Prelude.Maybe [Endpoint],
+    -- | An optional pagination token provided by a previous request. If this
     -- parameter is specified, the response includes only records beyond the
     -- marker, up to the value specified by @MaxRecords@.
     marker :: Prelude.Maybe Prelude.Text,
-    -- | Endpoint description.
-    endpoints :: Prelude.Maybe [Endpoint],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -236,11 +238,11 @@ data DescribeEndpointsResponse = DescribeEndpointsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'endpoints', 'describeEndpointsResponse_endpoints' - Endpoint description.
+--
 -- 'marker', 'describeEndpointsResponse_marker' - An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
 -- marker, up to the value specified by @MaxRecords@.
---
--- 'endpoints', 'describeEndpointsResponse_endpoints' - Endpoint description.
 --
 -- 'httpStatus', 'describeEndpointsResponse_httpStatus' - The response's http status code.
 newDescribeEndpointsResponse ::
@@ -249,11 +251,15 @@ newDescribeEndpointsResponse ::
   DescribeEndpointsResponse
 newDescribeEndpointsResponse pHttpStatus_ =
   DescribeEndpointsResponse'
-    { marker =
+    { endpoints =
         Prelude.Nothing,
-      endpoints = Prelude.Nothing,
+      marker = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Endpoint description.
+describeEndpointsResponse_endpoints :: Lens.Lens' DescribeEndpointsResponse (Prelude.Maybe [Endpoint])
+describeEndpointsResponse_endpoints = Lens.lens (\DescribeEndpointsResponse' {endpoints} -> endpoints) (\s@DescribeEndpointsResponse' {} a -> s {endpoints = a} :: DescribeEndpointsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
@@ -261,16 +267,12 @@ newDescribeEndpointsResponse pHttpStatus_ =
 describeEndpointsResponse_marker :: Lens.Lens' DescribeEndpointsResponse (Prelude.Maybe Prelude.Text)
 describeEndpointsResponse_marker = Lens.lens (\DescribeEndpointsResponse' {marker} -> marker) (\s@DescribeEndpointsResponse' {} a -> s {marker = a} :: DescribeEndpointsResponse)
 
--- | Endpoint description.
-describeEndpointsResponse_endpoints :: Lens.Lens' DescribeEndpointsResponse (Prelude.Maybe [Endpoint])
-describeEndpointsResponse_endpoints = Lens.lens (\DescribeEndpointsResponse' {endpoints} -> endpoints) (\s@DescribeEndpointsResponse' {} a -> s {endpoints = a} :: DescribeEndpointsResponse) Prelude.. Lens.mapping Lens.coerced
-
 -- | The response's http status code.
 describeEndpointsResponse_httpStatus :: Lens.Lens' DescribeEndpointsResponse Prelude.Int
 describeEndpointsResponse_httpStatus = Lens.lens (\DescribeEndpointsResponse' {httpStatus} -> httpStatus) (\s@DescribeEndpointsResponse' {} a -> s {httpStatus = a} :: DescribeEndpointsResponse)
 
 instance Prelude.NFData DescribeEndpointsResponse where
   rnf DescribeEndpointsResponse' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf endpoints
+    Prelude.rnf endpoints
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf httpStatus

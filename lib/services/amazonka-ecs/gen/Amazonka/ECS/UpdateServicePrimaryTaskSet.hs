@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.UpdateServicePrimaryTaskSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.ECS.UpdateServicePrimaryTaskSet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -120,12 +121,13 @@ instance Core.AWSRequest UpdateServicePrimaryTaskSet where
   type
     AWSResponse UpdateServicePrimaryTaskSet =
       UpdateServicePrimaryTaskSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateServicePrimaryTaskSetResponse'
-            Prelude.<$> (x Core..?> "taskSet")
+            Prelude.<$> (x Data..?> "taskSet")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -141,41 +143,41 @@ instance Prelude.NFData UpdateServicePrimaryTaskSet where
       `Prelude.seq` Prelude.rnf service
       `Prelude.seq` Prelude.rnf primaryTaskSet
 
-instance Core.ToHeaders UpdateServicePrimaryTaskSet where
+instance Data.ToHeaders UpdateServicePrimaryTaskSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.UpdateServicePrimaryTaskSet" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.UpdateServicePrimaryTaskSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateServicePrimaryTaskSet where
+instance Data.ToJSON UpdateServicePrimaryTaskSet where
   toJSON UpdateServicePrimaryTaskSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("cluster" Core..= cluster),
-            Prelude.Just ("service" Core..= service),
+          [ Prelude.Just ("cluster" Data..= cluster),
+            Prelude.Just ("service" Data..= service),
             Prelude.Just
-              ("primaryTaskSet" Core..= primaryTaskSet)
+              ("primaryTaskSet" Data..= primaryTaskSet)
           ]
       )
 
-instance Core.ToPath UpdateServicePrimaryTaskSet where
+instance Data.ToPath UpdateServicePrimaryTaskSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateServicePrimaryTaskSet where
+instance Data.ToQuery UpdateServicePrimaryTaskSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateServicePrimaryTaskSetResponse' smart constructor.
 data UpdateServicePrimaryTaskSetResponse = UpdateServicePrimaryTaskSetResponse'
-  { -- | Details about the task set.
+  { -- | The details about the task set.
     taskSet :: Prelude.Maybe TaskSet,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -190,7 +192,7 @@ data UpdateServicePrimaryTaskSetResponse = UpdateServicePrimaryTaskSetResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'taskSet', 'updateServicePrimaryTaskSetResponse_taskSet' - Details about the task set.
+-- 'taskSet', 'updateServicePrimaryTaskSetResponse_taskSet' - The details about the task set.
 --
 -- 'httpStatus', 'updateServicePrimaryTaskSetResponse_httpStatus' - The response's http status code.
 newUpdateServicePrimaryTaskSetResponse ::
@@ -204,7 +206,7 @@ newUpdateServicePrimaryTaskSetResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Details about the task set.
+-- | The details about the task set.
 updateServicePrimaryTaskSetResponse_taskSet :: Lens.Lens' UpdateServicePrimaryTaskSetResponse (Prelude.Maybe TaskSet)
 updateServicePrimaryTaskSetResponse_taskSet = Lens.lens (\UpdateServicePrimaryTaskSetResponse' {taskSet} -> taskSet) (\s@UpdateServicePrimaryTaskSetResponse' {} a -> s {taskSet = a} :: UpdateServicePrimaryTaskSetResponse)
 

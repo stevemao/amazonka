@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.Types.NumberAttributeConstraintsType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.CognitoIdentityProvider.Types.NumberAttributeConstraintsType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The minimum and maximum value of an attribute that is of the number data
--- type.
+-- | The minimum and maximum values of an attribute that is of the number
+-- data type.
 --
 -- /See:/ 'newNumberAttributeConstraintsType' smart constructor.
 data NumberAttributeConstraintsType = NumberAttributeConstraintsType'
@@ -63,14 +64,14 @@ numberAttributeConstraintsType_maxValue = Lens.lens (\NumberAttributeConstraints
 numberAttributeConstraintsType_minValue :: Lens.Lens' NumberAttributeConstraintsType (Prelude.Maybe Prelude.Text)
 numberAttributeConstraintsType_minValue = Lens.lens (\NumberAttributeConstraintsType' {minValue} -> minValue) (\s@NumberAttributeConstraintsType' {} a -> s {minValue = a} :: NumberAttributeConstraintsType)
 
-instance Core.FromJSON NumberAttributeConstraintsType where
+instance Data.FromJSON NumberAttributeConstraintsType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NumberAttributeConstraintsType"
       ( \x ->
           NumberAttributeConstraintsType'
-            Prelude.<$> (x Core..:? "MaxValue")
-            Prelude.<*> (x Core..:? "MinValue")
+            Prelude.<$> (x Data..:? "MaxValue")
+            Prelude.<*> (x Data..:? "MinValue")
       )
 
 instance
@@ -91,11 +92,11 @@ instance
     Prelude.rnf maxValue
       `Prelude.seq` Prelude.rnf minValue
 
-instance Core.ToJSON NumberAttributeConstraintsType where
+instance Data.ToJSON NumberAttributeConstraintsType where
   toJSON NumberAttributeConstraintsType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MaxValue" Core..=) Prelude.<$> maxValue,
-            ("MinValue" Core..=) Prelude.<$> minValue
+          [ ("MaxValue" Data..=) Prelude.<$> maxValue,
+            ("MinValue" Data..=) Prelude.<$> minValue
           ]
       )

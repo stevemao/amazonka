@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.DeleteGraphqlApi
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteGraphqlApi where
   type
     AWSResponse DeleteGraphqlApi =
       DeleteGraphqlApiResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,22 +93,22 @@ instance Prelude.Hashable DeleteGraphqlApi where
 instance Prelude.NFData DeleteGraphqlApi where
   rnf DeleteGraphqlApi' {..} = Prelude.rnf apiId
 
-instance Core.ToHeaders DeleteGraphqlApi where
+instance Data.ToHeaders DeleteGraphqlApi where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteGraphqlApi where
+instance Data.ToPath DeleteGraphqlApi where
   toPath DeleteGraphqlApi' {..} =
-    Prelude.mconcat ["/v1/apis/", Core.toBS apiId]
+    Prelude.mconcat ["/v1/apis/", Data.toBS apiId]
 
-instance Core.ToQuery DeleteGraphqlApi where
+instance Data.ToQuery DeleteGraphqlApi where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteGraphqlApiResponse' smart constructor.

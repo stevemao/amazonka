@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Translate.Types.TerminologyDataLocation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Translate.Types.TerminologyDataLocation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The location of the custom terminology data.
@@ -29,7 +30,21 @@ import qualified Amazonka.Prelude as Prelude
 data TerminologyDataLocation = TerminologyDataLocation'
   { -- | The repository type for the custom terminology data.
     repositoryType :: Prelude.Text,
-    -- | The location of the custom terminology data.
+    -- | The Amazon S3 location of the most recent custom terminology input file
+    -- that was successfully imported into Amazon Translate. The location is
+    -- returned as a presigned URL that has a 30-minute expiration .
+    --
+    -- Amazon Translate doesn\'t scan all input files for the risk of CSV
+    -- injection attacks.
+    --
+    -- CSV injection occurs when a .csv or .tsv file is altered so that a
+    -- record contains malicious code. The record begins with a special
+    -- character, such as =, +, -, or \@. When the file is opened in a
+    -- spreadsheet program, the program might interpret the record as a formula
+    -- and run the code within it.
+    --
+    -- Before you download an input file from Amazon S3, ensure that you
+    -- recognize the file and trust its creator.
     location :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,7 +59,21 @@ data TerminologyDataLocation = TerminologyDataLocation'
 --
 -- 'repositoryType', 'terminologyDataLocation_repositoryType' - The repository type for the custom terminology data.
 --
--- 'location', 'terminologyDataLocation_location' - The location of the custom terminology data.
+-- 'location', 'terminologyDataLocation_location' - The Amazon S3 location of the most recent custom terminology input file
+-- that was successfully imported into Amazon Translate. The location is
+-- returned as a presigned URL that has a 30-minute expiration .
+--
+-- Amazon Translate doesn\'t scan all input files for the risk of CSV
+-- injection attacks.
+--
+-- CSV injection occurs when a .csv or .tsv file is altered so that a
+-- record contains malicious code. The record begins with a special
+-- character, such as =, +, -, or \@. When the file is opened in a
+-- spreadsheet program, the program might interpret the record as a formula
+-- and run the code within it.
+--
+-- Before you download an input file from Amazon S3, ensure that you
+-- recognize the file and trust its creator.
 newTerminologyDataLocation ::
   -- | 'repositoryType'
   Prelude.Text ->
@@ -64,18 +93,32 @@ newTerminologyDataLocation
 terminologyDataLocation_repositoryType :: Lens.Lens' TerminologyDataLocation Prelude.Text
 terminologyDataLocation_repositoryType = Lens.lens (\TerminologyDataLocation' {repositoryType} -> repositoryType) (\s@TerminologyDataLocation' {} a -> s {repositoryType = a} :: TerminologyDataLocation)
 
--- | The location of the custom terminology data.
+-- | The Amazon S3 location of the most recent custom terminology input file
+-- that was successfully imported into Amazon Translate. The location is
+-- returned as a presigned URL that has a 30-minute expiration .
+--
+-- Amazon Translate doesn\'t scan all input files for the risk of CSV
+-- injection attacks.
+--
+-- CSV injection occurs when a .csv or .tsv file is altered so that a
+-- record contains malicious code. The record begins with a special
+-- character, such as =, +, -, or \@. When the file is opened in a
+-- spreadsheet program, the program might interpret the record as a formula
+-- and run the code within it.
+--
+-- Before you download an input file from Amazon S3, ensure that you
+-- recognize the file and trust its creator.
 terminologyDataLocation_location :: Lens.Lens' TerminologyDataLocation Prelude.Text
 terminologyDataLocation_location = Lens.lens (\TerminologyDataLocation' {location} -> location) (\s@TerminologyDataLocation' {} a -> s {location = a} :: TerminologyDataLocation)
 
-instance Core.FromJSON TerminologyDataLocation where
+instance Data.FromJSON TerminologyDataLocation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TerminologyDataLocation"
       ( \x ->
           TerminologyDataLocation'
-            Prelude.<$> (x Core..: "RepositoryType")
-            Prelude.<*> (x Core..: "Location")
+            Prelude.<$> (x Data..: "RepositoryType")
+            Prelude.<*> (x Data..: "Location")
       )
 
 instance Prelude.Hashable TerminologyDataLocation where

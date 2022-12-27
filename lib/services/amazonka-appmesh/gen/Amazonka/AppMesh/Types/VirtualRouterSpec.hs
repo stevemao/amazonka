@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualRouterSpec
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.VirtualRouterSpec where
 
 import Amazonka.AppMesh.Types.VirtualRouterListener
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents the specification of a virtual router.
@@ -30,7 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 data VirtualRouterSpec = VirtualRouterSpec'
   { -- | The listeners that the virtual router is expected to receive inbound
     -- traffic from. You can specify one listener.
-    listeners :: Prelude.Maybe (Prelude.NonEmpty VirtualRouterListener)
+    listeners :: Prelude.Maybe [VirtualRouterListener]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,16 +52,16 @@ newVirtualRouterSpec =
 
 -- | The listeners that the virtual router is expected to receive inbound
 -- traffic from. You can specify one listener.
-virtualRouterSpec_listeners :: Lens.Lens' VirtualRouterSpec (Prelude.Maybe (Prelude.NonEmpty VirtualRouterListener))
+virtualRouterSpec_listeners :: Lens.Lens' VirtualRouterSpec (Prelude.Maybe [VirtualRouterListener])
 virtualRouterSpec_listeners = Lens.lens (\VirtualRouterSpec' {listeners} -> listeners) (\s@VirtualRouterSpec' {} a -> s {listeners = a} :: VirtualRouterSpec) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON VirtualRouterSpec where
+instance Data.FromJSON VirtualRouterSpec where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualRouterSpec"
       ( \x ->
           VirtualRouterSpec'
-            Prelude.<$> (x Core..:? "listeners")
+            Prelude.<$> (x Data..:? "listeners" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable VirtualRouterSpec where
@@ -70,9 +71,9 @@ instance Prelude.Hashable VirtualRouterSpec where
 instance Prelude.NFData VirtualRouterSpec where
   rnf VirtualRouterSpec' {..} = Prelude.rnf listeners
 
-instance Core.ToJSON VirtualRouterSpec where
+instance Data.ToJSON VirtualRouterSpec where
   toJSON VirtualRouterSpec' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("listeners" Core..=) Prelude.<$> listeners]
+          [("listeners" Data..=) Prelude.<$> listeners]
       )

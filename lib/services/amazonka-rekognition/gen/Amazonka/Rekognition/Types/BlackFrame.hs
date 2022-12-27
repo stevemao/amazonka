@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.BlackFrame
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.BlackFrame where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A filter that allows you to control the black frame detection by
@@ -130,13 +131,13 @@ instance Prelude.NFData BlackFrame where
     Prelude.rnf maxPixelThreshold
       `Prelude.seq` Prelude.rnf minCoveragePercentage
 
-instance Core.ToJSON BlackFrame where
+instance Data.ToJSON BlackFrame where
   toJSON BlackFrame' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MaxPixelThreshold" Core..=)
+          [ ("MaxPixelThreshold" Data..=)
               Prelude.<$> maxPixelThreshold,
-            ("MinCoveragePercentage" Core..=)
+            ("MinCoveragePercentage" Data..=)
               Prelude.<$> minCoveragePercentage
           ]
       )

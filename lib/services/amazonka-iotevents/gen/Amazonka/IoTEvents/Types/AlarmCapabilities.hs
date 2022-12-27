@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.AlarmCapabilities
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.IoTEvents.Types.AlarmCapabilities where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types.AcknowledgeFlow
 import Amazonka.IoTEvents.Types.InitializationConfiguration
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the configuration information of alarm state changes.
@@ -67,14 +68,14 @@ alarmCapabilities_acknowledgeFlow = Lens.lens (\AlarmCapabilities' {acknowledgeF
 alarmCapabilities_initializationConfiguration :: Lens.Lens' AlarmCapabilities (Prelude.Maybe InitializationConfiguration)
 alarmCapabilities_initializationConfiguration = Lens.lens (\AlarmCapabilities' {initializationConfiguration} -> initializationConfiguration) (\s@AlarmCapabilities' {} a -> s {initializationConfiguration = a} :: AlarmCapabilities)
 
-instance Core.FromJSON AlarmCapabilities where
+instance Data.FromJSON AlarmCapabilities where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AlarmCapabilities"
       ( \x ->
           AlarmCapabilities'
-            Prelude.<$> (x Core..:? "acknowledgeFlow")
-            Prelude.<*> (x Core..:? "initializationConfiguration")
+            Prelude.<$> (x Data..:? "acknowledgeFlow")
+            Prelude.<*> (x Data..:? "initializationConfiguration")
       )
 
 instance Prelude.Hashable AlarmCapabilities where
@@ -87,13 +88,13 @@ instance Prelude.NFData AlarmCapabilities where
     Prelude.rnf acknowledgeFlow
       `Prelude.seq` Prelude.rnf initializationConfiguration
 
-instance Core.ToJSON AlarmCapabilities where
+instance Data.ToJSON AlarmCapabilities where
   toJSON AlarmCapabilities' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("acknowledgeFlow" Core..=)
+          [ ("acknowledgeFlow" Data..=)
               Prelude.<$> acknowledgeFlow,
-            ("initializationConfiguration" Core..=)
+            ("initializationConfiguration" Data..=)
               Prelude.<$> initializationConfiguration
           ]
       )

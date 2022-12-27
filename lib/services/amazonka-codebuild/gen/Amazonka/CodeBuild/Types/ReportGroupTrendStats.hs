@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.Types.ReportGroupTrendStats
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeBuild.Types.ReportGroupTrendStats where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains trend statistics for a set of reports. The actual values depend
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newReportGroupTrendStats' smart constructor.
 data ReportGroupTrendStats = ReportGroupTrendStats'
-  { -- | Contains the maximum value analyzed.
-    max :: Prelude.Maybe Prelude.Text,
-    -- | Contains the average of all values analyzed.
+  { -- | Contains the average of all values analyzed.
     average :: Prelude.Maybe Prelude.Text,
+    -- | Contains the maximum value analyzed.
+    max :: Prelude.Maybe Prelude.Text,
     -- | Contains the minimum value analyzed.
     min :: Prelude.Maybe Prelude.Text
   }
@@ -45,51 +46,51 @@ data ReportGroupTrendStats = ReportGroupTrendStats'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'max', 'reportGroupTrendStats_max' - Contains the maximum value analyzed.
---
 -- 'average', 'reportGroupTrendStats_average' - Contains the average of all values analyzed.
+--
+-- 'max', 'reportGroupTrendStats_max' - Contains the maximum value analyzed.
 --
 -- 'min', 'reportGroupTrendStats_min' - Contains the minimum value analyzed.
 newReportGroupTrendStats ::
   ReportGroupTrendStats
 newReportGroupTrendStats =
   ReportGroupTrendStats'
-    { max = Prelude.Nothing,
-      average = Prelude.Nothing,
+    { average = Prelude.Nothing,
+      max = Prelude.Nothing,
       min = Prelude.Nothing
     }
-
--- | Contains the maximum value analyzed.
-reportGroupTrendStats_max :: Lens.Lens' ReportGroupTrendStats (Prelude.Maybe Prelude.Text)
-reportGroupTrendStats_max = Lens.lens (\ReportGroupTrendStats' {max} -> max) (\s@ReportGroupTrendStats' {} a -> s {max = a} :: ReportGroupTrendStats)
 
 -- | Contains the average of all values analyzed.
 reportGroupTrendStats_average :: Lens.Lens' ReportGroupTrendStats (Prelude.Maybe Prelude.Text)
 reportGroupTrendStats_average = Lens.lens (\ReportGroupTrendStats' {average} -> average) (\s@ReportGroupTrendStats' {} a -> s {average = a} :: ReportGroupTrendStats)
 
+-- | Contains the maximum value analyzed.
+reportGroupTrendStats_max :: Lens.Lens' ReportGroupTrendStats (Prelude.Maybe Prelude.Text)
+reportGroupTrendStats_max = Lens.lens (\ReportGroupTrendStats' {max} -> max) (\s@ReportGroupTrendStats' {} a -> s {max = a} :: ReportGroupTrendStats)
+
 -- | Contains the minimum value analyzed.
 reportGroupTrendStats_min :: Lens.Lens' ReportGroupTrendStats (Prelude.Maybe Prelude.Text)
 reportGroupTrendStats_min = Lens.lens (\ReportGroupTrendStats' {min} -> min) (\s@ReportGroupTrendStats' {} a -> s {min = a} :: ReportGroupTrendStats)
 
-instance Core.FromJSON ReportGroupTrendStats where
+instance Data.FromJSON ReportGroupTrendStats where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReportGroupTrendStats"
       ( \x ->
           ReportGroupTrendStats'
-            Prelude.<$> (x Core..:? "max")
-            Prelude.<*> (x Core..:? "average")
-            Prelude.<*> (x Core..:? "min")
+            Prelude.<$> (x Data..:? "average")
+            Prelude.<*> (x Data..:? "max")
+            Prelude.<*> (x Data..:? "min")
       )
 
 instance Prelude.Hashable ReportGroupTrendStats where
   hashWithSalt _salt ReportGroupTrendStats' {..} =
-    _salt `Prelude.hashWithSalt` max
-      `Prelude.hashWithSalt` average
+    _salt `Prelude.hashWithSalt` average
+      `Prelude.hashWithSalt` max
       `Prelude.hashWithSalt` min
 
 instance Prelude.NFData ReportGroupTrendStats where
   rnf ReportGroupTrendStats' {..} =
-    Prelude.rnf max
-      `Prelude.seq` Prelude.rnf average
+    Prelude.rnf average
+      `Prelude.seq` Prelude.rnf max
       `Prelude.seq` Prelude.rnf min

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.ListBatchInferenceJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.Personalize.ListBatchInferenceJobs
     newListBatchInferenceJobs,
 
     -- * Request Lenses
-    listBatchInferenceJobs_nextToken,
     listBatchInferenceJobs_maxResults,
+    listBatchInferenceJobs_nextToken,
     listBatchInferenceJobs_solutionVersionArn,
 
     -- * Destructuring the Response
@@ -46,7 +46,8 @@ module Amazonka.Personalize.ListBatchInferenceJobs
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,11 +55,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListBatchInferenceJobs' smart constructor.
 data ListBatchInferenceJobs = ListBatchInferenceJobs'
-  { -- | The token to request the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of batch inference job results to return in each
+  { -- | The maximum number of batch inference job results to return in each
     -- page. The default value is 100.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the solution version from which the
     -- batch inference jobs were created.
     solutionVersionArn :: Prelude.Maybe Prelude.Text
@@ -73,10 +74,10 @@ data ListBatchInferenceJobs = ListBatchInferenceJobs'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listBatchInferenceJobs_nextToken' - The token to request the next page of results.
---
 -- 'maxResults', 'listBatchInferenceJobs_maxResults' - The maximum number of batch inference job results to return in each
 -- page. The default value is 100.
+--
+-- 'nextToken', 'listBatchInferenceJobs_nextToken' - The token to request the next page of results.
 --
 -- 'solutionVersionArn', 'listBatchInferenceJobs_solutionVersionArn' - The Amazon Resource Name (ARN) of the solution version from which the
 -- batch inference jobs were created.
@@ -84,20 +85,20 @@ newListBatchInferenceJobs ::
   ListBatchInferenceJobs
 newListBatchInferenceJobs =
   ListBatchInferenceJobs'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       solutionVersionArn = Prelude.Nothing
     }
-
--- | The token to request the next page of results.
-listBatchInferenceJobs_nextToken :: Lens.Lens' ListBatchInferenceJobs (Prelude.Maybe Prelude.Text)
-listBatchInferenceJobs_nextToken = Lens.lens (\ListBatchInferenceJobs' {nextToken} -> nextToken) (\s@ListBatchInferenceJobs' {} a -> s {nextToken = a} :: ListBatchInferenceJobs)
 
 -- | The maximum number of batch inference job results to return in each
 -- page. The default value is 100.
 listBatchInferenceJobs_maxResults :: Lens.Lens' ListBatchInferenceJobs (Prelude.Maybe Prelude.Natural)
 listBatchInferenceJobs_maxResults = Lens.lens (\ListBatchInferenceJobs' {maxResults} -> maxResults) (\s@ListBatchInferenceJobs' {} a -> s {maxResults = a} :: ListBatchInferenceJobs)
+
+-- | The token to request the next page of results.
+listBatchInferenceJobs_nextToken :: Lens.Lens' ListBatchInferenceJobs (Prelude.Maybe Prelude.Text)
+listBatchInferenceJobs_nextToken = Lens.lens (\ListBatchInferenceJobs' {nextToken} -> nextToken) (\s@ListBatchInferenceJobs' {} a -> s {nextToken = a} :: ListBatchInferenceJobs)
 
 -- | The Amazon Resource Name (ARN) of the solution version from which the
 -- batch inference jobs were created.
@@ -130,60 +131,61 @@ instance Core.AWSRequest ListBatchInferenceJobs where
   type
     AWSResponse ListBatchInferenceJobs =
       ListBatchInferenceJobsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListBatchInferenceJobsResponse'
-            Prelude.<$> ( x Core..?> "batchInferenceJobs"
+            Prelude.<$> ( x Data..?> "batchInferenceJobs"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListBatchInferenceJobs where
   hashWithSalt _salt ListBatchInferenceJobs' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` solutionVersionArn
 
 instance Prelude.NFData ListBatchInferenceJobs where
   rnf ListBatchInferenceJobs' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf solutionVersionArn
 
-instance Core.ToHeaders ListBatchInferenceJobs where
+instance Data.ToHeaders ListBatchInferenceJobs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.ListBatchInferenceJobs" ::
+              Data.=# ( "AmazonPersonalize.ListBatchInferenceJobs" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListBatchInferenceJobs where
+instance Data.ToJSON ListBatchInferenceJobs where
   toJSON ListBatchInferenceJobs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            ("solutionVersionArn" Core..=)
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("solutionVersionArn" Data..=)
               Prelude.<$> solutionVersionArn
           ]
       )
 
-instance Core.ToPath ListBatchInferenceJobs where
+instance Data.ToPath ListBatchInferenceJobs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListBatchInferenceJobs where
+instance Data.ToQuery ListBatchInferenceJobs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListBatchInferenceJobsResponse' smart constructor.

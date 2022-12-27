@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.StartEventsDetectionJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Comprehend.StartEventsDetectionJob
     newStartEventsDetectionJob,
 
     -- * Request Lenses
-    startEventsDetectionJob_jobName,
     startEventsDetectionJob_clientRequestToken,
+    startEventsDetectionJob_jobName,
     startEventsDetectionJob_tags,
     startEventsDetectionJob_inputDataConfig,
     startEventsDetectionJob_outputDataConfig,
@@ -42,8 +42,8 @@ module Amazonka.Comprehend.StartEventsDetectionJob
     newStartEventsDetectionJobResponse,
 
     -- * Response Lenses
-    startEventsDetectionJobResponse_jobId,
     startEventsDetectionJobResponse_jobArn,
+    startEventsDetectionJobResponse_jobId,
     startEventsDetectionJobResponse_jobStatus,
     startEventsDetectionJobResponse_httpStatus,
   )
@@ -51,18 +51,19 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newStartEventsDetectionJob' smart constructor.
 data StartEventsDetectionJob = StartEventsDetectionJob'
-  { -- | The identifier of the events detection job.
-    jobName :: Prelude.Maybe Prelude.Text,
-    -- | An unique identifier for the request. If you don\'t set the client
+  { -- | An unique identifier for the request. If you don\'t set the client
     -- request token, Amazon Comprehend generates one.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the events detection job.
+    jobName :: Prelude.Maybe Prelude.Text,
     -- | Tags to be associated with the events detection job. A tag is a
     -- key-value pair that adds metadata to a resource used by Amazon
     -- Comprehend. For example, a tag with \"Sales\" as the key might be added
@@ -90,10 +91,10 @@ data StartEventsDetectionJob = StartEventsDetectionJob'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'jobName', 'startEventsDetectionJob_jobName' - The identifier of the events detection job.
---
 -- 'clientRequestToken', 'startEventsDetectionJob_clientRequestToken' - An unique identifier for the request. If you don\'t set the client
 -- request token, Amazon Comprehend generates one.
+--
+-- 'jobName', 'startEventsDetectionJob_jobName' - The identifier of the events detection job.
 --
 -- 'tags', 'startEventsDetectionJob_tags' - Tags to be associated with the events detection job. A tag is a
 -- key-value pair that adds metadata to a resource used by Amazon
@@ -129,8 +130,9 @@ newStartEventsDetectionJob
   pLanguageCode_
   pTargetEventTypes_ =
     StartEventsDetectionJob'
-      { jobName = Prelude.Nothing,
-        clientRequestToken = Prelude.Nothing,
+      { clientRequestToken =
+          Prelude.Nothing,
+        jobName = Prelude.Nothing,
         tags = Prelude.Nothing,
         inputDataConfig = pInputDataConfig_,
         outputDataConfig = pOutputDataConfig_,
@@ -140,14 +142,14 @@ newStartEventsDetectionJob
           Lens.coerced Lens.# pTargetEventTypes_
       }
 
--- | The identifier of the events detection job.
-startEventsDetectionJob_jobName :: Lens.Lens' StartEventsDetectionJob (Prelude.Maybe Prelude.Text)
-startEventsDetectionJob_jobName = Lens.lens (\StartEventsDetectionJob' {jobName} -> jobName) (\s@StartEventsDetectionJob' {} a -> s {jobName = a} :: StartEventsDetectionJob)
-
 -- | An unique identifier for the request. If you don\'t set the client
 -- request token, Amazon Comprehend generates one.
 startEventsDetectionJob_clientRequestToken :: Lens.Lens' StartEventsDetectionJob (Prelude.Maybe Prelude.Text)
 startEventsDetectionJob_clientRequestToken = Lens.lens (\StartEventsDetectionJob' {clientRequestToken} -> clientRequestToken) (\s@StartEventsDetectionJob' {} a -> s {clientRequestToken = a} :: StartEventsDetectionJob)
+
+-- | The identifier of the events detection job.
+startEventsDetectionJob_jobName :: Lens.Lens' StartEventsDetectionJob (Prelude.Maybe Prelude.Text)
+startEventsDetectionJob_jobName = Lens.lens (\StartEventsDetectionJob' {jobName} -> jobName) (\s@StartEventsDetectionJob' {} a -> s {jobName = a} :: StartEventsDetectionJob)
 
 -- | Tags to be associated with the events detection job. A tag is a
 -- key-value pair that adds metadata to a resource used by Amazon
@@ -181,21 +183,22 @@ instance Core.AWSRequest StartEventsDetectionJob where
   type
     AWSResponse StartEventsDetectionJob =
       StartEventsDetectionJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartEventsDetectionJobResponse'
-            Prelude.<$> (x Core..?> "JobId")
-            Prelude.<*> (x Core..?> "JobArn")
-            Prelude.<*> (x Core..?> "JobStatus")
+            Prelude.<$> (x Data..?> "JobArn")
+            Prelude.<*> (x Data..?> "JobId")
+            Prelude.<*> (x Data..?> "JobStatus")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable StartEventsDetectionJob where
   hashWithSalt _salt StartEventsDetectionJob' {..} =
-    _salt `Prelude.hashWithSalt` jobName
-      `Prelude.hashWithSalt` clientRequestToken
+    _salt `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` jobName
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` inputDataConfig
       `Prelude.hashWithSalt` outputDataConfig
@@ -205,8 +208,8 @@ instance Prelude.Hashable StartEventsDetectionJob where
 
 instance Prelude.NFData StartEventsDetectionJob where
   rnf StartEventsDetectionJob' {..} =
-    Prelude.rnf jobName
-      `Prelude.seq` Prelude.rnf clientRequestToken
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf jobName
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf inputDataConfig
       `Prelude.seq` Prelude.rnf outputDataConfig
@@ -214,53 +217,50 @@ instance Prelude.NFData StartEventsDetectionJob where
       `Prelude.seq` Prelude.rnf languageCode
       `Prelude.seq` Prelude.rnf targetEventTypes
 
-instance Core.ToHeaders StartEventsDetectionJob where
+instance Data.ToHeaders StartEventsDetectionJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.StartEventsDetectionJob" ::
+              Data.=# ( "Comprehend_20171127.StartEventsDetectionJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartEventsDetectionJob where
+instance Data.ToJSON StartEventsDetectionJob where
   toJSON StartEventsDetectionJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("JobName" Core..=) Prelude.<$> jobName,
-            ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("JobName" Data..=) Prelude.<$> jobName,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("InputDataConfig" Core..= inputDataConfig),
+              ("InputDataConfig" Data..= inputDataConfig),
             Prelude.Just
-              ("OutputDataConfig" Core..= outputDataConfig),
+              ("OutputDataConfig" Data..= outputDataConfig),
             Prelude.Just
-              ("DataAccessRoleArn" Core..= dataAccessRoleArn),
-            Prelude.Just ("LanguageCode" Core..= languageCode),
+              ("DataAccessRoleArn" Data..= dataAccessRoleArn),
+            Prelude.Just ("LanguageCode" Data..= languageCode),
             Prelude.Just
-              ("TargetEventTypes" Core..= targetEventTypes)
+              ("TargetEventTypes" Data..= targetEventTypes)
           ]
       )
 
-instance Core.ToPath StartEventsDetectionJob where
+instance Data.ToPath StartEventsDetectionJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartEventsDetectionJob where
+instance Data.ToQuery StartEventsDetectionJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartEventsDetectionJobResponse' smart constructor.
 data StartEventsDetectionJobResponse = StartEventsDetectionJobResponse'
-  { -- | An unique identifier for the request. If you don\'t set the client
-    -- request token, Amazon Comprehend generates one.
-    jobId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the events detection job. It is a
+  { -- | The Amazon Resource Name (ARN) of the events detection job. It is a
     -- unique, fully qualified identifier for the job. It includes the AWS
     -- account, Region, and the job ID. The format of the ARN is as follows:
     --
@@ -270,6 +270,9 @@ data StartEventsDetectionJobResponse = StartEventsDetectionJobResponse'
     --
     -- @arn:aws:comprehend:us-west-2:111122223333:events-detection-job\/1234abcd12ab34cd56ef1234567890ab@
     jobArn :: Prelude.Maybe Prelude.Text,
+    -- | An unique identifier for the request. If you don\'t set the client
+    -- request token, Amazon Comprehend generates one.
+    jobId :: Prelude.Maybe Prelude.Text,
     -- | The status of the events detection job.
     jobStatus :: Prelude.Maybe JobStatus,
     -- | The response's http status code.
@@ -285,9 +288,6 @@ data StartEventsDetectionJobResponse = StartEventsDetectionJobResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'jobId', 'startEventsDetectionJobResponse_jobId' - An unique identifier for the request. If you don\'t set the client
--- request token, Amazon Comprehend generates one.
---
 -- 'jobArn', 'startEventsDetectionJobResponse_jobArn' - The Amazon Resource Name (ARN) of the events detection job. It is a
 -- unique, fully qualified identifier for the job. It includes the AWS
 -- account, Region, and the job ID. The format of the ARN is as follows:
@@ -298,6 +298,9 @@ data StartEventsDetectionJobResponse = StartEventsDetectionJobResponse'
 --
 -- @arn:aws:comprehend:us-west-2:111122223333:events-detection-job\/1234abcd12ab34cd56ef1234567890ab@
 --
+-- 'jobId', 'startEventsDetectionJobResponse_jobId' - An unique identifier for the request. If you don\'t set the client
+-- request token, Amazon Comprehend generates one.
+--
 -- 'jobStatus', 'startEventsDetectionJobResponse_jobStatus' - The status of the events detection job.
 --
 -- 'httpStatus', 'startEventsDetectionJobResponse_httpStatus' - The response's http status code.
@@ -307,17 +310,12 @@ newStartEventsDetectionJobResponse ::
   StartEventsDetectionJobResponse
 newStartEventsDetectionJobResponse pHttpStatus_ =
   StartEventsDetectionJobResponse'
-    { jobId =
+    { jobArn =
         Prelude.Nothing,
-      jobArn = Prelude.Nothing,
+      jobId = Prelude.Nothing,
       jobStatus = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | An unique identifier for the request. If you don\'t set the client
--- request token, Amazon Comprehend generates one.
-startEventsDetectionJobResponse_jobId :: Lens.Lens' StartEventsDetectionJobResponse (Prelude.Maybe Prelude.Text)
-startEventsDetectionJobResponse_jobId = Lens.lens (\StartEventsDetectionJobResponse' {jobId} -> jobId) (\s@StartEventsDetectionJobResponse' {} a -> s {jobId = a} :: StartEventsDetectionJobResponse)
 
 -- | The Amazon Resource Name (ARN) of the events detection job. It is a
 -- unique, fully qualified identifier for the job. It includes the AWS
@@ -330,6 +328,11 @@ startEventsDetectionJobResponse_jobId = Lens.lens (\StartEventsDetectionJobRespo
 -- @arn:aws:comprehend:us-west-2:111122223333:events-detection-job\/1234abcd12ab34cd56ef1234567890ab@
 startEventsDetectionJobResponse_jobArn :: Lens.Lens' StartEventsDetectionJobResponse (Prelude.Maybe Prelude.Text)
 startEventsDetectionJobResponse_jobArn = Lens.lens (\StartEventsDetectionJobResponse' {jobArn} -> jobArn) (\s@StartEventsDetectionJobResponse' {} a -> s {jobArn = a} :: StartEventsDetectionJobResponse)
+
+-- | An unique identifier for the request. If you don\'t set the client
+-- request token, Amazon Comprehend generates one.
+startEventsDetectionJobResponse_jobId :: Lens.Lens' StartEventsDetectionJobResponse (Prelude.Maybe Prelude.Text)
+startEventsDetectionJobResponse_jobId = Lens.lens (\StartEventsDetectionJobResponse' {jobId} -> jobId) (\s@StartEventsDetectionJobResponse' {} a -> s {jobId = a} :: StartEventsDetectionJobResponse)
 
 -- | The status of the events detection job.
 startEventsDetectionJobResponse_jobStatus :: Lens.Lens' StartEventsDetectionJobResponse (Prelude.Maybe JobStatus)
@@ -344,7 +347,7 @@ instance
     StartEventsDetectionJobResponse
   where
   rnf StartEventsDetectionJobResponse' {..} =
-    Prelude.rnf jobId
-      `Prelude.seq` Prelude.rnf jobArn
+    Prelude.rnf jobArn
+      `Prelude.seq` Prelude.rnf jobId
       `Prelude.seq` Prelude.rnf jobStatus
       `Prelude.seq` Prelude.rnf httpStatus

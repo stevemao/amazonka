@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationCostProfiler.ImportApplicationUsage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.ApplicationCostProfiler.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,13 +86,14 @@ instance Core.AWSRequest ImportApplicationUsage where
   type
     AWSResponse ImportApplicationUsage =
       ImportApplicationUsageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ImportApplicationUsageResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "importId")
+            Prelude.<*> (x Data..:> "importId")
       )
 
 instance Prelude.Hashable ImportApplicationUsage where
@@ -102,30 +104,30 @@ instance Prelude.NFData ImportApplicationUsage where
   rnf ImportApplicationUsage' {..} =
     Prelude.rnf sourceS3Location
 
-instance Core.ToHeaders ImportApplicationUsage where
+instance Data.ToHeaders ImportApplicationUsage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ImportApplicationUsage where
+instance Data.ToJSON ImportApplicationUsage where
   toJSON ImportApplicationUsage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("sourceS3Location" Core..= sourceS3Location)
+              ("sourceS3Location" Data..= sourceS3Location)
           ]
       )
 
-instance Core.ToPath ImportApplicationUsage where
+instance Data.ToPath ImportApplicationUsage where
   toPath = Prelude.const "/importApplicationUsage"
 
-instance Core.ToQuery ImportApplicationUsage where
+instance Data.ToQuery ImportApplicationUsage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newImportApplicationUsageResponse' smart constructor.

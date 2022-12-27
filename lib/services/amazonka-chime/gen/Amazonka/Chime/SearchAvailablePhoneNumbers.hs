@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.SearchAvailablePhoneNumbers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,14 +31,14 @@ module Amazonka.Chime.SearchAvailablePhoneNumbers
     newSearchAvailablePhoneNumbers,
 
     -- * Request Lenses
+    searchAvailablePhoneNumbers_areaCode,
+    searchAvailablePhoneNumbers_city,
+    searchAvailablePhoneNumbers_country,
+    searchAvailablePhoneNumbers_maxResults,
+    searchAvailablePhoneNumbers_nextToken,
     searchAvailablePhoneNumbers_phoneNumberType,
     searchAvailablePhoneNumbers_state,
     searchAvailablePhoneNumbers_tollFreePrefix,
-    searchAvailablePhoneNumbers_country,
-    searchAvailablePhoneNumbers_nextToken,
-    searchAvailablePhoneNumbers_city,
-    searchAvailablePhoneNumbers_areaCode,
-    searchAvailablePhoneNumbers_maxResults,
 
     -- * Destructuring the Response
     SearchAvailablePhoneNumbersResponse (..),
@@ -53,14 +53,26 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newSearchAvailablePhoneNumbers' smart constructor.
 data SearchAvailablePhoneNumbers = SearchAvailablePhoneNumbers'
-  { -- | The phone number type used to filter results. Required for non-US
+  { -- | The area code used to filter results. Only applies to the US.
+    areaCode :: Prelude.Maybe Prelude.Text,
+    -- | The city used to filter results. Only applies to the US.
+    city :: Prelude.Maybe Prelude.Text,
+    -- | The country used to filter results. Defaults to the US Format: ISO
+    -- 3166-1 alpha-2.
+    country :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return in a single call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token used to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The phone number type used to filter results. Required for non-US
     -- numbers.
     phoneNumberType :: Prelude.Maybe PhoneNumberType,
     -- | The state used to filter results. Required only if you provide @City@.
@@ -68,18 +80,7 @@ data SearchAvailablePhoneNumbers = SearchAvailablePhoneNumbers'
     state :: Prelude.Maybe Prelude.Text,
     -- | The toll-free prefix that you use to filter results. Only applies to the
     -- US.
-    tollFreePrefix :: Prelude.Maybe Prelude.Text,
-    -- | The country used to filter results. Defaults to the US Format: ISO
-    -- 3166-1 alpha-2.
-    country :: Prelude.Maybe Prelude.Text,
-    -- | The token used to retrieve the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The city used to filter results. Only applies to the US.
-    city :: Prelude.Maybe Prelude.Text,
-    -- | The area code used to filter results. Only applies to the US.
-    areaCode :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    tollFreePrefix :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -91,6 +92,17 @@ data SearchAvailablePhoneNumbers = SearchAvailablePhoneNumbers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'areaCode', 'searchAvailablePhoneNumbers_areaCode' - The area code used to filter results. Only applies to the US.
+--
+-- 'city', 'searchAvailablePhoneNumbers_city' - The city used to filter results. Only applies to the US.
+--
+-- 'country', 'searchAvailablePhoneNumbers_country' - The country used to filter results. Defaults to the US Format: ISO
+-- 3166-1 alpha-2.
+--
+-- 'maxResults', 'searchAvailablePhoneNumbers_maxResults' - The maximum number of results to return in a single call.
+--
+-- 'nextToken', 'searchAvailablePhoneNumbers_nextToken' - The token used to retrieve the next page of results.
+--
 -- 'phoneNumberType', 'searchAvailablePhoneNumbers_phoneNumberType' - The phone number type used to filter results. Required for non-US
 -- numbers.
 --
@@ -99,31 +111,41 @@ data SearchAvailablePhoneNumbers = SearchAvailablePhoneNumbers'
 --
 -- 'tollFreePrefix', 'searchAvailablePhoneNumbers_tollFreePrefix' - The toll-free prefix that you use to filter results. Only applies to the
 -- US.
---
--- 'country', 'searchAvailablePhoneNumbers_country' - The country used to filter results. Defaults to the US Format: ISO
--- 3166-1 alpha-2.
---
--- 'nextToken', 'searchAvailablePhoneNumbers_nextToken' - The token used to retrieve the next page of results.
---
--- 'city', 'searchAvailablePhoneNumbers_city' - The city used to filter results. Only applies to the US.
---
--- 'areaCode', 'searchAvailablePhoneNumbers_areaCode' - The area code used to filter results. Only applies to the US.
---
--- 'maxResults', 'searchAvailablePhoneNumbers_maxResults' - The maximum number of results to return in a single call.
 newSearchAvailablePhoneNumbers ::
   SearchAvailablePhoneNumbers
 newSearchAvailablePhoneNumbers =
   SearchAvailablePhoneNumbers'
-    { phoneNumberType =
+    { areaCode =
         Prelude.Nothing,
-      state = Prelude.Nothing,
-      tollFreePrefix = Prelude.Nothing,
-      country = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       city = Prelude.Nothing,
-      areaCode = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      country = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      phoneNumberType = Prelude.Nothing,
+      state = Prelude.Nothing,
+      tollFreePrefix = Prelude.Nothing
     }
+
+-- | The area code used to filter results. Only applies to the US.
+searchAvailablePhoneNumbers_areaCode :: Lens.Lens' SearchAvailablePhoneNumbers (Prelude.Maybe Prelude.Text)
+searchAvailablePhoneNumbers_areaCode = Lens.lens (\SearchAvailablePhoneNumbers' {areaCode} -> areaCode) (\s@SearchAvailablePhoneNumbers' {} a -> s {areaCode = a} :: SearchAvailablePhoneNumbers)
+
+-- | The city used to filter results. Only applies to the US.
+searchAvailablePhoneNumbers_city :: Lens.Lens' SearchAvailablePhoneNumbers (Prelude.Maybe Prelude.Text)
+searchAvailablePhoneNumbers_city = Lens.lens (\SearchAvailablePhoneNumbers' {city} -> city) (\s@SearchAvailablePhoneNumbers' {} a -> s {city = a} :: SearchAvailablePhoneNumbers)
+
+-- | The country used to filter results. Defaults to the US Format: ISO
+-- 3166-1 alpha-2.
+searchAvailablePhoneNumbers_country :: Lens.Lens' SearchAvailablePhoneNumbers (Prelude.Maybe Prelude.Text)
+searchAvailablePhoneNumbers_country = Lens.lens (\SearchAvailablePhoneNumbers' {country} -> country) (\s@SearchAvailablePhoneNumbers' {} a -> s {country = a} :: SearchAvailablePhoneNumbers)
+
+-- | The maximum number of results to return in a single call.
+searchAvailablePhoneNumbers_maxResults :: Lens.Lens' SearchAvailablePhoneNumbers (Prelude.Maybe Prelude.Natural)
+searchAvailablePhoneNumbers_maxResults = Lens.lens (\SearchAvailablePhoneNumbers' {maxResults} -> maxResults) (\s@SearchAvailablePhoneNumbers' {} a -> s {maxResults = a} :: SearchAvailablePhoneNumbers)
+
+-- | The token used to retrieve the next page of results.
+searchAvailablePhoneNumbers_nextToken :: Lens.Lens' SearchAvailablePhoneNumbers (Prelude.Maybe Prelude.Text)
+searchAvailablePhoneNumbers_nextToken = Lens.lens (\SearchAvailablePhoneNumbers' {nextToken} -> nextToken) (\s@SearchAvailablePhoneNumbers' {} a -> s {nextToken = a} :: SearchAvailablePhoneNumbers)
 
 -- | The phone number type used to filter results. Required for non-US
 -- numbers.
@@ -140,89 +162,69 @@ searchAvailablePhoneNumbers_state = Lens.lens (\SearchAvailablePhoneNumbers' {st
 searchAvailablePhoneNumbers_tollFreePrefix :: Lens.Lens' SearchAvailablePhoneNumbers (Prelude.Maybe Prelude.Text)
 searchAvailablePhoneNumbers_tollFreePrefix = Lens.lens (\SearchAvailablePhoneNumbers' {tollFreePrefix} -> tollFreePrefix) (\s@SearchAvailablePhoneNumbers' {} a -> s {tollFreePrefix = a} :: SearchAvailablePhoneNumbers)
 
--- | The country used to filter results. Defaults to the US Format: ISO
--- 3166-1 alpha-2.
-searchAvailablePhoneNumbers_country :: Lens.Lens' SearchAvailablePhoneNumbers (Prelude.Maybe Prelude.Text)
-searchAvailablePhoneNumbers_country = Lens.lens (\SearchAvailablePhoneNumbers' {country} -> country) (\s@SearchAvailablePhoneNumbers' {} a -> s {country = a} :: SearchAvailablePhoneNumbers)
-
--- | The token used to retrieve the next page of results.
-searchAvailablePhoneNumbers_nextToken :: Lens.Lens' SearchAvailablePhoneNumbers (Prelude.Maybe Prelude.Text)
-searchAvailablePhoneNumbers_nextToken = Lens.lens (\SearchAvailablePhoneNumbers' {nextToken} -> nextToken) (\s@SearchAvailablePhoneNumbers' {} a -> s {nextToken = a} :: SearchAvailablePhoneNumbers)
-
--- | The city used to filter results. Only applies to the US.
-searchAvailablePhoneNumbers_city :: Lens.Lens' SearchAvailablePhoneNumbers (Prelude.Maybe Prelude.Text)
-searchAvailablePhoneNumbers_city = Lens.lens (\SearchAvailablePhoneNumbers' {city} -> city) (\s@SearchAvailablePhoneNumbers' {} a -> s {city = a} :: SearchAvailablePhoneNumbers)
-
--- | The area code used to filter results. Only applies to the US.
-searchAvailablePhoneNumbers_areaCode :: Lens.Lens' SearchAvailablePhoneNumbers (Prelude.Maybe Prelude.Text)
-searchAvailablePhoneNumbers_areaCode = Lens.lens (\SearchAvailablePhoneNumbers' {areaCode} -> areaCode) (\s@SearchAvailablePhoneNumbers' {} a -> s {areaCode = a} :: SearchAvailablePhoneNumbers)
-
--- | The maximum number of results to return in a single call.
-searchAvailablePhoneNumbers_maxResults :: Lens.Lens' SearchAvailablePhoneNumbers (Prelude.Maybe Prelude.Natural)
-searchAvailablePhoneNumbers_maxResults = Lens.lens (\SearchAvailablePhoneNumbers' {maxResults} -> maxResults) (\s@SearchAvailablePhoneNumbers' {} a -> s {maxResults = a} :: SearchAvailablePhoneNumbers)
-
 instance Core.AWSRequest SearchAvailablePhoneNumbers where
   type
     AWSResponse SearchAvailablePhoneNumbers =
       SearchAvailablePhoneNumbersResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SearchAvailablePhoneNumbersResponse'
-            Prelude.<$> ( x Core..?> "E164PhoneNumbers"
+            Prelude.<$> ( x Data..?> "E164PhoneNumbers"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable SearchAvailablePhoneNumbers where
   hashWithSalt _salt SearchAvailablePhoneNumbers' {..} =
-    _salt `Prelude.hashWithSalt` phoneNumberType
+    _salt `Prelude.hashWithSalt` areaCode
+      `Prelude.hashWithSalt` city
+      `Prelude.hashWithSalt` country
+      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` phoneNumberType
       `Prelude.hashWithSalt` state
       `Prelude.hashWithSalt` tollFreePrefix
-      `Prelude.hashWithSalt` country
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` city
-      `Prelude.hashWithSalt` areaCode
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData SearchAvailablePhoneNumbers where
   rnf SearchAvailablePhoneNumbers' {..} =
-    Prelude.rnf phoneNumberType
+    Prelude.rnf areaCode
+      `Prelude.seq` Prelude.rnf city
+      `Prelude.seq` Prelude.rnf country
+      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf phoneNumberType
       `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf tollFreePrefix
-      `Prelude.seq` Prelude.rnf country
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf city
-      `Prelude.seq` Prelude.rnf areaCode
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders SearchAvailablePhoneNumbers where
+instance Data.ToHeaders SearchAvailablePhoneNumbers where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SearchAvailablePhoneNumbers where
+instance Data.ToPath SearchAvailablePhoneNumbers where
   toPath = Prelude.const "/search"
 
-instance Core.ToQuery SearchAvailablePhoneNumbers where
+instance Data.ToQuery SearchAvailablePhoneNumbers where
   toQuery SearchAvailablePhoneNumbers' {..} =
     Prelude.mconcat
-      [ "phone-number-type" Core.=: phoneNumberType,
-        "state" Core.=: state,
-        "toll-free-prefix" Core.=: tollFreePrefix,
-        "country" Core.=: country,
-        "next-token" Core.=: nextToken,
-        "city" Core.=: city,
-        "area-code" Core.=: areaCode,
-        "max-results" Core.=: maxResults,
+      [ "area-code" Data.=: areaCode,
+        "city" Data.=: city,
+        "country" Data.=: country,
+        "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken,
+        "phone-number-type" Data.=: phoneNumberType,
+        "state" Data.=: state,
+        "toll-free-prefix" Data.=: tollFreePrefix,
         "type=phone-numbers"
       ]
 
 -- | /See:/ 'newSearchAvailablePhoneNumbersResponse' smart constructor.
 data SearchAvailablePhoneNumbersResponse = SearchAvailablePhoneNumbersResponse'
   { -- | List of phone numbers, in E.164 format.
-    e164PhoneNumbers :: Prelude.Maybe [Core.Sensitive Prelude.Text],
+    e164PhoneNumbers :: Prelude.Maybe [Data.Sensitive Prelude.Text],
     -- | The token used to retrieve the next page of search results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.

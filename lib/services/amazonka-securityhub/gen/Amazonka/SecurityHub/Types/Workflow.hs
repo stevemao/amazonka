@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.Workflow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.Workflow where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.WorkflowStatus
 
@@ -126,11 +127,11 @@ newWorkflow = Workflow' {status = Prelude.Nothing}
 workflow_status :: Lens.Lens' Workflow (Prelude.Maybe WorkflowStatus)
 workflow_status = Lens.lens (\Workflow' {status} -> status) (\s@Workflow' {} a -> s {status = a} :: Workflow)
 
-instance Core.FromJSON Workflow where
+instance Data.FromJSON Workflow where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Workflow"
-      (\x -> Workflow' Prelude.<$> (x Core..:? "Status"))
+      (\x -> Workflow' Prelude.<$> (x Data..:? "Status"))
 
 instance Prelude.Hashable Workflow where
   hashWithSalt _salt Workflow' {..} =
@@ -139,9 +140,9 @@ instance Prelude.Hashable Workflow where
 instance Prelude.NFData Workflow where
   rnf Workflow' {..} = Prelude.rnf status
 
-instance Core.ToJSON Workflow where
+instance Data.ToJSON Workflow where
   toJSON Workflow' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Status" Core..=) Prelude.<$> status]
+          [("Status" Data..=) Prelude.<$> status]
       )

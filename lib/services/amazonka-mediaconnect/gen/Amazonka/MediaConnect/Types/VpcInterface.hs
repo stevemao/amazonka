@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.Types.VpcInterface
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConnect.Types.VpcInterface where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types.NetworkInterfaceType
 import qualified Amazonka.Prelude as Prelude
 
@@ -40,7 +41,7 @@ data VpcInterface = VpcInterface'
     -- | Role Arn MediaConnect can assumes to create ENIs in customer\'s account
     roleArn :: Prelude.Text,
     -- | Immutable and has to be a unique against other VpcInterfaces in this
-    -- Flow
+    -- Flow.
     name :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -65,7 +66,7 @@ data VpcInterface = VpcInterface'
 -- 'roleArn', 'vpcInterface_roleArn' - Role Arn MediaConnect can assumes to create ENIs in customer\'s account
 --
 -- 'name', 'vpcInterface_name' - Immutable and has to be a unique against other VpcInterfaces in this
--- Flow
+-- Flow.
 newVpcInterface ::
   -- | 'networkInterfaceType'
   NetworkInterfaceType ->
@@ -113,26 +114,26 @@ vpcInterface_roleArn :: Lens.Lens' VpcInterface Prelude.Text
 vpcInterface_roleArn = Lens.lens (\VpcInterface' {roleArn} -> roleArn) (\s@VpcInterface' {} a -> s {roleArn = a} :: VpcInterface)
 
 -- | Immutable and has to be a unique against other VpcInterfaces in this
--- Flow
+-- Flow.
 vpcInterface_name :: Lens.Lens' VpcInterface Prelude.Text
 vpcInterface_name = Lens.lens (\VpcInterface' {name} -> name) (\s@VpcInterface' {} a -> s {name = a} :: VpcInterface)
 
-instance Core.FromJSON VpcInterface where
+instance Data.FromJSON VpcInterface where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VpcInterface"
       ( \x ->
           VpcInterface'
-            Prelude.<$> (x Core..: "networkInterfaceType")
-            Prelude.<*> ( x Core..:? "networkInterfaceIds"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..: "networkInterfaceType")
+            Prelude.<*> ( x Data..:? "networkInterfaceIds"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..: "subnetId")
-            Prelude.<*> ( x Core..:? "securityGroupIds"
-                            Core..!= Prelude.mempty
+            Prelude.<*> (x Data..: "subnetId")
+            Prelude.<*> ( x Data..:? "securityGroupIds"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..: "roleArn")
-            Prelude.<*> (x Core..: "name")
+            Prelude.<*> (x Data..: "roleArn")
+            Prelude.<*> (x Data..: "name")
       )
 
 instance Prelude.Hashable VpcInterface where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.IAMPolicyAssignmentSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.QuickSight.Types.IAMPolicyAssignmentSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.AssignmentStatus
 
--- | IAMpolicy assignment summary.
+-- | IAM policy assignment summary.
 --
 -- /See:/ 'newIAMPolicyAssignmentSummary' smart constructor.
 data IAMPolicyAssignmentSummary = IAMPolicyAssignmentSummary'
@@ -63,14 +64,14 @@ iAMPolicyAssignmentSummary_assignmentName = Lens.lens (\IAMPolicyAssignmentSumma
 iAMPolicyAssignmentSummary_assignmentStatus :: Lens.Lens' IAMPolicyAssignmentSummary (Prelude.Maybe AssignmentStatus)
 iAMPolicyAssignmentSummary_assignmentStatus = Lens.lens (\IAMPolicyAssignmentSummary' {assignmentStatus} -> assignmentStatus) (\s@IAMPolicyAssignmentSummary' {} a -> s {assignmentStatus = a} :: IAMPolicyAssignmentSummary)
 
-instance Core.FromJSON IAMPolicyAssignmentSummary where
+instance Data.FromJSON IAMPolicyAssignmentSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IAMPolicyAssignmentSummary"
       ( \x ->
           IAMPolicyAssignmentSummary'
-            Prelude.<$> (x Core..:? "AssignmentName")
-            Prelude.<*> (x Core..:? "AssignmentStatus")
+            Prelude.<$> (x Data..:? "AssignmentName")
+            Prelude.<*> (x Data..:? "AssignmentStatus")
       )
 
 instance Prelude.Hashable IAMPolicyAssignmentSummary where

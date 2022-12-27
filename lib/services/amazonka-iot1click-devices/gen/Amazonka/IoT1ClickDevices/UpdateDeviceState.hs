@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT1ClickDevices.UpdateDeviceState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IoT1ClickDevices.UpdateDeviceState
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT1ClickDevices.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,7 +90,8 @@ instance Core.AWSRequest UpdateDeviceState where
   type
     AWSResponse UpdateDeviceState =
       UpdateDeviceStateResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -107,30 +109,30 @@ instance Prelude.NFData UpdateDeviceState where
     Prelude.rnf enabled
       `Prelude.seq` Prelude.rnf deviceId
 
-instance Core.ToHeaders UpdateDeviceState where
+instance Data.ToHeaders UpdateDeviceState where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDeviceState where
+instance Data.ToJSON UpdateDeviceState where
   toJSON UpdateDeviceState' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("enabled" Core..=) Prelude.<$> enabled]
+          [("enabled" Data..=) Prelude.<$> enabled]
       )
 
-instance Core.ToPath UpdateDeviceState where
+instance Data.ToPath UpdateDeviceState where
   toPath UpdateDeviceState' {..} =
     Prelude.mconcat
-      ["/devices/", Core.toBS deviceId, "/state"]
+      ["/devices/", Data.toBS deviceId, "/state"]
 
-instance Core.ToQuery UpdateDeviceState where
+instance Data.ToQuery UpdateDeviceState where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDeviceStateResponse' smart constructor.

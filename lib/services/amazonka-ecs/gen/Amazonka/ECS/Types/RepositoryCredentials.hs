@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.Types.RepositoryCredentials
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ECS.Types.RepositoryCredentials where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The repository credentials for private registry authentication.
@@ -30,11 +31,11 @@ data RepositoryCredentials = RepositoryCredentials'
   { -- | The Amazon Resource Name (ARN) of the secret containing the private
     -- repository credentials.
     --
-    -- When you are using the Amazon ECS API, CLI, or Amazon Web Services SDK,
-    -- if the secret exists in the same Region as the task that you are
-    -- launching then you can use either the full ARN or the name of the
-    -- secret. When you are using the Amazon Web Services Management Console,
-    -- you must specify the full ARN of the secret.
+    -- When you use the Amazon ECS API, CLI, or Amazon Web Services SDK, if the
+    -- secret exists in the same Region as the task that you\'re launching then
+    -- you can use either the full ARN or the name of the secret. When you use
+    -- the Amazon Web Services Management Console, you must specify the full
+    -- ARN of the secret.
     credentialsParameter :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -50,11 +51,11 @@ data RepositoryCredentials = RepositoryCredentials'
 -- 'credentialsParameter', 'repositoryCredentials_credentialsParameter' - The Amazon Resource Name (ARN) of the secret containing the private
 -- repository credentials.
 --
--- When you are using the Amazon ECS API, CLI, or Amazon Web Services SDK,
--- if the secret exists in the same Region as the task that you are
--- launching then you can use either the full ARN or the name of the
--- secret. When you are using the Amazon Web Services Management Console,
--- you must specify the full ARN of the secret.
+-- When you use the Amazon ECS API, CLI, or Amazon Web Services SDK, if the
+-- secret exists in the same Region as the task that you\'re launching then
+-- you can use either the full ARN or the name of the secret. When you use
+-- the Amazon Web Services Management Console, you must specify the full
+-- ARN of the secret.
 newRepositoryCredentials ::
   -- | 'credentialsParameter'
   Prelude.Text ->
@@ -68,21 +69,21 @@ newRepositoryCredentials pCredentialsParameter_ =
 -- | The Amazon Resource Name (ARN) of the secret containing the private
 -- repository credentials.
 --
--- When you are using the Amazon ECS API, CLI, or Amazon Web Services SDK,
--- if the secret exists in the same Region as the task that you are
--- launching then you can use either the full ARN or the name of the
--- secret. When you are using the Amazon Web Services Management Console,
--- you must specify the full ARN of the secret.
+-- When you use the Amazon ECS API, CLI, or Amazon Web Services SDK, if the
+-- secret exists in the same Region as the task that you\'re launching then
+-- you can use either the full ARN or the name of the secret. When you use
+-- the Amazon Web Services Management Console, you must specify the full
+-- ARN of the secret.
 repositoryCredentials_credentialsParameter :: Lens.Lens' RepositoryCredentials Prelude.Text
 repositoryCredentials_credentialsParameter = Lens.lens (\RepositoryCredentials' {credentialsParameter} -> credentialsParameter) (\s@RepositoryCredentials' {} a -> s {credentialsParameter = a} :: RepositoryCredentials)
 
-instance Core.FromJSON RepositoryCredentials where
+instance Data.FromJSON RepositoryCredentials where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RepositoryCredentials"
       ( \x ->
           RepositoryCredentials'
-            Prelude.<$> (x Core..: "credentialsParameter")
+            Prelude.<$> (x Data..: "credentialsParameter")
       )
 
 instance Prelude.Hashable RepositoryCredentials where
@@ -93,13 +94,13 @@ instance Prelude.NFData RepositoryCredentials where
   rnf RepositoryCredentials' {..} =
     Prelude.rnf credentialsParameter
 
-instance Core.ToJSON RepositoryCredentials where
+instance Data.ToJSON RepositoryCredentials where
   toJSON RepositoryCredentials' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "credentialsParameter"
-                  Core..= credentialsParameter
+                  Data..= credentialsParameter
               )
           ]
       )

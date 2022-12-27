@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.ColumnGroupColumnSchema
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.ColumnGroupColumnSchema where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure describing the name, data type, and geographic role of the
@@ -51,13 +52,13 @@ newColumnGroupColumnSchema =
 columnGroupColumnSchema_name :: Lens.Lens' ColumnGroupColumnSchema (Prelude.Maybe Prelude.Text)
 columnGroupColumnSchema_name = Lens.lens (\ColumnGroupColumnSchema' {name} -> name) (\s@ColumnGroupColumnSchema' {} a -> s {name = a} :: ColumnGroupColumnSchema)
 
-instance Core.FromJSON ColumnGroupColumnSchema where
+instance Data.FromJSON ColumnGroupColumnSchema where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ColumnGroupColumnSchema"
       ( \x ->
           ColumnGroupColumnSchema'
-            Prelude.<$> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name")
       )
 
 instance Prelude.Hashable ColumnGroupColumnSchema where
@@ -66,3 +67,10 @@ instance Prelude.Hashable ColumnGroupColumnSchema where
 
 instance Prelude.NFData ColumnGroupColumnSchema where
   rnf ColumnGroupColumnSchema' {..} = Prelude.rnf name
+
+instance Data.ToJSON ColumnGroupColumnSchema where
+  toJSON ColumnGroupColumnSchema' {..} =
+    Data.object
+      ( Prelude.catMaybes
+          [("Name" Data..=) Prelude.<$> name]
+      )

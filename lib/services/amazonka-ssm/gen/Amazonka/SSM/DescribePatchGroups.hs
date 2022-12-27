@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.DescribePatchGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.SSM.DescribePatchGroups
 
     -- * Request Lenses
     describePatchGroups_filters,
-    describePatchGroups_nextToken,
     describePatchGroups_maxResults,
+    describePatchGroups_nextToken,
 
     -- * Destructuring the Response
     DescribePatchGroupsResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.SSM.DescribePatchGroups
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,11 +66,11 @@ data DescribePatchGroups = DescribePatchGroups'
     --
     --     Sample values: @AMAZON_LINUX@ | @SUSE@ | @WINDOWS@
     filters :: Prelude.Maybe [PatchOrchestratorFilter],
+    -- | The maximum number of patch groups to return (per page).
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The token for the next set of items to return. (You received this token
     -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of patch groups to return (per page).
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -93,17 +94,17 @@ data DescribePatchGroups = DescribePatchGroups'
 --
 --     Sample values: @AMAZON_LINUX@ | @SUSE@ | @WINDOWS@
 --
+-- 'maxResults', 'describePatchGroups_maxResults' - The maximum number of patch groups to return (per page).
+--
 -- 'nextToken', 'describePatchGroups_nextToken' - The token for the next set of items to return. (You received this token
 -- from a previous call.)
---
--- 'maxResults', 'describePatchGroups_maxResults' - The maximum number of patch groups to return (per page).
 newDescribePatchGroups ::
   DescribePatchGroups
 newDescribePatchGroups =
   DescribePatchGroups'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | Each element in the array is a structure containing a key-value pair.
@@ -120,14 +121,14 @@ newDescribePatchGroups =
 describePatchGroups_filters :: Lens.Lens' DescribePatchGroups (Prelude.Maybe [PatchOrchestratorFilter])
 describePatchGroups_filters = Lens.lens (\DescribePatchGroups' {filters} -> filters) (\s@DescribePatchGroups' {} a -> s {filters = a} :: DescribePatchGroups) Prelude.. Lens.mapping Lens.coerced
 
+-- | The maximum number of patch groups to return (per page).
+describePatchGroups_maxResults :: Lens.Lens' DescribePatchGroups (Prelude.Maybe Prelude.Natural)
+describePatchGroups_maxResults = Lens.lens (\DescribePatchGroups' {maxResults} -> maxResults) (\s@DescribePatchGroups' {} a -> s {maxResults = a} :: DescribePatchGroups)
+
 -- | The token for the next set of items to return. (You received this token
 -- from a previous call.)
 describePatchGroups_nextToken :: Lens.Lens' DescribePatchGroups (Prelude.Maybe Prelude.Text)
 describePatchGroups_nextToken = Lens.lens (\DescribePatchGroups' {nextToken} -> nextToken) (\s@DescribePatchGroups' {} a -> s {nextToken = a} :: DescribePatchGroups)
-
--- | The maximum number of patch groups to return (per page).
-describePatchGroups_maxResults :: Lens.Lens' DescribePatchGroups (Prelude.Maybe Prelude.Natural)
-describePatchGroups_maxResults = Lens.lens (\DescribePatchGroups' {maxResults} -> maxResults) (\s@DescribePatchGroups' {} a -> s {maxResults = a} :: DescribePatchGroups)
 
 instance Core.AWSPager DescribePatchGroups where
   page rq rs
@@ -155,57 +156,58 @@ instance Core.AWSRequest DescribePatchGroups where
   type
     AWSResponse DescribePatchGroups =
       DescribePatchGroupsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePatchGroupsResponse'
-            Prelude.<$> (x Core..?> "Mappings" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Mappings" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribePatchGroups where
   hashWithSalt _salt DescribePatchGroups' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribePatchGroups where
   rnf DescribePatchGroups' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribePatchGroups where
+instance Data.ToHeaders DescribePatchGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.DescribePatchGroups" ::
+              Data.=# ( "AmazonSSM.DescribePatchGroups" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribePatchGroups where
+instance Data.ToJSON DescribePatchGroups where
   toJSON DescribePatchGroups' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath DescribePatchGroups where
+instance Data.ToPath DescribePatchGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribePatchGroups where
+instance Data.ToQuery DescribePatchGroups where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribePatchGroupsResponse' smart constructor.

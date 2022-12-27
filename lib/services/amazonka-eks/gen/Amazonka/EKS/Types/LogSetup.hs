@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.Types.LogSetup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EKS.Types.LogSetup where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EKS.Types.LogType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object representing the enabled or disabled Kubernetes control plane
@@ -72,14 +73,14 @@ logSetup_enabled = Lens.lens (\LogSetup' {enabled} -> enabled) (\s@LogSetup' {} 
 logSetup_types :: Lens.Lens' LogSetup (Prelude.Maybe [LogType])
 logSetup_types = Lens.lens (\LogSetup' {types} -> types) (\s@LogSetup' {} a -> s {types = a} :: LogSetup) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON LogSetup where
+instance Data.FromJSON LogSetup where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LogSetup"
       ( \x ->
           LogSetup'
-            Prelude.<$> (x Core..:? "enabled")
-            Prelude.<*> (x Core..:? "types" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "enabled")
+            Prelude.<*> (x Data..:? "types" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable LogSetup where
@@ -91,11 +92,11 @@ instance Prelude.NFData LogSetup where
   rnf LogSetup' {..} =
     Prelude.rnf enabled `Prelude.seq` Prelude.rnf types
 
-instance Core.ToJSON LogSetup where
+instance Data.ToJSON LogSetup where
   toJSON LogSetup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("enabled" Core..=) Prelude.<$> enabled,
-            ("types" Core..=) Prelude.<$> types
+          [ ("enabled" Data..=) Prelude.<$> enabled,
+            ("types" Data..=) Prelude.<$> types
           ]
       )

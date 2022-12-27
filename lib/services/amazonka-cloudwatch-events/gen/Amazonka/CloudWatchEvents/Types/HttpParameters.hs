@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.HttpParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchEvents.Types.HttpParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | These are custom parameter to be used when the target is an API Gateway
@@ -30,15 +31,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newHttpParameters' smart constructor.
 data HttpParameters = HttpParameters'
-  { -- | The path parameter values to be used to populate API Gateway REST API or
+  { -- | The headers that need to be sent as part of request invoking the API
+    -- Gateway REST API or EventBridge ApiDestination.
+    headerParameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The path parameter values to be used to populate API Gateway REST API or
     -- EventBridge ApiDestination path wildcards (\"*\").
     pathParameterValues :: Prelude.Maybe [Prelude.Text],
     -- | The query string keys\/values that need to be sent as part of request
     -- invoking the API Gateway REST API or EventBridge ApiDestination.
-    queryStringParameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The headers that need to be sent as part of request invoking the API
-    -- Gateway REST API or EventBridge ApiDestination.
-    headerParameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
+    queryStringParameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,23 +51,27 @@ data HttpParameters = HttpParameters'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'headerParameters', 'httpParameters_headerParameters' - The headers that need to be sent as part of request invoking the API
+-- Gateway REST API or EventBridge ApiDestination.
+--
 -- 'pathParameterValues', 'httpParameters_pathParameterValues' - The path parameter values to be used to populate API Gateway REST API or
 -- EventBridge ApiDestination path wildcards (\"*\").
 --
 -- 'queryStringParameters', 'httpParameters_queryStringParameters' - The query string keys\/values that need to be sent as part of request
 -- invoking the API Gateway REST API or EventBridge ApiDestination.
---
--- 'headerParameters', 'httpParameters_headerParameters' - The headers that need to be sent as part of request invoking the API
--- Gateway REST API or EventBridge ApiDestination.
 newHttpParameters ::
   HttpParameters
 newHttpParameters =
   HttpParameters'
-    { pathParameterValues =
-        Prelude.Nothing,
-      queryStringParameters = Prelude.Nothing,
-      headerParameters = Prelude.Nothing
+    { headerParameters = Prelude.Nothing,
+      pathParameterValues = Prelude.Nothing,
+      queryStringParameters = Prelude.Nothing
     }
+
+-- | The headers that need to be sent as part of request invoking the API
+-- Gateway REST API or EventBridge ApiDestination.
+httpParameters_headerParameters :: Lens.Lens' HttpParameters (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
+httpParameters_headerParameters = Lens.lens (\HttpParameters' {headerParameters} -> headerParameters) (\s@HttpParameters' {} a -> s {headerParameters = a} :: HttpParameters) Prelude.. Lens.mapping Lens.coerced
 
 -- | The path parameter values to be used to populate API Gateway REST API or
 -- EventBridge ApiDestination path wildcards (\"*\").
@@ -78,49 +83,44 @@ httpParameters_pathParameterValues = Lens.lens (\HttpParameters' {pathParameterV
 httpParameters_queryStringParameters :: Lens.Lens' HttpParameters (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 httpParameters_queryStringParameters = Lens.lens (\HttpParameters' {queryStringParameters} -> queryStringParameters) (\s@HttpParameters' {} a -> s {queryStringParameters = a} :: HttpParameters) Prelude.. Lens.mapping Lens.coerced
 
--- | The headers that need to be sent as part of request invoking the API
--- Gateway REST API or EventBridge ApiDestination.
-httpParameters_headerParameters :: Lens.Lens' HttpParameters (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
-httpParameters_headerParameters = Lens.lens (\HttpParameters' {headerParameters} -> headerParameters) (\s@HttpParameters' {} a -> s {headerParameters = a} :: HttpParameters) Prelude.. Lens.mapping Lens.coerced
-
-instance Core.FromJSON HttpParameters where
+instance Data.FromJSON HttpParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HttpParameters"
       ( \x ->
           HttpParameters'
-            Prelude.<$> ( x Core..:? "PathParameterValues"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "HeaderParameters"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> ( x Core..:? "QueryStringParameters"
-                            Core..!= Prelude.mempty
+            Prelude.<*> ( x Data..:? "PathParameterValues"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> ( x Core..:? "HeaderParameters"
-                            Core..!= Prelude.mempty
+            Prelude.<*> ( x Data..:? "QueryStringParameters"
+                            Data..!= Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable HttpParameters where
   hashWithSalt _salt HttpParameters' {..} =
-    _salt `Prelude.hashWithSalt` pathParameterValues
+    _salt `Prelude.hashWithSalt` headerParameters
+      `Prelude.hashWithSalt` pathParameterValues
       `Prelude.hashWithSalt` queryStringParameters
-      `Prelude.hashWithSalt` headerParameters
 
 instance Prelude.NFData HttpParameters where
   rnf HttpParameters' {..} =
-    Prelude.rnf pathParameterValues
+    Prelude.rnf headerParameters
+      `Prelude.seq` Prelude.rnf pathParameterValues
       `Prelude.seq` Prelude.rnf queryStringParameters
-      `Prelude.seq` Prelude.rnf headerParameters
 
-instance Core.ToJSON HttpParameters where
+instance Data.ToJSON HttpParameters where
   toJSON HttpParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PathParameterValues" Core..=)
+          [ ("HeaderParameters" Data..=)
+              Prelude.<$> headerParameters,
+            ("PathParameterValues" Data..=)
               Prelude.<$> pathParameterValues,
-            ("QueryStringParameters" Core..=)
-              Prelude.<$> queryStringParameters,
-            ("HeaderParameters" Core..=)
-              Prelude.<$> headerParameters
+            ("QueryStringParameters" Data..=)
+              Prelude.<$> queryStringParameters
           ]
       )

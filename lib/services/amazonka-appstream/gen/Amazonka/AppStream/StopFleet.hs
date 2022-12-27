@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.StopFleet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.AppStream.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,7 +74,8 @@ stopFleet_name = Lens.lens (\StopFleet' {name} -> name) (\s@StopFleet' {} a -> s
 
 instance Core.AWSRequest StopFleet where
   type AWSResponse StopFleet = StopFleetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -88,32 +90,32 @@ instance Prelude.Hashable StopFleet where
 instance Prelude.NFData StopFleet where
   rnf StopFleet' {..} = Prelude.rnf name
 
-instance Core.ToHeaders StopFleet where
+instance Data.ToHeaders StopFleet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "PhotonAdminProxyService.StopFleet" ::
+              Data.=# ( "PhotonAdminProxyService.StopFleet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopFleet where
+instance Data.ToJSON StopFleet where
   toJSON StopFleet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath StopFleet where
+instance Data.ToPath StopFleet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopFleet where
+instance Data.ToQuery StopFleet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopFleetResponse' smart constructor.

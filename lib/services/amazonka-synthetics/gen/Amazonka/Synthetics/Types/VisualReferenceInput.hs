@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Synthetics.Types.VisualReferenceInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.Synthetics.Types.VisualReferenceInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Synthetics.Types.BaseScreenshot
 
 -- | An object that specifies what screenshots to use as a baseline for
--- visual monitoring by this canary, and optionally the parts of the
--- screenshots to ignore during the visual monitoring comparison.
+-- visual monitoring by this canary. It can optionally also specify parts
+-- of the screenshots to ignore during the visual monitoring comparison.
 --
 -- Visual monitoring is supported only on canaries running the
 -- __syn-puppeteer-node-3.2__ runtime or later. For more information, see
@@ -110,13 +111,13 @@ instance Prelude.NFData VisualReferenceInput where
     Prelude.rnf baseScreenshots
       `Prelude.seq` Prelude.rnf baseCanaryRunId
 
-instance Core.ToJSON VisualReferenceInput where
+instance Data.ToJSON VisualReferenceInput where
   toJSON VisualReferenceInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BaseScreenshots" Core..=)
+          [ ("BaseScreenshots" Data..=)
               Prelude.<$> baseScreenshots,
             Prelude.Just
-              ("BaseCanaryRunId" Core..= baseCanaryRunId)
+              ("BaseCanaryRunId" Data..= baseCanaryRunId)
           ]
       )

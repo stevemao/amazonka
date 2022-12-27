@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,11 +23,11 @@ module Amazonka.GroundStation
     -- * Errors
     -- $errors
 
-    -- ** InvalidParameterException
-    _InvalidParameterException,
-
     -- ** DependencyException
     _DependencyException,
+
+    -- ** InvalidParameterException
+    _InvalidParameterException,
 
     -- ** ResourceLimitExceededException
     _ResourceLimitExceededException,
@@ -41,11 +41,137 @@ module Amazonka.GroundStation
     -- * Operations
     -- $operations
 
+    -- ** CancelContact
+    CancelContact (CancelContact'),
+    newCancelContact,
+    ContactIdResponse (ContactIdResponse'),
+    newContactIdResponse,
+
+    -- ** CreateConfig
+    CreateConfig (CreateConfig'),
+    newCreateConfig,
+    ConfigIdResponse (ConfigIdResponse'),
+    newConfigIdResponse,
+
+    -- ** CreateDataflowEndpointGroup
+    CreateDataflowEndpointGroup (CreateDataflowEndpointGroup'),
+    newCreateDataflowEndpointGroup,
+    DataflowEndpointGroupIdResponse (DataflowEndpointGroupIdResponse'),
+    newDataflowEndpointGroupIdResponse,
+
+    -- ** CreateEphemeris
+    CreateEphemeris (CreateEphemeris'),
+    newCreateEphemeris,
+    EphemerisIdResponse (EphemerisIdResponse'),
+    newEphemerisIdResponse,
+
+    -- ** CreateMissionProfile
+    CreateMissionProfile (CreateMissionProfile'),
+    newCreateMissionProfile,
+    MissionProfileIdResponse (MissionProfileIdResponse'),
+    newMissionProfileIdResponse,
+
+    -- ** DeleteConfig
+    DeleteConfig (DeleteConfig'),
+    newDeleteConfig,
+    ConfigIdResponse (ConfigIdResponse'),
+    newConfigIdResponse,
+
     -- ** DeleteDataflowEndpointGroup
     DeleteDataflowEndpointGroup (DeleteDataflowEndpointGroup'),
     newDeleteDataflowEndpointGroup,
     DataflowEndpointGroupIdResponse (DataflowEndpointGroupIdResponse'),
     newDataflowEndpointGroupIdResponse,
+
+    -- ** DeleteEphemeris
+    DeleteEphemeris (DeleteEphemeris'),
+    newDeleteEphemeris,
+    EphemerisIdResponse (EphemerisIdResponse'),
+    newEphemerisIdResponse,
+
+    -- ** DeleteMissionProfile
+    DeleteMissionProfile (DeleteMissionProfile'),
+    newDeleteMissionProfile,
+    MissionProfileIdResponse (MissionProfileIdResponse'),
+    newMissionProfileIdResponse,
+
+    -- ** DescribeContact
+    DescribeContact (DescribeContact'),
+    newDescribeContact,
+    DescribeContactResponse (DescribeContactResponse'),
+    newDescribeContactResponse,
+
+    -- ** DescribeEphemeris
+    DescribeEphemeris (DescribeEphemeris'),
+    newDescribeEphemeris,
+    DescribeEphemerisResponse (DescribeEphemerisResponse'),
+    newDescribeEphemerisResponse,
+
+    -- ** GetConfig
+    GetConfig (GetConfig'),
+    newGetConfig,
+    GetConfigResponse (GetConfigResponse'),
+    newGetConfigResponse,
+
+    -- ** GetDataflowEndpointGroup
+    GetDataflowEndpointGroup (GetDataflowEndpointGroup'),
+    newGetDataflowEndpointGroup,
+    GetDataflowEndpointGroupResponse (GetDataflowEndpointGroupResponse'),
+    newGetDataflowEndpointGroupResponse,
+
+    -- ** GetMinuteUsage
+    GetMinuteUsage (GetMinuteUsage'),
+    newGetMinuteUsage,
+    GetMinuteUsageResponse (GetMinuteUsageResponse'),
+    newGetMinuteUsageResponse,
+
+    -- ** GetMissionProfile
+    GetMissionProfile (GetMissionProfile'),
+    newGetMissionProfile,
+    GetMissionProfileResponse (GetMissionProfileResponse'),
+    newGetMissionProfileResponse,
+
+    -- ** GetSatellite
+    GetSatellite (GetSatellite'),
+    newGetSatellite,
+    GetSatelliteResponse (GetSatelliteResponse'),
+    newGetSatelliteResponse,
+
+    -- ** ListConfigs (Paginated)
+    ListConfigs (ListConfigs'),
+    newListConfigs,
+    ListConfigsResponse (ListConfigsResponse'),
+    newListConfigsResponse,
+
+    -- ** ListContacts (Paginated)
+    ListContacts (ListContacts'),
+    newListContacts,
+    ListContactsResponse (ListContactsResponse'),
+    newListContactsResponse,
+
+    -- ** ListDataflowEndpointGroups (Paginated)
+    ListDataflowEndpointGroups (ListDataflowEndpointGroups'),
+    newListDataflowEndpointGroups,
+    ListDataflowEndpointGroupsResponse (ListDataflowEndpointGroupsResponse'),
+    newListDataflowEndpointGroupsResponse,
+
+    -- ** ListEphemerides (Paginated)
+    ListEphemerides (ListEphemerides'),
+    newListEphemerides,
+    ListEphemeridesResponse (ListEphemeridesResponse'),
+    newListEphemeridesResponse,
+
+    -- ** ListGroundStations (Paginated)
+    ListGroundStations (ListGroundStations'),
+    newListGroundStations,
+    ListGroundStationsResponse (ListGroundStationsResponse'),
+    newListGroundStationsResponse,
+
+    -- ** ListMissionProfiles (Paginated)
+    ListMissionProfiles (ListMissionProfiles'),
+    newListMissionProfiles,
+    ListMissionProfilesResponse (ListMissionProfilesResponse'),
+    newListMissionProfilesResponse,
 
     -- ** ListSatellites (Paginated)
     ListSatellites (ListSatellites'),
@@ -59,83 +185,11 @@ module Amazonka.GroundStation
     ListTagsForResourceResponse (ListTagsForResourceResponse'),
     newListTagsForResourceResponse,
 
-    -- ** GetMinuteUsage
-    GetMinuteUsage (GetMinuteUsage'),
-    newGetMinuteUsage,
-    GetMinuteUsageResponse (GetMinuteUsageResponse'),
-    newGetMinuteUsageResponse,
-
-    -- ** DescribeContact
-    DescribeContact (DescribeContact'),
-    newDescribeContact,
-    DescribeContactResponse (DescribeContactResponse'),
-    newDescribeContactResponse,
-
     -- ** ReserveContact
     ReserveContact (ReserveContact'),
     newReserveContact,
     ContactIdResponse (ContactIdResponse'),
     newContactIdResponse,
-
-    -- ** CreateMissionProfile
-    CreateMissionProfile (CreateMissionProfile'),
-    newCreateMissionProfile,
-    MissionProfileIdResponse (MissionProfileIdResponse'),
-    newMissionProfileIdResponse,
-
-    -- ** ListGroundStations (Paginated)
-    ListGroundStations (ListGroundStations'),
-    newListGroundStations,
-    ListGroundStationsResponse (ListGroundStationsResponse'),
-    newListGroundStationsResponse,
-
-    -- ** CreateConfig
-    CreateConfig (CreateConfig'),
-    newCreateConfig,
-    ConfigIdResponse (ConfigIdResponse'),
-    newConfigIdResponse,
-
-    -- ** ListMissionProfiles (Paginated)
-    ListMissionProfiles (ListMissionProfiles'),
-    newListMissionProfiles,
-    ListMissionProfilesResponse (ListMissionProfilesResponse'),
-    newListMissionProfilesResponse,
-
-    -- ** GetMissionProfile
-    GetMissionProfile (GetMissionProfile'),
-    newGetMissionProfile,
-    GetMissionProfileResponse (GetMissionProfileResponse'),
-    newGetMissionProfileResponse,
-
-    -- ** GetConfig
-    GetConfig (GetConfig'),
-    newGetConfig,
-    GetConfigResponse (GetConfigResponse'),
-    newGetConfigResponse,
-
-    -- ** ListDataflowEndpointGroups (Paginated)
-    ListDataflowEndpointGroups (ListDataflowEndpointGroups'),
-    newListDataflowEndpointGroups,
-    ListDataflowEndpointGroupsResponse (ListDataflowEndpointGroupsResponse'),
-    newListDataflowEndpointGroupsResponse,
-
-    -- ** CreateDataflowEndpointGroup
-    CreateDataflowEndpointGroup (CreateDataflowEndpointGroup'),
-    newCreateDataflowEndpointGroup,
-    DataflowEndpointGroupIdResponse (DataflowEndpointGroupIdResponse'),
-    newDataflowEndpointGroupIdResponse,
-
-    -- ** GetSatellite
-    GetSatellite (GetSatellite'),
-    newGetSatellite,
-    GetSatelliteResponse (GetSatelliteResponse'),
-    newGetSatelliteResponse,
-
-    -- ** GetDataflowEndpointGroup
-    GetDataflowEndpointGroup (GetDataflowEndpointGroup'),
-    newGetDataflowEndpointGroup,
-    GetDataflowEndpointGroupResponse (GetDataflowEndpointGroupResponse'),
-    newGetDataflowEndpointGroupResponse,
 
     -- ** TagResource
     TagResource (TagResource'),
@@ -143,11 +197,11 @@ module Amazonka.GroundStation
     TagResourceResponse (TagResourceResponse'),
     newTagResourceResponse,
 
-    -- ** ListConfigs (Paginated)
-    ListConfigs (ListConfigs'),
-    newListConfigs,
-    ListConfigsResponse (ListConfigsResponse'),
-    newListConfigsResponse,
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** UpdateConfig
     UpdateConfig (UpdateConfig'),
@@ -155,41 +209,17 @@ module Amazonka.GroundStation
     ConfigIdResponse (ConfigIdResponse'),
     newConfigIdResponse,
 
-    -- ** DeleteConfig
-    DeleteConfig (DeleteConfig'),
-    newDeleteConfig,
-    ConfigIdResponse (ConfigIdResponse'),
-    newConfigIdResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** UpdateEphemeris
+    UpdateEphemeris (UpdateEphemeris'),
+    newUpdateEphemeris,
+    EphemerisIdResponse (EphemerisIdResponse'),
+    newEphemerisIdResponse,
 
     -- ** UpdateMissionProfile
     UpdateMissionProfile (UpdateMissionProfile'),
     newUpdateMissionProfile,
     MissionProfileIdResponse (MissionProfileIdResponse'),
     newMissionProfileIdResponse,
-
-    -- ** DeleteMissionProfile
-    DeleteMissionProfile (DeleteMissionProfile'),
-    newDeleteMissionProfile,
-    MissionProfileIdResponse (MissionProfileIdResponse'),
-    newMissionProfileIdResponse,
-
-    -- ** CancelContact
-    CancelContact (CancelContact'),
-    newCancelContact,
-    ContactIdResponse (ContactIdResponse'),
-    newContactIdResponse,
-
-    -- ** ListContacts (Paginated)
-    ListContacts (ListContacts'),
-    newListContacts,
-    ListContactsResponse (ListContactsResponse'),
-    newListContactsResponse,
 
     -- * Types
 
@@ -213,6 +243,15 @@ module Amazonka.GroundStation
 
     -- ** EndpointStatus
     EndpointStatus (..),
+
+    -- ** EphemerisInvalidReason
+    EphemerisInvalidReason (..),
+
+    -- ** EphemerisSource
+    EphemerisSource (..),
+
+    -- ** EphemerisStatus
+    EphemerisStatus (..),
 
     -- ** FrequencyUnits
     FrequencyUnits (..),
@@ -304,6 +343,30 @@ module Amazonka.GroundStation
     EndpointDetails (EndpointDetails'),
     newEndpointDetails,
 
+    -- ** EphemerisData
+    EphemerisData (EphemerisData'),
+    newEphemerisData,
+
+    -- ** EphemerisDescription
+    EphemerisDescription (EphemerisDescription'),
+    newEphemerisDescription,
+
+    -- ** EphemerisIdResponse
+    EphemerisIdResponse (EphemerisIdResponse'),
+    newEphemerisIdResponse,
+
+    -- ** EphemerisItem
+    EphemerisItem (EphemerisItem'),
+    newEphemerisItem,
+
+    -- ** EphemerisMetaData
+    EphemerisMetaData (EphemerisMetaData'),
+    newEphemerisMetaData,
+
+    -- ** EphemerisTypeDescription
+    EphemerisTypeDescription (EphemerisTypeDescription'),
+    newEphemerisTypeDescription,
+
     -- ** Frequency
     Frequency (Frequency'),
     newFrequency,
@@ -323,6 +386,14 @@ module Amazonka.GroundStation
     -- ** MissionProfileListItem
     MissionProfileListItem (MissionProfileListItem'),
     newMissionProfileListItem,
+
+    -- ** OEMEphemeris
+    OEMEphemeris (OEMEphemeris'),
+    newOEMEphemeris,
+
+    -- ** S3Object
+    S3Object (S3Object'),
+    newS3Object,
 
     -- ** S3RecordingConfig
     S3RecordingConfig (S3RecordingConfig'),
@@ -352,6 +423,18 @@ module Amazonka.GroundStation
     SpectrumConfig (SpectrumConfig'),
     newSpectrumConfig,
 
+    -- ** TLEData
+    TLEData (TLEData'),
+    newTLEData,
+
+    -- ** TLEEphemeris
+    TLEEphemeris (TLEEphemeris'),
+    newTLEEphemeris,
+
+    -- ** TimeRange
+    TimeRange (TimeRange'),
+    newTimeRange,
+
     -- ** TrackingConfig
     TrackingConfig (TrackingConfig'),
     newTrackingConfig,
@@ -369,11 +452,14 @@ where
 import Amazonka.GroundStation.CancelContact
 import Amazonka.GroundStation.CreateConfig
 import Amazonka.GroundStation.CreateDataflowEndpointGroup
+import Amazonka.GroundStation.CreateEphemeris
 import Amazonka.GroundStation.CreateMissionProfile
 import Amazonka.GroundStation.DeleteConfig
 import Amazonka.GroundStation.DeleteDataflowEndpointGroup
+import Amazonka.GroundStation.DeleteEphemeris
 import Amazonka.GroundStation.DeleteMissionProfile
 import Amazonka.GroundStation.DescribeContact
+import Amazonka.GroundStation.DescribeEphemeris
 import Amazonka.GroundStation.GetConfig
 import Amazonka.GroundStation.GetDataflowEndpointGroup
 import Amazonka.GroundStation.GetMinuteUsage
@@ -383,6 +469,7 @@ import Amazonka.GroundStation.Lens
 import Amazonka.GroundStation.ListConfigs
 import Amazonka.GroundStation.ListContacts
 import Amazonka.GroundStation.ListDataflowEndpointGroups
+import Amazonka.GroundStation.ListEphemerides
 import Amazonka.GroundStation.ListGroundStations
 import Amazonka.GroundStation.ListMissionProfiles
 import Amazonka.GroundStation.ListSatellites
@@ -392,6 +479,7 @@ import Amazonka.GroundStation.TagResource
 import Amazonka.GroundStation.Types
 import Amazonka.GroundStation.UntagResource
 import Amazonka.GroundStation.UpdateConfig
+import Amazonka.GroundStation.UpdateEphemeris
 import Amazonka.GroundStation.UpdateMissionProfile
 import Amazonka.GroundStation.Waiters
 

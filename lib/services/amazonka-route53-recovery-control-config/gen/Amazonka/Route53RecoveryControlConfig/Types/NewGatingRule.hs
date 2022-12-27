@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryControlConfig.Types.NewGatingRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53RecoveryControlConfig.Types.NewGatingRule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53RecoveryControlConfig.Types.RuleConfig
 
@@ -46,8 +47,8 @@ data NewGatingRule = NewGatingRule'
     -- that are evaluated by the rule configuration that you specify.
     gatingControls :: [Prelude.Text],
     -- | The criteria that you set for specific gating controls (routing
-    -- controls) that designates how many controls must be enabled to allow you
-    -- to change (set or unset) the target controls.
+    -- controls) that designates how many control states must be ON to allow
+    -- you to change (set or unset) the target control states.
     ruleConfig :: RuleConfig,
     -- | An evaluation period, in milliseconds (ms), during which any request
     -- against the target routing controls will fail. This helps prevent
@@ -85,8 +86,8 @@ data NewGatingRule = NewGatingRule'
 -- that are evaluated by the rule configuration that you specify.
 --
 -- 'ruleConfig', 'newGatingRule_ruleConfig' - The criteria that you set for specific gating controls (routing
--- controls) that designates how many controls must be enabled to allow you
--- to change (set or unset) the target controls.
+-- controls) that designates how many control states must be ON to allow
+-- you to change (set or unset) the target control states.
 --
 -- 'waitPeriodMs', 'newGatingRule_waitPeriodMs' - An evaluation period, in milliseconds (ms), during which any request
 -- against the target routing controls will fail. This helps prevent
@@ -142,8 +143,8 @@ newGatingRule_gatingControls :: Lens.Lens' NewGatingRule [Prelude.Text]
 newGatingRule_gatingControls = Lens.lens (\NewGatingRule' {gatingControls} -> gatingControls) (\s@NewGatingRule' {} a -> s {gatingControls = a} :: NewGatingRule) Prelude.. Lens.coerced
 
 -- | The criteria that you set for specific gating controls (routing
--- controls) that designates how many controls must be enabled to allow you
--- to change (set or unset) the target controls.
+-- controls) that designates how many control states must be ON to allow
+-- you to change (set or unset) the target control states.
 newGatingRule_ruleConfig :: Lens.Lens' NewGatingRule RuleConfig
 newGatingRule_ruleConfig = Lens.lens (\NewGatingRule' {ruleConfig} -> ruleConfig) (\s@NewGatingRule' {} a -> s {ruleConfig = a} :: NewGatingRule)
 
@@ -176,18 +177,18 @@ instance Prelude.NFData NewGatingRule where
       `Prelude.seq` Prelude.rnf waitPeriodMs
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON NewGatingRule where
+instance Data.ToJSON NewGatingRule where
   toJSON NewGatingRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("TargetControls" Core..= targetControls),
+              ("TargetControls" Data..= targetControls),
             Prelude.Just
-              ("ControlPanelArn" Core..= controlPanelArn),
+              ("ControlPanelArn" Data..= controlPanelArn),
             Prelude.Just
-              ("GatingControls" Core..= gatingControls),
-            Prelude.Just ("RuleConfig" Core..= ruleConfig),
-            Prelude.Just ("WaitPeriodMs" Core..= waitPeriodMs),
-            Prelude.Just ("Name" Core..= name)
+              ("GatingControls" Data..= gatingControls),
+            Prelude.Just ("RuleConfig" Data..= ruleConfig),
+            Prelude.Just ("WaitPeriodMs" Data..= waitPeriodMs),
+            Prelude.Just ("Name" Data..= name)
           ]
       )

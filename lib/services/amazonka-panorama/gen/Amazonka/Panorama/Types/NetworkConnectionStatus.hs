@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Panorama.Types.NetworkConnectionStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,17 +21,19 @@ module Amazonka.Panorama.Types.NetworkConnectionStatus
   ( NetworkConnectionStatus
       ( ..,
         NetworkConnectionStatus_CONNECTED,
+        NetworkConnectionStatus_CONNECTING,
         NetworkConnectionStatus_NOT_CONNECTED
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype NetworkConnectionStatus = NetworkConnectionStatus'
   { fromNetworkConnectionStatus ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -43,28 +45,32 @@ newtype NetworkConnectionStatus = NetworkConnectionStatus'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern NetworkConnectionStatus_CONNECTED :: NetworkConnectionStatus
 pattern NetworkConnectionStatus_CONNECTED = NetworkConnectionStatus' "CONNECTED"
+
+pattern NetworkConnectionStatus_CONNECTING :: NetworkConnectionStatus
+pattern NetworkConnectionStatus_CONNECTING = NetworkConnectionStatus' "CONNECTING"
 
 pattern NetworkConnectionStatus_NOT_CONNECTED :: NetworkConnectionStatus
 pattern NetworkConnectionStatus_NOT_CONNECTED = NetworkConnectionStatus' "NOT_CONNECTED"
 
 {-# COMPLETE
   NetworkConnectionStatus_CONNECTED,
+  NetworkConnectionStatus_CONNECTING,
   NetworkConnectionStatus_NOT_CONNECTED,
   NetworkConnectionStatus'
   #-}

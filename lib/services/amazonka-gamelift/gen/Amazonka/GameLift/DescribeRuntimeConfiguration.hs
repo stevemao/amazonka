@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DescribeRuntimeConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,7 +27,7 @@
 -- To get the runtime configuration that is currently in forces for a
 -- fleet, provide the fleet ID.
 --
--- If successful, a RuntimeConfiguration object is returned for the
+-- If successful, a @RuntimeConfiguration@ object is returned for the
 -- requested fleet. If the requested fleet has been deleted, the result set
 -- is empty.
 --
@@ -36,15 +36,6 @@
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-intro.html Setting up GameLift fleets>
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-multiprocess.html Running multiple processes on a fleet>
---
--- __Related actions__
---
--- ListFleets | DescribeEC2InstanceLimits | DescribeFleetAttributes |
--- DescribeFleetCapacity | DescribeFleetEvents |
--- DescribeFleetLocationAttributes | DescribeFleetPortSettings |
--- DescribeFleetUtilization | DescribeRuntimeConfiguration |
--- DescribeScalingPolicies |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.DescribeRuntimeConfiguration
   ( -- * Creating a Request
     DescribeRuntimeConfiguration (..),
@@ -64,15 +55,14 @@ module Amazonka.GameLift.DescribeRuntimeConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDescribeRuntimeConfiguration' smart constructor.
+-- | /See:/ 'newDescribeRuntimeConfiguration' smart constructor.
 data DescribeRuntimeConfiguration = DescribeRuntimeConfiguration'
   { -- | A unique identifier for the fleet to get the runtime configuration for.
     -- You can use either the fleet ID or ARN value.
@@ -106,12 +96,13 @@ instance Core.AWSRequest DescribeRuntimeConfiguration where
   type
     AWSResponse DescribeRuntimeConfiguration =
       DescribeRuntimeConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRuntimeConfigurationResponse'
-            Prelude.<$> (x Core..?> "RuntimeConfiguration")
+            Prelude.<$> (x Data..?> "RuntimeConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,37 +117,35 @@ instance Prelude.NFData DescribeRuntimeConfiguration where
   rnf DescribeRuntimeConfiguration' {..} =
     Prelude.rnf fleetId
 
-instance Core.ToHeaders DescribeRuntimeConfiguration where
+instance Data.ToHeaders DescribeRuntimeConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DescribeRuntimeConfiguration" ::
+              Data.=# ( "GameLift.DescribeRuntimeConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeRuntimeConfiguration where
+instance Data.ToJSON DescribeRuntimeConfiguration where
   toJSON DescribeRuntimeConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("FleetId" Core..= fleetId)]
+          [Prelude.Just ("FleetId" Data..= fleetId)]
       )
 
-instance Core.ToPath DescribeRuntimeConfiguration where
+instance Data.ToPath DescribeRuntimeConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeRuntimeConfiguration where
+instance Data.ToQuery DescribeRuntimeConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newDescribeRuntimeConfigurationResponse' smart constructor.
+-- | /See:/ 'newDescribeRuntimeConfigurationResponse' smart constructor.
 data DescribeRuntimeConfigurationResponse = DescribeRuntimeConfigurationResponse'
   { -- | Instructions that describe how server processes should be launched and
     -- maintained on each instance in the fleet.

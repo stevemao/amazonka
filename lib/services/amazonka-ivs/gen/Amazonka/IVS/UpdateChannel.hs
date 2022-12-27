@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.UpdateChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.IVS.UpdateChannel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -72,15 +73,19 @@ data UpdateChannel = UpdateChannel'
     -- you exceed the allowable resolution or bitrate, the stream probably will
     -- disconnect immediately/. Valid values:
     --
-    -- -   @STANDARD@: Multiple qualities are generated from the original
-    --     input, to automatically give viewers the best experience for their
-    --     devices and network conditions. Resolution can be up to 1080p and
-    --     bitrate can be up to 8.5 Mbps. Audio is transcoded only for
-    --     renditions 360p and below; above that, audio is passed through.
+    -- -   @STANDARD@: Video is transcoded: multiple qualities are generated
+    --     from the original input, to automatically give viewers the best
+    --     experience for their devices and network conditions. Transcoding
+    --     allows higher playback quality across a range of download speeds.
+    --     Resolution can be up to 1080p and bitrate can be up to 8.5 Mbps.
+    --     Audio is transcoded only for renditions 360p and below; above that,
+    --     audio is passed through. This is the default.
     --
-    -- -   @BASIC@: Amazon IVS delivers the original input to viewers. The
-    --     viewer’s video-quality choice is limited to the original input.
-    --     Resolution can be up to 480p and bitrate can be up to 1.5 Mbps.
+    -- -   @BASIC@: Video is transmuxed: Amazon IVS delivers the original input
+    --     to viewers. The viewer’s video-quality choice is limited to the
+    --     original input. Resolution can be up to 1080p and bitrate can be up
+    --     to 1.5 Mbps for 480p and up to 3.5 Mbps for resolutions between 480p
+    --     and 1080p.
     type' :: Prelude.Maybe ChannelType,
     -- | ARN of the channel to be updated.
     arn :: Prelude.Text
@@ -112,15 +117,19 @@ data UpdateChannel = UpdateChannel'
 -- you exceed the allowable resolution or bitrate, the stream probably will
 -- disconnect immediately/. Valid values:
 --
--- -   @STANDARD@: Multiple qualities are generated from the original
---     input, to automatically give viewers the best experience for their
---     devices and network conditions. Resolution can be up to 1080p and
---     bitrate can be up to 8.5 Mbps. Audio is transcoded only for
---     renditions 360p and below; above that, audio is passed through.
+-- -   @STANDARD@: Video is transcoded: multiple qualities are generated
+--     from the original input, to automatically give viewers the best
+--     experience for their devices and network conditions. Transcoding
+--     allows higher playback quality across a range of download speeds.
+--     Resolution can be up to 1080p and bitrate can be up to 8.5 Mbps.
+--     Audio is transcoded only for renditions 360p and below; above that,
+--     audio is passed through. This is the default.
 --
--- -   @BASIC@: Amazon IVS delivers the original input to viewers. The
---     viewer’s video-quality choice is limited to the original input.
---     Resolution can be up to 480p and bitrate can be up to 1.5 Mbps.
+-- -   @BASIC@: Video is transmuxed: Amazon IVS delivers the original input
+--     to viewers. The viewer’s video-quality choice is limited to the
+--     original input. Resolution can be up to 1080p and bitrate can be up
+--     to 1.5 Mbps for 480p and up to 3.5 Mbps for resolutions between 480p
+--     and 1080p.
 --
 -- 'arn', 'updateChannel_arn' - ARN of the channel to be updated.
 newUpdateChannel ::
@@ -162,15 +171,19 @@ updateChannel_recordingConfigurationArn = Lens.lens (\UpdateChannel' {recordingC
 -- you exceed the allowable resolution or bitrate, the stream probably will
 -- disconnect immediately/. Valid values:
 --
--- -   @STANDARD@: Multiple qualities are generated from the original
---     input, to automatically give viewers the best experience for their
---     devices and network conditions. Resolution can be up to 1080p and
---     bitrate can be up to 8.5 Mbps. Audio is transcoded only for
---     renditions 360p and below; above that, audio is passed through.
+-- -   @STANDARD@: Video is transcoded: multiple qualities are generated
+--     from the original input, to automatically give viewers the best
+--     experience for their devices and network conditions. Transcoding
+--     allows higher playback quality across a range of download speeds.
+--     Resolution can be up to 1080p and bitrate can be up to 8.5 Mbps.
+--     Audio is transcoded only for renditions 360p and below; above that,
+--     audio is passed through. This is the default.
 --
--- -   @BASIC@: Amazon IVS delivers the original input to viewers. The
---     viewer’s video-quality choice is limited to the original input.
---     Resolution can be up to 480p and bitrate can be up to 1.5 Mbps.
+-- -   @BASIC@: Video is transmuxed: Amazon IVS delivers the original input
+--     to viewers. The viewer’s video-quality choice is limited to the
+--     original input. Resolution can be up to 1080p and bitrate can be up
+--     to 1.5 Mbps for 480p and up to 3.5 Mbps for resolutions between 480p
+--     and 1080p.
 updateChannel_type :: Lens.Lens' UpdateChannel (Prelude.Maybe ChannelType)
 updateChannel_type = Lens.lens (\UpdateChannel' {type'} -> type') (\s@UpdateChannel' {} a -> s {type' = a} :: UpdateChannel)
 
@@ -182,12 +195,13 @@ instance Core.AWSRequest UpdateChannel where
   type
     AWSResponse UpdateChannel =
       UpdateChannelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateChannelResponse'
-            Prelude.<$> (x Core..?> "channel")
+            Prelude.<$> (x Data..?> "channel")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -209,35 +223,35 @@ instance Prelude.NFData UpdateChannel where
       `Prelude.seq` Prelude.rnf type'
       `Prelude.seq` Prelude.rnf arn
 
-instance Core.ToHeaders UpdateChannel where
+instance Data.ToHeaders UpdateChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateChannel where
+instance Data.ToJSON UpdateChannel where
   toJSON UpdateChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("authorized" Core..=) Prelude.<$> authorized,
-            ("latencyMode" Core..=) Prelude.<$> latencyMode,
-            ("name" Core..=) Prelude.<$> name,
-            ("recordingConfigurationArn" Core..=)
+          [ ("authorized" Data..=) Prelude.<$> authorized,
+            ("latencyMode" Data..=) Prelude.<$> latencyMode,
+            ("name" Data..=) Prelude.<$> name,
+            ("recordingConfigurationArn" Data..=)
               Prelude.<$> recordingConfigurationArn,
-            ("type" Core..=) Prelude.<$> type',
-            Prelude.Just ("arn" Core..= arn)
+            ("type" Data..=) Prelude.<$> type',
+            Prelude.Just ("arn" Data..= arn)
           ]
       )
 
-instance Core.ToPath UpdateChannel where
+instance Data.ToPath UpdateChannel where
   toPath = Prelude.const "/UpdateChannel"
 
-instance Core.ToQuery UpdateChannel where
+instance Data.ToQuery UpdateChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateChannelResponse' smart constructor.

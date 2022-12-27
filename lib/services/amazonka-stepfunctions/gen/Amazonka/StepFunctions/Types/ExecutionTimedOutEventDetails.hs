@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.Types.ExecutionTimedOutEventDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.StepFunctions.Types.ExecutionTimedOutEventDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains details about the execution timeout that occurred during the
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newExecutionTimedOutEventDetails' smart constructor.
 data ExecutionTimedOutEventDetails = ExecutionTimedOutEventDetails'
-  { -- | The error code of the failure.
-    error :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | A more detailed explanation of the cause of the timeout.
-    cause :: Prelude.Maybe (Core.Sensitive Prelude.Text)
+  { -- | A more detailed explanation of the cause of the timeout.
+    cause :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The error code of the failure.
+    error :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -43,34 +44,34 @@ data ExecutionTimedOutEventDetails = ExecutionTimedOutEventDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'error', 'executionTimedOutEventDetails_error' - The error code of the failure.
---
 -- 'cause', 'executionTimedOutEventDetails_cause' - A more detailed explanation of the cause of the timeout.
+--
+-- 'error', 'executionTimedOutEventDetails_error' - The error code of the failure.
 newExecutionTimedOutEventDetails ::
   ExecutionTimedOutEventDetails
 newExecutionTimedOutEventDetails =
   ExecutionTimedOutEventDetails'
-    { error =
+    { cause =
         Prelude.Nothing,
-      cause = Prelude.Nothing
+      error = Prelude.Nothing
     }
-
--- | The error code of the failure.
-executionTimedOutEventDetails_error :: Lens.Lens' ExecutionTimedOutEventDetails (Prelude.Maybe Prelude.Text)
-executionTimedOutEventDetails_error = Lens.lens (\ExecutionTimedOutEventDetails' {error} -> error) (\s@ExecutionTimedOutEventDetails' {} a -> s {error = a} :: ExecutionTimedOutEventDetails) Prelude.. Lens.mapping Core._Sensitive
 
 -- | A more detailed explanation of the cause of the timeout.
 executionTimedOutEventDetails_cause :: Lens.Lens' ExecutionTimedOutEventDetails (Prelude.Maybe Prelude.Text)
-executionTimedOutEventDetails_cause = Lens.lens (\ExecutionTimedOutEventDetails' {cause} -> cause) (\s@ExecutionTimedOutEventDetails' {} a -> s {cause = a} :: ExecutionTimedOutEventDetails) Prelude.. Lens.mapping Core._Sensitive
+executionTimedOutEventDetails_cause = Lens.lens (\ExecutionTimedOutEventDetails' {cause} -> cause) (\s@ExecutionTimedOutEventDetails' {} a -> s {cause = a} :: ExecutionTimedOutEventDetails) Prelude.. Lens.mapping Data._Sensitive
 
-instance Core.FromJSON ExecutionTimedOutEventDetails where
+-- | The error code of the failure.
+executionTimedOutEventDetails_error :: Lens.Lens' ExecutionTimedOutEventDetails (Prelude.Maybe Prelude.Text)
+executionTimedOutEventDetails_error = Lens.lens (\ExecutionTimedOutEventDetails' {error} -> error) (\s@ExecutionTimedOutEventDetails' {} a -> s {error = a} :: ExecutionTimedOutEventDetails) Prelude.. Lens.mapping Data._Sensitive
+
+instance Data.FromJSON ExecutionTimedOutEventDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExecutionTimedOutEventDetails"
       ( \x ->
           ExecutionTimedOutEventDetails'
-            Prelude.<$> (x Core..:? "error")
-            Prelude.<*> (x Core..:? "cause")
+            Prelude.<$> (x Data..:? "cause")
+            Prelude.<*> (x Data..:? "error")
       )
 
 instance
@@ -78,9 +79,9 @@ instance
     ExecutionTimedOutEventDetails
   where
   hashWithSalt _salt ExecutionTimedOutEventDetails' {..} =
-    _salt `Prelude.hashWithSalt` error
-      `Prelude.hashWithSalt` cause
+    _salt `Prelude.hashWithSalt` cause
+      `Prelude.hashWithSalt` error
 
 instance Prelude.NFData ExecutionTimedOutEventDetails where
   rnf ExecutionTimedOutEventDetails' {..} =
-    Prelude.rnf error `Prelude.seq` Prelude.rnf cause
+    Prelude.rnf cause `Prelude.seq` Prelude.rnf error

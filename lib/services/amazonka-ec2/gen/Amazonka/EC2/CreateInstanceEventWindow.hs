@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateInstanceEventWindow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,10 +52,10 @@ module Amazonka.EC2.CreateInstanceEventWindow
     newCreateInstanceEventWindow,
 
     -- * Request Lenses
-    createInstanceEventWindow_tagSpecifications,
-    createInstanceEventWindow_name,
     createInstanceEventWindow_cronExpression,
     createInstanceEventWindow_dryRun,
+    createInstanceEventWindow_name,
+    createInstanceEventWindow_tagSpecifications,
     createInstanceEventWindow_timeRanges,
 
     -- * Destructuring the Response
@@ -69,19 +69,16 @@ module Amazonka.EC2.CreateInstanceEventWindow
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateInstanceEventWindow' smart constructor.
 data CreateInstanceEventWindow = CreateInstanceEventWindow'
-  { -- | The tags to apply to the event window.
-    tagSpecifications :: Prelude.Maybe [TagSpecification],
-    -- | The name of the event window.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The cron expression for the event window, for example,
+  { -- | The cron expression for the event window, for example,
     -- @* 0-4,20-23 * * 1,5@. If you specify a cron expression, you can\'t
     -- specify a time range.
     --
@@ -110,6 +107,10 @@ data CreateInstanceEventWindow = CreateInstanceEventWindow'
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The name of the event window.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The tags to apply to the event window.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
     -- | The time range for the event window. If you specify a time range, you
     -- can\'t specify a cron expression.
     timeRanges :: Prelude.Maybe [InstanceEventWindowTimeRangeRequest]
@@ -123,10 +124,6 @@ data CreateInstanceEventWindow = CreateInstanceEventWindow'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'tagSpecifications', 'createInstanceEventWindow_tagSpecifications' - The tags to apply to the event window.
---
--- 'name', 'createInstanceEventWindow_name' - The name of the event window.
 --
 -- 'cronExpression', 'createInstanceEventWindow_cronExpression' - The cron expression for the event window, for example,
 -- @* 0-4,20-23 * * 1,5@. If you specify a cron expression, you can\'t
@@ -157,27 +154,23 @@ data CreateInstanceEventWindow = CreateInstanceEventWindow'
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
 --
+-- 'name', 'createInstanceEventWindow_name' - The name of the event window.
+--
+-- 'tagSpecifications', 'createInstanceEventWindow_tagSpecifications' - The tags to apply to the event window.
+--
 -- 'timeRanges', 'createInstanceEventWindow_timeRanges' - The time range for the event window. If you specify a time range, you
 -- can\'t specify a cron expression.
 newCreateInstanceEventWindow ::
   CreateInstanceEventWindow
 newCreateInstanceEventWindow =
   CreateInstanceEventWindow'
-    { tagSpecifications =
+    { cronExpression =
         Prelude.Nothing,
-      name = Prelude.Nothing,
-      cronExpression = Prelude.Nothing,
       dryRun = Prelude.Nothing,
+      name = Prelude.Nothing,
+      tagSpecifications = Prelude.Nothing,
       timeRanges = Prelude.Nothing
     }
-
--- | The tags to apply to the event window.
-createInstanceEventWindow_tagSpecifications :: Lens.Lens' CreateInstanceEventWindow (Prelude.Maybe [TagSpecification])
-createInstanceEventWindow_tagSpecifications = Lens.lens (\CreateInstanceEventWindow' {tagSpecifications} -> tagSpecifications) (\s@CreateInstanceEventWindow' {} a -> s {tagSpecifications = a} :: CreateInstanceEventWindow) Prelude.. Lens.mapping Lens.coerced
-
--- | The name of the event window.
-createInstanceEventWindow_name :: Lens.Lens' CreateInstanceEventWindow (Prelude.Maybe Prelude.Text)
-createInstanceEventWindow_name = Lens.lens (\CreateInstanceEventWindow' {name} -> name) (\s@CreateInstanceEventWindow' {} a -> s {name = a} :: CreateInstanceEventWindow)
 
 -- | The cron expression for the event window, for example,
 -- @* 0-4,20-23 * * 1,5@. If you specify a cron expression, you can\'t
@@ -212,6 +205,14 @@ createInstanceEventWindow_cronExpression = Lens.lens (\CreateInstanceEventWindow
 createInstanceEventWindow_dryRun :: Lens.Lens' CreateInstanceEventWindow (Prelude.Maybe Prelude.Bool)
 createInstanceEventWindow_dryRun = Lens.lens (\CreateInstanceEventWindow' {dryRun} -> dryRun) (\s@CreateInstanceEventWindow' {} a -> s {dryRun = a} :: CreateInstanceEventWindow)
 
+-- | The name of the event window.
+createInstanceEventWindow_name :: Lens.Lens' CreateInstanceEventWindow (Prelude.Maybe Prelude.Text)
+createInstanceEventWindow_name = Lens.lens (\CreateInstanceEventWindow' {name} -> name) (\s@CreateInstanceEventWindow' {} a -> s {name = a} :: CreateInstanceEventWindow)
+
+-- | The tags to apply to the event window.
+createInstanceEventWindow_tagSpecifications :: Lens.Lens' CreateInstanceEventWindow (Prelude.Maybe [TagSpecification])
+createInstanceEventWindow_tagSpecifications = Lens.lens (\CreateInstanceEventWindow' {tagSpecifications} -> tagSpecifications) (\s@CreateInstanceEventWindow' {} a -> s {tagSpecifications = a} :: CreateInstanceEventWindow) Prelude.. Lens.mapping Lens.coerced
+
 -- | The time range for the event window. If you specify a time range, you
 -- can\'t specify a cron expression.
 createInstanceEventWindow_timeRanges :: Lens.Lens' CreateInstanceEventWindow (Prelude.Maybe [InstanceEventWindowTimeRangeRequest])
@@ -221,53 +222,54 @@ instance Core.AWSRequest CreateInstanceEventWindow where
   type
     AWSResponse CreateInstanceEventWindow =
       CreateInstanceEventWindowResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateInstanceEventWindowResponse'
-            Prelude.<$> (x Core..@? "instanceEventWindow")
+            Prelude.<$> (x Data..@? "instanceEventWindow")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateInstanceEventWindow where
   hashWithSalt _salt CreateInstanceEventWindow' {..} =
-    _salt `Prelude.hashWithSalt` tagSpecifications
-      `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` cronExpression
+    _salt `Prelude.hashWithSalt` cronExpression
       `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` tagSpecifications
       `Prelude.hashWithSalt` timeRanges
 
 instance Prelude.NFData CreateInstanceEventWindow where
   rnf CreateInstanceEventWindow' {..} =
-    Prelude.rnf tagSpecifications
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf cronExpression
+    Prelude.rnf cronExpression
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf tagSpecifications
       `Prelude.seq` Prelude.rnf timeRanges
 
-instance Core.ToHeaders CreateInstanceEventWindow where
+instance Data.ToHeaders CreateInstanceEventWindow where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateInstanceEventWindow where
+instance Data.ToPath CreateInstanceEventWindow where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateInstanceEventWindow where
+instance Data.ToQuery CreateInstanceEventWindow where
   toQuery CreateInstanceEventWindow' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateInstanceEventWindow" :: Prelude.ByteString),
+          Data.=: ("CreateInstanceEventWindow" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          ( Core.toQueryList "TagSpecification"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "CronExpression" Data.=: cronExpression,
+        "DryRun" Data.=: dryRun,
+        "Name" Data.=: name,
+        Data.toQuery
+          ( Data.toQueryList "TagSpecification"
               Prelude.<$> tagSpecifications
           ),
-        "Name" Core.=: name,
-        "CronExpression" Core.=: cronExpression,
-        "DryRun" Core.=: dryRun,
-        Core.toQuery
-          ( Core.toQueryList "TimeRange"
+        Data.toQuery
+          ( Data.toQueryList "TimeRange"
               Prelude.<$> timeRanges
           )
       ]

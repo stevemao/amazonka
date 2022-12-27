@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.PutVoiceConnectorEmergencyCallingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,12 +103,13 @@ instance
     AWSResponse
       PutVoiceConnectorEmergencyCallingConfiguration =
       PutVoiceConnectorEmergencyCallingConfigurationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutVoiceConnectorEmergencyCallingConfigurationResponse'
-            Prelude.<$> (x Core..?> "EmergencyCallingConfiguration")
+            Prelude.<$> (x Data..?> "EmergencyCallingConfiguration")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -131,40 +133,40 @@ instance
         `Prelude.seq` Prelude.rnf emergencyCallingConfiguration
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PutVoiceConnectorEmergencyCallingConfiguration
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     PutVoiceConnectorEmergencyCallingConfiguration
   where
   toJSON
     PutVoiceConnectorEmergencyCallingConfiguration' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
             [ Prelude.Just
                 ( "EmergencyCallingConfiguration"
-                    Core..= emergencyCallingConfiguration
+                    Data..= emergencyCallingConfiguration
                 )
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     PutVoiceConnectorEmergencyCallingConfiguration
   where
   toPath
     PutVoiceConnectorEmergencyCallingConfiguration' {..} =
       Prelude.mconcat
         [ "/voice-connectors/",
-          Core.toBS voiceConnectorId,
+          Data.toBS voiceConnectorId,
           "/emergency-calling-configuration"
         ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     PutVoiceConnectorEmergencyCallingConfiguration
   where
   toQuery = Prelude.const Prelude.mempty

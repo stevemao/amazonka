@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.Types.FilteredLogEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,25 +20,26 @@
 module Amazonka.CloudWatchLogs.Types.FilteredLogEvent where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a matched event.
 --
 -- /See:/ 'newFilteredLogEvent' smart constructor.
 data FilteredLogEvent = FilteredLogEvent'
-  { -- | The time the event was ingested, expressed as the number of milliseconds
-    -- after Jan 1, 1970 00:00:00 UTC.
+  { -- | The ID of the event.
+    eventId :: Prelude.Maybe Prelude.Text,
+    -- | The time the event was ingested, expressed as the number of milliseconds
+    -- after @Jan 1, 1970 00:00:00 UTC@.
     ingestionTime :: Prelude.Maybe Prelude.Natural,
     -- | The name of the log stream to which this event belongs.
     logStreamName :: Prelude.Maybe Prelude.Text,
     -- | The data contained in the log event.
     message :: Prelude.Maybe Prelude.Text,
     -- | The time the event occurred, expressed as the number of milliseconds
-    -- after Jan 1, 1970 00:00:00 UTC.
-    timestamp :: Prelude.Maybe Prelude.Natural,
-    -- | The ID of the event.
-    eventId :: Prelude.Maybe Prelude.Text
+    -- after @Jan 1, 1970 00:00:00 UTC@.
+    timestamp :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,30 +51,34 @@ data FilteredLogEvent = FilteredLogEvent'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'eventId', 'filteredLogEvent_eventId' - The ID of the event.
+--
 -- 'ingestionTime', 'filteredLogEvent_ingestionTime' - The time the event was ingested, expressed as the number of milliseconds
--- after Jan 1, 1970 00:00:00 UTC.
+-- after @Jan 1, 1970 00:00:00 UTC@.
 --
 -- 'logStreamName', 'filteredLogEvent_logStreamName' - The name of the log stream to which this event belongs.
 --
 -- 'message', 'filteredLogEvent_message' - The data contained in the log event.
 --
 -- 'timestamp', 'filteredLogEvent_timestamp' - The time the event occurred, expressed as the number of milliseconds
--- after Jan 1, 1970 00:00:00 UTC.
---
--- 'eventId', 'filteredLogEvent_eventId' - The ID of the event.
+-- after @Jan 1, 1970 00:00:00 UTC@.
 newFilteredLogEvent ::
   FilteredLogEvent
 newFilteredLogEvent =
   FilteredLogEvent'
-    { ingestionTime = Prelude.Nothing,
+    { eventId = Prelude.Nothing,
+      ingestionTime = Prelude.Nothing,
       logStreamName = Prelude.Nothing,
       message = Prelude.Nothing,
-      timestamp = Prelude.Nothing,
-      eventId = Prelude.Nothing
+      timestamp = Prelude.Nothing
     }
 
+-- | The ID of the event.
+filteredLogEvent_eventId :: Lens.Lens' FilteredLogEvent (Prelude.Maybe Prelude.Text)
+filteredLogEvent_eventId = Lens.lens (\FilteredLogEvent' {eventId} -> eventId) (\s@FilteredLogEvent' {} a -> s {eventId = a} :: FilteredLogEvent)
+
 -- | The time the event was ingested, expressed as the number of milliseconds
--- after Jan 1, 1970 00:00:00 UTC.
+-- after @Jan 1, 1970 00:00:00 UTC@.
 filteredLogEvent_ingestionTime :: Lens.Lens' FilteredLogEvent (Prelude.Maybe Prelude.Natural)
 filteredLogEvent_ingestionTime = Lens.lens (\FilteredLogEvent' {ingestionTime} -> ingestionTime) (\s@FilteredLogEvent' {} a -> s {ingestionTime = a} :: FilteredLogEvent)
 
@@ -86,39 +91,35 @@ filteredLogEvent_message :: Lens.Lens' FilteredLogEvent (Prelude.Maybe Prelude.T
 filteredLogEvent_message = Lens.lens (\FilteredLogEvent' {message} -> message) (\s@FilteredLogEvent' {} a -> s {message = a} :: FilteredLogEvent)
 
 -- | The time the event occurred, expressed as the number of milliseconds
--- after Jan 1, 1970 00:00:00 UTC.
+-- after @Jan 1, 1970 00:00:00 UTC@.
 filteredLogEvent_timestamp :: Lens.Lens' FilteredLogEvent (Prelude.Maybe Prelude.Natural)
 filteredLogEvent_timestamp = Lens.lens (\FilteredLogEvent' {timestamp} -> timestamp) (\s@FilteredLogEvent' {} a -> s {timestamp = a} :: FilteredLogEvent)
 
--- | The ID of the event.
-filteredLogEvent_eventId :: Lens.Lens' FilteredLogEvent (Prelude.Maybe Prelude.Text)
-filteredLogEvent_eventId = Lens.lens (\FilteredLogEvent' {eventId} -> eventId) (\s@FilteredLogEvent' {} a -> s {eventId = a} :: FilteredLogEvent)
-
-instance Core.FromJSON FilteredLogEvent where
+instance Data.FromJSON FilteredLogEvent where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FilteredLogEvent"
       ( \x ->
           FilteredLogEvent'
-            Prelude.<$> (x Core..:? "ingestionTime")
-            Prelude.<*> (x Core..:? "logStreamName")
-            Prelude.<*> (x Core..:? "message")
-            Prelude.<*> (x Core..:? "timestamp")
-            Prelude.<*> (x Core..:? "eventId")
+            Prelude.<$> (x Data..:? "eventId")
+            Prelude.<*> (x Data..:? "ingestionTime")
+            Prelude.<*> (x Data..:? "logStreamName")
+            Prelude.<*> (x Data..:? "message")
+            Prelude.<*> (x Data..:? "timestamp")
       )
 
 instance Prelude.Hashable FilteredLogEvent where
   hashWithSalt _salt FilteredLogEvent' {..} =
-    _salt `Prelude.hashWithSalt` ingestionTime
+    _salt `Prelude.hashWithSalt` eventId
+      `Prelude.hashWithSalt` ingestionTime
       `Prelude.hashWithSalt` logStreamName
       `Prelude.hashWithSalt` message
       `Prelude.hashWithSalt` timestamp
-      `Prelude.hashWithSalt` eventId
 
 instance Prelude.NFData FilteredLogEvent where
   rnf FilteredLogEvent' {..} =
-    Prelude.rnf ingestionTime
+    Prelude.rnf eventId
+      `Prelude.seq` Prelude.rnf ingestionTime
       `Prelude.seq` Prelude.rnf logStreamName
       `Prelude.seq` Prelude.rnf message
       `Prelude.seq` Prelude.rnf timestamp
-      `Prelude.seq` Prelude.rnf eventId

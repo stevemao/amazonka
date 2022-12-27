@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.Signer.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,16 +18,16 @@ module Amazonka.Signer.Types
     defaultService,
 
     -- * Errors
-    _ValidationException,
     _AccessDeniedException,
+    _BadRequestException,
     _ConflictException,
-    _ServiceLimitExceededException,
+    _InternalServiceErrorException,
     _NotFoundException,
+    _ResourceNotFoundException,
+    _ServiceLimitExceededException,
     _ThrottlingException,
     _TooManyRequestsException,
-    _InternalServiceErrorException,
-    _ResourceNotFoundException,
-    _BadRequestException,
+    _ValidationException,
 
     -- * Category
     Category (..),
@@ -70,15 +71,15 @@ module Amazonka.Signer.Types
     Permission (..),
     newPermission,
     permission_action,
-    permission_profileVersion,
     permission_principal,
+    permission_profileVersion,
     permission_statementId,
 
     -- * S3Destination
     S3Destination (..),
     newS3Destination,
-    s3Destination_prefix,
     s3Destination_bucketName,
+    s3Destination_prefix,
 
     -- * S3SignedObject
     S3SignedObject (..),
@@ -96,8 +97,8 @@ module Amazonka.Signer.Types
     -- * SignatureValidityPeriod
     SignatureValidityPeriod (..),
     newSignatureValidityPeriod,
-    signatureValidityPeriod_value,
     signatureValidityPeriod_type,
+    signatureValidityPeriod_value,
 
     -- * SignedObject
     SignedObject (..),
@@ -113,8 +114,8 @@ module Amazonka.Signer.Types
     -- * SigningConfigurationOverrides
     SigningConfigurationOverrides (..),
     newSigningConfigurationOverrides,
-    signingConfigurationOverrides_hashAlgorithm,
     signingConfigurationOverrides_encryptionAlgorithm,
+    signingConfigurationOverrides_hashAlgorithm,
 
     -- * SigningImageFormat
     SigningImageFormat (..),
@@ -125,27 +126,27 @@ module Amazonka.Signer.Types
     -- * SigningJob
     SigningJob (..),
     newSigningJob,
-    signingJob_status,
-    signingJob_platformDisplayName,
-    signingJob_jobId,
     signingJob_createdAt,
-    signingJob_signingMaterial,
     signingJob_isRevoked,
-    signingJob_signatureExpiresAt,
-    signingJob_profileVersion,
-    signingJob_profileName,
-    signingJob_signedObject,
-    signingJob_platformId,
-    signingJob_source,
+    signingJob_jobId,
     signingJob_jobInvoker,
     signingJob_jobOwner,
+    signingJob_platformDisplayName,
+    signingJob_platformId,
+    signingJob_profileName,
+    signingJob_profileVersion,
+    signingJob_signatureExpiresAt,
+    signingJob_signedObject,
+    signingJob_signingMaterial,
+    signingJob_source,
+    signingJob_status,
 
     -- * SigningJobRevocationRecord
     SigningJobRevocationRecord (..),
     newSigningJobRevocationRecord,
-    signingJobRevocationRecord_revokedBy,
-    signingJobRevocationRecord_revokedAt,
     signingJobRevocationRecord_reason,
+    signingJobRevocationRecord_revokedAt,
+    signingJobRevocationRecord_revokedBy,
 
     -- * SigningMaterial
     SigningMaterial (..),
@@ -156,13 +157,13 @@ module Amazonka.Signer.Types
     SigningPlatform (..),
     newSigningPlatform,
     signingPlatform_category,
-    signingPlatform_signingConfiguration,
-    signingPlatform_partner,
-    signingPlatform_revocationSupported,
-    signingPlatform_signingImageFormat,
-    signingPlatform_platformId,
     signingPlatform_displayName,
     signingPlatform_maxSizeInMB,
+    signingPlatform_partner,
+    signingPlatform_platformId,
+    signingPlatform_revocationSupported,
+    signingPlatform_signingConfiguration,
+    signingPlatform_signingImageFormat,
     signingPlatform_target,
 
     -- * SigningPlatformOverrides
@@ -174,24 +175,24 @@ module Amazonka.Signer.Types
     -- * SigningProfile
     SigningProfile (..),
     newSigningProfile,
-    signingProfile_status,
-    signingProfile_platformDisplayName,
     signingProfile_arn,
-    signingProfile_signingMaterial,
-    signingProfile_profileVersion,
-    signingProfile_profileName,
-    signingProfile_profileVersionArn,
+    signingProfile_platformDisplayName,
     signingProfile_platformId,
+    signingProfile_profileName,
+    signingProfile_profileVersion,
+    signingProfile_profileVersionArn,
     signingProfile_signatureValidityPeriod,
+    signingProfile_signingMaterial,
     signingProfile_signingParameters,
+    signingProfile_status,
     signingProfile_tags,
 
     -- * SigningProfileRevocationRecord
     SigningProfileRevocationRecord (..),
     newSigningProfileRevocationRecord,
-    signingProfileRevocationRecord_revokedBy,
     signingProfileRevocationRecord_revocationEffectiveFrom,
     signingProfileRevocationRecord_revokedAt,
+    signingProfileRevocationRecord_revokedBy,
 
     -- * Source
     Source (..),
@@ -201,7 +202,7 @@ module Amazonka.Signer.Types
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 import Amazonka.Signer.Types.Category
@@ -236,41 +237,49 @@ import Amazonka.Signer.Types.ValidityType
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "Signer",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "signer",
-      Core._serviceSigningName = "signer",
-      Core._serviceVersion = "2017-08-25",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "Signer",
-      Core._serviceRetry = retry
+    { Core.abbrev = "Signer",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "signer",
+      Core.signingName = "signer",
+      Core.version = "2017-08-25",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "Signer",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -278,37 +287,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | You signing certificate could not be validated.
-_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ValidationException =
-  Core._MatchServiceError
-    defaultService
-    "ValidationException"
-    Prelude.. Core.hasStatus 400
 
 -- | You do not have sufficient access to perform this action.
 _AccessDeniedException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -318,6 +311,16 @@ _AccessDeniedException =
     "AccessDeniedException"
     Prelude.. Core.hasStatus 403
 
+-- | The request contains invalid parameters for the ARN or tags. This
+-- exception also occurs when you call a tagging API on a cancelled signing
+-- profile.
+_BadRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_BadRequestException =
+  Core._MatchServiceError
+    defaultService
+    "BadRequestException"
+    Prelude.. Core.hasStatus 400
+
 -- | The resource encountered a conflicting state.
 _ConflictException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _ConflictException =
@@ -326,13 +329,13 @@ _ConflictException =
     "ConflictException"
     Prelude.. Core.hasStatus 409
 
--- | The client is making a request that exceeds service limits.
-_ServiceLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ServiceLimitExceededException =
+-- | An internal error occurred.
+_InternalServiceErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InternalServiceErrorException =
   Core._MatchServiceError
     defaultService
-    "ServiceLimitExceededException"
-    Prelude.. Core.hasStatus 402
+    "InternalServiceErrorException"
+    Prelude.. Core.hasStatus 500
 
 -- | The signing profile was not found.
 _NotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -341,6 +344,22 @@ _NotFoundException =
     defaultService
     "NotFoundException"
     Prelude.. Core.hasStatus 404
+
+-- | A specified resource could not be found.
+_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceNotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "ResourceNotFoundException"
+    Prelude.. Core.hasStatus 404
+
+-- | The client is making a request that exceeds service limits.
+_ServiceLimitExceededException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ServiceLimitExceededException =
+  Core._MatchServiceError
+    defaultService
+    "ServiceLimitExceededException"
+    Prelude.. Core.hasStatus 402
 
 -- | The request was denied due to request throttling.
 --
@@ -362,28 +381,10 @@ _TooManyRequestsException =
     "TooManyRequestsException"
     Prelude.. Core.hasStatus 429
 
--- | An internal error occurred.
-_InternalServiceErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InternalServiceErrorException =
+-- | You signing certificate could not be validated.
+_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ValidationException =
   Core._MatchServiceError
     defaultService
-    "InternalServiceErrorException"
-    Prelude.. Core.hasStatus 500
-
--- | A specified resource could not be found.
-_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceNotFoundException =
-  Core._MatchServiceError
-    defaultService
-    "ResourceNotFoundException"
-    Prelude.. Core.hasStatus 404
-
--- | The request contains invalid parameters for the ARN or tags. This
--- exception also occurs when you call a tagging API on a cancelled signing
--- profile.
-_BadRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_BadRequestException =
-  Core._MatchServiceError
-    defaultService
-    "BadRequestException"
+    "ValidationException"
     Prelude.. Core.hasStatus 400

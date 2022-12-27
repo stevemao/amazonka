@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.ModifyDBInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,13 +29,16 @@ module Amazonka.DocumentDB.ModifyDBInstance
     newModifyDBInstance,
 
     -- * Request Lenses
-    modifyDBInstance_autoMinorVersionUpgrade,
-    modifyDBInstance_newDBInstanceIdentifier,
-    modifyDBInstance_dbInstanceClass,
-    modifyDBInstance_promotionTier,
-    modifyDBInstance_preferredMaintenanceWindow,
-    modifyDBInstance_cACertificateIdentifier,
     modifyDBInstance_applyImmediately,
+    modifyDBInstance_autoMinorVersionUpgrade,
+    modifyDBInstance_cACertificateIdentifier,
+    modifyDBInstance_copyTagsToSnapshot,
+    modifyDBInstance_dbInstanceClass,
+    modifyDBInstance_enablePerformanceInsights,
+    modifyDBInstance_newDBInstanceIdentifier,
+    modifyDBInstance_performanceInsightsKMSKeyId,
+    modifyDBInstance_preferredMaintenanceWindow,
+    modifyDBInstance_promotionTier,
     modifyDBInstance_dbInstanceIdentifier,
 
     -- * Destructuring the Response
@@ -49,8 +52,9 @@ module Amazonka.DocumentDB.ModifyDBInstance
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,9 +63,38 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newModifyDBInstance' smart constructor.
 data ModifyDBInstance = ModifyDBInstance'
-  { -- | This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB
+  { -- | Specifies whether the modifications in this request and any pending
+    -- modifications are asynchronously applied as soon as possible, regardless
+    -- of the @PreferredMaintenanceWindow@ setting for the instance.
+    --
+    -- If this parameter is set to @false@, changes to the instance are applied
+    -- during the next maintenance window. Some parameter changes can cause an
+    -- outage and are applied on the next reboot.
+    --
+    -- Default: @false@
+    applyImmediately :: Prelude.Maybe Prelude.Bool,
+    -- | This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB
     -- does not perform minor version upgrades regardless of the value set.
     autoMinorVersionUpgrade :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates the certificate that needs to be associated with the instance.
+    cACertificateIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether to copy all tags from the DB instance to
+    -- snapshots of the DB instance. By default, tags are not copied.
+    copyTagsToSnapshot :: Prelude.Maybe Prelude.Bool,
+    -- | The new compute and memory capacity of the instance; for example,
+    -- @db.r5.large@. Not all instance classes are available in all Amazon Web
+    -- Services Regions.
+    --
+    -- If you modify the instance class, an outage occurs during the change.
+    -- The change is applied during the next maintenance window, unless
+    -- @ApplyImmediately@ is specified as @true@ for this request.
+    --
+    -- Default: Uses existing setting.
+    dbInstanceClass :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether to enable Performance Insights for the DB
+    -- Instance. For more information, see
+    -- <https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html Using Amazon Performance Insights>.
+    enablePerformanceInsights :: Prelude.Maybe Prelude.Bool,
     -- | The new instance identifier for the instance when renaming an instance.
     -- When you change the instance identifier, an instance reboot occurs
     -- immediately if you set @Apply Immediately@ to @true@. It occurs during
@@ -78,23 +111,16 @@ data ModifyDBInstance = ModifyDBInstance'
     --
     -- Example: @mydbinstance@
     newDBInstanceIdentifier' :: Prelude.Maybe Prelude.Text,
-    -- | The new compute and memory capacity of the instance; for example,
-    -- @db.r5.large@. Not all instance classes are available in all Regions.
+    -- | The KMS key identifier for encryption of Performance Insights data.
     --
-    -- If you modify the instance class, an outage occurs during the change.
-    -- The change is applied during the next maintenance window, unless
-    -- @ApplyImmediately@ is specified as @true@ for this request.
+    -- The KMS key identifier is the key ARN, key ID, alias ARN, or alias name
+    -- for the KMS key.
     --
-    -- Default: Uses existing setting.
-    dbInstanceClass :: Prelude.Maybe Prelude.Text,
-    -- | A value that specifies the order in which an Amazon DocumentDB replica
-    -- is promoted to the primary instance after a failure of the existing
-    -- primary instance.
-    --
-    -- Default: 1
-    --
-    -- Valid values: 0-15
-    promotionTier :: Prelude.Maybe Prelude.Int,
+    -- If you do not specify a value for PerformanceInsightsKMSKeyId, then
+    -- Amazon DocumentDB uses your default KMS key. There is a default KMS key
+    -- for your Amazon Web Services account. Your Amazon Web Services account
+    -- has a different default KMS key for each Amazon Web Services region.
+    performanceInsightsKMSKeyId :: Prelude.Maybe Prelude.Text,
     -- | The weekly time range (in UTC) during which system maintenance can
     -- occur, which might result in an outage. Changing this parameter doesn\'t
     -- result in an outage except in the following situation, and the change is
@@ -113,18 +139,14 @@ data ModifyDBInstance = ModifyDBInstance'
     --
     -- Constraints: Must be at least 30 minutes.
     preferredMaintenanceWindow :: Prelude.Maybe Prelude.Text,
-    -- | Indicates the certificate that needs to be associated with the instance.
-    cACertificateIdentifier :: Prelude.Maybe Prelude.Text,
-    -- | Specifies whether the modifications in this request and any pending
-    -- modifications are asynchronously applied as soon as possible, regardless
-    -- of the @PreferredMaintenanceWindow@ setting for the instance.
+    -- | A value that specifies the order in which an Amazon DocumentDB replica
+    -- is promoted to the primary instance after a failure of the existing
+    -- primary instance.
     --
-    -- If this parameter is set to @false@, changes to the instance are applied
-    -- during the next maintenance window. Some parameter changes can cause an
-    -- outage and are applied on the next reboot.
+    -- Default: 1
     --
-    -- Default: @false@
-    applyImmediately :: Prelude.Maybe Prelude.Bool,
+    -- Valid values: 0-15
+    promotionTier :: Prelude.Maybe Prelude.Int,
     -- | The instance identifier. This value is stored as a lowercase string.
     --
     -- Constraints:
@@ -142,8 +164,37 @@ data ModifyDBInstance = ModifyDBInstance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'applyImmediately', 'modifyDBInstance_applyImmediately' - Specifies whether the modifications in this request and any pending
+-- modifications are asynchronously applied as soon as possible, regardless
+-- of the @PreferredMaintenanceWindow@ setting for the instance.
+--
+-- If this parameter is set to @false@, changes to the instance are applied
+-- during the next maintenance window. Some parameter changes can cause an
+-- outage and are applied on the next reboot.
+--
+-- Default: @false@
+--
 -- 'autoMinorVersionUpgrade', 'modifyDBInstance_autoMinorVersionUpgrade' - This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB
 -- does not perform minor version upgrades regardless of the value set.
+--
+-- 'cACertificateIdentifier', 'modifyDBInstance_cACertificateIdentifier' - Indicates the certificate that needs to be associated with the instance.
+--
+-- 'copyTagsToSnapshot', 'modifyDBInstance_copyTagsToSnapshot' - A value that indicates whether to copy all tags from the DB instance to
+-- snapshots of the DB instance. By default, tags are not copied.
+--
+-- 'dbInstanceClass', 'modifyDBInstance_dbInstanceClass' - The new compute and memory capacity of the instance; for example,
+-- @db.r5.large@. Not all instance classes are available in all Amazon Web
+-- Services Regions.
+--
+-- If you modify the instance class, an outage occurs during the change.
+-- The change is applied during the next maintenance window, unless
+-- @ApplyImmediately@ is specified as @true@ for this request.
+--
+-- Default: Uses existing setting.
+--
+-- 'enablePerformanceInsights', 'modifyDBInstance_enablePerformanceInsights' - A value that indicates whether to enable Performance Insights for the DB
+-- Instance. For more information, see
+-- <https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html Using Amazon Performance Insights>.
 --
 -- 'newDBInstanceIdentifier'', 'modifyDBInstance_newDBInstanceIdentifier' - The new instance identifier for the instance when renaming an instance.
 -- When you change the instance identifier, an instance reboot occurs
@@ -161,22 +212,15 @@ data ModifyDBInstance = ModifyDBInstance'
 --
 -- Example: @mydbinstance@
 --
--- 'dbInstanceClass', 'modifyDBInstance_dbInstanceClass' - The new compute and memory capacity of the instance; for example,
--- @db.r5.large@. Not all instance classes are available in all Regions.
+-- 'performanceInsightsKMSKeyId', 'modifyDBInstance_performanceInsightsKMSKeyId' - The KMS key identifier for encryption of Performance Insights data.
 --
--- If you modify the instance class, an outage occurs during the change.
--- The change is applied during the next maintenance window, unless
--- @ApplyImmediately@ is specified as @true@ for this request.
+-- The KMS key identifier is the key ARN, key ID, alias ARN, or alias name
+-- for the KMS key.
 --
--- Default: Uses existing setting.
---
--- 'promotionTier', 'modifyDBInstance_promotionTier' - A value that specifies the order in which an Amazon DocumentDB replica
--- is promoted to the primary instance after a failure of the existing
--- primary instance.
---
--- Default: 1
---
--- Valid values: 0-15
+-- If you do not specify a value for PerformanceInsightsKMSKeyId, then
+-- Amazon DocumentDB uses your default KMS key. There is a default KMS key
+-- for your Amazon Web Services account. Your Amazon Web Services account
+-- has a different default KMS key for each Amazon Web Services region.
 --
 -- 'preferredMaintenanceWindow', 'modifyDBInstance_preferredMaintenanceWindow' - The weekly time range (in UTC) during which system maintenance can
 -- occur, which might result in an outage. Changing this parameter doesn\'t
@@ -196,17 +240,13 @@ data ModifyDBInstance = ModifyDBInstance'
 --
 -- Constraints: Must be at least 30 minutes.
 --
--- 'cACertificateIdentifier', 'modifyDBInstance_cACertificateIdentifier' - Indicates the certificate that needs to be associated with the instance.
+-- 'promotionTier', 'modifyDBInstance_promotionTier' - A value that specifies the order in which an Amazon DocumentDB replica
+-- is promoted to the primary instance after a failure of the existing
+-- primary instance.
 --
--- 'applyImmediately', 'modifyDBInstance_applyImmediately' - Specifies whether the modifications in this request and any pending
--- modifications are asynchronously applied as soon as possible, regardless
--- of the @PreferredMaintenanceWindow@ setting for the instance.
+-- Default: 1
 --
--- If this parameter is set to @false@, changes to the instance are applied
--- during the next maintenance window. Some parameter changes can cause an
--- outage and are applied on the next reboot.
---
--- Default: @false@
+-- Valid values: 0-15
 --
 -- 'dbInstanceIdentifier', 'modifyDBInstance_dbInstanceIdentifier' - The instance identifier. This value is stored as a lowercase string.
 --
@@ -219,21 +259,63 @@ newModifyDBInstance ::
   ModifyDBInstance
 newModifyDBInstance pDBInstanceIdentifier_ =
   ModifyDBInstance'
-    { autoMinorVersionUpgrade =
+    { applyImmediately =
         Prelude.Nothing,
-      newDBInstanceIdentifier' = Prelude.Nothing,
-      dbInstanceClass = Prelude.Nothing,
-      promotionTier = Prelude.Nothing,
-      preferredMaintenanceWindow = Prelude.Nothing,
+      autoMinorVersionUpgrade = Prelude.Nothing,
       cACertificateIdentifier = Prelude.Nothing,
-      applyImmediately = Prelude.Nothing,
+      copyTagsToSnapshot = Prelude.Nothing,
+      dbInstanceClass = Prelude.Nothing,
+      enablePerformanceInsights = Prelude.Nothing,
+      newDBInstanceIdentifier' = Prelude.Nothing,
+      performanceInsightsKMSKeyId = Prelude.Nothing,
+      preferredMaintenanceWindow = Prelude.Nothing,
+      promotionTier = Prelude.Nothing,
       dbInstanceIdentifier = pDBInstanceIdentifier_
     }
+
+-- | Specifies whether the modifications in this request and any pending
+-- modifications are asynchronously applied as soon as possible, regardless
+-- of the @PreferredMaintenanceWindow@ setting for the instance.
+--
+-- If this parameter is set to @false@, changes to the instance are applied
+-- during the next maintenance window. Some parameter changes can cause an
+-- outage and are applied on the next reboot.
+--
+-- Default: @false@
+modifyDBInstance_applyImmediately :: Lens.Lens' ModifyDBInstance (Prelude.Maybe Prelude.Bool)
+modifyDBInstance_applyImmediately = Lens.lens (\ModifyDBInstance' {applyImmediately} -> applyImmediately) (\s@ModifyDBInstance' {} a -> s {applyImmediately = a} :: ModifyDBInstance)
 
 -- | This parameter does not apply to Amazon DocumentDB. Amazon DocumentDB
 -- does not perform minor version upgrades regardless of the value set.
 modifyDBInstance_autoMinorVersionUpgrade :: Lens.Lens' ModifyDBInstance (Prelude.Maybe Prelude.Bool)
 modifyDBInstance_autoMinorVersionUpgrade = Lens.lens (\ModifyDBInstance' {autoMinorVersionUpgrade} -> autoMinorVersionUpgrade) (\s@ModifyDBInstance' {} a -> s {autoMinorVersionUpgrade = a} :: ModifyDBInstance)
+
+-- | Indicates the certificate that needs to be associated with the instance.
+modifyDBInstance_cACertificateIdentifier :: Lens.Lens' ModifyDBInstance (Prelude.Maybe Prelude.Text)
+modifyDBInstance_cACertificateIdentifier = Lens.lens (\ModifyDBInstance' {cACertificateIdentifier} -> cACertificateIdentifier) (\s@ModifyDBInstance' {} a -> s {cACertificateIdentifier = a} :: ModifyDBInstance)
+
+-- | A value that indicates whether to copy all tags from the DB instance to
+-- snapshots of the DB instance. By default, tags are not copied.
+modifyDBInstance_copyTagsToSnapshot :: Lens.Lens' ModifyDBInstance (Prelude.Maybe Prelude.Bool)
+modifyDBInstance_copyTagsToSnapshot = Lens.lens (\ModifyDBInstance' {copyTagsToSnapshot} -> copyTagsToSnapshot) (\s@ModifyDBInstance' {} a -> s {copyTagsToSnapshot = a} :: ModifyDBInstance)
+
+-- | The new compute and memory capacity of the instance; for example,
+-- @db.r5.large@. Not all instance classes are available in all Amazon Web
+-- Services Regions.
+--
+-- If you modify the instance class, an outage occurs during the change.
+-- The change is applied during the next maintenance window, unless
+-- @ApplyImmediately@ is specified as @true@ for this request.
+--
+-- Default: Uses existing setting.
+modifyDBInstance_dbInstanceClass :: Lens.Lens' ModifyDBInstance (Prelude.Maybe Prelude.Text)
+modifyDBInstance_dbInstanceClass = Lens.lens (\ModifyDBInstance' {dbInstanceClass} -> dbInstanceClass) (\s@ModifyDBInstance' {} a -> s {dbInstanceClass = a} :: ModifyDBInstance)
+
+-- | A value that indicates whether to enable Performance Insights for the DB
+-- Instance. For more information, see
+-- <https://docs.aws.amazon.com/documentdb/latest/developerguide/performance-insights.html Using Amazon Performance Insights>.
+modifyDBInstance_enablePerformanceInsights :: Lens.Lens' ModifyDBInstance (Prelude.Maybe Prelude.Bool)
+modifyDBInstance_enablePerformanceInsights = Lens.lens (\ModifyDBInstance' {enablePerformanceInsights} -> enablePerformanceInsights) (\s@ModifyDBInstance' {} a -> s {enablePerformanceInsights = a} :: ModifyDBInstance)
 
 -- | The new instance identifier for the instance when renaming an instance.
 -- When you change the instance identifier, an instance reboot occurs
@@ -253,26 +335,17 @@ modifyDBInstance_autoMinorVersionUpgrade = Lens.lens (\ModifyDBInstance' {autoMi
 modifyDBInstance_newDBInstanceIdentifier :: Lens.Lens' ModifyDBInstance (Prelude.Maybe Prelude.Text)
 modifyDBInstance_newDBInstanceIdentifier = Lens.lens (\ModifyDBInstance' {newDBInstanceIdentifier'} -> newDBInstanceIdentifier') (\s@ModifyDBInstance' {} a -> s {newDBInstanceIdentifier' = a} :: ModifyDBInstance)
 
--- | The new compute and memory capacity of the instance; for example,
--- @db.r5.large@. Not all instance classes are available in all Regions.
+-- | The KMS key identifier for encryption of Performance Insights data.
 --
--- If you modify the instance class, an outage occurs during the change.
--- The change is applied during the next maintenance window, unless
--- @ApplyImmediately@ is specified as @true@ for this request.
+-- The KMS key identifier is the key ARN, key ID, alias ARN, or alias name
+-- for the KMS key.
 --
--- Default: Uses existing setting.
-modifyDBInstance_dbInstanceClass :: Lens.Lens' ModifyDBInstance (Prelude.Maybe Prelude.Text)
-modifyDBInstance_dbInstanceClass = Lens.lens (\ModifyDBInstance' {dbInstanceClass} -> dbInstanceClass) (\s@ModifyDBInstance' {} a -> s {dbInstanceClass = a} :: ModifyDBInstance)
-
--- | A value that specifies the order in which an Amazon DocumentDB replica
--- is promoted to the primary instance after a failure of the existing
--- primary instance.
---
--- Default: 1
---
--- Valid values: 0-15
-modifyDBInstance_promotionTier :: Lens.Lens' ModifyDBInstance (Prelude.Maybe Prelude.Int)
-modifyDBInstance_promotionTier = Lens.lens (\ModifyDBInstance' {promotionTier} -> promotionTier) (\s@ModifyDBInstance' {} a -> s {promotionTier = a} :: ModifyDBInstance)
+-- If you do not specify a value for PerformanceInsightsKMSKeyId, then
+-- Amazon DocumentDB uses your default KMS key. There is a default KMS key
+-- for your Amazon Web Services account. Your Amazon Web Services account
+-- has a different default KMS key for each Amazon Web Services region.
+modifyDBInstance_performanceInsightsKMSKeyId :: Lens.Lens' ModifyDBInstance (Prelude.Maybe Prelude.Text)
+modifyDBInstance_performanceInsightsKMSKeyId = Lens.lens (\ModifyDBInstance' {performanceInsightsKMSKeyId} -> performanceInsightsKMSKeyId) (\s@ModifyDBInstance' {} a -> s {performanceInsightsKMSKeyId = a} :: ModifyDBInstance)
 
 -- | The weekly time range (in UTC) during which system maintenance can
 -- occur, which might result in an outage. Changing this parameter doesn\'t
@@ -294,21 +367,15 @@ modifyDBInstance_promotionTier = Lens.lens (\ModifyDBInstance' {promotionTier} -
 modifyDBInstance_preferredMaintenanceWindow :: Lens.Lens' ModifyDBInstance (Prelude.Maybe Prelude.Text)
 modifyDBInstance_preferredMaintenanceWindow = Lens.lens (\ModifyDBInstance' {preferredMaintenanceWindow} -> preferredMaintenanceWindow) (\s@ModifyDBInstance' {} a -> s {preferredMaintenanceWindow = a} :: ModifyDBInstance)
 
--- | Indicates the certificate that needs to be associated with the instance.
-modifyDBInstance_cACertificateIdentifier :: Lens.Lens' ModifyDBInstance (Prelude.Maybe Prelude.Text)
-modifyDBInstance_cACertificateIdentifier = Lens.lens (\ModifyDBInstance' {cACertificateIdentifier} -> cACertificateIdentifier) (\s@ModifyDBInstance' {} a -> s {cACertificateIdentifier = a} :: ModifyDBInstance)
-
--- | Specifies whether the modifications in this request and any pending
--- modifications are asynchronously applied as soon as possible, regardless
--- of the @PreferredMaintenanceWindow@ setting for the instance.
+-- | A value that specifies the order in which an Amazon DocumentDB replica
+-- is promoted to the primary instance after a failure of the existing
+-- primary instance.
 --
--- If this parameter is set to @false@, changes to the instance are applied
--- during the next maintenance window. Some parameter changes can cause an
--- outage and are applied on the next reboot.
+-- Default: 1
 --
--- Default: @false@
-modifyDBInstance_applyImmediately :: Lens.Lens' ModifyDBInstance (Prelude.Maybe Prelude.Bool)
-modifyDBInstance_applyImmediately = Lens.lens (\ModifyDBInstance' {applyImmediately} -> applyImmediately) (\s@ModifyDBInstance' {} a -> s {applyImmediately = a} :: ModifyDBInstance)
+-- Valid values: 0-15
+modifyDBInstance_promotionTier :: Lens.Lens' ModifyDBInstance (Prelude.Maybe Prelude.Int)
+modifyDBInstance_promotionTier = Lens.lens (\ModifyDBInstance' {promotionTier} -> promotionTier) (\s@ModifyDBInstance' {} a -> s {promotionTier = a} :: ModifyDBInstance)
 
 -- | The instance identifier. This value is stored as a lowercase string.
 --
@@ -322,64 +389,75 @@ instance Core.AWSRequest ModifyDBInstance where
   type
     AWSResponse ModifyDBInstance =
       ModifyDBInstanceResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyDBInstanceResult"
       ( \s h x ->
           ModifyDBInstanceResponse'
-            Prelude.<$> (x Core..@? "DBInstance")
+            Prelude.<$> (x Data..@? "DBInstance")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ModifyDBInstance where
   hashWithSalt _salt ModifyDBInstance' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` applyImmediately
       `Prelude.hashWithSalt` autoMinorVersionUpgrade
-      `Prelude.hashWithSalt` newDBInstanceIdentifier'
-      `Prelude.hashWithSalt` dbInstanceClass
-      `Prelude.hashWithSalt` promotionTier
-      `Prelude.hashWithSalt` preferredMaintenanceWindow
       `Prelude.hashWithSalt` cACertificateIdentifier
-      `Prelude.hashWithSalt` applyImmediately
+      `Prelude.hashWithSalt` copyTagsToSnapshot
+      `Prelude.hashWithSalt` dbInstanceClass
+      `Prelude.hashWithSalt` enablePerformanceInsights
+      `Prelude.hashWithSalt` newDBInstanceIdentifier'
+      `Prelude.hashWithSalt` performanceInsightsKMSKeyId
+      `Prelude.hashWithSalt` preferredMaintenanceWindow
+      `Prelude.hashWithSalt` promotionTier
       `Prelude.hashWithSalt` dbInstanceIdentifier
 
 instance Prelude.NFData ModifyDBInstance where
   rnf ModifyDBInstance' {..} =
-    Prelude.rnf autoMinorVersionUpgrade
-      `Prelude.seq` Prelude.rnf newDBInstanceIdentifier'
-      `Prelude.seq` Prelude.rnf dbInstanceClass
-      `Prelude.seq` Prelude.rnf promotionTier
-      `Prelude.seq` Prelude.rnf preferredMaintenanceWindow
+    Prelude.rnf applyImmediately
+      `Prelude.seq` Prelude.rnf autoMinorVersionUpgrade
       `Prelude.seq` Prelude.rnf cACertificateIdentifier
-      `Prelude.seq` Prelude.rnf applyImmediately
+      `Prelude.seq` Prelude.rnf copyTagsToSnapshot
+      `Prelude.seq` Prelude.rnf dbInstanceClass
+      `Prelude.seq` Prelude.rnf enablePerformanceInsights
+      `Prelude.seq` Prelude.rnf newDBInstanceIdentifier'
+      `Prelude.seq` Prelude.rnf performanceInsightsKMSKeyId
+      `Prelude.seq` Prelude.rnf preferredMaintenanceWindow
+      `Prelude.seq` Prelude.rnf promotionTier
       `Prelude.seq` Prelude.rnf dbInstanceIdentifier
 
-instance Core.ToHeaders ModifyDBInstance where
+instance Data.ToHeaders ModifyDBInstance where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyDBInstance where
+instance Data.ToPath ModifyDBInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyDBInstance where
+instance Data.ToQuery ModifyDBInstance where
   toQuery ModifyDBInstance' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyDBInstance" :: Prelude.ByteString),
+          Data.=: ("ModifyDBInstance" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "ApplyImmediately" Data.=: applyImmediately,
         "AutoMinorVersionUpgrade"
-          Core.=: autoMinorVersionUpgrade,
-        "NewDBInstanceIdentifier"
-          Core.=: newDBInstanceIdentifier',
-        "DBInstanceClass" Core.=: dbInstanceClass,
-        "PromotionTier" Core.=: promotionTier,
-        "PreferredMaintenanceWindow"
-          Core.=: preferredMaintenanceWindow,
+          Data.=: autoMinorVersionUpgrade,
         "CACertificateIdentifier"
-          Core.=: cACertificateIdentifier,
-        "ApplyImmediately" Core.=: applyImmediately,
-        "DBInstanceIdentifier" Core.=: dbInstanceIdentifier
+          Data.=: cACertificateIdentifier,
+        "CopyTagsToSnapshot" Data.=: copyTagsToSnapshot,
+        "DBInstanceClass" Data.=: dbInstanceClass,
+        "EnablePerformanceInsights"
+          Data.=: enablePerformanceInsights,
+        "NewDBInstanceIdentifier"
+          Data.=: newDBInstanceIdentifier',
+        "PerformanceInsightsKMSKeyId"
+          Data.=: performanceInsightsKMSKeyId,
+        "PreferredMaintenanceWindow"
+          Data.=: preferredMaintenanceWindow,
+        "PromotionTier" Data.=: promotionTier,
+        "DBInstanceIdentifier" Data.=: dbInstanceIdentifier
       ]
 
 -- | /See:/ 'newModifyDBInstanceResponse' smart constructor.

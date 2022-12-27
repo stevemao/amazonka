@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.GetBotChannelAssociations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,9 +32,9 @@ module Amazonka.LexModels.GetBotChannelAssociations
     newGetBotChannelAssociations,
 
     -- * Request Lenses
+    getBotChannelAssociations_maxResults,
     getBotChannelAssociations_nameContains,
     getBotChannelAssociations_nextToken,
-    getBotChannelAssociations_maxResults,
     getBotChannelAssociations_botName,
     getBotChannelAssociations_botAlias,
 
@@ -50,7 +50,8 @@ module Amazonka.LexModels.GetBotChannelAssociations
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LexModels.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -58,7 +59,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetBotChannelAssociations' smart constructor.
 data GetBotChannelAssociations = GetBotChannelAssociations'
-  { -- | Substring to match in channel association names. An association will be
+  { -- | The maximum number of associations to return in the response. The
+    -- default is 50.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Substring to match in channel association names. An association will be
     -- returned if any part of its name matches the substring. For example,
     -- \"xyz\" matches both \"xyzabc\" and \"abcxyz.\" To return all bot
     -- channel associations, use a hyphen (\"-\") as the @nameContains@
@@ -69,9 +73,6 @@ data GetBotChannelAssociations = GetBotChannelAssociations'
     -- token in the response. To fetch the next page of associations, specify
     -- the pagination token in the next request.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of associations to return in the response. The
-    -- default is 50.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The name of the Amazon Lex bot in the association.
     botName :: Prelude.Text,
     -- | An alias pointing to the specific version of the Amazon Lex bot to which
@@ -88,6 +89,9 @@ data GetBotChannelAssociations = GetBotChannelAssociations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getBotChannelAssociations_maxResults' - The maximum number of associations to return in the response. The
+-- default is 50.
+--
 -- 'nameContains', 'getBotChannelAssociations_nameContains' - Substring to match in channel association names. An association will be
 -- returned if any part of its name matches the substring. For example,
 -- \"xyz\" matches both \"xyzabc\" and \"abcxyz.\" To return all bot
@@ -98,9 +102,6 @@ data GetBotChannelAssociations = GetBotChannelAssociations'
 -- response to this call is truncated, Amazon Lex returns a pagination
 -- token in the response. To fetch the next page of associations, specify
 -- the pagination token in the next request.
---
--- 'maxResults', 'getBotChannelAssociations_maxResults' - The maximum number of associations to return in the response. The
--- default is 50.
 --
 -- 'botName', 'getBotChannelAssociations_botName' - The name of the Amazon Lex bot in the association.
 --
@@ -114,13 +115,18 @@ newGetBotChannelAssociations ::
   GetBotChannelAssociations
 newGetBotChannelAssociations pBotName_ pBotAlias_ =
   GetBotChannelAssociations'
-    { nameContains =
+    { maxResults =
         Prelude.Nothing,
+      nameContains = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
       botName = pBotName_,
       botAlias = pBotAlias_
     }
+
+-- | The maximum number of associations to return in the response. The
+-- default is 50.
+getBotChannelAssociations_maxResults :: Lens.Lens' GetBotChannelAssociations (Prelude.Maybe Prelude.Natural)
+getBotChannelAssociations_maxResults = Lens.lens (\GetBotChannelAssociations' {maxResults} -> maxResults) (\s@GetBotChannelAssociations' {} a -> s {maxResults = a} :: GetBotChannelAssociations)
 
 -- | Substring to match in channel association names. An association will be
 -- returned if any part of its name matches the substring. For example,
@@ -136,11 +142,6 @@ getBotChannelAssociations_nameContains = Lens.lens (\GetBotChannelAssociations' 
 -- the pagination token in the next request.
 getBotChannelAssociations_nextToken :: Lens.Lens' GetBotChannelAssociations (Prelude.Maybe Prelude.Text)
 getBotChannelAssociations_nextToken = Lens.lens (\GetBotChannelAssociations' {nextToken} -> nextToken) (\s@GetBotChannelAssociations' {} a -> s {nextToken = a} :: GetBotChannelAssociations)
-
--- | The maximum number of associations to return in the response. The
--- default is 50.
-getBotChannelAssociations_maxResults :: Lens.Lens' GetBotChannelAssociations (Prelude.Maybe Prelude.Natural)
-getBotChannelAssociations_maxResults = Lens.lens (\GetBotChannelAssociations' {maxResults} -> maxResults) (\s@GetBotChannelAssociations' {} a -> s {maxResults = a} :: GetBotChannelAssociations)
 
 -- | The name of the Amazon Lex bot in the association.
 getBotChannelAssociations_botName :: Lens.Lens' GetBotChannelAssociations Prelude.Text
@@ -177,61 +178,62 @@ instance Core.AWSRequest GetBotChannelAssociations where
   type
     AWSResponse GetBotChannelAssociations =
       GetBotChannelAssociationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBotChannelAssociationsResponse'
-            Prelude.<$> ( x Core..?> "botChannelAssociations"
+            Prelude.<$> ( x Data..?> "botChannelAssociations"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetBotChannelAssociations where
   hashWithSalt _salt GetBotChannelAssociations' {..} =
-    _salt `Prelude.hashWithSalt` nameContains
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nameContains
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` botName
       `Prelude.hashWithSalt` botAlias
 
 instance Prelude.NFData GetBotChannelAssociations where
   rnf GetBotChannelAssociations' {..} =
-    Prelude.rnf nameContains
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nameContains
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf botName
       `Prelude.seq` Prelude.rnf botAlias
 
-instance Core.ToHeaders GetBotChannelAssociations where
+instance Data.ToHeaders GetBotChannelAssociations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetBotChannelAssociations where
+instance Data.ToPath GetBotChannelAssociations where
   toPath GetBotChannelAssociations' {..} =
     Prelude.mconcat
       [ "/bots/",
-        Core.toBS botName,
+        Data.toBS botName,
         "/aliases/",
-        Core.toBS botAlias,
+        Data.toBS botAlias,
         "/channels/"
       ]
 
-instance Core.ToQuery GetBotChannelAssociations where
+instance Data.ToQuery GetBotChannelAssociations where
   toQuery GetBotChannelAssociations' {..} =
     Prelude.mconcat
-      [ "nameContains" Core.=: nameContains,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nameContains" Data.=: nameContains,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetBotChannelAssociationsResponse' smart constructor.

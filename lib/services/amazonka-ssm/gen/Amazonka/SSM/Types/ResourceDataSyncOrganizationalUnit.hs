@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.ResourceDataSyncOrganizationalUnit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.ResourceDataSyncOrganizationalUnit where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The Organizations organizational unit data source for the sync.
@@ -54,15 +55,15 @@ resourceDataSyncOrganizationalUnit_organizationalUnitId :: Lens.Lens' ResourceDa
 resourceDataSyncOrganizationalUnit_organizationalUnitId = Lens.lens (\ResourceDataSyncOrganizationalUnit' {organizationalUnitId} -> organizationalUnitId) (\s@ResourceDataSyncOrganizationalUnit' {} a -> s {organizationalUnitId = a} :: ResourceDataSyncOrganizationalUnit)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ResourceDataSyncOrganizationalUnit
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceDataSyncOrganizationalUnit"
       ( \x ->
           ResourceDataSyncOrganizationalUnit'
-            Prelude.<$> (x Core..:? "OrganizationalUnitId")
+            Prelude.<$> (x Data..:? "OrganizationalUnitId")
       )
 
 instance
@@ -82,13 +83,13 @@ instance
     Prelude.rnf organizationalUnitId
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ResourceDataSyncOrganizationalUnit
   where
   toJSON ResourceDataSyncOrganizationalUnit' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OrganizationalUnitId" Core..=)
+          [ ("OrganizationalUnitId" Data..=)
               Prelude.<$> organizationalUnitId
           ]
       )

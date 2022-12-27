@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ImportImageLicenseConfigurationResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.ImportImageLicenseConfigurationResponse where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The response information for license configurations.
@@ -55,12 +56,12 @@ importImageLicenseConfigurationResponse_licenseConfigurationArn :: Lens.Lens' Im
 importImageLicenseConfigurationResponse_licenseConfigurationArn = Lens.lens (\ImportImageLicenseConfigurationResponse' {licenseConfigurationArn} -> licenseConfigurationArn) (\s@ImportImageLicenseConfigurationResponse' {} a -> s {licenseConfigurationArn = a} :: ImportImageLicenseConfigurationResponse)
 
 instance
-  Core.FromXML
+  Data.FromXML
     ImportImageLicenseConfigurationResponse
   where
   parseXML x =
     ImportImageLicenseConfigurationResponse'
-      Prelude.<$> (x Core..@? "licenseConfigurationArn")
+      Prelude.<$> (x Data..@? "licenseConfigurationArn")
 
 instance
   Prelude.Hashable

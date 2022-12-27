@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.DeleteBucketCors
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ module Amazonka.S3.DeleteBucketCors
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,8 +61,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newDeleteBucketCors' smart constructor.
 data DeleteBucketCors = DeleteBucketCors'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | Specifies the bucket whose @cors@ configuration is being deleted.
     bucket :: BucketName
@@ -77,8 +78,8 @@ data DeleteBucketCors = DeleteBucketCors'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'deleteBucketCors_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'deleteBucketCors_bucket' - Specifies the bucket whose @cors@ configuration is being deleted.
 newDeleteBucketCors ::
@@ -93,8 +94,8 @@ newDeleteBucketCors pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 deleteBucketCors_expectedBucketOwner :: Lens.Lens' DeleteBucketCors (Prelude.Maybe Prelude.Text)
 deleteBucketCors_expectedBucketOwner = Lens.lens (\DeleteBucketCors' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeleteBucketCors' {} a -> s {expectedBucketOwner = a} :: DeleteBucketCors)
 
@@ -106,9 +107,9 @@ instance Core.AWSRequest DeleteBucketCors where
   type
     AWSResponse DeleteBucketCors =
       DeleteBucketCorsResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.delete defaultService
+      Prelude.. Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteBucketCorsResponse'
 
@@ -122,18 +123,18 @@ instance Prelude.NFData DeleteBucketCors where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders DeleteBucketCors where
+instance Data.ToHeaders DeleteBucketCors where
   toHeaders DeleteBucketCors' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath DeleteBucketCors where
+instance Data.ToPath DeleteBucketCors where
   toPath DeleteBucketCors' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery DeleteBucketCors where
+instance Data.ToQuery DeleteBucketCors where
   toQuery = Prelude.const (Prelude.mconcat ["cors"])
 
 -- | /See:/ 'newDeleteBucketCorsResponse' smart constructor.

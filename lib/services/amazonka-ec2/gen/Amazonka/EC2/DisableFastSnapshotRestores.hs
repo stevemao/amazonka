@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DisableFastSnapshotRestores
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,15 +37,16 @@ module Amazonka.EC2.DisableFastSnapshotRestores
     newDisableFastSnapshotRestoresResponse,
 
     -- * Response Lenses
-    disableFastSnapshotRestoresResponse_unsuccessful,
     disableFastSnapshotRestoresResponse_successful,
+    disableFastSnapshotRestoresResponse_unsuccessful,
     disableFastSnapshotRestoresResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,16 +110,17 @@ instance Core.AWSRequest DisableFastSnapshotRestores where
   type
     AWSResponse DisableFastSnapshotRestores =
       DisableFastSnapshotRestoresResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DisableFastSnapshotRestoresResponse'
-            Prelude.<$> ( x Core..@? "unsuccessful" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> ( x Data..@? "successful" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
-            Prelude.<*> ( x Core..@? "successful" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<*> ( x Data..@? "unsuccessful" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -135,38 +137,38 @@ instance Prelude.NFData DisableFastSnapshotRestores where
       `Prelude.seq` Prelude.rnf availabilityZones
       `Prelude.seq` Prelude.rnf sourceSnapshotIds
 
-instance Core.ToHeaders DisableFastSnapshotRestores where
+instance Data.ToHeaders DisableFastSnapshotRestores where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DisableFastSnapshotRestores where
+instance Data.ToPath DisableFastSnapshotRestores where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisableFastSnapshotRestores where
+instance Data.ToQuery DisableFastSnapshotRestores where
   toQuery DisableFastSnapshotRestores' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DisableFastSnapshotRestores" ::
+          Data.=: ( "DisableFastSnapshotRestores" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        Core.toQueryList
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQueryList
           "AvailabilityZone"
           availabilityZones,
-        Core.toQueryList
+        Data.toQueryList
           "SourceSnapshotId"
           sourceSnapshotIds
       ]
 
 -- | /See:/ 'newDisableFastSnapshotRestoresResponse' smart constructor.
 data DisableFastSnapshotRestoresResponse = DisableFastSnapshotRestoresResponse'
-  { -- | Information about the snapshots for which fast snapshot restores could
-    -- not be disabled.
-    unsuccessful :: Prelude.Maybe [DisableFastSnapshotRestoreErrorItem],
-    -- | Information about the snapshots for which fast snapshot restores were
+  { -- | Information about the snapshots for which fast snapshot restores were
     -- successfully disabled.
     successful :: Prelude.Maybe [DisableFastSnapshotRestoreSuccessItem],
+    -- | Information about the snapshots for which fast snapshot restores could
+    -- not be disabled.
+    unsuccessful :: Prelude.Maybe [DisableFastSnapshotRestoreErrorItem],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -180,11 +182,11 @@ data DisableFastSnapshotRestoresResponse = DisableFastSnapshotRestoresResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'unsuccessful', 'disableFastSnapshotRestoresResponse_unsuccessful' - Information about the snapshots for which fast snapshot restores could
--- not be disabled.
---
 -- 'successful', 'disableFastSnapshotRestoresResponse_successful' - Information about the snapshots for which fast snapshot restores were
 -- successfully disabled.
+--
+-- 'unsuccessful', 'disableFastSnapshotRestoresResponse_unsuccessful' - Information about the snapshots for which fast snapshot restores could
+-- not be disabled.
 --
 -- 'httpStatus', 'disableFastSnapshotRestoresResponse_httpStatus' - The response's http status code.
 newDisableFastSnapshotRestoresResponse ::
@@ -193,21 +195,21 @@ newDisableFastSnapshotRestoresResponse ::
   DisableFastSnapshotRestoresResponse
 newDisableFastSnapshotRestoresResponse pHttpStatus_ =
   DisableFastSnapshotRestoresResponse'
-    { unsuccessful =
+    { successful =
         Prelude.Nothing,
-      successful = Prelude.Nothing,
+      unsuccessful = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Information about the snapshots for which fast snapshot restores could
--- not be disabled.
-disableFastSnapshotRestoresResponse_unsuccessful :: Lens.Lens' DisableFastSnapshotRestoresResponse (Prelude.Maybe [DisableFastSnapshotRestoreErrorItem])
-disableFastSnapshotRestoresResponse_unsuccessful = Lens.lens (\DisableFastSnapshotRestoresResponse' {unsuccessful} -> unsuccessful) (\s@DisableFastSnapshotRestoresResponse' {} a -> s {unsuccessful = a} :: DisableFastSnapshotRestoresResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | Information about the snapshots for which fast snapshot restores were
 -- successfully disabled.
 disableFastSnapshotRestoresResponse_successful :: Lens.Lens' DisableFastSnapshotRestoresResponse (Prelude.Maybe [DisableFastSnapshotRestoreSuccessItem])
 disableFastSnapshotRestoresResponse_successful = Lens.lens (\DisableFastSnapshotRestoresResponse' {successful} -> successful) (\s@DisableFastSnapshotRestoresResponse' {} a -> s {successful = a} :: DisableFastSnapshotRestoresResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Information about the snapshots for which fast snapshot restores could
+-- not be disabled.
+disableFastSnapshotRestoresResponse_unsuccessful :: Lens.Lens' DisableFastSnapshotRestoresResponse (Prelude.Maybe [DisableFastSnapshotRestoreErrorItem])
+disableFastSnapshotRestoresResponse_unsuccessful = Lens.lens (\DisableFastSnapshotRestoresResponse' {unsuccessful} -> unsuccessful) (\s@DisableFastSnapshotRestoresResponse' {} a -> s {unsuccessful = a} :: DisableFastSnapshotRestoresResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 disableFastSnapshotRestoresResponse_httpStatus :: Lens.Lens' DisableFastSnapshotRestoresResponse Prelude.Int
@@ -218,6 +220,6 @@ instance
     DisableFastSnapshotRestoresResponse
   where
   rnf DisableFastSnapshotRestoresResponse' {..} =
-    Prelude.rnf unsuccessful
-      `Prelude.seq` Prelude.rnf successful
+    Prelude.rnf successful
+      `Prelude.seq` Prelude.rnf unsuccessful
       `Prelude.seq` Prelude.rnf httpStatus

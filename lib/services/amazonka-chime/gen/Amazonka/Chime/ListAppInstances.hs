@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.ListAppInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Chime.ListAppInstances
     newListAppInstances,
 
     -- * Request Lenses
-    listAppInstances_nextToken,
     listAppInstances_maxResults,
+    listAppInstances_nextToken,
 
     -- * Destructuring the Response
     ListAppInstancesResponse (..),
@@ -44,18 +44,19 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListAppInstances' smart constructor.
 data ListAppInstances = ListAppInstances'
-  { -- | The token passed by previous API requests until you reach the maximum
+  { -- | The maximum number of @AppInstance@s that you want to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token passed by previous API requests until you reach the maximum
     -- number of @AppInstance@s.
-    nextToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The maximum number of @AppInstance@s that you want to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe (Data.Sensitive Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -67,62 +68,63 @@ data ListAppInstances = ListAppInstances'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listAppInstances_maxResults' - The maximum number of @AppInstance@s that you want to return.
+--
 -- 'nextToken', 'listAppInstances_nextToken' - The token passed by previous API requests until you reach the maximum
 -- number of @AppInstance@s.
---
--- 'maxResults', 'listAppInstances_maxResults' - The maximum number of @AppInstance@s that you want to return.
 newListAppInstances ::
   ListAppInstances
 newListAppInstances =
   ListAppInstances'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token passed by previous API requests until you reach the maximum
--- number of @AppInstance@s.
-listAppInstances_nextToken :: Lens.Lens' ListAppInstances (Prelude.Maybe Prelude.Text)
-listAppInstances_nextToken = Lens.lens (\ListAppInstances' {nextToken} -> nextToken) (\s@ListAppInstances' {} a -> s {nextToken = a} :: ListAppInstances) Prelude.. Lens.mapping Core._Sensitive
 
 -- | The maximum number of @AppInstance@s that you want to return.
 listAppInstances_maxResults :: Lens.Lens' ListAppInstances (Prelude.Maybe Prelude.Natural)
 listAppInstances_maxResults = Lens.lens (\ListAppInstances' {maxResults} -> maxResults) (\s@ListAppInstances' {} a -> s {maxResults = a} :: ListAppInstances)
 
+-- | The token passed by previous API requests until you reach the maximum
+-- number of @AppInstance@s.
+listAppInstances_nextToken :: Lens.Lens' ListAppInstances (Prelude.Maybe Prelude.Text)
+listAppInstances_nextToken = Lens.lens (\ListAppInstances' {nextToken} -> nextToken) (\s@ListAppInstances' {} a -> s {nextToken = a} :: ListAppInstances) Prelude.. Lens.mapping Data._Sensitive
+
 instance Core.AWSRequest ListAppInstances where
   type
     AWSResponse ListAppInstances =
       ListAppInstancesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAppInstancesResponse'
-            Prelude.<$> (x Core..?> "AppInstances" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "AppInstances" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAppInstances where
   hashWithSalt _salt ListAppInstances' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListAppInstances where
   rnf ListAppInstances' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListAppInstances where
+instance Data.ToHeaders ListAppInstances where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListAppInstances where
+instance Data.ToPath ListAppInstances where
   toPath = Prelude.const "/app-instances"
 
-instance Core.ToQuery ListAppInstances where
+instance Data.ToQuery ListAppInstances where
   toQuery ListAppInstances' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListAppInstancesResponse' smart constructor.
@@ -131,7 +133,7 @@ data ListAppInstancesResponse = ListAppInstancesResponse'
     appInstances :: Prelude.Maybe [AppInstanceSummary],
     -- | The token passed by previous API requests until the maximum number of
     -- @AppInstance@s is reached.
-    nextToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    nextToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -170,7 +172,7 @@ listAppInstancesResponse_appInstances = Lens.lens (\ListAppInstancesResponse' {a
 -- | The token passed by previous API requests until the maximum number of
 -- @AppInstance@s is reached.
 listAppInstancesResponse_nextToken :: Lens.Lens' ListAppInstancesResponse (Prelude.Maybe Prelude.Text)
-listAppInstancesResponse_nextToken = Lens.lens (\ListAppInstancesResponse' {nextToken} -> nextToken) (\s@ListAppInstancesResponse' {} a -> s {nextToken = a} :: ListAppInstancesResponse) Prelude.. Lens.mapping Core._Sensitive
+listAppInstancesResponse_nextToken = Lens.lens (\ListAppInstancesResponse' {nextToken} -> nextToken) (\s@ListAppInstancesResponse' {} a -> s {nextToken = a} :: ListAppInstancesResponse) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The response's http status code.
 listAppInstancesResponse_httpStatus :: Lens.Lens' ListAppInstancesResponse Prelude.Int

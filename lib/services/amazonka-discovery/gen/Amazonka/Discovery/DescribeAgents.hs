@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Discovery.DescribeAgents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.Discovery.DescribeAgents
     -- * Request Lenses
     describeAgents_agentIds,
     describeAgents_filters,
-    describeAgents_nextToken,
     describeAgents_maxResults,
+    describeAgents_nextToken,
 
     -- * Destructuring the Response
     DescribeAgentsResponse (..),
@@ -48,8 +48,9 @@ module Amazonka.Discovery.DescribeAgents
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Discovery.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,22 +59,23 @@ import qualified Amazonka.Response as Response
 data DescribeAgents = DescribeAgents'
   { -- | The agent or the Connector IDs for which you want information. If you
     -- specify no IDs, the system returns information about all
-    -- agents\/Connectors associated with your AWS user account.
+    -- agents\/Connectors associated with your Amazon Web Services user
+    -- account.
     agentIds :: Prelude.Maybe [Prelude.Text],
     -- | You can filter the request using various logical operators and a
     -- /key/-/value/ format. For example:
     --
     -- @{\"key\": \"collectionStatus\", \"value\": \"STARTED\"}@
     filters :: Prelude.Maybe [Filter],
+    -- | The total number of agents\/Connectors to return in a single page of
+    -- output. The maximum value is 100.
+    maxResults :: Prelude.Maybe Prelude.Int,
     -- | Token to retrieve the next set of results. For example, if you
     -- previously specified 100 IDs for @DescribeAgentsRequest$agentIds@ but
     -- set @DescribeAgentsRequest$maxResults@ to 10, you received a set of 10
     -- results along with a token. Use that token in this query to get the next
     -- set of 10.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The total number of agents\/Connectors to return in a single page of
-    -- output. The maximum value is 100.
-    maxResults :: Prelude.Maybe Prelude.Int
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -87,34 +89,36 @@ data DescribeAgents = DescribeAgents'
 --
 -- 'agentIds', 'describeAgents_agentIds' - The agent or the Connector IDs for which you want information. If you
 -- specify no IDs, the system returns information about all
--- agents\/Connectors associated with your AWS user account.
+-- agents\/Connectors associated with your Amazon Web Services user
+-- account.
 --
 -- 'filters', 'describeAgents_filters' - You can filter the request using various logical operators and a
 -- /key/-/value/ format. For example:
 --
 -- @{\"key\": \"collectionStatus\", \"value\": \"STARTED\"}@
 --
+-- 'maxResults', 'describeAgents_maxResults' - The total number of agents\/Connectors to return in a single page of
+-- output. The maximum value is 100.
+--
 -- 'nextToken', 'describeAgents_nextToken' - Token to retrieve the next set of results. For example, if you
 -- previously specified 100 IDs for @DescribeAgentsRequest$agentIds@ but
 -- set @DescribeAgentsRequest$maxResults@ to 10, you received a set of 10
 -- results along with a token. Use that token in this query to get the next
 -- set of 10.
---
--- 'maxResults', 'describeAgents_maxResults' - The total number of agents\/Connectors to return in a single page of
--- output. The maximum value is 100.
 newDescribeAgents ::
   DescribeAgents
 newDescribeAgents =
   DescribeAgents'
     { agentIds = Prelude.Nothing,
       filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | The agent or the Connector IDs for which you want information. If you
 -- specify no IDs, the system returns information about all
--- agents\/Connectors associated with your AWS user account.
+-- agents\/Connectors associated with your Amazon Web Services user
+-- account.
 describeAgents_agentIds :: Lens.Lens' DescribeAgents (Prelude.Maybe [Prelude.Text])
 describeAgents_agentIds = Lens.lens (\DescribeAgents' {agentIds} -> agentIds) (\s@DescribeAgents' {} a -> s {agentIds = a} :: DescribeAgents) Prelude.. Lens.mapping Lens.coerced
 
@@ -125,6 +129,11 @@ describeAgents_agentIds = Lens.lens (\DescribeAgents' {agentIds} -> agentIds) (\
 describeAgents_filters :: Lens.Lens' DescribeAgents (Prelude.Maybe [Filter])
 describeAgents_filters = Lens.lens (\DescribeAgents' {filters} -> filters) (\s@DescribeAgents' {} a -> s {filters = a} :: DescribeAgents) Prelude.. Lens.mapping Lens.coerced
 
+-- | The total number of agents\/Connectors to return in a single page of
+-- output. The maximum value is 100.
+describeAgents_maxResults :: Lens.Lens' DescribeAgents (Prelude.Maybe Prelude.Int)
+describeAgents_maxResults = Lens.lens (\DescribeAgents' {maxResults} -> maxResults) (\s@DescribeAgents' {} a -> s {maxResults = a} :: DescribeAgents)
+
 -- | Token to retrieve the next set of results. For example, if you
 -- previously specified 100 IDs for @DescribeAgentsRequest$agentIds@ but
 -- set @DescribeAgentsRequest$maxResults@ to 10, you received a set of 10
@@ -132,11 +141,6 @@ describeAgents_filters = Lens.lens (\DescribeAgents' {filters} -> filters) (\s@D
 -- set of 10.
 describeAgents_nextToken :: Lens.Lens' DescribeAgents (Prelude.Maybe Prelude.Text)
 describeAgents_nextToken = Lens.lens (\DescribeAgents' {nextToken} -> nextToken) (\s@DescribeAgents' {} a -> s {nextToken = a} :: DescribeAgents)
-
--- | The total number of agents\/Connectors to return in a single page of
--- output. The maximum value is 100.
-describeAgents_maxResults :: Lens.Lens' DescribeAgents (Prelude.Maybe Prelude.Int)
-describeAgents_maxResults = Lens.lens (\DescribeAgents' {maxResults} -> maxResults) (\s@DescribeAgents' {} a -> s {maxResults = a} :: DescribeAgents)
 
 instance Core.AWSPager DescribeAgents where
   page rq rs
@@ -163,13 +167,14 @@ instance Core.AWSRequest DescribeAgents where
   type
     AWSResponse DescribeAgents =
       DescribeAgentsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAgentsResponse'
-            Prelude.<$> (x Core..?> "agentsInfo" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "agentsInfo" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -177,46 +182,46 @@ instance Prelude.Hashable DescribeAgents where
   hashWithSalt _salt DescribeAgents' {..} =
     _salt `Prelude.hashWithSalt` agentIds
       `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeAgents where
   rnf DescribeAgents' {..} =
     Prelude.rnf agentIds
       `Prelude.seq` Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeAgents where
+instance Data.ToHeaders DescribeAgents where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSPoseidonService_V2015_11_01.DescribeAgents" ::
+              Data.=# ( "AWSPoseidonService_V2015_11_01.DescribeAgents" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAgents where
+instance Data.ToJSON DescribeAgents where
   toJSON DescribeAgents' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("agentIds" Core..=) Prelude.<$> agentIds,
-            ("filters" Core..=) Prelude.<$> filters,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("agentIds" Data..=) Prelude.<$> agentIds,
+            ("filters" Data..=) Prelude.<$> filters,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath DescribeAgents where
+instance Data.ToPath DescribeAgents where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAgents where
+instance Data.ToQuery DescribeAgents where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAgentsResponse' smart constructor.

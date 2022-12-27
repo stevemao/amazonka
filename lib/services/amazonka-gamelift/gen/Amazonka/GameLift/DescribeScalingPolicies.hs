@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DescribeScalingPolicies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,21 +25,12 @@
 -- To get a fleet\'s scaling policies, specify the fleet ID. You can filter
 -- this request by policy status, such as to retrieve only active scaling
 -- policies. Use the pagination parameters to retrieve results as a set of
--- sequential pages. If successful, set of ScalingPolicy objects is
+-- sequential pages. If successful, set of @ScalingPolicy@ objects is
 -- returned for the fleet.
 --
--- A fleet may have all of its scaling policies suspended
--- (StopFleetActions). This operation does not affect the status of the
--- scaling policies, which remains ACTIVE. To see whether a fleet\'s
--- scaling policies are in force or suspended, call DescribeFleetAttributes
--- and check the stopped actions.
---
--- __Related actions__
---
--- DescribeFleetCapacity | UpdateFleetCapacity | DescribeEC2InstanceLimits
--- | PutScalingPolicy | DescribeScalingPolicies | DeleteScalingPolicy |
--- StopFleetActions | StartFleetActions |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
+-- A fleet may have all of its scaling policies suspended. This operation
+-- does not affect the status of the scaling policies, which remains
+-- ACTIVE.
 --
 -- This operation returns paginated results.
 module Amazonka.GameLift.DescribeScalingPolicies
@@ -48,10 +39,10 @@ module Amazonka.GameLift.DescribeScalingPolicies
     newDescribeScalingPolicies,
 
     -- * Request Lenses
+    describeScalingPolicies_limit,
     describeScalingPolicies_location,
     describeScalingPolicies_nextToken,
     describeScalingPolicies_statusFilter,
-    describeScalingPolicies_limit,
     describeScalingPolicies_fleetId,
 
     -- * Destructuring the Response
@@ -66,17 +57,20 @@ module Amazonka.GameLift.DescribeScalingPolicies
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDescribeScalingPolicies' smart constructor.
+-- | /See:/ 'newDescribeScalingPolicies' smart constructor.
 data DescribeScalingPolicies = DescribeScalingPolicies'
-  { -- | CONTENT TODO
+  { -- | The maximum number of results to return. Use this parameter with
+    -- @NextToken@ to get results as a set of sequential pages.
+    limit :: Prelude.Maybe Prelude.Natural,
+    -- | The fleet location. If you don\'t specify this value, the response
+    -- contains the scaling policies of every location in the fleet.
     location :: Prelude.Maybe Prelude.Text,
     -- | A token that indicates the start of the next sequential page of results.
     -- Use the token that is returned with a previous call to this operation.
@@ -102,11 +96,8 @@ data DescribeScalingPolicies = DescribeScalingPolicies'
     -- -   __ERROR__ -- An error occurred in creating the policy. It should be
     --     removed and recreated.
     statusFilter :: Prelude.Maybe ScalingStatusType,
-    -- | The maximum number of results to return. Use this parameter with
-    -- @NextToken@ to get results as a set of sequential pages.
-    limit :: Prelude.Maybe Prelude.Natural,
-    -- | A unique identifier for the fleet to retrieve scaling policies for. You
-    -- can use either the fleet ID or ARN value.
+    -- | A unique identifier for the fleet for which to retrieve scaling
+    -- policies. You can use either the fleet ID or ARN value.
     fleetId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -119,7 +110,11 @@ data DescribeScalingPolicies = DescribeScalingPolicies'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'location', 'describeScalingPolicies_location' - CONTENT TODO
+-- 'limit', 'describeScalingPolicies_limit' - The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages.
+--
+-- 'location', 'describeScalingPolicies_location' - The fleet location. If you don\'t specify this value, the response
+-- contains the scaling policies of every location in the fleet.
 --
 -- 'nextToken', 'describeScalingPolicies_nextToken' - A token that indicates the start of the next sequential page of results.
 -- Use the token that is returned with a previous call to this operation.
@@ -145,26 +140,28 @@ data DescribeScalingPolicies = DescribeScalingPolicies'
 -- -   __ERROR__ -- An error occurred in creating the policy. It should be
 --     removed and recreated.
 --
--- 'limit', 'describeScalingPolicies_limit' - The maximum number of results to return. Use this parameter with
--- @NextToken@ to get results as a set of sequential pages.
---
--- 'fleetId', 'describeScalingPolicies_fleetId' - A unique identifier for the fleet to retrieve scaling policies for. You
--- can use either the fleet ID or ARN value.
+-- 'fleetId', 'describeScalingPolicies_fleetId' - A unique identifier for the fleet for which to retrieve scaling
+-- policies. You can use either the fleet ID or ARN value.
 newDescribeScalingPolicies ::
   -- | 'fleetId'
   Prelude.Text ->
   DescribeScalingPolicies
 newDescribeScalingPolicies pFleetId_ =
   DescribeScalingPolicies'
-    { location =
-        Prelude.Nothing,
+    { limit = Prelude.Nothing,
+      location = Prelude.Nothing,
       nextToken = Prelude.Nothing,
       statusFilter = Prelude.Nothing,
-      limit = Prelude.Nothing,
       fleetId = pFleetId_
     }
 
--- | CONTENT TODO
+-- | The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages.
+describeScalingPolicies_limit :: Lens.Lens' DescribeScalingPolicies (Prelude.Maybe Prelude.Natural)
+describeScalingPolicies_limit = Lens.lens (\DescribeScalingPolicies' {limit} -> limit) (\s@DescribeScalingPolicies' {} a -> s {limit = a} :: DescribeScalingPolicies)
+
+-- | The fleet location. If you don\'t specify this value, the response
+-- contains the scaling policies of every location in the fleet.
 describeScalingPolicies_location :: Lens.Lens' DescribeScalingPolicies (Prelude.Maybe Prelude.Text)
 describeScalingPolicies_location = Lens.lens (\DescribeScalingPolicies' {location} -> location) (\s@DescribeScalingPolicies' {} a -> s {location = a} :: DescribeScalingPolicies)
 
@@ -196,13 +193,8 @@ describeScalingPolicies_nextToken = Lens.lens (\DescribeScalingPolicies' {nextTo
 describeScalingPolicies_statusFilter :: Lens.Lens' DescribeScalingPolicies (Prelude.Maybe ScalingStatusType)
 describeScalingPolicies_statusFilter = Lens.lens (\DescribeScalingPolicies' {statusFilter} -> statusFilter) (\s@DescribeScalingPolicies' {} a -> s {statusFilter = a} :: DescribeScalingPolicies)
 
--- | The maximum number of results to return. Use this parameter with
--- @NextToken@ to get results as a set of sequential pages.
-describeScalingPolicies_limit :: Lens.Lens' DescribeScalingPolicies (Prelude.Maybe Prelude.Natural)
-describeScalingPolicies_limit = Lens.lens (\DescribeScalingPolicies' {limit} -> limit) (\s@DescribeScalingPolicies' {} a -> s {limit = a} :: DescribeScalingPolicies)
-
--- | A unique identifier for the fleet to retrieve scaling policies for. You
--- can use either the fleet ID or ARN value.
+-- | A unique identifier for the fleet for which to retrieve scaling
+-- policies. You can use either the fleet ID or ARN value.
 describeScalingPolicies_fleetId :: Lens.Lens' DescribeScalingPolicies Prelude.Text
 describeScalingPolicies_fleetId = Lens.lens (\DescribeScalingPolicies' {fleetId} -> fleetId) (\s@DescribeScalingPolicies' {} a -> s {fleetId = a} :: DescribeScalingPolicies)
 
@@ -232,13 +224,14 @@ instance Core.AWSRequest DescribeScalingPolicies where
   type
     AWSResponse DescribeScalingPolicies =
       DescribeScalingPoliciesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeScalingPoliciesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "ScalingPolicies"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "ScalingPolicies"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -246,56 +239,54 @@ instance Core.AWSRequest DescribeScalingPolicies where
 
 instance Prelude.Hashable DescribeScalingPolicies where
   hashWithSalt _salt DescribeScalingPolicies' {..} =
-    _salt `Prelude.hashWithSalt` location
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` location
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` statusFilter
-      `Prelude.hashWithSalt` limit
       `Prelude.hashWithSalt` fleetId
 
 instance Prelude.NFData DescribeScalingPolicies where
   rnf DescribeScalingPolicies' {..} =
-    Prelude.rnf location
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf location
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf statusFilter
-      `Prelude.seq` Prelude.rnf limit
       `Prelude.seq` Prelude.rnf fleetId
 
-instance Core.ToHeaders DescribeScalingPolicies where
+instance Data.ToHeaders DescribeScalingPolicies where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DescribeScalingPolicies" ::
+              Data.=# ( "GameLift.DescribeScalingPolicies" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeScalingPolicies where
+instance Data.ToJSON DescribeScalingPolicies where
   toJSON DescribeScalingPolicies' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Location" Core..=) Prelude.<$> location,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("StatusFilter" Core..=) Prelude.<$> statusFilter,
-            ("Limit" Core..=) Prelude.<$> limit,
-            Prelude.Just ("FleetId" Core..= fleetId)
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("Location" Data..=) Prelude.<$> location,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("StatusFilter" Data..=) Prelude.<$> statusFilter,
+            Prelude.Just ("FleetId" Data..= fleetId)
           ]
       )
 
-instance Core.ToPath DescribeScalingPolicies where
+instance Data.ToPath DescribeScalingPolicies where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeScalingPolicies where
+instance Data.ToQuery DescribeScalingPolicies where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newDescribeScalingPoliciesResponse' smart constructor.
+-- | /See:/ 'newDescribeScalingPoliciesResponse' smart constructor.
 data DescribeScalingPoliciesResponse = DescribeScalingPoliciesResponse'
   { -- | A token that indicates where to resume retrieving results on the next
     -- call to this operation. If no token is returned, these results represent

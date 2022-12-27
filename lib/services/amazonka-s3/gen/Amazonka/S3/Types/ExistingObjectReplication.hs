@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.ExistingObjectReplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.ExistingObjectReplication where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.ExistingObjectReplicationStatus
@@ -56,10 +57,10 @@ newExistingObjectReplication pStatus_ =
 existingObjectReplication_status :: Lens.Lens' ExistingObjectReplication ExistingObjectReplicationStatus
 existingObjectReplication_status = Lens.lens (\ExistingObjectReplication' {status} -> status) (\s@ExistingObjectReplication' {} a -> s {status = a} :: ExistingObjectReplication)
 
-instance Core.FromXML ExistingObjectReplication where
+instance Data.FromXML ExistingObjectReplication where
   parseXML x =
     ExistingObjectReplication'
-      Prelude.<$> (x Core..@ "Status")
+      Prelude.<$> (x Data..@ "Status")
 
 instance Prelude.Hashable ExistingObjectReplication where
   hashWithSalt _salt ExistingObjectReplication' {..} =
@@ -69,6 +70,6 @@ instance Prelude.NFData ExistingObjectReplication where
   rnf ExistingObjectReplication' {..} =
     Prelude.rnf status
 
-instance Core.ToXML ExistingObjectReplication where
+instance Data.ToXML ExistingObjectReplication where
   toXML ExistingObjectReplication' {..} =
-    Prelude.mconcat ["Status" Core.@= status]
+    Prelude.mconcat ["Status" Data.@= status]

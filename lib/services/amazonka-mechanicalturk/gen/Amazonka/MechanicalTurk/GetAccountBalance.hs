@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.GetAccountBalance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.MechanicalTurk.GetAccountBalance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -67,13 +68,14 @@ instance Core.AWSRequest GetAccountBalance where
   type
     AWSResponse GetAccountBalance =
       GetAccountBalanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAccountBalanceResponse'
-            Prelude.<$> (x Core..?> "AvailableBalance")
-            Prelude.<*> (x Core..?> "OnHoldBalance")
+            Prelude.<$> (x Data..?> "AvailableBalance")
+            Prelude.<*> (x Data..?> "OnHoldBalance")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -84,28 +86,28 @@ instance Prelude.Hashable GetAccountBalance where
 instance Prelude.NFData GetAccountBalance where
   rnf _ = ()
 
-instance Core.ToHeaders GetAccountBalance where
+instance Data.ToHeaders GetAccountBalance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MTurkRequesterServiceV20170117.GetAccountBalance" ::
+              Data.=# ( "MTurkRequesterServiceV20170117.GetAccountBalance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetAccountBalance where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON GetAccountBalance where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath GetAccountBalance where
+instance Data.ToPath GetAccountBalance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetAccountBalance where
+instance Data.ToQuery GetAccountBalance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAccountBalanceResponse' smart constructor.

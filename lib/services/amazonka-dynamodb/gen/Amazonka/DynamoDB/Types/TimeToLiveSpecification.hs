@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.TimeToLiveSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,10 @@
 module Amazonka.DynamoDB.Types.TimeToLiveSpecification where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the settings used to enable or disable Time to Live (TTL) for
@@ -73,14 +75,14 @@ timeToLiveSpecification_enabled = Lens.lens (\TimeToLiveSpecification' {enabled}
 timeToLiveSpecification_attributeName :: Lens.Lens' TimeToLiveSpecification Prelude.Text
 timeToLiveSpecification_attributeName = Lens.lens (\TimeToLiveSpecification' {attributeName} -> attributeName) (\s@TimeToLiveSpecification' {} a -> s {attributeName = a} :: TimeToLiveSpecification)
 
-instance Core.FromJSON TimeToLiveSpecification where
+instance Data.FromJSON TimeToLiveSpecification where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TimeToLiveSpecification"
       ( \x ->
           TimeToLiveSpecification'
-            Prelude.<$> (x Core..: "Enabled")
-            Prelude.<*> (x Core..: "AttributeName")
+            Prelude.<$> (x Data..: "Enabled")
+            Prelude.<*> (x Data..: "AttributeName")
       )
 
 instance Prelude.Hashable TimeToLiveSpecification where
@@ -93,12 +95,12 @@ instance Prelude.NFData TimeToLiveSpecification where
     Prelude.rnf enabled
       `Prelude.seq` Prelude.rnf attributeName
 
-instance Core.ToJSON TimeToLiveSpecification where
+instance Data.ToJSON TimeToLiveSpecification where
   toJSON TimeToLiveSpecification' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Enabled" Core..= enabled),
+          [ Prelude.Just ("Enabled" Data..= enabled),
             Prelude.Just
-              ("AttributeName" Core..= attributeName)
+              ("AttributeName" Data..= attributeName)
           ]
       )

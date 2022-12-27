@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.DeregisterInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the Amazon Route 53 DNS records and health check, if any, that
+-- Deletes the Amazon Route 53 DNS records and health check, if any, that
 -- Cloud Map created for the specified instance.
 module Amazonka.Route53AutoNaming.DeregisterInstance
   ( -- * Creating a Request
@@ -42,7 +42,8 @@ module Amazonka.Route53AutoNaming.DeregisterInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -98,12 +99,13 @@ instance Core.AWSRequest DeregisterInstance where
   type
     AWSResponse DeregisterInstance =
       DeregisterInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeregisterInstanceResponse'
-            Prelude.<$> (x Core..?> "OperationId")
+            Prelude.<$> (x Data..?> "OperationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,34 +119,34 @@ instance Prelude.NFData DeregisterInstance where
     Prelude.rnf serviceId
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders DeregisterInstance where
+instance Data.ToHeaders DeregisterInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53AutoNaming_v20170314.DeregisterInstance" ::
+              Data.=# ( "Route53AutoNaming_v20170314.DeregisterInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeregisterInstance where
+instance Data.ToJSON DeregisterInstance where
   toJSON DeregisterInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ServiceId" Core..= serviceId),
-            Prelude.Just ("InstanceId" Core..= instanceId)
+          [ Prelude.Just ("ServiceId" Data..= serviceId),
+            Prelude.Just ("InstanceId" Data..= instanceId)
           ]
       )
 
-instance Core.ToPath DeregisterInstance where
+instance Data.ToPath DeregisterInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeregisterInstance where
+instance Data.ToQuery DeregisterInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeregisterInstanceResponse' smart constructor.

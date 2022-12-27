@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.DeleteRolePermissionsBoundary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IAM.DeleteRolePermissionsBoundary
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,7 +87,8 @@ instance
   type
     AWSResponse DeleteRolePermissionsBoundary =
       DeleteRolePermissionsBoundaryResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DeleteRolePermissionsBoundaryResponse'
@@ -102,22 +104,22 @@ instance Prelude.NFData DeleteRolePermissionsBoundary where
   rnf DeleteRolePermissionsBoundary' {..} =
     Prelude.rnf roleName
 
-instance Core.ToHeaders DeleteRolePermissionsBoundary where
+instance Data.ToHeaders DeleteRolePermissionsBoundary where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteRolePermissionsBoundary where
+instance Data.ToPath DeleteRolePermissionsBoundary where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteRolePermissionsBoundary where
+instance Data.ToQuery DeleteRolePermissionsBoundary where
   toQuery DeleteRolePermissionsBoundary' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteRolePermissionsBoundary" ::
+          Data.=: ( "DeleteRolePermissionsBoundary" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "RoleName" Core.=: roleName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "RoleName" Data.=: roleName
       ]
 
 -- | /See:/ 'newDeleteRolePermissionsBoundaryResponse' smart constructor.

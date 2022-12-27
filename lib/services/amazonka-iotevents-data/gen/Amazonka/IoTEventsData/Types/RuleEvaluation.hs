@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types.RuleEvaluation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTEventsData.Types.RuleEvaluation where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEventsData.Types.SimpleRuleEvaluation
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information needed to evaluate data.
@@ -54,13 +55,13 @@ newRuleEvaluation =
 ruleEvaluation_simpleRuleEvaluation :: Lens.Lens' RuleEvaluation (Prelude.Maybe SimpleRuleEvaluation)
 ruleEvaluation_simpleRuleEvaluation = Lens.lens (\RuleEvaluation' {simpleRuleEvaluation} -> simpleRuleEvaluation) (\s@RuleEvaluation' {} a -> s {simpleRuleEvaluation = a} :: RuleEvaluation)
 
-instance Core.FromJSON RuleEvaluation where
+instance Data.FromJSON RuleEvaluation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RuleEvaluation"
       ( \x ->
           RuleEvaluation'
-            Prelude.<$> (x Core..:? "simpleRuleEvaluation")
+            Prelude.<$> (x Data..:? "simpleRuleEvaluation")
       )
 
 instance Prelude.Hashable RuleEvaluation where

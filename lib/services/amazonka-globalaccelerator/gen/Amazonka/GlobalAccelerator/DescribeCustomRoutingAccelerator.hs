@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GlobalAccelerator.DescribeCustomRoutingAccelerator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.GlobalAccelerator.DescribeCustomRoutingAccelerator
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GlobalAccelerator.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,12 +84,13 @@ instance
   type
     AWSResponse DescribeCustomRoutingAccelerator =
       DescribeCustomRoutingAcceleratorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeCustomRoutingAcceleratorResponse'
-            Prelude.<$> (x Core..?> "Accelerator")
+            Prelude.<$> (x Data..?> "Accelerator")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,37 +111,37 @@ instance
     Prelude.rnf acceleratorArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeCustomRoutingAccelerator
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GlobalAccelerator_V20180706.DescribeCustomRoutingAccelerator" ::
+              Data.=# ( "GlobalAccelerator_V20180706.DescribeCustomRoutingAccelerator" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeCustomRoutingAccelerator where
+instance Data.ToJSON DescribeCustomRoutingAccelerator where
   toJSON DescribeCustomRoutingAccelerator' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("AcceleratorArn" Core..= acceleratorArn)
+              ("AcceleratorArn" Data..= acceleratorArn)
           ]
       )
 
-instance Core.ToPath DescribeCustomRoutingAccelerator where
+instance Data.ToPath DescribeCustomRoutingAccelerator where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeCustomRoutingAccelerator
   where
   toQuery = Prelude.const Prelude.mempty

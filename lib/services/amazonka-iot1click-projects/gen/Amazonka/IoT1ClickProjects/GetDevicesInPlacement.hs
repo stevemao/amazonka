@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT1ClickProjects.GetDevicesInPlacement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IoT1ClickProjects.GetDevicesInPlacement
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT1ClickProjects.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,13 +94,14 @@ instance Core.AWSRequest GetDevicesInPlacement where
   type
     AWSResponse GetDevicesInPlacement =
       GetDevicesInPlacementResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDevicesInPlacementResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "devices" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "devices" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable GetDevicesInPlacement where
@@ -112,28 +114,28 @@ instance Prelude.NFData GetDevicesInPlacement where
     Prelude.rnf projectName
       `Prelude.seq` Prelude.rnf placementName
 
-instance Core.ToHeaders GetDevicesInPlacement where
+instance Data.ToHeaders GetDevicesInPlacement where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetDevicesInPlacement where
+instance Data.ToPath GetDevicesInPlacement where
   toPath GetDevicesInPlacement' {..} =
     Prelude.mconcat
       [ "/projects/",
-        Core.toBS projectName,
+        Data.toBS projectName,
         "/placements/",
-        Core.toBS placementName,
+        Data.toBS placementName,
         "/devices"
       ]
 
-instance Core.ToQuery GetDevicesInPlacement where
+instance Data.ToQuery GetDevicesInPlacement where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDevicesInPlacementResponse' smart constructor.

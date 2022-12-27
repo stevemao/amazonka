@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LoadBalancersConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.EC2.Types.LoadBalancersConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ClassicLoadBalancersConfig
 import Amazonka.EC2.Types.TargetGroupsConfig
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the Classic Load Balancers and target groups to attach to a
@@ -66,11 +67,11 @@ loadBalancersConfig_classicLoadBalancersConfig = Lens.lens (\LoadBalancersConfig
 loadBalancersConfig_targetGroupsConfig :: Lens.Lens' LoadBalancersConfig (Prelude.Maybe TargetGroupsConfig)
 loadBalancersConfig_targetGroupsConfig = Lens.lens (\LoadBalancersConfig' {targetGroupsConfig} -> targetGroupsConfig) (\s@LoadBalancersConfig' {} a -> s {targetGroupsConfig = a} :: LoadBalancersConfig)
 
-instance Core.FromXML LoadBalancersConfig where
+instance Data.FromXML LoadBalancersConfig where
   parseXML x =
     LoadBalancersConfig'
-      Prelude.<$> (x Core..@? "classicLoadBalancersConfig")
-      Prelude.<*> (x Core..@? "targetGroupsConfig")
+      Prelude.<$> (x Data..@? "classicLoadBalancersConfig")
+      Prelude.<*> (x Data..@? "targetGroupsConfig")
 
 instance Prelude.Hashable LoadBalancersConfig where
   hashWithSalt _salt LoadBalancersConfig' {..} =
@@ -83,10 +84,10 @@ instance Prelude.NFData LoadBalancersConfig where
     Prelude.rnf classicLoadBalancersConfig
       `Prelude.seq` Prelude.rnf targetGroupsConfig
 
-instance Core.ToQuery LoadBalancersConfig where
+instance Data.ToQuery LoadBalancersConfig where
   toQuery LoadBalancersConfig' {..} =
     Prelude.mconcat
       [ "ClassicLoadBalancersConfig"
-          Core.=: classicLoadBalancersConfig,
-        "TargetGroupsConfig" Core.=: targetGroupsConfig
+          Data.=: classicLoadBalancersConfig,
+        "TargetGroupsConfig" Data.=: targetGroupsConfig
       ]

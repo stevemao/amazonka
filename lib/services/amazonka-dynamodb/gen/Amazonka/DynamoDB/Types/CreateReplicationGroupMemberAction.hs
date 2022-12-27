@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.CreateReplicationGroupMemberAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,27 +20,33 @@
 module Amazonka.DynamoDB.Types.CreateReplicationGroupMemberAction where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.ProvisionedThroughputOverride
 import Amazonka.DynamoDB.Types.ReplicaGlobalSecondaryIndex
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.TableClass
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a replica to be created.
 --
 -- /See:/ 'newCreateReplicationGroupMemberAction' smart constructor.
 data CreateReplicationGroupMemberAction = CreateReplicationGroupMemberAction'
-  { -- | The AWS KMS customer master key (CMK) that should be used for AWS KMS
-    -- encryption in the new replica. To specify a CMK, use its key ID, Amazon
-    -- Resource Name (ARN), alias name, or alias ARN. Note that you should only
-    -- provide this parameter if the key is different from the default DynamoDB
-    -- KMS master key alias\/aws\/dynamodb.
+  { -- | Replica-specific global secondary index settings.
+    globalSecondaryIndexes :: Prelude.Maybe (Prelude.NonEmpty ReplicaGlobalSecondaryIndex),
+    -- | The KMS key that should be used for KMS encryption in the new replica.
+    -- To specify a key, use its key ID, Amazon Resource Name (ARN), alias
+    -- name, or alias ARN. Note that you should only provide this parameter if
+    -- the key is different from the default DynamoDB KMS key
+    -- @alias\/aws\/dynamodb@.
     kmsMasterKeyId :: Prelude.Maybe Prelude.Text,
     -- | Replica-specific provisioned throughput. If not specified, uses the
     -- source table\'s provisioned throughput settings.
     provisionedThroughputOverride :: Prelude.Maybe ProvisionedThroughputOverride,
-    -- | Replica-specific global secondary index settings.
-    globalSecondaryIndexes :: Prelude.Maybe (Prelude.NonEmpty ReplicaGlobalSecondaryIndex),
+    -- | Replica-specific table class. If not specified, uses the source table\'s
+    -- table class.
+    tableClassOverride :: Prelude.Maybe TableClass,
     -- | The Region where the new replica will be created.
     regionName :: Prelude.Text
   }
@@ -54,16 +60,19 @@ data CreateReplicationGroupMemberAction = CreateReplicationGroupMemberAction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'kmsMasterKeyId', 'createReplicationGroupMemberAction_kmsMasterKeyId' - The AWS KMS customer master key (CMK) that should be used for AWS KMS
--- encryption in the new replica. To specify a CMK, use its key ID, Amazon
--- Resource Name (ARN), alias name, or alias ARN. Note that you should only
--- provide this parameter if the key is different from the default DynamoDB
--- KMS master key alias\/aws\/dynamodb.
+-- 'globalSecondaryIndexes', 'createReplicationGroupMemberAction_globalSecondaryIndexes' - Replica-specific global secondary index settings.
+--
+-- 'kmsMasterKeyId', 'createReplicationGroupMemberAction_kmsMasterKeyId' - The KMS key that should be used for KMS encryption in the new replica.
+-- To specify a key, use its key ID, Amazon Resource Name (ARN), alias
+-- name, or alias ARN. Note that you should only provide this parameter if
+-- the key is different from the default DynamoDB KMS key
+-- @alias\/aws\/dynamodb@.
 --
 -- 'provisionedThroughputOverride', 'createReplicationGroupMemberAction_provisionedThroughputOverride' - Replica-specific provisioned throughput. If not specified, uses the
 -- source table\'s provisioned throughput settings.
 --
--- 'globalSecondaryIndexes', 'createReplicationGroupMemberAction_globalSecondaryIndexes' - Replica-specific global secondary index settings.
+-- 'tableClassOverride', 'createReplicationGroupMemberAction_tableClassOverride' - Replica-specific table class. If not specified, uses the source table\'s
+-- table class.
 --
 -- 'regionName', 'createReplicationGroupMemberAction_regionName' - The Region where the new replica will be created.
 newCreateReplicationGroupMemberAction ::
@@ -72,20 +81,24 @@ newCreateReplicationGroupMemberAction ::
   CreateReplicationGroupMemberAction
 newCreateReplicationGroupMemberAction pRegionName_ =
   CreateReplicationGroupMemberAction'
-    { kmsMasterKeyId =
+    { globalSecondaryIndexes =
         Prelude.Nothing,
+      kmsMasterKeyId = Prelude.Nothing,
       provisionedThroughputOverride =
         Prelude.Nothing,
-      globalSecondaryIndexes =
-        Prelude.Nothing,
+      tableClassOverride = Prelude.Nothing,
       regionName = pRegionName_
     }
 
--- | The AWS KMS customer master key (CMK) that should be used for AWS KMS
--- encryption in the new replica. To specify a CMK, use its key ID, Amazon
--- Resource Name (ARN), alias name, or alias ARN. Note that you should only
--- provide this parameter if the key is different from the default DynamoDB
--- KMS master key alias\/aws\/dynamodb.
+-- | Replica-specific global secondary index settings.
+createReplicationGroupMemberAction_globalSecondaryIndexes :: Lens.Lens' CreateReplicationGroupMemberAction (Prelude.Maybe (Prelude.NonEmpty ReplicaGlobalSecondaryIndex))
+createReplicationGroupMemberAction_globalSecondaryIndexes = Lens.lens (\CreateReplicationGroupMemberAction' {globalSecondaryIndexes} -> globalSecondaryIndexes) (\s@CreateReplicationGroupMemberAction' {} a -> s {globalSecondaryIndexes = a} :: CreateReplicationGroupMemberAction) Prelude.. Lens.mapping Lens.coerced
+
+-- | The KMS key that should be used for KMS encryption in the new replica.
+-- To specify a key, use its key ID, Amazon Resource Name (ARN), alias
+-- name, or alias ARN. Note that you should only provide this parameter if
+-- the key is different from the default DynamoDB KMS key
+-- @alias\/aws\/dynamodb@.
 createReplicationGroupMemberAction_kmsMasterKeyId :: Lens.Lens' CreateReplicationGroupMemberAction (Prelude.Maybe Prelude.Text)
 createReplicationGroupMemberAction_kmsMasterKeyId = Lens.lens (\CreateReplicationGroupMemberAction' {kmsMasterKeyId} -> kmsMasterKeyId) (\s@CreateReplicationGroupMemberAction' {} a -> s {kmsMasterKeyId = a} :: CreateReplicationGroupMemberAction)
 
@@ -94,9 +107,10 @@ createReplicationGroupMemberAction_kmsMasterKeyId = Lens.lens (\CreateReplicatio
 createReplicationGroupMemberAction_provisionedThroughputOverride :: Lens.Lens' CreateReplicationGroupMemberAction (Prelude.Maybe ProvisionedThroughputOverride)
 createReplicationGroupMemberAction_provisionedThroughputOverride = Lens.lens (\CreateReplicationGroupMemberAction' {provisionedThroughputOverride} -> provisionedThroughputOverride) (\s@CreateReplicationGroupMemberAction' {} a -> s {provisionedThroughputOverride = a} :: CreateReplicationGroupMemberAction)
 
--- | Replica-specific global secondary index settings.
-createReplicationGroupMemberAction_globalSecondaryIndexes :: Lens.Lens' CreateReplicationGroupMemberAction (Prelude.Maybe (Prelude.NonEmpty ReplicaGlobalSecondaryIndex))
-createReplicationGroupMemberAction_globalSecondaryIndexes = Lens.lens (\CreateReplicationGroupMemberAction' {globalSecondaryIndexes} -> globalSecondaryIndexes) (\s@CreateReplicationGroupMemberAction' {} a -> s {globalSecondaryIndexes = a} :: CreateReplicationGroupMemberAction) Prelude.. Lens.mapping Lens.coerced
+-- | Replica-specific table class. If not specified, uses the source table\'s
+-- table class.
+createReplicationGroupMemberAction_tableClassOverride :: Lens.Lens' CreateReplicationGroupMemberAction (Prelude.Maybe TableClass)
+createReplicationGroupMemberAction_tableClassOverride = Lens.lens (\CreateReplicationGroupMemberAction' {tableClassOverride} -> tableClassOverride) (\s@CreateReplicationGroupMemberAction' {} a -> s {tableClassOverride = a} :: CreateReplicationGroupMemberAction)
 
 -- | The Region where the new replica will be created.
 createReplicationGroupMemberAction_regionName :: Lens.Lens' CreateReplicationGroupMemberAction Prelude.Text
@@ -109,9 +123,10 @@ instance
   hashWithSalt
     _salt
     CreateReplicationGroupMemberAction' {..} =
-      _salt `Prelude.hashWithSalt` kmsMasterKeyId
+      _salt `Prelude.hashWithSalt` globalSecondaryIndexes
+        `Prelude.hashWithSalt` kmsMasterKeyId
         `Prelude.hashWithSalt` provisionedThroughputOverride
-        `Prelude.hashWithSalt` globalSecondaryIndexes
+        `Prelude.hashWithSalt` tableClassOverride
         `Prelude.hashWithSalt` regionName
 
 instance
@@ -119,24 +134,27 @@ instance
     CreateReplicationGroupMemberAction
   where
   rnf CreateReplicationGroupMemberAction' {..} =
-    Prelude.rnf kmsMasterKeyId
+    Prelude.rnf globalSecondaryIndexes
+      `Prelude.seq` Prelude.rnf kmsMasterKeyId
       `Prelude.seq` Prelude.rnf provisionedThroughputOverride
-      `Prelude.seq` Prelude.rnf globalSecondaryIndexes
+      `Prelude.seq` Prelude.rnf tableClassOverride
       `Prelude.seq` Prelude.rnf regionName
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CreateReplicationGroupMemberAction
   where
   toJSON CreateReplicationGroupMemberAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KMSMasterKeyId" Core..=)
-              Prelude.<$> kmsMasterKeyId,
-            ("ProvisionedThroughputOverride" Core..=)
-              Prelude.<$> provisionedThroughputOverride,
-            ("GlobalSecondaryIndexes" Core..=)
+          [ ("GlobalSecondaryIndexes" Data..=)
               Prelude.<$> globalSecondaryIndexes,
-            Prelude.Just ("RegionName" Core..= regionName)
+            ("KMSMasterKeyId" Data..=)
+              Prelude.<$> kmsMasterKeyId,
+            ("ProvisionedThroughputOverride" Data..=)
+              Prelude.<$> provisionedThroughputOverride,
+            ("TableClassOverride" Data..=)
+              Prelude.<$> tableClassOverride,
+            Prelude.Just ("RegionName" Data..= regionName)
           ]
       )

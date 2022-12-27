@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.GetAccountSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,9 @@ module Amazonka.DeviceFarm.GetAccountSettings
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,12 +65,13 @@ instance Core.AWSRequest GetAccountSettings where
   type
     AWSResponse GetAccountSettings =
       GetAccountSettingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAccountSettingsResponse'
-            Prelude.<$> (x Core..?> "accountSettings")
+            Prelude.<$> (x Data..?> "accountSettings")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -80,28 +82,28 @@ instance Prelude.Hashable GetAccountSettings where
 instance Prelude.NFData GetAccountSettings where
   rnf _ = ()
 
-instance Core.ToHeaders GetAccountSettings where
+instance Data.ToHeaders GetAccountSettings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.GetAccountSettings" ::
+              Data.=# ( "DeviceFarm_20150623.GetAccountSettings" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetAccountSettings where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON GetAccountSettings where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath GetAccountSettings where
+instance Data.ToPath GetAccountSettings where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetAccountSettings where
+instance Data.ToQuery GetAccountSettings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the account settings return values from the

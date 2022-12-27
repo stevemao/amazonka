@@ -14,14 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.RejectDomainTransferFromAnotherAwsAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Rejects the transfer of a domain from another AWS account to the current
--- AWS account. You initiate a transfer between AWS accounts using
+-- Rejects the transfer of a domain from another Amazon Web Services
+-- account to the current Amazon Web Services account. You initiate a
+-- transfer betweenAmazon Web Services accounts using
 -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html TransferDomainToAnotherAwsAccount>.
 --
 -- Use either
@@ -51,7 +52,8 @@ module Amazonka.Route53Domains.RejectDomainTransferFromAnotherAwsAccount
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,8 +64,8 @@ import Amazonka.Route53Domains.Types
 --
 -- /See:/ 'newRejectDomainTransferFromAnotherAwsAccount' smart constructor.
 data RejectDomainTransferFromAnotherAwsAccount = RejectDomainTransferFromAnotherAwsAccount'
-  { -- | The name of the domain that was specified when another AWS account
-    -- submitted a
+  { -- | The name of the domain that was specified when another Amazon Web
+    -- Services account submitted a
     -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html TransferDomainToAnotherAwsAccount>
     -- request.
     domainName :: Prelude.Text
@@ -78,8 +80,8 @@ data RejectDomainTransferFromAnotherAwsAccount = RejectDomainTransferFromAnother
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domainName', 'rejectDomainTransferFromAnotherAwsAccount_domainName' - The name of the domain that was specified when another AWS account
--- submitted a
+-- 'domainName', 'rejectDomainTransferFromAnotherAwsAccount_domainName' - The name of the domain that was specified when another Amazon Web
+-- Services account submitted a
 -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html TransferDomainToAnotherAwsAccount>
 -- request.
 newRejectDomainTransferFromAnotherAwsAccount ::
@@ -93,8 +95,8 @@ newRejectDomainTransferFromAnotherAwsAccount
           pDomainName_
       }
 
--- | The name of the domain that was specified when another AWS account
--- submitted a
+-- | The name of the domain that was specified when another Amazon Web
+-- Services account submitted a
 -- <https://docs.aws.amazon.com/Route53/latest/APIReference/API_domains_TransferDomainToAnotherAwsAccount.html TransferDomainToAnotherAwsAccount>
 -- request.
 rejectDomainTransferFromAnotherAwsAccount_domainName :: Lens.Lens' RejectDomainTransferFromAnotherAwsAccount Prelude.Text
@@ -108,12 +110,13 @@ instance
     AWSResponse
       RejectDomainTransferFromAnotherAwsAccount =
       RejectDomainTransferFromAnotherAwsAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RejectDomainTransferFromAnotherAwsAccountResponse'
-            Prelude.<$> (x Core..?> "OperationId")
+            Prelude.<$> (x Data..?> "OperationId")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -134,41 +137,41 @@ instance
     Prelude.rnf domainName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     RejectDomainTransferFromAnotherAwsAccount
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Domains_v20140515.RejectDomainTransferFromAnotherAwsAccount" ::
+              Data.=# ( "Route53Domains_v20140515.RejectDomainTransferFromAnotherAwsAccount" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     RejectDomainTransferFromAnotherAwsAccount
   where
   toJSON RejectDomainTransferFromAnotherAwsAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("DomainName" Core..= domainName)]
+          [Prelude.Just ("DomainName" Data..= domainName)]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     RejectDomainTransferFromAnotherAwsAccount
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     RejectDomainTransferFromAnotherAwsAccount
   where
   toQuery = Prelude.const Prelude.mempty

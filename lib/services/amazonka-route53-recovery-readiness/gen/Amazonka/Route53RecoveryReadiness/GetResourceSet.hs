@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.GetResourceSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns information about a Resource Set.
+-- Displays the details about a resource set, including a list of the
+-- resources in the set.
 module Amazonka.Route53RecoveryReadiness.GetResourceSet
   ( -- * Creating a Request
     GetResourceSet (..),
@@ -34,17 +35,18 @@ module Amazonka.Route53RecoveryReadiness.GetResourceSet
     newGetResourceSetResponse,
 
     -- * Response Lenses
+    getResourceSetResponse_resourceSetArn,
     getResourceSetResponse_resourceSetName,
     getResourceSetResponse_resourceSetType,
     getResourceSetResponse_resources,
-    getResourceSetResponse_resourceSetArn,
     getResourceSetResponse_tags,
     getResourceSetResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,7 +54,7 @@ import Amazonka.Route53RecoveryReadiness.Types
 
 -- | /See:/ 'newGetResourceSet' smart constructor.
 data GetResourceSet = GetResourceSet'
-  { -- | The ResourceSet to get
+  { -- | Name of a resource set.
     resourceSetName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -65,7 +67,7 @@ data GetResourceSet = GetResourceSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceSetName', 'getResourceSet_resourceSetName' - The ResourceSet to get
+-- 'resourceSetName', 'getResourceSet_resourceSetName' - Name of a resource set.
 newGetResourceSet ::
   -- | 'resourceSetName'
   Prelude.Text ->
@@ -76,7 +78,7 @@ newGetResourceSet pResourceSetName_ =
         pResourceSetName_
     }
 
--- | The ResourceSet to get
+-- | Name of a resource set.
 getResourceSet_resourceSetName :: Lens.Lens' GetResourceSet Prelude.Text
 getResourceSet_resourceSetName = Lens.lens (\GetResourceSet' {resourceSetName} -> resourceSetName) (\s@GetResourceSet' {} a -> s {resourceSetName = a} :: GetResourceSet)
 
@@ -84,16 +86,17 @@ instance Core.AWSRequest GetResourceSet where
   type
     AWSResponse GetResourceSet =
       GetResourceSetResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetResourceSetResponse'
-            Prelude.<$> (x Core..?> "resourceSetName")
-            Prelude.<*> (x Core..?> "resourceSetType")
-            Prelude.<*> (x Core..?> "resources" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "resourceSetArn")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "resourceSetArn")
+            Prelude.<*> (x Data..?> "resourceSetName")
+            Prelude.<*> (x Data..?> "resourceSetType")
+            Prelude.<*> (x Data..?> "resources" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -104,35 +107,46 @@ instance Prelude.Hashable GetResourceSet where
 instance Prelude.NFData GetResourceSet where
   rnf GetResourceSet' {..} = Prelude.rnf resourceSetName
 
-instance Core.ToHeaders GetResourceSet where
+instance Data.ToHeaders GetResourceSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetResourceSet where
+instance Data.ToPath GetResourceSet where
   toPath GetResourceSet' {..} =
     Prelude.mconcat
-      ["/resourcesets/", Core.toBS resourceSetName]
+      ["/resourcesets/", Data.toBS resourceSetName]
 
-instance Core.ToQuery GetResourceSet where
+instance Data.ToQuery GetResourceSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetResourceSetResponse' smart constructor.
 data GetResourceSetResponse = GetResourceSetResponse'
-  { -- | The name of the ResourceSet
-    resourceSetName :: Prelude.Maybe Prelude.Text,
-    -- | AWS Resource Type of the resources in the ResourceSet
-    resourceSetType :: Prelude.Maybe Prelude.Text,
-    -- | A list of Resource objects
-    resources :: Prelude.Maybe [Resource],
-    -- | The arn for the ResourceSet
+  { -- | The Amazon Resource Name (ARN) for the resource set.
     resourceSetArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the resource set.
+    resourceSetName :: Prelude.Maybe Prelude.Text,
+    -- | The resource type of the resources in the resource set. Enter one of the
+    -- following values for resource type:
+    --
+    -- AWS::ApiGateway::Stage, AWS::ApiGatewayV2::Stage,
+    -- AWS::AutoScaling::AutoScalingGroup, AWS::CloudWatch::Alarm,
+    -- AWS::EC2::CustomerGateway, AWS::DynamoDB::Table, AWS::EC2::Volume,
+    -- AWS::ElasticLoadBalancing::LoadBalancer,
+    -- AWS::ElasticLoadBalancingV2::LoadBalancer, AWS::Lambda::Function,
+    -- AWS::MSK::Cluster, AWS::RDS::DBCluster, AWS::Route53::HealthCheck,
+    -- AWS::SQS::Queue, AWS::SNS::Topic, AWS::SNS::Subscription, AWS::EC2::VPC,
+    -- AWS::EC2::VPNConnection, AWS::EC2::VPNGateway,
+    -- AWS::Route53RecoveryReadiness::DNSTargetResource
+    resourceSetType :: Prelude.Maybe Prelude.Text,
+    -- | A list of resource objects.
+    resources :: Prelude.Maybe [Resource],
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -147,13 +161,24 @@ data GetResourceSetResponse = GetResourceSetResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceSetName', 'getResourceSetResponse_resourceSetName' - The name of the ResourceSet
+-- 'resourceSetArn', 'getResourceSetResponse_resourceSetArn' - The Amazon Resource Name (ARN) for the resource set.
 --
--- 'resourceSetType', 'getResourceSetResponse_resourceSetType' - AWS Resource Type of the resources in the ResourceSet
+-- 'resourceSetName', 'getResourceSetResponse_resourceSetName' - The name of the resource set.
 --
--- 'resources', 'getResourceSetResponse_resources' - A list of Resource objects
+-- 'resourceSetType', 'getResourceSetResponse_resourceSetType' - The resource type of the resources in the resource set. Enter one of the
+-- following values for resource type:
 --
--- 'resourceSetArn', 'getResourceSetResponse_resourceSetArn' - The arn for the ResourceSet
+-- AWS::ApiGateway::Stage, AWS::ApiGatewayV2::Stage,
+-- AWS::AutoScaling::AutoScalingGroup, AWS::CloudWatch::Alarm,
+-- AWS::EC2::CustomerGateway, AWS::DynamoDB::Table, AWS::EC2::Volume,
+-- AWS::ElasticLoadBalancing::LoadBalancer,
+-- AWS::ElasticLoadBalancingV2::LoadBalancer, AWS::Lambda::Function,
+-- AWS::MSK::Cluster, AWS::RDS::DBCluster, AWS::Route53::HealthCheck,
+-- AWS::SQS::Queue, AWS::SNS::Topic, AWS::SNS::Subscription, AWS::EC2::VPC,
+-- AWS::EC2::VPNConnection, AWS::EC2::VPNGateway,
+-- AWS::Route53RecoveryReadiness::DNSTargetResource
+--
+-- 'resources', 'getResourceSetResponse_resources' - A list of resource objects.
 --
 -- 'tags', 'getResourceSetResponse_tags' - Undocumented member.
 --
@@ -164,30 +189,41 @@ newGetResourceSetResponse ::
   GetResourceSetResponse
 newGetResourceSetResponse pHttpStatus_ =
   GetResourceSetResponse'
-    { resourceSetName =
+    { resourceSetArn =
         Prelude.Nothing,
+      resourceSetName = Prelude.Nothing,
       resourceSetType = Prelude.Nothing,
       resources = Prelude.Nothing,
-      resourceSetArn = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The name of the ResourceSet
+-- | The Amazon Resource Name (ARN) for the resource set.
+getResourceSetResponse_resourceSetArn :: Lens.Lens' GetResourceSetResponse (Prelude.Maybe Prelude.Text)
+getResourceSetResponse_resourceSetArn = Lens.lens (\GetResourceSetResponse' {resourceSetArn} -> resourceSetArn) (\s@GetResourceSetResponse' {} a -> s {resourceSetArn = a} :: GetResourceSetResponse)
+
+-- | The name of the resource set.
 getResourceSetResponse_resourceSetName :: Lens.Lens' GetResourceSetResponse (Prelude.Maybe Prelude.Text)
 getResourceSetResponse_resourceSetName = Lens.lens (\GetResourceSetResponse' {resourceSetName} -> resourceSetName) (\s@GetResourceSetResponse' {} a -> s {resourceSetName = a} :: GetResourceSetResponse)
 
--- | AWS Resource Type of the resources in the ResourceSet
+-- | The resource type of the resources in the resource set. Enter one of the
+-- following values for resource type:
+--
+-- AWS::ApiGateway::Stage, AWS::ApiGatewayV2::Stage,
+-- AWS::AutoScaling::AutoScalingGroup, AWS::CloudWatch::Alarm,
+-- AWS::EC2::CustomerGateway, AWS::DynamoDB::Table, AWS::EC2::Volume,
+-- AWS::ElasticLoadBalancing::LoadBalancer,
+-- AWS::ElasticLoadBalancingV2::LoadBalancer, AWS::Lambda::Function,
+-- AWS::MSK::Cluster, AWS::RDS::DBCluster, AWS::Route53::HealthCheck,
+-- AWS::SQS::Queue, AWS::SNS::Topic, AWS::SNS::Subscription, AWS::EC2::VPC,
+-- AWS::EC2::VPNConnection, AWS::EC2::VPNGateway,
+-- AWS::Route53RecoveryReadiness::DNSTargetResource
 getResourceSetResponse_resourceSetType :: Lens.Lens' GetResourceSetResponse (Prelude.Maybe Prelude.Text)
 getResourceSetResponse_resourceSetType = Lens.lens (\GetResourceSetResponse' {resourceSetType} -> resourceSetType) (\s@GetResourceSetResponse' {} a -> s {resourceSetType = a} :: GetResourceSetResponse)
 
--- | A list of Resource objects
+-- | A list of resource objects.
 getResourceSetResponse_resources :: Lens.Lens' GetResourceSetResponse (Prelude.Maybe [Resource])
 getResourceSetResponse_resources = Lens.lens (\GetResourceSetResponse' {resources} -> resources) (\s@GetResourceSetResponse' {} a -> s {resources = a} :: GetResourceSetResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The arn for the ResourceSet
-getResourceSetResponse_resourceSetArn :: Lens.Lens' GetResourceSetResponse (Prelude.Maybe Prelude.Text)
-getResourceSetResponse_resourceSetArn = Lens.lens (\GetResourceSetResponse' {resourceSetArn} -> resourceSetArn) (\s@GetResourceSetResponse' {} a -> s {resourceSetArn = a} :: GetResourceSetResponse)
 
 -- | Undocumented member.
 getResourceSetResponse_tags :: Lens.Lens' GetResourceSetResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -199,9 +235,9 @@ getResourceSetResponse_httpStatus = Lens.lens (\GetResourceSetResponse' {httpSta
 
 instance Prelude.NFData GetResourceSetResponse where
   rnf GetResourceSetResponse' {..} =
-    Prelude.rnf resourceSetName
+    Prelude.rnf resourceSetArn
+      `Prelude.seq` Prelude.rnf resourceSetName
       `Prelude.seq` Prelude.rnf resourceSetType
       `Prelude.seq` Prelude.rnf resources
-      `Prelude.seq` Prelude.rnf resourceSetArn
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

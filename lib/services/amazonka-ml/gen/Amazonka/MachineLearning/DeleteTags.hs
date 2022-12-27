@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MachineLearning.DeleteTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.MachineLearning.DeleteTags
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MachineLearning.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -103,13 +104,14 @@ deleteTags_resourceType = Lens.lens (\DeleteTags' {resourceType} -> resourceType
 
 instance Core.AWSRequest DeleteTags where
   type AWSResponse DeleteTags = DeleteTagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteTagsResponse'
-            Prelude.<$> (x Core..?> "ResourceId")
-            Prelude.<*> (x Core..?> "ResourceType")
+            Prelude.<$> (x Data..?> "ResourceId")
+            Prelude.<*> (x Data..?> "ResourceType")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,35 +127,35 @@ instance Prelude.NFData DeleteTags where
       `Prelude.seq` Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf resourceType
 
-instance Core.ToHeaders DeleteTags where
+instance Data.ToHeaders DeleteTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonML_20141212.DeleteTags" ::
+              Data.=# ( "AmazonML_20141212.DeleteTags" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteTags where
+instance Data.ToJSON DeleteTags where
   toJSON DeleteTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("TagKeys" Core..= tagKeys),
-            Prelude.Just ("ResourceId" Core..= resourceId),
-            Prelude.Just ("ResourceType" Core..= resourceType)
+          [ Prelude.Just ("TagKeys" Data..= tagKeys),
+            Prelude.Just ("ResourceId" Data..= resourceId),
+            Prelude.Just ("ResourceType" Data..= resourceType)
           ]
       )
 
-instance Core.ToPath DeleteTags where
+instance Data.ToPath DeleteTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteTags where
+instance Data.ToQuery DeleteTags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Amazon ML returns the following elements.

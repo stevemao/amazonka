@@ -95,6 +95,8 @@ haskell_library(
         "gen/Amazonka/AppMesh/Types/HttpRouteMatch.hs",
         "gen/Amazonka/AppMesh/Types/HttpScheme.hs",
         "gen/Amazonka/AppMesh/Types/HttpTimeout.hs",
+        "gen/Amazonka/AppMesh/Types/IpPreference.hs",
+        "gen/Amazonka/AppMesh/Types/JsonFormatRef.hs",
         "gen/Amazonka/AppMesh/Types/Listener.hs",
         "gen/Amazonka/AppMesh/Types/ListenerTimeout.hs",
         "gen/Amazonka/AppMesh/Types/ListenerTls.hs",
@@ -106,9 +108,11 @@ haskell_library(
         "gen/Amazonka/AppMesh/Types/ListenerTlsValidationContext.hs",
         "gen/Amazonka/AppMesh/Types/ListenerTlsValidationContextTrust.hs",
         "gen/Amazonka/AppMesh/Types/Logging.hs",
+        "gen/Amazonka/AppMesh/Types/LoggingFormat.hs",
         "gen/Amazonka/AppMesh/Types/MatchRange.hs",
         "gen/Amazonka/AppMesh/Types/MeshData.hs",
         "gen/Amazonka/AppMesh/Types/MeshRef.hs",
+        "gen/Amazonka/AppMesh/Types/MeshServiceDiscovery.hs",
         "gen/Amazonka/AppMesh/Types/MeshSpec.hs",
         "gen/Amazonka/AppMesh/Types/MeshStatus.hs",
         "gen/Amazonka/AppMesh/Types/MeshStatusCode.hs",
@@ -129,6 +133,7 @@ haskell_library(
         "gen/Amazonka/AppMesh/Types/TcpRetryPolicyEvent.hs",
         "gen/Amazonka/AppMesh/Types/TcpRoute.hs",
         "gen/Amazonka/AppMesh/Types/TcpRouteAction.hs",
+        "gen/Amazonka/AppMesh/Types/TcpRouteMatch.hs",
         "gen/Amazonka/AppMesh/Types/TcpTimeout.hs",
         "gen/Amazonka/AppMesh/Types/TlsValidationContext.hs",
         "gen/Amazonka/AppMesh/Types/TlsValidationContextAcmTrust.hs",
@@ -204,14 +209,13 @@ haskell_library(
         "gen/Amazonka/AppMesh/UpdateVirtualService.hs",
         "gen/Amazonka/AppMesh/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_appmesh=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -229,11 +233,12 @@ haskell_test(
         "test/Test/Amazonka/AppMesh/Internal.hs",
         "test/Test/Amazonka/Gen/AppMesh.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_appmesh=\"2.0\"",
         "-Wall",
         "-threaded",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

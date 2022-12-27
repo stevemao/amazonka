@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.ListCustomDataIdentifiers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.MacieV2.ListCustomDataIdentifiers
     newListCustomDataIdentifiers,
 
     -- * Request Lenses
-    listCustomDataIdentifiers_nextToken,
     listCustomDataIdentifiers_maxResults,
+    listCustomDataIdentifiers_nextToken,
 
     -- * Destructuring the Response
     ListCustomDataIdentifiersResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.MacieV2.ListCustomDataIdentifiers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,11 +54,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListCustomDataIdentifiers' smart constructor.
 data ListCustomDataIdentifiers = ListCustomDataIdentifiers'
-  { -- | The nextToken string that specifies which page of results to return in a
+  { -- | The maximum number of items to include in each page of the response.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The nextToken string that specifies which page of results to return in a
     -- paginated response.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to include in each page of the response.
-    maxResults :: Prelude.Maybe Prelude.Int
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,27 +70,27 @@ data ListCustomDataIdentifiers = ListCustomDataIdentifiers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listCustomDataIdentifiers_maxResults' - The maximum number of items to include in each page of the response.
+--
 -- 'nextToken', 'listCustomDataIdentifiers_nextToken' - The nextToken string that specifies which page of results to return in a
 -- paginated response.
---
--- 'maxResults', 'listCustomDataIdentifiers_maxResults' - The maximum number of items to include in each page of the response.
 newListCustomDataIdentifiers ::
   ListCustomDataIdentifiers
 newListCustomDataIdentifiers =
   ListCustomDataIdentifiers'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of items to include in each page of the response.
+listCustomDataIdentifiers_maxResults :: Lens.Lens' ListCustomDataIdentifiers (Prelude.Maybe Prelude.Int)
+listCustomDataIdentifiers_maxResults = Lens.lens (\ListCustomDataIdentifiers' {maxResults} -> maxResults) (\s@ListCustomDataIdentifiers' {} a -> s {maxResults = a} :: ListCustomDataIdentifiers)
 
 -- | The nextToken string that specifies which page of results to return in a
 -- paginated response.
 listCustomDataIdentifiers_nextToken :: Lens.Lens' ListCustomDataIdentifiers (Prelude.Maybe Prelude.Text)
 listCustomDataIdentifiers_nextToken = Lens.lens (\ListCustomDataIdentifiers' {nextToken} -> nextToken) (\s@ListCustomDataIdentifiers' {} a -> s {nextToken = a} :: ListCustomDataIdentifiers)
-
--- | The maximum number of items to include in each page of the response.
-listCustomDataIdentifiers_maxResults :: Lens.Lens' ListCustomDataIdentifiers (Prelude.Maybe Prelude.Int)
-listCustomDataIdentifiers_maxResults = Lens.lens (\ListCustomDataIdentifiers' {maxResults} -> maxResults) (\s@ListCustomDataIdentifiers' {} a -> s {maxResults = a} :: ListCustomDataIdentifiers)
 
 instance Core.AWSPager ListCustomDataIdentifiers where
   page rq rs
@@ -117,51 +118,52 @@ instance Core.AWSRequest ListCustomDataIdentifiers where
   type
     AWSResponse ListCustomDataIdentifiers =
       ListCustomDataIdentifiersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListCustomDataIdentifiersResponse'
-            Prelude.<$> (x Core..?> "items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListCustomDataIdentifiers where
   hashWithSalt _salt ListCustomDataIdentifiers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListCustomDataIdentifiers where
   rnf ListCustomDataIdentifiers' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListCustomDataIdentifiers where
+instance Data.ToHeaders ListCustomDataIdentifiers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListCustomDataIdentifiers where
+instance Data.ToJSON ListCustomDataIdentifiers where
   toJSON ListCustomDataIdentifiers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListCustomDataIdentifiers where
+instance Data.ToPath ListCustomDataIdentifiers where
   toPath =
     Prelude.const "/custom-data-identifiers/list"
 
-instance Core.ToQuery ListCustomDataIdentifiers where
+instance Data.ToQuery ListCustomDataIdentifiers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListCustomDataIdentifiersResponse' smart constructor.

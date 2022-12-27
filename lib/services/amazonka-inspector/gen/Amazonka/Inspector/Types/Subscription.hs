@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.Types.Subscription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Inspector.Types.Subscription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types.EventSubscription
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | This data type is used as a response element in the
@@ -88,15 +89,15 @@ subscription_topicArn = Lens.lens (\Subscription' {topicArn} -> topicArn) (\s@Su
 subscription_eventSubscriptions :: Lens.Lens' Subscription (Prelude.NonEmpty EventSubscription)
 subscription_eventSubscriptions = Lens.lens (\Subscription' {eventSubscriptions} -> eventSubscriptions) (\s@Subscription' {} a -> s {eventSubscriptions = a} :: Subscription) Prelude.. Lens.coerced
 
-instance Core.FromJSON Subscription where
+instance Data.FromJSON Subscription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Subscription"
       ( \x ->
           Subscription'
-            Prelude.<$> (x Core..: "resourceArn")
-            Prelude.<*> (x Core..: "topicArn")
-            Prelude.<*> (x Core..: "eventSubscriptions")
+            Prelude.<$> (x Data..: "resourceArn")
+            Prelude.<*> (x Data..: "topicArn")
+            Prelude.<*> (x Data..: "eventSubscriptions")
       )
 
 instance Prelude.Hashable Subscription where

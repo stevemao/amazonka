@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.DeleteUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -46,8 +47,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteUser' smart constructor.
 data DeleteUser = DeleteUser'
-  { -- | The access token from a request to delete a user.
-    accessToken :: Core.Sensitive Prelude.Text
+  { -- | A valid access token that Amazon Cognito issued to the user whose user
+    -- profile you want to delete.
+    accessToken :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -59,7 +61,8 @@ data DeleteUser = DeleteUser'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'accessToken', 'deleteUser_accessToken' - The access token from a request to delete a user.
+-- 'accessToken', 'deleteUser_accessToken' - A valid access token that Amazon Cognito issued to the user whose user
+-- profile you want to delete.
 newDeleteUser ::
   -- | 'accessToken'
   Prelude.Text ->
@@ -67,16 +70,18 @@ newDeleteUser ::
 newDeleteUser pAccessToken_ =
   DeleteUser'
     { accessToken =
-        Core._Sensitive Lens.# pAccessToken_
+        Data._Sensitive Lens.# pAccessToken_
     }
 
--- | The access token from a request to delete a user.
+-- | A valid access token that Amazon Cognito issued to the user whose user
+-- profile you want to delete.
 deleteUser_accessToken :: Lens.Lens' DeleteUser Prelude.Text
-deleteUser_accessToken = Lens.lens (\DeleteUser' {accessToken} -> accessToken) (\s@DeleteUser' {} a -> s {accessToken = a} :: DeleteUser) Prelude.. Core._Sensitive
+deleteUser_accessToken = Lens.lens (\DeleteUser' {accessToken} -> accessToken) (\s@DeleteUser' {} a -> s {accessToken = a} :: DeleteUser) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest DeleteUser where
   type AWSResponse DeleteUser = DeleteUserResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DeleteUserResponse'
 
 instance Prelude.Hashable DeleteUser where
@@ -86,32 +91,32 @@ instance Prelude.Hashable DeleteUser where
 instance Prelude.NFData DeleteUser where
   rnf DeleteUser' {..} = Prelude.rnf accessToken
 
-instance Core.ToHeaders DeleteUser where
+instance Data.ToHeaders DeleteUser where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.DeleteUser" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.DeleteUser" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteUser where
+instance Data.ToJSON DeleteUser where
   toJSON DeleteUser' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("AccessToken" Core..= accessToken)]
+          [Prelude.Just ("AccessToken" Data..= accessToken)]
       )
 
-instance Core.ToPath DeleteUser where
+instance Data.ToPath DeleteUser where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteUser where
+instance Data.ToQuery DeleteUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteUserResponse' smart constructor.

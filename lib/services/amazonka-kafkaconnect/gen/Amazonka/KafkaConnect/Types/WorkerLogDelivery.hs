@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.WorkerLogDelivery
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.KafkaConnect.Types.WorkerLogDelivery where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types.CloudWatchLogsLogDelivery
 import Amazonka.KafkaConnect.Types.FirehoseLogDelivery
 import Amazonka.KafkaConnect.Types.S3LogDelivery
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Workers can send worker logs to different destination types. This
@@ -87,13 +88,13 @@ instance Prelude.NFData WorkerLogDelivery where
       `Prelude.seq` Prelude.rnf firehose
       `Prelude.seq` Prelude.rnf s3
 
-instance Core.ToJSON WorkerLogDelivery where
+instance Data.ToJSON WorkerLogDelivery where
   toJSON WorkerLogDelivery' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("cloudWatchLogs" Core..=)
+          [ ("cloudWatchLogs" Data..=)
               Prelude.<$> cloudWatchLogs,
-            ("firehose" Core..=) Prelude.<$> firehose,
-            ("s3" Core..=) Prelude.<$> s3
+            ("firehose" Data..=) Prelude.<$> firehose,
+            ("s3" Data..=) Prelude.<$> s3
           ]
       )

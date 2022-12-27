@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DescribeAgentVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.OpsWorks.DescribeAgentVersions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -91,12 +92,13 @@ instance Core.AWSRequest DescribeAgentVersions where
   type
     AWSResponse DescribeAgentVersions =
       DescribeAgentVersionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAgentVersionsResponse'
-            Prelude.<$> (x Core..?> "AgentVersions" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "AgentVersions" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,35 +112,35 @@ instance Prelude.NFData DescribeAgentVersions where
     Prelude.rnf configurationManager
       `Prelude.seq` Prelude.rnf stackId
 
-instance Core.ToHeaders DescribeAgentVersions where
+instance Data.ToHeaders DescribeAgentVersions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DescribeAgentVersions" ::
+              Data.=# ( "OpsWorks_20130218.DescribeAgentVersions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAgentVersions where
+instance Data.ToJSON DescribeAgentVersions where
   toJSON DescribeAgentVersions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ConfigurationManager" Core..=)
+          [ ("ConfigurationManager" Data..=)
               Prelude.<$> configurationManager,
-            ("StackId" Core..=) Prelude.<$> stackId
+            ("StackId" Data..=) Prelude.<$> stackId
           ]
       )
 
-instance Core.ToPath DescribeAgentVersions where
+instance Data.ToPath DescribeAgentVersions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAgentVersions where
+instance Data.ToQuery DescribeAgentVersions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribeAgentVersions@ request.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.DestinationOptionsRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +20,24 @@
 module Amazonka.EC2.Types.DestinationOptionsRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.DestinationFileFormat
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the destination options for a flow log.
 --
 -- /See:/ 'newDestinationOptionsRequest' smart constructor.
 data DestinationOptionsRequest = DestinationOptionsRequest'
-  { -- | Indicates whether to partition the flow log per hour. This reduces the
-    -- cost and response time for queries. The default is @false@.
-    perHourPartition :: Prelude.Maybe Prelude.Bool,
-    -- | The format for the flow log. The default is @plain-text@.
+  { -- | The format for the flow log. The default is @plain-text@.
     fileFormat :: Prelude.Maybe DestinationFileFormat,
     -- | Indicates whether to use Hive-compatible prefixes for flow logs stored
     -- in Amazon S3. The default is @false@.
-    hiveCompatiblePartitions :: Prelude.Maybe Prelude.Bool
+    hiveCompatiblePartitions :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates whether to partition the flow log per hour. This reduces the
+    -- cost and response time for queries. The default is @false@.
+    perHourPartition :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,27 +49,22 @@ data DestinationOptionsRequest = DestinationOptionsRequest'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'perHourPartition', 'destinationOptionsRequest_perHourPartition' - Indicates whether to partition the flow log per hour. This reduces the
--- cost and response time for queries. The default is @false@.
---
 -- 'fileFormat', 'destinationOptionsRequest_fileFormat' - The format for the flow log. The default is @plain-text@.
 --
 -- 'hiveCompatiblePartitions', 'destinationOptionsRequest_hiveCompatiblePartitions' - Indicates whether to use Hive-compatible prefixes for flow logs stored
 -- in Amazon S3. The default is @false@.
+--
+-- 'perHourPartition', 'destinationOptionsRequest_perHourPartition' - Indicates whether to partition the flow log per hour. This reduces the
+-- cost and response time for queries. The default is @false@.
 newDestinationOptionsRequest ::
   DestinationOptionsRequest
 newDestinationOptionsRequest =
   DestinationOptionsRequest'
-    { perHourPartition =
+    { fileFormat =
         Prelude.Nothing,
-      fileFormat = Prelude.Nothing,
-      hiveCompatiblePartitions = Prelude.Nothing
+      hiveCompatiblePartitions = Prelude.Nothing,
+      perHourPartition = Prelude.Nothing
     }
-
--- | Indicates whether to partition the flow log per hour. This reduces the
--- cost and response time for queries. The default is @false@.
-destinationOptionsRequest_perHourPartition :: Lens.Lens' DestinationOptionsRequest (Prelude.Maybe Prelude.Bool)
-destinationOptionsRequest_perHourPartition = Lens.lens (\DestinationOptionsRequest' {perHourPartition} -> perHourPartition) (\s@DestinationOptionsRequest' {} a -> s {perHourPartition = a} :: DestinationOptionsRequest)
 
 -- | The format for the flow log. The default is @plain-text@.
 destinationOptionsRequest_fileFormat :: Lens.Lens' DestinationOptionsRequest (Prelude.Maybe DestinationFileFormat)
@@ -79,23 +75,28 @@ destinationOptionsRequest_fileFormat = Lens.lens (\DestinationOptionsRequest' {f
 destinationOptionsRequest_hiveCompatiblePartitions :: Lens.Lens' DestinationOptionsRequest (Prelude.Maybe Prelude.Bool)
 destinationOptionsRequest_hiveCompatiblePartitions = Lens.lens (\DestinationOptionsRequest' {hiveCompatiblePartitions} -> hiveCompatiblePartitions) (\s@DestinationOptionsRequest' {} a -> s {hiveCompatiblePartitions = a} :: DestinationOptionsRequest)
 
+-- | Indicates whether to partition the flow log per hour. This reduces the
+-- cost and response time for queries. The default is @false@.
+destinationOptionsRequest_perHourPartition :: Lens.Lens' DestinationOptionsRequest (Prelude.Maybe Prelude.Bool)
+destinationOptionsRequest_perHourPartition = Lens.lens (\DestinationOptionsRequest' {perHourPartition} -> perHourPartition) (\s@DestinationOptionsRequest' {} a -> s {perHourPartition = a} :: DestinationOptionsRequest)
+
 instance Prelude.Hashable DestinationOptionsRequest where
   hashWithSalt _salt DestinationOptionsRequest' {..} =
-    _salt `Prelude.hashWithSalt` perHourPartition
-      `Prelude.hashWithSalt` fileFormat
+    _salt `Prelude.hashWithSalt` fileFormat
       `Prelude.hashWithSalt` hiveCompatiblePartitions
+      `Prelude.hashWithSalt` perHourPartition
 
 instance Prelude.NFData DestinationOptionsRequest where
   rnf DestinationOptionsRequest' {..} =
-    Prelude.rnf perHourPartition
-      `Prelude.seq` Prelude.rnf fileFormat
+    Prelude.rnf fileFormat
       `Prelude.seq` Prelude.rnf hiveCompatiblePartitions
+      `Prelude.seq` Prelude.rnf perHourPartition
 
-instance Core.ToQuery DestinationOptionsRequest where
+instance Data.ToQuery DestinationOptionsRequest where
   toQuery DestinationOptionsRequest' {..} =
     Prelude.mconcat
-      [ "PerHourPartition" Core.=: perHourPartition,
-        "FileFormat" Core.=: fileFormat,
+      [ "FileFormat" Data.=: fileFormat,
         "HiveCompatiblePartitions"
-          Core.=: hiveCompatiblePartitions
+          Data.=: hiveCompatiblePartitions,
+        "PerHourPartition" Data.=: perHourPartition
       ]

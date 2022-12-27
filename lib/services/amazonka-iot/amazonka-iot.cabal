@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -140,6 +140,7 @@ library
     Amazonka.IoT.DescribeJob
     Amazonka.IoT.DescribeJobExecution
     Amazonka.IoT.DescribeJobTemplate
+    Amazonka.IoT.DescribeManagedJobTemplate
     Amazonka.IoT.DescribeMitigationAction
     Amazonka.IoT.DescribeProvisioningTemplate
     Amazonka.IoT.DescribeProvisioningTemplateVersion
@@ -196,6 +197,8 @@ library
     Amazonka.IoT.ListJobExecutionsForThing
     Amazonka.IoT.ListJobs
     Amazonka.IoT.ListJobTemplates
+    Amazonka.IoT.ListManagedJobTemplates
+    Amazonka.IoT.ListMetricValues
     Amazonka.IoT.ListMitigationActions
     Amazonka.IoT.ListOTAUpdates
     Amazonka.IoT.ListOutgoingCertificates
@@ -204,6 +207,7 @@ library
     Amazonka.IoT.ListPrincipalThings
     Amazonka.IoT.ListProvisioningTemplates
     Amazonka.IoT.ListProvisioningTemplateVersions
+    Amazonka.IoT.ListRelatedResourcesForAuditFinding
     Amazonka.IoT.ListRoleAliases
     Amazonka.IoT.ListScheduledAudits
     Amazonka.IoT.ListSecurityProfiles
@@ -339,8 +343,10 @@ library
     Amazonka.IoT.Types.DetectMitigationActionsTaskSummary
     Amazonka.IoT.Types.DetectMitigationActionsTaskTarget
     Amazonka.IoT.Types.DeviceCertificateUpdateAction
+    Amazonka.IoT.Types.DeviceDefenderIndexingMode
     Amazonka.IoT.Types.DimensionType
     Amazonka.IoT.Types.DimensionValueOperator
+    Amazonka.IoT.Types.DocumentParameter
     Amazonka.IoT.Types.DomainConfigurationStatus
     Amazonka.IoT.Types.DomainConfigurationSummary
     Amazonka.IoT.Types.DomainType
@@ -370,13 +376,17 @@ library
     Amazonka.IoT.Types.HttpUrlDestinationProperties
     Amazonka.IoT.Types.HttpUrlDestinationSummary
     Amazonka.IoT.Types.ImplicitDeny
+    Amazonka.IoT.Types.IndexingFilter
     Amazonka.IoT.Types.IndexStatus
     Amazonka.IoT.Types.IotAnalyticsAction
     Amazonka.IoT.Types.IotEventsAction
     Amazonka.IoT.Types.IotSiteWiseAction
+    Amazonka.IoT.Types.IssuerCertificateIdentifier
     Amazonka.IoT.Types.Job
+    Amazonka.IoT.Types.JobEndBehavior
     Amazonka.IoT.Types.JobExecution
     Amazonka.IoT.Types.JobExecutionFailureType
+    Amazonka.IoT.Types.JobExecutionsRetryConfig
     Amazonka.IoT.Types.JobExecutionsRolloutConfig
     Amazonka.IoT.Types.JobExecutionStatus
     Amazonka.IoT.Types.JobExecutionStatusDetails
@@ -391,13 +401,17 @@ library
     Amazonka.IoT.Types.KeyPair
     Amazonka.IoT.Types.KinesisAction
     Amazonka.IoT.Types.LambdaAction
+    Amazonka.IoT.Types.LocationAction
+    Amazonka.IoT.Types.LocationTimestamp
     Amazonka.IoT.Types.LoggingOptionsPayload
     Amazonka.IoT.Types.LogLevel
     Amazonka.IoT.Types.LogTarget
     Amazonka.IoT.Types.LogTargetConfiguration
     Amazonka.IoT.Types.LogTargetType
     Amazonka.IoT.Types.MachineLearningDetectionConfig
+    Amazonka.IoT.Types.ManagedJobTemplateSummary
     Amazonka.IoT.Types.MessageFormat
+    Amazonka.IoT.Types.MetricDatum
     Amazonka.IoT.Types.MetricDimension
     Amazonka.IoT.Types.MetricToRetain
     Amazonka.IoT.Types.MetricValue
@@ -407,6 +421,8 @@ library
     Amazonka.IoT.Types.MitigationActionType
     Amazonka.IoT.Types.ModelStatus
     Amazonka.IoT.Types.MqttContext
+    Amazonka.IoT.Types.MqttHeaders
+    Amazonka.IoT.Types.NamedShadowIndexingMode
     Amazonka.IoT.Types.NonCompliantResource
     Amazonka.IoT.Types.OpenSearchAction
     Amazonka.IoT.Types.OTAUpdateFile
@@ -435,12 +451,15 @@ library
     Amazonka.IoT.Types.RepublishAction
     Amazonka.IoT.Types.ResourceIdentifier
     Amazonka.IoT.Types.ResourceType
+    Amazonka.IoT.Types.RetryableFailureType
+    Amazonka.IoT.Types.RetryCriteria
     Amazonka.IoT.Types.RoleAliasDescription
     Amazonka.IoT.Types.S3Action
     Amazonka.IoT.Types.S3Destination
     Amazonka.IoT.Types.S3Location
     Amazonka.IoT.Types.SalesforceAction
     Amazonka.IoT.Types.ScheduledAuditMetadata
+    Amazonka.IoT.Types.SchedulingConfig
     Amazonka.IoT.Types.SecurityProfileIdentifier
     Amazonka.IoT.Types.SecurityProfileTarget
     Amazonka.IoT.Types.SecurityProfileTargetMapping
@@ -464,6 +483,7 @@ library
     Amazonka.IoT.Types.TaskStatistics
     Amazonka.IoT.Types.TaskStatisticsForAuditCheck
     Amazonka.IoT.Types.TaskStatus
+    Amazonka.IoT.Types.TemplateType
     Amazonka.IoT.Types.TermsAggregation
     Amazonka.IoT.Types.ThingAttribute
     Amazonka.IoT.Types.ThingConnectivity
@@ -494,6 +514,7 @@ library
     Amazonka.IoT.Types.TransferData
     Amazonka.IoT.Types.UpdateCACertificateParams
     Amazonka.IoT.Types.UpdateDeviceCertificateParams
+    Amazonka.IoT.Types.UserProperty
     Amazonka.IoT.Types.ValidationError
     Amazonka.IoT.Types.VerificationState
     Amazonka.IoT.Types.ViolationEvent
@@ -532,7 +553,7 @@ library
     Amazonka.IoT.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-iot-test
@@ -551,9 +572,9 @@ test-suite amazonka-iot-test
     Test.Amazonka.IoT.Internal
 
   build-depends:
-    , amazonka-core         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
     , amazonka-iot
-    , amazonka-test         ^>=2.0
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

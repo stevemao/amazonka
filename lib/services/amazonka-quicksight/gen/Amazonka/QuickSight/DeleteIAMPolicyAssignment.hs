@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DeleteIAMPolicyAssignment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an existing IAMpolicy assignment.
+-- Deletes an existing IAM policy assignment.
 module Amazonka.QuickSight.DeleteIAMPolicyAssignment
   ( -- * Creating a Request
     DeleteIAMPolicyAssignment (..),
@@ -36,14 +36,15 @@ module Amazonka.QuickSight.DeleteIAMPolicyAssignment
     newDeleteIAMPolicyAssignmentResponse,
 
     -- * Response Lenses
-    deleteIAMPolicyAssignmentResponse_requestId,
     deleteIAMPolicyAssignmentResponse_assignmentName,
+    deleteIAMPolicyAssignmentResponse_requestId,
     deleteIAMPolicyAssignmentResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -51,8 +52,8 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteIAMPolicyAssignment' smart constructor.
 data DeleteIAMPolicyAssignment = DeleteIAMPolicyAssignment'
-  { -- | The Amazon Web Services account ID where you want to delete the
-    -- IAMpolicy assignment.
+  { -- | The Amazon Web Services account ID where you want to delete the IAM
+    -- policy assignment.
     awsAccountId :: Prelude.Text,
     -- | The name of the assignment.
     assignmentName :: Prelude.Text,
@@ -69,8 +70,8 @@ data DeleteIAMPolicyAssignment = DeleteIAMPolicyAssignment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'awsAccountId', 'deleteIAMPolicyAssignment_awsAccountId' - The Amazon Web Services account ID where you want to delete the
--- IAMpolicy assignment.
+-- 'awsAccountId', 'deleteIAMPolicyAssignment_awsAccountId' - The Amazon Web Services account ID where you want to delete the IAM
+-- policy assignment.
 --
 -- 'assignmentName', 'deleteIAMPolicyAssignment_assignmentName' - The name of the assignment.
 --
@@ -94,8 +95,8 @@ newDeleteIAMPolicyAssignment
         namespace = pNamespace_
       }
 
--- | The Amazon Web Services account ID where you want to delete the
--- IAMpolicy assignment.
+-- | The Amazon Web Services account ID where you want to delete the IAM
+-- policy assignment.
 deleteIAMPolicyAssignment_awsAccountId :: Lens.Lens' DeleteIAMPolicyAssignment Prelude.Text
 deleteIAMPolicyAssignment_awsAccountId = Lens.lens (\DeleteIAMPolicyAssignment' {awsAccountId} -> awsAccountId) (\s@DeleteIAMPolicyAssignment' {} a -> s {awsAccountId = a} :: DeleteIAMPolicyAssignment)
 
@@ -111,13 +112,14 @@ instance Core.AWSRequest DeleteIAMPolicyAssignment where
   type
     AWSResponse DeleteIAMPolicyAssignment =
       DeleteIAMPolicyAssignmentResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteIAMPolicyAssignmentResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "AssignmentName")
+            Prelude.<$> (x Data..?> "AssignmentName")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -133,37 +135,37 @@ instance Prelude.NFData DeleteIAMPolicyAssignment where
       `Prelude.seq` Prelude.rnf assignmentName
       `Prelude.seq` Prelude.rnf namespace
 
-instance Core.ToHeaders DeleteIAMPolicyAssignment where
+instance Data.ToHeaders DeleteIAMPolicyAssignment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteIAMPolicyAssignment where
+instance Data.ToPath DeleteIAMPolicyAssignment where
   toPath DeleteIAMPolicyAssignment' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/namespace/",
-        Core.toBS namespace,
+        Data.toBS namespace,
         "/iam-policy-assignments/",
-        Core.toBS assignmentName
+        Data.toBS assignmentName
       ]
 
-instance Core.ToQuery DeleteIAMPolicyAssignment where
+instance Data.ToQuery DeleteIAMPolicyAssignment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteIAMPolicyAssignmentResponse' smart constructor.
 data DeleteIAMPolicyAssignmentResponse = DeleteIAMPolicyAssignmentResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The name of the assignment.
+  { -- | The name of the assignment.
     assignmentName :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -177,9 +179,9 @@ data DeleteIAMPolicyAssignmentResponse = DeleteIAMPolicyAssignmentResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'deleteIAMPolicyAssignmentResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'assignmentName', 'deleteIAMPolicyAssignmentResponse_assignmentName' - The name of the assignment.
+--
+-- 'requestId', 'deleteIAMPolicyAssignmentResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'deleteIAMPolicyAssignmentResponse_status' - The HTTP status of the request.
 newDeleteIAMPolicyAssignmentResponse ::
@@ -188,19 +190,19 @@ newDeleteIAMPolicyAssignmentResponse ::
   DeleteIAMPolicyAssignmentResponse
 newDeleteIAMPolicyAssignmentResponse pStatus_ =
   DeleteIAMPolicyAssignmentResponse'
-    { requestId =
+    { assignmentName =
         Prelude.Nothing,
-      assignmentName = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-deleteIAMPolicyAssignmentResponse_requestId :: Lens.Lens' DeleteIAMPolicyAssignmentResponse (Prelude.Maybe Prelude.Text)
-deleteIAMPolicyAssignmentResponse_requestId = Lens.lens (\DeleteIAMPolicyAssignmentResponse' {requestId} -> requestId) (\s@DeleteIAMPolicyAssignmentResponse' {} a -> s {requestId = a} :: DeleteIAMPolicyAssignmentResponse)
 
 -- | The name of the assignment.
 deleteIAMPolicyAssignmentResponse_assignmentName :: Lens.Lens' DeleteIAMPolicyAssignmentResponse (Prelude.Maybe Prelude.Text)
 deleteIAMPolicyAssignmentResponse_assignmentName = Lens.lens (\DeleteIAMPolicyAssignmentResponse' {assignmentName} -> assignmentName) (\s@DeleteIAMPolicyAssignmentResponse' {} a -> s {assignmentName = a} :: DeleteIAMPolicyAssignmentResponse)
+
+-- | The Amazon Web Services request ID for this operation.
+deleteIAMPolicyAssignmentResponse_requestId :: Lens.Lens' DeleteIAMPolicyAssignmentResponse (Prelude.Maybe Prelude.Text)
+deleteIAMPolicyAssignmentResponse_requestId = Lens.lens (\DeleteIAMPolicyAssignmentResponse' {requestId} -> requestId) (\s@DeleteIAMPolicyAssignmentResponse' {} a -> s {requestId = a} :: DeleteIAMPolicyAssignmentResponse)
 
 -- | The HTTP status of the request.
 deleteIAMPolicyAssignmentResponse_status :: Lens.Lens' DeleteIAMPolicyAssignmentResponse Prelude.Int
@@ -211,6 +213,6 @@ instance
     DeleteIAMPolicyAssignmentResponse
   where
   rnf DeleteIAMPolicyAssignmentResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf assignmentName
+    Prelude.rnf assignmentName
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

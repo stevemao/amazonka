@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.HttpContext
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.HttpContext where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the HTTP context to use for the test authorizer request.
@@ -71,11 +72,11 @@ instance Prelude.NFData HttpContext where
     Prelude.rnf headers
       `Prelude.seq` Prelude.rnf queryString
 
-instance Core.ToJSON HttpContext where
+instance Data.ToJSON HttpContext where
   toJSON HttpContext' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("headers" Core..=) Prelude.<$> headers,
-            ("queryString" Core..=) Prelude.<$> queryString
+          [ ("headers" Data..=) Prelude.<$> headers,
+            ("queryString" Data..=) Prelude.<$> queryString
           ]
       )

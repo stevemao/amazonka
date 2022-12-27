@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.ListWorkflowTypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,10 +51,10 @@ module Amazonka.SWF.ListWorkflowTypes
     newListWorkflowTypes,
 
     -- * Request Lenses
+    listWorkflowTypes_maximumPageSize,
+    listWorkflowTypes_name,
     listWorkflowTypes_nextPageToken,
     listWorkflowTypes_reverseOrder,
-    listWorkflowTypes_name,
-    listWorkflowTypes_maximumPageSize,
     listWorkflowTypes_domain,
     listWorkflowTypes_registrationStatus,
 
@@ -70,7 +70,8 @@ module Amazonka.SWF.ListWorkflowTypes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,7 +79,12 @@ import Amazonka.SWF.Types
 
 -- | /See:/ 'newListWorkflowTypes' smart constructor.
 data ListWorkflowTypes = ListWorkflowTypes'
-  { -- | If @NextPageToken@ is returned there are more results available. The
+  { -- | The maximum number of results that are returned per call. Use
+    -- @nextPageToken@ to obtain further pages of results.
+    maximumPageSize :: Prelude.Maybe Prelude.Natural,
+    -- | If specified, lists the workflow type with this name.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | If @NextPageToken@ is returned there are more results available. The
     -- value of @NextPageToken@ is a unique pagination token for each page.
     -- Make the call again using the returned token to retrieve the next page.
     -- Keep all other arguments unchanged. Each pagination token expires after
@@ -92,11 +98,6 @@ data ListWorkflowTypes = ListWorkflowTypes'
     -- results are returned in ascending alphabetical order of the @name@ of
     -- the workflow types.
     reverseOrder :: Prelude.Maybe Prelude.Bool,
-    -- | If specified, lists the workflow type with this name.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results that are returned per call. Use
-    -- @nextPageToken@ to obtain further pages of results.
-    maximumPageSize :: Prelude.Maybe Prelude.Natural,
     -- | The name of the domain in which the workflow types have been registered.
     domain :: Prelude.Text,
     -- | Specifies the registration status of the workflow types to list.
@@ -112,6 +113,11 @@ data ListWorkflowTypes = ListWorkflowTypes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maximumPageSize', 'listWorkflowTypes_maximumPageSize' - The maximum number of results that are returned per call. Use
+-- @nextPageToken@ to obtain further pages of results.
+--
+-- 'name', 'listWorkflowTypes_name' - If specified, lists the workflow type with this name.
+--
 -- 'nextPageToken', 'listWorkflowTypes_nextPageToken' - If @NextPageToken@ is returned there are more results available. The
 -- value of @NextPageToken@ is a unique pagination token for each page.
 -- Make the call again using the returned token to retrieve the next page.
@@ -126,11 +132,6 @@ data ListWorkflowTypes = ListWorkflowTypes'
 -- results are returned in ascending alphabetical order of the @name@ of
 -- the workflow types.
 --
--- 'name', 'listWorkflowTypes_name' - If specified, lists the workflow type with this name.
---
--- 'maximumPageSize', 'listWorkflowTypes_maximumPageSize' - The maximum number of results that are returned per call. Use
--- @nextPageToken@ to obtain further pages of results.
---
 -- 'domain', 'listWorkflowTypes_domain' - The name of the domain in which the workflow types have been registered.
 --
 -- 'registrationStatus', 'listWorkflowTypes_registrationStatus' - Specifies the registration status of the workflow types to list.
@@ -142,13 +143,23 @@ newListWorkflowTypes ::
   ListWorkflowTypes
 newListWorkflowTypes pDomain_ pRegistrationStatus_ =
   ListWorkflowTypes'
-    { nextPageToken = Prelude.Nothing,
-      reverseOrder = Prelude.Nothing,
+    { maximumPageSize =
+        Prelude.Nothing,
       name = Prelude.Nothing,
-      maximumPageSize = Prelude.Nothing,
+      nextPageToken = Prelude.Nothing,
+      reverseOrder = Prelude.Nothing,
       domain = pDomain_,
       registrationStatus = pRegistrationStatus_
     }
+
+-- | The maximum number of results that are returned per call. Use
+-- @nextPageToken@ to obtain further pages of results.
+listWorkflowTypes_maximumPageSize :: Lens.Lens' ListWorkflowTypes (Prelude.Maybe Prelude.Natural)
+listWorkflowTypes_maximumPageSize = Lens.lens (\ListWorkflowTypes' {maximumPageSize} -> maximumPageSize) (\s@ListWorkflowTypes' {} a -> s {maximumPageSize = a} :: ListWorkflowTypes)
+
+-- | If specified, lists the workflow type with this name.
+listWorkflowTypes_name :: Lens.Lens' ListWorkflowTypes (Prelude.Maybe Prelude.Text)
+listWorkflowTypes_name = Lens.lens (\ListWorkflowTypes' {name} -> name) (\s@ListWorkflowTypes' {} a -> s {name = a} :: ListWorkflowTypes)
 
 -- | If @NextPageToken@ is returned there are more results available. The
 -- value of @NextPageToken@ is a unique pagination token for each page.
@@ -167,15 +178,6 @@ listWorkflowTypes_nextPageToken = Lens.lens (\ListWorkflowTypes' {nextPageToken}
 -- the workflow types.
 listWorkflowTypes_reverseOrder :: Lens.Lens' ListWorkflowTypes (Prelude.Maybe Prelude.Bool)
 listWorkflowTypes_reverseOrder = Lens.lens (\ListWorkflowTypes' {reverseOrder} -> reverseOrder) (\s@ListWorkflowTypes' {} a -> s {reverseOrder = a} :: ListWorkflowTypes)
-
--- | If specified, lists the workflow type with this name.
-listWorkflowTypes_name :: Lens.Lens' ListWorkflowTypes (Prelude.Maybe Prelude.Text)
-listWorkflowTypes_name = Lens.lens (\ListWorkflowTypes' {name} -> name) (\s@ListWorkflowTypes' {} a -> s {name = a} :: ListWorkflowTypes)
-
--- | The maximum number of results that are returned per call. Use
--- @nextPageToken@ to obtain further pages of results.
-listWorkflowTypes_maximumPageSize :: Lens.Lens' ListWorkflowTypes (Prelude.Maybe Prelude.Natural)
-listWorkflowTypes_maximumPageSize = Lens.lens (\ListWorkflowTypes' {maximumPageSize} -> maximumPageSize) (\s@ListWorkflowTypes' {} a -> s {maximumPageSize = a} :: ListWorkflowTypes)
 
 -- | The name of the domain in which the workflow types have been registered.
 listWorkflowTypes_domain :: Lens.Lens' ListWorkflowTypes Prelude.Text
@@ -208,68 +210,69 @@ instance Core.AWSRequest ListWorkflowTypes where
   type
     AWSResponse ListWorkflowTypes =
       ListWorkflowTypesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListWorkflowTypesResponse'
-            Prelude.<$> (x Core..?> "nextPageToken")
+            Prelude.<$> (x Data..?> "nextPageToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "typeInfos" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "typeInfos" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListWorkflowTypes where
   hashWithSalt _salt ListWorkflowTypes' {..} =
-    _salt `Prelude.hashWithSalt` nextPageToken
-      `Prelude.hashWithSalt` reverseOrder
+    _salt `Prelude.hashWithSalt` maximumPageSize
       `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` maximumPageSize
+      `Prelude.hashWithSalt` nextPageToken
+      `Prelude.hashWithSalt` reverseOrder
       `Prelude.hashWithSalt` domain
       `Prelude.hashWithSalt` registrationStatus
 
 instance Prelude.NFData ListWorkflowTypes where
   rnf ListWorkflowTypes' {..} =
-    Prelude.rnf nextPageToken
-      `Prelude.seq` Prelude.rnf reverseOrder
+    Prelude.rnf maximumPageSize
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf maximumPageSize
+      `Prelude.seq` Prelude.rnf nextPageToken
+      `Prelude.seq` Prelude.rnf reverseOrder
       `Prelude.seq` Prelude.rnf domain
       `Prelude.seq` Prelude.rnf registrationStatus
 
-instance Core.ToHeaders ListWorkflowTypes where
+instance Data.ToHeaders ListWorkflowTypes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SimpleWorkflowService.ListWorkflowTypes" ::
+              Data.=# ( "SimpleWorkflowService.ListWorkflowTypes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListWorkflowTypes where
+instance Data.ToJSON ListWorkflowTypes where
   toJSON ListWorkflowTypes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextPageToken" Core..=) Prelude.<$> nextPageToken,
-            ("reverseOrder" Core..=) Prelude.<$> reverseOrder,
-            ("name" Core..=) Prelude.<$> name,
-            ("maximumPageSize" Core..=)
+          [ ("maximumPageSize" Data..=)
               Prelude.<$> maximumPageSize,
-            Prelude.Just ("domain" Core..= domain),
+            ("name" Data..=) Prelude.<$> name,
+            ("nextPageToken" Data..=) Prelude.<$> nextPageToken,
+            ("reverseOrder" Data..=) Prelude.<$> reverseOrder,
+            Prelude.Just ("domain" Data..= domain),
             Prelude.Just
-              ("registrationStatus" Core..= registrationStatus)
+              ("registrationStatus" Data..= registrationStatus)
           ]
       )
 
-instance Core.ToPath ListWorkflowTypes where
+instance Data.ToPath ListWorkflowTypes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListWorkflowTypes where
+instance Data.ToQuery ListWorkflowTypes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains a paginated list of information structures about workflow

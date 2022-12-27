@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MechanicalTurk.RejectAssignment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ module Amazonka.MechanicalTurk.RejectAssignment
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MechanicalTurk.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -108,7 +109,8 @@ instance Core.AWSRequest RejectAssignment where
   type
     AWSResponse RejectAssignment =
       RejectAssignmentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -126,35 +128,35 @@ instance Prelude.NFData RejectAssignment where
     Prelude.rnf assignmentId
       `Prelude.seq` Prelude.rnf requesterFeedback
 
-instance Core.ToHeaders RejectAssignment where
+instance Data.ToHeaders RejectAssignment where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MTurkRequesterServiceV20170117.RejectAssignment" ::
+              Data.=# ( "MTurkRequesterServiceV20170117.RejectAssignment" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RejectAssignment where
+instance Data.ToJSON RejectAssignment where
   toJSON RejectAssignment' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("AssignmentId" Core..= assignmentId),
+          [ Prelude.Just ("AssignmentId" Data..= assignmentId),
             Prelude.Just
-              ("RequesterFeedback" Core..= requesterFeedback)
+              ("RequesterFeedback" Data..= requesterFeedback)
           ]
       )
 
-instance Core.ToPath RejectAssignment where
+instance Data.ToPath RejectAssignment where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RejectAssignment where
+instance Data.ToQuery RejectAssignment where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRejectAssignmentResponse' smart constructor.

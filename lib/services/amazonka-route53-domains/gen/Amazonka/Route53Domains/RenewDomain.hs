@@ -14,14 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.RenewDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- This operation renews a domain for the specified number of years. The
--- cost of renewing your domain is billed to your AWS account.
+-- cost of renewing your domain is billed to your Amazon Web Services
+-- account.
 --
 -- We recommend that you renew your domain several weeks before the
 -- expiration date. Some TLD registries delete domains before the
@@ -50,7 +51,8 @@ module Amazonka.Route53Domains.RenewDomain
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -131,13 +133,14 @@ renewDomain_currentExpiryYear = Lens.lens (\RenewDomain' {currentExpiryYear} -> 
 
 instance Core.AWSRequest RenewDomain where
   type AWSResponse RenewDomain = RenewDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RenewDomainResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "OperationId")
+            Prelude.<*> (x Data..:> "OperationId")
       )
 
 instance Prelude.Hashable RenewDomain where
@@ -152,37 +155,37 @@ instance Prelude.NFData RenewDomain where
       `Prelude.seq` Prelude.rnf domainName
       `Prelude.seq` Prelude.rnf currentExpiryYear
 
-instance Core.ToHeaders RenewDomain where
+instance Data.ToHeaders RenewDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Domains_v20140515.RenewDomain" ::
+              Data.=# ( "Route53Domains_v20140515.RenewDomain" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RenewDomain where
+instance Data.ToJSON RenewDomain where
   toJSON RenewDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DurationInYears" Core..=)
+          [ ("DurationInYears" Data..=)
               Prelude.<$> durationInYears,
-            Prelude.Just ("DomainName" Core..= domainName),
+            Prelude.Just ("DomainName" Data..= domainName),
             Prelude.Just
-              ("CurrentExpiryYear" Core..= currentExpiryYear)
+              ("CurrentExpiryYear" Data..= currentExpiryYear)
           ]
       )
 
-instance Core.ToPath RenewDomain where
+instance Data.ToPath RenewDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RenewDomain where
+instance Data.ToQuery RenewDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRenewDomainResponse' smart constructor.

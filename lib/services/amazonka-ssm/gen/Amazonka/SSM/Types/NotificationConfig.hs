@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.NotificationConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.NotificationConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.NotificationEvent
 import Amazonka.SSM.Types.NotificationType
@@ -29,7 +30,11 @@ import Amazonka.SSM.Types.NotificationType
 --
 -- /See:/ 'newNotificationConfig' smart constructor.
 data NotificationConfig = NotificationConfig'
-  { -- | The different events for which you can receive notifications. To learn
+  { -- | An Amazon Resource Name (ARN) for an Amazon Simple Notification Service
+    -- (Amazon SNS) topic. Run Command pushes notifications about command
+    -- status changes to this topic.
+    notificationArn :: Prelude.Maybe Prelude.Text,
+    -- | The different events for which you can receive notifications. To learn
     -- more about these events, see
     -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitoring-sns-notifications.html Monitoring Systems Manager status changes using Amazon SNS notifications>
     -- in the /Amazon Web Services Systems Manager User Guide/.
@@ -39,14 +44,10 @@ data NotificationConfig = NotificationConfig'
     -- -   @Command@: Receive notification when the status of a command
     --     changes.
     --
-    -- -   @Invocation@: For commands sent to multiple instances, receive
-    --     notification on a per-instance basis when the status of a command
+    -- -   @Invocation@: For commands sent to multiple managed nodes, receive
+    --     notification on a per-node basis when the status of a command
     --     changes.
-    notificationType :: Prelude.Maybe NotificationType,
-    -- | An Amazon Resource Name (ARN) for an Amazon Simple Notification Service
-    -- (Amazon SNS) topic. Run Command pushes notifications about command
-    -- status changes to this topic.
-    notificationArn :: Prelude.Maybe Prelude.Text
+    notificationType :: Prelude.Maybe NotificationType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,6 +59,10 @@ data NotificationConfig = NotificationConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'notificationArn', 'notificationConfig_notificationArn' - An Amazon Resource Name (ARN) for an Amazon Simple Notification Service
+-- (Amazon SNS) topic. Run Command pushes notifications about command
+-- status changes to this topic.
+--
 -- 'notificationEvents', 'notificationConfig_notificationEvents' - The different events for which you can receive notifications. To learn
 -- more about these events, see
 -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/monitoring-sns-notifications.html Monitoring Systems Manager status changes using Amazon SNS notifications>
@@ -68,22 +73,24 @@ data NotificationConfig = NotificationConfig'
 -- -   @Command@: Receive notification when the status of a command
 --     changes.
 --
--- -   @Invocation@: For commands sent to multiple instances, receive
---     notification on a per-instance basis when the status of a command
+-- -   @Invocation@: For commands sent to multiple managed nodes, receive
+--     notification on a per-node basis when the status of a command
 --     changes.
---
--- 'notificationArn', 'notificationConfig_notificationArn' - An Amazon Resource Name (ARN) for an Amazon Simple Notification Service
--- (Amazon SNS) topic. Run Command pushes notifications about command
--- status changes to this topic.
 newNotificationConfig ::
   NotificationConfig
 newNotificationConfig =
   NotificationConfig'
-    { notificationEvents =
+    { notificationArn =
         Prelude.Nothing,
-      notificationType = Prelude.Nothing,
-      notificationArn = Prelude.Nothing
+      notificationEvents = Prelude.Nothing,
+      notificationType = Prelude.Nothing
     }
+
+-- | An Amazon Resource Name (ARN) for an Amazon Simple Notification Service
+-- (Amazon SNS) topic. Run Command pushes notifications about command
+-- status changes to this topic.
+notificationConfig_notificationArn :: Lens.Lens' NotificationConfig (Prelude.Maybe Prelude.Text)
+notificationConfig_notificationArn = Lens.lens (\NotificationConfig' {notificationArn} -> notificationArn) (\s@NotificationConfig' {} a -> s {notificationArn = a} :: NotificationConfig)
 
 -- | The different events for which you can receive notifications. To learn
 -- more about these events, see
@@ -97,52 +104,46 @@ notificationConfig_notificationEvents = Lens.lens (\NotificationConfig' {notific
 -- -   @Command@: Receive notification when the status of a command
 --     changes.
 --
--- -   @Invocation@: For commands sent to multiple instances, receive
---     notification on a per-instance basis when the status of a command
+-- -   @Invocation@: For commands sent to multiple managed nodes, receive
+--     notification on a per-node basis when the status of a command
 --     changes.
 notificationConfig_notificationType :: Lens.Lens' NotificationConfig (Prelude.Maybe NotificationType)
 notificationConfig_notificationType = Lens.lens (\NotificationConfig' {notificationType} -> notificationType) (\s@NotificationConfig' {} a -> s {notificationType = a} :: NotificationConfig)
 
--- | An Amazon Resource Name (ARN) for an Amazon Simple Notification Service
--- (Amazon SNS) topic. Run Command pushes notifications about command
--- status changes to this topic.
-notificationConfig_notificationArn :: Lens.Lens' NotificationConfig (Prelude.Maybe Prelude.Text)
-notificationConfig_notificationArn = Lens.lens (\NotificationConfig' {notificationArn} -> notificationArn) (\s@NotificationConfig' {} a -> s {notificationArn = a} :: NotificationConfig)
-
-instance Core.FromJSON NotificationConfig where
+instance Data.FromJSON NotificationConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NotificationConfig"
       ( \x ->
           NotificationConfig'
-            Prelude.<$> ( x Core..:? "NotificationEvents"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "NotificationArn")
+            Prelude.<*> ( x Data..:? "NotificationEvents"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "NotificationType")
-            Prelude.<*> (x Core..:? "NotificationArn")
+            Prelude.<*> (x Data..:? "NotificationType")
       )
 
 instance Prelude.Hashable NotificationConfig where
   hashWithSalt _salt NotificationConfig' {..} =
-    _salt `Prelude.hashWithSalt` notificationEvents
+    _salt `Prelude.hashWithSalt` notificationArn
+      `Prelude.hashWithSalt` notificationEvents
       `Prelude.hashWithSalt` notificationType
-      `Prelude.hashWithSalt` notificationArn
 
 instance Prelude.NFData NotificationConfig where
   rnf NotificationConfig' {..} =
-    Prelude.rnf notificationEvents
+    Prelude.rnf notificationArn
+      `Prelude.seq` Prelude.rnf notificationEvents
       `Prelude.seq` Prelude.rnf notificationType
-      `Prelude.seq` Prelude.rnf notificationArn
 
-instance Core.ToJSON NotificationConfig where
+instance Data.ToJSON NotificationConfig where
   toJSON NotificationConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NotificationEvents" Core..=)
+          [ ("NotificationArn" Data..=)
+              Prelude.<$> notificationArn,
+            ("NotificationEvents" Data..=)
               Prelude.<$> notificationEvents,
-            ("NotificationType" Core..=)
-              Prelude.<$> notificationType,
-            ("NotificationArn" Core..=)
-              Prelude.<$> notificationArn
+            ("NotificationType" Data..=)
+              Prelude.<$> notificationType
           ]
       )

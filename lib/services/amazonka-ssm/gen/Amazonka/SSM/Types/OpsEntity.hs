@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.OpsEntity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.OpsEntity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.OpsEntityItem
 
@@ -62,14 +63,14 @@ opsEntity_data = Lens.lens (\OpsEntity' {data'} -> data') (\s@OpsEntity' {} a ->
 opsEntity_id :: Lens.Lens' OpsEntity (Prelude.Maybe Prelude.Text)
 opsEntity_id = Lens.lens (\OpsEntity' {id} -> id) (\s@OpsEntity' {} a -> s {id = a} :: OpsEntity)
 
-instance Core.FromJSON OpsEntity where
+instance Data.FromJSON OpsEntity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OpsEntity"
       ( \x ->
           OpsEntity'
-            Prelude.<$> (x Core..:? "Data" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Id")
+            Prelude.<$> (x Data..:? "Data" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Id")
       )
 
 instance Prelude.Hashable OpsEntity where

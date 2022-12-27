@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.DescribePipelines
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,8 +49,9 @@ module Amazonka.DataPipeline.DescribePipelines
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataPipeline.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,13 +93,14 @@ instance Core.AWSRequest DescribePipelines where
   type
     AWSResponse DescribePipelines =
       DescribePipelinesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePipelinesResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..?> "pipelineDescriptionList"
+            Prelude.<*> ( x Data..?> "pipelineDescriptionList"
                             Core..!@ Prelude.mempty
                         )
       )
@@ -110,32 +112,32 @@ instance Prelude.Hashable DescribePipelines where
 instance Prelude.NFData DescribePipelines where
   rnf DescribePipelines' {..} = Prelude.rnf pipelineIds
 
-instance Core.ToHeaders DescribePipelines where
+instance Data.ToHeaders DescribePipelines where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DataPipeline.DescribePipelines" ::
+              Data.=# ( "DataPipeline.DescribePipelines" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribePipelines where
+instance Data.ToJSON DescribePipelines where
   toJSON DescribePipelines' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("pipelineIds" Core..= pipelineIds)]
+          [Prelude.Just ("pipelineIds" Data..= pipelineIds)]
       )
 
-instance Core.ToPath DescribePipelines where
+instance Data.ToPath DescribePipelines where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribePipelines where
+instance Data.ToQuery DescribePipelines where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of DescribePipelines.

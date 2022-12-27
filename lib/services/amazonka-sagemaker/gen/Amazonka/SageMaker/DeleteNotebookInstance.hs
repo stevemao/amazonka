@@ -14,16 +14,16 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DeleteNotebookInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an Amazon SageMaker notebook instance. Before you can delete a
--- notebook instance, you must call the @StopNotebookInstance@ API.
+-- Deletes an SageMaker notebook instance. Before you can delete a notebook
+-- instance, you must call the @StopNotebookInstance@ API.
 --
--- When you delete a notebook instance, you lose all of your data. Amazon
+-- When you delete a notebook instance, you lose all of your data.
 -- SageMaker removes the ML compute instance, and deletes the ML storage
 -- volume and the network interface associated with the notebook instance.
 module Amazonka.SageMaker.DeleteNotebookInstance
@@ -41,7 +41,8 @@ module Amazonka.SageMaker.DeleteNotebookInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,7 +50,7 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newDeleteNotebookInstance' smart constructor.
 data DeleteNotebookInstance = DeleteNotebookInstance'
-  { -- | The name of the Amazon SageMaker notebook instance to delete.
+  { -- | The name of the SageMaker notebook instance to delete.
     notebookInstanceName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,7 +63,7 @@ data DeleteNotebookInstance = DeleteNotebookInstance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'notebookInstanceName', 'deleteNotebookInstance_notebookInstanceName' - The name of the Amazon SageMaker notebook instance to delete.
+-- 'notebookInstanceName', 'deleteNotebookInstance_notebookInstanceName' - The name of the SageMaker notebook instance to delete.
 newDeleteNotebookInstance ::
   -- | 'notebookInstanceName'
   Prelude.Text ->
@@ -73,7 +74,7 @@ newDeleteNotebookInstance pNotebookInstanceName_ =
         pNotebookInstanceName_
     }
 
--- | The name of the Amazon SageMaker notebook instance to delete.
+-- | The name of the SageMaker notebook instance to delete.
 deleteNotebookInstance_notebookInstanceName :: Lens.Lens' DeleteNotebookInstance Prelude.Text
 deleteNotebookInstance_notebookInstanceName = Lens.lens (\DeleteNotebookInstance' {notebookInstanceName} -> notebookInstanceName) (\s@DeleteNotebookInstance' {} a -> s {notebookInstanceName = a} :: DeleteNotebookInstance)
 
@@ -81,7 +82,8 @@ instance Core.AWSRequest DeleteNotebookInstance where
   type
     AWSResponse DeleteNotebookInstance =
       DeleteNotebookInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteNotebookInstanceResponse'
@@ -94,36 +96,36 @@ instance Prelude.NFData DeleteNotebookInstance where
   rnf DeleteNotebookInstance' {..} =
     Prelude.rnf notebookInstanceName
 
-instance Core.ToHeaders DeleteNotebookInstance where
+instance Data.ToHeaders DeleteNotebookInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DeleteNotebookInstance" ::
+              Data.=# ( "SageMaker.DeleteNotebookInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteNotebookInstance where
+instance Data.ToJSON DeleteNotebookInstance where
   toJSON DeleteNotebookInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "NotebookInstanceName"
-                  Core..= notebookInstanceName
+                  Data..= notebookInstanceName
               )
           ]
       )
 
-instance Core.ToPath DeleteNotebookInstance where
+instance Data.ToPath DeleteNotebookInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteNotebookInstance where
+instance Data.ToQuery DeleteNotebookInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteNotebookInstanceResponse' smart constructor.

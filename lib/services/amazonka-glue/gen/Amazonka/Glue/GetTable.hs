@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetTable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,6 +29,8 @@ module Amazonka.Glue.GetTable
 
     -- * Request Lenses
     getTable_catalogId,
+    getTable_queryAsOfTime,
+    getTable_transactionId,
     getTable_databaseName,
     getTable_name,
 
@@ -43,8 +45,9 @@ module Amazonka.Glue.GetTable
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,6 +57,12 @@ data GetTable = GetTable'
   { -- | The ID of the Data Catalog where the table resides. If none is provided,
     -- the Amazon Web Services account ID is used by default.
     catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The time as of when to read the table contents. If not set, the most
+    -- recent transaction commit time will be used. Cannot be specified along
+    -- with @TransactionId@.
+    queryAsOfTime :: Prelude.Maybe Data.POSIX,
+    -- | The transaction ID at which to read the table contents.
+    transactionId :: Prelude.Maybe Prelude.Text,
     -- | The name of the database in the catalog in which the table resides. For
     -- Hive compatibility, this name is entirely lowercase.
     databaseName :: Prelude.Text,
@@ -74,6 +83,12 @@ data GetTable = GetTable'
 -- 'catalogId', 'getTable_catalogId' - The ID of the Data Catalog where the table resides. If none is provided,
 -- the Amazon Web Services account ID is used by default.
 --
+-- 'queryAsOfTime', 'getTable_queryAsOfTime' - The time as of when to read the table contents. If not set, the most
+-- recent transaction commit time will be used. Cannot be specified along
+-- with @TransactionId@.
+--
+-- 'transactionId', 'getTable_transactionId' - The transaction ID at which to read the table contents.
+--
 -- 'databaseName', 'getTable_databaseName' - The name of the database in the catalog in which the table resides. For
 -- Hive compatibility, this name is entirely lowercase.
 --
@@ -88,6 +103,8 @@ newGetTable ::
 newGetTable pDatabaseName_ pName_ =
   GetTable'
     { catalogId = Prelude.Nothing,
+      queryAsOfTime = Prelude.Nothing,
+      transactionId = Prelude.Nothing,
       databaseName = pDatabaseName_,
       name = pName_
     }
@@ -96,6 +113,16 @@ newGetTable pDatabaseName_ pName_ =
 -- the Amazon Web Services account ID is used by default.
 getTable_catalogId :: Lens.Lens' GetTable (Prelude.Maybe Prelude.Text)
 getTable_catalogId = Lens.lens (\GetTable' {catalogId} -> catalogId) (\s@GetTable' {} a -> s {catalogId = a} :: GetTable)
+
+-- | The time as of when to read the table contents. If not set, the most
+-- recent transaction commit time will be used. Cannot be specified along
+-- with @TransactionId@.
+getTable_queryAsOfTime :: Lens.Lens' GetTable (Prelude.Maybe Prelude.UTCTime)
+getTable_queryAsOfTime = Lens.lens (\GetTable' {queryAsOfTime} -> queryAsOfTime) (\s@GetTable' {} a -> s {queryAsOfTime = a} :: GetTable) Prelude.. Lens.mapping Data._Time
+
+-- | The transaction ID at which to read the table contents.
+getTable_transactionId :: Lens.Lens' GetTable (Prelude.Maybe Prelude.Text)
+getTable_transactionId = Lens.lens (\GetTable' {transactionId} -> transactionId) (\s@GetTable' {} a -> s {transactionId = a} :: GetTable)
 
 -- | The name of the database in the catalog in which the table resides. For
 -- Hive compatibility, this name is entirely lowercase.
@@ -109,54 +136,61 @@ getTable_name = Lens.lens (\GetTable' {name} -> name) (\s@GetTable' {} a -> s {n
 
 instance Core.AWSRequest GetTable where
   type AWSResponse GetTable = GetTableResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetTableResponse'
-            Prelude.<$> (x Core..?> "Table")
+            Prelude.<$> (x Data..?> "Table")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetTable where
   hashWithSalt _salt GetTable' {..} =
     _salt `Prelude.hashWithSalt` catalogId
+      `Prelude.hashWithSalt` queryAsOfTime
+      `Prelude.hashWithSalt` transactionId
       `Prelude.hashWithSalt` databaseName
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData GetTable where
   rnf GetTable' {..} =
     Prelude.rnf catalogId
+      `Prelude.seq` Prelude.rnf queryAsOfTime
+      `Prelude.seq` Prelude.rnf transactionId
       `Prelude.seq` Prelude.rnf databaseName
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders GetTable where
+instance Data.ToHeaders GetTable where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetTable" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetTable" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetTable where
+instance Data.ToJSON GetTable where
   toJSON GetTable' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("DatabaseName" Core..= databaseName),
-            Prelude.Just ("Name" Core..= name)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            ("QueryAsOfTime" Data..=) Prelude.<$> queryAsOfTime,
+            ("TransactionId" Data..=) Prelude.<$> transactionId,
+            Prelude.Just ("DatabaseName" Data..= databaseName),
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath GetTable where
+instance Data.ToPath GetTable where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetTable where
+instance Data.ToQuery GetTable where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetTableResponse' smart constructor.

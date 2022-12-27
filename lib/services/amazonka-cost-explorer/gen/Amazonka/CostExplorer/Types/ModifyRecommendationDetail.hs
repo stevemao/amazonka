@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.ModifyRecommendationDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.CostExplorer.Types.ModifyRecommendationDetail where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types.TargetInstance
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Details on the modification recommendation.
+-- | Details for the modification recommendation.
 --
 -- /See:/ 'newModifyRecommendationDetail' smart constructor.
 data ModifyRecommendationDetail = ModifyRecommendationDetail'
@@ -57,14 +58,14 @@ newModifyRecommendationDetail =
 modifyRecommendationDetail_targetInstances :: Lens.Lens' ModifyRecommendationDetail (Prelude.Maybe [TargetInstance])
 modifyRecommendationDetail_targetInstances = Lens.lens (\ModifyRecommendationDetail' {targetInstances} -> targetInstances) (\s@ModifyRecommendationDetail' {} a -> s {targetInstances = a} :: ModifyRecommendationDetail) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON ModifyRecommendationDetail where
+instance Data.FromJSON ModifyRecommendationDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ModifyRecommendationDetail"
       ( \x ->
           ModifyRecommendationDetail'
-            Prelude.<$> ( x Core..:? "TargetInstances"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "TargetInstances"
+                            Data..!= Prelude.mempty
                         )
       )
 

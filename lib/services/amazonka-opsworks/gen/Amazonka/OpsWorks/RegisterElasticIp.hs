@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.RegisterElasticIp
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,7 +51,8 @@ module Amazonka.OpsWorks.RegisterElasticIp
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -101,12 +102,13 @@ instance Core.AWSRequest RegisterElasticIp where
   type
     AWSResponse RegisterElasticIp =
       RegisterElasticIpResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RegisterElasticIpResponse'
-            Prelude.<$> (x Core..?> "ElasticIp")
+            Prelude.<$> (x Data..?> "ElasticIp")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,34 +122,34 @@ instance Prelude.NFData RegisterElasticIp where
     Prelude.rnf elasticIp
       `Prelude.seq` Prelude.rnf stackId
 
-instance Core.ToHeaders RegisterElasticIp where
+instance Data.ToHeaders RegisterElasticIp where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.RegisterElasticIp" ::
+              Data.=# ( "OpsWorks_20130218.RegisterElasticIp" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterElasticIp where
+instance Data.ToJSON RegisterElasticIp where
   toJSON RegisterElasticIp' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ElasticIp" Core..= elasticIp),
-            Prelude.Just ("StackId" Core..= stackId)
+          [ Prelude.Just ("ElasticIp" Data..= elasticIp),
+            Prelude.Just ("StackId" Data..= stackId)
           ]
       )
 
-instance Core.ToPath RegisterElasticIp where
+instance Data.ToPath RegisterElasticIp where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RegisterElasticIp where
+instance Data.ToQuery RegisterElasticIp where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @RegisterElasticIp@ request.

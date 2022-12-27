@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.LeaveOrganization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,7 @@
 -- -   You can leave an organization as a member account only if the
 --     account is configured with the information required to operate as a
 --     standalone account. When you create an account in an organization
---     using the AWS Organizations console, API, or CLI commands, the
+--     using the Organizations console, API, or CLI commands, the
 --     information required of standalone accounts is /not/ automatically
 --     collected. For each account that you want to make standalone, you
 --     must perform the following steps. If any of the steps are already
@@ -49,26 +49,28 @@
 --
 --     -   Provide a current payment method
 --
---     AWS uses the payment method to charge for any billable (not free
---     tier) AWS activity that occurs while the account isn\'t attached to
---     an organization. Follow the steps at
---     <http://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html#leave-without-all-info To leave an organization when all required account information has not yet been provided>
---     in the /AWS Organizations User Guide./
+--     Amazon Web Services uses the payment method to charge for any
+--     billable (not free tier) Amazon Web Services activity that occurs
+--     while the account isn\'t attached to an organization. Follow the
+--     steps at
+--     <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_accounts_remove.html#leave-without-all-info To leave an organization when all required account information has not yet been provided>
+--     in the /Organizations User Guide./
 --
 -- -   The account that you want to leave must not be a delegated
---     administrator account for any AWS service enabled for your
---     organization. If the account is a delegated administrator, you must
---     first change the delegated administrator account to another account
---     that is remaining in the organization.
+--     administrator account for any Amazon Web Services service enabled
+--     for your organization. If the account is a delegated administrator,
+--     you must first change the delegated administrator account to another
+--     account that is remaining in the organization.
 --
 -- -   You can leave an organization only after you enable IAM user access
 --     to billing in your account. For more information, see
---     <http://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate Activating Access to the Billing and Cost Management Console>
---     in the /AWS Billing and Cost Management User Guide./
+--     <https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/grantaccess.html#ControllingAccessWebsite-Activate Activating Access to the Billing and Cost Management Console>
+--     in the /Amazon Web Services Billing and Cost Management User Guide./
 --
 -- -   After the account leaves the organization, all tags that were
---     attached to the account object in the organization are deleted. AWS
---     accounts outside of an organization do not support tags.
+--     attached to the account object in the organization are deleted.
+--     Amazon Web Services accounts outside of an organization do not
+--     support tags.
 --
 -- -   A newly created account has a waiting period before it can be
 --     removed from its organization. If you get an error that indicates
@@ -85,7 +87,8 @@ module Amazonka.Organizations.LeaveOrganization
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -109,7 +112,8 @@ instance Core.AWSRequest LeaveOrganization where
   type
     AWSResponse LeaveOrganization =
       LeaveOrganizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull LeaveOrganizationResponse'
 
@@ -120,28 +124,28 @@ instance Prelude.Hashable LeaveOrganization where
 instance Prelude.NFData LeaveOrganization where
   rnf _ = ()
 
-instance Core.ToHeaders LeaveOrganization where
+instance Data.ToHeaders LeaveOrganization where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.LeaveOrganization" ::
+              Data.=# ( "AWSOrganizationsV20161128.LeaveOrganization" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON LeaveOrganization where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON LeaveOrganization where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath LeaveOrganization where
+instance Data.ToPath LeaveOrganization where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery LeaveOrganization where
+instance Data.ToQuery LeaveOrganization where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newLeaveOrganizationResponse' smart constructor.

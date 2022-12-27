@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.CreateDBSecurityGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,6 +25,16 @@
 --
 -- A DB security group controls access to EC2-Classic DB instances that are
 -- not in a VPC.
+--
+-- EC2-Classic was retired on August 15, 2022. If you haven\'t migrated
+-- from EC2-Classic to a VPC, we recommend that you migrate as soon as
+-- possible. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html Migrate from EC2-Classic to a VPC>
+-- in the /Amazon EC2 User Guide/, the blog
+-- <http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/ EC2-Classic Networking is Retiring – Here’s How to Prepare>,
+-- and
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Non-VPC2VPC.html Moving a DB instance not in a VPC into a VPC>
+-- in the /Amazon RDS User Guide/.
 module Amazonka.RDS.CreateDBSecurityGroup
   ( -- * Creating a Request
     CreateDBSecurityGroup (..),
@@ -46,7 +56,8 @@ module Amazonka.RDS.CreateDBSecurityGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -149,13 +160,14 @@ instance Core.AWSRequest CreateDBSecurityGroup where
   type
     AWSResponse CreateDBSecurityGroup =
       CreateDBSecurityGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateDBSecurityGroupResult"
       ( \s h x ->
           CreateDBSecurityGroupResponse'
-            Prelude.<$> (x Core..@? "DBSecurityGroup")
+            Prelude.<$> (x Data..@? "DBSecurityGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -171,25 +183,25 @@ instance Prelude.NFData CreateDBSecurityGroup where
       `Prelude.seq` Prelude.rnf dbSecurityGroupName
       `Prelude.seq` Prelude.rnf dbSecurityGroupDescription
 
-instance Core.ToHeaders CreateDBSecurityGroup where
+instance Data.ToHeaders CreateDBSecurityGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateDBSecurityGroup where
+instance Data.ToPath CreateDBSecurityGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateDBSecurityGroup where
+instance Data.ToQuery CreateDBSecurityGroup where
   toQuery CreateDBSecurityGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateDBSecurityGroup" :: Prelude.ByteString),
+          Data.=: ("CreateDBSecurityGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
-        "DBSecurityGroupName" Core.=: dbSecurityGroupName,
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
+        "DBSecurityGroupName" Data.=: dbSecurityGroupName,
         "DBSecurityGroupDescription"
-          Core.=: dbSecurityGroupDescription
+          Data.=: dbSecurityGroupDescription
       ]
 
 -- | /See:/ 'newCreateDBSecurityGroupResponse' smart constructor.

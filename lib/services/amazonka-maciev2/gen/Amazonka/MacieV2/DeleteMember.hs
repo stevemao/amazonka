@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.DeleteMember
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.MacieV2.DeleteMember
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -48,8 +49,8 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteMember' smart constructor.
 data DeleteMember = DeleteMember'
-  { -- | The unique identifier for the Amazon Macie resource or account that the
-    -- request applies to.
+  { -- | The unique identifier for the Amazon Macie resource that the request
+    -- applies to.
     id :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,22 +63,23 @@ data DeleteMember = DeleteMember'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'id', 'deleteMember_id' - The unique identifier for the Amazon Macie resource or account that the
--- request applies to.
+-- 'id', 'deleteMember_id' - The unique identifier for the Amazon Macie resource that the request
+-- applies to.
 newDeleteMember ::
   -- | 'id'
   Prelude.Text ->
   DeleteMember
 newDeleteMember pId_ = DeleteMember' {id = pId_}
 
--- | The unique identifier for the Amazon Macie resource or account that the
--- request applies to.
+-- | The unique identifier for the Amazon Macie resource that the request
+-- applies to.
 deleteMember_id :: Lens.Lens' DeleteMember Prelude.Text
 deleteMember_id = Lens.lens (\DeleteMember' {id} -> id) (\s@DeleteMember' {} a -> s {id = a} :: DeleteMember)
 
 instance Core.AWSRequest DeleteMember where
   type AWSResponse DeleteMember = DeleteMemberResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -92,22 +94,22 @@ instance Prelude.Hashable DeleteMember where
 instance Prelude.NFData DeleteMember where
   rnf DeleteMember' {..} = Prelude.rnf id
 
-instance Core.ToHeaders DeleteMember where
+instance Data.ToHeaders DeleteMember where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteMember where
+instance Data.ToPath DeleteMember where
   toPath DeleteMember' {..} =
-    Prelude.mconcat ["/members/", Core.toBS id]
+    Prelude.mconcat ["/members/", Data.toBS id]
 
-instance Core.ToQuery DeleteMember where
+instance Data.ToQuery DeleteMember where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteMemberResponse' smart constructor.

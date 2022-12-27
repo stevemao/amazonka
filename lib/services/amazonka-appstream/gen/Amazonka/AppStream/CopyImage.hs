@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.CopyImage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.AppStream.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,12 +124,13 @@ copyImage_destinationRegion = Lens.lens (\CopyImage' {destinationRegion} -> dest
 
 instance Core.AWSRequest CopyImage where
   type AWSResponse CopyImage = CopyImageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CopyImageResponse'
-            Prelude.<$> (x Core..?> "DestinationImageName")
+            Prelude.<$> (x Data..?> "DestinationImageName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -147,42 +149,42 @@ instance Prelude.NFData CopyImage where
       `Prelude.seq` Prelude.rnf destinationImageName
       `Prelude.seq` Prelude.rnf destinationRegion
 
-instance Core.ToHeaders CopyImage where
+instance Data.ToHeaders CopyImage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "PhotonAdminProxyService.CopyImage" ::
+              Data.=# ( "PhotonAdminProxyService.CopyImage" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CopyImage where
+instance Data.ToJSON CopyImage where
   toJSON CopyImage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DestinationImageDescription" Core..=)
+          [ ("DestinationImageDescription" Data..=)
               Prelude.<$> destinationImageDescription,
             Prelude.Just
-              ("SourceImageName" Core..= sourceImageName),
+              ("SourceImageName" Data..= sourceImageName),
             Prelude.Just
               ( "DestinationImageName"
-                  Core..= destinationImageName
+                  Data..= destinationImageName
               ),
             Prelude.Just
-              ("DestinationRegion" Core..= destinationRegion)
+              ("DestinationRegion" Data..= destinationRegion)
           ]
       )
 
-instance Core.ToPath CopyImage where
+instance Data.ToPath CopyImage where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CopyImage where
+instance Data.ToQuery CopyImage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCopyImageResponse' smart constructor.

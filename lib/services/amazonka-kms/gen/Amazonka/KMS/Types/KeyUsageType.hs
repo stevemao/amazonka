@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.Types.KeyUsageType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,17 +21,19 @@ module Amazonka.KMS.Types.KeyUsageType
   ( KeyUsageType
       ( ..,
         KeyUsageType_ENCRYPT_DECRYPT,
+        KeyUsageType_GENERATE_VERIFY_MAC,
         KeyUsageType_SIGN_VERIFY
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype KeyUsageType = KeyUsageType'
   { fromKeyUsageType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -43,28 +45,32 @@ newtype KeyUsageType = KeyUsageType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern KeyUsageType_ENCRYPT_DECRYPT :: KeyUsageType
 pattern KeyUsageType_ENCRYPT_DECRYPT = KeyUsageType' "ENCRYPT_DECRYPT"
+
+pattern KeyUsageType_GENERATE_VERIFY_MAC :: KeyUsageType
+pattern KeyUsageType_GENERATE_VERIFY_MAC = KeyUsageType' "GENERATE_VERIFY_MAC"
 
 pattern KeyUsageType_SIGN_VERIFY :: KeyUsageType
 pattern KeyUsageType_SIGN_VERIFY = KeyUsageType' "SIGN_VERIFY"
 
 {-# COMPLETE
   KeyUsageType_ENCRYPT_DECRYPT,
+  KeyUsageType_GENERATE_VERIFY_MAC,
   KeyUsageType_SIGN_VERIFY,
   KeyUsageType'
   #-}

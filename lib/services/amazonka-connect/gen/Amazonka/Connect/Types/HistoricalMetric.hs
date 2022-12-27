@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.HistoricalMetric
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,8 @@ import Amazonka.Connect.Types.Statistic
 import Amazonka.Connect.Types.Threshold
 import Amazonka.Connect.Types.Unit
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a historical metric. For a description of
@@ -36,12 +37,12 @@ import qualified Amazonka.Prelude as Prelude
 data HistoricalMetric = HistoricalMetric'
   { -- | The name of the metric.
     name :: Prelude.Maybe HistoricalMetricName,
+    -- | The statistic for the metric.
+    statistic :: Prelude.Maybe Statistic,
     -- | The threshold for the metric, used with service level metrics.
     threshold :: Prelude.Maybe Threshold,
     -- | The unit for the metric.
-    unit :: Prelude.Maybe Unit,
-    -- | The statistic for the metric.
-    statistic :: Prelude.Maybe Statistic
+    unit :: Prelude.Maybe Unit
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -55,24 +56,28 @@ data HistoricalMetric = HistoricalMetric'
 --
 -- 'name', 'historicalMetric_name' - The name of the metric.
 --
+-- 'statistic', 'historicalMetric_statistic' - The statistic for the metric.
+--
 -- 'threshold', 'historicalMetric_threshold' - The threshold for the metric, used with service level metrics.
 --
 -- 'unit', 'historicalMetric_unit' - The unit for the metric.
---
--- 'statistic', 'historicalMetric_statistic' - The statistic for the metric.
 newHistoricalMetric ::
   HistoricalMetric
 newHistoricalMetric =
   HistoricalMetric'
     { name = Prelude.Nothing,
+      statistic = Prelude.Nothing,
       threshold = Prelude.Nothing,
-      unit = Prelude.Nothing,
-      statistic = Prelude.Nothing
+      unit = Prelude.Nothing
     }
 
 -- | The name of the metric.
 historicalMetric_name :: Lens.Lens' HistoricalMetric (Prelude.Maybe HistoricalMetricName)
 historicalMetric_name = Lens.lens (\HistoricalMetric' {name} -> name) (\s@HistoricalMetric' {} a -> s {name = a} :: HistoricalMetric)
+
+-- | The statistic for the metric.
+historicalMetric_statistic :: Lens.Lens' HistoricalMetric (Prelude.Maybe Statistic)
+historicalMetric_statistic = Lens.lens (\HistoricalMetric' {statistic} -> statistic) (\s@HistoricalMetric' {} a -> s {statistic = a} :: HistoricalMetric)
 
 -- | The threshold for the metric, used with service level metrics.
 historicalMetric_threshold :: Lens.Lens' HistoricalMetric (Prelude.Maybe Threshold)
@@ -82,43 +87,39 @@ historicalMetric_threshold = Lens.lens (\HistoricalMetric' {threshold} -> thresh
 historicalMetric_unit :: Lens.Lens' HistoricalMetric (Prelude.Maybe Unit)
 historicalMetric_unit = Lens.lens (\HistoricalMetric' {unit} -> unit) (\s@HistoricalMetric' {} a -> s {unit = a} :: HistoricalMetric)
 
--- | The statistic for the metric.
-historicalMetric_statistic :: Lens.Lens' HistoricalMetric (Prelude.Maybe Statistic)
-historicalMetric_statistic = Lens.lens (\HistoricalMetric' {statistic} -> statistic) (\s@HistoricalMetric' {} a -> s {statistic = a} :: HistoricalMetric)
-
-instance Core.FromJSON HistoricalMetric where
+instance Data.FromJSON HistoricalMetric where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HistoricalMetric"
       ( \x ->
           HistoricalMetric'
-            Prelude.<$> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Threshold")
-            Prelude.<*> (x Core..:? "Unit")
-            Prelude.<*> (x Core..:? "Statistic")
+            Prelude.<$> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "Statistic")
+            Prelude.<*> (x Data..:? "Threshold")
+            Prelude.<*> (x Data..:? "Unit")
       )
 
 instance Prelude.Hashable HistoricalMetric where
   hashWithSalt _salt HistoricalMetric' {..} =
     _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` statistic
       `Prelude.hashWithSalt` threshold
       `Prelude.hashWithSalt` unit
-      `Prelude.hashWithSalt` statistic
 
 instance Prelude.NFData HistoricalMetric where
   rnf HistoricalMetric' {..} =
     Prelude.rnf name
+      `Prelude.seq` Prelude.rnf statistic
       `Prelude.seq` Prelude.rnf threshold
       `Prelude.seq` Prelude.rnf unit
-      `Prelude.seq` Prelude.rnf statistic
 
-instance Core.ToJSON HistoricalMetric where
+instance Data.ToJSON HistoricalMetric where
   toJSON HistoricalMetric' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Name" Core..=) Prelude.<$> name,
-            ("Threshold" Core..=) Prelude.<$> threshold,
-            ("Unit" Core..=) Prelude.<$> unit,
-            ("Statistic" Core..=) Prelude.<$> statistic
+          [ ("Name" Data..=) Prelude.<$> name,
+            ("Statistic" Data..=) Prelude.<$> statistic,
+            ("Threshold" Data..=) Prelude.<$> threshold,
+            ("Unit" Data..=) Prelude.<$> unit
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.GetBucketReplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -67,7 +67,8 @@ module Amazonka.S3.GetBucketReplication
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,8 +77,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newGetBucketReplication' smart constructor.
 data GetBucketReplication = GetBucketReplication'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The bucket name for which to get the replication information.
     bucket :: BucketName
@@ -93,8 +94,8 @@ data GetBucketReplication = GetBucketReplication'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'getBucketReplication_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'getBucketReplication_bucket' - The bucket name for which to get the replication information.
 newGetBucketReplication ::
@@ -109,8 +110,8 @@ newGetBucketReplication pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 getBucketReplication_expectedBucketOwner :: Lens.Lens' GetBucketReplication (Prelude.Maybe Prelude.Text)
 getBucketReplication_expectedBucketOwner = Lens.lens (\GetBucketReplication' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetBucketReplication' {} a -> s {expectedBucketOwner = a} :: GetBucketReplication)
 
@@ -122,14 +123,14 @@ instance Core.AWSRequest GetBucketReplication where
   type
     AWSResponse GetBucketReplication =
       GetBucketReplicationResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetBucketReplicationResponse'
-            Prelude.<$> (Core.parseXML x)
+            Prelude.<$> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -143,18 +144,18 @@ instance Prelude.NFData GetBucketReplication where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders GetBucketReplication where
+instance Data.ToHeaders GetBucketReplication where
   toHeaders GetBucketReplication' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath GetBucketReplication where
+instance Data.ToPath GetBucketReplication where
   toPath GetBucketReplication' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery GetBucketReplication where
+instance Data.ToQuery GetBucketReplication where
   toQuery =
     Prelude.const (Prelude.mconcat ["replication"])
 

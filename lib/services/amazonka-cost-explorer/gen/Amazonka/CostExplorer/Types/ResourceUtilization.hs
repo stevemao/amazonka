@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.ResourceUtilization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.CostExplorer.Types.ResourceUtilization where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types.EC2ResourceUtilization
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Resource utilization of current resource.
@@ -54,13 +55,13 @@ newResourceUtilization =
 resourceUtilization_eC2ResourceUtilization :: Lens.Lens' ResourceUtilization (Prelude.Maybe EC2ResourceUtilization)
 resourceUtilization_eC2ResourceUtilization = Lens.lens (\ResourceUtilization' {eC2ResourceUtilization} -> eC2ResourceUtilization) (\s@ResourceUtilization' {} a -> s {eC2ResourceUtilization = a} :: ResourceUtilization)
 
-instance Core.FromJSON ResourceUtilization where
+instance Data.FromJSON ResourceUtilization where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceUtilization"
       ( \x ->
           ResourceUtilization'
-            Prelude.<$> (x Core..:? "EC2ResourceUtilization")
+            Prelude.<$> (x Data..:? "EC2ResourceUtilization")
       )
 
 instance Prelude.Hashable ResourceUtilization where

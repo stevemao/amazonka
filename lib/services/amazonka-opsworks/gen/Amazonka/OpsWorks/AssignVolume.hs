@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.AssignVolume
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.OpsWorks.AssignVolume
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -94,7 +95,8 @@ assignVolume_volumeId = Lens.lens (\AssignVolume' {volumeId} -> volumeId) (\s@As
 
 instance Core.AWSRequest AssignVolume where
   type AWSResponse AssignVolume = AssignVolumeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull AssignVolumeResponse'
 
 instance Prelude.Hashable AssignVolume where
@@ -107,34 +109,34 @@ instance Prelude.NFData AssignVolume where
     Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf volumeId
 
-instance Core.ToHeaders AssignVolume where
+instance Data.ToHeaders AssignVolume where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.AssignVolume" ::
+              Data.=# ( "OpsWorks_20130218.AssignVolume" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssignVolume where
+instance Data.ToJSON AssignVolume where
   toJSON AssignVolume' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("InstanceId" Core..=) Prelude.<$> instanceId,
-            Prelude.Just ("VolumeId" Core..= volumeId)
+          [ ("InstanceId" Data..=) Prelude.<$> instanceId,
+            Prelude.Just ("VolumeId" Data..= volumeId)
           ]
       )
 
-instance Core.ToPath AssignVolume where
+instance Data.ToPath AssignVolume where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssignVolume where
+instance Data.ToQuery AssignVolume where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssignVolumeResponse' smart constructor.

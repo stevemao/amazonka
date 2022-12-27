@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.PutBucketAnalyticsConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -96,7 +96,8 @@ module Amazonka.S3.PutBucketAnalyticsConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,8 +106,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newPutBucketAnalyticsConfiguration' smart constructor.
 data PutBucketAnalyticsConfiguration = PutBucketAnalyticsConfiguration'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket to which an analytics configuration is stored.
     bucket :: BucketName,
@@ -126,8 +127,8 @@ data PutBucketAnalyticsConfiguration = PutBucketAnalyticsConfiguration'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'putBucketAnalyticsConfiguration_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'putBucketAnalyticsConfiguration_bucket' - The name of the bucket to which an analytics configuration is stored.
 --
@@ -156,8 +157,8 @@ newPutBucketAnalyticsConfiguration
       }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 putBucketAnalyticsConfiguration_expectedBucketOwner :: Lens.Lens' PutBucketAnalyticsConfiguration (Prelude.Maybe Prelude.Text)
 putBucketAnalyticsConfiguration_expectedBucketOwner = Lens.lens (\PutBucketAnalyticsConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@PutBucketAnalyticsConfiguration' {} a -> s {expectedBucketOwner = a} :: PutBucketAnalyticsConfiguration)
 
@@ -180,9 +181,9 @@ instance
   type
     AWSResponse PutBucketAnalyticsConfiguration =
       PutBucketAnalyticsConfigurationResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.putXML defaultService
+      Prelude.. Request.putXML (overrides defaultService)
   response =
     Response.receiveNull
       PutBucketAnalyticsConfigurationResponse'
@@ -210,31 +211,31 @@ instance
       `Prelude.seq` Prelude.rnf analyticsConfiguration
 
 instance
-  Core.ToElement
+  Data.ToElement
     PutBucketAnalyticsConfiguration
   where
   toElement PutBucketAnalyticsConfiguration' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://s3.amazonaws.com/doc/2006-03-01/}AnalyticsConfiguration"
       analyticsConfiguration
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PutBucketAnalyticsConfiguration
   where
   toHeaders PutBucketAnalyticsConfiguration' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath PutBucketAnalyticsConfiguration where
+instance Data.ToPath PutBucketAnalyticsConfiguration where
   toPath PutBucketAnalyticsConfiguration' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery PutBucketAnalyticsConfiguration where
+instance Data.ToQuery PutBucketAnalyticsConfiguration where
   toQuery PutBucketAnalyticsConfiguration' {..} =
-    Prelude.mconcat ["id" Core.=: id, "analytics"]
+    Prelude.mconcat ["id" Data.=: id, "analytics"]
 
 -- | /See:/ 'newPutBucketAnalyticsConfigurationResponse' smart constructor.
 data PutBucketAnalyticsConfigurationResponse = PutBucketAnalyticsConfigurationResponse'

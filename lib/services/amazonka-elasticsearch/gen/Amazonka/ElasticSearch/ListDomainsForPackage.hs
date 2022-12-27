@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.ListDomainsForPackage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.ElasticSearch.ListDomainsForPackage
     newListDomainsForPackage,
 
     -- * Request Lenses
-    listDomainsForPackage_nextToken,
     listDomainsForPackage_maxResults,
+    listDomainsForPackage_nextToken,
     listDomainsForPackage_packageID,
 
     -- * Destructuring the Response
@@ -43,8 +43,9 @@ module Amazonka.ElasticSearch.ListDomainsForPackage
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,12 +54,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListDomainsForPackage' smart constructor.
 data ListDomainsForPackage = ListDomainsForPackage'
-  { -- | Used for pagination. Only necessary if a previous API call includes a
+  { -- | Limits results to a maximum number of domains.
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | Used for pagination. Only necessary if a previous API call includes a
     -- non-null NextToken value. If provided, returns results for the next
     -- page.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Limits results to a maximum number of domains.
-    maxResults :: Prelude.Maybe Prelude.Int,
     -- | The package for which to list domains.
     packageID :: Prelude.Text
   }
@@ -72,11 +73,11 @@ data ListDomainsForPackage = ListDomainsForPackage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listDomainsForPackage_maxResults' - Limits results to a maximum number of domains.
+--
 -- 'nextToken', 'listDomainsForPackage_nextToken' - Used for pagination. Only necessary if a previous API call includes a
 -- non-null NextToken value. If provided, returns results for the next
 -- page.
---
--- 'maxResults', 'listDomainsForPackage_maxResults' - Limits results to a maximum number of domains.
 --
 -- 'packageID', 'listDomainsForPackage_packageID' - The package for which to list domains.
 newListDomainsForPackage ::
@@ -85,20 +86,21 @@ newListDomainsForPackage ::
   ListDomainsForPackage
 newListDomainsForPackage pPackageID_ =
   ListDomainsForPackage'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults =
+        Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       packageID = pPackageID_
     }
+
+-- | Limits results to a maximum number of domains.
+listDomainsForPackage_maxResults :: Lens.Lens' ListDomainsForPackage (Prelude.Maybe Prelude.Int)
+listDomainsForPackage_maxResults = Lens.lens (\ListDomainsForPackage' {maxResults} -> maxResults) (\s@ListDomainsForPackage' {} a -> s {maxResults = a} :: ListDomainsForPackage)
 
 -- | Used for pagination. Only necessary if a previous API call includes a
 -- non-null NextToken value. If provided, returns results for the next
 -- page.
 listDomainsForPackage_nextToken :: Lens.Lens' ListDomainsForPackage (Prelude.Maybe Prelude.Text)
 listDomainsForPackage_nextToken = Lens.lens (\ListDomainsForPackage' {nextToken} -> nextToken) (\s@ListDomainsForPackage' {} a -> s {nextToken = a} :: ListDomainsForPackage)
-
--- | Limits results to a maximum number of domains.
-listDomainsForPackage_maxResults :: Lens.Lens' ListDomainsForPackage (Prelude.Maybe Prelude.Int)
-listDomainsForPackage_maxResults = Lens.lens (\ListDomainsForPackage' {maxResults} -> maxResults) (\s@ListDomainsForPackage' {} a -> s {maxResults = a} :: ListDomainsForPackage)
 
 -- | The package for which to list domains.
 listDomainsForPackage_packageID :: Lens.Lens' ListDomainsForPackage Prelude.Text
@@ -108,46 +110,47 @@ instance Core.AWSRequest ListDomainsForPackage where
   type
     AWSResponse ListDomainsForPackage =
       ListDomainsForPackageResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDomainsForPackageResponse'
-            Prelude.<$> ( x Core..?> "DomainPackageDetailsList"
+            Prelude.<$> ( x Data..?> "DomainPackageDetailsList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDomainsForPackage where
   hashWithSalt _salt ListDomainsForPackage' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` packageID
 
 instance Prelude.NFData ListDomainsForPackage where
   rnf ListDomainsForPackage' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf packageID
 
-instance Core.ToHeaders ListDomainsForPackage where
+instance Data.ToHeaders ListDomainsForPackage where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListDomainsForPackage where
+instance Data.ToPath ListDomainsForPackage where
   toPath ListDomainsForPackage' {..} =
     Prelude.mconcat
       [ "/2015-01-01/packages/",
-        Core.toBS packageID,
+        Data.toBS packageID,
         "/domains"
       ]
 
-instance Core.ToQuery ListDomainsForPackage where
+instance Data.ToQuery ListDomainsForPackage where
   toQuery ListDomainsForPackage' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | Container for response parameters to @ ListDomainsForPackage @

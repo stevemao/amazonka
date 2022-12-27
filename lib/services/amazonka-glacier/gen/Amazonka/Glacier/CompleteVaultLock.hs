@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.CompleteVaultLock
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,8 +54,9 @@ module Amazonka.Glacier.CompleteVaultLock
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -135,9 +136,9 @@ instance Core.AWSRequest CompleteVaultLock where
   type
     AWSResponse CompleteVaultLock =
       CompleteVaultLockResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.postJSON defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull CompleteVaultLockResponse'
 
@@ -153,24 +154,24 @@ instance Prelude.NFData CompleteVaultLock where
       `Prelude.seq` Prelude.rnf vaultName
       `Prelude.seq` Prelude.rnf lockId
 
-instance Core.ToHeaders CompleteVaultLock where
+instance Data.ToHeaders CompleteVaultLock where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CompleteVaultLock where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON CompleteVaultLock where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath CompleteVaultLock where
+instance Data.ToPath CompleteVaultLock where
   toPath CompleteVaultLock' {..} =
     Prelude.mconcat
       [ "/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/vaults/",
-        Core.toBS vaultName,
+        Data.toBS vaultName,
         "/lock-policy/",
-        Core.toBS lockId
+        Data.toBS lockId
       ]
 
-instance Core.ToQuery CompleteVaultLock where
+instance Data.ToQuery CompleteVaultLock where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCompleteVaultLockResponse' smart constructor.

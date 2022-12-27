@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.Types.ImageScanFindingsSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.ECR.Types.ImageScanFindingsSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types.FindingSeverity
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A summary of the last completed image scan.
 --
 -- /See:/ 'newImageScanFindingsSummary' smart constructor.
 data ImageScanFindingsSummary = ImageScanFindingsSummary'
-  { -- | The time of the last completed image scan.
-    imageScanCompletedAt :: Prelude.Maybe Core.POSIX,
-    -- | The image vulnerability counts, sorted by severity.
+  { -- | The image vulnerability counts, sorted by severity.
     findingSeverityCounts :: Prelude.Maybe (Prelude.HashMap FindingSeverity Prelude.Natural),
+    -- | The time of the last completed image scan.
+    imageScanCompletedAt :: Prelude.Maybe Data.POSIX,
     -- | The time when the vulnerability data was last scanned.
-    vulnerabilitySourceUpdatedAt :: Prelude.Maybe Core.POSIX
+    vulnerabilitySourceUpdatedAt :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,54 +46,54 @@ data ImageScanFindingsSummary = ImageScanFindingsSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'imageScanCompletedAt', 'imageScanFindingsSummary_imageScanCompletedAt' - The time of the last completed image scan.
---
 -- 'findingSeverityCounts', 'imageScanFindingsSummary_findingSeverityCounts' - The image vulnerability counts, sorted by severity.
+--
+-- 'imageScanCompletedAt', 'imageScanFindingsSummary_imageScanCompletedAt' - The time of the last completed image scan.
 --
 -- 'vulnerabilitySourceUpdatedAt', 'imageScanFindingsSummary_vulnerabilitySourceUpdatedAt' - The time when the vulnerability data was last scanned.
 newImageScanFindingsSummary ::
   ImageScanFindingsSummary
 newImageScanFindingsSummary =
   ImageScanFindingsSummary'
-    { imageScanCompletedAt =
+    { findingSeverityCounts =
         Prelude.Nothing,
-      findingSeverityCounts = Prelude.Nothing,
+      imageScanCompletedAt = Prelude.Nothing,
       vulnerabilitySourceUpdatedAt = Prelude.Nothing
     }
-
--- | The time of the last completed image scan.
-imageScanFindingsSummary_imageScanCompletedAt :: Lens.Lens' ImageScanFindingsSummary (Prelude.Maybe Prelude.UTCTime)
-imageScanFindingsSummary_imageScanCompletedAt = Lens.lens (\ImageScanFindingsSummary' {imageScanCompletedAt} -> imageScanCompletedAt) (\s@ImageScanFindingsSummary' {} a -> s {imageScanCompletedAt = a} :: ImageScanFindingsSummary) Prelude.. Lens.mapping Core._Time
 
 -- | The image vulnerability counts, sorted by severity.
 imageScanFindingsSummary_findingSeverityCounts :: Lens.Lens' ImageScanFindingsSummary (Prelude.Maybe (Prelude.HashMap FindingSeverity Prelude.Natural))
 imageScanFindingsSummary_findingSeverityCounts = Lens.lens (\ImageScanFindingsSummary' {findingSeverityCounts} -> findingSeverityCounts) (\s@ImageScanFindingsSummary' {} a -> s {findingSeverityCounts = a} :: ImageScanFindingsSummary) Prelude.. Lens.mapping Lens.coerced
 
+-- | The time of the last completed image scan.
+imageScanFindingsSummary_imageScanCompletedAt :: Lens.Lens' ImageScanFindingsSummary (Prelude.Maybe Prelude.UTCTime)
+imageScanFindingsSummary_imageScanCompletedAt = Lens.lens (\ImageScanFindingsSummary' {imageScanCompletedAt} -> imageScanCompletedAt) (\s@ImageScanFindingsSummary' {} a -> s {imageScanCompletedAt = a} :: ImageScanFindingsSummary) Prelude.. Lens.mapping Data._Time
+
 -- | The time when the vulnerability data was last scanned.
 imageScanFindingsSummary_vulnerabilitySourceUpdatedAt :: Lens.Lens' ImageScanFindingsSummary (Prelude.Maybe Prelude.UTCTime)
-imageScanFindingsSummary_vulnerabilitySourceUpdatedAt = Lens.lens (\ImageScanFindingsSummary' {vulnerabilitySourceUpdatedAt} -> vulnerabilitySourceUpdatedAt) (\s@ImageScanFindingsSummary' {} a -> s {vulnerabilitySourceUpdatedAt = a} :: ImageScanFindingsSummary) Prelude.. Lens.mapping Core._Time
+imageScanFindingsSummary_vulnerabilitySourceUpdatedAt = Lens.lens (\ImageScanFindingsSummary' {vulnerabilitySourceUpdatedAt} -> vulnerabilitySourceUpdatedAt) (\s@ImageScanFindingsSummary' {} a -> s {vulnerabilitySourceUpdatedAt = a} :: ImageScanFindingsSummary) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON ImageScanFindingsSummary where
+instance Data.FromJSON ImageScanFindingsSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ImageScanFindingsSummary"
       ( \x ->
           ImageScanFindingsSummary'
-            Prelude.<$> (x Core..:? "imageScanCompletedAt")
-            Prelude.<*> ( x Core..:? "findingSeverityCounts"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "findingSeverityCounts"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "vulnerabilitySourceUpdatedAt")
+            Prelude.<*> (x Data..:? "imageScanCompletedAt")
+            Prelude.<*> (x Data..:? "vulnerabilitySourceUpdatedAt")
       )
 
 instance Prelude.Hashable ImageScanFindingsSummary where
   hashWithSalt _salt ImageScanFindingsSummary' {..} =
-    _salt `Prelude.hashWithSalt` imageScanCompletedAt
-      `Prelude.hashWithSalt` findingSeverityCounts
+    _salt `Prelude.hashWithSalt` findingSeverityCounts
+      `Prelude.hashWithSalt` imageScanCompletedAt
       `Prelude.hashWithSalt` vulnerabilitySourceUpdatedAt
 
 instance Prelude.NFData ImageScanFindingsSummary where
   rnf ImageScanFindingsSummary' {..} =
-    Prelude.rnf imageScanCompletedAt
-      `Prelude.seq` Prelude.rnf findingSeverityCounts
+    Prelude.rnf findingSeverityCounts
+      `Prelude.seq` Prelude.rnf imageScanCompletedAt
       `Prelude.seq` Prelude.rnf vulnerabilitySourceUpdatedAt

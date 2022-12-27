@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,11 +18,11 @@ module Amazonka.IoTEventsData.Types
     defaultService,
 
     -- * Errors
-    _InvalidRequestException,
-    _ThrottlingException,
     _InternalFailureException,
-    _ServiceUnavailableException,
+    _InvalidRequestException,
     _ResourceNotFoundException,
+    _ServiceUnavailableException,
+    _ThrottlingException,
 
     -- * AlarmStateName
     AlarmStateName (..),
@@ -57,38 +58,45 @@ module Amazonka.IoTEventsData.Types
     -- * Alarm
     Alarm (..),
     newAlarm,
-    alarm_keyValue,
-    alarm_creationTime,
-    alarm_alarmState,
     alarm_alarmModelName,
-    alarm_severity,
-    alarm_lastUpdateTime,
     alarm_alarmModelVersion,
+    alarm_alarmState,
+    alarm_creationTime,
+    alarm_keyValue,
+    alarm_lastUpdateTime,
+    alarm_severity,
 
     -- * AlarmState
     AlarmState (..),
     newAlarmState,
     alarmState_customerAction,
-    alarmState_stateName,
     alarmState_ruleEvaluation,
+    alarmState_stateName,
     alarmState_systemEvent,
 
     -- * AlarmSummary
     AlarmSummary (..),
     newAlarmSummary,
-    alarmSummary_keyValue,
-    alarmSummary_creationTime,
     alarmSummary_alarmModelName,
-    alarmSummary_stateName,
-    alarmSummary_lastUpdateTime,
     alarmSummary_alarmModelVersion,
+    alarmSummary_creationTime,
+    alarmSummary_keyValue,
+    alarmSummary_lastUpdateTime,
+    alarmSummary_stateName,
 
     -- * BatchAlarmActionErrorEntry
     BatchAlarmActionErrorEntry (..),
     newBatchAlarmActionErrorEntry,
-    batchAlarmActionErrorEntry_requestId,
     batchAlarmActionErrorEntry_errorCode,
     batchAlarmActionErrorEntry_errorMessage,
+    batchAlarmActionErrorEntry_requestId,
+
+    -- * BatchDeleteDetectorErrorEntry
+    BatchDeleteDetectorErrorEntry (..),
+    newBatchDeleteDetectorErrorEntry,
+    batchDeleteDetectorErrorEntry_errorCode,
+    batchDeleteDetectorErrorEntry_errorMessage,
+    batchDeleteDetectorErrorEntry_messageId,
 
     -- * BatchPutMessageErrorEntry
     BatchPutMessageErrorEntry (..),
@@ -107,22 +115,29 @@ module Amazonka.IoTEventsData.Types
     -- * CustomerAction
     CustomerAction (..),
     newCustomerAction,
-    customerAction_resetActionConfiguration,
-    customerAction_actionName,
-    customerAction_snoozeActionConfiguration,
-    customerAction_enableActionConfiguration,
-    customerAction_disableActionConfiguration,
     customerAction_acknowledgeActionConfiguration,
+    customerAction_actionName,
+    customerAction_disableActionConfiguration,
+    customerAction_enableActionConfiguration,
+    customerAction_resetActionConfiguration,
+    customerAction_snoozeActionConfiguration,
+
+    -- * DeleteDetectorRequest
+    DeleteDetectorRequest (..),
+    newDeleteDetectorRequest,
+    deleteDetectorRequest_keyValue,
+    deleteDetectorRequest_messageId,
+    deleteDetectorRequest_detectorModelName,
 
     -- * Detector
     Detector (..),
     newDetector,
-    detector_keyValue,
     detector_creationTime,
-    detector_state,
     detector_detectorModelName,
     detector_detectorModelVersion,
+    detector_keyValue,
     detector_lastUpdateTime,
+    detector_state,
 
     -- * DetectorState
     DetectorState (..),
@@ -146,12 +161,12 @@ module Amazonka.IoTEventsData.Types
     -- * DetectorSummary
     DetectorSummary (..),
     newDetectorSummary,
-    detectorSummary_keyValue,
     detectorSummary_creationTime,
-    detectorSummary_state,
     detectorSummary_detectorModelName,
     detectorSummary_detectorModelVersion,
+    detectorSummary_keyValue,
     detectorSummary_lastUpdateTime,
+    detectorSummary_state,
 
     -- * DisableActionConfiguration
     DisableActionConfiguration (..),
@@ -208,9 +223,9 @@ module Amazonka.IoTEventsData.Types
     -- * SimpleRuleEvaluation
     SimpleRuleEvaluation (..),
     newSimpleRuleEvaluation,
-    simpleRuleEvaluation_thresholdValue,
     simpleRuleEvaluation_inputPropertyValue,
     simpleRuleEvaluation_operator,
+    simpleRuleEvaluation_thresholdValue,
 
     -- * SnoozeActionConfiguration
     SnoozeActionConfiguration (..),
@@ -278,6 +293,7 @@ module Amazonka.IoTEventsData.Types
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.IoTEventsData.Types.AcknowledgeActionConfiguration
 import Amazonka.IoTEventsData.Types.AcknowledgeAlarmActionRequest
 import Amazonka.IoTEventsData.Types.Alarm
@@ -285,11 +301,13 @@ import Amazonka.IoTEventsData.Types.AlarmState
 import Amazonka.IoTEventsData.Types.AlarmStateName
 import Amazonka.IoTEventsData.Types.AlarmSummary
 import Amazonka.IoTEventsData.Types.BatchAlarmActionErrorEntry
+import Amazonka.IoTEventsData.Types.BatchDeleteDetectorErrorEntry
 import Amazonka.IoTEventsData.Types.BatchPutMessageErrorEntry
 import Amazonka.IoTEventsData.Types.BatchUpdateDetectorErrorEntry
 import Amazonka.IoTEventsData.Types.ComparisonOperator
 import Amazonka.IoTEventsData.Types.CustomerAction
 import Amazonka.IoTEventsData.Types.CustomerActionName
+import Amazonka.IoTEventsData.Types.DeleteDetectorRequest
 import Amazonka.IoTEventsData.Types.Detector
 import Amazonka.IoTEventsData.Types.DetectorState
 import Amazonka.IoTEventsData.Types.DetectorStateDefinition
@@ -317,7 +335,6 @@ import Amazonka.IoTEventsData.Types.TriggerType
 import Amazonka.IoTEventsData.Types.UpdateDetectorRequest
 import Amazonka.IoTEventsData.Types.Variable
 import Amazonka.IoTEventsData.Types.VariableDefinition
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -325,42 +342,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "IoTEventsData",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "data.iotevents",
-      Core._serviceSigningName = "ioteventsdata",
-      Core._serviceVersion = "2018-10-23",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "IoTEventsData",
-      Core._serviceRetry = retry
+    { Core.abbrev = "IoTEventsData",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "data.iotevents",
+      Core.signingName = "ioteventsdata",
+      Core.version = "2018-10-23",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "IoTEventsData",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -368,45 +392,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | The request was invalid.
-_InvalidRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidRequestException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidRequestException"
-    Prelude.. Core.hasStatus 400
-
--- | The request could not be completed due to throttling.
-_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ThrottlingException =
-  Core._MatchServiceError
-    defaultService
-    "ThrottlingException"
-    Prelude.. Core.hasStatus 429
 
 -- | An internal failure occurred.
 _InternalFailureException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -416,13 +416,13 @@ _InternalFailureException =
     "InternalFailureException"
     Prelude.. Core.hasStatus 500
 
--- | The service is currently unavailable.
-_ServiceUnavailableException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ServiceUnavailableException =
+-- | The request was invalid.
+_InvalidRequestException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidRequestException =
   Core._MatchServiceError
     defaultService
-    "ServiceUnavailableException"
-    Prelude.. Core.hasStatus 503
+    "InvalidRequestException"
+    Prelude.. Core.hasStatus 400
 
 -- | The resource was not found.
 _ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -431,3 +431,19 @@ _ResourceNotFoundException =
     defaultService
     "ResourceNotFoundException"
     Prelude.. Core.hasStatus 404
+
+-- | The service is currently unavailable.
+_ServiceUnavailableException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ServiceUnavailableException =
+  Core._MatchServiceError
+    defaultService
+    "ServiceUnavailableException"
+    Prelude.. Core.hasStatus 503
+
+-- | The request could not be completed due to throttling.
+_ThrottlingException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ThrottlingException =
+  Core._MatchServiceError
+    defaultService
+    "ThrottlingException"
+    Prelude.. Core.hasStatus 429

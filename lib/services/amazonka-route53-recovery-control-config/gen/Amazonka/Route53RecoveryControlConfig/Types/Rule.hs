@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryControlConfig.Types.Rule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53RecoveryControlConfig.Types.Rule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53RecoveryControlConfig.Types.AssertionRule
 import Amazonka.Route53RecoveryControlConfig.Types.GatingRule
@@ -29,16 +30,26 @@ import Amazonka.Route53RecoveryControlConfig.Types.GatingRule
 --
 -- /See:/ 'newRule' smart constructor.
 data Rule = Rule'
-  { -- | A gating rule verifies that a set of gating controls evaluates as true,
-    -- based on a rule configuration that you specify. If the gating rule
-    -- evaluates to true, Amazon Route 53 Application Recovery Controller
-    -- allows a set of routing control state changes to run and complete
-    -- against the set of target controls.
-    gating :: Prelude.Maybe GatingRule,
-    -- | An assertion rule enforces that, when a routing control state is
+  { -- | An assertion rule enforces that, when a routing control state is
     -- changed, the criteria set by the rule configuration is met. Otherwise,
-    -- the change to the routing control is not accepted.
-    assertion :: Prelude.Maybe AssertionRule
+    -- the change to the routing control state is not accepted. For example,
+    -- the criteria might be that at least one routing control state is On
+    -- after the transation so that traffic continues to flow to at least one
+    -- cell for the application. This ensures that you avoid a fail-open
+    -- scenario.
+    assertion :: Prelude.Maybe AssertionRule,
+    -- | A gating rule verifies that a gating routing control or set of gating
+    -- rounting controls, evaluates as true, based on a rule configuration that
+    -- you specify, which allows a set of routing control state changes to
+    -- complete.
+    --
+    -- For example, if you specify one gating routing control and you set the
+    -- Type in the rule configuration to OR, that indicates that you must set
+    -- the gating routing control to On for the rule to evaluate as true; that
+    -- is, for the gating control \"switch\" to be \"On\". When you do that,
+    -- then you can update the routing control states for the target routing
+    -- controls that you specify in the gating rule.
+    gating :: Prelude.Maybe GatingRule
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,53 +61,73 @@ data Rule = Rule'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'gating', 'rule_gating' - A gating rule verifies that a set of gating controls evaluates as true,
--- based on a rule configuration that you specify. If the gating rule
--- evaluates to true, Amazon Route 53 Application Recovery Controller
--- allows a set of routing control state changes to run and complete
--- against the set of target controls.
---
 -- 'assertion', 'rule_assertion' - An assertion rule enforces that, when a routing control state is
 -- changed, the criteria set by the rule configuration is met. Otherwise,
--- the change to the routing control is not accepted.
+-- the change to the routing control state is not accepted. For example,
+-- the criteria might be that at least one routing control state is On
+-- after the transation so that traffic continues to flow to at least one
+-- cell for the application. This ensures that you avoid a fail-open
+-- scenario.
+--
+-- 'gating', 'rule_gating' - A gating rule verifies that a gating routing control or set of gating
+-- rounting controls, evaluates as true, based on a rule configuration that
+-- you specify, which allows a set of routing control state changes to
+-- complete.
+--
+-- For example, if you specify one gating routing control and you set the
+-- Type in the rule configuration to OR, that indicates that you must set
+-- the gating routing control to On for the rule to evaluate as true; that
+-- is, for the gating control \"switch\" to be \"On\". When you do that,
+-- then you can update the routing control states for the target routing
+-- controls that you specify in the gating rule.
 newRule ::
   Rule
 newRule =
   Rule'
-    { gating = Prelude.Nothing,
-      assertion = Prelude.Nothing
+    { assertion = Prelude.Nothing,
+      gating = Prelude.Nothing
     }
-
--- | A gating rule verifies that a set of gating controls evaluates as true,
--- based on a rule configuration that you specify. If the gating rule
--- evaluates to true, Amazon Route 53 Application Recovery Controller
--- allows a set of routing control state changes to run and complete
--- against the set of target controls.
-rule_gating :: Lens.Lens' Rule (Prelude.Maybe GatingRule)
-rule_gating = Lens.lens (\Rule' {gating} -> gating) (\s@Rule' {} a -> s {gating = a} :: Rule)
 
 -- | An assertion rule enforces that, when a routing control state is
 -- changed, the criteria set by the rule configuration is met. Otherwise,
--- the change to the routing control is not accepted.
+-- the change to the routing control state is not accepted. For example,
+-- the criteria might be that at least one routing control state is On
+-- after the transation so that traffic continues to flow to at least one
+-- cell for the application. This ensures that you avoid a fail-open
+-- scenario.
 rule_assertion :: Lens.Lens' Rule (Prelude.Maybe AssertionRule)
 rule_assertion = Lens.lens (\Rule' {assertion} -> assertion) (\s@Rule' {} a -> s {assertion = a} :: Rule)
 
-instance Core.FromJSON Rule where
+-- | A gating rule verifies that a gating routing control or set of gating
+-- rounting controls, evaluates as true, based on a rule configuration that
+-- you specify, which allows a set of routing control state changes to
+-- complete.
+--
+-- For example, if you specify one gating routing control and you set the
+-- Type in the rule configuration to OR, that indicates that you must set
+-- the gating routing control to On for the rule to evaluate as true; that
+-- is, for the gating control \"switch\" to be \"On\". When you do that,
+-- then you can update the routing control states for the target routing
+-- controls that you specify in the gating rule.
+rule_gating :: Lens.Lens' Rule (Prelude.Maybe GatingRule)
+rule_gating = Lens.lens (\Rule' {gating} -> gating) (\s@Rule' {} a -> s {gating = a} :: Rule)
+
+instance Data.FromJSON Rule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Rule"
       ( \x ->
           Rule'
-            Prelude.<$> (x Core..:? "GATING")
-            Prelude.<*> (x Core..:? "ASSERTION")
+            Prelude.<$> (x Data..:? "ASSERTION")
+            Prelude.<*> (x Data..:? "GATING")
       )
 
 instance Prelude.Hashable Rule where
   hashWithSalt _salt Rule' {..} =
-    _salt `Prelude.hashWithSalt` gating
-      `Prelude.hashWithSalt` assertion
+    _salt `Prelude.hashWithSalt` assertion
+      `Prelude.hashWithSalt` gating
 
 instance Prelude.NFData Rule where
   rnf Rule' {..} =
-    Prelude.rnf gating
-      `Prelude.seq` Prelude.rnf assertion
+    Prelude.rnf assertion
+      `Prelude.seq` Prelude.rnf gating

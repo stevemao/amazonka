@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Polly.ListSpeechSynthesisTasks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.Polly.ListSpeechSynthesisTasks
     newListSpeechSynthesisTasks,
 
     -- * Request Lenses
-    listSpeechSynthesisTasks_status,
-    listSpeechSynthesisTasks_nextToken,
     listSpeechSynthesisTasks_maxResults,
+    listSpeechSynthesisTasks_nextToken,
+    listSpeechSynthesisTasks_status,
 
     -- * Destructuring the Response
     ListSpeechSynthesisTasksResponse (..),
@@ -47,7 +47,8 @@ module Amazonka.Polly.ListSpeechSynthesisTasks
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Polly.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,13 +56,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListSpeechSynthesisTasks' smart constructor.
 data ListSpeechSynthesisTasks = ListSpeechSynthesisTasks'
-  { -- | Status of the speech synthesis tasks returned in a List operation
-    status :: Prelude.Maybe TaskStatus,
+  { -- | Maximum number of speech synthesis tasks returned in a List operation.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The pagination token to use in the next request to continue the listing
     -- of speech synthesis tasks.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of speech synthesis tasks returned in a List operation.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    -- | Status of the speech synthesis tasks returned in a List operation
+    status :: Prelude.Maybe TaskStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,33 +74,34 @@ data ListSpeechSynthesisTasks = ListSpeechSynthesisTasks'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'listSpeechSynthesisTasks_status' - Status of the speech synthesis tasks returned in a List operation
+-- 'maxResults', 'listSpeechSynthesisTasks_maxResults' - Maximum number of speech synthesis tasks returned in a List operation.
 --
 -- 'nextToken', 'listSpeechSynthesisTasks_nextToken' - The pagination token to use in the next request to continue the listing
 -- of speech synthesis tasks.
 --
--- 'maxResults', 'listSpeechSynthesisTasks_maxResults' - Maximum number of speech synthesis tasks returned in a List operation.
+-- 'status', 'listSpeechSynthesisTasks_status' - Status of the speech synthesis tasks returned in a List operation
 newListSpeechSynthesisTasks ::
   ListSpeechSynthesisTasks
 newListSpeechSynthesisTasks =
   ListSpeechSynthesisTasks'
-    { status = Prelude.Nothing,
+    { maxResults =
+        Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      status = Prelude.Nothing
     }
 
--- | Status of the speech synthesis tasks returned in a List operation
-listSpeechSynthesisTasks_status :: Lens.Lens' ListSpeechSynthesisTasks (Prelude.Maybe TaskStatus)
-listSpeechSynthesisTasks_status = Lens.lens (\ListSpeechSynthesisTasks' {status} -> status) (\s@ListSpeechSynthesisTasks' {} a -> s {status = a} :: ListSpeechSynthesisTasks)
+-- | Maximum number of speech synthesis tasks returned in a List operation.
+listSpeechSynthesisTasks_maxResults :: Lens.Lens' ListSpeechSynthesisTasks (Prelude.Maybe Prelude.Natural)
+listSpeechSynthesisTasks_maxResults = Lens.lens (\ListSpeechSynthesisTasks' {maxResults} -> maxResults) (\s@ListSpeechSynthesisTasks' {} a -> s {maxResults = a} :: ListSpeechSynthesisTasks)
 
 -- | The pagination token to use in the next request to continue the listing
 -- of speech synthesis tasks.
 listSpeechSynthesisTasks_nextToken :: Lens.Lens' ListSpeechSynthesisTasks (Prelude.Maybe Prelude.Text)
 listSpeechSynthesisTasks_nextToken = Lens.lens (\ListSpeechSynthesisTasks' {nextToken} -> nextToken) (\s@ListSpeechSynthesisTasks' {} a -> s {nextToken = a} :: ListSpeechSynthesisTasks)
 
--- | Maximum number of speech synthesis tasks returned in a List operation.
-listSpeechSynthesisTasks_maxResults :: Lens.Lens' ListSpeechSynthesisTasks (Prelude.Maybe Prelude.Natural)
-listSpeechSynthesisTasks_maxResults = Lens.lens (\ListSpeechSynthesisTasks' {maxResults} -> maxResults) (\s@ListSpeechSynthesisTasks' {} a -> s {maxResults = a} :: ListSpeechSynthesisTasks)
+-- | Status of the speech synthesis tasks returned in a List operation
+listSpeechSynthesisTasks_status :: Lens.Lens' ListSpeechSynthesisTasks (Prelude.Maybe TaskStatus)
+listSpeechSynthesisTasks_status = Lens.lens (\ListSpeechSynthesisTasks' {status} -> status) (\s@ListSpeechSynthesisTasks' {} a -> s {status = a} :: ListSpeechSynthesisTasks)
 
 instance Core.AWSPager ListSpeechSynthesisTasks where
   page rq rs
@@ -127,40 +129,41 @@ instance Core.AWSRequest ListSpeechSynthesisTasks where
   type
     AWSResponse ListSpeechSynthesisTasks =
       ListSpeechSynthesisTasksResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSpeechSynthesisTasksResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "SynthesisTasks" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "SynthesisTasks" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListSpeechSynthesisTasks where
   hashWithSalt _salt ListSpeechSynthesisTasks' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData ListSpeechSynthesisTasks where
   rnf ListSpeechSynthesisTasks' {..} =
-    Prelude.rnf status
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders ListSpeechSynthesisTasks where
+instance Data.ToHeaders ListSpeechSynthesisTasks where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListSpeechSynthesisTasks where
+instance Data.ToPath ListSpeechSynthesisTasks where
   toPath = Prelude.const "/v1/synthesisTasks"
 
-instance Core.ToQuery ListSpeechSynthesisTasks where
+instance Data.ToQuery ListSpeechSynthesisTasks where
   toQuery ListSpeechSynthesisTasks' {..} =
     Prelude.mconcat
-      [ "Status" Core.=: status,
-        "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+      [ "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        "Status" Data.=: status
       ]
 
 -- | /See:/ 'newListSpeechSynthesisTasksResponse' smart constructor.

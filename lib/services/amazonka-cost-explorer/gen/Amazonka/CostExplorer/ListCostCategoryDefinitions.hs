@@ -14,20 +14,20 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.ListCostCategoryDefinitions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns the name, ARN, @NumberOfRules@ and effective dates of all Cost
--- Categories defined in the account. You have the option to use
--- @EffectiveOn@ to return a list of Cost Categories that were active on a
--- specific date. If there is no @EffectiveOn@ specified, you’ll see Cost
--- Categories that are effective on the current date. If Cost Category is
--- still effective, @EffectiveEnd@ is omitted in the response.
--- @ListCostCategoryDefinitions@ supports pagination. The request can have
--- a @MaxResults@ range up to 100.
+-- Returns the name, Amazon Resource Name (ARN), @NumberOfRules@ and
+-- effective dates of all Cost Categories defined in the account. You have
+-- the option to use @EffectiveOn@ to return a list of Cost Categories that
+-- were active on a specific date. If there is no @EffectiveOn@ specified,
+-- you’ll see Cost Categories that are effective on the current date. If
+-- Cost Category is still effective, @EffectiveEnd@ is omitted in the
+-- response. @ListCostCategoryDefinitions@ supports pagination. The request
+-- can have a @MaxResults@ range up to 100.
 module Amazonka.CostExplorer.ListCostCategoryDefinitions
   ( -- * Creating a Request
     ListCostCategoryDefinitions (..),
@@ -35,8 +35,8 @@ module Amazonka.CostExplorer.ListCostCategoryDefinitions
 
     -- * Request Lenses
     listCostCategoryDefinitions_effectiveOn,
-    listCostCategoryDefinitions_nextToken,
     listCostCategoryDefinitions_maxResults,
+    listCostCategoryDefinitions_nextToken,
 
     -- * Destructuring the Response
     ListCostCategoryDefinitionsResponse (..),
@@ -50,8 +50,9 @@ module Amazonka.CostExplorer.ListCostCategoryDefinitions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,12 +61,12 @@ import qualified Amazonka.Response as Response
 data ListCostCategoryDefinitions = ListCostCategoryDefinitions'
   { -- | The date when the Cost Category was effective.
     effectiveOn :: Prelude.Maybe Prelude.Text,
+    -- | The number of entries a paginated response contains.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The token to retrieve the next set of results. Amazon Web Services
     -- provides the token when the response from a previous call has more
     -- results than the maximum page size.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of entries a paginated response contains.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -79,24 +80,28 @@ data ListCostCategoryDefinitions = ListCostCategoryDefinitions'
 --
 -- 'effectiveOn', 'listCostCategoryDefinitions_effectiveOn' - The date when the Cost Category was effective.
 --
+-- 'maxResults', 'listCostCategoryDefinitions_maxResults' - The number of entries a paginated response contains.
+--
 -- 'nextToken', 'listCostCategoryDefinitions_nextToken' - The token to retrieve the next set of results. Amazon Web Services
 -- provides the token when the response from a previous call has more
 -- results than the maximum page size.
---
--- 'maxResults', 'listCostCategoryDefinitions_maxResults' - The number of entries a paginated response contains.
 newListCostCategoryDefinitions ::
   ListCostCategoryDefinitions
 newListCostCategoryDefinitions =
   ListCostCategoryDefinitions'
     { effectiveOn =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | The date when the Cost Category was effective.
 listCostCategoryDefinitions_effectiveOn :: Lens.Lens' ListCostCategoryDefinitions (Prelude.Maybe Prelude.Text)
 listCostCategoryDefinitions_effectiveOn = Lens.lens (\ListCostCategoryDefinitions' {effectiveOn} -> effectiveOn) (\s@ListCostCategoryDefinitions' {} a -> s {effectiveOn = a} :: ListCostCategoryDefinitions)
+
+-- | The number of entries a paginated response contains.
+listCostCategoryDefinitions_maxResults :: Lens.Lens' ListCostCategoryDefinitions (Prelude.Maybe Prelude.Natural)
+listCostCategoryDefinitions_maxResults = Lens.lens (\ListCostCategoryDefinitions' {maxResults} -> maxResults) (\s@ListCostCategoryDefinitions' {} a -> s {maxResults = a} :: ListCostCategoryDefinitions)
 
 -- | The token to retrieve the next set of results. Amazon Web Services
 -- provides the token when the response from a previous call has more
@@ -104,73 +109,70 @@ listCostCategoryDefinitions_effectiveOn = Lens.lens (\ListCostCategoryDefinition
 listCostCategoryDefinitions_nextToken :: Lens.Lens' ListCostCategoryDefinitions (Prelude.Maybe Prelude.Text)
 listCostCategoryDefinitions_nextToken = Lens.lens (\ListCostCategoryDefinitions' {nextToken} -> nextToken) (\s@ListCostCategoryDefinitions' {} a -> s {nextToken = a} :: ListCostCategoryDefinitions)
 
--- | The number of entries a paginated response contains.
-listCostCategoryDefinitions_maxResults :: Lens.Lens' ListCostCategoryDefinitions (Prelude.Maybe Prelude.Natural)
-listCostCategoryDefinitions_maxResults = Lens.lens (\ListCostCategoryDefinitions' {maxResults} -> maxResults) (\s@ListCostCategoryDefinitions' {} a -> s {maxResults = a} :: ListCostCategoryDefinitions)
-
 instance Core.AWSRequest ListCostCategoryDefinitions where
   type
     AWSResponse ListCostCategoryDefinitions =
       ListCostCategoryDefinitionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListCostCategoryDefinitionsResponse'
-            Prelude.<$> ( x Core..?> "CostCategoryReferences"
+            Prelude.<$> ( x Data..?> "CostCategoryReferences"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListCostCategoryDefinitions where
   hashWithSalt _salt ListCostCategoryDefinitions' {..} =
     _salt `Prelude.hashWithSalt` effectiveOn
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListCostCategoryDefinitions where
   rnf ListCostCategoryDefinitions' {..} =
     Prelude.rnf effectiveOn
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListCostCategoryDefinitions where
+instance Data.ToHeaders ListCostCategoryDefinitions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSInsightsIndexService.ListCostCategoryDefinitions" ::
+              Data.=# ( "AWSInsightsIndexService.ListCostCategoryDefinitions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListCostCategoryDefinitions where
+instance Data.ToJSON ListCostCategoryDefinitions where
   toJSON ListCostCategoryDefinitions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EffectiveOn" Core..=) Prelude.<$> effectiveOn,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("EffectiveOn" Data..=) Prelude.<$> effectiveOn,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListCostCategoryDefinitions where
+instance Data.ToPath ListCostCategoryDefinitions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListCostCategoryDefinitions where
+instance Data.ToQuery ListCostCategoryDefinitions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListCostCategoryDefinitionsResponse' smart constructor.
 data ListCostCategoryDefinitionsResponse = ListCostCategoryDefinitionsResponse'
-  { -- | A reference to a Cost Category containing enough information to identify
-    -- the Cost Category.
+  { -- | A reference to a Cost Category that contains enough information to
+    -- identify the Cost Category.
     costCategoryReferences :: Prelude.Maybe [CostCategoryReference],
     -- | The token to retrieve the next set of results. Amazon Web Services
     -- provides the token when the response from a previous call has more
@@ -189,8 +191,8 @@ data ListCostCategoryDefinitionsResponse = ListCostCategoryDefinitionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'costCategoryReferences', 'listCostCategoryDefinitionsResponse_costCategoryReferences' - A reference to a Cost Category containing enough information to identify
--- the Cost Category.
+-- 'costCategoryReferences', 'listCostCategoryDefinitionsResponse_costCategoryReferences' - A reference to a Cost Category that contains enough information to
+-- identify the Cost Category.
 --
 -- 'nextToken', 'listCostCategoryDefinitionsResponse_nextToken' - The token to retrieve the next set of results. Amazon Web Services
 -- provides the token when the response from a previous call has more
@@ -209,8 +211,8 @@ newListCostCategoryDefinitionsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | A reference to a Cost Category containing enough information to identify
--- the Cost Category.
+-- | A reference to a Cost Category that contains enough information to
+-- identify the Cost Category.
 listCostCategoryDefinitionsResponse_costCategoryReferences :: Lens.Lens' ListCostCategoryDefinitionsResponse (Prelude.Maybe [CostCategoryReference])
 listCostCategoryDefinitionsResponse_costCategoryReferences = Lens.lens (\ListCostCategoryDefinitionsResponse' {costCategoryReferences} -> costCategoryReferences) (\s@ListCostCategoryDefinitionsResponse' {} a -> s {costCategoryReferences = a} :: ListCostCategoryDefinitionsResponse) Prelude.. Lens.mapping Lens.coerced
 

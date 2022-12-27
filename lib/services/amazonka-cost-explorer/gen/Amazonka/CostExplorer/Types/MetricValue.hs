@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.MetricValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CostExplorer.Types.MetricValue where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The aggregated value for a metric.
@@ -61,14 +62,14 @@ metricValue_amount = Lens.lens (\MetricValue' {amount} -> amount) (\s@MetricValu
 metricValue_unit :: Lens.Lens' MetricValue (Prelude.Maybe Prelude.Text)
 metricValue_unit = Lens.lens (\MetricValue' {unit} -> unit) (\s@MetricValue' {} a -> s {unit = a} :: MetricValue)
 
-instance Core.FromJSON MetricValue where
+instance Data.FromJSON MetricValue where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MetricValue"
       ( \x ->
           MetricValue'
-            Prelude.<$> (x Core..:? "Amount")
-            Prelude.<*> (x Core..:? "Unit")
+            Prelude.<$> (x Data..:? "Amount")
+            Prelude.<*> (x Data..:? "Unit")
       )
 
 instance Prelude.Hashable MetricValue where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.TelephonySettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Chime.Types.TelephonySettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Settings that allow management of telephony permissions for an Amazon
@@ -81,15 +82,15 @@ telephonySettings_outboundCalling = Lens.lens (\TelephonySettings' {outboundCall
 telephonySettings_sms :: Lens.Lens' TelephonySettings Prelude.Bool
 telephonySettings_sms = Lens.lens (\TelephonySettings' {sms} -> sms) (\s@TelephonySettings' {} a -> s {sms = a} :: TelephonySettings)
 
-instance Core.FromJSON TelephonySettings where
+instance Data.FromJSON TelephonySettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TelephonySettings"
       ( \x ->
           TelephonySettings'
-            Prelude.<$> (x Core..: "InboundCalling")
-            Prelude.<*> (x Core..: "OutboundCalling")
-            Prelude.<*> (x Core..: "SMS")
+            Prelude.<$> (x Data..: "InboundCalling")
+            Prelude.<*> (x Data..: "OutboundCalling")
+            Prelude.<*> (x Data..: "SMS")
       )
 
 instance Prelude.Hashable TelephonySettings where
@@ -104,14 +105,14 @@ instance Prelude.NFData TelephonySettings where
       `Prelude.seq` Prelude.rnf outboundCalling
       `Prelude.seq` Prelude.rnf sms
 
-instance Core.ToJSON TelephonySettings where
+instance Data.ToJSON TelephonySettings where
   toJSON TelephonySettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("InboundCalling" Core..= inboundCalling),
+              ("InboundCalling" Data..= inboundCalling),
             Prelude.Just
-              ("OutboundCalling" Core..= outboundCalling),
-            Prelude.Just ("SMS" Core..= sms)
+              ("OutboundCalling" Data..= outboundCalling),
+            Prelude.Just ("SMS" Data..= sms)
           ]
       )

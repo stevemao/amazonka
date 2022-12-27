@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.DescribeRootFolders
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,8 @@ module Amazonka.WorkDocs.DescribeRootFolders
     newDescribeRootFolders,
 
     -- * Request Lenses
-    describeRootFolders_marker,
     describeRootFolders_limit,
+    describeRootFolders_marker,
     describeRootFolders_authenticationToken,
 
     -- * Destructuring the Response
@@ -54,7 +54,8 @@ module Amazonka.WorkDocs.DescribeRootFolders
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,13 +63,13 @@ import Amazonka.WorkDocs.Types
 
 -- | /See:/ 'newDescribeRootFolders' smart constructor.
 data DescribeRootFolders = DescribeRootFolders'
-  { -- | The marker for the next set of results. (You received this marker from a
+  { -- | The maximum number of items to return.
+    limit :: Prelude.Maybe Prelude.Natural,
+    -- | The marker for the next set of results. (You received this marker from a
     -- previous call.)
     marker :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return.
-    limit :: Prelude.Maybe Prelude.Natural,
     -- | Amazon WorkDocs authentication token.
-    authenticationToken :: Core.Sensitive Prelude.Text
+    authenticationToken :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -80,10 +81,10 @@ data DescribeRootFolders = DescribeRootFolders'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'limit', 'describeRootFolders_limit' - The maximum number of items to return.
+--
 -- 'marker', 'describeRootFolders_marker' - The marker for the next set of results. (You received this marker from a
 -- previous call.)
---
--- 'limit', 'describeRootFolders_limit' - The maximum number of items to return.
 --
 -- 'authenticationToken', 'describeRootFolders_authenticationToken' - Amazon WorkDocs authentication token.
 newDescribeRootFolders ::
@@ -92,24 +93,24 @@ newDescribeRootFolders ::
   DescribeRootFolders
 newDescribeRootFolders pAuthenticationToken_ =
   DescribeRootFolders'
-    { marker = Prelude.Nothing,
-      limit = Prelude.Nothing,
+    { limit = Prelude.Nothing,
+      marker = Prelude.Nothing,
       authenticationToken =
-        Core._Sensitive Lens.# pAuthenticationToken_
+        Data._Sensitive Lens.# pAuthenticationToken_
     }
+
+-- | The maximum number of items to return.
+describeRootFolders_limit :: Lens.Lens' DescribeRootFolders (Prelude.Maybe Prelude.Natural)
+describeRootFolders_limit = Lens.lens (\DescribeRootFolders' {limit} -> limit) (\s@DescribeRootFolders' {} a -> s {limit = a} :: DescribeRootFolders)
 
 -- | The marker for the next set of results. (You received this marker from a
 -- previous call.)
 describeRootFolders_marker :: Lens.Lens' DescribeRootFolders (Prelude.Maybe Prelude.Text)
 describeRootFolders_marker = Lens.lens (\DescribeRootFolders' {marker} -> marker) (\s@DescribeRootFolders' {} a -> s {marker = a} :: DescribeRootFolders)
 
--- | The maximum number of items to return.
-describeRootFolders_limit :: Lens.Lens' DescribeRootFolders (Prelude.Maybe Prelude.Natural)
-describeRootFolders_limit = Lens.lens (\DescribeRootFolders' {limit} -> limit) (\s@DescribeRootFolders' {} a -> s {limit = a} :: DescribeRootFolders)
-
 -- | Amazon WorkDocs authentication token.
 describeRootFolders_authenticationToken :: Lens.Lens' DescribeRootFolders Prelude.Text
-describeRootFolders_authenticationToken = Lens.lens (\DescribeRootFolders' {authenticationToken} -> authenticationToken) (\s@DescribeRootFolders' {} a -> s {authenticationToken = a} :: DescribeRootFolders) Prelude.. Core._Sensitive
+describeRootFolders_authenticationToken = Lens.lens (\DescribeRootFolders' {authenticationToken} -> authenticationToken) (\s@DescribeRootFolders' {} a -> s {authenticationToken = a} :: DescribeRootFolders) Prelude.. Data._Sensitive
 
 instance Core.AWSPager DescribeRootFolders where
   page rq rs
@@ -137,43 +138,44 @@ instance Core.AWSRequest DescribeRootFolders where
   type
     AWSResponse DescribeRootFolders =
       DescribeRootFoldersResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRootFoldersResponse'
-            Prelude.<$> (x Core..?> "Folders" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Marker")
+            Prelude.<$> (x Data..?> "Folders" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeRootFolders where
   hashWithSalt _salt DescribeRootFolders' {..} =
-    _salt `Prelude.hashWithSalt` marker
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` authenticationToken
 
 instance Prelude.NFData DescribeRootFolders where
   rnf DescribeRootFolders' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf authenticationToken
 
-instance Core.ToHeaders DescribeRootFolders where
+instance Data.ToHeaders DescribeRootFolders where
   toHeaders DescribeRootFolders' {..} =
     Prelude.mconcat
-      [ "Authentication" Core.=# authenticationToken,
+      [ "Authentication" Data.=# authenticationToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath DescribeRootFolders where
+instance Data.ToPath DescribeRootFolders where
   toPath = Prelude.const "/api/v1/me/root"
 
-instance Core.ToQuery DescribeRootFolders where
+instance Data.ToQuery DescribeRootFolders where
   toQuery DescribeRootFolders' {..} =
     Prelude.mconcat
-      ["marker" Core.=: marker, "limit" Core.=: limit]
+      ["limit" Data.=: limit, "marker" Data.=: marker]
 
 -- | /See:/ 'newDescribeRootFoldersResponse' smart constructor.
 data DescribeRootFoldersResponse = DescribeRootFoldersResponse'

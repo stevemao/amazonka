@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.Types.RecipeStep
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.DataBrew.Types.RecipeStep where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types.ConditionExpression
 import Amazonka.DataBrew.Types.RecipeAction
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a single step from a DataBrew recipe to be performed.
@@ -74,16 +75,16 @@ recipeStep_conditionExpressions = Lens.lens (\RecipeStep' {conditionExpressions}
 recipeStep_action :: Lens.Lens' RecipeStep RecipeAction
 recipeStep_action = Lens.lens (\RecipeStep' {action} -> action) (\s@RecipeStep' {} a -> s {action = a} :: RecipeStep)
 
-instance Core.FromJSON RecipeStep where
+instance Data.FromJSON RecipeStep where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RecipeStep"
       ( \x ->
           RecipeStep'
-            Prelude.<$> ( x Core..:? "ConditionExpressions"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "ConditionExpressions"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..: "Action")
+            Prelude.<*> (x Data..: "Action")
       )
 
 instance Prelude.Hashable RecipeStep where
@@ -96,12 +97,12 @@ instance Prelude.NFData RecipeStep where
     Prelude.rnf conditionExpressions
       `Prelude.seq` Prelude.rnf action
 
-instance Core.ToJSON RecipeStep where
+instance Data.ToJSON RecipeStep where
   toJSON RecipeStep' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ConditionExpressions" Core..=)
+          [ ("ConditionExpressions" Data..=)
               Prelude.<$> conditionExpressions,
-            Prelude.Just ("Action" Core..= action)
+            Prelude.Just ("Action" Data..= action)
           ]
       )

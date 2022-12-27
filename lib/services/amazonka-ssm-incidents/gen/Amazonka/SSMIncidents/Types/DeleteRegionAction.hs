@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.Types.DeleteRegionAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,17 @@
 module Amazonka.SSMIncidents.Types.DeleteRegionAction where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Defines the information about the Region you\'re deleting from your
--- replication set.
+-- | Defines the information about the Amazon Web Services Region you\'re
+-- deleting from your replication set.
 --
 -- /See:/ 'newDeleteRegionAction' smart constructor.
 data DeleteRegionAction = DeleteRegionAction'
-  { -- | The name of the Region you\'re deleting from the replication set.
+  { -- | The name of the Amazon Web Services Region you\'re deleting from the
+    -- replication set.
     regionName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -41,7 +43,8 @@ data DeleteRegionAction = DeleteRegionAction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'regionName', 'deleteRegionAction_regionName' - The name of the Region you\'re deleting from the replication set.
+-- 'regionName', 'deleteRegionAction_regionName' - The name of the Amazon Web Services Region you\'re deleting from the
+-- replication set.
 newDeleteRegionAction ::
   -- | 'regionName'
   Prelude.Text ->
@@ -49,7 +52,8 @@ newDeleteRegionAction ::
 newDeleteRegionAction pRegionName_ =
   DeleteRegionAction' {regionName = pRegionName_}
 
--- | The name of the Region you\'re deleting from the replication set.
+-- | The name of the Amazon Web Services Region you\'re deleting from the
+-- replication set.
 deleteRegionAction_regionName :: Lens.Lens' DeleteRegionAction Prelude.Text
 deleteRegionAction_regionName = Lens.lens (\DeleteRegionAction' {regionName} -> regionName) (\s@DeleteRegionAction' {} a -> s {regionName = a} :: DeleteRegionAction)
 
@@ -60,9 +64,9 @@ instance Prelude.Hashable DeleteRegionAction where
 instance Prelude.NFData DeleteRegionAction where
   rnf DeleteRegionAction' {..} = Prelude.rnf regionName
 
-instance Core.ToJSON DeleteRegionAction where
+instance Data.ToJSON DeleteRegionAction where
   toJSON DeleteRegionAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("regionName" Core..= regionName)]
+          [Prelude.Just ("regionName" Data..= regionName)]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalytics.Types.OutputDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.KinesisAnalytics.Types.OutputDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalytics.Types.DestinationSchema
 import Amazonka.KinesisAnalytics.Types.KinesisFirehoseOutputDescription
 import Amazonka.KinesisAnalytics.Types.KinesisStreamsOutputDescription
 import Amazonka.KinesisAnalytics.Types.LambdaOutputDescription
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the application output configuration, which includes the
@@ -34,9 +35,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newOutputDescription' smart constructor.
 data OutputDescription = OutputDescription'
-  { -- | A unique identifier for the output configuration.
-    outputId :: Prelude.Maybe Prelude.Text,
-    -- | Data format used for writing data to the destination.
+  { -- | Data format used for writing data to the destination.
     destinationSchema :: Prelude.Maybe DestinationSchema,
     -- | Describes the Amazon Kinesis Firehose delivery stream configured as the
     -- destination where output is written.
@@ -44,11 +43,13 @@ data OutputDescription = OutputDescription'
     -- | Describes Amazon Kinesis stream configured as the destination where
     -- output is written.
     kinesisStreamsOutputDescription :: Prelude.Maybe KinesisStreamsOutputDescription,
-    -- | Name of the in-application stream configured as output.
-    name :: Prelude.Maybe Prelude.Text,
     -- | Describes the AWS Lambda function configured as the destination where
     -- output is written.
-    lambdaOutputDescription :: Prelude.Maybe LambdaOutputDescription
+    lambdaOutputDescription :: Prelude.Maybe LambdaOutputDescription,
+    -- | Name of the in-application stream configured as output.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the output configuration.
+    outputId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -60,8 +61,6 @@ data OutputDescription = OutputDescription'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'outputId', 'outputDescription_outputId' - A unique identifier for the output configuration.
---
 -- 'destinationSchema', 'outputDescription_destinationSchema' - Data format used for writing data to the destination.
 --
 -- 'kinesisFirehoseOutputDescription', 'outputDescription_kinesisFirehoseOutputDescription' - Describes the Amazon Kinesis Firehose delivery stream configured as the
@@ -70,25 +69,24 @@ data OutputDescription = OutputDescription'
 -- 'kinesisStreamsOutputDescription', 'outputDescription_kinesisStreamsOutputDescription' - Describes Amazon Kinesis stream configured as the destination where
 -- output is written.
 --
--- 'name', 'outputDescription_name' - Name of the in-application stream configured as output.
---
 -- 'lambdaOutputDescription', 'outputDescription_lambdaOutputDescription' - Describes the AWS Lambda function configured as the destination where
 -- output is written.
+--
+-- 'name', 'outputDescription_name' - Name of the in-application stream configured as output.
+--
+-- 'outputId', 'outputDescription_outputId' - A unique identifier for the output configuration.
 newOutputDescription ::
   OutputDescription
 newOutputDescription =
   OutputDescription'
-    { outputId = Prelude.Nothing,
-      destinationSchema = Prelude.Nothing,
+    { destinationSchema =
+        Prelude.Nothing,
       kinesisFirehoseOutputDescription = Prelude.Nothing,
       kinesisStreamsOutputDescription = Prelude.Nothing,
+      lambdaOutputDescription = Prelude.Nothing,
       name = Prelude.Nothing,
-      lambdaOutputDescription = Prelude.Nothing
+      outputId = Prelude.Nothing
     }
-
--- | A unique identifier for the output configuration.
-outputDescription_outputId :: Lens.Lens' OutputDescription (Prelude.Maybe Prelude.Text)
-outputDescription_outputId = Lens.lens (\OutputDescription' {outputId} -> outputId) (\s@OutputDescription' {} a -> s {outputId = a} :: OutputDescription)
 
 -- | Data format used for writing data to the destination.
 outputDescription_destinationSchema :: Lens.Lens' OutputDescription (Prelude.Maybe DestinationSchema)
@@ -104,43 +102,47 @@ outputDescription_kinesisFirehoseOutputDescription = Lens.lens (\OutputDescripti
 outputDescription_kinesisStreamsOutputDescription :: Lens.Lens' OutputDescription (Prelude.Maybe KinesisStreamsOutputDescription)
 outputDescription_kinesisStreamsOutputDescription = Lens.lens (\OutputDescription' {kinesisStreamsOutputDescription} -> kinesisStreamsOutputDescription) (\s@OutputDescription' {} a -> s {kinesisStreamsOutputDescription = a} :: OutputDescription)
 
--- | Name of the in-application stream configured as output.
-outputDescription_name :: Lens.Lens' OutputDescription (Prelude.Maybe Prelude.Text)
-outputDescription_name = Lens.lens (\OutputDescription' {name} -> name) (\s@OutputDescription' {} a -> s {name = a} :: OutputDescription)
-
 -- | Describes the AWS Lambda function configured as the destination where
 -- output is written.
 outputDescription_lambdaOutputDescription :: Lens.Lens' OutputDescription (Prelude.Maybe LambdaOutputDescription)
 outputDescription_lambdaOutputDescription = Lens.lens (\OutputDescription' {lambdaOutputDescription} -> lambdaOutputDescription) (\s@OutputDescription' {} a -> s {lambdaOutputDescription = a} :: OutputDescription)
 
-instance Core.FromJSON OutputDescription where
+-- | Name of the in-application stream configured as output.
+outputDescription_name :: Lens.Lens' OutputDescription (Prelude.Maybe Prelude.Text)
+outputDescription_name = Lens.lens (\OutputDescription' {name} -> name) (\s@OutputDescription' {} a -> s {name = a} :: OutputDescription)
+
+-- | A unique identifier for the output configuration.
+outputDescription_outputId :: Lens.Lens' OutputDescription (Prelude.Maybe Prelude.Text)
+outputDescription_outputId = Lens.lens (\OutputDescription' {outputId} -> outputId) (\s@OutputDescription' {} a -> s {outputId = a} :: OutputDescription)
+
+instance Data.FromJSON OutputDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OutputDescription"
       ( \x ->
           OutputDescription'
-            Prelude.<$> (x Core..:? "OutputId")
-            Prelude.<*> (x Core..:? "DestinationSchema")
-            Prelude.<*> (x Core..:? "KinesisFirehoseOutputDescription")
-            Prelude.<*> (x Core..:? "KinesisStreamsOutputDescription")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "LambdaOutputDescription")
+            Prelude.<$> (x Data..:? "DestinationSchema")
+            Prelude.<*> (x Data..:? "KinesisFirehoseOutputDescription")
+            Prelude.<*> (x Data..:? "KinesisStreamsOutputDescription")
+            Prelude.<*> (x Data..:? "LambdaOutputDescription")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "OutputId")
       )
 
 instance Prelude.Hashable OutputDescription where
   hashWithSalt _salt OutputDescription' {..} =
-    _salt `Prelude.hashWithSalt` outputId
-      `Prelude.hashWithSalt` destinationSchema
+    _salt `Prelude.hashWithSalt` destinationSchema
       `Prelude.hashWithSalt` kinesisFirehoseOutputDescription
       `Prelude.hashWithSalt` kinesisStreamsOutputDescription
-      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` lambdaOutputDescription
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` outputId
 
 instance Prelude.NFData OutputDescription where
   rnf OutputDescription' {..} =
-    Prelude.rnf outputId
-      `Prelude.seq` Prelude.rnf destinationSchema
+    Prelude.rnf destinationSchema
       `Prelude.seq` Prelude.rnf kinesisFirehoseOutputDescription
       `Prelude.seq` Prelude.rnf kinesisStreamsOutputDescription
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf lambdaOutputDescription
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf outputId

@@ -14,22 +14,23 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.CreateEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Creates a model-specific endpoint for synchronous inference for a
--- previously trained custom model
+-- previously trained custom model For information about endpoints, see
+-- <https://docs.aws.amazon.com/comprehend/latest/dg/manage-endpoints.html Managing endpoints>.
 module Amazonka.Comprehend.CreateEndpoint
   ( -- * Creating a Request
     CreateEndpoint (..),
     newCreateEndpoint,
 
     -- * Request Lenses
-    createEndpoint_dataAccessRoleArn,
     createEndpoint_clientRequestToken,
+    createEndpoint_dataAccessRoleArn,
     createEndpoint_tags,
     createEndpoint_endpointName,
     createEndpoint_modelArn,
@@ -47,21 +48,22 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateEndpoint' smart constructor.
 data CreateEndpoint = CreateEndpoint'
-  { -- | The Amazon Resource Name (ARN) of the AWS identity and Access Management
-    -- (IAM) role that grants Amazon Comprehend read access to trained custom
-    -- models encrypted with a customer managed key (ModelKmsKeyId).
-    dataAccessRoleArn :: Prelude.Maybe Prelude.Text,
-    -- | An idempotency token provided by the customer. If this token matches a
+  { -- | An idempotency token provided by the customer. If this token matches a
     -- previous endpoint creation request, Amazon Comprehend will not return a
     -- @ResourceInUseException@.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the AWS identity and Access Management
+    -- (IAM) role that grants Amazon Comprehend read access to trained custom
+    -- models encrypted with a customer managed key (ModelKmsKeyId).
+    dataAccessRoleArn :: Prelude.Maybe Prelude.Text,
     -- | Tags associated with the endpoint being created. A tag is a key-value
     -- pair that adds metadata to the endpoint. For example, a tag with
     -- \"Sales\" as the key might be added to an endpoint to indicate its use
@@ -88,13 +90,13 @@ data CreateEndpoint = CreateEndpoint'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'dataAccessRoleArn', 'createEndpoint_dataAccessRoleArn' - The Amazon Resource Name (ARN) of the AWS identity and Access Management
--- (IAM) role that grants Amazon Comprehend read access to trained custom
--- models encrypted with a customer managed key (ModelKmsKeyId).
---
 -- 'clientRequestToken', 'createEndpoint_clientRequestToken' - An idempotency token provided by the customer. If this token matches a
 -- previous endpoint creation request, Amazon Comprehend will not return a
 -- @ResourceInUseException@.
+--
+-- 'dataAccessRoleArn', 'createEndpoint_dataAccessRoleArn' - The Amazon Resource Name (ARN) of the AWS identity and Access Management
+-- (IAM) role that grants Amazon Comprehend read access to trained custom
+-- models encrypted with a customer managed key (ModelKmsKeyId).
 --
 -- 'tags', 'createEndpoint_tags' - Tags associated with the endpoint being created. A tag is a key-value
 -- pair that adds metadata to the endpoint. For example, a tag with
@@ -123,26 +125,26 @@ newCreateEndpoint
   pModelArn_
   pDesiredInferenceUnits_ =
     CreateEndpoint'
-      { dataAccessRoleArn =
+      { clientRequestToken =
           Prelude.Nothing,
-        clientRequestToken = Prelude.Nothing,
+        dataAccessRoleArn = Prelude.Nothing,
         tags = Prelude.Nothing,
         endpointName = pEndpointName_,
         modelArn = pModelArn_,
         desiredInferenceUnits = pDesiredInferenceUnits_
       }
 
--- | The Amazon Resource Name (ARN) of the AWS identity and Access Management
--- (IAM) role that grants Amazon Comprehend read access to trained custom
--- models encrypted with a customer managed key (ModelKmsKeyId).
-createEndpoint_dataAccessRoleArn :: Lens.Lens' CreateEndpoint (Prelude.Maybe Prelude.Text)
-createEndpoint_dataAccessRoleArn = Lens.lens (\CreateEndpoint' {dataAccessRoleArn} -> dataAccessRoleArn) (\s@CreateEndpoint' {} a -> s {dataAccessRoleArn = a} :: CreateEndpoint)
-
 -- | An idempotency token provided by the customer. If this token matches a
 -- previous endpoint creation request, Amazon Comprehend will not return a
 -- @ResourceInUseException@.
 createEndpoint_clientRequestToken :: Lens.Lens' CreateEndpoint (Prelude.Maybe Prelude.Text)
 createEndpoint_clientRequestToken = Lens.lens (\CreateEndpoint' {clientRequestToken} -> clientRequestToken) (\s@CreateEndpoint' {} a -> s {clientRequestToken = a} :: CreateEndpoint)
+
+-- | The Amazon Resource Name (ARN) of the AWS identity and Access Management
+-- (IAM) role that grants Amazon Comprehend read access to trained custom
+-- models encrypted with a customer managed key (ModelKmsKeyId).
+createEndpoint_dataAccessRoleArn :: Lens.Lens' CreateEndpoint (Prelude.Maybe Prelude.Text)
+createEndpoint_dataAccessRoleArn = Lens.lens (\CreateEndpoint' {dataAccessRoleArn} -> dataAccessRoleArn) (\s@CreateEndpoint' {} a -> s {dataAccessRoleArn = a} :: CreateEndpoint)
 
 -- | Tags associated with the endpoint being created. A tag is a key-value
 -- pair that adds metadata to the endpoint. For example, a tag with
@@ -171,19 +173,20 @@ instance Core.AWSRequest CreateEndpoint where
   type
     AWSResponse CreateEndpoint =
       CreateEndpointResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateEndpointResponse'
-            Prelude.<$> (x Core..?> "EndpointArn")
+            Prelude.<$> (x Data..?> "EndpointArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateEndpoint where
   hashWithSalt _salt CreateEndpoint' {..} =
-    _salt `Prelude.hashWithSalt` dataAccessRoleArn
-      `Prelude.hashWithSalt` clientRequestToken
+    _salt `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` dataAccessRoleArn
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` endpointName
       `Prelude.hashWithSalt` modelArn
@@ -191,50 +194,50 @@ instance Prelude.Hashable CreateEndpoint where
 
 instance Prelude.NFData CreateEndpoint where
   rnf CreateEndpoint' {..} =
-    Prelude.rnf dataAccessRoleArn
-      `Prelude.seq` Prelude.rnf clientRequestToken
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf dataAccessRoleArn
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf endpointName
       `Prelude.seq` Prelude.rnf modelArn
       `Prelude.seq` Prelude.rnf desiredInferenceUnits
 
-instance Core.ToHeaders CreateEndpoint where
+instance Data.ToHeaders CreateEndpoint where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.CreateEndpoint" ::
+              Data.=# ( "Comprehend_20171127.CreateEndpoint" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateEndpoint where
+instance Data.ToJSON CreateEndpoint where
   toJSON CreateEndpoint' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DataAccessRoleArn" Core..=)
-              Prelude.<$> dataAccessRoleArn,
-            ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("EndpointName" Core..= endpointName),
-            Prelude.Just ("ModelArn" Core..= modelArn),
+            ("DataAccessRoleArn" Data..=)
+              Prelude.<$> dataAccessRoleArn,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("EndpointName" Data..= endpointName),
+            Prelude.Just ("ModelArn" Data..= modelArn),
             Prelude.Just
               ( "DesiredInferenceUnits"
-                  Core..= desiredInferenceUnits
+                  Data..= desiredInferenceUnits
               )
           ]
       )
 
-instance Core.ToPath CreateEndpoint where
+instance Data.ToPath CreateEndpoint where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateEndpoint where
+instance Data.ToQuery CreateEndpoint where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateEndpointResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ExperimentConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ExperimentConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Associates a SageMaker job as a trial component with an experiment and
@@ -34,12 +35,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newExperimentConfig' smart constructor.
 data ExperimentConfig = ExperimentConfig'
-  { -- | The display name for the trial component. If this key isn\'t specified,
-    -- the display name is the trial component name.
-    trialComponentDisplayName :: Prelude.Maybe Prelude.Text,
-    -- | The name of an existing experiment to associate the trial component
+  { -- | The name of an existing experiment to associate the trial component
     -- with.
     experimentName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the experiment run to associate the trial component with.
+    runName :: Prelude.Maybe Prelude.Text,
+    -- | The display name for the trial component. If this key isn\'t specified,
+    -- the display name is the trial component name.
+    trialComponentDisplayName :: Prelude.Maybe Prelude.Text,
     -- | The name of an existing trial to associate the trial component with. If
     -- not specified, a new trial is created.
     trialName :: Prelude.Maybe Prelude.Text
@@ -54,11 +57,13 @@ data ExperimentConfig = ExperimentConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'trialComponentDisplayName', 'experimentConfig_trialComponentDisplayName' - The display name for the trial component. If this key isn\'t specified,
--- the display name is the trial component name.
---
 -- 'experimentName', 'experimentConfig_experimentName' - The name of an existing experiment to associate the trial component
 -- with.
+--
+-- 'runName', 'experimentConfig_runName' - The name of the experiment run to associate the trial component with.
+--
+-- 'trialComponentDisplayName', 'experimentConfig_trialComponentDisplayName' - The display name for the trial component. If this key isn\'t specified,
+-- the display name is the trial component name.
 --
 -- 'trialName', 'experimentConfig_trialName' - The name of an existing trial to associate the trial component with. If
 -- not specified, a new trial is created.
@@ -66,59 +71,66 @@ newExperimentConfig ::
   ExperimentConfig
 newExperimentConfig =
   ExperimentConfig'
-    { trialComponentDisplayName =
-        Prelude.Nothing,
-      experimentName = Prelude.Nothing,
+    { experimentName = Prelude.Nothing,
+      runName = Prelude.Nothing,
+      trialComponentDisplayName = Prelude.Nothing,
       trialName = Prelude.Nothing
     }
-
--- | The display name for the trial component. If this key isn\'t specified,
--- the display name is the trial component name.
-experimentConfig_trialComponentDisplayName :: Lens.Lens' ExperimentConfig (Prelude.Maybe Prelude.Text)
-experimentConfig_trialComponentDisplayName = Lens.lens (\ExperimentConfig' {trialComponentDisplayName} -> trialComponentDisplayName) (\s@ExperimentConfig' {} a -> s {trialComponentDisplayName = a} :: ExperimentConfig)
 
 -- | The name of an existing experiment to associate the trial component
 -- with.
 experimentConfig_experimentName :: Lens.Lens' ExperimentConfig (Prelude.Maybe Prelude.Text)
 experimentConfig_experimentName = Lens.lens (\ExperimentConfig' {experimentName} -> experimentName) (\s@ExperimentConfig' {} a -> s {experimentName = a} :: ExperimentConfig)
 
+-- | The name of the experiment run to associate the trial component with.
+experimentConfig_runName :: Lens.Lens' ExperimentConfig (Prelude.Maybe Prelude.Text)
+experimentConfig_runName = Lens.lens (\ExperimentConfig' {runName} -> runName) (\s@ExperimentConfig' {} a -> s {runName = a} :: ExperimentConfig)
+
+-- | The display name for the trial component. If this key isn\'t specified,
+-- the display name is the trial component name.
+experimentConfig_trialComponentDisplayName :: Lens.Lens' ExperimentConfig (Prelude.Maybe Prelude.Text)
+experimentConfig_trialComponentDisplayName = Lens.lens (\ExperimentConfig' {trialComponentDisplayName} -> trialComponentDisplayName) (\s@ExperimentConfig' {} a -> s {trialComponentDisplayName = a} :: ExperimentConfig)
+
 -- | The name of an existing trial to associate the trial component with. If
 -- not specified, a new trial is created.
 experimentConfig_trialName :: Lens.Lens' ExperimentConfig (Prelude.Maybe Prelude.Text)
 experimentConfig_trialName = Lens.lens (\ExperimentConfig' {trialName} -> trialName) (\s@ExperimentConfig' {} a -> s {trialName = a} :: ExperimentConfig)
 
-instance Core.FromJSON ExperimentConfig where
+instance Data.FromJSON ExperimentConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExperimentConfig"
       ( \x ->
           ExperimentConfig'
-            Prelude.<$> (x Core..:? "TrialComponentDisplayName")
-            Prelude.<*> (x Core..:? "ExperimentName")
-            Prelude.<*> (x Core..:? "TrialName")
+            Prelude.<$> (x Data..:? "ExperimentName")
+            Prelude.<*> (x Data..:? "RunName")
+            Prelude.<*> (x Data..:? "TrialComponentDisplayName")
+            Prelude.<*> (x Data..:? "TrialName")
       )
 
 instance Prelude.Hashable ExperimentConfig where
   hashWithSalt _salt ExperimentConfig' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` experimentName
+      `Prelude.hashWithSalt` runName
       `Prelude.hashWithSalt` trialComponentDisplayName
-      `Prelude.hashWithSalt` experimentName
       `Prelude.hashWithSalt` trialName
 
 instance Prelude.NFData ExperimentConfig where
   rnf ExperimentConfig' {..} =
-    Prelude.rnf trialComponentDisplayName
-      `Prelude.seq` Prelude.rnf experimentName
+    Prelude.rnf experimentName
+      `Prelude.seq` Prelude.rnf runName
+      `Prelude.seq` Prelude.rnf trialComponentDisplayName
       `Prelude.seq` Prelude.rnf trialName
 
-instance Core.ToJSON ExperimentConfig where
+instance Data.ToJSON ExperimentConfig where
   toJSON ExperimentConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TrialComponentDisplayName" Core..=)
-              Prelude.<$> trialComponentDisplayName,
-            ("ExperimentName" Core..=)
+          [ ("ExperimentName" Data..=)
               Prelude.<$> experimentName,
-            ("TrialName" Core..=) Prelude.<$> trialName
+            ("RunName" Data..=) Prelude.<$> runName,
+            ("TrialComponentDisplayName" Data..=)
+              Prelude.<$> trialComponentDisplayName,
+            ("TrialName" Data..=) Prelude.<$> trialName
           ]
       )

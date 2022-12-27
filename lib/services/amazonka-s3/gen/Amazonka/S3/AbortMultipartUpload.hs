@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.AbortMultipartUpload
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,8 +54,8 @@ module Amazonka.S3.AbortMultipartUpload
     newAbortMultipartUpload,
 
     -- * Request Lenses
-    abortMultipartUpload_requestPayer,
     abortMultipartUpload_expectedBucketOwner,
+    abortMultipartUpload_requestPayer,
     abortMultipartUpload_bucket,
     abortMultipartUpload_key,
     abortMultipartUpload_uploadId,
@@ -71,7 +71,8 @@ module Amazonka.S3.AbortMultipartUpload
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,11 +80,11 @@ import Amazonka.S3.Types
 
 -- | /See:/ 'newAbortMultipartUpload' smart constructor.
 data AbortMultipartUpload = AbortMultipartUpload'
-  { requestPayer :: Prelude.Maybe RequestPayer,
-    -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+  { -- | The account ID of the expected bucket owner. If the bucket is owned by a
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
+    requestPayer :: Prelude.Maybe RequestPayer,
     -- | The bucket name to which the upload was taking place.
     --
     -- When using this action with an access point, you must direct requests to
@@ -98,11 +99,11 @@ data AbortMultipartUpload = AbortMultipartUpload'
     -- When using this action with Amazon S3 on Outposts, you must direct
     -- requests to the S3 on Outposts hostname. The S3 on Outposts hostname
     -- takes the form
-    -- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
-    -- When using this action using S3 on Outposts through the Amazon Web
+    -- @ AccessPointName-AccountId.outpostID.s3-outposts.Region.amazonaws.com@.
+    -- When using this action with S3 on Outposts through the Amazon Web
     -- Services SDKs, you provide the Outposts bucket ARN in place of the
     -- bucket name. For more information about S3 on Outposts ARNs, see
-    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using S3 on Outposts>
+    -- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using Amazon S3 on Outposts>
     -- in the /Amazon S3 User Guide/.
     bucket :: BucketName,
     -- | Key of the object for which the multipart upload was initiated.
@@ -120,11 +121,11 @@ data AbortMultipartUpload = AbortMultipartUpload'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestPayer', 'abortMultipartUpload_requestPayer' - Undocumented member.
---
 -- 'expectedBucketOwner', 'abortMultipartUpload_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
+--
+-- 'requestPayer', 'abortMultipartUpload_requestPayer' - Undocumented member.
 --
 -- 'bucket', 'abortMultipartUpload_bucket' - The bucket name to which the upload was taking place.
 --
@@ -140,11 +141,11 @@ data AbortMultipartUpload = AbortMultipartUpload'
 -- When using this action with Amazon S3 on Outposts, you must direct
 -- requests to the S3 on Outposts hostname. The S3 on Outposts hostname
 -- takes the form
--- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
--- When using this action using S3 on Outposts through the Amazon Web
+-- @ AccessPointName-AccountId.outpostID.s3-outposts.Region.amazonaws.com@.
+-- When using this action with S3 on Outposts through the Amazon Web
 -- Services SDKs, you provide the Outposts bucket ARN in place of the
 -- bucket name. For more information about S3 on Outposts ARNs, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using S3 on Outposts>
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using Amazon S3 on Outposts>
 -- in the /Amazon S3 User Guide/.
 --
 -- 'key', 'abortMultipartUpload_key' - Key of the object for which the multipart upload was initiated.
@@ -160,23 +161,23 @@ newAbortMultipartUpload ::
   AbortMultipartUpload
 newAbortMultipartUpload pBucket_ pKey_ pUploadId_ =
   AbortMultipartUpload'
-    { requestPayer =
+    { expectedBucketOwner =
         Prelude.Nothing,
-      expectedBucketOwner = Prelude.Nothing,
+      requestPayer = Prelude.Nothing,
       bucket = pBucket_,
       key = pKey_,
       uploadId = pUploadId_
     }
 
+-- | The account ID of the expected bucket owner. If the bucket is owned by a
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
+abortMultipartUpload_expectedBucketOwner :: Lens.Lens' AbortMultipartUpload (Prelude.Maybe Prelude.Text)
+abortMultipartUpload_expectedBucketOwner = Lens.lens (\AbortMultipartUpload' {expectedBucketOwner} -> expectedBucketOwner) (\s@AbortMultipartUpload' {} a -> s {expectedBucketOwner = a} :: AbortMultipartUpload)
+
 -- | Undocumented member.
 abortMultipartUpload_requestPayer :: Lens.Lens' AbortMultipartUpload (Prelude.Maybe RequestPayer)
 abortMultipartUpload_requestPayer = Lens.lens (\AbortMultipartUpload' {requestPayer} -> requestPayer) (\s@AbortMultipartUpload' {} a -> s {requestPayer = a} :: AbortMultipartUpload)
-
--- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
-abortMultipartUpload_expectedBucketOwner :: Lens.Lens' AbortMultipartUpload (Prelude.Maybe Prelude.Text)
-abortMultipartUpload_expectedBucketOwner = Lens.lens (\AbortMultipartUpload' {expectedBucketOwner} -> expectedBucketOwner) (\s@AbortMultipartUpload' {} a -> s {expectedBucketOwner = a} :: AbortMultipartUpload)
 
 -- | The bucket name to which the upload was taking place.
 --
@@ -192,11 +193,11 @@ abortMultipartUpload_expectedBucketOwner = Lens.lens (\AbortMultipartUpload' {ex
 -- When using this action with Amazon S3 on Outposts, you must direct
 -- requests to the S3 on Outposts hostname. The S3 on Outposts hostname
 -- takes the form
--- /AccessPointName/-/AccountId/./outpostID/.s3-outposts./Region/.amazonaws.com.
--- When using this action using S3 on Outposts through the Amazon Web
+-- @ AccessPointName-AccountId.outpostID.s3-outposts.Region.amazonaws.com@.
+-- When using this action with S3 on Outposts through the Amazon Web
 -- Services SDKs, you provide the Outposts bucket ARN in place of the
 -- bucket name. For more information about S3 on Outposts ARNs, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using S3 on Outposts>
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/S3onOutposts.html Using Amazon S3 on Outposts>
 -- in the /Amazon S3 User Guide/.
 abortMultipartUpload_bucket :: Lens.Lens' AbortMultipartUpload BucketName
 abortMultipartUpload_bucket = Lens.lens (\AbortMultipartUpload' {bucket} -> bucket) (\s@AbortMultipartUpload' {} a -> s {bucket = a} :: AbortMultipartUpload)
@@ -213,49 +214,49 @@ instance Core.AWSRequest AbortMultipartUpload where
   type
     AWSResponse AbortMultipartUpload =
       AbortMultipartUploadResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.delete defaultService
+      Prelude.. Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
           AbortMultipartUploadResponse'
-            Prelude.<$> (h Core..#? "x-amz-request-charged")
+            Prelude.<$> (h Data..#? "x-amz-request-charged")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable AbortMultipartUpload where
   hashWithSalt _salt AbortMultipartUpload' {..} =
-    _salt `Prelude.hashWithSalt` requestPayer
-      `Prelude.hashWithSalt` expectedBucketOwner
+    _salt `Prelude.hashWithSalt` expectedBucketOwner
+      `Prelude.hashWithSalt` requestPayer
       `Prelude.hashWithSalt` bucket
       `Prelude.hashWithSalt` key
       `Prelude.hashWithSalt` uploadId
 
 instance Prelude.NFData AbortMultipartUpload where
   rnf AbortMultipartUpload' {..} =
-    Prelude.rnf requestPayer
-      `Prelude.seq` Prelude.rnf expectedBucketOwner
+    Prelude.rnf expectedBucketOwner
+      `Prelude.seq` Prelude.rnf requestPayer
       `Prelude.seq` Prelude.rnf bucket
       `Prelude.seq` Prelude.rnf key
       `Prelude.seq` Prelude.rnf uploadId
 
-instance Core.ToHeaders AbortMultipartUpload where
+instance Data.ToHeaders AbortMultipartUpload where
   toHeaders AbortMultipartUpload' {..} =
     Prelude.mconcat
-      [ "x-amz-request-payer" Core.=# requestPayer,
-        "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+      [ "x-amz-expected-bucket-owner"
+          Data.=# expectedBucketOwner,
+        "x-amz-request-payer" Data.=# requestPayer
       ]
 
-instance Core.ToPath AbortMultipartUpload where
+instance Data.ToPath AbortMultipartUpload where
   toPath AbortMultipartUpload' {..} =
     Prelude.mconcat
-      ["/", Core.toBS bucket, "/", Core.toBS key]
+      ["/", Data.toBS bucket, "/", Data.toBS key]
 
-instance Core.ToQuery AbortMultipartUpload where
+instance Data.ToQuery AbortMultipartUpload where
   toQuery AbortMultipartUpload' {..} =
-    Prelude.mconcat ["uploadId" Core.=: uploadId]
+    Prelude.mconcat ["uploadId" Data.=: uploadId]
 
 -- | /See:/ 'newAbortMultipartUploadResponse' smart constructor.
 data AbortMultipartUploadResponse = AbortMultipartUploadResponse'

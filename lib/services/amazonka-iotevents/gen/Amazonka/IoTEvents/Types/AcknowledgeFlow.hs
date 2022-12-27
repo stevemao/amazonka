@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.AcknowledgeFlow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTEvents.Types.AcknowledgeFlow where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies whether to get notified for alarm state changes.
@@ -67,12 +68,12 @@ newAcknowledgeFlow pEnabled_ =
 acknowledgeFlow_enabled :: Lens.Lens' AcknowledgeFlow Prelude.Bool
 acknowledgeFlow_enabled = Lens.lens (\AcknowledgeFlow' {enabled} -> enabled) (\s@AcknowledgeFlow' {} a -> s {enabled = a} :: AcknowledgeFlow)
 
-instance Core.FromJSON AcknowledgeFlow where
+instance Data.FromJSON AcknowledgeFlow where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AcknowledgeFlow"
       ( \x ->
-          AcknowledgeFlow' Prelude.<$> (x Core..: "enabled")
+          AcknowledgeFlow' Prelude.<$> (x Data..: "enabled")
       )
 
 instance Prelude.Hashable AcknowledgeFlow where
@@ -82,9 +83,9 @@ instance Prelude.Hashable AcknowledgeFlow where
 instance Prelude.NFData AcknowledgeFlow where
   rnf AcknowledgeFlow' {..} = Prelude.rnf enabled
 
-instance Core.ToJSON AcknowledgeFlow where
+instance Data.ToJSON AcknowledgeFlow where
   toJSON AcknowledgeFlow' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("enabled" Core..= enabled)]
+          [Prelude.Just ("enabled" Data..= enabled)]
       )

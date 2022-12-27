@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.ServerSideEncryptionByDefault
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,19 @@
 module Amazonka.S3.Types.ServerSideEncryptionByDefault where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.ServerSideEncryption
 
 -- | Describes the default server-side encryption to apply to new objects in
 -- the bucket. If a PUT Object request doesn\'t specify any server-side
--- encryption, this default encryption will be applied. For more
+-- encryption, this default encryption will be applied. If you don\'t
+-- specify a customer managed key at configuration, Amazon S3 automatically
+-- creates an Amazon Web Services KMS key in your Amazon Web Services
+-- account the first time that you add an object encrypted with SSE-KMS to
+-- a bucket. By default, Amazon S3 uses this KMS key for SSE-KMS. For more
 -- information, see
 -- <https://docs.aws.amazon.com/AmazonS3/latest/API/RESTBucketPUTencryption.html PUT Bucket encryption>
 -- in the /Amazon S3 API Reference/.
@@ -39,8 +44,9 @@ data ServerSideEncryptionByDefault = ServerSideEncryptionByDefault'
     -- allowed if and only if @SSEAlgorithm@ is set to @aws:kms@.
     --
     -- You can specify the key ID or the Amazon Resource Name (ARN) of the KMS
-    -- key. However, if you are using encryption with cross-account operations,
-    -- you must use a fully qualified KMS key ARN. For more information, see
+    -- key. However, if you are using encryption with cross-account or Amazon
+    -- Web Services service operations you must use a fully qualified KMS key
+    -- ARN. For more information, see
     -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html#bucket-encryption-update-bucket-policy Using encryption for cross-account operations>.
     --
     -- __For example:__
@@ -54,7 +60,7 @@ data ServerSideEncryptionByDefault = ServerSideEncryptionByDefault'
     -- For more information, see
     -- <https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html Using symmetric and asymmetric keys>
     -- in the /Amazon Web Services Key Management Service Developer Guide/.
-    kmsMasterKeyID :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    kmsMasterKeyID :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | Server-side encryption algorithm to use for the default encryption.
     sSEAlgorithm :: ServerSideEncryption
   }
@@ -73,8 +79,9 @@ data ServerSideEncryptionByDefault = ServerSideEncryptionByDefault'
 -- allowed if and only if @SSEAlgorithm@ is set to @aws:kms@.
 --
 -- You can specify the key ID or the Amazon Resource Name (ARN) of the KMS
--- key. However, if you are using encryption with cross-account operations,
--- you must use a fully qualified KMS key ARN. For more information, see
+-- key. However, if you are using encryption with cross-account or Amazon
+-- Web Services service operations you must use a fully qualified KMS key
+-- ARN. For more information, see
 -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html#bucket-encryption-update-bucket-policy Using encryption for cross-account operations>.
 --
 -- __For example:__
@@ -106,8 +113,9 @@ newServerSideEncryptionByDefault pSSEAlgorithm_ =
 -- allowed if and only if @SSEAlgorithm@ is set to @aws:kms@.
 --
 -- You can specify the key ID or the Amazon Resource Name (ARN) of the KMS
--- key. However, if you are using encryption with cross-account operations,
--- you must use a fully qualified KMS key ARN. For more information, see
+-- key. However, if you are using encryption with cross-account or Amazon
+-- Web Services service operations you must use a fully qualified KMS key
+-- ARN. For more information, see
 -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/bucket-encryption.html#bucket-encryption-update-bucket-policy Using encryption for cross-account operations>.
 --
 -- __For example:__
@@ -122,17 +130,17 @@ newServerSideEncryptionByDefault pSSEAlgorithm_ =
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/symmetric-asymmetric.html Using symmetric and asymmetric keys>
 -- in the /Amazon Web Services Key Management Service Developer Guide/.
 serverSideEncryptionByDefault_kmsMasterKeyID :: Lens.Lens' ServerSideEncryptionByDefault (Prelude.Maybe Prelude.Text)
-serverSideEncryptionByDefault_kmsMasterKeyID = Lens.lens (\ServerSideEncryptionByDefault' {kmsMasterKeyID} -> kmsMasterKeyID) (\s@ServerSideEncryptionByDefault' {} a -> s {kmsMasterKeyID = a} :: ServerSideEncryptionByDefault) Prelude.. Lens.mapping Core._Sensitive
+serverSideEncryptionByDefault_kmsMasterKeyID = Lens.lens (\ServerSideEncryptionByDefault' {kmsMasterKeyID} -> kmsMasterKeyID) (\s@ServerSideEncryptionByDefault' {} a -> s {kmsMasterKeyID = a} :: ServerSideEncryptionByDefault) Prelude.. Lens.mapping Data._Sensitive
 
 -- | Server-side encryption algorithm to use for the default encryption.
 serverSideEncryptionByDefault_sSEAlgorithm :: Lens.Lens' ServerSideEncryptionByDefault ServerSideEncryption
 serverSideEncryptionByDefault_sSEAlgorithm = Lens.lens (\ServerSideEncryptionByDefault' {sSEAlgorithm} -> sSEAlgorithm) (\s@ServerSideEncryptionByDefault' {} a -> s {sSEAlgorithm = a} :: ServerSideEncryptionByDefault)
 
-instance Core.FromXML ServerSideEncryptionByDefault where
+instance Data.FromXML ServerSideEncryptionByDefault where
   parseXML x =
     ServerSideEncryptionByDefault'
-      Prelude.<$> (x Core..@? "KMSMasterKeyID")
-      Prelude.<*> (x Core..@ "SSEAlgorithm")
+      Prelude.<$> (x Data..@? "KMSMasterKeyID")
+      Prelude.<*> (x Data..@ "SSEAlgorithm")
 
 instance
   Prelude.Hashable
@@ -147,9 +155,9 @@ instance Prelude.NFData ServerSideEncryptionByDefault where
     Prelude.rnf kmsMasterKeyID
       `Prelude.seq` Prelude.rnf sSEAlgorithm
 
-instance Core.ToXML ServerSideEncryptionByDefault where
+instance Data.ToXML ServerSideEncryptionByDefault where
   toXML ServerSideEncryptionByDefault' {..} =
     Prelude.mconcat
-      [ "KMSMasterKeyID" Core.@= kmsMasterKeyID,
-        "SSEAlgorithm" Core.@= sSEAlgorithm
+      [ "KMSMasterKeyID" Data.@= kmsMasterKeyID,
+        "SSEAlgorithm" Data.@= sSEAlgorithm
       ]

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Polly.Types.LexiconDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Polly.Types.LexiconDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Polly.Types.LexiconAttributes
 import qualified Amazonka.Prelude as Prelude
 
@@ -62,14 +63,14 @@ lexiconDescription_attributes = Lens.lens (\LexiconDescription' {attributes} -> 
 lexiconDescription_name :: Lens.Lens' LexiconDescription (Prelude.Maybe Prelude.Text)
 lexiconDescription_name = Lens.lens (\LexiconDescription' {name} -> name) (\s@LexiconDescription' {} a -> s {name = a} :: LexiconDescription)
 
-instance Core.FromJSON LexiconDescription where
+instance Data.FromJSON LexiconDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LexiconDescription"
       ( \x ->
           LexiconDescription'
-            Prelude.<$> (x Core..:? "Attributes")
-            Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Attributes")
+            Prelude.<*> (x Data..:? "Name")
       )
 
 instance Prelude.Hashable LexiconDescription where

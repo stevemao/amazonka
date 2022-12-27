@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.DeleteWirelessGatewayTaskDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IoTWireless.DeleteWirelessGatewayTaskDefinition
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +81,8 @@ instance
   type
     AWSResponse DeleteWirelessGatewayTaskDefinition =
       DeleteWirelessGatewayTaskDefinitionResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -105,21 +107,21 @@ instance
     Prelude.rnf id
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteWirelessGatewayTaskDefinition
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeleteWirelessGatewayTaskDefinition
   where
   toPath DeleteWirelessGatewayTaskDefinition' {..} =
     Prelude.mconcat
-      ["/wireless-gateway-task-definitions/", Core.toBS id]
+      ["/wireless-gateway-task-definitions/", Data.toBS id]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteWirelessGatewayTaskDefinition
   where
   toQuery = Prelude.const Prelude.mempty

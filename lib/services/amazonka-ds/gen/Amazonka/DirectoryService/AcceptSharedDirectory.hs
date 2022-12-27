@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.AcceptSharedDirectory
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.DirectoryService.AcceptSharedDirectory
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,12 +85,13 @@ instance Core.AWSRequest AcceptSharedDirectory where
   type
     AWSResponse AcceptSharedDirectory =
       AcceptSharedDirectoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AcceptSharedDirectoryResponse'
-            Prelude.<$> (x Core..?> "SharedDirectory")
+            Prelude.<$> (x Data..?> "SharedDirectory")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,34 +103,34 @@ instance Prelude.NFData AcceptSharedDirectory where
   rnf AcceptSharedDirectory' {..} =
     Prelude.rnf sharedDirectoryId
 
-instance Core.ToHeaders AcceptSharedDirectory where
+instance Data.ToHeaders AcceptSharedDirectory where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.AcceptSharedDirectory" ::
+              Data.=# ( "DirectoryService_20150416.AcceptSharedDirectory" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AcceptSharedDirectory where
+instance Data.ToJSON AcceptSharedDirectory where
   toJSON AcceptSharedDirectory' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("SharedDirectoryId" Core..= sharedDirectoryId)
+              ("SharedDirectoryId" Data..= sharedDirectoryId)
           ]
       )
 
-instance Core.ToPath AcceptSharedDirectory where
+instance Data.ToPath AcceptSharedDirectory where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AcceptSharedDirectory where
+instance Data.ToQuery AcceptSharedDirectory where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAcceptSharedDirectoryResponse' smart constructor.

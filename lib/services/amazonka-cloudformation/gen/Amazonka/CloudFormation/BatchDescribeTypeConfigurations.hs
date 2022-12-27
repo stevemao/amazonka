@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.BatchDescribeTypeConfigurations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,16 +39,17 @@ module Amazonka.CloudFormation.BatchDescribeTypeConfigurations
     newBatchDescribeTypeConfigurationsResponse,
 
     -- * Response Lenses
-    batchDescribeTypeConfigurationsResponse_unprocessedTypeConfigurations,
-    batchDescribeTypeConfigurationsResponse_typeConfigurations,
     batchDescribeTypeConfigurationsResponse_errors,
+    batchDescribeTypeConfigurationsResponse_typeConfigurations,
+    batchDescribeTypeConfigurationsResponse_unprocessedTypeConfigurations,
     batchDescribeTypeConfigurationsResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,22 +93,23 @@ instance
   type
     AWSResponse BatchDescribeTypeConfigurations =
       BatchDescribeTypeConfigurationsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "BatchDescribeTypeConfigurationsResult"
       ( \s h x ->
           BatchDescribeTypeConfigurationsResponse'
-            Prelude.<$> ( x Core..@? "UnprocessedTypeConfigurations"
-                            Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "Errors" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> ( x Core..@? "TypeConfigurations"
+            Prelude.<*> ( x Data..@? "TypeConfigurations"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> ( x Core..@? "Errors" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<*> ( x Data..@? "UnprocessedTypeConfigurations"
+                            Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -130,40 +132,40 @@ instance
     Prelude.rnf typeConfigurationIdentifiers
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     BatchDescribeTypeConfigurations
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath BatchDescribeTypeConfigurations where
+instance Data.ToPath BatchDescribeTypeConfigurations where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchDescribeTypeConfigurations where
+instance Data.ToQuery BatchDescribeTypeConfigurations where
   toQuery BatchDescribeTypeConfigurations' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "BatchDescribeTypeConfigurations" ::
+          Data.=: ( "BatchDescribeTypeConfigurations" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
         "TypeConfigurationIdentifiers"
-          Core.=: Core.toQueryList
+          Data.=: Data.toQueryList
             "member"
             typeConfigurationIdentifiers
       ]
 
 -- | /See:/ 'newBatchDescribeTypeConfigurationsResponse' smart constructor.
 data BatchDescribeTypeConfigurationsResponse = BatchDescribeTypeConfigurationsResponse'
-  { -- | A list of any of the specified extension configurations that
-    -- CloudFormation could not process for any reason.
-    unprocessedTypeConfigurations :: Prelude.Maybe [TypeConfigurationIdentifier],
+  { -- | A list of information concerning any errors generated during the setting
+    -- of the specified configurations.
+    errors :: Prelude.Maybe [BatchDescribeTypeConfigurationsError],
     -- | A list of any of the specified extension configurations from the
     -- CloudFormation registry.
     typeConfigurations :: Prelude.Maybe [TypeConfigurationDetails],
-    -- | A list of information concerning any errors generated during the setting
-    -- of the specified configurations.
-    errors :: Prelude.Maybe [BatchDescribeTypeConfigurationsError],
+    -- | A list of any of the specified extension configurations that
+    -- CloudFormation could not process for any reason.
+    unprocessedTypeConfigurations :: Prelude.Maybe [TypeConfigurationIdentifier],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -177,14 +179,14 @@ data BatchDescribeTypeConfigurationsResponse = BatchDescribeTypeConfigurationsRe
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'unprocessedTypeConfigurations', 'batchDescribeTypeConfigurationsResponse_unprocessedTypeConfigurations' - A list of any of the specified extension configurations that
--- CloudFormation could not process for any reason.
+-- 'errors', 'batchDescribeTypeConfigurationsResponse_errors' - A list of information concerning any errors generated during the setting
+-- of the specified configurations.
 --
 -- 'typeConfigurations', 'batchDescribeTypeConfigurationsResponse_typeConfigurations' - A list of any of the specified extension configurations from the
 -- CloudFormation registry.
 --
--- 'errors', 'batchDescribeTypeConfigurationsResponse_errors' - A list of information concerning any errors generated during the setting
--- of the specified configurations.
+-- 'unprocessedTypeConfigurations', 'batchDescribeTypeConfigurationsResponse_unprocessedTypeConfigurations' - A list of any of the specified extension configurations that
+-- CloudFormation could not process for any reason.
 --
 -- 'httpStatus', 'batchDescribeTypeConfigurationsResponse_httpStatus' - The response's http status code.
 newBatchDescribeTypeConfigurationsResponse ::
@@ -194,28 +196,29 @@ newBatchDescribeTypeConfigurationsResponse ::
 newBatchDescribeTypeConfigurationsResponse
   pHttpStatus_ =
     BatchDescribeTypeConfigurationsResponse'
-      { unprocessedTypeConfigurations =
+      { errors =
           Prelude.Nothing,
         typeConfigurations =
           Prelude.Nothing,
-        errors = Prelude.Nothing,
+        unprocessedTypeConfigurations =
+          Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
 
--- | A list of any of the specified extension configurations that
--- CloudFormation could not process for any reason.
-batchDescribeTypeConfigurationsResponse_unprocessedTypeConfigurations :: Lens.Lens' BatchDescribeTypeConfigurationsResponse (Prelude.Maybe [TypeConfigurationIdentifier])
-batchDescribeTypeConfigurationsResponse_unprocessedTypeConfigurations = Lens.lens (\BatchDescribeTypeConfigurationsResponse' {unprocessedTypeConfigurations} -> unprocessedTypeConfigurations) (\s@BatchDescribeTypeConfigurationsResponse' {} a -> s {unprocessedTypeConfigurations = a} :: BatchDescribeTypeConfigurationsResponse) Prelude.. Lens.mapping Lens.coerced
+-- | A list of information concerning any errors generated during the setting
+-- of the specified configurations.
+batchDescribeTypeConfigurationsResponse_errors :: Lens.Lens' BatchDescribeTypeConfigurationsResponse (Prelude.Maybe [BatchDescribeTypeConfigurationsError])
+batchDescribeTypeConfigurationsResponse_errors = Lens.lens (\BatchDescribeTypeConfigurationsResponse' {errors} -> errors) (\s@BatchDescribeTypeConfigurationsResponse' {} a -> s {errors = a} :: BatchDescribeTypeConfigurationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A list of any of the specified extension configurations from the
 -- CloudFormation registry.
 batchDescribeTypeConfigurationsResponse_typeConfigurations :: Lens.Lens' BatchDescribeTypeConfigurationsResponse (Prelude.Maybe [TypeConfigurationDetails])
 batchDescribeTypeConfigurationsResponse_typeConfigurations = Lens.lens (\BatchDescribeTypeConfigurationsResponse' {typeConfigurations} -> typeConfigurations) (\s@BatchDescribeTypeConfigurationsResponse' {} a -> s {typeConfigurations = a} :: BatchDescribeTypeConfigurationsResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | A list of information concerning any errors generated during the setting
--- of the specified configurations.
-batchDescribeTypeConfigurationsResponse_errors :: Lens.Lens' BatchDescribeTypeConfigurationsResponse (Prelude.Maybe [BatchDescribeTypeConfigurationsError])
-batchDescribeTypeConfigurationsResponse_errors = Lens.lens (\BatchDescribeTypeConfigurationsResponse' {errors} -> errors) (\s@BatchDescribeTypeConfigurationsResponse' {} a -> s {errors = a} :: BatchDescribeTypeConfigurationsResponse) Prelude.. Lens.mapping Lens.coerced
+-- | A list of any of the specified extension configurations that
+-- CloudFormation could not process for any reason.
+batchDescribeTypeConfigurationsResponse_unprocessedTypeConfigurations :: Lens.Lens' BatchDescribeTypeConfigurationsResponse (Prelude.Maybe [TypeConfigurationIdentifier])
+batchDescribeTypeConfigurationsResponse_unprocessedTypeConfigurations = Lens.lens (\BatchDescribeTypeConfigurationsResponse' {unprocessedTypeConfigurations} -> unprocessedTypeConfigurations) (\s@BatchDescribeTypeConfigurationsResponse' {} a -> s {unprocessedTypeConfigurations = a} :: BatchDescribeTypeConfigurationsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 batchDescribeTypeConfigurationsResponse_httpStatus :: Lens.Lens' BatchDescribeTypeConfigurationsResponse Prelude.Int
@@ -226,7 +229,7 @@ instance
     BatchDescribeTypeConfigurationsResponse
   where
   rnf BatchDescribeTypeConfigurationsResponse' {..} =
-    Prelude.rnf unprocessedTypeConfigurations
+    Prelude.rnf errors
       `Prelude.seq` Prelude.rnf typeConfigurations
-      `Prelude.seq` Prelude.rnf errors
+      `Prelude.seq` Prelude.rnf unprocessedTypeConfigurations
       `Prelude.seq` Prelude.rnf httpStatus

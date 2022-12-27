@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.Cell
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.Cell where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An occurrence of sensitive data detected in a Microsoft Excel workbook,
@@ -28,9 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCell' smart constructor.
 data Cell = Cell'
-  { -- | The row number of the row that contains the data.
-    row :: Prelude.Maybe Prelude.Integer,
-    -- | For a Microsoft Excel workbook, provides the location of the cell, as an
+  { -- | For a Microsoft Excel workbook, provides the location of the cell, as an
     -- absolute cell reference, that contains the data. For example, Sheet2!C5
     -- for cell C5 on Sheet2.
     cellReference :: Prelude.Maybe Prelude.Text,
@@ -40,7 +39,9 @@ data Cell = Cell'
     -- column in the workbook.
     column :: Prelude.Maybe Prelude.Integer,
     -- | The name of the column that contains the data.
-    columnName :: Prelude.Maybe Prelude.Text
+    columnName :: Prelude.Maybe Prelude.Text,
+    -- | The row number of the row that contains the data.
+    row :: Prelude.Maybe Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,8 +53,6 @@ data Cell = Cell'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'row', 'cell_row' - The row number of the row that contains the data.
---
 -- 'cellReference', 'cell_cellReference' - For a Microsoft Excel workbook, provides the location of the cell, as an
 -- absolute cell reference, that contains the data. For example, Sheet2!C5
 -- for cell C5 on Sheet2.
@@ -64,19 +63,17 @@ data Cell = Cell'
 -- column in the workbook.
 --
 -- 'columnName', 'cell_columnName' - The name of the column that contains the data.
+--
+-- 'row', 'cell_row' - The row number of the row that contains the data.
 newCell ::
   Cell
 newCell =
   Cell'
-    { row = Prelude.Nothing,
-      cellReference = Prelude.Nothing,
+    { cellReference = Prelude.Nothing,
       column = Prelude.Nothing,
-      columnName = Prelude.Nothing
+      columnName = Prelude.Nothing,
+      row = Prelude.Nothing
     }
-
--- | The row number of the row that contains the data.
-cell_row :: Lens.Lens' Cell (Prelude.Maybe Prelude.Integer)
-cell_row = Lens.lens (\Cell' {row} -> row) (\s@Cell' {} a -> s {row = a} :: Cell)
 
 -- | For a Microsoft Excel workbook, provides the location of the cell, as an
 -- absolute cell reference, that contains the data. For example, Sheet2!C5
@@ -95,39 +92,43 @@ cell_column = Lens.lens (\Cell' {column} -> column) (\s@Cell' {} a -> s {column 
 cell_columnName :: Lens.Lens' Cell (Prelude.Maybe Prelude.Text)
 cell_columnName = Lens.lens (\Cell' {columnName} -> columnName) (\s@Cell' {} a -> s {columnName = a} :: Cell)
 
-instance Core.FromJSON Cell where
+-- | The row number of the row that contains the data.
+cell_row :: Lens.Lens' Cell (Prelude.Maybe Prelude.Integer)
+cell_row = Lens.lens (\Cell' {row} -> row) (\s@Cell' {} a -> s {row = a} :: Cell)
+
+instance Data.FromJSON Cell where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Cell"
       ( \x ->
           Cell'
-            Prelude.<$> (x Core..:? "Row")
-            Prelude.<*> (x Core..:? "CellReference")
-            Prelude.<*> (x Core..:? "Column")
-            Prelude.<*> (x Core..:? "ColumnName")
+            Prelude.<$> (x Data..:? "CellReference")
+            Prelude.<*> (x Data..:? "Column")
+            Prelude.<*> (x Data..:? "ColumnName")
+            Prelude.<*> (x Data..:? "Row")
       )
 
 instance Prelude.Hashable Cell where
   hashWithSalt _salt Cell' {..} =
-    _salt `Prelude.hashWithSalt` row
-      `Prelude.hashWithSalt` cellReference
+    _salt `Prelude.hashWithSalt` cellReference
       `Prelude.hashWithSalt` column
       `Prelude.hashWithSalt` columnName
+      `Prelude.hashWithSalt` row
 
 instance Prelude.NFData Cell where
   rnf Cell' {..} =
-    Prelude.rnf row
-      `Prelude.seq` Prelude.rnf cellReference
+    Prelude.rnf cellReference
       `Prelude.seq` Prelude.rnf column
       `Prelude.seq` Prelude.rnf columnName
+      `Prelude.seq` Prelude.rnf row
 
-instance Core.ToJSON Cell where
+instance Data.ToJSON Cell where
   toJSON Cell' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Row" Core..=) Prelude.<$> row,
-            ("CellReference" Core..=) Prelude.<$> cellReference,
-            ("Column" Core..=) Prelude.<$> column,
-            ("ColumnName" Core..=) Prelude.<$> columnName
+          [ ("CellReference" Data..=) Prelude.<$> cellReference,
+            ("Column" Data..=) Prelude.<$> column,
+            ("ColumnName" Data..=) Prelude.<$> columnName,
+            ("Row" Data..=) Prelude.<$> row
           ]
       )

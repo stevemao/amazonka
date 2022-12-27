@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutMetrics.Types.TimeSeriesFeedback
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LookoutMetrics.Types.TimeSeriesFeedback where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details about feedback submitted for an anomalous metric.
@@ -61,14 +62,14 @@ timeSeriesFeedback_isAnomaly = Lens.lens (\TimeSeriesFeedback' {isAnomaly} -> is
 timeSeriesFeedback_timeSeriesId :: Lens.Lens' TimeSeriesFeedback (Prelude.Maybe Prelude.Text)
 timeSeriesFeedback_timeSeriesId = Lens.lens (\TimeSeriesFeedback' {timeSeriesId} -> timeSeriesId) (\s@TimeSeriesFeedback' {} a -> s {timeSeriesId = a} :: TimeSeriesFeedback)
 
-instance Core.FromJSON TimeSeriesFeedback where
+instance Data.FromJSON TimeSeriesFeedback where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TimeSeriesFeedback"
       ( \x ->
           TimeSeriesFeedback'
-            Prelude.<$> (x Core..:? "IsAnomaly")
-            Prelude.<*> (x Core..:? "TimeSeriesId")
+            Prelude.<$> (x Data..:? "IsAnomaly")
+            Prelude.<*> (x Data..:? "TimeSeriesId")
       )
 
 instance Prelude.Hashable TimeSeriesFeedback where

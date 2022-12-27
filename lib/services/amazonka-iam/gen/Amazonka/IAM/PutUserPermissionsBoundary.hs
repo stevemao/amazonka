@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.PutUserPermissionsBoundary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.IAM.PutUserPermissionsBoundary
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,7 +107,8 @@ instance Core.AWSRequest PutUserPermissionsBoundary where
   type
     AWSResponse PutUserPermissionsBoundary =
       PutUserPermissionsBoundaryResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       PutUserPermissionsBoundaryResponse'
@@ -121,21 +123,21 @@ instance Prelude.NFData PutUserPermissionsBoundary where
     Prelude.rnf userName
       `Prelude.seq` Prelude.rnf permissionsBoundary
 
-instance Core.ToHeaders PutUserPermissionsBoundary where
+instance Data.ToHeaders PutUserPermissionsBoundary where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath PutUserPermissionsBoundary where
+instance Data.ToPath PutUserPermissionsBoundary where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutUserPermissionsBoundary where
+instance Data.ToQuery PutUserPermissionsBoundary where
   toQuery PutUserPermissionsBoundary' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("PutUserPermissionsBoundary" :: Prelude.ByteString),
+          Data.=: ("PutUserPermissionsBoundary" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "UserName" Core.=: userName,
-        "PermissionsBoundary" Core.=: permissionsBoundary
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Data.=: userName,
+        "PermissionsBoundary" Data.=: permissionsBoundary
       ]
 
 -- | /See:/ 'newPutUserPermissionsBoundaryResponse' smart constructor.

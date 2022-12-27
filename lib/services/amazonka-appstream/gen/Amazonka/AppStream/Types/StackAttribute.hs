@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.Types.StackAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,6 +29,7 @@ module Amazonka.AppStream.Types.StackAttribute
         StackAttribute_STORAGE_CONNECTOR_GOOGLE_DRIVE,
         StackAttribute_STORAGE_CONNECTOR_HOMEFOLDERS,
         StackAttribute_STORAGE_CONNECTOR_ONE_DRIVE,
+        StackAttribute_STREAMING_EXPERIENCE_SETTINGS,
         StackAttribute_THEME_NAME,
         StackAttribute_USER_SETTINGS
       ),
@@ -36,11 +37,12 @@ module Amazonka.AppStream.Types.StackAttribute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype StackAttribute = StackAttribute'
   { fromStackAttribute ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -52,18 +54,18 @@ newtype StackAttribute = StackAttribute'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern StackAttribute_ACCESS_ENDPOINTS :: StackAttribute
@@ -93,6 +95,9 @@ pattern StackAttribute_STORAGE_CONNECTOR_HOMEFOLDERS = StackAttribute' "STORAGE_
 pattern StackAttribute_STORAGE_CONNECTOR_ONE_DRIVE :: StackAttribute
 pattern StackAttribute_STORAGE_CONNECTOR_ONE_DRIVE = StackAttribute' "STORAGE_CONNECTOR_ONE_DRIVE"
 
+pattern StackAttribute_STREAMING_EXPERIENCE_SETTINGS :: StackAttribute
+pattern StackAttribute_STREAMING_EXPERIENCE_SETTINGS = StackAttribute' "STREAMING_EXPERIENCE_SETTINGS"
+
 pattern StackAttribute_THEME_NAME :: StackAttribute
 pattern StackAttribute_THEME_NAME = StackAttribute' "THEME_NAME"
 
@@ -109,6 +114,7 @@ pattern StackAttribute_USER_SETTINGS = StackAttribute' "USER_SETTINGS"
   StackAttribute_STORAGE_CONNECTOR_GOOGLE_DRIVE,
   StackAttribute_STORAGE_CONNECTOR_HOMEFOLDERS,
   StackAttribute_STORAGE_CONNECTOR_ONE_DRIVE,
+  StackAttribute_STREAMING_EXPERIENCE_SETTINGS,
   StackAttribute_THEME_NAME,
   StackAttribute_USER_SETTINGS,
   StackAttribute'

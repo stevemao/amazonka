@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.EsamManifestConfirmConditionNotification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.EsamManifestConfirmConditionNotification where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | ESAM ManifestConfirmConditionNotification defined by
@@ -64,15 +65,15 @@ esamManifestConfirmConditionNotification_mccXml :: Lens.Lens' EsamManifestConfir
 esamManifestConfirmConditionNotification_mccXml = Lens.lens (\EsamManifestConfirmConditionNotification' {mccXml} -> mccXml) (\s@EsamManifestConfirmConditionNotification' {} a -> s {mccXml = a} :: EsamManifestConfirmConditionNotification)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     EsamManifestConfirmConditionNotification
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EsamManifestConfirmConditionNotification"
       ( \x ->
           EsamManifestConfirmConditionNotification'
-            Prelude.<$> (x Core..:? "mccXml")
+            Prelude.<$> (x Data..:? "mccXml")
       )
 
 instance
@@ -92,11 +93,11 @@ instance
     Prelude.rnf mccXml
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     EsamManifestConfirmConditionNotification
   where
   toJSON EsamManifestConfirmConditionNotification' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("mccXml" Core..=) Prelude.<$> mccXml]
+          [("mccXml" Data..=) Prelude.<$> mccXml]
       )

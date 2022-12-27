@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.StopResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,6 +37,10 @@
 -- -   Forecast Export Job
 --
 -- -   Predictor Backtest Export Job
+--
+-- -   Explainability Job
+--
+-- -   Explainability Export Job
 module Amazonka.Forecast.StopResource
   ( -- * Creating a Request
     StopResource (..),
@@ -52,8 +56,9 @@ module Amazonka.Forecast.StopResource
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,8 +67,8 @@ import qualified Amazonka.Response as Response
 data StopResource = StopResource'
   { -- | The Amazon Resource Name (ARN) that identifies the resource to stop. The
     -- supported ARNs are @DatasetImportJobArn@, @PredictorArn@,
-    -- @PredictorBacktestExportJobArn@, @ForecastArn@, and
-    -- @ForecastExportJobArn@.
+    -- @PredictorBacktestExportJobArn@, @ForecastArn@, @ForecastExportJobArn@,
+    -- @ExplainabilityArn@, and @ExplainabilityExportArn@.
     resourceArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -78,8 +83,8 @@ data StopResource = StopResource'
 --
 -- 'resourceArn', 'stopResource_resourceArn' - The Amazon Resource Name (ARN) that identifies the resource to stop. The
 -- supported ARNs are @DatasetImportJobArn@, @PredictorArn@,
--- @PredictorBacktestExportJobArn@, @ForecastArn@, and
--- @ForecastExportJobArn@.
+-- @PredictorBacktestExportJobArn@, @ForecastArn@, @ForecastExportJobArn@,
+-- @ExplainabilityArn@, and @ExplainabilityExportArn@.
 newStopResource ::
   -- | 'resourceArn'
   Prelude.Text ->
@@ -89,14 +94,15 @@ newStopResource pResourceArn_ =
 
 -- | The Amazon Resource Name (ARN) that identifies the resource to stop. The
 -- supported ARNs are @DatasetImportJobArn@, @PredictorArn@,
--- @PredictorBacktestExportJobArn@, @ForecastArn@, and
--- @ForecastExportJobArn@.
+-- @PredictorBacktestExportJobArn@, @ForecastArn@, @ForecastExportJobArn@,
+-- @ExplainabilityArn@, and @ExplainabilityExportArn@.
 stopResource_resourceArn :: Lens.Lens' StopResource Prelude.Text
 stopResource_resourceArn = Lens.lens (\StopResource' {resourceArn} -> resourceArn) (\s@StopResource' {} a -> s {resourceArn = a} :: StopResource)
 
 instance Core.AWSRequest StopResource where
   type AWSResponse StopResource = StopResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull StopResourceResponse'
 
 instance Prelude.Hashable StopResource where
@@ -106,32 +112,32 @@ instance Prelude.Hashable StopResource where
 instance Prelude.NFData StopResource where
   rnf StopResource' {..} = Prelude.rnf resourceArn
 
-instance Core.ToHeaders StopResource where
+instance Data.ToHeaders StopResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.StopResource" ::
+              Data.=# ( "AmazonForecast.StopResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopResource where
+instance Data.ToJSON StopResource where
   toJSON StopResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ResourceArn" Core..= resourceArn)]
+          [Prelude.Just ("ResourceArn" Data..= resourceArn)]
       )
 
-instance Core.ToPath StopResource where
+instance Data.ToPath StopResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopResource where
+instance Data.ToQuery StopResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopResourceResponse' smart constructor.

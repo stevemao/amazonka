@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.ErrorInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.ErrorInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.IngestionErrorType
 
@@ -28,10 +29,10 @@ import Amazonka.QuickSight.Types.IngestionErrorType
 --
 -- /See:/ 'newErrorInfo' smart constructor.
 data ErrorInfo = ErrorInfo'
-  { -- | Error type.
-    type' :: Prelude.Maybe IngestionErrorType,
-    -- | Error message.
-    message :: Prelude.Maybe Prelude.Text
+  { -- | Error message.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | Error type.
+    type' :: Prelude.Maybe IngestionErrorType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,40 +44,40 @@ data ErrorInfo = ErrorInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'type'', 'errorInfo_type' - Error type.
---
 -- 'message', 'errorInfo_message' - Error message.
+--
+-- 'type'', 'errorInfo_type' - Error type.
 newErrorInfo ::
   ErrorInfo
 newErrorInfo =
   ErrorInfo'
-    { type' = Prelude.Nothing,
-      message = Prelude.Nothing
+    { message = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
-
--- | Error type.
-errorInfo_type :: Lens.Lens' ErrorInfo (Prelude.Maybe IngestionErrorType)
-errorInfo_type = Lens.lens (\ErrorInfo' {type'} -> type') (\s@ErrorInfo' {} a -> s {type' = a} :: ErrorInfo)
 
 -- | Error message.
 errorInfo_message :: Lens.Lens' ErrorInfo (Prelude.Maybe Prelude.Text)
 errorInfo_message = Lens.lens (\ErrorInfo' {message} -> message) (\s@ErrorInfo' {} a -> s {message = a} :: ErrorInfo)
 
-instance Core.FromJSON ErrorInfo where
+-- | Error type.
+errorInfo_type :: Lens.Lens' ErrorInfo (Prelude.Maybe IngestionErrorType)
+errorInfo_type = Lens.lens (\ErrorInfo' {type'} -> type') (\s@ErrorInfo' {} a -> s {type' = a} :: ErrorInfo)
+
+instance Data.FromJSON ErrorInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ErrorInfo"
       ( \x ->
           ErrorInfo'
-            Prelude.<$> (x Core..:? "Type")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Message")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable ErrorInfo where
   hashWithSalt _salt ErrorInfo' {..} =
-    _salt `Prelude.hashWithSalt` type'
-      `Prelude.hashWithSalt` message
+    _salt `Prelude.hashWithSalt` message
+      `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData ErrorInfo where
   rnf ErrorInfo' {..} =
-    Prelude.rnf type' `Prelude.seq` Prelude.rnf message
+    Prelude.rnf message `Prelude.seq` Prelude.rnf type'

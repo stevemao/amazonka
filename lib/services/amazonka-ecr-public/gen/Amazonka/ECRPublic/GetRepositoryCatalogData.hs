@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECRPublic.GetRepositoryCatalogData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.ECRPublic.GetRepositoryCatalogData
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECRPublic.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,12 +98,13 @@ instance Core.AWSRequest GetRepositoryCatalogData where
   type
     AWSResponse GetRepositoryCatalogData =
       GetRepositoryCatalogDataResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRepositoryCatalogDataResponse'
-            Prelude.<$> (x Core..?> "catalogData")
+            Prelude.<$> (x Data..?> "catalogData")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,35 +118,35 @@ instance Prelude.NFData GetRepositoryCatalogData where
     Prelude.rnf registryId
       `Prelude.seq` Prelude.rnf repositoryName
 
-instance Core.ToHeaders GetRepositoryCatalogData where
+instance Data.ToHeaders GetRepositoryCatalogData where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SpencerFrontendService.GetRepositoryCatalogData" ::
+              Data.=# ( "SpencerFrontendService.GetRepositoryCatalogData" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetRepositoryCatalogData where
+instance Data.ToJSON GetRepositoryCatalogData where
   toJSON GetRepositoryCatalogData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("registryId" Core..=) Prelude.<$> registryId,
+          [ ("registryId" Data..=) Prelude.<$> registryId,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName)
+              ("repositoryName" Data..= repositoryName)
           ]
       )
 
-instance Core.ToPath GetRepositoryCatalogData where
+instance Data.ToPath GetRepositoryCatalogData where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetRepositoryCatalogData where
+instance Data.ToQuery GetRepositoryCatalogData where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetRepositoryCatalogDataResponse' smart constructor.

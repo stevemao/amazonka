@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.Types.AccountLimit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53.Types.AccountLimit where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53.Internal
 import Amazonka.Route53.Types.AccountLimitType
@@ -122,10 +123,10 @@ accountLimit_type = Lens.lens (\AccountLimit' {type'} -> type') (\s@AccountLimit
 accountLimit_value :: Lens.Lens' AccountLimit Prelude.Natural
 accountLimit_value = Lens.lens (\AccountLimit' {value} -> value) (\s@AccountLimit' {} a -> s {value = a} :: AccountLimit)
 
-instance Core.FromXML AccountLimit where
+instance Data.FromXML AccountLimit where
   parseXML x =
     AccountLimit'
-      Prelude.<$> (x Core..@ "Type") Prelude.<*> (x Core..@ "Value")
+      Prelude.<$> (x Data..@ "Type") Prelude.<*> (x Data..@ "Value")
 
 instance Prelude.Hashable AccountLimit where
   hashWithSalt _salt AccountLimit' {..} =

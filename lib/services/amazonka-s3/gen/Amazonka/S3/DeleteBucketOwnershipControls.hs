@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.DeleteBucketOwnershipControls
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.S3.DeleteBucketOwnershipControls
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,8 +59,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newDeleteBucketOwnershipControls' smart constructor.
 data DeleteBucketOwnershipControls = DeleteBucketOwnershipControls'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The Amazon S3 bucket whose @OwnershipControls@ you want to delete.
     bucket :: BucketName
@@ -75,8 +76,8 @@ data DeleteBucketOwnershipControls = DeleteBucketOwnershipControls'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'deleteBucketOwnershipControls_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'deleteBucketOwnershipControls_bucket' - The Amazon S3 bucket whose @OwnershipControls@ you want to delete.
 newDeleteBucketOwnershipControls ::
@@ -91,8 +92,8 @@ newDeleteBucketOwnershipControls pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 deleteBucketOwnershipControls_expectedBucketOwner :: Lens.Lens' DeleteBucketOwnershipControls (Prelude.Maybe Prelude.Text)
 deleteBucketOwnershipControls_expectedBucketOwner = Lens.lens (\DeleteBucketOwnershipControls' {expectedBucketOwner} -> expectedBucketOwner) (\s@DeleteBucketOwnershipControls' {} a -> s {expectedBucketOwner = a} :: DeleteBucketOwnershipControls)
 
@@ -107,9 +108,9 @@ instance
   type
     AWSResponse DeleteBucketOwnershipControls =
       DeleteBucketOwnershipControlsResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.delete defaultService
+      Prelude.. Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteBucketOwnershipControlsResponse'
@@ -127,18 +128,18 @@ instance Prelude.NFData DeleteBucketOwnershipControls where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders DeleteBucketOwnershipControls where
+instance Data.ToHeaders DeleteBucketOwnershipControls where
   toHeaders DeleteBucketOwnershipControls' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath DeleteBucketOwnershipControls where
+instance Data.ToPath DeleteBucketOwnershipControls where
   toPath DeleteBucketOwnershipControls' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery DeleteBucketOwnershipControls where
+instance Data.ToQuery DeleteBucketOwnershipControls where
   toQuery =
     Prelude.const
       (Prelude.mconcat ["ownershipControls"])

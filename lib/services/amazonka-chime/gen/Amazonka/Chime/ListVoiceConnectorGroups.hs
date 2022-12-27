@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.ListVoiceConnectorGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,33 +28,34 @@ module Amazonka.Chime.ListVoiceConnectorGroups
     newListVoiceConnectorGroups,
 
     -- * Request Lenses
-    listVoiceConnectorGroups_nextToken,
     listVoiceConnectorGroups_maxResults,
+    listVoiceConnectorGroups_nextToken,
 
     -- * Destructuring the Response
     ListVoiceConnectorGroupsResponse (..),
     newListVoiceConnectorGroupsResponse,
 
     -- * Response Lenses
-    listVoiceConnectorGroupsResponse_voiceConnectorGroups,
     listVoiceConnectorGroupsResponse_nextToken,
+    listVoiceConnectorGroupsResponse_voiceConnectorGroups,
     listVoiceConnectorGroupsResponse_httpStatus,
   )
 where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListVoiceConnectorGroups' smart constructor.
 data ListVoiceConnectorGroups = ListVoiceConnectorGroups'
-  { -- | The token to use to retrieve the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of results to return in a single call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to use to retrieve the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -66,71 +67,72 @@ data ListVoiceConnectorGroups = ListVoiceConnectorGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listVoiceConnectorGroups_nextToken' - The token to use to retrieve the next page of results.
---
 -- 'maxResults', 'listVoiceConnectorGroups_maxResults' - The maximum number of results to return in a single call.
+--
+-- 'nextToken', 'listVoiceConnectorGroups_nextToken' - The token to use to retrieve the next page of results.
 newListVoiceConnectorGroups ::
   ListVoiceConnectorGroups
 newListVoiceConnectorGroups =
   ListVoiceConnectorGroups'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | The token to use to retrieve the next page of results.
-listVoiceConnectorGroups_nextToken :: Lens.Lens' ListVoiceConnectorGroups (Prelude.Maybe Prelude.Text)
-listVoiceConnectorGroups_nextToken = Lens.lens (\ListVoiceConnectorGroups' {nextToken} -> nextToken) (\s@ListVoiceConnectorGroups' {} a -> s {nextToken = a} :: ListVoiceConnectorGroups)
 
 -- | The maximum number of results to return in a single call.
 listVoiceConnectorGroups_maxResults :: Lens.Lens' ListVoiceConnectorGroups (Prelude.Maybe Prelude.Natural)
 listVoiceConnectorGroups_maxResults = Lens.lens (\ListVoiceConnectorGroups' {maxResults} -> maxResults) (\s@ListVoiceConnectorGroups' {} a -> s {maxResults = a} :: ListVoiceConnectorGroups)
 
+-- | The token to use to retrieve the next page of results.
+listVoiceConnectorGroups_nextToken :: Lens.Lens' ListVoiceConnectorGroups (Prelude.Maybe Prelude.Text)
+listVoiceConnectorGroups_nextToken = Lens.lens (\ListVoiceConnectorGroups' {nextToken} -> nextToken) (\s@ListVoiceConnectorGroups' {} a -> s {nextToken = a} :: ListVoiceConnectorGroups)
+
 instance Core.AWSRequest ListVoiceConnectorGroups where
   type
     AWSResponse ListVoiceConnectorGroups =
       ListVoiceConnectorGroupsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListVoiceConnectorGroupsResponse'
-            Prelude.<$> ( x Core..?> "VoiceConnectorGroups"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "VoiceConnectorGroups"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListVoiceConnectorGroups where
   hashWithSalt _salt ListVoiceConnectorGroups' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListVoiceConnectorGroups where
   rnf ListVoiceConnectorGroups' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListVoiceConnectorGroups where
+instance Data.ToHeaders ListVoiceConnectorGroups where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListVoiceConnectorGroups where
+instance Data.ToPath ListVoiceConnectorGroups where
   toPath = Prelude.const "/voice-connector-groups"
 
-instance Core.ToQuery ListVoiceConnectorGroups where
+instance Data.ToQuery ListVoiceConnectorGroups where
   toQuery ListVoiceConnectorGroups' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListVoiceConnectorGroupsResponse' smart constructor.
 data ListVoiceConnectorGroupsResponse = ListVoiceConnectorGroupsResponse'
-  { -- | The details of the Amazon Chime Voice Connector groups.
-    voiceConnectorGroups :: Prelude.Maybe [VoiceConnectorGroup],
-    -- | The token to use to retrieve the next page of results.
+  { -- | The token to use to retrieve the next page of results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The details of the Amazon Chime Voice Connector groups.
+    voiceConnectorGroups :: Prelude.Maybe [VoiceConnectorGroup],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -144,9 +146,9 @@ data ListVoiceConnectorGroupsResponse = ListVoiceConnectorGroupsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'voiceConnectorGroups', 'listVoiceConnectorGroupsResponse_voiceConnectorGroups' - The details of the Amazon Chime Voice Connector groups.
---
 -- 'nextToken', 'listVoiceConnectorGroupsResponse_nextToken' - The token to use to retrieve the next page of results.
+--
+-- 'voiceConnectorGroups', 'listVoiceConnectorGroupsResponse_voiceConnectorGroups' - The details of the Amazon Chime Voice Connector groups.
 --
 -- 'httpStatus', 'listVoiceConnectorGroupsResponse_httpStatus' - The response's http status code.
 newListVoiceConnectorGroupsResponse ::
@@ -155,19 +157,19 @@ newListVoiceConnectorGroupsResponse ::
   ListVoiceConnectorGroupsResponse
 newListVoiceConnectorGroupsResponse pHttpStatus_ =
   ListVoiceConnectorGroupsResponse'
-    { voiceConnectorGroups =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      voiceConnectorGroups = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The details of the Amazon Chime Voice Connector groups.
-listVoiceConnectorGroupsResponse_voiceConnectorGroups :: Lens.Lens' ListVoiceConnectorGroupsResponse (Prelude.Maybe [VoiceConnectorGroup])
-listVoiceConnectorGroupsResponse_voiceConnectorGroups = Lens.lens (\ListVoiceConnectorGroupsResponse' {voiceConnectorGroups} -> voiceConnectorGroups) (\s@ListVoiceConnectorGroupsResponse' {} a -> s {voiceConnectorGroups = a} :: ListVoiceConnectorGroupsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to use to retrieve the next page of results.
 listVoiceConnectorGroupsResponse_nextToken :: Lens.Lens' ListVoiceConnectorGroupsResponse (Prelude.Maybe Prelude.Text)
 listVoiceConnectorGroupsResponse_nextToken = Lens.lens (\ListVoiceConnectorGroupsResponse' {nextToken} -> nextToken) (\s@ListVoiceConnectorGroupsResponse' {} a -> s {nextToken = a} :: ListVoiceConnectorGroupsResponse)
+
+-- | The details of the Amazon Chime Voice Connector groups.
+listVoiceConnectorGroupsResponse_voiceConnectorGroups :: Lens.Lens' ListVoiceConnectorGroupsResponse (Prelude.Maybe [VoiceConnectorGroup])
+listVoiceConnectorGroupsResponse_voiceConnectorGroups = Lens.lens (\ListVoiceConnectorGroupsResponse' {voiceConnectorGroups} -> voiceConnectorGroups) (\s@ListVoiceConnectorGroupsResponse' {} a -> s {voiceConnectorGroups = a} :: ListVoiceConnectorGroupsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listVoiceConnectorGroupsResponse_httpStatus :: Lens.Lens' ListVoiceConnectorGroupsResponse Prelude.Int
@@ -178,6 +180,6 @@ instance
     ListVoiceConnectorGroupsResponse
   where
   rnf ListVoiceConnectorGroupsResponse' {..} =
-    Prelude.rnf voiceConnectorGroups
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf voiceConnectorGroups
       `Prelude.seq` Prelude.rnf httpStatus

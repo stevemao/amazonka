@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.Types.OtaaV1_0_x
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTWireless.Types.OtaaV1_0_x where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | OTAA device object for v1.0.x
@@ -30,7 +31,9 @@ data OtaaV1_0_x = OtaaV1_0_x'
   { -- | The AppEUI value.
     appEui :: Prelude.Maybe Prelude.Text,
     -- | The AppKey value.
-    appKey :: Prelude.Maybe Prelude.Text
+    appKey :: Prelude.Maybe Prelude.Text,
+    -- | The GenAppKey value.
+    genAppKey :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,12 +48,15 @@ data OtaaV1_0_x = OtaaV1_0_x'
 -- 'appEui', 'otaaV1_0_x_appEui' - The AppEUI value.
 --
 -- 'appKey', 'otaaV1_0_x_appKey' - The AppKey value.
+--
+-- 'genAppKey', 'otaaV1_0_x_genAppKey' - The GenAppKey value.
 newOtaaV1_0_x ::
   OtaaV1_0_x
 newOtaaV1_0_x =
   OtaaV1_0_x'
     { appEui = Prelude.Nothing,
-      appKey = Prelude.Nothing
+      appKey = Prelude.Nothing,
+      genAppKey = Prelude.Nothing
     }
 
 -- | The AppEUI value.
@@ -61,30 +67,39 @@ otaaV1_0_x_appEui = Lens.lens (\OtaaV1_0_x' {appEui} -> appEui) (\s@OtaaV1_0_x' 
 otaaV1_0_x_appKey :: Lens.Lens' OtaaV1_0_x (Prelude.Maybe Prelude.Text)
 otaaV1_0_x_appKey = Lens.lens (\OtaaV1_0_x' {appKey} -> appKey) (\s@OtaaV1_0_x' {} a -> s {appKey = a} :: OtaaV1_0_x)
 
-instance Core.FromJSON OtaaV1_0_x where
+-- | The GenAppKey value.
+otaaV1_0_x_genAppKey :: Lens.Lens' OtaaV1_0_x (Prelude.Maybe Prelude.Text)
+otaaV1_0_x_genAppKey = Lens.lens (\OtaaV1_0_x' {genAppKey} -> genAppKey) (\s@OtaaV1_0_x' {} a -> s {genAppKey = a} :: OtaaV1_0_x)
+
+instance Data.FromJSON OtaaV1_0_x where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OtaaV1_0_x"
       ( \x ->
           OtaaV1_0_x'
-            Prelude.<$> (x Core..:? "AppEui")
-            Prelude.<*> (x Core..:? "AppKey")
+            Prelude.<$> (x Data..:? "AppEui")
+            Prelude.<*> (x Data..:? "AppKey")
+            Prelude.<*> (x Data..:? "GenAppKey")
       )
 
 instance Prelude.Hashable OtaaV1_0_x where
   hashWithSalt _salt OtaaV1_0_x' {..} =
     _salt `Prelude.hashWithSalt` appEui
       `Prelude.hashWithSalt` appKey
+      `Prelude.hashWithSalt` genAppKey
 
 instance Prelude.NFData OtaaV1_0_x where
   rnf OtaaV1_0_x' {..} =
-    Prelude.rnf appEui `Prelude.seq` Prelude.rnf appKey
+    Prelude.rnf appEui
+      `Prelude.seq` Prelude.rnf appKey
+      `Prelude.seq` Prelude.rnf genAppKey
 
-instance Core.ToJSON OtaaV1_0_x where
+instance Data.ToJSON OtaaV1_0_x where
   toJSON OtaaV1_0_x' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AppEui" Core..=) Prelude.<$> appEui,
-            ("AppKey" Core..=) Prelude.<$> appKey
+          [ ("AppEui" Data..=) Prelude.<$> appEui,
+            ("AppKey" Data..=) Prelude.<$> appKey,
+            ("GenAppKey" Data..=) Prelude.<$> genAppKey
           ]
       )

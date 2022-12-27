@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.DeleteInstanceProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.DeviceFarm.DeleteInstanceProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +81,8 @@ instance Core.AWSRequest DeleteInstanceProfile where
   type
     AWSResponse DeleteInstanceProfile =
       DeleteInstanceProfileResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -95,32 +97,32 @@ instance Prelude.Hashable DeleteInstanceProfile where
 instance Prelude.NFData DeleteInstanceProfile where
   rnf DeleteInstanceProfile' {..} = Prelude.rnf arn
 
-instance Core.ToHeaders DeleteInstanceProfile where
+instance Data.ToHeaders DeleteInstanceProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.DeleteInstanceProfile" ::
+              Data.=# ( "DeviceFarm_20150623.DeleteInstanceProfile" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteInstanceProfile where
+instance Data.ToJSON DeleteInstanceProfile where
   toJSON DeleteInstanceProfile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("arn" Core..= arn)]
+          [Prelude.Just ("arn" Data..= arn)]
       )
 
-instance Core.ToPath DeleteInstanceProfile where
+instance Data.ToPath DeleteInstanceProfile where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteInstanceProfile where
+instance Data.ToQuery DeleteInstanceProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteInstanceProfileResponse' smart constructor.

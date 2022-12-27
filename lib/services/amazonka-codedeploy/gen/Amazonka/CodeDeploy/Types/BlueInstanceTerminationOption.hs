@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.Types.BlueInstanceTerminationOption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodeDeploy.Types.BlueInstanceTerminationOption where
 
 import Amazonka.CodeDeploy.Types.InstanceAction
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about whether instances in the original environment are
@@ -111,14 +112,14 @@ blueInstanceTerminationOption_action = Lens.lens (\BlueInstanceTerminationOption
 blueInstanceTerminationOption_terminationWaitTimeInMinutes :: Lens.Lens' BlueInstanceTerminationOption (Prelude.Maybe Prelude.Int)
 blueInstanceTerminationOption_terminationWaitTimeInMinutes = Lens.lens (\BlueInstanceTerminationOption' {terminationWaitTimeInMinutes} -> terminationWaitTimeInMinutes) (\s@BlueInstanceTerminationOption' {} a -> s {terminationWaitTimeInMinutes = a} :: BlueInstanceTerminationOption)
 
-instance Core.FromJSON BlueInstanceTerminationOption where
+instance Data.FromJSON BlueInstanceTerminationOption where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BlueInstanceTerminationOption"
       ( \x ->
           BlueInstanceTerminationOption'
-            Prelude.<$> (x Core..:? "action")
-            Prelude.<*> (x Core..:? "terminationWaitTimeInMinutes")
+            Prelude.<$> (x Data..:? "action")
+            Prelude.<*> (x Data..:? "terminationWaitTimeInMinutes")
       )
 
 instance
@@ -134,12 +135,12 @@ instance Prelude.NFData BlueInstanceTerminationOption where
     Prelude.rnf action
       `Prelude.seq` Prelude.rnf terminationWaitTimeInMinutes
 
-instance Core.ToJSON BlueInstanceTerminationOption where
+instance Data.ToJSON BlueInstanceTerminationOption where
   toJSON BlueInstanceTerminationOption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("action" Core..=) Prelude.<$> action,
-            ("terminationWaitTimeInMinutes" Core..=)
+          [ ("action" Data..=) Prelude.<$> action,
+            ("terminationWaitTimeInMinutes" Data..=)
               Prelude.<$> terminationWaitTimeInMinutes
           ]
       )

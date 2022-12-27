@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.Types.CrlConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CertificateManagerPCA.Types.CrlConfiguration where
 
 import Amazonka.CertificateManagerPCA.Types.S3ObjectAcl
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains configuration information for a certificate revocation list
@@ -40,11 +41,11 @@ import qualified Amazonka.Prelude as Prelude
 -- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaCreateCa.html#crl-encryption Encrypting Your CRLs>.
 --
 -- Your private CA uses the value in the __ExpirationInDays__ parameter to
--- calculate the __nextUpdate__ field in the CRL. The CRL is refreshed at
--- 1\/2 the age of next update or when a certificate is revoked. When a
--- certificate is revoked, it is recorded in the next CRL that is generated
--- and in the next audit report. Only time valid certificates are listed in
--- the CRL. Expired certificates are not included.
+-- calculate the __nextUpdate__ field in the CRL. The CRL is refreshed
+-- prior to a certificate\'s expiration date or when a certificate is
+-- revoked. When a certificate is revoked, it appears in the CRL until the
+-- certificate expires, and then in one additional CRL after expiration,
+-- and it always appears in the audit report.
 --
 -- A CRL is typically updated approximately 30 minutes after a certificate
 -- is revoked. If for any reason a CRL update fails, ACM Private CA makes
@@ -98,8 +99,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/acm-pca/latest/userguide/crl-planning.html Planning a certificate revocation list (CRL)>
--- in the /AWS Certificate Manager Private Certificate Authority (PCA) User
--- Guide/
+-- in the /Private Certificate Authority (PCA) User Guide/
 --
 -- /See:/ 'newCrlConfiguration' smart constructor.
 data CrlConfiguration = CrlConfiguration'
@@ -109,6 +109,15 @@ data CrlConfiguration = CrlConfiguration'
     customCname :: Prelude.Maybe Prelude.Text,
     -- | Validity period of the CRL in days.
     expirationInDays :: Prelude.Maybe Prelude.Natural,
+    -- | Name of the S3 bucket that contains the CRL. If you do not provide a
+    -- value for the __CustomCname__ argument, the name of your S3 bucket is
+    -- placed into the __CRL Distribution Points__ extension of the issued
+    -- certificate. You can change the name of your bucket by calling the
+    -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_UpdateCertificateAuthority.html UpdateCertificateAuthority>
+    -- operation. You must specify a
+    -- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaCreateCa.html#s3-policies bucket policy>
+    -- that allows ACM Private CA to write the CRL to your bucket.
+    s3BucketName :: Prelude.Maybe Prelude.Text,
     -- | Determines whether the CRL will be publicly readable or privately held
     -- in the CRL Amazon S3 bucket. If you choose PUBLIC_READ, the CRL will be
     -- accessible over the public internet. If you choose
@@ -128,15 +137,6 @@ data CrlConfiguration = CrlConfiguration'
     -- For more information, see
     -- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaCreateCa.html#s3-bpa Blocking public access to the S3 bucket>.
     s3ObjectAcl :: Prelude.Maybe S3ObjectAcl,
-    -- | Name of the S3 bucket that contains the CRL. If you do not provide a
-    -- value for the __CustomCname__ argument, the name of your S3 bucket is
-    -- placed into the __CRL Distribution Points__ extension of the issued
-    -- certificate. You can change the name of your bucket by calling the
-    -- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_UpdateCertificateAuthority.html UpdateCertificateAuthority>
-    -- operation. You must specify a
-    -- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaCreateCa.html#s3-policies bucket policy>
-    -- that allows ACM Private CA to write the CRL to your bucket.
-    s3BucketName :: Prelude.Maybe Prelude.Text,
     -- | Boolean value that specifies whether certificate revocation lists (CRLs)
     -- are enabled. You can use this value to enable certificate revocation for
     -- a new CA when you call the
@@ -162,6 +162,15 @@ data CrlConfiguration = CrlConfiguration'
 --
 -- 'expirationInDays', 'crlConfiguration_expirationInDays' - Validity period of the CRL in days.
 --
+-- 's3BucketName', 'crlConfiguration_s3BucketName' - Name of the S3 bucket that contains the CRL. If you do not provide a
+-- value for the __CustomCname__ argument, the name of your S3 bucket is
+-- placed into the __CRL Distribution Points__ extension of the issued
+-- certificate. You can change the name of your bucket by calling the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_UpdateCertificateAuthority.html UpdateCertificateAuthority>
+-- operation. You must specify a
+-- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaCreateCa.html#s3-policies bucket policy>
+-- that allows ACM Private CA to write the CRL to your bucket.
+--
 -- 's3ObjectAcl', 'crlConfiguration_s3ObjectAcl' - Determines whether the CRL will be publicly readable or privately held
 -- in the CRL Amazon S3 bucket. If you choose PUBLIC_READ, the CRL will be
 -- accessible over the public internet. If you choose
@@ -181,15 +190,6 @@ data CrlConfiguration = CrlConfiguration'
 -- For more information, see
 -- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaCreateCa.html#s3-bpa Blocking public access to the S3 bucket>.
 --
--- 's3BucketName', 'crlConfiguration_s3BucketName' - Name of the S3 bucket that contains the CRL. If you do not provide a
--- value for the __CustomCname__ argument, the name of your S3 bucket is
--- placed into the __CRL Distribution Points__ extension of the issued
--- certificate. You can change the name of your bucket by calling the
--- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_UpdateCertificateAuthority.html UpdateCertificateAuthority>
--- operation. You must specify a
--- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaCreateCa.html#s3-policies bucket policy>
--- that allows ACM Private CA to write the CRL to your bucket.
---
 -- 'enabled', 'crlConfiguration_enabled' - Boolean value that specifies whether certificate revocation lists (CRLs)
 -- are enabled. You can use this value to enable certificate revocation for
 -- a new CA when you call the
@@ -205,8 +205,8 @@ newCrlConfiguration pEnabled_ =
   CrlConfiguration'
     { customCname = Prelude.Nothing,
       expirationInDays = Prelude.Nothing,
-      s3ObjectAcl = Prelude.Nothing,
       s3BucketName = Prelude.Nothing,
+      s3ObjectAcl = Prelude.Nothing,
       enabled = pEnabled_
     }
 
@@ -219,6 +219,17 @@ crlConfiguration_customCname = Lens.lens (\CrlConfiguration' {customCname} -> cu
 -- | Validity period of the CRL in days.
 crlConfiguration_expirationInDays :: Lens.Lens' CrlConfiguration (Prelude.Maybe Prelude.Natural)
 crlConfiguration_expirationInDays = Lens.lens (\CrlConfiguration' {expirationInDays} -> expirationInDays) (\s@CrlConfiguration' {} a -> s {expirationInDays = a} :: CrlConfiguration)
+
+-- | Name of the S3 bucket that contains the CRL. If you do not provide a
+-- value for the __CustomCname__ argument, the name of your S3 bucket is
+-- placed into the __CRL Distribution Points__ extension of the issued
+-- certificate. You can change the name of your bucket by calling the
+-- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_UpdateCertificateAuthority.html UpdateCertificateAuthority>
+-- operation. You must specify a
+-- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaCreateCa.html#s3-policies bucket policy>
+-- that allows ACM Private CA to write the CRL to your bucket.
+crlConfiguration_s3BucketName :: Lens.Lens' CrlConfiguration (Prelude.Maybe Prelude.Text)
+crlConfiguration_s3BucketName = Lens.lens (\CrlConfiguration' {s3BucketName} -> s3BucketName) (\s@CrlConfiguration' {} a -> s {s3BucketName = a} :: CrlConfiguration)
 
 -- | Determines whether the CRL will be publicly readable or privately held
 -- in the CRL Amazon S3 bucket. If you choose PUBLIC_READ, the CRL will be
@@ -241,17 +252,6 @@ crlConfiguration_expirationInDays = Lens.lens (\CrlConfiguration' {expirationInD
 crlConfiguration_s3ObjectAcl :: Lens.Lens' CrlConfiguration (Prelude.Maybe S3ObjectAcl)
 crlConfiguration_s3ObjectAcl = Lens.lens (\CrlConfiguration' {s3ObjectAcl} -> s3ObjectAcl) (\s@CrlConfiguration' {} a -> s {s3ObjectAcl = a} :: CrlConfiguration)
 
--- | Name of the S3 bucket that contains the CRL. If you do not provide a
--- value for the __CustomCname__ argument, the name of your S3 bucket is
--- placed into the __CRL Distribution Points__ extension of the issued
--- certificate. You can change the name of your bucket by calling the
--- <https://docs.aws.amazon.com/acm-pca/latest/APIReference/API_UpdateCertificateAuthority.html UpdateCertificateAuthority>
--- operation. You must specify a
--- <https://docs.aws.amazon.com/acm-pca/latest/userguide/PcaCreateCa.html#s3-policies bucket policy>
--- that allows ACM Private CA to write the CRL to your bucket.
-crlConfiguration_s3BucketName :: Lens.Lens' CrlConfiguration (Prelude.Maybe Prelude.Text)
-crlConfiguration_s3BucketName = Lens.lens (\CrlConfiguration' {s3BucketName} -> s3BucketName) (\s@CrlConfiguration' {} a -> s {s3BucketName = a} :: CrlConfiguration)
-
 -- | Boolean value that specifies whether certificate revocation lists (CRLs)
 -- are enabled. You can use this value to enable certificate revocation for
 -- a new CA when you call the
@@ -262,44 +262,44 @@ crlConfiguration_s3BucketName = Lens.lens (\CrlConfiguration' {s3BucketName} -> 
 crlConfiguration_enabled :: Lens.Lens' CrlConfiguration Prelude.Bool
 crlConfiguration_enabled = Lens.lens (\CrlConfiguration' {enabled} -> enabled) (\s@CrlConfiguration' {} a -> s {enabled = a} :: CrlConfiguration)
 
-instance Core.FromJSON CrlConfiguration where
+instance Data.FromJSON CrlConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CrlConfiguration"
       ( \x ->
           CrlConfiguration'
-            Prelude.<$> (x Core..:? "CustomCname")
-            Prelude.<*> (x Core..:? "ExpirationInDays")
-            Prelude.<*> (x Core..:? "S3ObjectAcl")
-            Prelude.<*> (x Core..:? "S3BucketName")
-            Prelude.<*> (x Core..: "Enabled")
+            Prelude.<$> (x Data..:? "CustomCname")
+            Prelude.<*> (x Data..:? "ExpirationInDays")
+            Prelude.<*> (x Data..:? "S3BucketName")
+            Prelude.<*> (x Data..:? "S3ObjectAcl")
+            Prelude.<*> (x Data..: "Enabled")
       )
 
 instance Prelude.Hashable CrlConfiguration where
   hashWithSalt _salt CrlConfiguration' {..} =
     _salt `Prelude.hashWithSalt` customCname
       `Prelude.hashWithSalt` expirationInDays
-      `Prelude.hashWithSalt` s3ObjectAcl
       `Prelude.hashWithSalt` s3BucketName
+      `Prelude.hashWithSalt` s3ObjectAcl
       `Prelude.hashWithSalt` enabled
 
 instance Prelude.NFData CrlConfiguration where
   rnf CrlConfiguration' {..} =
     Prelude.rnf customCname
       `Prelude.seq` Prelude.rnf expirationInDays
-      `Prelude.seq` Prelude.rnf s3ObjectAcl
       `Prelude.seq` Prelude.rnf s3BucketName
+      `Prelude.seq` Prelude.rnf s3ObjectAcl
       `Prelude.seq` Prelude.rnf enabled
 
-instance Core.ToJSON CrlConfiguration where
+instance Data.ToJSON CrlConfiguration where
   toJSON CrlConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CustomCname" Core..=) Prelude.<$> customCname,
-            ("ExpirationInDays" Core..=)
+          [ ("CustomCname" Data..=) Prelude.<$> customCname,
+            ("ExpirationInDays" Data..=)
               Prelude.<$> expirationInDays,
-            ("S3ObjectAcl" Core..=) Prelude.<$> s3ObjectAcl,
-            ("S3BucketName" Core..=) Prelude.<$> s3BucketName,
-            Prelude.Just ("Enabled" Core..= enabled)
+            ("S3BucketName" Data..=) Prelude.<$> s3BucketName,
+            ("S3ObjectAcl" Data..=) Prelude.<$> s3ObjectAcl,
+            Prelude.Just ("Enabled" Data..= enabled)
           ]
       )

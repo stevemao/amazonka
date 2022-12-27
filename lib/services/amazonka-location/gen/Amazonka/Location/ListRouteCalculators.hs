@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Location.ListRouteCalculators
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Location.ListRouteCalculators
     newListRouteCalculators,
 
     -- * Request Lenses
-    listRouteCalculators_nextToken,
     listRouteCalculators_maxResults,
+    listRouteCalculators_nextToken,
 
     -- * Destructuring the Response
     ListRouteCalculatorsResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.Location.ListRouteCalculators
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,15 +53,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListRouteCalculators' smart constructor.
 data ListRouteCalculators = ListRouteCalculators'
-  { -- | The pagination token specifying which page of results to return in the
+  { -- | An optional maximum number of results returned in a single call.
+    --
+    -- Default Value: @100@
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token specifying which page of results to return in the
     -- response. If no token is provided, the default page is the first page.
     --
     -- Default Value: @null@
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An optional maximum number of results returned in a single call.
-    --
-    -- Default Value: @100@
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,21 +73,27 @@ data ListRouteCalculators = ListRouteCalculators'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listRouteCalculators_maxResults' - An optional maximum number of results returned in a single call.
+--
+-- Default Value: @100@
+--
 -- 'nextToken', 'listRouteCalculators_nextToken' - The pagination token specifying which page of results to return in the
 -- response. If no token is provided, the default page is the first page.
 --
 -- Default Value: @null@
---
--- 'maxResults', 'listRouteCalculators_maxResults' - An optional maximum number of results returned in a single call.
---
--- Default Value: @100@
 newListRouteCalculators ::
   ListRouteCalculators
 newListRouteCalculators =
   ListRouteCalculators'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | An optional maximum number of results returned in a single call.
+--
+-- Default Value: @100@
+listRouteCalculators_maxResults :: Lens.Lens' ListRouteCalculators (Prelude.Maybe Prelude.Natural)
+listRouteCalculators_maxResults = Lens.lens (\ListRouteCalculators' {maxResults} -> maxResults) (\s@ListRouteCalculators' {} a -> s {maxResults = a} :: ListRouteCalculators)
 
 -- | The pagination token specifying which page of results to return in the
 -- response. If no token is provided, the default page is the first page.
@@ -94,12 +101,6 @@ newListRouteCalculators =
 -- Default Value: @null@
 listRouteCalculators_nextToken :: Lens.Lens' ListRouteCalculators (Prelude.Maybe Prelude.Text)
 listRouteCalculators_nextToken = Lens.lens (\ListRouteCalculators' {nextToken} -> nextToken) (\s@ListRouteCalculators' {} a -> s {nextToken = a} :: ListRouteCalculators)
-
--- | An optional maximum number of results returned in a single call.
---
--- Default Value: @100@
-listRouteCalculators_maxResults :: Lens.Lens' ListRouteCalculators (Prelude.Maybe Prelude.Natural)
-listRouteCalculators_maxResults = Lens.lens (\ListRouteCalculators' {maxResults} -> maxResults) (\s@ListRouteCalculators' {} a -> s {maxResults = a} :: ListRouteCalculators)
 
 instance Core.AWSPager ListRouteCalculators where
   page rq rs
@@ -124,50 +125,51 @@ instance Core.AWSRequest ListRouteCalculators where
   type
     AWSResponse ListRouteCalculators =
       ListRouteCalculatorsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRouteCalculatorsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Entries" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Entries" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListRouteCalculators where
   hashWithSalt _salt ListRouteCalculators' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListRouteCalculators where
   rnf ListRouteCalculators' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListRouteCalculators where
+instance Data.ToHeaders ListRouteCalculators where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListRouteCalculators where
+instance Data.ToJSON ListRouteCalculators where
   toJSON ListRouteCalculators' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListRouteCalculators where
+instance Data.ToPath ListRouteCalculators where
   toPath = Prelude.const "/routes/v0/list-calculators"
 
-instance Core.ToQuery ListRouteCalculators where
+instance Data.ToQuery ListRouteCalculators where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListRouteCalculatorsResponse' smart constructor.

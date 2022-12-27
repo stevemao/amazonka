@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.CustomPluginDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KafkaConnect.Types.CustomPluginDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details about a custom plugin.
@@ -62,14 +63,14 @@ customPluginDescription_customPluginArn = Lens.lens (\CustomPluginDescription' {
 customPluginDescription_revision :: Lens.Lens' CustomPluginDescription (Prelude.Maybe Prelude.Integer)
 customPluginDescription_revision = Lens.lens (\CustomPluginDescription' {revision} -> revision) (\s@CustomPluginDescription' {} a -> s {revision = a} :: CustomPluginDescription)
 
-instance Core.FromJSON CustomPluginDescription where
+instance Data.FromJSON CustomPluginDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CustomPluginDescription"
       ( \x ->
           CustomPluginDescription'
-            Prelude.<$> (x Core..:? "customPluginArn")
-            Prelude.<*> (x Core..:? "revision")
+            Prelude.<$> (x Data..:? "customPluginArn")
+            Prelude.<*> (x Data..:? "revision")
       )
 
 instance Prelude.Hashable CustomPluginDescription where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CancelImportTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,24 +28,25 @@ module Amazonka.EC2.CancelImportTask
 
     -- * Request Lenses
     cancelImportTask_cancelReason,
-    cancelImportTask_importTaskId,
     cancelImportTask_dryRun,
+    cancelImportTask_importTaskId,
 
     -- * Destructuring the Response
     CancelImportTaskResponse (..),
     newCancelImportTaskResponse,
 
     -- * Response Lenses
-    cancelImportTaskResponse_state,
     cancelImportTaskResponse_importTaskId,
     cancelImportTaskResponse_previousState,
+    cancelImportTaskResponse_state,
     cancelImportTaskResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,13 +55,13 @@ import qualified Amazonka.Response as Response
 data CancelImportTask = CancelImportTask'
   { -- | The reason for canceling the task.
     cancelReason :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the import image or import snapshot task to be canceled.
-    importTaskId :: Prelude.Maybe Prelude.Text,
     -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The ID of the import image or import snapshot task to be canceled.
+    importTaskId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -74,28 +75,24 @@ data CancelImportTask = CancelImportTask'
 --
 -- 'cancelReason', 'cancelImportTask_cancelReason' - The reason for canceling the task.
 --
--- 'importTaskId', 'cancelImportTask_importTaskId' - The ID of the import image or import snapshot task to be canceled.
---
 -- 'dryRun', 'cancelImportTask_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'importTaskId', 'cancelImportTask_importTaskId' - The ID of the import image or import snapshot task to be canceled.
 newCancelImportTask ::
   CancelImportTask
 newCancelImportTask =
   CancelImportTask'
     { cancelReason = Prelude.Nothing,
-      importTaskId = Prelude.Nothing,
-      dryRun = Prelude.Nothing
+      dryRun = Prelude.Nothing,
+      importTaskId = Prelude.Nothing
     }
 
 -- | The reason for canceling the task.
 cancelImportTask_cancelReason :: Lens.Lens' CancelImportTask (Prelude.Maybe Prelude.Text)
 cancelImportTask_cancelReason = Lens.lens (\CancelImportTask' {cancelReason} -> cancelReason) (\s@CancelImportTask' {} a -> s {cancelReason = a} :: CancelImportTask)
-
--- | The ID of the import image or import snapshot task to be canceled.
-cancelImportTask_importTaskId :: Lens.Lens' CancelImportTask (Prelude.Maybe Prelude.Text)
-cancelImportTask_importTaskId = Lens.lens (\CancelImportTask' {importTaskId} -> importTaskId) (\s@CancelImportTask' {} a -> s {importTaskId = a} :: CancelImportTask)
 
 -- | Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
@@ -104,59 +101,64 @@ cancelImportTask_importTaskId = Lens.lens (\CancelImportTask' {importTaskId} -> 
 cancelImportTask_dryRun :: Lens.Lens' CancelImportTask (Prelude.Maybe Prelude.Bool)
 cancelImportTask_dryRun = Lens.lens (\CancelImportTask' {dryRun} -> dryRun) (\s@CancelImportTask' {} a -> s {dryRun = a} :: CancelImportTask)
 
+-- | The ID of the import image or import snapshot task to be canceled.
+cancelImportTask_importTaskId :: Lens.Lens' CancelImportTask (Prelude.Maybe Prelude.Text)
+cancelImportTask_importTaskId = Lens.lens (\CancelImportTask' {importTaskId} -> importTaskId) (\s@CancelImportTask' {} a -> s {importTaskId = a} :: CancelImportTask)
+
 instance Core.AWSRequest CancelImportTask where
   type
     AWSResponse CancelImportTask =
       CancelImportTaskResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CancelImportTaskResponse'
-            Prelude.<$> (x Core..@? "state")
-            Prelude.<*> (x Core..@? "importTaskId")
-            Prelude.<*> (x Core..@? "previousState")
+            Prelude.<$> (x Data..@? "importTaskId")
+            Prelude.<*> (x Data..@? "previousState")
+            Prelude.<*> (x Data..@? "state")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CancelImportTask where
   hashWithSalt _salt CancelImportTask' {..} =
     _salt `Prelude.hashWithSalt` cancelReason
-      `Prelude.hashWithSalt` importTaskId
       `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` importTaskId
 
 instance Prelude.NFData CancelImportTask where
   rnf CancelImportTask' {..} =
     Prelude.rnf cancelReason
-      `Prelude.seq` Prelude.rnf importTaskId
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf importTaskId
 
-instance Core.ToHeaders CancelImportTask where
+instance Data.ToHeaders CancelImportTask where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CancelImportTask where
+instance Data.ToPath CancelImportTask where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CancelImportTask where
+instance Data.ToQuery CancelImportTask where
   toQuery CancelImportTask' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CancelImportTask" :: Prelude.ByteString),
+          Data.=: ("CancelImportTask" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "CancelReason" Core.=: cancelReason,
-        "ImportTaskId" Core.=: importTaskId,
-        "DryRun" Core.=: dryRun
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "CancelReason" Data.=: cancelReason,
+        "DryRun" Data.=: dryRun,
+        "ImportTaskId" Data.=: importTaskId
       ]
 
 -- | /See:/ 'newCancelImportTaskResponse' smart constructor.
 data CancelImportTaskResponse = CancelImportTaskResponse'
-  { -- | The current state of the task being canceled.
-    state :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the task being canceled.
+  { -- | The ID of the task being canceled.
     importTaskId :: Prelude.Maybe Prelude.Text,
     -- | The current state of the task being canceled.
     previousState :: Prelude.Maybe Prelude.Text,
+    -- | The current state of the task being canceled.
+    state :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -170,11 +172,11 @@ data CancelImportTaskResponse = CancelImportTaskResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'cancelImportTaskResponse_state' - The current state of the task being canceled.
---
 -- 'importTaskId', 'cancelImportTaskResponse_importTaskId' - The ID of the task being canceled.
 --
 -- 'previousState', 'cancelImportTaskResponse_previousState' - The current state of the task being canceled.
+--
+-- 'state', 'cancelImportTaskResponse_state' - The current state of the task being canceled.
 --
 -- 'httpStatus', 'cancelImportTaskResponse_httpStatus' - The response's http status code.
 newCancelImportTaskResponse ::
@@ -183,15 +185,12 @@ newCancelImportTaskResponse ::
   CancelImportTaskResponse
 newCancelImportTaskResponse pHttpStatus_ =
   CancelImportTaskResponse'
-    { state = Prelude.Nothing,
-      importTaskId = Prelude.Nothing,
+    { importTaskId =
+        Prelude.Nothing,
       previousState = Prelude.Nothing,
+      state = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The current state of the task being canceled.
-cancelImportTaskResponse_state :: Lens.Lens' CancelImportTaskResponse (Prelude.Maybe Prelude.Text)
-cancelImportTaskResponse_state = Lens.lens (\CancelImportTaskResponse' {state} -> state) (\s@CancelImportTaskResponse' {} a -> s {state = a} :: CancelImportTaskResponse)
 
 -- | The ID of the task being canceled.
 cancelImportTaskResponse_importTaskId :: Lens.Lens' CancelImportTaskResponse (Prelude.Maybe Prelude.Text)
@@ -201,13 +200,17 @@ cancelImportTaskResponse_importTaskId = Lens.lens (\CancelImportTaskResponse' {i
 cancelImportTaskResponse_previousState :: Lens.Lens' CancelImportTaskResponse (Prelude.Maybe Prelude.Text)
 cancelImportTaskResponse_previousState = Lens.lens (\CancelImportTaskResponse' {previousState} -> previousState) (\s@CancelImportTaskResponse' {} a -> s {previousState = a} :: CancelImportTaskResponse)
 
+-- | The current state of the task being canceled.
+cancelImportTaskResponse_state :: Lens.Lens' CancelImportTaskResponse (Prelude.Maybe Prelude.Text)
+cancelImportTaskResponse_state = Lens.lens (\CancelImportTaskResponse' {state} -> state) (\s@CancelImportTaskResponse' {} a -> s {state = a} :: CancelImportTaskResponse)
+
 -- | The response's http status code.
 cancelImportTaskResponse_httpStatus :: Lens.Lens' CancelImportTaskResponse Prelude.Int
 cancelImportTaskResponse_httpStatus = Lens.lens (\CancelImportTaskResponse' {httpStatus} -> httpStatus) (\s@CancelImportTaskResponse' {} a -> s {httpStatus = a} :: CancelImportTaskResponse)
 
 instance Prelude.NFData CancelImportTaskResponse where
   rnf CancelImportTaskResponse' {..} =
-    Prelude.rnf state
-      `Prelude.seq` Prelude.rnf importTaskId
+    Prelude.rnf importTaskId
       `Prelude.seq` Prelude.rnf previousState
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf httpStatus

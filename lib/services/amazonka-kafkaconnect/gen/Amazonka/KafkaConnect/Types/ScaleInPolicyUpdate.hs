@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.ScaleInPolicyUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KafkaConnect.Types.ScaleInPolicyUpdate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An update to the connector\'s scale-in policy.
@@ -67,13 +68,13 @@ instance Prelude.NFData ScaleInPolicyUpdate where
   rnf ScaleInPolicyUpdate' {..} =
     Prelude.rnf cpuUtilizationPercentage
 
-instance Core.ToJSON ScaleInPolicyUpdate where
+instance Data.ToJSON ScaleInPolicyUpdate where
   toJSON ScaleInPolicyUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "cpuUtilizationPercentage"
-                  Core..= cpuUtilizationPercentage
+                  Data..= cpuUtilizationPercentage
               )
           ]
       )

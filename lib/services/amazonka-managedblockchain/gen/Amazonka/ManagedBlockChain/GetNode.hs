@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.GetNode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.ManagedBlockChain.GetNode
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -110,12 +111,13 @@ getNode_nodeId = Lens.lens (\GetNode' {nodeId} -> nodeId) (\s@GetNode' {} a -> s
 
 instance Core.AWSRequest GetNode where
   type AWSResponse GetNode = GetNodeResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetNodeResponse'
-            Prelude.<$> (x Core..?> "Node")
+            Prelude.<$> (x Data..?> "Node")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -131,29 +133,29 @@ instance Prelude.NFData GetNode where
       `Prelude.seq` Prelude.rnf networkId
       `Prelude.seq` Prelude.rnf nodeId
 
-instance Core.ToHeaders GetNode where
+instance Data.ToHeaders GetNode where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetNode where
+instance Data.ToPath GetNode where
   toPath GetNode' {..} =
     Prelude.mconcat
       [ "/networks/",
-        Core.toBS networkId,
+        Data.toBS networkId,
         "/nodes/",
-        Core.toBS nodeId
+        Data.toBS nodeId
       ]
 
-instance Core.ToQuery GetNode where
+instance Data.ToQuery GetNode where
   toQuery GetNode' {..} =
-    Prelude.mconcat ["memberId" Core.=: memberId]
+    Prelude.mconcat ["memberId" Data.=: memberId]
 
 -- | /See:/ 'newGetNodeResponse' smart constructor.
 data GetNodeResponse = GetNodeResponse'

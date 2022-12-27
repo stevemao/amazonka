@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceCatalog.Types.ProvisioningArtifactOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.ServiceCatalog.Types.ProvisioningArtifactOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provisioning artifact output.
 --
 -- /See:/ 'newProvisioningArtifactOutput' smart constructor.
 data ProvisioningArtifactOutput = ProvisioningArtifactOutput'
-  { -- | The provisioning artifact output key.
-    key :: Prelude.Maybe Prelude.Text,
-    -- | Description of the provisioning artifact output key.
-    description :: Prelude.Maybe Prelude.Text
+  { -- | Description of the provisioning artifact output key.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The provisioning artifact output key.
+    key :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,41 +43,42 @@ data ProvisioningArtifactOutput = ProvisioningArtifactOutput'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'key', 'provisioningArtifactOutput_key' - The provisioning artifact output key.
---
 -- 'description', 'provisioningArtifactOutput_description' - Description of the provisioning artifact output key.
+--
+-- 'key', 'provisioningArtifactOutput_key' - The provisioning artifact output key.
 newProvisioningArtifactOutput ::
   ProvisioningArtifactOutput
 newProvisioningArtifactOutput =
   ProvisioningArtifactOutput'
-    { key = Prelude.Nothing,
-      description = Prelude.Nothing
+    { description =
+        Prelude.Nothing,
+      key = Prelude.Nothing
     }
-
--- | The provisioning artifact output key.
-provisioningArtifactOutput_key :: Lens.Lens' ProvisioningArtifactOutput (Prelude.Maybe Prelude.Text)
-provisioningArtifactOutput_key = Lens.lens (\ProvisioningArtifactOutput' {key} -> key) (\s@ProvisioningArtifactOutput' {} a -> s {key = a} :: ProvisioningArtifactOutput)
 
 -- | Description of the provisioning artifact output key.
 provisioningArtifactOutput_description :: Lens.Lens' ProvisioningArtifactOutput (Prelude.Maybe Prelude.Text)
 provisioningArtifactOutput_description = Lens.lens (\ProvisioningArtifactOutput' {description} -> description) (\s@ProvisioningArtifactOutput' {} a -> s {description = a} :: ProvisioningArtifactOutput)
 
-instance Core.FromJSON ProvisioningArtifactOutput where
+-- | The provisioning artifact output key.
+provisioningArtifactOutput_key :: Lens.Lens' ProvisioningArtifactOutput (Prelude.Maybe Prelude.Text)
+provisioningArtifactOutput_key = Lens.lens (\ProvisioningArtifactOutput' {key} -> key) (\s@ProvisioningArtifactOutput' {} a -> s {key = a} :: ProvisioningArtifactOutput)
+
+instance Data.FromJSON ProvisioningArtifactOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProvisioningArtifactOutput"
       ( \x ->
           ProvisioningArtifactOutput'
-            Prelude.<$> (x Core..:? "Key")
-            Prelude.<*> (x Core..:? "Description")
+            Prelude.<$> (x Data..:? "Description")
+            Prelude.<*> (x Data..:? "Key")
       )
 
 instance Prelude.Hashable ProvisioningArtifactOutput where
   hashWithSalt _salt ProvisioningArtifactOutput' {..} =
-    _salt `Prelude.hashWithSalt` key
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` key
 
 instance Prelude.NFData ProvisioningArtifactOutput where
   rnf ProvisioningArtifactOutput' {..} =
-    Prelude.rnf key
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf key

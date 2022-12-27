@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.TeletextSourceSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.TeletextSourceSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.CaptionRectangle
 import qualified Amazonka.Prelude as Prelude
 
@@ -72,14 +73,14 @@ teletextSourceSettings_outputRectangle = Lens.lens (\TeletextSourceSettings' {ou
 teletextSourceSettings_pageNumber :: Lens.Lens' TeletextSourceSettings (Prelude.Maybe Prelude.Text)
 teletextSourceSettings_pageNumber = Lens.lens (\TeletextSourceSettings' {pageNumber} -> pageNumber) (\s@TeletextSourceSettings' {} a -> s {pageNumber = a} :: TeletextSourceSettings)
 
-instance Core.FromJSON TeletextSourceSettings where
+instance Data.FromJSON TeletextSourceSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TeletextSourceSettings"
       ( \x ->
           TeletextSourceSettings'
-            Prelude.<$> (x Core..:? "outputRectangle")
-            Prelude.<*> (x Core..:? "pageNumber")
+            Prelude.<$> (x Data..:? "outputRectangle")
+            Prelude.<*> (x Data..:? "pageNumber")
       )
 
 instance Prelude.Hashable TeletextSourceSettings where
@@ -92,12 +93,12 @@ instance Prelude.NFData TeletextSourceSettings where
     Prelude.rnf outputRectangle
       `Prelude.seq` Prelude.rnf pageNumber
 
-instance Core.ToJSON TeletextSourceSettings where
+instance Data.ToJSON TeletextSourceSettings where
   toJSON TeletextSourceSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("outputRectangle" Core..=)
+          [ ("outputRectangle" Data..=)
               Prelude.<$> outputRectangle,
-            ("pageNumber" Core..=) Prelude.<$> pageNumber
+            ("pageNumber" Data..=) Prelude.<$> pageNumber
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.LoadBalancerState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,17 @@
 module Amazonka.AutoScaling.Types.LoadBalancerState where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the state of a Classic Load Balancer.
 --
 -- /See:/ 'newLoadBalancerState' smart constructor.
 data LoadBalancerState = LoadBalancerState'
-  { -- | One of the following load balancer states:
+  { -- | The name of the load balancer.
+    loadBalancerName :: Prelude.Maybe Prelude.Text,
+    -- | One of the following load balancer states:
     --
     -- -   @Adding@ - The Auto Scaling instances are being registered with the
     --     load balancer.
@@ -45,9 +48,7 @@ data LoadBalancerState = LoadBalancerState'
     --
     -- -   @Removed@ - All Auto Scaling instances are deregistered from the
     --     load balancer.
-    state :: Prelude.Maybe Prelude.Text,
-    -- | The name of the load balancer.
-    loadBalancerName :: Prelude.Maybe Prelude.Text
+    state :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,6 +59,8 @@ data LoadBalancerState = LoadBalancerState'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'loadBalancerName', 'loadBalancerState_loadBalancerName' - The name of the load balancer.
 --
 -- 'state', 'loadBalancerState_state' - One of the following load balancer states:
 --
@@ -77,15 +80,18 @@ data LoadBalancerState = LoadBalancerState'
 --
 -- -   @Removed@ - All Auto Scaling instances are deregistered from the
 --     load balancer.
---
--- 'loadBalancerName', 'loadBalancerState_loadBalancerName' - The name of the load balancer.
 newLoadBalancerState ::
   LoadBalancerState
 newLoadBalancerState =
   LoadBalancerState'
-    { state = Prelude.Nothing,
-      loadBalancerName = Prelude.Nothing
+    { loadBalancerName =
+        Prelude.Nothing,
+      state = Prelude.Nothing
     }
+
+-- | The name of the load balancer.
+loadBalancerState_loadBalancerName :: Lens.Lens' LoadBalancerState (Prelude.Maybe Prelude.Text)
+loadBalancerState_loadBalancerName = Lens.lens (\LoadBalancerState' {loadBalancerName} -> loadBalancerName) (\s@LoadBalancerState' {} a -> s {loadBalancerName = a} :: LoadBalancerState)
 
 -- | One of the following load balancer states:
 --
@@ -108,22 +114,18 @@ newLoadBalancerState =
 loadBalancerState_state :: Lens.Lens' LoadBalancerState (Prelude.Maybe Prelude.Text)
 loadBalancerState_state = Lens.lens (\LoadBalancerState' {state} -> state) (\s@LoadBalancerState' {} a -> s {state = a} :: LoadBalancerState)
 
--- | The name of the load balancer.
-loadBalancerState_loadBalancerName :: Lens.Lens' LoadBalancerState (Prelude.Maybe Prelude.Text)
-loadBalancerState_loadBalancerName = Lens.lens (\LoadBalancerState' {loadBalancerName} -> loadBalancerName) (\s@LoadBalancerState' {} a -> s {loadBalancerName = a} :: LoadBalancerState)
-
-instance Core.FromXML LoadBalancerState where
+instance Data.FromXML LoadBalancerState where
   parseXML x =
     LoadBalancerState'
-      Prelude.<$> (x Core..@? "State")
-      Prelude.<*> (x Core..@? "LoadBalancerName")
+      Prelude.<$> (x Data..@? "LoadBalancerName")
+      Prelude.<*> (x Data..@? "State")
 
 instance Prelude.Hashable LoadBalancerState where
   hashWithSalt _salt LoadBalancerState' {..} =
-    _salt `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` loadBalancerName
+    _salt `Prelude.hashWithSalt` loadBalancerName
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData LoadBalancerState where
   rnf LoadBalancerState' {..} =
-    Prelude.rnf state
-      `Prelude.seq` Prelude.rnf loadBalancerName
+    Prelude.rnf loadBalancerName
+      `Prelude.seq` Prelude.rnf state

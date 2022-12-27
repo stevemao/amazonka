@@ -14,22 +14,21 @@
 
 -- |
 -- Module      : Amazonka.SSM.DeleteAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Disassociates the specified Amazon Web Services Systems Manager document
--- (SSM document) from the specified instance. If you created the
+-- (SSM document) from the specified managed node. If you created the
 -- association by using the @Targets@ parameter, then you must delete the
 -- association by using the association ID.
 --
--- When you disassociate a document from an instance, it doesn\'t change
--- the configuration of the instance. To change the configuration state of
--- an instance after you disassociate a document, you must create a new
--- document with the desired configuration and associate it with the
--- instance.
+-- When you disassociate a document from a managed node, it doesn\'t change
+-- the configuration of the node. To change the configuration state of a
+-- managed node after you disassociate a document, you must create a new
+-- document with the desired configuration and associate it with the node.
 module Amazonka.SSM.DeleteAssociation
   ( -- * Creating a Request
     DeleteAssociation (..),
@@ -50,7 +49,8 @@ module Amazonka.SSM.DeleteAssociation
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,9 +60,9 @@ import Amazonka.SSM.Types
 data DeleteAssociation = DeleteAssociation'
   { -- | The association ID that you want to delete.
     associationId :: Prelude.Maybe Prelude.Text,
-    -- | The instance ID.
+    -- | The managed node ID.
     --
-    -- @InstanceId@ has been deprecated. To specify an instance ID for an
+    -- @InstanceId@ has been deprecated. To specify a managed node ID for an
     -- association, use the @Targets@ parameter. Requests that include the
     -- parameter @InstanceID@ with Systems Manager documents (SSM documents)
     -- that use schema version 2.0 or later will fail. In addition, if you use
@@ -86,9 +86,9 @@ data DeleteAssociation = DeleteAssociation'
 --
 -- 'associationId', 'deleteAssociation_associationId' - The association ID that you want to delete.
 --
--- 'instanceId', 'deleteAssociation_instanceId' - The instance ID.
+-- 'instanceId', 'deleteAssociation_instanceId' - The managed node ID.
 --
--- @InstanceId@ has been deprecated. To specify an instance ID for an
+-- @InstanceId@ has been deprecated. To specify a managed node ID for an
 -- association, use the @Targets@ parameter. Requests that include the
 -- parameter @InstanceID@ with Systems Manager documents (SSM documents)
 -- that use schema version 2.0 or later will fail. In addition, if you use
@@ -111,9 +111,9 @@ newDeleteAssociation =
 deleteAssociation_associationId :: Lens.Lens' DeleteAssociation (Prelude.Maybe Prelude.Text)
 deleteAssociation_associationId = Lens.lens (\DeleteAssociation' {associationId} -> associationId) (\s@DeleteAssociation' {} a -> s {associationId = a} :: DeleteAssociation)
 
--- | The instance ID.
+-- | The managed node ID.
 --
--- @InstanceId@ has been deprecated. To specify an instance ID for an
+-- @InstanceId@ has been deprecated. To specify a managed node ID for an
 -- association, use the @Targets@ parameter. Requests that include the
 -- parameter @InstanceID@ with Systems Manager documents (SSM documents)
 -- that use schema version 2.0 or later will fail. In addition, if you use
@@ -132,7 +132,8 @@ instance Core.AWSRequest DeleteAssociation where
   type
     AWSResponse DeleteAssociation =
       DeleteAssociationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -152,35 +153,35 @@ instance Prelude.NFData DeleteAssociation where
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders DeleteAssociation where
+instance Data.ToHeaders DeleteAssociation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.DeleteAssociation" ::
+              Data.=# ( "AmazonSSM.DeleteAssociation" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteAssociation where
+instance Data.ToJSON DeleteAssociation where
   toJSON DeleteAssociation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AssociationId" Core..=) Prelude.<$> associationId,
-            ("InstanceId" Core..=) Prelude.<$> instanceId,
-            ("Name" Core..=) Prelude.<$> name
+          [ ("AssociationId" Data..=) Prelude.<$> associationId,
+            ("InstanceId" Data..=) Prelude.<$> instanceId,
+            ("Name" Data..=) Prelude.<$> name
           ]
       )
 
-instance Core.ToPath DeleteAssociation where
+instance Data.ToPath DeleteAssociation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAssociation where
+instance Data.ToQuery DeleteAssociation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAssociationResponse' smart constructor.

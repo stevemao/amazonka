@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.OriginRequestPolicySummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudFront.Types.OriginRequestPolicySummary where
 import Amazonka.CloudFront.Types.OriginRequestPolicy
 import Amazonka.CloudFront.Types.OriginRequestPolicyType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains an origin request policy.
@@ -30,7 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newOriginRequestPolicySummary' smart constructor.
 data OriginRequestPolicySummary = OriginRequestPolicySummary'
   { -- | The type of origin request policy, either @managed@ (created by Amazon
-    -- Web Services) or @custom@ (created in this account).
+    -- Web Services) or @custom@ (created in this Amazon Web Services account).
     type' :: OriginRequestPolicyType,
     -- | The origin request policy.
     originRequestPolicy :: OriginRequestPolicy
@@ -46,7 +47,7 @@ data OriginRequestPolicySummary = OriginRequestPolicySummary'
 -- for backwards compatibility:
 --
 -- 'type'', 'originRequestPolicySummary_type' - The type of origin request policy, either @managed@ (created by Amazon
--- Web Services) or @custom@ (created in this account).
+-- Web Services) or @custom@ (created in this Amazon Web Services account).
 --
 -- 'originRequestPolicy', 'originRequestPolicySummary_originRequestPolicy' - The origin request policy.
 newOriginRequestPolicySummary ::
@@ -64,7 +65,7 @@ newOriginRequestPolicySummary
       }
 
 -- | The type of origin request policy, either @managed@ (created by Amazon
--- Web Services) or @custom@ (created in this account).
+-- Web Services) or @custom@ (created in this Amazon Web Services account).
 originRequestPolicySummary_type :: Lens.Lens' OriginRequestPolicySummary OriginRequestPolicyType
 originRequestPolicySummary_type = Lens.lens (\OriginRequestPolicySummary' {type'} -> type') (\s@OriginRequestPolicySummary' {} a -> s {type' = a} :: OriginRequestPolicySummary)
 
@@ -72,11 +73,11 @@ originRequestPolicySummary_type = Lens.lens (\OriginRequestPolicySummary' {type'
 originRequestPolicySummary_originRequestPolicy :: Lens.Lens' OriginRequestPolicySummary OriginRequestPolicy
 originRequestPolicySummary_originRequestPolicy = Lens.lens (\OriginRequestPolicySummary' {originRequestPolicy} -> originRequestPolicy) (\s@OriginRequestPolicySummary' {} a -> s {originRequestPolicy = a} :: OriginRequestPolicySummary)
 
-instance Core.FromXML OriginRequestPolicySummary where
+instance Data.FromXML OriginRequestPolicySummary where
   parseXML x =
     OriginRequestPolicySummary'
-      Prelude.<$> (x Core..@ "Type")
-      Prelude.<*> (x Core..@ "OriginRequestPolicy")
+      Prelude.<$> (x Data..@ "Type")
+      Prelude.<*> (x Data..@ "OriginRequestPolicy")
 
 instance Prelude.Hashable OriginRequestPolicySummary where
   hashWithSalt _salt OriginRequestPolicySummary' {..} =

@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.GetComponentVersionArtifact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the pre-signed URL to download a public component artifact. Core
--- devices call this operation to identify the URL that they can use to
--- download an artifact to install.
+-- Gets the pre-signed URL to download a public or a Lambda component
+-- artifact. Core devices call this operation to identify the URL that they
+-- can use to download an artifact to install.
 module Amazonka.GreengrassV2.GetComponentVersionArtifact
   ( -- * Creating a Request
     GetComponentVersionArtifact (..),
@@ -43,8 +43,9 @@ module Amazonka.GreengrassV2.GetComponentVersionArtifact
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,7 +54,8 @@ import qualified Amazonka.Response as Response
 data GetComponentVersionArtifact = GetComponentVersionArtifact'
   { -- | The
     -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
-    -- of the component version. Specify the ARN of a public component version.
+    -- of the component version. Specify the ARN of a public or a Lambda
+    -- component version.
     arn :: Prelude.Text,
     -- | The name of the artifact.
     --
@@ -77,7 +79,8 @@ data GetComponentVersionArtifact = GetComponentVersionArtifact'
 --
 -- 'arn', 'getComponentVersionArtifact_arn' - The
 -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
--- of the component version. Specify the ARN of a public component version.
+-- of the component version. Specify the ARN of a public or a Lambda
+-- component version.
 --
 -- 'artifactName', 'getComponentVersionArtifact_artifactName' - The name of the artifact.
 --
@@ -101,7 +104,8 @@ newGetComponentVersionArtifact pArn_ pArtifactName_ =
 
 -- | The
 -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html ARN>
--- of the component version. Specify the ARN of a public component version.
+-- of the component version. Specify the ARN of a public or a Lambda
+-- component version.
 getComponentVersionArtifact_arn :: Lens.Lens' GetComponentVersionArtifact Prelude.Text
 getComponentVersionArtifact_arn = Lens.lens (\GetComponentVersionArtifact' {arn} -> arn) (\s@GetComponentVersionArtifact' {} a -> s {arn = a} :: GetComponentVersionArtifact)
 
@@ -120,13 +124,14 @@ instance Core.AWSRequest GetComponentVersionArtifact where
   type
     AWSResponse GetComponentVersionArtifact =
       GetComponentVersionArtifactResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetComponentVersionArtifactResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "preSignedUrl")
+            Prelude.<*> (x Data..:> "preSignedUrl")
       )
 
 instance Prelude.Hashable GetComponentVersionArtifact where
@@ -139,27 +144,19 @@ instance Prelude.NFData GetComponentVersionArtifact where
     Prelude.rnf arn
       `Prelude.seq` Prelude.rnf artifactName
 
-instance Core.ToHeaders GetComponentVersionArtifact where
-  toHeaders =
-    Prelude.const
-      ( Prelude.mconcat
-          [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
-                          Prelude.ByteString
-                      )
-          ]
-      )
+instance Data.ToHeaders GetComponentVersionArtifact where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetComponentVersionArtifact where
+instance Data.ToPath GetComponentVersionArtifact where
   toPath GetComponentVersionArtifact' {..} =
     Prelude.mconcat
       [ "/greengrass/v2/components/",
-        Core.toBS arn,
+        Data.toBS arn,
         "/artifacts/",
-        Core.toBS artifactName
+        Data.toBS artifactName
       ]
 
-instance Core.ToQuery GetComponentVersionArtifact where
+instance Data.ToQuery GetComponentVersionArtifact where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetComponentVersionArtifactResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.Types.ConferencePreference
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AlexaBusiness.Types.ConferencePreference where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The default conference provider that is used if no other scheduled
@@ -54,13 +55,13 @@ newConferencePreference =
 conferencePreference_defaultConferenceProviderArn :: Lens.Lens' ConferencePreference (Prelude.Maybe Prelude.Text)
 conferencePreference_defaultConferenceProviderArn = Lens.lens (\ConferencePreference' {defaultConferenceProviderArn} -> defaultConferenceProviderArn) (\s@ConferencePreference' {} a -> s {defaultConferenceProviderArn = a} :: ConferencePreference)
 
-instance Core.FromJSON ConferencePreference where
+instance Data.FromJSON ConferencePreference where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConferencePreference"
       ( \x ->
           ConferencePreference'
-            Prelude.<$> (x Core..:? "DefaultConferenceProviderArn")
+            Prelude.<$> (x Data..:? "DefaultConferenceProviderArn")
       )
 
 instance Prelude.Hashable ConferencePreference where
@@ -72,11 +73,11 @@ instance Prelude.NFData ConferencePreference where
   rnf ConferencePreference' {..} =
     Prelude.rnf defaultConferenceProviderArn
 
-instance Core.ToJSON ConferencePreference where
+instance Data.ToJSON ConferencePreference where
   toJSON ConferencePreference' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DefaultConferenceProviderArn" Core..=)
+          [ ("DefaultConferenceProviderArn" Data..=)
               Prelude.<$> defaultConferenceProviderArn
           ]
       )

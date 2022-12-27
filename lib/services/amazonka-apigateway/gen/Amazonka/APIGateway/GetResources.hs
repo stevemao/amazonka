@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetResources
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,7 +70,7 @@ data GetResources = GetResources'
     limit :: Prelude.Maybe Prelude.Int,
     -- | The current pagination position in the paged result set.
     position :: Prelude.Maybe Prelude.Text,
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -95,7 +96,7 @@ data GetResources = GetResources'
 --
 -- 'position', 'getResources_position' - The current pagination position in the paged result set.
 --
--- 'restApiId', 'getResources_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getResources_restApiId' - The string identifier of the associated RestApi.
 newGetResources ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -127,7 +128,7 @@ getResources_limit = Lens.lens (\GetResources' {limit} -> limit) (\s@GetResource
 getResources_position :: Lens.Lens' GetResources (Prelude.Maybe Prelude.Text)
 getResources_position = Lens.lens (\GetResources' {position} -> position) (\s@GetResources' {} a -> s {position = a} :: GetResources)
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getResources_restApiId :: Lens.Lens' GetResources Prelude.Text
 getResources_restApiId = Lens.lens (\GetResources' {restApiId} -> restApiId) (\s@GetResources' {} a -> s {restApiId = a} :: GetResources)
 
@@ -152,13 +153,14 @@ instance Core.AWSPager GetResources where
 
 instance Core.AWSRequest GetResources where
   type AWSResponse GetResources = GetResourcesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetResourcesResponse'
-            Prelude.<$> (x Core..?> "item" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "position")
+            Prelude.<$> (x Data..?> "item" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "position")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -176,33 +178,31 @@ instance Prelude.NFData GetResources where
       `Prelude.seq` Prelude.rnf position
       `Prelude.seq` Prelude.rnf restApiId
 
-instance Core.ToHeaders GetResources where
+instance Data.ToHeaders GetResources where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetResources where
+instance Data.ToPath GetResources where
   toPath GetResources' {..} =
     Prelude.mconcat
-      ["/restapis/", Core.toBS restApiId, "/resources"]
+      ["/restapis/", Data.toBS restApiId, "/resources"]
 
-instance Core.ToQuery GetResources where
+instance Data.ToQuery GetResources where
   toQuery GetResources' {..} =
     Prelude.mconcat
       [ "embed"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> embed),
-        "limit" Core.=: limit,
-        "position" Core.=: position
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> embed),
+        "limit" Data.=: limit,
+        "position" Data.=: position
       ]
 
 -- | Represents a collection of Resource resources.
---
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/how-to-create-api.html Create an API>
 --
 -- /See:/ 'newGetResourcesResponse' smart constructor.
 data GetResourcesResponse = GetResourcesResponse'

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.DeleteCachePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,7 +103,8 @@ instance Core.AWSRequest DeleteCachePolicy where
   type
     AWSResponse DeleteCachePolicy =
       DeleteCachePolicyResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteCachePolicyResponse'
 
@@ -115,16 +117,16 @@ instance Prelude.NFData DeleteCachePolicy where
   rnf DeleteCachePolicy' {..} =
     Prelude.rnf ifMatch `Prelude.seq` Prelude.rnf id
 
-instance Core.ToHeaders DeleteCachePolicy where
+instance Data.ToHeaders DeleteCachePolicy where
   toHeaders DeleteCachePolicy' {..} =
-    Prelude.mconcat ["If-Match" Core.=# ifMatch]
+    Prelude.mconcat ["If-Match" Data.=# ifMatch]
 
-instance Core.ToPath DeleteCachePolicy where
+instance Data.ToPath DeleteCachePolicy where
   toPath DeleteCachePolicy' {..} =
     Prelude.mconcat
-      ["/2020-05-31/cache-policy/", Core.toBS id]
+      ["/2020-05-31/cache-policy/", Data.toBS id]
 
-instance Core.ToQuery DeleteCachePolicy where
+instance Data.ToQuery DeleteCachePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCachePolicyResponse' smart constructor.

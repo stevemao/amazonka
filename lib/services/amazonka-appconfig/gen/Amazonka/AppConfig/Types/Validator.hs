@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.Types.Validator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,23 +21,24 @@ module Amazonka.AppConfig.Types.Validator where
 
 import Amazonka.AppConfig.Types.ValidatorType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A validator provides a syntactic or semantic check to ensure the
--- configuration you want to deploy functions as intended. To validate your
--- application configuration data, you provide a schema or a Lambda
--- function that runs against the configuration. The configuration
--- deployment or update can only proceed when the configuration data is
--- valid.
+-- configuration that you want to deploy functions as intended. To validate
+-- your application configuration data, you provide a schema or an Amazon
+-- Web Services Lambda function that runs against the configuration. The
+-- configuration deployment or update can only proceed when the
+-- configuration data is valid.
 --
 -- /See:/ 'newValidator' smart constructor.
 data Validator = Validator'
   { -- | AppConfig supports validators of type @JSON_SCHEMA@ and @LAMBDA@
     type' :: ValidatorType,
     -- | Either the JSON Schema content or the Amazon Resource Name (ARN) of an
-    -- AWS Lambda function.
-    content :: Core.Sensitive Prelude.Text
+    -- Lambda function.
+    content :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -52,7 +53,7 @@ data Validator = Validator'
 -- 'type'', 'validator_type' - AppConfig supports validators of type @JSON_SCHEMA@ and @LAMBDA@
 --
 -- 'content', 'validator_content' - Either the JSON Schema content or the Amazon Resource Name (ARN) of an
--- AWS Lambda function.
+-- Lambda function.
 newValidator ::
   -- | 'type''
   ValidatorType ->
@@ -62,7 +63,7 @@ newValidator ::
 newValidator pType_ pContent_ =
   Validator'
     { type' = pType_,
-      content = Core._Sensitive Lens.# pContent_
+      content = Data._Sensitive Lens.# pContent_
     }
 
 -- | AppConfig supports validators of type @JSON_SCHEMA@ and @LAMBDA@
@@ -70,17 +71,17 @@ validator_type :: Lens.Lens' Validator ValidatorType
 validator_type = Lens.lens (\Validator' {type'} -> type') (\s@Validator' {} a -> s {type' = a} :: Validator)
 
 -- | Either the JSON Schema content or the Amazon Resource Name (ARN) of an
--- AWS Lambda function.
+-- Lambda function.
 validator_content :: Lens.Lens' Validator Prelude.Text
-validator_content = Lens.lens (\Validator' {content} -> content) (\s@Validator' {} a -> s {content = a} :: Validator) Prelude.. Core._Sensitive
+validator_content = Lens.lens (\Validator' {content} -> content) (\s@Validator' {} a -> s {content = a} :: Validator) Prelude.. Data._Sensitive
 
-instance Core.FromJSON Validator where
+instance Data.FromJSON Validator where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Validator"
       ( \x ->
           Validator'
-            Prelude.<$> (x Core..: "Type") Prelude.<*> (x Core..: "Content")
+            Prelude.<$> (x Data..: "Type") Prelude.<*> (x Data..: "Content")
       )
 
 instance Prelude.Hashable Validator where
@@ -92,11 +93,11 @@ instance Prelude.NFData Validator where
   rnf Validator' {..} =
     Prelude.rnf type' `Prelude.seq` Prelude.rnf content
 
-instance Core.ToJSON Validator where
+instance Data.ToJSON Validator where
   toJSON Validator' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Type" Core..= type'),
-            Prelude.Just ("Content" Core..= content)
+          [ Prelude.Just ("Type" Data..= type'),
+            Prelude.Just ("Content" Data..= content)
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Signer.AddProfilePermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.Signer.AddProfilePermission
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -143,12 +144,13 @@ instance Core.AWSRequest AddProfilePermission where
   type
     AWSResponse AddProfilePermission =
       AddProfilePermissionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddProfilePermissionResponse'
-            Prelude.<$> (x Core..?> "revisionId")
+            Prelude.<$> (x Data..?> "revisionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -170,39 +172,39 @@ instance Prelude.NFData AddProfilePermission where
       `Prelude.seq` Prelude.rnf statementId
       `Prelude.seq` Prelude.rnf profileName
 
-instance Core.ToHeaders AddProfilePermission where
+instance Data.ToHeaders AddProfilePermission where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddProfilePermission where
+instance Data.ToJSON AddProfilePermission where
   toJSON AddProfilePermission' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("profileVersion" Core..=)
+          [ ("profileVersion" Data..=)
               Prelude.<$> profileVersion,
-            ("revisionId" Core..=) Prelude.<$> revisionId,
-            Prelude.Just ("action" Core..= action),
-            Prelude.Just ("principal" Core..= principal),
-            Prelude.Just ("statementId" Core..= statementId)
+            ("revisionId" Data..=) Prelude.<$> revisionId,
+            Prelude.Just ("action" Data..= action),
+            Prelude.Just ("principal" Data..= principal),
+            Prelude.Just ("statementId" Data..= statementId)
           ]
       )
 
-instance Core.ToPath AddProfilePermission where
+instance Data.ToPath AddProfilePermission where
   toPath AddProfilePermission' {..} =
     Prelude.mconcat
       [ "/signing-profiles/",
-        Core.toBS profileName,
+        Data.toBS profileName,
         "/permissions"
       ]
 
-instance Core.ToQuery AddProfilePermission where
+instance Data.ToQuery AddProfilePermission where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddProfilePermissionResponse' smart constructor.

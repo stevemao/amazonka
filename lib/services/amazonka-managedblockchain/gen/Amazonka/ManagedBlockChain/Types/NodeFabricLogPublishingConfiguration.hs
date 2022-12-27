@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.Types.NodeFabricLogPublishingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ManagedBlockChain.Types.NodeFabricLogPublishingConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types.LogConfigurations
 import qualified Amazonka.Prelude as Prelude
 
@@ -86,16 +87,16 @@ nodeFabricLogPublishingConfiguration_peerLogs :: Lens.Lens' NodeFabricLogPublish
 nodeFabricLogPublishingConfiguration_peerLogs = Lens.lens (\NodeFabricLogPublishingConfiguration' {peerLogs} -> peerLogs) (\s@NodeFabricLogPublishingConfiguration' {} a -> s {peerLogs = a} :: NodeFabricLogPublishingConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     NodeFabricLogPublishingConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NodeFabricLogPublishingConfiguration"
       ( \x ->
           NodeFabricLogPublishingConfiguration'
-            Prelude.<$> (x Core..:? "ChaincodeLogs")
-            Prelude.<*> (x Core..:? "PeerLogs")
+            Prelude.<$> (x Data..:? "ChaincodeLogs")
+            Prelude.<*> (x Data..:? "PeerLogs")
       )
 
 instance
@@ -117,13 +118,13 @@ instance
       `Prelude.seq` Prelude.rnf peerLogs
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     NodeFabricLogPublishingConfiguration
   where
   toJSON NodeFabricLogPublishingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ChaincodeLogs" Core..=) Prelude.<$> chaincodeLogs,
-            ("PeerLogs" Core..=) Prelude.<$> peerLogs
+          [ ("ChaincodeLogs" Data..=) Prelude.<$> chaincodeLogs,
+            ("PeerLogs" Data..=) Prelude.<$> peerLogs
           ]
       )

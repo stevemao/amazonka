@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DescribeEngineDefaultParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.RDS.DescribeEngineDefaultParameters
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -73,6 +74,102 @@ data DescribeEngineDefaultParameters = DescribeEngineDefaultParameters'
     -- Constraints: Minimum 20, maximum 100.
     maxRecords :: Prelude.Maybe Prelude.Int,
     -- | The name of the DB parameter group family.
+    --
+    -- Valid Values:
+    --
+    -- -   @aurora5.6@
+    --
+    -- -   @aurora-mysql5.7@
+    --
+    -- -   @aurora-mysql8.0@
+    --
+    -- -   @aurora-postgresql10@
+    --
+    -- -   @aurora-postgresql11@
+    --
+    -- -   @aurora-postgresql12@
+    --
+    -- -   @aurora-postgresql13@
+    --
+    -- -   @aurora-postgresql14@
+    --
+    -- -   @custom-oracle-ee-19@
+    --
+    -- -   @mariadb10.2@
+    --
+    -- -   @mariadb10.3@
+    --
+    -- -   @mariadb10.4@
+    --
+    -- -   @mariadb10.5@
+    --
+    -- -   @mariadb10.6@
+    --
+    -- -   @mysql5.7@
+    --
+    -- -   @mysql8.0@
+    --
+    -- -   @oracle-ee-19@
+    --
+    -- -   @oracle-ee-cdb-19@
+    --
+    -- -   @oracle-ee-cdb-21@
+    --
+    -- -   @oracle-se2-19@
+    --
+    -- -   @oracle-se2-cdb-19@
+    --
+    -- -   @oracle-se2-cdb-21@
+    --
+    -- -   @postgres10@
+    --
+    -- -   @postgres11@
+    --
+    -- -   @postgres12@
+    --
+    -- -   @postgres13@
+    --
+    -- -   @postgres14@
+    --
+    -- -   @sqlserver-ee-11.0@
+    --
+    -- -   @sqlserver-ee-12.0@
+    --
+    -- -   @sqlserver-ee-13.0@
+    --
+    -- -   @sqlserver-ee-14.0@
+    --
+    -- -   @sqlserver-ee-15.0@
+    --
+    -- -   @sqlserver-ex-11.0@
+    --
+    -- -   @sqlserver-ex-12.0@
+    --
+    -- -   @sqlserver-ex-13.0@
+    --
+    -- -   @sqlserver-ex-14.0@
+    --
+    -- -   @sqlserver-ex-15.0@
+    --
+    -- -   @sqlserver-se-11.0@
+    --
+    -- -   @sqlserver-se-12.0@
+    --
+    -- -   @sqlserver-se-13.0@
+    --
+    -- -   @sqlserver-se-14.0@
+    --
+    -- -   @sqlserver-se-15.0@
+    --
+    -- -   @sqlserver-web-11.0@
+    --
+    -- -   @sqlserver-web-12.0@
+    --
+    -- -   @sqlserver-web-13.0@
+    --
+    -- -   @sqlserver-web-14.0@
+    --
+    -- -   @sqlserver-web-15.0@
     dbParameterGroupFamily :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -102,6 +199,102 @@ data DescribeEngineDefaultParameters = DescribeEngineDefaultParameters'
 -- Constraints: Minimum 20, maximum 100.
 --
 -- 'dbParameterGroupFamily', 'describeEngineDefaultParameters_dbParameterGroupFamily' - The name of the DB parameter group family.
+--
+-- Valid Values:
+--
+-- -   @aurora5.6@
+--
+-- -   @aurora-mysql5.7@
+--
+-- -   @aurora-mysql8.0@
+--
+-- -   @aurora-postgresql10@
+--
+-- -   @aurora-postgresql11@
+--
+-- -   @aurora-postgresql12@
+--
+-- -   @aurora-postgresql13@
+--
+-- -   @aurora-postgresql14@
+--
+-- -   @custom-oracle-ee-19@
+--
+-- -   @mariadb10.2@
+--
+-- -   @mariadb10.3@
+--
+-- -   @mariadb10.4@
+--
+-- -   @mariadb10.5@
+--
+-- -   @mariadb10.6@
+--
+-- -   @mysql5.7@
+--
+-- -   @mysql8.0@
+--
+-- -   @oracle-ee-19@
+--
+-- -   @oracle-ee-cdb-19@
+--
+-- -   @oracle-ee-cdb-21@
+--
+-- -   @oracle-se2-19@
+--
+-- -   @oracle-se2-cdb-19@
+--
+-- -   @oracle-se2-cdb-21@
+--
+-- -   @postgres10@
+--
+-- -   @postgres11@
+--
+-- -   @postgres12@
+--
+-- -   @postgres13@
+--
+-- -   @postgres14@
+--
+-- -   @sqlserver-ee-11.0@
+--
+-- -   @sqlserver-ee-12.0@
+--
+-- -   @sqlserver-ee-13.0@
+--
+-- -   @sqlserver-ee-14.0@
+--
+-- -   @sqlserver-ee-15.0@
+--
+-- -   @sqlserver-ex-11.0@
+--
+-- -   @sqlserver-ex-12.0@
+--
+-- -   @sqlserver-ex-13.0@
+--
+-- -   @sqlserver-ex-14.0@
+--
+-- -   @sqlserver-ex-15.0@
+--
+-- -   @sqlserver-se-11.0@
+--
+-- -   @sqlserver-se-12.0@
+--
+-- -   @sqlserver-se-13.0@
+--
+-- -   @sqlserver-se-14.0@
+--
+-- -   @sqlserver-se-15.0@
+--
+-- -   @sqlserver-web-11.0@
+--
+-- -   @sqlserver-web-12.0@
+--
+-- -   @sqlserver-web-13.0@
+--
+-- -   @sqlserver-web-14.0@
+--
+-- -   @sqlserver-web-15.0@
 newDescribeEngineDefaultParameters ::
   -- | 'dbParameterGroupFamily'
   Prelude.Text ->
@@ -140,6 +333,102 @@ describeEngineDefaultParameters_maxRecords :: Lens.Lens' DescribeEngineDefaultPa
 describeEngineDefaultParameters_maxRecords = Lens.lens (\DescribeEngineDefaultParameters' {maxRecords} -> maxRecords) (\s@DescribeEngineDefaultParameters' {} a -> s {maxRecords = a} :: DescribeEngineDefaultParameters)
 
 -- | The name of the DB parameter group family.
+--
+-- Valid Values:
+--
+-- -   @aurora5.6@
+--
+-- -   @aurora-mysql5.7@
+--
+-- -   @aurora-mysql8.0@
+--
+-- -   @aurora-postgresql10@
+--
+-- -   @aurora-postgresql11@
+--
+-- -   @aurora-postgresql12@
+--
+-- -   @aurora-postgresql13@
+--
+-- -   @aurora-postgresql14@
+--
+-- -   @custom-oracle-ee-19@
+--
+-- -   @mariadb10.2@
+--
+-- -   @mariadb10.3@
+--
+-- -   @mariadb10.4@
+--
+-- -   @mariadb10.5@
+--
+-- -   @mariadb10.6@
+--
+-- -   @mysql5.7@
+--
+-- -   @mysql8.0@
+--
+-- -   @oracle-ee-19@
+--
+-- -   @oracle-ee-cdb-19@
+--
+-- -   @oracle-ee-cdb-21@
+--
+-- -   @oracle-se2-19@
+--
+-- -   @oracle-se2-cdb-19@
+--
+-- -   @oracle-se2-cdb-21@
+--
+-- -   @postgres10@
+--
+-- -   @postgres11@
+--
+-- -   @postgres12@
+--
+-- -   @postgres13@
+--
+-- -   @postgres14@
+--
+-- -   @sqlserver-ee-11.0@
+--
+-- -   @sqlserver-ee-12.0@
+--
+-- -   @sqlserver-ee-13.0@
+--
+-- -   @sqlserver-ee-14.0@
+--
+-- -   @sqlserver-ee-15.0@
+--
+-- -   @sqlserver-ex-11.0@
+--
+-- -   @sqlserver-ex-12.0@
+--
+-- -   @sqlserver-ex-13.0@
+--
+-- -   @sqlserver-ex-14.0@
+--
+-- -   @sqlserver-ex-15.0@
+--
+-- -   @sqlserver-se-11.0@
+--
+-- -   @sqlserver-se-12.0@
+--
+-- -   @sqlserver-se-13.0@
+--
+-- -   @sqlserver-se-14.0@
+--
+-- -   @sqlserver-se-15.0@
+--
+-- -   @sqlserver-web-11.0@
+--
+-- -   @sqlserver-web-12.0@
+--
+-- -   @sqlserver-web-13.0@
+--
+-- -   @sqlserver-web-14.0@
+--
+-- -   @sqlserver-web-15.0@
 describeEngineDefaultParameters_dbParameterGroupFamily :: Lens.Lens' DescribeEngineDefaultParameters Prelude.Text
 describeEngineDefaultParameters_dbParameterGroupFamily = Lens.lens (\DescribeEngineDefaultParameters' {dbParameterGroupFamily} -> dbParameterGroupFamily) (\s@DescribeEngineDefaultParameters' {} a -> s {dbParameterGroupFamily = a} :: DescribeEngineDefaultParameters)
 
@@ -178,14 +467,15 @@ instance
   type
     AWSResponse DescribeEngineDefaultParameters =
       DescribeEngineDefaultParametersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeEngineDefaultParametersResult"
       ( \s h x ->
           DescribeEngineDefaultParametersResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "EngineDefaults")
+            Prelude.<*> (x Data..@ "EngineDefaults")
       )
 
 instance
@@ -211,30 +501,30 @@ instance
       `Prelude.seq` Prelude.rnf dbParameterGroupFamily
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeEngineDefaultParameters
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeEngineDefaultParameters where
+instance Data.ToPath DescribeEngineDefaultParameters where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEngineDefaultParameters where
+instance Data.ToQuery DescribeEngineDefaultParameters where
   toQuery DescribeEngineDefaultParameters' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeEngineDefaultParameters" ::
+          Data.=: ( "DescribeEngineDefaultParameters" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
         "DBParameterGroupFamily"
-          Core.=: dbParameterGroupFamily
+          Data.=: dbParameterGroupFamily
       ]
 
 -- | /See:/ 'newDescribeEngineDefaultParametersResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.KernelGatewayAppSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.KernelGatewayAppSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.CustomImage
 import Amazonka.SageMaker.Types.ResourceSpec
@@ -29,14 +30,23 @@ import Amazonka.SageMaker.Types.ResourceSpec
 --
 -- /See:/ 'newKernelGatewayAppSettings' smart constructor.
 data KernelGatewayAppSettings = KernelGatewayAppSettings'
-  { -- | The default instance type and the Amazon Resource Name (ARN) of the
-    -- default SageMaker image used by the KernelGateway app.
-    defaultResourceSpec :: Prelude.Maybe ResourceSpec,
-    -- | A list of custom SageMaker images that are configured to run as a
+  { -- | A list of custom SageMaker images that are configured to run as a
     -- KernelGateway app.
     customImages :: Prelude.Maybe [CustomImage],
+    -- | The default instance type and the Amazon Resource Name (ARN) of the
+    -- default SageMaker image used by the KernelGateway app.
+    --
+    -- The Amazon SageMaker Studio UI does not use the default instance type
+    -- value set here. The default instance type set here is used when Apps are
+    -- created using the Amazon Web Services Command Line Interface or Amazon
+    -- Web Services CloudFormation and the instance type parameter value is not
+    -- passed.
+    defaultResourceSpec :: Prelude.Maybe ResourceSpec,
     -- | The Amazon Resource Name (ARN) of the Lifecycle Configurations attached
     -- to the the user profile or domain.
+    --
+    -- To remove a Lifecycle Config, you must set @LifecycleConfigArns@ to an
+    -- empty list.
     lifecycleConfigArns :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -49,72 +59,90 @@ data KernelGatewayAppSettings = KernelGatewayAppSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'defaultResourceSpec', 'kernelGatewayAppSettings_defaultResourceSpec' - The default instance type and the Amazon Resource Name (ARN) of the
--- default SageMaker image used by the KernelGateway app.
---
 -- 'customImages', 'kernelGatewayAppSettings_customImages' - A list of custom SageMaker images that are configured to run as a
 -- KernelGateway app.
 --
+-- 'defaultResourceSpec', 'kernelGatewayAppSettings_defaultResourceSpec' - The default instance type and the Amazon Resource Name (ARN) of the
+-- default SageMaker image used by the KernelGateway app.
+--
+-- The Amazon SageMaker Studio UI does not use the default instance type
+-- value set here. The default instance type set here is used when Apps are
+-- created using the Amazon Web Services Command Line Interface or Amazon
+-- Web Services CloudFormation and the instance type parameter value is not
+-- passed.
+--
 -- 'lifecycleConfigArns', 'kernelGatewayAppSettings_lifecycleConfigArns' - The Amazon Resource Name (ARN) of the Lifecycle Configurations attached
 -- to the the user profile or domain.
+--
+-- To remove a Lifecycle Config, you must set @LifecycleConfigArns@ to an
+-- empty list.
 newKernelGatewayAppSettings ::
   KernelGatewayAppSettings
 newKernelGatewayAppSettings =
   KernelGatewayAppSettings'
-    { defaultResourceSpec =
+    { customImages =
         Prelude.Nothing,
-      customImages = Prelude.Nothing,
+      defaultResourceSpec = Prelude.Nothing,
       lifecycleConfigArns = Prelude.Nothing
     }
-
--- | The default instance type and the Amazon Resource Name (ARN) of the
--- default SageMaker image used by the KernelGateway app.
-kernelGatewayAppSettings_defaultResourceSpec :: Lens.Lens' KernelGatewayAppSettings (Prelude.Maybe ResourceSpec)
-kernelGatewayAppSettings_defaultResourceSpec = Lens.lens (\KernelGatewayAppSettings' {defaultResourceSpec} -> defaultResourceSpec) (\s@KernelGatewayAppSettings' {} a -> s {defaultResourceSpec = a} :: KernelGatewayAppSettings)
 
 -- | A list of custom SageMaker images that are configured to run as a
 -- KernelGateway app.
 kernelGatewayAppSettings_customImages :: Lens.Lens' KernelGatewayAppSettings (Prelude.Maybe [CustomImage])
 kernelGatewayAppSettings_customImages = Lens.lens (\KernelGatewayAppSettings' {customImages} -> customImages) (\s@KernelGatewayAppSettings' {} a -> s {customImages = a} :: KernelGatewayAppSettings) Prelude.. Lens.mapping Lens.coerced
 
+-- | The default instance type and the Amazon Resource Name (ARN) of the
+-- default SageMaker image used by the KernelGateway app.
+--
+-- The Amazon SageMaker Studio UI does not use the default instance type
+-- value set here. The default instance type set here is used when Apps are
+-- created using the Amazon Web Services Command Line Interface or Amazon
+-- Web Services CloudFormation and the instance type parameter value is not
+-- passed.
+kernelGatewayAppSettings_defaultResourceSpec :: Lens.Lens' KernelGatewayAppSettings (Prelude.Maybe ResourceSpec)
+kernelGatewayAppSettings_defaultResourceSpec = Lens.lens (\KernelGatewayAppSettings' {defaultResourceSpec} -> defaultResourceSpec) (\s@KernelGatewayAppSettings' {} a -> s {defaultResourceSpec = a} :: KernelGatewayAppSettings)
+
 -- | The Amazon Resource Name (ARN) of the Lifecycle Configurations attached
 -- to the the user profile or domain.
+--
+-- To remove a Lifecycle Config, you must set @LifecycleConfigArns@ to an
+-- empty list.
 kernelGatewayAppSettings_lifecycleConfigArns :: Lens.Lens' KernelGatewayAppSettings (Prelude.Maybe [Prelude.Text])
 kernelGatewayAppSettings_lifecycleConfigArns = Lens.lens (\KernelGatewayAppSettings' {lifecycleConfigArns} -> lifecycleConfigArns) (\s@KernelGatewayAppSettings' {} a -> s {lifecycleConfigArns = a} :: KernelGatewayAppSettings) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON KernelGatewayAppSettings where
+instance Data.FromJSON KernelGatewayAppSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KernelGatewayAppSettings"
       ( \x ->
           KernelGatewayAppSettings'
-            Prelude.<$> (x Core..:? "DefaultResourceSpec")
-            Prelude.<*> (x Core..:? "CustomImages" Core..!= Prelude.mempty)
-            Prelude.<*> ( x Core..:? "LifecycleConfigArns"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "CustomImages" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "DefaultResourceSpec")
+            Prelude.<*> ( x Data..:? "LifecycleConfigArns"
+                            Data..!= Prelude.mempty
                         )
       )
 
 instance Prelude.Hashable KernelGatewayAppSettings where
   hashWithSalt _salt KernelGatewayAppSettings' {..} =
-    _salt `Prelude.hashWithSalt` defaultResourceSpec
-      `Prelude.hashWithSalt` customImages
+    _salt `Prelude.hashWithSalt` customImages
+      `Prelude.hashWithSalt` defaultResourceSpec
       `Prelude.hashWithSalt` lifecycleConfigArns
 
 instance Prelude.NFData KernelGatewayAppSettings where
   rnf KernelGatewayAppSettings' {..} =
-    Prelude.rnf defaultResourceSpec
-      `Prelude.seq` Prelude.rnf customImages
+    Prelude.rnf customImages
+      `Prelude.seq` Prelude.rnf defaultResourceSpec
       `Prelude.seq` Prelude.rnf lifecycleConfigArns
 
-instance Core.ToJSON KernelGatewayAppSettings where
+instance Data.ToJSON KernelGatewayAppSettings where
   toJSON KernelGatewayAppSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DefaultResourceSpec" Core..=)
+          [ ("CustomImages" Data..=) Prelude.<$> customImages,
+            ("DefaultResourceSpec" Data..=)
               Prelude.<$> defaultResourceSpec,
-            ("CustomImages" Core..=) Prelude.<$> customImages,
-            ("LifecycleConfigArns" Core..=)
+            ("LifecycleConfigArns" Data..=)
               Prelude.<$> lifecycleConfigArns
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.DescribeStackEvents
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,7 +52,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,8 +65,8 @@ data DescribeStackEvents = DescribeStackEvents'
   { -- | A string that identifies the next page of events that you want to
     -- retrieve.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The name or the unique stack ID that is associated with the stack, which
-    -- are not always interchangeable:
+    -- | The name or the unique stack ID that\'s associated with the stack, which
+    -- aren\'t always interchangeable:
     --
     -- -   Running stacks: You can specify either the stack\'s name or its
     --     unique stack ID.
@@ -88,8 +89,8 @@ data DescribeStackEvents = DescribeStackEvents'
 -- 'nextToken', 'describeStackEvents_nextToken' - A string that identifies the next page of events that you want to
 -- retrieve.
 --
--- 'stackName', 'describeStackEvents_stackName' - The name or the unique stack ID that is associated with the stack, which
--- are not always interchangeable:
+-- 'stackName', 'describeStackEvents_stackName' - The name or the unique stack ID that\'s associated with the stack, which
+-- aren\'t always interchangeable:
 --
 -- -   Running stacks: You can specify either the stack\'s name or its
 --     unique stack ID.
@@ -110,8 +111,8 @@ newDescribeStackEvents =
 describeStackEvents_nextToken :: Lens.Lens' DescribeStackEvents (Prelude.Maybe Prelude.Text)
 describeStackEvents_nextToken = Lens.lens (\DescribeStackEvents' {nextToken} -> nextToken) (\s@DescribeStackEvents' {} a -> s {nextToken = a} :: DescribeStackEvents)
 
--- | The name or the unique stack ID that is associated with the stack, which
--- are not always interchangeable:
+-- | The name or the unique stack ID that\'s associated with the stack, which
+-- aren\'t always interchangeable:
 --
 -- -   Running stacks: You can specify either the stack\'s name or its
 --     unique stack ID.
@@ -148,15 +149,16 @@ instance Core.AWSRequest DescribeStackEvents where
   type
     AWSResponse DescribeStackEvents =
       DescribeStackEventsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeStackEventsResult"
       ( \s h x ->
           DescribeStackEventsResponse'
-            Prelude.<$> (x Core..@? "NextToken")
-            Prelude.<*> ( x Core..@? "StackEvents" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "NextToken")
+            Prelude.<*> ( x Data..@? "StackEvents" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -171,21 +173,21 @@ instance Prelude.NFData DescribeStackEvents where
     Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf stackName
 
-instance Core.ToHeaders DescribeStackEvents where
+instance Data.ToHeaders DescribeStackEvents where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeStackEvents where
+instance Data.ToPath DescribeStackEvents where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeStackEvents where
+instance Data.ToQuery DescribeStackEvents where
   toQuery DescribeStackEvents' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeStackEvents" :: Prelude.ByteString),
+          Data.=: ("DescribeStackEvents" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "StackName" Core.=: stackName
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "NextToken" Data.=: nextToken,
+        "StackName" Data.=: stackName
       ]
 
 -- | The output for a DescribeStackEvents action.

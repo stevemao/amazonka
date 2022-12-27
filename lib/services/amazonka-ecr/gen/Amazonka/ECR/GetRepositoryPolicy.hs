@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.GetRepositoryPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,16 +35,17 @@ module Amazonka.ECR.GetRepositoryPolicy
     newGetRepositoryPolicyResponse,
 
     -- * Response Lenses
+    getRepositoryPolicyResponse_policyText,
     getRepositoryPolicyResponse_registryId,
     getRepositoryPolicyResponse_repositoryName,
-    getRepositoryPolicyResponse_policyText,
     getRepositoryPolicyResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,14 +98,15 @@ instance Core.AWSRequest GetRepositoryPolicy where
   type
     AWSResponse GetRepositoryPolicy =
       GetRepositoryPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRepositoryPolicyResponse'
-            Prelude.<$> (x Core..?> "registryId")
-            Prelude.<*> (x Core..?> "repositoryName")
-            Prelude.<*> (x Core..?> "policyText")
+            Prelude.<$> (x Data..?> "policyText")
+            Prelude.<*> (x Data..?> "registryId")
+            Prelude.<*> (x Data..?> "repositoryName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,45 +120,45 @@ instance Prelude.NFData GetRepositoryPolicy where
     Prelude.rnf registryId
       `Prelude.seq` Prelude.rnf repositoryName
 
-instance Core.ToHeaders GetRepositoryPolicy where
+instance Data.ToHeaders GetRepositoryPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerRegistry_V20150921.GetRepositoryPolicy" ::
+              Data.=# ( "AmazonEC2ContainerRegistry_V20150921.GetRepositoryPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetRepositoryPolicy where
+instance Data.ToJSON GetRepositoryPolicy where
   toJSON GetRepositoryPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("registryId" Core..=) Prelude.<$> registryId,
+          [ ("registryId" Data..=) Prelude.<$> registryId,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName)
+              ("repositoryName" Data..= repositoryName)
           ]
       )
 
-instance Core.ToPath GetRepositoryPolicy where
+instance Data.ToPath GetRepositoryPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetRepositoryPolicy where
+instance Data.ToQuery GetRepositoryPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetRepositoryPolicyResponse' smart constructor.
 data GetRepositoryPolicyResponse = GetRepositoryPolicyResponse'
-  { -- | The registry ID associated with the request.
+  { -- | The JSON repository policy text associated with the repository.
+    policyText :: Prelude.Maybe Prelude.Text,
+    -- | The registry ID associated with the request.
     registryId :: Prelude.Maybe Prelude.Text,
     -- | The repository name associated with the request.
     repositoryName :: Prelude.Maybe Prelude.Text,
-    -- | The JSON repository policy text associated with the repository.
-    policyText :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -170,11 +172,11 @@ data GetRepositoryPolicyResponse = GetRepositoryPolicyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'policyText', 'getRepositoryPolicyResponse_policyText' - The JSON repository policy text associated with the repository.
+--
 -- 'registryId', 'getRepositoryPolicyResponse_registryId' - The registry ID associated with the request.
 --
 -- 'repositoryName', 'getRepositoryPolicyResponse_repositoryName' - The repository name associated with the request.
---
--- 'policyText', 'getRepositoryPolicyResponse_policyText' - The JSON repository policy text associated with the repository.
 --
 -- 'httpStatus', 'getRepositoryPolicyResponse_httpStatus' - The response's http status code.
 newGetRepositoryPolicyResponse ::
@@ -183,12 +185,16 @@ newGetRepositoryPolicyResponse ::
   GetRepositoryPolicyResponse
 newGetRepositoryPolicyResponse pHttpStatus_ =
   GetRepositoryPolicyResponse'
-    { registryId =
+    { policyText =
         Prelude.Nothing,
+      registryId = Prelude.Nothing,
       repositoryName = Prelude.Nothing,
-      policyText = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The JSON repository policy text associated with the repository.
+getRepositoryPolicyResponse_policyText :: Lens.Lens' GetRepositoryPolicyResponse (Prelude.Maybe Prelude.Text)
+getRepositoryPolicyResponse_policyText = Lens.lens (\GetRepositoryPolicyResponse' {policyText} -> policyText) (\s@GetRepositoryPolicyResponse' {} a -> s {policyText = a} :: GetRepositoryPolicyResponse)
 
 -- | The registry ID associated with the request.
 getRepositoryPolicyResponse_registryId :: Lens.Lens' GetRepositoryPolicyResponse (Prelude.Maybe Prelude.Text)
@@ -198,17 +204,13 @@ getRepositoryPolicyResponse_registryId = Lens.lens (\GetRepositoryPolicyResponse
 getRepositoryPolicyResponse_repositoryName :: Lens.Lens' GetRepositoryPolicyResponse (Prelude.Maybe Prelude.Text)
 getRepositoryPolicyResponse_repositoryName = Lens.lens (\GetRepositoryPolicyResponse' {repositoryName} -> repositoryName) (\s@GetRepositoryPolicyResponse' {} a -> s {repositoryName = a} :: GetRepositoryPolicyResponse)
 
--- | The JSON repository policy text associated with the repository.
-getRepositoryPolicyResponse_policyText :: Lens.Lens' GetRepositoryPolicyResponse (Prelude.Maybe Prelude.Text)
-getRepositoryPolicyResponse_policyText = Lens.lens (\GetRepositoryPolicyResponse' {policyText} -> policyText) (\s@GetRepositoryPolicyResponse' {} a -> s {policyText = a} :: GetRepositoryPolicyResponse)
-
 -- | The response's http status code.
 getRepositoryPolicyResponse_httpStatus :: Lens.Lens' GetRepositoryPolicyResponse Prelude.Int
 getRepositoryPolicyResponse_httpStatus = Lens.lens (\GetRepositoryPolicyResponse' {httpStatus} -> httpStatus) (\s@GetRepositoryPolicyResponse' {} a -> s {httpStatus = a} :: GetRepositoryPolicyResponse)
 
 instance Prelude.NFData GetRepositoryPolicyResponse where
   rnf GetRepositoryPolicyResponse' {..} =
-    Prelude.rnf registryId
+    Prelude.rnf policyText
+      `Prelude.seq` Prelude.rnf registryId
       `Prelude.seq` Prelude.rnf repositoryName
-      `Prelude.seq` Prelude.rnf policyText
       `Prelude.seq` Prelude.rnf httpStatus

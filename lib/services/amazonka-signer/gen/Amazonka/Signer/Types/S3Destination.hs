@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Signer.Types.S3Destination
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Signer.Types.S3Destination where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The name and prefix of the S3 bucket where code signing saves your
@@ -28,11 +29,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newS3Destination' smart constructor.
 data S3Destination = S3Destination'
-  { -- | An Amazon S3 prefix that you can use to limit responses to those that
+  { -- | Name of the S3 bucket.
+    bucketName :: Prelude.Maybe Prelude.Text,
+    -- | An Amazon S3 prefix that you can use to limit responses to those that
     -- begin with the specified prefix.
-    prefix :: Prelude.Maybe Prelude.Text,
-    -- | Name of the S3 bucket.
-    bucketName :: Prelude.Maybe Prelude.Text
+    prefix :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,42 +45,42 @@ data S3Destination = S3Destination'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'bucketName', 's3Destination_bucketName' - Name of the S3 bucket.
+--
 -- 'prefix', 's3Destination_prefix' - An Amazon S3 prefix that you can use to limit responses to those that
 -- begin with the specified prefix.
---
--- 'bucketName', 's3Destination_bucketName' - Name of the S3 bucket.
 newS3Destination ::
   S3Destination
 newS3Destination =
   S3Destination'
-    { prefix = Prelude.Nothing,
-      bucketName = Prelude.Nothing
+    { bucketName = Prelude.Nothing,
+      prefix = Prelude.Nothing
     }
+
+-- | Name of the S3 bucket.
+s3Destination_bucketName :: Lens.Lens' S3Destination (Prelude.Maybe Prelude.Text)
+s3Destination_bucketName = Lens.lens (\S3Destination' {bucketName} -> bucketName) (\s@S3Destination' {} a -> s {bucketName = a} :: S3Destination)
 
 -- | An Amazon S3 prefix that you can use to limit responses to those that
 -- begin with the specified prefix.
 s3Destination_prefix :: Lens.Lens' S3Destination (Prelude.Maybe Prelude.Text)
 s3Destination_prefix = Lens.lens (\S3Destination' {prefix} -> prefix) (\s@S3Destination' {} a -> s {prefix = a} :: S3Destination)
 
--- | Name of the S3 bucket.
-s3Destination_bucketName :: Lens.Lens' S3Destination (Prelude.Maybe Prelude.Text)
-s3Destination_bucketName = Lens.lens (\S3Destination' {bucketName} -> bucketName) (\s@S3Destination' {} a -> s {bucketName = a} :: S3Destination)
-
 instance Prelude.Hashable S3Destination where
   hashWithSalt _salt S3Destination' {..} =
-    _salt `Prelude.hashWithSalt` prefix
-      `Prelude.hashWithSalt` bucketName
+    _salt `Prelude.hashWithSalt` bucketName
+      `Prelude.hashWithSalt` prefix
 
 instance Prelude.NFData S3Destination where
   rnf S3Destination' {..} =
-    Prelude.rnf prefix
-      `Prelude.seq` Prelude.rnf bucketName
+    Prelude.rnf bucketName
+      `Prelude.seq` Prelude.rnf prefix
 
-instance Core.ToJSON S3Destination where
+instance Data.ToJSON S3Destination where
   toJSON S3Destination' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("prefix" Core..=) Prelude.<$> prefix,
-            ("bucketName" Core..=) Prelude.<$> bucketName
+          [ ("bucketName" Data..=) Prelude.<$> bucketName,
+            ("prefix" Data..=) Prelude.<$> prefix
           ]
       )

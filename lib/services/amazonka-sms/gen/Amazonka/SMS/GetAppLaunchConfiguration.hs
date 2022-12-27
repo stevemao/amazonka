@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SMS.GetAppLaunchConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,16 +35,17 @@ module Amazonka.SMS.GetAppLaunchConfiguration
     newGetAppLaunchConfigurationResponse,
 
     -- * Response Lenses
-    getAppLaunchConfigurationResponse_serverGroupLaunchConfigurations,
+    getAppLaunchConfigurationResponse_appId,
     getAppLaunchConfigurationResponse_autoLaunch,
     getAppLaunchConfigurationResponse_roleName,
-    getAppLaunchConfigurationResponse_appId,
+    getAppLaunchConfigurationResponse_serverGroupLaunchConfigurations,
     getAppLaunchConfigurationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,17 +80,18 @@ instance Core.AWSRequest GetAppLaunchConfiguration where
   type
     AWSResponse GetAppLaunchConfiguration =
       GetAppLaunchConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAppLaunchConfigurationResponse'
-            Prelude.<$> ( x Core..?> "serverGroupLaunchConfigurations"
+            Prelude.<$> (x Data..?> "appId")
+            Prelude.<*> (x Data..?> "autoLaunch")
+            Prelude.<*> (x Data..?> "roleName")
+            Prelude.<*> ( x Data..?> "serverGroupLaunchConfigurations"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "autoLaunch")
-            Prelude.<*> (x Core..?> "roleName")
-            Prelude.<*> (x Core..?> "appId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,46 +103,46 @@ instance Prelude.NFData GetAppLaunchConfiguration where
   rnf GetAppLaunchConfiguration' {..} =
     Prelude.rnf appId
 
-instance Core.ToHeaders GetAppLaunchConfiguration where
+instance Data.ToHeaders GetAppLaunchConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.GetAppLaunchConfiguration" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.GetAppLaunchConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetAppLaunchConfiguration where
+instance Data.ToJSON GetAppLaunchConfiguration where
   toJSON GetAppLaunchConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("appId" Core..=) Prelude.<$> appId]
+          [("appId" Data..=) Prelude.<$> appId]
       )
 
-instance Core.ToPath GetAppLaunchConfiguration where
+instance Data.ToPath GetAppLaunchConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetAppLaunchConfiguration where
+instance Data.ToQuery GetAppLaunchConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAppLaunchConfigurationResponse' smart constructor.
 data GetAppLaunchConfigurationResponse = GetAppLaunchConfigurationResponse'
-  { -- | The launch configurations for server groups in this application.
-    serverGroupLaunchConfigurations :: Prelude.Maybe [ServerGroupLaunchConfiguration],
+  { -- | The ID of the application.
+    appId :: Prelude.Maybe Prelude.Text,
     -- | Indicates whether the application is configured to launch automatically
     -- after replication is complete.
     autoLaunch :: Prelude.Maybe Prelude.Bool,
-    -- | The name of the service role in the customer\'s account that AWS
+    -- | The name of the service role in the customer\'s account that
     -- CloudFormation uses to launch the application.
     roleName :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the application.
-    appId :: Prelude.Maybe Prelude.Text,
+    -- | The launch configurations for server groups in this application.
+    serverGroupLaunchConfigurations :: Prelude.Maybe [ServerGroupLaunchConfiguration],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -154,15 +156,15 @@ data GetAppLaunchConfigurationResponse = GetAppLaunchConfigurationResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'serverGroupLaunchConfigurations', 'getAppLaunchConfigurationResponse_serverGroupLaunchConfigurations' - The launch configurations for server groups in this application.
+-- 'appId', 'getAppLaunchConfigurationResponse_appId' - The ID of the application.
 --
 -- 'autoLaunch', 'getAppLaunchConfigurationResponse_autoLaunch' - Indicates whether the application is configured to launch automatically
 -- after replication is complete.
 --
--- 'roleName', 'getAppLaunchConfigurationResponse_roleName' - The name of the service role in the customer\'s account that AWS
+-- 'roleName', 'getAppLaunchConfigurationResponse_roleName' - The name of the service role in the customer\'s account that
 -- CloudFormation uses to launch the application.
 --
--- 'appId', 'getAppLaunchConfigurationResponse_appId' - The ID of the application.
+-- 'serverGroupLaunchConfigurations', 'getAppLaunchConfigurationResponse_serverGroupLaunchConfigurations' - The launch configurations for server groups in this application.
 --
 -- 'httpStatus', 'getAppLaunchConfigurationResponse_httpStatus' - The response's http status code.
 newGetAppLaunchConfigurationResponse ::
@@ -171,31 +173,32 @@ newGetAppLaunchConfigurationResponse ::
   GetAppLaunchConfigurationResponse
 newGetAppLaunchConfigurationResponse pHttpStatus_ =
   GetAppLaunchConfigurationResponse'
-    { serverGroupLaunchConfigurations =
+    { appId =
         Prelude.Nothing,
       autoLaunch = Prelude.Nothing,
       roleName = Prelude.Nothing,
-      appId = Prelude.Nothing,
+      serverGroupLaunchConfigurations =
+        Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The launch configurations for server groups in this application.
-getAppLaunchConfigurationResponse_serverGroupLaunchConfigurations :: Lens.Lens' GetAppLaunchConfigurationResponse (Prelude.Maybe [ServerGroupLaunchConfiguration])
-getAppLaunchConfigurationResponse_serverGroupLaunchConfigurations = Lens.lens (\GetAppLaunchConfigurationResponse' {serverGroupLaunchConfigurations} -> serverGroupLaunchConfigurations) (\s@GetAppLaunchConfigurationResponse' {} a -> s {serverGroupLaunchConfigurations = a} :: GetAppLaunchConfigurationResponse) Prelude.. Lens.mapping Lens.coerced
+-- | The ID of the application.
+getAppLaunchConfigurationResponse_appId :: Lens.Lens' GetAppLaunchConfigurationResponse (Prelude.Maybe Prelude.Text)
+getAppLaunchConfigurationResponse_appId = Lens.lens (\GetAppLaunchConfigurationResponse' {appId} -> appId) (\s@GetAppLaunchConfigurationResponse' {} a -> s {appId = a} :: GetAppLaunchConfigurationResponse)
 
 -- | Indicates whether the application is configured to launch automatically
 -- after replication is complete.
 getAppLaunchConfigurationResponse_autoLaunch :: Lens.Lens' GetAppLaunchConfigurationResponse (Prelude.Maybe Prelude.Bool)
 getAppLaunchConfigurationResponse_autoLaunch = Lens.lens (\GetAppLaunchConfigurationResponse' {autoLaunch} -> autoLaunch) (\s@GetAppLaunchConfigurationResponse' {} a -> s {autoLaunch = a} :: GetAppLaunchConfigurationResponse)
 
--- | The name of the service role in the customer\'s account that AWS
+-- | The name of the service role in the customer\'s account that
 -- CloudFormation uses to launch the application.
 getAppLaunchConfigurationResponse_roleName :: Lens.Lens' GetAppLaunchConfigurationResponse (Prelude.Maybe Prelude.Text)
 getAppLaunchConfigurationResponse_roleName = Lens.lens (\GetAppLaunchConfigurationResponse' {roleName} -> roleName) (\s@GetAppLaunchConfigurationResponse' {} a -> s {roleName = a} :: GetAppLaunchConfigurationResponse)
 
--- | The ID of the application.
-getAppLaunchConfigurationResponse_appId :: Lens.Lens' GetAppLaunchConfigurationResponse (Prelude.Maybe Prelude.Text)
-getAppLaunchConfigurationResponse_appId = Lens.lens (\GetAppLaunchConfigurationResponse' {appId} -> appId) (\s@GetAppLaunchConfigurationResponse' {} a -> s {appId = a} :: GetAppLaunchConfigurationResponse)
+-- | The launch configurations for server groups in this application.
+getAppLaunchConfigurationResponse_serverGroupLaunchConfigurations :: Lens.Lens' GetAppLaunchConfigurationResponse (Prelude.Maybe [ServerGroupLaunchConfiguration])
+getAppLaunchConfigurationResponse_serverGroupLaunchConfigurations = Lens.lens (\GetAppLaunchConfigurationResponse' {serverGroupLaunchConfigurations} -> serverGroupLaunchConfigurations) (\s@GetAppLaunchConfigurationResponse' {} a -> s {serverGroupLaunchConfigurations = a} :: GetAppLaunchConfigurationResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 getAppLaunchConfigurationResponse_httpStatus :: Lens.Lens' GetAppLaunchConfigurationResponse Prelude.Int
@@ -206,8 +209,8 @@ instance
     GetAppLaunchConfigurationResponse
   where
   rnf GetAppLaunchConfigurationResponse' {..} =
-    Prelude.rnf serverGroupLaunchConfigurations
+    Prelude.rnf appId
       `Prelude.seq` Prelude.rnf autoLaunch
       `Prelude.seq` Prelude.rnf roleName
-      `Prelude.seq` Prelude.rnf appId
+      `Prelude.seq` Prelude.rnf serverGroupLaunchConfigurations
       `Prelude.seq` Prelude.rnf httpStatus

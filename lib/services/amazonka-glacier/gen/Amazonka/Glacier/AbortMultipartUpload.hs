@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.AbortMultipartUpload
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -59,8 +59,9 @@ module Amazonka.Glacier.AbortMultipartUpload
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -143,9 +144,9 @@ instance Core.AWSRequest AbortMultipartUpload where
   type
     AWSResponse AbortMultipartUpload =
       AbortMultipartUploadResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.delete defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.delete (overrides defaultService)
   response =
     Response.receiveNull AbortMultipartUploadResponse'
 
@@ -161,21 +162,21 @@ instance Prelude.NFData AbortMultipartUpload where
       `Prelude.seq` Prelude.rnf vaultName
       `Prelude.seq` Prelude.rnf uploadId
 
-instance Core.ToHeaders AbortMultipartUpload where
+instance Data.ToHeaders AbortMultipartUpload where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AbortMultipartUpload where
+instance Data.ToPath AbortMultipartUpload where
   toPath AbortMultipartUpload' {..} =
     Prelude.mconcat
       [ "/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/vaults/",
-        Core.toBS vaultName,
+        Data.toBS vaultName,
         "/multipart-uploads/",
-        Core.toBS uploadId
+        Data.toBS uploadId
       ]
 
-instance Core.ToQuery AbortMultipartUpload where
+instance Data.ToQuery AbortMultipartUpload where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAbortMultipartUploadResponse' smart constructor.

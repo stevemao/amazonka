@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.DescribeLoadBalancers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.ELB.DescribeLoadBalancers
     newDescribeLoadBalancers,
 
     -- * Request Lenses
+    describeLoadBalancers_loadBalancerNames,
     describeLoadBalancers_marker,
     describeLoadBalancers_pageSize,
-    describeLoadBalancers_loadBalancerNames,
 
     -- * Destructuring the Response
     DescribeLoadBalancersResponse (..),
@@ -46,8 +46,9 @@ module Amazonka.ELB.DescribeLoadBalancers
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,14 +57,14 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeLoadBalancers' smart constructor.
 data DescribeLoadBalancers = DescribeLoadBalancers'
-  { -- | The marker for the next set of results. (You received this marker from a
+  { -- | The names of the load balancers.
+    loadBalancerNames :: Prelude.Maybe [Prelude.Text],
+    -- | The marker for the next set of results. (You received this marker from a
     -- previous call.)
     marker :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results to return with this call (a number from 1
     -- to 400). The default is 400.
-    pageSize :: Prelude.Maybe Prelude.Natural,
-    -- | The names of the load balancers.
-    loadBalancerNames :: Prelude.Maybe [Prelude.Text]
+    pageSize :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,21 +76,26 @@ data DescribeLoadBalancers = DescribeLoadBalancers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'loadBalancerNames', 'describeLoadBalancers_loadBalancerNames' - The names of the load balancers.
+--
 -- 'marker', 'describeLoadBalancers_marker' - The marker for the next set of results. (You received this marker from a
 -- previous call.)
 --
 -- 'pageSize', 'describeLoadBalancers_pageSize' - The maximum number of results to return with this call (a number from 1
 -- to 400). The default is 400.
---
--- 'loadBalancerNames', 'describeLoadBalancers_loadBalancerNames' - The names of the load balancers.
 newDescribeLoadBalancers ::
   DescribeLoadBalancers
 newDescribeLoadBalancers =
   DescribeLoadBalancers'
-    { marker = Prelude.Nothing,
-      pageSize = Prelude.Nothing,
-      loadBalancerNames = Prelude.Nothing
+    { loadBalancerNames =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      pageSize = Prelude.Nothing
     }
+
+-- | The names of the load balancers.
+describeLoadBalancers_loadBalancerNames :: Lens.Lens' DescribeLoadBalancers (Prelude.Maybe [Prelude.Text])
+describeLoadBalancers_loadBalancerNames = Lens.lens (\DescribeLoadBalancers' {loadBalancerNames} -> loadBalancerNames) (\s@DescribeLoadBalancers' {} a -> s {loadBalancerNames = a} :: DescribeLoadBalancers) Prelude.. Lens.mapping Lens.coerced
 
 -- | The marker for the next set of results. (You received this marker from a
 -- previous call.)
@@ -100,10 +106,6 @@ describeLoadBalancers_marker = Lens.lens (\DescribeLoadBalancers' {marker} -> ma
 -- to 400). The default is 400.
 describeLoadBalancers_pageSize :: Lens.Lens' DescribeLoadBalancers (Prelude.Maybe Prelude.Natural)
 describeLoadBalancers_pageSize = Lens.lens (\DescribeLoadBalancers' {pageSize} -> pageSize) (\s@DescribeLoadBalancers' {} a -> s {pageSize = a} :: DescribeLoadBalancers)
-
--- | The names of the load balancers.
-describeLoadBalancers_loadBalancerNames :: Lens.Lens' DescribeLoadBalancers (Prelude.Maybe [Prelude.Text])
-describeLoadBalancers_loadBalancerNames = Lens.lens (\DescribeLoadBalancers' {loadBalancerNames} -> loadBalancerNames) (\s@DescribeLoadBalancers' {} a -> s {loadBalancerNames = a} :: DescribeLoadBalancers) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSPager DescribeLoadBalancers where
   page rq rs
@@ -131,52 +133,53 @@ instance Core.AWSRequest DescribeLoadBalancers where
   type
     AWSResponse DescribeLoadBalancers =
       DescribeLoadBalancersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeLoadBalancersResult"
       ( \s h x ->
           DescribeLoadBalancersResponse'
-            Prelude.<$> ( x Core..@? "LoadBalancerDescriptions"
+            Prelude.<$> ( x Data..@? "LoadBalancerDescriptions"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "NextMarker")
+            Prelude.<*> (x Data..@? "NextMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeLoadBalancers where
   hashWithSalt _salt DescribeLoadBalancers' {..} =
-    _salt `Prelude.hashWithSalt` marker
+    _salt `Prelude.hashWithSalt` loadBalancerNames
+      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` pageSize
-      `Prelude.hashWithSalt` loadBalancerNames
 
 instance Prelude.NFData DescribeLoadBalancers where
   rnf DescribeLoadBalancers' {..} =
-    Prelude.rnf marker
+    Prelude.rnf loadBalancerNames
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf pageSize
-      `Prelude.seq` Prelude.rnf loadBalancerNames
 
-instance Core.ToHeaders DescribeLoadBalancers where
+instance Data.ToHeaders DescribeLoadBalancers where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeLoadBalancers where
+instance Data.ToPath DescribeLoadBalancers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeLoadBalancers where
+instance Data.ToQuery DescribeLoadBalancers where
   toQuery DescribeLoadBalancers' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeLoadBalancers" :: Prelude.ByteString),
+          Data.=: ("DescribeLoadBalancers" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-06-01" :: Prelude.ByteString),
-        "Marker" Core.=: marker,
-        "PageSize" Core.=: pageSize,
+          Data.=: ("2012-06-01" :: Prelude.ByteString),
         "LoadBalancerNames"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> loadBalancerNames
-            )
+            ),
+        "Marker" Data.=: marker,
+        "PageSize" Data.=: pageSize
       ]
 
 -- | Contains the parameters for DescribeLoadBalancers.

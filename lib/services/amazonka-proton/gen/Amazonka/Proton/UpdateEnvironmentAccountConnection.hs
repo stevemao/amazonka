@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.UpdateEnvironmentAccountConnection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,16 +24,18 @@
 -- use a new IAM role.
 --
 -- For more information, see
--- <https://docs.aws.amazon.com/proton/latest/adminguide/ag-env-account-connections.html Environment account connections>
--- in the /AWS Proton Administrator guide/.
+-- <https://docs.aws.amazon.com/proton/latest/userguide/ag-env-account-connections.html Environment account connections>
+-- in the /Proton User guide/.
 module Amazonka.Proton.UpdateEnvironmentAccountConnection
   ( -- * Creating a Request
     UpdateEnvironmentAccountConnection (..),
     newUpdateEnvironmentAccountConnection,
 
     -- * Request Lenses
-    updateEnvironmentAccountConnection_id,
+    updateEnvironmentAccountConnection_codebuildRoleArn,
+    updateEnvironmentAccountConnection_componentRoleArn,
     updateEnvironmentAccountConnection_roleArn,
+    updateEnvironmentAccountConnection_id,
 
     -- * Destructuring the Response
     UpdateEnvironmentAccountConnectionResponse (..),
@@ -46,7 +48,8 @@ module Amazonka.Proton.UpdateEnvironmentAccountConnection
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -54,11 +57,29 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateEnvironmentAccountConnection' smart constructor.
 data UpdateEnvironmentAccountConnection = UpdateEnvironmentAccountConnection'
-  { -- | The ID of the environment account connection to update.
-    id :: Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the IAM service role that is
+  { -- | The Amazon Resource Name (ARN) of an IAM service role in the environment
+    -- account. Proton uses this role to provision infrastructure resources
+    -- using CodeBuild-based provisioning in the associated environment
+    -- account.
+    codebuildRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the IAM service role that Proton uses
+    -- when provisioning directly defined components in the associated
+    -- environment account. It determines the scope of infrastructure that a
+    -- component can provision in the account.
+    --
+    -- The environment account connection must have a @componentRoleArn@ to
+    -- allow directly defined components to be associated with any environments
+    -- running in the account.
+    --
+    -- For more information about components, see
+    -- <https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html Proton components>
+    -- in the /Proton User Guide/.
+    componentRoleArn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Resource Name (ARN) of the IAM service role that\'s
     -- associated with the environment account connection to update.
-    roleArn :: Prelude.Text
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the environment account connection to update.
+    id :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,30 +91,71 @@ data UpdateEnvironmentAccountConnection = UpdateEnvironmentAccountConnection'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'id', 'updateEnvironmentAccountConnection_id' - The ID of the environment account connection to update.
+-- 'codebuildRoleArn', 'updateEnvironmentAccountConnection_codebuildRoleArn' - The Amazon Resource Name (ARN) of an IAM service role in the environment
+-- account. Proton uses this role to provision infrastructure resources
+-- using CodeBuild-based provisioning in the associated environment
+-- account.
 --
--- 'roleArn', 'updateEnvironmentAccountConnection_roleArn' - The Amazon Resource Name (ARN) of the IAM service role that is
+-- 'componentRoleArn', 'updateEnvironmentAccountConnection_componentRoleArn' - The Amazon Resource Name (ARN) of the IAM service role that Proton uses
+-- when provisioning directly defined components in the associated
+-- environment account. It determines the scope of infrastructure that a
+-- component can provision in the account.
+--
+-- The environment account connection must have a @componentRoleArn@ to
+-- allow directly defined components to be associated with any environments
+-- running in the account.
+--
+-- For more information about components, see
+-- <https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html Proton components>
+-- in the /Proton User Guide/.
+--
+-- 'roleArn', 'updateEnvironmentAccountConnection_roleArn' - The Amazon Resource Name (ARN) of the IAM service role that\'s
 -- associated with the environment account connection to update.
+--
+-- 'id', 'updateEnvironmentAccountConnection_id' - The ID of the environment account connection to update.
 newUpdateEnvironmentAccountConnection ::
   -- | 'id'
   Prelude.Text ->
-  -- | 'roleArn'
-  Prelude.Text ->
   UpdateEnvironmentAccountConnection
-newUpdateEnvironmentAccountConnection pId_ pRoleArn_ =
+newUpdateEnvironmentAccountConnection pId_ =
   UpdateEnvironmentAccountConnection'
-    { id = pId_,
-      roleArn = pRoleArn_
+    { codebuildRoleArn =
+        Prelude.Nothing,
+      componentRoleArn = Prelude.Nothing,
+      roleArn = Prelude.Nothing,
+      id = pId_
     }
+
+-- | The Amazon Resource Name (ARN) of an IAM service role in the environment
+-- account. Proton uses this role to provision infrastructure resources
+-- using CodeBuild-based provisioning in the associated environment
+-- account.
+updateEnvironmentAccountConnection_codebuildRoleArn :: Lens.Lens' UpdateEnvironmentAccountConnection (Prelude.Maybe Prelude.Text)
+updateEnvironmentAccountConnection_codebuildRoleArn = Lens.lens (\UpdateEnvironmentAccountConnection' {codebuildRoleArn} -> codebuildRoleArn) (\s@UpdateEnvironmentAccountConnection' {} a -> s {codebuildRoleArn = a} :: UpdateEnvironmentAccountConnection)
+
+-- | The Amazon Resource Name (ARN) of the IAM service role that Proton uses
+-- when provisioning directly defined components in the associated
+-- environment account. It determines the scope of infrastructure that a
+-- component can provision in the account.
+--
+-- The environment account connection must have a @componentRoleArn@ to
+-- allow directly defined components to be associated with any environments
+-- running in the account.
+--
+-- For more information about components, see
+-- <https://docs.aws.amazon.com/proton/latest/userguide/ag-components.html Proton components>
+-- in the /Proton User Guide/.
+updateEnvironmentAccountConnection_componentRoleArn :: Lens.Lens' UpdateEnvironmentAccountConnection (Prelude.Maybe Prelude.Text)
+updateEnvironmentAccountConnection_componentRoleArn = Lens.lens (\UpdateEnvironmentAccountConnection' {componentRoleArn} -> componentRoleArn) (\s@UpdateEnvironmentAccountConnection' {} a -> s {componentRoleArn = a} :: UpdateEnvironmentAccountConnection)
+
+-- | The Amazon Resource Name (ARN) of the IAM service role that\'s
+-- associated with the environment account connection to update.
+updateEnvironmentAccountConnection_roleArn :: Lens.Lens' UpdateEnvironmentAccountConnection (Prelude.Maybe Prelude.Text)
+updateEnvironmentAccountConnection_roleArn = Lens.lens (\UpdateEnvironmentAccountConnection' {roleArn} -> roleArn) (\s@UpdateEnvironmentAccountConnection' {} a -> s {roleArn = a} :: UpdateEnvironmentAccountConnection)
 
 -- | The ID of the environment account connection to update.
 updateEnvironmentAccountConnection_id :: Lens.Lens' UpdateEnvironmentAccountConnection Prelude.Text
 updateEnvironmentAccountConnection_id = Lens.lens (\UpdateEnvironmentAccountConnection' {id} -> id) (\s@UpdateEnvironmentAccountConnection' {} a -> s {id = a} :: UpdateEnvironmentAccountConnection)
-
--- | The Amazon Resource Name (ARN) of the IAM service role that is
--- associated with the environment account connection to update.
-updateEnvironmentAccountConnection_roleArn :: Lens.Lens' UpdateEnvironmentAccountConnection Prelude.Text
-updateEnvironmentAccountConnection_roleArn = Lens.lens (\UpdateEnvironmentAccountConnection' {roleArn} -> roleArn) (\s@UpdateEnvironmentAccountConnection' {} a -> s {roleArn = a} :: UpdateEnvironmentAccountConnection)
 
 instance
   Core.AWSRequest
@@ -102,13 +164,14 @@ instance
   type
     AWSResponse UpdateEnvironmentAccountConnection =
       UpdateEnvironmentAccountConnectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateEnvironmentAccountConnectionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> (x Core..:> "environmentAccountConnection")
+              Prelude.<*> (x Data..:> "environmentAccountConnection")
       )
 
 instance
@@ -118,54 +181,63 @@ instance
   hashWithSalt
     _salt
     UpdateEnvironmentAccountConnection' {..} =
-      _salt `Prelude.hashWithSalt` id
+      _salt `Prelude.hashWithSalt` codebuildRoleArn
+        `Prelude.hashWithSalt` componentRoleArn
         `Prelude.hashWithSalt` roleArn
+        `Prelude.hashWithSalt` id
 
 instance
   Prelude.NFData
     UpdateEnvironmentAccountConnection
   where
   rnf UpdateEnvironmentAccountConnection' {..} =
-    Prelude.rnf id `Prelude.seq` Prelude.rnf roleArn
+    Prelude.rnf codebuildRoleArn
+      `Prelude.seq` Prelude.rnf componentRoleArn
+      `Prelude.seq` Prelude.rnf roleArn
+      `Prelude.seq` Prelude.rnf id
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateEnvironmentAccountConnection
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.UpdateEnvironmentAccountConnection" ::
+              Data.=# ( "AwsProton20200720.UpdateEnvironmentAccountConnection" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     UpdateEnvironmentAccountConnection
   where
   toJSON UpdateEnvironmentAccountConnection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("id" Core..= id),
-            Prelude.Just ("roleArn" Core..= roleArn)
+          [ ("codebuildRoleArn" Data..=)
+              Prelude.<$> codebuildRoleArn,
+            ("componentRoleArn" Data..=)
+              Prelude.<$> componentRoleArn,
+            ("roleArn" Data..=) Prelude.<$> roleArn,
+            Prelude.Just ("id" Data..= id)
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     UpdateEnvironmentAccountConnection
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateEnvironmentAccountConnection
   where
   toQuery = Prelude.const Prelude.mempty
@@ -174,7 +246,7 @@ instance
 data UpdateEnvironmentAccountConnectionResponse = UpdateEnvironmentAccountConnectionResponse'
   { -- | The response's http status code.
     httpStatus :: Prelude.Int,
-    -- | The environment account connection detail data that\'s returned by AWS
+    -- | The environment account connection detail data that\'s returned by
     -- Proton.
     environmentAccountConnection :: EnvironmentAccountConnection
   }
@@ -190,7 +262,7 @@ data UpdateEnvironmentAccountConnectionResponse = UpdateEnvironmentAccountConnec
 --
 -- 'httpStatus', 'updateEnvironmentAccountConnectionResponse_httpStatus' - The response's http status code.
 --
--- 'environmentAccountConnection', 'updateEnvironmentAccountConnectionResponse_environmentAccountConnection' - The environment account connection detail data that\'s returned by AWS
+-- 'environmentAccountConnection', 'updateEnvironmentAccountConnectionResponse_environmentAccountConnection' - The environment account connection detail data that\'s returned by
 -- Proton.
 newUpdateEnvironmentAccountConnectionResponse ::
   -- | 'httpStatus'
@@ -212,7 +284,7 @@ newUpdateEnvironmentAccountConnectionResponse
 updateEnvironmentAccountConnectionResponse_httpStatus :: Lens.Lens' UpdateEnvironmentAccountConnectionResponse Prelude.Int
 updateEnvironmentAccountConnectionResponse_httpStatus = Lens.lens (\UpdateEnvironmentAccountConnectionResponse' {httpStatus} -> httpStatus) (\s@UpdateEnvironmentAccountConnectionResponse' {} a -> s {httpStatus = a} :: UpdateEnvironmentAccountConnectionResponse)
 
--- | The environment account connection detail data that\'s returned by AWS
+-- | The environment account connection detail data that\'s returned by
 -- Proton.
 updateEnvironmentAccountConnectionResponse_environmentAccountConnection :: Lens.Lens' UpdateEnvironmentAccountConnectionResponse EnvironmentAccountConnection
 updateEnvironmentAccountConnectionResponse_environmentAccountConnection = Lens.lens (\UpdateEnvironmentAccountConnectionResponse' {environmentAccountConnection} -> environmentAccountConnection) (\s@UpdateEnvironmentAccountConnectionResponse' {} a -> s {environmentAccountConnection = a} :: UpdateEnvironmentAccountConnectionResponse)

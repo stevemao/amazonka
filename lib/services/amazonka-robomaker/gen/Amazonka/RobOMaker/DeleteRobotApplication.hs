@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.DeleteRobotApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.RobOMaker.DeleteRobotApplication
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,7 +90,8 @@ instance Core.AWSRequest DeleteRobotApplication where
   type
     AWSResponse DeleteRobotApplication =
       DeleteRobotApplicationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -107,31 +109,31 @@ instance Prelude.NFData DeleteRobotApplication where
     Prelude.rnf applicationVersion
       `Prelude.seq` Prelude.rnf application
 
-instance Core.ToHeaders DeleteRobotApplication where
+instance Data.ToHeaders DeleteRobotApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteRobotApplication where
+instance Data.ToJSON DeleteRobotApplication where
   toJSON DeleteRobotApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("applicationVersion" Core..=)
+          [ ("applicationVersion" Data..=)
               Prelude.<$> applicationVersion,
-            Prelude.Just ("application" Core..= application)
+            Prelude.Just ("application" Data..= application)
           ]
       )
 
-instance Core.ToPath DeleteRobotApplication where
+instance Data.ToPath DeleteRobotApplication where
   toPath = Prelude.const "/deleteRobotApplication"
 
-instance Core.ToQuery DeleteRobotApplication where
+instance Data.ToQuery DeleteRobotApplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteRobotApplicationResponse' smart constructor.

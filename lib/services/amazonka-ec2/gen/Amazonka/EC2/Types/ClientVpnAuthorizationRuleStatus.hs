@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ClientVpnAuthorizationRuleStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.ClientVpnAuthorizationRuleStatus where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ClientVpnAuthorizationRuleStatusCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the state of an authorization rule.
@@ -65,13 +66,13 @@ clientVpnAuthorizationRuleStatus_message :: Lens.Lens' ClientVpnAuthorizationRul
 clientVpnAuthorizationRuleStatus_message = Lens.lens (\ClientVpnAuthorizationRuleStatus' {message} -> message) (\s@ClientVpnAuthorizationRuleStatus' {} a -> s {message = a} :: ClientVpnAuthorizationRuleStatus)
 
 instance
-  Core.FromXML
+  Data.FromXML
     ClientVpnAuthorizationRuleStatus
   where
   parseXML x =
     ClientVpnAuthorizationRuleStatus'
-      Prelude.<$> (x Core..@? "code")
-      Prelude.<*> (x Core..@? "message")
+      Prelude.<$> (x Data..@? "code")
+      Prelude.<*> (x Data..@? "message")
 
 instance
   Prelude.Hashable

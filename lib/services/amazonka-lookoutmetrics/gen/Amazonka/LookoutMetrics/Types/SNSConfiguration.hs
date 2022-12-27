@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutMetrics.Types.SNSConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,9 @@
 module Amazonka.LookoutMetrics.Types.SNSConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.LookoutMetrics.Types.SnsFormat
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the SNS topic to which you want to send your
@@ -28,7 +30,19 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSNSConfiguration' smart constructor.
 data SNSConfiguration = SNSConfiguration'
-  { -- | The ARN of the IAM role that has access to the target SNS topic.
+  { -- | The format of the SNS topic.
+    --
+    -- -   @JSON@ – Send JSON alerts with an anomaly ID and a link to the
+    --     anomaly detail page. This is the default.
+    --
+    -- -   @LONG_TEXT@ – Send human-readable alerts with information about the
+    --     impacted timeseries and a link to the anomaly detail page. We
+    --     recommend this for email.
+    --
+    -- -   @SHORT_TEXT@ – Send human-readable alerts with a link to the anomaly
+    --     detail page. We recommend this for SMS.
+    snsFormat :: Prelude.Maybe SnsFormat,
+    -- | The ARN of the IAM role that has access to the target SNS topic.
     roleArn :: Prelude.Text,
     -- | The ARN of the target SNS topic.
     snsTopicArn :: Prelude.Text
@@ -43,6 +57,18 @@ data SNSConfiguration = SNSConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'snsFormat', 'sNSConfiguration_snsFormat' - The format of the SNS topic.
+--
+-- -   @JSON@ – Send JSON alerts with an anomaly ID and a link to the
+--     anomaly detail page. This is the default.
+--
+-- -   @LONG_TEXT@ – Send human-readable alerts with information about the
+--     impacted timeseries and a link to the anomaly detail page. We
+--     recommend this for email.
+--
+-- -   @SHORT_TEXT@ – Send human-readable alerts with a link to the anomaly
+--     detail page. We recommend this for SMS.
+--
 -- 'roleArn', 'sNSConfiguration_roleArn' - The ARN of the IAM role that has access to the target SNS topic.
 --
 -- 'snsTopicArn', 'sNSConfiguration_snsTopicArn' - The ARN of the target SNS topic.
@@ -54,9 +80,24 @@ newSNSConfiguration ::
   SNSConfiguration
 newSNSConfiguration pRoleArn_ pSnsTopicArn_ =
   SNSConfiguration'
-    { roleArn = pRoleArn_,
+    { snsFormat = Prelude.Nothing,
+      roleArn = pRoleArn_,
       snsTopicArn = pSnsTopicArn_
     }
+
+-- | The format of the SNS topic.
+--
+-- -   @JSON@ – Send JSON alerts with an anomaly ID and a link to the
+--     anomaly detail page. This is the default.
+--
+-- -   @LONG_TEXT@ – Send human-readable alerts with information about the
+--     impacted timeseries and a link to the anomaly detail page. We
+--     recommend this for email.
+--
+-- -   @SHORT_TEXT@ – Send human-readable alerts with a link to the anomaly
+--     detail page. We recommend this for SMS.
+sNSConfiguration_snsFormat :: Lens.Lens' SNSConfiguration (Prelude.Maybe SnsFormat)
+sNSConfiguration_snsFormat = Lens.lens (\SNSConfiguration' {snsFormat} -> snsFormat) (\s@SNSConfiguration' {} a -> s {snsFormat = a} :: SNSConfiguration)
 
 -- | The ARN of the IAM role that has access to the target SNS topic.
 sNSConfiguration_roleArn :: Lens.Lens' SNSConfiguration Prelude.Text
@@ -66,31 +107,35 @@ sNSConfiguration_roleArn = Lens.lens (\SNSConfiguration' {roleArn} -> roleArn) (
 sNSConfiguration_snsTopicArn :: Lens.Lens' SNSConfiguration Prelude.Text
 sNSConfiguration_snsTopicArn = Lens.lens (\SNSConfiguration' {snsTopicArn} -> snsTopicArn) (\s@SNSConfiguration' {} a -> s {snsTopicArn = a} :: SNSConfiguration)
 
-instance Core.FromJSON SNSConfiguration where
+instance Data.FromJSON SNSConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SNSConfiguration"
       ( \x ->
           SNSConfiguration'
-            Prelude.<$> (x Core..: "RoleArn")
-            Prelude.<*> (x Core..: "SnsTopicArn")
+            Prelude.<$> (x Data..:? "SnsFormat")
+            Prelude.<*> (x Data..: "RoleArn")
+            Prelude.<*> (x Data..: "SnsTopicArn")
       )
 
 instance Prelude.Hashable SNSConfiguration where
   hashWithSalt _salt SNSConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` roleArn
+    _salt `Prelude.hashWithSalt` snsFormat
+      `Prelude.hashWithSalt` roleArn
       `Prelude.hashWithSalt` snsTopicArn
 
 instance Prelude.NFData SNSConfiguration where
   rnf SNSConfiguration' {..} =
-    Prelude.rnf roleArn
+    Prelude.rnf snsFormat
+      `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf snsTopicArn
 
-instance Core.ToJSON SNSConfiguration where
+instance Data.ToJSON SNSConfiguration where
   toJSON SNSConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("RoleArn" Core..= roleArn),
-            Prelude.Just ("SnsTopicArn" Core..= snsTopicArn)
+          [ ("SnsFormat" Data..=) Prelude.<$> snsFormat,
+            Prelude.Just ("RoleArn" Data..= roleArn),
+            Prelude.Just ("SnsTopicArn" Data..= snsTopicArn)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.MongoDBTarget
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.Glue.Types.MongoDBTarget where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies an Amazon DocumentDB or MongoDB data store to crawl.
 --
 -- /See:/ 'newMongoDBTarget' smart constructor.
 data MongoDBTarget = MongoDBTarget'
-  { -- | The path of the Amazon DocumentDB or MongoDB target
-    -- (database\/collection).
-    path :: Prelude.Maybe Prelude.Text,
-    -- | The name of the connection to use to connect to the Amazon DocumentDB or
+  { -- | The name of the connection to use to connect to the Amazon DocumentDB or
     -- MongoDB target.
     connectionName :: Prelude.Maybe Prelude.Text,
+    -- | The path of the Amazon DocumentDB or MongoDB target
+    -- (database\/collection).
+    path :: Prelude.Maybe Prelude.Text,
     -- | Indicates whether to scan all the records, or to sample rows from the
     -- table. Scanning all the records can take a long time when the table is
     -- not a high throughput table.
@@ -52,11 +53,11 @@ data MongoDBTarget = MongoDBTarget'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'path', 'mongoDBTarget_path' - The path of the Amazon DocumentDB or MongoDB target
--- (database\/collection).
---
 -- 'connectionName', 'mongoDBTarget_connectionName' - The name of the connection to use to connect to the Amazon DocumentDB or
 -- MongoDB target.
+--
+-- 'path', 'mongoDBTarget_path' - The path of the Amazon DocumentDB or MongoDB target
+-- (database\/collection).
 --
 -- 'scanAll', 'mongoDBTarget_scanAll' - Indicates whether to scan all the records, or to sample rows from the
 -- table. Scanning all the records can take a long time when the table is
@@ -69,20 +70,20 @@ newMongoDBTarget ::
   MongoDBTarget
 newMongoDBTarget =
   MongoDBTarget'
-    { path = Prelude.Nothing,
-      connectionName = Prelude.Nothing,
+    { connectionName = Prelude.Nothing,
+      path = Prelude.Nothing,
       scanAll = Prelude.Nothing
     }
-
--- | The path of the Amazon DocumentDB or MongoDB target
--- (database\/collection).
-mongoDBTarget_path :: Lens.Lens' MongoDBTarget (Prelude.Maybe Prelude.Text)
-mongoDBTarget_path = Lens.lens (\MongoDBTarget' {path} -> path) (\s@MongoDBTarget' {} a -> s {path = a} :: MongoDBTarget)
 
 -- | The name of the connection to use to connect to the Amazon DocumentDB or
 -- MongoDB target.
 mongoDBTarget_connectionName :: Lens.Lens' MongoDBTarget (Prelude.Maybe Prelude.Text)
 mongoDBTarget_connectionName = Lens.lens (\MongoDBTarget' {connectionName} -> connectionName) (\s@MongoDBTarget' {} a -> s {connectionName = a} :: MongoDBTarget)
+
+-- | The path of the Amazon DocumentDB or MongoDB target
+-- (database\/collection).
+mongoDBTarget_path :: Lens.Lens' MongoDBTarget (Prelude.Maybe Prelude.Text)
+mongoDBTarget_path = Lens.lens (\MongoDBTarget' {path} -> path) (\s@MongoDBTarget' {} a -> s {path = a} :: MongoDBTarget)
 
 -- | Indicates whether to scan all the records, or to sample rows from the
 -- table. Scanning all the records can take a long time when the table is
@@ -94,36 +95,36 @@ mongoDBTarget_connectionName = Lens.lens (\MongoDBTarget' {connectionName} -> co
 mongoDBTarget_scanAll :: Lens.Lens' MongoDBTarget (Prelude.Maybe Prelude.Bool)
 mongoDBTarget_scanAll = Lens.lens (\MongoDBTarget' {scanAll} -> scanAll) (\s@MongoDBTarget' {} a -> s {scanAll = a} :: MongoDBTarget)
 
-instance Core.FromJSON MongoDBTarget where
+instance Data.FromJSON MongoDBTarget where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MongoDBTarget"
       ( \x ->
           MongoDBTarget'
-            Prelude.<$> (x Core..:? "Path")
-            Prelude.<*> (x Core..:? "ConnectionName")
-            Prelude.<*> (x Core..:? "ScanAll")
+            Prelude.<$> (x Data..:? "ConnectionName")
+            Prelude.<*> (x Data..:? "Path")
+            Prelude.<*> (x Data..:? "ScanAll")
       )
 
 instance Prelude.Hashable MongoDBTarget where
   hashWithSalt _salt MongoDBTarget' {..} =
-    _salt `Prelude.hashWithSalt` path
-      `Prelude.hashWithSalt` connectionName
+    _salt `Prelude.hashWithSalt` connectionName
+      `Prelude.hashWithSalt` path
       `Prelude.hashWithSalt` scanAll
 
 instance Prelude.NFData MongoDBTarget where
   rnf MongoDBTarget' {..} =
-    Prelude.rnf path
-      `Prelude.seq` Prelude.rnf connectionName
+    Prelude.rnf connectionName
+      `Prelude.seq` Prelude.rnf path
       `Prelude.seq` Prelude.rnf scanAll
 
-instance Core.ToJSON MongoDBTarget where
+instance Data.ToJSON MongoDBTarget where
   toJSON MongoDBTarget' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Path" Core..=) Prelude.<$> path,
-            ("ConnectionName" Core..=)
+          [ ("ConnectionName" Data..=)
               Prelude.<$> connectionName,
-            ("ScanAll" Core..=) Prelude.<$> scanAll
+            ("Path" Data..=) Prelude.<$> path,
+            ("ScanAll" Data..=) Prelude.<$> scanAll
           ]
       )

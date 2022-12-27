@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.EnableAllFeatures
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,10 +24,10 @@
 -- organization policies that can restrict the services and actions that
 -- can be called in each account. Until you enable all features, you have
 -- access only to consolidated billing, and you can\'t use any of the
--- advanced account administration features that AWS Organizations
--- supports. For more information, see
+-- advanced account administration features that Organizations supports.
+-- For more information, see
 -- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_org_support-all-features.html Enabling All Features in Your Organization>
--- in the /AWS Organizations User Guide./
+-- in the /Organizations User Guide./
 --
 -- This operation is required only for organizations that were created
 -- explicitly with only the consolidated billing features enabled. Calling
@@ -70,7 +70,8 @@ module Amazonka.Organizations.EnableAllFeatures
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -94,12 +95,13 @@ instance Core.AWSRequest EnableAllFeatures where
   type
     AWSResponse EnableAllFeatures =
       EnableAllFeaturesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           EnableAllFeaturesResponse'
-            Prelude.<$> (x Core..?> "Handshake")
+            Prelude.<$> (x Data..?> "Handshake")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,28 +112,28 @@ instance Prelude.Hashable EnableAllFeatures where
 instance Prelude.NFData EnableAllFeatures where
   rnf _ = ()
 
-instance Core.ToHeaders EnableAllFeatures where
+instance Data.ToHeaders EnableAllFeatures where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.EnableAllFeatures" ::
+              Data.=# ( "AWSOrganizationsV20161128.EnableAllFeatures" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EnableAllFeatures where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON EnableAllFeatures where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath EnableAllFeatures where
+instance Data.ToPath EnableAllFeatures where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableAllFeatures where
+instance Data.ToQuery EnableAllFeatures where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newEnableAllFeaturesResponse' smart constructor.

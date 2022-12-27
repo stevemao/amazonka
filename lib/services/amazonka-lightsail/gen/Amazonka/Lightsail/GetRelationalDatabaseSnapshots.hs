@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetRelationalDatabaseSnapshots
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.Lightsail.GetRelationalDatabaseSnapshots
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -122,13 +123,14 @@ instance
   type
     AWSResponse GetRelationalDatabaseSnapshots =
       GetRelationalDatabaseSnapshotsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRelationalDatabaseSnapshotsResponse'
-            Prelude.<$> (x Core..?> "nextPageToken")
-            Prelude.<*> ( x Core..?> "relationalDatabaseSnapshots"
+            Prelude.<$> (x Data..?> "nextPageToken")
+            Prelude.<*> ( x Data..?> "relationalDatabaseSnapshots"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -151,34 +153,34 @@ instance
     Prelude.rnf pageToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetRelationalDatabaseSnapshots
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetRelationalDatabaseSnapshots" ::
+              Data.=# ( "Lightsail_20161128.GetRelationalDatabaseSnapshots" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetRelationalDatabaseSnapshots where
+instance Data.ToJSON GetRelationalDatabaseSnapshots where
   toJSON GetRelationalDatabaseSnapshots' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("pageToken" Core..=) Prelude.<$> pageToken]
+          [("pageToken" Data..=) Prelude.<$> pageToken]
       )
 
-instance Core.ToPath GetRelationalDatabaseSnapshots where
+instance Data.ToPath GetRelationalDatabaseSnapshots where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetRelationalDatabaseSnapshots where
+instance Data.ToQuery GetRelationalDatabaseSnapshots where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetRelationalDatabaseSnapshotsResponse' smart constructor.

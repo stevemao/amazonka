@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.ListGatewayGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.AlexaBusiness.ListGatewayGroups
     newListGatewayGroups,
 
     -- * Request Lenses
-    listGatewayGroups_nextToken,
     listGatewayGroups_maxResults,
+    listGatewayGroups_nextToken,
 
     -- * Destructuring the Response
     ListGatewayGroupsResponse (..),
@@ -44,19 +44,20 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListGatewayGroups' smart constructor.
 data ListGatewayGroups = ListGatewayGroups'
-  { -- | The token used to paginate though multiple pages of gateway group
-    -- summaries.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of gateway group summaries to return. The default is
+  { -- | The maximum number of gateway group summaries to return. The default is
     -- 50.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token used to paginate though multiple pages of gateway group
+    -- summaries.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,81 +69,82 @@ data ListGatewayGroups = ListGatewayGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listGatewayGroups_nextToken' - The token used to paginate though multiple pages of gateway group
--- summaries.
---
 -- 'maxResults', 'listGatewayGroups_maxResults' - The maximum number of gateway group summaries to return. The default is
 -- 50.
+--
+-- 'nextToken', 'listGatewayGroups_nextToken' - The token used to paginate though multiple pages of gateway group
+-- summaries.
 newListGatewayGroups ::
   ListGatewayGroups
 newListGatewayGroups =
   ListGatewayGroups'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token used to paginate though multiple pages of gateway group
--- summaries.
-listGatewayGroups_nextToken :: Lens.Lens' ListGatewayGroups (Prelude.Maybe Prelude.Text)
-listGatewayGroups_nextToken = Lens.lens (\ListGatewayGroups' {nextToken} -> nextToken) (\s@ListGatewayGroups' {} a -> s {nextToken = a} :: ListGatewayGroups)
 
 -- | The maximum number of gateway group summaries to return. The default is
 -- 50.
 listGatewayGroups_maxResults :: Lens.Lens' ListGatewayGroups (Prelude.Maybe Prelude.Natural)
 listGatewayGroups_maxResults = Lens.lens (\ListGatewayGroups' {maxResults} -> maxResults) (\s@ListGatewayGroups' {} a -> s {maxResults = a} :: ListGatewayGroups)
 
+-- | The token used to paginate though multiple pages of gateway group
+-- summaries.
+listGatewayGroups_nextToken :: Lens.Lens' ListGatewayGroups (Prelude.Maybe Prelude.Text)
+listGatewayGroups_nextToken = Lens.lens (\ListGatewayGroups' {nextToken} -> nextToken) (\s@ListGatewayGroups' {} a -> s {nextToken = a} :: ListGatewayGroups)
+
 instance Core.AWSRequest ListGatewayGroups where
   type
     AWSResponse ListGatewayGroups =
       ListGatewayGroupsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListGatewayGroupsResponse'
-            Prelude.<$> (x Core..?> "GatewayGroups" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "GatewayGroups" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListGatewayGroups where
   hashWithSalt _salt ListGatewayGroups' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListGatewayGroups where
   rnf ListGatewayGroups' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListGatewayGroups where
+instance Data.ToHeaders ListGatewayGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.ListGatewayGroups" ::
+              Data.=# ( "AlexaForBusiness.ListGatewayGroups" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListGatewayGroups where
+instance Data.ToJSON ListGatewayGroups where
   toJSON ListGatewayGroups' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListGatewayGroups where
+instance Data.ToPath ListGatewayGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListGatewayGroups where
+instance Data.ToQuery ListGatewayGroups where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListGatewayGroupsResponse' smart constructor.

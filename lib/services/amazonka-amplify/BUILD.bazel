@@ -53,6 +53,7 @@ haskell_library(
         "gen/Amazonka/Amplify/Types/JobType.hs",
         "gen/Amazonka/Amplify/Types/Platform.hs",
         "gen/Amazonka/Amplify/Types/ProductionBranch.hs",
+        "gen/Amazonka/Amplify/Types/RepositoryCloneMethod.hs",
         "gen/Amazonka/Amplify/Types/Stage.hs",
         "gen/Amazonka/Amplify/Types/Step.hs",
         "gen/Amazonka/Amplify/Types/SubDomain.hs",
@@ -65,14 +66,13 @@ haskell_library(
         "gen/Amazonka/Amplify/UpdateWebhook.hs",
         "gen/Amazonka/Amplify/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_amplify=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -90,11 +90,12 @@ haskell_test(
         "test/Test/Amazonka/Amplify/Internal.hs",
         "test/Test/Amazonka/Gen/Amplify.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_amplify=\"2.0\"",
         "-Wall",
         "-threaded",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

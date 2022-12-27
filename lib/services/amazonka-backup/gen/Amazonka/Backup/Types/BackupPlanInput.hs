@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.Types.BackupPlanInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.Backup.Types.BackupPlanInput where
 import Amazonka.Backup.Types.AdvancedBackupSetting
 import Amazonka.Backup.Types.BackupRuleInput
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains an optional backup plan display name and an array of
@@ -35,7 +36,8 @@ data BackupPlanInput = BackupPlanInput'
     -- settings are only available for Windows Volume Shadow Copy Service (VSS)
     -- backup jobs.
     advancedBackupSettings :: Prelude.Maybe [AdvancedBackupSetting],
-    -- | The optional display name of a backup plan.
+    -- | The display name of a backup plan. Must contain 1 to 50 alphanumeric or
+    -- \'-_.\' characters.
     backupPlanName :: Prelude.Text,
     -- | An array of @BackupRule@ objects, each of which specifies a scheduled
     -- task that is used to back up a selection of resources.
@@ -55,7 +57,8 @@ data BackupPlanInput = BackupPlanInput'
 -- settings are only available for Windows Volume Shadow Copy Service (VSS)
 -- backup jobs.
 --
--- 'backupPlanName', 'backupPlanInput_backupPlanName' - The optional display name of a backup plan.
+-- 'backupPlanName', 'backupPlanInput_backupPlanName' - The display name of a backup plan. Must contain 1 to 50 alphanumeric or
+-- \'-_.\' characters.
 --
 -- 'rules', 'backupPlanInput_rules' - An array of @BackupRule@ objects, each of which specifies a scheduled
 -- task that is used to back up a selection of resources.
@@ -77,7 +80,8 @@ newBackupPlanInput pBackupPlanName_ =
 backupPlanInput_advancedBackupSettings :: Lens.Lens' BackupPlanInput (Prelude.Maybe [AdvancedBackupSetting])
 backupPlanInput_advancedBackupSettings = Lens.lens (\BackupPlanInput' {advancedBackupSettings} -> advancedBackupSettings) (\s@BackupPlanInput' {} a -> s {advancedBackupSettings = a} :: BackupPlanInput) Prelude.. Lens.mapping Lens.coerced
 
--- | The optional display name of a backup plan.
+-- | The display name of a backup plan. Must contain 1 to 50 alphanumeric or
+-- \'-_.\' characters.
 backupPlanInput_backupPlanName :: Lens.Lens' BackupPlanInput Prelude.Text
 backupPlanInput_backupPlanName = Lens.lens (\BackupPlanInput' {backupPlanName} -> backupPlanName) (\s@BackupPlanInput' {} a -> s {backupPlanName = a} :: BackupPlanInput)
 
@@ -98,14 +102,14 @@ instance Prelude.NFData BackupPlanInput where
       `Prelude.seq` Prelude.rnf backupPlanName
       `Prelude.seq` Prelude.rnf rules
 
-instance Core.ToJSON BackupPlanInput where
+instance Data.ToJSON BackupPlanInput where
   toJSON BackupPlanInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AdvancedBackupSettings" Core..=)
+          [ ("AdvancedBackupSettings" Data..=)
               Prelude.<$> advancedBackupSettings,
             Prelude.Just
-              ("BackupPlanName" Core..= backupPlanName),
-            Prelude.Just ("Rules" Core..= rules)
+              ("BackupPlanName" Data..= backupPlanName),
+            Prelude.Just ("Rules" Data..= rules)
           ]
       )

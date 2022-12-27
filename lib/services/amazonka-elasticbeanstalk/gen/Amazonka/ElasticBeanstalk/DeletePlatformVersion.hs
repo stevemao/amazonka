@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.DeletePlatformVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.ElasticBeanstalk.DeletePlatformVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,13 +79,14 @@ instance Core.AWSRequest DeletePlatformVersion where
   type
     AWSResponse DeletePlatformVersion =
       DeletePlatformVersionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeletePlatformVersionResult"
       ( \s h x ->
           DeletePlatformVersionResponse'
-            Prelude.<$> (x Core..@? "PlatformSummary")
+            Prelude.<$> (x Data..@? "PlatformSummary")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -96,20 +98,20 @@ instance Prelude.NFData DeletePlatformVersion where
   rnf DeletePlatformVersion' {..} =
     Prelude.rnf platformArn
 
-instance Core.ToHeaders DeletePlatformVersion where
+instance Data.ToHeaders DeletePlatformVersion where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeletePlatformVersion where
+instance Data.ToPath DeletePlatformVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeletePlatformVersion where
+instance Data.ToQuery DeletePlatformVersion where
   toQuery DeletePlatformVersion' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeletePlatformVersion" :: Prelude.ByteString),
+          Data.=: ("DeletePlatformVersion" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "PlatformArn" Core.=: platformArn
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "PlatformArn" Data.=: platformArn
       ]
 
 -- | /See:/ 'newDeletePlatformVersionResponse' smart constructor.

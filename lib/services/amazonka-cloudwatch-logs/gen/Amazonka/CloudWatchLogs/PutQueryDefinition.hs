@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.PutQueryDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@
 -- request. The values of @name@, @queryString@, and @logGroupNames@ are
 -- changed to the values that you specify in your update operation. No
 -- current values are retained from the current query definition. For
--- example, if you update a current query definition that includes log
--- groups, and you don\'t specify the @logGroupNames@ parameter in your
+-- example, imagine updating a current query definition that includes log
+-- groups. If you don\'t specify the @logGroupNames@ parameter in your
 -- update operation, the query definition changes to contain no log groups.
 --
 -- You must have the @logs:PutQueryDefinition@ permission to be able to
@@ -57,7 +57,8 @@ where
 
 import Amazonka.CloudWatchLogs.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,9 +80,9 @@ data PutQueryDefinition = PutQueryDefinition'
     -- CloudWatch generates a unique ID for the new query definition and
     -- include it in the response to this operation.
     queryDefinitionId :: Prelude.Maybe Prelude.Text,
-    -- | A name for the query definition. If you are saving a lot of query
-    -- definitions, we recommend that you name them so that you can easily find
-    -- the ones you want by using the first part of the name as a filter in the
+    -- | A name for the query definition. If you are saving numerous query
+    -- definitions, we recommend that you name them. This way, you can find the
+    -- ones you want by using the first part of the name as a filter in the
     -- @queryDefinitionNamePrefix@ parameter of
     -- <https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeQueryDefinitions.html DescribeQueryDefinitions>.
     name :: Prelude.Text,
@@ -114,9 +115,9 @@ data PutQueryDefinition = PutQueryDefinition'
 -- CloudWatch generates a unique ID for the new query definition and
 -- include it in the response to this operation.
 --
--- 'name', 'putQueryDefinition_name' - A name for the query definition. If you are saving a lot of query
--- definitions, we recommend that you name them so that you can easily find
--- the ones you want by using the first part of the name as a filter in the
+-- 'name', 'putQueryDefinition_name' - A name for the query definition. If you are saving numerous query
+-- definitions, we recommend that you name them. This way, you can find the
+-- ones you want by using the first part of the name as a filter in the
 -- @queryDefinitionNamePrefix@ parameter of
 -- <https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeQueryDefinitions.html DescribeQueryDefinitions>.
 --
@@ -156,9 +157,9 @@ putQueryDefinition_logGroupNames = Lens.lens (\PutQueryDefinition' {logGroupName
 putQueryDefinition_queryDefinitionId :: Lens.Lens' PutQueryDefinition (Prelude.Maybe Prelude.Text)
 putQueryDefinition_queryDefinitionId = Lens.lens (\PutQueryDefinition' {queryDefinitionId} -> queryDefinitionId) (\s@PutQueryDefinition' {} a -> s {queryDefinitionId = a} :: PutQueryDefinition)
 
--- | A name for the query definition. If you are saving a lot of query
--- definitions, we recommend that you name them so that you can easily find
--- the ones you want by using the first part of the name as a filter in the
+-- | A name for the query definition. If you are saving numerous query
+-- definitions, we recommend that you name them. This way, you can find the
+-- ones you want by using the first part of the name as a filter in the
 -- @queryDefinitionNamePrefix@ parameter of
 -- <https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_DescribeQueryDefinitions.html DescribeQueryDefinitions>.
 putQueryDefinition_name :: Lens.Lens' PutQueryDefinition Prelude.Text
@@ -173,12 +174,13 @@ instance Core.AWSRequest PutQueryDefinition where
   type
     AWSResponse PutQueryDefinition =
       PutQueryDefinitionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutQueryDefinitionResponse'
-            Prelude.<$> (x Core..?> "queryDefinitionId")
+            Prelude.<$> (x Data..?> "queryDefinitionId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -196,37 +198,37 @@ instance Prelude.NFData PutQueryDefinition where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf queryString
 
-instance Core.ToHeaders PutQueryDefinition where
+instance Data.ToHeaders PutQueryDefinition where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Logs_20140328.PutQueryDefinition" ::
+              Data.=# ( "Logs_20140328.PutQueryDefinition" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutQueryDefinition where
+instance Data.ToJSON PutQueryDefinition where
   toJSON PutQueryDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("logGroupNames" Core..=) Prelude.<$> logGroupNames,
-            ("queryDefinitionId" Core..=)
+          [ ("logGroupNames" Data..=) Prelude.<$> logGroupNames,
+            ("queryDefinitionId" Data..=)
               Prelude.<$> queryDefinitionId,
-            Prelude.Just ("name" Core..= name),
-            Prelude.Just ("queryString" Core..= queryString)
+            Prelude.Just ("name" Data..= name),
+            Prelude.Just ("queryString" Data..= queryString)
           ]
       )
 
-instance Core.ToPath PutQueryDefinition where
+instance Data.ToPath PutQueryDefinition where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutQueryDefinition where
+instance Data.ToQuery PutQueryDefinition where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutQueryDefinitionResponse' smart constructor.

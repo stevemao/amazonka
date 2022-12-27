@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ReservedInstanceReservationValue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.ReservedInstanceReservationValue where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ReservationValue
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The total value of the Convertible Reserved Instance.
@@ -68,13 +69,13 @@ reservedInstanceReservationValue_reservedInstanceId :: Lens.Lens' ReservedInstan
 reservedInstanceReservationValue_reservedInstanceId = Lens.lens (\ReservedInstanceReservationValue' {reservedInstanceId} -> reservedInstanceId) (\s@ReservedInstanceReservationValue' {} a -> s {reservedInstanceId = a} :: ReservedInstanceReservationValue)
 
 instance
-  Core.FromXML
+  Data.FromXML
     ReservedInstanceReservationValue
   where
   parseXML x =
     ReservedInstanceReservationValue'
-      Prelude.<$> (x Core..@? "reservationValue")
-      Prelude.<*> (x Core..@? "reservedInstanceId")
+      Prelude.<$> (x Data..@? "reservationValue")
+      Prelude.<*> (x Data..@? "reservedInstanceId")
 
 instance
   Prelude.Hashable

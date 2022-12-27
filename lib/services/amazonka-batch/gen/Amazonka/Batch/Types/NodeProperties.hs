@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.Types.NodeProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,20 +21,25 @@ module Amazonka.Batch.Types.NodeProperties where
 
 import Amazonka.Batch.Types.NodeRangeProperty
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | An object representing the node properties of a multi-node parallel job.
+-- | An object that represents the node properties of a multi-node parallel
+-- job.
+--
+-- Node properties can\'t be specified for Amazon EKS based job
+-- definitions.
 --
 -- /See:/ 'newNodeProperties' smart constructor.
 data NodeProperties = NodeProperties'
-  { -- | The number of nodes associated with a multi-node parallel job.
+  { -- | The number of nodes that are associated with a multi-node parallel job.
     numNodes :: Prelude.Int,
     -- | Specifies the node index for the main node of a multi-node parallel job.
     -- This node index value must be fewer than the number of nodes.
     mainNode :: Prelude.Int,
-    -- | A list of node ranges and their properties associated with a multi-node
-    -- parallel job.
+    -- | A list of node ranges and their properties that are associated with a
+    -- multi-node parallel job.
     nodeRangeProperties :: [NodeRangeProperty]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -47,13 +52,13 @@ data NodeProperties = NodeProperties'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'numNodes', 'nodeProperties_numNodes' - The number of nodes associated with a multi-node parallel job.
+-- 'numNodes', 'nodeProperties_numNodes' - The number of nodes that are associated with a multi-node parallel job.
 --
 -- 'mainNode', 'nodeProperties_mainNode' - Specifies the node index for the main node of a multi-node parallel job.
 -- This node index value must be fewer than the number of nodes.
 --
--- 'nodeRangeProperties', 'nodeProperties_nodeRangeProperties' - A list of node ranges and their properties associated with a multi-node
--- parallel job.
+-- 'nodeRangeProperties', 'nodeProperties_nodeRangeProperties' - A list of node ranges and their properties that are associated with a
+-- multi-node parallel job.
 newNodeProperties ::
   -- | 'numNodes'
   Prelude.Int ->
@@ -67,7 +72,7 @@ newNodeProperties pNumNodes_ pMainNode_ =
       nodeRangeProperties = Prelude.mempty
     }
 
--- | The number of nodes associated with a multi-node parallel job.
+-- | The number of nodes that are associated with a multi-node parallel job.
 nodeProperties_numNodes :: Lens.Lens' NodeProperties Prelude.Int
 nodeProperties_numNodes = Lens.lens (\NodeProperties' {numNodes} -> numNodes) (\s@NodeProperties' {} a -> s {numNodes = a} :: NodeProperties)
 
@@ -76,21 +81,21 @@ nodeProperties_numNodes = Lens.lens (\NodeProperties' {numNodes} -> numNodes) (\
 nodeProperties_mainNode :: Lens.Lens' NodeProperties Prelude.Int
 nodeProperties_mainNode = Lens.lens (\NodeProperties' {mainNode} -> mainNode) (\s@NodeProperties' {} a -> s {mainNode = a} :: NodeProperties)
 
--- | A list of node ranges and their properties associated with a multi-node
--- parallel job.
+-- | A list of node ranges and their properties that are associated with a
+-- multi-node parallel job.
 nodeProperties_nodeRangeProperties :: Lens.Lens' NodeProperties [NodeRangeProperty]
 nodeProperties_nodeRangeProperties = Lens.lens (\NodeProperties' {nodeRangeProperties} -> nodeRangeProperties) (\s@NodeProperties' {} a -> s {nodeRangeProperties = a} :: NodeProperties) Prelude.. Lens.coerced
 
-instance Core.FromJSON NodeProperties where
+instance Data.FromJSON NodeProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NodeProperties"
       ( \x ->
           NodeProperties'
-            Prelude.<$> (x Core..: "numNodes")
-            Prelude.<*> (x Core..: "mainNode")
-            Prelude.<*> ( x Core..:? "nodeRangeProperties"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..: "numNodes")
+            Prelude.<*> (x Data..: "mainNode")
+            Prelude.<*> ( x Data..:? "nodeRangeProperties"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -106,13 +111,13 @@ instance Prelude.NFData NodeProperties where
       `Prelude.seq` Prelude.rnf mainNode
       `Prelude.seq` Prelude.rnf nodeRangeProperties
 
-instance Core.ToJSON NodeProperties where
+instance Data.ToJSON NodeProperties where
   toJSON NodeProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("numNodes" Core..= numNodes),
-            Prelude.Just ("mainNode" Core..= mainNode),
+          [ Prelude.Just ("numNodes" Data..= numNodes),
+            Prelude.Just ("mainNode" Data..= mainNode),
             Prelude.Just
-              ("nodeRangeProperties" Core..= nodeRangeProperties)
+              ("nodeRangeProperties" Data..= nodeRangeProperties)
           ]
       )

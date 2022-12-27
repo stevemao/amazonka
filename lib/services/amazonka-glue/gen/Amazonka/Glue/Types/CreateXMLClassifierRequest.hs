@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.CreateXMLClassifierRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.CreateXMLClassifierRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies an XML classifier for @CreateClassifier@ to create.
@@ -102,13 +103,13 @@ instance Prelude.NFData CreateXMLClassifierRequest where
       `Prelude.seq` Prelude.rnf classification
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON CreateXMLClassifierRequest where
+instance Data.ToJSON CreateXMLClassifierRequest where
   toJSON CreateXMLClassifierRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RowTag" Core..=) Prelude.<$> rowTag,
+          [ ("RowTag" Data..=) Prelude.<$> rowTag,
             Prelude.Just
-              ("Classification" Core..= classification),
-            Prelude.Just ("Name" Core..= name)
+              ("Classification" Data..= classification),
+            Prelude.Just ("Name" Data..= name)
           ]
       )

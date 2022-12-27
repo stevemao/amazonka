@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.ListWorkforces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,11 +31,11 @@ module Amazonka.SageMaker.ListWorkforces
     newListWorkforces,
 
     -- * Request Lenses
+    listWorkforces_maxResults,
     listWorkforces_nameContains,
     listWorkforces_nextToken,
-    listWorkforces_sortOrder,
-    listWorkforces_maxResults,
     listWorkforces_sortBy,
+    listWorkforces_sortOrder,
 
     -- * Destructuring the Response
     ListWorkforcesResponse (..),
@@ -49,7 +49,8 @@ module Amazonka.SageMaker.ListWorkforces
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,17 +58,17 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newListWorkforces' smart constructor.
 data ListWorkforces = ListWorkforces'
-  { -- | A filter you can use to search for workforces using part of the
+  { -- | The maximum number of workforces returned in the response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A filter you can use to search for workforces using part of the
     -- workforce name.
     nameContains :: Prelude.Maybe Prelude.Text,
     -- | A token to resume pagination.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Sort workforces in ascending or descending order.
-    sortOrder :: Prelude.Maybe SortOrder,
-    -- | The maximum number of workforces returned in the response.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | Sort workforces using the workforce name or creation date.
-    sortBy :: Prelude.Maybe ListWorkforcesSortByOptions
+    sortBy :: Prelude.Maybe ListWorkforcesSortByOptions,
+    -- | Sort workforces in ascending or descending order.
+    sortOrder :: Prelude.Maybe SortOrder
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -79,26 +80,30 @@ data ListWorkforces = ListWorkforces'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listWorkforces_maxResults' - The maximum number of workforces returned in the response.
+--
 -- 'nameContains', 'listWorkforces_nameContains' - A filter you can use to search for workforces using part of the
 -- workforce name.
 --
 -- 'nextToken', 'listWorkforces_nextToken' - A token to resume pagination.
 --
--- 'sortOrder', 'listWorkforces_sortOrder' - Sort workforces in ascending or descending order.
---
--- 'maxResults', 'listWorkforces_maxResults' - The maximum number of workforces returned in the response.
---
 -- 'sortBy', 'listWorkforces_sortBy' - Sort workforces using the workforce name or creation date.
+--
+-- 'sortOrder', 'listWorkforces_sortOrder' - Sort workforces in ascending or descending order.
 newListWorkforces ::
   ListWorkforces
 newListWorkforces =
   ListWorkforces'
-    { nameContains = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nameContains = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      sortOrder = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
-      sortBy = Prelude.Nothing
+      sortBy = Prelude.Nothing,
+      sortOrder = Prelude.Nothing
     }
+
+-- | The maximum number of workforces returned in the response.
+listWorkforces_maxResults :: Lens.Lens' ListWorkforces (Prelude.Maybe Prelude.Natural)
+listWorkforces_maxResults = Lens.lens (\ListWorkforces' {maxResults} -> maxResults) (\s@ListWorkforces' {} a -> s {maxResults = a} :: ListWorkforces)
 
 -- | A filter you can use to search for workforces using part of the
 -- workforce name.
@@ -109,17 +114,13 @@ listWorkforces_nameContains = Lens.lens (\ListWorkforces' {nameContains} -> name
 listWorkforces_nextToken :: Lens.Lens' ListWorkforces (Prelude.Maybe Prelude.Text)
 listWorkforces_nextToken = Lens.lens (\ListWorkforces' {nextToken} -> nextToken) (\s@ListWorkforces' {} a -> s {nextToken = a} :: ListWorkforces)
 
--- | Sort workforces in ascending or descending order.
-listWorkforces_sortOrder :: Lens.Lens' ListWorkforces (Prelude.Maybe SortOrder)
-listWorkforces_sortOrder = Lens.lens (\ListWorkforces' {sortOrder} -> sortOrder) (\s@ListWorkforces' {} a -> s {sortOrder = a} :: ListWorkforces)
-
--- | The maximum number of workforces returned in the response.
-listWorkforces_maxResults :: Lens.Lens' ListWorkforces (Prelude.Maybe Prelude.Natural)
-listWorkforces_maxResults = Lens.lens (\ListWorkforces' {maxResults} -> maxResults) (\s@ListWorkforces' {} a -> s {maxResults = a} :: ListWorkforces)
-
 -- | Sort workforces using the workforce name or creation date.
 listWorkforces_sortBy :: Lens.Lens' ListWorkforces (Prelude.Maybe ListWorkforcesSortByOptions)
 listWorkforces_sortBy = Lens.lens (\ListWorkforces' {sortBy} -> sortBy) (\s@ListWorkforces' {} a -> s {sortBy = a} :: ListWorkforces)
+
+-- | Sort workforces in ascending or descending order.
+listWorkforces_sortOrder :: Lens.Lens' ListWorkforces (Prelude.Maybe SortOrder)
+listWorkforces_sortOrder = Lens.lens (\ListWorkforces' {sortOrder} -> sortOrder) (\s@ListWorkforces' {} a -> s {sortOrder = a} :: ListWorkforces)
 
 instance Core.AWSPager ListWorkforces where
   page rq rs
@@ -143,61 +144,62 @@ instance Core.AWSRequest ListWorkforces where
   type
     AWSResponse ListWorkforces =
       ListWorkforcesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListWorkforcesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Workforces" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Workforces" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListWorkforces where
   hashWithSalt _salt ListWorkforces' {..} =
-    _salt `Prelude.hashWithSalt` nameContains
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nameContains
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` sortOrder
-      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` sortBy
+      `Prelude.hashWithSalt` sortOrder
 
 instance Prelude.NFData ListWorkforces where
   rnf ListWorkforces' {..} =
-    Prelude.rnf nameContains
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nameContains
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf sortOrder
-      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf sortBy
+      `Prelude.seq` Prelude.rnf sortOrder
 
-instance Core.ToHeaders ListWorkforces where
+instance Data.ToHeaders ListWorkforces where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.ListWorkforces" :: Prelude.ByteString),
+              Data.=# ("SageMaker.ListWorkforces" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListWorkforces where
+instance Data.ToJSON ListWorkforces where
   toJSON ListWorkforces' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NameContains" Core..=) Prelude.<$> nameContains,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("SortOrder" Core..=) Prelude.<$> sortOrder,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("SortBy" Core..=) Prelude.<$> sortBy
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NameContains" Data..=) Prelude.<$> nameContains,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SortBy" Data..=) Prelude.<$> sortBy,
+            ("SortOrder" Data..=) Prelude.<$> sortOrder
           ]
       )
 
-instance Core.ToPath ListWorkforces where
+instance Data.ToPath ListWorkforces where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListWorkforces where
+instance Data.ToQuery ListWorkforces where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListWorkforcesResponse' smart constructor.

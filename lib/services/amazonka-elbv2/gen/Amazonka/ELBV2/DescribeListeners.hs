@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.DescribeListeners
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,15 +42,16 @@ module Amazonka.ELBV2.DescribeListeners
     newDescribeListenersResponse,
 
     -- * Response Lenses
-    describeListenersResponse_nextMarker,
     describeListenersResponse_listeners,
+    describeListenersResponse_nextMarker,
     describeListenersResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -138,16 +139,17 @@ instance Core.AWSRequest DescribeListeners where
   type
     AWSResponse DescribeListeners =
       DescribeListenersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeListenersResult"
       ( \s h x ->
           DescribeListenersResponse'
-            Prelude.<$> (x Core..@? "NextMarker")
-            Prelude.<*> ( x Core..@? "Listeners" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "Listeners" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
+            Prelude.<*> (x Data..@? "NextMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -165,34 +167,34 @@ instance Prelude.NFData DescribeListeners where
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf pageSize
 
-instance Core.ToHeaders DescribeListeners where
+instance Data.ToHeaders DescribeListeners where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeListeners where
+instance Data.ToPath DescribeListeners where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeListeners where
+instance Data.ToQuery DescribeListeners where
   toQuery DescribeListeners' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeListeners" :: Prelude.ByteString),
+          Data.=: ("DescribeListeners" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-12-01" :: Prelude.ByteString),
+          Data.=: ("2015-12-01" :: Prelude.ByteString),
         "ListenerArns"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> listenerArns),
-        "LoadBalancerArn" Core.=: loadBalancerArn,
-        "Marker" Core.=: marker,
-        "PageSize" Core.=: pageSize
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> listenerArns),
+        "LoadBalancerArn" Data.=: loadBalancerArn,
+        "Marker" Data.=: marker,
+        "PageSize" Data.=: pageSize
       ]
 
 -- | /See:/ 'newDescribeListenersResponse' smart constructor.
 data DescribeListenersResponse = DescribeListenersResponse'
-  { -- | If there are additional results, this is the marker for the next set of
+  { -- | Information about the listeners.
+    listeners :: Prelude.Maybe [Listener],
+    -- | If there are additional results, this is the marker for the next set of
     -- results. Otherwise, this is null.
     nextMarker :: Prelude.Maybe Prelude.Text,
-    -- | Information about the listeners.
-    listeners :: Prelude.Maybe [Listener],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -206,10 +208,10 @@ data DescribeListenersResponse = DescribeListenersResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'listeners', 'describeListenersResponse_listeners' - Information about the listeners.
+--
 -- 'nextMarker', 'describeListenersResponse_nextMarker' - If there are additional results, this is the marker for the next set of
 -- results. Otherwise, this is null.
---
--- 'listeners', 'describeListenersResponse_listeners' - Information about the listeners.
 --
 -- 'httpStatus', 'describeListenersResponse_httpStatus' - The response's http status code.
 newDescribeListenersResponse ::
@@ -218,20 +220,20 @@ newDescribeListenersResponse ::
   DescribeListenersResponse
 newDescribeListenersResponse pHttpStatus_ =
   DescribeListenersResponse'
-    { nextMarker =
+    { listeners =
         Prelude.Nothing,
-      listeners = Prelude.Nothing,
+      nextMarker = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Information about the listeners.
+describeListenersResponse_listeners :: Lens.Lens' DescribeListenersResponse (Prelude.Maybe [Listener])
+describeListenersResponse_listeners = Lens.lens (\DescribeListenersResponse' {listeners} -> listeners) (\s@DescribeListenersResponse' {} a -> s {listeners = a} :: DescribeListenersResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If there are additional results, this is the marker for the next set of
 -- results. Otherwise, this is null.
 describeListenersResponse_nextMarker :: Lens.Lens' DescribeListenersResponse (Prelude.Maybe Prelude.Text)
 describeListenersResponse_nextMarker = Lens.lens (\DescribeListenersResponse' {nextMarker} -> nextMarker) (\s@DescribeListenersResponse' {} a -> s {nextMarker = a} :: DescribeListenersResponse)
-
--- | Information about the listeners.
-describeListenersResponse_listeners :: Lens.Lens' DescribeListenersResponse (Prelude.Maybe [Listener])
-describeListenersResponse_listeners = Lens.lens (\DescribeListenersResponse' {listeners} -> listeners) (\s@DescribeListenersResponse' {} a -> s {listeners = a} :: DescribeListenersResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeListenersResponse_httpStatus :: Lens.Lens' DescribeListenersResponse Prelude.Int
@@ -239,6 +241,6 @@ describeListenersResponse_httpStatus = Lens.lens (\DescribeListenersResponse' {h
 
 instance Prelude.NFData DescribeListenersResponse where
   rnf DescribeListenersResponse' {..} =
-    Prelude.rnf nextMarker
-      `Prelude.seq` Prelude.rnf listeners
+    Prelude.rnf listeners
+      `Prelude.seq` Prelude.rnf nextMarker
       `Prelude.seq` Prelude.rnf httpStatus

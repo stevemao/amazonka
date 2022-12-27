@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.S3ContentBaseLocationDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalyticsV2.Types.S3ContentBaseLocationDescription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The description of the S3 base location that holds the application.
@@ -65,16 +66,16 @@ s3ContentBaseLocationDescription_bucketARN :: Lens.Lens' S3ContentBaseLocationDe
 s3ContentBaseLocationDescription_bucketARN = Lens.lens (\S3ContentBaseLocationDescription' {bucketARN} -> bucketARN) (\s@S3ContentBaseLocationDescription' {} a -> s {bucketARN = a} :: S3ContentBaseLocationDescription)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     S3ContentBaseLocationDescription
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3ContentBaseLocationDescription"
       ( \x ->
           S3ContentBaseLocationDescription'
-            Prelude.<$> (x Core..:? "BasePath")
-            Prelude.<*> (x Core..: "BucketARN")
+            Prelude.<$> (x Data..:? "BasePath")
+            Prelude.<*> (x Data..: "BucketARN")
       )
 
 instance

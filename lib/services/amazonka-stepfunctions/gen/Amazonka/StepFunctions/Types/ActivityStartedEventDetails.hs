@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StepFunctions.Types.ActivityStartedEventDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.StepFunctions.Types.ActivityStartedEventDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains details about the start of an activity during an execution.
@@ -56,13 +57,13 @@ newActivityStartedEventDetails =
 activityStartedEventDetails_workerName :: Lens.Lens' ActivityStartedEventDetails (Prelude.Maybe Prelude.Text)
 activityStartedEventDetails_workerName = Lens.lens (\ActivityStartedEventDetails' {workerName} -> workerName) (\s@ActivityStartedEventDetails' {} a -> s {workerName = a} :: ActivityStartedEventDetails)
 
-instance Core.FromJSON ActivityStartedEventDetails where
+instance Data.FromJSON ActivityStartedEventDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActivityStartedEventDetails"
       ( \x ->
           ActivityStartedEventDetails'
-            Prelude.<$> (x Core..:? "workerName")
+            Prelude.<$> (x Data..:? "workerName")
       )
 
 instance Prelude.Hashable ActivityStartedEventDetails where

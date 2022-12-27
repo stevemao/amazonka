@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Grafana.UpdatePermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.Grafana.UpdatePermissions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Grafana.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,13 +92,14 @@ instance Core.AWSRequest UpdatePermissions where
   type
     AWSResponse UpdatePermissions =
       UpdatePermissionsResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdatePermissionsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "errors" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "errors" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable UpdatePermissions where
@@ -110,37 +112,37 @@ instance Prelude.NFData UpdatePermissions where
     Prelude.rnf updateInstructionBatch
       `Prelude.seq` Prelude.rnf workspaceId
 
-instance Core.ToHeaders UpdatePermissions where
+instance Data.ToHeaders UpdatePermissions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdatePermissions where
+instance Data.ToJSON UpdatePermissions where
   toJSON UpdatePermissions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "updateInstructionBatch"
-                  Core..= updateInstructionBatch
+                  Data..= updateInstructionBatch
               )
           ]
       )
 
-instance Core.ToPath UpdatePermissions where
+instance Data.ToPath UpdatePermissions where
   toPath UpdatePermissions' {..} =
     Prelude.mconcat
       [ "/workspaces/",
-        Core.toBS workspaceId,
+        Data.toBS workspaceId,
         "/permissions"
       ]
 
-instance Core.ToQuery UpdatePermissions where
+instance Data.ToQuery UpdatePermissions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdatePermissionsResponse' smart constructor.

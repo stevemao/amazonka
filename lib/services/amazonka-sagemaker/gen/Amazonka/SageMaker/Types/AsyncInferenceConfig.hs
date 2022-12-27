@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.AsyncInferenceConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.AsyncInferenceConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.AsyncInferenceClientConfig
 import Amazonka.SageMaker.Types.AsyncInferenceOutputConfig
@@ -30,8 +31,8 @@ import Amazonka.SageMaker.Types.AsyncInferenceOutputConfig
 --
 -- /See:/ 'newAsyncInferenceConfig' smart constructor.
 data AsyncInferenceConfig = AsyncInferenceConfig'
-  { -- | Configures the behavior of the client used by Amazon SageMaker to
-    -- interact with the model container during asynchronous inference.
+  { -- | Configures the behavior of the client used by SageMaker to interact with
+    -- the model container during asynchronous inference.
     clientConfig :: Prelude.Maybe AsyncInferenceClientConfig,
     -- | Specifies the configuration for asynchronous inference invocation
     -- outputs.
@@ -47,8 +48,8 @@ data AsyncInferenceConfig = AsyncInferenceConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientConfig', 'asyncInferenceConfig_clientConfig' - Configures the behavior of the client used by Amazon SageMaker to
--- interact with the model container during asynchronous inference.
+-- 'clientConfig', 'asyncInferenceConfig_clientConfig' - Configures the behavior of the client used by SageMaker to interact with
+-- the model container during asynchronous inference.
 --
 -- 'outputConfig', 'asyncInferenceConfig_outputConfig' - Specifies the configuration for asynchronous inference invocation
 -- outputs.
@@ -63,8 +64,8 @@ newAsyncInferenceConfig pOutputConfig_ =
       outputConfig = pOutputConfig_
     }
 
--- | Configures the behavior of the client used by Amazon SageMaker to
--- interact with the model container during asynchronous inference.
+-- | Configures the behavior of the client used by SageMaker to interact with
+-- the model container during asynchronous inference.
 asyncInferenceConfig_clientConfig :: Lens.Lens' AsyncInferenceConfig (Prelude.Maybe AsyncInferenceClientConfig)
 asyncInferenceConfig_clientConfig = Lens.lens (\AsyncInferenceConfig' {clientConfig} -> clientConfig) (\s@AsyncInferenceConfig' {} a -> s {clientConfig = a} :: AsyncInferenceConfig)
 
@@ -73,14 +74,14 @@ asyncInferenceConfig_clientConfig = Lens.lens (\AsyncInferenceConfig' {clientCon
 asyncInferenceConfig_outputConfig :: Lens.Lens' AsyncInferenceConfig AsyncInferenceOutputConfig
 asyncInferenceConfig_outputConfig = Lens.lens (\AsyncInferenceConfig' {outputConfig} -> outputConfig) (\s@AsyncInferenceConfig' {} a -> s {outputConfig = a} :: AsyncInferenceConfig)
 
-instance Core.FromJSON AsyncInferenceConfig where
+instance Data.FromJSON AsyncInferenceConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AsyncInferenceConfig"
       ( \x ->
           AsyncInferenceConfig'
-            Prelude.<$> (x Core..:? "ClientConfig")
-            Prelude.<*> (x Core..: "OutputConfig")
+            Prelude.<$> (x Data..:? "ClientConfig")
+            Prelude.<*> (x Data..: "OutputConfig")
       )
 
 instance Prelude.Hashable AsyncInferenceConfig where
@@ -93,11 +94,11 @@ instance Prelude.NFData AsyncInferenceConfig where
     Prelude.rnf clientConfig
       `Prelude.seq` Prelude.rnf outputConfig
 
-instance Core.ToJSON AsyncInferenceConfig where
+instance Data.ToJSON AsyncInferenceConfig where
   toJSON AsyncInferenceConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientConfig" Core..=) Prelude.<$> clientConfig,
-            Prelude.Just ("OutputConfig" Core..= outputConfig)
+          [ ("ClientConfig" Data..=) Prelude.<$> clientConfig,
+            Prelude.Just ("OutputConfig" Data..= outputConfig)
           ]
       )

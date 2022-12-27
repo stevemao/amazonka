@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.Account
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,11 +30,17 @@ import Test.Tasty
 --         [ requestDeleteAlternateContact $
 --             newDeleteAlternateContact
 --
+--         , requestGetAlternateContact $
+--             newGetAlternateContact
+--
+--         , requestGetContactInformation $
+--             newGetContactInformation
+--
 --         , requestPutAlternateContact $
 --             newPutAlternateContact
 --
---         , requestGetAlternateContact $
---             newGetAlternateContact
+--         , requestPutContactInformation $
+--             newPutContactInformation
 --
 --           ]
 
@@ -42,11 +48,17 @@ import Test.Tasty
 --         [ responseDeleteAlternateContact $
 --             newDeleteAlternateContactResponse
 --
+--         , responseGetAlternateContact $
+--             newGetAlternateContactResponse
+--
+--         , responseGetContactInformation $
+--             newGetContactInformationResponse
+--
 --         , responsePutAlternateContact $
 --             newPutAlternateContactResponse
 --
---         , responseGetAlternateContact $
---             newGetAlternateContactResponse
+--         , responsePutContactInformation $
+--             newPutContactInformationResponse
 --
 --           ]
 --     ]
@@ -59,17 +71,29 @@ requestDeleteAlternateContact =
     "DeleteAlternateContact"
     "fixture/DeleteAlternateContact.yaml"
 
+requestGetAlternateContact :: GetAlternateContact -> TestTree
+requestGetAlternateContact =
+  req
+    "GetAlternateContact"
+    "fixture/GetAlternateContact.yaml"
+
+requestGetContactInformation :: GetContactInformation -> TestTree
+requestGetContactInformation =
+  req
+    "GetContactInformation"
+    "fixture/GetContactInformation.yaml"
+
 requestPutAlternateContact :: PutAlternateContact -> TestTree
 requestPutAlternateContact =
   req
     "PutAlternateContact"
     "fixture/PutAlternateContact.yaml"
 
-requestGetAlternateContact :: GetAlternateContact -> TestTree
-requestGetAlternateContact =
+requestPutContactInformation :: PutContactInformation -> TestTree
+requestPutContactInformation =
   req
-    "GetAlternateContact"
-    "fixture/GetAlternateContact.yaml"
+    "PutContactInformation"
+    "fixture/PutContactInformation.yaml"
 
 -- Responses
 
@@ -81,6 +105,22 @@ responseDeleteAlternateContact =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DeleteAlternateContact)
 
+responseGetAlternateContact :: GetAlternateContactResponse -> TestTree
+responseGetAlternateContact =
+  res
+    "GetAlternateContactResponse"
+    "fixture/GetAlternateContactResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetAlternateContact)
+
+responseGetContactInformation :: GetContactInformationResponse -> TestTree
+responseGetContactInformation =
+  res
+    "GetContactInformationResponse"
+    "fixture/GetContactInformationResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy GetContactInformation)
+
 responsePutAlternateContact :: PutAlternateContactResponse -> TestTree
 responsePutAlternateContact =
   res
@@ -89,10 +129,10 @@ responsePutAlternateContact =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy PutAlternateContact)
 
-responseGetAlternateContact :: GetAlternateContactResponse -> TestTree
-responseGetAlternateContact =
+responsePutContactInformation :: PutContactInformationResponse -> TestTree
+responsePutContactInformation =
   res
-    "GetAlternateContactResponse"
-    "fixture/GetAlternateContactResponse.proto"
+    "PutContactInformationResponse"
+    "fixture/PutContactInformationResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy GetAlternateContact)
+    (Proxy.Proxy :: Proxy.Proxy PutContactInformation)

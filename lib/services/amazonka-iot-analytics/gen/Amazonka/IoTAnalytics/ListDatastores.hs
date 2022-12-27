@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.ListDatastores
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,35 +29,36 @@ module Amazonka.IoTAnalytics.ListDatastores
     newListDatastores,
 
     -- * Request Lenses
-    listDatastores_nextToken,
     listDatastores_maxResults,
+    listDatastores_nextToken,
 
     -- * Destructuring the Response
     ListDatastoresResponse (..),
     newListDatastoresResponse,
 
     -- * Response Lenses
-    listDatastoresResponse_nextToken,
     listDatastoresResponse_datastoreSummaries,
+    listDatastoresResponse_nextToken,
     listDatastoresResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDatastores' smart constructor.
 data ListDatastores = ListDatastores'
-  { -- | The token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in this request.
+  { -- | The maximum number of results to return in this request.
     --
     -- The default value is 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,28 +70,28 @@ data ListDatastores = ListDatastores'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listDatastores_nextToken' - The token for the next set of results.
---
 -- 'maxResults', 'listDatastores_maxResults' - The maximum number of results to return in this request.
 --
 -- The default value is 100.
+--
+-- 'nextToken', 'listDatastores_nextToken' - The token for the next set of results.
 newListDatastores ::
   ListDatastores
 newListDatastores =
   ListDatastores'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token for the next set of results.
-listDatastores_nextToken :: Lens.Lens' ListDatastores (Prelude.Maybe Prelude.Text)
-listDatastores_nextToken = Lens.lens (\ListDatastores' {nextToken} -> nextToken) (\s@ListDatastores' {} a -> s {nextToken = a} :: ListDatastores)
 
 -- | The maximum number of results to return in this request.
 --
 -- The default value is 100.
 listDatastores_maxResults :: Lens.Lens' ListDatastores (Prelude.Maybe Prelude.Natural)
 listDatastores_maxResults = Lens.lens (\ListDatastores' {maxResults} -> maxResults) (\s@ListDatastores' {} a -> s {maxResults = a} :: ListDatastores)
+
+-- | The token for the next set of results.
+listDatastores_nextToken :: Lens.Lens' ListDatastores (Prelude.Maybe Prelude.Text)
+listDatastores_nextToken = Lens.lens (\ListDatastores' {nextToken} -> nextToken) (\s@ListDatastores' {} a -> s {nextToken = a} :: ListDatastores)
 
 instance Core.AWSPager ListDatastores where
   page rq rs
@@ -117,48 +118,49 @@ instance Core.AWSRequest ListDatastores where
   type
     AWSResponse ListDatastores =
       ListDatastoresResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDatastoresResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "datastoreSummaries"
+            Prelude.<$> ( x Data..?> "datastoreSummaries"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDatastores where
   hashWithSalt _salt ListDatastores' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDatastores where
   rnf ListDatastores' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDatastores where
+instance Data.ToHeaders ListDatastores where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListDatastores where
+instance Data.ToPath ListDatastores where
   toPath = Prelude.const "/datastores"
 
-instance Core.ToQuery ListDatastores where
+instance Data.ToQuery ListDatastores where
   toQuery ListDatastores' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListDatastoresResponse' smart constructor.
 data ListDatastoresResponse = ListDatastoresResponse'
-  { -- | The token to retrieve the next set of results, or @null@ if there are no
+  { -- | A list of @DatastoreSummary@ objects.
+    datastoreSummaries :: Prelude.Maybe [DatastoreSummary],
+    -- | The token to retrieve the next set of results, or @null@ if there are no
     -- more results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A list of @DatastoreSummary@ objects.
-    datastoreSummaries :: Prelude.Maybe [DatastoreSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -172,10 +174,10 @@ data ListDatastoresResponse = ListDatastoresResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'datastoreSummaries', 'listDatastoresResponse_datastoreSummaries' - A list of @DatastoreSummary@ objects.
+--
 -- 'nextToken', 'listDatastoresResponse_nextToken' - The token to retrieve the next set of results, or @null@ if there are no
 -- more results.
---
--- 'datastoreSummaries', 'listDatastoresResponse_datastoreSummaries' - A list of @DatastoreSummary@ objects.
 --
 -- 'httpStatus', 'listDatastoresResponse_httpStatus' - The response's http status code.
 newListDatastoresResponse ::
@@ -184,20 +186,20 @@ newListDatastoresResponse ::
   ListDatastoresResponse
 newListDatastoresResponse pHttpStatus_ =
   ListDatastoresResponse'
-    { nextToken =
+    { datastoreSummaries =
         Prelude.Nothing,
-      datastoreSummaries = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | A list of @DatastoreSummary@ objects.
+listDatastoresResponse_datastoreSummaries :: Lens.Lens' ListDatastoresResponse (Prelude.Maybe [DatastoreSummary])
+listDatastoresResponse_datastoreSummaries = Lens.lens (\ListDatastoresResponse' {datastoreSummaries} -> datastoreSummaries) (\s@ListDatastoresResponse' {} a -> s {datastoreSummaries = a} :: ListDatastoresResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token to retrieve the next set of results, or @null@ if there are no
 -- more results.
 listDatastoresResponse_nextToken :: Lens.Lens' ListDatastoresResponse (Prelude.Maybe Prelude.Text)
 listDatastoresResponse_nextToken = Lens.lens (\ListDatastoresResponse' {nextToken} -> nextToken) (\s@ListDatastoresResponse' {} a -> s {nextToken = a} :: ListDatastoresResponse)
-
--- | A list of @DatastoreSummary@ objects.
-listDatastoresResponse_datastoreSummaries :: Lens.Lens' ListDatastoresResponse (Prelude.Maybe [DatastoreSummary])
-listDatastoresResponse_datastoreSummaries = Lens.lens (\ListDatastoresResponse' {datastoreSummaries} -> datastoreSummaries) (\s@ListDatastoresResponse' {} a -> s {datastoreSummaries = a} :: ListDatastoresResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listDatastoresResponse_httpStatus :: Lens.Lens' ListDatastoresResponse Prelude.Int
@@ -205,6 +207,6 @@ listDatastoresResponse_httpStatus = Lens.lens (\ListDatastoresResponse' {httpSta
 
 instance Prelude.NFData ListDatastoresResponse where
   rnf ListDatastoresResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf datastoreSummaries
+    Prelude.rnf datastoreSummaries
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

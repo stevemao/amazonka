@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.IotAnalyticsAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.IotAnalyticsAction where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Sends message data to an IoT Analytics channel.
@@ -112,16 +113,16 @@ iotAnalyticsAction_channelName = Lens.lens (\IotAnalyticsAction' {channelName} -
 iotAnalyticsAction_roleArn :: Lens.Lens' IotAnalyticsAction (Prelude.Maybe Prelude.Text)
 iotAnalyticsAction_roleArn = Lens.lens (\IotAnalyticsAction' {roleArn} -> roleArn) (\s@IotAnalyticsAction' {} a -> s {roleArn = a} :: IotAnalyticsAction)
 
-instance Core.FromJSON IotAnalyticsAction where
+instance Data.FromJSON IotAnalyticsAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IotAnalyticsAction"
       ( \x ->
           IotAnalyticsAction'
-            Prelude.<$> (x Core..:? "batchMode")
-            Prelude.<*> (x Core..:? "channelArn")
-            Prelude.<*> (x Core..:? "channelName")
-            Prelude.<*> (x Core..:? "roleArn")
+            Prelude.<$> (x Data..:? "batchMode")
+            Prelude.<*> (x Data..:? "channelArn")
+            Prelude.<*> (x Data..:? "channelName")
+            Prelude.<*> (x Data..:? "roleArn")
       )
 
 instance Prelude.Hashable IotAnalyticsAction where
@@ -138,13 +139,13 @@ instance Prelude.NFData IotAnalyticsAction where
       `Prelude.seq` Prelude.rnf channelName
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToJSON IotAnalyticsAction where
+instance Data.ToJSON IotAnalyticsAction where
   toJSON IotAnalyticsAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("batchMode" Core..=) Prelude.<$> batchMode,
-            ("channelArn" Core..=) Prelude.<$> channelArn,
-            ("channelName" Core..=) Prelude.<$> channelName,
-            ("roleArn" Core..=) Prelude.<$> roleArn
+          [ ("batchMode" Data..=) Prelude.<$> batchMode,
+            ("channelArn" Data..=) Prelude.<$> channelArn,
+            ("channelName" Data..=) Prelude.<$> channelName,
+            ("roleArn" Data..=) Prelude.<$> roleArn
           ]
       )

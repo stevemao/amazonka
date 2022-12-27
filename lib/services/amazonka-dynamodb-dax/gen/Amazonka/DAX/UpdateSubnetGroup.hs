@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DAX.UpdateSubnetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.DAX.UpdateSubnetGroup
     newUpdateSubnetGroup,
 
     -- * Request Lenses
-    updateSubnetGroup_subnetIds,
     updateSubnetGroup_description,
+    updateSubnetGroup_subnetIds,
     updateSubnetGroup_subnetGroupName,
 
     -- * Destructuring the Response
@@ -42,18 +42,19 @@ module Amazonka.DAX.UpdateSubnetGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DAX.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateSubnetGroup' smart constructor.
 data UpdateSubnetGroup = UpdateSubnetGroup'
-  { -- | A list of subnet IDs in the subnet group.
-    subnetIds :: Prelude.Maybe [Prelude.Text],
-    -- | A description of the subnet group.
+  { -- | A description of the subnet group.
     description :: Prelude.Maybe Prelude.Text,
+    -- | A list of subnet IDs in the subnet group.
+    subnetIds :: Prelude.Maybe [Prelude.Text],
     -- | The name of the subnet group.
     subnetGroupName :: Prelude.Text
   }
@@ -67,9 +68,9 @@ data UpdateSubnetGroup = UpdateSubnetGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subnetIds', 'updateSubnetGroup_subnetIds' - A list of subnet IDs in the subnet group.
---
 -- 'description', 'updateSubnetGroup_description' - A description of the subnet group.
+--
+-- 'subnetIds', 'updateSubnetGroup_subnetIds' - A list of subnet IDs in the subnet group.
 --
 -- 'subnetGroupName', 'updateSubnetGroup_subnetGroupName' - The name of the subnet group.
 newUpdateSubnetGroup ::
@@ -78,18 +79,18 @@ newUpdateSubnetGroup ::
   UpdateSubnetGroup
 newUpdateSubnetGroup pSubnetGroupName_ =
   UpdateSubnetGroup'
-    { subnetIds = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      subnetIds = Prelude.Nothing,
       subnetGroupName = pSubnetGroupName_
     }
-
--- | A list of subnet IDs in the subnet group.
-updateSubnetGroup_subnetIds :: Lens.Lens' UpdateSubnetGroup (Prelude.Maybe [Prelude.Text])
-updateSubnetGroup_subnetIds = Lens.lens (\UpdateSubnetGroup' {subnetIds} -> subnetIds) (\s@UpdateSubnetGroup' {} a -> s {subnetIds = a} :: UpdateSubnetGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | A description of the subnet group.
 updateSubnetGroup_description :: Lens.Lens' UpdateSubnetGroup (Prelude.Maybe Prelude.Text)
 updateSubnetGroup_description = Lens.lens (\UpdateSubnetGroup' {description} -> description) (\s@UpdateSubnetGroup' {} a -> s {description = a} :: UpdateSubnetGroup)
+
+-- | A list of subnet IDs in the subnet group.
+updateSubnetGroup_subnetIds :: Lens.Lens' UpdateSubnetGroup (Prelude.Maybe [Prelude.Text])
+updateSubnetGroup_subnetIds = Lens.lens (\UpdateSubnetGroup' {subnetIds} -> subnetIds) (\s@UpdateSubnetGroup' {} a -> s {subnetIds = a} :: UpdateSubnetGroup) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the subnet group.
 updateSubnetGroup_subnetGroupName :: Lens.Lens' UpdateSubnetGroup Prelude.Text
@@ -99,57 +100,58 @@ instance Core.AWSRequest UpdateSubnetGroup where
   type
     AWSResponse UpdateSubnetGroup =
       UpdateSubnetGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateSubnetGroupResponse'
-            Prelude.<$> (x Core..?> "SubnetGroup")
+            Prelude.<$> (x Data..?> "SubnetGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateSubnetGroup where
   hashWithSalt _salt UpdateSubnetGroup' {..} =
-    _salt `Prelude.hashWithSalt` subnetIds
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` subnetIds
       `Prelude.hashWithSalt` subnetGroupName
 
 instance Prelude.NFData UpdateSubnetGroup where
   rnf UpdateSubnetGroup' {..} =
-    Prelude.rnf subnetIds
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf subnetIds
       `Prelude.seq` Prelude.rnf subnetGroupName
 
-instance Core.ToHeaders UpdateSubnetGroup where
+instance Data.ToHeaders UpdateSubnetGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonDAXV3.UpdateSubnetGroup" ::
+              Data.=# ( "AmazonDAXV3.UpdateSubnetGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateSubnetGroup where
+instance Data.ToJSON UpdateSubnetGroup where
   toJSON UpdateSubnetGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SubnetIds" Core..=) Prelude.<$> subnetIds,
-            ("Description" Core..=) Prelude.<$> description,
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("SubnetIds" Data..=) Prelude.<$> subnetIds,
             Prelude.Just
-              ("SubnetGroupName" Core..= subnetGroupName)
+              ("SubnetGroupName" Data..= subnetGroupName)
           ]
       )
 
-instance Core.ToPath UpdateSubnetGroup where
+instance Data.ToPath UpdateSubnetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateSubnetGroup where
+instance Data.ToQuery UpdateSubnetGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateSubnetGroupResponse' smart constructor.

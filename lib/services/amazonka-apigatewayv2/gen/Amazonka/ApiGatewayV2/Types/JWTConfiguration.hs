@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.Types.JWTConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ApiGatewayV2.Types.JWTConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the configuration of a JWT authorizer. Required for the JWT
@@ -80,14 +81,14 @@ jWTConfiguration_audience = Lens.lens (\JWTConfiguration' {audience} -> audience
 jWTConfiguration_issuer :: Lens.Lens' JWTConfiguration (Prelude.Maybe Prelude.Text)
 jWTConfiguration_issuer = Lens.lens (\JWTConfiguration' {issuer} -> issuer) (\s@JWTConfiguration' {} a -> s {issuer = a} :: JWTConfiguration)
 
-instance Core.FromJSON JWTConfiguration where
+instance Data.FromJSON JWTConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "JWTConfiguration"
       ( \x ->
           JWTConfiguration'
-            Prelude.<$> (x Core..:? "audience" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "issuer")
+            Prelude.<$> (x Data..:? "audience" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "issuer")
       )
 
 instance Prelude.Hashable JWTConfiguration where
@@ -100,11 +101,11 @@ instance Prelude.NFData JWTConfiguration where
     Prelude.rnf audience
       `Prelude.seq` Prelude.rnf issuer
 
-instance Core.ToJSON JWTConfiguration where
+instance Data.ToJSON JWTConfiguration where
   toJSON JWTConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("audience" Core..=) Prelude.<$> audience,
-            ("issuer" Core..=) Prelude.<$> issuer
+          [ ("audience" Data..=) Prelude.<$> audience,
+            ("issuer" Data..=) Prelude.<$> issuer
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.UserPausedDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.UserPausedDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about when a classification job was paused. For a
@@ -35,7 +36,7 @@ import qualified Amazonka.Prelude as Prelude
 data UserPausedDetails = UserPausedDetails'
   { -- | The date and time, in UTC and extended ISO 8601 format, when the job or
     -- job run will expire and be cancelled if you don\'t resume it first.
-    jobExpiresAt :: Prelude.Maybe Core.POSIX,
+    jobExpiresAt :: Prelude.Maybe Data.POSIX,
     -- | The Amazon Resource Name (ARN) of the Health event that Amazon Macie
     -- sent to notify you of the job or job run\'s pending expiration and
     -- cancellation. This value is null if a job has been paused for less than
@@ -43,7 +44,7 @@ data UserPausedDetails = UserPausedDetails'
     jobImminentExpirationHealthEventArn :: Prelude.Maybe Prelude.Text,
     -- | The date and time, in UTC and extended ISO 8601 format, when you paused
     -- the job.
-    jobPausedAt :: Prelude.Maybe Core.POSIX
+    jobPausedAt :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -78,7 +79,7 @@ newUserPausedDetails =
 -- | The date and time, in UTC and extended ISO 8601 format, when the job or
 -- job run will expire and be cancelled if you don\'t resume it first.
 userPausedDetails_jobExpiresAt :: Lens.Lens' UserPausedDetails (Prelude.Maybe Prelude.UTCTime)
-userPausedDetails_jobExpiresAt = Lens.lens (\UserPausedDetails' {jobExpiresAt} -> jobExpiresAt) (\s@UserPausedDetails' {} a -> s {jobExpiresAt = a} :: UserPausedDetails) Prelude.. Lens.mapping Core._Time
+userPausedDetails_jobExpiresAt = Lens.lens (\UserPausedDetails' {jobExpiresAt} -> jobExpiresAt) (\s@UserPausedDetails' {} a -> s {jobExpiresAt = a} :: UserPausedDetails) Prelude.. Lens.mapping Data._Time
 
 -- | The Amazon Resource Name (ARN) of the Health event that Amazon Macie
 -- sent to notify you of the job or job run\'s pending expiration and
@@ -90,17 +91,17 @@ userPausedDetails_jobImminentExpirationHealthEventArn = Lens.lens (\UserPausedDe
 -- | The date and time, in UTC and extended ISO 8601 format, when you paused
 -- the job.
 userPausedDetails_jobPausedAt :: Lens.Lens' UserPausedDetails (Prelude.Maybe Prelude.UTCTime)
-userPausedDetails_jobPausedAt = Lens.lens (\UserPausedDetails' {jobPausedAt} -> jobPausedAt) (\s@UserPausedDetails' {} a -> s {jobPausedAt = a} :: UserPausedDetails) Prelude.. Lens.mapping Core._Time
+userPausedDetails_jobPausedAt = Lens.lens (\UserPausedDetails' {jobPausedAt} -> jobPausedAt) (\s@UserPausedDetails' {} a -> s {jobPausedAt = a} :: UserPausedDetails) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON UserPausedDetails where
+instance Data.FromJSON UserPausedDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UserPausedDetails"
       ( \x ->
           UserPausedDetails'
-            Prelude.<$> (x Core..:? "jobExpiresAt")
-            Prelude.<*> (x Core..:? "jobImminentExpirationHealthEventArn")
-            Prelude.<*> (x Core..:? "jobPausedAt")
+            Prelude.<$> (x Data..:? "jobExpiresAt")
+            Prelude.<*> (x Data..:? "jobImminentExpirationHealthEventArn")
+            Prelude.<*> (x Data..:? "jobPausedAt")
       )
 
 instance Prelude.Hashable UserPausedDetails where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationInsights.Types.Tier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,6 +20,7 @@
 module Amazonka.ApplicationInsights.Types.Tier
   ( Tier
       ( ..,
+        Tier_ACTIVE_DIRECTORY,
         Tier_CUSTOM,
         Tier_DEFAULT,
         Tier_DOT_NET_CORE,
@@ -30,16 +31,22 @@ module Amazonka.ApplicationInsights.Types.Tier
         Tier_MYSQL,
         Tier_ORACLE,
         Tier_POSTGRESQL,
+        Tier_SAP_HANA_HIGH_AVAILABILITY,
+        Tier_SAP_HANA_MULTI_NODE,
+        Tier_SAP_HANA_SINGLE_NODE,
+        Tier_SHAREPOINT,
         Tier_SQL_SERVER,
-        Tier_SQL_SERVER_ALWAYSON_AVAILABILITY_GROUP
+        Tier_SQL_SERVER_ALWAYSON_AVAILABILITY_GROUP,
+        Tier_SQL_SERVER_FAILOVER_CLUSTER_INSTANCE
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
-newtype Tier = Tier' {fromTier :: Core.Text}
+newtype Tier = Tier' {fromTier :: Data.Text}
   deriving stock
     ( Prelude.Show,
       Prelude.Read,
@@ -50,19 +57,22 @@ newtype Tier = Tier' {fromTier :: Core.Text}
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern Tier_ACTIVE_DIRECTORY :: Tier
+pattern Tier_ACTIVE_DIRECTORY = Tier' "ACTIVE_DIRECTORY"
 
 pattern Tier_CUSTOM :: Tier
 pattern Tier_CUSTOM = Tier' "CUSTOM"
@@ -94,13 +104,29 @@ pattern Tier_ORACLE = Tier' "ORACLE"
 pattern Tier_POSTGRESQL :: Tier
 pattern Tier_POSTGRESQL = Tier' "POSTGRESQL"
 
+pattern Tier_SAP_HANA_HIGH_AVAILABILITY :: Tier
+pattern Tier_SAP_HANA_HIGH_AVAILABILITY = Tier' "SAP_HANA_HIGH_AVAILABILITY"
+
+pattern Tier_SAP_HANA_MULTI_NODE :: Tier
+pattern Tier_SAP_HANA_MULTI_NODE = Tier' "SAP_HANA_MULTI_NODE"
+
+pattern Tier_SAP_HANA_SINGLE_NODE :: Tier
+pattern Tier_SAP_HANA_SINGLE_NODE = Tier' "SAP_HANA_SINGLE_NODE"
+
+pattern Tier_SHAREPOINT :: Tier
+pattern Tier_SHAREPOINT = Tier' "SHAREPOINT"
+
 pattern Tier_SQL_SERVER :: Tier
 pattern Tier_SQL_SERVER = Tier' "SQL_SERVER"
 
 pattern Tier_SQL_SERVER_ALWAYSON_AVAILABILITY_GROUP :: Tier
 pattern Tier_SQL_SERVER_ALWAYSON_AVAILABILITY_GROUP = Tier' "SQL_SERVER_ALWAYSON_AVAILABILITY_GROUP"
 
+pattern Tier_SQL_SERVER_FAILOVER_CLUSTER_INSTANCE :: Tier
+pattern Tier_SQL_SERVER_FAILOVER_CLUSTER_INSTANCE = Tier' "SQL_SERVER_FAILOVER_CLUSTER_INSTANCE"
+
 {-# COMPLETE
+  Tier_ACTIVE_DIRECTORY,
   Tier_CUSTOM,
   Tier_DEFAULT,
   Tier_DOT_NET_CORE,
@@ -111,7 +137,12 @@ pattern Tier_SQL_SERVER_ALWAYSON_AVAILABILITY_GROUP = Tier' "SQL_SERVER_ALWAYSON
   Tier_MYSQL,
   Tier_ORACLE,
   Tier_POSTGRESQL,
+  Tier_SAP_HANA_HIGH_AVAILABILITY,
+  Tier_SAP_HANA_MULTI_NODE,
+  Tier_SAP_HANA_SINGLE_NODE,
+  Tier_SHAREPOINT,
   Tier_SQL_SERVER,
   Tier_SQL_SERVER_ALWAYSON_AVAILABILITY_GROUP,
+  Tier_SQL_SERVER_FAILOVER_CLUSTER_INSTANCE,
   Tier'
   #-}

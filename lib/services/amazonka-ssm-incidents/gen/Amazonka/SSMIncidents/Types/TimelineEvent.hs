@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.Types.TimelineEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,24 +20,28 @@
 module Amazonka.SSMIncidents.Types.TimelineEvent where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
+import Amazonka.SSMIncidents.Types.EventReference
 
 -- | A significant event that happened during the incident.
 --
 -- /See:/ 'newTimelineEvent' smart constructor.
 data TimelineEvent = TimelineEvent'
-  { -- | A short description of the event.
+  { -- | A list of references in a @TimelineEvent@.
+    eventReferences :: Prelude.Maybe [EventReference],
+    -- | A short description of the event.
     eventData :: Prelude.Text,
     -- | The ID of the timeline event.
     eventId :: Prelude.Text,
     -- | The time that the event occurred.
-    eventTime :: Core.POSIX,
+    eventTime :: Data.POSIX,
     -- | The type of event that occurred. Currently Incident Manager supports
     -- only the @Custom Event@ type.
     eventType :: Prelude.Text,
     -- | The time that the timeline event was last updated.
-    eventUpdatedTime :: Core.POSIX,
+    eventUpdatedTime :: Data.POSIX,
     -- | The Amazon Resource Name (ARN) of the incident that the event occurred
     -- during.
     incidentRecordArn :: Prelude.Text
@@ -51,6 +55,8 @@ data TimelineEvent = TimelineEvent'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'eventReferences', 'timelineEvent_eventReferences' - A list of references in a @TimelineEvent@.
 --
 -- 'eventData', 'timelineEvent_eventData' - A short description of the event.
 --
@@ -87,14 +93,19 @@ newTimelineEvent
   pEventUpdatedTime_
   pIncidentRecordArn_ =
     TimelineEvent'
-      { eventData = pEventData_,
+      { eventReferences = Prelude.Nothing,
+        eventData = pEventData_,
         eventId = pEventId_,
-        eventTime = Core._Time Lens.# pEventTime_,
+        eventTime = Data._Time Lens.# pEventTime_,
         eventType = pEventType_,
         eventUpdatedTime =
-          Core._Time Lens.# pEventUpdatedTime_,
+          Data._Time Lens.# pEventUpdatedTime_,
         incidentRecordArn = pIncidentRecordArn_
       }
+
+-- | A list of references in a @TimelineEvent@.
+timelineEvent_eventReferences :: Lens.Lens' TimelineEvent (Prelude.Maybe [EventReference])
+timelineEvent_eventReferences = Lens.lens (\TimelineEvent' {eventReferences} -> eventReferences) (\s@TimelineEvent' {} a -> s {eventReferences = a} :: TimelineEvent) Prelude.. Lens.mapping Lens.coerced
 
 -- | A short description of the event.
 timelineEvent_eventData :: Lens.Lens' TimelineEvent Prelude.Text
@@ -106,7 +117,7 @@ timelineEvent_eventId = Lens.lens (\TimelineEvent' {eventId} -> eventId) (\s@Tim
 
 -- | The time that the event occurred.
 timelineEvent_eventTime :: Lens.Lens' TimelineEvent Prelude.UTCTime
-timelineEvent_eventTime = Lens.lens (\TimelineEvent' {eventTime} -> eventTime) (\s@TimelineEvent' {} a -> s {eventTime = a} :: TimelineEvent) Prelude.. Core._Time
+timelineEvent_eventTime = Lens.lens (\TimelineEvent' {eventTime} -> eventTime) (\s@TimelineEvent' {} a -> s {eventTime = a} :: TimelineEvent) Prelude.. Data._Time
 
 -- | The type of event that occurred. Currently Incident Manager supports
 -- only the @Custom Event@ type.
@@ -115,30 +126,34 @@ timelineEvent_eventType = Lens.lens (\TimelineEvent' {eventType} -> eventType) (
 
 -- | The time that the timeline event was last updated.
 timelineEvent_eventUpdatedTime :: Lens.Lens' TimelineEvent Prelude.UTCTime
-timelineEvent_eventUpdatedTime = Lens.lens (\TimelineEvent' {eventUpdatedTime} -> eventUpdatedTime) (\s@TimelineEvent' {} a -> s {eventUpdatedTime = a} :: TimelineEvent) Prelude.. Core._Time
+timelineEvent_eventUpdatedTime = Lens.lens (\TimelineEvent' {eventUpdatedTime} -> eventUpdatedTime) (\s@TimelineEvent' {} a -> s {eventUpdatedTime = a} :: TimelineEvent) Prelude.. Data._Time
 
 -- | The Amazon Resource Name (ARN) of the incident that the event occurred
 -- during.
 timelineEvent_incidentRecordArn :: Lens.Lens' TimelineEvent Prelude.Text
 timelineEvent_incidentRecordArn = Lens.lens (\TimelineEvent' {incidentRecordArn} -> incidentRecordArn) (\s@TimelineEvent' {} a -> s {incidentRecordArn = a} :: TimelineEvent)
 
-instance Core.FromJSON TimelineEvent where
+instance Data.FromJSON TimelineEvent where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TimelineEvent"
       ( \x ->
           TimelineEvent'
-            Prelude.<$> (x Core..: "eventData")
-            Prelude.<*> (x Core..: "eventId")
-            Prelude.<*> (x Core..: "eventTime")
-            Prelude.<*> (x Core..: "eventType")
-            Prelude.<*> (x Core..: "eventUpdatedTime")
-            Prelude.<*> (x Core..: "incidentRecordArn")
+            Prelude.<$> ( x Data..:? "eventReferences"
+                            Data..!= Prelude.mempty
+                        )
+            Prelude.<*> (x Data..: "eventData")
+            Prelude.<*> (x Data..: "eventId")
+            Prelude.<*> (x Data..: "eventTime")
+            Prelude.<*> (x Data..: "eventType")
+            Prelude.<*> (x Data..: "eventUpdatedTime")
+            Prelude.<*> (x Data..: "incidentRecordArn")
       )
 
 instance Prelude.Hashable TimelineEvent where
   hashWithSalt _salt TimelineEvent' {..} =
-    _salt `Prelude.hashWithSalt` eventData
+    _salt `Prelude.hashWithSalt` eventReferences
+      `Prelude.hashWithSalt` eventData
       `Prelude.hashWithSalt` eventId
       `Prelude.hashWithSalt` eventTime
       `Prelude.hashWithSalt` eventType
@@ -147,7 +162,8 @@ instance Prelude.Hashable TimelineEvent where
 
 instance Prelude.NFData TimelineEvent where
   rnf TimelineEvent' {..} =
-    Prelude.rnf eventData
+    Prelude.rnf eventReferences
+      `Prelude.seq` Prelude.rnf eventData
       `Prelude.seq` Prelude.rnf eventId
       `Prelude.seq` Prelude.rnf eventTime
       `Prelude.seq` Prelude.rnf eventType

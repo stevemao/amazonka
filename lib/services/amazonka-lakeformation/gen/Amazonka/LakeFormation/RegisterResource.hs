@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.RegisterResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,8 @@
 -- to the service-linked role. When you register subsequent paths, Lake
 -- Formation adds the path to the existing policy.
 --
--- The following request registers a new location and gives AWS Lake
--- Formation permission to use the service-linked role to access that
--- location.
+-- The following request registers a new location and gives Lake Formation
+-- permission to use the service-linked role to access that location.
 --
 -- @ResourceArn = arn:aws:s3:::my-bucket UseServiceLinkedRole = true@
 --
@@ -47,8 +46,8 @@ module Amazonka.LakeFormation.RegisterResource
     newRegisterResource,
 
     -- * Request Lenses
-    registerResource_useServiceLinkedRole,
     registerResource_roleArn,
+    registerResource_useServiceLinkedRole,
     registerResource_resourceArn,
 
     -- * Destructuring the Response
@@ -61,24 +60,24 @@ module Amazonka.LakeFormation.RegisterResource
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LakeFormation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newRegisterResource' smart constructor.
 data RegisterResource = RegisterResource'
-  { -- | Designates an AWS Identity and Access Management (IAM) service-linked
-    -- role by registering this role with the Data Catalog. A service-linked
-    -- role is a unique type of IAM role that is linked directly to Lake
-    -- Formation.
+  { -- | The identifier for the role that registers the resource.
+    roleArn :: Prelude.Maybe Prelude.Text,
+    -- | Designates an Identity and Access Management (IAM) service-linked role
+    -- by registering this role with the Data Catalog. A service-linked role is
+    -- a unique type of IAM role that is linked directly to Lake Formation.
     --
     -- For more information, see
-    -- <https://docs-aws.amazon.com/lake-formation/latest/dg/service-linked-roles.html Using Service-Linked Roles for Lake Formation>.
+    -- <https://docs.aws.amazon.com/lake-formation/latest/dg/service-linked-roles.html Using Service-Linked Roles for Lake Formation>.
     useServiceLinkedRole :: Prelude.Maybe Prelude.Bool,
-    -- | The identifier for the role that registers the resource.
-    roleArn :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the resource that you want to
     -- register.
     resourceArn :: Prelude.Text
@@ -93,15 +92,14 @@ data RegisterResource = RegisterResource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'useServiceLinkedRole', 'registerResource_useServiceLinkedRole' - Designates an AWS Identity and Access Management (IAM) service-linked
--- role by registering this role with the Data Catalog. A service-linked
--- role is a unique type of IAM role that is linked directly to Lake
--- Formation.
+-- 'roleArn', 'registerResource_roleArn' - The identifier for the role that registers the resource.
+--
+-- 'useServiceLinkedRole', 'registerResource_useServiceLinkedRole' - Designates an Identity and Access Management (IAM) service-linked role
+-- by registering this role with the Data Catalog. A service-linked role is
+-- a unique type of IAM role that is linked directly to Lake Formation.
 --
 -- For more information, see
--- <https://docs-aws.amazon.com/lake-formation/latest/dg/service-linked-roles.html Using Service-Linked Roles for Lake Formation>.
---
--- 'roleArn', 'registerResource_roleArn' - The identifier for the role that registers the resource.
+-- <https://docs.aws.amazon.com/lake-formation/latest/dg/service-linked-roles.html Using Service-Linked Roles for Lake Formation>.
 --
 -- 'resourceArn', 'registerResource_resourceArn' - The Amazon Resource Name (ARN) of the resource that you want to
 -- register.
@@ -111,25 +109,23 @@ newRegisterResource ::
   RegisterResource
 newRegisterResource pResourceArn_ =
   RegisterResource'
-    { useServiceLinkedRole =
-        Prelude.Nothing,
-      roleArn = Prelude.Nothing,
+    { roleArn = Prelude.Nothing,
+      useServiceLinkedRole = Prelude.Nothing,
       resourceArn = pResourceArn_
     }
-
--- | Designates an AWS Identity and Access Management (IAM) service-linked
--- role by registering this role with the Data Catalog. A service-linked
--- role is a unique type of IAM role that is linked directly to Lake
--- Formation.
---
--- For more information, see
--- <https://docs-aws.amazon.com/lake-formation/latest/dg/service-linked-roles.html Using Service-Linked Roles for Lake Formation>.
-registerResource_useServiceLinkedRole :: Lens.Lens' RegisterResource (Prelude.Maybe Prelude.Bool)
-registerResource_useServiceLinkedRole = Lens.lens (\RegisterResource' {useServiceLinkedRole} -> useServiceLinkedRole) (\s@RegisterResource' {} a -> s {useServiceLinkedRole = a} :: RegisterResource)
 
 -- | The identifier for the role that registers the resource.
 registerResource_roleArn :: Lens.Lens' RegisterResource (Prelude.Maybe Prelude.Text)
 registerResource_roleArn = Lens.lens (\RegisterResource' {roleArn} -> roleArn) (\s@RegisterResource' {} a -> s {roleArn = a} :: RegisterResource)
+
+-- | Designates an Identity and Access Management (IAM) service-linked role
+-- by registering this role with the Data Catalog. A service-linked role is
+-- a unique type of IAM role that is linked directly to Lake Formation.
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/lake-formation/latest/dg/service-linked-roles.html Using Service-Linked Roles for Lake Formation>.
+registerResource_useServiceLinkedRole :: Lens.Lens' RegisterResource (Prelude.Maybe Prelude.Bool)
+registerResource_useServiceLinkedRole = Lens.lens (\RegisterResource' {useServiceLinkedRole} -> useServiceLinkedRole) (\s@RegisterResource' {} a -> s {useServiceLinkedRole = a} :: RegisterResource)
 
 -- | The Amazon Resource Name (ARN) of the resource that you want to
 -- register.
@@ -140,7 +136,8 @@ instance Core.AWSRequest RegisterResource where
   type
     AWSResponse RegisterResource =
       RegisterResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -150,46 +147,42 @@ instance Core.AWSRequest RegisterResource where
 
 instance Prelude.Hashable RegisterResource where
   hashWithSalt _salt RegisterResource' {..} =
-    _salt `Prelude.hashWithSalt` useServiceLinkedRole
-      `Prelude.hashWithSalt` roleArn
+    _salt `Prelude.hashWithSalt` roleArn
+      `Prelude.hashWithSalt` useServiceLinkedRole
       `Prelude.hashWithSalt` resourceArn
 
 instance Prelude.NFData RegisterResource where
   rnf RegisterResource' {..} =
-    Prelude.rnf useServiceLinkedRole
-      `Prelude.seq` Prelude.rnf roleArn
+    Prelude.rnf roleArn
+      `Prelude.seq` Prelude.rnf useServiceLinkedRole
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders RegisterResource where
+instance Data.ToHeaders RegisterResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
-          [ "X-Amz-Target"
-              Core.=# ( "AWSLakeFormation.RegisterResource" ::
-                          Prelude.ByteString
-                      ),
-            "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+          [ "Content-Type"
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RegisterResource where
+instance Data.ToJSON RegisterResource where
   toJSON RegisterResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("UseServiceLinkedRole" Core..=)
+          [ ("RoleArn" Data..=) Prelude.<$> roleArn,
+            ("UseServiceLinkedRole" Data..=)
               Prelude.<$> useServiceLinkedRole,
-            ("RoleArn" Core..=) Prelude.<$> roleArn,
-            Prelude.Just ("ResourceArn" Core..= resourceArn)
+            Prelude.Just ("ResourceArn" Data..= resourceArn)
           ]
       )
 
-instance Core.ToPath RegisterResource where
-  toPath = Prelude.const "/"
+instance Data.ToPath RegisterResource where
+  toPath = Prelude.const "/RegisterResource"
 
-instance Core.ToQuery RegisterResource where
+instance Data.ToQuery RegisterResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRegisterResourceResponse' smart constructor.

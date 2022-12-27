@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DescribeDataSourcePermissions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,16 +35,17 @@ module Amazonka.QuickSight.DescribeDataSourcePermissions
     newDescribeDataSourcePermissionsResponse,
 
     -- * Response Lenses
-    describeDataSourcePermissionsResponse_requestId,
-    describeDataSourcePermissionsResponse_dataSourceId,
     describeDataSourcePermissionsResponse_dataSourceArn,
+    describeDataSourcePermissionsResponse_dataSourceId,
     describeDataSourcePermissionsResponse_permissions,
+    describeDataSourcePermissionsResponse_requestId,
     describeDataSourcePermissionsResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -103,15 +104,16 @@ instance
   type
     AWSResponse DescribeDataSourcePermissions =
       DescribeDataSourcePermissionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeDataSourcePermissionsResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "DataSourceId")
-            Prelude.<*> (x Core..?> "DataSourceArn")
-            Prelude.<*> (x Core..?> "Permissions")
+            Prelude.<$> (x Data..?> "DataSourceArn")
+            Prelude.<*> (x Data..?> "DataSourceId")
+            Prelude.<*> (x Data..?> "Permissions")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,41 +130,41 @@ instance Prelude.NFData DescribeDataSourcePermissions where
     Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf dataSourceId
 
-instance Core.ToHeaders DescribeDataSourcePermissions where
+instance Data.ToHeaders DescribeDataSourcePermissions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeDataSourcePermissions where
+instance Data.ToPath DescribeDataSourcePermissions where
   toPath DescribeDataSourcePermissions' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/data-sources/",
-        Core.toBS dataSourceId,
+        Data.toBS dataSourceId,
         "/permissions"
       ]
 
-instance Core.ToQuery DescribeDataSourcePermissions where
+instance Data.ToQuery DescribeDataSourcePermissions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeDataSourcePermissionsResponse' smart constructor.
 data DescribeDataSourcePermissionsResponse = DescribeDataSourcePermissionsResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
+  { -- | The Amazon Resource Name (ARN) of the data source.
+    dataSourceArn :: Prelude.Maybe Prelude.Text,
     -- | The ID of the data source. This ID is unique per Amazon Web Services
     -- Region for each Amazon Web Services account.
     dataSourceId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the data source.
-    dataSourceArn :: Prelude.Maybe Prelude.Text,
     -- | A list of resource permissions on the data source.
     permissions :: Prelude.Maybe (Prelude.NonEmpty ResourcePermission),
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -176,14 +178,14 @@ data DescribeDataSourcePermissionsResponse = DescribeDataSourcePermissionsRespon
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'describeDataSourcePermissionsResponse_requestId' - The Amazon Web Services request ID for this operation.
+-- 'dataSourceArn', 'describeDataSourcePermissionsResponse_dataSourceArn' - The Amazon Resource Name (ARN) of the data source.
 --
 -- 'dataSourceId', 'describeDataSourcePermissionsResponse_dataSourceId' - The ID of the data source. This ID is unique per Amazon Web Services
 -- Region for each Amazon Web Services account.
 --
--- 'dataSourceArn', 'describeDataSourcePermissionsResponse_dataSourceArn' - The Amazon Resource Name (ARN) of the data source.
---
 -- 'permissions', 'describeDataSourcePermissionsResponse_permissions' - A list of resource permissions on the data source.
+--
+-- 'requestId', 'describeDataSourcePermissionsResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'describeDataSourcePermissionsResponse_status' - The HTTP status of the request.
 newDescribeDataSourcePermissionsResponse ::
@@ -192,30 +194,30 @@ newDescribeDataSourcePermissionsResponse ::
   DescribeDataSourcePermissionsResponse
 newDescribeDataSourcePermissionsResponse pStatus_ =
   DescribeDataSourcePermissionsResponse'
-    { requestId =
+    { dataSourceArn =
         Prelude.Nothing,
       dataSourceId = Prelude.Nothing,
-      dataSourceArn = Prelude.Nothing,
       permissions = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
 
--- | The Amazon Web Services request ID for this operation.
-describeDataSourcePermissionsResponse_requestId :: Lens.Lens' DescribeDataSourcePermissionsResponse (Prelude.Maybe Prelude.Text)
-describeDataSourcePermissionsResponse_requestId = Lens.lens (\DescribeDataSourcePermissionsResponse' {requestId} -> requestId) (\s@DescribeDataSourcePermissionsResponse' {} a -> s {requestId = a} :: DescribeDataSourcePermissionsResponse)
+-- | The Amazon Resource Name (ARN) of the data source.
+describeDataSourcePermissionsResponse_dataSourceArn :: Lens.Lens' DescribeDataSourcePermissionsResponse (Prelude.Maybe Prelude.Text)
+describeDataSourcePermissionsResponse_dataSourceArn = Lens.lens (\DescribeDataSourcePermissionsResponse' {dataSourceArn} -> dataSourceArn) (\s@DescribeDataSourcePermissionsResponse' {} a -> s {dataSourceArn = a} :: DescribeDataSourcePermissionsResponse)
 
 -- | The ID of the data source. This ID is unique per Amazon Web Services
 -- Region for each Amazon Web Services account.
 describeDataSourcePermissionsResponse_dataSourceId :: Lens.Lens' DescribeDataSourcePermissionsResponse (Prelude.Maybe Prelude.Text)
 describeDataSourcePermissionsResponse_dataSourceId = Lens.lens (\DescribeDataSourcePermissionsResponse' {dataSourceId} -> dataSourceId) (\s@DescribeDataSourcePermissionsResponse' {} a -> s {dataSourceId = a} :: DescribeDataSourcePermissionsResponse)
 
--- | The Amazon Resource Name (ARN) of the data source.
-describeDataSourcePermissionsResponse_dataSourceArn :: Lens.Lens' DescribeDataSourcePermissionsResponse (Prelude.Maybe Prelude.Text)
-describeDataSourcePermissionsResponse_dataSourceArn = Lens.lens (\DescribeDataSourcePermissionsResponse' {dataSourceArn} -> dataSourceArn) (\s@DescribeDataSourcePermissionsResponse' {} a -> s {dataSourceArn = a} :: DescribeDataSourcePermissionsResponse)
-
 -- | A list of resource permissions on the data source.
 describeDataSourcePermissionsResponse_permissions :: Lens.Lens' DescribeDataSourcePermissionsResponse (Prelude.Maybe (Prelude.NonEmpty ResourcePermission))
 describeDataSourcePermissionsResponse_permissions = Lens.lens (\DescribeDataSourcePermissionsResponse' {permissions} -> permissions) (\s@DescribeDataSourcePermissionsResponse' {} a -> s {permissions = a} :: DescribeDataSourcePermissionsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The Amazon Web Services request ID for this operation.
+describeDataSourcePermissionsResponse_requestId :: Lens.Lens' DescribeDataSourcePermissionsResponse (Prelude.Maybe Prelude.Text)
+describeDataSourcePermissionsResponse_requestId = Lens.lens (\DescribeDataSourcePermissionsResponse' {requestId} -> requestId) (\s@DescribeDataSourcePermissionsResponse' {} a -> s {requestId = a} :: DescribeDataSourcePermissionsResponse)
 
 -- | The HTTP status of the request.
 describeDataSourcePermissionsResponse_status :: Lens.Lens' DescribeDataSourcePermissionsResponse Prelude.Int
@@ -226,8 +228,8 @@ instance
     DescribeDataSourcePermissionsResponse
   where
   rnf DescribeDataSourcePermissionsResponse' {..} =
-    Prelude.rnf requestId
+    Prelude.rnf dataSourceArn
       `Prelude.seq` Prelude.rnf dataSourceId
-      `Prelude.seq` Prelude.rnf dataSourceArn
       `Prelude.seq` Prelude.rnf permissions
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

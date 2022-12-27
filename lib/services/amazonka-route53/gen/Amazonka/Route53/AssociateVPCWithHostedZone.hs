@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.AssociateVPCWithHostedZone
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,6 +32,22 @@
 -- private hosted zone must first submit a
 -- @CreateVPCAssociationAuthorization@ request. Then the account that
 -- created the VPC must submit an @AssociateVPCWithHostedZone@ request.
+--
+-- When granting access, the hosted zone and the Amazon VPC must belong to
+-- the same partition. A partition is a group of Amazon Web Services
+-- Regions. Each Amazon Web Services account is scoped to one partition.
+--
+-- The following are the supported partitions:
+--
+-- -   @aws@ - Amazon Web Services Regions
+--
+-- -   @aws-cn@ - China Regions
+--
+-- -   @aws-us-gov@ - Amazon Web Services GovCloud (US) Region
+--
+-- For more information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Access Management>
+-- in the /Amazon Web Services General Reference/.
 module Amazonka.Route53.AssociateVPCWithHostedZone
   ( -- * Creating a Request
     AssociateVPCWithHostedZone (..),
@@ -53,7 +69,8 @@ module Amazonka.Route53.AssociateVPCWithHostedZone
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -131,13 +148,14 @@ instance Core.AWSRequest AssociateVPCWithHostedZone where
   type
     AWSResponse AssociateVPCWithHostedZone =
       AssociateVPCWithHostedZoneResponse
-  request = Request.postXML defaultService
+  request overrides =
+    Request.postXML (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           AssociateVPCWithHostedZoneResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "ChangeInfo")
+            Prelude.<*> (x Data..@ "ChangeInfo")
       )
 
 instance Prelude.Hashable AssociateVPCWithHostedZone where
@@ -152,29 +170,29 @@ instance Prelude.NFData AssociateVPCWithHostedZone where
       `Prelude.seq` Prelude.rnf hostedZoneId
       `Prelude.seq` Prelude.rnf vpc
 
-instance Core.ToElement AssociateVPCWithHostedZone where
+instance Data.ToElement AssociateVPCWithHostedZone where
   toElement =
-    Core.mkElement
+    Data.mkElement
       "{https://route53.amazonaws.com/doc/2013-04-01/}AssociateVPCWithHostedZoneRequest"
 
-instance Core.ToHeaders AssociateVPCWithHostedZone where
+instance Data.ToHeaders AssociateVPCWithHostedZone where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AssociateVPCWithHostedZone where
+instance Data.ToPath AssociateVPCWithHostedZone where
   toPath AssociateVPCWithHostedZone' {..} =
     Prelude.mconcat
       [ "/2013-04-01/hostedzone/",
-        Core.toBS hostedZoneId,
+        Data.toBS hostedZoneId,
         "/associatevpc"
       ]
 
-instance Core.ToQuery AssociateVPCWithHostedZone where
+instance Data.ToQuery AssociateVPCWithHostedZone where
   toQuery = Prelude.const Prelude.mempty
 
-instance Core.ToXML AssociateVPCWithHostedZone where
+instance Data.ToXML AssociateVPCWithHostedZone where
   toXML AssociateVPCWithHostedZone' {..} =
     Prelude.mconcat
-      ["Comment" Core.@= comment, "VPC" Core.@= vpc]
+      ["Comment" Data.@= comment, "VPC" Data.@= vpc]
 
 -- | A complex type that contains the response information for the
 -- @AssociateVPCWithHostedZone@ request.

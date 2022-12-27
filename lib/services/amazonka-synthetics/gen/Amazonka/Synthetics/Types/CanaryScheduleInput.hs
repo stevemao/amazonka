@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Synthetics.Types.CanaryScheduleInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Synthetics.Types.CanaryScheduleInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This structure specifies how often a canary is to make runs and the date
@@ -135,12 +136,12 @@ instance Prelude.NFData CanaryScheduleInput where
     Prelude.rnf durationInSeconds
       `Prelude.seq` Prelude.rnf expression
 
-instance Core.ToJSON CanaryScheduleInput where
+instance Data.ToJSON CanaryScheduleInput where
   toJSON CanaryScheduleInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DurationInSeconds" Core..=)
+          [ ("DurationInSeconds" Data..=)
               Prelude.<$> durationInSeconds,
-            Prelude.Just ("Expression" Core..= expression)
+            Prelude.Just ("Expression" Data..= expression)
           ]
       )

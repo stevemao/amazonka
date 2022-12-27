@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.ValidatePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,9 @@ module Amazonka.AccessAnalyzer.ValidatePolicy
 
     -- * Request Lenses
     validatePolicy_locale,
-    validatePolicy_nextToken,
     validatePolicy_maxResults,
+    validatePolicy_nextToken,
+    validatePolicy_validatePolicyResourceType,
     validatePolicy_policyDocument,
     validatePolicy_policyType,
 
@@ -51,7 +52,8 @@ where
 
 import Amazonka.AccessAnalyzer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,10 +62,22 @@ import qualified Amazonka.Response as Response
 data ValidatePolicy = ValidatePolicy'
   { -- | The locale to use for localizing the findings.
     locale :: Prelude.Maybe Locale,
-    -- | A token used for pagination of results returned.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of results to return in the response.
     maxResults :: Prelude.Maybe Prelude.Int,
+    -- | A token used for pagination of results returned.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The type of resource to attach to your resource policy. Specify a value
+    -- for the policy validation resource type only if the policy type is
+    -- @RESOURCE_POLICY@. For example, to validate a resource policy to attach
+    -- to an Amazon S3 bucket, you can choose @AWS::S3::Bucket@ for the policy
+    -- validation resource type.
+    --
+    -- For resource types not supported as valid values, IAM Access Analyzer
+    -- runs policy checks that apply to all resource policies. For example, to
+    -- validate a resource policy to attach to a KMS key, do not specify a
+    -- value for the policy validation resource type and IAM Access Analyzer
+    -- will run policy checks that apply to all resource policies.
+    validatePolicyResourceType :: Prelude.Maybe ValidatePolicyResourceType,
     -- | The JSON policy document to use as the content for the policy.
     policyDocument :: Prelude.Text,
     -- | The type of policy to validate. Identity policies grant permissions to
@@ -91,9 +105,21 @@ data ValidatePolicy = ValidatePolicy'
 --
 -- 'locale', 'validatePolicy_locale' - The locale to use for localizing the findings.
 --
+-- 'maxResults', 'validatePolicy_maxResults' - The maximum number of results to return in the response.
+--
 -- 'nextToken', 'validatePolicy_nextToken' - A token used for pagination of results returned.
 --
--- 'maxResults', 'validatePolicy_maxResults' - The maximum number of results to return in the response.
+-- 'validatePolicyResourceType', 'validatePolicy_validatePolicyResourceType' - The type of resource to attach to your resource policy. Specify a value
+-- for the policy validation resource type only if the policy type is
+-- @RESOURCE_POLICY@. For example, to validate a resource policy to attach
+-- to an Amazon S3 bucket, you can choose @AWS::S3::Bucket@ for the policy
+-- validation resource type.
+--
+-- For resource types not supported as valid values, IAM Access Analyzer
+-- runs policy checks that apply to all resource policies. For example, to
+-- validate a resource policy to attach to a KMS key, do not specify a
+-- value for the policy validation resource type and IAM Access Analyzer
+-- will run policy checks that apply to all resource policies.
 --
 -- 'policyDocument', 'validatePolicy_policyDocument' - The JSON policy document to use as the content for the policy.
 --
@@ -117,8 +143,9 @@ newValidatePolicy ::
 newValidatePolicy pPolicyDocument_ pPolicyType_ =
   ValidatePolicy'
     { locale = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      validatePolicyResourceType = Prelude.Nothing,
       policyDocument = pPolicyDocument_,
       policyType = pPolicyType_
     }
@@ -127,13 +154,27 @@ newValidatePolicy pPolicyDocument_ pPolicyType_ =
 validatePolicy_locale :: Lens.Lens' ValidatePolicy (Prelude.Maybe Locale)
 validatePolicy_locale = Lens.lens (\ValidatePolicy' {locale} -> locale) (\s@ValidatePolicy' {} a -> s {locale = a} :: ValidatePolicy)
 
+-- | The maximum number of results to return in the response.
+validatePolicy_maxResults :: Lens.Lens' ValidatePolicy (Prelude.Maybe Prelude.Int)
+validatePolicy_maxResults = Lens.lens (\ValidatePolicy' {maxResults} -> maxResults) (\s@ValidatePolicy' {} a -> s {maxResults = a} :: ValidatePolicy)
+
 -- | A token used for pagination of results returned.
 validatePolicy_nextToken :: Lens.Lens' ValidatePolicy (Prelude.Maybe Prelude.Text)
 validatePolicy_nextToken = Lens.lens (\ValidatePolicy' {nextToken} -> nextToken) (\s@ValidatePolicy' {} a -> s {nextToken = a} :: ValidatePolicy)
 
--- | The maximum number of results to return in the response.
-validatePolicy_maxResults :: Lens.Lens' ValidatePolicy (Prelude.Maybe Prelude.Int)
-validatePolicy_maxResults = Lens.lens (\ValidatePolicy' {maxResults} -> maxResults) (\s@ValidatePolicy' {} a -> s {maxResults = a} :: ValidatePolicy)
+-- | The type of resource to attach to your resource policy. Specify a value
+-- for the policy validation resource type only if the policy type is
+-- @RESOURCE_POLICY@. For example, to validate a resource policy to attach
+-- to an Amazon S3 bucket, you can choose @AWS::S3::Bucket@ for the policy
+-- validation resource type.
+--
+-- For resource types not supported as valid values, IAM Access Analyzer
+-- runs policy checks that apply to all resource policies. For example, to
+-- validate a resource policy to attach to a KMS key, do not specify a
+-- value for the policy validation resource type and IAM Access Analyzer
+-- will run policy checks that apply to all resource policies.
+validatePolicy_validatePolicyResourceType :: Lens.Lens' ValidatePolicy (Prelude.Maybe ValidatePolicyResourceType)
+validatePolicy_validatePolicyResourceType = Lens.lens (\ValidatePolicy' {validatePolicyResourceType} -> validatePolicyResourceType) (\s@ValidatePolicy' {} a -> s {validatePolicyResourceType = a} :: ValidatePolicy)
 
 -- | The JSON policy document to use as the content for the policy.
 validatePolicy_policyDocument :: Lens.Lens' ValidatePolicy Prelude.Text
@@ -175,62 +216,67 @@ instance Core.AWSRequest ValidatePolicy where
   type
     AWSResponse ValidatePolicy =
       ValidatePolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ValidatePolicyResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "findings" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "findings" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ValidatePolicy where
   hashWithSalt _salt ValidatePolicy' {..} =
     _salt `Prelude.hashWithSalt` locale
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` validatePolicyResourceType
       `Prelude.hashWithSalt` policyDocument
       `Prelude.hashWithSalt` policyType
 
 instance Prelude.NFData ValidatePolicy where
   rnf ValidatePolicy' {..} =
     Prelude.rnf locale
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf validatePolicyResourceType
       `Prelude.seq` Prelude.rnf policyDocument
       `Prelude.seq` Prelude.rnf policyType
 
-instance Core.ToHeaders ValidatePolicy where
+instance Data.ToHeaders ValidatePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ValidatePolicy where
+instance Data.ToJSON ValidatePolicy where
   toJSON ValidatePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("locale" Core..=) Prelude.<$> locale,
+          [ ("locale" Data..=) Prelude.<$> locale,
+            ("validatePolicyResourceType" Data..=)
+              Prelude.<$> validatePolicyResourceType,
             Prelude.Just
-              ("policyDocument" Core..= policyDocument),
-            Prelude.Just ("policyType" Core..= policyType)
+              ("policyDocument" Data..= policyDocument),
+            Prelude.Just ("policyType" Data..= policyType)
           ]
       )
 
-instance Core.ToPath ValidatePolicy where
+instance Data.ToPath ValidatePolicy where
   toPath = Prelude.const "/policy/validation"
 
-instance Core.ToQuery ValidatePolicy where
+instance Data.ToQuery ValidatePolicy where
   toQuery ValidatePolicy' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newValidatePolicyResponse' smart constructor.

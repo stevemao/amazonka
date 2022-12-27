@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.PutVoiceConnectorLoggingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,12 +102,13 @@ instance
     AWSResponse
       PutVoiceConnectorLoggingConfiguration =
       PutVoiceConnectorLoggingConfigurationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutVoiceConnectorLoggingConfigurationResponse'
-            Prelude.<$> (x Core..?> "LoggingConfiguration")
+            Prelude.<$> (x Data..?> "LoggingConfiguration")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,38 +131,38 @@ instance
       `Prelude.seq` Prelude.rnf loggingConfiguration
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PutVoiceConnectorLoggingConfiguration
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     PutVoiceConnectorLoggingConfiguration
   where
   toJSON PutVoiceConnectorLoggingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "LoggingConfiguration"
-                  Core..= loggingConfiguration
+                  Data..= loggingConfiguration
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     PutVoiceConnectorLoggingConfiguration
   where
   toPath PutVoiceConnectorLoggingConfiguration' {..} =
     Prelude.mconcat
       [ "/voice-connectors/",
-        Core.toBS voiceConnectorId,
+        Data.toBS voiceConnectorId,
         "/logging-configuration"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     PutVoiceConnectorLoggingConfiguration
   where
   toQuery = Prelude.const Prelude.mempty

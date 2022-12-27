@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.UpdateApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.CodeDeploy.UpdateApplication
     newUpdateApplication,
 
     -- * Request Lenses
-    updateApplication_newApplicationName,
     updateApplication_applicationName,
+    updateApplication_newApplicationName,
 
     -- * Destructuring the Response
     UpdateApplicationResponse (..),
@@ -38,7 +38,8 @@ where
 
 import Amazonka.CodeDeploy.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -47,10 +48,10 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateApplication' smart constructor.
 data UpdateApplication = UpdateApplication'
-  { -- | The new name to give the application.
-    newApplicationName' :: Prelude.Maybe Prelude.Text,
-    -- | The current name of the application you want to change.
-    applicationName :: Prelude.Maybe Prelude.Text
+  { -- | The current name of the application you want to change.
+    applicationName :: Prelude.Maybe Prelude.Text,
+    -- | The new name to give the application.
+    newApplicationName' :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -62,74 +63,75 @@ data UpdateApplication = UpdateApplication'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'newApplicationName'', 'updateApplication_newApplicationName' - The new name to give the application.
---
 -- 'applicationName', 'updateApplication_applicationName' - The current name of the application you want to change.
+--
+-- 'newApplicationName'', 'updateApplication_newApplicationName' - The new name to give the application.
 newUpdateApplication ::
   UpdateApplication
 newUpdateApplication =
   UpdateApplication'
-    { newApplicationName' =
+    { applicationName =
         Prelude.Nothing,
-      applicationName = Prelude.Nothing
+      newApplicationName' = Prelude.Nothing
     }
-
--- | The new name to give the application.
-updateApplication_newApplicationName :: Lens.Lens' UpdateApplication (Prelude.Maybe Prelude.Text)
-updateApplication_newApplicationName = Lens.lens (\UpdateApplication' {newApplicationName'} -> newApplicationName') (\s@UpdateApplication' {} a -> s {newApplicationName' = a} :: UpdateApplication)
 
 -- | The current name of the application you want to change.
 updateApplication_applicationName :: Lens.Lens' UpdateApplication (Prelude.Maybe Prelude.Text)
 updateApplication_applicationName = Lens.lens (\UpdateApplication' {applicationName} -> applicationName) (\s@UpdateApplication' {} a -> s {applicationName = a} :: UpdateApplication)
 
+-- | The new name to give the application.
+updateApplication_newApplicationName :: Lens.Lens' UpdateApplication (Prelude.Maybe Prelude.Text)
+updateApplication_newApplicationName = Lens.lens (\UpdateApplication' {newApplicationName'} -> newApplicationName') (\s@UpdateApplication' {} a -> s {newApplicationName' = a} :: UpdateApplication)
+
 instance Core.AWSRequest UpdateApplication where
   type
     AWSResponse UpdateApplication =
       UpdateApplicationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull UpdateApplicationResponse'
 
 instance Prelude.Hashable UpdateApplication where
   hashWithSalt _salt UpdateApplication' {..} =
-    _salt `Prelude.hashWithSalt` newApplicationName'
-      `Prelude.hashWithSalt` applicationName
+    _salt `Prelude.hashWithSalt` applicationName
+      `Prelude.hashWithSalt` newApplicationName'
 
 instance Prelude.NFData UpdateApplication where
   rnf UpdateApplication' {..} =
-    Prelude.rnf newApplicationName'
-      `Prelude.seq` Prelude.rnf applicationName
+    Prelude.rnf applicationName
+      `Prelude.seq` Prelude.rnf newApplicationName'
 
-instance Core.ToHeaders UpdateApplication where
+instance Data.ToHeaders UpdateApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeDeploy_20141006.UpdateApplication" ::
+              Data.=# ( "CodeDeploy_20141006.UpdateApplication" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateApplication where
+instance Data.ToJSON UpdateApplication where
   toJSON UpdateApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("newApplicationName" Core..=)
-              Prelude.<$> newApplicationName',
-            ("applicationName" Core..=)
-              Prelude.<$> applicationName
+          [ ("applicationName" Data..=)
+              Prelude.<$> applicationName,
+            ("newApplicationName" Data..=)
+              Prelude.<$> newApplicationName'
           ]
       )
 
-instance Core.ToPath UpdateApplication where
+instance Data.ToPath UpdateApplication where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateApplication where
+instance Data.ToQuery UpdateApplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateApplicationResponse' smart constructor.

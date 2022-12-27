@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,23 +39,149 @@ module Amazonka.MediaTailor
     -- * Operations
     -- $operations
 
+    -- ** ConfigureLogsForPlaybackConfiguration
+    ConfigureLogsForPlaybackConfiguration (ConfigureLogsForPlaybackConfiguration'),
+    newConfigureLogsForPlaybackConfiguration,
+    ConfigureLogsForPlaybackConfigurationResponse (ConfigureLogsForPlaybackConfigurationResponse'),
+    newConfigureLogsForPlaybackConfigurationResponse,
+
+    -- ** CreateChannel
+    CreateChannel (CreateChannel'),
+    newCreateChannel,
+    CreateChannelResponse (CreateChannelResponse'),
+    newCreateChannelResponse,
+
+    -- ** CreateLiveSource
+    CreateLiveSource (CreateLiveSource'),
+    newCreateLiveSource,
+    CreateLiveSourceResponse (CreateLiveSourceResponse'),
+    newCreateLiveSourceResponse,
+
+    -- ** CreatePrefetchSchedule
+    CreatePrefetchSchedule (CreatePrefetchSchedule'),
+    newCreatePrefetchSchedule,
+    CreatePrefetchScheduleResponse (CreatePrefetchScheduleResponse'),
+    newCreatePrefetchScheduleResponse,
+
+    -- ** CreateProgram
+    CreateProgram (CreateProgram'),
+    newCreateProgram,
+    CreateProgramResponse (CreateProgramResponse'),
+    newCreateProgramResponse,
+
     -- ** CreateSourceLocation
     CreateSourceLocation (CreateSourceLocation'),
     newCreateSourceLocation,
     CreateSourceLocationResponse (CreateSourceLocationResponse'),
     newCreateSourceLocationResponse,
 
-    -- ** ListPrefetchSchedules (Paginated)
-    ListPrefetchSchedules (ListPrefetchSchedules'),
-    newListPrefetchSchedules,
-    ListPrefetchSchedulesResponse (ListPrefetchSchedulesResponse'),
-    newListPrefetchSchedulesResponse,
+    -- ** CreateVodSource
+    CreateVodSource (CreateVodSource'),
+    newCreateVodSource,
+    CreateVodSourceResponse (CreateVodSourceResponse'),
+    newCreateVodSourceResponse,
+
+    -- ** DeleteChannel
+    DeleteChannel (DeleteChannel'),
+    newDeleteChannel,
+    DeleteChannelResponse (DeleteChannelResponse'),
+    newDeleteChannelResponse,
+
+    -- ** DeleteChannelPolicy
+    DeleteChannelPolicy (DeleteChannelPolicy'),
+    newDeleteChannelPolicy,
+    DeleteChannelPolicyResponse (DeleteChannelPolicyResponse'),
+    newDeleteChannelPolicyResponse,
+
+    -- ** DeleteLiveSource
+    DeleteLiveSource (DeleteLiveSource'),
+    newDeleteLiveSource,
+    DeleteLiveSourceResponse (DeleteLiveSourceResponse'),
+    newDeleteLiveSourceResponse,
+
+    -- ** DeletePlaybackConfiguration
+    DeletePlaybackConfiguration (DeletePlaybackConfiguration'),
+    newDeletePlaybackConfiguration,
+    DeletePlaybackConfigurationResponse (DeletePlaybackConfigurationResponse'),
+    newDeletePlaybackConfigurationResponse,
 
     -- ** DeletePrefetchSchedule
     DeletePrefetchSchedule (DeletePrefetchSchedule'),
     newDeletePrefetchSchedule,
     DeletePrefetchScheduleResponse (DeletePrefetchScheduleResponse'),
     newDeletePrefetchScheduleResponse,
+
+    -- ** DeleteProgram
+    DeleteProgram (DeleteProgram'),
+    newDeleteProgram,
+    DeleteProgramResponse (DeleteProgramResponse'),
+    newDeleteProgramResponse,
+
+    -- ** DeleteSourceLocation
+    DeleteSourceLocation (DeleteSourceLocation'),
+    newDeleteSourceLocation,
+    DeleteSourceLocationResponse (DeleteSourceLocationResponse'),
+    newDeleteSourceLocationResponse,
+
+    -- ** DeleteVodSource
+    DeleteVodSource (DeleteVodSource'),
+    newDeleteVodSource,
+    DeleteVodSourceResponse (DeleteVodSourceResponse'),
+    newDeleteVodSourceResponse,
+
+    -- ** DescribeChannel
+    DescribeChannel (DescribeChannel'),
+    newDescribeChannel,
+    DescribeChannelResponse (DescribeChannelResponse'),
+    newDescribeChannelResponse,
+
+    -- ** DescribeLiveSource
+    DescribeLiveSource (DescribeLiveSource'),
+    newDescribeLiveSource,
+    DescribeLiveSourceResponse (DescribeLiveSourceResponse'),
+    newDescribeLiveSourceResponse,
+
+    -- ** DescribeProgram
+    DescribeProgram (DescribeProgram'),
+    newDescribeProgram,
+    DescribeProgramResponse (DescribeProgramResponse'),
+    newDescribeProgramResponse,
+
+    -- ** DescribeSourceLocation
+    DescribeSourceLocation (DescribeSourceLocation'),
+    newDescribeSourceLocation,
+    DescribeSourceLocationResponse (DescribeSourceLocationResponse'),
+    newDescribeSourceLocationResponse,
+
+    -- ** DescribeVodSource
+    DescribeVodSource (DescribeVodSource'),
+    newDescribeVodSource,
+    DescribeVodSourceResponse (DescribeVodSourceResponse'),
+    newDescribeVodSourceResponse,
+
+    -- ** GetChannelPolicy
+    GetChannelPolicy (GetChannelPolicy'),
+    newGetChannelPolicy,
+    GetChannelPolicyResponse (GetChannelPolicyResponse'),
+    newGetChannelPolicyResponse,
+
+    -- ** GetChannelSchedule (Paginated)
+    GetChannelSchedule (GetChannelSchedule'),
+    newGetChannelSchedule,
+    GetChannelScheduleResponse (GetChannelScheduleResponse'),
+    newGetChannelScheduleResponse,
+
+    -- ** GetPlaybackConfiguration
+    GetPlaybackConfiguration (GetPlaybackConfiguration'),
+    newGetPlaybackConfiguration,
+    GetPlaybackConfigurationResponse (GetPlaybackConfigurationResponse'),
+    newGetPlaybackConfigurationResponse,
+
+    -- ** GetPrefetchSchedule
+    GetPrefetchSchedule (GetPrefetchSchedule'),
+    newGetPrefetchSchedule,
+    GetPrefetchScheduleResponse (GetPrefetchScheduleResponse'),
+    newGetPrefetchScheduleResponse,
 
     -- ** ListAlerts (Paginated)
     ListAlerts (ListAlerts'),
@@ -69,65 +195,11 @@ module Amazonka.MediaTailor
     ListChannelsResponse (ListChannelsResponse'),
     newListChannelsResponse,
 
-    -- ** CreatePrefetchSchedule
-    CreatePrefetchSchedule (CreatePrefetchSchedule'),
-    newCreatePrefetchSchedule,
-    CreatePrefetchScheduleResponse (CreatePrefetchScheduleResponse'),
-    newCreatePrefetchScheduleResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** DeleteChannel
-    DeleteChannel (DeleteChannel'),
-    newDeleteChannel,
-    DeleteChannelResponse (DeleteChannelResponse'),
-    newDeleteChannelResponse,
-
-    -- ** UpdateChannel
-    UpdateChannel (UpdateChannel'),
-    newUpdateChannel,
-    UpdateChannelResponse (UpdateChannelResponse'),
-    newUpdateChannelResponse,
-
-    -- ** GetChannelPolicy
-    GetChannelPolicy (GetChannelPolicy'),
-    newGetChannelPolicy,
-    GetChannelPolicyResponse (GetChannelPolicyResponse'),
-    newGetChannelPolicyResponse,
-
-    -- ** DescribeVodSource
-    DescribeVodSource (DescribeVodSource'),
-    newDescribeVodSource,
-    DescribeVodSourceResponse (DescribeVodSourceResponse'),
-    newDescribeVodSourceResponse,
-
-    -- ** DescribeSourceLocation
-    DescribeSourceLocation (DescribeSourceLocation'),
-    newDescribeSourceLocation,
-    DescribeSourceLocationResponse (DescribeSourceLocationResponse'),
-    newDescribeSourceLocationResponse,
-
-    -- ** GetPrefetchSchedule
-    GetPrefetchSchedule (GetPrefetchSchedule'),
-    newGetPrefetchSchedule,
-    GetPrefetchScheduleResponse (GetPrefetchScheduleResponse'),
-    newGetPrefetchScheduleResponse,
-
-    -- ** CreateProgram
-    CreateProgram (CreateProgram'),
-    newCreateProgram,
-    CreateProgramResponse (CreateProgramResponse'),
-    newCreateProgramResponse,
-
-    -- ** StartChannel
-    StartChannel (StartChannel'),
-    newStartChannel,
-    StartChannelResponse (StartChannelResponse'),
-    newStartChannelResponse,
+    -- ** ListLiveSources (Paginated)
+    ListLiveSources (ListLiveSources'),
+    newListLiveSources,
+    ListLiveSourcesResponse (ListLiveSourcesResponse'),
+    newListLiveSourcesResponse,
 
     -- ** ListPlaybackConfigurations (Paginated)
     ListPlaybackConfigurations (ListPlaybackConfigurations'),
@@ -135,17 +207,11 @@ module Amazonka.MediaTailor
     ListPlaybackConfigurationsResponse (ListPlaybackConfigurationsResponse'),
     newListPlaybackConfigurationsResponse,
 
-    -- ** DeletePlaybackConfiguration
-    DeletePlaybackConfiguration (DeletePlaybackConfiguration'),
-    newDeletePlaybackConfiguration,
-    DeletePlaybackConfigurationResponse (DeletePlaybackConfigurationResponse'),
-    newDeletePlaybackConfigurationResponse,
-
-    -- ** PutPlaybackConfiguration
-    PutPlaybackConfiguration (PutPlaybackConfiguration'),
-    newPutPlaybackConfiguration,
-    PutPlaybackConfigurationResponse (PutPlaybackConfigurationResponse'),
-    newPutPlaybackConfigurationResponse,
+    -- ** ListPrefetchSchedules (Paginated)
+    ListPrefetchSchedules (ListPrefetchSchedules'),
+    newListPrefetchSchedules,
+    ListPrefetchSchedulesResponse (ListPrefetchSchedulesResponse'),
+    newListPrefetchSchedulesResponse,
 
     -- ** ListSourceLocations (Paginated)
     ListSourceLocations (ListSourceLocations'),
@@ -153,101 +219,11 @@ module Amazonka.MediaTailor
     ListSourceLocationsResponse (ListSourceLocationsResponse'),
     newListSourceLocationsResponse,
 
-    -- ** UpdateSourceLocation
-    UpdateSourceLocation (UpdateSourceLocation'),
-    newUpdateSourceLocation,
-    UpdateSourceLocationResponse (UpdateSourceLocationResponse'),
-    newUpdateSourceLocationResponse,
-
-    -- ** DeleteSourceLocation
-    DeleteSourceLocation (DeleteSourceLocation'),
-    newDeleteSourceLocation,
-    DeleteSourceLocationResponse (DeleteSourceLocationResponse'),
-    newDeleteSourceLocationResponse,
-
-    -- ** GetPlaybackConfiguration
-    GetPlaybackConfiguration (GetPlaybackConfiguration'),
-    newGetPlaybackConfiguration,
-    GetPlaybackConfigurationResponse (GetPlaybackConfigurationResponse'),
-    newGetPlaybackConfigurationResponse,
-
-    -- ** DeleteVodSource
-    DeleteVodSource (DeleteVodSource'),
-    newDeleteVodSource,
-    DeleteVodSourceResponse (DeleteVodSourceResponse'),
-    newDeleteVodSourceResponse,
-
-    -- ** UpdateVodSource
-    UpdateVodSource (UpdateVodSource'),
-    newUpdateVodSource,
-    UpdateVodSourceResponse (UpdateVodSourceResponse'),
-    newUpdateVodSourceResponse,
-
-    -- ** CreateVodSource
-    CreateVodSource (CreateVodSource'),
-    newCreateVodSource,
-    CreateVodSourceResponse (CreateVodSourceResponse'),
-    newCreateVodSourceResponse,
-
-    -- ** CreateChannel
-    CreateChannel (CreateChannel'),
-    newCreateChannel,
-    CreateChannelResponse (CreateChannelResponse'),
-    newCreateChannelResponse,
-
-    -- ** DeleteChannelPolicy
-    DeleteChannelPolicy (DeleteChannelPolicy'),
-    newDeleteChannelPolicy,
-    DeleteChannelPolicyResponse (DeleteChannelPolicyResponse'),
-    newDeleteChannelPolicyResponse,
-
-    -- ** PutChannelPolicy
-    PutChannelPolicy (PutChannelPolicy'),
-    newPutChannelPolicy,
-    PutChannelPolicyResponse (PutChannelPolicyResponse'),
-    newPutChannelPolicyResponse,
-
-    -- ** DeleteProgram
-    DeleteProgram (DeleteProgram'),
-    newDeleteProgram,
-    DeleteProgramResponse (DeleteProgramResponse'),
-    newDeleteProgramResponse,
-
-    -- ** GetChannelSchedule (Paginated)
-    GetChannelSchedule (GetChannelSchedule'),
-    newGetChannelSchedule,
-    GetChannelScheduleResponse (GetChannelScheduleResponse'),
-    newGetChannelScheduleResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** ConfigureLogsForPlaybackConfiguration
-    ConfigureLogsForPlaybackConfiguration (ConfigureLogsForPlaybackConfiguration'),
-    newConfigureLogsForPlaybackConfiguration,
-    ConfigureLogsForPlaybackConfigurationResponse (ConfigureLogsForPlaybackConfigurationResponse'),
-    newConfigureLogsForPlaybackConfigurationResponse,
-
-    -- ** StopChannel
-    StopChannel (StopChannel'),
-    newStopChannel,
-    StopChannelResponse (StopChannelResponse'),
-    newStopChannelResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
-
-    -- ** DescribeChannel
-    DescribeChannel (DescribeChannel'),
-    newDescribeChannel,
-    DescribeChannelResponse (DescribeChannelResponse'),
-    newDescribeChannelResponse,
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** ListVodSources (Paginated)
     ListVodSources (ListVodSources'),
@@ -255,11 +231,65 @@ module Amazonka.MediaTailor
     ListVodSourcesResponse (ListVodSourcesResponse'),
     newListVodSourcesResponse,
 
-    -- ** DescribeProgram
-    DescribeProgram (DescribeProgram'),
-    newDescribeProgram,
-    DescribeProgramResponse (DescribeProgramResponse'),
-    newDescribeProgramResponse,
+    -- ** PutChannelPolicy
+    PutChannelPolicy (PutChannelPolicy'),
+    newPutChannelPolicy,
+    PutChannelPolicyResponse (PutChannelPolicyResponse'),
+    newPutChannelPolicyResponse,
+
+    -- ** PutPlaybackConfiguration
+    PutPlaybackConfiguration (PutPlaybackConfiguration'),
+    newPutPlaybackConfiguration,
+    PutPlaybackConfigurationResponse (PutPlaybackConfigurationResponse'),
+    newPutPlaybackConfigurationResponse,
+
+    -- ** StartChannel
+    StartChannel (StartChannel'),
+    newStartChannel,
+    StartChannelResponse (StartChannelResponse'),
+    newStartChannelResponse,
+
+    -- ** StopChannel
+    StopChannel (StopChannel'),
+    newStopChannel,
+    StopChannelResponse (StopChannelResponse'),
+    newStopChannelResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateChannel
+    UpdateChannel (UpdateChannel'),
+    newUpdateChannel,
+    UpdateChannelResponse (UpdateChannelResponse'),
+    newUpdateChannelResponse,
+
+    -- ** UpdateLiveSource
+    UpdateLiveSource (UpdateLiveSource'),
+    newUpdateLiveSource,
+    UpdateLiveSourceResponse (UpdateLiveSourceResponse'),
+    newUpdateLiveSourceResponse,
+
+    -- ** UpdateSourceLocation
+    UpdateSourceLocation (UpdateSourceLocation'),
+    newUpdateSourceLocation,
+    UpdateSourceLocationResponse (UpdateSourceLocationResponse'),
+    newUpdateSourceLocationResponse,
+
+    -- ** UpdateVodSource
+    UpdateVodSource (UpdateVodSource'),
+    newUpdateVodSource,
+    UpdateVodSourceResponse (UpdateVodSourceResponse'),
+    newUpdateVodSourceResponse,
 
     -- * Types
 
@@ -289,6 +319,9 @@ module Amazonka.MediaTailor
 
     -- ** ScheduleEntryType
     ScheduleEntryType (..),
+
+    -- ** Tier
+    Tier (..),
 
     -- ** Type
     Type (..),
@@ -365,6 +398,10 @@ module Amazonka.MediaTailor
     LivePreRollConfiguration (LivePreRollConfiguration'),
     newLivePreRollConfiguration,
 
+    -- ** LiveSource
+    LiveSource (LiveSource'),
+    newLiveSource,
+
     -- ** LogConfiguration
     LogConfiguration (LogConfiguration'),
     newLogConfiguration,
@@ -413,6 +450,14 @@ module Amazonka.MediaTailor
     SecretsManagerAccessTokenConfiguration (SecretsManagerAccessTokenConfiguration'),
     newSecretsManagerAccessTokenConfiguration,
 
+    -- ** SegmentDeliveryConfiguration
+    SegmentDeliveryConfiguration (SegmentDeliveryConfiguration'),
+    newSegmentDeliveryConfiguration,
+
+    -- ** SegmentationDescriptor
+    SegmentationDescriptor (SegmentationDescriptor'),
+    newSegmentationDescriptor,
+
     -- ** SlateSource
     SlateSource (SlateSource'),
     newSlateSource,
@@ -424,6 +469,10 @@ module Amazonka.MediaTailor
     -- ** SpliceInsertMessage
     SpliceInsertMessage (SpliceInsertMessage'),
     newSpliceInsertMessage,
+
+    -- ** TimeSignalMessage
+    TimeSignalMessage (TimeSignalMessage'),
+    newTimeSignalMessage,
 
     -- ** Transition
     Transition (Transition'),
@@ -437,18 +486,21 @@ where
 
 import Amazonka.MediaTailor.ConfigureLogsForPlaybackConfiguration
 import Amazonka.MediaTailor.CreateChannel
+import Amazonka.MediaTailor.CreateLiveSource
 import Amazonka.MediaTailor.CreatePrefetchSchedule
 import Amazonka.MediaTailor.CreateProgram
 import Amazonka.MediaTailor.CreateSourceLocation
 import Amazonka.MediaTailor.CreateVodSource
 import Amazonka.MediaTailor.DeleteChannel
 import Amazonka.MediaTailor.DeleteChannelPolicy
+import Amazonka.MediaTailor.DeleteLiveSource
 import Amazonka.MediaTailor.DeletePlaybackConfiguration
 import Amazonka.MediaTailor.DeletePrefetchSchedule
 import Amazonka.MediaTailor.DeleteProgram
 import Amazonka.MediaTailor.DeleteSourceLocation
 import Amazonka.MediaTailor.DeleteVodSource
 import Amazonka.MediaTailor.DescribeChannel
+import Amazonka.MediaTailor.DescribeLiveSource
 import Amazonka.MediaTailor.DescribeProgram
 import Amazonka.MediaTailor.DescribeSourceLocation
 import Amazonka.MediaTailor.DescribeVodSource
@@ -459,6 +511,7 @@ import Amazonka.MediaTailor.GetPrefetchSchedule
 import Amazonka.MediaTailor.Lens
 import Amazonka.MediaTailor.ListAlerts
 import Amazonka.MediaTailor.ListChannels
+import Amazonka.MediaTailor.ListLiveSources
 import Amazonka.MediaTailor.ListPlaybackConfigurations
 import Amazonka.MediaTailor.ListPrefetchSchedules
 import Amazonka.MediaTailor.ListSourceLocations
@@ -472,6 +525,7 @@ import Amazonka.MediaTailor.TagResource
 import Amazonka.MediaTailor.Types
 import Amazonka.MediaTailor.UntagResource
 import Amazonka.MediaTailor.UpdateChannel
+import Amazonka.MediaTailor.UpdateLiveSource
 import Amazonka.MediaTailor.UpdateSourceLocation
 import Amazonka.MediaTailor.UpdateVodSource
 import Amazonka.MediaTailor.Waiters

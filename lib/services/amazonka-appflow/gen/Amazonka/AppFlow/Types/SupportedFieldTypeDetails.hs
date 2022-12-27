@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.SupportedFieldTypeDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppFlow.Types.SupportedFieldTypeDetails where
 
 import Amazonka.AppFlow.Types.FieldTypeDetails
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains details regarding all the supported @FieldTypes@ and their
@@ -57,13 +58,13 @@ newSupportedFieldTypeDetails pV1_ =
 supportedFieldTypeDetails_v1 :: Lens.Lens' SupportedFieldTypeDetails FieldTypeDetails
 supportedFieldTypeDetails_v1 = Lens.lens (\SupportedFieldTypeDetails' {v1} -> v1) (\s@SupportedFieldTypeDetails' {} a -> s {v1 = a} :: SupportedFieldTypeDetails)
 
-instance Core.FromJSON SupportedFieldTypeDetails where
+instance Data.FromJSON SupportedFieldTypeDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SupportedFieldTypeDetails"
       ( \x ->
           SupportedFieldTypeDetails'
-            Prelude.<$> (x Core..: "v1")
+            Prelude.<$> (x Data..: "v1")
       )
 
 instance Prelude.Hashable SupportedFieldTypeDetails where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.GetPreset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.MediaConvert.GetPreset
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -74,12 +75,13 @@ getPreset_name = Lens.lens (\GetPreset' {name} -> name) (\s@GetPreset' {} a -> s
 
 instance Core.AWSRequest GetPreset where
   type AWSResponse GetPreset = GetPresetResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPresetResponse'
-            Prelude.<$> (x Core..?> "preset")
+            Prelude.<$> (x Data..?> "preset")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -90,23 +92,23 @@ instance Prelude.Hashable GetPreset where
 instance Prelude.NFData GetPreset where
   rnf GetPreset' {..} = Prelude.rnf name
 
-instance Core.ToHeaders GetPreset where
+instance Data.ToHeaders GetPreset where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetPreset where
+instance Data.ToPath GetPreset where
   toPath GetPreset' {..} =
     Prelude.mconcat
-      ["/2017-08-29/presets/", Core.toBS name]
+      ["/2017-08-29/presets/", Data.toBS name]
 
-instance Core.ToQuery GetPreset where
+instance Data.ToQuery GetPreset where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetPresetResponse' smart constructor.

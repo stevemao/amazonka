@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.GetAccountLimit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -53,7 +53,8 @@ module Amazonka.Route53.GetAccountLimit
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -147,14 +148,15 @@ instance Core.AWSRequest GetAccountLimit where
   type
     AWSResponse GetAccountLimit =
       GetAccountLimitResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetAccountLimitResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "Limit")
-            Prelude.<*> (x Core..@ "Count")
+            Prelude.<*> (x Data..@ "Limit")
+            Prelude.<*> (x Data..@ "Count")
       )
 
 instance Prelude.Hashable GetAccountLimit where
@@ -164,15 +166,15 @@ instance Prelude.Hashable GetAccountLimit where
 instance Prelude.NFData GetAccountLimit where
   rnf GetAccountLimit' {..} = Prelude.rnf type'
 
-instance Core.ToHeaders GetAccountLimit where
+instance Data.ToHeaders GetAccountLimit where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetAccountLimit where
+instance Data.ToPath GetAccountLimit where
   toPath GetAccountLimit' {..} =
     Prelude.mconcat
-      ["/2013-04-01/accountlimit/", Core.toBS type']
+      ["/2013-04-01/accountlimit/", Data.toBS type']
 
-instance Core.ToQuery GetAccountLimit where
+instance Data.ToQuery GetAccountLimit where
   toQuery = Prelude.const Prelude.mempty
 
 -- | A complex type that contains the requested limit.

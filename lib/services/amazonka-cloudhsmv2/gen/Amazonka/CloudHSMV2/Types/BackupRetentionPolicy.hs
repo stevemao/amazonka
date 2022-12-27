@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudHSMV2.Types.BackupRetentionPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,18 +21,19 @@ module Amazonka.CloudHSMV2.Types.BackupRetentionPolicy where
 
 import Amazonka.CloudHSMV2.Types.BackupRetentionType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A policy that defines the number of days to retain backups.
 --
 -- /See:/ 'newBackupRetentionPolicy' smart constructor.
 data BackupRetentionPolicy = BackupRetentionPolicy'
-  { -- | Use a value between 7 - 379.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The type of backup retention policy. For the @DAYS@ type, the value is
+  { -- | The type of backup retention policy. For the @DAYS@ type, the value is
     -- the number of days to retain backups.
-    type' :: Prelude.Maybe BackupRetentionType
+    type' :: Prelude.Maybe BackupRetentionType,
+    -- | Use a value between 7 - 379.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,50 +45,50 @@ data BackupRetentionPolicy = BackupRetentionPolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'backupRetentionPolicy_value' - Use a value between 7 - 379.
---
 -- 'type'', 'backupRetentionPolicy_type' - The type of backup retention policy. For the @DAYS@ type, the value is
 -- the number of days to retain backups.
+--
+-- 'value', 'backupRetentionPolicy_value' - Use a value between 7 - 379.
 newBackupRetentionPolicy ::
   BackupRetentionPolicy
 newBackupRetentionPolicy =
   BackupRetentionPolicy'
-    { value = Prelude.Nothing,
-      type' = Prelude.Nothing
+    { type' = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | Use a value between 7 - 379.
-backupRetentionPolicy_value :: Lens.Lens' BackupRetentionPolicy (Prelude.Maybe Prelude.Text)
-backupRetentionPolicy_value = Lens.lens (\BackupRetentionPolicy' {value} -> value) (\s@BackupRetentionPolicy' {} a -> s {value = a} :: BackupRetentionPolicy)
 
 -- | The type of backup retention policy. For the @DAYS@ type, the value is
 -- the number of days to retain backups.
 backupRetentionPolicy_type :: Lens.Lens' BackupRetentionPolicy (Prelude.Maybe BackupRetentionType)
 backupRetentionPolicy_type = Lens.lens (\BackupRetentionPolicy' {type'} -> type') (\s@BackupRetentionPolicy' {} a -> s {type' = a} :: BackupRetentionPolicy)
 
-instance Core.FromJSON BackupRetentionPolicy where
+-- | Use a value between 7 - 379.
+backupRetentionPolicy_value :: Lens.Lens' BackupRetentionPolicy (Prelude.Maybe Prelude.Text)
+backupRetentionPolicy_value = Lens.lens (\BackupRetentionPolicy' {value} -> value) (\s@BackupRetentionPolicy' {} a -> s {value = a} :: BackupRetentionPolicy)
+
+instance Data.FromJSON BackupRetentionPolicy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BackupRetentionPolicy"
       ( \x ->
           BackupRetentionPolicy'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Type") Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable BackupRetentionPolicy where
   hashWithSalt _salt BackupRetentionPolicy' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` type'
+    _salt `Prelude.hashWithSalt` type'
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData BackupRetentionPolicy where
   rnf BackupRetentionPolicy' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf type'
+    Prelude.rnf type' `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON BackupRetentionPolicy where
+instance Data.ToJSON BackupRetentionPolicy where
   toJSON BackupRetentionPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Type" Core..=) Prelude.<$> type'
+          [ ("Type" Data..=) Prelude.<$> type',
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

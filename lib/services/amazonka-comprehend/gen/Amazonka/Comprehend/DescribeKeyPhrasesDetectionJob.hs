@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.DescribeKeyPhrasesDetectionJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,12 +85,13 @@ instance
   type
     AWSResponse DescribeKeyPhrasesDetectionJob =
       DescribeKeyPhrasesDetectionJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeKeyPhrasesDetectionJobResponse'
-            Prelude.<$> (x Core..?> "KeyPhrasesDetectionJobProperties")
+            Prelude.<$> (x Data..?> "KeyPhrasesDetectionJobProperties")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,34 +112,34 @@ instance
     Prelude.rnf jobId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeKeyPhrasesDetectionJob
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.DescribeKeyPhrasesDetectionJob" ::
+              Data.=# ( "Comprehend_20171127.DescribeKeyPhrasesDetectionJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeKeyPhrasesDetectionJob where
+instance Data.ToJSON DescribeKeyPhrasesDetectionJob where
   toJSON DescribeKeyPhrasesDetectionJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("JobId" Core..= jobId)]
+          [Prelude.Just ("JobId" Data..= jobId)]
       )
 
-instance Core.ToPath DescribeKeyPhrasesDetectionJob where
+instance Data.ToPath DescribeKeyPhrasesDetectionJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeKeyPhrasesDetectionJob where
+instance Data.ToQuery DescribeKeyPhrasesDetectionJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeKeyPhrasesDetectionJobResponse' smart constructor.

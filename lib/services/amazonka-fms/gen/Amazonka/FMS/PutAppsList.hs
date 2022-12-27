@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.PutAppsList
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,15 +35,16 @@ module Amazonka.FMS.PutAppsList
     newPutAppsListResponse,
 
     -- * Response Lenses
-    putAppsListResponse_appsListArn,
     putAppsListResponse_appsList,
+    putAppsListResponse_appsListArn,
     putAppsListResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,13 +89,14 @@ putAppsList_appsList = Lens.lens (\PutAppsList' {appsList} -> appsList) (\s@PutA
 
 instance Core.AWSRequest PutAppsList where
   type AWSResponse PutAppsList = PutAppsListResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutAppsListResponse'
-            Prelude.<$> (x Core..?> "AppsListArn")
-            Prelude.<*> (x Core..?> "AppsList")
+            Prelude.<$> (x Data..?> "AppsList")
+            Prelude.<*> (x Data..?> "AppsListArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -108,42 +110,42 @@ instance Prelude.NFData PutAppsList where
     Prelude.rnf tagList
       `Prelude.seq` Prelude.rnf appsList
 
-instance Core.ToHeaders PutAppsList where
+instance Data.ToHeaders PutAppsList where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSFMS_20180101.PutAppsList" ::
+              Data.=# ( "AWSFMS_20180101.PutAppsList" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutAppsList where
+instance Data.ToJSON PutAppsList where
   toJSON PutAppsList' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TagList" Core..=) Prelude.<$> tagList,
-            Prelude.Just ("AppsList" Core..= appsList)
+          [ ("TagList" Data..=) Prelude.<$> tagList,
+            Prelude.Just ("AppsList" Data..= appsList)
           ]
       )
 
-instance Core.ToPath PutAppsList where
+instance Data.ToPath PutAppsList where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutAppsList where
+instance Data.ToQuery PutAppsList where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutAppsListResponse' smart constructor.
 data PutAppsListResponse = PutAppsListResponse'
-  { -- | The Amazon Resource Name (ARN) of the applications list.
-    appsListArn :: Prelude.Maybe Prelude.Text,
-    -- | The details of the Firewall Manager applications list.
+  { -- | The details of the Firewall Manager applications list.
     appsList :: Prelude.Maybe AppsListData,
+    -- | The Amazon Resource Name (ARN) of the applications list.
+    appsListArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -157,9 +159,9 @@ data PutAppsListResponse = PutAppsListResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'appsListArn', 'putAppsListResponse_appsListArn' - The Amazon Resource Name (ARN) of the applications list.
---
 -- 'appsList', 'putAppsListResponse_appsList' - The details of the Firewall Manager applications list.
+--
+-- 'appsListArn', 'putAppsListResponse_appsListArn' - The Amazon Resource Name (ARN) of the applications list.
 --
 -- 'httpStatus', 'putAppsListResponse_httpStatus' - The response's http status code.
 newPutAppsListResponse ::
@@ -168,18 +170,18 @@ newPutAppsListResponse ::
   PutAppsListResponse
 newPutAppsListResponse pHttpStatus_ =
   PutAppsListResponse'
-    { appsListArn = Prelude.Nothing,
-      appsList = Prelude.Nothing,
+    { appsList = Prelude.Nothing,
+      appsListArn = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The Amazon Resource Name (ARN) of the applications list.
-putAppsListResponse_appsListArn :: Lens.Lens' PutAppsListResponse (Prelude.Maybe Prelude.Text)
-putAppsListResponse_appsListArn = Lens.lens (\PutAppsListResponse' {appsListArn} -> appsListArn) (\s@PutAppsListResponse' {} a -> s {appsListArn = a} :: PutAppsListResponse)
 
 -- | The details of the Firewall Manager applications list.
 putAppsListResponse_appsList :: Lens.Lens' PutAppsListResponse (Prelude.Maybe AppsListData)
 putAppsListResponse_appsList = Lens.lens (\PutAppsListResponse' {appsList} -> appsList) (\s@PutAppsListResponse' {} a -> s {appsList = a} :: PutAppsListResponse)
+
+-- | The Amazon Resource Name (ARN) of the applications list.
+putAppsListResponse_appsListArn :: Lens.Lens' PutAppsListResponse (Prelude.Maybe Prelude.Text)
+putAppsListResponse_appsListArn = Lens.lens (\PutAppsListResponse' {appsListArn} -> appsListArn) (\s@PutAppsListResponse' {} a -> s {appsListArn = a} :: PutAppsListResponse)
 
 -- | The response's http status code.
 putAppsListResponse_httpStatus :: Lens.Lens' PutAppsListResponse Prelude.Int
@@ -187,6 +189,6 @@ putAppsListResponse_httpStatus = Lens.lens (\PutAppsListResponse' {httpStatus} -
 
 instance Prelude.NFData PutAppsListResponse where
   rnf PutAppsListResponse' {..} =
-    Prelude.rnf appsListArn
-      `Prelude.seq` Prelude.rnf appsList
+    Prelude.rnf appsList
+      `Prelude.seq` Prelude.rnf appsListArn
       `Prelude.seq` Prelude.rnf httpStatus

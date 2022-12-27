@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.AssociateRoleToGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.Greengrass.AssociateRoleToGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,12 +97,13 @@ instance Core.AWSRequest AssociateRoleToGroup where
   type
     AWSResponse AssociateRoleToGroup =
       AssociateRoleToGroupResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AssociateRoleToGroupResponse'
-            Prelude.<$> (x Core..?> "AssociatedAt")
+            Prelude.<$> (x Data..?> "AssociatedAt")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,30 +117,30 @@ instance Prelude.NFData AssociateRoleToGroup where
     Prelude.rnf groupId
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders AssociateRoleToGroup where
+instance Data.ToHeaders AssociateRoleToGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateRoleToGroup where
+instance Data.ToJSON AssociateRoleToGroup where
   toJSON AssociateRoleToGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("RoleArn" Core..= roleArn)]
+          [Prelude.Just ("RoleArn" Data..= roleArn)]
       )
 
-instance Core.ToPath AssociateRoleToGroup where
+instance Data.ToPath AssociateRoleToGroup where
   toPath AssociateRoleToGroup' {..} =
     Prelude.mconcat
-      ["/greengrass/groups/", Core.toBS groupId, "/role"]
+      ["/greengrass/groups/", Data.toBS groupId, "/role"]
 
-instance Core.ToQuery AssociateRoleToGroup where
+instance Data.ToQuery AssociateRoleToGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateRoleToGroupResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.RemoveFlowMediaStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,14 +36,15 @@ module Amazonka.MediaConnect.RemoveFlowMediaStream
     newRemoveFlowMediaStreamResponse,
 
     -- * Response Lenses
-    removeFlowMediaStreamResponse_mediaStreamName,
     removeFlowMediaStreamResponse_flowArn,
+    removeFlowMediaStreamResponse_mediaStreamName,
     removeFlowMediaStreamResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -93,13 +94,14 @@ instance Core.AWSRequest RemoveFlowMediaStream where
   type
     AWSResponse RemoveFlowMediaStream =
       RemoveFlowMediaStreamResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RemoveFlowMediaStreamResponse'
-            Prelude.<$> (x Core..?> "mediaStreamName")
-            Prelude.<*> (x Core..?> "flowArn")
+            Prelude.<$> (x Data..?> "flowArn")
+            Prelude.<*> (x Data..?> "mediaStreamName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,35 +115,35 @@ instance Prelude.NFData RemoveFlowMediaStream where
     Prelude.rnf flowArn
       `Prelude.seq` Prelude.rnf mediaStreamName
 
-instance Core.ToHeaders RemoveFlowMediaStream where
+instance Data.ToHeaders RemoveFlowMediaStream where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath RemoveFlowMediaStream where
+instance Data.ToPath RemoveFlowMediaStream where
   toPath RemoveFlowMediaStream' {..} =
     Prelude.mconcat
       [ "/v1/flows/",
-        Core.toBS flowArn,
+        Data.toBS flowArn,
         "/mediaStreams/",
-        Core.toBS mediaStreamName
+        Data.toBS mediaStreamName
       ]
 
-instance Core.ToQuery RemoveFlowMediaStream where
+instance Data.ToQuery RemoveFlowMediaStream where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveFlowMediaStreamResponse' smart constructor.
 data RemoveFlowMediaStreamResponse = RemoveFlowMediaStreamResponse'
-  { -- | The name of the media stream that was removed.
-    mediaStreamName :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the flow.
+  { -- | The Amazon Resource Name (ARN) of the flow.
     flowArn :: Prelude.Maybe Prelude.Text,
+    -- | The name of the media stream that was removed.
+    mediaStreamName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -155,9 +157,9 @@ data RemoveFlowMediaStreamResponse = RemoveFlowMediaStreamResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'mediaStreamName', 'removeFlowMediaStreamResponse_mediaStreamName' - The name of the media stream that was removed.
---
 -- 'flowArn', 'removeFlowMediaStreamResponse_flowArn' - The Amazon Resource Name (ARN) of the flow.
+--
+-- 'mediaStreamName', 'removeFlowMediaStreamResponse_mediaStreamName' - The name of the media stream that was removed.
 --
 -- 'httpStatus', 'removeFlowMediaStreamResponse_httpStatus' - The response's http status code.
 newRemoveFlowMediaStreamResponse ::
@@ -166,19 +168,19 @@ newRemoveFlowMediaStreamResponse ::
   RemoveFlowMediaStreamResponse
 newRemoveFlowMediaStreamResponse pHttpStatus_ =
   RemoveFlowMediaStreamResponse'
-    { mediaStreamName =
+    { flowArn =
         Prelude.Nothing,
-      flowArn = Prelude.Nothing,
+      mediaStreamName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The name of the media stream that was removed.
-removeFlowMediaStreamResponse_mediaStreamName :: Lens.Lens' RemoveFlowMediaStreamResponse (Prelude.Maybe Prelude.Text)
-removeFlowMediaStreamResponse_mediaStreamName = Lens.lens (\RemoveFlowMediaStreamResponse' {mediaStreamName} -> mediaStreamName) (\s@RemoveFlowMediaStreamResponse' {} a -> s {mediaStreamName = a} :: RemoveFlowMediaStreamResponse)
 
 -- | The Amazon Resource Name (ARN) of the flow.
 removeFlowMediaStreamResponse_flowArn :: Lens.Lens' RemoveFlowMediaStreamResponse (Prelude.Maybe Prelude.Text)
 removeFlowMediaStreamResponse_flowArn = Lens.lens (\RemoveFlowMediaStreamResponse' {flowArn} -> flowArn) (\s@RemoveFlowMediaStreamResponse' {} a -> s {flowArn = a} :: RemoveFlowMediaStreamResponse)
+
+-- | The name of the media stream that was removed.
+removeFlowMediaStreamResponse_mediaStreamName :: Lens.Lens' RemoveFlowMediaStreamResponse (Prelude.Maybe Prelude.Text)
+removeFlowMediaStreamResponse_mediaStreamName = Lens.lens (\RemoveFlowMediaStreamResponse' {mediaStreamName} -> mediaStreamName) (\s@RemoveFlowMediaStreamResponse' {} a -> s {mediaStreamName = a} :: RemoveFlowMediaStreamResponse)
 
 -- | The response's http status code.
 removeFlowMediaStreamResponse_httpStatus :: Lens.Lens' RemoveFlowMediaStreamResponse Prelude.Int
@@ -186,6 +188,6 @@ removeFlowMediaStreamResponse_httpStatus = Lens.lens (\RemoveFlowMediaStreamResp
 
 instance Prelude.NFData RemoveFlowMediaStreamResponse where
   rnf RemoveFlowMediaStreamResponse' {..} =
-    Prelude.rnf mediaStreamName
-      `Prelude.seq` Prelude.rnf flowArn
+    Prelude.rnf flowArn
+      `Prelude.seq` Prelude.rnf mediaStreamName
       `Prelude.seq` Prelude.rnf httpStatus

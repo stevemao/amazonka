@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.DescribePermissionSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.SSOAdmin.DescribePermissionSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,10 +50,10 @@ import Amazonka.SSOAdmin.Types
 
 -- | /See:/ 'newDescribePermissionSet' smart constructor.
 data DescribePermissionSet = DescribePermissionSet'
-  { -- | The ARN of the SSO instance under which the operation will be executed.
-    -- For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
+  { -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
     instanceArn :: Prelude.Text,
     -- | The ARN of the permission set.
     permissionSetArn :: Prelude.Text
@@ -67,10 +68,10 @@ data DescribePermissionSet = DescribePermissionSet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceArn', 'describePermissionSet_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- 'instanceArn', 'describePermissionSet_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 --
 -- 'permissionSetArn', 'describePermissionSet_permissionSetArn' - The ARN of the permission set.
 newDescribePermissionSet ::
@@ -87,10 +88,10 @@ newDescribePermissionSet
         permissionSetArn = pPermissionSetArn_
       }
 
--- | The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 describePermissionSet_instanceArn :: Lens.Lens' DescribePermissionSet Prelude.Text
 describePermissionSet_instanceArn = Lens.lens (\DescribePermissionSet' {instanceArn} -> instanceArn) (\s@DescribePermissionSet' {} a -> s {instanceArn = a} :: DescribePermissionSet)
 
@@ -102,12 +103,13 @@ instance Core.AWSRequest DescribePermissionSet where
   type
     AWSResponse DescribePermissionSet =
       DescribePermissionSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePermissionSetResponse'
-            Prelude.<$> (x Core..?> "PermissionSet")
+            Prelude.<$> (x Data..?> "PermissionSet")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,40 +123,40 @@ instance Prelude.NFData DescribePermissionSet where
     Prelude.rnf instanceArn
       `Prelude.seq` Prelude.rnf permissionSetArn
 
-instance Core.ToHeaders DescribePermissionSet where
+instance Data.ToHeaders DescribePermissionSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.DescribePermissionSet" ::
+              Data.=# ( "SWBExternalService.DescribePermissionSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribePermissionSet where
+instance Data.ToJSON DescribePermissionSet where
   toJSON DescribePermissionSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("InstanceArn" Core..= instanceArn),
+          [ Prelude.Just ("InstanceArn" Data..= instanceArn),
             Prelude.Just
-              ("PermissionSetArn" Core..= permissionSetArn)
+              ("PermissionSetArn" Data..= permissionSetArn)
           ]
       )
 
-instance Core.ToPath DescribePermissionSet where
+instance Data.ToPath DescribePermissionSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribePermissionSet where
+instance Data.ToQuery DescribePermissionSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribePermissionSetResponse' smart constructor.
 data DescribePermissionSetResponse = DescribePermissionSetResponse'
-  { -- | Describes the level of access on an Amazon Web Services account.
+  { -- | Describes the level of access on an AWS account.
     permissionSet :: Prelude.Maybe PermissionSet,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -169,7 +171,7 @@ data DescribePermissionSetResponse = DescribePermissionSetResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'permissionSet', 'describePermissionSetResponse_permissionSet' - Describes the level of access on an Amazon Web Services account.
+-- 'permissionSet', 'describePermissionSetResponse_permissionSet' - Describes the level of access on an AWS account.
 --
 -- 'httpStatus', 'describePermissionSetResponse_httpStatus' - The response's http status code.
 newDescribePermissionSetResponse ::
@@ -183,7 +185,7 @@ newDescribePermissionSetResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Describes the level of access on an Amazon Web Services account.
+-- | Describes the level of access on an AWS account.
 describePermissionSetResponse_permissionSet :: Lens.Lens' DescribePermissionSetResponse (Prelude.Maybe PermissionSet)
 describePermissionSetResponse_permissionSet = Lens.lens (\DescribePermissionSetResponse' {permissionSet} -> permissionSet) (\s@DescribePermissionSetResponse' {} a -> s {permissionSet = a} :: DescribePermissionSetResponse)
 

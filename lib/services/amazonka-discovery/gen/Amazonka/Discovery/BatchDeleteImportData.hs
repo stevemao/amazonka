@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Discovery.BatchDeleteImportData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,12 +24,12 @@
 -- Each import task has a number of records that can identify servers or
 -- applications.
 --
--- AWS Application Discovery Service has built-in matching logic that will
--- identify when discovered servers match existing entries that you\'ve
--- previously discovered, the information for the already-existing
--- discovered server is updated. When you delete an import task that
--- contains records that were used to match, the information in those
--- matched records that comes from the deleted records will also be
+-- Amazon Web Services Application Discovery Service has built-in matching
+-- logic that will identify when discovered servers match existing entries
+-- that you\'ve previously discovered, the information for the
+-- already-existing discovered server is updated. When you delete an import
+-- task that contains records that were used to match, the information in
+-- those matched records that comes from the deleted records will also be
 -- deleted.
 module Amazonka.Discovery.BatchDeleteImportData
   ( -- * Creating a Request
@@ -50,8 +50,9 @@ module Amazonka.Discovery.BatchDeleteImportData
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Discovery.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,12 +91,13 @@ instance Core.AWSRequest BatchDeleteImportData where
   type
     AWSResponse BatchDeleteImportData =
       BatchDeleteImportDataResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchDeleteImportDataResponse'
-            Prelude.<$> (x Core..?> "errors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "errors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -107,34 +109,34 @@ instance Prelude.NFData BatchDeleteImportData where
   rnf BatchDeleteImportData' {..} =
     Prelude.rnf importTaskIds
 
-instance Core.ToHeaders BatchDeleteImportData where
+instance Data.ToHeaders BatchDeleteImportData where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSPoseidonService_V2015_11_01.BatchDeleteImportData" ::
+              Data.=# ( "AWSPoseidonService_V2015_11_01.BatchDeleteImportData" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchDeleteImportData where
+instance Data.ToJSON BatchDeleteImportData where
   toJSON BatchDeleteImportData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("importTaskIds" Core..= importTaskIds)
+              ("importTaskIds" Data..= importTaskIds)
           ]
       )
 
-instance Core.ToPath BatchDeleteImportData where
+instance Data.ToPath BatchDeleteImportData where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchDeleteImportData where
+instance Data.ToQuery BatchDeleteImportData where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchDeleteImportDataResponse' smart constructor.

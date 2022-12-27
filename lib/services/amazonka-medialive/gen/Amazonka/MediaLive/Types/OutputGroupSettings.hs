@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.OutputGroupSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.OutputGroupSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.ArchiveGroupSettings
 import Amazonka.MediaLive.Types.FrameCaptureGroupSettings
 import Amazonka.MediaLive.Types.HlsGroupSettings
@@ -35,14 +36,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newOutputGroupSettings' smart constructor.
 data OutputGroupSettings = OutputGroupSettings'
-  { mediaPackageGroupSettings :: Prelude.Maybe MediaPackageGroupSettings,
-    msSmoothGroupSettings :: Prelude.Maybe MsSmoothGroupSettings,
-    rtmpGroupSettings :: Prelude.Maybe RtmpGroupSettings,
-    multiplexGroupSettings :: Prelude.Maybe MultiplexGroupSettings,
+  { archiveGroupSettings :: Prelude.Maybe ArchiveGroupSettings,
+    frameCaptureGroupSettings :: Prelude.Maybe FrameCaptureGroupSettings,
     hlsGroupSettings :: Prelude.Maybe HlsGroupSettings,
-    archiveGroupSettings :: Prelude.Maybe ArchiveGroupSettings,
-    udpGroupSettings :: Prelude.Maybe UdpGroupSettings,
-    frameCaptureGroupSettings :: Prelude.Maybe FrameCaptureGroupSettings
+    mediaPackageGroupSettings :: Prelude.Maybe MediaPackageGroupSettings,
+    msSmoothGroupSettings :: Prelude.Maybe MsSmoothGroupSettings,
+    multiplexGroupSettings :: Prelude.Maybe MultiplexGroupSettings,
+    rtmpGroupSettings :: Prelude.Maybe RtmpGroupSettings,
+    udpGroupSettings :: Prelude.Maybe UdpGroupSettings
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -54,35 +55,47 @@ data OutputGroupSettings = OutputGroupSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'archiveGroupSettings', 'outputGroupSettings_archiveGroupSettings' - Undocumented member.
+--
+-- 'frameCaptureGroupSettings', 'outputGroupSettings_frameCaptureGroupSettings' - Undocumented member.
+--
+-- 'hlsGroupSettings', 'outputGroupSettings_hlsGroupSettings' - Undocumented member.
+--
 -- 'mediaPackageGroupSettings', 'outputGroupSettings_mediaPackageGroupSettings' - Undocumented member.
 --
 -- 'msSmoothGroupSettings', 'outputGroupSettings_msSmoothGroupSettings' - Undocumented member.
 --
--- 'rtmpGroupSettings', 'outputGroupSettings_rtmpGroupSettings' - Undocumented member.
---
 -- 'multiplexGroupSettings', 'outputGroupSettings_multiplexGroupSettings' - Undocumented member.
 --
--- 'hlsGroupSettings', 'outputGroupSettings_hlsGroupSettings' - Undocumented member.
---
--- 'archiveGroupSettings', 'outputGroupSettings_archiveGroupSettings' - Undocumented member.
+-- 'rtmpGroupSettings', 'outputGroupSettings_rtmpGroupSettings' - Undocumented member.
 --
 -- 'udpGroupSettings', 'outputGroupSettings_udpGroupSettings' - Undocumented member.
---
--- 'frameCaptureGroupSettings', 'outputGroupSettings_frameCaptureGroupSettings' - Undocumented member.
 newOutputGroupSettings ::
   OutputGroupSettings
 newOutputGroupSettings =
   OutputGroupSettings'
-    { mediaPackageGroupSettings =
+    { archiveGroupSettings =
         Prelude.Nothing,
-      msSmoothGroupSettings = Prelude.Nothing,
-      rtmpGroupSettings = Prelude.Nothing,
-      multiplexGroupSettings = Prelude.Nothing,
+      frameCaptureGroupSettings = Prelude.Nothing,
       hlsGroupSettings = Prelude.Nothing,
-      archiveGroupSettings = Prelude.Nothing,
-      udpGroupSettings = Prelude.Nothing,
-      frameCaptureGroupSettings = Prelude.Nothing
+      mediaPackageGroupSettings = Prelude.Nothing,
+      msSmoothGroupSettings = Prelude.Nothing,
+      multiplexGroupSettings = Prelude.Nothing,
+      rtmpGroupSettings = Prelude.Nothing,
+      udpGroupSettings = Prelude.Nothing
     }
+
+-- | Undocumented member.
+outputGroupSettings_archiveGroupSettings :: Lens.Lens' OutputGroupSettings (Prelude.Maybe ArchiveGroupSettings)
+outputGroupSettings_archiveGroupSettings = Lens.lens (\OutputGroupSettings' {archiveGroupSettings} -> archiveGroupSettings) (\s@OutputGroupSettings' {} a -> s {archiveGroupSettings = a} :: OutputGroupSettings)
+
+-- | Undocumented member.
+outputGroupSettings_frameCaptureGroupSettings :: Lens.Lens' OutputGroupSettings (Prelude.Maybe FrameCaptureGroupSettings)
+outputGroupSettings_frameCaptureGroupSettings = Lens.lens (\OutputGroupSettings' {frameCaptureGroupSettings} -> frameCaptureGroupSettings) (\s@OutputGroupSettings' {} a -> s {frameCaptureGroupSettings = a} :: OutputGroupSettings)
+
+-- | Undocumented member.
+outputGroupSettings_hlsGroupSettings :: Lens.Lens' OutputGroupSettings (Prelude.Maybe HlsGroupSettings)
+outputGroupSettings_hlsGroupSettings = Lens.lens (\OutputGroupSettings' {hlsGroupSettings} -> hlsGroupSettings) (\s@OutputGroupSettings' {} a -> s {hlsGroupSettings = a} :: OutputGroupSettings)
 
 -- | Undocumented member.
 outputGroupSettings_mediaPackageGroupSettings :: Lens.Lens' OutputGroupSettings (Prelude.Maybe MediaPackageGroupSettings)
@@ -93,87 +106,74 @@ outputGroupSettings_msSmoothGroupSettings :: Lens.Lens' OutputGroupSettings (Pre
 outputGroupSettings_msSmoothGroupSettings = Lens.lens (\OutputGroupSettings' {msSmoothGroupSettings} -> msSmoothGroupSettings) (\s@OutputGroupSettings' {} a -> s {msSmoothGroupSettings = a} :: OutputGroupSettings)
 
 -- | Undocumented member.
-outputGroupSettings_rtmpGroupSettings :: Lens.Lens' OutputGroupSettings (Prelude.Maybe RtmpGroupSettings)
-outputGroupSettings_rtmpGroupSettings = Lens.lens (\OutputGroupSettings' {rtmpGroupSettings} -> rtmpGroupSettings) (\s@OutputGroupSettings' {} a -> s {rtmpGroupSettings = a} :: OutputGroupSettings)
-
--- | Undocumented member.
 outputGroupSettings_multiplexGroupSettings :: Lens.Lens' OutputGroupSettings (Prelude.Maybe MultiplexGroupSettings)
 outputGroupSettings_multiplexGroupSettings = Lens.lens (\OutputGroupSettings' {multiplexGroupSettings} -> multiplexGroupSettings) (\s@OutputGroupSettings' {} a -> s {multiplexGroupSettings = a} :: OutputGroupSettings)
 
 -- | Undocumented member.
-outputGroupSettings_hlsGroupSettings :: Lens.Lens' OutputGroupSettings (Prelude.Maybe HlsGroupSettings)
-outputGroupSettings_hlsGroupSettings = Lens.lens (\OutputGroupSettings' {hlsGroupSettings} -> hlsGroupSettings) (\s@OutputGroupSettings' {} a -> s {hlsGroupSettings = a} :: OutputGroupSettings)
-
--- | Undocumented member.
-outputGroupSettings_archiveGroupSettings :: Lens.Lens' OutputGroupSettings (Prelude.Maybe ArchiveGroupSettings)
-outputGroupSettings_archiveGroupSettings = Lens.lens (\OutputGroupSettings' {archiveGroupSettings} -> archiveGroupSettings) (\s@OutputGroupSettings' {} a -> s {archiveGroupSettings = a} :: OutputGroupSettings)
+outputGroupSettings_rtmpGroupSettings :: Lens.Lens' OutputGroupSettings (Prelude.Maybe RtmpGroupSettings)
+outputGroupSettings_rtmpGroupSettings = Lens.lens (\OutputGroupSettings' {rtmpGroupSettings} -> rtmpGroupSettings) (\s@OutputGroupSettings' {} a -> s {rtmpGroupSettings = a} :: OutputGroupSettings)
 
 -- | Undocumented member.
 outputGroupSettings_udpGroupSettings :: Lens.Lens' OutputGroupSettings (Prelude.Maybe UdpGroupSettings)
 outputGroupSettings_udpGroupSettings = Lens.lens (\OutputGroupSettings' {udpGroupSettings} -> udpGroupSettings) (\s@OutputGroupSettings' {} a -> s {udpGroupSettings = a} :: OutputGroupSettings)
 
--- | Undocumented member.
-outputGroupSettings_frameCaptureGroupSettings :: Lens.Lens' OutputGroupSettings (Prelude.Maybe FrameCaptureGroupSettings)
-outputGroupSettings_frameCaptureGroupSettings = Lens.lens (\OutputGroupSettings' {frameCaptureGroupSettings} -> frameCaptureGroupSettings) (\s@OutputGroupSettings' {} a -> s {frameCaptureGroupSettings = a} :: OutputGroupSettings)
-
-instance Core.FromJSON OutputGroupSettings where
+instance Data.FromJSON OutputGroupSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OutputGroupSettings"
       ( \x ->
           OutputGroupSettings'
-            Prelude.<$> (x Core..:? "mediaPackageGroupSettings")
-            Prelude.<*> (x Core..:? "msSmoothGroupSettings")
-            Prelude.<*> (x Core..:? "rtmpGroupSettings")
-            Prelude.<*> (x Core..:? "multiplexGroupSettings")
-            Prelude.<*> (x Core..:? "hlsGroupSettings")
-            Prelude.<*> (x Core..:? "archiveGroupSettings")
-            Prelude.<*> (x Core..:? "udpGroupSettings")
-            Prelude.<*> (x Core..:? "frameCaptureGroupSettings")
+            Prelude.<$> (x Data..:? "archiveGroupSettings")
+            Prelude.<*> (x Data..:? "frameCaptureGroupSettings")
+            Prelude.<*> (x Data..:? "hlsGroupSettings")
+            Prelude.<*> (x Data..:? "mediaPackageGroupSettings")
+            Prelude.<*> (x Data..:? "msSmoothGroupSettings")
+            Prelude.<*> (x Data..:? "multiplexGroupSettings")
+            Prelude.<*> (x Data..:? "rtmpGroupSettings")
+            Prelude.<*> (x Data..:? "udpGroupSettings")
       )
 
 instance Prelude.Hashable OutputGroupSettings where
   hashWithSalt _salt OutputGroupSettings' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` archiveGroupSettings
+      `Prelude.hashWithSalt` frameCaptureGroupSettings
+      `Prelude.hashWithSalt` hlsGroupSettings
       `Prelude.hashWithSalt` mediaPackageGroupSettings
       `Prelude.hashWithSalt` msSmoothGroupSettings
-      `Prelude.hashWithSalt` rtmpGroupSettings
       `Prelude.hashWithSalt` multiplexGroupSettings
-      `Prelude.hashWithSalt` hlsGroupSettings
-      `Prelude.hashWithSalt` archiveGroupSettings
+      `Prelude.hashWithSalt` rtmpGroupSettings
       `Prelude.hashWithSalt` udpGroupSettings
-      `Prelude.hashWithSalt` frameCaptureGroupSettings
 
 instance Prelude.NFData OutputGroupSettings where
   rnf OutputGroupSettings' {..} =
-    Prelude.rnf mediaPackageGroupSettings
-      `Prelude.seq` Prelude.rnf msSmoothGroupSettings
-      `Prelude.seq` Prelude.rnf rtmpGroupSettings
-      `Prelude.seq` Prelude.rnf multiplexGroupSettings
-      `Prelude.seq` Prelude.rnf hlsGroupSettings
-      `Prelude.seq` Prelude.rnf archiveGroupSettings
-      `Prelude.seq` Prelude.rnf udpGroupSettings
+    Prelude.rnf archiveGroupSettings
       `Prelude.seq` Prelude.rnf frameCaptureGroupSettings
+      `Prelude.seq` Prelude.rnf hlsGroupSettings
+      `Prelude.seq` Prelude.rnf mediaPackageGroupSettings
+      `Prelude.seq` Prelude.rnf msSmoothGroupSettings
+      `Prelude.seq` Prelude.rnf multiplexGroupSettings
+      `Prelude.seq` Prelude.rnf rtmpGroupSettings
+      `Prelude.seq` Prelude.rnf udpGroupSettings
 
-instance Core.ToJSON OutputGroupSettings where
+instance Data.ToJSON OutputGroupSettings where
   toJSON OutputGroupSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("mediaPackageGroupSettings" Core..=)
-              Prelude.<$> mediaPackageGroupSettings,
-            ("msSmoothGroupSettings" Core..=)
-              Prelude.<$> msSmoothGroupSettings,
-            ("rtmpGroupSettings" Core..=)
-              Prelude.<$> rtmpGroupSettings,
-            ("multiplexGroupSettings" Core..=)
-              Prelude.<$> multiplexGroupSettings,
-            ("hlsGroupSettings" Core..=)
-              Prelude.<$> hlsGroupSettings,
-            ("archiveGroupSettings" Core..=)
+          [ ("archiveGroupSettings" Data..=)
               Prelude.<$> archiveGroupSettings,
-            ("udpGroupSettings" Core..=)
-              Prelude.<$> udpGroupSettings,
-            ("frameCaptureGroupSettings" Core..=)
-              Prelude.<$> frameCaptureGroupSettings
+            ("frameCaptureGroupSettings" Data..=)
+              Prelude.<$> frameCaptureGroupSettings,
+            ("hlsGroupSettings" Data..=)
+              Prelude.<$> hlsGroupSettings,
+            ("mediaPackageGroupSettings" Data..=)
+              Prelude.<$> mediaPackageGroupSettings,
+            ("msSmoothGroupSettings" Data..=)
+              Prelude.<$> msSmoothGroupSettings,
+            ("multiplexGroupSettings" Data..=)
+              Prelude.<$> multiplexGroupSettings,
+            ("rtmpGroupSettings" Data..=)
+              Prelude.<$> rtmpGroupSettings,
+            ("udpGroupSettings" Data..=)
+              Prelude.<$> udpGroupSettings
           ]
       )

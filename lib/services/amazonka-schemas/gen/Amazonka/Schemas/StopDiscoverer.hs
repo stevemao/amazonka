@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Schemas.StopDiscoverer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,14 +34,15 @@ module Amazonka.Schemas.StopDiscoverer
     newStopDiscovererResponse,
 
     -- * Response Lenses
-    stopDiscovererResponse_state,
     stopDiscovererResponse_discovererId,
+    stopDiscovererResponse_state,
     stopDiscovererResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,13 +79,14 @@ instance Core.AWSRequest StopDiscoverer where
   type
     AWSResponse StopDiscoverer =
       StopDiscovererResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StopDiscovererResponse'
-            Prelude.<$> (x Core..?> "State")
-            Prelude.<*> (x Core..?> "DiscovererId")
+            Prelude.<$> (x Data..?> "DiscovererId")
+            Prelude.<*> (x Data..?> "State")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,37 +97,37 @@ instance Prelude.Hashable StopDiscoverer where
 instance Prelude.NFData StopDiscoverer where
   rnf StopDiscoverer' {..} = Prelude.rnf discovererId
 
-instance Core.ToHeaders StopDiscoverer where
+instance Data.ToHeaders StopDiscoverer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopDiscoverer where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON StopDiscoverer where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath StopDiscoverer where
+instance Data.ToPath StopDiscoverer where
   toPath StopDiscoverer' {..} =
     Prelude.mconcat
       [ "/v1/discoverers/id/",
-        Core.toBS discovererId,
+        Data.toBS discovererId,
         "/stop"
       ]
 
-instance Core.ToQuery StopDiscoverer where
+instance Data.ToQuery StopDiscoverer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopDiscovererResponse' smart constructor.
 data StopDiscovererResponse = StopDiscovererResponse'
-  { -- | The state of the discoverer.
-    state :: Prelude.Maybe DiscovererState,
-    -- | The ID of the discoverer.
+  { -- | The ID of the discoverer.
     discovererId :: Prelude.Maybe Prelude.Text,
+    -- | The state of the discoverer.
+    state :: Prelude.Maybe DiscovererState,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -139,9 +141,9 @@ data StopDiscovererResponse = StopDiscovererResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'stopDiscovererResponse_state' - The state of the discoverer.
---
 -- 'discovererId', 'stopDiscovererResponse_discovererId' - The ID of the discoverer.
+--
+-- 'state', 'stopDiscovererResponse_state' - The state of the discoverer.
 --
 -- 'httpStatus', 'stopDiscovererResponse_httpStatus' - The response's http status code.
 newStopDiscovererResponse ::
@@ -150,18 +152,19 @@ newStopDiscovererResponse ::
   StopDiscovererResponse
 newStopDiscovererResponse pHttpStatus_ =
   StopDiscovererResponse'
-    { state = Prelude.Nothing,
-      discovererId = Prelude.Nothing,
+    { discovererId =
+        Prelude.Nothing,
+      state = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The state of the discoverer.
-stopDiscovererResponse_state :: Lens.Lens' StopDiscovererResponse (Prelude.Maybe DiscovererState)
-stopDiscovererResponse_state = Lens.lens (\StopDiscovererResponse' {state} -> state) (\s@StopDiscovererResponse' {} a -> s {state = a} :: StopDiscovererResponse)
 
 -- | The ID of the discoverer.
 stopDiscovererResponse_discovererId :: Lens.Lens' StopDiscovererResponse (Prelude.Maybe Prelude.Text)
 stopDiscovererResponse_discovererId = Lens.lens (\StopDiscovererResponse' {discovererId} -> discovererId) (\s@StopDiscovererResponse' {} a -> s {discovererId = a} :: StopDiscovererResponse)
+
+-- | The state of the discoverer.
+stopDiscovererResponse_state :: Lens.Lens' StopDiscovererResponse (Prelude.Maybe DiscovererState)
+stopDiscovererResponse_state = Lens.lens (\StopDiscovererResponse' {state} -> state) (\s@StopDiscovererResponse' {} a -> s {state = a} :: StopDiscovererResponse)
 
 -- | The response's http status code.
 stopDiscovererResponse_httpStatus :: Lens.Lens' StopDiscovererResponse Prelude.Int
@@ -169,6 +172,6 @@ stopDiscovererResponse_httpStatus = Lens.lens (\StopDiscovererResponse' {httpSta
 
 instance Prelude.NFData StopDiscovererResponse where
   rnf StopDiscovererResponse' {..} =
-    Prelude.rnf state
-      `Prelude.seq` Prelude.rnf discovererId
+    Prelude.rnf discovererId
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf httpStatus

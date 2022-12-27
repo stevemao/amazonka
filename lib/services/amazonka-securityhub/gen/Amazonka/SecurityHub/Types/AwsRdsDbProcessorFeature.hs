@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsRdsDbProcessorFeature
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,19 @@
 module Amazonka.SecurityHub.Types.AwsRdsDbProcessorFeature where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A processor feature.
 --
 -- /See:/ 'newAwsRdsDbProcessorFeature' smart constructor.
 data AwsRdsDbProcessorFeature = AwsRdsDbProcessorFeature'
-  { -- | The value of the processor feature.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The name of the processor feature.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | The name of the processor feature. Valid values are @coreCount@ or
+    -- @threadsPerCore@.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The value of the processor feature.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,48 +44,50 @@ data AwsRdsDbProcessorFeature = AwsRdsDbProcessorFeature'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'awsRdsDbProcessorFeature_value' - The value of the processor feature.
+-- 'name', 'awsRdsDbProcessorFeature_name' - The name of the processor feature. Valid values are @coreCount@ or
+-- @threadsPerCore@.
 --
--- 'name', 'awsRdsDbProcessorFeature_name' - The name of the processor feature.
+-- 'value', 'awsRdsDbProcessorFeature_value' - The value of the processor feature.
 newAwsRdsDbProcessorFeature ::
   AwsRdsDbProcessorFeature
 newAwsRdsDbProcessorFeature =
   AwsRdsDbProcessorFeature'
-    { value = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      value = Prelude.Nothing
     }
+
+-- | The name of the processor feature. Valid values are @coreCount@ or
+-- @threadsPerCore@.
+awsRdsDbProcessorFeature_name :: Lens.Lens' AwsRdsDbProcessorFeature (Prelude.Maybe Prelude.Text)
+awsRdsDbProcessorFeature_name = Lens.lens (\AwsRdsDbProcessorFeature' {name} -> name) (\s@AwsRdsDbProcessorFeature' {} a -> s {name = a} :: AwsRdsDbProcessorFeature)
 
 -- | The value of the processor feature.
 awsRdsDbProcessorFeature_value :: Lens.Lens' AwsRdsDbProcessorFeature (Prelude.Maybe Prelude.Text)
 awsRdsDbProcessorFeature_value = Lens.lens (\AwsRdsDbProcessorFeature' {value} -> value) (\s@AwsRdsDbProcessorFeature' {} a -> s {value = a} :: AwsRdsDbProcessorFeature)
 
--- | The name of the processor feature.
-awsRdsDbProcessorFeature_name :: Lens.Lens' AwsRdsDbProcessorFeature (Prelude.Maybe Prelude.Text)
-awsRdsDbProcessorFeature_name = Lens.lens (\AwsRdsDbProcessorFeature' {name} -> name) (\s@AwsRdsDbProcessorFeature' {} a -> s {name = a} :: AwsRdsDbProcessorFeature)
-
-instance Core.FromJSON AwsRdsDbProcessorFeature where
+instance Data.FromJSON AwsRdsDbProcessorFeature where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsRdsDbProcessorFeature"
       ( \x ->
           AwsRdsDbProcessorFeature'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name") Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable AwsRdsDbProcessorFeature where
   hashWithSalt _salt AwsRdsDbProcessorFeature' {..} =
-    _salt `Prelude.hashWithSalt` value
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData AwsRdsDbProcessorFeature where
   rnf AwsRdsDbProcessorFeature' {..} =
-    Prelude.rnf value `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON AwsRdsDbProcessorFeature where
+instance Data.ToJSON AwsRdsDbProcessorFeature where
   toJSON AwsRdsDbProcessorFeature' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Value" Core..=) Prelude.<$> value,
-            ("Name" Core..=) Prelude.<$> name
+          [ ("Name" Data..=) Prelude.<$> name,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

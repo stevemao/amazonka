@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.ListPlatformVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,8 +37,8 @@ module Amazonka.ElasticBeanstalk.ListPlatformVersions
 
     -- * Request Lenses
     listPlatformVersions_filters,
-    listPlatformVersions_nextToken,
     listPlatformVersions_maxRecords,
+    listPlatformVersions_nextToken,
 
     -- * Destructuring the Response
     ListPlatformVersionsResponse (..),
@@ -52,8 +52,9 @@ module Amazonka.ElasticBeanstalk.ListPlatformVersions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,14 +65,14 @@ data ListPlatformVersions = ListPlatformVersions'
     -- filter is interpreted as a logical conjunction (AND) of the separate
     -- @PlatformFilter@ terms.
     filters :: Prelude.Maybe [PlatformFilter],
+    -- | The maximum number of platform version values returned in one call.
+    maxRecords :: Prelude.Maybe Prelude.Natural,
     -- | For a paginated request. Specify a token from a previous response page
     -- to retrieve the next response page. All other parameter values must be
     -- identical to the ones specified in the initial request.
     --
     -- If no @NextToken@ is specified, the first page is retrieved.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of platform version values returned in one call.
-    maxRecords :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -87,20 +88,20 @@ data ListPlatformVersions = ListPlatformVersions'
 -- filter is interpreted as a logical conjunction (AND) of the separate
 -- @PlatformFilter@ terms.
 --
+-- 'maxRecords', 'listPlatformVersions_maxRecords' - The maximum number of platform version values returned in one call.
+--
 -- 'nextToken', 'listPlatformVersions_nextToken' - For a paginated request. Specify a token from a previous response page
 -- to retrieve the next response page. All other parameter values must be
 -- identical to the ones specified in the initial request.
 --
 -- If no @NextToken@ is specified, the first page is retrieved.
---
--- 'maxRecords', 'listPlatformVersions_maxRecords' - The maximum number of platform version values returned in one call.
 newListPlatformVersions ::
   ListPlatformVersions
 newListPlatformVersions =
   ListPlatformVersions'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxRecords = Prelude.Nothing
+      maxRecords = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | Criteria for restricting the resulting list of platform versions. The
@@ -109,6 +110,10 @@ newListPlatformVersions =
 listPlatformVersions_filters :: Lens.Lens' ListPlatformVersions (Prelude.Maybe [PlatformFilter])
 listPlatformVersions_filters = Lens.lens (\ListPlatformVersions' {filters} -> filters) (\s@ListPlatformVersions' {} a -> s {filters = a} :: ListPlatformVersions) Prelude.. Lens.mapping Lens.coerced
 
+-- | The maximum number of platform version values returned in one call.
+listPlatformVersions_maxRecords :: Lens.Lens' ListPlatformVersions (Prelude.Maybe Prelude.Natural)
+listPlatformVersions_maxRecords = Lens.lens (\ListPlatformVersions' {maxRecords} -> maxRecords) (\s@ListPlatformVersions' {} a -> s {maxRecords = a} :: ListPlatformVersions)
+
 -- | For a paginated request. Specify a token from a previous response page
 -- to retrieve the next response page. All other parameter values must be
 -- identical to the ones specified in the initial request.
@@ -116,10 +121,6 @@ listPlatformVersions_filters = Lens.lens (\ListPlatformVersions' {filters} -> fi
 -- If no @NextToken@ is specified, the first page is retrieved.
 listPlatformVersions_nextToken :: Lens.Lens' ListPlatformVersions (Prelude.Maybe Prelude.Text)
 listPlatformVersions_nextToken = Lens.lens (\ListPlatformVersions' {nextToken} -> nextToken) (\s@ListPlatformVersions' {} a -> s {nextToken = a} :: ListPlatformVersions)
-
--- | The maximum number of platform version values returned in one call.
-listPlatformVersions_maxRecords :: Lens.Lens' ListPlatformVersions (Prelude.Maybe Prelude.Natural)
-listPlatformVersions_maxRecords = Lens.lens (\ListPlatformVersions' {maxRecords} -> maxRecords) (\s@ListPlatformVersions' {} a -> s {maxRecords = a} :: ListPlatformVersions)
 
 instance Core.AWSPager ListPlatformVersions where
   page rq rs
@@ -147,16 +148,17 @@ instance Core.AWSRequest ListPlatformVersions where
   type
     AWSResponse ListPlatformVersions =
       ListPlatformVersionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListPlatformVersionsResult"
       ( \s h x ->
           ListPlatformVersionsResponse'
-            Prelude.<$> (x Core..@? "NextToken")
-            Prelude.<*> ( x Core..@? "PlatformSummaryList"
+            Prelude.<$> (x Data..@? "NextToken")
+            Prelude.<*> ( x Data..@? "PlatformSummaryList"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -164,33 +166,33 @@ instance Core.AWSRequest ListPlatformVersions where
 instance Prelude.Hashable ListPlatformVersions where
   hashWithSalt _salt ListPlatformVersions' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListPlatformVersions where
   rnf ListPlatformVersions' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListPlatformVersions where
+instance Data.ToHeaders ListPlatformVersions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListPlatformVersions where
+instance Data.ToPath ListPlatformVersions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPlatformVersions where
+instance Data.ToQuery ListPlatformVersions where
   toQuery ListPlatformVersions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListPlatformVersions" :: Prelude.ByteString),
+          Data.=: ("ListPlatformVersions" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> filters),
+        "MaxRecords" Data.=: maxRecords,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListPlatformVersionsResponse' smart constructor.

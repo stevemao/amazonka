@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.EncryptionAtRestOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ElasticSearch.Types.EncryptionAtRestOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the Encryption At Rest Options.
@@ -61,14 +62,14 @@ encryptionAtRestOptions_enabled = Lens.lens (\EncryptionAtRestOptions' {enabled}
 encryptionAtRestOptions_kmsKeyId :: Lens.Lens' EncryptionAtRestOptions (Prelude.Maybe Prelude.Text)
 encryptionAtRestOptions_kmsKeyId = Lens.lens (\EncryptionAtRestOptions' {kmsKeyId} -> kmsKeyId) (\s@EncryptionAtRestOptions' {} a -> s {kmsKeyId = a} :: EncryptionAtRestOptions)
 
-instance Core.FromJSON EncryptionAtRestOptions where
+instance Data.FromJSON EncryptionAtRestOptions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EncryptionAtRestOptions"
       ( \x ->
           EncryptionAtRestOptions'
-            Prelude.<$> (x Core..:? "Enabled")
-            Prelude.<*> (x Core..:? "KmsKeyId")
+            Prelude.<$> (x Data..:? "Enabled")
+            Prelude.<*> (x Data..:? "KmsKeyId")
       )
 
 instance Prelude.Hashable EncryptionAtRestOptions where
@@ -81,11 +82,11 @@ instance Prelude.NFData EncryptionAtRestOptions where
     Prelude.rnf enabled
       `Prelude.seq` Prelude.rnf kmsKeyId
 
-instance Core.ToJSON EncryptionAtRestOptions where
+instance Data.ToJSON EncryptionAtRestOptions where
   toJSON EncryptionAtRestOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Enabled" Core..=) Prelude.<$> enabled,
-            ("KmsKeyId" Core..=) Prelude.<$> kmsKeyId
+          [ ("Enabled" Data..=) Prelude.<$> enabled,
+            ("KmsKeyId" Data..=) Prelude.<$> kmsKeyId
           ]
       )

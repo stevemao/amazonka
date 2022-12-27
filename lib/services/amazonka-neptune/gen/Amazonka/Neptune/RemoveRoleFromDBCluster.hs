@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.RemoveRoleFromDBCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.Neptune.RemoveRoleFromDBCluster
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -49,7 +50,7 @@ import qualified Amazonka.Response as Response
 data RemoveRoleFromDBCluster = RemoveRoleFromDBCluster'
   { -- | The name of the feature for the DB cluster that the IAM role is to be
     -- disassociated from. For the list of supported feature names, see
-    -- DBEngineVersion.
+    -- <https://docs.aws.amazon.com/neptune/latest/userguide/api-other-apis.html#DescribeDBEngineVersions DescribeDBEngineVersions>.
     featureName :: Prelude.Maybe Prelude.Text,
     -- | The name of the DB cluster to disassociate the IAM role from.
     dbClusterIdentifier :: Prelude.Text,
@@ -70,7 +71,7 @@ data RemoveRoleFromDBCluster = RemoveRoleFromDBCluster'
 --
 -- 'featureName', 'removeRoleFromDBCluster_featureName' - The name of the feature for the DB cluster that the IAM role is to be
 -- disassociated from. For the list of supported feature names, see
--- DBEngineVersion.
+-- <https://docs.aws.amazon.com/neptune/latest/userguide/api-other-apis.html#DescribeDBEngineVersions DescribeDBEngineVersions>.
 --
 -- 'dbClusterIdentifier', 'removeRoleFromDBCluster_dbClusterIdentifier' - The name of the DB cluster to disassociate the IAM role from.
 --
@@ -95,7 +96,7 @@ newRemoveRoleFromDBCluster
 
 -- | The name of the feature for the DB cluster that the IAM role is to be
 -- disassociated from. For the list of supported feature names, see
--- DBEngineVersion.
+-- <https://docs.aws.amazon.com/neptune/latest/userguide/api-other-apis.html#DescribeDBEngineVersions DescribeDBEngineVersions>.
 removeRoleFromDBCluster_featureName :: Lens.Lens' RemoveRoleFromDBCluster (Prelude.Maybe Prelude.Text)
 removeRoleFromDBCluster_featureName = Lens.lens (\RemoveRoleFromDBCluster' {featureName} -> featureName) (\s@RemoveRoleFromDBCluster' {} a -> s {featureName = a} :: RemoveRoleFromDBCluster)
 
@@ -113,7 +114,8 @@ instance Core.AWSRequest RemoveRoleFromDBCluster where
   type
     AWSResponse RemoveRoleFromDBCluster =
       RemoveRoleFromDBClusterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       RemoveRoleFromDBClusterResponse'
@@ -130,22 +132,22 @@ instance Prelude.NFData RemoveRoleFromDBCluster where
       `Prelude.seq` Prelude.rnf dbClusterIdentifier
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders RemoveRoleFromDBCluster where
+instance Data.ToHeaders RemoveRoleFromDBCluster where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RemoveRoleFromDBCluster where
+instance Data.ToPath RemoveRoleFromDBCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemoveRoleFromDBCluster where
+instance Data.ToQuery RemoveRoleFromDBCluster where
   toQuery RemoveRoleFromDBCluster' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RemoveRoleFromDBCluster" :: Prelude.ByteString),
+          Data.=: ("RemoveRoleFromDBCluster" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "FeatureName" Core.=: featureName,
-        "DBClusterIdentifier" Core.=: dbClusterIdentifier,
-        "RoleArn" Core.=: roleArn
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "FeatureName" Data.=: featureName,
+        "DBClusterIdentifier" Data.=: dbClusterIdentifier,
+        "RoleArn" Data.=: roleArn
       ]
 
 -- | /See:/ 'newRemoveRoleFromDBClusterResponse' smart constructor.

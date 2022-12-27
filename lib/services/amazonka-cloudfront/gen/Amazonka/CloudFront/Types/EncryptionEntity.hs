@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.EncryptionEntity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFront.Types.EncryptionEntity where
 
 import Amazonka.CloudFront.Types.FieldPatterns
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Complex data type for field-level encryption profiles that includes the
@@ -102,12 +103,12 @@ encryptionEntity_providerId = Lens.lens (\EncryptionEntity' {providerId} -> prov
 encryptionEntity_fieldPatterns :: Lens.Lens' EncryptionEntity FieldPatterns
 encryptionEntity_fieldPatterns = Lens.lens (\EncryptionEntity' {fieldPatterns} -> fieldPatterns) (\s@EncryptionEntity' {} a -> s {fieldPatterns = a} :: EncryptionEntity)
 
-instance Core.FromXML EncryptionEntity where
+instance Data.FromXML EncryptionEntity where
   parseXML x =
     EncryptionEntity'
-      Prelude.<$> (x Core..@ "PublicKeyId")
-      Prelude.<*> (x Core..@ "ProviderId")
-      Prelude.<*> (x Core..@ "FieldPatterns")
+      Prelude.<$> (x Data..@ "PublicKeyId")
+      Prelude.<*> (x Data..@ "ProviderId")
+      Prelude.<*> (x Data..@ "FieldPatterns")
 
 instance Prelude.Hashable EncryptionEntity where
   hashWithSalt _salt EncryptionEntity' {..} =
@@ -121,10 +122,10 @@ instance Prelude.NFData EncryptionEntity where
       `Prelude.seq` Prelude.rnf providerId
       `Prelude.seq` Prelude.rnf fieldPatterns
 
-instance Core.ToXML EncryptionEntity where
+instance Data.ToXML EncryptionEntity where
   toXML EncryptionEntity' {..} =
     Prelude.mconcat
-      [ "PublicKeyId" Core.@= publicKeyId,
-        "ProviderId" Core.@= providerId,
-        "FieldPatterns" Core.@= fieldPatterns
+      [ "PublicKeyId" Data.@= publicKeyId,
+        "ProviderId" Data.@= providerId,
+        "FieldPatterns" Data.@= fieldPatterns
       ]

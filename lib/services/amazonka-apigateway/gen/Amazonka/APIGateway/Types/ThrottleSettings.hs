@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.Types.ThrottleSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,18 @@
 module Amazonka.APIGateway.Types.ThrottleSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The API request rate limits.
 --
 -- /See:/ 'newThrottleSettings' smart constructor.
 data ThrottleSettings = ThrottleSettings'
-  { -- | The API request burst limit, the maximum rate limit over a time ranging
-    -- from one to a few seconds, depending upon whether the underlying token
-    -- bucket is at its full capacity.
+  { -- | The API target request burst rate limit. This allows more requests
+    -- through for a period of time than the target rate limit.
     burstLimit :: Prelude.Maybe Prelude.Int,
-    -- | The API request steady-state rate limit.
+    -- | The API target request rate limit.
     rateLimit :: Prelude.Maybe Prelude.Double
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,11 +44,10 @@ data ThrottleSettings = ThrottleSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'burstLimit', 'throttleSettings_burstLimit' - The API request burst limit, the maximum rate limit over a time ranging
--- from one to a few seconds, depending upon whether the underlying token
--- bucket is at its full capacity.
+-- 'burstLimit', 'throttleSettings_burstLimit' - The API target request burst rate limit. This allows more requests
+-- through for a period of time than the target rate limit.
 --
--- 'rateLimit', 'throttleSettings_rateLimit' - The API request steady-state rate limit.
+-- 'rateLimit', 'throttleSettings_rateLimit' - The API target request rate limit.
 newThrottleSettings ::
   ThrottleSettings
 newThrottleSettings =
@@ -57,24 +56,23 @@ newThrottleSettings =
       rateLimit = Prelude.Nothing
     }
 
--- | The API request burst limit, the maximum rate limit over a time ranging
--- from one to a few seconds, depending upon whether the underlying token
--- bucket is at its full capacity.
+-- | The API target request burst rate limit. This allows more requests
+-- through for a period of time than the target rate limit.
 throttleSettings_burstLimit :: Lens.Lens' ThrottleSettings (Prelude.Maybe Prelude.Int)
 throttleSettings_burstLimit = Lens.lens (\ThrottleSettings' {burstLimit} -> burstLimit) (\s@ThrottleSettings' {} a -> s {burstLimit = a} :: ThrottleSettings)
 
--- | The API request steady-state rate limit.
+-- | The API target request rate limit.
 throttleSettings_rateLimit :: Lens.Lens' ThrottleSettings (Prelude.Maybe Prelude.Double)
 throttleSettings_rateLimit = Lens.lens (\ThrottleSettings' {rateLimit} -> rateLimit) (\s@ThrottleSettings' {} a -> s {rateLimit = a} :: ThrottleSettings)
 
-instance Core.FromJSON ThrottleSettings where
+instance Data.FromJSON ThrottleSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ThrottleSettings"
       ( \x ->
           ThrottleSettings'
-            Prelude.<$> (x Core..:? "burstLimit")
-            Prelude.<*> (x Core..:? "rateLimit")
+            Prelude.<$> (x Data..:? "burstLimit")
+            Prelude.<*> (x Data..:? "rateLimit")
       )
 
 instance Prelude.Hashable ThrottleSettings where
@@ -87,11 +85,11 @@ instance Prelude.NFData ThrottleSettings where
     Prelude.rnf burstLimit
       `Prelude.seq` Prelude.rnf rateLimit
 
-instance Core.ToJSON ThrottleSettings where
+instance Data.ToJSON ThrottleSettings where
   toJSON ThrottleSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("burstLimit" Core..=) Prelude.<$> burstLimit,
-            ("rateLimit" Core..=) Prelude.<$> rateLimit
+          [ ("burstLimit" Data..=) Prelude.<$> burstLimit,
+            ("rateLimit" Data..=) Prelude.<$> rateLimit
           ]
       )

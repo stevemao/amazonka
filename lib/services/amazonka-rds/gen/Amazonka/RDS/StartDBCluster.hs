@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.StartDBCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,7 +26,7 @@
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/aurora-cluster-stop-start.html Stopping and Starting an Aurora Cluster>
--- in the /Amazon Aurora User Guide./
+-- in the /Amazon Aurora User Guide/.
 --
 -- This action only applies to Aurora DB clusters.
 module Amazonka.RDS.StartDBCluster
@@ -48,7 +48,8 @@ module Amazonka.RDS.StartDBCluster
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -91,13 +92,14 @@ instance Core.AWSRequest StartDBCluster where
   type
     AWSResponse StartDBCluster =
       StartDBClusterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "StartDBClusterResult"
       ( \s h x ->
           StartDBClusterResponse'
-            Prelude.<$> (x Core..@? "DBCluster")
+            Prelude.<$> (x Data..@? "DBCluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,20 +111,20 @@ instance Prelude.NFData StartDBCluster where
   rnf StartDBCluster' {..} =
     Prelude.rnf dbClusterIdentifier
 
-instance Core.ToHeaders StartDBCluster where
+instance Data.ToHeaders StartDBCluster where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath StartDBCluster where
+instance Data.ToPath StartDBCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartDBCluster where
+instance Data.ToQuery StartDBCluster where
   toQuery StartDBCluster' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("StartDBCluster" :: Prelude.ByteString),
+          Data.=: ("StartDBCluster" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBClusterIdentifier" Core.=: dbClusterIdentifier
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBClusterIdentifier" Data.=: dbClusterIdentifier
       ]
 
 -- | /See:/ 'newStartDBClusterResponse' smart constructor.

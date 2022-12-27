@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.ListFunctions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets a list of all CloudFront functions in your account.
+-- Gets a list of all CloudFront functions in your Amazon Web Services
+-- account.
 --
 -- You can optionally apply a filter to return only the functions that are
 -- in the specified stage, either @DEVELOPMENT@ or @LIVE@.
@@ -37,9 +38,9 @@ module Amazonka.CloudFront.ListFunctions
     newListFunctions,
 
     -- * Request Lenses
-    listFunctions_stage,
     listFunctions_marker,
     listFunctions_maxItems,
+    listFunctions_stage,
 
     -- * Destructuring the Response
     ListFunctionsResponse (..),
@@ -53,24 +54,25 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListFunctions' smart constructor.
 data ListFunctions = ListFunctions'
-  { -- | An optional filter to return only the functions that are in the
-    -- specified stage, either @DEVELOPMENT@ or @LIVE@.
-    stage :: Prelude.Maybe FunctionStage,
-    -- | Use this field when paginating results to indicate where to begin in
+  { -- | Use this field when paginating results to indicate where to begin in
     -- your list of functions. The response includes functions in the list that
     -- occur after the marker. To get the next page of the list, set this
     -- field’s value to the value of @NextMarker@ from the current page’s
     -- response.
     marker :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of functions that you want in the response.
-    maxItems :: Prelude.Maybe Prelude.Text
+    maxItems :: Prelude.Maybe Prelude.Text,
+    -- | An optional filter to return only the functions that are in the
+    -- specified stage, either @DEVELOPMENT@ or @LIVE@.
+    stage :: Prelude.Maybe FunctionStage
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -82,9 +84,6 @@ data ListFunctions = ListFunctions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'stage', 'listFunctions_stage' - An optional filter to return only the functions that are in the
--- specified stage, either @DEVELOPMENT@ or @LIVE@.
---
 -- 'marker', 'listFunctions_marker' - Use this field when paginating results to indicate where to begin in
 -- your list of functions. The response includes functions in the list that
 -- occur after the marker. To get the next page of the list, set this
@@ -92,19 +91,17 @@ data ListFunctions = ListFunctions'
 -- response.
 --
 -- 'maxItems', 'listFunctions_maxItems' - The maximum number of functions that you want in the response.
+--
+-- 'stage', 'listFunctions_stage' - An optional filter to return only the functions that are in the
+-- specified stage, either @DEVELOPMENT@ or @LIVE@.
 newListFunctions ::
   ListFunctions
 newListFunctions =
   ListFunctions'
-    { stage = Prelude.Nothing,
-      marker = Prelude.Nothing,
-      maxItems = Prelude.Nothing
+    { marker = Prelude.Nothing,
+      maxItems = Prelude.Nothing,
+      stage = Prelude.Nothing
     }
-
--- | An optional filter to return only the functions that are in the
--- specified stage, either @DEVELOPMENT@ or @LIVE@.
-listFunctions_stage :: Lens.Lens' ListFunctions (Prelude.Maybe FunctionStage)
-listFunctions_stage = Lens.lens (\ListFunctions' {stage} -> stage) (\s@ListFunctions' {} a -> s {stage = a} :: ListFunctions)
 
 -- | Use this field when paginating results to indicate where to begin in
 -- your list of functions. The response includes functions in the list that
@@ -118,43 +115,49 @@ listFunctions_marker = Lens.lens (\ListFunctions' {marker} -> marker) (\s@ListFu
 listFunctions_maxItems :: Lens.Lens' ListFunctions (Prelude.Maybe Prelude.Text)
 listFunctions_maxItems = Lens.lens (\ListFunctions' {maxItems} -> maxItems) (\s@ListFunctions' {} a -> s {maxItems = a} :: ListFunctions)
 
+-- | An optional filter to return only the functions that are in the
+-- specified stage, either @DEVELOPMENT@ or @LIVE@.
+listFunctions_stage :: Lens.Lens' ListFunctions (Prelude.Maybe FunctionStage)
+listFunctions_stage = Lens.lens (\ListFunctions' {stage} -> stage) (\s@ListFunctions' {} a -> s {stage = a} :: ListFunctions)
+
 instance Core.AWSRequest ListFunctions where
   type
     AWSResponse ListFunctions =
       ListFunctionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ListFunctionsResponse'
-            Prelude.<$> (Core.parseXML x)
+            Prelude.<$> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListFunctions where
   hashWithSalt _salt ListFunctions' {..} =
-    _salt `Prelude.hashWithSalt` stage
-      `Prelude.hashWithSalt` marker
+    _salt `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxItems
+      `Prelude.hashWithSalt` stage
 
 instance Prelude.NFData ListFunctions where
   rnf ListFunctions' {..} =
-    Prelude.rnf stage
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxItems
+      `Prelude.seq` Prelude.rnf stage
 
-instance Core.ToHeaders ListFunctions where
+instance Data.ToHeaders ListFunctions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListFunctions where
+instance Data.ToPath ListFunctions where
   toPath = Prelude.const "/2020-05-31/function"
 
-instance Core.ToQuery ListFunctions where
+instance Data.ToQuery ListFunctions where
   toQuery ListFunctions' {..} =
     Prelude.mconcat
-      [ "Stage" Core.=: stage,
-        "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems
+      [ "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems,
+        "Stage" Data.=: stage
       ]
 
 -- | /See:/ 'newListFunctionsResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.AacCodingMode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,16 +30,21 @@ module Amazonka.MediaConvert.Types.AacCodingMode
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Mono (Audio Description), Mono, Stereo, or 5.1 channel layout. Valid
--- values depend on rate control mode and profile. \"1.0 - Audio
--- Description (Receiver Mix)\" setting receives a stereo description plus
--- control track and emits a mono AAC encode of the description track, with
--- control data emitted in the PES header as per ETSI TS 101 154 Annex E.
+-- | The Coding mode that you specify determines the number of audio channels
+-- and the audio channel layout metadata in your AAC output. Valid coding
+-- modes depend on the Rate control mode and Profile that you select. The
+-- following list shows the number of audio channels and channel layout for
+-- each coding mode. * 1.0 Audio Description (Receiver Mix): One channel,
+-- C. Includes audio description data from your stereo input. For more
+-- information see ETSI TS 101 154 Annex E. * 1.0 Mono: One channel, C. *
+-- 2.0 Stereo: Two channels, L, R. * 5.1 Surround: Five channels, C, L, R,
+-- Ls, Rs, LFE.
 newtype AacCodingMode = AacCodingMode'
   { fromAacCodingMode ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -51,18 +56,18 @@ newtype AacCodingMode = AacCodingMode'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern AacCodingMode_AD_RECEIVER_MIX :: AacCodingMode

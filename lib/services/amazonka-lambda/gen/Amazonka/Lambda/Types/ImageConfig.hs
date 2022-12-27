@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.Types.ImageConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,13 @@
 module Amazonka.Lambda.Types.ImageConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Configuration values that override the container image Dockerfile
--- settings. See
--- <https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-parms Container settings>.
+-- settings. For more information, see
+-- <https://docs.aws.amazon.com/lambda/latest/dg/images-create.html#images-parms Container image settings>.
 --
 -- /See:/ 'newImageConfig' smart constructor.
 data ImageConfig = ImageConfig'
@@ -75,15 +76,15 @@ imageConfig_entryPoint = Lens.lens (\ImageConfig' {entryPoint} -> entryPoint) (\
 imageConfig_workingDirectory :: Lens.Lens' ImageConfig (Prelude.Maybe Prelude.Text)
 imageConfig_workingDirectory = Lens.lens (\ImageConfig' {workingDirectory} -> workingDirectory) (\s@ImageConfig' {} a -> s {workingDirectory = a} :: ImageConfig)
 
-instance Core.FromJSON ImageConfig where
+instance Data.FromJSON ImageConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ImageConfig"
       ( \x ->
           ImageConfig'
-            Prelude.<$> (x Core..:? "Command" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "EntryPoint" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "WorkingDirectory")
+            Prelude.<$> (x Data..:? "Command" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "EntryPoint" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "WorkingDirectory")
       )
 
 instance Prelude.Hashable ImageConfig where
@@ -98,13 +99,13 @@ instance Prelude.NFData ImageConfig where
       `Prelude.seq` Prelude.rnf entryPoint
       `Prelude.seq` Prelude.rnf workingDirectory
 
-instance Core.ToJSON ImageConfig where
+instance Data.ToJSON ImageConfig where
   toJSON ImageConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Command" Core..=) Prelude.<$> command,
-            ("EntryPoint" Core..=) Prelude.<$> entryPoint,
-            ("WorkingDirectory" Core..=)
+          [ ("Command" Data..=) Prelude.<$> command,
+            ("EntryPoint" Data..=) Prelude.<$> entryPoint,
+            ("WorkingDirectory" Data..=)
               Prelude.<$> workingDirectory
           ]
       )

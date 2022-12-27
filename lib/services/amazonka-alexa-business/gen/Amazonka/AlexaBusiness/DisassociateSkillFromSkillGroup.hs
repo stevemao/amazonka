@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.DisassociateSkillFromSkillGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,7 +93,8 @@ instance
   type
     AWSResponse DisassociateSkillFromSkillGroup =
       DisassociateSkillFromSkillGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -119,36 +121,36 @@ instance
       `Prelude.seq` Prelude.rnf skillId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DisassociateSkillFromSkillGroup
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.DisassociateSkillFromSkillGroup" ::
+              Data.=# ( "AlexaForBusiness.DisassociateSkillFromSkillGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateSkillFromSkillGroup where
+instance Data.ToJSON DisassociateSkillFromSkillGroup where
   toJSON DisassociateSkillFromSkillGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SkillGroupArn" Core..=) Prelude.<$> skillGroupArn,
-            Prelude.Just ("SkillId" Core..= skillId)
+          [ ("SkillGroupArn" Data..=) Prelude.<$> skillGroupArn,
+            Prelude.Just ("SkillId" Data..= skillId)
           ]
       )
 
-instance Core.ToPath DisassociateSkillFromSkillGroup where
+instance Data.ToPath DisassociateSkillFromSkillGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateSkillFromSkillGroup where
+instance Data.ToQuery DisassociateSkillFromSkillGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateSkillFromSkillGroupResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.DeleteCollection
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,7 @@
 --
 -- Deletes the specified collection. Note that this operation removes all
 -- faces in the collection. For an example, see
--- delete-collection-procedure.
+-- <https://docs.aws.amazon.com/rekognition/latest/dg/delete-collection-procedure.html Deleting a collection>.
 --
 -- This operation requires permissions to perform the
 -- @rekognition:DeleteCollection@ action.
@@ -45,7 +45,8 @@ module Amazonka.Rekognition.DeleteCollection
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types
 import qualified Amazonka.Request as Request
@@ -82,12 +83,13 @@ instance Core.AWSRequest DeleteCollection where
   type
     AWSResponse DeleteCollection =
       DeleteCollectionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteCollectionResponse'
-            Prelude.<$> (x Core..?> "StatusCode")
+            Prelude.<$> (x Data..?> "StatusCode")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,32 +100,32 @@ instance Prelude.Hashable DeleteCollection where
 instance Prelude.NFData DeleteCollection where
   rnf DeleteCollection' {..} = Prelude.rnf collectionId
 
-instance Core.ToHeaders DeleteCollection where
+instance Data.ToHeaders DeleteCollection where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "RekognitionService.DeleteCollection" ::
+              Data.=# ( "RekognitionService.DeleteCollection" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteCollection where
+instance Data.ToJSON DeleteCollection where
   toJSON DeleteCollection' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("CollectionId" Core..= collectionId)]
+          [Prelude.Just ("CollectionId" Data..= collectionId)]
       )
 
-instance Core.ToPath DeleteCollection where
+instance Data.ToPath DeleteCollection where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCollection where
+instance Data.ToQuery DeleteCollection where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteCollectionResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEc2SecurityGroupIpv6Range
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEc2SecurityGroupIpv6Range where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A range of IPv6 addresses.
@@ -59,13 +60,13 @@ newAwsEc2SecurityGroupIpv6Range =
 awsEc2SecurityGroupIpv6Range_cidrIpv6 :: Lens.Lens' AwsEc2SecurityGroupIpv6Range (Prelude.Maybe Prelude.Text)
 awsEc2SecurityGroupIpv6Range_cidrIpv6 = Lens.lens (\AwsEc2SecurityGroupIpv6Range' {cidrIpv6} -> cidrIpv6) (\s@AwsEc2SecurityGroupIpv6Range' {} a -> s {cidrIpv6 = a} :: AwsEc2SecurityGroupIpv6Range)
 
-instance Core.FromJSON AwsEc2SecurityGroupIpv6Range where
+instance Data.FromJSON AwsEc2SecurityGroupIpv6Range where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEc2SecurityGroupIpv6Range"
       ( \x ->
           AwsEc2SecurityGroupIpv6Range'
-            Prelude.<$> (x Core..:? "CidrIpv6")
+            Prelude.<$> (x Data..:? "CidrIpv6")
       )
 
 instance
@@ -79,9 +80,9 @@ instance Prelude.NFData AwsEc2SecurityGroupIpv6Range where
   rnf AwsEc2SecurityGroupIpv6Range' {..} =
     Prelude.rnf cidrIpv6
 
-instance Core.ToJSON AwsEc2SecurityGroupIpv6Range where
+instance Data.ToJSON AwsEc2SecurityGroupIpv6Range where
   toJSON AwsEc2SecurityGroupIpv6Range' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("CidrIpv6" Core..=) Prelude.<$> cidrIpv6]
+          [("CidrIpv6" Data..=) Prelude.<$> cidrIpv6]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SES.Types.IdentityMailFromDomainAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SES.Types.IdentityMailFromDomainAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SES.Types.BehaviorOnMXFailure
 import Amazonka.SES.Types.CustomMailFromStatus
@@ -125,14 +126,14 @@ identityMailFromDomainAttributes_behaviorOnMXFailure :: Lens.Lens' IdentityMailF
 identityMailFromDomainAttributes_behaviorOnMXFailure = Lens.lens (\IdentityMailFromDomainAttributes' {behaviorOnMXFailure} -> behaviorOnMXFailure) (\s@IdentityMailFromDomainAttributes' {} a -> s {behaviorOnMXFailure = a} :: IdentityMailFromDomainAttributes)
 
 instance
-  Core.FromXML
+  Data.FromXML
     IdentityMailFromDomainAttributes
   where
   parseXML x =
     IdentityMailFromDomainAttributes'
-      Prelude.<$> (x Core..@ "MailFromDomain")
-      Prelude.<*> (x Core..@ "MailFromDomainStatus")
-      Prelude.<*> (x Core..@ "BehaviorOnMXFailure")
+      Prelude.<$> (x Data..@ "MailFromDomain")
+      Prelude.<*> (x Data..@ "MailFromDomainStatus")
+      Prelude.<*> (x Data..@ "BehaviorOnMXFailure")
 
 instance
   Prelude.Hashable

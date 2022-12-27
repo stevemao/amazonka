@@ -14,15 +14,13 @@
 
 -- |
 -- Module      : Amazonka.RDS.CopyDBClusterParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Copies the specified DB cluster parameter group.
---
--- This action only applies to Aurora DB clusters.
 module Amazonka.RDS.CopyDBClusterParameterGroup
   ( -- * Creating a Request
     CopyDBClusterParameterGroup (..),
@@ -45,7 +43,8 @@ module Amazonka.RDS.CopyDBClusterParameterGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -178,13 +177,14 @@ instance Core.AWSRequest CopyDBClusterParameterGroup where
   type
     AWSResponse CopyDBClusterParameterGroup =
       CopyDBClusterParameterGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CopyDBClusterParameterGroupResult"
       ( \s h x ->
           CopyDBClusterParameterGroupResponse'
-            Prelude.<$> (x Core..@? "DBClusterParameterGroup")
+            Prelude.<$> (x Data..@? "DBClusterParameterGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -202,30 +202,30 @@ instance Prelude.NFData CopyDBClusterParameterGroup where
       `Prelude.seq` Prelude.rnf targetDBClusterParameterGroupIdentifier
       `Prelude.seq` Prelude.rnf targetDBClusterParameterGroupDescription
 
-instance Core.ToHeaders CopyDBClusterParameterGroup where
+instance Data.ToHeaders CopyDBClusterParameterGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CopyDBClusterParameterGroup where
+instance Data.ToPath CopyDBClusterParameterGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CopyDBClusterParameterGroup where
+instance Data.ToQuery CopyDBClusterParameterGroup where
   toQuery CopyDBClusterParameterGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "CopyDBClusterParameterGroup" ::
+          Data.=: ( "CopyDBClusterParameterGroup" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
         "SourceDBClusterParameterGroupIdentifier"
-          Core.=: sourceDBClusterParameterGroupIdentifier,
+          Data.=: sourceDBClusterParameterGroupIdentifier,
         "TargetDBClusterParameterGroupIdentifier"
-          Core.=: targetDBClusterParameterGroupIdentifier,
+          Data.=: targetDBClusterParameterGroupIdentifier,
         "TargetDBClusterParameterGroupDescription"
-          Core.=: targetDBClusterParameterGroupDescription
+          Data.=: targetDBClusterParameterGroupDescription
       ]
 
 -- | /See:/ 'newCopyDBClusterParameterGroupResponse' smart constructor.

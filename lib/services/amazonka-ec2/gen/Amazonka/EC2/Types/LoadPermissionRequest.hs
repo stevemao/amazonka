@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LoadPermissionRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.LoadPermissionRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.PermissionGroup
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a load permission.
@@ -72,7 +73,7 @@ instance Prelude.NFData LoadPermissionRequest where
   rnf LoadPermissionRequest' {..} =
     Prelude.rnf group' `Prelude.seq` Prelude.rnf userId
 
-instance Core.ToQuery LoadPermissionRequest where
+instance Data.ToQuery LoadPermissionRequest where
   toQuery LoadPermissionRequest' {..} =
     Prelude.mconcat
-      ["Group" Core.=: group', "UserId" Core.=: userId]
+      ["Group" Data.=: group', "UserId" Data.=: userId]

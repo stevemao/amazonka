@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.ClassificationExportConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.MacieV2.Types.ClassificationExportConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.S3Destination
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies where to store data classification results, and the encryption
--- settings to use when storing results in that location. Currently, you
--- can store classification results only in an S3 bucket.
+-- settings to use when storing results in that location. The location must
+-- be an S3 bucket.
 --
 -- /See:/ 'newClassificationExportConfiguration' smart constructor.
 data ClassificationExportConfiguration = ClassificationExportConfiguration'
@@ -60,15 +61,15 @@ classificationExportConfiguration_s3Destination :: Lens.Lens' ClassificationExpo
 classificationExportConfiguration_s3Destination = Lens.lens (\ClassificationExportConfiguration' {s3Destination} -> s3Destination) (\s@ClassificationExportConfiguration' {} a -> s {s3Destination = a} :: ClassificationExportConfiguration)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ClassificationExportConfiguration
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ClassificationExportConfiguration"
       ( \x ->
           ClassificationExportConfiguration'
-            Prelude.<$> (x Core..:? "s3Destination")
+            Prelude.<$> (x Data..:? "s3Destination")
       )
 
 instance
@@ -88,13 +89,13 @@ instance
     Prelude.rnf s3Destination
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ClassificationExportConfiguration
   where
   toJSON ClassificationExportConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("s3Destination" Core..=)
+          [ ("s3Destination" Data..=)
               Prelude.<$> s3Destination
           ]
       )

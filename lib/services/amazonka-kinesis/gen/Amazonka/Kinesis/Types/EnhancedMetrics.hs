@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.Types.EnhancedMetrics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Kinesis.Types.EnhancedMetrics where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types.MetricsName
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents enhanced metrics types.
@@ -123,14 +124,14 @@ newEnhancedMetrics =
 enhancedMetrics_shardLevelMetrics :: Lens.Lens' EnhancedMetrics (Prelude.Maybe [MetricsName])
 enhancedMetrics_shardLevelMetrics = Lens.lens (\EnhancedMetrics' {shardLevelMetrics} -> shardLevelMetrics) (\s@EnhancedMetrics' {} a -> s {shardLevelMetrics = a} :: EnhancedMetrics) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON EnhancedMetrics where
+instance Data.FromJSON EnhancedMetrics where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EnhancedMetrics"
       ( \x ->
           EnhancedMetrics'
-            Prelude.<$> ( x Core..:? "ShardLevelMetrics"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "ShardLevelMetrics"
+                            Data..!= Prelude.mempty
                         )
       )
 

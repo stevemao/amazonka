@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.PurchaseReservedCacheNodesOffering
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,8 +49,9 @@ module Amazonka.ElastiCache.PurchaseReservedCacheNodesOffering
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -157,13 +158,14 @@ instance
   type
     AWSResponse PurchaseReservedCacheNodesOffering =
       PurchaseReservedCacheNodesOfferingResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "PurchaseReservedCacheNodesOfferingResult"
       ( \s h x ->
           PurchaseReservedCacheNodesOfferingResponse'
-            Prelude.<$> (x Core..@? "ReservedCacheNode")
+            Prelude.<$> (x Data..@? "ReservedCacheNode")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -190,36 +192,36 @@ instance
       `Prelude.seq` Prelude.rnf reservedCacheNodesOfferingId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PurchaseReservedCacheNodesOffering
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     PurchaseReservedCacheNodesOffering
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     PurchaseReservedCacheNodesOffering
   where
   toQuery PurchaseReservedCacheNodesOffering' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "PurchaseReservedCacheNodesOffering" ::
+          Data.=: ( "PurchaseReservedCacheNodesOffering" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "CacheNodeCount" Core.=: cacheNodeCount,
-        "ReservedCacheNodeId" Core.=: reservedCacheNodeId,
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "CacheNodeCount" Data.=: cacheNodeCount,
+        "ReservedCacheNodeId" Data.=: reservedCacheNodeId,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
         "ReservedCacheNodesOfferingId"
-          Core.=: reservedCacheNodesOfferingId
+          Data.=: reservedCacheNodesOfferingId
       ]
 
 -- | /See:/ 'newPurchaseReservedCacheNodesOfferingResponse' smart constructor.

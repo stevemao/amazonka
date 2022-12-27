@@ -14,15 +14,14 @@
 
 -- |
 -- Module      : Amazonka.AWSHealth.DescribeEntityAggregates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Returns the number of entities that are affected by each of the
--- specified events. If no events are specified, the counts of all affected
--- entities are returned.
+-- specified events.
 module Amazonka.AWSHealth.DescribeEntityAggregates
   ( -- * Creating a Request
     DescribeEntityAggregates (..),
@@ -43,7 +42,8 @@ where
 
 import Amazonka.AWSHealth.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,12 +83,13 @@ instance Core.AWSRequest DescribeEntityAggregates where
   type
     AWSResponse DescribeEntityAggregates =
       DescribeEntityAggregatesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEntityAggregatesResponse'
-            Prelude.<$> ( x Core..?> "entityAggregates"
+            Prelude.<$> ( x Data..?> "entityAggregates"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -102,32 +103,32 @@ instance Prelude.NFData DescribeEntityAggregates where
   rnf DescribeEntityAggregates' {..} =
     Prelude.rnf eventArns
 
-instance Core.ToHeaders DescribeEntityAggregates where
+instance Data.ToHeaders DescribeEntityAggregates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHealth_20160804.DescribeEntityAggregates" ::
+              Data.=# ( "AWSHealth_20160804.DescribeEntityAggregates" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEntityAggregates where
+instance Data.ToJSON DescribeEntityAggregates where
   toJSON DescribeEntityAggregates' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("eventArns" Core..=) Prelude.<$> eventArns]
+          [("eventArns" Data..=) Prelude.<$> eventArns]
       )
 
-instance Core.ToPath DescribeEntityAggregates where
+instance Data.ToPath DescribeEntityAggregates where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEntityAggregates where
+instance Data.ToQuery DescribeEntityAggregates where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeEntityAggregatesResponse' smart constructor.

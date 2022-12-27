@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.ResourceGroupsTagging.GetResources
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Returns all the tagged or previously tagged resources that are located
--- in the specified Region for the AWS account.
+-- in the specified Amazon Web Services Region for the account.
 --
 -- Depending on what information you want returned, you can also specify
 -- the following:
@@ -33,7 +33,7 @@
 -- -   Information about compliance with the account\'s effective tag
 --     policy. For more information on tag policies, see
 --     <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_policies_tag-policies.html Tag Policies>
---     in the /AWS Organizations User Guide./
+--     in the /Organizations User Guide./
 --
 -- This operation supports pagination, where the response can be sent in
 -- multiple pages. You should check the @PaginationToken@ response
@@ -50,13 +50,13 @@ module Amazonka.ResourceGroupsTagging.GetResources
     newGetResources,
 
     -- * Request Lenses
-    getResources_paginationToken,
-    getResources_resourcesPerPage,
     getResources_excludeCompliantResources,
     getResources_includeComplianceDetails,
-    getResources_resourceTypeFilters,
-    getResources_tagFilters,
+    getResources_paginationToken,
     getResources_resourceARNList,
+    getResources_resourceTypeFilters,
+    getResources_resourcesPerPage,
+    getResources_tagFilters,
     getResources_tagsPerPage,
 
     -- * Destructuring the Response
@@ -71,7 +71,8 @@ module Amazonka.ResourceGroupsTagging.GetResources
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import Amazonka.ResourceGroupsTagging.Types
@@ -79,17 +80,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetResources' smart constructor.
 data GetResources = GetResources'
-  { -- | Specifies a @PaginationToken@ response value from a previous request to
-    -- indicate that you want the next page of results. Leave this parameter
-    -- empty in your initial request.
-    paginationToken :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the maximum number of results to be returned in each page. A
-    -- query can return fewer than this maximum, even if there are more results
-    -- still to return. You should always check the @PaginationToken@ response
-    -- value to see if there are more results. You can specify a minimum of 1
-    -- and a maximum value of 100.
-    resourcesPerPage :: Prelude.Maybe Prelude.Int,
-    -- | Specifies whether to exclude resources that are compliant with the tag
+  { -- | Specifies whether to exclude resources that are compliant with the tag
     -- policy. Set this to @true@ if you are interested in retrieving
     -- information on noncompliant resources only.
     --
@@ -100,6 +91,24 @@ data GetResources = GetResources'
     -- effective tag policy. Set this to @true@ to determine whether resources
     -- are compliant with the tag policy and to get details.
     includeComplianceDetails :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies a @PaginationToken@ response value from a previous request to
+    -- indicate that you want the next page of results. Leave this parameter
+    -- empty in your initial request.
+    paginationToken :: Prelude.Maybe Prelude.Text,
+    -- | Specifies a list of ARNs of resources for which you want to retrieve tag
+    -- data. You can\'t specify both this parameter and any of the pagination
+    -- parameters (@ResourcesPerPage@, @TagsPerPage@, @PaginationToken@) in the
+    -- same request. If you specify both, you get an @Invalid Parameter@
+    -- exception.
+    --
+    -- If a resource specified by this parameter doesn\'t exist, it doesn\'t
+    -- generate an error; it simply isn\'t included in the response.
+    --
+    -- An ARN (Amazon Resource Name) uniquely identifies a resource. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
+    -- in the /Amazon Web Services General Reference/.
+    resourceARNList :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
     -- | Specifies the resource types that you want included in the response. The
     -- format of each resource type is @service[:resourceType]@. For example,
     -- specifying a resource type of @ec2@ returns all Amazon EC2 resources
@@ -107,21 +116,29 @@ data GetResources = GetResources'
     -- @ec2:instance@ returns only EC2 instances.
     --
     -- The string for each service name and resource type is the same as that
-    -- embedded in a resource\'s Amazon Resource Name (ARN). Consult the /AWS
-    -- General Reference/ for the following:
-    --
-    -- For more information about ARNs, see
-    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+    -- embedded in a resource\'s Amazon Resource Name (ARN). For the list of
+    -- services whose resources you can use in this parameter, see
+    -- <https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/supported-services.html Services that support the Resource Groups Tagging API>.
     --
     -- You can specify multiple resource types by using an array. The array can
     -- include up to 100 items. Note that the length constraint requirement
-    -- applies to each resource type filter.
+    -- applies to each resource type filter. For example, the following string
+    -- would limit the response to only Amazon EC2 instances, Amazon S3
+    -- buckets, or any Audit Manager resource:
+    --
+    -- @ec2:instance,s3:bucket,auditmanager@
     resourceTypeFilters :: Prelude.Maybe [Prelude.Text],
+    -- | Specifies the maximum number of results to be returned in each page. A
+    -- query can return fewer than this maximum, even if there are more results
+    -- still to return. You should always check the @PaginationToken@ response
+    -- value to see if there are more results. You can specify a minimum of 1
+    -- and a maximum value of 100.
+    resourcesPerPage :: Prelude.Maybe Prelude.Int,
     -- | Specifies a list of TagFilters (keys and values) to restrict the output
-    -- to only those resources that have the specified tag and, if included,
-    -- the specified value. Each @TagFilter@ must contain a key with values
-    -- optional. A request can include up to 50 keys, and each key can include
-    -- up to 20 values.
+    -- to only those resources that have tags with the specified keys and, if
+    -- included, the specified values. Each @TagFilter@ must contain a key with
+    -- values optional. A request can include up to 50 keys, and each key can
+    -- include up to 20 values.
     --
     -- Note the following when deciding how to use TagFilters:
     --
@@ -134,11 +151,11 @@ data GetResources = GetResources'
     --     response returns only those resources that satisfy all filters.
     --
     -- -   If you specify a filter that contains more than one value for a key,
-    --     the response returns resources that match any of the specified
+    --     the response returns resources that match /any/ of the specified
     --     values for that key.
     --
-    -- -   If you don\'t specify any values for a key, the response returns
-    --     resources that are tagged with that key and any or no value.
+    -- -   If you don\'t specify a value for a key, the response returns all
+    --     resources that are tagged with that key, with any or no value.
     --
     --     For example, for the following filters: @filter1= {keyA,{value1}}@,
     --     @filter2={keyB,{value2,value3,value4}}@, @filter3= {keyC}@:
@@ -156,21 +173,8 @@ data GetResources = GetResources'
     --         tagged with
     --         @(key1=value1) and (key2=value2 or key2=value3 or key2=value4) and (key3, any or no value)@
     tagFilters :: Prelude.Maybe [TagFilter],
-    -- | Specifies a list of ARNs of resources for which you want to retrieve tag
-    -- data. You can\'t specify both this parameter and any of the pagination
-    -- parameters (@ResourcesPerPage@, @TagsPerPage@, @PaginationToken@) in the
-    -- same request. If you specify both, you get an @Invalid Parameter@
-    -- exception.
-    --
-    -- If a resource specified by this parameter doesn\'t exist, it doesn\'t
-    -- generate an error; it simply isn\'t included in the response.
-    --
-    -- An ARN (Amazon Resource Name) uniquely identifies a resource. For more
-    -- information, see
-    -- <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
-    -- in the /AWS General Reference/.
-    resourceARNList :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | AWS recommends using @ResourcesPerPage@ instead of this parameter.
+    -- | Amazon Web Services recommends using @ResourcesPerPage@ instead of this
+    -- parameter.
     --
     -- A limit that restricts the number of tags (key and value pairs) returned
     -- by @GetResources@ in paginated output. A resource with no tags is
@@ -201,16 +205,6 @@ data GetResources = GetResources'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'paginationToken', 'getResources_paginationToken' - Specifies a @PaginationToken@ response value from a previous request to
--- indicate that you want the next page of results. Leave this parameter
--- empty in your initial request.
---
--- 'resourcesPerPage', 'getResources_resourcesPerPage' - Specifies the maximum number of results to be returned in each page. A
--- query can return fewer than this maximum, even if there are more results
--- still to return. You should always check the @PaginationToken@ response
--- value to see if there are more results. You can specify a minimum of 1
--- and a maximum value of 100.
---
 -- 'excludeCompliantResources', 'getResources_excludeCompliantResources' - Specifies whether to exclude resources that are compliant with the tag
 -- policy. Set this to @true@ if you are interested in retrieving
 -- information on noncompliant resources only.
@@ -222,6 +216,24 @@ data GetResources = GetResources'
 -- effective tag policy. Set this to @true@ to determine whether resources
 -- are compliant with the tag policy and to get details.
 --
+-- 'paginationToken', 'getResources_paginationToken' - Specifies a @PaginationToken@ response value from a previous request to
+-- indicate that you want the next page of results. Leave this parameter
+-- empty in your initial request.
+--
+-- 'resourceARNList', 'getResources_resourceARNList' - Specifies a list of ARNs of resources for which you want to retrieve tag
+-- data. You can\'t specify both this parameter and any of the pagination
+-- parameters (@ResourcesPerPage@, @TagsPerPage@, @PaginationToken@) in the
+-- same request. If you specify both, you get an @Invalid Parameter@
+-- exception.
+--
+-- If a resource specified by this parameter doesn\'t exist, it doesn\'t
+-- generate an error; it simply isn\'t included in the response.
+--
+-- An ARN (Amazon Resource Name) uniquely identifies a resource. For more
+-- information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
+-- in the /Amazon Web Services General Reference/.
+--
 -- 'resourceTypeFilters', 'getResources_resourceTypeFilters' - Specifies the resource types that you want included in the response. The
 -- format of each resource type is @service[:resourceType]@. For example,
 -- specifying a resource type of @ec2@ returns all Amazon EC2 resources
@@ -229,21 +241,29 @@ data GetResources = GetResources'
 -- @ec2:instance@ returns only EC2 instances.
 --
 -- The string for each service name and resource type is the same as that
--- embedded in a resource\'s Amazon Resource Name (ARN). Consult the /AWS
--- General Reference/ for the following:
---
--- For more information about ARNs, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+-- embedded in a resource\'s Amazon Resource Name (ARN). For the list of
+-- services whose resources you can use in this parameter, see
+-- <https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/supported-services.html Services that support the Resource Groups Tagging API>.
 --
 -- You can specify multiple resource types by using an array. The array can
 -- include up to 100 items. Note that the length constraint requirement
--- applies to each resource type filter.
+-- applies to each resource type filter. For example, the following string
+-- would limit the response to only Amazon EC2 instances, Amazon S3
+-- buckets, or any Audit Manager resource:
+--
+-- @ec2:instance,s3:bucket,auditmanager@
+--
+-- 'resourcesPerPage', 'getResources_resourcesPerPage' - Specifies the maximum number of results to be returned in each page. A
+-- query can return fewer than this maximum, even if there are more results
+-- still to return. You should always check the @PaginationToken@ response
+-- value to see if there are more results. You can specify a minimum of 1
+-- and a maximum value of 100.
 --
 -- 'tagFilters', 'getResources_tagFilters' - Specifies a list of TagFilters (keys and values) to restrict the output
--- to only those resources that have the specified tag and, if included,
--- the specified value. Each @TagFilter@ must contain a key with values
--- optional. A request can include up to 50 keys, and each key can include
--- up to 20 values.
+-- to only those resources that have tags with the specified keys and, if
+-- included, the specified values. Each @TagFilter@ must contain a key with
+-- values optional. A request can include up to 50 keys, and each key can
+-- include up to 20 values.
 --
 -- Note the following when deciding how to use TagFilters:
 --
@@ -256,11 +276,11 @@ data GetResources = GetResources'
 --     response returns only those resources that satisfy all filters.
 --
 -- -   If you specify a filter that contains more than one value for a key,
---     the response returns resources that match any of the specified
+--     the response returns resources that match /any/ of the specified
 --     values for that key.
 --
--- -   If you don\'t specify any values for a key, the response returns
---     resources that are tagged with that key and any or no value.
+-- -   If you don\'t specify a value for a key, the response returns all
+--     resources that are tagged with that key, with any or no value.
 --
 --     For example, for the following filters: @filter1= {keyA,{value1}}@,
 --     @filter2={keyB,{value2,value3,value4}}@, @filter3= {keyC}@:
@@ -278,21 +298,8 @@ data GetResources = GetResources'
 --         tagged with
 --         @(key1=value1) and (key2=value2 or key2=value3 or key2=value4) and (key3, any or no value)@
 --
--- 'resourceARNList', 'getResources_resourceARNList' - Specifies a list of ARNs of resources for which you want to retrieve tag
--- data. You can\'t specify both this parameter and any of the pagination
--- parameters (@ResourcesPerPage@, @TagsPerPage@, @PaginationToken@) in the
--- same request. If you specify both, you get an @Invalid Parameter@
--- exception.
---
--- If a resource specified by this parameter doesn\'t exist, it doesn\'t
--- generate an error; it simply isn\'t included in the response.
---
--- An ARN (Amazon Resource Name) uniquely identifies a resource. For more
--- information, see
--- <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
--- in the /AWS General Reference/.
---
--- 'tagsPerPage', 'getResources_tagsPerPage' - AWS recommends using @ResourcesPerPage@ instead of this parameter.
+-- 'tagsPerPage', 'getResources_tagsPerPage' - Amazon Web Services recommends using @ResourcesPerPage@ instead of this
+-- parameter.
 --
 -- A limit that restricts the number of tags (key and value pairs) returned
 -- by @GetResources@ in paginated output. A resource with no tags is
@@ -315,29 +322,16 @@ newGetResources ::
   GetResources
 newGetResources =
   GetResources'
-    { paginationToken = Prelude.Nothing,
-      resourcesPerPage = Prelude.Nothing,
-      excludeCompliantResources = Prelude.Nothing,
+    { excludeCompliantResources =
+        Prelude.Nothing,
       includeComplianceDetails = Prelude.Nothing,
-      resourceTypeFilters = Prelude.Nothing,
-      tagFilters = Prelude.Nothing,
+      paginationToken = Prelude.Nothing,
       resourceARNList = Prelude.Nothing,
+      resourceTypeFilters = Prelude.Nothing,
+      resourcesPerPage = Prelude.Nothing,
+      tagFilters = Prelude.Nothing,
       tagsPerPage = Prelude.Nothing
     }
-
--- | Specifies a @PaginationToken@ response value from a previous request to
--- indicate that you want the next page of results. Leave this parameter
--- empty in your initial request.
-getResources_paginationToken :: Lens.Lens' GetResources (Prelude.Maybe Prelude.Text)
-getResources_paginationToken = Lens.lens (\GetResources' {paginationToken} -> paginationToken) (\s@GetResources' {} a -> s {paginationToken = a} :: GetResources)
-
--- | Specifies the maximum number of results to be returned in each page. A
--- query can return fewer than this maximum, even if there are more results
--- still to return. You should always check the @PaginationToken@ response
--- value to see if there are more results. You can specify a minimum of 1
--- and a maximum value of 100.
-getResources_resourcesPerPage :: Lens.Lens' GetResources (Prelude.Maybe Prelude.Int)
-getResources_resourcesPerPage = Lens.lens (\GetResources' {resourcesPerPage} -> resourcesPerPage) (\s@GetResources' {} a -> s {resourcesPerPage = a} :: GetResources)
 
 -- | Specifies whether to exclude resources that are compliant with the tag
 -- policy. Set this to @true@ if you are interested in retrieving
@@ -354,6 +348,28 @@ getResources_excludeCompliantResources = Lens.lens (\GetResources' {excludeCompl
 getResources_includeComplianceDetails :: Lens.Lens' GetResources (Prelude.Maybe Prelude.Bool)
 getResources_includeComplianceDetails = Lens.lens (\GetResources' {includeComplianceDetails} -> includeComplianceDetails) (\s@GetResources' {} a -> s {includeComplianceDetails = a} :: GetResources)
 
+-- | Specifies a @PaginationToken@ response value from a previous request to
+-- indicate that you want the next page of results. Leave this parameter
+-- empty in your initial request.
+getResources_paginationToken :: Lens.Lens' GetResources (Prelude.Maybe Prelude.Text)
+getResources_paginationToken = Lens.lens (\GetResources' {paginationToken} -> paginationToken) (\s@GetResources' {} a -> s {paginationToken = a} :: GetResources)
+
+-- | Specifies a list of ARNs of resources for which you want to retrieve tag
+-- data. You can\'t specify both this parameter and any of the pagination
+-- parameters (@ResourcesPerPage@, @TagsPerPage@, @PaginationToken@) in the
+-- same request. If you specify both, you get an @Invalid Parameter@
+-- exception.
+--
+-- If a resource specified by this parameter doesn\'t exist, it doesn\'t
+-- generate an error; it simply isn\'t included in the response.
+--
+-- An ARN (Amazon Resource Name) uniquely identifies a resource. For more
+-- information, see
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
+-- in the /Amazon Web Services General Reference/.
+getResources_resourceARNList :: Lens.Lens' GetResources (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+getResources_resourceARNList = Lens.lens (\GetResources' {resourceARNList} -> resourceARNList) (\s@GetResources' {} a -> s {resourceARNList = a} :: GetResources) Prelude.. Lens.mapping Lens.coerced
+
 -- | Specifies the resource types that you want included in the response. The
 -- format of each resource type is @service[:resourceType]@. For example,
 -- specifying a resource type of @ec2@ returns all Amazon EC2 resources
@@ -361,23 +377,33 @@ getResources_includeComplianceDetails = Lens.lens (\GetResources' {includeCompli
 -- @ec2:instance@ returns only EC2 instances.
 --
 -- The string for each service name and resource type is the same as that
--- embedded in a resource\'s Amazon Resource Name (ARN). Consult the /AWS
--- General Reference/ for the following:
---
--- For more information about ARNs, see
--- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>.
+-- embedded in a resource\'s Amazon Resource Name (ARN). For the list of
+-- services whose resources you can use in this parameter, see
+-- <https://docs.aws.amazon.com/resourcegroupstagging/latest/APIReference/supported-services.html Services that support the Resource Groups Tagging API>.
 --
 -- You can specify multiple resource types by using an array. The array can
 -- include up to 100 items. Note that the length constraint requirement
--- applies to each resource type filter.
+-- applies to each resource type filter. For example, the following string
+-- would limit the response to only Amazon EC2 instances, Amazon S3
+-- buckets, or any Audit Manager resource:
+--
+-- @ec2:instance,s3:bucket,auditmanager@
 getResources_resourceTypeFilters :: Lens.Lens' GetResources (Prelude.Maybe [Prelude.Text])
 getResources_resourceTypeFilters = Lens.lens (\GetResources' {resourceTypeFilters} -> resourceTypeFilters) (\s@GetResources' {} a -> s {resourceTypeFilters = a} :: GetResources) Prelude.. Lens.mapping Lens.coerced
 
+-- | Specifies the maximum number of results to be returned in each page. A
+-- query can return fewer than this maximum, even if there are more results
+-- still to return. You should always check the @PaginationToken@ response
+-- value to see if there are more results. You can specify a minimum of 1
+-- and a maximum value of 100.
+getResources_resourcesPerPage :: Lens.Lens' GetResources (Prelude.Maybe Prelude.Int)
+getResources_resourcesPerPage = Lens.lens (\GetResources' {resourcesPerPage} -> resourcesPerPage) (\s@GetResources' {} a -> s {resourcesPerPage = a} :: GetResources)
+
 -- | Specifies a list of TagFilters (keys and values) to restrict the output
--- to only those resources that have the specified tag and, if included,
--- the specified value. Each @TagFilter@ must contain a key with values
--- optional. A request can include up to 50 keys, and each key can include
--- up to 20 values.
+-- to only those resources that have tags with the specified keys and, if
+-- included, the specified values. Each @TagFilter@ must contain a key with
+-- values optional. A request can include up to 50 keys, and each key can
+-- include up to 20 values.
 --
 -- Note the following when deciding how to use TagFilters:
 --
@@ -390,11 +416,11 @@ getResources_resourceTypeFilters = Lens.lens (\GetResources' {resourceTypeFilter
 --     response returns only those resources that satisfy all filters.
 --
 -- -   If you specify a filter that contains more than one value for a key,
---     the response returns resources that match any of the specified
+--     the response returns resources that match /any/ of the specified
 --     values for that key.
 --
--- -   If you don\'t specify any values for a key, the response returns
---     resources that are tagged with that key and any or no value.
+-- -   If you don\'t specify a value for a key, the response returns all
+--     resources that are tagged with that key, with any or no value.
 --
 --     For example, for the following filters: @filter1= {keyA,{value1}}@,
 --     @filter2={keyB,{value2,value3,value4}}@, @filter3= {keyC}@:
@@ -414,23 +440,8 @@ getResources_resourceTypeFilters = Lens.lens (\GetResources' {resourceTypeFilter
 getResources_tagFilters :: Lens.Lens' GetResources (Prelude.Maybe [TagFilter])
 getResources_tagFilters = Lens.lens (\GetResources' {tagFilters} -> tagFilters) (\s@GetResources' {} a -> s {tagFilters = a} :: GetResources) Prelude.. Lens.mapping Lens.coerced
 
--- | Specifies a list of ARNs of resources for which you want to retrieve tag
--- data. You can\'t specify both this parameter and any of the pagination
--- parameters (@ResourcesPerPage@, @TagsPerPage@, @PaginationToken@) in the
--- same request. If you specify both, you get an @Invalid Parameter@
--- exception.
---
--- If a resource specified by this parameter doesn\'t exist, it doesn\'t
--- generate an error; it simply isn\'t included in the response.
---
--- An ARN (Amazon Resource Name) uniquely identifies a resource. For more
--- information, see
--- <http://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
--- in the /AWS General Reference/.
-getResources_resourceARNList :: Lens.Lens' GetResources (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-getResources_resourceARNList = Lens.lens (\GetResources' {resourceARNList} -> resourceARNList) (\s@GetResources' {} a -> s {resourceARNList = a} :: GetResources) Prelude.. Lens.mapping Lens.coerced
-
--- | AWS recommends using @ResourcesPerPage@ instead of this parameter.
+-- | Amazon Web Services recommends using @ResourcesPerPage@ instead of this
+-- parameter.
 --
 -- A limit that restricts the number of tags (key and value pairs) returned
 -- by @GetResources@ in paginated output. A resource with no tags is
@@ -476,13 +487,14 @@ instance Core.AWSPager GetResources where
 
 instance Core.AWSRequest GetResources where
   type AWSResponse GetResources = GetResourcesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetResourcesResponse'
-            Prelude.<$> (x Core..?> "PaginationToken")
-            Prelude.<*> ( x Core..?> "ResourceTagMappingList"
+            Prelude.<$> (x Data..?> "PaginationToken")
+            Prelude.<*> ( x Data..?> "ResourceTagMappingList"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -490,66 +502,67 @@ instance Core.AWSRequest GetResources where
 
 instance Prelude.Hashable GetResources where
   hashWithSalt _salt GetResources' {..} =
-    _salt `Prelude.hashWithSalt` paginationToken
-      `Prelude.hashWithSalt` resourcesPerPage
+    _salt
       `Prelude.hashWithSalt` excludeCompliantResources
       `Prelude.hashWithSalt` includeComplianceDetails
-      `Prelude.hashWithSalt` resourceTypeFilters
-      `Prelude.hashWithSalt` tagFilters
+      `Prelude.hashWithSalt` paginationToken
       `Prelude.hashWithSalt` resourceARNList
+      `Prelude.hashWithSalt` resourceTypeFilters
+      `Prelude.hashWithSalt` resourcesPerPage
+      `Prelude.hashWithSalt` tagFilters
       `Prelude.hashWithSalt` tagsPerPage
 
 instance Prelude.NFData GetResources where
   rnf GetResources' {..} =
-    Prelude.rnf paginationToken
-      `Prelude.seq` Prelude.rnf resourcesPerPage
-      `Prelude.seq` Prelude.rnf excludeCompliantResources
+    Prelude.rnf excludeCompliantResources
       `Prelude.seq` Prelude.rnf includeComplianceDetails
-      `Prelude.seq` Prelude.rnf resourceTypeFilters
-      `Prelude.seq` Prelude.rnf tagFilters
+      `Prelude.seq` Prelude.rnf paginationToken
       `Prelude.seq` Prelude.rnf resourceARNList
+      `Prelude.seq` Prelude.rnf resourceTypeFilters
+      `Prelude.seq` Prelude.rnf resourcesPerPage
+      `Prelude.seq` Prelude.rnf tagFilters
       `Prelude.seq` Prelude.rnf tagsPerPage
 
-instance Core.ToHeaders GetResources where
+instance Data.ToHeaders GetResources where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ResourceGroupsTaggingAPI_20170126.GetResources" ::
+              Data.=# ( "ResourceGroupsTaggingAPI_20170126.GetResources" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetResources where
+instance Data.ToJSON GetResources where
   toJSON GetResources' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PaginationToken" Core..=)
-              Prelude.<$> paginationToken,
-            ("ResourcesPerPage" Core..=)
-              Prelude.<$> resourcesPerPage,
-            ("ExcludeCompliantResources" Core..=)
+          [ ("ExcludeCompliantResources" Data..=)
               Prelude.<$> excludeCompliantResources,
-            ("IncludeComplianceDetails" Core..=)
+            ("IncludeComplianceDetails" Data..=)
               Prelude.<$> includeComplianceDetails,
-            ("ResourceTypeFilters" Core..=)
-              Prelude.<$> resourceTypeFilters,
-            ("TagFilters" Core..=) Prelude.<$> tagFilters,
-            ("ResourceARNList" Core..=)
+            ("PaginationToken" Data..=)
+              Prelude.<$> paginationToken,
+            ("ResourceARNList" Data..=)
               Prelude.<$> resourceARNList,
-            ("TagsPerPage" Core..=) Prelude.<$> tagsPerPage
+            ("ResourceTypeFilters" Data..=)
+              Prelude.<$> resourceTypeFilters,
+            ("ResourcesPerPage" Data..=)
+              Prelude.<$> resourcesPerPage,
+            ("TagFilters" Data..=) Prelude.<$> tagFilters,
+            ("TagsPerPage" Data..=) Prelude.<$> tagsPerPage
           ]
       )
 
-instance Core.ToPath GetResources where
+instance Data.ToPath GetResources where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetResources where
+instance Data.ToQuery GetResources where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetResourcesResponse' smart constructor.
@@ -560,7 +573,7 @@ data GetResourcesResponse = GetResourcesResponse'
     -- the next page.
     paginationToken :: Prelude.Maybe Prelude.Text,
     -- | A list of resource ARNs and the tags (keys and values) associated with
-    -- those ARNs.
+    -- each.
     resourceTagMappingList :: Prelude.Maybe [ResourceTagMapping],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -581,7 +594,7 @@ data GetResourcesResponse = GetResourcesResponse'
 -- the next page.
 --
 -- 'resourceTagMappingList', 'getResourcesResponse_resourceTagMappingList' - A list of resource ARNs and the tags (keys and values) associated with
--- those ARNs.
+-- each.
 --
 -- 'httpStatus', 'getResourcesResponse_httpStatus' - The response's http status code.
 newGetResourcesResponse ::
@@ -604,7 +617,7 @@ getResourcesResponse_paginationToken :: Lens.Lens' GetResourcesResponse (Prelude
 getResourcesResponse_paginationToken = Lens.lens (\GetResourcesResponse' {paginationToken} -> paginationToken) (\s@GetResourcesResponse' {} a -> s {paginationToken = a} :: GetResourcesResponse)
 
 -- | A list of resource ARNs and the tags (keys and values) associated with
--- those ARNs.
+-- each.
 getResourcesResponse_resourceTagMappingList :: Lens.Lens' GetResourcesResponse (Prelude.Maybe [ResourceTagMapping])
 getResourcesResponse_resourceTagMappingList = Lens.lens (\GetResourcesResponse' {resourceTagMappingList} -> resourceTagMappingList) (\s@GetResourcesResponse' {} a -> s {resourceTagMappingList = a} :: GetResourcesResponse) Prelude.. Lens.mapping Lens.coerced
 

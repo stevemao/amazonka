@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DeleteMatchmakingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,14 +23,6 @@
 -- Permanently removes a FlexMatch matchmaking configuration. To delete,
 -- specify the configuration name. A matchmaking configuration cannot be
 -- deleted if it is being used in any active matchmaking tickets.
---
--- __Related actions__
---
--- CreateMatchmakingConfiguration | DescribeMatchmakingConfigurations |
--- UpdateMatchmakingConfiguration | DeleteMatchmakingConfiguration |
--- CreateMatchmakingRuleSet | DescribeMatchmakingRuleSets |
--- ValidateMatchmakingRuleSet | DeleteMatchmakingRuleSet |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.DeleteMatchmakingConfiguration
   ( -- * Creating a Request
     DeleteMatchmakingConfiguration (..),
@@ -49,15 +41,14 @@ module Amazonka.GameLift.DeleteMatchmakingConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDeleteMatchmakingConfiguration' smart constructor.
+-- | /See:/ 'newDeleteMatchmakingConfiguration' smart constructor.
 data DeleteMatchmakingConfiguration = DeleteMatchmakingConfiguration'
   { -- | A unique identifier for the matchmaking configuration. You can use
     -- either the configuration name or ARN value.
@@ -94,7 +85,8 @@ instance
   type
     AWSResponse DeleteMatchmakingConfiguration =
       DeleteMatchmakingConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -119,34 +111,34 @@ instance
     Prelude.rnf name
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteMatchmakingConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DeleteMatchmakingConfiguration" ::
+              Data.=# ( "GameLift.DeleteMatchmakingConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteMatchmakingConfiguration where
+instance Data.ToJSON DeleteMatchmakingConfiguration where
   toJSON DeleteMatchmakingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath DeleteMatchmakingConfiguration where
+instance Data.ToPath DeleteMatchmakingConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteMatchmakingConfiguration where
+instance Data.ToQuery DeleteMatchmakingConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteMatchmakingConfigurationResponse' smart constructor.

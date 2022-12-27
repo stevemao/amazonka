@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.Types.Target
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSMContacts.Types.Target where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSMContacts.Types.ChannelTargetInfo
 import Amazonka.SSMContacts.Types.ContactTargetInfo
@@ -63,14 +64,14 @@ target_channelTargetInfo = Lens.lens (\Target' {channelTargetInfo} -> channelTar
 target_contactTargetInfo :: Lens.Lens' Target (Prelude.Maybe ContactTargetInfo)
 target_contactTargetInfo = Lens.lens (\Target' {contactTargetInfo} -> contactTargetInfo) (\s@Target' {} a -> s {contactTargetInfo = a} :: Target)
 
-instance Core.FromJSON Target where
+instance Data.FromJSON Target where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Target"
       ( \x ->
           Target'
-            Prelude.<$> (x Core..:? "ChannelTargetInfo")
-            Prelude.<*> (x Core..:? "ContactTargetInfo")
+            Prelude.<$> (x Data..:? "ChannelTargetInfo")
+            Prelude.<*> (x Data..:? "ContactTargetInfo")
       )
 
 instance Prelude.Hashable Target where
@@ -83,13 +84,13 @@ instance Prelude.NFData Target where
     Prelude.rnf channelTargetInfo
       `Prelude.seq` Prelude.rnf contactTargetInfo
 
-instance Core.ToJSON Target where
+instance Data.ToJSON Target where
   toJSON Target' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ChannelTargetInfo" Core..=)
+          [ ("ChannelTargetInfo" Data..=)
               Prelude.<$> channelTargetInfo,
-            ("ContactTargetInfo" Core..=)
+            ("ContactTargetInfo" Data..=)
               Prelude.<$> contactTargetInfo
           ]
       )

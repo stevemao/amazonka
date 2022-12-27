@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.ExecuteTransaction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,13 @@
 --
 -- This operation allows you to perform transactional reads or writes on
 -- data stored in DynamoDB, using PartiQL.
+--
+-- The entire transaction must consist of either read statements or write
+-- statements, you cannot mix both in one transaction. The EXISTS function
+-- is an exception and can be used to check the condition of specific
+-- attributes of the item in a similar manner to @ConditionCheck@ in the
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/transaction-apis.html#transaction-apis-txwriteitems TransactWriteItems>
+-- API.
 module Amazonka.DynamoDB.ExecuteTransaction
   ( -- * Creating a Request
     ExecuteTransaction (..),
@@ -29,6 +36,7 @@ module Amazonka.DynamoDB.ExecuteTransaction
 
     -- * Request Lenses
     executeTransaction_clientRequestToken,
+    executeTransaction_returnConsumedCapacity,
     executeTransaction_transactStatements,
 
     -- * Destructuring the Response
@@ -36,14 +44,16 @@ module Amazonka.DynamoDB.ExecuteTransaction
     newExecuteTransactionResponse,
 
     -- * Response Lenses
+    executeTransactionResponse_consumedCapacity,
     executeTransactionResponse_responses,
     executeTransactionResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DynamoDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,6 +63,13 @@ data ExecuteTransaction = ExecuteTransaction'
   { -- | Set this value to get remaining results, if @NextToken@ was returned in
     -- the statement response.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | Determines the level of detail about either provisioned or on-demand
+    -- throughput consumption that is returned in the response. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactGetItems.html TransactGetItems>
+    -- and
+    -- <https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactWriteItems.html TransactWriteItems>.
+    returnConsumedCapacity :: Prelude.Maybe ReturnConsumedCapacity,
     -- | The list of PartiQL statements representing the transaction to run.
     transactStatements :: Prelude.NonEmpty ParameterizedStatement
   }
@@ -69,6 +86,13 @@ data ExecuteTransaction = ExecuteTransaction'
 -- 'clientRequestToken', 'executeTransaction_clientRequestToken' - Set this value to get remaining results, if @NextToken@ was returned in
 -- the statement response.
 --
+-- 'returnConsumedCapacity', 'executeTransaction_returnConsumedCapacity' - Determines the level of detail about either provisioned or on-demand
+-- throughput consumption that is returned in the response. For more
+-- information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactGetItems.html TransactGetItems>
+-- and
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactWriteItems.html TransactWriteItems>.
+--
 -- 'transactStatements', 'executeTransaction_transactStatements' - The list of PartiQL statements representing the transaction to run.
 newExecuteTransaction ::
   -- | 'transactStatements'
@@ -78,6 +102,7 @@ newExecuteTransaction pTransactStatements_ =
   ExecuteTransaction'
     { clientRequestToken =
         Prelude.Nothing,
+      returnConsumedCapacity = Prelude.Nothing,
       transactStatements =
         Lens.coerced Lens.# pTransactStatements_
     }
@@ -87,6 +112,15 @@ newExecuteTransaction pTransactStatements_ =
 executeTransaction_clientRequestToken :: Lens.Lens' ExecuteTransaction (Prelude.Maybe Prelude.Text)
 executeTransaction_clientRequestToken = Lens.lens (\ExecuteTransaction' {clientRequestToken} -> clientRequestToken) (\s@ExecuteTransaction' {} a -> s {clientRequestToken = a} :: ExecuteTransaction)
 
+-- | Determines the level of detail about either provisioned or on-demand
+-- throughput consumption that is returned in the response. For more
+-- information, see
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactGetItems.html TransactGetItems>
+-- and
+-- <https://docs.aws.amazon.com/amazondynamodb/latest/APIReference/API_TransactWriteItems.html TransactWriteItems>.
+executeTransaction_returnConsumedCapacity :: Lens.Lens' ExecuteTransaction (Prelude.Maybe ReturnConsumedCapacity)
+executeTransaction_returnConsumedCapacity = Lens.lens (\ExecuteTransaction' {returnConsumedCapacity} -> returnConsumedCapacity) (\s@ExecuteTransaction' {} a -> s {returnConsumedCapacity = a} :: ExecuteTransaction)
+
 -- | The list of PartiQL statements representing the transaction to run.
 executeTransaction_transactStatements :: Lens.Lens' ExecuteTransaction (Prelude.NonEmpty ParameterizedStatement)
 executeTransaction_transactStatements = Lens.lens (\ExecuteTransaction' {transactStatements} -> transactStatements) (\s@ExecuteTransaction' {} a -> s {transactStatements = a} :: ExecuteTransaction) Prelude.. Lens.coerced
@@ -95,60 +129,71 @@ instance Core.AWSRequest ExecuteTransaction where
   type
     AWSResponse ExecuteTransaction =
       ExecuteTransactionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ExecuteTransactionResponse'
-            Prelude.<$> (x Core..?> "Responses")
+            Prelude.<$> ( x Data..?> "ConsumedCapacity"
+                            Core..!@ Prelude.mempty
+                        )
+            Prelude.<*> (x Data..?> "Responses")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ExecuteTransaction where
   hashWithSalt _salt ExecuteTransaction' {..} =
     _salt `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` returnConsumedCapacity
       `Prelude.hashWithSalt` transactStatements
 
 instance Prelude.NFData ExecuteTransaction where
   rnf ExecuteTransaction' {..} =
     Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf returnConsumedCapacity
       `Prelude.seq` Prelude.rnf transactStatements
 
-instance Core.ToHeaders ExecuteTransaction where
+instance Data.ToHeaders ExecuteTransaction where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DynamoDB_20120810.ExecuteTransaction" ::
+              Data.=# ( "DynamoDB_20120810.ExecuteTransaction" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ExecuteTransaction where
+instance Data.ToJSON ExecuteTransaction where
   toJSON ExecuteTransaction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
+            ("ReturnConsumedCapacity" Data..=)
+              Prelude.<$> returnConsumedCapacity,
             Prelude.Just
-              ("TransactStatements" Core..= transactStatements)
+              ("TransactStatements" Data..= transactStatements)
           ]
       )
 
-instance Core.ToPath ExecuteTransaction where
+instance Data.ToPath ExecuteTransaction where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ExecuteTransaction where
+instance Data.ToQuery ExecuteTransaction where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newExecuteTransactionResponse' smart constructor.
 data ExecuteTransactionResponse = ExecuteTransactionResponse'
-  { -- | The response to a PartiQL transaction.
+  { -- | The capacity units consumed by the entire operation. The values of the
+    -- list are ordered according to the ordering of the statements.
+    consumedCapacity :: Prelude.Maybe [ConsumedCapacity],
+    -- | The response to a PartiQL transaction.
     responses :: Prelude.Maybe (Prelude.NonEmpty ItemResponse),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -163,6 +208,9 @@ data ExecuteTransactionResponse = ExecuteTransactionResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'consumedCapacity', 'executeTransactionResponse_consumedCapacity' - The capacity units consumed by the entire operation. The values of the
+-- list are ordered according to the ordering of the statements.
+--
 -- 'responses', 'executeTransactionResponse_responses' - The response to a PartiQL transaction.
 --
 -- 'httpStatus', 'executeTransactionResponse_httpStatus' - The response's http status code.
@@ -172,10 +220,16 @@ newExecuteTransactionResponse ::
   ExecuteTransactionResponse
 newExecuteTransactionResponse pHttpStatus_ =
   ExecuteTransactionResponse'
-    { responses =
+    { consumedCapacity =
         Prelude.Nothing,
+      responses = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The capacity units consumed by the entire operation. The values of the
+-- list are ordered according to the ordering of the statements.
+executeTransactionResponse_consumedCapacity :: Lens.Lens' ExecuteTransactionResponse (Prelude.Maybe [ConsumedCapacity])
+executeTransactionResponse_consumedCapacity = Lens.lens (\ExecuteTransactionResponse' {consumedCapacity} -> consumedCapacity) (\s@ExecuteTransactionResponse' {} a -> s {consumedCapacity = a} :: ExecuteTransactionResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response to a PartiQL transaction.
 executeTransactionResponse_responses :: Lens.Lens' ExecuteTransactionResponse (Prelude.Maybe (Prelude.NonEmpty ItemResponse))
@@ -187,5 +241,6 @@ executeTransactionResponse_httpStatus = Lens.lens (\ExecuteTransactionResponse' 
 
 instance Prelude.NFData ExecuteTransactionResponse where
   rnf ExecuteTransactionResponse' {..} =
-    Prelude.rnf responses
+    Prelude.rnf consumedCapacity
+      `Prelude.seq` Prelude.rnf responses
       `Prelude.seq` Prelude.rnf httpStatus

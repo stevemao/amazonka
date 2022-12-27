@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.PrometheusInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.Kafka.Types.PrometheusInfo where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kafka.Types.JmxExporterInfo
 import Amazonka.Kafka.Types.NodeExporterInfo
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Prometheus settings.
 --
 -- /See:/ 'newPrometheusInfo' smart constructor.
 data PrometheusInfo = PrometheusInfo'
-  { -- | Indicates whether you want to enable or disable the JMX Exporter.
+  { -- | Indicates whether you want to turn on or turn off the JMX Exporter.
     jmxExporter :: Prelude.Maybe JmxExporterInfo,
-    -- | Indicates whether you want to enable or disable the Node Exporter.
+    -- | Indicates whether you want to turn on or turn off the Node Exporter.
     nodeExporter :: Prelude.Maybe NodeExporterInfo
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,9 +45,9 @@ data PrometheusInfo = PrometheusInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'jmxExporter', 'prometheusInfo_jmxExporter' - Indicates whether you want to enable or disable the JMX Exporter.
+-- 'jmxExporter', 'prometheusInfo_jmxExporter' - Indicates whether you want to turn on or turn off the JMX Exporter.
 --
--- 'nodeExporter', 'prometheusInfo_nodeExporter' - Indicates whether you want to enable or disable the Node Exporter.
+-- 'nodeExporter', 'prometheusInfo_nodeExporter' - Indicates whether you want to turn on or turn off the Node Exporter.
 newPrometheusInfo ::
   PrometheusInfo
 newPrometheusInfo =
@@ -55,13 +56,23 @@ newPrometheusInfo =
       nodeExporter = Prelude.Nothing
     }
 
--- | Indicates whether you want to enable or disable the JMX Exporter.
+-- | Indicates whether you want to turn on or turn off the JMX Exporter.
 prometheusInfo_jmxExporter :: Lens.Lens' PrometheusInfo (Prelude.Maybe JmxExporterInfo)
 prometheusInfo_jmxExporter = Lens.lens (\PrometheusInfo' {jmxExporter} -> jmxExporter) (\s@PrometheusInfo' {} a -> s {jmxExporter = a} :: PrometheusInfo)
 
--- | Indicates whether you want to enable or disable the Node Exporter.
+-- | Indicates whether you want to turn on or turn off the Node Exporter.
 prometheusInfo_nodeExporter :: Lens.Lens' PrometheusInfo (Prelude.Maybe NodeExporterInfo)
 prometheusInfo_nodeExporter = Lens.lens (\PrometheusInfo' {nodeExporter} -> nodeExporter) (\s@PrometheusInfo' {} a -> s {nodeExporter = a} :: PrometheusInfo)
+
+instance Data.FromJSON PrometheusInfo where
+  parseJSON =
+    Data.withObject
+      "PrometheusInfo"
+      ( \x ->
+          PrometheusInfo'
+            Prelude.<$> (x Data..:? "jmxExporter")
+            Prelude.<*> (x Data..:? "nodeExporter")
+      )
 
 instance Prelude.Hashable PrometheusInfo where
   hashWithSalt _salt PrometheusInfo' {..} =
@@ -73,11 +84,11 @@ instance Prelude.NFData PrometheusInfo where
     Prelude.rnf jmxExporter
       `Prelude.seq` Prelude.rnf nodeExporter
 
-instance Core.ToJSON PrometheusInfo where
+instance Data.ToJSON PrometheusInfo where
   toJSON PrometheusInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("jmxExporter" Core..=) Prelude.<$> jmxExporter,
-            ("nodeExporter" Core..=) Prelude.<$> nodeExporter
+          [ ("jmxExporter" Data..=) Prelude.<$> jmxExporter,
+            ("nodeExporter" Data..=) Prelude.<$> nodeExporter
           ]
       )

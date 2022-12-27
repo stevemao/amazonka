@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.Types.IpRoute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DirectoryService.Types.IpRoute where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | IP address block. This is often the address block of the DNS server used
@@ -81,11 +82,11 @@ instance Prelude.NFData IpRoute where
     Prelude.rnf cidrIp
       `Prelude.seq` Prelude.rnf description
 
-instance Core.ToJSON IpRoute where
+instance Data.ToJSON IpRoute where
   toJSON IpRoute' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CidrIp" Core..=) Prelude.<$> cidrIp,
-            ("Description" Core..=) Prelude.<$> description
+          [ ("CidrIp" Data..=) Prelude.<$> cidrIp,
+            ("Description" Data..=) Prelude.<$> description
           ]
       )

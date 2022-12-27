@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DeleteTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,15 +36,16 @@ module Amazonka.QuickSight.DeleteTemplate
     newDeleteTemplateResponse,
 
     -- * Response Lenses
-    deleteTemplateResponse_requestId,
     deleteTemplateResponse_arn,
+    deleteTemplateResponse_requestId,
     deleteTemplateResponse_templateId,
     deleteTemplateResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -112,14 +113,15 @@ instance Core.AWSRequest DeleteTemplate where
   type
     AWSResponse DeleteTemplate =
       DeleteTemplateResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteTemplateResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "TemplateId")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "RequestId")
+            Prelude.<*> (x Data..?> "TemplateId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -135,37 +137,37 @@ instance Prelude.NFData DeleteTemplate where
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf templateId
 
-instance Core.ToHeaders DeleteTemplate where
+instance Data.ToHeaders DeleteTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteTemplate where
+instance Data.ToPath DeleteTemplate where
   toPath DeleteTemplate' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/templates/",
-        Core.toBS templateId
+        Data.toBS templateId
       ]
 
-instance Core.ToQuery DeleteTemplate where
+instance Data.ToQuery DeleteTemplate where
   toQuery DeleteTemplate' {..} =
     Prelude.mconcat
-      ["version-number" Core.=: versionNumber]
+      ["version-number" Data.=: versionNumber]
 
 -- | /See:/ 'newDeleteTemplateResponse' smart constructor.
 data DeleteTemplateResponse = DeleteTemplateResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the resource.
+  { -- | The Amazon Resource Name (ARN) of the resource.
     arn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | An ID for the template.
     templateId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
@@ -181,9 +183,9 @@ data DeleteTemplateResponse = DeleteTemplateResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'deleteTemplateResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'arn', 'deleteTemplateResponse_arn' - The Amazon Resource Name (ARN) of the resource.
+--
+-- 'requestId', 'deleteTemplateResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'templateId', 'deleteTemplateResponse_templateId' - An ID for the template.
 --
@@ -194,20 +196,19 @@ newDeleteTemplateResponse ::
   DeleteTemplateResponse
 newDeleteTemplateResponse pStatus_ =
   DeleteTemplateResponse'
-    { requestId =
-        Prelude.Nothing,
-      arn = Prelude.Nothing,
+    { arn = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       templateId = Prelude.Nothing,
       status = pStatus_
     }
 
--- | The Amazon Web Services request ID for this operation.
-deleteTemplateResponse_requestId :: Lens.Lens' DeleteTemplateResponse (Prelude.Maybe Prelude.Text)
-deleteTemplateResponse_requestId = Lens.lens (\DeleteTemplateResponse' {requestId} -> requestId) (\s@DeleteTemplateResponse' {} a -> s {requestId = a} :: DeleteTemplateResponse)
-
 -- | The Amazon Resource Name (ARN) of the resource.
 deleteTemplateResponse_arn :: Lens.Lens' DeleteTemplateResponse (Prelude.Maybe Prelude.Text)
 deleteTemplateResponse_arn = Lens.lens (\DeleteTemplateResponse' {arn} -> arn) (\s@DeleteTemplateResponse' {} a -> s {arn = a} :: DeleteTemplateResponse)
+
+-- | The Amazon Web Services request ID for this operation.
+deleteTemplateResponse_requestId :: Lens.Lens' DeleteTemplateResponse (Prelude.Maybe Prelude.Text)
+deleteTemplateResponse_requestId = Lens.lens (\DeleteTemplateResponse' {requestId} -> requestId) (\s@DeleteTemplateResponse' {} a -> s {requestId = a} :: DeleteTemplateResponse)
 
 -- | An ID for the template.
 deleteTemplateResponse_templateId :: Lens.Lens' DeleteTemplateResponse (Prelude.Maybe Prelude.Text)
@@ -219,7 +220,7 @@ deleteTemplateResponse_status = Lens.lens (\DeleteTemplateResponse' {status} -> 
 
 instance Prelude.NFData DeleteTemplateResponse where
   rnf DeleteTemplateResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf arn
+    Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf templateId
       `Prelude.seq` Prelude.rnf status

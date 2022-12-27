@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceQuotas.ListServices
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.ServiceQuotas.ListServices
     newListServices,
 
     -- * Request Lenses
-    listServices_nextToken,
     listServices_maxResults,
+    listServices_nextToken,
 
     -- * Destructuring the Response
     ListServicesResponse (..),
@@ -45,7 +45,8 @@ module Amazonka.ServiceQuotas.ListServices
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,12 +54,12 @@ import Amazonka.ServiceQuotas.Types
 
 -- | /See:/ 'newListServices' smart constructor.
 data ListServices = ListServices'
-  { -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return with a single call. To retrieve
+  { -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, if any, make another call with the token returned
     -- from this call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,28 +71,28 @@ data ListServices = ListServices'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listServices_nextToken' - The token for the next page of results.
---
 -- 'maxResults', 'listServices_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, if any, make another call with the token returned
 -- from this call.
+--
+-- 'nextToken', 'listServices_nextToken' - The token for the next page of results.
 newListServices ::
   ListServices
 newListServices =
   ListServices'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token for the next page of results.
-listServices_nextToken :: Lens.Lens' ListServices (Prelude.Maybe Prelude.Text)
-listServices_nextToken = Lens.lens (\ListServices' {nextToken} -> nextToken) (\s@ListServices' {} a -> s {nextToken = a} :: ListServices)
 
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, if any, make another call with the token returned
 -- from this call.
 listServices_maxResults :: Lens.Lens' ListServices (Prelude.Maybe Prelude.Natural)
 listServices_maxResults = Lens.lens (\ListServices' {maxResults} -> maxResults) (\s@ListServices' {} a -> s {maxResults = a} :: ListServices)
+
+-- | The token for the next page of results.
+listServices_nextToken :: Lens.Lens' ListServices (Prelude.Maybe Prelude.Text)
+listServices_nextToken = Lens.lens (\ListServices' {nextToken} -> nextToken) (\s@ListServices' {} a -> s {nextToken = a} :: ListServices)
 
 instance Core.AWSPager ListServices where
   page rq rs
@@ -114,54 +115,55 @@ instance Core.AWSPager ListServices where
 
 instance Core.AWSRequest ListServices where
   type AWSResponse ListServices = ListServicesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListServicesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Services" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Services" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListServices where
   hashWithSalt _salt ListServices' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListServices where
   rnf ListServices' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListServices where
+instance Data.ToHeaders ListServices where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ServiceQuotasV20190624.ListServices" ::
+              Data.=# ( "ServiceQuotasV20190624.ListServices" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListServices where
+instance Data.ToJSON ListServices where
   toJSON ListServices' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListServices where
+instance Data.ToPath ListServices where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListServices where
+instance Data.ToQuery ListServices where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListServicesResponse' smart constructor.

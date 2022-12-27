@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DescribeSubscribedWorkteam
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.SageMaker.DescribeSubscribedWorkteam
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,13 +83,14 @@ instance Core.AWSRequest DescribeSubscribedWorkteam where
   type
     AWSResponse DescribeSubscribedWorkteam =
       DescribeSubscribedWorkteamResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeSubscribedWorkteamResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "SubscribedWorkteam")
+            Prelude.<*> (x Data..:> "SubscribedWorkteam")
       )
 
 instance Prelude.Hashable DescribeSubscribedWorkteam where
@@ -99,32 +101,32 @@ instance Prelude.NFData DescribeSubscribedWorkteam where
   rnf DescribeSubscribedWorkteam' {..} =
     Prelude.rnf workteamArn
 
-instance Core.ToHeaders DescribeSubscribedWorkteam where
+instance Data.ToHeaders DescribeSubscribedWorkteam where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DescribeSubscribedWorkteam" ::
+              Data.=# ( "SageMaker.DescribeSubscribedWorkteam" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeSubscribedWorkteam where
+instance Data.ToJSON DescribeSubscribedWorkteam where
   toJSON DescribeSubscribedWorkteam' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("WorkteamArn" Core..= workteamArn)]
+          [Prelude.Just ("WorkteamArn" Data..= workteamArn)]
       )
 
-instance Core.ToPath DescribeSubscribedWorkteam where
+instance Data.ToPath DescribeSubscribedWorkteam where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeSubscribedWorkteam where
+instance Data.ToQuery DescribeSubscribedWorkteam where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeSubscribedWorkteamResponse' smart constructor.

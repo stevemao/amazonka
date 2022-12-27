@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.PutTargets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,59 +25,66 @@
 --
 -- Targets are the resources that are invoked when a rule is triggered.
 --
+-- Each rule can have up to five (5) targets associated with it at one
+-- time.
+--
 -- You can configure the following as targets for Events:
 --
 -- -   <https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-api-destinations.html API destination>
 --
--- -   Amazon API Gateway REST API endpoints
---
--- -   API Gateway
+-- -   <https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-api-gateway-target.html API Gateway>
 --
 -- -   Batch job queue
 --
--- -   CloudWatch Logs group
+-- -   CloudWatch group
 --
 -- -   CodeBuild project
 --
 -- -   CodePipeline
 --
--- -   Amazon EC2 @CreateSnapshot@ API call
+-- -   EC2 @CreateSnapshot@ API call
 --
--- -   Amazon EC2 @RebootInstances@ API call
+-- -   EC2 Image Builder
 --
--- -   Amazon EC2 @StopInstances@ API call
+-- -   EC2 @RebootInstances@ API call
 --
--- -   Amazon EC2 @TerminateInstances@ API call
+-- -   EC2 @StopInstances@ API call
 --
--- -   Amazon ECS tasks
+-- -   EC2 @TerminateInstances@ API call
 --
--- -   Event bus in a different Amazon Web Services account or Region.
+-- -   ECS task
 --
---     You can use an event bus in the US East (N. Virginia) us-east-1, US
---     West (Oregon) us-west-2, or Europe (Ireland) eu-west-1 Regions as a
---     target for a rule.
+-- -   <https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-cross-account.html Event bus in a different account or Region>
 --
--- -   Firehose delivery stream (Kinesis Data Firehose)
+-- -   <https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-bus-to-bus.html Event bus in the same account and Region>
 --
--- -   Inspector assessment template (Amazon Inspector)
+-- -   Firehose delivery stream
 --
--- -   Kinesis stream (Kinesis Data Stream)
+-- -   Glue workflow
+--
+-- -   <https://docs.aws.amazon.com/incident-manager/latest/userguide/incident-creation.html#incident-tracking-auto-eventbridge Incident Manager response plan>
+--
+-- -   Inspector assessment template
+--
+-- -   Kinesis stream
 --
 -- -   Lambda function
 --
--- -   Redshift clusters (Data API statement execution)
+-- -   Redshift cluster
 --
--- -   Amazon SNS topic
+-- -   SageMaker Pipeline
 --
--- -   Amazon SQS queues (includes FIFO queues
+-- -   SNS topic
 --
--- -   SSM Automation
+-- -   SQS queue
 --
--- -   SSM OpsItem
+-- -   Step Functions state machine
 --
--- -   SSM Run Command
+-- -   Systems Manager Automation
 --
--- -   Step Functions state machines
+-- -   Systems Manager OpsItem
+--
+-- -   Systems Manager Run Command
 --
 -- Creating rules with built-in targets is supported only in the Amazon Web
 -- Services Management Console. The built-in targets are
@@ -172,15 +179,16 @@ module Amazonka.CloudWatchEvents.PutTargets
     newPutTargetsResponse,
 
     -- * Response Lenses
-    putTargetsResponse_failedEntryCount,
     putTargetsResponse_failedEntries,
+    putTargetsResponse_failedEntryCount,
     putTargetsResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -239,13 +247,14 @@ putTargets_targets = Lens.lens (\PutTargets' {targets} -> targets) (\s@PutTarget
 
 instance Core.AWSRequest PutTargets where
   type AWSResponse PutTargets = PutTargetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutTargetsResponse'
-            Prelude.<$> (x Core..?> "FailedEntryCount")
-            Prelude.<*> (x Core..?> "FailedEntries" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "FailedEntries" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "FailedEntryCount")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -261,41 +270,41 @@ instance Prelude.NFData PutTargets where
       `Prelude.seq` Prelude.rnf rule
       `Prelude.seq` Prelude.rnf targets
 
-instance Core.ToHeaders PutTargets where
+instance Data.ToHeaders PutTargets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSEvents.PutTargets" :: Prelude.ByteString),
+              Data.=# ("AWSEvents.PutTargets" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutTargets where
+instance Data.ToJSON PutTargets where
   toJSON PutTargets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EventBusName" Core..=) Prelude.<$> eventBusName,
-            Prelude.Just ("Rule" Core..= rule),
-            Prelude.Just ("Targets" Core..= targets)
+          [ ("EventBusName" Data..=) Prelude.<$> eventBusName,
+            Prelude.Just ("Rule" Data..= rule),
+            Prelude.Just ("Targets" Data..= targets)
           ]
       )
 
-instance Core.ToPath PutTargets where
+instance Data.ToPath PutTargets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutTargets where
+instance Data.ToQuery PutTargets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutTargetsResponse' smart constructor.
 data PutTargetsResponse = PutTargetsResponse'
-  { -- | The number of failed entries.
-    failedEntryCount :: Prelude.Maybe Prelude.Int,
-    -- | The failed target entries.
+  { -- | The failed target entries.
     failedEntries :: Prelude.Maybe [PutTargetsResultEntry],
+    -- | The number of failed entries.
+    failedEntryCount :: Prelude.Maybe Prelude.Int,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -309,9 +318,9 @@ data PutTargetsResponse = PutTargetsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'failedEntryCount', 'putTargetsResponse_failedEntryCount' - The number of failed entries.
---
 -- 'failedEntries', 'putTargetsResponse_failedEntries' - The failed target entries.
+--
+-- 'failedEntryCount', 'putTargetsResponse_failedEntryCount' - The number of failed entries.
 --
 -- 'httpStatus', 'putTargetsResponse_httpStatus' - The response's http status code.
 newPutTargetsResponse ::
@@ -320,19 +329,19 @@ newPutTargetsResponse ::
   PutTargetsResponse
 newPutTargetsResponse pHttpStatus_ =
   PutTargetsResponse'
-    { failedEntryCount =
+    { failedEntries =
         Prelude.Nothing,
-      failedEntries = Prelude.Nothing,
+      failedEntryCount = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The number of failed entries.
-putTargetsResponse_failedEntryCount :: Lens.Lens' PutTargetsResponse (Prelude.Maybe Prelude.Int)
-putTargetsResponse_failedEntryCount = Lens.lens (\PutTargetsResponse' {failedEntryCount} -> failedEntryCount) (\s@PutTargetsResponse' {} a -> s {failedEntryCount = a} :: PutTargetsResponse)
 
 -- | The failed target entries.
 putTargetsResponse_failedEntries :: Lens.Lens' PutTargetsResponse (Prelude.Maybe [PutTargetsResultEntry])
 putTargetsResponse_failedEntries = Lens.lens (\PutTargetsResponse' {failedEntries} -> failedEntries) (\s@PutTargetsResponse' {} a -> s {failedEntries = a} :: PutTargetsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The number of failed entries.
+putTargetsResponse_failedEntryCount :: Lens.Lens' PutTargetsResponse (Prelude.Maybe Prelude.Int)
+putTargetsResponse_failedEntryCount = Lens.lens (\PutTargetsResponse' {failedEntryCount} -> failedEntryCount) (\s@PutTargetsResponse' {} a -> s {failedEntryCount = a} :: PutTargetsResponse)
 
 -- | The response's http status code.
 putTargetsResponse_httpStatus :: Lens.Lens' PutTargetsResponse Prelude.Int
@@ -340,6 +349,6 @@ putTargetsResponse_httpStatus = Lens.lens (\PutTargetsResponse' {httpStatus} -> 
 
 instance Prelude.NFData PutTargetsResponse where
   rnf PutTargetsResponse' {..} =
-    Prelude.rnf failedEntryCount
-      `Prelude.seq` Prelude.rnf failedEntries
+    Prelude.rnf failedEntries
+      `Prelude.seq` Prelude.rnf failedEntryCount
       `Prelude.seq` Prelude.rnf httpStatus

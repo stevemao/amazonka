@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.ListDatasetGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@
 --
 -- Returns a list of dataset groups. The response provides the properties
 -- for each dataset group, including the Amazon Resource Name (ARN). For
--- more information on dataset groups, see CreateDatasetGroup.
+-- more information on dataset groups, see
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateDatasetGroup.html CreateDatasetGroup>.
 --
 -- This operation returns paginated results.
 module Amazonka.Personalize.ListDatasetGroups
@@ -31,22 +32,23 @@ module Amazonka.Personalize.ListDatasetGroups
     newListDatasetGroups,
 
     -- * Request Lenses
-    listDatasetGroups_nextToken,
     listDatasetGroups_maxResults,
+    listDatasetGroups_nextToken,
 
     -- * Destructuring the Response
     ListDatasetGroupsResponse (..),
     newListDatasetGroupsResponse,
 
     -- * Response Lenses
-    listDatasetGroupsResponse_nextToken,
     listDatasetGroupsResponse_datasetGroups,
+    listDatasetGroupsResponse_nextToken,
     listDatasetGroupsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,11 +56,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDatasetGroups' smart constructor.
 data ListDatasetGroups = ListDatasetGroups'
-  { -- | A token returned from the previous call to @ListDatasetGroups@ for
+  { -- | The maximum number of dataset groups to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token returned from the previous call to @ListDatasetGroups@ for
     -- getting the next set of dataset groups (if they exist).
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of dataset groups to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -70,26 +72,26 @@ data ListDatasetGroups = ListDatasetGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listDatasetGroups_maxResults' - The maximum number of dataset groups to return.
+--
 -- 'nextToken', 'listDatasetGroups_nextToken' - A token returned from the previous call to @ListDatasetGroups@ for
 -- getting the next set of dataset groups (if they exist).
---
--- 'maxResults', 'listDatasetGroups_maxResults' - The maximum number of dataset groups to return.
 newListDatasetGroups ::
   ListDatasetGroups
 newListDatasetGroups =
   ListDatasetGroups'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of dataset groups to return.
+listDatasetGroups_maxResults :: Lens.Lens' ListDatasetGroups (Prelude.Maybe Prelude.Natural)
+listDatasetGroups_maxResults = Lens.lens (\ListDatasetGroups' {maxResults} -> maxResults) (\s@ListDatasetGroups' {} a -> s {maxResults = a} :: ListDatasetGroups)
 
 -- | A token returned from the previous call to @ListDatasetGroups@ for
 -- getting the next set of dataset groups (if they exist).
 listDatasetGroups_nextToken :: Lens.Lens' ListDatasetGroups (Prelude.Maybe Prelude.Text)
 listDatasetGroups_nextToken = Lens.lens (\ListDatasetGroups' {nextToken} -> nextToken) (\s@ListDatasetGroups' {} a -> s {nextToken = a} :: ListDatasetGroups)
-
--- | The maximum number of dataset groups to return.
-listDatasetGroups_maxResults :: Lens.Lens' ListDatasetGroups (Prelude.Maybe Prelude.Natural)
-listDatasetGroups_maxResults = Lens.lens (\ListDatasetGroups' {maxResults} -> maxResults) (\s@ListDatasetGroups' {} a -> s {maxResults = a} :: ListDatasetGroups)
 
 instance Core.AWSPager ListDatasetGroups where
   page rq rs
@@ -117,62 +119,63 @@ instance Core.AWSRequest ListDatasetGroups where
   type
     AWSResponse ListDatasetGroups =
       ListDatasetGroupsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDatasetGroupsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "datasetGroups" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "datasetGroups" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDatasetGroups where
   hashWithSalt _salt ListDatasetGroups' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDatasetGroups where
   rnf ListDatasetGroups' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDatasetGroups where
+instance Data.ToHeaders ListDatasetGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.ListDatasetGroups" ::
+              Data.=# ( "AmazonPersonalize.ListDatasetGroups" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDatasetGroups where
+instance Data.ToJSON ListDatasetGroups where
   toJSON ListDatasetGroups' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListDatasetGroups where
+instance Data.ToPath ListDatasetGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDatasetGroups where
+instance Data.ToQuery ListDatasetGroups where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDatasetGroupsResponse' smart constructor.
 data ListDatasetGroupsResponse = ListDatasetGroupsResponse'
-  { -- | A token for getting the next set of dataset groups (if they exist).
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The list of your dataset groups.
+  { -- | The list of your dataset groups.
     datasetGroups :: Prelude.Maybe [DatasetGroupSummary],
+    -- | A token for getting the next set of dataset groups (if they exist).
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -186,9 +189,9 @@ data ListDatasetGroupsResponse = ListDatasetGroupsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listDatasetGroupsResponse_nextToken' - A token for getting the next set of dataset groups (if they exist).
---
 -- 'datasetGroups', 'listDatasetGroupsResponse_datasetGroups' - The list of your dataset groups.
+--
+-- 'nextToken', 'listDatasetGroupsResponse_nextToken' - A token for getting the next set of dataset groups (if they exist).
 --
 -- 'httpStatus', 'listDatasetGroupsResponse_httpStatus' - The response's http status code.
 newListDatasetGroupsResponse ::
@@ -197,19 +200,19 @@ newListDatasetGroupsResponse ::
   ListDatasetGroupsResponse
 newListDatasetGroupsResponse pHttpStatus_ =
   ListDatasetGroupsResponse'
-    { nextToken =
+    { datasetGroups =
         Prelude.Nothing,
-      datasetGroups = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A token for getting the next set of dataset groups (if they exist).
-listDatasetGroupsResponse_nextToken :: Lens.Lens' ListDatasetGroupsResponse (Prelude.Maybe Prelude.Text)
-listDatasetGroupsResponse_nextToken = Lens.lens (\ListDatasetGroupsResponse' {nextToken} -> nextToken) (\s@ListDatasetGroupsResponse' {} a -> s {nextToken = a} :: ListDatasetGroupsResponse)
 
 -- | The list of your dataset groups.
 listDatasetGroupsResponse_datasetGroups :: Lens.Lens' ListDatasetGroupsResponse (Prelude.Maybe [DatasetGroupSummary])
 listDatasetGroupsResponse_datasetGroups = Lens.lens (\ListDatasetGroupsResponse' {datasetGroups} -> datasetGroups) (\s@ListDatasetGroupsResponse' {} a -> s {datasetGroups = a} :: ListDatasetGroupsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A token for getting the next set of dataset groups (if they exist).
+listDatasetGroupsResponse_nextToken :: Lens.Lens' ListDatasetGroupsResponse (Prelude.Maybe Prelude.Text)
+listDatasetGroupsResponse_nextToken = Lens.lens (\ListDatasetGroupsResponse' {nextToken} -> nextToken) (\s@ListDatasetGroupsResponse' {} a -> s {nextToken = a} :: ListDatasetGroupsResponse)
 
 -- | The response's http status code.
 listDatasetGroupsResponse_httpStatus :: Lens.Lens' ListDatasetGroupsResponse Prelude.Int
@@ -217,6 +220,6 @@ listDatasetGroupsResponse_httpStatus = Lens.lens (\ListDatasetGroupsResponse' {h
 
 instance Prelude.NFData ListDatasetGroupsResponse where
   rnf ListDatasetGroupsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf datasetGroups
+    Prelude.rnf datasetGroups
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

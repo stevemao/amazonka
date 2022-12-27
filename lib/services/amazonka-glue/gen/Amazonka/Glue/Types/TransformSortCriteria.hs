@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.TransformSortCriteria
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.Glue.Types.TransformSortCriteria where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.SortDirectionType
 import Amazonka.Glue.Types.TransformSortColumnType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The sorting criteria that are associated with the machine learning
@@ -84,12 +85,12 @@ instance Prelude.NFData TransformSortCriteria where
     Prelude.rnf column
       `Prelude.seq` Prelude.rnf sortDirection
 
-instance Core.ToJSON TransformSortCriteria where
+instance Data.ToJSON TransformSortCriteria where
   toJSON TransformSortCriteria' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Column" Core..= column),
+          [ Prelude.Just ("Column" Data..= column),
             Prelude.Just
-              ("SortDirection" Core..= sortDirection)
+              ("SortDirection" Data..= sortDirection)
           ]
       )

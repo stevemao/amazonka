@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.Types.ProtectionGroupArbitraryPatternLimits
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Shield.Types.ProtectionGroupArbitraryPatternLimits where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Limits settings on protection groups with arbitrary pattern type.
@@ -59,15 +60,15 @@ protectionGroupArbitraryPatternLimits_maxMembers :: Lens.Lens' ProtectionGroupAr
 protectionGroupArbitraryPatternLimits_maxMembers = Lens.lens (\ProtectionGroupArbitraryPatternLimits' {maxMembers} -> maxMembers) (\s@ProtectionGroupArbitraryPatternLimits' {} a -> s {maxMembers = a} :: ProtectionGroupArbitraryPatternLimits)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ProtectionGroupArbitraryPatternLimits
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProtectionGroupArbitraryPatternLimits"
       ( \x ->
           ProtectionGroupArbitraryPatternLimits'
-            Prelude.<$> (x Core..: "MaxMembers")
+            Prelude.<$> (x Data..: "MaxMembers")
       )
 
 instance

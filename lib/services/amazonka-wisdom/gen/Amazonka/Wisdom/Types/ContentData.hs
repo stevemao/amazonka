@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.ContentData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Wisdom.Types.ContentData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Wisdom.Types.ContentStatus
 
@@ -40,7 +41,7 @@ data ContentData = ContentData'
     contentType :: Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the knowledge base.
     knowledgeBaseArn :: Prelude.Text,
-    -- | The the identifier of the knowledge base.
+    -- | The identifier of the knowledge base.
     knowledgeBaseId :: Prelude.Text,
     -- | A key\/value map to store attributes without affecting tagging or
     -- recommendations. For example, when synchronizing data between an
@@ -56,9 +57,9 @@ data ContentData = ContentData'
     -- | The title of the content.
     title :: Prelude.Text,
     -- | The URL of the content.
-    url :: Core.Sensitive Prelude.Text,
+    url :: Data.Sensitive Prelude.Text,
     -- | The expiration time of the URL as an epoch timestamp.
-    urlExpiry :: Core.POSIX
+    urlExpiry :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -82,7 +83,7 @@ data ContentData = ContentData'
 --
 -- 'knowledgeBaseArn', 'contentData_knowledgeBaseArn' - The Amazon Resource Name (ARN) of the knowledge base.
 --
--- 'knowledgeBaseId', 'contentData_knowledgeBaseId' - The the identifier of the knowledge base.
+-- 'knowledgeBaseId', 'contentData_knowledgeBaseId' - The identifier of the knowledge base.
 --
 -- 'metadata', 'contentData_metadata' - A key\/value map to store attributes without affecting tagging or
 -- recommendations. For example, when synchronizing data between an
@@ -149,8 +150,8 @@ newContentData
         revisionId = pRevisionId_,
         status = pStatus_,
         title = pTitle_,
-        url = Core._Sensitive Lens.# pUrl_,
-        urlExpiry = Core._Time Lens.# pUrlExpiry_
+        url = Data._Sensitive Lens.# pUrl_,
+        urlExpiry = Data._Time Lens.# pUrlExpiry_
       }
 
 -- | The URI of the content.
@@ -177,7 +178,7 @@ contentData_contentType = Lens.lens (\ContentData' {contentType} -> contentType)
 contentData_knowledgeBaseArn :: Lens.Lens' ContentData Prelude.Text
 contentData_knowledgeBaseArn = Lens.lens (\ContentData' {knowledgeBaseArn} -> knowledgeBaseArn) (\s@ContentData' {} a -> s {knowledgeBaseArn = a} :: ContentData)
 
--- | The the identifier of the knowledge base.
+-- | The identifier of the knowledge base.
 contentData_knowledgeBaseId :: Lens.Lens' ContentData Prelude.Text
 contentData_knowledgeBaseId = Lens.lens (\ContentData' {knowledgeBaseId} -> knowledgeBaseId) (\s@ContentData' {} a -> s {knowledgeBaseId = a} :: ContentData)
 
@@ -206,32 +207,32 @@ contentData_title = Lens.lens (\ContentData' {title} -> title) (\s@ContentData' 
 
 -- | The URL of the content.
 contentData_url :: Lens.Lens' ContentData Prelude.Text
-contentData_url = Lens.lens (\ContentData' {url} -> url) (\s@ContentData' {} a -> s {url = a} :: ContentData) Prelude.. Core._Sensitive
+contentData_url = Lens.lens (\ContentData' {url} -> url) (\s@ContentData' {} a -> s {url = a} :: ContentData) Prelude.. Data._Sensitive
 
 -- | The expiration time of the URL as an epoch timestamp.
 contentData_urlExpiry :: Lens.Lens' ContentData Prelude.UTCTime
-contentData_urlExpiry = Lens.lens (\ContentData' {urlExpiry} -> urlExpiry) (\s@ContentData' {} a -> s {urlExpiry = a} :: ContentData) Prelude.. Core._Time
+contentData_urlExpiry = Lens.lens (\ContentData' {urlExpiry} -> urlExpiry) (\s@ContentData' {} a -> s {urlExpiry = a} :: ContentData) Prelude.. Data._Time
 
-instance Core.FromJSON ContentData where
+instance Data.FromJSON ContentData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContentData"
       ( \x ->
           ContentData'
-            Prelude.<$> (x Core..:? "linkOutUri")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "contentArn")
-            Prelude.<*> (x Core..: "contentId")
-            Prelude.<*> (x Core..: "contentType")
-            Prelude.<*> (x Core..: "knowledgeBaseArn")
-            Prelude.<*> (x Core..: "knowledgeBaseId")
-            Prelude.<*> (x Core..:? "metadata" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "revisionId")
-            Prelude.<*> (x Core..: "status")
-            Prelude.<*> (x Core..: "title")
-            Prelude.<*> (x Core..: "url")
-            Prelude.<*> (x Core..: "urlExpiry")
+            Prelude.<$> (x Data..:? "linkOutUri")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "contentArn")
+            Prelude.<*> (x Data..: "contentId")
+            Prelude.<*> (x Data..: "contentType")
+            Prelude.<*> (x Data..: "knowledgeBaseArn")
+            Prelude.<*> (x Data..: "knowledgeBaseId")
+            Prelude.<*> (x Data..:? "metadata" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "revisionId")
+            Prelude.<*> (x Data..: "status")
+            Prelude.<*> (x Data..: "title")
+            Prelude.<*> (x Data..: "url")
+            Prelude.<*> (x Data..: "urlExpiry")
       )
 
 instance Prelude.Hashable ContentData where

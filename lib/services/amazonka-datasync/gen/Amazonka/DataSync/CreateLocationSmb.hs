@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.CreateLocationSmb
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.DataSync.CreateLocationSmb
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataSync.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,12 +97,12 @@ data CreateLocationSmb = CreateLocationSmb'
     -- and folders in the SMB share.
     --
     -- For information about choosing a user name that ensures sufficient
-    -- permissions to files, folders, and metadata, see
-    -- <create-smb-location.html#SMBuser user>.
+    -- permissions to files, folders, and metadata, see the
+    -- <create-smb-location.html#SMBuser User setting> for SMB locations.
     user :: Prelude.Text,
     -- | The password of the user who can mount the share, has the permissions to
     -- access files and folders in the SMB share.
-    password :: Core.Sensitive Prelude.Text,
+    password :: Data.Sensitive Prelude.Text,
     -- | The Amazon Resource Names (ARNs) of agents to use for a Simple Message
     -- Block (SMB) location.
     agentArns :: Prelude.NonEmpty Prelude.Text
@@ -154,8 +155,8 @@ data CreateLocationSmb = CreateLocationSmb'
 -- and folders in the SMB share.
 --
 -- For information about choosing a user name that ensures sufficient
--- permissions to files, folders, and metadata, see
--- <create-smb-location.html#SMBuser user>.
+-- permissions to files, folders, and metadata, see the
+-- <create-smb-location.html#SMBuser User setting> for SMB locations.
 --
 -- 'password', 'createLocationSmb_password' - The password of the user who can mount the share, has the permissions to
 -- access files and folders in the SMB share.
@@ -187,7 +188,7 @@ newCreateLocationSmb
         subdirectory = pSubdirectory_,
         serverHostname = pServerHostname_,
         user = pUser_,
-        password = Core._Sensitive Lens.# pPassword_,
+        password = Data._Sensitive Lens.# pPassword_,
         agentArns = Lens.coerced Lens.# pAgentArns_
       }
 
@@ -239,15 +240,15 @@ createLocationSmb_serverHostname = Lens.lens (\CreateLocationSmb' {serverHostnam
 -- and folders in the SMB share.
 --
 -- For information about choosing a user name that ensures sufficient
--- permissions to files, folders, and metadata, see
--- <create-smb-location.html#SMBuser user>.
+-- permissions to files, folders, and metadata, see the
+-- <create-smb-location.html#SMBuser User setting> for SMB locations.
 createLocationSmb_user :: Lens.Lens' CreateLocationSmb Prelude.Text
 createLocationSmb_user = Lens.lens (\CreateLocationSmb' {user} -> user) (\s@CreateLocationSmb' {} a -> s {user = a} :: CreateLocationSmb)
 
 -- | The password of the user who can mount the share, has the permissions to
 -- access files and folders in the SMB share.
 createLocationSmb_password :: Lens.Lens' CreateLocationSmb Prelude.Text
-createLocationSmb_password = Lens.lens (\CreateLocationSmb' {password} -> password) (\s@CreateLocationSmb' {} a -> s {password = a} :: CreateLocationSmb) Prelude.. Core._Sensitive
+createLocationSmb_password = Lens.lens (\CreateLocationSmb' {password} -> password) (\s@CreateLocationSmb' {} a -> s {password = a} :: CreateLocationSmb) Prelude.. Data._Sensitive
 
 -- | The Amazon Resource Names (ARNs) of agents to use for a Simple Message
 -- Block (SMB) location.
@@ -258,12 +259,13 @@ instance Core.AWSRequest CreateLocationSmb where
   type
     AWSResponse CreateLocationSmb =
       CreateLocationSmbResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateLocationSmbResponse'
-            Prelude.<$> (x Core..?> "LocationArn")
+            Prelude.<$> (x Data..?> "LocationArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -289,41 +291,41 @@ instance Prelude.NFData CreateLocationSmb where
       `Prelude.seq` Prelude.rnf password
       `Prelude.seq` Prelude.rnf agentArns
 
-instance Core.ToHeaders CreateLocationSmb where
+instance Data.ToHeaders CreateLocationSmb where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "FmrsService.CreateLocationSmb" ::
+              Data.=# ( "FmrsService.CreateLocationSmb" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateLocationSmb where
+instance Data.ToJSON CreateLocationSmb where
   toJSON CreateLocationSmb' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Domain" Core..=) Prelude.<$> domain,
-            ("MountOptions" Core..=) Prelude.<$> mountOptions,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Subdirectory" Core..= subdirectory),
+          [ ("Domain" Data..=) Prelude.<$> domain,
+            ("MountOptions" Data..=) Prelude.<$> mountOptions,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Subdirectory" Data..= subdirectory),
             Prelude.Just
-              ("ServerHostname" Core..= serverHostname),
-            Prelude.Just ("User" Core..= user),
-            Prelude.Just ("Password" Core..= password),
-            Prelude.Just ("AgentArns" Core..= agentArns)
+              ("ServerHostname" Data..= serverHostname),
+            Prelude.Just ("User" Data..= user),
+            Prelude.Just ("Password" Data..= password),
+            Prelude.Just ("AgentArns" Data..= agentArns)
           ]
       )
 
-instance Core.ToPath CreateLocationSmb where
+instance Data.ToPath CreateLocationSmb where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateLocationSmb where
+instance Data.ToQuery CreateLocationSmb where
   toQuery = Prelude.const Prelude.mempty
 
 -- | CreateLocationSmbResponse

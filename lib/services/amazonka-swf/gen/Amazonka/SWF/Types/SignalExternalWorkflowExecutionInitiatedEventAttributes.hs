@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.SignalExternalWorkflowExecutionInitiatedEventAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.SignalExternalWorkflowExecutionInitiatedEventAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides the details of the @SignalExternalWorkflowExecutionInitiated@
@@ -126,20 +127,20 @@ signalExternalWorkflowExecutionInitiatedEventAttributes_decisionTaskCompletedEve
 signalExternalWorkflowExecutionInitiatedEventAttributes_decisionTaskCompletedEventId = Lens.lens (\SignalExternalWorkflowExecutionInitiatedEventAttributes' {decisionTaskCompletedEventId} -> decisionTaskCompletedEventId) (\s@SignalExternalWorkflowExecutionInitiatedEventAttributes' {} a -> s {decisionTaskCompletedEventId = a} :: SignalExternalWorkflowExecutionInitiatedEventAttributes)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     SignalExternalWorkflowExecutionInitiatedEventAttributes
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SignalExternalWorkflowExecutionInitiatedEventAttributes"
       ( \x ->
           SignalExternalWorkflowExecutionInitiatedEventAttributes'
-            Prelude.<$> (x Core..:? "control")
-              Prelude.<*> (x Core..:? "input")
-              Prelude.<*> (x Core..:? "runId")
-              Prelude.<*> (x Core..: "workflowId")
-              Prelude.<*> (x Core..: "signalName")
-              Prelude.<*> (x Core..: "decisionTaskCompletedEventId")
+            Prelude.<$> (x Data..:? "control")
+              Prelude.<*> (x Data..:? "input")
+              Prelude.<*> (x Data..:? "runId")
+              Prelude.<*> (x Data..: "workflowId")
+              Prelude.<*> (x Data..: "signalName")
+              Prelude.<*> (x Data..: "decisionTaskCompletedEventId")
       )
 
 instance

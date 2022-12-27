@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.EmbeddedPlusScte20DestinationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.EmbeddedPlusScte20DestinationSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Embedded Plus Scte20 Destination Settings
@@ -41,11 +42,11 @@ newEmbeddedPlusScte20DestinationSettings =
   EmbeddedPlusScte20DestinationSettings'
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     EmbeddedPlusScte20DestinationSettings
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EmbeddedPlusScte20DestinationSettings"
       ( \x ->
           Prelude.pure EmbeddedPlusScte20DestinationSettings'
@@ -65,7 +66,7 @@ instance
   rnf _ = ()
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     EmbeddedPlusScte20DestinationSettings
   where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+  toJSON = Prelude.const (Data.Object Prelude.mempty)

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.UpdateContactAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,19 +34,10 @@
 -- callers.
 --
 -- Contact attributes are available in Amazon Connect for 24 months, and
--- are then deleted. For information about CTR retention and the maximum
--- size of the CTR attributes section, see
+-- are then deleted. For information about contact record retention and the
+-- maximum size of the contact record attributes section, see
 -- <https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html#feature-limits Feature specifications>
 -- in the /Amazon Connect Administrator Guide/.
---
--- __Important:__ You cannot use the operation to update attributes for
--- contacts that occurred prior to the release of the API, which was
--- September 12, 2018. You can update attributes only for contacts that
--- started after the release of the API. If you attempt to update
--- attributes for a contact that occurred prior to the release of the API,
--- a 400 error is returned. This applies also to queued callbacks that were
--- initiated prior to the release of the API but are still active in your
--- instance.
 module Amazonka.Connect.UpdateContactAttributes
   ( -- * Creating a Request
     UpdateContactAttributes (..),
@@ -68,7 +59,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,8 +73,8 @@ data UpdateContactAttributes = UpdateContactAttributes'
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
     instanceId :: Prelude.Text,
-    -- | The Amazon Connect attributes. These attributes can be accessed in
-    -- contact flows just like any other contact attributes.
+    -- | The Amazon Connect attributes. These attributes can be accessed in flows
+    -- just like any other contact attributes.
     --
     -- You can have up to 32,768 UTF-8 bytes across all attributes for a
     -- contact. Attribute keys can include only alphanumeric, dash, and
@@ -105,8 +97,8 @@ data UpdateContactAttributes = UpdateContactAttributes'
 -- 'instanceId', 'updateContactAttributes_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
 --
--- 'attributes', 'updateContactAttributes_attributes' - The Amazon Connect attributes. These attributes can be accessed in
--- contact flows just like any other contact attributes.
+-- 'attributes', 'updateContactAttributes_attributes' - The Amazon Connect attributes. These attributes can be accessed in flows
+-- just like any other contact attributes.
 --
 -- You can have up to 32,768 UTF-8 bytes across all attributes for a
 -- contact. Attribute keys can include only alphanumeric, dash, and
@@ -137,8 +129,8 @@ updateContactAttributes_initialContactId = Lens.lens (\UpdateContactAttributes' 
 updateContactAttributes_instanceId :: Lens.Lens' UpdateContactAttributes Prelude.Text
 updateContactAttributes_instanceId = Lens.lens (\UpdateContactAttributes' {instanceId} -> instanceId) (\s@UpdateContactAttributes' {} a -> s {instanceId = a} :: UpdateContactAttributes)
 
--- | The Amazon Connect attributes. These attributes can be accessed in
--- contact flows just like any other contact attributes.
+-- | The Amazon Connect attributes. These attributes can be accessed in flows
+-- just like any other contact attributes.
 --
 -- You can have up to 32,768 UTF-8 bytes across all attributes for a
 -- contact. Attribute keys can include only alphanumeric, dash, and
@@ -150,7 +142,8 @@ instance Core.AWSRequest UpdateContactAttributes where
   type
     AWSResponse UpdateContactAttributes =
       UpdateContactAttributesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -170,32 +163,32 @@ instance Prelude.NFData UpdateContactAttributes where
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf attributes
 
-instance Core.ToHeaders UpdateContactAttributes where
+instance Data.ToHeaders UpdateContactAttributes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateContactAttributes where
+instance Data.ToJSON UpdateContactAttributes where
   toJSON UpdateContactAttributes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("InitialContactId" Core..= initialContactId),
-            Prelude.Just ("InstanceId" Core..= instanceId),
-            Prelude.Just ("Attributes" Core..= attributes)
+              ("InitialContactId" Data..= initialContactId),
+            Prelude.Just ("InstanceId" Data..= instanceId),
+            Prelude.Just ("Attributes" Data..= attributes)
           ]
       )
 
-instance Core.ToPath UpdateContactAttributes where
+instance Data.ToPath UpdateContactAttributes where
   toPath = Prelude.const "/contact/attributes"
 
-instance Core.ToQuery UpdateContactAttributes where
+instance Data.ToQuery UpdateContactAttributes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateContactAttributesResponse' smart constructor.

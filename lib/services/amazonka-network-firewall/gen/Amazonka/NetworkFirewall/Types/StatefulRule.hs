@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Types.StatefulRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.NetworkFirewall.Types.StatefulRule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types.Header
 import Amazonka.NetworkFirewall.Types.RuleOption
 import Amazonka.NetworkFirewall.Types.StatefulAction
@@ -30,7 +31,7 @@ import qualified Amazonka.Prelude as Prelude
 -- Use this option to specify a simple Suricata rule with protocol, source
 -- and destination, ports, direction, and rule options. For information
 -- about the Suricata @Rules@ format, see
--- <https://suricata.readthedocs.io/en/suricata-5.0.0/rules/intro.html# Rules Format>.
+-- <https://suricata.readthedocs.io/rules/intro.html# Rules Format>.
 --
 -- /See:/ 'newStatefulRule' smart constructor.
 data StatefulRule = StatefulRule'
@@ -147,15 +148,15 @@ statefulRule_header = Lens.lens (\StatefulRule' {header} -> header) (\s@Stateful
 statefulRule_ruleOptions :: Lens.Lens' StatefulRule [RuleOption]
 statefulRule_ruleOptions = Lens.lens (\StatefulRule' {ruleOptions} -> ruleOptions) (\s@StatefulRule' {} a -> s {ruleOptions = a} :: StatefulRule) Prelude.. Lens.coerced
 
-instance Core.FromJSON StatefulRule where
+instance Data.FromJSON StatefulRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StatefulRule"
       ( \x ->
           StatefulRule'
-            Prelude.<$> (x Core..: "Action")
-            Prelude.<*> (x Core..: "Header")
-            Prelude.<*> (x Core..:? "RuleOptions" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..: "Action")
+            Prelude.<*> (x Data..: "Header")
+            Prelude.<*> (x Data..:? "RuleOptions" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable StatefulRule where
@@ -170,12 +171,12 @@ instance Prelude.NFData StatefulRule where
       `Prelude.seq` Prelude.rnf header
       `Prelude.seq` Prelude.rnf ruleOptions
 
-instance Core.ToJSON StatefulRule where
+instance Data.ToJSON StatefulRule where
   toJSON StatefulRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Action" Core..= action),
-            Prelude.Just ("Header" Core..= header),
-            Prelude.Just ("RuleOptions" Core..= ruleOptions)
+          [ Prelude.Just ("Action" Data..= action),
+            Prelude.Just ("Header" Data..= header),
+            Prelude.Just ("RuleOptions" Data..= ruleOptions)
           ]
       )

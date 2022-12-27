@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-lightsail/amazonka-lightsail.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-lightsail/amazonka-lightsail.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-lightsail",
     srcs = [
@@ -108,6 +108,7 @@ haskell_library(
         "gen/Amazonka/Lightsail/GetLoadBalancer.hs",
         "gen/Amazonka/Lightsail/GetLoadBalancerMetricData.hs",
         "gen/Amazonka/Lightsail/GetLoadBalancerTlsCertificates.hs",
+        "gen/Amazonka/Lightsail/GetLoadBalancerTlsPolicies.hs",
         "gen/Amazonka/Lightsail/GetLoadBalancers.hs",
         "gen/Amazonka/Lightsail/GetOperation.hs",
         "gen/Amazonka/Lightsail/GetOperations.hs",
@@ -154,6 +155,8 @@ haskell_library(
         "gen/Amazonka/Lightsail/Types/AccessKeyLastUsed.hs",
         "gen/Amazonka/Lightsail/Types/AccessRules.hs",
         "gen/Amazonka/Lightsail/Types/AccessType.hs",
+        "gen/Amazonka/Lightsail/Types/AccountLevelBpaSync.hs",
+        "gen/Amazonka/Lightsail/Types/AccountLevelBpaSyncStatus.hs",
         "gen/Amazonka/Lightsail/Types/AddOn.hs",
         "gen/Amazonka/Lightsail/Types/AddOnRequest.hs",
         "gen/Amazonka/Lightsail/Types/AddOnType.hs",
@@ -164,10 +167,12 @@ haskell_library(
         "gen/Amazonka/Lightsail/Types/AutoSnapshotDetails.hs",
         "gen/Amazonka/Lightsail/Types/AutoSnapshotStatus.hs",
         "gen/Amazonka/Lightsail/Types/AvailabilityZone.hs",
+        "gen/Amazonka/Lightsail/Types/BPAStatusMessage.hs",
         "gen/Amazonka/Lightsail/Types/BehaviorEnum.hs",
         "gen/Amazonka/Lightsail/Types/Blueprint.hs",
         "gen/Amazonka/Lightsail/Types/BlueprintType.hs",
         "gen/Amazonka/Lightsail/Types/Bucket.hs",
+        "gen/Amazonka/Lightsail/Types/BucketAccessLogConfig.hs",
         "gen/Amazonka/Lightsail/Types/BucketBundle.hs",
         "gen/Amazonka/Lightsail/Types/BucketMetricName.hs",
         "gen/Amazonka/Lightsail/Types/BucketState.hs",
@@ -176,6 +181,7 @@ haskell_library(
         "gen/Amazonka/Lightsail/Types/CacheBehaviorPerPath.hs",
         "gen/Amazonka/Lightsail/Types/CacheSettings.hs",
         "gen/Amazonka/Lightsail/Types/Certificate.hs",
+        "gen/Amazonka/Lightsail/Types/CertificateDomainValidationStatus.hs",
         "gen/Amazonka/Lightsail/Types/CertificateStatus.hs",
         "gen/Amazonka/Lightsail/Types/CertificateSummary.hs",
         "gen/Amazonka/Lightsail/Types/CloudFormationStackRecord.hs",
@@ -192,6 +198,8 @@ haskell_library(
         "gen/Amazonka/Lightsail/Types/ContainerServiceDeployment.hs",
         "gen/Amazonka/Lightsail/Types/ContainerServiceDeploymentRequest.hs",
         "gen/Amazonka/Lightsail/Types/ContainerServiceDeploymentState.hs",
+        "gen/Amazonka/Lightsail/Types/ContainerServiceECRImagePullerRole.hs",
+        "gen/Amazonka/Lightsail/Types/ContainerServiceECRImagePullerRoleRequest.hs",
         "gen/Amazonka/Lightsail/Types/ContainerServiceEndpoint.hs",
         "gen/Amazonka/Lightsail/Types/ContainerServiceHealthCheckConfig.hs",
         "gen/Amazonka/Lightsail/Types/ContainerServiceLogEvent.hs",
@@ -214,6 +222,8 @@ haskell_library(
         "gen/Amazonka/Lightsail/Types/DiskState.hs",
         "gen/Amazonka/Lightsail/Types/DistributionBundle.hs",
         "gen/Amazonka/Lightsail/Types/DistributionMetricName.hs",
+        "gen/Amazonka/Lightsail/Types/DnsRecordCreationState.hs",
+        "gen/Amazonka/Lightsail/Types/DnsRecordCreationStateCode.hs",
         "gen/Amazonka/Lightsail/Types/Domain.hs",
         "gen/Amazonka/Lightsail/Types/DomainEntry.hs",
         "gen/Amazonka/Lightsail/Types/DomainValidationRecord.hs",
@@ -225,6 +235,9 @@ haskell_library(
         "gen/Amazonka/Lightsail/Types/HeaderEnum.hs",
         "gen/Amazonka/Lightsail/Types/HeaderObject.hs",
         "gen/Amazonka/Lightsail/Types/HostKeyAttributes.hs",
+        "gen/Amazonka/Lightsail/Types/HttpEndpoint.hs",
+        "gen/Amazonka/Lightsail/Types/HttpProtocolIpv6.hs",
+        "gen/Amazonka/Lightsail/Types/HttpTokens.hs",
         "gen/Amazonka/Lightsail/Types/InputOrigin.hs",
         "gen/Amazonka/Lightsail/Types/Instance.hs",
         "gen/Amazonka/Lightsail/Types/InstanceAccessDetails.hs",
@@ -234,6 +247,8 @@ haskell_library(
         "gen/Amazonka/Lightsail/Types/InstanceHealthReason.hs",
         "gen/Amazonka/Lightsail/Types/InstanceHealthState.hs",
         "gen/Amazonka/Lightsail/Types/InstanceHealthSummary.hs",
+        "gen/Amazonka/Lightsail/Types/InstanceMetadataOptions.hs",
+        "gen/Amazonka/Lightsail/Types/InstanceMetadataState.hs",
         "gen/Amazonka/Lightsail/Types/InstanceMetricName.hs",
         "gen/Amazonka/Lightsail/Types/InstanceNetworking.hs",
         "gen/Amazonka/Lightsail/Types/InstancePlatform.hs",
@@ -252,6 +267,8 @@ haskell_library(
         "gen/Amazonka/Lightsail/Types/LoadBalancerProtocol.hs",
         "gen/Amazonka/Lightsail/Types/LoadBalancerState.hs",
         "gen/Amazonka/Lightsail/Types/LoadBalancerTlsCertificate.hs",
+        "gen/Amazonka/Lightsail/Types/LoadBalancerTlsCertificateDnsRecordCreationState.hs",
+        "gen/Amazonka/Lightsail/Types/LoadBalancerTlsCertificateDnsRecordCreationStateCode.hs",
         "gen/Amazonka/Lightsail/Types/LoadBalancerTlsCertificateDomainStatus.hs",
         "gen/Amazonka/Lightsail/Types/LoadBalancerTlsCertificateDomainValidationOption.hs",
         "gen/Amazonka/Lightsail/Types/LoadBalancerTlsCertificateDomainValidationRecord.hs",
@@ -261,6 +278,7 @@ haskell_library(
         "gen/Amazonka/Lightsail/Types/LoadBalancerTlsCertificateRevocationReason.hs",
         "gen/Amazonka/Lightsail/Types/LoadBalancerTlsCertificateStatus.hs",
         "gen/Amazonka/Lightsail/Types/LoadBalancerTlsCertificateSummary.hs",
+        "gen/Amazonka/Lightsail/Types/LoadBalancerTlsPolicy.hs",
         "gen/Amazonka/Lightsail/Types/LogEvent.hs",
         "gen/Amazonka/Lightsail/Types/MetricDatapoint.hs",
         "gen/Amazonka/Lightsail/Types/MetricName.hs",
@@ -268,6 +286,8 @@ haskell_library(
         "gen/Amazonka/Lightsail/Types/MetricUnit.hs",
         "gen/Amazonka/Lightsail/Types/MonitoredResourceInfo.hs",
         "gen/Amazonka/Lightsail/Types/MonthlyTransfer.hs",
+        "gen/Amazonka/Lightsail/Types/NameServersUpdateState.hs",
+        "gen/Amazonka/Lightsail/Types/NameServersUpdateStateCode.hs",
         "gen/Amazonka/Lightsail/Types/NetworkProtocol.hs",
         "gen/Amazonka/Lightsail/Types/Operation.hs",
         "gen/Amazonka/Lightsail/Types/OperationStatus.hs",
@@ -281,10 +301,15 @@ haskell_library(
         "gen/Amazonka/Lightsail/Types/PortInfo.hs",
         "gen/Amazonka/Lightsail/Types/PortInfoSourceType.hs",
         "gen/Amazonka/Lightsail/Types/PortState.hs",
+        "gen/Amazonka/Lightsail/Types/PrivateRegistryAccess.hs",
+        "gen/Amazonka/Lightsail/Types/PrivateRegistryAccessRequest.hs",
         "gen/Amazonka/Lightsail/Types/QueryStringObject.hs",
+        "gen/Amazonka/Lightsail/Types/R53HostedZoneDeletionState.hs",
+        "gen/Amazonka/Lightsail/Types/R53HostedZoneDeletionStateCode.hs",
         "gen/Amazonka/Lightsail/Types/RecordState.hs",
         "gen/Amazonka/Lightsail/Types/RegionInfo.hs",
         "gen/Amazonka/Lightsail/Types/RegionName.hs",
+        "gen/Amazonka/Lightsail/Types/RegisteredDomainDelegationInfo.hs",
         "gen/Amazonka/Lightsail/Types/RelationalDatabase.hs",
         "gen/Amazonka/Lightsail/Types/RelationalDatabaseBlueprint.hs",
         "gen/Amazonka/Lightsail/Types/RelationalDatabaseBundle.hs",
@@ -315,19 +340,19 @@ haskell_library(
         "gen/Amazonka/Lightsail/UpdateDistribution.hs",
         "gen/Amazonka/Lightsail/UpdateDistributionBundle.hs",
         "gen/Amazonka/Lightsail/UpdateDomainEntry.hs",
+        "gen/Amazonka/Lightsail/UpdateInstanceMetadataOptions.hs",
         "gen/Amazonka/Lightsail/UpdateLoadBalancerAttribute.hs",
         "gen/Amazonka/Lightsail/UpdateRelationalDatabase.hs",
         "gen/Amazonka/Lightsail/UpdateRelationalDatabaseParameters.hs",
         "gen/Amazonka/Lightsail/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_lightsail=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_lightsail=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -336,7 +361,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-lightsail/amazonka-lightsail.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-lightsail/amazonka-lightsail.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-lightsail-test",
     srcs = [
@@ -345,11 +370,12 @@ haskell_test(
         "test/Test/Amazonka/Lightsail.hs",
         "test/Test/Amazonka/Lightsail/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_lightsail=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_lightsail=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

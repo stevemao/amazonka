@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatch.PutCompositeAlarm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,7 +27,10 @@
 -- are met.
 --
 -- The alarms specified in a composite alarm\'s rule expression can include
--- metric alarms and other composite alarms.
+-- metric alarms and other composite alarms. The rule expression of a
+-- composite alarm can include as many as 100 underlying alarms. Any single
+-- alarm can be included in the rule expressions of as many as 150
+-- composite alarms.
 --
 -- Using composite alarms can reduce alarm noise. You can create multiple
 -- metric alarms, and also create a composite alarm and set up alerts only
@@ -48,7 +51,7 @@
 -- To get out of such a situation, you must break the cycle by changing the
 -- rule of one of the composite alarms in the cycle to remove a dependency
 -- that creates the cycle. The simplest change to make to break a cycle is
--- to change the @AlarmRule@ of one of the alarms to @False@.
+-- to change the @AlarmRule@ of one of the alarms to @false@.
 --
 -- Additionally, the evaluation of composite alarms stops if CloudWatch
 -- detects a cycle in the evaluation path.
@@ -62,6 +65,11 @@
 -- When you update an existing alarm, its state is left unchanged, but the
 -- update completely overwrites the previous configuration of the alarm.
 --
+-- To use this operation, you must be signed on with the
+-- @cloudwatch:PutCompositeAlarm@ permission that is scoped to @*@. You
+-- can\'t create a composite alarms if your @cloudwatch:PutCompositeAlarm@
+-- permission has a narrower scope.
+--
 -- If you are an IAM user, you must have @iam:CreateServiceLinkedRole@ to
 -- create a composite alarm that has Systems Manager OpsItem actions.
 module Amazonka.CloudWatch.PutCompositeAlarm
@@ -70,11 +78,14 @@ module Amazonka.CloudWatch.PutCompositeAlarm
     newPutCompositeAlarm,
 
     -- * Request Lenses
-    putCompositeAlarm_alarmDescription,
-    putCompositeAlarm_oKActions,
     putCompositeAlarm_actionsEnabled,
-    putCompositeAlarm_insufficientDataActions,
+    putCompositeAlarm_actionsSuppressor,
+    putCompositeAlarm_actionsSuppressorExtensionPeriod,
+    putCompositeAlarm_actionsSuppressorWaitPeriod,
     putCompositeAlarm_alarmActions,
+    putCompositeAlarm_alarmDescription,
+    putCompositeAlarm_insufficientDataActions,
+    putCompositeAlarm_oKActions,
     putCompositeAlarm_tags,
     putCompositeAlarm_alarmName,
     putCompositeAlarm_alarmRule,
@@ -87,30 +98,34 @@ where
 
 import Amazonka.CloudWatch.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newPutCompositeAlarm' smart constructor.
 data PutCompositeAlarm = PutCompositeAlarm'
-  { -- | The description for the composite alarm.
-    alarmDescription :: Prelude.Maybe Prelude.Text,
-    -- | The actions to execute when this alarm transitions to an @OK@ state from
-    -- any other state. Each action is specified as an Amazon Resource Name
-    -- (ARN).
-    --
-    -- Valid Values: @arn:aws:sns:region:account-id:sns-topic-name @
-    oKActions :: Prelude.Maybe [Prelude.Text],
-    -- | Indicates whether actions should be executed during any changes to the
+  { -- | Indicates whether actions should be executed during any changes to the
     -- alarm state of the composite alarm. The default is @TRUE@.
     actionsEnabled :: Prelude.Maybe Prelude.Bool,
-    -- | The actions to execute when this alarm transitions to the
-    -- @INSUFFICIENT_DATA@ state from any other state. Each action is specified
-    -- as an Amazon Resource Name (ARN).
+    -- | Actions will be suppressed if the suppressor alarm is in the @ALARM@
+    -- state. @ActionsSuppressor@ can be an AlarmName or an Amazon Resource
+    -- Name (ARN) from an existing alarm.
+    actionsSuppressor :: Prelude.Maybe Prelude.Text,
+    -- | The maximum time in seconds that the composite alarm waits after
+    -- suppressor alarm goes out of the @ALARM@ state. After this time, the
+    -- composite alarm performs its actions.
     --
-    -- Valid Values: @arn:aws:sns:region:account-id:sns-topic-name @
-    insufficientDataActions :: Prelude.Maybe [Prelude.Text],
+    -- @ExtensionPeriod@ is required only when @ActionsSuppressor@ is
+    -- specified.
+    actionsSuppressorExtensionPeriod :: Prelude.Maybe Prelude.Int,
+    -- | The maximum time in seconds that the composite alarm waits for the
+    -- suppressor alarm to go into the @ALARM@ state. After this time, the
+    -- composite alarm performs its actions.
+    --
+    -- @WaitPeriod@ is required only when @ActionsSuppressor@ is specified.
+    actionsSuppressorWaitPeriod :: Prelude.Maybe Prelude.Int,
     -- | The actions to execute when this alarm transitions to the @ALARM@ state
     -- from any other state. Each action is specified as an Amazon Resource
     -- Name (ARN).
@@ -118,6 +133,20 @@ data PutCompositeAlarm = PutCompositeAlarm'
     -- Valid Values: @arn:aws:sns:region:account-id:sns-topic-name @ |
     -- @arn:aws:ssm:region:account-id:opsitem:severity @
     alarmActions :: Prelude.Maybe [Prelude.Text],
+    -- | The description for the composite alarm.
+    alarmDescription :: Prelude.Maybe Prelude.Text,
+    -- | The actions to execute when this alarm transitions to the
+    -- @INSUFFICIENT_DATA@ state from any other state. Each action is specified
+    -- as an Amazon Resource Name (ARN).
+    --
+    -- Valid Values: @arn:aws:sns:region:account-id:sns-topic-name @
+    insufficientDataActions :: Prelude.Maybe [Prelude.Text],
+    -- | The actions to execute when this alarm transitions to an @OK@ state from
+    -- any other state. Each action is specified as an Amazon Resource Name
+    -- (ARN).
+    --
+    -- Valid Values: @arn:aws:sns:region:account-id:sns-topic-name @
+    oKActions :: Prelude.Maybe [Prelude.Text],
     -- | A list of key-value pairs to associate with the composite alarm. You can
     -- associate as many as 50 tags with an alarm.
     --
@@ -196,22 +225,25 @@ data PutCompositeAlarm = PutCompositeAlarm'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'alarmDescription', 'putCompositeAlarm_alarmDescription' - The description for the composite alarm.
---
--- 'oKActions', 'putCompositeAlarm_oKActions' - The actions to execute when this alarm transitions to an @OK@ state from
--- any other state. Each action is specified as an Amazon Resource Name
--- (ARN).
---
--- Valid Values: @arn:aws:sns:region:account-id:sns-topic-name @
---
 -- 'actionsEnabled', 'putCompositeAlarm_actionsEnabled' - Indicates whether actions should be executed during any changes to the
 -- alarm state of the composite alarm. The default is @TRUE@.
 --
--- 'insufficientDataActions', 'putCompositeAlarm_insufficientDataActions' - The actions to execute when this alarm transitions to the
--- @INSUFFICIENT_DATA@ state from any other state. Each action is specified
--- as an Amazon Resource Name (ARN).
+-- 'actionsSuppressor', 'putCompositeAlarm_actionsSuppressor' - Actions will be suppressed if the suppressor alarm is in the @ALARM@
+-- state. @ActionsSuppressor@ can be an AlarmName or an Amazon Resource
+-- Name (ARN) from an existing alarm.
 --
--- Valid Values: @arn:aws:sns:region:account-id:sns-topic-name @
+-- 'actionsSuppressorExtensionPeriod', 'putCompositeAlarm_actionsSuppressorExtensionPeriod' - The maximum time in seconds that the composite alarm waits after
+-- suppressor alarm goes out of the @ALARM@ state. After this time, the
+-- composite alarm performs its actions.
+--
+-- @ExtensionPeriod@ is required only when @ActionsSuppressor@ is
+-- specified.
+--
+-- 'actionsSuppressorWaitPeriod', 'putCompositeAlarm_actionsSuppressorWaitPeriod' - The maximum time in seconds that the composite alarm waits for the
+-- suppressor alarm to go into the @ALARM@ state. After this time, the
+-- composite alarm performs its actions.
+--
+-- @WaitPeriod@ is required only when @ActionsSuppressor@ is specified.
 --
 -- 'alarmActions', 'putCompositeAlarm_alarmActions' - The actions to execute when this alarm transitions to the @ALARM@ state
 -- from any other state. Each action is specified as an Amazon Resource
@@ -219,6 +251,20 @@ data PutCompositeAlarm = PutCompositeAlarm'
 --
 -- Valid Values: @arn:aws:sns:region:account-id:sns-topic-name @ |
 -- @arn:aws:ssm:region:account-id:opsitem:severity @
+--
+-- 'alarmDescription', 'putCompositeAlarm_alarmDescription' - The description for the composite alarm.
+--
+-- 'insufficientDataActions', 'putCompositeAlarm_insufficientDataActions' - The actions to execute when this alarm transitions to the
+-- @INSUFFICIENT_DATA@ state from any other state. Each action is specified
+-- as an Amazon Resource Name (ARN).
+--
+-- Valid Values: @arn:aws:sns:region:account-id:sns-topic-name @
+--
+-- 'oKActions', 'putCompositeAlarm_oKActions' - The actions to execute when this alarm transitions to an @OK@ state from
+-- any other state. Each action is specified as an Amazon Resource Name
+-- (ARN).
+--
+-- Valid Values: @arn:aws:sns:region:account-id:sns-topic-name @
 --
 -- 'tags', 'putCompositeAlarm_tags' - A list of key-value pairs to associate with the composite alarm. You can
 -- associate as many as 50 tags with an alarm.
@@ -294,41 +340,47 @@ newPutCompositeAlarm ::
   PutCompositeAlarm
 newPutCompositeAlarm pAlarmName_ pAlarmRule_ =
   PutCompositeAlarm'
-    { alarmDescription =
+    { actionsEnabled =
         Prelude.Nothing,
-      oKActions = Prelude.Nothing,
-      actionsEnabled = Prelude.Nothing,
-      insufficientDataActions = Prelude.Nothing,
+      actionsSuppressor = Prelude.Nothing,
+      actionsSuppressorExtensionPeriod = Prelude.Nothing,
+      actionsSuppressorWaitPeriod = Prelude.Nothing,
       alarmActions = Prelude.Nothing,
+      alarmDescription = Prelude.Nothing,
+      insufficientDataActions = Prelude.Nothing,
+      oKActions = Prelude.Nothing,
       tags = Prelude.Nothing,
       alarmName = pAlarmName_,
       alarmRule = pAlarmRule_
     }
-
--- | The description for the composite alarm.
-putCompositeAlarm_alarmDescription :: Lens.Lens' PutCompositeAlarm (Prelude.Maybe Prelude.Text)
-putCompositeAlarm_alarmDescription = Lens.lens (\PutCompositeAlarm' {alarmDescription} -> alarmDescription) (\s@PutCompositeAlarm' {} a -> s {alarmDescription = a} :: PutCompositeAlarm)
-
--- | The actions to execute when this alarm transitions to an @OK@ state from
--- any other state. Each action is specified as an Amazon Resource Name
--- (ARN).
---
--- Valid Values: @arn:aws:sns:region:account-id:sns-topic-name @
-putCompositeAlarm_oKActions :: Lens.Lens' PutCompositeAlarm (Prelude.Maybe [Prelude.Text])
-putCompositeAlarm_oKActions = Lens.lens (\PutCompositeAlarm' {oKActions} -> oKActions) (\s@PutCompositeAlarm' {} a -> s {oKActions = a} :: PutCompositeAlarm) Prelude.. Lens.mapping Lens.coerced
 
 -- | Indicates whether actions should be executed during any changes to the
 -- alarm state of the composite alarm. The default is @TRUE@.
 putCompositeAlarm_actionsEnabled :: Lens.Lens' PutCompositeAlarm (Prelude.Maybe Prelude.Bool)
 putCompositeAlarm_actionsEnabled = Lens.lens (\PutCompositeAlarm' {actionsEnabled} -> actionsEnabled) (\s@PutCompositeAlarm' {} a -> s {actionsEnabled = a} :: PutCompositeAlarm)
 
--- | The actions to execute when this alarm transitions to the
--- @INSUFFICIENT_DATA@ state from any other state. Each action is specified
--- as an Amazon Resource Name (ARN).
+-- | Actions will be suppressed if the suppressor alarm is in the @ALARM@
+-- state. @ActionsSuppressor@ can be an AlarmName or an Amazon Resource
+-- Name (ARN) from an existing alarm.
+putCompositeAlarm_actionsSuppressor :: Lens.Lens' PutCompositeAlarm (Prelude.Maybe Prelude.Text)
+putCompositeAlarm_actionsSuppressor = Lens.lens (\PutCompositeAlarm' {actionsSuppressor} -> actionsSuppressor) (\s@PutCompositeAlarm' {} a -> s {actionsSuppressor = a} :: PutCompositeAlarm)
+
+-- | The maximum time in seconds that the composite alarm waits after
+-- suppressor alarm goes out of the @ALARM@ state. After this time, the
+-- composite alarm performs its actions.
 --
--- Valid Values: @arn:aws:sns:region:account-id:sns-topic-name @
-putCompositeAlarm_insufficientDataActions :: Lens.Lens' PutCompositeAlarm (Prelude.Maybe [Prelude.Text])
-putCompositeAlarm_insufficientDataActions = Lens.lens (\PutCompositeAlarm' {insufficientDataActions} -> insufficientDataActions) (\s@PutCompositeAlarm' {} a -> s {insufficientDataActions = a} :: PutCompositeAlarm) Prelude.. Lens.mapping Lens.coerced
+-- @ExtensionPeriod@ is required only when @ActionsSuppressor@ is
+-- specified.
+putCompositeAlarm_actionsSuppressorExtensionPeriod :: Lens.Lens' PutCompositeAlarm (Prelude.Maybe Prelude.Int)
+putCompositeAlarm_actionsSuppressorExtensionPeriod = Lens.lens (\PutCompositeAlarm' {actionsSuppressorExtensionPeriod} -> actionsSuppressorExtensionPeriod) (\s@PutCompositeAlarm' {} a -> s {actionsSuppressorExtensionPeriod = a} :: PutCompositeAlarm)
+
+-- | The maximum time in seconds that the composite alarm waits for the
+-- suppressor alarm to go into the @ALARM@ state. After this time, the
+-- composite alarm performs its actions.
+--
+-- @WaitPeriod@ is required only when @ActionsSuppressor@ is specified.
+putCompositeAlarm_actionsSuppressorWaitPeriod :: Lens.Lens' PutCompositeAlarm (Prelude.Maybe Prelude.Int)
+putCompositeAlarm_actionsSuppressorWaitPeriod = Lens.lens (\PutCompositeAlarm' {actionsSuppressorWaitPeriod} -> actionsSuppressorWaitPeriod) (\s@PutCompositeAlarm' {} a -> s {actionsSuppressorWaitPeriod = a} :: PutCompositeAlarm)
 
 -- | The actions to execute when this alarm transitions to the @ALARM@ state
 -- from any other state. Each action is specified as an Amazon Resource
@@ -338,6 +390,26 @@ putCompositeAlarm_insufficientDataActions = Lens.lens (\PutCompositeAlarm' {insu
 -- @arn:aws:ssm:region:account-id:opsitem:severity @
 putCompositeAlarm_alarmActions :: Lens.Lens' PutCompositeAlarm (Prelude.Maybe [Prelude.Text])
 putCompositeAlarm_alarmActions = Lens.lens (\PutCompositeAlarm' {alarmActions} -> alarmActions) (\s@PutCompositeAlarm' {} a -> s {alarmActions = a} :: PutCompositeAlarm) Prelude.. Lens.mapping Lens.coerced
+
+-- | The description for the composite alarm.
+putCompositeAlarm_alarmDescription :: Lens.Lens' PutCompositeAlarm (Prelude.Maybe Prelude.Text)
+putCompositeAlarm_alarmDescription = Lens.lens (\PutCompositeAlarm' {alarmDescription} -> alarmDescription) (\s@PutCompositeAlarm' {} a -> s {alarmDescription = a} :: PutCompositeAlarm)
+
+-- | The actions to execute when this alarm transitions to the
+-- @INSUFFICIENT_DATA@ state from any other state. Each action is specified
+-- as an Amazon Resource Name (ARN).
+--
+-- Valid Values: @arn:aws:sns:region:account-id:sns-topic-name @
+putCompositeAlarm_insufficientDataActions :: Lens.Lens' PutCompositeAlarm (Prelude.Maybe [Prelude.Text])
+putCompositeAlarm_insufficientDataActions = Lens.lens (\PutCompositeAlarm' {insufficientDataActions} -> insufficientDataActions) (\s@PutCompositeAlarm' {} a -> s {insufficientDataActions = a} :: PutCompositeAlarm) Prelude.. Lens.mapping Lens.coerced
+
+-- | The actions to execute when this alarm transitions to an @OK@ state from
+-- any other state. Each action is specified as an Amazon Resource Name
+-- (ARN).
+--
+-- Valid Values: @arn:aws:sns:region:account-id:sns-topic-name @
+putCompositeAlarm_oKActions :: Lens.Lens' PutCompositeAlarm (Prelude.Maybe [Prelude.Text])
+putCompositeAlarm_oKActions = Lens.lens (\PutCompositeAlarm' {oKActions} -> oKActions) (\s@PutCompositeAlarm' {} a -> s {oKActions = a} :: PutCompositeAlarm) Prelude.. Lens.mapping Lens.coerced
 
 -- | A list of key-value pairs to associate with the composite alarm. You can
 -- associate as many as 50 tags with an alarm.
@@ -416,63 +488,75 @@ instance Core.AWSRequest PutCompositeAlarm where
   type
     AWSResponse PutCompositeAlarm =
       PutCompositeAlarmResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull PutCompositeAlarmResponse'
 
 instance Prelude.Hashable PutCompositeAlarm where
   hashWithSalt _salt PutCompositeAlarm' {..} =
-    _salt `Prelude.hashWithSalt` alarmDescription
-      `Prelude.hashWithSalt` oKActions
-      `Prelude.hashWithSalt` actionsEnabled
-      `Prelude.hashWithSalt` insufficientDataActions
+    _salt `Prelude.hashWithSalt` actionsEnabled
+      `Prelude.hashWithSalt` actionsSuppressor
+      `Prelude.hashWithSalt` actionsSuppressorExtensionPeriod
+      `Prelude.hashWithSalt` actionsSuppressorWaitPeriod
       `Prelude.hashWithSalt` alarmActions
+      `Prelude.hashWithSalt` alarmDescription
+      `Prelude.hashWithSalt` insufficientDataActions
+      `Prelude.hashWithSalt` oKActions
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` alarmName
       `Prelude.hashWithSalt` alarmRule
 
 instance Prelude.NFData PutCompositeAlarm where
   rnf PutCompositeAlarm' {..} =
-    Prelude.rnf alarmDescription
-      `Prelude.seq` Prelude.rnf oKActions
-      `Prelude.seq` Prelude.rnf actionsEnabled
-      `Prelude.seq` Prelude.rnf insufficientDataActions
+    Prelude.rnf actionsEnabled
+      `Prelude.seq` Prelude.rnf actionsSuppressor
+      `Prelude.seq` Prelude.rnf actionsSuppressorExtensionPeriod
+      `Prelude.seq` Prelude.rnf actionsSuppressorWaitPeriod
       `Prelude.seq` Prelude.rnf alarmActions
+      `Prelude.seq` Prelude.rnf alarmDescription
+      `Prelude.seq` Prelude.rnf insufficientDataActions
+      `Prelude.seq` Prelude.rnf oKActions
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf alarmName
       `Prelude.seq` Prelude.rnf alarmRule
 
-instance Core.ToHeaders PutCompositeAlarm where
+instance Data.ToHeaders PutCompositeAlarm where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath PutCompositeAlarm where
+instance Data.ToPath PutCompositeAlarm where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutCompositeAlarm where
+instance Data.ToQuery PutCompositeAlarm where
   toQuery PutCompositeAlarm' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("PutCompositeAlarm" :: Prelude.ByteString),
+          Data.=: ("PutCompositeAlarm" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-08-01" :: Prelude.ByteString),
-        "AlarmDescription" Core.=: alarmDescription,
-        "OKActions"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> oKActions),
-        "ActionsEnabled" Core.=: actionsEnabled,
+          Data.=: ("2010-08-01" :: Prelude.ByteString),
+        "ActionsEnabled" Data.=: actionsEnabled,
+        "ActionsSuppressor" Data.=: actionsSuppressor,
+        "ActionsSuppressorExtensionPeriod"
+          Data.=: actionsSuppressorExtensionPeriod,
+        "ActionsSuppressorWaitPeriod"
+          Data.=: actionsSuppressorWaitPeriod,
+        "AlarmActions"
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> alarmActions),
+        "AlarmDescription" Data.=: alarmDescription,
         "InsufficientDataActions"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> insufficientDataActions
             ),
-        "AlarmActions"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> alarmActions),
+        "OKActions"
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> oKActions),
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tags),
-        "AlarmName" Core.=: alarmName,
-        "AlarmRule" Core.=: alarmRule
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tags),
+        "AlarmName" Data.=: alarmName,
+        "AlarmRule" Data.=: alarmRule
       ]
 
 -- | /See:/ 'newPutCompositeAlarmResponse' smart constructor.

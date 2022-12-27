@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.Types.DetailedError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTSiteWise.Types.DetailedError where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types.DetailedErrorCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains detailed error information.
@@ -63,13 +64,13 @@ detailedError_code = Lens.lens (\DetailedError' {code} -> code) (\s@DetailedErro
 detailedError_message :: Lens.Lens' DetailedError Prelude.Text
 detailedError_message = Lens.lens (\DetailedError' {message} -> message) (\s@DetailedError' {} a -> s {message = a} :: DetailedError)
 
-instance Core.FromJSON DetailedError where
+instance Data.FromJSON DetailedError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DetailedError"
       ( \x ->
           DetailedError'
-            Prelude.<$> (x Core..: "code") Prelude.<*> (x Core..: "message")
+            Prelude.<$> (x Data..: "code") Prelude.<*> (x Data..: "message")
       )
 
 instance Prelude.Hashable DetailedError where

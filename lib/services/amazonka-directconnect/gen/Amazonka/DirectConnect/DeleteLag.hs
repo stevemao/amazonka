@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.DeleteLag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,33 +35,34 @@ module Amazonka.DirectConnect.DeleteLag
     newLag,
 
     -- * Response Lenses
-    lag_lagId,
-    lag_macSecCapable,
-    lag_connectionsBandwidth,
-    lag_minimumLinks,
-    lag_lagName,
-    lag_location,
-    lag_connections,
-    lag_awsDevice,
-    lag_hasLogicalRedundancy,
-    lag_awsLogicalDeviceId,
     lag_allowsHostedConnections,
-    lag_encryptionMode,
-    lag_numberOfConnections,
-    lag_jumboFrameCapable,
-    lag_lagState,
-    lag_ownerAccount,
-    lag_region,
-    lag_macSecKeys,
-    lag_providerName,
+    lag_awsDevice,
     lag_awsDeviceV2,
+    lag_awsLogicalDeviceId,
+    lag_connections,
+    lag_connectionsBandwidth,
+    lag_encryptionMode,
+    lag_hasLogicalRedundancy,
+    lag_jumboFrameCapable,
+    lag_lagId,
+    lag_lagName,
+    lag_lagState,
+    lag_location,
+    lag_macSecCapable,
+    lag_macSecKeys,
+    lag_minimumLinks,
+    lag_numberOfConnections,
+    lag_ownerAccount,
+    lag_providerName,
+    lag_region,
     lag_tags,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,10 +95,11 @@ deleteLag_lagId = Lens.lens (\DeleteLag' {lagId} -> lagId) (\s@DeleteLag' {} a -
 
 instance Core.AWSRequest DeleteLag where
   type AWSResponse DeleteLag = Lag
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable DeleteLag where
   hashWithSalt _salt DeleteLag' {..} =
@@ -106,28 +108,28 @@ instance Prelude.Hashable DeleteLag where
 instance Prelude.NFData DeleteLag where
   rnf DeleteLag' {..} = Prelude.rnf lagId
 
-instance Core.ToHeaders DeleteLag where
+instance Data.ToHeaders DeleteLag where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("OvertureService.DeleteLag" :: Prelude.ByteString),
+              Data.=# ("OvertureService.DeleteLag" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteLag where
+instance Data.ToJSON DeleteLag where
   toJSON DeleteLag' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("lagId" Core..= lagId)]
+          [Prelude.Just ("lagId" Data..= lagId)]
       )
 
-instance Core.ToPath DeleteLag where
+instance Data.ToPath DeleteLag where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteLag where
+instance Data.ToQuery DeleteLag where
   toQuery = Prelude.const Prelude.mempty

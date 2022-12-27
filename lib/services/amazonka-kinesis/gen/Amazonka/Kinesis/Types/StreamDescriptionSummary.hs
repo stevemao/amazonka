@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.Types.StreamDescriptionSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,27 +20,31 @@
 module Amazonka.Kinesis.Types.StreamDescriptionSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types.EncryptionType
 import Amazonka.Kinesis.Types.EnhancedMetrics
+import Amazonka.Kinesis.Types.StreamModeDetails
 import Amazonka.Kinesis.Types.StreamStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output for DescribeStreamSummary
 --
 -- /See:/ 'newStreamDescriptionSummary' smart constructor.
 data StreamDescriptionSummary = StreamDescriptionSummary'
-  { -- | The encryption type used. This value is one of the following:
+  { -- | The number of enhanced fan-out consumers registered with the stream.
+    consumerCount :: Prelude.Maybe Prelude.Natural,
+    -- | The encryption type used. This value is one of the following:
     --
     -- -   @KMS@
     --
     -- -   @NONE@
     encryptionType :: Prelude.Maybe EncryptionType,
-    -- | The GUID for the customer-managed AWS KMS key to use for encryption.
-    -- This value can be a globally unique identifier, a fully specified ARN to
-    -- either an alias or a key, or an alias name prefixed by \"alias\/\".You
-    -- can also use a master key owned by Kinesis Data Streams by specifying
-    -- the alias @aws\/kinesis@.
+    -- | The GUID for the customer-managed Amazon Web Services KMS key to use for
+    -- encryption. This value can be a globally unique identifier, a fully
+    -- specified ARN to either an alias or a key, or an alias name prefixed by
+    -- \"alias\/\".You can also use a master key owned by Kinesis Data Streams
+    -- by specifying the alias @aws\/kinesis@.
     --
     -- -   Key ARN example:
     --     @arn:aws:kms:us-east-1:123456789012:key\/12345678-1234-1234-1234-123456789012@
@@ -55,8 +59,11 @@ data StreamDescriptionSummary = StreamDescriptionSummary'
     --
     -- -   Master key owned by Kinesis Data Streams: @alias\/aws\/kinesis@
     keyId :: Prelude.Maybe Prelude.Text,
-    -- | The number of enhanced fan-out consumers registered with the stream.
-    consumerCount :: Prelude.Maybe Prelude.Natural,
+    -- | Specifies the capacity mode to which you want to set your data stream.
+    -- Currently, in Kinesis Data Streams, you can choose between an
+    -- __on-demand__ ycapacity mode and a __provisioned__ capacity mode for
+    -- your data streams.
+    streamModeDetails :: Prelude.Maybe StreamModeDetails,
     -- | The name of the stream being described.
     streamName :: Prelude.Text,
     -- | The Amazon Resource Name (ARN) for the stream being described.
@@ -82,7 +89,7 @@ data StreamDescriptionSummary = StreamDescriptionSummary'
     -- | The current retention period, in hours.
     retentionPeriodHours :: Prelude.Int,
     -- | The approximate time that the stream was created.
-    streamCreationTimestamp :: Core.POSIX,
+    streamCreationTimestamp :: Data.POSIX,
     -- | Represents the current enhanced monitoring settings of the stream.
     enhancedMonitoring :: [EnhancedMetrics],
     -- | The number of open shards in the stream.
@@ -98,17 +105,19 @@ data StreamDescriptionSummary = StreamDescriptionSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'consumerCount', 'streamDescriptionSummary_consumerCount' - The number of enhanced fan-out consumers registered with the stream.
+--
 -- 'encryptionType', 'streamDescriptionSummary_encryptionType' - The encryption type used. This value is one of the following:
 --
 -- -   @KMS@
 --
 -- -   @NONE@
 --
--- 'keyId', 'streamDescriptionSummary_keyId' - The GUID for the customer-managed AWS KMS key to use for encryption.
--- This value can be a globally unique identifier, a fully specified ARN to
--- either an alias or a key, or an alias name prefixed by \"alias\/\".You
--- can also use a master key owned by Kinesis Data Streams by specifying
--- the alias @aws\/kinesis@.
+-- 'keyId', 'streamDescriptionSummary_keyId' - The GUID for the customer-managed Amazon Web Services KMS key to use for
+-- encryption. This value can be a globally unique identifier, a fully
+-- specified ARN to either an alias or a key, or an alias name prefixed by
+-- \"alias\/\".You can also use a master key owned by Kinesis Data Streams
+-- by specifying the alias @aws\/kinesis@.
 --
 -- -   Key ARN example:
 --     @arn:aws:kms:us-east-1:123456789012:key\/12345678-1234-1234-1234-123456789012@
@@ -123,7 +132,10 @@ data StreamDescriptionSummary = StreamDescriptionSummary'
 --
 -- -   Master key owned by Kinesis Data Streams: @alias\/aws\/kinesis@
 --
--- 'consumerCount', 'streamDescriptionSummary_consumerCount' - The number of enhanced fan-out consumers registered with the stream.
+-- 'streamModeDetails', 'streamDescriptionSummary_streamModeDetails' - Specifies the capacity mode to which you want to set your data stream.
+-- Currently, in Kinesis Data Streams, you can choose between an
+-- __on-demand__ ycapacity mode and a __provisioned__ capacity mode for
+-- your data streams.
 --
 -- 'streamName', 'streamDescriptionSummary_streamName' - The name of the stream being described.
 --
@@ -176,19 +188,24 @@ newStreamDescriptionSummary
   pStreamCreationTimestamp_
   pOpenShardCount_ =
     StreamDescriptionSummary'
-      { encryptionType =
+      { consumerCount =
           Prelude.Nothing,
+        encryptionType = Prelude.Nothing,
         keyId = Prelude.Nothing,
-        consumerCount = Prelude.Nothing,
+        streamModeDetails = Prelude.Nothing,
         streamName = pStreamName_,
         streamARN = pStreamARN_,
         streamStatus = pStreamStatus_,
         retentionPeriodHours = pRetentionPeriodHours_,
         streamCreationTimestamp =
-          Core._Time Lens.# pStreamCreationTimestamp_,
+          Data._Time Lens.# pStreamCreationTimestamp_,
         enhancedMonitoring = Prelude.mempty,
         openShardCount = pOpenShardCount_
       }
+
+-- | The number of enhanced fan-out consumers registered with the stream.
+streamDescriptionSummary_consumerCount :: Lens.Lens' StreamDescriptionSummary (Prelude.Maybe Prelude.Natural)
+streamDescriptionSummary_consumerCount = Lens.lens (\StreamDescriptionSummary' {consumerCount} -> consumerCount) (\s@StreamDescriptionSummary' {} a -> s {consumerCount = a} :: StreamDescriptionSummary)
 
 -- | The encryption type used. This value is one of the following:
 --
@@ -198,11 +215,11 @@ newStreamDescriptionSummary
 streamDescriptionSummary_encryptionType :: Lens.Lens' StreamDescriptionSummary (Prelude.Maybe EncryptionType)
 streamDescriptionSummary_encryptionType = Lens.lens (\StreamDescriptionSummary' {encryptionType} -> encryptionType) (\s@StreamDescriptionSummary' {} a -> s {encryptionType = a} :: StreamDescriptionSummary)
 
--- | The GUID for the customer-managed AWS KMS key to use for encryption.
--- This value can be a globally unique identifier, a fully specified ARN to
--- either an alias or a key, or an alias name prefixed by \"alias\/\".You
--- can also use a master key owned by Kinesis Data Streams by specifying
--- the alias @aws\/kinesis@.
+-- | The GUID for the customer-managed Amazon Web Services KMS key to use for
+-- encryption. This value can be a globally unique identifier, a fully
+-- specified ARN to either an alias or a key, or an alias name prefixed by
+-- \"alias\/\".You can also use a master key owned by Kinesis Data Streams
+-- by specifying the alias @aws\/kinesis@.
 --
 -- -   Key ARN example:
 --     @arn:aws:kms:us-east-1:123456789012:key\/12345678-1234-1234-1234-123456789012@
@@ -219,9 +236,12 @@ streamDescriptionSummary_encryptionType = Lens.lens (\StreamDescriptionSummary' 
 streamDescriptionSummary_keyId :: Lens.Lens' StreamDescriptionSummary (Prelude.Maybe Prelude.Text)
 streamDescriptionSummary_keyId = Lens.lens (\StreamDescriptionSummary' {keyId} -> keyId) (\s@StreamDescriptionSummary' {} a -> s {keyId = a} :: StreamDescriptionSummary)
 
--- | The number of enhanced fan-out consumers registered with the stream.
-streamDescriptionSummary_consumerCount :: Lens.Lens' StreamDescriptionSummary (Prelude.Maybe Prelude.Natural)
-streamDescriptionSummary_consumerCount = Lens.lens (\StreamDescriptionSummary' {consumerCount} -> consumerCount) (\s@StreamDescriptionSummary' {} a -> s {consumerCount = a} :: StreamDescriptionSummary)
+-- | Specifies the capacity mode to which you want to set your data stream.
+-- Currently, in Kinesis Data Streams, you can choose between an
+-- __on-demand__ ycapacity mode and a __provisioned__ capacity mode for
+-- your data streams.
+streamDescriptionSummary_streamModeDetails :: Lens.Lens' StreamDescriptionSummary (Prelude.Maybe StreamModeDetails)
+streamDescriptionSummary_streamModeDetails = Lens.lens (\StreamDescriptionSummary' {streamModeDetails} -> streamModeDetails) (\s@StreamDescriptionSummary' {} a -> s {streamModeDetails = a} :: StreamDescriptionSummary)
 
 -- | The name of the stream being described.
 streamDescriptionSummary_streamName :: Lens.Lens' StreamDescriptionSummary Prelude.Text
@@ -257,7 +277,7 @@ streamDescriptionSummary_retentionPeriodHours = Lens.lens (\StreamDescriptionSum
 
 -- | The approximate time that the stream was created.
 streamDescriptionSummary_streamCreationTimestamp :: Lens.Lens' StreamDescriptionSummary Prelude.UTCTime
-streamDescriptionSummary_streamCreationTimestamp = Lens.lens (\StreamDescriptionSummary' {streamCreationTimestamp} -> streamCreationTimestamp) (\s@StreamDescriptionSummary' {} a -> s {streamCreationTimestamp = a} :: StreamDescriptionSummary) Prelude.. Core._Time
+streamDescriptionSummary_streamCreationTimestamp = Lens.lens (\StreamDescriptionSummary' {streamCreationTimestamp} -> streamCreationTimestamp) (\s@StreamDescriptionSummary' {} a -> s {streamCreationTimestamp = a} :: StreamDescriptionSummary) Prelude.. Data._Time
 
 -- | Represents the current enhanced monitoring settings of the stream.
 streamDescriptionSummary_enhancedMonitoring :: Lens.Lens' StreamDescriptionSummary [EnhancedMetrics]
@@ -267,31 +287,33 @@ streamDescriptionSummary_enhancedMonitoring = Lens.lens (\StreamDescriptionSumma
 streamDescriptionSummary_openShardCount :: Lens.Lens' StreamDescriptionSummary Prelude.Natural
 streamDescriptionSummary_openShardCount = Lens.lens (\StreamDescriptionSummary' {openShardCount} -> openShardCount) (\s@StreamDescriptionSummary' {} a -> s {openShardCount = a} :: StreamDescriptionSummary)
 
-instance Core.FromJSON StreamDescriptionSummary where
+instance Data.FromJSON StreamDescriptionSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StreamDescriptionSummary"
       ( \x ->
           StreamDescriptionSummary'
-            Prelude.<$> (x Core..:? "EncryptionType")
-            Prelude.<*> (x Core..:? "KeyId")
-            Prelude.<*> (x Core..:? "ConsumerCount")
-            Prelude.<*> (x Core..: "StreamName")
-            Prelude.<*> (x Core..: "StreamARN")
-            Prelude.<*> (x Core..: "StreamStatus")
-            Prelude.<*> (x Core..: "RetentionPeriodHours")
-            Prelude.<*> (x Core..: "StreamCreationTimestamp")
-            Prelude.<*> ( x Core..:? "EnhancedMonitoring"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "ConsumerCount")
+            Prelude.<*> (x Data..:? "EncryptionType")
+            Prelude.<*> (x Data..:? "KeyId")
+            Prelude.<*> (x Data..:? "StreamModeDetails")
+            Prelude.<*> (x Data..: "StreamName")
+            Prelude.<*> (x Data..: "StreamARN")
+            Prelude.<*> (x Data..: "StreamStatus")
+            Prelude.<*> (x Data..: "RetentionPeriodHours")
+            Prelude.<*> (x Data..: "StreamCreationTimestamp")
+            Prelude.<*> ( x Data..:? "EnhancedMonitoring"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..: "OpenShardCount")
+            Prelude.<*> (x Data..: "OpenShardCount")
       )
 
 instance Prelude.Hashable StreamDescriptionSummary where
   hashWithSalt _salt StreamDescriptionSummary' {..} =
-    _salt `Prelude.hashWithSalt` encryptionType
+    _salt `Prelude.hashWithSalt` consumerCount
+      `Prelude.hashWithSalt` encryptionType
       `Prelude.hashWithSalt` keyId
-      `Prelude.hashWithSalt` consumerCount
+      `Prelude.hashWithSalt` streamModeDetails
       `Prelude.hashWithSalt` streamName
       `Prelude.hashWithSalt` streamARN
       `Prelude.hashWithSalt` streamStatus
@@ -302,9 +324,10 @@ instance Prelude.Hashable StreamDescriptionSummary where
 
 instance Prelude.NFData StreamDescriptionSummary where
   rnf StreamDescriptionSummary' {..} =
-    Prelude.rnf encryptionType
+    Prelude.rnf consumerCount
+      `Prelude.seq` Prelude.rnf encryptionType
       `Prelude.seq` Prelude.rnf keyId
-      `Prelude.seq` Prelude.rnf consumerCount
+      `Prelude.seq` Prelude.rnf streamModeDetails
       `Prelude.seq` Prelude.rnf streamName
       `Prelude.seq` Prelude.rnf streamARN
       `Prelude.seq` Prelude.rnf streamStatus

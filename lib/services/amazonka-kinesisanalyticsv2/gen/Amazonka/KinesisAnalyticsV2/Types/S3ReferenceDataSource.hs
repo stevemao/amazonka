@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.S3ReferenceDataSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisAnalyticsV2.Types.S3ReferenceDataSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | For a SQL-based Kinesis Data Analytics application, identifies the
@@ -76,11 +77,11 @@ instance Prelude.NFData S3ReferenceDataSource where
     Prelude.rnf bucketARN
       `Prelude.seq` Prelude.rnf fileKey
 
-instance Core.ToJSON S3ReferenceDataSource where
+instance Data.ToJSON S3ReferenceDataSource where
   toJSON S3ReferenceDataSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BucketARN" Core..=) Prelude.<$> bucketARN,
-            ("FileKey" Core..=) Prelude.<$> fileKey
+          [ ("BucketARN" Data..=) Prelude.<$> bucketARN,
+            ("FileKey" Data..=) Prelude.<$> fileKey
           ]
       )

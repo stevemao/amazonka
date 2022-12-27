@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.WebvttDestinationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,9 @@
 module Amazonka.MediaConvert.Types.WebvttDestinationSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.MediaConvert.Types.WebvttAccessibilitySubs
 import Amazonka.MediaConvert.Types.WebvttStylePassthrough
 import qualified Amazonka.Prelude as Prelude
 
@@ -34,12 +36,26 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newWebvttDestinationSettings' smart constructor.
 data WebvttDestinationSettings = WebvttDestinationSettings'
-  { -- | Set Style passthrough (StylePassthrough) to ENABLED to use the available
-    -- style, color, and position information from your input captions.
-    -- MediaConvert uses default settings for any missing style and position
-    -- information in your input captions. Set Style passthrough to DISABLED,
-    -- or leave blank, to ignore the style and position information from your
-    -- input captions and use simplified output captions.
+  { -- | Set Accessibility subtitles to Enabled if the ISMC or WebVTT captions
+    -- track is intended to provide accessibility for people who are deaf or
+    -- hard of hearing. When you enable this feature, MediaConvert adds the
+    -- following attributes under EXT-X-MEDIA in the HLS or CMAF manifest for
+    -- this track:
+    -- CHARACTERISTICS=\"public.accessibility.describes-spoken-dialog,public.accessibility.describes-music-and-sound\"
+    -- and AUTOSELECT=\"YES\". Keep the default value, Disabled, if the
+    -- captions track is not intended to provide such accessibility.
+    -- MediaConvert will not add the above attributes.
+    accessibility :: Prelude.Maybe WebvttAccessibilitySubs,
+    -- | To use the available style, color, and position information from your
+    -- input captions: Set Style passthrough (stylePassthrough) to Enabled
+    -- (ENABLED). MediaConvert uses default settings when style and position
+    -- information is missing from your input captions. To recreate the input
+    -- captions exactly: Set Style passthrough to Strict (STRICT). MediaConvert
+    -- automatically applies timing adjustments, including adjustments for
+    -- frame rate conversion, ad avails, and input clipping. Your input
+    -- captions format must be WebVTT. To ignore the style and position
+    -- information from your input captions and use simplified output captions:
+    -- Set Style passthrough to Disabled (DISABLED), or leave blank.
     stylePassthrough :: Prelude.Maybe WebvttStylePassthrough
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -52,51 +68,86 @@ data WebvttDestinationSettings = WebvttDestinationSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'stylePassthrough', 'webvttDestinationSettings_stylePassthrough' - Set Style passthrough (StylePassthrough) to ENABLED to use the available
--- style, color, and position information from your input captions.
--- MediaConvert uses default settings for any missing style and position
--- information in your input captions. Set Style passthrough to DISABLED,
--- or leave blank, to ignore the style and position information from your
--- input captions and use simplified output captions.
+-- 'accessibility', 'webvttDestinationSettings_accessibility' - Set Accessibility subtitles to Enabled if the ISMC or WebVTT captions
+-- track is intended to provide accessibility for people who are deaf or
+-- hard of hearing. When you enable this feature, MediaConvert adds the
+-- following attributes under EXT-X-MEDIA in the HLS or CMAF manifest for
+-- this track:
+-- CHARACTERISTICS=\"public.accessibility.describes-spoken-dialog,public.accessibility.describes-music-and-sound\"
+-- and AUTOSELECT=\"YES\". Keep the default value, Disabled, if the
+-- captions track is not intended to provide such accessibility.
+-- MediaConvert will not add the above attributes.
+--
+-- 'stylePassthrough', 'webvttDestinationSettings_stylePassthrough' - To use the available style, color, and position information from your
+-- input captions: Set Style passthrough (stylePassthrough) to Enabled
+-- (ENABLED). MediaConvert uses default settings when style and position
+-- information is missing from your input captions. To recreate the input
+-- captions exactly: Set Style passthrough to Strict (STRICT). MediaConvert
+-- automatically applies timing adjustments, including adjustments for
+-- frame rate conversion, ad avails, and input clipping. Your input
+-- captions format must be WebVTT. To ignore the style and position
+-- information from your input captions and use simplified output captions:
+-- Set Style passthrough to Disabled (DISABLED), or leave blank.
 newWebvttDestinationSettings ::
   WebvttDestinationSettings
 newWebvttDestinationSettings =
   WebvttDestinationSettings'
-    { stylePassthrough =
-        Prelude.Nothing
+    { accessibility =
+        Prelude.Nothing,
+      stylePassthrough = Prelude.Nothing
     }
 
--- | Set Style passthrough (StylePassthrough) to ENABLED to use the available
--- style, color, and position information from your input captions.
--- MediaConvert uses default settings for any missing style and position
--- information in your input captions. Set Style passthrough to DISABLED,
--- or leave blank, to ignore the style and position information from your
--- input captions and use simplified output captions.
+-- | Set Accessibility subtitles to Enabled if the ISMC or WebVTT captions
+-- track is intended to provide accessibility for people who are deaf or
+-- hard of hearing. When you enable this feature, MediaConvert adds the
+-- following attributes under EXT-X-MEDIA in the HLS or CMAF manifest for
+-- this track:
+-- CHARACTERISTICS=\"public.accessibility.describes-spoken-dialog,public.accessibility.describes-music-and-sound\"
+-- and AUTOSELECT=\"YES\". Keep the default value, Disabled, if the
+-- captions track is not intended to provide such accessibility.
+-- MediaConvert will not add the above attributes.
+webvttDestinationSettings_accessibility :: Lens.Lens' WebvttDestinationSettings (Prelude.Maybe WebvttAccessibilitySubs)
+webvttDestinationSettings_accessibility = Lens.lens (\WebvttDestinationSettings' {accessibility} -> accessibility) (\s@WebvttDestinationSettings' {} a -> s {accessibility = a} :: WebvttDestinationSettings)
+
+-- | To use the available style, color, and position information from your
+-- input captions: Set Style passthrough (stylePassthrough) to Enabled
+-- (ENABLED). MediaConvert uses default settings when style and position
+-- information is missing from your input captions. To recreate the input
+-- captions exactly: Set Style passthrough to Strict (STRICT). MediaConvert
+-- automatically applies timing adjustments, including adjustments for
+-- frame rate conversion, ad avails, and input clipping. Your input
+-- captions format must be WebVTT. To ignore the style and position
+-- information from your input captions and use simplified output captions:
+-- Set Style passthrough to Disabled (DISABLED), or leave blank.
 webvttDestinationSettings_stylePassthrough :: Lens.Lens' WebvttDestinationSettings (Prelude.Maybe WebvttStylePassthrough)
 webvttDestinationSettings_stylePassthrough = Lens.lens (\WebvttDestinationSettings' {stylePassthrough} -> stylePassthrough) (\s@WebvttDestinationSettings' {} a -> s {stylePassthrough = a} :: WebvttDestinationSettings)
 
-instance Core.FromJSON WebvttDestinationSettings where
+instance Data.FromJSON WebvttDestinationSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WebvttDestinationSettings"
       ( \x ->
           WebvttDestinationSettings'
-            Prelude.<$> (x Core..:? "stylePassthrough")
+            Prelude.<$> (x Data..:? "accessibility")
+            Prelude.<*> (x Data..:? "stylePassthrough")
       )
 
 instance Prelude.Hashable WebvttDestinationSettings where
   hashWithSalt _salt WebvttDestinationSettings' {..} =
-    _salt `Prelude.hashWithSalt` stylePassthrough
+    _salt `Prelude.hashWithSalt` accessibility
+      `Prelude.hashWithSalt` stylePassthrough
 
 instance Prelude.NFData WebvttDestinationSettings where
   rnf WebvttDestinationSettings' {..} =
-    Prelude.rnf stylePassthrough
+    Prelude.rnf accessibility
+      `Prelude.seq` Prelude.rnf stylePassthrough
 
-instance Core.ToJSON WebvttDestinationSettings where
+instance Data.ToJSON WebvttDestinationSettings where
   toJSON WebvttDestinationSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("stylePassthrough" Core..=)
+          [ ("accessibility" Data..=) Prelude.<$> accessibility,
+            ("stylePassthrough" Data..=)
               Prelude.<$> stylePassthrough
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.UntagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,9 +22,9 @@
 --
 -- Removes any tags with the specified keys from the specified resource.
 --
--- You can attach tags to the following resources in AWS Organizations.
+-- You can attach tags to the following resources in Organizations.
 --
--- -   AWS account
+-- -   Amazon Web Services account
 --
 -- -   Organization root
 --
@@ -50,7 +50,8 @@ module Amazonka.Organizations.UntagResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -62,7 +63,7 @@ data UntagResource = UntagResource'
     --
     -- You can specify any of the following taggable resources.
     --
-    -- -   AWS account – specify the account ID number.
+    -- -   Amazon Web Services account – specify the account ID number.
     --
     -- -   Organizational unit – specify the OU ID that begins with @ou-@ and
     --     looks similar to: @ou-1a2b-34uvwxyz @
@@ -90,7 +91,7 @@ data UntagResource = UntagResource'
 --
 -- You can specify any of the following taggable resources.
 --
--- -   AWS account – specify the account ID number.
+-- -   Amazon Web Services account – specify the account ID number.
 --
 -- -   Organizational unit – specify the OU ID that begins with @ou-@ and
 --     looks similar to: @ou-1a2b-34uvwxyz @
@@ -116,7 +117,7 @@ newUntagResource pResourceId_ =
 --
 -- You can specify any of the following taggable resources.
 --
--- -   AWS account – specify the account ID number.
+-- -   Amazon Web Services account – specify the account ID number.
 --
 -- -   Organizational unit – specify the OU ID that begins with @ou-@ and
 --     looks similar to: @ou-1a2b-34uvwxyz @
@@ -137,7 +138,8 @@ instance Core.AWSRequest UntagResource where
   type
     AWSResponse UntagResource =
       UntagResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull UntagResourceResponse'
 
@@ -151,34 +153,34 @@ instance Prelude.NFData UntagResource where
     Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf tagKeys
 
-instance Core.ToHeaders UntagResource where
+instance Data.ToHeaders UntagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.UntagResource" ::
+              Data.=# ( "AWSOrganizationsV20161128.UntagResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UntagResource where
+instance Data.ToJSON UntagResource where
   toJSON UntagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceId" Core..= resourceId),
-            Prelude.Just ("TagKeys" Core..= tagKeys)
+          [ Prelude.Just ("ResourceId" Data..= resourceId),
+            Prelude.Just ("TagKeys" Data..= tagKeys)
           ]
       )
 
-instance Core.ToPath UntagResource where
+instance Data.ToPath UntagResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UntagResource where
+instance Data.ToQuery UntagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUntagResourceResponse' smart constructor.

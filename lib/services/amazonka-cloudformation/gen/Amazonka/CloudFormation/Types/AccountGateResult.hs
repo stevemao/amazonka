@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.Types.AccountGateResult
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudFormation.Types.AccountGateResult where
 
 import Amazonka.CloudFormation.Types.AccountGateStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Structure that contains the results of the account gate function which
@@ -50,8 +51,8 @@ data AccountGateResult = AccountGateResult'
     --     account and Region.
     --
     -- -   @FAILED@: The account gate function has determined that the account
-    --     and Region does not meet the requirements for a stack set operation
-    --     to occur. AWS CloudFormation cancels the stack set operation in that
+    --     and Region doesn\'t meet the requirements for a stack set operation
+    --     to occur. CloudFormation cancels the stack set operation in that
     --     account and Region, and sets the stack set operation result status
     --     for that account and Region to @FAILED@.
     --
@@ -59,12 +60,12 @@ data AccountGateResult = AccountGateResult'
     --     function for this account and Region, for one of the following
     --     reasons:
     --
-    --     -   An account gate function has not been specified for the account
+    --     -   An account gate function hasn\'t been specified for the account
     --         and Region. CloudFormation proceeds with the stack set operation
     --         in this account and Region.
     --
     --     -   The @AWSCloudFormationStackSetExecutionRole@ of the stack set
-    --         adminstration account lacks permissions to invoke the function.
+    --         administration account lacks permissions to invoke the function.
     --         CloudFormation proceeds with the stack set operation in this
     --         account and Region.
     --
@@ -94,8 +95,8 @@ data AccountGateResult = AccountGateResult'
 --     account and Region.
 --
 -- -   @FAILED@: The account gate function has determined that the account
---     and Region does not meet the requirements for a stack set operation
---     to occur. AWS CloudFormation cancels the stack set operation in that
+--     and Region doesn\'t meet the requirements for a stack set operation
+--     to occur. CloudFormation cancels the stack set operation in that
 --     account and Region, and sets the stack set operation result status
 --     for that account and Region to @FAILED@.
 --
@@ -103,12 +104,12 @@ data AccountGateResult = AccountGateResult'
 --     function for this account and Region, for one of the following
 --     reasons:
 --
---     -   An account gate function has not been specified for the account
+--     -   An account gate function hasn\'t been specified for the account
 --         and Region. CloudFormation proceeds with the stack set operation
 --         in this account and Region.
 --
 --     -   The @AWSCloudFormationStackSetExecutionRole@ of the stack set
---         adminstration account lacks permissions to invoke the function.
+--         administration account lacks permissions to invoke the function.
 --         CloudFormation proceeds with the stack set operation in this
 --         account and Region.
 --
@@ -134,8 +135,8 @@ newAccountGateResult =
 --     account and Region.
 --
 -- -   @FAILED@: The account gate function has determined that the account
---     and Region does not meet the requirements for a stack set operation
---     to occur. AWS CloudFormation cancels the stack set operation in that
+--     and Region doesn\'t meet the requirements for a stack set operation
+--     to occur. CloudFormation cancels the stack set operation in that
 --     account and Region, and sets the stack set operation result status
 --     for that account and Region to @FAILED@.
 --
@@ -143,12 +144,12 @@ newAccountGateResult =
 --     function for this account and Region, for one of the following
 --     reasons:
 --
---     -   An account gate function has not been specified for the account
+--     -   An account gate function hasn\'t been specified for the account
 --         and Region. CloudFormation proceeds with the stack set operation
 --         in this account and Region.
 --
 --     -   The @AWSCloudFormationStackSetExecutionRole@ of the stack set
---         adminstration account lacks permissions to invoke the function.
+--         administration account lacks permissions to invoke the function.
 --         CloudFormation proceeds with the stack set operation in this
 --         account and Region.
 --
@@ -163,11 +164,11 @@ accountGateResult_status = Lens.lens (\AccountGateResult' {status} -> status) (\
 accountGateResult_statusReason :: Lens.Lens' AccountGateResult (Prelude.Maybe Prelude.Text)
 accountGateResult_statusReason = Lens.lens (\AccountGateResult' {statusReason} -> statusReason) (\s@AccountGateResult' {} a -> s {statusReason = a} :: AccountGateResult)
 
-instance Core.FromXML AccountGateResult where
+instance Data.FromXML AccountGateResult where
   parseXML x =
     AccountGateResult'
-      Prelude.<$> (x Core..@? "Status")
-      Prelude.<*> (x Core..@? "StatusReason")
+      Prelude.<$> (x Data..@? "Status")
+      Prelude.<*> (x Data..@? "StatusReason")
 
 instance Prelude.Hashable AccountGateResult where
   hashWithSalt _salt AccountGateResult' {..} =

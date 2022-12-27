@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.MatchmakingRuleSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,13 @@
 module Amazonka.GameLift.Types.MatchmakingRuleSet where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Set of rule statements, used with FlexMatch, that determine how to build
 -- your player matches. Each rule set describes a type of group to be
--- created and defines the parameters for acceptable player matches. Rule
--- sets are used in MatchmakingConfiguration objects.
+-- created and defines the parameters for acceptable player matches.
 --
 -- A rule set may define the following elements for a match. For detailed
 -- information and examples showing how to construct a rule set, see
@@ -64,9 +64,7 @@ data MatchmakingRuleSet = MatchmakingRuleSet'
   { -- | A time stamp indicating when this data object was created. Format is a
     -- number expressed in Unix time as milliseconds (for example
     -- @\"1469498468.057\"@).
-    creationTime :: Prelude.Maybe Core.POSIX,
-    -- | A unique identifier for the matchmaking rule set
-    ruleSetName :: Prelude.Maybe Prelude.Text,
+    creationTime :: Prelude.Maybe Data.POSIX,
     -- | The Amazon Resource Name
     -- (<https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html ARN>)
     -- that is assigned to a GameLift matchmaking rule set resource and
@@ -74,6 +72,8 @@ data MatchmakingRuleSet = MatchmakingRuleSet'
     -- @arn:aws:gamelift:\<region>::matchmakingruleset\/\<ruleset name>@. In a
     -- GameLift rule set ARN, the resource ID matches the /RuleSetName/ value.
     ruleSetArn :: Prelude.Maybe Prelude.Text,
+    -- | A unique identifier for the matchmaking rule set
+    ruleSetName :: Prelude.Maybe Prelude.Text,
     -- | A collection of matchmaking rules, formatted as a JSON string. Comments
     -- are not allowed in JSON, but most elements support a description field.
     ruleSetBody :: Prelude.Text
@@ -92,14 +92,14 @@ data MatchmakingRuleSet = MatchmakingRuleSet'
 -- number expressed in Unix time as milliseconds (for example
 -- @\"1469498468.057\"@).
 --
--- 'ruleSetName', 'matchmakingRuleSet_ruleSetName' - A unique identifier for the matchmaking rule set
---
 -- 'ruleSetArn', 'matchmakingRuleSet_ruleSetArn' - The Amazon Resource Name
 -- (<https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html ARN>)
 -- that is assigned to a GameLift matchmaking rule set resource and
 -- uniquely identifies it. ARNs are unique across all Regions. Format is
 -- @arn:aws:gamelift:\<region>::matchmakingruleset\/\<ruleset name>@. In a
 -- GameLift rule set ARN, the resource ID matches the /RuleSetName/ value.
+--
+-- 'ruleSetName', 'matchmakingRuleSet_ruleSetName' - A unique identifier for the matchmaking rule set
 --
 -- 'ruleSetBody', 'matchmakingRuleSet_ruleSetBody' - A collection of matchmaking rules, formatted as a JSON string. Comments
 -- are not allowed in JSON, but most elements support a description field.
@@ -110,8 +110,8 @@ newMatchmakingRuleSet ::
 newMatchmakingRuleSet pRuleSetBody_ =
   MatchmakingRuleSet'
     { creationTime = Prelude.Nothing,
-      ruleSetName = Prelude.Nothing,
       ruleSetArn = Prelude.Nothing,
+      ruleSetName = Prelude.Nothing,
       ruleSetBody = pRuleSetBody_
     }
 
@@ -119,11 +119,7 @@ newMatchmakingRuleSet pRuleSetBody_ =
 -- number expressed in Unix time as milliseconds (for example
 -- @\"1469498468.057\"@).
 matchmakingRuleSet_creationTime :: Lens.Lens' MatchmakingRuleSet (Prelude.Maybe Prelude.UTCTime)
-matchmakingRuleSet_creationTime = Lens.lens (\MatchmakingRuleSet' {creationTime} -> creationTime) (\s@MatchmakingRuleSet' {} a -> s {creationTime = a} :: MatchmakingRuleSet) Prelude.. Lens.mapping Core._Time
-
--- | A unique identifier for the matchmaking rule set
-matchmakingRuleSet_ruleSetName :: Lens.Lens' MatchmakingRuleSet (Prelude.Maybe Prelude.Text)
-matchmakingRuleSet_ruleSetName = Lens.lens (\MatchmakingRuleSet' {ruleSetName} -> ruleSetName) (\s@MatchmakingRuleSet' {} a -> s {ruleSetName = a} :: MatchmakingRuleSet)
+matchmakingRuleSet_creationTime = Lens.lens (\MatchmakingRuleSet' {creationTime} -> creationTime) (\s@MatchmakingRuleSet' {} a -> s {creationTime = a} :: MatchmakingRuleSet) Prelude.. Lens.mapping Data._Time
 
 -- | The Amazon Resource Name
 -- (<https://docs.aws.amazon.com/AmazonS3/latest/dev/s3-arn-format.html ARN>)
@@ -134,33 +130,37 @@ matchmakingRuleSet_ruleSetName = Lens.lens (\MatchmakingRuleSet' {ruleSetName} -
 matchmakingRuleSet_ruleSetArn :: Lens.Lens' MatchmakingRuleSet (Prelude.Maybe Prelude.Text)
 matchmakingRuleSet_ruleSetArn = Lens.lens (\MatchmakingRuleSet' {ruleSetArn} -> ruleSetArn) (\s@MatchmakingRuleSet' {} a -> s {ruleSetArn = a} :: MatchmakingRuleSet)
 
+-- | A unique identifier for the matchmaking rule set
+matchmakingRuleSet_ruleSetName :: Lens.Lens' MatchmakingRuleSet (Prelude.Maybe Prelude.Text)
+matchmakingRuleSet_ruleSetName = Lens.lens (\MatchmakingRuleSet' {ruleSetName} -> ruleSetName) (\s@MatchmakingRuleSet' {} a -> s {ruleSetName = a} :: MatchmakingRuleSet)
+
 -- | A collection of matchmaking rules, formatted as a JSON string. Comments
 -- are not allowed in JSON, but most elements support a description field.
 matchmakingRuleSet_ruleSetBody :: Lens.Lens' MatchmakingRuleSet Prelude.Text
 matchmakingRuleSet_ruleSetBody = Lens.lens (\MatchmakingRuleSet' {ruleSetBody} -> ruleSetBody) (\s@MatchmakingRuleSet' {} a -> s {ruleSetBody = a} :: MatchmakingRuleSet)
 
-instance Core.FromJSON MatchmakingRuleSet where
+instance Data.FromJSON MatchmakingRuleSet where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MatchmakingRuleSet"
       ( \x ->
           MatchmakingRuleSet'
-            Prelude.<$> (x Core..:? "CreationTime")
-            Prelude.<*> (x Core..:? "RuleSetName")
-            Prelude.<*> (x Core..:? "RuleSetArn")
-            Prelude.<*> (x Core..: "RuleSetBody")
+            Prelude.<$> (x Data..:? "CreationTime")
+            Prelude.<*> (x Data..:? "RuleSetArn")
+            Prelude.<*> (x Data..:? "RuleSetName")
+            Prelude.<*> (x Data..: "RuleSetBody")
       )
 
 instance Prelude.Hashable MatchmakingRuleSet where
   hashWithSalt _salt MatchmakingRuleSet' {..} =
     _salt `Prelude.hashWithSalt` creationTime
-      `Prelude.hashWithSalt` ruleSetName
       `Prelude.hashWithSalt` ruleSetArn
+      `Prelude.hashWithSalt` ruleSetName
       `Prelude.hashWithSalt` ruleSetBody
 
 instance Prelude.NFData MatchmakingRuleSet where
   rnf MatchmakingRuleSet' {..} =
     Prelude.rnf creationTime
-      `Prelude.seq` Prelude.rnf ruleSetName
       `Prelude.seq` Prelude.rnf ruleSetArn
+      `Prelude.seq` Prelude.rnf ruleSetName
       `Prelude.seq` Prelude.rnf ruleSetBody

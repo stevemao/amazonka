@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.ListAliases
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.Lambda.ListAliases
     newListAliases,
 
     -- * Request Lenses
+    listAliases_functionVersion,
     listAliases_marker,
     listAliases_maxItems,
-    listAliases_functionVersion,
     listAliases_functionName,
 
     -- * Destructuring the Response
@@ -48,22 +48,23 @@ module Amazonka.Lambda.ListAliases
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListAliases' smart constructor.
 data ListAliases = ListAliases'
-  { -- | Specify the pagination token that\'s returned by a previous request to
+  { -- | Specify a function version to only list aliases that invoke that
+    -- version.
+    functionVersion :: Prelude.Maybe Prelude.Text,
+    -- | Specify the pagination token that\'s returned by a previous request to
     -- retrieve the next page of results.
     marker :: Prelude.Maybe Prelude.Text,
     -- | Limit the number of aliases returned.
     maxItems :: Prelude.Maybe Prelude.Natural,
-    -- | Specify a function version to only list aliases that invoke that
-    -- version.
-    functionVersion :: Prelude.Maybe Prelude.Text,
     -- | The name of the Lambda function.
     --
     -- __Name formats__
@@ -89,13 +90,13 @@ data ListAliases = ListAliases'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'functionVersion', 'listAliases_functionVersion' - Specify a function version to only list aliases that invoke that
+-- version.
+--
 -- 'marker', 'listAliases_marker' - Specify the pagination token that\'s returned by a previous request to
 -- retrieve the next page of results.
 --
 -- 'maxItems', 'listAliases_maxItems' - Limit the number of aliases returned.
---
--- 'functionVersion', 'listAliases_functionVersion' - Specify a function version to only list aliases that invoke that
--- version.
 --
 -- 'functionName', 'listAliases_functionName' - The name of the Lambda function.
 --
@@ -116,11 +117,16 @@ newListAliases ::
   ListAliases
 newListAliases pFunctionName_ =
   ListAliases'
-    { marker = Prelude.Nothing,
+    { functionVersion = Prelude.Nothing,
+      marker = Prelude.Nothing,
       maxItems = Prelude.Nothing,
-      functionVersion = Prelude.Nothing,
       functionName = pFunctionName_
     }
+
+-- | Specify a function version to only list aliases that invoke that
+-- version.
+listAliases_functionVersion :: Lens.Lens' ListAliases (Prelude.Maybe Prelude.Text)
+listAliases_functionVersion = Lens.lens (\ListAliases' {functionVersion} -> functionVersion) (\s@ListAliases' {} a -> s {functionVersion = a} :: ListAliases)
 
 -- | Specify the pagination token that\'s returned by a previous request to
 -- retrieve the next page of results.
@@ -130,11 +136,6 @@ listAliases_marker = Lens.lens (\ListAliases' {marker} -> marker) (\s@ListAliase
 -- | Limit the number of aliases returned.
 listAliases_maxItems :: Lens.Lens' ListAliases (Prelude.Maybe Prelude.Natural)
 listAliases_maxItems = Lens.lens (\ListAliases' {maxItems} -> maxItems) (\s@ListAliases' {} a -> s {maxItems = a} :: ListAliases)
-
--- | Specify a function version to only list aliases that invoke that
--- version.
-listAliases_functionVersion :: Lens.Lens' ListAliases (Prelude.Maybe Prelude.Text)
-listAliases_functionVersion = Lens.lens (\ListAliases' {functionVersion} -> functionVersion) (\s@ListAliases' {} a -> s {functionVersion = a} :: ListAliases)
 
 -- | The name of the Lambda function.
 --
@@ -173,47 +174,48 @@ instance Core.AWSPager ListAliases where
 
 instance Core.AWSRequest ListAliases where
   type AWSResponse ListAliases = ListAliasesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAliasesResponse'
-            Prelude.<$> (x Core..?> "Aliases" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextMarker")
+            Prelude.<$> (x Data..?> "Aliases" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAliases where
   hashWithSalt _salt ListAliases' {..} =
-    _salt `Prelude.hashWithSalt` marker
+    _salt `Prelude.hashWithSalt` functionVersion
+      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxItems
-      `Prelude.hashWithSalt` functionVersion
       `Prelude.hashWithSalt` functionName
 
 instance Prelude.NFData ListAliases where
   rnf ListAliases' {..} =
-    Prelude.rnf marker
+    Prelude.rnf functionVersion
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxItems
-      `Prelude.seq` Prelude.rnf functionVersion
       `Prelude.seq` Prelude.rnf functionName
 
-instance Core.ToHeaders ListAliases where
+instance Data.ToHeaders ListAliases where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListAliases where
+instance Data.ToPath ListAliases where
   toPath ListAliases' {..} =
     Prelude.mconcat
       [ "/2015-03-31/functions/",
-        Core.toBS functionName,
+        Data.toBS functionName,
         "/aliases"
       ]
 
-instance Core.ToQuery ListAliases where
+instance Data.ToQuery ListAliases where
   toQuery ListAliases' {..} =
     Prelude.mconcat
-      [ "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems,
-        "FunctionVersion" Core.=: functionVersion
+      [ "FunctionVersion" Data.=: functionVersion,
+        "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems
       ]
 
 -- | /See:/ 'newListAliasesResponse' smart constructor.

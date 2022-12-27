@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.ShrinkPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EMR.Types.ShrinkPolicy where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types.InstanceResizePolicy
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Policy for customizing shrink operations. Allows configuration of
@@ -70,14 +71,14 @@ shrinkPolicy_decommissionTimeout = Lens.lens (\ShrinkPolicy' {decommissionTimeou
 shrinkPolicy_instanceResizePolicy :: Lens.Lens' ShrinkPolicy (Prelude.Maybe InstanceResizePolicy)
 shrinkPolicy_instanceResizePolicy = Lens.lens (\ShrinkPolicy' {instanceResizePolicy} -> instanceResizePolicy) (\s@ShrinkPolicy' {} a -> s {instanceResizePolicy = a} :: ShrinkPolicy)
 
-instance Core.FromJSON ShrinkPolicy where
+instance Data.FromJSON ShrinkPolicy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ShrinkPolicy"
       ( \x ->
           ShrinkPolicy'
-            Prelude.<$> (x Core..:? "DecommissionTimeout")
-            Prelude.<*> (x Core..:? "InstanceResizePolicy")
+            Prelude.<$> (x Data..:? "DecommissionTimeout")
+            Prelude.<*> (x Data..:? "InstanceResizePolicy")
       )
 
 instance Prelude.Hashable ShrinkPolicy where
@@ -90,13 +91,13 @@ instance Prelude.NFData ShrinkPolicy where
     Prelude.rnf decommissionTimeout
       `Prelude.seq` Prelude.rnf instanceResizePolicy
 
-instance Core.ToJSON ShrinkPolicy where
+instance Data.ToJSON ShrinkPolicy where
   toJSON ShrinkPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DecommissionTimeout" Core..=)
+          [ ("DecommissionTimeout" Data..=)
               Prelude.<$> decommissionTimeout,
-            ("InstanceResizePolicy" Core..=)
+            ("InstanceResizePolicy" Data..=)
               Prelude.<$> instanceResizePolicy
           ]
       )

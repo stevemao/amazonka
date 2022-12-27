@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.Types.ConnectionSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ELB.Types.ConnectionSettings where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the @ConnectionSettings@ attribute.
@@ -59,10 +60,10 @@ newConnectionSettings pIdleTimeout_ =
 connectionSettings_idleTimeout :: Lens.Lens' ConnectionSettings Prelude.Natural
 connectionSettings_idleTimeout = Lens.lens (\ConnectionSettings' {idleTimeout} -> idleTimeout) (\s@ConnectionSettings' {} a -> s {idleTimeout = a} :: ConnectionSettings)
 
-instance Core.FromXML ConnectionSettings where
+instance Data.FromXML ConnectionSettings where
   parseXML x =
     ConnectionSettings'
-      Prelude.<$> (x Core..@ "IdleTimeout")
+      Prelude.<$> (x Data..@ "IdleTimeout")
 
 instance Prelude.Hashable ConnectionSettings where
   hashWithSalt _salt ConnectionSettings' {..} =
@@ -71,6 +72,6 @@ instance Prelude.Hashable ConnectionSettings where
 instance Prelude.NFData ConnectionSettings where
   rnf ConnectionSettings' {..} = Prelude.rnf idleTimeout
 
-instance Core.ToQuery ConnectionSettings where
+instance Data.ToQuery ConnectionSettings where
   toQuery ConnectionSettings' {..} =
-    Prelude.mconcat ["IdleTimeout" Core.=: idleTimeout]
+    Prelude.mconcat ["IdleTimeout" Data.=: idleTimeout]

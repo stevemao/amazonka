@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.UpdateCodeSigningConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.Lambda.UpdateCodeSigningConfig
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,13 +113,14 @@ instance Core.AWSRequest UpdateCodeSigningConfig where
   type
     AWSResponse UpdateCodeSigningConfig =
       UpdateCodeSigningConfigResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateCodeSigningConfigResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "CodeSigningConfig")
+            Prelude.<*> (x Data..:> "CodeSigningConfig")
       )
 
 instance Prelude.Hashable UpdateCodeSigningConfig where
@@ -135,29 +137,29 @@ instance Prelude.NFData UpdateCodeSigningConfig where
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf codeSigningConfigArn
 
-instance Core.ToHeaders UpdateCodeSigningConfig where
+instance Data.ToHeaders UpdateCodeSigningConfig where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateCodeSigningConfig where
+instance Data.ToJSON UpdateCodeSigningConfig where
   toJSON UpdateCodeSigningConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AllowedPublishers" Core..=)
+          [ ("AllowedPublishers" Data..=)
               Prelude.<$> allowedPublishers,
-            ("CodeSigningPolicies" Core..=)
+            ("CodeSigningPolicies" Data..=)
               Prelude.<$> codeSigningPolicies,
-            ("Description" Core..=) Prelude.<$> description
+            ("Description" Data..=) Prelude.<$> description
           ]
       )
 
-instance Core.ToPath UpdateCodeSigningConfig where
+instance Data.ToPath UpdateCodeSigningConfig where
   toPath UpdateCodeSigningConfig' {..} =
     Prelude.mconcat
       [ "/2020-04-22/code-signing-configs/",
-        Core.toBS codeSigningConfigArn
+        Data.toBS codeSigningConfigArn
       ]
 
-instance Core.ToQuery UpdateCodeSigningConfig where
+instance Data.ToQuery UpdateCodeSigningConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateCodeSigningConfigResponse' smart constructor.

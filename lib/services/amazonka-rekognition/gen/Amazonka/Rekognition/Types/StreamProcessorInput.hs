@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.StreamProcessorInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.StreamProcessorInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.KinesisVideoStream
 
@@ -54,13 +55,13 @@ newStreamProcessorInput =
 streamProcessorInput_kinesisVideoStream :: Lens.Lens' StreamProcessorInput (Prelude.Maybe KinesisVideoStream)
 streamProcessorInput_kinesisVideoStream = Lens.lens (\StreamProcessorInput' {kinesisVideoStream} -> kinesisVideoStream) (\s@StreamProcessorInput' {} a -> s {kinesisVideoStream = a} :: StreamProcessorInput)
 
-instance Core.FromJSON StreamProcessorInput where
+instance Data.FromJSON StreamProcessorInput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StreamProcessorInput"
       ( \x ->
           StreamProcessorInput'
-            Prelude.<$> (x Core..:? "KinesisVideoStream")
+            Prelude.<$> (x Data..:? "KinesisVideoStream")
       )
 
 instance Prelude.Hashable StreamProcessorInput where
@@ -71,11 +72,11 @@ instance Prelude.NFData StreamProcessorInput where
   rnf StreamProcessorInput' {..} =
     Prelude.rnf kinesisVideoStream
 
-instance Core.ToJSON StreamProcessorInput where
+instance Data.ToJSON StreamProcessorInput where
   toJSON StreamProcessorInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KinesisVideoStream" Core..=)
+          [ ("KinesisVideoStream" Data..=)
               Prelude.<$> kinesisVideoStream
           ]
       )

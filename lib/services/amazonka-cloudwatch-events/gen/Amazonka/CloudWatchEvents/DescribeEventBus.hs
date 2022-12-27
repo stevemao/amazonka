@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.DescribeEventBus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,7 +54,8 @@ where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,14 +92,15 @@ instance Core.AWSRequest DescribeEventBus where
   type
     AWSResponse DescribeEventBus =
       DescribeEventBusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeEventBusResponse'
-            Prelude.<$> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "Policy")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "Policy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,30 +111,30 @@ instance Prelude.Hashable DescribeEventBus where
 instance Prelude.NFData DescribeEventBus where
   rnf DescribeEventBus' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DescribeEventBus where
+instance Data.ToHeaders DescribeEventBus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSEvents.DescribeEventBus" :: Prelude.ByteString),
+              Data.=# ("AWSEvents.DescribeEventBus" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeEventBus where
+instance Data.ToJSON DescribeEventBus where
   toJSON DescribeEventBus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Name" Core..=) Prelude.<$> name]
+          [("Name" Data..=) Prelude.<$> name]
       )
 
-instance Core.ToPath DescribeEventBus where
+instance Data.ToPath DescribeEventBus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEventBus where
+instance Data.ToQuery DescribeEventBus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeEventBusResponse' smart constructor.

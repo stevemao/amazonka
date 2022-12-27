@@ -5,22 +5,32 @@ haskell_library(
     name = "amazonka-sagemaker-edge",
     srcs = [
         "gen/Amazonka/SageMakerEdge.hs",
+        "gen/Amazonka/SageMakerEdge/GetDeployments.hs",
         "gen/Amazonka/SageMakerEdge/GetDeviceRegistration.hs",
         "gen/Amazonka/SageMakerEdge/Lens.hs",
         "gen/Amazonka/SageMakerEdge/SendHeartbeat.hs",
         "gen/Amazonka/SageMakerEdge/Types.hs",
+        "gen/Amazonka/SageMakerEdge/Types/Checksum.hs",
+        "gen/Amazonka/SageMakerEdge/Types/ChecksumType.hs",
+        "gen/Amazonka/SageMakerEdge/Types/Definition.hs",
+        "gen/Amazonka/SageMakerEdge/Types/DeploymentModel.hs",
+        "gen/Amazonka/SageMakerEdge/Types/DeploymentResult.hs",
+        "gen/Amazonka/SageMakerEdge/Types/DeploymentStatus.hs",
+        "gen/Amazonka/SageMakerEdge/Types/DeploymentType.hs",
+        "gen/Amazonka/SageMakerEdge/Types/EdgeDeployment.hs",
         "gen/Amazonka/SageMakerEdge/Types/EdgeMetric.hs",
+        "gen/Amazonka/SageMakerEdge/Types/FailureHandlingPolicy.hs",
         "gen/Amazonka/SageMakerEdge/Types/Model.hs",
+        "gen/Amazonka/SageMakerEdge/Types/ModelState.hs",
         "gen/Amazonka/SageMakerEdge/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_sagemaker_edge=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -38,11 +48,12 @@ haskell_test(
         "test/Test/Amazonka/SageMakerEdge.hs",
         "test/Test/Amazonka/SageMakerEdge/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_sagemaker_edge=\"2.0\"",
         "-Wall",
         "-threaded",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

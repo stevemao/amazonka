@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.TrustedSigners
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,22 @@
 module Amazonka.CloudFront.Types.TrustedSigners where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | A list of accounts whose public keys CloudFront can use to verify the
--- signatures of signed URLs and signed cookies.
+-- | A list of Amazon Web Services accounts whose public keys CloudFront can
+-- use to verify the signatures of signed URLs and signed cookies.
 --
 -- /See:/ 'newTrustedSigners' smart constructor.
 data TrustedSigners = TrustedSigners'
-  { -- | A list of account identifiers.
+  { -- | A list of Amazon Web Services account identifiers.
     items :: Prelude.Maybe [Prelude.Text],
-    -- | This field is @true@ if any of the accounts have public keys that
-    -- CloudFront can use to verify the signatures of signed URLs and signed
-    -- cookies. If not, this field is @false@.
+    -- | This field is @true@ if any of the Amazon Web Services accounts have
+    -- public keys that CloudFront can use to verify the signatures of signed
+    -- URLs and signed cookies. If not, this field is @false@.
     enabled :: Prelude.Bool,
-    -- | The number of accounts in the list.
+    -- | The number of Amazon Web Services accounts in the list.
     quantity :: Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -47,13 +48,13 @@ data TrustedSigners = TrustedSigners'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'items', 'trustedSigners_items' - A list of account identifiers.
+-- 'items', 'trustedSigners_items' - A list of Amazon Web Services account identifiers.
 --
--- 'enabled', 'trustedSigners_enabled' - This field is @true@ if any of the accounts have public keys that
--- CloudFront can use to verify the signatures of signed URLs and signed
--- cookies. If not, this field is @false@.
+-- 'enabled', 'trustedSigners_enabled' - This field is @true@ if any of the Amazon Web Services accounts have
+-- public keys that CloudFront can use to verify the signatures of signed
+-- URLs and signed cookies. If not, this field is @false@.
 --
--- 'quantity', 'trustedSigners_quantity' - The number of accounts in the list.
+-- 'quantity', 'trustedSigners_quantity' - The number of Amazon Web Services accounts in the list.
 newTrustedSigners ::
   -- | 'enabled'
   Prelude.Bool ->
@@ -67,28 +68,28 @@ newTrustedSigners pEnabled_ pQuantity_ =
       quantity = pQuantity_
     }
 
--- | A list of account identifiers.
+-- | A list of Amazon Web Services account identifiers.
 trustedSigners_items :: Lens.Lens' TrustedSigners (Prelude.Maybe [Prelude.Text])
 trustedSigners_items = Lens.lens (\TrustedSigners' {items} -> items) (\s@TrustedSigners' {} a -> s {items = a} :: TrustedSigners) Prelude.. Lens.mapping Lens.coerced
 
--- | This field is @true@ if any of the accounts have public keys that
--- CloudFront can use to verify the signatures of signed URLs and signed
--- cookies. If not, this field is @false@.
+-- | This field is @true@ if any of the Amazon Web Services accounts have
+-- public keys that CloudFront can use to verify the signatures of signed
+-- URLs and signed cookies. If not, this field is @false@.
 trustedSigners_enabled :: Lens.Lens' TrustedSigners Prelude.Bool
 trustedSigners_enabled = Lens.lens (\TrustedSigners' {enabled} -> enabled) (\s@TrustedSigners' {} a -> s {enabled = a} :: TrustedSigners)
 
--- | The number of accounts in the list.
+-- | The number of Amazon Web Services accounts in the list.
 trustedSigners_quantity :: Lens.Lens' TrustedSigners Prelude.Int
 trustedSigners_quantity = Lens.lens (\TrustedSigners' {quantity} -> quantity) (\s@TrustedSigners' {} a -> s {quantity = a} :: TrustedSigners)
 
-instance Core.FromXML TrustedSigners where
+instance Data.FromXML TrustedSigners where
   parseXML x =
     TrustedSigners'
-      Prelude.<$> ( x Core..@? "Items" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "AwsAccountNumber")
+      Prelude.<$> ( x Data..@? "Items" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "AwsAccountNumber")
                   )
-      Prelude.<*> (x Core..@ "Enabled")
-      Prelude.<*> (x Core..@ "Quantity")
+      Prelude.<*> (x Data..@ "Enabled")
+      Prelude.<*> (x Data..@ "Quantity")
 
 instance Prelude.Hashable TrustedSigners where
   hashWithSalt _salt TrustedSigners' {..} =
@@ -102,14 +103,14 @@ instance Prelude.NFData TrustedSigners where
       `Prelude.seq` Prelude.rnf enabled
       `Prelude.seq` Prelude.rnf quantity
 
-instance Core.ToXML TrustedSigners where
+instance Data.ToXML TrustedSigners where
   toXML TrustedSigners' {..} =
     Prelude.mconcat
       [ "Items"
-          Core.@= Core.toXML
-            ( Core.toXMLList "AwsAccountNumber"
+          Data.@= Data.toXML
+            ( Data.toXMLList "AwsAccountNumber"
                 Prelude.<$> items
             ),
-        "Enabled" Core.@= enabled,
-        "Quantity" Core.@= quantity
+        "Enabled" Data.@= enabled,
+        "Quantity" Data.@= quantity
       ]

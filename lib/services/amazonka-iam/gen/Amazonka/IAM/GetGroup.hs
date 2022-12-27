@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.GetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,8 @@ module Amazonka.IAM.GetGroup
     newGetGroupResponse,
 
     -- * Response Lenses
-    getGroupResponse_marker,
     getGroupResponse_isTruncated,
+    getGroupResponse_marker,
     getGroupResponse_httpStatus,
     getGroupResponse_group,
     getGroupResponse_users,
@@ -48,8 +48,9 @@ module Amazonka.IAM.GetGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -170,18 +171,19 @@ instance Core.AWSPager GetGroup where
 
 instance Core.AWSRequest GetGroup where
   type AWSResponse GetGroup = GetGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetGroupResult"
       ( \s h x ->
           GetGroupResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> (x Core..@? "IsTruncated")
+            Prelude.<$> (x Data..@? "IsTruncated")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "Group")
-            Prelude.<*> ( x Core..@? "Users" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "member"
+            Prelude.<*> (x Data..@ "Group")
+            Prelude.<*> ( x Data..@? "Users" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "member"
                         )
       )
 
@@ -197,32 +199,28 @@ instance Prelude.NFData GetGroup where
       `Prelude.seq` Prelude.rnf maxItems
       `Prelude.seq` Prelude.rnf groupName
 
-instance Core.ToHeaders GetGroup where
+instance Data.ToHeaders GetGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetGroup where
+instance Data.ToPath GetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetGroup where
+instance Data.ToQuery GetGroup where
   toQuery GetGroup' {..} =
     Prelude.mconcat
-      [ "Action" Core.=: ("GetGroup" :: Prelude.ByteString),
+      [ "Action" Data.=: ("GetGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems,
-        "GroupName" Core.=: groupName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems,
+        "GroupName" Data.=: groupName
       ]
 
 -- | Contains the response to a successful GetGroup request.
 --
 -- /See:/ 'newGetGroupResponse' smart constructor.
 data GetGroupResponse = GetGroupResponse'
-  { -- | When @IsTruncated@ is @true@, this element is present and contains the
-    -- value to use for the @Marker@ parameter in a subsequent pagination
-    -- request.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | A flag that indicates whether there are more items to return. If your
+  { -- | A flag that indicates whether there are more items to return. If your
     -- results were truncated, you can make a subsequent pagination request
     -- using the @Marker@ request parameter to retrieve more items. Note that
     -- IAM might return fewer than the @MaxItems@ number of results even when
@@ -230,6 +228,10 @@ data GetGroupResponse = GetGroupResponse'
     -- @IsTruncated@ after every call to ensure that you receive all your
     -- results.
     isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | A structure that contains details about the group.
@@ -247,10 +249,6 @@ data GetGroupResponse = GetGroupResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'marker', 'getGroupResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
--- value to use for the @Marker@ parameter in a subsequent pagination
--- request.
---
 -- 'isTruncated', 'getGroupResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
 -- results were truncated, you can make a subsequent pagination request
 -- using the @Marker@ request parameter to retrieve more items. Note that
@@ -258,6 +256,10 @@ data GetGroupResponse = GetGroupResponse'
 -- there are more results available. We recommend that you check
 -- @IsTruncated@ after every call to ensure that you receive all your
 -- results.
+--
+-- 'marker', 'getGroupResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
 --
 -- 'httpStatus', 'getGroupResponse_httpStatus' - The response's http status code.
 --
@@ -272,18 +274,12 @@ newGetGroupResponse ::
   GetGroupResponse
 newGetGroupResponse pHttpStatus_ pGroup_ =
   GetGroupResponse'
-    { marker = Prelude.Nothing,
-      isTruncated = Prelude.Nothing,
+    { isTruncated = Prelude.Nothing,
+      marker = Prelude.Nothing,
       httpStatus = pHttpStatus_,
       group' = pGroup_,
       users = Prelude.mempty
     }
-
--- | When @IsTruncated@ is @true@, this element is present and contains the
--- value to use for the @Marker@ parameter in a subsequent pagination
--- request.
-getGroupResponse_marker :: Lens.Lens' GetGroupResponse (Prelude.Maybe Prelude.Text)
-getGroupResponse_marker = Lens.lens (\GetGroupResponse' {marker} -> marker) (\s@GetGroupResponse' {} a -> s {marker = a} :: GetGroupResponse)
 
 -- | A flag that indicates whether there are more items to return. If your
 -- results were truncated, you can make a subsequent pagination request
@@ -294,6 +290,12 @@ getGroupResponse_marker = Lens.lens (\GetGroupResponse' {marker} -> marker) (\s@
 -- results.
 getGroupResponse_isTruncated :: Lens.Lens' GetGroupResponse (Prelude.Maybe Prelude.Bool)
 getGroupResponse_isTruncated = Lens.lens (\GetGroupResponse' {isTruncated} -> isTruncated) (\s@GetGroupResponse' {} a -> s {isTruncated = a} :: GetGroupResponse)
+
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+getGroupResponse_marker :: Lens.Lens' GetGroupResponse (Prelude.Maybe Prelude.Text)
+getGroupResponse_marker = Lens.lens (\GetGroupResponse' {marker} -> marker) (\s@GetGroupResponse' {} a -> s {marker = a} :: GetGroupResponse)
 
 -- | The response's http status code.
 getGroupResponse_httpStatus :: Lens.Lens' GetGroupResponse Prelude.Int
@@ -309,8 +311,8 @@ getGroupResponse_users = Lens.lens (\GetGroupResponse' {users} -> users) (\s@Get
 
 instance Prelude.NFData GetGroupResponse where
   rnf GetGroupResponse' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf isTruncated
+    Prelude.rnf isTruncated
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf group'
       `Prelude.seq` Prelude.rnf users

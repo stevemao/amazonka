@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.GetAuthorizers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.ApiGatewayV2.GetAuthorizers
     newGetAuthorizers,
 
     -- * Request Lenses
-    getAuthorizers_nextToken,
     getAuthorizers_maxResults,
+    getAuthorizers_nextToken,
     getAuthorizers_apiId,
 
     -- * Destructuring the Response
@@ -46,18 +46,19 @@ where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetAuthorizers' smart constructor.
 data GetAuthorizers = GetAuthorizers'
-  { -- | The next page of elements from this collection. Not valid for the last
+  { -- | The maximum number of elements to be returned for this resource.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | The next page of elements from this collection. Not valid for the last
     -- element of the collection.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of elements to be returned for this resource.
-    maxResults :: Prelude.Maybe Prelude.Text,
     -- | The API identifier.
     apiId :: Prelude.Text
   }
@@ -71,10 +72,10 @@ data GetAuthorizers = GetAuthorizers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getAuthorizers_maxResults' - The maximum number of elements to be returned for this resource.
+--
 -- 'nextToken', 'getAuthorizers_nextToken' - The next page of elements from this collection. Not valid for the last
 -- element of the collection.
---
--- 'maxResults', 'getAuthorizers_maxResults' - The maximum number of elements to be returned for this resource.
 --
 -- 'apiId', 'getAuthorizers_apiId' - The API identifier.
 newGetAuthorizers ::
@@ -83,19 +84,19 @@ newGetAuthorizers ::
   GetAuthorizers
 newGetAuthorizers pApiId_ =
   GetAuthorizers'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       apiId = pApiId_
     }
+
+-- | The maximum number of elements to be returned for this resource.
+getAuthorizers_maxResults :: Lens.Lens' GetAuthorizers (Prelude.Maybe Prelude.Text)
+getAuthorizers_maxResults = Lens.lens (\GetAuthorizers' {maxResults} -> maxResults) (\s@GetAuthorizers' {} a -> s {maxResults = a} :: GetAuthorizers)
 
 -- | The next page of elements from this collection. Not valid for the last
 -- element of the collection.
 getAuthorizers_nextToken :: Lens.Lens' GetAuthorizers (Prelude.Maybe Prelude.Text)
 getAuthorizers_nextToken = Lens.lens (\GetAuthorizers' {nextToken} -> nextToken) (\s@GetAuthorizers' {} a -> s {nextToken = a} :: GetAuthorizers)
-
--- | The maximum number of elements to be returned for this resource.
-getAuthorizers_maxResults :: Lens.Lens' GetAuthorizers (Prelude.Maybe Prelude.Text)
-getAuthorizers_maxResults = Lens.lens (\GetAuthorizers' {maxResults} -> maxResults) (\s@GetAuthorizers' {} a -> s {maxResults = a} :: GetAuthorizers)
 
 -- | The API identifier.
 getAuthorizers_apiId :: Lens.Lens' GetAuthorizers Prelude.Text
@@ -125,49 +126,50 @@ instance Core.AWSRequest GetAuthorizers where
   type
     AWSResponse GetAuthorizers =
       GetAuthorizersResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAuthorizersResponse'
-            Prelude.<$> (x Core..?> "items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetAuthorizers where
   hashWithSalt _salt GetAuthorizers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` apiId
 
 instance Prelude.NFData GetAuthorizers where
   rnf GetAuthorizers' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf apiId
 
-instance Core.ToHeaders GetAuthorizers where
+instance Data.ToHeaders GetAuthorizers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetAuthorizers where
+instance Data.ToPath GetAuthorizers where
   toPath GetAuthorizers' {..} =
     Prelude.mconcat
-      ["/v2/apis/", Core.toBS apiId, "/authorizers"]
+      ["/v2/apis/", Data.toBS apiId, "/authorizers"]
 
-instance Core.ToQuery GetAuthorizers where
+instance Data.ToQuery GetAuthorizers where
   toQuery GetAuthorizers' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetAuthorizersResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AWSHealth.Types.OrganizationAffectedEntitiesErrorItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AWSHealth.Types.OrganizationAffectedEntitiesErrorItem where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Error information returned when a
@@ -29,8 +30,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newOrganizationAffectedEntitiesErrorItem' smart constructor.
 data OrganizationAffectedEntitiesErrorItem = OrganizationAffectedEntitiesErrorItem'
-  { -- | The 12-digit AWS account numbers that contains the affected entities.
+  { -- | The 12-digit Amazon Web Services account numbers that contains the
+    -- affected entities.
     awsAccountId :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier for the event type. The format is
+    -- @AWS_SERVICE_DESCRIPTION@. For example,
+    -- @AWS_EC2_SYSTEM_MAINTENANCE_EVENT@.
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The name of the error.
+    errorName :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier for the event. The event ARN has the
     -- @arn:aws:health:event-region::event\/SERVICE\/EVENT_TYPE_CODE\/EVENT_TYPE_PLUS_ID @
     -- format.
@@ -38,13 +46,7 @@ data OrganizationAffectedEntitiesErrorItem = OrganizationAffectedEntitiesErrorIt
     -- For example, an event ARN might look like the following:
     --
     -- @arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456@
-    eventArn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the error.
-    errorName :: Prelude.Maybe Prelude.Text,
-    -- | The unique identifier for the event type. The format is
-    -- @AWS_SERVICE_DESCRIPTION@. For example,
-    -- @AWS_EC2_SYSTEM_MAINTENANCE_EVENT@.
-    errorMessage :: Prelude.Maybe Prelude.Text
+    eventArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -56,7 +58,14 @@ data OrganizationAffectedEntitiesErrorItem = OrganizationAffectedEntitiesErrorIt
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'awsAccountId', 'organizationAffectedEntitiesErrorItem_awsAccountId' - The 12-digit AWS account numbers that contains the affected entities.
+-- 'awsAccountId', 'organizationAffectedEntitiesErrorItem_awsAccountId' - The 12-digit Amazon Web Services account numbers that contains the
+-- affected entities.
+--
+-- 'errorMessage', 'organizationAffectedEntitiesErrorItem_errorMessage' - The unique identifier for the event type. The format is
+-- @AWS_SERVICE_DESCRIPTION@. For example,
+-- @AWS_EC2_SYSTEM_MAINTENANCE_EVENT@.
+--
+-- 'errorName', 'organizationAffectedEntitiesErrorItem_errorName' - The name of the error.
 --
 -- 'eventArn', 'organizationAffectedEntitiesErrorItem_eventArn' - The unique identifier for the event. The event ARN has the
 -- @arn:aws:health:event-region::event\/SERVICE\/EVENT_TYPE_CODE\/EVENT_TYPE_PLUS_ID @
@@ -65,26 +74,31 @@ data OrganizationAffectedEntitiesErrorItem = OrganizationAffectedEntitiesErrorIt
 -- For example, an event ARN might look like the following:
 --
 -- @arn:aws:health:us-east-1::event\/EC2\/EC2_INSTANCE_RETIREMENT_SCHEDULED\/EC2_INSTANCE_RETIREMENT_SCHEDULED_ABC123-DEF456@
---
--- 'errorName', 'organizationAffectedEntitiesErrorItem_errorName' - The name of the error.
---
--- 'errorMessage', 'organizationAffectedEntitiesErrorItem_errorMessage' - The unique identifier for the event type. The format is
--- @AWS_SERVICE_DESCRIPTION@. For example,
--- @AWS_EC2_SYSTEM_MAINTENANCE_EVENT@.
 newOrganizationAffectedEntitiesErrorItem ::
   OrganizationAffectedEntitiesErrorItem
 newOrganizationAffectedEntitiesErrorItem =
   OrganizationAffectedEntitiesErrorItem'
     { awsAccountId =
         Prelude.Nothing,
-      eventArn = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
       errorName = Prelude.Nothing,
-      errorMessage = Prelude.Nothing
+      eventArn = Prelude.Nothing
     }
 
--- | The 12-digit AWS account numbers that contains the affected entities.
+-- | The 12-digit Amazon Web Services account numbers that contains the
+-- affected entities.
 organizationAffectedEntitiesErrorItem_awsAccountId :: Lens.Lens' OrganizationAffectedEntitiesErrorItem (Prelude.Maybe Prelude.Text)
 organizationAffectedEntitiesErrorItem_awsAccountId = Lens.lens (\OrganizationAffectedEntitiesErrorItem' {awsAccountId} -> awsAccountId) (\s@OrganizationAffectedEntitiesErrorItem' {} a -> s {awsAccountId = a} :: OrganizationAffectedEntitiesErrorItem)
+
+-- | The unique identifier for the event type. The format is
+-- @AWS_SERVICE_DESCRIPTION@. For example,
+-- @AWS_EC2_SYSTEM_MAINTENANCE_EVENT@.
+organizationAffectedEntitiesErrorItem_errorMessage :: Lens.Lens' OrganizationAffectedEntitiesErrorItem (Prelude.Maybe Prelude.Text)
+organizationAffectedEntitiesErrorItem_errorMessage = Lens.lens (\OrganizationAffectedEntitiesErrorItem' {errorMessage} -> errorMessage) (\s@OrganizationAffectedEntitiesErrorItem' {} a -> s {errorMessage = a} :: OrganizationAffectedEntitiesErrorItem)
+
+-- | The name of the error.
+organizationAffectedEntitiesErrorItem_errorName :: Lens.Lens' OrganizationAffectedEntitiesErrorItem (Prelude.Maybe Prelude.Text)
+organizationAffectedEntitiesErrorItem_errorName = Lens.lens (\OrganizationAffectedEntitiesErrorItem' {errorName} -> errorName) (\s@OrganizationAffectedEntitiesErrorItem' {} a -> s {errorName = a} :: OrganizationAffectedEntitiesErrorItem)
 
 -- | The unique identifier for the event. The event ARN has the
 -- @arn:aws:health:event-region::event\/SERVICE\/EVENT_TYPE_CODE\/EVENT_TYPE_PLUS_ID @
@@ -96,29 +110,19 @@ organizationAffectedEntitiesErrorItem_awsAccountId = Lens.lens (\OrganizationAff
 organizationAffectedEntitiesErrorItem_eventArn :: Lens.Lens' OrganizationAffectedEntitiesErrorItem (Prelude.Maybe Prelude.Text)
 organizationAffectedEntitiesErrorItem_eventArn = Lens.lens (\OrganizationAffectedEntitiesErrorItem' {eventArn} -> eventArn) (\s@OrganizationAffectedEntitiesErrorItem' {} a -> s {eventArn = a} :: OrganizationAffectedEntitiesErrorItem)
 
--- | The name of the error.
-organizationAffectedEntitiesErrorItem_errorName :: Lens.Lens' OrganizationAffectedEntitiesErrorItem (Prelude.Maybe Prelude.Text)
-organizationAffectedEntitiesErrorItem_errorName = Lens.lens (\OrganizationAffectedEntitiesErrorItem' {errorName} -> errorName) (\s@OrganizationAffectedEntitiesErrorItem' {} a -> s {errorName = a} :: OrganizationAffectedEntitiesErrorItem)
-
--- | The unique identifier for the event type. The format is
--- @AWS_SERVICE_DESCRIPTION@. For example,
--- @AWS_EC2_SYSTEM_MAINTENANCE_EVENT@.
-organizationAffectedEntitiesErrorItem_errorMessage :: Lens.Lens' OrganizationAffectedEntitiesErrorItem (Prelude.Maybe Prelude.Text)
-organizationAffectedEntitiesErrorItem_errorMessage = Lens.lens (\OrganizationAffectedEntitiesErrorItem' {errorMessage} -> errorMessage) (\s@OrganizationAffectedEntitiesErrorItem' {} a -> s {errorMessage = a} :: OrganizationAffectedEntitiesErrorItem)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     OrganizationAffectedEntitiesErrorItem
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OrganizationAffectedEntitiesErrorItem"
       ( \x ->
           OrganizationAffectedEntitiesErrorItem'
-            Prelude.<$> (x Core..:? "awsAccountId")
-            Prelude.<*> (x Core..:? "eventArn")
-            Prelude.<*> (x Core..:? "errorName")
-            Prelude.<*> (x Core..:? "errorMessage")
+            Prelude.<$> (x Data..:? "awsAccountId")
+            Prelude.<*> (x Data..:? "errorMessage")
+            Prelude.<*> (x Data..:? "errorName")
+            Prelude.<*> (x Data..:? "eventArn")
       )
 
 instance
@@ -129,9 +133,9 @@ instance
     _salt
     OrganizationAffectedEntitiesErrorItem' {..} =
       _salt `Prelude.hashWithSalt` awsAccountId
-        `Prelude.hashWithSalt` eventArn
-        `Prelude.hashWithSalt` errorName
         `Prelude.hashWithSalt` errorMessage
+        `Prelude.hashWithSalt` errorName
+        `Prelude.hashWithSalt` eventArn
 
 instance
   Prelude.NFData
@@ -139,6 +143,6 @@ instance
   where
   rnf OrganizationAffectedEntitiesErrorItem' {..} =
     Prelude.rnf awsAccountId
-      `Prelude.seq` Prelude.rnf eventArn
-      `Prelude.seq` Prelude.rnf errorName
       `Prelude.seq` Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf errorName
+      `Prelude.seq` Prelude.rnf eventArn

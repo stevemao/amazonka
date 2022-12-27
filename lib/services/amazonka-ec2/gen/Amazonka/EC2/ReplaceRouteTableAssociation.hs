@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ReplaceRouteTableAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,15 +45,16 @@ module Amazonka.EC2.ReplaceRouteTableAssociation
     newReplaceRouteTableAssociationResponse,
 
     -- * Response Lenses
-    replaceRouteTableAssociationResponse_newAssociationId,
     replaceRouteTableAssociationResponse_associationState,
+    replaceRouteTableAssociationResponse_newAssociationId,
     replaceRouteTableAssociationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,13 +124,14 @@ instance Core.AWSRequest ReplaceRouteTableAssociation where
   type
     AWSResponse ReplaceRouteTableAssociation =
       ReplaceRouteTableAssociationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ReplaceRouteTableAssociationResponse'
-            Prelude.<$> (x Core..@? "newAssociationId")
-            Prelude.<*> (x Core..@? "associationState")
+            Prelude.<$> (x Data..@? "associationState")
+            Prelude.<*> (x Data..@? "newAssociationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -148,32 +150,32 @@ instance Prelude.NFData ReplaceRouteTableAssociation where
       `Prelude.seq` Prelude.rnf associationId
       `Prelude.seq` Prelude.rnf routeTableId
 
-instance Core.ToHeaders ReplaceRouteTableAssociation where
+instance Data.ToHeaders ReplaceRouteTableAssociation where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ReplaceRouteTableAssociation where
+instance Data.ToPath ReplaceRouteTableAssociation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ReplaceRouteTableAssociation where
+instance Data.ToQuery ReplaceRouteTableAssociation where
   toQuery ReplaceRouteTableAssociation' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ReplaceRouteTableAssociation" ::
+          Data.=: ( "ReplaceRouteTableAssociation" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "AssociationId" Core.=: associationId,
-        "RouteTableId" Core.=: routeTableId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "AssociationId" Data.=: associationId,
+        "RouteTableId" Data.=: routeTableId
       ]
 
 -- | /See:/ 'newReplaceRouteTableAssociationResponse' smart constructor.
 data ReplaceRouteTableAssociationResponse = ReplaceRouteTableAssociationResponse'
-  { -- | The ID of the new association.
-    newAssociationId' :: Prelude.Maybe Prelude.Text,
-    -- | The state of the association.
+  { -- | The state of the association.
     associationState :: Prelude.Maybe RouteTableAssociationState,
+    -- | The ID of the new association.
+    newAssociationId' :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -187,9 +189,9 @@ data ReplaceRouteTableAssociationResponse = ReplaceRouteTableAssociationResponse
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'newAssociationId'', 'replaceRouteTableAssociationResponse_newAssociationId' - The ID of the new association.
---
 -- 'associationState', 'replaceRouteTableAssociationResponse_associationState' - The state of the association.
+--
+-- 'newAssociationId'', 'replaceRouteTableAssociationResponse_newAssociationId' - The ID of the new association.
 --
 -- 'httpStatus', 'replaceRouteTableAssociationResponse_httpStatus' - The response's http status code.
 newReplaceRouteTableAssociationResponse ::
@@ -198,19 +200,19 @@ newReplaceRouteTableAssociationResponse ::
   ReplaceRouteTableAssociationResponse
 newReplaceRouteTableAssociationResponse pHttpStatus_ =
   ReplaceRouteTableAssociationResponse'
-    { newAssociationId' =
+    { associationState =
         Prelude.Nothing,
-      associationState = Prelude.Nothing,
+      newAssociationId' = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The ID of the new association.
-replaceRouteTableAssociationResponse_newAssociationId :: Lens.Lens' ReplaceRouteTableAssociationResponse (Prelude.Maybe Prelude.Text)
-replaceRouteTableAssociationResponse_newAssociationId = Lens.lens (\ReplaceRouteTableAssociationResponse' {newAssociationId'} -> newAssociationId') (\s@ReplaceRouteTableAssociationResponse' {} a -> s {newAssociationId' = a} :: ReplaceRouteTableAssociationResponse)
 
 -- | The state of the association.
 replaceRouteTableAssociationResponse_associationState :: Lens.Lens' ReplaceRouteTableAssociationResponse (Prelude.Maybe RouteTableAssociationState)
 replaceRouteTableAssociationResponse_associationState = Lens.lens (\ReplaceRouteTableAssociationResponse' {associationState} -> associationState) (\s@ReplaceRouteTableAssociationResponse' {} a -> s {associationState = a} :: ReplaceRouteTableAssociationResponse)
+
+-- | The ID of the new association.
+replaceRouteTableAssociationResponse_newAssociationId :: Lens.Lens' ReplaceRouteTableAssociationResponse (Prelude.Maybe Prelude.Text)
+replaceRouteTableAssociationResponse_newAssociationId = Lens.lens (\ReplaceRouteTableAssociationResponse' {newAssociationId'} -> newAssociationId') (\s@ReplaceRouteTableAssociationResponse' {} a -> s {newAssociationId' = a} :: ReplaceRouteTableAssociationResponse)
 
 -- | The response's http status code.
 replaceRouteTableAssociationResponse_httpStatus :: Lens.Lens' ReplaceRouteTableAssociationResponse Prelude.Int
@@ -221,6 +223,6 @@ instance
     ReplaceRouteTableAssociationResponse
   where
   rnf ReplaceRouteTableAssociationResponse' {..} =
-    Prelude.rnf newAssociationId'
-      `Prelude.seq` Prelude.rnf associationState
+    Prelude.rnf associationState
+      `Prelude.seq` Prelude.rnf newAssociationId'
       `Prelude.seq` Prelude.rnf httpStatus

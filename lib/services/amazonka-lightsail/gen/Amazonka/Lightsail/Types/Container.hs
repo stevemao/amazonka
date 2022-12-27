@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.Container
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.Container where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types.ContainerServiceProtocol
 import qualified Amazonka.Prelude as Prelude
 
@@ -29,18 +30,26 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newContainer' smart constructor.
 data Container = Container'
-  { -- | The name of the image used for the container.
-    --
-    -- Container images sourced from your Lightsail container service, that are
-    -- registered and stored on your service, start with a colon (@:@). For
-    -- example, @:container-service-1.mystaticwebsite.1@. Container images
-    -- sourced from a public registry like Docker Hub don\'t start with a
-    -- colon. For example, @nginx:latest@ or @nginx@.
-    image :: Prelude.Maybe Prelude.Text,
-    -- | The launch command for the container.
+  { -- | The launch command for the container.
     command :: Prelude.Maybe [Prelude.Text],
     -- | The environment variables of the container.
     environment :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The name of the image used for the container.
+    --
+    -- Container images sourced from your Lightsail container service, that are
+    -- registered and stored on your service, start with a colon (@:@). For
+    -- example, if your container service name is @container-service-1@, the
+    -- container image label is @mystaticsite@, and you want to use the third
+    -- (@3@) version of the registered container image, then you should specify
+    -- @:container-service-1.mystaticsite.3@. To use the latest version of a
+    -- container image, specify @latest@ instead of a version number (for
+    -- example, @:container-service-1.mystaticsite.latest@). Lightsail will
+    -- automatically use the highest numbered version of the registered
+    -- container image.
+    --
+    -- Container images sourced from a public registry like Docker Hub don\'t
+    -- start with a colon. For example, @nginx:latest@ or @nginx@.
+    image :: Prelude.Maybe Prelude.Text,
     -- | The open firewall ports of the container.
     ports :: Prelude.Maybe (Prelude.HashMap Prelude.Text ContainerServiceProtocol)
   }
@@ -54,38 +63,36 @@ data Container = Container'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'command', 'container_command' - The launch command for the container.
+--
+-- 'environment', 'container_environment' - The environment variables of the container.
+--
 -- 'image', 'container_image' - The name of the image used for the container.
 --
 -- Container images sourced from your Lightsail container service, that are
 -- registered and stored on your service, start with a colon (@:@). For
--- example, @:container-service-1.mystaticwebsite.1@. Container images
--- sourced from a public registry like Docker Hub don\'t start with a
--- colon. For example, @nginx:latest@ or @nginx@.
+-- example, if your container service name is @container-service-1@, the
+-- container image label is @mystaticsite@, and you want to use the third
+-- (@3@) version of the registered container image, then you should specify
+-- @:container-service-1.mystaticsite.3@. To use the latest version of a
+-- container image, specify @latest@ instead of a version number (for
+-- example, @:container-service-1.mystaticsite.latest@). Lightsail will
+-- automatically use the highest numbered version of the registered
+-- container image.
 --
--- 'command', 'container_command' - The launch command for the container.
---
--- 'environment', 'container_environment' - The environment variables of the container.
+-- Container images sourced from a public registry like Docker Hub don\'t
+-- start with a colon. For example, @nginx:latest@ or @nginx@.
 --
 -- 'ports', 'container_ports' - The open firewall ports of the container.
 newContainer ::
   Container
 newContainer =
   Container'
-    { image = Prelude.Nothing,
-      command = Prelude.Nothing,
+    { command = Prelude.Nothing,
       environment = Prelude.Nothing,
+      image = Prelude.Nothing,
       ports = Prelude.Nothing
     }
-
--- | The name of the image used for the container.
---
--- Container images sourced from your Lightsail container service, that are
--- registered and stored on your service, start with a colon (@:@). For
--- example, @:container-service-1.mystaticwebsite.1@. Container images
--- sourced from a public registry like Docker Hub don\'t start with a
--- colon. For example, @nginx:latest@ or @nginx@.
-container_image :: Lens.Lens' Container (Prelude.Maybe Prelude.Text)
-container_image = Lens.lens (\Container' {image} -> image) (\s@Container' {} a -> s {image = a} :: Container)
 
 -- | The launch command for the container.
 container_command :: Lens.Lens' Container (Prelude.Maybe [Prelude.Text])
@@ -95,43 +102,61 @@ container_command = Lens.lens (\Container' {command} -> command) (\s@Container' 
 container_environment :: Lens.Lens' Container (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 container_environment = Lens.lens (\Container' {environment} -> environment) (\s@Container' {} a -> s {environment = a} :: Container) Prelude.. Lens.mapping Lens.coerced
 
+-- | The name of the image used for the container.
+--
+-- Container images sourced from your Lightsail container service, that are
+-- registered and stored on your service, start with a colon (@:@). For
+-- example, if your container service name is @container-service-1@, the
+-- container image label is @mystaticsite@, and you want to use the third
+-- (@3@) version of the registered container image, then you should specify
+-- @:container-service-1.mystaticsite.3@. To use the latest version of a
+-- container image, specify @latest@ instead of a version number (for
+-- example, @:container-service-1.mystaticsite.latest@). Lightsail will
+-- automatically use the highest numbered version of the registered
+-- container image.
+--
+-- Container images sourced from a public registry like Docker Hub don\'t
+-- start with a colon. For example, @nginx:latest@ or @nginx@.
+container_image :: Lens.Lens' Container (Prelude.Maybe Prelude.Text)
+container_image = Lens.lens (\Container' {image} -> image) (\s@Container' {} a -> s {image = a} :: Container)
+
 -- | The open firewall ports of the container.
 container_ports :: Lens.Lens' Container (Prelude.Maybe (Prelude.HashMap Prelude.Text ContainerServiceProtocol))
 container_ports = Lens.lens (\Container' {ports} -> ports) (\s@Container' {} a -> s {ports = a} :: Container) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON Container where
+instance Data.FromJSON Container where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Container"
       ( \x ->
           Container'
-            Prelude.<$> (x Core..:? "image")
-            Prelude.<*> (x Core..:? "command" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "environment" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "ports" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "command" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "environment" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "image")
+            Prelude.<*> (x Data..:? "ports" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Container where
   hashWithSalt _salt Container' {..} =
-    _salt `Prelude.hashWithSalt` image
-      `Prelude.hashWithSalt` command
+    _salt `Prelude.hashWithSalt` command
       `Prelude.hashWithSalt` environment
+      `Prelude.hashWithSalt` image
       `Prelude.hashWithSalt` ports
 
 instance Prelude.NFData Container where
   rnf Container' {..} =
-    Prelude.rnf image
-      `Prelude.seq` Prelude.rnf command
+    Prelude.rnf command
       `Prelude.seq` Prelude.rnf environment
+      `Prelude.seq` Prelude.rnf image
       `Prelude.seq` Prelude.rnf ports
 
-instance Core.ToJSON Container where
+instance Data.ToJSON Container where
   toJSON Container' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("image" Core..=) Prelude.<$> image,
-            ("command" Core..=) Prelude.<$> command,
-            ("environment" Core..=) Prelude.<$> environment,
-            ("ports" Core..=) Prelude.<$> ports
+          [ ("command" Data..=) Prelude.<$> command,
+            ("environment" Data..=) Prelude.<$> environment,
+            ("image" Data..=) Prelude.<$> image,
+            ("ports" Data..=) Prelude.<$> ports
           ]
       )

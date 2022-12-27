@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.Types.Schedule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ImageBuilder.Types.Schedule where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types.PipelineExecutionStartCondition
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A schedule configures how often and when a pipeline will automatically
@@ -29,13 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSchedule' smart constructor.
 data Schedule = Schedule'
-  { -- | The cron expression determines how often EC2 Image Builder evaluates
-    -- your @pipelineExecutionStartCondition@.
-    --
-    -- For information on how to format a cron expression in Image Builder, see
-    -- <https://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-cron.html Use cron expressions in EC2 Image Builder>.
-    scheduleExpression :: Prelude.Maybe Prelude.Text,
-    -- | The condition configures when the pipeline should trigger a new image
+  { -- | The condition configures when the pipeline should trigger a new image
     -- build. When the @pipelineExecutionStartCondition@ is set to
     -- @EXPRESSION_MATCH_AND_DEPENDENCY_UPDATES_AVAILABLE@, and you use
     -- semantic version filters on the base image or components in your image
@@ -47,6 +42,12 @@ data Schedule = Schedule'
     -- <https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateComponent.html CreateComponent>
     -- in the /EC2 Image Builder API Reference/.
     pipelineExecutionStartCondition :: Prelude.Maybe PipelineExecutionStartCondition,
+    -- | The cron expression determines how often EC2 Image Builder evaluates
+    -- your @pipelineExecutionStartCondition@.
+    --
+    -- For information on how to format a cron expression in Image Builder, see
+    -- <https://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-cron.html Use cron expressions in EC2 Image Builder>.
+    scheduleExpression :: Prelude.Maybe Prelude.Text,
     -- | The timezone that applies to the scheduling expression. For example,
     -- \"Etc\/UTC\", \"America\/Los_Angeles\" in the
     -- <https://www.joda.org/joda-time/timezones.html IANA timezone format>. If
@@ -63,12 +64,6 @@ data Schedule = Schedule'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'scheduleExpression', 'schedule_scheduleExpression' - The cron expression determines how often EC2 Image Builder evaluates
--- your @pipelineExecutionStartCondition@.
---
--- For information on how to format a cron expression in Image Builder, see
--- <https://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-cron.html Use cron expressions in EC2 Image Builder>.
---
 -- 'pipelineExecutionStartCondition', 'schedule_pipelineExecutionStartCondition' - The condition configures when the pipeline should trigger a new image
 -- build. When the @pipelineExecutionStartCondition@ is set to
 -- @EXPRESSION_MATCH_AND_DEPENDENCY_UPDATES_AVAILABLE@, and you use
@@ -81,6 +76,12 @@ data Schedule = Schedule'
 -- <https://docs.aws.amazon.com/imagebuilder/latest/APIReference/API_CreateComponent.html CreateComponent>
 -- in the /EC2 Image Builder API Reference/.
 --
+-- 'scheduleExpression', 'schedule_scheduleExpression' - The cron expression determines how often EC2 Image Builder evaluates
+-- your @pipelineExecutionStartCondition@.
+--
+-- For information on how to format a cron expression in Image Builder, see
+-- <https://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-cron.html Use cron expressions in EC2 Image Builder>.
+--
 -- 'timezone', 'schedule_timezone' - The timezone that applies to the scheduling expression. For example,
 -- \"Etc\/UTC\", \"America\/Los_Angeles\" in the
 -- <https://www.joda.org/joda-time/timezones.html IANA timezone format>. If
@@ -89,18 +90,11 @@ newSchedule ::
   Schedule
 newSchedule =
   Schedule'
-    { scheduleExpression = Prelude.Nothing,
-      pipelineExecutionStartCondition = Prelude.Nothing,
+    { pipelineExecutionStartCondition =
+        Prelude.Nothing,
+      scheduleExpression = Prelude.Nothing,
       timezone = Prelude.Nothing
     }
-
--- | The cron expression determines how often EC2 Image Builder evaluates
--- your @pipelineExecutionStartCondition@.
---
--- For information on how to format a cron expression in Image Builder, see
--- <https://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-cron.html Use cron expressions in EC2 Image Builder>.
-schedule_scheduleExpression :: Lens.Lens' Schedule (Prelude.Maybe Prelude.Text)
-schedule_scheduleExpression = Lens.lens (\Schedule' {scheduleExpression} -> scheduleExpression) (\s@Schedule' {} a -> s {scheduleExpression = a} :: Schedule)
 
 -- | The condition configures when the pipeline should trigger a new image
 -- build. When the @pipelineExecutionStartCondition@ is set to
@@ -116,6 +110,14 @@ schedule_scheduleExpression = Lens.lens (\Schedule' {scheduleExpression} -> sche
 schedule_pipelineExecutionStartCondition :: Lens.Lens' Schedule (Prelude.Maybe PipelineExecutionStartCondition)
 schedule_pipelineExecutionStartCondition = Lens.lens (\Schedule' {pipelineExecutionStartCondition} -> pipelineExecutionStartCondition) (\s@Schedule' {} a -> s {pipelineExecutionStartCondition = a} :: Schedule)
 
+-- | The cron expression determines how often EC2 Image Builder evaluates
+-- your @pipelineExecutionStartCondition@.
+--
+-- For information on how to format a cron expression in Image Builder, see
+-- <https://docs.aws.amazon.com/imagebuilder/latest/userguide/image-builder-cron.html Use cron expressions in EC2 Image Builder>.
+schedule_scheduleExpression :: Lens.Lens' Schedule (Prelude.Maybe Prelude.Text)
+schedule_scheduleExpression = Lens.lens (\Schedule' {scheduleExpression} -> scheduleExpression) (\s@Schedule' {} a -> s {scheduleExpression = a} :: Schedule)
+
 -- | The timezone that applies to the scheduling expression. For example,
 -- \"Etc\/UTC\", \"America\/Los_Angeles\" in the
 -- <https://www.joda.org/joda-time/timezones.html IANA timezone format>. If
@@ -123,37 +125,38 @@ schedule_pipelineExecutionStartCondition = Lens.lens (\Schedule' {pipelineExecut
 schedule_timezone :: Lens.Lens' Schedule (Prelude.Maybe Prelude.Text)
 schedule_timezone = Lens.lens (\Schedule' {timezone} -> timezone) (\s@Schedule' {} a -> s {timezone = a} :: Schedule)
 
-instance Core.FromJSON Schedule where
+instance Data.FromJSON Schedule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Schedule"
       ( \x ->
           Schedule'
-            Prelude.<$> (x Core..:? "scheduleExpression")
-            Prelude.<*> (x Core..:? "pipelineExecutionStartCondition")
-            Prelude.<*> (x Core..:? "timezone")
+            Prelude.<$> (x Data..:? "pipelineExecutionStartCondition")
+            Prelude.<*> (x Data..:? "scheduleExpression")
+            Prelude.<*> (x Data..:? "timezone")
       )
 
 instance Prelude.Hashable Schedule where
   hashWithSalt _salt Schedule' {..} =
-    _salt `Prelude.hashWithSalt` scheduleExpression
+    _salt
       `Prelude.hashWithSalt` pipelineExecutionStartCondition
+      `Prelude.hashWithSalt` scheduleExpression
       `Prelude.hashWithSalt` timezone
 
 instance Prelude.NFData Schedule where
   rnf Schedule' {..} =
-    Prelude.rnf scheduleExpression
-      `Prelude.seq` Prelude.rnf pipelineExecutionStartCondition
+    Prelude.rnf pipelineExecutionStartCondition
+      `Prelude.seq` Prelude.rnf scheduleExpression
       `Prelude.seq` Prelude.rnf timezone
 
-instance Core.ToJSON Schedule where
+instance Data.ToJSON Schedule where
   toJSON Schedule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("scheduleExpression" Core..=)
-              Prelude.<$> scheduleExpression,
-            ("pipelineExecutionStartCondition" Core..=)
+          [ ("pipelineExecutionStartCondition" Data..=)
               Prelude.<$> pipelineExecutionStartCondition,
-            ("timezone" Core..=) Prelude.<$> timezone
+            ("scheduleExpression" Data..=)
+              Prelude.<$> scheduleExpression,
+            ("timezone" Data..=) Prelude.<$> timezone
           ]
       )

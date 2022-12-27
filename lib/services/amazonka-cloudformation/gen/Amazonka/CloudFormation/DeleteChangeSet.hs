@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.DeleteChangeSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ where
 
 import Amazonka.CloudFormation.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,7 +61,7 @@ import qualified Amazonka.Response as Response
 -- /See:/ 'newDeleteChangeSet' smart constructor.
 data DeleteChangeSet = DeleteChangeSet'
   { -- | If you specified the name of a change set to delete, specify the stack
-    -- name or ID (ARN) that is associated with it.
+    -- name or Amazon Resource Name (ARN) that\'s associated with it.
     stackName :: Prelude.Maybe Prelude.Text,
     -- | The name or Amazon Resource Name (ARN) of the change set that you want
     -- to delete.
@@ -77,7 +78,7 @@ data DeleteChangeSet = DeleteChangeSet'
 -- for backwards compatibility:
 --
 -- 'stackName', 'deleteChangeSet_stackName' - If you specified the name of a change set to delete, specify the stack
--- name or ID (ARN) that is associated with it.
+-- name or Amazon Resource Name (ARN) that\'s associated with it.
 --
 -- 'changeSetName', 'deleteChangeSet_changeSetName' - The name or Amazon Resource Name (ARN) of the change set that you want
 -- to delete.
@@ -92,7 +93,7 @@ newDeleteChangeSet pChangeSetName_ =
     }
 
 -- | If you specified the name of a change set to delete, specify the stack
--- name or ID (ARN) that is associated with it.
+-- name or Amazon Resource Name (ARN) that\'s associated with it.
 deleteChangeSet_stackName :: Lens.Lens' DeleteChangeSet (Prelude.Maybe Prelude.Text)
 deleteChangeSet_stackName = Lens.lens (\DeleteChangeSet' {stackName} -> stackName) (\s@DeleteChangeSet' {} a -> s {stackName = a} :: DeleteChangeSet)
 
@@ -105,7 +106,8 @@ instance Core.AWSRequest DeleteChangeSet where
   type
     AWSResponse DeleteChangeSet =
       DeleteChangeSetResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteChangeSetResult"
@@ -124,21 +126,21 @@ instance Prelude.NFData DeleteChangeSet where
     Prelude.rnf stackName
       `Prelude.seq` Prelude.rnf changeSetName
 
-instance Core.ToHeaders DeleteChangeSet where
+instance Data.ToHeaders DeleteChangeSet where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteChangeSet where
+instance Data.ToPath DeleteChangeSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteChangeSet where
+instance Data.ToQuery DeleteChangeSet where
   toQuery DeleteChangeSet' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteChangeSet" :: Prelude.ByteString),
+          Data.=: ("DeleteChangeSet" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-15" :: Prelude.ByteString),
-        "StackName" Core.=: stackName,
-        "ChangeSetName" Core.=: changeSetName
+          Data.=: ("2010-05-15" :: Prelude.ByteString),
+        "StackName" Data.=: stackName,
+        "ChangeSetName" Data.=: changeSetName
       ]
 
 -- | The output for the DeleteChangeSet action.

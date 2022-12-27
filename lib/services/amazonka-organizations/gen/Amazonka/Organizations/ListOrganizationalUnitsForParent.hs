@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.ListOrganizationalUnitsForParent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,7 +31,7 @@
 --
 -- This operation can be called only from the organization\'s management
 -- account or by a member account that is a delegated administrator for an
--- AWS service.
+-- Amazon Web Services service.
 --
 -- This operation returns paginated results.
 module Amazonka.Organizations.ListOrganizationalUnitsForParent
@@ -40,8 +40,8 @@ module Amazonka.Organizations.ListOrganizationalUnitsForParent
     newListOrganizationalUnitsForParent,
 
     -- * Request Lenses
-    listOrganizationalUnitsForParent_nextToken,
     listOrganizationalUnitsForParent_maxResults,
+    listOrganizationalUnitsForParent_nextToken,
     listOrganizationalUnitsForParent_parentId,
 
     -- * Destructuring the Response
@@ -56,7 +56,8 @@ module Amazonka.Organizations.ListOrganizationalUnitsForParent
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -64,13 +65,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListOrganizationalUnitsForParent' smart constructor.
 data ListOrganizationalUnitsForParent = ListOrganizationalUnitsForParent'
-  { -- | The parameter for receiving additional results if you receive a
-    -- @NextToken@ response in a previous request. A @NextToken@ response
-    -- indicates that more output is available. Set this parameter to the value
-    -- of the previous call\'s @NextToken@ response to indicate where the
-    -- output should continue from.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The total number of results that you want included on each page of the
+  { -- | The total number of results that you want included on each page of the
     -- response. If you do not include this parameter, it defaults to a value
     -- that is specific to the operation. If additional items exist beyond the
     -- maximum you specify, the @NextToken@ response element is present and has
@@ -81,6 +76,12 @@ data ListOrganizationalUnitsForParent = ListOrganizationalUnitsForParent'
     -- @NextToken@ after every operation to ensure that you receive all of the
     -- results.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The parameter for receiving additional results if you receive a
+    -- @NextToken@ response in a previous request. A @NextToken@ response
+    -- indicates that more output is available. Set this parameter to the value
+    -- of the previous call\'s @NextToken@ response to indicate where the
+    -- output should continue from.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier (ID) of the root or OU whose child OUs you want to
     -- list.
     --
@@ -106,12 +107,6 @@ data ListOrganizationalUnitsForParent = ListOrganizationalUnitsForParent'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listOrganizationalUnitsForParent_nextToken' - The parameter for receiving additional results if you receive a
--- @NextToken@ response in a previous request. A @NextToken@ response
--- indicates that more output is available. Set this parameter to the value
--- of the previous call\'s @NextToken@ response to indicate where the
--- output should continue from.
---
 -- 'maxResults', 'listOrganizationalUnitsForParent_maxResults' - The total number of results that you want included on each page of the
 -- response. If you do not include this parameter, it defaults to a value
 -- that is specific to the operation. If additional items exist beyond the
@@ -122,6 +117,12 @@ data ListOrganizationalUnitsForParent = ListOrganizationalUnitsForParent'
 -- maximum even when there are more results available. You should check
 -- @NextToken@ after every operation to ensure that you receive all of the
 -- results.
+--
+-- 'nextToken', 'listOrganizationalUnitsForParent_nextToken' - The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
 --
 -- 'parentId', 'listOrganizationalUnitsForParent_parentId' - The unique identifier (ID) of the root or OU whose child OUs you want to
 -- list.
@@ -142,19 +143,11 @@ newListOrganizationalUnitsForParent ::
   ListOrganizationalUnitsForParent
 newListOrganizationalUnitsForParent pParentId_ =
   ListOrganizationalUnitsForParent'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       parentId = pParentId_
     }
-
--- | The parameter for receiving additional results if you receive a
--- @NextToken@ response in a previous request. A @NextToken@ response
--- indicates that more output is available. Set this parameter to the value
--- of the previous call\'s @NextToken@ response to indicate where the
--- output should continue from.
-listOrganizationalUnitsForParent_nextToken :: Lens.Lens' ListOrganizationalUnitsForParent (Prelude.Maybe Prelude.Text)
-listOrganizationalUnitsForParent_nextToken = Lens.lens (\ListOrganizationalUnitsForParent' {nextToken} -> nextToken) (\s@ListOrganizationalUnitsForParent' {} a -> s {nextToken = a} :: ListOrganizationalUnitsForParent)
 
 -- | The total number of results that you want included on each page of the
 -- response. If you do not include this parameter, it defaults to a value
@@ -168,6 +161,14 @@ listOrganizationalUnitsForParent_nextToken = Lens.lens (\ListOrganizationalUnits
 -- results.
 listOrganizationalUnitsForParent_maxResults :: Lens.Lens' ListOrganizationalUnitsForParent (Prelude.Maybe Prelude.Natural)
 listOrganizationalUnitsForParent_maxResults = Lens.lens (\ListOrganizationalUnitsForParent' {maxResults} -> maxResults) (\s@ListOrganizationalUnitsForParent' {} a -> s {maxResults = a} :: ListOrganizationalUnitsForParent)
+
+-- | The parameter for receiving additional results if you receive a
+-- @NextToken@ response in a previous request. A @NextToken@ response
+-- indicates that more output is available. Set this parameter to the value
+-- of the previous call\'s @NextToken@ response to indicate where the
+-- output should continue from.
+listOrganizationalUnitsForParent_nextToken :: Lens.Lens' ListOrganizationalUnitsForParent (Prelude.Maybe Prelude.Text)
+listOrganizationalUnitsForParent_nextToken = Lens.lens (\ListOrganizationalUnitsForParent' {nextToken} -> nextToken) (\s@ListOrganizationalUnitsForParent' {} a -> s {nextToken = a} :: ListOrganizationalUnitsForParent)
 
 -- | The unique identifier (ID) of the root or OU whose child OUs you want to
 -- list.
@@ -217,13 +218,14 @@ instance
   type
     AWSResponse ListOrganizationalUnitsForParent =
       ListOrganizationalUnitsForParentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListOrganizationalUnitsForParentResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "OrganizationalUnits"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "OrganizationalUnits"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -236,8 +238,8 @@ instance
   hashWithSalt
     _salt
     ListOrganizationalUnitsForParent' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` parentId
 
 instance
@@ -245,43 +247,43 @@ instance
     ListOrganizationalUnitsForParent
   where
   rnf ListOrganizationalUnitsForParent' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf parentId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListOrganizationalUnitsForParent
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.ListOrganizationalUnitsForParent" ::
+              Data.=# ( "AWSOrganizationsV20161128.ListOrganizationalUnitsForParent" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListOrganizationalUnitsForParent where
+instance Data.ToJSON ListOrganizationalUnitsForParent where
   toJSON ListOrganizationalUnitsForParent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("ParentId" Core..= parentId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ParentId" Data..= parentId)
           ]
       )
 
-instance Core.ToPath ListOrganizationalUnitsForParent where
+instance Data.ToPath ListOrganizationalUnitsForParent where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListOrganizationalUnitsForParent
   where
   toQuery = Prelude.const Prelude.mempty

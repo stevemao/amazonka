@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.Types.TagListMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ElastiCache.Types.TagListMessage where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types.Tag
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents the output from the @AddTagsToResource@,
@@ -52,11 +53,11 @@ newTagListMessage =
 tagListMessage_tagList :: Lens.Lens' TagListMessage (Prelude.Maybe [Tag])
 tagListMessage_tagList = Lens.lens (\TagListMessage' {tagList} -> tagList) (\s@TagListMessage' {} a -> s {tagList = a} :: TagListMessage) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML TagListMessage where
+instance Data.FromXML TagListMessage where
   parseXML x =
     TagListMessage'
-      Prelude.<$> ( x Core..@? "TagList" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "Tag")
+      Prelude.<$> ( x Data..@? "TagList" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "Tag")
                   )
 
 instance Prelude.Hashable TagListMessage where

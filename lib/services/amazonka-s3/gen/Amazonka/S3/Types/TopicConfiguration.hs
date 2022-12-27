@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.TopicConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.TopicConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.Event
@@ -32,8 +33,8 @@ import Amazonka.S3.Types.NotificationConfigurationFilter
 --
 -- /See:/ 'newTopicConfiguration' smart constructor.
 data TopicConfiguration = TopicConfiguration'
-  { id :: Prelude.Maybe Prelude.Text,
-    filter' :: Prelude.Maybe NotificationConfigurationFilter,
+  { filter' :: Prelude.Maybe NotificationConfigurationFilter,
+    id :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the Amazon SNS topic to which Amazon
     -- S3 publishes a message when it detects events of the specified type.
     topicArn :: Prelude.Text,
@@ -53,9 +54,9 @@ data TopicConfiguration = TopicConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'id', 'topicConfiguration_id' - Undocumented member.
---
 -- 'filter'', 'topicConfiguration_filter' - Undocumented member.
+--
+-- 'id', 'topicConfiguration_id' - Undocumented member.
 --
 -- 'topicArn', 'topicConfiguration_topicArn' - The Amazon Resource Name (ARN) of the Amazon SNS topic to which Amazon
 -- S3 publishes a message when it detects events of the specified type.
@@ -70,19 +71,19 @@ newTopicConfiguration ::
   TopicConfiguration
 newTopicConfiguration pTopicArn_ =
   TopicConfiguration'
-    { id = Prelude.Nothing,
-      filter' = Prelude.Nothing,
+    { filter' = Prelude.Nothing,
+      id = Prelude.Nothing,
       topicArn = pTopicArn_,
       events = Prelude.mempty
     }
 
 -- | Undocumented member.
-topicConfiguration_id :: Lens.Lens' TopicConfiguration (Prelude.Maybe Prelude.Text)
-topicConfiguration_id = Lens.lens (\TopicConfiguration' {id} -> id) (\s@TopicConfiguration' {} a -> s {id = a} :: TopicConfiguration)
-
--- | Undocumented member.
 topicConfiguration_filter :: Lens.Lens' TopicConfiguration (Prelude.Maybe NotificationConfigurationFilter)
 topicConfiguration_filter = Lens.lens (\TopicConfiguration' {filter'} -> filter') (\s@TopicConfiguration' {} a -> s {filter' = a} :: TopicConfiguration)
+
+-- | Undocumented member.
+topicConfiguration_id :: Lens.Lens' TopicConfiguration (Prelude.Maybe Prelude.Text)
+topicConfiguration_id = Lens.lens (\TopicConfiguration' {id} -> id) (\s@TopicConfiguration' {} a -> s {id = a} :: TopicConfiguration)
 
 -- | The Amazon Resource Name (ARN) of the Amazon SNS topic to which Amazon
 -- S3 publishes a message when it detects events of the specified type.
@@ -96,33 +97,33 @@ topicConfiguration_topicArn = Lens.lens (\TopicConfiguration' {topicArn} -> topi
 topicConfiguration_events :: Lens.Lens' TopicConfiguration [Event]
 topicConfiguration_events = Lens.lens (\TopicConfiguration' {events} -> events) (\s@TopicConfiguration' {} a -> s {events = a} :: TopicConfiguration) Prelude.. Lens.coerced
 
-instance Core.FromXML TopicConfiguration where
+instance Data.FromXML TopicConfiguration where
   parseXML x =
     TopicConfiguration'
-      Prelude.<$> (x Core..@? "Id")
-      Prelude.<*> (x Core..@? "Filter")
-      Prelude.<*> (x Core..@ "Topic")
-      Prelude.<*> (Core.parseXMLList "Event" x)
+      Prelude.<$> (x Data..@? "Filter")
+      Prelude.<*> (x Data..@? "Id")
+      Prelude.<*> (x Data..@ "Topic")
+      Prelude.<*> (Data.parseXMLList "Event" x)
 
 instance Prelude.Hashable TopicConfiguration where
   hashWithSalt _salt TopicConfiguration' {..} =
-    _salt `Prelude.hashWithSalt` id
-      `Prelude.hashWithSalt` filter'
+    _salt `Prelude.hashWithSalt` filter'
+      `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` topicArn
       `Prelude.hashWithSalt` events
 
 instance Prelude.NFData TopicConfiguration where
   rnf TopicConfiguration' {..} =
-    Prelude.rnf id
-      `Prelude.seq` Prelude.rnf filter'
+    Prelude.rnf filter'
+      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf topicArn
       `Prelude.seq` Prelude.rnf events
 
-instance Core.ToXML TopicConfiguration where
+instance Data.ToXML TopicConfiguration where
   toXML TopicConfiguration' {..} =
     Prelude.mconcat
-      [ "Id" Core.@= id,
-        "Filter" Core.@= filter',
-        "Topic" Core.@= topicArn,
-        Core.toXMLList "Event" events
+      [ "Filter" Data.@= filter',
+        "Id" Data.@= id,
+        "Topic" Data.@= topicArn,
+        Data.toXMLList "Event" events
       ]

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsS3BucketBucketLifecycleConfigurationDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsS3BucketBucketLifecycleConfigurationDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsS3BucketBucketLifecycleConfigurationRulesDetails
 
@@ -55,15 +56,15 @@ awsS3BucketBucketLifecycleConfigurationDetails_rules :: Lens.Lens' AwsS3BucketBu
 awsS3BucketBucketLifecycleConfigurationDetails_rules = Lens.lens (\AwsS3BucketBucketLifecycleConfigurationDetails' {rules} -> rules) (\s@AwsS3BucketBucketLifecycleConfigurationDetails' {} a -> s {rules = a} :: AwsS3BucketBucketLifecycleConfigurationDetails) Prelude.. Lens.mapping Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsS3BucketBucketLifecycleConfigurationDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsS3BucketBucketLifecycleConfigurationDetails"
       ( \x ->
           AwsS3BucketBucketLifecycleConfigurationDetails'
-            Prelude.<$> (x Core..:? "Rules" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Rules" Data..!= Prelude.mempty)
       )
 
 instance
@@ -84,12 +85,12 @@ instance
       Prelude.rnf rules
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsS3BucketBucketLifecycleConfigurationDetails
   where
   toJSON
     AwsS3BucketBucketLifecycleConfigurationDetails' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [("Rules" Core..=) Prelude.<$> rules]
+            [("Rules" Data..=) Prelude.<$> rules]
         )

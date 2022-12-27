@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.GenerateRandom
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,10 +22,12 @@
 --
 -- Returns a random byte string that is cryptographically secure.
 --
+-- You must use the @NumberOfBytes@ parameter to specify the length of the
+-- random byte string. There is no default value for string length.
+--
 -- By default, the random byte string is generated in KMS. To generate the
--- byte string in the CloudHSM cluster that is associated with a
--- <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html custom key store>,
--- specify the custom key store ID.
+-- byte string in the CloudHSM cluster associated with an CloudHSM key
+-- store, use the @CustomKeyStoreId@ parameter.
 --
 -- Applications in Amazon Web Services Nitro Enclaves can call this
 -- operation by using the
@@ -37,6 +39,9 @@
 -- For more information about entropy and random number generation, see
 -- <https://docs.aws.amazon.com/kms/latest/cryptographic-details/ Key Management Service Cryptographic Details>.
 --
+-- __Cross-account use__: Not applicable. @GenerateRandom@ does not use any
+-- account-specific resources, such as KMS keys.
+--
 -- __Required permissions__:
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/kms-api-permissions-reference.html kms:GenerateRandom>
 -- (IAM policy)
@@ -46,8 +51,8 @@ module Amazonka.KMS.GenerateRandom
     newGenerateRandom,
 
     -- * Request Lenses
-    generateRandom_numberOfBytes,
     generateRandom_customKeyStoreId,
+    generateRandom_numberOfBytes,
 
     -- * Destructuring the Response
     GenerateRandomResponse (..),
@@ -60,22 +65,25 @@ module Amazonka.KMS.GenerateRandom
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGenerateRandom' smart constructor.
 data GenerateRandom = GenerateRandom'
-  { -- | The length of the byte string.
-    numberOfBytes :: Prelude.Maybe Prelude.Natural,
-    -- | Generates the random byte string in the CloudHSM cluster that is
-    -- associated with the specified
-    -- <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html custom key store>.
-    -- To find the ID of a custom key store, use the DescribeCustomKeyStores
-    -- operation.
-    customKeyStoreId :: Prelude.Maybe Prelude.Text
+  { -- | Generates the random byte string in the CloudHSM cluster that is
+    -- associated with the specified CloudHSM key store. To find the ID of a
+    -- custom key store, use the DescribeCustomKeyStores operation.
+    --
+    -- External key store IDs are not valid for this parameter. If you specify
+    -- the ID of an external key store, @GenerateRandom@ throws an
+    -- @UnsupportedOperationException@.
+    customKeyStoreId :: Prelude.Maybe Prelude.Text,
+    -- | The length of the random byte string. This parameter is required.
+    numberOfBytes :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -87,85 +95,90 @@ data GenerateRandom = GenerateRandom'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'numberOfBytes', 'generateRandom_numberOfBytes' - The length of the byte string.
---
 -- 'customKeyStoreId', 'generateRandom_customKeyStoreId' - Generates the random byte string in the CloudHSM cluster that is
--- associated with the specified
--- <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html custom key store>.
--- To find the ID of a custom key store, use the DescribeCustomKeyStores
--- operation.
+-- associated with the specified CloudHSM key store. To find the ID of a
+-- custom key store, use the DescribeCustomKeyStores operation.
+--
+-- External key store IDs are not valid for this parameter. If you specify
+-- the ID of an external key store, @GenerateRandom@ throws an
+-- @UnsupportedOperationException@.
+--
+-- 'numberOfBytes', 'generateRandom_numberOfBytes' - The length of the random byte string. This parameter is required.
 newGenerateRandom ::
   GenerateRandom
 newGenerateRandom =
   GenerateRandom'
-    { numberOfBytes = Prelude.Nothing,
-      customKeyStoreId = Prelude.Nothing
+    { customKeyStoreId = Prelude.Nothing,
+      numberOfBytes = Prelude.Nothing
     }
 
--- | The length of the byte string.
-generateRandom_numberOfBytes :: Lens.Lens' GenerateRandom (Prelude.Maybe Prelude.Natural)
-generateRandom_numberOfBytes = Lens.lens (\GenerateRandom' {numberOfBytes} -> numberOfBytes) (\s@GenerateRandom' {} a -> s {numberOfBytes = a} :: GenerateRandom)
-
 -- | Generates the random byte string in the CloudHSM cluster that is
--- associated with the specified
--- <https://docs.aws.amazon.com/kms/latest/developerguide/custom-key-store-overview.html custom key store>.
--- To find the ID of a custom key store, use the DescribeCustomKeyStores
--- operation.
+-- associated with the specified CloudHSM key store. To find the ID of a
+-- custom key store, use the DescribeCustomKeyStores operation.
+--
+-- External key store IDs are not valid for this parameter. If you specify
+-- the ID of an external key store, @GenerateRandom@ throws an
+-- @UnsupportedOperationException@.
 generateRandom_customKeyStoreId :: Lens.Lens' GenerateRandom (Prelude.Maybe Prelude.Text)
 generateRandom_customKeyStoreId = Lens.lens (\GenerateRandom' {customKeyStoreId} -> customKeyStoreId) (\s@GenerateRandom' {} a -> s {customKeyStoreId = a} :: GenerateRandom)
+
+-- | The length of the random byte string. This parameter is required.
+generateRandom_numberOfBytes :: Lens.Lens' GenerateRandom (Prelude.Maybe Prelude.Natural)
+generateRandom_numberOfBytes = Lens.lens (\GenerateRandom' {numberOfBytes} -> numberOfBytes) (\s@GenerateRandom' {} a -> s {numberOfBytes = a} :: GenerateRandom)
 
 instance Core.AWSRequest GenerateRandom where
   type
     AWSResponse GenerateRandom =
       GenerateRandomResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GenerateRandomResponse'
-            Prelude.<$> (x Core..?> "Plaintext")
+            Prelude.<$> (x Data..?> "Plaintext")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GenerateRandom where
   hashWithSalt _salt GenerateRandom' {..} =
-    _salt `Prelude.hashWithSalt` numberOfBytes
-      `Prelude.hashWithSalt` customKeyStoreId
+    _salt `Prelude.hashWithSalt` customKeyStoreId
+      `Prelude.hashWithSalt` numberOfBytes
 
 instance Prelude.NFData GenerateRandom where
   rnf GenerateRandom' {..} =
-    Prelude.rnf numberOfBytes
-      `Prelude.seq` Prelude.rnf customKeyStoreId
+    Prelude.rnf customKeyStoreId
+      `Prelude.seq` Prelude.rnf numberOfBytes
 
-instance Core.ToHeaders GenerateRandom where
+instance Data.ToHeaders GenerateRandom where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "TrentService.GenerateRandom" ::
+              Data.=# ( "TrentService.GenerateRandom" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GenerateRandom where
+instance Data.ToJSON GenerateRandom where
   toJSON GenerateRandom' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NumberOfBytes" Core..=) Prelude.<$> numberOfBytes,
-            ("CustomKeyStoreId" Core..=)
-              Prelude.<$> customKeyStoreId
+          [ ("CustomKeyStoreId" Data..=)
+              Prelude.<$> customKeyStoreId,
+            ("NumberOfBytes" Data..=) Prelude.<$> numberOfBytes
           ]
       )
 
-instance Core.ToPath GenerateRandom where
+instance Data.ToPath GenerateRandom where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GenerateRandom where
+instance Data.ToQuery GenerateRandom where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGenerateRandomResponse' smart constructor.
@@ -173,7 +186,7 @@ data GenerateRandomResponse = GenerateRandomResponse'
   { -- | The random byte string. When you use the HTTP API or the Amazon Web
     -- Services CLI, the value is Base64-encoded. Otherwise, it is not
     -- Base64-encoded.
-    plaintext :: Prelude.Maybe (Core.Sensitive Core.Base64),
+    plaintext :: Prelude.Maybe (Data.Sensitive Data.Base64),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -215,7 +228,7 @@ newGenerateRandomResponse pHttpStatus_ =
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 generateRandomResponse_plaintext :: Lens.Lens' GenerateRandomResponse (Prelude.Maybe Prelude.ByteString)
-generateRandomResponse_plaintext = Lens.lens (\GenerateRandomResponse' {plaintext} -> plaintext) (\s@GenerateRandomResponse' {} a -> s {plaintext = a} :: GenerateRandomResponse) Prelude.. Lens.mapping (Core._Sensitive Prelude.. Core._Base64)
+generateRandomResponse_plaintext = Lens.lens (\GenerateRandomResponse' {plaintext} -> plaintext) (\s@GenerateRandomResponse' {} a -> s {plaintext = a} :: GenerateRandomResponse) Prelude.. Lens.mapping (Data._Sensitive Prelude.. Data._Base64)
 
 -- | The response's http status code.
 generateRandomResponse_httpStatus :: Lens.Lens' GenerateRandomResponse Prelude.Int

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyVpnTunnelOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.EC2.ModifyVpnTunnelOptions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -131,12 +132,13 @@ instance Core.AWSRequest ModifyVpnTunnelOptions where
   type
     AWSResponse ModifyVpnTunnelOptions =
       ModifyVpnTunnelOptionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ModifyVpnTunnelOptionsResponse'
-            Prelude.<$> (x Core..@? "vpnConnection")
+            Prelude.<$> (x Data..@? "vpnConnection")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -154,29 +156,30 @@ instance Prelude.NFData ModifyVpnTunnelOptions where
       `Prelude.seq` Prelude.rnf vpnTunnelOutsideIpAddress
       `Prelude.seq` Prelude.rnf tunnelOptions
 
-instance Core.ToHeaders ModifyVpnTunnelOptions where
+instance Data.ToHeaders ModifyVpnTunnelOptions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyVpnTunnelOptions where
+instance Data.ToPath ModifyVpnTunnelOptions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyVpnTunnelOptions where
+instance Data.ToQuery ModifyVpnTunnelOptions where
   toQuery ModifyVpnTunnelOptions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyVpnTunnelOptions" :: Prelude.ByteString),
+          Data.=: ("ModifyVpnTunnelOptions" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "VpnConnectionId" Core.=: vpnConnectionId,
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "VpnConnectionId" Data.=: vpnConnectionId,
         "VpnTunnelOutsideIpAddress"
-          Core.=: vpnTunnelOutsideIpAddress,
-        "TunnelOptions" Core.=: tunnelOptions
+          Data.=: vpnTunnelOutsideIpAddress,
+        "TunnelOptions" Data.=: tunnelOptions
       ]
 
 -- | /See:/ 'newModifyVpnTunnelOptionsResponse' smart constructor.
 data ModifyVpnTunnelOptionsResponse = ModifyVpnTunnelOptionsResponse'
-  { vpnConnection :: Prelude.Maybe VpnConnection,
+  { -- | Information about the VPN connection.
+    vpnConnection :: Prelude.Maybe VpnConnection,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -190,7 +193,7 @@ data ModifyVpnTunnelOptionsResponse = ModifyVpnTunnelOptionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vpnConnection', 'modifyVpnTunnelOptionsResponse_vpnConnection' - Undocumented member.
+-- 'vpnConnection', 'modifyVpnTunnelOptionsResponse_vpnConnection' - Information about the VPN connection.
 --
 -- 'httpStatus', 'modifyVpnTunnelOptionsResponse_httpStatus' - The response's http status code.
 newModifyVpnTunnelOptionsResponse ::
@@ -204,7 +207,7 @@ newModifyVpnTunnelOptionsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Undocumented member.
+-- | Information about the VPN connection.
 modifyVpnTunnelOptionsResponse_vpnConnection :: Lens.Lens' ModifyVpnTunnelOptionsResponse (Prelude.Maybe VpnConnection)
 modifyVpnTunnelOptionsResponse_vpnConnection = Lens.lens (\ModifyVpnTunnelOptionsResponse' {vpnConnection} -> vpnConnection) (\s@ModifyVpnTunnelOptionsResponse' {} a -> s {vpnConnection = a} :: ModifyVpnTunnelOptionsResponse)
 

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetApplicationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.Pinpoint.GetApplicationSettings
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -83,13 +84,14 @@ instance Core.AWSRequest GetApplicationSettings where
   type
     AWSResponse GetApplicationSettings =
       GetApplicationSettingsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetApplicationSettingsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetApplicationSettings where
@@ -100,23 +102,23 @@ instance Prelude.NFData GetApplicationSettings where
   rnf GetApplicationSettings' {..} =
     Prelude.rnf applicationId
 
-instance Core.ToHeaders GetApplicationSettings where
+instance Data.ToHeaders GetApplicationSettings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetApplicationSettings where
+instance Data.ToPath GetApplicationSettings where
   toPath GetApplicationSettings' {..} =
     Prelude.mconcat
-      ["/v1/apps/", Core.toBS applicationId, "/settings"]
+      ["/v1/apps/", Data.toBS applicationId, "/settings"]
 
-instance Core.ToQuery GetApplicationSettings where
+instance Data.ToQuery GetApplicationSettings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetApplicationSettingsResponse' smart constructor.

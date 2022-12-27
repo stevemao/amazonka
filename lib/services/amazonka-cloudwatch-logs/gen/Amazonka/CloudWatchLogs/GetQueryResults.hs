@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchLogs.GetQueryResults
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,13 +28,18 @@
 -- <https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_GetLogRecord.html GetLogRecord>
 -- operation to get the full log record.
 --
--- @GetQueryResults@ does not start a query execution. To run a query, use
+-- @GetQueryResults@ does not start running a query. To run a query, use
 -- <https://docs.aws.amazon.com/AmazonCloudWatchLogs/latest/APIReference/API_StartQuery.html StartQuery>.
 --
 -- If the value of the @Status@ field in the output is @Running@, this
 -- operation returns only partial results. If you see a value of
 -- @Scheduled@ or @Running@ for the status, you can retry the operation
 -- later to see the final results.
+--
+-- If you are using CloudWatch cross-account observability, you can use
+-- this operation in a monitoring account to start queries in linked source
+-- accounts. For more information, see
+-- <https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/CloudWatch-Unified-Cross-Account.html CloudWatch cross-account observability>.
 module Amazonka.CloudWatchLogs.GetQueryResults
   ( -- * Creating a Request
     GetQueryResults (..),
@@ -48,16 +53,17 @@ module Amazonka.CloudWatchLogs.GetQueryResults
     newGetQueryResultsResponse,
 
     -- * Response Lenses
-    getQueryResultsResponse_status,
     getQueryResultsResponse_results,
     getQueryResultsResponse_statistics,
+    getQueryResultsResponse_status,
     getQueryResultsResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudWatchLogs.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,14 +99,15 @@ instance Core.AWSRequest GetQueryResults where
   type
     AWSResponse GetQueryResults =
       GetQueryResultsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetQueryResultsResponse'
-            Prelude.<$> (x Core..?> "status")
-            Prelude.<*> (x Core..?> "results" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "statistics")
+            Prelude.<$> (x Data..?> "results" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "statistics")
+            Prelude.<*> (x Data..?> "status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,45 +118,37 @@ instance Prelude.Hashable GetQueryResults where
 instance Prelude.NFData GetQueryResults where
   rnf GetQueryResults' {..} = Prelude.rnf queryId
 
-instance Core.ToHeaders GetQueryResults where
+instance Data.ToHeaders GetQueryResults where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Logs_20140328.GetQueryResults" ::
+              Data.=# ( "Logs_20140328.GetQueryResults" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetQueryResults where
+instance Data.ToJSON GetQueryResults where
   toJSON GetQueryResults' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("queryId" Core..= queryId)]
+          [Prelude.Just ("queryId" Data..= queryId)]
       )
 
-instance Core.ToPath GetQueryResults where
+instance Data.ToPath GetQueryResults where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetQueryResults where
+instance Data.ToQuery GetQueryResults where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetQueryResultsResponse' smart constructor.
 data GetQueryResultsResponse = GetQueryResultsResponse'
-  { -- | The status of the most recent running of the query. Possible values are
-    -- @Cancelled@, @Complete@, @Failed@, @Running@, @Scheduled@, @Timeout@,
-    -- and @Unknown@.
-    --
-    -- Queries time out after 15 minutes of execution. To avoid having your
-    -- queries time out, reduce the time range being searched or partition your
-    -- query into a number of queries.
-    status :: Prelude.Maybe QueryStatus,
-    -- | The log events that matched the query criteria during the most recent
+  { -- | The log events that matched the query criteria during the most recent
     -- time it ran.
     --
     -- The @results@ value is an array of arrays. Each log event is one object
@@ -161,6 +160,14 @@ data GetQueryResultsResponse = GetQueryResultsResponse'
     -- bytes in the log events that were scanned. These values reflect the full
     -- raw results of the query.
     statistics :: Prelude.Maybe QueryStatistics,
+    -- | The status of the most recent running of the query. Possible values are
+    -- @Cancelled@, @Complete@, @Failed@, @Running@, @Scheduled@, @Timeout@,
+    -- and @Unknown@.
+    --
+    -- Queries time out after 15 minutes of runtime. To avoid having your
+    -- queries time out, reduce the time range being searched or partition your
+    -- query into a number of queries.
+    status :: Prelude.Maybe QueryStatus,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -174,14 +181,6 @@ data GetQueryResultsResponse = GetQueryResultsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'getQueryResultsResponse_status' - The status of the most recent running of the query. Possible values are
--- @Cancelled@, @Complete@, @Failed@, @Running@, @Scheduled@, @Timeout@,
--- and @Unknown@.
---
--- Queries time out after 15 minutes of execution. To avoid having your
--- queries time out, reduce the time range being searched or partition your
--- query into a number of queries.
---
 -- 'results', 'getQueryResultsResponse_results' - The log events that matched the query criteria during the most recent
 -- time it ran.
 --
@@ -194,6 +193,14 @@ data GetQueryResultsResponse = GetQueryResultsResponse'
 -- bytes in the log events that were scanned. These values reflect the full
 -- raw results of the query.
 --
+-- 'status', 'getQueryResultsResponse_status' - The status of the most recent running of the query. Possible values are
+-- @Cancelled@, @Complete@, @Failed@, @Running@, @Scheduled@, @Timeout@,
+-- and @Unknown@.
+--
+-- Queries time out after 15 minutes of runtime. To avoid having your
+-- queries time out, reduce the time range being searched or partition your
+-- query into a number of queries.
+--
 -- 'httpStatus', 'getQueryResultsResponse_httpStatus' - The response's http status code.
 newGetQueryResultsResponse ::
   -- | 'httpStatus'
@@ -201,21 +208,11 @@ newGetQueryResultsResponse ::
   GetQueryResultsResponse
 newGetQueryResultsResponse pHttpStatus_ =
   GetQueryResultsResponse'
-    { status = Prelude.Nothing,
-      results = Prelude.Nothing,
+    { results = Prelude.Nothing,
       statistics = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The status of the most recent running of the query. Possible values are
--- @Cancelled@, @Complete@, @Failed@, @Running@, @Scheduled@, @Timeout@,
--- and @Unknown@.
---
--- Queries time out after 15 minutes of execution. To avoid having your
--- queries time out, reduce the time range being searched or partition your
--- query into a number of queries.
-getQueryResultsResponse_status :: Lens.Lens' GetQueryResultsResponse (Prelude.Maybe QueryStatus)
-getQueryResultsResponse_status = Lens.lens (\GetQueryResultsResponse' {status} -> status) (\s@GetQueryResultsResponse' {} a -> s {status = a} :: GetQueryResultsResponse)
 
 -- | The log events that matched the query criteria during the most recent
 -- time it ran.
@@ -233,13 +230,23 @@ getQueryResultsResponse_results = Lens.lens (\GetQueryResultsResponse' {results}
 getQueryResultsResponse_statistics :: Lens.Lens' GetQueryResultsResponse (Prelude.Maybe QueryStatistics)
 getQueryResultsResponse_statistics = Lens.lens (\GetQueryResultsResponse' {statistics} -> statistics) (\s@GetQueryResultsResponse' {} a -> s {statistics = a} :: GetQueryResultsResponse)
 
+-- | The status of the most recent running of the query. Possible values are
+-- @Cancelled@, @Complete@, @Failed@, @Running@, @Scheduled@, @Timeout@,
+-- and @Unknown@.
+--
+-- Queries time out after 15 minutes of runtime. To avoid having your
+-- queries time out, reduce the time range being searched or partition your
+-- query into a number of queries.
+getQueryResultsResponse_status :: Lens.Lens' GetQueryResultsResponse (Prelude.Maybe QueryStatus)
+getQueryResultsResponse_status = Lens.lens (\GetQueryResultsResponse' {status} -> status) (\s@GetQueryResultsResponse' {} a -> s {status = a} :: GetQueryResultsResponse)
+
 -- | The response's http status code.
 getQueryResultsResponse_httpStatus :: Lens.Lens' GetQueryResultsResponse Prelude.Int
 getQueryResultsResponse_httpStatus = Lens.lens (\GetQueryResultsResponse' {httpStatus} -> httpStatus) (\s@GetQueryResultsResponse' {} a -> s {httpStatus = a} :: GetQueryResultsResponse)
 
 instance Prelude.NFData GetQueryResultsResponse where
   rnf GetQueryResultsResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf results
+    Prelude.rnf results
       `Prelude.seq` Prelude.rnf statistics
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

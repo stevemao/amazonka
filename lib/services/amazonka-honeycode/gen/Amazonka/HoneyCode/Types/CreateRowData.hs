@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.Types.CreateRowData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.HoneyCode.Types.CreateRowData where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HoneyCode.Types.CellInput
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Data needed to create a single row in a table as part of the
@@ -93,12 +94,12 @@ instance Prelude.NFData CreateRowData where
     Prelude.rnf batchItemId
       `Prelude.seq` Prelude.rnf cellsToCreate
 
-instance Core.ToJSON CreateRowData where
+instance Data.ToJSON CreateRowData where
   toJSON CreateRowData' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("batchItemId" Core..= batchItemId),
+          [ Prelude.Just ("batchItemId" Data..= batchItemId),
             Prelude.Just
-              ("cellsToCreate" Core..= cellsToCreate)
+              ("cellsToCreate" Data..= cellsToCreate)
           ]
       )

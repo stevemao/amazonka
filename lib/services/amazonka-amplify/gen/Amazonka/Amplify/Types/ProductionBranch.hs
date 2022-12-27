@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Amplify.Types.ProductionBranch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,22 @@
 module Amazonka.Amplify.Types.ProductionBranch where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the information about a production branch for an Amplify app.
 --
 -- /See:/ 'newProductionBranch' smart constructor.
 data ProductionBranch = ProductionBranch'
-  { -- | The last deploy time of the production branch.
-    lastDeployTime :: Prelude.Maybe Core.POSIX,
+  { -- | The branch name for the production branch.
+    branchName :: Prelude.Maybe Prelude.Text,
+    -- | The last deploy time of the production branch.
+    lastDeployTime :: Prelude.Maybe Data.POSIX,
     -- | The status of the production branch.
     status :: Prelude.Maybe Prelude.Text,
     -- | The thumbnail URL for the production branch.
-    thumbnailUrl :: Prelude.Maybe Prelude.Text,
-    -- | The branch name for the production branch.
-    branchName :: Prelude.Maybe Prelude.Text
+    thumbnailUrl :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,26 +47,30 @@ data ProductionBranch = ProductionBranch'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'branchName', 'productionBranch_branchName' - The branch name for the production branch.
+--
 -- 'lastDeployTime', 'productionBranch_lastDeployTime' - The last deploy time of the production branch.
 --
 -- 'status', 'productionBranch_status' - The status of the production branch.
 --
 -- 'thumbnailUrl', 'productionBranch_thumbnailUrl' - The thumbnail URL for the production branch.
---
--- 'branchName', 'productionBranch_branchName' - The branch name for the production branch.
 newProductionBranch ::
   ProductionBranch
 newProductionBranch =
   ProductionBranch'
-    { lastDeployTime = Prelude.Nothing,
+    { branchName = Prelude.Nothing,
+      lastDeployTime = Prelude.Nothing,
       status = Prelude.Nothing,
-      thumbnailUrl = Prelude.Nothing,
-      branchName = Prelude.Nothing
+      thumbnailUrl = Prelude.Nothing
     }
+
+-- | The branch name for the production branch.
+productionBranch_branchName :: Lens.Lens' ProductionBranch (Prelude.Maybe Prelude.Text)
+productionBranch_branchName = Lens.lens (\ProductionBranch' {branchName} -> branchName) (\s@ProductionBranch' {} a -> s {branchName = a} :: ProductionBranch)
 
 -- | The last deploy time of the production branch.
 productionBranch_lastDeployTime :: Lens.Lens' ProductionBranch (Prelude.Maybe Prelude.UTCTime)
-productionBranch_lastDeployTime = Lens.lens (\ProductionBranch' {lastDeployTime} -> lastDeployTime) (\s@ProductionBranch' {} a -> s {lastDeployTime = a} :: ProductionBranch) Prelude.. Lens.mapping Core._Time
+productionBranch_lastDeployTime = Lens.lens (\ProductionBranch' {lastDeployTime} -> lastDeployTime) (\s@ProductionBranch' {} a -> s {lastDeployTime = a} :: ProductionBranch) Prelude.. Lens.mapping Data._Time
 
 -- | The status of the production branch.
 productionBranch_status :: Lens.Lens' ProductionBranch (Prelude.Maybe Prelude.Text)
@@ -75,32 +80,28 @@ productionBranch_status = Lens.lens (\ProductionBranch' {status} -> status) (\s@
 productionBranch_thumbnailUrl :: Lens.Lens' ProductionBranch (Prelude.Maybe Prelude.Text)
 productionBranch_thumbnailUrl = Lens.lens (\ProductionBranch' {thumbnailUrl} -> thumbnailUrl) (\s@ProductionBranch' {} a -> s {thumbnailUrl = a} :: ProductionBranch)
 
--- | The branch name for the production branch.
-productionBranch_branchName :: Lens.Lens' ProductionBranch (Prelude.Maybe Prelude.Text)
-productionBranch_branchName = Lens.lens (\ProductionBranch' {branchName} -> branchName) (\s@ProductionBranch' {} a -> s {branchName = a} :: ProductionBranch)
-
-instance Core.FromJSON ProductionBranch where
+instance Data.FromJSON ProductionBranch where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ProductionBranch"
       ( \x ->
           ProductionBranch'
-            Prelude.<$> (x Core..:? "lastDeployTime")
-            Prelude.<*> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "thumbnailUrl")
-            Prelude.<*> (x Core..:? "branchName")
+            Prelude.<$> (x Data..:? "branchName")
+            Prelude.<*> (x Data..:? "lastDeployTime")
+            Prelude.<*> (x Data..:? "status")
+            Prelude.<*> (x Data..:? "thumbnailUrl")
       )
 
 instance Prelude.Hashable ProductionBranch where
   hashWithSalt _salt ProductionBranch' {..} =
-    _salt `Prelude.hashWithSalt` lastDeployTime
+    _salt `Prelude.hashWithSalt` branchName
+      `Prelude.hashWithSalt` lastDeployTime
       `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` thumbnailUrl
-      `Prelude.hashWithSalt` branchName
 
 instance Prelude.NFData ProductionBranch where
   rnf ProductionBranch' {..} =
-    Prelude.rnf lastDeployTime
+    Prelude.rnf branchName
+      `Prelude.seq` Prelude.rnf lastDeployTime
       `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf thumbnailUrl
-      `Prelude.seq` Prelude.rnf branchName

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.CapacityReservationGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.CapacityReservationGroup where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a resource group to which a Capacity Reservation has been
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCapacityReservationGroup' smart constructor.
 data CapacityReservationGroup = CapacityReservationGroup'
-  { -- | The ID of the Amazon Web Services account that owns the resource group.
-    ownerId :: Prelude.Maybe Prelude.Text,
-    -- | The ARN of the resource group.
-    groupArn :: Prelude.Maybe Prelude.Text
+  { -- | The ARN of the resource group.
+    groupArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Amazon Web Services account that owns the resource group.
+    ownerId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,38 +45,38 @@ data CapacityReservationGroup = CapacityReservationGroup'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ownerId', 'capacityReservationGroup_ownerId' - The ID of the Amazon Web Services account that owns the resource group.
---
 -- 'groupArn', 'capacityReservationGroup_groupArn' - The ARN of the resource group.
+--
+-- 'ownerId', 'capacityReservationGroup_ownerId' - The ID of the Amazon Web Services account that owns the resource group.
 newCapacityReservationGroup ::
   CapacityReservationGroup
 newCapacityReservationGroup =
   CapacityReservationGroup'
-    { ownerId =
+    { groupArn =
         Prelude.Nothing,
-      groupArn = Prelude.Nothing
+      ownerId = Prelude.Nothing
     }
-
--- | The ID of the Amazon Web Services account that owns the resource group.
-capacityReservationGroup_ownerId :: Lens.Lens' CapacityReservationGroup (Prelude.Maybe Prelude.Text)
-capacityReservationGroup_ownerId = Lens.lens (\CapacityReservationGroup' {ownerId} -> ownerId) (\s@CapacityReservationGroup' {} a -> s {ownerId = a} :: CapacityReservationGroup)
 
 -- | The ARN of the resource group.
 capacityReservationGroup_groupArn :: Lens.Lens' CapacityReservationGroup (Prelude.Maybe Prelude.Text)
 capacityReservationGroup_groupArn = Lens.lens (\CapacityReservationGroup' {groupArn} -> groupArn) (\s@CapacityReservationGroup' {} a -> s {groupArn = a} :: CapacityReservationGroup)
 
-instance Core.FromXML CapacityReservationGroup where
+-- | The ID of the Amazon Web Services account that owns the resource group.
+capacityReservationGroup_ownerId :: Lens.Lens' CapacityReservationGroup (Prelude.Maybe Prelude.Text)
+capacityReservationGroup_ownerId = Lens.lens (\CapacityReservationGroup' {ownerId} -> ownerId) (\s@CapacityReservationGroup' {} a -> s {ownerId = a} :: CapacityReservationGroup)
+
+instance Data.FromXML CapacityReservationGroup where
   parseXML x =
     CapacityReservationGroup'
-      Prelude.<$> (x Core..@? "ownerId")
-      Prelude.<*> (x Core..@? "groupArn")
+      Prelude.<$> (x Data..@? "groupArn")
+      Prelude.<*> (x Data..@? "ownerId")
 
 instance Prelude.Hashable CapacityReservationGroup where
   hashWithSalt _salt CapacityReservationGroup' {..} =
-    _salt `Prelude.hashWithSalt` ownerId
-      `Prelude.hashWithSalt` groupArn
+    _salt `Prelude.hashWithSalt` groupArn
+      `Prelude.hashWithSalt` ownerId
 
 instance Prelude.NFData CapacityReservationGroup where
   rnf CapacityReservationGroup' {..} =
-    Prelude.rnf ownerId
-      `Prelude.seq` Prelude.rnf groupArn
+    Prelude.rnf groupArn
+      `Prelude.seq` Prelude.rnf ownerId

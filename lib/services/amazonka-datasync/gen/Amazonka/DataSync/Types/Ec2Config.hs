@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.Types.Ec2Config
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,22 +20,32 @@
 module Amazonka.DataSync.Types.Ec2Config where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The subnet and the security group that DataSync uses to access target
--- EFS file system. The subnet must have at least one mount target for that
--- file system. The security group that you provide needs to be able to
--- communicate with the security group on the mount target in the subnet
--- specified.
+-- | The subnet and security groups that DataSync uses to access your Amazon
+-- EFS file system.
 --
 -- /See:/ 'newEc2Config' smart constructor.
 data Ec2Config = Ec2Config'
-  { -- | The ARN of the subnet and the security group that DataSync uses to
-    -- access the target EFS file system.
+  { -- | Specifies the ARN of a subnet where DataSync creates the
+    -- <https://docs.aws.amazon.com/datasync/latest/userguide/datasync-network.html#required-network-interfaces network interfaces>
+    -- for managing traffic during your transfer.
+    --
+    -- The subnet must be located:
+    --
+    -- -   In the same virtual private cloud (VPC) as the Amazon EFS file
+    --     system.
+    --
+    -- -   In the same Availability Zone as at least one mount target for the
+    --     Amazon EFS file system.
+    --
+    -- You don\'t need to specify a subnet that includes a file system mount
+    -- target.
     subnetArn :: Prelude.Text,
-    -- | The Amazon Resource Names (ARNs) of the security groups that are
-    -- configured for the Amazon EC2 resource.
+    -- | Specifies the Amazon Resource Names (ARNs) of the security groups
+    -- associated with an Amazon EFS file system\'s mount target.
     securityGroupArns :: Prelude.NonEmpty Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -48,11 +58,23 @@ data Ec2Config = Ec2Config'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'subnetArn', 'ec2Config_subnetArn' - The ARN of the subnet and the security group that DataSync uses to
--- access the target EFS file system.
+-- 'subnetArn', 'ec2Config_subnetArn' - Specifies the ARN of a subnet where DataSync creates the
+-- <https://docs.aws.amazon.com/datasync/latest/userguide/datasync-network.html#required-network-interfaces network interfaces>
+-- for managing traffic during your transfer.
 --
--- 'securityGroupArns', 'ec2Config_securityGroupArns' - The Amazon Resource Names (ARNs) of the security groups that are
--- configured for the Amazon EC2 resource.
+-- The subnet must be located:
+--
+-- -   In the same virtual private cloud (VPC) as the Amazon EFS file
+--     system.
+--
+-- -   In the same Availability Zone as at least one mount target for the
+--     Amazon EFS file system.
+--
+-- You don\'t need to specify a subnet that includes a file system mount
+-- target.
+--
+-- 'securityGroupArns', 'ec2Config_securityGroupArns' - Specifies the Amazon Resource Names (ARNs) of the security groups
+-- associated with an Amazon EFS file system\'s mount target.
 newEc2Config ::
   -- | 'subnetArn'
   Prelude.Text ->
@@ -66,24 +88,36 @@ newEc2Config pSubnetArn_ pSecurityGroupArns_ =
         Lens.coerced Lens.# pSecurityGroupArns_
     }
 
--- | The ARN of the subnet and the security group that DataSync uses to
--- access the target EFS file system.
+-- | Specifies the ARN of a subnet where DataSync creates the
+-- <https://docs.aws.amazon.com/datasync/latest/userguide/datasync-network.html#required-network-interfaces network interfaces>
+-- for managing traffic during your transfer.
+--
+-- The subnet must be located:
+--
+-- -   In the same virtual private cloud (VPC) as the Amazon EFS file
+--     system.
+--
+-- -   In the same Availability Zone as at least one mount target for the
+--     Amazon EFS file system.
+--
+-- You don\'t need to specify a subnet that includes a file system mount
+-- target.
 ec2Config_subnetArn :: Lens.Lens' Ec2Config Prelude.Text
 ec2Config_subnetArn = Lens.lens (\Ec2Config' {subnetArn} -> subnetArn) (\s@Ec2Config' {} a -> s {subnetArn = a} :: Ec2Config)
 
--- | The Amazon Resource Names (ARNs) of the security groups that are
--- configured for the Amazon EC2 resource.
+-- | Specifies the Amazon Resource Names (ARNs) of the security groups
+-- associated with an Amazon EFS file system\'s mount target.
 ec2Config_securityGroupArns :: Lens.Lens' Ec2Config (Prelude.NonEmpty Prelude.Text)
 ec2Config_securityGroupArns = Lens.lens (\Ec2Config' {securityGroupArns} -> securityGroupArns) (\s@Ec2Config' {} a -> s {securityGroupArns = a} :: Ec2Config) Prelude.. Lens.coerced
 
-instance Core.FromJSON Ec2Config where
+instance Data.FromJSON Ec2Config where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Ec2Config"
       ( \x ->
           Ec2Config'
-            Prelude.<$> (x Core..: "SubnetArn")
-            Prelude.<*> (x Core..: "SecurityGroupArns")
+            Prelude.<$> (x Data..: "SubnetArn")
+            Prelude.<*> (x Data..: "SecurityGroupArns")
       )
 
 instance Prelude.Hashable Ec2Config where
@@ -96,12 +130,12 @@ instance Prelude.NFData Ec2Config where
     Prelude.rnf subnetArn
       `Prelude.seq` Prelude.rnf securityGroupArns
 
-instance Core.ToJSON Ec2Config where
+instance Data.ToJSON Ec2Config where
   toJSON Ec2Config' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("SubnetArn" Core..= subnetArn),
+          [ Prelude.Just ("SubnetArn" Data..= subnetArn),
             Prelude.Just
-              ("SecurityGroupArns" Core..= securityGroupArns)
+              ("SecurityGroupArns" Data..= securityGroupArns)
           ]
       )

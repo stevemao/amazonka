@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.UpdateRdsDbInstance
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.OpsWorks.UpdateRdsDbInstance
     newUpdateRdsDbInstance,
 
     -- * Request Lenses
-    updateRdsDbInstance_dbUser,
     updateRdsDbInstance_dbPassword,
+    updateRdsDbInstance_dbUser,
     updateRdsDbInstance_rdsDbInstanceArn,
 
     -- * Destructuring the Response
@@ -44,7 +44,8 @@ module Amazonka.OpsWorks.UpdateRdsDbInstance
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,10 +53,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateRdsDbInstance' smart constructor.
 data UpdateRdsDbInstance = UpdateRdsDbInstance'
-  { -- | The master user name.
-    dbUser :: Prelude.Maybe Prelude.Text,
-    -- | The database password.
+  { -- | The database password.
     dbPassword :: Prelude.Maybe Prelude.Text,
+    -- | The master user name.
+    dbUser :: Prelude.Maybe Prelude.Text,
     -- | The Amazon RDS instance\'s ARN.
     rdsDbInstanceArn :: Prelude.Text
   }
@@ -69,9 +70,9 @@ data UpdateRdsDbInstance = UpdateRdsDbInstance'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'dbUser', 'updateRdsDbInstance_dbUser' - The master user name.
---
 -- 'dbPassword', 'updateRdsDbInstance_dbPassword' - The database password.
+--
+-- 'dbUser', 'updateRdsDbInstance_dbUser' - The master user name.
 --
 -- 'rdsDbInstanceArn', 'updateRdsDbInstance_rdsDbInstanceArn' - The Amazon RDS instance\'s ARN.
 newUpdateRdsDbInstance ::
@@ -80,18 +81,18 @@ newUpdateRdsDbInstance ::
   UpdateRdsDbInstance
 newUpdateRdsDbInstance pRdsDbInstanceArn_ =
   UpdateRdsDbInstance'
-    { dbUser = Prelude.Nothing,
-      dbPassword = Prelude.Nothing,
+    { dbPassword = Prelude.Nothing,
+      dbUser = Prelude.Nothing,
       rdsDbInstanceArn = pRdsDbInstanceArn_
     }
-
--- | The master user name.
-updateRdsDbInstance_dbUser :: Lens.Lens' UpdateRdsDbInstance (Prelude.Maybe Prelude.Text)
-updateRdsDbInstance_dbUser = Lens.lens (\UpdateRdsDbInstance' {dbUser} -> dbUser) (\s@UpdateRdsDbInstance' {} a -> s {dbUser = a} :: UpdateRdsDbInstance)
 
 -- | The database password.
 updateRdsDbInstance_dbPassword :: Lens.Lens' UpdateRdsDbInstance (Prelude.Maybe Prelude.Text)
 updateRdsDbInstance_dbPassword = Lens.lens (\UpdateRdsDbInstance' {dbPassword} -> dbPassword) (\s@UpdateRdsDbInstance' {} a -> s {dbPassword = a} :: UpdateRdsDbInstance)
+
+-- | The master user name.
+updateRdsDbInstance_dbUser :: Lens.Lens' UpdateRdsDbInstance (Prelude.Maybe Prelude.Text)
+updateRdsDbInstance_dbUser = Lens.lens (\UpdateRdsDbInstance' {dbUser} -> dbUser) (\s@UpdateRdsDbInstance' {} a -> s {dbUser = a} :: UpdateRdsDbInstance)
 
 -- | The Amazon RDS instance\'s ARN.
 updateRdsDbInstance_rdsDbInstanceArn :: Lens.Lens' UpdateRdsDbInstance Prelude.Text
@@ -101,52 +102,53 @@ instance Core.AWSRequest UpdateRdsDbInstance where
   type
     AWSResponse UpdateRdsDbInstance =
       UpdateRdsDbInstanceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull UpdateRdsDbInstanceResponse'
 
 instance Prelude.Hashable UpdateRdsDbInstance where
   hashWithSalt _salt UpdateRdsDbInstance' {..} =
-    _salt `Prelude.hashWithSalt` dbUser
-      `Prelude.hashWithSalt` dbPassword
+    _salt `Prelude.hashWithSalt` dbPassword
+      `Prelude.hashWithSalt` dbUser
       `Prelude.hashWithSalt` rdsDbInstanceArn
 
 instance Prelude.NFData UpdateRdsDbInstance where
   rnf UpdateRdsDbInstance' {..} =
-    Prelude.rnf dbUser
-      `Prelude.seq` Prelude.rnf dbPassword
+    Prelude.rnf dbPassword
+      `Prelude.seq` Prelude.rnf dbUser
       `Prelude.seq` Prelude.rnf rdsDbInstanceArn
 
-instance Core.ToHeaders UpdateRdsDbInstance where
+instance Data.ToHeaders UpdateRdsDbInstance where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.UpdateRdsDbInstance" ::
+              Data.=# ( "OpsWorks_20130218.UpdateRdsDbInstance" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRdsDbInstance where
+instance Data.ToJSON UpdateRdsDbInstance where
   toJSON UpdateRdsDbInstance' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DbUser" Core..=) Prelude.<$> dbUser,
-            ("DbPassword" Core..=) Prelude.<$> dbPassword,
+          [ ("DbPassword" Data..=) Prelude.<$> dbPassword,
+            ("DbUser" Data..=) Prelude.<$> dbUser,
             Prelude.Just
-              ("RdsDbInstanceArn" Core..= rdsDbInstanceArn)
+              ("RdsDbInstanceArn" Data..= rdsDbInstanceArn)
           ]
       )
 
-instance Core.ToPath UpdateRdsDbInstance where
+instance Data.ToPath UpdateRdsDbInstance where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateRdsDbInstance where
+instance Data.ToQuery UpdateRdsDbInstance where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateRdsDbInstanceResponse' smart constructor.

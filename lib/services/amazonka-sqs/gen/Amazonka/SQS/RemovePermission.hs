@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.RemovePermission
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.SQS.RemovePermission
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,7 +111,8 @@ instance Core.AWSRequest RemovePermission where
   type
     AWSResponse RemovePermission =
       RemovePermissionResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull RemovePermissionResponse'
 
@@ -124,21 +126,21 @@ instance Prelude.NFData RemovePermission where
     Prelude.rnf queueUrl
       `Prelude.seq` Prelude.rnf label
 
-instance Core.ToHeaders RemovePermission where
+instance Data.ToHeaders RemovePermission where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath RemovePermission where
+instance Data.ToPath RemovePermission where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemovePermission where
+instance Data.ToQuery RemovePermission where
   toQuery RemovePermission' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("RemovePermission" :: Prelude.ByteString),
+          Data.=: ("RemovePermission" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-11-05" :: Prelude.ByteString),
-        "QueueUrl" Core.=: queueUrl,
-        "Label" Core.=: label
+          Data.=: ("2012-11-05" :: Prelude.ByteString),
+        "QueueUrl" Data.=: queueUrl,
+        "Label" Data.=: label
       ]
 
 -- | /See:/ 'newRemovePermissionResponse' smart constructor.

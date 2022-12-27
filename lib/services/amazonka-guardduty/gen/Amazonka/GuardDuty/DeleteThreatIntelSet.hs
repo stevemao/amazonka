@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.DeleteThreatIntelSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.GuardDuty.DeleteThreatIntelSet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,7 +96,8 @@ instance Core.AWSRequest DeleteThreatIntelSet where
   type
     AWSResponse DeleteThreatIntelSet =
       DeleteThreatIntelSetResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -113,27 +115,27 @@ instance Prelude.NFData DeleteThreatIntelSet where
     Prelude.rnf detectorId
       `Prelude.seq` Prelude.rnf threatIntelSetId
 
-instance Core.ToHeaders DeleteThreatIntelSet where
+instance Data.ToHeaders DeleteThreatIntelSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteThreatIntelSet where
+instance Data.ToPath DeleteThreatIntelSet where
   toPath DeleteThreatIntelSet' {..} =
     Prelude.mconcat
       [ "/detector/",
-        Core.toBS detectorId,
+        Data.toBS detectorId,
         "/threatintelset/",
-        Core.toBS threatIntelSetId
+        Data.toBS threatIntelSetId
       ]
 
-instance Core.ToQuery DeleteThreatIntelSet where
+instance Data.ToQuery DeleteThreatIntelSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteThreatIntelSetResponse' smart constructor.

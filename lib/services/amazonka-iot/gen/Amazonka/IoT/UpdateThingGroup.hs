@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.UpdateThingGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.IoT.UpdateThingGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,12 +112,13 @@ instance Core.AWSRequest UpdateThingGroup where
   type
     AWSResponse UpdateThingGroup =
       UpdateThingGroupResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateThingGroupResponse'
-            Prelude.<$> (x Core..?> "version")
+            Prelude.<$> (x Data..?> "version")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -132,28 +134,28 @@ instance Prelude.NFData UpdateThingGroup where
       `Prelude.seq` Prelude.rnf thingGroupName
       `Prelude.seq` Prelude.rnf thingGroupProperties
 
-instance Core.ToHeaders UpdateThingGroup where
+instance Data.ToHeaders UpdateThingGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateThingGroup where
+instance Data.ToJSON UpdateThingGroup where
   toJSON UpdateThingGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("expectedVersion" Core..=)
+          [ ("expectedVersion" Data..=)
               Prelude.<$> expectedVersion,
             Prelude.Just
               ( "thingGroupProperties"
-                  Core..= thingGroupProperties
+                  Data..= thingGroupProperties
               )
           ]
       )
 
-instance Core.ToPath UpdateThingGroup where
+instance Data.ToPath UpdateThingGroup where
   toPath UpdateThingGroup' {..} =
     Prelude.mconcat
-      ["/thing-groups/", Core.toBS thingGroupName]
+      ["/thing-groups/", Data.toBS thingGroupName]
 
-instance Core.ToQuery UpdateThingGroup where
+instance Data.ToQuery UpdateThingGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateThingGroupResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.LaunchTemplateCapacityReservationSpecificationRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,10 +20,11 @@
 module Amazonka.EC2.Types.LaunchTemplateCapacityReservationSpecificationRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.CapacityReservationPreference
 import Amazonka.EC2.Types.CapacityReservationTarget
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an instance\'s Capacity Reservation targeting option. You can
@@ -36,10 +37,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newLaunchTemplateCapacityReservationSpecificationRequest' smart constructor.
 data LaunchTemplateCapacityReservationSpecificationRequest = LaunchTemplateCapacityReservationSpecificationRequest'
-  { -- | Information about the target Capacity Reservation or Capacity
-    -- Reservation group.
-    capacityReservationTarget :: Prelude.Maybe CapacityReservationTarget,
-    -- | Indicates the instance\'s Capacity Reservation preferences. Possible
+  { -- | Indicates the instance\'s Capacity Reservation preferences. Possible
     -- preferences include:
     --
     -- -   @open@ - The instance can run in any @open@ Capacity Reservation
@@ -48,7 +46,10 @@ data LaunchTemplateCapacityReservationSpecificationRequest = LaunchTemplateCapac
     --
     -- -   @none@ - The instance avoids running in a Capacity Reservation even
     --     if one is available. The instance runs in On-Demand capacity.
-    capacityReservationPreference :: Prelude.Maybe CapacityReservationPreference
+    capacityReservationPreference :: Prelude.Maybe CapacityReservationPreference,
+    -- | Information about the target Capacity Reservation or Capacity
+    -- Reservation group.
+    capacityReservationTarget :: Prelude.Maybe CapacityReservationTarget
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -60,9 +61,6 @@ data LaunchTemplateCapacityReservationSpecificationRequest = LaunchTemplateCapac
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'capacityReservationTarget', 'launchTemplateCapacityReservationSpecificationRequest_capacityReservationTarget' - Information about the target Capacity Reservation or Capacity
--- Reservation group.
---
 -- 'capacityReservationPreference', 'launchTemplateCapacityReservationSpecificationRequest_capacityReservationPreference' - Indicates the instance\'s Capacity Reservation preferences. Possible
 -- preferences include:
 --
@@ -72,20 +70,18 @@ data LaunchTemplateCapacityReservationSpecificationRequest = LaunchTemplateCapac
 --
 -- -   @none@ - The instance avoids running in a Capacity Reservation even
 --     if one is available. The instance runs in On-Demand capacity.
+--
+-- 'capacityReservationTarget', 'launchTemplateCapacityReservationSpecificationRequest_capacityReservationTarget' - Information about the target Capacity Reservation or Capacity
+-- Reservation group.
 newLaunchTemplateCapacityReservationSpecificationRequest ::
   LaunchTemplateCapacityReservationSpecificationRequest
 newLaunchTemplateCapacityReservationSpecificationRequest =
   LaunchTemplateCapacityReservationSpecificationRequest'
-    { capacityReservationTarget =
+    { capacityReservationPreference =
         Prelude.Nothing,
-      capacityReservationPreference =
+      capacityReservationTarget =
         Prelude.Nothing
     }
-
--- | Information about the target Capacity Reservation or Capacity
--- Reservation group.
-launchTemplateCapacityReservationSpecificationRequest_capacityReservationTarget :: Lens.Lens' LaunchTemplateCapacityReservationSpecificationRequest (Prelude.Maybe CapacityReservationTarget)
-launchTemplateCapacityReservationSpecificationRequest_capacityReservationTarget = Lens.lens (\LaunchTemplateCapacityReservationSpecificationRequest' {capacityReservationTarget} -> capacityReservationTarget) (\s@LaunchTemplateCapacityReservationSpecificationRequest' {} a -> s {capacityReservationTarget = a} :: LaunchTemplateCapacityReservationSpecificationRequest)
 
 -- | Indicates the instance\'s Capacity Reservation preferences. Possible
 -- preferences include:
@@ -99,6 +95,11 @@ launchTemplateCapacityReservationSpecificationRequest_capacityReservationTarget 
 launchTemplateCapacityReservationSpecificationRequest_capacityReservationPreference :: Lens.Lens' LaunchTemplateCapacityReservationSpecificationRequest (Prelude.Maybe CapacityReservationPreference)
 launchTemplateCapacityReservationSpecificationRequest_capacityReservationPreference = Lens.lens (\LaunchTemplateCapacityReservationSpecificationRequest' {capacityReservationPreference} -> capacityReservationPreference) (\s@LaunchTemplateCapacityReservationSpecificationRequest' {} a -> s {capacityReservationPreference = a} :: LaunchTemplateCapacityReservationSpecificationRequest)
 
+-- | Information about the target Capacity Reservation or Capacity
+-- Reservation group.
+launchTemplateCapacityReservationSpecificationRequest_capacityReservationTarget :: Lens.Lens' LaunchTemplateCapacityReservationSpecificationRequest (Prelude.Maybe CapacityReservationTarget)
+launchTemplateCapacityReservationSpecificationRequest_capacityReservationTarget = Lens.lens (\LaunchTemplateCapacityReservationSpecificationRequest' {capacityReservationTarget} -> capacityReservationTarget) (\s@LaunchTemplateCapacityReservationSpecificationRequest' {} a -> s {capacityReservationTarget = a} :: LaunchTemplateCapacityReservationSpecificationRequest)
+
 instance
   Prelude.Hashable
     LaunchTemplateCapacityReservationSpecificationRequest
@@ -107,8 +108,8 @@ instance
     _salt
     LaunchTemplateCapacityReservationSpecificationRequest' {..} =
       _salt
-        `Prelude.hashWithSalt` capacityReservationTarget
         `Prelude.hashWithSalt` capacityReservationPreference
+        `Prelude.hashWithSalt` capacityReservationTarget
 
 instance
   Prelude.NFData
@@ -116,18 +117,18 @@ instance
   where
   rnf
     LaunchTemplateCapacityReservationSpecificationRequest' {..} =
-      Prelude.rnf capacityReservationTarget
-        `Prelude.seq` Prelude.rnf capacityReservationPreference
+      Prelude.rnf capacityReservationPreference
+        `Prelude.seq` Prelude.rnf capacityReservationTarget
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     LaunchTemplateCapacityReservationSpecificationRequest
   where
   toQuery
     LaunchTemplateCapacityReservationSpecificationRequest' {..} =
       Prelude.mconcat
-        [ "CapacityReservationTarget"
-            Core.=: capacityReservationTarget,
-          "CapacityReservationPreference"
-            Core.=: capacityReservationPreference
+        [ "CapacityReservationPreference"
+            Data.=: capacityReservationPreference,
+          "CapacityReservationTarget"
+            Data.=: capacityReservationTarget
         ]

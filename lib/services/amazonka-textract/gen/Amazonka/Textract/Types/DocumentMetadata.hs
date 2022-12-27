@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Textract.Types.DocumentMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Textract.Types.DocumentMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the input document.
@@ -50,12 +51,12 @@ newDocumentMetadata =
 documentMetadata_pages :: Lens.Lens' DocumentMetadata (Prelude.Maybe Prelude.Natural)
 documentMetadata_pages = Lens.lens (\DocumentMetadata' {pages} -> pages) (\s@DocumentMetadata' {} a -> s {pages = a} :: DocumentMetadata)
 
-instance Core.FromJSON DocumentMetadata where
+instance Data.FromJSON DocumentMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DocumentMetadata"
       ( \x ->
-          DocumentMetadata' Prelude.<$> (x Core..:? "Pages")
+          DocumentMetadata' Prelude.<$> (x Data..:? "Pages")
       )
 
 instance Prelude.Hashable DocumentMetadata where

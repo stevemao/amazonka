@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.GoogleAnalyticsConnectorProfileCredentials
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppFlow.Types.GoogleAnalyticsConnectorProfileCredentials where
 
 import Amazonka.AppFlow.Types.ConnectorOAuthRequest
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The connector-specific profile credentials required by Google Analytics.
@@ -29,18 +30,18 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newGoogleAnalyticsConnectorProfileCredentials' smart constructor.
 data GoogleAnalyticsConnectorProfileCredentials = GoogleAnalyticsConnectorProfileCredentials'
   { -- | The credentials used to access protected Google Analytics resources.
-    accessToken :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The credentials used to acquire new access tokens. This is required only
-    -- for OAuth2 access tokens, and is not required for OAuth1 access tokens.
-    refreshToken :: Prelude.Maybe Prelude.Text,
+    accessToken :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The OAuth requirement needed to request security tokens from the
     -- connector endpoint.
     oAuthRequest :: Prelude.Maybe ConnectorOAuthRequest,
+    -- | The credentials used to acquire new access tokens. This is required only
+    -- for OAuth2 access tokens, and is not required for OAuth1 access tokens.
+    refreshToken :: Prelude.Maybe Prelude.Text,
     -- | The identifier for the desired client.
     clientId :: Prelude.Text,
     -- | The client secret used by the OAuth client to authenticate to the
     -- authorization server.
-    clientSecret :: Core.Sensitive Prelude.Text
+    clientSecret :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -54,11 +55,11 @@ data GoogleAnalyticsConnectorProfileCredentials = GoogleAnalyticsConnectorProfil
 --
 -- 'accessToken', 'googleAnalyticsConnectorProfileCredentials_accessToken' - The credentials used to access protected Google Analytics resources.
 --
--- 'refreshToken', 'googleAnalyticsConnectorProfileCredentials_refreshToken' - The credentials used to acquire new access tokens. This is required only
--- for OAuth2 access tokens, and is not required for OAuth1 access tokens.
---
 -- 'oAuthRequest', 'googleAnalyticsConnectorProfileCredentials_oAuthRequest' - The OAuth requirement needed to request security tokens from the
 -- connector endpoint.
+--
+-- 'refreshToken', 'googleAnalyticsConnectorProfileCredentials_refreshToken' - The credentials used to acquire new access tokens. This is required only
+-- for OAuth2 access tokens, and is not required for OAuth1 access tokens.
 --
 -- 'clientId', 'googleAnalyticsConnectorProfileCredentials_clientId' - The identifier for the desired client.
 --
@@ -76,27 +77,27 @@ newGoogleAnalyticsConnectorProfileCredentials
     GoogleAnalyticsConnectorProfileCredentials'
       { accessToken =
           Prelude.Nothing,
-        refreshToken = Prelude.Nothing,
         oAuthRequest = Prelude.Nothing,
+        refreshToken = Prelude.Nothing,
         clientId = pClientId_,
         clientSecret =
-          Core._Sensitive
+          Data._Sensitive
             Lens.# pClientSecret_
       }
 
 -- | The credentials used to access protected Google Analytics resources.
 googleAnalyticsConnectorProfileCredentials_accessToken :: Lens.Lens' GoogleAnalyticsConnectorProfileCredentials (Prelude.Maybe Prelude.Text)
-googleAnalyticsConnectorProfileCredentials_accessToken = Lens.lens (\GoogleAnalyticsConnectorProfileCredentials' {accessToken} -> accessToken) (\s@GoogleAnalyticsConnectorProfileCredentials' {} a -> s {accessToken = a} :: GoogleAnalyticsConnectorProfileCredentials) Prelude.. Lens.mapping Core._Sensitive
-
--- | The credentials used to acquire new access tokens. This is required only
--- for OAuth2 access tokens, and is not required for OAuth1 access tokens.
-googleAnalyticsConnectorProfileCredentials_refreshToken :: Lens.Lens' GoogleAnalyticsConnectorProfileCredentials (Prelude.Maybe Prelude.Text)
-googleAnalyticsConnectorProfileCredentials_refreshToken = Lens.lens (\GoogleAnalyticsConnectorProfileCredentials' {refreshToken} -> refreshToken) (\s@GoogleAnalyticsConnectorProfileCredentials' {} a -> s {refreshToken = a} :: GoogleAnalyticsConnectorProfileCredentials)
+googleAnalyticsConnectorProfileCredentials_accessToken = Lens.lens (\GoogleAnalyticsConnectorProfileCredentials' {accessToken} -> accessToken) (\s@GoogleAnalyticsConnectorProfileCredentials' {} a -> s {accessToken = a} :: GoogleAnalyticsConnectorProfileCredentials) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The OAuth requirement needed to request security tokens from the
 -- connector endpoint.
 googleAnalyticsConnectorProfileCredentials_oAuthRequest :: Lens.Lens' GoogleAnalyticsConnectorProfileCredentials (Prelude.Maybe ConnectorOAuthRequest)
 googleAnalyticsConnectorProfileCredentials_oAuthRequest = Lens.lens (\GoogleAnalyticsConnectorProfileCredentials' {oAuthRequest} -> oAuthRequest) (\s@GoogleAnalyticsConnectorProfileCredentials' {} a -> s {oAuthRequest = a} :: GoogleAnalyticsConnectorProfileCredentials)
+
+-- | The credentials used to acquire new access tokens. This is required only
+-- for OAuth2 access tokens, and is not required for OAuth1 access tokens.
+googleAnalyticsConnectorProfileCredentials_refreshToken :: Lens.Lens' GoogleAnalyticsConnectorProfileCredentials (Prelude.Maybe Prelude.Text)
+googleAnalyticsConnectorProfileCredentials_refreshToken = Lens.lens (\GoogleAnalyticsConnectorProfileCredentials' {refreshToken} -> refreshToken) (\s@GoogleAnalyticsConnectorProfileCredentials' {} a -> s {refreshToken = a} :: GoogleAnalyticsConnectorProfileCredentials)
 
 -- | The identifier for the desired client.
 googleAnalyticsConnectorProfileCredentials_clientId :: Lens.Lens' GoogleAnalyticsConnectorProfileCredentials Prelude.Text
@@ -105,7 +106,7 @@ googleAnalyticsConnectorProfileCredentials_clientId = Lens.lens (\GoogleAnalytic
 -- | The client secret used by the OAuth client to authenticate to the
 -- authorization server.
 googleAnalyticsConnectorProfileCredentials_clientSecret :: Lens.Lens' GoogleAnalyticsConnectorProfileCredentials Prelude.Text
-googleAnalyticsConnectorProfileCredentials_clientSecret = Lens.lens (\GoogleAnalyticsConnectorProfileCredentials' {clientSecret} -> clientSecret) (\s@GoogleAnalyticsConnectorProfileCredentials' {} a -> s {clientSecret = a} :: GoogleAnalyticsConnectorProfileCredentials) Prelude.. Core._Sensitive
+googleAnalyticsConnectorProfileCredentials_clientSecret = Lens.lens (\GoogleAnalyticsConnectorProfileCredentials' {clientSecret} -> clientSecret) (\s@GoogleAnalyticsConnectorProfileCredentials' {} a -> s {clientSecret = a} :: GoogleAnalyticsConnectorProfileCredentials) Prelude.. Data._Sensitive
 
 instance
   Prelude.Hashable
@@ -115,8 +116,8 @@ instance
     _salt
     GoogleAnalyticsConnectorProfileCredentials' {..} =
       _salt `Prelude.hashWithSalt` accessToken
-        `Prelude.hashWithSalt` refreshToken
         `Prelude.hashWithSalt` oAuthRequest
+        `Prelude.hashWithSalt` refreshToken
         `Prelude.hashWithSalt` clientId
         `Prelude.hashWithSalt` clientSecret
 
@@ -126,23 +127,23 @@ instance
   where
   rnf GoogleAnalyticsConnectorProfileCredentials' {..} =
     Prelude.rnf accessToken
-      `Prelude.seq` Prelude.rnf refreshToken
       `Prelude.seq` Prelude.rnf oAuthRequest
+      `Prelude.seq` Prelude.rnf refreshToken
       `Prelude.seq` Prelude.rnf clientId
       `Prelude.seq` Prelude.rnf clientSecret
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     GoogleAnalyticsConnectorProfileCredentials
   where
   toJSON
     GoogleAnalyticsConnectorProfileCredentials' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("accessToken" Core..=) Prelude.<$> accessToken,
-              ("refreshToken" Core..=) Prelude.<$> refreshToken,
-              ("oAuthRequest" Core..=) Prelude.<$> oAuthRequest,
-              Prelude.Just ("clientId" Core..= clientId),
-              Prelude.Just ("clientSecret" Core..= clientSecret)
+            [ ("accessToken" Data..=) Prelude.<$> accessToken,
+              ("oAuthRequest" Data..=) Prelude.<$> oAuthRequest,
+              ("refreshToken" Data..=) Prelude.<$> refreshToken,
+              Prelude.Just ("clientId" Data..= clientId),
+              Prelude.Just ("clientSecret" Data..= clientSecret)
             ]
         )

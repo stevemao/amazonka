@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.UpdateConnectionApiKeyAuthRequestParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchEvents.Types.UpdateConnectionApiKeyAuthRequestParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the API key authorization parameters to use to update the
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newUpdateConnectionApiKeyAuthRequestParameters' smart constructor.
 data UpdateConnectionApiKeyAuthRequestParameters = UpdateConnectionApiKeyAuthRequestParameters'
-  { -- | The value associated with teh API key to use for authorization.
-    apiKeyValue :: Prelude.Maybe Prelude.Text,
-    -- | The name of the API key to use for authorization.
-    apiKeyName :: Prelude.Maybe Prelude.Text
+  { -- | The name of the API key to use for authorization.
+    apiKeyName :: Prelude.Maybe Prelude.Text,
+    -- | The value associated with teh API key to use for authorization.
+    apiKeyValue :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,25 +44,25 @@ data UpdateConnectionApiKeyAuthRequestParameters = UpdateConnectionApiKeyAuthReq
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'apiKeyValue', 'updateConnectionApiKeyAuthRequestParameters_apiKeyValue' - The value associated with teh API key to use for authorization.
---
 -- 'apiKeyName', 'updateConnectionApiKeyAuthRequestParameters_apiKeyName' - The name of the API key to use for authorization.
+--
+-- 'apiKeyValue', 'updateConnectionApiKeyAuthRequestParameters_apiKeyValue' - The value associated with teh API key to use for authorization.
 newUpdateConnectionApiKeyAuthRequestParameters ::
   UpdateConnectionApiKeyAuthRequestParameters
 newUpdateConnectionApiKeyAuthRequestParameters =
   UpdateConnectionApiKeyAuthRequestParameters'
-    { apiKeyValue =
+    { apiKeyName =
         Prelude.Nothing,
-      apiKeyName = Prelude.Nothing
+      apiKeyValue = Prelude.Nothing
     }
-
--- | The value associated with teh API key to use for authorization.
-updateConnectionApiKeyAuthRequestParameters_apiKeyValue :: Lens.Lens' UpdateConnectionApiKeyAuthRequestParameters (Prelude.Maybe Prelude.Text)
-updateConnectionApiKeyAuthRequestParameters_apiKeyValue = Lens.lens (\UpdateConnectionApiKeyAuthRequestParameters' {apiKeyValue} -> apiKeyValue) (\s@UpdateConnectionApiKeyAuthRequestParameters' {} a -> s {apiKeyValue = a} :: UpdateConnectionApiKeyAuthRequestParameters)
 
 -- | The name of the API key to use for authorization.
 updateConnectionApiKeyAuthRequestParameters_apiKeyName :: Lens.Lens' UpdateConnectionApiKeyAuthRequestParameters (Prelude.Maybe Prelude.Text)
 updateConnectionApiKeyAuthRequestParameters_apiKeyName = Lens.lens (\UpdateConnectionApiKeyAuthRequestParameters' {apiKeyName} -> apiKeyName) (\s@UpdateConnectionApiKeyAuthRequestParameters' {} a -> s {apiKeyName = a} :: UpdateConnectionApiKeyAuthRequestParameters)
+
+-- | The value associated with teh API key to use for authorization.
+updateConnectionApiKeyAuthRequestParameters_apiKeyValue :: Lens.Lens' UpdateConnectionApiKeyAuthRequestParameters (Prelude.Maybe Prelude.Text)
+updateConnectionApiKeyAuthRequestParameters_apiKeyValue = Lens.lens (\UpdateConnectionApiKeyAuthRequestParameters' {apiKeyValue} -> apiKeyValue) (\s@UpdateConnectionApiKeyAuthRequestParameters' {} a -> s {apiKeyValue = a} :: UpdateConnectionApiKeyAuthRequestParameters)
 
 instance
   Prelude.Hashable
@@ -70,26 +71,26 @@ instance
   hashWithSalt
     _salt
     UpdateConnectionApiKeyAuthRequestParameters' {..} =
-      _salt `Prelude.hashWithSalt` apiKeyValue
-        `Prelude.hashWithSalt` apiKeyName
+      _salt `Prelude.hashWithSalt` apiKeyName
+        `Prelude.hashWithSalt` apiKeyValue
 
 instance
   Prelude.NFData
     UpdateConnectionApiKeyAuthRequestParameters
   where
   rnf UpdateConnectionApiKeyAuthRequestParameters' {..} =
-    Prelude.rnf apiKeyValue
-      `Prelude.seq` Prelude.rnf apiKeyName
+    Prelude.rnf apiKeyName
+      `Prelude.seq` Prelude.rnf apiKeyValue
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     UpdateConnectionApiKeyAuthRequestParameters
   where
   toJSON
     UpdateConnectionApiKeyAuthRequestParameters' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("ApiKeyValue" Core..=) Prelude.<$> apiKeyValue,
-              ("ApiKeyName" Core..=) Prelude.<$> apiKeyName
+            [ ("ApiKeyName" Data..=) Prelude.<$> apiKeyName,
+              ("ApiKeyValue" Data..=) Prelude.<$> apiKeyValue
             ]
         )

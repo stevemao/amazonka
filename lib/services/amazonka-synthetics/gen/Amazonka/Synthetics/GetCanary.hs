@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Synthetics.GetCanary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.Synthetics.GetCanary
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ getCanary_name = Lens.lens (\GetCanary' {name} -> name) (\s@GetCanary' {} a -> s
 
 instance Core.AWSRequest GetCanary where
   type AWSResponse GetCanary = GetCanaryResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCanaryResponse'
-            Prelude.<$> (x Core..?> "Canary")
+            Prelude.<$> (x Data..?> "Canary")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,27 +95,27 @@ instance Prelude.Hashable GetCanary where
 instance Prelude.NFData GetCanary where
   rnf GetCanary' {..} = Prelude.rnf name
 
-instance Core.ToHeaders GetCanary where
+instance Data.ToHeaders GetCanary where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetCanary where
+instance Data.ToPath GetCanary where
   toPath GetCanary' {..} =
-    Prelude.mconcat ["/canary/", Core.toBS name]
+    Prelude.mconcat ["/canary/", Data.toBS name]
 
-instance Core.ToQuery GetCanary where
+instance Data.ToQuery GetCanary where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetCanaryResponse' smart constructor.
 data GetCanaryResponse = GetCanaryResponse'
-  { -- | A strucure that contains the full information about the canary.
+  { -- | A structure that contains the full information about the canary.
     canary :: Prelude.Maybe Canary,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -128,7 +130,7 @@ data GetCanaryResponse = GetCanaryResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'canary', 'getCanaryResponse_canary' - A strucure that contains the full information about the canary.
+-- 'canary', 'getCanaryResponse_canary' - A structure that contains the full information about the canary.
 --
 -- 'httpStatus', 'getCanaryResponse_httpStatus' - The response's http status code.
 newGetCanaryResponse ::
@@ -141,7 +143,7 @@ newGetCanaryResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | A strucure that contains the full information about the canary.
+-- | A structure that contains the full information about the canary.
 getCanaryResponse_canary :: Lens.Lens' GetCanaryResponse (Prelude.Maybe Canary)
 getCanaryResponse_canary = Lens.lens (\GetCanaryResponse' {canary} -> canary) (\s@GetCanaryResponse' {} a -> s {canary = a} :: GetCanaryResponse)
 

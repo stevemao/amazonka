@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsCertificateManagerCertificateResourceRecord
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsCertificateManagerCertificateResourceRecord where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides details about the CNAME record that is added to the DNS
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAwsCertificateManagerCertificateResourceRecord' smart constructor.
 data AwsCertificateManagerCertificateResourceRecord = AwsCertificateManagerCertificateResourceRecord'
-  { -- | The value of the resource.
-    value :: Prelude.Maybe Prelude.Text,
-    -- | The name of the resource.
+  { -- | The name of the resource.
     name :: Prelude.Maybe Prelude.Text,
     -- | The type of resource.
-    type' :: Prelude.Maybe Prelude.Text
+    type' :: Prelude.Maybe Prelude.Text,
+    -- | The value of the resource.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,24 +46,20 @@ data AwsCertificateManagerCertificateResourceRecord = AwsCertificateManagerCerti
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'value', 'awsCertificateManagerCertificateResourceRecord_value' - The value of the resource.
---
 -- 'name', 'awsCertificateManagerCertificateResourceRecord_name' - The name of the resource.
 --
 -- 'type'', 'awsCertificateManagerCertificateResourceRecord_type' - The type of resource.
+--
+-- 'value', 'awsCertificateManagerCertificateResourceRecord_value' - The value of the resource.
 newAwsCertificateManagerCertificateResourceRecord ::
   AwsCertificateManagerCertificateResourceRecord
 newAwsCertificateManagerCertificateResourceRecord =
   AwsCertificateManagerCertificateResourceRecord'
-    { value =
+    { name =
         Prelude.Nothing,
-      name = Prelude.Nothing,
-      type' = Prelude.Nothing
+      type' = Prelude.Nothing,
+      value = Prelude.Nothing
     }
-
--- | The value of the resource.
-awsCertificateManagerCertificateResourceRecord_value :: Lens.Lens' AwsCertificateManagerCertificateResourceRecord (Prelude.Maybe Prelude.Text)
-awsCertificateManagerCertificateResourceRecord_value = Lens.lens (\AwsCertificateManagerCertificateResourceRecord' {value} -> value) (\s@AwsCertificateManagerCertificateResourceRecord' {} a -> s {value = a} :: AwsCertificateManagerCertificateResourceRecord)
 
 -- | The name of the resource.
 awsCertificateManagerCertificateResourceRecord_name :: Lens.Lens' AwsCertificateManagerCertificateResourceRecord (Prelude.Maybe Prelude.Text)
@@ -72,17 +69,21 @@ awsCertificateManagerCertificateResourceRecord_name = Lens.lens (\AwsCertificate
 awsCertificateManagerCertificateResourceRecord_type :: Lens.Lens' AwsCertificateManagerCertificateResourceRecord (Prelude.Maybe Prelude.Text)
 awsCertificateManagerCertificateResourceRecord_type = Lens.lens (\AwsCertificateManagerCertificateResourceRecord' {type'} -> type') (\s@AwsCertificateManagerCertificateResourceRecord' {} a -> s {type' = a} :: AwsCertificateManagerCertificateResourceRecord)
 
+-- | The value of the resource.
+awsCertificateManagerCertificateResourceRecord_value :: Lens.Lens' AwsCertificateManagerCertificateResourceRecord (Prelude.Maybe Prelude.Text)
+awsCertificateManagerCertificateResourceRecord_value = Lens.lens (\AwsCertificateManagerCertificateResourceRecord' {value} -> value) (\s@AwsCertificateManagerCertificateResourceRecord' {} a -> s {value = a} :: AwsCertificateManagerCertificateResourceRecord)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsCertificateManagerCertificateResourceRecord
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsCertificateManagerCertificateResourceRecord"
       ( \x ->
           AwsCertificateManagerCertificateResourceRecord'
-            Prelude.<$> (x Core..:? "Value") Prelude.<*> (x Core..:? "Name")
-              Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Name") Prelude.<*> (x Data..:? "Type")
+              Prelude.<*> (x Data..:? "Value")
       )
 
 instance
@@ -92,9 +93,9 @@ instance
   hashWithSalt
     _salt
     AwsCertificateManagerCertificateResourceRecord' {..} =
-      _salt `Prelude.hashWithSalt` value
-        `Prelude.hashWithSalt` name
+      _salt `Prelude.hashWithSalt` name
         `Prelude.hashWithSalt` type'
+        `Prelude.hashWithSalt` value
 
 instance
   Prelude.NFData
@@ -102,20 +103,20 @@ instance
   where
   rnf
     AwsCertificateManagerCertificateResourceRecord' {..} =
-      Prelude.rnf value
-        `Prelude.seq` Prelude.rnf name
+      Prelude.rnf name
         `Prelude.seq` Prelude.rnf type'
+        `Prelude.seq` Prelude.rnf value
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsCertificateManagerCertificateResourceRecord
   where
   toJSON
     AwsCertificateManagerCertificateResourceRecord' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Value" Core..=) Prelude.<$> value,
-              ("Name" Core..=) Prelude.<$> name,
-              ("Type" Core..=) Prelude.<$> type'
+            [ ("Name" Data..=) Prelude.<$> name,
+              ("Type" Data..=) Prelude.<$> type',
+              ("Value" Data..=) Prelude.<$> value
             ]
         )

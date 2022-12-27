@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.ConnectionQueryStringParameter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchEvents.Types.ConnectionQueryStringParameter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Additional query string parameter for the connection. You can include up
@@ -32,10 +33,10 @@ import qualified Amazonka.Prelude as Prelude
 data ConnectionQueryStringParameter = ConnectionQueryStringParameter'
   { -- | Specifies whether the value is secret.
     isValueSecret :: Prelude.Maybe Prelude.Bool,
-    -- | The value associated with the key for the query string parameter.
-    value :: Prelude.Maybe Prelude.Text,
     -- | The key for a query string parameter.
-    key :: Prelude.Maybe Prelude.Text
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The value associated with the key for the query string parameter.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,40 +50,40 @@ data ConnectionQueryStringParameter = ConnectionQueryStringParameter'
 --
 -- 'isValueSecret', 'connectionQueryStringParameter_isValueSecret' - Specifies whether the value is secret.
 --
--- 'value', 'connectionQueryStringParameter_value' - The value associated with the key for the query string parameter.
---
 -- 'key', 'connectionQueryStringParameter_key' - The key for a query string parameter.
+--
+-- 'value', 'connectionQueryStringParameter_value' - The value associated with the key for the query string parameter.
 newConnectionQueryStringParameter ::
   ConnectionQueryStringParameter
 newConnectionQueryStringParameter =
   ConnectionQueryStringParameter'
     { isValueSecret =
         Prelude.Nothing,
-      value = Prelude.Nothing,
-      key = Prelude.Nothing
+      key = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
 -- | Specifies whether the value is secret.
 connectionQueryStringParameter_isValueSecret :: Lens.Lens' ConnectionQueryStringParameter (Prelude.Maybe Prelude.Bool)
 connectionQueryStringParameter_isValueSecret = Lens.lens (\ConnectionQueryStringParameter' {isValueSecret} -> isValueSecret) (\s@ConnectionQueryStringParameter' {} a -> s {isValueSecret = a} :: ConnectionQueryStringParameter)
 
--- | The value associated with the key for the query string parameter.
-connectionQueryStringParameter_value :: Lens.Lens' ConnectionQueryStringParameter (Prelude.Maybe Prelude.Text)
-connectionQueryStringParameter_value = Lens.lens (\ConnectionQueryStringParameter' {value} -> value) (\s@ConnectionQueryStringParameter' {} a -> s {value = a} :: ConnectionQueryStringParameter)
-
 -- | The key for a query string parameter.
 connectionQueryStringParameter_key :: Lens.Lens' ConnectionQueryStringParameter (Prelude.Maybe Prelude.Text)
 connectionQueryStringParameter_key = Lens.lens (\ConnectionQueryStringParameter' {key} -> key) (\s@ConnectionQueryStringParameter' {} a -> s {key = a} :: ConnectionQueryStringParameter)
 
-instance Core.FromJSON ConnectionQueryStringParameter where
+-- | The value associated with the key for the query string parameter.
+connectionQueryStringParameter_value :: Lens.Lens' ConnectionQueryStringParameter (Prelude.Maybe Prelude.Text)
+connectionQueryStringParameter_value = Lens.lens (\ConnectionQueryStringParameter' {value} -> value) (\s@ConnectionQueryStringParameter' {} a -> s {value = a} :: ConnectionQueryStringParameter)
+
+instance Data.FromJSON ConnectionQueryStringParameter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConnectionQueryStringParameter"
       ( \x ->
           ConnectionQueryStringParameter'
-            Prelude.<$> (x Core..:? "IsValueSecret")
-            Prelude.<*> (x Core..:? "Value")
-            Prelude.<*> (x Core..:? "Key")
+            Prelude.<$> (x Data..:? "IsValueSecret")
+            Prelude.<*> (x Data..:? "Key")
+            Prelude.<*> (x Data..:? "Value")
       )
 
 instance
@@ -93,8 +94,8 @@ instance
     _salt
     ConnectionQueryStringParameter' {..} =
       _salt `Prelude.hashWithSalt` isValueSecret
-        `Prelude.hashWithSalt` value
         `Prelude.hashWithSalt` key
+        `Prelude.hashWithSalt` value
 
 instance
   Prelude.NFData
@@ -102,15 +103,15 @@ instance
   where
   rnf ConnectionQueryStringParameter' {..} =
     Prelude.rnf isValueSecret
-      `Prelude.seq` Prelude.rnf value
       `Prelude.seq` Prelude.rnf key
+      `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON ConnectionQueryStringParameter where
+instance Data.ToJSON ConnectionQueryStringParameter where
   toJSON ConnectionQueryStringParameter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IsValueSecret" Core..=) Prelude.<$> isValueSecret,
-            ("Value" Core..=) Prelude.<$> value,
-            ("Key" Core..=) Prelude.<$> key
+          [ ("IsValueSecret" Data..=) Prelude.<$> isValueSecret,
+            ("Key" Data..=) Prelude.<$> key,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

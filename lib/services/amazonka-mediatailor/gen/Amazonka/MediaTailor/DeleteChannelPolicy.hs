@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.DeleteChannelPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a channel\'s IAM policy.
+-- The channel policy to delete.
 module Amazonka.MediaTailor.DeleteChannelPolicy
   ( -- * Creating a Request
     DeleteChannelPolicy (..),
@@ -39,7 +39,8 @@ module Amazonka.MediaTailor.DeleteChannelPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -47,7 +48,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteChannelPolicy' smart constructor.
 data DeleteChannelPolicy = DeleteChannelPolicy'
-  { -- | The identifier for the channel you are working on.
+  { -- | The name of the channel associated with this channel policy.
     channelName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,7 +61,7 @@ data DeleteChannelPolicy = DeleteChannelPolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'channelName', 'deleteChannelPolicy_channelName' - The identifier for the channel you are working on.
+-- 'channelName', 'deleteChannelPolicy_channelName' - The name of the channel associated with this channel policy.
 newDeleteChannelPolicy ::
   -- | 'channelName'
   Prelude.Text ->
@@ -68,7 +69,7 @@ newDeleteChannelPolicy ::
 newDeleteChannelPolicy pChannelName_ =
   DeleteChannelPolicy' {channelName = pChannelName_}
 
--- | The identifier for the channel you are working on.
+-- | The name of the channel associated with this channel policy.
 deleteChannelPolicy_channelName :: Lens.Lens' DeleteChannelPolicy Prelude.Text
 deleteChannelPolicy_channelName = Lens.lens (\DeleteChannelPolicy' {channelName} -> channelName) (\s@DeleteChannelPolicy' {} a -> s {channelName = a} :: DeleteChannelPolicy)
 
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteChannelPolicy where
   type
     AWSResponse DeleteChannelPolicy =
       DeleteChannelPolicyResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -92,23 +94,23 @@ instance Prelude.NFData DeleteChannelPolicy where
   rnf DeleteChannelPolicy' {..} =
     Prelude.rnf channelName
 
-instance Core.ToHeaders DeleteChannelPolicy where
+instance Data.ToHeaders DeleteChannelPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteChannelPolicy where
+instance Data.ToPath DeleteChannelPolicy where
   toPath DeleteChannelPolicy' {..} =
     Prelude.mconcat
-      ["/channel/", Core.toBS channelName, "/policy"]
+      ["/channel/", Data.toBS channelName, "/policy"]
 
-instance Core.ToQuery DeleteChannelPolicy where
+instance Data.ToQuery DeleteChannelPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteChannelPolicyResponse' smart constructor.

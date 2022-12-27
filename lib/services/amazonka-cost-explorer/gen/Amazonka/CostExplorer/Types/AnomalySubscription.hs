@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.AnomalySubscription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.CostExplorer.Types.AnomalySubscription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types.AnomalySubscriptionFrequency
 import Amazonka.CostExplorer.Types.Subscriber
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The association between a monitor, threshold, and list of subscribers
@@ -123,19 +124,19 @@ anomalySubscription_frequency = Lens.lens (\AnomalySubscription' {frequency} -> 
 anomalySubscription_subscriptionName :: Lens.Lens' AnomalySubscription Prelude.Text
 anomalySubscription_subscriptionName = Lens.lens (\AnomalySubscription' {subscriptionName} -> subscriptionName) (\s@AnomalySubscription' {} a -> s {subscriptionName = a} :: AnomalySubscription)
 
-instance Core.FromJSON AnomalySubscription where
+instance Data.FromJSON AnomalySubscription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AnomalySubscription"
       ( \x ->
           AnomalySubscription'
-            Prelude.<$> (x Core..:? "AccountId")
-            Prelude.<*> (x Core..:? "SubscriptionArn")
-            Prelude.<*> (x Core..:? "MonitorArnList" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Subscribers" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "Threshold")
-            Prelude.<*> (x Core..: "Frequency")
-            Prelude.<*> (x Core..: "SubscriptionName")
+            Prelude.<$> (x Data..:? "AccountId")
+            Prelude.<*> (x Data..:? "SubscriptionArn")
+            Prelude.<*> (x Data..:? "MonitorArnList" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Subscribers" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "Threshold")
+            Prelude.<*> (x Data..: "Frequency")
+            Prelude.<*> (x Data..: "SubscriptionName")
       )
 
 instance Prelude.Hashable AnomalySubscription where
@@ -158,19 +159,19 @@ instance Prelude.NFData AnomalySubscription where
       `Prelude.seq` Prelude.rnf frequency
       `Prelude.seq` Prelude.rnf subscriptionName
 
-instance Core.ToJSON AnomalySubscription where
+instance Data.ToJSON AnomalySubscription where
   toJSON AnomalySubscription' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AccountId" Core..=) Prelude.<$> accountId,
-            ("SubscriptionArn" Core..=)
+          [ ("AccountId" Data..=) Prelude.<$> accountId,
+            ("SubscriptionArn" Data..=)
               Prelude.<$> subscriptionArn,
             Prelude.Just
-              ("MonitorArnList" Core..= monitorArnList),
-            Prelude.Just ("Subscribers" Core..= subscribers),
-            Prelude.Just ("Threshold" Core..= threshold),
-            Prelude.Just ("Frequency" Core..= frequency),
+              ("MonitorArnList" Data..= monitorArnList),
+            Prelude.Just ("Subscribers" Data..= subscribers),
+            Prelude.Just ("Threshold" Data..= threshold),
+            Prelude.Just ("Frequency" Data..= frequency),
             Prelude.Just
-              ("SubscriptionName" Core..= subscriptionName)
+              ("SubscriptionName" Data..= subscriptionName)
           ]
       )

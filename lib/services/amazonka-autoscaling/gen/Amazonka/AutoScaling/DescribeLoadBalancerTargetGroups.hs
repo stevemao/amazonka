@@ -14,16 +14,16 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.DescribeLoadBalancerTargetGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets information about the load balancer target groups for the specified
--- Auto Scaling group.
+-- Gets information about the Elastic Load Balancing target groups for the
+-- specified Auto Scaling group.
 --
--- To determine the availability of registered instances, use the @State@
+-- To determine the attachment status of the target group, use the @State@
 -- element in the response. When you attach a target group to an Auto
 -- Scaling group, the initial @State@ value is @Adding@. The state
 -- transitions to @Added@ after all Auto Scaling instances are registered
@@ -44,8 +44,12 @@
 -- For help with failed health checks, see
 -- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/ts-as-healthchecks.html Troubleshooting Amazon EC2 Auto Scaling: Health checks>
 -- in the /Amazon EC2 Auto Scaling User Guide/. For more information, see
--- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html Elastic Load Balancing and Amazon EC2 Auto Scaling>
+-- <https://docs.aws.amazon.com/autoscaling/ec2/userguide/autoscaling-load-balancer.html Use Elastic Load Balancing to distribute traffic across the instances in your Auto Scaling group>
 -- in the /Amazon EC2 Auto Scaling User Guide/.
+--
+-- You can use this operation to describe target groups that were attached
+-- by using AttachLoadBalancerTargetGroups, but not for target groups that
+-- were attached by using AttachTrafficSources.
 --
 -- This operation returns paginated results.
 module Amazonka.AutoScaling.DescribeLoadBalancerTargetGroups
@@ -54,8 +58,8 @@ module Amazonka.AutoScaling.DescribeLoadBalancerTargetGroups
     newDescribeLoadBalancerTargetGroups,
 
     -- * Request Lenses
-    describeLoadBalancerTargetGroups_nextToken,
     describeLoadBalancerTargetGroups_maxRecords,
+    describeLoadBalancerTargetGroups_nextToken,
     describeLoadBalancerTargetGroups_autoScalingGroupName,
 
     -- * Destructuring the Response
@@ -71,19 +75,20 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeLoadBalancerTargetGroups' smart constructor.
 data DescribeLoadBalancerTargetGroups = DescribeLoadBalancerTargetGroups'
-  { -- | The token for the next set of items to return. (You received this token
-    -- from a previous call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to return with this call. The default value
+  { -- | The maximum number of items to return with this call. The default value
     -- is @100@ and the maximum value is @100@.
     maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a previous call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the Auto Scaling group.
     autoScalingGroupName :: Prelude.Text
   }
@@ -97,11 +102,11 @@ data DescribeLoadBalancerTargetGroups = DescribeLoadBalancerTargetGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeLoadBalancerTargetGroups_nextToken' - The token for the next set of items to return. (You received this token
--- from a previous call.)
---
 -- 'maxRecords', 'describeLoadBalancerTargetGroups_maxRecords' - The maximum number of items to return with this call. The default value
 -- is @100@ and the maximum value is @100@.
+--
+-- 'nextToken', 'describeLoadBalancerTargetGroups_nextToken' - The token for the next set of items to return. (You received this token
+-- from a previous call.)
 --
 -- 'autoScalingGroupName', 'describeLoadBalancerTargetGroups_autoScalingGroupName' - The name of the Auto Scaling group.
 newDescribeLoadBalancerTargetGroups ::
@@ -111,22 +116,22 @@ newDescribeLoadBalancerTargetGroups ::
 newDescribeLoadBalancerTargetGroups
   pAutoScalingGroupName_ =
     DescribeLoadBalancerTargetGroups'
-      { nextToken =
+      { maxRecords =
           Prelude.Nothing,
-        maxRecords = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         autoScalingGroupName =
           pAutoScalingGroupName_
       }
-
--- | The token for the next set of items to return. (You received this token
--- from a previous call.)
-describeLoadBalancerTargetGroups_nextToken :: Lens.Lens' DescribeLoadBalancerTargetGroups (Prelude.Maybe Prelude.Text)
-describeLoadBalancerTargetGroups_nextToken = Lens.lens (\DescribeLoadBalancerTargetGroups' {nextToken} -> nextToken) (\s@DescribeLoadBalancerTargetGroups' {} a -> s {nextToken = a} :: DescribeLoadBalancerTargetGroups)
 
 -- | The maximum number of items to return with this call. The default value
 -- is @100@ and the maximum value is @100@.
 describeLoadBalancerTargetGroups_maxRecords :: Lens.Lens' DescribeLoadBalancerTargetGroups (Prelude.Maybe Prelude.Int)
 describeLoadBalancerTargetGroups_maxRecords = Lens.lens (\DescribeLoadBalancerTargetGroups' {maxRecords} -> maxRecords) (\s@DescribeLoadBalancerTargetGroups' {} a -> s {maxRecords = a} :: DescribeLoadBalancerTargetGroups)
+
+-- | The token for the next set of items to return. (You received this token
+-- from a previous call.)
+describeLoadBalancerTargetGroups_nextToken :: Lens.Lens' DescribeLoadBalancerTargetGroups (Prelude.Maybe Prelude.Text)
+describeLoadBalancerTargetGroups_nextToken = Lens.lens (\DescribeLoadBalancerTargetGroups' {nextToken} -> nextToken) (\s@DescribeLoadBalancerTargetGroups' {} a -> s {nextToken = a} :: DescribeLoadBalancerTargetGroups)
 
 -- | The name of the Auto Scaling group.
 describeLoadBalancerTargetGroups_autoScalingGroupName :: Lens.Lens' DescribeLoadBalancerTargetGroups Prelude.Text
@@ -164,17 +169,18 @@ instance
   type
     AWSResponse DescribeLoadBalancerTargetGroups =
       DescribeLoadBalancerTargetGroupsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeLoadBalancerTargetGroupsResult"
       ( \s h x ->
           DescribeLoadBalancerTargetGroupsResponse'
-            Prelude.<$> ( x Core..@? "LoadBalancerTargetGroups"
+            Prelude.<$> ( x Data..@? "LoadBalancerTargetGroups"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "NextToken")
+            Prelude.<*> (x Data..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -185,8 +191,8 @@ instance
   hashWithSalt
     _salt
     DescribeLoadBalancerTargetGroups' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxRecords
+      _salt `Prelude.hashWithSalt` maxRecords
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` autoScalingGroupName
 
 instance
@@ -194,34 +200,34 @@ instance
     DescribeLoadBalancerTargetGroups
   where
   rnf DescribeLoadBalancerTargetGroups' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxRecords
+    Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf autoScalingGroupName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeLoadBalancerTargetGroups
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeLoadBalancerTargetGroups where
+instance Data.ToPath DescribeLoadBalancerTargetGroups where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeLoadBalancerTargetGroups
   where
   toQuery DescribeLoadBalancerTargetGroups' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeLoadBalancerTargetGroups" ::
+          Data.=: ( "DescribeLoadBalancerTargetGroups" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
-        "NextToken" Core.=: nextToken,
-        "MaxRecords" Core.=: maxRecords,
-        "AutoScalingGroupName" Core.=: autoScalingGroupName
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
+        "MaxRecords" Data.=: maxRecords,
+        "NextToken" Data.=: nextToken,
+        "AutoScalingGroupName" Data.=: autoScalingGroupName
       ]
 
 -- | /See:/ 'newDescribeLoadBalancerTargetGroupsResponse' smart constructor.

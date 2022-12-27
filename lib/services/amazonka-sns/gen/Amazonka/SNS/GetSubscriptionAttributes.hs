@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.GetSubscriptionAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.SNS.GetSubscriptionAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,14 +83,15 @@ instance Core.AWSRequest GetSubscriptionAttributes where
   type
     AWSResponse GetSubscriptionAttributes =
       GetSubscriptionAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetSubscriptionAttributesResult"
       ( \s h x ->
           GetSubscriptionAttributesResponse'
-            Prelude.<$> ( x Core..@? "Attributes" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLMap "entry" "key" "value")
+            Prelude.<$> ( x Data..@? "Attributes" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLMap "entry" "key" "value")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -102,20 +104,20 @@ instance Prelude.NFData GetSubscriptionAttributes where
   rnf GetSubscriptionAttributes' {..} =
     Prelude.rnf subscriptionArn
 
-instance Core.ToHeaders GetSubscriptionAttributes where
+instance Data.ToHeaders GetSubscriptionAttributes where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetSubscriptionAttributes where
+instance Data.ToPath GetSubscriptionAttributes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetSubscriptionAttributes where
+instance Data.ToQuery GetSubscriptionAttributes where
   toQuery GetSubscriptionAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("GetSubscriptionAttributes" :: Prelude.ByteString),
+          Data.=: ("GetSubscriptionAttributes" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "SubscriptionArn" Core.=: subscriptionArn
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "SubscriptionArn" Data.=: subscriptionArn
       ]
 
 -- | Response for GetSubscriptionAttributes action.
@@ -140,7 +142,16 @@ data GetSubscriptionAttributesResponse = GetSubscriptionAttributesResponse'
     --     <https://docs.aws.amazon.com/sns/latest/dg/sns-message-filtering.html Amazon SNS Message Filtering>
     --     in the /Amazon SNS Developer Guide/.
     --
-    -- -   @Owner@ – The account ID of the subscription\'s owner.
+    -- -   @FilterPolicyScope@ – This attribute lets you choose the filtering
+    --     scope by using one of the following string value types:
+    --
+    --     -   @MessageAttributes@ (default) – The filter is applied on the
+    --         message attributes.
+    --
+    --     -   @MessageBody@ – The filter is applied on the message body.
+    --
+    -- -   @Owner@ – The Amazon Web Services account ID of the subscription\'s
+    --     owner.
     --
     -- -   @PendingConfirmation@ – @true@ if the subscription hasn\'t been
     --     confirmed. To confirm a pending subscription, call the
@@ -208,7 +219,16 @@ data GetSubscriptionAttributesResponse = GetSubscriptionAttributesResponse'
 --     <https://docs.aws.amazon.com/sns/latest/dg/sns-message-filtering.html Amazon SNS Message Filtering>
 --     in the /Amazon SNS Developer Guide/.
 --
--- -   @Owner@ – The account ID of the subscription\'s owner.
+-- -   @FilterPolicyScope@ – This attribute lets you choose the filtering
+--     scope by using one of the following string value types:
+--
+--     -   @MessageAttributes@ (default) – The filter is applied on the
+--         message attributes.
+--
+--     -   @MessageBody@ – The filter is applied on the message body.
+--
+-- -   @Owner@ – The Amazon Web Services account ID of the subscription\'s
+--     owner.
 --
 -- -   @PendingConfirmation@ – @true@ if the subscription hasn\'t been
 --     confirmed. To confirm a pending subscription, call the
@@ -275,7 +295,16 @@ newGetSubscriptionAttributesResponse pHttpStatus_ =
 --     <https://docs.aws.amazon.com/sns/latest/dg/sns-message-filtering.html Amazon SNS Message Filtering>
 --     in the /Amazon SNS Developer Guide/.
 --
--- -   @Owner@ – The account ID of the subscription\'s owner.
+-- -   @FilterPolicyScope@ – This attribute lets you choose the filtering
+--     scope by using one of the following string value types:
+--
+--     -   @MessageAttributes@ (default) – The filter is applied on the
+--         message attributes.
+--
+--     -   @MessageBody@ – The filter is applied on the message body.
+--
+-- -   @Owner@ – The Amazon Web Services account ID of the subscription\'s
+--     owner.
 --
 -- -   @PendingConfirmation@ – @true@ if the subscription hasn\'t been
 --     confirmed. To confirm a pending subscription, call the

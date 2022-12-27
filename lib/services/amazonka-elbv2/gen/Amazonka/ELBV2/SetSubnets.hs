@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELBV2.SetSubnets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,9 +33,9 @@ module Amazonka.ELBV2.SetSubnets
     newSetSubnets,
 
     -- * Request Lenses
+    setSubnets_ipAddressType,
     setSubnets_subnetMappings,
     setSubnets_subnets,
-    setSubnets_ipAddressType,
     setSubnets_loadBalancerArn,
 
     -- * Destructuring the Response
@@ -50,15 +50,22 @@ module Amazonka.ELBV2.SetSubnets
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELBV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newSetSubnets' smart constructor.
 data SetSubnets = SetSubnets'
-  { -- | The IDs of the public subnets. You can specify only one subnet per
+  { -- | [Network Load Balancers] The type of IP addresses used by the subnets
+    -- for your load balancer. The possible values are @ipv4@ (for IPv4
+    -- addresses) and @dualstack@ (for IPv4 and IPv6 addresses). You can’t
+    -- specify @dualstack@ for a load balancer with a UDP or TCP_UDP listener.
+    -- .
+    ipAddressType :: Prelude.Maybe IpAddressType,
+    -- | The IDs of the public subnets. You can specify only one subnet per
     -- Availability Zone. You must specify either subnets or subnet mappings.
     --
     -- [Application Load Balancers] You must specify subnets from at least two
@@ -93,12 +100,6 @@ data SetSubnets = SetSubnets'
     -- [Network Load Balancers] You can specify subnets from one or more
     -- Availability Zones.
     subnets :: Prelude.Maybe [Prelude.Text],
-    -- | [Network Load Balancers] The type of IP addresses used by the subnets
-    -- for your load balancer. The possible values are @ipv4@ (for IPv4
-    -- addresses) and @dualstack@ (for IPv4 and IPv6 addresses). You can’t
-    -- specify @dualstack@ for a load balancer with a UDP or TCP_UDP listener.
-    -- Internal load balancers must use @ipv4@.
-    ipAddressType :: Prelude.Maybe IpAddressType,
     -- | The Amazon Resource Name (ARN) of the load balancer.
     loadBalancerArn :: Prelude.Text
   }
@@ -111,6 +112,12 @@ data SetSubnets = SetSubnets'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'ipAddressType', 'setSubnets_ipAddressType' - [Network Load Balancers] The type of IP addresses used by the subnets
+-- for your load balancer. The possible values are @ipv4@ (for IPv4
+-- addresses) and @dualstack@ (for IPv4 and IPv6 addresses). You can’t
+-- specify @dualstack@ for a load balancer with a UDP or TCP_UDP listener.
+-- .
 --
 -- 'subnetMappings', 'setSubnets_subnetMappings' - The IDs of the public subnets. You can specify only one subnet per
 -- Availability Zone. You must specify either subnets or subnet mappings.
@@ -147,12 +154,6 @@ data SetSubnets = SetSubnets'
 -- [Network Load Balancers] You can specify subnets from one or more
 -- Availability Zones.
 --
--- 'ipAddressType', 'setSubnets_ipAddressType' - [Network Load Balancers] The type of IP addresses used by the subnets
--- for your load balancer. The possible values are @ipv4@ (for IPv4
--- addresses) and @dualstack@ (for IPv4 and IPv6 addresses). You can’t
--- specify @dualstack@ for a load balancer with a UDP or TCP_UDP listener.
--- Internal load balancers must use @ipv4@.
---
 -- 'loadBalancerArn', 'setSubnets_loadBalancerArn' - The Amazon Resource Name (ARN) of the load balancer.
 newSetSubnets ::
   -- | 'loadBalancerArn'
@@ -160,11 +161,19 @@ newSetSubnets ::
   SetSubnets
 newSetSubnets pLoadBalancerArn_ =
   SetSubnets'
-    { subnetMappings = Prelude.Nothing,
+    { ipAddressType = Prelude.Nothing,
+      subnetMappings = Prelude.Nothing,
       subnets = Prelude.Nothing,
-      ipAddressType = Prelude.Nothing,
       loadBalancerArn = pLoadBalancerArn_
     }
+
+-- | [Network Load Balancers] The type of IP addresses used by the subnets
+-- for your load balancer. The possible values are @ipv4@ (for IPv4
+-- addresses) and @dualstack@ (for IPv4 and IPv6 addresses). You can’t
+-- specify @dualstack@ for a load balancer with a UDP or TCP_UDP listener.
+-- .
+setSubnets_ipAddressType :: Lens.Lens' SetSubnets (Prelude.Maybe IpAddressType)
+setSubnets_ipAddressType = Lens.lens (\SetSubnets' {ipAddressType} -> ipAddressType) (\s@SetSubnets' {} a -> s {ipAddressType = a} :: SetSubnets)
 
 -- | The IDs of the public subnets. You can specify only one subnet per
 -- Availability Zone. You must specify either subnets or subnet mappings.
@@ -205,71 +214,64 @@ setSubnets_subnetMappings = Lens.lens (\SetSubnets' {subnetMappings} -> subnetMa
 setSubnets_subnets :: Lens.Lens' SetSubnets (Prelude.Maybe [Prelude.Text])
 setSubnets_subnets = Lens.lens (\SetSubnets' {subnets} -> subnets) (\s@SetSubnets' {} a -> s {subnets = a} :: SetSubnets) Prelude.. Lens.mapping Lens.coerced
 
--- | [Network Load Balancers] The type of IP addresses used by the subnets
--- for your load balancer. The possible values are @ipv4@ (for IPv4
--- addresses) and @dualstack@ (for IPv4 and IPv6 addresses). You can’t
--- specify @dualstack@ for a load balancer with a UDP or TCP_UDP listener.
--- Internal load balancers must use @ipv4@.
-setSubnets_ipAddressType :: Lens.Lens' SetSubnets (Prelude.Maybe IpAddressType)
-setSubnets_ipAddressType = Lens.lens (\SetSubnets' {ipAddressType} -> ipAddressType) (\s@SetSubnets' {} a -> s {ipAddressType = a} :: SetSubnets)
-
 -- | The Amazon Resource Name (ARN) of the load balancer.
 setSubnets_loadBalancerArn :: Lens.Lens' SetSubnets Prelude.Text
 setSubnets_loadBalancerArn = Lens.lens (\SetSubnets' {loadBalancerArn} -> loadBalancerArn) (\s@SetSubnets' {} a -> s {loadBalancerArn = a} :: SetSubnets)
 
 instance Core.AWSRequest SetSubnets where
   type AWSResponse SetSubnets = SetSubnetsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SetSubnetsResult"
       ( \s h x ->
           SetSubnetsResponse'
-            Prelude.<$> ( x Core..@? "AvailabilityZones"
+            Prelude.<$> ( x Data..@? "AvailabilityZones"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "IpAddressType")
+            Prelude.<*> (x Data..@? "IpAddressType")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable SetSubnets where
   hashWithSalt _salt SetSubnets' {..} =
-    _salt `Prelude.hashWithSalt` subnetMappings
+    _salt `Prelude.hashWithSalt` ipAddressType
+      `Prelude.hashWithSalt` subnetMappings
       `Prelude.hashWithSalt` subnets
-      `Prelude.hashWithSalt` ipAddressType
       `Prelude.hashWithSalt` loadBalancerArn
 
 instance Prelude.NFData SetSubnets where
   rnf SetSubnets' {..} =
-    Prelude.rnf subnetMappings
+    Prelude.rnf ipAddressType
+      `Prelude.seq` Prelude.rnf subnetMappings
       `Prelude.seq` Prelude.rnf subnets
-      `Prelude.seq` Prelude.rnf ipAddressType
       `Prelude.seq` Prelude.rnf loadBalancerArn
 
-instance Core.ToHeaders SetSubnets where
+instance Data.ToHeaders SetSubnets where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath SetSubnets where
+instance Data.ToPath SetSubnets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SetSubnets where
+instance Data.ToQuery SetSubnets where
   toQuery SetSubnets' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("SetSubnets" :: Prelude.ByteString),
+          Data.=: ("SetSubnets" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2015-12-01" :: Prelude.ByteString),
+          Data.=: ("2015-12-01" :: Prelude.ByteString),
+        "IpAddressType" Data.=: ipAddressType,
         "SubnetMappings"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> subnetMappings
             ),
         "Subnets"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> subnets),
-        "IpAddressType" Core.=: ipAddressType,
-        "LoadBalancerArn" Core.=: loadBalancerArn
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> subnets),
+        "LoadBalancerArn" Data.=: loadBalancerArn
       ]
 
 -- | /See:/ 'newSetSubnetsResponse' smart constructor.

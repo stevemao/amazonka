@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.LabelingJobOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,16 @@
 module Amazonka.SageMaker.Types.LabelingJobOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the location of the output produced by the labeling job.
 --
 -- /See:/ 'newLabelingJobOutput' smart constructor.
 data LabelingJobOutput = LabelingJobOutput'
-  { -- | The Amazon Resource Name (ARN) for the most recent Amazon SageMaker
-    -- model trained as part of automated data labeling.
+  { -- | The Amazon Resource Name (ARN) for the most recent SageMaker model
+    -- trained as part of automated data labeling.
     finalActiveLearningModelArn :: Prelude.Maybe Prelude.Text,
     -- | The Amazon S3 bucket location of the manifest file for labeled data.
     outputDatasetS3Uri :: Prelude.Text
@@ -43,8 +44,8 @@ data LabelingJobOutput = LabelingJobOutput'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'finalActiveLearningModelArn', 'labelingJobOutput_finalActiveLearningModelArn' - The Amazon Resource Name (ARN) for the most recent Amazon SageMaker
--- model trained as part of automated data labeling.
+-- 'finalActiveLearningModelArn', 'labelingJobOutput_finalActiveLearningModelArn' - The Amazon Resource Name (ARN) for the most recent SageMaker model
+-- trained as part of automated data labeling.
 --
 -- 'outputDatasetS3Uri', 'labelingJobOutput_outputDatasetS3Uri' - The Amazon S3 bucket location of the manifest file for labeled data.
 newLabelingJobOutput ::
@@ -58,8 +59,8 @@ newLabelingJobOutput pOutputDatasetS3Uri_ =
       outputDatasetS3Uri = pOutputDatasetS3Uri_
     }
 
--- | The Amazon Resource Name (ARN) for the most recent Amazon SageMaker
--- model trained as part of automated data labeling.
+-- | The Amazon Resource Name (ARN) for the most recent SageMaker model
+-- trained as part of automated data labeling.
 labelingJobOutput_finalActiveLearningModelArn :: Lens.Lens' LabelingJobOutput (Prelude.Maybe Prelude.Text)
 labelingJobOutput_finalActiveLearningModelArn = Lens.lens (\LabelingJobOutput' {finalActiveLearningModelArn} -> finalActiveLearningModelArn) (\s@LabelingJobOutput' {} a -> s {finalActiveLearningModelArn = a} :: LabelingJobOutput)
 
@@ -67,14 +68,14 @@ labelingJobOutput_finalActiveLearningModelArn = Lens.lens (\LabelingJobOutput' {
 labelingJobOutput_outputDatasetS3Uri :: Lens.Lens' LabelingJobOutput Prelude.Text
 labelingJobOutput_outputDatasetS3Uri = Lens.lens (\LabelingJobOutput' {outputDatasetS3Uri} -> outputDatasetS3Uri) (\s@LabelingJobOutput' {} a -> s {outputDatasetS3Uri = a} :: LabelingJobOutput)
 
-instance Core.FromJSON LabelingJobOutput where
+instance Data.FromJSON LabelingJobOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LabelingJobOutput"
       ( \x ->
           LabelingJobOutput'
-            Prelude.<$> (x Core..:? "FinalActiveLearningModelArn")
-            Prelude.<*> (x Core..: "OutputDatasetS3Uri")
+            Prelude.<$> (x Data..:? "FinalActiveLearningModelArn")
+            Prelude.<*> (x Data..: "OutputDatasetS3Uri")
       )
 
 instance Prelude.Hashable LabelingJobOutput where

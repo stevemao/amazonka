@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.StartImageScan
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,17 +40,18 @@ module Amazonka.ECR.StartImageScan
     newStartImageScanResponse,
 
     -- * Response Lenses
-    startImageScanResponse_registryId,
-    startImageScanResponse_imageScanStatus,
     startImageScanResponse_imageId,
+    startImageScanResponse_imageScanStatus,
+    startImageScanResponse_registryId,
     startImageScanResponse_repositoryName,
     startImageScanResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,15 +114,16 @@ instance Core.AWSRequest StartImageScan where
   type
     AWSResponse StartImageScan =
       StartImageScanResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartImageScanResponse'
-            Prelude.<$> (x Core..?> "registryId")
-            Prelude.<*> (x Core..?> "imageScanStatus")
-            Prelude.<*> (x Core..?> "imageId")
-            Prelude.<*> (x Core..?> "repositoryName")
+            Prelude.<$> (x Data..?> "imageId")
+            Prelude.<*> (x Data..?> "imageScanStatus")
+            Prelude.<*> (x Data..?> "registryId")
+            Prelude.<*> (x Data..?> "repositoryName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -137,45 +139,45 @@ instance Prelude.NFData StartImageScan where
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf imageId
 
-instance Core.ToHeaders StartImageScan where
+instance Data.ToHeaders StartImageScan where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerRegistry_V20150921.StartImageScan" ::
+              Data.=# ( "AmazonEC2ContainerRegistry_V20150921.StartImageScan" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartImageScan where
+instance Data.ToJSON StartImageScan where
   toJSON StartImageScan' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("registryId" Core..=) Prelude.<$> registryId,
+          [ ("registryId" Data..=) Prelude.<$> registryId,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
-            Prelude.Just ("imageId" Core..= imageId)
+              ("repositoryName" Data..= repositoryName),
+            Prelude.Just ("imageId" Data..= imageId)
           ]
       )
 
-instance Core.ToPath StartImageScan where
+instance Data.ToPath StartImageScan where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StartImageScan where
+instance Data.ToQuery StartImageScan where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartImageScanResponse' smart constructor.
 data StartImageScanResponse = StartImageScanResponse'
-  { -- | The registry ID associated with the request.
-    registryId :: Prelude.Maybe Prelude.Text,
+  { imageId :: Prelude.Maybe ImageIdentifier,
     -- | The current state of the scan.
     imageScanStatus :: Prelude.Maybe ImageScanStatus,
-    imageId :: Prelude.Maybe ImageIdentifier,
+    -- | The registry ID associated with the request.
+    registryId :: Prelude.Maybe Prelude.Text,
     -- | The repository name associated with the request.
     repositoryName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
@@ -191,11 +193,11 @@ data StartImageScanResponse = StartImageScanResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'registryId', 'startImageScanResponse_registryId' - The registry ID associated with the request.
+-- 'imageId', 'startImageScanResponse_imageId' - Undocumented member.
 --
 -- 'imageScanStatus', 'startImageScanResponse_imageScanStatus' - The current state of the scan.
 --
--- 'imageId', 'startImageScanResponse_imageId' - Undocumented member.
+-- 'registryId', 'startImageScanResponse_registryId' - The registry ID associated with the request.
 --
 -- 'repositoryName', 'startImageScanResponse_repositoryName' - The repository name associated with the request.
 --
@@ -206,25 +208,24 @@ newStartImageScanResponse ::
   StartImageScanResponse
 newStartImageScanResponse pHttpStatus_ =
   StartImageScanResponse'
-    { registryId =
-        Prelude.Nothing,
+    { imageId = Prelude.Nothing,
       imageScanStatus = Prelude.Nothing,
-      imageId = Prelude.Nothing,
+      registryId = Prelude.Nothing,
       repositoryName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The registry ID associated with the request.
-startImageScanResponse_registryId :: Lens.Lens' StartImageScanResponse (Prelude.Maybe Prelude.Text)
-startImageScanResponse_registryId = Lens.lens (\StartImageScanResponse' {registryId} -> registryId) (\s@StartImageScanResponse' {} a -> s {registryId = a} :: StartImageScanResponse)
+-- | Undocumented member.
+startImageScanResponse_imageId :: Lens.Lens' StartImageScanResponse (Prelude.Maybe ImageIdentifier)
+startImageScanResponse_imageId = Lens.lens (\StartImageScanResponse' {imageId} -> imageId) (\s@StartImageScanResponse' {} a -> s {imageId = a} :: StartImageScanResponse)
 
 -- | The current state of the scan.
 startImageScanResponse_imageScanStatus :: Lens.Lens' StartImageScanResponse (Prelude.Maybe ImageScanStatus)
 startImageScanResponse_imageScanStatus = Lens.lens (\StartImageScanResponse' {imageScanStatus} -> imageScanStatus) (\s@StartImageScanResponse' {} a -> s {imageScanStatus = a} :: StartImageScanResponse)
 
--- | Undocumented member.
-startImageScanResponse_imageId :: Lens.Lens' StartImageScanResponse (Prelude.Maybe ImageIdentifier)
-startImageScanResponse_imageId = Lens.lens (\StartImageScanResponse' {imageId} -> imageId) (\s@StartImageScanResponse' {} a -> s {imageId = a} :: StartImageScanResponse)
+-- | The registry ID associated with the request.
+startImageScanResponse_registryId :: Lens.Lens' StartImageScanResponse (Prelude.Maybe Prelude.Text)
+startImageScanResponse_registryId = Lens.lens (\StartImageScanResponse' {registryId} -> registryId) (\s@StartImageScanResponse' {} a -> s {registryId = a} :: StartImageScanResponse)
 
 -- | The repository name associated with the request.
 startImageScanResponse_repositoryName :: Lens.Lens' StartImageScanResponse (Prelude.Maybe Prelude.Text)
@@ -236,8 +237,8 @@ startImageScanResponse_httpStatus = Lens.lens (\StartImageScanResponse' {httpSta
 
 instance Prelude.NFData StartImageScanResponse where
   rnf StartImageScanResponse' {..} =
-    Prelude.rnf registryId
+    Prelude.rnf imageId
       `Prelude.seq` Prelude.rnf imageScanStatus
-      `Prelude.seq` Prelude.rnf imageId
+      `Prelude.seq` Prelude.rnf registryId
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf httpStatus

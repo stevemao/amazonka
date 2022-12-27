@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListJobTemplates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.IoT.ListJobTemplates
     newListJobTemplates,
 
     -- * Request Lenses
-    listJobTemplates_nextToken,
     listJobTemplates_maxResults,
+    listJobTemplates_nextToken,
 
     -- * Destructuring the Response
     ListJobTemplatesResponse (..),
@@ -48,18 +48,19 @@ module Amazonka.IoT.ListJobTemplates
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListJobTemplates' smart constructor.
 data ListJobTemplates = ListJobTemplates'
-  { -- | The token to use to return the next set of results in the list.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in the list.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of results to return in the list.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to use to return the next set of results in the list.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,24 +72,24 @@ data ListJobTemplates = ListJobTemplates'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listJobTemplates_nextToken' - The token to use to return the next set of results in the list.
---
 -- 'maxResults', 'listJobTemplates_maxResults' - The maximum number of results to return in the list.
+--
+-- 'nextToken', 'listJobTemplates_nextToken' - The token to use to return the next set of results in the list.
 newListJobTemplates ::
   ListJobTemplates
 newListJobTemplates =
   ListJobTemplates'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token to use to return the next set of results in the list.
-listJobTemplates_nextToken :: Lens.Lens' ListJobTemplates (Prelude.Maybe Prelude.Text)
-listJobTemplates_nextToken = Lens.lens (\ListJobTemplates' {nextToken} -> nextToken) (\s@ListJobTemplates' {} a -> s {nextToken = a} :: ListJobTemplates)
 
 -- | The maximum number of results to return in the list.
 listJobTemplates_maxResults :: Lens.Lens' ListJobTemplates (Prelude.Maybe Prelude.Natural)
 listJobTemplates_maxResults = Lens.lens (\ListJobTemplates' {maxResults} -> maxResults) (\s@ListJobTemplates' {} a -> s {maxResults = a} :: ListJobTemplates)
+
+-- | The token to use to return the next set of results in the list.
+listJobTemplates_nextToken :: Lens.Lens' ListJobTemplates (Prelude.Maybe Prelude.Text)
+listJobTemplates_nextToken = Lens.lens (\ListJobTemplates' {nextToken} -> nextToken) (\s@ListJobTemplates' {} a -> s {nextToken = a} :: ListJobTemplates)
 
 instance Core.AWSPager ListJobTemplates where
   page rq rs
@@ -116,37 +117,38 @@ instance Core.AWSRequest ListJobTemplates where
   type
     AWSResponse ListJobTemplates =
       ListJobTemplatesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListJobTemplatesResponse'
-            Prelude.<$> (x Core..?> "jobTemplates" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "jobTemplates" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListJobTemplates where
   hashWithSalt _salt ListJobTemplates' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListJobTemplates where
   rnf ListJobTemplates' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListJobTemplates where
+instance Data.ToHeaders ListJobTemplates where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListJobTemplates where
+instance Data.ToPath ListJobTemplates where
   toPath = Prelude.const "/job-templates"
 
-instance Core.ToQuery ListJobTemplates where
+instance Data.ToQuery ListJobTemplates where
   toQuery ListJobTemplates' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListJobTemplatesResponse' smart constructor.

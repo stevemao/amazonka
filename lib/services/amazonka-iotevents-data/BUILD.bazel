@@ -6,6 +6,7 @@ haskell_library(
     srcs = [
         "gen/Amazonka/IoTEventsData.hs",
         "gen/Amazonka/IoTEventsData/BatchAcknowledgeAlarm.hs",
+        "gen/Amazonka/IoTEventsData/BatchDeleteDetector.hs",
         "gen/Amazonka/IoTEventsData/BatchDisableAlarm.hs",
         "gen/Amazonka/IoTEventsData/BatchEnableAlarm.hs",
         "gen/Amazonka/IoTEventsData/BatchPutMessage.hs",
@@ -25,11 +26,13 @@ haskell_library(
         "gen/Amazonka/IoTEventsData/Types/AlarmStateName.hs",
         "gen/Amazonka/IoTEventsData/Types/AlarmSummary.hs",
         "gen/Amazonka/IoTEventsData/Types/BatchAlarmActionErrorEntry.hs",
+        "gen/Amazonka/IoTEventsData/Types/BatchDeleteDetectorErrorEntry.hs",
         "gen/Amazonka/IoTEventsData/Types/BatchPutMessageErrorEntry.hs",
         "gen/Amazonka/IoTEventsData/Types/BatchUpdateDetectorErrorEntry.hs",
         "gen/Amazonka/IoTEventsData/Types/ComparisonOperator.hs",
         "gen/Amazonka/IoTEventsData/Types/CustomerAction.hs",
         "gen/Amazonka/IoTEventsData/Types/CustomerActionName.hs",
+        "gen/Amazonka/IoTEventsData/Types/DeleteDetectorRequest.hs",
         "gen/Amazonka/IoTEventsData/Types/Detector.hs",
         "gen/Amazonka/IoTEventsData/Types/DetectorState.hs",
         "gen/Amazonka/IoTEventsData/Types/DetectorStateDefinition.hs",
@@ -59,14 +62,13 @@ haskell_library(
         "gen/Amazonka/IoTEventsData/Types/VariableDefinition.hs",
         "gen/Amazonka/IoTEventsData/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_iotevents_data=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -84,11 +86,12 @@ haskell_test(
         "test/Test/Amazonka/IoTEventsData.hs",
         "test/Test/Amazonka/IoTEventsData/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
         "-DVERSION_amazonka_iotevents_data=\"2.0\"",
         "-Wall",
         "-threaded",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

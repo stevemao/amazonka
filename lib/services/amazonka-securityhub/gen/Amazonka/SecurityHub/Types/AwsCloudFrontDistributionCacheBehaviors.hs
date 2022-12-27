@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsCloudFrontDistributionCacheBehaviors
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.SecurityHub.Types.AwsCloudFrontDistributionCacheBehaviors where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsCloudFrontDistributionCacheBehavior
 
--- | Provides information about caching for the distribution.
+-- | Provides information about caching for the CloudFront distribution.
 --
 -- /See:/ 'newAwsCloudFrontDistributionCacheBehaviors' smart constructor.
 data AwsCloudFrontDistributionCacheBehaviors = AwsCloudFrontDistributionCacheBehaviors'
@@ -55,15 +56,15 @@ awsCloudFrontDistributionCacheBehaviors_items :: Lens.Lens' AwsCloudFrontDistrib
 awsCloudFrontDistributionCacheBehaviors_items = Lens.lens (\AwsCloudFrontDistributionCacheBehaviors' {items} -> items) (\s@AwsCloudFrontDistributionCacheBehaviors' {} a -> s {items = a} :: AwsCloudFrontDistributionCacheBehaviors) Prelude.. Lens.mapping Lens.coerced
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsCloudFrontDistributionCacheBehaviors
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsCloudFrontDistributionCacheBehaviors"
       ( \x ->
           AwsCloudFrontDistributionCacheBehaviors'
-            Prelude.<$> (x Core..:? "Items" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Items" Data..!= Prelude.mempty)
       )
 
 instance
@@ -83,11 +84,11 @@ instance
     Prelude.rnf items
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsCloudFrontDistributionCacheBehaviors
   where
   toJSON AwsCloudFrontDistributionCacheBehaviors' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Items" Core..=) Prelude.<$> items]
+          [("Items" Data..=) Prelude.<$> items]
       )

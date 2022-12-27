@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.ListPipelineExecutions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.CodePipeline.ListPipelineExecutions
     newListPipelineExecutions,
 
     -- * Request Lenses
-    listPipelineExecutions_nextToken,
     listPipelineExecutions_maxResults,
+    listPipelineExecutions_nextToken,
     listPipelineExecutions_pipelineName,
 
     -- * Destructuring the Response
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CodePipeline.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,15 +56,15 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListPipelineExecutions' smart constructor.
 data ListPipelineExecutions = ListPipelineExecutions'
-  { -- | The token that was returned from the previous @ListPipelineExecutions@
-    -- call, which can be used to return the next set of pipeline executions in
-    -- the list.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call. To retrieve
+  { -- | The maximum number of results to return in a single call. To retrieve
     -- the remaining results, make another call with the returned nextToken
     -- value. Pipeline history is limited to the most recent 12 months, based
     -- on pipeline execution start times. Default value is 100.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token that was returned from the previous @ListPipelineExecutions@
+    -- call, which can be used to return the next set of pipeline executions in
+    -- the list.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the pipeline for which you want to get execution summary
     -- information.
     pipelineName :: Prelude.Text
@@ -78,14 +79,14 @@ data ListPipelineExecutions = ListPipelineExecutions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listPipelineExecutions_nextToken' - The token that was returned from the previous @ListPipelineExecutions@
--- call, which can be used to return the next set of pipeline executions in
--- the list.
---
 -- 'maxResults', 'listPipelineExecutions_maxResults' - The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned nextToken
 -- value. Pipeline history is limited to the most recent 12 months, based
 -- on pipeline execution start times. Default value is 100.
+--
+-- 'nextToken', 'listPipelineExecutions_nextToken' - The token that was returned from the previous @ListPipelineExecutions@
+-- call, which can be used to return the next set of pipeline executions in
+-- the list.
 --
 -- 'pipelineName', 'listPipelineExecutions_pipelineName' - The name of the pipeline for which you want to get execution summary
 -- information.
@@ -95,17 +96,11 @@ newListPipelineExecutions ::
   ListPipelineExecutions
 newListPipelineExecutions pPipelineName_ =
   ListPipelineExecutions'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       pipelineName = pPipelineName_
     }
-
--- | The token that was returned from the previous @ListPipelineExecutions@
--- call, which can be used to return the next set of pipeline executions in
--- the list.
-listPipelineExecutions_nextToken :: Lens.Lens' ListPipelineExecutions (Prelude.Maybe Prelude.Text)
-listPipelineExecutions_nextToken = Lens.lens (\ListPipelineExecutions' {nextToken} -> nextToken) (\s@ListPipelineExecutions' {} a -> s {nextToken = a} :: ListPipelineExecutions)
 
 -- | The maximum number of results to return in a single call. To retrieve
 -- the remaining results, make another call with the returned nextToken
@@ -113,6 +108,12 @@ listPipelineExecutions_nextToken = Lens.lens (\ListPipelineExecutions' {nextToke
 -- on pipeline execution start times. Default value is 100.
 listPipelineExecutions_maxResults :: Lens.Lens' ListPipelineExecutions (Prelude.Maybe Prelude.Natural)
 listPipelineExecutions_maxResults = Lens.lens (\ListPipelineExecutions' {maxResults} -> maxResults) (\s@ListPipelineExecutions' {} a -> s {maxResults = a} :: ListPipelineExecutions)
+
+-- | The token that was returned from the previous @ListPipelineExecutions@
+-- call, which can be used to return the next set of pipeline executions in
+-- the list.
+listPipelineExecutions_nextToken :: Lens.Lens' ListPipelineExecutions (Prelude.Maybe Prelude.Text)
+listPipelineExecutions_nextToken = Lens.lens (\ListPipelineExecutions' {nextToken} -> nextToken) (\s@ListPipelineExecutions' {} a -> s {nextToken = a} :: ListPipelineExecutions)
 
 -- | The name of the pipeline for which you want to get execution summary
 -- information.
@@ -145,13 +146,14 @@ instance Core.AWSRequest ListPipelineExecutions where
   type
     AWSResponse ListPipelineExecutions =
       ListPipelineExecutionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListPipelineExecutionsResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> ( x Core..?> "pipelineExecutionSummaries"
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> ( x Data..?> "pipelineExecutionSummaries"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -159,45 +161,45 @@ instance Core.AWSRequest ListPipelineExecutions where
 
 instance Prelude.Hashable ListPipelineExecutions where
   hashWithSalt _salt ListPipelineExecutions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` pipelineName
 
 instance Prelude.NFData ListPipelineExecutions where
   rnf ListPipelineExecutions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf pipelineName
 
-instance Core.ToHeaders ListPipelineExecutions where
+instance Data.ToHeaders ListPipelineExecutions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodePipeline_20150709.ListPipelineExecutions" ::
+              Data.=# ( "CodePipeline_20150709.ListPipelineExecutions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListPipelineExecutions where
+instance Data.ToJSON ListPipelineExecutions where
   toJSON ListPipelineExecutions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("pipelineName" Core..= pipelineName)
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("pipelineName" Data..= pipelineName)
           ]
       )
 
-instance Core.ToPath ListPipelineExecutions where
+instance Data.ToPath ListPipelineExecutions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListPipelineExecutions where
+instance Data.ToQuery ListPipelineExecutions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @ListPipelineExecutions@ action.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteGatewayResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,11 +50,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteGatewayResponse' smart constructor.
 data DeleteGatewayResponse = DeleteGatewayResponse'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required]
-    --
-    -- The response type of the associated GatewayResponse.
+    -- | The response type of the associated GatewayResponse.
     responseType :: GatewayResponseType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -66,11 +65,9 @@ data DeleteGatewayResponse = DeleteGatewayResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'deleteGatewayResponse_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'deleteGatewayResponse_restApiId' - The string identifier of the associated RestApi.
 --
--- 'responseType', 'deleteGatewayResponse_responseType' - [Required]
---
--- The response type of the associated GatewayResponse.
+-- 'responseType', 'deleteGatewayResponse_responseType' - The response type of the associated GatewayResponse.
 newDeleteGatewayResponse ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -83,13 +80,11 @@ newDeleteGatewayResponse pRestApiId_ pResponseType_ =
       responseType = pResponseType_
     }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 deleteGatewayResponse_restApiId :: Lens.Lens' DeleteGatewayResponse Prelude.Text
 deleteGatewayResponse_restApiId = Lens.lens (\DeleteGatewayResponse' {restApiId} -> restApiId) (\s@DeleteGatewayResponse' {} a -> s {restApiId = a} :: DeleteGatewayResponse)
 
--- | [Required]
---
--- The response type of the associated GatewayResponse.
+-- | The response type of the associated GatewayResponse.
 deleteGatewayResponse_responseType :: Lens.Lens' DeleteGatewayResponse GatewayResponseType
 deleteGatewayResponse_responseType = Lens.lens (\DeleteGatewayResponse' {responseType} -> responseType) (\s@DeleteGatewayResponse' {} a -> s {responseType = a} :: DeleteGatewayResponse)
 
@@ -97,7 +92,8 @@ instance Core.AWSRequest DeleteGatewayResponse where
   type
     AWSResponse DeleteGatewayResponse =
       DeleteGatewayResponseResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeleteGatewayResponseResponse'
 
@@ -111,25 +107,25 @@ instance Prelude.NFData DeleteGatewayResponse where
     Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf responseType
 
-instance Core.ToHeaders DeleteGatewayResponse where
+instance Data.ToHeaders DeleteGatewayResponse where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteGatewayResponse where
+instance Data.ToPath DeleteGatewayResponse where
   toPath DeleteGatewayResponse' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/gatewayresponses/",
-        Core.toBS responseType
+        Data.toBS responseType
       ]
 
-instance Core.ToQuery DeleteGatewayResponse where
+instance Data.ToQuery DeleteGatewayResponse where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteGatewayResponseResponse' smart constructor.

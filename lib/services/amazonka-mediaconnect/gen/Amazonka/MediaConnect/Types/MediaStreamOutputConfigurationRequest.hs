@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.Types.MediaStreamOutputConfigurationRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConnect.Types.MediaStreamOutputConfigurationRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConnect.Types.DestinationConfigurationRequest
 import Amazonka.MediaConnect.Types.EncodingName
 import Amazonka.MediaConnect.Types.EncodingParametersRequest
@@ -132,18 +133,18 @@ instance
       `Prelude.seq` Prelude.rnf encodingName
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     MediaStreamOutputConfigurationRequest
   where
   toJSON MediaStreamOutputConfigurationRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("destinationConfigurations" Core..=)
+          [ ("destinationConfigurations" Data..=)
               Prelude.<$> destinationConfigurations,
-            ("encodingParameters" Core..=)
+            ("encodingParameters" Data..=)
               Prelude.<$> encodingParameters,
             Prelude.Just
-              ("mediaStreamName" Core..= mediaStreamName),
-            Prelude.Just ("encodingName" Core..= encodingName)
+              ("mediaStreamName" Data..= mediaStreamName),
+            Prelude.Just ("encodingName" Data..= encodingName)
           ]
       )

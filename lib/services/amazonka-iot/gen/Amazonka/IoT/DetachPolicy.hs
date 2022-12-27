@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.DetachPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IoT.DetachPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,7 +94,8 @@ detachPolicy_target = Lens.lens (\DetachPolicy' {target} -> target) (\s@DetachPo
 
 instance Core.AWSRequest DetachPolicy where
   type AWSResponse DetachPolicy = DetachPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DetachPolicyResponse'
 
 instance Prelude.Hashable DetachPolicy where
@@ -106,22 +108,22 @@ instance Prelude.NFData DetachPolicy where
     Prelude.rnf policyName
       `Prelude.seq` Prelude.rnf target
 
-instance Core.ToHeaders DetachPolicy where
+instance Data.ToHeaders DetachPolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON DetachPolicy where
+instance Data.ToJSON DetachPolicy where
   toJSON DetachPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("target" Core..= target)]
+          [Prelude.Just ("target" Data..= target)]
       )
 
-instance Core.ToPath DetachPolicy where
+instance Data.ToPath DetachPolicy where
   toPath DetachPolicy' {..} =
     Prelude.mconcat
-      ["/target-policies/", Core.toBS policyName]
+      ["/target-policies/", Data.toBS policyName]
 
-instance Core.ToQuery DetachPolicy where
+instance Data.ToQuery DetachPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDetachPolicyResponse' smart constructor.

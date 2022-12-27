@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.TagMeeting
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,7 +86,8 @@ tagMeeting_tags = Lens.lens (\TagMeeting' {tags} -> tags) (\s@TagMeeting' {} a -
 
 instance Core.AWSRequest TagMeeting where
   type AWSResponse TagMeeting = TagMeetingResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull TagMeetingResponse'
 
 instance Prelude.Hashable TagMeeting where
@@ -98,22 +100,22 @@ instance Prelude.NFData TagMeeting where
     Prelude.rnf meetingId
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagMeeting where
+instance Data.ToHeaders TagMeeting where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON TagMeeting where
+instance Data.ToJSON TagMeeting where
   toJSON TagMeeting' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Tags" Core..= tags)]
+          [Prelude.Just ("Tags" Data..= tags)]
       )
 
-instance Core.ToPath TagMeeting where
+instance Data.ToPath TagMeeting where
   toPath TagMeeting' {..} =
     Prelude.mconcat
-      ["/meetings/", Core.toBS meetingId, "/tags"]
+      ["/meetings/", Data.toBS meetingId, "/tags"]
 
-instance Core.ToQuery TagMeeting where
+instance Data.ToQuery TagMeeting where
   toQuery =
     Prelude.const (Prelude.mconcat ["operation=add"])
 

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.Types.ReplicationSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,13 +20,14 @@
 module Amazonka.SSMIncidents.Types.ReplicationSet where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSMIncidents.Types.RegionInfo
 import Amazonka.SSMIncidents.Types.ReplicationSetStatus
 
--- | The set of Regions that your Incident Manager data will be replicated to
--- and the KMS key used to encrypt the data.
+-- | The set of Amazon Web Services Region that your Incident Manager data
+-- will be replicated to and the KMS key used to encrypt the data.
 --
 -- /See:/ 'newReplicationSet' smart constructor.
 data ReplicationSet = ReplicationSet'
@@ -35,17 +36,17 @@ data ReplicationSet = ReplicationSet'
     -- | Details about who created the replication set.
     createdBy :: Prelude.Text,
     -- | When the replication set was created.
-    createdTime :: Core.POSIX,
+    createdTime :: Data.POSIX,
     -- | Determines if the replication set deletion protection is enabled or not.
-    -- If deletion protection is enabled, you can\'t delete the last Region in
-    -- the replication set.
+    -- If deletion protection is enabled, you can\'t delete the last Amazon Web
+    -- Services Region in the replication set.
     deletionProtected :: Prelude.Bool,
     -- | Who last modified the replication set.
     lastModifiedBy :: Prelude.Text,
     -- | When the replication set was last updated.
-    lastModifiedTime :: Core.POSIX,
-    -- | The map between each Region in your replication set and the KMS key that
-    -- is used to encrypt the data in that Region.
+    lastModifiedTime :: Data.POSIX,
+    -- | The map between each Amazon Web Services Region in your replication set
+    -- and the KMS key that\'s used to encrypt the data in that Region.
     regionMap :: Prelude.HashMap Prelude.Text RegionInfo,
     -- | The status of the replication set. If the replication set is still
     -- pending, you can\'t use Incident Manager functionality.
@@ -68,15 +69,15 @@ data ReplicationSet = ReplicationSet'
 -- 'createdTime', 'replicationSet_createdTime' - When the replication set was created.
 --
 -- 'deletionProtected', 'replicationSet_deletionProtected' - Determines if the replication set deletion protection is enabled or not.
--- If deletion protection is enabled, you can\'t delete the last Region in
--- the replication set.
+-- If deletion protection is enabled, you can\'t delete the last Amazon Web
+-- Services Region in the replication set.
 --
 -- 'lastModifiedBy', 'replicationSet_lastModifiedBy' - Who last modified the replication set.
 --
 -- 'lastModifiedTime', 'replicationSet_lastModifiedTime' - When the replication set was last updated.
 --
--- 'regionMap', 'replicationSet_regionMap' - The map between each Region in your replication set and the KMS key that
--- is used to encrypt the data in that Region.
+-- 'regionMap', 'replicationSet_regionMap' - The map between each Amazon Web Services Region in your replication set
+-- and the KMS key that\'s used to encrypt the data in that Region.
 --
 -- 'status', 'replicationSet_status' - The status of the replication set. If the replication set is still
 -- pending, you can\'t use Incident Manager functionality.
@@ -104,11 +105,11 @@ newReplicationSet
     ReplicationSet'
       { arn = Prelude.Nothing,
         createdBy = pCreatedBy_,
-        createdTime = Core._Time Lens.# pCreatedTime_,
+        createdTime = Data._Time Lens.# pCreatedTime_,
         deletionProtected = pDeletionProtected_,
         lastModifiedBy = pLastModifiedBy_,
         lastModifiedTime =
-          Core._Time Lens.# pLastModifiedTime_,
+          Data._Time Lens.# pLastModifiedTime_,
         regionMap = Prelude.mempty,
         status = pStatus_
       }
@@ -123,11 +124,11 @@ replicationSet_createdBy = Lens.lens (\ReplicationSet' {createdBy} -> createdBy)
 
 -- | When the replication set was created.
 replicationSet_createdTime :: Lens.Lens' ReplicationSet Prelude.UTCTime
-replicationSet_createdTime = Lens.lens (\ReplicationSet' {createdTime} -> createdTime) (\s@ReplicationSet' {} a -> s {createdTime = a} :: ReplicationSet) Prelude.. Core._Time
+replicationSet_createdTime = Lens.lens (\ReplicationSet' {createdTime} -> createdTime) (\s@ReplicationSet' {} a -> s {createdTime = a} :: ReplicationSet) Prelude.. Data._Time
 
 -- | Determines if the replication set deletion protection is enabled or not.
--- If deletion protection is enabled, you can\'t delete the last Region in
--- the replication set.
+-- If deletion protection is enabled, you can\'t delete the last Amazon Web
+-- Services Region in the replication set.
 replicationSet_deletionProtected :: Lens.Lens' ReplicationSet Prelude.Bool
 replicationSet_deletionProtected = Lens.lens (\ReplicationSet' {deletionProtected} -> deletionProtected) (\s@ReplicationSet' {} a -> s {deletionProtected = a} :: ReplicationSet)
 
@@ -137,10 +138,10 @@ replicationSet_lastModifiedBy = Lens.lens (\ReplicationSet' {lastModifiedBy} -> 
 
 -- | When the replication set was last updated.
 replicationSet_lastModifiedTime :: Lens.Lens' ReplicationSet Prelude.UTCTime
-replicationSet_lastModifiedTime = Lens.lens (\ReplicationSet' {lastModifiedTime} -> lastModifiedTime) (\s@ReplicationSet' {} a -> s {lastModifiedTime = a} :: ReplicationSet) Prelude.. Core._Time
+replicationSet_lastModifiedTime = Lens.lens (\ReplicationSet' {lastModifiedTime} -> lastModifiedTime) (\s@ReplicationSet' {} a -> s {lastModifiedTime = a} :: ReplicationSet) Prelude.. Data._Time
 
--- | The map between each Region in your replication set and the KMS key that
--- is used to encrypt the data in that Region.
+-- | The map between each Amazon Web Services Region in your replication set
+-- and the KMS key that\'s used to encrypt the data in that Region.
 replicationSet_regionMap :: Lens.Lens' ReplicationSet (Prelude.HashMap Prelude.Text RegionInfo)
 replicationSet_regionMap = Lens.lens (\ReplicationSet' {regionMap} -> regionMap) (\s@ReplicationSet' {} a -> s {regionMap = a} :: ReplicationSet) Prelude.. Lens.coerced
 
@@ -149,20 +150,20 @@ replicationSet_regionMap = Lens.lens (\ReplicationSet' {regionMap} -> regionMap)
 replicationSet_status :: Lens.Lens' ReplicationSet ReplicationSetStatus
 replicationSet_status = Lens.lens (\ReplicationSet' {status} -> status) (\s@ReplicationSet' {} a -> s {status = a} :: ReplicationSet)
 
-instance Core.FromJSON ReplicationSet where
+instance Data.FromJSON ReplicationSet where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReplicationSet"
       ( \x ->
           ReplicationSet'
-            Prelude.<$> (x Core..:? "arn")
-            Prelude.<*> (x Core..: "createdBy")
-            Prelude.<*> (x Core..: "createdTime")
-            Prelude.<*> (x Core..: "deletionProtected")
-            Prelude.<*> (x Core..: "lastModifiedBy")
-            Prelude.<*> (x Core..: "lastModifiedTime")
-            Prelude.<*> (x Core..:? "regionMap" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "status")
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..: "createdBy")
+            Prelude.<*> (x Data..: "createdTime")
+            Prelude.<*> (x Data..: "deletionProtected")
+            Prelude.<*> (x Data..: "lastModifiedBy")
+            Prelude.<*> (x Data..: "lastModifiedTime")
+            Prelude.<*> (x Data..:? "regionMap" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "status")
       )
 
 instance Prelude.Hashable ReplicationSet where

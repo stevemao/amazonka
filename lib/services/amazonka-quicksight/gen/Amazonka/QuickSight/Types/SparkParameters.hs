@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.SparkParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.SparkParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The parameters for Spark.
@@ -62,13 +63,13 @@ sparkParameters_host = Lens.lens (\SparkParameters' {host} -> host) (\s@SparkPar
 sparkParameters_port :: Lens.Lens' SparkParameters Prelude.Natural
 sparkParameters_port = Lens.lens (\SparkParameters' {port} -> port) (\s@SparkParameters' {} a -> s {port = a} :: SparkParameters)
 
-instance Core.FromJSON SparkParameters where
+instance Data.FromJSON SparkParameters where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SparkParameters"
       ( \x ->
           SparkParameters'
-            Prelude.<$> (x Core..: "Host") Prelude.<*> (x Core..: "Port")
+            Prelude.<$> (x Data..: "Host") Prelude.<*> (x Data..: "Port")
       )
 
 instance Prelude.Hashable SparkParameters where
@@ -80,11 +81,11 @@ instance Prelude.NFData SparkParameters where
   rnf SparkParameters' {..} =
     Prelude.rnf host `Prelude.seq` Prelude.rnf port
 
-instance Core.ToJSON SparkParameters where
+instance Data.ToJSON SparkParameters where
   toJSON SparkParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Host" Core..= host),
-            Prelude.Just ("Port" Core..= port)
+          [ Prelude.Just ("Host" Data..= host),
+            Prelude.Just ("Port" Data..= port)
           ]
       )

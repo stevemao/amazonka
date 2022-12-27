@@ -14,13 +14,38 @@
 
 -- |
 -- Module      : Amazonka.AuditManager.DeleteAssessmentReport
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes an assessment report from an assessment in Audit Manager.
+-- Deletes an assessment report in Audit Manager.
+--
+-- When you run the @DeleteAssessmentReport@ operation, Audit Manager
+-- attempts to delete the following data:
+--
+-- 1.  The specified assessment report that’s stored in your S3 bucket
+--
+-- 2.  The associated metadata that’s stored in Audit Manager
+--
+-- If Audit Manager can’t access the assessment report in your S3 bucket,
+-- the report isn’t deleted. In this event, the @DeleteAssessmentReport@
+-- operation doesn’t fail. Instead, it proceeds to delete the associated
+-- metadata only. You must then delete the assessment report from the S3
+-- bucket yourself.
+--
+-- This scenario happens when Audit Manager receives a @403 (Forbidden)@ or
+-- @404 (Not Found)@ error from Amazon S3. To avoid this, make sure that
+-- your S3 bucket is available, and that you configured the correct
+-- permissions for Audit Manager to delete resources in your S3 bucket. For
+-- an example permissions policy that you can use, see
+-- <https://docs.aws.amazon.com/audit-manager/latest/userguide/security_iam_id-based-policy-examples.html#full-administrator-access-assessment-report-destination Assessment report destination permissions>
+-- in the /Audit Manager User Guide/. For information about the issues that
+-- could cause a @403 (Forbidden)@ or @404 (Not Found@) error from Amazon
+-- S3, see
+-- <https://docs.aws.amazon.com/AmazonS3/latest/API/ErrorResponses.html#ErrorCodeList List of Error Codes>
+-- in the /Amazon Simple Storage Service API Reference/.
 module Amazonka.AuditManager.DeleteAssessmentReport
   ( -- * Creating a Request
     DeleteAssessmentReport (..),
@@ -41,14 +66,15 @@ where
 
 import Amazonka.AuditManager.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteAssessmentReport' smart constructor.
 data DeleteAssessmentReport = DeleteAssessmentReport'
-  { -- | The identifier for the specified assessment.
+  { -- | The unique identifier for the assessment.
     assessmentId :: Prelude.Text,
     -- | The unique identifier for the assessment report.
     assessmentReportId :: Prelude.Text
@@ -63,7 +89,7 @@ data DeleteAssessmentReport = DeleteAssessmentReport'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'assessmentId', 'deleteAssessmentReport_assessmentId' - The identifier for the specified assessment.
+-- 'assessmentId', 'deleteAssessmentReport_assessmentId' - The unique identifier for the assessment.
 --
 -- 'assessmentReportId', 'deleteAssessmentReport_assessmentReportId' - The unique identifier for the assessment report.
 newDeleteAssessmentReport ::
@@ -81,7 +107,7 @@ newDeleteAssessmentReport
         assessmentReportId = pAssessmentReportId_
       }
 
--- | The identifier for the specified assessment.
+-- | The unique identifier for the assessment.
 deleteAssessmentReport_assessmentId :: Lens.Lens' DeleteAssessmentReport Prelude.Text
 deleteAssessmentReport_assessmentId = Lens.lens (\DeleteAssessmentReport' {assessmentId} -> assessmentId) (\s@DeleteAssessmentReport' {} a -> s {assessmentId = a} :: DeleteAssessmentReport)
 
@@ -93,7 +119,8 @@ instance Core.AWSRequest DeleteAssessmentReport where
   type
     AWSResponse DeleteAssessmentReport =
       DeleteAssessmentReportResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -111,27 +138,27 @@ instance Prelude.NFData DeleteAssessmentReport where
     Prelude.rnf assessmentId
       `Prelude.seq` Prelude.rnf assessmentReportId
 
-instance Core.ToHeaders DeleteAssessmentReport where
+instance Data.ToHeaders DeleteAssessmentReport where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteAssessmentReport where
+instance Data.ToPath DeleteAssessmentReport where
   toPath DeleteAssessmentReport' {..} =
     Prelude.mconcat
       [ "/assessments/",
-        Core.toBS assessmentId,
+        Data.toBS assessmentId,
         "/reports/",
-        Core.toBS assessmentReportId
+        Data.toBS assessmentReportId
       ]
 
-instance Core.ToQuery DeleteAssessmentReport where
+instance Data.ToQuery DeleteAssessmentReport where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAssessmentReportResponse' smart constructor.

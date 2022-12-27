@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.BatchResetAlarm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.IoTEventsData.BatchResetAlarm
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEventsData.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,12 +85,13 @@ instance Core.AWSRequest BatchResetAlarm where
   type
     AWSResponse BatchResetAlarm =
       BatchResetAlarmResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchResetAlarmResponse'
-            Prelude.<$> (x Core..?> "errorEntries" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "errorEntries" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -101,22 +103,22 @@ instance Prelude.NFData BatchResetAlarm where
   rnf BatchResetAlarm' {..} =
     Prelude.rnf resetActionRequests
 
-instance Core.ToHeaders BatchResetAlarm where
+instance Data.ToHeaders BatchResetAlarm where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON BatchResetAlarm where
+instance Data.ToJSON BatchResetAlarm where
   toJSON BatchResetAlarm' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("resetActionRequests" Core..= resetActionRequests)
+              ("resetActionRequests" Data..= resetActionRequests)
           ]
       )
 
-instance Core.ToPath BatchResetAlarm where
+instance Data.ToPath BatchResetAlarm where
   toPath = Prelude.const "/alarms/reset"
 
-instance Core.ToQuery BatchResetAlarm where
+instance Data.ToQuery BatchResetAlarm where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchResetAlarmResponse' smart constructor.

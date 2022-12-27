@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.Types.CodeHook
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LexModels.Types.CodeHook where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies a Lambda function that verifies requests to a bot or fulfills
@@ -69,14 +70,14 @@ codeHook_uri = Lens.lens (\CodeHook' {uri} -> uri) (\s@CodeHook' {} a -> s {uri 
 codeHook_messageVersion :: Lens.Lens' CodeHook Prelude.Text
 codeHook_messageVersion = Lens.lens (\CodeHook' {messageVersion} -> messageVersion) (\s@CodeHook' {} a -> s {messageVersion = a} :: CodeHook)
 
-instance Core.FromJSON CodeHook where
+instance Data.FromJSON CodeHook where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CodeHook"
       ( \x ->
           CodeHook'
-            Prelude.<$> (x Core..: "uri")
-            Prelude.<*> (x Core..: "messageVersion")
+            Prelude.<$> (x Data..: "uri")
+            Prelude.<*> (x Data..: "messageVersion")
       )
 
 instance Prelude.Hashable CodeHook where
@@ -89,12 +90,12 @@ instance Prelude.NFData CodeHook where
     Prelude.rnf uri
       `Prelude.seq` Prelude.rnf messageVersion
 
-instance Core.ToJSON CodeHook where
+instance Data.ToJSON CodeHook where
   toJSON CodeHook' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("uri" Core..= uri),
+          [ Prelude.Just ("uri" Data..= uri),
             Prelude.Just
-              ("messageVersion" Core..= messageVersion)
+              ("messageVersion" Data..= messageVersion)
           ]
       )

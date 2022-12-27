@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.GetCostEstimation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Returns an estimate of the monthly cost for DevOps Guru to analyze your
--- AWS resources. For more information, see
+-- Amazon Web Services resources. For more information, see
 -- <https://docs.aws.amazon.com/devops-guru/latest/userguide/cost-estimate.html Estimate your Amazon DevOps Guru costs>
 -- and
 -- <http://aws.amazon.com/devops-guru/pricing/ Amazon DevOps Guru pricing>.
@@ -40,19 +40,20 @@ module Amazonka.DevOpsGuru.GetCostEstimation
     newGetCostEstimationResponse,
 
     -- * Response Lenses
-    getCostEstimationResponse_status,
-    getCostEstimationResponse_resourceCollection,
-    getCostEstimationResponse_timeRange,
     getCostEstimationResponse_costs,
     getCostEstimationResponse_nextToken,
+    getCostEstimationResponse_resourceCollection,
+    getCostEstimationResponse_status,
+    getCostEstimationResponse_timeRange,
     getCostEstimationResponse_totalCost,
     getCostEstimationResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,17 +111,18 @@ instance Core.AWSRequest GetCostEstimation where
   type
     AWSResponse GetCostEstimation =
       GetCostEstimationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCostEstimationResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "ResourceCollection")
-            Prelude.<*> (x Core..?> "TimeRange")
-            Prelude.<*> (x Core..?> "Costs" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "TotalCost")
+            Prelude.<$> (x Data..?> "Costs" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "ResourceCollection")
+            Prelude.<*> (x Data..?> "Status")
+            Prelude.<*> (x Data..?> "TimeRange")
+            Prelude.<*> (x Data..?> "TotalCost")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -131,44 +133,45 @@ instance Prelude.Hashable GetCostEstimation where
 instance Prelude.NFData GetCostEstimation where
   rnf GetCostEstimation' {..} = Prelude.rnf nextToken
 
-instance Core.ToHeaders GetCostEstimation where
+instance Data.ToHeaders GetCostEstimation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetCostEstimation where
+instance Data.ToPath GetCostEstimation where
   toPath = Prelude.const "/cost-estimation"
 
-instance Core.ToQuery GetCostEstimation where
+instance Data.ToQuery GetCostEstimation where
   toQuery GetCostEstimation' {..} =
-    Prelude.mconcat ["NextToken" Core.=: nextToken]
+    Prelude.mconcat ["NextToken" Data.=: nextToken]
 
 -- | /See:/ 'newGetCostEstimationResponse' smart constructor.
 data GetCostEstimationResponse = GetCostEstimationResponse'
-  { -- | The status of creating this cost estimate. If it\'s still in progress,
-    -- the status @ONGOING@ is returned. If it is finished, the status
-    -- @COMPLETED@ is returned.
-    status :: Prelude.Maybe CostEstimationStatus,
-    -- | The collection of the AWS resources used to create your monthly DevOps
-    -- Guru cost estimate.
-    resourceCollection :: Prelude.Maybe CostEstimationResourceCollectionFilter,
-    -- | The start and end time of the cost estimation.
-    timeRange :: Prelude.Maybe CostEstimationTimeRange,
-    -- | An array of @ResourceCost@ objects that each contains details about the
-    -- monthly cost estimate to analyze one of your AWS resources.
+  { -- | An array of @ResourceCost@ objects that each contains details about the
+    -- monthly cost estimate to analyze one of your Amazon Web Services
+    -- resources.
     costs :: Prelude.Maybe [ServiceResourceCost],
     -- | The pagination token to use to retrieve the next page of results for
     -- this operation. If there are no more pages, this value is null.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The estimated monthly cost to analyze the AWS resources. This value is
-    -- the sum of the estimated costs to analyze each resource in the @Costs@
-    -- object in this response.
+    -- | The collection of the Amazon Web Services resources used to create your
+    -- monthly DevOps Guru cost estimate.
+    resourceCollection :: Prelude.Maybe CostEstimationResourceCollectionFilter,
+    -- | The status of creating this cost estimate. If it\'s still in progress,
+    -- the status @ONGOING@ is returned. If it is finished, the status
+    -- @COMPLETED@ is returned.
+    status :: Prelude.Maybe CostEstimationStatus,
+    -- | The start and end time of the cost estimation.
+    timeRange :: Prelude.Maybe CostEstimationTimeRange,
+    -- | The estimated monthly cost to analyze the Amazon Web Services resources.
+    -- This value is the sum of the estimated costs to analyze each resource in
+    -- the @Costs@ object in this response.
     totalCost :: Prelude.Maybe Prelude.Double,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -183,24 +186,25 @@ data GetCostEstimationResponse = GetCostEstimationResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'getCostEstimationResponse_status' - The status of creating this cost estimate. If it\'s still in progress,
--- the status @ONGOING@ is returned. If it is finished, the status
--- @COMPLETED@ is returned.
---
--- 'resourceCollection', 'getCostEstimationResponse_resourceCollection' - The collection of the AWS resources used to create your monthly DevOps
--- Guru cost estimate.
---
--- 'timeRange', 'getCostEstimationResponse_timeRange' - The start and end time of the cost estimation.
---
 -- 'costs', 'getCostEstimationResponse_costs' - An array of @ResourceCost@ objects that each contains details about the
--- monthly cost estimate to analyze one of your AWS resources.
+-- monthly cost estimate to analyze one of your Amazon Web Services
+-- resources.
 --
 -- 'nextToken', 'getCostEstimationResponse_nextToken' - The pagination token to use to retrieve the next page of results for
 -- this operation. If there are no more pages, this value is null.
 --
--- 'totalCost', 'getCostEstimationResponse_totalCost' - The estimated monthly cost to analyze the AWS resources. This value is
--- the sum of the estimated costs to analyze each resource in the @Costs@
--- object in this response.
+-- 'resourceCollection', 'getCostEstimationResponse_resourceCollection' - The collection of the Amazon Web Services resources used to create your
+-- monthly DevOps Guru cost estimate.
+--
+-- 'status', 'getCostEstimationResponse_status' - The status of creating this cost estimate. If it\'s still in progress,
+-- the status @ONGOING@ is returned. If it is finished, the status
+-- @COMPLETED@ is returned.
+--
+-- 'timeRange', 'getCostEstimationResponse_timeRange' - The start and end time of the cost estimation.
+--
+-- 'totalCost', 'getCostEstimationResponse_totalCost' - The estimated monthly cost to analyze the Amazon Web Services resources.
+-- This value is the sum of the estimated costs to analyze each resource in
+-- the @Costs@ object in this response.
 --
 -- 'httpStatus', 'getCostEstimationResponse_httpStatus' - The response's http status code.
 newGetCostEstimationResponse ::
@@ -209,33 +213,18 @@ newGetCostEstimationResponse ::
   GetCostEstimationResponse
 newGetCostEstimationResponse pHttpStatus_ =
   GetCostEstimationResponse'
-    { status =
-        Prelude.Nothing,
-      resourceCollection = Prelude.Nothing,
-      timeRange = Prelude.Nothing,
-      costs = Prelude.Nothing,
+    { costs = Prelude.Nothing,
       nextToken = Prelude.Nothing,
+      resourceCollection = Prelude.Nothing,
+      status = Prelude.Nothing,
+      timeRange = Prelude.Nothing,
       totalCost = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The status of creating this cost estimate. If it\'s still in progress,
--- the status @ONGOING@ is returned. If it is finished, the status
--- @COMPLETED@ is returned.
-getCostEstimationResponse_status :: Lens.Lens' GetCostEstimationResponse (Prelude.Maybe CostEstimationStatus)
-getCostEstimationResponse_status = Lens.lens (\GetCostEstimationResponse' {status} -> status) (\s@GetCostEstimationResponse' {} a -> s {status = a} :: GetCostEstimationResponse)
-
--- | The collection of the AWS resources used to create your monthly DevOps
--- Guru cost estimate.
-getCostEstimationResponse_resourceCollection :: Lens.Lens' GetCostEstimationResponse (Prelude.Maybe CostEstimationResourceCollectionFilter)
-getCostEstimationResponse_resourceCollection = Lens.lens (\GetCostEstimationResponse' {resourceCollection} -> resourceCollection) (\s@GetCostEstimationResponse' {} a -> s {resourceCollection = a} :: GetCostEstimationResponse)
-
--- | The start and end time of the cost estimation.
-getCostEstimationResponse_timeRange :: Lens.Lens' GetCostEstimationResponse (Prelude.Maybe CostEstimationTimeRange)
-getCostEstimationResponse_timeRange = Lens.lens (\GetCostEstimationResponse' {timeRange} -> timeRange) (\s@GetCostEstimationResponse' {} a -> s {timeRange = a} :: GetCostEstimationResponse)
-
 -- | An array of @ResourceCost@ objects that each contains details about the
--- monthly cost estimate to analyze one of your AWS resources.
+-- monthly cost estimate to analyze one of your Amazon Web Services
+-- resources.
 getCostEstimationResponse_costs :: Lens.Lens' GetCostEstimationResponse (Prelude.Maybe [ServiceResourceCost])
 getCostEstimationResponse_costs = Lens.lens (\GetCostEstimationResponse' {costs} -> costs) (\s@GetCostEstimationResponse' {} a -> s {costs = a} :: GetCostEstimationResponse) Prelude.. Lens.mapping Lens.coerced
 
@@ -244,9 +233,24 @@ getCostEstimationResponse_costs = Lens.lens (\GetCostEstimationResponse' {costs}
 getCostEstimationResponse_nextToken :: Lens.Lens' GetCostEstimationResponse (Prelude.Maybe Prelude.Text)
 getCostEstimationResponse_nextToken = Lens.lens (\GetCostEstimationResponse' {nextToken} -> nextToken) (\s@GetCostEstimationResponse' {} a -> s {nextToken = a} :: GetCostEstimationResponse)
 
--- | The estimated monthly cost to analyze the AWS resources. This value is
--- the sum of the estimated costs to analyze each resource in the @Costs@
--- object in this response.
+-- | The collection of the Amazon Web Services resources used to create your
+-- monthly DevOps Guru cost estimate.
+getCostEstimationResponse_resourceCollection :: Lens.Lens' GetCostEstimationResponse (Prelude.Maybe CostEstimationResourceCollectionFilter)
+getCostEstimationResponse_resourceCollection = Lens.lens (\GetCostEstimationResponse' {resourceCollection} -> resourceCollection) (\s@GetCostEstimationResponse' {} a -> s {resourceCollection = a} :: GetCostEstimationResponse)
+
+-- | The status of creating this cost estimate. If it\'s still in progress,
+-- the status @ONGOING@ is returned. If it is finished, the status
+-- @COMPLETED@ is returned.
+getCostEstimationResponse_status :: Lens.Lens' GetCostEstimationResponse (Prelude.Maybe CostEstimationStatus)
+getCostEstimationResponse_status = Lens.lens (\GetCostEstimationResponse' {status} -> status) (\s@GetCostEstimationResponse' {} a -> s {status = a} :: GetCostEstimationResponse)
+
+-- | The start and end time of the cost estimation.
+getCostEstimationResponse_timeRange :: Lens.Lens' GetCostEstimationResponse (Prelude.Maybe CostEstimationTimeRange)
+getCostEstimationResponse_timeRange = Lens.lens (\GetCostEstimationResponse' {timeRange} -> timeRange) (\s@GetCostEstimationResponse' {} a -> s {timeRange = a} :: GetCostEstimationResponse)
+
+-- | The estimated monthly cost to analyze the Amazon Web Services resources.
+-- This value is the sum of the estimated costs to analyze each resource in
+-- the @Costs@ object in this response.
 getCostEstimationResponse_totalCost :: Lens.Lens' GetCostEstimationResponse (Prelude.Maybe Prelude.Double)
 getCostEstimationResponse_totalCost = Lens.lens (\GetCostEstimationResponse' {totalCost} -> totalCost) (\s@GetCostEstimationResponse' {} a -> s {totalCost = a} :: GetCostEstimationResponse)
 
@@ -256,10 +260,10 @@ getCostEstimationResponse_httpStatus = Lens.lens (\GetCostEstimationResponse' {h
 
 instance Prelude.NFData GetCostEstimationResponse where
   rnf GetCostEstimationResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf resourceCollection
-      `Prelude.seq` Prelude.rnf timeRange
-      `Prelude.seq` Prelude.rnf costs
+    Prelude.rnf costs
       `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf resourceCollection
+      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf timeRange
       `Prelude.seq` Prelude.rnf totalCost
       `Prelude.seq` Prelude.rnf httpStatus

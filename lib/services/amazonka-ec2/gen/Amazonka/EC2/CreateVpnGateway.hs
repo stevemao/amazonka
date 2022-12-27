@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.CreateVpnGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,9 +34,9 @@ module Amazonka.EC2.CreateVpnGateway
 
     -- * Request Lenses
     createVpnGateway_amazonSideAsn,
-    createVpnGateway_tagSpecifications,
     createVpnGateway_availabilityZone,
     createVpnGateway_dryRun,
+    createVpnGateway_tagSpecifications,
     createVpnGateway_type,
 
     -- * Destructuring the Response
@@ -50,8 +50,9 @@ module Amazonka.EC2.CreateVpnGateway
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,8 +68,6 @@ data CreateVpnGateway = CreateVpnGateway'
     --
     -- Default: 64512
     amazonSideAsn :: Prelude.Maybe Prelude.Integer,
-    -- | The tags to apply to the virtual private gateway.
-    tagSpecifications :: Prelude.Maybe [TagSpecification],
     -- | The Availability Zone for the virtual private gateway.
     availabilityZone :: Prelude.Maybe Prelude.Text,
     -- | Checks whether you have the required permissions for the action, without
@@ -76,6 +75,8 @@ data CreateVpnGateway = CreateVpnGateway'
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The tags to apply to the virtual private gateway.
+    tagSpecifications :: Prelude.Maybe [TagSpecification],
     -- | The type of VPN connection this virtual private gateway supports.
     type' :: GatewayType
   }
@@ -96,14 +97,14 @@ data CreateVpnGateway = CreateVpnGateway'
 --
 -- Default: 64512
 --
--- 'tagSpecifications', 'createVpnGateway_tagSpecifications' - The tags to apply to the virtual private gateway.
---
 -- 'availabilityZone', 'createVpnGateway_availabilityZone' - The Availability Zone for the virtual private gateway.
 --
 -- 'dryRun', 'createVpnGateway_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'tagSpecifications', 'createVpnGateway_tagSpecifications' - The tags to apply to the virtual private gateway.
 --
 -- 'type'', 'createVpnGateway_type' - The type of VPN connection this virtual private gateway supports.
 newCreateVpnGateway ::
@@ -113,9 +114,9 @@ newCreateVpnGateway ::
 newCreateVpnGateway pType_ =
   CreateVpnGateway'
     { amazonSideAsn = Prelude.Nothing,
-      tagSpecifications = Prelude.Nothing,
       availabilityZone = Prelude.Nothing,
       dryRun = Prelude.Nothing,
+      tagSpecifications = Prelude.Nothing,
       type' = pType_
     }
 
@@ -128,10 +129,6 @@ newCreateVpnGateway pType_ =
 createVpnGateway_amazonSideAsn :: Lens.Lens' CreateVpnGateway (Prelude.Maybe Prelude.Integer)
 createVpnGateway_amazonSideAsn = Lens.lens (\CreateVpnGateway' {amazonSideAsn} -> amazonSideAsn) (\s@CreateVpnGateway' {} a -> s {amazonSideAsn = a} :: CreateVpnGateway)
 
--- | The tags to apply to the virtual private gateway.
-createVpnGateway_tagSpecifications :: Lens.Lens' CreateVpnGateway (Prelude.Maybe [TagSpecification])
-createVpnGateway_tagSpecifications = Lens.lens (\CreateVpnGateway' {tagSpecifications} -> tagSpecifications) (\s@CreateVpnGateway' {} a -> s {tagSpecifications = a} :: CreateVpnGateway) Prelude.. Lens.mapping Lens.coerced
-
 -- | The Availability Zone for the virtual private gateway.
 createVpnGateway_availabilityZone :: Lens.Lens' CreateVpnGateway (Prelude.Maybe Prelude.Text)
 createVpnGateway_availabilityZone = Lens.lens (\CreateVpnGateway' {availabilityZone} -> availabilityZone) (\s@CreateVpnGateway' {} a -> s {availabilityZone = a} :: CreateVpnGateway)
@@ -143,6 +140,10 @@ createVpnGateway_availabilityZone = Lens.lens (\CreateVpnGateway' {availabilityZ
 createVpnGateway_dryRun :: Lens.Lens' CreateVpnGateway (Prelude.Maybe Prelude.Bool)
 createVpnGateway_dryRun = Lens.lens (\CreateVpnGateway' {dryRun} -> dryRun) (\s@CreateVpnGateway' {} a -> s {dryRun = a} :: CreateVpnGateway)
 
+-- | The tags to apply to the virtual private gateway.
+createVpnGateway_tagSpecifications :: Lens.Lens' CreateVpnGateway (Prelude.Maybe [TagSpecification])
+createVpnGateway_tagSpecifications = Lens.lens (\CreateVpnGateway' {tagSpecifications} -> tagSpecifications) (\s@CreateVpnGateway' {} a -> s {tagSpecifications = a} :: CreateVpnGateway) Prelude.. Lens.mapping Lens.coerced
+
 -- | The type of VPN connection this virtual private gateway supports.
 createVpnGateway_type :: Lens.Lens' CreateVpnGateway GatewayType
 createVpnGateway_type = Lens.lens (\CreateVpnGateway' {type'} -> type') (\s@CreateVpnGateway' {} a -> s {type' = a} :: CreateVpnGateway)
@@ -151,52 +152,53 @@ instance Core.AWSRequest CreateVpnGateway where
   type
     AWSResponse CreateVpnGateway =
       CreateVpnGatewayResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateVpnGatewayResponse'
-            Prelude.<$> (x Core..@? "vpnGateway")
+            Prelude.<$> (x Data..@? "vpnGateway")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateVpnGateway where
   hashWithSalt _salt CreateVpnGateway' {..} =
     _salt `Prelude.hashWithSalt` amazonSideAsn
-      `Prelude.hashWithSalt` tagSpecifications
       `Prelude.hashWithSalt` availabilityZone
       `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` tagSpecifications
       `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData CreateVpnGateway where
   rnf CreateVpnGateway' {..} =
     Prelude.rnf amazonSideAsn
-      `Prelude.seq` Prelude.rnf tagSpecifications
       `Prelude.seq` Prelude.rnf availabilityZone
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf tagSpecifications
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToHeaders CreateVpnGateway where
+instance Data.ToHeaders CreateVpnGateway where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateVpnGateway where
+instance Data.ToPath CreateVpnGateway where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateVpnGateway where
+instance Data.ToQuery CreateVpnGateway where
   toQuery CreateVpnGateway' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateVpnGateway" :: Prelude.ByteString),
+          Data.=: ("CreateVpnGateway" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "AmazonSideAsn" Core.=: amazonSideAsn,
-        Core.toQuery
-          ( Core.toQueryList "TagSpecification"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "AmazonSideAsn" Data.=: amazonSideAsn,
+        "AvailabilityZone" Data.=: availabilityZone,
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          ( Data.toQueryList "TagSpecification"
               Prelude.<$> tagSpecifications
           ),
-        "AvailabilityZone" Core.=: availabilityZone,
-        "DryRun" Core.=: dryRun,
-        "Type" Core.=: type'
+        "Type" Data.=: type'
       ]
 
 -- | Contains the output of CreateVpnGateway.

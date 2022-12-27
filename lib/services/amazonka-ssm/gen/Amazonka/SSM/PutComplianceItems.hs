@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.PutComplianceItems
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,7 +34,7 @@
 -- -   ExecutionType: Specify patch, association, or Custom:@string@.
 --
 -- -   ExecutionTime. The time the patch, association, or custom compliance
---     item was applied to the instance.
+--     item was applied to the managed node.
 --
 -- -   Id: The patch, association, or custom compliance ID.
 --
@@ -43,7 +43,7 @@
 -- -   Status: The status of the compliance item. For example, @approved@
 --     for patches, or @Failed@ for associations.
 --
--- -   Severity: A patch severity. For example, @critical@.
+-- -   Severity: A patch severity. For example, @Critical@.
 --
 -- -   DocumentName: An SSM document name. For example,
 --     @AWS-RunPatchBaseline@.
@@ -71,8 +71,8 @@ module Amazonka.SSM.PutComplianceItems
     newPutComplianceItems,
 
     -- * Request Lenses
-    putComplianceItems_uploadType,
     putComplianceItems_itemContentHash,
+    putComplianceItems_uploadType,
     putComplianceItems_resourceId,
     putComplianceItems_resourceType,
     putComplianceItems_complianceType,
@@ -89,7 +89,8 @@ module Amazonka.SSM.PutComplianceItems
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,11 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newPutComplianceItems' smart constructor.
 data PutComplianceItems = PutComplianceItems'
-  { -- | The mode for uploading compliance items. You can specify @COMPLETE@ or
+  { -- | MD5 or SHA-256 content hash. The content hash is used to determine if
+    -- existing information should be overwritten or ignored. If the content
+    -- hashes match, the request to put compliance information is ignored.
+    itemContentHash :: Prelude.Maybe Prelude.Text,
+    -- | The mode for uploading compliance items. You can specify @COMPLETE@ or
     -- @PARTIAL@. In @COMPLETE@ mode, the system overwrites all existing
     -- compliance information for the resource. You must provide a full list of
     -- compliance items each time you send the request.
@@ -109,12 +114,8 @@ data PutComplianceItems = PutComplianceItems'
     --
     -- This attribute is only valid for association compliance.
     uploadType :: Prelude.Maybe ComplianceUploadType,
-    -- | MD5 or SHA-256 content hash. The content hash is used to determine if
-    -- existing information should be overwritten or ignored. If the content
-    -- hashes match, the request to put compliance information is ignored.
-    itemContentHash :: Prelude.Maybe Prelude.Text,
-    -- | Specify an ID for this resource. For a managed instance, this is the
-    -- instance ID.
+    -- | Specify an ID for this resource. For a managed node, this is the node
+    -- ID.
     resourceId :: Prelude.Text,
     -- | Specify the type of resource. @ManagedInstance@ is currently the only
     -- supported resource type.
@@ -142,6 +143,10 @@ data PutComplianceItems = PutComplianceItems'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'itemContentHash', 'putComplianceItems_itemContentHash' - MD5 or SHA-256 content hash. The content hash is used to determine if
+-- existing information should be overwritten or ignored. If the content
+-- hashes match, the request to put compliance information is ignored.
+--
 -- 'uploadType', 'putComplianceItems_uploadType' - The mode for uploading compliance items. You can specify @COMPLETE@ or
 -- @PARTIAL@. In @COMPLETE@ mode, the system overwrites all existing
 -- compliance information for the resource. You must provide a full list of
@@ -154,12 +159,8 @@ data PutComplianceItems = PutComplianceItems'
 --
 -- This attribute is only valid for association compliance.
 --
--- 'itemContentHash', 'putComplianceItems_itemContentHash' - MD5 or SHA-256 content hash. The content hash is used to determine if
--- existing information should be overwritten or ignored. If the content
--- hashes match, the request to put compliance information is ignored.
---
--- 'resourceId', 'putComplianceItems_resourceId' - Specify an ID for this resource. For a managed instance, this is the
--- instance ID.
+-- 'resourceId', 'putComplianceItems_resourceId' - Specify an ID for this resource. For a managed node, this is the node
+-- ID.
 --
 -- 'resourceType', 'putComplianceItems_resourceType' - Specify the type of resource. @ManagedInstance@ is currently the only
 -- supported resource type.
@@ -191,14 +192,21 @@ newPutComplianceItems
   pComplianceType_
   pExecutionSummary_ =
     PutComplianceItems'
-      { uploadType = Prelude.Nothing,
-        itemContentHash = Prelude.Nothing,
+      { itemContentHash =
+          Prelude.Nothing,
+        uploadType = Prelude.Nothing,
         resourceId = pResourceId_,
         resourceType = pResourceType_,
         complianceType = pComplianceType_,
         executionSummary = pExecutionSummary_,
         items = Prelude.mempty
       }
+
+-- | MD5 or SHA-256 content hash. The content hash is used to determine if
+-- existing information should be overwritten or ignored. If the content
+-- hashes match, the request to put compliance information is ignored.
+putComplianceItems_itemContentHash :: Lens.Lens' PutComplianceItems (Prelude.Maybe Prelude.Text)
+putComplianceItems_itemContentHash = Lens.lens (\PutComplianceItems' {itemContentHash} -> itemContentHash) (\s@PutComplianceItems' {} a -> s {itemContentHash = a} :: PutComplianceItems)
 
 -- | The mode for uploading compliance items. You can specify @COMPLETE@ or
 -- @PARTIAL@. In @COMPLETE@ mode, the system overwrites all existing
@@ -214,14 +222,8 @@ newPutComplianceItems
 putComplianceItems_uploadType :: Lens.Lens' PutComplianceItems (Prelude.Maybe ComplianceUploadType)
 putComplianceItems_uploadType = Lens.lens (\PutComplianceItems' {uploadType} -> uploadType) (\s@PutComplianceItems' {} a -> s {uploadType = a} :: PutComplianceItems)
 
--- | MD5 or SHA-256 content hash. The content hash is used to determine if
--- existing information should be overwritten or ignored. If the content
--- hashes match, the request to put compliance information is ignored.
-putComplianceItems_itemContentHash :: Lens.Lens' PutComplianceItems (Prelude.Maybe Prelude.Text)
-putComplianceItems_itemContentHash = Lens.lens (\PutComplianceItems' {itemContentHash} -> itemContentHash) (\s@PutComplianceItems' {} a -> s {itemContentHash = a} :: PutComplianceItems)
-
--- | Specify an ID for this resource. For a managed instance, this is the
--- instance ID.
+-- | Specify an ID for this resource. For a managed node, this is the node
+-- ID.
 putComplianceItems_resourceId :: Lens.Lens' PutComplianceItems Prelude.Text
 putComplianceItems_resourceId = Lens.lens (\PutComplianceItems' {resourceId} -> resourceId) (\s@PutComplianceItems' {} a -> s {resourceId = a} :: PutComplianceItems)
 
@@ -252,7 +254,8 @@ instance Core.AWSRequest PutComplianceItems where
   type
     AWSResponse PutComplianceItems =
       PutComplianceItemsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -262,8 +265,8 @@ instance Core.AWSRequest PutComplianceItems where
 
 instance Prelude.Hashable PutComplianceItems where
   hashWithSalt _salt PutComplianceItems' {..} =
-    _salt `Prelude.hashWithSalt` uploadType
-      `Prelude.hashWithSalt` itemContentHash
+    _salt `Prelude.hashWithSalt` itemContentHash
+      `Prelude.hashWithSalt` uploadType
       `Prelude.hashWithSalt` resourceId
       `Prelude.hashWithSalt` resourceType
       `Prelude.hashWithSalt` complianceType
@@ -272,50 +275,50 @@ instance Prelude.Hashable PutComplianceItems where
 
 instance Prelude.NFData PutComplianceItems where
   rnf PutComplianceItems' {..} =
-    Prelude.rnf uploadType
-      `Prelude.seq` Prelude.rnf itemContentHash
+    Prelude.rnf itemContentHash
+      `Prelude.seq` Prelude.rnf uploadType
       `Prelude.seq` Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf complianceType
       `Prelude.seq` Prelude.rnf executionSummary
       `Prelude.seq` Prelude.rnf items
 
-instance Core.ToHeaders PutComplianceItems where
+instance Data.ToHeaders PutComplianceItems where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.PutComplianceItems" ::
+              Data.=# ( "AmazonSSM.PutComplianceItems" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutComplianceItems where
+instance Data.ToJSON PutComplianceItems where
   toJSON PutComplianceItems' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("UploadType" Core..=) Prelude.<$> uploadType,
-            ("ItemContentHash" Core..=)
+          [ ("ItemContentHash" Data..=)
               Prelude.<$> itemContentHash,
-            Prelude.Just ("ResourceId" Core..= resourceId),
-            Prelude.Just ("ResourceType" Core..= resourceType),
+            ("UploadType" Data..=) Prelude.<$> uploadType,
+            Prelude.Just ("ResourceId" Data..= resourceId),
+            Prelude.Just ("ResourceType" Data..= resourceType),
             Prelude.Just
-              ("ComplianceType" Core..= complianceType),
+              ("ComplianceType" Data..= complianceType),
             Prelude.Just
-              ("ExecutionSummary" Core..= executionSummary),
-            Prelude.Just ("Items" Core..= items)
+              ("ExecutionSummary" Data..= executionSummary),
+            Prelude.Just ("Items" Data..= items)
           ]
       )
 
-instance Core.ToPath PutComplianceItems where
+instance Data.ToPath PutComplianceItems where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutComplianceItems where
+instance Data.ToQuery PutComplianceItems where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutComplianceItemsResponse' smart constructor.

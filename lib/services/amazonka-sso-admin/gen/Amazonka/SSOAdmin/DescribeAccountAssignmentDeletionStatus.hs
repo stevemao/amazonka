@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.DescribeAccountAssignmentDeletionStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.SSOAdmin.DescribeAccountAssignmentDeletionStatus
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,10 +50,10 @@ import Amazonka.SSOAdmin.Types
 
 -- | /See:/ 'newDescribeAccountAssignmentDeletionStatus' smart constructor.
 data DescribeAccountAssignmentDeletionStatus = DescribeAccountAssignmentDeletionStatus'
-  { -- | The ARN of the SSO instance under which the operation will be executed.
-    -- For more information about ARNs, see
-    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
-    -- in the /Amazon Web Services General Reference/.
+  { -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed. For more information about ARNs, see
+    -- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+    -- in the /AWS General Reference/.
     instanceArn :: Prelude.Text,
     -- | The identifier that is used to track the request operation progress.
     accountAssignmentDeletionRequestId :: Prelude.Text
@@ -67,10 +68,10 @@ data DescribeAccountAssignmentDeletionStatus = DescribeAccountAssignmentDeletion
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceArn', 'describeAccountAssignmentDeletionStatus_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- 'instanceArn', 'describeAccountAssignmentDeletionStatus_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 --
 -- 'accountAssignmentDeletionRequestId', 'describeAccountAssignmentDeletionStatus_accountAssignmentDeletionRequestId' - The identifier that is used to track the request operation progress.
 newDescribeAccountAssignmentDeletionStatus ::
@@ -89,10 +90,10 @@ newDescribeAccountAssignmentDeletionStatus
           pAccountAssignmentDeletionRequestId_
       }
 
--- | The ARN of the SSO instance under which the operation will be executed.
--- For more information about ARNs, see
--- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and Amazon Web Services Service Namespaces>
--- in the /Amazon Web Services General Reference/.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed. For more information about ARNs, see
+-- </general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs) and AWS Service Namespaces>
+-- in the /AWS General Reference/.
 describeAccountAssignmentDeletionStatus_instanceArn :: Lens.Lens' DescribeAccountAssignmentDeletionStatus Prelude.Text
 describeAccountAssignmentDeletionStatus_instanceArn = Lens.lens (\DescribeAccountAssignmentDeletionStatus' {instanceArn} -> instanceArn) (\s@DescribeAccountAssignmentDeletionStatus' {} a -> s {instanceArn = a} :: DescribeAccountAssignmentDeletionStatus)
 
@@ -108,12 +109,13 @@ instance
     AWSResponse
       DescribeAccountAssignmentDeletionStatus =
       DescribeAccountAssignmentDeletionStatusResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAccountAssignmentDeletionStatusResponse'
-            Prelude.<$> (x Core..?> "AccountAssignmentDeletionStatus")
+            Prelude.<$> (x Data..?> "AccountAssignmentDeletionStatus")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,46 +138,46 @@ instance
       `Prelude.seq` Prelude.rnf accountAssignmentDeletionRequestId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeAccountAssignmentDeletionStatus
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.DescribeAccountAssignmentDeletionStatus" ::
+              Data.=# ( "SWBExternalService.DescribeAccountAssignmentDeletionStatus" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeAccountAssignmentDeletionStatus
   where
   toJSON DescribeAccountAssignmentDeletionStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("InstanceArn" Core..= instanceArn),
+          [ Prelude.Just ("InstanceArn" Data..= instanceArn),
             Prelude.Just
               ( "AccountAssignmentDeletionRequestId"
-                  Core..= accountAssignmentDeletionRequestId
+                  Data..= accountAssignmentDeletionRequestId
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeAccountAssignmentDeletionStatus
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeAccountAssignmentDeletionStatus
   where
   toQuery = Prelude.const Prelude.mempty

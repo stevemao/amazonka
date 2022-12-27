@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutMetrics.Types.MetricLevelImpact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LookoutMetrics.Types.MetricLevelImpact where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutMetrics.Types.ContributionMatrix
 import qualified Amazonka.Prelude as Prelude
 
@@ -72,15 +73,15 @@ metricLevelImpact_metricName = Lens.lens (\MetricLevelImpact' {metricName} -> me
 metricLevelImpact_numTimeSeries :: Lens.Lens' MetricLevelImpact (Prelude.Maybe Prelude.Int)
 metricLevelImpact_numTimeSeries = Lens.lens (\MetricLevelImpact' {numTimeSeries} -> numTimeSeries) (\s@MetricLevelImpact' {} a -> s {numTimeSeries = a} :: MetricLevelImpact)
 
-instance Core.FromJSON MetricLevelImpact where
+instance Data.FromJSON MetricLevelImpact where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MetricLevelImpact"
       ( \x ->
           MetricLevelImpact'
-            Prelude.<$> (x Core..:? "ContributionMatrix")
-            Prelude.<*> (x Core..:? "MetricName")
-            Prelude.<*> (x Core..:? "NumTimeSeries")
+            Prelude.<$> (x Data..:? "ContributionMatrix")
+            Prelude.<*> (x Data..:? "MetricName")
+            Prelude.<*> (x Data..:? "NumTimeSeries")
       )
 
 instance Prelude.Hashable MetricLevelImpact where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.CreateSkillGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -113,12 +114,13 @@ instance Core.AWSRequest CreateSkillGroup where
   type
     AWSResponse CreateSkillGroup =
       CreateSkillGroupResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateSkillGroupResponse'
-            Prelude.<$> (x Core..?> "SkillGroupArn")
+            Prelude.<$> (x Data..?> "SkillGroupArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -136,38 +138,38 @@ instance Prelude.NFData CreateSkillGroup where
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf skillGroupName
 
-instance Core.ToHeaders CreateSkillGroup where
+instance Data.ToHeaders CreateSkillGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.CreateSkillGroup" ::
+              Data.=# ( "AlexaForBusiness.CreateSkillGroup" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateSkillGroup where
+instance Data.ToJSON CreateSkillGroup where
   toJSON CreateSkillGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("Description" Data..=) Prelude.<$> description,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("SkillGroupName" Core..= skillGroupName)
+              ("SkillGroupName" Data..= skillGroupName)
           ]
       )
 
-instance Core.ToPath CreateSkillGroup where
+instance Data.ToPath CreateSkillGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateSkillGroup where
+instance Data.ToQuery CreateSkillGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateSkillGroupResponse' smart constructor.

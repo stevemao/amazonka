@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.Types.OptimizationObjective
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Personalize.Types.OptimizationObjective where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types.ObjectiveSensitivity
 import qualified Amazonka.Prelude as Prelude
 
@@ -74,14 +75,14 @@ optimizationObjective_itemAttribute = Lens.lens (\OptimizationObjective' {itemAt
 optimizationObjective_objectiveSensitivity :: Lens.Lens' OptimizationObjective (Prelude.Maybe ObjectiveSensitivity)
 optimizationObjective_objectiveSensitivity = Lens.lens (\OptimizationObjective' {objectiveSensitivity} -> objectiveSensitivity) (\s@OptimizationObjective' {} a -> s {objectiveSensitivity = a} :: OptimizationObjective)
 
-instance Core.FromJSON OptimizationObjective where
+instance Data.FromJSON OptimizationObjective where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OptimizationObjective"
       ( \x ->
           OptimizationObjective'
-            Prelude.<$> (x Core..:? "itemAttribute")
-            Prelude.<*> (x Core..:? "objectiveSensitivity")
+            Prelude.<$> (x Data..:? "itemAttribute")
+            Prelude.<*> (x Data..:? "objectiveSensitivity")
       )
 
 instance Prelude.Hashable OptimizationObjective where
@@ -94,12 +95,12 @@ instance Prelude.NFData OptimizationObjective where
     Prelude.rnf itemAttribute
       `Prelude.seq` Prelude.rnf objectiveSensitivity
 
-instance Core.ToJSON OptimizationObjective where
+instance Data.ToJSON OptimizationObjective where
   toJSON OptimizationObjective' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("itemAttribute" Core..=) Prelude.<$> itemAttribute,
-            ("objectiveSensitivity" Core..=)
+          [ ("itemAttribute" Data..=) Prelude.<$> itemAttribute,
+            ("objectiveSensitivity" Data..=)
               Prelude.<$> objectiveSensitivity
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.ListProfileObjectTypes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.CustomerProfiles.ListProfileObjectTypes
     newListProfileObjectTypes,
 
     -- * Request Lenses
-    listProfileObjectTypes_nextToken,
     listProfileObjectTypes_maxResults,
+    listProfileObjectTypes_nextToken,
     listProfileObjectTypes_domainName,
 
     -- * Destructuring the Response
@@ -43,18 +43,19 @@ module Amazonka.CustomerProfiles.ListProfileObjectTypes
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CustomerProfiles.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListProfileObjectTypes' smart constructor.
 data ListProfileObjectTypes = ListProfileObjectTypes'
-  { -- | Identifies the next page of results to return.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of objects returned per page.
+  { -- | The maximum number of objects returned per page.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The unique name of the domain.
     domainName :: Prelude.Text
   }
@@ -68,9 +69,9 @@ data ListProfileObjectTypes = ListProfileObjectTypes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listProfileObjectTypes_nextToken' - Identifies the next page of results to return.
---
 -- 'maxResults', 'listProfileObjectTypes_maxResults' - The maximum number of objects returned per page.
+--
+-- 'nextToken', 'listProfileObjectTypes_nextToken' - Identifies the next page of results to return.
 --
 -- 'domainName', 'listProfileObjectTypes_domainName' - The unique name of the domain.
 newListProfileObjectTypes ::
@@ -79,19 +80,19 @@ newListProfileObjectTypes ::
   ListProfileObjectTypes
 newListProfileObjectTypes pDomainName_ =
   ListProfileObjectTypes'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       domainName = pDomainName_
     }
-
--- | Identifies the next page of results to return.
-listProfileObjectTypes_nextToken :: Lens.Lens' ListProfileObjectTypes (Prelude.Maybe Prelude.Text)
-listProfileObjectTypes_nextToken = Lens.lens (\ListProfileObjectTypes' {nextToken} -> nextToken) (\s@ListProfileObjectTypes' {} a -> s {nextToken = a} :: ListProfileObjectTypes)
 
 -- | The maximum number of objects returned per page.
 listProfileObjectTypes_maxResults :: Lens.Lens' ListProfileObjectTypes (Prelude.Maybe Prelude.Natural)
 listProfileObjectTypes_maxResults = Lens.lens (\ListProfileObjectTypes' {maxResults} -> maxResults) (\s@ListProfileObjectTypes' {} a -> s {maxResults = a} :: ListProfileObjectTypes)
+
+-- | Identifies the next page of results to return.
+listProfileObjectTypes_nextToken :: Lens.Lens' ListProfileObjectTypes (Prelude.Maybe Prelude.Text)
+listProfileObjectTypes_nextToken = Lens.lens (\ListProfileObjectTypes' {nextToken} -> nextToken) (\s@ListProfileObjectTypes' {} a -> s {nextToken = a} :: ListProfileObjectTypes)
 
 -- | The unique name of the domain.
 listProfileObjectTypes_domainName :: Lens.Lens' ListProfileObjectTypes Prelude.Text
@@ -101,49 +102,50 @@ instance Core.AWSRequest ListProfileObjectTypes where
   type
     AWSResponse ListProfileObjectTypes =
       ListProfileObjectTypesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListProfileObjectTypesResponse'
-            Prelude.<$> (x Core..?> "Items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListProfileObjectTypes where
   hashWithSalt _salt ListProfileObjectTypes' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` domainName
 
 instance Prelude.NFData ListProfileObjectTypes where
   rnf ListProfileObjectTypes' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders ListProfileObjectTypes where
+instance Data.ToHeaders ListProfileObjectTypes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListProfileObjectTypes where
+instance Data.ToPath ListProfileObjectTypes where
   toPath ListProfileObjectTypes' {..} =
     Prelude.mconcat
-      ["/domains/", Core.toBS domainName, "/object-types"]
+      ["/domains/", Data.toBS domainName, "/object-types"]
 
-instance Core.ToQuery ListProfileObjectTypes where
+instance Data.ToQuery ListProfileObjectTypes where
   toQuery ListProfileObjectTypes' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListProfileObjectTypesResponse' smart constructor.

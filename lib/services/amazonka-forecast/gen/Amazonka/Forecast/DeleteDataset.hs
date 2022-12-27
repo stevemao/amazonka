@@ -14,19 +14,22 @@
 
 -- |
 -- Module      : Amazonka.Forecast.DeleteDataset
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Deletes an Amazon Forecast dataset that was created using the
--- CreateDataset operation. You can only delete datasets that have a status
--- of @ACTIVE@ or @CREATE_FAILED@. To get the status use the
--- DescribeDataset operation.
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_CreateDataset.html CreateDataset>
+-- operation. You can only delete datasets that have a status of @ACTIVE@
+-- or @CREATE_FAILED@. To get the status use the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_DescribeDataset.html DescribeDataset>
+-- operation.
 --
 -- Forecast does not automatically update any dataset groups that contain
 -- the deleted dataset. In order to update the dataset group, use the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_UpdateDatasetGroup.html UpdateDatasetGroup>
 -- operation, omitting the deleted dataset\'s ARN.
 module Amazonka.Forecast.DeleteDataset
   ( -- * Creating a Request
@@ -43,8 +46,9 @@ module Amazonka.Forecast.DeleteDataset
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +84,8 @@ instance Core.AWSRequest DeleteDataset where
   type
     AWSResponse DeleteDataset =
       DeleteDatasetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull DeleteDatasetResponse'
 
@@ -91,32 +96,32 @@ instance Prelude.Hashable DeleteDataset where
 instance Prelude.NFData DeleteDataset where
   rnf DeleteDataset' {..} = Prelude.rnf datasetArn
 
-instance Core.ToHeaders DeleteDataset where
+instance Data.ToHeaders DeleteDataset where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.DeleteDataset" ::
+              Data.=# ( "AmazonForecast.DeleteDataset" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteDataset where
+instance Data.ToJSON DeleteDataset where
   toJSON DeleteDataset' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("DatasetArn" Core..= datasetArn)]
+          [Prelude.Just ("DatasetArn" Data..= datasetArn)]
       )
 
-instance Core.ToPath DeleteDataset where
+instance Data.ToPath DeleteDataset where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDataset where
+instance Data.ToQuery DeleteDataset where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDatasetResponse' smart constructor.

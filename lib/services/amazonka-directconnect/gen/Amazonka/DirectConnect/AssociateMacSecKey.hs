@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.AssociateMacSecKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,8 @@ module Amazonka.DirectConnect.AssociateMacSecKey
     newAssociateMacSecKey,
 
     -- * Request Lenses
-    associateMacSecKey_ckn,
     associateMacSecKey_cak,
+    associateMacSecKey_ckn,
     associateMacSecKey_secretARN,
     associateMacSecKey_connectionId,
 
@@ -53,25 +53,16 @@ module Amazonka.DirectConnect.AssociateMacSecKey
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newAssociateMacSecKey' smart constructor.
 data AssociateMacSecKey = AssociateMacSecKey'
-  { -- | The MAC Security (MACsec) CKN to associate with the dedicated
-    -- connection.
-    --
-    -- You can create the CKN\/CAK pair using an industry standard tool.
-    --
-    -- The valid values are 64 hexadecimal characters (0-9, A-E).
-    --
-    -- If you use this request parameter, you must use the @cak@ request
-    -- parameter and not use the @secretARN@ request parameter.
-    ckn :: Prelude.Maybe Prelude.Text,
-    -- | The MAC Security (MACsec) CAK to associate with the dedicated
+  { -- | The MAC Security (MACsec) CAK to associate with the dedicated
     -- connection.
     --
     -- You can create the CKN\/CAK pair using an industry standard tool.
@@ -81,6 +72,16 @@ data AssociateMacSecKey = AssociateMacSecKey'
     -- If you use this request parameter, you must use the @ckn@ request
     -- parameter and not use the @secretARN@ request parameter.
     cak :: Prelude.Maybe Prelude.Text,
+    -- | The MAC Security (MACsec) CKN to associate with the dedicated
+    -- connection.
+    --
+    -- You can create the CKN\/CAK pair using an industry standard tool.
+    --
+    -- The valid values are 64 hexadecimal characters (0-9, A-E).
+    --
+    -- If you use this request parameter, you must use the @cak@ request
+    -- parameter and not use the @secretARN@ request parameter.
+    ckn :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the MAC Security (MACsec) secret key
     -- to associate with the dedicated connection.
     --
@@ -107,16 +108,6 @@ data AssociateMacSecKey = AssociateMacSecKey'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ckn', 'associateMacSecKey_ckn' - The MAC Security (MACsec) CKN to associate with the dedicated
--- connection.
---
--- You can create the CKN\/CAK pair using an industry standard tool.
---
--- The valid values are 64 hexadecimal characters (0-9, A-E).
---
--- If you use this request parameter, you must use the @cak@ request
--- parameter and not use the @secretARN@ request parameter.
---
 -- 'cak', 'associateMacSecKey_cak' - The MAC Security (MACsec) CAK to associate with the dedicated
 -- connection.
 --
@@ -125,6 +116,16 @@ data AssociateMacSecKey = AssociateMacSecKey'
 -- The valid values are 64 hexadecimal characters (0-9, A-E).
 --
 -- If you use this request parameter, you must use the @ckn@ request
+-- parameter and not use the @secretARN@ request parameter.
+--
+-- 'ckn', 'associateMacSecKey_ckn' - The MAC Security (MACsec) CKN to associate with the dedicated
+-- connection.
+--
+-- You can create the CKN\/CAK pair using an industry standard tool.
+--
+-- The valid values are 64 hexadecimal characters (0-9, A-E).
+--
+-- If you use this request parameter, you must use the @cak@ request
 -- parameter and not use the @secretARN@ request parameter.
 --
 -- 'secretARN', 'associateMacSecKey_secretARN' - The Amazon Resource Name (ARN) of the MAC Security (MACsec) secret key
@@ -147,23 +148,11 @@ newAssociateMacSecKey ::
   AssociateMacSecKey
 newAssociateMacSecKey pConnectionId_ =
   AssociateMacSecKey'
-    { ckn = Prelude.Nothing,
-      cak = Prelude.Nothing,
+    { cak = Prelude.Nothing,
+      ckn = Prelude.Nothing,
       secretARN = Prelude.Nothing,
       connectionId = pConnectionId_
     }
-
--- | The MAC Security (MACsec) CKN to associate with the dedicated
--- connection.
---
--- You can create the CKN\/CAK pair using an industry standard tool.
---
--- The valid values are 64 hexadecimal characters (0-9, A-E).
---
--- If you use this request parameter, you must use the @cak@ request
--- parameter and not use the @secretARN@ request parameter.
-associateMacSecKey_ckn :: Lens.Lens' AssociateMacSecKey (Prelude.Maybe Prelude.Text)
-associateMacSecKey_ckn = Lens.lens (\AssociateMacSecKey' {ckn} -> ckn) (\s@AssociateMacSecKey' {} a -> s {ckn = a} :: AssociateMacSecKey)
 
 -- | The MAC Security (MACsec) CAK to associate with the dedicated
 -- connection.
@@ -176,6 +165,18 @@ associateMacSecKey_ckn = Lens.lens (\AssociateMacSecKey' {ckn} -> ckn) (\s@Assoc
 -- parameter and not use the @secretARN@ request parameter.
 associateMacSecKey_cak :: Lens.Lens' AssociateMacSecKey (Prelude.Maybe Prelude.Text)
 associateMacSecKey_cak = Lens.lens (\AssociateMacSecKey' {cak} -> cak) (\s@AssociateMacSecKey' {} a -> s {cak = a} :: AssociateMacSecKey)
+
+-- | The MAC Security (MACsec) CKN to associate with the dedicated
+-- connection.
+--
+-- You can create the CKN\/CAK pair using an industry standard tool.
+--
+-- The valid values are 64 hexadecimal characters (0-9, A-E).
+--
+-- If you use this request parameter, you must use the @cak@ request
+-- parameter and not use the @secretARN@ request parameter.
+associateMacSecKey_ckn :: Lens.Lens' AssociateMacSecKey (Prelude.Maybe Prelude.Text)
+associateMacSecKey_ckn = Lens.lens (\AssociateMacSecKey' {ckn} -> ckn) (\s@AssociateMacSecKey' {} a -> s {ckn = a} :: AssociateMacSecKey)
 
 -- | The Amazon Resource Name (ARN) of the MAC Security (MACsec) secret key
 -- to associate with the dedicated connection.
@@ -200,60 +201,61 @@ instance Core.AWSRequest AssociateMacSecKey where
   type
     AWSResponse AssociateMacSecKey =
       AssociateMacSecKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AssociateMacSecKeyResponse'
-            Prelude.<$> (x Core..?> "connectionId")
-            Prelude.<*> (x Core..?> "macSecKeys" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "connectionId")
+            Prelude.<*> (x Data..?> "macSecKeys" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable AssociateMacSecKey where
   hashWithSalt _salt AssociateMacSecKey' {..} =
-    _salt `Prelude.hashWithSalt` ckn
-      `Prelude.hashWithSalt` cak
+    _salt `Prelude.hashWithSalt` cak
+      `Prelude.hashWithSalt` ckn
       `Prelude.hashWithSalt` secretARN
       `Prelude.hashWithSalt` connectionId
 
 instance Prelude.NFData AssociateMacSecKey where
   rnf AssociateMacSecKey' {..} =
-    Prelude.rnf ckn
-      `Prelude.seq` Prelude.rnf cak
+    Prelude.rnf cak
+      `Prelude.seq` Prelude.rnf ckn
       `Prelude.seq` Prelude.rnf secretARN
       `Prelude.seq` Prelude.rnf connectionId
 
-instance Core.ToHeaders AssociateMacSecKey where
+instance Data.ToHeaders AssociateMacSecKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.AssociateMacSecKey" ::
+              Data.=# ( "OvertureService.AssociateMacSecKey" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateMacSecKey where
+instance Data.ToJSON AssociateMacSecKey where
   toJSON AssociateMacSecKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ckn" Core..=) Prelude.<$> ckn,
-            ("cak" Core..=) Prelude.<$> cak,
-            ("secretARN" Core..=) Prelude.<$> secretARN,
-            Prelude.Just ("connectionId" Core..= connectionId)
+          [ ("cak" Data..=) Prelude.<$> cak,
+            ("ckn" Data..=) Prelude.<$> ckn,
+            ("secretARN" Data..=) Prelude.<$> secretARN,
+            Prelude.Just ("connectionId" Data..= connectionId)
           ]
       )
 
-instance Core.ToPath AssociateMacSecKey where
+instance Data.ToPath AssociateMacSecKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateMacSecKey where
+instance Data.ToQuery AssociateMacSecKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateMacSecKeyResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Comprehend.ListDocumentClassifierSummaries
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,34 +28,35 @@ module Amazonka.Comprehend.ListDocumentClassifierSummaries
     newListDocumentClassifierSummaries,
 
     -- * Request Lenses
-    listDocumentClassifierSummaries_nextToken,
     listDocumentClassifierSummaries_maxResults,
+    listDocumentClassifierSummaries_nextToken,
 
     -- * Destructuring the Response
     ListDocumentClassifierSummariesResponse (..),
     newListDocumentClassifierSummariesResponse,
 
     -- * Response Lenses
-    listDocumentClassifierSummariesResponse_nextToken,
     listDocumentClassifierSummariesResponse_documentClassifierSummariesList,
+    listDocumentClassifierSummariesResponse_nextToken,
     listDocumentClassifierSummariesResponse_httpStatus,
   )
 where
 
 import Amazonka.Comprehend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDocumentClassifierSummaries' smart constructor.
 data ListDocumentClassifierSummaries = ListDocumentClassifierSummaries'
-  { -- | Identifies the next page of results to return.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return on each page. The default is
+  { -- | The maximum number of results to return on each page. The default is
     -- 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,27 +68,27 @@ data ListDocumentClassifierSummaries = ListDocumentClassifierSummaries'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listDocumentClassifierSummaries_nextToken' - Identifies the next page of results to return.
---
 -- 'maxResults', 'listDocumentClassifierSummaries_maxResults' - The maximum number of results to return on each page. The default is
 -- 100.
+--
+-- 'nextToken', 'listDocumentClassifierSummaries_nextToken' - Identifies the next page of results to return.
 newListDocumentClassifierSummaries ::
   ListDocumentClassifierSummaries
 newListDocumentClassifierSummaries =
   ListDocumentClassifierSummaries'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | Identifies the next page of results to return.
-listDocumentClassifierSummaries_nextToken :: Lens.Lens' ListDocumentClassifierSummaries (Prelude.Maybe Prelude.Text)
-listDocumentClassifierSummaries_nextToken = Lens.lens (\ListDocumentClassifierSummaries' {nextToken} -> nextToken) (\s@ListDocumentClassifierSummaries' {} a -> s {nextToken = a} :: ListDocumentClassifierSummaries)
 
 -- | The maximum number of results to return on each page. The default is
 -- 100.
 listDocumentClassifierSummaries_maxResults :: Lens.Lens' ListDocumentClassifierSummaries (Prelude.Maybe Prelude.Natural)
 listDocumentClassifierSummaries_maxResults = Lens.lens (\ListDocumentClassifierSummaries' {maxResults} -> maxResults) (\s@ListDocumentClassifierSummaries' {} a -> s {maxResults = a} :: ListDocumentClassifierSummaries)
+
+-- | Identifies the next page of results to return.
+listDocumentClassifierSummaries_nextToken :: Lens.Lens' ListDocumentClassifierSummaries (Prelude.Maybe Prelude.Text)
+listDocumentClassifierSummaries_nextToken = Lens.lens (\ListDocumentClassifierSummaries' {nextToken} -> nextToken) (\s@ListDocumentClassifierSummaries' {} a -> s {nextToken = a} :: ListDocumentClassifierSummaries)
 
 instance
   Core.AWSRequest
@@ -96,15 +97,16 @@ instance
   type
     AWSResponse ListDocumentClassifierSummaries =
       ListDocumentClassifierSummariesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDocumentClassifierSummariesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "DocumentClassifierSummariesList"
+            Prelude.<$> ( x Data..?> "DocumentClassifierSummariesList"
                             Core..!@ Prelude.mempty
                         )
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,56 +117,56 @@ instance
   hashWithSalt
     _salt
     ListDocumentClassifierSummaries' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
 
 instance
   Prelude.NFData
     ListDocumentClassifierSummaries
   where
   rnf ListDocumentClassifierSummaries' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListDocumentClassifierSummaries
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Comprehend_20171127.ListDocumentClassifierSummaries" ::
+              Data.=# ( "Comprehend_20171127.ListDocumentClassifierSummaries" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDocumentClassifierSummaries where
+instance Data.ToJSON ListDocumentClassifierSummaries where
   toJSON ListDocumentClassifierSummaries' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListDocumentClassifierSummaries where
+instance Data.ToPath ListDocumentClassifierSummaries where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDocumentClassifierSummaries where
+instance Data.ToQuery ListDocumentClassifierSummaries where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDocumentClassifierSummariesResponse' smart constructor.
 data ListDocumentClassifierSummariesResponse = ListDocumentClassifierSummariesResponse'
-  { -- | Identifies the next page of results to return.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The list of summaries of document classifiers.
+  { -- | The list of summaries of document classifiers.
     documentClassifierSummariesList :: Prelude.Maybe [DocumentClassifierSummary],
+    -- | Identifies the next page of results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -178,9 +180,9 @@ data ListDocumentClassifierSummariesResponse = ListDocumentClassifierSummariesRe
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listDocumentClassifierSummariesResponse_nextToken' - Identifies the next page of results to return.
---
 -- 'documentClassifierSummariesList', 'listDocumentClassifierSummariesResponse_documentClassifierSummariesList' - The list of summaries of document classifiers.
+--
+-- 'nextToken', 'listDocumentClassifierSummariesResponse_nextToken' - Identifies the next page of results to return.
 --
 -- 'httpStatus', 'listDocumentClassifierSummariesResponse_httpStatus' - The response's http status code.
 newListDocumentClassifierSummariesResponse ::
@@ -190,20 +192,19 @@ newListDocumentClassifierSummariesResponse ::
 newListDocumentClassifierSummariesResponse
   pHttpStatus_ =
     ListDocumentClassifierSummariesResponse'
-      { nextToken =
+      { documentClassifierSummariesList =
           Prelude.Nothing,
-        documentClassifierSummariesList =
-          Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         httpStatus = pHttpStatus_
       }
-
--- | Identifies the next page of results to return.
-listDocumentClassifierSummariesResponse_nextToken :: Lens.Lens' ListDocumentClassifierSummariesResponse (Prelude.Maybe Prelude.Text)
-listDocumentClassifierSummariesResponse_nextToken = Lens.lens (\ListDocumentClassifierSummariesResponse' {nextToken} -> nextToken) (\s@ListDocumentClassifierSummariesResponse' {} a -> s {nextToken = a} :: ListDocumentClassifierSummariesResponse)
 
 -- | The list of summaries of document classifiers.
 listDocumentClassifierSummariesResponse_documentClassifierSummariesList :: Lens.Lens' ListDocumentClassifierSummariesResponse (Prelude.Maybe [DocumentClassifierSummary])
 listDocumentClassifierSummariesResponse_documentClassifierSummariesList = Lens.lens (\ListDocumentClassifierSummariesResponse' {documentClassifierSummariesList} -> documentClassifierSummariesList) (\s@ListDocumentClassifierSummariesResponse' {} a -> s {documentClassifierSummariesList = a} :: ListDocumentClassifierSummariesResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | Identifies the next page of results to return.
+listDocumentClassifierSummariesResponse_nextToken :: Lens.Lens' ListDocumentClassifierSummariesResponse (Prelude.Maybe Prelude.Text)
+listDocumentClassifierSummariesResponse_nextToken = Lens.lens (\ListDocumentClassifierSummariesResponse' {nextToken} -> nextToken) (\s@ListDocumentClassifierSummariesResponse' {} a -> s {nextToken = a} :: ListDocumentClassifierSummariesResponse)
 
 -- | The response's http status code.
 listDocumentClassifierSummariesResponse_httpStatus :: Lens.Lens' ListDocumentClassifierSummariesResponse Prelude.Int
@@ -214,6 +215,6 @@ instance
     ListDocumentClassifierSummariesResponse
   where
   rnf ListDocumentClassifierSummariesResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf documentClassifierSummariesList
+    Prelude.rnf documentClassifierSummariesList
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

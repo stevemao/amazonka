@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.DescribeRecipe
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,10 +32,11 @@
 --     before training.
 --
 -- Amazon Personalize provides a set of predefined recipes. You specify a
--- recipe when you create a solution with the CreateSolution API.
--- @CreateSolution@ trains a model by using the algorithm in the specified
--- recipe and a training dataset. The solution, when deployed as a
--- campaign, can provide recommendations using the
+-- recipe when you create a solution with the
+-- <https://docs.aws.amazon.com/personalize/latest/dg/API_CreateSolution.html CreateSolution>
+-- API. @CreateSolution@ trains a model by using the algorithm in the
+-- specified recipe and a training dataset. The solution, when deployed as
+-- a campaign, can provide recommendations using the
 -- <https://docs.aws.amazon.com/personalize/latest/dg/API_RS_GetRecommendations.html GetRecommendations>
 -- API.
 module Amazonka.Personalize.DescribeRecipe
@@ -57,7 +58,8 @@ module Amazonka.Personalize.DescribeRecipe
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -94,12 +96,13 @@ instance Core.AWSRequest DescribeRecipe where
   type
     AWSResponse DescribeRecipe =
       DescribeRecipeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeRecipeResponse'
-            Prelude.<$> (x Core..?> "recipe")
+            Prelude.<$> (x Data..?> "recipe")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,32 +113,32 @@ instance Prelude.Hashable DescribeRecipe where
 instance Prelude.NFData DescribeRecipe where
   rnf DescribeRecipe' {..} = Prelude.rnf recipeArn
 
-instance Core.ToHeaders DescribeRecipe where
+instance Data.ToHeaders DescribeRecipe where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.DescribeRecipe" ::
+              Data.=# ( "AmazonPersonalize.DescribeRecipe" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeRecipe where
+instance Data.ToJSON DescribeRecipe where
   toJSON DescribeRecipe' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("recipeArn" Core..= recipeArn)]
+          [Prelude.Just ("recipeArn" Data..= recipeArn)]
       )
 
-instance Core.ToPath DescribeRecipe where
+instance Data.ToPath DescribeRecipe where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeRecipe where
+instance Data.ToQuery DescribeRecipe where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeRecipeResponse' smart constructor.

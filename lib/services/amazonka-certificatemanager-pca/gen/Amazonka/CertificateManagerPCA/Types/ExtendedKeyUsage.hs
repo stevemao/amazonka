@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CertificateManagerPCA.Types.ExtendedKeyUsage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CertificateManagerPCA.Types.ExtendedKeyUsage where
 
 import Amazonka.CertificateManagerPCA.Types.ExtendedKeyUsageType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies additional purposes for which the certified public key may be
@@ -29,11 +30,11 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newExtendedKeyUsage' smart constructor.
 data ExtendedKeyUsage = ExtendedKeyUsage'
-  { -- | Specifies a standard @ExtendedKeyUsage@ as defined as in
-    -- <https://tools.ietf.org/html/rfc5280#section-4.2.1.12 RFC 5280>.
-    extendedKeyUsageType :: Prelude.Maybe ExtendedKeyUsageType,
-    -- | Specifies a custom @ExtendedKeyUsage@ with an object identifier (OID).
-    extendedKeyUsageObjectIdentifier :: Prelude.Maybe Prelude.Text
+  { -- | Specifies a custom @ExtendedKeyUsage@ with an object identifier (OID).
+    extendedKeyUsageObjectIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | Specifies a standard @ExtendedKeyUsage@ as defined as in
+    -- <https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.12 RFC 5280>.
+    extendedKeyUsageType :: Prelude.Maybe ExtendedKeyUsageType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,45 +46,46 @@ data ExtendedKeyUsage = ExtendedKeyUsage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'extendedKeyUsageType', 'extendedKeyUsage_extendedKeyUsageType' - Specifies a standard @ExtendedKeyUsage@ as defined as in
--- <https://tools.ietf.org/html/rfc5280#section-4.2.1.12 RFC 5280>.
---
 -- 'extendedKeyUsageObjectIdentifier', 'extendedKeyUsage_extendedKeyUsageObjectIdentifier' - Specifies a custom @ExtendedKeyUsage@ with an object identifier (OID).
+--
+-- 'extendedKeyUsageType', 'extendedKeyUsage_extendedKeyUsageType' - Specifies a standard @ExtendedKeyUsage@ as defined as in
+-- <https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.12 RFC 5280>.
 newExtendedKeyUsage ::
   ExtendedKeyUsage
 newExtendedKeyUsage =
   ExtendedKeyUsage'
-    { extendedKeyUsageType =
+    { extendedKeyUsageObjectIdentifier =
         Prelude.Nothing,
-      extendedKeyUsageObjectIdentifier = Prelude.Nothing
+      extendedKeyUsageType = Prelude.Nothing
     }
-
--- | Specifies a standard @ExtendedKeyUsage@ as defined as in
--- <https://tools.ietf.org/html/rfc5280#section-4.2.1.12 RFC 5280>.
-extendedKeyUsage_extendedKeyUsageType :: Lens.Lens' ExtendedKeyUsage (Prelude.Maybe ExtendedKeyUsageType)
-extendedKeyUsage_extendedKeyUsageType = Lens.lens (\ExtendedKeyUsage' {extendedKeyUsageType} -> extendedKeyUsageType) (\s@ExtendedKeyUsage' {} a -> s {extendedKeyUsageType = a} :: ExtendedKeyUsage)
 
 -- | Specifies a custom @ExtendedKeyUsage@ with an object identifier (OID).
 extendedKeyUsage_extendedKeyUsageObjectIdentifier :: Lens.Lens' ExtendedKeyUsage (Prelude.Maybe Prelude.Text)
 extendedKeyUsage_extendedKeyUsageObjectIdentifier = Lens.lens (\ExtendedKeyUsage' {extendedKeyUsageObjectIdentifier} -> extendedKeyUsageObjectIdentifier) (\s@ExtendedKeyUsage' {} a -> s {extendedKeyUsageObjectIdentifier = a} :: ExtendedKeyUsage)
 
+-- | Specifies a standard @ExtendedKeyUsage@ as defined as in
+-- <https://datatracker.ietf.org/doc/html/rfc5280#section-4.2.1.12 RFC 5280>.
+extendedKeyUsage_extendedKeyUsageType :: Lens.Lens' ExtendedKeyUsage (Prelude.Maybe ExtendedKeyUsageType)
+extendedKeyUsage_extendedKeyUsageType = Lens.lens (\ExtendedKeyUsage' {extendedKeyUsageType} -> extendedKeyUsageType) (\s@ExtendedKeyUsage' {} a -> s {extendedKeyUsageType = a} :: ExtendedKeyUsage)
+
 instance Prelude.Hashable ExtendedKeyUsage where
   hashWithSalt _salt ExtendedKeyUsage' {..} =
-    _salt `Prelude.hashWithSalt` extendedKeyUsageType
+    _salt
       `Prelude.hashWithSalt` extendedKeyUsageObjectIdentifier
+      `Prelude.hashWithSalt` extendedKeyUsageType
 
 instance Prelude.NFData ExtendedKeyUsage where
   rnf ExtendedKeyUsage' {..} =
-    Prelude.rnf extendedKeyUsageType
-      `Prelude.seq` Prelude.rnf extendedKeyUsageObjectIdentifier
+    Prelude.rnf extendedKeyUsageObjectIdentifier
+      `Prelude.seq` Prelude.rnf extendedKeyUsageType
 
-instance Core.ToJSON ExtendedKeyUsage where
+instance Data.ToJSON ExtendedKeyUsage where
   toJSON ExtendedKeyUsage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ExtendedKeyUsageType" Core..=)
-              Prelude.<$> extendedKeyUsageType,
-            ("ExtendedKeyUsageObjectIdentifier" Core..=)
-              Prelude.<$> extendedKeyUsageObjectIdentifier
+          [ ("ExtendedKeyUsageObjectIdentifier" Data..=)
+              Prelude.<$> extendedKeyUsageObjectIdentifier,
+            ("ExtendedKeyUsageType" Data..=)
+              Prelude.<$> extendedKeyUsageType
           ]
       )

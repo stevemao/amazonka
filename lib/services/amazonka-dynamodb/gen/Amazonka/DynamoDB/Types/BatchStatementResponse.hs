@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.BatchStatementResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.DynamoDB.Types.BatchStatementResponse where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.BatchStatementError
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | A PartiQL batch statement response..
@@ -72,15 +74,15 @@ batchStatementResponse_item = Lens.lens (\BatchStatementResponse' {item} -> item
 batchStatementResponse_tableName :: Lens.Lens' BatchStatementResponse (Prelude.Maybe Prelude.Text)
 batchStatementResponse_tableName = Lens.lens (\BatchStatementResponse' {tableName} -> tableName) (\s@BatchStatementResponse' {} a -> s {tableName = a} :: BatchStatementResponse)
 
-instance Core.FromJSON BatchStatementResponse where
+instance Data.FromJSON BatchStatementResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchStatementResponse"
       ( \x ->
           BatchStatementResponse'
-            Prelude.<$> (x Core..:? "Error")
-            Prelude.<*> (x Core..:? "Item" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "TableName")
+            Prelude.<$> (x Data..:? "Error")
+            Prelude.<*> (x Data..:? "Item" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "TableName")
       )
 
 instance Prelude.Hashable BatchStatementResponse where

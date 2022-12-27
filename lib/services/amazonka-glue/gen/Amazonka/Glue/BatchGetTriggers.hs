@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.BatchGetTriggers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,15 +38,16 @@ module Amazonka.Glue.BatchGetTriggers
     newBatchGetTriggersResponse,
 
     -- * Response Lenses
-    batchGetTriggersResponse_triggersNotFound,
     batchGetTriggersResponse_triggers,
+    batchGetTriggersResponse_triggersNotFound,
     batchGetTriggersResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,15 +84,16 @@ instance Core.AWSRequest BatchGetTriggers where
   type
     AWSResponse BatchGetTriggers =
       BatchGetTriggersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchGetTriggersResponse'
-            Prelude.<$> ( x Core..?> "TriggersNotFound"
+            Prelude.<$> (x Data..?> "Triggers" Core..!@ Prelude.mempty)
+            Prelude.<*> ( x Data..?> "TriggersNotFound"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "Triggers" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -102,38 +104,38 @@ instance Prelude.Hashable BatchGetTriggers where
 instance Prelude.NFData BatchGetTriggers where
   rnf BatchGetTriggers' {..} = Prelude.rnf triggerNames
 
-instance Core.ToHeaders BatchGetTriggers where
+instance Data.ToHeaders BatchGetTriggers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.BatchGetTriggers" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.BatchGetTriggers" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchGetTriggers where
+instance Data.ToJSON BatchGetTriggers where
   toJSON BatchGetTriggers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("TriggerNames" Core..= triggerNames)]
+          [Prelude.Just ("TriggerNames" Data..= triggerNames)]
       )
 
-instance Core.ToPath BatchGetTriggers where
+instance Data.ToPath BatchGetTriggers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchGetTriggers where
+instance Data.ToQuery BatchGetTriggers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchGetTriggersResponse' smart constructor.
 data BatchGetTriggersResponse = BatchGetTriggersResponse'
-  { -- | A list of names of triggers not found.
-    triggersNotFound :: Prelude.Maybe [Prelude.Text],
-    -- | A list of trigger definitions.
+  { -- | A list of trigger definitions.
     triggers :: Prelude.Maybe [Trigger],
+    -- | A list of names of triggers not found.
+    triggersNotFound :: Prelude.Maybe [Prelude.Text],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -147,9 +149,9 @@ data BatchGetTriggersResponse = BatchGetTriggersResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'triggersNotFound', 'batchGetTriggersResponse_triggersNotFound' - A list of names of triggers not found.
---
 -- 'triggers', 'batchGetTriggersResponse_triggers' - A list of trigger definitions.
+--
+-- 'triggersNotFound', 'batchGetTriggersResponse_triggersNotFound' - A list of names of triggers not found.
 --
 -- 'httpStatus', 'batchGetTriggersResponse_httpStatus' - The response's http status code.
 newBatchGetTriggersResponse ::
@@ -158,19 +160,19 @@ newBatchGetTriggersResponse ::
   BatchGetTriggersResponse
 newBatchGetTriggersResponse pHttpStatus_ =
   BatchGetTriggersResponse'
-    { triggersNotFound =
+    { triggers =
         Prelude.Nothing,
-      triggers = Prelude.Nothing,
+      triggersNotFound = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of names of triggers not found.
-batchGetTriggersResponse_triggersNotFound :: Lens.Lens' BatchGetTriggersResponse (Prelude.Maybe [Prelude.Text])
-batchGetTriggersResponse_triggersNotFound = Lens.lens (\BatchGetTriggersResponse' {triggersNotFound} -> triggersNotFound) (\s@BatchGetTriggersResponse' {} a -> s {triggersNotFound = a} :: BatchGetTriggersResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A list of trigger definitions.
 batchGetTriggersResponse_triggers :: Lens.Lens' BatchGetTriggersResponse (Prelude.Maybe [Trigger])
 batchGetTriggersResponse_triggers = Lens.lens (\BatchGetTriggersResponse' {triggers} -> triggers) (\s@BatchGetTriggersResponse' {} a -> s {triggers = a} :: BatchGetTriggersResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A list of names of triggers not found.
+batchGetTriggersResponse_triggersNotFound :: Lens.Lens' BatchGetTriggersResponse (Prelude.Maybe [Prelude.Text])
+batchGetTriggersResponse_triggersNotFound = Lens.lens (\BatchGetTriggersResponse' {triggersNotFound} -> triggersNotFound) (\s@BatchGetTriggersResponse' {} a -> s {triggersNotFound = a} :: BatchGetTriggersResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 batchGetTriggersResponse_httpStatus :: Lens.Lens' BatchGetTriggersResponse Prelude.Int
@@ -178,6 +180,6 @@ batchGetTriggersResponse_httpStatus = Lens.lens (\BatchGetTriggersResponse' {htt
 
 instance Prelude.NFData BatchGetTriggersResponse where
   rnf BatchGetTriggersResponse' {..} =
-    Prelude.rnf triggersNotFound
-      `Prelude.seq` Prelude.rnf triggers
+    Prelude.rnf triggers
+      `Prelude.seq` Prelude.rnf triggersNotFound
       `Prelude.seq` Prelude.rnf httpStatus

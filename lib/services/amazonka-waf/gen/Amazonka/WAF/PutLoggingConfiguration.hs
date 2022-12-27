@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.PutLoggingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -71,7 +71,8 @@ module Amazonka.WAF.PutLoggingConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -126,12 +127,13 @@ instance Core.AWSRequest PutLoggingConfiguration where
   type
     AWSResponse PutLoggingConfiguration =
       PutLoggingConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutLoggingConfigurationResponse'
-            Prelude.<$> (x Core..?> "LoggingConfiguration")
+            Prelude.<$> (x Data..?> "LoggingConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -143,36 +145,36 @@ instance Prelude.NFData PutLoggingConfiguration where
   rnf PutLoggingConfiguration' {..} =
     Prelude.rnf loggingConfiguration
 
-instance Core.ToHeaders PutLoggingConfiguration where
+instance Data.ToHeaders PutLoggingConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_20150824.PutLoggingConfiguration" ::
+              Data.=# ( "AWSWAF_20150824.PutLoggingConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutLoggingConfiguration where
+instance Data.ToJSON PutLoggingConfiguration where
   toJSON PutLoggingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "LoggingConfiguration"
-                  Core..= loggingConfiguration
+                  Data..= loggingConfiguration
               )
           ]
       )
 
-instance Core.ToPath PutLoggingConfiguration where
+instance Data.ToPath PutLoggingConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutLoggingConfiguration where
+instance Data.ToQuery PutLoggingConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutLoggingConfigurationResponse' smart constructor.

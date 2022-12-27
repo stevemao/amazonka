@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.Types.ActionType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,17 +24,18 @@ import Amazonka.CodePipeline.Types.ActionTypeId
 import Amazonka.CodePipeline.Types.ActionTypeSettings
 import Amazonka.CodePipeline.Types.ArtifactDetails
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Returns information about the details of an action type.
 --
 -- /See:/ 'newActionType' smart constructor.
 data ActionType = ActionType'
-  { -- | The settings for the action type.
-    settings :: Prelude.Maybe ActionTypeSettings,
-    -- | The configuration properties for the action type.
+  { -- | The configuration properties for the action type.
     actionConfigurationProperties :: Prelude.Maybe [ActionConfigurationProperty],
+    -- | The settings for the action type.
+    settings :: Prelude.Maybe ActionTypeSettings,
     -- | Represents information about an action type.
     id :: ActionTypeId,
     -- | The details of the input artifact for the action, such as its commit ID.
@@ -52,9 +53,9 @@ data ActionType = ActionType'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'settings', 'actionType_settings' - The settings for the action type.
---
 -- 'actionConfigurationProperties', 'actionType_actionConfigurationProperties' - The configuration properties for the action type.
+--
+-- 'settings', 'actionType_settings' - The settings for the action type.
 --
 -- 'id', 'actionType_id' - Represents information about an action type.
 --
@@ -74,20 +75,21 @@ newActionType
   pInputArtifactDetails_
   pOutputArtifactDetails_ =
     ActionType'
-      { settings = Prelude.Nothing,
-        actionConfigurationProperties = Prelude.Nothing,
+      { actionConfigurationProperties =
+          Prelude.Nothing,
+        settings = Prelude.Nothing,
         id = pId_,
         inputArtifactDetails = pInputArtifactDetails_,
         outputArtifactDetails = pOutputArtifactDetails_
       }
 
--- | The settings for the action type.
-actionType_settings :: Lens.Lens' ActionType (Prelude.Maybe ActionTypeSettings)
-actionType_settings = Lens.lens (\ActionType' {settings} -> settings) (\s@ActionType' {} a -> s {settings = a} :: ActionType)
-
 -- | The configuration properties for the action type.
 actionType_actionConfigurationProperties :: Lens.Lens' ActionType (Prelude.Maybe [ActionConfigurationProperty])
 actionType_actionConfigurationProperties = Lens.lens (\ActionType' {actionConfigurationProperties} -> actionConfigurationProperties) (\s@ActionType' {} a -> s {actionConfigurationProperties = a} :: ActionType) Prelude.. Lens.mapping Lens.coerced
+
+-- | The settings for the action type.
+actionType_settings :: Lens.Lens' ActionType (Prelude.Maybe ActionTypeSettings)
+actionType_settings = Lens.lens (\ActionType' {settings} -> settings) (\s@ActionType' {} a -> s {settings = a} :: ActionType)
 
 -- | Represents information about an action type.
 actionType_id :: Lens.Lens' ActionType ActionTypeId
@@ -101,33 +103,34 @@ actionType_inputArtifactDetails = Lens.lens (\ActionType' {inputArtifactDetails}
 actionType_outputArtifactDetails :: Lens.Lens' ActionType ArtifactDetails
 actionType_outputArtifactDetails = Lens.lens (\ActionType' {outputArtifactDetails} -> outputArtifactDetails) (\s@ActionType' {} a -> s {outputArtifactDetails = a} :: ActionType)
 
-instance Core.FromJSON ActionType where
+instance Data.FromJSON ActionType where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ActionType"
       ( \x ->
           ActionType'
-            Prelude.<$> (x Core..:? "settings")
-            Prelude.<*> ( x Core..:? "actionConfigurationProperties"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "actionConfigurationProperties"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..: "id")
-            Prelude.<*> (x Core..: "inputArtifactDetails")
-            Prelude.<*> (x Core..: "outputArtifactDetails")
+            Prelude.<*> (x Data..:? "settings")
+            Prelude.<*> (x Data..: "id")
+            Prelude.<*> (x Data..: "inputArtifactDetails")
+            Prelude.<*> (x Data..: "outputArtifactDetails")
       )
 
 instance Prelude.Hashable ActionType where
   hashWithSalt _salt ActionType' {..} =
-    _salt `Prelude.hashWithSalt` settings
+    _salt
       `Prelude.hashWithSalt` actionConfigurationProperties
+      `Prelude.hashWithSalt` settings
       `Prelude.hashWithSalt` id
       `Prelude.hashWithSalt` inputArtifactDetails
       `Prelude.hashWithSalt` outputArtifactDetails
 
 instance Prelude.NFData ActionType where
   rnf ActionType' {..} =
-    Prelude.rnf settings
-      `Prelude.seq` Prelude.rnf actionConfigurationProperties
+    Prelude.rnf actionConfigurationProperties
+      `Prelude.seq` Prelude.rnf settings
       `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf inputArtifactDetails
       `Prelude.seq` Prelude.rnf outputArtifactDetails

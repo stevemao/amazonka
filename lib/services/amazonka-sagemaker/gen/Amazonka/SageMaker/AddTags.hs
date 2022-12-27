@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.AddTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds or overwrites one or more tags for the specified Amazon SageMaker
+-- Adds or overwrites one or more tags for the specified SageMaker
 -- resource. You can add tags to notebook instances, training jobs,
 -- hyperparameter tuning jobs, batch transform jobs, models, labeling jobs,
 -- work teams, endpoint configurations, and endpoints.
@@ -67,7 +67,8 @@ module Amazonka.SageMaker.AddTags
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -122,12 +123,13 @@ addTags_tags = Lens.lens (\AddTags' {tags} -> tags) (\s@AddTags' {} a -> s {tags
 
 instance Core.AWSRequest AddTags where
   type AWSResponse AddTags = AddTagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddTagsResponse'
-            Prelude.<$> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -141,37 +143,37 @@ instance Prelude.NFData AddTags where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders AddTags where
+instance Data.ToHeaders AddTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.AddTags" :: Prelude.ByteString),
+              Data.=# ("SageMaker.AddTags" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddTags where
+instance Data.ToJSON AddTags where
   toJSON AddTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceArn" Core..= resourceArn),
-            Prelude.Just ("Tags" Core..= tags)
+          [ Prelude.Just ("ResourceArn" Data..= resourceArn),
+            Prelude.Just ("Tags" Data..= tags)
           ]
       )
 
-instance Core.ToPath AddTags where
+instance Data.ToPath AddTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddTags where
+instance Data.ToQuery AddTags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddTagsResponse' smart constructor.
 data AddTagsResponse = AddTagsResponse'
-  { -- | A list of tags associated with the Amazon SageMaker resource.
+  { -- | A list of tags associated with the SageMaker resource.
     tags :: Prelude.Maybe [Tag],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -186,7 +188,7 @@ data AddTagsResponse = AddTagsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tags', 'addTagsResponse_tags' - A list of tags associated with the Amazon SageMaker resource.
+-- 'tags', 'addTagsResponse_tags' - A list of tags associated with the SageMaker resource.
 --
 -- 'httpStatus', 'addTagsResponse_httpStatus' - The response's http status code.
 newAddTagsResponse ::
@@ -199,7 +201,7 @@ newAddTagsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | A list of tags associated with the Amazon SageMaker resource.
+-- | A list of tags associated with the SageMaker resource.
 addTagsResponse_tags :: Lens.Lens' AddTagsResponse (Prelude.Maybe [Tag])
 addTagsResponse_tags = Lens.lens (\AddTagsResponse' {tags} -> tags) (\s@AddTagsResponse' {} a -> s {tags = a} :: AddTagsResponse) Prelude.. Lens.mapping Lens.coerced
 

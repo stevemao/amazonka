@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pricing.DescribeServices
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,9 +36,9 @@ module Amazonka.Pricing.DescribeServices
 
     -- * Request Lenses
     describeServices_formatVersion,
+    describeServices_maxResults,
     describeServices_nextToken,
     describeServices_serviceCode,
-    describeServices_maxResults,
 
     -- * Destructuring the Response
     DescribeServicesResponse (..),
@@ -53,7 +53,8 @@ module Amazonka.Pricing.DescribeServices
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Pricing.Types
 import qualified Amazonka.Request as Request
@@ -65,6 +66,8 @@ data DescribeServices = DescribeServices'
     --
     -- Valid values are: @aws_v1@
     formatVersion :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results that you want returned in the response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The pagination token that indicates the next set of results that you
     -- want to retrieve.
     nextToken :: Prelude.Maybe Prelude.Text,
@@ -72,9 +75,7 @@ data DescribeServices = DescribeServices'
     -- @AmazonEC2@. You can use the @ServiceCode@ to filter the results in a
     -- @GetProducts@ call. To retrieve a list of all services, leave this
     -- blank.
-    serviceCode :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results that you want returned in the response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    serviceCode :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -90,6 +91,8 @@ data DescribeServices = DescribeServices'
 --
 -- Valid values are: @aws_v1@
 --
+-- 'maxResults', 'describeServices_maxResults' - The maximum number of results that you want returned in the response.
+--
 -- 'nextToken', 'describeServices_nextToken' - The pagination token that indicates the next set of results that you
 -- want to retrieve.
 --
@@ -97,16 +100,14 @@ data DescribeServices = DescribeServices'
 -- @AmazonEC2@. You can use the @ServiceCode@ to filter the results in a
 -- @GetProducts@ call. To retrieve a list of all services, leave this
 -- blank.
---
--- 'maxResults', 'describeServices_maxResults' - The maximum number of results that you want returned in the response.
 newDescribeServices ::
   DescribeServices
 newDescribeServices =
   DescribeServices'
     { formatVersion = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      serviceCode = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      serviceCode = Prelude.Nothing
     }
 
 -- | The format version that you want the response to be in.
@@ -114,6 +115,10 @@ newDescribeServices =
 -- Valid values are: @aws_v1@
 describeServices_formatVersion :: Lens.Lens' DescribeServices (Prelude.Maybe Prelude.Text)
 describeServices_formatVersion = Lens.lens (\DescribeServices' {formatVersion} -> formatVersion) (\s@DescribeServices' {} a -> s {formatVersion = a} :: DescribeServices)
+
+-- | The maximum number of results that you want returned in the response.
+describeServices_maxResults :: Lens.Lens' DescribeServices (Prelude.Maybe Prelude.Natural)
+describeServices_maxResults = Lens.lens (\DescribeServices' {maxResults} -> maxResults) (\s@DescribeServices' {} a -> s {maxResults = a} :: DescribeServices)
 
 -- | The pagination token that indicates the next set of results that you
 -- want to retrieve.
@@ -126,10 +131,6 @@ describeServices_nextToken = Lens.lens (\DescribeServices' {nextToken} -> nextTo
 -- blank.
 describeServices_serviceCode :: Lens.Lens' DescribeServices (Prelude.Maybe Prelude.Text)
 describeServices_serviceCode = Lens.lens (\DescribeServices' {serviceCode} -> serviceCode) (\s@DescribeServices' {} a -> s {serviceCode = a} :: DescribeServices)
-
--- | The maximum number of results that you want returned in the response.
-describeServices_maxResults :: Lens.Lens' DescribeServices (Prelude.Maybe Prelude.Natural)
-describeServices_maxResults = Lens.lens (\DescribeServices' {maxResults} -> maxResults) (\s@DescribeServices' {} a -> s {maxResults = a} :: DescribeServices)
 
 instance Core.AWSPager DescribeServices where
   page rq rs
@@ -157,68 +158,69 @@ instance Core.AWSRequest DescribeServices where
   type
     AWSResponse DescribeServices =
       DescribeServicesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeServicesResponse'
-            Prelude.<$> (x Core..?> "FormatVersion")
-            Prelude.<*> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Services" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "FormatVersion")
+            Prelude.<*> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Services" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeServices where
   hashWithSalt _salt DescribeServices' {..} =
     _salt `Prelude.hashWithSalt` formatVersion
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` serviceCode
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData DescribeServices where
   rnf DescribeServices' {..} =
     Prelude.rnf formatVersion
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf serviceCode
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders DescribeServices where
+instance Data.ToHeaders DescribeServices where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSPriceListService.DescribeServices" ::
+              Data.=# ( "AWSPriceListService.DescribeServices" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeServices where
+instance Data.ToJSON DescribeServices where
   toJSON DescribeServices' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FormatVersion" Core..=) Prelude.<$> formatVersion,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("ServiceCode" Core..=) Prelude.<$> serviceCode,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("FormatVersion" Data..=) Prelude.<$> formatVersion,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("ServiceCode" Data..=) Prelude.<$> serviceCode
           ]
       )
 
-instance Core.ToPath DescribeServices where
+instance Data.ToPath DescribeServices where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeServices where
+instance Data.ToQuery DescribeServices where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeServicesResponse' smart constructor.
 data DescribeServicesResponse = DescribeServicesResponse'
   { -- | The format version of the response. For example, @aws_v1@.
     formatVersion :: Prelude.Maybe Prelude.Text,
-    -- | The pagination token for the next set of retreivable results.
+    -- | The pagination token for the next set of retrievable results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The service metadata for the service or services in the response.
     services :: Prelude.Maybe [PricingService],
@@ -237,7 +239,7 @@ data DescribeServicesResponse = DescribeServicesResponse'
 --
 -- 'formatVersion', 'describeServicesResponse_formatVersion' - The format version of the response. For example, @aws_v1@.
 --
--- 'nextToken', 'describeServicesResponse_nextToken' - The pagination token for the next set of retreivable results.
+-- 'nextToken', 'describeServicesResponse_nextToken' - The pagination token for the next set of retrievable results.
 --
 -- 'services', 'describeServicesResponse_services' - The service metadata for the service or services in the response.
 --
@@ -259,7 +261,7 @@ newDescribeServicesResponse pHttpStatus_ =
 describeServicesResponse_formatVersion :: Lens.Lens' DescribeServicesResponse (Prelude.Maybe Prelude.Text)
 describeServicesResponse_formatVersion = Lens.lens (\DescribeServicesResponse' {formatVersion} -> formatVersion) (\s@DescribeServicesResponse' {} a -> s {formatVersion = a} :: DescribeServicesResponse)
 
--- | The pagination token for the next set of retreivable results.
+-- | The pagination token for the next set of retrievable results.
 describeServicesResponse_nextToken :: Lens.Lens' DescribeServicesResponse (Prelude.Maybe Prelude.Text)
 describeServicesResponse_nextToken = Lens.lens (\DescribeServicesResponse' {nextToken} -> nextToken) (\s@DescribeServicesResponse' {} a -> s {nextToken = a} :: DescribeServicesResponse)
 

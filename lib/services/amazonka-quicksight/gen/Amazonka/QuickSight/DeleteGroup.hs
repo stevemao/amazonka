@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DeleteGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.QuickSight.DeleteGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -56,7 +57,7 @@ data DeleteGroup = DeleteGroup'
     -- Currently, you use the ID for the Amazon Web Services account that
     -- contains your Amazon QuickSight account.
     awsAccountId :: Prelude.Text,
-    -- | The namespace. Currently, you should set this to @default@.
+    -- | The namespace of the group that you want to delete.
     namespace :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -75,7 +76,7 @@ data DeleteGroup = DeleteGroup'
 -- Currently, you use the ID for the Amazon Web Services account that
 -- contains your Amazon QuickSight account.
 --
--- 'namespace', 'deleteGroup_namespace' - The namespace. Currently, you should set this to @default@.
+-- 'namespace', 'deleteGroup_namespace' - The namespace of the group that you want to delete.
 newDeleteGroup ::
   -- | 'groupName'
   Prelude.Text ->
@@ -101,18 +102,19 @@ deleteGroup_groupName = Lens.lens (\DeleteGroup' {groupName} -> groupName) (\s@D
 deleteGroup_awsAccountId :: Lens.Lens' DeleteGroup Prelude.Text
 deleteGroup_awsAccountId = Lens.lens (\DeleteGroup' {awsAccountId} -> awsAccountId) (\s@DeleteGroup' {} a -> s {awsAccountId = a} :: DeleteGroup)
 
--- | The namespace. Currently, you should set this to @default@.
+-- | The namespace of the group that you want to delete.
 deleteGroup_namespace :: Lens.Lens' DeleteGroup Prelude.Text
 deleteGroup_namespace = Lens.lens (\DeleteGroup' {namespace} -> namespace) (\s@DeleteGroup' {} a -> s {namespace = a} :: DeleteGroup)
 
 instance Core.AWSRequest DeleteGroup where
   type AWSResponse DeleteGroup = DeleteGroupResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteGroupResponse'
-            Prelude.<$> (x Core..?> "RequestId")
+            Prelude.<$> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,29 +130,29 @@ instance Prelude.NFData DeleteGroup where
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf namespace
 
-instance Core.ToHeaders DeleteGroup where
+instance Data.ToHeaders DeleteGroup where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteGroup where
+instance Data.ToPath DeleteGroup where
   toPath DeleteGroup' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/namespaces/",
-        Core.toBS namespace,
+        Data.toBS namespace,
         "/groups/",
-        Core.toBS groupName
+        Data.toBS groupName
       ]
 
-instance Core.ToQuery DeleteGroup where
+instance Data.ToQuery DeleteGroup where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteGroupResponse' smart constructor.

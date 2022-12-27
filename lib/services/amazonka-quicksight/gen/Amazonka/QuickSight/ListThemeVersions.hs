@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.ListThemeVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.QuickSight.ListThemeVersions
     newListThemeVersions,
 
     -- * Request Lenses
-    listThemeVersions_nextToken,
     listThemeVersions_maxResults,
+    listThemeVersions_nextToken,
     listThemeVersions_awsAccountId,
     listThemeVersions_themeId,
 
@@ -40,15 +40,16 @@ module Amazonka.QuickSight.ListThemeVersions
     newListThemeVersionsResponse,
 
     -- * Response Lenses
+    listThemeVersionsResponse_nextToken,
     listThemeVersionsResponse_requestId,
     listThemeVersionsResponse_themeVersionSummaryList,
-    listThemeVersionsResponse_nextToken,
     listThemeVersionsResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -56,11 +57,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListThemeVersions' smart constructor.
 data ListThemeVersions = ListThemeVersions'
-  { -- | The token for the next set of results, or null if there are no more
+  { -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results, or null if there are no more
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the Amazon Web Services account that contains the themes that
     -- you\'re listing.
     awsAccountId :: Prelude.Text,
@@ -77,10 +78,10 @@ data ListThemeVersions = ListThemeVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listThemeVersions_maxResults' - The maximum number of results to be returned per request.
+--
 -- 'nextToken', 'listThemeVersions_nextToken' - The token for the next set of results, or null if there are no more
 -- results.
---
--- 'maxResults', 'listThemeVersions_maxResults' - The maximum number of results to be returned per request.
 --
 -- 'awsAccountId', 'listThemeVersions_awsAccountId' - The ID of the Amazon Web Services account that contains the themes that
 -- you\'re listing.
@@ -94,20 +95,20 @@ newListThemeVersions ::
   ListThemeVersions
 newListThemeVersions pAwsAccountId_ pThemeId_ =
   ListThemeVersions'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       awsAccountId = pAwsAccountId_,
       themeId = pThemeId_
     }
+
+-- | The maximum number of results to be returned per request.
+listThemeVersions_maxResults :: Lens.Lens' ListThemeVersions (Prelude.Maybe Prelude.Natural)
+listThemeVersions_maxResults = Lens.lens (\ListThemeVersions' {maxResults} -> maxResults) (\s@ListThemeVersions' {} a -> s {maxResults = a} :: ListThemeVersions)
 
 -- | The token for the next set of results, or null if there are no more
 -- results.
 listThemeVersions_nextToken :: Lens.Lens' ListThemeVersions (Prelude.Maybe Prelude.Text)
 listThemeVersions_nextToken = Lens.lens (\ListThemeVersions' {nextToken} -> nextToken) (\s@ListThemeVersions' {} a -> s {nextToken = a} :: ListThemeVersions)
-
--- | The maximum number of results to be returned per request.
-listThemeVersions_maxResults :: Lens.Lens' ListThemeVersions (Prelude.Maybe Prelude.Natural)
-listThemeVersions_maxResults = Lens.lens (\ListThemeVersions' {maxResults} -> maxResults) (\s@ListThemeVersions' {} a -> s {maxResults = a} :: ListThemeVersions)
 
 -- | The ID of the Amazon Web Services account that contains the themes that
 -- you\'re listing.
@@ -144,71 +145,72 @@ instance Core.AWSRequest ListThemeVersions where
   type
     AWSResponse ListThemeVersions =
       ListThemeVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListThemeVersionsResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> ( x Core..?> "ThemeVersionSummaryList"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "RequestId")
+            Prelude.<*> ( x Data..?> "ThemeVersionSummaryList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListThemeVersions where
   hashWithSalt _salt ListThemeVersions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` awsAccountId
       `Prelude.hashWithSalt` themeId
 
 instance Prelude.NFData ListThemeVersions where
   rnf ListThemeVersions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf themeId
 
-instance Core.ToHeaders ListThemeVersions where
+instance Data.ToHeaders ListThemeVersions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListThemeVersions where
+instance Data.ToPath ListThemeVersions where
   toPath ListThemeVersions' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/themes/",
-        Core.toBS themeId,
+        Data.toBS themeId,
         "/versions"
       ]
 
-instance Core.ToQuery ListThemeVersions where
+instance Data.ToQuery ListThemeVersions where
   toQuery ListThemeVersions' {..} =
     Prelude.mconcat
-      [ "next-token" Core.=: nextToken,
-        "max-results" Core.=: maxResults
+      [ "max-results" Data.=: maxResults,
+        "next-token" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListThemeVersionsResponse' smart constructor.
 data ListThemeVersionsResponse = ListThemeVersionsResponse'
-  { -- | The Amazon Web Services request ID for this operation.
+  { -- | The token for the next set of results, or null if there are no more
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services request ID for this operation.
     requestId :: Prelude.Maybe Prelude.Text,
     -- | A structure containing a list of all the versions of the specified
     -- theme.
     themeVersionSummaryList :: Prelude.Maybe [ThemeVersionSummary],
-    -- | The token for the next set of results, or null if there are no more
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -222,13 +224,13 @@ data ListThemeVersionsResponse = ListThemeVersionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'nextToken', 'listThemeVersionsResponse_nextToken' - The token for the next set of results, or null if there are no more
+-- results.
+--
 -- 'requestId', 'listThemeVersionsResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'themeVersionSummaryList', 'listThemeVersionsResponse_themeVersionSummaryList' - A structure containing a list of all the versions of the specified
 -- theme.
---
--- 'nextToken', 'listThemeVersionsResponse_nextToken' - The token for the next set of results, or null if there are no more
--- results.
 --
 -- 'status', 'listThemeVersionsResponse_status' - The HTTP status of the request.
 newListThemeVersionsResponse ::
@@ -237,12 +239,17 @@ newListThemeVersionsResponse ::
   ListThemeVersionsResponse
 newListThemeVersionsResponse pStatus_ =
   ListThemeVersionsResponse'
-    { requestId =
+    { nextToken =
         Prelude.Nothing,
+      requestId = Prelude.Nothing,
       themeVersionSummaryList = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       status = pStatus_
     }
+
+-- | The token for the next set of results, or null if there are no more
+-- results.
+listThemeVersionsResponse_nextToken :: Lens.Lens' ListThemeVersionsResponse (Prelude.Maybe Prelude.Text)
+listThemeVersionsResponse_nextToken = Lens.lens (\ListThemeVersionsResponse' {nextToken} -> nextToken) (\s@ListThemeVersionsResponse' {} a -> s {nextToken = a} :: ListThemeVersionsResponse)
 
 -- | The Amazon Web Services request ID for this operation.
 listThemeVersionsResponse_requestId :: Lens.Lens' ListThemeVersionsResponse (Prelude.Maybe Prelude.Text)
@@ -253,18 +260,13 @@ listThemeVersionsResponse_requestId = Lens.lens (\ListThemeVersionsResponse' {re
 listThemeVersionsResponse_themeVersionSummaryList :: Lens.Lens' ListThemeVersionsResponse (Prelude.Maybe [ThemeVersionSummary])
 listThemeVersionsResponse_themeVersionSummaryList = Lens.lens (\ListThemeVersionsResponse' {themeVersionSummaryList} -> themeVersionSummaryList) (\s@ListThemeVersionsResponse' {} a -> s {themeVersionSummaryList = a} :: ListThemeVersionsResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The token for the next set of results, or null if there are no more
--- results.
-listThemeVersionsResponse_nextToken :: Lens.Lens' ListThemeVersionsResponse (Prelude.Maybe Prelude.Text)
-listThemeVersionsResponse_nextToken = Lens.lens (\ListThemeVersionsResponse' {nextToken} -> nextToken) (\s@ListThemeVersionsResponse' {} a -> s {nextToken = a} :: ListThemeVersionsResponse)
-
 -- | The HTTP status of the request.
 listThemeVersionsResponse_status :: Lens.Lens' ListThemeVersionsResponse Prelude.Int
 listThemeVersionsResponse_status = Lens.lens (\ListThemeVersionsResponse' {status} -> status) (\s@ListThemeVersionsResponse' {} a -> s {status = a} :: ListThemeVersionsResponse)
 
 instance Prelude.NFData ListThemeVersionsResponse where
   rnf ListThemeVersionsResponse' {..} =
-    Prelude.rnf requestId
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf themeVersionSummaryList
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf status

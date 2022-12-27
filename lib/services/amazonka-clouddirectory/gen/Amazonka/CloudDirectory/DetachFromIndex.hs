@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.DetachFromIndex
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,12 +110,13 @@ instance Core.AWSRequest DetachFromIndex where
   type
     AWSResponse DetachFromIndex =
       DetachFromIndexResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DetachFromIndexResponse'
-            Prelude.<$> (x Core..?> "DetachedObjectIdentifier")
+            Prelude.<$> (x Data..?> "DetachedObjectIdentifier")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,28 +132,28 @@ instance Prelude.NFData DetachFromIndex where
       `Prelude.seq` Prelude.rnf indexReference
       `Prelude.seq` Prelude.rnf targetReference
 
-instance Core.ToHeaders DetachFromIndex where
+instance Data.ToHeaders DetachFromIndex where
   toHeaders DetachFromIndex' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# directoryArn]
+      ["x-amz-data-partition" Data.=# directoryArn]
 
-instance Core.ToJSON DetachFromIndex where
+instance Data.ToJSON DetachFromIndex where
   toJSON DetachFromIndex' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("IndexReference" Core..= indexReference),
+              ("IndexReference" Data..= indexReference),
             Prelude.Just
-              ("TargetReference" Core..= targetReference)
+              ("TargetReference" Data..= targetReference)
           ]
       )
 
-instance Core.ToPath DetachFromIndex where
+instance Data.ToPath DetachFromIndex where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/index/detach"
 
-instance Core.ToQuery DetachFromIndex where
+instance Data.ToQuery DetachFromIndex where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDetachFromIndexResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LakeFormation.GetEffectivePermissionsForPath
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.LakeFormation.GetEffectivePermissionsForPath
 
     -- * Request Lenses
     getEffectivePermissionsForPath_catalogId,
-    getEffectivePermissionsForPath_nextToken,
     getEffectivePermissionsForPath_maxResults,
+    getEffectivePermissionsForPath_nextToken,
     getEffectivePermissionsForPath_resourceArn,
 
     -- * Destructuring the Response
@@ -47,8 +47,9 @@ module Amazonka.LakeFormation.GetEffectivePermissionsForPath
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LakeFormation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,13 +59,13 @@ data GetEffectivePermissionsForPath = GetEffectivePermissionsForPath'
   { -- | The identifier for the Data Catalog. By default, the account ID. The
     -- Data Catalog is the persistent metadata store. It contains database
     -- definitions, table definitions, and other control information to manage
-    -- your AWS Lake Formation environment.
+    -- your Lake Formation environment.
     catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | A continuation token, if this is not the first call to retrieve this
     -- list.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The Amazon Resource Name (ARN) of the resource for which you want to get
     -- permissions.
     resourceArn :: Prelude.Text
@@ -82,12 +83,12 @@ data GetEffectivePermissionsForPath = GetEffectivePermissionsForPath'
 -- 'catalogId', 'getEffectivePermissionsForPath_catalogId' - The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
+--
+-- 'maxResults', 'getEffectivePermissionsForPath_maxResults' - The maximum number of results to return.
 --
 -- 'nextToken', 'getEffectivePermissionsForPath_nextToken' - A continuation token, if this is not the first call to retrieve this
 -- list.
---
--- 'maxResults', 'getEffectivePermissionsForPath_maxResults' - The maximum number of results to return.
 --
 -- 'resourceArn', 'getEffectivePermissionsForPath_resourceArn' - The Amazon Resource Name (ARN) of the resource for which you want to get
 -- permissions.
@@ -99,26 +100,26 @@ newGetEffectivePermissionsForPath pResourceArn_ =
   GetEffectivePermissionsForPath'
     { catalogId =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       resourceArn = pResourceArn_
     }
 
 -- | The identifier for the Data Catalog. By default, the account ID. The
 -- Data Catalog is the persistent metadata store. It contains database
 -- definitions, table definitions, and other control information to manage
--- your AWS Lake Formation environment.
+-- your Lake Formation environment.
 getEffectivePermissionsForPath_catalogId :: Lens.Lens' GetEffectivePermissionsForPath (Prelude.Maybe Prelude.Text)
 getEffectivePermissionsForPath_catalogId = Lens.lens (\GetEffectivePermissionsForPath' {catalogId} -> catalogId) (\s@GetEffectivePermissionsForPath' {} a -> s {catalogId = a} :: GetEffectivePermissionsForPath)
+
+-- | The maximum number of results to return.
+getEffectivePermissionsForPath_maxResults :: Lens.Lens' GetEffectivePermissionsForPath (Prelude.Maybe Prelude.Natural)
+getEffectivePermissionsForPath_maxResults = Lens.lens (\GetEffectivePermissionsForPath' {maxResults} -> maxResults) (\s@GetEffectivePermissionsForPath' {} a -> s {maxResults = a} :: GetEffectivePermissionsForPath)
 
 -- | A continuation token, if this is not the first call to retrieve this
 -- list.
 getEffectivePermissionsForPath_nextToken :: Lens.Lens' GetEffectivePermissionsForPath (Prelude.Maybe Prelude.Text)
 getEffectivePermissionsForPath_nextToken = Lens.lens (\GetEffectivePermissionsForPath' {nextToken} -> nextToken) (\s@GetEffectivePermissionsForPath' {} a -> s {nextToken = a} :: GetEffectivePermissionsForPath)
-
--- | The maximum number of results to return.
-getEffectivePermissionsForPath_maxResults :: Lens.Lens' GetEffectivePermissionsForPath (Prelude.Maybe Prelude.Natural)
-getEffectivePermissionsForPath_maxResults = Lens.lens (\GetEffectivePermissionsForPath' {maxResults} -> maxResults) (\s@GetEffectivePermissionsForPath' {} a -> s {maxResults = a} :: GetEffectivePermissionsForPath)
 
 -- | The Amazon Resource Name (ARN) of the resource for which you want to get
 -- permissions.
@@ -132,13 +133,14 @@ instance
   type
     AWSResponse GetEffectivePermissionsForPath =
       GetEffectivePermissionsForPathResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetEffectivePermissionsForPathResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Permissions" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Permissions" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -150,8 +152,8 @@ instance
     _salt
     GetEffectivePermissionsForPath' {..} =
       _salt `Prelude.hashWithSalt` catalogId
-        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` resourceArn
 
 instance
@@ -160,43 +162,40 @@ instance
   where
   rnf GetEffectivePermissionsForPath' {..} =
     Prelude.rnf catalogId
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetEffectivePermissionsForPath
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
-          [ "X-Amz-Target"
-              Core.=# ( "AWSLakeFormation.GetEffectivePermissionsForPath" ::
-                          Prelude.ByteString
-                      ),
-            "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+          [ "Content-Type"
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetEffectivePermissionsForPath where
+instance Data.ToJSON GetEffectivePermissionsForPath where
   toJSON GetEffectivePermissionsForPath' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("ResourceArn" Core..= resourceArn)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ResourceArn" Data..= resourceArn)
           ]
       )
 
-instance Core.ToPath GetEffectivePermissionsForPath where
-  toPath = Prelude.const "/"
+instance Data.ToPath GetEffectivePermissionsForPath where
+  toPath =
+    Prelude.const "/GetEffectivePermissionsForPath"
 
-instance Core.ToQuery GetEffectivePermissionsForPath where
+instance Data.ToQuery GetEffectivePermissionsForPath where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetEffectivePermissionsForPathResponse' smart constructor.

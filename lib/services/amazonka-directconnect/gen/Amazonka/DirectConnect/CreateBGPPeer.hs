@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.CreateBGPPeer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -56,8 +56,9 @@ module Amazonka.DirectConnect.CreateBGPPeer
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,12 +103,13 @@ instance Core.AWSRequest CreateBGPPeer where
   type
     AWSResponse CreateBGPPeer =
       CreateBGPPeerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateBGPPeerResponse'
-            Prelude.<$> (x Core..?> "virtualInterface")
+            Prelude.<$> (x Data..?> "virtualInterface")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -121,35 +123,35 @@ instance Prelude.NFData CreateBGPPeer where
     Prelude.rnf newBGPPeer'
       `Prelude.seq` Prelude.rnf virtualInterfaceId
 
-instance Core.ToHeaders CreateBGPPeer where
+instance Data.ToHeaders CreateBGPPeer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.CreateBGPPeer" ::
+              Data.=# ( "OvertureService.CreateBGPPeer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateBGPPeer where
+instance Data.ToJSON CreateBGPPeer where
   toJSON CreateBGPPeer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("newBGPPeer" Core..=) Prelude.<$> newBGPPeer',
-            ("virtualInterfaceId" Core..=)
+          [ ("newBGPPeer" Data..=) Prelude.<$> newBGPPeer',
+            ("virtualInterfaceId" Data..=)
               Prelude.<$> virtualInterfaceId
           ]
       )
 
-instance Core.ToPath CreateBGPPeer where
+instance Data.ToPath CreateBGPPeer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateBGPPeer where
+instance Data.ToQuery CreateBGPPeer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateBGPPeerResponse' smart constructor.

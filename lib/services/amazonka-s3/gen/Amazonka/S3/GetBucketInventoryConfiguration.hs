@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.GetBucketInventoryConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -63,7 +63,8 @@ module Amazonka.S3.GetBucketInventoryConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -72,8 +73,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newGetBucketInventoryConfiguration' smart constructor.
 data GetBucketInventoryConfiguration = GetBucketInventoryConfiguration'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the bucket containing the inventory configuration to
     -- retrieve.
@@ -92,8 +93,8 @@ data GetBucketInventoryConfiguration = GetBucketInventoryConfiguration'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'getBucketInventoryConfiguration_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'getBucketInventoryConfiguration_bucket' - The name of the bucket containing the inventory configuration to
 -- retrieve.
@@ -114,8 +115,8 @@ newGetBucketInventoryConfiguration pBucket_ pId_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 getBucketInventoryConfiguration_expectedBucketOwner :: Lens.Lens' GetBucketInventoryConfiguration (Prelude.Maybe Prelude.Text)
 getBucketInventoryConfiguration_expectedBucketOwner = Lens.lens (\GetBucketInventoryConfiguration' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetBucketInventoryConfiguration' {} a -> s {expectedBucketOwner = a} :: GetBucketInventoryConfiguration)
 
@@ -135,14 +136,14 @@ instance
   type
     AWSResponse GetBucketInventoryConfiguration =
       GetBucketInventoryConfigurationResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetBucketInventoryConfigurationResponse'
-            Prelude.<$> (Core.parseXML x)
+            Prelude.<$> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -167,22 +168,22 @@ instance
       `Prelude.seq` Prelude.rnf id
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetBucketInventoryConfiguration
   where
   toHeaders GetBucketInventoryConfiguration' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath GetBucketInventoryConfiguration where
+instance Data.ToPath GetBucketInventoryConfiguration where
   toPath GetBucketInventoryConfiguration' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery GetBucketInventoryConfiguration where
+instance Data.ToQuery GetBucketInventoryConfiguration where
   toQuery GetBucketInventoryConfiguration' {..} =
-    Prelude.mconcat ["id" Core.=: id, "inventory"]
+    Prelude.mconcat ["id" Data.=: id, "inventory"]
 
 -- | /See:/ 'newGetBucketInventoryConfigurationResponse' smart constructor.
 data GetBucketInventoryConfigurationResponse = GetBucketInventoryConfigurationResponse'

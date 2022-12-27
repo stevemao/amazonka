@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ServiceQuotas.ListAWSDefaultServiceQuotas
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.ServiceQuotas.ListAWSDefaultServiceQuotas
     newListAWSDefaultServiceQuotas,
 
     -- * Request Lenses
-    listAWSDefaultServiceQuotas_nextToken,
     listAWSDefaultServiceQuotas_maxResults,
+    listAWSDefaultServiceQuotas_nextToken,
     listAWSDefaultServiceQuotas_serviceCode,
 
     -- * Destructuring the Response
@@ -46,7 +46,8 @@ module Amazonka.ServiceQuotas.ListAWSDefaultServiceQuotas
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,12 +55,12 @@ import Amazonka.ServiceQuotas.Types
 
 -- | /See:/ 'newListAWSDefaultServiceQuotas' smart constructor.
 data ListAWSDefaultServiceQuotas = ListAWSDefaultServiceQuotas'
-  { -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return with a single call. To retrieve
+  { -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, if any, make another call with the token returned
     -- from this call.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The service identifier.
     serviceCode :: Prelude.Text
   }
@@ -73,11 +74,11 @@ data ListAWSDefaultServiceQuotas = ListAWSDefaultServiceQuotas'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listAWSDefaultServiceQuotas_nextToken' - The token for the next page of results.
---
 -- 'maxResults', 'listAWSDefaultServiceQuotas_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, if any, make another call with the token returned
 -- from this call.
+--
+-- 'nextToken', 'listAWSDefaultServiceQuotas_nextToken' - The token for the next page of results.
 --
 -- 'serviceCode', 'listAWSDefaultServiceQuotas_serviceCode' - The service identifier.
 newListAWSDefaultServiceQuotas ::
@@ -86,21 +87,21 @@ newListAWSDefaultServiceQuotas ::
   ListAWSDefaultServiceQuotas
 newListAWSDefaultServiceQuotas pServiceCode_ =
   ListAWSDefaultServiceQuotas'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       serviceCode = pServiceCode_
     }
-
--- | The token for the next page of results.
-listAWSDefaultServiceQuotas_nextToken :: Lens.Lens' ListAWSDefaultServiceQuotas (Prelude.Maybe Prelude.Text)
-listAWSDefaultServiceQuotas_nextToken = Lens.lens (\ListAWSDefaultServiceQuotas' {nextToken} -> nextToken) (\s@ListAWSDefaultServiceQuotas' {} a -> s {nextToken = a} :: ListAWSDefaultServiceQuotas)
 
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, if any, make another call with the token returned
 -- from this call.
 listAWSDefaultServiceQuotas_maxResults :: Lens.Lens' ListAWSDefaultServiceQuotas (Prelude.Maybe Prelude.Natural)
 listAWSDefaultServiceQuotas_maxResults = Lens.lens (\ListAWSDefaultServiceQuotas' {maxResults} -> maxResults) (\s@ListAWSDefaultServiceQuotas' {} a -> s {maxResults = a} :: ListAWSDefaultServiceQuotas)
+
+-- | The token for the next page of results.
+listAWSDefaultServiceQuotas_nextToken :: Lens.Lens' ListAWSDefaultServiceQuotas (Prelude.Maybe Prelude.Text)
+listAWSDefaultServiceQuotas_nextToken = Lens.lens (\ListAWSDefaultServiceQuotas' {nextToken} -> nextToken) (\s@ListAWSDefaultServiceQuotas' {} a -> s {nextToken = a} :: ListAWSDefaultServiceQuotas)
 
 -- | The service identifier.
 listAWSDefaultServiceQuotas_serviceCode :: Lens.Lens' ListAWSDefaultServiceQuotas Prelude.Text
@@ -132,57 +133,58 @@ instance Core.AWSRequest ListAWSDefaultServiceQuotas where
   type
     AWSResponse ListAWSDefaultServiceQuotas =
       ListAWSDefaultServiceQuotasResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAWSDefaultServiceQuotasResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Quotas" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Quotas" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListAWSDefaultServiceQuotas where
   hashWithSalt _salt ListAWSDefaultServiceQuotas' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` serviceCode
 
 instance Prelude.NFData ListAWSDefaultServiceQuotas where
   rnf ListAWSDefaultServiceQuotas' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf serviceCode
 
-instance Core.ToHeaders ListAWSDefaultServiceQuotas where
+instance Data.ToHeaders ListAWSDefaultServiceQuotas where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ServiceQuotasV20190624.ListAWSDefaultServiceQuotas" ::
+              Data.=# ( "ServiceQuotasV20190624.ListAWSDefaultServiceQuotas" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListAWSDefaultServiceQuotas where
+instance Data.ToJSON ListAWSDefaultServiceQuotas where
   toJSON ListAWSDefaultServiceQuotas' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("ServiceCode" Core..= serviceCode)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ServiceCode" Data..= serviceCode)
           ]
       )
 
-instance Core.ToPath ListAWSDefaultServiceQuotas where
+instance Data.ToPath ListAWSDefaultServiceQuotas where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListAWSDefaultServiceQuotas where
+instance Data.ToQuery ListAWSDefaultServiceQuotas where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListAWSDefaultServiceQuotasResponse' smart constructor.

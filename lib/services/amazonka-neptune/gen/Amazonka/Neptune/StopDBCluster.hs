@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.StopDBCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.Neptune.StopDBCluster
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -88,13 +89,14 @@ instance Core.AWSRequest StopDBCluster where
   type
     AWSResponse StopDBCluster =
       StopDBClusterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "StopDBClusterResult"
       ( \s h x ->
           StopDBClusterResponse'
-            Prelude.<$> (x Core..@? "DBCluster")
+            Prelude.<$> (x Data..@? "DBCluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -106,20 +108,20 @@ instance Prelude.NFData StopDBCluster where
   rnf StopDBCluster' {..} =
     Prelude.rnf dbClusterIdentifier
 
-instance Core.ToHeaders StopDBCluster where
+instance Data.ToHeaders StopDBCluster where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath StopDBCluster where
+instance Data.ToPath StopDBCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopDBCluster where
+instance Data.ToQuery StopDBCluster where
   toQuery StopDBCluster' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("StopDBCluster" :: Prelude.ByteString),
+          Data.=: ("StopDBCluster" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBClusterIdentifier" Core.=: dbClusterIdentifier
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBClusterIdentifier" Data.=: dbClusterIdentifier
       ]
 
 -- | /See:/ 'newStopDBClusterResponse' smart constructor.

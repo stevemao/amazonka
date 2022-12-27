@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.S3BucketOwner
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.S3BucketOwner where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides information about the Amazon Web Services account that owns an
@@ -62,14 +63,14 @@ s3BucketOwner_displayName = Lens.lens (\S3BucketOwner' {displayName} -> displayN
 s3BucketOwner_id :: Lens.Lens' S3BucketOwner (Prelude.Maybe Prelude.Text)
 s3BucketOwner_id = Lens.lens (\S3BucketOwner' {id} -> id) (\s@S3BucketOwner' {} a -> s {id = a} :: S3BucketOwner)
 
-instance Core.FromJSON S3BucketOwner where
+instance Data.FromJSON S3BucketOwner where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3BucketOwner"
       ( \x ->
           S3BucketOwner'
-            Prelude.<$> (x Core..:? "displayName")
-            Prelude.<*> (x Core..:? "id")
+            Prelude.<$> (x Data..:? "displayName")
+            Prelude.<*> (x Data..:? "id")
       )
 
 instance Prelude.Hashable S3BucketOwner where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.RelatedFinding
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.RelatedFinding where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details about a related finding.
@@ -65,14 +66,14 @@ relatedFinding_productArn = Lens.lens (\RelatedFinding' {productArn} -> productA
 relatedFinding_id :: Lens.Lens' RelatedFinding Prelude.Text
 relatedFinding_id = Lens.lens (\RelatedFinding' {id} -> id) (\s@RelatedFinding' {} a -> s {id = a} :: RelatedFinding)
 
-instance Core.FromJSON RelatedFinding where
+instance Data.FromJSON RelatedFinding where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RelatedFinding"
       ( \x ->
           RelatedFinding'
-            Prelude.<$> (x Core..: "ProductArn")
-            Prelude.<*> (x Core..: "Id")
+            Prelude.<$> (x Data..: "ProductArn")
+            Prelude.<*> (x Data..: "Id")
       )
 
 instance Prelude.Hashable RelatedFinding where
@@ -84,11 +85,11 @@ instance Prelude.NFData RelatedFinding where
   rnf RelatedFinding' {..} =
     Prelude.rnf productArn `Prelude.seq` Prelude.rnf id
 
-instance Core.ToJSON RelatedFinding where
+instance Data.ToJSON RelatedFinding where
   toJSON RelatedFinding' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ProductArn" Core..= productArn),
-            Prelude.Just ("Id" Core..= id)
+          [ Prelude.Just ("ProductArn" Data..= productArn),
+            Prelude.Just ("Id" Data..= id)
           ]
       )

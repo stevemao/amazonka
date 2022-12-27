@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.GetPublicKeyConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,13 +79,14 @@ instance Core.AWSRequest GetPublicKeyConfig where
   type
     AWSResponse GetPublicKeyConfig =
       GetPublicKeyConfigResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetPublicKeyConfigResponse'
-            Prelude.<$> (h Core..#? "ETag")
-            Prelude.<*> (Core.parseXML x)
+            Prelude.<$> (h Data..#? "ETag")
+            Prelude.<*> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,15 +97,15 @@ instance Prelude.Hashable GetPublicKeyConfig where
 instance Prelude.NFData GetPublicKeyConfig where
   rnf GetPublicKeyConfig' {..} = Prelude.rnf id
 
-instance Core.ToHeaders GetPublicKeyConfig where
+instance Data.ToHeaders GetPublicKeyConfig where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetPublicKeyConfig where
+instance Data.ToPath GetPublicKeyConfig where
   toPath GetPublicKeyConfig' {..} =
     Prelude.mconcat
-      ["/2020-05-31/public-key/", Core.toBS id, "/config"]
+      ["/2020-05-31/public-key/", Data.toBS id, "/config"]
 
-instance Core.ToQuery GetPublicKeyConfig where
+instance Data.ToQuery GetPublicKeyConfig where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetPublicKeyConfigResponse' smart constructor.

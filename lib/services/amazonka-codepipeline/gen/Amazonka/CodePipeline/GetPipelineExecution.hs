@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodePipeline.GetPipelineExecution
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CodePipeline.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -101,12 +102,13 @@ instance Core.AWSRequest GetPipelineExecution where
   type
     AWSResponse GetPipelineExecution =
       GetPipelineExecutionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPipelineExecutionResponse'
-            Prelude.<$> (x Core..?> "pipelineExecution")
+            Prelude.<$> (x Data..?> "pipelineExecution")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,35 +122,35 @@ instance Prelude.NFData GetPipelineExecution where
     Prelude.rnf pipelineName
       `Prelude.seq` Prelude.rnf pipelineExecutionId
 
-instance Core.ToHeaders GetPipelineExecution where
+instance Data.ToHeaders GetPipelineExecution where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodePipeline_20150709.GetPipelineExecution" ::
+              Data.=# ( "CodePipeline_20150709.GetPipelineExecution" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetPipelineExecution where
+instance Data.ToJSON GetPipelineExecution where
   toJSON GetPipelineExecution' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("pipelineName" Core..= pipelineName),
+          [ Prelude.Just ("pipelineName" Data..= pipelineName),
             Prelude.Just
-              ("pipelineExecutionId" Core..= pipelineExecutionId)
+              ("pipelineExecutionId" Data..= pipelineExecutionId)
           ]
       )
 
-instance Core.ToPath GetPipelineExecution where
+instance Data.ToPath GetPipelineExecution where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetPipelineExecution where
+instance Data.ToQuery GetPipelineExecution where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output of a @GetPipelineExecution@ action.

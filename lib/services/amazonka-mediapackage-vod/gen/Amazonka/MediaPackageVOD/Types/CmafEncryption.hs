@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackageVOD.Types.CmafEncryption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaPackageVOD.Types.CmafEncryption where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaPackageVOD.Types.SpekeKeyProvider
 import qualified Amazonka.Prelude as Prelude
 
@@ -73,14 +74,14 @@ cmafEncryption_constantInitializationVector = Lens.lens (\CmafEncryption' {const
 cmafEncryption_spekeKeyProvider :: Lens.Lens' CmafEncryption SpekeKeyProvider
 cmafEncryption_spekeKeyProvider = Lens.lens (\CmafEncryption' {spekeKeyProvider} -> spekeKeyProvider) (\s@CmafEncryption' {} a -> s {spekeKeyProvider = a} :: CmafEncryption)
 
-instance Core.FromJSON CmafEncryption where
+instance Data.FromJSON CmafEncryption where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CmafEncryption"
       ( \x ->
           CmafEncryption'
-            Prelude.<$> (x Core..:? "constantInitializationVector")
-            Prelude.<*> (x Core..: "spekeKeyProvider")
+            Prelude.<$> (x Data..:? "constantInitializationVector")
+            Prelude.<*> (x Data..: "spekeKeyProvider")
       )
 
 instance Prelude.Hashable CmafEncryption where
@@ -94,13 +95,13 @@ instance Prelude.NFData CmafEncryption where
     Prelude.rnf constantInitializationVector
       `Prelude.seq` Prelude.rnf spekeKeyProvider
 
-instance Core.ToJSON CmafEncryption where
+instance Data.ToJSON CmafEncryption where
   toJSON CmafEncryption' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("constantInitializationVector" Core..=)
+          [ ("constantInitializationVector" Data..=)
               Prelude.<$> constantInitializationVector,
             Prelude.Just
-              ("spekeKeyProvider" Core..= spekeKeyProvider)
+              ("spekeKeyProvider" Data..= spekeKeyProvider)
           ]
       )

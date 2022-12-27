@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetTriggers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,38 +29,39 @@ module Amazonka.Glue.GetTriggers
     newGetTriggers,
 
     -- * Request Lenses
-    getTriggers_nextToken,
-    getTriggers_maxResults,
     getTriggers_dependentJobName,
+    getTriggers_maxResults,
+    getTriggers_nextToken,
 
     -- * Destructuring the Response
     GetTriggersResponse (..),
     newGetTriggersResponse,
 
     -- * Response Lenses
-    getTriggersResponse_triggers,
     getTriggersResponse_nextToken,
+    getTriggersResponse_triggers,
     getTriggersResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetTriggers' smart constructor.
 data GetTriggers = GetTriggers'
-  { -- | A continuation token, if this is a continuation call.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum size of the response.
-    maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The name of the job to retrieve triggers for. The trigger that can start
+  { -- | The name of the job to retrieve triggers for. The trigger that can start
     -- this job is returned, and if there is no such trigger, all triggers are
     -- returned.
-    dependentJobName :: Prelude.Maybe Prelude.Text
+    dependentJobName :: Prelude.Maybe Prelude.Text,
+    -- | The maximum size of the response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A continuation token, if this is a continuation call.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,35 +73,35 @@ data GetTriggers = GetTriggers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getTriggers_nextToken' - A continuation token, if this is a continuation call.
---
--- 'maxResults', 'getTriggers_maxResults' - The maximum size of the response.
---
 -- 'dependentJobName', 'getTriggers_dependentJobName' - The name of the job to retrieve triggers for. The trigger that can start
 -- this job is returned, and if there is no such trigger, all triggers are
 -- returned.
+--
+-- 'maxResults', 'getTriggers_maxResults' - The maximum size of the response.
+--
+-- 'nextToken', 'getTriggers_nextToken' - A continuation token, if this is a continuation call.
 newGetTriggers ::
   GetTriggers
 newGetTriggers =
   GetTriggers'
-    { nextToken = Prelude.Nothing,
+    { dependentJobName = Prelude.Nothing,
       maxResults = Prelude.Nothing,
-      dependentJobName = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
-
--- | A continuation token, if this is a continuation call.
-getTriggers_nextToken :: Lens.Lens' GetTriggers (Prelude.Maybe Prelude.Text)
-getTriggers_nextToken = Lens.lens (\GetTriggers' {nextToken} -> nextToken) (\s@GetTriggers' {} a -> s {nextToken = a} :: GetTriggers)
-
--- | The maximum size of the response.
-getTriggers_maxResults :: Lens.Lens' GetTriggers (Prelude.Maybe Prelude.Natural)
-getTriggers_maxResults = Lens.lens (\GetTriggers' {maxResults} -> maxResults) (\s@GetTriggers' {} a -> s {maxResults = a} :: GetTriggers)
 
 -- | The name of the job to retrieve triggers for. The trigger that can start
 -- this job is returned, and if there is no such trigger, all triggers are
 -- returned.
 getTriggers_dependentJobName :: Lens.Lens' GetTriggers (Prelude.Maybe Prelude.Text)
 getTriggers_dependentJobName = Lens.lens (\GetTriggers' {dependentJobName} -> dependentJobName) (\s@GetTriggers' {} a -> s {dependentJobName = a} :: GetTriggers)
+
+-- | The maximum size of the response.
+getTriggers_maxResults :: Lens.Lens' GetTriggers (Prelude.Maybe Prelude.Natural)
+getTriggers_maxResults = Lens.lens (\GetTriggers' {maxResults} -> maxResults) (\s@GetTriggers' {} a -> s {maxResults = a} :: GetTriggers)
+
+-- | A continuation token, if this is a continuation call.
+getTriggers_nextToken :: Lens.Lens' GetTriggers (Prelude.Maybe Prelude.Text)
+getTriggers_nextToken = Lens.lens (\GetTriggers' {nextToken} -> nextToken) (\s@GetTriggers' {} a -> s {nextToken = a} :: GetTriggers)
 
 instance Core.AWSPager GetTriggers where
   page rq rs
@@ -123,65 +124,66 @@ instance Core.AWSPager GetTriggers where
 
 instance Core.AWSRequest GetTriggers where
   type AWSResponse GetTriggers = GetTriggersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetTriggersResponse'
-            Prelude.<$> (x Core..?> "Triggers" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Triggers" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetTriggers where
   hashWithSalt _salt GetTriggers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` dependentJobName
       `Prelude.hashWithSalt` maxResults
-      `Prelude.hashWithSalt` dependentJobName
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData GetTriggers where
   rnf GetTriggers' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf dependentJobName
       `Prelude.seq` Prelude.rnf maxResults
-      `Prelude.seq` Prelude.rnf dependentJobName
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders GetTriggers where
+instance Data.ToHeaders GetTriggers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetTriggers" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetTriggers" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetTriggers where
+instance Data.ToJSON GetTriggers where
   toJSON GetTriggers' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("DependentJobName" Core..=)
-              Prelude.<$> dependentJobName
+          [ ("DependentJobName" Data..=)
+              Prelude.<$> dependentJobName,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath GetTriggers where
+instance Data.ToPath GetTriggers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetTriggers where
+instance Data.ToQuery GetTriggers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetTriggersResponse' smart constructor.
 data GetTriggersResponse = GetTriggersResponse'
-  { -- | A list of triggers for the specified job.
-    triggers :: Prelude.Maybe [Trigger],
-    -- | A continuation token, if not all the requested triggers have yet been
+  { -- | A continuation token, if not all the requested triggers have yet been
     -- returned.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of triggers for the specified job.
+    triggers :: Prelude.Maybe [Trigger],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -195,10 +197,10 @@ data GetTriggersResponse = GetTriggersResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'triggers', 'getTriggersResponse_triggers' - A list of triggers for the specified job.
---
 -- 'nextToken', 'getTriggersResponse_nextToken' - A continuation token, if not all the requested triggers have yet been
 -- returned.
+--
+-- 'triggers', 'getTriggersResponse_triggers' - A list of triggers for the specified job.
 --
 -- 'httpStatus', 'getTriggersResponse_httpStatus' - The response's http status code.
 newGetTriggersResponse ::
@@ -207,19 +209,19 @@ newGetTriggersResponse ::
   GetTriggersResponse
 newGetTriggersResponse pHttpStatus_ =
   GetTriggersResponse'
-    { triggers = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      triggers = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of triggers for the specified job.
-getTriggersResponse_triggers :: Lens.Lens' GetTriggersResponse (Prelude.Maybe [Trigger])
-getTriggersResponse_triggers = Lens.lens (\GetTriggersResponse' {triggers} -> triggers) (\s@GetTriggersResponse' {} a -> s {triggers = a} :: GetTriggersResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A continuation token, if not all the requested triggers have yet been
 -- returned.
 getTriggersResponse_nextToken :: Lens.Lens' GetTriggersResponse (Prelude.Maybe Prelude.Text)
 getTriggersResponse_nextToken = Lens.lens (\GetTriggersResponse' {nextToken} -> nextToken) (\s@GetTriggersResponse' {} a -> s {nextToken = a} :: GetTriggersResponse)
+
+-- | A list of triggers for the specified job.
+getTriggersResponse_triggers :: Lens.Lens' GetTriggersResponse (Prelude.Maybe [Trigger])
+getTriggersResponse_triggers = Lens.lens (\GetTriggersResponse' {triggers} -> triggers) (\s@GetTriggersResponse' {} a -> s {triggers = a} :: GetTriggersResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 getTriggersResponse_httpStatus :: Lens.Lens' GetTriggersResponse Prelude.Int
@@ -227,6 +229,6 @@ getTriggersResponse_httpStatus = Lens.lens (\GetTriggersResponse' {httpStatus} -
 
 instance Prelude.NFData GetTriggersResponse where
   rnf GetTriggersResponse' {..} =
-    Prelude.rnf triggers
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf triggers
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Kafka.Types.ClusterOperationStepInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Kafka.Types.ClusterOperationStepInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | State information about the operation step.
@@ -53,13 +54,13 @@ newClusterOperationStepInfo =
 clusterOperationStepInfo_stepStatus :: Lens.Lens' ClusterOperationStepInfo (Prelude.Maybe Prelude.Text)
 clusterOperationStepInfo_stepStatus = Lens.lens (\ClusterOperationStepInfo' {stepStatus} -> stepStatus) (\s@ClusterOperationStepInfo' {} a -> s {stepStatus = a} :: ClusterOperationStepInfo)
 
-instance Core.FromJSON ClusterOperationStepInfo where
+instance Data.FromJSON ClusterOperationStepInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ClusterOperationStepInfo"
       ( \x ->
           ClusterOperationStepInfo'
-            Prelude.<$> (x Core..:? "stepStatus")
+            Prelude.<$> (x Data..:? "stepStatus")
       )
 
 instance Prelude.Hashable ClusterOperationStepInfo where

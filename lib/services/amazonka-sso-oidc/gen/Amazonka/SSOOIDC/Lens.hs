@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.SSOOIDC.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,45 +14,45 @@
 module Amazonka.SSOOIDC.Lens
   ( -- * Operations
 
-    -- ** StartDeviceAuthorization
-    startDeviceAuthorization_clientId,
-    startDeviceAuthorization_clientSecret,
-    startDeviceAuthorization_startUrl,
-    startDeviceAuthorizationResponse_userCode,
-    startDeviceAuthorizationResponse_interval,
-    startDeviceAuthorizationResponse_expiresIn,
-    startDeviceAuthorizationResponse_verificationUri,
-    startDeviceAuthorizationResponse_deviceCode,
-    startDeviceAuthorizationResponse_verificationUriComplete,
-    startDeviceAuthorizationResponse_httpStatus,
-
     -- ** CreateToken
+    createToken_code,
+    createToken_deviceCode,
     createToken_redirectUri,
     createToken_refreshToken,
     createToken_scope,
-    createToken_code,
     createToken_clientId,
     createToken_clientSecret,
     createToken_grantType,
-    createToken_deviceCode,
     createTokenResponse_accessToken,
-    createTokenResponse_refreshToken,
     createTokenResponse_expiresIn,
-    createTokenResponse_tokenType,
     createTokenResponse_idToken,
+    createTokenResponse_refreshToken,
+    createTokenResponse_tokenType,
     createTokenResponse_httpStatus,
 
     -- ** RegisterClient
     registerClient_scopes,
     registerClient_clientName,
     registerClient_clientType,
+    registerClientResponse_authorizationEndpoint,
     registerClientResponse_clientId,
-    registerClientResponse_clientSecret,
     registerClientResponse_clientIdIssuedAt,
+    registerClientResponse_clientSecret,
     registerClientResponse_clientSecretExpiresAt,
     registerClientResponse_tokenEndpoint,
-    registerClientResponse_authorizationEndpoint,
     registerClientResponse_httpStatus,
+
+    -- ** StartDeviceAuthorization
+    startDeviceAuthorization_clientId,
+    startDeviceAuthorization_clientSecret,
+    startDeviceAuthorization_startUrl,
+    startDeviceAuthorizationResponse_deviceCode,
+    startDeviceAuthorizationResponse_expiresIn,
+    startDeviceAuthorizationResponse_interval,
+    startDeviceAuthorizationResponse_userCode,
+    startDeviceAuthorizationResponse_verificationUri,
+    startDeviceAuthorizationResponse_verificationUriComplete,
+    startDeviceAuthorizationResponse_httpStatus,
 
     -- * Types
   )

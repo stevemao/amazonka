@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.EnableEbsEncryptionByDefault
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -59,8 +59,9 @@ module Amazonka.EC2.EnableEbsEncryptionByDefault
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,12 +107,13 @@ instance Core.AWSRequest EnableEbsEncryptionByDefault where
   type
     AWSResponse EnableEbsEncryptionByDefault =
       EnableEbsEncryptionByDefaultResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           EnableEbsEncryptionByDefaultResponse'
-            Prelude.<$> (x Core..@? "ebsEncryptionByDefault")
+            Prelude.<$> (x Data..@? "ebsEncryptionByDefault")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,22 +128,22 @@ instance Prelude.NFData EnableEbsEncryptionByDefault where
   rnf EnableEbsEncryptionByDefault' {..} =
     Prelude.rnf dryRun
 
-instance Core.ToHeaders EnableEbsEncryptionByDefault where
+instance Data.ToHeaders EnableEbsEncryptionByDefault where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath EnableEbsEncryptionByDefault where
+instance Data.ToPath EnableEbsEncryptionByDefault where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableEbsEncryptionByDefault where
+instance Data.ToQuery EnableEbsEncryptionByDefault where
   toQuery EnableEbsEncryptionByDefault' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "EnableEbsEncryptionByDefault" ::
+          Data.=: ( "EnableEbsEncryptionByDefault" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun
       ]
 
 -- | /See:/ 'newEnableEbsEncryptionByDefaultResponse' smart constructor.

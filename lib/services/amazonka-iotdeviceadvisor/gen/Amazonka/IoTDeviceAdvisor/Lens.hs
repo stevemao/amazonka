@@ -6,56 +6,13 @@
 
 -- |
 -- Module      : Amazonka.IoTDeviceAdvisor.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 module Amazonka.IoTDeviceAdvisor.Lens
   ( -- * Operations
-
-    -- ** GetSuiteRunReport
-    getSuiteRunReport_suiteDefinitionId,
-    getSuiteRunReport_suiteRunId,
-    getSuiteRunReportResponse_qualificationReportDownloadUrl,
-    getSuiteRunReportResponse_httpStatus,
-
-    -- ** StartSuiteRun
-    startSuiteRun_suiteRunConfiguration,
-    startSuiteRun_suiteDefinitionVersion,
-    startSuiteRun_tags,
-    startSuiteRun_suiteDefinitionId,
-    startSuiteRunResponse_createdAt,
-    startSuiteRunResponse_suiteRunArn,
-    startSuiteRunResponse_suiteRunId,
-    startSuiteRunResponse_httpStatus,
-
-    -- ** ListSuiteDefinitions
-    listSuiteDefinitions_nextToken,
-    listSuiteDefinitions_maxResults,
-    listSuiteDefinitionsResponse_suiteDefinitionInformationList,
-    listSuiteDefinitionsResponse_nextToken,
-    listSuiteDefinitionsResponse_httpStatus,
-
-    -- ** ListTagsForResource
-    listTagsForResource_resourceArn,
-    listTagsForResourceResponse_tags,
-    listTagsForResourceResponse_httpStatus,
-
-    -- ** DeleteSuiteDefinition
-    deleteSuiteDefinition_suiteDefinitionId,
-    deleteSuiteDefinitionResponse_httpStatus,
-
-    -- ** UpdateSuiteDefinition
-    updateSuiteDefinition_suiteDefinitionConfiguration,
-    updateSuiteDefinition_suiteDefinitionId,
-    updateSuiteDefinitionResponse_lastUpdatedAt,
-    updateSuiteDefinitionResponse_createdAt,
-    updateSuiteDefinitionResponse_suiteDefinitionArn,
-    updateSuiteDefinitionResponse_suiteDefinitionId,
-    updateSuiteDefinitionResponse_suiteDefinitionVersion,
-    updateSuiteDefinitionResponse_suiteDefinitionName,
-    updateSuiteDefinitionResponse_httpStatus,
 
     -- ** CreateSuiteDefinition
     createSuiteDefinition_suiteDefinitionConfiguration,
@@ -66,23 +23,86 @@ module Amazonka.IoTDeviceAdvisor.Lens
     createSuiteDefinitionResponse_suiteDefinitionName,
     createSuiteDefinitionResponse_httpStatus,
 
-    -- ** StopSuiteRun
-    stopSuiteRun_suiteDefinitionId,
-    stopSuiteRun_suiteRunId,
-    stopSuiteRunResponse_httpStatus,
+    -- ** DeleteSuiteDefinition
+    deleteSuiteDefinition_suiteDefinitionId,
+    deleteSuiteDefinitionResponse_httpStatus,
+
+    -- ** GetEndpoint
+    getEndpoint_certificateArn,
+    getEndpoint_thingArn,
+    getEndpointResponse_endpoint,
+    getEndpointResponse_httpStatus,
 
     -- ** GetSuiteDefinition
     getSuiteDefinition_suiteDefinitionVersion,
     getSuiteDefinition_suiteDefinitionId,
     getSuiteDefinitionResponse_createdAt,
-    getSuiteDefinitionResponse_suiteDefinitionConfiguration,
-    getSuiteDefinitionResponse_suiteDefinitionArn,
     getSuiteDefinitionResponse_lastModifiedAt,
+    getSuiteDefinitionResponse_latestVersion,
+    getSuiteDefinitionResponse_suiteDefinitionArn,
+    getSuiteDefinitionResponse_suiteDefinitionConfiguration,
     getSuiteDefinitionResponse_suiteDefinitionId,
     getSuiteDefinitionResponse_suiteDefinitionVersion,
-    getSuiteDefinitionResponse_latestVersion,
     getSuiteDefinitionResponse_tags,
     getSuiteDefinitionResponse_httpStatus,
+
+    -- ** GetSuiteRun
+    getSuiteRun_suiteDefinitionId,
+    getSuiteRun_suiteRunId,
+    getSuiteRunResponse_endTime,
+    getSuiteRunResponse_errorReason,
+    getSuiteRunResponse_startTime,
+    getSuiteRunResponse_status,
+    getSuiteRunResponse_suiteDefinitionId,
+    getSuiteRunResponse_suiteDefinitionVersion,
+    getSuiteRunResponse_suiteRunArn,
+    getSuiteRunResponse_suiteRunConfiguration,
+    getSuiteRunResponse_suiteRunId,
+    getSuiteRunResponse_tags,
+    getSuiteRunResponse_testResult,
+    getSuiteRunResponse_httpStatus,
+
+    -- ** GetSuiteRunReport
+    getSuiteRunReport_suiteDefinitionId,
+    getSuiteRunReport_suiteRunId,
+    getSuiteRunReportResponse_qualificationReportDownloadUrl,
+    getSuiteRunReportResponse_httpStatus,
+
+    -- ** ListSuiteDefinitions
+    listSuiteDefinitions_maxResults,
+    listSuiteDefinitions_nextToken,
+    listSuiteDefinitionsResponse_nextToken,
+    listSuiteDefinitionsResponse_suiteDefinitionInformationList,
+    listSuiteDefinitionsResponse_httpStatus,
+
+    -- ** ListSuiteRuns
+    listSuiteRuns_maxResults,
+    listSuiteRuns_nextToken,
+    listSuiteRuns_suiteDefinitionId,
+    listSuiteRuns_suiteDefinitionVersion,
+    listSuiteRunsResponse_nextToken,
+    listSuiteRunsResponse_suiteRunsList,
+    listSuiteRunsResponse_httpStatus,
+
+    -- ** ListTagsForResource
+    listTagsForResource_resourceArn,
+    listTagsForResourceResponse_tags,
+    listTagsForResourceResponse_httpStatus,
+
+    -- ** StartSuiteRun
+    startSuiteRun_suiteDefinitionVersion,
+    startSuiteRun_suiteRunConfiguration,
+    startSuiteRun_tags,
+    startSuiteRun_suiteDefinitionId,
+    startSuiteRunResponse_createdAt,
+    startSuiteRunResponse_suiteRunArn,
+    startSuiteRunResponse_suiteRunId,
+    startSuiteRunResponse_httpStatus,
+
+    -- ** StopSuiteRun
+    stopSuiteRun_suiteDefinitionId,
+    stopSuiteRun_suiteRunId,
+    stopSuiteRunResponse_httpStatus,
 
     -- ** TagResource
     tagResource_resourceArn,
@@ -94,30 +114,16 @@ module Amazonka.IoTDeviceAdvisor.Lens
     untagResource_tagKeys,
     untagResourceResponse_httpStatus,
 
-    -- ** ListSuiteRuns
-    listSuiteRuns_suiteDefinitionId,
-    listSuiteRuns_suiteDefinitionVersion,
-    listSuiteRuns_nextToken,
-    listSuiteRuns_maxResults,
-    listSuiteRunsResponse_nextToken,
-    listSuiteRunsResponse_suiteRunsList,
-    listSuiteRunsResponse_httpStatus,
-
-    -- ** GetSuiteRun
-    getSuiteRun_suiteDefinitionId,
-    getSuiteRun_suiteRunId,
-    getSuiteRunResponse_status,
-    getSuiteRunResponse_suiteRunConfiguration,
-    getSuiteRunResponse_startTime,
-    getSuiteRunResponse_suiteDefinitionId,
-    getSuiteRunResponse_suiteDefinitionVersion,
-    getSuiteRunResponse_errorReason,
-    getSuiteRunResponse_testResult,
-    getSuiteRunResponse_endTime,
-    getSuiteRunResponse_suiteRunArn,
-    getSuiteRunResponse_suiteRunId,
-    getSuiteRunResponse_tags,
-    getSuiteRunResponse_httpStatus,
+    -- ** UpdateSuiteDefinition
+    updateSuiteDefinition_suiteDefinitionConfiguration,
+    updateSuiteDefinition_suiteDefinitionId,
+    updateSuiteDefinitionResponse_createdAt,
+    updateSuiteDefinitionResponse_lastUpdatedAt,
+    updateSuiteDefinitionResponse_suiteDefinitionArn,
+    updateSuiteDefinitionResponse_suiteDefinitionId,
+    updateSuiteDefinitionResponse_suiteDefinitionName,
+    updateSuiteDefinitionResponse_suiteDefinitionVersion,
+    updateSuiteDefinitionResponse_httpStatus,
 
     -- * Types
 
@@ -126,50 +132,63 @@ module Amazonka.IoTDeviceAdvisor.Lens
     deviceUnderTest_thingArn,
 
     -- ** GroupResult
-    groupResult_tests,
     groupResult_groupId,
     groupResult_groupName,
+    groupResult_tests,
 
     -- ** SuiteDefinitionConfiguration
-    suiteDefinitionConfiguration_suiteDefinitionName,
-    suiteDefinitionConfiguration_intendedForQualification,
     suiteDefinitionConfiguration_devicePermissionRoleArn,
     suiteDefinitionConfiguration_devices,
+    suiteDefinitionConfiguration_intendedForQualification,
+    suiteDefinitionConfiguration_isLongDurationTest,
+    suiteDefinitionConfiguration_protocol,
     suiteDefinitionConfiguration_rootGroup,
+    suiteDefinitionConfiguration_suiteDefinitionName,
 
     -- ** SuiteDefinitionInformation
     suiteDefinitionInformation_createdAt,
     suiteDefinitionInformation_defaultDevices,
+    suiteDefinitionInformation_intendedForQualification,
+    suiteDefinitionInformation_isLongDurationTest,
+    suiteDefinitionInformation_protocol,
     suiteDefinitionInformation_suiteDefinitionId,
     suiteDefinitionInformation_suiteDefinitionName,
-    suiteDefinitionInformation_intendedForQualification,
 
     -- ** SuiteRunConfiguration
+    suiteRunConfiguration_parallelRun,
     suiteRunConfiguration_primaryDevice,
     suiteRunConfiguration_selectedTestList,
 
     -- ** SuiteRunInformation
-    suiteRunInformation_status,
     suiteRunInformation_createdAt,
-    suiteRunInformation_passed,
-    suiteRunInformation_suiteDefinitionId,
-    suiteRunInformation_suiteDefinitionVersion,
-    suiteRunInformation_startedAt,
-    suiteRunInformation_suiteDefinitionName,
     suiteRunInformation_endAt,
-    suiteRunInformation_suiteRunId,
     suiteRunInformation_failed,
+    suiteRunInformation_passed,
+    suiteRunInformation_startedAt,
+    suiteRunInformation_status,
+    suiteRunInformation_suiteDefinitionId,
+    suiteRunInformation_suiteDefinitionName,
+    suiteRunInformation_suiteDefinitionVersion,
+    suiteRunInformation_suiteRunId,
 
     -- ** TestCaseRun
-    testCaseRun_status,
+    testCaseRun_endTime,
+    testCaseRun_failure,
     testCaseRun_logUrl,
     testCaseRun_startTime,
-    testCaseRun_testCaseRunId,
-    testCaseRun_warnings,
-    testCaseRun_endTime,
+    testCaseRun_status,
     testCaseRun_testCaseDefinitionId,
-    testCaseRun_failure,
     testCaseRun_testCaseDefinitionName,
+    testCaseRun_testCaseRunId,
+    testCaseRun_testScenarios,
+    testCaseRun_warnings,
+
+    -- ** TestCaseScenario
+    testCaseScenario_failure,
+    testCaseScenario_status,
+    testCaseScenario_systemMessage,
+    testCaseScenario_testCaseScenarioId,
+    testCaseScenario_testCaseScenarioType,
 
     -- ** TestResult
     testResult_groups,
@@ -178,6 +197,7 @@ where
 
 import Amazonka.IoTDeviceAdvisor.CreateSuiteDefinition
 import Amazonka.IoTDeviceAdvisor.DeleteSuiteDefinition
+import Amazonka.IoTDeviceAdvisor.GetEndpoint
 import Amazonka.IoTDeviceAdvisor.GetSuiteDefinition
 import Amazonka.IoTDeviceAdvisor.GetSuiteRun
 import Amazonka.IoTDeviceAdvisor.GetSuiteRunReport
@@ -194,6 +214,7 @@ import Amazonka.IoTDeviceAdvisor.Types.SuiteDefinitionInformation
 import Amazonka.IoTDeviceAdvisor.Types.SuiteRunConfiguration
 import Amazonka.IoTDeviceAdvisor.Types.SuiteRunInformation
 import Amazonka.IoTDeviceAdvisor.Types.TestCaseRun
+import Amazonka.IoTDeviceAdvisor.Types.TestCaseScenario
 import Amazonka.IoTDeviceAdvisor.Types.TestResult
 import Amazonka.IoTDeviceAdvisor.UntagResource
 import Amazonka.IoTDeviceAdvisor.UpdateSuiteDefinition

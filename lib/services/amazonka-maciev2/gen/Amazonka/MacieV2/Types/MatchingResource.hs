@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.MatchingResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.MatchingResource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.MatchingBucket
 import qualified Amazonka.Prelude as Prelude
 
@@ -53,13 +54,13 @@ newMatchingResource =
 matchingResource_matchingBucket :: Lens.Lens' MatchingResource (Prelude.Maybe MatchingBucket)
 matchingResource_matchingBucket = Lens.lens (\MatchingResource' {matchingBucket} -> matchingBucket) (\s@MatchingResource' {} a -> s {matchingBucket = a} :: MatchingResource)
 
-instance Core.FromJSON MatchingResource where
+instance Data.FromJSON MatchingResource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MatchingResource"
       ( \x ->
           MatchingResource'
-            Prelude.<$> (x Core..:? "matchingBucket")
+            Prelude.<$> (x Data..:? "matchingBucket")
       )
 
 instance Prelude.Hashable MatchingResource where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.UpdateWebhook
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.CodeBuild.UpdateWebhook
 
     -- * Request Lenses
     updateWebhook_branchFilter,
-    updateWebhook_rotateSecret,
-    updateWebhook_filterGroups,
     updateWebhook_buildType,
+    updateWebhook_filterGroups,
+    updateWebhook_rotateSecret,
     updateWebhook_projectName,
 
     -- * Destructuring the Response
@@ -47,7 +47,8 @@ where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,16 +62,16 @@ data UpdateWebhook = UpdateWebhook'
     --
     -- It is recommended that you use @filterGroups@ instead of @branchFilter@.
     branchFilter :: Prelude.Maybe Prelude.Text,
-    -- | A boolean value that specifies whether the associated GitHub
-    -- repository\'s secret token should be updated. If you use Bitbucket for
-    -- your repository, @rotateSecret@ is ignored.
-    rotateSecret :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the type of build this webhook will trigger.
+    buildType :: Prelude.Maybe WebhookBuildType,
     -- | An array of arrays of @WebhookFilter@ objects used to determine if a
     -- webhook event can trigger a build. A filter group must contain at least
     -- one @EVENT@ @WebhookFilter@.
     filterGroups :: Prelude.Maybe [[WebhookFilter]],
-    -- | Specifies the type of build this webhook will trigger.
-    buildType :: Prelude.Maybe WebhookBuildType,
+    -- | A boolean value that specifies whether the associated GitHub
+    -- repository\'s secret token should be updated. If you use Bitbucket for
+    -- your repository, @rotateSecret@ is ignored.
+    rotateSecret :: Prelude.Maybe Prelude.Bool,
     -- | The name of the CodeBuild project.
     projectName :: Prelude.Text
   }
@@ -91,15 +92,15 @@ data UpdateWebhook = UpdateWebhook'
 --
 -- It is recommended that you use @filterGroups@ instead of @branchFilter@.
 --
--- 'rotateSecret', 'updateWebhook_rotateSecret' - A boolean value that specifies whether the associated GitHub
--- repository\'s secret token should be updated. If you use Bitbucket for
--- your repository, @rotateSecret@ is ignored.
+-- 'buildType', 'updateWebhook_buildType' - Specifies the type of build this webhook will trigger.
 --
 -- 'filterGroups', 'updateWebhook_filterGroups' - An array of arrays of @WebhookFilter@ objects used to determine if a
 -- webhook event can trigger a build. A filter group must contain at least
 -- one @EVENT@ @WebhookFilter@.
 --
--- 'buildType', 'updateWebhook_buildType' - Specifies the type of build this webhook will trigger.
+-- 'rotateSecret', 'updateWebhook_rotateSecret' - A boolean value that specifies whether the associated GitHub
+-- repository\'s secret token should be updated. If you use Bitbucket for
+-- your repository, @rotateSecret@ is ignored.
 --
 -- 'projectName', 'updateWebhook_projectName' - The name of the CodeBuild project.
 newUpdateWebhook ::
@@ -109,9 +110,9 @@ newUpdateWebhook ::
 newUpdateWebhook pProjectName_ =
   UpdateWebhook'
     { branchFilter = Prelude.Nothing,
-      rotateSecret = Prelude.Nothing,
-      filterGroups = Prelude.Nothing,
       buildType = Prelude.Nothing,
+      filterGroups = Prelude.Nothing,
+      rotateSecret = Prelude.Nothing,
       projectName = pProjectName_
     }
 
@@ -124,11 +125,9 @@ newUpdateWebhook pProjectName_ =
 updateWebhook_branchFilter :: Lens.Lens' UpdateWebhook (Prelude.Maybe Prelude.Text)
 updateWebhook_branchFilter = Lens.lens (\UpdateWebhook' {branchFilter} -> branchFilter) (\s@UpdateWebhook' {} a -> s {branchFilter = a} :: UpdateWebhook)
 
--- | A boolean value that specifies whether the associated GitHub
--- repository\'s secret token should be updated. If you use Bitbucket for
--- your repository, @rotateSecret@ is ignored.
-updateWebhook_rotateSecret :: Lens.Lens' UpdateWebhook (Prelude.Maybe Prelude.Bool)
-updateWebhook_rotateSecret = Lens.lens (\UpdateWebhook' {rotateSecret} -> rotateSecret) (\s@UpdateWebhook' {} a -> s {rotateSecret = a} :: UpdateWebhook)
+-- | Specifies the type of build this webhook will trigger.
+updateWebhook_buildType :: Lens.Lens' UpdateWebhook (Prelude.Maybe WebhookBuildType)
+updateWebhook_buildType = Lens.lens (\UpdateWebhook' {buildType} -> buildType) (\s@UpdateWebhook' {} a -> s {buildType = a} :: UpdateWebhook)
 
 -- | An array of arrays of @WebhookFilter@ objects used to determine if a
 -- webhook event can trigger a build. A filter group must contain at least
@@ -136,9 +135,11 @@ updateWebhook_rotateSecret = Lens.lens (\UpdateWebhook' {rotateSecret} -> rotate
 updateWebhook_filterGroups :: Lens.Lens' UpdateWebhook (Prelude.Maybe [[WebhookFilter]])
 updateWebhook_filterGroups = Lens.lens (\UpdateWebhook' {filterGroups} -> filterGroups) (\s@UpdateWebhook' {} a -> s {filterGroups = a} :: UpdateWebhook) Prelude.. Lens.mapping Lens.coerced
 
--- | Specifies the type of build this webhook will trigger.
-updateWebhook_buildType :: Lens.Lens' UpdateWebhook (Prelude.Maybe WebhookBuildType)
-updateWebhook_buildType = Lens.lens (\UpdateWebhook' {buildType} -> buildType) (\s@UpdateWebhook' {} a -> s {buildType = a} :: UpdateWebhook)
+-- | A boolean value that specifies whether the associated GitHub
+-- repository\'s secret token should be updated. If you use Bitbucket for
+-- your repository, @rotateSecret@ is ignored.
+updateWebhook_rotateSecret :: Lens.Lens' UpdateWebhook (Prelude.Maybe Prelude.Bool)
+updateWebhook_rotateSecret = Lens.lens (\UpdateWebhook' {rotateSecret} -> rotateSecret) (\s@UpdateWebhook' {} a -> s {rotateSecret = a} :: UpdateWebhook)
 
 -- | The name of the CodeBuild project.
 updateWebhook_projectName :: Lens.Lens' UpdateWebhook Prelude.Text
@@ -148,62 +149,63 @@ instance Core.AWSRequest UpdateWebhook where
   type
     AWSResponse UpdateWebhook =
       UpdateWebhookResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateWebhookResponse'
-            Prelude.<$> (x Core..?> "webhook")
+            Prelude.<$> (x Data..?> "webhook")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateWebhook where
   hashWithSalt _salt UpdateWebhook' {..} =
     _salt `Prelude.hashWithSalt` branchFilter
-      `Prelude.hashWithSalt` rotateSecret
-      `Prelude.hashWithSalt` filterGroups
       `Prelude.hashWithSalt` buildType
+      `Prelude.hashWithSalt` filterGroups
+      `Prelude.hashWithSalt` rotateSecret
       `Prelude.hashWithSalt` projectName
 
 instance Prelude.NFData UpdateWebhook where
   rnf UpdateWebhook' {..} =
     Prelude.rnf branchFilter
-      `Prelude.seq` Prelude.rnf rotateSecret
-      `Prelude.seq` Prelude.rnf filterGroups
       `Prelude.seq` Prelude.rnf buildType
+      `Prelude.seq` Prelude.rnf filterGroups
+      `Prelude.seq` Prelude.rnf rotateSecret
       `Prelude.seq` Prelude.rnf projectName
 
-instance Core.ToHeaders UpdateWebhook where
+instance Data.ToHeaders UpdateWebhook where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.UpdateWebhook" ::
+              Data.=# ( "CodeBuild_20161006.UpdateWebhook" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateWebhook where
+instance Data.ToJSON UpdateWebhook where
   toJSON UpdateWebhook' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("branchFilter" Core..=) Prelude.<$> branchFilter,
-            ("rotateSecret" Core..=) Prelude.<$> rotateSecret,
-            ("filterGroups" Core..=) Prelude.<$> filterGroups,
-            ("buildType" Core..=) Prelude.<$> buildType,
-            Prelude.Just ("projectName" Core..= projectName)
+          [ ("branchFilter" Data..=) Prelude.<$> branchFilter,
+            ("buildType" Data..=) Prelude.<$> buildType,
+            ("filterGroups" Data..=) Prelude.<$> filterGroups,
+            ("rotateSecret" Data..=) Prelude.<$> rotateSecret,
+            Prelude.Just ("projectName" Data..= projectName)
           ]
       )
 
-instance Core.ToPath UpdateWebhook where
+instance Data.ToPath UpdateWebhook where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateWebhook where
+instance Data.ToQuery UpdateWebhook where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateWebhookResponse' smart constructor.

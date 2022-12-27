@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Types.Attachment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,23 @@
 module Amazonka.NetworkFirewall.Types.Attachment where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types.AttachmentStatus
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration and status for a single subnet that you\'ve specified
--- for use by the AWS Network Firewall firewall. This is part of the
+-- for use by the Network Firewall firewall. This is part of the
 -- FirewallStatus.
 --
 -- /See:/ 'newAttachment' smart constructor.
 data Attachment = Attachment'
-  { -- | The current status of the firewall endpoint in the subnet. This value
+  { -- | The identifier of the firewall endpoint that Network Firewall has
+    -- instantiated in the subnet. You use this to identify the firewall
+    -- endpoint in the VPC route tables, when you redirect the VPC traffic
+    -- through the endpoint.
+    endpointId :: Prelude.Maybe Prelude.Text,
+    -- | The current status of the firewall endpoint in the subnet. This value
     -- reflects both the instantiation of the endpoint in the VPC subnet and
     -- the sync states that are reported in the @Config@ settings. When this
     -- value is @READY@, the endpoint is available and configured properly to
@@ -40,12 +46,7 @@ data Attachment = Attachment'
     status :: Prelude.Maybe AttachmentStatus,
     -- | The unique identifier of the subnet that you\'ve specified to be used
     -- for a firewall endpoint.
-    subnetId :: Prelude.Maybe Prelude.Text,
-    -- | The identifier of the firewall endpoint that Network Firewall has
-    -- instantiated in the subnet. You use this to identify the firewall
-    -- endpoint in the VPC route tables, when you redirect the VPC traffic
-    -- through the endpoint.
-    endpointId :: Prelude.Maybe Prelude.Text
+    subnetId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -57,6 +58,11 @@ data Attachment = Attachment'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'endpointId', 'attachment_endpointId' - The identifier of the firewall endpoint that Network Firewall has
+-- instantiated in the subnet. You use this to identify the firewall
+-- endpoint in the VPC route tables, when you redirect the VPC traffic
+-- through the endpoint.
+--
 -- 'status', 'attachment_status' - The current status of the firewall endpoint in the subnet. This value
 -- reflects both the instantiation of the endpoint in the VPC subnet and
 -- the sync states that are reported in the @Config@ settings. When this
@@ -67,19 +73,21 @@ data Attachment = Attachment'
 --
 -- 'subnetId', 'attachment_subnetId' - The unique identifier of the subnet that you\'ve specified to be used
 -- for a firewall endpoint.
---
--- 'endpointId', 'attachment_endpointId' - The identifier of the firewall endpoint that Network Firewall has
--- instantiated in the subnet. You use this to identify the firewall
--- endpoint in the VPC route tables, when you redirect the VPC traffic
--- through the endpoint.
 newAttachment ::
   Attachment
 newAttachment =
   Attachment'
-    { status = Prelude.Nothing,
-      subnetId = Prelude.Nothing,
-      endpointId = Prelude.Nothing
+    { endpointId = Prelude.Nothing,
+      status = Prelude.Nothing,
+      subnetId = Prelude.Nothing
     }
+
+-- | The identifier of the firewall endpoint that Network Firewall has
+-- instantiated in the subnet. You use this to identify the firewall
+-- endpoint in the VPC route tables, when you redirect the VPC traffic
+-- through the endpoint.
+attachment_endpointId :: Lens.Lens' Attachment (Prelude.Maybe Prelude.Text)
+attachment_endpointId = Lens.lens (\Attachment' {endpointId} -> endpointId) (\s@Attachment' {} a -> s {endpointId = a} :: Attachment)
 
 -- | The current status of the firewall endpoint in the subnet. This value
 -- reflects both the instantiation of the endpoint in the VPC subnet and
@@ -96,32 +104,25 @@ attachment_status = Lens.lens (\Attachment' {status} -> status) (\s@Attachment' 
 attachment_subnetId :: Lens.Lens' Attachment (Prelude.Maybe Prelude.Text)
 attachment_subnetId = Lens.lens (\Attachment' {subnetId} -> subnetId) (\s@Attachment' {} a -> s {subnetId = a} :: Attachment)
 
--- | The identifier of the firewall endpoint that Network Firewall has
--- instantiated in the subnet. You use this to identify the firewall
--- endpoint in the VPC route tables, when you redirect the VPC traffic
--- through the endpoint.
-attachment_endpointId :: Lens.Lens' Attachment (Prelude.Maybe Prelude.Text)
-attachment_endpointId = Lens.lens (\Attachment' {endpointId} -> endpointId) (\s@Attachment' {} a -> s {endpointId = a} :: Attachment)
-
-instance Core.FromJSON Attachment where
+instance Data.FromJSON Attachment where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Attachment"
       ( \x ->
           Attachment'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "SubnetId")
-            Prelude.<*> (x Core..:? "EndpointId")
+            Prelude.<$> (x Data..:? "EndpointId")
+            Prelude.<*> (x Data..:? "Status")
+            Prelude.<*> (x Data..:? "SubnetId")
       )
 
 instance Prelude.Hashable Attachment where
   hashWithSalt _salt Attachment' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt `Prelude.hashWithSalt` endpointId
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` subnetId
-      `Prelude.hashWithSalt` endpointId
 
 instance Prelude.NFData Attachment where
   rnf Attachment' {..} =
-    Prelude.rnf status
+    Prelude.rnf endpointId
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf subnetId
-      `Prelude.seq` Prelude.rnf endpointId

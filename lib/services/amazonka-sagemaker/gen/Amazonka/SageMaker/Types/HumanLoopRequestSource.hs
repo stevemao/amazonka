@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.HumanLoopRequestSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.HumanLoopRequestSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.AwsManagedHumanLoopRequestSource
 
@@ -63,13 +64,13 @@ newHumanLoopRequestSource
 humanLoopRequestSource_awsManagedHumanLoopRequestSource :: Lens.Lens' HumanLoopRequestSource AwsManagedHumanLoopRequestSource
 humanLoopRequestSource_awsManagedHumanLoopRequestSource = Lens.lens (\HumanLoopRequestSource' {awsManagedHumanLoopRequestSource} -> awsManagedHumanLoopRequestSource) (\s@HumanLoopRequestSource' {} a -> s {awsManagedHumanLoopRequestSource = a} :: HumanLoopRequestSource)
 
-instance Core.FromJSON HumanLoopRequestSource where
+instance Data.FromJSON HumanLoopRequestSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HumanLoopRequestSource"
       ( \x ->
           HumanLoopRequestSource'
-            Prelude.<$> (x Core..: "AwsManagedHumanLoopRequestSource")
+            Prelude.<$> (x Data..: "AwsManagedHumanLoopRequestSource")
       )
 
 instance Prelude.Hashable HumanLoopRequestSource where
@@ -81,13 +82,13 @@ instance Prelude.NFData HumanLoopRequestSource where
   rnf HumanLoopRequestSource' {..} =
     Prelude.rnf awsManagedHumanLoopRequestSource
 
-instance Core.ToJSON HumanLoopRequestSource where
+instance Data.ToJSON HumanLoopRequestSource where
   toJSON HumanLoopRequestSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "AwsManagedHumanLoopRequestSource"
-                  Core..= awsManagedHumanLoopRequestSource
+                  Data..= awsManagedHumanLoopRequestSource
               )
           ]
       )

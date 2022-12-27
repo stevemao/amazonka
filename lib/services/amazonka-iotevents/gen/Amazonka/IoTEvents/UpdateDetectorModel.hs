@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.UpdateDetectorModel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.IoTEvents.UpdateDetectorModel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEvents.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -134,12 +135,13 @@ instance Core.AWSRequest UpdateDetectorModel where
   type
     AWSResponse UpdateDetectorModel =
       UpdateDetectorModelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDetectorModelResponse'
-            Prelude.<$> (x Core..?> "detectorModelConfiguration")
+            Prelude.<$> (x Data..?> "detectorModelConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -160,31 +162,31 @@ instance Prelude.NFData UpdateDetectorModel where
       `Prelude.seq` Prelude.rnf detectorModelDefinition
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders UpdateDetectorModel where
+instance Data.ToHeaders UpdateDetectorModel where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON UpdateDetectorModel where
+instance Data.ToJSON UpdateDetectorModel where
   toJSON UpdateDetectorModel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("detectorModelDescription" Core..=)
+          [ ("detectorModelDescription" Data..=)
               Prelude.<$> detectorModelDescription,
-            ("evaluationMethod" Core..=)
+            ("evaluationMethod" Data..=)
               Prelude.<$> evaluationMethod,
             Prelude.Just
               ( "detectorModelDefinition"
-                  Core..= detectorModelDefinition
+                  Data..= detectorModelDefinition
               ),
-            Prelude.Just ("roleArn" Core..= roleArn)
+            Prelude.Just ("roleArn" Data..= roleArn)
           ]
       )
 
-instance Core.ToPath UpdateDetectorModel where
+instance Data.ToPath UpdateDetectorModel where
   toPath UpdateDetectorModel' {..} =
     Prelude.mconcat
-      ["/detector-models/", Core.toBS detectorModelName]
+      ["/detector-models/", Data.toBS detectorModelName]
 
-instance Core.ToQuery UpdateDetectorModel where
+instance Data.ToQuery UpdateDetectorModel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDetectorModelResponse' smart constructor.

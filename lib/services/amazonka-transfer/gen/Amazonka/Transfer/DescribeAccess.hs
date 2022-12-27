@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.DescribeAccess
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,7 @@
 --
 -- Describes the access that is assigned to the specific file transfer
 -- protocol-enabled server, as identified by its @ServerId@ property and
--- its @ExternalID@.
+-- its @ExternalId@.
 --
 -- The response from this call returns the properties of the access that is
 -- associated with the @ServerId@ value that was specified.
@@ -47,7 +47,8 @@ module Amazonka.Transfer.DescribeAccess
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,18 +62,17 @@ data DescribeAccess = DescribeAccess'
     -- | A unique identifier that is required to identify specific groups within
     -- your directory. The users of the group that you associate have access to
     -- your Amazon S3 or Amazon EFS resources over the enabled protocols using
-    -- Amazon Web Services Transfer Family. If you know the group name, you can
-    -- view the SID values by running the following command using Windows
-    -- PowerShell.
+    -- Transfer Family. If you know the group name, you can view the SID values
+    -- by running the following command using Windows PowerShell.
     --
     -- @Get-ADGroup -Filter {samAccountName -like \"YourGroupName*\"} -Properties * | Select SamAccountName,ObjectSid@
     --
     -- In that command, replace /YourGroupName/ with the name of your Active
     -- Directory group.
     --
-    -- The regex used to validate this parameter is a string of characters
-    -- consisting of uppercase and lowercase alphanumeric characters with no
-    -- spaces. You can also include underscores or any of the following
+    -- The regular expression used to validate this parameter is a string of
+    -- characters consisting of uppercase and lowercase alphanumeric characters
+    -- with no spaces. You can also include underscores or any of the following
     -- characters: =,.\@:\/-
     externalId :: Prelude.Text
   }
@@ -92,18 +92,17 @@ data DescribeAccess = DescribeAccess'
 -- 'externalId', 'describeAccess_externalId' - A unique identifier that is required to identify specific groups within
 -- your directory. The users of the group that you associate have access to
 -- your Amazon S3 or Amazon EFS resources over the enabled protocols using
--- Amazon Web Services Transfer Family. If you know the group name, you can
--- view the SID values by running the following command using Windows
--- PowerShell.
+-- Transfer Family. If you know the group name, you can view the SID values
+-- by running the following command using Windows PowerShell.
 --
 -- @Get-ADGroup -Filter {samAccountName -like \"YourGroupName*\"} -Properties * | Select SamAccountName,ObjectSid@
 --
 -- In that command, replace /YourGroupName/ with the name of your Active
 -- Directory group.
 --
--- The regex used to validate this parameter is a string of characters
--- consisting of uppercase and lowercase alphanumeric characters with no
--- spaces. You can also include underscores or any of the following
+-- The regular expression used to validate this parameter is a string of
+-- characters consisting of uppercase and lowercase alphanumeric characters
+-- with no spaces. You can also include underscores or any of the following
 -- characters: =,.\@:\/-
 newDescribeAccess ::
   -- | 'serverId'
@@ -125,18 +124,17 @@ describeAccess_serverId = Lens.lens (\DescribeAccess' {serverId} -> serverId) (\
 -- | A unique identifier that is required to identify specific groups within
 -- your directory. The users of the group that you associate have access to
 -- your Amazon S3 or Amazon EFS resources over the enabled protocols using
--- Amazon Web Services Transfer Family. If you know the group name, you can
--- view the SID values by running the following command using Windows
--- PowerShell.
+-- Transfer Family. If you know the group name, you can view the SID values
+-- by running the following command using Windows PowerShell.
 --
 -- @Get-ADGroup -Filter {samAccountName -like \"YourGroupName*\"} -Properties * | Select SamAccountName,ObjectSid@
 --
 -- In that command, replace /YourGroupName/ with the name of your Active
 -- Directory group.
 --
--- The regex used to validate this parameter is a string of characters
--- consisting of uppercase and lowercase alphanumeric characters with no
--- spaces. You can also include underscores or any of the following
+-- The regular expression used to validate this parameter is a string of
+-- characters consisting of uppercase and lowercase alphanumeric characters
+-- with no spaces. You can also include underscores or any of the following
 -- characters: =,.\@:\/-
 describeAccess_externalId :: Lens.Lens' DescribeAccess Prelude.Text
 describeAccess_externalId = Lens.lens (\DescribeAccess' {externalId} -> externalId) (\s@DescribeAccess' {} a -> s {externalId = a} :: DescribeAccess)
@@ -145,14 +143,15 @@ instance Core.AWSRequest DescribeAccess where
   type
     AWSResponse DescribeAccess =
       DescribeAccessResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAccessResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ServerId")
-            Prelude.<*> (x Core..:> "Access")
+            Prelude.<*> (x Data..:> "ServerId")
+            Prelude.<*> (x Data..:> "Access")
       )
 
 instance Prelude.Hashable DescribeAccess where
@@ -165,34 +164,34 @@ instance Prelude.NFData DescribeAccess where
     Prelude.rnf serverId
       `Prelude.seq` Prelude.rnf externalId
 
-instance Core.ToHeaders DescribeAccess where
+instance Data.ToHeaders DescribeAccess where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "TransferService.DescribeAccess" ::
+              Data.=# ( "TransferService.DescribeAccess" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeAccess where
+instance Data.ToJSON DescribeAccess where
   toJSON DescribeAccess' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ServerId" Core..= serverId),
-            Prelude.Just ("ExternalId" Core..= externalId)
+          [ Prelude.Just ("ServerId" Data..= serverId),
+            Prelude.Just ("ExternalId" Data..= externalId)
           ]
       )
 
-instance Core.ToPath DescribeAccess where
+instance Data.ToPath DescribeAccess where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeAccess where
+instance Data.ToQuery DescribeAccess where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAccessResponse' smart constructor.
@@ -202,7 +201,7 @@ data DescribeAccessResponse = DescribeAccessResponse'
     -- | A system-assigned unique identifier for a server that has this access
     -- assigned.
     serverId :: Prelude.Text,
-    -- | The external ID of the server that the access is attached to.
+    -- | The external identifier of the server that the access is attached to.
     access :: DescribedAccess
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -220,7 +219,7 @@ data DescribeAccessResponse = DescribeAccessResponse'
 -- 'serverId', 'describeAccessResponse_serverId' - A system-assigned unique identifier for a server that has this access
 -- assigned.
 --
--- 'access', 'describeAccessResponse_access' - The external ID of the server that the access is attached to.
+-- 'access', 'describeAccessResponse_access' - The external identifier of the server that the access is attached to.
 newDescribeAccessResponse ::
   -- | 'httpStatus'
   Prelude.Int ->
@@ -248,7 +247,7 @@ describeAccessResponse_httpStatus = Lens.lens (\DescribeAccessResponse' {httpSta
 describeAccessResponse_serverId :: Lens.Lens' DescribeAccessResponse Prelude.Text
 describeAccessResponse_serverId = Lens.lens (\DescribeAccessResponse' {serverId} -> serverId) (\s@DescribeAccessResponse' {} a -> s {serverId = a} :: DescribeAccessResponse)
 
--- | The external ID of the server that the access is attached to.
+-- | The external identifier of the server that the access is attached to.
 describeAccessResponse_access :: Lens.Lens' DescribeAccessResponse DescribedAccess
 describeAccessResponse_access = Lens.lens (\DescribeAccessResponse' {access} -> access) (\s@DescribeAccessResponse' {} a -> s {access = a} :: DescribeAccessResponse)
 

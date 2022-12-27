@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.Types.HsmClientCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Redshift.Types.HsmClientCertificate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Internal
 import Amazonka.Redshift.Types.Tag
@@ -78,13 +79,13 @@ hsmClientCertificate_hsmClientCertificatePublicKey = Lens.lens (\HsmClientCertif
 hsmClientCertificate_tags :: Lens.Lens' HsmClientCertificate (Prelude.Maybe [Tag])
 hsmClientCertificate_tags = Lens.lens (\HsmClientCertificate' {tags} -> tags) (\s@HsmClientCertificate' {} a -> s {tags = a} :: HsmClientCertificate) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML HsmClientCertificate where
+instance Data.FromXML HsmClientCertificate where
   parseXML x =
     HsmClientCertificate'
-      Prelude.<$> (x Core..@? "HsmClientCertificateIdentifier")
-      Prelude.<*> (x Core..@? "HsmClientCertificatePublicKey")
-      Prelude.<*> ( x Core..@? "Tags" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "Tag")
+      Prelude.<$> (x Data..@? "HsmClientCertificateIdentifier")
+      Prelude.<*> (x Data..@? "HsmClientCertificatePublicKey")
+      Prelude.<*> ( x Data..@? "Tags" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "Tag")
                   )
 
 instance Prelude.Hashable HsmClientCertificate where

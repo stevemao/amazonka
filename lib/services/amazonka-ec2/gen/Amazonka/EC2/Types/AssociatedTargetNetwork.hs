@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.AssociatedTargetNetwork
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.AssociatedTargetNetwork where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.AssociatedNetworkType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes a target network that is associated with a Client VPN
@@ -65,11 +66,11 @@ associatedTargetNetwork_networkId = Lens.lens (\AssociatedTargetNetwork' {networ
 associatedTargetNetwork_networkType :: Lens.Lens' AssociatedTargetNetwork (Prelude.Maybe AssociatedNetworkType)
 associatedTargetNetwork_networkType = Lens.lens (\AssociatedTargetNetwork' {networkType} -> networkType) (\s@AssociatedTargetNetwork' {} a -> s {networkType = a} :: AssociatedTargetNetwork)
 
-instance Core.FromXML AssociatedTargetNetwork where
+instance Data.FromXML AssociatedTargetNetwork where
   parseXML x =
     AssociatedTargetNetwork'
-      Prelude.<$> (x Core..@? "networkId")
-      Prelude.<*> (x Core..@? "networkType")
+      Prelude.<$> (x Data..@? "networkId")
+      Prelude.<*> (x Data..@? "networkType")
 
 instance Prelude.Hashable AssociatedTargetNetwork where
   hashWithSalt _salt AssociatedTargetNetwork' {..} =

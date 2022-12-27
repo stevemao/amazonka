@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.UpdateContainerService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,10 +28,11 @@ module Amazonka.Lightsail.UpdateContainerService
     newUpdateContainerService,
 
     -- * Request Lenses
-    updateContainerService_scale,
-    updateContainerService_power,
     updateContainerService_isDisabled,
+    updateContainerService_power,
+    updateContainerService_privateRegistryAccess,
     updateContainerService_publicDomainNames,
+    updateContainerService_scale,
     updateContainerService_serviceName,
 
     -- * Destructuring the Response
@@ -45,7 +46,8 @@ module Amazonka.Lightsail.UpdateContainerService
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,14 +55,8 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateContainerService' smart constructor.
 data UpdateContainerService = UpdateContainerService'
-  { -- | The scale for the container service.
-    --
-    -- The scale specifies the allocated compute nodes of the container
-    -- service. The @power@ and @scale@ of a container service makes up its
-    -- configured capacity. To determine the monthly price of your container
-    -- service, multiply the base price of the @power@ with the @scale@ (the
-    -- number of nodes) of the service.
-    scale :: Prelude.Maybe Prelude.Natural,
+  { -- | A Boolean value to indicate whether the container service is disabled.
+    isDisabled :: Prelude.Maybe Prelude.Bool,
     -- | The power for the container service.
     --
     -- The power specifies the amount of memory, vCPUs, and base monthly cost
@@ -72,8 +68,14 @@ data UpdateContainerService = UpdateContainerService'
     -- Use the @GetContainerServicePowers@ action to view the specifications of
     -- each power option.
     power :: Prelude.Maybe ContainerServicePowerName,
-    -- | A Boolean value to indicate whether the container service is disabled.
-    isDisabled :: Prelude.Maybe Prelude.Bool,
+    -- | An object to describe the configuration for the container service to
+    -- access private container image repositories, such as Amazon Elastic
+    -- Container Registry (Amazon ECR) private repositories.
+    --
+    -- For more information, see
+    -- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-container-service-ecr-private-repo-access Configuring access to an Amazon ECR private repository for an Amazon Lightsail container service>
+    -- in the /Amazon Lightsail Developer Guide/.
+    privateRegistryAccess :: Prelude.Maybe PrivateRegistryAccessRequest,
     -- | The public domain names to use with the container service, such as
     -- @example.com@ and @www.example.com@.
     --
@@ -93,6 +95,14 @@ data UpdateContainerService = UpdateContainerService'
     -- You can specify public domain names using a string to array map as shown
     -- in the example later on this page.
     publicDomainNames :: Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]),
+    -- | The scale for the container service.
+    --
+    -- The scale specifies the allocated compute nodes of the container
+    -- service. The @power@ and @scale@ of a container service makes up its
+    -- configured capacity. To determine the monthly price of your container
+    -- service, multiply the base price of the @power@ with the @scale@ (the
+    -- number of nodes) of the service.
+    scale :: Prelude.Maybe Prelude.Natural,
     -- | The name of the container service to update.
     serviceName :: Prelude.Text
   }
@@ -106,13 +116,7 @@ data UpdateContainerService = UpdateContainerService'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'scale', 'updateContainerService_scale' - The scale for the container service.
---
--- The scale specifies the allocated compute nodes of the container
--- service. The @power@ and @scale@ of a container service makes up its
--- configured capacity. To determine the monthly price of your container
--- service, multiply the base price of the @power@ with the @scale@ (the
--- number of nodes) of the service.
+-- 'isDisabled', 'updateContainerService_isDisabled' - A Boolean value to indicate whether the container service is disabled.
 --
 -- 'power', 'updateContainerService_power' - The power for the container service.
 --
@@ -125,7 +129,13 @@ data UpdateContainerService = UpdateContainerService'
 -- Use the @GetContainerServicePowers@ action to view the specifications of
 -- each power option.
 --
--- 'isDisabled', 'updateContainerService_isDisabled' - A Boolean value to indicate whether the container service is disabled.
+-- 'privateRegistryAccess', 'updateContainerService_privateRegistryAccess' - An object to describe the configuration for the container service to
+-- access private container image repositories, such as Amazon Elastic
+-- Container Registry (Amazon ECR) private repositories.
+--
+-- For more information, see
+-- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-container-service-ecr-private-repo-access Configuring access to an Amazon ECR private repository for an Amazon Lightsail container service>
+-- in the /Amazon Lightsail Developer Guide/.
 --
 -- 'publicDomainNames', 'updateContainerService_publicDomainNames' - The public domain names to use with the container service, such as
 -- @example.com@ and @www.example.com@.
@@ -146,6 +156,14 @@ data UpdateContainerService = UpdateContainerService'
 -- You can specify public domain names using a string to array map as shown
 -- in the example later on this page.
 --
+-- 'scale', 'updateContainerService_scale' - The scale for the container service.
+--
+-- The scale specifies the allocated compute nodes of the container
+-- service. The @power@ and @scale@ of a container service makes up its
+-- configured capacity. To determine the monthly price of your container
+-- service, multiply the base price of the @power@ with the @scale@ (the
+-- number of nodes) of the service.
+--
 -- 'serviceName', 'updateContainerService_serviceName' - The name of the container service to update.
 newUpdateContainerService ::
   -- | 'serviceName'
@@ -153,22 +171,18 @@ newUpdateContainerService ::
   UpdateContainerService
 newUpdateContainerService pServiceName_ =
   UpdateContainerService'
-    { scale = Prelude.Nothing,
+    { isDisabled =
+        Prelude.Nothing,
       power = Prelude.Nothing,
-      isDisabled = Prelude.Nothing,
+      privateRegistryAccess = Prelude.Nothing,
       publicDomainNames = Prelude.Nothing,
+      scale = Prelude.Nothing,
       serviceName = pServiceName_
     }
 
--- | The scale for the container service.
---
--- The scale specifies the allocated compute nodes of the container
--- service. The @power@ and @scale@ of a container service makes up its
--- configured capacity. To determine the monthly price of your container
--- service, multiply the base price of the @power@ with the @scale@ (the
--- number of nodes) of the service.
-updateContainerService_scale :: Lens.Lens' UpdateContainerService (Prelude.Maybe Prelude.Natural)
-updateContainerService_scale = Lens.lens (\UpdateContainerService' {scale} -> scale) (\s@UpdateContainerService' {} a -> s {scale = a} :: UpdateContainerService)
+-- | A Boolean value to indicate whether the container service is disabled.
+updateContainerService_isDisabled :: Lens.Lens' UpdateContainerService (Prelude.Maybe Prelude.Bool)
+updateContainerService_isDisabled = Lens.lens (\UpdateContainerService' {isDisabled} -> isDisabled) (\s@UpdateContainerService' {} a -> s {isDisabled = a} :: UpdateContainerService)
 
 -- | The power for the container service.
 --
@@ -183,9 +197,15 @@ updateContainerService_scale = Lens.lens (\UpdateContainerService' {scale} -> sc
 updateContainerService_power :: Lens.Lens' UpdateContainerService (Prelude.Maybe ContainerServicePowerName)
 updateContainerService_power = Lens.lens (\UpdateContainerService' {power} -> power) (\s@UpdateContainerService' {} a -> s {power = a} :: UpdateContainerService)
 
--- | A Boolean value to indicate whether the container service is disabled.
-updateContainerService_isDisabled :: Lens.Lens' UpdateContainerService (Prelude.Maybe Prelude.Bool)
-updateContainerService_isDisabled = Lens.lens (\UpdateContainerService' {isDisabled} -> isDisabled) (\s@UpdateContainerService' {} a -> s {isDisabled = a} :: UpdateContainerService)
+-- | An object to describe the configuration for the container service to
+-- access private container image repositories, such as Amazon Elastic
+-- Container Registry (Amazon ECR) private repositories.
+--
+-- For more information, see
+-- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-container-service-ecr-private-repo-access Configuring access to an Amazon ECR private repository for an Amazon Lightsail container service>
+-- in the /Amazon Lightsail Developer Guide/.
+updateContainerService_privateRegistryAccess :: Lens.Lens' UpdateContainerService (Prelude.Maybe PrivateRegistryAccessRequest)
+updateContainerService_privateRegistryAccess = Lens.lens (\UpdateContainerService' {privateRegistryAccess} -> privateRegistryAccess) (\s@UpdateContainerService' {} a -> s {privateRegistryAccess = a} :: UpdateContainerService)
 
 -- | The public domain names to use with the container service, such as
 -- @example.com@ and @www.example.com@.
@@ -208,6 +228,16 @@ updateContainerService_isDisabled = Lens.lens (\UpdateContainerService' {isDisab
 updateContainerService_publicDomainNames :: Lens.Lens' UpdateContainerService (Prelude.Maybe (Prelude.HashMap Prelude.Text [Prelude.Text]))
 updateContainerService_publicDomainNames = Lens.lens (\UpdateContainerService' {publicDomainNames} -> publicDomainNames) (\s@UpdateContainerService' {} a -> s {publicDomainNames = a} :: UpdateContainerService) Prelude.. Lens.mapping Lens.coerced
 
+-- | The scale for the container service.
+--
+-- The scale specifies the allocated compute nodes of the container
+-- service. The @power@ and @scale@ of a container service makes up its
+-- configured capacity. To determine the monthly price of your container
+-- service, multiply the base price of the @power@ with the @scale@ (the
+-- number of nodes) of the service.
+updateContainerService_scale :: Lens.Lens' UpdateContainerService (Prelude.Maybe Prelude.Natural)
+updateContainerService_scale = Lens.lens (\UpdateContainerService' {scale} -> scale) (\s@UpdateContainerService' {} a -> s {scale = a} :: UpdateContainerService)
+
 -- | The name of the container service to update.
 updateContainerService_serviceName :: Lens.Lens' UpdateContainerService Prelude.Text
 updateContainerService_serviceName = Lens.lens (\UpdateContainerService' {serviceName} -> serviceName) (\s@UpdateContainerService' {} a -> s {serviceName = a} :: UpdateContainerService)
@@ -216,63 +246,68 @@ instance Core.AWSRequest UpdateContainerService where
   type
     AWSResponse UpdateContainerService =
       UpdateContainerServiceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateContainerServiceResponse'
-            Prelude.<$> (x Core..?> "containerService")
+            Prelude.<$> (x Data..?> "containerService")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateContainerService where
   hashWithSalt _salt UpdateContainerService' {..} =
-    _salt `Prelude.hashWithSalt` scale
+    _salt `Prelude.hashWithSalt` isDisabled
       `Prelude.hashWithSalt` power
-      `Prelude.hashWithSalt` isDisabled
+      `Prelude.hashWithSalt` privateRegistryAccess
       `Prelude.hashWithSalt` publicDomainNames
+      `Prelude.hashWithSalt` scale
       `Prelude.hashWithSalt` serviceName
 
 instance Prelude.NFData UpdateContainerService where
   rnf UpdateContainerService' {..} =
-    Prelude.rnf scale
+    Prelude.rnf isDisabled
       `Prelude.seq` Prelude.rnf power
-      `Prelude.seq` Prelude.rnf isDisabled
+      `Prelude.seq` Prelude.rnf privateRegistryAccess
       `Prelude.seq` Prelude.rnf publicDomainNames
+      `Prelude.seq` Prelude.rnf scale
       `Prelude.seq` Prelude.rnf serviceName
 
-instance Core.ToHeaders UpdateContainerService where
+instance Data.ToHeaders UpdateContainerService where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.UpdateContainerService" ::
+              Data.=# ( "Lightsail_20161128.UpdateContainerService" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateContainerService where
+instance Data.ToJSON UpdateContainerService where
   toJSON UpdateContainerService' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("scale" Core..=) Prelude.<$> scale,
-            ("power" Core..=) Prelude.<$> power,
-            ("isDisabled" Core..=) Prelude.<$> isDisabled,
-            ("publicDomainNames" Core..=)
+          [ ("isDisabled" Data..=) Prelude.<$> isDisabled,
+            ("power" Data..=) Prelude.<$> power,
+            ("privateRegistryAccess" Data..=)
+              Prelude.<$> privateRegistryAccess,
+            ("publicDomainNames" Data..=)
               Prelude.<$> publicDomainNames,
-            Prelude.Just ("serviceName" Core..= serviceName)
+            ("scale" Data..=) Prelude.<$> scale,
+            Prelude.Just ("serviceName" Data..= serviceName)
           ]
       )
 
-instance Core.ToPath UpdateContainerService where
+instance Data.ToPath UpdateContainerService where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateContainerService where
+instance Data.ToQuery UpdateContainerService where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateContainerServiceResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.RepublishAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,20 @@
 module Amazonka.IoT.Types.RepublishAction where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.IoT.Types.MqttHeaders
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an action to republish to another topic.
 --
 -- /See:/ 'newRepublishAction' smart constructor.
 data RepublishAction = RepublishAction'
-  { -- | The Quality of Service (QoS) level to use when republishing messages.
+  { -- | MQTT Version 5.0 headers information. For more information, see
+    -- <https://docs.aws.amazon.com/iot/latest/developerguide/mqtt.html MQTT>
+    -- from the Amazon Web Services IoT Core Developer Guide.
+    headers :: Prelude.Maybe MqttHeaders,
+    -- | The Quality of Service (QoS) level to use when republishing messages.
     -- The default value is 0.
     qos :: Prelude.Maybe Prelude.Natural,
     -- | The ARN of the IAM role that grants access.
@@ -45,6 +51,10 @@ data RepublishAction = RepublishAction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'headers', 'republishAction_headers' - MQTT Version 5.0 headers information. For more information, see
+-- <https://docs.aws.amazon.com/iot/latest/developerguide/mqtt.html MQTT>
+-- from the Amazon Web Services IoT Core Developer Guide.
+--
 -- 'qos', 'republishAction_qos' - The Quality of Service (QoS) level to use when republishing messages.
 -- The default value is 0.
 --
@@ -59,10 +69,17 @@ newRepublishAction ::
   RepublishAction
 newRepublishAction pRoleArn_ pTopic_ =
   RepublishAction'
-    { qos = Prelude.Nothing,
+    { headers = Prelude.Nothing,
+      qos = Prelude.Nothing,
       roleArn = pRoleArn_,
       topic = pTopic_
     }
+
+-- | MQTT Version 5.0 headers information. For more information, see
+-- <https://docs.aws.amazon.com/iot/latest/developerguide/mqtt.html MQTT>
+-- from the Amazon Web Services IoT Core Developer Guide.
+republishAction_headers :: Lens.Lens' RepublishAction (Prelude.Maybe MqttHeaders)
+republishAction_headers = Lens.lens (\RepublishAction' {headers} -> headers) (\s@RepublishAction' {} a -> s {headers = a} :: RepublishAction)
 
 -- | The Quality of Service (QoS) level to use when republishing messages.
 -- The default value is 0.
@@ -77,35 +94,39 @@ republishAction_roleArn = Lens.lens (\RepublishAction' {roleArn} -> roleArn) (\s
 republishAction_topic :: Lens.Lens' RepublishAction Prelude.Text
 republishAction_topic = Lens.lens (\RepublishAction' {topic} -> topic) (\s@RepublishAction' {} a -> s {topic = a} :: RepublishAction)
 
-instance Core.FromJSON RepublishAction where
+instance Data.FromJSON RepublishAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RepublishAction"
       ( \x ->
           RepublishAction'
-            Prelude.<$> (x Core..:? "qos")
-            Prelude.<*> (x Core..: "roleArn")
-            Prelude.<*> (x Core..: "topic")
+            Prelude.<$> (x Data..:? "headers")
+            Prelude.<*> (x Data..:? "qos")
+            Prelude.<*> (x Data..: "roleArn")
+            Prelude.<*> (x Data..: "topic")
       )
 
 instance Prelude.Hashable RepublishAction where
   hashWithSalt _salt RepublishAction' {..} =
-    _salt `Prelude.hashWithSalt` qos
+    _salt `Prelude.hashWithSalt` headers
+      `Prelude.hashWithSalt` qos
       `Prelude.hashWithSalt` roleArn
       `Prelude.hashWithSalt` topic
 
 instance Prelude.NFData RepublishAction where
   rnf RepublishAction' {..} =
-    Prelude.rnf qos
+    Prelude.rnf headers
+      `Prelude.seq` Prelude.rnf qos
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf topic
 
-instance Core.ToJSON RepublishAction where
+instance Data.ToJSON RepublishAction where
   toJSON RepublishAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("qos" Core..=) Prelude.<$> qos,
-            Prelude.Just ("roleArn" Core..= roleArn),
-            Prelude.Just ("topic" Core..= topic)
+          [ ("headers" Data..=) Prelude.<$> headers,
+            ("qos" Data..=) Prelude.<$> qos,
+            Prelude.Just ("roleArn" Data..= roleArn),
+            Prelude.Just ("topic" Data..= topic)
           ]
       )

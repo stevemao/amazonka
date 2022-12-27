@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.Types.FileSystemConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lambda.Types.FileSystemConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details about the connection between a Lambda function and an
@@ -72,14 +73,14 @@ fileSystemConfig_arn = Lens.lens (\FileSystemConfig' {arn} -> arn) (\s@FileSyste
 fileSystemConfig_localMountPath :: Lens.Lens' FileSystemConfig Prelude.Text
 fileSystemConfig_localMountPath = Lens.lens (\FileSystemConfig' {localMountPath} -> localMountPath) (\s@FileSystemConfig' {} a -> s {localMountPath = a} :: FileSystemConfig)
 
-instance Core.FromJSON FileSystemConfig where
+instance Data.FromJSON FileSystemConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FileSystemConfig"
       ( \x ->
           FileSystemConfig'
-            Prelude.<$> (x Core..: "Arn")
-            Prelude.<*> (x Core..: "LocalMountPath")
+            Prelude.<$> (x Data..: "Arn")
+            Prelude.<*> (x Data..: "LocalMountPath")
       )
 
 instance Prelude.Hashable FileSystemConfig where
@@ -92,12 +93,12 @@ instance Prelude.NFData FileSystemConfig where
     Prelude.rnf arn
       `Prelude.seq` Prelude.rnf localMountPath
 
-instance Core.ToJSON FileSystemConfig where
+instance Data.ToJSON FileSystemConfig where
   toJSON FileSystemConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Arn" Core..= arn),
+          [ Prelude.Just ("Arn" Data..= arn),
             Prelude.Just
-              ("LocalMountPath" Core..= localMountPath)
+              ("LocalMountPath" Data..= localMountPath)
           ]
       )

@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.DeleteMedicalVocabulary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a vocabulary from Amazon Transcribe Medical.
+-- Deletes a custom medical vocabulary. To use this operation, specify the
+-- name of the custom vocabulary you want to delete using @VocabularyName@.
+-- Custom vocabulary names are case sensitive.
 module Amazonka.Transcribe.DeleteMedicalVocabulary
   ( -- * Creating a Request
     DeleteMedicalVocabulary (..),
@@ -36,7 +38,8 @@ module Amazonka.Transcribe.DeleteMedicalVocabulary
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -44,7 +47,8 @@ import Amazonka.Transcribe.Types
 
 -- | /See:/ 'newDeleteMedicalVocabulary' smart constructor.
 data DeleteMedicalVocabulary = DeleteMedicalVocabulary'
-  { -- | The name of the vocabulary that you want to delete.
+  { -- | The name of the custom medical vocabulary you want to delete. Custom
+    -- medical vocabulary names are case sensitive.
     vocabularyName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -57,7 +61,8 @@ data DeleteMedicalVocabulary = DeleteMedicalVocabulary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vocabularyName', 'deleteMedicalVocabulary_vocabularyName' - The name of the vocabulary that you want to delete.
+-- 'vocabularyName', 'deleteMedicalVocabulary_vocabularyName' - The name of the custom medical vocabulary you want to delete. Custom
+-- medical vocabulary names are case sensitive.
 newDeleteMedicalVocabulary ::
   -- | 'vocabularyName'
   Prelude.Text ->
@@ -68,7 +73,8 @@ newDeleteMedicalVocabulary pVocabularyName_ =
         pVocabularyName_
     }
 
--- | The name of the vocabulary that you want to delete.
+-- | The name of the custom medical vocabulary you want to delete. Custom
+-- medical vocabulary names are case sensitive.
 deleteMedicalVocabulary_vocabularyName :: Lens.Lens' DeleteMedicalVocabulary Prelude.Text
 deleteMedicalVocabulary_vocabularyName = Lens.lens (\DeleteMedicalVocabulary' {vocabularyName} -> vocabularyName) (\s@DeleteMedicalVocabulary' {} a -> s {vocabularyName = a} :: DeleteMedicalVocabulary)
 
@@ -76,7 +82,8 @@ instance Core.AWSRequest DeleteMedicalVocabulary where
   type
     AWSResponse DeleteMedicalVocabulary =
       DeleteMedicalVocabularyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       DeleteMedicalVocabularyResponse'
@@ -89,34 +96,34 @@ instance Prelude.NFData DeleteMedicalVocabulary where
   rnf DeleteMedicalVocabulary' {..} =
     Prelude.rnf vocabularyName
 
-instance Core.ToHeaders DeleteMedicalVocabulary where
+instance Data.ToHeaders DeleteMedicalVocabulary where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Transcribe.DeleteMedicalVocabulary" ::
+              Data.=# ( "Transcribe.DeleteMedicalVocabulary" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteMedicalVocabulary where
+instance Data.ToJSON DeleteMedicalVocabulary where
   toJSON DeleteMedicalVocabulary' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("VocabularyName" Core..= vocabularyName)
+              ("VocabularyName" Data..= vocabularyName)
           ]
       )
 
-instance Core.ToPath DeleteMedicalVocabulary where
+instance Data.ToPath DeleteMedicalVocabulary where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteMedicalVocabulary where
+instance Data.ToQuery DeleteMedicalVocabulary where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteMedicalVocabularyResponse' smart constructor.

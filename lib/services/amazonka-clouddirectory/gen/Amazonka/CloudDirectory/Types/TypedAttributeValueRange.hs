@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.TypedAttributeValueRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudDirectory.Types.TypedAttributeValueRange where
 import Amazonka.CloudDirectory.Types.RangeMode
 import Amazonka.CloudDirectory.Types.TypedAttributeValue
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A range of attribute values. For more information, see
@@ -101,13 +102,13 @@ instance Prelude.NFData TypedAttributeValueRange where
       `Prelude.seq` Prelude.rnf startMode
       `Prelude.seq` Prelude.rnf endMode
 
-instance Core.ToJSON TypedAttributeValueRange where
+instance Data.ToJSON TypedAttributeValueRange where
   toJSON TypedAttributeValueRange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EndValue" Core..=) Prelude.<$> endValue,
-            ("StartValue" Core..=) Prelude.<$> startValue,
-            Prelude.Just ("StartMode" Core..= startMode),
-            Prelude.Just ("EndMode" Core..= endMode)
+          [ ("EndValue" Data..=) Prelude.<$> endValue,
+            ("StartValue" Data..=) Prelude.<$> startValue,
+            Prelude.Just ("StartMode" Data..= startMode),
+            Prelude.Just ("EndMode" Data..= endMode)
           ]
       )

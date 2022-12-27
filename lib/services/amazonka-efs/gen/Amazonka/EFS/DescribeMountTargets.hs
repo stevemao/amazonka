@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.DescribeMountTargets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,16 +48,17 @@ module Amazonka.EFS.DescribeMountTargets
     newDescribeMountTargetsResponse,
 
     -- * Response Lenses
-    describeMountTargetsResponse_mountTargets,
     describeMountTargetsResponse_marker,
+    describeMountTargetsResponse_mountTargets,
     describeMountTargetsResponse_nextMarker,
     describeMountTargetsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EFS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -193,14 +194,15 @@ instance Core.AWSRequest DescribeMountTargets where
   type
     AWSResponse DescribeMountTargets =
       DescribeMountTargetsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeMountTargetsResponse'
-            Prelude.<$> (x Core..?> "MountTargets" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Marker")
-            Prelude.<*> (x Core..?> "NextMarker")
+            Prelude.<$> (x Data..?> "Marker")
+            Prelude.<*> (x Data..?> "MountTargets" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -220,32 +222,32 @@ instance Prelude.NFData DescribeMountTargets where
       `Prelude.seq` Prelude.rnf maxItems
       `Prelude.seq` Prelude.rnf mountTargetId
 
-instance Core.ToHeaders DescribeMountTargets where
+instance Data.ToHeaders DescribeMountTargets where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeMountTargets where
+instance Data.ToPath DescribeMountTargets where
   toPath = Prelude.const "/2015-02-01/mount-targets"
 
-instance Core.ToQuery DescribeMountTargets where
+instance Data.ToQuery DescribeMountTargets where
   toQuery DescribeMountTargets' {..} =
     Prelude.mconcat
-      [ "AccessPointId" Core.=: accessPointId,
-        "FileSystemId" Core.=: fileSystemId,
-        "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems,
-        "MountTargetId" Core.=: mountTargetId
+      [ "AccessPointId" Data.=: accessPointId,
+        "FileSystemId" Data.=: fileSystemId,
+        "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems,
+        "MountTargetId" Data.=: mountTargetId
       ]
 
 -- |
 --
 -- /See:/ 'newDescribeMountTargetsResponse' smart constructor.
 data DescribeMountTargetsResponse = DescribeMountTargetsResponse'
-  { -- | Returns the file system\'s mount targets as an array of
-    -- @MountTargetDescription@ objects.
-    mountTargets :: Prelude.Maybe [MountTargetDescription],
-    -- | If the request included the @Marker@, the response returns that value in
+  { -- | If the request included the @Marker@, the response returns that value in
     -- this field.
     marker :: Prelude.Maybe Prelude.Text,
+    -- | Returns the file system\'s mount targets as an array of
+    -- @MountTargetDescription@ objects.
+    mountTargets :: Prelude.Maybe [MountTargetDescription],
     -- | If a value is present, there are more mount targets to return. In a
     -- subsequent request, you can provide @Marker@ in your request with this
     -- value to retrieve the next set of mount targets.
@@ -263,11 +265,11 @@ data DescribeMountTargetsResponse = DescribeMountTargetsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'mountTargets', 'describeMountTargetsResponse_mountTargets' - Returns the file system\'s mount targets as an array of
--- @MountTargetDescription@ objects.
---
 -- 'marker', 'describeMountTargetsResponse_marker' - If the request included the @Marker@, the response returns that value in
 -- this field.
+--
+-- 'mountTargets', 'describeMountTargetsResponse_mountTargets' - Returns the file system\'s mount targets as an array of
+-- @MountTargetDescription@ objects.
 --
 -- 'nextMarker', 'describeMountTargetsResponse_nextMarker' - If a value is present, there are more mount targets to return. In a
 -- subsequent request, you can provide @Marker@ in your request with this
@@ -280,22 +282,22 @@ newDescribeMountTargetsResponse ::
   DescribeMountTargetsResponse
 newDescribeMountTargetsResponse pHttpStatus_ =
   DescribeMountTargetsResponse'
-    { mountTargets =
+    { marker =
         Prelude.Nothing,
-      marker = Prelude.Nothing,
+      mountTargets = Prelude.Nothing,
       nextMarker = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Returns the file system\'s mount targets as an array of
--- @MountTargetDescription@ objects.
-describeMountTargetsResponse_mountTargets :: Lens.Lens' DescribeMountTargetsResponse (Prelude.Maybe [MountTargetDescription])
-describeMountTargetsResponse_mountTargets = Lens.lens (\DescribeMountTargetsResponse' {mountTargets} -> mountTargets) (\s@DescribeMountTargetsResponse' {} a -> s {mountTargets = a} :: DescribeMountTargetsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If the request included the @Marker@, the response returns that value in
 -- this field.
 describeMountTargetsResponse_marker :: Lens.Lens' DescribeMountTargetsResponse (Prelude.Maybe Prelude.Text)
 describeMountTargetsResponse_marker = Lens.lens (\DescribeMountTargetsResponse' {marker} -> marker) (\s@DescribeMountTargetsResponse' {} a -> s {marker = a} :: DescribeMountTargetsResponse)
+
+-- | Returns the file system\'s mount targets as an array of
+-- @MountTargetDescription@ objects.
+describeMountTargetsResponse_mountTargets :: Lens.Lens' DescribeMountTargetsResponse (Prelude.Maybe [MountTargetDescription])
+describeMountTargetsResponse_mountTargets = Lens.lens (\DescribeMountTargetsResponse' {mountTargets} -> mountTargets) (\s@DescribeMountTargetsResponse' {} a -> s {mountTargets = a} :: DescribeMountTargetsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If a value is present, there are more mount targets to return. In a
 -- subsequent request, you can provide @Marker@ in your request with this
@@ -309,7 +311,7 @@ describeMountTargetsResponse_httpStatus = Lens.lens (\DescribeMountTargetsRespon
 
 instance Prelude.NFData DescribeMountTargetsResponse where
   rnf DescribeMountTargetsResponse' {..} =
-    Prelude.rnf mountTargets
-      `Prelude.seq` Prelude.rnf marker
+    Prelude.rnf marker
+      `Prelude.seq` Prelude.rnf mountTargets
       `Prelude.seq` Prelude.rnf nextMarker
       `Prelude.seq` Prelude.rnf httpStatus

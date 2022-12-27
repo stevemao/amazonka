@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.Support.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,15 +18,15 @@ module Amazonka.Support.Types
     defaultService,
 
     -- * Errors
-    _AttachmentSetExpired,
+    _AttachmentIdNotFound,
     _AttachmentLimitExceeded,
-    _DescribeAttachmentLimitExceeded,
-    _CaseIdNotFound,
+    _AttachmentSetExpired,
     _AttachmentSetIdNotFound,
     _AttachmentSetSizeLimitExceeded,
-    _AttachmentIdNotFound,
-    _InternalServerError,
     _CaseCreationLimitExceeded,
+    _CaseIdNotFound,
+    _DescribeAttachmentLimitExceeded,
+    _InternalServerError,
 
     -- * Attachment
     Attachment (..),
@@ -42,52 +43,52 @@ module Amazonka.Support.Types
     -- * CaseDetails
     CaseDetails (..),
     newCaseDetails,
-    caseDetails_subject,
-    caseDetails_status,
-    caseDetails_recentCommunications,
-    caseDetails_severityCode,
     caseDetails_caseId,
+    caseDetails_categoryCode,
     caseDetails_ccEmailAddresses,
     caseDetails_displayId,
-    caseDetails_submittedBy,
     caseDetails_language,
-    caseDetails_timeCreated,
-    caseDetails_categoryCode,
+    caseDetails_recentCommunications,
     caseDetails_serviceCode,
+    caseDetails_severityCode,
+    caseDetails_status,
+    caseDetails_subject,
+    caseDetails_submittedBy,
+    caseDetails_timeCreated,
 
     -- * Category
     Category (..),
     newCategory,
-    category_name,
     category_code,
+    category_name,
 
     -- * Communication
     Communication (..),
     newCommunication,
+    communication_attachmentSet,
     communication_body,
     communication_caseId,
     communication_submittedBy,
     communication_timeCreated,
-    communication_attachmentSet,
 
     -- * RecentCaseCommunications
     RecentCaseCommunications (..),
     newRecentCaseCommunications,
-    recentCaseCommunications_nextToken,
     recentCaseCommunications_communications,
+    recentCaseCommunications_nextToken,
 
     -- * SeverityLevel
     SeverityLevel (..),
     newSeverityLevel,
-    severityLevel_name,
     severityLevel_code,
+    severityLevel_name,
 
     -- * SupportService
     SupportService (..),
     newSupportService,
     supportService_categories,
-    supportService_name,
     supportService_code,
+    supportService_name,
 
     -- * TrustedAdvisorCategorySpecificSummary
     TrustedAdvisorCategorySpecificSummary (..),
@@ -156,7 +157,7 @@ module Amazonka.Support.Types
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 import Amazonka.Support.Types.Attachment
@@ -180,41 +181,49 @@ import Amazonka.Support.Types.TrustedAdvisorResourcesSummary
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "Support",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "support",
-      Core._serviceSigningName = "support",
-      Core._serviceVersion = "2013-04-15",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError = Core.parseJSONError "Support",
-      Core._serviceRetry = retry
+    { Core.abbrev = "Support",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "support",
+      Core.signingName = "support",
+      Core.version = "2013-04-15",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "Support",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -222,37 +231,28 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
 
--- | The expiration time of the attachment set has passed. The set expires 1
--- hour after it is created.
-_AttachmentSetExpired :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_AttachmentSetExpired =
+-- | An attachment with the specified ID could not be found.
+_AttachmentIdNotFound :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_AttachmentIdNotFound =
   Core._MatchServiceError
     defaultService
-    "AttachmentSetExpired"
+    "AttachmentIdNotFound"
 
 -- | The limit for the number of attachment sets created in a short period of
 -- time has been exceeded.
@@ -262,20 +262,13 @@ _AttachmentLimitExceeded =
     defaultService
     "AttachmentLimitExceeded"
 
--- | The limit for the number of DescribeAttachment requests in a short
--- period of time has been exceeded.
-_DescribeAttachmentLimitExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_DescribeAttachmentLimitExceeded =
+-- | The expiration time of the attachment set has passed. The set expires 1
+-- hour after it is created.
+_AttachmentSetExpired :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_AttachmentSetExpired =
   Core._MatchServiceError
     defaultService
-    "DescribeAttachmentLimitExceeded"
-
--- | The requested @caseId@ couldn\'t be located.
-_CaseIdNotFound :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_CaseIdNotFound =
-  Core._MatchServiceError
-    defaultService
-    "CaseIdNotFound"
+    "AttachmentSetExpired"
 
 -- | An attachment set with the specified ID could not be found.
 _AttachmentSetIdNotFound :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -292,12 +285,27 @@ _AttachmentSetSizeLimitExceeded =
     defaultService
     "AttachmentSetSizeLimitExceeded"
 
--- | An attachment with the specified ID could not be found.
-_AttachmentIdNotFound :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_AttachmentIdNotFound =
+-- | The case creation limit for the account has been exceeded.
+_CaseCreationLimitExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_CaseCreationLimitExceeded =
   Core._MatchServiceError
     defaultService
-    "AttachmentIdNotFound"
+    "CaseCreationLimitExceeded"
+
+-- | The requested @caseId@ couldn\'t be located.
+_CaseIdNotFound :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_CaseIdNotFound =
+  Core._MatchServiceError
+    defaultService
+    "CaseIdNotFound"
+
+-- | The limit for the number of DescribeAttachment requests in a short
+-- period of time has been exceeded.
+_DescribeAttachmentLimitExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_DescribeAttachmentLimitExceeded =
+  Core._MatchServiceError
+    defaultService
+    "DescribeAttachmentLimitExceeded"
 
 -- | An internal server error occurred.
 _InternalServerError :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -305,10 +313,3 @@ _InternalServerError =
   Core._MatchServiceError
     defaultService
     "InternalServerError"
-
--- | The case creation limit for the account has been exceeded.
-_CaseCreationLimitExceeded :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_CaseCreationLimitExceeded =
-  Core._MatchServiceError
-    defaultService
-    "CaseCreationLimitExceeded"

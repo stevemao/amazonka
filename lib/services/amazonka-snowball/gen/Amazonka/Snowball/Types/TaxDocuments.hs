@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Snowball.Types.TaxDocuments
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,12 @@
 module Amazonka.Snowball.Types.TaxDocuments where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Snowball.Types.INDTaxDocuments
 
--- | The tax documents required in your AWS Region.
+-- | The tax documents required in your Amazon Web Services Region.
 --
 -- /See:/ 'newTaxDocuments' smart constructor.
 data TaxDocuments = TaxDocuments'
@@ -50,11 +51,11 @@ newTaxDocuments =
 taxDocuments_ind :: Lens.Lens' TaxDocuments (Prelude.Maybe INDTaxDocuments)
 taxDocuments_ind = Lens.lens (\TaxDocuments' {ind} -> ind) (\s@TaxDocuments' {} a -> s {ind = a} :: TaxDocuments)
 
-instance Core.FromJSON TaxDocuments where
+instance Data.FromJSON TaxDocuments where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TaxDocuments"
-      (\x -> TaxDocuments' Prelude.<$> (x Core..:? "IND"))
+      (\x -> TaxDocuments' Prelude.<$> (x Data..:? "IND"))
 
 instance Prelude.Hashable TaxDocuments where
   hashWithSalt _salt TaxDocuments' {..} =
@@ -63,7 +64,7 @@ instance Prelude.Hashable TaxDocuments where
 instance Prelude.NFData TaxDocuments where
   rnf TaxDocuments' {..} = Prelude.rnf ind
 
-instance Core.ToJSON TaxDocuments where
+instance Data.ToJSON TaxDocuments where
   toJSON TaxDocuments' {..} =
-    Core.object
-      (Prelude.catMaybes [("IND" Core..=) Prelude.<$> ind])
+    Data.object
+      (Prelude.catMaybes [("IND" Data..=) Prelude.<$> ind])

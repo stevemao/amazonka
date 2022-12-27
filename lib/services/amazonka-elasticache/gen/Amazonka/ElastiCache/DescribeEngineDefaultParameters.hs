@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElastiCache.DescribeEngineDefaultParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.ElastiCache.DescribeEngineDefaultParameters
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElastiCache.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -72,7 +73,7 @@ data DescribeEngineDefaultParameters = DescribeEngineDefaultParameters'
     --
     -- Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ |
     -- @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ |
-    -- @redis6.x@ |
+    -- @redis6.x@ | @redis6.2@
     cacheParameterGroupFamily :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -102,7 +103,7 @@ data DescribeEngineDefaultParameters = DescribeEngineDefaultParameters'
 --
 -- Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ |
 -- @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ |
--- @redis6.x@ |
+-- @redis6.x@ | @redis6.2@
 newDescribeEngineDefaultParameters ::
   -- | 'cacheParameterGroupFamily'
   Prelude.Text ->
@@ -138,7 +139,7 @@ describeEngineDefaultParameters_maxRecords = Lens.lens (\DescribeEngineDefaultPa
 --
 -- Valid values are: @memcached1.4@ | @memcached1.5@ | @memcached1.6@ |
 -- @redis2.6@ | @redis2.8@ | @redis3.2@ | @redis4.0@ | @redis5.0@ |
--- @redis6.x@ |
+-- @redis6.x@ | @redis6.2@
 describeEngineDefaultParameters_cacheParameterGroupFamily :: Lens.Lens' DescribeEngineDefaultParameters Prelude.Text
 describeEngineDefaultParameters_cacheParameterGroupFamily = Lens.lens (\DescribeEngineDefaultParameters' {cacheParameterGroupFamily} -> cacheParameterGroupFamily) (\s@DescribeEngineDefaultParameters' {} a -> s {cacheParameterGroupFamily = a} :: DescribeEngineDefaultParameters)
 
@@ -177,14 +178,15 @@ instance
   type
     AWSResponse DescribeEngineDefaultParameters =
       DescribeEngineDefaultParametersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeEngineDefaultParametersResult"
       ( \s h x ->
           DescribeEngineDefaultParametersResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "EngineDefaults")
+            Prelude.<*> (x Data..@ "EngineDefaults")
       )
 
 instance
@@ -208,27 +210,27 @@ instance
       `Prelude.seq` Prelude.rnf cacheParameterGroupFamily
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeEngineDefaultParameters
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeEngineDefaultParameters where
+instance Data.ToPath DescribeEngineDefaultParameters where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEngineDefaultParameters where
+instance Data.ToQuery DescribeEngineDefaultParameters where
   toQuery DescribeEngineDefaultParameters' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeEngineDefaultParameters" ::
+          Data.=: ( "DescribeEngineDefaultParameters" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2015-02-02" :: Prelude.ByteString),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
+          Data.=: ("2015-02-02" :: Prelude.ByteString),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
         "CacheParameterGroupFamily"
-          Core.=: cacheParameterGroupFamily
+          Data.=: cacheParameterGroupFamily
       ]
 
 -- | /See:/ 'newDescribeEngineDefaultParametersResponse' smart constructor.

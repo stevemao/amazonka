@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.DescribeInboundCrossClusterSearchConnections
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.ElasticSearch.DescribeInboundCrossClusterSearchConnections
 
     -- * Request Lenses
     describeInboundCrossClusterSearchConnections_filters,
-    describeInboundCrossClusterSearchConnections_nextToken,
     describeInboundCrossClusterSearchConnections_maxResults,
+    describeInboundCrossClusterSearchConnections_nextToken,
 
     -- * Destructuring the Response
     DescribeInboundCrossClusterSearchConnectionsResponse (..),
@@ -44,8 +44,9 @@ module Amazonka.ElasticSearch.DescribeInboundCrossClusterSearchConnections
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,12 +65,12 @@ data DescribeInboundCrossClusterSearchConnections = DescribeInboundCrossClusterS
     -- -   source-domain-info.region
     -- -   destination-domain-info.domain-name
     filters :: Prelude.Maybe [Filter],
-    -- | NextToken is sent in case the earlier API call results contain the
-    -- NextToken. It is used for pagination.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Set this value to limit the number of results returned. If not
     -- specified, defaults to 100.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | NextToken is sent in case the earlier API call results contain the
+    -- NextToken. It is used for pagination.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -90,19 +91,19 @@ data DescribeInboundCrossClusterSearchConnections = DescribeInboundCrossClusterS
 -- -   source-domain-info.region
 -- -   destination-domain-info.domain-name
 --
--- 'nextToken', 'describeInboundCrossClusterSearchConnections_nextToken' - NextToken is sent in case the earlier API call results contain the
--- NextToken. It is used for pagination.
---
 -- 'maxResults', 'describeInboundCrossClusterSearchConnections_maxResults' - Set this value to limit the number of results returned. If not
 -- specified, defaults to 100.
+--
+-- 'nextToken', 'describeInboundCrossClusterSearchConnections_nextToken' - NextToken is sent in case the earlier API call results contain the
+-- NextToken. It is used for pagination.
 newDescribeInboundCrossClusterSearchConnections ::
   DescribeInboundCrossClusterSearchConnections
 newDescribeInboundCrossClusterSearchConnections =
   DescribeInboundCrossClusterSearchConnections'
     { filters =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | A list of filters used to match properties for inbound cross-cluster
@@ -116,15 +117,15 @@ newDescribeInboundCrossClusterSearchConnections =
 describeInboundCrossClusterSearchConnections_filters :: Lens.Lens' DescribeInboundCrossClusterSearchConnections (Prelude.Maybe [Filter])
 describeInboundCrossClusterSearchConnections_filters = Lens.lens (\DescribeInboundCrossClusterSearchConnections' {filters} -> filters) (\s@DescribeInboundCrossClusterSearchConnections' {} a -> s {filters = a} :: DescribeInboundCrossClusterSearchConnections) Prelude.. Lens.mapping Lens.coerced
 
--- | NextToken is sent in case the earlier API call results contain the
--- NextToken. It is used for pagination.
-describeInboundCrossClusterSearchConnections_nextToken :: Lens.Lens' DescribeInboundCrossClusterSearchConnections (Prelude.Maybe Prelude.Text)
-describeInboundCrossClusterSearchConnections_nextToken = Lens.lens (\DescribeInboundCrossClusterSearchConnections' {nextToken} -> nextToken) (\s@DescribeInboundCrossClusterSearchConnections' {} a -> s {nextToken = a} :: DescribeInboundCrossClusterSearchConnections)
-
 -- | Set this value to limit the number of results returned. If not
 -- specified, defaults to 100.
 describeInboundCrossClusterSearchConnections_maxResults :: Lens.Lens' DescribeInboundCrossClusterSearchConnections (Prelude.Maybe Prelude.Int)
 describeInboundCrossClusterSearchConnections_maxResults = Lens.lens (\DescribeInboundCrossClusterSearchConnections' {maxResults} -> maxResults) (\s@DescribeInboundCrossClusterSearchConnections' {} a -> s {maxResults = a} :: DescribeInboundCrossClusterSearchConnections)
+
+-- | NextToken is sent in case the earlier API call results contain the
+-- NextToken. It is used for pagination.
+describeInboundCrossClusterSearchConnections_nextToken :: Lens.Lens' DescribeInboundCrossClusterSearchConnections (Prelude.Maybe Prelude.Text)
+describeInboundCrossClusterSearchConnections_nextToken = Lens.lens (\DescribeInboundCrossClusterSearchConnections' {nextToken} -> nextToken) (\s@DescribeInboundCrossClusterSearchConnections' {} a -> s {nextToken = a} :: DescribeInboundCrossClusterSearchConnections)
 
 instance
   Core.AWSRequest
@@ -134,15 +135,16 @@ instance
     AWSResponse
       DescribeInboundCrossClusterSearchConnections =
       DescribeInboundCrossClusterSearchConnectionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeInboundCrossClusterSearchConnectionsResponse'
-            Prelude.<$> ( x Core..?> "CrossClusterSearchConnections"
+            Prelude.<$> ( x Data..?> "CrossClusterSearchConnections"
                             Core..!@ Prelude.mempty
                         )
-              Prelude.<*> (x Core..?> "NextToken")
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -154,8 +156,8 @@ instance
     _salt
     DescribeInboundCrossClusterSearchConnections' {..} =
       _salt `Prelude.hashWithSalt` filters
-        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
 
 instance
   Prelude.NFData
@@ -163,31 +165,31 @@ instance
   where
   rnf DescribeInboundCrossClusterSearchConnections' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DescribeInboundCrossClusterSearchConnections
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DescribeInboundCrossClusterSearchConnections
   where
   toJSON
     DescribeInboundCrossClusterSearchConnections' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("Filters" Core..=) Prelude.<$> filters,
-              ("NextToken" Core..=) Prelude.<$> nextToken,
-              ("MaxResults" Core..=) Prelude.<$> maxResults
+            [ ("Filters" Data..=) Prelude.<$> filters,
+              ("MaxResults" Data..=) Prelude.<$> maxResults,
+              ("NextToken" Data..=) Prelude.<$> nextToken
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DescribeInboundCrossClusterSearchConnections
   where
   toPath =
@@ -195,7 +197,7 @@ instance
       "/2015-01-01/es/ccs/inboundConnection/search"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DescribeInboundCrossClusterSearchConnections
   where
   toQuery = Prelude.const Prelude.mempty

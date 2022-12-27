@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.Types.UserInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.CodeCommit.Types.UserInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the user who made a specified commit.
 --
 -- /See:/ 'newUserInfo' smart constructor.
 data UserInfo = UserInfo'
-  { -- | The email address associated with the user who made the commit, if any.
-    email :: Prelude.Maybe Prelude.Text,
-    -- | The date when the specified commit was commited, in timestamp format
+  { -- | The date when the specified commit was commited, in timestamp format
     -- with GMT offset.
     date :: Prelude.Maybe Prelude.Text,
+    -- | The email address associated with the user who made the commit, if any.
+    email :: Prelude.Maybe Prelude.Text,
     -- | The name of the user who made the specified commit.
     name :: Prelude.Maybe Prelude.Text
   }
@@ -45,53 +46,53 @@ data UserInfo = UserInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'email', 'userInfo_email' - The email address associated with the user who made the commit, if any.
---
 -- 'date', 'userInfo_date' - The date when the specified commit was commited, in timestamp format
 -- with GMT offset.
+--
+-- 'email', 'userInfo_email' - The email address associated with the user who made the commit, if any.
 --
 -- 'name', 'userInfo_name' - The name of the user who made the specified commit.
 newUserInfo ::
   UserInfo
 newUserInfo =
   UserInfo'
-    { email = Prelude.Nothing,
-      date = Prelude.Nothing,
+    { date = Prelude.Nothing,
+      email = Prelude.Nothing,
       name = Prelude.Nothing
     }
-
--- | The email address associated with the user who made the commit, if any.
-userInfo_email :: Lens.Lens' UserInfo (Prelude.Maybe Prelude.Text)
-userInfo_email = Lens.lens (\UserInfo' {email} -> email) (\s@UserInfo' {} a -> s {email = a} :: UserInfo)
 
 -- | The date when the specified commit was commited, in timestamp format
 -- with GMT offset.
 userInfo_date :: Lens.Lens' UserInfo (Prelude.Maybe Prelude.Text)
 userInfo_date = Lens.lens (\UserInfo' {date} -> date) (\s@UserInfo' {} a -> s {date = a} :: UserInfo)
 
+-- | The email address associated with the user who made the commit, if any.
+userInfo_email :: Lens.Lens' UserInfo (Prelude.Maybe Prelude.Text)
+userInfo_email = Lens.lens (\UserInfo' {email} -> email) (\s@UserInfo' {} a -> s {email = a} :: UserInfo)
+
 -- | The name of the user who made the specified commit.
 userInfo_name :: Lens.Lens' UserInfo (Prelude.Maybe Prelude.Text)
 userInfo_name = Lens.lens (\UserInfo' {name} -> name) (\s@UserInfo' {} a -> s {name = a} :: UserInfo)
 
-instance Core.FromJSON UserInfo where
+instance Data.FromJSON UserInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "UserInfo"
       ( \x ->
           UserInfo'
-            Prelude.<$> (x Core..:? "email")
-            Prelude.<*> (x Core..:? "date")
-            Prelude.<*> (x Core..:? "name")
+            Prelude.<$> (x Data..:? "date")
+            Prelude.<*> (x Data..:? "email")
+            Prelude.<*> (x Data..:? "name")
       )
 
 instance Prelude.Hashable UserInfo where
   hashWithSalt _salt UserInfo' {..} =
-    _salt `Prelude.hashWithSalt` email
-      `Prelude.hashWithSalt` date
+    _salt `Prelude.hashWithSalt` date
+      `Prelude.hashWithSalt` email
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData UserInfo where
   rnf UserInfo' {..} =
-    Prelude.rnf email
-      `Prelude.seq` Prelude.rnf date
+    Prelude.rnf date
+      `Prelude.seq` Prelude.rnf email
       `Prelude.seq` Prelude.rnf name

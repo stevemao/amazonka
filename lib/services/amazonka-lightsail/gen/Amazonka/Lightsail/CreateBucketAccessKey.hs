@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.CreateBucketAccessKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,8 +26,10 @@
 --
 -- Access keys grant full programmatic access to the specified bucket and
 -- its objects. You can have a maximum of two access keys per bucket. Use
--- the GetBucketAccessKeys action to get a list of current access keys for
--- a specific bucket. For more information about access keys, see
+-- the
+-- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_GetBucketAccessKeys.html GetBucketAccessKeys>
+-- action to get a list of current access keys for a specific bucket. For
+-- more information about access keys, see
 -- <https://lightsail.aws.amazon.com/ls/docs/en_us/articles/amazon-lightsail-creating-bucket-access-keys Creating access keys for a bucket in Amazon Lightsail>
 -- in the /Amazon Lightsail Developer Guide/.
 --
@@ -56,7 +58,8 @@ module Amazonka.Lightsail.CreateBucketAccessKey
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -96,13 +99,14 @@ instance Core.AWSRequest CreateBucketAccessKey where
   type
     AWSResponse CreateBucketAccessKey =
       CreateBucketAccessKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateBucketAccessKeyResponse'
-            Prelude.<$> (x Core..?> "accessKey")
-            Prelude.<*> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "accessKey")
+            Prelude.<*> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,32 +118,32 @@ instance Prelude.NFData CreateBucketAccessKey where
   rnf CreateBucketAccessKey' {..} =
     Prelude.rnf bucketName
 
-instance Core.ToHeaders CreateBucketAccessKey where
+instance Data.ToHeaders CreateBucketAccessKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.CreateBucketAccessKey" ::
+              Data.=# ( "Lightsail_20161128.CreateBucketAccessKey" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateBucketAccessKey where
+instance Data.ToJSON CreateBucketAccessKey where
   toJSON CreateBucketAccessKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("bucketName" Core..= bucketName)]
+          [Prelude.Just ("bucketName" Data..= bucketName)]
       )
 
-instance Core.ToPath CreateBucketAccessKey where
+instance Data.ToPath CreateBucketAccessKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateBucketAccessKey where
+instance Data.ToQuery CreateBucketAccessKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateBucketAccessKeyResponse' smart constructor.

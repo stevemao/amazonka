@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.Types.ListInsightsStatusFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,25 +20,26 @@
 module Amazonka.DevOpsGuru.Types.ListInsightsStatusFilter where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types.ListInsightsAnyStatusFilter
 import Amazonka.DevOpsGuru.Types.ListInsightsClosedStatusFilter
 import Amazonka.DevOpsGuru.Types.ListInsightsOngoingStatusFilter
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A filter used by @ListInsights@ to specify which insights to return.
 --
 -- /See:/ 'newListInsightsStatusFilter' smart constructor.
 data ListInsightsStatusFilter = ListInsightsStatusFilter'
-  { -- | A @ListInsightsClosedStatusFilter@ that specifies closed insights that
+  { -- | A @ListInsightsAnyStatusFilter@ that specifies insights of any status
+    -- that are either @REACTIVE@ or @PROACTIVE@.
+    any :: Prelude.Maybe ListInsightsAnyStatusFilter,
+    -- | A @ListInsightsClosedStatusFilter@ that specifies closed insights that
     -- are either @REACTIVE@ or @PROACTIVE@.
     closed :: Prelude.Maybe ListInsightsClosedStatusFilter,
     -- | A @ListInsightsAnyStatusFilter@ that specifies ongoing insights that are
     -- either @REACTIVE@ or @PROACTIVE@.
-    ongoing :: Prelude.Maybe ListInsightsOngoingStatusFilter,
-    -- | A @ListInsightsAnyStatusFilter@ that specifies insights of any status
-    -- that are either @REACTIVE@ or @PROACTIVE@.
-    any :: Prelude.Maybe ListInsightsAnyStatusFilter
+    ongoing :: Prelude.Maybe ListInsightsOngoingStatusFilter
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,22 +51,27 @@ data ListInsightsStatusFilter = ListInsightsStatusFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'any', 'listInsightsStatusFilter_any' - A @ListInsightsAnyStatusFilter@ that specifies insights of any status
+-- that are either @REACTIVE@ or @PROACTIVE@.
+--
 -- 'closed', 'listInsightsStatusFilter_closed' - A @ListInsightsClosedStatusFilter@ that specifies closed insights that
 -- are either @REACTIVE@ or @PROACTIVE@.
 --
 -- 'ongoing', 'listInsightsStatusFilter_ongoing' - A @ListInsightsAnyStatusFilter@ that specifies ongoing insights that are
 -- either @REACTIVE@ or @PROACTIVE@.
---
--- 'any', 'listInsightsStatusFilter_any' - A @ListInsightsAnyStatusFilter@ that specifies insights of any status
--- that are either @REACTIVE@ or @PROACTIVE@.
 newListInsightsStatusFilter ::
   ListInsightsStatusFilter
 newListInsightsStatusFilter =
   ListInsightsStatusFilter'
-    { closed = Prelude.Nothing,
-      ongoing = Prelude.Nothing,
-      any = Prelude.Nothing
+    { any = Prelude.Nothing,
+      closed = Prelude.Nothing,
+      ongoing = Prelude.Nothing
     }
+
+-- | A @ListInsightsAnyStatusFilter@ that specifies insights of any status
+-- that are either @REACTIVE@ or @PROACTIVE@.
+listInsightsStatusFilter_any :: Lens.Lens' ListInsightsStatusFilter (Prelude.Maybe ListInsightsAnyStatusFilter)
+listInsightsStatusFilter_any = Lens.lens (\ListInsightsStatusFilter' {any} -> any) (\s@ListInsightsStatusFilter' {} a -> s {any = a} :: ListInsightsStatusFilter)
 
 -- | A @ListInsightsClosedStatusFilter@ that specifies closed insights that
 -- are either @REACTIVE@ or @PROACTIVE@.
@@ -77,29 +83,24 @@ listInsightsStatusFilter_closed = Lens.lens (\ListInsightsStatusFilter' {closed}
 listInsightsStatusFilter_ongoing :: Lens.Lens' ListInsightsStatusFilter (Prelude.Maybe ListInsightsOngoingStatusFilter)
 listInsightsStatusFilter_ongoing = Lens.lens (\ListInsightsStatusFilter' {ongoing} -> ongoing) (\s@ListInsightsStatusFilter' {} a -> s {ongoing = a} :: ListInsightsStatusFilter)
 
--- | A @ListInsightsAnyStatusFilter@ that specifies insights of any status
--- that are either @REACTIVE@ or @PROACTIVE@.
-listInsightsStatusFilter_any :: Lens.Lens' ListInsightsStatusFilter (Prelude.Maybe ListInsightsAnyStatusFilter)
-listInsightsStatusFilter_any = Lens.lens (\ListInsightsStatusFilter' {any} -> any) (\s@ListInsightsStatusFilter' {} a -> s {any = a} :: ListInsightsStatusFilter)
-
 instance Prelude.Hashable ListInsightsStatusFilter where
   hashWithSalt _salt ListInsightsStatusFilter' {..} =
-    _salt `Prelude.hashWithSalt` closed
+    _salt `Prelude.hashWithSalt` any
+      `Prelude.hashWithSalt` closed
       `Prelude.hashWithSalt` ongoing
-      `Prelude.hashWithSalt` any
 
 instance Prelude.NFData ListInsightsStatusFilter where
   rnf ListInsightsStatusFilter' {..} =
-    Prelude.rnf closed
+    Prelude.rnf any
+      `Prelude.seq` Prelude.rnf closed
       `Prelude.seq` Prelude.rnf ongoing
-      `Prelude.seq` Prelude.rnf any
 
-instance Core.ToJSON ListInsightsStatusFilter where
+instance Data.ToJSON ListInsightsStatusFilter where
   toJSON ListInsightsStatusFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Closed" Core..=) Prelude.<$> closed,
-            ("Ongoing" Core..=) Prelude.<$> ongoing,
-            ("Any" Core..=) Prelude.<$> any
+          [ ("Any" Data..=) Prelude.<$> any,
+            ("Closed" Data..=) Prelude.<$> closed,
+            ("Ongoing" Data..=) Prelude.<$> ongoing
           ]
       )

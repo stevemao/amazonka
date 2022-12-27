@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AccessAnalyzer.GetAnalyzedResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.AccessAnalyzer.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,12 +100,13 @@ instance Core.AWSRequest GetAnalyzedResource where
   type
     AWSResponse GetAnalyzedResource =
       GetAnalyzedResourceResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAnalyzedResourceResponse'
-            Prelude.<$> (x Core..?> "resource")
+            Prelude.<$> (x Data..?> "resource")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,25 +120,25 @@ instance Prelude.NFData GetAnalyzedResource where
     Prelude.rnf analyzerArn
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders GetAnalyzedResource where
+instance Data.ToHeaders GetAnalyzedResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetAnalyzedResource where
+instance Data.ToPath GetAnalyzedResource where
   toPath = Prelude.const "/analyzed-resource"
 
-instance Core.ToQuery GetAnalyzedResource where
+instance Data.ToQuery GetAnalyzedResource where
   toQuery GetAnalyzedResource' {..} =
     Prelude.mconcat
-      [ "analyzerArn" Core.=: analyzerArn,
-        "resourceArn" Core.=: resourceArn
+      [ "analyzerArn" Data.=: analyzerArn,
+        "resourceArn" Data.=: resourceArn
       ]
 
 -- | The response to the request.

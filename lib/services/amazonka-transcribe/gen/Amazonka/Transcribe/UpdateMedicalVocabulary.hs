@@ -14,25 +14,24 @@
 
 -- |
 -- Module      : Amazonka.Transcribe.UpdateMedicalVocabulary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates a vocabulary with new values that you provide in a different
--- text file from the one you used to create the vocabulary. The
--- @UpdateMedicalVocabulary@ operation overwrites all of the existing
--- information with the values that you provide in the request.
+-- Updates an existing custom medical vocabulary with new values. This
+-- operation overwrites all existing information with your new values; you
+-- cannot append new terms onto an existing custom vocabulary.
 module Amazonka.Transcribe.UpdateMedicalVocabulary
   ( -- * Creating a Request
     UpdateMedicalVocabulary (..),
     newUpdateMedicalVocabulary,
 
     -- * Request Lenses
-    updateMedicalVocabulary_vocabularyFileUri,
     updateMedicalVocabulary_vocabularyName,
     updateMedicalVocabulary_languageCode,
+    updateMedicalVocabulary_vocabularyFileUri,
 
     -- * Destructuring the Response
     UpdateMedicalVocabularyResponse (..),
@@ -40,15 +39,16 @@ module Amazonka.Transcribe.UpdateMedicalVocabulary
 
     -- * Response Lenses
     updateMedicalVocabularyResponse_languageCode,
-    updateMedicalVocabularyResponse_vocabularyName,
     updateMedicalVocabularyResponse_lastModifiedTime,
+    updateMedicalVocabularyResponse_vocabularyName,
     updateMedicalVocabularyResponse_vocabularyState,
     updateMedicalVocabularyResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,33 +56,20 @@ import Amazonka.Transcribe.Types
 
 -- | /See:/ 'newUpdateMedicalVocabulary' smart constructor.
 data UpdateMedicalVocabulary = UpdateMedicalVocabulary'
-  { -- | The location in Amazon S3 of the text file that contains your custom
-    -- vocabulary. The URI must be in the same Amazon Web Services Region as
-    -- the resource that you are calling. The following is the format for a
-    -- URI:
-    --
-    -- @ https:\/\/s3.\<aws-region>.amazonaws.com\/\<bucket-name>\/\<keyprefix>\/\<objectkey> @
-    --
-    -- For example:
-    --
-    -- @https:\/\/s3.us-east-1.amazonaws.com\/AWSDOC-EXAMPLE-BUCKET\/vocab.txt@
-    --
-    -- For more information about Amazon S3 object names, see
-    -- <https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys Object Keys>
-    -- in the /Amazon S3 Developer Guide/.
-    --
-    -- For more information about custom vocabularies in Amazon Transcribe
-    -- Medical, see
-    -- <https://docs.aws.amazon.com/transcribe/latest/dg/how-it-works.html#how-vocabulary Medical Custom Vocabularies>.
-    vocabularyFileUri :: Prelude.Maybe Prelude.Text,
-    -- | The name of the vocabulary to update. The name is case sensitive. If you
-    -- try to update a vocabulary with the same name as a vocabulary you\'ve
-    -- already made, you get a @ConflictException@ error.
+  { -- | The name of the custom medical vocabulary you want to update. Custom
+    -- medical vocabulary names are case sensitive.
     vocabularyName :: Prelude.Text,
-    -- | The language code of the language used for the entries in the updated
-    -- vocabulary. US English (en-US) is the only valid language code in Amazon
-    -- Transcribe Medical.
-    languageCode :: LanguageCode
+    -- | The language code that represents the language of the entries in the
+    -- custom vocabulary you want to update. US English (@en-US@) is the only
+    -- language supported with Amazon Transcribe Medical.
+    languageCode :: LanguageCode,
+    -- | The Amazon S3 location of the text file that contains your custom
+    -- medical vocabulary. The URI must be located in the same Amazon Web
+    -- Services Region as the resource you\'re calling.
+    --
+    -- Here\'s an example URI path:
+    -- @s3:\/\/DOC-EXAMPLE-BUCKET\/my-vocab-file.txt@
+    vocabularyFileUri :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -94,155 +81,138 @@ data UpdateMedicalVocabulary = UpdateMedicalVocabulary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vocabularyFileUri', 'updateMedicalVocabulary_vocabularyFileUri' - The location in Amazon S3 of the text file that contains your custom
--- vocabulary. The URI must be in the same Amazon Web Services Region as
--- the resource that you are calling. The following is the format for a
--- URI:
+-- 'vocabularyName', 'updateMedicalVocabulary_vocabularyName' - The name of the custom medical vocabulary you want to update. Custom
+-- medical vocabulary names are case sensitive.
 --
--- @ https:\/\/s3.\<aws-region>.amazonaws.com\/\<bucket-name>\/\<keyprefix>\/\<objectkey> @
+-- 'languageCode', 'updateMedicalVocabulary_languageCode' - The language code that represents the language of the entries in the
+-- custom vocabulary you want to update. US English (@en-US@) is the only
+-- language supported with Amazon Transcribe Medical.
 --
--- For example:
+-- 'vocabularyFileUri', 'updateMedicalVocabulary_vocabularyFileUri' - The Amazon S3 location of the text file that contains your custom
+-- medical vocabulary. The URI must be located in the same Amazon Web
+-- Services Region as the resource you\'re calling.
 --
--- @https:\/\/s3.us-east-1.amazonaws.com\/AWSDOC-EXAMPLE-BUCKET\/vocab.txt@
---
--- For more information about Amazon S3 object names, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys Object Keys>
--- in the /Amazon S3 Developer Guide/.
---
--- For more information about custom vocabularies in Amazon Transcribe
--- Medical, see
--- <https://docs.aws.amazon.com/transcribe/latest/dg/how-it-works.html#how-vocabulary Medical Custom Vocabularies>.
---
--- 'vocabularyName', 'updateMedicalVocabulary_vocabularyName' - The name of the vocabulary to update. The name is case sensitive. If you
--- try to update a vocabulary with the same name as a vocabulary you\'ve
--- already made, you get a @ConflictException@ error.
---
--- 'languageCode', 'updateMedicalVocabulary_languageCode' - The language code of the language used for the entries in the updated
--- vocabulary. US English (en-US) is the only valid language code in Amazon
--- Transcribe Medical.
+-- Here\'s an example URI path:
+-- @s3:\/\/DOC-EXAMPLE-BUCKET\/my-vocab-file.txt@
 newUpdateMedicalVocabulary ::
   -- | 'vocabularyName'
   Prelude.Text ->
   -- | 'languageCode'
   LanguageCode ->
+  -- | 'vocabularyFileUri'
+  Prelude.Text ->
   UpdateMedicalVocabulary
 newUpdateMedicalVocabulary
   pVocabularyName_
-  pLanguageCode_ =
+  pLanguageCode_
+  pVocabularyFileUri_ =
     UpdateMedicalVocabulary'
-      { vocabularyFileUri =
-          Prelude.Nothing,
-        vocabularyName = pVocabularyName_,
-        languageCode = pLanguageCode_
+      { vocabularyName =
+          pVocabularyName_,
+        languageCode = pLanguageCode_,
+        vocabularyFileUri = pVocabularyFileUri_
       }
 
--- | The location in Amazon S3 of the text file that contains your custom
--- vocabulary. The URI must be in the same Amazon Web Services Region as
--- the resource that you are calling. The following is the format for a
--- URI:
---
--- @ https:\/\/s3.\<aws-region>.amazonaws.com\/\<bucket-name>\/\<keyprefix>\/\<objectkey> @
---
--- For example:
---
--- @https:\/\/s3.us-east-1.amazonaws.com\/AWSDOC-EXAMPLE-BUCKET\/vocab.txt@
---
--- For more information about Amazon S3 object names, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/dev/UsingMetadata.html#object-keys Object Keys>
--- in the /Amazon S3 Developer Guide/.
---
--- For more information about custom vocabularies in Amazon Transcribe
--- Medical, see
--- <https://docs.aws.amazon.com/transcribe/latest/dg/how-it-works.html#how-vocabulary Medical Custom Vocabularies>.
-updateMedicalVocabulary_vocabularyFileUri :: Lens.Lens' UpdateMedicalVocabulary (Prelude.Maybe Prelude.Text)
-updateMedicalVocabulary_vocabularyFileUri = Lens.lens (\UpdateMedicalVocabulary' {vocabularyFileUri} -> vocabularyFileUri) (\s@UpdateMedicalVocabulary' {} a -> s {vocabularyFileUri = a} :: UpdateMedicalVocabulary)
-
--- | The name of the vocabulary to update. The name is case sensitive. If you
--- try to update a vocabulary with the same name as a vocabulary you\'ve
--- already made, you get a @ConflictException@ error.
+-- | The name of the custom medical vocabulary you want to update. Custom
+-- medical vocabulary names are case sensitive.
 updateMedicalVocabulary_vocabularyName :: Lens.Lens' UpdateMedicalVocabulary Prelude.Text
 updateMedicalVocabulary_vocabularyName = Lens.lens (\UpdateMedicalVocabulary' {vocabularyName} -> vocabularyName) (\s@UpdateMedicalVocabulary' {} a -> s {vocabularyName = a} :: UpdateMedicalVocabulary)
 
--- | The language code of the language used for the entries in the updated
--- vocabulary. US English (en-US) is the only valid language code in Amazon
--- Transcribe Medical.
+-- | The language code that represents the language of the entries in the
+-- custom vocabulary you want to update. US English (@en-US@) is the only
+-- language supported with Amazon Transcribe Medical.
 updateMedicalVocabulary_languageCode :: Lens.Lens' UpdateMedicalVocabulary LanguageCode
 updateMedicalVocabulary_languageCode = Lens.lens (\UpdateMedicalVocabulary' {languageCode} -> languageCode) (\s@UpdateMedicalVocabulary' {} a -> s {languageCode = a} :: UpdateMedicalVocabulary)
+
+-- | The Amazon S3 location of the text file that contains your custom
+-- medical vocabulary. The URI must be located in the same Amazon Web
+-- Services Region as the resource you\'re calling.
+--
+-- Here\'s an example URI path:
+-- @s3:\/\/DOC-EXAMPLE-BUCKET\/my-vocab-file.txt@
+updateMedicalVocabulary_vocabularyFileUri :: Lens.Lens' UpdateMedicalVocabulary Prelude.Text
+updateMedicalVocabulary_vocabularyFileUri = Lens.lens (\UpdateMedicalVocabulary' {vocabularyFileUri} -> vocabularyFileUri) (\s@UpdateMedicalVocabulary' {} a -> s {vocabularyFileUri = a} :: UpdateMedicalVocabulary)
 
 instance Core.AWSRequest UpdateMedicalVocabulary where
   type
     AWSResponse UpdateMedicalVocabulary =
       UpdateMedicalVocabularyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateMedicalVocabularyResponse'
-            Prelude.<$> (x Core..?> "LanguageCode")
-            Prelude.<*> (x Core..?> "VocabularyName")
-            Prelude.<*> (x Core..?> "LastModifiedTime")
-            Prelude.<*> (x Core..?> "VocabularyState")
+            Prelude.<$> (x Data..?> "LanguageCode")
+            Prelude.<*> (x Data..?> "LastModifiedTime")
+            Prelude.<*> (x Data..?> "VocabularyName")
+            Prelude.<*> (x Data..?> "VocabularyState")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateMedicalVocabulary where
   hashWithSalt _salt UpdateMedicalVocabulary' {..} =
-    _salt `Prelude.hashWithSalt` vocabularyFileUri
-      `Prelude.hashWithSalt` vocabularyName
+    _salt `Prelude.hashWithSalt` vocabularyName
       `Prelude.hashWithSalt` languageCode
+      `Prelude.hashWithSalt` vocabularyFileUri
 
 instance Prelude.NFData UpdateMedicalVocabulary where
   rnf UpdateMedicalVocabulary' {..} =
-    Prelude.rnf vocabularyFileUri
-      `Prelude.seq` Prelude.rnf vocabularyName
+    Prelude.rnf vocabularyName
       `Prelude.seq` Prelude.rnf languageCode
+      `Prelude.seq` Prelude.rnf vocabularyFileUri
 
-instance Core.ToHeaders UpdateMedicalVocabulary where
+instance Data.ToHeaders UpdateMedicalVocabulary where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Transcribe.UpdateMedicalVocabulary" ::
+              Data.=# ( "Transcribe.UpdateMedicalVocabulary" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateMedicalVocabulary where
+instance Data.ToJSON UpdateMedicalVocabulary where
   toJSON UpdateMedicalVocabulary' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("VocabularyFileUri" Core..=)
-              Prelude.<$> vocabularyFileUri,
+          [ Prelude.Just
+              ("VocabularyName" Data..= vocabularyName),
+            Prelude.Just ("LanguageCode" Data..= languageCode),
             Prelude.Just
-              ("VocabularyName" Core..= vocabularyName),
-            Prelude.Just ("LanguageCode" Core..= languageCode)
+              ("VocabularyFileUri" Data..= vocabularyFileUri)
           ]
       )
 
-instance Core.ToPath UpdateMedicalVocabulary where
+instance Data.ToPath UpdateMedicalVocabulary where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateMedicalVocabulary where
+instance Data.ToQuery UpdateMedicalVocabulary where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateMedicalVocabularyResponse' smart constructor.
 data UpdateMedicalVocabularyResponse = UpdateMedicalVocabularyResponse'
-  { -- | The language code for the language of the text file used to update the
-    -- custom vocabulary. US English (en-US) is the only language supported in
-    -- Amazon Transcribe Medical.
+  { -- | The language code you selected for your custom medical vocabulary. US
+    -- English (@en-US@) is the only language supported with Amazon Transcribe
+    -- Medical.
     languageCode :: Prelude.Maybe LanguageCode,
-    -- | The name of the updated vocabulary.
+    -- | The date and time the specified custom medical vocabulary was last
+    -- updated.
+    --
+    -- Timestamps are in the format @YYYY-MM-DD\'T\'HH:MM:SS.SSSSSS-UTC@. For
+    -- example, @2022-05-04T12:32:58.761000-07:00@ represents 12:32 PM UTC-7 on
+    -- May 4, 2022.
+    lastModifiedTime :: Prelude.Maybe Data.POSIX,
+    -- | The name of the updated custom medical vocabulary.
     vocabularyName :: Prelude.Maybe Prelude.Text,
-    -- | The date and time that the vocabulary was updated.
-    lastModifiedTime :: Prelude.Maybe Core.POSIX,
-    -- | The processing state of the update to the vocabulary. When the
-    -- @VocabularyState@ field is @READY@, the vocabulary is ready to be used
-    -- in a @StartMedicalTranscriptionJob@ request.
+    -- | The processing state of your custom medical vocabulary. If the state is
+    -- @READY@, you can use the custom vocabulary in a
+    -- @StartMedicalTranscriptionJob@ request.
     vocabularyState :: Prelude.Maybe VocabularyState,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -257,17 +227,22 @@ data UpdateMedicalVocabularyResponse = UpdateMedicalVocabularyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'languageCode', 'updateMedicalVocabularyResponse_languageCode' - The language code for the language of the text file used to update the
--- custom vocabulary. US English (en-US) is the only language supported in
--- Amazon Transcribe Medical.
+-- 'languageCode', 'updateMedicalVocabularyResponse_languageCode' - The language code you selected for your custom medical vocabulary. US
+-- English (@en-US@) is the only language supported with Amazon Transcribe
+-- Medical.
 --
--- 'vocabularyName', 'updateMedicalVocabularyResponse_vocabularyName' - The name of the updated vocabulary.
+-- 'lastModifiedTime', 'updateMedicalVocabularyResponse_lastModifiedTime' - The date and time the specified custom medical vocabulary was last
+-- updated.
 --
--- 'lastModifiedTime', 'updateMedicalVocabularyResponse_lastModifiedTime' - The date and time that the vocabulary was updated.
+-- Timestamps are in the format @YYYY-MM-DD\'T\'HH:MM:SS.SSSSSS-UTC@. For
+-- example, @2022-05-04T12:32:58.761000-07:00@ represents 12:32 PM UTC-7 on
+-- May 4, 2022.
 --
--- 'vocabularyState', 'updateMedicalVocabularyResponse_vocabularyState' - The processing state of the update to the vocabulary. When the
--- @VocabularyState@ field is @READY@, the vocabulary is ready to be used
--- in a @StartMedicalTranscriptionJob@ request.
+-- 'vocabularyName', 'updateMedicalVocabularyResponse_vocabularyName' - The name of the updated custom medical vocabulary.
+--
+-- 'vocabularyState', 'updateMedicalVocabularyResponse_vocabularyState' - The processing state of your custom medical vocabulary. If the state is
+-- @READY@, you can use the custom vocabulary in a
+-- @StartMedicalTranscriptionJob@ request.
 --
 -- 'httpStatus', 'updateMedicalVocabularyResponse_httpStatus' - The response's http status code.
 newUpdateMedicalVocabularyResponse ::
@@ -278,29 +253,34 @@ newUpdateMedicalVocabularyResponse pHttpStatus_ =
   UpdateMedicalVocabularyResponse'
     { languageCode =
         Prelude.Nothing,
-      vocabularyName = Prelude.Nothing,
       lastModifiedTime = Prelude.Nothing,
+      vocabularyName = Prelude.Nothing,
       vocabularyState = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The language code for the language of the text file used to update the
--- custom vocabulary. US English (en-US) is the only language supported in
--- Amazon Transcribe Medical.
+-- | The language code you selected for your custom medical vocabulary. US
+-- English (@en-US@) is the only language supported with Amazon Transcribe
+-- Medical.
 updateMedicalVocabularyResponse_languageCode :: Lens.Lens' UpdateMedicalVocabularyResponse (Prelude.Maybe LanguageCode)
 updateMedicalVocabularyResponse_languageCode = Lens.lens (\UpdateMedicalVocabularyResponse' {languageCode} -> languageCode) (\s@UpdateMedicalVocabularyResponse' {} a -> s {languageCode = a} :: UpdateMedicalVocabularyResponse)
 
--- | The name of the updated vocabulary.
+-- | The date and time the specified custom medical vocabulary was last
+-- updated.
+--
+-- Timestamps are in the format @YYYY-MM-DD\'T\'HH:MM:SS.SSSSSS-UTC@. For
+-- example, @2022-05-04T12:32:58.761000-07:00@ represents 12:32 PM UTC-7 on
+-- May 4, 2022.
+updateMedicalVocabularyResponse_lastModifiedTime :: Lens.Lens' UpdateMedicalVocabularyResponse (Prelude.Maybe Prelude.UTCTime)
+updateMedicalVocabularyResponse_lastModifiedTime = Lens.lens (\UpdateMedicalVocabularyResponse' {lastModifiedTime} -> lastModifiedTime) (\s@UpdateMedicalVocabularyResponse' {} a -> s {lastModifiedTime = a} :: UpdateMedicalVocabularyResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The name of the updated custom medical vocabulary.
 updateMedicalVocabularyResponse_vocabularyName :: Lens.Lens' UpdateMedicalVocabularyResponse (Prelude.Maybe Prelude.Text)
 updateMedicalVocabularyResponse_vocabularyName = Lens.lens (\UpdateMedicalVocabularyResponse' {vocabularyName} -> vocabularyName) (\s@UpdateMedicalVocabularyResponse' {} a -> s {vocabularyName = a} :: UpdateMedicalVocabularyResponse)
 
--- | The date and time that the vocabulary was updated.
-updateMedicalVocabularyResponse_lastModifiedTime :: Lens.Lens' UpdateMedicalVocabularyResponse (Prelude.Maybe Prelude.UTCTime)
-updateMedicalVocabularyResponse_lastModifiedTime = Lens.lens (\UpdateMedicalVocabularyResponse' {lastModifiedTime} -> lastModifiedTime) (\s@UpdateMedicalVocabularyResponse' {} a -> s {lastModifiedTime = a} :: UpdateMedicalVocabularyResponse) Prelude.. Lens.mapping Core._Time
-
--- | The processing state of the update to the vocabulary. When the
--- @VocabularyState@ field is @READY@, the vocabulary is ready to be used
--- in a @StartMedicalTranscriptionJob@ request.
+-- | The processing state of your custom medical vocabulary. If the state is
+-- @READY@, you can use the custom vocabulary in a
+-- @StartMedicalTranscriptionJob@ request.
 updateMedicalVocabularyResponse_vocabularyState :: Lens.Lens' UpdateMedicalVocabularyResponse (Prelude.Maybe VocabularyState)
 updateMedicalVocabularyResponse_vocabularyState = Lens.lens (\UpdateMedicalVocabularyResponse' {vocabularyState} -> vocabularyState) (\s@UpdateMedicalVocabularyResponse' {} a -> s {vocabularyState = a} :: UpdateMedicalVocabularyResponse)
 
@@ -314,7 +294,7 @@ instance
   where
   rnf UpdateMedicalVocabularyResponse' {..} =
     Prelude.rnf languageCode
-      `Prelude.seq` Prelude.rnf vocabularyName
       `Prelude.seq` Prelude.rnf lastModifiedTime
+      `Prelude.seq` Prelude.rnf vocabularyName
       `Prelude.seq` Prelude.rnf vocabularyState
       `Prelude.seq` Prelude.rnf httpStatus

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.MemberDefinition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.MemberDefinition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.CognitoMemberDefinition
 import Amazonka.SageMaker.Types.OidcMemberDefinition
@@ -30,14 +31,14 @@ import Amazonka.SageMaker.Types.OidcMemberDefinition
 --
 -- /See:/ 'newMemberDefinition' smart constructor.
 data MemberDefinition = MemberDefinition'
-  { -- | A list user groups that exist in your OIDC Identity Provider (IdP). One
+  { -- | The Amazon Cognito user group that is part of the work team.
+    cognitoMemberDefinition :: Prelude.Maybe CognitoMemberDefinition,
+    -- | A list user groups that exist in your OIDC Identity Provider (IdP). One
     -- to ten groups can be used to create a single private work team. When you
     -- add a user group to the list of @Groups@, you can add that user group to
     -- one or more private work teams. If you add a user group to a private
     -- work team, all workers in that user group are added to the work team.
-    oidcMemberDefinition :: Prelude.Maybe OidcMemberDefinition,
-    -- | The Amazon Cognito user group that is part of the work team.
-    cognitoMemberDefinition :: Prelude.Maybe CognitoMemberDefinition
+    oidcMemberDefinition :: Prelude.Maybe OidcMemberDefinition
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,21 +50,25 @@ data MemberDefinition = MemberDefinition'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'cognitoMemberDefinition', 'memberDefinition_cognitoMemberDefinition' - The Amazon Cognito user group that is part of the work team.
+--
 -- 'oidcMemberDefinition', 'memberDefinition_oidcMemberDefinition' - A list user groups that exist in your OIDC Identity Provider (IdP). One
 -- to ten groups can be used to create a single private work team. When you
 -- add a user group to the list of @Groups@, you can add that user group to
 -- one or more private work teams. If you add a user group to a private
 -- work team, all workers in that user group are added to the work team.
---
--- 'cognitoMemberDefinition', 'memberDefinition_cognitoMemberDefinition' - The Amazon Cognito user group that is part of the work team.
 newMemberDefinition ::
   MemberDefinition
 newMemberDefinition =
   MemberDefinition'
-    { oidcMemberDefinition =
+    { cognitoMemberDefinition =
         Prelude.Nothing,
-      cognitoMemberDefinition = Prelude.Nothing
+      oidcMemberDefinition = Prelude.Nothing
     }
+
+-- | The Amazon Cognito user group that is part of the work team.
+memberDefinition_cognitoMemberDefinition :: Lens.Lens' MemberDefinition (Prelude.Maybe CognitoMemberDefinition)
+memberDefinition_cognitoMemberDefinition = Lens.lens (\MemberDefinition' {cognitoMemberDefinition} -> cognitoMemberDefinition) (\s@MemberDefinition' {} a -> s {cognitoMemberDefinition = a} :: MemberDefinition)
 
 -- | A list user groups that exist in your OIDC Identity Provider (IdP). One
 -- to ten groups can be used to create a single private work team. When you
@@ -73,37 +78,34 @@ newMemberDefinition =
 memberDefinition_oidcMemberDefinition :: Lens.Lens' MemberDefinition (Prelude.Maybe OidcMemberDefinition)
 memberDefinition_oidcMemberDefinition = Lens.lens (\MemberDefinition' {oidcMemberDefinition} -> oidcMemberDefinition) (\s@MemberDefinition' {} a -> s {oidcMemberDefinition = a} :: MemberDefinition)
 
--- | The Amazon Cognito user group that is part of the work team.
-memberDefinition_cognitoMemberDefinition :: Lens.Lens' MemberDefinition (Prelude.Maybe CognitoMemberDefinition)
-memberDefinition_cognitoMemberDefinition = Lens.lens (\MemberDefinition' {cognitoMemberDefinition} -> cognitoMemberDefinition) (\s@MemberDefinition' {} a -> s {cognitoMemberDefinition = a} :: MemberDefinition)
-
-instance Core.FromJSON MemberDefinition where
+instance Data.FromJSON MemberDefinition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MemberDefinition"
       ( \x ->
           MemberDefinition'
-            Prelude.<$> (x Core..:? "OidcMemberDefinition")
-            Prelude.<*> (x Core..:? "CognitoMemberDefinition")
+            Prelude.<$> (x Data..:? "CognitoMemberDefinition")
+            Prelude.<*> (x Data..:? "OidcMemberDefinition")
       )
 
 instance Prelude.Hashable MemberDefinition where
   hashWithSalt _salt MemberDefinition' {..} =
-    _salt `Prelude.hashWithSalt` oidcMemberDefinition
+    _salt
       `Prelude.hashWithSalt` cognitoMemberDefinition
+      `Prelude.hashWithSalt` oidcMemberDefinition
 
 instance Prelude.NFData MemberDefinition where
   rnf MemberDefinition' {..} =
-    Prelude.rnf oidcMemberDefinition
-      `Prelude.seq` Prelude.rnf cognitoMemberDefinition
+    Prelude.rnf cognitoMemberDefinition
+      `Prelude.seq` Prelude.rnf oidcMemberDefinition
 
-instance Core.ToJSON MemberDefinition where
+instance Data.ToJSON MemberDefinition where
   toJSON MemberDefinition' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OidcMemberDefinition" Core..=)
-              Prelude.<$> oidcMemberDefinition,
-            ("CognitoMemberDefinition" Core..=)
-              Prelude.<$> cognitoMemberDefinition
+          [ ("CognitoMemberDefinition" Data..=)
+              Prelude.<$> cognitoMemberDefinition,
+            ("OidcMemberDefinition" Data..=)
+              Prelude.<$> oidcMemberDefinition
           ]
       )

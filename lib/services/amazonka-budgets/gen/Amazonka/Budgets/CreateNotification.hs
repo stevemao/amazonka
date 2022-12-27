@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.CreateNotification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.Budgets.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,8 +57,8 @@ data CreateNotification = CreateNotification'
   { -- | The @accountId@ that is associated with the budget that you want to
     -- create a notification for.
     accountId :: Prelude.Text,
-    -- | The name of the budget that you want AWS to notify you about. Budget
-    -- names must be unique within an account.
+    -- | The name of the budget that you want Amazon Web Services to notify you
+    -- about. Budget names must be unique within an account.
     budgetName :: Prelude.Text,
     -- | The notification that you want to create.
     notification :: Notification,
@@ -79,8 +80,8 @@ data CreateNotification = CreateNotification'
 -- 'accountId', 'createNotification_accountId' - The @accountId@ that is associated with the budget that you want to
 -- create a notification for.
 --
--- 'budgetName', 'createNotification_budgetName' - The name of the budget that you want AWS to notify you about. Budget
--- names must be unique within an account.
+-- 'budgetName', 'createNotification_budgetName' - The name of the budget that you want Amazon Web Services to notify you
+-- about. Budget names must be unique within an account.
 --
 -- 'notification', 'createNotification_notification' - The notification that you want to create.
 --
@@ -114,8 +115,8 @@ newCreateNotification
 createNotification_accountId :: Lens.Lens' CreateNotification Prelude.Text
 createNotification_accountId = Lens.lens (\CreateNotification' {accountId} -> accountId) (\s@CreateNotification' {} a -> s {accountId = a} :: CreateNotification)
 
--- | The name of the budget that you want AWS to notify you about. Budget
--- names must be unique within an account.
+-- | The name of the budget that you want Amazon Web Services to notify you
+-- about. Budget names must be unique within an account.
 createNotification_budgetName :: Lens.Lens' CreateNotification Prelude.Text
 createNotification_budgetName = Lens.lens (\CreateNotification' {budgetName} -> budgetName) (\s@CreateNotification' {} a -> s {budgetName = a} :: CreateNotification)
 
@@ -133,7 +134,8 @@ instance Core.AWSRequest CreateNotification where
   type
     AWSResponse CreateNotification =
       CreateNotificationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -155,36 +157,36 @@ instance Prelude.NFData CreateNotification where
       `Prelude.seq` Prelude.rnf notification
       `Prelude.seq` Prelude.rnf subscribers
 
-instance Core.ToHeaders CreateNotification where
+instance Data.ToHeaders CreateNotification where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSBudgetServiceGateway.CreateNotification" ::
+              Data.=# ( "AWSBudgetServiceGateway.CreateNotification" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateNotification where
+instance Data.ToJSON CreateNotification where
   toJSON CreateNotification' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("AccountId" Core..= accountId),
-            Prelude.Just ("BudgetName" Core..= budgetName),
-            Prelude.Just ("Notification" Core..= notification),
-            Prelude.Just ("Subscribers" Core..= subscribers)
+          [ Prelude.Just ("AccountId" Data..= accountId),
+            Prelude.Just ("BudgetName" Data..= budgetName),
+            Prelude.Just ("Notification" Data..= notification),
+            Prelude.Just ("Subscribers" Data..= subscribers)
           ]
       )
 
-instance Core.ToPath CreateNotification where
+instance Data.ToPath CreateNotification where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateNotification where
+instance Data.ToQuery CreateNotification where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Response of CreateNotification

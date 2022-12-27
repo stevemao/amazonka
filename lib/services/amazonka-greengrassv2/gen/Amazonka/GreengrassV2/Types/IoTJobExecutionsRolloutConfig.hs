@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.Types.IoTJobExecutionsRolloutConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GreengrassV2.Types.IoTJobExecutionsRolloutConfig where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types.IoTJobExponentialRolloutRate
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about the rollout configuration for a job. This
@@ -68,14 +69,14 @@ ioTJobExecutionsRolloutConfig_exponentialRate = Lens.lens (\IoTJobExecutionsRoll
 ioTJobExecutionsRolloutConfig_maximumPerMinute :: Lens.Lens' IoTJobExecutionsRolloutConfig (Prelude.Maybe Prelude.Natural)
 ioTJobExecutionsRolloutConfig_maximumPerMinute = Lens.lens (\IoTJobExecutionsRolloutConfig' {maximumPerMinute} -> maximumPerMinute) (\s@IoTJobExecutionsRolloutConfig' {} a -> s {maximumPerMinute = a} :: IoTJobExecutionsRolloutConfig)
 
-instance Core.FromJSON IoTJobExecutionsRolloutConfig where
+instance Data.FromJSON IoTJobExecutionsRolloutConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IoTJobExecutionsRolloutConfig"
       ( \x ->
           IoTJobExecutionsRolloutConfig'
-            Prelude.<$> (x Core..:? "exponentialRate")
-            Prelude.<*> (x Core..:? "maximumPerMinute")
+            Prelude.<$> (x Data..:? "exponentialRate")
+            Prelude.<*> (x Data..:? "maximumPerMinute")
       )
 
 instance
@@ -91,13 +92,13 @@ instance Prelude.NFData IoTJobExecutionsRolloutConfig where
     Prelude.rnf exponentialRate
       `Prelude.seq` Prelude.rnf maximumPerMinute
 
-instance Core.ToJSON IoTJobExecutionsRolloutConfig where
+instance Data.ToJSON IoTJobExecutionsRolloutConfig where
   toJSON IoTJobExecutionsRolloutConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("exponentialRate" Core..=)
+          [ ("exponentialRate" Data..=)
               Prelude.<$> exponentialRate,
-            ("maximumPerMinute" Core..=)
+            ("maximumPerMinute" Data..=)
               Prelude.<$> maximumPerMinute
           ]
       )

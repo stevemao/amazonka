@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.ListCACertificates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,9 +37,10 @@ module Amazonka.IoT.ListCACertificates
     newListCACertificates,
 
     -- * Request Lenses
-    listCACertificates_marker,
     listCACertificates_ascendingOrder,
+    listCACertificates_marker,
     listCACertificates_pageSize,
+    listCACertificates_templateName,
 
     -- * Destructuring the Response
     ListCACertificatesResponse (..),
@@ -53,8 +54,9 @@ module Amazonka.IoT.ListCACertificates
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,12 +65,14 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListCACertificates' smart constructor.
 data ListCACertificates = ListCACertificates'
-  { -- | The marker for the next set of results.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | Determines the order of the results.
+  { -- | Determines the order of the results.
     ascendingOrder :: Prelude.Maybe Prelude.Bool,
+    -- | The marker for the next set of results.
+    marker :: Prelude.Maybe Prelude.Text,
     -- | The result page size.
-    pageSize :: Prelude.Maybe Prelude.Natural
+    pageSize :: Prelude.Maybe Prelude.Natural,
+    -- | The name of the provisioning template.
+    templateName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -80,31 +84,39 @@ data ListCACertificates = ListCACertificates'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'marker', 'listCACertificates_marker' - The marker for the next set of results.
---
 -- 'ascendingOrder', 'listCACertificates_ascendingOrder' - Determines the order of the results.
 --
+-- 'marker', 'listCACertificates_marker' - The marker for the next set of results.
+--
 -- 'pageSize', 'listCACertificates_pageSize' - The result page size.
+--
+-- 'templateName', 'listCACertificates_templateName' - The name of the provisioning template.
 newListCACertificates ::
   ListCACertificates
 newListCACertificates =
   ListCACertificates'
-    { marker = Prelude.Nothing,
-      ascendingOrder = Prelude.Nothing,
-      pageSize = Prelude.Nothing
+    { ascendingOrder =
+        Prelude.Nothing,
+      marker = Prelude.Nothing,
+      pageSize = Prelude.Nothing,
+      templateName = Prelude.Nothing
     }
-
--- | The marker for the next set of results.
-listCACertificates_marker :: Lens.Lens' ListCACertificates (Prelude.Maybe Prelude.Text)
-listCACertificates_marker = Lens.lens (\ListCACertificates' {marker} -> marker) (\s@ListCACertificates' {} a -> s {marker = a} :: ListCACertificates)
 
 -- | Determines the order of the results.
 listCACertificates_ascendingOrder :: Lens.Lens' ListCACertificates (Prelude.Maybe Prelude.Bool)
 listCACertificates_ascendingOrder = Lens.lens (\ListCACertificates' {ascendingOrder} -> ascendingOrder) (\s@ListCACertificates' {} a -> s {ascendingOrder = a} :: ListCACertificates)
 
+-- | The marker for the next set of results.
+listCACertificates_marker :: Lens.Lens' ListCACertificates (Prelude.Maybe Prelude.Text)
+listCACertificates_marker = Lens.lens (\ListCACertificates' {marker} -> marker) (\s@ListCACertificates' {} a -> s {marker = a} :: ListCACertificates)
+
 -- | The result page size.
 listCACertificates_pageSize :: Lens.Lens' ListCACertificates (Prelude.Maybe Prelude.Natural)
 listCACertificates_pageSize = Lens.lens (\ListCACertificates' {pageSize} -> pageSize) (\s@ListCACertificates' {} a -> s {pageSize = a} :: ListCACertificates)
+
+-- | The name of the provisioning template.
+listCACertificates_templateName :: Lens.Lens' ListCACertificates (Prelude.Maybe Prelude.Text)
+listCACertificates_templateName = Lens.lens (\ListCACertificates' {templateName} -> templateName) (\s@ListCACertificates' {} a -> s {templateName = a} :: ListCACertificates)
 
 instance Core.AWSPager ListCACertificates where
   page rq rs
@@ -132,40 +144,44 @@ instance Core.AWSRequest ListCACertificates where
   type
     AWSResponse ListCACertificates =
       ListCACertificatesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListCACertificatesResponse'
-            Prelude.<$> (x Core..?> "certificates" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextMarker")
+            Prelude.<$> (x Data..?> "certificates" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListCACertificates where
   hashWithSalt _salt ListCACertificates' {..} =
-    _salt `Prelude.hashWithSalt` marker
-      `Prelude.hashWithSalt` ascendingOrder
+    _salt `Prelude.hashWithSalt` ascendingOrder
+      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` templateName
 
 instance Prelude.NFData ListCACertificates where
   rnf ListCACertificates' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf ascendingOrder
+    Prelude.rnf ascendingOrder
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf templateName
 
-instance Core.ToHeaders ListCACertificates where
+instance Data.ToHeaders ListCACertificates where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListCACertificates where
+instance Data.ToPath ListCACertificates where
   toPath = Prelude.const "/cacertificates"
 
-instance Core.ToQuery ListCACertificates where
+instance Data.ToQuery ListCACertificates where
   toQuery ListCACertificates' {..} =
     Prelude.mconcat
-      [ "marker" Core.=: marker,
-        "isAscendingOrder" Core.=: ascendingOrder,
-        "pageSize" Core.=: pageSize
+      [ "isAscendingOrder" Data.=: ascendingOrder,
+        "marker" Data.=: marker,
+        "pageSize" Data.=: pageSize,
+        "templateName" Data.=: templateName
       ]
 
 -- | The output from the ListCACertificates operation.

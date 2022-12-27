@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.CapacityReservationFleet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,21 +20,46 @@
 module Amazonka.EC2.Types.CapacityReservationFleet where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.CapacityReservationFleetState
 import Amazonka.EC2.Types.FleetCapacityReservation
 import Amazonka.EC2.Types.FleetCapacityReservationTenancy
 import Amazonka.EC2.Types.FleetInstanceMatchCriteria
 import Amazonka.EC2.Types.Tag
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a Capacity Reservation Fleet.
 --
 -- /See:/ 'newCapacityReservationFleet' smart constructor.
 data CapacityReservationFleet = CapacityReservationFleet'
-  { -- | The ID of the Capacity Reservation Fleet.
+  { -- | The strategy used by the Capacity Reservation Fleet to determine which
+    -- of the specified instance types to use. For more information, see For
+    -- more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#allocation-strategy Allocation strategy>
+    -- in the Amazon EC2 User Guide.
+    allocationStrategy :: Prelude.Maybe Prelude.Text,
+    -- | The ARN of the Capacity Reservation Fleet.
+    capacityReservationFleetArn :: Prelude.Maybe Prelude.Text,
+    -- | The ID of the Capacity Reservation Fleet.
     capacityReservationFleetId :: Prelude.Maybe Prelude.Text,
+    -- | The date and time at which the Capacity Reservation Fleet was created.
+    createTime :: Prelude.Maybe Data.ISO8601,
+    -- | The date and time at which the Capacity Reservation Fleet expires.
+    endDate :: Prelude.Maybe Data.ISO8601,
+    -- | Indicates the type of instance launches that the Capacity Reservation
+    -- Fleet accepts. All Capacity Reservations in the Fleet inherit this
+    -- instance matching criteria.
+    --
+    -- Currently, Capacity Reservation Fleets support @open@ instance matching
+    -- criteria only. This means that instances that have matching attributes
+    -- (instance type, platform, and Availability Zone) run in the Capacity
+    -- Reservations automatically. Instances do not need to explicitly target a
+    -- Capacity Reservation Fleet to use its reserved capacity.
+    instanceMatchCriteria :: Prelude.Maybe FleetInstanceMatchCriteria,
+    -- | Information about the instance types for which to reserve the capacity.
+    instanceTypeSpecifications :: Prelude.Maybe [FleetCapacityReservation],
     -- | The state of the Capacity Reservation Fleet. Possible states include:
     --
     -- -   @submitted@ - The Capacity Reservation Fleet request has been
@@ -72,29 +97,8 @@ data CapacityReservationFleet = CapacityReservationFleet'
     -- -   @failed@ - The Capacity Reservation Fleet failed to reserve capacity
     --     for the specified instance types.
     state :: Prelude.Maybe CapacityReservationFleetState,
-    -- | The capacity units that have been fulfilled.
-    totalFulfilledCapacity :: Prelude.Maybe Prelude.Double,
-    -- | The date and time at which the Capacity Reservation Fleet expires.
-    endDate :: Prelude.Maybe Core.ISO8601,
-    -- | Indicates the type of instance launches that the Capacity Reservation
-    -- Fleet accepts. All Capacity Reservations in the Fleet inherit this
-    -- instance matching criteria.
-    --
-    -- Currently, Capacity Reservation Fleets support @open@ instance matching
-    -- criteria only. This means that instances that have matching attributes
-    -- (instance type, platform, and Availability Zone) run in the Capacity
-    -- Reservations automatically. Instances do not need to explicitly target a
-    -- Capacity Reservation Fleet to use its reserved capacity.
-    instanceMatchCriteria :: Prelude.Maybe FleetInstanceMatchCriteria,
-    -- | The total number of capacity units for which the Capacity Reservation
-    -- Fleet reserves capacity. For more information, see
-    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity Total target capacity>
-    -- in the Amazon EC2 User Guide.
-    totalTargetCapacity :: Prelude.Maybe Prelude.Int,
-    -- | The ARN of the Capacity Reservation Fleet.
-    capacityReservationFleetArn :: Prelude.Maybe Prelude.Text,
-    -- | Information about the instance types for which to reserve the capacity.
-    instanceTypeSpecifications :: Prelude.Maybe [FleetCapacityReservation],
+    -- | The tags assigned to the Capacity Reservation Fleet.
+    tags :: Prelude.Maybe [Tag],
     -- | The tenancy of the Capacity Reservation Fleet. Tenancies include:
     --
     -- -   @default@ - The Capacity Reservation Fleet is created on hardware
@@ -104,16 +108,13 @@ data CapacityReservationFleet = CapacityReservationFleet'
     --     single-tenant hardware that is dedicated to a single Amazon Web
     --     Services account.
     tenancy :: Prelude.Maybe FleetCapacityReservationTenancy,
-    -- | The strategy used by the Capacity Reservation Fleet to determine which
-    -- of the specified instance types to use. For more information, see For
-    -- more information, see
-    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#allocation-strategy Allocation strategy>
+    -- | The capacity units that have been fulfilled.
+    totalFulfilledCapacity :: Prelude.Maybe Prelude.Double,
+    -- | The total number of capacity units for which the Capacity Reservation
+    -- Fleet reserves capacity. For more information, see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity Total target capacity>
     -- in the Amazon EC2 User Guide.
-    allocationStrategy :: Prelude.Maybe Prelude.Text,
-    -- | The date and time at which the Capacity Reservation Fleet was created.
-    createTime :: Prelude.Maybe Core.ISO8601,
-    -- | The tags assigned to the Capacity Reservation Fleet.
-    tags :: Prelude.Maybe [Tag]
+    totalTargetCapacity :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -125,7 +126,31 @@ data CapacityReservationFleet = CapacityReservationFleet'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'allocationStrategy', 'capacityReservationFleet_allocationStrategy' - The strategy used by the Capacity Reservation Fleet to determine which
+-- of the specified instance types to use. For more information, see For
+-- more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#allocation-strategy Allocation strategy>
+-- in the Amazon EC2 User Guide.
+--
+-- 'capacityReservationFleetArn', 'capacityReservationFleet_capacityReservationFleetArn' - The ARN of the Capacity Reservation Fleet.
+--
 -- 'capacityReservationFleetId', 'capacityReservationFleet_capacityReservationFleetId' - The ID of the Capacity Reservation Fleet.
+--
+-- 'createTime', 'capacityReservationFleet_createTime' - The date and time at which the Capacity Reservation Fleet was created.
+--
+-- 'endDate', 'capacityReservationFleet_endDate' - The date and time at which the Capacity Reservation Fleet expires.
+--
+-- 'instanceMatchCriteria', 'capacityReservationFleet_instanceMatchCriteria' - Indicates the type of instance launches that the Capacity Reservation
+-- Fleet accepts. All Capacity Reservations in the Fleet inherit this
+-- instance matching criteria.
+--
+-- Currently, Capacity Reservation Fleets support @open@ instance matching
+-- criteria only. This means that instances that have matching attributes
+-- (instance type, platform, and Availability Zone) run in the Capacity
+-- Reservations automatically. Instances do not need to explicitly target a
+-- Capacity Reservation Fleet to use its reserved capacity.
+--
+-- 'instanceTypeSpecifications', 'capacityReservationFleet_instanceTypeSpecifications' - Information about the instance types for which to reserve the capacity.
 --
 -- 'state', 'capacityReservationFleet_state' - The state of the Capacity Reservation Fleet. Possible states include:
 --
@@ -164,28 +189,7 @@ data CapacityReservationFleet = CapacityReservationFleet'
 -- -   @failed@ - The Capacity Reservation Fleet failed to reserve capacity
 --     for the specified instance types.
 --
--- 'totalFulfilledCapacity', 'capacityReservationFleet_totalFulfilledCapacity' - The capacity units that have been fulfilled.
---
--- 'endDate', 'capacityReservationFleet_endDate' - The date and time at which the Capacity Reservation Fleet expires.
---
--- 'instanceMatchCriteria', 'capacityReservationFleet_instanceMatchCriteria' - Indicates the type of instance launches that the Capacity Reservation
--- Fleet accepts. All Capacity Reservations in the Fleet inherit this
--- instance matching criteria.
---
--- Currently, Capacity Reservation Fleets support @open@ instance matching
--- criteria only. This means that instances that have matching attributes
--- (instance type, platform, and Availability Zone) run in the Capacity
--- Reservations automatically. Instances do not need to explicitly target a
--- Capacity Reservation Fleet to use its reserved capacity.
---
--- 'totalTargetCapacity', 'capacityReservationFleet_totalTargetCapacity' - The total number of capacity units for which the Capacity Reservation
--- Fleet reserves capacity. For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity Total target capacity>
--- in the Amazon EC2 User Guide.
---
--- 'capacityReservationFleetArn', 'capacityReservationFleet_capacityReservationFleetArn' - The ARN of the Capacity Reservation Fleet.
---
--- 'instanceTypeSpecifications', 'capacityReservationFleet_instanceTypeSpecifications' - Information about the instance types for which to reserve the capacity.
+-- 'tags', 'capacityReservationFleet_tags' - The tags assigned to the Capacity Reservation Fleet.
 --
 -- 'tenancy', 'capacityReservationFleet_tenancy' - The tenancy of the Capacity Reservation Fleet. Tenancies include:
 --
@@ -196,37 +200,70 @@ data CapacityReservationFleet = CapacityReservationFleet'
 --     single-tenant hardware that is dedicated to a single Amazon Web
 --     Services account.
 --
--- 'allocationStrategy', 'capacityReservationFleet_allocationStrategy' - The strategy used by the Capacity Reservation Fleet to determine which
--- of the specified instance types to use. For more information, see For
--- more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#allocation-strategy Allocation strategy>
+-- 'totalFulfilledCapacity', 'capacityReservationFleet_totalFulfilledCapacity' - The capacity units that have been fulfilled.
+--
+-- 'totalTargetCapacity', 'capacityReservationFleet_totalTargetCapacity' - The total number of capacity units for which the Capacity Reservation
+-- Fleet reserves capacity. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity Total target capacity>
 -- in the Amazon EC2 User Guide.
---
--- 'createTime', 'capacityReservationFleet_createTime' - The date and time at which the Capacity Reservation Fleet was created.
---
--- 'tags', 'capacityReservationFleet_tags' - The tags assigned to the Capacity Reservation Fleet.
 newCapacityReservationFleet ::
   CapacityReservationFleet
 newCapacityReservationFleet =
   CapacityReservationFleet'
-    { capacityReservationFleetId =
+    { allocationStrategy =
         Prelude.Nothing,
-      state = Prelude.Nothing,
-      totalFulfilledCapacity = Prelude.Nothing,
+      capacityReservationFleetArn = Prelude.Nothing,
+      capacityReservationFleetId = Prelude.Nothing,
+      createTime = Prelude.Nothing,
       endDate = Prelude.Nothing,
       instanceMatchCriteria = Prelude.Nothing,
-      totalTargetCapacity = Prelude.Nothing,
-      capacityReservationFleetArn = Prelude.Nothing,
       instanceTypeSpecifications = Prelude.Nothing,
+      state = Prelude.Nothing,
+      tags = Prelude.Nothing,
       tenancy = Prelude.Nothing,
-      allocationStrategy = Prelude.Nothing,
-      createTime = Prelude.Nothing,
-      tags = Prelude.Nothing
+      totalFulfilledCapacity = Prelude.Nothing,
+      totalTargetCapacity = Prelude.Nothing
     }
+
+-- | The strategy used by the Capacity Reservation Fleet to determine which
+-- of the specified instance types to use. For more information, see For
+-- more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#allocation-strategy Allocation strategy>
+-- in the Amazon EC2 User Guide.
+capacityReservationFleet_allocationStrategy :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe Prelude.Text)
+capacityReservationFleet_allocationStrategy = Lens.lens (\CapacityReservationFleet' {allocationStrategy} -> allocationStrategy) (\s@CapacityReservationFleet' {} a -> s {allocationStrategy = a} :: CapacityReservationFleet)
+
+-- | The ARN of the Capacity Reservation Fleet.
+capacityReservationFleet_capacityReservationFleetArn :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe Prelude.Text)
+capacityReservationFleet_capacityReservationFleetArn = Lens.lens (\CapacityReservationFleet' {capacityReservationFleetArn} -> capacityReservationFleetArn) (\s@CapacityReservationFleet' {} a -> s {capacityReservationFleetArn = a} :: CapacityReservationFleet)
 
 -- | The ID of the Capacity Reservation Fleet.
 capacityReservationFleet_capacityReservationFleetId :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe Prelude.Text)
 capacityReservationFleet_capacityReservationFleetId = Lens.lens (\CapacityReservationFleet' {capacityReservationFleetId} -> capacityReservationFleetId) (\s@CapacityReservationFleet' {} a -> s {capacityReservationFleetId = a} :: CapacityReservationFleet)
+
+-- | The date and time at which the Capacity Reservation Fleet was created.
+capacityReservationFleet_createTime :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe Prelude.UTCTime)
+capacityReservationFleet_createTime = Lens.lens (\CapacityReservationFleet' {createTime} -> createTime) (\s@CapacityReservationFleet' {} a -> s {createTime = a} :: CapacityReservationFleet) Prelude.. Lens.mapping Data._Time
+
+-- | The date and time at which the Capacity Reservation Fleet expires.
+capacityReservationFleet_endDate :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe Prelude.UTCTime)
+capacityReservationFleet_endDate = Lens.lens (\CapacityReservationFleet' {endDate} -> endDate) (\s@CapacityReservationFleet' {} a -> s {endDate = a} :: CapacityReservationFleet) Prelude.. Lens.mapping Data._Time
+
+-- | Indicates the type of instance launches that the Capacity Reservation
+-- Fleet accepts. All Capacity Reservations in the Fleet inherit this
+-- instance matching criteria.
+--
+-- Currently, Capacity Reservation Fleets support @open@ instance matching
+-- criteria only. This means that instances that have matching attributes
+-- (instance type, platform, and Availability Zone) run in the Capacity
+-- Reservations automatically. Instances do not need to explicitly target a
+-- Capacity Reservation Fleet to use its reserved capacity.
+capacityReservationFleet_instanceMatchCriteria :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe FleetInstanceMatchCriteria)
+capacityReservationFleet_instanceMatchCriteria = Lens.lens (\CapacityReservationFleet' {instanceMatchCriteria} -> instanceMatchCriteria) (\s@CapacityReservationFleet' {} a -> s {instanceMatchCriteria = a} :: CapacityReservationFleet)
+
+-- | Information about the instance types for which to reserve the capacity.
+capacityReservationFleet_instanceTypeSpecifications :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe [FleetCapacityReservation])
+capacityReservationFleet_instanceTypeSpecifications = Lens.lens (\CapacityReservationFleet' {instanceTypeSpecifications} -> instanceTypeSpecifications) (\s@CapacityReservationFleet' {} a -> s {instanceTypeSpecifications = a} :: CapacityReservationFleet) Prelude.. Lens.mapping Lens.coerced
 
 -- | The state of the Capacity Reservation Fleet. Possible states include:
 --
@@ -267,40 +304,9 @@ capacityReservationFleet_capacityReservationFleetId = Lens.lens (\CapacityReserv
 capacityReservationFleet_state :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe CapacityReservationFleetState)
 capacityReservationFleet_state = Lens.lens (\CapacityReservationFleet' {state} -> state) (\s@CapacityReservationFleet' {} a -> s {state = a} :: CapacityReservationFleet)
 
--- | The capacity units that have been fulfilled.
-capacityReservationFleet_totalFulfilledCapacity :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe Prelude.Double)
-capacityReservationFleet_totalFulfilledCapacity = Lens.lens (\CapacityReservationFleet' {totalFulfilledCapacity} -> totalFulfilledCapacity) (\s@CapacityReservationFleet' {} a -> s {totalFulfilledCapacity = a} :: CapacityReservationFleet)
-
--- | The date and time at which the Capacity Reservation Fleet expires.
-capacityReservationFleet_endDate :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe Prelude.UTCTime)
-capacityReservationFleet_endDate = Lens.lens (\CapacityReservationFleet' {endDate} -> endDate) (\s@CapacityReservationFleet' {} a -> s {endDate = a} :: CapacityReservationFleet) Prelude.. Lens.mapping Core._Time
-
--- | Indicates the type of instance launches that the Capacity Reservation
--- Fleet accepts. All Capacity Reservations in the Fleet inherit this
--- instance matching criteria.
---
--- Currently, Capacity Reservation Fleets support @open@ instance matching
--- criteria only. This means that instances that have matching attributes
--- (instance type, platform, and Availability Zone) run in the Capacity
--- Reservations automatically. Instances do not need to explicitly target a
--- Capacity Reservation Fleet to use its reserved capacity.
-capacityReservationFleet_instanceMatchCriteria :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe FleetInstanceMatchCriteria)
-capacityReservationFleet_instanceMatchCriteria = Lens.lens (\CapacityReservationFleet' {instanceMatchCriteria} -> instanceMatchCriteria) (\s@CapacityReservationFleet' {} a -> s {instanceMatchCriteria = a} :: CapacityReservationFleet)
-
--- | The total number of capacity units for which the Capacity Reservation
--- Fleet reserves capacity. For more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity Total target capacity>
--- in the Amazon EC2 User Guide.
-capacityReservationFleet_totalTargetCapacity :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe Prelude.Int)
-capacityReservationFleet_totalTargetCapacity = Lens.lens (\CapacityReservationFleet' {totalTargetCapacity} -> totalTargetCapacity) (\s@CapacityReservationFleet' {} a -> s {totalTargetCapacity = a} :: CapacityReservationFleet)
-
--- | The ARN of the Capacity Reservation Fleet.
-capacityReservationFleet_capacityReservationFleetArn :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe Prelude.Text)
-capacityReservationFleet_capacityReservationFleetArn = Lens.lens (\CapacityReservationFleet' {capacityReservationFleetArn} -> capacityReservationFleetArn) (\s@CapacityReservationFleet' {} a -> s {capacityReservationFleetArn = a} :: CapacityReservationFleet)
-
--- | Information about the instance types for which to reserve the capacity.
-capacityReservationFleet_instanceTypeSpecifications :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe [FleetCapacityReservation])
-capacityReservationFleet_instanceTypeSpecifications = Lens.lens (\CapacityReservationFleet' {instanceTypeSpecifications} -> instanceTypeSpecifications) (\s@CapacityReservationFleet' {} a -> s {instanceTypeSpecifications = a} :: CapacityReservationFleet) Prelude.. Lens.mapping Lens.coerced
+-- | The tags assigned to the Capacity Reservation Fleet.
+capacityReservationFleet_tags :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe [Tag])
+capacityReservationFleet_tags = Lens.lens (\CapacityReservationFleet' {tags} -> tags) (\s@CapacityReservationFleet' {} a -> s {tags = a} :: CapacityReservationFleet) Prelude.. Lens.mapping Lens.coerced
 
 -- | The tenancy of the Capacity Reservation Fleet. Tenancies include:
 --
@@ -313,70 +319,64 @@ capacityReservationFleet_instanceTypeSpecifications = Lens.lens (\CapacityReserv
 capacityReservationFleet_tenancy :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe FleetCapacityReservationTenancy)
 capacityReservationFleet_tenancy = Lens.lens (\CapacityReservationFleet' {tenancy} -> tenancy) (\s@CapacityReservationFleet' {} a -> s {tenancy = a} :: CapacityReservationFleet)
 
--- | The strategy used by the Capacity Reservation Fleet to determine which
--- of the specified instance types to use. For more information, see For
--- more information, see
--- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#allocation-strategy Allocation strategy>
+-- | The capacity units that have been fulfilled.
+capacityReservationFleet_totalFulfilledCapacity :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe Prelude.Double)
+capacityReservationFleet_totalFulfilledCapacity = Lens.lens (\CapacityReservationFleet' {totalFulfilledCapacity} -> totalFulfilledCapacity) (\s@CapacityReservationFleet' {} a -> s {totalFulfilledCapacity = a} :: CapacityReservationFleet)
+
+-- | The total number of capacity units for which the Capacity Reservation
+-- Fleet reserves capacity. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/crfleet-concepts.html#target-capacity Total target capacity>
 -- in the Amazon EC2 User Guide.
-capacityReservationFleet_allocationStrategy :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe Prelude.Text)
-capacityReservationFleet_allocationStrategy = Lens.lens (\CapacityReservationFleet' {allocationStrategy} -> allocationStrategy) (\s@CapacityReservationFleet' {} a -> s {allocationStrategy = a} :: CapacityReservationFleet)
+capacityReservationFleet_totalTargetCapacity :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe Prelude.Int)
+capacityReservationFleet_totalTargetCapacity = Lens.lens (\CapacityReservationFleet' {totalTargetCapacity} -> totalTargetCapacity) (\s@CapacityReservationFleet' {} a -> s {totalTargetCapacity = a} :: CapacityReservationFleet)
 
--- | The date and time at which the Capacity Reservation Fleet was created.
-capacityReservationFleet_createTime :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe Prelude.UTCTime)
-capacityReservationFleet_createTime = Lens.lens (\CapacityReservationFleet' {createTime} -> createTime) (\s@CapacityReservationFleet' {} a -> s {createTime = a} :: CapacityReservationFleet) Prelude.. Lens.mapping Core._Time
-
--- | The tags assigned to the Capacity Reservation Fleet.
-capacityReservationFleet_tags :: Lens.Lens' CapacityReservationFleet (Prelude.Maybe [Tag])
-capacityReservationFleet_tags = Lens.lens (\CapacityReservationFleet' {tags} -> tags) (\s@CapacityReservationFleet' {} a -> s {tags = a} :: CapacityReservationFleet) Prelude.. Lens.mapping Lens.coerced
-
-instance Core.FromXML CapacityReservationFleet where
+instance Data.FromXML CapacityReservationFleet where
   parseXML x =
     CapacityReservationFleet'
-      Prelude.<$> (x Core..@? "capacityReservationFleetId")
-      Prelude.<*> (x Core..@? "state")
-      Prelude.<*> (x Core..@? "totalFulfilledCapacity")
-      Prelude.<*> (x Core..@? "endDate")
-      Prelude.<*> (x Core..@? "instanceMatchCriteria")
-      Prelude.<*> (x Core..@? "totalTargetCapacity")
-      Prelude.<*> (x Core..@? "capacityReservationFleetArn")
-      Prelude.<*> ( x Core..@? "instanceTypeSpecificationSet"
+      Prelude.<$> (x Data..@? "allocationStrategy")
+      Prelude.<*> (x Data..@? "capacityReservationFleetArn")
+      Prelude.<*> (x Data..@? "capacityReservationFleetId")
+      Prelude.<*> (x Data..@? "createTime")
+      Prelude.<*> (x Data..@? "endDate")
+      Prelude.<*> (x Data..@? "instanceMatchCriteria")
+      Prelude.<*> ( x Data..@? "instanceTypeSpecificationSet"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@? "tenancy")
-      Prelude.<*> (x Core..@? "allocationStrategy")
-      Prelude.<*> (x Core..@? "createTime")
-      Prelude.<*> ( x Core..@? "tagSet" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<*> (x Data..@? "state")
+      Prelude.<*> ( x Data..@? "tagSet" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
+      Prelude.<*> (x Data..@? "tenancy")
+      Prelude.<*> (x Data..@? "totalFulfilledCapacity")
+      Prelude.<*> (x Data..@? "totalTargetCapacity")
 
 instance Prelude.Hashable CapacityReservationFleet where
   hashWithSalt _salt CapacityReservationFleet' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` allocationStrategy
+      `Prelude.hashWithSalt` capacityReservationFleetArn
       `Prelude.hashWithSalt` capacityReservationFleetId
-      `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` totalFulfilledCapacity
+      `Prelude.hashWithSalt` createTime
       `Prelude.hashWithSalt` endDate
       `Prelude.hashWithSalt` instanceMatchCriteria
-      `Prelude.hashWithSalt` totalTargetCapacity
-      `Prelude.hashWithSalt` capacityReservationFleetArn
       `Prelude.hashWithSalt` instanceTypeSpecifications
-      `Prelude.hashWithSalt` tenancy
-      `Prelude.hashWithSalt` allocationStrategy
-      `Prelude.hashWithSalt` createTime
+      `Prelude.hashWithSalt` state
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` tenancy
+      `Prelude.hashWithSalt` totalFulfilledCapacity
+      `Prelude.hashWithSalt` totalTargetCapacity
 
 instance Prelude.NFData CapacityReservationFleet where
   rnf CapacityReservationFleet' {..} =
-    Prelude.rnf capacityReservationFleetId
-      `Prelude.seq` Prelude.rnf state
-      `Prelude.seq` Prelude.rnf totalFulfilledCapacity
+    Prelude.rnf allocationStrategy
+      `Prelude.seq` Prelude.rnf capacityReservationFleetArn
+      `Prelude.seq` Prelude.rnf capacityReservationFleetId
+      `Prelude.seq` Prelude.rnf createTime
       `Prelude.seq` Prelude.rnf endDate
       `Prelude.seq` Prelude.rnf instanceMatchCriteria
-      `Prelude.seq` Prelude.rnf totalTargetCapacity
-      `Prelude.seq` Prelude.rnf capacityReservationFleetArn
       `Prelude.seq` Prelude.rnf instanceTypeSpecifications
-      `Prelude.seq` Prelude.rnf tenancy
-      `Prelude.seq` Prelude.rnf allocationStrategy
-      `Prelude.seq` Prelude.rnf createTime
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf tenancy
+      `Prelude.seq` Prelude.rnf totalFulfilledCapacity
+      `Prelude.seq` Prelude.rnf totalTargetCapacity

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.UpdateDetector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,9 @@ module Amazonka.GuardDuty.UpdateDetector
     newUpdateDetector,
 
     -- * Request Lenses
-    updateDetector_findingPublishingFrequency,
     updateDetector_dataSources,
     updateDetector_enable,
+    updateDetector_findingPublishingFrequency,
     updateDetector_detectorId,
 
     -- * Destructuring the Response
@@ -42,21 +42,22 @@ module Amazonka.GuardDuty.UpdateDetector
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GuardDuty.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateDetector' smart constructor.
 data UpdateDetector = UpdateDetector'
-  { -- | An enum value that specifies how frequently findings are exported, such
-    -- as to CloudWatch Events.
-    findingPublishingFrequency :: Prelude.Maybe FindingPublishingFrequency,
-    -- | Describes which data sources will be updated.
+  { -- | Describes which data sources will be updated.
     dataSources :: Prelude.Maybe DataSourceConfigurations,
     -- | Specifies whether the detector is enabled or not enabled.
     enable :: Prelude.Maybe Prelude.Bool,
+    -- | An enum value that specifies how frequently findings are exported, such
+    -- as to CloudWatch Events.
+    findingPublishingFrequency :: Prelude.Maybe FindingPublishingFrequency,
     -- | The unique ID of the detector to update.
     detectorId :: Prelude.Text
   }
@@ -70,12 +71,12 @@ data UpdateDetector = UpdateDetector'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'findingPublishingFrequency', 'updateDetector_findingPublishingFrequency' - An enum value that specifies how frequently findings are exported, such
--- as to CloudWatch Events.
---
 -- 'dataSources', 'updateDetector_dataSources' - Describes which data sources will be updated.
 --
 -- 'enable', 'updateDetector_enable' - Specifies whether the detector is enabled or not enabled.
+--
+-- 'findingPublishingFrequency', 'updateDetector_findingPublishingFrequency' - An enum value that specifies how frequently findings are exported, such
+-- as to CloudWatch Events.
 --
 -- 'detectorId', 'updateDetector_detectorId' - The unique ID of the detector to update.
 newUpdateDetector ::
@@ -84,17 +85,11 @@ newUpdateDetector ::
   UpdateDetector
 newUpdateDetector pDetectorId_ =
   UpdateDetector'
-    { findingPublishingFrequency =
-        Prelude.Nothing,
-      dataSources = Prelude.Nothing,
+    { dataSources = Prelude.Nothing,
       enable = Prelude.Nothing,
+      findingPublishingFrequency = Prelude.Nothing,
       detectorId = pDetectorId_
     }
-
--- | An enum value that specifies how frequently findings are exported, such
--- as to CloudWatch Events.
-updateDetector_findingPublishingFrequency :: Lens.Lens' UpdateDetector (Prelude.Maybe FindingPublishingFrequency)
-updateDetector_findingPublishingFrequency = Lens.lens (\UpdateDetector' {findingPublishingFrequency} -> findingPublishingFrequency) (\s@UpdateDetector' {} a -> s {findingPublishingFrequency = a} :: UpdateDetector)
 
 -- | Describes which data sources will be updated.
 updateDetector_dataSources :: Lens.Lens' UpdateDetector (Prelude.Maybe DataSourceConfigurations)
@@ -104,6 +99,11 @@ updateDetector_dataSources = Lens.lens (\UpdateDetector' {dataSources} -> dataSo
 updateDetector_enable :: Lens.Lens' UpdateDetector (Prelude.Maybe Prelude.Bool)
 updateDetector_enable = Lens.lens (\UpdateDetector' {enable} -> enable) (\s@UpdateDetector' {} a -> s {enable = a} :: UpdateDetector)
 
+-- | An enum value that specifies how frequently findings are exported, such
+-- as to CloudWatch Events.
+updateDetector_findingPublishingFrequency :: Lens.Lens' UpdateDetector (Prelude.Maybe FindingPublishingFrequency)
+updateDetector_findingPublishingFrequency = Lens.lens (\UpdateDetector' {findingPublishingFrequency} -> findingPublishingFrequency) (\s@UpdateDetector' {} a -> s {findingPublishingFrequency = a} :: UpdateDetector)
+
 -- | The unique ID of the detector to update.
 updateDetector_detectorId :: Lens.Lens' UpdateDetector Prelude.Text
 updateDetector_detectorId = Lens.lens (\UpdateDetector' {detectorId} -> detectorId) (\s@UpdateDetector' {} a -> s {detectorId = a} :: UpdateDetector)
@@ -112,7 +112,8 @@ instance Core.AWSRequest UpdateDetector where
   type
     AWSResponse UpdateDetector =
       UpdateDetectorResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -122,47 +123,46 @@ instance Core.AWSRequest UpdateDetector where
 
 instance Prelude.Hashable UpdateDetector where
   hashWithSalt _salt UpdateDetector' {..} =
-    _salt
-      `Prelude.hashWithSalt` findingPublishingFrequency
-      `Prelude.hashWithSalt` dataSources
+    _salt `Prelude.hashWithSalt` dataSources
       `Prelude.hashWithSalt` enable
+      `Prelude.hashWithSalt` findingPublishingFrequency
       `Prelude.hashWithSalt` detectorId
 
 instance Prelude.NFData UpdateDetector where
   rnf UpdateDetector' {..} =
-    Prelude.rnf findingPublishingFrequency
-      `Prelude.seq` Prelude.rnf dataSources
+    Prelude.rnf dataSources
       `Prelude.seq` Prelude.rnf enable
+      `Prelude.seq` Prelude.rnf findingPublishingFrequency
       `Prelude.seq` Prelude.rnf detectorId
 
-instance Core.ToHeaders UpdateDetector where
+instance Data.ToHeaders UpdateDetector where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDetector where
+instance Data.ToJSON UpdateDetector where
   toJSON UpdateDetector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("findingPublishingFrequency" Core..=)
-              Prelude.<$> findingPublishingFrequency,
-            ("dataSources" Core..=) Prelude.<$> dataSources,
-            ("enable" Core..=) Prelude.<$> enable
+          [ ("dataSources" Data..=) Prelude.<$> dataSources,
+            ("enable" Data..=) Prelude.<$> enable,
+            ("findingPublishingFrequency" Data..=)
+              Prelude.<$> findingPublishingFrequency
           ]
       )
 
-instance Core.ToPath UpdateDetector where
+instance Data.ToPath UpdateDetector where
   toPath UpdateDetector' {..} =
     Prelude.mconcat
-      ["/detector/", Core.toBS detectorId]
+      ["/detector/", Data.toBS detectorId]
 
-instance Core.ToQuery UpdateDetector where
+instance Data.ToQuery UpdateDetector where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDetectorResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.CreateClusterSnapshot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,7 +48,8 @@ module Amazonka.Redshift.CreateClusterSnapshot
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -178,13 +179,14 @@ instance Core.AWSRequest CreateClusterSnapshot where
   type
     AWSResponse CreateClusterSnapshot =
       CreateClusterSnapshotResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateClusterSnapshotResult"
       ( \s h x ->
           CreateClusterSnapshotResponse'
-            Prelude.<$> (x Core..@? "Snapshot")
+            Prelude.<$> (x Data..@? "Snapshot")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -203,26 +205,26 @@ instance Prelude.NFData CreateClusterSnapshot where
       `Prelude.seq` Prelude.rnf snapshotIdentifier
       `Prelude.seq` Prelude.rnf clusterIdentifier
 
-instance Core.ToHeaders CreateClusterSnapshot where
+instance Data.ToHeaders CreateClusterSnapshot where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateClusterSnapshot where
+instance Data.ToPath CreateClusterSnapshot where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateClusterSnapshot where
+instance Data.ToQuery CreateClusterSnapshot where
   toQuery CreateClusterSnapshot' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateClusterSnapshot" :: Prelude.ByteString),
+          Data.=: ("CreateClusterSnapshot" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
         "ManualSnapshotRetentionPeriod"
-          Core.=: manualSnapshotRetentionPeriod,
+          Data.=: manualSnapshotRetentionPeriod,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
-        "SnapshotIdentifier" Core.=: snapshotIdentifier,
-        "ClusterIdentifier" Core.=: clusterIdentifier
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
+        "SnapshotIdentifier" Data.=: snapshotIdentifier,
+        "ClusterIdentifier" Data.=: clusterIdentifier
       ]
 
 -- | /See:/ 'newCreateClusterSnapshotResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.DescribeImages
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,11 +31,11 @@ module Amazonka.AppStream.DescribeImages
     newDescribeImages,
 
     -- * Request Lenses
-    describeImages_nextToken,
-    describeImages_names,
-    describeImages_type,
     describeImages_arns,
     describeImages_maxResults,
+    describeImages_names,
+    describeImages_nextToken,
+    describeImages_type,
 
     -- * Destructuring the Response
     DescribeImagesResponse (..),
@@ -50,24 +50,25 @@ where
 
 import Amazonka.AppStream.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeImages' smart constructor.
 data DescribeImages = DescribeImages'
-  { -- | The pagination token to use to retrieve the next page of results for
-    -- this operation. If this value is null, it retrieves the first page.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The names of the public or private images to describe.
-    names :: Prelude.Maybe [Prelude.Text],
-    -- | The type of image (public, private, or shared) to describe.
-    type' :: Prelude.Maybe VisibilityType,
-    -- | The ARNs of the public, private, and shared images to describe.
+  { -- | The ARNs of the public, private, and shared images to describe.
     arns :: Prelude.Maybe [Prelude.Text],
     -- | The maximum size of each page of results.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The names of the public or private images to describe.
+    names :: Prelude.Maybe [Prelude.Text],
+    -- | The pagination token to use to retrieve the next page of results for
+    -- this operation. If this value is null, it retrieves the first page.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The type of image (public, private, or shared) to describe.
+    type' :: Prelude.Maybe VisibilityType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -79,39 +80,26 @@ data DescribeImages = DescribeImages'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeImages_nextToken' - The pagination token to use to retrieve the next page of results for
--- this operation. If this value is null, it retrieves the first page.
---
--- 'names', 'describeImages_names' - The names of the public or private images to describe.
---
--- 'type'', 'describeImages_type' - The type of image (public, private, or shared) to describe.
---
 -- 'arns', 'describeImages_arns' - The ARNs of the public, private, and shared images to describe.
 --
 -- 'maxResults', 'describeImages_maxResults' - The maximum size of each page of results.
+--
+-- 'names', 'describeImages_names' - The names of the public or private images to describe.
+--
+-- 'nextToken', 'describeImages_nextToken' - The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
+--
+-- 'type'', 'describeImages_type' - The type of image (public, private, or shared) to describe.
 newDescribeImages ::
   DescribeImages
 newDescribeImages =
   DescribeImages'
-    { nextToken = Prelude.Nothing,
+    { arns = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       names = Prelude.Nothing,
-      type' = Prelude.Nothing,
-      arns = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
-
--- | The pagination token to use to retrieve the next page of results for
--- this operation. If this value is null, it retrieves the first page.
-describeImages_nextToken :: Lens.Lens' DescribeImages (Prelude.Maybe Prelude.Text)
-describeImages_nextToken = Lens.lens (\DescribeImages' {nextToken} -> nextToken) (\s@DescribeImages' {} a -> s {nextToken = a} :: DescribeImages)
-
--- | The names of the public or private images to describe.
-describeImages_names :: Lens.Lens' DescribeImages (Prelude.Maybe [Prelude.Text])
-describeImages_names = Lens.lens (\DescribeImages' {names} -> names) (\s@DescribeImages' {} a -> s {names = a} :: DescribeImages) Prelude.. Lens.mapping Lens.coerced
-
--- | The type of image (public, private, or shared) to describe.
-describeImages_type :: Lens.Lens' DescribeImages (Prelude.Maybe VisibilityType)
-describeImages_type = Lens.lens (\DescribeImages' {type'} -> type') (\s@DescribeImages' {} a -> s {type' = a} :: DescribeImages)
 
 -- | The ARNs of the public, private, and shared images to describe.
 describeImages_arns :: Lens.Lens' DescribeImages (Prelude.Maybe [Prelude.Text])
@@ -120,6 +108,19 @@ describeImages_arns = Lens.lens (\DescribeImages' {arns} -> arns) (\s@DescribeIm
 -- | The maximum size of each page of results.
 describeImages_maxResults :: Lens.Lens' DescribeImages (Prelude.Maybe Prelude.Natural)
 describeImages_maxResults = Lens.lens (\DescribeImages' {maxResults} -> maxResults) (\s@DescribeImages' {} a -> s {maxResults = a} :: DescribeImages)
+
+-- | The names of the public or private images to describe.
+describeImages_names :: Lens.Lens' DescribeImages (Prelude.Maybe [Prelude.Text])
+describeImages_names = Lens.lens (\DescribeImages' {names} -> names) (\s@DescribeImages' {} a -> s {names = a} :: DescribeImages) Prelude.. Lens.mapping Lens.coerced
+
+-- | The pagination token to use to retrieve the next page of results for
+-- this operation. If this value is null, it retrieves the first page.
+describeImages_nextToken :: Lens.Lens' DescribeImages (Prelude.Maybe Prelude.Text)
+describeImages_nextToken = Lens.lens (\DescribeImages' {nextToken} -> nextToken) (\s@DescribeImages' {} a -> s {nextToken = a} :: DescribeImages)
+
+-- | The type of image (public, private, or shared) to describe.
+describeImages_type :: Lens.Lens' DescribeImages (Prelude.Maybe VisibilityType)
+describeImages_type = Lens.lens (\DescribeImages' {type'} -> type') (\s@DescribeImages' {} a -> s {type' = a} :: DescribeImages)
 
 instance Core.AWSPager DescribeImages where
   page rq rs
@@ -145,63 +146,64 @@ instance Core.AWSRequest DescribeImages where
   type
     AWSResponse DescribeImages =
       DescribeImagesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeImagesResponse'
-            Prelude.<$> (x Core..?> "Images" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Images" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeImages where
   hashWithSalt _salt DescribeImages' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` names
-      `Prelude.hashWithSalt` type'
-      `Prelude.hashWithSalt` arns
+    _salt `Prelude.hashWithSalt` arns
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` names
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData DescribeImages where
   rnf DescribeImages' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf names
-      `Prelude.seq` Prelude.rnf type'
-      `Prelude.seq` Prelude.rnf arns
+    Prelude.rnf arns
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf names
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToHeaders DescribeImages where
+instance Data.ToHeaders DescribeImages where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "PhotonAdminProxyService.DescribeImages" ::
+              Data.=# ( "PhotonAdminProxyService.DescribeImages" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeImages where
+instance Data.ToJSON DescribeImages where
   toJSON DescribeImages' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Names" Core..=) Prelude.<$> names,
-            ("Type" Core..=) Prelude.<$> type',
-            ("Arns" Core..=) Prelude.<$> arns,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Arns" Data..=) Prelude.<$> arns,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("Names" Data..=) Prelude.<$> names,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("Type" Data..=) Prelude.<$> type'
           ]
       )
 
-instance Core.ToPath DescribeImages where
+instance Data.ToPath DescribeImages where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeImages where
+instance Data.ToQuery DescribeImages where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeImagesResponse' smart constructor.

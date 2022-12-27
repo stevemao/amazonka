@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.Types.ServiceHealth
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,24 @@
 module Amazonka.DevOpsGuru.Types.ServiceHealth where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types.ServiceInsightHealth
 import Amazonka.DevOpsGuru.Types.ServiceName
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
--- | Represents the health of an AWS service.
+-- | Represents the health of an Amazon Web Services service.
 --
 -- /See:/ 'newServiceHealth' smart constructor.
 data ServiceHealth = ServiceHealth'
-  { -- | Represents the health of an AWS service. This is a
+  { -- | Number of resources that DevOps Guru is monitoring in an analyzed Amazon
+    -- Web Services service.
+    analyzedResourceCount :: Prelude.Maybe Prelude.Integer,
+    -- | Represents the health of an Amazon Web Services service. This is a
     -- @ServiceInsightHealth@ that contains the number of open proactive and
     -- reactive insights for this service.
     insight :: Prelude.Maybe ServiceInsightHealth,
-    -- | The name of the AWS service.
+    -- | The name of the Amazon Web Services service.
     serviceName :: Prelude.Maybe ServiceName
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -46,45 +50,58 @@ data ServiceHealth = ServiceHealth'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'insight', 'serviceHealth_insight' - Represents the health of an AWS service. This is a
+-- 'analyzedResourceCount', 'serviceHealth_analyzedResourceCount' - Number of resources that DevOps Guru is monitoring in an analyzed Amazon
+-- Web Services service.
+--
+-- 'insight', 'serviceHealth_insight' - Represents the health of an Amazon Web Services service. This is a
 -- @ServiceInsightHealth@ that contains the number of open proactive and
 -- reactive insights for this service.
 --
--- 'serviceName', 'serviceHealth_serviceName' - The name of the AWS service.
+-- 'serviceName', 'serviceHealth_serviceName' - The name of the Amazon Web Services service.
 newServiceHealth ::
   ServiceHealth
 newServiceHealth =
   ServiceHealth'
-    { insight = Prelude.Nothing,
+    { analyzedResourceCount =
+        Prelude.Nothing,
+      insight = Prelude.Nothing,
       serviceName = Prelude.Nothing
     }
 
--- | Represents the health of an AWS service. This is a
+-- | Number of resources that DevOps Guru is monitoring in an analyzed Amazon
+-- Web Services service.
+serviceHealth_analyzedResourceCount :: Lens.Lens' ServiceHealth (Prelude.Maybe Prelude.Integer)
+serviceHealth_analyzedResourceCount = Lens.lens (\ServiceHealth' {analyzedResourceCount} -> analyzedResourceCount) (\s@ServiceHealth' {} a -> s {analyzedResourceCount = a} :: ServiceHealth)
+
+-- | Represents the health of an Amazon Web Services service. This is a
 -- @ServiceInsightHealth@ that contains the number of open proactive and
 -- reactive insights for this service.
 serviceHealth_insight :: Lens.Lens' ServiceHealth (Prelude.Maybe ServiceInsightHealth)
 serviceHealth_insight = Lens.lens (\ServiceHealth' {insight} -> insight) (\s@ServiceHealth' {} a -> s {insight = a} :: ServiceHealth)
 
--- | The name of the AWS service.
+-- | The name of the Amazon Web Services service.
 serviceHealth_serviceName :: Lens.Lens' ServiceHealth (Prelude.Maybe ServiceName)
 serviceHealth_serviceName = Lens.lens (\ServiceHealth' {serviceName} -> serviceName) (\s@ServiceHealth' {} a -> s {serviceName = a} :: ServiceHealth)
 
-instance Core.FromJSON ServiceHealth where
+instance Data.FromJSON ServiceHealth where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServiceHealth"
       ( \x ->
           ServiceHealth'
-            Prelude.<$> (x Core..:? "Insight")
-            Prelude.<*> (x Core..:? "ServiceName")
+            Prelude.<$> (x Data..:? "AnalyzedResourceCount")
+            Prelude.<*> (x Data..:? "Insight")
+            Prelude.<*> (x Data..:? "ServiceName")
       )
 
 instance Prelude.Hashable ServiceHealth where
   hashWithSalt _salt ServiceHealth' {..} =
-    _salt `Prelude.hashWithSalt` insight
+    _salt `Prelude.hashWithSalt` analyzedResourceCount
+      `Prelude.hashWithSalt` insight
       `Prelude.hashWithSalt` serviceName
 
 instance Prelude.NFData ServiceHealth where
   rnf ServiceHealth' {..} =
-    Prelude.rnf insight
+    Prelude.rnf analyzedResourceCount
+      `Prelude.seq` Prelude.rnf insight
       `Prelude.seq` Prelude.rnf serviceName

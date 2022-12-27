@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.DescribeLifecycleHooks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,15 +43,16 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeLifecycleHooks' smart constructor.
 data DescribeLifecycleHooks = DescribeLifecycleHooks'
-  { -- | The names of one or more lifecycle hooks. If you omit this parameter,
-    -- all lifecycle hooks are described.
+  { -- | The names of one or more lifecycle hooks. If you omit this property, all
+    -- lifecycle hooks are described.
     lifecycleHookNames :: Prelude.Maybe [Prelude.Text],
     -- | The name of the Auto Scaling group.
     autoScalingGroupName :: Prelude.Text
@@ -66,8 +67,8 @@ data DescribeLifecycleHooks = DescribeLifecycleHooks'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'lifecycleHookNames', 'describeLifecycleHooks_lifecycleHookNames' - The names of one or more lifecycle hooks. If you omit this parameter,
--- all lifecycle hooks are described.
+-- 'lifecycleHookNames', 'describeLifecycleHooks_lifecycleHookNames' - The names of one or more lifecycle hooks. If you omit this property, all
+-- lifecycle hooks are described.
 --
 -- 'autoScalingGroupName', 'describeLifecycleHooks_autoScalingGroupName' - The name of the Auto Scaling group.
 newDescribeLifecycleHooks ::
@@ -81,8 +82,8 @@ newDescribeLifecycleHooks pAutoScalingGroupName_ =
       autoScalingGroupName = pAutoScalingGroupName_
     }
 
--- | The names of one or more lifecycle hooks. If you omit this parameter,
--- all lifecycle hooks are described.
+-- | The names of one or more lifecycle hooks. If you omit this property, all
+-- lifecycle hooks are described.
 describeLifecycleHooks_lifecycleHookNames :: Lens.Lens' DescribeLifecycleHooks (Prelude.Maybe [Prelude.Text])
 describeLifecycleHooks_lifecycleHookNames = Lens.lens (\DescribeLifecycleHooks' {lifecycleHookNames} -> lifecycleHookNames) (\s@DescribeLifecycleHooks' {} a -> s {lifecycleHookNames = a} :: DescribeLifecycleHooks) Prelude.. Lens.mapping Lens.coerced
 
@@ -94,14 +95,15 @@ instance Core.AWSRequest DescribeLifecycleHooks where
   type
     AWSResponse DescribeLifecycleHooks =
       DescribeLifecycleHooksResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeLifecycleHooksResult"
       ( \s h x ->
           DescribeLifecycleHooksResponse'
-            Prelude.<$> ( x Core..@? "LifecycleHooks" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> ( x Data..@? "LifecycleHooks" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -116,25 +118,25 @@ instance Prelude.NFData DescribeLifecycleHooks where
     Prelude.rnf lifecycleHookNames
       `Prelude.seq` Prelude.rnf autoScalingGroupName
 
-instance Core.ToHeaders DescribeLifecycleHooks where
+instance Data.ToHeaders DescribeLifecycleHooks where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeLifecycleHooks where
+instance Data.ToPath DescribeLifecycleHooks where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeLifecycleHooks where
+instance Data.ToQuery DescribeLifecycleHooks where
   toQuery DescribeLifecycleHooks' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeLifecycleHooks" :: Prelude.ByteString),
+          Data.=: ("DescribeLifecycleHooks" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
         "LifecycleHookNames"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> lifecycleHookNames
             ),
-        "AutoScalingGroupName" Core.=: autoScalingGroupName
+        "AutoScalingGroupName" Data.=: autoScalingGroupName
       ]
 
 -- | /See:/ 'newDescribeLifecycleHooksResponse' smart constructor.

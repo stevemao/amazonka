@@ -14,13 +14,24 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.DeleteKeyPair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes a specific SSH key pair.
+-- Deletes the specified key pair by removing the public key from Amazon
+-- Lightsail.
+--
+-- You can delete key pairs that were created using the
+-- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_ImportKeyPair.html ImportKeyPair>
+-- and
+-- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_CreateKeyPair.html CreateKeyPair>
+-- actions, as well as the Lightsail default key pair. A new default key
+-- pair will not be created unless you launch an instance without
+-- specifying a custom key pair, or you call the
+-- <https://docs.aws.amazon.com/lightsail/2016-11-28/api-reference/API_DownloadDefaultKeyPair.html DownloadDefaultKeyPair>
+-- API.
 --
 -- The @delete key pair@ operation supports tag-based access control via
 -- resource tags applied to the resource identified by @key pair name@. For
@@ -32,6 +43,7 @@ module Amazonka.Lightsail.DeleteKeyPair
     newDeleteKeyPair,
 
     -- * Request Lenses
+    deleteKeyPair_expectedFingerprint,
     deleteKeyPair_keyPairName,
 
     -- * Destructuring the Response
@@ -45,7 +57,8 @@ module Amazonka.Lightsail.DeleteKeyPair
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,7 +66,12 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteKeyPair' smart constructor.
 data DeleteKeyPair = DeleteKeyPair'
-  { -- | The name of the key pair to delete.
+  { -- | The RSA fingerprint of the Lightsail default key pair to delete.
+    --
+    -- The @expectedFingerprint@ parameter is required only when specifying to
+    -- delete a Lightsail default key pair.
+    expectedFingerprint :: Prelude.Maybe Prelude.Text,
+    -- | The name of the key pair to delete.
     keyPairName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -66,13 +84,29 @@ data DeleteKeyPair = DeleteKeyPair'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'expectedFingerprint', 'deleteKeyPair_expectedFingerprint' - The RSA fingerprint of the Lightsail default key pair to delete.
+--
+-- The @expectedFingerprint@ parameter is required only when specifying to
+-- delete a Lightsail default key pair.
+--
 -- 'keyPairName', 'deleteKeyPair_keyPairName' - The name of the key pair to delete.
 newDeleteKeyPair ::
   -- | 'keyPairName'
   Prelude.Text ->
   DeleteKeyPair
 newDeleteKeyPair pKeyPairName_ =
-  DeleteKeyPair' {keyPairName = pKeyPairName_}
+  DeleteKeyPair'
+    { expectedFingerprint =
+        Prelude.Nothing,
+      keyPairName = pKeyPairName_
+    }
+
+-- | The RSA fingerprint of the Lightsail default key pair to delete.
+--
+-- The @expectedFingerprint@ parameter is required only when specifying to
+-- delete a Lightsail default key pair.
+deleteKeyPair_expectedFingerprint :: Lens.Lens' DeleteKeyPair (Prelude.Maybe Prelude.Text)
+deleteKeyPair_expectedFingerprint = Lens.lens (\DeleteKeyPair' {expectedFingerprint} -> expectedFingerprint) (\s@DeleteKeyPair' {} a -> s {expectedFingerprint = a} :: DeleteKeyPair)
 
 -- | The name of the key pair to delete.
 deleteKeyPair_keyPairName :: Lens.Lens' DeleteKeyPair Prelude.Text
@@ -82,48 +116,55 @@ instance Core.AWSRequest DeleteKeyPair where
   type
     AWSResponse DeleteKeyPair =
       DeleteKeyPairResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteKeyPairResponse'
-            Prelude.<$> (x Core..?> "operation")
+            Prelude.<$> (x Data..?> "operation")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DeleteKeyPair where
   hashWithSalt _salt DeleteKeyPair' {..} =
-    _salt `Prelude.hashWithSalt` keyPairName
+    _salt `Prelude.hashWithSalt` expectedFingerprint
+      `Prelude.hashWithSalt` keyPairName
 
 instance Prelude.NFData DeleteKeyPair where
-  rnf DeleteKeyPair' {..} = Prelude.rnf keyPairName
+  rnf DeleteKeyPair' {..} =
+    Prelude.rnf expectedFingerprint
+      `Prelude.seq` Prelude.rnf keyPairName
 
-instance Core.ToHeaders DeleteKeyPair where
+instance Data.ToHeaders DeleteKeyPair where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.DeleteKeyPair" ::
+              Data.=# ( "Lightsail_20161128.DeleteKeyPair" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteKeyPair where
+instance Data.ToJSON DeleteKeyPair where
   toJSON DeleteKeyPair' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("keyPairName" Core..= keyPairName)]
+          [ ("expectedFingerprint" Data..=)
+              Prelude.<$> expectedFingerprint,
+            Prelude.Just ("keyPairName" Data..= keyPairName)
+          ]
       )
 
-instance Core.ToPath DeleteKeyPair where
+instance Data.ToPath DeleteKeyPair where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteKeyPair where
+instance Data.ToQuery DeleteKeyPair where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteKeyPairResponse' smart constructor.

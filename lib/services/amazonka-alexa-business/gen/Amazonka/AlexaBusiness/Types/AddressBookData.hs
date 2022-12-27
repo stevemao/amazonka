@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.Types.AddressBookData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AlexaBusiness.Types.AddressBookData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information related to an address book.
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 data AddressBookData = AddressBookData'
   { -- | The ARN of the address book.
     addressBookArn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the address book.
-    name :: Prelude.Maybe Prelude.Text,
     -- | The description of the address book.
-    description :: Prelude.Maybe Prelude.Text
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The name of the address book.
+    name :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,49 +47,49 @@ data AddressBookData = AddressBookData'
 --
 -- 'addressBookArn', 'addressBookData_addressBookArn' - The ARN of the address book.
 --
--- 'name', 'addressBookData_name' - The name of the address book.
---
 -- 'description', 'addressBookData_description' - The description of the address book.
+--
+-- 'name', 'addressBookData_name' - The name of the address book.
 newAddressBookData ::
   AddressBookData
 newAddressBookData =
   AddressBookData'
     { addressBookArn = Prelude.Nothing,
-      name = Prelude.Nothing,
-      description = Prelude.Nothing
+      description = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The ARN of the address book.
 addressBookData_addressBookArn :: Lens.Lens' AddressBookData (Prelude.Maybe Prelude.Text)
 addressBookData_addressBookArn = Lens.lens (\AddressBookData' {addressBookArn} -> addressBookArn) (\s@AddressBookData' {} a -> s {addressBookArn = a} :: AddressBookData)
 
--- | The name of the address book.
-addressBookData_name :: Lens.Lens' AddressBookData (Prelude.Maybe Prelude.Text)
-addressBookData_name = Lens.lens (\AddressBookData' {name} -> name) (\s@AddressBookData' {} a -> s {name = a} :: AddressBookData)
-
 -- | The description of the address book.
 addressBookData_description :: Lens.Lens' AddressBookData (Prelude.Maybe Prelude.Text)
 addressBookData_description = Lens.lens (\AddressBookData' {description} -> description) (\s@AddressBookData' {} a -> s {description = a} :: AddressBookData)
 
-instance Core.FromJSON AddressBookData where
+-- | The name of the address book.
+addressBookData_name :: Lens.Lens' AddressBookData (Prelude.Maybe Prelude.Text)
+addressBookData_name = Lens.lens (\AddressBookData' {name} -> name) (\s@AddressBookData' {} a -> s {name = a} :: AddressBookData)
+
+instance Data.FromJSON AddressBookData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AddressBookData"
       ( \x ->
           AddressBookData'
-            Prelude.<$> (x Core..:? "AddressBookArn")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Description")
+            Prelude.<$> (x Data..:? "AddressBookArn")
+            Prelude.<*> (x Data..:? "Description")
+            Prelude.<*> (x Data..:? "Name")
       )
 
 instance Prelude.Hashable AddressBookData where
   hashWithSalt _salt AddressBookData' {..} =
     _salt `Prelude.hashWithSalt` addressBookArn
-      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` name
 
 instance Prelude.NFData AddressBookData where
   rnf AddressBookData' {..} =
     Prelude.rnf addressBookArn
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf name

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.Types.PhysicalResourceIdContextKeyValuePair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,13 @@
 module Amazonka.CloudFormation.Types.PhysicalResourceIdContextKeyValuePair where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Context information that enables CloudFormation to uniquely identify a
 -- resource. CloudFormation uses context key-value pairs in cases where a
--- resource\'s logical and physical IDs are not enough to uniquely identify
+-- resource\'s logical and physical IDs aren\'t enough to uniquely identify
 -- that resource. Each context key-value pair specifies a resource that
 -- contains the targeted resource.
 --
@@ -72,12 +73,12 @@ physicalResourceIdContextKeyValuePair_value :: Lens.Lens' PhysicalResourceIdCont
 physicalResourceIdContextKeyValuePair_value = Lens.lens (\PhysicalResourceIdContextKeyValuePair' {value} -> value) (\s@PhysicalResourceIdContextKeyValuePair' {} a -> s {value = a} :: PhysicalResourceIdContextKeyValuePair)
 
 instance
-  Core.FromXML
+  Data.FromXML
     PhysicalResourceIdContextKeyValuePair
   where
   parseXML x =
     PhysicalResourceIdContextKeyValuePair'
-      Prelude.<$> (x Core..@ "Key") Prelude.<*> (x Core..@ "Value")
+      Prelude.<$> (x Data..@ "Key") Prelude.<*> (x Data..@ "Value")
 
 instance
   Prelude.Hashable

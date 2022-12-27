@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationAutoScaling.PutScalingPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -63,8 +63,8 @@ module Amazonka.ApplicationAutoScaling.PutScalingPolicy
 
     -- * Request Lenses
     putScalingPolicy_policyType,
-    putScalingPolicy_targetTrackingScalingPolicyConfiguration,
     putScalingPolicy_stepScalingPolicyConfiguration,
+    putScalingPolicy_targetTrackingScalingPolicyConfiguration,
     putScalingPolicy_policyName,
     putScalingPolicy_serviceNamespace,
     putScalingPolicy_resourceId,
@@ -83,7 +83,8 @@ where
 
 import Amazonka.ApplicationAutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,17 +107,17 @@ data PutScalingPolicy = PutScalingPolicy'
     -- <https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-step-scaling-policies.html Step scaling policies>
     -- in the /Application Auto Scaling User Guide/.
     policyType :: Prelude.Maybe PolicyType,
+    -- | A step scaling policy.
+    --
+    -- This parameter is required if you are creating a policy and the policy
+    -- type is @StepScaling@.
+    stepScalingPolicyConfiguration :: Prelude.Maybe StepScalingPolicyConfiguration,
     -- | A target tracking scaling policy. Includes support for predefined or
     -- customized metrics.
     --
     -- This parameter is required if you are creating a policy and the policy
     -- type is @TargetTrackingScaling@.
     targetTrackingScalingPolicyConfiguration :: Prelude.Maybe TargetTrackingScalingPolicyConfiguration,
-    -- | A step scaling policy.
-    --
-    -- This parameter is required if you are creating a policy and the policy
-    -- type is @StepScaling@.
-    stepScalingPolicyConfiguration :: Prelude.Maybe StepScalingPolicyConfiguration,
     -- | The name of the scaling policy.
     policyName :: Prelude.Text,
     -- | The namespace of the Amazon Web Services service that provides the
@@ -284,16 +285,16 @@ data PutScalingPolicy = PutScalingPolicy'
 -- <https://docs.aws.amazon.com/autoscaling/application/userguide/application-auto-scaling-step-scaling-policies.html Step scaling policies>
 -- in the /Application Auto Scaling User Guide/.
 --
+-- 'stepScalingPolicyConfiguration', 'putScalingPolicy_stepScalingPolicyConfiguration' - A step scaling policy.
+--
+-- This parameter is required if you are creating a policy and the policy
+-- type is @StepScaling@.
+--
 -- 'targetTrackingScalingPolicyConfiguration', 'putScalingPolicy_targetTrackingScalingPolicyConfiguration' - A target tracking scaling policy. Includes support for predefined or
 -- customized metrics.
 --
 -- This parameter is required if you are creating a policy and the policy
 -- type is @TargetTrackingScaling@.
---
--- 'stepScalingPolicyConfiguration', 'putScalingPolicy_stepScalingPolicyConfiguration' - A step scaling policy.
---
--- This parameter is required if you are creating a policy and the policy
--- type is @StepScaling@.
 --
 -- 'policyName', 'putScalingPolicy_policyName' - The name of the scaling policy.
 --
@@ -451,9 +452,9 @@ newPutScalingPolicy
   pScalableDimension_ =
     PutScalingPolicy'
       { policyType = Prelude.Nothing,
+        stepScalingPolicyConfiguration = Prelude.Nothing,
         targetTrackingScalingPolicyConfiguration =
           Prelude.Nothing,
-        stepScalingPolicyConfiguration = Prelude.Nothing,
         policyName = pPolicyName_,
         serviceNamespace = pServiceNamespace_,
         resourceId = pResourceId_,
@@ -478,6 +479,13 @@ newPutScalingPolicy
 putScalingPolicy_policyType :: Lens.Lens' PutScalingPolicy (Prelude.Maybe PolicyType)
 putScalingPolicy_policyType = Lens.lens (\PutScalingPolicy' {policyType} -> policyType) (\s@PutScalingPolicy' {} a -> s {policyType = a} :: PutScalingPolicy)
 
+-- | A step scaling policy.
+--
+-- This parameter is required if you are creating a policy and the policy
+-- type is @StepScaling@.
+putScalingPolicy_stepScalingPolicyConfiguration :: Lens.Lens' PutScalingPolicy (Prelude.Maybe StepScalingPolicyConfiguration)
+putScalingPolicy_stepScalingPolicyConfiguration = Lens.lens (\PutScalingPolicy' {stepScalingPolicyConfiguration} -> stepScalingPolicyConfiguration) (\s@PutScalingPolicy' {} a -> s {stepScalingPolicyConfiguration = a} :: PutScalingPolicy)
+
 -- | A target tracking scaling policy. Includes support for predefined or
 -- customized metrics.
 --
@@ -485,13 +493,6 @@ putScalingPolicy_policyType = Lens.lens (\PutScalingPolicy' {policyType} -> poli
 -- type is @TargetTrackingScaling@.
 putScalingPolicy_targetTrackingScalingPolicyConfiguration :: Lens.Lens' PutScalingPolicy (Prelude.Maybe TargetTrackingScalingPolicyConfiguration)
 putScalingPolicy_targetTrackingScalingPolicyConfiguration = Lens.lens (\PutScalingPolicy' {targetTrackingScalingPolicyConfiguration} -> targetTrackingScalingPolicyConfiguration) (\s@PutScalingPolicy' {} a -> s {targetTrackingScalingPolicyConfiguration = a} :: PutScalingPolicy)
-
--- | A step scaling policy.
---
--- This parameter is required if you are creating a policy and the policy
--- type is @StepScaling@.
-putScalingPolicy_stepScalingPolicyConfiguration :: Lens.Lens' PutScalingPolicy (Prelude.Maybe StepScalingPolicyConfiguration)
-putScalingPolicy_stepScalingPolicyConfiguration = Lens.lens (\PutScalingPolicy' {stepScalingPolicyConfiguration} -> stepScalingPolicyConfiguration) (\s@PutScalingPolicy' {} a -> s {stepScalingPolicyConfiguration = a} :: PutScalingPolicy)
 
 -- | The name of the scaling policy.
 putScalingPolicy_policyName :: Lens.Lens' PutScalingPolicy Prelude.Text
@@ -645,21 +646,22 @@ instance Core.AWSRequest PutScalingPolicy where
   type
     AWSResponse PutScalingPolicy =
       PutScalingPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutScalingPolicyResponse'
-            Prelude.<$> (x Core..?> "Alarms" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Alarms" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "PolicyARN")
+            Prelude.<*> (x Data..:> "PolicyARN")
       )
 
 instance Prelude.Hashable PutScalingPolicy where
   hashWithSalt _salt PutScalingPolicy' {..} =
     _salt `Prelude.hashWithSalt` policyType
-      `Prelude.hashWithSalt` targetTrackingScalingPolicyConfiguration
       `Prelude.hashWithSalt` stepScalingPolicyConfiguration
+      `Prelude.hashWithSalt` targetTrackingScalingPolicyConfiguration
       `Prelude.hashWithSalt` policyName
       `Prelude.hashWithSalt` serviceNamespace
       `Prelude.hashWithSalt` resourceId
@@ -668,50 +670,50 @@ instance Prelude.Hashable PutScalingPolicy where
 instance Prelude.NFData PutScalingPolicy where
   rnf PutScalingPolicy' {..} =
     Prelude.rnf policyType
-      `Prelude.seq` Prelude.rnf targetTrackingScalingPolicyConfiguration
       `Prelude.seq` Prelude.rnf stepScalingPolicyConfiguration
+      `Prelude.seq` Prelude.rnf targetTrackingScalingPolicyConfiguration
       `Prelude.seq` Prelude.rnf policyName
       `Prelude.seq` Prelude.rnf serviceNamespace
       `Prelude.seq` Prelude.rnf resourceId
       `Prelude.seq` Prelude.rnf scalableDimension
 
-instance Core.ToHeaders PutScalingPolicy where
+instance Data.ToHeaders PutScalingPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AnyScaleFrontendService.PutScalingPolicy" ::
+              Data.=# ( "AnyScaleFrontendService.PutScalingPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutScalingPolicy where
+instance Data.ToJSON PutScalingPolicy where
   toJSON PutScalingPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("PolicyType" Core..=) Prelude.<$> policyType,
-            ("TargetTrackingScalingPolicyConfiguration" Core..=)
-              Prelude.<$> targetTrackingScalingPolicyConfiguration,
-            ("StepScalingPolicyConfiguration" Core..=)
+          [ ("PolicyType" Data..=) Prelude.<$> policyType,
+            ("StepScalingPolicyConfiguration" Data..=)
               Prelude.<$> stepScalingPolicyConfiguration,
-            Prelude.Just ("PolicyName" Core..= policyName),
+            ("TargetTrackingScalingPolicyConfiguration" Data..=)
+              Prelude.<$> targetTrackingScalingPolicyConfiguration,
+            Prelude.Just ("PolicyName" Data..= policyName),
             Prelude.Just
-              ("ServiceNamespace" Core..= serviceNamespace),
-            Prelude.Just ("ResourceId" Core..= resourceId),
+              ("ServiceNamespace" Data..= serviceNamespace),
+            Prelude.Just ("ResourceId" Data..= resourceId),
             Prelude.Just
-              ("ScalableDimension" Core..= scalableDimension)
+              ("ScalableDimension" Data..= scalableDimension)
           ]
       )
 
-instance Core.ToPath PutScalingPolicy where
+instance Data.ToPath PutScalingPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutScalingPolicy where
+instance Data.ToQuery PutScalingPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutScalingPolicyResponse' smart constructor.

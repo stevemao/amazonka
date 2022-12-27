@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAFRegional.Types.ByteMatchSetSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAFRegional.Types.ByteMatchSetSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This is __AWS WAF Classic__ documentation. For more information, see
@@ -97,14 +98,14 @@ byteMatchSetSummary_byteMatchSetId = Lens.lens (\ByteMatchSetSummary' {byteMatch
 byteMatchSetSummary_name :: Lens.Lens' ByteMatchSetSummary Prelude.Text
 byteMatchSetSummary_name = Lens.lens (\ByteMatchSetSummary' {name} -> name) (\s@ByteMatchSetSummary' {} a -> s {name = a} :: ByteMatchSetSummary)
 
-instance Core.FromJSON ByteMatchSetSummary where
+instance Data.FromJSON ByteMatchSetSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ByteMatchSetSummary"
       ( \x ->
           ByteMatchSetSummary'
-            Prelude.<$> (x Core..: "ByteMatchSetId")
-            Prelude.<*> (x Core..: "Name")
+            Prelude.<$> (x Data..: "ByteMatchSetId")
+            Prelude.<*> (x Data..: "Name")
       )
 
 instance Prelude.Hashable ByteMatchSetSummary where

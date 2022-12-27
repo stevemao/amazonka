@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.UpdateScript
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,6 @@
 --
 -- __Related actions__
 --
--- CreateScript | ListScripts | DescribeScript | UpdateScript |
--- DeleteScript |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.UpdateScript
   ( -- * Creating a Request
@@ -50,10 +48,10 @@ module Amazonka.GameLift.UpdateScript
     newUpdateScript,
 
     -- * Request Lenses
-    updateScript_storageLocation,
-    updateScript_zipFile,
     updateScript_name,
+    updateScript_storageLocation,
     updateScript_version,
+    updateScript_zipFile,
     updateScript_scriptId,
 
     -- * Destructuring the Response
@@ -67,15 +65,19 @@ module Amazonka.GameLift.UpdateScript
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateScript' smart constructor.
 data UpdateScript = UpdateScript'
-  { -- | The location of the Amazon S3 bucket where a zipped file containing your
+  { -- | A descriptive label that is associated with a script. Script names do
+    -- not need to be unique.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The location of the Amazon S3 bucket where a zipped file containing your
     -- Realtime scripts is stored. The storage location must specify the Amazon
     -- S3 bucket name, the zip file name (the \"key\"), and a role ARN that
     -- allows Amazon GameLift to access the Amazon S3 storage location. The S3
@@ -84,21 +86,18 @@ data UpdateScript = UpdateScript'
     -- if you have S3 object versioning turned on, you can use the
     -- @ObjectVersion@ parameter to specify an earlier version.
     storageLocation :: Prelude.Maybe S3Location,
+    -- | Version information associated with a build or script. Version strings
+    -- do not need to be unique.
+    version :: Prelude.Maybe Prelude.Text,
     -- | A data object containing your Realtime scripts and dependencies as a zip
     -- file. The zip file can have one or multiple files. Maximum size of a zip
     -- file is 5 MB.
     --
-    -- When using the AWS CLI tool to create a script, this parameter is set to
-    -- the zip file name. It must be prepended with the string \"fileb:\/\/\"
-    -- to indicate that the file data is a binary object. For example:
-    -- @--zip-file fileb:\/\/myRealtimeScript.zip@.
-    zipFile :: Prelude.Maybe Core.Base64,
-    -- | A descriptive label that is associated with a script. Script names do
-    -- not need to be unique.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | Version information that is associated with a build or script. Version
-    -- strings do not need to be unique.
-    version :: Prelude.Maybe Prelude.Text,
+    -- When using the Amazon Web Services CLI tool to create a script, this
+    -- parameter is set to the zip file name. It must be prepended with the
+    -- string \"fileb:\/\/\" to indicate that the file data is a binary object.
+    -- For example: @--zip-file fileb:\/\/myRealtimeScript.zip@.
+    zipFile :: Prelude.Maybe Data.Base64,
     -- | A unique identifier for the Realtime script to update. You can use
     -- either the script ID or ARN value.
     scriptId :: Prelude.Text
@@ -113,6 +112,9 @@ data UpdateScript = UpdateScript'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'name', 'updateScript_name' - A descriptive label that is associated with a script. Script names do
+-- not need to be unique.
+--
 -- 'storageLocation', 'updateScript_storageLocation' - The location of the Amazon S3 bucket where a zipped file containing your
 -- Realtime scripts is stored. The storage location must specify the Amazon
 -- S3 bucket name, the zip file name (the \"key\"), and a role ARN that
@@ -122,24 +124,21 @@ data UpdateScript = UpdateScript'
 -- if you have S3 object versioning turned on, you can use the
 -- @ObjectVersion@ parameter to specify an earlier version.
 --
+-- 'version', 'updateScript_version' - Version information associated with a build or script. Version strings
+-- do not need to be unique.
+--
 -- 'zipFile', 'updateScript_zipFile' - A data object containing your Realtime scripts and dependencies as a zip
 -- file. The zip file can have one or multiple files. Maximum size of a zip
 -- file is 5 MB.
 --
--- When using the AWS CLI tool to create a script, this parameter is set to
--- the zip file name. It must be prepended with the string \"fileb:\/\/\"
--- to indicate that the file data is a binary object. For example:
--- @--zip-file fileb:\/\/myRealtimeScript.zip@.--
+-- When using the Amazon Web Services CLI tool to create a script, this
+-- parameter is set to the zip file name. It must be prepended with the
+-- string \"fileb:\/\/\" to indicate that the file data is a binary object.
+-- For example: @--zip-file fileb:\/\/myRealtimeScript.zip@.--
 -- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
 -- -- The underlying isomorphism will encode to Base64 representation during
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
---
--- 'name', 'updateScript_name' - A descriptive label that is associated with a script. Script names do
--- not need to be unique.
---
--- 'version', 'updateScript_version' - Version information that is associated with a build or script. Version
--- strings do not need to be unique.
 --
 -- 'scriptId', 'updateScript_scriptId' - A unique identifier for the Realtime script to update. You can use
 -- either the script ID or ARN value.
@@ -149,12 +148,17 @@ newUpdateScript ::
   UpdateScript
 newUpdateScript pScriptId_ =
   UpdateScript'
-    { storageLocation = Prelude.Nothing,
-      zipFile = Prelude.Nothing,
-      name = Prelude.Nothing,
+    { name = Prelude.Nothing,
+      storageLocation = Prelude.Nothing,
       version = Prelude.Nothing,
+      zipFile = Prelude.Nothing,
       scriptId = pScriptId_
     }
+
+-- | A descriptive label that is associated with a script. Script names do
+-- not need to be unique.
+updateScript_name :: Lens.Lens' UpdateScript (Prelude.Maybe Prelude.Text)
+updateScript_name = Lens.lens (\UpdateScript' {name} -> name) (\s@UpdateScript' {} a -> s {name = a} :: UpdateScript)
 
 -- | The location of the Amazon S3 bucket where a zipped file containing your
 -- Realtime scripts is stored. The storage location must specify the Amazon
@@ -167,30 +171,25 @@ newUpdateScript pScriptId_ =
 updateScript_storageLocation :: Lens.Lens' UpdateScript (Prelude.Maybe S3Location)
 updateScript_storageLocation = Lens.lens (\UpdateScript' {storageLocation} -> storageLocation) (\s@UpdateScript' {} a -> s {storageLocation = a} :: UpdateScript)
 
+-- | Version information associated with a build or script. Version strings
+-- do not need to be unique.
+updateScript_version :: Lens.Lens' UpdateScript (Prelude.Maybe Prelude.Text)
+updateScript_version = Lens.lens (\UpdateScript' {version} -> version) (\s@UpdateScript' {} a -> s {version = a} :: UpdateScript)
+
 -- | A data object containing your Realtime scripts and dependencies as a zip
 -- file. The zip file can have one or multiple files. Maximum size of a zip
 -- file is 5 MB.
 --
--- When using the AWS CLI tool to create a script, this parameter is set to
--- the zip file name. It must be prepended with the string \"fileb:\/\/\"
--- to indicate that the file data is a binary object. For example:
--- @--zip-file fileb:\/\/myRealtimeScript.zip@.--
+-- When using the Amazon Web Services CLI tool to create a script, this
+-- parameter is set to the zip file name. It must be prepended with the
+-- string \"fileb:\/\/\" to indicate that the file data is a binary object.
+-- For example: @--zip-file fileb:\/\/myRealtimeScript.zip@.--
 -- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
 -- -- The underlying isomorphism will encode to Base64 representation during
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 updateScript_zipFile :: Lens.Lens' UpdateScript (Prelude.Maybe Prelude.ByteString)
-updateScript_zipFile = Lens.lens (\UpdateScript' {zipFile} -> zipFile) (\s@UpdateScript' {} a -> s {zipFile = a} :: UpdateScript) Prelude.. Lens.mapping Core._Base64
-
--- | A descriptive label that is associated with a script. Script names do
--- not need to be unique.
-updateScript_name :: Lens.Lens' UpdateScript (Prelude.Maybe Prelude.Text)
-updateScript_name = Lens.lens (\UpdateScript' {name} -> name) (\s@UpdateScript' {} a -> s {name = a} :: UpdateScript)
-
--- | Version information that is associated with a build or script. Version
--- strings do not need to be unique.
-updateScript_version :: Lens.Lens' UpdateScript (Prelude.Maybe Prelude.Text)
-updateScript_version = Lens.lens (\UpdateScript' {version} -> version) (\s@UpdateScript' {} a -> s {version = a} :: UpdateScript)
+updateScript_zipFile = Lens.lens (\UpdateScript' {zipFile} -> zipFile) (\s@UpdateScript' {} a -> s {zipFile = a} :: UpdateScript) Prelude.. Lens.mapping Data._Base64
 
 -- | A unique identifier for the Realtime script to update. You can use
 -- either the script ID or ARN value.
@@ -199,61 +198,62 @@ updateScript_scriptId = Lens.lens (\UpdateScript' {scriptId} -> scriptId) (\s@Up
 
 instance Core.AWSRequest UpdateScript where
   type AWSResponse UpdateScript = UpdateScriptResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateScriptResponse'
-            Prelude.<$> (x Core..?> "Script")
+            Prelude.<$> (x Data..?> "Script")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateScript where
   hashWithSalt _salt UpdateScript' {..} =
-    _salt `Prelude.hashWithSalt` storageLocation
-      `Prelude.hashWithSalt` zipFile
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` storageLocation
       `Prelude.hashWithSalt` version
+      `Prelude.hashWithSalt` zipFile
       `Prelude.hashWithSalt` scriptId
 
 instance Prelude.NFData UpdateScript where
   rnf UpdateScript' {..} =
-    Prelude.rnf storageLocation
-      `Prelude.seq` Prelude.rnf zipFile
-      `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name
+      `Prelude.seq` Prelude.rnf storageLocation
       `Prelude.seq` Prelude.rnf version
+      `Prelude.seq` Prelude.rnf zipFile
       `Prelude.seq` Prelude.rnf scriptId
 
-instance Core.ToHeaders UpdateScript where
+instance Data.ToHeaders UpdateScript where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.UpdateScript" :: Prelude.ByteString),
+              Data.=# ("GameLift.UpdateScript" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateScript where
+instance Data.ToJSON UpdateScript where
   toJSON UpdateScript' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("StorageLocation" Core..=)
+          [ ("Name" Data..=) Prelude.<$> name,
+            ("StorageLocation" Data..=)
               Prelude.<$> storageLocation,
-            ("ZipFile" Core..=) Prelude.<$> zipFile,
-            ("Name" Core..=) Prelude.<$> name,
-            ("Version" Core..=) Prelude.<$> version,
-            Prelude.Just ("ScriptId" Core..= scriptId)
+            ("Version" Data..=) Prelude.<$> version,
+            ("ZipFile" Data..=) Prelude.<$> zipFile,
+            Prelude.Just ("ScriptId" Data..= scriptId)
           ]
       )
 
-instance Core.ToPath UpdateScript where
+instance Data.ToPath UpdateScript where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateScript where
+instance Data.ToQuery UpdateScript where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateScriptResponse' smart constructor.

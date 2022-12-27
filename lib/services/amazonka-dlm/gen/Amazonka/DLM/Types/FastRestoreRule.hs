@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DLM.Types.FastRestoreRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,13 @@
 module Amazonka.DLM.Types.FastRestoreRule where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.DLM.Types.RetentionIntervalUnitValues
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Specifies a rule for enabling fast snapshot restore. You can enable fast
+-- | __[Snapshot policies only]__ Specifies a rule for enabling fast snapshot
+-- restore for snapshots created by snapshot policies. You can enable fast
 -- snapshot restore based on either a count or a time interval.
 --
 -- /See:/ 'newFastRestoreRule' smart constructor.
@@ -87,16 +89,16 @@ fastRestoreRule_intervalUnit = Lens.lens (\FastRestoreRule' {intervalUnit} -> in
 fastRestoreRule_availabilityZones :: Lens.Lens' FastRestoreRule (Prelude.NonEmpty Prelude.Text)
 fastRestoreRule_availabilityZones = Lens.lens (\FastRestoreRule' {availabilityZones} -> availabilityZones) (\s@FastRestoreRule' {} a -> s {availabilityZones = a} :: FastRestoreRule) Prelude.. Lens.coerced
 
-instance Core.FromJSON FastRestoreRule where
+instance Data.FromJSON FastRestoreRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FastRestoreRule"
       ( \x ->
           FastRestoreRule'
-            Prelude.<$> (x Core..:? "Count")
-            Prelude.<*> (x Core..:? "Interval")
-            Prelude.<*> (x Core..:? "IntervalUnit")
-            Prelude.<*> (x Core..: "AvailabilityZones")
+            Prelude.<$> (x Data..:? "Count")
+            Prelude.<*> (x Data..:? "Interval")
+            Prelude.<*> (x Data..:? "IntervalUnit")
+            Prelude.<*> (x Data..: "AvailabilityZones")
       )
 
 instance Prelude.Hashable FastRestoreRule where
@@ -113,14 +115,14 @@ instance Prelude.NFData FastRestoreRule where
       `Prelude.seq` Prelude.rnf intervalUnit
       `Prelude.seq` Prelude.rnf availabilityZones
 
-instance Core.ToJSON FastRestoreRule where
+instance Data.ToJSON FastRestoreRule where
   toJSON FastRestoreRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Count" Core..=) Prelude.<$> count,
-            ("Interval" Core..=) Prelude.<$> interval,
-            ("IntervalUnit" Core..=) Prelude.<$> intervalUnit,
+          [ ("Count" Data..=) Prelude.<$> count,
+            ("Interval" Data..=) Prelude.<$> interval,
+            ("IntervalUnit" Data..=) Prelude.<$> intervalUnit,
             Prelude.Just
-              ("AvailabilityZones" Core..= availabilityZones)
+              ("AvailabilityZones" Data..= availabilityZones)
           ]
       )

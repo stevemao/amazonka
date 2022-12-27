@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.EventFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.EventFilter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.EventDimensions
 import Amazonka.Pinpoint.Types.FilterType
 import qualified Amazonka.Prelude as Prelude
@@ -83,14 +84,14 @@ eventFilter_filterType = Lens.lens (\EventFilter' {filterType} -> filterType) (\
 eventFilter_dimensions :: Lens.Lens' EventFilter EventDimensions
 eventFilter_dimensions = Lens.lens (\EventFilter' {dimensions} -> dimensions) (\s@EventFilter' {} a -> s {dimensions = a} :: EventFilter)
 
-instance Core.FromJSON EventFilter where
+instance Data.FromJSON EventFilter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EventFilter"
       ( \x ->
           EventFilter'
-            Prelude.<$> (x Core..: "FilterType")
-            Prelude.<*> (x Core..: "Dimensions")
+            Prelude.<$> (x Data..: "FilterType")
+            Prelude.<*> (x Data..: "Dimensions")
       )
 
 instance Prelude.Hashable EventFilter where
@@ -103,11 +104,11 @@ instance Prelude.NFData EventFilter where
     Prelude.rnf filterType
       `Prelude.seq` Prelude.rnf dimensions
 
-instance Core.ToJSON EventFilter where
+instance Data.ToJSON EventFilter where
   toJSON EventFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("FilterType" Core..= filterType),
-            Prelude.Just ("Dimensions" Core..= dimensions)
+          [ Prelude.Just ("FilterType" Data..= filterType),
+            Prelude.Just ("Dimensions" Data..= dimensions)
           ]
       )

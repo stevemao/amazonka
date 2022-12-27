@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.DetachPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CloudDirectory.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,7 +110,8 @@ detachPolicy_objectReference = Lens.lens (\DetachPolicy' {objectReference} -> ob
 
 instance Core.AWSRequest DetachPolicy where
   type AWSResponse DetachPolicy = DetachPolicyResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -129,28 +131,28 @@ instance Prelude.NFData DetachPolicy where
       `Prelude.seq` Prelude.rnf policyReference
       `Prelude.seq` Prelude.rnf objectReference
 
-instance Core.ToHeaders DetachPolicy where
+instance Data.ToHeaders DetachPolicy where
   toHeaders DetachPolicy' {..} =
     Prelude.mconcat
-      ["x-amz-data-partition" Core.=# directoryArn]
+      ["x-amz-data-partition" Data.=# directoryArn]
 
-instance Core.ToJSON DetachPolicy where
+instance Data.ToJSON DetachPolicy where
   toJSON DetachPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("PolicyReference" Core..= policyReference),
+              ("PolicyReference" Data..= policyReference),
             Prelude.Just
-              ("ObjectReference" Core..= objectReference)
+              ("ObjectReference" Data..= objectReference)
           ]
       )
 
-instance Core.ToPath DetachPolicy where
+instance Data.ToPath DetachPolicy where
   toPath =
     Prelude.const
       "/amazonclouddirectory/2017-01-11/policy/detach"
 
-instance Core.ToQuery DetachPolicy where
+instance Data.ToQuery DetachPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDetachPolicyResponse' smart constructor.

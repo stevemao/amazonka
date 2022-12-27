@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.CreateAgentStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.Connect.CreateAgentStatus
     newCreateAgentStatus,
 
     -- * Request Lenses
-    createAgentStatus_displayOrder,
     createAgentStatus_description,
+    createAgentStatus_displayOrder,
     createAgentStatus_tags,
     createAgentStatus_instanceId,
     createAgentStatus_name,
@@ -42,26 +42,28 @@ module Amazonka.Connect.CreateAgentStatus
     newCreateAgentStatusResponse,
 
     -- * Response Lenses
-    createAgentStatusResponse_agentStatusId,
     createAgentStatusResponse_agentStatusARN,
+    createAgentStatusResponse_agentStatusId,
     createAgentStatusResponse_httpStatus,
   )
 where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateAgentStatus' smart constructor.
 data CreateAgentStatus = CreateAgentStatus'
-  { -- | The display order of the status.
-    displayOrder :: Prelude.Maybe Prelude.Natural,
-    -- | The description of the status.
+  { -- | The description of the status.
     description :: Prelude.Maybe Prelude.Text,
-    -- | One or more tags.
+    -- | The display order of the status.
+    displayOrder :: Prelude.Maybe Prelude.Natural,
+    -- | The tags used to organize, track, or control access for this resource.
+    -- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
@@ -81,11 +83,12 @@ data CreateAgentStatus = CreateAgentStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'displayOrder', 'createAgentStatus_displayOrder' - The display order of the status.
---
 -- 'description', 'createAgentStatus_description' - The description of the status.
 --
--- 'tags', 'createAgentStatus_tags' - One or more tags.
+-- 'displayOrder', 'createAgentStatus_displayOrder' - The display order of the status.
+--
+-- 'tags', 'createAgentStatus_tags' - The tags used to organize, track, or control access for this resource.
+-- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
 --
 -- 'instanceId', 'createAgentStatus_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
@@ -103,23 +106,24 @@ newCreateAgentStatus ::
   CreateAgentStatus
 newCreateAgentStatus pInstanceId_ pName_ pState_ =
   CreateAgentStatus'
-    { displayOrder = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      displayOrder = Prelude.Nothing,
       tags = Prelude.Nothing,
       instanceId = pInstanceId_,
       name = pName_,
       state = pState_
     }
 
--- | The display order of the status.
-createAgentStatus_displayOrder :: Lens.Lens' CreateAgentStatus (Prelude.Maybe Prelude.Natural)
-createAgentStatus_displayOrder = Lens.lens (\CreateAgentStatus' {displayOrder} -> displayOrder) (\s@CreateAgentStatus' {} a -> s {displayOrder = a} :: CreateAgentStatus)
-
 -- | The description of the status.
 createAgentStatus_description :: Lens.Lens' CreateAgentStatus (Prelude.Maybe Prelude.Text)
 createAgentStatus_description = Lens.lens (\CreateAgentStatus' {description} -> description) (\s@CreateAgentStatus' {} a -> s {description = a} :: CreateAgentStatus)
 
--- | One or more tags.
+-- | The display order of the status.
+createAgentStatus_displayOrder :: Lens.Lens' CreateAgentStatus (Prelude.Maybe Prelude.Natural)
+createAgentStatus_displayOrder = Lens.lens (\CreateAgentStatus' {displayOrder} -> displayOrder) (\s@CreateAgentStatus' {} a -> s {displayOrder = a} :: CreateAgentStatus)
+
+-- | The tags used to organize, track, or control access for this resource.
+-- For example, { \"tags\": {\"key1\":\"value1\", \"key2\":\"value2\"} }.
 createAgentStatus_tags :: Lens.Lens' CreateAgentStatus (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createAgentStatus_tags = Lens.lens (\CreateAgentStatus' {tags} -> tags) (\s@CreateAgentStatus' {} a -> s {tags = a} :: CreateAgentStatus) Prelude.. Lens.mapping Lens.coerced
 
@@ -140,20 +144,21 @@ instance Core.AWSRequest CreateAgentStatus where
   type
     AWSResponse CreateAgentStatus =
       CreateAgentStatusResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAgentStatusResponse'
-            Prelude.<$> (x Core..?> "AgentStatusId")
-            Prelude.<*> (x Core..?> "AgentStatusARN")
+            Prelude.<$> (x Data..?> "AgentStatusARN")
+            Prelude.<*> (x Data..?> "AgentStatusId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateAgentStatus where
   hashWithSalt _salt CreateAgentStatus' {..} =
-    _salt `Prelude.hashWithSalt` displayOrder
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` displayOrder
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` instanceId
       `Prelude.hashWithSalt` name
@@ -161,50 +166,50 @@ instance Prelude.Hashable CreateAgentStatus where
 
 instance Prelude.NFData CreateAgentStatus where
   rnf CreateAgentStatus' {..} =
-    Prelude.rnf displayOrder
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf displayOrder
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf state
 
-instance Core.ToHeaders CreateAgentStatus where
+instance Data.ToHeaders CreateAgentStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAgentStatus where
+instance Data.ToJSON CreateAgentStatus where
   toJSON CreateAgentStatus' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DisplayOrder" Core..=) Prelude.<$> displayOrder,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("State" Core..= state)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("DisplayOrder" Data..=) Prelude.<$> displayOrder,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("State" Data..= state)
           ]
       )
 
-instance Core.ToPath CreateAgentStatus where
+instance Data.ToPath CreateAgentStatus where
   toPath CreateAgentStatus' {..} =
     Prelude.mconcat
-      ["/agent-status/", Core.toBS instanceId]
+      ["/agent-status/", Data.toBS instanceId]
 
-instance Core.ToQuery CreateAgentStatus where
+instance Data.ToQuery CreateAgentStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAgentStatusResponse' smart constructor.
 data CreateAgentStatusResponse = CreateAgentStatusResponse'
-  { -- | The identifier of the agent status.
-    agentStatusId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the agent status.
+  { -- | The Amazon Resource Name (ARN) of the agent status.
     agentStatusARN :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the agent status.
+    agentStatusId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -218,9 +223,9 @@ data CreateAgentStatusResponse = CreateAgentStatusResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'agentStatusId', 'createAgentStatusResponse_agentStatusId' - The identifier of the agent status.
---
 -- 'agentStatusARN', 'createAgentStatusResponse_agentStatusARN' - The Amazon Resource Name (ARN) of the agent status.
+--
+-- 'agentStatusId', 'createAgentStatusResponse_agentStatusId' - The identifier of the agent status.
 --
 -- 'httpStatus', 'createAgentStatusResponse_httpStatus' - The response's http status code.
 newCreateAgentStatusResponse ::
@@ -229,19 +234,19 @@ newCreateAgentStatusResponse ::
   CreateAgentStatusResponse
 newCreateAgentStatusResponse pHttpStatus_ =
   CreateAgentStatusResponse'
-    { agentStatusId =
+    { agentStatusARN =
         Prelude.Nothing,
-      agentStatusARN = Prelude.Nothing,
+      agentStatusId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The identifier of the agent status.
-createAgentStatusResponse_agentStatusId :: Lens.Lens' CreateAgentStatusResponse (Prelude.Maybe Prelude.Text)
-createAgentStatusResponse_agentStatusId = Lens.lens (\CreateAgentStatusResponse' {agentStatusId} -> agentStatusId) (\s@CreateAgentStatusResponse' {} a -> s {agentStatusId = a} :: CreateAgentStatusResponse)
 
 -- | The Amazon Resource Name (ARN) of the agent status.
 createAgentStatusResponse_agentStatusARN :: Lens.Lens' CreateAgentStatusResponse (Prelude.Maybe Prelude.Text)
 createAgentStatusResponse_agentStatusARN = Lens.lens (\CreateAgentStatusResponse' {agentStatusARN} -> agentStatusARN) (\s@CreateAgentStatusResponse' {} a -> s {agentStatusARN = a} :: CreateAgentStatusResponse)
+
+-- | The identifier of the agent status.
+createAgentStatusResponse_agentStatusId :: Lens.Lens' CreateAgentStatusResponse (Prelude.Maybe Prelude.Text)
+createAgentStatusResponse_agentStatusId = Lens.lens (\CreateAgentStatusResponse' {agentStatusId} -> agentStatusId) (\s@CreateAgentStatusResponse' {} a -> s {agentStatusId = a} :: CreateAgentStatusResponse)
 
 -- | The response's http status code.
 createAgentStatusResponse_httpStatus :: Lens.Lens' CreateAgentStatusResponse Prelude.Int
@@ -249,6 +254,6 @@ createAgentStatusResponse_httpStatus = Lens.lens (\CreateAgentStatusResponse' {h
 
 instance Prelude.NFData CreateAgentStatusResponse where
   rnf CreateAgentStatusResponse' {..} =
-    Prelude.rnf agentStatusId
-      `Prelude.seq` Prelude.rnf agentStatusARN
+    Prelude.rnf agentStatusARN
+      `Prelude.seq` Prelude.rnf agentStatusId
       `Prelude.seq` Prelude.rnf httpStatus

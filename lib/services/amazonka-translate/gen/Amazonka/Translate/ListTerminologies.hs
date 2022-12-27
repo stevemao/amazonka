@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Translate.ListTerminologies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,22 +29,23 @@ module Amazonka.Translate.ListTerminologies
     newListTerminologies,
 
     -- * Request Lenses
-    listTerminologies_nextToken,
     listTerminologies_maxResults,
+    listTerminologies_nextToken,
 
     -- * Destructuring the Response
     ListTerminologiesResponse (..),
     newListTerminologiesResponse,
 
     -- * Response Lenses
-    listTerminologiesResponse_terminologyPropertiesList,
     listTerminologiesResponse_nextToken,
+    listTerminologiesResponse_terminologyPropertiesList,
     listTerminologiesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,11 +53,11 @@ import Amazonka.Translate.Types
 
 -- | /See:/ 'newListTerminologies' smart constructor.
 data ListTerminologies = ListTerminologies'
-  { -- | If the result of the request to ListTerminologies was truncated, include
+  { -- | The maximum number of custom terminologies returned per list request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If the result of the request to ListTerminologies was truncated, include
     -- the NextToken to fetch the next group of custom terminologies.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of custom terminologies returned per list request.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,26 +69,26 @@ data ListTerminologies = ListTerminologies'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listTerminologies_maxResults' - The maximum number of custom terminologies returned per list request.
+--
 -- 'nextToken', 'listTerminologies_nextToken' - If the result of the request to ListTerminologies was truncated, include
 -- the NextToken to fetch the next group of custom terminologies.
---
--- 'maxResults', 'listTerminologies_maxResults' - The maximum number of custom terminologies returned per list request.
 newListTerminologies ::
   ListTerminologies
 newListTerminologies =
   ListTerminologies'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of custom terminologies returned per list request.
+listTerminologies_maxResults :: Lens.Lens' ListTerminologies (Prelude.Maybe Prelude.Natural)
+listTerminologies_maxResults = Lens.lens (\ListTerminologies' {maxResults} -> maxResults) (\s@ListTerminologies' {} a -> s {maxResults = a} :: ListTerminologies)
 
 -- | If the result of the request to ListTerminologies was truncated, include
 -- the NextToken to fetch the next group of custom terminologies.
 listTerminologies_nextToken :: Lens.Lens' ListTerminologies (Prelude.Maybe Prelude.Text)
 listTerminologies_nextToken = Lens.lens (\ListTerminologies' {nextToken} -> nextToken) (\s@ListTerminologies' {} a -> s {nextToken = a} :: ListTerminologies)
-
--- | The maximum number of custom terminologies returned per list request.
-listTerminologies_maxResults :: Lens.Lens' ListTerminologies (Prelude.Maybe Prelude.Natural)
-listTerminologies_maxResults = Lens.lens (\ListTerminologies' {maxResults} -> maxResults) (\s@ListTerminologies' {} a -> s {maxResults = a} :: ListTerminologies)
 
 instance Core.AWSPager ListTerminologies where
   page rq rs
@@ -115,66 +116,67 @@ instance Core.AWSRequest ListTerminologies where
   type
     AWSResponse ListTerminologies =
       ListTerminologiesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTerminologiesResponse'
-            Prelude.<$> ( x Core..?> "TerminologyPropertiesList"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "TerminologyPropertiesList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListTerminologies where
   hashWithSalt _salt ListTerminologies' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListTerminologies where
   rnf ListTerminologies' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListTerminologies where
+instance Data.ToHeaders ListTerminologies where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSShineFrontendService_20170701.ListTerminologies" ::
+              Data.=# ( "AWSShineFrontendService_20170701.ListTerminologies" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTerminologies where
+instance Data.ToJSON ListTerminologies where
   toJSON ListTerminologies' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListTerminologies where
+instance Data.ToPath ListTerminologies where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTerminologies where
+instance Data.ToQuery ListTerminologies where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTerminologiesResponse' smart constructor.
 data ListTerminologiesResponse = ListTerminologiesResponse'
-  { -- | The properties list of the custom terminologies returned on the list
-    -- request.
-    terminologyPropertiesList :: Prelude.Maybe [TerminologyProperties],
-    -- | If the response to the ListTerminologies was truncated, the NextToken
+  { -- | If the response to the ListTerminologies was truncated, the NextToken
     -- fetches the next group of custom terminologies.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The properties list of the custom terminologies returned on the list
+    -- request.
+    terminologyPropertiesList :: Prelude.Maybe [TerminologyProperties],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -188,11 +190,11 @@ data ListTerminologiesResponse = ListTerminologiesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'terminologyPropertiesList', 'listTerminologiesResponse_terminologyPropertiesList' - The properties list of the custom terminologies returned on the list
--- request.
---
 -- 'nextToken', 'listTerminologiesResponse_nextToken' - If the response to the ListTerminologies was truncated, the NextToken
 -- fetches the next group of custom terminologies.
+--
+-- 'terminologyPropertiesList', 'listTerminologiesResponse_terminologyPropertiesList' - The properties list of the custom terminologies returned on the list
+-- request.
 --
 -- 'httpStatus', 'listTerminologiesResponse_httpStatus' - The response's http status code.
 newListTerminologiesResponse ::
@@ -201,21 +203,21 @@ newListTerminologiesResponse ::
   ListTerminologiesResponse
 newListTerminologiesResponse pHttpStatus_ =
   ListTerminologiesResponse'
-    { terminologyPropertiesList =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      terminologyPropertiesList = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The properties list of the custom terminologies returned on the list
--- request.
-listTerminologiesResponse_terminologyPropertiesList :: Lens.Lens' ListTerminologiesResponse (Prelude.Maybe [TerminologyProperties])
-listTerminologiesResponse_terminologyPropertiesList = Lens.lens (\ListTerminologiesResponse' {terminologyPropertiesList} -> terminologyPropertiesList) (\s@ListTerminologiesResponse' {} a -> s {terminologyPropertiesList = a} :: ListTerminologiesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If the response to the ListTerminologies was truncated, the NextToken
 -- fetches the next group of custom terminologies.
 listTerminologiesResponse_nextToken :: Lens.Lens' ListTerminologiesResponse (Prelude.Maybe Prelude.Text)
 listTerminologiesResponse_nextToken = Lens.lens (\ListTerminologiesResponse' {nextToken} -> nextToken) (\s@ListTerminologiesResponse' {} a -> s {nextToken = a} :: ListTerminologiesResponse)
+
+-- | The properties list of the custom terminologies returned on the list
+-- request.
+listTerminologiesResponse_terminologyPropertiesList :: Lens.Lens' ListTerminologiesResponse (Prelude.Maybe [TerminologyProperties])
+listTerminologiesResponse_terminologyPropertiesList = Lens.lens (\ListTerminologiesResponse' {terminologyPropertiesList} -> terminologyPropertiesList) (\s@ListTerminologiesResponse' {} a -> s {terminologyPropertiesList = a} :: ListTerminologiesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listTerminologiesResponse_httpStatus :: Lens.Lens' ListTerminologiesResponse Prelude.Int
@@ -223,6 +225,6 @@ listTerminologiesResponse_httpStatus = Lens.lens (\ListTerminologiesResponse' {h
 
 instance Prelude.NFData ListTerminologiesResponse where
   rnf ListTerminologiesResponse' {..} =
-    Prelude.rnf terminologyPropertiesList
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf terminologyPropertiesList
       `Prelude.seq` Prelude.rnf httpStatus

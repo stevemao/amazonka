@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECS.StopTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -55,8 +55,9 @@ module Amazonka.ECS.StopTask
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,7 +69,7 @@ data StopTask = StopTask'
     -- cluster is assumed.
     cluster :: Prelude.Maybe Prelude.Text,
     -- | An optional message specified when a task is stopped. For example, if
-    -- you are using a custom scheduler, you can use this parameter to specify
+    -- you\'re using a custom scheduler, you can use this parameter to specify
     -- the reason for stopping the task here, and the message appears in
     -- subsequent DescribeTasks API operations on this task. Up to 255
     -- characters are allowed in this message.
@@ -91,7 +92,7 @@ data StopTask = StopTask'
 -- cluster is assumed.
 --
 -- 'reason', 'stopTask_reason' - An optional message specified when a task is stopped. For example, if
--- you are using a custom scheduler, you can use this parameter to specify
+-- you\'re using a custom scheduler, you can use this parameter to specify
 -- the reason for stopping the task here, and the message appears in
 -- subsequent DescribeTasks API operations on this task. Up to 255
 -- characters are allowed in this message.
@@ -115,7 +116,7 @@ stopTask_cluster :: Lens.Lens' StopTask (Prelude.Maybe Prelude.Text)
 stopTask_cluster = Lens.lens (\StopTask' {cluster} -> cluster) (\s@StopTask' {} a -> s {cluster = a} :: StopTask)
 
 -- | An optional message specified when a task is stopped. For example, if
--- you are using a custom scheduler, you can use this parameter to specify
+-- you\'re using a custom scheduler, you can use this parameter to specify
 -- the reason for stopping the task here, and the message appears in
 -- subsequent DescribeTasks API operations on this task. Up to 255
 -- characters are allowed in this message.
@@ -128,12 +129,13 @@ stopTask_task = Lens.lens (\StopTask' {task} -> task) (\s@StopTask' {} a -> s {t
 
 instance Core.AWSRequest StopTask where
   type AWSResponse StopTask = StopTaskResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StopTaskResponse'
-            Prelude.<$> (x Core..?> "task")
+            Prelude.<$> (x Data..?> "task")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -149,35 +151,35 @@ instance Prelude.NFData StopTask where
       `Prelude.seq` Prelude.rnf reason
       `Prelude.seq` Prelude.rnf task
 
-instance Core.ToHeaders StopTask where
+instance Data.ToHeaders StopTask where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.StopTask" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.StopTask" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopTask where
+instance Data.ToJSON StopTask where
   toJSON StopTask' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("cluster" Core..=) Prelude.<$> cluster,
-            ("reason" Core..=) Prelude.<$> reason,
-            Prelude.Just ("task" Core..= task)
+          [ ("cluster" Data..=) Prelude.<$> cluster,
+            ("reason" Data..=) Prelude.<$> reason,
+            Prelude.Just ("task" Data..= task)
           ]
       )
 
-instance Core.ToPath StopTask where
+instance Data.ToPath StopTask where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopTask where
+instance Data.ToQuery StopTask where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopTaskResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.Types.S3SourceProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CustomerProfiles.Types.S3SourceProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The properties that are applied when Amazon S3 is being used as the flow
@@ -77,11 +78,11 @@ instance Prelude.NFData S3SourceProperties where
     Prelude.rnf bucketPrefix
       `Prelude.seq` Prelude.rnf bucketName
 
-instance Core.ToJSON S3SourceProperties where
+instance Data.ToJSON S3SourceProperties where
   toJSON S3SourceProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BucketPrefix" Core..=) Prelude.<$> bucketPrefix,
-            Prelude.Just ("BucketName" Core..= bucketName)
+          [ ("BucketPrefix" Data..=) Prelude.<$> bucketPrefix,
+            Prelude.Just ("BucketName" Data..= bucketName)
           ]
       )

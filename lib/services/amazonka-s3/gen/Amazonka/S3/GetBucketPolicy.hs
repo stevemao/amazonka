@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.GetBucketPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -62,7 +62,8 @@ module Amazonka.S3.GetBucketPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -71,8 +72,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newGetBucketPolicy' smart constructor.
 data GetBucketPolicy = GetBucketPolicy'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The bucket name for which to get the bucket policy.
     bucket :: BucketName
@@ -88,8 +89,8 @@ data GetBucketPolicy = GetBucketPolicy'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'getBucketPolicy_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'getBucketPolicy_bucket' - The bucket name for which to get the bucket policy.
 newGetBucketPolicy ::
@@ -104,8 +105,8 @@ newGetBucketPolicy pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 getBucketPolicy_expectedBucketOwner :: Lens.Lens' GetBucketPolicy (Prelude.Maybe Prelude.Text)
 getBucketPolicy_expectedBucketOwner = Lens.lens (\GetBucketPolicy' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetBucketPolicy' {} a -> s {expectedBucketOwner = a} :: GetBucketPolicy)
 
@@ -117,9 +118,9 @@ instance Core.AWSRequest GetBucketPolicy where
   type
     AWSResponse GetBucketPolicy =
       GetBucketPolicyResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveBytes
       ( \s h x ->
@@ -138,18 +139,18 @@ instance Prelude.NFData GetBucketPolicy where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders GetBucketPolicy where
+instance Data.ToHeaders GetBucketPolicy where
   toHeaders GetBucketPolicy' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath GetBucketPolicy where
+instance Data.ToPath GetBucketPolicy where
   toPath GetBucketPolicy' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery GetBucketPolicy where
+instance Data.ToQuery GetBucketPolicy where
   toQuery = Prelude.const (Prelude.mconcat ["policy"])
 
 -- | /See:/ 'newGetBucketPolicyResponse' smart constructor.

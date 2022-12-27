@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.S3.GetBucketOwnershipControls
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,10 +23,10 @@
 -- Retrieves @OwnershipControls@ for an Amazon S3 bucket. To use this
 -- operation, you must have the @s3:GetBucketOwnershipControls@ permission.
 -- For more information about Amazon S3 permissions, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/dev/using-with-s3-actions.html Specifying Permissions in a Policy>.
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-with-s3-actions.html Specifying permissions in a policy>.
 --
 -- For information about Amazon S3 Object Ownership, see
--- <https://docs.aws.amazon.com/AmazonS3/latest/dev/about-object-ownership.html Using Object Ownership>.
+-- <https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html Using Object Ownership>.
 --
 -- The following operations are related to @GetBucketOwnershipControls@:
 --
@@ -53,7 +53,8 @@ module Amazonka.S3.GetBucketOwnershipControls
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,8 +63,8 @@ import Amazonka.S3.Types
 -- | /See:/ 'newGetBucketOwnershipControls' smart constructor.
 data GetBucketOwnershipControls = GetBucketOwnershipControls'
   { -- | The account ID of the expected bucket owner. If the bucket is owned by a
-    -- different account, the request will fail with an HTTP
-    -- @403 (Access Denied)@ error.
+    -- different account, the request fails with the HTTP status code
+    -- @403 Forbidden@ (access denied).
     expectedBucketOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the Amazon S3 bucket whose @OwnershipControls@ you want to
     -- retrieve.
@@ -80,8 +81,8 @@ data GetBucketOwnershipControls = GetBucketOwnershipControls'
 -- for backwards compatibility:
 --
 -- 'expectedBucketOwner', 'getBucketOwnershipControls_expectedBucketOwner' - The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 --
 -- 'bucket', 'getBucketOwnershipControls_bucket' - The name of the Amazon S3 bucket whose @OwnershipControls@ you want to
 -- retrieve.
@@ -97,8 +98,8 @@ newGetBucketOwnershipControls pBucket_ =
     }
 
 -- | The account ID of the expected bucket owner. If the bucket is owned by a
--- different account, the request will fail with an HTTP
--- @403 (Access Denied)@ error.
+-- different account, the request fails with the HTTP status code
+-- @403 Forbidden@ (access denied).
 getBucketOwnershipControls_expectedBucketOwner :: Lens.Lens' GetBucketOwnershipControls (Prelude.Maybe Prelude.Text)
 getBucketOwnershipControls_expectedBucketOwner = Lens.lens (\GetBucketOwnershipControls' {expectedBucketOwner} -> expectedBucketOwner) (\s@GetBucketOwnershipControls' {} a -> s {expectedBucketOwner = a} :: GetBucketOwnershipControls)
 
@@ -111,14 +112,14 @@ instance Core.AWSRequest GetBucketOwnershipControls where
   type
     AWSResponse GetBucketOwnershipControls =
       GetBucketOwnershipControlsResponse
-  request =
+  request overrides =
     Request.s3vhost
-      Prelude.. Request.get defaultService
+      Prelude.. Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetBucketOwnershipControlsResponse'
-            Prelude.<$> (Core.parseXML x)
+            Prelude.<$> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -132,26 +133,26 @@ instance Prelude.NFData GetBucketOwnershipControls where
     Prelude.rnf expectedBucketOwner
       `Prelude.seq` Prelude.rnf bucket
 
-instance Core.ToHeaders GetBucketOwnershipControls where
+instance Data.ToHeaders GetBucketOwnershipControls where
   toHeaders GetBucketOwnershipControls' {..} =
     Prelude.mconcat
       [ "x-amz-expected-bucket-owner"
-          Core.=# expectedBucketOwner
+          Data.=# expectedBucketOwner
       ]
 
-instance Core.ToPath GetBucketOwnershipControls where
+instance Data.ToPath GetBucketOwnershipControls where
   toPath GetBucketOwnershipControls' {..} =
-    Prelude.mconcat ["/", Core.toBS bucket]
+    Prelude.mconcat ["/", Data.toBS bucket]
 
-instance Core.ToQuery GetBucketOwnershipControls where
+instance Data.ToQuery GetBucketOwnershipControls where
   toQuery =
     Prelude.const
       (Prelude.mconcat ["ownershipControls"])
 
 -- | /See:/ 'newGetBucketOwnershipControlsResponse' smart constructor.
 data GetBucketOwnershipControlsResponse = GetBucketOwnershipControlsResponse'
-  { -- | The @OwnershipControls@ (BucketOwnerPreferred or ObjectWriter) currently
-    -- in effect for this Amazon S3 bucket.
+  { -- | The @OwnershipControls@ (BucketOwnerEnforced, BucketOwnerPreferred, or
+    -- ObjectWriter) currently in effect for this Amazon S3 bucket.
     ownershipControls :: Prelude.Maybe OwnershipControls,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -166,8 +167,8 @@ data GetBucketOwnershipControlsResponse = GetBucketOwnershipControlsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ownershipControls', 'getBucketOwnershipControlsResponse_ownershipControls' - The @OwnershipControls@ (BucketOwnerPreferred or ObjectWriter) currently
--- in effect for this Amazon S3 bucket.
+-- 'ownershipControls', 'getBucketOwnershipControlsResponse_ownershipControls' - The @OwnershipControls@ (BucketOwnerEnforced, BucketOwnerPreferred, or
+-- ObjectWriter) currently in effect for this Amazon S3 bucket.
 --
 -- 'httpStatus', 'getBucketOwnershipControlsResponse_httpStatus' - The response's http status code.
 newGetBucketOwnershipControlsResponse ::
@@ -181,8 +182,8 @@ newGetBucketOwnershipControlsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The @OwnershipControls@ (BucketOwnerPreferred or ObjectWriter) currently
--- in effect for this Amazon S3 bucket.
+-- | The @OwnershipControls@ (BucketOwnerEnforced, BucketOwnerPreferred, or
+-- ObjectWriter) currently in effect for this Amazon S3 bucket.
 getBucketOwnershipControlsResponse_ownershipControls :: Lens.Lens' GetBucketOwnershipControlsResponse (Prelude.Maybe OwnershipControls)
 getBucketOwnershipControlsResponse_ownershipControls = Lens.lens (\GetBucketOwnershipControlsResponse' {ownershipControls} -> ownershipControls) (\s@GetBucketOwnershipControlsResponse' {} a -> s {ownershipControls = a} :: GetBucketOwnershipControlsResponse)
 

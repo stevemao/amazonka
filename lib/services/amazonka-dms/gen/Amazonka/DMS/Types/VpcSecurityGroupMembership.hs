@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DMS.Types.VpcSecurityGroupMembership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DMS.Types.VpcSecurityGroupMembership where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the status of a security group associated with the virtual
@@ -63,14 +64,14 @@ vpcSecurityGroupMembership_status = Lens.lens (\VpcSecurityGroupMembership' {sta
 vpcSecurityGroupMembership_vpcSecurityGroupId :: Lens.Lens' VpcSecurityGroupMembership (Prelude.Maybe Prelude.Text)
 vpcSecurityGroupMembership_vpcSecurityGroupId = Lens.lens (\VpcSecurityGroupMembership' {vpcSecurityGroupId} -> vpcSecurityGroupId) (\s@VpcSecurityGroupMembership' {} a -> s {vpcSecurityGroupId = a} :: VpcSecurityGroupMembership)
 
-instance Core.FromJSON VpcSecurityGroupMembership where
+instance Data.FromJSON VpcSecurityGroupMembership where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VpcSecurityGroupMembership"
       ( \x ->
           VpcSecurityGroupMembership'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "VpcSecurityGroupId")
+            Prelude.<$> (x Data..:? "Status")
+            Prelude.<*> (x Data..:? "VpcSecurityGroupId")
       )
 
 instance Prelude.Hashable VpcSecurityGroupMembership where

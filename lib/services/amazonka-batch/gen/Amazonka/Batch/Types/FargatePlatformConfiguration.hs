@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.Types.FargatePlatformConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Batch.Types.FargatePlatformConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The platform configuration for jobs that are running on Fargate
@@ -73,13 +74,13 @@ newFargatePlatformConfiguration =
 fargatePlatformConfiguration_platformVersion :: Lens.Lens' FargatePlatformConfiguration (Prelude.Maybe Prelude.Text)
 fargatePlatformConfiguration_platformVersion = Lens.lens (\FargatePlatformConfiguration' {platformVersion} -> platformVersion) (\s@FargatePlatformConfiguration' {} a -> s {platformVersion = a} :: FargatePlatformConfiguration)
 
-instance Core.FromJSON FargatePlatformConfiguration where
+instance Data.FromJSON FargatePlatformConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FargatePlatformConfiguration"
       ( \x ->
           FargatePlatformConfiguration'
-            Prelude.<$> (x Core..:? "platformVersion")
+            Prelude.<$> (x Data..:? "platformVersion")
       )
 
 instance
@@ -93,11 +94,11 @@ instance Prelude.NFData FargatePlatformConfiguration where
   rnf FargatePlatformConfiguration' {..} =
     Prelude.rnf platformVersion
 
-instance Core.ToJSON FargatePlatformConfiguration where
+instance Data.ToJSON FargatePlatformConfiguration where
   toJSON FargatePlatformConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("platformVersion" Core..=)
+          [ ("platformVersion" Data..=)
               Prelude.<$> platformVersion
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.Types.AccessConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaTailor.Types.AccessConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types.AccessType
 import Amazonka.MediaTailor.Types.SecretsManagerAccessTokenConfiguration
 import qualified Amazonka.Prelude as Prelude
@@ -30,10 +31,10 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newAccessConfiguration' smart constructor.
 data AccessConfiguration = AccessConfiguration'
   { -- | The type of authentication used to access content from
-    -- HttpConfiguration::BaseUrl on your source location. Accepted value:
-    -- S3_SIGV4.
+    -- @HttpConfiguration::BaseUrl@ on your source location. Accepted value:
+    -- @S3_SIGV4@.
     --
-    -- S3_SIGV4 - AWS Signature Version 4 authentication for Amazon S3 hosted
+    -- @S3_SIGV4@ - AWS Signature Version 4 authentication for Amazon S3 hosted
     -- virtual-style access. If your source location base URL is an Amazon S3
     -- bucket, MediaTailor can use AWS Signature Version 4 (SigV4)
     -- authentication to access the bucket where your source content is stored.
@@ -41,7 +42,7 @@ data AccessConfiguration = AccessConfiguration'
     -- hosted-style request URL format. For example,
     -- https:\/\/bucket-name.s3.Region.amazonaws.com\/key-name.
     --
-    -- Before you can use S3_SIGV4, you must meet these requirements:
+    -- Before you can use @S3_SIGV4@, you must meet these requirements:
     --
     -- • You must allow MediaTailor to access your S3 bucket by granting
     -- mediatailor.amazonaws.com principal access in IAM. For information about
@@ -69,10 +70,10 @@ data AccessConfiguration = AccessConfiguration'
 -- for backwards compatibility:
 --
 -- 'accessType', 'accessConfiguration_accessType' - The type of authentication used to access content from
--- HttpConfiguration::BaseUrl on your source location. Accepted value:
--- S3_SIGV4.
+-- @HttpConfiguration::BaseUrl@ on your source location. Accepted value:
+-- @S3_SIGV4@.
 --
--- S3_SIGV4 - AWS Signature Version 4 authentication for Amazon S3 hosted
+-- @S3_SIGV4@ - AWS Signature Version 4 authentication for Amazon S3 hosted
 -- virtual-style access. If your source location base URL is an Amazon S3
 -- bucket, MediaTailor can use AWS Signature Version 4 (SigV4)
 -- authentication to access the bucket where your source content is stored.
@@ -80,7 +81,7 @@ data AccessConfiguration = AccessConfiguration'
 -- hosted-style request URL format. For example,
 -- https:\/\/bucket-name.s3.Region.amazonaws.com\/key-name.
 --
--- Before you can use S3_SIGV4, you must meet these requirements:
+-- Before you can use @S3_SIGV4@, you must meet these requirements:
 --
 -- • You must allow MediaTailor to access your S3 bucket by granting
 -- mediatailor.amazonaws.com principal access in IAM. For information about
@@ -105,10 +106,10 @@ newAccessConfiguration =
     }
 
 -- | The type of authentication used to access content from
--- HttpConfiguration::BaseUrl on your source location. Accepted value:
--- S3_SIGV4.
+-- @HttpConfiguration::BaseUrl@ on your source location. Accepted value:
+-- @S3_SIGV4@.
 --
--- S3_SIGV4 - AWS Signature Version 4 authentication for Amazon S3 hosted
+-- @S3_SIGV4@ - AWS Signature Version 4 authentication for Amazon S3 hosted
 -- virtual-style access. If your source location base URL is an Amazon S3
 -- bucket, MediaTailor can use AWS Signature Version 4 (SigV4)
 -- authentication to access the bucket where your source content is stored.
@@ -116,7 +117,7 @@ newAccessConfiguration =
 -- hosted-style request URL format. For example,
 -- https:\/\/bucket-name.s3.Region.amazonaws.com\/key-name.
 --
--- Before you can use S3_SIGV4, you must meet these requirements:
+-- Before you can use @S3_SIGV4@, you must meet these requirements:
 --
 -- • You must allow MediaTailor to access your S3 bucket by granting
 -- mediatailor.amazonaws.com principal access in IAM. For information about
@@ -136,15 +137,15 @@ accessConfiguration_accessType = Lens.lens (\AccessConfiguration' {accessType} -
 accessConfiguration_secretsManagerAccessTokenConfiguration :: Lens.Lens' AccessConfiguration (Prelude.Maybe SecretsManagerAccessTokenConfiguration)
 accessConfiguration_secretsManagerAccessTokenConfiguration = Lens.lens (\AccessConfiguration' {secretsManagerAccessTokenConfiguration} -> secretsManagerAccessTokenConfiguration) (\s@AccessConfiguration' {} a -> s {secretsManagerAccessTokenConfiguration = a} :: AccessConfiguration)
 
-instance Core.FromJSON AccessConfiguration where
+instance Data.FromJSON AccessConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AccessConfiguration"
       ( \x ->
           AccessConfiguration'
-            Prelude.<$> (x Core..:? "AccessType")
+            Prelude.<$> (x Data..:? "AccessType")
             Prelude.<*> ( x
-                            Core..:? "SecretsManagerAccessTokenConfiguration"
+                            Data..:? "SecretsManagerAccessTokenConfiguration"
                         )
       )
 
@@ -158,12 +159,12 @@ instance Prelude.NFData AccessConfiguration where
     Prelude.rnf accessType
       `Prelude.seq` Prelude.rnf secretsManagerAccessTokenConfiguration
 
-instance Core.ToJSON AccessConfiguration where
+instance Data.ToJSON AccessConfiguration where
   toJSON AccessConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AccessType" Core..=) Prelude.<$> accessType,
-            ("SecretsManagerAccessTokenConfiguration" Core..=)
+          [ ("AccessType" Data..=) Prelude.<$> accessType,
+            ("SecretsManagerAccessTokenConfiguration" Data..=)
               Prelude.<$> secretsManagerAccessTokenConfiguration
           ]
       )

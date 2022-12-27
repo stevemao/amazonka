@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.HoneyCode.Types.ColumnMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.HoneyCode.Types.ColumnMetadata where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.HoneyCode.Types.Format
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Metadata for column in the table.
@@ -29,7 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newColumnMetadata' smart constructor.
 data ColumnMetadata = ColumnMetadata'
   { -- | The name of the column.
-    name :: Core.Sensitive Prelude.Text,
+    name :: Data.Sensitive Prelude.Text,
     -- | The format of the column.
     format :: Format
   }
@@ -55,25 +56,25 @@ newColumnMetadata ::
 newColumnMetadata pName_ pFormat_ =
   ColumnMetadata'
     { name =
-        Core._Sensitive Lens.# pName_,
+        Data._Sensitive Lens.# pName_,
       format = pFormat_
     }
 
 -- | The name of the column.
 columnMetadata_name :: Lens.Lens' ColumnMetadata Prelude.Text
-columnMetadata_name = Lens.lens (\ColumnMetadata' {name} -> name) (\s@ColumnMetadata' {} a -> s {name = a} :: ColumnMetadata) Prelude.. Core._Sensitive
+columnMetadata_name = Lens.lens (\ColumnMetadata' {name} -> name) (\s@ColumnMetadata' {} a -> s {name = a} :: ColumnMetadata) Prelude.. Data._Sensitive
 
 -- | The format of the column.
 columnMetadata_format :: Lens.Lens' ColumnMetadata Format
 columnMetadata_format = Lens.lens (\ColumnMetadata' {format} -> format) (\s@ColumnMetadata' {} a -> s {format = a} :: ColumnMetadata)
 
-instance Core.FromJSON ColumnMetadata where
+instance Data.FromJSON ColumnMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ColumnMetadata"
       ( \x ->
           ColumnMetadata'
-            Prelude.<$> (x Core..: "name") Prelude.<*> (x Core..: "format")
+            Prelude.<$> (x Data..: "name") Prelude.<*> (x Data..: "format")
       )
 
 instance Prelude.Hashable ColumnMetadata where

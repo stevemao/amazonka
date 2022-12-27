@@ -14,13 +14,15 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.StopChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Stops a specific channel.
+-- Stops a channel. For information about MediaTailor channels, see
+-- <https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-channels.html Working with channels>
+-- in the /MediaTailor User Guide/.
 module Amazonka.MediaTailor.StopChannel
   ( -- * Creating a Request
     StopChannel (..),
@@ -39,7 +41,8 @@ module Amazonka.MediaTailor.StopChannel
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -47,7 +50,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newStopChannel' smart constructor.
 data StopChannel = StopChannel'
-  { -- | The identifier for the channel you are working on.
+  { -- | The name of the channel.
     channelName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -60,7 +63,7 @@ data StopChannel = StopChannel'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'channelName', 'stopChannel_channelName' - The identifier for the channel you are working on.
+-- 'channelName', 'stopChannel_channelName' - The name of the channel.
 newStopChannel ::
   -- | 'channelName'
   Prelude.Text ->
@@ -68,13 +71,14 @@ newStopChannel ::
 newStopChannel pChannelName_ =
   StopChannel' {channelName = pChannelName_}
 
--- | The identifier for the channel you are working on.
+-- | The name of the channel.
 stopChannel_channelName :: Lens.Lens' StopChannel Prelude.Text
 stopChannel_channelName = Lens.lens (\StopChannel' {channelName} -> channelName) (\s@StopChannel' {} a -> s {channelName = a} :: StopChannel)
 
 instance Core.AWSRequest StopChannel where
   type AWSResponse StopChannel = StopChannelResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -89,26 +93,26 @@ instance Prelude.Hashable StopChannel where
 instance Prelude.NFData StopChannel where
   rnf StopChannel' {..} = Prelude.rnf channelName
 
-instance Core.ToHeaders StopChannel where
+instance Data.ToHeaders StopChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopChannel where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON StopChannel where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath StopChannel where
+instance Data.ToPath StopChannel where
   toPath StopChannel' {..} =
     Prelude.mconcat
-      ["/channel/", Core.toBS channelName, "/stop"]
+      ["/channel/", Data.toBS channelName, "/stop"]
 
-instance Core.ToQuery StopChannel where
+instance Data.ToQuery StopChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopChannelResponse' smart constructor.

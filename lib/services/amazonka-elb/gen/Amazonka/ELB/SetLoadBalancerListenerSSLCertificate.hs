@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.SetLoadBalancerListenerSSLCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.ELB.SetLoadBalancerListenerSSLCertificate
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -120,7 +121,8 @@ instance
     AWSResponse
       SetLoadBalancerListenerSSLCertificate =
       SetLoadBalancerListenerSSLCertificateResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SetLoadBalancerListenerSSLCertificateResult"
@@ -150,32 +152,32 @@ instance
       `Prelude.seq` Prelude.rnf sSLCertificateId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     SetLoadBalancerListenerSSLCertificate
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     SetLoadBalancerListenerSSLCertificate
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     SetLoadBalancerListenerSSLCertificate
   where
   toQuery SetLoadBalancerListenerSSLCertificate' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "SetLoadBalancerListenerSSLCertificate" ::
+          Data.=: ( "SetLoadBalancerListenerSSLCertificate" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2012-06-01" :: Prelude.ByteString),
-        "LoadBalancerName" Core.=: loadBalancerName,
-        "LoadBalancerPort" Core.=: loadBalancerPort,
-        "SSLCertificateId" Core.=: sSLCertificateId
+          Data.=: ("2012-06-01" :: Prelude.ByteString),
+        "LoadBalancerName" Data.=: loadBalancerName,
+        "LoadBalancerPort" Data.=: loadBalancerPort,
+        "SSLCertificateId" Data.=: sSLCertificateId
       ]
 
 -- | Contains the output of SetLoadBalancerListenerSSLCertificate.

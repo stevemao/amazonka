@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.ServerSideEncryptionRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.ServerSideEncryptionRule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.ServerSideEncryptionByDefault
@@ -94,11 +95,11 @@ serverSideEncryptionRule_applyServerSideEncryptionByDefault = Lens.lens (\Server
 serverSideEncryptionRule_bucketKeyEnabled :: Lens.Lens' ServerSideEncryptionRule (Prelude.Maybe Prelude.Bool)
 serverSideEncryptionRule_bucketKeyEnabled = Lens.lens (\ServerSideEncryptionRule' {bucketKeyEnabled} -> bucketKeyEnabled) (\s@ServerSideEncryptionRule' {} a -> s {bucketKeyEnabled = a} :: ServerSideEncryptionRule)
 
-instance Core.FromXML ServerSideEncryptionRule where
+instance Data.FromXML ServerSideEncryptionRule where
   parseXML x =
     ServerSideEncryptionRule'
-      Prelude.<$> (x Core..@? "ApplyServerSideEncryptionByDefault")
-      Prelude.<*> (x Core..@? "BucketKeyEnabled")
+      Prelude.<$> (x Data..@? "ApplyServerSideEncryptionByDefault")
+      Prelude.<*> (x Data..@? "BucketKeyEnabled")
 
 instance Prelude.Hashable ServerSideEncryptionRule where
   hashWithSalt _salt ServerSideEncryptionRule' {..} =
@@ -111,10 +112,10 @@ instance Prelude.NFData ServerSideEncryptionRule where
     Prelude.rnf applyServerSideEncryptionByDefault
       `Prelude.seq` Prelude.rnf bucketKeyEnabled
 
-instance Core.ToXML ServerSideEncryptionRule where
+instance Data.ToXML ServerSideEncryptionRule where
   toXML ServerSideEncryptionRule' {..} =
     Prelude.mconcat
       [ "ApplyServerSideEncryptionByDefault"
-          Core.@= applyServerSideEncryptionByDefault,
-        "BucketKeyEnabled" Core.@= bucketKeyEnabled
+          Data.@= applyServerSideEncryptionByDefault,
+        "BucketKeyEnabled" Data.@= bucketKeyEnabled
       ]

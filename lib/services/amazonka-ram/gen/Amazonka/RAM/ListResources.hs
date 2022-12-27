@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.RAM.ListResources
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the resources that you added to a resource shares or the resources
+-- Lists the resources that you added to a resource share or the resources
 -- that are shared with you.
 --
 -- This operation returns paginated results.
@@ -30,12 +30,13 @@ module Amazonka.RAM.ListResources
     newListResources,
 
     -- * Request Lenses
-    listResources_resourceType,
-    listResources_nextToken,
-    listResources_resourceArns,
-    listResources_principal,
     listResources_maxResults,
+    listResources_nextToken,
+    listResources_principal,
+    listResources_resourceArns,
+    listResources_resourceRegionScope,
     listResources_resourceShareArns,
+    listResources_resourceType,
     listResources_resourceOwner,
 
     -- * Destructuring the Response
@@ -43,14 +44,15 @@ module Amazonka.RAM.ListResources
     newListResourcesResponse,
 
     -- * Response Lenses
-    listResourcesResponse_resources,
     listResourcesResponse_nextToken,
+    listResourcesResponse_resources,
     listResourcesResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RAM.Types
 import qualified Amazonka.Request as Request
@@ -58,38 +60,60 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListResources' smart constructor.
 data ListResources = ListResources'
-  { -- | The resource type.
-    --
-    -- Valid values: @acm-pca:CertificateAuthority@ | @appmesh:Mesh@ |
-    -- @codebuild:Project@ | @codebuild:ReportGroup@ |
-    -- @ec2:CapacityReservation@ | @ec2:DedicatedHost@ |
-    -- @ec2:LocalGatewayRouteTable@ | @ec2:PrefixList@ | @ec2:Subnet@ |
-    -- @ec2:TrafficMirrorTarget@ | @ec2:TransitGateway@ |
-    -- @imagebuilder:Component@ | @imagebuilder:Image@ |
-    -- @imagebuilder:ImageRecipe@ | @imagebuilder:ContainerRecipe@ |
-    -- @glue:Catalog@ | @glue:Database@ | @glue:Table@ |
-    -- @license-manager:LicenseConfiguration@ I
-    -- @network-firewall:FirewallPolicy@ | @network-firewall:StatefulRuleGroup@
-    -- | @network-firewall:StatelessRuleGroup@ | @outposts:Outpost@ |
-    -- @resource-groups:Group@ | @rds:Cluster@ |
-    -- @route53resolver:FirewallRuleGroup@
-    -- |@route53resolver:ResolverQueryLogConfig@ |
-    -- @route53resolver:ResolverRule@ | @s3-outposts:Outpost@ |
-    -- @ssm-contacts:Contact@ | @ssm-incidents:ResponsePlan@
-    resourceType :: Prelude.Maybe Prelude.Text,
-    -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Names (ARNs) of the resources.
-    resourceArns :: Prelude.Maybe [Prelude.Text],
-    -- | The principal.
-    principal :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return with a single call. To retrieve
-    -- the remaining results, make another call with the returned @nextToken@
-    -- value.
+  { -- | Specifies the total number of results that you want included on each
+    -- page of the response. If you do not include this parameter, it defaults
+    -- to a value that is specific to the operation. If additional items exist
+    -- beyond the number you specify, the @NextToken@ response element is
+    -- returned with a value (not null). Include the specified value as the
+    -- @NextToken@ request parameter in the next call to the operation to get
+    -- the next part of the results. Note that the service might return fewer
+    -- results than the maximum even when there are more results available. You
+    -- should check @NextToken@ after every operation to ensure that you
+    -- receive all of the results.
     maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The Amazon Resource Names (ARN) of the resource shares.
+    -- | Specifies that you want to receive the next page of results. Valid only
+    -- if you received a @NextToken@ response in the previous request. If you
+    -- did, it indicates that more output is available. Set this parameter to
+    -- the value provided by the previous call\'s @NextToken@ response to
+    -- request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Specifies that you want to list only the resource shares that are
+    -- associated with the specified principal.
+    principal :: Prelude.Maybe Prelude.Text,
+    -- | Specifies that you want to list only the resource shares that include
+    -- resources with the specified
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>.
+    resourceArns :: Prelude.Maybe [Prelude.Text],
+    -- | Specifies that you want the results to include only resources that have
+    -- the specified scope.
+    --
+    -- -   @ALL@ – the results include both global and regional resources or
+    --     resource types.
+    --
+    -- -   @GLOBAL@ – the results include only global resources or resource
+    --     types.
+    --
+    -- -   @REGIONAL@ – the results include only regional resources or resource
+    --     types.
+    --
+    -- The default value is @ALL@.
+    resourceRegionScope :: Prelude.Maybe ResourceRegionScopeFilter,
+    -- | Specifies that you want to list only resources in the resource shares
+    -- identified by the specified
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>.
     resourceShareArns :: Prelude.Maybe [Prelude.Text],
-    -- | The type of owner.
+    -- | Specifies that you want to list only the resource shares that include
+    -- resources of the specified resource type.
+    --
+    -- For valid values, query the ListResourceTypes operation.
+    resourceType :: Prelude.Maybe Prelude.Text,
+    -- | Specifies that you want to list only the resource shares that match the
+    -- following:
+    --
+    -- -   __@SELF@__ – resources that your account shares with other accounts
+    --
+    -- -   __@OTHER-ACCOUNTS@__ – resources that other accounts share with your
+    --     account
     resourceOwner :: ResourceOwner
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -102,97 +126,144 @@ data ListResources = ListResources'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceType', 'listResources_resourceType' - The resource type.
+-- 'maxResults', 'listResources_maxResults' - Specifies the total number of results that you want included on each
+-- page of the response. If you do not include this parameter, it defaults
+-- to a value that is specific to the operation. If additional items exist
+-- beyond the number you specify, the @NextToken@ response element is
+-- returned with a value (not null). Include the specified value as the
+-- @NextToken@ request parameter in the next call to the operation to get
+-- the next part of the results. Note that the service might return fewer
+-- results than the maximum even when there are more results available. You
+-- should check @NextToken@ after every operation to ensure that you
+-- receive all of the results.
 --
--- Valid values: @acm-pca:CertificateAuthority@ | @appmesh:Mesh@ |
--- @codebuild:Project@ | @codebuild:ReportGroup@ |
--- @ec2:CapacityReservation@ | @ec2:DedicatedHost@ |
--- @ec2:LocalGatewayRouteTable@ | @ec2:PrefixList@ | @ec2:Subnet@ |
--- @ec2:TrafficMirrorTarget@ | @ec2:TransitGateway@ |
--- @imagebuilder:Component@ | @imagebuilder:Image@ |
--- @imagebuilder:ImageRecipe@ | @imagebuilder:ContainerRecipe@ |
--- @glue:Catalog@ | @glue:Database@ | @glue:Table@ |
--- @license-manager:LicenseConfiguration@ I
--- @network-firewall:FirewallPolicy@ | @network-firewall:StatefulRuleGroup@
--- | @network-firewall:StatelessRuleGroup@ | @outposts:Outpost@ |
--- @resource-groups:Group@ | @rds:Cluster@ |
--- @route53resolver:FirewallRuleGroup@
--- |@route53resolver:ResolverQueryLogConfig@ |
--- @route53resolver:ResolverRule@ | @s3-outposts:Outpost@ |
--- @ssm-contacts:Contact@ | @ssm-incidents:ResponsePlan@
+-- 'nextToken', 'listResources_nextToken' - Specifies that you want to receive the next page of results. Valid only
+-- if you received a @NextToken@ response in the previous request. If you
+-- did, it indicates that more output is available. Set this parameter to
+-- the value provided by the previous call\'s @NextToken@ response to
+-- request the next page of results.
 --
--- 'nextToken', 'listResources_nextToken' - The token for the next page of results.
+-- 'principal', 'listResources_principal' - Specifies that you want to list only the resource shares that are
+-- associated with the specified principal.
 --
--- 'resourceArns', 'listResources_resourceArns' - The Amazon Resource Names (ARNs) of the resources.
+-- 'resourceArns', 'listResources_resourceArns' - Specifies that you want to list only the resource shares that include
+-- resources with the specified
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>.
 --
--- 'principal', 'listResources_principal' - The principal.
+-- 'resourceRegionScope', 'listResources_resourceRegionScope' - Specifies that you want the results to include only resources that have
+-- the specified scope.
 --
--- 'maxResults', 'listResources_maxResults' - The maximum number of results to return with a single call. To retrieve
--- the remaining results, make another call with the returned @nextToken@
--- value.
+-- -   @ALL@ – the results include both global and regional resources or
+--     resource types.
 --
--- 'resourceShareArns', 'listResources_resourceShareArns' - The Amazon Resource Names (ARN) of the resource shares.
+-- -   @GLOBAL@ – the results include only global resources or resource
+--     types.
 --
--- 'resourceOwner', 'listResources_resourceOwner' - The type of owner.
+-- -   @REGIONAL@ – the results include only regional resources or resource
+--     types.
+--
+-- The default value is @ALL@.
+--
+-- 'resourceShareArns', 'listResources_resourceShareArns' - Specifies that you want to list only resources in the resource shares
+-- identified by the specified
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>.
+--
+-- 'resourceType', 'listResources_resourceType' - Specifies that you want to list only the resource shares that include
+-- resources of the specified resource type.
+--
+-- For valid values, query the ListResourceTypes operation.
+--
+-- 'resourceOwner', 'listResources_resourceOwner' - Specifies that you want to list only the resource shares that match the
+-- following:
+--
+-- -   __@SELF@__ – resources that your account shares with other accounts
+--
+-- -   __@OTHER-ACCOUNTS@__ – resources that other accounts share with your
+--     account
 newListResources ::
   -- | 'resourceOwner'
   ResourceOwner ->
   ListResources
 newListResources pResourceOwner_ =
   ListResources'
-    { resourceType = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      resourceArns = Prelude.Nothing,
       principal = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      resourceArns = Prelude.Nothing,
+      resourceRegionScope = Prelude.Nothing,
       resourceShareArns = Prelude.Nothing,
+      resourceType = Prelude.Nothing,
       resourceOwner = pResourceOwner_
     }
 
--- | The resource type.
---
--- Valid values: @acm-pca:CertificateAuthority@ | @appmesh:Mesh@ |
--- @codebuild:Project@ | @codebuild:ReportGroup@ |
--- @ec2:CapacityReservation@ | @ec2:DedicatedHost@ |
--- @ec2:LocalGatewayRouteTable@ | @ec2:PrefixList@ | @ec2:Subnet@ |
--- @ec2:TrafficMirrorTarget@ | @ec2:TransitGateway@ |
--- @imagebuilder:Component@ | @imagebuilder:Image@ |
--- @imagebuilder:ImageRecipe@ | @imagebuilder:ContainerRecipe@ |
--- @glue:Catalog@ | @glue:Database@ | @glue:Table@ |
--- @license-manager:LicenseConfiguration@ I
--- @network-firewall:FirewallPolicy@ | @network-firewall:StatefulRuleGroup@
--- | @network-firewall:StatelessRuleGroup@ | @outposts:Outpost@ |
--- @resource-groups:Group@ | @rds:Cluster@ |
--- @route53resolver:FirewallRuleGroup@
--- |@route53resolver:ResolverQueryLogConfig@ |
--- @route53resolver:ResolverRule@ | @s3-outposts:Outpost@ |
--- @ssm-contacts:Contact@ | @ssm-incidents:ResponsePlan@
-listResources_resourceType :: Lens.Lens' ListResources (Prelude.Maybe Prelude.Text)
-listResources_resourceType = Lens.lens (\ListResources' {resourceType} -> resourceType) (\s@ListResources' {} a -> s {resourceType = a} :: ListResources)
-
--- | The token for the next page of results.
-listResources_nextToken :: Lens.Lens' ListResources (Prelude.Maybe Prelude.Text)
-listResources_nextToken = Lens.lens (\ListResources' {nextToken} -> nextToken) (\s@ListResources' {} a -> s {nextToken = a} :: ListResources)
-
--- | The Amazon Resource Names (ARNs) of the resources.
-listResources_resourceArns :: Lens.Lens' ListResources (Prelude.Maybe [Prelude.Text])
-listResources_resourceArns = Lens.lens (\ListResources' {resourceArns} -> resourceArns) (\s@ListResources' {} a -> s {resourceArns = a} :: ListResources) Prelude.. Lens.mapping Lens.coerced
-
--- | The principal.
-listResources_principal :: Lens.Lens' ListResources (Prelude.Maybe Prelude.Text)
-listResources_principal = Lens.lens (\ListResources' {principal} -> principal) (\s@ListResources' {} a -> s {principal = a} :: ListResources)
-
--- | The maximum number of results to return with a single call. To retrieve
--- the remaining results, make another call with the returned @nextToken@
--- value.
+-- | Specifies the total number of results that you want included on each
+-- page of the response. If you do not include this parameter, it defaults
+-- to a value that is specific to the operation. If additional items exist
+-- beyond the number you specify, the @NextToken@ response element is
+-- returned with a value (not null). Include the specified value as the
+-- @NextToken@ request parameter in the next call to the operation to get
+-- the next part of the results. Note that the service might return fewer
+-- results than the maximum even when there are more results available. You
+-- should check @NextToken@ after every operation to ensure that you
+-- receive all of the results.
 listResources_maxResults :: Lens.Lens' ListResources (Prelude.Maybe Prelude.Natural)
 listResources_maxResults = Lens.lens (\ListResources' {maxResults} -> maxResults) (\s@ListResources' {} a -> s {maxResults = a} :: ListResources)
 
--- | The Amazon Resource Names (ARN) of the resource shares.
+-- | Specifies that you want to receive the next page of results. Valid only
+-- if you received a @NextToken@ response in the previous request. If you
+-- did, it indicates that more output is available. Set this parameter to
+-- the value provided by the previous call\'s @NextToken@ response to
+-- request the next page of results.
+listResources_nextToken :: Lens.Lens' ListResources (Prelude.Maybe Prelude.Text)
+listResources_nextToken = Lens.lens (\ListResources' {nextToken} -> nextToken) (\s@ListResources' {} a -> s {nextToken = a} :: ListResources)
+
+-- | Specifies that you want to list only the resource shares that are
+-- associated with the specified principal.
+listResources_principal :: Lens.Lens' ListResources (Prelude.Maybe Prelude.Text)
+listResources_principal = Lens.lens (\ListResources' {principal} -> principal) (\s@ListResources' {} a -> s {principal = a} :: ListResources)
+
+-- | Specifies that you want to list only the resource shares that include
+-- resources with the specified
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>.
+listResources_resourceArns :: Lens.Lens' ListResources (Prelude.Maybe [Prelude.Text])
+listResources_resourceArns = Lens.lens (\ListResources' {resourceArns} -> resourceArns) (\s@ListResources' {} a -> s {resourceArns = a} :: ListResources) Prelude.. Lens.mapping Lens.coerced
+
+-- | Specifies that you want the results to include only resources that have
+-- the specified scope.
+--
+-- -   @ALL@ – the results include both global and regional resources or
+--     resource types.
+--
+-- -   @GLOBAL@ – the results include only global resources or resource
+--     types.
+--
+-- -   @REGIONAL@ – the results include only regional resources or resource
+--     types.
+--
+-- The default value is @ALL@.
+listResources_resourceRegionScope :: Lens.Lens' ListResources (Prelude.Maybe ResourceRegionScopeFilter)
+listResources_resourceRegionScope = Lens.lens (\ListResources' {resourceRegionScope} -> resourceRegionScope) (\s@ListResources' {} a -> s {resourceRegionScope = a} :: ListResources)
+
+-- | Specifies that you want to list only resources in the resource shares
+-- identified by the specified
+-- <https://docs.aws.amazon.com/general/latest/gr/aws-arns-and-namespaces.html Amazon Resource Names (ARNs)>.
 listResources_resourceShareArns :: Lens.Lens' ListResources (Prelude.Maybe [Prelude.Text])
 listResources_resourceShareArns = Lens.lens (\ListResources' {resourceShareArns} -> resourceShareArns) (\s@ListResources' {} a -> s {resourceShareArns = a} :: ListResources) Prelude.. Lens.mapping Lens.coerced
 
--- | The type of owner.
+-- | Specifies that you want to list only the resource shares that include
+-- resources of the specified resource type.
+--
+-- For valid values, query the ListResourceTypes operation.
+listResources_resourceType :: Lens.Lens' ListResources (Prelude.Maybe Prelude.Text)
+listResources_resourceType = Lens.lens (\ListResources' {resourceType} -> resourceType) (\s@ListResources' {} a -> s {resourceType = a} :: ListResources)
+
+-- | Specifies that you want to list only the resource shares that match the
+-- following:
+--
+-- -   __@SELF@__ – resources that your account shares with other accounts
+--
+-- -   __@OTHER-ACCOUNTS@__ – resources that other accounts share with your
+--     account
 listResources_resourceOwner :: Lens.Lens' ListResources ResourceOwner
 listResources_resourceOwner = Lens.lens (\ListResources' {resourceOwner} -> resourceOwner) (\s@ListResources' {} a -> s {resourceOwner = a} :: ListResources)
 
@@ -219,76 +290,85 @@ instance Core.AWSRequest ListResources where
   type
     AWSResponse ListResources =
       ListResourcesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListResourcesResponse'
-            Prelude.<$> (x Core..?> "resources" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "resources" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListResources where
   hashWithSalt _salt ListResources' {..} =
-    _salt `Prelude.hashWithSalt` resourceType
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` resourceArns
       `Prelude.hashWithSalt` principal
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` resourceArns
+      `Prelude.hashWithSalt` resourceRegionScope
       `Prelude.hashWithSalt` resourceShareArns
+      `Prelude.hashWithSalt` resourceType
       `Prelude.hashWithSalt` resourceOwner
 
 instance Prelude.NFData ListResources where
   rnf ListResources' {..} =
-    Prelude.rnf resourceType
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf resourceArns
       `Prelude.seq` Prelude.rnf principal
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf resourceArns
+      `Prelude.seq` Prelude.rnf resourceRegionScope
       `Prelude.seq` Prelude.rnf resourceShareArns
+      `Prelude.seq` Prelude.rnf resourceType
       `Prelude.seq` Prelude.rnf resourceOwner
 
-instance Core.ToHeaders ListResources where
+instance Data.ToHeaders ListResources where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListResources where
+instance Data.ToJSON ListResources where
   toJSON ListResources' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("resourceType" Core..=) Prelude.<$> resourceType,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("resourceArns" Core..=) Prelude.<$> resourceArns,
-            ("principal" Core..=) Prelude.<$> principal,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            ("resourceShareArns" Core..=)
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("principal" Data..=) Prelude.<$> principal,
+            ("resourceArns" Data..=) Prelude.<$> resourceArns,
+            ("resourceRegionScope" Data..=)
+              Prelude.<$> resourceRegionScope,
+            ("resourceShareArns" Data..=)
               Prelude.<$> resourceShareArns,
+            ("resourceType" Data..=) Prelude.<$> resourceType,
             Prelude.Just
-              ("resourceOwner" Core..= resourceOwner)
+              ("resourceOwner" Data..= resourceOwner)
           ]
       )
 
-instance Core.ToPath ListResources where
+instance Data.ToPath ListResources where
   toPath = Prelude.const "/listresources"
 
-instance Core.ToQuery ListResources where
+instance Data.ToQuery ListResources where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListResourcesResponse' smart constructor.
 data ListResourcesResponse = ListResourcesResponse'
-  { -- | Information about the resources.
-    resources :: Prelude.Maybe [Resource],
-    -- | The token to use to retrieve the next page of results. This value is
-    -- @null@ when there are no more results to return.
+  { -- | If present, this value indicates that more output is available than is
+    -- included in the current response. Use this value in the @NextToken@
+    -- request parameter in a subsequent call to the operation to get the next
+    -- part of the output. You should repeat this until the @NextToken@
+    -- response element comes back as @null@. This indicates that this is the
+    -- last page of results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of objects that contain information about the resources.
+    resources :: Prelude.Maybe [Resource],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -302,10 +382,14 @@ data ListResourcesResponse = ListResourcesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resources', 'listResourcesResponse_resources' - Information about the resources.
+-- 'nextToken', 'listResourcesResponse_nextToken' - If present, this value indicates that more output is available than is
+-- included in the current response. Use this value in the @NextToken@
+-- request parameter in a subsequent call to the operation to get the next
+-- part of the output. You should repeat this until the @NextToken@
+-- response element comes back as @null@. This indicates that this is the
+-- last page of results.
 --
--- 'nextToken', 'listResourcesResponse_nextToken' - The token to use to retrieve the next page of results. This value is
--- @null@ when there are no more results to return.
+-- 'resources', 'listResourcesResponse_resources' - An array of objects that contain information about the resources.
 --
 -- 'httpStatus', 'listResourcesResponse_httpStatus' - The response's http status code.
 newListResourcesResponse ::
@@ -314,19 +398,23 @@ newListResourcesResponse ::
   ListResourcesResponse
 newListResourcesResponse pHttpStatus_ =
   ListResourcesResponse'
-    { resources = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { nextToken = Prelude.Nothing,
+      resources = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | Information about the resources.
-listResourcesResponse_resources :: Lens.Lens' ListResourcesResponse (Prelude.Maybe [Resource])
-listResourcesResponse_resources = Lens.lens (\ListResourcesResponse' {resources} -> resources) (\s@ListResourcesResponse' {} a -> s {resources = a} :: ListResourcesResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The token to use to retrieve the next page of results. This value is
--- @null@ when there are no more results to return.
+-- | If present, this value indicates that more output is available than is
+-- included in the current response. Use this value in the @NextToken@
+-- request parameter in a subsequent call to the operation to get the next
+-- part of the output. You should repeat this until the @NextToken@
+-- response element comes back as @null@. This indicates that this is the
+-- last page of results.
 listResourcesResponse_nextToken :: Lens.Lens' ListResourcesResponse (Prelude.Maybe Prelude.Text)
 listResourcesResponse_nextToken = Lens.lens (\ListResourcesResponse' {nextToken} -> nextToken) (\s@ListResourcesResponse' {} a -> s {nextToken = a} :: ListResourcesResponse)
+
+-- | An array of objects that contain information about the resources.
+listResourcesResponse_resources :: Lens.Lens' ListResourcesResponse (Prelude.Maybe [Resource])
+listResourcesResponse_resources = Lens.lens (\ListResourcesResponse' {resources} -> resources) (\s@ListResourcesResponse' {} a -> s {resources = a} :: ListResourcesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listResourcesResponse_httpStatus :: Lens.Lens' ListResourcesResponse Prelude.Int
@@ -334,6 +422,6 @@ listResourcesResponse_httpStatus = Lens.lens (\ListResourcesResponse' {httpStatu
 
 instance Prelude.NFData ListResourcesResponse where
   rnf ListResourcesResponse' {..} =
-    Prelude.rnf resources
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf resources
       `Prelude.seq` Prelude.rnf httpStatus

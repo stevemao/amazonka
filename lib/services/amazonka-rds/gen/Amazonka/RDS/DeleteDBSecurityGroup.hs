@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DeleteDBSecurityGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,6 +24,16 @@
 --
 -- The specified DB security group must not be associated with any DB
 -- instances.
+--
+-- EC2-Classic was retired on August 15, 2022. If you haven\'t migrated
+-- from EC2-Classic to a VPC, we recommend that you migrate as soon as
+-- possible. For more information, see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/vpc-migrate.html Migrate from EC2-Classic to a VPC>
+-- in the /Amazon EC2 User Guide/, the blog
+-- <http://aws.amazon.com/blogs/aws/ec2-classic-is-retiring-heres-how-to-prepare/ EC2-Classic Networking is Retiring – Here’s How to Prepare>,
+-- and
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_VPC.Non-VPC2VPC.html Moving a DB instance not in a VPC into a VPC>
+-- in the /Amazon RDS User Guide/.
 module Amazonka.RDS.DeleteDBSecurityGroup
   ( -- * Creating a Request
     DeleteDBSecurityGroup (..),
@@ -39,7 +49,8 @@ module Amazonka.RDS.DeleteDBSecurityGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -117,7 +128,8 @@ instance Core.AWSRequest DeleteDBSecurityGroup where
   type
     AWSResponse DeleteDBSecurityGroup =
       DeleteDBSecurityGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteDBSecurityGroupResponse'
 
@@ -129,20 +141,20 @@ instance Prelude.NFData DeleteDBSecurityGroup where
   rnf DeleteDBSecurityGroup' {..} =
     Prelude.rnf dbSecurityGroupName
 
-instance Core.ToHeaders DeleteDBSecurityGroup where
+instance Data.ToHeaders DeleteDBSecurityGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDBSecurityGroup where
+instance Data.ToPath DeleteDBSecurityGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDBSecurityGroup where
+instance Data.ToQuery DeleteDBSecurityGroup where
   toQuery DeleteDBSecurityGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteDBSecurityGroup" :: Prelude.ByteString),
+          Data.=: ("DeleteDBSecurityGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBSecurityGroupName" Core.=: dbSecurityGroupName
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBSecurityGroupName" Data.=: dbSecurityGroupName
       ]
 
 -- | /See:/ 'newDeleteDBSecurityGroupResponse' smart constructor.

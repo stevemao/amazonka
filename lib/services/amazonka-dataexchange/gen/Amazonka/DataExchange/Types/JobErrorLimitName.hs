@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.Types.JobErrorLimitName
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,9 @@
 module Amazonka.DataExchange.Types.JobErrorLimitName
   ( JobErrorLimitName
       ( ..,
+        JobErrorLimitName_AWS_Lake_Formation_data_permission_assets_per_revision,
         JobErrorLimitName_Amazon_Redshift_datashare_assets_per_revision,
+        JobErrorLimitName_Amazon_S3_data_access_assets_per_revision,
         JobErrorLimitName_Asset_size_in_GB,
         JobErrorLimitName_Assets_per_revision
       ),
@@ -28,12 +30,12 @@ module Amazonka.DataExchange.Types.JobErrorLimitName
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The name of the limit that was reached.
 newtype JobErrorLimitName = JobErrorLimitName'
   { fromJobErrorLimitName ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -45,22 +47,28 @@ newtype JobErrorLimitName = JobErrorLimitName'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern JobErrorLimitName_AWS_Lake_Formation_data_permission_assets_per_revision :: JobErrorLimitName
+pattern JobErrorLimitName_AWS_Lake_Formation_data_permission_assets_per_revision = JobErrorLimitName' "AWS Lake Formation data permission assets per revision"
 
 pattern JobErrorLimitName_Amazon_Redshift_datashare_assets_per_revision :: JobErrorLimitName
 pattern JobErrorLimitName_Amazon_Redshift_datashare_assets_per_revision = JobErrorLimitName' "Amazon Redshift datashare assets per revision"
+
+pattern JobErrorLimitName_Amazon_S3_data_access_assets_per_revision :: JobErrorLimitName
+pattern JobErrorLimitName_Amazon_S3_data_access_assets_per_revision = JobErrorLimitName' "Amazon S3 data access assets per revision"
 
 pattern JobErrorLimitName_Asset_size_in_GB :: JobErrorLimitName
 pattern JobErrorLimitName_Asset_size_in_GB = JobErrorLimitName' "Asset size in GB"
@@ -69,7 +77,9 @@ pattern JobErrorLimitName_Assets_per_revision :: JobErrorLimitName
 pattern JobErrorLimitName_Assets_per_revision = JobErrorLimitName' "Assets per revision"
 
 {-# COMPLETE
+  JobErrorLimitName_AWS_Lake_Formation_data_permission_assets_per_revision,
   JobErrorLimitName_Amazon_Redshift_datashare_assets_per_revision,
+  JobErrorLimitName_Amazon_S3_data_access_assets_per_revision,
   JobErrorLimitName_Asset_size_in_GB,
   JobErrorLimitName_Assets_per_revision,
   JobErrorLimitName'

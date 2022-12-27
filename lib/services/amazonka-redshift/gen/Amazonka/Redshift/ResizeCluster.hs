@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.ResizeCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -56,10 +56,12 @@ module Amazonka.Redshift.ResizeCluster
     newResizeCluster,
 
     -- * Request Lenses
-    resizeCluster_numberOfNodes,
     resizeCluster_classic,
     resizeCluster_clusterType,
     resizeCluster_nodeType,
+    resizeCluster_numberOfNodes,
+    resizeCluster_reservedNodeId,
+    resizeCluster_targetReservedNodeOfferingId,
     resizeCluster_clusterIdentifier,
 
     -- * Destructuring the Response
@@ -73,7 +75,8 @@ module Amazonka.Redshift.ResizeCluster
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -84,10 +87,7 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newResizeCluster' smart constructor.
 data ResizeCluster = ResizeCluster'
-  { -- | The new number of nodes for the cluster. If not specified, the
-    -- cluster\'s current number of nodes is used.
-    numberOfNodes :: Prelude.Maybe Prelude.Int,
-    -- | A boolean value indicating whether the resize operation is using the
+  { -- | A boolean value indicating whether the resize operation is using the
     -- classic resize process. If you don\'t provide this parameter or set the
     -- value to @false@, the resize type is elastic.
     classic :: Prelude.Maybe Prelude.Bool,
@@ -96,6 +96,13 @@ data ResizeCluster = ResizeCluster'
     -- | The new node type for the nodes you are adding. If not specified, the
     -- cluster\'s current node type is used.
     nodeType :: Prelude.Maybe Prelude.Text,
+    -- | The new number of nodes for the cluster. If not specified, the
+    -- cluster\'s current number of nodes is used.
+    numberOfNodes :: Prelude.Maybe Prelude.Int,
+    -- | The identifier of the reserved node.
+    reservedNodeId :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the target reserved node offering.
+    targetReservedNodeOfferingId :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier for the cluster to resize.
     clusterIdentifier :: Prelude.Text
   }
@@ -109,9 +116,6 @@ data ResizeCluster = ResizeCluster'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'numberOfNodes', 'resizeCluster_numberOfNodes' - The new number of nodes for the cluster. If not specified, the
--- cluster\'s current number of nodes is used.
---
 -- 'classic', 'resizeCluster_classic' - A boolean value indicating whether the resize operation is using the
 -- classic resize process. If you don\'t provide this parameter or set the
 -- value to @false@, the resize type is elastic.
@@ -121,6 +125,13 @@ data ResizeCluster = ResizeCluster'
 -- 'nodeType', 'resizeCluster_nodeType' - The new node type for the nodes you are adding. If not specified, the
 -- cluster\'s current node type is used.
 --
+-- 'numberOfNodes', 'resizeCluster_numberOfNodes' - The new number of nodes for the cluster. If not specified, the
+-- cluster\'s current number of nodes is used.
+--
+-- 'reservedNodeId', 'resizeCluster_reservedNodeId' - The identifier of the reserved node.
+--
+-- 'targetReservedNodeOfferingId', 'resizeCluster_targetReservedNodeOfferingId' - The identifier of the target reserved node offering.
+--
 -- 'clusterIdentifier', 'resizeCluster_clusterIdentifier' - The unique identifier for the cluster to resize.
 newResizeCluster ::
   -- | 'clusterIdentifier'
@@ -128,17 +139,14 @@ newResizeCluster ::
   ResizeCluster
 newResizeCluster pClusterIdentifier_ =
   ResizeCluster'
-    { numberOfNodes = Prelude.Nothing,
-      classic = Prelude.Nothing,
+    { classic = Prelude.Nothing,
       clusterType = Prelude.Nothing,
       nodeType = Prelude.Nothing,
+      numberOfNodes = Prelude.Nothing,
+      reservedNodeId = Prelude.Nothing,
+      targetReservedNodeOfferingId = Prelude.Nothing,
       clusterIdentifier = pClusterIdentifier_
     }
-
--- | The new number of nodes for the cluster. If not specified, the
--- cluster\'s current number of nodes is used.
-resizeCluster_numberOfNodes :: Lens.Lens' ResizeCluster (Prelude.Maybe Prelude.Int)
-resizeCluster_numberOfNodes = Lens.lens (\ResizeCluster' {numberOfNodes} -> numberOfNodes) (\s@ResizeCluster' {} a -> s {numberOfNodes = a} :: ResizeCluster)
 
 -- | A boolean value indicating whether the resize operation is using the
 -- classic resize process. If you don\'t provide this parameter or set the
@@ -155,6 +163,19 @@ resizeCluster_clusterType = Lens.lens (\ResizeCluster' {clusterType} -> clusterT
 resizeCluster_nodeType :: Lens.Lens' ResizeCluster (Prelude.Maybe Prelude.Text)
 resizeCluster_nodeType = Lens.lens (\ResizeCluster' {nodeType} -> nodeType) (\s@ResizeCluster' {} a -> s {nodeType = a} :: ResizeCluster)
 
+-- | The new number of nodes for the cluster. If not specified, the
+-- cluster\'s current number of nodes is used.
+resizeCluster_numberOfNodes :: Lens.Lens' ResizeCluster (Prelude.Maybe Prelude.Int)
+resizeCluster_numberOfNodes = Lens.lens (\ResizeCluster' {numberOfNodes} -> numberOfNodes) (\s@ResizeCluster' {} a -> s {numberOfNodes = a} :: ResizeCluster)
+
+-- | The identifier of the reserved node.
+resizeCluster_reservedNodeId :: Lens.Lens' ResizeCluster (Prelude.Maybe Prelude.Text)
+resizeCluster_reservedNodeId = Lens.lens (\ResizeCluster' {reservedNodeId} -> reservedNodeId) (\s@ResizeCluster' {} a -> s {reservedNodeId = a} :: ResizeCluster)
+
+-- | The identifier of the target reserved node offering.
+resizeCluster_targetReservedNodeOfferingId :: Lens.Lens' ResizeCluster (Prelude.Maybe Prelude.Text)
+resizeCluster_targetReservedNodeOfferingId = Lens.lens (\ResizeCluster' {targetReservedNodeOfferingId} -> targetReservedNodeOfferingId) (\s@ResizeCluster' {} a -> s {targetReservedNodeOfferingId = a} :: ResizeCluster)
+
 -- | The unique identifier for the cluster to resize.
 resizeCluster_clusterIdentifier :: Lens.Lens' ResizeCluster Prelude.Text
 resizeCluster_clusterIdentifier = Lens.lens (\ResizeCluster' {clusterIdentifier} -> clusterIdentifier) (\s@ResizeCluster' {} a -> s {clusterIdentifier = a} :: ResizeCluster)
@@ -163,50 +184,58 @@ instance Core.AWSRequest ResizeCluster where
   type
     AWSResponse ResizeCluster =
       ResizeClusterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ResizeClusterResult"
       ( \s h x ->
           ResizeClusterResponse'
-            Prelude.<$> (x Core..@? "Cluster")
+            Prelude.<$> (x Data..@? "Cluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ResizeCluster where
   hashWithSalt _salt ResizeCluster' {..} =
-    _salt `Prelude.hashWithSalt` numberOfNodes
-      `Prelude.hashWithSalt` classic
+    _salt `Prelude.hashWithSalt` classic
       `Prelude.hashWithSalt` clusterType
       `Prelude.hashWithSalt` nodeType
+      `Prelude.hashWithSalt` numberOfNodes
+      `Prelude.hashWithSalt` reservedNodeId
+      `Prelude.hashWithSalt` targetReservedNodeOfferingId
       `Prelude.hashWithSalt` clusterIdentifier
 
 instance Prelude.NFData ResizeCluster where
   rnf ResizeCluster' {..} =
-    Prelude.rnf numberOfNodes
-      `Prelude.seq` Prelude.rnf classic
+    Prelude.rnf classic
       `Prelude.seq` Prelude.rnf clusterType
       `Prelude.seq` Prelude.rnf nodeType
+      `Prelude.seq` Prelude.rnf numberOfNodes
+      `Prelude.seq` Prelude.rnf reservedNodeId
+      `Prelude.seq` Prelude.rnf targetReservedNodeOfferingId
       `Prelude.seq` Prelude.rnf clusterIdentifier
 
-instance Core.ToHeaders ResizeCluster where
+instance Data.ToHeaders ResizeCluster where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ResizeCluster where
+instance Data.ToPath ResizeCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ResizeCluster where
+instance Data.ToQuery ResizeCluster where
   toQuery ResizeCluster' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ResizeCluster" :: Prelude.ByteString),
+          Data.=: ("ResizeCluster" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "NumberOfNodes" Core.=: numberOfNodes,
-        "Classic" Core.=: classic,
-        "ClusterType" Core.=: clusterType,
-        "NodeType" Core.=: nodeType,
-        "ClusterIdentifier" Core.=: clusterIdentifier
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "Classic" Data.=: classic,
+        "ClusterType" Data.=: clusterType,
+        "NodeType" Data.=: nodeType,
+        "NumberOfNodes" Data.=: numberOfNodes,
+        "ReservedNodeId" Data.=: reservedNodeId,
+        "TargetReservedNodeOfferingId"
+          Data.=: targetReservedNodeOfferingId,
+        "ClusterIdentifier" Data.=: clusterIdentifier
       ]
 
 -- | /See:/ 'newResizeClusterResponse' smart constructor.

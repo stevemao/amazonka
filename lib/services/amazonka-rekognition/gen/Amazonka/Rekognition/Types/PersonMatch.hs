@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.PersonMatch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.PersonMatch where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.FaceMatch
 import Amazonka.Rekognition.Types.PersonDetail
@@ -82,15 +83,15 @@ personMatch_person = Lens.lens (\PersonMatch' {person} -> person) (\s@PersonMatc
 personMatch_timestamp :: Lens.Lens' PersonMatch (Prelude.Maybe Prelude.Integer)
 personMatch_timestamp = Lens.lens (\PersonMatch' {timestamp} -> timestamp) (\s@PersonMatch' {} a -> s {timestamp = a} :: PersonMatch)
 
-instance Core.FromJSON PersonMatch where
+instance Data.FromJSON PersonMatch where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PersonMatch"
       ( \x ->
           PersonMatch'
-            Prelude.<$> (x Core..:? "FaceMatches" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Person")
-            Prelude.<*> (x Core..:? "Timestamp")
+            Prelude.<$> (x Data..:? "FaceMatches" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Person")
+            Prelude.<*> (x Data..:? "Timestamp")
       )
 
 instance Prelude.Hashable PersonMatch where

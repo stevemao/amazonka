@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DeleteAccountCustomization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.QuickSight.DeleteAccountCustomization
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -101,12 +102,13 @@ instance Core.AWSRequest DeleteAccountCustomization where
   type
     AWSResponse DeleteAccountCustomization =
       DeleteAccountCustomizationResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteAccountCustomizationResponse'
-            Prelude.<$> (x Core..?> "RequestId")
+            Prelude.<$> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -120,28 +122,28 @@ instance Prelude.NFData DeleteAccountCustomization where
     Prelude.rnf namespace
       `Prelude.seq` Prelude.rnf awsAccountId
 
-instance Core.ToHeaders DeleteAccountCustomization where
+instance Data.ToHeaders DeleteAccountCustomization where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteAccountCustomization where
+instance Data.ToPath DeleteAccountCustomization where
   toPath DeleteAccountCustomization' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/customizations"
       ]
 
-instance Core.ToQuery DeleteAccountCustomization where
+instance Data.ToQuery DeleteAccountCustomization where
   toQuery DeleteAccountCustomization' {..} =
-    Prelude.mconcat ["namespace" Core.=: namespace]
+    Prelude.mconcat ["namespace" Data.=: namespace]
 
 -- | /See:/ 'newDeleteAccountCustomizationResponse' smart constructor.
 data DeleteAccountCustomizationResponse = DeleteAccountCustomizationResponse'

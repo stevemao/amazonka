@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudHSMV2.DeleteCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CloudHSMV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,12 +84,13 @@ instance Core.AWSRequest DeleteCluster where
   type
     AWSResponse DeleteCluster =
       DeleteClusterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteClusterResponse'
-            Prelude.<$> (x Core..?> "Cluster")
+            Prelude.<$> (x Data..?> "Cluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -99,32 +101,32 @@ instance Prelude.Hashable DeleteCluster where
 instance Prelude.NFData DeleteCluster where
   rnf DeleteCluster' {..} = Prelude.rnf clusterId
 
-instance Core.ToHeaders DeleteCluster where
+instance Data.ToHeaders DeleteCluster where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "BaldrApiService.DeleteCluster" ::
+              Data.=# ( "BaldrApiService.DeleteCluster" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteCluster where
+instance Data.ToJSON DeleteCluster where
   toJSON DeleteCluster' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ClusterId" Core..= clusterId)]
+          [Prelude.Just ("ClusterId" Data..= clusterId)]
       )
 
-instance Core.ToPath DeleteCluster where
+instance Data.ToPath DeleteCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCluster where
+instance Data.ToQuery DeleteCluster where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteClusterResponse' smart constructor.

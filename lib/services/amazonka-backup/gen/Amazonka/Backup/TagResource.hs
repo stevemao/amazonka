@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.TagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -50,8 +51,10 @@ data TagResource = TagResource'
     -- depends on the type of the tagged resource.
     resourceArn :: Prelude.Text,
     -- | Key-value pairs that are used to help organize your resources. You can
-    -- assign your own metadata to the resources you create.
-    tags :: Core.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text)
+    -- assign your own metadata to the resources you create. For clarity, this
+    -- is the structure to assign tags:
+    -- @[{\"Key\":\"string\",\"Value\":\"string\"}]@.
+    tags :: Data.Sensitive (Prelude.HashMap Prelude.Text Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -67,7 +70,9 @@ data TagResource = TagResource'
 -- depends on the type of the tagged resource.
 --
 -- 'tags', 'tagResource_tags' - Key-value pairs that are used to help organize your resources. You can
--- assign your own metadata to the resources you create.
+-- assign your own metadata to the resources you create. For clarity, this
+-- is the structure to assign tags:
+-- @[{\"Key\":\"string\",\"Value\":\"string\"}]@.
 newTagResource ::
   -- | 'resourceArn'
   Prelude.Text ->
@@ -84,13 +89,16 @@ tagResource_resourceArn :: Lens.Lens' TagResource Prelude.Text
 tagResource_resourceArn = Lens.lens (\TagResource' {resourceArn} -> resourceArn) (\s@TagResource' {} a -> s {resourceArn = a} :: TagResource)
 
 -- | Key-value pairs that are used to help organize your resources. You can
--- assign your own metadata to the resources you create.
+-- assign your own metadata to the resources you create. For clarity, this
+-- is the structure to assign tags:
+-- @[{\"Key\":\"string\",\"Value\":\"string\"}]@.
 tagResource_tags :: Lens.Lens' TagResource (Prelude.HashMap Prelude.Text Prelude.Text)
-tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} a -> s {tags = a} :: TagResource) Prelude.. Core._Sensitive Prelude.. Lens.coerced
+tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} a -> s {tags = a} :: TagResource) Prelude.. Data._Sensitive Prelude.. Lens.coerced
 
 instance Core.AWSRequest TagResource where
   type AWSResponse TagResource = TagResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull TagResourceResponse'
 
 instance Prelude.Hashable TagResource where
@@ -103,29 +111,29 @@ instance Prelude.NFData TagResource where
     Prelude.rnf resourceArn
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagResource where
+instance Data.ToHeaders TagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TagResource where
+instance Data.ToJSON TagResource where
   toJSON TagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Tags" Core..= tags)]
+          [Prelude.Just ("Tags" Data..= tags)]
       )
 
-instance Core.ToPath TagResource where
+instance Data.ToPath TagResource where
   toPath TagResource' {..} =
-    Prelude.mconcat ["/tags/", Core.toBS resourceArn]
+    Prelude.mconcat ["/tags/", Data.toBS resourceArn]
 
-instance Core.ToQuery TagResource where
+instance Data.ToQuery TagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTagResourceResponse' smart constructor.

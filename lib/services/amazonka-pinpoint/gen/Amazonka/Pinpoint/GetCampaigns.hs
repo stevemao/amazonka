@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.GetCampaigns
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Pinpoint.GetCampaigns
     newGetCampaigns,
 
     -- * Request Lenses
-    getCampaigns_token,
     getCampaigns_pageSize,
+    getCampaigns_token,
     getCampaigns_applicationId,
 
     -- * Destructuring the Response
@@ -43,7 +43,8 @@ module Amazonka.Pinpoint.GetCampaigns
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -51,13 +52,13 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetCampaigns' smart constructor.
 data GetCampaigns = GetCampaigns'
-  { -- | The NextToken string that specifies which page of results to return in a
-    -- paginated response.
-    token :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to include in each page of a paginated
+  { -- | The maximum number of items to include in each page of a paginated
     -- response. This parameter is not supported for application, campaign, and
     -- journey metrics.
     pageSize :: Prelude.Maybe Prelude.Text,
+    -- | The NextToken string that specifies which page of results to return in a
+    -- paginated response.
+    token :: Prelude.Maybe Prelude.Text,
     -- | The unique identifier for the application. This identifier is displayed
     -- as the __Project ID__ on the Amazon Pinpoint console.
     applicationId :: Prelude.Text
@@ -72,12 +73,12 @@ data GetCampaigns = GetCampaigns'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'token', 'getCampaigns_token' - The NextToken string that specifies which page of results to return in a
--- paginated response.
---
 -- 'pageSize', 'getCampaigns_pageSize' - The maximum number of items to include in each page of a paginated
 -- response. This parameter is not supported for application, campaign, and
 -- journey metrics.
+--
+-- 'token', 'getCampaigns_token' - The NextToken string that specifies which page of results to return in a
+-- paginated response.
 --
 -- 'applicationId', 'getCampaigns_applicationId' - The unique identifier for the application. This identifier is displayed
 -- as the __Project ID__ on the Amazon Pinpoint console.
@@ -87,21 +88,21 @@ newGetCampaigns ::
   GetCampaigns
 newGetCampaigns pApplicationId_ =
   GetCampaigns'
-    { token = Prelude.Nothing,
-      pageSize = Prelude.Nothing,
+    { pageSize = Prelude.Nothing,
+      token = Prelude.Nothing,
       applicationId = pApplicationId_
     }
-
--- | The NextToken string that specifies which page of results to return in a
--- paginated response.
-getCampaigns_token :: Lens.Lens' GetCampaigns (Prelude.Maybe Prelude.Text)
-getCampaigns_token = Lens.lens (\GetCampaigns' {token} -> token) (\s@GetCampaigns' {} a -> s {token = a} :: GetCampaigns)
 
 -- | The maximum number of items to include in each page of a paginated
 -- response. This parameter is not supported for application, campaign, and
 -- journey metrics.
 getCampaigns_pageSize :: Lens.Lens' GetCampaigns (Prelude.Maybe Prelude.Text)
 getCampaigns_pageSize = Lens.lens (\GetCampaigns' {pageSize} -> pageSize) (\s@GetCampaigns' {} a -> s {pageSize = a} :: GetCampaigns)
+
+-- | The NextToken string that specifies which page of results to return in a
+-- paginated response.
+getCampaigns_token :: Lens.Lens' GetCampaigns (Prelude.Maybe Prelude.Text)
+getCampaigns_token = Lens.lens (\GetCampaigns' {token} -> token) (\s@GetCampaigns' {} a -> s {token = a} :: GetCampaigns)
 
 -- | The unique identifier for the application. This identifier is displayed
 -- as the __Project ID__ on the Amazon Pinpoint console.
@@ -110,47 +111,48 @@ getCampaigns_applicationId = Lens.lens (\GetCampaigns' {applicationId} -> applic
 
 instance Core.AWSRequest GetCampaigns where
   type AWSResponse GetCampaigns = GetCampaignsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetCampaignsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable GetCampaigns where
   hashWithSalt _salt GetCampaigns' {..} =
-    _salt `Prelude.hashWithSalt` token
-      `Prelude.hashWithSalt` pageSize
+    _salt `Prelude.hashWithSalt` pageSize
+      `Prelude.hashWithSalt` token
       `Prelude.hashWithSalt` applicationId
 
 instance Prelude.NFData GetCampaigns where
   rnf GetCampaigns' {..} =
-    Prelude.rnf token
-      `Prelude.seq` Prelude.rnf pageSize
+    Prelude.rnf pageSize
+      `Prelude.seq` Prelude.rnf token
       `Prelude.seq` Prelude.rnf applicationId
 
-instance Core.ToHeaders GetCampaigns where
+instance Data.ToHeaders GetCampaigns where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetCampaigns where
+instance Data.ToPath GetCampaigns where
   toPath GetCampaigns' {..} =
     Prelude.mconcat
-      ["/v1/apps/", Core.toBS applicationId, "/campaigns"]
+      ["/v1/apps/", Data.toBS applicationId, "/campaigns"]
 
-instance Core.ToQuery GetCampaigns where
+instance Data.ToQuery GetCampaigns where
   toQuery GetCampaigns' {..} =
     Prelude.mconcat
-      ["token" Core.=: token, "page-size" Core.=: pageSize]
+      ["page-size" Data.=: pageSize, "token" Data.=: token]
 
 -- | /See:/ 'newGetCampaignsResponse' smart constructor.
 data GetCampaignsResponse = GetCampaignsResponse'

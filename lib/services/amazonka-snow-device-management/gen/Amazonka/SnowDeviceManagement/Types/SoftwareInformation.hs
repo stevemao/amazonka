@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SnowDeviceManagement.Types.SoftwareInformation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.SnowDeviceManagement.Types.SoftwareInformation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the software on the device.
 --
 -- /See:/ 'newSoftwareInformation' smart constructor.
 data SoftwareInformation = SoftwareInformation'
-  { -- | The version of the software currently installed on the device.
-    installedVersion :: Prelude.Maybe Prelude.Text,
-    -- | The state of the software that is installed or that is being installed
+  { -- | The state of the software that is installed or that is being installed
     -- on the device.
     installState :: Prelude.Maybe Prelude.Text,
+    -- | The version of the software currently installed on the device.
+    installedVersion :: Prelude.Maybe Prelude.Text,
     -- | The version of the software being installed on the device.
     installingVersion :: Prelude.Maybe Prelude.Text
   }
@@ -45,54 +46,54 @@ data SoftwareInformation = SoftwareInformation'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'installedVersion', 'softwareInformation_installedVersion' - The version of the software currently installed on the device.
---
 -- 'installState', 'softwareInformation_installState' - The state of the software that is installed or that is being installed
 -- on the device.
+--
+-- 'installedVersion', 'softwareInformation_installedVersion' - The version of the software currently installed on the device.
 --
 -- 'installingVersion', 'softwareInformation_installingVersion' - The version of the software being installed on the device.
 newSoftwareInformation ::
   SoftwareInformation
 newSoftwareInformation =
   SoftwareInformation'
-    { installedVersion =
+    { installState =
         Prelude.Nothing,
-      installState = Prelude.Nothing,
+      installedVersion = Prelude.Nothing,
       installingVersion = Prelude.Nothing
     }
-
--- | The version of the software currently installed on the device.
-softwareInformation_installedVersion :: Lens.Lens' SoftwareInformation (Prelude.Maybe Prelude.Text)
-softwareInformation_installedVersion = Lens.lens (\SoftwareInformation' {installedVersion} -> installedVersion) (\s@SoftwareInformation' {} a -> s {installedVersion = a} :: SoftwareInformation)
 
 -- | The state of the software that is installed or that is being installed
 -- on the device.
 softwareInformation_installState :: Lens.Lens' SoftwareInformation (Prelude.Maybe Prelude.Text)
 softwareInformation_installState = Lens.lens (\SoftwareInformation' {installState} -> installState) (\s@SoftwareInformation' {} a -> s {installState = a} :: SoftwareInformation)
 
+-- | The version of the software currently installed on the device.
+softwareInformation_installedVersion :: Lens.Lens' SoftwareInformation (Prelude.Maybe Prelude.Text)
+softwareInformation_installedVersion = Lens.lens (\SoftwareInformation' {installedVersion} -> installedVersion) (\s@SoftwareInformation' {} a -> s {installedVersion = a} :: SoftwareInformation)
+
 -- | The version of the software being installed on the device.
 softwareInformation_installingVersion :: Lens.Lens' SoftwareInformation (Prelude.Maybe Prelude.Text)
 softwareInformation_installingVersion = Lens.lens (\SoftwareInformation' {installingVersion} -> installingVersion) (\s@SoftwareInformation' {} a -> s {installingVersion = a} :: SoftwareInformation)
 
-instance Core.FromJSON SoftwareInformation where
+instance Data.FromJSON SoftwareInformation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SoftwareInformation"
       ( \x ->
           SoftwareInformation'
-            Prelude.<$> (x Core..:? "installedVersion")
-            Prelude.<*> (x Core..:? "installState")
-            Prelude.<*> (x Core..:? "installingVersion")
+            Prelude.<$> (x Data..:? "installState")
+            Prelude.<*> (x Data..:? "installedVersion")
+            Prelude.<*> (x Data..:? "installingVersion")
       )
 
 instance Prelude.Hashable SoftwareInformation where
   hashWithSalt _salt SoftwareInformation' {..} =
-    _salt `Prelude.hashWithSalt` installedVersion
-      `Prelude.hashWithSalt` installState
+    _salt `Prelude.hashWithSalt` installState
+      `Prelude.hashWithSalt` installedVersion
       `Prelude.hashWithSalt` installingVersion
 
 instance Prelude.NFData SoftwareInformation where
   rnf SoftwareInformation' {..} =
-    Prelude.rnf installedVersion
-      `Prelude.seq` Prelude.rnf installState
+    Prelude.rnf installState
+      `Prelude.seq` Prelude.rnf installedVersion
       `Prelude.seq` Prelude.rnf installingVersion

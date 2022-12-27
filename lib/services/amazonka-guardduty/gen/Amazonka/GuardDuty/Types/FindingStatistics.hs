@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GuardDuty.Types.FindingStatistics
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GuardDuty.Types.FindingStatistics where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about finding statistics.
@@ -53,14 +54,14 @@ newFindingStatistics =
 findingStatistics_countBySeverity :: Lens.Lens' FindingStatistics (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Int))
 findingStatistics_countBySeverity = Lens.lens (\FindingStatistics' {countBySeverity} -> countBySeverity) (\s@FindingStatistics' {} a -> s {countBySeverity = a} :: FindingStatistics) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON FindingStatistics where
+instance Data.FromJSON FindingStatistics where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FindingStatistics"
       ( \x ->
           FindingStatistics'
-            Prelude.<$> ( x Core..:? "countBySeverity"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "countBySeverity"
+                            Data..!= Prelude.mempty
                         )
       )
 

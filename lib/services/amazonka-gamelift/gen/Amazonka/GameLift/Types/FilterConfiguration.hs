@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.FilterConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GameLift.Types.FilterConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A list of fleet locations where a game session queue can place new game
@@ -29,12 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 -- use a filter configuration allow placement with some, but not all of
 -- these locations.
 --
--- Filter configurations are part of a GameSessionQueue.
---
 -- /See:/ 'newFilterConfiguration' smart constructor.
 data FilterConfiguration = FilterConfiguration'
   { -- | A list of locations to allow game session placement in, in the form of
-    -- AWS Region codes such as @us-west-2@.
+    -- Amazon Web Services Region codes such as @us-west-2@.
     allowedLocations :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -48,7 +47,7 @@ data FilterConfiguration = FilterConfiguration'
 -- for backwards compatibility:
 --
 -- 'allowedLocations', 'filterConfiguration_allowedLocations' - A list of locations to allow game session placement in, in the form of
--- AWS Region codes such as @us-west-2@.
+-- Amazon Web Services Region codes such as @us-west-2@.
 newFilterConfiguration ::
   FilterConfiguration
 newFilterConfiguration =
@@ -58,17 +57,17 @@ newFilterConfiguration =
     }
 
 -- | A list of locations to allow game session placement in, in the form of
--- AWS Region codes such as @us-west-2@.
+-- Amazon Web Services Region codes such as @us-west-2@.
 filterConfiguration_allowedLocations :: Lens.Lens' FilterConfiguration (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 filterConfiguration_allowedLocations = Lens.lens (\FilterConfiguration' {allowedLocations} -> allowedLocations) (\s@FilterConfiguration' {} a -> s {allowedLocations = a} :: FilterConfiguration) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON FilterConfiguration where
+instance Data.FromJSON FilterConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FilterConfiguration"
       ( \x ->
           FilterConfiguration'
-            Prelude.<$> (x Core..:? "AllowedLocations")
+            Prelude.<$> (x Data..:? "AllowedLocations")
       )
 
 instance Prelude.Hashable FilterConfiguration where
@@ -79,11 +78,11 @@ instance Prelude.NFData FilterConfiguration where
   rnf FilterConfiguration' {..} =
     Prelude.rnf allowedLocations
 
-instance Core.ToJSON FilterConfiguration where
+instance Data.ToJSON FilterConfiguration where
   toJSON FilterConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AllowedLocations" Core..=)
+          [ ("AllowedLocations" Data..=)
               Prelude.<$> allowedLocations
           ]
       )

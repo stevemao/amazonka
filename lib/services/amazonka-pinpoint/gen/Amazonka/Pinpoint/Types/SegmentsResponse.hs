@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.SegmentsResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.SegmentsResponse where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.SegmentResponse
 import qualified Amazonka.Prelude as Prelude
 
@@ -75,14 +76,14 @@ segmentsResponse_nextToken = Lens.lens (\SegmentsResponse' {nextToken} -> nextTo
 segmentsResponse_item :: Lens.Lens' SegmentsResponse [SegmentResponse]
 segmentsResponse_item = Lens.lens (\SegmentsResponse' {item} -> item) (\s@SegmentsResponse' {} a -> s {item = a} :: SegmentsResponse) Prelude.. Lens.coerced
 
-instance Core.FromJSON SegmentsResponse where
+instance Data.FromJSON SegmentsResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SegmentsResponse"
       ( \x ->
           SegmentsResponse'
-            Prelude.<$> (x Core..:? "NextToken")
-            Prelude.<*> (x Core..:? "Item" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "NextToken")
+            Prelude.<*> (x Data..:? "Item" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable SegmentsResponse where

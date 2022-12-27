@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.DeleteStudioMember
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.Nimble.DeleteStudioMember
 
     -- * Request Lenses
     deleteStudioMember_clientToken,
-    deleteStudioMember_studioId,
     deleteStudioMember_principalId,
+    deleteStudioMember_studioId,
 
     -- * Destructuring the Response
     DeleteStudioMemberResponse (..),
@@ -41,7 +41,8 @@ module Amazonka.Nimble.DeleteStudioMember
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -49,19 +50,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDeleteStudioMember' smart constructor.
 data DeleteStudioMember = DeleteStudioMember'
-  { -- | To make an idempotent API request using one of these actions, specify a
-    -- client token in the request. You should not reuse the same client token
-    -- for other API requests. If you retry a request that completed
-    -- successfully using the same client token and the same parameters, the
-    -- retry succeeds without performing any further actions. If you retry a
-    -- successful request using the same client token, but one or more of the
-    -- parameters are different, the retry fails with a ValidationException
-    -- error.
+  { -- | Unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. If you don’t specify a client token, the AWS
+    -- SDK automatically generates a client token and uses it for the request
+    -- to ensure idempotency.
     clientToken :: Prelude.Maybe Prelude.Text,
+    -- | The principal ID. This currently supports a IAM Identity Center UserId.
+    principalId :: Prelude.Text,
     -- | The studio ID.
-    studioId :: Prelude.Text,
-    -- | The principal ID.
-    principalId :: Prelude.Text
+    studioId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,55 +70,48 @@ data DeleteStudioMember = DeleteStudioMember'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'deleteStudioMember_clientToken' - To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- 'clientToken', 'deleteStudioMember_clientToken' - Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
+--
+-- 'principalId', 'deleteStudioMember_principalId' - The principal ID. This currently supports a IAM Identity Center UserId.
 --
 -- 'studioId', 'deleteStudioMember_studioId' - The studio ID.
---
--- 'principalId', 'deleteStudioMember_principalId' - The principal ID.
 newDeleteStudioMember ::
-  -- | 'studioId'
-  Prelude.Text ->
   -- | 'principalId'
   Prelude.Text ->
+  -- | 'studioId'
+  Prelude.Text ->
   DeleteStudioMember
-newDeleteStudioMember pStudioId_ pPrincipalId_ =
+newDeleteStudioMember pPrincipalId_ pStudioId_ =
   DeleteStudioMember'
     { clientToken = Prelude.Nothing,
-      studioId = pStudioId_,
-      principalId = pPrincipalId_
+      principalId = pPrincipalId_,
+      studioId = pStudioId_
     }
 
--- | To make an idempotent API request using one of these actions, specify a
--- client token in the request. You should not reuse the same client token
--- for other API requests. If you retry a request that completed
--- successfully using the same client token and the same parameters, the
--- retry succeeds without performing any further actions. If you retry a
--- successful request using the same client token, but one or more of the
--- parameters are different, the retry fails with a ValidationException
--- error.
+-- | Unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If you don’t specify a client token, the AWS
+-- SDK automatically generates a client token and uses it for the request
+-- to ensure idempotency.
 deleteStudioMember_clientToken :: Lens.Lens' DeleteStudioMember (Prelude.Maybe Prelude.Text)
 deleteStudioMember_clientToken = Lens.lens (\DeleteStudioMember' {clientToken} -> clientToken) (\s@DeleteStudioMember' {} a -> s {clientToken = a} :: DeleteStudioMember)
+
+-- | The principal ID. This currently supports a IAM Identity Center UserId.
+deleteStudioMember_principalId :: Lens.Lens' DeleteStudioMember Prelude.Text
+deleteStudioMember_principalId = Lens.lens (\DeleteStudioMember' {principalId} -> principalId) (\s@DeleteStudioMember' {} a -> s {principalId = a} :: DeleteStudioMember)
 
 -- | The studio ID.
 deleteStudioMember_studioId :: Lens.Lens' DeleteStudioMember Prelude.Text
 deleteStudioMember_studioId = Lens.lens (\DeleteStudioMember' {studioId} -> studioId) (\s@DeleteStudioMember' {} a -> s {studioId = a} :: DeleteStudioMember)
 
--- | The principal ID.
-deleteStudioMember_principalId :: Lens.Lens' DeleteStudioMember Prelude.Text
-deleteStudioMember_principalId = Lens.lens (\DeleteStudioMember' {principalId} -> principalId) (\s@DeleteStudioMember' {} a -> s {principalId = a} :: DeleteStudioMember)
-
 instance Core.AWSRequest DeleteStudioMember where
   type
     AWSResponse DeleteStudioMember =
       DeleteStudioMemberResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -132,33 +122,33 @@ instance Core.AWSRequest DeleteStudioMember where
 instance Prelude.Hashable DeleteStudioMember where
   hashWithSalt _salt DeleteStudioMember' {..} =
     _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` studioId
       `Prelude.hashWithSalt` principalId
+      `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData DeleteStudioMember where
   rnf DeleteStudioMember' {..} =
     Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf studioId
       `Prelude.seq` Prelude.rnf principalId
+      `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders DeleteStudioMember where
+instance Data.ToHeaders DeleteStudioMember where
   toHeaders DeleteStudioMember' {..} =
     Prelude.mconcat
-      [ "X-Amz-Client-Token" Core.=# clientToken,
+      [ "X-Amz-Client-Token" Data.=# clientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath DeleteStudioMember where
+instance Data.ToPath DeleteStudioMember where
   toPath DeleteStudioMember' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/membership/",
-        Core.toBS principalId
+        Data.toBS principalId
       ]
 
-instance Core.ToQuery DeleteStudioMember where
+instance Data.ToQuery DeleteStudioMember where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteStudioMemberResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.Types.Engagement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSMContacts.Types.Engagement where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Incident Manager reaching out to a contact or escalation plan to engage
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEngagement' smart constructor.
 data Engagement = Engagement'
-  { -- | The time that the engagement began.
-    startTime :: Prelude.Maybe Core.POSIX,
-    -- | The time that the engagement ended.
-    stopTime :: Prelude.Maybe Core.POSIX,
-    -- | The ARN of the incident that\'s engaging the contact.
+  { -- | The ARN of the incident that\'s engaging the contact.
     incidentId :: Prelude.Maybe Prelude.Text,
+    -- | The time that the engagement began.
+    startTime :: Prelude.Maybe Data.POSIX,
+    -- | The time that the engagement ended.
+    stopTime :: Prelude.Maybe Data.POSIX,
     -- | The Amazon Resource Name (ARN) of the engagement.
     engagementArn :: Prelude.Text,
     -- | The ARN of the escalation plan or contact that Incident Manager is
@@ -52,11 +53,11 @@ data Engagement = Engagement'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'incidentId', 'engagement_incidentId' - The ARN of the incident that\'s engaging the contact.
+--
 -- 'startTime', 'engagement_startTime' - The time that the engagement began.
 --
 -- 'stopTime', 'engagement_stopTime' - The time that the engagement ended.
---
--- 'incidentId', 'engagement_incidentId' - The ARN of the incident that\'s engaging the contact.
 --
 -- 'engagementArn', 'engagement_engagementArn' - The Amazon Resource Name (ARN) of the engagement.
 --
@@ -74,25 +75,25 @@ newEngagement ::
   Engagement
 newEngagement pEngagementArn_ pContactArn_ pSender_ =
   Engagement'
-    { startTime = Prelude.Nothing,
+    { incidentId = Prelude.Nothing,
+      startTime = Prelude.Nothing,
       stopTime = Prelude.Nothing,
-      incidentId = Prelude.Nothing,
       engagementArn = pEngagementArn_,
       contactArn = pContactArn_,
       sender = pSender_
     }
 
--- | The time that the engagement began.
-engagement_startTime :: Lens.Lens' Engagement (Prelude.Maybe Prelude.UTCTime)
-engagement_startTime = Lens.lens (\Engagement' {startTime} -> startTime) (\s@Engagement' {} a -> s {startTime = a} :: Engagement) Prelude.. Lens.mapping Core._Time
-
--- | The time that the engagement ended.
-engagement_stopTime :: Lens.Lens' Engagement (Prelude.Maybe Prelude.UTCTime)
-engagement_stopTime = Lens.lens (\Engagement' {stopTime} -> stopTime) (\s@Engagement' {} a -> s {stopTime = a} :: Engagement) Prelude.. Lens.mapping Core._Time
-
 -- | The ARN of the incident that\'s engaging the contact.
 engagement_incidentId :: Lens.Lens' Engagement (Prelude.Maybe Prelude.Text)
 engagement_incidentId = Lens.lens (\Engagement' {incidentId} -> incidentId) (\s@Engagement' {} a -> s {incidentId = a} :: Engagement)
+
+-- | The time that the engagement began.
+engagement_startTime :: Lens.Lens' Engagement (Prelude.Maybe Prelude.UTCTime)
+engagement_startTime = Lens.lens (\Engagement' {startTime} -> startTime) (\s@Engagement' {} a -> s {startTime = a} :: Engagement) Prelude.. Lens.mapping Data._Time
+
+-- | The time that the engagement ended.
+engagement_stopTime :: Lens.Lens' Engagement (Prelude.Maybe Prelude.UTCTime)
+engagement_stopTime = Lens.lens (\Engagement' {stopTime} -> stopTime) (\s@Engagement' {} a -> s {stopTime = a} :: Engagement) Prelude.. Lens.mapping Data._Time
 
 -- | The Amazon Resource Name (ARN) of the engagement.
 engagement_engagementArn :: Lens.Lens' Engagement Prelude.Text
@@ -107,34 +108,34 @@ engagement_contactArn = Lens.lens (\Engagement' {contactArn} -> contactArn) (\s@
 engagement_sender :: Lens.Lens' Engagement Prelude.Text
 engagement_sender = Lens.lens (\Engagement' {sender} -> sender) (\s@Engagement' {} a -> s {sender = a} :: Engagement)
 
-instance Core.FromJSON Engagement where
+instance Data.FromJSON Engagement where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Engagement"
       ( \x ->
           Engagement'
-            Prelude.<$> (x Core..:? "StartTime")
-            Prelude.<*> (x Core..:? "StopTime")
-            Prelude.<*> (x Core..:? "IncidentId")
-            Prelude.<*> (x Core..: "EngagementArn")
-            Prelude.<*> (x Core..: "ContactArn")
-            Prelude.<*> (x Core..: "Sender")
+            Prelude.<$> (x Data..:? "IncidentId")
+            Prelude.<*> (x Data..:? "StartTime")
+            Prelude.<*> (x Data..:? "StopTime")
+            Prelude.<*> (x Data..: "EngagementArn")
+            Prelude.<*> (x Data..: "ContactArn")
+            Prelude.<*> (x Data..: "Sender")
       )
 
 instance Prelude.Hashable Engagement where
   hashWithSalt _salt Engagement' {..} =
-    _salt `Prelude.hashWithSalt` startTime
+    _salt `Prelude.hashWithSalt` incidentId
+      `Prelude.hashWithSalt` startTime
       `Prelude.hashWithSalt` stopTime
-      `Prelude.hashWithSalt` incidentId
       `Prelude.hashWithSalt` engagementArn
       `Prelude.hashWithSalt` contactArn
       `Prelude.hashWithSalt` sender
 
 instance Prelude.NFData Engagement where
   rnf Engagement' {..} =
-    Prelude.rnf startTime
+    Prelude.rnf incidentId
+      `Prelude.seq` Prelude.rnf startTime
       `Prelude.seq` Prelude.rnf stopTime
-      `Prelude.seq` Prelude.rnf incidentId
       `Prelude.seq` Prelude.rnf engagementArn
       `Prelude.seq` Prelude.rnf contactArn
       `Prelude.seq` Prelude.rnf sender

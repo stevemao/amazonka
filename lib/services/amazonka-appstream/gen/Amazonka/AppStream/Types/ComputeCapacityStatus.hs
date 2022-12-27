@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppStream.Types.ComputeCapacityStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,21 @@
 module Amazonka.AppStream.Types.ComputeCapacityStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the capacity status for a fleet.
 --
 -- /See:/ 'newComputeCapacityStatus' smart constructor.
 data ComputeCapacityStatus = ComputeCapacityStatus'
-  { -- | The number of instances in use for streaming.
+  { -- | The number of currently available instances that can be used to stream
+    -- sessions.
+    available :: Prelude.Maybe Prelude.Int,
+    -- | The number of instances in use for streaming.
     inUse :: Prelude.Maybe Prelude.Int,
     -- | The total number of simultaneous streaming instances that are running.
     running :: Prelude.Maybe Prelude.Int,
-    -- | The number of currently available instances that can be used to stream
-    -- sessions.
-    available :: Prelude.Maybe Prelude.Int,
     -- | The desired number of streaming instances.
     desired :: Prelude.Int
   }
@@ -47,12 +48,12 @@ data ComputeCapacityStatus = ComputeCapacityStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'available', 'computeCapacityStatus_available' - The number of currently available instances that can be used to stream
+-- sessions.
+--
 -- 'inUse', 'computeCapacityStatus_inUse' - The number of instances in use for streaming.
 --
 -- 'running', 'computeCapacityStatus_running' - The total number of simultaneous streaming instances that are running.
---
--- 'available', 'computeCapacityStatus_available' - The number of currently available instances that can be used to stream
--- sessions.
 --
 -- 'desired', 'computeCapacityStatus_desired' - The desired number of streaming instances.
 newComputeCapacityStatus ::
@@ -61,11 +62,16 @@ newComputeCapacityStatus ::
   ComputeCapacityStatus
 newComputeCapacityStatus pDesired_ =
   ComputeCapacityStatus'
-    { inUse = Prelude.Nothing,
+    { available = Prelude.Nothing,
+      inUse = Prelude.Nothing,
       running = Prelude.Nothing,
-      available = Prelude.Nothing,
       desired = pDesired_
     }
+
+-- | The number of currently available instances that can be used to stream
+-- sessions.
+computeCapacityStatus_available :: Lens.Lens' ComputeCapacityStatus (Prelude.Maybe Prelude.Int)
+computeCapacityStatus_available = Lens.lens (\ComputeCapacityStatus' {available} -> available) (\s@ComputeCapacityStatus' {} a -> s {available = a} :: ComputeCapacityStatus)
 
 -- | The number of instances in use for streaming.
 computeCapacityStatus_inUse :: Lens.Lens' ComputeCapacityStatus (Prelude.Maybe Prelude.Int)
@@ -75,37 +81,32 @@ computeCapacityStatus_inUse = Lens.lens (\ComputeCapacityStatus' {inUse} -> inUs
 computeCapacityStatus_running :: Lens.Lens' ComputeCapacityStatus (Prelude.Maybe Prelude.Int)
 computeCapacityStatus_running = Lens.lens (\ComputeCapacityStatus' {running} -> running) (\s@ComputeCapacityStatus' {} a -> s {running = a} :: ComputeCapacityStatus)
 
--- | The number of currently available instances that can be used to stream
--- sessions.
-computeCapacityStatus_available :: Lens.Lens' ComputeCapacityStatus (Prelude.Maybe Prelude.Int)
-computeCapacityStatus_available = Lens.lens (\ComputeCapacityStatus' {available} -> available) (\s@ComputeCapacityStatus' {} a -> s {available = a} :: ComputeCapacityStatus)
-
 -- | The desired number of streaming instances.
 computeCapacityStatus_desired :: Lens.Lens' ComputeCapacityStatus Prelude.Int
 computeCapacityStatus_desired = Lens.lens (\ComputeCapacityStatus' {desired} -> desired) (\s@ComputeCapacityStatus' {} a -> s {desired = a} :: ComputeCapacityStatus)
 
-instance Core.FromJSON ComputeCapacityStatus where
+instance Data.FromJSON ComputeCapacityStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ComputeCapacityStatus"
       ( \x ->
           ComputeCapacityStatus'
-            Prelude.<$> (x Core..:? "InUse")
-            Prelude.<*> (x Core..:? "Running")
-            Prelude.<*> (x Core..:? "Available")
-            Prelude.<*> (x Core..: "Desired")
+            Prelude.<$> (x Data..:? "Available")
+            Prelude.<*> (x Data..:? "InUse")
+            Prelude.<*> (x Data..:? "Running")
+            Prelude.<*> (x Data..: "Desired")
       )
 
 instance Prelude.Hashable ComputeCapacityStatus where
   hashWithSalt _salt ComputeCapacityStatus' {..} =
-    _salt `Prelude.hashWithSalt` inUse
+    _salt `Prelude.hashWithSalt` available
+      `Prelude.hashWithSalt` inUse
       `Prelude.hashWithSalt` running
-      `Prelude.hashWithSalt` available
       `Prelude.hashWithSalt` desired
 
 instance Prelude.NFData ComputeCapacityStatus where
   rnf ComputeCapacityStatus' {..} =
-    Prelude.rnf inUse
+    Prelude.rnf available
+      `Prelude.seq` Prelude.rnf inUse
       `Prelude.seq` Prelude.rnf running
-      `Prelude.seq` Prelude.rnf available
       `Prelude.seq` Prelude.rnf desired

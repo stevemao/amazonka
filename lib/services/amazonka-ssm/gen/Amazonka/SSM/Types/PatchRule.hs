@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.PatchRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.PatchRule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.PatchComplianceLevel
 import Amazonka.SSM.Types.PatchFilterGroup
@@ -40,14 +41,14 @@ data PatchRule = PatchRule'
     --
     -- Enter dates in the format @YYYY-MM-DD@. For example, @2021-12-31@.
     approveUntilDate :: Prelude.Maybe Prelude.Text,
-    -- | For instances identified by the approval rule filters, enables a patch
-    -- baseline to apply non-security updates available in the specified
-    -- repository. The default value is @false@. Applies to Linux instances
-    -- only.
-    enableNonSecurity :: Prelude.Maybe Prelude.Bool,
     -- | A compliance severity level for all approved patches in a patch
     -- baseline.
     complianceLevel :: Prelude.Maybe PatchComplianceLevel,
+    -- | For managed nodes identified by the approval rule filters, enables a
+    -- patch baseline to apply non-security updates available in the specified
+    -- repository. The default value is @false@. Applies to Linux managed nodes
+    -- only.
+    enableNonSecurity :: Prelude.Maybe Prelude.Bool,
     -- | The patch filter group that defines the criteria for the rule.
     patchFilterGroup :: PatchFilterGroup
   }
@@ -72,13 +73,13 @@ data PatchRule = PatchRule'
 --
 -- Enter dates in the format @YYYY-MM-DD@. For example, @2021-12-31@.
 --
--- 'enableNonSecurity', 'patchRule_enableNonSecurity' - For instances identified by the approval rule filters, enables a patch
--- baseline to apply non-security updates available in the specified
--- repository. The default value is @false@. Applies to Linux instances
--- only.
---
 -- 'complianceLevel', 'patchRule_complianceLevel' - A compliance severity level for all approved patches in a patch
 -- baseline.
+--
+-- 'enableNonSecurity', 'patchRule_enableNonSecurity' - For managed nodes identified by the approval rule filters, enables a
+-- patch baseline to apply non-security updates available in the specified
+-- repository. The default value is @false@. Applies to Linux managed nodes
+-- only.
 --
 -- 'patchFilterGroup', 'patchRule_patchFilterGroup' - The patch filter group that defines the criteria for the rule.
 newPatchRule ::
@@ -89,8 +90,8 @@ newPatchRule pPatchFilterGroup_ =
   PatchRule'
     { approveAfterDays = Prelude.Nothing,
       approveUntilDate = Prelude.Nothing,
-      enableNonSecurity = Prelude.Nothing,
       complianceLevel = Prelude.Nothing,
+      enableNonSecurity = Prelude.Nothing,
       patchFilterGroup = pPatchFilterGroup_
     }
 
@@ -109,64 +110,64 @@ patchRule_approveAfterDays = Lens.lens (\PatchRule' {approveAfterDays} -> approv
 patchRule_approveUntilDate :: Lens.Lens' PatchRule (Prelude.Maybe Prelude.Text)
 patchRule_approveUntilDate = Lens.lens (\PatchRule' {approveUntilDate} -> approveUntilDate) (\s@PatchRule' {} a -> s {approveUntilDate = a} :: PatchRule)
 
--- | For instances identified by the approval rule filters, enables a patch
--- baseline to apply non-security updates available in the specified
--- repository. The default value is @false@. Applies to Linux instances
--- only.
-patchRule_enableNonSecurity :: Lens.Lens' PatchRule (Prelude.Maybe Prelude.Bool)
-patchRule_enableNonSecurity = Lens.lens (\PatchRule' {enableNonSecurity} -> enableNonSecurity) (\s@PatchRule' {} a -> s {enableNonSecurity = a} :: PatchRule)
-
 -- | A compliance severity level for all approved patches in a patch
 -- baseline.
 patchRule_complianceLevel :: Lens.Lens' PatchRule (Prelude.Maybe PatchComplianceLevel)
 patchRule_complianceLevel = Lens.lens (\PatchRule' {complianceLevel} -> complianceLevel) (\s@PatchRule' {} a -> s {complianceLevel = a} :: PatchRule)
 
+-- | For managed nodes identified by the approval rule filters, enables a
+-- patch baseline to apply non-security updates available in the specified
+-- repository. The default value is @false@. Applies to Linux managed nodes
+-- only.
+patchRule_enableNonSecurity :: Lens.Lens' PatchRule (Prelude.Maybe Prelude.Bool)
+patchRule_enableNonSecurity = Lens.lens (\PatchRule' {enableNonSecurity} -> enableNonSecurity) (\s@PatchRule' {} a -> s {enableNonSecurity = a} :: PatchRule)
+
 -- | The patch filter group that defines the criteria for the rule.
 patchRule_patchFilterGroup :: Lens.Lens' PatchRule PatchFilterGroup
 patchRule_patchFilterGroup = Lens.lens (\PatchRule' {patchFilterGroup} -> patchFilterGroup) (\s@PatchRule' {} a -> s {patchFilterGroup = a} :: PatchRule)
 
-instance Core.FromJSON PatchRule where
+instance Data.FromJSON PatchRule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PatchRule"
       ( \x ->
           PatchRule'
-            Prelude.<$> (x Core..:? "ApproveAfterDays")
-            Prelude.<*> (x Core..:? "ApproveUntilDate")
-            Prelude.<*> (x Core..:? "EnableNonSecurity")
-            Prelude.<*> (x Core..:? "ComplianceLevel")
-            Prelude.<*> (x Core..: "PatchFilterGroup")
+            Prelude.<$> (x Data..:? "ApproveAfterDays")
+            Prelude.<*> (x Data..:? "ApproveUntilDate")
+            Prelude.<*> (x Data..:? "ComplianceLevel")
+            Prelude.<*> (x Data..:? "EnableNonSecurity")
+            Prelude.<*> (x Data..: "PatchFilterGroup")
       )
 
 instance Prelude.Hashable PatchRule where
   hashWithSalt _salt PatchRule' {..} =
     _salt `Prelude.hashWithSalt` approveAfterDays
       `Prelude.hashWithSalt` approveUntilDate
-      `Prelude.hashWithSalt` enableNonSecurity
       `Prelude.hashWithSalt` complianceLevel
+      `Prelude.hashWithSalt` enableNonSecurity
       `Prelude.hashWithSalt` patchFilterGroup
 
 instance Prelude.NFData PatchRule where
   rnf PatchRule' {..} =
     Prelude.rnf approveAfterDays
       `Prelude.seq` Prelude.rnf approveUntilDate
-      `Prelude.seq` Prelude.rnf enableNonSecurity
       `Prelude.seq` Prelude.rnf complianceLevel
+      `Prelude.seq` Prelude.rnf enableNonSecurity
       `Prelude.seq` Prelude.rnf patchFilterGroup
 
-instance Core.ToJSON PatchRule where
+instance Data.ToJSON PatchRule where
   toJSON PatchRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ApproveAfterDays" Core..=)
+          [ ("ApproveAfterDays" Data..=)
               Prelude.<$> approveAfterDays,
-            ("ApproveUntilDate" Core..=)
+            ("ApproveUntilDate" Data..=)
               Prelude.<$> approveUntilDate,
-            ("EnableNonSecurity" Core..=)
-              Prelude.<$> enableNonSecurity,
-            ("ComplianceLevel" Core..=)
+            ("ComplianceLevel" Data..=)
               Prelude.<$> complianceLevel,
+            ("EnableNonSecurity" Data..=)
+              Prelude.<$> enableNonSecurity,
             Prelude.Just
-              ("PatchFilterGroup" Core..= patchFilterGroup)
+              ("PatchFilterGroup" Data..= patchFilterGroup)
           ]
       )

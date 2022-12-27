@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.ListOrganizations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.WorkMail.ListOrganizations
     newListOrganizations,
 
     -- * Request Lenses
-    listOrganizations_nextToken,
     listOrganizations_maxResults,
+    listOrganizations_nextToken,
 
     -- * Destructuring the Response
     ListOrganizationsResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.WorkMail.ListOrganizations
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -52,11 +53,11 @@ import Amazonka.WorkMail.Types
 
 -- | /See:/ 'newListOrganizations' smart constructor.
 data ListOrganizations = ListOrganizations'
-  { -- | The token to use to retrieve the next page of results. The first call
+  { -- | The maximum number of results to return in a single call.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to use to retrieve the next page of results. The first call
     -- does not contain any tokens.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in a single call.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,26 +69,26 @@ data ListOrganizations = ListOrganizations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listOrganizations_maxResults' - The maximum number of results to return in a single call.
+--
 -- 'nextToken', 'listOrganizations_nextToken' - The token to use to retrieve the next page of results. The first call
 -- does not contain any tokens.
---
--- 'maxResults', 'listOrganizations_maxResults' - The maximum number of results to return in a single call.
 newListOrganizations ::
   ListOrganizations
 newListOrganizations =
   ListOrganizations'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results to return in a single call.
+listOrganizations_maxResults :: Lens.Lens' ListOrganizations (Prelude.Maybe Prelude.Natural)
+listOrganizations_maxResults = Lens.lens (\ListOrganizations' {maxResults} -> maxResults) (\s@ListOrganizations' {} a -> s {maxResults = a} :: ListOrganizations)
 
 -- | The token to use to retrieve the next page of results. The first call
 -- does not contain any tokens.
 listOrganizations_nextToken :: Lens.Lens' ListOrganizations (Prelude.Maybe Prelude.Text)
 listOrganizations_nextToken = Lens.lens (\ListOrganizations' {nextToken} -> nextToken) (\s@ListOrganizations' {} a -> s {nextToken = a} :: ListOrganizations)
-
--- | The maximum number of results to return in a single call.
-listOrganizations_maxResults :: Lens.Lens' ListOrganizations (Prelude.Maybe Prelude.Natural)
-listOrganizations_maxResults = Lens.lens (\ListOrganizations' {maxResults} -> maxResults) (\s@ListOrganizations' {} a -> s {maxResults = a} :: ListOrganizations)
 
 instance Core.AWSPager ListOrganizations where
   page rq rs
@@ -115,13 +116,14 @@ instance Core.AWSRequest ListOrganizations where
   type
     AWSResponse ListOrganizations =
       ListOrganizationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListOrganizationsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "OrganizationSummaries"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "OrganizationSummaries"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -129,42 +131,42 @@ instance Core.AWSRequest ListOrganizations where
 
 instance Prelude.Hashable ListOrganizations where
   hashWithSalt _salt ListOrganizations' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListOrganizations where
   rnf ListOrganizations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListOrganizations where
+instance Data.ToHeaders ListOrganizations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkMailService.ListOrganizations" ::
+              Data.=# ( "WorkMailService.ListOrganizations" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListOrganizations where
+instance Data.ToJSON ListOrganizations where
   toJSON ListOrganizations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListOrganizations where
+instance Data.ToPath ListOrganizations where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListOrganizations where
+instance Data.ToQuery ListOrganizations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListOrganizationsResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types.Timer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTEventsData.Types.Timer where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The current state of a timer.
@@ -29,8 +30,8 @@ import qualified Amazonka.Prelude as Prelude
 data Timer = Timer'
   { -- | The name of the timer.
     name :: Prelude.Text,
-    -- | The number of seconds which have elapsed on the timer.
-    timestamp :: Core.POSIX
+    -- | The expiration time for the timer.
+    timestamp :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,7 +45,7 @@ data Timer = Timer'
 --
 -- 'name', 'timer_name' - The name of the timer.
 --
--- 'timestamp', 'timer_timestamp' - The number of seconds which have elapsed on the timer.
+-- 'timestamp', 'timer_timestamp' - The expiration time for the timer.
 newTimer ::
   -- | 'name'
   Prelude.Text ->
@@ -54,25 +55,25 @@ newTimer ::
 newTimer pName_ pTimestamp_ =
   Timer'
     { name = pName_,
-      timestamp = Core._Time Lens.# pTimestamp_
+      timestamp = Data._Time Lens.# pTimestamp_
     }
 
 -- | The name of the timer.
 timer_name :: Lens.Lens' Timer Prelude.Text
 timer_name = Lens.lens (\Timer' {name} -> name) (\s@Timer' {} a -> s {name = a} :: Timer)
 
--- | The number of seconds which have elapsed on the timer.
+-- | The expiration time for the timer.
 timer_timestamp :: Lens.Lens' Timer Prelude.UTCTime
-timer_timestamp = Lens.lens (\Timer' {timestamp} -> timestamp) (\s@Timer' {} a -> s {timestamp = a} :: Timer) Prelude.. Core._Time
+timer_timestamp = Lens.lens (\Timer' {timestamp} -> timestamp) (\s@Timer' {} a -> s {timestamp = a} :: Timer) Prelude.. Data._Time
 
-instance Core.FromJSON Timer where
+instance Data.FromJSON Timer where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Timer"
       ( \x ->
           Timer'
-            Prelude.<$> (x Core..: "name")
-            Prelude.<*> (x Core..: "timestamp")
+            Prelude.<$> (x Data..: "name")
+            Prelude.<*> (x Data..: "timestamp")
       )
 
 instance Prelude.Hashable Timer where

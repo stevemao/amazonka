@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.ListRecipes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,9 @@ module Amazonka.Personalize.ListRecipes
     newListRecipes,
 
     -- * Request Lenses
-    listRecipes_nextToken,
+    listRecipes_domain,
     listRecipes_maxResults,
+    listRecipes_nextToken,
     listRecipes_recipeProvider,
 
     -- * Destructuring the Response
@@ -47,7 +48,8 @@ module Amazonka.Personalize.ListRecipes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Personalize.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -55,11 +57,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListRecipes' smart constructor.
 data ListRecipes = ListRecipes'
-  { -- | A token returned from the previous call to @ListRecipes@ for getting the
-    -- next set of recipes (if they exist).
-    nextToken :: Prelude.Maybe Prelude.Text,
+  { -- | Filters returned recipes by domain for a Domain dataset group. Only
+    -- recipes (Domain dataset group use cases) for this domain are included in
+    -- the response. If you don\'t specify a domain, all recipes are returned.
+    domain :: Prelude.Maybe Domain,
     -- | The maximum number of recipes to return.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token returned from the previous call to @ListRecipes@ for getting the
+    -- next set of recipes (if they exist).
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The default is @SERVICE@.
     recipeProvider :: Prelude.Maybe RecipeProvider
   }
@@ -73,29 +79,40 @@ data ListRecipes = ListRecipes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listRecipes_nextToken' - A token returned from the previous call to @ListRecipes@ for getting the
--- next set of recipes (if they exist).
+-- 'domain', 'listRecipes_domain' - Filters returned recipes by domain for a Domain dataset group. Only
+-- recipes (Domain dataset group use cases) for this domain are included in
+-- the response. If you don\'t specify a domain, all recipes are returned.
 --
 -- 'maxResults', 'listRecipes_maxResults' - The maximum number of recipes to return.
+--
+-- 'nextToken', 'listRecipes_nextToken' - A token returned from the previous call to @ListRecipes@ for getting the
+-- next set of recipes (if they exist).
 --
 -- 'recipeProvider', 'listRecipes_recipeProvider' - The default is @SERVICE@.
 newListRecipes ::
   ListRecipes
 newListRecipes =
   ListRecipes'
-    { nextToken = Prelude.Nothing,
+    { domain = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       recipeProvider = Prelude.Nothing
     }
+
+-- | Filters returned recipes by domain for a Domain dataset group. Only
+-- recipes (Domain dataset group use cases) for this domain are included in
+-- the response. If you don\'t specify a domain, all recipes are returned.
+listRecipes_domain :: Lens.Lens' ListRecipes (Prelude.Maybe Domain)
+listRecipes_domain = Lens.lens (\ListRecipes' {domain} -> domain) (\s@ListRecipes' {} a -> s {domain = a} :: ListRecipes)
+
+-- | The maximum number of recipes to return.
+listRecipes_maxResults :: Lens.Lens' ListRecipes (Prelude.Maybe Prelude.Natural)
+listRecipes_maxResults = Lens.lens (\ListRecipes' {maxResults} -> maxResults) (\s@ListRecipes' {} a -> s {maxResults = a} :: ListRecipes)
 
 -- | A token returned from the previous call to @ListRecipes@ for getting the
 -- next set of recipes (if they exist).
 listRecipes_nextToken :: Lens.Lens' ListRecipes (Prelude.Maybe Prelude.Text)
 listRecipes_nextToken = Lens.lens (\ListRecipes' {nextToken} -> nextToken) (\s@ListRecipes' {} a -> s {nextToken = a} :: ListRecipes)
-
--- | The maximum number of recipes to return.
-listRecipes_maxResults :: Lens.Lens' ListRecipes (Prelude.Maybe Prelude.Natural)
-listRecipes_maxResults = Lens.lens (\ListRecipes' {maxResults} -> maxResults) (\s@ListRecipes' {} a -> s {maxResults = a} :: ListRecipes)
 
 -- | The default is @SERVICE@.
 listRecipes_recipeProvider :: Lens.Lens' ListRecipes (Prelude.Maybe RecipeProvider)
@@ -122,58 +139,62 @@ instance Core.AWSPager ListRecipes where
 
 instance Core.AWSRequest ListRecipes where
   type AWSResponse ListRecipes = ListRecipesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRecipesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
-            Prelude.<*> (x Core..?> "recipes" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "nextToken")
+            Prelude.<*> (x Data..?> "recipes" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListRecipes where
   hashWithSalt _salt ListRecipes' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` domain
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` recipeProvider
 
 instance Prelude.NFData ListRecipes where
   rnf ListRecipes' {..} =
-    Prelude.rnf nextToken
+    Prelude.rnf domain
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf recipeProvider
 
-instance Core.ToHeaders ListRecipes where
+instance Data.ToHeaders ListRecipes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonPersonalize.ListRecipes" ::
+              Data.=# ( "AmazonPersonalize.ListRecipes" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListRecipes where
+instance Data.ToJSON ListRecipes where
   toJSON ListRecipes' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            ("recipeProvider" Core..=)
+          [ ("domain" Data..=) Prelude.<$> domain,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            ("recipeProvider" Data..=)
               Prelude.<$> recipeProvider
           ]
       )
 
-instance Core.ToPath ListRecipes where
+instance Data.ToPath ListRecipes where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListRecipes where
+instance Data.ToQuery ListRecipes where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListRecipesResponse' smart constructor.

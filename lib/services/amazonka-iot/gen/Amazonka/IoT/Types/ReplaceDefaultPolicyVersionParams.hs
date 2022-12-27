@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.ReplaceDefaultPolicyVersionParams
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.ReplaceDefaultPolicyVersionParams where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.PolicyTemplateName
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Parameters to define a mitigation action that adds a blank policy to
@@ -61,15 +62,15 @@ replaceDefaultPolicyVersionParams_templateName :: Lens.Lens' ReplaceDefaultPolic
 replaceDefaultPolicyVersionParams_templateName = Lens.lens (\ReplaceDefaultPolicyVersionParams' {templateName} -> templateName) (\s@ReplaceDefaultPolicyVersionParams' {} a -> s {templateName = a} :: ReplaceDefaultPolicyVersionParams)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ReplaceDefaultPolicyVersionParams
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReplaceDefaultPolicyVersionParams"
       ( \x ->
           ReplaceDefaultPolicyVersionParams'
-            Prelude.<$> (x Core..: "templateName")
+            Prelude.<$> (x Data..: "templateName")
       )
 
 instance
@@ -89,11 +90,11 @@ instance
     Prelude.rnf templateName
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ReplaceDefaultPolicyVersionParams
   where
   toJSON ReplaceDefaultPolicyVersionParams' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("templateName" Core..= templateName)]
+          [Prelude.Just ("templateName" Data..= templateName)]
       )

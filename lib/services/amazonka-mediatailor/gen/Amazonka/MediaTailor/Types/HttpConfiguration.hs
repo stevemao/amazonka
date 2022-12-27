@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.Types.HttpConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaTailor.Types.HttpConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The HTTP configuration for the source location.
@@ -55,12 +56,12 @@ newHttpConfiguration pBaseUrl_ =
 httpConfiguration_baseUrl :: Lens.Lens' HttpConfiguration Prelude.Text
 httpConfiguration_baseUrl = Lens.lens (\HttpConfiguration' {baseUrl} -> baseUrl) (\s@HttpConfiguration' {} a -> s {baseUrl = a} :: HttpConfiguration)
 
-instance Core.FromJSON HttpConfiguration where
+instance Data.FromJSON HttpConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HttpConfiguration"
       ( \x ->
-          HttpConfiguration' Prelude.<$> (x Core..: "BaseUrl")
+          HttpConfiguration' Prelude.<$> (x Data..: "BaseUrl")
       )
 
 instance Prelude.Hashable HttpConfiguration where
@@ -70,9 +71,9 @@ instance Prelude.Hashable HttpConfiguration where
 instance Prelude.NFData HttpConfiguration where
   rnf HttpConfiguration' {..} = Prelude.rnf baseUrl
 
-instance Core.ToJSON HttpConfiguration where
+instance Data.ToJSON HttpConfiguration where
   toJSON HttpConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("BaseUrl" Core..= baseUrl)]
+          [Prelude.Just ("BaseUrl" Data..= baseUrl)]
       )

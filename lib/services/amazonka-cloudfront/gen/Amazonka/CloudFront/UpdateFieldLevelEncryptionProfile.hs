@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.UpdateFieldLevelEncryptionProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,12 +113,13 @@ instance
   type
     AWSResponse UpdateFieldLevelEncryptionProfile =
       UpdateFieldLevelEncryptionProfileResponse
-  request = Request.putXML defaultService
+  request overrides =
+    Request.putXML (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           UpdateFieldLevelEncryptionProfileResponse'
-            Prelude.<$> (h Core..#? "ETag") Prelude.<*> (Core.parseXML x)
+            Prelude.<$> (h Data..#? "ETag") Prelude.<*> (Data.parseXML x)
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -142,34 +144,34 @@ instance
       `Prelude.seq` Prelude.rnf id
 
 instance
-  Core.ToElement
+  Data.ToElement
     UpdateFieldLevelEncryptionProfile
   where
   toElement UpdateFieldLevelEncryptionProfile' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}FieldLevelEncryptionProfileConfig"
       fieldLevelEncryptionProfileConfig
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateFieldLevelEncryptionProfile
   where
   toHeaders UpdateFieldLevelEncryptionProfile' {..} =
-    Prelude.mconcat ["If-Match" Core.=# ifMatch]
+    Prelude.mconcat ["If-Match" Data.=# ifMatch]
 
 instance
-  Core.ToPath
+  Data.ToPath
     UpdateFieldLevelEncryptionProfile
   where
   toPath UpdateFieldLevelEncryptionProfile' {..} =
     Prelude.mconcat
       [ "/2020-05-31/field-level-encryption-profile/",
-        Core.toBS id,
+        Data.toBS id,
         "/config"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateFieldLevelEncryptionProfile
   where
   toQuery = Prelude.const Prelude.mempty

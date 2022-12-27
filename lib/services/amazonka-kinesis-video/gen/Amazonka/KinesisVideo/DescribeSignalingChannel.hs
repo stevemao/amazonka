@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.DescribeSignalingChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.KinesisVideo.DescribeSignalingChannel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideo.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,12 +91,13 @@ instance Core.AWSRequest DescribeSignalingChannel where
   type
     AWSResponse DescribeSignalingChannel =
       DescribeSignalingChannelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeSignalingChannelResponse'
-            Prelude.<$> (x Core..?> "ChannelInfo")
+            Prelude.<$> (x Data..?> "ChannelInfo")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,22 +111,22 @@ instance Prelude.NFData DescribeSignalingChannel where
     Prelude.rnf channelARN
       `Prelude.seq` Prelude.rnf channelName
 
-instance Core.ToHeaders DescribeSignalingChannel where
+instance Data.ToHeaders DescribeSignalingChannel where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON DescribeSignalingChannel where
+instance Data.ToJSON DescribeSignalingChannel where
   toJSON DescribeSignalingChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ChannelARN" Core..=) Prelude.<$> channelARN,
-            ("ChannelName" Core..=) Prelude.<$> channelName
+          [ ("ChannelARN" Data..=) Prelude.<$> channelARN,
+            ("ChannelName" Data..=) Prelude.<$> channelName
           ]
       )
 
-instance Core.ToPath DescribeSignalingChannel where
+instance Data.ToPath DescribeSignalingChannel where
   toPath = Prelude.const "/describeSignalingChannel"
 
-instance Core.ToQuery DescribeSignalingChannel where
+instance Data.ToQuery DescribeSignalingChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeSignalingChannelResponse' smart constructor.

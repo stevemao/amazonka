@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Personalize.Types.FilterSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,27 +20,28 @@
 module Amazonka.Personalize.Types.FilterSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A short summary of a filter\'s attributes.
 --
 -- /See:/ 'newFilterSummary' smart constructor.
 data FilterSummary = FilterSummary'
-  { -- | If the filter failed, the reason for the failure.
+  { -- | The time at which the filter was created.
+    creationDateTime :: Prelude.Maybe Data.POSIX,
+    -- | The ARN of the dataset group to which the filter belongs.
+    datasetGroupArn :: Prelude.Maybe Prelude.Text,
+    -- | If the filter failed, the reason for the failure.
     failureReason :: Prelude.Maybe Prelude.Text,
-    -- | The status of the filter.
-    status :: Prelude.Maybe Prelude.Text,
-    -- | The time at which the filter was last updated.
-    lastUpdatedDateTime :: Prelude.Maybe Core.POSIX,
-    -- | The name of the filter.
-    name :: Prelude.Maybe Prelude.Text,
     -- | The ARN of the filter.
     filterArn :: Prelude.Maybe Prelude.Text,
-    -- | The time at which the filter was created.
-    creationDateTime :: Prelude.Maybe Core.POSIX,
-    -- | The ARN of the dataset group to which the filter belongs.
-    datasetGroupArn :: Prelude.Maybe Prelude.Text
+    -- | The time at which the filter was last updated.
+    lastUpdatedDateTime :: Prelude.Maybe Data.POSIX,
+    -- | The name of the filter.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The status of the filter.
+    status :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,91 +53,91 @@ data FilterSummary = FilterSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'creationDateTime', 'filterSummary_creationDateTime' - The time at which the filter was created.
+--
+-- 'datasetGroupArn', 'filterSummary_datasetGroupArn' - The ARN of the dataset group to which the filter belongs.
+--
 -- 'failureReason', 'filterSummary_failureReason' - If the filter failed, the reason for the failure.
 --
--- 'status', 'filterSummary_status' - The status of the filter.
+-- 'filterArn', 'filterSummary_filterArn' - The ARN of the filter.
 --
 -- 'lastUpdatedDateTime', 'filterSummary_lastUpdatedDateTime' - The time at which the filter was last updated.
 --
 -- 'name', 'filterSummary_name' - The name of the filter.
 --
--- 'filterArn', 'filterSummary_filterArn' - The ARN of the filter.
---
--- 'creationDateTime', 'filterSummary_creationDateTime' - The time at which the filter was created.
---
--- 'datasetGroupArn', 'filterSummary_datasetGroupArn' - The ARN of the dataset group to which the filter belongs.
+-- 'status', 'filterSummary_status' - The status of the filter.
 newFilterSummary ::
   FilterSummary
 newFilterSummary =
   FilterSummary'
-    { failureReason = Prelude.Nothing,
-      status = Prelude.Nothing,
+    { creationDateTime = Prelude.Nothing,
+      datasetGroupArn = Prelude.Nothing,
+      failureReason = Prelude.Nothing,
+      filterArn = Prelude.Nothing,
       lastUpdatedDateTime = Prelude.Nothing,
       name = Prelude.Nothing,
-      filterArn = Prelude.Nothing,
-      creationDateTime = Prelude.Nothing,
-      datasetGroupArn = Prelude.Nothing
+      status = Prelude.Nothing
     }
-
--- | If the filter failed, the reason for the failure.
-filterSummary_failureReason :: Lens.Lens' FilterSummary (Prelude.Maybe Prelude.Text)
-filterSummary_failureReason = Lens.lens (\FilterSummary' {failureReason} -> failureReason) (\s@FilterSummary' {} a -> s {failureReason = a} :: FilterSummary)
-
--- | The status of the filter.
-filterSummary_status :: Lens.Lens' FilterSummary (Prelude.Maybe Prelude.Text)
-filterSummary_status = Lens.lens (\FilterSummary' {status} -> status) (\s@FilterSummary' {} a -> s {status = a} :: FilterSummary)
-
--- | The time at which the filter was last updated.
-filterSummary_lastUpdatedDateTime :: Lens.Lens' FilterSummary (Prelude.Maybe Prelude.UTCTime)
-filterSummary_lastUpdatedDateTime = Lens.lens (\FilterSummary' {lastUpdatedDateTime} -> lastUpdatedDateTime) (\s@FilterSummary' {} a -> s {lastUpdatedDateTime = a} :: FilterSummary) Prelude.. Lens.mapping Core._Time
-
--- | The name of the filter.
-filterSummary_name :: Lens.Lens' FilterSummary (Prelude.Maybe Prelude.Text)
-filterSummary_name = Lens.lens (\FilterSummary' {name} -> name) (\s@FilterSummary' {} a -> s {name = a} :: FilterSummary)
-
--- | The ARN of the filter.
-filterSummary_filterArn :: Lens.Lens' FilterSummary (Prelude.Maybe Prelude.Text)
-filterSummary_filterArn = Lens.lens (\FilterSummary' {filterArn} -> filterArn) (\s@FilterSummary' {} a -> s {filterArn = a} :: FilterSummary)
 
 -- | The time at which the filter was created.
 filterSummary_creationDateTime :: Lens.Lens' FilterSummary (Prelude.Maybe Prelude.UTCTime)
-filterSummary_creationDateTime = Lens.lens (\FilterSummary' {creationDateTime} -> creationDateTime) (\s@FilterSummary' {} a -> s {creationDateTime = a} :: FilterSummary) Prelude.. Lens.mapping Core._Time
+filterSummary_creationDateTime = Lens.lens (\FilterSummary' {creationDateTime} -> creationDateTime) (\s@FilterSummary' {} a -> s {creationDateTime = a} :: FilterSummary) Prelude.. Lens.mapping Data._Time
 
 -- | The ARN of the dataset group to which the filter belongs.
 filterSummary_datasetGroupArn :: Lens.Lens' FilterSummary (Prelude.Maybe Prelude.Text)
 filterSummary_datasetGroupArn = Lens.lens (\FilterSummary' {datasetGroupArn} -> datasetGroupArn) (\s@FilterSummary' {} a -> s {datasetGroupArn = a} :: FilterSummary)
 
-instance Core.FromJSON FilterSummary where
+-- | If the filter failed, the reason for the failure.
+filterSummary_failureReason :: Lens.Lens' FilterSummary (Prelude.Maybe Prelude.Text)
+filterSummary_failureReason = Lens.lens (\FilterSummary' {failureReason} -> failureReason) (\s@FilterSummary' {} a -> s {failureReason = a} :: FilterSummary)
+
+-- | The ARN of the filter.
+filterSummary_filterArn :: Lens.Lens' FilterSummary (Prelude.Maybe Prelude.Text)
+filterSummary_filterArn = Lens.lens (\FilterSummary' {filterArn} -> filterArn) (\s@FilterSummary' {} a -> s {filterArn = a} :: FilterSummary)
+
+-- | The time at which the filter was last updated.
+filterSummary_lastUpdatedDateTime :: Lens.Lens' FilterSummary (Prelude.Maybe Prelude.UTCTime)
+filterSummary_lastUpdatedDateTime = Lens.lens (\FilterSummary' {lastUpdatedDateTime} -> lastUpdatedDateTime) (\s@FilterSummary' {} a -> s {lastUpdatedDateTime = a} :: FilterSummary) Prelude.. Lens.mapping Data._Time
+
+-- | The name of the filter.
+filterSummary_name :: Lens.Lens' FilterSummary (Prelude.Maybe Prelude.Text)
+filterSummary_name = Lens.lens (\FilterSummary' {name} -> name) (\s@FilterSummary' {} a -> s {name = a} :: FilterSummary)
+
+-- | The status of the filter.
+filterSummary_status :: Lens.Lens' FilterSummary (Prelude.Maybe Prelude.Text)
+filterSummary_status = Lens.lens (\FilterSummary' {status} -> status) (\s@FilterSummary' {} a -> s {status = a} :: FilterSummary)
+
+instance Data.FromJSON FilterSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FilterSummary"
       ( \x ->
           FilterSummary'
-            Prelude.<$> (x Core..:? "failureReason")
-            Prelude.<*> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "lastUpdatedDateTime")
-            Prelude.<*> (x Core..:? "name")
-            Prelude.<*> (x Core..:? "filterArn")
-            Prelude.<*> (x Core..:? "creationDateTime")
-            Prelude.<*> (x Core..:? "datasetGroupArn")
+            Prelude.<$> (x Data..:? "creationDateTime")
+            Prelude.<*> (x Data..:? "datasetGroupArn")
+            Prelude.<*> (x Data..:? "failureReason")
+            Prelude.<*> (x Data..:? "filterArn")
+            Prelude.<*> (x Data..:? "lastUpdatedDateTime")
+            Prelude.<*> (x Data..:? "name")
+            Prelude.<*> (x Data..:? "status")
       )
 
 instance Prelude.Hashable FilterSummary where
   hashWithSalt _salt FilterSummary' {..} =
-    _salt `Prelude.hashWithSalt` failureReason
-      `Prelude.hashWithSalt` status
+    _salt `Prelude.hashWithSalt` creationDateTime
+      `Prelude.hashWithSalt` datasetGroupArn
+      `Prelude.hashWithSalt` failureReason
+      `Prelude.hashWithSalt` filterArn
       `Prelude.hashWithSalt` lastUpdatedDateTime
       `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` filterArn
-      `Prelude.hashWithSalt` creationDateTime
-      `Prelude.hashWithSalt` datasetGroupArn
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData FilterSummary where
   rnf FilterSummary' {..} =
-    Prelude.rnf failureReason
-      `Prelude.seq` Prelude.rnf status
+    Prelude.rnf creationDateTime
+      `Prelude.seq` Prelude.rnf datasetGroupArn
+      `Prelude.seq` Prelude.rnf failureReason
+      `Prelude.seq` Prelude.rnf filterArn
       `Prelude.seq` Prelude.rnf lastUpdatedDateTime
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf filterArn
-      `Prelude.seq` Prelude.rnf creationDateTime
-      `Prelude.seq` Prelude.rnf datasetGroupArn
+      `Prelude.seq` Prelude.rnf status

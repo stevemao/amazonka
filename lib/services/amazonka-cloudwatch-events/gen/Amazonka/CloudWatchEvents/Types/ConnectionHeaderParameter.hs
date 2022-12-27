@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.Types.ConnectionHeaderParameter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudWatchEvents.Types.ConnectionHeaderParameter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Additional parameter included in the header. You can include up to 100
@@ -31,10 +32,10 @@ import qualified Amazonka.Prelude as Prelude
 data ConnectionHeaderParameter = ConnectionHeaderParameter'
   { -- | Specified whether the value is a secret.
     isValueSecret :: Prelude.Maybe Prelude.Bool,
-    -- | The value associated with the key.
-    value :: Prelude.Maybe Prelude.Text,
     -- | The key for the parameter.
-    key :: Prelude.Maybe Prelude.Text
+    key :: Prelude.Maybe Prelude.Text,
+    -- | The value associated with the key.
+    value :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,60 +49,60 @@ data ConnectionHeaderParameter = ConnectionHeaderParameter'
 --
 -- 'isValueSecret', 'connectionHeaderParameter_isValueSecret' - Specified whether the value is a secret.
 --
--- 'value', 'connectionHeaderParameter_value' - The value associated with the key.
---
 -- 'key', 'connectionHeaderParameter_key' - The key for the parameter.
+--
+-- 'value', 'connectionHeaderParameter_value' - The value associated with the key.
 newConnectionHeaderParameter ::
   ConnectionHeaderParameter
 newConnectionHeaderParameter =
   ConnectionHeaderParameter'
     { isValueSecret =
         Prelude.Nothing,
-      value = Prelude.Nothing,
-      key = Prelude.Nothing
+      key = Prelude.Nothing,
+      value = Prelude.Nothing
     }
 
 -- | Specified whether the value is a secret.
 connectionHeaderParameter_isValueSecret :: Lens.Lens' ConnectionHeaderParameter (Prelude.Maybe Prelude.Bool)
 connectionHeaderParameter_isValueSecret = Lens.lens (\ConnectionHeaderParameter' {isValueSecret} -> isValueSecret) (\s@ConnectionHeaderParameter' {} a -> s {isValueSecret = a} :: ConnectionHeaderParameter)
 
--- | The value associated with the key.
-connectionHeaderParameter_value :: Lens.Lens' ConnectionHeaderParameter (Prelude.Maybe Prelude.Text)
-connectionHeaderParameter_value = Lens.lens (\ConnectionHeaderParameter' {value} -> value) (\s@ConnectionHeaderParameter' {} a -> s {value = a} :: ConnectionHeaderParameter)
-
 -- | The key for the parameter.
 connectionHeaderParameter_key :: Lens.Lens' ConnectionHeaderParameter (Prelude.Maybe Prelude.Text)
 connectionHeaderParameter_key = Lens.lens (\ConnectionHeaderParameter' {key} -> key) (\s@ConnectionHeaderParameter' {} a -> s {key = a} :: ConnectionHeaderParameter)
 
-instance Core.FromJSON ConnectionHeaderParameter where
+-- | The value associated with the key.
+connectionHeaderParameter_value :: Lens.Lens' ConnectionHeaderParameter (Prelude.Maybe Prelude.Text)
+connectionHeaderParameter_value = Lens.lens (\ConnectionHeaderParameter' {value} -> value) (\s@ConnectionHeaderParameter' {} a -> s {value = a} :: ConnectionHeaderParameter)
+
+instance Data.FromJSON ConnectionHeaderParameter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ConnectionHeaderParameter"
       ( \x ->
           ConnectionHeaderParameter'
-            Prelude.<$> (x Core..:? "IsValueSecret")
-            Prelude.<*> (x Core..:? "Value")
-            Prelude.<*> (x Core..:? "Key")
+            Prelude.<$> (x Data..:? "IsValueSecret")
+            Prelude.<*> (x Data..:? "Key")
+            Prelude.<*> (x Data..:? "Value")
       )
 
 instance Prelude.Hashable ConnectionHeaderParameter where
   hashWithSalt _salt ConnectionHeaderParameter' {..} =
     _salt `Prelude.hashWithSalt` isValueSecret
-      `Prelude.hashWithSalt` value
       `Prelude.hashWithSalt` key
+      `Prelude.hashWithSalt` value
 
 instance Prelude.NFData ConnectionHeaderParameter where
   rnf ConnectionHeaderParameter' {..} =
     Prelude.rnf isValueSecret
-      `Prelude.seq` Prelude.rnf value
       `Prelude.seq` Prelude.rnf key
+      `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON ConnectionHeaderParameter where
+instance Data.ToJSON ConnectionHeaderParameter where
   toJSON ConnectionHeaderParameter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IsValueSecret" Core..=) Prelude.<$> isValueSecret,
-            ("Value" Core..=) Prelude.<$> value,
-            ("Key" Core..=) Prelude.<$> key
+          [ ("IsValueSecret" Data..=) Prelude.<$> isValueSecret,
+            ("Key" Data..=) Prelude.<$> key,
+            ("Value" Data..=) Prelude.<$> value
           ]
       )

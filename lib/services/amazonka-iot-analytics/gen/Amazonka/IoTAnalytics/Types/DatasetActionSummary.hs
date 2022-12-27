@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.Types.DatasetActionSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTAnalytics.Types.DatasetActionSummary where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types.DatasetActionType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the action that automatically creates the dataset\'s
@@ -69,14 +70,14 @@ datasetActionSummary_actionName = Lens.lens (\DatasetActionSummary' {actionName}
 datasetActionSummary_actionType :: Lens.Lens' DatasetActionSummary (Prelude.Maybe DatasetActionType)
 datasetActionSummary_actionType = Lens.lens (\DatasetActionSummary' {actionType} -> actionType) (\s@DatasetActionSummary' {} a -> s {actionType = a} :: DatasetActionSummary)
 
-instance Core.FromJSON DatasetActionSummary where
+instance Data.FromJSON DatasetActionSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DatasetActionSummary"
       ( \x ->
           DatasetActionSummary'
-            Prelude.<$> (x Core..:? "actionName")
-            Prelude.<*> (x Core..:? "actionType")
+            Prelude.<$> (x Data..:? "actionName")
+            Prelude.<*> (x Data..:? "actionType")
       )
 
 instance Prelude.Hashable DatasetActionSummary where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.ListSmartHomeAppliances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.AlexaBusiness.ListSmartHomeAppliances
     newListSmartHomeAppliances,
 
     -- * Request Lenses
-    listSmartHomeAppliances_nextToken,
     listSmartHomeAppliances_maxResults,
+    listSmartHomeAppliances_nextToken,
     listSmartHomeAppliances_roomArn,
 
     -- * Destructuring the Response
@@ -38,25 +38,26 @@ module Amazonka.AlexaBusiness.ListSmartHomeAppliances
     newListSmartHomeAppliancesResponse,
 
     -- * Response Lenses
-    listSmartHomeAppliancesResponse_smartHomeAppliances,
     listSmartHomeAppliancesResponse_nextToken,
+    listSmartHomeAppliancesResponse_smartHomeAppliances,
     listSmartHomeAppliancesResponse_httpStatus,
   )
 where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListSmartHomeAppliances' smart constructor.
 data ListSmartHomeAppliances = ListSmartHomeAppliances'
-  { -- | The tokens used for pagination.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of appliances to be returned, per paginated calls.
+  { -- | The maximum number of appliances to be returned, per paginated calls.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The tokens used for pagination.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The room that the appliances are associated with.
     roomArn :: Prelude.Text
   }
@@ -70,9 +71,9 @@ data ListSmartHomeAppliances = ListSmartHomeAppliances'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listSmartHomeAppliances_nextToken' - The tokens used for pagination.
---
 -- 'maxResults', 'listSmartHomeAppliances_maxResults' - The maximum number of appliances to be returned, per paginated calls.
+--
+-- 'nextToken', 'listSmartHomeAppliances_nextToken' - The tokens used for pagination.
 --
 -- 'roomArn', 'listSmartHomeAppliances_roomArn' - The room that the appliances are associated with.
 newListSmartHomeAppliances ::
@@ -81,19 +82,19 @@ newListSmartHomeAppliances ::
   ListSmartHomeAppliances
 newListSmartHomeAppliances pRoomArn_ =
   ListSmartHomeAppliances'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       roomArn = pRoomArn_
     }
-
--- | The tokens used for pagination.
-listSmartHomeAppliances_nextToken :: Lens.Lens' ListSmartHomeAppliances (Prelude.Maybe Prelude.Text)
-listSmartHomeAppliances_nextToken = Lens.lens (\ListSmartHomeAppliances' {nextToken} -> nextToken) (\s@ListSmartHomeAppliances' {} a -> s {nextToken = a} :: ListSmartHomeAppliances)
 
 -- | The maximum number of appliances to be returned, per paginated calls.
 listSmartHomeAppliances_maxResults :: Lens.Lens' ListSmartHomeAppliances (Prelude.Maybe Prelude.Natural)
 listSmartHomeAppliances_maxResults = Lens.lens (\ListSmartHomeAppliances' {maxResults} -> maxResults) (\s@ListSmartHomeAppliances' {} a -> s {maxResults = a} :: ListSmartHomeAppliances)
+
+-- | The tokens used for pagination.
+listSmartHomeAppliances_nextToken :: Lens.Lens' ListSmartHomeAppliances (Prelude.Maybe Prelude.Text)
+listSmartHomeAppliances_nextToken = Lens.lens (\ListSmartHomeAppliances' {nextToken} -> nextToken) (\s@ListSmartHomeAppliances' {} a -> s {nextToken = a} :: ListSmartHomeAppliances)
 
 -- | The room that the appliances are associated with.
 listSmartHomeAppliances_roomArn :: Lens.Lens' ListSmartHomeAppliances Prelude.Text
@@ -125,67 +126,68 @@ instance Core.AWSRequest ListSmartHomeAppliances where
   type
     AWSResponse ListSmartHomeAppliances =
       ListSmartHomeAppliancesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListSmartHomeAppliancesResponse'
-            Prelude.<$> ( x Core..?> "SmartHomeAppliances"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "SmartHomeAppliances"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListSmartHomeAppliances where
   hashWithSalt _salt ListSmartHomeAppliances' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` roomArn
 
 instance Prelude.NFData ListSmartHomeAppliances where
   rnf ListSmartHomeAppliances' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf roomArn
 
-instance Core.ToHeaders ListSmartHomeAppliances where
+instance Data.ToHeaders ListSmartHomeAppliances where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.ListSmartHomeAppliances" ::
+              Data.=# ( "AlexaForBusiness.ListSmartHomeAppliances" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListSmartHomeAppliances where
+instance Data.ToJSON ListSmartHomeAppliances where
   toJSON ListSmartHomeAppliances' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("RoomArn" Core..= roomArn)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("RoomArn" Data..= roomArn)
           ]
       )
 
-instance Core.ToPath ListSmartHomeAppliances where
+instance Data.ToPath ListSmartHomeAppliances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListSmartHomeAppliances where
+instance Data.ToQuery ListSmartHomeAppliances where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListSmartHomeAppliancesResponse' smart constructor.
 data ListSmartHomeAppliancesResponse = ListSmartHomeAppliancesResponse'
-  { -- | The smart home appliances.
-    smartHomeAppliances :: Prelude.Maybe [SmartHomeAppliance],
-    -- | The tokens used for pagination.
+  { -- | The tokens used for pagination.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The smart home appliances.
+    smartHomeAppliances :: Prelude.Maybe [SmartHomeAppliance],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -199,9 +201,9 @@ data ListSmartHomeAppliancesResponse = ListSmartHomeAppliancesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'smartHomeAppliances', 'listSmartHomeAppliancesResponse_smartHomeAppliances' - The smart home appliances.
---
 -- 'nextToken', 'listSmartHomeAppliancesResponse_nextToken' - The tokens used for pagination.
+--
+-- 'smartHomeAppliances', 'listSmartHomeAppliancesResponse_smartHomeAppliances' - The smart home appliances.
 --
 -- 'httpStatus', 'listSmartHomeAppliancesResponse_httpStatus' - The response's http status code.
 newListSmartHomeAppliancesResponse ::
@@ -210,19 +212,19 @@ newListSmartHomeAppliancesResponse ::
   ListSmartHomeAppliancesResponse
 newListSmartHomeAppliancesResponse pHttpStatus_ =
   ListSmartHomeAppliancesResponse'
-    { smartHomeAppliances =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      smartHomeAppliances = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The smart home appliances.
-listSmartHomeAppliancesResponse_smartHomeAppliances :: Lens.Lens' ListSmartHomeAppliancesResponse (Prelude.Maybe [SmartHomeAppliance])
-listSmartHomeAppliancesResponse_smartHomeAppliances = Lens.lens (\ListSmartHomeAppliancesResponse' {smartHomeAppliances} -> smartHomeAppliances) (\s@ListSmartHomeAppliancesResponse' {} a -> s {smartHomeAppliances = a} :: ListSmartHomeAppliancesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The tokens used for pagination.
 listSmartHomeAppliancesResponse_nextToken :: Lens.Lens' ListSmartHomeAppliancesResponse (Prelude.Maybe Prelude.Text)
 listSmartHomeAppliancesResponse_nextToken = Lens.lens (\ListSmartHomeAppliancesResponse' {nextToken} -> nextToken) (\s@ListSmartHomeAppliancesResponse' {} a -> s {nextToken = a} :: ListSmartHomeAppliancesResponse)
+
+-- | The smart home appliances.
+listSmartHomeAppliancesResponse_smartHomeAppliances :: Lens.Lens' ListSmartHomeAppliancesResponse (Prelude.Maybe [SmartHomeAppliance])
+listSmartHomeAppliancesResponse_smartHomeAppliances = Lens.lens (\ListSmartHomeAppliancesResponse' {smartHomeAppliances} -> smartHomeAppliances) (\s@ListSmartHomeAppliancesResponse' {} a -> s {smartHomeAppliances = a} :: ListSmartHomeAppliancesResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listSmartHomeAppliancesResponse_httpStatus :: Lens.Lens' ListSmartHomeAppliancesResponse Prelude.Int
@@ -233,6 +235,6 @@ instance
     ListSmartHomeAppliancesResponse
   where
   rnf ListSmartHomeAppliancesResponse' {..} =
-    Prelude.rnf smartHomeAppliances
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf smartHomeAppliances
       `Prelude.seq` Prelude.rnf httpStatus

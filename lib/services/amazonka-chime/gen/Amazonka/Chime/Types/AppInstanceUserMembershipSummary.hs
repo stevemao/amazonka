@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.AppInstanceUserMembershipSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Chime.Types.AppInstanceUserMembershipSummary where
 
 import Amazonka.Chime.Types.ChannelMembershipType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Summary of the membership details of an @AppInstanceUser@.
@@ -29,7 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newAppInstanceUserMembershipSummary' smart constructor.
 data AppInstanceUserMembershipSummary = AppInstanceUserMembershipSummary'
   { -- | The time at which a message was last read.
-    readMarkerTimestamp :: Prelude.Maybe Core.POSIX,
+    readMarkerTimestamp :: Prelude.Maybe Data.POSIX,
     -- | The type of @ChannelMembership@.
     type' :: Prelude.Maybe ChannelMembershipType
   }
@@ -57,23 +58,23 @@ newAppInstanceUserMembershipSummary =
 
 -- | The time at which a message was last read.
 appInstanceUserMembershipSummary_readMarkerTimestamp :: Lens.Lens' AppInstanceUserMembershipSummary (Prelude.Maybe Prelude.UTCTime)
-appInstanceUserMembershipSummary_readMarkerTimestamp = Lens.lens (\AppInstanceUserMembershipSummary' {readMarkerTimestamp} -> readMarkerTimestamp) (\s@AppInstanceUserMembershipSummary' {} a -> s {readMarkerTimestamp = a} :: AppInstanceUserMembershipSummary) Prelude.. Lens.mapping Core._Time
+appInstanceUserMembershipSummary_readMarkerTimestamp = Lens.lens (\AppInstanceUserMembershipSummary' {readMarkerTimestamp} -> readMarkerTimestamp) (\s@AppInstanceUserMembershipSummary' {} a -> s {readMarkerTimestamp = a} :: AppInstanceUserMembershipSummary) Prelude.. Lens.mapping Data._Time
 
 -- | The type of @ChannelMembership@.
 appInstanceUserMembershipSummary_type :: Lens.Lens' AppInstanceUserMembershipSummary (Prelude.Maybe ChannelMembershipType)
 appInstanceUserMembershipSummary_type = Lens.lens (\AppInstanceUserMembershipSummary' {type'} -> type') (\s@AppInstanceUserMembershipSummary' {} a -> s {type' = a} :: AppInstanceUserMembershipSummary)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AppInstanceUserMembershipSummary
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AppInstanceUserMembershipSummary"
       ( \x ->
           AppInstanceUserMembershipSummary'
-            Prelude.<$> (x Core..:? "ReadMarkerTimestamp")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "ReadMarkerTimestamp")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance

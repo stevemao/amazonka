@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.CreateFirewallRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.Route53Resolver.CreateFirewallRule
 
     -- * Request Lenses
     createFirewallRule_blockOverrideDnsType,
-    createFirewallRule_blockResponse,
-    createFirewallRule_blockOverrideTtl,
     createFirewallRule_blockOverrideDomain,
+    createFirewallRule_blockOverrideTtl,
+    createFirewallRule_blockResponse,
     createFirewallRule_creatorRequestId,
     createFirewallRule_firewallRuleGroupId,
     createFirewallRule_firewallDomainListId,
@@ -50,7 +50,8 @@ module Amazonka.Route53Resolver.CreateFirewallRule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -64,6 +65,17 @@ data CreateFirewallRule = CreateFirewallRule'
     --
     -- This setting is required if the @BlockResponse@ setting is @OVERRIDE@.
     blockOverrideDnsType :: Prelude.Maybe BlockOverrideDnsType,
+    -- | The custom DNS record to send back in response to the query. Used for
+    -- the rule action @BLOCK@ with a @BlockResponse@ setting of @OVERRIDE@.
+    --
+    -- This setting is required if the @BlockResponse@ setting is @OVERRIDE@.
+    blockOverrideDomain :: Prelude.Maybe Prelude.Text,
+    -- | The recommended amount of time, in seconds, for the DNS resolver or web
+    -- browser to cache the provided override record. Used for the rule action
+    -- @BLOCK@ with a @BlockResponse@ setting of @OVERRIDE@.
+    --
+    -- This setting is required if the @BlockResponse@ setting is @OVERRIDE@.
+    blockOverrideTtl :: Prelude.Maybe Prelude.Natural,
     -- | The way that you want DNS Firewall to block the request, used with the
     -- rule action setting @BLOCK@.
     --
@@ -79,17 +91,6 @@ data CreateFirewallRule = CreateFirewallRule'
     --
     -- This setting is required if the rule action setting is @BLOCK@.
     blockResponse :: Prelude.Maybe BlockResponse,
-    -- | The recommended amount of time, in seconds, for the DNS resolver or web
-    -- browser to cache the provided override record. Used for the rule action
-    -- @BLOCK@ with a @BlockResponse@ setting of @OVERRIDE@.
-    --
-    -- This setting is required if the @BlockResponse@ setting is @OVERRIDE@.
-    blockOverrideTtl :: Prelude.Maybe Prelude.Natural,
-    -- | The custom DNS record to send back in response to the query. Used for
-    -- the rule action @BLOCK@ with a @BlockResponse@ setting of @OVERRIDE@.
-    --
-    -- This setting is required if the @BlockResponse@ setting is @OVERRIDE@.
-    blockOverrideDomain :: Prelude.Maybe Prelude.Text,
     -- | A unique string that identifies the request and that allows you to retry
     -- failed requests without the risk of running the operation twice.
     -- @CreatorRequestId@ can be any unique string, for example, a date\/time
@@ -139,6 +140,17 @@ data CreateFirewallRule = CreateFirewallRule'
 --
 -- This setting is required if the @BlockResponse@ setting is @OVERRIDE@.
 --
+-- 'blockOverrideDomain', 'createFirewallRule_blockOverrideDomain' - The custom DNS record to send back in response to the query. Used for
+-- the rule action @BLOCK@ with a @BlockResponse@ setting of @OVERRIDE@.
+--
+-- This setting is required if the @BlockResponse@ setting is @OVERRIDE@.
+--
+-- 'blockOverrideTtl', 'createFirewallRule_blockOverrideTtl' - The recommended amount of time, in seconds, for the DNS resolver or web
+-- browser to cache the provided override record. Used for the rule action
+-- @BLOCK@ with a @BlockResponse@ setting of @OVERRIDE@.
+--
+-- This setting is required if the @BlockResponse@ setting is @OVERRIDE@.
+--
 -- 'blockResponse', 'createFirewallRule_blockResponse' - The way that you want DNS Firewall to block the request, used with the
 -- rule action setting @BLOCK@.
 --
@@ -153,17 +165,6 @@ data CreateFirewallRule = CreateFirewallRule'
 --     settings.
 --
 -- This setting is required if the rule action setting is @BLOCK@.
---
--- 'blockOverrideTtl', 'createFirewallRule_blockOverrideTtl' - The recommended amount of time, in seconds, for the DNS resolver or web
--- browser to cache the provided override record. Used for the rule action
--- @BLOCK@ with a @BlockResponse@ setting of @OVERRIDE@.
---
--- This setting is required if the @BlockResponse@ setting is @OVERRIDE@.
---
--- 'blockOverrideDomain', 'createFirewallRule_blockOverrideDomain' - The custom DNS record to send back in response to the query. Used for
--- the rule action @BLOCK@ with a @BlockResponse@ setting of @OVERRIDE@.
---
--- This setting is required if the @BlockResponse@ setting is @OVERRIDE@.
 --
 -- 'creatorRequestId', 'createFirewallRule_creatorRequestId' - A unique string that identifies the request and that allows you to retry
 -- failed requests without the risk of running the operation twice.
@@ -220,9 +221,9 @@ newCreateFirewallRule
     CreateFirewallRule'
       { blockOverrideDnsType =
           Prelude.Nothing,
-        blockResponse = Prelude.Nothing,
-        blockOverrideTtl = Prelude.Nothing,
         blockOverrideDomain = Prelude.Nothing,
+        blockOverrideTtl = Prelude.Nothing,
+        blockResponse = Prelude.Nothing,
         creatorRequestId = pCreatorRequestId_,
         firewallRuleGroupId = pFirewallRuleGroupId_,
         firewallDomainListId = pFirewallDomainListId_,
@@ -238,6 +239,21 @@ newCreateFirewallRule
 -- This setting is required if the @BlockResponse@ setting is @OVERRIDE@.
 createFirewallRule_blockOverrideDnsType :: Lens.Lens' CreateFirewallRule (Prelude.Maybe BlockOverrideDnsType)
 createFirewallRule_blockOverrideDnsType = Lens.lens (\CreateFirewallRule' {blockOverrideDnsType} -> blockOverrideDnsType) (\s@CreateFirewallRule' {} a -> s {blockOverrideDnsType = a} :: CreateFirewallRule)
+
+-- | The custom DNS record to send back in response to the query. Used for
+-- the rule action @BLOCK@ with a @BlockResponse@ setting of @OVERRIDE@.
+--
+-- This setting is required if the @BlockResponse@ setting is @OVERRIDE@.
+createFirewallRule_blockOverrideDomain :: Lens.Lens' CreateFirewallRule (Prelude.Maybe Prelude.Text)
+createFirewallRule_blockOverrideDomain = Lens.lens (\CreateFirewallRule' {blockOverrideDomain} -> blockOverrideDomain) (\s@CreateFirewallRule' {} a -> s {blockOverrideDomain = a} :: CreateFirewallRule)
+
+-- | The recommended amount of time, in seconds, for the DNS resolver or web
+-- browser to cache the provided override record. Used for the rule action
+-- @BLOCK@ with a @BlockResponse@ setting of @OVERRIDE@.
+--
+-- This setting is required if the @BlockResponse@ setting is @OVERRIDE@.
+createFirewallRule_blockOverrideTtl :: Lens.Lens' CreateFirewallRule (Prelude.Maybe Prelude.Natural)
+createFirewallRule_blockOverrideTtl = Lens.lens (\CreateFirewallRule' {blockOverrideTtl} -> blockOverrideTtl) (\s@CreateFirewallRule' {} a -> s {blockOverrideTtl = a} :: CreateFirewallRule)
 
 -- | The way that you want DNS Firewall to block the request, used with the
 -- rule action setting @BLOCK@.
@@ -255,21 +271,6 @@ createFirewallRule_blockOverrideDnsType = Lens.lens (\CreateFirewallRule' {block
 -- This setting is required if the rule action setting is @BLOCK@.
 createFirewallRule_blockResponse :: Lens.Lens' CreateFirewallRule (Prelude.Maybe BlockResponse)
 createFirewallRule_blockResponse = Lens.lens (\CreateFirewallRule' {blockResponse} -> blockResponse) (\s@CreateFirewallRule' {} a -> s {blockResponse = a} :: CreateFirewallRule)
-
--- | The recommended amount of time, in seconds, for the DNS resolver or web
--- browser to cache the provided override record. Used for the rule action
--- @BLOCK@ with a @BlockResponse@ setting of @OVERRIDE@.
---
--- This setting is required if the @BlockResponse@ setting is @OVERRIDE@.
-createFirewallRule_blockOverrideTtl :: Lens.Lens' CreateFirewallRule (Prelude.Maybe Prelude.Natural)
-createFirewallRule_blockOverrideTtl = Lens.lens (\CreateFirewallRule' {blockOverrideTtl} -> blockOverrideTtl) (\s@CreateFirewallRule' {} a -> s {blockOverrideTtl = a} :: CreateFirewallRule)
-
--- | The custom DNS record to send back in response to the query. Used for
--- the rule action @BLOCK@ with a @BlockResponse@ setting of @OVERRIDE@.
---
--- This setting is required if the @BlockResponse@ setting is @OVERRIDE@.
-createFirewallRule_blockOverrideDomain :: Lens.Lens' CreateFirewallRule (Prelude.Maybe Prelude.Text)
-createFirewallRule_blockOverrideDomain = Lens.lens (\CreateFirewallRule' {blockOverrideDomain} -> blockOverrideDomain) (\s@CreateFirewallRule' {} a -> s {blockOverrideDomain = a} :: CreateFirewallRule)
 
 -- | A unique string that identifies the request and that allows you to retry
 -- failed requests without the risk of running the operation twice.
@@ -319,21 +320,22 @@ instance Core.AWSRequest CreateFirewallRule where
   type
     AWSResponse CreateFirewallRule =
       CreateFirewallRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateFirewallRuleResponse'
-            Prelude.<$> (x Core..?> "FirewallRule")
+            Prelude.<$> (x Data..?> "FirewallRule")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateFirewallRule where
   hashWithSalt _salt CreateFirewallRule' {..} =
     _salt `Prelude.hashWithSalt` blockOverrideDnsType
-      `Prelude.hashWithSalt` blockResponse
-      `Prelude.hashWithSalt` blockOverrideTtl
       `Prelude.hashWithSalt` blockOverrideDomain
+      `Prelude.hashWithSalt` blockOverrideTtl
+      `Prelude.hashWithSalt` blockResponse
       `Prelude.hashWithSalt` creatorRequestId
       `Prelude.hashWithSalt` firewallRuleGroupId
       `Prelude.hashWithSalt` firewallDomainListId
@@ -344,9 +346,9 @@ instance Prelude.Hashable CreateFirewallRule where
 instance Prelude.NFData CreateFirewallRule where
   rnf CreateFirewallRule' {..} =
     Prelude.rnf blockOverrideDnsType
-      `Prelude.seq` Prelude.rnf blockResponse
-      `Prelude.seq` Prelude.rnf blockOverrideTtl
       `Prelude.seq` Prelude.rnf blockOverrideDomain
+      `Prelude.seq` Prelude.rnf blockOverrideTtl
+      `Prelude.seq` Prelude.rnf blockResponse
       `Prelude.seq` Prelude.rnf creatorRequestId
       `Prelude.seq` Prelude.rnf firewallRuleGroupId
       `Prelude.seq` Prelude.rnf firewallDomainListId
@@ -354,50 +356,50 @@ instance Prelude.NFData CreateFirewallRule where
       `Prelude.seq` Prelude.rnf action
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateFirewallRule where
+instance Data.ToHeaders CreateFirewallRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Resolver.CreateFirewallRule" ::
+              Data.=# ( "Route53Resolver.CreateFirewallRule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateFirewallRule where
+instance Data.ToJSON CreateFirewallRule where
   toJSON CreateFirewallRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("BlockOverrideDnsType" Core..=)
+          [ ("BlockOverrideDnsType" Data..=)
               Prelude.<$> blockOverrideDnsType,
-            ("BlockResponse" Core..=) Prelude.<$> blockResponse,
-            ("BlockOverrideTtl" Core..=)
-              Prelude.<$> blockOverrideTtl,
-            ("BlockOverrideDomain" Core..=)
+            ("BlockOverrideDomain" Data..=)
               Prelude.<$> blockOverrideDomain,
+            ("BlockOverrideTtl" Data..=)
+              Prelude.<$> blockOverrideTtl,
+            ("BlockResponse" Data..=) Prelude.<$> blockResponse,
             Prelude.Just
-              ("CreatorRequestId" Core..= creatorRequestId),
+              ("CreatorRequestId" Data..= creatorRequestId),
             Prelude.Just
-              ("FirewallRuleGroupId" Core..= firewallRuleGroupId),
+              ("FirewallRuleGroupId" Data..= firewallRuleGroupId),
             Prelude.Just
               ( "FirewallDomainListId"
-                  Core..= firewallDomainListId
+                  Data..= firewallDomainListId
               ),
-            Prelude.Just ("Priority" Core..= priority),
-            Prelude.Just ("Action" Core..= action),
-            Prelude.Just ("Name" Core..= name)
+            Prelude.Just ("Priority" Data..= priority),
+            Prelude.Just ("Action" Data..= action),
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateFirewallRule where
+instance Data.ToPath CreateFirewallRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateFirewallRule where
+instance Data.ToQuery CreateFirewallRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateFirewallRuleResponse' smart constructor.

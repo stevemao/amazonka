@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppIntegrationS.ListEventIntegrationAssociations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.AppIntegrationS.ListEventIntegrationAssociations
     newListEventIntegrationAssociations,
 
     -- * Request Lenses
-    listEventIntegrationAssociations_nextToken,
     listEventIntegrationAssociations_maxResults,
+    listEventIntegrationAssociations_nextToken,
     listEventIntegrationAssociations_eventIntegrationName,
 
     -- * Destructuring the Response
@@ -45,19 +45,20 @@ where
 
 import Amazonka.AppIntegrationS.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListEventIntegrationAssociations' smart constructor.
 data ListEventIntegrationAssociations = ListEventIntegrationAssociations'
-  { -- | The token for the next set of results. Use the value returned in the
+  { -- | The maximum number of results to return per page.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next set of results. Use the value returned in the
     -- previous response in the next request to retrieve the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return per page.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The name of the event integration.
     eventIntegrationName :: Prelude.Text
   }
@@ -71,11 +72,11 @@ data ListEventIntegrationAssociations = ListEventIntegrationAssociations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listEventIntegrationAssociations_maxResults' - The maximum number of results to return per page.
+--
 -- 'nextToken', 'listEventIntegrationAssociations_nextToken' - The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listEventIntegrationAssociations_maxResults' - The maximum number of results to return per page.
 --
 -- 'eventIntegrationName', 'listEventIntegrationAssociations_eventIntegrationName' - The name of the event integration.
 newListEventIntegrationAssociations ::
@@ -85,22 +86,22 @@ newListEventIntegrationAssociations ::
 newListEventIntegrationAssociations
   pEventIntegrationName_ =
     ListEventIntegrationAssociations'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         eventIntegrationName =
           pEventIntegrationName_
       }
+
+-- | The maximum number of results to return per page.
+listEventIntegrationAssociations_maxResults :: Lens.Lens' ListEventIntegrationAssociations (Prelude.Maybe Prelude.Natural)
+listEventIntegrationAssociations_maxResults = Lens.lens (\ListEventIntegrationAssociations' {maxResults} -> maxResults) (\s@ListEventIntegrationAssociations' {} a -> s {maxResults = a} :: ListEventIntegrationAssociations)
 
 -- | The token for the next set of results. Use the value returned in the
 -- previous response in the next request to retrieve the next set of
 -- results.
 listEventIntegrationAssociations_nextToken :: Lens.Lens' ListEventIntegrationAssociations (Prelude.Maybe Prelude.Text)
 listEventIntegrationAssociations_nextToken = Lens.lens (\ListEventIntegrationAssociations' {nextToken} -> nextToken) (\s@ListEventIntegrationAssociations' {} a -> s {nextToken = a} :: ListEventIntegrationAssociations)
-
--- | The maximum number of results to return per page.
-listEventIntegrationAssociations_maxResults :: Lens.Lens' ListEventIntegrationAssociations (Prelude.Maybe Prelude.Natural)
-listEventIntegrationAssociations_maxResults = Lens.lens (\ListEventIntegrationAssociations' {maxResults} -> maxResults) (\s@ListEventIntegrationAssociations' {} a -> s {maxResults = a} :: ListEventIntegrationAssociations)
 
 -- | The name of the event integration.
 listEventIntegrationAssociations_eventIntegrationName :: Lens.Lens' ListEventIntegrationAssociations Prelude.Text
@@ -113,13 +114,14 @@ instance
   type
     AWSResponse ListEventIntegrationAssociations =
       ListEventIntegrationAssociationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListEventIntegrationAssociationsResponse'
-            Prelude.<$> (x Core..?> "EventIntegrationAssociations")
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "EventIntegrationAssociations")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -130,8 +132,8 @@ instance
   hashWithSalt
     _salt
     ListEventIntegrationAssociations' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` eventIntegrationName
 
 instance
@@ -139,40 +141,40 @@ instance
     ListEventIntegrationAssociations
   where
   rnf ListEventIntegrationAssociations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf eventIntegrationName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListEventIntegrationAssociations
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListEventIntegrationAssociations where
+instance Data.ToPath ListEventIntegrationAssociations where
   toPath ListEventIntegrationAssociations' {..} =
     Prelude.mconcat
       [ "/eventIntegrations/",
-        Core.toBS eventIntegrationName,
+        Data.toBS eventIntegrationName,
         "/associations"
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListEventIntegrationAssociations
   where
   toQuery ListEventIntegrationAssociations' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListEventIntegrationAssociationsResponse' smart constructor.

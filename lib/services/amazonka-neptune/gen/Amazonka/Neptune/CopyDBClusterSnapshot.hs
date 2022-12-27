@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.CopyDBClusterSnapshot
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.Neptune.CopyDBClusterSnapshot
     newCopyDBClusterSnapshot,
 
     -- * Request Lenses
-    copyDBClusterSnapshot_preSignedUrl,
     copyDBClusterSnapshot_copyTags,
     copyDBClusterSnapshot_kmsKeyId,
+    copyDBClusterSnapshot_preSignedUrl,
     copyDBClusterSnapshot_tags,
     copyDBClusterSnapshot_sourceDBClusterSnapshotIdentifier,
     copyDBClusterSnapshot_targetDBClusterSnapshotIdentifier,
@@ -49,7 +49,8 @@ module Amazonka.Neptune.CopyDBClusterSnapshot
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -57,9 +58,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCopyDBClusterSnapshot' smart constructor.
 data CopyDBClusterSnapshot = CopyDBClusterSnapshot'
-  { -- | Not currently supported.
-    preSignedUrl :: Prelude.Maybe Prelude.Text,
-    -- | True to copy all tags from the source DB cluster snapshot to the target
+  { -- | True to copy all tags from the source DB cluster snapshot to the target
     -- DB cluster snapshot, and otherwise false. The default is false.
     copyTags :: Prelude.Maybe Prelude.Bool,
     -- | The Amazon Amazon KMS key ID for an encrypted DB cluster snapshot. The
@@ -83,6 +82,8 @@ data CopyDBClusterSnapshot = CopyDBClusterSnapshot'
     -- If you try to copy an unencrypted DB cluster snapshot and specify a
     -- value for the KmsKeyId parameter, an error is returned.
     kmsKeyId :: Prelude.Maybe Prelude.Text,
+    -- | Not currently supported.
+    preSignedUrl :: Prelude.Maybe Prelude.Text,
     -- | The tags to assign to the new DB cluster snapshot copy.
     tags :: Prelude.Maybe [Tag],
     -- | The identifier of the DB cluster snapshot to copy. This parameter is not
@@ -120,8 +121,6 @@ data CopyDBClusterSnapshot = CopyDBClusterSnapshot'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'preSignedUrl', 'copyDBClusterSnapshot_preSignedUrl' - Not currently supported.
---
 -- 'copyTags', 'copyDBClusterSnapshot_copyTags' - True to copy all tags from the source DB cluster snapshot to the target
 -- DB cluster snapshot, and otherwise false. The default is false.
 --
@@ -145,6 +144,8 @@ data CopyDBClusterSnapshot = CopyDBClusterSnapshot'
 -- You cannot encrypt an unencrypted DB cluster snapshot when you copy it.
 -- If you try to copy an unencrypted DB cluster snapshot and specify a
 -- value for the KmsKeyId parameter, an error is returned.
+--
+-- 'preSignedUrl', 'copyDBClusterSnapshot_preSignedUrl' - Not currently supported.
 --
 -- 'tags', 'copyDBClusterSnapshot_tags' - The tags to assign to the new DB cluster snapshot copy.
 --
@@ -181,20 +182,15 @@ newCopyDBClusterSnapshot
   pSourceDBClusterSnapshotIdentifier_
   pTargetDBClusterSnapshotIdentifier_ =
     CopyDBClusterSnapshot'
-      { preSignedUrl =
-          Prelude.Nothing,
-        copyTags = Prelude.Nothing,
+      { copyTags = Prelude.Nothing,
         kmsKeyId = Prelude.Nothing,
+        preSignedUrl = Prelude.Nothing,
         tags = Prelude.Nothing,
         sourceDBClusterSnapshotIdentifier =
           pSourceDBClusterSnapshotIdentifier_,
         targetDBClusterSnapshotIdentifier =
           pTargetDBClusterSnapshotIdentifier_
       }
-
--- | Not currently supported.
-copyDBClusterSnapshot_preSignedUrl :: Lens.Lens' CopyDBClusterSnapshot (Prelude.Maybe Prelude.Text)
-copyDBClusterSnapshot_preSignedUrl = Lens.lens (\CopyDBClusterSnapshot' {preSignedUrl} -> preSignedUrl) (\s@CopyDBClusterSnapshot' {} a -> s {preSignedUrl = a} :: CopyDBClusterSnapshot)
 
 -- | True to copy all tags from the source DB cluster snapshot to the target
 -- DB cluster snapshot, and otherwise false. The default is false.
@@ -223,6 +219,10 @@ copyDBClusterSnapshot_copyTags = Lens.lens (\CopyDBClusterSnapshot' {copyTags} -
 -- value for the KmsKeyId parameter, an error is returned.
 copyDBClusterSnapshot_kmsKeyId :: Lens.Lens' CopyDBClusterSnapshot (Prelude.Maybe Prelude.Text)
 copyDBClusterSnapshot_kmsKeyId = Lens.lens (\CopyDBClusterSnapshot' {kmsKeyId} -> kmsKeyId) (\s@CopyDBClusterSnapshot' {} a -> s {kmsKeyId = a} :: CopyDBClusterSnapshot)
+
+-- | Not currently supported.
+copyDBClusterSnapshot_preSignedUrl :: Lens.Lens' CopyDBClusterSnapshot (Prelude.Maybe Prelude.Text)
+copyDBClusterSnapshot_preSignedUrl = Lens.lens (\CopyDBClusterSnapshot' {preSignedUrl} -> preSignedUrl) (\s@CopyDBClusterSnapshot' {} a -> s {preSignedUrl = a} :: CopyDBClusterSnapshot)
 
 -- | The tags to assign to the new DB cluster snapshot copy.
 copyDBClusterSnapshot_tags :: Lens.Lens' CopyDBClusterSnapshot (Prelude.Maybe [Tag])
@@ -260,57 +260,58 @@ instance Core.AWSRequest CopyDBClusterSnapshot where
   type
     AWSResponse CopyDBClusterSnapshot =
       CopyDBClusterSnapshotResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CopyDBClusterSnapshotResult"
       ( \s h x ->
           CopyDBClusterSnapshotResponse'
-            Prelude.<$> (x Core..@? "DBClusterSnapshot")
+            Prelude.<$> (x Data..@? "DBClusterSnapshot")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CopyDBClusterSnapshot where
   hashWithSalt _salt CopyDBClusterSnapshot' {..} =
-    _salt `Prelude.hashWithSalt` preSignedUrl
-      `Prelude.hashWithSalt` copyTags
+    _salt `Prelude.hashWithSalt` copyTags
       `Prelude.hashWithSalt` kmsKeyId
+      `Prelude.hashWithSalt` preSignedUrl
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` sourceDBClusterSnapshotIdentifier
       `Prelude.hashWithSalt` targetDBClusterSnapshotIdentifier
 
 instance Prelude.NFData CopyDBClusterSnapshot where
   rnf CopyDBClusterSnapshot' {..} =
-    Prelude.rnf preSignedUrl
-      `Prelude.seq` Prelude.rnf copyTags
+    Prelude.rnf copyTags
       `Prelude.seq` Prelude.rnf kmsKeyId
+      `Prelude.seq` Prelude.rnf preSignedUrl
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf sourceDBClusterSnapshotIdentifier
       `Prelude.seq` Prelude.rnf targetDBClusterSnapshotIdentifier
 
-instance Core.ToHeaders CopyDBClusterSnapshot where
+instance Data.ToHeaders CopyDBClusterSnapshot where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CopyDBClusterSnapshot where
+instance Data.ToPath CopyDBClusterSnapshot where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CopyDBClusterSnapshot where
+instance Data.ToQuery CopyDBClusterSnapshot where
   toQuery CopyDBClusterSnapshot' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CopyDBClusterSnapshot" :: Prelude.ByteString),
+          Data.=: ("CopyDBClusterSnapshot" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "PreSignedUrl" Core.=: preSignedUrl,
-        "CopyTags" Core.=: copyTags,
-        "KmsKeyId" Core.=: kmsKeyId,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "CopyTags" Data.=: copyTags,
+        "KmsKeyId" Data.=: kmsKeyId,
+        "PreSignedUrl" Data.=: preSignedUrl,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Tag" Prelude.<$> tags),
+          Data.=: Data.toQuery
+            (Data.toQueryList "Tag" Prelude.<$> tags),
         "SourceDBClusterSnapshotIdentifier"
-          Core.=: sourceDBClusterSnapshotIdentifier,
+          Data.=: sourceDBClusterSnapshotIdentifier,
         "TargetDBClusterSnapshotIdentifier"
-          Core.=: targetDBClusterSnapshotIdentifier
+          Data.=: targetDBClusterSnapshotIdentifier
       ]
 
 -- | /See:/ 'newCopyDBClusterSnapshotResponse' smart constructor.

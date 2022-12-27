@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.Types.DirectoryVpcSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DirectoryService.Types.DirectoryVpcSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains VPC information for the CreateDirectory or CreateMicrosoftAD
@@ -70,14 +71,14 @@ directoryVpcSettings_vpcId = Lens.lens (\DirectoryVpcSettings' {vpcId} -> vpcId)
 directoryVpcSettings_subnetIds :: Lens.Lens' DirectoryVpcSettings [Prelude.Text]
 directoryVpcSettings_subnetIds = Lens.lens (\DirectoryVpcSettings' {subnetIds} -> subnetIds) (\s@DirectoryVpcSettings' {} a -> s {subnetIds = a} :: DirectoryVpcSettings) Prelude.. Lens.coerced
 
-instance Core.FromJSON DirectoryVpcSettings where
+instance Data.FromJSON DirectoryVpcSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DirectoryVpcSettings"
       ( \x ->
           DirectoryVpcSettings'
-            Prelude.<$> (x Core..: "VpcId")
-            Prelude.<*> (x Core..:? "SubnetIds" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..: "VpcId")
+            Prelude.<*> (x Data..:? "SubnetIds" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable DirectoryVpcSettings where
@@ -90,11 +91,11 @@ instance Prelude.NFData DirectoryVpcSettings where
     Prelude.rnf vpcId
       `Prelude.seq` Prelude.rnf subnetIds
 
-instance Core.ToJSON DirectoryVpcSettings where
+instance Data.ToJSON DirectoryVpcSettings where
   toJSON DirectoryVpcSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("VpcId" Core..= vpcId),
-            Prelude.Just ("SubnetIds" Core..= subnetIds)
+          [ Prelude.Just ("VpcId" Data..= vpcId),
+            Prelude.Just ("SubnetIds" Data..= subnetIds)
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.BatchUpdateUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,12 +92,13 @@ instance Core.AWSRequest BatchUpdateUser where
   type
     AWSResponse BatchUpdateUser =
       BatchUpdateUserResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchUpdateUserResponse'
-            Prelude.<$> (x Core..?> "UserErrors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "UserErrors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -110,26 +112,26 @@ instance Prelude.NFData BatchUpdateUser where
     Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf updateUserRequestItems
 
-instance Core.ToHeaders BatchUpdateUser where
+instance Data.ToHeaders BatchUpdateUser where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON BatchUpdateUser where
+instance Data.ToJSON BatchUpdateUser where
   toJSON BatchUpdateUser' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "UpdateUserRequestItems"
-                  Core..= updateUserRequestItems
+                  Data..= updateUserRequestItems
               )
           ]
       )
 
-instance Core.ToPath BatchUpdateUser where
+instance Data.ToPath BatchUpdateUser where
   toPath BatchUpdateUser' {..} =
     Prelude.mconcat
-      ["/accounts/", Core.toBS accountId, "/users"]
+      ["/accounts/", Data.toBS accountId, "/users"]
 
-instance Core.ToQuery BatchUpdateUser where
+instance Data.ToQuery BatchUpdateUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchUpdateUserResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.FleetSpotMaintenanceStrategies
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.FleetSpotMaintenanceStrategies where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.FleetSpotCapacityRebalance
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The strategies for managing your Spot Instances that are at an elevated
@@ -59,10 +60,10 @@ newFleetSpotMaintenanceStrategies =
 fleetSpotMaintenanceStrategies_capacityRebalance :: Lens.Lens' FleetSpotMaintenanceStrategies (Prelude.Maybe FleetSpotCapacityRebalance)
 fleetSpotMaintenanceStrategies_capacityRebalance = Lens.lens (\FleetSpotMaintenanceStrategies' {capacityRebalance} -> capacityRebalance) (\s@FleetSpotMaintenanceStrategies' {} a -> s {capacityRebalance = a} :: FleetSpotMaintenanceStrategies)
 
-instance Core.FromXML FleetSpotMaintenanceStrategies where
+instance Data.FromXML FleetSpotMaintenanceStrategies where
   parseXML x =
     FleetSpotMaintenanceStrategies'
-      Prelude.<$> (x Core..@? "capacityRebalance")
+      Prelude.<$> (x Data..@? "capacityRebalance")
 
 instance
   Prelude.Hashable

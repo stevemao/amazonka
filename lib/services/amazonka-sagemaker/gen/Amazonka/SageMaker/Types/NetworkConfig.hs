@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.NetworkConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.NetworkConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.VpcConfig
 
@@ -31,15 +32,15 @@ import Amazonka.SageMaker.Types.VpcConfig
 --
 -- /See:/ 'newNetworkConfig' smart constructor.
 data NetworkConfig = NetworkConfig'
-  { -- | Whether to allow inbound and outbound network calls to and from the
-    -- containers used for the processing job.
-    enableNetworkIsolation :: Prelude.Maybe Prelude.Bool,
-    vpcConfig :: Prelude.Maybe VpcConfig,
-    -- | Whether to encrypt all communications between distributed processing
+  { -- | Whether to encrypt all communications between distributed processing
     -- jobs. Choose @True@ to encrypt communications. Encryption provides
     -- greater security for distributed processing jobs, but the processing
     -- might take longer.
-    enableInterContainerTrafficEncryption :: Prelude.Maybe Prelude.Bool
+    enableInterContainerTrafficEncryption :: Prelude.Maybe Prelude.Bool,
+    -- | Whether to allow inbound and outbound network calls to and from the
+    -- containers used for the processing job.
+    enableNetworkIsolation :: Prelude.Maybe Prelude.Bool,
+    vpcConfig :: Prelude.Maybe VpcConfig
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,25 +52,31 @@ data NetworkConfig = NetworkConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'enableNetworkIsolation', 'networkConfig_enableNetworkIsolation' - Whether to allow inbound and outbound network calls to and from the
--- containers used for the processing job.
---
--- 'vpcConfig', 'networkConfig_vpcConfig' - Undocumented member.
---
 -- 'enableInterContainerTrafficEncryption', 'networkConfig_enableInterContainerTrafficEncryption' - Whether to encrypt all communications between distributed processing
 -- jobs. Choose @True@ to encrypt communications. Encryption provides
 -- greater security for distributed processing jobs, but the processing
 -- might take longer.
+--
+-- 'enableNetworkIsolation', 'networkConfig_enableNetworkIsolation' - Whether to allow inbound and outbound network calls to and from the
+-- containers used for the processing job.
+--
+-- 'vpcConfig', 'networkConfig_vpcConfig' - Undocumented member.
 newNetworkConfig ::
   NetworkConfig
 newNetworkConfig =
   NetworkConfig'
-    { enableNetworkIsolation =
+    { enableInterContainerTrafficEncryption =
         Prelude.Nothing,
-      vpcConfig = Prelude.Nothing,
-      enableInterContainerTrafficEncryption =
-        Prelude.Nothing
+      enableNetworkIsolation = Prelude.Nothing,
+      vpcConfig = Prelude.Nothing
     }
+
+-- | Whether to encrypt all communications between distributed processing
+-- jobs. Choose @True@ to encrypt communications. Encryption provides
+-- greater security for distributed processing jobs, but the processing
+-- might take longer.
+networkConfig_enableInterContainerTrafficEncryption :: Lens.Lens' NetworkConfig (Prelude.Maybe Prelude.Bool)
+networkConfig_enableInterContainerTrafficEncryption = Lens.lens (\NetworkConfig' {enableInterContainerTrafficEncryption} -> enableInterContainerTrafficEncryption) (\s@NetworkConfig' {} a -> s {enableInterContainerTrafficEncryption = a} :: NetworkConfig)
 
 -- | Whether to allow inbound and outbound network calls to and from the
 -- containers used for the processing job.
@@ -80,44 +87,38 @@ networkConfig_enableNetworkIsolation = Lens.lens (\NetworkConfig' {enableNetwork
 networkConfig_vpcConfig :: Lens.Lens' NetworkConfig (Prelude.Maybe VpcConfig)
 networkConfig_vpcConfig = Lens.lens (\NetworkConfig' {vpcConfig} -> vpcConfig) (\s@NetworkConfig' {} a -> s {vpcConfig = a} :: NetworkConfig)
 
--- | Whether to encrypt all communications between distributed processing
--- jobs. Choose @True@ to encrypt communications. Encryption provides
--- greater security for distributed processing jobs, but the processing
--- might take longer.
-networkConfig_enableInterContainerTrafficEncryption :: Lens.Lens' NetworkConfig (Prelude.Maybe Prelude.Bool)
-networkConfig_enableInterContainerTrafficEncryption = Lens.lens (\NetworkConfig' {enableInterContainerTrafficEncryption} -> enableInterContainerTrafficEncryption) (\s@NetworkConfig' {} a -> s {enableInterContainerTrafficEncryption = a} :: NetworkConfig)
-
-instance Core.FromJSON NetworkConfig where
+instance Data.FromJSON NetworkConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NetworkConfig"
       ( \x ->
           NetworkConfig'
-            Prelude.<$> (x Core..:? "EnableNetworkIsolation")
-            Prelude.<*> (x Core..:? "VpcConfig")
-            Prelude.<*> (x Core..:? "EnableInterContainerTrafficEncryption")
+            Prelude.<$> (x Data..:? "EnableInterContainerTrafficEncryption")
+            Prelude.<*> (x Data..:? "EnableNetworkIsolation")
+            Prelude.<*> (x Data..:? "VpcConfig")
       )
 
 instance Prelude.Hashable NetworkConfig where
   hashWithSalt _salt NetworkConfig' {..} =
-    _salt `Prelude.hashWithSalt` enableNetworkIsolation
-      `Prelude.hashWithSalt` vpcConfig
+    _salt
       `Prelude.hashWithSalt` enableInterContainerTrafficEncryption
+      `Prelude.hashWithSalt` enableNetworkIsolation
+      `Prelude.hashWithSalt` vpcConfig
 
 instance Prelude.NFData NetworkConfig where
   rnf NetworkConfig' {..} =
-    Prelude.rnf enableNetworkIsolation
+    Prelude.rnf enableInterContainerTrafficEncryption
+      `Prelude.seq` Prelude.rnf enableNetworkIsolation
       `Prelude.seq` Prelude.rnf vpcConfig
-      `Prelude.seq` Prelude.rnf enableInterContainerTrafficEncryption
 
-instance Core.ToJSON NetworkConfig where
+instance Data.ToJSON NetworkConfig where
   toJSON NetworkConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EnableNetworkIsolation" Core..=)
+          [ ("EnableInterContainerTrafficEncryption" Data..=)
+              Prelude.<$> enableInterContainerTrafficEncryption,
+            ("EnableNetworkIsolation" Data..=)
               Prelude.<$> enableNetworkIsolation,
-            ("VpcConfig" Core..=) Prelude.<$> vpcConfig,
-            ("EnableInterContainerTrafficEncryption" Core..=)
-              Prelude.<$> enableInterContainerTrafficEncryption
+            ("VpcConfig" Data..=) Prelude.<$> vpcConfig
           ]
       )

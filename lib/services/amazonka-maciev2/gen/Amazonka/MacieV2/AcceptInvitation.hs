@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.AcceptInvitation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.MacieV2.AcceptInvitation
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -112,7 +113,8 @@ instance Core.AWSRequest AcceptInvitation where
   type
     AWSResponse AcceptInvitation =
       AcceptInvitationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -132,32 +134,32 @@ instance Prelude.NFData AcceptInvitation where
       `Prelude.seq` Prelude.rnf masterAccount
       `Prelude.seq` Prelude.rnf invitationId
 
-instance Core.ToHeaders AcceptInvitation where
+instance Data.ToHeaders AcceptInvitation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AcceptInvitation where
+instance Data.ToJSON AcceptInvitation where
   toJSON AcceptInvitation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("administratorAccountId" Core..=)
+          [ ("administratorAccountId" Data..=)
               Prelude.<$> administratorAccountId,
-            ("masterAccount" Core..=) Prelude.<$> masterAccount,
-            Prelude.Just ("invitationId" Core..= invitationId)
+            ("masterAccount" Data..=) Prelude.<$> masterAccount,
+            Prelude.Just ("invitationId" Data..= invitationId)
           ]
       )
 
-instance Core.ToPath AcceptInvitation where
+instance Data.ToPath AcceptInvitation where
   toPath = Prelude.const "/invitations/accept"
 
-instance Core.ToQuery AcceptInvitation where
+instance Data.ToQuery AcceptInvitation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAcceptInvitationResponse' smart constructor.

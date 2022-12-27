@@ -14,28 +14,29 @@
 
 -- |
 -- Module      : Amazonka.CloudTrail.AddTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds one or more tags to a trail, up to a limit of 50. Overwrites an
--- existing tag\'s value when a new value is specified for an existing tag
--- key. Tag key names must be unique for a trail; you cannot have two keys
--- with the same name but different values. If you specify a key without a
--- value, the tag will be created with the specified key and a value of
--- null. You can tag a trail that applies to all Amazon Web Services
--- Regions only from the Region in which the trail was created (also known
--- as its home region).
+-- Adds one or more tags to a trail or event data store, up to a limit of
+-- 50. Overwrites an existing tag\'s value when a new value is specified
+-- for an existing tag key. Tag key names must be unique for a trail; you
+-- cannot have two keys with the same name but different values. If you
+-- specify a key without a value, the tag will be created with the
+-- specified key and a value of null. You can tag a trail or event data
+-- store that applies to all Amazon Web Services Regions only from the
+-- Region in which the trail or event data store was created (also known as
+-- its home region).
 module Amazonka.CloudTrail.AddTags
   ( -- * Creating a Request
     AddTags (..),
     newAddTags,
 
     -- * Request Lenses
-    addTags_tagsList,
     addTags_resourceId,
+    addTags_tagsList,
 
     -- * Destructuring the Response
     AddTagsResponse (..),
@@ -48,22 +49,23 @@ where
 
 import Amazonka.CloudTrail.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Specifies the tags to add to a trail.
+-- | Specifies the tags to add to a trail or event data store.
 --
 -- /See:/ 'newAddTags' smart constructor.
 data AddTags = AddTags'
-  { -- | Contains a list of tags, up to a limit of 50
-    tagsList :: Prelude.Maybe [Tag],
-    -- | Specifies the ARN of the trail to which one or more tags will be added.
-    -- The format of a trail ARN is:
+  { -- | Specifies the ARN of the trail or event data store to which one or more
+    -- tags will be added. The format of a trail ARN is:
     --
     -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
-    resourceId :: Prelude.Text
+    resourceId :: Prelude.Text,
+    -- | Contains a list of tags, up to a limit of 50
+    tagsList :: [Tag]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -75,36 +77,37 @@ data AddTags = AddTags'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tagsList', 'addTags_tagsList' - Contains a list of tags, up to a limit of 50
---
--- 'resourceId', 'addTags_resourceId' - Specifies the ARN of the trail to which one or more tags will be added.
--- The format of a trail ARN is:
+-- 'resourceId', 'addTags_resourceId' - Specifies the ARN of the trail or event data store to which one or more
+-- tags will be added. The format of a trail ARN is:
 --
 -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
+--
+-- 'tagsList', 'addTags_tagsList' - Contains a list of tags, up to a limit of 50
 newAddTags ::
   -- | 'resourceId'
   Prelude.Text ->
   AddTags
 newAddTags pResourceId_ =
   AddTags'
-    { tagsList = Prelude.Nothing,
-      resourceId = pResourceId_
+    { resourceId = pResourceId_,
+      tagsList = Prelude.mempty
     }
 
--- | Contains a list of tags, up to a limit of 50
-addTags_tagsList :: Lens.Lens' AddTags (Prelude.Maybe [Tag])
-addTags_tagsList = Lens.lens (\AddTags' {tagsList} -> tagsList) (\s@AddTags' {} a -> s {tagsList = a} :: AddTags) Prelude.. Lens.mapping Lens.coerced
-
--- | Specifies the ARN of the trail to which one or more tags will be added.
--- The format of a trail ARN is:
+-- | Specifies the ARN of the trail or event data store to which one or more
+-- tags will be added. The format of a trail ARN is:
 --
 -- @arn:aws:cloudtrail:us-east-2:123456789012:trail\/MyTrail@
 addTags_resourceId :: Lens.Lens' AddTags Prelude.Text
 addTags_resourceId = Lens.lens (\AddTags' {resourceId} -> resourceId) (\s@AddTags' {} a -> s {resourceId = a} :: AddTags)
 
+-- | Contains a list of tags, up to a limit of 50
+addTags_tagsList :: Lens.Lens' AddTags [Tag]
+addTags_tagsList = Lens.lens (\AddTags' {tagsList} -> tagsList) (\s@AddTags' {} a -> s {tagsList = a} :: AddTags) Prelude.. Lens.coerced
+
 instance Core.AWSRequest AddTags where
   type AWSResponse AddTags = AddTagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,42 +117,42 @@ instance Core.AWSRequest AddTags where
 
 instance Prelude.Hashable AddTags where
   hashWithSalt _salt AddTags' {..} =
-    _salt `Prelude.hashWithSalt` tagsList
-      `Prelude.hashWithSalt` resourceId
+    _salt `Prelude.hashWithSalt` resourceId
+      `Prelude.hashWithSalt` tagsList
 
 instance Prelude.NFData AddTags where
   rnf AddTags' {..} =
-    Prelude.rnf tagsList
-      `Prelude.seq` Prelude.rnf resourceId
+    Prelude.rnf resourceId
+      `Prelude.seq` Prelude.rnf tagsList
 
-instance Core.ToHeaders AddTags where
+instance Data.ToHeaders AddTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.AddTags" ::
+              Data.=# ( "com.amazonaws.cloudtrail.v20131101.CloudTrail_20131101.AddTags" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddTags where
+instance Data.ToJSON AddTags where
   toJSON AddTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TagsList" Core..=) Prelude.<$> tagsList,
-            Prelude.Just ("ResourceId" Core..= resourceId)
+          [ Prelude.Just ("ResourceId" Data..= resourceId),
+            Prelude.Just ("TagsList" Data..= tagsList)
           ]
       )
 
-instance Core.ToPath AddTags where
+instance Data.ToPath AddTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddTags where
+instance Data.ToQuery AddTags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Returns the objects or data if successful. Otherwise, returns an error.

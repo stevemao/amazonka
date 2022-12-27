@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Resolver.ListFirewallRules
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,10 +34,10 @@ module Amazonka.Route53Resolver.ListFirewallRules
     newListFirewallRules,
 
     -- * Request Lenses
-    listFirewallRules_priority,
     listFirewallRules_action,
-    listFirewallRules_nextToken,
     listFirewallRules_maxResults,
+    listFirewallRules_nextToken,
+    listFirewallRules_priority,
     listFirewallRules_firewallRuleGroupId,
 
     -- * Destructuring the Response
@@ -52,7 +52,8 @@ module Amazonka.Route53Resolver.ListFirewallRules
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,12 +62,6 @@ import Amazonka.Route53Resolver.Types
 -- | /See:/ 'newListFirewallRules' smart constructor.
 data ListFirewallRules = ListFirewallRules'
   { -- | Optional additional filter for the rules to retrieve.
-    --
-    -- The setting that determines the processing order of the rules in a rule
-    -- group. DNS Firewall processes the rules in a rule group by order of
-    -- priority, starting from the lowest setting.
-    priority :: Prelude.Maybe Prelude.Int,
-    -- | Optional additional filter for the rules to retrieve.
     --
     -- The action that DNS Firewall should take on a DNS query when it matches
     -- one of the domains in the rule\'s domain list:
@@ -80,14 +75,6 @@ data ListFirewallRules = ListFirewallRules'
     --     handling details are provided in the rule\'s @BlockResponse@
     --     setting.
     action :: Prelude.Maybe Action,
-    -- | For the first call to this list request, omit this value.
-    --
-    -- When you request a list of objects, Resolver returns at most the number
-    -- of objects specified in @MaxResults@. If more objects are available for
-    -- retrieval, Resolver returns a @NextToken@ value in the response. To
-    -- retrieve the next batch of objects, use the token that was returned for
-    -- the prior request in your next request.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The maximum number of objects that you want Resolver to return for this
     -- request. If more objects are available, in the response, Resolver
     -- provides a @NextToken@ value that you can use in a subsequent call to
@@ -96,6 +83,20 @@ data ListFirewallRules = ListFirewallRules'
     -- If you don\'t specify a value for @MaxResults@, Resolver returns up to
     -- 100 objects.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | For the first call to this list request, omit this value.
+    --
+    -- When you request a list of objects, Resolver returns at most the number
+    -- of objects specified in @MaxResults@. If more objects are available for
+    -- retrieval, Resolver returns a @NextToken@ value in the response. To
+    -- retrieve the next batch of objects, use the token that was returned for
+    -- the prior request in your next request.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Optional additional filter for the rules to retrieve.
+    --
+    -- The setting that determines the processing order of the rules in a rule
+    -- group. DNS Firewall processes the rules in a rule group by order of
+    -- priority, starting from the lowest setting.
+    priority :: Prelude.Maybe Prelude.Int,
     -- | The unique identifier of the firewall rule group that you want to
     -- retrieve the rules for.
     firewallRuleGroupId :: Prelude.Text
@@ -109,12 +110,6 @@ data ListFirewallRules = ListFirewallRules'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'priority', 'listFirewallRules_priority' - Optional additional filter for the rules to retrieve.
---
--- The setting that determines the processing order of the rules in a rule
--- group. DNS Firewall processes the rules in a rule group by order of
--- priority, starting from the lowest setting.
 --
 -- 'action', 'listFirewallRules_action' - Optional additional filter for the rules to retrieve.
 --
@@ -130,6 +125,14 @@ data ListFirewallRules = ListFirewallRules'
 --     handling details are provided in the rule\'s @BlockResponse@
 --     setting.
 --
+-- 'maxResults', 'listFirewallRules_maxResults' - The maximum number of objects that you want Resolver to return for this
+-- request. If more objects are available, in the response, Resolver
+-- provides a @NextToken@ value that you can use in a subsequent call to
+-- get the next batch of objects.
+--
+-- If you don\'t specify a value for @MaxResults@, Resolver returns up to
+-- 100 objects.
+--
 -- 'nextToken', 'listFirewallRules_nextToken' - For the first call to this list request, omit this value.
 --
 -- When you request a list of objects, Resolver returns at most the number
@@ -138,13 +141,11 @@ data ListFirewallRules = ListFirewallRules'
 -- retrieve the next batch of objects, use the token that was returned for
 -- the prior request in your next request.
 --
--- 'maxResults', 'listFirewallRules_maxResults' - The maximum number of objects that you want Resolver to return for this
--- request. If more objects are available, in the response, Resolver
--- provides a @NextToken@ value that you can use in a subsequent call to
--- get the next batch of objects.
+-- 'priority', 'listFirewallRules_priority' - Optional additional filter for the rules to retrieve.
 --
--- If you don\'t specify a value for @MaxResults@, Resolver returns up to
--- 100 objects.
+-- The setting that determines the processing order of the rules in a rule
+-- group. DNS Firewall processes the rules in a rule group by order of
+-- priority, starting from the lowest setting.
 --
 -- 'firewallRuleGroupId', 'listFirewallRules_firewallRuleGroupId' - The unique identifier of the firewall rule group that you want to
 -- retrieve the rules for.
@@ -154,20 +155,12 @@ newListFirewallRules ::
   ListFirewallRules
 newListFirewallRules pFirewallRuleGroupId_ =
   ListFirewallRules'
-    { priority = Prelude.Nothing,
-      action = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+    { action = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      priority = Prelude.Nothing,
       firewallRuleGroupId = pFirewallRuleGroupId_
     }
-
--- | Optional additional filter for the rules to retrieve.
---
--- The setting that determines the processing order of the rules in a rule
--- group. DNS Firewall processes the rules in a rule group by order of
--- priority, starting from the lowest setting.
-listFirewallRules_priority :: Lens.Lens' ListFirewallRules (Prelude.Maybe Prelude.Int)
-listFirewallRules_priority = Lens.lens (\ListFirewallRules' {priority} -> priority) (\s@ListFirewallRules' {} a -> s {priority = a} :: ListFirewallRules)
 
 -- | Optional additional filter for the rules to retrieve.
 --
@@ -185,6 +178,16 @@ listFirewallRules_priority = Lens.lens (\ListFirewallRules' {priority} -> priori
 listFirewallRules_action :: Lens.Lens' ListFirewallRules (Prelude.Maybe Action)
 listFirewallRules_action = Lens.lens (\ListFirewallRules' {action} -> action) (\s@ListFirewallRules' {} a -> s {action = a} :: ListFirewallRules)
 
+-- | The maximum number of objects that you want Resolver to return for this
+-- request. If more objects are available, in the response, Resolver
+-- provides a @NextToken@ value that you can use in a subsequent call to
+-- get the next batch of objects.
+--
+-- If you don\'t specify a value for @MaxResults@, Resolver returns up to
+-- 100 objects.
+listFirewallRules_maxResults :: Lens.Lens' ListFirewallRules (Prelude.Maybe Prelude.Natural)
+listFirewallRules_maxResults = Lens.lens (\ListFirewallRules' {maxResults} -> maxResults) (\s@ListFirewallRules' {} a -> s {maxResults = a} :: ListFirewallRules)
+
 -- | For the first call to this list request, omit this value.
 --
 -- When you request a list of objects, Resolver returns at most the number
@@ -195,15 +198,13 @@ listFirewallRules_action = Lens.lens (\ListFirewallRules' {action} -> action) (\
 listFirewallRules_nextToken :: Lens.Lens' ListFirewallRules (Prelude.Maybe Prelude.Text)
 listFirewallRules_nextToken = Lens.lens (\ListFirewallRules' {nextToken} -> nextToken) (\s@ListFirewallRules' {} a -> s {nextToken = a} :: ListFirewallRules)
 
--- | The maximum number of objects that you want Resolver to return for this
--- request. If more objects are available, in the response, Resolver
--- provides a @NextToken@ value that you can use in a subsequent call to
--- get the next batch of objects.
+-- | Optional additional filter for the rules to retrieve.
 --
--- If you don\'t specify a value for @MaxResults@, Resolver returns up to
--- 100 objects.
-listFirewallRules_maxResults :: Lens.Lens' ListFirewallRules (Prelude.Maybe Prelude.Natural)
-listFirewallRules_maxResults = Lens.lens (\ListFirewallRules' {maxResults} -> maxResults) (\s@ListFirewallRules' {} a -> s {maxResults = a} :: ListFirewallRules)
+-- The setting that determines the processing order of the rules in a rule
+-- group. DNS Firewall processes the rules in a rule group by order of
+-- priority, starting from the lowest setting.
+listFirewallRules_priority :: Lens.Lens' ListFirewallRules (Prelude.Maybe Prelude.Int)
+listFirewallRules_priority = Lens.lens (\ListFirewallRules' {priority} -> priority) (\s@ListFirewallRules' {} a -> s {priority = a} :: ListFirewallRules)
 
 -- | The unique identifier of the firewall rule group that you want to
 -- retrieve the rules for.
@@ -236,64 +237,65 @@ instance Core.AWSRequest ListFirewallRules where
   type
     AWSResponse ListFirewallRules =
       ListFirewallRulesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListFirewallRulesResponse'
-            Prelude.<$> (x Core..?> "FirewallRules" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "FirewallRules" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListFirewallRules where
   hashWithSalt _salt ListFirewallRules' {..} =
-    _salt `Prelude.hashWithSalt` priority
-      `Prelude.hashWithSalt` action
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` action
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` priority
       `Prelude.hashWithSalt` firewallRuleGroupId
 
 instance Prelude.NFData ListFirewallRules where
   rnf ListFirewallRules' {..} =
-    Prelude.rnf priority
-      `Prelude.seq` Prelude.rnf action
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf action
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf priority
       `Prelude.seq` Prelude.rnf firewallRuleGroupId
 
-instance Core.ToHeaders ListFirewallRules where
+instance Data.ToHeaders ListFirewallRules where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53Resolver.ListFirewallRules" ::
+              Data.=# ( "Route53Resolver.ListFirewallRules" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListFirewallRules where
+instance Data.ToJSON ListFirewallRules where
   toJSON ListFirewallRules' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Priority" Core..=) Prelude.<$> priority,
-            ("Action" Core..=) Prelude.<$> action,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("Action" Data..=) Prelude.<$> action,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("Priority" Data..=) Prelude.<$> priority,
             Prelude.Just
-              ("FirewallRuleGroupId" Core..= firewallRuleGroupId)
+              ("FirewallRuleGroupId" Data..= firewallRuleGroupId)
           ]
       )
 
-instance Core.ToPath ListFirewallRules where
+instance Data.ToPath ListFirewallRules where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListFirewallRules where
+instance Data.ToQuery ListFirewallRules where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListFirewallRulesResponse' smart constructor.

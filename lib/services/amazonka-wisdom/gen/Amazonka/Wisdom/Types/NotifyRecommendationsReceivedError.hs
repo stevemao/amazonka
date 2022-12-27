@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Wisdom.Types.NotifyRecommendationsReceivedError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.Wisdom.Types.NotifyRecommendationsReceivedError where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An error occurred when creating a recommendation.
 --
 -- /See:/ 'newNotifyRecommendationsReceivedError' smart constructor.
 data NotifyRecommendationsReceivedError = NotifyRecommendationsReceivedError'
-  { -- | The identifier of the recommendation that is in error.
-    recommendationId :: Prelude.Maybe Prelude.Text,
-    -- | A recommendation is causing an error.
-    message :: Prelude.Maybe Prelude.Text
+  { -- | A recommendation is causing an error.
+    message :: Prelude.Maybe Prelude.Text,
+    -- | The identifier of the recommendation that is in error.
+    recommendationId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,37 +43,37 @@ data NotifyRecommendationsReceivedError = NotifyRecommendationsReceivedError'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'recommendationId', 'notifyRecommendationsReceivedError_recommendationId' - The identifier of the recommendation that is in error.
---
 -- 'message', 'notifyRecommendationsReceivedError_message' - A recommendation is causing an error.
+--
+-- 'recommendationId', 'notifyRecommendationsReceivedError_recommendationId' - The identifier of the recommendation that is in error.
 newNotifyRecommendationsReceivedError ::
   NotifyRecommendationsReceivedError
 newNotifyRecommendationsReceivedError =
   NotifyRecommendationsReceivedError'
-    { recommendationId =
+    { message =
         Prelude.Nothing,
-      message = Prelude.Nothing
+      recommendationId = Prelude.Nothing
     }
-
--- | The identifier of the recommendation that is in error.
-notifyRecommendationsReceivedError_recommendationId :: Lens.Lens' NotifyRecommendationsReceivedError (Prelude.Maybe Prelude.Text)
-notifyRecommendationsReceivedError_recommendationId = Lens.lens (\NotifyRecommendationsReceivedError' {recommendationId} -> recommendationId) (\s@NotifyRecommendationsReceivedError' {} a -> s {recommendationId = a} :: NotifyRecommendationsReceivedError)
 
 -- | A recommendation is causing an error.
 notifyRecommendationsReceivedError_message :: Lens.Lens' NotifyRecommendationsReceivedError (Prelude.Maybe Prelude.Text)
 notifyRecommendationsReceivedError_message = Lens.lens (\NotifyRecommendationsReceivedError' {message} -> message) (\s@NotifyRecommendationsReceivedError' {} a -> s {message = a} :: NotifyRecommendationsReceivedError)
 
+-- | The identifier of the recommendation that is in error.
+notifyRecommendationsReceivedError_recommendationId :: Lens.Lens' NotifyRecommendationsReceivedError (Prelude.Maybe Prelude.Text)
+notifyRecommendationsReceivedError_recommendationId = Lens.lens (\NotifyRecommendationsReceivedError' {recommendationId} -> recommendationId) (\s@NotifyRecommendationsReceivedError' {} a -> s {recommendationId = a} :: NotifyRecommendationsReceivedError)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     NotifyRecommendationsReceivedError
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NotifyRecommendationsReceivedError"
       ( \x ->
           NotifyRecommendationsReceivedError'
-            Prelude.<$> (x Core..:? "recommendationId")
-            Prelude.<*> (x Core..:? "message")
+            Prelude.<$> (x Data..:? "message")
+            Prelude.<*> (x Data..:? "recommendationId")
       )
 
 instance
@@ -82,13 +83,13 @@ instance
   hashWithSalt
     _salt
     NotifyRecommendationsReceivedError' {..} =
-      _salt `Prelude.hashWithSalt` recommendationId
-        `Prelude.hashWithSalt` message
+      _salt `Prelude.hashWithSalt` message
+        `Prelude.hashWithSalt` recommendationId
 
 instance
   Prelude.NFData
     NotifyRecommendationsReceivedError
   where
   rnf NotifyRecommendationsReceivedError' {..} =
-    Prelude.rnf recommendationId
-      `Prelude.seq` Prelude.rnf message
+    Prelude.rnf message
+      `Prelude.seq` Prelude.rnf recommendationId

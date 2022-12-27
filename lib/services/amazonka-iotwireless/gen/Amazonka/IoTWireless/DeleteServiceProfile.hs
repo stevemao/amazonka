@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTWireless.DeleteServiceProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,9 @@ module Amazonka.IoTWireless.DeleteServiceProfile
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTWireless.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteServiceProfile where
   type
     AWSResponse DeleteServiceProfile =
       DeleteServiceProfileResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,15 +93,15 @@ instance Prelude.Hashable DeleteServiceProfile where
 instance Prelude.NFData DeleteServiceProfile where
   rnf DeleteServiceProfile' {..} = Prelude.rnf id
 
-instance Core.ToHeaders DeleteServiceProfile where
+instance Data.ToHeaders DeleteServiceProfile where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteServiceProfile where
+instance Data.ToPath DeleteServiceProfile where
   toPath DeleteServiceProfile' {..} =
     Prelude.mconcat
-      ["/service-profiles/", Core.toBS id]
+      ["/service-profiles/", Data.toBS id]
 
-instance Core.ToQuery DeleteServiceProfile where
+instance Data.ToQuery DeleteServiceProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteServiceProfileResponse' smart constructor.

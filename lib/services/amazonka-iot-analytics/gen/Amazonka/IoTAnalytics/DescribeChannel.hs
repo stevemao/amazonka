@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.DescribeChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.IoTAnalytics.DescribeChannel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,13 +98,14 @@ instance Core.AWSRequest DescribeChannel where
   type
     AWSResponse DescribeChannel =
       DescribeChannelResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeChannelResponse'
-            Prelude.<$> (x Core..?> "channel")
-            Prelude.<*> (x Core..?> "statistics")
+            Prelude.<$> (x Data..?> "channel")
+            Prelude.<*> (x Data..?> "statistics")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,18 +119,18 @@ instance Prelude.NFData DescribeChannel where
     Prelude.rnf includeStatistics
       `Prelude.seq` Prelude.rnf channelName
 
-instance Core.ToHeaders DescribeChannel where
+instance Data.ToHeaders DescribeChannel where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeChannel where
+instance Data.ToPath DescribeChannel where
   toPath DescribeChannel' {..} =
     Prelude.mconcat
-      ["/channels/", Core.toBS channelName]
+      ["/channels/", Data.toBS channelName]
 
-instance Core.ToQuery DescribeChannel where
+instance Data.ToQuery DescribeChannel where
   toQuery DescribeChannel' {..} =
     Prelude.mconcat
-      ["includeStatistics" Core.=: includeStatistics]
+      ["includeStatistics" Data.=: includeStatistics]
 
 -- | /See:/ 'newDescribeChannelResponse' smart constructor.
 data DescribeChannelResponse = DescribeChannelResponse'

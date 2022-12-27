@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.DescribeLoggingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.NetworkFirewall.DescribeLoggingConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -104,13 +105,14 @@ instance Core.AWSRequest DescribeLoggingConfiguration where
   type
     AWSResponse DescribeLoggingConfiguration =
       DescribeLoggingConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeLoggingConfigurationResponse'
-            Prelude.<$> (x Core..?> "FirewallArn")
-            Prelude.<*> (x Core..?> "LoggingConfiguration")
+            Prelude.<$> (x Data..?> "FirewallArn")
+            Prelude.<*> (x Data..?> "LoggingConfiguration")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -127,34 +129,34 @@ instance Prelude.NFData DescribeLoggingConfiguration where
     Prelude.rnf firewallArn
       `Prelude.seq` Prelude.rnf firewallName
 
-instance Core.ToHeaders DescribeLoggingConfiguration where
+instance Data.ToHeaders DescribeLoggingConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "NetworkFirewall_20201112.DescribeLoggingConfiguration" ::
+              Data.=# ( "NetworkFirewall_20201112.DescribeLoggingConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeLoggingConfiguration where
+instance Data.ToJSON DescribeLoggingConfiguration where
   toJSON DescribeLoggingConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("FirewallArn" Core..=) Prelude.<$> firewallArn,
-            ("FirewallName" Core..=) Prelude.<$> firewallName
+          [ ("FirewallArn" Data..=) Prelude.<$> firewallArn,
+            ("FirewallName" Data..=) Prelude.<$> firewallName
           ]
       )
 
-instance Core.ToPath DescribeLoggingConfiguration where
+instance Data.ToPath DescribeLoggingConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeLoggingConfiguration where
+instance Data.ToQuery DescribeLoggingConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeLoggingConfigurationResponse' smart constructor.

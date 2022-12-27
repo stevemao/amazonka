@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.GetDeploymentStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,18 +35,19 @@ module Amazonka.Greengrass.GetDeploymentStatus
     newGetDeploymentStatusResponse,
 
     -- * Response Lenses
+    getDeploymentStatusResponse_deploymentStatus,
     getDeploymentStatusResponse_deploymentType,
     getDeploymentStatusResponse_errorDetails,
-    getDeploymentStatusResponse_deploymentStatus,
-    getDeploymentStatusResponse_updatedAt,
     getDeploymentStatusResponse_errorMessage,
+    getDeploymentStatusResponse_updatedAt,
     getDeploymentStatusResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,16 +96,17 @@ instance Core.AWSRequest GetDeploymentStatus where
   type
     AWSResponse GetDeploymentStatus =
       GetDeploymentStatusResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDeploymentStatusResponse'
-            Prelude.<$> (x Core..?> "DeploymentType")
-            Prelude.<*> (x Core..?> "ErrorDetails" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "DeploymentStatus")
-            Prelude.<*> (x Core..?> "UpdatedAt")
-            Prelude.<*> (x Core..?> "ErrorMessage")
+            Prelude.<$> (x Data..?> "DeploymentStatus")
+            Prelude.<*> (x Data..?> "DeploymentType")
+            Prelude.<*> (x Data..?> "ErrorDetails" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "ErrorMessage")
+            Prelude.<*> (x Data..?> "UpdatedAt")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,44 +120,44 @@ instance Prelude.NFData GetDeploymentStatus where
     Prelude.rnf groupId
       `Prelude.seq` Prelude.rnf deploymentId
 
-instance Core.ToHeaders GetDeploymentStatus where
+instance Data.ToHeaders GetDeploymentStatus where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetDeploymentStatus where
+instance Data.ToPath GetDeploymentStatus where
   toPath GetDeploymentStatus' {..} =
     Prelude.mconcat
       [ "/greengrass/groups/",
-        Core.toBS groupId,
+        Data.toBS groupId,
         "/deployments/",
-        Core.toBS deploymentId,
+        Data.toBS deploymentId,
         "/status"
       ]
 
-instance Core.ToQuery GetDeploymentStatus where
+instance Data.ToQuery GetDeploymentStatus where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDeploymentStatusResponse' smart constructor.
 data GetDeploymentStatusResponse = GetDeploymentStatusResponse'
-  { -- | The type of the deployment.
+  { -- | The status of the deployment: \'\'InProgress\'\', \'\'Building\'\',
+    -- \'\'Success\'\', or \'\'Failure\'\'.
+    deploymentStatus :: Prelude.Maybe Prelude.Text,
+    -- | The type of the deployment.
     deploymentType :: Prelude.Maybe DeploymentType,
     -- | Error details
     errorDetails :: Prelude.Maybe [ErrorDetail],
-    -- | The status of the deployment: \'\'InProgress\'\', \'\'Building\'\',
-    -- \'\'Success\'\', or \'\'Failure\'\'.
-    deploymentStatus :: Prelude.Maybe Prelude.Text,
+    -- | Error message
+    errorMessage :: Prelude.Maybe Prelude.Text,
     -- | The time, in milliseconds since the epoch, when the deployment status
     -- was updated.
     updatedAt :: Prelude.Maybe Prelude.Text,
-    -- | Error message
-    errorMessage :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -169,17 +171,17 @@ data GetDeploymentStatusResponse = GetDeploymentStatusResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'deploymentStatus', 'getDeploymentStatusResponse_deploymentStatus' - The status of the deployment: \'\'InProgress\'\', \'\'Building\'\',
+-- \'\'Success\'\', or \'\'Failure\'\'.
+--
 -- 'deploymentType', 'getDeploymentStatusResponse_deploymentType' - The type of the deployment.
 --
 -- 'errorDetails', 'getDeploymentStatusResponse_errorDetails' - Error details
 --
--- 'deploymentStatus', 'getDeploymentStatusResponse_deploymentStatus' - The status of the deployment: \'\'InProgress\'\', \'\'Building\'\',
--- \'\'Success\'\', or \'\'Failure\'\'.
+-- 'errorMessage', 'getDeploymentStatusResponse_errorMessage' - Error message
 --
 -- 'updatedAt', 'getDeploymentStatusResponse_updatedAt' - The time, in milliseconds since the epoch, when the deployment status
 -- was updated.
---
--- 'errorMessage', 'getDeploymentStatusResponse_errorMessage' - Error message
 --
 -- 'httpStatus', 'getDeploymentStatusResponse_httpStatus' - The response's http status code.
 newGetDeploymentStatusResponse ::
@@ -188,14 +190,19 @@ newGetDeploymentStatusResponse ::
   GetDeploymentStatusResponse
 newGetDeploymentStatusResponse pHttpStatus_ =
   GetDeploymentStatusResponse'
-    { deploymentType =
+    { deploymentStatus =
         Prelude.Nothing,
+      deploymentType = Prelude.Nothing,
       errorDetails = Prelude.Nothing,
-      deploymentStatus = Prelude.Nothing,
-      updatedAt = Prelude.Nothing,
       errorMessage = Prelude.Nothing,
+      updatedAt = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The status of the deployment: \'\'InProgress\'\', \'\'Building\'\',
+-- \'\'Success\'\', or \'\'Failure\'\'.
+getDeploymentStatusResponse_deploymentStatus :: Lens.Lens' GetDeploymentStatusResponse (Prelude.Maybe Prelude.Text)
+getDeploymentStatusResponse_deploymentStatus = Lens.lens (\GetDeploymentStatusResponse' {deploymentStatus} -> deploymentStatus) (\s@GetDeploymentStatusResponse' {} a -> s {deploymentStatus = a} :: GetDeploymentStatusResponse)
 
 -- | The type of the deployment.
 getDeploymentStatusResponse_deploymentType :: Lens.Lens' GetDeploymentStatusResponse (Prelude.Maybe DeploymentType)
@@ -205,19 +212,14 @@ getDeploymentStatusResponse_deploymentType = Lens.lens (\GetDeploymentStatusResp
 getDeploymentStatusResponse_errorDetails :: Lens.Lens' GetDeploymentStatusResponse (Prelude.Maybe [ErrorDetail])
 getDeploymentStatusResponse_errorDetails = Lens.lens (\GetDeploymentStatusResponse' {errorDetails} -> errorDetails) (\s@GetDeploymentStatusResponse' {} a -> s {errorDetails = a} :: GetDeploymentStatusResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The status of the deployment: \'\'InProgress\'\', \'\'Building\'\',
--- \'\'Success\'\', or \'\'Failure\'\'.
-getDeploymentStatusResponse_deploymentStatus :: Lens.Lens' GetDeploymentStatusResponse (Prelude.Maybe Prelude.Text)
-getDeploymentStatusResponse_deploymentStatus = Lens.lens (\GetDeploymentStatusResponse' {deploymentStatus} -> deploymentStatus) (\s@GetDeploymentStatusResponse' {} a -> s {deploymentStatus = a} :: GetDeploymentStatusResponse)
+-- | Error message
+getDeploymentStatusResponse_errorMessage :: Lens.Lens' GetDeploymentStatusResponse (Prelude.Maybe Prelude.Text)
+getDeploymentStatusResponse_errorMessage = Lens.lens (\GetDeploymentStatusResponse' {errorMessage} -> errorMessage) (\s@GetDeploymentStatusResponse' {} a -> s {errorMessage = a} :: GetDeploymentStatusResponse)
 
 -- | The time, in milliseconds since the epoch, when the deployment status
 -- was updated.
 getDeploymentStatusResponse_updatedAt :: Lens.Lens' GetDeploymentStatusResponse (Prelude.Maybe Prelude.Text)
 getDeploymentStatusResponse_updatedAt = Lens.lens (\GetDeploymentStatusResponse' {updatedAt} -> updatedAt) (\s@GetDeploymentStatusResponse' {} a -> s {updatedAt = a} :: GetDeploymentStatusResponse)
-
--- | Error message
-getDeploymentStatusResponse_errorMessage :: Lens.Lens' GetDeploymentStatusResponse (Prelude.Maybe Prelude.Text)
-getDeploymentStatusResponse_errorMessage = Lens.lens (\GetDeploymentStatusResponse' {errorMessage} -> errorMessage) (\s@GetDeploymentStatusResponse' {} a -> s {errorMessage = a} :: GetDeploymentStatusResponse)
 
 -- | The response's http status code.
 getDeploymentStatusResponse_httpStatus :: Lens.Lens' GetDeploymentStatusResponse Prelude.Int
@@ -225,9 +227,9 @@ getDeploymentStatusResponse_httpStatus = Lens.lens (\GetDeploymentStatusResponse
 
 instance Prelude.NFData GetDeploymentStatusResponse where
   rnf GetDeploymentStatusResponse' {..} =
-    Prelude.rnf deploymentType
+    Prelude.rnf deploymentStatus
+      `Prelude.seq` Prelude.rnf deploymentType
       `Prelude.seq` Prelude.rnf errorDetails
-      `Prelude.seq` Prelude.rnf deploymentStatus
-      `Prelude.seq` Prelude.rnf updatedAt
       `Prelude.seq` Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf updatedAt
       `Prelude.seq` Prelude.rnf httpStatus

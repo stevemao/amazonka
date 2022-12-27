@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.DeleteIntegrationResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -49,16 +50,13 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDeleteIntegrationResponse' smart constructor.
 data DeleteIntegrationResponse = DeleteIntegrationResponse'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] Specifies a delete integration response request\'s resource
-    -- identifier.
+    -- | Specifies a delete integration response request\'s resource identifier.
     resourceId :: Prelude.Text,
-    -- | [Required] Specifies a delete integration response request\'s HTTP
-    -- method.
+    -- | Specifies a delete integration response request\'s HTTP method.
     httpMethod :: Prelude.Text,
-    -- | [Required] Specifies a delete integration response request\'s status
-    -- code.
+    -- | Specifies a delete integration response request\'s status code.
     statusCode :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -71,16 +69,13 @@ data DeleteIntegrationResponse = DeleteIntegrationResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'deleteIntegrationResponse_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'deleteIntegrationResponse_restApiId' - The string identifier of the associated RestApi.
 --
--- 'resourceId', 'deleteIntegrationResponse_resourceId' - [Required] Specifies a delete integration response request\'s resource
--- identifier.
+-- 'resourceId', 'deleteIntegrationResponse_resourceId' - Specifies a delete integration response request\'s resource identifier.
 --
--- 'httpMethod', 'deleteIntegrationResponse_httpMethod' - [Required] Specifies a delete integration response request\'s HTTP
--- method.
+-- 'httpMethod', 'deleteIntegrationResponse_httpMethod' - Specifies a delete integration response request\'s HTTP method.
 --
--- 'statusCode', 'deleteIntegrationResponse_statusCode' - [Required] Specifies a delete integration response request\'s status
--- code.
+-- 'statusCode', 'deleteIntegrationResponse_statusCode' - Specifies a delete integration response request\'s status code.
 newDeleteIntegrationResponse ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -103,22 +98,19 @@ newDeleteIntegrationResponse
         statusCode = pStatusCode_
       }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 deleteIntegrationResponse_restApiId :: Lens.Lens' DeleteIntegrationResponse Prelude.Text
 deleteIntegrationResponse_restApiId = Lens.lens (\DeleteIntegrationResponse' {restApiId} -> restApiId) (\s@DeleteIntegrationResponse' {} a -> s {restApiId = a} :: DeleteIntegrationResponse)
 
--- | [Required] Specifies a delete integration response request\'s resource
--- identifier.
+-- | Specifies a delete integration response request\'s resource identifier.
 deleteIntegrationResponse_resourceId :: Lens.Lens' DeleteIntegrationResponse Prelude.Text
 deleteIntegrationResponse_resourceId = Lens.lens (\DeleteIntegrationResponse' {resourceId} -> resourceId) (\s@DeleteIntegrationResponse' {} a -> s {resourceId = a} :: DeleteIntegrationResponse)
 
--- | [Required] Specifies a delete integration response request\'s HTTP
--- method.
+-- | Specifies a delete integration response request\'s HTTP method.
 deleteIntegrationResponse_httpMethod :: Lens.Lens' DeleteIntegrationResponse Prelude.Text
 deleteIntegrationResponse_httpMethod = Lens.lens (\DeleteIntegrationResponse' {httpMethod} -> httpMethod) (\s@DeleteIntegrationResponse' {} a -> s {httpMethod = a} :: DeleteIntegrationResponse)
 
--- | [Required] Specifies a delete integration response request\'s status
--- code.
+-- | Specifies a delete integration response request\'s status code.
 deleteIntegrationResponse_statusCode :: Lens.Lens' DeleteIntegrationResponse Prelude.Text
 deleteIntegrationResponse_statusCode = Lens.lens (\DeleteIntegrationResponse' {statusCode} -> statusCode) (\s@DeleteIntegrationResponse' {} a -> s {statusCode = a} :: DeleteIntegrationResponse)
 
@@ -126,7 +118,8 @@ instance Core.AWSRequest DeleteIntegrationResponse where
   type
     AWSResponse DeleteIntegrationResponse =
       DeleteIntegrationResponseResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull
       DeleteIntegrationResponseResponse'
@@ -145,29 +138,29 @@ instance Prelude.NFData DeleteIntegrationResponse where
       `Prelude.seq` Prelude.rnf httpMethod
       `Prelude.seq` Prelude.rnf statusCode
 
-instance Core.ToHeaders DeleteIntegrationResponse where
+instance Data.ToHeaders DeleteIntegrationResponse where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath DeleteIntegrationResponse where
+instance Data.ToPath DeleteIntegrationResponse where
   toPath DeleteIntegrationResponse' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/resources/",
-        Core.toBS resourceId,
+        Data.toBS resourceId,
         "/methods/",
-        Core.toBS httpMethod,
+        Data.toBS httpMethod,
         "/integration/responses/",
-        Core.toBS statusCode
+        Data.toBS statusCode
       ]
 
-instance Core.ToQuery DeleteIntegrationResponse where
+instance Data.ToQuery DeleteIntegrationResponse where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteIntegrationResponseResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.DescribeQueue
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,12 +98,13 @@ instance Core.AWSRequest DescribeQueue where
   type
     AWSResponse DescribeQueue =
       DescribeQueueResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeQueueResponse'
-            Prelude.<$> (x Core..?> "Queue")
+            Prelude.<$> (x Data..?> "Queue")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -116,27 +118,27 @@ instance Prelude.NFData DescribeQueue where
     Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf queueId
 
-instance Core.ToHeaders DescribeQueue where
+instance Data.ToHeaders DescribeQueue where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeQueue where
+instance Data.ToPath DescribeQueue where
   toPath DescribeQueue' {..} =
     Prelude.mconcat
       [ "/queues/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/",
-        Core.toBS queueId
+        Data.toBS queueId
       ]
 
-instance Core.ToQuery DescribeQueue where
+instance Data.ToQuery DescribeQueue where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeQueueResponse' smart constructor.

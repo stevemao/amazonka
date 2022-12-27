@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.DomainEndpointOptionsStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,19 @@
 module Amazonka.OpenSearch.Types.DomainEndpointOptionsStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types.DomainEndpointOptions
 import Amazonka.OpenSearch.Types.OptionStatus
 import qualified Amazonka.Prelude as Prelude
 
--- | The configured endpoint options for the domain and their current status.
+-- | The configured endpoint options for a domain and their current status.
 --
 -- /See:/ 'newDomainEndpointOptionsStatus' smart constructor.
 data DomainEndpointOptionsStatus = DomainEndpointOptionsStatus'
-  { -- | Options to configure the endpoint for the domain.
+  { -- | Options to configure the endpoint for a domain.
     options :: DomainEndpointOptions,
-    -- | The status of the endpoint options for the domain. See @OptionStatus@
-    -- for the status information that\'s included.
+    -- | The status of the endpoint options for a domain.
     status :: OptionStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -45,10 +45,9 @@ data DomainEndpointOptionsStatus = DomainEndpointOptionsStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'options', 'domainEndpointOptionsStatus_options' - Options to configure the endpoint for the domain.
+-- 'options', 'domainEndpointOptionsStatus_options' - Options to configure the endpoint for a domain.
 --
--- 'status', 'domainEndpointOptionsStatus_status' - The status of the endpoint options for the domain. See @OptionStatus@
--- for the status information that\'s included.
+-- 'status', 'domainEndpointOptionsStatus_status' - The status of the endpoint options for a domain.
 newDomainEndpointOptionsStatus ::
   -- | 'options'
   DomainEndpointOptions ->
@@ -61,23 +60,22 @@ newDomainEndpointOptionsStatus pOptions_ pStatus_ =
       status = pStatus_
     }
 
--- | Options to configure the endpoint for the domain.
+-- | Options to configure the endpoint for a domain.
 domainEndpointOptionsStatus_options :: Lens.Lens' DomainEndpointOptionsStatus DomainEndpointOptions
 domainEndpointOptionsStatus_options = Lens.lens (\DomainEndpointOptionsStatus' {options} -> options) (\s@DomainEndpointOptionsStatus' {} a -> s {options = a} :: DomainEndpointOptionsStatus)
 
--- | The status of the endpoint options for the domain. See @OptionStatus@
--- for the status information that\'s included.
+-- | The status of the endpoint options for a domain.
 domainEndpointOptionsStatus_status :: Lens.Lens' DomainEndpointOptionsStatus OptionStatus
 domainEndpointOptionsStatus_status = Lens.lens (\DomainEndpointOptionsStatus' {status} -> status) (\s@DomainEndpointOptionsStatus' {} a -> s {status = a} :: DomainEndpointOptionsStatus)
 
-instance Core.FromJSON DomainEndpointOptionsStatus where
+instance Data.FromJSON DomainEndpointOptionsStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DomainEndpointOptionsStatus"
       ( \x ->
           DomainEndpointOptionsStatus'
-            Prelude.<$> (x Core..: "Options")
-            Prelude.<*> (x Core..: "Status")
+            Prelude.<$> (x Data..: "Options")
+            Prelude.<*> (x Data..: "Status")
       )
 
 instance Prelude.Hashable DomainEndpointOptionsStatus where

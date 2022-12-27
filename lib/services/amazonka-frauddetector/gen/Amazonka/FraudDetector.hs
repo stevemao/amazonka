@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,6 +16,20 @@
 -- actions, data types, and errors. For more information about Amazon Fraud
 -- Detector features, see the
 -- <https://docs.aws.amazon.com/frauddetector/latest/ug/ Amazon Fraud Detector User Guide>.
+--
+-- We provide the Query API as well as AWS software development kits (SDK)
+-- for Amazon Fraud Detector in Java and Python programming languages.
+--
+-- The Amazon Fraud Detector Query API provides HTTPS requests that use the
+-- HTTP verb GET or POST and a Query parameter @Action@. AWS SDK provides
+-- libraries, sample code, tutorials, and other resources for software
+-- developers who prefer to build applications using language-specific APIs
+-- instead of submitting a request over HTTP or HTTPS. These libraries
+-- provide basic functions that automatically take care of tasks such as
+-- cryptographically signing your requests, retrying requests, and handling
+-- error responses, so that it is easier for you to get started. For more
+-- information about the AWS SDKs, see
+-- <https://docs.aws.amazon.com/https:/aws.amazon.com/tools/ Tools to build on AWS>.
 module Amazonka.FraudDetector
   ( -- * Service Configuration
     defaultService,
@@ -23,20 +37,11 @@ module Amazonka.FraudDetector
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
 
-    -- ** ResourceUnavailableException
-    _ResourceUnavailableException,
-
     -- ** ConflictException
     _ConflictException,
-
-    -- ** ThrottlingException
-    _ThrottlingException,
 
     -- ** InternalServerException
     _InternalServerException,
@@ -44,17 +49,26 @@ module Amazonka.FraudDetector
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
+    -- ** ResourceUnavailableException
+    _ResourceUnavailableException,
+
+    -- ** ThrottlingException
+    _ThrottlingException,
+
+    -- ** ValidationException
+    _ValidationException,
+
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
 
-    -- ** CreateDetectorVersion
-    CreateDetectorVersion (CreateDetectorVersion'),
-    newCreateDetectorVersion,
-    CreateDetectorVersionResponse (CreateDetectorVersionResponse'),
-    newCreateDetectorVersionResponse,
+    -- ** BatchCreateVariable
+    BatchCreateVariable (BatchCreateVariable'),
+    newBatchCreateVariable,
+    BatchCreateVariableResponse (BatchCreateVariableResponse'),
+    newBatchCreateVariableResponse,
 
     -- ** BatchGetVariable
     BatchGetVariable (BatchGetVariable'),
@@ -62,113 +76,11 @@ module Amazonka.FraudDetector
     BatchGetVariableResponse (BatchGetVariableResponse'),
     newBatchGetVariableResponse,
 
-    -- ** UpdateModelVersion
-    UpdateModelVersion (UpdateModelVersion'),
-    newUpdateModelVersion,
-    UpdateModelVersionResponse (UpdateModelVersionResponse'),
-    newUpdateModelVersionResponse,
-
-    -- ** DeleteModelVersion
-    DeleteModelVersion (DeleteModelVersion'),
-    newDeleteModelVersion,
-    DeleteModelVersionResponse (DeleteModelVersionResponse'),
-    newDeleteModelVersionResponse,
-
-    -- ** UpdateDetectorVersionMetadata
-    UpdateDetectorVersionMetadata (UpdateDetectorVersionMetadata'),
-    newUpdateDetectorVersionMetadata,
-    UpdateDetectorVersionMetadataResponse (UpdateDetectorVersionMetadataResponse'),
-    newUpdateDetectorVersionMetadataResponse,
-
-    -- ** DeleteBatchImportJob
-    DeleteBatchImportJob (DeleteBatchImportJob'),
-    newDeleteBatchImportJob,
-    DeleteBatchImportJobResponse (DeleteBatchImportJobResponse'),
-    newDeleteBatchImportJobResponse,
-
-    -- ** DeleteRule
-    DeleteRule (DeleteRule'),
-    newDeleteRule,
-    DeleteRuleResponse (DeleteRuleResponse'),
-    newDeleteRuleResponse,
-
-    -- ** PutLabel
-    PutLabel (PutLabel'),
-    newPutLabel,
-    PutLabelResponse (PutLabelResponse'),
-    newPutLabelResponse,
-
-    -- ** GetExternalModels
-    GetExternalModels (GetExternalModels'),
-    newGetExternalModels,
-    GetExternalModelsResponse (GetExternalModelsResponse'),
-    newGetExternalModelsResponse,
-
-    -- ** GetDetectors
-    GetDetectors (GetDetectors'),
-    newGetDetectors,
-    GetDetectorsResponse (GetDetectorsResponse'),
-    newGetDetectorsResponse,
-
-    -- ** DeleteLabel
-    DeleteLabel (DeleteLabel'),
-    newDeleteLabel,
-    DeleteLabelResponse (DeleteLabelResponse'),
-    newDeleteLabelResponse,
-
-    -- ** DeleteVariable
-    DeleteVariable (DeleteVariable'),
-    newDeleteVariable,
-    DeleteVariableResponse (DeleteVariableResponse'),
-    newDeleteVariableResponse,
-
-    -- ** UpdateVariable
-    UpdateVariable (UpdateVariable'),
-    newUpdateVariable,
-    UpdateVariableResponse (UpdateVariableResponse'),
-    newUpdateVariableResponse,
-
-    -- ** CreateVariable
-    CreateVariable (CreateVariable'),
-    newCreateVariable,
-    CreateVariableResponse (CreateVariableResponse'),
-    newCreateVariableResponse,
-
-    -- ** CreateBatchImportJob
-    CreateBatchImportJob (CreateBatchImportJob'),
-    newCreateBatchImportJob,
-    CreateBatchImportJobResponse (CreateBatchImportJobResponse'),
-    newCreateBatchImportJobResponse,
-
-    -- ** CreateRule
-    CreateRule (CreateRule'),
-    newCreateRule,
-    CreateRuleResponse (CreateRuleResponse'),
-    newCreateRuleResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
-
-    -- ** GetModels
-    GetModels (GetModels'),
-    newGetModels,
-    GetModelsResponse (GetModelsResponse'),
-    newGetModelsResponse,
-
-    -- ** UpdateRuleVersion
-    UpdateRuleVersion (UpdateRuleVersion'),
-    newUpdateRuleVersion,
-    UpdateRuleVersionResponse (UpdateRuleVersionResponse'),
-    newUpdateRuleVersionResponse,
-
-    -- ** DeleteEvent
-    DeleteEvent (DeleteEvent'),
-    newDeleteEvent,
-    DeleteEventResponse (DeleteEventResponse'),
-    newDeleteEventResponse,
+    -- ** CancelBatchImportJob
+    CancelBatchImportJob (CancelBatchImportJob'),
+    newCancelBatchImportJob,
+    CancelBatchImportJobResponse (CancelBatchImportJobResponse'),
+    newCancelBatchImportJobResponse,
 
     -- ** CancelBatchPredictionJob
     CancelBatchPredictionJob (CancelBatchPredictionJob'),
@@ -176,11 +88,155 @@ module Amazonka.FraudDetector
     CancelBatchPredictionJobResponse (CancelBatchPredictionJobResponse'),
     newCancelBatchPredictionJobResponse,
 
-    -- ** UpdateModelVersionStatus
-    UpdateModelVersionStatus (UpdateModelVersionStatus'),
-    newUpdateModelVersionStatus,
-    UpdateModelVersionStatusResponse (UpdateModelVersionStatusResponse'),
-    newUpdateModelVersionStatusResponse,
+    -- ** CreateBatchImportJob
+    CreateBatchImportJob (CreateBatchImportJob'),
+    newCreateBatchImportJob,
+    CreateBatchImportJobResponse (CreateBatchImportJobResponse'),
+    newCreateBatchImportJobResponse,
+
+    -- ** CreateBatchPredictionJob
+    CreateBatchPredictionJob (CreateBatchPredictionJob'),
+    newCreateBatchPredictionJob,
+    CreateBatchPredictionJobResponse (CreateBatchPredictionJobResponse'),
+    newCreateBatchPredictionJobResponse,
+
+    -- ** CreateDetectorVersion
+    CreateDetectorVersion (CreateDetectorVersion'),
+    newCreateDetectorVersion,
+    CreateDetectorVersionResponse (CreateDetectorVersionResponse'),
+    newCreateDetectorVersionResponse,
+
+    -- ** CreateModel
+    CreateModel (CreateModel'),
+    newCreateModel,
+    CreateModelResponse (CreateModelResponse'),
+    newCreateModelResponse,
+
+    -- ** CreateModelVersion
+    CreateModelVersion (CreateModelVersion'),
+    newCreateModelVersion,
+    CreateModelVersionResponse (CreateModelVersionResponse'),
+    newCreateModelVersionResponse,
+
+    -- ** CreateRule
+    CreateRule (CreateRule'),
+    newCreateRule,
+    CreateRuleResponse (CreateRuleResponse'),
+    newCreateRuleResponse,
+
+    -- ** CreateVariable
+    CreateVariable (CreateVariable'),
+    newCreateVariable,
+    CreateVariableResponse (CreateVariableResponse'),
+    newCreateVariableResponse,
+
+    -- ** DeleteBatchImportJob
+    DeleteBatchImportJob (DeleteBatchImportJob'),
+    newDeleteBatchImportJob,
+    DeleteBatchImportJobResponse (DeleteBatchImportJobResponse'),
+    newDeleteBatchImportJobResponse,
+
+    -- ** DeleteBatchPredictionJob
+    DeleteBatchPredictionJob (DeleteBatchPredictionJob'),
+    newDeleteBatchPredictionJob,
+    DeleteBatchPredictionJobResponse (DeleteBatchPredictionJobResponse'),
+    newDeleteBatchPredictionJobResponse,
+
+    -- ** DeleteDetector
+    DeleteDetector (DeleteDetector'),
+    newDeleteDetector,
+    DeleteDetectorResponse (DeleteDetectorResponse'),
+    newDeleteDetectorResponse,
+
+    -- ** DeleteDetectorVersion
+    DeleteDetectorVersion (DeleteDetectorVersion'),
+    newDeleteDetectorVersion,
+    DeleteDetectorVersionResponse (DeleteDetectorVersionResponse'),
+    newDeleteDetectorVersionResponse,
+
+    -- ** DeleteEntityType
+    DeleteEntityType (DeleteEntityType'),
+    newDeleteEntityType,
+    DeleteEntityTypeResponse (DeleteEntityTypeResponse'),
+    newDeleteEntityTypeResponse,
+
+    -- ** DeleteEvent
+    DeleteEvent (DeleteEvent'),
+    newDeleteEvent,
+    DeleteEventResponse (DeleteEventResponse'),
+    newDeleteEventResponse,
+
+    -- ** DeleteEventType
+    DeleteEventType (DeleteEventType'),
+    newDeleteEventType,
+    DeleteEventTypeResponse (DeleteEventTypeResponse'),
+    newDeleteEventTypeResponse,
+
+    -- ** DeleteEventsByEventType
+    DeleteEventsByEventType (DeleteEventsByEventType'),
+    newDeleteEventsByEventType,
+    DeleteEventsByEventTypeResponse (DeleteEventsByEventTypeResponse'),
+    newDeleteEventsByEventTypeResponse,
+
+    -- ** DeleteExternalModel
+    DeleteExternalModel (DeleteExternalModel'),
+    newDeleteExternalModel,
+    DeleteExternalModelResponse (DeleteExternalModelResponse'),
+    newDeleteExternalModelResponse,
+
+    -- ** DeleteLabel
+    DeleteLabel (DeleteLabel'),
+    newDeleteLabel,
+    DeleteLabelResponse (DeleteLabelResponse'),
+    newDeleteLabelResponse,
+
+    -- ** DeleteModel
+    DeleteModel (DeleteModel'),
+    newDeleteModel,
+    DeleteModelResponse (DeleteModelResponse'),
+    newDeleteModelResponse,
+
+    -- ** DeleteModelVersion
+    DeleteModelVersion (DeleteModelVersion'),
+    newDeleteModelVersion,
+    DeleteModelVersionResponse (DeleteModelVersionResponse'),
+    newDeleteModelVersionResponse,
+
+    -- ** DeleteOutcome
+    DeleteOutcome (DeleteOutcome'),
+    newDeleteOutcome,
+    DeleteOutcomeResponse (DeleteOutcomeResponse'),
+    newDeleteOutcomeResponse,
+
+    -- ** DeleteRule
+    DeleteRule (DeleteRule'),
+    newDeleteRule,
+    DeleteRuleResponse (DeleteRuleResponse'),
+    newDeleteRuleResponse,
+
+    -- ** DeleteVariable
+    DeleteVariable (DeleteVariable'),
+    newDeleteVariable,
+    DeleteVariableResponse (DeleteVariableResponse'),
+    newDeleteVariableResponse,
+
+    -- ** DescribeDetector
+    DescribeDetector (DescribeDetector'),
+    newDescribeDetector,
+    DescribeDetectorResponse (DescribeDetectorResponse'),
+    newDescribeDetectorResponse,
+
+    -- ** DescribeModelVersions
+    DescribeModelVersions (DescribeModelVersions'),
+    newDescribeModelVersions,
+    DescribeModelVersionsResponse (DescribeModelVersionsResponse'),
+    newDescribeModelVersionsResponse,
+
+    -- ** GetBatchImportJobs
+    GetBatchImportJobs (GetBatchImportJobs'),
+    newGetBatchImportJobs,
+    GetBatchImportJobsResponse (GetBatchImportJobsResponse'),
+    newGetBatchImportJobsResponse,
 
     -- ** GetBatchPredictionJobs
     GetBatchPredictionJobs (GetBatchPredictionJobs'),
@@ -188,11 +244,65 @@ module Amazonka.FraudDetector
     GetBatchPredictionJobsResponse (GetBatchPredictionJobsResponse'),
     newGetBatchPredictionJobsResponse,
 
-    -- ** CreateModel
-    CreateModel (CreateModel'),
-    newCreateModel,
-    CreateModelResponse (CreateModelResponse'),
-    newCreateModelResponse,
+    -- ** GetDeleteEventsByEventTypeStatus
+    GetDeleteEventsByEventTypeStatus (GetDeleteEventsByEventTypeStatus'),
+    newGetDeleteEventsByEventTypeStatus,
+    GetDeleteEventsByEventTypeStatusResponse (GetDeleteEventsByEventTypeStatusResponse'),
+    newGetDeleteEventsByEventTypeStatusResponse,
+
+    -- ** GetDetectorVersion
+    GetDetectorVersion (GetDetectorVersion'),
+    newGetDetectorVersion,
+    GetDetectorVersionResponse (GetDetectorVersionResponse'),
+    newGetDetectorVersionResponse,
+
+    -- ** GetDetectors
+    GetDetectors (GetDetectors'),
+    newGetDetectors,
+    GetDetectorsResponse (GetDetectorsResponse'),
+    newGetDetectorsResponse,
+
+    -- ** GetEntityTypes
+    GetEntityTypes (GetEntityTypes'),
+    newGetEntityTypes,
+    GetEntityTypesResponse (GetEntityTypesResponse'),
+    newGetEntityTypesResponse,
+
+    -- ** GetEvent
+    GetEvent (GetEvent'),
+    newGetEvent,
+    GetEventResponse (GetEventResponse'),
+    newGetEventResponse,
+
+    -- ** GetEventPrediction
+    GetEventPrediction (GetEventPrediction'),
+    newGetEventPrediction,
+    GetEventPredictionResponse (GetEventPredictionResponse'),
+    newGetEventPredictionResponse,
+
+    -- ** GetEventPredictionMetadata
+    GetEventPredictionMetadata (GetEventPredictionMetadata'),
+    newGetEventPredictionMetadata,
+    GetEventPredictionMetadataResponse (GetEventPredictionMetadataResponse'),
+    newGetEventPredictionMetadataResponse,
+
+    -- ** GetEventTypes
+    GetEventTypes (GetEventTypes'),
+    newGetEventTypes,
+    GetEventTypesResponse (GetEventTypesResponse'),
+    newGetEventTypesResponse,
+
+    -- ** GetExternalModels
+    GetExternalModels (GetExternalModels'),
+    newGetExternalModels,
+    GetExternalModelsResponse (GetExternalModelsResponse'),
+    newGetExternalModelsResponse,
+
+    -- ** GetKMSEncryptionKey
+    GetKMSEncryptionKey (GetKMSEncryptionKey'),
+    newGetKMSEncryptionKey,
+    GetKMSEncryptionKeyResponse (GetKMSEncryptionKeyResponse'),
+    newGetKMSEncryptionKeyResponse,
 
     -- ** GetLabels
     GetLabels (GetLabels'),
@@ -206,173 +316,17 @@ module Amazonka.FraudDetector
     GetModelVersionResponse (GetModelVersionResponse'),
     newGetModelVersionResponse,
 
-    -- ** PutExternalModel
-    PutExternalModel (PutExternalModel'),
-    newPutExternalModel,
-    PutExternalModelResponse (PutExternalModelResponse'),
-    newPutExternalModelResponse,
-
-    -- ** DeleteExternalModel
-    DeleteExternalModel (DeleteExternalModel'),
-    newDeleteExternalModel,
-    DeleteExternalModelResponse (DeleteExternalModelResponse'),
-    newDeleteExternalModelResponse,
-
-    -- ** GetEntityTypes
-    GetEntityTypes (GetEntityTypes'),
-    newGetEntityTypes,
-    GetEntityTypesResponse (GetEntityTypesResponse'),
-    newGetEntityTypesResponse,
-
-    -- ** DeleteModel
-    DeleteModel (DeleteModel'),
-    newDeleteModel,
-    DeleteModelResponse (DeleteModelResponse'),
-    newDeleteModelResponse,
-
-    -- ** UpdateModel
-    UpdateModel (UpdateModel'),
-    newUpdateModel,
-    UpdateModelResponse (UpdateModelResponse'),
-    newUpdateModelResponse,
-
-    -- ** CreateModelVersion
-    CreateModelVersion (CreateModelVersion'),
-    newCreateModelVersion,
-    CreateModelVersionResponse (CreateModelVersionResponse'),
-    newCreateModelVersionResponse,
-
-    -- ** DeleteEventsByEventType
-    DeleteEventsByEventType (DeleteEventsByEventType'),
-    newDeleteEventsByEventType,
-    DeleteEventsByEventTypeResponse (DeleteEventsByEventTypeResponse'),
-    newDeleteEventsByEventTypeResponse,
-
-    -- ** PutKMSEncryptionKey
-    PutKMSEncryptionKey (PutKMSEncryptionKey'),
-    newPutKMSEncryptionKey,
-    PutKMSEncryptionKeyResponse (PutKMSEncryptionKeyResponse'),
-    newPutKMSEncryptionKeyResponse,
-
-    -- ** DescribeDetector
-    DescribeDetector (DescribeDetector'),
-    newDescribeDetector,
-    DescribeDetectorResponse (DescribeDetectorResponse'),
-    newDescribeDetectorResponse,
+    -- ** GetModels
+    GetModels (GetModels'),
+    newGetModels,
+    GetModelsResponse (GetModelsResponse'),
+    newGetModelsResponse,
 
     -- ** GetOutcomes
     GetOutcomes (GetOutcomes'),
     newGetOutcomes,
     GetOutcomesResponse (GetOutcomesResponse'),
     newGetOutcomesResponse,
-
-    -- ** GetEventPrediction
-    GetEventPrediction (GetEventPrediction'),
-    newGetEventPrediction,
-    GetEventPredictionResponse (GetEventPredictionResponse'),
-    newGetEventPredictionResponse,
-
-    -- ** DeleteBatchPredictionJob
-    DeleteBatchPredictionJob (DeleteBatchPredictionJob'),
-    newDeleteBatchPredictionJob,
-    DeleteBatchPredictionJobResponse (DeleteBatchPredictionJobResponse'),
-    newDeleteBatchPredictionJobResponse,
-
-    -- ** GetEvent
-    GetEvent (GetEvent'),
-    newGetEvent,
-    GetEventResponse (GetEventResponse'),
-    newGetEventResponse,
-
-    -- ** UpdateRuleMetadata
-    UpdateRuleMetadata (UpdateRuleMetadata'),
-    newUpdateRuleMetadata,
-    UpdateRuleMetadataResponse (UpdateRuleMetadataResponse'),
-    newUpdateRuleMetadataResponse,
-
-    -- ** PutEntityType
-    PutEntityType (PutEntityType'),
-    newPutEntityType,
-    PutEntityTypeResponse (PutEntityTypeResponse'),
-    newPutEntityTypeResponse,
-
-    -- ** CreateBatchPredictionJob
-    CreateBatchPredictionJob (CreateBatchPredictionJob'),
-    newCreateBatchPredictionJob,
-    CreateBatchPredictionJobResponse (CreateBatchPredictionJobResponse'),
-    newCreateBatchPredictionJobResponse,
-
-    -- ** DeleteEntityType
-    DeleteEntityType (DeleteEntityType'),
-    newDeleteEntityType,
-    DeleteEntityTypeResponse (DeleteEntityTypeResponse'),
-    newDeleteEntityTypeResponse,
-
-    -- ** DeleteEventType
-    DeleteEventType (DeleteEventType'),
-    newDeleteEventType,
-    DeleteEventTypeResponse (DeleteEventTypeResponse'),
-    newDeleteEventTypeResponse,
-
-    -- ** PutEventType
-    PutEventType (PutEventType'),
-    newPutEventType,
-    PutEventTypeResponse (PutEventTypeResponse'),
-    newPutEventTypeResponse,
-
-    -- ** UpdateDetectorVersionStatus
-    UpdateDetectorVersionStatus (UpdateDetectorVersionStatus'),
-    newUpdateDetectorVersionStatus,
-    UpdateDetectorVersionStatusResponse (UpdateDetectorVersionStatusResponse'),
-    newUpdateDetectorVersionStatusResponse,
-
-    -- ** CancelBatchImportJob
-    CancelBatchImportJob (CancelBatchImportJob'),
-    newCancelBatchImportJob,
-    CancelBatchImportJobResponse (CancelBatchImportJobResponse'),
-    newCancelBatchImportJobResponse,
-
-    -- ** SendEvent
-    SendEvent (SendEvent'),
-    newSendEvent,
-    SendEventResponse (SendEventResponse'),
-    newSendEventResponse,
-
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
-    -- ** GetKMSEncryptionKey
-    GetKMSEncryptionKey (GetKMSEncryptionKey'),
-    newGetKMSEncryptionKey,
-    GetKMSEncryptionKeyResponse (GetKMSEncryptionKeyResponse'),
-    newGetKMSEncryptionKeyResponse,
-
-    -- ** UpdateEventLabel
-    UpdateEventLabel (UpdateEventLabel'),
-    newUpdateEventLabel,
-    UpdateEventLabelResponse (UpdateEventLabelResponse'),
-    newUpdateEventLabelResponse,
-
-    -- ** GetBatchImportJobs
-    GetBatchImportJobs (GetBatchImportJobs'),
-    newGetBatchImportJobs,
-    GetBatchImportJobsResponse (GetBatchImportJobsResponse'),
-    newGetBatchImportJobsResponse,
-
-    -- ** GetDeleteEventsByEventTypeStatus
-    GetDeleteEventsByEventTypeStatus (GetDeleteEventsByEventTypeStatus'),
-    newGetDeleteEventsByEventTypeStatus,
-    GetDeleteEventsByEventTypeStatusResponse (GetDeleteEventsByEventTypeStatusResponse'),
-    newGetDeleteEventsByEventTypeStatusResponse,
-
-    -- ** DeleteOutcome
-    DeleteOutcome (DeleteOutcome'),
-    newDeleteOutcome,
-    DeleteOutcomeResponse (DeleteOutcomeResponse'),
-    newDeleteOutcomeResponse,
 
     -- ** GetRules
     GetRules (GetRules'),
@@ -386,11 +340,17 @@ module Amazonka.FraudDetector
     GetVariablesResponse (GetVariablesResponse'),
     newGetVariablesResponse,
 
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** ListEventPredictions
+    ListEventPredictions (ListEventPredictions'),
+    newListEventPredictions,
+    ListEventPredictionsResponse (ListEventPredictionsResponse'),
+    newListEventPredictionsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
 
     -- ** PutDetector
     PutDetector (PutDetector'),
@@ -398,53 +358,119 @@ module Amazonka.FraudDetector
     PutDetectorResponse (PutDetectorResponse'),
     newPutDetectorResponse,
 
+    -- ** PutEntityType
+    PutEntityType (PutEntityType'),
+    newPutEntityType,
+    PutEntityTypeResponse (PutEntityTypeResponse'),
+    newPutEntityTypeResponse,
+
+    -- ** PutEventType
+    PutEventType (PutEventType'),
+    newPutEventType,
+    PutEventTypeResponse (PutEventTypeResponse'),
+    newPutEventTypeResponse,
+
+    -- ** PutExternalModel
+    PutExternalModel (PutExternalModel'),
+    newPutExternalModel,
+    PutExternalModelResponse (PutExternalModelResponse'),
+    newPutExternalModelResponse,
+
+    -- ** PutKMSEncryptionKey
+    PutKMSEncryptionKey (PutKMSEncryptionKey'),
+    newPutKMSEncryptionKey,
+    PutKMSEncryptionKeyResponse (PutKMSEncryptionKeyResponse'),
+    newPutKMSEncryptionKeyResponse,
+
+    -- ** PutLabel
+    PutLabel (PutLabel'),
+    newPutLabel,
+    PutLabelResponse (PutLabelResponse'),
+    newPutLabelResponse,
+
     -- ** PutOutcome
     PutOutcome (PutOutcome'),
     newPutOutcome,
     PutOutcomeResponse (PutOutcomeResponse'),
     newPutOutcomeResponse,
 
-    -- ** DeleteDetector
-    DeleteDetector (DeleteDetector'),
-    newDeleteDetector,
-    DeleteDetectorResponse (DeleteDetectorResponse'),
-    newDeleteDetectorResponse,
+    -- ** SendEvent
+    SendEvent (SendEvent'),
+    newSendEvent,
+    SendEventResponse (SendEventResponse'),
+    newSendEventResponse,
 
-    -- ** DescribeModelVersions
-    DescribeModelVersions (DescribeModelVersions'),
-    newDescribeModelVersions,
-    DescribeModelVersionsResponse (DescribeModelVersionsResponse'),
-    newDescribeModelVersionsResponse,
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
 
-    -- ** BatchCreateVariable
-    BatchCreateVariable (BatchCreateVariable'),
-    newBatchCreateVariable,
-    BatchCreateVariableResponse (BatchCreateVariableResponse'),
-    newBatchCreateVariableResponse,
-
-    -- ** GetDetectorVersion
-    GetDetectorVersion (GetDetectorVersion'),
-    newGetDetectorVersion,
-    GetDetectorVersionResponse (GetDetectorVersionResponse'),
-    newGetDetectorVersionResponse,
-
-    -- ** GetEventTypes
-    GetEventTypes (GetEventTypes'),
-    newGetEventTypes,
-    GetEventTypesResponse (GetEventTypesResponse'),
-    newGetEventTypesResponse,
-
-    -- ** DeleteDetectorVersion
-    DeleteDetectorVersion (DeleteDetectorVersion'),
-    newDeleteDetectorVersion,
-    DeleteDetectorVersionResponse (DeleteDetectorVersionResponse'),
-    newDeleteDetectorVersionResponse,
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- ** UpdateDetectorVersion
     UpdateDetectorVersion (UpdateDetectorVersion'),
     newUpdateDetectorVersion,
     UpdateDetectorVersionResponse (UpdateDetectorVersionResponse'),
     newUpdateDetectorVersionResponse,
+
+    -- ** UpdateDetectorVersionMetadata
+    UpdateDetectorVersionMetadata (UpdateDetectorVersionMetadata'),
+    newUpdateDetectorVersionMetadata,
+    UpdateDetectorVersionMetadataResponse (UpdateDetectorVersionMetadataResponse'),
+    newUpdateDetectorVersionMetadataResponse,
+
+    -- ** UpdateDetectorVersionStatus
+    UpdateDetectorVersionStatus (UpdateDetectorVersionStatus'),
+    newUpdateDetectorVersionStatus,
+    UpdateDetectorVersionStatusResponse (UpdateDetectorVersionStatusResponse'),
+    newUpdateDetectorVersionStatusResponse,
+
+    -- ** UpdateEventLabel
+    UpdateEventLabel (UpdateEventLabel'),
+    newUpdateEventLabel,
+    UpdateEventLabelResponse (UpdateEventLabelResponse'),
+    newUpdateEventLabelResponse,
+
+    -- ** UpdateModel
+    UpdateModel (UpdateModel'),
+    newUpdateModel,
+    UpdateModelResponse (UpdateModelResponse'),
+    newUpdateModelResponse,
+
+    -- ** UpdateModelVersion
+    UpdateModelVersion (UpdateModelVersion'),
+    newUpdateModelVersion,
+    UpdateModelVersionResponse (UpdateModelVersionResponse'),
+    newUpdateModelVersionResponse,
+
+    -- ** UpdateModelVersionStatus
+    UpdateModelVersionStatus (UpdateModelVersionStatus'),
+    newUpdateModelVersionStatus,
+    UpdateModelVersionStatusResponse (UpdateModelVersionStatusResponse'),
+    newUpdateModelVersionStatusResponse,
+
+    -- ** UpdateRuleMetadata
+    UpdateRuleMetadata (UpdateRuleMetadata'),
+    newUpdateRuleMetadata,
+    UpdateRuleMetadataResponse (UpdateRuleMetadataResponse'),
+    newUpdateRuleMetadataResponse,
+
+    -- ** UpdateRuleVersion
+    UpdateRuleVersion (UpdateRuleVersion'),
+    newUpdateRuleVersion,
+    UpdateRuleVersionResponse (UpdateRuleVersionResponse'),
+    newUpdateRuleVersionResponse,
+
+    -- ** UpdateVariable
+    UpdateVariable (UpdateVariable'),
+    newUpdateVariable,
+    UpdateVariableResponse (UpdateVariableResponse'),
+    newUpdateVariableResponse,
 
     -- * Types
 
@@ -493,6 +519,30 @@ module Amazonka.FraudDetector
     -- ** UnlabeledEventsTreatment
     UnlabeledEventsTreatment (..),
 
+    -- ** ATIMetricDataPoint
+    ATIMetricDataPoint (ATIMetricDataPoint'),
+    newATIMetricDataPoint,
+
+    -- ** ATIModelPerformance
+    ATIModelPerformance (ATIModelPerformance'),
+    newATIModelPerformance,
+
+    -- ** ATITrainingMetricsValue
+    ATITrainingMetricsValue (ATITrainingMetricsValue'),
+    newATITrainingMetricsValue,
+
+    -- ** AggregatedLogOddsMetric
+    AggregatedLogOddsMetric (AggregatedLogOddsMetric'),
+    newAggregatedLogOddsMetric,
+
+    -- ** AggregatedVariablesImpactExplanation
+    AggregatedVariablesImpactExplanation (AggregatedVariablesImpactExplanation'),
+    newAggregatedVariablesImpactExplanation,
+
+    -- ** AggregatedVariablesImportanceMetrics
+    AggregatedVariablesImportanceMetrics (AggregatedVariablesImportanceMetrics'),
+    newAggregatedVariablesImportanceMetrics,
+
     -- ** BatchCreateVariableError
     BatchCreateVariableError (BatchCreateVariableError'),
     newBatchCreateVariableError,
@@ -529,13 +579,33 @@ module Amazonka.FraudDetector
     EntityType (EntityType'),
     newEntityType,
 
+    -- ** EvaluatedExternalModel
+    EvaluatedExternalModel (EvaluatedExternalModel'),
+    newEvaluatedExternalModel,
+
+    -- ** EvaluatedModelVersion
+    EvaluatedModelVersion (EvaluatedModelVersion'),
+    newEvaluatedModelVersion,
+
+    -- ** EvaluatedRule
+    EvaluatedRule (EvaluatedRule'),
+    newEvaluatedRule,
+
     -- ** Event
     Event (Event'),
     newEvent,
 
+    -- ** EventPredictionSummary
+    EventPredictionSummary (EventPredictionSummary'),
+    newEventPredictionSummary,
+
     -- ** EventType
     EventType (EventType'),
     newEventType,
+
+    -- ** EventVariableSummary
+    EventVariableSummary (EventVariableSummary'),
+    newEventVariableSummary,
 
     -- ** ExternalEventsDetail
     ExternalEventsDetail (ExternalEventsDetail'),
@@ -560,6 +630,10 @@ module Amazonka.FraudDetector
     -- ** FileValidationMessage
     FileValidationMessage (FileValidationMessage'),
     newFileValidationMessage,
+
+    -- ** FilterCondition
+    FilterCondition (FilterCondition'),
+    newFilterCondition,
 
     -- ** IngestedEventStatistics
     IngestedEventStatistics (IngestedEventStatistics'),
@@ -621,9 +695,33 @@ module Amazonka.FraudDetector
     ModelVersionDetail (ModelVersionDetail'),
     newModelVersionDetail,
 
+    -- ** ModelVersionEvaluation
+    ModelVersionEvaluation (ModelVersionEvaluation'),
+    newModelVersionEvaluation,
+
+    -- ** OFIMetricDataPoint
+    OFIMetricDataPoint (OFIMetricDataPoint'),
+    newOFIMetricDataPoint,
+
+    -- ** OFIModelPerformance
+    OFIModelPerformance (OFIModelPerformance'),
+    newOFIModelPerformance,
+
+    -- ** OFITrainingMetricsValue
+    OFITrainingMetricsValue (OFITrainingMetricsValue'),
+    newOFITrainingMetricsValue,
+
     -- ** Outcome
     Outcome (Outcome'),
     newOutcome,
+
+    -- ** PredictionExplanations
+    PredictionExplanations (PredictionExplanations'),
+    newPredictionExplanations,
+
+    -- ** PredictionTimeRange
+    PredictionTimeRange (PredictionTimeRange'),
+    newPredictionTimeRange,
 
     -- ** Rule
     Rule (Rule'),
@@ -637,6 +735,18 @@ module Amazonka.FraudDetector
     RuleResult (RuleResult'),
     newRuleResult,
 
+    -- ** TFIMetricDataPoint
+    TFIMetricDataPoint (TFIMetricDataPoint'),
+    newTFIMetricDataPoint,
+
+    -- ** TFIModelPerformance
+    TFIModelPerformance (TFIModelPerformance'),
+    newTFIModelPerformance,
+
+    -- ** TFITrainingMetricsValue
+    TFITrainingMetricsValue (TFITrainingMetricsValue'),
+    newTFITrainingMetricsValue,
+
     -- ** Tag
     Tag (Tag'),
     newTag,
@@ -649,9 +759,17 @@ module Amazonka.FraudDetector
     TrainingMetrics (TrainingMetrics'),
     newTrainingMetrics,
 
+    -- ** TrainingMetricsV2
+    TrainingMetricsV2 (TrainingMetricsV2'),
+    newTrainingMetricsV2,
+
     -- ** TrainingResult
     TrainingResult (TrainingResult'),
     newTrainingResult,
+
+    -- ** TrainingResultV2
+    TrainingResultV2 (TrainingResultV2'),
+    newTrainingResultV2,
 
     -- ** Variable
     Variable (Variable'),
@@ -660,6 +778,10 @@ module Amazonka.FraudDetector
     -- ** VariableEntry
     VariableEntry (VariableEntry'),
     newVariableEntry,
+
+    -- ** VariableImpactExplanation
+    VariableImpactExplanation (VariableImpactExplanation'),
+    newVariableImpactExplanation,
 
     -- ** VariableImportanceMetrics
     VariableImportanceMetrics (VariableImportanceMetrics'),
@@ -703,6 +825,7 @@ import Amazonka.FraudDetector.GetDetectors
 import Amazonka.FraudDetector.GetEntityTypes
 import Amazonka.FraudDetector.GetEvent
 import Amazonka.FraudDetector.GetEventPrediction
+import Amazonka.FraudDetector.GetEventPredictionMetadata
 import Amazonka.FraudDetector.GetEventTypes
 import Amazonka.FraudDetector.GetExternalModels
 import Amazonka.FraudDetector.GetKMSEncryptionKey
@@ -713,6 +836,7 @@ import Amazonka.FraudDetector.GetOutcomes
 import Amazonka.FraudDetector.GetRules
 import Amazonka.FraudDetector.GetVariables
 import Amazonka.FraudDetector.Lens
+import Amazonka.FraudDetector.ListEventPredictions
 import Amazonka.FraudDetector.ListTagsForResource
 import Amazonka.FraudDetector.PutDetector
 import Amazonka.FraudDetector.PutEntityType

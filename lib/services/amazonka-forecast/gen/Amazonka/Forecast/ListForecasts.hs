@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.ListForecasts
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.Forecast.ListForecasts
 
     -- * Request Lenses
     listForecasts_filters,
-    listForecasts_nextToken,
     listForecasts_maxResults,
+    listForecasts_nextToken,
 
     -- * Destructuring the Response
     ListForecastsResponse (..),
@@ -49,8 +49,9 @@ module Amazonka.Forecast.ListForecasts
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -79,12 +80,12 @@ data ListForecasts = ListForecasts'
     --
     -- @\"Filters\": [ { \"Condition\": \"IS_NOT\", \"Key\": \"Status\", \"Value\": \"ACTIVE\" } ]@
     filters :: Prelude.Maybe [Filter],
+    -- | The number of items to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | If the result of the previous request was truncated, the response
     -- includes a @NextToken@. To retrieve the next set of results, use the
     -- token in the next request. Tokens expire after 24 hours.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of items to return in the response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -118,18 +119,18 @@ data ListForecasts = ListForecasts'
 --
 -- @\"Filters\": [ { \"Condition\": \"IS_NOT\", \"Key\": \"Status\", \"Value\": \"ACTIVE\" } ]@
 --
+-- 'maxResults', 'listForecasts_maxResults' - The number of items to return in the response.
+--
 -- 'nextToken', 'listForecasts_nextToken' - If the result of the previous request was truncated, the response
 -- includes a @NextToken@. To retrieve the next set of results, use the
 -- token in the next request. Tokens expire after 24 hours.
---
--- 'maxResults', 'listForecasts_maxResults' - The number of items to return in the response.
 newListForecasts ::
   ListForecasts
 newListForecasts =
   ListForecasts'
     { filters = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | An array of filters. For each filter, you provide a condition and a
@@ -156,15 +157,15 @@ newListForecasts =
 listForecasts_filters :: Lens.Lens' ListForecasts (Prelude.Maybe [Filter])
 listForecasts_filters = Lens.lens (\ListForecasts' {filters} -> filters) (\s@ListForecasts' {} a -> s {filters = a} :: ListForecasts) Prelude.. Lens.mapping Lens.coerced
 
+-- | The number of items to return in the response.
+listForecasts_maxResults :: Lens.Lens' ListForecasts (Prelude.Maybe Prelude.Natural)
+listForecasts_maxResults = Lens.lens (\ListForecasts' {maxResults} -> maxResults) (\s@ListForecasts' {} a -> s {maxResults = a} :: ListForecasts)
+
 -- | If the result of the previous request was truncated, the response
 -- includes a @NextToken@. To retrieve the next set of results, use the
 -- token in the next request. Tokens expire after 24 hours.
 listForecasts_nextToken :: Lens.Lens' ListForecasts (Prelude.Maybe Prelude.Text)
 listForecasts_nextToken = Lens.lens (\ListForecasts' {nextToken} -> nextToken) (\s@ListForecasts' {} a -> s {nextToken = a} :: ListForecasts)
-
--- | The number of items to return in the response.
-listForecasts_maxResults :: Lens.Lens' ListForecasts (Prelude.Maybe Prelude.Natural)
-listForecasts_maxResults = Lens.lens (\ListForecasts' {maxResults} -> maxResults) (\s@ListForecasts' {} a -> s {maxResults = a} :: ListForecasts)
 
 instance Core.AWSPager ListForecasts where
   page rq rs
@@ -189,57 +190,58 @@ instance Core.AWSRequest ListForecasts where
   type
     AWSResponse ListForecasts =
       ListForecastsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListForecastsResponse'
-            Prelude.<$> (x Core..?> "Forecasts" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Forecasts" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListForecasts where
   hashWithSalt _salt ListForecasts' {..} =
     _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListForecasts where
   rnf ListForecasts' {..} =
     Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListForecasts where
+instance Data.ToHeaders ListForecasts where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.ListForecasts" ::
+              Data.=# ( "AmazonForecast.ListForecasts" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListForecasts where
+instance Data.ToJSON ListForecasts where
   toJSON ListForecasts' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Filters" Core..=) Prelude.<$> filters,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("Filters" Data..=) Prelude.<$> filters,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListForecasts where
+instance Data.ToPath ListForecasts where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListForecasts where
+instance Data.ToQuery ListForecasts where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListForecastsResponse' smart constructor.

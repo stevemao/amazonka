@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.CreateVirtualGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -56,7 +56,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -67,10 +68,10 @@ data CreateVirtualGateway = CreateVirtualGateway'
     -- idempotency of the request. Up to 36 letters, numbers, hyphens, and
     -- underscores are allowed.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then the account that you specify must share the mesh with
-    -- your account before you can create the resource in the service mesh. For
-    -- more information about mesh sharing, see
+    -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then the account that you specify must share
+    -- the mesh with your account before you can create the resource in the
+    -- service mesh. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Maybe Prelude.Text,
     -- | Optional metadata that you can apply to the virtual gateway to assist
@@ -100,10 +101,10 @@ data CreateVirtualGateway = CreateVirtualGateway'
 -- idempotency of the request. Up to 36 letters, numbers, hyphens, and
 -- underscores are allowed.
 --
--- 'meshOwner', 'createVirtualGateway_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then the account that you specify must share the mesh with
--- your account before you can create the resource in the service mesh. For
--- more information about mesh sharing, see
+-- 'meshOwner', 'createVirtualGateway_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then the account that you specify must share
+-- the mesh with your account before you can create the resource in the
+-- service mesh. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'tags', 'createVirtualGateway_tags' - Optional metadata that you can apply to the virtual gateway to assist
@@ -145,10 +146,10 @@ newCreateVirtualGateway
 createVirtualGateway_clientToken :: Lens.Lens' CreateVirtualGateway (Prelude.Maybe Prelude.Text)
 createVirtualGateway_clientToken = Lens.lens (\CreateVirtualGateway' {clientToken} -> clientToken) (\s@CreateVirtualGateway' {} a -> s {clientToken = a} :: CreateVirtualGateway)
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then the account that you specify must share the mesh with
--- your account before you can create the resource in the service mesh. For
--- more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then the account that you specify must share
+-- the mesh with your account before you can create the resource in the
+-- service mesh. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 createVirtualGateway_meshOwner :: Lens.Lens' CreateVirtualGateway (Prelude.Maybe Prelude.Text)
 createVirtualGateway_meshOwner = Lens.lens (\CreateVirtualGateway' {meshOwner} -> meshOwner) (\s@CreateVirtualGateway' {} a -> s {meshOwner = a} :: CreateVirtualGateway)
@@ -177,13 +178,14 @@ instance Core.AWSRequest CreateVirtualGateway where
   type
     AWSResponse CreateVirtualGateway =
       CreateVirtualGatewayResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateVirtualGatewayResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable CreateVirtualGateway where
@@ -204,40 +206,40 @@ instance Prelude.NFData CreateVirtualGateway where
       `Prelude.seq` Prelude.rnf spec
       `Prelude.seq` Prelude.rnf virtualGatewayName
 
-instance Core.ToHeaders CreateVirtualGateway where
+instance Data.ToHeaders CreateVirtualGateway where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateVirtualGateway where
+instance Data.ToJSON CreateVirtualGateway where
   toJSON CreateVirtualGateway' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("spec" Core..= spec),
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("spec" Data..= spec),
             Prelude.Just
-              ("virtualGatewayName" Core..= virtualGatewayName)
+              ("virtualGatewayName" Data..= virtualGatewayName)
           ]
       )
 
-instance Core.ToPath CreateVirtualGateway where
+instance Data.ToPath CreateVirtualGateway where
   toPath CreateVirtualGateway' {..} =
     Prelude.mconcat
       [ "/v20190125/meshes/",
-        Core.toBS meshName,
+        Data.toBS meshName,
         "/virtualGateways"
       ]
 
-instance Core.ToQuery CreateVirtualGateway where
+instance Data.ToQuery CreateVirtualGateway where
   toQuery CreateVirtualGateway' {..} =
-    Prelude.mconcat ["meshOwner" Core.=: meshOwner]
+    Prelude.mconcat ["meshOwner" Data.=: meshOwner]
 
 -- | /See:/ 'newCreateVirtualGatewayResponse' smart constructor.
 data CreateVirtualGatewayResponse = CreateVirtualGatewayResponse'

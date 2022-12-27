@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.DescribeAssetProperty
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -54,8 +54,9 @@ module Amazonka.IoTSiteWise.DescribeAssetProperty
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,17 +105,18 @@ instance Core.AWSRequest DescribeAssetProperty where
   type
     AWSResponse DescribeAssetProperty =
       DescribeAssetPropertyResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAssetPropertyResponse'
-            Prelude.<$> (x Core..?> "assetProperty")
-            Prelude.<*> (x Core..?> "compositeModel")
+            Prelude.<$> (x Data..?> "assetProperty")
+            Prelude.<*> (x Data..?> "compositeModel")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "assetId")
-            Prelude.<*> (x Core..:> "assetName")
-            Prelude.<*> (x Core..:> "assetModelId")
+            Prelude.<*> (x Data..:> "assetId")
+            Prelude.<*> (x Data..:> "assetName")
+            Prelude.<*> (x Data..:> "assetModelId")
       )
 
 instance Prelude.Hashable DescribeAssetProperty where
@@ -127,27 +129,27 @@ instance Prelude.NFData DescribeAssetProperty where
     Prelude.rnf assetId
       `Prelude.seq` Prelude.rnf propertyId
 
-instance Core.ToHeaders DescribeAssetProperty where
+instance Data.ToHeaders DescribeAssetProperty where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeAssetProperty where
+instance Data.ToPath DescribeAssetProperty where
   toPath DescribeAssetProperty' {..} =
     Prelude.mconcat
       [ "/assets/",
-        Core.toBS assetId,
+        Data.toBS assetId,
         "/properties/",
-        Core.toBS propertyId
+        Data.toBS propertyId
       ]
 
-instance Core.ToQuery DescribeAssetProperty where
+instance Data.ToQuery DescribeAssetProperty where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeAssetPropertyResponse' smart constructor.

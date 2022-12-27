@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.Types.ZendeskSourceProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppFlow.Types.ZendeskSourceProperties where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The properties that are applied when using Zendesk as a flow source.
@@ -52,13 +53,13 @@ newZendeskSourceProperties pObject_ =
 zendeskSourceProperties_object :: Lens.Lens' ZendeskSourceProperties Prelude.Text
 zendeskSourceProperties_object = Lens.lens (\ZendeskSourceProperties' {object'} -> object') (\s@ZendeskSourceProperties' {} a -> s {object' = a} :: ZendeskSourceProperties)
 
-instance Core.FromJSON ZendeskSourceProperties where
+instance Data.FromJSON ZendeskSourceProperties where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ZendeskSourceProperties"
       ( \x ->
           ZendeskSourceProperties'
-            Prelude.<$> (x Core..: "object")
+            Prelude.<$> (x Data..: "object")
       )
 
 instance Prelude.Hashable ZendeskSourceProperties where
@@ -69,9 +70,9 @@ instance Prelude.NFData ZendeskSourceProperties where
   rnf ZendeskSourceProperties' {..} =
     Prelude.rnf object'
 
-instance Core.ToJSON ZendeskSourceProperties where
+instance Data.ToJSON ZendeskSourceProperties where
   toJSON ZendeskSourceProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("object" Core..= object')]
+          [Prelude.Just ("object" Data..= object')]
       )

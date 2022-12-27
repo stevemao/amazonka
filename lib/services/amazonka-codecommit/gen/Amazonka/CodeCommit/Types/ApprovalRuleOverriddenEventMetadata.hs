@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.Types.ApprovalRuleOverriddenEventMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CodeCommit.Types.ApprovalRuleOverriddenEventMetadata where
 
 import Amazonka.CodeCommit.Types.OverrideStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Returns information about an override event for approval rules for a
@@ -65,16 +66,16 @@ approvalRuleOverriddenEventMetadata_revisionId :: Lens.Lens' ApprovalRuleOverrid
 approvalRuleOverriddenEventMetadata_revisionId = Lens.lens (\ApprovalRuleOverriddenEventMetadata' {revisionId} -> revisionId) (\s@ApprovalRuleOverriddenEventMetadata' {} a -> s {revisionId = a} :: ApprovalRuleOverriddenEventMetadata)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ApprovalRuleOverriddenEventMetadata
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ApprovalRuleOverriddenEventMetadata"
       ( \x ->
           ApprovalRuleOverriddenEventMetadata'
-            Prelude.<$> (x Core..:? "overrideStatus")
-            Prelude.<*> (x Core..:? "revisionId")
+            Prelude.<$> (x Data..:? "overrideStatus")
+            Prelude.<*> (x Data..:? "revisionId")
       )
 
 instance

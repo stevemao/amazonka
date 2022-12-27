@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.GetMergeOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,7 +50,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -163,16 +164,17 @@ instance Core.AWSRequest GetMergeOptions where
   type
     AWSResponse GetMergeOptions =
       GetMergeOptionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetMergeOptionsResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "mergeOptions" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..:> "sourceCommitId")
-            Prelude.<*> (x Core..:> "destinationCommitId")
-            Prelude.<*> (x Core..:> "baseCommitId")
+            Prelude.<*> (x Data..?> "mergeOptions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..:> "sourceCommitId")
+            Prelude.<*> (x Data..:> "destinationCommitId")
+            Prelude.<*> (x Data..:> "baseCommitId")
       )
 
 instance Prelude.Hashable GetMergeOptions where
@@ -191,46 +193,46 @@ instance Prelude.NFData GetMergeOptions where
       `Prelude.seq` Prelude.rnf sourceCommitSpecifier
       `Prelude.seq` Prelude.rnf destinationCommitSpecifier
 
-instance Core.ToHeaders GetMergeOptions where
+instance Data.ToHeaders GetMergeOptions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.GetMergeOptions" ::
+              Data.=# ( "CodeCommit_20150413.GetMergeOptions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetMergeOptions where
+instance Data.ToJSON GetMergeOptions where
   toJSON GetMergeOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("conflictDetailLevel" Core..=)
+          [ ("conflictDetailLevel" Data..=)
               Prelude.<$> conflictDetailLevel,
-            ("conflictResolutionStrategy" Core..=)
+            ("conflictResolutionStrategy" Data..=)
               Prelude.<$> conflictResolutionStrategy,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
+              ("repositoryName" Data..= repositoryName),
             Prelude.Just
               ( "sourceCommitSpecifier"
-                  Core..= sourceCommitSpecifier
+                  Data..= sourceCommitSpecifier
               ),
             Prelude.Just
               ( "destinationCommitSpecifier"
-                  Core..= destinationCommitSpecifier
+                  Data..= destinationCommitSpecifier
               )
           ]
       )
 
-instance Core.ToPath GetMergeOptions where
+instance Data.ToPath GetMergeOptions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetMergeOptions where
+instance Data.ToQuery GetMergeOptions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetMergeOptionsResponse' smart constructor.

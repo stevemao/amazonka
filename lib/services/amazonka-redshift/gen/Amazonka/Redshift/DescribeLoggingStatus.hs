@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.DescribeLoggingStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,17 +35,20 @@ module Amazonka.Redshift.DescribeLoggingStatus
     newLoggingStatus,
 
     -- * Response Lenses
+    loggingStatus_bucketName,
+    loggingStatus_lastFailureMessage,
     loggingStatus_lastFailureTime,
     loggingStatus_lastSuccessfulDeliveryTime,
-    loggingStatus_s3KeyPrefix,
-    loggingStatus_bucketName,
+    loggingStatus_logDestinationType,
+    loggingStatus_logExports,
     loggingStatus_loggingEnabled,
-    loggingStatus_lastFailureMessage,
+    loggingStatus_s3KeyPrefix,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Types
 import qualified Amazonka.Request as Request
@@ -93,11 +96,12 @@ instance Core.AWSRequest DescribeLoggingStatus where
   type
     AWSResponse DescribeLoggingStatus =
       LoggingStatus
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeLoggingStatusResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable DescribeLoggingStatus where
   hashWithSalt _salt DescribeLoggingStatus' {..} =
@@ -107,18 +111,18 @@ instance Prelude.NFData DescribeLoggingStatus where
   rnf DescribeLoggingStatus' {..} =
     Prelude.rnf clusterIdentifier
 
-instance Core.ToHeaders DescribeLoggingStatus where
+instance Data.ToHeaders DescribeLoggingStatus where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeLoggingStatus where
+instance Data.ToPath DescribeLoggingStatus where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeLoggingStatus where
+instance Data.ToQuery DescribeLoggingStatus where
   toQuery DescribeLoggingStatus' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeLoggingStatus" :: Prelude.ByteString),
+          Data.=: ("DescribeLoggingStatus" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-12-01" :: Prelude.ByteString),
-        "ClusterIdentifier" Core.=: clusterIdentifier
+          Data.=: ("2012-12-01" :: Prelude.ByteString),
+        "ClusterIdentifier" Data.=: clusterIdentifier
       ]

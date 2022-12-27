@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruProfiler.GetNotificationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CodeGuruProfiler.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,13 +87,14 @@ instance Core.AWSRequest GetNotificationConfiguration where
   type
     AWSResponse GetNotificationConfiguration =
       GetNotificationConfigurationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetNotificationConfigurationResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "notificationConfiguration")
+            Prelude.<*> (x Data..:> "notificationConfiguration")
       )
 
 instance
@@ -106,26 +108,26 @@ instance Prelude.NFData GetNotificationConfiguration where
   rnf GetNotificationConfiguration' {..} =
     Prelude.rnf profilingGroupName
 
-instance Core.ToHeaders GetNotificationConfiguration where
+instance Data.ToHeaders GetNotificationConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetNotificationConfiguration where
+instance Data.ToPath GetNotificationConfiguration where
   toPath GetNotificationConfiguration' {..} =
     Prelude.mconcat
       [ "/profilingGroups/",
-        Core.toBS profilingGroupName,
+        Data.toBS profilingGroupName,
         "/notificationConfiguration"
       ]
 
-instance Core.ToQuery GetNotificationConfiguration where
+instance Data.ToQuery GetNotificationConfiguration where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The structure representing the GetNotificationConfigurationResponse.

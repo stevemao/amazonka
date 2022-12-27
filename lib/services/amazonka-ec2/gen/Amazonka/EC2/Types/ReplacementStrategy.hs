@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ReplacementStrategy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,20 @@
 module Amazonka.EC2.Types.ReplacementStrategy
   ( ReplacementStrategy
       ( ..,
-        ReplacementStrategy_Launch
+        ReplacementStrategy_Launch,
+        ReplacementStrategy_Launch_before_terminate
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import qualified Amazonka.Prelude as Prelude
 
 newtype ReplacementStrategy = ReplacementStrategy'
   { fromReplacementStrategy ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -43,24 +45,28 @@ newtype ReplacementStrategy = ReplacementStrategy'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern ReplacementStrategy_Launch :: ReplacementStrategy
 pattern ReplacementStrategy_Launch = ReplacementStrategy' "launch"
 
+pattern ReplacementStrategy_Launch_before_terminate :: ReplacementStrategy
+pattern ReplacementStrategy_Launch_before_terminate = ReplacementStrategy' "launch-before-terminate"
+
 {-# COMPLETE
   ReplacementStrategy_Launch,
+  ReplacementStrategy_Launch_before_terminate,
   ReplacementStrategy'
   #-}

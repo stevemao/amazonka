@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.PortRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.PortRange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A range of ports.
@@ -61,13 +62,13 @@ portRange_begin = Lens.lens (\PortRange' {begin} -> begin) (\s@PortRange' {} a -
 portRange_end :: Lens.Lens' PortRange (Prelude.Maybe Prelude.Int)
 portRange_end = Lens.lens (\PortRange' {end} -> end) (\s@PortRange' {} a -> s {end = a} :: PortRange)
 
-instance Core.FromJSON PortRange where
+instance Data.FromJSON PortRange where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PortRange"
       ( \x ->
           PortRange'
-            Prelude.<$> (x Core..:? "Begin") Prelude.<*> (x Core..:? "End")
+            Prelude.<$> (x Data..:? "Begin") Prelude.<*> (x Data..:? "End")
       )
 
 instance Prelude.Hashable PortRange where
@@ -79,11 +80,11 @@ instance Prelude.NFData PortRange where
   rnf PortRange' {..} =
     Prelude.rnf begin `Prelude.seq` Prelude.rnf end
 
-instance Core.ToJSON PortRange where
+instance Data.ToJSON PortRange where
   toJSON PortRange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Begin" Core..=) Prelude.<$> begin,
-            ("End" Core..=) Prelude.<$> end
+          [ ("Begin" Data..=) Prelude.<$> begin,
+            ("End" Data..=) Prelude.<$> end
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Inspector.GetExclusionsPreview
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.Inspector.GetExclusionsPreview
 
     -- * Request Lenses
     getExclusionsPreview_locale,
-    getExclusionsPreview_nextToken,
     getExclusionsPreview_maxResults,
+    getExclusionsPreview_nextToken,
     getExclusionsPreview_assessmentTemplateArn,
     getExclusionsPreview_previewToken,
 
@@ -48,8 +48,9 @@ module Amazonka.Inspector.GetExclusionsPreview
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Inspector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,16 +60,16 @@ data GetExclusionsPreview = GetExclusionsPreview'
   { -- | The locale into which you want to translate the exclusion\'s title,
     -- description, and recommendation.
     locale :: Prelude.Maybe Locale,
+    -- | You can use this parameter to indicate the maximum number of items you
+    -- want in the response. The default value is 100. The maximum value is
+    -- 500.
+    maxResults :: Prelude.Maybe Prelude.Int,
     -- | You can use this parameter when paginating results. Set the value of
     -- this parameter to null on your first call to the
     -- GetExclusionsPreviewRequest action. Subsequent calls to the action fill
     -- nextToken in the request with the value of nextToken from the previous
     -- response to continue listing data.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | You can use this parameter to indicate the maximum number of items you
-    -- want in the response. The default value is 100. The maximum value is
-    -- 500.
-    maxResults :: Prelude.Maybe Prelude.Int,
     -- | The ARN that specifies the assessment template for which the exclusions
     -- preview was requested.
     assessmentTemplateArn :: Prelude.Text,
@@ -88,15 +89,15 @@ data GetExclusionsPreview = GetExclusionsPreview'
 -- 'locale', 'getExclusionsPreview_locale' - The locale into which you want to translate the exclusion\'s title,
 -- description, and recommendation.
 --
+-- 'maxResults', 'getExclusionsPreview_maxResults' - You can use this parameter to indicate the maximum number of items you
+-- want in the response. The default value is 100. The maximum value is
+-- 500.
+--
 -- 'nextToken', 'getExclusionsPreview_nextToken' - You can use this parameter when paginating results. Set the value of
 -- this parameter to null on your first call to the
 -- GetExclusionsPreviewRequest action. Subsequent calls to the action fill
 -- nextToken in the request with the value of nextToken from the previous
 -- response to continue listing data.
---
--- 'maxResults', 'getExclusionsPreview_maxResults' - You can use this parameter to indicate the maximum number of items you
--- want in the response. The default value is 100. The maximum value is
--- 500.
 --
 -- 'assessmentTemplateArn', 'getExclusionsPreview_assessmentTemplateArn' - The ARN that specifies the assessment template for which the exclusions
 -- preview was requested.
@@ -113,8 +114,8 @@ newGetExclusionsPreview
   pPreviewToken_ =
     GetExclusionsPreview'
       { locale = Prelude.Nothing,
-        nextToken = Prelude.Nothing,
         maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         assessmentTemplateArn = pAssessmentTemplateArn_,
         previewToken = pPreviewToken_
       }
@@ -124,6 +125,12 @@ newGetExclusionsPreview
 getExclusionsPreview_locale :: Lens.Lens' GetExclusionsPreview (Prelude.Maybe Locale)
 getExclusionsPreview_locale = Lens.lens (\GetExclusionsPreview' {locale} -> locale) (\s@GetExclusionsPreview' {} a -> s {locale = a} :: GetExclusionsPreview)
 
+-- | You can use this parameter to indicate the maximum number of items you
+-- want in the response. The default value is 100. The maximum value is
+-- 500.
+getExclusionsPreview_maxResults :: Lens.Lens' GetExclusionsPreview (Prelude.Maybe Prelude.Int)
+getExclusionsPreview_maxResults = Lens.lens (\GetExclusionsPreview' {maxResults} -> maxResults) (\s@GetExclusionsPreview' {} a -> s {maxResults = a} :: GetExclusionsPreview)
+
 -- | You can use this parameter when paginating results. Set the value of
 -- this parameter to null on your first call to the
 -- GetExclusionsPreviewRequest action. Subsequent calls to the action fill
@@ -131,12 +138,6 @@ getExclusionsPreview_locale = Lens.lens (\GetExclusionsPreview' {locale} -> loca
 -- response to continue listing data.
 getExclusionsPreview_nextToken :: Lens.Lens' GetExclusionsPreview (Prelude.Maybe Prelude.Text)
 getExclusionsPreview_nextToken = Lens.lens (\GetExclusionsPreview' {nextToken} -> nextToken) (\s@GetExclusionsPreview' {} a -> s {nextToken = a} :: GetExclusionsPreview)
-
--- | You can use this parameter to indicate the maximum number of items you
--- want in the response. The default value is 100. The maximum value is
--- 500.
-getExclusionsPreview_maxResults :: Lens.Lens' GetExclusionsPreview (Prelude.Maybe Prelude.Int)
-getExclusionsPreview_maxResults = Lens.lens (\GetExclusionsPreview' {maxResults} -> maxResults) (\s@GetExclusionsPreview' {} a -> s {maxResults = a} :: GetExclusionsPreview)
 
 -- | The ARN that specifies the assessment template for which the exclusions
 -- preview was requested.
@@ -151,69 +152,70 @@ instance Core.AWSRequest GetExclusionsPreview where
   type
     AWSResponse GetExclusionsPreview =
       GetExclusionsPreviewResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetExclusionsPreviewResponse'
-            Prelude.<$> ( x Core..?> "exclusionPreviews"
+            Prelude.<$> ( x Data..?> "exclusionPreviews"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "previewStatus")
+            Prelude.<*> (x Data..:> "previewStatus")
       )
 
 instance Prelude.Hashable GetExclusionsPreview where
   hashWithSalt _salt GetExclusionsPreview' {..} =
     _salt `Prelude.hashWithSalt` locale
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` assessmentTemplateArn
       `Prelude.hashWithSalt` previewToken
 
 instance Prelude.NFData GetExclusionsPreview where
   rnf GetExclusionsPreview' {..} =
     Prelude.rnf locale
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf assessmentTemplateArn
       `Prelude.seq` Prelude.rnf previewToken
 
-instance Core.ToHeaders GetExclusionsPreview where
+instance Data.ToHeaders GetExclusionsPreview where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "InspectorService.GetExclusionsPreview" ::
+              Data.=# ( "InspectorService.GetExclusionsPreview" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetExclusionsPreview where
+instance Data.ToJSON GetExclusionsPreview where
   toJSON GetExclusionsPreview' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("locale" Core..=) Prelude.<$> locale,
-            ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
+          [ ("locale" Data..=) Prelude.<$> locale,
+            ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
               ( "assessmentTemplateArn"
-                  Core..= assessmentTemplateArn
+                  Data..= assessmentTemplateArn
               ),
-            Prelude.Just ("previewToken" Core..= previewToken)
+            Prelude.Just ("previewToken" Data..= previewToken)
           ]
       )
 
-instance Core.ToPath GetExclusionsPreview where
+instance Data.ToPath GetExclusionsPreview where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetExclusionsPreview where
+instance Data.ToQuery GetExclusionsPreview where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetExclusionsPreviewResponse' smart constructor.

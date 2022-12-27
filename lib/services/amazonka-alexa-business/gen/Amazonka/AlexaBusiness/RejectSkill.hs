@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.RejectSkill
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,7 +78,8 @@ rejectSkill_skillId = Lens.lens (\RejectSkill' {skillId} -> skillId) (\s@RejectS
 
 instance Core.AWSRequest RejectSkill where
   type AWSResponse RejectSkill = RejectSkillResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -92,32 +94,32 @@ instance Prelude.Hashable RejectSkill where
 instance Prelude.NFData RejectSkill where
   rnf RejectSkill' {..} = Prelude.rnf skillId
 
-instance Core.ToHeaders RejectSkill where
+instance Data.ToHeaders RejectSkill where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.RejectSkill" ::
+              Data.=# ( "AlexaForBusiness.RejectSkill" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RejectSkill where
+instance Data.ToJSON RejectSkill where
   toJSON RejectSkill' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("SkillId" Core..= skillId)]
+          [Prelude.Just ("SkillId" Data..= skillId)]
       )
 
-instance Core.ToPath RejectSkill where
+instance Data.ToPath RejectSkill where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RejectSkill where
+instance Data.ToQuery RejectSkill where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRejectSkillResponse' smart constructor.

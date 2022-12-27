@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Translate.DescribeTextTranslationJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Gets the properties associated with an asycnhronous batch translation
+-- Gets the properties associated with an asynchronous batch translation
 -- job including name, ID, status, source and target languages,
 -- input\/output S3 buckets, and so on.
 module Amazonka.Translate.DescribeTextTranslationJob
@@ -42,7 +42,8 @@ module Amazonka.Translate.DescribeTextTranslationJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,12 +86,13 @@ instance Core.AWSRequest DescribeTextTranslationJob where
   type
     AWSResponse DescribeTextTranslationJob =
       DescribeTextTranslationJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeTextTranslationJobResponse'
-            Prelude.<$> (x Core..?> "TextTranslationJobProperties")
+            Prelude.<$> (x Data..?> "TextTranslationJobProperties")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -102,32 +104,32 @@ instance Prelude.NFData DescribeTextTranslationJob where
   rnf DescribeTextTranslationJob' {..} =
     Prelude.rnf jobId
 
-instance Core.ToHeaders DescribeTextTranslationJob where
+instance Data.ToHeaders DescribeTextTranslationJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSShineFrontendService_20170701.DescribeTextTranslationJob" ::
+              Data.=# ( "AWSShineFrontendService_20170701.DescribeTextTranslationJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeTextTranslationJob where
+instance Data.ToJSON DescribeTextTranslationJob where
   toJSON DescribeTextTranslationJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("JobId" Core..= jobId)]
+          [Prelude.Just ("JobId" Data..= jobId)]
       )
 
-instance Core.ToPath DescribeTextTranslationJob where
+instance Data.ToPath DescribeTextTranslationJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeTextTranslationJob where
+instance Data.ToQuery DescribeTextTranslationJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeTextTranslationJobResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.TableIdentifier
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.TableIdentifier where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure that describes a target table for resource linking.
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 data TableIdentifier = TableIdentifier'
   { -- | The ID of the Data Catalog in which the table resides.
     catalogId :: Prelude.Maybe Prelude.Text,
-    -- | The name of the target table.
-    name :: Prelude.Maybe Prelude.Text,
     -- | The name of the catalog database that contains the target table.
-    databaseName :: Prelude.Maybe Prelude.Text
+    databaseName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the target table.
+    name :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -46,59 +47,59 @@ data TableIdentifier = TableIdentifier'
 --
 -- 'catalogId', 'tableIdentifier_catalogId' - The ID of the Data Catalog in which the table resides.
 --
--- 'name', 'tableIdentifier_name' - The name of the target table.
---
 -- 'databaseName', 'tableIdentifier_databaseName' - The name of the catalog database that contains the target table.
+--
+-- 'name', 'tableIdentifier_name' - The name of the target table.
 newTableIdentifier ::
   TableIdentifier
 newTableIdentifier =
   TableIdentifier'
     { catalogId = Prelude.Nothing,
-      name = Prelude.Nothing,
-      databaseName = Prelude.Nothing
+      databaseName = Prelude.Nothing,
+      name = Prelude.Nothing
     }
 
 -- | The ID of the Data Catalog in which the table resides.
 tableIdentifier_catalogId :: Lens.Lens' TableIdentifier (Prelude.Maybe Prelude.Text)
 tableIdentifier_catalogId = Lens.lens (\TableIdentifier' {catalogId} -> catalogId) (\s@TableIdentifier' {} a -> s {catalogId = a} :: TableIdentifier)
 
--- | The name of the target table.
-tableIdentifier_name :: Lens.Lens' TableIdentifier (Prelude.Maybe Prelude.Text)
-tableIdentifier_name = Lens.lens (\TableIdentifier' {name} -> name) (\s@TableIdentifier' {} a -> s {name = a} :: TableIdentifier)
-
 -- | The name of the catalog database that contains the target table.
 tableIdentifier_databaseName :: Lens.Lens' TableIdentifier (Prelude.Maybe Prelude.Text)
 tableIdentifier_databaseName = Lens.lens (\TableIdentifier' {databaseName} -> databaseName) (\s@TableIdentifier' {} a -> s {databaseName = a} :: TableIdentifier)
 
-instance Core.FromJSON TableIdentifier where
+-- | The name of the target table.
+tableIdentifier_name :: Lens.Lens' TableIdentifier (Prelude.Maybe Prelude.Text)
+tableIdentifier_name = Lens.lens (\TableIdentifier' {name} -> name) (\s@TableIdentifier' {} a -> s {name = a} :: TableIdentifier)
+
+instance Data.FromJSON TableIdentifier where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TableIdentifier"
       ( \x ->
           TableIdentifier'
-            Prelude.<$> (x Core..:? "CatalogId")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "DatabaseName")
+            Prelude.<$> (x Data..:? "CatalogId")
+            Prelude.<*> (x Data..:? "DatabaseName")
+            Prelude.<*> (x Data..:? "Name")
       )
 
 instance Prelude.Hashable TableIdentifier where
   hashWithSalt _salt TableIdentifier' {..} =
     _salt `Prelude.hashWithSalt` catalogId
-      `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` databaseName
+      `Prelude.hashWithSalt` name
 
 instance Prelude.NFData TableIdentifier where
   rnf TableIdentifier' {..} =
     Prelude.rnf catalogId
-      `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf databaseName
+      `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON TableIdentifier where
+instance Data.ToJSON TableIdentifier where
   toJSON TableIdentifier' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            ("Name" Core..=) Prelude.<$> name,
-            ("DatabaseName" Core..=) Prelude.<$> databaseName
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            ("DatabaseName" Data..=) Prelude.<$> databaseName,
+            ("Name" Data..=) Prelude.<$> name
           ]
       )

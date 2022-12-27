@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.UpdateEndpointWeightsAndCapacities
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,9 +22,9 @@
 --
 -- Updates variant weight of one or more variants associated with an
 -- existing endpoint, or capacity of one variant associated with an
--- existing endpoint. When it receives the request, Amazon SageMaker sets
--- the endpoint status to @Updating@. After updating the endpoint, it sets
--- the status to @InService@. To check the status of an endpoint, use the
+-- existing endpoint. When it receives the request, SageMaker sets the
+-- endpoint status to @Updating@. After updating the endpoint, it sets the
+-- status to @InService@. To check the status of an endpoint, use the
 -- DescribeEndpoint API.
 module Amazonka.SageMaker.UpdateEndpointWeightsAndCapacities
   ( -- * Creating a Request
@@ -46,7 +46,8 @@ module Amazonka.SageMaker.UpdateEndpointWeightsAndCapacities
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,7 +55,7 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newUpdateEndpointWeightsAndCapacities' smart constructor.
 data UpdateEndpointWeightsAndCapacities = UpdateEndpointWeightsAndCapacities'
-  { -- | The name of an existing Amazon SageMaker endpoint.
+  { -- | The name of an existing SageMaker endpoint.
     endpointName :: Prelude.Text,
     -- | An object that provides new capacity and weight values for a variant.
     desiredWeightsAndCapacities :: Prelude.NonEmpty DesiredWeightAndCapacity
@@ -69,7 +70,7 @@ data UpdateEndpointWeightsAndCapacities = UpdateEndpointWeightsAndCapacities'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'endpointName', 'updateEndpointWeightsAndCapacities_endpointName' - The name of an existing Amazon SageMaker endpoint.
+-- 'endpointName', 'updateEndpointWeightsAndCapacities_endpointName' - The name of an existing SageMaker endpoint.
 --
 -- 'desiredWeightsAndCapacities', 'updateEndpointWeightsAndCapacities_desiredWeightsAndCapacities' - An object that provides new capacity and weight values for a variant.
 newUpdateEndpointWeightsAndCapacities ::
@@ -89,7 +90,7 @@ newUpdateEndpointWeightsAndCapacities
             Lens.# pDesiredWeightsAndCapacities_
       }
 
--- | The name of an existing Amazon SageMaker endpoint.
+-- | The name of an existing SageMaker endpoint.
 updateEndpointWeightsAndCapacities_endpointName :: Lens.Lens' UpdateEndpointWeightsAndCapacities Prelude.Text
 updateEndpointWeightsAndCapacities_endpointName = Lens.lens (\UpdateEndpointWeightsAndCapacities' {endpointName} -> endpointName) (\s@UpdateEndpointWeightsAndCapacities' {} a -> s {endpointName = a} :: UpdateEndpointWeightsAndCapacities)
 
@@ -104,13 +105,14 @@ instance
   type
     AWSResponse UpdateEndpointWeightsAndCapacities =
       UpdateEndpointWeightsAndCapacitiesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateEndpointWeightsAndCapacitiesResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-              Prelude.<*> (x Core..:> "EndpointArn")
+              Prelude.<*> (x Data..:> "EndpointArn")
       )
 
 instance
@@ -132,46 +134,46 @@ instance
       `Prelude.seq` Prelude.rnf desiredWeightsAndCapacities
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateEndpointWeightsAndCapacities
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.UpdateEndpointWeightsAndCapacities" ::
+              Data.=# ( "SageMaker.UpdateEndpointWeightsAndCapacities" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     UpdateEndpointWeightsAndCapacities
   where
   toJSON UpdateEndpointWeightsAndCapacities' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("EndpointName" Core..= endpointName),
+          [ Prelude.Just ("EndpointName" Data..= endpointName),
             Prelude.Just
               ( "DesiredWeightsAndCapacities"
-                  Core..= desiredWeightsAndCapacities
+                  Data..= desiredWeightsAndCapacities
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     UpdateEndpointWeightsAndCapacities
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateEndpointWeightsAndCapacities
   where
   toQuery = Prelude.const Prelude.mempty

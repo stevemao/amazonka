@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.HumanLoopActivationConditionsConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.HumanLoopActivationConditionsConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Defines under what conditions SageMaker creates a human loop. Used
@@ -73,15 +74,15 @@ humanLoopActivationConditionsConfig_humanLoopActivationConditions :: Lens.Lens' 
 humanLoopActivationConditionsConfig_humanLoopActivationConditions = Lens.lens (\HumanLoopActivationConditionsConfig' {humanLoopActivationConditions} -> humanLoopActivationConditions) (\s@HumanLoopActivationConditionsConfig' {} a -> s {humanLoopActivationConditions = a} :: HumanLoopActivationConditionsConfig)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     HumanLoopActivationConditionsConfig
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "HumanLoopActivationConditionsConfig"
       ( \x ->
           HumanLoopActivationConditionsConfig'
-            Prelude.<$> (x Core..: "HumanLoopActivationConditions")
+            Prelude.<$> (x Data..: "HumanLoopActivationConditions")
       )
 
 instance
@@ -102,15 +103,15 @@ instance
     Prelude.rnf humanLoopActivationConditions
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     HumanLoopActivationConditionsConfig
   where
   toJSON HumanLoopActivationConditionsConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "HumanLoopActivationConditions"
-                  Core..= humanLoopActivationConditions
+                  Data..= humanLoopActivationConditions
               )
           ]
       )

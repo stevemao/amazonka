@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.ExportTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,13 @@
 module Amazonka.EC2.Types.ExportTask where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.ExportTaskState
 import Amazonka.EC2.Types.ExportToS3Task
 import Amazonka.EC2.Types.InstanceExportDetails
 import Amazonka.EC2.Types.Tag
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an export instance task.
@@ -129,18 +130,18 @@ exportTask_state = Lens.lens (\ExportTask' {state} -> state) (\s@ExportTask' {} 
 exportTask_statusMessage :: Lens.Lens' ExportTask Prelude.Text
 exportTask_statusMessage = Lens.lens (\ExportTask' {statusMessage} -> statusMessage) (\s@ExportTask' {} a -> s {statusMessage = a} :: ExportTask)
 
-instance Core.FromXML ExportTask where
+instance Data.FromXML ExportTask where
   parseXML x =
     ExportTask'
-      Prelude.<$> ( x Core..@? "tagSet" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<$> ( x Data..@? "tagSet" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@ "description")
-      Prelude.<*> (x Core..@ "exportTaskId")
-      Prelude.<*> (x Core..@ "exportToS3")
-      Prelude.<*> (x Core..@ "instanceExport")
-      Prelude.<*> (x Core..@ "state")
-      Prelude.<*> (x Core..@ "statusMessage")
+      Prelude.<*> (x Data..@ "description")
+      Prelude.<*> (x Data..@ "exportTaskId")
+      Prelude.<*> (x Data..@ "exportToS3")
+      Prelude.<*> (x Data..@ "instanceExport")
+      Prelude.<*> (x Data..@ "state")
+      Prelude.<*> (x Data..@ "statusMessage")
 
 instance Prelude.Hashable ExportTask where
   hashWithSalt _salt ExportTask' {..} =

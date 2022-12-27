@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.DeleteAlias
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,9 @@ module Amazonka.Lambda.DeleteAlias
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -122,7 +123,8 @@ deleteAlias_name = Lens.lens (\DeleteAlias' {name} -> name) (\s@DeleteAlias' {} 
 
 instance Core.AWSRequest DeleteAlias where
   type AWSResponse DeleteAlias = DeleteAliasResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response = Response.receiveNull DeleteAliasResponse'
 
 instance Prelude.Hashable DeleteAlias where
@@ -135,19 +137,19 @@ instance Prelude.NFData DeleteAlias where
     Prelude.rnf functionName
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders DeleteAlias where
+instance Data.ToHeaders DeleteAlias where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteAlias where
+instance Data.ToPath DeleteAlias where
   toPath DeleteAlias' {..} =
     Prelude.mconcat
       [ "/2015-03-31/functions/",
-        Core.toBS functionName,
+        Data.toBS functionName,
         "/aliases/",
-        Core.toBS name
+        Data.toBS name
       ]
 
-instance Core.ToQuery DeleteAlias where
+instance Data.ToQuery DeleteAlias where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAliasResponse' smart constructor.

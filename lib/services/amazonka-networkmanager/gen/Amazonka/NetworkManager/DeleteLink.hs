@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkManager.DeleteLink
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.NetworkManager.DeleteLink
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -90,12 +91,13 @@ deleteLink_linkId = Lens.lens (\DeleteLink' {linkId} -> linkId) (\s@DeleteLink' 
 
 instance Core.AWSRequest DeleteLink where
   type AWSResponse DeleteLink = DeleteLinkResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteLinkResponse'
-            Prelude.<$> (x Core..?> "Link")
+            Prelude.<$> (x Data..?> "Link")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -109,27 +111,27 @@ instance Prelude.NFData DeleteLink where
     Prelude.rnf globalNetworkId
       `Prelude.seq` Prelude.rnf linkId
 
-instance Core.ToHeaders DeleteLink where
+instance Data.ToHeaders DeleteLink where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteLink where
+instance Data.ToPath DeleteLink where
   toPath DeleteLink' {..} =
     Prelude.mconcat
       [ "/global-networks/",
-        Core.toBS globalNetworkId,
+        Data.toBS globalNetworkId,
         "/links/",
-        Core.toBS linkId
+        Data.toBS linkId
       ]
 
-instance Core.ToQuery DeleteLink where
+instance Data.ToQuery DeleteLink where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteLinkResponse' smart constructor.

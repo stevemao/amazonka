@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.EvaluateExpression
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.DataPipeline.EvaluateExpression
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataPipeline.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -110,13 +111,14 @@ instance Core.AWSRequest EvaluateExpression where
   type
     AWSResponse EvaluateExpression =
       EvaluateExpressionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           EvaluateExpressionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "evaluatedExpression")
+            Prelude.<*> (x Data..:> "evaluatedExpression")
       )
 
 instance Prelude.Hashable EvaluateExpression where
@@ -131,35 +133,35 @@ instance Prelude.NFData EvaluateExpression where
       `Prelude.seq` Prelude.rnf objectId
       `Prelude.seq` Prelude.rnf expression
 
-instance Core.ToHeaders EvaluateExpression where
+instance Data.ToHeaders EvaluateExpression where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DataPipeline.EvaluateExpression" ::
+              Data.=# ( "DataPipeline.EvaluateExpression" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EvaluateExpression where
+instance Data.ToJSON EvaluateExpression where
   toJSON EvaluateExpression' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("pipelineId" Core..= pipelineId),
-            Prelude.Just ("objectId" Core..= objectId),
-            Prelude.Just ("expression" Core..= expression)
+          [ Prelude.Just ("pipelineId" Data..= pipelineId),
+            Prelude.Just ("objectId" Data..= objectId),
+            Prelude.Just ("expression" Data..= expression)
           ]
       )
 
-instance Core.ToPath EvaluateExpression where
+instance Data.ToPath EvaluateExpression where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EvaluateExpression where
+instance Data.ToQuery EvaluateExpression where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the output of EvaluateExpression.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DeleteDhcpOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.EC2.DeleteDhcpOptions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,7 +98,8 @@ instance Core.AWSRequest DeleteDhcpOptions where
   type
     AWSResponse DeleteDhcpOptions =
       DeleteDhcpOptionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull DeleteDhcpOptionsResponse'
 
@@ -111,21 +113,21 @@ instance Prelude.NFData DeleteDhcpOptions where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf dhcpOptionsId
 
-instance Core.ToHeaders DeleteDhcpOptions where
+instance Data.ToHeaders DeleteDhcpOptions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDhcpOptions where
+instance Data.ToPath DeleteDhcpOptions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDhcpOptions where
+instance Data.ToQuery DeleteDhcpOptions where
   toQuery DeleteDhcpOptions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteDhcpOptions" :: Prelude.ByteString),
+          Data.=: ("DeleteDhcpOptions" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "DhcpOptionsId" Core.=: dhcpOptionsId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "DhcpOptionsId" Data.=: dhcpOptionsId
       ]
 
 -- | /See:/ 'newDeleteDhcpOptionsResponse' smart constructor.

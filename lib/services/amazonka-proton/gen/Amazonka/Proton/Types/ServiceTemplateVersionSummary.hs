@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.Types.ServiceTemplateVersionSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,30 +20,31 @@
 module Amazonka.Proton.Types.ServiceTemplateVersionSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types.TemplateVersionStatus
 
--- | A summary of the service template version detail data.
+-- | Summary data of an Proton service template version resource.
 --
 -- /See:/ 'newServiceTemplateVersionSummary' smart constructor.
 data ServiceTemplateVersionSummary = ServiceTemplateVersionSummary'
-  { -- | A service template minor version status message.
-    statusMessage :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | The ID of the recommended minor version of the service template.
+  { -- | A description of the version of a service template.
+    description :: Prelude.Maybe (Data.Sensitive Prelude.Text),
+    -- | The recommended minor version of the service template.
     recommendedMinorVersion :: Prelude.Maybe Prelude.Text,
-    -- | A description of the version of a service template.
-    description :: Prelude.Maybe (Core.Sensitive Prelude.Text),
+    -- | A service template minor version status message.
+    statusMessage :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The Amazon Resource Name (ARN) of the version of a service template.
     arn :: Prelude.Text,
     -- | The time when the version of a service template was created.
-    createdAt :: Core.POSIX,
+    createdAt :: Data.POSIX,
     -- | The time when the version of a service template was last modified.
-    lastModifiedAt :: Core.POSIX,
-    -- | The ID of the latest major version that\'s associated with the version
-    -- of a service template.
+    lastModifiedAt :: Data.POSIX,
+    -- | The latest major version that\'s associated with the version of a
+    -- service template.
     majorVersion :: Prelude.Text,
-    -- | The ID of the minor version of a service template.
+    -- | The minor version of a service template.
     minorVersion :: Prelude.Text,
     -- | The service template minor version status.
     status :: TemplateVersionStatus,
@@ -60,11 +61,11 @@ data ServiceTemplateVersionSummary = ServiceTemplateVersionSummary'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'statusMessage', 'serviceTemplateVersionSummary_statusMessage' - A service template minor version status message.
---
--- 'recommendedMinorVersion', 'serviceTemplateVersionSummary_recommendedMinorVersion' - The ID of the recommended minor version of the service template.
---
 -- 'description', 'serviceTemplateVersionSummary_description' - A description of the version of a service template.
+--
+-- 'recommendedMinorVersion', 'serviceTemplateVersionSummary_recommendedMinorVersion' - The recommended minor version of the service template.
+--
+-- 'statusMessage', 'serviceTemplateVersionSummary_statusMessage' - A service template minor version status message.
 --
 -- 'arn', 'serviceTemplateVersionSummary_arn' - The Amazon Resource Name (ARN) of the version of a service template.
 --
@@ -72,10 +73,10 @@ data ServiceTemplateVersionSummary = ServiceTemplateVersionSummary'
 --
 -- 'lastModifiedAt', 'serviceTemplateVersionSummary_lastModifiedAt' - The time when the version of a service template was last modified.
 --
--- 'majorVersion', 'serviceTemplateVersionSummary_majorVersion' - The ID of the latest major version that\'s associated with the version
--- of a service template.
+-- 'majorVersion', 'serviceTemplateVersionSummary_majorVersion' - The latest major version that\'s associated with the version of a
+-- service template.
 --
--- 'minorVersion', 'serviceTemplateVersionSummary_minorVersion' - The ID of the minor version of a service template.
+-- 'minorVersion', 'serviceTemplateVersionSummary_minorVersion' - The minor version of a service template.
 --
 -- 'status', 'serviceTemplateVersionSummary_status' - The service template minor version status.
 --
@@ -105,31 +106,31 @@ newServiceTemplateVersionSummary
   pStatus_
   pTemplateName_ =
     ServiceTemplateVersionSummary'
-      { statusMessage =
+      { description =
           Prelude.Nothing,
         recommendedMinorVersion = Prelude.Nothing,
-        description = Prelude.Nothing,
+        statusMessage = Prelude.Nothing,
         arn = pArn_,
-        createdAt = Core._Time Lens.# pCreatedAt_,
+        createdAt = Data._Time Lens.# pCreatedAt_,
         lastModifiedAt =
-          Core._Time Lens.# pLastModifiedAt_,
+          Data._Time Lens.# pLastModifiedAt_,
         majorVersion = pMajorVersion_,
         minorVersion = pMinorVersion_,
         status = pStatus_,
         templateName = pTemplateName_
       }
 
--- | A service template minor version status message.
-serviceTemplateVersionSummary_statusMessage :: Lens.Lens' ServiceTemplateVersionSummary (Prelude.Maybe Prelude.Text)
-serviceTemplateVersionSummary_statusMessage = Lens.lens (\ServiceTemplateVersionSummary' {statusMessage} -> statusMessage) (\s@ServiceTemplateVersionSummary' {} a -> s {statusMessage = a} :: ServiceTemplateVersionSummary) Prelude.. Lens.mapping Core._Sensitive
+-- | A description of the version of a service template.
+serviceTemplateVersionSummary_description :: Lens.Lens' ServiceTemplateVersionSummary (Prelude.Maybe Prelude.Text)
+serviceTemplateVersionSummary_description = Lens.lens (\ServiceTemplateVersionSummary' {description} -> description) (\s@ServiceTemplateVersionSummary' {} a -> s {description = a} :: ServiceTemplateVersionSummary) Prelude.. Lens.mapping Data._Sensitive
 
--- | The ID of the recommended minor version of the service template.
+-- | The recommended minor version of the service template.
 serviceTemplateVersionSummary_recommendedMinorVersion :: Lens.Lens' ServiceTemplateVersionSummary (Prelude.Maybe Prelude.Text)
 serviceTemplateVersionSummary_recommendedMinorVersion = Lens.lens (\ServiceTemplateVersionSummary' {recommendedMinorVersion} -> recommendedMinorVersion) (\s@ServiceTemplateVersionSummary' {} a -> s {recommendedMinorVersion = a} :: ServiceTemplateVersionSummary)
 
--- | A description of the version of a service template.
-serviceTemplateVersionSummary_description :: Lens.Lens' ServiceTemplateVersionSummary (Prelude.Maybe Prelude.Text)
-serviceTemplateVersionSummary_description = Lens.lens (\ServiceTemplateVersionSummary' {description} -> description) (\s@ServiceTemplateVersionSummary' {} a -> s {description = a} :: ServiceTemplateVersionSummary) Prelude.. Lens.mapping Core._Sensitive
+-- | A service template minor version status message.
+serviceTemplateVersionSummary_statusMessage :: Lens.Lens' ServiceTemplateVersionSummary (Prelude.Maybe Prelude.Text)
+serviceTemplateVersionSummary_statusMessage = Lens.lens (\ServiceTemplateVersionSummary' {statusMessage} -> statusMessage) (\s@ServiceTemplateVersionSummary' {} a -> s {statusMessage = a} :: ServiceTemplateVersionSummary) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The Amazon Resource Name (ARN) of the version of a service template.
 serviceTemplateVersionSummary_arn :: Lens.Lens' ServiceTemplateVersionSummary Prelude.Text
@@ -137,18 +138,18 @@ serviceTemplateVersionSummary_arn = Lens.lens (\ServiceTemplateVersionSummary' {
 
 -- | The time when the version of a service template was created.
 serviceTemplateVersionSummary_createdAt :: Lens.Lens' ServiceTemplateVersionSummary Prelude.UTCTime
-serviceTemplateVersionSummary_createdAt = Lens.lens (\ServiceTemplateVersionSummary' {createdAt} -> createdAt) (\s@ServiceTemplateVersionSummary' {} a -> s {createdAt = a} :: ServiceTemplateVersionSummary) Prelude.. Core._Time
+serviceTemplateVersionSummary_createdAt = Lens.lens (\ServiceTemplateVersionSummary' {createdAt} -> createdAt) (\s@ServiceTemplateVersionSummary' {} a -> s {createdAt = a} :: ServiceTemplateVersionSummary) Prelude.. Data._Time
 
 -- | The time when the version of a service template was last modified.
 serviceTemplateVersionSummary_lastModifiedAt :: Lens.Lens' ServiceTemplateVersionSummary Prelude.UTCTime
-serviceTemplateVersionSummary_lastModifiedAt = Lens.lens (\ServiceTemplateVersionSummary' {lastModifiedAt} -> lastModifiedAt) (\s@ServiceTemplateVersionSummary' {} a -> s {lastModifiedAt = a} :: ServiceTemplateVersionSummary) Prelude.. Core._Time
+serviceTemplateVersionSummary_lastModifiedAt = Lens.lens (\ServiceTemplateVersionSummary' {lastModifiedAt} -> lastModifiedAt) (\s@ServiceTemplateVersionSummary' {} a -> s {lastModifiedAt = a} :: ServiceTemplateVersionSummary) Prelude.. Data._Time
 
--- | The ID of the latest major version that\'s associated with the version
--- of a service template.
+-- | The latest major version that\'s associated with the version of a
+-- service template.
 serviceTemplateVersionSummary_majorVersion :: Lens.Lens' ServiceTemplateVersionSummary Prelude.Text
 serviceTemplateVersionSummary_majorVersion = Lens.lens (\ServiceTemplateVersionSummary' {majorVersion} -> majorVersion) (\s@ServiceTemplateVersionSummary' {} a -> s {majorVersion = a} :: ServiceTemplateVersionSummary)
 
--- | The ID of the minor version of a service template.
+-- | The minor version of a service template.
 serviceTemplateVersionSummary_minorVersion :: Lens.Lens' ServiceTemplateVersionSummary Prelude.Text
 serviceTemplateVersionSummary_minorVersion = Lens.lens (\ServiceTemplateVersionSummary' {minorVersion} -> minorVersion) (\s@ServiceTemplateVersionSummary' {} a -> s {minorVersion = a} :: ServiceTemplateVersionSummary)
 
@@ -160,22 +161,22 @@ serviceTemplateVersionSummary_status = Lens.lens (\ServiceTemplateVersionSummary
 serviceTemplateVersionSummary_templateName :: Lens.Lens' ServiceTemplateVersionSummary Prelude.Text
 serviceTemplateVersionSummary_templateName = Lens.lens (\ServiceTemplateVersionSummary' {templateName} -> templateName) (\s@ServiceTemplateVersionSummary' {} a -> s {templateName = a} :: ServiceTemplateVersionSummary)
 
-instance Core.FromJSON ServiceTemplateVersionSummary where
+instance Data.FromJSON ServiceTemplateVersionSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServiceTemplateVersionSummary"
       ( \x ->
           ServiceTemplateVersionSummary'
-            Prelude.<$> (x Core..:? "statusMessage")
-            Prelude.<*> (x Core..:? "recommendedMinorVersion")
-            Prelude.<*> (x Core..:? "description")
-            Prelude.<*> (x Core..: "arn")
-            Prelude.<*> (x Core..: "createdAt")
-            Prelude.<*> (x Core..: "lastModifiedAt")
-            Prelude.<*> (x Core..: "majorVersion")
-            Prelude.<*> (x Core..: "minorVersion")
-            Prelude.<*> (x Core..: "status")
-            Prelude.<*> (x Core..: "templateName")
+            Prelude.<$> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "recommendedMinorVersion")
+            Prelude.<*> (x Data..:? "statusMessage")
+            Prelude.<*> (x Data..: "arn")
+            Prelude.<*> (x Data..: "createdAt")
+            Prelude.<*> (x Data..: "lastModifiedAt")
+            Prelude.<*> (x Data..: "majorVersion")
+            Prelude.<*> (x Data..: "minorVersion")
+            Prelude.<*> (x Data..: "status")
+            Prelude.<*> (x Data..: "templateName")
       )
 
 instance
@@ -183,9 +184,9 @@ instance
     ServiceTemplateVersionSummary
   where
   hashWithSalt _salt ServiceTemplateVersionSummary' {..} =
-    _salt `Prelude.hashWithSalt` statusMessage
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` recommendedMinorVersion
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` statusMessage
       `Prelude.hashWithSalt` arn
       `Prelude.hashWithSalt` createdAt
       `Prelude.hashWithSalt` lastModifiedAt
@@ -196,9 +197,9 @@ instance
 
 instance Prelude.NFData ServiceTemplateVersionSummary where
   rnf ServiceTemplateVersionSummary' {..} =
-    Prelude.rnf statusMessage
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf recommendedMinorVersion
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf statusMessage
       `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf createdAt
       `Prelude.seq` Prelude.rnf lastModifiedAt

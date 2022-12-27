@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.ListArchives
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,10 +30,10 @@ module Amazonka.CloudWatchEvents.ListArchives
 
     -- * Request Lenses
     listArchives_eventSourceArn,
-    listArchives_state,
-    listArchives_nextToken,
-    listArchives_namePrefix,
     listArchives_limit,
+    listArchives_namePrefix,
+    listArchives_nextToken,
+    listArchives_state,
 
     -- * Destructuring the Response
     ListArchivesResponse (..),
@@ -48,7 +48,8 @@ where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,16 +58,16 @@ import qualified Amazonka.Response as Response
 data ListArchives = ListArchives'
   { -- | The ARN of the event source associated with the archive.
     eventSourceArn :: Prelude.Maybe Prelude.Text,
-    -- | The state of the archive.
-    state :: Prelude.Maybe ArchiveState,
-    -- | The token returned by a previous call to retrieve the next set of
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return.
+    limit :: Prelude.Maybe Prelude.Natural,
     -- | A name prefix to filter the archives returned. Only archives with name
     -- that match the prefix are returned.
     namePrefix :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return.
-    limit :: Prelude.Maybe Prelude.Natural
+    -- | The token returned by a previous call to retrieve the next set of
+    -- results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The state of the archive.
+    state :: Prelude.Maybe ArchiveState
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -80,106 +81,107 @@ data ListArchives = ListArchives'
 --
 -- 'eventSourceArn', 'listArchives_eventSourceArn' - The ARN of the event source associated with the archive.
 --
--- 'state', 'listArchives_state' - The state of the archive.
---
--- 'nextToken', 'listArchives_nextToken' - The token returned by a previous call to retrieve the next set of
--- results.
+-- 'limit', 'listArchives_limit' - The maximum number of results to return.
 --
 -- 'namePrefix', 'listArchives_namePrefix' - A name prefix to filter the archives returned. Only archives with name
 -- that match the prefix are returned.
 --
--- 'limit', 'listArchives_limit' - The maximum number of results to return.
+-- 'nextToken', 'listArchives_nextToken' - The token returned by a previous call to retrieve the next set of
+-- results.
+--
+-- 'state', 'listArchives_state' - The state of the archive.
 newListArchives ::
   ListArchives
 newListArchives =
   ListArchives'
     { eventSourceArn = Prelude.Nothing,
-      state = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      limit = Prelude.Nothing,
       namePrefix = Prelude.Nothing,
-      limit = Prelude.Nothing
+      nextToken = Prelude.Nothing,
+      state = Prelude.Nothing
     }
 
 -- | The ARN of the event source associated with the archive.
 listArchives_eventSourceArn :: Lens.Lens' ListArchives (Prelude.Maybe Prelude.Text)
 listArchives_eventSourceArn = Lens.lens (\ListArchives' {eventSourceArn} -> eventSourceArn) (\s@ListArchives' {} a -> s {eventSourceArn = a} :: ListArchives)
 
--- | The state of the archive.
-listArchives_state :: Lens.Lens' ListArchives (Prelude.Maybe ArchiveState)
-listArchives_state = Lens.lens (\ListArchives' {state} -> state) (\s@ListArchives' {} a -> s {state = a} :: ListArchives)
-
--- | The token returned by a previous call to retrieve the next set of
--- results.
-listArchives_nextToken :: Lens.Lens' ListArchives (Prelude.Maybe Prelude.Text)
-listArchives_nextToken = Lens.lens (\ListArchives' {nextToken} -> nextToken) (\s@ListArchives' {} a -> s {nextToken = a} :: ListArchives)
+-- | The maximum number of results to return.
+listArchives_limit :: Lens.Lens' ListArchives (Prelude.Maybe Prelude.Natural)
+listArchives_limit = Lens.lens (\ListArchives' {limit} -> limit) (\s@ListArchives' {} a -> s {limit = a} :: ListArchives)
 
 -- | A name prefix to filter the archives returned. Only archives with name
 -- that match the prefix are returned.
 listArchives_namePrefix :: Lens.Lens' ListArchives (Prelude.Maybe Prelude.Text)
 listArchives_namePrefix = Lens.lens (\ListArchives' {namePrefix} -> namePrefix) (\s@ListArchives' {} a -> s {namePrefix = a} :: ListArchives)
 
--- | The maximum number of results to return.
-listArchives_limit :: Lens.Lens' ListArchives (Prelude.Maybe Prelude.Natural)
-listArchives_limit = Lens.lens (\ListArchives' {limit} -> limit) (\s@ListArchives' {} a -> s {limit = a} :: ListArchives)
+-- | The token returned by a previous call to retrieve the next set of
+-- results.
+listArchives_nextToken :: Lens.Lens' ListArchives (Prelude.Maybe Prelude.Text)
+listArchives_nextToken = Lens.lens (\ListArchives' {nextToken} -> nextToken) (\s@ListArchives' {} a -> s {nextToken = a} :: ListArchives)
+
+-- | The state of the archive.
+listArchives_state :: Lens.Lens' ListArchives (Prelude.Maybe ArchiveState)
+listArchives_state = Lens.lens (\ListArchives' {state} -> state) (\s@ListArchives' {} a -> s {state = a} :: ListArchives)
 
 instance Core.AWSRequest ListArchives where
   type AWSResponse ListArchives = ListArchivesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListArchivesResponse'
-            Prelude.<$> (x Core..?> "Archives" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Archives" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListArchives where
   hashWithSalt _salt ListArchives' {..} =
     _salt `Prelude.hashWithSalt` eventSourceArn
-      `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` namePrefix
       `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` namePrefix
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData ListArchives where
   rnf ListArchives' {..} =
     Prelude.rnf eventSourceArn
-      `Prelude.seq` Prelude.rnf state
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf namePrefix
       `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf namePrefix
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf state
 
-instance Core.ToHeaders ListArchives where
+instance Data.ToHeaders ListArchives where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSEvents.ListArchives" :: Prelude.ByteString),
+              Data.=# ("AWSEvents.ListArchives" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListArchives where
+instance Data.ToJSON ListArchives where
   toJSON ListArchives' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EventSourceArn" Core..=)
+          [ ("EventSourceArn" Data..=)
               Prelude.<$> eventSourceArn,
-            ("State" Core..=) Prelude.<$> state,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("NamePrefix" Core..=) Prelude.<$> namePrefix,
-            ("Limit" Core..=) Prelude.<$> limit
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("NamePrefix" Data..=) Prelude.<$> namePrefix,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("State" Data..=) Prelude.<$> state
           ]
       )
 
-instance Core.ToPath ListArchives where
+instance Data.ToPath ListArchives where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListArchives where
+instance Data.ToQuery ListArchives where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListArchivesResponse' smart constructor.

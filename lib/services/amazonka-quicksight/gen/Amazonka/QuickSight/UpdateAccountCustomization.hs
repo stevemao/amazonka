@@ -14,14 +14,15 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.UpdateAccountCustomization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates Amazon QuickSight customizations the current Amazon Web Services
--- Region. Currently, the only customization you can use is a theme.
+-- Updates Amazon QuickSight customizations for the current Amazon Web
+-- Services Region. Currently, the only customization that you can use is a
+-- theme.
 --
 -- You can use customizations for your Amazon Web Services account or, if
 -- you specify a namespace, for a Amazon QuickSight namespace instead.
@@ -44,17 +45,18 @@ module Amazonka.QuickSight.UpdateAccountCustomization
     newUpdateAccountCustomizationResponse,
 
     -- * Response Lenses
-    updateAccountCustomizationResponse_requestId,
     updateAccountCustomizationResponse_accountCustomization,
     updateAccountCustomizationResponse_arn,
-    updateAccountCustomizationResponse_namespace,
     updateAccountCustomizationResponse_awsAccountId,
+    updateAccountCustomizationResponse_namespace,
+    updateAccountCustomizationResponse_requestId,
     updateAccountCustomizationResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -125,16 +127,17 @@ instance Core.AWSRequest UpdateAccountCustomization where
   type
     AWSResponse UpdateAccountCustomization =
       UpdateAccountCustomizationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateAccountCustomizationResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "AccountCustomization")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "Namespace")
-            Prelude.<*> (x Core..?> "AwsAccountId")
+            Prelude.<$> (x Data..?> "AccountCustomization")
+            Prelude.<*> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "AwsAccountId")
+            Prelude.<*> (x Data..?> "Namespace")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -150,55 +153,55 @@ instance Prelude.NFData UpdateAccountCustomization where
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf accountCustomization
 
-instance Core.ToHeaders UpdateAccountCustomization where
+instance Data.ToHeaders UpdateAccountCustomization where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateAccountCustomization where
+instance Data.ToJSON UpdateAccountCustomization where
   toJSON UpdateAccountCustomization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "AccountCustomization"
-                  Core..= accountCustomization
+                  Data..= accountCustomization
               )
           ]
       )
 
-instance Core.ToPath UpdateAccountCustomization where
+instance Data.ToPath UpdateAccountCustomization where
   toPath UpdateAccountCustomization' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/customizations"
       ]
 
-instance Core.ToQuery UpdateAccountCustomization where
+instance Data.ToQuery UpdateAccountCustomization where
   toQuery UpdateAccountCustomization' {..} =
-    Prelude.mconcat ["namespace" Core.=: namespace]
+    Prelude.mconcat ["namespace" Data.=: namespace]
 
 -- | /See:/ 'newUpdateAccountCustomizationResponse' smart constructor.
 data UpdateAccountCustomizationResponse = UpdateAccountCustomizationResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon QuickSight customizations you\'re updating in the current
+  { -- | The Amazon QuickSight customizations you\'re updating in the current
     -- Amazon Web Services Region.
     accountCustomization :: Prelude.Maybe AccountCustomization,
     -- | The Amazon Resource Name (ARN) for the updated customization for this
     -- Amazon Web Services account.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The namespace associated with the customization that you\'re updating.
-    namespace :: Prelude.Maybe Prelude.Text,
     -- | The ID for the Amazon Web Services account that you want to update
     -- Amazon QuickSight customizations for.
     awsAccountId :: Prelude.Maybe Prelude.Text,
+    -- | The namespace associated with the customization that you\'re updating.
+    namespace :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -212,18 +215,18 @@ data UpdateAccountCustomizationResponse = UpdateAccountCustomizationResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'updateAccountCustomizationResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'accountCustomization', 'updateAccountCustomizationResponse_accountCustomization' - The Amazon QuickSight customizations you\'re updating in the current
 -- Amazon Web Services Region.
 --
 -- 'arn', 'updateAccountCustomizationResponse_arn' - The Amazon Resource Name (ARN) for the updated customization for this
 -- Amazon Web Services account.
 --
--- 'namespace', 'updateAccountCustomizationResponse_namespace' - The namespace associated with the customization that you\'re updating.
---
 -- 'awsAccountId', 'updateAccountCustomizationResponse_awsAccountId' - The ID for the Amazon Web Services account that you want to update
 -- Amazon QuickSight customizations for.
+--
+-- 'namespace', 'updateAccountCustomizationResponse_namespace' - The namespace associated with the customization that you\'re updating.
+--
+-- 'requestId', 'updateAccountCustomizationResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'updateAccountCustomizationResponse_status' - The HTTP status of the request.
 newUpdateAccountCustomizationResponse ::
@@ -232,18 +235,14 @@ newUpdateAccountCustomizationResponse ::
   UpdateAccountCustomizationResponse
 newUpdateAccountCustomizationResponse pStatus_ =
   UpdateAccountCustomizationResponse'
-    { requestId =
+    { accountCustomization =
         Prelude.Nothing,
-      accountCustomization = Prelude.Nothing,
       arn = Prelude.Nothing,
-      namespace = Prelude.Nothing,
       awsAccountId = Prelude.Nothing,
+      namespace = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-updateAccountCustomizationResponse_requestId :: Lens.Lens' UpdateAccountCustomizationResponse (Prelude.Maybe Prelude.Text)
-updateAccountCustomizationResponse_requestId = Lens.lens (\UpdateAccountCustomizationResponse' {requestId} -> requestId) (\s@UpdateAccountCustomizationResponse' {} a -> s {requestId = a} :: UpdateAccountCustomizationResponse)
 
 -- | The Amazon QuickSight customizations you\'re updating in the current
 -- Amazon Web Services Region.
@@ -255,14 +254,18 @@ updateAccountCustomizationResponse_accountCustomization = Lens.lens (\UpdateAcco
 updateAccountCustomizationResponse_arn :: Lens.Lens' UpdateAccountCustomizationResponse (Prelude.Maybe Prelude.Text)
 updateAccountCustomizationResponse_arn = Lens.lens (\UpdateAccountCustomizationResponse' {arn} -> arn) (\s@UpdateAccountCustomizationResponse' {} a -> s {arn = a} :: UpdateAccountCustomizationResponse)
 
--- | The namespace associated with the customization that you\'re updating.
-updateAccountCustomizationResponse_namespace :: Lens.Lens' UpdateAccountCustomizationResponse (Prelude.Maybe Prelude.Text)
-updateAccountCustomizationResponse_namespace = Lens.lens (\UpdateAccountCustomizationResponse' {namespace} -> namespace) (\s@UpdateAccountCustomizationResponse' {} a -> s {namespace = a} :: UpdateAccountCustomizationResponse)
-
 -- | The ID for the Amazon Web Services account that you want to update
 -- Amazon QuickSight customizations for.
 updateAccountCustomizationResponse_awsAccountId :: Lens.Lens' UpdateAccountCustomizationResponse (Prelude.Maybe Prelude.Text)
 updateAccountCustomizationResponse_awsAccountId = Lens.lens (\UpdateAccountCustomizationResponse' {awsAccountId} -> awsAccountId) (\s@UpdateAccountCustomizationResponse' {} a -> s {awsAccountId = a} :: UpdateAccountCustomizationResponse)
+
+-- | The namespace associated with the customization that you\'re updating.
+updateAccountCustomizationResponse_namespace :: Lens.Lens' UpdateAccountCustomizationResponse (Prelude.Maybe Prelude.Text)
+updateAccountCustomizationResponse_namespace = Lens.lens (\UpdateAccountCustomizationResponse' {namespace} -> namespace) (\s@UpdateAccountCustomizationResponse' {} a -> s {namespace = a} :: UpdateAccountCustomizationResponse)
+
+-- | The Amazon Web Services request ID for this operation.
+updateAccountCustomizationResponse_requestId :: Lens.Lens' UpdateAccountCustomizationResponse (Prelude.Maybe Prelude.Text)
+updateAccountCustomizationResponse_requestId = Lens.lens (\UpdateAccountCustomizationResponse' {requestId} -> requestId) (\s@UpdateAccountCustomizationResponse' {} a -> s {requestId = a} :: UpdateAccountCustomizationResponse)
 
 -- | The HTTP status of the request.
 updateAccountCustomizationResponse_status :: Lens.Lens' UpdateAccountCustomizationResponse Prelude.Int
@@ -273,9 +276,9 @@ instance
     UpdateAccountCustomizationResponse
   where
   rnf UpdateAccountCustomizationResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf accountCustomization
+    Prelude.rnf accountCustomization
       `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf namespace
       `Prelude.seq` Prelude.rnf awsAccountId
+      `Prelude.seq` Prelude.rnf namespace
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

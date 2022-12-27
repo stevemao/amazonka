@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.SnapshotOptionsStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,14 @@
 module Amazonka.OpenSearch.Types.SnapshotOptionsStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types.OptionStatus
 import Amazonka.OpenSearch.Types.SnapshotOptions
 import qualified Amazonka.Prelude as Prelude
 
--- | Status of a daily automated snapshot.
+-- | Container for information about a daily automated snapshot for an
+-- OpenSearch Service domain.
 --
 -- /See:/ 'newSnapshotOptionsStatus' smart constructor.
 data SnapshotOptionsStatus = SnapshotOptionsStatus'
@@ -67,14 +69,14 @@ snapshotOptionsStatus_options = Lens.lens (\SnapshotOptionsStatus' {options} -> 
 snapshotOptionsStatus_status :: Lens.Lens' SnapshotOptionsStatus OptionStatus
 snapshotOptionsStatus_status = Lens.lens (\SnapshotOptionsStatus' {status} -> status) (\s@SnapshotOptionsStatus' {} a -> s {status = a} :: SnapshotOptionsStatus)
 
-instance Core.FromJSON SnapshotOptionsStatus where
+instance Data.FromJSON SnapshotOptionsStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SnapshotOptionsStatus"
       ( \x ->
           SnapshotOptionsStatus'
-            Prelude.<$> (x Core..: "Options")
-            Prelude.<*> (x Core..: "Status")
+            Prelude.<$> (x Data..: "Options")
+            Prelude.<*> (x Data..: "Status")
       )
 
 instance Prelude.Hashable SnapshotOptionsStatus where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.PrincipalIdFormat
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.PrincipalIdFormat where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.IdFormat
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | PrincipalIdFormat description
@@ -63,12 +64,12 @@ principalIdFormat_arn = Lens.lens (\PrincipalIdFormat' {arn} -> arn) (\s@Princip
 principalIdFormat_statuses :: Lens.Lens' PrincipalIdFormat (Prelude.Maybe [IdFormat])
 principalIdFormat_statuses = Lens.lens (\PrincipalIdFormat' {statuses} -> statuses) (\s@PrincipalIdFormat' {} a -> s {statuses = a} :: PrincipalIdFormat) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML PrincipalIdFormat where
+instance Data.FromXML PrincipalIdFormat where
   parseXML x =
     PrincipalIdFormat'
-      Prelude.<$> (x Core..@? "arn")
-      Prelude.<*> ( x Core..@? "statusSet" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<$> (x Data..@? "arn")
+      Prelude.<*> ( x Data..@? "statusSet" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
 
 instance Prelude.Hashable PrincipalIdFormat where

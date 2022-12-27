@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.PutSipMediaApplicationLoggingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,13 +98,14 @@ instance
     AWSResponse
       PutSipMediaApplicationLoggingConfiguration =
       PutSipMediaApplicationLoggingConfigurationResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutSipMediaApplicationLoggingConfigurationResponse'
             Prelude.<$> ( x
-                            Core..?> "SipMediaApplicationLoggingConfiguration"
+                            Data..?> "SipMediaApplicationLoggingConfiguration"
                         )
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -128,38 +130,38 @@ instance
       `Prelude.seq` Prelude.rnf sipMediaApplicationId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     PutSipMediaApplicationLoggingConfiguration
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     PutSipMediaApplicationLoggingConfiguration
   where
   toJSON
     PutSipMediaApplicationLoggingConfiguration' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ ("SipMediaApplicationLoggingConfiguration" Core..=)
+            [ ("SipMediaApplicationLoggingConfiguration" Data..=)
                 Prelude.<$> sipMediaApplicationLoggingConfiguration
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     PutSipMediaApplicationLoggingConfiguration
   where
   toPath
     PutSipMediaApplicationLoggingConfiguration' {..} =
       Prelude.mconcat
         [ "/sip-media-applications/",
-          Core.toBS sipMediaApplicationId,
+          Data.toBS sipMediaApplicationId,
           "/logging-configuration"
         ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     PutSipMediaApplicationLoggingConfiguration
   where
   toQuery = Prelude.const Prelude.mempty

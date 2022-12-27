@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeDeploy.Types.LoadBalancerInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.CodeDeploy.Types.ELBInfo
 import Amazonka.CodeDeploy.Types.TargetGroupInfo
 import Amazonka.CodeDeploy.Types.TargetGroupPairInfo
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the Elastic Load Balancing load balancer or target
@@ -101,18 +102,18 @@ loadBalancerInfo_targetGroupInfoList = Lens.lens (\LoadBalancerInfo' {targetGrou
 loadBalancerInfo_targetGroupPairInfoList :: Lens.Lens' LoadBalancerInfo (Prelude.Maybe [TargetGroupPairInfo])
 loadBalancerInfo_targetGroupPairInfoList = Lens.lens (\LoadBalancerInfo' {targetGroupPairInfoList} -> targetGroupPairInfoList) (\s@LoadBalancerInfo' {} a -> s {targetGroupPairInfoList = a} :: LoadBalancerInfo) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON LoadBalancerInfo where
+instance Data.FromJSON LoadBalancerInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LoadBalancerInfo"
       ( \x ->
           LoadBalancerInfo'
-            Prelude.<$> (x Core..:? "elbInfoList" Core..!= Prelude.mempty)
-            Prelude.<*> ( x Core..:? "targetGroupInfoList"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "elbInfoList" Data..!= Prelude.mempty)
+            Prelude.<*> ( x Data..:? "targetGroupInfoList"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> ( x Core..:? "targetGroupPairInfoList"
-                            Core..!= Prelude.mempty
+            Prelude.<*> ( x Data..:? "targetGroupPairInfoList"
+                            Data..!= Prelude.mempty
                         )
       )
 
@@ -128,14 +129,14 @@ instance Prelude.NFData LoadBalancerInfo where
       `Prelude.seq` Prelude.rnf targetGroupInfoList
       `Prelude.seq` Prelude.rnf targetGroupPairInfoList
 
-instance Core.ToJSON LoadBalancerInfo where
+instance Data.ToJSON LoadBalancerInfo where
   toJSON LoadBalancerInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("elbInfoList" Core..=) Prelude.<$> elbInfoList,
-            ("targetGroupInfoList" Core..=)
+          [ ("elbInfoList" Data..=) Prelude.<$> elbInfoList,
+            ("targetGroupInfoList" Data..=)
               Prelude.<$> targetGroupInfoList,
-            ("targetGroupPairInfoList" Core..=)
+            ("targetGroupPairInfoList" Data..=)
               Prelude.<$> targetGroupPairInfoList
           ]
       )

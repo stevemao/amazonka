@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.InventoryGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.InventoryGroup where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.Types.InventoryFilter
 
@@ -86,11 +87,11 @@ instance Prelude.NFData InventoryGroup where
   rnf InventoryGroup' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf filters
 
-instance Core.ToJSON InventoryGroup where
+instance Data.ToJSON InventoryGroup where
   toJSON InventoryGroup' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Filters" Core..= filters)
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Filters" Data..= filters)
           ]
       )

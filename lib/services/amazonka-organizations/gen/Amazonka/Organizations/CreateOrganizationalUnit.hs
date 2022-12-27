@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.CreateOrganizationalUnit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,7 +28,7 @@
 --
 -- For more information about OUs, see
 -- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_manage_ous.html Managing Organizational Units>
--- in the /AWS Organizations User Guide./
+-- in the /Organizations User Guide./
 --
 -- If the request includes tags, then the requester must have the
 -- @organizations:TagResource@ permission.
@@ -56,7 +56,8 @@ module Amazonka.Organizations.CreateOrganizationalUnit
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -68,8 +69,8 @@ data CreateOrganizationalUnit = CreateOrganizationalUnit'
     -- tag in the list, you must specify both a tag key and a value. You can
     -- set the value to an empty string, but you can\'t set it to @null@. For
     -- more information about tagging, see
-    -- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources>
-    -- in the AWS Organizations User Guide.
+    -- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging Organizations resources>
+    -- in the Organizations User Guide.
     --
     -- If any one of the tags is invalid or if you exceed the allowed number of
     -- tags for an OU, then the entire request fails and the OU is not created.
@@ -105,8 +106,8 @@ data CreateOrganizationalUnit = CreateOrganizationalUnit'
 -- tag in the list, you must specify both a tag key and a value. You can
 -- set the value to an empty string, but you can\'t set it to @null@. For
 -- more information about tagging, see
--- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources>
--- in the AWS Organizations User Guide.
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging Organizations resources>
+-- in the Organizations User Guide.
 --
 -- If any one of the tags is invalid or if you exceed the allowed number of
 -- tags for an OU, then the entire request fails and the OU is not created.
@@ -143,8 +144,8 @@ newCreateOrganizationalUnit pParentId_ pName_ =
 -- tag in the list, you must specify both a tag key and a value. You can
 -- set the value to an empty string, but you can\'t set it to @null@. For
 -- more information about tagging, see
--- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging AWS Organizations resources>
--- in the AWS Organizations User Guide.
+-- <https://docs.aws.amazon.com/organizations/latest/userguide/orgs_tagging.html Tagging Organizations resources>
+-- in the Organizations User Guide.
 --
 -- If any one of the tags is invalid or if you exceed the allowed number of
 -- tags for an OU, then the entire request fails and the OU is not created.
@@ -175,12 +176,13 @@ instance Core.AWSRequest CreateOrganizationalUnit where
   type
     AWSResponse CreateOrganizationalUnit =
       CreateOrganizationalUnitResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateOrganizationalUnitResponse'
-            Prelude.<$> (x Core..?> "OrganizationalUnit")
+            Prelude.<$> (x Data..?> "OrganizationalUnit")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -196,35 +198,35 @@ instance Prelude.NFData CreateOrganizationalUnit where
       `Prelude.seq` Prelude.rnf parentId
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateOrganizationalUnit where
+instance Data.ToHeaders CreateOrganizationalUnit where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.CreateOrganizationalUnit" ::
+              Data.=# ( "AWSOrganizationsV20161128.CreateOrganizationalUnit" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateOrganizationalUnit where
+instance Data.ToJSON CreateOrganizationalUnit where
   toJSON CreateOrganizationalUnit' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("ParentId" Core..= parentId),
-            Prelude.Just ("Name" Core..= name)
+          [ ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("ParentId" Data..= parentId),
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateOrganizationalUnit where
+instance Data.ToPath CreateOrganizationalUnit where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateOrganizationalUnit where
+instance Data.ToQuery CreateOrganizationalUnit where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateOrganizationalUnitResponse' smart constructor.

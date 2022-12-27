@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Redshift.Types.ClusterParameterStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Redshift.Types.ClusterParameterStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Redshift.Internal
 
@@ -31,8 +32,6 @@ data ClusterParameterStatus = ClusterParameterStatus'
   { -- | The error that prevented the parameter from being applied to the
     -- database.
     parameterApplyErrorDescription :: Prelude.Maybe Prelude.Text,
-    -- | The name of the parameter.
-    parameterName :: Prelude.Maybe Prelude.Text,
     -- | The status of the parameter that indicates whether the parameter is in
     -- sync with the database, waiting for a cluster reboot, or encountered an
     -- error when being applied.
@@ -57,7 +56,9 @@ data ClusterParameterStatus = ClusterParameterStatus'
     --
     -- -   @unknown-error@: Cannot apply the parameter change right now. The
     --     change will be applied after the cluster reboots.
-    parameterApplyStatus :: Prelude.Maybe Prelude.Text
+    parameterApplyStatus :: Prelude.Maybe Prelude.Text,
+    -- | The name of the parameter.
+    parameterName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -71,8 +72,6 @@ data ClusterParameterStatus = ClusterParameterStatus'
 --
 -- 'parameterApplyErrorDescription', 'clusterParameterStatus_parameterApplyErrorDescription' - The error that prevented the parameter from being applied to the
 -- database.
---
--- 'parameterName', 'clusterParameterStatus_parameterName' - The name of the parameter.
 --
 -- 'parameterApplyStatus', 'clusterParameterStatus_parameterApplyStatus' - The status of the parameter that indicates whether the parameter is in
 -- sync with the database, waiting for a cluster reboot, or encountered an
@@ -98,24 +97,22 @@ data ClusterParameterStatus = ClusterParameterStatus'
 --
 -- -   @unknown-error@: Cannot apply the parameter change right now. The
 --     change will be applied after the cluster reboots.
+--
+-- 'parameterName', 'clusterParameterStatus_parameterName' - The name of the parameter.
 newClusterParameterStatus ::
   ClusterParameterStatus
 newClusterParameterStatus =
   ClusterParameterStatus'
     { parameterApplyErrorDescription =
         Prelude.Nothing,
-      parameterName = Prelude.Nothing,
-      parameterApplyStatus = Prelude.Nothing
+      parameterApplyStatus = Prelude.Nothing,
+      parameterName = Prelude.Nothing
     }
 
 -- | The error that prevented the parameter from being applied to the
 -- database.
 clusterParameterStatus_parameterApplyErrorDescription :: Lens.Lens' ClusterParameterStatus (Prelude.Maybe Prelude.Text)
 clusterParameterStatus_parameterApplyErrorDescription = Lens.lens (\ClusterParameterStatus' {parameterApplyErrorDescription} -> parameterApplyErrorDescription) (\s@ClusterParameterStatus' {} a -> s {parameterApplyErrorDescription = a} :: ClusterParameterStatus)
-
--- | The name of the parameter.
-clusterParameterStatus_parameterName :: Lens.Lens' ClusterParameterStatus (Prelude.Maybe Prelude.Text)
-clusterParameterStatus_parameterName = Lens.lens (\ClusterParameterStatus' {parameterName} -> parameterName) (\s@ClusterParameterStatus' {} a -> s {parameterName = a} :: ClusterParameterStatus)
 
 -- | The status of the parameter that indicates whether the parameter is in
 -- sync with the database, waiting for a cluster reboot, or encountered an
@@ -144,22 +141,26 @@ clusterParameterStatus_parameterName = Lens.lens (\ClusterParameterStatus' {para
 clusterParameterStatus_parameterApplyStatus :: Lens.Lens' ClusterParameterStatus (Prelude.Maybe Prelude.Text)
 clusterParameterStatus_parameterApplyStatus = Lens.lens (\ClusterParameterStatus' {parameterApplyStatus} -> parameterApplyStatus) (\s@ClusterParameterStatus' {} a -> s {parameterApplyStatus = a} :: ClusterParameterStatus)
 
-instance Core.FromXML ClusterParameterStatus where
+-- | The name of the parameter.
+clusterParameterStatus_parameterName :: Lens.Lens' ClusterParameterStatus (Prelude.Maybe Prelude.Text)
+clusterParameterStatus_parameterName = Lens.lens (\ClusterParameterStatus' {parameterName} -> parameterName) (\s@ClusterParameterStatus' {} a -> s {parameterName = a} :: ClusterParameterStatus)
+
+instance Data.FromXML ClusterParameterStatus where
   parseXML x =
     ClusterParameterStatus'
-      Prelude.<$> (x Core..@? "ParameterApplyErrorDescription")
-      Prelude.<*> (x Core..@? "ParameterName")
-      Prelude.<*> (x Core..@? "ParameterApplyStatus")
+      Prelude.<$> (x Data..@? "ParameterApplyErrorDescription")
+      Prelude.<*> (x Data..@? "ParameterApplyStatus")
+      Prelude.<*> (x Data..@? "ParameterName")
 
 instance Prelude.Hashable ClusterParameterStatus where
   hashWithSalt _salt ClusterParameterStatus' {..} =
     _salt
       `Prelude.hashWithSalt` parameterApplyErrorDescription
-      `Prelude.hashWithSalt` parameterName
       `Prelude.hashWithSalt` parameterApplyStatus
+      `Prelude.hashWithSalt` parameterName
 
 instance Prelude.NFData ClusterParameterStatus where
   rnf ClusterParameterStatus' {..} =
     Prelude.rnf parameterApplyErrorDescription
-      `Prelude.seq` Prelude.rnf parameterName
       `Prelude.seq` Prelude.rnf parameterApplyStatus
+      `Prelude.seq` Prelude.rnf parameterName

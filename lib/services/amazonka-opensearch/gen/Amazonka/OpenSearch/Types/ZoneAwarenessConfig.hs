@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.ZoneAwarenessConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,19 @@
 module Amazonka.OpenSearch.Types.ZoneAwarenessConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | The zone awareness configuration for the domain cluster, such as the
--- number of availability zones.
+-- | The zone awareness configuration for an Amazon OpenSearch Service
+-- domain.
 --
 -- /See:/ 'newZoneAwarenessConfig' smart constructor.
 data ZoneAwarenessConfig = ZoneAwarenessConfig'
-  { -- | An integer value to indicate the number of availability zones for a
-    -- domain when zone awareness is enabled. This should be equal to number of
-    -- subnets if VPC endpoints is enabled.
+  { -- | If you enabled multiple Availability Zones, this value is the number of
+    -- zones that you want the domain to use. Valid values are @2@ and @3@. If
+    -- your domain is provisioned within a VPC, this value be equal to number
+    -- of subnets.
     availabilityZoneCount :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -43,9 +45,10 @@ data ZoneAwarenessConfig = ZoneAwarenessConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'availabilityZoneCount', 'zoneAwarenessConfig_availabilityZoneCount' - An integer value to indicate the number of availability zones for a
--- domain when zone awareness is enabled. This should be equal to number of
--- subnets if VPC endpoints is enabled.
+-- 'availabilityZoneCount', 'zoneAwarenessConfig_availabilityZoneCount' - If you enabled multiple Availability Zones, this value is the number of
+-- zones that you want the domain to use. Valid values are @2@ and @3@. If
+-- your domain is provisioned within a VPC, this value be equal to number
+-- of subnets.
 newZoneAwarenessConfig ::
   ZoneAwarenessConfig
 newZoneAwarenessConfig =
@@ -54,19 +57,20 @@ newZoneAwarenessConfig =
         Prelude.Nothing
     }
 
--- | An integer value to indicate the number of availability zones for a
--- domain when zone awareness is enabled. This should be equal to number of
--- subnets if VPC endpoints is enabled.
+-- | If you enabled multiple Availability Zones, this value is the number of
+-- zones that you want the domain to use. Valid values are @2@ and @3@. If
+-- your domain is provisioned within a VPC, this value be equal to number
+-- of subnets.
 zoneAwarenessConfig_availabilityZoneCount :: Lens.Lens' ZoneAwarenessConfig (Prelude.Maybe Prelude.Int)
 zoneAwarenessConfig_availabilityZoneCount = Lens.lens (\ZoneAwarenessConfig' {availabilityZoneCount} -> availabilityZoneCount) (\s@ZoneAwarenessConfig' {} a -> s {availabilityZoneCount = a} :: ZoneAwarenessConfig)
 
-instance Core.FromJSON ZoneAwarenessConfig where
+instance Data.FromJSON ZoneAwarenessConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ZoneAwarenessConfig"
       ( \x ->
           ZoneAwarenessConfig'
-            Prelude.<$> (x Core..:? "AvailabilityZoneCount")
+            Prelude.<$> (x Data..:? "AvailabilityZoneCount")
       )
 
 instance Prelude.Hashable ZoneAwarenessConfig where
@@ -77,11 +81,11 @@ instance Prelude.NFData ZoneAwarenessConfig where
   rnf ZoneAwarenessConfig' {..} =
     Prelude.rnf availabilityZoneCount
 
-instance Core.ToJSON ZoneAwarenessConfig where
+instance Data.ToJSON ZoneAwarenessConfig where
   toJSON ZoneAwarenessConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AvailabilityZoneCount" Core..=)
+          [ ("AvailabilityZoneCount" Data..=)
               Prelude.<$> availabilityZoneCount
           ]
       )

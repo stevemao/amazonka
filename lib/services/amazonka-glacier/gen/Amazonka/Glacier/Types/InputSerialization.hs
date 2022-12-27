@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.Types.InputSerialization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Glacier.Types.InputSerialization where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types.CSVInput
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes how the archive is serialized.
@@ -51,12 +52,12 @@ newInputSerialization =
 inputSerialization_csv :: Lens.Lens' InputSerialization (Prelude.Maybe CSVInput)
 inputSerialization_csv = Lens.lens (\InputSerialization' {csv} -> csv) (\s@InputSerialization' {} a -> s {csv = a} :: InputSerialization)
 
-instance Core.FromJSON InputSerialization where
+instance Data.FromJSON InputSerialization where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InputSerialization"
       ( \x ->
-          InputSerialization' Prelude.<$> (x Core..:? "csv")
+          InputSerialization' Prelude.<$> (x Data..:? "csv")
       )
 
 instance Prelude.Hashable InputSerialization where
@@ -66,7 +67,7 @@ instance Prelude.Hashable InputSerialization where
 instance Prelude.NFData InputSerialization where
   rnf InputSerialization' {..} = Prelude.rnf csv
 
-instance Core.ToJSON InputSerialization where
+instance Data.ToJSON InputSerialization where
   toJSON InputSerialization' {..} =
-    Core.object
-      (Prelude.catMaybes [("csv" Core..=) Prelude.<$> csv])
+    Data.object
+      (Prelude.catMaybes [("csv" Data..=) Prelude.<$> csv])

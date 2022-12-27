@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.PurchaseProvisionedCapacity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.Glacier.PurchaseProvisionedCapacity
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -92,14 +93,14 @@ instance Core.AWSRequest PurchaseProvisionedCapacity where
   type
     AWSResponse PurchaseProvisionedCapacity =
       PurchaseProvisionedCapacityResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.postJSON defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
           PurchaseProvisionedCapacityResponse'
-            Prelude.<$> (h Core..#? "x-amz-capacity-id")
+            Prelude.<$> (h Data..#? "x-amz-capacity-id")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -111,18 +112,18 @@ instance Prelude.NFData PurchaseProvisionedCapacity where
   rnf PurchaseProvisionedCapacity' {..} =
     Prelude.rnf accountId
 
-instance Core.ToHeaders PurchaseProvisionedCapacity where
+instance Data.ToHeaders PurchaseProvisionedCapacity where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON PurchaseProvisionedCapacity where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON PurchaseProvisionedCapacity where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath PurchaseProvisionedCapacity where
+instance Data.ToPath PurchaseProvisionedCapacity where
   toPath PurchaseProvisionedCapacity' {..} =
     Prelude.mconcat
-      ["/", Core.toBS accountId, "/provisioned-capacity"]
+      ["/", Data.toBS accountId, "/provisioned-capacity"]
 
-instance Core.ToQuery PurchaseProvisionedCapacity where
+instance Data.ToQuery PurchaseProvisionedCapacity where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPurchaseProvisionedCapacityResponse' smart constructor.

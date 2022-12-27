@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.SageMakerRuntime
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -19,14 +19,20 @@ module Amazonka.SageMakerRuntime
     -- * Errors
     -- $errors
 
-    -- ** ServiceUnavailable
-    _ServiceUnavailable,
+    -- ** InternalDependencyException
+    _InternalDependencyException,
+
+    -- ** InternalFailure
+    _InternalFailure,
 
     -- ** ModelError
     _ModelError,
 
-    -- ** InternalFailure
-    _InternalFailure,
+    -- ** ModelNotReadyException
+    _ModelNotReadyException,
+
+    -- ** ServiceUnavailable
+    _ServiceUnavailable,
 
     -- ** ValidationError
     _ValidationError,
@@ -37,17 +43,17 @@ module Amazonka.SageMakerRuntime
     -- * Operations
     -- $operations
 
-    -- ** InvokeEndpointAsync
-    InvokeEndpointAsync (InvokeEndpointAsync'),
-    newInvokeEndpointAsync,
-    InvokeEndpointAsyncResponse (InvokeEndpointAsyncResponse'),
-    newInvokeEndpointAsyncResponse,
-
     -- ** InvokeEndpoint
     InvokeEndpoint (InvokeEndpoint'),
     newInvokeEndpoint,
     InvokeEndpointResponse (InvokeEndpointResponse'),
     newInvokeEndpointResponse,
+
+    -- ** InvokeEndpointAsync
+    InvokeEndpointAsync (InvokeEndpointAsync'),
+    newInvokeEndpointAsync,
+    InvokeEndpointAsyncResponse (InvokeEndpointAsyncResponse'),
+    newInvokeEndpointAsyncResponse,
 
     -- * Types
   )

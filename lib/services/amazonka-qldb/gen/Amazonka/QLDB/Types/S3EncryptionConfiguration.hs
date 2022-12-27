@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QLDB.Types.S3EncryptionConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QLDB.Types.S3EncryptionConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QLDB.Types.S3ObjectEncryptionType
 
@@ -29,9 +30,8 @@ import Amazonka.QLDB.Types.S3ObjectEncryptionType
 --
 -- /See:/ 'newS3EncryptionConfiguration' smart constructor.
 data S3EncryptionConfiguration = S3EncryptionConfiguration'
-  { -- | The Amazon Resource Name (ARN) of a symmetric customer master key (CMK)
-    -- in Key Management Service (KMS). Amazon S3 does not support asymmetric
-    -- CMKs.
+  { -- | The Amazon Resource Name (ARN) of a symmetric key in Key Management
+    -- Service (KMS). Amazon S3 does not support asymmetric KMS keys.
     --
     -- You must provide a @KmsKeyArn@ if you specify @SSE_KMS@ as the
     -- @ObjectEncryptionType@.
@@ -56,9 +56,8 @@ data S3EncryptionConfiguration = S3EncryptionConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'kmsKeyArn', 's3EncryptionConfiguration_kmsKeyArn' - The Amazon Resource Name (ARN) of a symmetric customer master key (CMK)
--- in Key Management Service (KMS). Amazon S3 does not support asymmetric
--- CMKs.
+-- 'kmsKeyArn', 's3EncryptionConfiguration_kmsKeyArn' - The Amazon Resource Name (ARN) of a symmetric key in Key Management
+-- Service (KMS). Amazon S3 does not support asymmetric KMS keys.
 --
 -- You must provide a @KmsKeyArn@ if you specify @SSE_KMS@ as the
 -- @ObjectEncryptionType@.
@@ -82,9 +81,8 @@ newS3EncryptionConfiguration pObjectEncryptionType_ =
       objectEncryptionType = pObjectEncryptionType_
     }
 
--- | The Amazon Resource Name (ARN) of a symmetric customer master key (CMK)
--- in Key Management Service (KMS). Amazon S3 does not support asymmetric
--- CMKs.
+-- | The Amazon Resource Name (ARN) of a symmetric key in Key Management
+-- Service (KMS). Amazon S3 does not support asymmetric KMS keys.
 --
 -- You must provide a @KmsKeyArn@ if you specify @SSE_KMS@ as the
 -- @ObjectEncryptionType@.
@@ -102,14 +100,14 @@ s3EncryptionConfiguration_kmsKeyArn = Lens.lens (\S3EncryptionConfiguration' {km
 s3EncryptionConfiguration_objectEncryptionType :: Lens.Lens' S3EncryptionConfiguration S3ObjectEncryptionType
 s3EncryptionConfiguration_objectEncryptionType = Lens.lens (\S3EncryptionConfiguration' {objectEncryptionType} -> objectEncryptionType) (\s@S3EncryptionConfiguration' {} a -> s {objectEncryptionType = a} :: S3EncryptionConfiguration)
 
-instance Core.FromJSON S3EncryptionConfiguration where
+instance Data.FromJSON S3EncryptionConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "S3EncryptionConfiguration"
       ( \x ->
           S3EncryptionConfiguration'
-            Prelude.<$> (x Core..:? "KmsKeyArn")
-            Prelude.<*> (x Core..: "ObjectEncryptionType")
+            Prelude.<$> (x Data..:? "KmsKeyArn")
+            Prelude.<*> (x Data..: "ObjectEncryptionType")
       )
 
 instance Prelude.Hashable S3EncryptionConfiguration where
@@ -122,14 +120,14 @@ instance Prelude.NFData S3EncryptionConfiguration where
     Prelude.rnf kmsKeyArn
       `Prelude.seq` Prelude.rnf objectEncryptionType
 
-instance Core.ToJSON S3EncryptionConfiguration where
+instance Data.ToJSON S3EncryptionConfiguration where
   toJSON S3EncryptionConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KmsKeyArn" Core..=) Prelude.<$> kmsKeyArn,
+          [ ("KmsKeyArn" Data..=) Prelude.<$> kmsKeyArn,
             Prelude.Just
               ( "ObjectEncryptionType"
-                  Core..= objectEncryptionType
+                  Data..= objectEncryptionType
               )
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glacier.CreateVault
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -65,8 +65,9 @@ module Amazonka.Glacier.CreateVault
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glacier.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -130,14 +131,14 @@ createVault_vaultName = Lens.lens (\CreateVault' {vaultName} -> vaultName) (\s@C
 
 instance Core.AWSRequest CreateVault where
   type AWSResponse CreateVault = CreateVaultResponse
-  request =
-    Request.glacierVersionHeader (Core._serviceVersion defaultService)
-      Prelude.. Request.putJSON defaultService
+  request overrides =
+    Request.glacierVersionHeader (Core.version defaultService)
+      Prelude.. Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
           CreateVaultResponse'
-            Prelude.<$> (h Core..#? "Location")
+            Prelude.<$> (h Data..#? "Location")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -151,22 +152,22 @@ instance Prelude.NFData CreateVault where
     Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf vaultName
 
-instance Core.ToHeaders CreateVault where
+instance Data.ToHeaders CreateVault where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateVault where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON CreateVault where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath CreateVault where
+instance Data.ToPath CreateVault where
   toPath CreateVault' {..} =
     Prelude.mconcat
       [ "/",
-        Core.toBS accountId,
+        Data.toBS accountId,
         "/vaults/",
-        Core.toBS vaultName
+        Data.toBS vaultName
       ]
 
-instance Core.ToQuery CreateVault where
+instance Data.ToQuery CreateVault where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the Amazon S3 Glacier response to your request.

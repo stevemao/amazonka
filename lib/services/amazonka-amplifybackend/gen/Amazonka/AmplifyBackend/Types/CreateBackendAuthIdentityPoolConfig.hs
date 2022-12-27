@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AmplifyBackend.Types.CreateBackendAuthIdentityPoolConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AmplifyBackend.Types.CreateBackendAuthIdentityPoolConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes authorization configurations for the auth resources,
@@ -73,16 +74,16 @@ createBackendAuthIdentityPoolConfig_identityPoolName :: Lens.Lens' CreateBackend
 createBackendAuthIdentityPoolConfig_identityPoolName = Lens.lens (\CreateBackendAuthIdentityPoolConfig' {identityPoolName} -> identityPoolName) (\s@CreateBackendAuthIdentityPoolConfig' {} a -> s {identityPoolName = a} :: CreateBackendAuthIdentityPoolConfig)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     CreateBackendAuthIdentityPoolConfig
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CreateBackendAuthIdentityPoolConfig"
       ( \x ->
           CreateBackendAuthIdentityPoolConfig'
-            Prelude.<$> (x Core..: "unauthenticatedLogin")
-            Prelude.<*> (x Core..: "identityPoolName")
+            Prelude.<$> (x Data..: "unauthenticatedLogin")
+            Prelude.<*> (x Data..: "identityPoolName")
       )
 
 instance
@@ -104,17 +105,17 @@ instance
       `Prelude.seq` Prelude.rnf identityPoolName
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CreateBackendAuthIdentityPoolConfig
   where
   toJSON CreateBackendAuthIdentityPoolConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "unauthenticatedLogin"
-                  Core..= unauthenticatedLogin
+                  Data..= unauthenticatedLogin
               ),
             Prelude.Just
-              ("identityPoolName" Core..= identityPoolName)
+              ("identityPoolName" Data..= identityPoolName)
           ]
       )

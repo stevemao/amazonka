@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.RDS.ModifyCertificates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Override the system-default Secure Sockets Layer\/Transport Layer
--- Security (SSL\/TLS) certificate for Amazon RDS for new DB instances
--- temporarily, or remove the override.
+-- Security (SSL\/TLS) certificate for Amazon RDS for new DB instances, or
+-- remove the override.
 --
 -- By using this operation, you can specify an RDS-approved SSL\/TLS
 -- certificate for new DB instances that is different from the default
@@ -72,7 +72,8 @@ module Amazonka.RDS.ModifyCertificates
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -134,13 +135,14 @@ instance Core.AWSRequest ModifyCertificates where
   type
     AWSResponse ModifyCertificates =
       ModifyCertificatesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyCertificatesResult"
       ( \s h x ->
           ModifyCertificatesResponse'
-            Prelude.<$> (x Core..@? "Certificate")
+            Prelude.<$> (x Data..@? "Certificate")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -154,23 +156,23 @@ instance Prelude.NFData ModifyCertificates where
     Prelude.rnf certificateIdentifier
       `Prelude.seq` Prelude.rnf removeCustomerOverride
 
-instance Core.ToHeaders ModifyCertificates where
+instance Data.ToHeaders ModifyCertificates where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyCertificates where
+instance Data.ToPath ModifyCertificates where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyCertificates where
+instance Data.ToQuery ModifyCertificates where
   toQuery ModifyCertificates' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyCertificates" :: Prelude.ByteString),
+          Data.=: ("ModifyCertificates" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "CertificateIdentifier"
-          Core.=: certificateIdentifier,
+          Data.=: certificateIdentifier,
         "RemoveCustomerOverride"
-          Core.=: removeCustomerOverride
+          Data.=: removeCustomerOverride
       ]
 
 -- | /See:/ 'newModifyCertificatesResponse' smart constructor.

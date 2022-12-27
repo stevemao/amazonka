@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.UpdateBandwidthRateLimitSchedule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,8 @@
 -- default, gateways do not have bandwidth rate limit schedules, which
 -- means no bandwidth rate limiting is in effect. Use this to initiate or
 -- update a gateway\'s bandwidth rate limit schedule. This operation is
--- supported in the volume and tape gateway types.
+-- supported only for volume, tape and S3 file gateways. FSx file gateways
+-- do not support bandwidth rate limits.
 module Amazonka.StorageGateway.UpdateBandwidthRateLimitSchedule
   ( -- * Creating a Request
     UpdateBandwidthRateLimitSchedule (..),
@@ -45,7 +46,8 @@ module Amazonka.StorageGateway.UpdateBandwidthRateLimitSchedule
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,12 +105,13 @@ instance
   type
     AWSResponse UpdateBandwidthRateLimitSchedule =
       UpdateBandwidthRateLimitScheduleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateBandwidthRateLimitScheduleResponse'
-            Prelude.<$> (x Core..?> "GatewayARN")
+            Prelude.<$> (x Data..?> "GatewayARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -131,40 +134,40 @@ instance
       `Prelude.seq` Prelude.rnf bandwidthRateLimitIntervals
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateBandwidthRateLimitSchedule
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.UpdateBandwidthRateLimitSchedule" ::
+              Data.=# ( "StorageGateway_20130630.UpdateBandwidthRateLimitSchedule" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateBandwidthRateLimitSchedule where
+instance Data.ToJSON UpdateBandwidthRateLimitSchedule where
   toJSON UpdateBandwidthRateLimitSchedule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("GatewayARN" Core..= gatewayARN),
+          [ Prelude.Just ("GatewayARN" Data..= gatewayARN),
             Prelude.Just
               ( "BandwidthRateLimitIntervals"
-                  Core..= bandwidthRateLimitIntervals
+                  Data..= bandwidthRateLimitIntervals
               )
           ]
       )
 
-instance Core.ToPath UpdateBandwidthRateLimitSchedule where
+instance Data.ToPath UpdateBandwidthRateLimitSchedule where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateBandwidthRateLimitSchedule
   where
   toQuery = Prelude.const Prelude.mempty

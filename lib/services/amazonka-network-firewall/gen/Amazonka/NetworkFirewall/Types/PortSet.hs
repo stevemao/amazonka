@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Types.PortSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.NetworkFirewall.Types.PortSet where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A set of port ranges for use in the rules in a rule group.
@@ -49,13 +50,13 @@ newPortSet = PortSet' {definition = Prelude.Nothing}
 portSet_definition :: Lens.Lens' PortSet (Prelude.Maybe [Prelude.Text])
 portSet_definition = Lens.lens (\PortSet' {definition} -> definition) (\s@PortSet' {} a -> s {definition = a} :: PortSet) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON PortSet where
+instance Data.FromJSON PortSet where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PortSet"
       ( \x ->
           PortSet'
-            Prelude.<$> (x Core..:? "Definition" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Definition" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable PortSet where
@@ -65,9 +66,9 @@ instance Prelude.Hashable PortSet where
 instance Prelude.NFData PortSet where
   rnf PortSet' {..} = Prelude.rnf definition
 
-instance Core.ToJSON PortSet where
+instance Data.ToJSON PortSet where
   toJSON PortSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Definition" Core..=) Prelude.<$> definition]
+          [("Definition" Data..=) Prelude.<$> definition]
       )

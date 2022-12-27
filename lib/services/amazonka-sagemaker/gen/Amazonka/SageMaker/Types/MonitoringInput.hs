@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.MonitoringInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,20 @@
 module Amazonka.SageMaker.Types.MonitoringInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
+import Amazonka.SageMaker.Types.BatchTransformInput
 import Amazonka.SageMaker.Types.EndpointInput
 
 -- | The inputs for a monitoring job.
 --
 -- /See:/ 'newMonitoringInput' smart constructor.
 data MonitoringInput = MonitoringInput'
-  { -- | The endpoint for a monitoring job.
-    endpointInput :: EndpointInput
+  { -- | Input object for the batch transform job.
+    batchTransformInput :: Prelude.Maybe BatchTransformInput,
+    -- | The endpoint for a monitoring job.
+    endpointInput :: Prelude.Maybe EndpointInput
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -41,39 +45,52 @@ data MonitoringInput = MonitoringInput'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'batchTransformInput', 'monitoringInput_batchTransformInput' - Input object for the batch transform job.
+--
 -- 'endpointInput', 'monitoringInput_endpointInput' - The endpoint for a monitoring job.
 newMonitoringInput ::
-  -- | 'endpointInput'
-  EndpointInput ->
   MonitoringInput
-newMonitoringInput pEndpointInput_ =
-  MonitoringInput' {endpointInput = pEndpointInput_}
+newMonitoringInput =
+  MonitoringInput'
+    { batchTransformInput =
+        Prelude.Nothing,
+      endpointInput = Prelude.Nothing
+    }
+
+-- | Input object for the batch transform job.
+monitoringInput_batchTransformInput :: Lens.Lens' MonitoringInput (Prelude.Maybe BatchTransformInput)
+monitoringInput_batchTransformInput = Lens.lens (\MonitoringInput' {batchTransformInput} -> batchTransformInput) (\s@MonitoringInput' {} a -> s {batchTransformInput = a} :: MonitoringInput)
 
 -- | The endpoint for a monitoring job.
-monitoringInput_endpointInput :: Lens.Lens' MonitoringInput EndpointInput
+monitoringInput_endpointInput :: Lens.Lens' MonitoringInput (Prelude.Maybe EndpointInput)
 monitoringInput_endpointInput = Lens.lens (\MonitoringInput' {endpointInput} -> endpointInput) (\s@MonitoringInput' {} a -> s {endpointInput = a} :: MonitoringInput)
 
-instance Core.FromJSON MonitoringInput where
+instance Data.FromJSON MonitoringInput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MonitoringInput"
       ( \x ->
           MonitoringInput'
-            Prelude.<$> (x Core..: "EndpointInput")
+            Prelude.<$> (x Data..:? "BatchTransformInput")
+            Prelude.<*> (x Data..:? "EndpointInput")
       )
 
 instance Prelude.Hashable MonitoringInput where
   hashWithSalt _salt MonitoringInput' {..} =
-    _salt `Prelude.hashWithSalt` endpointInput
+    _salt `Prelude.hashWithSalt` batchTransformInput
+      `Prelude.hashWithSalt` endpointInput
 
 instance Prelude.NFData MonitoringInput where
-  rnf MonitoringInput' {..} = Prelude.rnf endpointInput
+  rnf MonitoringInput' {..} =
+    Prelude.rnf batchTransformInput
+      `Prelude.seq` Prelude.rnf endpointInput
 
-instance Core.ToJSON MonitoringInput where
+instance Data.ToJSON MonitoringInput where
   toJSON MonitoringInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just
-              ("EndpointInput" Core..= endpointInput)
+          [ ("BatchTransformInput" Data..=)
+              Prelude.<$> batchTransformInput,
+            ("EndpointInput" Data..=) Prelude.<$> endpointInput
           ]
       )

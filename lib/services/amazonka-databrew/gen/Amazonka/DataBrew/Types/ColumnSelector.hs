@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.Types.ColumnSelector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DataBrew.Types.ColumnSelector where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Selector of a column from a dataset for profile job configuration. One
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newColumnSelector' smart constructor.
 data ColumnSelector = ColumnSelector'
-  { -- | A regular expression for selecting a column from a dataset.
-    regex :: Prelude.Maybe Prelude.Text,
-    -- | The name of a column from a dataset.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | The name of a column from a dataset.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | A regular expression for selecting a column from a dataset.
+    regex :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,48 +44,48 @@ data ColumnSelector = ColumnSelector'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'regex', 'columnSelector_regex' - A regular expression for selecting a column from a dataset.
---
 -- 'name', 'columnSelector_name' - The name of a column from a dataset.
+--
+-- 'regex', 'columnSelector_regex' - A regular expression for selecting a column from a dataset.
 newColumnSelector ::
   ColumnSelector
 newColumnSelector =
   ColumnSelector'
-    { regex = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      regex = Prelude.Nothing
     }
-
--- | A regular expression for selecting a column from a dataset.
-columnSelector_regex :: Lens.Lens' ColumnSelector (Prelude.Maybe Prelude.Text)
-columnSelector_regex = Lens.lens (\ColumnSelector' {regex} -> regex) (\s@ColumnSelector' {} a -> s {regex = a} :: ColumnSelector)
 
 -- | The name of a column from a dataset.
 columnSelector_name :: Lens.Lens' ColumnSelector (Prelude.Maybe Prelude.Text)
 columnSelector_name = Lens.lens (\ColumnSelector' {name} -> name) (\s@ColumnSelector' {} a -> s {name = a} :: ColumnSelector)
 
-instance Core.FromJSON ColumnSelector where
+-- | A regular expression for selecting a column from a dataset.
+columnSelector_regex :: Lens.Lens' ColumnSelector (Prelude.Maybe Prelude.Text)
+columnSelector_regex = Lens.lens (\ColumnSelector' {regex} -> regex) (\s@ColumnSelector' {} a -> s {regex = a} :: ColumnSelector)
+
+instance Data.FromJSON ColumnSelector where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ColumnSelector"
       ( \x ->
           ColumnSelector'
-            Prelude.<$> (x Core..:? "Regex") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name") Prelude.<*> (x Data..:? "Regex")
       )
 
 instance Prelude.Hashable ColumnSelector where
   hashWithSalt _salt ColumnSelector' {..} =
-    _salt `Prelude.hashWithSalt` regex
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` regex
 
 instance Prelude.NFData ColumnSelector where
   rnf ColumnSelector' {..} =
-    Prelude.rnf regex `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf regex
 
-instance Core.ToJSON ColumnSelector where
+instance Data.ToJSON ColumnSelector where
   toJSON ColumnSelector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Regex" Core..=) Prelude.<$> regex,
-            ("Name" Core..=) Prelude.<$> name
+          [ ("Name" Data..=) Prelude.<$> name,
+            ("Regex" Data..=) Prelude.<$> regex
           ]
       )

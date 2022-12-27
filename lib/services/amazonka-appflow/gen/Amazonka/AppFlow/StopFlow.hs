@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppFlow.StopFlow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.AppFlow.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,13 +82,14 @@ stopFlow_flowName = Lens.lens (\StopFlow' {flowName} -> flowName) (\s@StopFlow' 
 
 instance Core.AWSRequest StopFlow where
   type AWSResponse StopFlow = StopFlowResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StopFlowResponse'
-            Prelude.<$> (x Core..?> "flowArn")
-            Prelude.<*> (x Core..?> "flowStatus")
+            Prelude.<$> (x Data..?> "flowArn")
+            Prelude.<*> (x Data..?> "flowStatus")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,28 +100,28 @@ instance Prelude.Hashable StopFlow where
 instance Prelude.NFData StopFlow where
   rnf StopFlow' {..} = Prelude.rnf flowName
 
-instance Core.ToHeaders StopFlow where
+instance Data.ToHeaders StopFlow where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopFlow where
+instance Data.ToJSON StopFlow where
   toJSON StopFlow' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("flowName" Core..= flowName)]
+          [Prelude.Just ("flowName" Data..= flowName)]
       )
 
-instance Core.ToPath StopFlow where
+instance Data.ToPath StopFlow where
   toPath = Prelude.const "/stop-flow"
 
-instance Core.ToQuery StopFlow where
+instance Data.ToQuery StopFlow where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopFlowResponse' smart constructor.

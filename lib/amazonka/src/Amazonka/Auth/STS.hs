@@ -11,28 +11,19 @@ module Amazonka.Auth.STS where
 
 import Amazonka.Auth.Background (fetchAuthInBackground)
 import Amazonka.Auth.Exception
+import Amazonka.Core.Lens.Internal (throwingM, (^.))
 import Amazonka.Env (Env, Env' (..))
-import Amazonka.HTTP (retryRequest)
-import Amazonka.Lens (throwingM, (^.))
 import Amazonka.Prelude
 import qualified Amazonka.STS as STS
 import qualified Amazonka.STS.AssumeRole as STS
 import qualified Amazonka.STS.AssumeRoleWithWebIdentity as STS
-import Amazonka.Send (sendUnsigned)
-import qualified Control.Exception as Exception
+import Amazonka.Send (send, sendUnsigned)
 import Control.Monad.Trans.Resource (runResourceT)
 import qualified Data.Text as Text
 import qualified Data.Text.IO as Text
 import qualified Data.UUID as UUID
 import qualified Data.UUID.V4 as UUID
-import qualified Network.HTTP.Client as Client
 import qualified System.Environment as Environment
-
--- NOTE: The implementations in this file are ugly because they must
--- use primitive operations from Amazonka.HTTP to avoid circular
--- module dependencies. If you are writing your own functions in this
--- vein, you will have access to 'Amazonka.send', which should make
--- things nicer.
 
 -- | Assume a role using the @sts:AssumeRole@ API.
 --
@@ -53,17 +44,10 @@ fromAssumedRole ::
 fromAssumedRole roleArn roleSessionName env = do
   let getCredentials = do
         let assumeRole = STS.newAssumeRole roleArn roleSessionName
-        eResponse <- runResourceT $ retryRequest env assumeRole
-        clientResponse <- either (liftIO . Exception.throwIO) pure eResponse
-        let mCredentials =
-              Client.responseBody clientResponse
-                ^. STS.assumeRoleResponse_credentials
-        case mCredentials of
-          Nothing ->
-            fail "sts:AssumeRole returned no credentials."
-          Just c -> pure c
-  auth <- liftIO $ fetchAuthInBackground getCredentials
-  pure env {envAuth = Identity auth}
+        resp <- runResourceT $ send env assumeRole
+        pure $ resp ^. STS.assumeRoleResponse_credentials
+  keys <- liftIO $ fetchAuthInBackground getCredentials
+  pure env {auth = Identity keys}
 
 -- | https://aws.amazon.com/blogs/opensource/introducing-fine-grained-iam-roles-service-accounts/
 -- Obtain temporary credentials from @sts:AssumeRoleWithWebIdentity@.
@@ -77,8 +61,11 @@ fromAssumedRole roleArn roleSessionName env = do
 -- https://github.com/aws/aws-sdk-cpp/blob/6d6dcdbfa377393306bf79585f61baea524ac124/aws-cpp-sdk-core/source/auth/STSCredentialsProvider.cpp#L33
 fromWebIdentity ::
   MonadIO m =>
+  -- | Path to token file
   FilePath ->
+  -- | Role ARN
   Text ->
+  -- | Role Session Name
   Maybe Text ->
   Env' withAuth ->
   m Env
@@ -100,18 +87,13 @@ fromWebIdentity tokenFile roleArn mSessionName env = do
                 token
 
         resp <- runResourceT $ sendUnsigned env assumeRoleWithWebIdentity
-        let mCreds =
-              resp ^. STS.assumeRoleWithWebIdentityResponse_credentials
-        case mCreds of
-          Nothing ->
-            fail "sts:AssumeRoleWithWebIdentity returned no credentials."
-          Just c -> pure c
+        pure $ resp ^. STS.assumeRoleWithWebIdentityResponse_credentials
 
   -- As the credentials from STS are temporary, we start a thread that is able
   -- to fetch new ones automatically on expiry.
-  auth <- liftIO $ fetchAuthInBackground getCredentials
+  keys <- liftIO $ fetchAuthInBackground getCredentials
 
-  pure env {envAuth = Identity auth}
+  pure env {auth = Identity keys}
 
 -- | Obtain temporary credentials from
 -- @sts:AssumeRoleWithWebIdentity@, sourcing arguments from standard

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.ListServerCertificateTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,16 +47,17 @@ module Amazonka.IAM.ListServerCertificateTags
     newListServerCertificateTagsResponse,
 
     -- * Response Lenses
-    listServerCertificateTagsResponse_marker,
     listServerCertificateTagsResponse_isTruncated,
+    listServerCertificateTagsResponse_marker,
     listServerCertificateTagsResponse_httpStatus,
     listServerCertificateTagsResponse_tags,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -161,17 +162,18 @@ instance Core.AWSRequest ListServerCertificateTags where
   type
     AWSResponse ListServerCertificateTags =
       ListServerCertificateTagsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListServerCertificateTagsResult"
       ( \s h x ->
           ListServerCertificateTagsResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> (x Core..@? "IsTruncated")
+            Prelude.<$> (x Data..@? "IsTruncated")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> ( x Core..@? "Tags" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.parseXMLList "member"
+            Prelude.<*> ( x Data..@? "Tags" Core..!@ Prelude.mempty
+                            Prelude.>>= Data.parseXMLList "member"
                         )
       )
 
@@ -187,32 +189,28 @@ instance Prelude.NFData ListServerCertificateTags where
       `Prelude.seq` Prelude.rnf maxItems
       `Prelude.seq` Prelude.rnf serverCertificateName
 
-instance Core.ToHeaders ListServerCertificateTags where
+instance Data.ToHeaders ListServerCertificateTags where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListServerCertificateTags where
+instance Data.ToPath ListServerCertificateTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListServerCertificateTags where
+instance Data.ToQuery ListServerCertificateTags where
   toQuery ListServerCertificateTags' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ListServerCertificateTags" :: Prelude.ByteString),
+          Data.=: ("ListServerCertificateTags" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "Marker" Core.=: marker,
-        "MaxItems" Core.=: maxItems,
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "Marker" Data.=: marker,
+        "MaxItems" Data.=: maxItems,
         "ServerCertificateName"
-          Core.=: serverCertificateName
+          Data.=: serverCertificateName
       ]
 
 -- | /See:/ 'newListServerCertificateTagsResponse' smart constructor.
 data ListServerCertificateTagsResponse = ListServerCertificateTagsResponse'
-  { -- | When @IsTruncated@ is @true@, this element is present and contains the
-    -- value to use for the @Marker@ parameter in a subsequent pagination
-    -- request.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | A flag that indicates whether there are more items to return. If your
+  { -- | A flag that indicates whether there are more items to return. If your
     -- results were truncated, you can make a subsequent pagination request
     -- using the @Marker@ request parameter to retrieve more items. Note that
     -- IAM might return fewer than the @MaxItems@ number of results even when
@@ -220,6 +218,10 @@ data ListServerCertificateTagsResponse = ListServerCertificateTagsResponse'
     -- @IsTruncated@ after every call to ensure that you receive all your
     -- results.
     isTruncated :: Prelude.Maybe Prelude.Bool,
+    -- | When @IsTruncated@ is @true@, this element is present and contains the
+    -- value to use for the @Marker@ parameter in a subsequent pagination
+    -- request.
+    marker :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The list of tags that are currently attached to the IAM server
@@ -238,10 +240,6 @@ data ListServerCertificateTagsResponse = ListServerCertificateTagsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'marker', 'listServerCertificateTagsResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
--- value to use for the @Marker@ parameter in a subsequent pagination
--- request.
---
 -- 'isTruncated', 'listServerCertificateTagsResponse_isTruncated' - A flag that indicates whether there are more items to return. If your
 -- results were truncated, you can make a subsequent pagination request
 -- using the @Marker@ request parameter to retrieve more items. Note that
@@ -249,6 +247,10 @@ data ListServerCertificateTagsResponse = ListServerCertificateTagsResponse'
 -- there are more results available. We recommend that you check
 -- @IsTruncated@ after every call to ensure that you receive all your
 -- results.
+--
+-- 'marker', 'listServerCertificateTagsResponse_marker' - When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
 --
 -- 'httpStatus', 'listServerCertificateTagsResponse_httpStatus' - The response's http status code.
 --
@@ -262,18 +264,12 @@ newListServerCertificateTagsResponse ::
   ListServerCertificateTagsResponse
 newListServerCertificateTagsResponse pHttpStatus_ =
   ListServerCertificateTagsResponse'
-    { marker =
+    { isTruncated =
         Prelude.Nothing,
-      isTruncated = Prelude.Nothing,
+      marker = Prelude.Nothing,
       httpStatus = pHttpStatus_,
       tags = Prelude.mempty
     }
-
--- | When @IsTruncated@ is @true@, this element is present and contains the
--- value to use for the @Marker@ parameter in a subsequent pagination
--- request.
-listServerCertificateTagsResponse_marker :: Lens.Lens' ListServerCertificateTagsResponse (Prelude.Maybe Prelude.Text)
-listServerCertificateTagsResponse_marker = Lens.lens (\ListServerCertificateTagsResponse' {marker} -> marker) (\s@ListServerCertificateTagsResponse' {} a -> s {marker = a} :: ListServerCertificateTagsResponse)
 
 -- | A flag that indicates whether there are more items to return. If your
 -- results were truncated, you can make a subsequent pagination request
@@ -284,6 +280,12 @@ listServerCertificateTagsResponse_marker = Lens.lens (\ListServerCertificateTags
 -- results.
 listServerCertificateTagsResponse_isTruncated :: Lens.Lens' ListServerCertificateTagsResponse (Prelude.Maybe Prelude.Bool)
 listServerCertificateTagsResponse_isTruncated = Lens.lens (\ListServerCertificateTagsResponse' {isTruncated} -> isTruncated) (\s@ListServerCertificateTagsResponse' {} a -> s {isTruncated = a} :: ListServerCertificateTagsResponse)
+
+-- | When @IsTruncated@ is @true@, this element is present and contains the
+-- value to use for the @Marker@ parameter in a subsequent pagination
+-- request.
+listServerCertificateTagsResponse_marker :: Lens.Lens' ListServerCertificateTagsResponse (Prelude.Maybe Prelude.Text)
+listServerCertificateTagsResponse_marker = Lens.lens (\ListServerCertificateTagsResponse' {marker} -> marker) (\s@ListServerCertificateTagsResponse' {} a -> s {marker = a} :: ListServerCertificateTagsResponse)
 
 -- | The response's http status code.
 listServerCertificateTagsResponse_httpStatus :: Lens.Lens' ListServerCertificateTagsResponse Prelude.Int
@@ -301,7 +303,7 @@ instance
     ListServerCertificateTagsResponse
   where
   rnf ListServerCertificateTagsResponse' {..} =
-    Prelude.rnf marker
-      `Prelude.seq` Prelude.rnf isTruncated
+    Prelude.rnf isTruncated
+      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf tags

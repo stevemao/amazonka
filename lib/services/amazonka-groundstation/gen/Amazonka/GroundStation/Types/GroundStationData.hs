@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.Types.GroundStationData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GroundStation.Types.GroundStationData where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the ground station data.
@@ -71,15 +72,15 @@ groundStationData_groundStationName = Lens.lens (\GroundStationData' {groundStat
 groundStationData_region :: Lens.Lens' GroundStationData (Prelude.Maybe Prelude.Text)
 groundStationData_region = Lens.lens (\GroundStationData' {region} -> region) (\s@GroundStationData' {} a -> s {region = a} :: GroundStationData)
 
-instance Core.FromJSON GroundStationData where
+instance Data.FromJSON GroundStationData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "GroundStationData"
       ( \x ->
           GroundStationData'
-            Prelude.<$> (x Core..:? "groundStationId")
-            Prelude.<*> (x Core..:? "groundStationName")
-            Prelude.<*> (x Core..:? "region")
+            Prelude.<$> (x Data..:? "groundStationId")
+            Prelude.<*> (x Data..:? "groundStationName")
+            Prelude.<*> (x Data..:? "region")
       )
 
 instance Prelude.Hashable GroundStationData where

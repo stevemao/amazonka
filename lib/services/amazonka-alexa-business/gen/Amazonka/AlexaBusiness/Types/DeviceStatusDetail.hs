@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.Types.DeviceStatusDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,17 +22,18 @@ module Amazonka.AlexaBusiness.Types.DeviceStatusDetail where
 import Amazonka.AlexaBusiness.Types.DeviceStatusDetailCode
 import Amazonka.AlexaBusiness.Types.Feature
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details of a device’s status.
 --
 -- /See:/ 'newDeviceStatusDetail' smart constructor.
 data DeviceStatusDetail = DeviceStatusDetail'
-  { -- | The list of available features on the device.
-    feature :: Prelude.Maybe Feature,
-    -- | The device status detail code.
-    code :: Prelude.Maybe DeviceStatusDetailCode
+  { -- | The device status detail code.
+    code :: Prelude.Maybe DeviceStatusDetailCode,
+    -- | The list of available features on the device.
+    feature :: Prelude.Maybe Feature
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,40 +45,40 @@ data DeviceStatusDetail = DeviceStatusDetail'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'feature', 'deviceStatusDetail_feature' - The list of available features on the device.
---
 -- 'code', 'deviceStatusDetail_code' - The device status detail code.
+--
+-- 'feature', 'deviceStatusDetail_feature' - The list of available features on the device.
 newDeviceStatusDetail ::
   DeviceStatusDetail
 newDeviceStatusDetail =
   DeviceStatusDetail'
-    { feature = Prelude.Nothing,
-      code = Prelude.Nothing
+    { code = Prelude.Nothing,
+      feature = Prelude.Nothing
     }
-
--- | The list of available features on the device.
-deviceStatusDetail_feature :: Lens.Lens' DeviceStatusDetail (Prelude.Maybe Feature)
-deviceStatusDetail_feature = Lens.lens (\DeviceStatusDetail' {feature} -> feature) (\s@DeviceStatusDetail' {} a -> s {feature = a} :: DeviceStatusDetail)
 
 -- | The device status detail code.
 deviceStatusDetail_code :: Lens.Lens' DeviceStatusDetail (Prelude.Maybe DeviceStatusDetailCode)
 deviceStatusDetail_code = Lens.lens (\DeviceStatusDetail' {code} -> code) (\s@DeviceStatusDetail' {} a -> s {code = a} :: DeviceStatusDetail)
 
-instance Core.FromJSON DeviceStatusDetail where
+-- | The list of available features on the device.
+deviceStatusDetail_feature :: Lens.Lens' DeviceStatusDetail (Prelude.Maybe Feature)
+deviceStatusDetail_feature = Lens.lens (\DeviceStatusDetail' {feature} -> feature) (\s@DeviceStatusDetail' {} a -> s {feature = a} :: DeviceStatusDetail)
+
+instance Data.FromJSON DeviceStatusDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "DeviceStatusDetail"
       ( \x ->
           DeviceStatusDetail'
-            Prelude.<$> (x Core..:? "Feature")
-            Prelude.<*> (x Core..:? "Code")
+            Prelude.<$> (x Data..:? "Code")
+            Prelude.<*> (x Data..:? "Feature")
       )
 
 instance Prelude.Hashable DeviceStatusDetail where
   hashWithSalt _salt DeviceStatusDetail' {..} =
-    _salt `Prelude.hashWithSalt` feature
-      `Prelude.hashWithSalt` code
+    _salt `Prelude.hashWithSalt` code
+      `Prelude.hashWithSalt` feature
 
 instance Prelude.NFData DeviceStatusDetail where
   rnf DeviceStatusDetail' {..} =
-    Prelude.rnf feature `Prelude.seq` Prelude.rnf code
+    Prelude.rnf code `Prelude.seq` Prelude.rnf feature

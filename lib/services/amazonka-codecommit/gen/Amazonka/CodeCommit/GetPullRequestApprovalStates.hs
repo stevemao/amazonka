@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.GetPullRequestApprovalStates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,12 +97,13 @@ instance Core.AWSRequest GetPullRequestApprovalStates where
   type
     AWSResponse GetPullRequestApprovalStates =
       GetPullRequestApprovalStatesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetPullRequestApprovalStatesResponse'
-            Prelude.<$> (x Core..?> "approvals" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "approvals" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,35 +120,35 @@ instance Prelude.NFData GetPullRequestApprovalStates where
     Prelude.rnf pullRequestId
       `Prelude.seq` Prelude.rnf revisionId
 
-instance Core.ToHeaders GetPullRequestApprovalStates where
+instance Data.ToHeaders GetPullRequestApprovalStates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.GetPullRequestApprovalStates" ::
+              Data.=# ( "CodeCommit_20150413.GetPullRequestApprovalStates" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetPullRequestApprovalStates where
+instance Data.ToJSON GetPullRequestApprovalStates where
   toJSON GetPullRequestApprovalStates' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("pullRequestId" Core..= pullRequestId),
-            Prelude.Just ("revisionId" Core..= revisionId)
+              ("pullRequestId" Data..= pullRequestId),
+            Prelude.Just ("revisionId" Data..= revisionId)
           ]
       )
 
-instance Core.ToPath GetPullRequestApprovalStates where
+instance Data.ToPath GetPullRequestApprovalStates where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetPullRequestApprovalStates where
+instance Data.ToQuery GetPullRequestApprovalStates where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetPullRequestApprovalStatesResponse' smart constructor.

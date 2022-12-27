@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Backup.ListBackupPlanTemplates
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,14 +22,16 @@
 --
 -- Returns metadata of your saved backup plan templates, including the
 -- template ID, name, and the creation and deletion dates.
+--
+-- This operation returns paginated results.
 module Amazonka.Backup.ListBackupPlanTemplates
   ( -- * Creating a Request
     ListBackupPlanTemplates (..),
     newListBackupPlanTemplates,
 
     -- * Request Lenses
-    listBackupPlanTemplates_nextToken,
     listBackupPlanTemplates_maxResults,
+    listBackupPlanTemplates_nextToken,
 
     -- * Destructuring the Response
     ListBackupPlanTemplatesResponse (..),
@@ -44,20 +46,21 @@ where
 
 import Amazonka.Backup.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListBackupPlanTemplates' smart constructor.
 data ListBackupPlanTemplates = ListBackupPlanTemplates'
-  { -- | The next item following a partial list of returned items. For example,
+  { -- | The maximum number of items to be returned.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The next item following a partial list of returned items. For example,
     -- if a request is made to return @maxResults@ number of items, @NextToken@
     -- allows you to return more items in your list starting at the location
     -- pointed to by the next token.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of items to be returned.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,20 +72,24 @@ data ListBackupPlanTemplates = ListBackupPlanTemplates'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listBackupPlanTemplates_maxResults' - The maximum number of items to be returned.
+--
 -- 'nextToken', 'listBackupPlanTemplates_nextToken' - The next item following a partial list of returned items. For example,
 -- if a request is made to return @maxResults@ number of items, @NextToken@
 -- allows you to return more items in your list starting at the location
 -- pointed to by the next token.
---
--- 'maxResults', 'listBackupPlanTemplates_maxResults' - The maximum number of items to be returned.
 newListBackupPlanTemplates ::
   ListBackupPlanTemplates
 newListBackupPlanTemplates =
   ListBackupPlanTemplates'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of items to be returned.
+listBackupPlanTemplates_maxResults :: Lens.Lens' ListBackupPlanTemplates (Prelude.Maybe Prelude.Natural)
+listBackupPlanTemplates_maxResults = Lens.lens (\ListBackupPlanTemplates' {maxResults} -> maxResults) (\s@ListBackupPlanTemplates' {} a -> s {maxResults = a} :: ListBackupPlanTemplates)
 
 -- | The next item following a partial list of returned items. For example,
 -- if a request is made to return @maxResults@ number of items, @NextToken@
@@ -91,55 +98,74 @@ newListBackupPlanTemplates =
 listBackupPlanTemplates_nextToken :: Lens.Lens' ListBackupPlanTemplates (Prelude.Maybe Prelude.Text)
 listBackupPlanTemplates_nextToken = Lens.lens (\ListBackupPlanTemplates' {nextToken} -> nextToken) (\s@ListBackupPlanTemplates' {} a -> s {nextToken = a} :: ListBackupPlanTemplates)
 
--- | The maximum number of items to be returned.
-listBackupPlanTemplates_maxResults :: Lens.Lens' ListBackupPlanTemplates (Prelude.Maybe Prelude.Natural)
-listBackupPlanTemplates_maxResults = Lens.lens (\ListBackupPlanTemplates' {maxResults} -> maxResults) (\s@ListBackupPlanTemplates' {} a -> s {maxResults = a} :: ListBackupPlanTemplates)
+instance Core.AWSPager ListBackupPlanTemplates where
+  page rq rs
+    | Core.stop
+        ( rs
+            Lens.^? listBackupPlanTemplatesResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Core.stop
+        ( rs
+            Lens.^? listBackupPlanTemplatesResponse_backupPlanTemplatesList
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Prelude.& listBackupPlanTemplates_nextToken
+          Lens..~ rs
+          Lens.^? listBackupPlanTemplatesResponse_nextToken
+            Prelude.. Lens._Just
 
 instance Core.AWSRequest ListBackupPlanTemplates where
   type
     AWSResponse ListBackupPlanTemplates =
       ListBackupPlanTemplatesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListBackupPlanTemplatesResponse'
-            Prelude.<$> ( x Core..?> "BackupPlanTemplatesList"
+            Prelude.<$> ( x Data..?> "BackupPlanTemplatesList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListBackupPlanTemplates where
   hashWithSalt _salt ListBackupPlanTemplates' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListBackupPlanTemplates where
   rnf ListBackupPlanTemplates' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListBackupPlanTemplates where
+instance Data.ToHeaders ListBackupPlanTemplates where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListBackupPlanTemplates where
+instance Data.ToPath ListBackupPlanTemplates where
   toPath = Prelude.const "/backup/template/plans"
 
-instance Core.ToQuery ListBackupPlanTemplates where
+instance Data.ToQuery ListBackupPlanTemplates where
   toQuery ListBackupPlanTemplates' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListBackupPlanTemplatesResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.BatchGetDevEndpoints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,15 +38,16 @@ module Amazonka.Glue.BatchGetDevEndpoints
     newBatchGetDevEndpointsResponse,
 
     -- * Response Lenses
-    batchGetDevEndpointsResponse_devEndpointsNotFound,
     batchGetDevEndpointsResponse_devEndpoints,
+    batchGetDevEndpointsResponse_devEndpointsNotFound,
     batchGetDevEndpointsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,13 +89,14 @@ instance Core.AWSRequest BatchGetDevEndpoints where
   type
     AWSResponse BatchGetDevEndpoints =
       BatchGetDevEndpointsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchGetDevEndpointsResponse'
-            Prelude.<$> (x Core..?> "DevEndpointsNotFound")
-            Prelude.<*> (x Core..?> "DevEndpoints" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "DevEndpoints" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "DevEndpointsNotFound")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -106,42 +108,42 @@ instance Prelude.NFData BatchGetDevEndpoints where
   rnf BatchGetDevEndpoints' {..} =
     Prelude.rnf devEndpointNames
 
-instance Core.ToHeaders BatchGetDevEndpoints where
+instance Data.ToHeaders BatchGetDevEndpoints where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSGlue.BatchGetDevEndpoints" ::
+              Data.=# ( "AWSGlue.BatchGetDevEndpoints" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchGetDevEndpoints where
+instance Data.ToJSON BatchGetDevEndpoints where
   toJSON BatchGetDevEndpoints' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("DevEndpointNames" Core..= devEndpointNames)
+              ("DevEndpointNames" Data..= devEndpointNames)
           ]
       )
 
-instance Core.ToPath BatchGetDevEndpoints where
+instance Data.ToPath BatchGetDevEndpoints where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchGetDevEndpoints where
+instance Data.ToQuery BatchGetDevEndpoints where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchGetDevEndpointsResponse' smart constructor.
 data BatchGetDevEndpointsResponse = BatchGetDevEndpointsResponse'
-  { -- | A list of @DevEndpoints@ not found.
-    devEndpointsNotFound :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | A list of @DevEndpoint@ definitions.
+  { -- | A list of @DevEndpoint@ definitions.
     devEndpoints :: Prelude.Maybe [DevEndpoint],
+    -- | A list of @DevEndpoints@ not found.
+    devEndpointsNotFound :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -155,9 +157,9 @@ data BatchGetDevEndpointsResponse = BatchGetDevEndpointsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'devEndpointsNotFound', 'batchGetDevEndpointsResponse_devEndpointsNotFound' - A list of @DevEndpoints@ not found.
---
 -- 'devEndpoints', 'batchGetDevEndpointsResponse_devEndpoints' - A list of @DevEndpoint@ definitions.
+--
+-- 'devEndpointsNotFound', 'batchGetDevEndpointsResponse_devEndpointsNotFound' - A list of @DevEndpoints@ not found.
 --
 -- 'httpStatus', 'batchGetDevEndpointsResponse_httpStatus' - The response's http status code.
 newBatchGetDevEndpointsResponse ::
@@ -166,19 +168,19 @@ newBatchGetDevEndpointsResponse ::
   BatchGetDevEndpointsResponse
 newBatchGetDevEndpointsResponse pHttpStatus_ =
   BatchGetDevEndpointsResponse'
-    { devEndpointsNotFound =
+    { devEndpoints =
         Prelude.Nothing,
-      devEndpoints = Prelude.Nothing,
+      devEndpointsNotFound = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A list of @DevEndpoints@ not found.
-batchGetDevEndpointsResponse_devEndpointsNotFound :: Lens.Lens' BatchGetDevEndpointsResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-batchGetDevEndpointsResponse_devEndpointsNotFound = Lens.lens (\BatchGetDevEndpointsResponse' {devEndpointsNotFound} -> devEndpointsNotFound) (\s@BatchGetDevEndpointsResponse' {} a -> s {devEndpointsNotFound = a} :: BatchGetDevEndpointsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | A list of @DevEndpoint@ definitions.
 batchGetDevEndpointsResponse_devEndpoints :: Lens.Lens' BatchGetDevEndpointsResponse (Prelude.Maybe [DevEndpoint])
 batchGetDevEndpointsResponse_devEndpoints = Lens.lens (\BatchGetDevEndpointsResponse' {devEndpoints} -> devEndpoints) (\s@BatchGetDevEndpointsResponse' {} a -> s {devEndpoints = a} :: BatchGetDevEndpointsResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | A list of @DevEndpoints@ not found.
+batchGetDevEndpointsResponse_devEndpointsNotFound :: Lens.Lens' BatchGetDevEndpointsResponse (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+batchGetDevEndpointsResponse_devEndpointsNotFound = Lens.lens (\BatchGetDevEndpointsResponse' {devEndpointsNotFound} -> devEndpointsNotFound) (\s@BatchGetDevEndpointsResponse' {} a -> s {devEndpointsNotFound = a} :: BatchGetDevEndpointsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 batchGetDevEndpointsResponse_httpStatus :: Lens.Lens' BatchGetDevEndpointsResponse Prelude.Int
@@ -186,6 +188,6 @@ batchGetDevEndpointsResponse_httpStatus = Lens.lens (\BatchGetDevEndpointsRespon
 
 instance Prelude.NFData BatchGetDevEndpointsResponse where
   rnf BatchGetDevEndpointsResponse' {..} =
-    Prelude.rnf devEndpointsNotFound
-      `Prelude.seq` Prelude.rnf devEndpoints
+    Prelude.rnf devEndpoints
+      `Prelude.seq` Prelude.rnf devEndpointsNotFound
       `Prelude.seq` Prelude.rnf httpStatus

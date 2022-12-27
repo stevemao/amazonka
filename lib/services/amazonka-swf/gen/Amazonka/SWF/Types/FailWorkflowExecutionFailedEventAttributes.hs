@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.FailWorkflowExecutionFailedEventAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.FailWorkflowExecutionFailedEventAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SWF.Types.FailWorkflowExecutionFailedCause
 
@@ -101,16 +102,16 @@ failWorkflowExecutionFailedEventAttributes_decisionTaskCompletedEventId :: Lens.
 failWorkflowExecutionFailedEventAttributes_decisionTaskCompletedEventId = Lens.lens (\FailWorkflowExecutionFailedEventAttributes' {decisionTaskCompletedEventId} -> decisionTaskCompletedEventId) (\s@FailWorkflowExecutionFailedEventAttributes' {} a -> s {decisionTaskCompletedEventId = a} :: FailWorkflowExecutionFailedEventAttributes)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     FailWorkflowExecutionFailedEventAttributes
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FailWorkflowExecutionFailedEventAttributes"
       ( \x ->
           FailWorkflowExecutionFailedEventAttributes'
-            Prelude.<$> (x Core..: "cause")
-              Prelude.<*> (x Core..: "decisionTaskCompletedEventId")
+            Prelude.<$> (x Data..: "cause")
+              Prelude.<*> (x Data..: "decisionTaskCompletedEventId")
       )
 
 instance

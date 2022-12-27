@@ -14,17 +14,20 @@
 
 -- |
 -- Module      : Amazonka.Forecast.ListDatasetGroups
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Returns a list of dataset groups created using the CreateDatasetGroup
+-- Returns a list of dataset groups created using the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_CreateDatasetGroup.html CreateDatasetGroup>
 -- operation. For each dataset group, this operation returns a summary of
 -- its properties, including its Amazon Resource Name (ARN). You can
 -- retrieve the complete set of properties by using the dataset group ARN
--- with the DescribeDatasetGroup operation.
+-- with the
+-- <https://docs.aws.amazon.com/forecast/latest/dg/API_DescribeDatasetGroup.html DescribeDatasetGroup>
+-- operation.
 --
 -- This operation returns paginated results.
 module Amazonka.Forecast.ListDatasetGroups
@@ -33,35 +36,36 @@ module Amazonka.Forecast.ListDatasetGroups
     newListDatasetGroups,
 
     -- * Request Lenses
-    listDatasetGroups_nextToken,
     listDatasetGroups_maxResults,
+    listDatasetGroups_nextToken,
 
     -- * Destructuring the Response
     ListDatasetGroupsResponse (..),
     newListDatasetGroupsResponse,
 
     -- * Response Lenses
-    listDatasetGroupsResponse_nextToken,
     listDatasetGroupsResponse_datasetGroups,
+    listDatasetGroupsResponse_nextToken,
     listDatasetGroupsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Forecast.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListDatasetGroups' smart constructor.
 data ListDatasetGroups = ListDatasetGroups'
-  { -- | If the result of the previous request was truncated, the response
+  { -- | The number of items to return in the response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | If the result of the previous request was truncated, the response
     -- includes a @NextToken@. To retrieve the next set of results, use the
     -- token in the next request. Tokens expire after 24 hours.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The number of items to return in the response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,28 +77,28 @@ data ListDatasetGroups = ListDatasetGroups'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listDatasetGroups_maxResults' - The number of items to return in the response.
+--
 -- 'nextToken', 'listDatasetGroups_nextToken' - If the result of the previous request was truncated, the response
 -- includes a @NextToken@. To retrieve the next set of results, use the
 -- token in the next request. Tokens expire after 24 hours.
---
--- 'maxResults', 'listDatasetGroups_maxResults' - The number of items to return in the response.
 newListDatasetGroups ::
   ListDatasetGroups
 newListDatasetGroups =
   ListDatasetGroups'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
+
+-- | The number of items to return in the response.
+listDatasetGroups_maxResults :: Lens.Lens' ListDatasetGroups (Prelude.Maybe Prelude.Natural)
+listDatasetGroups_maxResults = Lens.lens (\ListDatasetGroups' {maxResults} -> maxResults) (\s@ListDatasetGroups' {} a -> s {maxResults = a} :: ListDatasetGroups)
 
 -- | If the result of the previous request was truncated, the response
 -- includes a @NextToken@. To retrieve the next set of results, use the
 -- token in the next request. Tokens expire after 24 hours.
 listDatasetGroups_nextToken :: Lens.Lens' ListDatasetGroups (Prelude.Maybe Prelude.Text)
 listDatasetGroups_nextToken = Lens.lens (\ListDatasetGroups' {nextToken} -> nextToken) (\s@ListDatasetGroups' {} a -> s {nextToken = a} :: ListDatasetGroups)
-
--- | The number of items to return in the response.
-listDatasetGroups_maxResults :: Lens.Lens' ListDatasetGroups (Prelude.Maybe Prelude.Natural)
-listDatasetGroups_maxResults = Lens.lens (\ListDatasetGroups' {maxResults} -> maxResults) (\s@ListDatasetGroups' {} a -> s {maxResults = a} :: ListDatasetGroups)
 
 instance Core.AWSPager ListDatasetGroups where
   page rq rs
@@ -122,63 +126,64 @@ instance Core.AWSRequest ListDatasetGroups where
   type
     AWSResponse ListDatasetGroups =
       ListDatasetGroupsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListDatasetGroupsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "DatasetGroups" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "DatasetGroups" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListDatasetGroups where
   hashWithSalt _salt ListDatasetGroups' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListDatasetGroups where
   rnf ListDatasetGroups' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListDatasetGroups where
+instance Data.ToHeaders ListDatasetGroups where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonForecast.ListDatasetGroups" ::
+              Data.=# ( "AmazonForecast.ListDatasetGroups" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListDatasetGroups where
+instance Data.ToJSON ListDatasetGroups where
   toJSON ListDatasetGroups' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListDatasetGroups where
+instance Data.ToPath ListDatasetGroups where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListDatasetGroups where
+instance Data.ToQuery ListDatasetGroups where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListDatasetGroupsResponse' smart constructor.
 data ListDatasetGroupsResponse = ListDatasetGroupsResponse'
-  { -- | If the response is truncated, Amazon Forecast returns this token. To
+  { -- | An array of objects that summarize each dataset group\'s properties.
+    datasetGroups :: Prelude.Maybe [DatasetGroupSummary],
+    -- | If the response is truncated, Amazon Forecast returns this token. To
     -- retrieve the next set of results, use the token in the next request.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An array of objects that summarize each dataset group\'s properties.
-    datasetGroups :: Prelude.Maybe [DatasetGroupSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -192,10 +197,10 @@ data ListDatasetGroupsResponse = ListDatasetGroupsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'datasetGroups', 'listDatasetGroupsResponse_datasetGroups' - An array of objects that summarize each dataset group\'s properties.
+--
 -- 'nextToken', 'listDatasetGroupsResponse_nextToken' - If the response is truncated, Amazon Forecast returns this token. To
 -- retrieve the next set of results, use the token in the next request.
---
--- 'datasetGroups', 'listDatasetGroupsResponse_datasetGroups' - An array of objects that summarize each dataset group\'s properties.
 --
 -- 'httpStatus', 'listDatasetGroupsResponse_httpStatus' - The response's http status code.
 newListDatasetGroupsResponse ::
@@ -204,20 +209,20 @@ newListDatasetGroupsResponse ::
   ListDatasetGroupsResponse
 newListDatasetGroupsResponse pHttpStatus_ =
   ListDatasetGroupsResponse'
-    { nextToken =
+    { datasetGroups =
         Prelude.Nothing,
-      datasetGroups = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | An array of objects that summarize each dataset group\'s properties.
+listDatasetGroupsResponse_datasetGroups :: Lens.Lens' ListDatasetGroupsResponse (Prelude.Maybe [DatasetGroupSummary])
+listDatasetGroupsResponse_datasetGroups = Lens.lens (\ListDatasetGroupsResponse' {datasetGroups} -> datasetGroups) (\s@ListDatasetGroupsResponse' {} a -> s {datasetGroups = a} :: ListDatasetGroupsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If the response is truncated, Amazon Forecast returns this token. To
 -- retrieve the next set of results, use the token in the next request.
 listDatasetGroupsResponse_nextToken :: Lens.Lens' ListDatasetGroupsResponse (Prelude.Maybe Prelude.Text)
 listDatasetGroupsResponse_nextToken = Lens.lens (\ListDatasetGroupsResponse' {nextToken} -> nextToken) (\s@ListDatasetGroupsResponse' {} a -> s {nextToken = a} :: ListDatasetGroupsResponse)
-
--- | An array of objects that summarize each dataset group\'s properties.
-listDatasetGroupsResponse_datasetGroups :: Lens.Lens' ListDatasetGroupsResponse (Prelude.Maybe [DatasetGroupSummary])
-listDatasetGroupsResponse_datasetGroups = Lens.lens (\ListDatasetGroupsResponse' {datasetGroups} -> datasetGroups) (\s@ListDatasetGroupsResponse' {} a -> s {datasetGroups = a} :: ListDatasetGroupsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listDatasetGroupsResponse_httpStatus :: Lens.Lens' ListDatasetGroupsResponse Prelude.Int
@@ -225,6 +230,6 @@ listDatasetGroupsResponse_httpStatus = Lens.lens (\ListDatasetGroupsResponse' {h
 
 instance Prelude.NFData ListDatasetGroupsResponse where
   rnf ListDatasetGroupsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf datasetGroups
+    Prelude.rnf datasetGroups
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

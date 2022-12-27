@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScalingPlans.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,12 +18,12 @@ module Amazonka.AutoScalingPlans.Types
     defaultService,
 
     -- * Errors
-    _ValidationException,
-    _InvalidNextTokenException,
     _ConcurrentUpdateException,
     _InternalServiceException,
-    _ObjectNotFoundException,
+    _InvalidNextTokenException,
     _LimitExceededException,
+    _ObjectNotFoundException,
+    _ValidationException,
 
     -- * ForecastDataType
     ForecastDataType (..),
@@ -63,8 +64,8 @@ module Amazonka.AutoScalingPlans.Types
     -- * ApplicationSource
     ApplicationSource (..),
     newApplicationSource,
-    applicationSource_tagFilters,
     applicationSource_cloudFormationStackARN,
+    applicationSource_tagFilters,
 
     -- * CustomizedLoadMetricSpecification
     CustomizedLoadMetricSpecification (..),
@@ -87,8 +88,8 @@ module Amazonka.AutoScalingPlans.Types
     -- * Datapoint
     Datapoint (..),
     newDatapoint,
-    datapoint_value,
     datapoint_timestamp,
+    datapoint_value,
 
     -- * MetricDimension
     MetricDimension (..),
@@ -111,14 +112,14 @@ module Amazonka.AutoScalingPlans.Types
     -- * ScalingInstruction
     ScalingInstruction (..),
     newScalingInstruction,
-    scalingInstruction_scheduledActionBufferTime,
-    scalingInstruction_predictiveScalingMaxCapacityBuffer,
-    scalingInstruction_scalingPolicyUpdateBehavior,
     scalingInstruction_customizedLoadMetricSpecification,
-    scalingInstruction_predictiveScalingMode,
     scalingInstruction_disableDynamicScaling,
-    scalingInstruction_predictiveScalingMaxCapacityBehavior,
     scalingInstruction_predefinedLoadMetricSpecification,
+    scalingInstruction_predictiveScalingMaxCapacityBehavior,
+    scalingInstruction_predictiveScalingMaxCapacityBuffer,
+    scalingInstruction_predictiveScalingMode,
+    scalingInstruction_scalingPolicyUpdateBehavior,
+    scalingInstruction_scheduledActionBufferTime,
     scalingInstruction_serviceNamespace,
     scalingInstruction_resourceId,
     scalingInstruction_scalableDimension,
@@ -130,8 +131,8 @@ module Amazonka.AutoScalingPlans.Types
     ScalingPlan (..),
     newScalingPlan,
     scalingPlan_creationTime,
-    scalingPlan_statusStartTime,
     scalingPlan_statusMessage,
+    scalingPlan_statusStartTime,
     scalingPlan_scalingPlanName,
     scalingPlan_scalingPlanVersion,
     scalingPlan_applicationSource,
@@ -141,8 +142,8 @@ module Amazonka.AutoScalingPlans.Types
     -- * ScalingPlanResource
     ScalingPlanResource (..),
     newScalingPlanResource,
-    scalingPlanResource_scalingStatusMessage,
     scalingPlanResource_scalingPolicies,
+    scalingPlanResource_scalingStatusMessage,
     scalingPlanResource_scalingPlanName,
     scalingPlanResource_scalingPlanVersion,
     scalingPlanResource_serviceNamespace,
@@ -160,17 +161,17 @@ module Amazonka.AutoScalingPlans.Types
     -- * TagFilter
     TagFilter (..),
     newTagFilter,
-    tagFilter_values,
     tagFilter_key,
+    tagFilter_values,
 
     -- * TargetTrackingConfiguration
     TargetTrackingConfiguration (..),
     newTargetTrackingConfiguration,
+    targetTrackingConfiguration_customizedScalingMetricSpecification,
+    targetTrackingConfiguration_disableScaleIn,
     targetTrackingConfiguration_estimatedInstanceWarmup,
     targetTrackingConfiguration_predefinedScalingMetricSpecification,
     targetTrackingConfiguration_scaleInCooldown,
-    targetTrackingConfiguration_disableScaleIn,
-    targetTrackingConfiguration_customizedScalingMetricSpecification,
     targetTrackingConfiguration_scaleOutCooldown,
     targetTrackingConfiguration_targetValue,
   )
@@ -202,7 +203,7 @@ import Amazonka.AutoScalingPlans.Types.ServiceNamespace
 import Amazonka.AutoScalingPlans.Types.TagFilter
 import Amazonka.AutoScalingPlans.Types.TargetTrackingConfiguration
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -210,43 +211,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev =
-        "AutoScalingPlans",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "autoscaling-plans",
-      Core._serviceSigningName = "autoscaling-plans",
-      Core._serviceVersion = "2018-01-06",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "AutoScalingPlans",
-      Core._serviceRetry = retry
+    { Core.abbrev = "AutoScalingPlans",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "autoscaling-plans",
+      Core.signingName = "autoscaling-plans",
+      Core.version = "2018-01-06",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "AutoScalingPlans",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -254,44 +261,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | An exception was thrown for a validation issue. Review the parameters
--- provided.
-_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ValidationException =
-  Core._MatchServiceError
-    defaultService
-    "ValidationException"
-
--- | The token provided is not valid.
-_InvalidNextTokenException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InvalidNextTokenException =
-  Core._MatchServiceError
-    defaultService
-    "InvalidNextTokenException"
 
 -- | Concurrent updates caused an exception, for example, if you request an
 -- update to a scaling plan that already has a pending update.
@@ -308,12 +292,12 @@ _InternalServiceException =
     defaultService
     "InternalServiceException"
 
--- | The specified object could not be found.
-_ObjectNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ObjectNotFoundException =
+-- | The token provided is not valid.
+_InvalidNextTokenException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InvalidNextTokenException =
   Core._MatchServiceError
     defaultService
-    "ObjectNotFoundException"
+    "InvalidNextTokenException"
 
 -- | Your account exceeded a limit. This exception is thrown when a
 -- per-account resource limit is exceeded.
@@ -322,3 +306,18 @@ _LimitExceededException =
   Core._MatchServiceError
     defaultService
     "LimitExceededException"
+
+-- | The specified object could not be found.
+_ObjectNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ObjectNotFoundException =
+  Core._MatchServiceError
+    defaultService
+    "ObjectNotFoundException"
+
+-- | An exception was thrown for a validation issue. Review the parameters
+-- provided.
+_ValidationException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ValidationException =
+  Core._MatchServiceError
+    defaultService
+    "ValidationException"

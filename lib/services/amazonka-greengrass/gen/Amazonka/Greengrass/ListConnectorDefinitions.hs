@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Greengrass.ListConnectorDefinitions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,34 +29,35 @@ module Amazonka.Greengrass.ListConnectorDefinitions
     newListConnectorDefinitions,
 
     -- * Request Lenses
-    listConnectorDefinitions_nextToken,
     listConnectorDefinitions_maxResults,
+    listConnectorDefinitions_nextToken,
 
     -- * Destructuring the Response
     ListConnectorDefinitionsResponse (..),
     newListConnectorDefinitionsResponse,
 
     -- * Response Lenses
-    listConnectorDefinitionsResponse_nextToken,
     listConnectorDefinitionsResponse_definitions,
+    listConnectorDefinitionsResponse_nextToken,
     listConnectorDefinitionsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Greengrass.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListConnectorDefinitions' smart constructor.
 data ListConnectorDefinitions = ListConnectorDefinitions'
-  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+  { -- | The maximum number of results to be returned per request.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | The token for the next set of results, or \'\'null\'\' if there are no
     -- additional results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
-    maxResults :: Prelude.Maybe Prelude.Text
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,27 +69,27 @@ data ListConnectorDefinitions = ListConnectorDefinitions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listConnectorDefinitions_maxResults' - The maximum number of results to be returned per request.
+--
 -- 'nextToken', 'listConnectorDefinitions_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
 -- additional results.
---
--- 'maxResults', 'listConnectorDefinitions_maxResults' - The maximum number of results to be returned per request.
 newListConnectorDefinitions ::
   ListConnectorDefinitions
 newListConnectorDefinitions =
   ListConnectorDefinitions'
-    { nextToken =
+    { maxResults =
         Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      nextToken = Prelude.Nothing
     }
+
+-- | The maximum number of results to be returned per request.
+listConnectorDefinitions_maxResults :: Lens.Lens' ListConnectorDefinitions (Prelude.Maybe Prelude.Text)
+listConnectorDefinitions_maxResults = Lens.lens (\ListConnectorDefinitions' {maxResults} -> maxResults) (\s@ListConnectorDefinitions' {} a -> s {maxResults = a} :: ListConnectorDefinitions)
 
 -- | The token for the next set of results, or \'\'null\'\' if there are no
 -- additional results.
 listConnectorDefinitions_nextToken :: Lens.Lens' ListConnectorDefinitions (Prelude.Maybe Prelude.Text)
 listConnectorDefinitions_nextToken = Lens.lens (\ListConnectorDefinitions' {nextToken} -> nextToken) (\s@ListConnectorDefinitions' {} a -> s {nextToken = a} :: ListConnectorDefinitions)
-
--- | The maximum number of results to be returned per request.
-listConnectorDefinitions_maxResults :: Lens.Lens' ListConnectorDefinitions (Prelude.Maybe Prelude.Text)
-listConnectorDefinitions_maxResults = Lens.lens (\ListConnectorDefinitions' {maxResults} -> maxResults) (\s@ListConnectorDefinitions' {} a -> s {maxResults = a} :: ListConnectorDefinitions)
 
 instance Core.AWSPager ListConnectorDefinitions where
   page rq rs
@@ -116,55 +117,56 @@ instance Core.AWSRequest ListConnectorDefinitions where
   type
     AWSResponse ListConnectorDefinitions =
       ListConnectorDefinitionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListConnectorDefinitionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Definitions" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Definitions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListConnectorDefinitions where
   hashWithSalt _salt ListConnectorDefinitions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListConnectorDefinitions where
   rnf ListConnectorDefinitions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListConnectorDefinitions where
+instance Data.ToHeaders ListConnectorDefinitions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListConnectorDefinitions where
+instance Data.ToPath ListConnectorDefinitions where
   toPath =
     Prelude.const "/greengrass/definition/connectors"
 
-instance Core.ToQuery ListConnectorDefinitions where
+instance Data.ToQuery ListConnectorDefinitions where
   toQuery ListConnectorDefinitions' {..} =
     Prelude.mconcat
-      [ "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+      [ "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListConnectorDefinitionsResponse' smart constructor.
 data ListConnectorDefinitionsResponse = ListConnectorDefinitionsResponse'
-  { -- | The token for the next set of results, or \'\'null\'\' if there are no
+  { -- | Information about a definition.
+    definitions :: Prelude.Maybe [DefinitionInformation],
+    -- | The token for the next set of results, or \'\'null\'\' if there are no
     -- additional results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Information about a definition.
-    definitions :: Prelude.Maybe [DefinitionInformation],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -178,10 +180,10 @@ data ListConnectorDefinitionsResponse = ListConnectorDefinitionsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'definitions', 'listConnectorDefinitionsResponse_definitions' - Information about a definition.
+--
 -- 'nextToken', 'listConnectorDefinitionsResponse_nextToken' - The token for the next set of results, or \'\'null\'\' if there are no
 -- additional results.
---
--- 'definitions', 'listConnectorDefinitionsResponse_definitions' - Information about a definition.
 --
 -- 'httpStatus', 'listConnectorDefinitionsResponse_httpStatus' - The response's http status code.
 newListConnectorDefinitionsResponse ::
@@ -190,20 +192,20 @@ newListConnectorDefinitionsResponse ::
   ListConnectorDefinitionsResponse
 newListConnectorDefinitionsResponse pHttpStatus_ =
   ListConnectorDefinitionsResponse'
-    { nextToken =
+    { definitions =
         Prelude.Nothing,
-      definitions = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | Information about a definition.
+listConnectorDefinitionsResponse_definitions :: Lens.Lens' ListConnectorDefinitionsResponse (Prelude.Maybe [DefinitionInformation])
+listConnectorDefinitionsResponse_definitions = Lens.lens (\ListConnectorDefinitionsResponse' {definitions} -> definitions) (\s@ListConnectorDefinitionsResponse' {} a -> s {definitions = a} :: ListConnectorDefinitionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token for the next set of results, or \'\'null\'\' if there are no
 -- additional results.
 listConnectorDefinitionsResponse_nextToken :: Lens.Lens' ListConnectorDefinitionsResponse (Prelude.Maybe Prelude.Text)
 listConnectorDefinitionsResponse_nextToken = Lens.lens (\ListConnectorDefinitionsResponse' {nextToken} -> nextToken) (\s@ListConnectorDefinitionsResponse' {} a -> s {nextToken = a} :: ListConnectorDefinitionsResponse)
-
--- | Information about a definition.
-listConnectorDefinitionsResponse_definitions :: Lens.Lens' ListConnectorDefinitionsResponse (Prelude.Maybe [DefinitionInformation])
-listConnectorDefinitionsResponse_definitions = Lens.lens (\ListConnectorDefinitionsResponse' {definitions} -> definitions) (\s@ListConnectorDefinitionsResponse' {} a -> s {definitions = a} :: ListConnectorDefinitionsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listConnectorDefinitionsResponse_httpStatus :: Lens.Lens' ListConnectorDefinitionsResponse Prelude.Int
@@ -214,6 +216,6 @@ instance
     ListConnectorDefinitionsResponse
   where
   rnf ListConnectorDefinitionsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf definitions
+    Prelude.rnf definitions
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

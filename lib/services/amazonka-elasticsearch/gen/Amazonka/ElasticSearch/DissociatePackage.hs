@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.DissociatePackage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.ElasticSearch.DissociatePackage
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,12 +97,13 @@ instance Core.AWSRequest DissociatePackage where
   type
     AWSResponse DissociatePackage =
       DissociatePackageResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DissociatePackageResponse'
-            Prelude.<$> (x Core..?> "DomainPackageDetails")
+            Prelude.<$> (x Data..?> "DomainPackageDetails")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -115,22 +117,22 @@ instance Prelude.NFData DissociatePackage where
     Prelude.rnf packageID
       `Prelude.seq` Prelude.rnf domainName
 
-instance Core.ToHeaders DissociatePackage where
+instance Data.ToHeaders DissociatePackage where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON DissociatePackage where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON DissociatePackage where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath DissociatePackage where
+instance Data.ToPath DissociatePackage where
   toPath DissociatePackage' {..} =
     Prelude.mconcat
       [ "/2015-01-01/packages/dissociate/",
-        Core.toBS packageID,
+        Data.toBS packageID,
         "/",
-        Core.toBS domainName
+        Data.toBS domainName
       ]
 
-instance Core.ToQuery DissociatePackage where
+instance Data.ToQuery DissociatePackage where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Container for response returned by @ DissociatePackage @ operation.

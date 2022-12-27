@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.RemoveAutoScalingPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,9 @@ module Amazonka.EMR.RemoveAutoScalingPolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,7 +100,8 @@ instance Core.AWSRequest RemoveAutoScalingPolicy where
   type
     AWSResponse RemoveAutoScalingPolicy =
       RemoveAutoScalingPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -117,35 +119,35 @@ instance Prelude.NFData RemoveAutoScalingPolicy where
     Prelude.rnf clusterId
       `Prelude.seq` Prelude.rnf instanceGroupId
 
-instance Core.ToHeaders RemoveAutoScalingPolicy where
+instance Data.ToHeaders RemoveAutoScalingPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ElasticMapReduce.RemoveAutoScalingPolicy" ::
+              Data.=# ( "ElasticMapReduce.RemoveAutoScalingPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RemoveAutoScalingPolicy where
+instance Data.ToJSON RemoveAutoScalingPolicy where
   toJSON RemoveAutoScalingPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ClusterId" Core..= clusterId),
+          [ Prelude.Just ("ClusterId" Data..= clusterId),
             Prelude.Just
-              ("InstanceGroupId" Core..= instanceGroupId)
+              ("InstanceGroupId" Data..= instanceGroupId)
           ]
       )
 
-instance Core.ToPath RemoveAutoScalingPolicy where
+instance Data.ToPath RemoveAutoScalingPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RemoveAutoScalingPolicy where
+instance Data.ToQuery RemoveAutoScalingPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRemoveAutoScalingPolicyResponse' smart constructor.

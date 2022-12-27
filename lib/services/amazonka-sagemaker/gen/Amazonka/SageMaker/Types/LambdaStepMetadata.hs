@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.LambdaStepMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.LambdaStepMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.OutputParameter
 
@@ -65,15 +66,15 @@ lambdaStepMetadata_arn = Lens.lens (\LambdaStepMetadata' {arn} -> arn) (\s@Lambd
 lambdaStepMetadata_outputParameters :: Lens.Lens' LambdaStepMetadata (Prelude.Maybe [OutputParameter])
 lambdaStepMetadata_outputParameters = Lens.lens (\LambdaStepMetadata' {outputParameters} -> outputParameters) (\s@LambdaStepMetadata' {} a -> s {outputParameters = a} :: LambdaStepMetadata) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON LambdaStepMetadata where
+instance Data.FromJSON LambdaStepMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LambdaStepMetadata"
       ( \x ->
           LambdaStepMetadata'
-            Prelude.<$> (x Core..:? "Arn")
-            Prelude.<*> ( x Core..:? "OutputParameters"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "Arn")
+            Prelude.<*> ( x Data..:? "OutputParameters"
+                            Data..!= Prelude.mempty
                         )
       )
 

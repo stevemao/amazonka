@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SQS.DeleteMessageBatch
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -56,7 +56,8 @@ module Amazonka.SQS.DeleteMessageBatch
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,15 +113,16 @@ instance Core.AWSRequest DeleteMessageBatch where
   type
     AWSResponse DeleteMessageBatch =
       DeleteMessageBatchResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteMessageBatchResult"
       ( \s h x ->
           DeleteMessageBatchResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.parseXMLList "DeleteMessageBatchResultEntry" x)
-            Prelude.<*> (Core.parseXMLList "BatchResultErrorEntry" x)
+            Prelude.<*> (Data.parseXMLList "DeleteMessageBatchResultEntry" x)
+            Prelude.<*> (Data.parseXMLList "BatchResultErrorEntry" x)
       )
 
 instance Prelude.Hashable DeleteMessageBatch where
@@ -133,21 +135,21 @@ instance Prelude.NFData DeleteMessageBatch where
     Prelude.rnf queueUrl
       `Prelude.seq` Prelude.rnf entries
 
-instance Core.ToHeaders DeleteMessageBatch where
+instance Data.ToHeaders DeleteMessageBatch where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteMessageBatch where
+instance Data.ToPath DeleteMessageBatch where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteMessageBatch where
+instance Data.ToQuery DeleteMessageBatch where
   toQuery DeleteMessageBatch' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteMessageBatch" :: Prelude.ByteString),
+          Data.=: ("DeleteMessageBatch" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2012-11-05" :: Prelude.ByteString),
-        "QueueUrl" Core.=: queueUrl,
-        Core.toQueryList
+          Data.=: ("2012-11-05" :: Prelude.ByteString),
+        "QueueUrl" Data.=: queueUrl,
+        Data.toQueryList
           "DeleteMessageBatchRequestEntry"
           entries
       ]

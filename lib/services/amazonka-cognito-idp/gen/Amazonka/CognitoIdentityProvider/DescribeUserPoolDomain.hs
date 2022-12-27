@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.DescribeUserPoolDomain
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,14 +41,17 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeUserPoolDomain' smart constructor.
 data DescribeUserPoolDomain = DescribeUserPoolDomain'
-  { -- | The domain string.
+  { -- | The domain string. For custom domains, this is the fully-qualified
+    -- domain name, such as @auth.example.com@. For Amazon Cognito prefix
+    -- domains, this is the prefix alone, such as @auth@.
     domain :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -61,7 +64,9 @@ data DescribeUserPoolDomain = DescribeUserPoolDomain'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'domain', 'describeUserPoolDomain_domain' - The domain string.
+-- 'domain', 'describeUserPoolDomain_domain' - The domain string. For custom domains, this is the fully-qualified
+-- domain name, such as @auth.example.com@. For Amazon Cognito prefix
+-- domains, this is the prefix alone, such as @auth@.
 newDescribeUserPoolDomain ::
   -- | 'domain'
   Prelude.Text ->
@@ -69,7 +74,9 @@ newDescribeUserPoolDomain ::
 newDescribeUserPoolDomain pDomain_ =
   DescribeUserPoolDomain' {domain = pDomain_}
 
--- | The domain string.
+-- | The domain string. For custom domains, this is the fully-qualified
+-- domain name, such as @auth.example.com@. For Amazon Cognito prefix
+-- domains, this is the prefix alone, such as @auth@.
 describeUserPoolDomain_domain :: Lens.Lens' DescribeUserPoolDomain Prelude.Text
 describeUserPoolDomain_domain = Lens.lens (\DescribeUserPoolDomain' {domain} -> domain) (\s@DescribeUserPoolDomain' {} a -> s {domain = a} :: DescribeUserPoolDomain)
 
@@ -77,12 +84,13 @@ instance Core.AWSRequest DescribeUserPoolDomain where
   type
     AWSResponse DescribeUserPoolDomain =
       DescribeUserPoolDomainResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeUserPoolDomainResponse'
-            Prelude.<$> (x Core..?> "DomainDescription")
+            Prelude.<$> (x Data..?> "DomainDescription")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,32 +101,32 @@ instance Prelude.Hashable DescribeUserPoolDomain where
 instance Prelude.NFData DescribeUserPoolDomain where
   rnf DescribeUserPoolDomain' {..} = Prelude.rnf domain
 
-instance Core.ToHeaders DescribeUserPoolDomain where
+instance Data.ToHeaders DescribeUserPoolDomain where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.DescribeUserPoolDomain" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.DescribeUserPoolDomain" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeUserPoolDomain where
+instance Data.ToJSON DescribeUserPoolDomain where
   toJSON DescribeUserPoolDomain' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Domain" Core..= domain)]
+          [Prelude.Just ("Domain" Data..= domain)]
       )
 
-instance Core.ToPath DescribeUserPoolDomain where
+instance Data.ToPath DescribeUserPoolDomain where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeUserPoolDomain where
+instance Data.ToQuery DescribeUserPoolDomain where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeUserPoolDomainResponse' smart constructor.

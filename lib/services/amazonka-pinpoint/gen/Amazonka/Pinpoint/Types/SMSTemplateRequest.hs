@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.SMSTemplateRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.SMSTemplateRequest where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the content and settings for a message template that can be
@@ -31,8 +32,6 @@ data SMSTemplateRequest = SMSTemplateRequest'
   { -- | The message body to use in text messages that are based on the message
     -- template.
     body :: Prelude.Maybe Prelude.Text,
-    -- | A custom description of the message template.
-    templateDescription :: Prelude.Maybe Prelude.Text,
     -- | A JSON object that specifies the default values to use for message
     -- variables in the message template. This object is a set of key-value
     -- pairs. Each key defines a message variable in the template. The
@@ -47,6 +46,8 @@ data SMSTemplateRequest = SMSTemplateRequest'
     -- use the template, if the template contains message variables for
     -- recommendation data.
     recommenderId :: Prelude.Maybe Prelude.Text,
+    -- | A custom description of the message template.
+    templateDescription :: Prelude.Maybe Prelude.Text,
     -- | A string-to-string map of key-value pairs that defines the tags to
     -- associate with the message template. Each tag consists of a required tag
     -- key and an associated tag value.
@@ -65,8 +66,6 @@ data SMSTemplateRequest = SMSTemplateRequest'
 -- 'body', 'sMSTemplateRequest_body' - The message body to use in text messages that are based on the message
 -- template.
 --
--- 'templateDescription', 'sMSTemplateRequest_templateDescription' - A custom description of the message template.
---
 -- 'defaultSubstitutions', 'sMSTemplateRequest_defaultSubstitutions' - A JSON object that specifies the default values to use for message
 -- variables in the message template. This object is a set of key-value
 -- pairs. Each key defines a message variable in the template. The
@@ -81,6 +80,8 @@ data SMSTemplateRequest = SMSTemplateRequest'
 -- use the template, if the template contains message variables for
 -- recommendation data.
 --
+-- 'templateDescription', 'sMSTemplateRequest_templateDescription' - A custom description of the message template.
+--
 -- 'tags', 'sMSTemplateRequest_tags' - A string-to-string map of key-value pairs that defines the tags to
 -- associate with the message template. Each tag consists of a required tag
 -- key and an associated tag value.
@@ -89,9 +90,9 @@ newSMSTemplateRequest ::
 newSMSTemplateRequest =
   SMSTemplateRequest'
     { body = Prelude.Nothing,
-      templateDescription = Prelude.Nothing,
       defaultSubstitutions = Prelude.Nothing,
       recommenderId = Prelude.Nothing,
+      templateDescription = Prelude.Nothing,
       tags = Prelude.Nothing
     }
 
@@ -99,10 +100,6 @@ newSMSTemplateRequest =
 -- template.
 sMSTemplateRequest_body :: Lens.Lens' SMSTemplateRequest (Prelude.Maybe Prelude.Text)
 sMSTemplateRequest_body = Lens.lens (\SMSTemplateRequest' {body} -> body) (\s@SMSTemplateRequest' {} a -> s {body = a} :: SMSTemplateRequest)
-
--- | A custom description of the message template.
-sMSTemplateRequest_templateDescription :: Lens.Lens' SMSTemplateRequest (Prelude.Maybe Prelude.Text)
-sMSTemplateRequest_templateDescription = Lens.lens (\SMSTemplateRequest' {templateDescription} -> templateDescription) (\s@SMSTemplateRequest' {} a -> s {templateDescription = a} :: SMSTemplateRequest)
 
 -- | A JSON object that specifies the default values to use for message
 -- variables in the message template. This object is a set of key-value
@@ -122,6 +119,10 @@ sMSTemplateRequest_defaultSubstitutions = Lens.lens (\SMSTemplateRequest' {defau
 sMSTemplateRequest_recommenderId :: Lens.Lens' SMSTemplateRequest (Prelude.Maybe Prelude.Text)
 sMSTemplateRequest_recommenderId = Lens.lens (\SMSTemplateRequest' {recommenderId} -> recommenderId) (\s@SMSTemplateRequest' {} a -> s {recommenderId = a} :: SMSTemplateRequest)
 
+-- | A custom description of the message template.
+sMSTemplateRequest_templateDescription :: Lens.Lens' SMSTemplateRequest (Prelude.Maybe Prelude.Text)
+sMSTemplateRequest_templateDescription = Lens.lens (\SMSTemplateRequest' {templateDescription} -> templateDescription) (\s@SMSTemplateRequest' {} a -> s {templateDescription = a} :: SMSTemplateRequest)
+
 -- | A string-to-string map of key-value pairs that defines the tags to
 -- associate with the message template. Each tag consists of a required tag
 -- key and an associated tag value.
@@ -131,29 +132,29 @@ sMSTemplateRequest_tags = Lens.lens (\SMSTemplateRequest' {tags} -> tags) (\s@SM
 instance Prelude.Hashable SMSTemplateRequest where
   hashWithSalt _salt SMSTemplateRequest' {..} =
     _salt `Prelude.hashWithSalt` body
-      `Prelude.hashWithSalt` templateDescription
       `Prelude.hashWithSalt` defaultSubstitutions
       `Prelude.hashWithSalt` recommenderId
+      `Prelude.hashWithSalt` templateDescription
       `Prelude.hashWithSalt` tags
 
 instance Prelude.NFData SMSTemplateRequest where
   rnf SMSTemplateRequest' {..} =
     Prelude.rnf body
-      `Prelude.seq` Prelude.rnf templateDescription
       `Prelude.seq` Prelude.rnf defaultSubstitutions
       `Prelude.seq` Prelude.rnf recommenderId
+      `Prelude.seq` Prelude.rnf templateDescription
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToJSON SMSTemplateRequest where
+instance Data.ToJSON SMSTemplateRequest where
   toJSON SMSTemplateRequest' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Body" Core..=) Prelude.<$> body,
-            ("TemplateDescription" Core..=)
-              Prelude.<$> templateDescription,
-            ("DefaultSubstitutions" Core..=)
+          [ ("Body" Data..=) Prelude.<$> body,
+            ("DefaultSubstitutions" Data..=)
               Prelude.<$> defaultSubstitutions,
-            ("RecommenderId" Core..=) Prelude.<$> recommenderId,
-            ("tags" Core..=) Prelude.<$> tags
+            ("RecommenderId" Data..=) Prelude.<$> recommenderId,
+            ("TemplateDescription" Data..=)
+              Prelude.<$> templateDescription,
+            ("tags" Data..=) Prelude.<$> tags
           ]
       )

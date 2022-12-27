@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.DisassociateSubnets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,9 +29,9 @@ module Amazonka.NetworkFirewall.DisassociateSubnets
     newDisassociateSubnets,
 
     -- * Request Lenses
-    disassociateSubnets_updateToken,
     disassociateSubnets_firewallArn,
     disassociateSubnets_firewallName,
+    disassociateSubnets_updateToken,
     disassociateSubnets_subnetIds,
 
     -- * Destructuring the Response
@@ -39,16 +39,17 @@ module Amazonka.NetworkFirewall.DisassociateSubnets
     newDisassociateSubnetsResponse,
 
     -- * Response Lenses
-    disassociateSubnetsResponse_subnetMappings,
-    disassociateSubnetsResponse_updateToken,
     disassociateSubnetsResponse_firewallArn,
     disassociateSubnetsResponse_firewallName,
+    disassociateSubnetsResponse_subnetMappings,
+    disassociateSubnetsResponse_updateToken,
     disassociateSubnetsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -56,7 +57,16 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDisassociateSubnets' smart constructor.
 data DisassociateSubnets = DisassociateSubnets'
-  { -- | An optional token that you can use for optimistic locking. Network
+  { -- | The Amazon Resource Name (ARN) of the firewall.
+    --
+    -- You must specify the ARN or the name, and you can specify both.
+    firewallArn :: Prelude.Maybe Prelude.Text,
+    -- | The descriptive name of the firewall. You can\'t change the name of a
+    -- firewall after you create it.
+    --
+    -- You must specify the ARN or the name, and you can specify both.
+    firewallName :: Prelude.Maybe Prelude.Text,
+    -- | An optional token that you can use for optimistic locking. Network
     -- Firewall returns a token to your requests that access the firewall. The
     -- token marks the state of the firewall resource at the time of the
     -- request.
@@ -74,15 +84,6 @@ data DisassociateSubnets = DisassociateSubnets'
     -- token. Reapply your changes as needed, then try the operation again
     -- using the new token.
     updateToken :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the firewall.
-    --
-    -- You must specify the ARN or the name, and you can specify both.
-    firewallArn :: Prelude.Maybe Prelude.Text,
-    -- | The descriptive name of the firewall. You can\'t change the name of a
-    -- firewall after you create it.
-    --
-    -- You must specify the ARN or the name, and you can specify both.
-    firewallName :: Prelude.Maybe Prelude.Text,
     -- | The unique identifiers for the subnets that you want to disassociate.
     subnetIds :: [Prelude.Text]
   }
@@ -95,6 +96,15 @@ data DisassociateSubnets = DisassociateSubnets'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'firewallArn', 'disassociateSubnets_firewallArn' - The Amazon Resource Name (ARN) of the firewall.
+--
+-- You must specify the ARN or the name, and you can specify both.
+--
+-- 'firewallName', 'disassociateSubnets_firewallName' - The descriptive name of the firewall. You can\'t change the name of a
+-- firewall after you create it.
+--
+-- You must specify the ARN or the name, and you can specify both.
 --
 -- 'updateToken', 'disassociateSubnets_updateToken' - An optional token that you can use for optimistic locking. Network
 -- Firewall returns a token to your requests that access the firewall. The
@@ -114,25 +124,29 @@ data DisassociateSubnets = DisassociateSubnets'
 -- token. Reapply your changes as needed, then try the operation again
 -- using the new token.
 --
--- 'firewallArn', 'disassociateSubnets_firewallArn' - The Amazon Resource Name (ARN) of the firewall.
---
--- You must specify the ARN or the name, and you can specify both.
---
--- 'firewallName', 'disassociateSubnets_firewallName' - The descriptive name of the firewall. You can\'t change the name of a
--- firewall after you create it.
---
--- You must specify the ARN or the name, and you can specify both.
---
 -- 'subnetIds', 'disassociateSubnets_subnetIds' - The unique identifiers for the subnets that you want to disassociate.
 newDisassociateSubnets ::
   DisassociateSubnets
 newDisassociateSubnets =
   DisassociateSubnets'
-    { updateToken = Prelude.Nothing,
-      firewallArn = Prelude.Nothing,
+    { firewallArn = Prelude.Nothing,
       firewallName = Prelude.Nothing,
+      updateToken = Prelude.Nothing,
       subnetIds = Prelude.mempty
     }
+
+-- | The Amazon Resource Name (ARN) of the firewall.
+--
+-- You must specify the ARN or the name, and you can specify both.
+disassociateSubnets_firewallArn :: Lens.Lens' DisassociateSubnets (Prelude.Maybe Prelude.Text)
+disassociateSubnets_firewallArn = Lens.lens (\DisassociateSubnets' {firewallArn} -> firewallArn) (\s@DisassociateSubnets' {} a -> s {firewallArn = a} :: DisassociateSubnets)
+
+-- | The descriptive name of the firewall. You can\'t change the name of a
+-- firewall after you create it.
+--
+-- You must specify the ARN or the name, and you can specify both.
+disassociateSubnets_firewallName :: Lens.Lens' DisassociateSubnets (Prelude.Maybe Prelude.Text)
+disassociateSubnets_firewallName = Lens.lens (\DisassociateSubnets' {firewallName} -> firewallName) (\s@DisassociateSubnets' {} a -> s {firewallName = a} :: DisassociateSubnets)
 
 -- | An optional token that you can use for optimistic locking. Network
 -- Firewall returns a token to your requests that access the firewall. The
@@ -154,19 +168,6 @@ newDisassociateSubnets =
 disassociateSubnets_updateToken :: Lens.Lens' DisassociateSubnets (Prelude.Maybe Prelude.Text)
 disassociateSubnets_updateToken = Lens.lens (\DisassociateSubnets' {updateToken} -> updateToken) (\s@DisassociateSubnets' {} a -> s {updateToken = a} :: DisassociateSubnets)
 
--- | The Amazon Resource Name (ARN) of the firewall.
---
--- You must specify the ARN or the name, and you can specify both.
-disassociateSubnets_firewallArn :: Lens.Lens' DisassociateSubnets (Prelude.Maybe Prelude.Text)
-disassociateSubnets_firewallArn = Lens.lens (\DisassociateSubnets' {firewallArn} -> firewallArn) (\s@DisassociateSubnets' {} a -> s {firewallArn = a} :: DisassociateSubnets)
-
--- | The descriptive name of the firewall. You can\'t change the name of a
--- firewall after you create it.
---
--- You must specify the ARN or the name, and you can specify both.
-disassociateSubnets_firewallName :: Lens.Lens' DisassociateSubnets (Prelude.Maybe Prelude.Text)
-disassociateSubnets_firewallName = Lens.lens (\DisassociateSubnets' {firewallName} -> firewallName) (\s@DisassociateSubnets' {} a -> s {firewallName = a} :: DisassociateSubnets)
-
 -- | The unique identifiers for the subnets that you want to disassociate.
 disassociateSubnets_subnetIds :: Lens.Lens' DisassociateSubnets [Prelude.Text]
 disassociateSubnets_subnetIds = Lens.lens (\DisassociateSubnets' {subnetIds} -> subnetIds) (\s@DisassociateSubnets' {} a -> s {subnetIds = a} :: DisassociateSubnets) Prelude.. Lens.coerced
@@ -175,67 +176,73 @@ instance Core.AWSRequest DisassociateSubnets where
   type
     AWSResponse DisassociateSubnets =
       DisassociateSubnetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DisassociateSubnetsResponse'
-            Prelude.<$> (x Core..?> "SubnetMappings" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "UpdateToken")
-            Prelude.<*> (x Core..?> "FirewallArn")
-            Prelude.<*> (x Core..?> "FirewallName")
+            Prelude.<$> (x Data..?> "FirewallArn")
+            Prelude.<*> (x Data..?> "FirewallName")
+            Prelude.<*> (x Data..?> "SubnetMappings" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "UpdateToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DisassociateSubnets where
   hashWithSalt _salt DisassociateSubnets' {..} =
-    _salt `Prelude.hashWithSalt` updateToken
-      `Prelude.hashWithSalt` firewallArn
+    _salt `Prelude.hashWithSalt` firewallArn
       `Prelude.hashWithSalt` firewallName
+      `Prelude.hashWithSalt` updateToken
       `Prelude.hashWithSalt` subnetIds
 
 instance Prelude.NFData DisassociateSubnets where
   rnf DisassociateSubnets' {..} =
-    Prelude.rnf updateToken
-      `Prelude.seq` Prelude.rnf firewallArn
+    Prelude.rnf firewallArn
       `Prelude.seq` Prelude.rnf firewallName
+      `Prelude.seq` Prelude.rnf updateToken
       `Prelude.seq` Prelude.rnf subnetIds
 
-instance Core.ToHeaders DisassociateSubnets where
+instance Data.ToHeaders DisassociateSubnets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "NetworkFirewall_20201112.DisassociateSubnets" ::
+              Data.=# ( "NetworkFirewall_20201112.DisassociateSubnets" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DisassociateSubnets where
+instance Data.ToJSON DisassociateSubnets where
   toJSON DisassociateSubnets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("UpdateToken" Core..=) Prelude.<$> updateToken,
-            ("FirewallArn" Core..=) Prelude.<$> firewallArn,
-            ("FirewallName" Core..=) Prelude.<$> firewallName,
-            Prelude.Just ("SubnetIds" Core..= subnetIds)
+          [ ("FirewallArn" Data..=) Prelude.<$> firewallArn,
+            ("FirewallName" Data..=) Prelude.<$> firewallName,
+            ("UpdateToken" Data..=) Prelude.<$> updateToken,
+            Prelude.Just ("SubnetIds" Data..= subnetIds)
           ]
       )
 
-instance Core.ToPath DisassociateSubnets where
+instance Data.ToPath DisassociateSubnets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateSubnets where
+instance Data.ToQuery DisassociateSubnets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDisassociateSubnetsResponse' smart constructor.
 data DisassociateSubnetsResponse = DisassociateSubnetsResponse'
-  { -- | The IDs of the subnets that are associated with the firewall.
+  { -- | The Amazon Resource Name (ARN) of the firewall.
+    firewallArn :: Prelude.Maybe Prelude.Text,
+    -- | The descriptive name of the firewall. You can\'t change the name of a
+    -- firewall after you create it.
+    firewallName :: Prelude.Maybe Prelude.Text,
+    -- | The IDs of the subnets that are associated with the firewall.
     subnetMappings :: Prelude.Maybe [SubnetMapping],
     -- | An optional token that you can use for optimistic locking. Network
     -- Firewall returns a token to your requests that access the firewall. The
@@ -255,11 +262,6 @@ data DisassociateSubnetsResponse = DisassociateSubnetsResponse'
     -- token. Reapply your changes as needed, then try the operation again
     -- using the new token.
     updateToken :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the firewall.
-    firewallArn :: Prelude.Maybe Prelude.Text,
-    -- | The descriptive name of the firewall. You can\'t change the name of a
-    -- firewall after you create it.
-    firewallName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -272,6 +274,11 @@ data DisassociateSubnetsResponse = DisassociateSubnetsResponse'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'firewallArn', 'disassociateSubnetsResponse_firewallArn' - The Amazon Resource Name (ARN) of the firewall.
+--
+-- 'firewallName', 'disassociateSubnetsResponse_firewallName' - The descriptive name of the firewall. You can\'t change the name of a
+-- firewall after you create it.
 --
 -- 'subnetMappings', 'disassociateSubnetsResponse_subnetMappings' - The IDs of the subnets that are associated with the firewall.
 --
@@ -293,11 +300,6 @@ data DisassociateSubnetsResponse = DisassociateSubnetsResponse'
 -- token. Reapply your changes as needed, then try the operation again
 -- using the new token.
 --
--- 'firewallArn', 'disassociateSubnetsResponse_firewallArn' - The Amazon Resource Name (ARN) of the firewall.
---
--- 'firewallName', 'disassociateSubnetsResponse_firewallName' - The descriptive name of the firewall. You can\'t change the name of a
--- firewall after you create it.
---
 -- 'httpStatus', 'disassociateSubnetsResponse_httpStatus' - The response's http status code.
 newDisassociateSubnetsResponse ::
   -- | 'httpStatus'
@@ -305,13 +307,22 @@ newDisassociateSubnetsResponse ::
   DisassociateSubnetsResponse
 newDisassociateSubnetsResponse pHttpStatus_ =
   DisassociateSubnetsResponse'
-    { subnetMappings =
+    { firewallArn =
         Prelude.Nothing,
-      updateToken = Prelude.Nothing,
-      firewallArn = Prelude.Nothing,
       firewallName = Prelude.Nothing,
+      subnetMappings = Prelude.Nothing,
+      updateToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The Amazon Resource Name (ARN) of the firewall.
+disassociateSubnetsResponse_firewallArn :: Lens.Lens' DisassociateSubnetsResponse (Prelude.Maybe Prelude.Text)
+disassociateSubnetsResponse_firewallArn = Lens.lens (\DisassociateSubnetsResponse' {firewallArn} -> firewallArn) (\s@DisassociateSubnetsResponse' {} a -> s {firewallArn = a} :: DisassociateSubnetsResponse)
+
+-- | The descriptive name of the firewall. You can\'t change the name of a
+-- firewall after you create it.
+disassociateSubnetsResponse_firewallName :: Lens.Lens' DisassociateSubnetsResponse (Prelude.Maybe Prelude.Text)
+disassociateSubnetsResponse_firewallName = Lens.lens (\DisassociateSubnetsResponse' {firewallName} -> firewallName) (\s@DisassociateSubnetsResponse' {} a -> s {firewallName = a} :: DisassociateSubnetsResponse)
 
 -- | The IDs of the subnets that are associated with the firewall.
 disassociateSubnetsResponse_subnetMappings :: Lens.Lens' DisassociateSubnetsResponse (Prelude.Maybe [SubnetMapping])
@@ -337,23 +348,14 @@ disassociateSubnetsResponse_subnetMappings = Lens.lens (\DisassociateSubnetsResp
 disassociateSubnetsResponse_updateToken :: Lens.Lens' DisassociateSubnetsResponse (Prelude.Maybe Prelude.Text)
 disassociateSubnetsResponse_updateToken = Lens.lens (\DisassociateSubnetsResponse' {updateToken} -> updateToken) (\s@DisassociateSubnetsResponse' {} a -> s {updateToken = a} :: DisassociateSubnetsResponse)
 
--- | The Amazon Resource Name (ARN) of the firewall.
-disassociateSubnetsResponse_firewallArn :: Lens.Lens' DisassociateSubnetsResponse (Prelude.Maybe Prelude.Text)
-disassociateSubnetsResponse_firewallArn = Lens.lens (\DisassociateSubnetsResponse' {firewallArn} -> firewallArn) (\s@DisassociateSubnetsResponse' {} a -> s {firewallArn = a} :: DisassociateSubnetsResponse)
-
--- | The descriptive name of the firewall. You can\'t change the name of a
--- firewall after you create it.
-disassociateSubnetsResponse_firewallName :: Lens.Lens' DisassociateSubnetsResponse (Prelude.Maybe Prelude.Text)
-disassociateSubnetsResponse_firewallName = Lens.lens (\DisassociateSubnetsResponse' {firewallName} -> firewallName) (\s@DisassociateSubnetsResponse' {} a -> s {firewallName = a} :: DisassociateSubnetsResponse)
-
 -- | The response's http status code.
 disassociateSubnetsResponse_httpStatus :: Lens.Lens' DisassociateSubnetsResponse Prelude.Int
 disassociateSubnetsResponse_httpStatus = Lens.lens (\DisassociateSubnetsResponse' {httpStatus} -> httpStatus) (\s@DisassociateSubnetsResponse' {} a -> s {httpStatus = a} :: DisassociateSubnetsResponse)
 
 instance Prelude.NFData DisassociateSubnetsResponse where
   rnf DisassociateSubnetsResponse' {..} =
-    Prelude.rnf subnetMappings
-      `Prelude.seq` Prelude.rnf updateToken
-      `Prelude.seq` Prelude.rnf firewallArn
+    Prelude.rnf firewallArn
       `Prelude.seq` Prelude.rnf firewallName
+      `Prelude.seq` Prelude.rnf subnetMappings
+      `Prelude.seq` Prelude.rnf updateToken
       `Prelude.seq` Prelude.rnf httpStatus

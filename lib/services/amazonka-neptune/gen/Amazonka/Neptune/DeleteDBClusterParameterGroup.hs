@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.DeleteDBClusterParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,7 +37,8 @@ module Amazonka.Neptune.DeleteDBClusterParameterGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -105,7 +106,8 @@ instance
   type
     AWSResponse DeleteDBClusterParameterGroup =
       DeleteDBClusterParameterGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DeleteDBClusterParameterGroupResponse'
@@ -122,23 +124,23 @@ instance Prelude.NFData DeleteDBClusterParameterGroup where
   rnf DeleteDBClusterParameterGroup' {..} =
     Prelude.rnf dbClusterParameterGroupName
 
-instance Core.ToHeaders DeleteDBClusterParameterGroup where
+instance Data.ToHeaders DeleteDBClusterParameterGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDBClusterParameterGroup where
+instance Data.ToPath DeleteDBClusterParameterGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDBClusterParameterGroup where
+instance Data.ToQuery DeleteDBClusterParameterGroup where
   toQuery DeleteDBClusterParameterGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteDBClusterParameterGroup" ::
+          Data.=: ( "DeleteDBClusterParameterGroup" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "DBClusterParameterGroupName"
-          Core.=: dbClusterParameterGroupName
+          Data.=: dbClusterParameterGroupName
       ]
 
 -- | /See:/ 'newDeleteDBClusterParameterGroupResponse' smart constructor.

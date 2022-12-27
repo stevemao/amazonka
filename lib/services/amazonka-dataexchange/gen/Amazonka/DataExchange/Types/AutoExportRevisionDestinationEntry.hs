@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.Types.AutoExportRevisionDestinationEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DataExchange.Types.AutoExportRevisionDestinationEntry where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A revision destination is the Amazon S3 bucket folder destination to
@@ -32,7 +33,7 @@ data AutoExportRevisionDestinationEntry = AutoExportRevisionDestinationEntry'
     -- assets in the revision. For more information about key patterns, see
     -- <https://docs.aws.amazon.com/data-exchange/latest/userguide/jobs.html#revision-export-keypatterns Key patterns when exporting revisions>.
     keyPattern :: Prelude.Maybe Prelude.Text,
-    -- | The S3 bucket that is the destination for the event action.
+    -- | The Amazon S3 bucket that is the destination for the event action.
     bucket :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -49,7 +50,7 @@ data AutoExportRevisionDestinationEntry = AutoExportRevisionDestinationEntry'
 -- assets in the revision. For more information about key patterns, see
 -- <https://docs.aws.amazon.com/data-exchange/latest/userguide/jobs.html#revision-export-keypatterns Key patterns when exporting revisions>.
 --
--- 'bucket', 'autoExportRevisionDestinationEntry_bucket' - The S3 bucket that is the destination for the event action.
+-- 'bucket', 'autoExportRevisionDestinationEntry_bucket' - The Amazon S3 bucket that is the destination for the event action.
 newAutoExportRevisionDestinationEntry ::
   -- | 'bucket'
   Prelude.Text ->
@@ -67,21 +68,21 @@ newAutoExportRevisionDestinationEntry pBucket_ =
 autoExportRevisionDestinationEntry_keyPattern :: Lens.Lens' AutoExportRevisionDestinationEntry (Prelude.Maybe Prelude.Text)
 autoExportRevisionDestinationEntry_keyPattern = Lens.lens (\AutoExportRevisionDestinationEntry' {keyPattern} -> keyPattern) (\s@AutoExportRevisionDestinationEntry' {} a -> s {keyPattern = a} :: AutoExportRevisionDestinationEntry)
 
--- | The S3 bucket that is the destination for the event action.
+-- | The Amazon S3 bucket that is the destination for the event action.
 autoExportRevisionDestinationEntry_bucket :: Lens.Lens' AutoExportRevisionDestinationEntry Prelude.Text
 autoExportRevisionDestinationEntry_bucket = Lens.lens (\AutoExportRevisionDestinationEntry' {bucket} -> bucket) (\s@AutoExportRevisionDestinationEntry' {} a -> s {bucket = a} :: AutoExportRevisionDestinationEntry)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     AutoExportRevisionDestinationEntry
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutoExportRevisionDestinationEntry"
       ( \x ->
           AutoExportRevisionDestinationEntry'
-            Prelude.<$> (x Core..:? "KeyPattern")
-            Prelude.<*> (x Core..: "Bucket")
+            Prelude.<$> (x Data..:? "KeyPattern")
+            Prelude.<*> (x Data..: "Bucket")
       )
 
 instance
@@ -103,13 +104,13 @@ instance
       `Prelude.seq` Prelude.rnf bucket
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AutoExportRevisionDestinationEntry
   where
   toJSON AutoExportRevisionDestinationEntry' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KeyPattern" Core..=) Prelude.<$> keyPattern,
-            Prelude.Just ("Bucket" Core..= bucket)
+          [ ("KeyPattern" Data..=) Prelude.<$> keyPattern,
+            Prelude.Just ("Bucket" Data..= bucket)
           ]
       )

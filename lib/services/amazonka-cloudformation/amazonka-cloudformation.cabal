@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -60,6 +60,7 @@ library
     Amazonka.CloudFormation.DeregisterType
     Amazonka.CloudFormation.DescribeAccountLimits
     Amazonka.CloudFormation.DescribeChangeSet
+    Amazonka.CloudFormation.DescribeChangeSetHooks
     Amazonka.CloudFormation.DescribePublisher
     Amazonka.CloudFormation.DescribeStackDriftDetectionStatus
     Amazonka.CloudFormation.DescribeStackEvents
@@ -106,6 +107,7 @@ library
     Amazonka.CloudFormation.StopStackSetOperation
     Amazonka.CloudFormation.TestType
     Amazonka.CloudFormation.Types
+    Amazonka.CloudFormation.Types.AccountFilterType
     Amazonka.CloudFormation.Types.AccountGateResult
     Amazonka.CloudFormation.Types.AccountGateStatus
     Amazonka.CloudFormation.Types.AccountLimit
@@ -116,6 +118,10 @@ library
     Amazonka.CloudFormation.Types.Category
     Amazonka.CloudFormation.Types.Change
     Amazonka.CloudFormation.Types.ChangeAction
+    Amazonka.CloudFormation.Types.ChangeSetHook
+    Amazonka.CloudFormation.Types.ChangeSetHookResourceTargetDetails
+    Amazonka.CloudFormation.Types.ChangeSetHooksStatus
+    Amazonka.CloudFormation.Types.ChangeSetHookTargetDetails
     Amazonka.CloudFormation.Types.ChangeSetStatus
     Amazonka.CloudFormation.Types.ChangeSetSummary
     Amazonka.CloudFormation.Types.ChangeSetType
@@ -128,10 +134,17 @@ library
     Amazonka.CloudFormation.Types.ExecutionStatus
     Amazonka.CloudFormation.Types.Export
     Amazonka.CloudFormation.Types.HandlerErrorCode
+    Amazonka.CloudFormation.Types.HookFailureMode
+    Amazonka.CloudFormation.Types.HookInvocationPoint
+    Amazonka.CloudFormation.Types.HookStatus
+    Amazonka.CloudFormation.Types.HookTargetType
     Amazonka.CloudFormation.Types.IdentityProvider
     Amazonka.CloudFormation.Types.LoggingConfig
+    Amazonka.CloudFormation.Types.ManagedExecution
     Amazonka.CloudFormation.Types.ModuleInfo
     Amazonka.CloudFormation.Types.OnFailure
+    Amazonka.CloudFormation.Types.OperationResultFilter
+    Amazonka.CloudFormation.Types.OperationResultFilterName
     Amazonka.CloudFormation.Types.OperationStatus
     Amazonka.CloudFormation.Types.Output
     Amazonka.CloudFormation.Types.Parameter
@@ -188,6 +201,7 @@ library
     Amazonka.CloudFormation.Types.StackSetOperationResultStatus
     Amazonka.CloudFormation.Types.StackSetOperationResultSummary
     Amazonka.CloudFormation.Types.StackSetOperationStatus
+    Amazonka.CloudFormation.Types.StackSetOperationStatusDetails
     Amazonka.CloudFormation.Types.StackSetOperationSummary
     Amazonka.CloudFormation.Types.StackSetStatus
     Amazonka.CloudFormation.Types.StackSetSummary
@@ -213,7 +227,7 @@ library
     Amazonka.CloudFormation.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-cloudformation-test
@@ -233,8 +247,8 @@ test-suite amazonka-cloudformation-test
 
   build-depends:
     , amazonka-cloudformation
-    , amazonka-core            ^>=2.0
-    , amazonka-test            ^>=2.0
+    , amazonka-core            >=2.0 && <2.1
+    , amazonka-test            >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

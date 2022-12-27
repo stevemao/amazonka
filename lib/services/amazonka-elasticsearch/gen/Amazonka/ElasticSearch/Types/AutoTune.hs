@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.AutoTune
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.ElasticSearch.Types.AutoTune where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types.AutoTuneDetails
 import Amazonka.ElasticSearch.Types.AutoTuneType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies Auto-Tune type and Auto-Tune action details.
@@ -69,14 +70,14 @@ autoTune_autoTuneDetails = Lens.lens (\AutoTune' {autoTuneDetails} -> autoTuneDe
 autoTune_autoTuneType :: Lens.Lens' AutoTune (Prelude.Maybe AutoTuneType)
 autoTune_autoTuneType = Lens.lens (\AutoTune' {autoTuneType} -> autoTuneType) (\s@AutoTune' {} a -> s {autoTuneType = a} :: AutoTune)
 
-instance Core.FromJSON AutoTune where
+instance Data.FromJSON AutoTune where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutoTune"
       ( \x ->
           AutoTune'
-            Prelude.<$> (x Core..:? "AutoTuneDetails")
-            Prelude.<*> (x Core..:? "AutoTuneType")
+            Prelude.<$> (x Data..:? "AutoTuneDetails")
+            Prelude.<*> (x Data..:? "AutoTuneType")
       )
 
 instance Prelude.Hashable AutoTune where

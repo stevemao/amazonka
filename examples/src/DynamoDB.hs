@@ -6,18 +6,20 @@
 -- | The examples in this module illustrate the use of 'setEndpoint' to allow
 -- for <http://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html local development>
 -- using DynamoDB. If you plan on developing against remote AWS DynamoDB, then
--- you can omit the 'setEndpoint' and 'reconfigure' steps below.
+-- you can omit the 'setEndpoint' and 'configure' steps below.
 module DynamoDB where
 
 import Amazonka
 import Amazonka.DynamoDB as DynamoDB
 import Control.Lens
 import Control.Monad.IO.Class
+import Data.ByteString (ByteString)
 import Data.Conduit
 import qualified Data.Conduit.List as CL
 import Data.Generics.Product
 import Data.HashMap.Strict (HashMap)
 import qualified Data.HashMap.Strict as Map
+import Data.Text (Text)
 import qualified Data.Text as Text
 import qualified Data.Text.IO as Text
 import System.IO
@@ -32,17 +34,19 @@ printTables ::
   -- | The port number to connect to.
   Int ->
   IO ()
-printTables region secure host port = do
+printTables reg sec hst prt = do
   -- Specify a custom DynamoDB endpoint to communicate with:
-  let dynamo = setEndpoint secure host port DynamoDB.defaultService
+  let dynamo = setEndpoint sec hst prt DynamoDB.defaultService
 
   lgr <- newLogger Debug stdout
   env <-
     newEnv discover
-      <&> set (field @"envLogger") lgr . configure dynamo . within region
+      <&> set (field @"logger") lgr
+        . set (field @"region") reg
+        . configureService dynamo
 
   runResourceT $ do
-    say $ "Listing all tables in region " <> toText region
+    say $ "Listing all tables in region " <> fromRegion reg
     runConduit $
       paginate env newListTables
         .| CL.concatMap (view (field @"tableNames" . _Just))
@@ -62,14 +66,16 @@ insertItem ::
   -- | The attribute name-value pairs that constitute an item.
   HashMap Text AttributeValue ->
   IO PutItemResponse
-insertItem region secure host port table item = do
+insertItem reg sec hst prt table item = do
   -- Specify a custom DynamoDB endpoint to communicate with:
-  let dynamo = setEndpoint secure host port DynamoDB.defaultService
+  let dynamo = setEndpoint sec hst prt DynamoDB.defaultService
 
   lgr <- newLogger Debug stdout
   env <-
     newEnv discover
-      <&> set (field @"envLogger") lgr . configure dynamo . within region
+      <&> set (field @"logger") lgr
+        . set (field @"region") reg
+        . configureService dynamo
 
   runResourceT $ do
     say $

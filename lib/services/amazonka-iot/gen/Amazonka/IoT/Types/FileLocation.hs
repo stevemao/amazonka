@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.FileLocation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.IoT.Types.FileLocation where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.S3Location
 import Amazonka.IoT.Types.Stream
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The location of the OTA update.
 --
 -- /See:/ 'newFileLocation' smart constructor.
 data FileLocation = FileLocation'
-  { -- | The stream that contains the OTA update.
-    stream :: Prelude.Maybe Stream,
-    -- | The location of the updated firmware in S3.
-    s3Location :: Prelude.Maybe S3Location
+  { -- | The location of the updated firmware in S3.
+    s3Location :: Prelude.Maybe S3Location,
+    -- | The stream that contains the OTA update.
+    stream :: Prelude.Maybe Stream
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,50 +45,50 @@ data FileLocation = FileLocation'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'stream', 'fileLocation_stream' - The stream that contains the OTA update.
---
 -- 's3Location', 'fileLocation_s3Location' - The location of the updated firmware in S3.
+--
+-- 'stream', 'fileLocation_stream' - The stream that contains the OTA update.
 newFileLocation ::
   FileLocation
 newFileLocation =
   FileLocation'
-    { stream = Prelude.Nothing,
-      s3Location = Prelude.Nothing
+    { s3Location = Prelude.Nothing,
+      stream = Prelude.Nothing
     }
-
--- | The stream that contains the OTA update.
-fileLocation_stream :: Lens.Lens' FileLocation (Prelude.Maybe Stream)
-fileLocation_stream = Lens.lens (\FileLocation' {stream} -> stream) (\s@FileLocation' {} a -> s {stream = a} :: FileLocation)
 
 -- | The location of the updated firmware in S3.
 fileLocation_s3Location :: Lens.Lens' FileLocation (Prelude.Maybe S3Location)
 fileLocation_s3Location = Lens.lens (\FileLocation' {s3Location} -> s3Location) (\s@FileLocation' {} a -> s {s3Location = a} :: FileLocation)
 
-instance Core.FromJSON FileLocation where
+-- | The stream that contains the OTA update.
+fileLocation_stream :: Lens.Lens' FileLocation (Prelude.Maybe Stream)
+fileLocation_stream = Lens.lens (\FileLocation' {stream} -> stream) (\s@FileLocation' {} a -> s {stream = a} :: FileLocation)
+
+instance Data.FromJSON FileLocation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FileLocation"
       ( \x ->
           FileLocation'
-            Prelude.<$> (x Core..:? "stream")
-            Prelude.<*> (x Core..:? "s3Location")
+            Prelude.<$> (x Data..:? "s3Location")
+            Prelude.<*> (x Data..:? "stream")
       )
 
 instance Prelude.Hashable FileLocation where
   hashWithSalt _salt FileLocation' {..} =
-    _salt `Prelude.hashWithSalt` stream
-      `Prelude.hashWithSalt` s3Location
+    _salt `Prelude.hashWithSalt` s3Location
+      `Prelude.hashWithSalt` stream
 
 instance Prelude.NFData FileLocation where
   rnf FileLocation' {..} =
-    Prelude.rnf stream
-      `Prelude.seq` Prelude.rnf s3Location
+    Prelude.rnf s3Location
+      `Prelude.seq` Prelude.rnf stream
 
-instance Core.ToJSON FileLocation where
+instance Data.ToJSON FileLocation where
   toJSON FileLocation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("stream" Core..=) Prelude.<$> stream,
-            ("s3Location" Core..=) Prelude.<$> s3Location
+          [ ("s3Location" Data..=) Prelude.<$> s3Location,
+            ("stream" Data..=) Prelude.<$> stream
           ]
       )

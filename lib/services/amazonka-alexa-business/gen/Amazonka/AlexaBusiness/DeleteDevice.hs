@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.DeleteDevice
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -74,7 +75,8 @@ deleteDevice_deviceArn = Lens.lens (\DeleteDevice' {deviceArn} -> deviceArn) (\s
 
 instance Core.AWSRequest DeleteDevice where
   type AWSResponse DeleteDevice = DeleteDeviceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -89,32 +91,32 @@ instance Prelude.Hashable DeleteDevice where
 instance Prelude.NFData DeleteDevice where
   rnf DeleteDevice' {..} = Prelude.rnf deviceArn
 
-instance Core.ToHeaders DeleteDevice where
+instance Data.ToHeaders DeleteDevice where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.DeleteDevice" ::
+              Data.=# ( "AlexaForBusiness.DeleteDevice" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteDevice where
+instance Data.ToJSON DeleteDevice where
   toJSON DeleteDevice' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("DeviceArn" Core..= deviceArn)]
+          [Prelude.Just ("DeviceArn" Data..= deviceArn)]
       )
 
-instance Core.ToPath DeleteDevice where
+instance Data.ToPath DeleteDevice where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDevice where
+instance Data.ToQuery DeleteDevice where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDeviceResponse' smart constructor.

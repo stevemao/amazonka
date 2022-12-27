@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.ClusterConfigStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,19 @@
 module Amazonka.OpenSearch.Types.ClusterConfigStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpenSearch.Types.ClusterConfig
 import Amazonka.OpenSearch.Types.OptionStatus
 import qualified Amazonka.Prelude as Prelude
 
--- | The configuration status for the specified domain.
+-- | The cluster configuration status for a domain.
 --
 -- /See:/ 'newClusterConfigStatus' smart constructor.
 data ClusterConfigStatus = ClusterConfigStatus'
-  { -- | The cluster configuration for the specified domain.
+  { -- | Cluster configuration options for the specified domain.
     options :: ClusterConfig,
-    -- | The cluster configuration status for the specified domain.
+    -- | The status of cluster configuration options for the specified domain.
     status :: OptionStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,9 +45,9 @@ data ClusterConfigStatus = ClusterConfigStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'options', 'clusterConfigStatus_options' - The cluster configuration for the specified domain.
+-- 'options', 'clusterConfigStatus_options' - Cluster configuration options for the specified domain.
 --
--- 'status', 'clusterConfigStatus_status' - The cluster configuration status for the specified domain.
+-- 'status', 'clusterConfigStatus_status' - The status of cluster configuration options for the specified domain.
 newClusterConfigStatus ::
   -- | 'options'
   ClusterConfig ->
@@ -59,22 +60,22 @@ newClusterConfigStatus pOptions_ pStatus_ =
       status = pStatus_
     }
 
--- | The cluster configuration for the specified domain.
+-- | Cluster configuration options for the specified domain.
 clusterConfigStatus_options :: Lens.Lens' ClusterConfigStatus ClusterConfig
 clusterConfigStatus_options = Lens.lens (\ClusterConfigStatus' {options} -> options) (\s@ClusterConfigStatus' {} a -> s {options = a} :: ClusterConfigStatus)
 
--- | The cluster configuration status for the specified domain.
+-- | The status of cluster configuration options for the specified domain.
 clusterConfigStatus_status :: Lens.Lens' ClusterConfigStatus OptionStatus
 clusterConfigStatus_status = Lens.lens (\ClusterConfigStatus' {status} -> status) (\s@ClusterConfigStatus' {} a -> s {status = a} :: ClusterConfigStatus)
 
-instance Core.FromJSON ClusterConfigStatus where
+instance Data.FromJSON ClusterConfigStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ClusterConfigStatus"
       ( \x ->
           ClusterConfigStatus'
-            Prelude.<$> (x Core..: "Options")
-            Prelude.<*> (x Core..: "Status")
+            Prelude.<$> (x Data..: "Options")
+            Prelude.<*> (x Data..: "Status")
       )
 
 instance Prelude.Hashable ClusterConfigStatus where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeSpotInstanceRequests
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,11 +48,11 @@ module Amazonka.EC2.DescribeSpotInstanceRequests
     newDescribeSpotInstanceRequests,
 
     -- * Request Lenses
-    describeSpotInstanceRequests_filters,
-    describeSpotInstanceRequests_spotInstanceRequestIds,
-    describeSpotInstanceRequests_nextToken,
     describeSpotInstanceRequests_dryRun,
+    describeSpotInstanceRequests_filters,
     describeSpotInstanceRequests_maxResults,
+    describeSpotInstanceRequests_nextToken,
+    describeSpotInstanceRequests_spotInstanceRequestIds,
 
     -- * Destructuring the Response
     DescribeSpotInstanceRequestsResponse (..),
@@ -66,8 +66,9 @@ module Amazonka.EC2.DescribeSpotInstanceRequests
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeSpotInstanceRequests' smart constructor.
 data DescribeSpotInstanceRequests = DescribeSpotInstanceRequests'
-  { -- | One or more filters.
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters.
     --
     -- -   @availability-zone-group@ - The Availability Zone group.
     --
@@ -168,7 +174,7 @@ data DescribeSpotInstanceRequests = DescribeSpotInstanceRequests'
     --     | @closed@ | @cancelled@ | @failed@). Spot request status
     --     information can help you track your Amazon EC2 Spot Instance
     --     requests. For more information, see
-    --     <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html Spot request status>
+    --     <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html Spot request status>
     --     in the /Amazon EC2 User Guide for Linux Instances/.
     --
     -- -   @status-code@ - The short code describing the most recent evaluation
@@ -194,20 +200,15 @@ data DescribeSpotInstanceRequests = DescribeSpotInstanceRequests'
     --
     -- -   @valid-until@ - The end date of the request.
     filters :: Prelude.Maybe [Filter],
-    -- | One or more Spot Instance request IDs.
-    spotInstanceRequestIds :: Prelude.Maybe [Prelude.Text],
-    -- | The token to request the next set of results. This value is @null@ when
-    -- there are no more results to return.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of results to return in a single call. Specify a
     -- value between 5 and 1000. To retrieve the remaining results, make
     -- another call with the returned @NextToken@ value.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token to request the next set of results. This value is @null@ when
+    -- there are no more results to return.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | One or more Spot Instance request IDs.
+    spotInstanceRequestIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -218,6 +219,11 @@ data DescribeSpotInstanceRequests = DescribeSpotInstanceRequests'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dryRun', 'describeSpotInstanceRequests_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeSpotInstanceRequests_filters' - One or more filters.
 --
@@ -311,7 +317,7 @@ data DescribeSpotInstanceRequests = DescribeSpotInstanceRequests'
 --     | @closed@ | @cancelled@ | @failed@). Spot request status
 --     information can help you track your Amazon EC2 Spot Instance
 --     requests. For more information, see
---     <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html Spot request status>
+--     <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html Spot request status>
 --     in the /Amazon EC2 User Guide for Linux Instances/.
 --
 -- -   @status-code@ - The short code describing the most recent evaluation
@@ -337,30 +343,32 @@ data DescribeSpotInstanceRequests = DescribeSpotInstanceRequests'
 --
 -- -   @valid-until@ - The end date of the request.
 --
--- 'spotInstanceRequestIds', 'describeSpotInstanceRequests_spotInstanceRequestIds' - One or more Spot Instance request IDs.
+-- 'maxResults', 'describeSpotInstanceRequests_maxResults' - The maximum number of results to return in a single call. Specify a
+-- value between 5 and 1000. To retrieve the remaining results, make
+-- another call with the returned @NextToken@ value.
 --
 -- 'nextToken', 'describeSpotInstanceRequests_nextToken' - The token to request the next set of results. This value is @null@ when
 -- there are no more results to return.
 --
--- 'dryRun', 'describeSpotInstanceRequests_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
--- 'maxResults', 'describeSpotInstanceRequests_maxResults' - The maximum number of results to return in a single call. Specify a
--- value between 5 and 1000. To retrieve the remaining results, make
--- another call with the returned @NextToken@ value.
+-- 'spotInstanceRequestIds', 'describeSpotInstanceRequests_spotInstanceRequestIds' - One or more Spot Instance request IDs.
 newDescribeSpotInstanceRequests ::
   DescribeSpotInstanceRequests
 newDescribeSpotInstanceRequests =
   DescribeSpotInstanceRequests'
-    { filters =
+    { dryRun =
         Prelude.Nothing,
-      spotInstanceRequestIds = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      spotInstanceRequestIds = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeSpotInstanceRequests_dryRun :: Lens.Lens' DescribeSpotInstanceRequests (Prelude.Maybe Prelude.Bool)
+describeSpotInstanceRequests_dryRun = Lens.lens (\DescribeSpotInstanceRequests' {dryRun} -> dryRun) (\s@DescribeSpotInstanceRequests' {} a -> s {dryRun = a} :: DescribeSpotInstanceRequests)
 
 -- | One or more filters.
 --
@@ -454,7 +462,7 @@ newDescribeSpotInstanceRequests =
 --     | @closed@ | @cancelled@ | @failed@). Spot request status
 --     information can help you track your Amazon EC2 Spot Instance
 --     requests. For more information, see
---     <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-bid-status.html Spot request status>
+--     <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/spot-request-status.html Spot request status>
 --     in the /Amazon EC2 User Guide for Linux Instances/.
 --
 -- -   @status-code@ - The short code describing the most recent evaluation
@@ -482,27 +490,20 @@ newDescribeSpotInstanceRequests =
 describeSpotInstanceRequests_filters :: Lens.Lens' DescribeSpotInstanceRequests (Prelude.Maybe [Filter])
 describeSpotInstanceRequests_filters = Lens.lens (\DescribeSpotInstanceRequests' {filters} -> filters) (\s@DescribeSpotInstanceRequests' {} a -> s {filters = a} :: DescribeSpotInstanceRequests) Prelude.. Lens.mapping Lens.coerced
 
--- | One or more Spot Instance request IDs.
-describeSpotInstanceRequests_spotInstanceRequestIds :: Lens.Lens' DescribeSpotInstanceRequests (Prelude.Maybe [Prelude.Text])
-describeSpotInstanceRequests_spotInstanceRequestIds = Lens.lens (\DescribeSpotInstanceRequests' {spotInstanceRequestIds} -> spotInstanceRequestIds) (\s@DescribeSpotInstanceRequests' {} a -> s {spotInstanceRequestIds = a} :: DescribeSpotInstanceRequests) Prelude.. Lens.mapping Lens.coerced
+-- | The maximum number of results to return in a single call. Specify a
+-- value between 5 and 1000. To retrieve the remaining results, make
+-- another call with the returned @NextToken@ value.
+describeSpotInstanceRequests_maxResults :: Lens.Lens' DescribeSpotInstanceRequests (Prelude.Maybe Prelude.Int)
+describeSpotInstanceRequests_maxResults = Lens.lens (\DescribeSpotInstanceRequests' {maxResults} -> maxResults) (\s@DescribeSpotInstanceRequests' {} a -> s {maxResults = a} :: DescribeSpotInstanceRequests)
 
 -- | The token to request the next set of results. This value is @null@ when
 -- there are no more results to return.
 describeSpotInstanceRequests_nextToken :: Lens.Lens' DescribeSpotInstanceRequests (Prelude.Maybe Prelude.Text)
 describeSpotInstanceRequests_nextToken = Lens.lens (\DescribeSpotInstanceRequests' {nextToken} -> nextToken) (\s@DescribeSpotInstanceRequests' {} a -> s {nextToken = a} :: DescribeSpotInstanceRequests)
 
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeSpotInstanceRequests_dryRun :: Lens.Lens' DescribeSpotInstanceRequests (Prelude.Maybe Prelude.Bool)
-describeSpotInstanceRequests_dryRun = Lens.lens (\DescribeSpotInstanceRequests' {dryRun} -> dryRun) (\s@DescribeSpotInstanceRequests' {} a -> s {dryRun = a} :: DescribeSpotInstanceRequests)
-
--- | The maximum number of results to return in a single call. Specify a
--- value between 5 and 1000. To retrieve the remaining results, make
--- another call with the returned @NextToken@ value.
-describeSpotInstanceRequests_maxResults :: Lens.Lens' DescribeSpotInstanceRequests (Prelude.Maybe Prelude.Int)
-describeSpotInstanceRequests_maxResults = Lens.lens (\DescribeSpotInstanceRequests' {maxResults} -> maxResults) (\s@DescribeSpotInstanceRequests' {} a -> s {maxResults = a} :: DescribeSpotInstanceRequests)
+-- | One or more Spot Instance request IDs.
+describeSpotInstanceRequests_spotInstanceRequestIds :: Lens.Lens' DescribeSpotInstanceRequests (Prelude.Maybe [Prelude.Text])
+describeSpotInstanceRequests_spotInstanceRequestIds = Lens.lens (\DescribeSpotInstanceRequests' {spotInstanceRequestIds} -> spotInstanceRequestIds) (\s@DescribeSpotInstanceRequests' {} a -> s {spotInstanceRequestIds = a} :: DescribeSpotInstanceRequests) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSPager DescribeSpotInstanceRequests where
   page rq rs
@@ -530,15 +531,16 @@ instance Core.AWSRequest DescribeSpotInstanceRequests where
   type
     AWSResponse DescribeSpotInstanceRequests =
       DescribeSpotInstanceRequestsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeSpotInstanceRequestsResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-            Prelude.<*> ( x Core..@? "spotInstanceRequestSet"
+            Prelude.<$> (x Data..@? "nextToken")
+            Prelude.<*> ( x Data..@? "spotInstanceRequestSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -548,44 +550,44 @@ instance
     DescribeSpotInstanceRequests
   where
   hashWithSalt _salt DescribeSpotInstanceRequests' {..} =
-    _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` spotInstanceRequestIds
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` dryRun
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` spotInstanceRequestIds
 
 instance Prelude.NFData DescribeSpotInstanceRequests where
   rnf DescribeSpotInstanceRequests' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf spotInstanceRequestIds
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf dryRun
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf spotInstanceRequestIds
 
-instance Core.ToHeaders DescribeSpotInstanceRequests where
+instance Data.ToHeaders DescribeSpotInstanceRequests where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeSpotInstanceRequests where
+instance Data.ToPath DescribeSpotInstanceRequests where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeSpotInstanceRequests where
+instance Data.ToQuery DescribeSpotInstanceRequests where
   toQuery DescribeSpotInstanceRequests' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeSpotInstanceRequests" ::
+          Data.=: ( "DescribeSpotInstanceRequests" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        Core.toQuery
-          ( Core.toQueryList "SpotInstanceRequestId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        Data.toQuery
+          ( Data.toQueryList "SpotInstanceRequestId"
               Prelude.<$> spotInstanceRequestIds
-          ),
-        "NextToken" Core.=: nextToken,
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+          )
       ]
 
 -- | Contains the output of DescribeSpotInstanceRequests.

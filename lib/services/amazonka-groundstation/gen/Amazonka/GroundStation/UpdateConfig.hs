@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GroundStation.UpdateConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.GroundStation.UpdateConfig
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GroundStation.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,10 +124,11 @@ updateConfig_name = Lens.lens (\UpdateConfig' {name} -> name) (\s@UpdateConfig' 
 
 instance Core.AWSRequest UpdateConfig where
   type AWSResponse UpdateConfig = ConfigIdResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable UpdateConfig where
   hashWithSalt _salt UpdateConfig' {..} =
@@ -142,34 +144,34 @@ instance Prelude.NFData UpdateConfig where
       `Prelude.seq` Prelude.rnf configType
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders UpdateConfig where
+instance Data.ToHeaders UpdateConfig where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateConfig where
+instance Data.ToJSON UpdateConfig where
   toJSON UpdateConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("configData" Core..= configData),
-            Prelude.Just ("name" Core..= name)
+          [ Prelude.Just ("configData" Data..= configData),
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath UpdateConfig where
+instance Data.ToPath UpdateConfig where
   toPath UpdateConfig' {..} =
     Prelude.mconcat
       [ "/config/",
-        Core.toBS configType,
+        Data.toBS configType,
         "/",
-        Core.toBS configId
+        Data.toBS configId
       ]
 
-instance Core.ToQuery UpdateConfig where
+instance Data.ToQuery UpdateConfig where
   toQuery = Prelude.const Prelude.mempty

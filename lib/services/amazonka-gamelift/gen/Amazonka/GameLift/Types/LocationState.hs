@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.Types.LocationState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.GameLift.Types.LocationState where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types.FleetStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | A fleet location and its life-cycle state. A location state object might
@@ -30,16 +31,33 @@ import qualified Amazonka.Prelude as Prelude
 -- a new location and preparing it for game hosting, and then removing all
 -- instances and deleting the location from the fleet.
 --
--- __Related actions__
+-- -   __NEW__ -- A new fleet location has been defined and desired
+--     instances is set to 1.
 --
--- CreateFleet | CreateFleetLocations | DeleteFleetLocations
+-- -   __DOWNLOADING\/VALIDATING\/BUILDING\/ACTIVATING__ -- GameLift is
+--     setting up the new fleet location, creating new instances with the
+--     game build or Realtime script and starting server processes.
+--
+-- -   __ACTIVE__ -- Hosts can now accept game sessions.
+--
+-- -   __ERROR__ -- An error occurred when downloading, validating,
+--     building, or activating the fleet location.
+--
+-- -   __DELETING__ -- Hosts are responding to a delete fleet location
+--     request.
+--
+-- -   __TERMINATED__ -- The fleet location no longer exists.
+--
+-- -   __NOT_FOUND__ -- The fleet location was not found. This could be
+--     because the custom location was removed or not created.
 --
 -- /See:/ 'newLocationState' smart constructor.
 data LocationState = LocationState'
-  { -- | The life-cycle status of a fleet location.
-    status :: Prelude.Maybe FleetStatus,
-    -- | The fleet location, expressed as an AWS Region code such as @us-west-2@.
-    location :: Prelude.Maybe Prelude.Text
+  { -- | The fleet location, expressed as an Amazon Web Services Region code such
+    -- as @us-west-2@.
+    location :: Prelude.Maybe Prelude.Text,
+    -- | The life-cycle status of a fleet location.
+    status :: Prelude.Maybe FleetStatus
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,41 +69,43 @@ data LocationState = LocationState'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'locationState_status' - The life-cycle status of a fleet location.
+-- 'location', 'locationState_location' - The fleet location, expressed as an Amazon Web Services Region code such
+-- as @us-west-2@.
 --
--- 'location', 'locationState_location' - The fleet location, expressed as an AWS Region code such as @us-west-2@.
+-- 'status', 'locationState_status' - The life-cycle status of a fleet location.
 newLocationState ::
   LocationState
 newLocationState =
   LocationState'
-    { status = Prelude.Nothing,
-      location = Prelude.Nothing
+    { location = Prelude.Nothing,
+      status = Prelude.Nothing
     }
+
+-- | The fleet location, expressed as an Amazon Web Services Region code such
+-- as @us-west-2@.
+locationState_location :: Lens.Lens' LocationState (Prelude.Maybe Prelude.Text)
+locationState_location = Lens.lens (\LocationState' {location} -> location) (\s@LocationState' {} a -> s {location = a} :: LocationState)
 
 -- | The life-cycle status of a fleet location.
 locationState_status :: Lens.Lens' LocationState (Prelude.Maybe FleetStatus)
 locationState_status = Lens.lens (\LocationState' {status} -> status) (\s@LocationState' {} a -> s {status = a} :: LocationState)
 
--- | The fleet location, expressed as an AWS Region code such as @us-west-2@.
-locationState_location :: Lens.Lens' LocationState (Prelude.Maybe Prelude.Text)
-locationState_location = Lens.lens (\LocationState' {location} -> location) (\s@LocationState' {} a -> s {location = a} :: LocationState)
-
-instance Core.FromJSON LocationState where
+instance Data.FromJSON LocationState where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LocationState"
       ( \x ->
           LocationState'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "Location")
+            Prelude.<$> (x Data..:? "Location")
+            Prelude.<*> (x Data..:? "Status")
       )
 
 instance Prelude.Hashable LocationState where
   hashWithSalt _salt LocationState' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` location
+    _salt `Prelude.hashWithSalt` location
+      `Prelude.hashWithSalt` status
 
 instance Prelude.NFData LocationState where
   rnf LocationState' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf location
+    Prelude.rnf location
+      `Prelude.seq` Prelude.rnf status

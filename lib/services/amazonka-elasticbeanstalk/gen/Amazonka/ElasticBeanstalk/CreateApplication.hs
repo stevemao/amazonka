@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.CreateApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.ElasticBeanstalk.CreateApplication
     newCreateApplication,
 
     -- * Request Lenses
-    createApplication_resourceLifecycleConfig,
     createApplication_description,
+    createApplication_resourceLifecycleConfig,
     createApplication_tags,
     createApplication_applicationName,
 
@@ -43,8 +43,9 @@ module Amazonka.ElasticBeanstalk.CreateApplication
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,11 +54,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateApplication' smart constructor.
 data CreateApplication = CreateApplication'
-  { -- | Specifies an application resource lifecycle configuration to prevent
+  { -- | Your description of the application.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Specifies an application resource lifecycle configuration to prevent
     -- your application from accumulating too many versions.
     resourceLifecycleConfig :: Prelude.Maybe ApplicationResourceLifecycleConfig,
-    -- | Your description of the application.
-    description :: Prelude.Maybe Prelude.Text,
     -- | Specifies the tags applied to the application.
     --
     -- Elastic Beanstalk applies these tags only to the application.
@@ -76,10 +77,10 @@ data CreateApplication = CreateApplication'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createApplication_description' - Your description of the application.
+--
 -- 'resourceLifecycleConfig', 'createApplication_resourceLifecycleConfig' - Specifies an application resource lifecycle configuration to prevent
 -- your application from accumulating too many versions.
---
--- 'description', 'createApplication_description' - Your description of the application.
 --
 -- 'tags', 'createApplication_tags' - Specifies the tags applied to the application.
 --
@@ -93,21 +94,20 @@ newCreateApplication ::
   CreateApplication
 newCreateApplication pApplicationName_ =
   CreateApplication'
-    { resourceLifecycleConfig =
-        Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      resourceLifecycleConfig = Prelude.Nothing,
       tags = Prelude.Nothing,
       applicationName = pApplicationName_
     }
+
+-- | Your description of the application.
+createApplication_description :: Lens.Lens' CreateApplication (Prelude.Maybe Prelude.Text)
+createApplication_description = Lens.lens (\CreateApplication' {description} -> description) (\s@CreateApplication' {} a -> s {description = a} :: CreateApplication)
 
 -- | Specifies an application resource lifecycle configuration to prevent
 -- your application from accumulating too many versions.
 createApplication_resourceLifecycleConfig :: Lens.Lens' CreateApplication (Prelude.Maybe ApplicationResourceLifecycleConfig)
 createApplication_resourceLifecycleConfig = Lens.lens (\CreateApplication' {resourceLifecycleConfig} -> resourceLifecycleConfig) (\s@CreateApplication' {} a -> s {resourceLifecycleConfig = a} :: CreateApplication)
-
--- | Your description of the application.
-createApplication_description :: Lens.Lens' CreateApplication (Prelude.Maybe Prelude.Text)
-createApplication_description = Lens.lens (\CreateApplication' {description} -> description) (\s@CreateApplication' {} a -> s {description = a} :: CreateApplication)
 
 -- | Specifies the tags applied to the application.
 --
@@ -124,45 +124,45 @@ instance Core.AWSRequest CreateApplication where
   type
     AWSResponse CreateApplication =
       ApplicationDescriptionMessage
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateApplicationResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable CreateApplication where
   hashWithSalt _salt CreateApplication' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` resourceLifecycleConfig
-      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` applicationName
 
 instance Prelude.NFData CreateApplication where
   rnf CreateApplication' {..} =
-    Prelude.rnf resourceLifecycleConfig
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf resourceLifecycleConfig
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf applicationName
 
-instance Core.ToHeaders CreateApplication where
+instance Data.ToHeaders CreateApplication where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateApplication where
+instance Data.ToPath CreateApplication where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateApplication where
+instance Data.ToQuery CreateApplication where
   toQuery CreateApplication' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateApplication" :: Prelude.ByteString),
+          Data.=: ("CreateApplication" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "Description" Data.=: description,
         "ResourceLifecycleConfig"
-          Core.=: resourceLifecycleConfig,
-        "Description" Core.=: description,
+          Data.=: resourceLifecycleConfig,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tags),
-        "ApplicationName" Core.=: applicationName
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tags),
+        "ApplicationName" Data.=: applicationName
       ]

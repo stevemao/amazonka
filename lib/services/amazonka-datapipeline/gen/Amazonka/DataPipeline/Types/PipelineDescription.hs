@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataPipeline.Types.PipelineDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.DataPipeline.Types.PipelineDescription where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataPipeline.Types.Field
 import Amazonka.DataPipeline.Types.Tag
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains pipeline metadata.
@@ -109,17 +110,17 @@ pipelineDescription_name = Lens.lens (\PipelineDescription' {name} -> name) (\s@
 pipelineDescription_fields :: Lens.Lens' PipelineDescription [Field]
 pipelineDescription_fields = Lens.lens (\PipelineDescription' {fields} -> fields) (\s@PipelineDescription' {} a -> s {fields = a} :: PipelineDescription) Prelude.. Lens.coerced
 
-instance Core.FromJSON PipelineDescription where
+instance Data.FromJSON PipelineDescription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PipelineDescription"
       ( \x ->
           PipelineDescription'
-            Prelude.<$> (x Core..:? "description")
-            Prelude.<*> (x Core..:? "tags" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "pipelineId")
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..:? "fields" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "description")
+            Prelude.<*> (x Data..:? "tags" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "pipelineId")
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..:? "fields" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable PipelineDescription where

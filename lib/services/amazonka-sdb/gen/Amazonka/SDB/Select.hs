@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SDB.Select
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -57,7 +57,8 @@ module Amazonka.SDB.Select
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -146,14 +147,15 @@ instance Core.AWSPager Select where
 
 instance Core.AWSRequest Select where
   type AWSResponse Select = SelectResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SelectResult"
       ( \s h x ->
           SelectResponse'
-            Prelude.<$> (Core.may (Core.parseXMLList "Item") x)
-            Prelude.<*> (x Core..@? "NextToken")
+            Prelude.<$> (Core.may (Data.parseXMLList "Item") x)
+            Prelude.<*> (x Data..@? "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -169,21 +171,21 @@ instance Prelude.NFData Select where
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf selectExpression
 
-instance Core.ToHeaders Select where
+instance Data.ToHeaders Select where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath Select where
+instance Data.ToPath Select where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery Select where
+instance Data.ToQuery Select where
   toQuery Select' {..} =
     Prelude.mconcat
-      [ "Action" Core.=: ("Select" :: Prelude.ByteString),
+      [ "Action" Data.=: ("Select" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2009-04-15" :: Prelude.ByteString),
-        "ConsistentRead" Core.=: consistentRead,
-        "NextToken" Core.=: nextToken,
-        "SelectExpression" Core.=: selectExpression
+          Data.=: ("2009-04-15" :: Prelude.ByteString),
+        "ConsistentRead" Data.=: consistentRead,
+        "NextToken" Data.=: nextToken,
+        "SelectExpression" Data.=: selectExpression
       ]
 
 -- | /See:/ 'newSelectResponse' smart constructor.

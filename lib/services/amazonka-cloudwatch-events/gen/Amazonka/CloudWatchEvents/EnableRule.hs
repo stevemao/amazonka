@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudWatchEvents.EnableRule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.CloudWatchEvents.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -91,7 +92,8 @@ enableRule_name = Lens.lens (\EnableRule' {name} -> name) (\s@EnableRule' {} a -
 
 instance Core.AWSRequest EnableRule where
   type AWSResponse EnableRule = EnableRuleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull EnableRuleResponse'
 
 instance Prelude.Hashable EnableRule where
@@ -104,32 +106,32 @@ instance Prelude.NFData EnableRule where
     Prelude.rnf eventBusName
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders EnableRule where
+instance Data.ToHeaders EnableRule where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSEvents.EnableRule" :: Prelude.ByteString),
+              Data.=# ("AWSEvents.EnableRule" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EnableRule where
+instance Data.ToJSON EnableRule where
   toJSON EnableRule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EventBusName" Core..=) Prelude.<$> eventBusName,
-            Prelude.Just ("Name" Core..= name)
+          [ ("EventBusName" Data..=) Prelude.<$> eventBusName,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath EnableRule where
+instance Data.ToPath EnableRule where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableRule where
+instance Data.ToQuery EnableRule where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newEnableRuleResponse' smart constructor.

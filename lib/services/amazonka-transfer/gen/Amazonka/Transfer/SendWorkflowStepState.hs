@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.SendWorkflowStepState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.Transfer.SendWorkflowStepState
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -125,7 +126,8 @@ instance Core.AWSRequest SendWorkflowStepState where
   type
     AWSResponse SendWorkflowStepState =
       SendWorkflowStepStateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -147,36 +149,36 @@ instance Prelude.NFData SendWorkflowStepState where
       `Prelude.seq` Prelude.rnf token
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders SendWorkflowStepState where
+instance Data.ToHeaders SendWorkflowStepState where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "TransferService.SendWorkflowStepState" ::
+              Data.=# ( "TransferService.SendWorkflowStepState" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SendWorkflowStepState where
+instance Data.ToJSON SendWorkflowStepState where
   toJSON SendWorkflowStepState' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("WorkflowId" Core..= workflowId),
-            Prelude.Just ("ExecutionId" Core..= executionId),
-            Prelude.Just ("Token" Core..= token),
-            Prelude.Just ("Status" Core..= status)
+          [ Prelude.Just ("WorkflowId" Data..= workflowId),
+            Prelude.Just ("ExecutionId" Data..= executionId),
+            Prelude.Just ("Token" Data..= token),
+            Prelude.Just ("Status" Data..= status)
           ]
       )
 
-instance Core.ToPath SendWorkflowStepState where
+instance Data.ToPath SendWorkflowStepState where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SendWorkflowStepState where
+instance Data.ToQuery SendWorkflowStepState where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSendWorkflowStepStateResponse' smart constructor.

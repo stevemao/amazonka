@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MachineLearning.Types.RedshiftDatabase
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MachineLearning.Types.RedshiftDatabase where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the database details required to connect to an Amazon Redshift
@@ -66,14 +67,14 @@ redshiftDatabase_databaseName = Lens.lens (\RedshiftDatabase' {databaseName} -> 
 redshiftDatabase_clusterIdentifier :: Lens.Lens' RedshiftDatabase Prelude.Text
 redshiftDatabase_clusterIdentifier = Lens.lens (\RedshiftDatabase' {clusterIdentifier} -> clusterIdentifier) (\s@RedshiftDatabase' {} a -> s {clusterIdentifier = a} :: RedshiftDatabase)
 
-instance Core.FromJSON RedshiftDatabase where
+instance Data.FromJSON RedshiftDatabase where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RedshiftDatabase"
       ( \x ->
           RedshiftDatabase'
-            Prelude.<$> (x Core..: "DatabaseName")
-            Prelude.<*> (x Core..: "ClusterIdentifier")
+            Prelude.<$> (x Data..: "DatabaseName")
+            Prelude.<*> (x Data..: "ClusterIdentifier")
       )
 
 instance Prelude.Hashable RedshiftDatabase where
@@ -86,12 +87,12 @@ instance Prelude.NFData RedshiftDatabase where
     Prelude.rnf databaseName
       `Prelude.seq` Prelude.rnf clusterIdentifier
 
-instance Core.ToJSON RedshiftDatabase where
+instance Data.ToJSON RedshiftDatabase where
   toJSON RedshiftDatabase' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("DatabaseName" Core..= databaseName),
+          [ Prelude.Just ("DatabaseName" Data..= databaseName),
             Prelude.Just
-              ("ClusterIdentifier" Core..= clusterIdentifier)
+              ("ClusterIdentifier" Data..= clusterIdentifier)
           ]
       )

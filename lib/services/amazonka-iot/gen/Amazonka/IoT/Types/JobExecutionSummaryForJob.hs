@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.JobExecutionSummaryForJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoT.Types.JobExecutionSummaryForJob where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types.JobExecutionSummary
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains a summary of information about job executions for a specific
@@ -64,14 +65,14 @@ jobExecutionSummaryForJob_jobExecutionSummary = Lens.lens (\JobExecutionSummaryF
 jobExecutionSummaryForJob_thingArn :: Lens.Lens' JobExecutionSummaryForJob (Prelude.Maybe Prelude.Text)
 jobExecutionSummaryForJob_thingArn = Lens.lens (\JobExecutionSummaryForJob' {thingArn} -> thingArn) (\s@JobExecutionSummaryForJob' {} a -> s {thingArn = a} :: JobExecutionSummaryForJob)
 
-instance Core.FromJSON JobExecutionSummaryForJob where
+instance Data.FromJSON JobExecutionSummaryForJob where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "JobExecutionSummaryForJob"
       ( \x ->
           JobExecutionSummaryForJob'
-            Prelude.<$> (x Core..:? "jobExecutionSummary")
-            Prelude.<*> (x Core..:? "thingArn")
+            Prelude.<$> (x Data..:? "jobExecutionSummary")
+            Prelude.<*> (x Data..:? "thingArn")
       )
 
 instance Prelude.Hashable JobExecutionSummaryForJob where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppSync.GetGraphqlApi
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.AppSync.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,12 +78,13 @@ instance Core.AWSRequest GetGraphqlApi where
   type
     AWSResponse GetGraphqlApi =
       GetGraphqlApiResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetGraphqlApiResponse'
-            Prelude.<$> (x Core..?> "graphqlApi")
+            Prelude.<$> (x Data..?> "graphqlApi")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -93,22 +95,22 @@ instance Prelude.Hashable GetGraphqlApi where
 instance Prelude.NFData GetGraphqlApi where
   rnf GetGraphqlApi' {..} = Prelude.rnf apiId
 
-instance Core.ToHeaders GetGraphqlApi where
+instance Data.ToHeaders GetGraphqlApi where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetGraphqlApi where
+instance Data.ToPath GetGraphqlApi where
   toPath GetGraphqlApi' {..} =
-    Prelude.mconcat ["/v1/apis/", Core.toBS apiId]
+    Prelude.mconcat ["/v1/apis/", Data.toBS apiId]
 
-instance Core.ToQuery GetGraphqlApi where
+instance Data.ToQuery GetGraphqlApi where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetGraphqlApiResponse' smart constructor.

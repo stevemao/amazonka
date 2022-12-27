@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.CreateStorageLocation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.ElasticBeanstalk.CreateStorageLocation
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,13 +67,14 @@ instance Core.AWSRequest CreateStorageLocation where
   type
     AWSResponse CreateStorageLocation =
       CreateStorageLocationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateStorageLocationResult"
       ( \s h x ->
           CreateStorageLocationResponse'
-            Prelude.<$> (x Core..@? "S3Bucket")
+            Prelude.<$> (x Data..@? "S3Bucket")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -83,20 +85,20 @@ instance Prelude.Hashable CreateStorageLocation where
 instance Prelude.NFData CreateStorageLocation where
   rnf _ = ()
 
-instance Core.ToHeaders CreateStorageLocation where
+instance Data.ToHeaders CreateStorageLocation where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateStorageLocation where
+instance Data.ToPath CreateStorageLocation where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateStorageLocation where
+instance Data.ToQuery CreateStorageLocation where
   toQuery =
     Prelude.const
       ( Prelude.mconcat
           [ "Action"
-              Core.=: ("CreateStorageLocation" :: Prelude.ByteString),
+              Data.=: ("CreateStorageLocation" :: Prelude.ByteString),
             "Version"
-              Core.=: ("2010-12-01" :: Prelude.ByteString)
+              Data.=: ("2010-12-01" :: Prelude.ByteString)
           ]
       )
 

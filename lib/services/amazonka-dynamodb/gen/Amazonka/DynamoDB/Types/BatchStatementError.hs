@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.BatchStatementError
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,11 @@
 module Amazonka.DynamoDB.Types.BatchStatementError where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.BatchStatementErrorCodeEnum
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | An error associated with a statement in a PartiQL batch that was run.
@@ -31,7 +33,7 @@ import qualified Amazonka.Prelude as Prelude
 data BatchStatementError = BatchStatementError'
   { -- | The error code associated with the failed PartiQL batch statement.
     code :: Prelude.Maybe BatchStatementErrorCodeEnum,
-    -- | The error message associated with the PartiQL batch resposne.
+    -- | The error message associated with the PartiQL batch response.
     message :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -46,7 +48,7 @@ data BatchStatementError = BatchStatementError'
 --
 -- 'code', 'batchStatementError_code' - The error code associated with the failed PartiQL batch statement.
 --
--- 'message', 'batchStatementError_message' - The error message associated with the PartiQL batch resposne.
+-- 'message', 'batchStatementError_message' - The error message associated with the PartiQL batch response.
 newBatchStatementError ::
   BatchStatementError
 newBatchStatementError =
@@ -59,18 +61,18 @@ newBatchStatementError =
 batchStatementError_code :: Lens.Lens' BatchStatementError (Prelude.Maybe BatchStatementErrorCodeEnum)
 batchStatementError_code = Lens.lens (\BatchStatementError' {code} -> code) (\s@BatchStatementError' {} a -> s {code = a} :: BatchStatementError)
 
--- | The error message associated with the PartiQL batch resposne.
+-- | The error message associated with the PartiQL batch response.
 batchStatementError_message :: Lens.Lens' BatchStatementError (Prelude.Maybe Prelude.Text)
 batchStatementError_message = Lens.lens (\BatchStatementError' {message} -> message) (\s@BatchStatementError' {} a -> s {message = a} :: BatchStatementError)
 
-instance Core.FromJSON BatchStatementError where
+instance Data.FromJSON BatchStatementError where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchStatementError"
       ( \x ->
           BatchStatementError'
-            Prelude.<$> (x Core..:? "Code")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Code")
+            Prelude.<*> (x Data..:? "Message")
       )
 
 instance Prelude.Hashable BatchStatementError where

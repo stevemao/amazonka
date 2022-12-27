@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.CreateAnomalySubscription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,6 +30,7 @@ module Amazonka.CostExplorer.CreateAnomalySubscription
     newCreateAnomalySubscription,
 
     -- * Request Lenses
+    createAnomalySubscription_resourceTags,
     createAnomalySubscription_anomalySubscription,
 
     -- * Destructuring the Response
@@ -43,15 +44,42 @@ module Amazonka.CostExplorer.CreateAnomalySubscription
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateAnomalySubscription' smart constructor.
 data CreateAnomalySubscription = CreateAnomalySubscription'
-  { -- | The cost anomaly subscription object that you want to create.
+  { -- | An optional list of tags to associate with the specified
+    -- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_AnomalySubscription.html AnomalySubscription>
+    -- . You can use resource tags to control access to your @subscription@
+    -- using IAM policies.
+    --
+    -- Each tag consists of a key and a value, and each key must be unique for
+    -- the resource. The following restrictions apply to resource tags:
+    --
+    -- -   Although the maximum number of array members is 200, you can assign
+    --     a maximum of 50 user-tags to one resource. The remaining are
+    --     reserved for Amazon Web Services use
+    --
+    -- -   The maximum length of a key is 128 characters
+    --
+    -- -   The maximum length of a value is 256 characters
+    --
+    -- -   Keys and values can only contain alphanumeric characters, spaces,
+    --     and any of the following: @_.:\/=+\@-@
+    --
+    -- -   Keys and values are case sensitive
+    --
+    -- -   Keys and values are trimmed for any leading or trailing whitespaces
+    --
+    -- -   Don’t use @aws:@ as a prefix for your keys. This prefix is reserved
+    --     for Amazon Web Services use
+    resourceTags :: Prelude.Maybe [ResourceTag],
+    -- | The cost anomaly subscription object that you want to create.
     anomalySubscription :: AnomalySubscription
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -64,6 +92,32 @@ data CreateAnomalySubscription = CreateAnomalySubscription'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'resourceTags', 'createAnomalySubscription_resourceTags' - An optional list of tags to associate with the specified
+-- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_AnomalySubscription.html AnomalySubscription>
+-- . You can use resource tags to control access to your @subscription@
+-- using IAM policies.
+--
+-- Each tag consists of a key and a value, and each key must be unique for
+-- the resource. The following restrictions apply to resource tags:
+--
+-- -   Although the maximum number of array members is 200, you can assign
+--     a maximum of 50 user-tags to one resource. The remaining are
+--     reserved for Amazon Web Services use
+--
+-- -   The maximum length of a key is 128 characters
+--
+-- -   The maximum length of a value is 256 characters
+--
+-- -   Keys and values can only contain alphanumeric characters, spaces,
+--     and any of the following: @_.:\/=+\@-@
+--
+-- -   Keys and values are case sensitive
+--
+-- -   Keys and values are trimmed for any leading or trailing whitespaces
+--
+-- -   Don’t use @aws:@ as a prefix for your keys. This prefix is reserved
+--     for Amazon Web Services use
+--
 -- 'anomalySubscription', 'createAnomalySubscription_anomalySubscription' - The cost anomaly subscription object that you want to create.
 newCreateAnomalySubscription ::
   -- | 'anomalySubscription'
@@ -71,9 +125,38 @@ newCreateAnomalySubscription ::
   CreateAnomalySubscription
 newCreateAnomalySubscription pAnomalySubscription_ =
   CreateAnomalySubscription'
-    { anomalySubscription =
-        pAnomalySubscription_
+    { resourceTags =
+        Prelude.Nothing,
+      anomalySubscription = pAnomalySubscription_
     }
+
+-- | An optional list of tags to associate with the specified
+-- <https://docs.aws.amazon.com/aws-cost-management/latest/APIReference/API_AnomalySubscription.html AnomalySubscription>
+-- . You can use resource tags to control access to your @subscription@
+-- using IAM policies.
+--
+-- Each tag consists of a key and a value, and each key must be unique for
+-- the resource. The following restrictions apply to resource tags:
+--
+-- -   Although the maximum number of array members is 200, you can assign
+--     a maximum of 50 user-tags to one resource. The remaining are
+--     reserved for Amazon Web Services use
+--
+-- -   The maximum length of a key is 128 characters
+--
+-- -   The maximum length of a value is 256 characters
+--
+-- -   Keys and values can only contain alphanumeric characters, spaces,
+--     and any of the following: @_.:\/=+\@-@
+--
+-- -   Keys and values are case sensitive
+--
+-- -   Keys and values are trimmed for any leading or trailing whitespaces
+--
+-- -   Don’t use @aws:@ as a prefix for your keys. This prefix is reserved
+--     for Amazon Web Services use
+createAnomalySubscription_resourceTags :: Lens.Lens' CreateAnomalySubscription (Prelude.Maybe [ResourceTag])
+createAnomalySubscription_resourceTags = Lens.lens (\CreateAnomalySubscription' {resourceTags} -> resourceTags) (\s@CreateAnomalySubscription' {} a -> s {resourceTags = a} :: CreateAnomalySubscription) Prelude.. Lens.mapping Lens.coerced
 
 -- | The cost anomaly subscription object that you want to create.
 createAnomalySubscription_anomalySubscription :: Lens.Lens' CreateAnomalySubscription AnomalySubscription
@@ -83,51 +166,55 @@ instance Core.AWSRequest CreateAnomalySubscription where
   type
     AWSResponse CreateAnomalySubscription =
       CreateAnomalySubscriptionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateAnomalySubscriptionResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "SubscriptionArn")
+            Prelude.<*> (x Data..:> "SubscriptionArn")
       )
 
 instance Prelude.Hashable CreateAnomalySubscription where
   hashWithSalt _salt CreateAnomalySubscription' {..} =
-    _salt `Prelude.hashWithSalt` anomalySubscription
+    _salt `Prelude.hashWithSalt` resourceTags
+      `Prelude.hashWithSalt` anomalySubscription
 
 instance Prelude.NFData CreateAnomalySubscription where
   rnf CreateAnomalySubscription' {..} =
-    Prelude.rnf anomalySubscription
+    Prelude.rnf resourceTags
+      `Prelude.seq` Prelude.rnf anomalySubscription
 
-instance Core.ToHeaders CreateAnomalySubscription where
+instance Data.ToHeaders CreateAnomalySubscription where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSInsightsIndexService.CreateAnomalySubscription" ::
+              Data.=# ( "AWSInsightsIndexService.CreateAnomalySubscription" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateAnomalySubscription where
+instance Data.ToJSON CreateAnomalySubscription where
   toJSON CreateAnomalySubscription' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just
-              ("AnomalySubscription" Core..= anomalySubscription)
+          [ ("ResourceTags" Data..=) Prelude.<$> resourceTags,
+            Prelude.Just
+              ("AnomalySubscription" Data..= anomalySubscription)
           ]
       )
 
-instance Core.ToPath CreateAnomalySubscription where
+instance Data.ToPath CreateAnomalySubscription where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAnomalySubscription where
+instance Data.ToQuery CreateAnomalySubscription where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateAnomalySubscriptionResponse' smart constructor.

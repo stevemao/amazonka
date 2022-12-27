@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.GetPlatformApplicationAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.SNS.GetPlatformApplicationAttributes
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,14 +90,15 @@ instance
   type
     AWSResponse GetPlatformApplicationAttributes =
       GetPlatformApplicationAttributesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "GetPlatformApplicationAttributesResult"
       ( \s h x ->
           GetPlatformApplicationAttributesResponse'
-            Prelude.<$> ( x Core..@? "Attributes" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLMap "entry" "key" "value")
+            Prelude.<$> ( x Data..@? "Attributes" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLMap "entry" "key" "value")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -118,28 +120,28 @@ instance
     Prelude.rnf platformApplicationArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetPlatformApplicationAttributes
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetPlatformApplicationAttributes where
+instance Data.ToPath GetPlatformApplicationAttributes where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetPlatformApplicationAttributes
   where
   toQuery GetPlatformApplicationAttributes' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "GetPlatformApplicationAttributes" ::
+          Data.=: ( "GetPlatformApplicationAttributes" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
         "PlatformApplicationArn"
-          Core.=: platformApplicationArn
+          Data.=: platformApplicationArn
       ]
 
 -- | Response for GetPlatformApplicationAttributes action.
@@ -147,6 +149,15 @@ instance
 -- /See:/ 'newGetPlatformApplicationAttributesResponse' smart constructor.
 data GetPlatformApplicationAttributesResponse = GetPlatformApplicationAttributesResponse'
   { -- | Attributes include the following:
+    --
+    -- -   @AppleCertificateExpiryDate@ – The expiry date of the SSL
+    --     certificate used to configure certificate-based authentication.
+    --
+    -- -   @ApplePlatformTeamID@ – The Apple developer account ID used to
+    --     configure token-based authentication.
+    --
+    -- -   @ApplePlatformBundleID@ – The app identifier used to configure
+    --     token-based authentication.
     --
     -- -   @EventEndpointCreated@ – Topic ARN to which EndpointCreated event
     --     notifications should be sent.
@@ -176,6 +187,15 @@ data GetPlatformApplicationAttributesResponse = GetPlatformApplicationAttributes
 --
 -- 'attributes', 'getPlatformApplicationAttributesResponse_attributes' - Attributes include the following:
 --
+-- -   @AppleCertificateExpiryDate@ – The expiry date of the SSL
+--     certificate used to configure certificate-based authentication.
+--
+-- -   @ApplePlatformTeamID@ – The Apple developer account ID used to
+--     configure token-based authentication.
+--
+-- -   @ApplePlatformBundleID@ – The app identifier used to configure
+--     token-based authentication.
+--
 -- -   @EventEndpointCreated@ – Topic ARN to which EndpointCreated event
 --     notifications should be sent.
 --
@@ -203,6 +223,15 @@ newGetPlatformApplicationAttributesResponse
       }
 
 -- | Attributes include the following:
+--
+-- -   @AppleCertificateExpiryDate@ – The expiry date of the SSL
+--     certificate used to configure certificate-based authentication.
+--
+-- -   @ApplePlatformTeamID@ – The Apple developer account ID used to
+--     configure token-based authentication.
+--
+-- -   @ApplePlatformBundleID@ – The app identifier used to configure
+--     token-based authentication.
 --
 -- -   @EventEndpointCreated@ – Topic ARN to which EndpointCreated event
 --     notifications should be sent.

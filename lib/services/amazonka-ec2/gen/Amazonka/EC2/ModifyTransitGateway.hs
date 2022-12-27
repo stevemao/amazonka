@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ModifyTransitGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,9 +30,9 @@ module Amazonka.EC2.ModifyTransitGateway
     newModifyTransitGateway,
 
     -- * Request Lenses
-    modifyTransitGateway_options,
     modifyTransitGateway_description,
     modifyTransitGateway_dryRun,
+    modifyTransitGateway_options,
     modifyTransitGateway_transitGatewayId,
 
     -- * Destructuring the Response
@@ -46,23 +46,24 @@ module Amazonka.EC2.ModifyTransitGateway
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newModifyTransitGateway' smart constructor.
 data ModifyTransitGateway = ModifyTransitGateway'
-  { -- | The options to modify.
-    options :: Prelude.Maybe ModifyTransitGatewayOptions,
-    -- | The description for the transit gateway.
+  { -- | The description for the transit gateway.
     description :: Prelude.Maybe Prelude.Text,
     -- | Checks whether you have the required permissions for the action, without
     -- actually making the request, and provides an error response. If you have
     -- the required permissions, the error response is @DryRunOperation@.
     -- Otherwise, it is @UnauthorizedOperation@.
     dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The options to modify.
+    options :: Prelude.Maybe ModifyTransitGatewayOptions,
     -- | The ID of the transit gateway.
     transitGatewayId :: Prelude.Text
   }
@@ -76,14 +77,14 @@ data ModifyTransitGateway = ModifyTransitGateway'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'options', 'modifyTransitGateway_options' - The options to modify.
---
 -- 'description', 'modifyTransitGateway_description' - The description for the transit gateway.
 --
 -- 'dryRun', 'modifyTransitGateway_dryRun' - Checks whether you have the required permissions for the action, without
 -- actually making the request, and provides an error response. If you have
 -- the required permissions, the error response is @DryRunOperation@.
 -- Otherwise, it is @UnauthorizedOperation@.
+--
+-- 'options', 'modifyTransitGateway_options' - The options to modify.
 --
 -- 'transitGatewayId', 'modifyTransitGateway_transitGatewayId' - The ID of the transit gateway.
 newModifyTransitGateway ::
@@ -92,15 +93,12 @@ newModifyTransitGateway ::
   ModifyTransitGateway
 newModifyTransitGateway pTransitGatewayId_ =
   ModifyTransitGateway'
-    { options = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description =
+        Prelude.Nothing,
       dryRun = Prelude.Nothing,
+      options = Prelude.Nothing,
       transitGatewayId = pTransitGatewayId_
     }
-
--- | The options to modify.
-modifyTransitGateway_options :: Lens.Lens' ModifyTransitGateway (Prelude.Maybe ModifyTransitGatewayOptions)
-modifyTransitGateway_options = Lens.lens (\ModifyTransitGateway' {options} -> options) (\s@ModifyTransitGateway' {} a -> s {options = a} :: ModifyTransitGateway)
 
 -- | The description for the transit gateway.
 modifyTransitGateway_description :: Lens.Lens' ModifyTransitGateway (Prelude.Maybe Prelude.Text)
@@ -113,6 +111,10 @@ modifyTransitGateway_description = Lens.lens (\ModifyTransitGateway' {descriptio
 modifyTransitGateway_dryRun :: Lens.Lens' ModifyTransitGateway (Prelude.Maybe Prelude.Bool)
 modifyTransitGateway_dryRun = Lens.lens (\ModifyTransitGateway' {dryRun} -> dryRun) (\s@ModifyTransitGateway' {} a -> s {dryRun = a} :: ModifyTransitGateway)
 
+-- | The options to modify.
+modifyTransitGateway_options :: Lens.Lens' ModifyTransitGateway (Prelude.Maybe ModifyTransitGatewayOptions)
+modifyTransitGateway_options = Lens.lens (\ModifyTransitGateway' {options} -> options) (\s@ModifyTransitGateway' {} a -> s {options = a} :: ModifyTransitGateway)
+
 -- | The ID of the transit gateway.
 modifyTransitGateway_transitGatewayId :: Lens.Lens' ModifyTransitGateway Prelude.Text
 modifyTransitGateway_transitGatewayId = Lens.lens (\ModifyTransitGateway' {transitGatewayId} -> transitGatewayId) (\s@ModifyTransitGateway' {} a -> s {transitGatewayId = a} :: ModifyTransitGateway)
@@ -121,51 +123,53 @@ instance Core.AWSRequest ModifyTransitGateway where
   type
     AWSResponse ModifyTransitGateway =
       ModifyTransitGatewayResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ModifyTransitGatewayResponse'
-            Prelude.<$> (x Core..@? "transitGateway")
+            Prelude.<$> (x Data..@? "transitGateway")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ModifyTransitGateway where
   hashWithSalt _salt ModifyTransitGateway' {..} =
-    _salt `Prelude.hashWithSalt` options
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` options
       `Prelude.hashWithSalt` transitGatewayId
 
 instance Prelude.NFData ModifyTransitGateway where
   rnf ModifyTransitGateway' {..} =
-    Prelude.rnf options
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf options
       `Prelude.seq` Prelude.rnf transitGatewayId
 
-instance Core.ToHeaders ModifyTransitGateway where
+instance Data.ToHeaders ModifyTransitGateway where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyTransitGateway where
+instance Data.ToPath ModifyTransitGateway where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyTransitGateway where
+instance Data.ToQuery ModifyTransitGateway where
   toQuery ModifyTransitGateway' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyTransitGateway" :: Prelude.ByteString),
+          Data.=: ("ModifyTransitGateway" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "Options" Core.=: options,
-        "Description" Core.=: description,
-        "DryRun" Core.=: dryRun,
-        "TransitGatewayId" Core.=: transitGatewayId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "Description" Data.=: description,
+        "DryRun" Data.=: dryRun,
+        "Options" Data.=: options,
+        "TransitGatewayId" Data.=: transitGatewayId
       ]
 
 -- | /See:/ 'newModifyTransitGatewayResponse' smart constructor.
 data ModifyTransitGatewayResponse = ModifyTransitGatewayResponse'
-  { transitGateway :: Prelude.Maybe TransitGateway,
+  { -- | Information about the transit gateway.
+    transitGateway :: Prelude.Maybe TransitGateway,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -179,7 +183,7 @@ data ModifyTransitGatewayResponse = ModifyTransitGatewayResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'transitGateway', 'modifyTransitGatewayResponse_transitGateway' - Undocumented member.
+-- 'transitGateway', 'modifyTransitGatewayResponse_transitGateway' - Information about the transit gateway.
 --
 -- 'httpStatus', 'modifyTransitGatewayResponse_httpStatus' - The response's http status code.
 newModifyTransitGatewayResponse ::
@@ -193,7 +197,7 @@ newModifyTransitGatewayResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | Undocumented member.
+-- | Information about the transit gateway.
 modifyTransitGatewayResponse_transitGateway :: Lens.Lens' ModifyTransitGatewayResponse (Prelude.Maybe TransitGateway)
 modifyTransitGatewayResponse_transitGateway = Lens.lens (\ModifyTransitGatewayResponse' {transitGateway} -> transitGateway) (\s@ModifyTransitGatewayResponse' {} a -> s {transitGateway = a} :: ModifyTransitGatewayResponse)
 

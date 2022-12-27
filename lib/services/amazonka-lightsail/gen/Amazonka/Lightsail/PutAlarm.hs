@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.PutAlarm
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,11 +43,11 @@ module Amazonka.Lightsail.PutAlarm
     newPutAlarm,
 
     -- * Request Lenses
-    putAlarm_treatMissingData,
     putAlarm_contactProtocols,
     putAlarm_datapointsToAlarm,
     putAlarm_notificationEnabled,
     putAlarm_notificationTriggers,
+    putAlarm_treatMissingData,
     putAlarm_alarmName,
     putAlarm_metricName,
     putAlarm_monitoredResourceName,
@@ -66,7 +66,8 @@ module Amazonka.Lightsail.PutAlarm
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -74,27 +75,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newPutAlarm' smart constructor.
 data PutAlarm = PutAlarm'
-  { -- | Sets how this alarm will handle missing data points.
-    --
-    -- An alarm can treat missing data in the following ways:
-    --
-    -- -   @breaching@ - Assume the missing data is not within the threshold.
-    --     Missing data counts towards the number of times the metric is not
-    --     within the threshold.
-    --
-    -- -   @notBreaching@ - Assume the missing data is within the threshold.
-    --     Missing data does not count towards the number of times the metric
-    --     is not within the threshold.
-    --
-    -- -   @ignore@ - Ignore the missing data. Maintains the current alarm
-    --     state.
-    --
-    -- -   @missing@ - Missing data is treated as missing.
-    --
-    -- If @treatMissingData@ is not specified, the default behavior of
-    -- @missing@ is used.
-    treatMissingData :: Prelude.Maybe TreatMissingData,
-    -- | The contact protocols to use for the alarm, such as @Email@, @SMS@ (text
+  { -- | The contact protocols to use for the alarm, such as @Email@, @SMS@ (text
     -- messaging), or both.
     --
     -- A notification is sent via the specified contact protocol if
@@ -102,12 +83,12 @@ data PutAlarm = PutAlarm'
     -- triggered.
     --
     -- A notification is not sent if a contact protocol is not specified, if
-    -- the specified contact protocol is not configured in the AWS Region, or
-    -- if notifications are not enabled for the alarm using the
-    -- @notificationEnabled@ paramater.
+    -- the specified contact protocol is not configured in the Amazon Web
+    -- Services Region, or if notifications are not enabled for the alarm using
+    -- the @notificationEnabled@ paramater.
     --
     -- Use the @CreateContactMethod@ action to configure a contact protocol in
-    -- an AWS Region.
+    -- an Amazon Web Services Region.
     contactProtocols :: Prelude.Maybe [ContactProtocol],
     -- | The number of data points that must be not within the specified
     -- threshold to trigger the alarm. If you are setting an \"M out of N\"
@@ -146,6 +127,26 @@ data PutAlarm = PutAlarm'
     -- The notification trigger defaults to @ALARM@ if you don\'t specify this
     -- parameter.
     notificationTriggers :: Prelude.Maybe [AlarmState],
+    -- | Sets how this alarm will handle missing data points.
+    --
+    -- An alarm can treat missing data in the following ways:
+    --
+    -- -   @breaching@ - Assume the missing data is not within the threshold.
+    --     Missing data counts towards the number of times the metric is not
+    --     within the threshold.
+    --
+    -- -   @notBreaching@ - Assume the missing data is within the threshold.
+    --     Missing data does not count towards the number of times the metric
+    --     is not within the threshold.
+    --
+    -- -   @ignore@ - Ignore the missing data. Maintains the current alarm
+    --     state.
+    --
+    -- -   @missing@ - Missing data is treated as missing.
+    --
+    -- If @treatMissingData@ is not specified, the default behavior of
+    -- @missing@ is used.
+    treatMissingData :: Prelude.Maybe TreatMissingData,
     -- | The name for the alarm. Specify the name of an existing alarm to update,
     -- and overwrite the previous configuration of the alarm.
     alarmName :: Prelude.Text,
@@ -210,26 +211,6 @@ data PutAlarm = PutAlarm'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'treatMissingData', 'putAlarm_treatMissingData' - Sets how this alarm will handle missing data points.
---
--- An alarm can treat missing data in the following ways:
---
--- -   @breaching@ - Assume the missing data is not within the threshold.
---     Missing data counts towards the number of times the metric is not
---     within the threshold.
---
--- -   @notBreaching@ - Assume the missing data is within the threshold.
---     Missing data does not count towards the number of times the metric
---     is not within the threshold.
---
--- -   @ignore@ - Ignore the missing data. Maintains the current alarm
---     state.
---
--- -   @missing@ - Missing data is treated as missing.
---
--- If @treatMissingData@ is not specified, the default behavior of
--- @missing@ is used.
---
 -- 'contactProtocols', 'putAlarm_contactProtocols' - The contact protocols to use for the alarm, such as @Email@, @SMS@ (text
 -- messaging), or both.
 --
@@ -238,12 +219,12 @@ data PutAlarm = PutAlarm'
 -- triggered.
 --
 -- A notification is not sent if a contact protocol is not specified, if
--- the specified contact protocol is not configured in the AWS Region, or
--- if notifications are not enabled for the alarm using the
--- @notificationEnabled@ paramater.
+-- the specified contact protocol is not configured in the Amazon Web
+-- Services Region, or if notifications are not enabled for the alarm using
+-- the @notificationEnabled@ paramater.
 --
 -- Use the @CreateContactMethod@ action to configure a contact protocol in
--- an AWS Region.
+-- an Amazon Web Services Region.
 --
 -- 'datapointsToAlarm', 'putAlarm_datapointsToAlarm' - The number of data points that must be not within the specified
 -- threshold to trigger the alarm. If you are setting an \"M out of N\"
@@ -281,6 +262,26 @@ data PutAlarm = PutAlarm'
 --
 -- The notification trigger defaults to @ALARM@ if you don\'t specify this
 -- parameter.
+--
+-- 'treatMissingData', 'putAlarm_treatMissingData' - Sets how this alarm will handle missing data points.
+--
+-- An alarm can treat missing data in the following ways:
+--
+-- -   @breaching@ - Assume the missing data is not within the threshold.
+--     Missing data counts towards the number of times the metric is not
+--     within the threshold.
+--
+-- -   @notBreaching@ - Assume the missing data is within the threshold.
+--     Missing data does not count towards the number of times the metric
+--     is not within the threshold.
+--
+-- -   @ignore@ - Ignore the missing data. Maintains the current alarm
+--     state.
+--
+-- -   @missing@ - Missing data is treated as missing.
+--
+-- If @treatMissingData@ is not specified, the default behavior of
+-- @missing@ is used.
 --
 -- 'alarmName', 'putAlarm_alarmName' - The name for the alarm. Specify the name of an existing alarm to update,
 -- and overwrite the previous configuration of the alarm.
@@ -356,11 +357,11 @@ newPutAlarm
   pThreshold_
   pEvaluationPeriods_ =
     PutAlarm'
-      { treatMissingData = Prelude.Nothing,
-        contactProtocols = Prelude.Nothing,
+      { contactProtocols = Prelude.Nothing,
         datapointsToAlarm = Prelude.Nothing,
         notificationEnabled = Prelude.Nothing,
         notificationTriggers = Prelude.Nothing,
+        treatMissingData = Prelude.Nothing,
         alarmName = pAlarmName_,
         metricName = pMetricName_,
         monitoredResourceName = pMonitoredResourceName_,
@@ -368,28 +369,6 @@ newPutAlarm
         threshold = pThreshold_,
         evaluationPeriods = pEvaluationPeriods_
       }
-
--- | Sets how this alarm will handle missing data points.
---
--- An alarm can treat missing data in the following ways:
---
--- -   @breaching@ - Assume the missing data is not within the threshold.
---     Missing data counts towards the number of times the metric is not
---     within the threshold.
---
--- -   @notBreaching@ - Assume the missing data is within the threshold.
---     Missing data does not count towards the number of times the metric
---     is not within the threshold.
---
--- -   @ignore@ - Ignore the missing data. Maintains the current alarm
---     state.
---
--- -   @missing@ - Missing data is treated as missing.
---
--- If @treatMissingData@ is not specified, the default behavior of
--- @missing@ is used.
-putAlarm_treatMissingData :: Lens.Lens' PutAlarm (Prelude.Maybe TreatMissingData)
-putAlarm_treatMissingData = Lens.lens (\PutAlarm' {treatMissingData} -> treatMissingData) (\s@PutAlarm' {} a -> s {treatMissingData = a} :: PutAlarm)
 
 -- | The contact protocols to use for the alarm, such as @Email@, @SMS@ (text
 -- messaging), or both.
@@ -399,12 +378,12 @@ putAlarm_treatMissingData = Lens.lens (\PutAlarm' {treatMissingData} -> treatMis
 -- triggered.
 --
 -- A notification is not sent if a contact protocol is not specified, if
--- the specified contact protocol is not configured in the AWS Region, or
--- if notifications are not enabled for the alarm using the
--- @notificationEnabled@ paramater.
+-- the specified contact protocol is not configured in the Amazon Web
+-- Services Region, or if notifications are not enabled for the alarm using
+-- the @notificationEnabled@ paramater.
 --
 -- Use the @CreateContactMethod@ action to configure a contact protocol in
--- an AWS Region.
+-- an Amazon Web Services Region.
 putAlarm_contactProtocols :: Lens.Lens' PutAlarm (Prelude.Maybe [ContactProtocol])
 putAlarm_contactProtocols = Lens.lens (\PutAlarm' {contactProtocols} -> contactProtocols) (\s@PutAlarm' {} a -> s {contactProtocols = a} :: PutAlarm) Prelude.. Lens.mapping Lens.coerced
 
@@ -450,6 +429,28 @@ putAlarm_notificationEnabled = Lens.lens (\PutAlarm' {notificationEnabled} -> no
 -- parameter.
 putAlarm_notificationTriggers :: Lens.Lens' PutAlarm (Prelude.Maybe [AlarmState])
 putAlarm_notificationTriggers = Lens.lens (\PutAlarm' {notificationTriggers} -> notificationTriggers) (\s@PutAlarm' {} a -> s {notificationTriggers = a} :: PutAlarm) Prelude.. Lens.mapping Lens.coerced
+
+-- | Sets how this alarm will handle missing data points.
+--
+-- An alarm can treat missing data in the following ways:
+--
+-- -   @breaching@ - Assume the missing data is not within the threshold.
+--     Missing data counts towards the number of times the metric is not
+--     within the threshold.
+--
+-- -   @notBreaching@ - Assume the missing data is within the threshold.
+--     Missing data does not count towards the number of times the metric
+--     is not within the threshold.
+--
+-- -   @ignore@ - Ignore the missing data. Maintains the current alarm
+--     state.
+--
+-- -   @missing@ - Missing data is treated as missing.
+--
+-- If @treatMissingData@ is not specified, the default behavior of
+-- @missing@ is used.
+putAlarm_treatMissingData :: Lens.Lens' PutAlarm (Prelude.Maybe TreatMissingData)
+putAlarm_treatMissingData = Lens.lens (\PutAlarm' {treatMissingData} -> treatMissingData) (\s@PutAlarm' {} a -> s {treatMissingData = a} :: PutAlarm)
 
 -- | The name for the alarm. Specify the name of an existing alarm to update,
 -- and overwrite the previous configuration of the alarm.
@@ -518,22 +519,23 @@ putAlarm_evaluationPeriods = Lens.lens (\PutAlarm' {evaluationPeriods} -> evalua
 
 instance Core.AWSRequest PutAlarm where
   type AWSResponse PutAlarm = PutAlarmResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutAlarmResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable PutAlarm where
   hashWithSalt _salt PutAlarm' {..} =
-    _salt `Prelude.hashWithSalt` treatMissingData
-      `Prelude.hashWithSalt` contactProtocols
+    _salt `Prelude.hashWithSalt` contactProtocols
       `Prelude.hashWithSalt` datapointsToAlarm
       `Prelude.hashWithSalt` notificationEnabled
       `Prelude.hashWithSalt` notificationTriggers
+      `Prelude.hashWithSalt` treatMissingData
       `Prelude.hashWithSalt` alarmName
       `Prelude.hashWithSalt` metricName
       `Prelude.hashWithSalt` monitoredResourceName
@@ -543,11 +545,11 @@ instance Prelude.Hashable PutAlarm where
 
 instance Prelude.NFData PutAlarm where
   rnf PutAlarm' {..} =
-    Prelude.rnf treatMissingData
-      `Prelude.seq` Prelude.rnf contactProtocols
+    Prelude.rnf contactProtocols
       `Prelude.seq` Prelude.rnf datapointsToAlarm
       `Prelude.seq` Prelude.rnf notificationEnabled
       `Prelude.seq` Prelude.rnf notificationTriggers
+      `Prelude.seq` Prelude.rnf treatMissingData
       `Prelude.seq` Prelude.rnf alarmName
       `Prelude.seq` Prelude.rnf metricName
       `Prelude.seq` Prelude.rnf monitoredResourceName
@@ -555,53 +557,53 @@ instance Prelude.NFData PutAlarm where
       `Prelude.seq` Prelude.rnf threshold
       `Prelude.seq` Prelude.rnf evaluationPeriods
 
-instance Core.ToHeaders PutAlarm where
+instance Data.ToHeaders PutAlarm where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.PutAlarm" ::
+              Data.=# ( "Lightsail_20161128.PutAlarm" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutAlarm where
+instance Data.ToJSON PutAlarm where
   toJSON PutAlarm' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("treatMissingData" Core..=)
-              Prelude.<$> treatMissingData,
-            ("contactProtocols" Core..=)
+          [ ("contactProtocols" Data..=)
               Prelude.<$> contactProtocols,
-            ("datapointsToAlarm" Core..=)
+            ("datapointsToAlarm" Data..=)
               Prelude.<$> datapointsToAlarm,
-            ("notificationEnabled" Core..=)
+            ("notificationEnabled" Data..=)
               Prelude.<$> notificationEnabled,
-            ("notificationTriggers" Core..=)
+            ("notificationTriggers" Data..=)
               Prelude.<$> notificationTriggers,
-            Prelude.Just ("alarmName" Core..= alarmName),
-            Prelude.Just ("metricName" Core..= metricName),
+            ("treatMissingData" Data..=)
+              Prelude.<$> treatMissingData,
+            Prelude.Just ("alarmName" Data..= alarmName),
+            Prelude.Just ("metricName" Data..= metricName),
             Prelude.Just
               ( "monitoredResourceName"
-                  Core..= monitoredResourceName
+                  Data..= monitoredResourceName
               ),
             Prelude.Just
-              ("comparisonOperator" Core..= comparisonOperator),
-            Prelude.Just ("threshold" Core..= threshold),
+              ("comparisonOperator" Data..= comparisonOperator),
+            Prelude.Just ("threshold" Data..= threshold),
             Prelude.Just
-              ("evaluationPeriods" Core..= evaluationPeriods)
+              ("evaluationPeriods" Data..= evaluationPeriods)
           ]
       )
 
-instance Core.ToPath PutAlarm where
+instance Data.ToPath PutAlarm where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutAlarm where
+instance Data.ToQuery PutAlarm where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutAlarmResponse' smart constructor.

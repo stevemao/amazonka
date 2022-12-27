@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Forecast.Types.EncryptionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Forecast.Types.EncryptionConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An AWS Key Management Service (KMS) key and an AWS Identity and Access
@@ -80,14 +81,14 @@ encryptionConfig_roleArn = Lens.lens (\EncryptionConfig' {roleArn} -> roleArn) (
 encryptionConfig_kmsKeyArn :: Lens.Lens' EncryptionConfig Prelude.Text
 encryptionConfig_kmsKeyArn = Lens.lens (\EncryptionConfig' {kmsKeyArn} -> kmsKeyArn) (\s@EncryptionConfig' {} a -> s {kmsKeyArn = a} :: EncryptionConfig)
 
-instance Core.FromJSON EncryptionConfig where
+instance Data.FromJSON EncryptionConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EncryptionConfig"
       ( \x ->
           EncryptionConfig'
-            Prelude.<$> (x Core..: "RoleArn")
-            Prelude.<*> (x Core..: "KMSKeyArn")
+            Prelude.<$> (x Data..: "RoleArn")
+            Prelude.<*> (x Data..: "KMSKeyArn")
       )
 
 instance Prelude.Hashable EncryptionConfig where
@@ -100,11 +101,11 @@ instance Prelude.NFData EncryptionConfig where
     Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf kmsKeyArn
 
-instance Core.ToJSON EncryptionConfig where
+instance Data.ToJSON EncryptionConfig where
   toJSON EncryptionConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("RoleArn" Core..= roleArn),
-            Prelude.Just ("KMSKeyArn" Core..= kmsKeyArn)
+          [ Prelude.Just ("RoleArn" Data..= roleArn),
+            Prelude.Just ("KMSKeyArn" Data..= kmsKeyArn)
           ]
       )

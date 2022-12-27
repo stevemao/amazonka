@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.RetryBuild
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.CodeBuild.RetryBuild
     newRetryBuild,
 
     -- * Request Lenses
-    retryBuild_idempotencyToken,
     retryBuild_id,
+    retryBuild_idempotencyToken,
 
     -- * Destructuring the Response
     RetryBuildResponse (..),
@@ -42,21 +42,22 @@ where
 
 import Amazonka.CodeBuild.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newRetryBuild' smart constructor.
 data RetryBuild = RetryBuild'
-  { -- | A unique, case sensitive identifier you provide to ensure the
+  { -- | Specifies the identifier of the build to restart.
+    id :: Prelude.Maybe Prelude.Text,
+    -- | A unique, case sensitive identifier you provide to ensure the
     -- idempotency of the @RetryBuild@ request. The token is included in the
     -- @RetryBuild@ request and is valid for five minutes. If you repeat the
     -- @RetryBuild@ request with the same token, but change a parameter,
     -- CodeBuild returns a parameter mismatch error.
-    idempotencyToken :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the identifier of the build to restart.
-    id :: Prelude.Maybe Prelude.Text
+    idempotencyToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,20 +69,24 @@ data RetryBuild = RetryBuild'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'id', 'retryBuild_id' - Specifies the identifier of the build to restart.
+--
 -- 'idempotencyToken', 'retryBuild_idempotencyToken' - A unique, case sensitive identifier you provide to ensure the
 -- idempotency of the @RetryBuild@ request. The token is included in the
 -- @RetryBuild@ request and is valid for five minutes. If you repeat the
 -- @RetryBuild@ request with the same token, but change a parameter,
 -- CodeBuild returns a parameter mismatch error.
---
--- 'id', 'retryBuild_id' - Specifies the identifier of the build to restart.
 newRetryBuild ::
   RetryBuild
 newRetryBuild =
   RetryBuild'
-    { idempotencyToken = Prelude.Nothing,
-      id = Prelude.Nothing
+    { id = Prelude.Nothing,
+      idempotencyToken = Prelude.Nothing
     }
+
+-- | Specifies the identifier of the build to restart.
+retryBuild_id :: Lens.Lens' RetryBuild (Prelude.Maybe Prelude.Text)
+retryBuild_id = Lens.lens (\RetryBuild' {id} -> id) (\s@RetryBuild' {} a -> s {id = a} :: RetryBuild)
 
 -- | A unique, case sensitive identifier you provide to ensure the
 -- idempotency of the @RetryBuild@ request. The token is included in the
@@ -91,60 +96,57 @@ newRetryBuild =
 retryBuild_idempotencyToken :: Lens.Lens' RetryBuild (Prelude.Maybe Prelude.Text)
 retryBuild_idempotencyToken = Lens.lens (\RetryBuild' {idempotencyToken} -> idempotencyToken) (\s@RetryBuild' {} a -> s {idempotencyToken = a} :: RetryBuild)
 
--- | Specifies the identifier of the build to restart.
-retryBuild_id :: Lens.Lens' RetryBuild (Prelude.Maybe Prelude.Text)
-retryBuild_id = Lens.lens (\RetryBuild' {id} -> id) (\s@RetryBuild' {} a -> s {id = a} :: RetryBuild)
-
 instance Core.AWSRequest RetryBuild where
   type AWSResponse RetryBuild = RetryBuildResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RetryBuildResponse'
-            Prelude.<$> (x Core..?> "build")
+            Prelude.<$> (x Data..?> "build")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable RetryBuild where
   hashWithSalt _salt RetryBuild' {..} =
-    _salt `Prelude.hashWithSalt` idempotencyToken
-      `Prelude.hashWithSalt` id
+    _salt `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` idempotencyToken
 
 instance Prelude.NFData RetryBuild where
   rnf RetryBuild' {..} =
-    Prelude.rnf idempotencyToken
-      `Prelude.seq` Prelude.rnf id
+    Prelude.rnf id
+      `Prelude.seq` Prelude.rnf idempotencyToken
 
-instance Core.ToHeaders RetryBuild where
+instance Data.ToHeaders RetryBuild where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeBuild_20161006.RetryBuild" ::
+              Data.=# ( "CodeBuild_20161006.RetryBuild" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RetryBuild where
+instance Data.ToJSON RetryBuild where
   toJSON RetryBuild' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("idempotencyToken" Core..=)
-              Prelude.<$> idempotencyToken,
-            ("id" Core..=) Prelude.<$> id
+          [ ("id" Data..=) Prelude.<$> id,
+            ("idempotencyToken" Data..=)
+              Prelude.<$> idempotencyToken
           ]
       )
 
-instance Core.ToPath RetryBuild where
+instance Data.ToPath RetryBuild where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery RetryBuild where
+instance Data.ToQuery RetryBuild where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRetryBuildResponse' smart constructor.

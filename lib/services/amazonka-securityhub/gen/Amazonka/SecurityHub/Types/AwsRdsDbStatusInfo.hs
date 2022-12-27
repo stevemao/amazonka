@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsRdsDbStatusInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,23 +20,24 @@
 module Amazonka.SecurityHub.Types.AwsRdsDbStatusInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the status of a read replica.
 --
 -- /See:/ 'newAwsRdsDbStatusInfo' smart constructor.
 data AwsRdsDbStatusInfo = AwsRdsDbStatusInfo'
-  { -- | The status of the read replica instance.
-    status :: Prelude.Maybe Prelude.Text,
+  { -- | If the read replica is currently in an error state, provides the error
+    -- details.
+    message :: Prelude.Maybe Prelude.Text,
     -- | Whether the read replica instance is operating normally.
     normal :: Prelude.Maybe Prelude.Bool,
+    -- | The status of the read replica instance.
+    status :: Prelude.Maybe Prelude.Text,
     -- | The type of status. For a read replica, the status type is read
     -- replication.
-    statusType :: Prelude.Maybe Prelude.Text,
-    -- | If the read replica is currently in an error state, provides the error
-    -- details.
-    message :: Prelude.Maybe Prelude.Text
+    statusType :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -48,76 +49,76 @@ data AwsRdsDbStatusInfo = AwsRdsDbStatusInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'awsRdsDbStatusInfo_status' - The status of the read replica instance.
+-- 'message', 'awsRdsDbStatusInfo_message' - If the read replica is currently in an error state, provides the error
+-- details.
 --
 -- 'normal', 'awsRdsDbStatusInfo_normal' - Whether the read replica instance is operating normally.
 --
+-- 'status', 'awsRdsDbStatusInfo_status' - The status of the read replica instance.
+--
 -- 'statusType', 'awsRdsDbStatusInfo_statusType' - The type of status. For a read replica, the status type is read
 -- replication.
---
--- 'message', 'awsRdsDbStatusInfo_message' - If the read replica is currently in an error state, provides the error
--- details.
 newAwsRdsDbStatusInfo ::
   AwsRdsDbStatusInfo
 newAwsRdsDbStatusInfo =
   AwsRdsDbStatusInfo'
-    { status = Prelude.Nothing,
+    { message = Prelude.Nothing,
       normal = Prelude.Nothing,
-      statusType = Prelude.Nothing,
-      message = Prelude.Nothing
+      status = Prelude.Nothing,
+      statusType = Prelude.Nothing
     }
-
--- | The status of the read replica instance.
-awsRdsDbStatusInfo_status :: Lens.Lens' AwsRdsDbStatusInfo (Prelude.Maybe Prelude.Text)
-awsRdsDbStatusInfo_status = Lens.lens (\AwsRdsDbStatusInfo' {status} -> status) (\s@AwsRdsDbStatusInfo' {} a -> s {status = a} :: AwsRdsDbStatusInfo)
-
--- | Whether the read replica instance is operating normally.
-awsRdsDbStatusInfo_normal :: Lens.Lens' AwsRdsDbStatusInfo (Prelude.Maybe Prelude.Bool)
-awsRdsDbStatusInfo_normal = Lens.lens (\AwsRdsDbStatusInfo' {normal} -> normal) (\s@AwsRdsDbStatusInfo' {} a -> s {normal = a} :: AwsRdsDbStatusInfo)
-
--- | The type of status. For a read replica, the status type is read
--- replication.
-awsRdsDbStatusInfo_statusType :: Lens.Lens' AwsRdsDbStatusInfo (Prelude.Maybe Prelude.Text)
-awsRdsDbStatusInfo_statusType = Lens.lens (\AwsRdsDbStatusInfo' {statusType} -> statusType) (\s@AwsRdsDbStatusInfo' {} a -> s {statusType = a} :: AwsRdsDbStatusInfo)
 
 -- | If the read replica is currently in an error state, provides the error
 -- details.
 awsRdsDbStatusInfo_message :: Lens.Lens' AwsRdsDbStatusInfo (Prelude.Maybe Prelude.Text)
 awsRdsDbStatusInfo_message = Lens.lens (\AwsRdsDbStatusInfo' {message} -> message) (\s@AwsRdsDbStatusInfo' {} a -> s {message = a} :: AwsRdsDbStatusInfo)
 
-instance Core.FromJSON AwsRdsDbStatusInfo where
+-- | Whether the read replica instance is operating normally.
+awsRdsDbStatusInfo_normal :: Lens.Lens' AwsRdsDbStatusInfo (Prelude.Maybe Prelude.Bool)
+awsRdsDbStatusInfo_normal = Lens.lens (\AwsRdsDbStatusInfo' {normal} -> normal) (\s@AwsRdsDbStatusInfo' {} a -> s {normal = a} :: AwsRdsDbStatusInfo)
+
+-- | The status of the read replica instance.
+awsRdsDbStatusInfo_status :: Lens.Lens' AwsRdsDbStatusInfo (Prelude.Maybe Prelude.Text)
+awsRdsDbStatusInfo_status = Lens.lens (\AwsRdsDbStatusInfo' {status} -> status) (\s@AwsRdsDbStatusInfo' {} a -> s {status = a} :: AwsRdsDbStatusInfo)
+
+-- | The type of status. For a read replica, the status type is read
+-- replication.
+awsRdsDbStatusInfo_statusType :: Lens.Lens' AwsRdsDbStatusInfo (Prelude.Maybe Prelude.Text)
+awsRdsDbStatusInfo_statusType = Lens.lens (\AwsRdsDbStatusInfo' {statusType} -> statusType) (\s@AwsRdsDbStatusInfo' {} a -> s {statusType = a} :: AwsRdsDbStatusInfo)
+
+instance Data.FromJSON AwsRdsDbStatusInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsRdsDbStatusInfo"
       ( \x ->
           AwsRdsDbStatusInfo'
-            Prelude.<$> (x Core..:? "Status")
-            Prelude.<*> (x Core..:? "Normal")
-            Prelude.<*> (x Core..:? "StatusType")
-            Prelude.<*> (x Core..:? "Message")
+            Prelude.<$> (x Data..:? "Message")
+            Prelude.<*> (x Data..:? "Normal")
+            Prelude.<*> (x Data..:? "Status")
+            Prelude.<*> (x Data..:? "StatusType")
       )
 
 instance Prelude.Hashable AwsRdsDbStatusInfo where
   hashWithSalt _salt AwsRdsDbStatusInfo' {..} =
-    _salt `Prelude.hashWithSalt` status
+    _salt `Prelude.hashWithSalt` message
       `Prelude.hashWithSalt` normal
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` statusType
-      `Prelude.hashWithSalt` message
 
 instance Prelude.NFData AwsRdsDbStatusInfo where
   rnf AwsRdsDbStatusInfo' {..} =
-    Prelude.rnf status
+    Prelude.rnf message
       `Prelude.seq` Prelude.rnf normal
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf statusType
-      `Prelude.seq` Prelude.rnf message
 
-instance Core.ToJSON AwsRdsDbStatusInfo where
+instance Data.ToJSON AwsRdsDbStatusInfo where
   toJSON AwsRdsDbStatusInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Status" Core..=) Prelude.<$> status,
-            ("Normal" Core..=) Prelude.<$> normal,
-            ("StatusType" Core..=) Prelude.<$> statusType,
-            ("Message" Core..=) Prelude.<$> message
+          [ ("Message" Data..=) Prelude.<$> message,
+            ("Normal" Data..=) Prelude.<$> normal,
+            ("Status" Data..=) Prelude.<$> status,
+            ("StatusType" Data..=) Prelude.<$> statusType
           ]
       )

@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.MarketplaceCatalog
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,11 +26,20 @@ module Amazonka.MarketplaceCatalog
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
-
     -- ** AccessDeniedException
     _AccessDeniedException,
+
+    -- ** InternalServiceException
+    _InternalServiceException,
+
+    -- ** ResourceInUseException
+    _ResourceInUseException,
+
+    -- ** ResourceNotFoundException
+    _ResourceNotFoundException,
+
+    -- ** ResourceNotSupportedException
+    _ResourceNotSupportedException,
 
     -- ** ServiceQuotaExceededException
     _ServiceQuotaExceededException,
@@ -38,17 +47,8 @@ module Amazonka.MarketplaceCatalog
     -- ** ThrottlingException
     _ThrottlingException,
 
-    -- ** InternalServiceException
-    _InternalServiceException,
-
-    -- ** ResourceNotSupportedException
-    _ResourceNotSupportedException,
-
-    -- ** ResourceNotFoundException
-    _ResourceNotFoundException,
-
-    -- ** ResourceInUseException
-    _ResourceInUseException,
+    -- ** ValidationException
+    _ValidationException,
 
     -- * Waiters
     -- $waiters
@@ -56,29 +56,17 @@ module Amazonka.MarketplaceCatalog
     -- * Operations
     -- $operations
 
-    -- ** ListEntities
-    ListEntities (ListEntities'),
-    newListEntities,
-    ListEntitiesResponse (ListEntitiesResponse'),
-    newListEntitiesResponse,
-
-    -- ** ListChangeSets
-    ListChangeSets (ListChangeSets'),
-    newListChangeSets,
-    ListChangeSetsResponse (ListChangeSetsResponse'),
-    newListChangeSetsResponse,
-
-    -- ** StartChangeSet
-    StartChangeSet (StartChangeSet'),
-    newStartChangeSet,
-    StartChangeSetResponse (StartChangeSetResponse'),
-    newStartChangeSetResponse,
-
     -- ** CancelChangeSet
     CancelChangeSet (CancelChangeSet'),
     newCancelChangeSet,
     CancelChangeSetResponse (CancelChangeSetResponse'),
     newCancelChangeSetResponse,
+
+    -- ** DescribeChangeSet
+    DescribeChangeSet (DescribeChangeSet'),
+    newDescribeChangeSet,
+    DescribeChangeSetResponse (DescribeChangeSetResponse'),
+    newDescribeChangeSetResponse,
 
     -- ** DescribeEntity
     DescribeEntity (DescribeEntity'),
@@ -86,11 +74,41 @@ module Amazonka.MarketplaceCatalog
     DescribeEntityResponse (DescribeEntityResponse'),
     newDescribeEntityResponse,
 
-    -- ** DescribeChangeSet
-    DescribeChangeSet (DescribeChangeSet'),
-    newDescribeChangeSet,
-    DescribeChangeSetResponse (DescribeChangeSetResponse'),
-    newDescribeChangeSetResponse,
+    -- ** ListChangeSets
+    ListChangeSets (ListChangeSets'),
+    newListChangeSets,
+    ListChangeSetsResponse (ListChangeSetsResponse'),
+    newListChangeSetsResponse,
+
+    -- ** ListEntities
+    ListEntities (ListEntities'),
+    newListEntities,
+    ListEntitiesResponse (ListEntitiesResponse'),
+    newListEntitiesResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** StartChangeSet
+    StartChangeSet (StartChangeSet'),
+    newStartChangeSet,
+    StartChangeSetResponse (StartChangeSetResponse'),
+    newStartChangeSetResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
 
     -- * Types
 
@@ -134,6 +152,10 @@ module Amazonka.MarketplaceCatalog
     -- ** Sort
     Sort (Sort'),
     newSort,
+
+    -- ** Tag
+    Tag (Tag'),
+    newTag,
   )
 where
 
@@ -143,8 +165,11 @@ import Amazonka.MarketplaceCatalog.DescribeEntity
 import Amazonka.MarketplaceCatalog.Lens
 import Amazonka.MarketplaceCatalog.ListChangeSets
 import Amazonka.MarketplaceCatalog.ListEntities
+import Amazonka.MarketplaceCatalog.ListTagsForResource
 import Amazonka.MarketplaceCatalog.StartChangeSet
+import Amazonka.MarketplaceCatalog.TagResource
 import Amazonka.MarketplaceCatalog.Types
+import Amazonka.MarketplaceCatalog.UntagResource
 import Amazonka.MarketplaceCatalog.Waiters
 
 -- $errors

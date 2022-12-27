@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.CreateComponentVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -55,14 +55,23 @@
 --
 --     -   Python 3.8 – @python3.8@
 --
+--     -   Python 3.9 – @python3.9@
+--
 --     -   Java 8 – @java8@
+--
+--     -   Java 11 – @java11@
 --
 --     -   Node.js 10 – @nodejs10.x@
 --
 --     -   Node.js 12 – @nodejs12.x@
 --
+--     -   Node.js 14 – @nodejs14.x@
+--
 --     To create a component from a Lambda function, specify
 --     @lambdaFunction@ when you call this operation.
+--
+--     IoT Greengrass currently supports Lambda functions on only Linux
+--     core devices.
 module Amazonka.GreengrassV2.CreateComponentVersion
   ( -- * Creating a Request
     CreateComponentVersion (..),
@@ -89,8 +98,9 @@ module Amazonka.GreengrassV2.CreateComponentVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GreengrassV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -111,7 +121,7 @@ data CreateComponentVersion = CreateComponentVersion'
     -- and platform compatibility.
     --
     -- You must specify either @inlineRecipe@ or @lambdaFunction@.
-    inlineRecipe :: Prelude.Maybe Core.Base64,
+    inlineRecipe :: Prelude.Maybe Data.Base64,
     -- | The parameters to create a component from a Lambda function.
     --
     -- You must specify either @inlineRecipe@ or @lambdaFunction@.
@@ -191,7 +201,7 @@ createComponentVersion_clientToken = Lens.lens (\CreateComponentVersion' {client
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 createComponentVersion_inlineRecipe :: Lens.Lens' CreateComponentVersion (Prelude.Maybe Prelude.ByteString)
-createComponentVersion_inlineRecipe = Lens.lens (\CreateComponentVersion' {inlineRecipe} -> inlineRecipe) (\s@CreateComponentVersion' {} a -> s {inlineRecipe = a} :: CreateComponentVersion) Prelude.. Lens.mapping Core._Base64
+createComponentVersion_inlineRecipe = Lens.lens (\CreateComponentVersion' {inlineRecipe} -> inlineRecipe) (\s@CreateComponentVersion' {} a -> s {inlineRecipe = a} :: CreateComponentVersion) Prelude.. Lens.mapping Data._Base64
 
 -- | The parameters to create a component from a Lambda function.
 --
@@ -210,17 +220,18 @@ instance Core.AWSRequest CreateComponentVersion where
   type
     AWSResponse CreateComponentVersion =
       CreateComponentVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateComponentVersionResponse'
-            Prelude.<$> (x Core..?> "arn")
+            Prelude.<$> (x Data..?> "arn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "componentName")
-            Prelude.<*> (x Core..:> "componentVersion")
-            Prelude.<*> (x Core..:> "creationTimestamp")
-            Prelude.<*> (x Core..:> "status")
+            Prelude.<*> (x Data..:> "componentName")
+            Prelude.<*> (x Data..:> "componentVersion")
+            Prelude.<*> (x Data..:> "creationTimestamp")
+            Prelude.<*> (x Data..:> "status")
       )
 
 instance Prelude.Hashable CreateComponentVersion where
@@ -237,35 +248,27 @@ instance Prelude.NFData CreateComponentVersion where
       `Prelude.seq` Prelude.rnf lambdaFunction
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders CreateComponentVersion where
-  toHeaders =
-    Prelude.const
-      ( Prelude.mconcat
-          [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
-                          Prelude.ByteString
-                      )
-          ]
-      )
+instance Data.ToHeaders CreateComponentVersion where
+  toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateComponentVersion where
+instance Data.ToJSON CreateComponentVersion where
   toJSON CreateComponentVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("inlineRecipe" Core..=) Prelude.<$> inlineRecipe,
-            ("lambdaFunction" Core..=)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("inlineRecipe" Data..=) Prelude.<$> inlineRecipe,
+            ("lambdaFunction" Data..=)
               Prelude.<$> lambdaFunction,
-            ("tags" Core..=) Prelude.<$> tags
+            ("tags" Data..=) Prelude.<$> tags
           ]
       )
 
-instance Core.ToPath CreateComponentVersion where
+instance Data.ToPath CreateComponentVersion where
   toPath =
     Prelude.const
       "/greengrass/v2/createComponentVersion"
 
-instance Core.ToQuery CreateComponentVersion where
+instance Data.ToQuery CreateComponentVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateComponentVersionResponse' smart constructor.
@@ -282,7 +285,7 @@ data CreateComponentVersionResponse = CreateComponentVersionResponse'
     componentVersion :: Prelude.Text,
     -- | The time at which the component was created, expressed in ISO 8601
     -- format.
-    creationTimestamp :: Core.POSIX,
+    creationTimestamp :: Data.POSIX,
     -- | The status of the component version in IoT Greengrass V2. This status is
     -- different from the status of the component on a core device.
     status :: CloudComponentStatus
@@ -337,7 +340,7 @@ newCreateComponentVersionResponse
         componentName = pComponentName_,
         componentVersion = pComponentVersion_,
         creationTimestamp =
-          Core._Time Lens.# pCreationTimestamp_,
+          Data._Time Lens.# pCreationTimestamp_,
         status = pStatus_
       }
 
@@ -362,7 +365,7 @@ createComponentVersionResponse_componentVersion = Lens.lens (\CreateComponentVer
 -- | The time at which the component was created, expressed in ISO 8601
 -- format.
 createComponentVersionResponse_creationTimestamp :: Lens.Lens' CreateComponentVersionResponse Prelude.UTCTime
-createComponentVersionResponse_creationTimestamp = Lens.lens (\CreateComponentVersionResponse' {creationTimestamp} -> creationTimestamp) (\s@CreateComponentVersionResponse' {} a -> s {creationTimestamp = a} :: CreateComponentVersionResponse) Prelude.. Core._Time
+createComponentVersionResponse_creationTimestamp = Lens.lens (\CreateComponentVersionResponse' {creationTimestamp} -> creationTimestamp) (\s@CreateComponentVersionResponse' {} a -> s {creationTimestamp = a} :: CreateComponentVersionResponse) Prelude.. Data._Time
 
 -- | The status of the component version in IoT Greengrass V2. This status is
 -- different from the status of the component on a core device.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.DeployAsApplicationConfigurationUpdate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.DeployAsApplicationConfigurationUpdate where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.S3ContentBaseLocationUpdate
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Updates to the configuration information required to deploy an Amazon
@@ -76,13 +77,13 @@ instance
     Prelude.rnf s3ContentLocationUpdate
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     DeployAsApplicationConfigurationUpdate
   where
   toJSON DeployAsApplicationConfigurationUpdate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("S3ContentLocationUpdate" Core..=)
+          [ ("S3ContentLocationUpdate" Data..=)
               Prelude.<$> s3ContentLocationUpdate
           ]
       )

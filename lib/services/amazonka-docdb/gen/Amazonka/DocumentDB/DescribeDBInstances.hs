@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.DescribeDBInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.DocumentDB.DescribeDBInstances
     newDescribeDBInstances,
 
     -- * Request Lenses
-    describeDBInstances_filters,
     describeDBInstances_dbInstanceIdentifier,
+    describeDBInstances_filters,
     describeDBInstances_marker,
     describeDBInstances_maxRecords,
 
@@ -47,8 +47,9 @@ module Amazonka.DocumentDB.DescribeDBInstances
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,7 +58,15 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeDBInstances' smart constructor.
 data DescribeDBInstances = DescribeDBInstances'
-  { -- | A filter that specifies one or more instances to describe.
+  { -- | The user-provided instance identifier. If this parameter is specified,
+    -- information from only the specific instance is returned. This parameter
+    -- isn\'t case sensitive.
+    --
+    -- Constraints:
+    --
+    -- -   If provided, must match the identifier of an existing @DBInstance@.
+    dbInstanceIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | A filter that specifies one or more instances to describe.
     --
     -- Supported filters:
     --
@@ -70,14 +79,6 @@ data DescribeDBInstances = DescribeDBInstances'
     --     The results list includes only the information about the instances
     --     that are identified by these ARNs.
     filters :: Prelude.Maybe [Filter],
-    -- | The user-provided instance identifier. If this parameter is specified,
-    -- information from only the specific instance is returned. This parameter
-    -- isn\'t case sensitive.
-    --
-    -- Constraints:
-    --
-    -- -   If provided, must match the identifier of an existing @DBInstance@.
-    dbInstanceIdentifier :: Prelude.Maybe Prelude.Text,
     -- | An optional pagination token provided by a previous request. If this
     -- parameter is specified, the response includes only records beyond the
     -- marker, up to the value specified by @MaxRecords@.
@@ -102,6 +103,14 @@ data DescribeDBInstances = DescribeDBInstances'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dbInstanceIdentifier', 'describeDBInstances_dbInstanceIdentifier' - The user-provided instance identifier. If this parameter is specified,
+-- information from only the specific instance is returned. This parameter
+-- isn\'t case sensitive.
+--
+-- Constraints:
+--
+-- -   If provided, must match the identifier of an existing @DBInstance@.
+--
 -- 'filters', 'describeDBInstances_filters' - A filter that specifies one or more instances to describe.
 --
 -- Supported filters:
@@ -114,14 +123,6 @@ data DescribeDBInstances = DescribeDBInstances'
 -- -   @db-instance-id@ - Accepts instance identifiers and instance ARNs.
 --     The results list includes only the information about the instances
 --     that are identified by these ARNs.
---
--- 'dbInstanceIdentifier', 'describeDBInstances_dbInstanceIdentifier' - The user-provided instance identifier. If this parameter is specified,
--- information from only the specific instance is returned. This parameter
--- isn\'t case sensitive.
---
--- Constraints:
---
--- -   If provided, must match the identifier of an existing @DBInstance@.
 --
 -- 'marker', 'describeDBInstances_marker' - An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
@@ -139,11 +140,22 @@ newDescribeDBInstances ::
   DescribeDBInstances
 newDescribeDBInstances =
   DescribeDBInstances'
-    { filters = Prelude.Nothing,
-      dbInstanceIdentifier = Prelude.Nothing,
+    { dbInstanceIdentifier =
+        Prelude.Nothing,
+      filters = Prelude.Nothing,
       marker = Prelude.Nothing,
       maxRecords = Prelude.Nothing
     }
+
+-- | The user-provided instance identifier. If this parameter is specified,
+-- information from only the specific instance is returned. This parameter
+-- isn\'t case sensitive.
+--
+-- Constraints:
+--
+-- -   If provided, must match the identifier of an existing @DBInstance@.
+describeDBInstances_dbInstanceIdentifier :: Lens.Lens' DescribeDBInstances (Prelude.Maybe Prelude.Text)
+describeDBInstances_dbInstanceIdentifier = Lens.lens (\DescribeDBInstances' {dbInstanceIdentifier} -> dbInstanceIdentifier) (\s@DescribeDBInstances' {} a -> s {dbInstanceIdentifier = a} :: DescribeDBInstances)
 
 -- | A filter that specifies one or more instances to describe.
 --
@@ -159,16 +171,6 @@ newDescribeDBInstances =
 --     that are identified by these ARNs.
 describeDBInstances_filters :: Lens.Lens' DescribeDBInstances (Prelude.Maybe [Filter])
 describeDBInstances_filters = Lens.lens (\DescribeDBInstances' {filters} -> filters) (\s@DescribeDBInstances' {} a -> s {filters = a} :: DescribeDBInstances) Prelude.. Lens.mapping Lens.coerced
-
--- | The user-provided instance identifier. If this parameter is specified,
--- information from only the specific instance is returned. This parameter
--- isn\'t case sensitive.
---
--- Constraints:
---
--- -   If provided, must match the identifier of an existing @DBInstance@.
-describeDBInstances_dbInstanceIdentifier :: Lens.Lens' DescribeDBInstances (Prelude.Maybe Prelude.Text)
-describeDBInstances_dbInstanceIdentifier = Lens.lens (\DescribeDBInstances' {dbInstanceIdentifier} -> dbInstanceIdentifier) (\s@DescribeDBInstances' {} a -> s {dbInstanceIdentifier = a} :: DescribeDBInstances)
 
 -- | An optional pagination token provided by a previous request. If this
 -- parameter is specified, the response includes only records beyond the
@@ -213,52 +215,53 @@ instance Core.AWSRequest DescribeDBInstances where
   type
     AWSResponse DescribeDBInstances =
       DescribeDBInstancesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeDBInstancesResult"
       ( \s h x ->
           DescribeDBInstancesResponse'
-            Prelude.<$> ( x Core..@? "DBInstances" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "DBInstance")
+            Prelude.<$> ( x Data..@? "DBInstances" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "DBInstance")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeDBInstances where
   hashWithSalt _salt DescribeDBInstances' {..} =
-    _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` dbInstanceIdentifier
+    _salt `Prelude.hashWithSalt` dbInstanceIdentifier
+      `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
 
 instance Prelude.NFData DescribeDBInstances where
   rnf DescribeDBInstances' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf dbInstanceIdentifier
+    Prelude.rnf dbInstanceIdentifier
+      `Prelude.seq` Prelude.rnf filters
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
 
-instance Core.ToHeaders DescribeDBInstances where
+instance Data.ToHeaders DescribeDBInstances where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDBInstances where
+instance Data.ToPath DescribeDBInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDBInstances where
+instance Data.ToQuery DescribeDBInstances where
   toQuery DescribeDBInstances' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeDBInstances" :: Prelude.ByteString),
+          Data.=: ("DescribeDBInstances" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBInstanceIdentifier" Data.=: dbInstanceIdentifier,
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "DBInstanceIdentifier" Core.=: dbInstanceIdentifier,
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords
       ]
 
 -- | Represents the output of DescribeDBInstances.

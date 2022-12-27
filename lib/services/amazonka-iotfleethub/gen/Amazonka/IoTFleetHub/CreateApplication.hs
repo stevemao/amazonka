@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTFleetHub.CreateApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.IoTFleetHub.CreateApplication
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTFleetHub.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -147,14 +148,15 @@ instance Core.AWSRequest CreateApplication where
   type
     AWSResponse CreateApplication =
       CreateApplicationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateApplicationResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "applicationId")
-            Prelude.<*> (x Core..:> "applicationArn")
+            Prelude.<*> (x Data..:> "applicationId")
+            Prelude.<*> (x Data..:> "applicationArn")
       )
 
 instance Prelude.Hashable CreateApplication where
@@ -173,35 +175,35 @@ instance Prelude.NFData CreateApplication where
       `Prelude.seq` Prelude.rnf applicationName
       `Prelude.seq` Prelude.rnf roleArn
 
-instance Core.ToHeaders CreateApplication where
+instance Data.ToHeaders CreateApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateApplication where
+instance Data.ToJSON CreateApplication where
   toJSON CreateApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("applicationDescription" Core..=)
+          [ ("applicationDescription" Data..=)
               Prelude.<$> applicationDescription,
-            ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("tags" Core..=) Prelude.<$> tags,
+            ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("applicationName" Core..= applicationName),
-            Prelude.Just ("roleArn" Core..= roleArn)
+              ("applicationName" Data..= applicationName),
+            Prelude.Just ("roleArn" Data..= roleArn)
           ]
       )
 
-instance Core.ToPath CreateApplication where
+instance Data.ToPath CreateApplication where
   toPath = Prelude.const "/applications"
 
-instance Core.ToQuery CreateApplication where
+instance Data.ToQuery CreateApplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateApplicationResponse' smart constructor.

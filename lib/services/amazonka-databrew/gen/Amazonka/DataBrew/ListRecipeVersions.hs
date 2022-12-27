@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DataBrew.ListRecipeVersions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.DataBrew.ListRecipeVersions
     newListRecipeVersions,
 
     -- * Request Lenses
-    listRecipeVersions_nextToken,
     listRecipeVersions_maxResults,
+    listRecipeVersions_nextToken,
     listRecipeVersions_name,
 
     -- * Destructuring the Response
@@ -46,19 +46,20 @@ module Amazonka.DataBrew.ListRecipeVersions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DataBrew.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListRecipeVersions' smart constructor.
 data ListRecipeVersions = ListRecipeVersions'
-  { -- | The token returned by a previous call to retrieve the next set of
+  { -- | The maximum number of results to return in this request.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token returned by a previous call to retrieve the next set of
     -- results.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return in this request.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The name of the recipe for which to return version information.
     name :: Prelude.Text
   }
@@ -72,10 +73,10 @@ data ListRecipeVersions = ListRecipeVersions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listRecipeVersions_maxResults' - The maximum number of results to return in this request.
+--
 -- 'nextToken', 'listRecipeVersions_nextToken' - The token returned by a previous call to retrieve the next set of
 -- results.
---
--- 'maxResults', 'listRecipeVersions_maxResults' - The maximum number of results to return in this request.
 --
 -- 'name', 'listRecipeVersions_name' - The name of the recipe for which to return version information.
 newListRecipeVersions ::
@@ -84,19 +85,19 @@ newListRecipeVersions ::
   ListRecipeVersions
 newListRecipeVersions pName_ =
   ListRecipeVersions'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       name = pName_
     }
+
+-- | The maximum number of results to return in this request.
+listRecipeVersions_maxResults :: Lens.Lens' ListRecipeVersions (Prelude.Maybe Prelude.Natural)
+listRecipeVersions_maxResults = Lens.lens (\ListRecipeVersions' {maxResults} -> maxResults) (\s@ListRecipeVersions' {} a -> s {maxResults = a} :: ListRecipeVersions)
 
 -- | The token returned by a previous call to retrieve the next set of
 -- results.
 listRecipeVersions_nextToken :: Lens.Lens' ListRecipeVersions (Prelude.Maybe Prelude.Text)
 listRecipeVersions_nextToken = Lens.lens (\ListRecipeVersions' {nextToken} -> nextToken) (\s@ListRecipeVersions' {} a -> s {nextToken = a} :: ListRecipeVersions)
-
--- | The maximum number of results to return in this request.
-listRecipeVersions_maxResults :: Lens.Lens' ListRecipeVersions (Prelude.Maybe Prelude.Natural)
-listRecipeVersions_maxResults = Lens.lens (\ListRecipeVersions' {maxResults} -> maxResults) (\s@ListRecipeVersions' {} a -> s {maxResults = a} :: ListRecipeVersions)
 
 -- | The name of the recipe for which to return version information.
 listRecipeVersions_name :: Lens.Lens' ListRecipeVersions Prelude.Text
@@ -125,48 +126,49 @@ instance Core.AWSRequest ListRecipeVersions where
   type
     AWSResponse ListRecipeVersions =
       ListRecipeVersionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListRecipeVersionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "Recipes" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Recipes" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListRecipeVersions where
   hashWithSalt _salt ListRecipeVersions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData ListRecipeVersions where
   rnf ListRecipeVersions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders ListRecipeVersions where
+instance Data.ToHeaders ListRecipeVersions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListRecipeVersions where
+instance Data.ToPath ListRecipeVersions where
   toPath = Prelude.const "/recipeVersions"
 
-instance Core.ToQuery ListRecipeVersions where
+instance Data.ToQuery ListRecipeVersions where
   toQuery ListRecipeVersions' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults,
-        "name" Core.=: name
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "name" Data.=: name
       ]
 
 -- | /See:/ 'newListRecipeVersionsResponse' smart constructor.

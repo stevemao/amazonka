@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.Types.SingleMasterConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.KinesisVideo.Types.SingleMasterConfiguration where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure that contains the configuration for the @SINGLE_MASTER@
@@ -28,7 +29,7 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSingleMasterConfiguration' smart constructor.
 data SingleMasterConfiguration = SingleMasterConfiguration'
-  { -- | The period of time a signaling channel retains underlivered messages
+  { -- | The period of time a signaling channel retains undelivered messages
     -- before they are discarded.
     messageTtlSeconds :: Prelude.Maybe Prelude.Natural
   }
@@ -42,7 +43,7 @@ data SingleMasterConfiguration = SingleMasterConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'messageTtlSeconds', 'singleMasterConfiguration_messageTtlSeconds' - The period of time a signaling channel retains underlivered messages
+-- 'messageTtlSeconds', 'singleMasterConfiguration_messageTtlSeconds' - The period of time a signaling channel retains undelivered messages
 -- before they are discarded.
 newSingleMasterConfiguration ::
   SingleMasterConfiguration
@@ -52,18 +53,18 @@ newSingleMasterConfiguration =
         Prelude.Nothing
     }
 
--- | The period of time a signaling channel retains underlivered messages
+-- | The period of time a signaling channel retains undelivered messages
 -- before they are discarded.
 singleMasterConfiguration_messageTtlSeconds :: Lens.Lens' SingleMasterConfiguration (Prelude.Maybe Prelude.Natural)
 singleMasterConfiguration_messageTtlSeconds = Lens.lens (\SingleMasterConfiguration' {messageTtlSeconds} -> messageTtlSeconds) (\s@SingleMasterConfiguration' {} a -> s {messageTtlSeconds = a} :: SingleMasterConfiguration)
 
-instance Core.FromJSON SingleMasterConfiguration where
+instance Data.FromJSON SingleMasterConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SingleMasterConfiguration"
       ( \x ->
           SingleMasterConfiguration'
-            Prelude.<$> (x Core..:? "MessageTtlSeconds")
+            Prelude.<$> (x Data..:? "MessageTtlSeconds")
       )
 
 instance Prelude.Hashable SingleMasterConfiguration where
@@ -74,11 +75,11 @@ instance Prelude.NFData SingleMasterConfiguration where
   rnf SingleMasterConfiguration' {..} =
     Prelude.rnf messageTtlSeconds
 
-instance Core.ToJSON SingleMasterConfiguration where
+instance Data.ToJSON SingleMasterConfiguration where
   toJSON SingleMasterConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MessageTtlSeconds" Core..=)
+          [ ("MessageTtlSeconds" Data..=)
               Prelude.<$> messageTtlSeconds
           ]
       )

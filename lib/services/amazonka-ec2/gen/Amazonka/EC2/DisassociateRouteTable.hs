@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DisassociateRouteTable
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.EC2.DisassociateRouteTable
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,7 +104,8 @@ instance Core.AWSRequest DisassociateRouteTable where
   type
     AWSResponse DisassociateRouteTable =
       DisassociateRouteTableResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DisassociateRouteTableResponse'
@@ -118,21 +120,21 @@ instance Prelude.NFData DisassociateRouteTable where
     Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf associationId
 
-instance Core.ToHeaders DisassociateRouteTable where
+instance Data.ToHeaders DisassociateRouteTable where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DisassociateRouteTable where
+instance Data.ToPath DisassociateRouteTable where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DisassociateRouteTable where
+instance Data.ToQuery DisassociateRouteTable where
   toQuery DisassociateRouteTable' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DisassociateRouteTable" :: Prelude.ByteString),
+          Data.=: ("DisassociateRouteTable" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "AssociationId" Core.=: associationId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "AssociationId" Data.=: associationId
       ]
 
 -- | /See:/ 'newDisassociateRouteTableResponse' smart constructor.

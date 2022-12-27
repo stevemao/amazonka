@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.StandardsSubscription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,15 +20,19 @@
 module Amazonka.SecurityHub.Types.StandardsSubscription where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.StandardsStatus
+import Amazonka.SecurityHub.Types.StandardsStatusReason
 
 -- | A resource that represents your subscription to a supported standard.
 --
 -- /See:/ 'newStandardsSubscription' smart constructor.
 data StandardsSubscription = StandardsSubscription'
-  { -- | The ARN of a resource that represents your subscription to a supported
+  { -- | The reason for the current status.
+    standardsStatusReason :: Prelude.Maybe StandardsStatusReason,
+    -- | The ARN of a resource that represents your subscription to a supported
     -- standard.
     standardsSubscriptionArn :: Prelude.Text,
     -- | The ARN of a standard.
@@ -60,6 +64,8 @@ data StandardsSubscription = StandardsSubscription'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'standardsStatusReason', 'standardsSubscription_standardsStatusReason' - The reason for the current status.
 --
 -- 'standardsSubscriptionArn', 'standardsSubscription_standardsSubscriptionArn' - The ARN of a resource that represents your subscription to a supported
 -- standard.
@@ -95,12 +101,18 @@ newStandardsSubscription
   pStandardsArn_
   pStandardsStatus_ =
     StandardsSubscription'
-      { standardsSubscriptionArn =
+      { standardsStatusReason =
+          Prelude.Nothing,
+        standardsSubscriptionArn =
           pStandardsSubscriptionArn_,
         standardsArn = pStandardsArn_,
         standardsInput = Prelude.mempty,
         standardsStatus = pStandardsStatus_
       }
+
+-- | The reason for the current status.
+standardsSubscription_standardsStatusReason :: Lens.Lens' StandardsSubscription (Prelude.Maybe StandardsStatusReason)
+standardsSubscription_standardsStatusReason = Lens.lens (\StandardsSubscription' {standardsStatusReason} -> standardsStatusReason) (\s@StandardsSubscription' {} a -> s {standardsStatusReason = a} :: StandardsSubscription)
 
 -- | The ARN of a resource that represents your subscription to a supported
 -- standard.
@@ -132,21 +144,22 @@ standardsSubscription_standardsInput = Lens.lens (\StandardsSubscription' {stand
 standardsSubscription_standardsStatus :: Lens.Lens' StandardsSubscription StandardsStatus
 standardsSubscription_standardsStatus = Lens.lens (\StandardsSubscription' {standardsStatus} -> standardsStatus) (\s@StandardsSubscription' {} a -> s {standardsStatus = a} :: StandardsSubscription)
 
-instance Core.FromJSON StandardsSubscription where
+instance Data.FromJSON StandardsSubscription where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StandardsSubscription"
       ( \x ->
           StandardsSubscription'
-            Prelude.<$> (x Core..: "StandardsSubscriptionArn")
-            Prelude.<*> (x Core..: "StandardsArn")
-            Prelude.<*> (x Core..:? "StandardsInput" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "StandardsStatus")
+            Prelude.<$> (x Data..:? "StandardsStatusReason")
+            Prelude.<*> (x Data..: "StandardsSubscriptionArn")
+            Prelude.<*> (x Data..: "StandardsArn")
+            Prelude.<*> (x Data..:? "StandardsInput" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "StandardsStatus")
       )
 
 instance Prelude.Hashable StandardsSubscription where
   hashWithSalt _salt StandardsSubscription' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` standardsStatusReason
       `Prelude.hashWithSalt` standardsSubscriptionArn
       `Prelude.hashWithSalt` standardsArn
       `Prelude.hashWithSalt` standardsInput
@@ -154,7 +167,8 @@ instance Prelude.Hashable StandardsSubscription where
 
 instance Prelude.NFData StandardsSubscription where
   rnf StandardsSubscription' {..} =
-    Prelude.rnf standardsSubscriptionArn
+    Prelude.rnf standardsStatusReason
+      `Prelude.seq` Prelude.rnf standardsSubscriptionArn
       `Prelude.seq` Prelude.rnf standardsArn
       `Prelude.seq` Prelude.rnf standardsInput
       `Prelude.seq` Prelude.rnf standardsStatus

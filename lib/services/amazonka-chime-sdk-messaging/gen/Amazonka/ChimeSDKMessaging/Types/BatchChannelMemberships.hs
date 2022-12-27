@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.Types.BatchChannelMemberships
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.ChimeSDKMessaging.Types.BatchChannelMemberships where
 import Amazonka.ChimeSDKMessaging.Types.ChannelMembershipType
 import Amazonka.ChimeSDKMessaging.Types.Identity
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The membership information, including member ARNs, the channel ARN, and
@@ -30,14 +31,16 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newBatchChannelMemberships' smart constructor.
 data BatchChannelMemberships = BatchChannelMemberships'
-  { -- | The users successfully added to the request.
-    members :: Prelude.Maybe [Identity],
-    -- | The ARN of the channel to which you\'re adding users.
+  { -- | The ARN of the channel to which you\'re adding users.
     channelArn :: Prelude.Maybe Prelude.Text,
-    -- | The membership types set for the channel users.
-    type' :: Prelude.Maybe ChannelMembershipType,
     -- | The identifier of the member who invited another member.
-    invitedBy :: Prelude.Maybe Identity
+    invitedBy :: Prelude.Maybe Identity,
+    -- | The users successfully added to the request.
+    members :: Prelude.Maybe [Identity],
+    -- | The ID of the SubChannel.
+    subChannelId :: Prelude.Maybe Prelude.Text,
+    -- | The membership types set for the channel users.
+    type' :: Prelude.Maybe ChannelMembershipType
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -49,61 +52,72 @@ data BatchChannelMemberships = BatchChannelMemberships'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'members', 'batchChannelMemberships_members' - The users successfully added to the request.
---
 -- 'channelArn', 'batchChannelMemberships_channelArn' - The ARN of the channel to which you\'re adding users.
 --
--- 'type'', 'batchChannelMemberships_type' - The membership types set for the channel users.
---
 -- 'invitedBy', 'batchChannelMemberships_invitedBy' - The identifier of the member who invited another member.
+--
+-- 'members', 'batchChannelMemberships_members' - The users successfully added to the request.
+--
+-- 'subChannelId', 'batchChannelMemberships_subChannelId' - The ID of the SubChannel.
+--
+-- 'type'', 'batchChannelMemberships_type' - The membership types set for the channel users.
 newBatchChannelMemberships ::
   BatchChannelMemberships
 newBatchChannelMemberships =
   BatchChannelMemberships'
-    { members = Prelude.Nothing,
-      channelArn = Prelude.Nothing,
-      type' = Prelude.Nothing,
-      invitedBy = Prelude.Nothing
+    { channelArn =
+        Prelude.Nothing,
+      invitedBy = Prelude.Nothing,
+      members = Prelude.Nothing,
+      subChannelId = Prelude.Nothing,
+      type' = Prelude.Nothing
     }
-
--- | The users successfully added to the request.
-batchChannelMemberships_members :: Lens.Lens' BatchChannelMemberships (Prelude.Maybe [Identity])
-batchChannelMemberships_members = Lens.lens (\BatchChannelMemberships' {members} -> members) (\s@BatchChannelMemberships' {} a -> s {members = a} :: BatchChannelMemberships) Prelude.. Lens.mapping Lens.coerced
 
 -- | The ARN of the channel to which you\'re adding users.
 batchChannelMemberships_channelArn :: Lens.Lens' BatchChannelMemberships (Prelude.Maybe Prelude.Text)
 batchChannelMemberships_channelArn = Lens.lens (\BatchChannelMemberships' {channelArn} -> channelArn) (\s@BatchChannelMemberships' {} a -> s {channelArn = a} :: BatchChannelMemberships)
 
--- | The membership types set for the channel users.
-batchChannelMemberships_type :: Lens.Lens' BatchChannelMemberships (Prelude.Maybe ChannelMembershipType)
-batchChannelMemberships_type = Lens.lens (\BatchChannelMemberships' {type'} -> type') (\s@BatchChannelMemberships' {} a -> s {type' = a} :: BatchChannelMemberships)
-
 -- | The identifier of the member who invited another member.
 batchChannelMemberships_invitedBy :: Lens.Lens' BatchChannelMemberships (Prelude.Maybe Identity)
 batchChannelMemberships_invitedBy = Lens.lens (\BatchChannelMemberships' {invitedBy} -> invitedBy) (\s@BatchChannelMemberships' {} a -> s {invitedBy = a} :: BatchChannelMemberships)
 
-instance Core.FromJSON BatchChannelMemberships where
+-- | The users successfully added to the request.
+batchChannelMemberships_members :: Lens.Lens' BatchChannelMemberships (Prelude.Maybe [Identity])
+batchChannelMemberships_members = Lens.lens (\BatchChannelMemberships' {members} -> members) (\s@BatchChannelMemberships' {} a -> s {members = a} :: BatchChannelMemberships) Prelude.. Lens.mapping Lens.coerced
+
+-- | The ID of the SubChannel.
+batchChannelMemberships_subChannelId :: Lens.Lens' BatchChannelMemberships (Prelude.Maybe Prelude.Text)
+batchChannelMemberships_subChannelId = Lens.lens (\BatchChannelMemberships' {subChannelId} -> subChannelId) (\s@BatchChannelMemberships' {} a -> s {subChannelId = a} :: BatchChannelMemberships)
+
+-- | The membership types set for the channel users.
+batchChannelMemberships_type :: Lens.Lens' BatchChannelMemberships (Prelude.Maybe ChannelMembershipType)
+batchChannelMemberships_type = Lens.lens (\BatchChannelMemberships' {type'} -> type') (\s@BatchChannelMemberships' {} a -> s {type' = a} :: BatchChannelMemberships)
+
+instance Data.FromJSON BatchChannelMemberships where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchChannelMemberships"
       ( \x ->
           BatchChannelMemberships'
-            Prelude.<$> (x Core..:? "Members" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "ChannelArn")
-            Prelude.<*> (x Core..:? "Type")
-            Prelude.<*> (x Core..:? "InvitedBy")
+            Prelude.<$> (x Data..:? "ChannelArn")
+            Prelude.<*> (x Data..:? "InvitedBy")
+            Prelude.<*> (x Data..:? "Members" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "SubChannelId")
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable BatchChannelMemberships where
   hashWithSalt _salt BatchChannelMemberships' {..} =
-    _salt `Prelude.hashWithSalt` members
-      `Prelude.hashWithSalt` channelArn
-      `Prelude.hashWithSalt` type'
+    _salt `Prelude.hashWithSalt` channelArn
       `Prelude.hashWithSalt` invitedBy
+      `Prelude.hashWithSalt` members
+      `Prelude.hashWithSalt` subChannelId
+      `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData BatchChannelMemberships where
   rnf BatchChannelMemberships' {..} =
-    Prelude.rnf members
-      `Prelude.seq` Prelude.rnf channelArn
-      `Prelude.seq` Prelude.rnf type'
+    Prelude.rnf channelArn
       `Prelude.seq` Prelude.rnf invitedBy
+      `Prelude.seq` Prelude.rnf members
+      `Prelude.seq` Prelude.rnf subChannelId
+      `Prelude.seq` Prelude.rnf type'

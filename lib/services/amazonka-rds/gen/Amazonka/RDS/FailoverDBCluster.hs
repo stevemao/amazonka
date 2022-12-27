@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.FailoverDBCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,22 +22,31 @@
 --
 -- Forces a failover for a DB cluster.
 --
--- A failover for a DB cluster promotes one of the Aurora Replicas
--- (read-only instances) in the DB cluster to be the primary instance (the
--- cluster writer).
+-- For an Aurora DB cluster, failover for a DB cluster promotes one of the
+-- Aurora Replicas (read-only instances) in the DB cluster to be the
+-- primary DB instance (the cluster writer).
 --
--- Amazon Aurora will automatically fail over to an Aurora Replica, if one
--- exists, when the primary instance fails. You can force a failover when
--- you want to simulate a failure of a primary instance for testing.
--- Because each instance in a DB cluster has its own endpoint address, you
--- will need to clean up and re-establish any existing connections that use
--- those endpoint addresses when the failover is complete.
+-- For a Multi-AZ DB cluster, failover for a DB cluster promotes one of the
+-- readable standby DB instances (read-only instances) in the DB cluster to
+-- be the primary DB instance (the cluster writer).
 --
--- For more information on Amazon Aurora, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?>
--- in the /Amazon Aurora User Guide./
+-- An Amazon Aurora DB cluster automatically fails over to an Aurora
+-- Replica, if one exists, when the primary DB instance fails. A Multi-AZ
+-- DB cluster automatically fails over to a readable standby DB instance
+-- when the primary DB instance fails.
 --
--- This action only applies to Aurora DB clusters.
+-- To simulate a failure of a primary instance for testing, you can force a
+-- failover. Because each instance in a DB cluster has its own endpoint
+-- address, make sure to clean up and re-establish any existing connections
+-- that use those endpoint addresses when the failover is complete.
+--
+-- For more information on Amazon Aurora DB clusters, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What is Amazon Aurora?>
+-- in the /Amazon Aurora User Guide/.
+--
+-- For more information on Multi-AZ DB clusters, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html Multi-AZ deployments with two readable standby DB instances>
+-- in the /Amazon RDS User Guide/.
 module Amazonka.RDS.FailoverDBCluster
   ( -- * Creating a Request
     FailoverDBCluster (..),
@@ -58,7 +67,8 @@ module Amazonka.RDS.FailoverDBCluster
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -68,10 +78,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newFailoverDBCluster' smart constructor.
 data FailoverDBCluster = FailoverDBCluster'
-  { -- | The name of the instance to promote to the primary instance.
+  { -- | The name of the DB instance to promote to the primary DB instance.
     --
-    -- You must specify the instance identifier for an Aurora Replica in the DB
-    -- cluster. For example, @mydbcluster-replica1@.
+    -- Specify the DB instance identifier for an Aurora Replica or a Multi-AZ
+    -- readable standby in the DB cluster, for example @mydbcluster-replica1@.
+    --
+    -- This setting isn\'t supported for RDS for MySQL Multi-AZ DB clusters.
     targetDBInstanceIdentifier :: Prelude.Maybe Prelude.Text,
     -- | A DB cluster identifier to force a failover for. This parameter isn\'t
     -- case-sensitive.
@@ -91,10 +103,12 @@ data FailoverDBCluster = FailoverDBCluster'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'targetDBInstanceIdentifier', 'failoverDBCluster_targetDBInstanceIdentifier' - The name of the instance to promote to the primary instance.
+-- 'targetDBInstanceIdentifier', 'failoverDBCluster_targetDBInstanceIdentifier' - The name of the DB instance to promote to the primary DB instance.
 --
--- You must specify the instance identifier for an Aurora Replica in the DB
--- cluster. For example, @mydbcluster-replica1@.
+-- Specify the DB instance identifier for an Aurora Replica or a Multi-AZ
+-- readable standby in the DB cluster, for example @mydbcluster-replica1@.
+--
+-- This setting isn\'t supported for RDS for MySQL Multi-AZ DB clusters.
 --
 -- 'dbClusterIdentifier', 'failoverDBCluster_dbClusterIdentifier' - A DB cluster identifier to force a failover for. This parameter isn\'t
 -- case-sensitive.
@@ -113,10 +127,12 @@ newFailoverDBCluster pDBClusterIdentifier_ =
       dbClusterIdentifier = pDBClusterIdentifier_
     }
 
--- | The name of the instance to promote to the primary instance.
+-- | The name of the DB instance to promote to the primary DB instance.
 --
--- You must specify the instance identifier for an Aurora Replica in the DB
--- cluster. For example, @mydbcluster-replica1@.
+-- Specify the DB instance identifier for an Aurora Replica or a Multi-AZ
+-- readable standby in the DB cluster, for example @mydbcluster-replica1@.
+--
+-- This setting isn\'t supported for RDS for MySQL Multi-AZ DB clusters.
 failoverDBCluster_targetDBInstanceIdentifier :: Lens.Lens' FailoverDBCluster (Prelude.Maybe Prelude.Text)
 failoverDBCluster_targetDBInstanceIdentifier = Lens.lens (\FailoverDBCluster' {targetDBInstanceIdentifier} -> targetDBInstanceIdentifier) (\s@FailoverDBCluster' {} a -> s {targetDBInstanceIdentifier = a} :: FailoverDBCluster)
 
@@ -133,13 +149,14 @@ instance Core.AWSRequest FailoverDBCluster where
   type
     AWSResponse FailoverDBCluster =
       FailoverDBClusterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "FailoverDBClusterResult"
       ( \s h x ->
           FailoverDBClusterResponse'
-            Prelude.<$> (x Core..@? "DBCluster")
+            Prelude.<$> (x Data..@? "DBCluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -154,22 +171,22 @@ instance Prelude.NFData FailoverDBCluster where
     Prelude.rnf targetDBInstanceIdentifier
       `Prelude.seq` Prelude.rnf dbClusterIdentifier
 
-instance Core.ToHeaders FailoverDBCluster where
+instance Data.ToHeaders FailoverDBCluster where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath FailoverDBCluster where
+instance Data.ToPath FailoverDBCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery FailoverDBCluster where
+instance Data.ToQuery FailoverDBCluster where
   toQuery FailoverDBCluster' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("FailoverDBCluster" :: Prelude.ByteString),
+          Data.=: ("FailoverDBCluster" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "TargetDBInstanceIdentifier"
-          Core.=: targetDBInstanceIdentifier,
-        "DBClusterIdentifier" Core.=: dbClusterIdentifier
+          Data.=: targetDBInstanceIdentifier,
+        "DBClusterIdentifier" Data.=: dbClusterIdentifier
       ]
 
 -- | /See:/ 'newFailoverDBClusterResponse' smart constructor.

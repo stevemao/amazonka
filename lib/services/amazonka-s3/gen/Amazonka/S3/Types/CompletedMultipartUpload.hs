@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.CompletedMultipartUpload
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.CompletedMultipartUpload where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 import Amazonka.S3.Types.CompletedPart
@@ -30,6 +31,9 @@ import Amazonka.S3.Types.CompletedPart
 -- /See:/ 'newCompletedMultipartUpload' smart constructor.
 data CompletedMultipartUpload = CompletedMultipartUpload'
   { -- | Array of CompletedPart data types.
+    --
+    -- If you do not supply a valid @Part@ with your request, the service sends
+    -- back an HTTP 400 response.
     parts :: Prelude.Maybe (Prelude.NonEmpty CompletedPart)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -43,12 +47,18 @@ data CompletedMultipartUpload = CompletedMultipartUpload'
 -- for backwards compatibility:
 --
 -- 'parts', 'completedMultipartUpload_parts' - Array of CompletedPart data types.
+--
+-- If you do not supply a valid @Part@ with your request, the service sends
+-- back an HTTP 400 response.
 newCompletedMultipartUpload ::
   CompletedMultipartUpload
 newCompletedMultipartUpload =
   CompletedMultipartUpload' {parts = Prelude.Nothing}
 
 -- | Array of CompletedPart data types.
+--
+-- If you do not supply a valid @Part@ with your request, the service sends
+-- back an HTTP 400 response.
 completedMultipartUpload_parts :: Lens.Lens' CompletedMultipartUpload (Prelude.Maybe (Prelude.NonEmpty CompletedPart))
 completedMultipartUpload_parts = Lens.lens (\CompletedMultipartUpload' {parts} -> parts) (\s@CompletedMultipartUpload' {} a -> s {parts = a} :: CompletedMultipartUpload) Prelude.. Lens.mapping Lens.coerced
 
@@ -59,9 +69,9 @@ instance Prelude.Hashable CompletedMultipartUpload where
 instance Prelude.NFData CompletedMultipartUpload where
   rnf CompletedMultipartUpload' {..} = Prelude.rnf parts
 
-instance Core.ToXML CompletedMultipartUpload where
+instance Data.ToXML CompletedMultipartUpload where
   toXML CompletedMultipartUpload' {..} =
     Prelude.mconcat
-      [ Core.toXML
-          (Core.toXMLList "Part" Prelude.<$> parts)
+      [ Data.toXML
+          (Data.toXMLList "Part" Prelude.<$> parts)
       ]

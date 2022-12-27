@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.CreateAccessKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -59,8 +59,9 @@ module Amazonka.IAM.CreateAccessKey
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -109,14 +110,15 @@ instance Core.AWSRequest CreateAccessKey where
   type
     AWSResponse CreateAccessKey =
       CreateAccessKeyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateAccessKeyResult"
       ( \s h x ->
           CreateAccessKeyResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "AccessKey")
+            Prelude.<*> (x Data..@ "AccessKey")
       )
 
 instance Prelude.Hashable CreateAccessKey where
@@ -126,20 +128,20 @@ instance Prelude.Hashable CreateAccessKey where
 instance Prelude.NFData CreateAccessKey where
   rnf CreateAccessKey' {..} = Prelude.rnf userName
 
-instance Core.ToHeaders CreateAccessKey where
+instance Data.ToHeaders CreateAccessKey where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateAccessKey where
+instance Data.ToPath CreateAccessKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateAccessKey where
+instance Data.ToQuery CreateAccessKey where
   toQuery CreateAccessKey' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreateAccessKey" :: Prelude.ByteString),
+          Data.=: ("CreateAccessKey" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "UserName" Core.=: userName
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "UserName" Data.=: userName
       ]
 
 -- | Contains the response to a successful CreateAccessKey request.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudTrail.Types.AdvancedFieldSelector
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CloudTrail.Types.AdvancedFieldSelector where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A single selector statement in an advanced event selector.
@@ -30,20 +31,20 @@ data AdvancedFieldSelector = AdvancedFieldSelector'
   { -- | An operator that includes events that match the last few characters of
     -- the event record field specified as the value of @Field@.
     endsWith :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | An operator that excludes events that match the first few characters of
-    -- the event record field specified as the value of @Field@.
-    notStartsWith :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
     -- | An operator that includes events that match the exact value of the event
     -- record field specified as the value of @Field@. This is the only valid
     -- operator that you can use with the @readOnly@, @eventCategory@, and
     -- @resources.type@ fields.
     equals :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
-    -- | An operator that excludes events that match the exact value of the event
-    -- record field specified as the value of @Field@.
-    notEquals :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
     -- | An operator that excludes events that match the last few characters of
     -- the event record field specified as the value of @Field@.
     notEndsWith :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | An operator that excludes events that match the exact value of the event
+    -- record field specified as the value of @Field@.
+    notEquals :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
+    -- | An operator that excludes events that match the first few characters of
+    -- the event record field specified as the value of @Field@.
+    notStartsWith :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
     -- | An operator that includes events that match the first few characters of
     -- the event record field specified as the value of @Field@.
     startsWith :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
@@ -52,7 +53,9 @@ data AdvancedFieldSelector = AdvancedFieldSelector'
     -- management events), @eventName@, @resources.type@, and @resources.ARN@.
     --
     -- -   __@readOnly@__ - Optional. Can be set to @Equals@ a value of @true@
-    --     or @false@. A value of @false@ logs both @read@ and @write@ events.
+    --     or @false@. If you do not add this field, CloudTrail logs both
+    --     @read@ and @write@ events. A value of @true@ logs only @read@
+    --     events. A value of @false@ logs only @write@ events.
     --
     -- -   __@eventSource@__ - For filtering management events only. This can
     --     be set only to @NotEquals@ @kms.amazonaws.com@.
@@ -67,14 +70,32 @@ data AdvancedFieldSelector = AdvancedFieldSelector'
     --
     -- -   __@resources.type@__ - This ﬁeld is required. @resources.type@ can
     --     only use the @Equals@ operator, and the value can be one of the
-    --     following: @AWS::S3::Object@, @AWS::S3::AccessPoint@,
-    --     @AWS::Lambda::Function@, @AWS::DynamoDB::Table@,
-    --     @AWS::S3Outposts::Object@, @AWS::ManagedBlockchain::Node@,
-    --     @AWS::S3ObjectLambda::AccessPoint@, or @AWS::EC2::Snapshot@. You can
-    --     have only one @resources.type@ ﬁeld per selector. To log data events
-    --     on more than one resource type, add another selector.
+    --     following:
     --
-    -- -   __@resources.ARN@__ - You can use any operator with resources.ARN,
+    --     -   @AWS::S3::Object@
+    --
+    --     -   @AWS::Lambda::Function@
+    --
+    --     -   @AWS::DynamoDB::Table@
+    --
+    --     -   @AWS::S3Outposts::Object@
+    --
+    --     -   @AWS::ManagedBlockchain::Node@
+    --
+    --     -   @AWS::S3ObjectLambda::AccessPoint@
+    --
+    --     -   @AWS::EC2::Snapshot@
+    --
+    --     -   @AWS::S3::AccessPoint@
+    --
+    --     -   @AWS::DynamoDB::Stream@
+    --
+    --     -   @AWS::Glue::Table@
+    --
+    --     You can have only one @resources.type@ ﬁeld per selector. To log
+    --     data events on more than one resource type, add another selector.
+    --
+    -- -   __@resources.ARN@__ - You can use any operator with @resources.ARN@,
     --     but if you use @Equals@ or @NotEquals@, the value must exactly match
     --     the ARN of a valid resource of the type you\'ve speciﬁed in the
     --     template as the value of resources.type. For example, if
@@ -112,7 +133,7 @@ data AdvancedFieldSelector = AdvancedFieldSelector'
     --     is set to @Equals@ or @NotEquals@, the ARN must be in the following
     --     format:
     --
-    --     -   @arn:\<partition>:dynamodb:\<region>:\<account_ID>:table:\<table_name>@
+    --     -   @arn:\<partition>:dynamodb:\<region>:\<account_ID>:table\/\<table_name>@
     --
     --     When @resources.type@ equals @AWS::S3Outposts::Object@, and the
     --     operator is set to @Equals@ or @NotEquals@, the ARN must be in the
@@ -137,6 +158,18 @@ data AdvancedFieldSelector = AdvancedFieldSelector'
     --     format:
     --
     --     -   @arn:\<partition>:ec2:\<region>::snapshot\/\<snapshot_ID>@
+    --
+    --     When @resources.type@ equals @AWS::DynamoDB::Stream@, and the
+    --     operator is set to @Equals@ or @NotEquals@, the ARN must be in the
+    --     following format:
+    --
+    --     -   @arn:\<partition>:dynamodb:\<region>:\<account_ID>:table\/\<table_name>\/stream\/\<date_time>@
+    --
+    --     When @resources.type@ equals @AWS::Glue::Table@, and the operator is
+    --     set to @Equals@ or @NotEquals@, the ARN must be in the following
+    --     format:
+    --
+    --     -   @arn:\<partition>:glue:\<region>:\<account_ID>:table\/\<database_name>\/\<table_name>@
     field :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -152,18 +185,18 @@ data AdvancedFieldSelector = AdvancedFieldSelector'
 -- 'endsWith', 'advancedFieldSelector_endsWith' - An operator that includes events that match the last few characters of
 -- the event record field specified as the value of @Field@.
 --
--- 'notStartsWith', 'advancedFieldSelector_notStartsWith' - An operator that excludes events that match the first few characters of
--- the event record field specified as the value of @Field@.
---
 -- 'equals', 'advancedFieldSelector_equals' - An operator that includes events that match the exact value of the event
 -- record field specified as the value of @Field@. This is the only valid
 -- operator that you can use with the @readOnly@, @eventCategory@, and
 -- @resources.type@ fields.
 --
+-- 'notEndsWith', 'advancedFieldSelector_notEndsWith' - An operator that excludes events that match the last few characters of
+-- the event record field specified as the value of @Field@.
+--
 -- 'notEquals', 'advancedFieldSelector_notEquals' - An operator that excludes events that match the exact value of the event
 -- record field specified as the value of @Field@.
 --
--- 'notEndsWith', 'advancedFieldSelector_notEndsWith' - An operator that excludes events that match the last few characters of
+-- 'notStartsWith', 'advancedFieldSelector_notStartsWith' - An operator that excludes events that match the first few characters of
 -- the event record field specified as the value of @Field@.
 --
 -- 'startsWith', 'advancedFieldSelector_startsWith' - An operator that includes events that match the first few characters of
@@ -174,7 +207,9 @@ data AdvancedFieldSelector = AdvancedFieldSelector'
 -- management events), @eventName@, @resources.type@, and @resources.ARN@.
 --
 -- -   __@readOnly@__ - Optional. Can be set to @Equals@ a value of @true@
---     or @false@. A value of @false@ logs both @read@ and @write@ events.
+--     or @false@. If you do not add this field, CloudTrail logs both
+--     @read@ and @write@ events. A value of @true@ logs only @read@
+--     events. A value of @false@ logs only @write@ events.
 --
 -- -   __@eventSource@__ - For filtering management events only. This can
 --     be set only to @NotEquals@ @kms.amazonaws.com@.
@@ -189,14 +224,32 @@ data AdvancedFieldSelector = AdvancedFieldSelector'
 --
 -- -   __@resources.type@__ - This ﬁeld is required. @resources.type@ can
 --     only use the @Equals@ operator, and the value can be one of the
---     following: @AWS::S3::Object@, @AWS::S3::AccessPoint@,
---     @AWS::Lambda::Function@, @AWS::DynamoDB::Table@,
---     @AWS::S3Outposts::Object@, @AWS::ManagedBlockchain::Node@,
---     @AWS::S3ObjectLambda::AccessPoint@, or @AWS::EC2::Snapshot@. You can
---     have only one @resources.type@ ﬁeld per selector. To log data events
---     on more than one resource type, add another selector.
+--     following:
 --
--- -   __@resources.ARN@__ - You can use any operator with resources.ARN,
+--     -   @AWS::S3::Object@
+--
+--     -   @AWS::Lambda::Function@
+--
+--     -   @AWS::DynamoDB::Table@
+--
+--     -   @AWS::S3Outposts::Object@
+--
+--     -   @AWS::ManagedBlockchain::Node@
+--
+--     -   @AWS::S3ObjectLambda::AccessPoint@
+--
+--     -   @AWS::EC2::Snapshot@
+--
+--     -   @AWS::S3::AccessPoint@
+--
+--     -   @AWS::DynamoDB::Stream@
+--
+--     -   @AWS::Glue::Table@
+--
+--     You can have only one @resources.type@ ﬁeld per selector. To log
+--     data events on more than one resource type, add another selector.
+--
+-- -   __@resources.ARN@__ - You can use any operator with @resources.ARN@,
 --     but if you use @Equals@ or @NotEquals@, the value must exactly match
 --     the ARN of a valid resource of the type you\'ve speciﬁed in the
 --     template as the value of resources.type. For example, if
@@ -234,7 +287,7 @@ data AdvancedFieldSelector = AdvancedFieldSelector'
 --     is set to @Equals@ or @NotEquals@, the ARN must be in the following
 --     format:
 --
---     -   @arn:\<partition>:dynamodb:\<region>:\<account_ID>:table:\<table_name>@
+--     -   @arn:\<partition>:dynamodb:\<region>:\<account_ID>:table\/\<table_name>@
 --
 --     When @resources.type@ equals @AWS::S3Outposts::Object@, and the
 --     operator is set to @Equals@ or @NotEquals@, the ARN must be in the
@@ -259,6 +312,18 @@ data AdvancedFieldSelector = AdvancedFieldSelector'
 --     format:
 --
 --     -   @arn:\<partition>:ec2:\<region>::snapshot\/\<snapshot_ID>@
+--
+--     When @resources.type@ equals @AWS::DynamoDB::Stream@, and the
+--     operator is set to @Equals@ or @NotEquals@, the ARN must be in the
+--     following format:
+--
+--     -   @arn:\<partition>:dynamodb:\<region>:\<account_ID>:table\/\<table_name>\/stream\/\<date_time>@
+--
+--     When @resources.type@ equals @AWS::Glue::Table@, and the operator is
+--     set to @Equals@ or @NotEquals@, the ARN must be in the following
+--     format:
+--
+--     -   @arn:\<partition>:glue:\<region>:\<account_ID>:table\/\<database_name>\/\<table_name>@
 newAdvancedFieldSelector ::
   -- | 'field'
   Prelude.Text ->
@@ -266,10 +331,10 @@ newAdvancedFieldSelector ::
 newAdvancedFieldSelector pField_ =
   AdvancedFieldSelector'
     { endsWith = Prelude.Nothing,
-      notStartsWith = Prelude.Nothing,
       equals = Prelude.Nothing,
-      notEquals = Prelude.Nothing,
       notEndsWith = Prelude.Nothing,
+      notEquals = Prelude.Nothing,
+      notStartsWith = Prelude.Nothing,
       startsWith = Prelude.Nothing,
       field = pField_
     }
@@ -279,11 +344,6 @@ newAdvancedFieldSelector pField_ =
 advancedFieldSelector_endsWith :: Lens.Lens' AdvancedFieldSelector (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 advancedFieldSelector_endsWith = Lens.lens (\AdvancedFieldSelector' {endsWith} -> endsWith) (\s@AdvancedFieldSelector' {} a -> s {endsWith = a} :: AdvancedFieldSelector) Prelude.. Lens.mapping Lens.coerced
 
--- | An operator that excludes events that match the first few characters of
--- the event record field specified as the value of @Field@.
-advancedFieldSelector_notStartsWith :: Lens.Lens' AdvancedFieldSelector (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-advancedFieldSelector_notStartsWith = Lens.lens (\AdvancedFieldSelector' {notStartsWith} -> notStartsWith) (\s@AdvancedFieldSelector' {} a -> s {notStartsWith = a} :: AdvancedFieldSelector) Prelude.. Lens.mapping Lens.coerced
-
 -- | An operator that includes events that match the exact value of the event
 -- record field specified as the value of @Field@. This is the only valid
 -- operator that you can use with the @readOnly@, @eventCategory@, and
@@ -291,15 +351,20 @@ advancedFieldSelector_notStartsWith = Lens.lens (\AdvancedFieldSelector' {notSta
 advancedFieldSelector_equals :: Lens.Lens' AdvancedFieldSelector (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 advancedFieldSelector_equals = Lens.lens (\AdvancedFieldSelector' {equals} -> equals) (\s@AdvancedFieldSelector' {} a -> s {equals = a} :: AdvancedFieldSelector) Prelude.. Lens.mapping Lens.coerced
 
+-- | An operator that excludes events that match the last few characters of
+-- the event record field specified as the value of @Field@.
+advancedFieldSelector_notEndsWith :: Lens.Lens' AdvancedFieldSelector (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+advancedFieldSelector_notEndsWith = Lens.lens (\AdvancedFieldSelector' {notEndsWith} -> notEndsWith) (\s@AdvancedFieldSelector' {} a -> s {notEndsWith = a} :: AdvancedFieldSelector) Prelude.. Lens.mapping Lens.coerced
+
 -- | An operator that excludes events that match the exact value of the event
 -- record field specified as the value of @Field@.
 advancedFieldSelector_notEquals :: Lens.Lens' AdvancedFieldSelector (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
 advancedFieldSelector_notEquals = Lens.lens (\AdvancedFieldSelector' {notEquals} -> notEquals) (\s@AdvancedFieldSelector' {} a -> s {notEquals = a} :: AdvancedFieldSelector) Prelude.. Lens.mapping Lens.coerced
 
--- | An operator that excludes events that match the last few characters of
+-- | An operator that excludes events that match the first few characters of
 -- the event record field specified as the value of @Field@.
-advancedFieldSelector_notEndsWith :: Lens.Lens' AdvancedFieldSelector (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-advancedFieldSelector_notEndsWith = Lens.lens (\AdvancedFieldSelector' {notEndsWith} -> notEndsWith) (\s@AdvancedFieldSelector' {} a -> s {notEndsWith = a} :: AdvancedFieldSelector) Prelude.. Lens.mapping Lens.coerced
+advancedFieldSelector_notStartsWith :: Lens.Lens' AdvancedFieldSelector (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+advancedFieldSelector_notStartsWith = Lens.lens (\AdvancedFieldSelector' {notStartsWith} -> notStartsWith) (\s@AdvancedFieldSelector' {} a -> s {notStartsWith = a} :: AdvancedFieldSelector) Prelude.. Lens.mapping Lens.coerced
 
 -- | An operator that includes events that match the first few characters of
 -- the event record field specified as the value of @Field@.
@@ -311,7 +376,9 @@ advancedFieldSelector_startsWith = Lens.lens (\AdvancedFieldSelector' {startsWit
 -- management events), @eventName@, @resources.type@, and @resources.ARN@.
 --
 -- -   __@readOnly@__ - Optional. Can be set to @Equals@ a value of @true@
---     or @false@. A value of @false@ logs both @read@ and @write@ events.
+--     or @false@. If you do not add this field, CloudTrail logs both
+--     @read@ and @write@ events. A value of @true@ logs only @read@
+--     events. A value of @false@ logs only @write@ events.
 --
 -- -   __@eventSource@__ - For filtering management events only. This can
 --     be set only to @NotEquals@ @kms.amazonaws.com@.
@@ -326,14 +393,32 @@ advancedFieldSelector_startsWith = Lens.lens (\AdvancedFieldSelector' {startsWit
 --
 -- -   __@resources.type@__ - This ﬁeld is required. @resources.type@ can
 --     only use the @Equals@ operator, and the value can be one of the
---     following: @AWS::S3::Object@, @AWS::S3::AccessPoint@,
---     @AWS::Lambda::Function@, @AWS::DynamoDB::Table@,
---     @AWS::S3Outposts::Object@, @AWS::ManagedBlockchain::Node@,
---     @AWS::S3ObjectLambda::AccessPoint@, or @AWS::EC2::Snapshot@. You can
---     have only one @resources.type@ ﬁeld per selector. To log data events
---     on more than one resource type, add another selector.
+--     following:
 --
--- -   __@resources.ARN@__ - You can use any operator with resources.ARN,
+--     -   @AWS::S3::Object@
+--
+--     -   @AWS::Lambda::Function@
+--
+--     -   @AWS::DynamoDB::Table@
+--
+--     -   @AWS::S3Outposts::Object@
+--
+--     -   @AWS::ManagedBlockchain::Node@
+--
+--     -   @AWS::S3ObjectLambda::AccessPoint@
+--
+--     -   @AWS::EC2::Snapshot@
+--
+--     -   @AWS::S3::AccessPoint@
+--
+--     -   @AWS::DynamoDB::Stream@
+--
+--     -   @AWS::Glue::Table@
+--
+--     You can have only one @resources.type@ ﬁeld per selector. To log
+--     data events on more than one resource type, add another selector.
+--
+-- -   __@resources.ARN@__ - You can use any operator with @resources.ARN@,
 --     but if you use @Equals@ or @NotEquals@, the value must exactly match
 --     the ARN of a valid resource of the type you\'ve speciﬁed in the
 --     template as the value of resources.type. For example, if
@@ -371,7 +456,7 @@ advancedFieldSelector_startsWith = Lens.lens (\AdvancedFieldSelector' {startsWit
 --     is set to @Equals@ or @NotEquals@, the ARN must be in the following
 --     format:
 --
---     -   @arn:\<partition>:dynamodb:\<region>:\<account_ID>:table:\<table_name>@
+--     -   @arn:\<partition>:dynamodb:\<region>:\<account_ID>:table\/\<table_name>@
 --
 --     When @resources.type@ equals @AWS::S3Outposts::Object@, and the
 --     operator is set to @Equals@ or @NotEquals@, the ARN must be in the
@@ -396,54 +481,66 @@ advancedFieldSelector_startsWith = Lens.lens (\AdvancedFieldSelector' {startsWit
 --     format:
 --
 --     -   @arn:\<partition>:ec2:\<region>::snapshot\/\<snapshot_ID>@
+--
+--     When @resources.type@ equals @AWS::DynamoDB::Stream@, and the
+--     operator is set to @Equals@ or @NotEquals@, the ARN must be in the
+--     following format:
+--
+--     -   @arn:\<partition>:dynamodb:\<region>:\<account_ID>:table\/\<table_name>\/stream\/\<date_time>@
+--
+--     When @resources.type@ equals @AWS::Glue::Table@, and the operator is
+--     set to @Equals@ or @NotEquals@, the ARN must be in the following
+--     format:
+--
+--     -   @arn:\<partition>:glue:\<region>:\<account_ID>:table\/\<database_name>\/\<table_name>@
 advancedFieldSelector_field :: Lens.Lens' AdvancedFieldSelector Prelude.Text
 advancedFieldSelector_field = Lens.lens (\AdvancedFieldSelector' {field} -> field) (\s@AdvancedFieldSelector' {} a -> s {field = a} :: AdvancedFieldSelector)
 
-instance Core.FromJSON AdvancedFieldSelector where
+instance Data.FromJSON AdvancedFieldSelector where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AdvancedFieldSelector"
       ( \x ->
           AdvancedFieldSelector'
-            Prelude.<$> (x Core..:? "EndsWith")
-            Prelude.<*> (x Core..:? "NotStartsWith")
-            Prelude.<*> (x Core..:? "Equals")
-            Prelude.<*> (x Core..:? "NotEquals")
-            Prelude.<*> (x Core..:? "NotEndsWith")
-            Prelude.<*> (x Core..:? "StartsWith")
-            Prelude.<*> (x Core..: "Field")
+            Prelude.<$> (x Data..:? "EndsWith")
+            Prelude.<*> (x Data..:? "Equals")
+            Prelude.<*> (x Data..:? "NotEndsWith")
+            Prelude.<*> (x Data..:? "NotEquals")
+            Prelude.<*> (x Data..:? "NotStartsWith")
+            Prelude.<*> (x Data..:? "StartsWith")
+            Prelude.<*> (x Data..: "Field")
       )
 
 instance Prelude.Hashable AdvancedFieldSelector where
   hashWithSalt _salt AdvancedFieldSelector' {..} =
     _salt `Prelude.hashWithSalt` endsWith
-      `Prelude.hashWithSalt` notStartsWith
       `Prelude.hashWithSalt` equals
-      `Prelude.hashWithSalt` notEquals
       `Prelude.hashWithSalt` notEndsWith
+      `Prelude.hashWithSalt` notEquals
+      `Prelude.hashWithSalt` notStartsWith
       `Prelude.hashWithSalt` startsWith
       `Prelude.hashWithSalt` field
 
 instance Prelude.NFData AdvancedFieldSelector where
   rnf AdvancedFieldSelector' {..} =
     Prelude.rnf endsWith
-      `Prelude.seq` Prelude.rnf notStartsWith
       `Prelude.seq` Prelude.rnf equals
-      `Prelude.seq` Prelude.rnf notEquals
       `Prelude.seq` Prelude.rnf notEndsWith
+      `Prelude.seq` Prelude.rnf notEquals
+      `Prelude.seq` Prelude.rnf notStartsWith
       `Prelude.seq` Prelude.rnf startsWith
       `Prelude.seq` Prelude.rnf field
 
-instance Core.ToJSON AdvancedFieldSelector where
+instance Data.ToJSON AdvancedFieldSelector where
   toJSON AdvancedFieldSelector' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EndsWith" Core..=) Prelude.<$> endsWith,
-            ("NotStartsWith" Core..=) Prelude.<$> notStartsWith,
-            ("Equals" Core..=) Prelude.<$> equals,
-            ("NotEquals" Core..=) Prelude.<$> notEquals,
-            ("NotEndsWith" Core..=) Prelude.<$> notEndsWith,
-            ("StartsWith" Core..=) Prelude.<$> startsWith,
-            Prelude.Just ("Field" Core..= field)
+          [ ("EndsWith" Data..=) Prelude.<$> endsWith,
+            ("Equals" Data..=) Prelude.<$> equals,
+            ("NotEndsWith" Data..=) Prelude.<$> notEndsWith,
+            ("NotEquals" Data..=) Prelude.<$> notEquals,
+            ("NotStartsWith" Data..=) Prelude.<$> notStartsWith,
+            ("StartsWith" Data..=) Prelude.<$> startsWith,
+            Prelude.Just ("Field" Data..= field)
           ]
       )

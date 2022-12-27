@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Connect.StartChatContact
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Initiates a contact flow to start a new chat for the customer. Response
--- of this API provides a token required to obtain credentials from the
+-- Initiates a flow to start a new chat for the customer. Response of this
+-- API provides a token required to obtain credentials from the
 -- <https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html CreateParticipantConnection>
 -- API in the Amazon Connect Participant Service.
 --
@@ -31,7 +31,7 @@
 -- <https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html CreateParticipantConnection>
 -- with WEBSOCKET and CONNECTION_CREDENTIALS.
 --
--- A 429 error occurs in two situations:
+-- A 429 error occurs in the following situations:
 --
 -- -   API rate limit is exceeded. API TPS throttling returns a
 --     @TooManyRequests@ exception.
@@ -40,6 +40,10 @@
 --     <https://docs.aws.amazon.com/connect/latest/adminguide/amazon-connect-service-limits.html quota for concurrent active chats>
 --     is exceeded. Active chat throttling returns a
 --     @LimitExceededException@.
+--
+-- If you use the @ChatDurationInMinutes@ parameter and receive a 400
+-- error, your account may not support the ability to configure custom chat
+-- durations. For more information, contact Amazon Web Services Support.
 --
 -- For more information about chat, see
 -- <https://docs.aws.amazon.com/connect/latest/adminguide/chat.html Chat>
@@ -50,9 +54,11 @@ module Amazonka.Connect.StartChatContact
     newStartChatContact,
 
     -- * Request Lenses
-    startChatContact_clientToken,
     startChatContact_attributes,
+    startChatContact_chatDurationInMinutes,
+    startChatContact_clientToken,
     startChatContact_initialMessage,
+    startChatContact_supportedMessagingContentTypes,
     startChatContact_instanceId,
     startChatContact_contactFlowId,
     startChatContact_participantDetails,
@@ -62,44 +68,55 @@ module Amazonka.Connect.StartChatContact
     newStartChatContactResponse,
 
     -- * Response Lenses
-    startChatContactResponse_participantToken,
-    startChatContactResponse_participantId,
     startChatContactResponse_contactId,
+    startChatContactResponse_participantId,
+    startChatContactResponse_participantToken,
     startChatContactResponse_httpStatus,
   )
 where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newStartChatContact' smart constructor.
 data StartChatContact = StartChatContact'
-  { -- | A unique, case-sensitive identifier that you provide to ensure the
-    -- idempotency of the request.
-    clientToken :: Prelude.Maybe Prelude.Text,
-    -- | A custom key-value pair using an attribute map. The attributes are
-    -- standard Amazon Connect attributes. They can be accessed in contact
-    -- flows just like any other contact attributes.
+  { -- | A custom key-value pair using an attribute map. The attributes are
+    -- standard Amazon Connect attributes. They can be accessed in flows just
+    -- like any other contact attributes.
     --
     -- There can be up to 32,768 UTF-8 bytes across all key-value pairs per
     -- contact. Attribute keys can include only alphanumeric, dash, and
     -- underscore characters.
     attributes :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | The total duration of the newly started chat session. If not specified,
+    -- the chat session duration defaults to 25 hour. The minumum configurable
+    -- time is 60 minutes. The maximum configurable time is 10,080 minutes (7
+    -- days).
+    chatDurationInMinutes :: Prelude.Maybe Prelude.Natural,
+    -- | A unique, case-sensitive identifier that you provide to ensure the
+    -- idempotency of the request. If not provided, the Amazon Web Services SDK
+    -- populates this field. For more information about idempotency, see
+    -- <https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/ Making retries safe with idempotent APIs>.
+    clientToken :: Prelude.Maybe Prelude.Text,
     -- | The initial message to be sent to the newly created chat.
     initialMessage :: Prelude.Maybe ChatMessage,
+    -- | The supported chat message content types. Content types can be
+    -- text\/plain or both text\/plain and text\/markdown.
+    supportedMessagingContentTypes :: Prelude.Maybe [Prelude.Text],
     -- | The identifier of the Amazon Connect instance. You can find the
     -- instanceId in the ARN of the instance.
     instanceId :: Prelude.Text,
-    -- | The identifier of the contact flow for initiating the chat. To see the
+    -- | The identifier of the flow for initiating the chat. To see the
     -- ContactFlowId in the Amazon Connect console user interface, on the
-    -- navigation menu go to __Routing__, __Contact Flows__. Choose the contact
-    -- flow. On the contact flow page, under the name of the contact flow,
-    -- choose __Show additional flow information__. The ContactFlowId is the
-    -- last part of the ARN, shown here in bold:
+    -- navigation menu go to __Routing__, __Contact Flows__. Choose the flow.
+    -- On the flow page, under the name of the flow, choose __Show additional
+    -- flow information__. The ContactFlowId is the last part of the ARN, shown
+    -- here in bold:
     --
     -- arn:aws:connect:us-west-2:xxxxxxxxxxxx:instance\/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\/contact-flow\/__846ec553-a005-41c0-8341-xxxxxxxxxxxx__
     contactFlowId :: Prelude.Text,
@@ -116,28 +133,38 @@ data StartChatContact = StartChatContact'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'clientToken', 'startChatContact_clientToken' - A unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
---
 -- 'attributes', 'startChatContact_attributes' - A custom key-value pair using an attribute map. The attributes are
--- standard Amazon Connect attributes. They can be accessed in contact
--- flows just like any other contact attributes.
+-- standard Amazon Connect attributes. They can be accessed in flows just
+-- like any other contact attributes.
 --
 -- There can be up to 32,768 UTF-8 bytes across all key-value pairs per
 -- contact. Attribute keys can include only alphanumeric, dash, and
 -- underscore characters.
 --
+-- 'chatDurationInMinutes', 'startChatContact_chatDurationInMinutes' - The total duration of the newly started chat session. If not specified,
+-- the chat session duration defaults to 25 hour. The minumum configurable
+-- time is 60 minutes. The maximum configurable time is 10,080 minutes (7
+-- days).
+--
+-- 'clientToken', 'startChatContact_clientToken' - A unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If not provided, the Amazon Web Services SDK
+-- populates this field. For more information about idempotency, see
+-- <https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/ Making retries safe with idempotent APIs>.
+--
 -- 'initialMessage', 'startChatContact_initialMessage' - The initial message to be sent to the newly created chat.
+--
+-- 'supportedMessagingContentTypes', 'startChatContact_supportedMessagingContentTypes' - The supported chat message content types. Content types can be
+-- text\/plain or both text\/plain and text\/markdown.
 --
 -- 'instanceId', 'startChatContact_instanceId' - The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
 --
--- 'contactFlowId', 'startChatContact_contactFlowId' - The identifier of the contact flow for initiating the chat. To see the
+-- 'contactFlowId', 'startChatContact_contactFlowId' - The identifier of the flow for initiating the chat. To see the
 -- ContactFlowId in the Amazon Connect console user interface, on the
--- navigation menu go to __Routing__, __Contact Flows__. Choose the contact
--- flow. On the contact flow page, under the name of the contact flow,
--- choose __Show additional flow information__. The ContactFlowId is the
--- last part of the ARN, shown here in bold:
+-- navigation menu go to __Routing__, __Contact Flows__. Choose the flow.
+-- On the flow page, under the name of the flow, choose __Show additional
+-- flow information__. The ContactFlowId is the last part of the ARN, shown
+-- here in bold:
 --
 -- arn:aws:connect:us-west-2:xxxxxxxxxxxx:instance\/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\/contact-flow\/__846ec553-a005-41c0-8341-xxxxxxxxxxxx__
 --
@@ -155,22 +182,19 @@ newStartChatContact
   pContactFlowId_
   pParticipantDetails_ =
     StartChatContact'
-      { clientToken = Prelude.Nothing,
-        attributes = Prelude.Nothing,
+      { attributes = Prelude.Nothing,
+        chatDurationInMinutes = Prelude.Nothing,
+        clientToken = Prelude.Nothing,
         initialMessage = Prelude.Nothing,
+        supportedMessagingContentTypes = Prelude.Nothing,
         instanceId = pInstanceId_,
         contactFlowId = pContactFlowId_,
         participantDetails = pParticipantDetails_
       }
 
--- | A unique, case-sensitive identifier that you provide to ensure the
--- idempotency of the request.
-startChatContact_clientToken :: Lens.Lens' StartChatContact (Prelude.Maybe Prelude.Text)
-startChatContact_clientToken = Lens.lens (\StartChatContact' {clientToken} -> clientToken) (\s@StartChatContact' {} a -> s {clientToken = a} :: StartChatContact)
-
 -- | A custom key-value pair using an attribute map. The attributes are
--- standard Amazon Connect attributes. They can be accessed in contact
--- flows just like any other contact attributes.
+-- standard Amazon Connect attributes. They can be accessed in flows just
+-- like any other contact attributes.
 --
 -- There can be up to 32,768 UTF-8 bytes across all key-value pairs per
 -- contact. Attribute keys can include only alphanumeric, dash, and
@@ -178,21 +202,40 @@ startChatContact_clientToken = Lens.lens (\StartChatContact' {clientToken} -> cl
 startChatContact_attributes :: Lens.Lens' StartChatContact (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 startChatContact_attributes = Lens.lens (\StartChatContact' {attributes} -> attributes) (\s@StartChatContact' {} a -> s {attributes = a} :: StartChatContact) Prelude.. Lens.mapping Lens.coerced
 
+-- | The total duration of the newly started chat session. If not specified,
+-- the chat session duration defaults to 25 hour. The minumum configurable
+-- time is 60 minutes. The maximum configurable time is 10,080 minutes (7
+-- days).
+startChatContact_chatDurationInMinutes :: Lens.Lens' StartChatContact (Prelude.Maybe Prelude.Natural)
+startChatContact_chatDurationInMinutes = Lens.lens (\StartChatContact' {chatDurationInMinutes} -> chatDurationInMinutes) (\s@StartChatContact' {} a -> s {chatDurationInMinutes = a} :: StartChatContact)
+
+-- | A unique, case-sensitive identifier that you provide to ensure the
+-- idempotency of the request. If not provided, the Amazon Web Services SDK
+-- populates this field. For more information about idempotency, see
+-- <https://aws.amazon.com/builders-library/making-retries-safe-with-idempotent-APIs/ Making retries safe with idempotent APIs>.
+startChatContact_clientToken :: Lens.Lens' StartChatContact (Prelude.Maybe Prelude.Text)
+startChatContact_clientToken = Lens.lens (\StartChatContact' {clientToken} -> clientToken) (\s@StartChatContact' {} a -> s {clientToken = a} :: StartChatContact)
+
 -- | The initial message to be sent to the newly created chat.
 startChatContact_initialMessage :: Lens.Lens' StartChatContact (Prelude.Maybe ChatMessage)
 startChatContact_initialMessage = Lens.lens (\StartChatContact' {initialMessage} -> initialMessage) (\s@StartChatContact' {} a -> s {initialMessage = a} :: StartChatContact)
+
+-- | The supported chat message content types. Content types can be
+-- text\/plain or both text\/plain and text\/markdown.
+startChatContact_supportedMessagingContentTypes :: Lens.Lens' StartChatContact (Prelude.Maybe [Prelude.Text])
+startChatContact_supportedMessagingContentTypes = Lens.lens (\StartChatContact' {supportedMessagingContentTypes} -> supportedMessagingContentTypes) (\s@StartChatContact' {} a -> s {supportedMessagingContentTypes = a} :: StartChatContact) Prelude.. Lens.mapping Lens.coerced
 
 -- | The identifier of the Amazon Connect instance. You can find the
 -- instanceId in the ARN of the instance.
 startChatContact_instanceId :: Lens.Lens' StartChatContact Prelude.Text
 startChatContact_instanceId = Lens.lens (\StartChatContact' {instanceId} -> instanceId) (\s@StartChatContact' {} a -> s {instanceId = a} :: StartChatContact)
 
--- | The identifier of the contact flow for initiating the chat. To see the
+-- | The identifier of the flow for initiating the chat. To see the
 -- ContactFlowId in the Amazon Connect console user interface, on the
--- navigation menu go to __Routing__, __Contact Flows__. Choose the contact
--- flow. On the contact flow page, under the name of the contact flow,
--- choose __Show additional flow information__. The ContactFlowId is the
--- last part of the ARN, shown here in bold:
+-- navigation menu go to __Routing__, __Contact Flows__. Choose the flow.
+-- On the flow page, under the name of the flow, choose __Show additional
+-- flow information__. The ContactFlowId is the last part of the ARN, shown
+-- here in bold:
 --
 -- arn:aws:connect:us-west-2:xxxxxxxxxxxx:instance\/xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx\/contact-flow\/__846ec553-a005-41c0-8341-xxxxxxxxxxxx__
 startChatContact_contactFlowId :: Lens.Lens' StartChatContact Prelude.Text
@@ -206,78 +249,87 @@ instance Core.AWSRequest StartChatContact where
   type
     AWSResponse StartChatContact =
       StartChatContactResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StartChatContactResponse'
-            Prelude.<$> (x Core..?> "ParticipantToken")
-            Prelude.<*> (x Core..?> "ParticipantId")
-            Prelude.<*> (x Core..?> "ContactId")
+            Prelude.<$> (x Data..?> "ContactId")
+            Prelude.<*> (x Data..?> "ParticipantId")
+            Prelude.<*> (x Data..?> "ParticipantToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable StartChatContact where
   hashWithSalt _salt StartChatContact' {..} =
-    _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` attributes
+    _salt `Prelude.hashWithSalt` attributes
+      `Prelude.hashWithSalt` chatDurationInMinutes
+      `Prelude.hashWithSalt` clientToken
       `Prelude.hashWithSalt` initialMessage
+      `Prelude.hashWithSalt` supportedMessagingContentTypes
       `Prelude.hashWithSalt` instanceId
       `Prelude.hashWithSalt` contactFlowId
       `Prelude.hashWithSalt` participantDetails
 
 instance Prelude.NFData StartChatContact where
   rnf StartChatContact' {..} =
-    Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf attributes
+    Prelude.rnf attributes
+      `Prelude.seq` Prelude.rnf chatDurationInMinutes
+      `Prelude.seq` Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf initialMessage
+      `Prelude.seq` Prelude.rnf supportedMessagingContentTypes
       `Prelude.seq` Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf contactFlowId
       `Prelude.seq` Prelude.rnf participantDetails
 
-instance Core.ToHeaders StartChatContact where
+instance Data.ToHeaders StartChatContact where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StartChatContact where
+instance Data.ToJSON StartChatContact where
   toJSON StartChatContact' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientToken" Core..=) Prelude.<$> clientToken,
-            ("Attributes" Core..=) Prelude.<$> attributes,
-            ("InitialMessage" Core..=)
+          [ ("Attributes" Data..=) Prelude.<$> attributes,
+            ("ChatDurationInMinutes" Data..=)
+              Prelude.<$> chatDurationInMinutes,
+            ("ClientToken" Data..=) Prelude.<$> clientToken,
+            ("InitialMessage" Data..=)
               Prelude.<$> initialMessage,
-            Prelude.Just ("InstanceId" Core..= instanceId),
-            Prelude.Just ("ContactFlowId" Core..= contactFlowId),
+            ("SupportedMessagingContentTypes" Data..=)
+              Prelude.<$> supportedMessagingContentTypes,
+            Prelude.Just ("InstanceId" Data..= instanceId),
+            Prelude.Just ("ContactFlowId" Data..= contactFlowId),
             Prelude.Just
-              ("ParticipantDetails" Core..= participantDetails)
+              ("ParticipantDetails" Data..= participantDetails)
           ]
       )
 
-instance Core.ToPath StartChatContact where
+instance Data.ToPath StartChatContact where
   toPath = Prelude.const "/contact/chat"
 
-instance Core.ToQuery StartChatContact where
+instance Data.ToQuery StartChatContact where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStartChatContactResponse' smart constructor.
 data StartChatContactResponse = StartChatContactResponse'
-  { -- | The token used by the chat participant to call
-    -- <https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html CreateParticipantConnection>.
-    -- The participant token is valid for the lifetime of a chat participant.
-    participantToken :: Prelude.Maybe Prelude.Text,
+  { -- | The identifier of this contact within the Amazon Connect instance.
+    contactId :: Prelude.Maybe Prelude.Text,
     -- | The identifier for a chat participant. The participantId for a chat
     -- participant is the same throughout the chat lifecycle.
     participantId :: Prelude.Maybe Prelude.Text,
-    -- | The identifier of this contact within the Amazon Connect instance.
-    contactId :: Prelude.Maybe Prelude.Text,
+    -- | The token used by the chat participant to call
+    -- <https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html CreateParticipantConnection>.
+    -- The participant token is valid for the lifetime of a chat participant.
+    participantToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -291,14 +343,14 @@ data StartChatContactResponse = StartChatContactResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'participantToken', 'startChatContactResponse_participantToken' - The token used by the chat participant to call
--- <https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html CreateParticipantConnection>.
--- The participant token is valid for the lifetime of a chat participant.
+-- 'contactId', 'startChatContactResponse_contactId' - The identifier of this contact within the Amazon Connect instance.
 --
 -- 'participantId', 'startChatContactResponse_participantId' - The identifier for a chat participant. The participantId for a chat
 -- participant is the same throughout the chat lifecycle.
 --
--- 'contactId', 'startChatContactResponse_contactId' - The identifier of this contact within the Amazon Connect instance.
+-- 'participantToken', 'startChatContactResponse_participantToken' - The token used by the chat participant to call
+-- <https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html CreateParticipantConnection>.
+-- The participant token is valid for the lifetime of a chat participant.
 --
 -- 'httpStatus', 'startChatContactResponse_httpStatus' - The response's http status code.
 newStartChatContactResponse ::
@@ -307,12 +359,21 @@ newStartChatContactResponse ::
   StartChatContactResponse
 newStartChatContactResponse pHttpStatus_ =
   StartChatContactResponse'
-    { participantToken =
+    { contactId =
         Prelude.Nothing,
       participantId = Prelude.Nothing,
-      contactId = Prelude.Nothing,
+      participantToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The identifier of this contact within the Amazon Connect instance.
+startChatContactResponse_contactId :: Lens.Lens' StartChatContactResponse (Prelude.Maybe Prelude.Text)
+startChatContactResponse_contactId = Lens.lens (\StartChatContactResponse' {contactId} -> contactId) (\s@StartChatContactResponse' {} a -> s {contactId = a} :: StartChatContactResponse)
+
+-- | The identifier for a chat participant. The participantId for a chat
+-- participant is the same throughout the chat lifecycle.
+startChatContactResponse_participantId :: Lens.Lens' StartChatContactResponse (Prelude.Maybe Prelude.Text)
+startChatContactResponse_participantId = Lens.lens (\StartChatContactResponse' {participantId} -> participantId) (\s@StartChatContactResponse' {} a -> s {participantId = a} :: StartChatContactResponse)
 
 -- | The token used by the chat participant to call
 -- <https://docs.aws.amazon.com/connect-participant/latest/APIReference/API_CreateParticipantConnection.html CreateParticipantConnection>.
@@ -320,22 +381,13 @@ newStartChatContactResponse pHttpStatus_ =
 startChatContactResponse_participantToken :: Lens.Lens' StartChatContactResponse (Prelude.Maybe Prelude.Text)
 startChatContactResponse_participantToken = Lens.lens (\StartChatContactResponse' {participantToken} -> participantToken) (\s@StartChatContactResponse' {} a -> s {participantToken = a} :: StartChatContactResponse)
 
--- | The identifier for a chat participant. The participantId for a chat
--- participant is the same throughout the chat lifecycle.
-startChatContactResponse_participantId :: Lens.Lens' StartChatContactResponse (Prelude.Maybe Prelude.Text)
-startChatContactResponse_participantId = Lens.lens (\StartChatContactResponse' {participantId} -> participantId) (\s@StartChatContactResponse' {} a -> s {participantId = a} :: StartChatContactResponse)
-
--- | The identifier of this contact within the Amazon Connect instance.
-startChatContactResponse_contactId :: Lens.Lens' StartChatContactResponse (Prelude.Maybe Prelude.Text)
-startChatContactResponse_contactId = Lens.lens (\StartChatContactResponse' {contactId} -> contactId) (\s@StartChatContactResponse' {} a -> s {contactId = a} :: StartChatContactResponse)
-
 -- | The response's http status code.
 startChatContactResponse_httpStatus :: Lens.Lens' StartChatContactResponse Prelude.Int
 startChatContactResponse_httpStatus = Lens.lens (\StartChatContactResponse' {httpStatus} -> httpStatus) (\s@StartChatContactResponse' {} a -> s {httpStatus = a} :: StartChatContactResponse)
 
 instance Prelude.NFData StartChatContactResponse where
   rnf StartChatContactResponse' {..} =
-    Prelude.rnf participantToken
+    Prelude.rnf contactId
       `Prelude.seq` Prelude.rnf participantId
-      `Prelude.seq` Prelude.rnf contactId
+      `Prelude.seq` Prelude.rnf participantToken
       `Prelude.seq` Prelude.rnf httpStatus

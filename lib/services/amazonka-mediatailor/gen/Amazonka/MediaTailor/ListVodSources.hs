@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.ListVodSources
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists all the VOD sources in a source location.
+-- Lists the VOD sources contained in a source location. A source
+-- represents a piece of content.
 --
 -- This operation returns paginated results.
 module Amazonka.MediaTailor.ListVodSources
@@ -29,8 +30,8 @@ module Amazonka.MediaTailor.ListVodSources
     newListVodSources,
 
     -- * Request Lenses
-    listVodSources_nextToken,
     listVodSources_maxResults,
+    listVodSources_nextToken,
     listVodSources_sourceLocationName,
 
     -- * Destructuring the Response
@@ -45,7 +46,8 @@ module Amazonka.MediaTailor.ListVodSources
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -53,13 +55,15 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListVodSources' smart constructor.
 data ListVodSources = ListVodSources'
-  { -- | Pagination token from the GET list request. Use the token to fetch the
-    -- next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Upper bound on number of records to return. The maximum number of
-    -- results is 100.
+  { -- | The maximum number of VOD sources that you want MediaTailor to return in
+    -- response to the current request. If there are more than @MaxResults@ VOD
+    -- sources, use the value of @NextToken@ in the response to get the next
+    -- page of results.
     maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | The identifier for the source location you are working on.
+    -- | Pagination token returned by the list request when results exceed the
+    -- maximum allowed. Use the token to fetch the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The name of the source location associated with this VOD Source list.
     sourceLocationName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -72,35 +76,39 @@ data ListVodSources = ListVodSources'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listVodSources_nextToken' - Pagination token from the GET list request. Use the token to fetch the
--- next page of results.
+-- 'maxResults', 'listVodSources_maxResults' - The maximum number of VOD sources that you want MediaTailor to return in
+-- response to the current request. If there are more than @MaxResults@ VOD
+-- sources, use the value of @NextToken@ in the response to get the next
+-- page of results.
 --
--- 'maxResults', 'listVodSources_maxResults' - Upper bound on number of records to return. The maximum number of
--- results is 100.
+-- 'nextToken', 'listVodSources_nextToken' - Pagination token returned by the list request when results exceed the
+-- maximum allowed. Use the token to fetch the next page of results.
 --
--- 'sourceLocationName', 'listVodSources_sourceLocationName' - The identifier for the source location you are working on.
+-- 'sourceLocationName', 'listVodSources_sourceLocationName' - The name of the source location associated with this VOD Source list.
 newListVodSources ::
   -- | 'sourceLocationName'
   Prelude.Text ->
   ListVodSources
 newListVodSources pSourceLocationName_ =
   ListVodSources'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       sourceLocationName = pSourceLocationName_
     }
 
--- | Pagination token from the GET list request. Use the token to fetch the
--- next page of results.
-listVodSources_nextToken :: Lens.Lens' ListVodSources (Prelude.Maybe Prelude.Text)
-listVodSources_nextToken = Lens.lens (\ListVodSources' {nextToken} -> nextToken) (\s@ListVodSources' {} a -> s {nextToken = a} :: ListVodSources)
-
--- | Upper bound on number of records to return. The maximum number of
--- results is 100.
+-- | The maximum number of VOD sources that you want MediaTailor to return in
+-- response to the current request. If there are more than @MaxResults@ VOD
+-- sources, use the value of @NextToken@ in the response to get the next
+-- page of results.
 listVodSources_maxResults :: Lens.Lens' ListVodSources (Prelude.Maybe Prelude.Natural)
 listVodSources_maxResults = Lens.lens (\ListVodSources' {maxResults} -> maxResults) (\s@ListVodSources' {} a -> s {maxResults = a} :: ListVodSources)
 
--- | The identifier for the source location you are working on.
+-- | Pagination token returned by the list request when results exceed the
+-- maximum allowed. Use the token to fetch the next page of results.
+listVodSources_nextToken :: Lens.Lens' ListVodSources (Prelude.Maybe Prelude.Text)
+listVodSources_nextToken = Lens.lens (\ListVodSources' {nextToken} -> nextToken) (\s@ListVodSources' {} a -> s {nextToken = a} :: ListVodSources)
+
+-- | The name of the source location associated with this VOD Source list.
 listVodSources_sourceLocationName :: Lens.Lens' ListVodSources Prelude.Text
 listVodSources_sourceLocationName = Lens.lens (\ListVodSources' {sourceLocationName} -> sourceLocationName) (\s@ListVodSources' {} a -> s {sourceLocationName = a} :: ListVodSources)
 
@@ -128,60 +136,61 @@ instance Core.AWSRequest ListVodSources where
   type
     AWSResponse ListVodSources =
       ListVodSourcesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListVodSourcesResponse'
-            Prelude.<$> (x Core..?> "Items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListVodSources where
   hashWithSalt _salt ListVodSources' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` sourceLocationName
 
 instance Prelude.NFData ListVodSources where
   rnf ListVodSources' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf sourceLocationName
 
-instance Core.ToHeaders ListVodSources where
+instance Data.ToHeaders ListVodSources where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListVodSources where
+instance Data.ToPath ListVodSources where
   toPath ListVodSources' {..} =
     Prelude.mconcat
       [ "/sourceLocation/",
-        Core.toBS sourceLocationName,
+        Data.toBS sourceLocationName,
         "/vodSources"
       ]
 
-instance Core.ToQuery ListVodSources where
+instance Data.ToQuery ListVodSources where
   toQuery ListVodSources' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListVodSourcesResponse' smart constructor.
 data ListVodSourcesResponse = ListVodSourcesResponse'
   { -- | Lists the VOD sources.
     items :: Prelude.Maybe [VodSource],
-    -- | Pagination token from the list request. Use the token to fetch the next
-    -- page of results.
+    -- | Pagination token returned by the list request when results exceed the
+    -- maximum allowed. Use the token to fetch the next page of results.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -198,8 +207,8 @@ data ListVodSourcesResponse = ListVodSourcesResponse'
 --
 -- 'items', 'listVodSourcesResponse_items' - Lists the VOD sources.
 --
--- 'nextToken', 'listVodSourcesResponse_nextToken' - Pagination token from the list request. Use the token to fetch the next
--- page of results.
+-- 'nextToken', 'listVodSourcesResponse_nextToken' - Pagination token returned by the list request when results exceed the
+-- maximum allowed. Use the token to fetch the next page of results.
 --
 -- 'httpStatus', 'listVodSourcesResponse_httpStatus' - The response's http status code.
 newListVodSourcesResponse ::
@@ -217,8 +226,8 @@ newListVodSourcesResponse pHttpStatus_ =
 listVodSourcesResponse_items :: Lens.Lens' ListVodSourcesResponse (Prelude.Maybe [VodSource])
 listVodSourcesResponse_items = Lens.lens (\ListVodSourcesResponse' {items} -> items) (\s@ListVodSourcesResponse' {} a -> s {items = a} :: ListVodSourcesResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | Pagination token from the list request. Use the token to fetch the next
--- page of results.
+-- | Pagination token returned by the list request when results exceed the
+-- maximum allowed. Use the token to fetch the next page of results.
 listVodSourcesResponse_nextToken :: Lens.Lens' ListVodSourcesResponse (Prelude.Maybe Prelude.Text)
 listVodSourcesResponse_nextToken = Lens.lens (\ListVodSourcesResponse' {nextToken} -> nextToken) (\s@ListVodSourcesResponse' {} a -> s {nextToken = a} :: ListVodSourcesResponse)
 

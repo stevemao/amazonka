@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTDeviceAdvisor.Types.SuiteDefinitionInformation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,10 @@
 module Amazonka.IoTDeviceAdvisor.Types.SuiteDefinitionInformation where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTDeviceAdvisor.Types.DeviceUnderTest
-import qualified Amazonka.Lens as Lens
+import Amazonka.IoTDeviceAdvisor.Types.Protocol
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the suite definition.
@@ -29,15 +31,19 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newSuiteDefinitionInformation' smart constructor.
 data SuiteDefinitionInformation = SuiteDefinitionInformation'
   { -- | Date (in Unix epoch time) when the test suite was created.
-    createdAt :: Prelude.Maybe Core.POSIX,
-    -- | Specifies the devices under test for the test suite.
+    createdAt :: Prelude.Maybe Data.POSIX,
+    -- | Specifies the devices that are under test for the test suite.
     defaultDevices :: Prelude.Maybe [DeviceUnderTest],
-    -- | Suite definition Id of the test suite.
+    -- | Specifies if the test suite is intended for qualification.
+    intendedForQualification :: Prelude.Maybe Prelude.Bool,
+    -- | Verifies if the test suite is a long duration test.
+    isLongDurationTest :: Prelude.Maybe Prelude.Bool,
+    -- | Gets the MQTT protocol that is configured in the suite definition.
+    protocol :: Prelude.Maybe Protocol,
+    -- | Suite definition ID of the test suite.
     suiteDefinitionId :: Prelude.Maybe Prelude.Text,
     -- | Suite name of the test suite.
-    suiteDefinitionName :: Prelude.Maybe Prelude.Text,
-    -- | Specifies if the test suite is intended for qualification.
-    intendedForQualification :: Prelude.Maybe Prelude.Bool
+    suiteDefinitionName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,13 +57,17 @@ data SuiteDefinitionInformation = SuiteDefinitionInformation'
 --
 -- 'createdAt', 'suiteDefinitionInformation_createdAt' - Date (in Unix epoch time) when the test suite was created.
 --
--- 'defaultDevices', 'suiteDefinitionInformation_defaultDevices' - Specifies the devices under test for the test suite.
---
--- 'suiteDefinitionId', 'suiteDefinitionInformation_suiteDefinitionId' - Suite definition Id of the test suite.
---
--- 'suiteDefinitionName', 'suiteDefinitionInformation_suiteDefinitionName' - Suite name of the test suite.
+-- 'defaultDevices', 'suiteDefinitionInformation_defaultDevices' - Specifies the devices that are under test for the test suite.
 --
 -- 'intendedForQualification', 'suiteDefinitionInformation_intendedForQualification' - Specifies if the test suite is intended for qualification.
+--
+-- 'isLongDurationTest', 'suiteDefinitionInformation_isLongDurationTest' - Verifies if the test suite is a long duration test.
+--
+-- 'protocol', 'suiteDefinitionInformation_protocol' - Gets the MQTT protocol that is configured in the suite definition.
+--
+-- 'suiteDefinitionId', 'suiteDefinitionInformation_suiteDefinitionId' - Suite definition ID of the test suite.
+--
+-- 'suiteDefinitionName', 'suiteDefinitionInformation_suiteDefinitionName' - Suite name of the test suite.
 newSuiteDefinitionInformation ::
   SuiteDefinitionInformation
 newSuiteDefinitionInformation =
@@ -65,20 +75,34 @@ newSuiteDefinitionInformation =
     { createdAt =
         Prelude.Nothing,
       defaultDevices = Prelude.Nothing,
+      intendedForQualification = Prelude.Nothing,
+      isLongDurationTest = Prelude.Nothing,
+      protocol = Prelude.Nothing,
       suiteDefinitionId = Prelude.Nothing,
-      suiteDefinitionName = Prelude.Nothing,
-      intendedForQualification = Prelude.Nothing
+      suiteDefinitionName = Prelude.Nothing
     }
 
 -- | Date (in Unix epoch time) when the test suite was created.
 suiteDefinitionInformation_createdAt :: Lens.Lens' SuiteDefinitionInformation (Prelude.Maybe Prelude.UTCTime)
-suiteDefinitionInformation_createdAt = Lens.lens (\SuiteDefinitionInformation' {createdAt} -> createdAt) (\s@SuiteDefinitionInformation' {} a -> s {createdAt = a} :: SuiteDefinitionInformation) Prelude.. Lens.mapping Core._Time
+suiteDefinitionInformation_createdAt = Lens.lens (\SuiteDefinitionInformation' {createdAt} -> createdAt) (\s@SuiteDefinitionInformation' {} a -> s {createdAt = a} :: SuiteDefinitionInformation) Prelude.. Lens.mapping Data._Time
 
--- | Specifies the devices under test for the test suite.
+-- | Specifies the devices that are under test for the test suite.
 suiteDefinitionInformation_defaultDevices :: Lens.Lens' SuiteDefinitionInformation (Prelude.Maybe [DeviceUnderTest])
 suiteDefinitionInformation_defaultDevices = Lens.lens (\SuiteDefinitionInformation' {defaultDevices} -> defaultDevices) (\s@SuiteDefinitionInformation' {} a -> s {defaultDevices = a} :: SuiteDefinitionInformation) Prelude.. Lens.mapping Lens.coerced
 
--- | Suite definition Id of the test suite.
+-- | Specifies if the test suite is intended for qualification.
+suiteDefinitionInformation_intendedForQualification :: Lens.Lens' SuiteDefinitionInformation (Prelude.Maybe Prelude.Bool)
+suiteDefinitionInformation_intendedForQualification = Lens.lens (\SuiteDefinitionInformation' {intendedForQualification} -> intendedForQualification) (\s@SuiteDefinitionInformation' {} a -> s {intendedForQualification = a} :: SuiteDefinitionInformation)
+
+-- | Verifies if the test suite is a long duration test.
+suiteDefinitionInformation_isLongDurationTest :: Lens.Lens' SuiteDefinitionInformation (Prelude.Maybe Prelude.Bool)
+suiteDefinitionInformation_isLongDurationTest = Lens.lens (\SuiteDefinitionInformation' {isLongDurationTest} -> isLongDurationTest) (\s@SuiteDefinitionInformation' {} a -> s {isLongDurationTest = a} :: SuiteDefinitionInformation)
+
+-- | Gets the MQTT protocol that is configured in the suite definition.
+suiteDefinitionInformation_protocol :: Lens.Lens' SuiteDefinitionInformation (Prelude.Maybe Protocol)
+suiteDefinitionInformation_protocol = Lens.lens (\SuiteDefinitionInformation' {protocol} -> protocol) (\s@SuiteDefinitionInformation' {} a -> s {protocol = a} :: SuiteDefinitionInformation)
+
+-- | Suite definition ID of the test suite.
 suiteDefinitionInformation_suiteDefinitionId :: Lens.Lens' SuiteDefinitionInformation (Prelude.Maybe Prelude.Text)
 suiteDefinitionInformation_suiteDefinitionId = Lens.lens (\SuiteDefinitionInformation' {suiteDefinitionId} -> suiteDefinitionId) (\s@SuiteDefinitionInformation' {} a -> s {suiteDefinitionId = a} :: SuiteDefinitionInformation)
 
@@ -86,35 +110,37 @@ suiteDefinitionInformation_suiteDefinitionId = Lens.lens (\SuiteDefinitionInform
 suiteDefinitionInformation_suiteDefinitionName :: Lens.Lens' SuiteDefinitionInformation (Prelude.Maybe Prelude.Text)
 suiteDefinitionInformation_suiteDefinitionName = Lens.lens (\SuiteDefinitionInformation' {suiteDefinitionName} -> suiteDefinitionName) (\s@SuiteDefinitionInformation' {} a -> s {suiteDefinitionName = a} :: SuiteDefinitionInformation)
 
--- | Specifies if the test suite is intended for qualification.
-suiteDefinitionInformation_intendedForQualification :: Lens.Lens' SuiteDefinitionInformation (Prelude.Maybe Prelude.Bool)
-suiteDefinitionInformation_intendedForQualification = Lens.lens (\SuiteDefinitionInformation' {intendedForQualification} -> intendedForQualification) (\s@SuiteDefinitionInformation' {} a -> s {intendedForQualification = a} :: SuiteDefinitionInformation)
-
-instance Core.FromJSON SuiteDefinitionInformation where
+instance Data.FromJSON SuiteDefinitionInformation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SuiteDefinitionInformation"
       ( \x ->
           SuiteDefinitionInformation'
-            Prelude.<$> (x Core..:? "createdAt")
-            Prelude.<*> (x Core..:? "defaultDevices" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "suiteDefinitionId")
-            Prelude.<*> (x Core..:? "suiteDefinitionName")
-            Prelude.<*> (x Core..:? "intendedForQualification")
+            Prelude.<$> (x Data..:? "createdAt")
+            Prelude.<*> (x Data..:? "defaultDevices" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "intendedForQualification")
+            Prelude.<*> (x Data..:? "isLongDurationTest")
+            Prelude.<*> (x Data..:? "protocol")
+            Prelude.<*> (x Data..:? "suiteDefinitionId")
+            Prelude.<*> (x Data..:? "suiteDefinitionName")
       )
 
 instance Prelude.Hashable SuiteDefinitionInformation where
   hashWithSalt _salt SuiteDefinitionInformation' {..} =
     _salt `Prelude.hashWithSalt` createdAt
       `Prelude.hashWithSalt` defaultDevices
+      `Prelude.hashWithSalt` intendedForQualification
+      `Prelude.hashWithSalt` isLongDurationTest
+      `Prelude.hashWithSalt` protocol
       `Prelude.hashWithSalt` suiteDefinitionId
       `Prelude.hashWithSalt` suiteDefinitionName
-      `Prelude.hashWithSalt` intendedForQualification
 
 instance Prelude.NFData SuiteDefinitionInformation where
   rnf SuiteDefinitionInformation' {..} =
     Prelude.rnf createdAt
       `Prelude.seq` Prelude.rnf defaultDevices
+      `Prelude.seq` Prelude.rnf intendedForQualification
+      `Prelude.seq` Prelude.rnf isLongDurationTest
+      `Prelude.seq` Prelude.rnf protocol
       `Prelude.seq` Prelude.rnf suiteDefinitionId
       `Prelude.seq` Prelude.rnf suiteDefinitionName
-      `Prelude.seq` Prelude.rnf intendedForQualification

@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.ForecastQuery.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,18 +16,27 @@ module Amazonka.ForecastQuery.Lens
 
     -- ** QueryForecast
     queryForecast_endDate,
-    queryForecast_startDate,
     queryForecast_nextToken,
+    queryForecast_startDate,
     queryForecast_forecastArn,
     queryForecast_filters,
     queryForecastResponse_forecast,
     queryForecastResponse_httpStatus,
 
+    -- ** QueryWhatIfForecast
+    queryWhatIfForecast_endDate,
+    queryWhatIfForecast_nextToken,
+    queryWhatIfForecast_startDate,
+    queryWhatIfForecast_whatIfForecastArn,
+    queryWhatIfForecast_filters,
+    queryWhatIfForecastResponse_forecast,
+    queryWhatIfForecastResponse_httpStatus,
+
     -- * Types
 
     -- ** DataPoint
-    dataPoint_value,
     dataPoint_timestamp,
+    dataPoint_value,
 
     -- ** Forecast
     forecast_predictions,
@@ -35,5 +44,6 @@ module Amazonka.ForecastQuery.Lens
 where
 
 import Amazonka.ForecastQuery.QueryForecast
+import Amazonka.ForecastQuery.QueryWhatIfForecast
 import Amazonka.ForecastQuery.Types.DataPoint
 import Amazonka.ForecastQuery.Types.Forecast

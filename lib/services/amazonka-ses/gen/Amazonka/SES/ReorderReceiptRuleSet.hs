@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.ReorderReceiptRuleSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -49,7 +49,8 @@ module Amazonka.SES.ReorderReceiptRuleSet
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,7 +106,8 @@ instance Core.AWSRequest ReorderReceiptRuleSet where
   type
     AWSResponse ReorderReceiptRuleSet =
       ReorderReceiptRuleSetResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ReorderReceiptRuleSetResult"
@@ -124,22 +126,22 @@ instance Prelude.NFData ReorderReceiptRuleSet where
     Prelude.rnf ruleSetName
       `Prelude.seq` Prelude.rnf ruleNames
 
-instance Core.ToHeaders ReorderReceiptRuleSet where
+instance Data.ToHeaders ReorderReceiptRuleSet where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ReorderReceiptRuleSet where
+instance Data.ToPath ReorderReceiptRuleSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ReorderReceiptRuleSet where
+instance Data.ToQuery ReorderReceiptRuleSet where
   toQuery ReorderReceiptRuleSet' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ReorderReceiptRuleSet" :: Prelude.ByteString),
+          Data.=: ("ReorderReceiptRuleSet" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "RuleSetName" Core.=: ruleSetName,
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "RuleSetName" Data.=: ruleSetName,
         "RuleNames"
-          Core.=: Core.toQueryList "member" ruleNames
+          Data.=: Data.toQueryList "member" ruleNames
       ]
 
 -- | An empty element returned on a successful request.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.CelebrityRecognition
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.CelebrityRecognition where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Rekognition.Types.CelebrityDetail
 
@@ -33,7 +34,8 @@ data CelebrityRecognition = CelebrityRecognition'
   { -- | Information about a recognized celebrity.
     celebrity :: Prelude.Maybe CelebrityDetail,
     -- | The time, in milliseconds from the start of the video, that the
-    -- celebrity was recognized.
+    -- celebrity was recognized. Note that @Timestamp@ is not guaranteed to be
+    -- accurate to the individual frame where the celebrity first appears.
     timestamp :: Prelude.Maybe Prelude.Integer
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -49,7 +51,8 @@ data CelebrityRecognition = CelebrityRecognition'
 -- 'celebrity', 'celebrityRecognition_celebrity' - Information about a recognized celebrity.
 --
 -- 'timestamp', 'celebrityRecognition_timestamp' - The time, in milliseconds from the start of the video, that the
--- celebrity was recognized.
+-- celebrity was recognized. Note that @Timestamp@ is not guaranteed to be
+-- accurate to the individual frame where the celebrity first appears.
 newCelebrityRecognition ::
   CelebrityRecognition
 newCelebrityRecognition =
@@ -63,18 +66,19 @@ celebrityRecognition_celebrity :: Lens.Lens' CelebrityRecognition (Prelude.Maybe
 celebrityRecognition_celebrity = Lens.lens (\CelebrityRecognition' {celebrity} -> celebrity) (\s@CelebrityRecognition' {} a -> s {celebrity = a} :: CelebrityRecognition)
 
 -- | The time, in milliseconds from the start of the video, that the
--- celebrity was recognized.
+-- celebrity was recognized. Note that @Timestamp@ is not guaranteed to be
+-- accurate to the individual frame where the celebrity first appears.
 celebrityRecognition_timestamp :: Lens.Lens' CelebrityRecognition (Prelude.Maybe Prelude.Integer)
 celebrityRecognition_timestamp = Lens.lens (\CelebrityRecognition' {timestamp} -> timestamp) (\s@CelebrityRecognition' {} a -> s {timestamp = a} :: CelebrityRecognition)
 
-instance Core.FromJSON CelebrityRecognition where
+instance Data.FromJSON CelebrityRecognition where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CelebrityRecognition"
       ( \x ->
           CelebrityRecognition'
-            Prelude.<$> (x Core..:? "Celebrity")
-            Prelude.<*> (x Core..:? "Timestamp")
+            Prelude.<$> (x Data..:? "Celebrity")
+            Prelude.<*> (x Data..:? "Timestamp")
       )
 
 instance Prelude.Hashable CelebrityRecognition where

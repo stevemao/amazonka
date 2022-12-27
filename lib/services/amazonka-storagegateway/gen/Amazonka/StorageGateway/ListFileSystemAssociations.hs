@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.ListFileSystemAssociations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,8 +32,8 @@ module Amazonka.StorageGateway.ListFileSystemAssociations
 
     -- * Request Lenses
     listFileSystemAssociations_gatewayARN,
-    listFileSystemAssociations_marker,
     listFileSystemAssociations_limit,
+    listFileSystemAssociations_marker,
 
     -- * Destructuring the Response
     ListFileSystemAssociationsResponse (..),
@@ -48,7 +48,8 @@ module Amazonka.StorageGateway.ListFileSystemAssociations
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,15 +58,15 @@ import Amazonka.StorageGateway.Types
 -- | /See:/ 'newListFileSystemAssociations' smart constructor.
 data ListFileSystemAssociations = ListFileSystemAssociations'
   { gatewayARN :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of file system associations to return in the
+    -- response. If present, @Limit@ must be an integer with a value greater
+    -- than zero. Optional.
+    limit :: Prelude.Maybe Prelude.Natural,
     -- | Opaque pagination token returned from a previous
     -- @ListFileSystemAssociations@ operation. If present, @Marker@ specifies
     -- where to continue the list from after a previous call to
     -- @ListFileSystemAssociations@. Optional.
-    marker :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of file system associations to return in the
-    -- response. If present, @Limit@ must be an integer with a value greater
-    -- than zero. Optional.
-    limit :: Prelude.Maybe Prelude.Natural
+    marker :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -79,27 +80,33 @@ data ListFileSystemAssociations = ListFileSystemAssociations'
 --
 -- 'gatewayARN', 'listFileSystemAssociations_gatewayARN' - Undocumented member.
 --
+-- 'limit', 'listFileSystemAssociations_limit' - The maximum number of file system associations to return in the
+-- response. If present, @Limit@ must be an integer with a value greater
+-- than zero. Optional.
+--
 -- 'marker', 'listFileSystemAssociations_marker' - Opaque pagination token returned from a previous
 -- @ListFileSystemAssociations@ operation. If present, @Marker@ specifies
 -- where to continue the list from after a previous call to
 -- @ListFileSystemAssociations@. Optional.
---
--- 'limit', 'listFileSystemAssociations_limit' - The maximum number of file system associations to return in the
--- response. If present, @Limit@ must be an integer with a value greater
--- than zero. Optional.
 newListFileSystemAssociations ::
   ListFileSystemAssociations
 newListFileSystemAssociations =
   ListFileSystemAssociations'
     { gatewayARN =
         Prelude.Nothing,
-      marker = Prelude.Nothing,
-      limit = Prelude.Nothing
+      limit = Prelude.Nothing,
+      marker = Prelude.Nothing
     }
 
 -- | Undocumented member.
 listFileSystemAssociations_gatewayARN :: Lens.Lens' ListFileSystemAssociations (Prelude.Maybe Prelude.Text)
 listFileSystemAssociations_gatewayARN = Lens.lens (\ListFileSystemAssociations' {gatewayARN} -> gatewayARN) (\s@ListFileSystemAssociations' {} a -> s {gatewayARN = a} :: ListFileSystemAssociations)
+
+-- | The maximum number of file system associations to return in the
+-- response. If present, @Limit@ must be an integer with a value greater
+-- than zero. Optional.
+listFileSystemAssociations_limit :: Lens.Lens' ListFileSystemAssociations (Prelude.Maybe Prelude.Natural)
+listFileSystemAssociations_limit = Lens.lens (\ListFileSystemAssociations' {limit} -> limit) (\s@ListFileSystemAssociations' {} a -> s {limit = a} :: ListFileSystemAssociations)
 
 -- | Opaque pagination token returned from a previous
 -- @ListFileSystemAssociations@ operation. If present, @Marker@ specifies
@@ -107,12 +114,6 @@ listFileSystemAssociations_gatewayARN = Lens.lens (\ListFileSystemAssociations' 
 -- @ListFileSystemAssociations@. Optional.
 listFileSystemAssociations_marker :: Lens.Lens' ListFileSystemAssociations (Prelude.Maybe Prelude.Text)
 listFileSystemAssociations_marker = Lens.lens (\ListFileSystemAssociations' {marker} -> marker) (\s@ListFileSystemAssociations' {} a -> s {marker = a} :: ListFileSystemAssociations)
-
--- | The maximum number of file system associations to return in the
--- response. If present, @Limit@ must be an integer with a value greater
--- than zero. Optional.
-listFileSystemAssociations_limit :: Lens.Lens' ListFileSystemAssociations (Prelude.Maybe Prelude.Natural)
-listFileSystemAssociations_limit = Lens.lens (\ListFileSystemAssociations' {limit} -> limit) (\s@ListFileSystemAssociations' {} a -> s {limit = a} :: ListFileSystemAssociations)
 
 instance Core.AWSPager ListFileSystemAssociations where
   page rq rs
@@ -140,60 +141,61 @@ instance Core.AWSRequest ListFileSystemAssociations where
   type
     AWSResponse ListFileSystemAssociations =
       ListFileSystemAssociationsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListFileSystemAssociationsResponse'
-            Prelude.<$> ( x Core..?> "FileSystemAssociationSummaryList"
+            Prelude.<$> ( x Data..?> "FileSystemAssociationSummaryList"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "Marker")
-            Prelude.<*> (x Core..?> "NextMarker")
+            Prelude.<*> (x Data..?> "Marker")
+            Prelude.<*> (x Data..?> "NextMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListFileSystemAssociations where
   hashWithSalt _salt ListFileSystemAssociations' {..} =
     _salt `Prelude.hashWithSalt` gatewayARN
-      `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` marker
 
 instance Prelude.NFData ListFileSystemAssociations where
   rnf ListFileSystemAssociations' {..} =
     Prelude.rnf gatewayARN
-      `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf marker
 
-instance Core.ToHeaders ListFileSystemAssociations where
+instance Data.ToHeaders ListFileSystemAssociations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.ListFileSystemAssociations" ::
+              Data.=# ( "StorageGateway_20130630.ListFileSystemAssociations" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListFileSystemAssociations where
+instance Data.ToJSON ListFileSystemAssociations where
   toJSON ListFileSystemAssociations' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GatewayARN" Core..=) Prelude.<$> gatewayARN,
-            ("Marker" Core..=) Prelude.<$> marker,
-            ("Limit" Core..=) Prelude.<$> limit
+          [ ("GatewayARN" Data..=) Prelude.<$> gatewayARN,
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("Marker" Data..=) Prelude.<$> marker
           ]
       )
 
-instance Core.ToPath ListFileSystemAssociations where
+instance Data.ToPath ListFileSystemAssociations where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListFileSystemAssociations where
+instance Data.ToQuery ListFileSystemAssociations where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListFileSystemAssociationsResponse' smart constructor.

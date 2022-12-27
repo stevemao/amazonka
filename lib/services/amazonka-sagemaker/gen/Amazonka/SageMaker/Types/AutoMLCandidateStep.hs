@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.AutoMLCandidateStep
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.AutoMLCandidateStep where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.CandidateStepType
 
@@ -82,15 +83,15 @@ autoMLCandidateStep_candidateStepArn = Lens.lens (\AutoMLCandidateStep' {candida
 autoMLCandidateStep_candidateStepName :: Lens.Lens' AutoMLCandidateStep Prelude.Text
 autoMLCandidateStep_candidateStepName = Lens.lens (\AutoMLCandidateStep' {candidateStepName} -> candidateStepName) (\s@AutoMLCandidateStep' {} a -> s {candidateStepName = a} :: AutoMLCandidateStep)
 
-instance Core.FromJSON AutoMLCandidateStep where
+instance Data.FromJSON AutoMLCandidateStep where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AutoMLCandidateStep"
       ( \x ->
           AutoMLCandidateStep'
-            Prelude.<$> (x Core..: "CandidateStepType")
-            Prelude.<*> (x Core..: "CandidateStepArn")
-            Prelude.<*> (x Core..: "CandidateStepName")
+            Prelude.<$> (x Data..: "CandidateStepType")
+            Prelude.<*> (x Data..: "CandidateStepArn")
+            Prelude.<*> (x Data..: "CandidateStepName")
       )
 
 instance Prelude.Hashable AutoMLCandidateStep where

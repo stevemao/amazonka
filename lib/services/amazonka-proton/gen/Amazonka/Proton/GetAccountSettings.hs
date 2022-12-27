@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Proton.GetAccountSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Get detail data for the AWS Proton pipeline service role.
+-- Get detail data for Proton account-wide settings.
 module Amazonka.Proton.GetAccountSettings
   ( -- * Creating a Request
     GetAccountSettings (..),
@@ -37,7 +37,8 @@ module Amazonka.Proton.GetAccountSettings
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -61,12 +62,13 @@ instance Core.AWSRequest GetAccountSettings where
   type
     AWSResponse GetAccountSettings =
       GetAccountSettingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetAccountSettingsResponse'
-            Prelude.<$> (x Core..?> "accountSettings")
+            Prelude.<$> (x Data..?> "accountSettings")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -77,34 +79,33 @@ instance Prelude.Hashable GetAccountSettings where
 instance Prelude.NFData GetAccountSettings where
   rnf _ = ()
 
-instance Core.ToHeaders GetAccountSettings where
+instance Data.ToHeaders GetAccountSettings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.GetAccountSettings" ::
+              Data.=# ( "AwsProton20200720.GetAccountSettings" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetAccountSettings where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON GetAccountSettings where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath GetAccountSettings where
+instance Data.ToPath GetAccountSettings where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetAccountSettings where
+instance Data.ToQuery GetAccountSettings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetAccountSettingsResponse' smart constructor.
 data GetAccountSettingsResponse = GetAccountSettingsResponse'
-  { -- | The AWS Proton pipeline service role detail data that\'s returned by AWS
-    -- Proton.
+  { -- | The Proton pipeline service role detail data that\'s returned by Proton.
     accountSettings :: Prelude.Maybe AccountSettings,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -119,8 +120,7 @@ data GetAccountSettingsResponse = GetAccountSettingsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'accountSettings', 'getAccountSettingsResponse_accountSettings' - The AWS Proton pipeline service role detail data that\'s returned by AWS
--- Proton.
+-- 'accountSettings', 'getAccountSettingsResponse_accountSettings' - The Proton pipeline service role detail data that\'s returned by Proton.
 --
 -- 'httpStatus', 'getAccountSettingsResponse_httpStatus' - The response's http status code.
 newGetAccountSettingsResponse ::
@@ -134,8 +134,7 @@ newGetAccountSettingsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The AWS Proton pipeline service role detail data that\'s returned by AWS
--- Proton.
+-- | The Proton pipeline service role detail data that\'s returned by Proton.
 getAccountSettingsResponse_accountSettings :: Lens.Lens' GetAccountSettingsResponse (Prelude.Maybe AccountSettings)
 getAccountSettingsResponse_accountSettings = Lens.lens (\GetAccountSettingsResponse' {accountSettings} -> accountSettings) (\s@GetAccountSettingsResponse' {} a -> s {accountSettings = a} :: GetAccountSettingsResponse)
 

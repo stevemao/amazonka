@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.GetFieldLevelEncryption
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -78,13 +79,14 @@ instance Core.AWSRequest GetFieldLevelEncryption where
   type
     AWSResponse GetFieldLevelEncryption =
       GetFieldLevelEncryptionResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           GetFieldLevelEncryptionResponse'
-            Prelude.<$> (h Core..#? "ETag")
-            Prelude.<*> (Core.parseXML x)
+            Prelude.<$> (h Data..#? "ETag")
+            Prelude.<*> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -95,15 +97,15 @@ instance Prelude.Hashable GetFieldLevelEncryption where
 instance Prelude.NFData GetFieldLevelEncryption where
   rnf GetFieldLevelEncryption' {..} = Prelude.rnf id
 
-instance Core.ToHeaders GetFieldLevelEncryption where
+instance Data.ToHeaders GetFieldLevelEncryption where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath GetFieldLevelEncryption where
+instance Data.ToPath GetFieldLevelEncryption where
   toPath GetFieldLevelEncryption' {..} =
     Prelude.mconcat
-      ["/2020-05-31/field-level-encryption/", Core.toBS id]
+      ["/2020-05-31/field-level-encryption/", Data.toBS id]
 
-instance Core.ToQuery GetFieldLevelEncryption where
+instance Data.ToQuery GetFieldLevelEncryption where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetFieldLevelEncryptionResponse' smart constructor.

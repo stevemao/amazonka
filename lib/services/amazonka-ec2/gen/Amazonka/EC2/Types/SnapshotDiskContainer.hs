@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.SnapshotDiskContainer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,19 @@
 module Amazonka.EC2.Types.SnapshotDiskContainer where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.UserBucket
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The disk container object for the import snapshot request.
 --
 -- /See:/ 'newSnapshotDiskContainer' smart constructor.
 data SnapshotDiskContainer = SnapshotDiskContainer'
-  { -- | The format of the disk image being imported.
+  { -- | The description of the disk image being imported.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The format of the disk image being imported.
     --
     -- Valid values: @VHD@ | @VMDK@ | @RAW@
     format :: Prelude.Maybe Prelude.Text,
@@ -37,9 +40,7 @@ data SnapshotDiskContainer = SnapshotDiskContainer'
     -- be a https URL (https:\/\/..) or an Amazon S3 URL (s3:\/\/..).
     url :: Prelude.Maybe Prelude.Text,
     -- | The Amazon S3 bucket for the disk image.
-    userBucket :: Prelude.Maybe UserBucket,
-    -- | The description of the disk image being imported.
-    description :: Prelude.Maybe Prelude.Text
+    userBucket :: Prelude.Maybe UserBucket
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -51,6 +52,8 @@ data SnapshotDiskContainer = SnapshotDiskContainer'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'snapshotDiskContainer_description' - The description of the disk image being imported.
+--
 -- 'format', 'snapshotDiskContainer_format' - The format of the disk image being imported.
 --
 -- Valid values: @VHD@ | @VMDK@ | @RAW@
@@ -59,17 +62,20 @@ data SnapshotDiskContainer = SnapshotDiskContainer'
 -- be a https URL (https:\/\/..) or an Amazon S3 URL (s3:\/\/..).
 --
 -- 'userBucket', 'snapshotDiskContainer_userBucket' - The Amazon S3 bucket for the disk image.
---
--- 'description', 'snapshotDiskContainer_description' - The description of the disk image being imported.
 newSnapshotDiskContainer ::
   SnapshotDiskContainer
 newSnapshotDiskContainer =
   SnapshotDiskContainer'
-    { format = Prelude.Nothing,
+    { description =
+        Prelude.Nothing,
+      format = Prelude.Nothing,
       url = Prelude.Nothing,
-      userBucket = Prelude.Nothing,
-      description = Prelude.Nothing
+      userBucket = Prelude.Nothing
     }
+
+-- | The description of the disk image being imported.
+snapshotDiskContainer_description :: Lens.Lens' SnapshotDiskContainer (Prelude.Maybe Prelude.Text)
+snapshotDiskContainer_description = Lens.lens (\SnapshotDiskContainer' {description} -> description) (\s@SnapshotDiskContainer' {} a -> s {description = a} :: SnapshotDiskContainer)
 
 -- | The format of the disk image being imported.
 --
@@ -86,29 +92,25 @@ snapshotDiskContainer_url = Lens.lens (\SnapshotDiskContainer' {url} -> url) (\s
 snapshotDiskContainer_userBucket :: Lens.Lens' SnapshotDiskContainer (Prelude.Maybe UserBucket)
 snapshotDiskContainer_userBucket = Lens.lens (\SnapshotDiskContainer' {userBucket} -> userBucket) (\s@SnapshotDiskContainer' {} a -> s {userBucket = a} :: SnapshotDiskContainer)
 
--- | The description of the disk image being imported.
-snapshotDiskContainer_description :: Lens.Lens' SnapshotDiskContainer (Prelude.Maybe Prelude.Text)
-snapshotDiskContainer_description = Lens.lens (\SnapshotDiskContainer' {description} -> description) (\s@SnapshotDiskContainer' {} a -> s {description = a} :: SnapshotDiskContainer)
-
 instance Prelude.Hashable SnapshotDiskContainer where
   hashWithSalt _salt SnapshotDiskContainer' {..} =
-    _salt `Prelude.hashWithSalt` format
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` format
       `Prelude.hashWithSalt` url
       `Prelude.hashWithSalt` userBucket
-      `Prelude.hashWithSalt` description
 
 instance Prelude.NFData SnapshotDiskContainer where
   rnf SnapshotDiskContainer' {..} =
-    Prelude.rnf format
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf format
       `Prelude.seq` Prelude.rnf url
       `Prelude.seq` Prelude.rnf userBucket
-      `Prelude.seq` Prelude.rnf description
 
-instance Core.ToQuery SnapshotDiskContainer where
+instance Data.ToQuery SnapshotDiskContainer where
   toQuery SnapshotDiskContainer' {..} =
     Prelude.mconcat
-      [ "Format" Core.=: format,
-        "Url" Core.=: url,
-        "UserBucket" Core.=: userBucket,
-        "Description" Core.=: description
+      [ "Description" Data.=: description,
+        "Format" Data.=: format,
+        "Url" Data.=: url,
+        "UserBucket" Data.=: userBucket
       ]

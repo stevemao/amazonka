@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.InternetGatewayAttachment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.InternetGatewayAttachment where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.AttachmentStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the attachment of a VPC to an internet gateway or an
@@ -74,10 +75,10 @@ internetGatewayAttachment_state = Lens.lens (\InternetGatewayAttachment' {state}
 internetGatewayAttachment_vpcId :: Lens.Lens' InternetGatewayAttachment Prelude.Text
 internetGatewayAttachment_vpcId = Lens.lens (\InternetGatewayAttachment' {vpcId} -> vpcId) (\s@InternetGatewayAttachment' {} a -> s {vpcId = a} :: InternetGatewayAttachment)
 
-instance Core.FromXML InternetGatewayAttachment where
+instance Data.FromXML InternetGatewayAttachment where
   parseXML x =
     InternetGatewayAttachment'
-      Prelude.<$> (x Core..@ "state") Prelude.<*> (x Core..@ "vpcId")
+      Prelude.<$> (x Data..@ "state") Prelude.<*> (x Data..@ "vpcId")
 
 instance Prelude.Hashable InternetGatewayAttachment where
   hashWithSalt _salt InternetGatewayAttachment' {..} =

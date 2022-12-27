@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Grafana.UpdateWorkspaceAuthentication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.Grafana.UpdateWorkspaceAuthentication
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Grafana.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,9 +60,9 @@ data UpdateWorkspaceAuthentication = UpdateWorkspaceAuthentication'
     -- assertion attribute are to have the @Admin@ and @Editor@ roles in the
     -- workspace.
     samlConfiguration :: Prelude.Maybe SamlConfiguration,
-    -- | Specifies whether this workspace uses SAML 2.0, Amazon Web Services
-    -- Single Sign On, or both to authenticate users for using the Grafana
-    -- console within a workspace. For more information, see
+    -- | Specifies whether this workspace uses SAML 2.0, IAM Identity Center
+    -- (successor to Single Sign-On), or both to authenticate users for using
+    -- the Grafana console within a workspace. For more information, see
     -- <https://docs.aws.amazon.com/grafana/latest/userguide/authentication-in-AMG.html User authentication in Amazon Managed Grafana>.
     authenticationProviders :: [AuthenticationProviderTypes],
     -- | The ID of the workspace to update the authentication for.
@@ -82,9 +83,9 @@ data UpdateWorkspaceAuthentication = UpdateWorkspaceAuthentication'
 -- assertion attribute are to have the @Admin@ and @Editor@ roles in the
 -- workspace.
 --
--- 'authenticationProviders', 'updateWorkspaceAuthentication_authenticationProviders' - Specifies whether this workspace uses SAML 2.0, Amazon Web Services
--- Single Sign On, or both to authenticate users for using the Grafana
--- console within a workspace. For more information, see
+-- 'authenticationProviders', 'updateWorkspaceAuthentication_authenticationProviders' - Specifies whether this workspace uses SAML 2.0, IAM Identity Center
+-- (successor to Single Sign-On), or both to authenticate users for using
+-- the Grafana console within a workspace. For more information, see
 -- <https://docs.aws.amazon.com/grafana/latest/userguide/authentication-in-AMG.html User authentication in Amazon Managed Grafana>.
 --
 -- 'workspaceId', 'updateWorkspaceAuthentication_workspaceId' - The ID of the workspace to update the authentication for.
@@ -107,9 +108,9 @@ newUpdateWorkspaceAuthentication pWorkspaceId_ =
 updateWorkspaceAuthentication_samlConfiguration :: Lens.Lens' UpdateWorkspaceAuthentication (Prelude.Maybe SamlConfiguration)
 updateWorkspaceAuthentication_samlConfiguration = Lens.lens (\UpdateWorkspaceAuthentication' {samlConfiguration} -> samlConfiguration) (\s@UpdateWorkspaceAuthentication' {} a -> s {samlConfiguration = a} :: UpdateWorkspaceAuthentication)
 
--- | Specifies whether this workspace uses SAML 2.0, Amazon Web Services
--- Single Sign On, or both to authenticate users for using the Grafana
--- console within a workspace. For more information, see
+-- | Specifies whether this workspace uses SAML 2.0, IAM Identity Center
+-- (successor to Single Sign-On), or both to authenticate users for using
+-- the Grafana console within a workspace. For more information, see
 -- <https://docs.aws.amazon.com/grafana/latest/userguide/authentication-in-AMG.html User authentication in Amazon Managed Grafana>.
 updateWorkspaceAuthentication_authenticationProviders :: Lens.Lens' UpdateWorkspaceAuthentication [AuthenticationProviderTypes]
 updateWorkspaceAuthentication_authenticationProviders = Lens.lens (\UpdateWorkspaceAuthentication' {authenticationProviders} -> authenticationProviders) (\s@UpdateWorkspaceAuthentication' {} a -> s {authenticationProviders = a} :: UpdateWorkspaceAuthentication) Prelude.. Lens.coerced
@@ -125,13 +126,14 @@ instance
   type
     AWSResponse UpdateWorkspaceAuthentication =
       UpdateWorkspaceAuthenticationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateWorkspaceAuthenticationResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "authentication")
+            Prelude.<*> (x Data..:> "authentication")
       )
 
 instance
@@ -149,39 +151,39 @@ instance Prelude.NFData UpdateWorkspaceAuthentication where
       `Prelude.seq` Prelude.rnf authenticationProviders
       `Prelude.seq` Prelude.rnf workspaceId
 
-instance Core.ToHeaders UpdateWorkspaceAuthentication where
+instance Data.ToHeaders UpdateWorkspaceAuthentication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateWorkspaceAuthentication where
+instance Data.ToJSON UpdateWorkspaceAuthentication where
   toJSON UpdateWorkspaceAuthentication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("samlConfiguration" Core..=)
+          [ ("samlConfiguration" Data..=)
               Prelude.<$> samlConfiguration,
             Prelude.Just
               ( "authenticationProviders"
-                  Core..= authenticationProviders
+                  Data..= authenticationProviders
               )
           ]
       )
 
-instance Core.ToPath UpdateWorkspaceAuthentication where
+instance Data.ToPath UpdateWorkspaceAuthentication where
   toPath UpdateWorkspaceAuthentication' {..} =
     Prelude.mconcat
       [ "/workspaces/",
-        Core.toBS workspaceId,
+        Data.toBS workspaceId,
         "/authentication"
       ]
 
-instance Core.ToQuery UpdateWorkspaceAuthentication where
+instance Data.ToQuery UpdateWorkspaceAuthentication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateWorkspaceAuthenticationResponse' smart constructor.

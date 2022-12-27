@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,7 +59,7 @@ data GetTags = GetTags'
     -- | (Not currently supported) The current pagination position in the paged
     -- result set.
     position :: Prelude.Maybe Prelude.Text,
-    -- | [Required] The ARN of a resource that can be tagged.
+    -- | The ARN of a resource that can be tagged.
     resourceArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -77,7 +78,7 @@ data GetTags = GetTags'
 -- 'position', 'getTags_position' - (Not currently supported) The current pagination position in the paged
 -- result set.
 --
--- 'resourceArn', 'getTags_resourceArn' - [Required] The ARN of a resource that can be tagged.
+-- 'resourceArn', 'getTags_resourceArn' - The ARN of a resource that can be tagged.
 newGetTags ::
   -- | 'resourceArn'
   Prelude.Text ->
@@ -99,18 +100,19 @@ getTags_limit = Lens.lens (\GetTags' {limit} -> limit) (\s@GetTags' {} a -> s {l
 getTags_position :: Lens.Lens' GetTags (Prelude.Maybe Prelude.Text)
 getTags_position = Lens.lens (\GetTags' {position} -> position) (\s@GetTags' {} a -> s {position = a} :: GetTags)
 
--- | [Required] The ARN of a resource that can be tagged.
+-- | The ARN of a resource that can be tagged.
 getTags_resourceArn :: Lens.Lens' GetTags Prelude.Text
 getTags_resourceArn = Lens.lens (\GetTags' {resourceArn} -> resourceArn) (\s@GetTags' {} a -> s {resourceArn = a} :: GetTags)
 
 instance Core.AWSRequest GetTags where
   type AWSResponse GetTags = GetTagsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetTagsResponse'
-            Prelude.<$> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,23 +128,23 @@ instance Prelude.NFData GetTags where
       `Prelude.seq` Prelude.rnf position
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToHeaders GetTags where
+instance Data.ToHeaders GetTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetTags where
+instance Data.ToPath GetTags where
   toPath GetTags' {..} =
-    Prelude.mconcat ["/tags/", Core.toBS resourceArn]
+    Prelude.mconcat ["/tags/", Data.toBS resourceArn]
 
-instance Core.ToQuery GetTags where
+instance Data.ToQuery GetTags where
   toQuery GetTags' {..} =
     Prelude.mconcat
-      ["limit" Core.=: limit, "position" Core.=: position]
+      ["limit" Data.=: limit, "position" Data.=: position]
 
 -- | The collection of tags. Each tag element is associated with a given
 -- resource.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.Types.LastRunErrorStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MacieV2.Types.LastRunErrorStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types.LastRunErrorStatusCode
 import qualified Amazonka.Prelude as Prelude
 
@@ -79,12 +80,12 @@ newLastRunErrorStatus =
 lastRunErrorStatus_code :: Lens.Lens' LastRunErrorStatus (Prelude.Maybe LastRunErrorStatusCode)
 lastRunErrorStatus_code = Lens.lens (\LastRunErrorStatus' {code} -> code) (\s@LastRunErrorStatus' {} a -> s {code = a} :: LastRunErrorStatus)
 
-instance Core.FromJSON LastRunErrorStatus where
+instance Data.FromJSON LastRunErrorStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LastRunErrorStatus"
       ( \x ->
-          LastRunErrorStatus' Prelude.<$> (x Core..:? "code")
+          LastRunErrorStatus' Prelude.<$> (x Data..:? "code")
       )
 
 instance Prelude.Hashable LastRunErrorStatus where

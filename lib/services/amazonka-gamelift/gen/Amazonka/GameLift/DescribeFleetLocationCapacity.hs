@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DescribeFleetLocationCapacity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,15 +37,6 @@
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/fleets-intro.html Setting up GameLift fleets>
 --
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/monitoring-cloudwatch.html#gamelift-metrics-fleet GameLift metrics for fleets>
---
--- __Related actions__
---
--- CreateFleetLocations | DescribeFleetLocationAttributes |
--- DescribeFleetLocationCapacity | DescribeFleetLocationUtilization |
--- DescribeFleetAttributes | DescribeFleetCapacity |
--- DescribeFleetUtilization | UpdateFleetCapacity | StopFleetActions |
--- DeleteFleetLocations |
--- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.DescribeFleetLocationCapacity
   ( -- * Creating a Request
     DescribeFleetLocationCapacity (..),
@@ -66,21 +57,21 @@ module Amazonka.GameLift.DescribeFleetLocationCapacity
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDescribeFleetLocationCapacity' smart constructor.
+-- | /See:/ 'newDescribeFleetLocationCapacity' smart constructor.
 data DescribeFleetLocationCapacity = DescribeFleetLocationCapacity'
   { -- | A unique identifier for the fleet to request location capacity for. You
     -- can use either the fleet ID or ARN value.
     fleetId :: Prelude.Text,
     -- | The fleet location to retrieve capacity information for. Specify a
-    -- location in the form of an AWS Region code, such as @us-west-2@.
+    -- location in the form of an Amazon Web Services Region code, such as
+    -- @us-west-2@.
     location :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -97,7 +88,8 @@ data DescribeFleetLocationCapacity = DescribeFleetLocationCapacity'
 -- can use either the fleet ID or ARN value.
 --
 -- 'location', 'describeFleetLocationCapacity_location' - The fleet location to retrieve capacity information for. Specify a
--- location in the form of an AWS Region code, such as @us-west-2@.
+-- location in the form of an Amazon Web Services Region code, such as
+-- @us-west-2@.
 newDescribeFleetLocationCapacity ::
   -- | 'fleetId'
   Prelude.Text ->
@@ -116,7 +108,8 @@ describeFleetLocationCapacity_fleetId :: Lens.Lens' DescribeFleetLocationCapacit
 describeFleetLocationCapacity_fleetId = Lens.lens (\DescribeFleetLocationCapacity' {fleetId} -> fleetId) (\s@DescribeFleetLocationCapacity' {} a -> s {fleetId = a} :: DescribeFleetLocationCapacity)
 
 -- | The fleet location to retrieve capacity information for. Specify a
--- location in the form of an AWS Region code, such as @us-west-2@.
+-- location in the form of an Amazon Web Services Region code, such as
+-- @us-west-2@.
 describeFleetLocationCapacity_location :: Lens.Lens' DescribeFleetLocationCapacity Prelude.Text
 describeFleetLocationCapacity_location = Lens.lens (\DescribeFleetLocationCapacity' {location} -> location) (\s@DescribeFleetLocationCapacity' {} a -> s {location = a} :: DescribeFleetLocationCapacity)
 
@@ -127,12 +120,13 @@ instance
   type
     AWSResponse DescribeFleetLocationCapacity =
       DescribeFleetLocationCapacityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeFleetLocationCapacityResponse'
-            Prelude.<$> (x Core..?> "FleetCapacity")
+            Prelude.<$> (x Data..?> "FleetCapacity")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -149,39 +143,37 @@ instance Prelude.NFData DescribeFleetLocationCapacity where
     Prelude.rnf fleetId
       `Prelude.seq` Prelude.rnf location
 
-instance Core.ToHeaders DescribeFleetLocationCapacity where
+instance Data.ToHeaders DescribeFleetLocationCapacity where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DescribeFleetLocationCapacity" ::
+              Data.=# ( "GameLift.DescribeFleetLocationCapacity" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeFleetLocationCapacity where
+instance Data.ToJSON DescribeFleetLocationCapacity where
   toJSON DescribeFleetLocationCapacity' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("FleetId" Core..= fleetId),
-            Prelude.Just ("Location" Core..= location)
+          [ Prelude.Just ("FleetId" Data..= fleetId),
+            Prelude.Just ("Location" Data..= location)
           ]
       )
 
-instance Core.ToPath DescribeFleetLocationCapacity where
+instance Data.ToPath DescribeFleetLocationCapacity where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeFleetLocationCapacity where
+instance Data.ToQuery DescribeFleetLocationCapacity where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newDescribeFleetLocationCapacityResponse' smart constructor.
+-- | /See:/ 'newDescribeFleetLocationCapacityResponse' smart constructor.
 data DescribeFleetLocationCapacityResponse = DescribeFleetLocationCapacityResponse'
   { -- | Resource capacity information for the requested fleet location. Capacity
     -- objects are returned only for fleets and locations that currently exist.

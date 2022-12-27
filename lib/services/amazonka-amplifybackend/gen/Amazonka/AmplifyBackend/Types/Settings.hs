@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AmplifyBackend.Types.Settings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AmplifyBackend.Types.Settings where
 
 import Amazonka.AmplifyBackend.Types.MfaTypesElement
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The settings of your MFA configuration for the backend of your Amplify
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSettings' smart constructor.
 data Settings = Settings'
-  { -- | The body of the SMS message.
-    smsMessage :: Prelude.Maybe Prelude.Text,
-    -- | The supported MFA types.
-    mfaTypes :: Prelude.Maybe [MfaTypesElement]
+  { -- | The supported MFA types.
+    mfaTypes :: Prelude.Maybe [MfaTypesElement],
+    -- | The body of the SMS message.
+    smsMessage :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,50 +45,50 @@ data Settings = Settings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'smsMessage', 'settings_smsMessage' - The body of the SMS message.
---
 -- 'mfaTypes', 'settings_mfaTypes' - The supported MFA types.
+--
+-- 'smsMessage', 'settings_smsMessage' - The body of the SMS message.
 newSettings ::
   Settings
 newSettings =
   Settings'
-    { smsMessage = Prelude.Nothing,
-      mfaTypes = Prelude.Nothing
+    { mfaTypes = Prelude.Nothing,
+      smsMessage = Prelude.Nothing
     }
-
--- | The body of the SMS message.
-settings_smsMessage :: Lens.Lens' Settings (Prelude.Maybe Prelude.Text)
-settings_smsMessage = Lens.lens (\Settings' {smsMessage} -> smsMessage) (\s@Settings' {} a -> s {smsMessage = a} :: Settings)
 
 -- | The supported MFA types.
 settings_mfaTypes :: Lens.Lens' Settings (Prelude.Maybe [MfaTypesElement])
 settings_mfaTypes = Lens.lens (\Settings' {mfaTypes} -> mfaTypes) (\s@Settings' {} a -> s {mfaTypes = a} :: Settings) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON Settings where
+-- | The body of the SMS message.
+settings_smsMessage :: Lens.Lens' Settings (Prelude.Maybe Prelude.Text)
+settings_smsMessage = Lens.lens (\Settings' {smsMessage} -> smsMessage) (\s@Settings' {} a -> s {smsMessage = a} :: Settings)
+
+instance Data.FromJSON Settings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Settings"
       ( \x ->
           Settings'
-            Prelude.<$> (x Core..:? "smsMessage")
-            Prelude.<*> (x Core..:? "mfaTypes" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "mfaTypes" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "smsMessage")
       )
 
 instance Prelude.Hashable Settings where
   hashWithSalt _salt Settings' {..} =
-    _salt `Prelude.hashWithSalt` smsMessage
-      `Prelude.hashWithSalt` mfaTypes
+    _salt `Prelude.hashWithSalt` mfaTypes
+      `Prelude.hashWithSalt` smsMessage
 
 instance Prelude.NFData Settings where
   rnf Settings' {..} =
-    Prelude.rnf smsMessage
-      `Prelude.seq` Prelude.rnf mfaTypes
+    Prelude.rnf mfaTypes
+      `Prelude.seq` Prelude.rnf smsMessage
 
-instance Core.ToJSON Settings where
+instance Data.ToJSON Settings where
   toJSON Settings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("smsMessage" Core..=) Prelude.<$> smsMessage,
-            ("mfaTypes" Core..=) Prelude.<$> mfaTypes
+          [ ("mfaTypes" Data..=) Prelude.<$> mfaTypes,
+            ("smsMessage" Data..=) Prelude.<$> smsMessage
           ]
       )

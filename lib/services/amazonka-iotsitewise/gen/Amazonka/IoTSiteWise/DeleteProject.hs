@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTSiteWise.DeleteProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,8 +40,9 @@ module Amazonka.IoTSiteWise.DeleteProject
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTSiteWise.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,7 +95,8 @@ instance Core.AWSRequest DeleteProject where
   type
     AWSResponse DeleteProject =
       DeleteProjectResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -112,24 +114,24 @@ instance Prelude.NFData DeleteProject where
     Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf projectId
 
-instance Core.ToHeaders DeleteProject where
+instance Data.ToHeaders DeleteProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteProject where
+instance Data.ToPath DeleteProject where
   toPath DeleteProject' {..} =
-    Prelude.mconcat ["/projects/", Core.toBS projectId]
+    Prelude.mconcat ["/projects/", Data.toBS projectId]
 
-instance Core.ToQuery DeleteProject where
+instance Data.ToQuery DeleteProject where
   toQuery DeleteProject' {..} =
-    Prelude.mconcat ["clientToken" Core.=: clientToken]
+    Prelude.mconcat ["clientToken" Data.=: clientToken]
 
 -- | /See:/ 'newDeleteProjectResponse' smart constructor.
 data DeleteProjectResponse = DeleteProjectResponse'

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.DescribeEventSubscriptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,10 +34,10 @@ module Amazonka.Neptune.DescribeEventSubscriptions
     newDescribeEventSubscriptions,
 
     -- * Request Lenses
-    describeEventSubscriptions_subscriptionName,
     describeEventSubscriptions_filters,
     describeEventSubscriptions_marker,
     describeEventSubscriptions_maxRecords,
+    describeEventSubscriptions_subscriptionName,
 
     -- * Destructuring the Response
     DescribeEventSubscriptionsResponse (..),
@@ -51,7 +51,8 @@ module Amazonka.Neptune.DescribeEventSubscriptions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -59,9 +60,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeEventSubscriptions' smart constructor.
 data DescribeEventSubscriptions = DescribeEventSubscriptions'
-  { -- | The name of the event notification subscription you want to describe.
-    subscriptionName :: Prelude.Maybe Prelude.Text,
-    -- | This parameter is not currently supported.
+  { -- | This parameter is not currently supported.
     filters :: Prelude.Maybe [Filter],
     -- | An optional pagination token provided by a previous
     -- DescribeOrderableDBInstanceOptions request. If this parameter is
@@ -76,7 +75,9 @@ data DescribeEventSubscriptions = DescribeEventSubscriptions'
     -- Default: 100
     --
     -- Constraints: Minimum 20, maximum 100.
-    maxRecords :: Prelude.Maybe Prelude.Int
+    maxRecords :: Prelude.Maybe Prelude.Int,
+    -- | The name of the event notification subscription you want to describe.
+    subscriptionName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -87,8 +88,6 @@ data DescribeEventSubscriptions = DescribeEventSubscriptions'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
---
--- 'subscriptionName', 'describeEventSubscriptions_subscriptionName' - The name of the event notification subscription you want to describe.
 --
 -- 'filters', 'describeEventSubscriptions_filters' - This parameter is not currently supported.
 --
@@ -105,20 +104,18 @@ data DescribeEventSubscriptions = DescribeEventSubscriptions'
 -- Default: 100
 --
 -- Constraints: Minimum 20, maximum 100.
+--
+-- 'subscriptionName', 'describeEventSubscriptions_subscriptionName' - The name of the event notification subscription you want to describe.
 newDescribeEventSubscriptions ::
   DescribeEventSubscriptions
 newDescribeEventSubscriptions =
   DescribeEventSubscriptions'
-    { subscriptionName =
+    { filters =
         Prelude.Nothing,
-      filters = Prelude.Nothing,
       marker = Prelude.Nothing,
-      maxRecords = Prelude.Nothing
+      maxRecords = Prelude.Nothing,
+      subscriptionName = Prelude.Nothing
     }
-
--- | The name of the event notification subscription you want to describe.
-describeEventSubscriptions_subscriptionName :: Lens.Lens' DescribeEventSubscriptions (Prelude.Maybe Prelude.Text)
-describeEventSubscriptions_subscriptionName = Lens.lens (\DescribeEventSubscriptions' {subscriptionName} -> subscriptionName) (\s@DescribeEventSubscriptions' {} a -> s {subscriptionName = a} :: DescribeEventSubscriptions)
 
 -- | This parameter is not currently supported.
 describeEventSubscriptions_filters :: Lens.Lens' DescribeEventSubscriptions (Prelude.Maybe [Filter])
@@ -141,6 +138,10 @@ describeEventSubscriptions_marker = Lens.lens (\DescribeEventSubscriptions' {mar
 -- Constraints: Minimum 20, maximum 100.
 describeEventSubscriptions_maxRecords :: Lens.Lens' DescribeEventSubscriptions (Prelude.Maybe Prelude.Int)
 describeEventSubscriptions_maxRecords = Lens.lens (\DescribeEventSubscriptions' {maxRecords} -> maxRecords) (\s@DescribeEventSubscriptions' {} a -> s {maxRecords = a} :: DescribeEventSubscriptions)
+
+-- | The name of the event notification subscription you want to describe.
+describeEventSubscriptions_subscriptionName :: Lens.Lens' DescribeEventSubscriptions (Prelude.Maybe Prelude.Text)
+describeEventSubscriptions_subscriptionName = Lens.lens (\DescribeEventSubscriptions' {subscriptionName} -> subscriptionName) (\s@DescribeEventSubscriptions' {} a -> s {subscriptionName = a} :: DescribeEventSubscriptions)
 
 instance Core.AWSPager DescribeEventSubscriptions where
   page rq rs
@@ -168,53 +169,54 @@ instance Core.AWSRequest DescribeEventSubscriptions where
   type
     AWSResponse DescribeEventSubscriptions =
       DescribeEventSubscriptionsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeEventSubscriptionsResult"
       ( \s h x ->
           DescribeEventSubscriptionsResponse'
-            Prelude.<$> ( x Core..@? "EventSubscriptionsList"
+            Prelude.<$> ( x Data..@? "EventSubscriptionsList"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "EventSubscription")
+                            Prelude.>>= Core.may (Data.parseXMLList "EventSubscription")
                         )
-            Prelude.<*> (x Core..@? "Marker")
+            Prelude.<*> (x Data..@? "Marker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeEventSubscriptions where
   hashWithSalt _salt DescribeEventSubscriptions' {..} =
-    _salt `Prelude.hashWithSalt` subscriptionName
-      `Prelude.hashWithSalt` filters
+    _salt `Prelude.hashWithSalt` filters
       `Prelude.hashWithSalt` marker
       `Prelude.hashWithSalt` maxRecords
+      `Prelude.hashWithSalt` subscriptionName
 
 instance Prelude.NFData DescribeEventSubscriptions where
   rnf DescribeEventSubscriptions' {..} =
-    Prelude.rnf subscriptionName
-      `Prelude.seq` Prelude.rnf filters
+    Prelude.rnf filters
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxRecords
+      `Prelude.seq` Prelude.rnf subscriptionName
 
-instance Core.ToHeaders DescribeEventSubscriptions where
+instance Data.ToHeaders DescribeEventSubscriptions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeEventSubscriptions where
+instance Data.ToPath DescribeEventSubscriptions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeEventSubscriptions where
+instance Data.ToQuery DescribeEventSubscriptions where
   toQuery DescribeEventSubscriptions' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeEventSubscriptions" :: Prelude.ByteString),
+          Data.=: ("DescribeEventSubscriptions" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "SubscriptionName" Core.=: subscriptionName,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "SubscriptionName" Data.=: subscriptionName
       ]
 
 -- | /See:/ 'newDescribeEventSubscriptionsResponse' smart constructor.

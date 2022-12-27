@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEvents.Types.SetTimerAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoTEvents.Types.SetTimerAction where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information needed to set the timer.
@@ -91,15 +92,15 @@ setTimerAction_seconds = Lens.lens (\SetTimerAction' {seconds} -> seconds) (\s@S
 setTimerAction_timerName :: Lens.Lens' SetTimerAction Prelude.Text
 setTimerAction_timerName = Lens.lens (\SetTimerAction' {timerName} -> timerName) (\s@SetTimerAction' {} a -> s {timerName = a} :: SetTimerAction)
 
-instance Core.FromJSON SetTimerAction where
+instance Data.FromJSON SetTimerAction where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SetTimerAction"
       ( \x ->
           SetTimerAction'
-            Prelude.<$> (x Core..:? "durationExpression")
-            Prelude.<*> (x Core..:? "seconds")
-            Prelude.<*> (x Core..: "timerName")
+            Prelude.<$> (x Data..:? "durationExpression")
+            Prelude.<*> (x Data..:? "seconds")
+            Prelude.<*> (x Data..: "timerName")
       )
 
 instance Prelude.Hashable SetTimerAction where
@@ -114,13 +115,13 @@ instance Prelude.NFData SetTimerAction where
       `Prelude.seq` Prelude.rnf seconds
       `Prelude.seq` Prelude.rnf timerName
 
-instance Core.ToJSON SetTimerAction where
+instance Data.ToJSON SetTimerAction where
   toJSON SetTimerAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("durationExpression" Core..=)
+          [ ("durationExpression" Data..=)
               Prelude.<$> durationExpression,
-            ("seconds" Core..=) Prelude.<$> seconds,
-            Prelude.Just ("timerName" Core..= timerName)
+            ("seconds" Data..=) Prelude.<$> seconds,
+            Prelude.Just ("timerName" Data..= timerName)
           ]
       )

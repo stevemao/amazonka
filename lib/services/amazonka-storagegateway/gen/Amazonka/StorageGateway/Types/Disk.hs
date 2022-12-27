@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.Types.Disk
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.StorageGateway.Types.Disk where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a gateway\'s local disk.
@@ -33,6 +34,10 @@ data Disk = Disk'
     -- /targetIqn::LUNNumber::region-volumeId/.
     diskAllocationResource :: Prelude.Maybe Prelude.Text,
     diskAllocationType :: Prelude.Maybe Prelude.Text,
+    diskAttributeList :: Prelude.Maybe [Prelude.Text],
+    -- | The unique device ID or other distinguishing data that identifies a
+    -- local disk.
+    diskId :: Prelude.Maybe Prelude.Text,
     -- | The device node of a local disk as assigned by the virtualization
     -- environment.
     diskNode :: Prelude.Maybe Prelude.Text,
@@ -41,11 +46,7 @@ data Disk = Disk'
     -- | The local disk size in bytes.
     diskSizeInBytes :: Prelude.Maybe Prelude.Integer,
     -- | A value that represents the status of a local disk.
-    diskStatus :: Prelude.Maybe Prelude.Text,
-    -- | The unique device ID or other distinguishing data that identifies a
-    -- local disk.
-    diskId :: Prelude.Maybe Prelude.Text,
-    diskAttributeList :: Prelude.Maybe [Prelude.Text]
+    diskStatus :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -64,6 +65,11 @@ data Disk = Disk'
 --
 -- 'diskAllocationType', 'disk_diskAllocationType' - Undocumented member.
 --
+-- 'diskAttributeList', 'disk_diskAttributeList' - Undocumented member.
+--
+-- 'diskId', 'disk_diskId' - The unique device ID or other distinguishing data that identifies a
+-- local disk.
+--
 -- 'diskNode', 'disk_diskNode' - The device node of a local disk as assigned by the virtualization
 -- environment.
 --
@@ -72,23 +78,18 @@ data Disk = Disk'
 -- 'diskSizeInBytes', 'disk_diskSizeInBytes' - The local disk size in bytes.
 --
 -- 'diskStatus', 'disk_diskStatus' - A value that represents the status of a local disk.
---
--- 'diskId', 'disk_diskId' - The unique device ID or other distinguishing data that identifies a
--- local disk.
---
--- 'diskAttributeList', 'disk_diskAttributeList' - Undocumented member.
 newDisk ::
   Disk
 newDisk =
   Disk'
     { diskAllocationResource = Prelude.Nothing,
       diskAllocationType = Prelude.Nothing,
+      diskAttributeList = Prelude.Nothing,
+      diskId = Prelude.Nothing,
       diskNode = Prelude.Nothing,
       diskPath = Prelude.Nothing,
       diskSizeInBytes = Prelude.Nothing,
-      diskStatus = Prelude.Nothing,
-      diskId = Prelude.Nothing,
-      diskAttributeList = Prelude.Nothing
+      diskStatus = Prelude.Nothing
     }
 
 -- | The iSCSI qualified name (IQN) that is defined for a disk. This field is
@@ -101,6 +102,15 @@ disk_diskAllocationResource = Lens.lens (\Disk' {diskAllocationResource} -> disk
 -- | Undocumented member.
 disk_diskAllocationType :: Lens.Lens' Disk (Prelude.Maybe Prelude.Text)
 disk_diskAllocationType = Lens.lens (\Disk' {diskAllocationType} -> diskAllocationType) (\s@Disk' {} a -> s {diskAllocationType = a} :: Disk)
+
+-- | Undocumented member.
+disk_diskAttributeList :: Lens.Lens' Disk (Prelude.Maybe [Prelude.Text])
+disk_diskAttributeList = Lens.lens (\Disk' {diskAttributeList} -> diskAttributeList) (\s@Disk' {} a -> s {diskAttributeList = a} :: Disk) Prelude.. Lens.mapping Lens.coerced
+
+-- | The unique device ID or other distinguishing data that identifies a
+-- local disk.
+disk_diskId :: Lens.Lens' Disk (Prelude.Maybe Prelude.Text)
+disk_diskId = Lens.lens (\Disk' {diskId} -> diskId) (\s@Disk' {} a -> s {diskId = a} :: Disk)
 
 -- | The device node of a local disk as assigned by the virtualization
 -- environment.
@@ -119,51 +129,42 @@ disk_diskSizeInBytes = Lens.lens (\Disk' {diskSizeInBytes} -> diskSizeInBytes) (
 disk_diskStatus :: Lens.Lens' Disk (Prelude.Maybe Prelude.Text)
 disk_diskStatus = Lens.lens (\Disk' {diskStatus} -> diskStatus) (\s@Disk' {} a -> s {diskStatus = a} :: Disk)
 
--- | The unique device ID or other distinguishing data that identifies a
--- local disk.
-disk_diskId :: Lens.Lens' Disk (Prelude.Maybe Prelude.Text)
-disk_diskId = Lens.lens (\Disk' {diskId} -> diskId) (\s@Disk' {} a -> s {diskId = a} :: Disk)
-
--- | Undocumented member.
-disk_diskAttributeList :: Lens.Lens' Disk (Prelude.Maybe [Prelude.Text])
-disk_diskAttributeList = Lens.lens (\Disk' {diskAttributeList} -> diskAttributeList) (\s@Disk' {} a -> s {diskAttributeList = a} :: Disk) Prelude.. Lens.mapping Lens.coerced
-
-instance Core.FromJSON Disk where
+instance Data.FromJSON Disk where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Disk"
       ( \x ->
           Disk'
-            Prelude.<$> (x Core..:? "DiskAllocationResource")
-            Prelude.<*> (x Core..:? "DiskAllocationType")
-            Prelude.<*> (x Core..:? "DiskNode")
-            Prelude.<*> (x Core..:? "DiskPath")
-            Prelude.<*> (x Core..:? "DiskSizeInBytes")
-            Prelude.<*> (x Core..:? "DiskStatus")
-            Prelude.<*> (x Core..:? "DiskId")
-            Prelude.<*> ( x Core..:? "DiskAttributeList"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "DiskAllocationResource")
+            Prelude.<*> (x Data..:? "DiskAllocationType")
+            Prelude.<*> ( x Data..:? "DiskAttributeList"
+                            Data..!= Prelude.mempty
                         )
+            Prelude.<*> (x Data..:? "DiskId")
+            Prelude.<*> (x Data..:? "DiskNode")
+            Prelude.<*> (x Data..:? "DiskPath")
+            Prelude.<*> (x Data..:? "DiskSizeInBytes")
+            Prelude.<*> (x Data..:? "DiskStatus")
       )
 
 instance Prelude.Hashable Disk where
   hashWithSalt _salt Disk' {..} =
     _salt `Prelude.hashWithSalt` diskAllocationResource
       `Prelude.hashWithSalt` diskAllocationType
+      `Prelude.hashWithSalt` diskAttributeList
+      `Prelude.hashWithSalt` diskId
       `Prelude.hashWithSalt` diskNode
       `Prelude.hashWithSalt` diskPath
       `Prelude.hashWithSalt` diskSizeInBytes
       `Prelude.hashWithSalt` diskStatus
-      `Prelude.hashWithSalt` diskId
-      `Prelude.hashWithSalt` diskAttributeList
 
 instance Prelude.NFData Disk where
   rnf Disk' {..} =
     Prelude.rnf diskAllocationResource
       `Prelude.seq` Prelude.rnf diskAllocationType
+      `Prelude.seq` Prelude.rnf diskAttributeList
+      `Prelude.seq` Prelude.rnf diskId
       `Prelude.seq` Prelude.rnf diskNode
       `Prelude.seq` Prelude.rnf diskPath
       `Prelude.seq` Prelude.rnf diskSizeInBytes
       `Prelude.seq` Prelude.rnf diskStatus
-      `Prelude.seq` Prelude.rnf diskId
-      `Prelude.seq` Prelude.rnf diskAttributeList

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Location.Types.CalculateRouteSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Location.Types.CalculateRouteSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Location.Types.DistanceUnit
 import qualified Amazonka.Prelude as Prelude
 
@@ -45,7 +46,7 @@ data CalculateRouteSummary = CalculateRouteSummary'
     -- can’t be greater than 400 km. If the route exceeds 400 km, the response
     -- is a @400 RoutesValidationException@ error.
     distance :: Prelude.Double,
-    -- | The unit of measurement for the distance.
+    -- | The unit of measurement for route distances.
     distanceUnit :: DistanceUnit,
     -- | The total travel time for the route measured in seconds. The sum of the
     -- travel time between every stop on the route.
@@ -69,7 +70,7 @@ data CalculateRouteSummary = CalculateRouteSummary'
     --
     -- -   The fourth @bbox@ position is the Y coordinate, or latitude of the
     --     upper northeast corner.
-    routeBBox :: Core.Sensitive (Prelude.NonEmpty Prelude.Double)
+    routeBBox :: Data.Sensitive (Prelude.NonEmpty Prelude.Double)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -98,7 +99,7 @@ data CalculateRouteSummary = CalculateRouteSummary'
 -- can’t be greater than 400 km. If the route exceeds 400 km, the response
 -- is a @400 RoutesValidationException@ error.
 --
--- 'distanceUnit', 'calculateRouteSummary_distanceUnit' - The unit of measurement for the distance.
+-- 'distanceUnit', 'calculateRouteSummary_distanceUnit' - The unit of measurement for route distances.
 --
 -- 'durationSeconds', 'calculateRouteSummary_durationSeconds' - The total travel time for the route measured in seconds. The sum of the
 -- travel time between every stop on the route.
@@ -146,7 +147,7 @@ newCalculateRouteSummary
         distanceUnit = pDistanceUnit_,
         durationSeconds = pDurationSeconds_,
         routeBBox =
-          Core._Sensitive Prelude.. Lens.coerced
+          Data._Sensitive Prelude.. Lens.coerced
             Lens.# pRouteBBox_
       }
 
@@ -171,7 +172,7 @@ calculateRouteSummary_dataSource = Lens.lens (\CalculateRouteSummary' {dataSourc
 calculateRouteSummary_distance :: Lens.Lens' CalculateRouteSummary Prelude.Double
 calculateRouteSummary_distance = Lens.lens (\CalculateRouteSummary' {distance} -> distance) (\s@CalculateRouteSummary' {} a -> s {distance = a} :: CalculateRouteSummary)
 
--- | The unit of measurement for the distance.
+-- | The unit of measurement for route distances.
 calculateRouteSummary_distanceUnit :: Lens.Lens' CalculateRouteSummary DistanceUnit
 calculateRouteSummary_distanceUnit = Lens.lens (\CalculateRouteSummary' {distanceUnit} -> distanceUnit) (\s@CalculateRouteSummary' {} a -> s {distanceUnit = a} :: CalculateRouteSummary)
 
@@ -200,19 +201,19 @@ calculateRouteSummary_durationSeconds = Lens.lens (\CalculateRouteSummary' {dura
 -- -   The fourth @bbox@ position is the Y coordinate, or latitude of the
 --     upper northeast corner.
 calculateRouteSummary_routeBBox :: Lens.Lens' CalculateRouteSummary (Prelude.NonEmpty Prelude.Double)
-calculateRouteSummary_routeBBox = Lens.lens (\CalculateRouteSummary' {routeBBox} -> routeBBox) (\s@CalculateRouteSummary' {} a -> s {routeBBox = a} :: CalculateRouteSummary) Prelude.. Core._Sensitive Prelude.. Lens.coerced
+calculateRouteSummary_routeBBox = Lens.lens (\CalculateRouteSummary' {routeBBox} -> routeBBox) (\s@CalculateRouteSummary' {} a -> s {routeBBox = a} :: CalculateRouteSummary) Prelude.. Data._Sensitive Prelude.. Lens.coerced
 
-instance Core.FromJSON CalculateRouteSummary where
+instance Data.FromJSON CalculateRouteSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CalculateRouteSummary"
       ( \x ->
           CalculateRouteSummary'
-            Prelude.<$> (x Core..: "DataSource")
-            Prelude.<*> (x Core..: "Distance")
-            Prelude.<*> (x Core..: "DistanceUnit")
-            Prelude.<*> (x Core..: "DurationSeconds")
-            Prelude.<*> (x Core..: "RouteBBox")
+            Prelude.<$> (x Data..: "DataSource")
+            Prelude.<*> (x Data..: "Distance")
+            Prelude.<*> (x Data..: "DistanceUnit")
+            Prelude.<*> (x Data..: "DurationSeconds")
+            Prelude.<*> (x Data..: "RouteBBox")
       )
 
 instance Prelude.Hashable CalculateRouteSummary where

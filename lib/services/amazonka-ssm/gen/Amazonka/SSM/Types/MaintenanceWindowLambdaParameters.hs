@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.MaintenanceWindowLambdaParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.MaintenanceWindowLambdaParameters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The parameters for a @LAMBDA@ task type.
@@ -47,18 +48,18 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMaintenanceWindowLambdaParameters' smart constructor.
 data MaintenanceWindowLambdaParameters = MaintenanceWindowLambdaParameters'
-  { -- | JSON to provide to your Lambda function as input.
-    payload :: Prelude.Maybe (Core.Sensitive Core.Base64),
+  { -- | Pass client-specific information to the Lambda function that you are
+    -- invoking. You can then process the client information in your Lambda
+    -- function as you choose through the context variable.
+    clientContext :: Prelude.Maybe Prelude.Text,
+    -- | JSON to provide to your Lambda function as input.
+    payload :: Prelude.Maybe (Data.Sensitive Data.Base64),
     -- | (Optional) Specify an Lambda function version or alias name. If you
     -- specify a function version, the operation uses the qualified function
     -- Amazon Resource Name (ARN) to invoke a specific Lambda function. If you
     -- specify an alias name, the operation uses the alias ARN to invoke the
     -- Lambda function version to which the alias points.
-    qualifier :: Prelude.Maybe Prelude.Text,
-    -- | Pass client-specific information to the Lambda function that you are
-    -- invoking. You can then process the client information in your Lambda
-    -- function as you choose through the context variable.
-    clientContext :: Prelude.Maybe Prelude.Text
+    qualifier :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -69,6 +70,10 @@ data MaintenanceWindowLambdaParameters = MaintenanceWindowLambdaParameters'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'clientContext', 'maintenanceWindowLambdaParameters_clientContext' - Pass client-specific information to the Lambda function that you are
+-- invoking. You can then process the client information in your Lambda
+-- function as you choose through the context variable.
 --
 -- 'payload', 'maintenanceWindowLambdaParameters_payload' - JSON to provide to your Lambda function as input.--
 -- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
@@ -81,19 +86,21 @@ data MaintenanceWindowLambdaParameters = MaintenanceWindowLambdaParameters'
 -- Amazon Resource Name (ARN) to invoke a specific Lambda function. If you
 -- specify an alias name, the operation uses the alias ARN to invoke the
 -- Lambda function version to which the alias points.
---
--- 'clientContext', 'maintenanceWindowLambdaParameters_clientContext' - Pass client-specific information to the Lambda function that you are
--- invoking. You can then process the client information in your Lambda
--- function as you choose through the context variable.
 newMaintenanceWindowLambdaParameters ::
   MaintenanceWindowLambdaParameters
 newMaintenanceWindowLambdaParameters =
   MaintenanceWindowLambdaParameters'
-    { payload =
+    { clientContext =
         Prelude.Nothing,
-      qualifier = Prelude.Nothing,
-      clientContext = Prelude.Nothing
+      payload = Prelude.Nothing,
+      qualifier = Prelude.Nothing
     }
+
+-- | Pass client-specific information to the Lambda function that you are
+-- invoking. You can then process the client information in your Lambda
+-- function as you choose through the context variable.
+maintenanceWindowLambdaParameters_clientContext :: Lens.Lens' MaintenanceWindowLambdaParameters (Prelude.Maybe Prelude.Text)
+maintenanceWindowLambdaParameters_clientContext = Lens.lens (\MaintenanceWindowLambdaParameters' {clientContext} -> clientContext) (\s@MaintenanceWindowLambdaParameters' {} a -> s {clientContext = a} :: MaintenanceWindowLambdaParameters)
 
 -- | JSON to provide to your Lambda function as input.--
 -- -- /Note:/ This 'Lens' automatically encodes and decodes Base64 data.
@@ -101,7 +108,7 @@ newMaintenanceWindowLambdaParameters =
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 maintenanceWindowLambdaParameters_payload :: Lens.Lens' MaintenanceWindowLambdaParameters (Prelude.Maybe Prelude.ByteString)
-maintenanceWindowLambdaParameters_payload = Lens.lens (\MaintenanceWindowLambdaParameters' {payload} -> payload) (\s@MaintenanceWindowLambdaParameters' {} a -> s {payload = a} :: MaintenanceWindowLambdaParameters) Prelude.. Lens.mapping (Core._Sensitive Prelude.. Core._Base64)
+maintenanceWindowLambdaParameters_payload = Lens.lens (\MaintenanceWindowLambdaParameters' {payload} -> payload) (\s@MaintenanceWindowLambdaParameters' {} a -> s {payload = a} :: MaintenanceWindowLambdaParameters) Prelude.. Lens.mapping (Data._Sensitive Prelude.. Data._Base64)
 
 -- | (Optional) Specify an Lambda function version or alias name. If you
 -- specify a function version, the operation uses the qualified function
@@ -111,24 +118,18 @@ maintenanceWindowLambdaParameters_payload = Lens.lens (\MaintenanceWindowLambdaP
 maintenanceWindowLambdaParameters_qualifier :: Lens.Lens' MaintenanceWindowLambdaParameters (Prelude.Maybe Prelude.Text)
 maintenanceWindowLambdaParameters_qualifier = Lens.lens (\MaintenanceWindowLambdaParameters' {qualifier} -> qualifier) (\s@MaintenanceWindowLambdaParameters' {} a -> s {qualifier = a} :: MaintenanceWindowLambdaParameters)
 
--- | Pass client-specific information to the Lambda function that you are
--- invoking. You can then process the client information in your Lambda
--- function as you choose through the context variable.
-maintenanceWindowLambdaParameters_clientContext :: Lens.Lens' MaintenanceWindowLambdaParameters (Prelude.Maybe Prelude.Text)
-maintenanceWindowLambdaParameters_clientContext = Lens.lens (\MaintenanceWindowLambdaParameters' {clientContext} -> clientContext) (\s@MaintenanceWindowLambdaParameters' {} a -> s {clientContext = a} :: MaintenanceWindowLambdaParameters)
-
 instance
-  Core.FromJSON
+  Data.FromJSON
     MaintenanceWindowLambdaParameters
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MaintenanceWindowLambdaParameters"
       ( \x ->
           MaintenanceWindowLambdaParameters'
-            Prelude.<$> (x Core..:? "Payload")
-            Prelude.<*> (x Core..:? "Qualifier")
-            Prelude.<*> (x Core..:? "ClientContext")
+            Prelude.<$> (x Data..:? "ClientContext")
+            Prelude.<*> (x Data..:? "Payload")
+            Prelude.<*> (x Data..:? "Qualifier")
       )
 
 instance
@@ -138,28 +139,28 @@ instance
   hashWithSalt
     _salt
     MaintenanceWindowLambdaParameters' {..} =
-      _salt `Prelude.hashWithSalt` payload
+      _salt `Prelude.hashWithSalt` clientContext
+        `Prelude.hashWithSalt` payload
         `Prelude.hashWithSalt` qualifier
-        `Prelude.hashWithSalt` clientContext
 
 instance
   Prelude.NFData
     MaintenanceWindowLambdaParameters
   where
   rnf MaintenanceWindowLambdaParameters' {..} =
-    Prelude.rnf payload
+    Prelude.rnf clientContext
+      `Prelude.seq` Prelude.rnf payload
       `Prelude.seq` Prelude.rnf qualifier
-      `Prelude.seq` Prelude.rnf clientContext
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     MaintenanceWindowLambdaParameters
   where
   toJSON MaintenanceWindowLambdaParameters' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Payload" Core..=) Prelude.<$> payload,
-            ("Qualifier" Core..=) Prelude.<$> qualifier,
-            ("ClientContext" Core..=) Prelude.<$> clientContext
+          [ ("ClientContext" Data..=) Prelude.<$> clientContext,
+            ("Payload" Data..=) Prelude.<$> payload,
+            ("Qualifier" Data..=) Prelude.<$> qualifier
           ]
       )

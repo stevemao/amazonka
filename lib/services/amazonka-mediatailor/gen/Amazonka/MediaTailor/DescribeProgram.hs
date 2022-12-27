@@ -14,13 +14,16 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.DescribeProgram
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves the properties of the requested program.
+-- Describes a program within a channel. For information about programs,
+-- see
+-- <https://docs.aws.amazon.com/mediatailor/latest/ug/channel-assembly-programs.html Working with programs>
+-- in the /MediaTailor User Guide/.
 module Amazonka.MediaTailor.DescribeProgram
   ( -- * Creating a Request
     DescribeProgram (..),
@@ -35,20 +38,22 @@ module Amazonka.MediaTailor.DescribeProgram
     newDescribeProgramResponse,
 
     -- * Response Lenses
-    describeProgramResponse_creationTime,
-    describeProgramResponse_sourceLocationName,
-    describeProgramResponse_arn,
-    describeProgramResponse_programName,
     describeProgramResponse_adBreaks,
+    describeProgramResponse_arn,
     describeProgramResponse_channelName,
+    describeProgramResponse_creationTime,
+    describeProgramResponse_liveSourceName,
+    describeProgramResponse_programName,
     describeProgramResponse_scheduledStartTime,
+    describeProgramResponse_sourceLocationName,
     describeProgramResponse_vodSourceName,
     describeProgramResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -56,9 +61,9 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeProgram' smart constructor.
 data DescribeProgram = DescribeProgram'
-  { -- | The identifier for the channel you are working on.
+  { -- | The name of the channel associated with this Program.
     channelName :: Prelude.Text,
-    -- | The identifier for the program you are working on.
+    -- | The name of the program.
     programName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -71,9 +76,9 @@ data DescribeProgram = DescribeProgram'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'channelName', 'describeProgram_channelName' - The identifier for the channel you are working on.
+-- 'channelName', 'describeProgram_channelName' - The name of the channel associated with this Program.
 --
--- 'programName', 'describeProgram_programName' - The identifier for the program you are working on.
+-- 'programName', 'describeProgram_programName' - The name of the program.
 newDescribeProgram ::
   -- | 'channelName'
   Prelude.Text ->
@@ -86,11 +91,11 @@ newDescribeProgram pChannelName_ pProgramName_ =
       programName = pProgramName_
     }
 
--- | The identifier for the channel you are working on.
+-- | The name of the channel associated with this Program.
 describeProgram_channelName :: Lens.Lens' DescribeProgram Prelude.Text
 describeProgram_channelName = Lens.lens (\DescribeProgram' {channelName} -> channelName) (\s@DescribeProgram' {} a -> s {channelName = a} :: DescribeProgram)
 
--- | The identifier for the program you are working on.
+-- | The name of the program.
 describeProgram_programName :: Lens.Lens' DescribeProgram Prelude.Text
 describeProgram_programName = Lens.lens (\DescribeProgram' {programName} -> programName) (\s@DescribeProgram' {} a -> s {programName = a} :: DescribeProgram)
 
@@ -98,19 +103,21 @@ instance Core.AWSRequest DescribeProgram where
   type
     AWSResponse DescribeProgram =
       DescribeProgramResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeProgramResponse'
-            Prelude.<$> (x Core..?> "CreationTime")
-            Prelude.<*> (x Core..?> "SourceLocationName")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "ProgramName")
-            Prelude.<*> (x Core..?> "AdBreaks" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "ChannelName")
-            Prelude.<*> (x Core..?> "ScheduledStartTime")
-            Prelude.<*> (x Core..?> "VodSourceName")
+            Prelude.<$> (x Data..?> "AdBreaks" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "ChannelName")
+            Prelude.<*> (x Data..?> "CreationTime")
+            Prelude.<*> (x Data..?> "LiveSourceName")
+            Prelude.<*> (x Data..?> "ProgramName")
+            Prelude.<*> (x Data..?> "ScheduledStartTime")
+            Prelude.<*> (x Data..?> "SourceLocationName")
+            Prelude.<*> (x Data..?> "VodSourceName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -124,47 +131,49 @@ instance Prelude.NFData DescribeProgram where
     Prelude.rnf channelName
       `Prelude.seq` Prelude.rnf programName
 
-instance Core.ToHeaders DescribeProgram where
+instance Data.ToHeaders DescribeProgram where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeProgram where
+instance Data.ToPath DescribeProgram where
   toPath DescribeProgram' {..} =
     Prelude.mconcat
       [ "/channel/",
-        Core.toBS channelName,
+        Data.toBS channelName,
         "/program/",
-        Core.toBS programName
+        Data.toBS programName
       ]
 
-instance Core.ToQuery DescribeProgram where
+instance Data.ToQuery DescribeProgram where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeProgramResponse' smart constructor.
 data DescribeProgramResponse = DescribeProgramResponse'
-  { -- | The timestamp of when the program was created.
-    creationTime :: Prelude.Maybe Core.POSIX,
-    -- | The source location name.
-    sourceLocationName :: Prelude.Maybe Prelude.Text,
+  { -- | The ad break configuration settings.
+    adBreaks :: Prelude.Maybe [AdBreak],
     -- | The ARN of the program.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The name of the program.
-    programName :: Prelude.Maybe Prelude.Text,
-    -- | The ad break configuration settings.
-    adBreaks :: Prelude.Maybe [AdBreak],
     -- | The name of the channel that the program belongs to.
     channelName :: Prelude.Maybe Prelude.Text,
+    -- | The timestamp of when the program was created.
+    creationTime :: Prelude.Maybe Data.POSIX,
+    -- | The name of the LiveSource for this Program.
+    liveSourceName :: Prelude.Maybe Prelude.Text,
+    -- | The name of the program.
+    programName :: Prelude.Maybe Prelude.Text,
     -- | The date and time that the program is scheduled to start in ISO 8601
     -- format and Coordinated Universal Time (UTC). For example, the value
     -- 2021-03-27T17:48:16.751Z represents March 27, 2021 at 17:48:16.751 UTC.
-    scheduledStartTime :: Prelude.Maybe Core.POSIX,
+    scheduledStartTime :: Prelude.Maybe Data.POSIX,
+    -- | The source location name.
+    sourceLocationName :: Prelude.Maybe Prelude.Text,
     -- | The name that\'s used to refer to a VOD source.
     vodSourceName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
@@ -180,21 +189,23 @@ data DescribeProgramResponse = DescribeProgramResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'creationTime', 'describeProgramResponse_creationTime' - The timestamp of when the program was created.
---
--- 'sourceLocationName', 'describeProgramResponse_sourceLocationName' - The source location name.
+-- 'adBreaks', 'describeProgramResponse_adBreaks' - The ad break configuration settings.
 --
 -- 'arn', 'describeProgramResponse_arn' - The ARN of the program.
 --
--- 'programName', 'describeProgramResponse_programName' - The name of the program.
---
--- 'adBreaks', 'describeProgramResponse_adBreaks' - The ad break configuration settings.
---
 -- 'channelName', 'describeProgramResponse_channelName' - The name of the channel that the program belongs to.
+--
+-- 'creationTime', 'describeProgramResponse_creationTime' - The timestamp of when the program was created.
+--
+-- 'liveSourceName', 'describeProgramResponse_liveSourceName' - The name of the LiveSource for this Program.
+--
+-- 'programName', 'describeProgramResponse_programName' - The name of the program.
 --
 -- 'scheduledStartTime', 'describeProgramResponse_scheduledStartTime' - The date and time that the program is scheduled to start in ISO 8601
 -- format and Coordinated Universal Time (UTC). For example, the value
 -- 2021-03-27T17:48:16.751Z represents March 27, 2021 at 17:48:16.751 UTC.
+--
+-- 'sourceLocationName', 'describeProgramResponse_sourceLocationName' - The source location name.
 --
 -- 'vodSourceName', 'describeProgramResponse_vodSourceName' - The name that\'s used to refer to a VOD source.
 --
@@ -205,47 +216,52 @@ newDescribeProgramResponse ::
   DescribeProgramResponse
 newDescribeProgramResponse pHttpStatus_ =
   DescribeProgramResponse'
-    { creationTime =
+    { adBreaks =
         Prelude.Nothing,
-      sourceLocationName = Prelude.Nothing,
       arn = Prelude.Nothing,
-      programName = Prelude.Nothing,
-      adBreaks = Prelude.Nothing,
       channelName = Prelude.Nothing,
+      creationTime = Prelude.Nothing,
+      liveSourceName = Prelude.Nothing,
+      programName = Prelude.Nothing,
       scheduledStartTime = Prelude.Nothing,
+      sourceLocationName = Prelude.Nothing,
       vodSourceName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The timestamp of when the program was created.
-describeProgramResponse_creationTime :: Lens.Lens' DescribeProgramResponse (Prelude.Maybe Prelude.UTCTime)
-describeProgramResponse_creationTime = Lens.lens (\DescribeProgramResponse' {creationTime} -> creationTime) (\s@DescribeProgramResponse' {} a -> s {creationTime = a} :: DescribeProgramResponse) Prelude.. Lens.mapping Core._Time
-
--- | The source location name.
-describeProgramResponse_sourceLocationName :: Lens.Lens' DescribeProgramResponse (Prelude.Maybe Prelude.Text)
-describeProgramResponse_sourceLocationName = Lens.lens (\DescribeProgramResponse' {sourceLocationName} -> sourceLocationName) (\s@DescribeProgramResponse' {} a -> s {sourceLocationName = a} :: DescribeProgramResponse)
-
--- | The ARN of the program.
-describeProgramResponse_arn :: Lens.Lens' DescribeProgramResponse (Prelude.Maybe Prelude.Text)
-describeProgramResponse_arn = Lens.lens (\DescribeProgramResponse' {arn} -> arn) (\s@DescribeProgramResponse' {} a -> s {arn = a} :: DescribeProgramResponse)
-
--- | The name of the program.
-describeProgramResponse_programName :: Lens.Lens' DescribeProgramResponse (Prelude.Maybe Prelude.Text)
-describeProgramResponse_programName = Lens.lens (\DescribeProgramResponse' {programName} -> programName) (\s@DescribeProgramResponse' {} a -> s {programName = a} :: DescribeProgramResponse)
 
 -- | The ad break configuration settings.
 describeProgramResponse_adBreaks :: Lens.Lens' DescribeProgramResponse (Prelude.Maybe [AdBreak])
 describeProgramResponse_adBreaks = Lens.lens (\DescribeProgramResponse' {adBreaks} -> adBreaks) (\s@DescribeProgramResponse' {} a -> s {adBreaks = a} :: DescribeProgramResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | The ARN of the program.
+describeProgramResponse_arn :: Lens.Lens' DescribeProgramResponse (Prelude.Maybe Prelude.Text)
+describeProgramResponse_arn = Lens.lens (\DescribeProgramResponse' {arn} -> arn) (\s@DescribeProgramResponse' {} a -> s {arn = a} :: DescribeProgramResponse)
+
 -- | The name of the channel that the program belongs to.
 describeProgramResponse_channelName :: Lens.Lens' DescribeProgramResponse (Prelude.Maybe Prelude.Text)
 describeProgramResponse_channelName = Lens.lens (\DescribeProgramResponse' {channelName} -> channelName) (\s@DescribeProgramResponse' {} a -> s {channelName = a} :: DescribeProgramResponse)
+
+-- | The timestamp of when the program was created.
+describeProgramResponse_creationTime :: Lens.Lens' DescribeProgramResponse (Prelude.Maybe Prelude.UTCTime)
+describeProgramResponse_creationTime = Lens.lens (\DescribeProgramResponse' {creationTime} -> creationTime) (\s@DescribeProgramResponse' {} a -> s {creationTime = a} :: DescribeProgramResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The name of the LiveSource for this Program.
+describeProgramResponse_liveSourceName :: Lens.Lens' DescribeProgramResponse (Prelude.Maybe Prelude.Text)
+describeProgramResponse_liveSourceName = Lens.lens (\DescribeProgramResponse' {liveSourceName} -> liveSourceName) (\s@DescribeProgramResponse' {} a -> s {liveSourceName = a} :: DescribeProgramResponse)
+
+-- | The name of the program.
+describeProgramResponse_programName :: Lens.Lens' DescribeProgramResponse (Prelude.Maybe Prelude.Text)
+describeProgramResponse_programName = Lens.lens (\DescribeProgramResponse' {programName} -> programName) (\s@DescribeProgramResponse' {} a -> s {programName = a} :: DescribeProgramResponse)
 
 -- | The date and time that the program is scheduled to start in ISO 8601
 -- format and Coordinated Universal Time (UTC). For example, the value
 -- 2021-03-27T17:48:16.751Z represents March 27, 2021 at 17:48:16.751 UTC.
 describeProgramResponse_scheduledStartTime :: Lens.Lens' DescribeProgramResponse (Prelude.Maybe Prelude.UTCTime)
-describeProgramResponse_scheduledStartTime = Lens.lens (\DescribeProgramResponse' {scheduledStartTime} -> scheduledStartTime) (\s@DescribeProgramResponse' {} a -> s {scheduledStartTime = a} :: DescribeProgramResponse) Prelude.. Lens.mapping Core._Time
+describeProgramResponse_scheduledStartTime = Lens.lens (\DescribeProgramResponse' {scheduledStartTime} -> scheduledStartTime) (\s@DescribeProgramResponse' {} a -> s {scheduledStartTime = a} :: DescribeProgramResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The source location name.
+describeProgramResponse_sourceLocationName :: Lens.Lens' DescribeProgramResponse (Prelude.Maybe Prelude.Text)
+describeProgramResponse_sourceLocationName = Lens.lens (\DescribeProgramResponse' {sourceLocationName} -> sourceLocationName) (\s@DescribeProgramResponse' {} a -> s {sourceLocationName = a} :: DescribeProgramResponse)
 
 -- | The name that\'s used to refer to a VOD source.
 describeProgramResponse_vodSourceName :: Lens.Lens' DescribeProgramResponse (Prelude.Maybe Prelude.Text)
@@ -257,12 +273,13 @@ describeProgramResponse_httpStatus = Lens.lens (\DescribeProgramResponse' {httpS
 
 instance Prelude.NFData DescribeProgramResponse where
   rnf DescribeProgramResponse' {..} =
-    Prelude.rnf creationTime
-      `Prelude.seq` Prelude.rnf sourceLocationName
+    Prelude.rnf adBreaks
       `Prelude.seq` Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf programName
-      `Prelude.seq` Prelude.rnf adBreaks
       `Prelude.seq` Prelude.rnf channelName
+      `Prelude.seq` Prelude.rnf creationTime
+      `Prelude.seq` Prelude.rnf liveSourceName
+      `Prelude.seq` Prelude.rnf programName
       `Prelude.seq` Prelude.rnf scheduledStartTime
+      `Prelude.seq` Prelude.rnf sourceLocationName
       `Prelude.seq` Prelude.rnf vodSourceName
       `Prelude.seq` Prelude.rnf httpStatus

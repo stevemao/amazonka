@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruReviewer.Types.RuleMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeGuruReviewer.Types.RuleMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Metadata about a rule. Rule metadata includes an ID, a name, a list of
@@ -32,12 +33,12 @@ import qualified Amazonka.Prelude as Prelude
 data RuleMetadata = RuleMetadata'
   { -- | A long description of the rule.
     longDescription :: Prelude.Maybe Prelude.Text,
-    -- | Tags that are associated with the rule.
-    ruleTags :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
     -- | The ID of the rule.
     ruleId :: Prelude.Maybe Prelude.Text,
     -- | The name of the rule.
     ruleName :: Prelude.Maybe Prelude.Text,
+    -- | Tags that are associated with the rule.
+    ruleTags :: Prelude.Maybe (Prelude.NonEmpty Prelude.Text),
     -- | A short description of the rule.
     shortDescription :: Prelude.Maybe Prelude.Text
   }
@@ -53,11 +54,11 @@ data RuleMetadata = RuleMetadata'
 --
 -- 'longDescription', 'ruleMetadata_longDescription' - A long description of the rule.
 --
--- 'ruleTags', 'ruleMetadata_ruleTags' - Tags that are associated with the rule.
---
 -- 'ruleId', 'ruleMetadata_ruleId' - The ID of the rule.
 --
 -- 'ruleName', 'ruleMetadata_ruleName' - The name of the rule.
+--
+-- 'ruleTags', 'ruleMetadata_ruleTags' - Tags that are associated with the rule.
 --
 -- 'shortDescription', 'ruleMetadata_shortDescription' - A short description of the rule.
 newRuleMetadata ::
@@ -65,19 +66,15 @@ newRuleMetadata ::
 newRuleMetadata =
   RuleMetadata'
     { longDescription = Prelude.Nothing,
-      ruleTags = Prelude.Nothing,
       ruleId = Prelude.Nothing,
       ruleName = Prelude.Nothing,
+      ruleTags = Prelude.Nothing,
       shortDescription = Prelude.Nothing
     }
 
 -- | A long description of the rule.
 ruleMetadata_longDescription :: Lens.Lens' RuleMetadata (Prelude.Maybe Prelude.Text)
 ruleMetadata_longDescription = Lens.lens (\RuleMetadata' {longDescription} -> longDescription) (\s@RuleMetadata' {} a -> s {longDescription = a} :: RuleMetadata)
-
--- | Tags that are associated with the rule.
-ruleMetadata_ruleTags :: Lens.Lens' RuleMetadata (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
-ruleMetadata_ruleTags = Lens.lens (\RuleMetadata' {ruleTags} -> ruleTags) (\s@RuleMetadata' {} a -> s {ruleTags = a} :: RuleMetadata) Prelude.. Lens.mapping Lens.coerced
 
 -- | The ID of the rule.
 ruleMetadata_ruleId :: Lens.Lens' RuleMetadata (Prelude.Maybe Prelude.Text)
@@ -87,35 +84,39 @@ ruleMetadata_ruleId = Lens.lens (\RuleMetadata' {ruleId} -> ruleId) (\s@RuleMeta
 ruleMetadata_ruleName :: Lens.Lens' RuleMetadata (Prelude.Maybe Prelude.Text)
 ruleMetadata_ruleName = Lens.lens (\RuleMetadata' {ruleName} -> ruleName) (\s@RuleMetadata' {} a -> s {ruleName = a} :: RuleMetadata)
 
+-- | Tags that are associated with the rule.
+ruleMetadata_ruleTags :: Lens.Lens' RuleMetadata (Prelude.Maybe (Prelude.NonEmpty Prelude.Text))
+ruleMetadata_ruleTags = Lens.lens (\RuleMetadata' {ruleTags} -> ruleTags) (\s@RuleMetadata' {} a -> s {ruleTags = a} :: RuleMetadata) Prelude.. Lens.mapping Lens.coerced
+
 -- | A short description of the rule.
 ruleMetadata_shortDescription :: Lens.Lens' RuleMetadata (Prelude.Maybe Prelude.Text)
 ruleMetadata_shortDescription = Lens.lens (\RuleMetadata' {shortDescription} -> shortDescription) (\s@RuleMetadata' {} a -> s {shortDescription = a} :: RuleMetadata)
 
-instance Core.FromJSON RuleMetadata where
+instance Data.FromJSON RuleMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RuleMetadata"
       ( \x ->
           RuleMetadata'
-            Prelude.<$> (x Core..:? "LongDescription")
-            Prelude.<*> (x Core..:? "RuleTags")
-            Prelude.<*> (x Core..:? "RuleId")
-            Prelude.<*> (x Core..:? "RuleName")
-            Prelude.<*> (x Core..:? "ShortDescription")
+            Prelude.<$> (x Data..:? "LongDescription")
+            Prelude.<*> (x Data..:? "RuleId")
+            Prelude.<*> (x Data..:? "RuleName")
+            Prelude.<*> (x Data..:? "RuleTags")
+            Prelude.<*> (x Data..:? "ShortDescription")
       )
 
 instance Prelude.Hashable RuleMetadata where
   hashWithSalt _salt RuleMetadata' {..} =
     _salt `Prelude.hashWithSalt` longDescription
-      `Prelude.hashWithSalt` ruleTags
       `Prelude.hashWithSalt` ruleId
       `Prelude.hashWithSalt` ruleName
+      `Prelude.hashWithSalt` ruleTags
       `Prelude.hashWithSalt` shortDescription
 
 instance Prelude.NFData RuleMetadata where
   rnf RuleMetadata' {..} =
     Prelude.rnf longDescription
-      `Prelude.seq` Prelude.rnf ruleTags
       `Prelude.seq` Prelude.rnf ruleId
       `Prelude.seq` Prelude.rnf ruleName
+      `Prelude.seq` Prelude.rnf ruleTags
       `Prelude.seq` Prelude.rnf shortDescription

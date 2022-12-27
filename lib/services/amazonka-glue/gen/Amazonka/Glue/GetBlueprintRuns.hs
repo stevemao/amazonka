@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetBlueprintRuns
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.Glue.GetBlueprintRuns
     newGetBlueprintRuns,
 
     -- * Request Lenses
-    getBlueprintRuns_nextToken,
     getBlueprintRuns_maxResults,
+    getBlueprintRuns_nextToken,
     getBlueprintRuns_blueprintName,
 
     -- * Destructuring the Response
@@ -43,18 +43,19 @@ module Amazonka.Glue.GetBlueprintRuns
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetBlueprintRuns' smart constructor.
 data GetBlueprintRuns = GetBlueprintRuns'
-  { -- | A continuation token, if this is a continuation request.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum size of a list to return.
+  { -- | The maximum size of a list to return.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A continuation token, if this is a continuation request.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the blueprint.
     blueprintName :: Prelude.Text
   }
@@ -68,9 +69,9 @@ data GetBlueprintRuns = GetBlueprintRuns'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'getBlueprintRuns_nextToken' - A continuation token, if this is a continuation request.
---
 -- 'maxResults', 'getBlueprintRuns_maxResults' - The maximum size of a list to return.
+--
+-- 'nextToken', 'getBlueprintRuns_nextToken' - A continuation token, if this is a continuation request.
 --
 -- 'blueprintName', 'getBlueprintRuns_blueprintName' - The name of the blueprint.
 newGetBlueprintRuns ::
@@ -79,18 +80,18 @@ newGetBlueprintRuns ::
   GetBlueprintRuns
 newGetBlueprintRuns pBlueprintName_ =
   GetBlueprintRuns'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       blueprintName = pBlueprintName_
     }
-
--- | A continuation token, if this is a continuation request.
-getBlueprintRuns_nextToken :: Lens.Lens' GetBlueprintRuns (Prelude.Maybe Prelude.Text)
-getBlueprintRuns_nextToken = Lens.lens (\GetBlueprintRuns' {nextToken} -> nextToken) (\s@GetBlueprintRuns' {} a -> s {nextToken = a} :: GetBlueprintRuns)
 
 -- | The maximum size of a list to return.
 getBlueprintRuns_maxResults :: Lens.Lens' GetBlueprintRuns (Prelude.Maybe Prelude.Natural)
 getBlueprintRuns_maxResults = Lens.lens (\GetBlueprintRuns' {maxResults} -> maxResults) (\s@GetBlueprintRuns' {} a -> s {maxResults = a} :: GetBlueprintRuns)
+
+-- | A continuation token, if this is a continuation request.
+getBlueprintRuns_nextToken :: Lens.Lens' GetBlueprintRuns (Prelude.Maybe Prelude.Text)
+getBlueprintRuns_nextToken = Lens.lens (\GetBlueprintRuns' {nextToken} -> nextToken) (\s@GetBlueprintRuns' {} a -> s {nextToken = a} :: GetBlueprintRuns)
 
 -- | The name of the blueprint.
 getBlueprintRuns_blueprintName :: Lens.Lens' GetBlueprintRuns Prelude.Text
@@ -100,56 +101,57 @@ instance Core.AWSRequest GetBlueprintRuns where
   type
     AWSResponse GetBlueprintRuns =
       GetBlueprintRunsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBlueprintRunsResponse'
-            Prelude.<$> (x Core..?> "BlueprintRuns" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "BlueprintRuns" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetBlueprintRuns where
   hashWithSalt _salt GetBlueprintRuns' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` blueprintName
 
 instance Prelude.NFData GetBlueprintRuns where
   rnf GetBlueprintRuns' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf blueprintName
 
-instance Core.ToHeaders GetBlueprintRuns where
+instance Data.ToHeaders GetBlueprintRuns where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetBlueprintRuns" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetBlueprintRuns" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetBlueprintRuns where
+instance Data.ToJSON GetBlueprintRuns where
   toJSON GetBlueprintRuns' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("BlueprintName" Core..= blueprintName)
+              ("BlueprintName" Data..= blueprintName)
           ]
       )
 
-instance Core.ToPath GetBlueprintRuns where
+instance Data.ToPath GetBlueprintRuns where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetBlueprintRuns where
+instance Data.ToQuery GetBlueprintRuns where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetBlueprintRunsResponse' smart constructor.

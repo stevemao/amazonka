@@ -14,17 +14,17 @@
 
 -- |
 -- Module      : Amazonka.ECS.DeleteCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Deletes the specified cluster. The cluster will transition to the
--- @INACTIVE@ state. Clusters with an @INACTIVE@ status may remain
--- discoverable in your account for a period of time. However, this
--- behavior is subject to change in the future, so you should not rely on
--- @INACTIVE@ clusters persisting.
+-- Deletes the specified cluster. The cluster transitions to the @INACTIVE@
+-- state. Clusters with an @INACTIVE@ status might remain discoverable in
+-- your account for a period of time. However, this behavior is subject to
+-- change in the future. We don\'t recommend that you rely on @INACTIVE@
+-- clusters persisting.
 --
 -- You must deregister all container instances from this cluster before you
 -- may delete it. You can list the container instances in a cluster with
@@ -49,8 +49,9 @@ module Amazonka.ECS.DeleteCluster
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -89,12 +90,13 @@ instance Core.AWSRequest DeleteCluster where
   type
     AWSResponse DeleteCluster =
       DeleteClusterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteClusterResponse'
-            Prelude.<$> (x Core..?> "cluster")
+            Prelude.<$> (x Data..?> "cluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -105,32 +107,32 @@ instance Prelude.Hashable DeleteCluster where
 instance Prelude.NFData DeleteCluster where
   rnf DeleteCluster' {..} = Prelude.rnf cluster
 
-instance Core.ToHeaders DeleteCluster where
+instance Data.ToHeaders DeleteCluster where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.DeleteCluster" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.DeleteCluster" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteCluster where
+instance Data.ToJSON DeleteCluster where
   toJSON DeleteCluster' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("cluster" Core..= cluster)]
+          [Prelude.Just ("cluster" Data..= cluster)]
       )
 
-instance Core.ToPath DeleteCluster where
+instance Data.ToPath DeleteCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteCluster where
+instance Data.ToQuery DeleteCluster where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteClusterResponse' smart constructor.

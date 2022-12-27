@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.UpdateCustomVerificationEmailTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,7 @@
 -- Updates an existing custom verification email template.
 --
 -- For more information about custom verification email templates, see
--- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-verify-address-custom.html Using Custom Verification Email Templates>
+-- <https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#send-email-verify-address-custom Using custom verification email templates>
 -- in the /Amazon SES Developer Guide/.
 --
 -- You can execute this operation no more than once per second.
@@ -50,7 +50,8 @@ module Amazonka.SESV2.UpdateCustomVerificationEmailTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -71,7 +72,7 @@ data UpdateCustomVerificationEmailTemplate = UpdateCustomVerificationEmailTempla
     -- | The content of the custom verification email. The total size of the
     -- email must be less than 10 MB. The message body may contain HTML, with
     -- some limitations. For more information, see
-    -- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-verify-address-custom.html#custom-verification-emails-faq Custom Verification Email Frequently Asked Questions>
+    -- <https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#send-email-verify-address-custom-faq Custom verification email frequently asked questions>
     -- in the /Amazon SES Developer Guide/.
     templateContent :: Prelude.Text,
     -- | The URL that the recipient of the verification email is sent to if his
@@ -101,7 +102,7 @@ data UpdateCustomVerificationEmailTemplate = UpdateCustomVerificationEmailTempla
 -- 'templateContent', 'updateCustomVerificationEmailTemplate_templateContent' - The content of the custom verification email. The total size of the
 -- email must be less than 10 MB. The message body may contain HTML, with
 -- some limitations. For more information, see
--- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-verify-address-custom.html#custom-verification-emails-faq Custom Verification Email Frequently Asked Questions>
+-- <https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#send-email-verify-address-custom-faq Custom verification email frequently asked questions>
 -- in the /Amazon SES Developer Guide/.
 --
 -- 'successRedirectionURL', 'updateCustomVerificationEmailTemplate_successRedirectionURL' - The URL that the recipient of the verification email is sent to if his
@@ -159,7 +160,7 @@ updateCustomVerificationEmailTemplate_templateSubject = Lens.lens (\UpdateCustom
 -- | The content of the custom verification email. The total size of the
 -- email must be less than 10 MB. The message body may contain HTML, with
 -- some limitations. For more information, see
--- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-verify-address-custom.html#custom-verification-emails-faq Custom Verification Email Frequently Asked Questions>
+-- <https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#send-email-verify-address-custom-faq Custom verification email frequently asked questions>
 -- in the /Amazon SES Developer Guide/.
 updateCustomVerificationEmailTemplate_templateContent :: Lens.Lens' UpdateCustomVerificationEmailTemplate Prelude.Text
 updateCustomVerificationEmailTemplate_templateContent = Lens.lens (\UpdateCustomVerificationEmailTemplate' {templateContent} -> templateContent) (\s@UpdateCustomVerificationEmailTemplate' {} a -> s {templateContent = a} :: UpdateCustomVerificationEmailTemplate)
@@ -182,7 +183,8 @@ instance
     AWSResponse
       UpdateCustomVerificationEmailTemplate =
       UpdateCustomVerificationEmailTemplateResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -217,55 +219,55 @@ instance
       `Prelude.seq` Prelude.rnf failureRedirectionURL
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateCustomVerificationEmailTemplate
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     UpdateCustomVerificationEmailTemplate
   where
   toJSON UpdateCustomVerificationEmailTemplate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("FromEmailAddress" Core..= fromEmailAddress),
+              ("FromEmailAddress" Data..= fromEmailAddress),
             Prelude.Just
-              ("TemplateSubject" Core..= templateSubject),
+              ("TemplateSubject" Data..= templateSubject),
             Prelude.Just
-              ("TemplateContent" Core..= templateContent),
+              ("TemplateContent" Data..= templateContent),
             Prelude.Just
               ( "SuccessRedirectionURL"
-                  Core..= successRedirectionURL
+                  Data..= successRedirectionURL
               ),
             Prelude.Just
               ( "FailureRedirectionURL"
-                  Core..= failureRedirectionURL
+                  Data..= failureRedirectionURL
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     UpdateCustomVerificationEmailTemplate
   where
   toPath UpdateCustomVerificationEmailTemplate' {..} =
     Prelude.mconcat
       [ "/v2/email/custom-verification-email-templates/",
-        Core.toBS templateName
+        Data.toBS templateName
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateCustomVerificationEmailTemplate
   where
   toQuery = Prelude.const Prelude.mempty

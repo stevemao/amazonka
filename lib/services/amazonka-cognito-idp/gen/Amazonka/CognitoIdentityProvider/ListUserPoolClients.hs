@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.ListUserPoolClients
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.CognitoIdentityProvider.ListUserPoolClients
     newListUserPoolClients,
 
     -- * Request Lenses
-    listUserPoolClients_nextToken,
     listUserPoolClients_maxResults,
+    listUserPoolClients_nextToken,
     listUserPoolClients_userPoolId,
 
     -- * Destructuring the Response
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,13 +56,13 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListUserPoolClients' smart constructor.
 data ListUserPoolClients = ListUserPoolClients'
-  { -- | An identifier that was returned from the previous call to this
+  { -- | The maximum number of results you want the request to return when
+    -- listing the user pool clients.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | An identifier that was returned from the previous call to this
     -- operation, which can be used to return the next set of items in the
     -- list.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results you want the request to return when
-    -- listing the user pool clients.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The user pool ID for the user pool where you want to list user pool
     -- clients.
     userPoolId :: Prelude.Text
@@ -76,12 +77,12 @@ data ListUserPoolClients = ListUserPoolClients'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listUserPoolClients_maxResults' - The maximum number of results you want the request to return when
+-- listing the user pool clients.
+--
 -- 'nextToken', 'listUserPoolClients_nextToken' - An identifier that was returned from the previous call to this
 -- operation, which can be used to return the next set of items in the
 -- list.
---
--- 'maxResults', 'listUserPoolClients_maxResults' - The maximum number of results you want the request to return when
--- listing the user pool clients.
 --
 -- 'userPoolId', 'listUserPoolClients_userPoolId' - The user pool ID for the user pool where you want to list user pool
 -- clients.
@@ -91,21 +92,21 @@ newListUserPoolClients ::
   ListUserPoolClients
 newListUserPoolClients pUserPoolId_ =
   ListUserPoolClients'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       userPoolId = pUserPoolId_
     }
+
+-- | The maximum number of results you want the request to return when
+-- listing the user pool clients.
+listUserPoolClients_maxResults :: Lens.Lens' ListUserPoolClients (Prelude.Maybe Prelude.Natural)
+listUserPoolClients_maxResults = Lens.lens (\ListUserPoolClients' {maxResults} -> maxResults) (\s@ListUserPoolClients' {} a -> s {maxResults = a} :: ListUserPoolClients)
 
 -- | An identifier that was returned from the previous call to this
 -- operation, which can be used to return the next set of items in the
 -- list.
 listUserPoolClients_nextToken :: Lens.Lens' ListUserPoolClients (Prelude.Maybe Prelude.Text)
 listUserPoolClients_nextToken = Lens.lens (\ListUserPoolClients' {nextToken} -> nextToken) (\s@ListUserPoolClients' {} a -> s {nextToken = a} :: ListUserPoolClients)
-
--- | The maximum number of results you want the request to return when
--- listing the user pool clients.
-listUserPoolClients_maxResults :: Lens.Lens' ListUserPoolClients (Prelude.Maybe Prelude.Natural)
-listUserPoolClients_maxResults = Lens.lens (\ListUserPoolClients' {maxResults} -> maxResults) (\s@ListUserPoolClients' {} a -> s {maxResults = a} :: ListUserPoolClients)
 
 -- | The user pool ID for the user pool where you want to list user pool
 -- clients.
@@ -138,13 +139,14 @@ instance Core.AWSRequest ListUserPoolClients where
   type
     AWSResponse ListUserPoolClients =
       ListUserPoolClientsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListUserPoolClientsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> ( x Core..?> "UserPoolClients"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "UserPoolClients"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -152,45 +154,45 @@ instance Core.AWSRequest ListUserPoolClients where
 
 instance Prelude.Hashable ListUserPoolClients where
   hashWithSalt _salt ListUserPoolClients' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` userPoolId
 
 instance Prelude.NFData ListUserPoolClients where
   rnf ListUserPoolClients' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf userPoolId
 
-instance Core.ToHeaders ListUserPoolClients where
+instance Data.ToHeaders ListUserPoolClients where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.ListUserPoolClients" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.ListUserPoolClients" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListUserPoolClients where
+instance Data.ToJSON ListUserPoolClients where
   toJSON ListUserPoolClients' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("UserPoolId" Core..= userPoolId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("UserPoolId" Data..= userPoolId)
           ]
       )
 
-instance Core.ToPath ListUserPoolClients where
+instance Data.ToPath ListUserPoolClients where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListUserPoolClients where
+instance Data.ToQuery ListUserPoolClients where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the response from the server that lists user pool clients.

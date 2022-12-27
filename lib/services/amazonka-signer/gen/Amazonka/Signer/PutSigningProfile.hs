@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Signer.PutSigningProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,8 +31,8 @@ module Amazonka.Signer.PutSigningProfile
 
     -- * Request Lenses
     putSigningProfile_overrides,
-    putSigningProfile_signingMaterial,
     putSigningProfile_signatureValidityPeriod,
+    putSigningProfile_signingMaterial,
     putSigningProfile_signingParameters,
     putSigningProfile_tags,
     putSigningProfile_profileName,
@@ -51,7 +51,8 @@ module Amazonka.Signer.PutSigningProfile
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -63,12 +64,12 @@ data PutSigningProfile = PutSigningProfile'
     -- options that you want to apply to the chosen platform (such as a
     -- different @hash-algorithm@ or @signing-algorithm@).
     overrides :: Prelude.Maybe SigningPlatformOverrides,
-    -- | The AWS Certificate Manager certificate that will be used to sign code
-    -- with the new signing profile.
-    signingMaterial :: Prelude.Maybe SigningMaterial,
     -- | The default validity period override for any signature generated using
     -- this signing profile. If unspecified, the default is 135 months.
     signatureValidityPeriod :: Prelude.Maybe SignatureValidityPeriod,
+    -- | The AWS Certificate Manager certificate that will be used to sign code
+    -- with the new signing profile.
+    signingMaterial :: Prelude.Maybe SigningMaterial,
     -- | Map of key-value pairs for signing. These can include any information
     -- that you want to use during signing.
     signingParameters :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
@@ -93,11 +94,11 @@ data PutSigningProfile = PutSigningProfile'
 -- options that you want to apply to the chosen platform (such as a
 -- different @hash-algorithm@ or @signing-algorithm@).
 --
--- 'signingMaterial', 'putSigningProfile_signingMaterial' - The AWS Certificate Manager certificate that will be used to sign code
--- with the new signing profile.
---
 -- 'signatureValidityPeriod', 'putSigningProfile_signatureValidityPeriod' - The default validity period override for any signature generated using
 -- this signing profile. If unspecified, the default is 135 months.
+--
+-- 'signingMaterial', 'putSigningProfile_signingMaterial' - The AWS Certificate Manager certificate that will be used to sign code
+-- with the new signing profile.
 --
 -- 'signingParameters', 'putSigningProfile_signingParameters' - Map of key-value pairs for signing. These can include any information
 -- that you want to use during signing.
@@ -116,8 +117,8 @@ newPutSigningProfile ::
 newPutSigningProfile pProfileName_ pPlatformId_ =
   PutSigningProfile'
     { overrides = Prelude.Nothing,
-      signingMaterial = Prelude.Nothing,
       signatureValidityPeriod = Prelude.Nothing,
+      signingMaterial = Prelude.Nothing,
       signingParameters = Prelude.Nothing,
       tags = Prelude.Nothing,
       profileName = pProfileName_,
@@ -130,15 +131,15 @@ newPutSigningProfile pProfileName_ pPlatformId_ =
 putSigningProfile_overrides :: Lens.Lens' PutSigningProfile (Prelude.Maybe SigningPlatformOverrides)
 putSigningProfile_overrides = Lens.lens (\PutSigningProfile' {overrides} -> overrides) (\s@PutSigningProfile' {} a -> s {overrides = a} :: PutSigningProfile)
 
--- | The AWS Certificate Manager certificate that will be used to sign code
--- with the new signing profile.
-putSigningProfile_signingMaterial :: Lens.Lens' PutSigningProfile (Prelude.Maybe SigningMaterial)
-putSigningProfile_signingMaterial = Lens.lens (\PutSigningProfile' {signingMaterial} -> signingMaterial) (\s@PutSigningProfile' {} a -> s {signingMaterial = a} :: PutSigningProfile)
-
 -- | The default validity period override for any signature generated using
 -- this signing profile. If unspecified, the default is 135 months.
 putSigningProfile_signatureValidityPeriod :: Lens.Lens' PutSigningProfile (Prelude.Maybe SignatureValidityPeriod)
 putSigningProfile_signatureValidityPeriod = Lens.lens (\PutSigningProfile' {signatureValidityPeriod} -> signatureValidityPeriod) (\s@PutSigningProfile' {} a -> s {signatureValidityPeriod = a} :: PutSigningProfile)
+
+-- | The AWS Certificate Manager certificate that will be used to sign code
+-- with the new signing profile.
+putSigningProfile_signingMaterial :: Lens.Lens' PutSigningProfile (Prelude.Maybe SigningMaterial)
+putSigningProfile_signingMaterial = Lens.lens (\PutSigningProfile' {signingMaterial} -> signingMaterial) (\s@PutSigningProfile' {} a -> s {signingMaterial = a} :: PutSigningProfile)
 
 -- | Map of key-value pairs for signing. These can include any information
 -- that you want to use during signing.
@@ -161,22 +162,23 @@ instance Core.AWSRequest PutSigningProfile where
   type
     AWSResponse PutSigningProfile =
       PutSigningProfileResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutSigningProfileResponse'
-            Prelude.<$> (x Core..?> "arn")
-            Prelude.<*> (x Core..?> "profileVersion")
-            Prelude.<*> (x Core..?> "profileVersionArn")
+            Prelude.<$> (x Data..?> "arn")
+            Prelude.<*> (x Data..?> "profileVersion")
+            Prelude.<*> (x Data..?> "profileVersionArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable PutSigningProfile where
   hashWithSalt _salt PutSigningProfile' {..} =
     _salt `Prelude.hashWithSalt` overrides
-      `Prelude.hashWithSalt` signingMaterial
       `Prelude.hashWithSalt` signatureValidityPeriod
+      `Prelude.hashWithSalt` signingMaterial
       `Prelude.hashWithSalt` signingParameters
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` profileName
@@ -185,46 +187,46 @@ instance Prelude.Hashable PutSigningProfile where
 instance Prelude.NFData PutSigningProfile where
   rnf PutSigningProfile' {..} =
     Prelude.rnf overrides
-      `Prelude.seq` Prelude.rnf signingMaterial
       `Prelude.seq` Prelude.rnf signatureValidityPeriod
+      `Prelude.seq` Prelude.rnf signingMaterial
       `Prelude.seq` Prelude.rnf signingParameters
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf profileName
       `Prelude.seq` Prelude.rnf platformId
 
-instance Core.ToHeaders PutSigningProfile where
+instance Data.ToHeaders PutSigningProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutSigningProfile where
+instance Data.ToJSON PutSigningProfile where
   toJSON PutSigningProfile' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("overrides" Core..=) Prelude.<$> overrides,
-            ("signingMaterial" Core..=)
-              Prelude.<$> signingMaterial,
-            ("signatureValidityPeriod" Core..=)
+          [ ("overrides" Data..=) Prelude.<$> overrides,
+            ("signatureValidityPeriod" Data..=)
               Prelude.<$> signatureValidityPeriod,
-            ("signingParameters" Core..=)
+            ("signingMaterial" Data..=)
+              Prelude.<$> signingMaterial,
+            ("signingParameters" Data..=)
               Prelude.<$> signingParameters,
-            ("tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("platformId" Core..= platformId)
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("platformId" Data..= platformId)
           ]
       )
 
-instance Core.ToPath PutSigningProfile where
+instance Data.ToPath PutSigningProfile where
   toPath PutSigningProfile' {..} =
     Prelude.mconcat
-      ["/signing-profiles/", Core.toBS profileName]
+      ["/signing-profiles/", Data.toBS profileName]
 
-instance Core.ToQuery PutSigningProfile where
+instance Data.ToQuery PutSigningProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutSigningProfileResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.StopStack
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.OpsWorks.StopStack
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -77,7 +78,8 @@ stopStack_stackId = Lens.lens (\StopStack' {stackId} -> stackId) (\s@StopStack' 
 
 instance Core.AWSRequest StopStack where
   type AWSResponse StopStack = StopStackResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull StopStackResponse'
 
 instance Prelude.Hashable StopStack where
@@ -87,32 +89,32 @@ instance Prelude.Hashable StopStack where
 instance Prelude.NFData StopStack where
   rnf StopStack' {..} = Prelude.rnf stackId
 
-instance Core.ToHeaders StopStack where
+instance Data.ToHeaders StopStack where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.StopStack" ::
+              Data.=# ( "OpsWorks_20130218.StopStack" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON StopStack where
+instance Data.ToJSON StopStack where
   toJSON StopStack' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("StackId" Core..= stackId)]
+          [Prelude.Just ("StackId" Data..= stackId)]
       )
 
-instance Core.ToPath StopStack where
+instance Data.ToPath StopStack where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery StopStack where
+instance Data.ToQuery StopStack where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopStackResponse' smart constructor.

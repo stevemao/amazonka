@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.ContainerServiceLogEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.ContainerServiceLogEvent where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the log events of a container of an Amazon Lightsail container
@@ -29,7 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newContainerServiceLogEvent' smart constructor.
 data ContainerServiceLogEvent = ContainerServiceLogEvent'
   { -- | The timestamp when the container service log event was created.
-    createdAt :: Prelude.Maybe Core.POSIX,
+    createdAt :: Prelude.Maybe Data.POSIX,
     -- | The message of the container service log event.
     message :: Prelude.Maybe Prelude.Text
   }
@@ -57,20 +58,20 @@ newContainerServiceLogEvent =
 
 -- | The timestamp when the container service log event was created.
 containerServiceLogEvent_createdAt :: Lens.Lens' ContainerServiceLogEvent (Prelude.Maybe Prelude.UTCTime)
-containerServiceLogEvent_createdAt = Lens.lens (\ContainerServiceLogEvent' {createdAt} -> createdAt) (\s@ContainerServiceLogEvent' {} a -> s {createdAt = a} :: ContainerServiceLogEvent) Prelude.. Lens.mapping Core._Time
+containerServiceLogEvent_createdAt = Lens.lens (\ContainerServiceLogEvent' {createdAt} -> createdAt) (\s@ContainerServiceLogEvent' {} a -> s {createdAt = a} :: ContainerServiceLogEvent) Prelude.. Lens.mapping Data._Time
 
 -- | The message of the container service log event.
 containerServiceLogEvent_message :: Lens.Lens' ContainerServiceLogEvent (Prelude.Maybe Prelude.Text)
 containerServiceLogEvent_message = Lens.lens (\ContainerServiceLogEvent' {message} -> message) (\s@ContainerServiceLogEvent' {} a -> s {message = a} :: ContainerServiceLogEvent)
 
-instance Core.FromJSON ContainerServiceLogEvent where
+instance Data.FromJSON ContainerServiceLogEvent where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContainerServiceLogEvent"
       ( \x ->
           ContainerServiceLogEvent'
-            Prelude.<$> (x Core..:? "createdAt")
-            Prelude.<*> (x Core..:? "message")
+            Prelude.<$> (x Data..:? "createdAt")
+            Prelude.<*> (x Data..:? "message")
       )
 
 instance Prelude.Hashable ContainerServiceLogEvent where

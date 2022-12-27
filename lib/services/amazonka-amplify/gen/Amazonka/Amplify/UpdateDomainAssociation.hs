@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Amplify.UpdateDomainAssociation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,12 +27,12 @@ module Amazonka.Amplify.UpdateDomainAssociation
     newUpdateDomainAssociation,
 
     -- * Request Lenses
-    updateDomainAssociation_enableAutoSubDomain,
     updateDomainAssociation_autoSubDomainCreationPatterns,
     updateDomainAssociation_autoSubDomainIAMRole,
+    updateDomainAssociation_enableAutoSubDomain,
+    updateDomainAssociation_subDomainSettings,
     updateDomainAssociation_appId,
     updateDomainAssociation_domainName,
-    updateDomainAssociation_subDomainSettings,
 
     -- * Destructuring the Response
     UpdateDomainAssociationResponse (..),
@@ -46,7 +46,8 @@ where
 
 import Amazonka.Amplify.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -55,19 +56,19 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newUpdateDomainAssociation' smart constructor.
 data UpdateDomainAssociation = UpdateDomainAssociation'
-  { -- | Enables the automated creation of subdomains for branches.
-    enableAutoSubDomain :: Prelude.Maybe Prelude.Bool,
-    -- | Sets the branch patterns for automatic subdomain creation.
+  { -- | Sets the branch patterns for automatic subdomain creation.
     autoSubDomainCreationPatterns :: Prelude.Maybe [Prelude.Text],
     -- | The required AWS Identity and Access Management (IAM) service role for
     -- the Amazon Resource Name (ARN) for automatically creating subdomains.
     autoSubDomainIAMRole :: Prelude.Maybe Prelude.Text,
+    -- | Enables the automated creation of subdomains for branches.
+    enableAutoSubDomain :: Prelude.Maybe Prelude.Bool,
+    -- | Describes the settings for the subdomain.
+    subDomainSettings :: Prelude.Maybe [SubDomainSetting],
     -- | The unique ID for an Amplify app.
     appId :: Prelude.Text,
     -- | The name of the domain.
-    domainName :: Prelude.Text,
-    -- | Describes the settings for the subdomain.
-    subDomainSettings :: [SubDomainSetting]
+    domainName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -79,18 +80,18 @@ data UpdateDomainAssociation = UpdateDomainAssociation'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'enableAutoSubDomain', 'updateDomainAssociation_enableAutoSubDomain' - Enables the automated creation of subdomains for branches.
---
 -- 'autoSubDomainCreationPatterns', 'updateDomainAssociation_autoSubDomainCreationPatterns' - Sets the branch patterns for automatic subdomain creation.
 --
 -- 'autoSubDomainIAMRole', 'updateDomainAssociation_autoSubDomainIAMRole' - The required AWS Identity and Access Management (IAM) service role for
 -- the Amazon Resource Name (ARN) for automatically creating subdomains.
 --
+-- 'enableAutoSubDomain', 'updateDomainAssociation_enableAutoSubDomain' - Enables the automated creation of subdomains for branches.
+--
+-- 'subDomainSettings', 'updateDomainAssociation_subDomainSettings' - Describes the settings for the subdomain.
+--
 -- 'appId', 'updateDomainAssociation_appId' - The unique ID for an Amplify app.
 --
 -- 'domainName', 'updateDomainAssociation_domainName' - The name of the domain.
---
--- 'subDomainSettings', 'updateDomainAssociation_subDomainSettings' - Describes the settings for the subdomain.
 newUpdateDomainAssociation ::
   -- | 'appId'
   Prelude.Text ->
@@ -99,18 +100,14 @@ newUpdateDomainAssociation ::
   UpdateDomainAssociation
 newUpdateDomainAssociation pAppId_ pDomainName_ =
   UpdateDomainAssociation'
-    { enableAutoSubDomain =
+    { autoSubDomainCreationPatterns =
         Prelude.Nothing,
-      autoSubDomainCreationPatterns = Prelude.Nothing,
       autoSubDomainIAMRole = Prelude.Nothing,
+      enableAutoSubDomain = Prelude.Nothing,
+      subDomainSettings = Prelude.Nothing,
       appId = pAppId_,
-      domainName = pDomainName_,
-      subDomainSettings = Prelude.mempty
+      domainName = pDomainName_
     }
-
--- | Enables the automated creation of subdomains for branches.
-updateDomainAssociation_enableAutoSubDomain :: Lens.Lens' UpdateDomainAssociation (Prelude.Maybe Prelude.Bool)
-updateDomainAssociation_enableAutoSubDomain = Lens.lens (\UpdateDomainAssociation' {enableAutoSubDomain} -> enableAutoSubDomain) (\s@UpdateDomainAssociation' {} a -> s {enableAutoSubDomain = a} :: UpdateDomainAssociation)
 
 -- | Sets the branch patterns for automatic subdomain creation.
 updateDomainAssociation_autoSubDomainCreationPatterns :: Lens.Lens' UpdateDomainAssociation (Prelude.Maybe [Prelude.Text])
@@ -121,6 +118,14 @@ updateDomainAssociation_autoSubDomainCreationPatterns = Lens.lens (\UpdateDomain
 updateDomainAssociation_autoSubDomainIAMRole :: Lens.Lens' UpdateDomainAssociation (Prelude.Maybe Prelude.Text)
 updateDomainAssociation_autoSubDomainIAMRole = Lens.lens (\UpdateDomainAssociation' {autoSubDomainIAMRole} -> autoSubDomainIAMRole) (\s@UpdateDomainAssociation' {} a -> s {autoSubDomainIAMRole = a} :: UpdateDomainAssociation)
 
+-- | Enables the automated creation of subdomains for branches.
+updateDomainAssociation_enableAutoSubDomain :: Lens.Lens' UpdateDomainAssociation (Prelude.Maybe Prelude.Bool)
+updateDomainAssociation_enableAutoSubDomain = Lens.lens (\UpdateDomainAssociation' {enableAutoSubDomain} -> enableAutoSubDomain) (\s@UpdateDomainAssociation' {} a -> s {enableAutoSubDomain = a} :: UpdateDomainAssociation)
+
+-- | Describes the settings for the subdomain.
+updateDomainAssociation_subDomainSettings :: Lens.Lens' UpdateDomainAssociation (Prelude.Maybe [SubDomainSetting])
+updateDomainAssociation_subDomainSettings = Lens.lens (\UpdateDomainAssociation' {subDomainSettings} -> subDomainSettings) (\s@UpdateDomainAssociation' {} a -> s {subDomainSettings = a} :: UpdateDomainAssociation) Prelude.. Lens.mapping Lens.coerced
+
 -- | The unique ID for an Amplify app.
 updateDomainAssociation_appId :: Lens.Lens' UpdateDomainAssociation Prelude.Text
 updateDomainAssociation_appId = Lens.lens (\UpdateDomainAssociation' {appId} -> appId) (\s@UpdateDomainAssociation' {} a -> s {appId = a} :: UpdateDomainAssociation)
@@ -129,77 +134,75 @@ updateDomainAssociation_appId = Lens.lens (\UpdateDomainAssociation' {appId} -> 
 updateDomainAssociation_domainName :: Lens.Lens' UpdateDomainAssociation Prelude.Text
 updateDomainAssociation_domainName = Lens.lens (\UpdateDomainAssociation' {domainName} -> domainName) (\s@UpdateDomainAssociation' {} a -> s {domainName = a} :: UpdateDomainAssociation)
 
--- | Describes the settings for the subdomain.
-updateDomainAssociation_subDomainSettings :: Lens.Lens' UpdateDomainAssociation [SubDomainSetting]
-updateDomainAssociation_subDomainSettings = Lens.lens (\UpdateDomainAssociation' {subDomainSettings} -> subDomainSettings) (\s@UpdateDomainAssociation' {} a -> s {subDomainSettings = a} :: UpdateDomainAssociation) Prelude.. Lens.coerced
-
 instance Core.AWSRequest UpdateDomainAssociation where
   type
     AWSResponse UpdateDomainAssociation =
       UpdateDomainAssociationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDomainAssociationResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "domainAssociation")
+            Prelude.<*> (x Data..:> "domainAssociation")
       )
 
 instance Prelude.Hashable UpdateDomainAssociation where
   hashWithSalt _salt UpdateDomainAssociation' {..} =
-    _salt `Prelude.hashWithSalt` enableAutoSubDomain
+    _salt
       `Prelude.hashWithSalt` autoSubDomainCreationPatterns
       `Prelude.hashWithSalt` autoSubDomainIAMRole
+      `Prelude.hashWithSalt` enableAutoSubDomain
+      `Prelude.hashWithSalt` subDomainSettings
       `Prelude.hashWithSalt` appId
       `Prelude.hashWithSalt` domainName
-      `Prelude.hashWithSalt` subDomainSettings
 
 instance Prelude.NFData UpdateDomainAssociation where
   rnf UpdateDomainAssociation' {..} =
-    Prelude.rnf enableAutoSubDomain
-      `Prelude.seq` Prelude.rnf autoSubDomainCreationPatterns
+    Prelude.rnf autoSubDomainCreationPatterns
       `Prelude.seq` Prelude.rnf autoSubDomainIAMRole
+      `Prelude.seq` Prelude.rnf enableAutoSubDomain
+      `Prelude.seq` Prelude.rnf subDomainSettings
       `Prelude.seq` Prelude.rnf appId
       `Prelude.seq` Prelude.rnf domainName
-      `Prelude.seq` Prelude.rnf subDomainSettings
 
-instance Core.ToHeaders UpdateDomainAssociation where
+instance Data.ToHeaders UpdateDomainAssociation where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateDomainAssociation where
+instance Data.ToJSON UpdateDomainAssociation where
   toJSON UpdateDomainAssociation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("enableAutoSubDomain" Core..=)
-              Prelude.<$> enableAutoSubDomain,
-            ("autoSubDomainCreationPatterns" Core..=)
+          [ ("autoSubDomainCreationPatterns" Data..=)
               Prelude.<$> autoSubDomainCreationPatterns,
-            ("autoSubDomainIAMRole" Core..=)
+            ("autoSubDomainIAMRole" Data..=)
               Prelude.<$> autoSubDomainIAMRole,
-            Prelude.Just
-              ("subDomainSettings" Core..= subDomainSettings)
+            ("enableAutoSubDomain" Data..=)
+              Prelude.<$> enableAutoSubDomain,
+            ("subDomainSettings" Data..=)
+              Prelude.<$> subDomainSettings
           ]
       )
 
-instance Core.ToPath UpdateDomainAssociation where
+instance Data.ToPath UpdateDomainAssociation where
   toPath UpdateDomainAssociation' {..} =
     Prelude.mconcat
       [ "/apps/",
-        Core.toBS appId,
+        Data.toBS appId,
         "/domains/",
-        Core.toBS domainName
+        Data.toBS domainName
       ]
 
-instance Core.ToQuery UpdateDomainAssociation where
+instance Data.ToQuery UpdateDomainAssociation where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The result structure for the update domain association request.

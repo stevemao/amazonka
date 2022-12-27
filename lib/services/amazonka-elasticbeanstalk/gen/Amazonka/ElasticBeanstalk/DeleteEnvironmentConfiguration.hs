@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.DeleteEnvironmentConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.ElasticBeanstalk.DeleteEnvironmentConfiguration
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -102,7 +103,8 @@ instance
   type
     AWSResponse DeleteEnvironmentConfiguration =
       DeleteEnvironmentConfigurationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull
       DeleteEnvironmentConfigurationResponse'
@@ -126,25 +128,25 @@ instance
       `Prelude.seq` Prelude.rnf environmentName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteEnvironmentConfiguration
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteEnvironmentConfiguration where
+instance Data.ToPath DeleteEnvironmentConfiguration where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteEnvironmentConfiguration where
+instance Data.ToQuery DeleteEnvironmentConfiguration where
   toQuery DeleteEnvironmentConfiguration' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DeleteEnvironmentConfiguration" ::
+          Data.=: ( "DeleteEnvironmentConfiguration" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "ApplicationName" Core.=: applicationName,
-        "EnvironmentName" Core.=: environmentName
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "ApplicationName" Data.=: applicationName,
+        "EnvironmentName" Data.=: environmentName
       ]
 
 -- | /See:/ 'newDeleteEnvironmentConfigurationResponse' smart constructor.

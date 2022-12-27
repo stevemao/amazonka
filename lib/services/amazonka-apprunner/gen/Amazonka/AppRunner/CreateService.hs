@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppRunner.CreateService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,10 @@ module Amazonka.AppRunner.CreateService
     createService_autoScalingConfigurationArn,
     createService_encryptionConfiguration,
     createService_healthCheckConfiguration,
-    createService_tags,
     createService_instanceConfiguration,
+    createService_networkConfiguration,
+    createService_observabilityConfiguration,
+    createService_tags,
     createService_serviceName,
     createService_sourceConfiguration,
 
@@ -54,7 +56,8 @@ where
 
 import Amazonka.AppRunner.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,23 +68,34 @@ data CreateService = CreateService'
     -- configuration resource that you want to associate with your service. If
     -- not provided, App Runner associates the latest revision of a default
     -- auto scaling configuration.
+    --
+    -- Specify an ARN with a name and a revision number to associate that
+    -- revision. For example:
+    -- @arn:aws:apprunner:us-east-1:123456789012:autoscalingconfiguration\/high-availability\/3@
+    --
+    -- Specify just the name to associate the latest revision. For example:
+    -- @arn:aws:apprunner:us-east-1:123456789012:autoscalingconfiguration\/high-availability@
     autoScalingConfigurationArn :: Prelude.Maybe Prelude.Text,
     -- | An optional custom encryption key that App Runner uses to encrypt the
     -- copy of your source repository that it maintains and your service logs.
-    -- By default, App Runner uses an Amazon Web Services managed CMK.
+    -- By default, App Runner uses an Amazon Web Services managed key.
     encryptionConfiguration :: Prelude.Maybe EncryptionConfiguration,
     -- | The settings for the health check that App Runner performs to monitor
-    -- the health of your service.
+    -- the health of the App Runner service.
     healthCheckConfiguration :: Prelude.Maybe HealthCheckConfiguration,
-    -- | An optional list of metadata items that you can associate with your
-    -- service resource. A tag is a key-value pair.
-    tags :: Prelude.Maybe [Tag],
-    -- | The runtime configuration of instances (scaling units) of the App Runner
-    -- service.
+    -- | The runtime configuration of instances (scaling units) of your service.
     instanceConfiguration :: Prelude.Maybe InstanceConfiguration,
-    -- | A name for the new service. It must be unique across all the running App
-    -- Runner services in your Amazon Web Services account in the Amazon Web
-    -- Services Region.
+    -- | Configuration settings related to network traffic of the web application
+    -- that the App Runner service runs.
+    networkConfiguration :: Prelude.Maybe NetworkConfiguration,
+    -- | The observability configuration of your service.
+    observabilityConfiguration :: Prelude.Maybe ServiceObservabilityConfiguration,
+    -- | An optional list of metadata items that you can associate with the App
+    -- Runner service resource. A tag is a key-value pair.
+    tags :: Prelude.Maybe [Tag],
+    -- | A name for the App Runner service. It must be unique across all the
+    -- running App Runner services in your Amazon Web Services account in the
+    -- Amazon Web Services Region.
     serviceName :: Prelude.Text,
     -- | The source to deploy to the App Runner service. It can be a code or an
     -- image repository.
@@ -102,22 +116,33 @@ data CreateService = CreateService'
 -- not provided, App Runner associates the latest revision of a default
 -- auto scaling configuration.
 --
+-- Specify an ARN with a name and a revision number to associate that
+-- revision. For example:
+-- @arn:aws:apprunner:us-east-1:123456789012:autoscalingconfiguration\/high-availability\/3@
+--
+-- Specify just the name to associate the latest revision. For example:
+-- @arn:aws:apprunner:us-east-1:123456789012:autoscalingconfiguration\/high-availability@
+--
 -- 'encryptionConfiguration', 'createService_encryptionConfiguration' - An optional custom encryption key that App Runner uses to encrypt the
 -- copy of your source repository that it maintains and your service logs.
--- By default, App Runner uses an Amazon Web Services managed CMK.
+-- By default, App Runner uses an Amazon Web Services managed key.
 --
 -- 'healthCheckConfiguration', 'createService_healthCheckConfiguration' - The settings for the health check that App Runner performs to monitor
--- the health of your service.
+-- the health of the App Runner service.
 --
--- 'tags', 'createService_tags' - An optional list of metadata items that you can associate with your
--- service resource. A tag is a key-value pair.
+-- 'instanceConfiguration', 'createService_instanceConfiguration' - The runtime configuration of instances (scaling units) of your service.
 --
--- 'instanceConfiguration', 'createService_instanceConfiguration' - The runtime configuration of instances (scaling units) of the App Runner
--- service.
+-- 'networkConfiguration', 'createService_networkConfiguration' - Configuration settings related to network traffic of the web application
+-- that the App Runner service runs.
 --
--- 'serviceName', 'createService_serviceName' - A name for the new service. It must be unique across all the running App
--- Runner services in your Amazon Web Services account in the Amazon Web
--- Services Region.
+-- 'observabilityConfiguration', 'createService_observabilityConfiguration' - The observability configuration of your service.
+--
+-- 'tags', 'createService_tags' - An optional list of metadata items that you can associate with the App
+-- Runner service resource. A tag is a key-value pair.
+--
+-- 'serviceName', 'createService_serviceName' - A name for the App Runner service. It must be unique across all the
+-- running App Runner services in your Amazon Web Services account in the
+-- Amazon Web Services Region.
 --
 -- 'sourceConfiguration', 'createService_sourceConfiguration' - The source to deploy to the App Runner service. It can be a code or an
 -- image repository.
@@ -133,8 +158,10 @@ newCreateService pServiceName_ pSourceConfiguration_ =
         Prelude.Nothing,
       encryptionConfiguration = Prelude.Nothing,
       healthCheckConfiguration = Prelude.Nothing,
-      tags = Prelude.Nothing,
       instanceConfiguration = Prelude.Nothing,
+      networkConfiguration = Prelude.Nothing,
+      observabilityConfiguration = Prelude.Nothing,
+      tags = Prelude.Nothing,
       serviceName = pServiceName_,
       sourceConfiguration = pSourceConfiguration_
     }
@@ -143,33 +170,48 @@ newCreateService pServiceName_ pSourceConfiguration_ =
 -- configuration resource that you want to associate with your service. If
 -- not provided, App Runner associates the latest revision of a default
 -- auto scaling configuration.
+--
+-- Specify an ARN with a name and a revision number to associate that
+-- revision. For example:
+-- @arn:aws:apprunner:us-east-1:123456789012:autoscalingconfiguration\/high-availability\/3@
+--
+-- Specify just the name to associate the latest revision. For example:
+-- @arn:aws:apprunner:us-east-1:123456789012:autoscalingconfiguration\/high-availability@
 createService_autoScalingConfigurationArn :: Lens.Lens' CreateService (Prelude.Maybe Prelude.Text)
 createService_autoScalingConfigurationArn = Lens.lens (\CreateService' {autoScalingConfigurationArn} -> autoScalingConfigurationArn) (\s@CreateService' {} a -> s {autoScalingConfigurationArn = a} :: CreateService)
 
 -- | An optional custom encryption key that App Runner uses to encrypt the
 -- copy of your source repository that it maintains and your service logs.
--- By default, App Runner uses an Amazon Web Services managed CMK.
+-- By default, App Runner uses an Amazon Web Services managed key.
 createService_encryptionConfiguration :: Lens.Lens' CreateService (Prelude.Maybe EncryptionConfiguration)
 createService_encryptionConfiguration = Lens.lens (\CreateService' {encryptionConfiguration} -> encryptionConfiguration) (\s@CreateService' {} a -> s {encryptionConfiguration = a} :: CreateService)
 
 -- | The settings for the health check that App Runner performs to monitor
--- the health of your service.
+-- the health of the App Runner service.
 createService_healthCheckConfiguration :: Lens.Lens' CreateService (Prelude.Maybe HealthCheckConfiguration)
 createService_healthCheckConfiguration = Lens.lens (\CreateService' {healthCheckConfiguration} -> healthCheckConfiguration) (\s@CreateService' {} a -> s {healthCheckConfiguration = a} :: CreateService)
 
--- | An optional list of metadata items that you can associate with your
--- service resource. A tag is a key-value pair.
-createService_tags :: Lens.Lens' CreateService (Prelude.Maybe [Tag])
-createService_tags = Lens.lens (\CreateService' {tags} -> tags) (\s@CreateService' {} a -> s {tags = a} :: CreateService) Prelude.. Lens.mapping Lens.coerced
-
--- | The runtime configuration of instances (scaling units) of the App Runner
--- service.
+-- | The runtime configuration of instances (scaling units) of your service.
 createService_instanceConfiguration :: Lens.Lens' CreateService (Prelude.Maybe InstanceConfiguration)
 createService_instanceConfiguration = Lens.lens (\CreateService' {instanceConfiguration} -> instanceConfiguration) (\s@CreateService' {} a -> s {instanceConfiguration = a} :: CreateService)
 
--- | A name for the new service. It must be unique across all the running App
--- Runner services in your Amazon Web Services account in the Amazon Web
--- Services Region.
+-- | Configuration settings related to network traffic of the web application
+-- that the App Runner service runs.
+createService_networkConfiguration :: Lens.Lens' CreateService (Prelude.Maybe NetworkConfiguration)
+createService_networkConfiguration = Lens.lens (\CreateService' {networkConfiguration} -> networkConfiguration) (\s@CreateService' {} a -> s {networkConfiguration = a} :: CreateService)
+
+-- | The observability configuration of your service.
+createService_observabilityConfiguration :: Lens.Lens' CreateService (Prelude.Maybe ServiceObservabilityConfiguration)
+createService_observabilityConfiguration = Lens.lens (\CreateService' {observabilityConfiguration} -> observabilityConfiguration) (\s@CreateService' {} a -> s {observabilityConfiguration = a} :: CreateService)
+
+-- | An optional list of metadata items that you can associate with the App
+-- Runner service resource. A tag is a key-value pair.
+createService_tags :: Lens.Lens' CreateService (Prelude.Maybe [Tag])
+createService_tags = Lens.lens (\CreateService' {tags} -> tags) (\s@CreateService' {} a -> s {tags = a} :: CreateService) Prelude.. Lens.mapping Lens.coerced
+
+-- | A name for the App Runner service. It must be unique across all the
+-- running App Runner services in your Amazon Web Services account in the
+-- Amazon Web Services Region.
 createService_serviceName :: Lens.Lens' CreateService Prelude.Text
 createService_serviceName = Lens.lens (\CreateService' {serviceName} -> serviceName) (\s@CreateService' {} a -> s {serviceName = a} :: CreateService)
 
@@ -182,14 +224,15 @@ instance Core.AWSRequest CreateService where
   type
     AWSResponse CreateService =
       CreateServiceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateServiceResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Service")
-            Prelude.<*> (x Core..:> "OperationId")
+            Prelude.<*> (x Data..:> "Service")
+            Prelude.<*> (x Data..:> "OperationId")
       )
 
 instance Prelude.Hashable CreateService where
@@ -198,8 +241,10 @@ instance Prelude.Hashable CreateService where
       `Prelude.hashWithSalt` autoScalingConfigurationArn
       `Prelude.hashWithSalt` encryptionConfiguration
       `Prelude.hashWithSalt` healthCheckConfiguration
-      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` instanceConfiguration
+      `Prelude.hashWithSalt` networkConfiguration
+      `Prelude.hashWithSalt` observabilityConfiguration
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` serviceName
       `Prelude.hashWithSalt` sourceConfiguration
 
@@ -208,47 +253,53 @@ instance Prelude.NFData CreateService where
     Prelude.rnf autoScalingConfigurationArn
       `Prelude.seq` Prelude.rnf encryptionConfiguration
       `Prelude.seq` Prelude.rnf healthCheckConfiguration
-      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf instanceConfiguration
+      `Prelude.seq` Prelude.rnf networkConfiguration
+      `Prelude.seq` Prelude.rnf observabilityConfiguration
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf serviceName
       `Prelude.seq` Prelude.rnf sourceConfiguration
 
-instance Core.ToHeaders CreateService where
+instance Data.ToHeaders CreateService where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AppRunner.CreateService" :: Prelude.ByteString),
+              Data.=# ("AppRunner.CreateService" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateService where
+instance Data.ToJSON CreateService where
   toJSON CreateService' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AutoScalingConfigurationArn" Core..=)
+          [ ("AutoScalingConfigurationArn" Data..=)
               Prelude.<$> autoScalingConfigurationArn,
-            ("EncryptionConfiguration" Core..=)
+            ("EncryptionConfiguration" Data..=)
               Prelude.<$> encryptionConfiguration,
-            ("HealthCheckConfiguration" Core..=)
+            ("HealthCheckConfiguration" Data..=)
               Prelude.<$> healthCheckConfiguration,
-            ("Tags" Core..=) Prelude.<$> tags,
-            ("InstanceConfiguration" Core..=)
+            ("InstanceConfiguration" Data..=)
               Prelude.<$> instanceConfiguration,
-            Prelude.Just ("ServiceName" Core..= serviceName),
+            ("NetworkConfiguration" Data..=)
+              Prelude.<$> networkConfiguration,
+            ("ObservabilityConfiguration" Data..=)
+              Prelude.<$> observabilityConfiguration,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("ServiceName" Data..= serviceName),
             Prelude.Just
-              ("SourceConfiguration" Core..= sourceConfiguration)
+              ("SourceConfiguration" Data..= sourceConfiguration)
           ]
       )
 
-instance Core.ToPath CreateService where
+instance Data.ToPath CreateService where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateService where
+instance Data.ToQuery CreateService where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateServiceResponse' smart constructor.

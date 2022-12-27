@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.XRay.ListTagsForResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,6 +22,8 @@
 --
 -- Returns a list of tags that are applied to the specified Amazon Web
 -- Services X-Ray group or sampling rule.
+--
+-- This operation returns paginated results.
 module Amazonka.XRay.ListTagsForResource
   ( -- * Creating a Request
     ListTagsForResource (..),
@@ -43,7 +45,8 @@ module Amazonka.XRay.ListTagsForResource
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -93,17 +96,40 @@ listTagsForResource_nextToken = Lens.lens (\ListTagsForResource' {nextToken} -> 
 listTagsForResource_resourceARN :: Lens.Lens' ListTagsForResource Prelude.Text
 listTagsForResource_resourceARN = Lens.lens (\ListTagsForResource' {resourceARN} -> resourceARN) (\s@ListTagsForResource' {} a -> s {resourceARN = a} :: ListTagsForResource)
 
+instance Core.AWSPager ListTagsForResource where
+  page rq rs
+    | Core.stop
+        ( rs
+            Lens.^? listTagsForResourceResponse_nextToken
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Core.stop
+        ( rs
+            Lens.^? listTagsForResourceResponse_tags
+              Prelude.. Lens._Just
+        ) =
+      Prelude.Nothing
+    | Prelude.otherwise =
+      Prelude.Just Prelude.$
+        rq
+          Prelude.& listTagsForResource_nextToken
+          Lens..~ rs
+          Lens.^? listTagsForResourceResponse_nextToken
+            Prelude.. Lens._Just
+
 instance Core.AWSRequest ListTagsForResource where
   type
     AWSResponse ListTagsForResource =
       ListTagsForResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsForResourceResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "Tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,22 +143,22 @@ instance Prelude.NFData ListTagsForResource where
     Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf resourceARN
 
-instance Core.ToHeaders ListTagsForResource where
+instance Data.ToHeaders ListTagsForResource where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON ListTagsForResource where
+instance Data.ToJSON ListTagsForResource where
   toJSON ListTagsForResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            Prelude.Just ("ResourceARN" Core..= resourceARN)
+          [ ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("ResourceARN" Data..= resourceARN)
           ]
       )
 
-instance Core.ToPath ListTagsForResource where
+instance Data.ToPath ListTagsForResource where
   toPath = Prelude.const "/ListTagsForResource"
 
-instance Core.ToQuery ListTagsForResource where
+instance Data.ToQuery ListTagsForResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagsForResourceResponse' smart constructor.

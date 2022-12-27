@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LookoutMetrics.Types.AnomalyGroupTimeSeriesFeedback
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LookoutMetrics.Types.AnomalyGroupTimeSeriesFeedback where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Feedback for an anomalous metric.
@@ -100,13 +101,13 @@ instance
       `Prelude.seq` Prelude.rnf timeSeriesId
       `Prelude.seq` Prelude.rnf isAnomaly
 
-instance Core.ToJSON AnomalyGroupTimeSeriesFeedback where
+instance Data.ToJSON AnomalyGroupTimeSeriesFeedback where
   toJSON AnomalyGroupTimeSeriesFeedback' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("AnomalyGroupId" Core..= anomalyGroupId),
-            Prelude.Just ("TimeSeriesId" Core..= timeSeriesId),
-            Prelude.Just ("IsAnomaly" Core..= isAnomaly)
+              ("AnomalyGroupId" Data..= anomalyGroupId),
+            Prelude.Just ("TimeSeriesId" Data..= timeSeriesId),
+            Prelude.Just ("IsAnomaly" Data..= isAnomaly)
           ]
       )

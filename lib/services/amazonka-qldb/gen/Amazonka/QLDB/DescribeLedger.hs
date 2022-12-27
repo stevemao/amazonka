@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QLDB.DescribeLedger
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,19 +35,20 @@ module Amazonka.QLDB.DescribeLedger
     newDescribeLedgerResponse,
 
     -- * Response Lenses
-    describeLedgerResponse_state,
-    describeLedgerResponse_deletionProtection,
     describeLedgerResponse_arn,
+    describeLedgerResponse_creationDateTime,
+    describeLedgerResponse_deletionProtection,
     describeLedgerResponse_encryptionDescription,
     describeLedgerResponse_name,
-    describeLedgerResponse_creationDateTime,
     describeLedgerResponse_permissionsMode,
+    describeLedgerResponse_state,
     describeLedgerResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QLDB.Types
 import qualified Amazonka.Request as Request
@@ -84,18 +85,19 @@ instance Core.AWSRequest DescribeLedger where
   type
     AWSResponse DescribeLedger =
       DescribeLedgerResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeLedgerResponse'
-            Prelude.<$> (x Core..?> "State")
-            Prelude.<*> (x Core..?> "DeletionProtection")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "EncryptionDescription")
-            Prelude.<*> (x Core..?> "Name")
-            Prelude.<*> (x Core..?> "CreationDateTime")
-            Prelude.<*> (x Core..?> "PermissionsMode")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "CreationDateTime")
+            Prelude.<*> (x Data..?> "DeletionProtection")
+            Prelude.<*> (x Data..?> "EncryptionDescription")
+            Prelude.<*> (x Data..?> "Name")
+            Prelude.<*> (x Data..?> "PermissionsMode")
+            Prelude.<*> (x Data..?> "State")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -106,28 +108,32 @@ instance Prelude.Hashable DescribeLedger where
 instance Prelude.NFData DescribeLedger where
   rnf DescribeLedger' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DescribeLedger where
+instance Data.ToHeaders DescribeLedger where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeLedger where
+instance Data.ToPath DescribeLedger where
   toPath DescribeLedger' {..} =
-    Prelude.mconcat ["/ledgers/", Core.toBS name]
+    Prelude.mconcat ["/ledgers/", Data.toBS name]
 
-instance Core.ToQuery DescribeLedger where
+instance Data.ToQuery DescribeLedger where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeLedgerResponse' smart constructor.
 data DescribeLedgerResponse = DescribeLedgerResponse'
-  { -- | The current status of the ledger.
-    state :: Prelude.Maybe LedgerState,
+  { -- | The Amazon Resource Name (ARN) for the ledger.
+    arn :: Prelude.Maybe Prelude.Text,
+    -- | The date and time, in epoch time format, when the ledger was created.
+    -- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
+    -- January 1, 1970 UTC.)
+    creationDateTime :: Prelude.Maybe Data.POSIX,
     -- | The flag that prevents a ledger from being deleted by any user. If not
     -- provided on ledger creation, this feature is enabled (@true@) by
     -- default.
@@ -136,20 +142,16 @@ data DescribeLedgerResponse = DescribeLedgerResponse'
     -- can delete the ledger. You can disable it by calling the @UpdateLedger@
     -- operation to set the flag to @false@.
     deletionProtection :: Prelude.Maybe Prelude.Bool,
-    -- | The Amazon Resource Name (ARN) for the ledger.
-    arn :: Prelude.Maybe Prelude.Text,
     -- | Information about the encryption of data at rest in the ledger. This
     -- includes the current status, the KMS key, and when the key became
     -- inaccessible (in the case of an error).
     encryptionDescription :: Prelude.Maybe LedgerEncryptionDescription,
     -- | The name of the ledger.
     name :: Prelude.Maybe Prelude.Text,
-    -- | The date and time, in epoch time format, when the ledger was created.
-    -- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
-    -- January 1, 1970 UTC.)
-    creationDateTime :: Prelude.Maybe Core.POSIX,
     -- | The permissions mode of the ledger.
     permissionsMode :: Prelude.Maybe PermissionsMode,
+    -- | The current status of the ledger.
+    state :: Prelude.Maybe LedgerState,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -163,7 +165,11 @@ data DescribeLedgerResponse = DescribeLedgerResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'describeLedgerResponse_state' - The current status of the ledger.
+-- 'arn', 'describeLedgerResponse_arn' - The Amazon Resource Name (ARN) for the ledger.
+--
+-- 'creationDateTime', 'describeLedgerResponse_creationDateTime' - The date and time, in epoch time format, when the ledger was created.
+-- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
+-- January 1, 1970 UTC.)
 --
 -- 'deletionProtection', 'describeLedgerResponse_deletionProtection' - The flag that prevents a ledger from being deleted by any user. If not
 -- provided on ledger creation, this feature is enabled (@true@) by
@@ -173,19 +179,15 @@ data DescribeLedgerResponse = DescribeLedgerResponse'
 -- can delete the ledger. You can disable it by calling the @UpdateLedger@
 -- operation to set the flag to @false@.
 --
--- 'arn', 'describeLedgerResponse_arn' - The Amazon Resource Name (ARN) for the ledger.
---
 -- 'encryptionDescription', 'describeLedgerResponse_encryptionDescription' - Information about the encryption of data at rest in the ledger. This
 -- includes the current status, the KMS key, and when the key became
 -- inaccessible (in the case of an error).
 --
 -- 'name', 'describeLedgerResponse_name' - The name of the ledger.
 --
--- 'creationDateTime', 'describeLedgerResponse_creationDateTime' - The date and time, in epoch time format, when the ledger was created.
--- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
--- January 1, 1970 UTC.)
---
 -- 'permissionsMode', 'describeLedgerResponse_permissionsMode' - The permissions mode of the ledger.
+--
+-- 'state', 'describeLedgerResponse_state' - The current status of the ledger.
 --
 -- 'httpStatus', 'describeLedgerResponse_httpStatus' - The response's http status code.
 newDescribeLedgerResponse ::
@@ -194,19 +196,25 @@ newDescribeLedgerResponse ::
   DescribeLedgerResponse
 newDescribeLedgerResponse pHttpStatus_ =
   DescribeLedgerResponse'
-    { state = Prelude.Nothing,
+    { arn = Prelude.Nothing,
+      creationDateTime = Prelude.Nothing,
       deletionProtection = Prelude.Nothing,
-      arn = Prelude.Nothing,
       encryptionDescription = Prelude.Nothing,
       name = Prelude.Nothing,
-      creationDateTime = Prelude.Nothing,
       permissionsMode = Prelude.Nothing,
+      state = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
--- | The current status of the ledger.
-describeLedgerResponse_state :: Lens.Lens' DescribeLedgerResponse (Prelude.Maybe LedgerState)
-describeLedgerResponse_state = Lens.lens (\DescribeLedgerResponse' {state} -> state) (\s@DescribeLedgerResponse' {} a -> s {state = a} :: DescribeLedgerResponse)
+-- | The Amazon Resource Name (ARN) for the ledger.
+describeLedgerResponse_arn :: Lens.Lens' DescribeLedgerResponse (Prelude.Maybe Prelude.Text)
+describeLedgerResponse_arn = Lens.lens (\DescribeLedgerResponse' {arn} -> arn) (\s@DescribeLedgerResponse' {} a -> s {arn = a} :: DescribeLedgerResponse)
+
+-- | The date and time, in epoch time format, when the ledger was created.
+-- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
+-- January 1, 1970 UTC.)
+describeLedgerResponse_creationDateTime :: Lens.Lens' DescribeLedgerResponse (Prelude.Maybe Prelude.UTCTime)
+describeLedgerResponse_creationDateTime = Lens.lens (\DescribeLedgerResponse' {creationDateTime} -> creationDateTime) (\s@DescribeLedgerResponse' {} a -> s {creationDateTime = a} :: DescribeLedgerResponse) Prelude.. Lens.mapping Data._Time
 
 -- | The flag that prevents a ledger from being deleted by any user. If not
 -- provided on ledger creation, this feature is enabled (@true@) by
@@ -218,10 +226,6 @@ describeLedgerResponse_state = Lens.lens (\DescribeLedgerResponse' {state} -> st
 describeLedgerResponse_deletionProtection :: Lens.Lens' DescribeLedgerResponse (Prelude.Maybe Prelude.Bool)
 describeLedgerResponse_deletionProtection = Lens.lens (\DescribeLedgerResponse' {deletionProtection} -> deletionProtection) (\s@DescribeLedgerResponse' {} a -> s {deletionProtection = a} :: DescribeLedgerResponse)
 
--- | The Amazon Resource Name (ARN) for the ledger.
-describeLedgerResponse_arn :: Lens.Lens' DescribeLedgerResponse (Prelude.Maybe Prelude.Text)
-describeLedgerResponse_arn = Lens.lens (\DescribeLedgerResponse' {arn} -> arn) (\s@DescribeLedgerResponse' {} a -> s {arn = a} :: DescribeLedgerResponse)
-
 -- | Information about the encryption of data at rest in the ledger. This
 -- includes the current status, the KMS key, and when the key became
 -- inaccessible (in the case of an error).
@@ -232,15 +236,13 @@ describeLedgerResponse_encryptionDescription = Lens.lens (\DescribeLedgerRespons
 describeLedgerResponse_name :: Lens.Lens' DescribeLedgerResponse (Prelude.Maybe Prelude.Text)
 describeLedgerResponse_name = Lens.lens (\DescribeLedgerResponse' {name} -> name) (\s@DescribeLedgerResponse' {} a -> s {name = a} :: DescribeLedgerResponse)
 
--- | The date and time, in epoch time format, when the ledger was created.
--- (Epoch time format is the number of seconds elapsed since 12:00:00 AM
--- January 1, 1970 UTC.)
-describeLedgerResponse_creationDateTime :: Lens.Lens' DescribeLedgerResponse (Prelude.Maybe Prelude.UTCTime)
-describeLedgerResponse_creationDateTime = Lens.lens (\DescribeLedgerResponse' {creationDateTime} -> creationDateTime) (\s@DescribeLedgerResponse' {} a -> s {creationDateTime = a} :: DescribeLedgerResponse) Prelude.. Lens.mapping Core._Time
-
 -- | The permissions mode of the ledger.
 describeLedgerResponse_permissionsMode :: Lens.Lens' DescribeLedgerResponse (Prelude.Maybe PermissionsMode)
 describeLedgerResponse_permissionsMode = Lens.lens (\DescribeLedgerResponse' {permissionsMode} -> permissionsMode) (\s@DescribeLedgerResponse' {} a -> s {permissionsMode = a} :: DescribeLedgerResponse)
+
+-- | The current status of the ledger.
+describeLedgerResponse_state :: Lens.Lens' DescribeLedgerResponse (Prelude.Maybe LedgerState)
+describeLedgerResponse_state = Lens.lens (\DescribeLedgerResponse' {state} -> state) (\s@DescribeLedgerResponse' {} a -> s {state = a} :: DescribeLedgerResponse)
 
 -- | The response's http status code.
 describeLedgerResponse_httpStatus :: Lens.Lens' DescribeLedgerResponse Prelude.Int
@@ -248,11 +250,11 @@ describeLedgerResponse_httpStatus = Lens.lens (\DescribeLedgerResponse' {httpSta
 
 instance Prelude.NFData DescribeLedgerResponse where
   rnf DescribeLedgerResponse' {..} =
-    Prelude.rnf state
+    Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf creationDateTime
       `Prelude.seq` Prelude.rnf deletionProtection
-      `Prelude.seq` Prelude.rnf arn
       `Prelude.seq` Prelude.rnf encryptionDescription
       `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf creationDateTime
       `Prelude.seq` Prelude.rnf permissionsMode
+      `Prelude.seq` Prelude.rnf state
       `Prelude.seq` Prelude.rnf httpStatus

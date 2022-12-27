@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.CreateFindingsFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.MacieV2.CreateFindingsFilter
     -- * Request Lenses
     createFindingsFilter_clientToken,
     createFindingsFilter_description,
-    createFindingsFilter_tags,
     createFindingsFilter_position,
+    createFindingsFilter_tags,
     createFindingsFilter_action,
     createFindingsFilter_findingCriteria,
     createFindingsFilter_name,
@@ -48,7 +48,8 @@ module Amazonka.MacieV2.CreateFindingsFilter
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -64,9 +65,14 @@ data CreateFindingsFilter = CreateFindingsFilter'
     --
     -- We strongly recommend that you avoid including any sensitive data in the
     -- description of a filter. Other users of your account might be able to
-    -- see the filter\'s description, depending on the actions that they\'re
-    -- allowed to perform in Amazon Macie.
+    -- see this description, depending on the actions that they\'re allowed to
+    -- perform in Amazon Macie.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The position of the filter in the list of saved filters on the Amazon
+    -- Macie console. This value also determines the order in which the filter
+    -- is applied to findings, relative to other filters that are also applied
+    -- to the findings.
+    position :: Prelude.Maybe Prelude.Int,
     -- | A map of key-value pairs that specifies the tags to associate with the
     -- filter.
     --
@@ -74,12 +80,7 @@ data CreateFindingsFilter = CreateFindingsFilter'
     -- tag key and an associated tag value. The maximum length of a tag key is
     -- 128 characters. The maximum length of a tag value is 256 characters.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The position of the filter in the list of saved filters on the Amazon
-    -- Macie console. This value also determines the order in which the filter
-    -- is applied to findings, relative to other filters that are also applied
-    -- to the findings.
-    position :: Prelude.Maybe Prelude.Int,
-    -- | The action to perform on findings that meet the filter criteria
+    -- | The action to perform on findings that match the filter criteria
     -- (findingCriteria). Valid values are: ARCHIVE, suppress (automatically
     -- archive) the findings; and, NOOP, don\'t perform any action on the
     -- findings.
@@ -90,9 +91,9 @@ data CreateFindingsFilter = CreateFindingsFilter'
     -- characters and can contain as many as 64 characters.
     --
     -- We strongly recommend that you avoid including any sensitive data in the
-    -- name of a filter. Other users of your account might be able to see the
-    -- filter\'s name, depending on the actions that they\'re allowed to
-    -- perform in Amazon Macie.
+    -- name of a filter. Other users of your account might be able to see this
+    -- name, depending on the actions that they\'re allowed to perform in
+    -- Amazon Macie.
     name :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -113,8 +114,13 @@ data CreateFindingsFilter = CreateFindingsFilter'
 --
 -- We strongly recommend that you avoid including any sensitive data in the
 -- description of a filter. Other users of your account might be able to
--- see the filter\'s description, depending on the actions that they\'re
--- allowed to perform in Amazon Macie.
+-- see this description, depending on the actions that they\'re allowed to
+-- perform in Amazon Macie.
+--
+-- 'position', 'createFindingsFilter_position' - The position of the filter in the list of saved filters on the Amazon
+-- Macie console. This value also determines the order in which the filter
+-- is applied to findings, relative to other filters that are also applied
+-- to the findings.
 --
 -- 'tags', 'createFindingsFilter_tags' - A map of key-value pairs that specifies the tags to associate with the
 -- filter.
@@ -123,12 +129,7 @@ data CreateFindingsFilter = CreateFindingsFilter'
 -- tag key and an associated tag value. The maximum length of a tag key is
 -- 128 characters. The maximum length of a tag value is 256 characters.
 --
--- 'position', 'createFindingsFilter_position' - The position of the filter in the list of saved filters on the Amazon
--- Macie console. This value also determines the order in which the filter
--- is applied to findings, relative to other filters that are also applied
--- to the findings.
---
--- 'action', 'createFindingsFilter_action' - The action to perform on findings that meet the filter criteria
+-- 'action', 'createFindingsFilter_action' - The action to perform on findings that match the filter criteria
 -- (findingCriteria). Valid values are: ARCHIVE, suppress (automatically
 -- archive) the findings; and, NOOP, don\'t perform any action on the
 -- findings.
@@ -139,9 +140,9 @@ data CreateFindingsFilter = CreateFindingsFilter'
 -- characters and can contain as many as 64 characters.
 --
 -- We strongly recommend that you avoid including any sensitive data in the
--- name of a filter. Other users of your account might be able to see the
--- filter\'s name, depending on the actions that they\'re allowed to
--- perform in Amazon Macie.
+-- name of a filter. Other users of your account might be able to see this
+-- name, depending on the actions that they\'re allowed to perform in
+-- Amazon Macie.
 newCreateFindingsFilter ::
   -- | 'action'
   FindingsFilterAction ->
@@ -158,8 +159,8 @@ newCreateFindingsFilter
       { clientToken =
           Prelude.Nothing,
         description = Prelude.Nothing,
-        tags = Prelude.Nothing,
         position = Prelude.Nothing,
+        tags = Prelude.Nothing,
         action = pAction_,
         findingCriteria = pFindingCriteria_,
         name = pName_
@@ -175,10 +176,17 @@ createFindingsFilter_clientToken = Lens.lens (\CreateFindingsFilter' {clientToke
 --
 -- We strongly recommend that you avoid including any sensitive data in the
 -- description of a filter. Other users of your account might be able to
--- see the filter\'s description, depending on the actions that they\'re
--- allowed to perform in Amazon Macie.
+-- see this description, depending on the actions that they\'re allowed to
+-- perform in Amazon Macie.
 createFindingsFilter_description :: Lens.Lens' CreateFindingsFilter (Prelude.Maybe Prelude.Text)
 createFindingsFilter_description = Lens.lens (\CreateFindingsFilter' {description} -> description) (\s@CreateFindingsFilter' {} a -> s {description = a} :: CreateFindingsFilter)
+
+-- | The position of the filter in the list of saved filters on the Amazon
+-- Macie console. This value also determines the order in which the filter
+-- is applied to findings, relative to other filters that are also applied
+-- to the findings.
+createFindingsFilter_position :: Lens.Lens' CreateFindingsFilter (Prelude.Maybe Prelude.Int)
+createFindingsFilter_position = Lens.lens (\CreateFindingsFilter' {position} -> position) (\s@CreateFindingsFilter' {} a -> s {position = a} :: CreateFindingsFilter)
 
 -- | A map of key-value pairs that specifies the tags to associate with the
 -- filter.
@@ -189,14 +197,7 @@ createFindingsFilter_description = Lens.lens (\CreateFindingsFilter' {descriptio
 createFindingsFilter_tags :: Lens.Lens' CreateFindingsFilter (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 createFindingsFilter_tags = Lens.lens (\CreateFindingsFilter' {tags} -> tags) (\s@CreateFindingsFilter' {} a -> s {tags = a} :: CreateFindingsFilter) Prelude.. Lens.mapping Lens.coerced
 
--- | The position of the filter in the list of saved filters on the Amazon
--- Macie console. This value also determines the order in which the filter
--- is applied to findings, relative to other filters that are also applied
--- to the findings.
-createFindingsFilter_position :: Lens.Lens' CreateFindingsFilter (Prelude.Maybe Prelude.Int)
-createFindingsFilter_position = Lens.lens (\CreateFindingsFilter' {position} -> position) (\s@CreateFindingsFilter' {} a -> s {position = a} :: CreateFindingsFilter)
-
--- | The action to perform on findings that meet the filter criteria
+-- | The action to perform on findings that match the filter criteria
 -- (findingCriteria). Valid values are: ARCHIVE, suppress (automatically
 -- archive) the findings; and, NOOP, don\'t perform any action on the
 -- findings.
@@ -211,9 +212,9 @@ createFindingsFilter_findingCriteria = Lens.lens (\CreateFindingsFilter' {findin
 -- characters and can contain as many as 64 characters.
 --
 -- We strongly recommend that you avoid including any sensitive data in the
--- name of a filter. Other users of your account might be able to see the
--- filter\'s name, depending on the actions that they\'re allowed to
--- perform in Amazon Macie.
+-- name of a filter. Other users of your account might be able to see this
+-- name, depending on the actions that they\'re allowed to perform in
+-- Amazon Macie.
 createFindingsFilter_name :: Lens.Lens' CreateFindingsFilter Prelude.Text
 createFindingsFilter_name = Lens.lens (\CreateFindingsFilter' {name} -> name) (\s@CreateFindingsFilter' {} a -> s {name = a} :: CreateFindingsFilter)
 
@@ -221,13 +222,14 @@ instance Core.AWSRequest CreateFindingsFilter where
   type
     AWSResponse CreateFindingsFilter =
       CreateFindingsFilterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateFindingsFilterResponse'
-            Prelude.<$> (x Core..?> "arn")
-            Prelude.<*> (x Core..?> "id")
+            Prelude.<$> (x Data..?> "arn")
+            Prelude.<*> (x Data..?> "id")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -235,8 +237,8 @@ instance Prelude.Hashable CreateFindingsFilter where
   hashWithSalt _salt CreateFindingsFilter' {..} =
     _salt `Prelude.hashWithSalt` clientToken
       `Prelude.hashWithSalt` description
-      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` position
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` action
       `Prelude.hashWithSalt` findingCriteria
       `Prelude.hashWithSalt` name
@@ -245,42 +247,42 @@ instance Prelude.NFData CreateFindingsFilter where
   rnf CreateFindingsFilter' {..} =
     Prelude.rnf clientToken
       `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf position
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf action
       `Prelude.seq` Prelude.rnf findingCriteria
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateFindingsFilter where
+instance Data.ToHeaders CreateFindingsFilter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateFindingsFilter where
+instance Data.ToJSON CreateFindingsFilter where
   toJSON CreateFindingsFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags,
-            ("position" Core..=) Prelude.<$> position,
-            Prelude.Just ("action" Core..= action),
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            ("description" Data..=) Prelude.<$> description,
+            ("position" Data..=) Prelude.<$> position,
+            ("tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("action" Data..= action),
             Prelude.Just
-              ("findingCriteria" Core..= findingCriteria),
-            Prelude.Just ("name" Core..= name)
+              ("findingCriteria" Data..= findingCriteria),
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateFindingsFilter where
+instance Data.ToPath CreateFindingsFilter where
   toPath = Prelude.const "/findingsfilters"
 
-instance Core.ToQuery CreateFindingsFilter where
+instance Data.ToQuery CreateFindingsFilter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateFindingsFilterResponse' smart constructor.

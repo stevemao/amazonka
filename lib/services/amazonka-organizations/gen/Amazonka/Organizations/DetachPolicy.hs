@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Organizations.DetachPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,8 +24,8 @@
 -- account.
 --
 -- If the policy being detached is a service control policy (SCP), the
--- changes to permissions for AWS Identity and Access Management (IAM)
--- users and roles in affected accounts are immediate.
+-- changes to permissions for Identity and Access Management (IAM) users
+-- and roles in affected accounts are immediate.
 --
 -- Every root, OU, and account must have at least one SCP attached. If you
 -- want to replace the default @FullAWSAccess@ policy with an SCP that
@@ -57,7 +57,8 @@ module Amazonka.Organizations.DetachPolicy
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Organizations.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -165,7 +166,8 @@ detachPolicy_targetId = Lens.lens (\DetachPolicy' {targetId} -> targetId) (\s@De
 
 instance Core.AWSRequest DetachPolicy where
   type AWSResponse DetachPolicy = DetachPolicyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DetachPolicyResponse'
 
 instance Prelude.Hashable DetachPolicy where
@@ -178,34 +180,34 @@ instance Prelude.NFData DetachPolicy where
     Prelude.rnf policyId
       `Prelude.seq` Prelude.rnf targetId
 
-instance Core.ToHeaders DetachPolicy where
+instance Data.ToHeaders DetachPolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSOrganizationsV20161128.DetachPolicy" ::
+              Data.=# ( "AWSOrganizationsV20161128.DetachPolicy" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DetachPolicy where
+instance Data.ToJSON DetachPolicy where
   toJSON DetachPolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("PolicyId" Core..= policyId),
-            Prelude.Just ("TargetId" Core..= targetId)
+          [ Prelude.Just ("PolicyId" Data..= policyId),
+            Prelude.Just ("TargetId" Data..= targetId)
           ]
       )
 
-instance Core.ToPath DetachPolicy where
+instance Data.ToPath DetachPolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DetachPolicy where
+instance Data.ToQuery DetachPolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDetachPolicyResponse' smart constructor.

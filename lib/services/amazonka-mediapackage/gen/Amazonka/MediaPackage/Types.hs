@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackage.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,12 +18,12 @@ module Amazonka.MediaPackage.Types
     defaultService,
 
     -- * Errors
-    _UnprocessableEntityException,
     _ForbiddenException,
-    _NotFoundException,
-    _TooManyRequestsException,
     _InternalServerErrorException,
+    _NotFoundException,
     _ServiceUnavailableException,
+    _TooManyRequestsException,
+    _UnprocessableEntityException,
 
     -- * AdMarkers
     AdMarkers (..),
@@ -32,6 +33,9 @@ module Amazonka.MediaPackage.Types
 
     -- * AdsOnDeliveryRestrictions
     AdsOnDeliveryRestrictions (..),
+
+    -- * CmafEncryptionMethod
+    CmafEncryptionMethod (..),
 
     -- * EncryptionMethod
     EncryptionMethod (..),
@@ -78,38 +82,39 @@ module Amazonka.MediaPackage.Types
     -- * Channel
     Channel (..),
     newChannel,
-    channel_ingressAccessLogs,
-    channel_hlsIngest,
     channel_arn,
-    channel_id,
     channel_description,
     channel_egressAccessLogs,
+    channel_hlsIngest,
+    channel_id,
+    channel_ingressAccessLogs,
     channel_tags,
 
     -- * CmafEncryption
     CmafEncryption (..),
     newCmafEncryption,
-    cmafEncryption_keyRotationIntervalSeconds,
     cmafEncryption_constantInitializationVector,
+    cmafEncryption_encryptionMethod,
+    cmafEncryption_keyRotationIntervalSeconds,
     cmafEncryption_spekeKeyProvider,
 
     -- * CmafPackage
     CmafPackage (..),
     newCmafPackage,
+    cmafPackage_encryption,
     cmafPackage_hlsManifests,
     cmafPackage_segmentDurationSeconds,
-    cmafPackage_streamSelection,
-    cmafPackage_encryption,
     cmafPackage_segmentPrefix,
+    cmafPackage_streamSelection,
 
     -- * CmafPackageCreateOrUpdateParameters
     CmafPackageCreateOrUpdateParameters (..),
     newCmafPackageCreateOrUpdateParameters,
+    cmafPackageCreateOrUpdateParameters_encryption,
     cmafPackageCreateOrUpdateParameters_hlsManifests,
     cmafPackageCreateOrUpdateParameters_segmentDurationSeconds,
-    cmafPackageCreateOrUpdateParameters_streamSelection,
-    cmafPackageCreateOrUpdateParameters_encryption,
     cmafPackageCreateOrUpdateParameters_segmentPrefix,
+    cmafPackageCreateOrUpdateParameters_streamSelection,
 
     -- * DashEncryption
     DashEncryption (..),
@@ -120,21 +125,22 @@ module Amazonka.MediaPackage.Types
     -- * DashPackage
     DashPackage (..),
     newDashPackage,
+    dashPackage_adTriggers,
     dashPackage_adsOnDeliveryRestrictions,
+    dashPackage_encryption,
+    dashPackage_includeIframeOnlyStream,
+    dashPackage_manifestLayout,
+    dashPackage_manifestWindowSeconds,
     dashPackage_minBufferTimeSeconds,
-    dashPackage_utcTiming,
-    dashPackage_segmentTemplateFormat,
+    dashPackage_minUpdatePeriodSeconds,
+    dashPackage_periodTriggers,
     dashPackage_profile,
     dashPackage_segmentDurationSeconds,
-    dashPackage_utcTimingUri,
+    dashPackage_segmentTemplateFormat,
     dashPackage_streamSelection,
-    dashPackage_encryption,
-    dashPackage_minUpdatePeriodSeconds,
-    dashPackage_manifestLayout,
     dashPackage_suggestedPresentationDelaySeconds,
-    dashPackage_manifestWindowSeconds,
-    dashPackage_adTriggers,
-    dashPackage_periodTriggers,
+    dashPackage_utcTiming,
+    dashPackage_utcTimingUri,
 
     -- * EgressAccessLogs
     EgressAccessLogs (..),
@@ -150,22 +156,22 @@ module Amazonka.MediaPackage.Types
     -- * HarvestJob
     HarvestJob (..),
     newHarvestJob,
-    harvestJob_status,
-    harvestJob_originEndpointId,
-    harvestJob_startTime,
     harvestJob_arn,
-    harvestJob_createdAt,
     harvestJob_channelId,
-    harvestJob_s3Destination,
+    harvestJob_createdAt,
     harvestJob_endTime,
     harvestJob_id,
+    harvestJob_originEndpointId,
+    harvestJob_s3Destination,
+    harvestJob_startTime,
+    harvestJob_status,
 
     -- * HlsEncryption
     HlsEncryption (..),
     newHlsEncryption,
+    hlsEncryption_constantInitializationVector,
     hlsEncryption_encryptionMethod,
     hlsEncryption_keyRotationIntervalSeconds,
-    hlsEncryption_constantInitializationVector,
     hlsEncryption_repeatExtXKey,
     hlsEncryption_spekeKeyProvider,
 
@@ -177,51 +183,53 @@ module Amazonka.MediaPackage.Types
     -- * HlsManifest
     HlsManifest (..),
     newHlsManifest,
-    hlsManifest_manifestName,
-    hlsManifest_url,
-    hlsManifest_playlistType,
-    hlsManifest_programDateTimeIntervalSeconds,
     hlsManifest_adMarkers,
+    hlsManifest_adTriggers,
+    hlsManifest_adsOnDeliveryRestrictions,
     hlsManifest_includeIframeOnlyStream,
+    hlsManifest_manifestName,
+    hlsManifest_playlistType,
     hlsManifest_playlistWindowSeconds,
+    hlsManifest_programDateTimeIntervalSeconds,
+    hlsManifest_url,
     hlsManifest_id,
 
     -- * HlsManifestCreateOrUpdateParameters
     HlsManifestCreateOrUpdateParameters (..),
     newHlsManifestCreateOrUpdateParameters,
+    hlsManifestCreateOrUpdateParameters_adMarkers,
+    hlsManifestCreateOrUpdateParameters_adTriggers,
     hlsManifestCreateOrUpdateParameters_adsOnDeliveryRestrictions,
+    hlsManifestCreateOrUpdateParameters_includeIframeOnlyStream,
     hlsManifestCreateOrUpdateParameters_manifestName,
     hlsManifestCreateOrUpdateParameters_playlistType,
-    hlsManifestCreateOrUpdateParameters_programDateTimeIntervalSeconds,
-    hlsManifestCreateOrUpdateParameters_adMarkers,
-    hlsManifestCreateOrUpdateParameters_includeIframeOnlyStream,
-    hlsManifestCreateOrUpdateParameters_adTriggers,
     hlsManifestCreateOrUpdateParameters_playlistWindowSeconds,
+    hlsManifestCreateOrUpdateParameters_programDateTimeIntervalSeconds,
     hlsManifestCreateOrUpdateParameters_id,
 
     -- * HlsPackage
     HlsPackage (..),
     newHlsPackage,
-    hlsPackage_adsOnDeliveryRestrictions,
-    hlsPackage_useAudioRenditionGroup,
-    hlsPackage_includeDvbSubtitles,
-    hlsPackage_playlistType,
-    hlsPackage_segmentDurationSeconds,
-    hlsPackage_programDateTimeIntervalSeconds,
-    hlsPackage_streamSelection,
     hlsPackage_adMarkers,
-    hlsPackage_encryption,
-    hlsPackage_includeIframeOnlyStream,
     hlsPackage_adTriggers,
+    hlsPackage_adsOnDeliveryRestrictions,
+    hlsPackage_encryption,
+    hlsPackage_includeDvbSubtitles,
+    hlsPackage_includeIframeOnlyStream,
+    hlsPackage_playlistType,
     hlsPackage_playlistWindowSeconds,
+    hlsPackage_programDateTimeIntervalSeconds,
+    hlsPackage_segmentDurationSeconds,
+    hlsPackage_streamSelection,
+    hlsPackage_useAudioRenditionGroup,
 
     -- * IngestEndpoint
     IngestEndpoint (..),
     newIngestEndpoint,
+    ingestEndpoint_id,
+    ingestEndpoint_password,
     ingestEndpoint_url,
     ingestEndpoint_username,
-    ingestEndpoint_password,
-    ingestEndpoint_id,
 
     -- * IngressAccessLogs
     IngressAccessLogs (..),
@@ -236,30 +244,30 @@ module Amazonka.MediaPackage.Types
     -- * MssPackage
     MssPackage (..),
     newMssPackage,
-    mssPackage_segmentDurationSeconds,
-    mssPackage_streamSelection,
     mssPackage_encryption,
     mssPackage_manifestWindowSeconds,
+    mssPackage_segmentDurationSeconds,
+    mssPackage_streamSelection,
 
     -- * OriginEndpoint
     OriginEndpoint (..),
     newOriginEndpoint,
-    originEndpoint_whitelist,
-    originEndpoint_hlsPackage,
     originEndpoint_arn,
-    originEndpoint_manifestName,
-    originEndpoint_url,
     originEndpoint_authorization,
     originEndpoint_channelId,
-    originEndpoint_startoverWindowSeconds,
-    originEndpoint_dashPackage,
-    originEndpoint_mssPackage,
-    originEndpoint_id,
-    originEndpoint_timeDelaySeconds,
     originEndpoint_cmafPackage,
+    originEndpoint_dashPackage,
     originEndpoint_description,
-    originEndpoint_tags,
+    originEndpoint_hlsPackage,
+    originEndpoint_id,
+    originEndpoint_manifestName,
+    originEndpoint_mssPackage,
     originEndpoint_origination,
+    originEndpoint_startoverWindowSeconds,
+    originEndpoint_tags,
+    originEndpoint_timeDelaySeconds,
+    originEndpoint_url,
+    originEndpoint_whitelist,
 
     -- * S3Destination
     S3Destination (..),
@@ -271,8 +279,8 @@ module Amazonka.MediaPackage.Types
     -- * SpekeKeyProvider
     SpekeKeyProvider (..),
     newSpekeKeyProvider,
-    spekeKeyProvider_encryptionContractConfiguration,
     spekeKeyProvider_certificateArn,
+    spekeKeyProvider_encryptionContractConfiguration,
     spekeKeyProvider_resourceId,
     spekeKeyProvider_systemIds,
     spekeKeyProvider_url,
@@ -281,20 +289,21 @@ module Amazonka.MediaPackage.Types
     -- * StreamSelection
     StreamSelection (..),
     newStreamSelection,
-    streamSelection_streamOrder,
-    streamSelection_minVideoBitsPerSecond,
     streamSelection_maxVideoBitsPerSecond,
+    streamSelection_minVideoBitsPerSecond,
+    streamSelection_streamOrder,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.MediaPackage.Types.AdMarkers
 import Amazonka.MediaPackage.Types.AdTriggersElement
 import Amazonka.MediaPackage.Types.AdsOnDeliveryRestrictions
 import Amazonka.MediaPackage.Types.Authorization
 import Amazonka.MediaPackage.Types.Channel
 import Amazonka.MediaPackage.Types.CmafEncryption
+import Amazonka.MediaPackage.Types.CmafEncryptionMethod
 import Amazonka.MediaPackage.Types.CmafPackage
 import Amazonka.MediaPackage.Types.CmafPackageCreateOrUpdateParameters
 import Amazonka.MediaPackage.Types.DashEncryption
@@ -334,42 +343,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev = "MediaPackage",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "mediapackage",
-      Core._serviceSigningName = "mediapackage",
-      Core._serviceVersion = "2017-10-12",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseJSONError "MediaPackage",
-      Core._serviceRetry = retry
+    { Core.abbrev = "MediaPackage",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "mediapackage",
+      Core.signingName = "mediapackage",
+      Core.version = "2017-10-12",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseJSONError "MediaPackage",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -377,37 +393,21 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
-
--- | The parameters sent in the request are not valid.
-_UnprocessableEntityException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_UnprocessableEntityException =
-  Core._MatchServiceError
-    defaultService
-    "UnprocessableEntityException"
-    Prelude.. Core.hasStatus 422
 
 -- | The client is not authorized to access the requested resource.
 _ForbiddenException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -417,6 +417,14 @@ _ForbiddenException =
     "ForbiddenException"
     Prelude.. Core.hasStatus 403
 
+-- | An unexpected error occurred.
+_InternalServerErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InternalServerErrorException =
+  Core._MatchServiceError
+    defaultService
+    "InternalServerErrorException"
+    Prelude.. Core.hasStatus 500
+
 -- | The requested resource does not exist.
 _NotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
 _NotFoundException =
@@ -424,6 +432,14 @@ _NotFoundException =
     defaultService
     "NotFoundException"
     Prelude.. Core.hasStatus 404
+
+-- | An unexpected error occurred.
+_ServiceUnavailableException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ServiceUnavailableException =
+  Core._MatchServiceError
+    defaultService
+    "ServiceUnavailableException"
+    Prelude.. Core.hasStatus 503
 
 -- | The client has exceeded their resource or throttling limits.
 _TooManyRequestsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
@@ -433,18 +449,10 @@ _TooManyRequestsException =
     "TooManyRequestsException"
     Prelude.. Core.hasStatus 429
 
--- | An unexpected error occurred.
-_InternalServerErrorException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InternalServerErrorException =
+-- | The parameters sent in the request are not valid.
+_UnprocessableEntityException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_UnprocessableEntityException =
   Core._MatchServiceError
     defaultService
-    "InternalServerErrorException"
-    Prelude.. Core.hasStatus 500
-
--- | An unexpected error occurred.
-_ServiceUnavailableException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ServiceUnavailableException =
-  Core._MatchServiceError
-    defaultService
-    "ServiceUnavailableException"
-    Prelude.. Core.hasStatus 503
+    "UnprocessableEntityException"
+    Prelude.. Core.hasStatus 422

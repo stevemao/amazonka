@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.CreateJourney
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Pinpoint.CreateJourney
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -95,13 +96,14 @@ instance Core.AWSRequest CreateJourney where
   type
     AWSResponse CreateJourney =
       CreateJourneyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateJourneyResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable CreateJourney where
@@ -114,32 +116,27 @@ instance Prelude.NFData CreateJourney where
     Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf writeJourneyRequest
 
-instance Core.ToHeaders CreateJourney where
+instance Data.ToHeaders CreateJourney where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateJourney where
+instance Data.ToJSON CreateJourney where
   toJSON CreateJourney' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ Prelude.Just
-              ("WriteJourneyRequest" Core..= writeJourneyRequest)
-          ]
-      )
+    Data.toJSON writeJourneyRequest
 
-instance Core.ToPath CreateJourney where
+instance Data.ToPath CreateJourney where
   toPath CreateJourney' {..} =
     Prelude.mconcat
-      ["/v1/apps/", Core.toBS applicationId, "/journeys"]
+      ["/v1/apps/", Data.toBS applicationId, "/journeys"]
 
-instance Core.ToQuery CreateJourney where
+instance Data.ToQuery CreateJourney where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateJourneyResponse' smart constructor.

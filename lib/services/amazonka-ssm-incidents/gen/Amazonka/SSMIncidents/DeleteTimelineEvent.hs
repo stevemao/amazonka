@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.DeleteTimelineEvent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ module Amazonka.SSMIncidents.DeleteTimelineEvent
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,8 +52,8 @@ data DeleteTimelineEvent = DeleteTimelineEvent'
   { -- | The ID of the event you are updating. You can find this by using
     -- @ListTimelineEvents@.
     eventId :: Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the incident that the event is part
-    -- of.
+    -- | The Amazon Resource Name (ARN) of the incident that includes the
+    -- timeline event.
     incidentRecordArn :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -68,8 +69,8 @@ data DeleteTimelineEvent = DeleteTimelineEvent'
 -- 'eventId', 'deleteTimelineEvent_eventId' - The ID of the event you are updating. You can find this by using
 -- @ListTimelineEvents@.
 --
--- 'incidentRecordArn', 'deleteTimelineEvent_incidentRecordArn' - The Amazon Resource Name (ARN) of the incident that the event is part
--- of.
+-- 'incidentRecordArn', 'deleteTimelineEvent_incidentRecordArn' - The Amazon Resource Name (ARN) of the incident that includes the
+-- timeline event.
 newDeleteTimelineEvent ::
   -- | 'eventId'
   Prelude.Text ->
@@ -87,8 +88,8 @@ newDeleteTimelineEvent pEventId_ pIncidentRecordArn_ =
 deleteTimelineEvent_eventId :: Lens.Lens' DeleteTimelineEvent Prelude.Text
 deleteTimelineEvent_eventId = Lens.lens (\DeleteTimelineEvent' {eventId} -> eventId) (\s@DeleteTimelineEvent' {} a -> s {eventId = a} :: DeleteTimelineEvent)
 
--- | The Amazon Resource Name (ARN) of the incident that the event is part
--- of.
+-- | The Amazon Resource Name (ARN) of the incident that includes the
+-- timeline event.
 deleteTimelineEvent_incidentRecordArn :: Lens.Lens' DeleteTimelineEvent Prelude.Text
 deleteTimelineEvent_incidentRecordArn = Lens.lens (\DeleteTimelineEvent' {incidentRecordArn} -> incidentRecordArn) (\s@DeleteTimelineEvent' {} a -> s {incidentRecordArn = a} :: DeleteTimelineEvent)
 
@@ -96,7 +97,8 @@ instance Core.AWSRequest DeleteTimelineEvent where
   type
     AWSResponse DeleteTimelineEvent =
       DeleteTimelineEventResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,31 +116,31 @@ instance Prelude.NFData DeleteTimelineEvent where
     Prelude.rnf eventId
       `Prelude.seq` Prelude.rnf incidentRecordArn
 
-instance Core.ToHeaders DeleteTimelineEvent where
+instance Data.ToHeaders DeleteTimelineEvent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteTimelineEvent where
+instance Data.ToJSON DeleteTimelineEvent where
   toJSON DeleteTimelineEvent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("eventId" Core..= eventId),
+          [ Prelude.Just ("eventId" Data..= eventId),
             Prelude.Just
-              ("incidentRecordArn" Core..= incidentRecordArn)
+              ("incidentRecordArn" Data..= incidentRecordArn)
           ]
       )
 
-instance Core.ToPath DeleteTimelineEvent where
+instance Data.ToPath DeleteTimelineEvent where
   toPath = Prelude.const "/deleteTimelineEvent"
 
-instance Core.ToQuery DeleteTimelineEvent where
+instance Data.ToQuery DeleteTimelineEvent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteTimelineEventResponse' smart constructor.

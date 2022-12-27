@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.CreateWorkspaces
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,6 +24,11 @@
 --
 -- This operation is asynchronous and returns before the WorkSpaces are
 -- created.
+--
+-- The @MANUAL@ running mode value is only supported by Amazon WorkSpaces
+-- Core. Contact your account team to be allow-listed to use this value.
+-- For more information, see
+-- <http://aws.amazon.com/workspaces/core/ Amazon WorkSpaces Core>.
 module Amazonka.WorkSpaces.CreateWorkspaces
   ( -- * Creating a Request
     CreateWorkspaces (..),
@@ -44,7 +49,8 @@ module Amazonka.WorkSpaces.CreateWorkspaces
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -84,13 +90,14 @@ instance Core.AWSRequest CreateWorkspaces where
   type
     AWSResponse CreateWorkspaces =
       CreateWorkspacesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateWorkspacesResponse'
-            Prelude.<$> (x Core..?> "FailedRequests" Core..!@ Prelude.mempty)
-            Prelude.<*> ( x Core..?> "PendingRequests"
+            Prelude.<$> (x Data..?> "FailedRequests" Core..!@ Prelude.mempty)
+            Prelude.<*> ( x Data..?> "PendingRequests"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -103,32 +110,32 @@ instance Prelude.Hashable CreateWorkspaces where
 instance Prelude.NFData CreateWorkspaces where
   rnf CreateWorkspaces' {..} = Prelude.rnf workspaces
 
-instance Core.ToHeaders CreateWorkspaces where
+instance Data.ToHeaders CreateWorkspaces where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.CreateWorkspaces" ::
+              Data.=# ( "WorkspacesService.CreateWorkspaces" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateWorkspaces where
+instance Data.ToJSON CreateWorkspaces where
   toJSON CreateWorkspaces' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Workspaces" Core..= workspaces)]
+          [Prelude.Just ("Workspaces" Data..= workspaces)]
       )
 
-instance Core.ToPath CreateWorkspaces where
+instance Data.ToPath CreateWorkspaces where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateWorkspaces where
+instance Data.ToQuery CreateWorkspaces where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateWorkspacesResponse' smart constructor.

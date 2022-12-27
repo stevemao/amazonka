@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.ProvisionByoipCidr
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,11 +47,11 @@ module Amazonka.EC2.ProvisionByoipCidr
 
     -- * Request Lenses
     provisionByoipCidr_cidrAuthorizationContext,
-    provisionByoipCidr_poolTagSpecifications,
-    provisionByoipCidr_publiclyAdvertisable,
     provisionByoipCidr_description,
     provisionByoipCidr_dryRun,
     provisionByoipCidr_multiRegion,
+    provisionByoipCidr_poolTagSpecifications,
+    provisionByoipCidr_publiclyAdvertisable,
     provisionByoipCidr_cidr,
 
     -- * Destructuring the Response
@@ -65,8 +65,9 @@ module Amazonka.EC2.ProvisionByoipCidr
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,13 +77,6 @@ data ProvisionByoipCidr = ProvisionByoipCidr'
   { -- | A signed document that proves that you are authorized to bring the
     -- specified IP address range to Amazon using BYOIP.
     cidrAuthorizationContext :: Prelude.Maybe CidrAuthorizationContext,
-    -- | The tags to apply to the address pool.
-    poolTagSpecifications :: Prelude.Maybe [TagSpecification],
-    -- | (IPv6 only) Indicate whether the address range will be publicly
-    -- advertised to the internet.
-    --
-    -- Default: true
-    publiclyAdvertisable :: Prelude.Maybe Prelude.Bool,
     -- | A description for the address range and the address pool.
     description :: Prelude.Maybe Prelude.Text,
     -- | Checks whether you have the required permissions for the action, without
@@ -92,6 +86,13 @@ data ProvisionByoipCidr = ProvisionByoipCidr'
     dryRun :: Prelude.Maybe Prelude.Bool,
     -- | Reserved.
     multiRegion :: Prelude.Maybe Prelude.Bool,
+    -- | The tags to apply to the address pool.
+    poolTagSpecifications :: Prelude.Maybe [TagSpecification],
+    -- | (IPv6 only) Indicate whether the address range will be publicly
+    -- advertised to the internet.
+    --
+    -- Default: true
+    publiclyAdvertisable :: Prelude.Maybe Prelude.Bool,
     -- | The public IPv4 or IPv6 address range, in CIDR notation. The most
     -- specific IPv4 prefix that you can specify is \/24. The most specific
     -- IPv6 prefix you can specify is \/56. The address range cannot overlap
@@ -112,13 +113,6 @@ data ProvisionByoipCidr = ProvisionByoipCidr'
 -- 'cidrAuthorizationContext', 'provisionByoipCidr_cidrAuthorizationContext' - A signed document that proves that you are authorized to bring the
 -- specified IP address range to Amazon using BYOIP.
 --
--- 'poolTagSpecifications', 'provisionByoipCidr_poolTagSpecifications' - The tags to apply to the address pool.
---
--- 'publiclyAdvertisable', 'provisionByoipCidr_publiclyAdvertisable' - (IPv6 only) Indicate whether the address range will be publicly
--- advertised to the internet.
---
--- Default: true
---
 -- 'description', 'provisionByoipCidr_description' - A description for the address range and the address pool.
 --
 -- 'dryRun', 'provisionByoipCidr_dryRun' - Checks whether you have the required permissions for the action, without
@@ -127,6 +121,13 @@ data ProvisionByoipCidr = ProvisionByoipCidr'
 -- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'multiRegion', 'provisionByoipCidr_multiRegion' - Reserved.
+--
+-- 'poolTagSpecifications', 'provisionByoipCidr_poolTagSpecifications' - The tags to apply to the address pool.
+--
+-- 'publiclyAdvertisable', 'provisionByoipCidr_publiclyAdvertisable' - (IPv6 only) Indicate whether the address range will be publicly
+-- advertised to the internet.
+--
+-- Default: true
 --
 -- 'cidr', 'provisionByoipCidr_cidr' - The public IPv4 or IPv6 address range, in CIDR notation. The most
 -- specific IPv4 prefix that you can specify is \/24. The most specific
@@ -141,11 +142,11 @@ newProvisionByoipCidr pCidr_ =
   ProvisionByoipCidr'
     { cidrAuthorizationContext =
         Prelude.Nothing,
-      poolTagSpecifications = Prelude.Nothing,
-      publiclyAdvertisable = Prelude.Nothing,
       description = Prelude.Nothing,
       dryRun = Prelude.Nothing,
       multiRegion = Prelude.Nothing,
+      poolTagSpecifications = Prelude.Nothing,
+      publiclyAdvertisable = Prelude.Nothing,
       cidr = pCidr_
     }
 
@@ -153,17 +154,6 @@ newProvisionByoipCidr pCidr_ =
 -- specified IP address range to Amazon using BYOIP.
 provisionByoipCidr_cidrAuthorizationContext :: Lens.Lens' ProvisionByoipCidr (Prelude.Maybe CidrAuthorizationContext)
 provisionByoipCidr_cidrAuthorizationContext = Lens.lens (\ProvisionByoipCidr' {cidrAuthorizationContext} -> cidrAuthorizationContext) (\s@ProvisionByoipCidr' {} a -> s {cidrAuthorizationContext = a} :: ProvisionByoipCidr)
-
--- | The tags to apply to the address pool.
-provisionByoipCidr_poolTagSpecifications :: Lens.Lens' ProvisionByoipCidr (Prelude.Maybe [TagSpecification])
-provisionByoipCidr_poolTagSpecifications = Lens.lens (\ProvisionByoipCidr' {poolTagSpecifications} -> poolTagSpecifications) (\s@ProvisionByoipCidr' {} a -> s {poolTagSpecifications = a} :: ProvisionByoipCidr) Prelude.. Lens.mapping Lens.coerced
-
--- | (IPv6 only) Indicate whether the address range will be publicly
--- advertised to the internet.
---
--- Default: true
-provisionByoipCidr_publiclyAdvertisable :: Lens.Lens' ProvisionByoipCidr (Prelude.Maybe Prelude.Bool)
-provisionByoipCidr_publiclyAdvertisable = Lens.lens (\ProvisionByoipCidr' {publiclyAdvertisable} -> publiclyAdvertisable) (\s@ProvisionByoipCidr' {} a -> s {publiclyAdvertisable = a} :: ProvisionByoipCidr)
 
 -- | A description for the address range and the address pool.
 provisionByoipCidr_description :: Lens.Lens' ProvisionByoipCidr (Prelude.Maybe Prelude.Text)
@@ -180,6 +170,17 @@ provisionByoipCidr_dryRun = Lens.lens (\ProvisionByoipCidr' {dryRun} -> dryRun) 
 provisionByoipCidr_multiRegion :: Lens.Lens' ProvisionByoipCidr (Prelude.Maybe Prelude.Bool)
 provisionByoipCidr_multiRegion = Lens.lens (\ProvisionByoipCidr' {multiRegion} -> multiRegion) (\s@ProvisionByoipCidr' {} a -> s {multiRegion = a} :: ProvisionByoipCidr)
 
+-- | The tags to apply to the address pool.
+provisionByoipCidr_poolTagSpecifications :: Lens.Lens' ProvisionByoipCidr (Prelude.Maybe [TagSpecification])
+provisionByoipCidr_poolTagSpecifications = Lens.lens (\ProvisionByoipCidr' {poolTagSpecifications} -> poolTagSpecifications) (\s@ProvisionByoipCidr' {} a -> s {poolTagSpecifications = a} :: ProvisionByoipCidr) Prelude.. Lens.mapping Lens.coerced
+
+-- | (IPv6 only) Indicate whether the address range will be publicly
+-- advertised to the internet.
+--
+-- Default: true
+provisionByoipCidr_publiclyAdvertisable :: Lens.Lens' ProvisionByoipCidr (Prelude.Maybe Prelude.Bool)
+provisionByoipCidr_publiclyAdvertisable = Lens.lens (\ProvisionByoipCidr' {publiclyAdvertisable} -> publiclyAdvertisable) (\s@ProvisionByoipCidr' {} a -> s {publiclyAdvertisable = a} :: ProvisionByoipCidr)
+
 -- | The public IPv4 or IPv6 address range, in CIDR notation. The most
 -- specific IPv4 prefix that you can specify is \/24. The most specific
 -- IPv6 prefix you can specify is \/56. The address range cannot overlap
@@ -192,12 +193,13 @@ instance Core.AWSRequest ProvisionByoipCidr where
   type
     AWSResponse ProvisionByoipCidr =
       ProvisionByoipCidrResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           ProvisionByoipCidrResponse'
-            Prelude.<$> (x Core..@? "byoipCidr")
+            Prelude.<$> (x Data..@? "byoipCidr")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -205,47 +207,47 @@ instance Prelude.Hashable ProvisionByoipCidr where
   hashWithSalt _salt ProvisionByoipCidr' {..} =
     _salt
       `Prelude.hashWithSalt` cidrAuthorizationContext
-      `Prelude.hashWithSalt` poolTagSpecifications
-      `Prelude.hashWithSalt` publiclyAdvertisable
       `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` dryRun
       `Prelude.hashWithSalt` multiRegion
+      `Prelude.hashWithSalt` poolTagSpecifications
+      `Prelude.hashWithSalt` publiclyAdvertisable
       `Prelude.hashWithSalt` cidr
 
 instance Prelude.NFData ProvisionByoipCidr where
   rnf ProvisionByoipCidr' {..} =
     Prelude.rnf cidrAuthorizationContext
-      `Prelude.seq` Prelude.rnf poolTagSpecifications
-      `Prelude.seq` Prelude.rnf publiclyAdvertisable
       `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf dryRun
       `Prelude.seq` Prelude.rnf multiRegion
+      `Prelude.seq` Prelude.rnf poolTagSpecifications
+      `Prelude.seq` Prelude.rnf publiclyAdvertisable
       `Prelude.seq` Prelude.rnf cidr
 
-instance Core.ToHeaders ProvisionByoipCidr where
+instance Data.ToHeaders ProvisionByoipCidr where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ProvisionByoipCidr where
+instance Data.ToPath ProvisionByoipCidr where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ProvisionByoipCidr where
+instance Data.ToQuery ProvisionByoipCidr where
   toQuery ProvisionByoipCidr' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ProvisionByoipCidr" :: Prelude.ByteString),
+          Data.=: ("ProvisionByoipCidr" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
         "CidrAuthorizationContext"
-          Core.=: cidrAuthorizationContext,
-        Core.toQuery
-          ( Core.toQueryList "PoolTagSpecification"
+          Data.=: cidrAuthorizationContext,
+        "Description" Data.=: description,
+        "DryRun" Data.=: dryRun,
+        "MultiRegion" Data.=: multiRegion,
+        Data.toQuery
+          ( Data.toQueryList "PoolTagSpecification"
               Prelude.<$> poolTagSpecifications
           ),
-        "PubliclyAdvertisable" Core.=: publiclyAdvertisable,
-        "Description" Core.=: description,
-        "DryRun" Core.=: dryRun,
-        "MultiRegion" Core.=: multiRegion,
-        "Cidr" Core.=: cidr
+        "PubliclyAdvertisable" Data.=: publiclyAdvertisable,
+        "Cidr" Data.=: cidr
       ]
 
 -- | /See:/ 'newProvisionByoipCidrResponse' smart constructor.

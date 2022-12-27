@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Synthetics.Types.CanaryScheduleOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Synthetics.Types.CanaryScheduleOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | How long, in seconds, for the canary to continue making regular runs
@@ -117,14 +118,14 @@ canaryScheduleOutput_durationInSeconds = Lens.lens (\CanaryScheduleOutput' {dura
 canaryScheduleOutput_expression :: Lens.Lens' CanaryScheduleOutput (Prelude.Maybe Prelude.Text)
 canaryScheduleOutput_expression = Lens.lens (\CanaryScheduleOutput' {expression} -> expression) (\s@CanaryScheduleOutput' {} a -> s {expression = a} :: CanaryScheduleOutput)
 
-instance Core.FromJSON CanaryScheduleOutput where
+instance Data.FromJSON CanaryScheduleOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CanaryScheduleOutput"
       ( \x ->
           CanaryScheduleOutput'
-            Prelude.<$> (x Core..:? "DurationInSeconds")
-            Prelude.<*> (x Core..:? "Expression")
+            Prelude.<$> (x Data..:? "DurationInSeconds")
+            Prelude.<*> (x Data..:? "Expression")
       )
 
 instance Prelude.Hashable CanaryScheduleOutput where

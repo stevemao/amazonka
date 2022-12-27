@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.CreateTestGridProject
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -28,8 +28,8 @@ module Amazonka.DeviceFarm.CreateTestGridProject
     newCreateTestGridProject,
 
     -- * Request Lenses
-    createTestGridProject_vpcConfig,
     createTestGridProject_description,
+    createTestGridProject_vpcConfig,
     createTestGridProject_name,
 
     -- * Destructuring the Response
@@ -43,18 +43,19 @@ module Amazonka.DeviceFarm.CreateTestGridProject
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateTestGridProject' smart constructor.
 data CreateTestGridProject = CreateTestGridProject'
-  { -- | The VPC security groups and subnets that are attached to a project.
-    vpcConfig :: Prelude.Maybe TestGridVpcConfig,
-    -- | Human-readable description of the project.
+  { -- | Human-readable description of the project.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The VPC security groups and subnets that are attached to a project.
+    vpcConfig :: Prelude.Maybe TestGridVpcConfig,
     -- | Human-readable name of the Selenium testing project.
     name :: Prelude.Text
   }
@@ -68,9 +69,9 @@ data CreateTestGridProject = CreateTestGridProject'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'vpcConfig', 'createTestGridProject_vpcConfig' - The VPC security groups and subnets that are attached to a project.
---
 -- 'description', 'createTestGridProject_description' - Human-readable description of the project.
+--
+-- 'vpcConfig', 'createTestGridProject_vpcConfig' - The VPC security groups and subnets that are attached to a project.
 --
 -- 'name', 'createTestGridProject_name' - Human-readable name of the Selenium testing project.
 newCreateTestGridProject ::
@@ -79,18 +80,19 @@ newCreateTestGridProject ::
   CreateTestGridProject
 newCreateTestGridProject pName_ =
   CreateTestGridProject'
-    { vpcConfig = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description =
+        Prelude.Nothing,
+      vpcConfig = Prelude.Nothing,
       name = pName_
     }
-
--- | The VPC security groups and subnets that are attached to a project.
-createTestGridProject_vpcConfig :: Lens.Lens' CreateTestGridProject (Prelude.Maybe TestGridVpcConfig)
-createTestGridProject_vpcConfig = Lens.lens (\CreateTestGridProject' {vpcConfig} -> vpcConfig) (\s@CreateTestGridProject' {} a -> s {vpcConfig = a} :: CreateTestGridProject)
 
 -- | Human-readable description of the project.
 createTestGridProject_description :: Lens.Lens' CreateTestGridProject (Prelude.Maybe Prelude.Text)
 createTestGridProject_description = Lens.lens (\CreateTestGridProject' {description} -> description) (\s@CreateTestGridProject' {} a -> s {description = a} :: CreateTestGridProject)
+
+-- | The VPC security groups and subnets that are attached to a project.
+createTestGridProject_vpcConfig :: Lens.Lens' CreateTestGridProject (Prelude.Maybe TestGridVpcConfig)
+createTestGridProject_vpcConfig = Lens.lens (\CreateTestGridProject' {vpcConfig} -> vpcConfig) (\s@CreateTestGridProject' {} a -> s {vpcConfig = a} :: CreateTestGridProject)
 
 -- | Human-readable name of the Selenium testing project.
 createTestGridProject_name :: Lens.Lens' CreateTestGridProject Prelude.Text
@@ -100,56 +102,57 @@ instance Core.AWSRequest CreateTestGridProject where
   type
     AWSResponse CreateTestGridProject =
       CreateTestGridProjectResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateTestGridProjectResponse'
-            Prelude.<$> (x Core..?> "testGridProject")
+            Prelude.<$> (x Data..?> "testGridProject")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateTestGridProject where
   hashWithSalt _salt CreateTestGridProject' {..} =
-    _salt `Prelude.hashWithSalt` vpcConfig
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` vpcConfig
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData CreateTestGridProject where
   rnf CreateTestGridProject' {..} =
-    Prelude.rnf vpcConfig
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf vpcConfig
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreateTestGridProject where
+instance Data.ToHeaders CreateTestGridProject where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DeviceFarm_20150623.CreateTestGridProject" ::
+              Data.=# ( "DeviceFarm_20150623.CreateTestGridProject" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateTestGridProject where
+instance Data.ToJSON CreateTestGridProject where
   toJSON CreateTestGridProject' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("vpcConfig" Core..=) Prelude.<$> vpcConfig,
-            ("description" Core..=) Prelude.<$> description,
-            Prelude.Just ("name" Core..= name)
+          [ ("description" Data..=) Prelude.<$> description,
+            ("vpcConfig" Data..=) Prelude.<$> vpcConfig,
+            Prelude.Just ("name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreateTestGridProject where
+instance Data.ToPath CreateTestGridProject where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateTestGridProject where
+instance Data.ToQuery CreateTestGridProject where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateTestGridProjectResponse' smart constructor.

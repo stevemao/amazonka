@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.OpsEntityItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.SSM.Types.OpsEntityItem where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The OpsData summary.
 --
 -- /See:/ 'newOpsEntityItem' smart constructor.
 data OpsEntityItem = OpsEntityItem'
-  { -- | The details of an OpsData summary.
-    content :: Prelude.Maybe [Prelude.HashMap Prelude.Text Prelude.Text],
-    -- | The time the OpsData was captured.
-    captureTime :: Prelude.Maybe Prelude.Text
+  { -- | The time the OpsData was captured.
+    captureTime :: Prelude.Maybe Prelude.Text,
+    -- | The details of an OpsData summary.
+    content :: Prelude.Maybe [Prelude.HashMap Prelude.Text Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,41 +43,41 @@ data OpsEntityItem = OpsEntityItem'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'content', 'opsEntityItem_content' - The details of an OpsData summary.
---
 -- 'captureTime', 'opsEntityItem_captureTime' - The time the OpsData was captured.
+--
+-- 'content', 'opsEntityItem_content' - The details of an OpsData summary.
 newOpsEntityItem ::
   OpsEntityItem
 newOpsEntityItem =
   OpsEntityItem'
-    { content = Prelude.Nothing,
-      captureTime = Prelude.Nothing
+    { captureTime = Prelude.Nothing,
+      content = Prelude.Nothing
     }
-
--- | The details of an OpsData summary.
-opsEntityItem_content :: Lens.Lens' OpsEntityItem (Prelude.Maybe [Prelude.HashMap Prelude.Text Prelude.Text])
-opsEntityItem_content = Lens.lens (\OpsEntityItem' {content} -> content) (\s@OpsEntityItem' {} a -> s {content = a} :: OpsEntityItem) Prelude.. Lens.mapping Lens.coerced
 
 -- | The time the OpsData was captured.
 opsEntityItem_captureTime :: Lens.Lens' OpsEntityItem (Prelude.Maybe Prelude.Text)
 opsEntityItem_captureTime = Lens.lens (\OpsEntityItem' {captureTime} -> captureTime) (\s@OpsEntityItem' {} a -> s {captureTime = a} :: OpsEntityItem)
 
-instance Core.FromJSON OpsEntityItem where
+-- | The details of an OpsData summary.
+opsEntityItem_content :: Lens.Lens' OpsEntityItem (Prelude.Maybe [Prelude.HashMap Prelude.Text Prelude.Text])
+opsEntityItem_content = Lens.lens (\OpsEntityItem' {content} -> content) (\s@OpsEntityItem' {} a -> s {content = a} :: OpsEntityItem) Prelude.. Lens.mapping Lens.coerced
+
+instance Data.FromJSON OpsEntityItem where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OpsEntityItem"
       ( \x ->
           OpsEntityItem'
-            Prelude.<$> (x Core..:? "Content" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "CaptureTime")
+            Prelude.<$> (x Data..:? "CaptureTime")
+            Prelude.<*> (x Data..:? "Content" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable OpsEntityItem where
   hashWithSalt _salt OpsEntityItem' {..} =
-    _salt `Prelude.hashWithSalt` content
-      `Prelude.hashWithSalt` captureTime
+    _salt `Prelude.hashWithSalt` captureTime
+      `Prelude.hashWithSalt` content
 
 instance Prelude.NFData OpsEntityItem where
   rnf OpsEntityItem' {..} =
-    Prelude.rnf content
-      `Prelude.seq` Prelude.rnf captureTime
+    Prelude.rnf captureTime
+      `Prelude.seq` Prelude.rnf content

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSMIncidents.Types.IncidentRecordSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,22 +20,24 @@
 module Amazonka.SSMIncidents.Types.IncidentRecordSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Details about how the incident record was created and when.
+-- | Details about what created the incident record and when it was created.
 --
 -- /See:/ 'newIncidentRecordSource' smart constructor.
 data IncidentRecordSource = IncidentRecordSource'
-  { -- | The principal the assumed the role specified of the @createdBy@.
+  { -- | The service principal that assumed the role specified in @createdBy@. If
+    -- no service principal assumed the role this will be left blank.
     invokedBy :: Prelude.Maybe Prelude.Text,
     -- | The resource that caused the incident to be created.
     resourceArn :: Prelude.Maybe Prelude.Text,
     -- | The principal that started the incident.
     createdBy :: Prelude.Text,
     -- | The service that started the incident. This can be manually created from
-    -- Incident Manager, automatically created using an AWS CloudWatch alarm,
-    -- or Amazon EventBridge event.
+    -- Incident Manager, automatically created using an Amazon CloudWatch
+    -- alarm, or Amazon EventBridge event.
     source :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -48,15 +50,16 @@ data IncidentRecordSource = IncidentRecordSource'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'invokedBy', 'incidentRecordSource_invokedBy' - The principal the assumed the role specified of the @createdBy@.
+-- 'invokedBy', 'incidentRecordSource_invokedBy' - The service principal that assumed the role specified in @createdBy@. If
+-- no service principal assumed the role this will be left blank.
 --
 -- 'resourceArn', 'incidentRecordSource_resourceArn' - The resource that caused the incident to be created.
 --
 -- 'createdBy', 'incidentRecordSource_createdBy' - The principal that started the incident.
 --
 -- 'source', 'incidentRecordSource_source' - The service that started the incident. This can be manually created from
--- Incident Manager, automatically created using an AWS CloudWatch alarm,
--- or Amazon EventBridge event.
+-- Incident Manager, automatically created using an Amazon CloudWatch
+-- alarm, or Amazon EventBridge event.
 newIncidentRecordSource ::
   -- | 'createdBy'
   Prelude.Text ->
@@ -71,7 +74,8 @@ newIncidentRecordSource pCreatedBy_ pSource_ =
       source = pSource_
     }
 
--- | The principal the assumed the role specified of the @createdBy@.
+-- | The service principal that assumed the role specified in @createdBy@. If
+-- no service principal assumed the role this will be left blank.
 incidentRecordSource_invokedBy :: Lens.Lens' IncidentRecordSource (Prelude.Maybe Prelude.Text)
 incidentRecordSource_invokedBy = Lens.lens (\IncidentRecordSource' {invokedBy} -> invokedBy) (\s@IncidentRecordSource' {} a -> s {invokedBy = a} :: IncidentRecordSource)
 
@@ -84,21 +88,21 @@ incidentRecordSource_createdBy :: Lens.Lens' IncidentRecordSource Prelude.Text
 incidentRecordSource_createdBy = Lens.lens (\IncidentRecordSource' {createdBy} -> createdBy) (\s@IncidentRecordSource' {} a -> s {createdBy = a} :: IncidentRecordSource)
 
 -- | The service that started the incident. This can be manually created from
--- Incident Manager, automatically created using an AWS CloudWatch alarm,
--- or Amazon EventBridge event.
+-- Incident Manager, automatically created using an Amazon CloudWatch
+-- alarm, or Amazon EventBridge event.
 incidentRecordSource_source :: Lens.Lens' IncidentRecordSource Prelude.Text
 incidentRecordSource_source = Lens.lens (\IncidentRecordSource' {source} -> source) (\s@IncidentRecordSource' {} a -> s {source = a} :: IncidentRecordSource)
 
-instance Core.FromJSON IncidentRecordSource where
+instance Data.FromJSON IncidentRecordSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "IncidentRecordSource"
       ( \x ->
           IncidentRecordSource'
-            Prelude.<$> (x Core..:? "invokedBy")
-            Prelude.<*> (x Core..:? "resourceArn")
-            Prelude.<*> (x Core..: "createdBy")
-            Prelude.<*> (x Core..: "source")
+            Prelude.<$> (x Data..:? "invokedBy")
+            Prelude.<*> (x Data..:? "resourceArn")
+            Prelude.<*> (x Data..: "createdBy")
+            Prelude.<*> (x Data..: "source")
       )
 
 instance Prelude.Hashable IncidentRecordSource where

@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,103 +14,10 @@
 module Amazonka.Lightsail.Lens
   ( -- * Operations
 
-    -- ** CloseInstancePublicPorts
-    closeInstancePublicPorts_portInfo,
-    closeInstancePublicPorts_instanceName,
-    closeInstancePublicPortsResponse_operation,
-    closeInstancePublicPortsResponse_httpStatus,
-
-    -- ** GetRelationalDatabaseMetricData
-    getRelationalDatabaseMetricData_relationalDatabaseName,
-    getRelationalDatabaseMetricData_metricName,
-    getRelationalDatabaseMetricData_period,
-    getRelationalDatabaseMetricData_startTime,
-    getRelationalDatabaseMetricData_endTime,
-    getRelationalDatabaseMetricData_unit,
-    getRelationalDatabaseMetricData_statistics,
-    getRelationalDatabaseMetricDataResponse_metricName,
-    getRelationalDatabaseMetricDataResponse_metricData,
-    getRelationalDatabaseMetricDataResponse_httpStatus,
-
-    -- ** DeleteBucketAccessKey
-    deleteBucketAccessKey_bucketName,
-    deleteBucketAccessKey_accessKeyId,
-    deleteBucketAccessKeyResponse_operations,
-    deleteBucketAccessKeyResponse_httpStatus,
-
     -- ** AllocateStaticIp
     allocateStaticIp_staticIpName,
     allocateStaticIpResponse_operations,
     allocateStaticIpResponse_httpStatus,
-
-    -- ** DeleteKeyPair
-    deleteKeyPair_keyPairName,
-    deleteKeyPairResponse_operation,
-    deleteKeyPairResponse_httpStatus,
-
-    -- ** DeleteInstanceSnapshot
-    deleteInstanceSnapshot_instanceSnapshotName,
-    deleteInstanceSnapshotResponse_operations,
-    deleteInstanceSnapshotResponse_httpStatus,
-
-    -- ** GetInstances
-    getInstances_pageToken,
-    getInstancesResponse_nextPageToken,
-    getInstancesResponse_instances,
-    getInstancesResponse_httpStatus,
-
-    -- ** GetLoadBalancer
-    getLoadBalancer_loadBalancerName,
-    getLoadBalancerResponse_loadBalancer,
-    getLoadBalancerResponse_httpStatus,
-
-    -- ** DisableAddOn
-    disableAddOn_addOnType,
-    disableAddOn_resourceName,
-    disableAddOnResponse_operations,
-    disableAddOnResponse_httpStatus,
-
-    -- ** GetDistributions
-    getDistributions_distributionName,
-    getDistributions_pageToken,
-    getDistributionsResponse_nextPageToken,
-    getDistributionsResponse_distributions,
-    getDistributionsResponse_httpStatus,
-
-    -- ** CreateContainerServiceDeployment
-    createContainerServiceDeployment_publicEndpoint,
-    createContainerServiceDeployment_containers,
-    createContainerServiceDeployment_serviceName,
-    createContainerServiceDeploymentResponse_containerService,
-    createContainerServiceDeploymentResponse_httpStatus,
-
-    -- ** GetInstance
-    getInstance_instanceName,
-    getInstanceResponse_instance,
-    getInstanceResponse_httpStatus,
-
-    -- ** DeleteBucket
-    deleteBucket_forceDelete,
-    deleteBucket_bucketName,
-    deleteBucketResponse_operations,
-    deleteBucketResponse_httpStatus,
-
-    -- ** UpdateBucket
-    updateBucket_readonlyAccessAccounts,
-    updateBucket_accessRules,
-    updateBucket_versioning,
-    updateBucket_bucketName,
-    updateBucketResponse_bucket,
-    updateBucketResponse_operations,
-    updateBucketResponse_httpStatus,
-
-    -- ** GetRelationalDatabaseEvents
-    getRelationalDatabaseEvents_durationInMinutes,
-    getRelationalDatabaseEvents_pageToken,
-    getRelationalDatabaseEvents_relationalDatabaseName,
-    getRelationalDatabaseEventsResponse_nextPageToken,
-    getRelationalDatabaseEventsResponse_relationalDatabaseEvents,
-    getRelationalDatabaseEventsResponse_httpStatus,
 
     -- ** AttachCertificateToDistribution
     attachCertificateToDistribution_distributionName,
@@ -118,27 +25,46 @@ module Amazonka.Lightsail.Lens
     attachCertificateToDistributionResponse_operation,
     attachCertificateToDistributionResponse_httpStatus,
 
-    -- ** GetContainerServices
-    getContainerServices_serviceName,
-    getContainerServicesResponse_containerServices,
-    getContainerServicesResponse_httpStatus,
+    -- ** AttachDisk
+    attachDisk_diskName,
+    attachDisk_instanceName,
+    attachDisk_diskPath,
+    attachDiskResponse_operations,
+    attachDiskResponse_httpStatus,
 
-    -- ** UpdateDistributionBundle
-    updateDistributionBundle_bundleId,
-    updateDistributionBundle_distributionName,
-    updateDistributionBundleResponse_operation,
-    updateDistributionBundleResponse_httpStatus,
+    -- ** AttachInstancesToLoadBalancer
+    attachInstancesToLoadBalancer_loadBalancerName,
+    attachInstancesToLoadBalancer_instanceNames,
+    attachInstancesToLoadBalancerResponse_operations,
+    attachInstancesToLoadBalancerResponse_httpStatus,
 
-    -- ** GetRelationalDatabaseSnapshots
-    getRelationalDatabaseSnapshots_pageToken,
-    getRelationalDatabaseSnapshotsResponse_nextPageToken,
-    getRelationalDatabaseSnapshotsResponse_relationalDatabaseSnapshots,
-    getRelationalDatabaseSnapshotsResponse_httpStatus,
+    -- ** AttachLoadBalancerTlsCertificate
+    attachLoadBalancerTlsCertificate_loadBalancerName,
+    attachLoadBalancerTlsCertificate_certificateName,
+    attachLoadBalancerTlsCertificateResponse_operations,
+    attachLoadBalancerTlsCertificateResponse_httpStatus,
 
-    -- ** GetBucketBundles
-    getBucketBundles_includeInactive,
-    getBucketBundlesResponse_bundles,
-    getBucketBundlesResponse_httpStatus,
+    -- ** AttachStaticIp
+    attachStaticIp_staticIpName,
+    attachStaticIp_instanceName,
+    attachStaticIpResponse_operations,
+    attachStaticIpResponse_httpStatus,
+
+    -- ** CloseInstancePublicPorts
+    closeInstancePublicPorts_portInfo,
+    closeInstancePublicPorts_instanceName,
+    closeInstancePublicPortsResponse_operation,
+    closeInstancePublicPortsResponse_httpStatus,
+
+    -- ** CopySnapshot
+    copySnapshot_restoreDate,
+    copySnapshot_sourceResourceName,
+    copySnapshot_sourceSnapshotName,
+    copySnapshot_useLatestRestorableAutoSnapshot,
+    copySnapshot_targetSnapshotName,
+    copySnapshot_sourceRegion,
+    copySnapshotResponse_operations,
+    copySnapshotResponse_httpStatus,
 
     -- ** CreateBucket
     createBucket_enableObjectVersioning,
@@ -149,320 +75,11 @@ module Amazonka.Lightsail.Lens
     createBucketResponse_operations,
     createBucketResponse_httpStatus,
 
-    -- ** AttachStaticIp
-    attachStaticIp_staticIpName,
-    attachStaticIp_instanceName,
-    attachStaticIpResponse_operations,
-    attachStaticIpResponse_httpStatus,
-
-    -- ** GetRelationalDatabaseParameters
-    getRelationalDatabaseParameters_pageToken,
-    getRelationalDatabaseParameters_relationalDatabaseName,
-    getRelationalDatabaseParametersResponse_nextPageToken,
-    getRelationalDatabaseParametersResponse_parameters,
-    getRelationalDatabaseParametersResponse_httpStatus,
-
-    -- ** DetachDisk
-    detachDisk_diskName,
-    detachDiskResponse_operations,
-    detachDiskResponse_httpStatus,
-
-    -- ** GetContactMethods
-    getContactMethods_protocols,
-    getContactMethodsResponse_contactMethods,
-    getContactMethodsResponse_httpStatus,
-
-    -- ** DownloadDefaultKeyPair
-    downloadDefaultKeyPairResponse_publicKeyBase64,
-    downloadDefaultKeyPairResponse_privateKeyBase64,
-    downloadDefaultKeyPairResponse_httpStatus,
-
-    -- ** DeleteLoadBalancerTlsCertificate
-    deleteLoadBalancerTlsCertificate_force,
-    deleteLoadBalancerTlsCertificate_loadBalancerName,
-    deleteLoadBalancerTlsCertificate_certificateName,
-    deleteLoadBalancerTlsCertificateResponse_operations,
-    deleteLoadBalancerTlsCertificateResponse_httpStatus,
-
-    -- ** TestAlarm
-    testAlarm_alarmName,
-    testAlarm_state,
-    testAlarmResponse_operations,
-    testAlarmResponse_httpStatus,
-
-    -- ** GetDomains
-    getDomains_pageToken,
-    getDomainsResponse_nextPageToken,
-    getDomainsResponse_domains,
-    getDomainsResponse_httpStatus,
-
-    -- ** GetContainerImages
-    getContainerImages_serviceName,
-    getContainerImagesResponse_containerImages,
-    getContainerImagesResponse_httpStatus,
-
-    -- ** UpdateRelationalDatabaseParameters
-    updateRelationalDatabaseParameters_relationalDatabaseName,
-    updateRelationalDatabaseParameters_parameters,
-    updateRelationalDatabaseParametersResponse_operations,
-    updateRelationalDatabaseParametersResponse_httpStatus,
-
-    -- ** CreateLoadBalancerTlsCertificate
-    createLoadBalancerTlsCertificate_certificateAlternativeNames,
-    createLoadBalancerTlsCertificate_tags,
-    createLoadBalancerTlsCertificate_loadBalancerName,
-    createLoadBalancerTlsCertificate_certificateName,
-    createLoadBalancerTlsCertificate_certificateDomainName,
-    createLoadBalancerTlsCertificateResponse_operations,
-    createLoadBalancerTlsCertificateResponse_httpStatus,
-
-    -- ** CreateDomainEntry
-    createDomainEntry_domainName,
-    createDomainEntry_domainEntry,
-    createDomainEntryResponse_operation,
-    createDomainEntryResponse_httpStatus,
-
-    -- ** GetContainerServicePowers
-    getContainerServicePowersResponse_powers,
-    getContainerServicePowersResponse_httpStatus,
-
-    -- ** ImportKeyPair
-    importKeyPair_keyPairName,
-    importKeyPair_publicKeyBase64,
-    importKeyPairResponse_operation,
-    importKeyPairResponse_httpStatus,
-
-    -- ** GetInstanceSnapshots
-    getInstanceSnapshots_pageToken,
-    getInstanceSnapshotsResponse_nextPageToken,
-    getInstanceSnapshotsResponse_instanceSnapshots,
-    getInstanceSnapshotsResponse_httpStatus,
-
-    -- ** ExportSnapshot
-    exportSnapshot_sourceSnapshotName,
-    exportSnapshotResponse_operations,
-    exportSnapshotResponse_httpStatus,
-
-    -- ** CreateRelationalDatabaseFromSnapshot
-    createRelationalDatabaseFromSnapshot_sourceRelationalDatabaseName,
-    createRelationalDatabaseFromSnapshot_relationalDatabaseBundleId,
-    createRelationalDatabaseFromSnapshot_publiclyAccessible,
-    createRelationalDatabaseFromSnapshot_useLatestRestorableTime,
-    createRelationalDatabaseFromSnapshot_restoreTime,
-    createRelationalDatabaseFromSnapshot_availabilityZone,
-    createRelationalDatabaseFromSnapshot_relationalDatabaseSnapshotName,
-    createRelationalDatabaseFromSnapshot_tags,
-    createRelationalDatabaseFromSnapshot_relationalDatabaseName,
-    createRelationalDatabaseFromSnapshotResponse_operations,
-    createRelationalDatabaseFromSnapshotResponse_httpStatus,
-
-    -- ** CreateCloudFormationStack
-    createCloudFormationStack_instances,
-    createCloudFormationStackResponse_operations,
-    createCloudFormationStackResponse_httpStatus,
-
-    -- ** GetExportSnapshotRecords
-    getExportSnapshotRecords_pageToken,
-    getExportSnapshotRecordsResponse_nextPageToken,
-    getExportSnapshotRecordsResponse_exportSnapshotRecords,
-    getExportSnapshotRecordsResponse_httpStatus,
-
-    -- ** ReleaseStaticIp
-    releaseStaticIp_staticIpName,
-    releaseStaticIpResponse_operations,
-    releaseStaticIpResponse_httpStatus,
-
-    -- ** DeleteInstance
-    deleteInstance_forceDeleteAddOns,
-    deleteInstance_instanceName,
-    deleteInstanceResponse_operations,
-    deleteInstanceResponse_httpStatus,
-
-    -- ** CreateContainerServiceRegistryLogin
-    createContainerServiceRegistryLoginResponse_registryLogin,
-    createContainerServiceRegistryLoginResponse_httpStatus,
-
-    -- ** GetCertificates
-    getCertificates_certificateStatuses,
-    getCertificates_certificateName,
-    getCertificates_includeCertificateDetails,
-    getCertificatesResponse_certificates,
-    getCertificatesResponse_httpStatus,
-
-    -- ** GetContainerServiceMetricData
-    getContainerServiceMetricData_serviceName,
-    getContainerServiceMetricData_metricName,
-    getContainerServiceMetricData_startTime,
-    getContainerServiceMetricData_endTime,
-    getContainerServiceMetricData_period,
-    getContainerServiceMetricData_statistics,
-    getContainerServiceMetricDataResponse_metricName,
-    getContainerServiceMetricDataResponse_metricData,
-    getContainerServiceMetricDataResponse_httpStatus,
-
-    -- ** GetDistributionMetricData
-    getDistributionMetricData_distributionName,
-    getDistributionMetricData_metricName,
-    getDistributionMetricData_startTime,
-    getDistributionMetricData_endTime,
-    getDistributionMetricData_period,
-    getDistributionMetricData_unit,
-    getDistributionMetricData_statistics,
-    getDistributionMetricDataResponse_metricName,
-    getDistributionMetricDataResponse_metricData,
-    getDistributionMetricDataResponse_httpStatus,
-
-    -- ** RebootInstance
-    rebootInstance_instanceName,
-    rebootInstanceResponse_operations,
-    rebootInstanceResponse_httpStatus,
-
-    -- ** DeleteLoadBalancer
-    deleteLoadBalancer_loadBalancerName,
-    deleteLoadBalancerResponse_operations,
-    deleteLoadBalancerResponse_httpStatus,
-
-    -- ** CreateDiskFromSnapshot
-    createDiskFromSnapshot_useLatestRestorableAutoSnapshot,
-    createDiskFromSnapshot_sourceDiskName,
-    createDiskFromSnapshot_addOns,
-    createDiskFromSnapshot_diskSnapshotName,
-    createDiskFromSnapshot_restoreDate,
-    createDiskFromSnapshot_tags,
-    createDiskFromSnapshot_diskName,
-    createDiskFromSnapshot_availabilityZone,
-    createDiskFromSnapshot_sizeInGb,
-    createDiskFromSnapshotResponse_operations,
-    createDiskFromSnapshotResponse_httpStatus,
-
-    -- ** GetRelationalDatabases
-    getRelationalDatabases_pageToken,
-    getRelationalDatabasesResponse_nextPageToken,
-    getRelationalDatabasesResponse_relationalDatabases,
-    getRelationalDatabasesResponse_httpStatus,
-
-    -- ** GetInstanceSnapshot
-    getInstanceSnapshot_instanceSnapshotName,
-    getInstanceSnapshotResponse_instanceSnapshot,
-    getInstanceSnapshotResponse_httpStatus,
-
-    -- ** GetRelationalDatabaseLogEvents
-    getRelationalDatabaseLogEvents_startTime,
-    getRelationalDatabaseLogEvents_startFromHead,
-    getRelationalDatabaseLogEvents_endTime,
-    getRelationalDatabaseLogEvents_pageToken,
-    getRelationalDatabaseLogEvents_relationalDatabaseName,
-    getRelationalDatabaseLogEvents_logStreamName,
-    getRelationalDatabaseLogEventsResponse_nextBackwardToken,
-    getRelationalDatabaseLogEventsResponse_resourceLogEvents,
-    getRelationalDatabaseLogEventsResponse_nextForwardToken,
-    getRelationalDatabaseLogEventsResponse_httpStatus,
-
-    -- ** CreateContactMethod
-    createContactMethod_protocol,
-    createContactMethod_contactEndpoint,
-    createContactMethodResponse_operations,
-    createContactMethodResponse_httpStatus,
-
-    -- ** GetRelationalDatabaseLogStreams
-    getRelationalDatabaseLogStreams_relationalDatabaseName,
-    getRelationalDatabaseLogStreamsResponse_logStreams,
-    getRelationalDatabaseLogStreamsResponse_httpStatus,
-
-    -- ** GetDomain
-    getDomain_domainName,
-    getDomainResponse_domain,
-    getDomainResponse_httpStatus,
-
-    -- ** GetAutoSnapshots
-    getAutoSnapshots_resourceName,
-    getAutoSnapshotsResponse_resourceType,
-    getAutoSnapshotsResponse_resourceName,
-    getAutoSnapshotsResponse_autoSnapshots,
-    getAutoSnapshotsResponse_httpStatus,
-
-    -- ** GetActiveNames
-    getActiveNames_pageToken,
-    getActiveNamesResponse_nextPageToken,
-    getActiveNamesResponse_activeNames,
-    getActiveNamesResponse_httpStatus,
-
-    -- ** DeleteContactMethod
-    deleteContactMethod_protocol,
-    deleteContactMethodResponse_operations,
-    deleteContactMethodResponse_httpStatus,
-
-    -- ** CreateDistribution
-    createDistribution_cacheBehaviorSettings,
-    createDistribution_ipAddressType,
-    createDistribution_cacheBehaviors,
-    createDistribution_tags,
-    createDistribution_distributionName,
-    createDistribution_origin,
-    createDistribution_defaultCacheBehavior,
-    createDistribution_bundleId,
-    createDistributionResponse_distribution,
-    createDistributionResponse_operation,
-    createDistributionResponse_httpStatus,
-
-    -- ** StopRelationalDatabase
-    stopRelationalDatabase_relationalDatabaseSnapshotName,
-    stopRelationalDatabase_relationalDatabaseName,
-    stopRelationalDatabaseResponse_operations,
-    stopRelationalDatabaseResponse_httpStatus,
-
-    -- ** CreateRelationalDatabaseSnapshot
-    createRelationalDatabaseSnapshot_tags,
-    createRelationalDatabaseSnapshot_relationalDatabaseName,
-    createRelationalDatabaseSnapshot_relationalDatabaseSnapshotName,
-    createRelationalDatabaseSnapshotResponse_operations,
-    createRelationalDatabaseSnapshotResponse_httpStatus,
-
-    -- ** DetachCertificateFromDistribution
-    detachCertificateFromDistribution_distributionName,
-    detachCertificateFromDistributionResponse_operation,
-    detachCertificateFromDistributionResponse_httpStatus,
-
-    -- ** CreateContainerService
-    createContainerService_publicDomainNames,
-    createContainerService_tags,
-    createContainerService_deployment,
-    createContainerService_serviceName,
-    createContainerService_power,
-    createContainerService_scale,
-    createContainerServiceResponse_containerService,
-    createContainerServiceResponse_httpStatus,
-
-    -- ** GetInstanceAccessDetails
-    getInstanceAccessDetails_protocol,
-    getInstanceAccessDetails_instanceName,
-    getInstanceAccessDetailsResponse_accessDetails,
-    getInstanceAccessDetailsResponse_httpStatus,
-
-    -- ** EnableAddOn
-    enableAddOn_resourceName,
-    enableAddOn_addOnRequest,
-    enableAddOnResponse_operations,
-    enableAddOnResponse_httpStatus,
-
-    -- ** StopInstance
-    stopInstance_force,
-    stopInstance_instanceName,
-    stopInstanceResponse_operations,
-    stopInstanceResponse_httpStatus,
-
-    -- ** DetachInstancesFromLoadBalancer
-    detachInstancesFromLoadBalancer_loadBalancerName,
-    detachInstancesFromLoadBalancer_instanceNames,
-    detachInstancesFromLoadBalancerResponse_operations,
-    detachInstancesFromLoadBalancerResponse_httpStatus,
-
-    -- ** RegisterContainerImage
-    registerContainerImage_serviceName,
-    registerContainerImage_label,
-    registerContainerImage_digest,
-    registerContainerImageResponse_containerImage,
-    registerContainerImageResponse_httpStatus,
+    -- ** CreateBucketAccessKey
+    createBucketAccessKey_bucketName,
+    createBucketAccessKeyResponse_accessKey,
+    createBucketAccessKeyResponse_operations,
+    createBucketAccessKeyResponse_httpStatus,
 
     -- ** CreateCertificate
     createCertificate_subjectAlternativeNames,
@@ -473,546 +90,38 @@ module Amazonka.Lightsail.Lens
     createCertificateResponse_operations,
     createCertificateResponse_httpStatus,
 
-    -- ** CreateInstanceSnapshot
-    createInstanceSnapshot_tags,
-    createInstanceSnapshot_instanceSnapshotName,
-    createInstanceSnapshot_instanceName,
-    createInstanceSnapshotResponse_operations,
-    createInstanceSnapshotResponse_httpStatus,
-
-    -- ** CopySnapshot
-    copySnapshot_useLatestRestorableAutoSnapshot,
-    copySnapshot_restoreDate,
-    copySnapshot_sourceResourceName,
-    copySnapshot_sourceSnapshotName,
-    copySnapshot_targetSnapshotName,
-    copySnapshot_sourceRegion,
-    copySnapshotResponse_operations,
-    copySnapshotResponse_httpStatus,
-
-    -- ** GetRelationalDatabaseSnapshot
-    getRelationalDatabaseSnapshot_relationalDatabaseSnapshotName,
-    getRelationalDatabaseSnapshotResponse_relationalDatabaseSnapshot,
-    getRelationalDatabaseSnapshotResponse_httpStatus,
-
-    -- ** IsVpcPeered
-    isVpcPeeredResponse_isPeered,
-    isVpcPeeredResponse_httpStatus,
-
-    -- ** GetStaticIps
-    getStaticIps_pageToken,
-    getStaticIpsResponse_nextPageToken,
-    getStaticIpsResponse_staticIps,
-    getStaticIpsResponse_httpStatus,
-
-    -- ** UnpeerVpc
-    unpeerVpcResponse_operation,
-    unpeerVpcResponse_httpStatus,
-
-    -- ** DeleteDisk
-    deleteDisk_forceDeleteAddOns,
-    deleteDisk_diskName,
-    deleteDiskResponse_operations,
-    deleteDiskResponse_httpStatus,
-
-    -- ** CreateInstancesFromSnapshot
-    createInstancesFromSnapshot_useLatestRestorableAutoSnapshot,
-    createInstancesFromSnapshot_instanceSnapshotName,
-    createInstancesFromSnapshot_addOns,
-    createInstancesFromSnapshot_userData,
-    createInstancesFromSnapshot_restoreDate,
-    createInstancesFromSnapshot_ipAddressType,
-    createInstancesFromSnapshot_keyPairName,
-    createInstancesFromSnapshot_sourceInstanceName,
-    createInstancesFromSnapshot_attachedDiskMapping,
-    createInstancesFromSnapshot_tags,
-    createInstancesFromSnapshot_instanceNames,
-    createInstancesFromSnapshot_availabilityZone,
-    createInstancesFromSnapshot_bundleId,
-    createInstancesFromSnapshotResponse_operations,
-    createInstancesFromSnapshotResponse_httpStatus,
-
-    -- ** GetCloudFormationStackRecords
-    getCloudFormationStackRecords_pageToken,
-    getCloudFormationStackRecordsResponse_nextPageToken,
-    getCloudFormationStackRecordsResponse_cloudFormationStackRecords,
-    getCloudFormationStackRecordsResponse_httpStatus,
-
-    -- ** CreateDomain
-    createDomain_tags,
-    createDomain_domainName,
-    createDomainResponse_operation,
-    createDomainResponse_httpStatus,
-
-    -- ** GetRelationalDatabaseBlueprints
-    getRelationalDatabaseBlueprints_pageToken,
-    getRelationalDatabaseBlueprintsResponse_blueprints,
-    getRelationalDatabaseBlueprintsResponse_nextPageToken,
-    getRelationalDatabaseBlueprintsResponse_httpStatus,
-
-    -- ** DeleteCertificate
-    deleteCertificate_certificateName,
-    deleteCertificateResponse_operations,
-    deleteCertificateResponse_httpStatus,
-
-    -- ** GetDiskSnapshots
-    getDiskSnapshots_pageToken,
-    getDiskSnapshotsResponse_nextPageToken,
-    getDiskSnapshotsResponse_diskSnapshots,
-    getDiskSnapshotsResponse_httpStatus,
-
-    -- ** GetContainerAPIMetadata
-    getContainerAPIMetadataResponse_metadata,
-    getContainerAPIMetadataResponse_httpStatus,
-
-    -- ** GetBucketMetricData
-    getBucketMetricData_bucketName,
-    getBucketMetricData_metricName,
-    getBucketMetricData_startTime,
-    getBucketMetricData_endTime,
-    getBucketMetricData_period,
-    getBucketMetricData_statistics,
-    getBucketMetricData_unit,
-    getBucketMetricDataResponse_metricName,
-    getBucketMetricDataResponse_metricData,
-    getBucketMetricDataResponse_httpStatus,
-
-    -- ** PeerVpc
-    peerVpcResponse_operation,
-    peerVpcResponse_httpStatus,
-
-    -- ** GetRelationalDatabaseBundles
-    getRelationalDatabaseBundles_pageToken,
-    getRelationalDatabaseBundlesResponse_nextPageToken,
-    getRelationalDatabaseBundlesResponse_bundles,
-    getRelationalDatabaseBundlesResponse_httpStatus,
-
-    -- ** GetLoadBalancers
-    getLoadBalancers_pageToken,
-    getLoadBalancersResponse_nextPageToken,
-    getLoadBalancersResponse_loadBalancers,
-    getLoadBalancersResponse_httpStatus,
-
-    -- ** RebootRelationalDatabase
-    rebootRelationalDatabase_relationalDatabaseName,
-    rebootRelationalDatabaseResponse_operations,
-    rebootRelationalDatabaseResponse_httpStatus,
-
-    -- ** AttachLoadBalancerTlsCertificate
-    attachLoadBalancerTlsCertificate_loadBalancerName,
-    attachLoadBalancerTlsCertificate_certificateName,
-    attachLoadBalancerTlsCertificateResponse_operations,
-    attachLoadBalancerTlsCertificateResponse_httpStatus,
-
-    -- ** UpdateLoadBalancerAttribute
-    updateLoadBalancerAttribute_loadBalancerName,
-    updateLoadBalancerAttribute_attributeName,
-    updateLoadBalancerAttribute_attributeValue,
-    updateLoadBalancerAttributeResponse_operations,
-    updateLoadBalancerAttributeResponse_httpStatus,
-
-    -- ** DeleteRelationalDatabase
-    deleteRelationalDatabase_skipFinalSnapshot,
-    deleteRelationalDatabase_finalRelationalDatabaseSnapshotName,
-    deleteRelationalDatabase_relationalDatabaseName,
-    deleteRelationalDatabaseResponse_operations,
-    deleteRelationalDatabaseResponse_httpStatus,
-
-    -- ** GetDiskSnapshot
-    getDiskSnapshot_diskSnapshotName,
-    getDiskSnapshotResponse_diskSnapshot,
-    getDiskSnapshotResponse_httpStatus,
-
-    -- ** UpdateRelationalDatabase
-    updateRelationalDatabase_masterUserPassword,
-    updateRelationalDatabase_publiclyAccessible,
-    updateRelationalDatabase_enableBackupRetention,
-    updateRelationalDatabase_preferredMaintenanceWindow,
-    updateRelationalDatabase_caCertificateIdentifier,
-    updateRelationalDatabase_preferredBackupWindow,
-    updateRelationalDatabase_applyImmediately,
-    updateRelationalDatabase_rotateMasterUserPassword,
-    updateRelationalDatabase_disableBackupRetention,
-    updateRelationalDatabase_relationalDatabaseName,
-    updateRelationalDatabaseResponse_operations,
-    updateRelationalDatabaseResponse_httpStatus,
-
-    -- ** GetStaticIp
-    getStaticIp_staticIpName,
-    getStaticIpResponse_staticIp,
-    getStaticIpResponse_httpStatus,
-
-    -- ** GetRelationalDatabaseMasterUserPassword
-    getRelationalDatabaseMasterUserPassword_passwordVersion,
-    getRelationalDatabaseMasterUserPassword_relationalDatabaseName,
-    getRelationalDatabaseMasterUserPasswordResponse_masterUserPassword,
-    getRelationalDatabaseMasterUserPasswordResponse_createdAt,
-    getRelationalDatabaseMasterUserPasswordResponse_httpStatus,
-
-    -- ** GetBlueprints
-    getBlueprints_includeInactive,
-    getBlueprints_pageToken,
-    getBlueprintsResponse_blueprints,
-    getBlueprintsResponse_nextPageToken,
-    getBlueprintsResponse_httpStatus,
-
-    -- ** PutAlarm
-    putAlarm_treatMissingData,
-    putAlarm_contactProtocols,
-    putAlarm_datapointsToAlarm,
-    putAlarm_notificationEnabled,
-    putAlarm_notificationTriggers,
-    putAlarm_alarmName,
-    putAlarm_metricName,
-    putAlarm_monitoredResourceName,
-    putAlarm_comparisonOperator,
-    putAlarm_threshold,
-    putAlarm_evaluationPeriods,
-    putAlarmResponse_operations,
-    putAlarmResponse_httpStatus,
-
-    -- ** DeleteAlarm
-    deleteAlarm_alarmName,
-    deleteAlarmResponse_operations,
-    deleteAlarmResponse_httpStatus,
-
-    -- ** GetInstancePortStates
-    getInstancePortStates_instanceName,
-    getInstancePortStatesResponse_portStates,
-    getInstancePortStatesResponse_httpStatus,
-
-    -- ** DeleteAutoSnapshot
-    deleteAutoSnapshot_resourceName,
-    deleteAutoSnapshot_date,
-    deleteAutoSnapshotResponse_operations,
-    deleteAutoSnapshotResponse_httpStatus,
-
-    -- ** CreateRelationalDatabase
-    createRelationalDatabase_masterUserPassword,
-    createRelationalDatabase_publiclyAccessible,
-    createRelationalDatabase_preferredMaintenanceWindow,
-    createRelationalDatabase_preferredBackupWindow,
-    createRelationalDatabase_availabilityZone,
-    createRelationalDatabase_tags,
-    createRelationalDatabase_relationalDatabaseName,
-    createRelationalDatabase_relationalDatabaseBlueprintId,
-    createRelationalDatabase_relationalDatabaseBundleId,
-    createRelationalDatabase_masterDatabaseName,
-    createRelationalDatabase_masterUsername,
-    createRelationalDatabaseResponse_operations,
-    createRelationalDatabaseResponse_httpStatus,
-
-    -- ** SendContactMethodVerification
-    sendContactMethodVerification_protocol,
-    sendContactMethodVerificationResponse_operations,
-    sendContactMethodVerificationResponse_httpStatus,
-
-    -- ** GetContainerLog
-    getContainerLog_startTime,
-    getContainerLog_endTime,
-    getContainerLog_pageToken,
-    getContainerLog_filterPattern,
-    getContainerLog_serviceName,
-    getContainerLog_containerName,
-    getContainerLogResponse_nextPageToken,
-    getContainerLogResponse_logEvents,
-    getContainerLogResponse_httpStatus,
-
-    -- ** CreateDiskSnapshot
-    createDiskSnapshot_diskName,
-    createDiskSnapshot_instanceName,
-    createDiskSnapshot_tags,
-    createDiskSnapshot_diskSnapshotName,
-    createDiskSnapshotResponse_operations,
-    createDiskSnapshotResponse_httpStatus,
-
-    -- ** DeleteDomainEntry
-    deleteDomainEntry_domainName,
-    deleteDomainEntry_domainEntry,
-    deleteDomainEntryResponse_operation,
-    deleteDomainEntryResponse_httpStatus,
-
-    -- ** UpdateDomainEntry
-    updateDomainEntry_domainName,
-    updateDomainEntry_domainEntry,
-    updateDomainEntryResponse_operations,
-    updateDomainEntryResponse_httpStatus,
-
-    -- ** GetRegions
-    getRegions_includeRelationalDatabaseAvailabilityZones,
-    getRegions_includeAvailabilityZones,
-    getRegionsResponse_regions,
-    getRegionsResponse_httpStatus,
-
-    -- ** SetIpAddressType
-    setIpAddressType_resourceType,
-    setIpAddressType_resourceName,
-    setIpAddressType_ipAddressType,
-    setIpAddressTypeResponse_operations,
-    setIpAddressTypeResponse_httpStatus,
-
-    -- ** DeleteDiskSnapshot
-    deleteDiskSnapshot_diskSnapshotName,
-    deleteDiskSnapshotResponse_operations,
-    deleteDiskSnapshotResponse_httpStatus,
-
-    -- ** GetLoadBalancerMetricData
-    getLoadBalancerMetricData_loadBalancerName,
-    getLoadBalancerMetricData_metricName,
-    getLoadBalancerMetricData_period,
-    getLoadBalancerMetricData_startTime,
-    getLoadBalancerMetricData_endTime,
-    getLoadBalancerMetricData_unit,
-    getLoadBalancerMetricData_statistics,
-    getLoadBalancerMetricDataResponse_metricName,
-    getLoadBalancerMetricDataResponse_metricData,
-    getLoadBalancerMetricDataResponse_httpStatus,
-
-    -- ** GetInstanceState
-    getInstanceState_instanceName,
-    getInstanceStateResponse_state,
-    getInstanceStateResponse_httpStatus,
-
-    -- ** GetKeyPairs
-    getKeyPairs_pageToken,
-    getKeyPairsResponse_nextPageToken,
-    getKeyPairsResponse_keyPairs,
-    getKeyPairsResponse_httpStatus,
-
-    -- ** GetOperations
-    getOperations_pageToken,
-    getOperationsResponse_nextPageToken,
-    getOperationsResponse_operations,
-    getOperationsResponse_httpStatus,
-
-    -- ** GetBucketAccessKeys
-    getBucketAccessKeys_bucketName,
-    getBucketAccessKeysResponse_accessKeys,
-    getBucketAccessKeysResponse_httpStatus,
-
-    -- ** GetDisks
-    getDisks_pageToken,
-    getDisksResponse_nextPageToken,
-    getDisksResponse_disks,
-    getDisksResponse_httpStatus,
-
-    -- ** GetRelationalDatabase
-    getRelationalDatabase_relationalDatabaseName,
-    getRelationalDatabaseResponse_relationalDatabase,
-    getRelationalDatabaseResponse_httpStatus,
-
-    -- ** AttachInstancesToLoadBalancer
-    attachInstancesToLoadBalancer_loadBalancerName,
-    attachInstancesToLoadBalancer_instanceNames,
-    attachInstancesToLoadBalancerResponse_operations,
-    attachInstancesToLoadBalancerResponse_httpStatus,
-
-    -- ** TagResource
-    tagResource_resourceArn,
-    tagResource_resourceName,
-    tagResource_tags,
-    tagResourceResponse_operations,
-    tagResourceResponse_httpStatus,
-
-    -- ** GetOperation
-    getOperation_operationId,
-    getOperationResponse_operation,
-    getOperationResponse_httpStatus,
-
-    -- ** ResetDistributionCache
-    resetDistributionCache_distributionName,
-    resetDistributionCacheResponse_status,
-    resetDistributionCacheResponse_operation,
-    resetDistributionCacheResponse_createTime,
-    resetDistributionCacheResponse_httpStatus,
-
-    -- ** UpdateBucketBundle
-    updateBucketBundle_bucketName,
-    updateBucketBundle_bundleId,
-    updateBucketBundleResponse_operations,
-    updateBucketBundleResponse_httpStatus,
-
-    -- ** UpdateDistribution
-    updateDistribution_origin,
-    updateDistribution_cacheBehaviorSettings,
-    updateDistribution_isEnabled,
-    updateDistribution_defaultCacheBehavior,
-    updateDistribution_cacheBehaviors,
-    updateDistribution_distributionName,
-    updateDistributionResponse_operation,
-    updateDistributionResponse_httpStatus,
-
-    -- ** GetBuckets
-    getBuckets_bucketName,
-    getBuckets_includeConnectedResources,
-    getBuckets_pageToken,
-    getBucketsResponse_nextPageToken,
-    getBucketsResponse_buckets,
-    getBucketsResponse_httpStatus,
-
-    -- ** DeleteDistribution
-    deleteDistribution_distributionName,
-    deleteDistributionResponse_operation,
-    deleteDistributionResponse_httpStatus,
-
-    -- ** UpdateContainerService
-    updateContainerService_scale,
-    updateContainerService_power,
-    updateContainerService_isDisabled,
-    updateContainerService_publicDomainNames,
-    updateContainerService_serviceName,
-    updateContainerServiceResponse_containerService,
-    updateContainerServiceResponse_httpStatus,
-
-    -- ** DeleteRelationalDatabaseSnapshot
-    deleteRelationalDatabaseSnapshot_relationalDatabaseSnapshotName,
-    deleteRelationalDatabaseSnapshotResponse_operations,
-    deleteRelationalDatabaseSnapshotResponse_httpStatus,
-
-    -- ** DeleteContainerService
-    deleteContainerService_serviceName,
-    deleteContainerServiceResponse_httpStatus,
-
-    -- ** GetInstanceMetricData
-    getInstanceMetricData_instanceName,
-    getInstanceMetricData_metricName,
-    getInstanceMetricData_period,
-    getInstanceMetricData_startTime,
-    getInstanceMetricData_endTime,
-    getInstanceMetricData_unit,
-    getInstanceMetricData_statistics,
-    getInstanceMetricDataResponse_metricName,
-    getInstanceMetricDataResponse_metricData,
-    getInstanceMetricDataResponse_httpStatus,
-
-    -- ** GetKeyPair
-    getKeyPair_keyPairName,
-    getKeyPairResponse_keyPair,
-    getKeyPairResponse_httpStatus,
-
-    -- ** UntagResource
-    untagResource_resourceArn,
-    untagResource_resourceName,
-    untagResource_tagKeys,
-    untagResourceResponse_operations,
-    untagResourceResponse_httpStatus,
-
-    -- ** PutInstancePublicPorts
-    putInstancePublicPorts_portInfos,
-    putInstancePublicPorts_instanceName,
-    putInstancePublicPortsResponse_operation,
-    putInstancePublicPortsResponse_httpStatus,
-
-    -- ** GetDistributionBundles
-    getDistributionBundlesResponse_bundles,
-    getDistributionBundlesResponse_httpStatus,
-
-    -- ** GetDisk
-    getDisk_diskName,
-    getDiskResponse_disk,
-    getDiskResponse_httpStatus,
-
-    -- ** GetDistributionLatestCacheReset
-    getDistributionLatestCacheReset_distributionName,
-    getDistributionLatestCacheResetResponse_status,
-    getDistributionLatestCacheResetResponse_createTime,
-    getDistributionLatestCacheResetResponse_httpStatus,
-
-    -- ** CreateLoadBalancer
-    createLoadBalancer_healthCheckPath,
-    createLoadBalancer_certificateName,
-    createLoadBalancer_certificateDomainName,
-    createLoadBalancer_certificateAlternativeNames,
-    createLoadBalancer_ipAddressType,
-    createLoadBalancer_tags,
-    createLoadBalancer_loadBalancerName,
-    createLoadBalancer_instancePort,
-    createLoadBalancerResponse_operations,
-    createLoadBalancerResponse_httpStatus,
-
-    -- ** GetContainerServiceDeployments
-    getContainerServiceDeployments_serviceName,
-    getContainerServiceDeploymentsResponse_deployments,
-    getContainerServiceDeploymentsResponse_httpStatus,
-
-    -- ** DeleteKnownHostKeys
-    deleteKnownHostKeys_instanceName,
-    deleteKnownHostKeysResponse_operations,
-    deleteKnownHostKeysResponse_httpStatus,
-
-    -- ** AttachDisk
-    attachDisk_diskName,
-    attachDisk_instanceName,
-    attachDisk_diskPath,
-    attachDiskResponse_operations,
-    attachDiskResponse_httpStatus,
-
-    -- ** DetachStaticIp
-    detachStaticIp_staticIpName,
-    detachStaticIpResponse_operations,
-    detachStaticIpResponse_httpStatus,
-
-    -- ** CreateInstances
-    createInstances_customImageName,
-    createInstances_addOns,
-    createInstances_userData,
-    createInstances_ipAddressType,
-    createInstances_keyPairName,
-    createInstances_tags,
-    createInstances_instanceNames,
-    createInstances_availabilityZone,
-    createInstances_blueprintId,
-    createInstances_bundleId,
-    createInstancesResponse_operations,
-    createInstancesResponse_httpStatus,
-
-    -- ** GetAlarms
-    getAlarms_alarmName,
-    getAlarms_monitoredResourceName,
-    getAlarms_pageToken,
-    getAlarmsResponse_nextPageToken,
-    getAlarmsResponse_alarms,
-    getAlarmsResponse_httpStatus,
-
-    -- ** OpenInstancePublicPorts
-    openInstancePublicPorts_portInfo,
-    openInstancePublicPorts_instanceName,
-    openInstancePublicPortsResponse_operation,
-    openInstancePublicPortsResponse_httpStatus,
-
-    -- ** StartRelationalDatabase
-    startRelationalDatabase_relationalDatabaseName,
-    startRelationalDatabaseResponse_operations,
-    startRelationalDatabaseResponse_httpStatus,
-
-    -- ** DeleteContainerImage
-    deleteContainerImage_serviceName,
-    deleteContainerImage_image,
-    deleteContainerImageResponse_httpStatus,
-
-    -- ** GetBundles
-    getBundles_includeInactive,
-    getBundles_pageToken,
-    getBundlesResponse_nextPageToken,
-    getBundlesResponse_bundles,
-    getBundlesResponse_httpStatus,
-
-    -- ** DeleteDomain
-    deleteDomain_domainName,
-    deleteDomainResponse_operation,
-    deleteDomainResponse_httpStatus,
-
-    -- ** GetLoadBalancerTlsCertificates
-    getLoadBalancerTlsCertificates_loadBalancerName,
-    getLoadBalancerTlsCertificatesResponse_tlsCertificates,
-    getLoadBalancerTlsCertificatesResponse_httpStatus,
-
-    -- ** SetResourceAccessForBucket
-    setResourceAccessForBucket_resourceName,
-    setResourceAccessForBucket_bucketName,
-    setResourceAccessForBucket_access,
-    setResourceAccessForBucketResponse_operations,
-    setResourceAccessForBucketResponse_httpStatus,
+    -- ** CreateCloudFormationStack
+    createCloudFormationStack_instances,
+    createCloudFormationStackResponse_operations,
+    createCloudFormationStackResponse_httpStatus,
+
+    -- ** CreateContactMethod
+    createContactMethod_protocol,
+    createContactMethod_contactEndpoint,
+    createContactMethodResponse_operations,
+    createContactMethodResponse_httpStatus,
+
+    -- ** CreateContainerService
+    createContainerService_deployment,
+    createContainerService_privateRegistryAccess,
+    createContainerService_publicDomainNames,
+    createContainerService_tags,
+    createContainerService_serviceName,
+    createContainerService_power,
+    createContainerService_scale,
+    createContainerServiceResponse_containerService,
+    createContainerServiceResponse_httpStatus,
+
+    -- ** CreateContainerServiceDeployment
+    createContainerServiceDeployment_containers,
+    createContainerServiceDeployment_publicEndpoint,
+    createContainerServiceDeployment_serviceName,
+    createContainerServiceDeploymentResponse_containerService,
+    createContainerServiceDeploymentResponse_httpStatus,
+
+    -- ** CreateContainerServiceRegistryLogin
+    createContainerServiceRegistryLoginResponse_registryLogin,
+    createContainerServiceRegistryLoginResponse_httpStatus,
 
     -- ** CreateDisk
     createDisk_addOns,
@@ -1023,11 +132,618 @@ module Amazonka.Lightsail.Lens
     createDiskResponse_operations,
     createDiskResponse_httpStatus,
 
-    -- ** CreateBucketAccessKey
-    createBucketAccessKey_bucketName,
-    createBucketAccessKeyResponse_accessKey,
-    createBucketAccessKeyResponse_operations,
-    createBucketAccessKeyResponse_httpStatus,
+    -- ** CreateDiskFromSnapshot
+    createDiskFromSnapshot_addOns,
+    createDiskFromSnapshot_diskSnapshotName,
+    createDiskFromSnapshot_restoreDate,
+    createDiskFromSnapshot_sourceDiskName,
+    createDiskFromSnapshot_tags,
+    createDiskFromSnapshot_useLatestRestorableAutoSnapshot,
+    createDiskFromSnapshot_diskName,
+    createDiskFromSnapshot_availabilityZone,
+    createDiskFromSnapshot_sizeInGb,
+    createDiskFromSnapshotResponse_operations,
+    createDiskFromSnapshotResponse_httpStatus,
+
+    -- ** CreateDiskSnapshot
+    createDiskSnapshot_diskName,
+    createDiskSnapshot_instanceName,
+    createDiskSnapshot_tags,
+    createDiskSnapshot_diskSnapshotName,
+    createDiskSnapshotResponse_operations,
+    createDiskSnapshotResponse_httpStatus,
+
+    -- ** CreateDistribution
+    createDistribution_cacheBehaviorSettings,
+    createDistribution_cacheBehaviors,
+    createDistribution_ipAddressType,
+    createDistribution_tags,
+    createDistribution_distributionName,
+    createDistribution_origin,
+    createDistribution_defaultCacheBehavior,
+    createDistribution_bundleId,
+    createDistributionResponse_distribution,
+    createDistributionResponse_operation,
+    createDistributionResponse_httpStatus,
+
+    -- ** CreateDomain
+    createDomain_tags,
+    createDomain_domainName,
+    createDomainResponse_operation,
+    createDomainResponse_httpStatus,
+
+    -- ** CreateDomainEntry
+    createDomainEntry_domainName,
+    createDomainEntry_domainEntry,
+    createDomainEntryResponse_operation,
+    createDomainEntryResponse_httpStatus,
+
+    -- ** CreateInstanceSnapshot
+    createInstanceSnapshot_tags,
+    createInstanceSnapshot_instanceSnapshotName,
+    createInstanceSnapshot_instanceName,
+    createInstanceSnapshotResponse_operations,
+    createInstanceSnapshotResponse_httpStatus,
+
+    -- ** CreateInstances
+    createInstances_addOns,
+    createInstances_customImageName,
+    createInstances_ipAddressType,
+    createInstances_keyPairName,
+    createInstances_tags,
+    createInstances_userData,
+    createInstances_instanceNames,
+    createInstances_availabilityZone,
+    createInstances_blueprintId,
+    createInstances_bundleId,
+    createInstancesResponse_operations,
+    createInstancesResponse_httpStatus,
+
+    -- ** CreateInstancesFromSnapshot
+    createInstancesFromSnapshot_addOns,
+    createInstancesFromSnapshot_attachedDiskMapping,
+    createInstancesFromSnapshot_instanceSnapshotName,
+    createInstancesFromSnapshot_ipAddressType,
+    createInstancesFromSnapshot_keyPairName,
+    createInstancesFromSnapshot_restoreDate,
+    createInstancesFromSnapshot_sourceInstanceName,
+    createInstancesFromSnapshot_tags,
+    createInstancesFromSnapshot_useLatestRestorableAutoSnapshot,
+    createInstancesFromSnapshot_userData,
+    createInstancesFromSnapshot_instanceNames,
+    createInstancesFromSnapshot_availabilityZone,
+    createInstancesFromSnapshot_bundleId,
+    createInstancesFromSnapshotResponse_operations,
+    createInstancesFromSnapshotResponse_httpStatus,
+
+    -- ** CreateKeyPair
+    createKeyPair_tags,
+    createKeyPair_keyPairName,
+    createKeyPairResponse_keyPair,
+    createKeyPairResponse_operation,
+    createKeyPairResponse_privateKeyBase64,
+    createKeyPairResponse_publicKeyBase64,
+    createKeyPairResponse_httpStatus,
+
+    -- ** CreateLoadBalancer
+    createLoadBalancer_certificateAlternativeNames,
+    createLoadBalancer_certificateDomainName,
+    createLoadBalancer_certificateName,
+    createLoadBalancer_healthCheckPath,
+    createLoadBalancer_ipAddressType,
+    createLoadBalancer_tags,
+    createLoadBalancer_tlsPolicyName,
+    createLoadBalancer_loadBalancerName,
+    createLoadBalancer_instancePort,
+    createLoadBalancerResponse_operations,
+    createLoadBalancerResponse_httpStatus,
+
+    -- ** CreateLoadBalancerTlsCertificate
+    createLoadBalancerTlsCertificate_certificateAlternativeNames,
+    createLoadBalancerTlsCertificate_tags,
+    createLoadBalancerTlsCertificate_loadBalancerName,
+    createLoadBalancerTlsCertificate_certificateName,
+    createLoadBalancerTlsCertificate_certificateDomainName,
+    createLoadBalancerTlsCertificateResponse_operations,
+    createLoadBalancerTlsCertificateResponse_httpStatus,
+
+    -- ** CreateRelationalDatabase
+    createRelationalDatabase_availabilityZone,
+    createRelationalDatabase_masterUserPassword,
+    createRelationalDatabase_preferredBackupWindow,
+    createRelationalDatabase_preferredMaintenanceWindow,
+    createRelationalDatabase_publiclyAccessible,
+    createRelationalDatabase_tags,
+    createRelationalDatabase_relationalDatabaseName,
+    createRelationalDatabase_relationalDatabaseBlueprintId,
+    createRelationalDatabase_relationalDatabaseBundleId,
+    createRelationalDatabase_masterDatabaseName,
+    createRelationalDatabase_masterUsername,
+    createRelationalDatabaseResponse_operations,
+    createRelationalDatabaseResponse_httpStatus,
+
+    -- ** CreateRelationalDatabaseFromSnapshot
+    createRelationalDatabaseFromSnapshot_availabilityZone,
+    createRelationalDatabaseFromSnapshot_publiclyAccessible,
+    createRelationalDatabaseFromSnapshot_relationalDatabaseBundleId,
+    createRelationalDatabaseFromSnapshot_relationalDatabaseSnapshotName,
+    createRelationalDatabaseFromSnapshot_restoreTime,
+    createRelationalDatabaseFromSnapshot_sourceRelationalDatabaseName,
+    createRelationalDatabaseFromSnapshot_tags,
+    createRelationalDatabaseFromSnapshot_useLatestRestorableTime,
+    createRelationalDatabaseFromSnapshot_relationalDatabaseName,
+    createRelationalDatabaseFromSnapshotResponse_operations,
+    createRelationalDatabaseFromSnapshotResponse_httpStatus,
+
+    -- ** CreateRelationalDatabaseSnapshot
+    createRelationalDatabaseSnapshot_tags,
+    createRelationalDatabaseSnapshot_relationalDatabaseName,
+    createRelationalDatabaseSnapshot_relationalDatabaseSnapshotName,
+    createRelationalDatabaseSnapshotResponse_operations,
+    createRelationalDatabaseSnapshotResponse_httpStatus,
+
+    -- ** DeleteAlarm
+    deleteAlarm_alarmName,
+    deleteAlarmResponse_operations,
+    deleteAlarmResponse_httpStatus,
+
+    -- ** DeleteAutoSnapshot
+    deleteAutoSnapshot_resourceName,
+    deleteAutoSnapshot_date,
+    deleteAutoSnapshotResponse_operations,
+    deleteAutoSnapshotResponse_httpStatus,
+
+    -- ** DeleteBucket
+    deleteBucket_forceDelete,
+    deleteBucket_bucketName,
+    deleteBucketResponse_operations,
+    deleteBucketResponse_httpStatus,
+
+    -- ** DeleteBucketAccessKey
+    deleteBucketAccessKey_bucketName,
+    deleteBucketAccessKey_accessKeyId,
+    deleteBucketAccessKeyResponse_operations,
+    deleteBucketAccessKeyResponse_httpStatus,
+
+    -- ** DeleteCertificate
+    deleteCertificate_certificateName,
+    deleteCertificateResponse_operations,
+    deleteCertificateResponse_httpStatus,
+
+    -- ** DeleteContactMethod
+    deleteContactMethod_protocol,
+    deleteContactMethodResponse_operations,
+    deleteContactMethodResponse_httpStatus,
+
+    -- ** DeleteContainerImage
+    deleteContainerImage_serviceName,
+    deleteContainerImage_image,
+    deleteContainerImageResponse_httpStatus,
+
+    -- ** DeleteContainerService
+    deleteContainerService_serviceName,
+    deleteContainerServiceResponse_httpStatus,
+
+    -- ** DeleteDisk
+    deleteDisk_forceDeleteAddOns,
+    deleteDisk_diskName,
+    deleteDiskResponse_operations,
+    deleteDiskResponse_httpStatus,
+
+    -- ** DeleteDiskSnapshot
+    deleteDiskSnapshot_diskSnapshotName,
+    deleteDiskSnapshotResponse_operations,
+    deleteDiskSnapshotResponse_httpStatus,
+
+    -- ** DeleteDistribution
+    deleteDistribution_distributionName,
+    deleteDistributionResponse_operation,
+    deleteDistributionResponse_httpStatus,
+
+    -- ** DeleteDomain
+    deleteDomain_domainName,
+    deleteDomainResponse_operation,
+    deleteDomainResponse_httpStatus,
+
+    -- ** DeleteDomainEntry
+    deleteDomainEntry_domainName,
+    deleteDomainEntry_domainEntry,
+    deleteDomainEntryResponse_operation,
+    deleteDomainEntryResponse_httpStatus,
+
+    -- ** DeleteInstance
+    deleteInstance_forceDeleteAddOns,
+    deleteInstance_instanceName,
+    deleteInstanceResponse_operations,
+    deleteInstanceResponse_httpStatus,
+
+    -- ** DeleteInstanceSnapshot
+    deleteInstanceSnapshot_instanceSnapshotName,
+    deleteInstanceSnapshotResponse_operations,
+    deleteInstanceSnapshotResponse_httpStatus,
+
+    -- ** DeleteKeyPair
+    deleteKeyPair_expectedFingerprint,
+    deleteKeyPair_keyPairName,
+    deleteKeyPairResponse_operation,
+    deleteKeyPairResponse_httpStatus,
+
+    -- ** DeleteKnownHostKeys
+    deleteKnownHostKeys_instanceName,
+    deleteKnownHostKeysResponse_operations,
+    deleteKnownHostKeysResponse_httpStatus,
+
+    -- ** DeleteLoadBalancer
+    deleteLoadBalancer_loadBalancerName,
+    deleteLoadBalancerResponse_operations,
+    deleteLoadBalancerResponse_httpStatus,
+
+    -- ** DeleteLoadBalancerTlsCertificate
+    deleteLoadBalancerTlsCertificate_force,
+    deleteLoadBalancerTlsCertificate_loadBalancerName,
+    deleteLoadBalancerTlsCertificate_certificateName,
+    deleteLoadBalancerTlsCertificateResponse_operations,
+    deleteLoadBalancerTlsCertificateResponse_httpStatus,
+
+    -- ** DeleteRelationalDatabase
+    deleteRelationalDatabase_finalRelationalDatabaseSnapshotName,
+    deleteRelationalDatabase_skipFinalSnapshot,
+    deleteRelationalDatabase_relationalDatabaseName,
+    deleteRelationalDatabaseResponse_operations,
+    deleteRelationalDatabaseResponse_httpStatus,
+
+    -- ** DeleteRelationalDatabaseSnapshot
+    deleteRelationalDatabaseSnapshot_relationalDatabaseSnapshotName,
+    deleteRelationalDatabaseSnapshotResponse_operations,
+    deleteRelationalDatabaseSnapshotResponse_httpStatus,
+
+    -- ** DetachCertificateFromDistribution
+    detachCertificateFromDistribution_distributionName,
+    detachCertificateFromDistributionResponse_operation,
+    detachCertificateFromDistributionResponse_httpStatus,
+
+    -- ** DetachDisk
+    detachDisk_diskName,
+    detachDiskResponse_operations,
+    detachDiskResponse_httpStatus,
+
+    -- ** DetachInstancesFromLoadBalancer
+    detachInstancesFromLoadBalancer_loadBalancerName,
+    detachInstancesFromLoadBalancer_instanceNames,
+    detachInstancesFromLoadBalancerResponse_operations,
+    detachInstancesFromLoadBalancerResponse_httpStatus,
+
+    -- ** DetachStaticIp
+    detachStaticIp_staticIpName,
+    detachStaticIpResponse_operations,
+    detachStaticIpResponse_httpStatus,
+
+    -- ** DisableAddOn
+    disableAddOn_addOnType,
+    disableAddOn_resourceName,
+    disableAddOnResponse_operations,
+    disableAddOnResponse_httpStatus,
+
+    -- ** DownloadDefaultKeyPair
+    downloadDefaultKeyPairResponse_createdAt,
+    downloadDefaultKeyPairResponse_privateKeyBase64,
+    downloadDefaultKeyPairResponse_publicKeyBase64,
+    downloadDefaultKeyPairResponse_httpStatus,
+
+    -- ** EnableAddOn
+    enableAddOn_resourceName,
+    enableAddOn_addOnRequest,
+    enableAddOnResponse_operations,
+    enableAddOnResponse_httpStatus,
+
+    -- ** ExportSnapshot
+    exportSnapshot_sourceSnapshotName,
+    exportSnapshotResponse_operations,
+    exportSnapshotResponse_httpStatus,
+
+    -- ** GetActiveNames
+    getActiveNames_pageToken,
+    getActiveNamesResponse_activeNames,
+    getActiveNamesResponse_nextPageToken,
+    getActiveNamesResponse_httpStatus,
+
+    -- ** GetAlarms
+    getAlarms_alarmName,
+    getAlarms_monitoredResourceName,
+    getAlarms_pageToken,
+    getAlarmsResponse_alarms,
+    getAlarmsResponse_nextPageToken,
+    getAlarmsResponse_httpStatus,
+
+    -- ** GetAutoSnapshots
+    getAutoSnapshots_resourceName,
+    getAutoSnapshotsResponse_autoSnapshots,
+    getAutoSnapshotsResponse_resourceName,
+    getAutoSnapshotsResponse_resourceType,
+    getAutoSnapshotsResponse_httpStatus,
+
+    -- ** GetBlueprints
+    getBlueprints_includeInactive,
+    getBlueprints_pageToken,
+    getBlueprintsResponse_blueprints,
+    getBlueprintsResponse_nextPageToken,
+    getBlueprintsResponse_httpStatus,
+
+    -- ** GetBucketAccessKeys
+    getBucketAccessKeys_bucketName,
+    getBucketAccessKeysResponse_accessKeys,
+    getBucketAccessKeysResponse_httpStatus,
+
+    -- ** GetBucketBundles
+    getBucketBundles_includeInactive,
+    getBucketBundlesResponse_bundles,
+    getBucketBundlesResponse_httpStatus,
+
+    -- ** GetBucketMetricData
+    getBucketMetricData_bucketName,
+    getBucketMetricData_metricName,
+    getBucketMetricData_startTime,
+    getBucketMetricData_endTime,
+    getBucketMetricData_period,
+    getBucketMetricData_statistics,
+    getBucketMetricData_unit,
+    getBucketMetricDataResponse_metricData,
+    getBucketMetricDataResponse_metricName,
+    getBucketMetricDataResponse_httpStatus,
+
+    -- ** GetBuckets
+    getBuckets_bucketName,
+    getBuckets_includeConnectedResources,
+    getBuckets_pageToken,
+    getBucketsResponse_accountLevelBpaSync,
+    getBucketsResponse_buckets,
+    getBucketsResponse_nextPageToken,
+    getBucketsResponse_httpStatus,
+
+    -- ** GetBundles
+    getBundles_includeInactive,
+    getBundles_pageToken,
+    getBundlesResponse_bundles,
+    getBundlesResponse_nextPageToken,
+    getBundlesResponse_httpStatus,
+
+    -- ** GetCertificates
+    getCertificates_certificateName,
+    getCertificates_certificateStatuses,
+    getCertificates_includeCertificateDetails,
+    getCertificatesResponse_certificates,
+    getCertificatesResponse_httpStatus,
+
+    -- ** GetCloudFormationStackRecords
+    getCloudFormationStackRecords_pageToken,
+    getCloudFormationStackRecordsResponse_cloudFormationStackRecords,
+    getCloudFormationStackRecordsResponse_nextPageToken,
+    getCloudFormationStackRecordsResponse_httpStatus,
+
+    -- ** GetContactMethods
+    getContactMethods_protocols,
+    getContactMethodsResponse_contactMethods,
+    getContactMethodsResponse_httpStatus,
+
+    -- ** GetContainerAPIMetadata
+    getContainerAPIMetadataResponse_metadata,
+    getContainerAPIMetadataResponse_httpStatus,
+
+    -- ** GetContainerImages
+    getContainerImages_serviceName,
+    getContainerImagesResponse_containerImages,
+    getContainerImagesResponse_httpStatus,
+
+    -- ** GetContainerLog
+    getContainerLog_endTime,
+    getContainerLog_filterPattern,
+    getContainerLog_pageToken,
+    getContainerLog_startTime,
+    getContainerLog_serviceName,
+    getContainerLog_containerName,
+    getContainerLogResponse_logEvents,
+    getContainerLogResponse_nextPageToken,
+    getContainerLogResponse_httpStatus,
+
+    -- ** GetContainerServiceDeployments
+    getContainerServiceDeployments_serviceName,
+    getContainerServiceDeploymentsResponse_deployments,
+    getContainerServiceDeploymentsResponse_httpStatus,
+
+    -- ** GetContainerServiceMetricData
+    getContainerServiceMetricData_serviceName,
+    getContainerServiceMetricData_metricName,
+    getContainerServiceMetricData_startTime,
+    getContainerServiceMetricData_endTime,
+    getContainerServiceMetricData_period,
+    getContainerServiceMetricData_statistics,
+    getContainerServiceMetricDataResponse_metricData,
+    getContainerServiceMetricDataResponse_metricName,
+    getContainerServiceMetricDataResponse_httpStatus,
+
+    -- ** GetContainerServicePowers
+    getContainerServicePowersResponse_powers,
+    getContainerServicePowersResponse_httpStatus,
+
+    -- ** GetContainerServices
+    getContainerServices_serviceName,
+    getContainerServicesResponse_containerServices,
+    getContainerServicesResponse_httpStatus,
+
+    -- ** GetDisk
+    getDisk_diskName,
+    getDiskResponse_disk,
+    getDiskResponse_httpStatus,
+
+    -- ** GetDiskSnapshot
+    getDiskSnapshot_diskSnapshotName,
+    getDiskSnapshotResponse_diskSnapshot,
+    getDiskSnapshotResponse_httpStatus,
+
+    -- ** GetDiskSnapshots
+    getDiskSnapshots_pageToken,
+    getDiskSnapshotsResponse_diskSnapshots,
+    getDiskSnapshotsResponse_nextPageToken,
+    getDiskSnapshotsResponse_httpStatus,
+
+    -- ** GetDisks
+    getDisks_pageToken,
+    getDisksResponse_disks,
+    getDisksResponse_nextPageToken,
+    getDisksResponse_httpStatus,
+
+    -- ** GetDistributionBundles
+    getDistributionBundlesResponse_bundles,
+    getDistributionBundlesResponse_httpStatus,
+
+    -- ** GetDistributionLatestCacheReset
+    getDistributionLatestCacheReset_distributionName,
+    getDistributionLatestCacheResetResponse_createTime,
+    getDistributionLatestCacheResetResponse_status,
+    getDistributionLatestCacheResetResponse_httpStatus,
+
+    -- ** GetDistributionMetricData
+    getDistributionMetricData_distributionName,
+    getDistributionMetricData_metricName,
+    getDistributionMetricData_startTime,
+    getDistributionMetricData_endTime,
+    getDistributionMetricData_period,
+    getDistributionMetricData_unit,
+    getDistributionMetricData_statistics,
+    getDistributionMetricDataResponse_metricData,
+    getDistributionMetricDataResponse_metricName,
+    getDistributionMetricDataResponse_httpStatus,
+
+    -- ** GetDistributions
+    getDistributions_distributionName,
+    getDistributions_pageToken,
+    getDistributionsResponse_distributions,
+    getDistributionsResponse_nextPageToken,
+    getDistributionsResponse_httpStatus,
+
+    -- ** GetDomain
+    getDomain_domainName,
+    getDomainResponse_domain,
+    getDomainResponse_httpStatus,
+
+    -- ** GetDomains
+    getDomains_pageToken,
+    getDomainsResponse_domains,
+    getDomainsResponse_nextPageToken,
+    getDomainsResponse_httpStatus,
+
+    -- ** GetExportSnapshotRecords
+    getExportSnapshotRecords_pageToken,
+    getExportSnapshotRecordsResponse_exportSnapshotRecords,
+    getExportSnapshotRecordsResponse_nextPageToken,
+    getExportSnapshotRecordsResponse_httpStatus,
+
+    -- ** GetInstance
+    getInstance_instanceName,
+    getInstanceResponse_instance,
+    getInstanceResponse_httpStatus,
+
+    -- ** GetInstanceAccessDetails
+    getInstanceAccessDetails_protocol,
+    getInstanceAccessDetails_instanceName,
+    getInstanceAccessDetailsResponse_accessDetails,
+    getInstanceAccessDetailsResponse_httpStatus,
+
+    -- ** GetInstanceMetricData
+    getInstanceMetricData_instanceName,
+    getInstanceMetricData_metricName,
+    getInstanceMetricData_period,
+    getInstanceMetricData_startTime,
+    getInstanceMetricData_endTime,
+    getInstanceMetricData_unit,
+    getInstanceMetricData_statistics,
+    getInstanceMetricDataResponse_metricData,
+    getInstanceMetricDataResponse_metricName,
+    getInstanceMetricDataResponse_httpStatus,
+
+    -- ** GetInstancePortStates
+    getInstancePortStates_instanceName,
+    getInstancePortStatesResponse_portStates,
+    getInstancePortStatesResponse_httpStatus,
+
+    -- ** GetInstanceSnapshot
+    getInstanceSnapshot_instanceSnapshotName,
+    getInstanceSnapshotResponse_instanceSnapshot,
+    getInstanceSnapshotResponse_httpStatus,
+
+    -- ** GetInstanceSnapshots
+    getInstanceSnapshots_pageToken,
+    getInstanceSnapshotsResponse_instanceSnapshots,
+    getInstanceSnapshotsResponse_nextPageToken,
+    getInstanceSnapshotsResponse_httpStatus,
+
+    -- ** GetInstanceState
+    getInstanceState_instanceName,
+    getInstanceStateResponse_state,
+    getInstanceStateResponse_httpStatus,
+
+    -- ** GetInstances
+    getInstances_pageToken,
+    getInstancesResponse_instances,
+    getInstancesResponse_nextPageToken,
+    getInstancesResponse_httpStatus,
+
+    -- ** GetKeyPair
+    getKeyPair_keyPairName,
+    getKeyPairResponse_keyPair,
+    getKeyPairResponse_httpStatus,
+
+    -- ** GetKeyPairs
+    getKeyPairs_includeDefaultKeyPair,
+    getKeyPairs_pageToken,
+    getKeyPairsResponse_keyPairs,
+    getKeyPairsResponse_nextPageToken,
+    getKeyPairsResponse_httpStatus,
+
+    -- ** GetLoadBalancer
+    getLoadBalancer_loadBalancerName,
+    getLoadBalancerResponse_loadBalancer,
+    getLoadBalancerResponse_httpStatus,
+
+    -- ** GetLoadBalancerMetricData
+    getLoadBalancerMetricData_loadBalancerName,
+    getLoadBalancerMetricData_metricName,
+    getLoadBalancerMetricData_period,
+    getLoadBalancerMetricData_startTime,
+    getLoadBalancerMetricData_endTime,
+    getLoadBalancerMetricData_unit,
+    getLoadBalancerMetricData_statistics,
+    getLoadBalancerMetricDataResponse_metricData,
+    getLoadBalancerMetricDataResponse_metricName,
+    getLoadBalancerMetricDataResponse_httpStatus,
+
+    -- ** GetLoadBalancerTlsCertificates
+    getLoadBalancerTlsCertificates_loadBalancerName,
+    getLoadBalancerTlsCertificatesResponse_tlsCertificates,
+    getLoadBalancerTlsCertificatesResponse_httpStatus,
+
+    -- ** GetLoadBalancerTlsPolicies
+    getLoadBalancerTlsPolicies_pageToken,
+    getLoadBalancerTlsPoliciesResponse_nextPageToken,
+    getLoadBalancerTlsPoliciesResponse_tlsPolicies,
+    getLoadBalancerTlsPoliciesResponse_httpStatus,
+
+    -- ** GetLoadBalancers
+    getLoadBalancers_pageToken,
+    getLoadBalancersResponse_loadBalancers,
+    getLoadBalancersResponse_nextPageToken,
+    getLoadBalancersResponse_httpStatus,
+
+    -- ** GetOperation
+    getOperation_operationId,
+    getOperationResponse_operation,
+    getOperationResponse_httpStatus,
+
+    -- ** GetOperations
+    getOperations_pageToken,
+    getOperationsResponse_nextPageToken,
+    getOperationsResponse_operations,
+    getOperationsResponse_httpStatus,
 
     -- ** GetOperationsForResource
     getOperationsForResource_pageToken,
@@ -1037,69 +753,383 @@ module Amazonka.Lightsail.Lens
     getOperationsForResourceResponse_operations,
     getOperationsForResourceResponse_httpStatus,
 
-    -- ** CreateKeyPair
-    createKeyPair_tags,
-    createKeyPair_keyPairName,
-    createKeyPairResponse_keyPair,
-    createKeyPairResponse_operation,
-    createKeyPairResponse_publicKeyBase64,
-    createKeyPairResponse_privateKeyBase64,
-    createKeyPairResponse_httpStatus,
+    -- ** GetRegions
+    getRegions_includeAvailabilityZones,
+    getRegions_includeRelationalDatabaseAvailabilityZones,
+    getRegionsResponse_regions,
+    getRegionsResponse_httpStatus,
+
+    -- ** GetRelationalDatabase
+    getRelationalDatabase_relationalDatabaseName,
+    getRelationalDatabaseResponse_relationalDatabase,
+    getRelationalDatabaseResponse_httpStatus,
+
+    -- ** GetRelationalDatabaseBlueprints
+    getRelationalDatabaseBlueprints_pageToken,
+    getRelationalDatabaseBlueprintsResponse_blueprints,
+    getRelationalDatabaseBlueprintsResponse_nextPageToken,
+    getRelationalDatabaseBlueprintsResponse_httpStatus,
+
+    -- ** GetRelationalDatabaseBundles
+    getRelationalDatabaseBundles_includeInactive,
+    getRelationalDatabaseBundles_pageToken,
+    getRelationalDatabaseBundlesResponse_bundles,
+    getRelationalDatabaseBundlesResponse_nextPageToken,
+    getRelationalDatabaseBundlesResponse_httpStatus,
+
+    -- ** GetRelationalDatabaseEvents
+    getRelationalDatabaseEvents_durationInMinutes,
+    getRelationalDatabaseEvents_pageToken,
+    getRelationalDatabaseEvents_relationalDatabaseName,
+    getRelationalDatabaseEventsResponse_nextPageToken,
+    getRelationalDatabaseEventsResponse_relationalDatabaseEvents,
+    getRelationalDatabaseEventsResponse_httpStatus,
+
+    -- ** GetRelationalDatabaseLogEvents
+    getRelationalDatabaseLogEvents_endTime,
+    getRelationalDatabaseLogEvents_pageToken,
+    getRelationalDatabaseLogEvents_startFromHead,
+    getRelationalDatabaseLogEvents_startTime,
+    getRelationalDatabaseLogEvents_relationalDatabaseName,
+    getRelationalDatabaseLogEvents_logStreamName,
+    getRelationalDatabaseLogEventsResponse_nextBackwardToken,
+    getRelationalDatabaseLogEventsResponse_nextForwardToken,
+    getRelationalDatabaseLogEventsResponse_resourceLogEvents,
+    getRelationalDatabaseLogEventsResponse_httpStatus,
+
+    -- ** GetRelationalDatabaseLogStreams
+    getRelationalDatabaseLogStreams_relationalDatabaseName,
+    getRelationalDatabaseLogStreamsResponse_logStreams,
+    getRelationalDatabaseLogStreamsResponse_httpStatus,
+
+    -- ** GetRelationalDatabaseMasterUserPassword
+    getRelationalDatabaseMasterUserPassword_passwordVersion,
+    getRelationalDatabaseMasterUserPassword_relationalDatabaseName,
+    getRelationalDatabaseMasterUserPasswordResponse_createdAt,
+    getRelationalDatabaseMasterUserPasswordResponse_masterUserPassword,
+    getRelationalDatabaseMasterUserPasswordResponse_httpStatus,
+
+    -- ** GetRelationalDatabaseMetricData
+    getRelationalDatabaseMetricData_relationalDatabaseName,
+    getRelationalDatabaseMetricData_metricName,
+    getRelationalDatabaseMetricData_period,
+    getRelationalDatabaseMetricData_startTime,
+    getRelationalDatabaseMetricData_endTime,
+    getRelationalDatabaseMetricData_unit,
+    getRelationalDatabaseMetricData_statistics,
+    getRelationalDatabaseMetricDataResponse_metricData,
+    getRelationalDatabaseMetricDataResponse_metricName,
+    getRelationalDatabaseMetricDataResponse_httpStatus,
+
+    -- ** GetRelationalDatabaseParameters
+    getRelationalDatabaseParameters_pageToken,
+    getRelationalDatabaseParameters_relationalDatabaseName,
+    getRelationalDatabaseParametersResponse_nextPageToken,
+    getRelationalDatabaseParametersResponse_parameters,
+    getRelationalDatabaseParametersResponse_httpStatus,
+
+    -- ** GetRelationalDatabaseSnapshot
+    getRelationalDatabaseSnapshot_relationalDatabaseSnapshotName,
+    getRelationalDatabaseSnapshotResponse_relationalDatabaseSnapshot,
+    getRelationalDatabaseSnapshotResponse_httpStatus,
+
+    -- ** GetRelationalDatabaseSnapshots
+    getRelationalDatabaseSnapshots_pageToken,
+    getRelationalDatabaseSnapshotsResponse_nextPageToken,
+    getRelationalDatabaseSnapshotsResponse_relationalDatabaseSnapshots,
+    getRelationalDatabaseSnapshotsResponse_httpStatus,
+
+    -- ** GetRelationalDatabases
+    getRelationalDatabases_pageToken,
+    getRelationalDatabasesResponse_nextPageToken,
+    getRelationalDatabasesResponse_relationalDatabases,
+    getRelationalDatabasesResponse_httpStatus,
+
+    -- ** GetStaticIp
+    getStaticIp_staticIpName,
+    getStaticIpResponse_staticIp,
+    getStaticIpResponse_httpStatus,
+
+    -- ** GetStaticIps
+    getStaticIps_pageToken,
+    getStaticIpsResponse_nextPageToken,
+    getStaticIpsResponse_staticIps,
+    getStaticIpsResponse_httpStatus,
+
+    -- ** ImportKeyPair
+    importKeyPair_keyPairName,
+    importKeyPair_publicKeyBase64,
+    importKeyPairResponse_operation,
+    importKeyPairResponse_httpStatus,
+
+    -- ** IsVpcPeered
+    isVpcPeeredResponse_isPeered,
+    isVpcPeeredResponse_httpStatus,
+
+    -- ** OpenInstancePublicPorts
+    openInstancePublicPorts_portInfo,
+    openInstancePublicPorts_instanceName,
+    openInstancePublicPortsResponse_operation,
+    openInstancePublicPortsResponse_httpStatus,
+
+    -- ** PeerVpc
+    peerVpcResponse_operation,
+    peerVpcResponse_httpStatus,
+
+    -- ** PutAlarm
+    putAlarm_contactProtocols,
+    putAlarm_datapointsToAlarm,
+    putAlarm_notificationEnabled,
+    putAlarm_notificationTriggers,
+    putAlarm_treatMissingData,
+    putAlarm_alarmName,
+    putAlarm_metricName,
+    putAlarm_monitoredResourceName,
+    putAlarm_comparisonOperator,
+    putAlarm_threshold,
+    putAlarm_evaluationPeriods,
+    putAlarmResponse_operations,
+    putAlarmResponse_httpStatus,
+
+    -- ** PutInstancePublicPorts
+    putInstancePublicPorts_portInfos,
+    putInstancePublicPorts_instanceName,
+    putInstancePublicPortsResponse_operation,
+    putInstancePublicPortsResponse_httpStatus,
+
+    -- ** RebootInstance
+    rebootInstance_instanceName,
+    rebootInstanceResponse_operations,
+    rebootInstanceResponse_httpStatus,
+
+    -- ** RebootRelationalDatabase
+    rebootRelationalDatabase_relationalDatabaseName,
+    rebootRelationalDatabaseResponse_operations,
+    rebootRelationalDatabaseResponse_httpStatus,
+
+    -- ** RegisterContainerImage
+    registerContainerImage_serviceName,
+    registerContainerImage_label,
+    registerContainerImage_digest,
+    registerContainerImageResponse_containerImage,
+    registerContainerImageResponse_httpStatus,
+
+    -- ** ReleaseStaticIp
+    releaseStaticIp_staticIpName,
+    releaseStaticIpResponse_operations,
+    releaseStaticIpResponse_httpStatus,
+
+    -- ** ResetDistributionCache
+    resetDistributionCache_distributionName,
+    resetDistributionCacheResponse_createTime,
+    resetDistributionCacheResponse_operation,
+    resetDistributionCacheResponse_status,
+    resetDistributionCacheResponse_httpStatus,
+
+    -- ** SendContactMethodVerification
+    sendContactMethodVerification_protocol,
+    sendContactMethodVerificationResponse_operations,
+    sendContactMethodVerificationResponse_httpStatus,
+
+    -- ** SetIpAddressType
+    setIpAddressType_resourceType,
+    setIpAddressType_resourceName,
+    setIpAddressType_ipAddressType,
+    setIpAddressTypeResponse_operations,
+    setIpAddressTypeResponse_httpStatus,
+
+    -- ** SetResourceAccessForBucket
+    setResourceAccessForBucket_resourceName,
+    setResourceAccessForBucket_bucketName,
+    setResourceAccessForBucket_access,
+    setResourceAccessForBucketResponse_operations,
+    setResourceAccessForBucketResponse_httpStatus,
 
     -- ** StartInstance
     startInstance_instanceName,
     startInstanceResponse_operations,
     startInstanceResponse_httpStatus,
 
+    -- ** StartRelationalDatabase
+    startRelationalDatabase_relationalDatabaseName,
+    startRelationalDatabaseResponse_operations,
+    startRelationalDatabaseResponse_httpStatus,
+
+    -- ** StopInstance
+    stopInstance_force,
+    stopInstance_instanceName,
+    stopInstanceResponse_operations,
+    stopInstanceResponse_httpStatus,
+
+    -- ** StopRelationalDatabase
+    stopRelationalDatabase_relationalDatabaseSnapshotName,
+    stopRelationalDatabase_relationalDatabaseName,
+    stopRelationalDatabaseResponse_operations,
+    stopRelationalDatabaseResponse_httpStatus,
+
+    -- ** TagResource
+    tagResource_resourceArn,
+    tagResource_resourceName,
+    tagResource_tags,
+    tagResourceResponse_operations,
+    tagResourceResponse_httpStatus,
+
+    -- ** TestAlarm
+    testAlarm_alarmName,
+    testAlarm_state,
+    testAlarmResponse_operations,
+    testAlarmResponse_httpStatus,
+
+    -- ** UnpeerVpc
+    unpeerVpcResponse_operation,
+    unpeerVpcResponse_httpStatus,
+
+    -- ** UntagResource
+    untagResource_resourceArn,
+    untagResource_resourceName,
+    untagResource_tagKeys,
+    untagResourceResponse_operations,
+    untagResourceResponse_httpStatus,
+
+    -- ** UpdateBucket
+    updateBucket_accessLogConfig,
+    updateBucket_accessRules,
+    updateBucket_readonlyAccessAccounts,
+    updateBucket_versioning,
+    updateBucket_bucketName,
+    updateBucketResponse_bucket,
+    updateBucketResponse_operations,
+    updateBucketResponse_httpStatus,
+
+    -- ** UpdateBucketBundle
+    updateBucketBundle_bucketName,
+    updateBucketBundle_bundleId,
+    updateBucketBundleResponse_operations,
+    updateBucketBundleResponse_httpStatus,
+
+    -- ** UpdateContainerService
+    updateContainerService_isDisabled,
+    updateContainerService_power,
+    updateContainerService_privateRegistryAccess,
+    updateContainerService_publicDomainNames,
+    updateContainerService_scale,
+    updateContainerService_serviceName,
+    updateContainerServiceResponse_containerService,
+    updateContainerServiceResponse_httpStatus,
+
+    -- ** UpdateDistribution
+    updateDistribution_cacheBehaviorSettings,
+    updateDistribution_cacheBehaviors,
+    updateDistribution_defaultCacheBehavior,
+    updateDistribution_isEnabled,
+    updateDistribution_origin,
+    updateDistribution_distributionName,
+    updateDistributionResponse_operation,
+    updateDistributionResponse_httpStatus,
+
+    -- ** UpdateDistributionBundle
+    updateDistributionBundle_bundleId,
+    updateDistributionBundle_distributionName,
+    updateDistributionBundleResponse_operation,
+    updateDistributionBundleResponse_httpStatus,
+
+    -- ** UpdateDomainEntry
+    updateDomainEntry_domainName,
+    updateDomainEntry_domainEntry,
+    updateDomainEntryResponse_operations,
+    updateDomainEntryResponse_httpStatus,
+
+    -- ** UpdateInstanceMetadataOptions
+    updateInstanceMetadataOptions_httpEndpoint,
+    updateInstanceMetadataOptions_httpProtocolIpv6,
+    updateInstanceMetadataOptions_httpPutResponseHopLimit,
+    updateInstanceMetadataOptions_httpTokens,
+    updateInstanceMetadataOptions_instanceName,
+    updateInstanceMetadataOptionsResponse_operation,
+    updateInstanceMetadataOptionsResponse_httpStatus,
+
+    -- ** UpdateLoadBalancerAttribute
+    updateLoadBalancerAttribute_loadBalancerName,
+    updateLoadBalancerAttribute_attributeName,
+    updateLoadBalancerAttribute_attributeValue,
+    updateLoadBalancerAttributeResponse_operations,
+    updateLoadBalancerAttributeResponse_httpStatus,
+
+    -- ** UpdateRelationalDatabase
+    updateRelationalDatabase_applyImmediately,
+    updateRelationalDatabase_caCertificateIdentifier,
+    updateRelationalDatabase_disableBackupRetention,
+    updateRelationalDatabase_enableBackupRetention,
+    updateRelationalDatabase_masterUserPassword,
+    updateRelationalDatabase_preferredBackupWindow,
+    updateRelationalDatabase_preferredMaintenanceWindow,
+    updateRelationalDatabase_publiclyAccessible,
+    updateRelationalDatabase_rotateMasterUserPassword,
+    updateRelationalDatabase_relationalDatabaseName,
+    updateRelationalDatabaseResponse_operations,
+    updateRelationalDatabaseResponse_httpStatus,
+
+    -- ** UpdateRelationalDatabaseParameters
+    updateRelationalDatabaseParameters_relationalDatabaseName,
+    updateRelationalDatabaseParameters_parameters,
+    updateRelationalDatabaseParametersResponse_operations,
+    updateRelationalDatabaseParametersResponse_httpStatus,
+
     -- * Types
 
     -- ** AccessKey
-    accessKey_status,
-    accessKey_createdAt,
-    accessKey_secretAccessKey,
-    accessKey_lastUsed,
     accessKey_accessKeyId,
+    accessKey_createdAt,
+    accessKey_lastUsed,
+    accessKey_secretAccessKey,
+    accessKey_status,
 
     -- ** AccessKeyLastUsed
     accessKeyLastUsed_lastUsedDate,
-    accessKeyLastUsed_serviceName,
     accessKeyLastUsed_region,
+    accessKeyLastUsed_serviceName,
 
     -- ** AccessRules
-    accessRules_getObject,
     accessRules_allowPublicOverrides,
+    accessRules_getObject,
+
+    -- ** AccountLevelBpaSync
+    accountLevelBpaSync_bpaImpactsLightsail,
+    accountLevelBpaSync_lastSyncedAt,
+    accountLevelBpaSync_message,
+    accountLevelBpaSync_status,
 
     -- ** AddOn
-    addOn_status,
+    addOn_name,
     addOn_nextSnapshotTimeOfDay,
     addOn_snapshotTimeOfDay,
-    addOn_name,
+    addOn_status,
 
     -- ** AddOnRequest
     addOnRequest_autoSnapshotAddOnRequest,
     addOnRequest_addOnType,
 
     -- ** Alarm
-    alarm_state,
-    alarm_treatMissingData,
-    alarm_resourceType,
     alarm_arn,
-    alarm_createdAt,
-    alarm_location,
-    alarm_contactProtocols,
-    alarm_period,
-    alarm_evaluationPeriods,
-    alarm_metricName,
     alarm_comparisonOperator,
-    alarm_name,
-    alarm_threshold,
+    alarm_contactProtocols,
+    alarm_createdAt,
     alarm_datapointsToAlarm,
-    alarm_supportCode,
+    alarm_evaluationPeriods,
+    alarm_location,
+    alarm_metricName,
+    alarm_monitoredResourceInfo,
+    alarm_name,
     alarm_notificationEnabled,
     alarm_notificationTriggers,
+    alarm_period,
+    alarm_resourceType,
+    alarm_state,
     alarm_statistic,
+    alarm_supportCode,
+    alarm_threshold,
+    alarm_treatMissingData,
     alarm_unit,
-    alarm_monitoredResourceInfo,
 
     -- ** AttachedDisk
     attachedDisk_path,
@@ -1109,196 +1139,210 @@ module Amazonka.Lightsail.Lens
     autoSnapshotAddOnRequest_snapshotTimeOfDay,
 
     -- ** AutoSnapshotDetails
-    autoSnapshotDetails_status,
-    autoSnapshotDetails_fromAttachedDisks,
     autoSnapshotDetails_createdAt,
     autoSnapshotDetails_date,
+    autoSnapshotDetails_fromAttachedDisks,
+    autoSnapshotDetails_status,
 
     -- ** AvailabilityZone
     availabilityZone_state,
     availabilityZone_zoneName,
 
     -- ** Blueprint
-    blueprint_versionCode,
-    blueprint_platform,
-    blueprint_group,
-    blueprint_minPower,
-    blueprint_productUrl,
-    blueprint_licenseUrl,
-    blueprint_name,
-    blueprint_version,
     blueprint_blueprintId,
-    blueprint_type,
-    blueprint_isActive,
     blueprint_description,
+    blueprint_group,
+    blueprint_isActive,
+    blueprint_licenseUrl,
+    blueprint_minPower,
+    blueprint_name,
+    blueprint_platform,
+    blueprint_productUrl,
+    blueprint_type,
+    blueprint_version,
+    blueprint_versionCode,
 
     -- ** Bucket
-    bucket_state,
-    bucket_objectVersioning,
-    bucket_resourceType,
+    bucket_ableToUpdateBundle,
+    bucket_accessLogConfig,
+    bucket_accessRules,
     bucket_arn,
+    bucket_bundleId,
     bucket_createdAt,
     bucket_location,
-    bucket_readonlyAccessAccounts,
-    bucket_url,
-    bucket_resourcesReceivingAccess,
-    bucket_bundleId,
-    bucket_accessRules,
-    bucket_ableToUpdateBundle,
     bucket_name,
+    bucket_objectVersioning,
+    bucket_readonlyAccessAccounts,
+    bucket_resourceType,
+    bucket_resourcesReceivingAccess,
+    bucket_state,
     bucket_supportCode,
     bucket_tags,
+    bucket_url,
+
+    -- ** BucketAccessLogConfig
+    bucketAccessLogConfig_destination,
+    bucketAccessLogConfig_prefix,
+    bucketAccessLogConfig_enabled,
 
     -- ** BucketBundle
-    bucketBundle_storagePerMonthInGb,
-    bucketBundle_transferPerMonthInGb,
     bucketBundle_bundleId,
+    bucketBundle_isActive,
     bucketBundle_name,
     bucketBundle_price,
-    bucketBundle_isActive,
+    bucketBundle_storagePerMonthInGb,
+    bucketBundle_transferPerMonthInGb,
 
     -- ** BucketState
     bucketState_code,
     bucketState_message,
 
     -- ** Bundle
-    bundle_cpuCount,
-    bundle_transferPerMonthInGb,
     bundle_bundleId,
+    bundle_cpuCount,
+    bundle_diskSizeInGb,
     bundle_instanceType,
+    bundle_isActive,
     bundle_name,
     bundle_power,
-    bundle_diskSizeInGb,
-    bundle_supportedPlatforms,
     bundle_price,
-    bundle_isActive,
     bundle_ramSizeInGb,
+    bundle_supportedPlatforms,
+    bundle_transferPerMonthInGb,
 
     -- ** CacheBehavior
     cacheBehavior_behavior,
 
     -- ** CacheBehaviorPerPath
-    cacheBehaviorPerPath_path,
     cacheBehaviorPerPath_behavior,
+    cacheBehaviorPerPath_path,
 
     -- ** CacheSettings
-    cacheSettings_maximumTTL,
-    cacheSettings_cachedHTTPMethods,
-    cacheSettings_forwardedCookies,
     cacheSettings_allowedHTTPMethods,
+    cacheSettings_cachedHTTPMethods,
     cacheSettings_defaultTTL,
-    cacheSettings_minimumTTL,
+    cacheSettings_forwardedCookies,
     cacheSettings_forwardedHeaders,
     cacheSettings_forwardedQueryStrings,
+    cacheSettings_maximumTTL,
+    cacheSettings_minimumTTL,
 
     -- ** Certificate
-    certificate_status,
-    certificate_subjectAlternativeNames,
     certificate_arn,
     certificate_createdAt,
-    certificate_eligibleToRenew,
-    certificate_requestFailureReason,
-    certificate_revokedAt,
-    certificate_notBefore,
-    certificate_revocationReason,
     certificate_domainName,
-    certificate_name,
-    certificate_renewalSummary,
-    certificate_supportCode,
     certificate_domainValidationRecords,
+    certificate_eligibleToRenew,
     certificate_inUseResourceCount,
     certificate_issuedAt,
-    certificate_keyAlgorithm,
-    certificate_serialNumber,
     certificate_issuerCA,
-    certificate_tags,
+    certificate_keyAlgorithm,
+    certificate_name,
     certificate_notAfter,
+    certificate_notBefore,
+    certificate_renewalSummary,
+    certificate_requestFailureReason,
+    certificate_revocationReason,
+    certificate_revokedAt,
+    certificate_serialNumber,
+    certificate_status,
+    certificate_subjectAlternativeNames,
+    certificate_supportCode,
+    certificate_tags,
 
     -- ** CertificateSummary
+    certificateSummary_certificateArn,
     certificateSummary_certificateDetail,
     certificateSummary_certificateName,
-    certificateSummary_certificateArn,
     certificateSummary_domainName,
     certificateSummary_tags,
 
     -- ** CloudFormationStackRecord
-    cloudFormationStackRecord_state,
-    cloudFormationStackRecord_destinationInfo,
-    cloudFormationStackRecord_resourceType,
     cloudFormationStackRecord_arn,
     cloudFormationStackRecord_createdAt,
+    cloudFormationStackRecord_destinationInfo,
     cloudFormationStackRecord_location,
     cloudFormationStackRecord_name,
+    cloudFormationStackRecord_resourceType,
     cloudFormationStackRecord_sourceInfo,
+    cloudFormationStackRecord_state,
 
     -- ** CloudFormationStackRecordSourceInfo
-    cloudFormationStackRecordSourceInfo_resourceType,
     cloudFormationStackRecordSourceInfo_arn,
     cloudFormationStackRecordSourceInfo_name,
+    cloudFormationStackRecordSourceInfo_resourceType,
 
     -- ** ContactMethod
-    contactMethod_status,
-    contactMethod_resourceType,
     contactMethod_arn,
+    contactMethod_contactEndpoint,
     contactMethod_createdAt,
     contactMethod_location,
-    contactMethod_protocol,
     contactMethod_name,
+    contactMethod_protocol,
+    contactMethod_resourceType,
+    contactMethod_status,
     contactMethod_supportCode,
-    contactMethod_contactEndpoint,
 
     -- ** Container
-    container_image,
     container_command,
     container_environment,
+    container_image,
     container_ports,
 
     -- ** ContainerImage
-    containerImage_image,
     containerImage_createdAt,
     containerImage_digest,
+    containerImage_image,
 
     -- ** ContainerService
-    containerService_state,
-    containerService_powerId,
-    containerService_resourceType,
     containerService_arn,
-    containerService_createdAt,
-    containerService_location,
-    containerService_scale,
-    containerService_url,
-    containerService_stateDetail,
-    containerService_nextDeployment,
-    containerService_principalArn,
-    containerService_power,
-    containerService_privateDomainName,
-    containerService_isDisabled,
-    containerService_publicDomainNames,
     containerService_containerServiceName,
+    containerService_createdAt,
     containerService_currentDeployment,
+    containerService_isDisabled,
+    containerService_location,
+    containerService_nextDeployment,
+    containerService_power,
+    containerService_powerId,
+    containerService_principalArn,
+    containerService_privateDomainName,
+    containerService_privateRegistryAccess,
+    containerService_publicDomainNames,
+    containerService_resourceType,
+    containerService_scale,
+    containerService_state,
+    containerService_stateDetail,
     containerService_tags,
+    containerService_url,
 
     -- ** ContainerServiceDeployment
-    containerServiceDeployment_state,
-    containerServiceDeployment_publicEndpoint,
-    containerServiceDeployment_createdAt,
     containerServiceDeployment_containers,
+    containerServiceDeployment_createdAt,
+    containerServiceDeployment_publicEndpoint,
+    containerServiceDeployment_state,
     containerServiceDeployment_version,
 
     -- ** ContainerServiceDeploymentRequest
-    containerServiceDeploymentRequest_publicEndpoint,
     containerServiceDeploymentRequest_containers,
+    containerServiceDeploymentRequest_publicEndpoint,
+
+    -- ** ContainerServiceECRImagePullerRole
+    containerServiceECRImagePullerRole_isActive,
+    containerServiceECRImagePullerRole_principalArn,
+
+    -- ** ContainerServiceECRImagePullerRoleRequest
+    containerServiceECRImagePullerRoleRequest_isActive,
 
     -- ** ContainerServiceEndpoint
-    containerServiceEndpoint_healthCheck,
     containerServiceEndpoint_containerName,
     containerServiceEndpoint_containerPort,
+    containerServiceEndpoint_healthCheck,
 
     -- ** ContainerServiceHealthCheckConfig
     containerServiceHealthCheckConfig_healthyThreshold,
+    containerServiceHealthCheckConfig_intervalSeconds,
     containerServiceHealthCheckConfig_path,
     containerServiceHealthCheckConfig_successCodes,
-    containerServiceHealthCheckConfig_intervalSeconds,
     containerServiceHealthCheckConfig_timeoutSeconds,
     containerServiceHealthCheckConfig_unhealthyThreshold,
 
@@ -1307,18 +1351,18 @@ module Amazonka.Lightsail.Lens
     containerServiceLogEvent_message,
 
     -- ** ContainerServicePower
-    containerServicePower_powerId,
     containerServicePower_cpuCount,
-    containerServicePower_name,
-    containerServicePower_price,
     containerServicePower_isActive,
+    containerServicePower_name,
+    containerServicePower_powerId,
+    containerServicePower_price,
     containerServicePower_ramSizeInGb,
 
     -- ** ContainerServiceRegistryLogin
     containerServiceRegistryLogin_expiresAt,
-    containerServiceRegistryLogin_username,
     containerServiceRegistryLogin_password,
     containerServiceRegistryLogin_registry,
+    containerServiceRegistryLogin_username,
 
     -- ** ContainerServiceStateDetail
     containerServiceStateDetail_code,
@@ -1329,86 +1373,93 @@ module Amazonka.Lightsail.Lens
     cookieObject_option,
 
     -- ** DestinationInfo
-    destinationInfo_service,
     destinationInfo_id,
+    destinationInfo_service,
 
     -- ** Disk
-    disk_state,
-    disk_resourceType,
+    disk_addOns,
     disk_arn,
-    disk_path,
+    disk_attachedTo,
+    disk_attachmentState,
     disk_createdAt,
-    disk_location,
+    disk_gbInUse,
     disk_iops,
     disk_isAttached,
-    disk_addOns,
-    disk_attachmentState,
-    disk_name,
-    disk_sizeInGb,
-    disk_supportCode,
     disk_isSystemDisk,
-    disk_attachedTo,
-    disk_gbInUse,
+    disk_location,
+    disk_name,
+    disk_path,
+    disk_resourceType,
+    disk_sizeInGb,
+    disk_state,
+    disk_supportCode,
     disk_tags,
 
     -- ** DiskInfo
-    diskInfo_path,
-    diskInfo_name,
-    diskInfo_sizeInGb,
     diskInfo_isSystemDisk,
+    diskInfo_name,
+    diskInfo_path,
+    diskInfo_sizeInGb,
 
     -- ** DiskMap
     diskMap_newDiskName,
     diskMap_originalDiskPath,
 
     -- ** DiskSnapshot
-    diskSnapshot_fromDiskName,
-    diskSnapshot_isFromAutoSnapshot,
-    diskSnapshot_state,
-    diskSnapshot_resourceType,
     diskSnapshot_arn,
     diskSnapshot_createdAt,
-    diskSnapshot_location,
-    diskSnapshot_progress,
-    diskSnapshot_name,
-    diskSnapshot_sizeInGb,
-    diskSnapshot_supportCode,
+    diskSnapshot_fromDiskArn,
+    diskSnapshot_fromDiskName,
     diskSnapshot_fromInstanceArn,
     diskSnapshot_fromInstanceName,
-    diskSnapshot_fromDiskArn,
+    diskSnapshot_isFromAutoSnapshot,
+    diskSnapshot_location,
+    diskSnapshot_name,
+    diskSnapshot_progress,
+    diskSnapshot_resourceType,
+    diskSnapshot_sizeInGb,
+    diskSnapshot_state,
+    diskSnapshot_supportCode,
     diskSnapshot_tags,
 
     -- ** DiskSnapshotInfo
     diskSnapshotInfo_sizeInGb,
 
     -- ** DistributionBundle
-    distributionBundle_transferPerMonthInGb,
     distributionBundle_bundleId,
+    distributionBundle_isActive,
     distributionBundle_name,
     distributionBundle_price,
-    distributionBundle_isActive,
+    distributionBundle_transferPerMonthInGb,
+
+    -- ** DnsRecordCreationState
+    dnsRecordCreationState_code,
+    dnsRecordCreationState_message,
 
     -- ** Domain
-    domain_resourceType,
-    domain_domainEntries,
     domain_arn,
     domain_createdAt,
+    domain_domainEntries,
     domain_location,
     domain_name,
+    domain_registeredDomainDelegationInfo,
+    domain_resourceType,
     domain_supportCode,
     domain_tags,
 
     -- ** DomainEntry
+    domainEntry_id,
     domainEntry_isAlias,
     domainEntry_name,
-    domainEntry_id,
     domainEntry_options,
-    domainEntry_type,
     domainEntry_target,
+    domainEntry_type,
 
     -- ** DomainValidationRecord
-    domainValidationRecord_resourceRecord,
+    domainValidationRecord_dnsRecordCreationState,
     domainValidationRecord_domainName,
+    domainValidationRecord_resourceRecord,
+    domainValidationRecord_validationStatus,
 
     -- ** EndpointRequest
     endpointRequest_healthCheck,
@@ -1416,77 +1467,78 @@ module Amazonka.Lightsail.Lens
     endpointRequest_containerPort,
 
     -- ** ExportSnapshotRecord
-    exportSnapshotRecord_state,
-    exportSnapshotRecord_destinationInfo,
-    exportSnapshotRecord_resourceType,
     exportSnapshotRecord_arn,
     exportSnapshotRecord_createdAt,
+    exportSnapshotRecord_destinationInfo,
     exportSnapshotRecord_location,
     exportSnapshotRecord_name,
+    exportSnapshotRecord_resourceType,
     exportSnapshotRecord_sourceInfo,
+    exportSnapshotRecord_state,
 
     -- ** ExportSnapshotRecordSourceInfo
-    exportSnapshotRecordSourceInfo_diskSnapshotInfo,
-    exportSnapshotRecordSourceInfo_resourceType,
     exportSnapshotRecordSourceInfo_arn,
     exportSnapshotRecordSourceInfo_createdAt,
+    exportSnapshotRecordSourceInfo_diskSnapshotInfo,
     exportSnapshotRecordSourceInfo_fromResourceArn,
-    exportSnapshotRecordSourceInfo_name,
-    exportSnapshotRecordSourceInfo_instanceSnapshotInfo,
     exportSnapshotRecordSourceInfo_fromResourceName,
+    exportSnapshotRecordSourceInfo_instanceSnapshotInfo,
+    exportSnapshotRecordSourceInfo_name,
+    exportSnapshotRecordSourceInfo_resourceType,
 
     -- ** HeaderObject
     headerObject_headersAllowList,
     headerObject_option,
 
     -- ** HostKeyAttributes
+    hostKeyAttributes_algorithm,
+    hostKeyAttributes_fingerprintSHA1,
+    hostKeyAttributes_fingerprintSHA256,
     hostKeyAttributes_notValidAfter,
     hostKeyAttributes_notValidBefore,
-    hostKeyAttributes_fingerprintSHA1,
     hostKeyAttributes_publicKey,
-    hostKeyAttributes_algorithm,
     hostKeyAttributes_witnessedAt,
-    hostKeyAttributes_fingerprintSHA256,
 
     -- ** InputOrigin
-    inputOrigin_regionName,
     inputOrigin_name,
     inputOrigin_protocolPolicy,
+    inputOrigin_regionName,
 
     -- ** Instance
-    instance_state,
-    instance_resourceType,
-    instance_arn,
-    instance_createdAt,
-    instance_location,
-    instance_sshKeyName,
     instance_addOns,
-    instance_username,
-    instance_networking,
-    instance_bundleId,
-    instance_name,
-    instance_ipAddressType,
-    instance_supportCode,
+    instance_arn,
     instance_blueprintId,
-    instance_privateIpAddress,
     instance_blueprintName,
-    instance_isStaticIp,
-    instance_publicIpAddress,
+    instance_bundleId,
+    instance_createdAt,
     instance_hardware,
+    instance_ipAddressType,
     instance_ipv6Addresses,
+    instance_isStaticIp,
+    instance_location,
+    instance_metadataOptions,
+    instance_name,
+    instance_networking,
+    instance_privateIpAddress,
+    instance_publicIpAddress,
+    instance_resourceType,
+    instance_sshKeyName,
+    instance_state,
+    instance_supportCode,
     instance_tags,
+    instance_username,
 
     -- ** InstanceAccessDetails
-    instanceAccessDetails_hostKeys,
     instanceAccessDetails_certKey,
-    instanceAccessDetails_ipAddress,
-    instanceAccessDetails_privateKey,
     instanceAccessDetails_expiresAt,
-    instanceAccessDetails_username,
-    instanceAccessDetails_protocol,
-    instanceAccessDetails_passwordData,
-    instanceAccessDetails_password,
+    instanceAccessDetails_hostKeys,
     instanceAccessDetails_instanceName,
+    instanceAccessDetails_ipAddress,
+    instanceAccessDetails_password,
+    instanceAccessDetails_passwordData,
+    instanceAccessDetails_privateKey,
+    instanceAccessDetails_protocol,
+    instanceAccessDetails_username,
 
     -- ** InstanceEntry
     instanceEntry_userData,
@@ -1502,50 +1554,57 @@ module Amazonka.Lightsail.Lens
 
     -- ** InstanceHealthSummary
     instanceHealthSummary_instanceHealth,
-    instanceHealthSummary_instanceName,
     instanceHealthSummary_instanceHealthReason,
+    instanceHealthSummary_instanceName,
+
+    -- ** InstanceMetadataOptions
+    instanceMetadataOptions_httpEndpoint,
+    instanceMetadataOptions_httpProtocolIpv6,
+    instanceMetadataOptions_httpPutResponseHopLimit,
+    instanceMetadataOptions_httpTokens,
+    instanceMetadataOptions_state,
 
     -- ** InstanceNetworking
     instanceNetworking_monthlyTransfer,
     instanceNetworking_ports,
 
     -- ** InstancePortInfo
-    instancePortInfo_fromPort,
+    instancePortInfo_accessDirection,
+    instancePortInfo_accessFrom,
+    instancePortInfo_accessType,
+    instancePortInfo_cidrListAliases,
     instancePortInfo_cidrs,
     instancePortInfo_commonName,
-    instancePortInfo_protocol,
-    instancePortInfo_cidrListAliases,
+    instancePortInfo_fromPort,
     instancePortInfo_ipv6Cidrs,
-    instancePortInfo_accessDirection,
-    instancePortInfo_accessType,
+    instancePortInfo_protocol,
     instancePortInfo_toPort,
-    instancePortInfo_accessFrom,
 
     -- ** InstancePortState
-    instancePortState_fromPort,
-    instancePortState_cidrs,
-    instancePortState_state,
-    instancePortState_protocol,
     instancePortState_cidrListAliases,
+    instancePortState_cidrs,
+    instancePortState_fromPort,
     instancePortState_ipv6Cidrs,
+    instancePortState_protocol,
+    instancePortState_state,
     instancePortState_toPort,
 
     -- ** InstanceSnapshot
-    instanceSnapshot_fromBlueprintId,
-    instanceSnapshot_isFromAutoSnapshot,
-    instanceSnapshot_state,
-    instanceSnapshot_resourceType,
-    instanceSnapshot_fromAttachedDisks,
     instanceSnapshot_arn,
     instanceSnapshot_createdAt,
-    instanceSnapshot_location,
-    instanceSnapshot_progress,
-    instanceSnapshot_name,
+    instanceSnapshot_fromAttachedDisks,
+    instanceSnapshot_fromBlueprintId,
     instanceSnapshot_fromBundleId,
-    instanceSnapshot_sizeInGb,
-    instanceSnapshot_supportCode,
     instanceSnapshot_fromInstanceArn,
     instanceSnapshot_fromInstanceName,
+    instanceSnapshot_isFromAutoSnapshot,
+    instanceSnapshot_location,
+    instanceSnapshot_name,
+    instanceSnapshot_progress,
+    instanceSnapshot_resourceType,
+    instanceSnapshot_sizeInGb,
+    instanceSnapshot_state,
+    instanceSnapshot_supportCode,
     instanceSnapshot_tags,
 
     -- ** InstanceSnapshotInfo
@@ -1554,227 +1613,259 @@ module Amazonka.Lightsail.Lens
     instanceSnapshotInfo_fromDiskInfo,
 
     -- ** InstanceState
-    instanceState_name,
     instanceState_code,
+    instanceState_name,
 
     -- ** KeyPair
-    keyPair_resourceType,
     keyPair_arn,
     keyPair_createdAt,
-    keyPair_location,
     keyPair_fingerprint,
+    keyPair_location,
     keyPair_name,
+    keyPair_resourceType,
     keyPair_supportCode,
     keyPair_tags,
 
     -- ** LightsailDistribution
-    lightsailDistribution_status,
-    lightsailDistribution_origin,
-    lightsailDistribution_certificateName,
-    lightsailDistribution_resourceType,
-    lightsailDistribution_arn,
-    lightsailDistribution_createdAt,
-    lightsailDistribution_location,
-    lightsailDistribution_cacheBehaviorSettings,
-    lightsailDistribution_alternativeDomainNames,
-    lightsailDistribution_bundleId,
     lightsailDistribution_ableToUpdateBundle,
-    lightsailDistribution_originPublicDNS,
+    lightsailDistribution_alternativeDomainNames,
+    lightsailDistribution_arn,
+    lightsailDistribution_bundleId,
+    lightsailDistribution_cacheBehaviorSettings,
+    lightsailDistribution_cacheBehaviors,
+    lightsailDistribution_certificateName,
+    lightsailDistribution_createdAt,
+    lightsailDistribution_defaultCacheBehavior,
     lightsailDistribution_domainName,
-    lightsailDistribution_name,
     lightsailDistribution_ipAddressType,
     lightsailDistribution_isEnabled,
+    lightsailDistribution_location,
+    lightsailDistribution_name,
+    lightsailDistribution_origin,
+    lightsailDistribution_originPublicDNS,
+    lightsailDistribution_resourceType,
+    lightsailDistribution_status,
     lightsailDistribution_supportCode,
-    lightsailDistribution_defaultCacheBehavior,
-    lightsailDistribution_cacheBehaviors,
     lightsailDistribution_tags,
 
     -- ** LoadBalancer
-    loadBalancer_healthCheckPath,
-    loadBalancer_state,
-    loadBalancer_resourceType,
     loadBalancer_arn,
-    loadBalancer_createdAt,
-    loadBalancer_location,
-    loadBalancer_instancePort,
     loadBalancer_configurationOptions,
-    loadBalancer_protocol,
-    loadBalancer_tlsCertificateSummaries,
-    loadBalancer_name,
-    loadBalancer_ipAddressType,
-    loadBalancer_supportCode,
-    loadBalancer_publicPorts,
+    loadBalancer_createdAt,
     loadBalancer_dnsName,
+    loadBalancer_healthCheckPath,
+    loadBalancer_httpsRedirectionEnabled,
     loadBalancer_instanceHealthSummary,
+    loadBalancer_instancePort,
+    loadBalancer_ipAddressType,
+    loadBalancer_location,
+    loadBalancer_name,
+    loadBalancer_protocol,
+    loadBalancer_publicPorts,
+    loadBalancer_resourceType,
+    loadBalancer_state,
+    loadBalancer_supportCode,
     loadBalancer_tags,
+    loadBalancer_tlsCertificateSummaries,
+    loadBalancer_tlsPolicyName,
 
     -- ** LoadBalancerTlsCertificate
-    loadBalancerTlsCertificate_failureReason,
-    loadBalancerTlsCertificate_subject,
-    loadBalancerTlsCertificate_status,
-    loadBalancerTlsCertificate_subjectAlternativeNames,
-    loadBalancerTlsCertificate_resourceType,
     loadBalancerTlsCertificate_arn,
     loadBalancerTlsCertificate_createdAt,
-    loadBalancerTlsCertificate_location,
-    loadBalancerTlsCertificate_loadBalancerName,
-    loadBalancerTlsCertificate_serial,
-    loadBalancerTlsCertificate_isAttached,
-    loadBalancerTlsCertificate_revokedAt,
-    loadBalancerTlsCertificate_notBefore,
-    loadBalancerTlsCertificate_revocationReason,
     loadBalancerTlsCertificate_domainName,
-    loadBalancerTlsCertificate_name,
-    loadBalancerTlsCertificate_renewalSummary,
-    loadBalancerTlsCertificate_supportCode,
     loadBalancerTlsCertificate_domainValidationRecords,
+    loadBalancerTlsCertificate_failureReason,
+    loadBalancerTlsCertificate_isAttached,
     loadBalancerTlsCertificate_issuedAt,
-    loadBalancerTlsCertificate_keyAlgorithm,
-    loadBalancerTlsCertificate_signatureAlgorithm,
     loadBalancerTlsCertificate_issuer,
-    loadBalancerTlsCertificate_tags,
+    loadBalancerTlsCertificate_keyAlgorithm,
+    loadBalancerTlsCertificate_loadBalancerName,
+    loadBalancerTlsCertificate_location,
+    loadBalancerTlsCertificate_name,
     loadBalancerTlsCertificate_notAfter,
+    loadBalancerTlsCertificate_notBefore,
+    loadBalancerTlsCertificate_renewalSummary,
+    loadBalancerTlsCertificate_resourceType,
+    loadBalancerTlsCertificate_revocationReason,
+    loadBalancerTlsCertificate_revokedAt,
+    loadBalancerTlsCertificate_serial,
+    loadBalancerTlsCertificate_signatureAlgorithm,
+    loadBalancerTlsCertificate_status,
+    loadBalancerTlsCertificate_subject,
+    loadBalancerTlsCertificate_subjectAlternativeNames,
+    loadBalancerTlsCertificate_supportCode,
+    loadBalancerTlsCertificate_tags,
+
+    -- ** LoadBalancerTlsCertificateDnsRecordCreationState
+    loadBalancerTlsCertificateDnsRecordCreationState_code,
+    loadBalancerTlsCertificateDnsRecordCreationState_message,
 
     -- ** LoadBalancerTlsCertificateDomainValidationOption
     loadBalancerTlsCertificateDomainValidationOption_domainName,
     loadBalancerTlsCertificateDomainValidationOption_validationStatus,
 
     -- ** LoadBalancerTlsCertificateDomainValidationRecord
-    loadBalancerTlsCertificateDomainValidationRecord_value,
+    loadBalancerTlsCertificateDomainValidationRecord_dnsRecordCreationState,
     loadBalancerTlsCertificateDomainValidationRecord_domainName,
     loadBalancerTlsCertificateDomainValidationRecord_name,
-    loadBalancerTlsCertificateDomainValidationRecord_validationStatus,
     loadBalancerTlsCertificateDomainValidationRecord_type,
+    loadBalancerTlsCertificateDomainValidationRecord_validationStatus,
+    loadBalancerTlsCertificateDomainValidationRecord_value,
 
     -- ** LoadBalancerTlsCertificateRenewalSummary
-    loadBalancerTlsCertificateRenewalSummary_renewalStatus,
     loadBalancerTlsCertificateRenewalSummary_domainValidationOptions,
+    loadBalancerTlsCertificateRenewalSummary_renewalStatus,
 
     -- ** LoadBalancerTlsCertificateSummary
     loadBalancerTlsCertificateSummary_isAttached,
     loadBalancerTlsCertificateSummary_name,
+
+    -- ** LoadBalancerTlsPolicy
+    loadBalancerTlsPolicy_ciphers,
+    loadBalancerTlsPolicy_description,
+    loadBalancerTlsPolicy_isDefault,
+    loadBalancerTlsPolicy_name,
+    loadBalancerTlsPolicy_protocols,
 
     -- ** LogEvent
     logEvent_createdAt,
     logEvent_message,
 
     -- ** MetricDatapoint
-    metricDatapoint_sampleCount,
-    metricDatapoint_maximum,
     metricDatapoint_average,
+    metricDatapoint_maximum,
     metricDatapoint_minimum,
+    metricDatapoint_sampleCount,
     metricDatapoint_sum,
     metricDatapoint_timestamp,
     metricDatapoint_unit,
 
     -- ** MonitoredResourceInfo
-    monitoredResourceInfo_resourceType,
     monitoredResourceInfo_arn,
     monitoredResourceInfo_name,
+    monitoredResourceInfo_resourceType,
 
     -- ** MonthlyTransfer
     monthlyTransfer_gbPerMonthAllocated,
 
+    -- ** NameServersUpdateState
+    nameServersUpdateState_code,
+    nameServersUpdateState_message,
+
     -- ** Operation
-    operation_status,
-    operation_operationDetails,
-    operation_resourceType,
     operation_createdAt,
-    operation_resourceName,
-    operation_location,
-    operation_statusChangedAt,
-    operation_errorDetails,
     operation_errorCode,
+    operation_errorDetails,
     operation_id,
-    operation_operationType,
     operation_isTerminal,
+    operation_location,
+    operation_operationDetails,
+    operation_operationType,
+    operation_resourceName,
+    operation_resourceType,
+    operation_status,
+    operation_statusChangedAt,
 
     -- ** Origin
-    origin_regionName,
-    origin_resourceType,
     origin_name,
     origin_protocolPolicy,
+    origin_regionName,
+    origin_resourceType,
 
     -- ** PasswordData
-    passwordData_keyPairName,
     passwordData_ciphertext,
+    passwordData_keyPairName,
 
     -- ** PendingMaintenanceAction
     pendingMaintenanceAction_action,
-    pendingMaintenanceAction_description,
     pendingMaintenanceAction_currentApplyDate,
+    pendingMaintenanceAction_description,
 
     -- ** PendingModifiedRelationalDatabaseValues
+    pendingModifiedRelationalDatabaseValues_backupRetentionEnabled,
     pendingModifiedRelationalDatabaseValues_engineVersion,
     pendingModifiedRelationalDatabaseValues_masterUserPassword,
-    pendingModifiedRelationalDatabaseValues_backupRetentionEnabled,
 
     -- ** PortInfo
-    portInfo_fromPort,
-    portInfo_cidrs,
-    portInfo_protocol,
     portInfo_cidrListAliases,
+    portInfo_cidrs,
+    portInfo_fromPort,
     portInfo_ipv6Cidrs,
+    portInfo_protocol,
     portInfo_toPort,
 
+    -- ** PrivateRegistryAccess
+    privateRegistryAccess_ecrImagePullerRole,
+
+    -- ** PrivateRegistryAccessRequest
+    privateRegistryAccessRequest_ecrImagePullerRole,
+
     -- ** QueryStringObject
-    queryStringObject_queryStringsAllowList,
     queryStringObject_option,
+    queryStringObject_queryStringsAllowList,
+
+    -- ** R53HostedZoneDeletionState
+    r53HostedZoneDeletionState_code,
+    r53HostedZoneDeletionState_message,
 
     -- ** RegionInfo
     regionInfo_availabilityZones,
-    regionInfo_name,
-    regionInfo_relationalDatabaseAvailabilityZones,
-    regionInfo_displayName,
     regionInfo_continentCode,
     regionInfo_description,
+    regionInfo_displayName,
+    regionInfo_name,
+    regionInfo_relationalDatabaseAvailabilityZones,
+
+    -- ** RegisteredDomainDelegationInfo
+    registeredDomainDelegationInfo_nameServersUpdateState,
+    registeredDomainDelegationInfo_r53HostedZoneDeletionState,
 
     -- ** RelationalDatabase
-    relationalDatabase_engineVersion,
-    relationalDatabase_relationalDatabaseBundleId,
-    relationalDatabase_masterEndpoint,
-    relationalDatabase_state,
-    relationalDatabase_resourceType,
-    relationalDatabase_publiclyAccessible,
-    relationalDatabase_masterUsername,
     relationalDatabase_arn,
-    relationalDatabase_createdAt,
-    relationalDatabase_location,
-    relationalDatabase_engine,
-    relationalDatabase_latestRestorableTime,
-    relationalDatabase_preferredMaintenanceWindow,
-    relationalDatabase_relationalDatabaseBlueprintId,
-    relationalDatabase_caCertificateIdentifier,
-    relationalDatabase_name,
     relationalDatabase_backupRetentionEnabled,
-    relationalDatabase_preferredBackupWindow,
-    relationalDatabase_pendingMaintenanceActions,
-    relationalDatabase_supportCode,
-    relationalDatabase_secondaryAvailabilityZone,
-    relationalDatabase_pendingModifiedValues,
-    relationalDatabase_masterDatabaseName,
+    relationalDatabase_caCertificateIdentifier,
+    relationalDatabase_createdAt,
+    relationalDatabase_engine,
+    relationalDatabase_engineVersion,
     relationalDatabase_hardware,
+    relationalDatabase_latestRestorableTime,
+    relationalDatabase_location,
+    relationalDatabase_masterDatabaseName,
+    relationalDatabase_masterEndpoint,
+    relationalDatabase_masterUsername,
+    relationalDatabase_name,
     relationalDatabase_parameterApplyStatus,
+    relationalDatabase_pendingMaintenanceActions,
+    relationalDatabase_pendingModifiedValues,
+    relationalDatabase_preferredBackupWindow,
+    relationalDatabase_preferredMaintenanceWindow,
+    relationalDatabase_publiclyAccessible,
+    relationalDatabase_relationalDatabaseBlueprintId,
+    relationalDatabase_relationalDatabaseBundleId,
+    relationalDatabase_resourceType,
+    relationalDatabase_secondaryAvailabilityZone,
+    relationalDatabase_state,
+    relationalDatabase_supportCode,
     relationalDatabase_tags,
 
     -- ** RelationalDatabaseBlueprint
-    relationalDatabaseBlueprint_engineVersion,
-    relationalDatabaseBlueprint_isEngineDefault,
-    relationalDatabaseBlueprint_engineVersionDescription,
-    relationalDatabaseBlueprint_engine,
     relationalDatabaseBlueprint_blueprintId,
+    relationalDatabaseBlueprint_engine,
     relationalDatabaseBlueprint_engineDescription,
+    relationalDatabaseBlueprint_engineVersion,
+    relationalDatabaseBlueprint_engineVersionDescription,
+    relationalDatabaseBlueprint_isEngineDefault,
 
     -- ** RelationalDatabaseBundle
-    relationalDatabaseBundle_isEncrypted,
-    relationalDatabaseBundle_cpuCount,
-    relationalDatabaseBundle_transferPerMonthInGb,
     relationalDatabaseBundle_bundleId,
-    relationalDatabaseBundle_name,
+    relationalDatabaseBundle_cpuCount,
     relationalDatabaseBundle_diskSizeInGb,
-    relationalDatabaseBundle_price,
     relationalDatabaseBundle_isActive,
+    relationalDatabaseBundle_isEncrypted,
+    relationalDatabaseBundle_name,
+    relationalDatabaseBundle_price,
     relationalDatabaseBundle_ramSizeInGb,
+    relationalDatabaseBundle_transferPerMonthInGb,
 
     -- ** RelationalDatabaseEndpoint
     relationalDatabaseEndpoint_address,
@@ -1783,8 +1874,8 @@ module Amazonka.Lightsail.Lens
     -- ** RelationalDatabaseEvent
     relationalDatabaseEvent_createdAt,
     relationalDatabaseEvent_eventCategories,
-    relationalDatabaseEvent_resource,
     relationalDatabaseEvent_message,
+    relationalDatabaseEvent_resource,
 
     -- ** RelationalDatabaseHardware
     relationalDatabaseHardware_cpuCount,
@@ -1792,65 +1883,65 @@ module Amazonka.Lightsail.Lens
     relationalDatabaseHardware_ramSizeInGb,
 
     -- ** RelationalDatabaseParameter
-    relationalDatabaseParameter_applyType,
-    relationalDatabaseParameter_parameterValue,
-    relationalDatabaseParameter_applyMethod,
-    relationalDatabaseParameter_dataType,
-    relationalDatabaseParameter_isModifiable,
     relationalDatabaseParameter_allowedValues,
-    relationalDatabaseParameter_parameterName,
+    relationalDatabaseParameter_applyMethod,
+    relationalDatabaseParameter_applyType,
+    relationalDatabaseParameter_dataType,
     relationalDatabaseParameter_description,
+    relationalDatabaseParameter_isModifiable,
+    relationalDatabaseParameter_parameterName,
+    relationalDatabaseParameter_parameterValue,
 
     -- ** RelationalDatabaseSnapshot
-    relationalDatabaseSnapshot_engineVersion,
-    relationalDatabaseSnapshot_state,
-    relationalDatabaseSnapshot_fromRelationalDatabaseName,
-    relationalDatabaseSnapshot_resourceType,
-    relationalDatabaseSnapshot_fromRelationalDatabaseBlueprintId,
     relationalDatabaseSnapshot_arn,
     relationalDatabaseSnapshot_createdAt,
-    relationalDatabaseSnapshot_location,
     relationalDatabaseSnapshot_engine,
-    relationalDatabaseSnapshot_name,
-    relationalDatabaseSnapshot_sizeInGb,
-    relationalDatabaseSnapshot_supportCode,
+    relationalDatabaseSnapshot_engineVersion,
     relationalDatabaseSnapshot_fromRelationalDatabaseArn,
+    relationalDatabaseSnapshot_fromRelationalDatabaseBlueprintId,
     relationalDatabaseSnapshot_fromRelationalDatabaseBundleId,
+    relationalDatabaseSnapshot_fromRelationalDatabaseName,
+    relationalDatabaseSnapshot_location,
+    relationalDatabaseSnapshot_name,
+    relationalDatabaseSnapshot_resourceType,
+    relationalDatabaseSnapshot_sizeInGb,
+    relationalDatabaseSnapshot_state,
+    relationalDatabaseSnapshot_supportCode,
     relationalDatabaseSnapshot_tags,
 
     -- ** RenewalSummary
-    renewalSummary_renewalStatus,
     renewalSummary_domainValidationRecords,
-    renewalSummary_updatedAt,
+    renewalSummary_renewalStatus,
     renewalSummary_renewalStatusReason,
+    renewalSummary_updatedAt,
 
     -- ** ResourceLocation
-    resourceLocation_regionName,
     resourceLocation_availabilityZone,
+    resourceLocation_regionName,
 
     -- ** ResourceReceivingAccess
-    resourceReceivingAccess_resourceType,
     resourceReceivingAccess_name,
+    resourceReceivingAccess_resourceType,
 
     -- ** ResourceRecord
-    resourceRecord_value,
     resourceRecord_name,
     resourceRecord_type,
+    resourceRecord_value,
 
     -- ** StaticIp
-    staticIp_ipAddress,
-    staticIp_resourceType,
     staticIp_arn,
-    staticIp_createdAt,
-    staticIp_location,
-    staticIp_isAttached,
-    staticIp_name,
-    staticIp_supportCode,
     staticIp_attachedTo,
+    staticIp_createdAt,
+    staticIp_ipAddress,
+    staticIp_isAttached,
+    staticIp_location,
+    staticIp_name,
+    staticIp_resourceType,
+    staticIp_supportCode,
 
     -- ** Tag
-    tag_value,
     tag_key,
+    tag_value,
   )
 where
 
@@ -1957,6 +2048,7 @@ import Amazonka.Lightsail.GetKeyPairs
 import Amazonka.Lightsail.GetLoadBalancer
 import Amazonka.Lightsail.GetLoadBalancerMetricData
 import Amazonka.Lightsail.GetLoadBalancerTlsCertificates
+import Amazonka.Lightsail.GetLoadBalancerTlsPolicies
 import Amazonka.Lightsail.GetLoadBalancers
 import Amazonka.Lightsail.GetOperation
 import Amazonka.Lightsail.GetOperations
@@ -1999,6 +2091,7 @@ import Amazonka.Lightsail.TestAlarm
 import Amazonka.Lightsail.Types.AccessKey
 import Amazonka.Lightsail.Types.AccessKeyLastUsed
 import Amazonka.Lightsail.Types.AccessRules
+import Amazonka.Lightsail.Types.AccountLevelBpaSync
 import Amazonka.Lightsail.Types.AddOn
 import Amazonka.Lightsail.Types.AddOnRequest
 import Amazonka.Lightsail.Types.Alarm
@@ -2008,6 +2101,7 @@ import Amazonka.Lightsail.Types.AutoSnapshotDetails
 import Amazonka.Lightsail.Types.AvailabilityZone
 import Amazonka.Lightsail.Types.Blueprint
 import Amazonka.Lightsail.Types.Bucket
+import Amazonka.Lightsail.Types.BucketAccessLogConfig
 import Amazonka.Lightsail.Types.BucketBundle
 import Amazonka.Lightsail.Types.BucketState
 import Amazonka.Lightsail.Types.Bundle
@@ -2024,6 +2118,8 @@ import Amazonka.Lightsail.Types.ContainerImage
 import Amazonka.Lightsail.Types.ContainerService
 import Amazonka.Lightsail.Types.ContainerServiceDeployment
 import Amazonka.Lightsail.Types.ContainerServiceDeploymentRequest
+import Amazonka.Lightsail.Types.ContainerServiceECRImagePullerRole
+import Amazonka.Lightsail.Types.ContainerServiceECRImagePullerRoleRequest
 import Amazonka.Lightsail.Types.ContainerServiceEndpoint
 import Amazonka.Lightsail.Types.ContainerServiceHealthCheckConfig
 import Amazonka.Lightsail.Types.ContainerServiceLogEvent
@@ -2038,6 +2134,7 @@ import Amazonka.Lightsail.Types.DiskMap
 import Amazonka.Lightsail.Types.DiskSnapshot
 import Amazonka.Lightsail.Types.DiskSnapshotInfo
 import Amazonka.Lightsail.Types.DistributionBundle
+import Amazonka.Lightsail.Types.DnsRecordCreationState
 import Amazonka.Lightsail.Types.Domain
 import Amazonka.Lightsail.Types.DomainEntry
 import Amazonka.Lightsail.Types.DomainValidationRecord
@@ -2052,6 +2149,7 @@ import Amazonka.Lightsail.Types.InstanceAccessDetails
 import Amazonka.Lightsail.Types.InstanceEntry
 import Amazonka.Lightsail.Types.InstanceHardware
 import Amazonka.Lightsail.Types.InstanceHealthSummary
+import Amazonka.Lightsail.Types.InstanceMetadataOptions
 import Amazonka.Lightsail.Types.InstanceNetworking
 import Amazonka.Lightsail.Types.InstancePortInfo
 import Amazonka.Lightsail.Types.InstancePortState
@@ -2062,22 +2160,29 @@ import Amazonka.Lightsail.Types.KeyPair
 import Amazonka.Lightsail.Types.LightsailDistribution
 import Amazonka.Lightsail.Types.LoadBalancer
 import Amazonka.Lightsail.Types.LoadBalancerTlsCertificate
+import Amazonka.Lightsail.Types.LoadBalancerTlsCertificateDnsRecordCreationState
 import Amazonka.Lightsail.Types.LoadBalancerTlsCertificateDomainValidationOption
 import Amazonka.Lightsail.Types.LoadBalancerTlsCertificateDomainValidationRecord
 import Amazonka.Lightsail.Types.LoadBalancerTlsCertificateRenewalSummary
 import Amazonka.Lightsail.Types.LoadBalancerTlsCertificateSummary
+import Amazonka.Lightsail.Types.LoadBalancerTlsPolicy
 import Amazonka.Lightsail.Types.LogEvent
 import Amazonka.Lightsail.Types.MetricDatapoint
 import Amazonka.Lightsail.Types.MonitoredResourceInfo
 import Amazonka.Lightsail.Types.MonthlyTransfer
+import Amazonka.Lightsail.Types.NameServersUpdateState
 import Amazonka.Lightsail.Types.Operation
 import Amazonka.Lightsail.Types.Origin
 import Amazonka.Lightsail.Types.PasswordData
 import Amazonka.Lightsail.Types.PendingMaintenanceAction
 import Amazonka.Lightsail.Types.PendingModifiedRelationalDatabaseValues
 import Amazonka.Lightsail.Types.PortInfo
+import Amazonka.Lightsail.Types.PrivateRegistryAccess
+import Amazonka.Lightsail.Types.PrivateRegistryAccessRequest
 import Amazonka.Lightsail.Types.QueryStringObject
+import Amazonka.Lightsail.Types.R53HostedZoneDeletionState
 import Amazonka.Lightsail.Types.RegionInfo
+import Amazonka.Lightsail.Types.RegisteredDomainDelegationInfo
 import Amazonka.Lightsail.Types.RelationalDatabase
 import Amazonka.Lightsail.Types.RelationalDatabaseBlueprint
 import Amazonka.Lightsail.Types.RelationalDatabaseBundle
@@ -2100,6 +2205,7 @@ import Amazonka.Lightsail.UpdateContainerService
 import Amazonka.Lightsail.UpdateDistribution
 import Amazonka.Lightsail.UpdateDistributionBundle
 import Amazonka.Lightsail.UpdateDomainEntry
+import Amazonka.Lightsail.UpdateInstanceMetadataOptions
 import Amazonka.Lightsail.UpdateLoadBalancerAttribute
 import Amazonka.Lightsail.UpdateRelationalDatabase
 import Amazonka.Lightsail.UpdateRelationalDatabaseParameters

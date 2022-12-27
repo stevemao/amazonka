@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationAutoScaling
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -79,26 +79,26 @@ module Amazonka.ApplicationAutoScaling
     -- * Errors
     -- $errors
 
-    -- ** ValidationException
-    _ValidationException,
+    -- ** ConcurrentUpdateException
+    _ConcurrentUpdateException,
 
     -- ** FailedResourceAccessException
     _FailedResourceAccessException,
 
+    -- ** InternalServiceException
+    _InternalServiceException,
+
     -- ** InvalidNextTokenException
     _InvalidNextTokenException,
 
-    -- ** ConcurrentUpdateException
-    _ConcurrentUpdateException,
-
-    -- ** InternalServiceException
-    _InternalServiceException,
+    -- ** LimitExceededException
+    _LimitExceededException,
 
     -- ** ObjectNotFoundException
     _ObjectNotFoundException,
 
-    -- ** LimitExceededException
-    _LimitExceededException,
+    -- ** ValidationException
+    _ValidationException,
 
     -- * Waiters
     -- $waiters
@@ -112,41 +112,17 @@ module Amazonka.ApplicationAutoScaling
     DeleteScalingPolicyResponse (DeleteScalingPolicyResponse'),
     newDeleteScalingPolicyResponse,
 
-    -- ** PutScalingPolicy
-    PutScalingPolicy (PutScalingPolicy'),
-    newPutScalingPolicy,
-    PutScalingPolicyResponse (PutScalingPolicyResponse'),
-    newPutScalingPolicyResponse,
-
-    -- ** RegisterScalableTarget
-    RegisterScalableTarget (RegisterScalableTarget'),
-    newRegisterScalableTarget,
-    RegisterScalableTargetResponse (RegisterScalableTargetResponse'),
-    newRegisterScalableTargetResponse,
-
-    -- ** DescribeScalingPolicies (Paginated)
-    DescribeScalingPolicies (DescribeScalingPolicies'),
-    newDescribeScalingPolicies,
-    DescribeScalingPoliciesResponse (DescribeScalingPoliciesResponse'),
-    newDescribeScalingPoliciesResponse,
-
-    -- ** PutScheduledAction
-    PutScheduledAction (PutScheduledAction'),
-    newPutScheduledAction,
-    PutScheduledActionResponse (PutScheduledActionResponse'),
-    newPutScheduledActionResponse,
-
     -- ** DeleteScheduledAction
     DeleteScheduledAction (DeleteScheduledAction'),
     newDeleteScheduledAction,
     DeleteScheduledActionResponse (DeleteScheduledActionResponse'),
     newDeleteScheduledActionResponse,
 
-    -- ** DescribeScheduledActions (Paginated)
-    DescribeScheduledActions (DescribeScheduledActions'),
-    newDescribeScheduledActions,
-    DescribeScheduledActionsResponse (DescribeScheduledActionsResponse'),
-    newDescribeScheduledActionsResponse,
+    -- ** DeregisterScalableTarget
+    DeregisterScalableTarget (DeregisterScalableTarget'),
+    newDeregisterScalableTarget,
+    DeregisterScalableTargetResponse (DeregisterScalableTargetResponse'),
+    newDeregisterScalableTargetResponse,
 
     -- ** DescribeScalableTargets (Paginated)
     DescribeScalableTargets (DescribeScalableTargets'),
@@ -160,11 +136,35 @@ module Amazonka.ApplicationAutoScaling
     DescribeScalingActivitiesResponse (DescribeScalingActivitiesResponse'),
     newDescribeScalingActivitiesResponse,
 
-    -- ** DeregisterScalableTarget
-    DeregisterScalableTarget (DeregisterScalableTarget'),
-    newDeregisterScalableTarget,
-    DeregisterScalableTargetResponse (DeregisterScalableTargetResponse'),
-    newDeregisterScalableTargetResponse,
+    -- ** DescribeScalingPolicies (Paginated)
+    DescribeScalingPolicies (DescribeScalingPolicies'),
+    newDescribeScalingPolicies,
+    DescribeScalingPoliciesResponse (DescribeScalingPoliciesResponse'),
+    newDescribeScalingPoliciesResponse,
+
+    -- ** DescribeScheduledActions (Paginated)
+    DescribeScheduledActions (DescribeScheduledActions'),
+    newDescribeScheduledActions,
+    DescribeScheduledActionsResponse (DescribeScheduledActionsResponse'),
+    newDescribeScheduledActionsResponse,
+
+    -- ** PutScalingPolicy
+    PutScalingPolicy (PutScalingPolicy'),
+    newPutScalingPolicy,
+    PutScalingPolicyResponse (PutScalingPolicyResponse'),
+    newPutScalingPolicyResponse,
+
+    -- ** PutScheduledAction
+    PutScheduledAction (PutScheduledAction'),
+    newPutScheduledAction,
+    PutScheduledActionResponse (PutScheduledActionResponse'),
+    newPutScheduledActionResponse,
+
+    -- ** RegisterScalableTarget
+    RegisterScalableTarget (RegisterScalableTarget'),
+    newRegisterScalableTarget,
+    RegisterScalableTargetResponse (RegisterScalableTargetResponse'),
+    newRegisterScalableTargetResponse,
 
     -- * Types
 

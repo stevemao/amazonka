@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudControl.DeleteResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,8 @@ module Amazonka.CloudControl.DeleteResource
 
     -- * Request Lenses
     deleteResource_clientToken,
-    deleteResource_typeVersionId,
     deleteResource_roleArn,
+    deleteResource_typeVersionId,
     deleteResource_typeName,
     deleteResource_identifier,
 
@@ -53,7 +53,8 @@ where
 
 import Amazonka.CloudControl.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,12 +77,8 @@ data DeleteResource = DeleteResource'
     -- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations.html#resource-operations-idempotency Ensuring resource operation requests are unique>
     -- in the /Amazon Web Services Cloud Control API User Guide/.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | For private resource types, the type version to use in this resource
-    -- operation. If you do not specify a resource version, CloudFormation uses
-    -- the default version.
-    typeVersionId :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the Identity and Access Management
-    -- (IAM) for Cloud Control API to use when performing this resource
+    -- (IAM) role for Cloud Control API to use when performing this resource
     -- operation. The role specified must have the permissions required for
     -- this operation. The necessary permissions for each event handler are
     -- defined in the @ handlers @ section of the
@@ -94,6 +91,10 @@ data DeleteResource = DeleteResource'
     -- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations.html#resource-operations-permissions Specifying credentials>
     -- in the /Amazon Web Services Cloud Control API User Guide/.
     roleArn :: Prelude.Maybe Prelude.Text,
+    -- | For private resource types, the type version to use in this resource
+    -- operation. If you do not specify a resource version, CloudFormation uses
+    -- the default version.
+    typeVersionId :: Prelude.Maybe Prelude.Text,
     -- | The name of the resource type.
     typeName :: Prelude.Text,
     -- | The identifier for the resource.
@@ -139,12 +140,8 @@ data DeleteResource = DeleteResource'
 -- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations.html#resource-operations-idempotency Ensuring resource operation requests are unique>
 -- in the /Amazon Web Services Cloud Control API User Guide/.
 --
--- 'typeVersionId', 'deleteResource_typeVersionId' - For private resource types, the type version to use in this resource
--- operation. If you do not specify a resource version, CloudFormation uses
--- the default version.
---
 -- 'roleArn', 'deleteResource_roleArn' - The Amazon Resource Name (ARN) of the Identity and Access Management
--- (IAM) for Cloud Control API to use when performing this resource
+-- (IAM) role for Cloud Control API to use when performing this resource
 -- operation. The role specified must have the permissions required for
 -- this operation. The necessary permissions for each event handler are
 -- defined in the @ handlers @ section of the
@@ -156,6 +153,10 @@ data DeleteResource = DeleteResource'
 -- For more information, see
 -- <https://docs.aws.amazon.com/cloudcontrolapi/latest/userguide/resource-operations.html#resource-operations-permissions Specifying credentials>
 -- in the /Amazon Web Services Cloud Control API User Guide/.
+--
+-- 'typeVersionId', 'deleteResource_typeVersionId' - For private resource types, the type version to use in this resource
+-- operation. If you do not specify a resource version, CloudFormation uses
+-- the default version.
 --
 -- 'typeName', 'deleteResource_typeName' - The name of the resource type.
 --
@@ -183,8 +184,8 @@ newDeleteResource ::
 newDeleteResource pTypeName_ pIdentifier_ =
   DeleteResource'
     { clientToken = Prelude.Nothing,
-      typeVersionId = Prelude.Nothing,
       roleArn = Prelude.Nothing,
+      typeVersionId = Prelude.Nothing,
       typeName = pTypeName_,
       identifier = pIdentifier_
     }
@@ -207,14 +208,8 @@ newDeleteResource pTypeName_ pIdentifier_ =
 deleteResource_clientToken :: Lens.Lens' DeleteResource (Prelude.Maybe Prelude.Text)
 deleteResource_clientToken = Lens.lens (\DeleteResource' {clientToken} -> clientToken) (\s@DeleteResource' {} a -> s {clientToken = a} :: DeleteResource)
 
--- | For private resource types, the type version to use in this resource
--- operation. If you do not specify a resource version, CloudFormation uses
--- the default version.
-deleteResource_typeVersionId :: Lens.Lens' DeleteResource (Prelude.Maybe Prelude.Text)
-deleteResource_typeVersionId = Lens.lens (\DeleteResource' {typeVersionId} -> typeVersionId) (\s@DeleteResource' {} a -> s {typeVersionId = a} :: DeleteResource)
-
 -- | The Amazon Resource Name (ARN) of the Identity and Access Management
--- (IAM) for Cloud Control API to use when performing this resource
+-- (IAM) role for Cloud Control API to use when performing this resource
 -- operation. The role specified must have the permissions required for
 -- this operation. The necessary permissions for each event handler are
 -- defined in the @ handlers @ section of the
@@ -228,6 +223,12 @@ deleteResource_typeVersionId = Lens.lens (\DeleteResource' {typeVersionId} -> ty
 -- in the /Amazon Web Services Cloud Control API User Guide/.
 deleteResource_roleArn :: Lens.Lens' DeleteResource (Prelude.Maybe Prelude.Text)
 deleteResource_roleArn = Lens.lens (\DeleteResource' {roleArn} -> roleArn) (\s@DeleteResource' {} a -> s {roleArn = a} :: DeleteResource)
+
+-- | For private resource types, the type version to use in this resource
+-- operation. If you do not specify a resource version, CloudFormation uses
+-- the default version.
+deleteResource_typeVersionId :: Lens.Lens' DeleteResource (Prelude.Maybe Prelude.Text)
+deleteResource_typeVersionId = Lens.lens (\DeleteResource' {typeVersionId} -> typeVersionId) (\s@DeleteResource' {} a -> s {typeVersionId = a} :: DeleteResource)
 
 -- | The name of the resource type.
 deleteResource_typeName :: Lens.Lens' DeleteResource Prelude.Text
@@ -255,62 +256,63 @@ instance Core.AWSRequest DeleteResource where
   type
     AWSResponse DeleteResource =
       DeleteResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteResourceResponse'
-            Prelude.<$> (x Core..?> "ProgressEvent")
+            Prelude.<$> (x Data..?> "ProgressEvent")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DeleteResource where
   hashWithSalt _salt DeleteResource' {..} =
     _salt `Prelude.hashWithSalt` clientToken
-      `Prelude.hashWithSalt` typeVersionId
       `Prelude.hashWithSalt` roleArn
+      `Prelude.hashWithSalt` typeVersionId
       `Prelude.hashWithSalt` typeName
       `Prelude.hashWithSalt` identifier
 
 instance Prelude.NFData DeleteResource where
   rnf DeleteResource' {..} =
     Prelude.rnf clientToken
-      `Prelude.seq` Prelude.rnf typeVersionId
       `Prelude.seq` Prelude.rnf roleArn
+      `Prelude.seq` Prelude.rnf typeVersionId
       `Prelude.seq` Prelude.rnf typeName
       `Prelude.seq` Prelude.rnf identifier
 
-instance Core.ToHeaders DeleteResource where
+instance Data.ToHeaders DeleteResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CloudApiService.DeleteResource" ::
+              Data.=# ( "CloudApiService.DeleteResource" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteResource where
+instance Data.ToJSON DeleteResource where
   toJSON DeleteResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ClientToken" Core..=) Prelude.<$> clientToken,
-            ("TypeVersionId" Core..=) Prelude.<$> typeVersionId,
-            ("RoleArn" Core..=) Prelude.<$> roleArn,
-            Prelude.Just ("TypeName" Core..= typeName),
-            Prelude.Just ("Identifier" Core..= identifier)
+          [ ("ClientToken" Data..=) Prelude.<$> clientToken,
+            ("RoleArn" Data..=) Prelude.<$> roleArn,
+            ("TypeVersionId" Data..=) Prelude.<$> typeVersionId,
+            Prelude.Just ("TypeName" Data..= typeName),
+            Prelude.Just ("Identifier" Data..= identifier)
           ]
       )
 
-instance Core.ToPath DeleteResource where
+instance Data.ToPath DeleteResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteResource where
+instance Data.ToQuery DeleteResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteResourceResponse' smart constructor.

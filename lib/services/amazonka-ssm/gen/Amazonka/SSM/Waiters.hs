@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,7 +17,8 @@
 module Amazonka.SSM.Waiters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SSM.GetCommandInvocation
 import Amazonka.SSM.Lens
@@ -26,65 +28,65 @@ import Amazonka.SSM.Types
 newCommandExecuted :: Core.Wait GetCommandInvocation
 newCommandExecuted =
   Core.Wait
-    { Core._waitName = "CommandExecuted",
-      Core._waitAttempts = 20,
-      Core._waitDelay = 5,
-      Core._waitAcceptors =
+    { Core.name = "CommandExecuted",
+      Core.attempts = 20,
+      Core.delay = 5,
+      Core.acceptors =
         [ Core.matchAll
             "Pending"
             Core.AcceptRetry
             ( getCommandInvocationResponse_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "InProgress"
             Core.AcceptRetry
             ( getCommandInvocationResponse_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "Delayed"
             Core.AcceptRetry
             ( getCommandInvocationResponse_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "Success"
             Core.AcceptSuccess
             ( getCommandInvocationResponse_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "Cancelled"
             Core.AcceptFailure
             ( getCommandInvocationResponse_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "TimedOut"
             Core.AcceptFailure
             ( getCommandInvocationResponse_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "Failed"
             Core.AcceptFailure
             ( getCommandInvocationResponse_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAll
             "Cancelling"
             Core.AcceptFailure
             ( getCommandInvocationResponse_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchError
             "InvocationDoesNotExist"

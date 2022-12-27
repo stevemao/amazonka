@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.Types.DistributionConfigWithTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudFront.Types.DistributionConfigWithTags where
 import Amazonka.CloudFront.Types.DistributionConfig
 import Amazonka.CloudFront.Types.Tags
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A distribution Configuration and a list of tags to be associated with
@@ -81,9 +82,9 @@ instance Prelude.NFData DistributionConfigWithTags where
     Prelude.rnf distributionConfig
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToXML DistributionConfigWithTags where
+instance Data.ToXML DistributionConfigWithTags where
   toXML DistributionConfigWithTags' {..} =
     Prelude.mconcat
-      [ "DistributionConfig" Core.@= distributionConfig,
-        "Tags" Core.@= tags
+      [ "DistributionConfig" Data.@= distributionConfig,
+        "Tags" Data.@= tags
       ]

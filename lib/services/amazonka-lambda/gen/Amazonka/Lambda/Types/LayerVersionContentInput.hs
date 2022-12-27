@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.Types.LayerVersionContentInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lambda.Types.LayerVersionContentInput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A ZIP archive that contains the contents of an
@@ -30,15 +31,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newLayerVersionContentInput' smart constructor.
 data LayerVersionContentInput = LayerVersionContentInput'
-  { -- | For versioned objects, the version of the layer archive object to use.
-    s3ObjectVersion :: Prelude.Maybe Prelude.Text,
+  { -- | The Amazon S3 bucket of the layer archive.
+    s3Bucket :: Prelude.Maybe Prelude.Text,
     -- | The Amazon S3 key of the layer archive.
     s3Key :: Prelude.Maybe Prelude.Text,
+    -- | For versioned objects, the version of the layer archive object to use.
+    s3ObjectVersion :: Prelude.Maybe Prelude.Text,
     -- | The base64-encoded contents of the layer archive. Amazon Web Services
     -- SDK and Amazon Web Services CLI clients handle the encoding for you.
-    zipFile :: Prelude.Maybe (Core.Sensitive Core.Base64),
-    -- | The Amazon S3 bucket of the layer archive.
-    s3Bucket :: Prelude.Maybe Prelude.Text
+    zipFile :: Prelude.Maybe (Data.Sensitive Data.Base64)
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -50,9 +51,11 @@ data LayerVersionContentInput = LayerVersionContentInput'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 's3ObjectVersion', 'layerVersionContentInput_s3ObjectVersion' - For versioned objects, the version of the layer archive object to use.
+-- 's3Bucket', 'layerVersionContentInput_s3Bucket' - The Amazon S3 bucket of the layer archive.
 --
 -- 's3Key', 'layerVersionContentInput_s3Key' - The Amazon S3 key of the layer archive.
+--
+-- 's3ObjectVersion', 'layerVersionContentInput_s3ObjectVersion' - For versioned objects, the version of the layer archive object to use.
 --
 -- 'zipFile', 'layerVersionContentInput_zipFile' - The base64-encoded contents of the layer archive. Amazon Web Services
 -- SDK and Amazon Web Services CLI clients handle the encoding for you.--
@@ -60,26 +63,28 @@ data LayerVersionContentInput = LayerVersionContentInput'
 -- -- The underlying isomorphism will encode to Base64 representation during
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
---
--- 's3Bucket', 'layerVersionContentInput_s3Bucket' - The Amazon S3 bucket of the layer archive.
 newLayerVersionContentInput ::
   LayerVersionContentInput
 newLayerVersionContentInput =
   LayerVersionContentInput'
-    { s3ObjectVersion =
+    { s3Bucket =
         Prelude.Nothing,
       s3Key = Prelude.Nothing,
-      zipFile = Prelude.Nothing,
-      s3Bucket = Prelude.Nothing
+      s3ObjectVersion = Prelude.Nothing,
+      zipFile = Prelude.Nothing
     }
 
--- | For versioned objects, the version of the layer archive object to use.
-layerVersionContentInput_s3ObjectVersion :: Lens.Lens' LayerVersionContentInput (Prelude.Maybe Prelude.Text)
-layerVersionContentInput_s3ObjectVersion = Lens.lens (\LayerVersionContentInput' {s3ObjectVersion} -> s3ObjectVersion) (\s@LayerVersionContentInput' {} a -> s {s3ObjectVersion = a} :: LayerVersionContentInput)
+-- | The Amazon S3 bucket of the layer archive.
+layerVersionContentInput_s3Bucket :: Lens.Lens' LayerVersionContentInput (Prelude.Maybe Prelude.Text)
+layerVersionContentInput_s3Bucket = Lens.lens (\LayerVersionContentInput' {s3Bucket} -> s3Bucket) (\s@LayerVersionContentInput' {} a -> s {s3Bucket = a} :: LayerVersionContentInput)
 
 -- | The Amazon S3 key of the layer archive.
 layerVersionContentInput_s3Key :: Lens.Lens' LayerVersionContentInput (Prelude.Maybe Prelude.Text)
 layerVersionContentInput_s3Key = Lens.lens (\LayerVersionContentInput' {s3Key} -> s3Key) (\s@LayerVersionContentInput' {} a -> s {s3Key = a} :: LayerVersionContentInput)
+
+-- | For versioned objects, the version of the layer archive object to use.
+layerVersionContentInput_s3ObjectVersion :: Lens.Lens' LayerVersionContentInput (Prelude.Maybe Prelude.Text)
+layerVersionContentInput_s3ObjectVersion = Lens.lens (\LayerVersionContentInput' {s3ObjectVersion} -> s3ObjectVersion) (\s@LayerVersionContentInput' {} a -> s {s3ObjectVersion = a} :: LayerVersionContentInput)
 
 -- | The base64-encoded contents of the layer archive. Amazon Web Services
 -- SDK and Amazon Web Services CLI clients handle the encoding for you.--
@@ -88,34 +93,30 @@ layerVersionContentInput_s3Key = Lens.lens (\LayerVersionContentInput' {s3Key} -
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 layerVersionContentInput_zipFile :: Lens.Lens' LayerVersionContentInput (Prelude.Maybe Prelude.ByteString)
-layerVersionContentInput_zipFile = Lens.lens (\LayerVersionContentInput' {zipFile} -> zipFile) (\s@LayerVersionContentInput' {} a -> s {zipFile = a} :: LayerVersionContentInput) Prelude.. Lens.mapping (Core._Sensitive Prelude.. Core._Base64)
-
--- | The Amazon S3 bucket of the layer archive.
-layerVersionContentInput_s3Bucket :: Lens.Lens' LayerVersionContentInput (Prelude.Maybe Prelude.Text)
-layerVersionContentInput_s3Bucket = Lens.lens (\LayerVersionContentInput' {s3Bucket} -> s3Bucket) (\s@LayerVersionContentInput' {} a -> s {s3Bucket = a} :: LayerVersionContentInput)
+layerVersionContentInput_zipFile = Lens.lens (\LayerVersionContentInput' {zipFile} -> zipFile) (\s@LayerVersionContentInput' {} a -> s {zipFile = a} :: LayerVersionContentInput) Prelude.. Lens.mapping (Data._Sensitive Prelude.. Data._Base64)
 
 instance Prelude.Hashable LayerVersionContentInput where
   hashWithSalt _salt LayerVersionContentInput' {..} =
-    _salt `Prelude.hashWithSalt` s3ObjectVersion
+    _salt `Prelude.hashWithSalt` s3Bucket
       `Prelude.hashWithSalt` s3Key
+      `Prelude.hashWithSalt` s3ObjectVersion
       `Prelude.hashWithSalt` zipFile
-      `Prelude.hashWithSalt` s3Bucket
 
 instance Prelude.NFData LayerVersionContentInput where
   rnf LayerVersionContentInput' {..} =
-    Prelude.rnf s3ObjectVersion
+    Prelude.rnf s3Bucket
       `Prelude.seq` Prelude.rnf s3Key
+      `Prelude.seq` Prelude.rnf s3ObjectVersion
       `Prelude.seq` Prelude.rnf zipFile
-      `Prelude.seq` Prelude.rnf s3Bucket
 
-instance Core.ToJSON LayerVersionContentInput where
+instance Data.ToJSON LayerVersionContentInput where
   toJSON LayerVersionContentInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("S3ObjectVersion" Core..=)
+          [ ("S3Bucket" Data..=) Prelude.<$> s3Bucket,
+            ("S3Key" Data..=) Prelude.<$> s3Key,
+            ("S3ObjectVersion" Data..=)
               Prelude.<$> s3ObjectVersion,
-            ("S3Key" Core..=) Prelude.<$> s3Key,
-            ("ZipFile" Core..=) Prelude.<$> zipFile,
-            ("S3Bucket" Core..=) Prelude.<$> s3Bucket
+            ("ZipFile" Data..=) Prelude.<$> zipFile
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.GetVoiceConnectorEmergencyCallingConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -86,12 +87,13 @@ instance
     AWSResponse
       GetVoiceConnectorEmergencyCallingConfiguration =
       GetVoiceConnectorEmergencyCallingConfigurationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetVoiceConnectorEmergencyCallingConfigurationResponse'
-            Prelude.<$> (x Core..?> "EmergencyCallingConfiguration")
+            Prelude.<$> (x Data..?> "EmergencyCallingConfiguration")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -113,25 +115,25 @@ instance
       Prelude.rnf voiceConnectorId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     GetVoiceConnectorEmergencyCallingConfiguration
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     GetVoiceConnectorEmergencyCallingConfiguration
   where
   toPath
     GetVoiceConnectorEmergencyCallingConfiguration' {..} =
       Prelude.mconcat
         [ "/voice-connectors/",
-          Core.toBS voiceConnectorId,
+          Data.toBS voiceConnectorId,
           "/emergency-calling-configuration"
         ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     GetVoiceConnectorEmergencyCallingConfiguration
   where
   toQuery = Prelude.const Prelude.mempty

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.DescribeUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.Connect.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,12 +96,13 @@ describeUser_instanceId = Lens.lens (\DescribeUser' {instanceId} -> instanceId) 
 
 instance Core.AWSRequest DescribeUser where
   type AWSResponse DescribeUser = DescribeUserResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeUserResponse'
-            Prelude.<$> (x Core..?> "User")
+            Prelude.<$> (x Data..?> "User")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,27 +116,27 @@ instance Prelude.NFData DescribeUser where
     Prelude.rnf userId
       `Prelude.seq` Prelude.rnf instanceId
 
-instance Core.ToHeaders DescribeUser where
+instance Data.ToHeaders DescribeUser where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeUser where
+instance Data.ToPath DescribeUser where
   toPath DescribeUser' {..} =
     Prelude.mconcat
       [ "/users/",
-        Core.toBS instanceId,
+        Data.toBS instanceId,
         "/",
-        Core.toBS userId
+        Data.toBS userId
       ]
 
-instance Core.ToQuery DescribeUser where
+instance Data.ToQuery DescribeUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeUserResponse' smart constructor.

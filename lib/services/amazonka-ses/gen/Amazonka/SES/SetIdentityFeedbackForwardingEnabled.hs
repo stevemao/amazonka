@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SES.SetIdentityFeedbackForwardingEnabled
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -52,7 +52,8 @@ module Amazonka.SES.SetIdentityFeedbackForwardingEnabled
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -135,7 +136,8 @@ instance
   type
     AWSResponse SetIdentityFeedbackForwardingEnabled =
       SetIdentityFeedbackForwardingEnabledResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "SetIdentityFeedbackForwardingEnabledResult"
@@ -163,31 +165,31 @@ instance
       `Prelude.seq` Prelude.rnf forwardingEnabled
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     SetIdentityFeedbackForwardingEnabled
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     SetIdentityFeedbackForwardingEnabled
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     SetIdentityFeedbackForwardingEnabled
   where
   toQuery SetIdentityFeedbackForwardingEnabled' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "SetIdentityFeedbackForwardingEnabled" ::
+          Data.=: ( "SetIdentityFeedbackForwardingEnabled" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
-        "Identity" Core.=: identity,
-        "ForwardingEnabled" Core.=: forwardingEnabled
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "Identity" Data.=: identity,
+        "ForwardingEnabled" Data.=: forwardingEnabled
       ]
 
 -- | An empty element returned on a successful request.

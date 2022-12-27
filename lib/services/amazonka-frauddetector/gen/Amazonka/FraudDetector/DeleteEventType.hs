@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.DeleteEventType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,8 +45,9 @@ module Amazonka.FraudDetector.DeleteEventType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,7 +83,8 @@ instance Core.AWSRequest DeleteEventType where
   type
     AWSResponse DeleteEventType =
       DeleteEventTypeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -97,32 +99,32 @@ instance Prelude.Hashable DeleteEventType where
 instance Prelude.NFData DeleteEventType where
   rnf DeleteEventType' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteEventType where
+instance Data.ToHeaders DeleteEventType where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.DeleteEventType" ::
+              Data.=# ( "AWSHawksNestServiceFacade.DeleteEventType" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteEventType where
+instance Data.ToJSON DeleteEventType where
   toJSON DeleteEventType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("name" Core..= name)]
+          [Prelude.Just ("name" Data..= name)]
       )
 
-instance Core.ToPath DeleteEventType where
+instance Data.ToPath DeleteEventType where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteEventType where
+instance Data.ToQuery DeleteEventType where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteEventTypeResponse' smart constructor.

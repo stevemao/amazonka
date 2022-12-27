@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.DeleteTrialComponent
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.SageMaker.DeleteTrialComponent
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,12 +84,13 @@ instance Core.AWSRequest DeleteTrialComponent where
   type
     AWSResponse DeleteTrialComponent =
       DeleteTrialComponentResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteTrialComponentResponse'
-            Prelude.<$> (x Core..?> "TrialComponentArn")
+            Prelude.<$> (x Data..?> "TrialComponentArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -100,34 +102,34 @@ instance Prelude.NFData DeleteTrialComponent where
   rnf DeleteTrialComponent' {..} =
     Prelude.rnf trialComponentName
 
-instance Core.ToHeaders DeleteTrialComponent where
+instance Data.ToHeaders DeleteTrialComponent where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.DeleteTrialComponent" ::
+              Data.=# ( "SageMaker.DeleteTrialComponent" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteTrialComponent where
+instance Data.ToJSON DeleteTrialComponent where
   toJSON DeleteTrialComponent' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("TrialComponentName" Core..= trialComponentName)
+              ("TrialComponentName" Data..= trialComponentName)
           ]
       )
 
-instance Core.ToPath DeleteTrialComponent where
+instance Data.ToPath DeleteTrialComponent where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteTrialComponent where
+instance Data.ToQuery DeleteTrialComponent where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteTrialComponentResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ComputeOptimizer.Types.ExportableAutoScalingGroupField
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,23 +30,32 @@ module Amazonka.ComputeOptimizer.Types.ExportableAutoScalingGroupField
         ExportableAutoScalingGroupField_CurrentMemory,
         ExportableAutoScalingGroupField_CurrentNetwork,
         ExportableAutoScalingGroupField_CurrentOnDemandPrice,
+        ExportableAutoScalingGroupField_CurrentPerformanceRisk,
         ExportableAutoScalingGroupField_CurrentStandardOneYearNoUpfrontReservedPrice,
         ExportableAutoScalingGroupField_CurrentStandardThreeYearNoUpfrontReservedPrice,
         ExportableAutoScalingGroupField_CurrentStorage,
         ExportableAutoScalingGroupField_CurrentVCpus,
+        ExportableAutoScalingGroupField_EffectiveRecommendationPreferencesCpuVendorArchitectures,
+        ExportableAutoScalingGroupField_EffectiveRecommendationPreferencesEnhancedInfrastructureMetrics,
+        ExportableAutoScalingGroupField_EffectiveRecommendationPreferencesInferredWorkloadTypes,
         ExportableAutoScalingGroupField_Finding,
+        ExportableAutoScalingGroupField_InferredWorkloadTypes,
         ExportableAutoScalingGroupField_LastRefreshTimestamp,
         ExportableAutoScalingGroupField_LookbackPeriodInDays,
         ExportableAutoScalingGroupField_RecommendationOptionsConfigurationDesiredCapacity,
         ExportableAutoScalingGroupField_RecommendationOptionsConfigurationInstanceType,
         ExportableAutoScalingGroupField_RecommendationOptionsConfigurationMaxSize,
         ExportableAutoScalingGroupField_RecommendationOptionsConfigurationMinSize,
+        ExportableAutoScalingGroupField_RecommendationOptionsEstimatedMonthlySavingsCurrency,
+        ExportableAutoScalingGroupField_RecommendationOptionsEstimatedMonthlySavingsValue,
         ExportableAutoScalingGroupField_RecommendationOptionsMemory,
+        ExportableAutoScalingGroupField_RecommendationOptionsMigrationEffort,
         ExportableAutoScalingGroupField_RecommendationOptionsNetwork,
         ExportableAutoScalingGroupField_RecommendationOptionsOnDemandPrice,
         ExportableAutoScalingGroupField_RecommendationOptionsPerformanceRisk,
         ExportableAutoScalingGroupField_RecommendationOptionsProjectedUtilizationMetricsCpuMaximum,
         ExportableAutoScalingGroupField_RecommendationOptionsProjectedUtilizationMetricsMemoryMaximum,
+        ExportableAutoScalingGroupField_RecommendationOptionsSavingsOpportunityPercentage,
         ExportableAutoScalingGroupField_RecommendationOptionsStandardOneYearNoUpfrontReservedPrice,
         ExportableAutoScalingGroupField_RecommendationOptionsStandardThreeYearNoUpfrontReservedPrice,
         ExportableAutoScalingGroupField_RecommendationOptionsStorage,
@@ -70,11 +79,12 @@ module Amazonka.ComputeOptimizer.Types.ExportableAutoScalingGroupField
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype ExportableAutoScalingGroupField = ExportableAutoScalingGroupField'
   { fromExportableAutoScalingGroupField ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -86,18 +96,18 @@ newtype ExportableAutoScalingGroupField = ExportableAutoScalingGroupField'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern ExportableAutoScalingGroupField_AccountId :: ExportableAutoScalingGroupField
@@ -130,6 +140,9 @@ pattern ExportableAutoScalingGroupField_CurrentNetwork = ExportableAutoScalingGr
 pattern ExportableAutoScalingGroupField_CurrentOnDemandPrice :: ExportableAutoScalingGroupField
 pattern ExportableAutoScalingGroupField_CurrentOnDemandPrice = ExportableAutoScalingGroupField' "CurrentOnDemandPrice"
 
+pattern ExportableAutoScalingGroupField_CurrentPerformanceRisk :: ExportableAutoScalingGroupField
+pattern ExportableAutoScalingGroupField_CurrentPerformanceRisk = ExportableAutoScalingGroupField' "CurrentPerformanceRisk"
+
 pattern ExportableAutoScalingGroupField_CurrentStandardOneYearNoUpfrontReservedPrice :: ExportableAutoScalingGroupField
 pattern ExportableAutoScalingGroupField_CurrentStandardOneYearNoUpfrontReservedPrice = ExportableAutoScalingGroupField' "CurrentStandardOneYearNoUpfrontReservedPrice"
 
@@ -142,8 +155,20 @@ pattern ExportableAutoScalingGroupField_CurrentStorage = ExportableAutoScalingGr
 pattern ExportableAutoScalingGroupField_CurrentVCpus :: ExportableAutoScalingGroupField
 pattern ExportableAutoScalingGroupField_CurrentVCpus = ExportableAutoScalingGroupField' "CurrentVCpus"
 
+pattern ExportableAutoScalingGroupField_EffectiveRecommendationPreferencesCpuVendorArchitectures :: ExportableAutoScalingGroupField
+pattern ExportableAutoScalingGroupField_EffectiveRecommendationPreferencesCpuVendorArchitectures = ExportableAutoScalingGroupField' "EffectiveRecommendationPreferencesCpuVendorArchitectures"
+
+pattern ExportableAutoScalingGroupField_EffectiveRecommendationPreferencesEnhancedInfrastructureMetrics :: ExportableAutoScalingGroupField
+pattern ExportableAutoScalingGroupField_EffectiveRecommendationPreferencesEnhancedInfrastructureMetrics = ExportableAutoScalingGroupField' "EffectiveRecommendationPreferencesEnhancedInfrastructureMetrics"
+
+pattern ExportableAutoScalingGroupField_EffectiveRecommendationPreferencesInferredWorkloadTypes :: ExportableAutoScalingGroupField
+pattern ExportableAutoScalingGroupField_EffectiveRecommendationPreferencesInferredWorkloadTypes = ExportableAutoScalingGroupField' "EffectiveRecommendationPreferencesInferredWorkloadTypes"
+
 pattern ExportableAutoScalingGroupField_Finding :: ExportableAutoScalingGroupField
 pattern ExportableAutoScalingGroupField_Finding = ExportableAutoScalingGroupField' "Finding"
+
+pattern ExportableAutoScalingGroupField_InferredWorkloadTypes :: ExportableAutoScalingGroupField
+pattern ExportableAutoScalingGroupField_InferredWorkloadTypes = ExportableAutoScalingGroupField' "InferredWorkloadTypes"
 
 pattern ExportableAutoScalingGroupField_LastRefreshTimestamp :: ExportableAutoScalingGroupField
 pattern ExportableAutoScalingGroupField_LastRefreshTimestamp = ExportableAutoScalingGroupField' "LastRefreshTimestamp"
@@ -163,8 +188,17 @@ pattern ExportableAutoScalingGroupField_RecommendationOptionsConfigurationMaxSiz
 pattern ExportableAutoScalingGroupField_RecommendationOptionsConfigurationMinSize :: ExportableAutoScalingGroupField
 pattern ExportableAutoScalingGroupField_RecommendationOptionsConfigurationMinSize = ExportableAutoScalingGroupField' "RecommendationOptionsConfigurationMinSize"
 
+pattern ExportableAutoScalingGroupField_RecommendationOptionsEstimatedMonthlySavingsCurrency :: ExportableAutoScalingGroupField
+pattern ExportableAutoScalingGroupField_RecommendationOptionsEstimatedMonthlySavingsCurrency = ExportableAutoScalingGroupField' "RecommendationOptionsEstimatedMonthlySavingsCurrency"
+
+pattern ExportableAutoScalingGroupField_RecommendationOptionsEstimatedMonthlySavingsValue :: ExportableAutoScalingGroupField
+pattern ExportableAutoScalingGroupField_RecommendationOptionsEstimatedMonthlySavingsValue = ExportableAutoScalingGroupField' "RecommendationOptionsEstimatedMonthlySavingsValue"
+
 pattern ExportableAutoScalingGroupField_RecommendationOptionsMemory :: ExportableAutoScalingGroupField
 pattern ExportableAutoScalingGroupField_RecommendationOptionsMemory = ExportableAutoScalingGroupField' "RecommendationOptionsMemory"
+
+pattern ExportableAutoScalingGroupField_RecommendationOptionsMigrationEffort :: ExportableAutoScalingGroupField
+pattern ExportableAutoScalingGroupField_RecommendationOptionsMigrationEffort = ExportableAutoScalingGroupField' "RecommendationOptionsMigrationEffort"
 
 pattern ExportableAutoScalingGroupField_RecommendationOptionsNetwork :: ExportableAutoScalingGroupField
 pattern ExportableAutoScalingGroupField_RecommendationOptionsNetwork = ExportableAutoScalingGroupField' "RecommendationOptionsNetwork"
@@ -180,6 +214,9 @@ pattern ExportableAutoScalingGroupField_RecommendationOptionsProjectedUtilizatio
 
 pattern ExportableAutoScalingGroupField_RecommendationOptionsProjectedUtilizationMetricsMemoryMaximum :: ExportableAutoScalingGroupField
 pattern ExportableAutoScalingGroupField_RecommendationOptionsProjectedUtilizationMetricsMemoryMaximum = ExportableAutoScalingGroupField' "RecommendationOptionsProjectedUtilizationMetricsMemoryMaximum"
+
+pattern ExportableAutoScalingGroupField_RecommendationOptionsSavingsOpportunityPercentage :: ExportableAutoScalingGroupField
+pattern ExportableAutoScalingGroupField_RecommendationOptionsSavingsOpportunityPercentage = ExportableAutoScalingGroupField' "RecommendationOptionsSavingsOpportunityPercentage"
 
 pattern ExportableAutoScalingGroupField_RecommendationOptionsStandardOneYearNoUpfrontReservedPrice :: ExportableAutoScalingGroupField
 pattern ExportableAutoScalingGroupField_RecommendationOptionsStandardOneYearNoUpfrontReservedPrice = ExportableAutoScalingGroupField' "RecommendationOptionsStandardOneYearNoUpfrontReservedPrice"
@@ -246,23 +283,32 @@ pattern ExportableAutoScalingGroupField_UtilizationMetricsNetworkPacketsOutPerSe
   ExportableAutoScalingGroupField_CurrentMemory,
   ExportableAutoScalingGroupField_CurrentNetwork,
   ExportableAutoScalingGroupField_CurrentOnDemandPrice,
+  ExportableAutoScalingGroupField_CurrentPerformanceRisk,
   ExportableAutoScalingGroupField_CurrentStandardOneYearNoUpfrontReservedPrice,
   ExportableAutoScalingGroupField_CurrentStandardThreeYearNoUpfrontReservedPrice,
   ExportableAutoScalingGroupField_CurrentStorage,
   ExportableAutoScalingGroupField_CurrentVCpus,
+  ExportableAutoScalingGroupField_EffectiveRecommendationPreferencesCpuVendorArchitectures,
+  ExportableAutoScalingGroupField_EffectiveRecommendationPreferencesEnhancedInfrastructureMetrics,
+  ExportableAutoScalingGroupField_EffectiveRecommendationPreferencesInferredWorkloadTypes,
   ExportableAutoScalingGroupField_Finding,
+  ExportableAutoScalingGroupField_InferredWorkloadTypes,
   ExportableAutoScalingGroupField_LastRefreshTimestamp,
   ExportableAutoScalingGroupField_LookbackPeriodInDays,
   ExportableAutoScalingGroupField_RecommendationOptionsConfigurationDesiredCapacity,
   ExportableAutoScalingGroupField_RecommendationOptionsConfigurationInstanceType,
   ExportableAutoScalingGroupField_RecommendationOptionsConfigurationMaxSize,
   ExportableAutoScalingGroupField_RecommendationOptionsConfigurationMinSize,
+  ExportableAutoScalingGroupField_RecommendationOptionsEstimatedMonthlySavingsCurrency,
+  ExportableAutoScalingGroupField_RecommendationOptionsEstimatedMonthlySavingsValue,
   ExportableAutoScalingGroupField_RecommendationOptionsMemory,
+  ExportableAutoScalingGroupField_RecommendationOptionsMigrationEffort,
   ExportableAutoScalingGroupField_RecommendationOptionsNetwork,
   ExportableAutoScalingGroupField_RecommendationOptionsOnDemandPrice,
   ExportableAutoScalingGroupField_RecommendationOptionsPerformanceRisk,
   ExportableAutoScalingGroupField_RecommendationOptionsProjectedUtilizationMetricsCpuMaximum,
   ExportableAutoScalingGroupField_RecommendationOptionsProjectedUtilizationMetricsMemoryMaximum,
+  ExportableAutoScalingGroupField_RecommendationOptionsSavingsOpportunityPercentage,
   ExportableAutoScalingGroupField_RecommendationOptionsStandardOneYearNoUpfrontReservedPrice,
   ExportableAutoScalingGroupField_RecommendationOptionsStandardThreeYearNoUpfrontReservedPrice,
   ExportableAutoScalingGroupField_RecommendationOptionsStorage,

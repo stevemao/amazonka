@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ImportExport.ListJobs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,15 +42,16 @@ module Amazonka.ImportExport.ListJobs
     newListJobsResponse,
 
     -- * Response Lenses
-    listJobsResponse_jobs,
     listJobsResponse_isTruncated,
+    listJobsResponse_jobs,
     listJobsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImportExport.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -124,16 +125,17 @@ instance Core.AWSPager ListJobs where
 
 instance Core.AWSRequest ListJobs where
   type AWSResponse ListJobs = ListJobsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ListJobsResult"
       ( \s h x ->
           ListJobsResponse'
-            Prelude.<$> ( x Core..@? "Jobs" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "member")
+            Prelude.<$> (x Data..@? "IsTruncated")
+            Prelude.<*> ( x Data..@? "Jobs" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "member")
                         )
-            Prelude.<*> (x Core..@? "IsTruncated")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -149,30 +151,30 @@ instance Prelude.NFData ListJobs where
       `Prelude.seq` Prelude.rnf marker
       `Prelude.seq` Prelude.rnf maxJobs
 
-instance Core.ToHeaders ListJobs where
+instance Data.ToHeaders ListJobs where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ListJobs where
+instance Data.ToPath ListJobs where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListJobs where
+instance Data.ToQuery ListJobs where
   toQuery ListJobs' {..} =
     Prelude.mconcat
       [ "Operation=ListJobs",
-        "Action" Core.=: ("ListJobs" :: Prelude.ByteString),
+        "Action" Data.=: ("ListJobs" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-06-01" :: Prelude.ByteString),
-        "APIVersion" Core.=: aPIVersion,
-        "Marker" Core.=: marker,
-        "MaxJobs" Core.=: maxJobs
+          Data.=: ("2010-06-01" :: Prelude.ByteString),
+        "APIVersion" Data.=: aPIVersion,
+        "Marker" Data.=: marker,
+        "MaxJobs" Data.=: maxJobs
       ]
 
 -- | Output structure for the ListJobs operation.
 --
 -- /See:/ 'newListJobsResponse' smart constructor.
 data ListJobsResponse = ListJobsResponse'
-  { jobs :: Prelude.Maybe [Job],
-    isTruncated :: Prelude.Maybe Prelude.Bool,
+  { isTruncated :: Prelude.Maybe Prelude.Bool,
+    jobs :: Prelude.Maybe [Job],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -186,9 +188,9 @@ data ListJobsResponse = ListJobsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'jobs', 'listJobsResponse_jobs' - Undocumented member.
---
 -- 'isTruncated', 'listJobsResponse_isTruncated' - Undocumented member.
+--
+-- 'jobs', 'listJobsResponse_jobs' - Undocumented member.
 --
 -- 'httpStatus', 'listJobsResponse_httpStatus' - The response's http status code.
 newListJobsResponse ::
@@ -197,18 +199,18 @@ newListJobsResponse ::
   ListJobsResponse
 newListJobsResponse pHttpStatus_ =
   ListJobsResponse'
-    { jobs = Prelude.Nothing,
-      isTruncated = Prelude.Nothing,
+    { isTruncated = Prelude.Nothing,
+      jobs = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
 -- | Undocumented member.
-listJobsResponse_jobs :: Lens.Lens' ListJobsResponse (Prelude.Maybe [Job])
-listJobsResponse_jobs = Lens.lens (\ListJobsResponse' {jobs} -> jobs) (\s@ListJobsResponse' {} a -> s {jobs = a} :: ListJobsResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | Undocumented member.
 listJobsResponse_isTruncated :: Lens.Lens' ListJobsResponse (Prelude.Maybe Prelude.Bool)
 listJobsResponse_isTruncated = Lens.lens (\ListJobsResponse' {isTruncated} -> isTruncated) (\s@ListJobsResponse' {} a -> s {isTruncated = a} :: ListJobsResponse)
+
+-- | Undocumented member.
+listJobsResponse_jobs :: Lens.Lens' ListJobsResponse (Prelude.Maybe [Job])
+listJobsResponse_jobs = Lens.lens (\ListJobsResponse' {jobs} -> jobs) (\s@ListJobsResponse' {} a -> s {jobs = a} :: ListJobsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listJobsResponse_httpStatus :: Lens.Lens' ListJobsResponse Prelude.Int
@@ -216,6 +218,6 @@ listJobsResponse_httpStatus = Lens.lens (\ListJobsResponse' {httpStatus} -> http
 
 instance Prelude.NFData ListJobsResponse where
   rnf ListJobsResponse' {..} =
-    Prelude.rnf jobs
-      `Prelude.seq` Prelude.rnf isTruncated
+    Prelude.rnf isTruncated
+      `Prelude.seq` Prelude.rnf jobs
       `Prelude.seq` Prelude.rnf httpStatus

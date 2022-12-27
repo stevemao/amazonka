@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SES.Types.StopAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SES.Types.StopAction where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SES.Types.StopScope
 
@@ -81,11 +82,11 @@ stopAction_topicArn = Lens.lens (\StopAction' {topicArn} -> topicArn) (\s@StopAc
 stopAction_scope :: Lens.Lens' StopAction StopScope
 stopAction_scope = Lens.lens (\StopAction' {scope} -> scope) (\s@StopAction' {} a -> s {scope = a} :: StopAction)
 
-instance Core.FromXML StopAction where
+instance Data.FromXML StopAction where
   parseXML x =
     StopAction'
-      Prelude.<$> (x Core..@? "TopicArn")
-      Prelude.<*> (x Core..@ "Scope")
+      Prelude.<$> (x Data..@? "TopicArn")
+      Prelude.<*> (x Data..@ "Scope")
 
 instance Prelude.Hashable StopAction where
   hashWithSalt _salt StopAction' {..} =
@@ -97,7 +98,7 @@ instance Prelude.NFData StopAction where
     Prelude.rnf topicArn
       `Prelude.seq` Prelude.rnf scope
 
-instance Core.ToQuery StopAction where
+instance Data.ToQuery StopAction where
   toQuery StopAction' {..} =
     Prelude.mconcat
-      ["TopicArn" Core.=: topicArn, "Scope" Core.=: scope]
+      ["TopicArn" Data.=: topicArn, "Scope" Data.=: scope]

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Kinesis.PutRecord
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -92,8 +92,9 @@ module Amazonka.Kinesis.PutRecord
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Kinesis.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -118,7 +119,7 @@ data PutRecord = PutRecord'
     -- blob is serialized. When the data blob (the payload before
     -- base64-encoding) is added to the partition key size, the total size must
     -- not exceed the maximum record size (1 MiB).
-    data' :: Core.Base64,
+    data' :: Data.Base64,
     -- | Determines which shard in the stream the data record is assigned to.
     -- Partition keys are Unicode strings with a maximum length limit of 256
     -- characters for each key. Amazon Kinesis Data Streams uses the partition
@@ -183,7 +184,7 @@ newPutRecord pStreamName_ pData_ pPartitionKey_ =
     { explicitHashKey = Prelude.Nothing,
       sequenceNumberForOrdering = Prelude.Nothing,
       streamName = pStreamName_,
-      data' = Core._Base64 Lens.# pData_,
+      data' = Data._Base64 Lens.# pData_,
       partitionKey = pPartitionKey_
     }
 
@@ -214,7 +215,7 @@ putRecord_streamName = Lens.lens (\PutRecord' {streamName} -> streamName) (\s@Pu
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 putRecord_data :: Lens.Lens' PutRecord Prelude.ByteString
-putRecord_data = Lens.lens (\PutRecord' {data'} -> data') (\s@PutRecord' {} a -> s {data' = a} :: PutRecord) Prelude.. Core._Base64
+putRecord_data = Lens.lens (\PutRecord' {data'} -> data') (\s@PutRecord' {} a -> s {data' = a} :: PutRecord) Prelude.. Data._Base64
 
 -- | Determines which shard in the stream the data record is assigned to.
 -- Partition keys are Unicode strings with a maximum length limit of 256
@@ -230,15 +231,16 @@ putRecord_partitionKey = Lens.lens (\PutRecord' {partitionKey} -> partitionKey) 
 
 instance Core.AWSRequest PutRecord where
   type AWSResponse PutRecord = PutRecordResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutRecordResponse'
-            Prelude.<$> (x Core..?> "EncryptionType")
+            Prelude.<$> (x Data..?> "EncryptionType")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "ShardId")
-            Prelude.<*> (x Core..:> "SequenceNumber")
+            Prelude.<*> (x Data..:> "ShardId")
+            Prelude.<*> (x Data..:> "SequenceNumber")
       )
 
 instance Prelude.Hashable PutRecord where
@@ -257,37 +259,37 @@ instance Prelude.NFData PutRecord where
       `Prelude.seq` Prelude.rnf data'
       `Prelude.seq` Prelude.rnf partitionKey
 
-instance Core.ToHeaders PutRecord where
+instance Data.ToHeaders PutRecord where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("Kinesis_20131202.PutRecord" :: Prelude.ByteString),
+              Data.=# ("Kinesis_20131202.PutRecord" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutRecord where
+instance Data.ToJSON PutRecord where
   toJSON PutRecord' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ExplicitHashKey" Core..=)
+          [ ("ExplicitHashKey" Data..=)
               Prelude.<$> explicitHashKey,
-            ("SequenceNumberForOrdering" Core..=)
+            ("SequenceNumberForOrdering" Data..=)
               Prelude.<$> sequenceNumberForOrdering,
-            Prelude.Just ("StreamName" Core..= streamName),
-            Prelude.Just ("Data" Core..= data'),
-            Prelude.Just ("PartitionKey" Core..= partitionKey)
+            Prelude.Just ("StreamName" Data..= streamName),
+            Prelude.Just ("Data" Data..= data'),
+            Prelude.Just ("PartitionKey" Data..= partitionKey)
           ]
       )
 
-instance Core.ToPath PutRecord where
+instance Data.ToPath PutRecord where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutRecord where
+instance Data.ToQuery PutRecord where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the output for @PutRecord@.
@@ -300,7 +302,7 @@ data PutRecordResponse = PutRecordResponse'
     -- -   @NONE@: Do not encrypt the records in the stream.
     --
     -- -   @KMS@: Use server-side encryption on the records in the stream using
-    --     a customer-managed AWS KMS key.
+    --     a customer-managed Amazon Web Services KMS key.
     encryptionType :: Prelude.Maybe EncryptionType,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
@@ -328,7 +330,7 @@ data PutRecordResponse = PutRecordResponse'
 -- -   @NONE@: Do not encrypt the records in the stream.
 --
 -- -   @KMS@: Use server-side encryption on the records in the stream using
---     a customer-managed AWS KMS key.
+--     a customer-managed Amazon Web Services KMS key.
 --
 -- 'httpStatus', 'putRecordResponse_httpStatus' - The response's http status code.
 --
@@ -364,7 +366,7 @@ newPutRecordResponse
 -- -   @NONE@: Do not encrypt the records in the stream.
 --
 -- -   @KMS@: Use server-side encryption on the records in the stream using
---     a customer-managed AWS KMS key.
+--     a customer-managed Amazon Web Services KMS key.
 putRecordResponse_encryptionType :: Lens.Lens' PutRecordResponse (Prelude.Maybe EncryptionType)
 putRecordResponse_encryptionType = Lens.lens (\PutRecordResponse' {encryptionType} -> encryptionType) (\s@PutRecordResponse' {} a -> s {encryptionType = a} :: PutRecordResponse)
 

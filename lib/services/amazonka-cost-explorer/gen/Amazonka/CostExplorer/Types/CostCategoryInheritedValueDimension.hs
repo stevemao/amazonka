@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.CostCategoryInheritedValueDimension
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,29 +20,30 @@
 module Amazonka.CostExplorer.Types.CostCategoryInheritedValueDimension where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.CostExplorer.Types.CostCategoryInheritedValueDimensionName
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | When creating or updating a cost category, you can define the
+-- | When you create or update a cost category, you can define the
 -- @CostCategoryRule@ rule type as @INHERITED_VALUE@. This rule type adds
--- the flexibility of defining a rule that dynamically inherits the cost
--- category value from the dimension value defined by
--- @CostCategoryInheritedValueDimension@. For example, if you want to
--- dynamically group costs that are based on the value of a specific tag
--- key, first choose an inherited value rule type, then choose the tag
--- dimension and specify the tag key to use.
+-- the flexibility to define a rule that dynamically inherits the cost
+-- category value from the dimension value that\'s defined by
+-- @CostCategoryInheritedValueDimension@. For example, suppose that you
+-- want to dynamically group costs that are based on the value of a
+-- specific tag key. First, choose an inherited value rule type, and then
+-- choose the tag dimension and specify the tag key to use.
 --
 -- /See:/ 'newCostCategoryInheritedValueDimension' smart constructor.
 data CostCategoryInheritedValueDimension = CostCategoryInheritedValueDimension'
-  { -- | The name of the dimension that\'s used to group costs.
+  { -- | The key to extract cost category values.
+    dimensionKey :: Prelude.Maybe Prelude.Text,
+    -- | The name of the dimension that\'s used to group costs.
     --
     -- If you specify @LINKED_ACCOUNT_NAME@, the cost category value is based
-    -- on account name. If you specify @TAG@, the cost category value will be
-    -- based on the value of the specified tag key.
-    dimensionName :: Prelude.Maybe CostCategoryInheritedValueDimensionName,
-    -- | The key to extract cost category values.
-    dimensionKey :: Prelude.Maybe Prelude.Text
+    -- on account name. If you specify @TAG@, the cost category value is based
+    -- on the value of the specified tag key.
+    dimensionName :: Prelude.Maybe CostCategoryInheritedValueDimensionName
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -54,45 +55,45 @@ data CostCategoryInheritedValueDimension = CostCategoryInheritedValueDimension'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dimensionKey', 'costCategoryInheritedValueDimension_dimensionKey' - The key to extract cost category values.
+--
 -- 'dimensionName', 'costCategoryInheritedValueDimension_dimensionName' - The name of the dimension that\'s used to group costs.
 --
 -- If you specify @LINKED_ACCOUNT_NAME@, the cost category value is based
--- on account name. If you specify @TAG@, the cost category value will be
--- based on the value of the specified tag key.
---
--- 'dimensionKey', 'costCategoryInheritedValueDimension_dimensionKey' - The key to extract cost category values.
+-- on account name. If you specify @TAG@, the cost category value is based
+-- on the value of the specified tag key.
 newCostCategoryInheritedValueDimension ::
   CostCategoryInheritedValueDimension
 newCostCategoryInheritedValueDimension =
   CostCategoryInheritedValueDimension'
-    { dimensionName =
+    { dimensionKey =
         Prelude.Nothing,
-      dimensionKey = Prelude.Nothing
+      dimensionName = Prelude.Nothing
     }
-
--- | The name of the dimension that\'s used to group costs.
---
--- If you specify @LINKED_ACCOUNT_NAME@, the cost category value is based
--- on account name. If you specify @TAG@, the cost category value will be
--- based on the value of the specified tag key.
-costCategoryInheritedValueDimension_dimensionName :: Lens.Lens' CostCategoryInheritedValueDimension (Prelude.Maybe CostCategoryInheritedValueDimensionName)
-costCategoryInheritedValueDimension_dimensionName = Lens.lens (\CostCategoryInheritedValueDimension' {dimensionName} -> dimensionName) (\s@CostCategoryInheritedValueDimension' {} a -> s {dimensionName = a} :: CostCategoryInheritedValueDimension)
 
 -- | The key to extract cost category values.
 costCategoryInheritedValueDimension_dimensionKey :: Lens.Lens' CostCategoryInheritedValueDimension (Prelude.Maybe Prelude.Text)
 costCategoryInheritedValueDimension_dimensionKey = Lens.lens (\CostCategoryInheritedValueDimension' {dimensionKey} -> dimensionKey) (\s@CostCategoryInheritedValueDimension' {} a -> s {dimensionKey = a} :: CostCategoryInheritedValueDimension)
 
+-- | The name of the dimension that\'s used to group costs.
+--
+-- If you specify @LINKED_ACCOUNT_NAME@, the cost category value is based
+-- on account name. If you specify @TAG@, the cost category value is based
+-- on the value of the specified tag key.
+costCategoryInheritedValueDimension_dimensionName :: Lens.Lens' CostCategoryInheritedValueDimension (Prelude.Maybe CostCategoryInheritedValueDimensionName)
+costCategoryInheritedValueDimension_dimensionName = Lens.lens (\CostCategoryInheritedValueDimension' {dimensionName} -> dimensionName) (\s@CostCategoryInheritedValueDimension' {} a -> s {dimensionName = a} :: CostCategoryInheritedValueDimension)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     CostCategoryInheritedValueDimension
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CostCategoryInheritedValueDimension"
       ( \x ->
           CostCategoryInheritedValueDimension'
-            Prelude.<$> (x Core..:? "DimensionName")
-            Prelude.<*> (x Core..:? "DimensionKey")
+            Prelude.<$> (x Data..:? "DimensionKey")
+            Prelude.<*> (x Data..:? "DimensionName")
       )
 
 instance
@@ -102,25 +103,25 @@ instance
   hashWithSalt
     _salt
     CostCategoryInheritedValueDimension' {..} =
-      _salt `Prelude.hashWithSalt` dimensionName
-        `Prelude.hashWithSalt` dimensionKey
+      _salt `Prelude.hashWithSalt` dimensionKey
+        `Prelude.hashWithSalt` dimensionName
 
 instance
   Prelude.NFData
     CostCategoryInheritedValueDimension
   where
   rnf CostCategoryInheritedValueDimension' {..} =
-    Prelude.rnf dimensionName
-      `Prelude.seq` Prelude.rnf dimensionKey
+    Prelude.rnf dimensionKey
+      `Prelude.seq` Prelude.rnf dimensionName
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     CostCategoryInheritedValueDimension
   where
   toJSON CostCategoryInheritedValueDimension' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DimensionName" Core..=) Prelude.<$> dimensionName,
-            ("DimensionKey" Core..=) Prelude.<$> dimensionKey
+          [ ("DimensionKey" Data..=) Prelude.<$> dimensionKey,
+            ("DimensionName" Data..=) Prelude.<$> dimensionName
           ]
       )

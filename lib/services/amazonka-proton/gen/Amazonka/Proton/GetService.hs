@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.Proton.GetService
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Get detail data for a service.
+-- Get detailed data for a service.
 module Amazonka.Proton.GetService
   ( -- * Creating a Request
     GetService (..),
@@ -40,7 +40,8 @@ module Amazonka.Proton.GetService
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -48,7 +49,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetService' smart constructor.
 data GetService = GetService'
-  { -- | The name of the service that you want to get the detail data for.
+  { -- | The name of the service that you want to get the detailed data for.
     name :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -61,25 +62,26 @@ data GetService = GetService'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'name', 'getService_name' - The name of the service that you want to get the detail data for.
+-- 'name', 'getService_name' - The name of the service that you want to get the detailed data for.
 newGetService ::
   -- | 'name'
   Prelude.Text ->
   GetService
 newGetService pName_ = GetService' {name = pName_}
 
--- | The name of the service that you want to get the detail data for.
+-- | The name of the service that you want to get the detailed data for.
 getService_name :: Lens.Lens' GetService Prelude.Text
 getService_name = Lens.lens (\GetService' {name} -> name) (\s@GetService' {} a -> s {name = a} :: GetService)
 
 instance Core.AWSRequest GetService where
   type AWSResponse GetService = GetServiceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetServiceResponse'
-            Prelude.<$> (x Core..?> "service")
+            Prelude.<$> (x Data..?> "service")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -90,37 +92,37 @@ instance Prelude.Hashable GetService where
 instance Prelude.NFData GetService where
   rnf GetService' {..} = Prelude.rnf name
 
-instance Core.ToHeaders GetService where
+instance Data.ToHeaders GetService where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.GetService" ::
+              Data.=# ( "AwsProton20200720.GetService" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetService where
+instance Data.ToJSON GetService where
   toJSON GetService' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("name" Core..= name)]
+          [Prelude.Just ("name" Data..= name)]
       )
 
-instance Core.ToPath GetService where
+instance Data.ToPath GetService where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetService where
+instance Data.ToQuery GetService where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetServiceResponse' smart constructor.
 data GetServiceResponse = GetServiceResponse'
-  { -- | The service detail data that\'s returned by AWS Proton.
+  { -- | The detailed data of the requested service.
     service :: Prelude.Maybe Service,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -135,7 +137,7 @@ data GetServiceResponse = GetServiceResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'service', 'getServiceResponse_service' - The service detail data that\'s returned by AWS Proton.
+-- 'service', 'getServiceResponse_service' - The detailed data of the requested service.
 --
 -- 'httpStatus', 'getServiceResponse_httpStatus' - The response's http status code.
 newGetServiceResponse ::
@@ -148,7 +150,7 @@ newGetServiceResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | The service detail data that\'s returned by AWS Proton.
+-- | The detailed data of the requested service.
 getServiceResponse_service :: Lens.Lens' GetServiceResponse (Prelude.Maybe Service)
 getServiceResponse_service = Lens.lens (\GetServiceResponse' {service} -> service) (\s@GetServiceResponse' {} a -> s {service = a} :: GetServiceResponse)
 

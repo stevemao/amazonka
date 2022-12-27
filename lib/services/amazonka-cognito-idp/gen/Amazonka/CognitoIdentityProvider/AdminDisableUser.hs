@@ -14,15 +14,18 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.AdminDisableUser
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Disables the specified user.
+-- Deactivates a user and revokes all access tokens for the user. A
+-- deactivated user can\'t sign in, but still appears in the responses to
+-- @GetUser@ and @ListUsers@ API requests.
 --
--- Calling this action requires developer credentials.
+-- You must make this API request with Amazon Web Services credentials that
+-- have @cognito-idp:AdminDisableUser@ permissions.
 module Amazonka.CognitoIdentityProvider.AdminDisableUser
   ( -- * Creating a Request
     AdminDisableUser (..),
@@ -43,7 +46,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -54,8 +58,8 @@ import qualified Amazonka.Response as Response
 data AdminDisableUser = AdminDisableUser'
   { -- | The user pool ID for the user pool where you want to disable the user.
     userPoolId :: Prelude.Text,
-    -- | The user name of the user you wish to disable.
-    username :: Core.Sensitive Prelude.Text
+    -- | The user name of the user you want to disable.
+    username :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -69,7 +73,7 @@ data AdminDisableUser = AdminDisableUser'
 --
 -- 'userPoolId', 'adminDisableUser_userPoolId' - The user pool ID for the user pool where you want to disable the user.
 --
--- 'username', 'adminDisableUser_username' - The user name of the user you wish to disable.
+-- 'username', 'adminDisableUser_username' - The user name of the user you want to disable.
 newAdminDisableUser ::
   -- | 'userPoolId'
   Prelude.Text ->
@@ -79,22 +83,23 @@ newAdminDisableUser ::
 newAdminDisableUser pUserPoolId_ pUsername_ =
   AdminDisableUser'
     { userPoolId = pUserPoolId_,
-      username = Core._Sensitive Lens.# pUsername_
+      username = Data._Sensitive Lens.# pUsername_
     }
 
 -- | The user pool ID for the user pool where you want to disable the user.
 adminDisableUser_userPoolId :: Lens.Lens' AdminDisableUser Prelude.Text
 adminDisableUser_userPoolId = Lens.lens (\AdminDisableUser' {userPoolId} -> userPoolId) (\s@AdminDisableUser' {} a -> s {userPoolId = a} :: AdminDisableUser)
 
--- | The user name of the user you wish to disable.
+-- | The user name of the user you want to disable.
 adminDisableUser_username :: Lens.Lens' AdminDisableUser Prelude.Text
-adminDisableUser_username = Lens.lens (\AdminDisableUser' {username} -> username) (\s@AdminDisableUser' {} a -> s {username = a} :: AdminDisableUser) Prelude.. Core._Sensitive
+adminDisableUser_username = Lens.lens (\AdminDisableUser' {username} -> username) (\s@AdminDisableUser' {} a -> s {username = a} :: AdminDisableUser) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest AdminDisableUser where
   type
     AWSResponse AdminDisableUser =
       AdminDisableUserResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -112,34 +117,34 @@ instance Prelude.NFData AdminDisableUser where
     Prelude.rnf userPoolId
       `Prelude.seq` Prelude.rnf username
 
-instance Core.ToHeaders AdminDisableUser where
+instance Data.ToHeaders AdminDisableUser where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.AdminDisableUser" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.AdminDisableUser" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AdminDisableUser where
+instance Data.ToJSON AdminDisableUser where
   toJSON AdminDisableUser' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("UserPoolId" Core..= userPoolId),
-            Prelude.Just ("Username" Core..= username)
+          [ Prelude.Just ("UserPoolId" Data..= userPoolId),
+            Prelude.Just ("Username" Data..= username)
           ]
       )
 
-instance Core.ToPath AdminDisableUser where
+instance Data.ToPath AdminDisableUser where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AdminDisableUser where
+instance Data.ToQuery AdminDisableUser where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the response received from the server to disable the user as

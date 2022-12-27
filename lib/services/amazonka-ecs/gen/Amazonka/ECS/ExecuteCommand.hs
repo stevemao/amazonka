@@ -14,13 +14,18 @@
 
 -- |
 -- Module      : Amazonka.ECS.ExecuteCommand
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Runs a command remotely on a container within a task.
+--
+-- If you use a condition key in your IAM policy to refine the conditions
+-- for the policy statement, for example limit the actions to a specific
+-- cluster, you receive an @AccessDeniedException@ when there is a mismatch
+-- between the condition key value and the corresponding parameter value.
 module Amazonka.ECS.ExecuteCommand
   ( -- * Creating a Request
     ExecuteCommand (..),
@@ -40,17 +45,18 @@ module Amazonka.ECS.ExecuteCommand
     -- * Response Lenses
     executeCommandResponse_clusterArn,
     executeCommandResponse_containerArn,
-    executeCommandResponse_taskArn,
     executeCommandResponse_containerName,
     executeCommandResponse_interactive,
     executeCommandResponse_session,
+    executeCommandResponse_taskArn,
     executeCommandResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -140,17 +146,18 @@ instance Core.AWSRequest ExecuteCommand where
   type
     AWSResponse ExecuteCommand =
       ExecuteCommandResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ExecuteCommandResponse'
-            Prelude.<$> (x Core..?> "clusterArn")
-            Prelude.<*> (x Core..?> "containerArn")
-            Prelude.<*> (x Core..?> "taskArn")
-            Prelude.<*> (x Core..?> "containerName")
-            Prelude.<*> (x Core..?> "interactive")
-            Prelude.<*> (x Core..?> "session")
+            Prelude.<$> (x Data..?> "clusterArn")
+            Prelude.<*> (x Data..?> "containerArn")
+            Prelude.<*> (x Data..?> "containerName")
+            Prelude.<*> (x Data..?> "interactive")
+            Prelude.<*> (x Data..?> "session")
+            Prelude.<*> (x Data..?> "taskArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -170,37 +177,37 @@ instance Prelude.NFData ExecuteCommand where
       `Prelude.seq` Prelude.rnf interactive
       `Prelude.seq` Prelude.rnf task
 
-instance Core.ToHeaders ExecuteCommand where
+instance Data.ToHeaders ExecuteCommand where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerServiceV20141113.ExecuteCommand" ::
+              Data.=# ( "AmazonEC2ContainerServiceV20141113.ExecuteCommand" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ExecuteCommand where
+instance Data.ToJSON ExecuteCommand where
   toJSON ExecuteCommand' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("cluster" Core..=) Prelude.<$> cluster,
-            ("container" Core..=) Prelude.<$> container,
-            Prelude.Just ("command" Core..= command),
-            Prelude.Just ("interactive" Core..= interactive),
-            Prelude.Just ("task" Core..= task)
+          [ ("cluster" Data..=) Prelude.<$> cluster,
+            ("container" Data..=) Prelude.<$> container,
+            Prelude.Just ("command" Data..= command),
+            Prelude.Just ("interactive" Data..= interactive),
+            Prelude.Just ("task" Data..= task)
           ]
       )
 
-instance Core.ToPath ExecuteCommand where
+instance Data.ToPath ExecuteCommand where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ExecuteCommand where
+instance Data.ToQuery ExecuteCommand where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newExecuteCommandResponse' smart constructor.
@@ -209,17 +216,17 @@ data ExecuteCommandResponse = ExecuteCommandResponse'
     clusterArn :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the container.
     containerArn :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the task.
-    taskArn :: Prelude.Maybe Prelude.Text,
     -- | The name of the container.
     containerName :: Prelude.Maybe Prelude.Text,
-    -- | Whether or not the execute command session is running in interactive
+    -- | Determines whether the execute command session is running in interactive
     -- mode. Amazon ECS only supports initiating interactive sessions, so you
     -- must specify @true@ for this value.
     interactive :: Prelude.Maybe Prelude.Bool,
     -- | The details of the SSM session that was created for this instance of
     -- execute-command.
     session :: Prelude.Maybe Session,
+    -- | The Amazon Resource Name (ARN) of the task.
+    taskArn :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -237,16 +244,16 @@ data ExecuteCommandResponse = ExecuteCommandResponse'
 --
 -- 'containerArn', 'executeCommandResponse_containerArn' - The Amazon Resource Name (ARN) of the container.
 --
--- 'taskArn', 'executeCommandResponse_taskArn' - The Amazon Resource Name (ARN) of the task.
---
 -- 'containerName', 'executeCommandResponse_containerName' - The name of the container.
 --
--- 'interactive', 'executeCommandResponse_interactive' - Whether or not the execute command session is running in interactive
+-- 'interactive', 'executeCommandResponse_interactive' - Determines whether the execute command session is running in interactive
 -- mode. Amazon ECS only supports initiating interactive sessions, so you
 -- must specify @true@ for this value.
 --
 -- 'session', 'executeCommandResponse_session' - The details of the SSM session that was created for this instance of
 -- execute-command.
+--
+-- 'taskArn', 'executeCommandResponse_taskArn' - The Amazon Resource Name (ARN) of the task.
 --
 -- 'httpStatus', 'executeCommandResponse_httpStatus' - The response's http status code.
 newExecuteCommandResponse ::
@@ -258,10 +265,10 @@ newExecuteCommandResponse pHttpStatus_ =
     { clusterArn =
         Prelude.Nothing,
       containerArn = Prelude.Nothing,
-      taskArn = Prelude.Nothing,
       containerName = Prelude.Nothing,
       interactive = Prelude.Nothing,
       session = Prelude.Nothing,
+      taskArn = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
 
@@ -273,15 +280,11 @@ executeCommandResponse_clusterArn = Lens.lens (\ExecuteCommandResponse' {cluster
 executeCommandResponse_containerArn :: Lens.Lens' ExecuteCommandResponse (Prelude.Maybe Prelude.Text)
 executeCommandResponse_containerArn = Lens.lens (\ExecuteCommandResponse' {containerArn} -> containerArn) (\s@ExecuteCommandResponse' {} a -> s {containerArn = a} :: ExecuteCommandResponse)
 
--- | The Amazon Resource Name (ARN) of the task.
-executeCommandResponse_taskArn :: Lens.Lens' ExecuteCommandResponse (Prelude.Maybe Prelude.Text)
-executeCommandResponse_taskArn = Lens.lens (\ExecuteCommandResponse' {taskArn} -> taskArn) (\s@ExecuteCommandResponse' {} a -> s {taskArn = a} :: ExecuteCommandResponse)
-
 -- | The name of the container.
 executeCommandResponse_containerName :: Lens.Lens' ExecuteCommandResponse (Prelude.Maybe Prelude.Text)
 executeCommandResponse_containerName = Lens.lens (\ExecuteCommandResponse' {containerName} -> containerName) (\s@ExecuteCommandResponse' {} a -> s {containerName = a} :: ExecuteCommandResponse)
 
--- | Whether or not the execute command session is running in interactive
+-- | Determines whether the execute command session is running in interactive
 -- mode. Amazon ECS only supports initiating interactive sessions, so you
 -- must specify @true@ for this value.
 executeCommandResponse_interactive :: Lens.Lens' ExecuteCommandResponse (Prelude.Maybe Prelude.Bool)
@@ -292,6 +295,10 @@ executeCommandResponse_interactive = Lens.lens (\ExecuteCommandResponse' {intera
 executeCommandResponse_session :: Lens.Lens' ExecuteCommandResponse (Prelude.Maybe Session)
 executeCommandResponse_session = Lens.lens (\ExecuteCommandResponse' {session} -> session) (\s@ExecuteCommandResponse' {} a -> s {session = a} :: ExecuteCommandResponse)
 
+-- | The Amazon Resource Name (ARN) of the task.
+executeCommandResponse_taskArn :: Lens.Lens' ExecuteCommandResponse (Prelude.Maybe Prelude.Text)
+executeCommandResponse_taskArn = Lens.lens (\ExecuteCommandResponse' {taskArn} -> taskArn) (\s@ExecuteCommandResponse' {} a -> s {taskArn = a} :: ExecuteCommandResponse)
+
 -- | The response's http status code.
 executeCommandResponse_httpStatus :: Lens.Lens' ExecuteCommandResponse Prelude.Int
 executeCommandResponse_httpStatus = Lens.lens (\ExecuteCommandResponse' {httpStatus} -> httpStatus) (\s@ExecuteCommandResponse' {} a -> s {httpStatus = a} :: ExecuteCommandResponse)
@@ -300,8 +307,8 @@ instance Prelude.NFData ExecuteCommandResponse where
   rnf ExecuteCommandResponse' {..} =
     Prelude.rnf clusterArn
       `Prelude.seq` Prelude.rnf containerArn
-      `Prelude.seq` Prelude.rnf taskArn
       `Prelude.seq` Prelude.rnf containerName
       `Prelude.seq` Prelude.rnf interactive
       `Prelude.seq` Prelude.rnf session
+      `Prelude.seq` Prelude.rnf taskArn
       `Prelude.seq` Prelude.rnf httpStatus

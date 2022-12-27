@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.NielsenWatermarksSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.NielsenWatermarksSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.NielsenCBET
 import Amazonka.MediaLive.Types.NielsenNaesIiNw
 import Amazonka.MediaLive.Types.NielsenWatermarksDistributionTypes
@@ -33,12 +34,12 @@ data NielsenWatermarksSettings = NielsenWatermarksSettings'
   { -- | Complete these fields only if you want to insert watermarks of type
     -- Nielsen CBET
     nielsenCbetSettings :: Prelude.Maybe NielsenCBET,
-    -- | Complete these fields only if you want to insert watermarks of type
-    -- Nielsen NAES II (N2) and Nielsen NAES VI (NW).
-    nielsenNaesIiNwSettings :: Prelude.Maybe NielsenNaesIiNw,
     -- | Choose the distribution types that you want to assign to the watermarks:
     -- - PROGRAM_CONTENT - FINAL_DISTRIBUTOR
-    nielsenDistributionType :: Prelude.Maybe NielsenWatermarksDistributionTypes
+    nielsenDistributionType :: Prelude.Maybe NielsenWatermarksDistributionTypes,
+    -- | Complete these fields only if you want to insert watermarks of type
+    -- Nielsen NAES II (N2) and Nielsen NAES VI (NW).
+    nielsenNaesIiNwSettings :: Prelude.Maybe NielsenNaesIiNw
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -53,19 +54,19 @@ data NielsenWatermarksSettings = NielsenWatermarksSettings'
 -- 'nielsenCbetSettings', 'nielsenWatermarksSettings_nielsenCbetSettings' - Complete these fields only if you want to insert watermarks of type
 -- Nielsen CBET
 --
--- 'nielsenNaesIiNwSettings', 'nielsenWatermarksSettings_nielsenNaesIiNwSettings' - Complete these fields only if you want to insert watermarks of type
--- Nielsen NAES II (N2) and Nielsen NAES VI (NW).
---
 -- 'nielsenDistributionType', 'nielsenWatermarksSettings_nielsenDistributionType' - Choose the distribution types that you want to assign to the watermarks:
 -- - PROGRAM_CONTENT - FINAL_DISTRIBUTOR
+--
+-- 'nielsenNaesIiNwSettings', 'nielsenWatermarksSettings_nielsenNaesIiNwSettings' - Complete these fields only if you want to insert watermarks of type
+-- Nielsen NAES II (N2) and Nielsen NAES VI (NW).
 newNielsenWatermarksSettings ::
   NielsenWatermarksSettings
 newNielsenWatermarksSettings =
   NielsenWatermarksSettings'
     { nielsenCbetSettings =
         Prelude.Nothing,
-      nielsenNaesIiNwSettings = Prelude.Nothing,
-      nielsenDistributionType = Prelude.Nothing
+      nielsenDistributionType = Prelude.Nothing,
+      nielsenNaesIiNwSettings = Prelude.Nothing
     }
 
 -- | Complete these fields only if you want to insert watermarks of type
@@ -73,48 +74,48 @@ newNielsenWatermarksSettings =
 nielsenWatermarksSettings_nielsenCbetSettings :: Lens.Lens' NielsenWatermarksSettings (Prelude.Maybe NielsenCBET)
 nielsenWatermarksSettings_nielsenCbetSettings = Lens.lens (\NielsenWatermarksSettings' {nielsenCbetSettings} -> nielsenCbetSettings) (\s@NielsenWatermarksSettings' {} a -> s {nielsenCbetSettings = a} :: NielsenWatermarksSettings)
 
--- | Complete these fields only if you want to insert watermarks of type
--- Nielsen NAES II (N2) and Nielsen NAES VI (NW).
-nielsenWatermarksSettings_nielsenNaesIiNwSettings :: Lens.Lens' NielsenWatermarksSettings (Prelude.Maybe NielsenNaesIiNw)
-nielsenWatermarksSettings_nielsenNaesIiNwSettings = Lens.lens (\NielsenWatermarksSettings' {nielsenNaesIiNwSettings} -> nielsenNaesIiNwSettings) (\s@NielsenWatermarksSettings' {} a -> s {nielsenNaesIiNwSettings = a} :: NielsenWatermarksSettings)
-
 -- | Choose the distribution types that you want to assign to the watermarks:
 -- - PROGRAM_CONTENT - FINAL_DISTRIBUTOR
 nielsenWatermarksSettings_nielsenDistributionType :: Lens.Lens' NielsenWatermarksSettings (Prelude.Maybe NielsenWatermarksDistributionTypes)
 nielsenWatermarksSettings_nielsenDistributionType = Lens.lens (\NielsenWatermarksSettings' {nielsenDistributionType} -> nielsenDistributionType) (\s@NielsenWatermarksSettings' {} a -> s {nielsenDistributionType = a} :: NielsenWatermarksSettings)
 
-instance Core.FromJSON NielsenWatermarksSettings where
+-- | Complete these fields only if you want to insert watermarks of type
+-- Nielsen NAES II (N2) and Nielsen NAES VI (NW).
+nielsenWatermarksSettings_nielsenNaesIiNwSettings :: Lens.Lens' NielsenWatermarksSettings (Prelude.Maybe NielsenNaesIiNw)
+nielsenWatermarksSettings_nielsenNaesIiNwSettings = Lens.lens (\NielsenWatermarksSettings' {nielsenNaesIiNwSettings} -> nielsenNaesIiNwSettings) (\s@NielsenWatermarksSettings' {} a -> s {nielsenNaesIiNwSettings = a} :: NielsenWatermarksSettings)
+
+instance Data.FromJSON NielsenWatermarksSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NielsenWatermarksSettings"
       ( \x ->
           NielsenWatermarksSettings'
-            Prelude.<$> (x Core..:? "nielsenCbetSettings")
-            Prelude.<*> (x Core..:? "nielsenNaesIiNwSettings")
-            Prelude.<*> (x Core..:? "nielsenDistributionType")
+            Prelude.<$> (x Data..:? "nielsenCbetSettings")
+            Prelude.<*> (x Data..:? "nielsenDistributionType")
+            Prelude.<*> (x Data..:? "nielsenNaesIiNwSettings")
       )
 
 instance Prelude.Hashable NielsenWatermarksSettings where
   hashWithSalt _salt NielsenWatermarksSettings' {..} =
     _salt `Prelude.hashWithSalt` nielsenCbetSettings
-      `Prelude.hashWithSalt` nielsenNaesIiNwSettings
       `Prelude.hashWithSalt` nielsenDistributionType
+      `Prelude.hashWithSalt` nielsenNaesIiNwSettings
 
 instance Prelude.NFData NielsenWatermarksSettings where
   rnf NielsenWatermarksSettings' {..} =
     Prelude.rnf nielsenCbetSettings
-      `Prelude.seq` Prelude.rnf nielsenNaesIiNwSettings
       `Prelude.seq` Prelude.rnf nielsenDistributionType
+      `Prelude.seq` Prelude.rnf nielsenNaesIiNwSettings
 
-instance Core.ToJSON NielsenWatermarksSettings where
+instance Data.ToJSON NielsenWatermarksSettings where
   toJSON NielsenWatermarksSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nielsenCbetSettings" Core..=)
+          [ ("nielsenCbetSettings" Data..=)
               Prelude.<$> nielsenCbetSettings,
-            ("nielsenNaesIiNwSettings" Core..=)
-              Prelude.<$> nielsenNaesIiNwSettings,
-            ("nielsenDistributionType" Core..=)
-              Prelude.<$> nielsenDistributionType
+            ("nielsenDistributionType" Data..=)
+              Prelude.<$> nielsenDistributionType,
+            ("nielsenNaesIiNwSettings" Data..=)
+              Prelude.<$> nielsenNaesIiNwSettings
           ]
       )

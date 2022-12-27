@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectoryService.CreateMicrosoftAD
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,9 +36,9 @@ module Amazonka.DirectoryService.CreateMicrosoftAD
     newCreateMicrosoftAD,
 
     -- * Request Lenses
+    createMicrosoftAD_description,
     createMicrosoftAD_edition,
     createMicrosoftAD_shortName,
-    createMicrosoftAD_description,
     createMicrosoftAD_tags,
     createMicrosoftAD_name,
     createMicrosoftAD_password,
@@ -55,8 +55,9 @@ module Amazonka.DirectoryService.CreateMicrosoftAD
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectoryService.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,17 +66,17 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateMicrosoftAD' smart constructor.
 data CreateMicrosoftAD = CreateMicrosoftAD'
-  { -- | Managed Microsoft AD is available in two editions: @Standard@ and
+  { -- | A description for the directory. This label will appear on the Amazon
+    -- Web Services console @Directory Details@ page after the directory is
+    -- created.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Managed Microsoft AD is available in two editions: @Standard@ and
     -- @Enterprise@. @Enterprise@ is the default.
     edition :: Prelude.Maybe DirectoryEdition,
     -- | The NetBIOS name for your domain, such as @CORP@. If you don\'t specify
     -- a NetBIOS name, it will default to the first part of your directory DNS.
     -- For example, @CORP@ for the directory DNS @corp.example.com@.
     shortName :: Prelude.Maybe Prelude.Text,
-    -- | A description for the directory. This label will appear on the Amazon
-    -- Web Services console @Directory Details@ page after the directory is
-    -- created.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The tags to be assigned to the Managed Microsoft AD directory.
     tags :: Prelude.Maybe [Tag],
     -- | The fully qualified domain name for the Managed Microsoft AD directory,
@@ -86,7 +87,7 @@ data CreateMicrosoftAD = CreateMicrosoftAD'
     --
     -- If you need to change the password for the administrator account, you
     -- can use the ResetUserPassword API call.
-    password :: Core.Sensitive Prelude.Text,
+    password :: Data.Sensitive Prelude.Text,
     -- | Contains VPC information for the CreateDirectory or CreateMicrosoftAD
     -- operation.
     vpcSettings :: DirectoryVpcSettings
@@ -101,16 +102,16 @@ data CreateMicrosoftAD = CreateMicrosoftAD'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createMicrosoftAD_description' - A description for the directory. This label will appear on the Amazon
+-- Web Services console @Directory Details@ page after the directory is
+-- created.
+--
 -- 'edition', 'createMicrosoftAD_edition' - Managed Microsoft AD is available in two editions: @Standard@ and
 -- @Enterprise@. @Enterprise@ is the default.
 --
 -- 'shortName', 'createMicrosoftAD_shortName' - The NetBIOS name for your domain, such as @CORP@. If you don\'t specify
 -- a NetBIOS name, it will default to the first part of your directory DNS.
 -- For example, @CORP@ for the directory DNS @corp.example.com@.
---
--- 'description', 'createMicrosoftAD_description' - A description for the directory. This label will appear on the Amazon
--- Web Services console @Directory Details@ page after the directory is
--- created.
 --
 -- 'tags', 'createMicrosoftAD_tags' - The tags to be assigned to the Managed Microsoft AD directory.
 --
@@ -135,14 +136,20 @@ newCreateMicrosoftAD ::
   CreateMicrosoftAD
 newCreateMicrosoftAD pName_ pPassword_ pVpcSettings_ =
   CreateMicrosoftAD'
-    { edition = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      edition = Prelude.Nothing,
       shortName = Prelude.Nothing,
-      description = Prelude.Nothing,
       tags = Prelude.Nothing,
       name = pName_,
-      password = Core._Sensitive Lens.# pPassword_,
+      password = Data._Sensitive Lens.# pPassword_,
       vpcSettings = pVpcSettings_
     }
+
+-- | A description for the directory. This label will appear on the Amazon
+-- Web Services console @Directory Details@ page after the directory is
+-- created.
+createMicrosoftAD_description :: Lens.Lens' CreateMicrosoftAD (Prelude.Maybe Prelude.Text)
+createMicrosoftAD_description = Lens.lens (\CreateMicrosoftAD' {description} -> description) (\s@CreateMicrosoftAD' {} a -> s {description = a} :: CreateMicrosoftAD)
 
 -- | Managed Microsoft AD is available in two editions: @Standard@ and
 -- @Enterprise@. @Enterprise@ is the default.
@@ -154,12 +161,6 @@ createMicrosoftAD_edition = Lens.lens (\CreateMicrosoftAD' {edition} -> edition)
 -- For example, @CORP@ for the directory DNS @corp.example.com@.
 createMicrosoftAD_shortName :: Lens.Lens' CreateMicrosoftAD (Prelude.Maybe Prelude.Text)
 createMicrosoftAD_shortName = Lens.lens (\CreateMicrosoftAD' {shortName} -> shortName) (\s@CreateMicrosoftAD' {} a -> s {shortName = a} :: CreateMicrosoftAD)
-
--- | A description for the directory. This label will appear on the Amazon
--- Web Services console @Directory Details@ page after the directory is
--- created.
-createMicrosoftAD_description :: Lens.Lens' CreateMicrosoftAD (Prelude.Maybe Prelude.Text)
-createMicrosoftAD_description = Lens.lens (\CreateMicrosoftAD' {description} -> description) (\s@CreateMicrosoftAD' {} a -> s {description = a} :: CreateMicrosoftAD)
 
 -- | The tags to be assigned to the Managed Microsoft AD directory.
 createMicrosoftAD_tags :: Lens.Lens' CreateMicrosoftAD (Prelude.Maybe [Tag])
@@ -176,7 +177,7 @@ createMicrosoftAD_name = Lens.lens (\CreateMicrosoftAD' {name} -> name) (\s@Crea
 -- If you need to change the password for the administrator account, you
 -- can use the ResetUserPassword API call.
 createMicrosoftAD_password :: Lens.Lens' CreateMicrosoftAD Prelude.Text
-createMicrosoftAD_password = Lens.lens (\CreateMicrosoftAD' {password} -> password) (\s@CreateMicrosoftAD' {} a -> s {password = a} :: CreateMicrosoftAD) Prelude.. Core._Sensitive
+createMicrosoftAD_password = Lens.lens (\CreateMicrosoftAD' {password} -> password) (\s@CreateMicrosoftAD' {} a -> s {password = a} :: CreateMicrosoftAD) Prelude.. Data._Sensitive
 
 -- | Contains VPC information for the CreateDirectory or CreateMicrosoftAD
 -- operation.
@@ -187,20 +188,21 @@ instance Core.AWSRequest CreateMicrosoftAD where
   type
     AWSResponse CreateMicrosoftAD =
       CreateMicrosoftADResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateMicrosoftADResponse'
-            Prelude.<$> (x Core..?> "DirectoryId")
+            Prelude.<$> (x Data..?> "DirectoryId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateMicrosoftAD where
   hashWithSalt _salt CreateMicrosoftAD' {..} =
-    _salt `Prelude.hashWithSalt` edition
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` edition
       `Prelude.hashWithSalt` shortName
-      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` password
@@ -208,47 +210,47 @@ instance Prelude.Hashable CreateMicrosoftAD where
 
 instance Prelude.NFData CreateMicrosoftAD where
   rnf CreateMicrosoftAD' {..} =
-    Prelude.rnf edition
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf edition
       `Prelude.seq` Prelude.rnf shortName
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf password
       `Prelude.seq` Prelude.rnf vpcSettings
 
-instance Core.ToHeaders CreateMicrosoftAD where
+instance Data.ToHeaders CreateMicrosoftAD where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "DirectoryService_20150416.CreateMicrosoftAD" ::
+              Data.=# ( "DirectoryService_20150416.CreateMicrosoftAD" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateMicrosoftAD where
+instance Data.ToJSON CreateMicrosoftAD where
   toJSON CreateMicrosoftAD' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Edition" Core..=) Prelude.<$> edition,
-            ("ShortName" Core..=) Prelude.<$> shortName,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Password" Core..= password),
-            Prelude.Just ("VpcSettings" Core..= vpcSettings)
+          [ ("Description" Data..=) Prelude.<$> description,
+            ("Edition" Data..=) Prelude.<$> edition,
+            ("ShortName" Data..=) Prelude.<$> shortName,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Password" Data..= password),
+            Prelude.Just ("VpcSettings" Data..= vpcSettings)
           ]
       )
 
-instance Core.ToPath CreateMicrosoftAD where
+instance Data.ToPath CreateMicrosoftAD where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateMicrosoftAD where
+instance Data.ToQuery CreateMicrosoftAD where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Result of a CreateMicrosoftAD request.

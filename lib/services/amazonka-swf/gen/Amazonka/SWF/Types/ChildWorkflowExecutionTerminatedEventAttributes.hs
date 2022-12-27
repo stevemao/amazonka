@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.ChildWorkflowExecutionTerminatedEventAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.ChildWorkflowExecutionTerminatedEventAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SWF.Types.WorkflowExecution
 import Amazonka.SWF.Types.WorkflowType
@@ -116,18 +117,18 @@ childWorkflowExecutionTerminatedEventAttributes_startedEventId :: Lens.Lens' Chi
 childWorkflowExecutionTerminatedEventAttributes_startedEventId = Lens.lens (\ChildWorkflowExecutionTerminatedEventAttributes' {startedEventId} -> startedEventId) (\s@ChildWorkflowExecutionTerminatedEventAttributes' {} a -> s {startedEventId = a} :: ChildWorkflowExecutionTerminatedEventAttributes)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ChildWorkflowExecutionTerminatedEventAttributes
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ChildWorkflowExecutionTerminatedEventAttributes"
       ( \x ->
           ChildWorkflowExecutionTerminatedEventAttributes'
-            Prelude.<$> (x Core..: "workflowExecution")
-              Prelude.<*> (x Core..: "workflowType")
-              Prelude.<*> (x Core..: "initiatedEventId")
-              Prelude.<*> (x Core..: "startedEventId")
+            Prelude.<$> (x Data..: "workflowExecution")
+              Prelude.<*> (x Data..: "workflowType")
+              Prelude.<*> (x Data..: "initiatedEventId")
+              Prelude.<*> (x Data..: "startedEventId")
       )
 
 instance

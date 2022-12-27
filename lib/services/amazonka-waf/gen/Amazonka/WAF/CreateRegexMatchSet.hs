@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.CreateRegexMatchSet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -69,14 +69,15 @@ module Amazonka.WAF.CreateRegexMatchSet
     newCreateRegexMatchSetResponse,
 
     -- * Response Lenses
-    createRegexMatchSetResponse_regexMatchSet,
     createRegexMatchSetResponse_changeToken,
+    createRegexMatchSetResponse_regexMatchSet,
     createRegexMatchSetResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -129,13 +130,14 @@ instance Core.AWSRequest CreateRegexMatchSet where
   type
     AWSResponse CreateRegexMatchSet =
       CreateRegexMatchSetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateRegexMatchSetResponse'
-            Prelude.<$> (x Core..?> "RegexMatchSet")
-            Prelude.<*> (x Core..?> "ChangeToken")
+            Prelude.<$> (x Data..?> "ChangeToken")
+            Prelude.<*> (x Data..?> "RegexMatchSet")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -149,44 +151,44 @@ instance Prelude.NFData CreateRegexMatchSet where
     Prelude.rnf name
       `Prelude.seq` Prelude.rnf changeToken
 
-instance Core.ToHeaders CreateRegexMatchSet where
+instance Data.ToHeaders CreateRegexMatchSet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_20150824.CreateRegexMatchSet" ::
+              Data.=# ( "AWSWAF_20150824.CreateRegexMatchSet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateRegexMatchSet where
+instance Data.ToJSON CreateRegexMatchSet where
   toJSON CreateRegexMatchSet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("ChangeToken" Core..= changeToken)
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("ChangeToken" Data..= changeToken)
           ]
       )
 
-instance Core.ToPath CreateRegexMatchSet where
+instance Data.ToPath CreateRegexMatchSet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateRegexMatchSet where
+instance Data.ToQuery CreateRegexMatchSet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateRegexMatchSetResponse' smart constructor.
 data CreateRegexMatchSetResponse = CreateRegexMatchSetResponse'
-  { -- | A RegexMatchSet that contains no @RegexMatchTuple@ objects.
-    regexMatchSet :: Prelude.Maybe RegexMatchSet,
-    -- | The @ChangeToken@ that you used to submit the @CreateRegexMatchSet@
+  { -- | The @ChangeToken@ that you used to submit the @CreateRegexMatchSet@
     -- request. You can also use this value to query the status of the request.
     -- For more information, see GetChangeTokenStatus.
     changeToken :: Prelude.Maybe Prelude.Text,
+    -- | A RegexMatchSet that contains no @RegexMatchTuple@ objects.
+    regexMatchSet :: Prelude.Maybe RegexMatchSet,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -200,11 +202,11 @@ data CreateRegexMatchSetResponse = CreateRegexMatchSetResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'regexMatchSet', 'createRegexMatchSetResponse_regexMatchSet' - A RegexMatchSet that contains no @RegexMatchTuple@ objects.
---
 -- 'changeToken', 'createRegexMatchSetResponse_changeToken' - The @ChangeToken@ that you used to submit the @CreateRegexMatchSet@
 -- request. You can also use this value to query the status of the request.
 -- For more information, see GetChangeTokenStatus.
+--
+-- 'regexMatchSet', 'createRegexMatchSetResponse_regexMatchSet' - A RegexMatchSet that contains no @RegexMatchTuple@ objects.
 --
 -- 'httpStatus', 'createRegexMatchSetResponse_httpStatus' - The response's http status code.
 newCreateRegexMatchSetResponse ::
@@ -213,15 +215,11 @@ newCreateRegexMatchSetResponse ::
   CreateRegexMatchSetResponse
 newCreateRegexMatchSetResponse pHttpStatus_ =
   CreateRegexMatchSetResponse'
-    { regexMatchSet =
+    { changeToken =
         Prelude.Nothing,
-      changeToken = Prelude.Nothing,
+      regexMatchSet = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A RegexMatchSet that contains no @RegexMatchTuple@ objects.
-createRegexMatchSetResponse_regexMatchSet :: Lens.Lens' CreateRegexMatchSetResponse (Prelude.Maybe RegexMatchSet)
-createRegexMatchSetResponse_regexMatchSet = Lens.lens (\CreateRegexMatchSetResponse' {regexMatchSet} -> regexMatchSet) (\s@CreateRegexMatchSetResponse' {} a -> s {regexMatchSet = a} :: CreateRegexMatchSetResponse)
 
 -- | The @ChangeToken@ that you used to submit the @CreateRegexMatchSet@
 -- request. You can also use this value to query the status of the request.
@@ -229,12 +227,16 @@ createRegexMatchSetResponse_regexMatchSet = Lens.lens (\CreateRegexMatchSetRespo
 createRegexMatchSetResponse_changeToken :: Lens.Lens' CreateRegexMatchSetResponse (Prelude.Maybe Prelude.Text)
 createRegexMatchSetResponse_changeToken = Lens.lens (\CreateRegexMatchSetResponse' {changeToken} -> changeToken) (\s@CreateRegexMatchSetResponse' {} a -> s {changeToken = a} :: CreateRegexMatchSetResponse)
 
+-- | A RegexMatchSet that contains no @RegexMatchTuple@ objects.
+createRegexMatchSetResponse_regexMatchSet :: Lens.Lens' CreateRegexMatchSetResponse (Prelude.Maybe RegexMatchSet)
+createRegexMatchSetResponse_regexMatchSet = Lens.lens (\CreateRegexMatchSetResponse' {regexMatchSet} -> regexMatchSet) (\s@CreateRegexMatchSetResponse' {} a -> s {regexMatchSet = a} :: CreateRegexMatchSetResponse)
+
 -- | The response's http status code.
 createRegexMatchSetResponse_httpStatus :: Lens.Lens' CreateRegexMatchSetResponse Prelude.Int
 createRegexMatchSetResponse_httpStatus = Lens.lens (\CreateRegexMatchSetResponse' {httpStatus} -> httpStatus) (\s@CreateRegexMatchSetResponse' {} a -> s {httpStatus = a} :: CreateRegexMatchSetResponse)
 
 instance Prelude.NFData CreateRegexMatchSetResponse where
   rnf CreateRegexMatchSetResponse' {..} =
-    Prelude.rnf regexMatchSet
-      `Prelude.seq` Prelude.rnf changeToken
+    Prelude.rnf changeToken
+      `Prelude.seq` Prelude.rnf regexMatchSet
       `Prelude.seq` Prelude.rnf httpStatus

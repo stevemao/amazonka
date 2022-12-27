@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.CognitoSync
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,11 +42,14 @@ module Amazonka.CognitoSync
     -- * Errors
     -- $errors
 
-    -- ** InvalidParameterException
-    _InvalidParameterException,
+    -- ** AlreadyStreamedException
+    _AlreadyStreamedException,
 
-    -- ** NotAuthorizedException
-    _NotAuthorizedException,
+    -- ** ConcurrentModificationException
+    _ConcurrentModificationException,
+
+    -- ** DuplicateRequestException
+    _DuplicateRequestException,
 
     -- ** InternalErrorException
     _InternalErrorException,
@@ -54,23 +57,20 @@ module Amazonka.CognitoSync
     -- ** InvalidConfigurationException
     _InvalidConfigurationException,
 
-    -- ** DuplicateRequestException
-    _DuplicateRequestException,
+    -- ** InvalidLambdaFunctionOutputException
+    _InvalidLambdaFunctionOutputException,
+
+    -- ** InvalidParameterException
+    _InvalidParameterException,
 
     -- ** LambdaThrottledException
     _LambdaThrottledException,
 
-    -- ** AlreadyStreamedException
-    _AlreadyStreamedException,
+    -- ** LimitExceededException
+    _LimitExceededException,
 
-    -- ** InvalidLambdaFunctionOutputException
-    _InvalidLambdaFunctionOutputException,
-
-    -- ** TooManyRequestsException
-    _TooManyRequestsException,
-
-    -- ** ConcurrentModificationException
-    _ConcurrentModificationException,
+    -- ** NotAuthorizedException
+    _NotAuthorizedException,
 
     -- ** ResourceConflictException
     _ResourceConflictException,
@@ -78,8 +78,8 @@ module Amazonka.CognitoSync
     -- ** ResourceNotFoundException
     _ResourceNotFoundException,
 
-    -- ** LimitExceededException
-    _LimitExceededException,
+    -- ** TooManyRequestsException
+    _TooManyRequestsException,
 
     -- * Waiters
     -- $waiters
@@ -87,41 +87,11 @@ module Amazonka.CognitoSync
     -- * Operations
     -- $operations
 
-    -- ** DescribeDataset
-    DescribeDataset (DescribeDataset'),
-    newDescribeDataset,
-    DescribeDatasetResponse (DescribeDatasetResponse'),
-    newDescribeDatasetResponse,
-
-    -- ** SetCognitoEvents
-    SetCognitoEvents (SetCognitoEvents'),
-    newSetCognitoEvents,
-    SetCognitoEventsResponse (SetCognitoEventsResponse'),
-    newSetCognitoEventsResponse,
-
-    -- ** DescribeIdentityPoolUsage
-    DescribeIdentityPoolUsage (DescribeIdentityPoolUsage'),
-    newDescribeIdentityPoolUsage,
-    DescribeIdentityPoolUsageResponse (DescribeIdentityPoolUsageResponse'),
-    newDescribeIdentityPoolUsageResponse,
-
-    -- ** GetBulkPublishDetails
-    GetBulkPublishDetails (GetBulkPublishDetails'),
-    newGetBulkPublishDetails,
-    GetBulkPublishDetailsResponse (GetBulkPublishDetailsResponse'),
-    newGetBulkPublishDetailsResponse,
-
-    -- ** ListIdentityPoolUsage
-    ListIdentityPoolUsage (ListIdentityPoolUsage'),
-    newListIdentityPoolUsage,
-    ListIdentityPoolUsageResponse (ListIdentityPoolUsageResponse'),
-    newListIdentityPoolUsageResponse,
-
-    -- ** SetIdentityPoolConfiguration
-    SetIdentityPoolConfiguration (SetIdentityPoolConfiguration'),
-    newSetIdentityPoolConfiguration,
-    SetIdentityPoolConfigurationResponse (SetIdentityPoolConfigurationResponse'),
-    newSetIdentityPoolConfigurationResponse,
+    -- ** BulkPublish
+    BulkPublish (BulkPublish'),
+    newBulkPublish,
+    BulkPublishResponse (BulkPublishResponse'),
+    newBulkPublishResponse,
 
     -- ** DeleteDataset
     DeleteDataset (DeleteDataset'),
@@ -129,11 +99,17 @@ module Amazonka.CognitoSync
     DeleteDatasetResponse (DeleteDatasetResponse'),
     newDeleteDatasetResponse,
 
-    -- ** GetCognitoEvents
-    GetCognitoEvents (GetCognitoEvents'),
-    newGetCognitoEvents,
-    GetCognitoEventsResponse (GetCognitoEventsResponse'),
-    newGetCognitoEventsResponse,
+    -- ** DescribeDataset
+    DescribeDataset (DescribeDataset'),
+    newDescribeDataset,
+    DescribeDatasetResponse (DescribeDatasetResponse'),
+    newDescribeDatasetResponse,
+
+    -- ** DescribeIdentityPoolUsage
+    DescribeIdentityPoolUsage (DescribeIdentityPoolUsage'),
+    newDescribeIdentityPoolUsage,
+    DescribeIdentityPoolUsageResponse (DescribeIdentityPoolUsageResponse'),
+    newDescribeIdentityPoolUsageResponse,
 
     -- ** DescribeIdentityUsage
     DescribeIdentityUsage (DescribeIdentityUsage'),
@@ -141,17 +117,17 @@ module Amazonka.CognitoSync
     DescribeIdentityUsageResponse (DescribeIdentityUsageResponse'),
     newDescribeIdentityUsageResponse,
 
-    -- ** RegisterDevice
-    RegisterDevice (RegisterDevice'),
-    newRegisterDevice,
-    RegisterDeviceResponse (RegisterDeviceResponse'),
-    newRegisterDeviceResponse,
+    -- ** GetBulkPublishDetails
+    GetBulkPublishDetails (GetBulkPublishDetails'),
+    newGetBulkPublishDetails,
+    GetBulkPublishDetailsResponse (GetBulkPublishDetailsResponse'),
+    newGetBulkPublishDetailsResponse,
 
-    -- ** SubscribeToDataset
-    SubscribeToDataset (SubscribeToDataset'),
-    newSubscribeToDataset,
-    SubscribeToDatasetResponse (SubscribeToDatasetResponse'),
-    newSubscribeToDatasetResponse,
+    -- ** GetCognitoEvents
+    GetCognitoEvents (GetCognitoEvents'),
+    newGetCognitoEvents,
+    GetCognitoEventsResponse (GetCognitoEventsResponse'),
+    newGetCognitoEventsResponse,
 
     -- ** GetIdentityPoolConfiguration
     GetIdentityPoolConfiguration (GetIdentityPoolConfiguration'),
@@ -159,11 +135,47 @@ module Amazonka.CognitoSync
     GetIdentityPoolConfigurationResponse (GetIdentityPoolConfigurationResponse'),
     newGetIdentityPoolConfigurationResponse,
 
+    -- ** ListDatasets
+    ListDatasets (ListDatasets'),
+    newListDatasets,
+    ListDatasetsResponse (ListDatasetsResponse'),
+    newListDatasetsResponse,
+
+    -- ** ListIdentityPoolUsage
+    ListIdentityPoolUsage (ListIdentityPoolUsage'),
+    newListIdentityPoolUsage,
+    ListIdentityPoolUsageResponse (ListIdentityPoolUsageResponse'),
+    newListIdentityPoolUsageResponse,
+
     -- ** ListRecords
     ListRecords (ListRecords'),
     newListRecords,
     ListRecordsResponse (ListRecordsResponse'),
     newListRecordsResponse,
+
+    -- ** RegisterDevice
+    RegisterDevice (RegisterDevice'),
+    newRegisterDevice,
+    RegisterDeviceResponse (RegisterDeviceResponse'),
+    newRegisterDeviceResponse,
+
+    -- ** SetCognitoEvents
+    SetCognitoEvents (SetCognitoEvents'),
+    newSetCognitoEvents,
+    SetCognitoEventsResponse (SetCognitoEventsResponse'),
+    newSetCognitoEventsResponse,
+
+    -- ** SetIdentityPoolConfiguration
+    SetIdentityPoolConfiguration (SetIdentityPoolConfiguration'),
+    newSetIdentityPoolConfiguration,
+    SetIdentityPoolConfigurationResponse (SetIdentityPoolConfigurationResponse'),
+    newSetIdentityPoolConfigurationResponse,
+
+    -- ** SubscribeToDataset
+    SubscribeToDataset (SubscribeToDataset'),
+    newSubscribeToDataset,
+    SubscribeToDatasetResponse (SubscribeToDatasetResponse'),
+    newSubscribeToDatasetResponse,
 
     -- ** UnsubscribeFromDataset
     UnsubscribeFromDataset (UnsubscribeFromDataset'),
@@ -176,18 +188,6 @@ module Amazonka.CognitoSync
     newUpdateRecords,
     UpdateRecordsResponse (UpdateRecordsResponse'),
     newUpdateRecordsResponse,
-
-    -- ** ListDatasets
-    ListDatasets (ListDatasets'),
-    newListDatasets,
-    ListDatasetsResponse (ListDatasetsResponse'),
-    newListDatasetsResponse,
-
-    -- ** BulkPublish
-    BulkPublish (BulkPublish'),
-    newBulkPublish,
-    BulkPublishResponse (BulkPublishResponse'),
-    newBulkPublishResponse,
 
     -- * Types
 

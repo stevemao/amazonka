@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.ListenerTlsFileCertificate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.AppMesh.Types.ListenerTlsFileCertificate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a local file certificate. The certificate must
@@ -74,14 +75,14 @@ listenerTlsFileCertificate_certificateChain = Lens.lens (\ListenerTlsFileCertifi
 listenerTlsFileCertificate_privateKey :: Lens.Lens' ListenerTlsFileCertificate Prelude.Text
 listenerTlsFileCertificate_privateKey = Lens.lens (\ListenerTlsFileCertificate' {privateKey} -> privateKey) (\s@ListenerTlsFileCertificate' {} a -> s {privateKey = a} :: ListenerTlsFileCertificate)
 
-instance Core.FromJSON ListenerTlsFileCertificate where
+instance Data.FromJSON ListenerTlsFileCertificate where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ListenerTlsFileCertificate"
       ( \x ->
           ListenerTlsFileCertificate'
-            Prelude.<$> (x Core..: "certificateChain")
-            Prelude.<*> (x Core..: "privateKey")
+            Prelude.<$> (x Data..: "certificateChain")
+            Prelude.<*> (x Data..: "privateKey")
       )
 
 instance Prelude.Hashable ListenerTlsFileCertificate where
@@ -94,12 +95,12 @@ instance Prelude.NFData ListenerTlsFileCertificate where
     Prelude.rnf certificateChain
       `Prelude.seq` Prelude.rnf privateKey
 
-instance Core.ToJSON ListenerTlsFileCertificate where
+instance Data.ToJSON ListenerTlsFileCertificate where
   toJSON ListenerTlsFileCertificate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("certificateChain" Core..= certificateChain),
-            Prelude.Just ("privateKey" Core..= privateKey)
+              ("certificateChain" Data..= certificateChain),
+            Prelude.Just ("privateKey" Data..= privateKey)
           ]
       )

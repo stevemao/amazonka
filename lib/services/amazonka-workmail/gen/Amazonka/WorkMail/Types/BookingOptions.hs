@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WorkMail.Types.BookingOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WorkMail.Types.BookingOptions where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | At least one delegate must be associated to the resource to disable
@@ -28,14 +29,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newBookingOptions' smart constructor.
 data BookingOptions = BookingOptions'
-  { -- | The resource\'s ability to automatically decline any conflicting
+  { -- | The resource\'s ability to automatically reply to requests. If disabled,
+    -- delegates must be associated to the resource.
+    autoAcceptRequests :: Prelude.Maybe Prelude.Bool,
+    -- | The resource\'s ability to automatically decline any conflicting
     -- requests.
     autoDeclineConflictingRequests :: Prelude.Maybe Prelude.Bool,
     -- | The resource\'s ability to automatically decline any recurring requests.
-    autoDeclineRecurringRequests :: Prelude.Maybe Prelude.Bool,
-    -- | The resource\'s ability to automatically reply to requests. If disabled,
-    -- delegates must be associated to the resource.
-    autoAcceptRequests :: Prelude.Maybe Prelude.Bool
+    autoDeclineRecurringRequests :: Prelude.Maybe Prelude.Bool
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,22 +48,27 @@ data BookingOptions = BookingOptions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'autoAcceptRequests', 'bookingOptions_autoAcceptRequests' - The resource\'s ability to automatically reply to requests. If disabled,
+-- delegates must be associated to the resource.
+--
 -- 'autoDeclineConflictingRequests', 'bookingOptions_autoDeclineConflictingRequests' - The resource\'s ability to automatically decline any conflicting
 -- requests.
 --
 -- 'autoDeclineRecurringRequests', 'bookingOptions_autoDeclineRecurringRequests' - The resource\'s ability to automatically decline any recurring requests.
---
--- 'autoAcceptRequests', 'bookingOptions_autoAcceptRequests' - The resource\'s ability to automatically reply to requests. If disabled,
--- delegates must be associated to the resource.
 newBookingOptions ::
   BookingOptions
 newBookingOptions =
   BookingOptions'
-    { autoDeclineConflictingRequests =
+    { autoAcceptRequests =
         Prelude.Nothing,
-      autoDeclineRecurringRequests = Prelude.Nothing,
-      autoAcceptRequests = Prelude.Nothing
+      autoDeclineConflictingRequests = Prelude.Nothing,
+      autoDeclineRecurringRequests = Prelude.Nothing
     }
+
+-- | The resource\'s ability to automatically reply to requests. If disabled,
+-- delegates must be associated to the resource.
+bookingOptions_autoAcceptRequests :: Lens.Lens' BookingOptions (Prelude.Maybe Prelude.Bool)
+bookingOptions_autoAcceptRequests = Lens.lens (\BookingOptions' {autoAcceptRequests} -> autoAcceptRequests) (\s@BookingOptions' {} a -> s {autoAcceptRequests = a} :: BookingOptions)
 
 -- | The resource\'s ability to automatically decline any conflicting
 -- requests.
@@ -73,44 +79,38 @@ bookingOptions_autoDeclineConflictingRequests = Lens.lens (\BookingOptions' {aut
 bookingOptions_autoDeclineRecurringRequests :: Lens.Lens' BookingOptions (Prelude.Maybe Prelude.Bool)
 bookingOptions_autoDeclineRecurringRequests = Lens.lens (\BookingOptions' {autoDeclineRecurringRequests} -> autoDeclineRecurringRequests) (\s@BookingOptions' {} a -> s {autoDeclineRecurringRequests = a} :: BookingOptions)
 
--- | The resource\'s ability to automatically reply to requests. If disabled,
--- delegates must be associated to the resource.
-bookingOptions_autoAcceptRequests :: Lens.Lens' BookingOptions (Prelude.Maybe Prelude.Bool)
-bookingOptions_autoAcceptRequests = Lens.lens (\BookingOptions' {autoAcceptRequests} -> autoAcceptRequests) (\s@BookingOptions' {} a -> s {autoAcceptRequests = a} :: BookingOptions)
-
-instance Core.FromJSON BookingOptions where
+instance Data.FromJSON BookingOptions where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BookingOptions"
       ( \x ->
           BookingOptions'
-            Prelude.<$> (x Core..:? "AutoDeclineConflictingRequests")
-            Prelude.<*> (x Core..:? "AutoDeclineRecurringRequests")
-            Prelude.<*> (x Core..:? "AutoAcceptRequests")
+            Prelude.<$> (x Data..:? "AutoAcceptRequests")
+            Prelude.<*> (x Data..:? "AutoDeclineConflictingRequests")
+            Prelude.<*> (x Data..:? "AutoDeclineRecurringRequests")
       )
 
 instance Prelude.Hashable BookingOptions where
   hashWithSalt _salt BookingOptions' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` autoAcceptRequests
       `Prelude.hashWithSalt` autoDeclineConflictingRequests
       `Prelude.hashWithSalt` autoDeclineRecurringRequests
-      `Prelude.hashWithSalt` autoAcceptRequests
 
 instance Prelude.NFData BookingOptions where
   rnf BookingOptions' {..} =
-    Prelude.rnf autoDeclineConflictingRequests
+    Prelude.rnf autoAcceptRequests
+      `Prelude.seq` Prelude.rnf autoDeclineConflictingRequests
       `Prelude.seq` Prelude.rnf autoDeclineRecurringRequests
-      `Prelude.seq` Prelude.rnf autoAcceptRequests
 
-instance Core.ToJSON BookingOptions where
+instance Data.ToJSON BookingOptions where
   toJSON BookingOptions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AutoDeclineConflictingRequests" Core..=)
+          [ ("AutoAcceptRequests" Data..=)
+              Prelude.<$> autoAcceptRequests,
+            ("AutoDeclineConflictingRequests" Data..=)
               Prelude.<$> autoDeclineConflictingRequests,
-            ("AutoDeclineRecurringRequests" Core..=)
-              Prelude.<$> autoDeclineRecurringRequests,
-            ("AutoAcceptRequests" Core..=)
-              Prelude.<$> autoAcceptRequests
+            ("AutoDeclineRecurringRequests" Data..=)
+              Prelude.<$> autoDeclineRecurringRequests
           ]
       )

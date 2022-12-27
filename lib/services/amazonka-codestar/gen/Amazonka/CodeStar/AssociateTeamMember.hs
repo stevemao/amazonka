@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStar.AssociateTeamMember
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.CodeStar.AssociateTeamMember
     newAssociateTeamMember,
 
     -- * Request Lenses
-    associateTeamMember_remoteAccessAllowed,
     associateTeamMember_clientRequestToken,
+    associateTeamMember_remoteAccessAllowed,
     associateTeamMember_projectId,
     associateTeamMember_userArn,
     associateTeamMember_projectRole,
@@ -45,21 +45,22 @@ where
 
 import Amazonka.CodeStar.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newAssociateTeamMember' smart constructor.
 data AssociateTeamMember = AssociateTeamMember'
-  { -- | Whether the team member is allowed to use an SSH public\/private key
-    -- pair to remotely access project resources, for example Amazon EC2
-    -- instances.
-    remoteAccessAllowed :: Prelude.Maybe Prelude.Bool,
-    -- | A user- or system-generated token that identifies the entity that
+  { -- | A user- or system-generated token that identifies the entity that
     -- requested the team member association to the project. This token can be
     -- used to repeat the request.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | Whether the team member is allowed to use an SSH public\/private key
+    -- pair to remotely access project resources, for example Amazon EC2
+    -- instances.
+    remoteAccessAllowed :: Prelude.Maybe Prelude.Bool,
     -- | The ID of the project to which you will add the IAM user.
     projectId :: Prelude.Text,
     -- | The Amazon Resource Name (ARN) for the IAM user you want to add to the
@@ -79,13 +80,13 @@ data AssociateTeamMember = AssociateTeamMember'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'remoteAccessAllowed', 'associateTeamMember_remoteAccessAllowed' - Whether the team member is allowed to use an SSH public\/private key
--- pair to remotely access project resources, for example Amazon EC2
--- instances.
---
 -- 'clientRequestToken', 'associateTeamMember_clientRequestToken' - A user- or system-generated token that identifies the entity that
 -- requested the team member association to the project. This token can be
 -- used to repeat the request.
+--
+-- 'remoteAccessAllowed', 'associateTeamMember_remoteAccessAllowed' - Whether the team member is allowed to use an SSH public\/private key
+-- pair to remotely access project resources, for example Amazon EC2
+-- instances.
 --
 -- 'projectId', 'associateTeamMember_projectId' - The ID of the project to which you will add the IAM user.
 --
@@ -107,25 +108,25 @@ newAssociateTeamMember
   pUserArn_
   pProjectRole_ =
     AssociateTeamMember'
-      { remoteAccessAllowed =
+      { clientRequestToken =
           Prelude.Nothing,
-        clientRequestToken = Prelude.Nothing,
+        remoteAccessAllowed = Prelude.Nothing,
         projectId = pProjectId_,
         userArn = pUserArn_,
         projectRole = pProjectRole_
       }
-
--- | Whether the team member is allowed to use an SSH public\/private key
--- pair to remotely access project resources, for example Amazon EC2
--- instances.
-associateTeamMember_remoteAccessAllowed :: Lens.Lens' AssociateTeamMember (Prelude.Maybe Prelude.Bool)
-associateTeamMember_remoteAccessAllowed = Lens.lens (\AssociateTeamMember' {remoteAccessAllowed} -> remoteAccessAllowed) (\s@AssociateTeamMember' {} a -> s {remoteAccessAllowed = a} :: AssociateTeamMember)
 
 -- | A user- or system-generated token that identifies the entity that
 -- requested the team member association to the project. This token can be
 -- used to repeat the request.
 associateTeamMember_clientRequestToken :: Lens.Lens' AssociateTeamMember (Prelude.Maybe Prelude.Text)
 associateTeamMember_clientRequestToken = Lens.lens (\AssociateTeamMember' {clientRequestToken} -> clientRequestToken) (\s@AssociateTeamMember' {} a -> s {clientRequestToken = a} :: AssociateTeamMember)
+
+-- | Whether the team member is allowed to use an SSH public\/private key
+-- pair to remotely access project resources, for example Amazon EC2
+-- instances.
+associateTeamMember_remoteAccessAllowed :: Lens.Lens' AssociateTeamMember (Prelude.Maybe Prelude.Bool)
+associateTeamMember_remoteAccessAllowed = Lens.lens (\AssociateTeamMember' {remoteAccessAllowed} -> remoteAccessAllowed) (\s@AssociateTeamMember' {} a -> s {remoteAccessAllowed = a} :: AssociateTeamMember)
 
 -- | The ID of the project to which you will add the IAM user.
 associateTeamMember_projectId :: Lens.Lens' AssociateTeamMember Prelude.Text
@@ -145,64 +146,65 @@ instance Core.AWSRequest AssociateTeamMember where
   type
     AWSResponse AssociateTeamMember =
       AssociateTeamMemberResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AssociateTeamMemberResponse'
-            Prelude.<$> (x Core..?> "clientRequestToken")
+            Prelude.<$> (x Data..?> "clientRequestToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable AssociateTeamMember where
   hashWithSalt _salt AssociateTeamMember' {..} =
-    _salt `Prelude.hashWithSalt` remoteAccessAllowed
-      `Prelude.hashWithSalt` clientRequestToken
+    _salt `Prelude.hashWithSalt` clientRequestToken
+      `Prelude.hashWithSalt` remoteAccessAllowed
       `Prelude.hashWithSalt` projectId
       `Prelude.hashWithSalt` userArn
       `Prelude.hashWithSalt` projectRole
 
 instance Prelude.NFData AssociateTeamMember where
   rnf AssociateTeamMember' {..} =
-    Prelude.rnf remoteAccessAllowed
-      `Prelude.seq` Prelude.rnf clientRequestToken
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf remoteAccessAllowed
       `Prelude.seq` Prelude.rnf projectId
       `Prelude.seq` Prelude.rnf userArn
       `Prelude.seq` Prelude.rnf projectRole
 
-instance Core.ToHeaders AssociateTeamMember where
+instance Data.ToHeaders AssociateTeamMember where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeStar_20170419.AssociateTeamMember" ::
+              Data.=# ( "CodeStar_20170419.AssociateTeamMember" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateTeamMember where
+instance Data.ToJSON AssociateTeamMember where
   toJSON AssociateTeamMember' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("remoteAccessAllowed" Core..=)
-              Prelude.<$> remoteAccessAllowed,
-            ("clientRequestToken" Core..=)
+          [ ("clientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
-            Prelude.Just ("projectId" Core..= projectId),
-            Prelude.Just ("userArn" Core..= userArn),
-            Prelude.Just ("projectRole" Core..= projectRole)
+            ("remoteAccessAllowed" Data..=)
+              Prelude.<$> remoteAccessAllowed,
+            Prelude.Just ("projectId" Data..= projectId),
+            Prelude.Just ("userArn" Data..= userArn),
+            Prelude.Just ("projectRole" Data..= projectRole)
           ]
       )
 
-instance Core.ToPath AssociateTeamMember where
+instance Data.ToPath AssociateTeamMember where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateTeamMember where
+instance Data.ToQuery AssociateTeamMember where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateTeamMemberResponse' smart constructor.

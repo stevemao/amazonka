@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetModels
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,7 +61,7 @@ data GetModels = GetModels'
     limit :: Prelude.Maybe Prelude.Int,
     -- | The current pagination position in the paged result set.
     position :: Prelude.Maybe Prelude.Text,
-    -- | [Required] The string identifier of the associated RestApi.
+    -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -78,7 +79,7 @@ data GetModels = GetModels'
 --
 -- 'position', 'getModels_position' - The current pagination position in the paged result set.
 --
--- 'restApiId', 'getModels_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getModels_restApiId' - The string identifier of the associated RestApi.
 newGetModels ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -99,7 +100,7 @@ getModels_limit = Lens.lens (\GetModels' {limit} -> limit) (\s@GetModels' {} a -
 getModels_position :: Lens.Lens' GetModels (Prelude.Maybe Prelude.Text)
 getModels_position = Lens.lens (\GetModels' {position} -> position) (\s@GetModels' {} a -> s {position = a} :: GetModels)
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getModels_restApiId :: Lens.Lens' GetModels Prelude.Text
 getModels_restApiId = Lens.lens (\GetModels' {restApiId} -> restApiId) (\s@GetModels' {} a -> s {restApiId = a} :: GetModels)
 
@@ -124,13 +125,14 @@ instance Core.AWSPager GetModels where
 
 instance Core.AWSRequest GetModels where
   type AWSResponse GetModels = GetModelsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetModelsResponse'
-            Prelude.<$> (x Core..?> "item" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "position")
+            Prelude.<$> (x Data..?> "item" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "position")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -146,29 +148,26 @@ instance Prelude.NFData GetModels where
       `Prelude.seq` Prelude.rnf position
       `Prelude.seq` Prelude.rnf restApiId
 
-instance Core.ToHeaders GetModels where
+instance Data.ToHeaders GetModels where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetModels where
+instance Data.ToPath GetModels where
   toPath GetModels' {..} =
     Prelude.mconcat
-      ["/restapis/", Core.toBS restApiId, "/models"]
+      ["/restapis/", Data.toBS restApiId, "/models"]
 
-instance Core.ToQuery GetModels where
+instance Data.ToQuery GetModels where
   toQuery GetModels' {..} =
     Prelude.mconcat
-      ["limit" Core.=: limit, "position" Core.=: position]
+      ["limit" Data.=: limit, "position" Data.=: position]
 
 -- | Represents a collection of Model resources.
---
--- Method, MethodResponse,
--- <https://docs.aws.amazon.com/apigateway/latest/developerguide/models-mappings.html Models and Mappings>
 --
 -- /See:/ 'newGetModelsResponse' smart constructor.
 data GetModelsResponse = GetModelsResponse'

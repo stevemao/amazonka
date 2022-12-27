@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFormation.Types.StackResourceDrift
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,8 @@ import Amazonka.CloudFormation.Types.PhysicalResourceIdContextKeyValuePair
 import Amazonka.CloudFormation.Types.PropertyDifference
 import Amazonka.CloudFormation.Types.StackResourceDriftStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the drift information for a resource that has been checked for
@@ -34,7 +35,7 @@ import qualified Amazonka.Prelude as Prelude
 -- information, see
 -- <https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift.html Detecting Unregulated Configuration Changes to Stacks and Resources>.
 --
--- Resources that do not currently support drift detection cannot be
+-- Resources that don\'t currently support drift detection can\'t be
 -- checked. For a list of resources that support drift detection, see
 -- <http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-stack-drift-resource-list.html Resources that Support Drift Detection>.
 --
@@ -50,23 +51,6 @@ data StackResourceDrift = StackResourceDrift'
     -- For resources whose @StackResourceDriftStatus@ is @DELETED@, this
     -- structure will not be present.
     actualProperties :: Prelude.Maybe Prelude.Text,
-    -- | The name or unique identifier that corresponds to a physical instance ID
-    -- of a resource supported by CloudFormation.
-    physicalResourceId :: Prelude.Maybe Prelude.Text,
-    -- | Context information that enables CloudFormation to uniquely identify a
-    -- resource. CloudFormation uses context key-value pairs in cases where a
-    -- resource\'s logical and physical IDs are not enough to uniquely identify
-    -- that resource. Each context key-value pair specifies a unique resource
-    -- that contains the targeted resource.
-    physicalResourceIdContext :: Prelude.Maybe [PhysicalResourceIdContextKeyValuePair],
-    -- | A collection of the resource properties whose actual values differ from
-    -- their expected values. These will be present only for resources whose
-    -- @StackResourceDriftStatus@ is @MODIFIED@.
-    propertyDifferences :: Prelude.Maybe [PropertyDifference],
-    -- | Contains information about the module from which the resource was
-    -- created, if the resource was created from a module included in the stack
-    -- template.
-    moduleInfo :: Prelude.Maybe ModuleInfo,
     -- | A JSON structure containing the expected property values of the stack
     -- resource, as defined in the stack template and any values specified as
     -- template parameters.
@@ -74,6 +58,23 @@ data StackResourceDrift = StackResourceDrift'
     -- For resources whose @StackResourceDriftStatus@ is @DELETED@, this
     -- structure will not be present.
     expectedProperties :: Prelude.Maybe Prelude.Text,
+    -- | Contains information about the module from which the resource was
+    -- created, if the resource was created from a module included in the stack
+    -- template.
+    moduleInfo :: Prelude.Maybe ModuleInfo,
+    -- | The name or unique identifier that corresponds to a physical instance ID
+    -- of a resource supported by CloudFormation.
+    physicalResourceId :: Prelude.Maybe Prelude.Text,
+    -- | Context information that enables CloudFormation to uniquely identify a
+    -- resource. CloudFormation uses context key-value pairs in cases where a
+    -- resource\'s logical and physical IDs aren\'t enough to uniquely identify
+    -- that resource. Each context key-value pair specifies a unique resource
+    -- that contains the targeted resource.
+    physicalResourceIdContext :: Prelude.Maybe [PhysicalResourceIdContextKeyValuePair],
+    -- | A collection of the resource properties whose actual values differ from
+    -- their expected values. These will be present only for resources whose
+    -- @StackResourceDriftStatus@ is @MODIFIED@.
+    propertyDifferences :: Prelude.Maybe [PropertyDifference],
     -- | The ID of the stack.
     stackId :: Prelude.Text,
     -- | The logical name of the resource specified in the template.
@@ -81,7 +82,7 @@ data StackResourceDrift = StackResourceDrift'
     -- | The type of the resource.
     resourceType :: Prelude.Text,
     -- | Status of the resource\'s actual configuration compared to its expected
-    -- configuration
+    -- configuration.
     --
     -- -   @DELETED@: The resource differs from its expected template
     --     configuration because the resource has been deleted.
@@ -90,14 +91,14 @@ data StackResourceDrift = StackResourceDrift'
     --     expected values (as defined in the stack template and any values
     --     specified as template parameters).
     --
-    -- -   @IN_SYNC@: The resources\'s actual configuration matches its
-    --     expected template configuration.
+    -- -   @IN_SYNC@: The resource\'s actual configuration matches its expected
+    --     template configuration.
     --
     -- -   @NOT_CHECKED@: CloudFormation does not currently return this value.
     stackResourceDriftStatus :: StackResourceDriftStatus,
     -- | Time at which CloudFormation performed drift detection on the stack
     -- resource.
-    timestamp :: Core.ISO8601
+    timestamp :: Data.ISO8601
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -115,29 +116,29 @@ data StackResourceDrift = StackResourceDrift'
 -- For resources whose @StackResourceDriftStatus@ is @DELETED@, this
 -- structure will not be present.
 --
--- 'physicalResourceId', 'stackResourceDrift_physicalResourceId' - The name or unique identifier that corresponds to a physical instance ID
--- of a resource supported by CloudFormation.
---
--- 'physicalResourceIdContext', 'stackResourceDrift_physicalResourceIdContext' - Context information that enables CloudFormation to uniquely identify a
--- resource. CloudFormation uses context key-value pairs in cases where a
--- resource\'s logical and physical IDs are not enough to uniquely identify
--- that resource. Each context key-value pair specifies a unique resource
--- that contains the targeted resource.
---
--- 'propertyDifferences', 'stackResourceDrift_propertyDifferences' - A collection of the resource properties whose actual values differ from
--- their expected values. These will be present only for resources whose
--- @StackResourceDriftStatus@ is @MODIFIED@.
---
--- 'moduleInfo', 'stackResourceDrift_moduleInfo' - Contains information about the module from which the resource was
--- created, if the resource was created from a module included in the stack
--- template.
---
 -- 'expectedProperties', 'stackResourceDrift_expectedProperties' - A JSON structure containing the expected property values of the stack
 -- resource, as defined in the stack template and any values specified as
 -- template parameters.
 --
 -- For resources whose @StackResourceDriftStatus@ is @DELETED@, this
 -- structure will not be present.
+--
+-- 'moduleInfo', 'stackResourceDrift_moduleInfo' - Contains information about the module from which the resource was
+-- created, if the resource was created from a module included in the stack
+-- template.
+--
+-- 'physicalResourceId', 'stackResourceDrift_physicalResourceId' - The name or unique identifier that corresponds to a physical instance ID
+-- of a resource supported by CloudFormation.
+--
+-- 'physicalResourceIdContext', 'stackResourceDrift_physicalResourceIdContext' - Context information that enables CloudFormation to uniquely identify a
+-- resource. CloudFormation uses context key-value pairs in cases where a
+-- resource\'s logical and physical IDs aren\'t enough to uniquely identify
+-- that resource. Each context key-value pair specifies a unique resource
+-- that contains the targeted resource.
+--
+-- 'propertyDifferences', 'stackResourceDrift_propertyDifferences' - A collection of the resource properties whose actual values differ from
+-- their expected values. These will be present only for resources whose
+-- @StackResourceDriftStatus@ is @MODIFIED@.
 --
 -- 'stackId', 'stackResourceDrift_stackId' - The ID of the stack.
 --
@@ -146,7 +147,7 @@ data StackResourceDrift = StackResourceDrift'
 -- 'resourceType', 'stackResourceDrift_resourceType' - The type of the resource.
 --
 -- 'stackResourceDriftStatus', 'stackResourceDrift_stackResourceDriftStatus' - Status of the resource\'s actual configuration compared to its expected
--- configuration
+-- configuration.
 --
 -- -   @DELETED@: The resource differs from its expected template
 --     configuration because the resource has been deleted.
@@ -155,8 +156,8 @@ data StackResourceDrift = StackResourceDrift'
 --     expected values (as defined in the stack template and any values
 --     specified as template parameters).
 --
--- -   @IN_SYNC@: The resources\'s actual configuration matches its
---     expected template configuration.
+-- -   @IN_SYNC@: The resource\'s actual configuration matches its expected
+--     template configuration.
 --
 -- -   @NOT_CHECKED@: CloudFormation does not currently return this value.
 --
@@ -183,17 +184,17 @@ newStackResourceDrift
     StackResourceDrift'
       { actualProperties =
           Prelude.Nothing,
+        expectedProperties = Prelude.Nothing,
+        moduleInfo = Prelude.Nothing,
         physicalResourceId = Prelude.Nothing,
         physicalResourceIdContext = Prelude.Nothing,
         propertyDifferences = Prelude.Nothing,
-        moduleInfo = Prelude.Nothing,
-        expectedProperties = Prelude.Nothing,
         stackId = pStackId_,
         logicalResourceId = pLogicalResourceId_,
         resourceType = pResourceType_,
         stackResourceDriftStatus =
           pStackResourceDriftStatus_,
-        timestamp = Core._Time Lens.# pTimestamp_
+        timestamp = Data._Time Lens.# pTimestamp_
       }
 
 -- | A JSON structure containing the actual property values of the stack
@@ -204,6 +205,21 @@ newStackResourceDrift
 stackResourceDrift_actualProperties :: Lens.Lens' StackResourceDrift (Prelude.Maybe Prelude.Text)
 stackResourceDrift_actualProperties = Lens.lens (\StackResourceDrift' {actualProperties} -> actualProperties) (\s@StackResourceDrift' {} a -> s {actualProperties = a} :: StackResourceDrift)
 
+-- | A JSON structure containing the expected property values of the stack
+-- resource, as defined in the stack template and any values specified as
+-- template parameters.
+--
+-- For resources whose @StackResourceDriftStatus@ is @DELETED@, this
+-- structure will not be present.
+stackResourceDrift_expectedProperties :: Lens.Lens' StackResourceDrift (Prelude.Maybe Prelude.Text)
+stackResourceDrift_expectedProperties = Lens.lens (\StackResourceDrift' {expectedProperties} -> expectedProperties) (\s@StackResourceDrift' {} a -> s {expectedProperties = a} :: StackResourceDrift)
+
+-- | Contains information about the module from which the resource was
+-- created, if the resource was created from a module included in the stack
+-- template.
+stackResourceDrift_moduleInfo :: Lens.Lens' StackResourceDrift (Prelude.Maybe ModuleInfo)
+stackResourceDrift_moduleInfo = Lens.lens (\StackResourceDrift' {moduleInfo} -> moduleInfo) (\s@StackResourceDrift' {} a -> s {moduleInfo = a} :: StackResourceDrift)
+
 -- | The name or unique identifier that corresponds to a physical instance ID
 -- of a resource supported by CloudFormation.
 stackResourceDrift_physicalResourceId :: Lens.Lens' StackResourceDrift (Prelude.Maybe Prelude.Text)
@@ -211,7 +227,7 @@ stackResourceDrift_physicalResourceId = Lens.lens (\StackResourceDrift' {physica
 
 -- | Context information that enables CloudFormation to uniquely identify a
 -- resource. CloudFormation uses context key-value pairs in cases where a
--- resource\'s logical and physical IDs are not enough to uniquely identify
+-- resource\'s logical and physical IDs aren\'t enough to uniquely identify
 -- that resource. Each context key-value pair specifies a unique resource
 -- that contains the targeted resource.
 stackResourceDrift_physicalResourceIdContext :: Lens.Lens' StackResourceDrift (Prelude.Maybe [PhysicalResourceIdContextKeyValuePair])
@@ -222,21 +238,6 @@ stackResourceDrift_physicalResourceIdContext = Lens.lens (\StackResourceDrift' {
 -- @StackResourceDriftStatus@ is @MODIFIED@.
 stackResourceDrift_propertyDifferences :: Lens.Lens' StackResourceDrift (Prelude.Maybe [PropertyDifference])
 stackResourceDrift_propertyDifferences = Lens.lens (\StackResourceDrift' {propertyDifferences} -> propertyDifferences) (\s@StackResourceDrift' {} a -> s {propertyDifferences = a} :: StackResourceDrift) Prelude.. Lens.mapping Lens.coerced
-
--- | Contains information about the module from which the resource was
--- created, if the resource was created from a module included in the stack
--- template.
-stackResourceDrift_moduleInfo :: Lens.Lens' StackResourceDrift (Prelude.Maybe ModuleInfo)
-stackResourceDrift_moduleInfo = Lens.lens (\StackResourceDrift' {moduleInfo} -> moduleInfo) (\s@StackResourceDrift' {} a -> s {moduleInfo = a} :: StackResourceDrift)
-
--- | A JSON structure containing the expected property values of the stack
--- resource, as defined in the stack template and any values specified as
--- template parameters.
---
--- For resources whose @StackResourceDriftStatus@ is @DELETED@, this
--- structure will not be present.
-stackResourceDrift_expectedProperties :: Lens.Lens' StackResourceDrift (Prelude.Maybe Prelude.Text)
-stackResourceDrift_expectedProperties = Lens.lens (\StackResourceDrift' {expectedProperties} -> expectedProperties) (\s@StackResourceDrift' {} a -> s {expectedProperties = a} :: StackResourceDrift)
 
 -- | The ID of the stack.
 stackResourceDrift_stackId :: Lens.Lens' StackResourceDrift Prelude.Text
@@ -251,7 +252,7 @@ stackResourceDrift_resourceType :: Lens.Lens' StackResourceDrift Prelude.Text
 stackResourceDrift_resourceType = Lens.lens (\StackResourceDrift' {resourceType} -> resourceType) (\s@StackResourceDrift' {} a -> s {resourceType = a} :: StackResourceDrift)
 
 -- | Status of the resource\'s actual configuration compared to its expected
--- configuration
+-- configuration.
 --
 -- -   @DELETED@: The resource differs from its expected template
 --     configuration because the resource has been deleted.
@@ -260,8 +261,8 @@ stackResourceDrift_resourceType = Lens.lens (\StackResourceDrift' {resourceType}
 --     expected values (as defined in the stack template and any values
 --     specified as template parameters).
 --
--- -   @IN_SYNC@: The resources\'s actual configuration matches its
---     expected template configuration.
+-- -   @IN_SYNC@: The resource\'s actual configuration matches its expected
+--     template configuration.
 --
 -- -   @NOT_CHECKED@: CloudFormation does not currently return this value.
 stackResourceDrift_stackResourceDriftStatus :: Lens.Lens' StackResourceDrift StackResourceDriftStatus
@@ -270,37 +271,37 @@ stackResourceDrift_stackResourceDriftStatus = Lens.lens (\StackResourceDrift' {s
 -- | Time at which CloudFormation performed drift detection on the stack
 -- resource.
 stackResourceDrift_timestamp :: Lens.Lens' StackResourceDrift Prelude.UTCTime
-stackResourceDrift_timestamp = Lens.lens (\StackResourceDrift' {timestamp} -> timestamp) (\s@StackResourceDrift' {} a -> s {timestamp = a} :: StackResourceDrift) Prelude.. Core._Time
+stackResourceDrift_timestamp = Lens.lens (\StackResourceDrift' {timestamp} -> timestamp) (\s@StackResourceDrift' {} a -> s {timestamp = a} :: StackResourceDrift) Prelude.. Data._Time
 
-instance Core.FromXML StackResourceDrift where
+instance Data.FromXML StackResourceDrift where
   parseXML x =
     StackResourceDrift'
-      Prelude.<$> (x Core..@? "ActualProperties")
-      Prelude.<*> (x Core..@? "PhysicalResourceId")
-      Prelude.<*> ( x Core..@? "PhysicalResourceIdContext"
+      Prelude.<$> (x Data..@? "ActualProperties")
+      Prelude.<*> (x Data..@? "ExpectedProperties")
+      Prelude.<*> (x Data..@? "ModuleInfo")
+      Prelude.<*> (x Data..@? "PhysicalResourceId")
+      Prelude.<*> ( x Data..@? "PhysicalResourceIdContext"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
-      Prelude.<*> ( x Core..@? "PropertyDifferences"
+      Prelude.<*> ( x Data..@? "PropertyDifferences"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "member")
+                      Prelude.>>= Core.may (Data.parseXMLList "member")
                   )
-      Prelude.<*> (x Core..@? "ModuleInfo")
-      Prelude.<*> (x Core..@? "ExpectedProperties")
-      Prelude.<*> (x Core..@ "StackId")
-      Prelude.<*> (x Core..@ "LogicalResourceId")
-      Prelude.<*> (x Core..@ "ResourceType")
-      Prelude.<*> (x Core..@ "StackResourceDriftStatus")
-      Prelude.<*> (x Core..@ "Timestamp")
+      Prelude.<*> (x Data..@ "StackId")
+      Prelude.<*> (x Data..@ "LogicalResourceId")
+      Prelude.<*> (x Data..@ "ResourceType")
+      Prelude.<*> (x Data..@ "StackResourceDriftStatus")
+      Prelude.<*> (x Data..@ "Timestamp")
 
 instance Prelude.Hashable StackResourceDrift where
   hashWithSalt _salt StackResourceDrift' {..} =
     _salt `Prelude.hashWithSalt` actualProperties
+      `Prelude.hashWithSalt` expectedProperties
+      `Prelude.hashWithSalt` moduleInfo
       `Prelude.hashWithSalt` physicalResourceId
       `Prelude.hashWithSalt` physicalResourceIdContext
       `Prelude.hashWithSalt` propertyDifferences
-      `Prelude.hashWithSalt` moduleInfo
-      `Prelude.hashWithSalt` expectedProperties
       `Prelude.hashWithSalt` stackId
       `Prelude.hashWithSalt` logicalResourceId
       `Prelude.hashWithSalt` resourceType
@@ -310,11 +311,11 @@ instance Prelude.Hashable StackResourceDrift where
 instance Prelude.NFData StackResourceDrift where
   rnf StackResourceDrift' {..} =
     Prelude.rnf actualProperties
+      `Prelude.seq` Prelude.rnf expectedProperties
+      `Prelude.seq` Prelude.rnf moduleInfo
       `Prelude.seq` Prelude.rnf physicalResourceId
       `Prelude.seq` Prelude.rnf physicalResourceIdContext
       `Prelude.seq` Prelude.rnf propertyDifferences
-      `Prelude.seq` Prelude.rnf moduleInfo
-      `Prelude.seq` Prelude.rnf expectedProperties
       `Prelude.seq` Prelude.rnf stackId
       `Prelude.seq` Prelude.rnf logicalResourceId
       `Prelude.seq` Prelude.rnf resourceType

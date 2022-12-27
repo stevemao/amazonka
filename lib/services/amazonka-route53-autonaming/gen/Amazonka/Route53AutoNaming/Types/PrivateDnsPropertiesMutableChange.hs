@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.Types.PrivateDnsPropertiesMutableChange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53AutoNaming.Types.PrivateDnsPropertiesMutableChange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53AutoNaming.Types.SOAChange
 
@@ -73,11 +74,11 @@ instance
     Prelude.rnf soa
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     PrivateDnsPropertiesMutableChange
   where
   toJSON PrivateDnsPropertiesMutableChange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("SOA" Core..= soa)]
+          [Prelude.Just ("SOA" Data..= soa)]
       )

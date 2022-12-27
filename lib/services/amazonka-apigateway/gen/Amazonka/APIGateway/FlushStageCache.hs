@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.FlushStageCache
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,7 +38,8 @@ where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -47,9 +48,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newFlushStageCache' smart constructor.
 data FlushStageCache = FlushStageCache'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The name of the stage to flush its cache.
+    -- | The name of the stage to flush its cache.
     stageName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,9 +63,9 @@ data FlushStageCache = FlushStageCache'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'flushStageCache_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'flushStageCache_restApiId' - The string identifier of the associated RestApi.
 --
--- 'stageName', 'flushStageCache_stageName' - [Required] The name of the stage to flush its cache.
+-- 'stageName', 'flushStageCache_stageName' - The name of the stage to flush its cache.
 newFlushStageCache ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -77,11 +78,11 @@ newFlushStageCache pRestApiId_ pStageName_ =
       stageName = pStageName_
     }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 flushStageCache_restApiId :: Lens.Lens' FlushStageCache Prelude.Text
 flushStageCache_restApiId = Lens.lens (\FlushStageCache' {restApiId} -> restApiId) (\s@FlushStageCache' {} a -> s {restApiId = a} :: FlushStageCache)
 
--- | [Required] The name of the stage to flush its cache.
+-- | The name of the stage to flush its cache.
 flushStageCache_stageName :: Lens.Lens' FlushStageCache Prelude.Text
 flushStageCache_stageName = Lens.lens (\FlushStageCache' {stageName} -> stageName) (\s@FlushStageCache' {} a -> s {stageName = a} :: FlushStageCache)
 
@@ -89,7 +90,8 @@ instance Core.AWSRequest FlushStageCache where
   type
     AWSResponse FlushStageCache =
       FlushStageCacheResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull FlushStageCacheResponse'
 
@@ -103,26 +105,26 @@ instance Prelude.NFData FlushStageCache where
     Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf stageName
 
-instance Core.ToHeaders FlushStageCache where
+instance Data.ToHeaders FlushStageCache where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath FlushStageCache where
+instance Data.ToPath FlushStageCache where
   toPath FlushStageCache' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/stages/",
-        Core.toBS stageName,
+        Data.toBS stageName,
         "/cache/data"
       ]
 
-instance Core.ToQuery FlushStageCache where
+instance Data.ToQuery FlushStageCache where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newFlushStageCacheResponse' smart constructor.

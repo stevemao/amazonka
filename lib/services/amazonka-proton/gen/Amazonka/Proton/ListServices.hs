@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Proton.ListServices
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.Proton.ListServices
     newListServices,
 
     -- * Request Lenses
-    listServices_nextToken,
     listServices_maxResults,
+    listServices_nextToken,
 
     -- * Destructuring the Response
     ListServicesResponse (..),
@@ -44,7 +44,8 @@ module Amazonka.Proton.ListServices
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Proton.Types
 import qualified Amazonka.Request as Request
@@ -52,11 +53,11 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListServices' smart constructor.
 data ListServices = ListServices'
-  { -- | A token to indicate the location of the next service in the array of
+  { -- | The maximum number of services to list.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A token that indicates the location of the next service in the array of
     -- services, after the list of services that was previously requested.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of services to list.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -68,26 +69,26 @@ data ListServices = ListServices'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listServices_nextToken' - A token to indicate the location of the next service in the array of
--- services, after the list of services that was previously requested.
---
 -- 'maxResults', 'listServices_maxResults' - The maximum number of services to list.
+--
+-- 'nextToken', 'listServices_nextToken' - A token that indicates the location of the next service in the array of
+-- services, after the list of services that was previously requested.
 newListServices ::
   ListServices
 newListServices =
   ListServices'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | A token to indicate the location of the next service in the array of
--- services, after the list of services that was previously requested.
-listServices_nextToken :: Lens.Lens' ListServices (Prelude.Maybe Prelude.Text)
-listServices_nextToken = Lens.lens (\ListServices' {nextToken} -> nextToken) (\s@ListServices' {} a -> s {nextToken = a} :: ListServices)
 
 -- | The maximum number of services to list.
 listServices_maxResults :: Lens.Lens' ListServices (Prelude.Maybe Prelude.Natural)
 listServices_maxResults = Lens.lens (\ListServices' {maxResults} -> maxResults) (\s@ListServices' {} a -> s {maxResults = a} :: ListServices)
+
+-- | A token that indicates the location of the next service in the array of
+-- services, after the list of services that was previously requested.
+listServices_nextToken :: Lens.Lens' ListServices (Prelude.Maybe Prelude.Text)
+listServices_nextToken = Lens.lens (\ListServices' {nextToken} -> nextToken) (\s@ListServices' {} a -> s {nextToken = a} :: ListServices)
 
 instance Core.AWSPager ListServices where
   page rq rs
@@ -108,59 +109,60 @@ instance Core.AWSPager ListServices where
 
 instance Core.AWSRequest ListServices where
   type AWSResponse ListServices = ListServicesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListServicesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "services" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "services" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListServices where
   hashWithSalt _salt ListServices' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListServices where
   rnf ListServices' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListServices where
+instance Data.ToHeaders ListServices where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AwsProton20200720.ListServices" ::
+              Data.=# ( "AwsProton20200720.ListServices" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListServices where
+instance Data.ToJSON ListServices where
   toJSON ListServices' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken
           ]
       )
 
-instance Core.ToPath ListServices where
+instance Data.ToPath ListServices where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListServices where
+instance Data.ToQuery ListServices where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListServicesResponse' smart constructor.
 data ListServicesResponse = ListServicesResponse'
-  { -- | A token to indicate the location of the next service in the array of
+  { -- | A token that indicates the location of the next service in the array of
     -- services, after the current requested list of services.
     nextToken :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
@@ -178,7 +180,7 @@ data ListServicesResponse = ListServicesResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listServicesResponse_nextToken' - A token to indicate the location of the next service in the array of
+-- 'nextToken', 'listServicesResponse_nextToken' - A token that indicates the location of the next service in the array of
 -- services, after the current requested list of services.
 --
 -- 'httpStatus', 'listServicesResponse_httpStatus' - The response's http status code.
@@ -195,7 +197,7 @@ newListServicesResponse pHttpStatus_ =
       services = Prelude.mempty
     }
 
--- | A token to indicate the location of the next service in the array of
+-- | A token that indicates the location of the next service in the array of
 -- services, after the current requested list of services.
 listServicesResponse_nextToken :: Lens.Lens' ListServicesResponse (Prelude.Maybe Prelude.Text)
 listServicesResponse_nextToken = Lens.lens (\ListServicesResponse' {nextToken} -> nextToken) (\s@ListServicesResponse' {} a -> s {nextToken = a} :: ListServicesResponse)

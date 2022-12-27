@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.InstanceTypeSpecification
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EMR.Types.InstanceTypeSpecification where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types.Configuration
 import Amazonka.EMR.Types.EbsBlockDevice
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The configuration specification for each instance type in an instance
@@ -36,11 +37,10 @@ data InstanceTypeSpecification = InstanceTypeSpecification'
   { -- | The bid price for each EC2 Spot Instance type as defined by
     -- @InstanceType@. Expressed in USD.
     bidPrice :: Prelude.Maybe Prelude.Text,
-    -- | The number of units that a provisioned instance of this type provides
-    -- toward fulfilling the target capacities defined in InstanceFleetConfig.
-    -- Capacity values represent performance characteristics such as vCPUs,
-    -- memory, or I\/O. If not specified, the default value is 1.
-    weightedCapacity :: Prelude.Maybe Prelude.Natural,
+    -- | The bid price, as a percentage of On-Demand price, for each EC2 Spot
+    -- Instance as defined by @InstanceType@. Expressed as a number (for
+    -- example, 20 specifies 20%).
+    bidPriceAsPercentageOfOnDemandPrice :: Prelude.Maybe Prelude.Double,
     -- | A configuration classification that applies when provisioning cluster
     -- instances, which can include configurations for applications and
     -- software bundled with Amazon EMR.
@@ -50,14 +50,15 @@ data InstanceTypeSpecification = InstanceTypeSpecification'
     -- | The configuration of Amazon Elastic Block Store (Amazon EBS) attached to
     -- each instance as defined by @InstanceType@.
     ebsBlockDevices :: Prelude.Maybe [EbsBlockDevice],
-    -- | The EC2 instance type, for example @m3.xlarge@.
-    instanceType :: Prelude.Maybe Prelude.Text,
     -- | Evaluates to @TRUE@ when the specified @InstanceType@ is EBS-optimized.
     ebsOptimized :: Prelude.Maybe Prelude.Bool,
-    -- | The bid price, as a percentage of On-Demand price, for each EC2 Spot
-    -- Instance as defined by @InstanceType@. Expressed as a number (for
-    -- example, 20 specifies 20%).
-    bidPriceAsPercentageOfOnDemandPrice :: Prelude.Maybe Prelude.Double
+    -- | The EC2 instance type, for example @m3.xlarge@.
+    instanceType :: Prelude.Maybe Prelude.Text,
+    -- | The number of units that a provisioned instance of this type provides
+    -- toward fulfilling the target capacities defined in InstanceFleetConfig.
+    -- Capacity values represent performance characteristics such as vCPUs,
+    -- memory, or I\/O. If not specified, the default value is 1.
+    weightedCapacity :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -72,10 +73,9 @@ data InstanceTypeSpecification = InstanceTypeSpecification'
 -- 'bidPrice', 'instanceTypeSpecification_bidPrice' - The bid price for each EC2 Spot Instance type as defined by
 -- @InstanceType@. Expressed in USD.
 --
--- 'weightedCapacity', 'instanceTypeSpecification_weightedCapacity' - The number of units that a provisioned instance of this type provides
--- toward fulfilling the target capacities defined in InstanceFleetConfig.
--- Capacity values represent performance characteristics such as vCPUs,
--- memory, or I\/O. If not specified, the default value is 1.
+-- 'bidPriceAsPercentageOfOnDemandPrice', 'instanceTypeSpecification_bidPriceAsPercentageOfOnDemandPrice' - The bid price, as a percentage of On-Demand price, for each EC2 Spot
+-- Instance as defined by @InstanceType@. Expressed as a number (for
+-- example, 20 specifies 20%).
 --
 -- 'configurations', 'instanceTypeSpecification_configurations' - A configuration classification that applies when provisioning cluster
 -- instances, which can include configurations for applications and
@@ -86,27 +86,28 @@ data InstanceTypeSpecification = InstanceTypeSpecification'
 -- 'ebsBlockDevices', 'instanceTypeSpecification_ebsBlockDevices' - The configuration of Amazon Elastic Block Store (Amazon EBS) attached to
 -- each instance as defined by @InstanceType@.
 --
--- 'instanceType', 'instanceTypeSpecification_instanceType' - The EC2 instance type, for example @m3.xlarge@.
---
 -- 'ebsOptimized', 'instanceTypeSpecification_ebsOptimized' - Evaluates to @TRUE@ when the specified @InstanceType@ is EBS-optimized.
 --
--- 'bidPriceAsPercentageOfOnDemandPrice', 'instanceTypeSpecification_bidPriceAsPercentageOfOnDemandPrice' - The bid price, as a percentage of On-Demand price, for each EC2 Spot
--- Instance as defined by @InstanceType@. Expressed as a number (for
--- example, 20 specifies 20%).
+-- 'instanceType', 'instanceTypeSpecification_instanceType' - The EC2 instance type, for example @m3.xlarge@.
+--
+-- 'weightedCapacity', 'instanceTypeSpecification_weightedCapacity' - The number of units that a provisioned instance of this type provides
+-- toward fulfilling the target capacities defined in InstanceFleetConfig.
+-- Capacity values represent performance characteristics such as vCPUs,
+-- memory, or I\/O. If not specified, the default value is 1.
 newInstanceTypeSpecification ::
   InstanceTypeSpecification
 newInstanceTypeSpecification =
   InstanceTypeSpecification'
     { bidPrice =
         Prelude.Nothing,
-      weightedCapacity = Prelude.Nothing,
+      bidPriceAsPercentageOfOnDemandPrice =
+        Prelude.Nothing,
       configurations = Prelude.Nothing,
       customAmiId = Prelude.Nothing,
       ebsBlockDevices = Prelude.Nothing,
-      instanceType = Prelude.Nothing,
       ebsOptimized = Prelude.Nothing,
-      bidPriceAsPercentageOfOnDemandPrice =
-        Prelude.Nothing
+      instanceType = Prelude.Nothing,
+      weightedCapacity = Prelude.Nothing
     }
 
 -- | The bid price for each EC2 Spot Instance type as defined by
@@ -114,12 +115,11 @@ newInstanceTypeSpecification =
 instanceTypeSpecification_bidPrice :: Lens.Lens' InstanceTypeSpecification (Prelude.Maybe Prelude.Text)
 instanceTypeSpecification_bidPrice = Lens.lens (\InstanceTypeSpecification' {bidPrice} -> bidPrice) (\s@InstanceTypeSpecification' {} a -> s {bidPrice = a} :: InstanceTypeSpecification)
 
--- | The number of units that a provisioned instance of this type provides
--- toward fulfilling the target capacities defined in InstanceFleetConfig.
--- Capacity values represent performance characteristics such as vCPUs,
--- memory, or I\/O. If not specified, the default value is 1.
-instanceTypeSpecification_weightedCapacity :: Lens.Lens' InstanceTypeSpecification (Prelude.Maybe Prelude.Natural)
-instanceTypeSpecification_weightedCapacity = Lens.lens (\InstanceTypeSpecification' {weightedCapacity} -> weightedCapacity) (\s@InstanceTypeSpecification' {} a -> s {weightedCapacity = a} :: InstanceTypeSpecification)
+-- | The bid price, as a percentage of On-Demand price, for each EC2 Spot
+-- Instance as defined by @InstanceType@. Expressed as a number (for
+-- example, 20 specifies 20%).
+instanceTypeSpecification_bidPriceAsPercentageOfOnDemandPrice :: Lens.Lens' InstanceTypeSpecification (Prelude.Maybe Prelude.Double)
+instanceTypeSpecification_bidPriceAsPercentageOfOnDemandPrice = Lens.lens (\InstanceTypeSpecification' {bidPriceAsPercentageOfOnDemandPrice} -> bidPriceAsPercentageOfOnDemandPrice) (\s@InstanceTypeSpecification' {} a -> s {bidPriceAsPercentageOfOnDemandPrice = a} :: InstanceTypeSpecification)
 
 -- | A configuration classification that applies when provisioning cluster
 -- instances, which can include configurations for applications and
@@ -136,56 +136,57 @@ instanceTypeSpecification_customAmiId = Lens.lens (\InstanceTypeSpecification' {
 instanceTypeSpecification_ebsBlockDevices :: Lens.Lens' InstanceTypeSpecification (Prelude.Maybe [EbsBlockDevice])
 instanceTypeSpecification_ebsBlockDevices = Lens.lens (\InstanceTypeSpecification' {ebsBlockDevices} -> ebsBlockDevices) (\s@InstanceTypeSpecification' {} a -> s {ebsBlockDevices = a} :: InstanceTypeSpecification) Prelude.. Lens.mapping Lens.coerced
 
--- | The EC2 instance type, for example @m3.xlarge@.
-instanceTypeSpecification_instanceType :: Lens.Lens' InstanceTypeSpecification (Prelude.Maybe Prelude.Text)
-instanceTypeSpecification_instanceType = Lens.lens (\InstanceTypeSpecification' {instanceType} -> instanceType) (\s@InstanceTypeSpecification' {} a -> s {instanceType = a} :: InstanceTypeSpecification)
-
 -- | Evaluates to @TRUE@ when the specified @InstanceType@ is EBS-optimized.
 instanceTypeSpecification_ebsOptimized :: Lens.Lens' InstanceTypeSpecification (Prelude.Maybe Prelude.Bool)
 instanceTypeSpecification_ebsOptimized = Lens.lens (\InstanceTypeSpecification' {ebsOptimized} -> ebsOptimized) (\s@InstanceTypeSpecification' {} a -> s {ebsOptimized = a} :: InstanceTypeSpecification)
 
--- | The bid price, as a percentage of On-Demand price, for each EC2 Spot
--- Instance as defined by @InstanceType@. Expressed as a number (for
--- example, 20 specifies 20%).
-instanceTypeSpecification_bidPriceAsPercentageOfOnDemandPrice :: Lens.Lens' InstanceTypeSpecification (Prelude.Maybe Prelude.Double)
-instanceTypeSpecification_bidPriceAsPercentageOfOnDemandPrice = Lens.lens (\InstanceTypeSpecification' {bidPriceAsPercentageOfOnDemandPrice} -> bidPriceAsPercentageOfOnDemandPrice) (\s@InstanceTypeSpecification' {} a -> s {bidPriceAsPercentageOfOnDemandPrice = a} :: InstanceTypeSpecification)
+-- | The EC2 instance type, for example @m3.xlarge@.
+instanceTypeSpecification_instanceType :: Lens.Lens' InstanceTypeSpecification (Prelude.Maybe Prelude.Text)
+instanceTypeSpecification_instanceType = Lens.lens (\InstanceTypeSpecification' {instanceType} -> instanceType) (\s@InstanceTypeSpecification' {} a -> s {instanceType = a} :: InstanceTypeSpecification)
 
-instance Core.FromJSON InstanceTypeSpecification where
+-- | The number of units that a provisioned instance of this type provides
+-- toward fulfilling the target capacities defined in InstanceFleetConfig.
+-- Capacity values represent performance characteristics such as vCPUs,
+-- memory, or I\/O. If not specified, the default value is 1.
+instanceTypeSpecification_weightedCapacity :: Lens.Lens' InstanceTypeSpecification (Prelude.Maybe Prelude.Natural)
+instanceTypeSpecification_weightedCapacity = Lens.lens (\InstanceTypeSpecification' {weightedCapacity} -> weightedCapacity) (\s@InstanceTypeSpecification' {} a -> s {weightedCapacity = a} :: InstanceTypeSpecification)
+
+instance Data.FromJSON InstanceTypeSpecification where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InstanceTypeSpecification"
       ( \x ->
           InstanceTypeSpecification'
-            Prelude.<$> (x Core..:? "BidPrice")
-            Prelude.<*> (x Core..:? "WeightedCapacity")
-            Prelude.<*> (x Core..:? "Configurations" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "CustomAmiId")
-            Prelude.<*> ( x Core..:? "EbsBlockDevices"
-                            Core..!= Prelude.mempty
+            Prelude.<$> (x Data..:? "BidPrice")
+            Prelude.<*> (x Data..:? "BidPriceAsPercentageOfOnDemandPrice")
+            Prelude.<*> (x Data..:? "Configurations" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "CustomAmiId")
+            Prelude.<*> ( x Data..:? "EbsBlockDevices"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "InstanceType")
-            Prelude.<*> (x Core..:? "EbsOptimized")
-            Prelude.<*> (x Core..:? "BidPriceAsPercentageOfOnDemandPrice")
+            Prelude.<*> (x Data..:? "EbsOptimized")
+            Prelude.<*> (x Data..:? "InstanceType")
+            Prelude.<*> (x Data..:? "WeightedCapacity")
       )
 
 instance Prelude.Hashable InstanceTypeSpecification where
   hashWithSalt _salt InstanceTypeSpecification' {..} =
     _salt `Prelude.hashWithSalt` bidPrice
-      `Prelude.hashWithSalt` weightedCapacity
+      `Prelude.hashWithSalt` bidPriceAsPercentageOfOnDemandPrice
       `Prelude.hashWithSalt` configurations
       `Prelude.hashWithSalt` customAmiId
       `Prelude.hashWithSalt` ebsBlockDevices
-      `Prelude.hashWithSalt` instanceType
       `Prelude.hashWithSalt` ebsOptimized
-      `Prelude.hashWithSalt` bidPriceAsPercentageOfOnDemandPrice
+      `Prelude.hashWithSalt` instanceType
+      `Prelude.hashWithSalt` weightedCapacity
 
 instance Prelude.NFData InstanceTypeSpecification where
   rnf InstanceTypeSpecification' {..} =
     Prelude.rnf bidPrice
-      `Prelude.seq` Prelude.rnf weightedCapacity
+      `Prelude.seq` Prelude.rnf bidPriceAsPercentageOfOnDemandPrice
       `Prelude.seq` Prelude.rnf configurations
       `Prelude.seq` Prelude.rnf customAmiId
       `Prelude.seq` Prelude.rnf ebsBlockDevices
-      `Prelude.seq` Prelude.rnf instanceType
       `Prelude.seq` Prelude.rnf ebsOptimized
-      `Prelude.seq` Prelude.rnf bidPriceAsPercentageOfOnDemandPrice
+      `Prelude.seq` Prelude.rnf instanceType
+      `Prelude.seq` Prelude.rnf weightedCapacity

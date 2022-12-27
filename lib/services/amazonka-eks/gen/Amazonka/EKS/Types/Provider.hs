@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EKS.Types.Provider
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EKS.Types.Provider where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Identifies the Key Management Service (KMS) key used to encrypt the
@@ -65,11 +66,11 @@ newProvider = Provider' {keyArn = Prelude.Nothing}
 provider_keyArn :: Lens.Lens' Provider (Prelude.Maybe Prelude.Text)
 provider_keyArn = Lens.lens (\Provider' {keyArn} -> keyArn) (\s@Provider' {} a -> s {keyArn = a} :: Provider)
 
-instance Core.FromJSON Provider where
+instance Data.FromJSON Provider where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Provider"
-      (\x -> Provider' Prelude.<$> (x Core..:? "keyArn"))
+      (\x -> Provider' Prelude.<$> (x Data..:? "keyArn"))
 
 instance Prelude.Hashable Provider where
   hashWithSalt _salt Provider' {..} =
@@ -78,9 +79,9 @@ instance Prelude.Hashable Provider where
 instance Prelude.NFData Provider where
   rnf Provider' {..} = Prelude.rnf keyArn
 
-instance Core.ToJSON Provider where
+instance Data.ToJSON Provider where
   toJSON Provider' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("keyArn" Core..=) Prelude.<$> keyArn]
+          [("keyArn" Data..=) Prelude.<$> keyArn]
       )

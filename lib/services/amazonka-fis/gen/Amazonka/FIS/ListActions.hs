@@ -14,21 +14,21 @@
 
 -- |
 -- Module      : Amazonka.FIS.ListActions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Lists the available AWS FIS actions.
+-- Lists the available FIS actions.
 module Amazonka.FIS.ListActions
   ( -- * Creating a Request
     ListActions (..),
     newListActions,
 
     -- * Request Lenses
-    listActions_nextToken,
     listActions_maxResults,
+    listActions_nextToken,
 
     -- * Destructuring the Response
     ListActionsResponse (..),
@@ -42,20 +42,21 @@ module Amazonka.FIS.ListActions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FIS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListActions' smart constructor.
 data ListActions = ListActions'
-  { -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return with a single call. To retrieve
+  { -- | The maximum number of results to return with a single call. To retrieve
     -- the remaining results, make another call with the returned @nextToken@
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -67,22 +68,18 @@ data ListActions = ListActions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listActions_nextToken' - The token for the next page of results.
---
 -- 'maxResults', 'listActions_maxResults' - The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
 -- value.
+--
+-- 'nextToken', 'listActions_nextToken' - The token for the next page of results.
 newListActions ::
   ListActions
 newListActions =
   ListActions'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token for the next page of results.
-listActions_nextToken :: Lens.Lens' ListActions (Prelude.Maybe Prelude.Text)
-listActions_nextToken = Lens.lens (\ListActions' {nextToken} -> nextToken) (\s@ListActions' {} a -> s {nextToken = a} :: ListActions)
 
 -- | The maximum number of results to return with a single call. To retrieve
 -- the remaining results, make another call with the returned @nextToken@
@@ -90,47 +87,52 @@ listActions_nextToken = Lens.lens (\ListActions' {nextToken} -> nextToken) (\s@L
 listActions_maxResults :: Lens.Lens' ListActions (Prelude.Maybe Prelude.Natural)
 listActions_maxResults = Lens.lens (\ListActions' {maxResults} -> maxResults) (\s@ListActions' {} a -> s {maxResults = a} :: ListActions)
 
+-- | The token for the next page of results.
+listActions_nextToken :: Lens.Lens' ListActions (Prelude.Maybe Prelude.Text)
+listActions_nextToken = Lens.lens (\ListActions' {nextToken} -> nextToken) (\s@ListActions' {} a -> s {nextToken = a} :: ListActions)
+
 instance Core.AWSRequest ListActions where
   type AWSResponse ListActions = ListActionsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListActionsResponse'
-            Prelude.<$> (x Core..?> "actions" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "actions" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListActions where
   hashWithSalt _salt ListActions' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListActions where
   rnf ListActions' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListActions where
+instance Data.ToHeaders ListActions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListActions where
+instance Data.ToPath ListActions where
   toPath = Prelude.const "/actions"
 
-instance Core.ToQuery ListActions where
+instance Data.ToQuery ListActions where
   toQuery ListActions' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListActionsResponse' smart constructor.

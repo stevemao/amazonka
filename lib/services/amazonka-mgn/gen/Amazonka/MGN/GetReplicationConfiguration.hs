@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.GetReplicationConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,26 +34,27 @@ module Amazonka.MGN.GetReplicationConfiguration
     newReplicationConfiguration,
 
     -- * Response Lenses
-    replicationConfiguration_createPublicIP,
-    replicationConfiguration_stagingAreaTags,
-    replicationConfiguration_stagingAreaSubnetId,
-    replicationConfiguration_replicationServerInstanceType,
-    replicationConfiguration_ebsEncryption,
     replicationConfiguration_associateDefaultSecurityGroup,
-    replicationConfiguration_replicationServersSecurityGroupsIDs,
+    replicationConfiguration_bandwidthThrottling,
+    replicationConfiguration_createPublicIP,
+    replicationConfiguration_dataPlaneRouting,
+    replicationConfiguration_defaultLargeStagingDiskType,
+    replicationConfiguration_ebsEncryption,
     replicationConfiguration_ebsEncryptionKeyArn,
     replicationConfiguration_name,
-    replicationConfiguration_defaultLargeStagingDiskType,
-    replicationConfiguration_bandwidthThrottling,
-    replicationConfiguration_dataPlaneRouting,
-    replicationConfiguration_sourceServerID,
     replicationConfiguration_replicatedDisks,
+    replicationConfiguration_replicationServerInstanceType,
+    replicationConfiguration_replicationServersSecurityGroupsIDs,
+    replicationConfiguration_sourceServerID,
+    replicationConfiguration_stagingAreaSubnetId,
+    replicationConfiguration_stagingAreaTags,
     replicationConfiguration_useDedicatedReplicationServer,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -61,7 +62,7 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetReplicationConfiguration' smart constructor.
 data GetReplicationConfiguration = GetReplicationConfiguration'
-  { -- | Request to get Replication Configuaration by Source Server ID.
+  { -- | Request to get Replication Configuration by Source Server ID.
     sourceServerID :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -74,7 +75,7 @@ data GetReplicationConfiguration = GetReplicationConfiguration'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sourceServerID', 'getReplicationConfiguration_sourceServerID' - Request to get Replication Configuaration by Source Server ID.
+-- 'sourceServerID', 'getReplicationConfiguration_sourceServerID' - Request to get Replication Configuration by Source Server ID.
 newGetReplicationConfiguration ::
   -- | 'sourceServerID'
   Prelude.Text ->
@@ -85,7 +86,7 @@ newGetReplicationConfiguration pSourceServerID_ =
         pSourceServerID_
     }
 
--- | Request to get Replication Configuaration by Source Server ID.
+-- | Request to get Replication Configuration by Source Server ID.
 getReplicationConfiguration_sourceServerID :: Lens.Lens' GetReplicationConfiguration Prelude.Text
 getReplicationConfiguration_sourceServerID = Lens.lens (\GetReplicationConfiguration' {sourceServerID} -> sourceServerID) (\s@GetReplicationConfiguration' {} a -> s {sourceServerID = a} :: GetReplicationConfiguration)
 
@@ -93,10 +94,11 @@ instance Core.AWSRequest GetReplicationConfiguration where
   type
     AWSResponse GetReplicationConfiguration =
       ReplicationConfiguration
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetReplicationConfiguration where
   hashWithSalt _salt GetReplicationConfiguration' {..} =
@@ -106,28 +108,28 @@ instance Prelude.NFData GetReplicationConfiguration where
   rnf GetReplicationConfiguration' {..} =
     Prelude.rnf sourceServerID
 
-instance Core.ToHeaders GetReplicationConfiguration where
+instance Data.ToHeaders GetReplicationConfiguration where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetReplicationConfiguration where
+instance Data.ToJSON GetReplicationConfiguration where
   toJSON GetReplicationConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("sourceServerID" Core..= sourceServerID)
+              ("sourceServerID" Data..= sourceServerID)
           ]
       )
 
-instance Core.ToPath GetReplicationConfiguration where
+instance Data.ToPath GetReplicationConfiguration where
   toPath = Prelude.const "/GetReplicationConfiguration"
 
-instance Core.ToQuery GetReplicationConfiguration where
+instance Data.ToQuery GetReplicationConfiguration where
   toQuery = Prelude.const Prelude.mempty

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.CreateMember
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ module Amazonka.ManagedBlockChain.CreateMember
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -57,7 +58,7 @@ data CreateMember = CreateMember'
     -- idempotency of the operation. An idempotent operation completes no more
     -- than one time. This identifier is required only if you make a service
     -- request directly using an HTTP client. It is generated automatically if
-    -- you use an AWS SDK or the AWS CLI.
+    -- you use an Amazon Web Services SDK or the CLI.
     clientRequestToken :: Prelude.Text,
     -- | The unique identifier of the invitation that is sent to the member to
     -- join the network.
@@ -81,7 +82,7 @@ data CreateMember = CreateMember'
 -- idempotency of the operation. An idempotent operation completes no more
 -- than one time. This identifier is required only if you make a service
 -- request directly using an HTTP client. It is generated automatically if
--- you use an AWS SDK or the AWS CLI.
+-- you use an Amazon Web Services SDK or the CLI.
 --
 -- 'invitationId', 'createMember_invitationId' - The unique identifier of the invitation that is sent to the member to
 -- join the network.
@@ -116,7 +117,7 @@ newCreateMember
 -- idempotency of the operation. An idempotent operation completes no more
 -- than one time. This identifier is required only if you make a service
 -- request directly using an HTTP client. It is generated automatically if
--- you use an AWS SDK or the AWS CLI.
+-- you use an Amazon Web Services SDK or the CLI.
 createMember_clientRequestToken :: Lens.Lens' CreateMember Prelude.Text
 createMember_clientRequestToken = Lens.lens (\CreateMember' {clientRequestToken} -> clientRequestToken) (\s@CreateMember' {} a -> s {clientRequestToken = a} :: CreateMember)
 
@@ -135,12 +136,13 @@ createMember_memberConfiguration = Lens.lens (\CreateMember' {memberConfiguratio
 
 instance Core.AWSRequest CreateMember where
   type AWSResponse CreateMember = CreateMemberResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateMemberResponse'
-            Prelude.<$> (x Core..?> "MemberId")
+            Prelude.<$> (x Data..?> "MemberId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -158,35 +160,35 @@ instance Prelude.NFData CreateMember where
       `Prelude.seq` Prelude.rnf networkId
       `Prelude.seq` Prelude.rnf memberConfiguration
 
-instance Core.ToHeaders CreateMember where
+instance Data.ToHeaders CreateMember where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateMember where
+instance Data.ToJSON CreateMember where
   toJSON CreateMember' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ClientRequestToken" Core..= clientRequestToken),
-            Prelude.Just ("InvitationId" Core..= invitationId),
+              ("ClientRequestToken" Data..= clientRequestToken),
+            Prelude.Just ("InvitationId" Data..= invitationId),
             Prelude.Just
-              ("MemberConfiguration" Core..= memberConfiguration)
+              ("MemberConfiguration" Data..= memberConfiguration)
           ]
       )
 
-instance Core.ToPath CreateMember where
+instance Data.ToPath CreateMember where
   toPath CreateMember' {..} =
     Prelude.mconcat
-      ["/networks/", Core.toBS networkId, "/members"]
+      ["/networks/", Data.toBS networkId, "/members"]
 
-instance Core.ToQuery CreateMember where
+instance Data.ToQuery CreateMember where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateMemberResponse' smart constructor.

@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.SMS.NotifyAppValidationOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Provides information to AWS SMS about whether application validation is
--- successful.
+-- Provides information to Server Migration Service about whether
+-- application validation is successful.
 module Amazonka.SMS.NotifyAppValidationOutput
   ( -- * Creating a Request
     NotifyAppValidationOutput (..),
@@ -41,7 +41,8 @@ module Amazonka.SMS.NotifyAppValidationOutput
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +91,8 @@ instance Core.AWSRequest NotifyAppValidationOutput where
   type
     AWSResponse NotifyAppValidationOutput =
       NotifyAppValidationOutputResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -108,35 +110,35 @@ instance Prelude.NFData NotifyAppValidationOutput where
     Prelude.rnf notificationContext
       `Prelude.seq` Prelude.rnf appId
 
-instance Core.ToHeaders NotifyAppValidationOutput where
+instance Data.ToHeaders NotifyAppValidationOutput where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSServerMigrationService_V2016_10_24.NotifyAppValidationOutput" ::
+              Data.=# ( "AWSServerMigrationService_V2016_10_24.NotifyAppValidationOutput" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON NotifyAppValidationOutput where
+instance Data.ToJSON NotifyAppValidationOutput where
   toJSON NotifyAppValidationOutput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("notificationContext" Core..=)
+          [ ("notificationContext" Data..=)
               Prelude.<$> notificationContext,
-            Prelude.Just ("appId" Core..= appId)
+            Prelude.Just ("appId" Data..= appId)
           ]
       )
 
-instance Core.ToPath NotifyAppValidationOutput where
+instance Data.ToPath NotifyAppValidationOutput where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery NotifyAppValidationOutput where
+instance Data.ToQuery NotifyAppValidationOutput where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newNotifyAppValidationOutputResponse' smart constructor.

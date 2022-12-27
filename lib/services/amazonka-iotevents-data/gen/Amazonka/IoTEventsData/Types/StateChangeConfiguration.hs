@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types.StateChangeConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTEventsData.Types.StateChangeConfiguration where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEventsData.Types.TriggerType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains the configuration information of alarm state changes.
@@ -57,13 +58,13 @@ newStateChangeConfiguration =
 stateChangeConfiguration_triggerType :: Lens.Lens' StateChangeConfiguration (Prelude.Maybe TriggerType)
 stateChangeConfiguration_triggerType = Lens.lens (\StateChangeConfiguration' {triggerType} -> triggerType) (\s@StateChangeConfiguration' {} a -> s {triggerType = a} :: StateChangeConfiguration)
 
-instance Core.FromJSON StateChangeConfiguration where
+instance Data.FromJSON StateChangeConfiguration where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StateChangeConfiguration"
       ( \x ->
           StateChangeConfiguration'
-            Prelude.<$> (x Core..:? "triggerType")
+            Prelude.<$> (x Data..:? "triggerType")
       )
 
 instance Prelude.Hashable StateChangeConfiguration where

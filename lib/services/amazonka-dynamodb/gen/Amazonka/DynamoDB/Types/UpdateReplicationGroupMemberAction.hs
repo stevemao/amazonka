@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DynamoDB.Types.UpdateReplicationGroupMemberAction
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,27 +20,33 @@
 module Amazonka.DynamoDB.Types.UpdateReplicationGroupMemberAction where
 
 import qualified Amazonka.Core as Core
-import Amazonka.DynamoDB.Internal
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.DynamoDB.Types.AttributeValue
 import Amazonka.DynamoDB.Types.ProvisionedThroughputOverride
 import Amazonka.DynamoDB.Types.ReplicaGlobalSecondaryIndex
-import qualified Amazonka.Lens as Lens
+import Amazonka.DynamoDB.Types.TableClass
+import Amazonka.DynamoDB.Types.WriteRequest
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a replica to be modified.
 --
 -- /See:/ 'newUpdateReplicationGroupMemberAction' smart constructor.
 data UpdateReplicationGroupMemberAction = UpdateReplicationGroupMemberAction'
-  { -- | The AWS KMS customer master key (CMK) of the replica that should be used
-    -- for AWS KMS encryption. To specify a CMK, use its key ID, Amazon
-    -- Resource Name (ARN), alias name, or alias ARN. Note that you should only
-    -- provide this parameter if the key is different from the default DynamoDB
-    -- KMS master key alias\/aws\/dynamodb.
+  { -- | Replica-specific global secondary index settings.
+    globalSecondaryIndexes :: Prelude.Maybe (Prelude.NonEmpty ReplicaGlobalSecondaryIndex),
+    -- | The KMS key of the replica that should be used for KMS encryption. To
+    -- specify a key, use its key ID, Amazon Resource Name (ARN), alias name,
+    -- or alias ARN. Note that you should only provide this parameter if the
+    -- key is different from the default DynamoDB KMS key
+    -- @alias\/aws\/dynamodb@.
     kmsMasterKeyId :: Prelude.Maybe Prelude.Text,
     -- | Replica-specific provisioned throughput. If not specified, uses the
     -- source table\'s provisioned throughput settings.
     provisionedThroughputOverride :: Prelude.Maybe ProvisionedThroughputOverride,
-    -- | Replica-specific global secondary index settings.
-    globalSecondaryIndexes :: Prelude.Maybe (Prelude.NonEmpty ReplicaGlobalSecondaryIndex),
+    -- | Replica-specific table class. If not specified, uses the source table\'s
+    -- table class.
+    tableClassOverride :: Prelude.Maybe TableClass,
     -- | The Region where the replica exists.
     regionName :: Prelude.Text
   }
@@ -54,16 +60,19 @@ data UpdateReplicationGroupMemberAction = UpdateReplicationGroupMemberAction'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'kmsMasterKeyId', 'updateReplicationGroupMemberAction_kmsMasterKeyId' - The AWS KMS customer master key (CMK) of the replica that should be used
--- for AWS KMS encryption. To specify a CMK, use its key ID, Amazon
--- Resource Name (ARN), alias name, or alias ARN. Note that you should only
--- provide this parameter if the key is different from the default DynamoDB
--- KMS master key alias\/aws\/dynamodb.
+-- 'globalSecondaryIndexes', 'updateReplicationGroupMemberAction_globalSecondaryIndexes' - Replica-specific global secondary index settings.
+--
+-- 'kmsMasterKeyId', 'updateReplicationGroupMemberAction_kmsMasterKeyId' - The KMS key of the replica that should be used for KMS encryption. To
+-- specify a key, use its key ID, Amazon Resource Name (ARN), alias name,
+-- or alias ARN. Note that you should only provide this parameter if the
+-- key is different from the default DynamoDB KMS key
+-- @alias\/aws\/dynamodb@.
 --
 -- 'provisionedThroughputOverride', 'updateReplicationGroupMemberAction_provisionedThroughputOverride' - Replica-specific provisioned throughput. If not specified, uses the
 -- source table\'s provisioned throughput settings.
 --
--- 'globalSecondaryIndexes', 'updateReplicationGroupMemberAction_globalSecondaryIndexes' - Replica-specific global secondary index settings.
+-- 'tableClassOverride', 'updateReplicationGroupMemberAction_tableClassOverride' - Replica-specific table class. If not specified, uses the source table\'s
+-- table class.
 --
 -- 'regionName', 'updateReplicationGroupMemberAction_regionName' - The Region where the replica exists.
 newUpdateReplicationGroupMemberAction ::
@@ -72,20 +81,24 @@ newUpdateReplicationGroupMemberAction ::
   UpdateReplicationGroupMemberAction
 newUpdateReplicationGroupMemberAction pRegionName_ =
   UpdateReplicationGroupMemberAction'
-    { kmsMasterKeyId =
+    { globalSecondaryIndexes =
         Prelude.Nothing,
+      kmsMasterKeyId = Prelude.Nothing,
       provisionedThroughputOverride =
         Prelude.Nothing,
-      globalSecondaryIndexes =
-        Prelude.Nothing,
+      tableClassOverride = Prelude.Nothing,
       regionName = pRegionName_
     }
 
--- | The AWS KMS customer master key (CMK) of the replica that should be used
--- for AWS KMS encryption. To specify a CMK, use its key ID, Amazon
--- Resource Name (ARN), alias name, or alias ARN. Note that you should only
--- provide this parameter if the key is different from the default DynamoDB
--- KMS master key alias\/aws\/dynamodb.
+-- | Replica-specific global secondary index settings.
+updateReplicationGroupMemberAction_globalSecondaryIndexes :: Lens.Lens' UpdateReplicationGroupMemberAction (Prelude.Maybe (Prelude.NonEmpty ReplicaGlobalSecondaryIndex))
+updateReplicationGroupMemberAction_globalSecondaryIndexes = Lens.lens (\UpdateReplicationGroupMemberAction' {globalSecondaryIndexes} -> globalSecondaryIndexes) (\s@UpdateReplicationGroupMemberAction' {} a -> s {globalSecondaryIndexes = a} :: UpdateReplicationGroupMemberAction) Prelude.. Lens.mapping Lens.coerced
+
+-- | The KMS key of the replica that should be used for KMS encryption. To
+-- specify a key, use its key ID, Amazon Resource Name (ARN), alias name,
+-- or alias ARN. Note that you should only provide this parameter if the
+-- key is different from the default DynamoDB KMS key
+-- @alias\/aws\/dynamodb@.
 updateReplicationGroupMemberAction_kmsMasterKeyId :: Lens.Lens' UpdateReplicationGroupMemberAction (Prelude.Maybe Prelude.Text)
 updateReplicationGroupMemberAction_kmsMasterKeyId = Lens.lens (\UpdateReplicationGroupMemberAction' {kmsMasterKeyId} -> kmsMasterKeyId) (\s@UpdateReplicationGroupMemberAction' {} a -> s {kmsMasterKeyId = a} :: UpdateReplicationGroupMemberAction)
 
@@ -94,9 +107,10 @@ updateReplicationGroupMemberAction_kmsMasterKeyId = Lens.lens (\UpdateReplicatio
 updateReplicationGroupMemberAction_provisionedThroughputOverride :: Lens.Lens' UpdateReplicationGroupMemberAction (Prelude.Maybe ProvisionedThroughputOverride)
 updateReplicationGroupMemberAction_provisionedThroughputOverride = Lens.lens (\UpdateReplicationGroupMemberAction' {provisionedThroughputOverride} -> provisionedThroughputOverride) (\s@UpdateReplicationGroupMemberAction' {} a -> s {provisionedThroughputOverride = a} :: UpdateReplicationGroupMemberAction)
 
--- | Replica-specific global secondary index settings.
-updateReplicationGroupMemberAction_globalSecondaryIndexes :: Lens.Lens' UpdateReplicationGroupMemberAction (Prelude.Maybe (Prelude.NonEmpty ReplicaGlobalSecondaryIndex))
-updateReplicationGroupMemberAction_globalSecondaryIndexes = Lens.lens (\UpdateReplicationGroupMemberAction' {globalSecondaryIndexes} -> globalSecondaryIndexes) (\s@UpdateReplicationGroupMemberAction' {} a -> s {globalSecondaryIndexes = a} :: UpdateReplicationGroupMemberAction) Prelude.. Lens.mapping Lens.coerced
+-- | Replica-specific table class. If not specified, uses the source table\'s
+-- table class.
+updateReplicationGroupMemberAction_tableClassOverride :: Lens.Lens' UpdateReplicationGroupMemberAction (Prelude.Maybe TableClass)
+updateReplicationGroupMemberAction_tableClassOverride = Lens.lens (\UpdateReplicationGroupMemberAction' {tableClassOverride} -> tableClassOverride) (\s@UpdateReplicationGroupMemberAction' {} a -> s {tableClassOverride = a} :: UpdateReplicationGroupMemberAction)
 
 -- | The Region where the replica exists.
 updateReplicationGroupMemberAction_regionName :: Lens.Lens' UpdateReplicationGroupMemberAction Prelude.Text
@@ -109,9 +123,10 @@ instance
   hashWithSalt
     _salt
     UpdateReplicationGroupMemberAction' {..} =
-      _salt `Prelude.hashWithSalt` kmsMasterKeyId
+      _salt `Prelude.hashWithSalt` globalSecondaryIndexes
+        `Prelude.hashWithSalt` kmsMasterKeyId
         `Prelude.hashWithSalt` provisionedThroughputOverride
-        `Prelude.hashWithSalt` globalSecondaryIndexes
+        `Prelude.hashWithSalt` tableClassOverride
         `Prelude.hashWithSalt` regionName
 
 instance
@@ -119,24 +134,27 @@ instance
     UpdateReplicationGroupMemberAction
   where
   rnf UpdateReplicationGroupMemberAction' {..} =
-    Prelude.rnf kmsMasterKeyId
+    Prelude.rnf globalSecondaryIndexes
+      `Prelude.seq` Prelude.rnf kmsMasterKeyId
       `Prelude.seq` Prelude.rnf provisionedThroughputOverride
-      `Prelude.seq` Prelude.rnf globalSecondaryIndexes
+      `Prelude.seq` Prelude.rnf tableClassOverride
       `Prelude.seq` Prelude.rnf regionName
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     UpdateReplicationGroupMemberAction
   where
   toJSON UpdateReplicationGroupMemberAction' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("KMSMasterKeyId" Core..=)
-              Prelude.<$> kmsMasterKeyId,
-            ("ProvisionedThroughputOverride" Core..=)
-              Prelude.<$> provisionedThroughputOverride,
-            ("GlobalSecondaryIndexes" Core..=)
+          [ ("GlobalSecondaryIndexes" Data..=)
               Prelude.<$> globalSecondaryIndexes,
-            Prelude.Just ("RegionName" Core..= regionName)
+            ("KMSMasterKeyId" Data..=)
+              Prelude.<$> kmsMasterKeyId,
+            ("ProvisionedThroughputOverride" Data..=)
+              Prelude.<$> provisionedThroughputOverride,
+            ("TableClassOverride" Data..=)
+              Prelude.<$> tableClassOverride,
+            Prelude.Just ("RegionName" Data..= regionName)
           ]
       )

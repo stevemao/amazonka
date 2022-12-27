@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT1ClickDevices.InitiateDeviceClaim
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,8 +44,9 @@ module Amazonka.IoT1ClickDevices.InitiateDeviceClaim
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT1ClickDevices.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,12 +82,13 @@ instance Core.AWSRequest InitiateDeviceClaim where
   type
     AWSResponse InitiateDeviceClaim =
       InitiateDeviceClaimResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           InitiateDeviceClaimResponse'
-            Prelude.<$> (x Core..?> "state")
+            Prelude.<$> (x Data..?> "state")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,26 +99,26 @@ instance Prelude.Hashable InitiateDeviceClaim where
 instance Prelude.NFData InitiateDeviceClaim where
   rnf InitiateDeviceClaim' {..} = Prelude.rnf deviceId
 
-instance Core.ToHeaders InitiateDeviceClaim where
+instance Data.ToHeaders InitiateDeviceClaim where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON InitiateDeviceClaim where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON InitiateDeviceClaim where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath InitiateDeviceClaim where
+instance Data.ToPath InitiateDeviceClaim where
   toPath InitiateDeviceClaim' {..} =
     Prelude.mconcat
-      ["/devices/", Core.toBS deviceId, "/initiate-claim"]
+      ["/devices/", Data.toBS deviceId, "/initiate-claim"]
 
-instance Core.ToQuery InitiateDeviceClaim where
+instance Data.ToQuery InitiateDeviceClaim where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newInitiateDeviceClaimResponse' smart constructor.

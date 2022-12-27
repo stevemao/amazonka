@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTFleetHub.DescribeApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,8 +39,8 @@ module Amazonka.IoTFleetHub.DescribeApplication
 
     -- * Response Lenses
     describeApplicationResponse_applicationDescription,
-    describeApplicationResponse_ssoClientId,
     describeApplicationResponse_errorMessage,
+    describeApplicationResponse_ssoClientId,
     describeApplicationResponse_tags,
     describeApplicationResponse_httpStatus,
     describeApplicationResponse_applicationId,
@@ -55,8 +55,9 @@ module Amazonka.IoTFleetHub.DescribeApplication
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTFleetHub.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,24 +96,25 @@ instance Core.AWSRequest DescribeApplication where
   type
     AWSResponse DescribeApplication =
       DescribeApplicationResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeApplicationResponse'
-            Prelude.<$> (x Core..?> "applicationDescription")
-            Prelude.<*> (x Core..?> "ssoClientId")
-            Prelude.<*> (x Core..?> "errorMessage")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "applicationDescription")
+            Prelude.<*> (x Data..?> "errorMessage")
+            Prelude.<*> (x Data..?> "ssoClientId")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "applicationId")
-            Prelude.<*> (x Core..:> "applicationArn")
-            Prelude.<*> (x Core..:> "applicationName")
-            Prelude.<*> (x Core..:> "applicationUrl")
-            Prelude.<*> (x Core..:> "applicationState")
-            Prelude.<*> (x Core..:> "applicationCreationDate")
-            Prelude.<*> (x Core..:> "applicationLastUpdateDate")
-            Prelude.<*> (x Core..:> "roleArn")
+            Prelude.<*> (x Data..:> "applicationId")
+            Prelude.<*> (x Data..:> "applicationArn")
+            Prelude.<*> (x Data..:> "applicationName")
+            Prelude.<*> (x Data..:> "applicationUrl")
+            Prelude.<*> (x Data..:> "applicationState")
+            Prelude.<*> (x Data..:> "applicationCreationDate")
+            Prelude.<*> (x Data..:> "applicationLastUpdateDate")
+            Prelude.<*> (x Data..:> "roleArn")
       )
 
 instance Prelude.Hashable DescribeApplication where
@@ -123,34 +125,34 @@ instance Prelude.NFData DescribeApplication where
   rnf DescribeApplication' {..} =
     Prelude.rnf applicationId
 
-instance Core.ToHeaders DescribeApplication where
+instance Data.ToHeaders DescribeApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeApplication where
+instance Data.ToPath DescribeApplication where
   toPath DescribeApplication' {..} =
     Prelude.mconcat
-      ["/applications/", Core.toBS applicationId]
+      ["/applications/", Data.toBS applicationId]
 
-instance Core.ToQuery DescribeApplication where
+instance Data.ToQuery DescribeApplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeApplicationResponse' smart constructor.
 data DescribeApplicationResponse = DescribeApplicationResponse'
   { -- | An optional description of the web application.
     applicationDescription :: Prelude.Maybe Prelude.Text,
+    -- | A message indicating why the @DescribeApplication@ API failed.
+    errorMessage :: Prelude.Maybe Prelude.Text,
     -- | The Id of the single sign-on client that you use to authenticate and
     -- authorize users on the web application.
     ssoClientId :: Prelude.Maybe Prelude.Text,
-    -- | A message indicating why the @DescribeApplication@ API failed.
-    errorMessage :: Prelude.Maybe Prelude.Text,
     -- | A set of key\/value pairs that you can use to manage the web application
     -- resource.
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
@@ -186,10 +188,10 @@ data DescribeApplicationResponse = DescribeApplicationResponse'
 --
 -- 'applicationDescription', 'describeApplicationResponse_applicationDescription' - An optional description of the web application.
 --
+-- 'errorMessage', 'describeApplicationResponse_errorMessage' - A message indicating why the @DescribeApplication@ API failed.
+--
 -- 'ssoClientId', 'describeApplicationResponse_ssoClientId' - The Id of the single sign-on client that you use to authenticate and
 -- authorize users on the web application.
---
--- 'errorMessage', 'describeApplicationResponse_errorMessage' - A message indicating why the @DescribeApplication@ API failed.
 --
 -- 'tags', 'describeApplicationResponse_tags' - A set of key\/value pairs that you can use to manage the web application
 -- resource.
@@ -245,8 +247,8 @@ newDescribeApplicationResponse
     DescribeApplicationResponse'
       { applicationDescription =
           Prelude.Nothing,
-        ssoClientId = Prelude.Nothing,
         errorMessage = Prelude.Nothing,
+        ssoClientId = Prelude.Nothing,
         tags = Prelude.Nothing,
         httpStatus = pHttpStatus_,
         applicationId = pApplicationId_,
@@ -265,14 +267,14 @@ newDescribeApplicationResponse
 describeApplicationResponse_applicationDescription :: Lens.Lens' DescribeApplicationResponse (Prelude.Maybe Prelude.Text)
 describeApplicationResponse_applicationDescription = Lens.lens (\DescribeApplicationResponse' {applicationDescription} -> applicationDescription) (\s@DescribeApplicationResponse' {} a -> s {applicationDescription = a} :: DescribeApplicationResponse)
 
+-- | A message indicating why the @DescribeApplication@ API failed.
+describeApplicationResponse_errorMessage :: Lens.Lens' DescribeApplicationResponse (Prelude.Maybe Prelude.Text)
+describeApplicationResponse_errorMessage = Lens.lens (\DescribeApplicationResponse' {errorMessage} -> errorMessage) (\s@DescribeApplicationResponse' {} a -> s {errorMessage = a} :: DescribeApplicationResponse)
+
 -- | The Id of the single sign-on client that you use to authenticate and
 -- authorize users on the web application.
 describeApplicationResponse_ssoClientId :: Lens.Lens' DescribeApplicationResponse (Prelude.Maybe Prelude.Text)
 describeApplicationResponse_ssoClientId = Lens.lens (\DescribeApplicationResponse' {ssoClientId} -> ssoClientId) (\s@DescribeApplicationResponse' {} a -> s {ssoClientId = a} :: DescribeApplicationResponse)
-
--- | A message indicating why the @DescribeApplication@ API failed.
-describeApplicationResponse_errorMessage :: Lens.Lens' DescribeApplicationResponse (Prelude.Maybe Prelude.Text)
-describeApplicationResponse_errorMessage = Lens.lens (\DescribeApplicationResponse' {errorMessage} -> errorMessage) (\s@DescribeApplicationResponse' {} a -> s {errorMessage = a} :: DescribeApplicationResponse)
 
 -- | A set of key\/value pairs that you can use to manage the web application
 -- resource.
@@ -319,8 +321,8 @@ describeApplicationResponse_roleArn = Lens.lens (\DescribeApplicationResponse' {
 instance Prelude.NFData DescribeApplicationResponse where
   rnf DescribeApplicationResponse' {..} =
     Prelude.rnf applicationDescription
-      `Prelude.seq` Prelude.rnf ssoClientId
       `Prelude.seq` Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf ssoClientId
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf applicationId

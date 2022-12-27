@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -91,9 +91,12 @@ library
     Amazonka.Transcribe.Types.CLMLanguageCode
     Amazonka.Transcribe.Types.ContentRedaction
     Amazonka.Transcribe.Types.InputDataConfig
+    Amazonka.Transcribe.Types.InputType
     Amazonka.Transcribe.Types.InterruptionFilter
     Amazonka.Transcribe.Types.JobExecutionSettings
     Amazonka.Transcribe.Types.LanguageCode
+    Amazonka.Transcribe.Types.LanguageCodeItem
+    Amazonka.Transcribe.Types.LanguageIdSettings
     Amazonka.Transcribe.Types.LanguageModel
     Amazonka.Transcribe.Types.Media
     Amazonka.Transcribe.Types.MediaFormat
@@ -107,6 +110,7 @@ library
     Amazonka.Transcribe.Types.NonTalkTimeFilter
     Amazonka.Transcribe.Types.OutputLocationType
     Amazonka.Transcribe.Types.ParticipantRole
+    Amazonka.Transcribe.Types.PiiEntityType
     Amazonka.Transcribe.Types.RedactionOutput
     Amazonka.Transcribe.Types.RedactionType
     Amazonka.Transcribe.Types.RelativeTimeRange
@@ -138,7 +142,7 @@ library
     Amazonka.Transcribe.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-transcribe-test
@@ -157,8 +161,8 @@ test-suite amazonka-transcribe-test
     Test.Amazonka.Transcribe.Internal
 
   build-depends:
-    , amazonka-core         ^>=2.0
-    , amazonka-test         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
+    , amazonka-test         >=2.0 && <2.1
     , amazonka-transcribe
     , base
     , bytestring

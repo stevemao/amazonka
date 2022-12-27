@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoTEventsData.Types.BatchAlarmActionErrorEntry
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.IoTEventsData.Types.BatchAlarmActionErrorEntry where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTEventsData.Types.ErrorCode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains error messages associated with one of the following requests:
@@ -38,12 +39,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newBatchAlarmActionErrorEntry' smart constructor.
 data BatchAlarmActionErrorEntry = BatchAlarmActionErrorEntry'
-  { -- | The request ID. Each ID must be unique within each batch.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The error code.
+  { -- | The error code.
     errorCode :: Prelude.Maybe ErrorCode,
     -- | A message that describes the error.
-    errorMessage :: Prelude.Maybe Prelude.Text
+    errorMessage :: Prelude.Maybe Prelude.Text,
+    -- | The request ID. Each ID must be unique within each batch.
+    requestId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -55,24 +56,20 @@ data BatchAlarmActionErrorEntry = BatchAlarmActionErrorEntry'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'batchAlarmActionErrorEntry_requestId' - The request ID. Each ID must be unique within each batch.
---
 -- 'errorCode', 'batchAlarmActionErrorEntry_errorCode' - The error code.
 --
 -- 'errorMessage', 'batchAlarmActionErrorEntry_errorMessage' - A message that describes the error.
+--
+-- 'requestId', 'batchAlarmActionErrorEntry_requestId' - The request ID. Each ID must be unique within each batch.
 newBatchAlarmActionErrorEntry ::
   BatchAlarmActionErrorEntry
 newBatchAlarmActionErrorEntry =
   BatchAlarmActionErrorEntry'
-    { requestId =
+    { errorCode =
         Prelude.Nothing,
-      errorCode = Prelude.Nothing,
-      errorMessage = Prelude.Nothing
+      errorMessage = Prelude.Nothing,
+      requestId = Prelude.Nothing
     }
-
--- | The request ID. Each ID must be unique within each batch.
-batchAlarmActionErrorEntry_requestId :: Lens.Lens' BatchAlarmActionErrorEntry (Prelude.Maybe Prelude.Text)
-batchAlarmActionErrorEntry_requestId = Lens.lens (\BatchAlarmActionErrorEntry' {requestId} -> requestId) (\s@BatchAlarmActionErrorEntry' {} a -> s {requestId = a} :: BatchAlarmActionErrorEntry)
 
 -- | The error code.
 batchAlarmActionErrorEntry_errorCode :: Lens.Lens' BatchAlarmActionErrorEntry (Prelude.Maybe ErrorCode)
@@ -82,25 +79,29 @@ batchAlarmActionErrorEntry_errorCode = Lens.lens (\BatchAlarmActionErrorEntry' {
 batchAlarmActionErrorEntry_errorMessage :: Lens.Lens' BatchAlarmActionErrorEntry (Prelude.Maybe Prelude.Text)
 batchAlarmActionErrorEntry_errorMessage = Lens.lens (\BatchAlarmActionErrorEntry' {errorMessage} -> errorMessage) (\s@BatchAlarmActionErrorEntry' {} a -> s {errorMessage = a} :: BatchAlarmActionErrorEntry)
 
-instance Core.FromJSON BatchAlarmActionErrorEntry where
+-- | The request ID. Each ID must be unique within each batch.
+batchAlarmActionErrorEntry_requestId :: Lens.Lens' BatchAlarmActionErrorEntry (Prelude.Maybe Prelude.Text)
+batchAlarmActionErrorEntry_requestId = Lens.lens (\BatchAlarmActionErrorEntry' {requestId} -> requestId) (\s@BatchAlarmActionErrorEntry' {} a -> s {requestId = a} :: BatchAlarmActionErrorEntry)
+
+instance Data.FromJSON BatchAlarmActionErrorEntry where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BatchAlarmActionErrorEntry"
       ( \x ->
           BatchAlarmActionErrorEntry'
-            Prelude.<$> (x Core..:? "requestId")
-            Prelude.<*> (x Core..:? "errorCode")
-            Prelude.<*> (x Core..:? "errorMessage")
+            Prelude.<$> (x Data..:? "errorCode")
+            Prelude.<*> (x Data..:? "errorMessage")
+            Prelude.<*> (x Data..:? "requestId")
       )
 
 instance Prelude.Hashable BatchAlarmActionErrorEntry where
   hashWithSalt _salt BatchAlarmActionErrorEntry' {..} =
-    _salt `Prelude.hashWithSalt` requestId
-      `Prelude.hashWithSalt` errorCode
+    _salt `Prelude.hashWithSalt` errorCode
       `Prelude.hashWithSalt` errorMessage
+      `Prelude.hashWithSalt` requestId
 
 instance Prelude.NFData BatchAlarmActionErrorEntry where
   rnf BatchAlarmActionErrorEntry' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf errorCode
+    Prelude.rnf errorCode
       `Prelude.seq` Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf requestId

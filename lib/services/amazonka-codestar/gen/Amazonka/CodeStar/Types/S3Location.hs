@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeStar.Types.S3Location
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeStar.Types.S3Location where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The Amazon S3 location where the source code files provided with the
@@ -78,11 +79,11 @@ instance Prelude.NFData S3Location where
     Prelude.rnf bucketKey
       `Prelude.seq` Prelude.rnf bucketName
 
-instance Core.ToJSON S3Location where
+instance Data.ToJSON S3Location where
   toJSON S3Location' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("bucketKey" Core..=) Prelude.<$> bucketKey,
-            ("bucketName" Core..=) Prelude.<$> bucketName
+          [ ("bucketKey" Data..=) Prelude.<$> bucketKey,
+            ("bucketName" Data..=) Prelude.<$> bucketName
           ]
       )

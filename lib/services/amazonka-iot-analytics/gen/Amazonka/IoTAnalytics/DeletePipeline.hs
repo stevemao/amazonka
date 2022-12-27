@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoTAnalytics.DeletePipeline
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,9 @@ module Amazonka.IoTAnalytics.DeletePipeline
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoTAnalytics.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -73,7 +74,8 @@ instance Core.AWSRequest DeletePipeline where
   type
     AWSResponse DeletePipeline =
       DeletePipelineResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull DeletePipelineResponse'
 
@@ -84,15 +86,15 @@ instance Prelude.Hashable DeletePipeline where
 instance Prelude.NFData DeletePipeline where
   rnf DeletePipeline' {..} = Prelude.rnf pipelineName
 
-instance Core.ToHeaders DeletePipeline where
+instance Data.ToHeaders DeletePipeline where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeletePipeline where
+instance Data.ToPath DeletePipeline where
   toPath DeletePipeline' {..} =
     Prelude.mconcat
-      ["/pipelines/", Core.toBS pipelineName]
+      ["/pipelines/", Data.toBS pipelineName]
 
-instance Core.ToQuery DeletePipeline where
+instance Data.ToQuery DeletePipeline where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeletePipelineResponse' smart constructor.

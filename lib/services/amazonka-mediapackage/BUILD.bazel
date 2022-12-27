@@ -1,6 +1,6 @@
 load("@rules_haskell//haskell:defs.bzl", "haskell_library", "haskell_test")
 
-# rule generated from amazonka-mediapackage/amazonka-mediapackage.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-mediapackage/amazonka-mediapackage.cabal by gazelle_cabal
 haskell_library(
     name = "amazonka-mediapackage",
     srcs = [
@@ -28,6 +28,7 @@ haskell_library(
         "gen/Amazonka/MediaPackage/Types/Authorization.hs",
         "gen/Amazonka/MediaPackage/Types/Channel.hs",
         "gen/Amazonka/MediaPackage/Types/CmafEncryption.hs",
+        "gen/Amazonka/MediaPackage/Types/CmafEncryptionMethod.hs",
         "gen/Amazonka/MediaPackage/Types/CmafPackage.hs",
         "gen/Amazonka/MediaPackage/Types/CmafPackageCreateOrUpdateParameters.hs",
         "gen/Amazonka/MediaPackage/Types/DashEncryption.hs",
@@ -65,14 +66,13 @@ haskell_library(
         "gen/Amazonka/MediaPackage/UpdateOriginEndpoint.hs",
         "gen/Amazonka/MediaPackage/Waiters.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_mediapackage=\"2.0\"",
         "-Wall",
         "-fwarn-incomplete-uni-patterns",
         "-fwarn-incomplete-record-updates",
         "-funbox-strict-fields",
-        "-DVERSION_amazonka_mediapackage=\"2.0\"",
     ],
-    hidden_modules = [],
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [
@@ -81,7 +81,7 @@ haskell_library(
     ],
 )
 
-# rule generated from amazonka-mediapackage/amazonka-mediapackage.cabal by gazelle_cabal
+# rule generated from lib/services/amazonka-mediapackage/amazonka-mediapackage.cabal by gazelle_cabal
 haskell_test(
     name = "amazonka-mediapackage-test",
     srcs = [
@@ -90,11 +90,12 @@ haskell_test(
         "test/Test/Amazonka/MediaPackage.hs",
         "test/Test/Amazonka/MediaPackage/Internal.hs",
     ],
-    compiler_flags = [
+    ghcopts = [
+        "-DVERSION_amazonka_mediapackage=\"2.0\"",
         "-Wall",
         "-threaded",
-        "-DVERSION_amazonka_mediapackage=\"2.0\"",
     ],
+    main_file = "test/Main.hs",
     version = "2.0",
     visibility = ["//visibility:public"],
     deps = [

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DevOpsGuru.AddNotificationChannel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,14 +27,20 @@
 -- If you use an Amazon SNS topic in another account, you must attach a
 -- policy to it that grants DevOps Guru permission to it notifications.
 -- DevOps Guru adds the required policy on your behalf to send
--- notifications using Amazon SNS in your account. For more information,
--- see
+-- notifications using Amazon SNS in your account. DevOps Guru only
+-- supports standard SNS topics. For more information, see
 -- <https://docs.aws.amazon.com/devops-guru/latest/userguide/sns-required-permissions.html Permissions for cross account Amazon SNS topics>.
 --
--- If you use an Amazon SNS topic that is encrypted by an AWS Key
--- Management Service customer-managed key (CMK), then you must add
--- permissions to the CMK. For more information, see
--- <https://docs.aws.amazon.com/devops-guru/latest/userguide/sns-kms-permissions.html Permissions for AWS KMS–encrypted Amazon SNS topics>.
+-- If you use an Amazon SNS topic in another account, you must attach a
+-- policy to it that grants DevOps Guru permission to it notifications.
+-- DevOps Guru adds the required policy on your behalf to send
+-- notifications using Amazon SNS in your account. For more information,
+-- see Permissions for cross account Amazon SNS topics.
+--
+-- If you use an Amazon SNS topic that is encrypted by an Amazon Web
+-- Services Key Management Service customer-managed key (CMK), then you
+-- must add permissions to the CMK. For more information, see
+-- <https://docs.aws.amazon.com/devops-guru/latest/userguide/sns-kms-permissions.html Permissions for Amazon Web Services KMS–encrypted Amazon SNS topics>.
 module Amazonka.DevOpsGuru.AddNotificationChannel
   ( -- * Creating a Request
     AddNotificationChannel (..),
@@ -54,8 +60,9 @@ module Amazonka.DevOpsGuru.AddNotificationChannel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DevOpsGuru.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -97,13 +104,14 @@ instance Core.AWSRequest AddNotificationChannel where
   type
     AWSResponse AddNotificationChannel =
       AddNotificationChannelResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddNotificationChannelResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Id")
+            Prelude.<*> (x Data..:> "Id")
       )
 
 instance Prelude.Hashable AddNotificationChannel where
@@ -113,28 +121,28 @@ instance Prelude.Hashable AddNotificationChannel where
 instance Prelude.NFData AddNotificationChannel where
   rnf AddNotificationChannel' {..} = Prelude.rnf config
 
-instance Core.ToHeaders AddNotificationChannel where
+instance Data.ToHeaders AddNotificationChannel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddNotificationChannel where
+instance Data.ToJSON AddNotificationChannel where
   toJSON AddNotificationChannel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Config" Core..= config)]
+          [Prelude.Just ("Config" Data..= config)]
       )
 
-instance Core.ToPath AddNotificationChannel where
+instance Data.ToPath AddNotificationChannel where
   toPath = Prelude.const "/channels"
 
-instance Core.ToQuery AddNotificationChannel where
+instance Data.ToQuery AddNotificationChannel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddNotificationChannelResponse' smart constructor.

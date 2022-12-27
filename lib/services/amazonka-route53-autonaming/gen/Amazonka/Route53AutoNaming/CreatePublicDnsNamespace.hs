@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53AutoNaming.CreatePublicDnsNamespace
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,9 +27,12 @@
 -- @backend.example.com@. You can discover instances that were registered
 -- with a public DNS namespace by using either a @DiscoverInstances@
 -- request or using DNS. For the current quota on the number of namespaces
--- that you can create using the same account, see
+-- that you can create using the same Amazon Web Services account, see
 -- <https://docs.aws.amazon.com/cloud-map/latest/dg/cloud-map-limits.html Cloud Map quotas>
 -- in the /Cloud Map Developer Guide/.
+--
+-- The @CreatePublicDnsNamespace@ API operation is not supported in the
+-- Amazon Web Services GovCloud (US) Regions.
 module Amazonka.Route53AutoNaming.CreatePublicDnsNamespace
   ( -- * Creating a Request
     CreatePublicDnsNamespace (..),
@@ -38,8 +41,8 @@ module Amazonka.Route53AutoNaming.CreatePublicDnsNamespace
     -- * Request Lenses
     createPublicDnsNamespace_creatorRequestId,
     createPublicDnsNamespace_description,
-    createPublicDnsNamespace_tags,
     createPublicDnsNamespace_properties,
+    createPublicDnsNamespace_tags,
     createPublicDnsNamespace_name,
 
     -- * Destructuring the Response
@@ -53,7 +56,8 @@ module Amazonka.Route53AutoNaming.CreatePublicDnsNamespace
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -68,13 +72,16 @@ data CreatePublicDnsNamespace = CreatePublicDnsNamespace'
     creatorRequestId :: Prelude.Maybe Prelude.Text,
     -- | A description for the namespace.
     description :: Prelude.Maybe Prelude.Text,
+    -- | Properties for the public DNS namespace.
+    properties :: Prelude.Maybe PublicDnsNamespaceProperties,
     -- | The tags to add to the namespace. Each tag consists of a key and an
     -- optional value that you define. Tags keys can be up to 128 characters in
     -- length, and tag values can be up to 256 characters in length.
     tags :: Prelude.Maybe [Tag],
-    -- | Properties for the public DNS namespace.
-    properties :: Prelude.Maybe PublicDnsNamespaceProperties,
     -- | The name that you want to assign to this namespace.
+    --
+    -- Do not include sensitive information in the name. The name is publicly
+    -- available using DNS queries.
     name :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -94,13 +101,16 @@ data CreatePublicDnsNamespace = CreatePublicDnsNamespace'
 --
 -- 'description', 'createPublicDnsNamespace_description' - A description for the namespace.
 --
+-- 'properties', 'createPublicDnsNamespace_properties' - Properties for the public DNS namespace.
+--
 -- 'tags', 'createPublicDnsNamespace_tags' - The tags to add to the namespace. Each tag consists of a key and an
 -- optional value that you define. Tags keys can be up to 128 characters in
 -- length, and tag values can be up to 256 characters in length.
 --
--- 'properties', 'createPublicDnsNamespace_properties' - Properties for the public DNS namespace.
---
 -- 'name', 'createPublicDnsNamespace_name' - The name that you want to assign to this namespace.
+--
+-- Do not include sensitive information in the name. The name is publicly
+-- available using DNS queries.
 newCreatePublicDnsNamespace ::
   -- | 'name'
   Prelude.Text ->
@@ -110,8 +120,8 @@ newCreatePublicDnsNamespace pName_ =
     { creatorRequestId =
         Prelude.Nothing,
       description = Prelude.Nothing,
-      tags = Prelude.Nothing,
       properties = Prelude.Nothing,
+      tags = Prelude.Nothing,
       name = pName_
     }
 
@@ -126,17 +136,20 @@ createPublicDnsNamespace_creatorRequestId = Lens.lens (\CreatePublicDnsNamespace
 createPublicDnsNamespace_description :: Lens.Lens' CreatePublicDnsNamespace (Prelude.Maybe Prelude.Text)
 createPublicDnsNamespace_description = Lens.lens (\CreatePublicDnsNamespace' {description} -> description) (\s@CreatePublicDnsNamespace' {} a -> s {description = a} :: CreatePublicDnsNamespace)
 
+-- | Properties for the public DNS namespace.
+createPublicDnsNamespace_properties :: Lens.Lens' CreatePublicDnsNamespace (Prelude.Maybe PublicDnsNamespaceProperties)
+createPublicDnsNamespace_properties = Lens.lens (\CreatePublicDnsNamespace' {properties} -> properties) (\s@CreatePublicDnsNamespace' {} a -> s {properties = a} :: CreatePublicDnsNamespace)
+
 -- | The tags to add to the namespace. Each tag consists of a key and an
 -- optional value that you define. Tags keys can be up to 128 characters in
 -- length, and tag values can be up to 256 characters in length.
 createPublicDnsNamespace_tags :: Lens.Lens' CreatePublicDnsNamespace (Prelude.Maybe [Tag])
 createPublicDnsNamespace_tags = Lens.lens (\CreatePublicDnsNamespace' {tags} -> tags) (\s@CreatePublicDnsNamespace' {} a -> s {tags = a} :: CreatePublicDnsNamespace) Prelude.. Lens.mapping Lens.coerced
 
--- | Properties for the public DNS namespace.
-createPublicDnsNamespace_properties :: Lens.Lens' CreatePublicDnsNamespace (Prelude.Maybe PublicDnsNamespaceProperties)
-createPublicDnsNamespace_properties = Lens.lens (\CreatePublicDnsNamespace' {properties} -> properties) (\s@CreatePublicDnsNamespace' {} a -> s {properties = a} :: CreatePublicDnsNamespace)
-
 -- | The name that you want to assign to this namespace.
+--
+-- Do not include sensitive information in the name. The name is publicly
+-- available using DNS queries.
 createPublicDnsNamespace_name :: Lens.Lens' CreatePublicDnsNamespace Prelude.Text
 createPublicDnsNamespace_name = Lens.lens (\CreatePublicDnsNamespace' {name} -> name) (\s@CreatePublicDnsNamespace' {} a -> s {name = a} :: CreatePublicDnsNamespace)
 
@@ -144,12 +157,13 @@ instance Core.AWSRequest CreatePublicDnsNamespace where
   type
     AWSResponse CreatePublicDnsNamespace =
       CreatePublicDnsNamespaceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreatePublicDnsNamespaceResponse'
-            Prelude.<$> (x Core..?> "OperationId")
+            Prelude.<$> (x Data..?> "OperationId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -157,50 +171,50 @@ instance Prelude.Hashable CreatePublicDnsNamespace where
   hashWithSalt _salt CreatePublicDnsNamespace' {..} =
     _salt `Prelude.hashWithSalt` creatorRequestId
       `Prelude.hashWithSalt` description
-      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` properties
+      `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` name
 
 instance Prelude.NFData CreatePublicDnsNamespace where
   rnf CreatePublicDnsNamespace' {..} =
     Prelude.rnf creatorRequestId
       `Prelude.seq` Prelude.rnf description
-      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf properties
+      `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf name
 
-instance Core.ToHeaders CreatePublicDnsNamespace where
+instance Data.ToHeaders CreatePublicDnsNamespace where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Route53AutoNaming_v20170314.CreatePublicDnsNamespace" ::
+              Data.=# ( "Route53AutoNaming_v20170314.CreatePublicDnsNamespace" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreatePublicDnsNamespace where
+instance Data.ToJSON CreatePublicDnsNamespace where
   toJSON CreatePublicDnsNamespace' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CreatorRequestId" Core..=)
+          [ ("CreatorRequestId" Data..=)
               Prelude.<$> creatorRequestId,
-            ("Description" Core..=) Prelude.<$> description,
-            ("Tags" Core..=) Prelude.<$> tags,
-            ("Properties" Core..=) Prelude.<$> properties,
-            Prelude.Just ("Name" Core..= name)
+            ("Description" Data..=) Prelude.<$> description,
+            ("Properties" Data..=) Prelude.<$> properties,
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("Name" Data..= name)
           ]
       )
 
-instance Core.ToPath CreatePublicDnsNamespace where
+instance Data.ToPath CreatePublicDnsNamespace where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreatePublicDnsNamespace where
+instance Data.ToQuery CreatePublicDnsNamespace where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreatePublicDnsNamespaceResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ECR.PutImageTagMutability
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,16 +39,17 @@ module Amazonka.ECR.PutImageTagMutability
     newPutImageTagMutabilityResponse,
 
     -- * Response Lenses
+    putImageTagMutabilityResponse_imageTagMutability,
     putImageTagMutabilityResponse_registryId,
     putImageTagMutabilityResponse_repositoryName,
-    putImageTagMutabilityResponse_imageTagMutability,
     putImageTagMutabilityResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ECR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -130,14 +131,15 @@ instance Core.AWSRequest PutImageTagMutability where
   type
     AWSResponse PutImageTagMutability =
       PutImageTagMutabilityResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutImageTagMutabilityResponse'
-            Prelude.<$> (x Core..?> "registryId")
-            Prelude.<*> (x Core..?> "repositoryName")
-            Prelude.<*> (x Core..?> "imageTagMutability")
+            Prelude.<$> (x Data..?> "imageTagMutability")
+            Prelude.<*> (x Data..?> "registryId")
+            Prelude.<*> (x Data..?> "repositoryName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -153,47 +155,47 @@ instance Prelude.NFData PutImageTagMutability where
       `Prelude.seq` Prelude.rnf repositoryName
       `Prelude.seq` Prelude.rnf imageTagMutability
 
-instance Core.ToHeaders PutImageTagMutability where
+instance Data.ToHeaders PutImageTagMutability where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonEC2ContainerRegistry_V20150921.PutImageTagMutability" ::
+              Data.=# ( "AmazonEC2ContainerRegistry_V20150921.PutImageTagMutability" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutImageTagMutability where
+instance Data.ToJSON PutImageTagMutability where
   toJSON PutImageTagMutability' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("registryId" Core..=) Prelude.<$> registryId,
+          [ ("registryId" Data..=) Prelude.<$> registryId,
             Prelude.Just
-              ("repositoryName" Core..= repositoryName),
+              ("repositoryName" Data..= repositoryName),
             Prelude.Just
-              ("imageTagMutability" Core..= imageTagMutability)
+              ("imageTagMutability" Data..= imageTagMutability)
           ]
       )
 
-instance Core.ToPath PutImageTagMutability where
+instance Data.ToPath PutImageTagMutability where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery PutImageTagMutability where
+instance Data.ToQuery PutImageTagMutability where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutImageTagMutabilityResponse' smart constructor.
 data PutImageTagMutabilityResponse = PutImageTagMutabilityResponse'
-  { -- | The registry ID associated with the request.
+  { -- | The image tag mutability setting for the repository.
+    imageTagMutability :: Prelude.Maybe ImageTagMutability,
+    -- | The registry ID associated with the request.
     registryId :: Prelude.Maybe Prelude.Text,
     -- | The repository name associated with the request.
     repositoryName :: Prelude.Maybe Prelude.Text,
-    -- | The image tag mutability setting for the repository.
-    imageTagMutability :: Prelude.Maybe ImageTagMutability,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -207,11 +209,11 @@ data PutImageTagMutabilityResponse = PutImageTagMutabilityResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'imageTagMutability', 'putImageTagMutabilityResponse_imageTagMutability' - The image tag mutability setting for the repository.
+--
 -- 'registryId', 'putImageTagMutabilityResponse_registryId' - The registry ID associated with the request.
 --
 -- 'repositoryName', 'putImageTagMutabilityResponse_repositoryName' - The repository name associated with the request.
---
--- 'imageTagMutability', 'putImageTagMutabilityResponse_imageTagMutability' - The image tag mutability setting for the repository.
 --
 -- 'httpStatus', 'putImageTagMutabilityResponse_httpStatus' - The response's http status code.
 newPutImageTagMutabilityResponse ::
@@ -220,12 +222,16 @@ newPutImageTagMutabilityResponse ::
   PutImageTagMutabilityResponse
 newPutImageTagMutabilityResponse pHttpStatus_ =
   PutImageTagMutabilityResponse'
-    { registryId =
+    { imageTagMutability =
         Prelude.Nothing,
+      registryId = Prelude.Nothing,
       repositoryName = Prelude.Nothing,
-      imageTagMutability = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | The image tag mutability setting for the repository.
+putImageTagMutabilityResponse_imageTagMutability :: Lens.Lens' PutImageTagMutabilityResponse (Prelude.Maybe ImageTagMutability)
+putImageTagMutabilityResponse_imageTagMutability = Lens.lens (\PutImageTagMutabilityResponse' {imageTagMutability} -> imageTagMutability) (\s@PutImageTagMutabilityResponse' {} a -> s {imageTagMutability = a} :: PutImageTagMutabilityResponse)
 
 -- | The registry ID associated with the request.
 putImageTagMutabilityResponse_registryId :: Lens.Lens' PutImageTagMutabilityResponse (Prelude.Maybe Prelude.Text)
@@ -235,17 +241,13 @@ putImageTagMutabilityResponse_registryId = Lens.lens (\PutImageTagMutabilityResp
 putImageTagMutabilityResponse_repositoryName :: Lens.Lens' PutImageTagMutabilityResponse (Prelude.Maybe Prelude.Text)
 putImageTagMutabilityResponse_repositoryName = Lens.lens (\PutImageTagMutabilityResponse' {repositoryName} -> repositoryName) (\s@PutImageTagMutabilityResponse' {} a -> s {repositoryName = a} :: PutImageTagMutabilityResponse)
 
--- | The image tag mutability setting for the repository.
-putImageTagMutabilityResponse_imageTagMutability :: Lens.Lens' PutImageTagMutabilityResponse (Prelude.Maybe ImageTagMutability)
-putImageTagMutabilityResponse_imageTagMutability = Lens.lens (\PutImageTagMutabilityResponse' {imageTagMutability} -> imageTagMutability) (\s@PutImageTagMutabilityResponse' {} a -> s {imageTagMutability = a} :: PutImageTagMutabilityResponse)
-
 -- | The response's http status code.
 putImageTagMutabilityResponse_httpStatus :: Lens.Lens' PutImageTagMutabilityResponse Prelude.Int
 putImageTagMutabilityResponse_httpStatus = Lens.lens (\PutImageTagMutabilityResponse' {httpStatus} -> httpStatus) (\s@PutImageTagMutabilityResponse' {} a -> s {httpStatus = a} :: PutImageTagMutabilityResponse)
 
 instance Prelude.NFData PutImageTagMutabilityResponse where
   rnf PutImageTagMutabilityResponse' {..} =
-    Prelude.rnf registryId
+    Prelude.rnf imageTagMutability
+      `Prelude.seq` Prelude.rnf registryId
       `Prelude.seq` Prelude.rnf repositoryName
-      `Prelude.seq` Prelude.rnf imageTagMutability
       `Prelude.seq` Prelude.rnf httpStatus

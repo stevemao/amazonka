@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruReviewer.Types.EventInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CodeGuruReviewer.Types.EventInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about an event. The event might be a push, pull request,
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEventInfo' smart constructor.
 data EventInfo = EventInfo'
-  { -- | The state of an event. The state might be open, closed, or another
-    -- state.
-    state :: Prelude.Maybe Prelude.Text,
-    -- | The name of the event. The possible names are @pull_request@,
+  { -- | The name of the event. The possible names are @pull_request@,
     -- @workflow_dispatch@, @schedule@, and @push@
-    name :: Prelude.Maybe Prelude.Text
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The state of an event. The state might be open, closed, or another
+    -- state.
+    state :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,52 +46,52 @@ data EventInfo = EventInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'state', 'eventInfo_state' - The state of an event. The state might be open, closed, or another
--- state.
---
 -- 'name', 'eventInfo_name' - The name of the event. The possible names are @pull_request@,
 -- @workflow_dispatch@, @schedule@, and @push@
+--
+-- 'state', 'eventInfo_state' - The state of an event. The state might be open, closed, or another
+-- state.
 newEventInfo ::
   EventInfo
 newEventInfo =
   EventInfo'
-    { state = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      state = Prelude.Nothing
     }
-
--- | The state of an event. The state might be open, closed, or another
--- state.
-eventInfo_state :: Lens.Lens' EventInfo (Prelude.Maybe Prelude.Text)
-eventInfo_state = Lens.lens (\EventInfo' {state} -> state) (\s@EventInfo' {} a -> s {state = a} :: EventInfo)
 
 -- | The name of the event. The possible names are @pull_request@,
 -- @workflow_dispatch@, @schedule@, and @push@
 eventInfo_name :: Lens.Lens' EventInfo (Prelude.Maybe Prelude.Text)
 eventInfo_name = Lens.lens (\EventInfo' {name} -> name) (\s@EventInfo' {} a -> s {name = a} :: EventInfo)
 
-instance Core.FromJSON EventInfo where
+-- | The state of an event. The state might be open, closed, or another
+-- state.
+eventInfo_state :: Lens.Lens' EventInfo (Prelude.Maybe Prelude.Text)
+eventInfo_state = Lens.lens (\EventInfo' {state} -> state) (\s@EventInfo' {} a -> s {state = a} :: EventInfo)
+
+instance Data.FromJSON EventInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EventInfo"
       ( \x ->
           EventInfo'
-            Prelude.<$> (x Core..:? "State") Prelude.<*> (x Core..:? "Name")
+            Prelude.<$> (x Data..:? "Name") Prelude.<*> (x Data..:? "State")
       )
 
 instance Prelude.Hashable EventInfo where
   hashWithSalt _salt EventInfo' {..} =
-    _salt `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData EventInfo where
   rnf EventInfo' {..} =
-    Prelude.rnf state `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf state
 
-instance Core.ToJSON EventInfo where
+instance Data.ToJSON EventInfo where
   toJSON EventInfo' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("State" Core..=) Prelude.<$> state,
-            ("Name" Core..=) Prelude.<$> name
+          [ ("Name" Data..=) Prelude.<$> name,
+            ("State" Data..=) Prelude.<$> state
           ]
       )

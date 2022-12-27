@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.PatchSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,12 +20,13 @@
 module Amazonka.SSM.Types.PatchSource where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Information about the patches to use to update the instances, including
--- target operating systems and source repository. Applies to Linux
--- instances only.
+-- | Information about the patches to use to update the managed nodes,
+-- including target operating systems and source repository. Applies to
+-- Linux managed nodes only.
 --
 -- /See:/ 'newPatchSource' smart constructor.
 data PatchSource = PatchSource'
@@ -49,7 +50,7 @@ data PatchSource = PatchSource'
     -- For information about other options available for your yum repository
     -- configuration, see
     -- <https://man7.org/linux/man-pages/man5/dnf.conf.5.html dnf.conf(5)>.
-    configuration :: Core.Sensitive Prelude.Text
+    configuration :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -94,7 +95,7 @@ newPatchSource pName_ pProducts_ pConfiguration_ =
     { name = pName_,
       products = Lens.coerced Lens.# pProducts_,
       configuration =
-        Core._Sensitive Lens.# pConfiguration_
+        Data._Sensitive Lens.# pConfiguration_
     }
 
 -- | The name specified to identify the patch source.
@@ -122,17 +123,17 @@ patchSource_products = Lens.lens (\PatchSource' {products} -> products) (\s@Patc
 -- configuration, see
 -- <https://man7.org/linux/man-pages/man5/dnf.conf.5.html dnf.conf(5)>.
 patchSource_configuration :: Lens.Lens' PatchSource Prelude.Text
-patchSource_configuration = Lens.lens (\PatchSource' {configuration} -> configuration) (\s@PatchSource' {} a -> s {configuration = a} :: PatchSource) Prelude.. Core._Sensitive
+patchSource_configuration = Lens.lens (\PatchSource' {configuration} -> configuration) (\s@PatchSource' {} a -> s {configuration = a} :: PatchSource) Prelude.. Data._Sensitive
 
-instance Core.FromJSON PatchSource where
+instance Data.FromJSON PatchSource where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "PatchSource"
       ( \x ->
           PatchSource'
-            Prelude.<$> (x Core..: "Name")
-            Prelude.<*> (x Core..: "Products")
-            Prelude.<*> (x Core..: "Configuration")
+            Prelude.<$> (x Data..: "Name")
+            Prelude.<*> (x Data..: "Products")
+            Prelude.<*> (x Data..: "Configuration")
       )
 
 instance Prelude.Hashable PatchSource where
@@ -147,13 +148,13 @@ instance Prelude.NFData PatchSource where
       `Prelude.seq` Prelude.rnf products
       `Prelude.seq` Prelude.rnf configuration
 
-instance Core.ToJSON PatchSource where
+instance Data.ToJSON PatchSource where
   toJSON PatchSource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Products" Core..= products),
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Products" Data..= products),
             Prelude.Just
-              ("Configuration" Core..= configuration)
+              ("Configuration" Data..= configuration)
           ]
       )

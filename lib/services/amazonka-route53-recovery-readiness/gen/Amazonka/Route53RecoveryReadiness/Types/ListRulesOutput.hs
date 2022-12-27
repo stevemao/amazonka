@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53RecoveryReadiness.Types.ListRulesOutput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,18 +20,20 @@
 module Amazonka.Route53RecoveryReadiness.Types.ListRulesOutput where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | A collection of rules used in a readiness check
+-- | Readiness rule information, including the resource type, rule ID, and
+-- rule description.
 --
 -- /See:/ 'newListRulesOutput' smart constructor.
 data ListRulesOutput = ListRulesOutput'
-  { -- | A description of the rule
+  { -- | The description of a readiness rule.
     ruleDescription :: Prelude.Text,
-    -- | The Rule\'s ID.
+    -- | The ID for the readiness rule.
     ruleId :: Prelude.Text,
-    -- | The resource type the rule applies to.
+    -- | The resource type that the readiness rule applies to.
     resourceType :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,11 +46,11 @@ data ListRulesOutput = ListRulesOutput'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'ruleDescription', 'listRulesOutput_ruleDescription' - A description of the rule
+-- 'ruleDescription', 'listRulesOutput_ruleDescription' - The description of a readiness rule.
 --
--- 'ruleId', 'listRulesOutput_ruleId' - The Rule\'s ID.
+-- 'ruleId', 'listRulesOutput_ruleId' - The ID for the readiness rule.
 --
--- 'resourceType', 'listRulesOutput_resourceType' - The resource type the rule applies to.
+-- 'resourceType', 'listRulesOutput_resourceType' - The resource type that the readiness rule applies to.
 newListRulesOutput ::
   -- | 'ruleDescription'
   Prelude.Text ->
@@ -68,27 +70,27 @@ newListRulesOutput
         resourceType = pResourceType_
       }
 
--- | A description of the rule
+-- | The description of a readiness rule.
 listRulesOutput_ruleDescription :: Lens.Lens' ListRulesOutput Prelude.Text
 listRulesOutput_ruleDescription = Lens.lens (\ListRulesOutput' {ruleDescription} -> ruleDescription) (\s@ListRulesOutput' {} a -> s {ruleDescription = a} :: ListRulesOutput)
 
--- | The Rule\'s ID.
+-- | The ID for the readiness rule.
 listRulesOutput_ruleId :: Lens.Lens' ListRulesOutput Prelude.Text
 listRulesOutput_ruleId = Lens.lens (\ListRulesOutput' {ruleId} -> ruleId) (\s@ListRulesOutput' {} a -> s {ruleId = a} :: ListRulesOutput)
 
--- | The resource type the rule applies to.
+-- | The resource type that the readiness rule applies to.
 listRulesOutput_resourceType :: Lens.Lens' ListRulesOutput Prelude.Text
 listRulesOutput_resourceType = Lens.lens (\ListRulesOutput' {resourceType} -> resourceType) (\s@ListRulesOutput' {} a -> s {resourceType = a} :: ListRulesOutput)
 
-instance Core.FromJSON ListRulesOutput where
+instance Data.FromJSON ListRulesOutput where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ListRulesOutput"
       ( \x ->
           ListRulesOutput'
-            Prelude.<$> (x Core..: "ruleDescription")
-            Prelude.<*> (x Core..: "ruleId")
-            Prelude.<*> (x Core..: "resourceType")
+            Prelude.<$> (x Data..: "ruleDescription")
+            Prelude.<*> (x Data..: "ruleId")
+            Prelude.<*> (x Data..: "resourceType")
       )
 
 instance Prelude.Hashable ListRulesOutput where

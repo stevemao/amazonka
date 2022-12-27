@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DescribeDBClusterParameters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,10 +24,12 @@
 -- parameter group.
 --
 -- For more information on Amazon Aurora, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?>
--- in the /Amazon Aurora User Guide./
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What is Amazon Aurora?>
+-- in the /Amazon Aurora User Guide/.
 --
--- This action only applies to Aurora DB clusters.
+-- For more information on Multi-AZ DB clusters, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html Multi-AZ deployments with two readable standby DB instances>
+-- in the /Amazon RDS User Guide/.
 --
 -- This operation returns paginated results.
 module Amazonka.RDS.DescribeDBClusterParameters
@@ -54,7 +56,8 @@ module Amazonka.RDS.DescribeDBClusterParameters
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -207,15 +210,16 @@ instance Core.AWSRequest DescribeDBClusterParameters where
   type
     AWSResponse DescribeDBClusterParameters =
       DescribeDBClusterParametersResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DescribeDBClusterParametersResult"
       ( \s h x ->
           DescribeDBClusterParametersResponse'
-            Prelude.<$> (x Core..@? "Marker")
-            Prelude.<*> ( x Core..@? "Parameters" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "Parameter")
+            Prelude.<$> (x Data..@? "Marker")
+            Prelude.<*> ( x Data..@? "Parameters" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "Parameter")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
@@ -236,29 +240,29 @@ instance Prelude.NFData DescribeDBClusterParameters where
       `Prelude.seq` Prelude.rnf source
       `Prelude.seq` Prelude.rnf dbClusterParameterGroupName
 
-instance Core.ToHeaders DescribeDBClusterParameters where
+instance Data.ToHeaders DescribeDBClusterParameters where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeDBClusterParameters where
+instance Data.ToPath DescribeDBClusterParameters where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeDBClusterParameters where
+instance Data.ToQuery DescribeDBClusterParameters where
   toQuery DescribeDBClusterParameters' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "DescribeDBClusterParameters" ::
+          Data.=: ( "DescribeDBClusterParameters" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "Filters"
-          Core.=: Core.toQuery
-            (Core.toQueryList "Filter" Prelude.<$> filters),
-        "Marker" Core.=: marker,
-        "MaxRecords" Core.=: maxRecords,
-        "Source" Core.=: source,
+          Data.=: Data.toQuery
+            (Data.toQueryList "Filter" Prelude.<$> filters),
+        "Marker" Data.=: marker,
+        "MaxRecords" Data.=: maxRecords,
+        "Source" Data.=: source,
         "DBClusterParameterGroupName"
-          Core.=: dbClusterParameterGroupName
+          Data.=: dbClusterParameterGroupName
       ]
 
 -- | Provides details about a DB cluster parameter group including the
@@ -267,9 +271,9 @@ instance Core.ToQuery DescribeDBClusterParameters where
 -- /See:/ 'newDescribeDBClusterParametersResponse' smart constructor.
 data DescribeDBClusterParametersResponse = DescribeDBClusterParametersResponse'
   { -- | An optional pagination token provided by a previous
-    -- DescribeDBClusterParameters request. If this parameter is specified, the
-    -- response includes only records beyond the marker, up to the value
-    -- specified by @MaxRecords@ .
+    -- @DescribeDBClusterParameters@ request. If this parameter is specified,
+    -- the response includes only records beyond the marker, up to the value
+    -- specified by @MaxRecords@.
     marker :: Prelude.Maybe Prelude.Text,
     -- | Provides a list of parameters for the DB cluster parameter group.
     parameters :: Prelude.Maybe [Parameter],
@@ -287,9 +291,9 @@ data DescribeDBClusterParametersResponse = DescribeDBClusterParametersResponse'
 -- for backwards compatibility:
 --
 -- 'marker', 'describeDBClusterParametersResponse_marker' - An optional pagination token provided by a previous
--- DescribeDBClusterParameters request. If this parameter is specified, the
--- response includes only records beyond the marker, up to the value
--- specified by @MaxRecords@ .
+-- @DescribeDBClusterParameters@ request. If this parameter is specified,
+-- the response includes only records beyond the marker, up to the value
+-- specified by @MaxRecords@.
 --
 -- 'parameters', 'describeDBClusterParametersResponse_parameters' - Provides a list of parameters for the DB cluster parameter group.
 --
@@ -307,9 +311,9 @@ newDescribeDBClusterParametersResponse pHttpStatus_ =
     }
 
 -- | An optional pagination token provided by a previous
--- DescribeDBClusterParameters request. If this parameter is specified, the
--- response includes only records beyond the marker, up to the value
--- specified by @MaxRecords@ .
+-- @DescribeDBClusterParameters@ request. If this parameter is specified,
+-- the response includes only records beyond the marker, up to the value
+-- specified by @MaxRecords@.
 describeDBClusterParametersResponse_marker :: Lens.Lens' DescribeDBClusterParametersResponse (Prelude.Maybe Prelude.Text)
 describeDBClusterParametersResponse_marker = Lens.lens (\DescribeDBClusterParametersResponse' {marker} -> marker) (\s@DescribeDBClusterParametersResponse' {} a -> s {marker = a} :: DescribeDBClusterParametersResponse)
 

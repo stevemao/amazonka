@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DeregisterDBProxyTargets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.RDS.DeregisterDBProxyTargets
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -113,7 +114,8 @@ instance Core.AWSRequest DeregisterDBProxyTargets where
   type
     AWSResponse DeregisterDBProxyTargets =
       DeregisterDBProxyTargetsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeregisterDBProxyTargetsResult"
@@ -136,31 +138,31 @@ instance Prelude.NFData DeregisterDBProxyTargets where
       `Prelude.seq` Prelude.rnf targetGroupName
       `Prelude.seq` Prelude.rnf dbProxyName
 
-instance Core.ToHeaders DeregisterDBProxyTargets where
+instance Data.ToHeaders DeregisterDBProxyTargets where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeregisterDBProxyTargets where
+instance Data.ToPath DeregisterDBProxyTargets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeregisterDBProxyTargets where
+instance Data.ToQuery DeregisterDBProxyTargets where
   toQuery DeregisterDBProxyTargets' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeregisterDBProxyTargets" :: Prelude.ByteString),
+          Data.=: ("DeregisterDBProxyTargets" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "DBClusterIdentifiers"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> dbClusterIdentifiers
             ),
         "DBInstanceIdentifiers"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> dbInstanceIdentifiers
             ),
-        "TargetGroupName" Core.=: targetGroupName,
-        "DBProxyName" Core.=: dbProxyName
+        "TargetGroupName" Data.=: targetGroupName,
+        "DBProxyName" Data.=: dbProxyName
       ]
 
 -- | /See:/ 'newDeregisterDBProxyTargetsResponse' smart constructor.

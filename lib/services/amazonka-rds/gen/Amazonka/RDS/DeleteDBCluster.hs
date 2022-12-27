@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RDS.DeleteDBCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,10 +26,12 @@
 -- specified DB cluster are not deleted.
 --
 -- For more information on Amazon Aurora, see
--- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What Is Amazon Aurora?>
--- in the /Amazon Aurora User Guide./
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/CHAP_AuroraOverview.html What is Amazon Aurora?>
+-- in the /Amazon Aurora User Guide/.
 --
--- This action only applies to Aurora DB clusters.
+-- For more information on Multi-AZ DB clusters, see
+-- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/multi-az-db-clusters-concepts.html Multi-AZ deployments with two readable standby DB instances>
+-- in the /Amazon RDS User Guide/.
 module Amazonka.RDS.DeleteDBCluster
   ( -- * Creating a Request
     DeleteDBCluster (..),
@@ -51,7 +53,8 @@ module Amazonka.RDS.DeleteDBCluster
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -189,13 +192,14 @@ instance Core.AWSRequest DeleteDBCluster where
   type
     AWSResponse DeleteDBCluster =
       DeleteDBClusterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "DeleteDBClusterResult"
       ( \s h x ->
           DeleteDBClusterResponse'
-            Prelude.<$> (x Core..@? "DBCluster")
+            Prelude.<$> (x Data..@? "DBCluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -212,23 +216,23 @@ instance Prelude.NFData DeleteDBCluster where
       `Prelude.seq` Prelude.rnf skipFinalSnapshot
       `Prelude.seq` Prelude.rnf dbClusterIdentifier
 
-instance Core.ToHeaders DeleteDBCluster where
+instance Data.ToHeaders DeleteDBCluster where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DeleteDBCluster where
+instance Data.ToPath DeleteDBCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDBCluster where
+instance Data.ToQuery DeleteDBCluster where
   toQuery DeleteDBCluster' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DeleteDBCluster" :: Prelude.ByteString),
+          Data.=: ("DeleteDBCluster" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "FinalDBSnapshotIdentifier"
-          Core.=: finalDBSnapshotIdentifier,
-        "SkipFinalSnapshot" Core.=: skipFinalSnapshot,
-        "DBClusterIdentifier" Core.=: dbClusterIdentifier
+          Data.=: finalDBSnapshotIdentifier,
+        "SkipFinalSnapshot" Data.=: skipFinalSnapshot,
+        "DBClusterIdentifier" Data.=: dbClusterIdentifier
       ]
 
 -- | /See:/ 'newDeleteDBClusterResponse' smart constructor.

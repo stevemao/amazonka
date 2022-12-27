@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.OpenSearch.Types.RecurringCharge
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,19 @@
 module Amazonka.OpenSearch.Types.RecurringCharge where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Contains the specific price and frequency of a recurring charges for a
--- reserved OpenSearch instance, or for a reserved OpenSearch instance
--- offering.
+-- | Contains the specific price and frequency of a recurring charges for an
+-- OpenSearch Reserved Instance, or for a Reserved Instance offering.
 --
 -- /See:/ 'newRecurringCharge' smart constructor.
 data RecurringCharge = RecurringCharge'
-  { -- | The frequency of the recurring charge.
-    recurringChargeFrequency :: Prelude.Maybe Prelude.Text,
-    -- | The monetary amount of the recurring charge.
-    recurringChargeAmount :: Prelude.Maybe Prelude.Double
+  { -- | The monetary amount of the recurring charge.
+    recurringChargeAmount :: Prelude.Maybe Prelude.Double,
+    -- | The frequency of the recurring charge.
+    recurringChargeFrequency :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,43 +44,42 @@ data RecurringCharge = RecurringCharge'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'recurringChargeFrequency', 'recurringCharge_recurringChargeFrequency' - The frequency of the recurring charge.
---
 -- 'recurringChargeAmount', 'recurringCharge_recurringChargeAmount' - The monetary amount of the recurring charge.
+--
+-- 'recurringChargeFrequency', 'recurringCharge_recurringChargeFrequency' - The frequency of the recurring charge.
 newRecurringCharge ::
   RecurringCharge
 newRecurringCharge =
   RecurringCharge'
-    { recurringChargeFrequency =
+    { recurringChargeAmount =
         Prelude.Nothing,
-      recurringChargeAmount = Prelude.Nothing
+      recurringChargeFrequency = Prelude.Nothing
     }
-
--- | The frequency of the recurring charge.
-recurringCharge_recurringChargeFrequency :: Lens.Lens' RecurringCharge (Prelude.Maybe Prelude.Text)
-recurringCharge_recurringChargeFrequency = Lens.lens (\RecurringCharge' {recurringChargeFrequency} -> recurringChargeFrequency) (\s@RecurringCharge' {} a -> s {recurringChargeFrequency = a} :: RecurringCharge)
 
 -- | The monetary amount of the recurring charge.
 recurringCharge_recurringChargeAmount :: Lens.Lens' RecurringCharge (Prelude.Maybe Prelude.Double)
 recurringCharge_recurringChargeAmount = Lens.lens (\RecurringCharge' {recurringChargeAmount} -> recurringChargeAmount) (\s@RecurringCharge' {} a -> s {recurringChargeAmount = a} :: RecurringCharge)
 
-instance Core.FromJSON RecurringCharge where
+-- | The frequency of the recurring charge.
+recurringCharge_recurringChargeFrequency :: Lens.Lens' RecurringCharge (Prelude.Maybe Prelude.Text)
+recurringCharge_recurringChargeFrequency = Lens.lens (\RecurringCharge' {recurringChargeFrequency} -> recurringChargeFrequency) (\s@RecurringCharge' {} a -> s {recurringChargeFrequency = a} :: RecurringCharge)
+
+instance Data.FromJSON RecurringCharge where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RecurringCharge"
       ( \x ->
           RecurringCharge'
-            Prelude.<$> (x Core..:? "RecurringChargeFrequency")
-            Prelude.<*> (x Core..:? "RecurringChargeAmount")
+            Prelude.<$> (x Data..:? "RecurringChargeAmount")
+            Prelude.<*> (x Data..:? "RecurringChargeFrequency")
       )
 
 instance Prelude.Hashable RecurringCharge where
   hashWithSalt _salt RecurringCharge' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` recurringChargeAmount
       `Prelude.hashWithSalt` recurringChargeFrequency
-      `Prelude.hashWithSalt` recurringChargeAmount
 
 instance Prelude.NFData RecurringCharge where
   rnf RecurringCharge' {..} =
-    Prelude.rnf recurringChargeFrequency
-      `Prelude.seq` Prelude.rnf recurringChargeAmount
+    Prelude.rnf recurringChargeAmount
+      `Prelude.seq` Prelude.rnf recurringChargeFrequency

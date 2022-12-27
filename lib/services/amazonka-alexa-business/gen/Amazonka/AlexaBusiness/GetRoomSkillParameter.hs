@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AlexaBusiness.GetRoomSkillParameter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.AlexaBusiness.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -104,12 +105,13 @@ instance Core.AWSRequest GetRoomSkillParameter where
   type
     AWSResponse GetRoomSkillParameter =
       GetRoomSkillParameterResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetRoomSkillParameterResponse'
-            Prelude.<$> (x Core..?> "RoomSkillParameter")
+            Prelude.<$> (x Data..?> "RoomSkillParameter")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -125,35 +127,35 @@ instance Prelude.NFData GetRoomSkillParameter where
       `Prelude.seq` Prelude.rnf skillId
       `Prelude.seq` Prelude.rnf parameterKey
 
-instance Core.ToHeaders GetRoomSkillParameter where
+instance Data.ToHeaders GetRoomSkillParameter where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AlexaForBusiness.GetRoomSkillParameter" ::
+              Data.=# ( "AlexaForBusiness.GetRoomSkillParameter" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetRoomSkillParameter where
+instance Data.ToJSON GetRoomSkillParameter where
   toJSON GetRoomSkillParameter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RoomArn" Core..=) Prelude.<$> roomArn,
-            Prelude.Just ("SkillId" Core..= skillId),
-            Prelude.Just ("ParameterKey" Core..= parameterKey)
+          [ ("RoomArn" Data..=) Prelude.<$> roomArn,
+            Prelude.Just ("SkillId" Data..= skillId),
+            Prelude.Just ("ParameterKey" Data..= parameterKey)
           ]
       )
 
-instance Core.ToPath GetRoomSkillParameter where
+instance Data.ToPath GetRoomSkillParameter where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetRoomSkillParameter where
+instance Data.ToQuery GetRoomSkillParameter where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetRoomSkillParameterResponse' smart constructor.

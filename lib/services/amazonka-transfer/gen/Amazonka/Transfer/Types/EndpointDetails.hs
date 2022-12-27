@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.Types.EndpointDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Transfer.Types.EndpointDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The virtual private cloud (VPC) endpoint settings that are configured
@@ -41,7 +42,13 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newEndpointDetails' smart constructor.
 data EndpointDetails = EndpointDetails'
-  { -- | A list of security groups IDs that are available to attach to your
+  { -- | A list of address allocation IDs that are required to attach an Elastic
+    -- IP address to your server\'s endpoint.
+    --
+    -- This property can only be set when @EndpointType@ is set to @VPC@ and it
+    -- is only valid in the @UpdateServer@ API.
+    addressAllocationIds :: Prelude.Maybe [Prelude.Text],
+    -- | A list of security groups IDs that are available to attach to your
     -- server\'s endpoint.
     --
     -- This property can only be set when @EndpointType@ is set to @VPC@.
@@ -59,24 +66,19 @@ data EndpointDetails = EndpointDetails'
     --
     -- This property can only be set when @EndpointType@ is set to @VPC@.
     subnetIds :: Prelude.Maybe [Prelude.Text],
-    -- | The VPC ID of the VPC in which a server\'s endpoint will be hosted.
-    --
-    -- This property can only be set when @EndpointType@ is set to @VPC@.
-    vpcId :: Prelude.Maybe Prelude.Text,
-    -- | A list of address allocation IDs that are required to attach an Elastic
-    -- IP address to your server\'s endpoint.
-    --
-    -- This property can only be set when @EndpointType@ is set to @VPC@ and it
-    -- is only valid in the @UpdateServer@ API.
-    addressAllocationIds :: Prelude.Maybe [Prelude.Text],
-    -- | The ID of the VPC endpoint.
+    -- | The identifier of the VPC endpoint.
     --
     -- This property can only be set when @EndpointType@ is set to
     -- @VPC_ENDPOINT@.
     --
     -- For more information, see
     -- https:\/\/docs.aws.amazon.com\/transfer\/latest\/userguide\/create-server-in-vpc.html#deprecate-vpc-endpoint.
-    vpcEndpointId :: Prelude.Maybe Prelude.Text
+    vpcEndpointId :: Prelude.Maybe Prelude.Text,
+    -- | The VPC identifier of the VPC in which a server\'s endpoint will be
+    -- hosted.
+    --
+    -- This property can only be set when @EndpointType@ is set to @VPC@.
+    vpcId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -87,6 +89,12 @@ data EndpointDetails = EndpointDetails'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'addressAllocationIds', 'endpointDetails_addressAllocationIds' - A list of address allocation IDs that are required to attach an Elastic
+-- IP address to your server\'s endpoint.
+--
+-- This property can only be set when @EndpointType@ is set to @VPC@ and it
+-- is only valid in the @UpdateServer@ API.
 --
 -- 'securityGroupIds', 'endpointDetails_securityGroupIds' - A list of security groups IDs that are available to attach to your
 -- server\'s endpoint.
@@ -106,34 +114,37 @@ data EndpointDetails = EndpointDetails'
 --
 -- This property can only be set when @EndpointType@ is set to @VPC@.
 --
--- 'vpcId', 'endpointDetails_vpcId' - The VPC ID of the VPC in which a server\'s endpoint will be hosted.
---
--- This property can only be set when @EndpointType@ is set to @VPC@.
---
--- 'addressAllocationIds', 'endpointDetails_addressAllocationIds' - A list of address allocation IDs that are required to attach an Elastic
--- IP address to your server\'s endpoint.
---
--- This property can only be set when @EndpointType@ is set to @VPC@ and it
--- is only valid in the @UpdateServer@ API.
---
--- 'vpcEndpointId', 'endpointDetails_vpcEndpointId' - The ID of the VPC endpoint.
+-- 'vpcEndpointId', 'endpointDetails_vpcEndpointId' - The identifier of the VPC endpoint.
 --
 -- This property can only be set when @EndpointType@ is set to
 -- @VPC_ENDPOINT@.
 --
 -- For more information, see
 -- https:\/\/docs.aws.amazon.com\/transfer\/latest\/userguide\/create-server-in-vpc.html#deprecate-vpc-endpoint.
+--
+-- 'vpcId', 'endpointDetails_vpcId' - The VPC identifier of the VPC in which a server\'s endpoint will be
+-- hosted.
+--
+-- This property can only be set when @EndpointType@ is set to @VPC@.
 newEndpointDetails ::
   EndpointDetails
 newEndpointDetails =
   EndpointDetails'
-    { securityGroupIds =
+    { addressAllocationIds =
         Prelude.Nothing,
+      securityGroupIds = Prelude.Nothing,
       subnetIds = Prelude.Nothing,
-      vpcId = Prelude.Nothing,
-      addressAllocationIds = Prelude.Nothing,
-      vpcEndpointId = Prelude.Nothing
+      vpcEndpointId = Prelude.Nothing,
+      vpcId = Prelude.Nothing
     }
+
+-- | A list of address allocation IDs that are required to attach an Elastic
+-- IP address to your server\'s endpoint.
+--
+-- This property can only be set when @EndpointType@ is set to @VPC@ and it
+-- is only valid in the @UpdateServer@ API.
+endpointDetails_addressAllocationIds :: Lens.Lens' EndpointDetails (Prelude.Maybe [Prelude.Text])
+endpointDetails_addressAllocationIds = Lens.lens (\EndpointDetails' {addressAllocationIds} -> addressAllocationIds) (\s@EndpointDetails' {} a -> s {addressAllocationIds = a} :: EndpointDetails) Prelude.. Lens.mapping Lens.coerced
 
 -- | A list of security groups IDs that are available to attach to your
 -- server\'s endpoint.
@@ -157,21 +168,7 @@ endpointDetails_securityGroupIds = Lens.lens (\EndpointDetails' {securityGroupId
 endpointDetails_subnetIds :: Lens.Lens' EndpointDetails (Prelude.Maybe [Prelude.Text])
 endpointDetails_subnetIds = Lens.lens (\EndpointDetails' {subnetIds} -> subnetIds) (\s@EndpointDetails' {} a -> s {subnetIds = a} :: EndpointDetails) Prelude.. Lens.mapping Lens.coerced
 
--- | The VPC ID of the VPC in which a server\'s endpoint will be hosted.
---
--- This property can only be set when @EndpointType@ is set to @VPC@.
-endpointDetails_vpcId :: Lens.Lens' EndpointDetails (Prelude.Maybe Prelude.Text)
-endpointDetails_vpcId = Lens.lens (\EndpointDetails' {vpcId} -> vpcId) (\s@EndpointDetails' {} a -> s {vpcId = a} :: EndpointDetails)
-
--- | A list of address allocation IDs that are required to attach an Elastic
--- IP address to your server\'s endpoint.
---
--- This property can only be set when @EndpointType@ is set to @VPC@ and it
--- is only valid in the @UpdateServer@ API.
-endpointDetails_addressAllocationIds :: Lens.Lens' EndpointDetails (Prelude.Maybe [Prelude.Text])
-endpointDetails_addressAllocationIds = Lens.lens (\EndpointDetails' {addressAllocationIds} -> addressAllocationIds) (\s@EndpointDetails' {} a -> s {addressAllocationIds = a} :: EndpointDetails) Prelude.. Lens.mapping Lens.coerced
-
--- | The ID of the VPC endpoint.
+-- | The identifier of the VPC endpoint.
 --
 -- This property can only be set when @EndpointType@ is set to
 -- @VPC_ENDPOINT@.
@@ -181,49 +178,56 @@ endpointDetails_addressAllocationIds = Lens.lens (\EndpointDetails' {addressAllo
 endpointDetails_vpcEndpointId :: Lens.Lens' EndpointDetails (Prelude.Maybe Prelude.Text)
 endpointDetails_vpcEndpointId = Lens.lens (\EndpointDetails' {vpcEndpointId} -> vpcEndpointId) (\s@EndpointDetails' {} a -> s {vpcEndpointId = a} :: EndpointDetails)
 
-instance Core.FromJSON EndpointDetails where
+-- | The VPC identifier of the VPC in which a server\'s endpoint will be
+-- hosted.
+--
+-- This property can only be set when @EndpointType@ is set to @VPC@.
+endpointDetails_vpcId :: Lens.Lens' EndpointDetails (Prelude.Maybe Prelude.Text)
+endpointDetails_vpcId = Lens.lens (\EndpointDetails' {vpcId} -> vpcId) (\s@EndpointDetails' {} a -> s {vpcId = a} :: EndpointDetails)
+
+instance Data.FromJSON EndpointDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EndpointDetails"
       ( \x ->
           EndpointDetails'
-            Prelude.<$> ( x Core..:? "SecurityGroupIds"
-                            Core..!= Prelude.mempty
+            Prelude.<$> ( x Data..:? "AddressAllocationIds"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "SubnetIds" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "VpcId")
-            Prelude.<*> ( x Core..:? "AddressAllocationIds"
-                            Core..!= Prelude.mempty
+            Prelude.<*> ( x Data..:? "SecurityGroupIds"
+                            Data..!= Prelude.mempty
                         )
-            Prelude.<*> (x Core..:? "VpcEndpointId")
+            Prelude.<*> (x Data..:? "SubnetIds" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "VpcEndpointId")
+            Prelude.<*> (x Data..:? "VpcId")
       )
 
 instance Prelude.Hashable EndpointDetails where
   hashWithSalt _salt EndpointDetails' {..} =
-    _salt `Prelude.hashWithSalt` securityGroupIds
+    _salt `Prelude.hashWithSalt` addressAllocationIds
+      `Prelude.hashWithSalt` securityGroupIds
       `Prelude.hashWithSalt` subnetIds
-      `Prelude.hashWithSalt` vpcId
-      `Prelude.hashWithSalt` addressAllocationIds
       `Prelude.hashWithSalt` vpcEndpointId
+      `Prelude.hashWithSalt` vpcId
 
 instance Prelude.NFData EndpointDetails where
   rnf EndpointDetails' {..} =
-    Prelude.rnf securityGroupIds
+    Prelude.rnf addressAllocationIds
+      `Prelude.seq` Prelude.rnf securityGroupIds
       `Prelude.seq` Prelude.rnf subnetIds
-      `Prelude.seq` Prelude.rnf vpcId
-      `Prelude.seq` Prelude.rnf addressAllocationIds
       `Prelude.seq` Prelude.rnf vpcEndpointId
+      `Prelude.seq` Prelude.rnf vpcId
 
-instance Core.ToJSON EndpointDetails where
+instance Data.ToJSON EndpointDetails where
   toJSON EndpointDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("SecurityGroupIds" Core..=)
-              Prelude.<$> securityGroupIds,
-            ("SubnetIds" Core..=) Prelude.<$> subnetIds,
-            ("VpcId" Core..=) Prelude.<$> vpcId,
-            ("AddressAllocationIds" Core..=)
+          [ ("AddressAllocationIds" Data..=)
               Prelude.<$> addressAllocationIds,
-            ("VpcEndpointId" Core..=) Prelude.<$> vpcEndpointId
+            ("SecurityGroupIds" Data..=)
+              Prelude.<$> securityGroupIds,
+            ("SubnetIds" Data..=) Prelude.<$> subnetIds,
+            ("VpcEndpointId" Data..=) Prelude.<$> vpcEndpointId,
+            ("VpcId" Data..=) Prelude.<$> vpcId
           ]
       )

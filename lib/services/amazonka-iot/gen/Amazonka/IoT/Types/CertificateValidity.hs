@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.CertificateValidity
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.IoT.Types.CertificateValidity where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | When the certificate is valid.
 --
 -- /See:/ 'newCertificateValidity' smart constructor.
 data CertificateValidity = CertificateValidity'
-  { -- | The certificate is not valid before this date.
-    notBefore :: Prelude.Maybe Core.POSIX,
-    -- | The certificate is not valid after this date.
-    notAfter :: Prelude.Maybe Core.POSIX
+  { -- | The certificate is not valid after this date.
+    notAfter :: Prelude.Maybe Data.POSIX,
+    -- | The certificate is not valid before this date.
+    notBefore :: Prelude.Maybe Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -42,41 +43,41 @@ data CertificateValidity = CertificateValidity'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'notBefore', 'certificateValidity_notBefore' - The certificate is not valid before this date.
---
 -- 'notAfter', 'certificateValidity_notAfter' - The certificate is not valid after this date.
+--
+-- 'notBefore', 'certificateValidity_notBefore' - The certificate is not valid before this date.
 newCertificateValidity ::
   CertificateValidity
 newCertificateValidity =
   CertificateValidity'
-    { notBefore = Prelude.Nothing,
-      notAfter = Prelude.Nothing
+    { notAfter = Prelude.Nothing,
+      notBefore = Prelude.Nothing
     }
-
--- | The certificate is not valid before this date.
-certificateValidity_notBefore :: Lens.Lens' CertificateValidity (Prelude.Maybe Prelude.UTCTime)
-certificateValidity_notBefore = Lens.lens (\CertificateValidity' {notBefore} -> notBefore) (\s@CertificateValidity' {} a -> s {notBefore = a} :: CertificateValidity) Prelude.. Lens.mapping Core._Time
 
 -- | The certificate is not valid after this date.
 certificateValidity_notAfter :: Lens.Lens' CertificateValidity (Prelude.Maybe Prelude.UTCTime)
-certificateValidity_notAfter = Lens.lens (\CertificateValidity' {notAfter} -> notAfter) (\s@CertificateValidity' {} a -> s {notAfter = a} :: CertificateValidity) Prelude.. Lens.mapping Core._Time
+certificateValidity_notAfter = Lens.lens (\CertificateValidity' {notAfter} -> notAfter) (\s@CertificateValidity' {} a -> s {notAfter = a} :: CertificateValidity) Prelude.. Lens.mapping Data._Time
 
-instance Core.FromJSON CertificateValidity where
+-- | The certificate is not valid before this date.
+certificateValidity_notBefore :: Lens.Lens' CertificateValidity (Prelude.Maybe Prelude.UTCTime)
+certificateValidity_notBefore = Lens.lens (\CertificateValidity' {notBefore} -> notBefore) (\s@CertificateValidity' {} a -> s {notBefore = a} :: CertificateValidity) Prelude.. Lens.mapping Data._Time
+
+instance Data.FromJSON CertificateValidity where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CertificateValidity"
       ( \x ->
           CertificateValidity'
-            Prelude.<$> (x Core..:? "notBefore")
-            Prelude.<*> (x Core..:? "notAfter")
+            Prelude.<$> (x Data..:? "notAfter")
+            Prelude.<*> (x Data..:? "notBefore")
       )
 
 instance Prelude.Hashable CertificateValidity where
   hashWithSalt _salt CertificateValidity' {..} =
-    _salt `Prelude.hashWithSalt` notBefore
-      `Prelude.hashWithSalt` notAfter
+    _salt `Prelude.hashWithSalt` notAfter
+      `Prelude.hashWithSalt` notBefore
 
 instance Prelude.NFData CertificateValidity where
   rnf CertificateValidity' {..} =
-    Prelude.rnf notBefore
-      `Prelude.seq` Prelude.rnf notAfter
+    Prelude.rnf notAfter
+      `Prelude.seq` Prelude.rnf notBefore

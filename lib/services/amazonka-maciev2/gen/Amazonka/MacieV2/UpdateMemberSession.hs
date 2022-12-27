@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.UpdateMemberSession
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Enables an Amazon Macie administrator to suspend or re-enable a member
--- account.
+-- Enables an Amazon Macie administrator to suspend or re-enable Macie for
+-- a member account.
 module Amazonka.MacieV2.UpdateMemberSession
   ( -- * Creating a Request
     UpdateMemberSession (..),
@@ -41,7 +41,8 @@ module Amazonka.MacieV2.UpdateMemberSession
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -49,8 +50,8 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateMemberSession' smart constructor.
 data UpdateMemberSession = UpdateMemberSession'
-  { -- | The unique identifier for the Amazon Macie resource or account that the
-    -- request applies to.
+  { -- | The unique identifier for the Amazon Macie resource that the request
+    -- applies to.
     id :: Prelude.Text,
     -- | Specifies the new status for the account. Valid values are: ENABLED,
     -- resume all Amazon Macie activities for the account; and, PAUSED, suspend
@@ -67,8 +68,8 @@ data UpdateMemberSession = UpdateMemberSession'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'id', 'updateMemberSession_id' - The unique identifier for the Amazon Macie resource or account that the
--- request applies to.
+-- 'id', 'updateMemberSession_id' - The unique identifier for the Amazon Macie resource that the request
+-- applies to.
 --
 -- 'status', 'updateMemberSession_status' - Specifies the new status for the account. Valid values are: ENABLED,
 -- resume all Amazon Macie activities for the account; and, PAUSED, suspend
@@ -82,8 +83,8 @@ newUpdateMemberSession ::
 newUpdateMemberSession pId_ pStatus_ =
   UpdateMemberSession' {id = pId_, status = pStatus_}
 
--- | The unique identifier for the Amazon Macie resource or account that the
--- request applies to.
+-- | The unique identifier for the Amazon Macie resource that the request
+-- applies to.
 updateMemberSession_id :: Lens.Lens' UpdateMemberSession Prelude.Text
 updateMemberSession_id = Lens.lens (\UpdateMemberSession' {id} -> id) (\s@UpdateMemberSession' {} a -> s {id = a} :: UpdateMemberSession)
 
@@ -97,7 +98,8 @@ instance Core.AWSRequest UpdateMemberSession where
   type
     AWSResponse UpdateMemberSession =
       UpdateMemberSessionResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -114,29 +116,29 @@ instance Prelude.NFData UpdateMemberSession where
   rnf UpdateMemberSession' {..} =
     Prelude.rnf id `Prelude.seq` Prelude.rnf status
 
-instance Core.ToHeaders UpdateMemberSession where
+instance Data.ToHeaders UpdateMemberSession where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateMemberSession where
+instance Data.ToJSON UpdateMemberSession where
   toJSON UpdateMemberSession' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("status" Core..= status)]
+          [Prelude.Just ("status" Data..= status)]
       )
 
-instance Core.ToPath UpdateMemberSession where
+instance Data.ToPath UpdateMemberSession where
   toPath UpdateMemberSession' {..} =
-    Prelude.mconcat ["/macie/members/", Core.toBS id]
+    Prelude.mconcat ["/macie/members/", Data.toBS id]
 
-instance Core.ToQuery UpdateMemberSession where
+instance Data.ToQuery UpdateMemberSession where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateMemberSessionResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.RedshiftData.DescribeStatement
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,30 +37,32 @@ module Amazonka.RedshiftData.DescribeStatement
     newDescribeStatementResponse,
 
     -- * Response Lenses
-    describeStatementResponse_status,
-    describeStatementResponse_redshiftQueryId,
-    describeStatementResponse_resultSize,
-    describeStatementResponse_dbUser,
-    describeStatementResponse_subStatements,
-    describeStatementResponse_database,
-    describeStatementResponse_createdAt,
-    describeStatementResponse_queryParameters,
-    describeStatementResponse_error,
-    describeStatementResponse_resultRows,
-    describeStatementResponse_redshiftPid,
     describeStatementResponse_clusterIdentifier,
-    describeStatementResponse_hasResultSet,
-    describeStatementResponse_queryString,
-    describeStatementResponse_updatedAt,
-    describeStatementResponse_secretArn,
+    describeStatementResponse_createdAt,
+    describeStatementResponse_database,
+    describeStatementResponse_dbUser,
     describeStatementResponse_duration,
+    describeStatementResponse_error,
+    describeStatementResponse_hasResultSet,
+    describeStatementResponse_queryParameters,
+    describeStatementResponse_queryString,
+    describeStatementResponse_redshiftPid,
+    describeStatementResponse_redshiftQueryId,
+    describeStatementResponse_resultRows,
+    describeStatementResponse_resultSize,
+    describeStatementResponse_secretArn,
+    describeStatementResponse_status,
+    describeStatementResponse_subStatements,
+    describeStatementResponse_updatedAt,
+    describeStatementResponse_workgroupName,
     describeStatementResponse_httpStatus,
     describeStatementResponse_id,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RedshiftData.Types
 import qualified Amazonka.Request as Request
@@ -115,30 +117,32 @@ instance Core.AWSRequest DescribeStatement where
   type
     AWSResponse DescribeStatement =
       DescribeStatementResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeStatementResponse'
-            Prelude.<$> (x Core..?> "Status")
-            Prelude.<*> (x Core..?> "RedshiftQueryId")
-            Prelude.<*> (x Core..?> "ResultSize")
-            Prelude.<*> (x Core..?> "DbUser")
-            Prelude.<*> (x Core..?> "SubStatements" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "Database")
-            Prelude.<*> (x Core..?> "CreatedAt")
-            Prelude.<*> (x Core..?> "QueryParameters")
-            Prelude.<*> (x Core..?> "Error")
-            Prelude.<*> (x Core..?> "ResultRows")
-            Prelude.<*> (x Core..?> "RedshiftPid")
-            Prelude.<*> (x Core..?> "ClusterIdentifier")
-            Prelude.<*> (x Core..?> "HasResultSet")
-            Prelude.<*> (x Core..?> "QueryString")
-            Prelude.<*> (x Core..?> "UpdatedAt")
-            Prelude.<*> (x Core..?> "SecretArn")
-            Prelude.<*> (x Core..?> "Duration")
+            Prelude.<$> (x Data..?> "ClusterIdentifier")
+            Prelude.<*> (x Data..?> "CreatedAt")
+            Prelude.<*> (x Data..?> "Database")
+            Prelude.<*> (x Data..?> "DbUser")
+            Prelude.<*> (x Data..?> "Duration")
+            Prelude.<*> (x Data..?> "Error")
+            Prelude.<*> (x Data..?> "HasResultSet")
+            Prelude.<*> (x Data..?> "QueryParameters")
+            Prelude.<*> (x Data..?> "QueryString")
+            Prelude.<*> (x Data..?> "RedshiftPid")
+            Prelude.<*> (x Data..?> "RedshiftQueryId")
+            Prelude.<*> (x Data..?> "ResultRows")
+            Prelude.<*> (x Data..?> "ResultSize")
+            Prelude.<*> (x Data..?> "SecretArn")
+            Prelude.<*> (x Data..?> "Status")
+            Prelude.<*> (x Data..?> "SubStatements" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "UpdatedAt")
+            Prelude.<*> (x Data..?> "WorkgroupName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "Id")
+            Prelude.<*> (x Data..:> "Id")
       )
 
 instance Prelude.Hashable DescribeStatement where
@@ -148,35 +152,73 @@ instance Prelude.Hashable DescribeStatement where
 instance Prelude.NFData DescribeStatement where
   rnf DescribeStatement' {..} = Prelude.rnf id
 
-instance Core.ToHeaders DescribeStatement where
+instance Data.ToHeaders DescribeStatement where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "RedshiftData.DescribeStatement" ::
+              Data.=# ( "RedshiftData.DescribeStatement" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeStatement where
+instance Data.ToJSON DescribeStatement where
   toJSON DescribeStatement' {..} =
-    Core.object
-      (Prelude.catMaybes [Prelude.Just ("Id" Core..= id)])
+    Data.object
+      (Prelude.catMaybes [Prelude.Just ("Id" Data..= id)])
 
-instance Core.ToPath DescribeStatement where
+instance Data.ToPath DescribeStatement where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeStatement where
+instance Data.ToQuery DescribeStatement where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeStatementResponse' smart constructor.
 data DescribeStatementResponse = DescribeStatementResponse'
-  { -- | The status of the SQL statement being described. Status values are
+  { -- | The cluster identifier.
+    clusterIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | The date and time (UTC) when the SQL statement was submitted to run.
+    createdAt :: Prelude.Maybe Data.POSIX,
+    -- | The name of the database.
+    database :: Prelude.Maybe Prelude.Text,
+    -- | The database user name.
+    dbUser :: Prelude.Maybe Prelude.Text,
+    -- | The amount of time in nanoseconds that the statement ran.
+    duration :: Prelude.Maybe Prelude.Integer,
+    -- | The error message from the cluster if the SQL statement encountered an
+    -- error while running.
+    error :: Prelude.Maybe Prelude.Text,
+    -- | A value that indicates whether the statement has a result set. The
+    -- result set can be empty. The value is true for an empty result set. The
+    -- value is true if any substatement returns a result set.
+    hasResultSet :: Prelude.Maybe Prelude.Bool,
+    -- | The parameters for the SQL statement.
+    queryParameters :: Prelude.Maybe (Prelude.NonEmpty SqlParameter),
+    -- | The SQL statement text.
+    queryString :: Prelude.Maybe Prelude.Text,
+    -- | The process identifier from Amazon Redshift.
+    redshiftPid :: Prelude.Maybe Prelude.Integer,
+    -- | The identifier of the query generated by Amazon Redshift. These
+    -- identifiers are also available in the @query@ column of the @STL_QUERY@
+    -- system view.
+    redshiftQueryId :: Prelude.Maybe Prelude.Integer,
+    -- | Either the number of rows returned from the SQL statement or the number
+    -- of rows affected. If result size is greater than zero, the result rows
+    -- can be the number of rows affected by SQL statements such as INSERT,
+    -- UPDATE, DELETE, COPY, and others. A @-1@ indicates the value is null.
+    resultRows :: Prelude.Maybe Prelude.Integer,
+    -- | The size in bytes of the returned results. A @-1@ indicates the value is
+    -- null.
+    resultSize :: Prelude.Maybe Prelude.Integer,
+    -- | The name or Amazon Resource Name (ARN) of the secret that enables access
+    -- to the database.
+    secretArn :: Prelude.Maybe Prelude.Text,
+    -- | The status of the SQL statement being described. Status values are
     -- defined as follows:
     --
     -- -   ABORTED - The query run was stopped by the user.
@@ -194,48 +236,13 @@ data DescribeStatementResponse = DescribeStatementResponse'
     --
     -- -   SUBMITTED - The query was submitted, but not yet processed.
     status :: Prelude.Maybe StatusString,
-    -- | The identifier of the query generated by Amazon Redshift. These
-    -- identifiers are also available in the @query@ column of the @STL_QUERY@
-    -- system view.
-    redshiftQueryId :: Prelude.Maybe Prelude.Integer,
-    -- | The size in bytes of the returned results. A @-1@ indicates the value is
-    -- null.
-    resultSize :: Prelude.Maybe Prelude.Integer,
-    -- | The database user name.
-    dbUser :: Prelude.Maybe Prelude.Text,
     -- | The SQL statements from a multiple statement run.
     subStatements :: Prelude.Maybe [SubStatementData],
-    -- | The name of the database.
-    database :: Prelude.Maybe Prelude.Text,
-    -- | The date and time (UTC) when the SQL statement was submitted to run.
-    createdAt :: Prelude.Maybe Core.POSIX,
-    -- | The parameters for the SQL statement.
-    queryParameters :: Prelude.Maybe (Prelude.NonEmpty SqlParameter),
-    -- | The error message from the cluster if the SQL statement encountered an
-    -- error while running.
-    error :: Prelude.Maybe Prelude.Text,
-    -- | Either the number of rows returned from the SQL statement or the number
-    -- of rows affected. If result size is greater than zero, the result rows
-    -- can be the number of rows affected by SQL statements such as INSERT,
-    -- UPDATE, DELETE, COPY, and others. A @-1@ indicates the value is null.
-    resultRows :: Prelude.Maybe Prelude.Integer,
-    -- | The process identifier from Amazon Redshift.
-    redshiftPid :: Prelude.Maybe Prelude.Integer,
-    -- | The cluster identifier.
-    clusterIdentifier :: Prelude.Maybe Prelude.Text,
-    -- | A value that indicates whether the statement has a result set. The
-    -- result set can be empty.
-    hasResultSet :: Prelude.Maybe Prelude.Bool,
-    -- | The SQL statement text.
-    queryString :: Prelude.Maybe Prelude.Text,
     -- | The date and time (UTC) that the metadata for the SQL statement was last
     -- updated. An example is the time the status last changed.
-    updatedAt :: Prelude.Maybe Core.POSIX,
-    -- | The name or Amazon Resource Name (ARN) of the secret that enables access
-    -- to the database.
-    secretArn :: Prelude.Maybe Prelude.Text,
-    -- | The amount of time in nanoseconds that the statement ran.
-    duration :: Prelude.Maybe Prelude.Integer,
+    updatedAt :: Prelude.Maybe Data.POSIX,
+    -- | The serverless workgroup name.
+    workgroupName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int,
     -- | The identifier of the SQL statement described. This value is a
@@ -252,6 +259,44 @@ data DescribeStatementResponse = DescribeStatementResponse'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'clusterIdentifier', 'describeStatementResponse_clusterIdentifier' - The cluster identifier.
+--
+-- 'createdAt', 'describeStatementResponse_createdAt' - The date and time (UTC) when the SQL statement was submitted to run.
+--
+-- 'database', 'describeStatementResponse_database' - The name of the database.
+--
+-- 'dbUser', 'describeStatementResponse_dbUser' - The database user name.
+--
+-- 'duration', 'describeStatementResponse_duration' - The amount of time in nanoseconds that the statement ran.
+--
+-- 'error', 'describeStatementResponse_error' - The error message from the cluster if the SQL statement encountered an
+-- error while running.
+--
+-- 'hasResultSet', 'describeStatementResponse_hasResultSet' - A value that indicates whether the statement has a result set. The
+-- result set can be empty. The value is true for an empty result set. The
+-- value is true if any substatement returns a result set.
+--
+-- 'queryParameters', 'describeStatementResponse_queryParameters' - The parameters for the SQL statement.
+--
+-- 'queryString', 'describeStatementResponse_queryString' - The SQL statement text.
+--
+-- 'redshiftPid', 'describeStatementResponse_redshiftPid' - The process identifier from Amazon Redshift.
+--
+-- 'redshiftQueryId', 'describeStatementResponse_redshiftQueryId' - The identifier of the query generated by Amazon Redshift. These
+-- identifiers are also available in the @query@ column of the @STL_QUERY@
+-- system view.
+--
+-- 'resultRows', 'describeStatementResponse_resultRows' - Either the number of rows returned from the SQL statement or the number
+-- of rows affected. If result size is greater than zero, the result rows
+-- can be the number of rows affected by SQL statements such as INSERT,
+-- UPDATE, DELETE, COPY, and others. A @-1@ indicates the value is null.
+--
+-- 'resultSize', 'describeStatementResponse_resultSize' - The size in bytes of the returned results. A @-1@ indicates the value is
+-- null.
+--
+-- 'secretArn', 'describeStatementResponse_secretArn' - The name or Amazon Resource Name (ARN) of the secret that enables access
+-- to the database.
 --
 -- 'status', 'describeStatementResponse_status' - The status of the SQL statement being described. Status values are
 -- defined as follows:
@@ -271,47 +316,12 @@ data DescribeStatementResponse = DescribeStatementResponse'
 --
 -- -   SUBMITTED - The query was submitted, but not yet processed.
 --
--- 'redshiftQueryId', 'describeStatementResponse_redshiftQueryId' - The identifier of the query generated by Amazon Redshift. These
--- identifiers are also available in the @query@ column of the @STL_QUERY@
--- system view.
---
--- 'resultSize', 'describeStatementResponse_resultSize' - The size in bytes of the returned results. A @-1@ indicates the value is
--- null.
---
--- 'dbUser', 'describeStatementResponse_dbUser' - The database user name.
---
 -- 'subStatements', 'describeStatementResponse_subStatements' - The SQL statements from a multiple statement run.
---
--- 'database', 'describeStatementResponse_database' - The name of the database.
---
--- 'createdAt', 'describeStatementResponse_createdAt' - The date and time (UTC) when the SQL statement was submitted to run.
---
--- 'queryParameters', 'describeStatementResponse_queryParameters' - The parameters for the SQL statement.
---
--- 'error', 'describeStatementResponse_error' - The error message from the cluster if the SQL statement encountered an
--- error while running.
---
--- 'resultRows', 'describeStatementResponse_resultRows' - Either the number of rows returned from the SQL statement or the number
--- of rows affected. If result size is greater than zero, the result rows
--- can be the number of rows affected by SQL statements such as INSERT,
--- UPDATE, DELETE, COPY, and others. A @-1@ indicates the value is null.
---
--- 'redshiftPid', 'describeStatementResponse_redshiftPid' - The process identifier from Amazon Redshift.
---
--- 'clusterIdentifier', 'describeStatementResponse_clusterIdentifier' - The cluster identifier.
---
--- 'hasResultSet', 'describeStatementResponse_hasResultSet' - A value that indicates whether the statement has a result set. The
--- result set can be empty.
---
--- 'queryString', 'describeStatementResponse_queryString' - The SQL statement text.
 --
 -- 'updatedAt', 'describeStatementResponse_updatedAt' - The date and time (UTC) that the metadata for the SQL statement was last
 -- updated. An example is the time the status last changed.
 --
--- 'secretArn', 'describeStatementResponse_secretArn' - The name or Amazon Resource Name (ARN) of the secret that enables access
--- to the database.
---
--- 'duration', 'describeStatementResponse_duration' - The amount of time in nanoseconds that the statement ran.
+-- 'workgroupName', 'describeStatementResponse_workgroupName' - The serverless workgroup name.
 --
 -- 'httpStatus', 'describeStatementResponse_httpStatus' - The response's http status code.
 --
@@ -326,27 +336,94 @@ newDescribeStatementResponse ::
   DescribeStatementResponse
 newDescribeStatementResponse pHttpStatus_ pId_ =
   DescribeStatementResponse'
-    { status =
+    { clusterIdentifier =
         Prelude.Nothing,
-      redshiftQueryId = Prelude.Nothing,
-      resultSize = Prelude.Nothing,
-      dbUser = Prelude.Nothing,
-      subStatements = Prelude.Nothing,
-      database = Prelude.Nothing,
       createdAt = Prelude.Nothing,
-      queryParameters = Prelude.Nothing,
-      error = Prelude.Nothing,
-      resultRows = Prelude.Nothing,
-      redshiftPid = Prelude.Nothing,
-      clusterIdentifier = Prelude.Nothing,
-      hasResultSet = Prelude.Nothing,
-      queryString = Prelude.Nothing,
-      updatedAt = Prelude.Nothing,
-      secretArn = Prelude.Nothing,
+      database = Prelude.Nothing,
+      dbUser = Prelude.Nothing,
       duration = Prelude.Nothing,
+      error = Prelude.Nothing,
+      hasResultSet = Prelude.Nothing,
+      queryParameters = Prelude.Nothing,
+      queryString = Prelude.Nothing,
+      redshiftPid = Prelude.Nothing,
+      redshiftQueryId = Prelude.Nothing,
+      resultRows = Prelude.Nothing,
+      resultSize = Prelude.Nothing,
+      secretArn = Prelude.Nothing,
+      status = Prelude.Nothing,
+      subStatements = Prelude.Nothing,
+      updatedAt = Prelude.Nothing,
+      workgroupName = Prelude.Nothing,
       httpStatus = pHttpStatus_,
       id = pId_
     }
+
+-- | The cluster identifier.
+describeStatementResponse_clusterIdentifier :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Text)
+describeStatementResponse_clusterIdentifier = Lens.lens (\DescribeStatementResponse' {clusterIdentifier} -> clusterIdentifier) (\s@DescribeStatementResponse' {} a -> s {clusterIdentifier = a} :: DescribeStatementResponse)
+
+-- | The date and time (UTC) when the SQL statement was submitted to run.
+describeStatementResponse_createdAt :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.UTCTime)
+describeStatementResponse_createdAt = Lens.lens (\DescribeStatementResponse' {createdAt} -> createdAt) (\s@DescribeStatementResponse' {} a -> s {createdAt = a} :: DescribeStatementResponse) Prelude.. Lens.mapping Data._Time
+
+-- | The name of the database.
+describeStatementResponse_database :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Text)
+describeStatementResponse_database = Lens.lens (\DescribeStatementResponse' {database} -> database) (\s@DescribeStatementResponse' {} a -> s {database = a} :: DescribeStatementResponse)
+
+-- | The database user name.
+describeStatementResponse_dbUser :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Text)
+describeStatementResponse_dbUser = Lens.lens (\DescribeStatementResponse' {dbUser} -> dbUser) (\s@DescribeStatementResponse' {} a -> s {dbUser = a} :: DescribeStatementResponse)
+
+-- | The amount of time in nanoseconds that the statement ran.
+describeStatementResponse_duration :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Integer)
+describeStatementResponse_duration = Lens.lens (\DescribeStatementResponse' {duration} -> duration) (\s@DescribeStatementResponse' {} a -> s {duration = a} :: DescribeStatementResponse)
+
+-- | The error message from the cluster if the SQL statement encountered an
+-- error while running.
+describeStatementResponse_error :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Text)
+describeStatementResponse_error = Lens.lens (\DescribeStatementResponse' {error} -> error) (\s@DescribeStatementResponse' {} a -> s {error = a} :: DescribeStatementResponse)
+
+-- | A value that indicates whether the statement has a result set. The
+-- result set can be empty. The value is true for an empty result set. The
+-- value is true if any substatement returns a result set.
+describeStatementResponse_hasResultSet :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Bool)
+describeStatementResponse_hasResultSet = Lens.lens (\DescribeStatementResponse' {hasResultSet} -> hasResultSet) (\s@DescribeStatementResponse' {} a -> s {hasResultSet = a} :: DescribeStatementResponse)
+
+-- | The parameters for the SQL statement.
+describeStatementResponse_queryParameters :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe (Prelude.NonEmpty SqlParameter))
+describeStatementResponse_queryParameters = Lens.lens (\DescribeStatementResponse' {queryParameters} -> queryParameters) (\s@DescribeStatementResponse' {} a -> s {queryParameters = a} :: DescribeStatementResponse) Prelude.. Lens.mapping Lens.coerced
+
+-- | The SQL statement text.
+describeStatementResponse_queryString :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Text)
+describeStatementResponse_queryString = Lens.lens (\DescribeStatementResponse' {queryString} -> queryString) (\s@DescribeStatementResponse' {} a -> s {queryString = a} :: DescribeStatementResponse)
+
+-- | The process identifier from Amazon Redshift.
+describeStatementResponse_redshiftPid :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Integer)
+describeStatementResponse_redshiftPid = Lens.lens (\DescribeStatementResponse' {redshiftPid} -> redshiftPid) (\s@DescribeStatementResponse' {} a -> s {redshiftPid = a} :: DescribeStatementResponse)
+
+-- | The identifier of the query generated by Amazon Redshift. These
+-- identifiers are also available in the @query@ column of the @STL_QUERY@
+-- system view.
+describeStatementResponse_redshiftQueryId :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Integer)
+describeStatementResponse_redshiftQueryId = Lens.lens (\DescribeStatementResponse' {redshiftQueryId} -> redshiftQueryId) (\s@DescribeStatementResponse' {} a -> s {redshiftQueryId = a} :: DescribeStatementResponse)
+
+-- | Either the number of rows returned from the SQL statement or the number
+-- of rows affected. If result size is greater than zero, the result rows
+-- can be the number of rows affected by SQL statements such as INSERT,
+-- UPDATE, DELETE, COPY, and others. A @-1@ indicates the value is null.
+describeStatementResponse_resultRows :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Integer)
+describeStatementResponse_resultRows = Lens.lens (\DescribeStatementResponse' {resultRows} -> resultRows) (\s@DescribeStatementResponse' {} a -> s {resultRows = a} :: DescribeStatementResponse)
+
+-- | The size in bytes of the returned results. A @-1@ indicates the value is
+-- null.
+describeStatementResponse_resultSize :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Integer)
+describeStatementResponse_resultSize = Lens.lens (\DescribeStatementResponse' {resultSize} -> resultSize) (\s@DescribeStatementResponse' {} a -> s {resultSize = a} :: DescribeStatementResponse)
+
+-- | The name or Amazon Resource Name (ARN) of the secret that enables access
+-- to the database.
+describeStatementResponse_secretArn :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Text)
+describeStatementResponse_secretArn = Lens.lens (\DescribeStatementResponse' {secretArn} -> secretArn) (\s@DescribeStatementResponse' {} a -> s {secretArn = a} :: DescribeStatementResponse)
 
 -- | The status of the SQL statement being described. Status values are
 -- defined as follows:
@@ -368,79 +445,18 @@ newDescribeStatementResponse pHttpStatus_ pId_ =
 describeStatementResponse_status :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe StatusString)
 describeStatementResponse_status = Lens.lens (\DescribeStatementResponse' {status} -> status) (\s@DescribeStatementResponse' {} a -> s {status = a} :: DescribeStatementResponse)
 
--- | The identifier of the query generated by Amazon Redshift. These
--- identifiers are also available in the @query@ column of the @STL_QUERY@
--- system view.
-describeStatementResponse_redshiftQueryId :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Integer)
-describeStatementResponse_redshiftQueryId = Lens.lens (\DescribeStatementResponse' {redshiftQueryId} -> redshiftQueryId) (\s@DescribeStatementResponse' {} a -> s {redshiftQueryId = a} :: DescribeStatementResponse)
-
--- | The size in bytes of the returned results. A @-1@ indicates the value is
--- null.
-describeStatementResponse_resultSize :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Integer)
-describeStatementResponse_resultSize = Lens.lens (\DescribeStatementResponse' {resultSize} -> resultSize) (\s@DescribeStatementResponse' {} a -> s {resultSize = a} :: DescribeStatementResponse)
-
--- | The database user name.
-describeStatementResponse_dbUser :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Text)
-describeStatementResponse_dbUser = Lens.lens (\DescribeStatementResponse' {dbUser} -> dbUser) (\s@DescribeStatementResponse' {} a -> s {dbUser = a} :: DescribeStatementResponse)
-
 -- | The SQL statements from a multiple statement run.
 describeStatementResponse_subStatements :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe [SubStatementData])
 describeStatementResponse_subStatements = Lens.lens (\DescribeStatementResponse' {subStatements} -> subStatements) (\s@DescribeStatementResponse' {} a -> s {subStatements = a} :: DescribeStatementResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The name of the database.
-describeStatementResponse_database :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Text)
-describeStatementResponse_database = Lens.lens (\DescribeStatementResponse' {database} -> database) (\s@DescribeStatementResponse' {} a -> s {database = a} :: DescribeStatementResponse)
-
--- | The date and time (UTC) when the SQL statement was submitted to run.
-describeStatementResponse_createdAt :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.UTCTime)
-describeStatementResponse_createdAt = Lens.lens (\DescribeStatementResponse' {createdAt} -> createdAt) (\s@DescribeStatementResponse' {} a -> s {createdAt = a} :: DescribeStatementResponse) Prelude.. Lens.mapping Core._Time
-
--- | The parameters for the SQL statement.
-describeStatementResponse_queryParameters :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe (Prelude.NonEmpty SqlParameter))
-describeStatementResponse_queryParameters = Lens.lens (\DescribeStatementResponse' {queryParameters} -> queryParameters) (\s@DescribeStatementResponse' {} a -> s {queryParameters = a} :: DescribeStatementResponse) Prelude.. Lens.mapping Lens.coerced
-
--- | The error message from the cluster if the SQL statement encountered an
--- error while running.
-describeStatementResponse_error :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Text)
-describeStatementResponse_error = Lens.lens (\DescribeStatementResponse' {error} -> error) (\s@DescribeStatementResponse' {} a -> s {error = a} :: DescribeStatementResponse)
-
--- | Either the number of rows returned from the SQL statement or the number
--- of rows affected. If result size is greater than zero, the result rows
--- can be the number of rows affected by SQL statements such as INSERT,
--- UPDATE, DELETE, COPY, and others. A @-1@ indicates the value is null.
-describeStatementResponse_resultRows :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Integer)
-describeStatementResponse_resultRows = Lens.lens (\DescribeStatementResponse' {resultRows} -> resultRows) (\s@DescribeStatementResponse' {} a -> s {resultRows = a} :: DescribeStatementResponse)
-
--- | The process identifier from Amazon Redshift.
-describeStatementResponse_redshiftPid :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Integer)
-describeStatementResponse_redshiftPid = Lens.lens (\DescribeStatementResponse' {redshiftPid} -> redshiftPid) (\s@DescribeStatementResponse' {} a -> s {redshiftPid = a} :: DescribeStatementResponse)
-
--- | The cluster identifier.
-describeStatementResponse_clusterIdentifier :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Text)
-describeStatementResponse_clusterIdentifier = Lens.lens (\DescribeStatementResponse' {clusterIdentifier} -> clusterIdentifier) (\s@DescribeStatementResponse' {} a -> s {clusterIdentifier = a} :: DescribeStatementResponse)
-
--- | A value that indicates whether the statement has a result set. The
--- result set can be empty.
-describeStatementResponse_hasResultSet :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Bool)
-describeStatementResponse_hasResultSet = Lens.lens (\DescribeStatementResponse' {hasResultSet} -> hasResultSet) (\s@DescribeStatementResponse' {} a -> s {hasResultSet = a} :: DescribeStatementResponse)
-
--- | The SQL statement text.
-describeStatementResponse_queryString :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Text)
-describeStatementResponse_queryString = Lens.lens (\DescribeStatementResponse' {queryString} -> queryString) (\s@DescribeStatementResponse' {} a -> s {queryString = a} :: DescribeStatementResponse)
-
 -- | The date and time (UTC) that the metadata for the SQL statement was last
 -- updated. An example is the time the status last changed.
 describeStatementResponse_updatedAt :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.UTCTime)
-describeStatementResponse_updatedAt = Lens.lens (\DescribeStatementResponse' {updatedAt} -> updatedAt) (\s@DescribeStatementResponse' {} a -> s {updatedAt = a} :: DescribeStatementResponse) Prelude.. Lens.mapping Core._Time
+describeStatementResponse_updatedAt = Lens.lens (\DescribeStatementResponse' {updatedAt} -> updatedAt) (\s@DescribeStatementResponse' {} a -> s {updatedAt = a} :: DescribeStatementResponse) Prelude.. Lens.mapping Data._Time
 
--- | The name or Amazon Resource Name (ARN) of the secret that enables access
--- to the database.
-describeStatementResponse_secretArn :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Text)
-describeStatementResponse_secretArn = Lens.lens (\DescribeStatementResponse' {secretArn} -> secretArn) (\s@DescribeStatementResponse' {} a -> s {secretArn = a} :: DescribeStatementResponse)
-
--- | The amount of time in nanoseconds that the statement ran.
-describeStatementResponse_duration :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Integer)
-describeStatementResponse_duration = Lens.lens (\DescribeStatementResponse' {duration} -> duration) (\s@DescribeStatementResponse' {} a -> s {duration = a} :: DescribeStatementResponse)
+-- | The serverless workgroup name.
+describeStatementResponse_workgroupName :: Lens.Lens' DescribeStatementResponse (Prelude.Maybe Prelude.Text)
+describeStatementResponse_workgroupName = Lens.lens (\DescribeStatementResponse' {workgroupName} -> workgroupName) (\s@DescribeStatementResponse' {} a -> s {workgroupName = a} :: DescribeStatementResponse)
 
 -- | The response's http status code.
 describeStatementResponse_httpStatus :: Lens.Lens' DescribeStatementResponse Prelude.Int
@@ -454,22 +470,23 @@ describeStatementResponse_id = Lens.lens (\DescribeStatementResponse' {id} -> id
 
 instance Prelude.NFData DescribeStatementResponse where
   rnf DescribeStatementResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf redshiftQueryId
-      `Prelude.seq` Prelude.rnf resultSize
-      `Prelude.seq` Prelude.rnf dbUser
-      `Prelude.seq` Prelude.rnf subStatements
-      `Prelude.seq` Prelude.rnf database
+    Prelude.rnf clusterIdentifier
       `Prelude.seq` Prelude.rnf createdAt
-      `Prelude.seq` Prelude.rnf queryParameters
-      `Prelude.seq` Prelude.rnf error
-      `Prelude.seq` Prelude.rnf resultRows
-      `Prelude.seq` Prelude.rnf redshiftPid
-      `Prelude.seq` Prelude.rnf clusterIdentifier
-      `Prelude.seq` Prelude.rnf hasResultSet
-      `Prelude.seq` Prelude.rnf queryString
-      `Prelude.seq` Prelude.rnf updatedAt
-      `Prelude.seq` Prelude.rnf secretArn
+      `Prelude.seq` Prelude.rnf database
+      `Prelude.seq` Prelude.rnf dbUser
       `Prelude.seq` Prelude.rnf duration
+      `Prelude.seq` Prelude.rnf error
+      `Prelude.seq` Prelude.rnf hasResultSet
+      `Prelude.seq` Prelude.rnf queryParameters
+      `Prelude.seq` Prelude.rnf queryString
+      `Prelude.seq` Prelude.rnf redshiftPid
+      `Prelude.seq` Prelude.rnf redshiftQueryId
+      `Prelude.seq` Prelude.rnf resultRows
+      `Prelude.seq` Prelude.rnf resultSize
+      `Prelude.seq` Prelude.rnf secretArn
+      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf subStatements
+      `Prelude.seq` Prelude.rnf updatedAt
+      `Prelude.seq` Prelude.rnf workgroupName
       `Prelude.seq` Prelude.rnf httpStatus
       `Prelude.seq` Prelude.rnf id

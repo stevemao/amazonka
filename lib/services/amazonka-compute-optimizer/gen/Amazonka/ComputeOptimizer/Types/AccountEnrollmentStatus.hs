@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ComputeOptimizer.Types.AccountEnrollmentStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.ComputeOptimizer.Types.AccountEnrollmentStatus where
 
 import Amazonka.ComputeOptimizer.Types.Status
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the enrollment status of an organization\'s member accounts in
@@ -29,19 +30,19 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAccountEnrollmentStatus' smart constructor.
 data AccountEnrollmentStatus = AccountEnrollmentStatus'
-  { -- | The account enrollment status.
-    status :: Prelude.Maybe Status,
-    -- | The Amazon Web Services account ID.
+  { -- | The Amazon Web Services account ID.
     accountId :: Prelude.Maybe Prelude.Text,
+    -- | The Unix epoch timestamp, in seconds, of when the account enrollment
+    -- status was last updated.
+    lastUpdatedTimestamp :: Prelude.Maybe Data.POSIX,
+    -- | The account enrollment status.
+    status :: Prelude.Maybe Status,
     -- | The reason for the account enrollment status.
     --
     -- For example, an account might show a status of @Pending@ because member
     -- accounts of an organization require more time to be enrolled in the
     -- service.
-    statusReason :: Prelude.Maybe Prelude.Text,
-    -- | The Unix epoch timestamp, in seconds, of when the account enrollment
-    -- status was last updated.
-    lastUpdatedTimestamp :: Prelude.Maybe Core.POSIX
+    statusReason :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -53,35 +54,41 @@ data AccountEnrollmentStatus = AccountEnrollmentStatus'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'accountEnrollmentStatus_status' - The account enrollment status.
---
 -- 'accountId', 'accountEnrollmentStatus_accountId' - The Amazon Web Services account ID.
+--
+-- 'lastUpdatedTimestamp', 'accountEnrollmentStatus_lastUpdatedTimestamp' - The Unix epoch timestamp, in seconds, of when the account enrollment
+-- status was last updated.
+--
+-- 'status', 'accountEnrollmentStatus_status' - The account enrollment status.
 --
 -- 'statusReason', 'accountEnrollmentStatus_statusReason' - The reason for the account enrollment status.
 --
 -- For example, an account might show a status of @Pending@ because member
 -- accounts of an organization require more time to be enrolled in the
 -- service.
---
--- 'lastUpdatedTimestamp', 'accountEnrollmentStatus_lastUpdatedTimestamp' - The Unix epoch timestamp, in seconds, of when the account enrollment
--- status was last updated.
 newAccountEnrollmentStatus ::
   AccountEnrollmentStatus
 newAccountEnrollmentStatus =
   AccountEnrollmentStatus'
-    { status = Prelude.Nothing,
-      accountId = Prelude.Nothing,
-      statusReason = Prelude.Nothing,
-      lastUpdatedTimestamp = Prelude.Nothing
+    { accountId =
+        Prelude.Nothing,
+      lastUpdatedTimestamp = Prelude.Nothing,
+      status = Prelude.Nothing,
+      statusReason = Prelude.Nothing
     }
-
--- | The account enrollment status.
-accountEnrollmentStatus_status :: Lens.Lens' AccountEnrollmentStatus (Prelude.Maybe Status)
-accountEnrollmentStatus_status = Lens.lens (\AccountEnrollmentStatus' {status} -> status) (\s@AccountEnrollmentStatus' {} a -> s {status = a} :: AccountEnrollmentStatus)
 
 -- | The Amazon Web Services account ID.
 accountEnrollmentStatus_accountId :: Lens.Lens' AccountEnrollmentStatus (Prelude.Maybe Prelude.Text)
 accountEnrollmentStatus_accountId = Lens.lens (\AccountEnrollmentStatus' {accountId} -> accountId) (\s@AccountEnrollmentStatus' {} a -> s {accountId = a} :: AccountEnrollmentStatus)
+
+-- | The Unix epoch timestamp, in seconds, of when the account enrollment
+-- status was last updated.
+accountEnrollmentStatus_lastUpdatedTimestamp :: Lens.Lens' AccountEnrollmentStatus (Prelude.Maybe Prelude.UTCTime)
+accountEnrollmentStatus_lastUpdatedTimestamp = Lens.lens (\AccountEnrollmentStatus' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@AccountEnrollmentStatus' {} a -> s {lastUpdatedTimestamp = a} :: AccountEnrollmentStatus) Prelude.. Lens.mapping Data._Time
+
+-- | The account enrollment status.
+accountEnrollmentStatus_status :: Lens.Lens' AccountEnrollmentStatus (Prelude.Maybe Status)
+accountEnrollmentStatus_status = Lens.lens (\AccountEnrollmentStatus' {status} -> status) (\s@AccountEnrollmentStatus' {} a -> s {status = a} :: AccountEnrollmentStatus)
 
 -- | The reason for the account enrollment status.
 --
@@ -91,33 +98,28 @@ accountEnrollmentStatus_accountId = Lens.lens (\AccountEnrollmentStatus' {accoun
 accountEnrollmentStatus_statusReason :: Lens.Lens' AccountEnrollmentStatus (Prelude.Maybe Prelude.Text)
 accountEnrollmentStatus_statusReason = Lens.lens (\AccountEnrollmentStatus' {statusReason} -> statusReason) (\s@AccountEnrollmentStatus' {} a -> s {statusReason = a} :: AccountEnrollmentStatus)
 
--- | The Unix epoch timestamp, in seconds, of when the account enrollment
--- status was last updated.
-accountEnrollmentStatus_lastUpdatedTimestamp :: Lens.Lens' AccountEnrollmentStatus (Prelude.Maybe Prelude.UTCTime)
-accountEnrollmentStatus_lastUpdatedTimestamp = Lens.lens (\AccountEnrollmentStatus' {lastUpdatedTimestamp} -> lastUpdatedTimestamp) (\s@AccountEnrollmentStatus' {} a -> s {lastUpdatedTimestamp = a} :: AccountEnrollmentStatus) Prelude.. Lens.mapping Core._Time
-
-instance Core.FromJSON AccountEnrollmentStatus where
+instance Data.FromJSON AccountEnrollmentStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AccountEnrollmentStatus"
       ( \x ->
           AccountEnrollmentStatus'
-            Prelude.<$> (x Core..:? "status")
-            Prelude.<*> (x Core..:? "accountId")
-            Prelude.<*> (x Core..:? "statusReason")
-            Prelude.<*> (x Core..:? "lastUpdatedTimestamp")
+            Prelude.<$> (x Data..:? "accountId")
+            Prelude.<*> (x Data..:? "lastUpdatedTimestamp")
+            Prelude.<*> (x Data..:? "status")
+            Prelude.<*> (x Data..:? "statusReason")
       )
 
 instance Prelude.Hashable AccountEnrollmentStatus where
   hashWithSalt _salt AccountEnrollmentStatus' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` accountId
-      `Prelude.hashWithSalt` statusReason
+    _salt `Prelude.hashWithSalt` accountId
       `Prelude.hashWithSalt` lastUpdatedTimestamp
+      `Prelude.hashWithSalt` status
+      `Prelude.hashWithSalt` statusReason
 
 instance Prelude.NFData AccountEnrollmentStatus where
   rnf AccountEnrollmentStatus' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf accountId
-      `Prelude.seq` Prelude.rnf statusReason
+    Prelude.rnf accountId
       `Prelude.seq` Prelude.rnf lastUpdatedTimestamp
+      `Prelude.seq` Prelude.rnf status
+      `Prelude.seq` Prelude.rnf statusReason

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.Mp2Settings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.Mp2Settings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Required when you set (Codec) under (AudioDescriptions)>(CodecSettings)
@@ -28,14 +29,14 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newMp2Settings' smart constructor.
 data Mp2Settings = Mp2Settings'
-  { -- | Set Channels to specify the number of channels in this output audio
+  { -- | Specify the average bitrate in bits per second.
+    bitrate :: Prelude.Maybe Prelude.Natural,
+    -- | Set Channels to specify the number of channels in this output audio
     -- track. Choosing Mono in the console will give you 1 output channel;
     -- choosing Stereo will give you 2. In the API, valid values are 1 and 2.
     channels :: Prelude.Maybe Prelude.Natural,
     -- | Sample rate in hz.
-    sampleRate :: Prelude.Maybe Prelude.Natural,
-    -- | Specify the average bitrate in bits per second.
-    bitrate :: Prelude.Maybe Prelude.Natural
+    sampleRate :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,21 +48,25 @@ data Mp2Settings = Mp2Settings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'bitrate', 'mp2Settings_bitrate' - Specify the average bitrate in bits per second.
+--
 -- 'channels', 'mp2Settings_channels' - Set Channels to specify the number of channels in this output audio
 -- track. Choosing Mono in the console will give you 1 output channel;
 -- choosing Stereo will give you 2. In the API, valid values are 1 and 2.
 --
 -- 'sampleRate', 'mp2Settings_sampleRate' - Sample rate in hz.
---
--- 'bitrate', 'mp2Settings_bitrate' - Specify the average bitrate in bits per second.
 newMp2Settings ::
   Mp2Settings
 newMp2Settings =
   Mp2Settings'
-    { channels = Prelude.Nothing,
-      sampleRate = Prelude.Nothing,
-      bitrate = Prelude.Nothing
+    { bitrate = Prelude.Nothing,
+      channels = Prelude.Nothing,
+      sampleRate = Prelude.Nothing
     }
+
+-- | Specify the average bitrate in bits per second.
+mp2Settings_bitrate :: Lens.Lens' Mp2Settings (Prelude.Maybe Prelude.Natural)
+mp2Settings_bitrate = Lens.lens (\Mp2Settings' {bitrate} -> bitrate) (\s@Mp2Settings' {} a -> s {bitrate = a} :: Mp2Settings)
 
 -- | Set Channels to specify the number of channels in this output audio
 -- track. Choosing Mono in the console will give you 1 output channel;
@@ -73,39 +78,35 @@ mp2Settings_channels = Lens.lens (\Mp2Settings' {channels} -> channels) (\s@Mp2S
 mp2Settings_sampleRate :: Lens.Lens' Mp2Settings (Prelude.Maybe Prelude.Natural)
 mp2Settings_sampleRate = Lens.lens (\Mp2Settings' {sampleRate} -> sampleRate) (\s@Mp2Settings' {} a -> s {sampleRate = a} :: Mp2Settings)
 
--- | Specify the average bitrate in bits per second.
-mp2Settings_bitrate :: Lens.Lens' Mp2Settings (Prelude.Maybe Prelude.Natural)
-mp2Settings_bitrate = Lens.lens (\Mp2Settings' {bitrate} -> bitrate) (\s@Mp2Settings' {} a -> s {bitrate = a} :: Mp2Settings)
-
-instance Core.FromJSON Mp2Settings where
+instance Data.FromJSON Mp2Settings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Mp2Settings"
       ( \x ->
           Mp2Settings'
-            Prelude.<$> (x Core..:? "channels")
-            Prelude.<*> (x Core..:? "sampleRate")
-            Prelude.<*> (x Core..:? "bitrate")
+            Prelude.<$> (x Data..:? "bitrate")
+            Prelude.<*> (x Data..:? "channels")
+            Prelude.<*> (x Data..:? "sampleRate")
       )
 
 instance Prelude.Hashable Mp2Settings where
   hashWithSalt _salt Mp2Settings' {..} =
-    _salt `Prelude.hashWithSalt` channels
+    _salt `Prelude.hashWithSalt` bitrate
+      `Prelude.hashWithSalt` channels
       `Prelude.hashWithSalt` sampleRate
-      `Prelude.hashWithSalt` bitrate
 
 instance Prelude.NFData Mp2Settings where
   rnf Mp2Settings' {..} =
-    Prelude.rnf channels
+    Prelude.rnf bitrate
+      `Prelude.seq` Prelude.rnf channels
       `Prelude.seq` Prelude.rnf sampleRate
-      `Prelude.seq` Prelude.rnf bitrate
 
-instance Core.ToJSON Mp2Settings where
+instance Data.ToJSON Mp2Settings where
   toJSON Mp2Settings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("channels" Core..=) Prelude.<$> channels,
-            ("sampleRate" Core..=) Prelude.<$> sampleRate,
-            ("bitrate" Core..=) Prelude.<$> bitrate
+          [ ("bitrate" Data..=) Prelude.<$> bitrate,
+            ("channels" Data..=) Prelude.<$> channels,
+            ("sampleRate" Data..=) Prelude.<$> sampleRate
           ]
       )

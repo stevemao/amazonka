@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruReviewer.Types.CodeReviewType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CodeGuruReviewer.Types.CodeReviewType where
 import Amazonka.CodeGuruReviewer.Types.AnalysisType
 import Amazonka.CodeGuruReviewer.Types.RepositoryAnalysis
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The type of a code review. There are two code review types:
@@ -33,8 +34,7 @@ import qualified Amazonka.Prelude as Prelude
 -- -   @RepositoryAnalysis@ - A code review that analyzes all code under a
 --     specified branch in an associated repository. The associated
 --     repository is specified using its ARN in
---     <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CreateCodeReview CreateCodeReview>
---     .
+--     <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CreateCodeReview CreateCodeReview>.
 --
 -- /See:/ 'newCodeReviewType' smart constructor.
 data CodeReviewType = CodeReviewType'
@@ -45,8 +45,7 @@ data CodeReviewType = CodeReviewType'
     -- | A code review that analyzes all code under a specified branch in an
     -- associated repository. The associated repository is specified using its
     -- ARN in
-    -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CreateCodeReview CreateCodeReview>
-    -- .
+    -- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CreateCodeReview CreateCodeReview>.
     repositoryAnalysis :: RepositoryAnalysis
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -66,8 +65,7 @@ data CodeReviewType = CodeReviewType'
 -- 'repositoryAnalysis', 'codeReviewType_repositoryAnalysis' - A code review that analyzes all code under a specified branch in an
 -- associated repository. The associated repository is specified using its
 -- ARN in
--- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CreateCodeReview CreateCodeReview>
--- .
+-- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CreateCodeReview CreateCodeReview>.
 newCodeReviewType ::
   -- | 'repositoryAnalysis'
   RepositoryAnalysis ->
@@ -87,8 +85,7 @@ codeReviewType_analysisTypes = Lens.lens (\CodeReviewType' {analysisTypes} -> an
 -- | A code review that analyzes all code under a specified branch in an
 -- associated repository. The associated repository is specified using its
 -- ARN in
--- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CreateCodeReview CreateCodeReview>
--- .
+-- <https://docs.aws.amazon.com/codeguru/latest/reviewer-api/API_CreateCodeReview CreateCodeReview>.
 codeReviewType_repositoryAnalysis :: Lens.Lens' CodeReviewType RepositoryAnalysis
 codeReviewType_repositoryAnalysis = Lens.lens (\CodeReviewType' {repositoryAnalysis} -> repositoryAnalysis) (\s@CodeReviewType' {} a -> s {repositoryAnalysis = a} :: CodeReviewType)
 
@@ -102,12 +99,12 @@ instance Prelude.NFData CodeReviewType where
     Prelude.rnf analysisTypes
       `Prelude.seq` Prelude.rnf repositoryAnalysis
 
-instance Core.ToJSON CodeReviewType where
+instance Data.ToJSON CodeReviewType where
   toJSON CodeReviewType' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("AnalysisTypes" Core..=) Prelude.<$> analysisTypes,
+          [ ("AnalysisTypes" Data..=) Prelude.<$> analysisTypes,
             Prelude.Just
-              ("RepositoryAnalysis" Core..= repositoryAnalysis)
+              ("RepositoryAnalysis" Data..= repositoryAnalysis)
           ]
       )

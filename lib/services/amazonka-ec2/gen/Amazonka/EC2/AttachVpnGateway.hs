@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.AttachVpnGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,8 +47,9 @@ module Amazonka.EC2.AttachVpnGateway
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -117,12 +118,13 @@ instance Core.AWSRequest AttachVpnGateway where
   type
     AWSResponse AttachVpnGateway =
       AttachVpnGatewayResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           AttachVpnGatewayResponse'
-            Prelude.<$> (x Core..@? "attachment")
+            Prelude.<$> (x Data..@? "attachment")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -138,22 +140,22 @@ instance Prelude.NFData AttachVpnGateway where
       `Prelude.seq` Prelude.rnf vpcId
       `Prelude.seq` Prelude.rnf vpnGatewayId
 
-instance Core.ToHeaders AttachVpnGateway where
+instance Data.ToHeaders AttachVpnGateway where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath AttachVpnGateway where
+instance Data.ToPath AttachVpnGateway where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AttachVpnGateway where
+instance Data.ToQuery AttachVpnGateway where
   toQuery AttachVpnGateway' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("AttachVpnGateway" :: Prelude.ByteString),
+          Data.=: ("AttachVpnGateway" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        "DryRun" Core.=: dryRun,
-        "VpcId" Core.=: vpcId,
-        "VpnGatewayId" Core.=: vpnGatewayId
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        "VpcId" Data.=: vpcId,
+        "VpnGatewayId" Data.=: vpnGatewayId
       ]
 
 -- | Contains the output of AttachVpnGateway.

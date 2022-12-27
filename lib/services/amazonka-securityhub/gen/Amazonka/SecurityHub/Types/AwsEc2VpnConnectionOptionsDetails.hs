@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SecurityHub.Types.AwsEc2VpnConnectionOptionsDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SecurityHub.Types.AwsEc2VpnConnectionOptionsDetails where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SecurityHub.Types.AwsEc2VpnConnectionOptionsTunnelOptionsDetails
 
@@ -28,10 +29,10 @@ import Amazonka.SecurityHub.Types.AwsEc2VpnConnectionOptionsTunnelOptionsDetails
 --
 -- /See:/ 'newAwsEc2VpnConnectionOptionsDetails' smart constructor.
 data AwsEc2VpnConnectionOptionsDetails = AwsEc2VpnConnectionOptionsDetails'
-  { -- | The VPN tunnel options.
-    tunnelOptions :: Prelude.Maybe [AwsEc2VpnConnectionOptionsTunnelOptionsDetails],
-    -- | Whether the VPN connection uses static routes only.
-    staticRoutesOnly :: Prelude.Maybe Prelude.Bool
+  { -- | Whether the VPN connection uses static routes only.
+    staticRoutesOnly :: Prelude.Maybe Prelude.Bool,
+    -- | The VPN tunnel options.
+    tunnelOptions :: Prelude.Maybe [AwsEc2VpnConnectionOptionsTunnelOptionsDetails]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,37 +44,37 @@ data AwsEc2VpnConnectionOptionsDetails = AwsEc2VpnConnectionOptionsDetails'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'tunnelOptions', 'awsEc2VpnConnectionOptionsDetails_tunnelOptions' - The VPN tunnel options.
---
 -- 'staticRoutesOnly', 'awsEc2VpnConnectionOptionsDetails_staticRoutesOnly' - Whether the VPN connection uses static routes only.
+--
+-- 'tunnelOptions', 'awsEc2VpnConnectionOptionsDetails_tunnelOptions' - The VPN tunnel options.
 newAwsEc2VpnConnectionOptionsDetails ::
   AwsEc2VpnConnectionOptionsDetails
 newAwsEc2VpnConnectionOptionsDetails =
   AwsEc2VpnConnectionOptionsDetails'
-    { tunnelOptions =
+    { staticRoutesOnly =
         Prelude.Nothing,
-      staticRoutesOnly = Prelude.Nothing
+      tunnelOptions = Prelude.Nothing
     }
-
--- | The VPN tunnel options.
-awsEc2VpnConnectionOptionsDetails_tunnelOptions :: Lens.Lens' AwsEc2VpnConnectionOptionsDetails (Prelude.Maybe [AwsEc2VpnConnectionOptionsTunnelOptionsDetails])
-awsEc2VpnConnectionOptionsDetails_tunnelOptions = Lens.lens (\AwsEc2VpnConnectionOptionsDetails' {tunnelOptions} -> tunnelOptions) (\s@AwsEc2VpnConnectionOptionsDetails' {} a -> s {tunnelOptions = a} :: AwsEc2VpnConnectionOptionsDetails) Prelude.. Lens.mapping Lens.coerced
 
 -- | Whether the VPN connection uses static routes only.
 awsEc2VpnConnectionOptionsDetails_staticRoutesOnly :: Lens.Lens' AwsEc2VpnConnectionOptionsDetails (Prelude.Maybe Prelude.Bool)
 awsEc2VpnConnectionOptionsDetails_staticRoutesOnly = Lens.lens (\AwsEc2VpnConnectionOptionsDetails' {staticRoutesOnly} -> staticRoutesOnly) (\s@AwsEc2VpnConnectionOptionsDetails' {} a -> s {staticRoutesOnly = a} :: AwsEc2VpnConnectionOptionsDetails)
 
+-- | The VPN tunnel options.
+awsEc2VpnConnectionOptionsDetails_tunnelOptions :: Lens.Lens' AwsEc2VpnConnectionOptionsDetails (Prelude.Maybe [AwsEc2VpnConnectionOptionsTunnelOptionsDetails])
+awsEc2VpnConnectionOptionsDetails_tunnelOptions = Lens.lens (\AwsEc2VpnConnectionOptionsDetails' {tunnelOptions} -> tunnelOptions) (\s@AwsEc2VpnConnectionOptionsDetails' {} a -> s {tunnelOptions = a} :: AwsEc2VpnConnectionOptionsDetails) Prelude.. Lens.mapping Lens.coerced
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     AwsEc2VpnConnectionOptionsDetails
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsEc2VpnConnectionOptionsDetails"
       ( \x ->
           AwsEc2VpnConnectionOptionsDetails'
-            Prelude.<$> (x Core..:? "TunnelOptions" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "StaticRoutesOnly")
+            Prelude.<$> (x Data..:? "StaticRoutesOnly")
+            Prelude.<*> (x Data..:? "TunnelOptions" Data..!= Prelude.mempty)
       )
 
 instance
@@ -83,26 +84,26 @@ instance
   hashWithSalt
     _salt
     AwsEc2VpnConnectionOptionsDetails' {..} =
-      _salt `Prelude.hashWithSalt` tunnelOptions
-        `Prelude.hashWithSalt` staticRoutesOnly
+      _salt `Prelude.hashWithSalt` staticRoutesOnly
+        `Prelude.hashWithSalt` tunnelOptions
 
 instance
   Prelude.NFData
     AwsEc2VpnConnectionOptionsDetails
   where
   rnf AwsEc2VpnConnectionOptionsDetails' {..} =
-    Prelude.rnf tunnelOptions
-      `Prelude.seq` Prelude.rnf staticRoutesOnly
+    Prelude.rnf staticRoutesOnly
+      `Prelude.seq` Prelude.rnf tunnelOptions
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     AwsEc2VpnConnectionOptionsDetails
   where
   toJSON AwsEc2VpnConnectionOptionsDetails' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("TunnelOptions" Core..=) Prelude.<$> tunnelOptions,
-            ("StaticRoutesOnly" Core..=)
-              Prelude.<$> staticRoutesOnly
+          [ ("StaticRoutesOnly" Data..=)
+              Prelude.<$> staticRoutesOnly,
+            ("TunnelOptions" Data..=) Prelude.<$> tunnelOptions
           ]
       )

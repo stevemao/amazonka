@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.DescribeChannelBan
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -105,12 +106,13 @@ instance Core.AWSRequest DescribeChannelBan where
   type
     AWSResponse DescribeChannelBan =
       DescribeChannelBanResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeChannelBanResponse'
-            Prelude.<$> (x Core..?> "ChannelBan")
+            Prelude.<$> (x Data..?> "ChannelBan")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -126,21 +128,21 @@ instance Prelude.NFData DescribeChannelBan where
       `Prelude.seq` Prelude.rnf channelArn
       `Prelude.seq` Prelude.rnf memberArn
 
-instance Core.ToHeaders DescribeChannelBan where
+instance Data.ToHeaders DescribeChannelBan where
   toHeaders DescribeChannelBan' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToPath DescribeChannelBan where
+instance Data.ToPath DescribeChannelBan where
   toPath DescribeChannelBan' {..} =
     Prelude.mconcat
       [ "/channels/",
-        Core.toBS channelArn,
+        Data.toBS channelArn,
         "/bans/",
-        Core.toBS memberArn
+        Data.toBS memberArn
       ]
 
-instance Core.ToQuery DescribeChannelBan where
+instance Data.ToQuery DescribeChannelBan where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeChannelBanResponse' smart constructor.

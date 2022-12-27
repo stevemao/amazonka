@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.BlueGreenUpdatePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,30 @@
 module Amazonka.SageMaker.Types.BlueGreenUpdatePolicy where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.TrafficRoutingConfig
 
--- | Currently, the @BlueGreenUpdatePolicy@ API is not supported.
+-- | Update policy for a blue\/green deployment. If this update policy is
+-- specified, SageMaker creates a new fleet during the deployment while
+-- maintaining the old fleet. SageMaker flips traffic to the new fleet
+-- according to the specified traffic routing configuration. Only one
+-- update policy should be used in the deployment configuration. If no
+-- update policy is specified, SageMaker uses a blue\/green deployment
+-- strategy with all at once traffic shifting by default.
 --
 -- /See:/ 'newBlueGreenUpdatePolicy' smart constructor.
 data BlueGreenUpdatePolicy = BlueGreenUpdatePolicy'
-  { maximumExecutionTimeoutInSeconds :: Prelude.Maybe Prelude.Natural,
+  { -- | Maximum execution timeout for the deployment. Note that the timeout
+    -- value should be larger than the total waiting time specified in
+    -- @TerminationWaitInSeconds@ and @WaitIntervalInSeconds@.
+    maximumExecutionTimeoutInSeconds :: Prelude.Maybe Prelude.Natural,
+    -- | Additional waiting time in seconds after the completion of an endpoint
+    -- deployment before terminating the old endpoint fleet. Default is 0.
     terminationWaitInSeconds :: Prelude.Maybe Prelude.Natural,
+    -- | Defines the traffic routing strategy to shift traffic from the old fleet
+    -- to the new fleet during an endpoint deployment.
     trafficRoutingConfiguration :: TrafficRoutingConfig
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -42,11 +56,15 @@ data BlueGreenUpdatePolicy = BlueGreenUpdatePolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'maximumExecutionTimeoutInSeconds', 'blueGreenUpdatePolicy_maximumExecutionTimeoutInSeconds' -
+-- 'maximumExecutionTimeoutInSeconds', 'blueGreenUpdatePolicy_maximumExecutionTimeoutInSeconds' - Maximum execution timeout for the deployment. Note that the timeout
+-- value should be larger than the total waiting time specified in
+-- @TerminationWaitInSeconds@ and @WaitIntervalInSeconds@.
 --
--- 'terminationWaitInSeconds', 'blueGreenUpdatePolicy_terminationWaitInSeconds' -
+-- 'terminationWaitInSeconds', 'blueGreenUpdatePolicy_terminationWaitInSeconds' - Additional waiting time in seconds after the completion of an endpoint
+-- deployment before terminating the old endpoint fleet. Default is 0.
 --
--- 'trafficRoutingConfiguration', 'blueGreenUpdatePolicy_trafficRoutingConfiguration' -
+-- 'trafficRoutingConfiguration', 'blueGreenUpdatePolicy_trafficRoutingConfiguration' - Defines the traffic routing strategy to shift traffic from the old fleet
+-- to the new fleet during an endpoint deployment.
 newBlueGreenUpdatePolicy ::
   -- | 'trafficRoutingConfiguration'
   TrafficRoutingConfig ->
@@ -61,27 +79,31 @@ newBlueGreenUpdatePolicy
           pTrafficRoutingConfiguration_
       }
 
--- |
+-- | Maximum execution timeout for the deployment. Note that the timeout
+-- value should be larger than the total waiting time specified in
+-- @TerminationWaitInSeconds@ and @WaitIntervalInSeconds@.
 blueGreenUpdatePolicy_maximumExecutionTimeoutInSeconds :: Lens.Lens' BlueGreenUpdatePolicy (Prelude.Maybe Prelude.Natural)
 blueGreenUpdatePolicy_maximumExecutionTimeoutInSeconds = Lens.lens (\BlueGreenUpdatePolicy' {maximumExecutionTimeoutInSeconds} -> maximumExecutionTimeoutInSeconds) (\s@BlueGreenUpdatePolicy' {} a -> s {maximumExecutionTimeoutInSeconds = a} :: BlueGreenUpdatePolicy)
 
--- |
+-- | Additional waiting time in seconds after the completion of an endpoint
+-- deployment before terminating the old endpoint fleet. Default is 0.
 blueGreenUpdatePolicy_terminationWaitInSeconds :: Lens.Lens' BlueGreenUpdatePolicy (Prelude.Maybe Prelude.Natural)
 blueGreenUpdatePolicy_terminationWaitInSeconds = Lens.lens (\BlueGreenUpdatePolicy' {terminationWaitInSeconds} -> terminationWaitInSeconds) (\s@BlueGreenUpdatePolicy' {} a -> s {terminationWaitInSeconds = a} :: BlueGreenUpdatePolicy)
 
--- |
+-- | Defines the traffic routing strategy to shift traffic from the old fleet
+-- to the new fleet during an endpoint deployment.
 blueGreenUpdatePolicy_trafficRoutingConfiguration :: Lens.Lens' BlueGreenUpdatePolicy TrafficRoutingConfig
 blueGreenUpdatePolicy_trafficRoutingConfiguration = Lens.lens (\BlueGreenUpdatePolicy' {trafficRoutingConfiguration} -> trafficRoutingConfiguration) (\s@BlueGreenUpdatePolicy' {} a -> s {trafficRoutingConfiguration = a} :: BlueGreenUpdatePolicy)
 
-instance Core.FromJSON BlueGreenUpdatePolicy where
+instance Data.FromJSON BlueGreenUpdatePolicy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BlueGreenUpdatePolicy"
       ( \x ->
           BlueGreenUpdatePolicy'
-            Prelude.<$> (x Core..:? "MaximumExecutionTimeoutInSeconds")
-            Prelude.<*> (x Core..:? "TerminationWaitInSeconds")
-            Prelude.<*> (x Core..: "TrafficRoutingConfiguration")
+            Prelude.<$> (x Data..:? "MaximumExecutionTimeoutInSeconds")
+            Prelude.<*> (x Data..:? "TerminationWaitInSeconds")
+            Prelude.<*> (x Data..: "TrafficRoutingConfiguration")
       )
 
 instance Prelude.Hashable BlueGreenUpdatePolicy where
@@ -97,17 +119,17 @@ instance Prelude.NFData BlueGreenUpdatePolicy where
       `Prelude.seq` Prelude.rnf terminationWaitInSeconds
       `Prelude.seq` Prelude.rnf trafficRoutingConfiguration
 
-instance Core.ToJSON BlueGreenUpdatePolicy where
+instance Data.ToJSON BlueGreenUpdatePolicy where
   toJSON BlueGreenUpdatePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MaximumExecutionTimeoutInSeconds" Core..=)
+          [ ("MaximumExecutionTimeoutInSeconds" Data..=)
               Prelude.<$> maximumExecutionTimeoutInSeconds,
-            ("TerminationWaitInSeconds" Core..=)
+            ("TerminationWaitInSeconds" Data..=)
               Prelude.<$> terminationWaitInSeconds,
             Prelude.Just
               ( "TrafficRoutingConfiguration"
-                  Core..= trafficRoutingConfiguration
+                  Data..= trafficRoutingConfiguration
               )
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.SlotStartTimeRangeRequest
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.EC2.Types.SlotStartTimeRangeRequest where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the time period for a Scheduled Instance to start its first
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSlotStartTimeRangeRequest' smart constructor.
 data SlotStartTimeRangeRequest = SlotStartTimeRangeRequest'
-  { -- | The latest date and time, in UTC, for the Scheduled Instance to start.
-    latestTime :: Prelude.Maybe Core.ISO8601,
-    -- | The earliest date and time, in UTC, for the Scheduled Instance to start.
-    earliestTime :: Prelude.Maybe Core.ISO8601
+  { -- | The earliest date and time, in UTC, for the Scheduled Instance to start.
+    earliestTime :: Prelude.Maybe Data.ISO8601,
+    -- | The latest date and time, in UTC, for the Scheduled Instance to start.
+    latestTime :: Prelude.Maybe Data.ISO8601
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,39 +45,39 @@ data SlotStartTimeRangeRequest = SlotStartTimeRangeRequest'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'latestTime', 'slotStartTimeRangeRequest_latestTime' - The latest date and time, in UTC, for the Scheduled Instance to start.
---
 -- 'earliestTime', 'slotStartTimeRangeRequest_earliestTime' - The earliest date and time, in UTC, for the Scheduled Instance to start.
+--
+-- 'latestTime', 'slotStartTimeRangeRequest_latestTime' - The latest date and time, in UTC, for the Scheduled Instance to start.
 newSlotStartTimeRangeRequest ::
   SlotStartTimeRangeRequest
 newSlotStartTimeRangeRequest =
   SlotStartTimeRangeRequest'
-    { latestTime =
+    { earliestTime =
         Prelude.Nothing,
-      earliestTime = Prelude.Nothing
+      latestTime = Prelude.Nothing
     }
-
--- | The latest date and time, in UTC, for the Scheduled Instance to start.
-slotStartTimeRangeRequest_latestTime :: Lens.Lens' SlotStartTimeRangeRequest (Prelude.Maybe Prelude.UTCTime)
-slotStartTimeRangeRequest_latestTime = Lens.lens (\SlotStartTimeRangeRequest' {latestTime} -> latestTime) (\s@SlotStartTimeRangeRequest' {} a -> s {latestTime = a} :: SlotStartTimeRangeRequest) Prelude.. Lens.mapping Core._Time
 
 -- | The earliest date and time, in UTC, for the Scheduled Instance to start.
 slotStartTimeRangeRequest_earliestTime :: Lens.Lens' SlotStartTimeRangeRequest (Prelude.Maybe Prelude.UTCTime)
-slotStartTimeRangeRequest_earliestTime = Lens.lens (\SlotStartTimeRangeRequest' {earliestTime} -> earliestTime) (\s@SlotStartTimeRangeRequest' {} a -> s {earliestTime = a} :: SlotStartTimeRangeRequest) Prelude.. Lens.mapping Core._Time
+slotStartTimeRangeRequest_earliestTime = Lens.lens (\SlotStartTimeRangeRequest' {earliestTime} -> earliestTime) (\s@SlotStartTimeRangeRequest' {} a -> s {earliestTime = a} :: SlotStartTimeRangeRequest) Prelude.. Lens.mapping Data._Time
+
+-- | The latest date and time, in UTC, for the Scheduled Instance to start.
+slotStartTimeRangeRequest_latestTime :: Lens.Lens' SlotStartTimeRangeRequest (Prelude.Maybe Prelude.UTCTime)
+slotStartTimeRangeRequest_latestTime = Lens.lens (\SlotStartTimeRangeRequest' {latestTime} -> latestTime) (\s@SlotStartTimeRangeRequest' {} a -> s {latestTime = a} :: SlotStartTimeRangeRequest) Prelude.. Lens.mapping Data._Time
 
 instance Prelude.Hashable SlotStartTimeRangeRequest where
   hashWithSalt _salt SlotStartTimeRangeRequest' {..} =
-    _salt `Prelude.hashWithSalt` latestTime
-      `Prelude.hashWithSalt` earliestTime
+    _salt `Prelude.hashWithSalt` earliestTime
+      `Prelude.hashWithSalt` latestTime
 
 instance Prelude.NFData SlotStartTimeRangeRequest where
   rnf SlotStartTimeRangeRequest' {..} =
-    Prelude.rnf latestTime
-      `Prelude.seq` Prelude.rnf earliestTime
+    Prelude.rnf earliestTime
+      `Prelude.seq` Prelude.rnf latestTime
 
-instance Core.ToQuery SlotStartTimeRangeRequest where
+instance Data.ToQuery SlotStartTimeRangeRequest where
   toQuery SlotStartTimeRangeRequest' {..} =
     Prelude.mconcat
-      [ "LatestTime" Core.=: latestTime,
-        "EarliestTime" Core.=: earliestTime
+      [ "EarliestTime" Data.=: earliestTime,
+        "LatestTime" Data.=: latestTime
       ]

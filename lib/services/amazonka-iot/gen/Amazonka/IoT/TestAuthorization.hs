@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.TestAuthorization
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,10 +34,10 @@ module Amazonka.IoT.TestAuthorization
 
     -- * Request Lenses
     testAuthorization_clientId,
-    testAuthorization_policyNamesToAdd,
-    testAuthorization_principal,
     testAuthorization_cognitoIdentityPoolId,
+    testAuthorization_policyNamesToAdd,
     testAuthorization_policyNamesToSkip,
+    testAuthorization_principal,
     testAuthorization_authInfos,
 
     -- * Destructuring the Response
@@ -51,8 +51,9 @@ module Amazonka.IoT.TestAuthorization
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,19 +62,19 @@ import qualified Amazonka.Response as Response
 data TestAuthorization = TestAuthorization'
   { -- | The MQTT client ID.
     clientId :: Prelude.Maybe Prelude.Text,
+    -- | The Cognito identity pool ID.
+    cognitoIdentityPoolId :: Prelude.Maybe Prelude.Text,
     -- | When testing custom authorization, the policies specified here are
     -- treated as if they are attached to the principal being authorized.
     policyNamesToAdd :: Prelude.Maybe [Prelude.Text],
+    -- | When testing custom authorization, the policies specified here are
+    -- treated as if they are not attached to the principal being authorized.
+    policyNamesToSkip :: Prelude.Maybe [Prelude.Text],
     -- | The principal. Valid principals are CertificateArn
     -- (arn:aws:iot:/region/:/accountId/:cert\//certificateId/), thingGroupArn
     -- (arn:aws:iot:/region/:/accountId/:thinggroup\//groupName/) and CognitoId
     -- (/region/:/id/).
     principal :: Prelude.Maybe Prelude.Text,
-    -- | The Cognito identity pool ID.
-    cognitoIdentityPoolId :: Prelude.Maybe Prelude.Text,
-    -- | When testing custom authorization, the policies specified here are
-    -- treated as if they are not attached to the principal being authorized.
-    policyNamesToSkip :: Prelude.Maybe [Prelude.Text],
     -- | A list of authorization info objects. Simulating authorization will
     -- create a response for each @authInfo@ object in the list.
     authInfos :: Prelude.NonEmpty AuthInfo
@@ -90,18 +91,18 @@ data TestAuthorization = TestAuthorization'
 --
 -- 'clientId', 'testAuthorization_clientId' - The MQTT client ID.
 --
+-- 'cognitoIdentityPoolId', 'testAuthorization_cognitoIdentityPoolId' - The Cognito identity pool ID.
+--
 -- 'policyNamesToAdd', 'testAuthorization_policyNamesToAdd' - When testing custom authorization, the policies specified here are
 -- treated as if they are attached to the principal being authorized.
+--
+-- 'policyNamesToSkip', 'testAuthorization_policyNamesToSkip' - When testing custom authorization, the policies specified here are
+-- treated as if they are not attached to the principal being authorized.
 --
 -- 'principal', 'testAuthorization_principal' - The principal. Valid principals are CertificateArn
 -- (arn:aws:iot:/region/:/accountId/:cert\//certificateId/), thingGroupArn
 -- (arn:aws:iot:/region/:/accountId/:thinggroup\//groupName/) and CognitoId
 -- (/region/:/id/).
---
--- 'cognitoIdentityPoolId', 'testAuthorization_cognitoIdentityPoolId' - The Cognito identity pool ID.
---
--- 'policyNamesToSkip', 'testAuthorization_policyNamesToSkip' - When testing custom authorization, the policies specified here are
--- treated as if they are not attached to the principal being authorized.
 --
 -- 'authInfos', 'testAuthorization_authInfos' - A list of authorization info objects. Simulating authorization will
 -- create a response for each @authInfo@ object in the list.
@@ -112,10 +113,10 @@ newTestAuthorization ::
 newTestAuthorization pAuthInfos_ =
   TestAuthorization'
     { clientId = Prelude.Nothing,
-      policyNamesToAdd = Prelude.Nothing,
-      principal = Prelude.Nothing,
       cognitoIdentityPoolId = Prelude.Nothing,
+      policyNamesToAdd = Prelude.Nothing,
       policyNamesToSkip = Prelude.Nothing,
+      principal = Prelude.Nothing,
       authInfos = Lens.coerced Lens.# pAuthInfos_
     }
 
@@ -123,10 +124,19 @@ newTestAuthorization pAuthInfos_ =
 testAuthorization_clientId :: Lens.Lens' TestAuthorization (Prelude.Maybe Prelude.Text)
 testAuthorization_clientId = Lens.lens (\TestAuthorization' {clientId} -> clientId) (\s@TestAuthorization' {} a -> s {clientId = a} :: TestAuthorization)
 
+-- | The Cognito identity pool ID.
+testAuthorization_cognitoIdentityPoolId :: Lens.Lens' TestAuthorization (Prelude.Maybe Prelude.Text)
+testAuthorization_cognitoIdentityPoolId = Lens.lens (\TestAuthorization' {cognitoIdentityPoolId} -> cognitoIdentityPoolId) (\s@TestAuthorization' {} a -> s {cognitoIdentityPoolId = a} :: TestAuthorization)
+
 -- | When testing custom authorization, the policies specified here are
 -- treated as if they are attached to the principal being authorized.
 testAuthorization_policyNamesToAdd :: Lens.Lens' TestAuthorization (Prelude.Maybe [Prelude.Text])
 testAuthorization_policyNamesToAdd = Lens.lens (\TestAuthorization' {policyNamesToAdd} -> policyNamesToAdd) (\s@TestAuthorization' {} a -> s {policyNamesToAdd = a} :: TestAuthorization) Prelude.. Lens.mapping Lens.coerced
+
+-- | When testing custom authorization, the policies specified here are
+-- treated as if they are not attached to the principal being authorized.
+testAuthorization_policyNamesToSkip :: Lens.Lens' TestAuthorization (Prelude.Maybe [Prelude.Text])
+testAuthorization_policyNamesToSkip = Lens.lens (\TestAuthorization' {policyNamesToSkip} -> policyNamesToSkip) (\s@TestAuthorization' {} a -> s {policyNamesToSkip = a} :: TestAuthorization) Prelude.. Lens.mapping Lens.coerced
 
 -- | The principal. Valid principals are CertificateArn
 -- (arn:aws:iot:/region/:/accountId/:cert\//certificateId/), thingGroupArn
@@ -134,15 +144,6 @@ testAuthorization_policyNamesToAdd = Lens.lens (\TestAuthorization' {policyNames
 -- (/region/:/id/).
 testAuthorization_principal :: Lens.Lens' TestAuthorization (Prelude.Maybe Prelude.Text)
 testAuthorization_principal = Lens.lens (\TestAuthorization' {principal} -> principal) (\s@TestAuthorization' {} a -> s {principal = a} :: TestAuthorization)
-
--- | The Cognito identity pool ID.
-testAuthorization_cognitoIdentityPoolId :: Lens.Lens' TestAuthorization (Prelude.Maybe Prelude.Text)
-testAuthorization_cognitoIdentityPoolId = Lens.lens (\TestAuthorization' {cognitoIdentityPoolId} -> cognitoIdentityPoolId) (\s@TestAuthorization' {} a -> s {cognitoIdentityPoolId = a} :: TestAuthorization)
-
--- | When testing custom authorization, the policies specified here are
--- treated as if they are not attached to the principal being authorized.
-testAuthorization_policyNamesToSkip :: Lens.Lens' TestAuthorization (Prelude.Maybe [Prelude.Text])
-testAuthorization_policyNamesToSkip = Lens.lens (\TestAuthorization' {policyNamesToSkip} -> policyNamesToSkip) (\s@TestAuthorization' {} a -> s {policyNamesToSkip = a} :: TestAuthorization) Prelude.. Lens.mapping Lens.coerced
 
 -- | A list of authorization info objects. Simulating authorization will
 -- create a response for each @authInfo@ object in the list.
@@ -153,57 +154,58 @@ instance Core.AWSRequest TestAuthorization where
   type
     AWSResponse TestAuthorization =
       TestAuthorizationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           TestAuthorizationResponse'
-            Prelude.<$> (x Core..?> "authResults" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "authResults" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable TestAuthorization where
   hashWithSalt _salt TestAuthorization' {..} =
     _salt `Prelude.hashWithSalt` clientId
-      `Prelude.hashWithSalt` policyNamesToAdd
-      `Prelude.hashWithSalt` principal
       `Prelude.hashWithSalt` cognitoIdentityPoolId
+      `Prelude.hashWithSalt` policyNamesToAdd
       `Prelude.hashWithSalt` policyNamesToSkip
+      `Prelude.hashWithSalt` principal
       `Prelude.hashWithSalt` authInfos
 
 instance Prelude.NFData TestAuthorization where
   rnf TestAuthorization' {..} =
     Prelude.rnf clientId
-      `Prelude.seq` Prelude.rnf policyNamesToAdd
-      `Prelude.seq` Prelude.rnf principal
       `Prelude.seq` Prelude.rnf cognitoIdentityPoolId
+      `Prelude.seq` Prelude.rnf policyNamesToAdd
       `Prelude.seq` Prelude.rnf policyNamesToSkip
+      `Prelude.seq` Prelude.rnf principal
       `Prelude.seq` Prelude.rnf authInfos
 
-instance Core.ToHeaders TestAuthorization where
+instance Data.ToHeaders TestAuthorization where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON TestAuthorization where
+instance Data.ToJSON TestAuthorization where
   toJSON TestAuthorization' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("policyNamesToAdd" Core..=)
-              Prelude.<$> policyNamesToAdd,
-            ("principal" Core..=) Prelude.<$> principal,
-            ("cognitoIdentityPoolId" Core..=)
+          [ ("cognitoIdentityPoolId" Data..=)
               Prelude.<$> cognitoIdentityPoolId,
-            ("policyNamesToSkip" Core..=)
+            ("policyNamesToAdd" Data..=)
+              Prelude.<$> policyNamesToAdd,
+            ("policyNamesToSkip" Data..=)
               Prelude.<$> policyNamesToSkip,
-            Prelude.Just ("authInfos" Core..= authInfos)
+            ("principal" Data..=) Prelude.<$> principal,
+            Prelude.Just ("authInfos" Data..= authInfos)
           ]
       )
 
-instance Core.ToPath TestAuthorization where
+instance Data.ToPath TestAuthorization where
   toPath = Prelude.const "/test-authorization"
 
-instance Core.ToQuery TestAuthorization where
+instance Data.ToQuery TestAuthorization where
   toQuery TestAuthorization' {..} =
-    Prelude.mconcat ["clientId" Core.=: clientId]
+    Prelude.mconcat ["clientId" Data.=: clientId]
 
 -- | /See:/ 'newTestAuthorizationResponse' smart constructor.
 data TestAuthorizationResponse = TestAuthorizationResponse'

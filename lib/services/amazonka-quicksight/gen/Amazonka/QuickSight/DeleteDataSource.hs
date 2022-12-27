@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DeleteDataSource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,15 +36,16 @@ module Amazonka.QuickSight.DeleteDataSource
     newDeleteDataSourceResponse,
 
     -- * Response Lenses
-    deleteDataSourceResponse_requestId,
     deleteDataSourceResponse_arn,
     deleteDataSourceResponse_dataSourceId,
+    deleteDataSourceResponse_requestId,
     deleteDataSourceResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -97,14 +98,15 @@ instance Core.AWSRequest DeleteDataSource where
   type
     AWSResponse DeleteDataSource =
       DeleteDataSourceResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteDataSourceResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "Arn")
-            Prelude.<*> (x Core..?> "DataSourceId")
+            Prelude.<$> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "DataSourceId")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,38 +120,38 @@ instance Prelude.NFData DeleteDataSource where
     Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf dataSourceId
 
-instance Core.ToHeaders DeleteDataSource where
+instance Data.ToHeaders DeleteDataSource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteDataSource where
+instance Data.ToPath DeleteDataSource where
   toPath DeleteDataSource' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/data-sources/",
-        Core.toBS dataSourceId
+        Data.toBS dataSourceId
       ]
 
-instance Core.ToQuery DeleteDataSource where
+instance Data.ToQuery DeleteDataSource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDataSourceResponse' smart constructor.
 data DeleteDataSourceResponse = DeleteDataSourceResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the data source that you deleted.
+  { -- | The Amazon Resource Name (ARN) of the data source that you deleted.
     arn :: Prelude.Maybe Prelude.Text,
     -- | The ID of the data source. This ID is unique per Amazon Web Services
     -- Region for each Amazon Web Services account.
     dataSourceId :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -163,12 +165,12 @@ data DeleteDataSourceResponse = DeleteDataSourceResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'deleteDataSourceResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'arn', 'deleteDataSourceResponse_arn' - The Amazon Resource Name (ARN) of the data source that you deleted.
 --
 -- 'dataSourceId', 'deleteDataSourceResponse_dataSourceId' - The ID of the data source. This ID is unique per Amazon Web Services
 -- Region for each Amazon Web Services account.
+--
+-- 'requestId', 'deleteDataSourceResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'deleteDataSourceResponse_status' - The HTTP status of the request.
 newDeleteDataSourceResponse ::
@@ -177,16 +179,11 @@ newDeleteDataSourceResponse ::
   DeleteDataSourceResponse
 newDeleteDataSourceResponse pStatus_ =
   DeleteDataSourceResponse'
-    { requestId =
-        Prelude.Nothing,
-      arn = Prelude.Nothing,
+    { arn = Prelude.Nothing,
       dataSourceId = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-deleteDataSourceResponse_requestId :: Lens.Lens' DeleteDataSourceResponse (Prelude.Maybe Prelude.Text)
-deleteDataSourceResponse_requestId = Lens.lens (\DeleteDataSourceResponse' {requestId} -> requestId) (\s@DeleteDataSourceResponse' {} a -> s {requestId = a} :: DeleteDataSourceResponse)
 
 -- | The Amazon Resource Name (ARN) of the data source that you deleted.
 deleteDataSourceResponse_arn :: Lens.Lens' DeleteDataSourceResponse (Prelude.Maybe Prelude.Text)
@@ -197,13 +194,17 @@ deleteDataSourceResponse_arn = Lens.lens (\DeleteDataSourceResponse' {arn} -> ar
 deleteDataSourceResponse_dataSourceId :: Lens.Lens' DeleteDataSourceResponse (Prelude.Maybe Prelude.Text)
 deleteDataSourceResponse_dataSourceId = Lens.lens (\DeleteDataSourceResponse' {dataSourceId} -> dataSourceId) (\s@DeleteDataSourceResponse' {} a -> s {dataSourceId = a} :: DeleteDataSourceResponse)
 
+-- | The Amazon Web Services request ID for this operation.
+deleteDataSourceResponse_requestId :: Lens.Lens' DeleteDataSourceResponse (Prelude.Maybe Prelude.Text)
+deleteDataSourceResponse_requestId = Lens.lens (\DeleteDataSourceResponse' {requestId} -> requestId) (\s@DeleteDataSourceResponse' {} a -> s {requestId = a} :: DeleteDataSourceResponse)
+
 -- | The HTTP status of the request.
 deleteDataSourceResponse_status :: Lens.Lens' DeleteDataSourceResponse Prelude.Int
 deleteDataSourceResponse_status = Lens.lens (\DeleteDataSourceResponse' {status} -> status) (\s@DeleteDataSourceResponse' {} a -> s {status = a} :: DeleteDataSourceResponse)
 
 instance Prelude.NFData DeleteDataSourceResponse where
   rnf DeleteDataSourceResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf arn
+    Prelude.rnf arn
       `Prelude.seq` Prelude.rnf dataSourceId
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

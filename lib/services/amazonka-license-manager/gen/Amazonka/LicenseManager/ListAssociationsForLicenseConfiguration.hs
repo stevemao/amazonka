@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.ListAssociationsForLicenseConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -33,8 +33,8 @@ module Amazonka.LicenseManager.ListAssociationsForLicenseConfiguration
     newListAssociationsForLicenseConfiguration,
 
     -- * Request Lenses
-    listAssociationsForLicenseConfiguration_nextToken,
     listAssociationsForLicenseConfiguration_maxResults,
+    listAssociationsForLicenseConfiguration_nextToken,
     listAssociationsForLicenseConfiguration_licenseConfigurationArn,
 
     -- * Destructuring the Response
@@ -49,7 +49,8 @@ module Amazonka.LicenseManager.ListAssociationsForLicenseConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LicenseManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -57,10 +58,10 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListAssociationsForLicenseConfiguration' smart constructor.
 data ListAssociationsForLicenseConfiguration = ListAssociationsForLicenseConfiguration'
-  { -- | Token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of results to return in a single call.
+  { -- | Maximum number of results to return in a single call.
     maxResults :: Prelude.Maybe Prelude.Int,
+    -- | Token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | Amazon Resource Name (ARN) of a license configuration.
     licenseConfigurationArn :: Prelude.Text
   }
@@ -74,9 +75,9 @@ data ListAssociationsForLicenseConfiguration = ListAssociationsForLicenseConfigu
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listAssociationsForLicenseConfiguration_nextToken' - Token for the next set of results.
---
 -- 'maxResults', 'listAssociationsForLicenseConfiguration_maxResults' - Maximum number of results to return in a single call.
+--
+-- 'nextToken', 'listAssociationsForLicenseConfiguration_nextToken' - Token for the next set of results.
 --
 -- 'licenseConfigurationArn', 'listAssociationsForLicenseConfiguration_licenseConfigurationArn' - Amazon Resource Name (ARN) of a license configuration.
 newListAssociationsForLicenseConfiguration ::
@@ -86,20 +87,20 @@ newListAssociationsForLicenseConfiguration ::
 newListAssociationsForLicenseConfiguration
   pLicenseConfigurationArn_ =
     ListAssociationsForLicenseConfiguration'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
+        nextToken = Prelude.Nothing,
         licenseConfigurationArn =
           pLicenseConfigurationArn_
       }
 
--- | Token for the next set of results.
-listAssociationsForLicenseConfiguration_nextToken :: Lens.Lens' ListAssociationsForLicenseConfiguration (Prelude.Maybe Prelude.Text)
-listAssociationsForLicenseConfiguration_nextToken = Lens.lens (\ListAssociationsForLicenseConfiguration' {nextToken} -> nextToken) (\s@ListAssociationsForLicenseConfiguration' {} a -> s {nextToken = a} :: ListAssociationsForLicenseConfiguration)
-
 -- | Maximum number of results to return in a single call.
 listAssociationsForLicenseConfiguration_maxResults :: Lens.Lens' ListAssociationsForLicenseConfiguration (Prelude.Maybe Prelude.Int)
 listAssociationsForLicenseConfiguration_maxResults = Lens.lens (\ListAssociationsForLicenseConfiguration' {maxResults} -> maxResults) (\s@ListAssociationsForLicenseConfiguration' {} a -> s {maxResults = a} :: ListAssociationsForLicenseConfiguration)
+
+-- | Token for the next set of results.
+listAssociationsForLicenseConfiguration_nextToken :: Lens.Lens' ListAssociationsForLicenseConfiguration (Prelude.Maybe Prelude.Text)
+listAssociationsForLicenseConfiguration_nextToken = Lens.lens (\ListAssociationsForLicenseConfiguration' {nextToken} -> nextToken) (\s@ListAssociationsForLicenseConfiguration' {} a -> s {nextToken = a} :: ListAssociationsForLicenseConfiguration)
 
 -- | Amazon Resource Name (ARN) of a license configuration.
 listAssociationsForLicenseConfiguration_licenseConfigurationArn :: Lens.Lens' ListAssociationsForLicenseConfiguration Prelude.Text
@@ -138,15 +139,16 @@ instance
     AWSResponse
       ListAssociationsForLicenseConfiguration =
       ListAssociationsForLicenseConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListAssociationsForLicenseConfigurationResponse'
-            Prelude.<$> ( x Core..?> "LicenseConfigurationAssociations"
+            Prelude.<$> ( x Data..?> "LicenseConfigurationAssociations"
                             Core..!@ Prelude.mempty
                         )
-              Prelude.<*> (x Core..?> "NextToken")
+              Prelude.<*> (x Data..?> "NextToken")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -157,8 +159,8 @@ instance
   hashWithSalt
     _salt
     ListAssociationsForLicenseConfiguration' {..} =
-      _salt `Prelude.hashWithSalt` nextToken
-        `Prelude.hashWithSalt` maxResults
+      _salt `Prelude.hashWithSalt` maxResults
+        `Prelude.hashWithSalt` nextToken
         `Prelude.hashWithSalt` licenseConfigurationArn
 
 instance
@@ -166,52 +168,52 @@ instance
     ListAssociationsForLicenseConfiguration
   where
   rnf ListAssociationsForLicenseConfiguration' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf licenseConfigurationArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ListAssociationsForLicenseConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSLicenseManager.ListAssociationsForLicenseConfiguration" ::
+              Data.=# ( "AWSLicenseManager.ListAssociationsForLicenseConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     ListAssociationsForLicenseConfiguration
   where
   toJSON ListAssociationsForLicenseConfiguration' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
               ( "LicenseConfigurationArn"
-                  Core..= licenseConfigurationArn
+                  Data..= licenseConfigurationArn
               )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     ListAssociationsForLicenseConfiguration
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ListAssociationsForLicenseConfiguration
   where
   toQuery = Prelude.const Prelude.mempty

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Route53.CreateKeySigningKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ module Amazonka.Route53.CreateKeySigningKey
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,13 +60,13 @@ data CreateKeySigningKey = CreateKeySigningKey'
     callerReference :: Prelude.Text,
     -- | The unique string (ID) used to identify a hosted zone.
     hostedZoneId :: ResourceId,
-    -- | The Amazon resource name (ARN) for a customer managed customer master
-    -- key (CMK) in Key Management Service (KMS). The @KeyManagementServiceArn@
-    -- must be unique for each key-signing key (KSK) in a single hosted zone.
-    -- To see an example of @KeyManagementServiceArn@ that grants the correct
-    -- permissions for DNSSEC, scroll down to __Example__.
+    -- | The Amazon resource name (ARN) for a customer managed key in Key
+    -- Management Service (KMS). The @KeyManagementServiceArn@ must be unique
+    -- for each key-signing key (KSK) in a single hosted zone. To see an
+    -- example of @KeyManagementServiceArn@ that grants the correct permissions
+    -- for DNSSEC, scroll down to __Example__.
     --
-    -- You must configure the customer managed CMK as follows:
+    -- You must configure the customer managed customer managed key as follows:
     --
     -- [Status]
     --     Enabled
@@ -90,7 +91,7 @@ data CreateKeySigningKey = CreateKeySigningKey'
     --
     --     -   @\"Service\": \"dnssec-route53.amazonaws.com\"@
     --
-    -- For more information about working with a customer managed CMK in KMS,
+    -- For more information about working with a customer managed key in KMS,
     -- see
     -- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html Key Management Service concepts>.
     keyManagementServiceArn :: Prelude.Text,
@@ -116,13 +117,13 @@ data CreateKeySigningKey = CreateKeySigningKey'
 --
 -- 'hostedZoneId', 'createKeySigningKey_hostedZoneId' - The unique string (ID) used to identify a hosted zone.
 --
--- 'keyManagementServiceArn', 'createKeySigningKey_keyManagementServiceArn' - The Amazon resource name (ARN) for a customer managed customer master
--- key (CMK) in Key Management Service (KMS). The @KeyManagementServiceArn@
--- must be unique for each key-signing key (KSK) in a single hosted zone.
--- To see an example of @KeyManagementServiceArn@ that grants the correct
--- permissions for DNSSEC, scroll down to __Example__.
+-- 'keyManagementServiceArn', 'createKeySigningKey_keyManagementServiceArn' - The Amazon resource name (ARN) for a customer managed key in Key
+-- Management Service (KMS). The @KeyManagementServiceArn@ must be unique
+-- for each key-signing key (KSK) in a single hosted zone. To see an
+-- example of @KeyManagementServiceArn@ that grants the correct permissions
+-- for DNSSEC, scroll down to __Example__.
 --
--- You must configure the customer managed CMK as follows:
+-- You must configure the customer managed customer managed key as follows:
 --
 -- [Status]
 --     Enabled
@@ -147,7 +148,7 @@ data CreateKeySigningKey = CreateKeySigningKey'
 --
 --     -   @\"Service\": \"dnssec-route53.amazonaws.com\"@
 --
--- For more information about working with a customer managed CMK in KMS,
+-- For more information about working with a customer managed key in KMS,
 -- see
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html Key Management Service concepts>.
 --
@@ -192,13 +193,13 @@ createKeySigningKey_callerReference = Lens.lens (\CreateKeySigningKey' {callerRe
 createKeySigningKey_hostedZoneId :: Lens.Lens' CreateKeySigningKey ResourceId
 createKeySigningKey_hostedZoneId = Lens.lens (\CreateKeySigningKey' {hostedZoneId} -> hostedZoneId) (\s@CreateKeySigningKey' {} a -> s {hostedZoneId = a} :: CreateKeySigningKey)
 
--- | The Amazon resource name (ARN) for a customer managed customer master
--- key (CMK) in Key Management Service (KMS). The @KeyManagementServiceArn@
--- must be unique for each key-signing key (KSK) in a single hosted zone.
--- To see an example of @KeyManagementServiceArn@ that grants the correct
--- permissions for DNSSEC, scroll down to __Example__.
+-- | The Amazon resource name (ARN) for a customer managed key in Key
+-- Management Service (KMS). The @KeyManagementServiceArn@ must be unique
+-- for each key-signing key (KSK) in a single hosted zone. To see an
+-- example of @KeyManagementServiceArn@ that grants the correct permissions
+-- for DNSSEC, scroll down to __Example__.
 --
--- You must configure the customer managed CMK as follows:
+-- You must configure the customer managed customer managed key as follows:
 --
 -- [Status]
 --     Enabled
@@ -223,7 +224,7 @@ createKeySigningKey_hostedZoneId = Lens.lens (\CreateKeySigningKey' {hostedZoneI
 --
 --     -   @\"Service\": \"dnssec-route53.amazonaws.com\"@
 --
--- For more information about working with a customer managed CMK in KMS,
+-- For more information about working with a customer managed key in KMS,
 -- see
 -- <https://docs.aws.amazon.com/kms/latest/developerguide/concepts.html Key Management Service concepts>.
 createKeySigningKey_keyManagementServiceArn :: Lens.Lens' CreateKeySigningKey Prelude.Text
@@ -244,15 +245,16 @@ instance Core.AWSRequest CreateKeySigningKey where
   type
     AWSResponse CreateKeySigningKey =
       CreateKeySigningKeyResponse
-  request = Request.postXML defaultService
+  request overrides =
+    Request.postXML (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           CreateKeySigningKeyResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..@ "ChangeInfo")
-            Prelude.<*> (x Core..@ "KeySigningKey")
-            Prelude.<*> (h Core..# "Location")
+            Prelude.<*> (x Data..@ "ChangeInfo")
+            Prelude.<*> (x Data..@ "KeySigningKey")
+            Prelude.<*> (h Data..# "Location")
       )
 
 instance Prelude.Hashable CreateKeySigningKey where
@@ -271,29 +273,29 @@ instance Prelude.NFData CreateKeySigningKey where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf status
 
-instance Core.ToElement CreateKeySigningKey where
+instance Data.ToElement CreateKeySigningKey where
   toElement =
-    Core.mkElement
+    Data.mkElement
       "{https://route53.amazonaws.com/doc/2013-04-01/}CreateKeySigningKeyRequest"
 
-instance Core.ToHeaders CreateKeySigningKey where
+instance Data.ToHeaders CreateKeySigningKey where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateKeySigningKey where
+instance Data.ToPath CreateKeySigningKey where
   toPath = Prelude.const "/2013-04-01/keysigningkey"
 
-instance Core.ToQuery CreateKeySigningKey where
+instance Data.ToQuery CreateKeySigningKey where
   toQuery = Prelude.const Prelude.mempty
 
-instance Core.ToXML CreateKeySigningKey where
+instance Data.ToXML CreateKeySigningKey where
   toXML CreateKeySigningKey' {..} =
     Prelude.mconcat
-      [ "CallerReference" Core.@= callerReference,
-        "HostedZoneId" Core.@= hostedZoneId,
+      [ "CallerReference" Data.@= callerReference,
+        "HostedZoneId" Data.@= hostedZoneId,
         "KeyManagementServiceArn"
-          Core.@= keyManagementServiceArn,
-        "Name" Core.@= name,
-        "Status" Core.@= status
+          Data.@= keyManagementServiceArn,
+        "Name" Data.@= name,
+        "Status" Data.@= status
       ]
 
 -- | /See:/ 'newCreateKeySigningKeyResponse' smart constructor.

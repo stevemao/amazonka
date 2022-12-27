@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EBS.PutSnapshotBlock
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,15 +44,16 @@ module Amazonka.EBS.PutSnapshotBlock
     newPutSnapshotBlockResponse,
 
     -- * Response Lenses
-    putSnapshotBlockResponse_checksumAlgorithm,
     putSnapshotBlockResponse_checksum,
+    putSnapshotBlockResponse_checksumAlgorithm,
     putSnapshotBlockResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EBS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -62,6 +63,12 @@ data PutSnapshotBlock = PutSnapshotBlock'
   { -- | The progress of the write process, as a percentage.
     progress :: Prelude.Maybe Prelude.Natural,
     -- | The ID of the snapshot.
+    --
+    -- If the specified snapshot is encrypted, you must have permission to use
+    -- the KMS key that was used to encrypt the snapshot. For more information,
+    -- see
+    -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebsapis-using-encryption.html Using encryption>
+    -- in the /Amazon Elastic Compute Cloud User Guide/..
     snapshotId :: Prelude.Text,
     -- | The block index of the block in which to write the data. A block index
     -- is a logical index in units of @512@ KiB blocks. To identify the block
@@ -93,7 +100,7 @@ data PutSnapshotBlock = PutSnapshotBlock'
     -- request fails. For more information, see
     -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-accessing-snapshot.html#ebsapis-using-checksums Using checksums with the EBS direct APIs>
     -- in the /Amazon Elastic Compute Cloud User Guide/.
-    blockData :: Core.HashedBody
+    blockData :: Data.HashedBody
   }
   deriving (Prelude.Show, Prelude.Generic)
 
@@ -108,6 +115,12 @@ data PutSnapshotBlock = PutSnapshotBlock'
 -- 'progress', 'putSnapshotBlock_progress' - The progress of the write process, as a percentage.
 --
 -- 'snapshotId', 'putSnapshotBlock_snapshotId' - The ID of the snapshot.
+--
+-- If the specified snapshot is encrypted, you must have permission to use
+-- the KMS key that was used to encrypt the snapshot. For more information,
+-- see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebsapis-using-encryption.html Using encryption>
+-- in the /Amazon Elastic Compute Cloud User Guide/..
 --
 -- 'blockIndex', 'putSnapshotBlock_blockIndex' - The block index of the block in which to write the data. A block index
 -- is a logical index in units of @512@ KiB blocks. To identify the block
@@ -151,7 +164,7 @@ newPutSnapshotBlock ::
   -- | 'checksumAlgorithm'
   ChecksumAlgorithm ->
   -- | 'blockData'
-  Core.HashedBody ->
+  Data.HashedBody ->
   PutSnapshotBlock
 newPutSnapshotBlock
   pSnapshotId_
@@ -175,6 +188,12 @@ putSnapshotBlock_progress :: Lens.Lens' PutSnapshotBlock (Prelude.Maybe Prelude.
 putSnapshotBlock_progress = Lens.lens (\PutSnapshotBlock' {progress} -> progress) (\s@PutSnapshotBlock' {} a -> s {progress = a} :: PutSnapshotBlock)
 
 -- | The ID of the snapshot.
+--
+-- If the specified snapshot is encrypted, you must have permission to use
+-- the KMS key that was used to encrypt the snapshot. For more information,
+-- see
+-- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebsapis-using-encryption.html Using encryption>
+-- in the /Amazon Elastic Compute Cloud User Guide/..
 putSnapshotBlock_snapshotId :: Lens.Lens' PutSnapshotBlock Prelude.Text
 putSnapshotBlock_snapshotId = Lens.lens (\PutSnapshotBlock' {snapshotId} -> snapshotId) (\s@PutSnapshotBlock' {} a -> s {snapshotId = a} :: PutSnapshotBlock)
 
@@ -216,55 +235,56 @@ putSnapshotBlock_checksumAlgorithm = Lens.lens (\PutSnapshotBlock' {checksumAlgo
 -- request fails. For more information, see
 -- <https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-accessing-snapshot.html#ebsapis-using-checksums Using checksums with the EBS direct APIs>
 -- in the /Amazon Elastic Compute Cloud User Guide/.
-putSnapshotBlock_blockData :: Lens.Lens' PutSnapshotBlock Core.HashedBody
+putSnapshotBlock_blockData :: Lens.Lens' PutSnapshotBlock Data.HashedBody
 putSnapshotBlock_blockData = Lens.lens (\PutSnapshotBlock' {blockData} -> blockData) (\s@PutSnapshotBlock' {} a -> s {blockData = a} :: PutSnapshotBlock)
 
 instance Core.AWSRequest PutSnapshotBlock where
   type
     AWSResponse PutSnapshotBlock =
       PutSnapshotBlockResponse
-  request = Request.putBody defaultService
+  request overrides =
+    Request.putBody (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
           PutSnapshotBlockResponse'
-            Prelude.<$> (h Core..#? "x-amz-Checksum-Algorithm")
-            Prelude.<*> (h Core..#? "x-amz-Checksum")
+            Prelude.<$> (h Data..#? "x-amz-Checksum")
+            Prelude.<*> (h Data..#? "x-amz-Checksum-Algorithm")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
-instance Core.ToBody PutSnapshotBlock where
-  toBody PutSnapshotBlock' {..} = Core.toBody blockData
+instance Data.ToBody PutSnapshotBlock where
+  toBody PutSnapshotBlock' {..} = Data.toBody blockData
 
-instance Core.ToHeaders PutSnapshotBlock where
+instance Data.ToHeaders PutSnapshotBlock where
   toHeaders PutSnapshotBlock' {..} =
     Prelude.mconcat
-      [ "x-amz-Progress" Core.=# progress,
-        "x-amz-Data-Length" Core.=# dataLength,
-        "x-amz-Checksum" Core.=# checksum,
-        "x-amz-Checksum-Algorithm" Core.=# checksumAlgorithm,
+      [ "x-amz-Progress" Data.=# progress,
+        "x-amz-Data-Length" Data.=# dataLength,
+        "x-amz-Checksum" Data.=# checksum,
+        "x-amz-Checksum-Algorithm" Data.=# checksumAlgorithm,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToPath PutSnapshotBlock where
+instance Data.ToPath PutSnapshotBlock where
   toPath PutSnapshotBlock' {..} =
     Prelude.mconcat
       [ "/snapshots/",
-        Core.toBS snapshotId,
+        Data.toBS snapshotId,
         "/blocks/",
-        Core.toBS blockIndex
+        Data.toBS blockIndex
       ]
 
-instance Core.ToQuery PutSnapshotBlock where
+instance Data.ToQuery PutSnapshotBlock where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutSnapshotBlockResponse' smart constructor.
 data PutSnapshotBlockResponse = PutSnapshotBlockResponse'
-  { -- | The algorithm used by Amazon EBS to generate the checksum.
-    checksumAlgorithm :: Prelude.Maybe ChecksumAlgorithm,
-    -- | The SHA256 checksum generated for the block data by Amazon EBS.
+  { -- | The SHA256 checksum generated for the block data by Amazon EBS.
     checksum :: Prelude.Maybe Prelude.Text,
+    -- | The algorithm used by Amazon EBS to generate the checksum.
+    checksumAlgorithm :: Prelude.Maybe ChecksumAlgorithm,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -278,9 +298,9 @@ data PutSnapshotBlockResponse = PutSnapshotBlockResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'checksumAlgorithm', 'putSnapshotBlockResponse_checksumAlgorithm' - The algorithm used by Amazon EBS to generate the checksum.
---
 -- 'checksum', 'putSnapshotBlockResponse_checksum' - The SHA256 checksum generated for the block data by Amazon EBS.
+--
+-- 'checksumAlgorithm', 'putSnapshotBlockResponse_checksumAlgorithm' - The algorithm used by Amazon EBS to generate the checksum.
 --
 -- 'httpStatus', 'putSnapshotBlockResponse_httpStatus' - The response's http status code.
 newPutSnapshotBlockResponse ::
@@ -289,19 +309,19 @@ newPutSnapshotBlockResponse ::
   PutSnapshotBlockResponse
 newPutSnapshotBlockResponse pHttpStatus_ =
   PutSnapshotBlockResponse'
-    { checksumAlgorithm =
+    { checksum =
         Prelude.Nothing,
-      checksum = Prelude.Nothing,
+      checksumAlgorithm = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The algorithm used by Amazon EBS to generate the checksum.
-putSnapshotBlockResponse_checksumAlgorithm :: Lens.Lens' PutSnapshotBlockResponse (Prelude.Maybe ChecksumAlgorithm)
-putSnapshotBlockResponse_checksumAlgorithm = Lens.lens (\PutSnapshotBlockResponse' {checksumAlgorithm} -> checksumAlgorithm) (\s@PutSnapshotBlockResponse' {} a -> s {checksumAlgorithm = a} :: PutSnapshotBlockResponse)
 
 -- | The SHA256 checksum generated for the block data by Amazon EBS.
 putSnapshotBlockResponse_checksum :: Lens.Lens' PutSnapshotBlockResponse (Prelude.Maybe Prelude.Text)
 putSnapshotBlockResponse_checksum = Lens.lens (\PutSnapshotBlockResponse' {checksum} -> checksum) (\s@PutSnapshotBlockResponse' {} a -> s {checksum = a} :: PutSnapshotBlockResponse)
+
+-- | The algorithm used by Amazon EBS to generate the checksum.
+putSnapshotBlockResponse_checksumAlgorithm :: Lens.Lens' PutSnapshotBlockResponse (Prelude.Maybe ChecksumAlgorithm)
+putSnapshotBlockResponse_checksumAlgorithm = Lens.lens (\PutSnapshotBlockResponse' {checksumAlgorithm} -> checksumAlgorithm) (\s@PutSnapshotBlockResponse' {} a -> s {checksumAlgorithm = a} :: PutSnapshotBlockResponse)
 
 -- | The response's http status code.
 putSnapshotBlockResponse_httpStatus :: Lens.Lens' PutSnapshotBlockResponse Prelude.Int
@@ -309,6 +329,6 @@ putSnapshotBlockResponse_httpStatus = Lens.lens (\PutSnapshotBlockResponse' {htt
 
 instance Prelude.NFData PutSnapshotBlockResponse where
   rnf PutSnapshotBlockResponse' {..} =
-    Prelude.rnf checksumAlgorithm
-      `Prelude.seq` Prelude.rnf checksum
+    Prelude.rnf checksum
+      `Prelude.seq` Prelude.rnf checksumAlgorithm
       `Prelude.seq` Prelude.rnf httpStatus

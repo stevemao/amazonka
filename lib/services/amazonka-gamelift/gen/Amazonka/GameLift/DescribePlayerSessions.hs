@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.GameLift.DescribePlayerSessions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,12 +41,8 @@
 -- If successful, a @PlayerSession@ object is returned for each session
 -- that matches the request.
 --
--- /Available in Amazon GameLift Local./
---
 -- __Related actions__
 --
--- CreatePlayerSession | CreatePlayerSessions | DescribePlayerSessions |
--- StartGameSessionPlacement | DescribeGameSessionPlacement |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 --
 -- This operation returns paginated results.
@@ -57,10 +53,10 @@ module Amazonka.GameLift.DescribePlayerSessions
 
     -- * Request Lenses
     describePlayerSessions_gameSessionId,
-    describePlayerSessions_nextToken,
     describePlayerSessions_limit,
-    describePlayerSessions_playerSessionId,
+    describePlayerSessions_nextToken,
     describePlayerSessions_playerId,
+    describePlayerSessions_playerSessionId,
     describePlayerSessions_playerSessionStatusFilter,
 
     -- * Destructuring the Response
@@ -75,33 +71,35 @@ module Amazonka.GameLift.DescribePlayerSessions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
--- | Represents the input for a request operation.
---
--- /See:/ 'newDescribePlayerSessions' smart constructor.
+-- | /See:/ 'newDescribePlayerSessions' smart constructor.
 data DescribePlayerSessions = DescribePlayerSessions'
   { -- | A unique identifier for the game session to retrieve player sessions
     -- for.
     gameSessionId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of results to return. Use this parameter with
+    -- @NextToken@ to get results as a set of sequential pages. If a player
+    -- session ID is specified, this parameter is ignored.
+    limit :: Prelude.Maybe Prelude.Natural,
     -- | A token that indicates the start of the next sequential page of results.
     -- Use the token that is returned with a previous call to this operation.
     -- To start at the beginning of the result set, do not specify a value. If
     -- a player session ID is specified, this parameter is ignored.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to return. Use this parameter with
-    -- @NextToken@ to get results as a set of sequential pages. If a player
-    -- session ID is specified, this parameter is ignored.
-    limit :: Prelude.Maybe Prelude.Natural,
-    -- | A unique identifier for a player session to retrieve.
-    playerSessionId :: Prelude.Maybe Prelude.Text,
     -- | A unique identifier for a player to retrieve player sessions for.
     playerId :: Prelude.Maybe Prelude.Text,
-    -- | Player session status to filter results on.
+    -- | A unique identifier for a player session to retrieve.
+    playerSessionId :: Prelude.Maybe Prelude.Text,
+    -- | Player session status to filter results on. Note that when a
+    -- PlayerSessionId or PlayerId is provided in a DescribePlayerSessions
+    -- request, then the PlayerSessionStatusFilter has no effect on the
+    -- response.
     --
     -- Possible player session statuses include the following:
     --
@@ -132,20 +130,23 @@ data DescribePlayerSessions = DescribePlayerSessions'
 -- 'gameSessionId', 'describePlayerSessions_gameSessionId' - A unique identifier for the game session to retrieve player sessions
 -- for.
 --
+-- 'limit', 'describePlayerSessions_limit' - The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages. If a player
+-- session ID is specified, this parameter is ignored.
+--
 -- 'nextToken', 'describePlayerSessions_nextToken' - A token that indicates the start of the next sequential page of results.
 -- Use the token that is returned with a previous call to this operation.
 -- To start at the beginning of the result set, do not specify a value. If
 -- a player session ID is specified, this parameter is ignored.
 --
--- 'limit', 'describePlayerSessions_limit' - The maximum number of results to return. Use this parameter with
--- @NextToken@ to get results as a set of sequential pages. If a player
--- session ID is specified, this parameter is ignored.
+-- 'playerId', 'describePlayerSessions_playerId' - A unique identifier for a player to retrieve player sessions for.
 --
 -- 'playerSessionId', 'describePlayerSessions_playerSessionId' - A unique identifier for a player session to retrieve.
 --
--- 'playerId', 'describePlayerSessions_playerId' - A unique identifier for a player to retrieve player sessions for.
---
--- 'playerSessionStatusFilter', 'describePlayerSessions_playerSessionStatusFilter' - Player session status to filter results on.
+-- 'playerSessionStatusFilter', 'describePlayerSessions_playerSessionStatusFilter' - Player session status to filter results on. Note that when a
+-- PlayerSessionId or PlayerId is provided in a DescribePlayerSessions
+-- request, then the PlayerSessionStatusFilter has no effect on the
+-- response.
 --
 -- Possible player session statuses include the following:
 --
@@ -167,10 +168,10 @@ newDescribePlayerSessions =
   DescribePlayerSessions'
     { gameSessionId =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
       limit = Prelude.Nothing,
-      playerSessionId = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       playerId = Prelude.Nothing,
+      playerSessionId = Prelude.Nothing,
       playerSessionStatusFilter = Prelude.Nothing
     }
 
@@ -179,6 +180,12 @@ newDescribePlayerSessions =
 describePlayerSessions_gameSessionId :: Lens.Lens' DescribePlayerSessions (Prelude.Maybe Prelude.Text)
 describePlayerSessions_gameSessionId = Lens.lens (\DescribePlayerSessions' {gameSessionId} -> gameSessionId) (\s@DescribePlayerSessions' {} a -> s {gameSessionId = a} :: DescribePlayerSessions)
 
+-- | The maximum number of results to return. Use this parameter with
+-- @NextToken@ to get results as a set of sequential pages. If a player
+-- session ID is specified, this parameter is ignored.
+describePlayerSessions_limit :: Lens.Lens' DescribePlayerSessions (Prelude.Maybe Prelude.Natural)
+describePlayerSessions_limit = Lens.lens (\DescribePlayerSessions' {limit} -> limit) (\s@DescribePlayerSessions' {} a -> s {limit = a} :: DescribePlayerSessions)
+
 -- | A token that indicates the start of the next sequential page of results.
 -- Use the token that is returned with a previous call to this operation.
 -- To start at the beginning of the result set, do not specify a value. If
@@ -186,21 +193,18 @@ describePlayerSessions_gameSessionId = Lens.lens (\DescribePlayerSessions' {game
 describePlayerSessions_nextToken :: Lens.Lens' DescribePlayerSessions (Prelude.Maybe Prelude.Text)
 describePlayerSessions_nextToken = Lens.lens (\DescribePlayerSessions' {nextToken} -> nextToken) (\s@DescribePlayerSessions' {} a -> s {nextToken = a} :: DescribePlayerSessions)
 
--- | The maximum number of results to return. Use this parameter with
--- @NextToken@ to get results as a set of sequential pages. If a player
--- session ID is specified, this parameter is ignored.
-describePlayerSessions_limit :: Lens.Lens' DescribePlayerSessions (Prelude.Maybe Prelude.Natural)
-describePlayerSessions_limit = Lens.lens (\DescribePlayerSessions' {limit} -> limit) (\s@DescribePlayerSessions' {} a -> s {limit = a} :: DescribePlayerSessions)
+-- | A unique identifier for a player to retrieve player sessions for.
+describePlayerSessions_playerId :: Lens.Lens' DescribePlayerSessions (Prelude.Maybe Prelude.Text)
+describePlayerSessions_playerId = Lens.lens (\DescribePlayerSessions' {playerId} -> playerId) (\s@DescribePlayerSessions' {} a -> s {playerId = a} :: DescribePlayerSessions)
 
 -- | A unique identifier for a player session to retrieve.
 describePlayerSessions_playerSessionId :: Lens.Lens' DescribePlayerSessions (Prelude.Maybe Prelude.Text)
 describePlayerSessions_playerSessionId = Lens.lens (\DescribePlayerSessions' {playerSessionId} -> playerSessionId) (\s@DescribePlayerSessions' {} a -> s {playerSessionId = a} :: DescribePlayerSessions)
 
--- | A unique identifier for a player to retrieve player sessions for.
-describePlayerSessions_playerId :: Lens.Lens' DescribePlayerSessions (Prelude.Maybe Prelude.Text)
-describePlayerSessions_playerId = Lens.lens (\DescribePlayerSessions' {playerId} -> playerId) (\s@DescribePlayerSessions' {} a -> s {playerId = a} :: DescribePlayerSessions)
-
--- | Player session status to filter results on.
+-- | Player session status to filter results on. Note that when a
+-- PlayerSessionId or PlayerId is provided in a DescribePlayerSessions
+-- request, then the PlayerSessionStatusFilter has no effect on the
+-- response.
 --
 -- Possible player session statuses include the following:
 --
@@ -245,73 +249,72 @@ instance Core.AWSRequest DescribePlayerSessions where
   type
     AWSResponse DescribePlayerSessions =
       DescribePlayerSessionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribePlayerSessionsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "PlayerSessions" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "PlayerSessions" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribePlayerSessions where
   hashWithSalt _salt DescribePlayerSessions' {..} =
     _salt `Prelude.hashWithSalt` gameSessionId
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` limit
-      `Prelude.hashWithSalt` playerSessionId
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` playerId
+      `Prelude.hashWithSalt` playerSessionId
       `Prelude.hashWithSalt` playerSessionStatusFilter
 
 instance Prelude.NFData DescribePlayerSessions where
   rnf DescribePlayerSessions' {..} =
     Prelude.rnf gameSessionId
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf limit
-      `Prelude.seq` Prelude.rnf playerSessionId
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf playerId
+      `Prelude.seq` Prelude.rnf playerSessionId
       `Prelude.seq` Prelude.rnf playerSessionStatusFilter
 
-instance Core.ToHeaders DescribePlayerSessions where
+instance Data.ToHeaders DescribePlayerSessions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "GameLift.DescribePlayerSessions" ::
+              Data.=# ( "GameLift.DescribePlayerSessions" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribePlayerSessions where
+instance Data.ToJSON DescribePlayerSessions where
   toJSON DescribePlayerSessions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("GameSessionId" Core..=) Prelude.<$> gameSessionId,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit,
-            ("PlayerSessionId" Core..=)
+          [ ("GameSessionId" Data..=) Prelude.<$> gameSessionId,
+            ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("PlayerId" Data..=) Prelude.<$> playerId,
+            ("PlayerSessionId" Data..=)
               Prelude.<$> playerSessionId,
-            ("PlayerId" Core..=) Prelude.<$> playerId,
-            ("PlayerSessionStatusFilter" Core..=)
+            ("PlayerSessionStatusFilter" Data..=)
               Prelude.<$> playerSessionStatusFilter
           ]
       )
 
-instance Core.ToPath DescribePlayerSessions where
+instance Data.ToPath DescribePlayerSessions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribePlayerSessions where
+instance Data.ToQuery DescribePlayerSessions where
   toQuery = Prelude.const Prelude.mempty
 
--- | Represents the returned data in response to a request operation.
---
--- /See:/ 'newDescribePlayerSessionsResponse' smart constructor.
+-- | /See:/ 'newDescribePlayerSessionsResponse' smart constructor.
 data DescribePlayerSessionsResponse = DescribePlayerSessionsResponse'
   { -- | A token that indicates where to resume retrieving results on the next
     -- call to this operation. If no token is returned, these results represent

@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.Macie.AssociateMemberAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Associates a specified AWS account with Amazon Macie Classic as a member
--- account.
+-- (Discontinued) Associates a specified Amazon Web Services account with
+-- Amazon Macie Classic as a member account.
 module Amazonka.Macie.AssociateMemberAccount
   ( -- * Creating a Request
     AssociateMemberAccount (..),
@@ -37,7 +37,8 @@ module Amazonka.Macie.AssociateMemberAccount
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Macie.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -45,8 +46,8 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newAssociateMemberAccount' smart constructor.
 data AssociateMemberAccount = AssociateMemberAccount'
-  { -- | The ID of the AWS account that you want to associate with Amazon Macie
-    -- Classic as a member account.
+  { -- | (Discontinued) The ID of the Amazon Web Services account that you want
+    -- to associate with Amazon Macie Classic as a member account.
     memberAccountId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -59,8 +60,8 @@ data AssociateMemberAccount = AssociateMemberAccount'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'memberAccountId', 'associateMemberAccount_memberAccountId' - The ID of the AWS account that you want to associate with Amazon Macie
--- Classic as a member account.
+-- 'memberAccountId', 'associateMemberAccount_memberAccountId' - (Discontinued) The ID of the Amazon Web Services account that you want
+-- to associate with Amazon Macie Classic as a member account.
 newAssociateMemberAccount ::
   -- | 'memberAccountId'
   Prelude.Text ->
@@ -71,8 +72,8 @@ newAssociateMemberAccount pMemberAccountId_ =
         pMemberAccountId_
     }
 
--- | The ID of the AWS account that you want to associate with Amazon Macie
--- Classic as a member account.
+-- | (Discontinued) The ID of the Amazon Web Services account that you want
+-- to associate with Amazon Macie Classic as a member account.
 associateMemberAccount_memberAccountId :: Lens.Lens' AssociateMemberAccount Prelude.Text
 associateMemberAccount_memberAccountId = Lens.lens (\AssociateMemberAccount' {memberAccountId} -> memberAccountId) (\s@AssociateMemberAccount' {} a -> s {memberAccountId = a} :: AssociateMemberAccount)
 
@@ -80,7 +81,8 @@ instance Core.AWSRequest AssociateMemberAccount where
   type
     AWSResponse AssociateMemberAccount =
       AssociateMemberAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull
       AssociateMemberAccountResponse'
@@ -93,34 +95,34 @@ instance Prelude.NFData AssociateMemberAccount where
   rnf AssociateMemberAccount' {..} =
     Prelude.rnf memberAccountId
 
-instance Core.ToHeaders AssociateMemberAccount where
+instance Data.ToHeaders AssociateMemberAccount where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MacieService.AssociateMemberAccount" ::
+              Data.=# ( "MacieService.AssociateMemberAccount" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AssociateMemberAccount where
+instance Data.ToJSON AssociateMemberAccount where
   toJSON AssociateMemberAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("memberAccountId" Core..= memberAccountId)
+              ("memberAccountId" Data..= memberAccountId)
           ]
       )
 
-instance Core.ToPath AssociateMemberAccount where
+instance Data.ToPath AssociateMemberAccount where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AssociateMemberAccount where
+instance Data.ToQuery AssociateMemberAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAssociateMemberAccountResponse' smart constructor.

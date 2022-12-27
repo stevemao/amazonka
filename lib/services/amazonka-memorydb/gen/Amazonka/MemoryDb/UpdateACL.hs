@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MemoryDb.UpdateACL
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.MemoryDb.UpdateACL
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MemoryDb.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -97,12 +98,13 @@ updateACL_aCLName = Lens.lens (\UpdateACL' {aCLName} -> aCLName) (\s@UpdateACL' 
 
 instance Core.AWSRequest UpdateACL where
   type AWSResponse UpdateACL = UpdateACLResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateACLResponse'
-            Prelude.<$> (x Core..?> "ACL")
+            Prelude.<$> (x Data..?> "ACL")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -118,35 +120,35 @@ instance Prelude.NFData UpdateACL where
       `Prelude.seq` Prelude.rnf userNamesToRemove
       `Prelude.seq` Prelude.rnf aCLName
 
-instance Core.ToHeaders UpdateACL where
+instance Data.ToHeaders UpdateACL where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonMemoryDB.UpdateACL" :: Prelude.ByteString),
+              Data.=# ("AmazonMemoryDB.UpdateACL" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateACL where
+instance Data.ToJSON UpdateACL where
   toJSON UpdateACL' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("UserNamesToAdd" Core..=)
+          [ ("UserNamesToAdd" Data..=)
               Prelude.<$> userNamesToAdd,
-            ("UserNamesToRemove" Core..=)
+            ("UserNamesToRemove" Data..=)
               Prelude.<$> userNamesToRemove,
-            Prelude.Just ("ACLName" Core..= aCLName)
+            Prelude.Just ("ACLName" Data..= aCLName)
           ]
       )
 
-instance Core.ToPath UpdateACL where
+instance Data.ToPath UpdateACL where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateACL where
+instance Data.ToQuery UpdateACL where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateACLResponse' smart constructor.

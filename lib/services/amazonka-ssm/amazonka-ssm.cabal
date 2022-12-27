@@ -8,7 +8,7 @@ license:            MPL-2.0
 license-file:       LICENSE
 author:             Brendan Hay
 maintainer:         Brendan Hay <brendan.g.hay+amazonka@gmail.com>
-copyright:          Copyright (c) 2013-2021 Brendan Hay
+copyright:          Copyright (c) 2013-2022 Brendan Hay
 category:           AWS
 build-type:         Simple
 extra-source-files:
@@ -67,6 +67,7 @@ library
     Amazonka.SSM.DeleteParameters
     Amazonka.SSM.DeletePatchBaseline
     Amazonka.SSM.DeleteResourceDataSync
+    Amazonka.SSM.DeleteResourcePolicy
     Amazonka.SSM.DeregisterManagedInstance
     Amazonka.SSM.DeregisterPatchBaselineForPatchGroup
     Amazonka.SSM.DeregisterTargetFromMaintenanceWindow
@@ -127,6 +128,7 @@ library
     Amazonka.SSM.GetParametersByPath
     Amazonka.SSM.GetPatchBaseline
     Amazonka.SSM.GetPatchBaselineForPatchGroup
+    Amazonka.SSM.GetResourcePolicies
     Amazonka.SSM.GetServiceSetting
     Amazonka.SSM.LabelParameterVersion
     Amazonka.SSM.Lens
@@ -150,6 +152,7 @@ library
     Amazonka.SSM.PutComplianceItems
     Amazonka.SSM.PutInventory
     Amazonka.SSM.PutParameter
+    Amazonka.SSM.PutResourcePolicy
     Amazonka.SSM.RegisterDefaultPatchBaseline
     Amazonka.SSM.RegisterPatchBaselineForPatchGroup
     Amazonka.SSM.RegisterTargetWithMaintenanceWindow
@@ -168,6 +171,9 @@ library
     Amazonka.SSM.Types
     Amazonka.SSM.Types.AccountSharingInfo
     Amazonka.SSM.Types.Activation
+    Amazonka.SSM.Types.Alarm
+    Amazonka.SSM.Types.AlarmConfiguration
+    Amazonka.SSM.Types.AlarmStateInformation
     Amazonka.SSM.Types.Association
     Amazonka.SSM.Types.AssociationComplianceSeverity
     Amazonka.SSM.Types.AssociationDescription
@@ -246,9 +252,11 @@ library
     Amazonka.SSM.Types.DocumentVersionInfo
     Amazonka.SSM.Types.EffectivePatch
     Amazonka.SSM.Types.ExecutionMode
+    Amazonka.SSM.Types.ExternalAlarmState
     Amazonka.SSM.Types.FailedCreateAssociation
     Amazonka.SSM.Types.FailureDetails
     Amazonka.SSM.Types.Fault
+    Amazonka.SSM.Types.GetResourcePoliciesResponseEntry
     Amazonka.SSM.Types.InstanceAggregatedAssociationOverview
     Amazonka.SSM.Types.InstanceAssociation
     Amazonka.SSM.Types.InstanceAssociationOutputLocation
@@ -361,6 +369,7 @@ library
     Amazonka.SSM.Types.PlatformType
     Amazonka.SSM.Types.ProgressCounters
     Amazonka.SSM.Types.RebootOption
+    Amazonka.SSM.Types.RegistrationMetadataItem
     Amazonka.SSM.Types.RelatedOpsItem
     Amazonka.SSM.Types.ResolvedTargets
     Amazonka.SSM.Types.ResourceComplianceSummaryItem
@@ -390,6 +399,7 @@ library
     Amazonka.SSM.Types.SessionStatus
     Amazonka.SSM.Types.SeveritySummary
     Amazonka.SSM.Types.SignalType
+    Amazonka.SSM.Types.SourceType
     Amazonka.SSM.Types.StepExecution
     Amazonka.SSM.Types.StepExecutionFilter
     Amazonka.SSM.Types.StepExecutionFilterKey
@@ -415,7 +425,7 @@ library
     Amazonka.SSM.Waiters
 
   build-depends:
-    , amazonka-core  ^>=2.0
+    , amazonka-core  >=2.0  && <2.1
     , base           >=4.12 && <5
 
 test-suite amazonka-ssm-test
@@ -434,9 +444,9 @@ test-suite amazonka-ssm-test
     Test.Amazonka.SSM.Internal
 
   build-depends:
-    , amazonka-core         ^>=2.0
+    , amazonka-core         >=2.0 && <2.1
     , amazonka-ssm
-    , amazonka-test         ^>=2.0
+    , amazonka-test         >=2.0 && <2.1
     , base
     , bytestring
     , case-insensitive

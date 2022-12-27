@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateLabelingJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -69,8 +69,8 @@ module Amazonka.SageMaker.CreateLabelingJob
     newCreateLabelingJob,
 
     -- * Request Lenses
-    createLabelingJob_labelingJobAlgorithmsConfig,
     createLabelingJob_labelCategoryConfigS3Uri,
+    createLabelingJob_labelingJobAlgorithmsConfig,
     createLabelingJob_stoppingConditions,
     createLabelingJob_tags,
     createLabelingJob_labelingJobName,
@@ -91,7 +91,8 @@ module Amazonka.SageMaker.CreateLabelingJob
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -99,9 +100,7 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newCreateLabelingJob' smart constructor.
 data CreateLabelingJob = CreateLabelingJob'
-  { -- | Configures the information required to perform automated data labeling.
-    labelingJobAlgorithmsConfig :: Prelude.Maybe LabelingJobAlgorithmsConfig,
-    -- | The S3 URI of the file, referred to as a /label category configuration
+  { -- | The S3 URI of the file, referred to as a /label category configuration
     -- file/, that defines the categories used to label the data objects.
     --
     -- For 3D point cloud and video frame task types, you can add label
@@ -150,6 +149,8 @@ data CreateLabelingJob = CreateLabelingJob'
     --     <https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateLabelingJob.html#sagemaker-CreateLabelingJob-request-LabelAttributeName LabelAttributeName>
     --     of the labeling job you want to adjust or verify annotations of.
     labelCategoryConfigS3Uri :: Prelude.Maybe Prelude.Text,
+    -- | Configures the information required to perform automated data labeling.
+    labelingJobAlgorithmsConfig :: Prelude.Maybe LabelingJobAlgorithmsConfig,
     -- | A set of conditions for stopping the labeling job. If any of the
     -- conditions are met, the job is automatically stopped. You can use these
     -- conditions to control the cost of data labeling.
@@ -253,8 +254,6 @@ data CreateLabelingJob = CreateLabelingJob'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'labelingJobAlgorithmsConfig', 'createLabelingJob_labelingJobAlgorithmsConfig' - Configures the information required to perform automated data labeling.
---
 -- 'labelCategoryConfigS3Uri', 'createLabelingJob_labelCategoryConfigS3Uri' - The S3 URI of the file, referred to as a /label category configuration
 -- file/, that defines the categories used to label the data objects.
 --
@@ -303,6 +302,8 @@ data CreateLabelingJob = CreateLabelingJob'
 --     this parameter to enter the
 --     <https://docs.aws.amazon.com/sagemaker/latest/APIReference/API_CreateLabelingJob.html#sagemaker-CreateLabelingJob-request-LabelAttributeName LabelAttributeName>
 --     of the labeling job you want to adjust or verify annotations of.
+--
+-- 'labelingJobAlgorithmsConfig', 'createLabelingJob_labelingJobAlgorithmsConfig' - Configures the information required to perform automated data labeling.
 --
 -- 'stoppingConditions', 'createLabelingJob_stoppingConditions' - A set of conditions for stopping the labeling job. If any of the
 -- conditions are met, the job is automatically stopped. You can use these
@@ -417,9 +418,9 @@ newCreateLabelingJob
   pRoleArn_
   pHumanTaskConfig_ =
     CreateLabelingJob'
-      { labelingJobAlgorithmsConfig =
+      { labelCategoryConfigS3Uri =
           Prelude.Nothing,
-        labelCategoryConfigS3Uri = Prelude.Nothing,
+        labelingJobAlgorithmsConfig = Prelude.Nothing,
         stoppingConditions = Prelude.Nothing,
         tags = Prelude.Nothing,
         labelingJobName = pLabelingJobName_,
@@ -429,10 +430,6 @@ newCreateLabelingJob
         roleArn = pRoleArn_,
         humanTaskConfig = pHumanTaskConfig_
       }
-
--- | Configures the information required to perform automated data labeling.
-createLabelingJob_labelingJobAlgorithmsConfig :: Lens.Lens' CreateLabelingJob (Prelude.Maybe LabelingJobAlgorithmsConfig)
-createLabelingJob_labelingJobAlgorithmsConfig = Lens.lens (\CreateLabelingJob' {labelingJobAlgorithmsConfig} -> labelingJobAlgorithmsConfig) (\s@CreateLabelingJob' {} a -> s {labelingJobAlgorithmsConfig = a} :: CreateLabelingJob)
 
 -- | The S3 URI of the file, referred to as a /label category configuration
 -- file/, that defines the categories used to label the data objects.
@@ -484,6 +481,10 @@ createLabelingJob_labelingJobAlgorithmsConfig = Lens.lens (\CreateLabelingJob' {
 --     of the labeling job you want to adjust or verify annotations of.
 createLabelingJob_labelCategoryConfigS3Uri :: Lens.Lens' CreateLabelingJob (Prelude.Maybe Prelude.Text)
 createLabelingJob_labelCategoryConfigS3Uri = Lens.lens (\CreateLabelingJob' {labelCategoryConfigS3Uri} -> labelCategoryConfigS3Uri) (\s@CreateLabelingJob' {} a -> s {labelCategoryConfigS3Uri = a} :: CreateLabelingJob)
+
+-- | Configures the information required to perform automated data labeling.
+createLabelingJob_labelingJobAlgorithmsConfig :: Lens.Lens' CreateLabelingJob (Prelude.Maybe LabelingJobAlgorithmsConfig)
+createLabelingJob_labelingJobAlgorithmsConfig = Lens.lens (\CreateLabelingJob' {labelingJobAlgorithmsConfig} -> labelingJobAlgorithmsConfig) (\s@CreateLabelingJob' {} a -> s {labelingJobAlgorithmsConfig = a} :: CreateLabelingJob)
 
 -- | A set of conditions for stopping the labeling job. If any of the
 -- conditions are met, the job is automatically stopped. You can use these
@@ -597,20 +598,21 @@ instance Core.AWSRequest CreateLabelingJob where
   type
     AWSResponse CreateLabelingJob =
       CreateLabelingJobResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateLabelingJobResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "LabelingJobArn")
+            Prelude.<*> (x Data..:> "LabelingJobArn")
       )
 
 instance Prelude.Hashable CreateLabelingJob where
   hashWithSalt _salt CreateLabelingJob' {..} =
     _salt
-      `Prelude.hashWithSalt` labelingJobAlgorithmsConfig
       `Prelude.hashWithSalt` labelCategoryConfigS3Uri
+      `Prelude.hashWithSalt` labelingJobAlgorithmsConfig
       `Prelude.hashWithSalt` stoppingConditions
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` labelingJobName
@@ -622,8 +624,8 @@ instance Prelude.Hashable CreateLabelingJob where
 
 instance Prelude.NFData CreateLabelingJob where
   rnf CreateLabelingJob' {..} =
-    Prelude.rnf labelingJobAlgorithmsConfig
-      `Prelude.seq` Prelude.rnf labelCategoryConfigS3Uri
+    Prelude.rnf labelCategoryConfigS3Uri
+      `Prelude.seq` Prelude.rnf labelingJobAlgorithmsConfig
       `Prelude.seq` Prelude.rnf stoppingConditions
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf labelingJobName
@@ -633,48 +635,48 @@ instance Prelude.NFData CreateLabelingJob where
       `Prelude.seq` Prelude.rnf roleArn
       `Prelude.seq` Prelude.rnf humanTaskConfig
 
-instance Core.ToHeaders CreateLabelingJob where
+instance Data.ToHeaders CreateLabelingJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.CreateLabelingJob" ::
+              Data.=# ( "SageMaker.CreateLabelingJob" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateLabelingJob where
+instance Data.ToJSON CreateLabelingJob where
   toJSON CreateLabelingJob' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("LabelingJobAlgorithmsConfig" Core..=)
-              Prelude.<$> labelingJobAlgorithmsConfig,
-            ("LabelCategoryConfigS3Uri" Core..=)
+          [ ("LabelCategoryConfigS3Uri" Data..=)
               Prelude.<$> labelCategoryConfigS3Uri,
-            ("StoppingConditions" Core..=)
+            ("LabelingJobAlgorithmsConfig" Data..=)
+              Prelude.<$> labelingJobAlgorithmsConfig,
+            ("StoppingConditions" Data..=)
               Prelude.<$> stoppingConditions,
-            ("Tags" Core..=) Prelude.<$> tags,
+            ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("LabelingJobName" Core..= labelingJobName),
+              ("LabelingJobName" Data..= labelingJobName),
             Prelude.Just
-              ("LabelAttributeName" Core..= labelAttributeName),
-            Prelude.Just ("InputConfig" Core..= inputConfig),
-            Prelude.Just ("OutputConfig" Core..= outputConfig),
-            Prelude.Just ("RoleArn" Core..= roleArn),
+              ("LabelAttributeName" Data..= labelAttributeName),
+            Prelude.Just ("InputConfig" Data..= inputConfig),
+            Prelude.Just ("OutputConfig" Data..= outputConfig),
+            Prelude.Just ("RoleArn" Data..= roleArn),
             Prelude.Just
-              ("HumanTaskConfig" Core..= humanTaskConfig)
+              ("HumanTaskConfig" Data..= humanTaskConfig)
           ]
       )
 
-instance Core.ToPath CreateLabelingJob where
+instance Data.ToPath CreateLabelingJob where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateLabelingJob where
+instance Data.ToQuery CreateLabelingJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateLabelingJobResponse' smart constructor.

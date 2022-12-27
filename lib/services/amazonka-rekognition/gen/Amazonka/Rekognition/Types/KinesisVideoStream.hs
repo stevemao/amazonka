@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Rekognition.Types.KinesisVideoStream
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Rekognition.Types.KinesisVideoStream where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Kinesis video stream stream that provides the source streaming video for
@@ -52,12 +53,12 @@ newKinesisVideoStream =
 kinesisVideoStream_arn :: Lens.Lens' KinesisVideoStream (Prelude.Maybe Prelude.Text)
 kinesisVideoStream_arn = Lens.lens (\KinesisVideoStream' {arn} -> arn) (\s@KinesisVideoStream' {} a -> s {arn = a} :: KinesisVideoStream)
 
-instance Core.FromJSON KinesisVideoStream where
+instance Data.FromJSON KinesisVideoStream where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "KinesisVideoStream"
       ( \x ->
-          KinesisVideoStream' Prelude.<$> (x Core..:? "Arn")
+          KinesisVideoStream' Prelude.<$> (x Data..:? "Arn")
       )
 
 instance Prelude.Hashable KinesisVideoStream where
@@ -67,7 +68,7 @@ instance Prelude.Hashable KinesisVideoStream where
 instance Prelude.NFData KinesisVideoStream where
   rnf KinesisVideoStream' {..} = Prelude.rnf arn
 
-instance Core.ToJSON KinesisVideoStream where
+instance Data.ToJSON KinesisVideoStream where
   toJSON KinesisVideoStream' {..} =
-    Core.object
-      (Prelude.catMaybes [("Arn" Core..=) Prelude.<$> arn])
+    Data.object
+      (Prelude.catMaybes [("Arn" Data..=) Prelude.<$> arn])

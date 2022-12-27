@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaPackageVOD.ConfigureLogs
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,15 +38,16 @@ module Amazonka.MediaPackageVOD.ConfigureLogs
     configureLogsResponse_arn,
     configureLogsResponse_authorization,
     configureLogsResponse_domainName,
-    configureLogsResponse_id,
     configureLogsResponse_egressAccessLogs,
+    configureLogsResponse_id,
     configureLogsResponse_tags,
     configureLogsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaPackageVOD.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -95,17 +96,18 @@ instance Core.AWSRequest ConfigureLogs where
   type
     AWSResponse ConfigureLogs =
       ConfigureLogsResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ConfigureLogsResponse'
-            Prelude.<$> (x Core..?> "arn")
-            Prelude.<*> (x Core..?> "authorization")
-            Prelude.<*> (x Core..?> "domainName")
-            Prelude.<*> (x Core..?> "id")
-            Prelude.<*> (x Core..?> "egressAccessLogs")
-            Prelude.<*> (x Core..?> "tags" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "arn")
+            Prelude.<*> (x Data..?> "authorization")
+            Prelude.<*> (x Data..?> "domainName")
+            Prelude.<*> (x Data..?> "egressAccessLogs")
+            Prelude.<*> (x Data..?> "id")
+            Prelude.<*> (x Data..?> "tags" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -119,35 +121,35 @@ instance Prelude.NFData ConfigureLogs where
     Prelude.rnf egressAccessLogs
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToHeaders ConfigureLogs where
+instance Data.ToHeaders ConfigureLogs where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ConfigureLogs where
+instance Data.ToJSON ConfigureLogs where
   toJSON ConfigureLogs' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("egressAccessLogs" Core..=)
+          [ ("egressAccessLogs" Data..=)
               Prelude.<$> egressAccessLogs
           ]
       )
 
-instance Core.ToPath ConfigureLogs where
+instance Data.ToPath ConfigureLogs where
   toPath ConfigureLogs' {..} =
     Prelude.mconcat
       [ "/packaging_groups/",
-        Core.toBS id,
+        Data.toBS id,
         "/configure_logs"
       ]
 
-instance Core.ToQuery ConfigureLogs where
+instance Data.ToQuery ConfigureLogs where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newConfigureLogsResponse' smart constructor.
@@ -157,9 +159,9 @@ data ConfigureLogsResponse = ConfigureLogsResponse'
     authorization :: Prelude.Maybe Authorization,
     -- | The fully qualified domain name for Assets in the PackagingGroup.
     domainName :: Prelude.Maybe Prelude.Text,
+    egressAccessLogs :: Prelude.Maybe EgressAccessLogs,
     -- | The ID of the PackagingGroup.
     id :: Prelude.Maybe Prelude.Text,
-    egressAccessLogs :: Prelude.Maybe EgressAccessLogs,
     tags :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
     -- | The response's http status code.
     httpStatus :: Prelude.Int
@@ -180,9 +182,9 @@ data ConfigureLogsResponse = ConfigureLogsResponse'
 --
 -- 'domainName', 'configureLogsResponse_domainName' - The fully qualified domain name for Assets in the PackagingGroup.
 --
--- 'id', 'configureLogsResponse_id' - The ID of the PackagingGroup.
---
 -- 'egressAccessLogs', 'configureLogsResponse_egressAccessLogs' - Undocumented member.
+--
+-- 'id', 'configureLogsResponse_id' - The ID of the PackagingGroup.
 --
 -- 'tags', 'configureLogsResponse_tags' - Undocumented member.
 --
@@ -196,8 +198,8 @@ newConfigureLogsResponse pHttpStatus_ =
     { arn = Prelude.Nothing,
       authorization = Prelude.Nothing,
       domainName = Prelude.Nothing,
-      id = Prelude.Nothing,
       egressAccessLogs = Prelude.Nothing,
+      id = Prelude.Nothing,
       tags = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
@@ -214,13 +216,13 @@ configureLogsResponse_authorization = Lens.lens (\ConfigureLogsResponse' {author
 configureLogsResponse_domainName :: Lens.Lens' ConfigureLogsResponse (Prelude.Maybe Prelude.Text)
 configureLogsResponse_domainName = Lens.lens (\ConfigureLogsResponse' {domainName} -> domainName) (\s@ConfigureLogsResponse' {} a -> s {domainName = a} :: ConfigureLogsResponse)
 
--- | The ID of the PackagingGroup.
-configureLogsResponse_id :: Lens.Lens' ConfigureLogsResponse (Prelude.Maybe Prelude.Text)
-configureLogsResponse_id = Lens.lens (\ConfigureLogsResponse' {id} -> id) (\s@ConfigureLogsResponse' {} a -> s {id = a} :: ConfigureLogsResponse)
-
 -- | Undocumented member.
 configureLogsResponse_egressAccessLogs :: Lens.Lens' ConfigureLogsResponse (Prelude.Maybe EgressAccessLogs)
 configureLogsResponse_egressAccessLogs = Lens.lens (\ConfigureLogsResponse' {egressAccessLogs} -> egressAccessLogs) (\s@ConfigureLogsResponse' {} a -> s {egressAccessLogs = a} :: ConfigureLogsResponse)
+
+-- | The ID of the PackagingGroup.
+configureLogsResponse_id :: Lens.Lens' ConfigureLogsResponse (Prelude.Maybe Prelude.Text)
+configureLogsResponse_id = Lens.lens (\ConfigureLogsResponse' {id} -> id) (\s@ConfigureLogsResponse' {} a -> s {id = a} :: ConfigureLogsResponse)
 
 -- | Undocumented member.
 configureLogsResponse_tags :: Lens.Lens' ConfigureLogsResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
@@ -235,7 +237,7 @@ instance Prelude.NFData ConfigureLogsResponse where
     Prelude.rnf arn
       `Prelude.seq` Prelude.rnf authorization
       `Prelude.seq` Prelude.rnf domainName
-      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf egressAccessLogs
+      `Prelude.seq` Prelude.rnf id
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf httpStatus

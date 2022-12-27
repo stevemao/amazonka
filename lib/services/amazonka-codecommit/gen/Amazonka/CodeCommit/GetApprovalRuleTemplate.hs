@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeCommit.GetApprovalRuleTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.CodeCommit.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -83,13 +84,14 @@ instance Core.AWSRequest GetApprovalRuleTemplate where
   type
     AWSResponse GetApprovalRuleTemplate =
       GetApprovalRuleTemplateResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetApprovalRuleTemplateResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "approvalRuleTemplate")
+            Prelude.<*> (x Data..:> "approvalRuleTemplate")
       )
 
 instance Prelude.Hashable GetApprovalRuleTemplate where
@@ -101,36 +103,36 @@ instance Prelude.NFData GetApprovalRuleTemplate where
   rnf GetApprovalRuleTemplate' {..} =
     Prelude.rnf approvalRuleTemplateName
 
-instance Core.ToHeaders GetApprovalRuleTemplate where
+instance Data.ToHeaders GetApprovalRuleTemplate where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "CodeCommit_20150413.GetApprovalRuleTemplate" ::
+              Data.=# ( "CodeCommit_20150413.GetApprovalRuleTemplate" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetApprovalRuleTemplate where
+instance Data.ToJSON GetApprovalRuleTemplate where
   toJSON GetApprovalRuleTemplate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
               ( "approvalRuleTemplateName"
-                  Core..= approvalRuleTemplateName
+                  Data..= approvalRuleTemplateName
               )
           ]
       )
 
-instance Core.ToPath GetApprovalRuleTemplate where
+instance Data.ToPath GetApprovalRuleTemplate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetApprovalRuleTemplate where
+instance Data.ToQuery GetApprovalRuleTemplate where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetApprovalRuleTemplateResponse' smart constructor.

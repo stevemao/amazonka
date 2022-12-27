@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.Crawl
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Glue.Types.Crawl where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types.CrawlState
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The details of a crawl in the workflow.
@@ -29,17 +30,17 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newCrawl' smart constructor.
 data Crawl = Crawl'
   { -- | The date and time on which the crawl completed.
-    completedOn :: Prelude.Maybe Core.POSIX,
-    -- | The state of the crawler.
-    state :: Prelude.Maybe CrawlState,
-    -- | The date and time on which the crawl started.
-    startedOn :: Prelude.Maybe Core.POSIX,
-    -- | The log stream associated with the crawl.
-    logStream :: Prelude.Maybe Prelude.Text,
+    completedOn :: Prelude.Maybe Data.POSIX,
+    -- | The error message associated with the crawl.
+    errorMessage :: Prelude.Maybe Prelude.Text,
     -- | The log group associated with the crawl.
     logGroup :: Prelude.Maybe Prelude.Text,
-    -- | The error message associated with the crawl.
-    errorMessage :: Prelude.Maybe Prelude.Text
+    -- | The log stream associated with the crawl.
+    logStream :: Prelude.Maybe Prelude.Text,
+    -- | The date and time on which the crawl started.
+    startedOn :: Prelude.Maybe Data.POSIX,
+    -- | The state of the crawler.
+    state :: Prelude.Maybe CrawlState
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -53,79 +54,79 @@ data Crawl = Crawl'
 --
 -- 'completedOn', 'crawl_completedOn' - The date and time on which the crawl completed.
 --
--- 'state', 'crawl_state' - The state of the crawler.
---
--- 'startedOn', 'crawl_startedOn' - The date and time on which the crawl started.
---
--- 'logStream', 'crawl_logStream' - The log stream associated with the crawl.
+-- 'errorMessage', 'crawl_errorMessage' - The error message associated with the crawl.
 --
 -- 'logGroup', 'crawl_logGroup' - The log group associated with the crawl.
 --
--- 'errorMessage', 'crawl_errorMessage' - The error message associated with the crawl.
+-- 'logStream', 'crawl_logStream' - The log stream associated with the crawl.
+--
+-- 'startedOn', 'crawl_startedOn' - The date and time on which the crawl started.
+--
+-- 'state', 'crawl_state' - The state of the crawler.
 newCrawl ::
   Crawl
 newCrawl =
   Crawl'
     { completedOn = Prelude.Nothing,
-      state = Prelude.Nothing,
-      startedOn = Prelude.Nothing,
-      logStream = Prelude.Nothing,
+      errorMessage = Prelude.Nothing,
       logGroup = Prelude.Nothing,
-      errorMessage = Prelude.Nothing
+      logStream = Prelude.Nothing,
+      startedOn = Prelude.Nothing,
+      state = Prelude.Nothing
     }
 
 -- | The date and time on which the crawl completed.
 crawl_completedOn :: Lens.Lens' Crawl (Prelude.Maybe Prelude.UTCTime)
-crawl_completedOn = Lens.lens (\Crawl' {completedOn} -> completedOn) (\s@Crawl' {} a -> s {completedOn = a} :: Crawl) Prelude.. Lens.mapping Core._Time
-
--- | The state of the crawler.
-crawl_state :: Lens.Lens' Crawl (Prelude.Maybe CrawlState)
-crawl_state = Lens.lens (\Crawl' {state} -> state) (\s@Crawl' {} a -> s {state = a} :: Crawl)
-
--- | The date and time on which the crawl started.
-crawl_startedOn :: Lens.Lens' Crawl (Prelude.Maybe Prelude.UTCTime)
-crawl_startedOn = Lens.lens (\Crawl' {startedOn} -> startedOn) (\s@Crawl' {} a -> s {startedOn = a} :: Crawl) Prelude.. Lens.mapping Core._Time
-
--- | The log stream associated with the crawl.
-crawl_logStream :: Lens.Lens' Crawl (Prelude.Maybe Prelude.Text)
-crawl_logStream = Lens.lens (\Crawl' {logStream} -> logStream) (\s@Crawl' {} a -> s {logStream = a} :: Crawl)
-
--- | The log group associated with the crawl.
-crawl_logGroup :: Lens.Lens' Crawl (Prelude.Maybe Prelude.Text)
-crawl_logGroup = Lens.lens (\Crawl' {logGroup} -> logGroup) (\s@Crawl' {} a -> s {logGroup = a} :: Crawl)
+crawl_completedOn = Lens.lens (\Crawl' {completedOn} -> completedOn) (\s@Crawl' {} a -> s {completedOn = a} :: Crawl) Prelude.. Lens.mapping Data._Time
 
 -- | The error message associated with the crawl.
 crawl_errorMessage :: Lens.Lens' Crawl (Prelude.Maybe Prelude.Text)
 crawl_errorMessage = Lens.lens (\Crawl' {errorMessage} -> errorMessage) (\s@Crawl' {} a -> s {errorMessage = a} :: Crawl)
 
-instance Core.FromJSON Crawl where
+-- | The log group associated with the crawl.
+crawl_logGroup :: Lens.Lens' Crawl (Prelude.Maybe Prelude.Text)
+crawl_logGroup = Lens.lens (\Crawl' {logGroup} -> logGroup) (\s@Crawl' {} a -> s {logGroup = a} :: Crawl)
+
+-- | The log stream associated with the crawl.
+crawl_logStream :: Lens.Lens' Crawl (Prelude.Maybe Prelude.Text)
+crawl_logStream = Lens.lens (\Crawl' {logStream} -> logStream) (\s@Crawl' {} a -> s {logStream = a} :: Crawl)
+
+-- | The date and time on which the crawl started.
+crawl_startedOn :: Lens.Lens' Crawl (Prelude.Maybe Prelude.UTCTime)
+crawl_startedOn = Lens.lens (\Crawl' {startedOn} -> startedOn) (\s@Crawl' {} a -> s {startedOn = a} :: Crawl) Prelude.. Lens.mapping Data._Time
+
+-- | The state of the crawler.
+crawl_state :: Lens.Lens' Crawl (Prelude.Maybe CrawlState)
+crawl_state = Lens.lens (\Crawl' {state} -> state) (\s@Crawl' {} a -> s {state = a} :: Crawl)
+
+instance Data.FromJSON Crawl where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Crawl"
       ( \x ->
           Crawl'
-            Prelude.<$> (x Core..:? "CompletedOn")
-            Prelude.<*> (x Core..:? "State")
-            Prelude.<*> (x Core..:? "StartedOn")
-            Prelude.<*> (x Core..:? "LogStream")
-            Prelude.<*> (x Core..:? "LogGroup")
-            Prelude.<*> (x Core..:? "ErrorMessage")
+            Prelude.<$> (x Data..:? "CompletedOn")
+            Prelude.<*> (x Data..:? "ErrorMessage")
+            Prelude.<*> (x Data..:? "LogGroup")
+            Prelude.<*> (x Data..:? "LogStream")
+            Prelude.<*> (x Data..:? "StartedOn")
+            Prelude.<*> (x Data..:? "State")
       )
 
 instance Prelude.Hashable Crawl where
   hashWithSalt _salt Crawl' {..} =
     _salt `Prelude.hashWithSalt` completedOn
-      `Prelude.hashWithSalt` state
-      `Prelude.hashWithSalt` startedOn
-      `Prelude.hashWithSalt` logStream
-      `Prelude.hashWithSalt` logGroup
       `Prelude.hashWithSalt` errorMessage
+      `Prelude.hashWithSalt` logGroup
+      `Prelude.hashWithSalt` logStream
+      `Prelude.hashWithSalt` startedOn
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData Crawl where
   rnf Crawl' {..} =
     Prelude.rnf completedOn
-      `Prelude.seq` Prelude.rnf state
-      `Prelude.seq` Prelude.rnf startedOn
-      `Prelude.seq` Prelude.rnf logStream
-      `Prelude.seq` Prelude.rnf logGroup
       `Prelude.seq` Prelude.rnf errorMessage
+      `Prelude.seq` Prelude.rnf logGroup
+      `Prelude.seq` Prelude.rnf logStream
+      `Prelude.seq` Prelude.rnf startedOn
+      `Prelude.seq` Prelude.rnf state

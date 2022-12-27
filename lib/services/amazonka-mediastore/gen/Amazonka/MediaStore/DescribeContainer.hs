@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MediaStore.DescribeContainer
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,7 +46,8 @@ module Amazonka.MediaStore.DescribeContainer
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaStore.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -81,12 +82,13 @@ instance Core.AWSRequest DescribeContainer where
   type
     AWSResponse DescribeContainer =
       DescribeContainerResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeContainerResponse'
-            Prelude.<$> (x Core..?> "Container")
+            Prelude.<$> (x Data..?> "Container")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -98,34 +100,34 @@ instance Prelude.NFData DescribeContainer where
   rnf DescribeContainer' {..} =
     Prelude.rnf containerName
 
-instance Core.ToHeaders DescribeContainer where
+instance Data.ToHeaders DescribeContainer where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "MediaStore_20170901.DescribeContainer" ::
+              Data.=# ( "MediaStore_20170901.DescribeContainer" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeContainer where
+instance Data.ToJSON DescribeContainer where
   toJSON DescribeContainer' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ContainerName" Core..=)
+          [ ("ContainerName" Data..=)
               Prelude.<$> containerName
           ]
       )
 
-instance Core.ToPath DescribeContainer where
+instance Data.ToPath DescribeContainer where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeContainer where
+instance Data.ToQuery DescribeContainer where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeContainerResponse' smart constructor.

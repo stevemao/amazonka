@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearchDomains.Search
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -51,19 +51,19 @@ module Amazonka.CloudSearchDomains.Search
     newSearch,
 
     -- * Request Lenses
-    search_expr,
     search_cursor,
-    search_return,
-    search_queryOptions,
-    search_filterQuery,
-    search_size,
-    search_queryParser,
-    search_start,
-    search_highlight,
-    search_stats,
-    search_sort,
+    search_expr,
     search_facet,
+    search_filterQuery,
+    search_highlight,
     search_partial,
+    search_queryOptions,
+    search_queryParser,
+    search_return,
+    search_size,
+    search_sort,
+    search_start,
+    search_stats,
     search_query,
 
     -- * Destructuring the Response
@@ -71,17 +71,18 @@ module Amazonka.CloudSearchDomains.Search
     newSearchResponse,
 
     -- * Response Lenses
-    searchResponse_status,
     searchResponse_facets,
-    searchResponse_stats,
     searchResponse_hits,
+    searchResponse_stats,
+    searchResponse_status,
     searchResponse_httpStatus,
   )
 where
 
 import Amazonka.CloudSearchDomains.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -90,7 +91,18 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newSearch' smart constructor.
 data Search = Search'
-  { -- | Defines one or more numeric expressions that can be used to sort results
+  { -- | Retrieves a cursor value you can use to page through large result sets.
+    -- Use the @size@ parameter to control the number of hits to include in
+    -- each response. You can specify either the @cursor@ or @start@ parameter
+    -- in a request; they are mutually exclusive. To get the first cursor, set
+    -- the cursor value to @initial@. In subsequent requests, specify the
+    -- cursor value returned in the hits section of the response.
+    --
+    -- For more information, see
+    -- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html Paginating Results>
+    -- in the /Amazon CloudSearch Developer Guide/.
+    cursor :: Prelude.Maybe Prelude.Text,
+    -- | Defines one or more numeric expressions that can be used to sort results
     -- or specify search or filter criteria. You can also specify expressions
     -- as return fields.
     --
@@ -105,24 +117,117 @@ data Search = Search'
     -- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html#writing-expressions Writing Expressions>
     -- in the /Amazon CloudSearch Developer Guide/.
     expr :: Prelude.Maybe Prelude.Text,
-    -- | Retrieves a cursor value you can use to page through large result sets.
-    -- Use the @size@ parameter to control the number of hits to include in
-    -- each response. You can specify either the @cursor@ or @start@ parameter
-    -- in a request; they are mutually exclusive. To get the first cursor, set
-    -- the cursor value to @initial@. In subsequent requests, specify the
-    -- cursor value returned in the hits section of the response.
+    -- | Specifies one or more fields for which to get facet information, and
+    -- options that control how the facet information is returned. Each
+    -- specified field must be facet-enabled in the domain configuration. The
+    -- fields and options are specified in JSON using the form
+    -- @{\"FIELD\":{\"OPTION\":VALUE,\"OPTION:\"STRING\"},\"FIELD\":{\"OPTION\":VALUE,\"OPTION\":\"STRING\"}}@.
+    --
+    -- You can specify the following faceting options:
+    --
+    -- -   @buckets@ specifies an array of the facet values or ranges to count.
+    --     Ranges are specified using the same syntax that you use to search
+    --     for a range of values. For more information, see
+    --     <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-ranges.html Searching for a Range of Values>
+    --     in the /Amazon CloudSearch Developer Guide/. Buckets are returned in
+    --     the order they are specified in the request. The @sort@ and @size@
+    --     options are not valid if you specify @buckets@.
+    --
+    -- -   @size@ specifies the maximum number of facets to include in the
+    --     results. By default, Amazon CloudSearch returns counts for the top
+    --     10. The @size@ parameter is only valid when you specify the @sort@
+    --     option; it cannot be used in conjunction with @buckets@.
+    --
+    -- -   @sort@ specifies how you want to sort the facets in the results:
+    --     @bucket@ or @count@. Specify @bucket@ to sort alphabetically or
+    --     numerically by facet value (in ascending order). Specify @count@ to
+    --     sort by the facet counts computed for each facet value (in
+    --     descending order). To retrieve facet counts for particular values or
+    --     ranges of values, use the @buckets@ option instead of @sort@.
+    --
+    -- If no facet options are specified, facet counts are computed for all
+    -- field values, the facets are sorted by facet count, and the top 10
+    -- facets are returned in the results.
+    --
+    -- To count particular buckets of values, use the @buckets@ option. For
+    -- example, the following request uses the @buckets@ option to calculate
+    -- and return facet counts by decade.
+    --
+    -- @ {\"year\":{\"buckets\":[\"[1970,1979]\",\"[1980,1989]\",\"[1990,1999]\",\"[2000,2009]\",\"[2010,}\"]}} @
+    --
+    -- To sort facets by facet count, use the @count@ option. For example, the
+    -- following request sets the @sort@ option to @count@ to sort the facet
+    -- values by facet count, with the facet values that have the most matching
+    -- documents listed first. Setting the @size@ option to 3 returns only the
+    -- top three facet values.
+    --
+    -- @ {\"year\":{\"sort\":\"count\",\"size\":3}} @
+    --
+    -- To sort the facets by value, use the @bucket@ option. For example, the
+    -- following request sets the @sort@ option to @bucket@ to sort the facet
+    -- values numerically by year, with earliest year listed first.
+    --
+    -- @ {\"year\":{\"sort\":\"bucket\"}} @
     --
     -- For more information, see
-    -- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html Paginating Results>
+    -- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/faceting.html Getting and Using Facet Information>
     -- in the /Amazon CloudSearch Developer Guide/.
-    cursor :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the field and expression values to include in the response.
-    -- Multiple fields or expressions are specified as a comma-separated list.
-    -- By default, a search response includes all return enabled fields
-    -- (@_all_fields@). To return only the document IDs for the matching
-    -- documents, specify @_no_fields@. To retrieve the relevance score
-    -- calculated for each document, specify @_score@.
-    return' :: Prelude.Maybe Prelude.Text,
+    facet :: Prelude.Maybe Prelude.Text,
+    -- | Specifies a structured query that filters the results of a search
+    -- without affecting how the results are scored and sorted. You use
+    -- @filterQuery@ in conjunction with the @query@ parameter to filter the
+    -- documents that match the constraints specified in the @query@ parameter.
+    -- Specifying a filter controls only which matching documents are included
+    -- in the results, it has no effect on how they are scored and sorted. The
+    -- @filterQuery@ parameter supports the full structured query syntax.
+    --
+    -- For more information about using filters, see
+    -- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/filtering-results.html Filtering Matching Documents>
+    -- in the /Amazon CloudSearch Developer Guide/.
+    filterQuery :: Prelude.Maybe Prelude.Text,
+    -- | Retrieves highlights for matches in the specified @text@ or @text-array@
+    -- fields. Each specified field must be highlight enabled in the domain
+    -- configuration. The fields and options are specified in JSON using the
+    -- form
+    -- @{\"FIELD\":{\"OPTION\":VALUE,\"OPTION:\"STRING\"},\"FIELD\":{\"OPTION\":VALUE,\"OPTION\":\"STRING\"}}@.
+    --
+    -- You can specify the following highlight options:
+    --
+    -- -   @format@: specifies the format of the data in the text field: @text@
+    --     or @html@. When data is returned as HTML, all non-alphanumeric
+    --     characters are encoded. The default is @html@.
+    -- -   @max_phrases@: specifies the maximum number of occurrences of the
+    --     search term(s) you want to highlight. By default, the first
+    --     occurrence is highlighted.
+    -- -   @pre_tag@: specifies the string to prepend to an occurrence of a
+    --     search term. The default for HTML highlights is @&lt;em&gt;@. The
+    --     default for text highlights is @*@.
+    -- -   @post_tag@: specifies the string to append to an occurrence of a
+    --     search term. The default for HTML highlights is @&lt;\/em&gt;@. The
+    --     default for text highlights is @*@.
+    --
+    -- If no highlight options are specified for a field, the returned field
+    -- text is treated as HTML and the first match is highlighted with emphasis
+    -- tags: @&lt;em>search-term&lt;\/em&gt;@.
+    --
+    -- For example, the following request retrieves highlights for the @actors@
+    -- and @title@ fields.
+    --
+    -- @{ \"actors\": {}, \"title\": {\"format\": \"text\",\"max_phrases\": 2,\"pre_tag\": \"\",\"post_tag\": \"\"} }@
+    highlight :: Prelude.Maybe Prelude.Text,
+    -- | Enables partial results to be returned if one or more index partitions
+    -- are unavailable. When your search index is partitioned across multiple
+    -- search instances, by default Amazon CloudSearch only returns results if
+    -- every partition can be queried. This means that the failure of a single
+    -- search instance can result in 5xx (internal server) errors. When you
+    -- enable partial results, Amazon CloudSearch returns whatever results are
+    -- available and includes the percentage of documents searched in the
+    -- search results (percent-searched). This enables you to more gracefully
+    -- degrade your users\' search experience. For example, rather than
+    -- displaying no results, you could display the partial results and a
+    -- message indicating that the results might be incomplete due to a
+    -- temporary system outage.
+    partial :: Prelude.Maybe Prelude.Bool,
     -- | Configures options for the query parser specified in the @queryParser@
     -- parameter. You specify the options in JSON using the following form
     -- @{\"OPTION1\":\"VALUE1\",\"OPTION2\":VALUE2\"...\"OPTIONN\":\"VALUEN\"}.@
@@ -219,20 +324,6 @@ data Search = Search'
     --     fields (pure sum): @\"tieBreaker\":1@. Valid values: 0.0 to 1.0.
     --     Default: 0.0. Valid for: @dismax@.
     queryOptions :: Prelude.Maybe Prelude.Text,
-    -- | Specifies a structured query that filters the results of a search
-    -- without affecting how the results are scored and sorted. You use
-    -- @filterQuery@ in conjunction with the @query@ parameter to filter the
-    -- documents that match the constraints specified in the @query@ parameter.
-    -- Specifying a filter controls only which matching documents are included
-    -- in the results, it has no effect on how they are scored and sorted. The
-    -- @filterQuery@ parameter supports the full structured query syntax.
-    --
-    -- For more information about using filters, see
-    -- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/filtering-results.html Filtering Matching Documents>
-    -- in the /Amazon CloudSearch Developer Guide/.
-    filterQuery :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the maximum number of search hits to include in the response.
-    size :: Prelude.Maybe Prelude.Integer,
     -- | Specifies which query parser to use to process the request. If
     -- @queryParser@ is not specified, Amazon CloudSearch uses the @simple@
     -- query parser.
@@ -267,53 +358,15 @@ data Search = Search'
     --     information, see
     --     <http://wiki.apache.org/solr/DisMaxQParserPlugin#Query_Syntax DisMax Query Parser Syntax>.
     queryParser :: Prelude.Maybe QueryParser,
-    -- | Specifies the offset of the first search hit you want to return. Note
-    -- that the result set is zero-based; the first result is at index 0. You
-    -- can specify either the @start@ or @cursor@ parameter in a request, they
-    -- are mutually exclusive.
-    --
-    -- For more information, see
-    -- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html Paginating Results>
-    -- in the /Amazon CloudSearch Developer Guide/.
-    start :: Prelude.Maybe Prelude.Integer,
-    -- | Retrieves highlights for matches in the specified @text@ or @text-array@
-    -- fields. Each specified field must be highlight enabled in the domain
-    -- configuration. The fields and options are specified in JSON using the
-    -- form
-    -- @{\"FIELD\":{\"OPTION\":VALUE,\"OPTION:\"STRING\"},\"FIELD\":{\"OPTION\":VALUE,\"OPTION\":\"STRING\"}}@.
-    --
-    -- You can specify the following highlight options:
-    --
-    -- -   @format@: specifies the format of the data in the text field: @text@
-    --     or @html@. When data is returned as HTML, all non-alphanumeric
-    --     characters are encoded. The default is @html@.
-    -- -   @max_phrases@: specifies the maximum number of occurrences of the
-    --     search term(s) you want to highlight. By default, the first
-    --     occurrence is highlighted.
-    -- -   @pre_tag@: specifies the string to prepend to an occurrence of a
-    --     search term. The default for HTML highlights is @&lt;em&gt;@. The
-    --     default for text highlights is @*@.
-    -- -   @post_tag@: specifies the string to append to an occurrence of a
-    --     search term. The default for HTML highlights is @&lt;\/em&gt;@. The
-    --     default for text highlights is @*@.
-    --
-    -- If no highlight options are specified for a field, the returned field
-    -- text is treated as HTML and the first match is highlighted with emphasis
-    -- tags: @&lt;em>search-term&lt;\/em&gt;@.
-    --
-    -- For example, the following request retrieves highlights for the @actors@
-    -- and @title@ fields.
-    --
-    -- @{ \"actors\": {}, \"title\": {\"format\": \"text\",\"max_phrases\": 2,\"pre_tag\": \"\",\"post_tag\": \"\"} }@
-    highlight :: Prelude.Maybe Prelude.Text,
-    -- | Specifies one or more fields for which to get statistics information.
-    -- Each specified field must be facet-enabled in the domain configuration.
-    -- The fields are specified in JSON using the form:
-    --
-    -- @{\"FIELD-A\":{},\"FIELD-B\":{}}@
-    --
-    -- There are currently no options supported for statistics.
-    stats :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the field and expression values to include in the response.
+    -- Multiple fields or expressions are specified as a comma-separated list.
+    -- By default, a search response includes all return enabled fields
+    -- (@_all_fields@). To return only the document IDs for the matching
+    -- documents, specify @_no_fields@. To retrieve the relevance score
+    -- calculated for each document, specify @_score@.
+    return' :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the maximum number of search hits to include in the response.
+    size :: Prelude.Maybe Prelude.Integer,
     -- | Specifies the fields or custom expressions to use to sort the search
     -- results. Multiple fields or expressions are specified as a
     -- comma-separated list. You must specify the sort direction (@asc@ or
@@ -328,75 +381,23 @@ data Search = Search'
     -- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/sorting-results.html Sorting Results>
     -- in the /Amazon CloudSearch Developer Guide/.
     sort :: Prelude.Maybe Prelude.Text,
-    -- | Specifies one or more fields for which to get facet information, and
-    -- options that control how the facet information is returned. Each
-    -- specified field must be facet-enabled in the domain configuration. The
-    -- fields and options are specified in JSON using the form
-    -- @{\"FIELD\":{\"OPTION\":VALUE,\"OPTION:\"STRING\"},\"FIELD\":{\"OPTION\":VALUE,\"OPTION\":\"STRING\"}}@.
-    --
-    -- You can specify the following faceting options:
-    --
-    -- -   @buckets@ specifies an array of the facet values or ranges to count.
-    --     Ranges are specified using the same syntax that you use to search
-    --     for a range of values. For more information, see
-    --     <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-ranges.html Searching for a Range of Values>
-    --     in the /Amazon CloudSearch Developer Guide/. Buckets are returned in
-    --     the order they are specified in the request. The @sort@ and @size@
-    --     options are not valid if you specify @buckets@.
-    --
-    -- -   @size@ specifies the maximum number of facets to include in the
-    --     results. By default, Amazon CloudSearch returns counts for the top
-    --     10. The @size@ parameter is only valid when you specify the @sort@
-    --     option; it cannot be used in conjunction with @buckets@.
-    --
-    -- -   @sort@ specifies how you want to sort the facets in the results:
-    --     @bucket@ or @count@. Specify @bucket@ to sort alphabetically or
-    --     numerically by facet value (in ascending order). Specify @count@ to
-    --     sort by the facet counts computed for each facet value (in
-    --     descending order). To retrieve facet counts for particular values or
-    --     ranges of values, use the @buckets@ option instead of @sort@.
-    --
-    -- If no facet options are specified, facet counts are computed for all
-    -- field values, the facets are sorted by facet count, and the top 10
-    -- facets are returned in the results.
-    --
-    -- To count particular buckets of values, use the @buckets@ option. For
-    -- example, the following request uses the @buckets@ option to calculate
-    -- and return facet counts by decade.
-    --
-    -- @ {\"year\":{\"buckets\":[\"[1970,1979]\",\"[1980,1989]\",\"[1990,1999]\",\"[2000,2009]\",\"[2010,}\"]}} @
-    --
-    -- To sort facets by facet count, use the @count@ option. For example, the
-    -- following request sets the @sort@ option to @count@ to sort the facet
-    -- values by facet count, with the facet values that have the most matching
-    -- documents listed first. Setting the @size@ option to 3 returns only the
-    -- top three facet values.
-    --
-    -- @ {\"year\":{\"sort\":\"count\",\"size\":3}} @
-    --
-    -- To sort the facets by value, use the @bucket@ option. For example, the
-    -- following request sets the @sort@ option to @bucket@ to sort the facet
-    -- values numerically by year, with earliest year listed first.
-    --
-    -- @ {\"year\":{\"sort\":\"bucket\"}} @
+    -- | Specifies the offset of the first search hit you want to return. Note
+    -- that the result set is zero-based; the first result is at index 0. You
+    -- can specify either the @start@ or @cursor@ parameter in a request, they
+    -- are mutually exclusive.
     --
     -- For more information, see
-    -- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/faceting.html Getting and Using Facet Information>
+    -- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html Paginating Results>
     -- in the /Amazon CloudSearch Developer Guide/.
-    facet :: Prelude.Maybe Prelude.Text,
-    -- | Enables partial results to be returned if one or more index partitions
-    -- are unavailable. When your search index is partitioned across multiple
-    -- search instances, by default Amazon CloudSearch only returns results if
-    -- every partition can be queried. This means that the failure of a single
-    -- search instance can result in 5xx (internal server) errors. When you
-    -- enable partial results, Amazon CloudSearch returns whatever results are
-    -- available and includes the percentage of documents searched in the
-    -- search results (percent-searched). This enables you to more gracefully
-    -- degrade your users\' search experience. For example, rather than
-    -- displaying no results, you could display the partial results and a
-    -- message indicating that the results might be incomplete due to a
-    -- temporary system outage.
-    partial :: Prelude.Maybe Prelude.Bool,
+    start :: Prelude.Maybe Prelude.Integer,
+    -- | Specifies one or more fields for which to get statistics information.
+    -- Each specified field must be facet-enabled in the domain configuration.
+    -- The fields are specified in JSON using the form:
+    --
+    -- @{\"FIELD-A\":{},\"FIELD-B\":{}}@
+    --
+    -- There are currently no options supported for statistics.
+    stats :: Prelude.Maybe Prelude.Text,
     -- | Specifies the search criteria for the request. How you specify the
     -- search criteria depends on the query parser used for the request and the
     -- parser options specified in the @queryOptions@ parameter. By default,
@@ -419,6 +420,17 @@ data Search = Search'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'cursor', 'search_cursor' - Retrieves a cursor value you can use to page through large result sets.
+-- Use the @size@ parameter to control the number of hits to include in
+-- each response. You can specify either the @cursor@ or @start@ parameter
+-- in a request; they are mutually exclusive. To get the first cursor, set
+-- the cursor value to @initial@. In subsequent requests, specify the
+-- cursor value returned in the hits section of the response.
+--
+-- For more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html Paginating Results>
+-- in the /Amazon CloudSearch Developer Guide/.
+--
 -- 'expr', 'search_expr' - Defines one or more numeric expressions that can be used to sort results
 -- or specify search or filter criteria. You can also specify expressions
 -- as return fields.
@@ -434,23 +446,116 @@ data Search = Search'
 -- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html#writing-expressions Writing Expressions>
 -- in the /Amazon CloudSearch Developer Guide/.
 --
--- 'cursor', 'search_cursor' - Retrieves a cursor value you can use to page through large result sets.
--- Use the @size@ parameter to control the number of hits to include in
--- each response. You can specify either the @cursor@ or @start@ parameter
--- in a request; they are mutually exclusive. To get the first cursor, set
--- the cursor value to @initial@. In subsequent requests, specify the
--- cursor value returned in the hits section of the response.
+-- 'facet', 'search_facet' - Specifies one or more fields for which to get facet information, and
+-- options that control how the facet information is returned. Each
+-- specified field must be facet-enabled in the domain configuration. The
+-- fields and options are specified in JSON using the form
+-- @{\"FIELD\":{\"OPTION\":VALUE,\"OPTION:\"STRING\"},\"FIELD\":{\"OPTION\":VALUE,\"OPTION\":\"STRING\"}}@.
+--
+-- You can specify the following faceting options:
+--
+-- -   @buckets@ specifies an array of the facet values or ranges to count.
+--     Ranges are specified using the same syntax that you use to search
+--     for a range of values. For more information, see
+--     <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-ranges.html Searching for a Range of Values>
+--     in the /Amazon CloudSearch Developer Guide/. Buckets are returned in
+--     the order they are specified in the request. The @sort@ and @size@
+--     options are not valid if you specify @buckets@.
+--
+-- -   @size@ specifies the maximum number of facets to include in the
+--     results. By default, Amazon CloudSearch returns counts for the top
+--     10. The @size@ parameter is only valid when you specify the @sort@
+--     option; it cannot be used in conjunction with @buckets@.
+--
+-- -   @sort@ specifies how you want to sort the facets in the results:
+--     @bucket@ or @count@. Specify @bucket@ to sort alphabetically or
+--     numerically by facet value (in ascending order). Specify @count@ to
+--     sort by the facet counts computed for each facet value (in
+--     descending order). To retrieve facet counts for particular values or
+--     ranges of values, use the @buckets@ option instead of @sort@.
+--
+-- If no facet options are specified, facet counts are computed for all
+-- field values, the facets are sorted by facet count, and the top 10
+-- facets are returned in the results.
+--
+-- To count particular buckets of values, use the @buckets@ option. For
+-- example, the following request uses the @buckets@ option to calculate
+-- and return facet counts by decade.
+--
+-- @ {\"year\":{\"buckets\":[\"[1970,1979]\",\"[1980,1989]\",\"[1990,1999]\",\"[2000,2009]\",\"[2010,}\"]}} @
+--
+-- To sort facets by facet count, use the @count@ option. For example, the
+-- following request sets the @sort@ option to @count@ to sort the facet
+-- values by facet count, with the facet values that have the most matching
+-- documents listed first. Setting the @size@ option to 3 returns only the
+-- top three facet values.
+--
+-- @ {\"year\":{\"sort\":\"count\",\"size\":3}} @
+--
+-- To sort the facets by value, use the @bucket@ option. For example, the
+-- following request sets the @sort@ option to @bucket@ to sort the facet
+-- values numerically by year, with earliest year listed first.
+--
+-- @ {\"year\":{\"sort\":\"bucket\"}} @
 --
 -- For more information, see
--- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html Paginating Results>
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/faceting.html Getting and Using Facet Information>
 -- in the /Amazon CloudSearch Developer Guide/.
 --
--- 'return'', 'search_return' - Specifies the field and expression values to include in the response.
--- Multiple fields or expressions are specified as a comma-separated list.
--- By default, a search response includes all return enabled fields
--- (@_all_fields@). To return only the document IDs for the matching
--- documents, specify @_no_fields@. To retrieve the relevance score
--- calculated for each document, specify @_score@.
+-- 'filterQuery', 'search_filterQuery' - Specifies a structured query that filters the results of a search
+-- without affecting how the results are scored and sorted. You use
+-- @filterQuery@ in conjunction with the @query@ parameter to filter the
+-- documents that match the constraints specified in the @query@ parameter.
+-- Specifying a filter controls only which matching documents are included
+-- in the results, it has no effect on how they are scored and sorted. The
+-- @filterQuery@ parameter supports the full structured query syntax.
+--
+-- For more information about using filters, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/filtering-results.html Filtering Matching Documents>
+-- in the /Amazon CloudSearch Developer Guide/.
+--
+-- 'highlight', 'search_highlight' - Retrieves highlights for matches in the specified @text@ or @text-array@
+-- fields. Each specified field must be highlight enabled in the domain
+-- configuration. The fields and options are specified in JSON using the
+-- form
+-- @{\"FIELD\":{\"OPTION\":VALUE,\"OPTION:\"STRING\"},\"FIELD\":{\"OPTION\":VALUE,\"OPTION\":\"STRING\"}}@.
+--
+-- You can specify the following highlight options:
+--
+-- -   @format@: specifies the format of the data in the text field: @text@
+--     or @html@. When data is returned as HTML, all non-alphanumeric
+--     characters are encoded. The default is @html@.
+-- -   @max_phrases@: specifies the maximum number of occurrences of the
+--     search term(s) you want to highlight. By default, the first
+--     occurrence is highlighted.
+-- -   @pre_tag@: specifies the string to prepend to an occurrence of a
+--     search term. The default for HTML highlights is @&lt;em&gt;@. The
+--     default for text highlights is @*@.
+-- -   @post_tag@: specifies the string to append to an occurrence of a
+--     search term. The default for HTML highlights is @&lt;\/em&gt;@. The
+--     default for text highlights is @*@.
+--
+-- If no highlight options are specified for a field, the returned field
+-- text is treated as HTML and the first match is highlighted with emphasis
+-- tags: @&lt;em>search-term&lt;\/em&gt;@.
+--
+-- For example, the following request retrieves highlights for the @actors@
+-- and @title@ fields.
+--
+-- @{ \"actors\": {}, \"title\": {\"format\": \"text\",\"max_phrases\": 2,\"pre_tag\": \"\",\"post_tag\": \"\"} }@
+--
+-- 'partial', 'search_partial' - Enables partial results to be returned if one or more index partitions
+-- are unavailable. When your search index is partitioned across multiple
+-- search instances, by default Amazon CloudSearch only returns results if
+-- every partition can be queried. This means that the failure of a single
+-- search instance can result in 5xx (internal server) errors. When you
+-- enable partial results, Amazon CloudSearch returns whatever results are
+-- available and includes the percentage of documents searched in the
+-- search results (percent-searched). This enables you to more gracefully
+-- degrade your users\' search experience. For example, rather than
+-- displaying no results, you could display the partial results and a
+-- message indicating that the results might be incomplete due to a
+-- temporary system outage.
 --
 -- 'queryOptions', 'search_queryOptions' - Configures options for the query parser specified in the @queryParser@
 -- parameter. You specify the options in JSON using the following form
@@ -548,20 +653,6 @@ data Search = Search'
 --     fields (pure sum): @\"tieBreaker\":1@. Valid values: 0.0 to 1.0.
 --     Default: 0.0. Valid for: @dismax@.
 --
--- 'filterQuery', 'search_filterQuery' - Specifies a structured query that filters the results of a search
--- without affecting how the results are scored and sorted. You use
--- @filterQuery@ in conjunction with the @query@ parameter to filter the
--- documents that match the constraints specified in the @query@ parameter.
--- Specifying a filter controls only which matching documents are included
--- in the results, it has no effect on how they are scored and sorted. The
--- @filterQuery@ parameter supports the full structured query syntax.
---
--- For more information about using filters, see
--- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/filtering-results.html Filtering Matching Documents>
--- in the /Amazon CloudSearch Developer Guide/.
---
--- 'size', 'search_size' - Specifies the maximum number of search hits to include in the response.
---
 -- 'queryParser', 'search_queryParser' - Specifies which query parser to use to process the request. If
 -- @queryParser@ is not specified, Amazon CloudSearch uses the @simple@
 -- query parser.
@@ -596,52 +687,14 @@ data Search = Search'
 --     information, see
 --     <http://wiki.apache.org/solr/DisMaxQParserPlugin#Query_Syntax DisMax Query Parser Syntax>.
 --
--- 'start', 'search_start' - Specifies the offset of the first search hit you want to return. Note
--- that the result set is zero-based; the first result is at index 0. You
--- can specify either the @start@ or @cursor@ parameter in a request, they
--- are mutually exclusive.
+-- 'return'', 'search_return' - Specifies the field and expression values to include in the response.
+-- Multiple fields or expressions are specified as a comma-separated list.
+-- By default, a search response includes all return enabled fields
+-- (@_all_fields@). To return only the document IDs for the matching
+-- documents, specify @_no_fields@. To retrieve the relevance score
+-- calculated for each document, specify @_score@.
 --
--- For more information, see
--- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html Paginating Results>
--- in the /Amazon CloudSearch Developer Guide/.
---
--- 'highlight', 'search_highlight' - Retrieves highlights for matches in the specified @text@ or @text-array@
--- fields. Each specified field must be highlight enabled in the domain
--- configuration. The fields and options are specified in JSON using the
--- form
--- @{\"FIELD\":{\"OPTION\":VALUE,\"OPTION:\"STRING\"},\"FIELD\":{\"OPTION\":VALUE,\"OPTION\":\"STRING\"}}@.
---
--- You can specify the following highlight options:
---
--- -   @format@: specifies the format of the data in the text field: @text@
---     or @html@. When data is returned as HTML, all non-alphanumeric
---     characters are encoded. The default is @html@.
--- -   @max_phrases@: specifies the maximum number of occurrences of the
---     search term(s) you want to highlight. By default, the first
---     occurrence is highlighted.
--- -   @pre_tag@: specifies the string to prepend to an occurrence of a
---     search term. The default for HTML highlights is @&lt;em&gt;@. The
---     default for text highlights is @*@.
--- -   @post_tag@: specifies the string to append to an occurrence of a
---     search term. The default for HTML highlights is @&lt;\/em&gt;@. The
---     default for text highlights is @*@.
---
--- If no highlight options are specified for a field, the returned field
--- text is treated as HTML and the first match is highlighted with emphasis
--- tags: @&lt;em>search-term&lt;\/em&gt;@.
---
--- For example, the following request retrieves highlights for the @actors@
--- and @title@ fields.
---
--- @{ \"actors\": {}, \"title\": {\"format\": \"text\",\"max_phrases\": 2,\"pre_tag\": \"\",\"post_tag\": \"\"} }@
---
--- 'stats', 'search_stats' - Specifies one or more fields for which to get statistics information.
--- Each specified field must be facet-enabled in the domain configuration.
--- The fields are specified in JSON using the form:
---
--- @{\"FIELD-A\":{},\"FIELD-B\":{}}@
---
--- There are currently no options supported for statistics.
+-- 'size', 'search_size' - Specifies the maximum number of search hits to include in the response.
 --
 -- 'sort', 'search_sort' - Specifies the fields or custom expressions to use to sort the search
 -- results. Multiple fields or expressions are specified as a
@@ -657,7 +710,86 @@ data Search = Search'
 -- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/sorting-results.html Sorting Results>
 -- in the /Amazon CloudSearch Developer Guide/.
 --
--- 'facet', 'search_facet' - Specifies one or more fields for which to get facet information, and
+-- 'start', 'search_start' - Specifies the offset of the first search hit you want to return. Note
+-- that the result set is zero-based; the first result is at index 0. You
+-- can specify either the @start@ or @cursor@ parameter in a request, they
+-- are mutually exclusive.
+--
+-- For more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html Paginating Results>
+-- in the /Amazon CloudSearch Developer Guide/.
+--
+-- 'stats', 'search_stats' - Specifies one or more fields for which to get statistics information.
+-- Each specified field must be facet-enabled in the domain configuration.
+-- The fields are specified in JSON using the form:
+--
+-- @{\"FIELD-A\":{},\"FIELD-B\":{}}@
+--
+-- There are currently no options supported for statistics.
+--
+-- 'query', 'search_query' - Specifies the search criteria for the request. How you specify the
+-- search criteria depends on the query parser used for the request and the
+-- parser options specified in the @queryOptions@ parameter. By default,
+-- the @simple@ query parser is used to process requests. To use the
+-- @structured@, @lucene@, or @dismax@ query parser, you must also specify
+-- the @queryParser@ parameter.
+--
+-- For more information about specifying search criteria, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching.html Searching Your Data>
+-- in the /Amazon CloudSearch Developer Guide/.
+newSearch ::
+  -- | 'query'
+  Prelude.Text ->
+  Search
+newSearch pQuery_ =
+  Search'
+    { cursor = Prelude.Nothing,
+      expr = Prelude.Nothing,
+      facet = Prelude.Nothing,
+      filterQuery = Prelude.Nothing,
+      highlight = Prelude.Nothing,
+      partial = Prelude.Nothing,
+      queryOptions = Prelude.Nothing,
+      queryParser = Prelude.Nothing,
+      return' = Prelude.Nothing,
+      size = Prelude.Nothing,
+      sort = Prelude.Nothing,
+      start = Prelude.Nothing,
+      stats = Prelude.Nothing,
+      query = pQuery_
+    }
+
+-- | Retrieves a cursor value you can use to page through large result sets.
+-- Use the @size@ parameter to control the number of hits to include in
+-- each response. You can specify either the @cursor@ or @start@ parameter
+-- in a request; they are mutually exclusive. To get the first cursor, set
+-- the cursor value to @initial@. In subsequent requests, specify the
+-- cursor value returned in the hits section of the response.
+--
+-- For more information, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html Paginating Results>
+-- in the /Amazon CloudSearch Developer Guide/.
+search_cursor :: Lens.Lens' Search (Prelude.Maybe Prelude.Text)
+search_cursor = Lens.lens (\Search' {cursor} -> cursor) (\s@Search' {} a -> s {cursor = a} :: Search)
+
+-- | Defines one or more numeric expressions that can be used to sort results
+-- or specify search or filter criteria. You can also specify expressions
+-- as return fields.
+--
+-- You specify the expressions in JSON using the form
+-- @{\"EXPRESSIONNAME\":\"EXPRESSION\"}@. You can define and use multiple
+-- expressions in a search request. For example:
+--
+-- @ {\"expression1\":\"_score*rating\", \"expression2\":\"(1\/rank)*year\"} @
+--
+-- For information about the variables, operators, and functions you can
+-- use in expressions, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html#writing-expressions Writing Expressions>
+-- in the /Amazon CloudSearch Developer Guide/.
+search_expr :: Lens.Lens' Search (Prelude.Maybe Prelude.Text)
+search_expr = Lens.lens (\Search' {expr} -> expr) (\s@Search' {} a -> s {expr = a} :: Search)
+
+-- | Specifies one or more fields for which to get facet information, and
 -- options that control how the facet information is returned. Each
 -- specified field must be facet-enabled in the domain configuration. The
 -- fields and options are specified in JSON using the form
@@ -712,8 +844,56 @@ data Search = Search'
 -- For more information, see
 -- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/faceting.html Getting and Using Facet Information>
 -- in the /Amazon CloudSearch Developer Guide/.
+search_facet :: Lens.Lens' Search (Prelude.Maybe Prelude.Text)
+search_facet = Lens.lens (\Search' {facet} -> facet) (\s@Search' {} a -> s {facet = a} :: Search)
+
+-- | Specifies a structured query that filters the results of a search
+-- without affecting how the results are scored and sorted. You use
+-- @filterQuery@ in conjunction with the @query@ parameter to filter the
+-- documents that match the constraints specified in the @query@ parameter.
+-- Specifying a filter controls only which matching documents are included
+-- in the results, it has no effect on how they are scored and sorted. The
+-- @filterQuery@ parameter supports the full structured query syntax.
 --
--- 'partial', 'search_partial' - Enables partial results to be returned if one or more index partitions
+-- For more information about using filters, see
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/filtering-results.html Filtering Matching Documents>
+-- in the /Amazon CloudSearch Developer Guide/.
+search_filterQuery :: Lens.Lens' Search (Prelude.Maybe Prelude.Text)
+search_filterQuery = Lens.lens (\Search' {filterQuery} -> filterQuery) (\s@Search' {} a -> s {filterQuery = a} :: Search)
+
+-- | Retrieves highlights for matches in the specified @text@ or @text-array@
+-- fields. Each specified field must be highlight enabled in the domain
+-- configuration. The fields and options are specified in JSON using the
+-- form
+-- @{\"FIELD\":{\"OPTION\":VALUE,\"OPTION:\"STRING\"},\"FIELD\":{\"OPTION\":VALUE,\"OPTION\":\"STRING\"}}@.
+--
+-- You can specify the following highlight options:
+--
+-- -   @format@: specifies the format of the data in the text field: @text@
+--     or @html@. When data is returned as HTML, all non-alphanumeric
+--     characters are encoded. The default is @html@.
+-- -   @max_phrases@: specifies the maximum number of occurrences of the
+--     search term(s) you want to highlight. By default, the first
+--     occurrence is highlighted.
+-- -   @pre_tag@: specifies the string to prepend to an occurrence of a
+--     search term. The default for HTML highlights is @&lt;em&gt;@. The
+--     default for text highlights is @*@.
+-- -   @post_tag@: specifies the string to append to an occurrence of a
+--     search term. The default for HTML highlights is @&lt;\/em&gt;@. The
+--     default for text highlights is @*@.
+--
+-- If no highlight options are specified for a field, the returned field
+-- text is treated as HTML and the first match is highlighted with emphasis
+-- tags: @&lt;em>search-term&lt;\/em&gt;@.
+--
+-- For example, the following request retrieves highlights for the @actors@
+-- and @title@ fields.
+--
+-- @{ \"actors\": {}, \"title\": {\"format\": \"text\",\"max_phrases\": 2,\"pre_tag\": \"\",\"post_tag\": \"\"} }@
+search_highlight :: Lens.Lens' Search (Prelude.Maybe Prelude.Text)
+search_highlight = Lens.lens (\Search' {highlight} -> highlight) (\s@Search' {} a -> s {highlight = a} :: Search)
+
+-- | Enables partial results to be returned if one or more index partitions
 -- are unavailable. When your search index is partitioned across multiple
 -- search instances, by default Amazon CloudSearch only returns results if
 -- every partition can be queried. This means that the failure of a single
@@ -725,77 +905,8 @@ data Search = Search'
 -- displaying no results, you could display the partial results and a
 -- message indicating that the results might be incomplete due to a
 -- temporary system outage.
---
--- 'query', 'search_query' - Specifies the search criteria for the request. How you specify the
--- search criteria depends on the query parser used for the request and the
--- parser options specified in the @queryOptions@ parameter. By default,
--- the @simple@ query parser is used to process requests. To use the
--- @structured@, @lucene@, or @dismax@ query parser, you must also specify
--- the @queryParser@ parameter.
---
--- For more information about specifying search criteria, see
--- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching.html Searching Your Data>
--- in the /Amazon CloudSearch Developer Guide/.
-newSearch ::
-  -- | 'query'
-  Prelude.Text ->
-  Search
-newSearch pQuery_ =
-  Search'
-    { expr = Prelude.Nothing,
-      cursor = Prelude.Nothing,
-      return' = Prelude.Nothing,
-      queryOptions = Prelude.Nothing,
-      filterQuery = Prelude.Nothing,
-      size = Prelude.Nothing,
-      queryParser = Prelude.Nothing,
-      start = Prelude.Nothing,
-      highlight = Prelude.Nothing,
-      stats = Prelude.Nothing,
-      sort = Prelude.Nothing,
-      facet = Prelude.Nothing,
-      partial = Prelude.Nothing,
-      query = pQuery_
-    }
-
--- | Defines one or more numeric expressions that can be used to sort results
--- or specify search or filter criteria. You can also specify expressions
--- as return fields.
---
--- You specify the expressions in JSON using the form
--- @{\"EXPRESSIONNAME\":\"EXPRESSION\"}@. You can define and use multiple
--- expressions in a search request. For example:
---
--- @ {\"expression1\":\"_score*rating\", \"expression2\":\"(1\/rank)*year\"} @
---
--- For information about the variables, operators, and functions you can
--- use in expressions, see
--- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/configuring-expressions.html#writing-expressions Writing Expressions>
--- in the /Amazon CloudSearch Developer Guide/.
-search_expr :: Lens.Lens' Search (Prelude.Maybe Prelude.Text)
-search_expr = Lens.lens (\Search' {expr} -> expr) (\s@Search' {} a -> s {expr = a} :: Search)
-
--- | Retrieves a cursor value you can use to page through large result sets.
--- Use the @size@ parameter to control the number of hits to include in
--- each response. You can specify either the @cursor@ or @start@ parameter
--- in a request; they are mutually exclusive. To get the first cursor, set
--- the cursor value to @initial@. In subsequent requests, specify the
--- cursor value returned in the hits section of the response.
---
--- For more information, see
--- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html Paginating Results>
--- in the /Amazon CloudSearch Developer Guide/.
-search_cursor :: Lens.Lens' Search (Prelude.Maybe Prelude.Text)
-search_cursor = Lens.lens (\Search' {cursor} -> cursor) (\s@Search' {} a -> s {cursor = a} :: Search)
-
--- | Specifies the field and expression values to include in the response.
--- Multiple fields or expressions are specified as a comma-separated list.
--- By default, a search response includes all return enabled fields
--- (@_all_fields@). To return only the document IDs for the matching
--- documents, specify @_no_fields@. To retrieve the relevance score
--- calculated for each document, specify @_score@.
-search_return :: Lens.Lens' Search (Prelude.Maybe Prelude.Text)
-search_return = Lens.lens (\Search' {return'} -> return') (\s@Search' {} a -> s {return' = a} :: Search)
+search_partial :: Lens.Lens' Search (Prelude.Maybe Prelude.Bool)
+search_partial = Lens.lens (\Search' {partial} -> partial) (\s@Search' {} a -> s {partial = a} :: Search)
 
 -- | Configures options for the query parser specified in the @queryParser@
 -- parameter. You specify the options in JSON using the following form
@@ -895,24 +1006,6 @@ search_return = Lens.lens (\Search' {return'} -> return') (\s@Search' {} a -> s 
 search_queryOptions :: Lens.Lens' Search (Prelude.Maybe Prelude.Text)
 search_queryOptions = Lens.lens (\Search' {queryOptions} -> queryOptions) (\s@Search' {} a -> s {queryOptions = a} :: Search)
 
--- | Specifies a structured query that filters the results of a search
--- without affecting how the results are scored and sorted. You use
--- @filterQuery@ in conjunction with the @query@ parameter to filter the
--- documents that match the constraints specified in the @query@ parameter.
--- Specifying a filter controls only which matching documents are included
--- in the results, it has no effect on how they are scored and sorted. The
--- @filterQuery@ parameter supports the full structured query syntax.
---
--- For more information about using filters, see
--- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/filtering-results.html Filtering Matching Documents>
--- in the /Amazon CloudSearch Developer Guide/.
-search_filterQuery :: Lens.Lens' Search (Prelude.Maybe Prelude.Text)
-search_filterQuery = Lens.lens (\Search' {filterQuery} -> filterQuery) (\s@Search' {} a -> s {filterQuery = a} :: Search)
-
--- | Specifies the maximum number of search hits to include in the response.
-search_size :: Lens.Lens' Search (Prelude.Maybe Prelude.Integer)
-search_size = Lens.lens (\Search' {size} -> size) (\s@Search' {} a -> s {size = a} :: Search)
-
 -- | Specifies which query parser to use to process the request. If
 -- @queryParser@ is not specified, Amazon CloudSearch uses the @simple@
 -- query parser.
@@ -949,58 +1042,18 @@ search_size = Lens.lens (\Search' {size} -> size) (\s@Search' {} a -> s {size = 
 search_queryParser :: Lens.Lens' Search (Prelude.Maybe QueryParser)
 search_queryParser = Lens.lens (\Search' {queryParser} -> queryParser) (\s@Search' {} a -> s {queryParser = a} :: Search)
 
--- | Specifies the offset of the first search hit you want to return. Note
--- that the result set is zero-based; the first result is at index 0. You
--- can specify either the @start@ or @cursor@ parameter in a request, they
--- are mutually exclusive.
---
--- For more information, see
--- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html Paginating Results>
--- in the /Amazon CloudSearch Developer Guide/.
-search_start :: Lens.Lens' Search (Prelude.Maybe Prelude.Integer)
-search_start = Lens.lens (\Search' {start} -> start) (\s@Search' {} a -> s {start = a} :: Search)
+-- | Specifies the field and expression values to include in the response.
+-- Multiple fields or expressions are specified as a comma-separated list.
+-- By default, a search response includes all return enabled fields
+-- (@_all_fields@). To return only the document IDs for the matching
+-- documents, specify @_no_fields@. To retrieve the relevance score
+-- calculated for each document, specify @_score@.
+search_return :: Lens.Lens' Search (Prelude.Maybe Prelude.Text)
+search_return = Lens.lens (\Search' {return'} -> return') (\s@Search' {} a -> s {return' = a} :: Search)
 
--- | Retrieves highlights for matches in the specified @text@ or @text-array@
--- fields. Each specified field must be highlight enabled in the domain
--- configuration. The fields and options are specified in JSON using the
--- form
--- @{\"FIELD\":{\"OPTION\":VALUE,\"OPTION:\"STRING\"},\"FIELD\":{\"OPTION\":VALUE,\"OPTION\":\"STRING\"}}@.
---
--- You can specify the following highlight options:
---
--- -   @format@: specifies the format of the data in the text field: @text@
---     or @html@. When data is returned as HTML, all non-alphanumeric
---     characters are encoded. The default is @html@.
--- -   @max_phrases@: specifies the maximum number of occurrences of the
---     search term(s) you want to highlight. By default, the first
---     occurrence is highlighted.
--- -   @pre_tag@: specifies the string to prepend to an occurrence of a
---     search term. The default for HTML highlights is @&lt;em&gt;@. The
---     default for text highlights is @*@.
--- -   @post_tag@: specifies the string to append to an occurrence of a
---     search term. The default for HTML highlights is @&lt;\/em&gt;@. The
---     default for text highlights is @*@.
---
--- If no highlight options are specified for a field, the returned field
--- text is treated as HTML and the first match is highlighted with emphasis
--- tags: @&lt;em>search-term&lt;\/em&gt;@.
---
--- For example, the following request retrieves highlights for the @actors@
--- and @title@ fields.
---
--- @{ \"actors\": {}, \"title\": {\"format\": \"text\",\"max_phrases\": 2,\"pre_tag\": \"\",\"post_tag\": \"\"} }@
-search_highlight :: Lens.Lens' Search (Prelude.Maybe Prelude.Text)
-search_highlight = Lens.lens (\Search' {highlight} -> highlight) (\s@Search' {} a -> s {highlight = a} :: Search)
-
--- | Specifies one or more fields for which to get statistics information.
--- Each specified field must be facet-enabled in the domain configuration.
--- The fields are specified in JSON using the form:
---
--- @{\"FIELD-A\":{},\"FIELD-B\":{}}@
---
--- There are currently no options supported for statistics.
-search_stats :: Lens.Lens' Search (Prelude.Maybe Prelude.Text)
-search_stats = Lens.lens (\Search' {stats} -> stats) (\s@Search' {} a -> s {stats = a} :: Search)
+-- | Specifies the maximum number of search hits to include in the response.
+search_size :: Lens.Lens' Search (Prelude.Maybe Prelude.Integer)
+search_size = Lens.lens (\Search' {size} -> size) (\s@Search' {} a -> s {size = a} :: Search)
 
 -- | Specifies the fields or custom expressions to use to sort the search
 -- results. Multiple fields or expressions are specified as a
@@ -1018,78 +1071,26 @@ search_stats = Lens.lens (\Search' {stats} -> stats) (\s@Search' {} a -> s {stat
 search_sort :: Lens.Lens' Search (Prelude.Maybe Prelude.Text)
 search_sort = Lens.lens (\Search' {sort} -> sort) (\s@Search' {} a -> s {sort = a} :: Search)
 
--- | Specifies one or more fields for which to get facet information, and
--- options that control how the facet information is returned. Each
--- specified field must be facet-enabled in the domain configuration. The
--- fields and options are specified in JSON using the form
--- @{\"FIELD\":{\"OPTION\":VALUE,\"OPTION:\"STRING\"},\"FIELD\":{\"OPTION\":VALUE,\"OPTION\":\"STRING\"}}@.
---
--- You can specify the following faceting options:
---
--- -   @buckets@ specifies an array of the facet values or ranges to count.
---     Ranges are specified using the same syntax that you use to search
---     for a range of values. For more information, see
---     <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/searching-ranges.html Searching for a Range of Values>
---     in the /Amazon CloudSearch Developer Guide/. Buckets are returned in
---     the order they are specified in the request. The @sort@ and @size@
---     options are not valid if you specify @buckets@.
---
--- -   @size@ specifies the maximum number of facets to include in the
---     results. By default, Amazon CloudSearch returns counts for the top
---     10. The @size@ parameter is only valid when you specify the @sort@
---     option; it cannot be used in conjunction with @buckets@.
---
--- -   @sort@ specifies how you want to sort the facets in the results:
---     @bucket@ or @count@. Specify @bucket@ to sort alphabetically or
---     numerically by facet value (in ascending order). Specify @count@ to
---     sort by the facet counts computed for each facet value (in
---     descending order). To retrieve facet counts for particular values or
---     ranges of values, use the @buckets@ option instead of @sort@.
---
--- If no facet options are specified, facet counts are computed for all
--- field values, the facets are sorted by facet count, and the top 10
--- facets are returned in the results.
---
--- To count particular buckets of values, use the @buckets@ option. For
--- example, the following request uses the @buckets@ option to calculate
--- and return facet counts by decade.
---
--- @ {\"year\":{\"buckets\":[\"[1970,1979]\",\"[1980,1989]\",\"[1990,1999]\",\"[2000,2009]\",\"[2010,}\"]}} @
---
--- To sort facets by facet count, use the @count@ option. For example, the
--- following request sets the @sort@ option to @count@ to sort the facet
--- values by facet count, with the facet values that have the most matching
--- documents listed first. Setting the @size@ option to 3 returns only the
--- top three facet values.
---
--- @ {\"year\":{\"sort\":\"count\",\"size\":3}} @
---
--- To sort the facets by value, use the @bucket@ option. For example, the
--- following request sets the @sort@ option to @bucket@ to sort the facet
--- values numerically by year, with earliest year listed first.
---
--- @ {\"year\":{\"sort\":\"bucket\"}} @
+-- | Specifies the offset of the first search hit you want to return. Note
+-- that the result set is zero-based; the first result is at index 0. You
+-- can specify either the @start@ or @cursor@ parameter in a request, they
+-- are mutually exclusive.
 --
 -- For more information, see
--- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/faceting.html Getting and Using Facet Information>
+-- <http://docs.aws.amazon.com/cloudsearch/latest/developerguide/paginating-results.html Paginating Results>
 -- in the /Amazon CloudSearch Developer Guide/.
-search_facet :: Lens.Lens' Search (Prelude.Maybe Prelude.Text)
-search_facet = Lens.lens (\Search' {facet} -> facet) (\s@Search' {} a -> s {facet = a} :: Search)
+search_start :: Lens.Lens' Search (Prelude.Maybe Prelude.Integer)
+search_start = Lens.lens (\Search' {start} -> start) (\s@Search' {} a -> s {start = a} :: Search)
 
--- | Enables partial results to be returned if one or more index partitions
--- are unavailable. When your search index is partitioned across multiple
--- search instances, by default Amazon CloudSearch only returns results if
--- every partition can be queried. This means that the failure of a single
--- search instance can result in 5xx (internal server) errors. When you
--- enable partial results, Amazon CloudSearch returns whatever results are
--- available and includes the percentage of documents searched in the
--- search results (percent-searched). This enables you to more gracefully
--- degrade your users\' search experience. For example, rather than
--- displaying no results, you could display the partial results and a
--- message indicating that the results might be incomplete due to a
--- temporary system outage.
-search_partial :: Lens.Lens' Search (Prelude.Maybe Prelude.Bool)
-search_partial = Lens.lens (\Search' {partial} -> partial) (\s@Search' {} a -> s {partial = a} :: Search)
+-- | Specifies one or more fields for which to get statistics information.
+-- Each specified field must be facet-enabled in the domain configuration.
+-- The fields are specified in JSON using the form:
+--
+-- @{\"FIELD-A\":{},\"FIELD-B\":{}}@
+--
+-- There are currently no options supported for statistics.
+search_stats :: Lens.Lens' Search (Prelude.Maybe Prelude.Text)
+search_stats = Lens.lens (\Search' {stats} -> stats) (\s@Search' {} a -> s {stats = a} :: Search)
 
 -- | Specifies the search criteria for the request. How you specify the
 -- search criteria depends on the query parser used for the request and the
@@ -1106,83 +1107,84 @@ search_query = Lens.lens (\Search' {query} -> query) (\s@Search' {} a -> s {quer
 
 instance Core.AWSRequest Search where
   type AWSResponse Search = SearchResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SearchResponse'
-            Prelude.<$> (x Core..?> "status")
-            Prelude.<*> (x Core..?> "facets" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "stats" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "hits")
+            Prelude.<$> (x Data..?> "facets" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "hits")
+            Prelude.<*> (x Data..?> "stats" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable Search where
   hashWithSalt _salt Search' {..} =
-    _salt `Prelude.hashWithSalt` expr
-      `Prelude.hashWithSalt` cursor
-      `Prelude.hashWithSalt` return'
-      `Prelude.hashWithSalt` queryOptions
-      `Prelude.hashWithSalt` filterQuery
-      `Prelude.hashWithSalt` size
-      `Prelude.hashWithSalt` queryParser
-      `Prelude.hashWithSalt` start
-      `Prelude.hashWithSalt` highlight
-      `Prelude.hashWithSalt` stats
-      `Prelude.hashWithSalt` sort
+    _salt `Prelude.hashWithSalt` cursor
+      `Prelude.hashWithSalt` expr
       `Prelude.hashWithSalt` facet
+      `Prelude.hashWithSalt` filterQuery
+      `Prelude.hashWithSalt` highlight
       `Prelude.hashWithSalt` partial
+      `Prelude.hashWithSalt` queryOptions
+      `Prelude.hashWithSalt` queryParser
+      `Prelude.hashWithSalt` return'
+      `Prelude.hashWithSalt` size
+      `Prelude.hashWithSalt` sort
+      `Prelude.hashWithSalt` start
+      `Prelude.hashWithSalt` stats
       `Prelude.hashWithSalt` query
 
 instance Prelude.NFData Search where
   rnf Search' {..} =
-    Prelude.rnf expr
-      `Prelude.seq` Prelude.rnf cursor
-      `Prelude.seq` Prelude.rnf return'
-      `Prelude.seq` Prelude.rnf queryOptions
-      `Prelude.seq` Prelude.rnf filterQuery
-      `Prelude.seq` Prelude.rnf size
-      `Prelude.seq` Prelude.rnf queryParser
-      `Prelude.seq` Prelude.rnf start
-      `Prelude.seq` Prelude.rnf highlight
-      `Prelude.seq` Prelude.rnf stats
-      `Prelude.seq` Prelude.rnf sort
+    Prelude.rnf cursor
+      `Prelude.seq` Prelude.rnf expr
       `Prelude.seq` Prelude.rnf facet
+      `Prelude.seq` Prelude.rnf filterQuery
+      `Prelude.seq` Prelude.rnf highlight
       `Prelude.seq` Prelude.rnf partial
+      `Prelude.seq` Prelude.rnf queryOptions
+      `Prelude.seq` Prelude.rnf queryParser
+      `Prelude.seq` Prelude.rnf return'
+      `Prelude.seq` Prelude.rnf size
+      `Prelude.seq` Prelude.rnf sort
+      `Prelude.seq` Prelude.rnf start
+      `Prelude.seq` Prelude.rnf stats
       `Prelude.seq` Prelude.rnf query
 
-instance Core.ToHeaders Search where
+instance Data.ToHeaders Search where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath Search where
+instance Data.ToPath Search where
   toPath = Prelude.const "/2013-01-01/search"
 
-instance Core.ToQuery Search where
+instance Data.ToQuery Search where
   toQuery Search' {..} =
     Prelude.mconcat
-      [ "expr" Core.=: expr,
-        "cursor" Core.=: cursor,
-        "return" Core.=: return',
-        "q.options" Core.=: queryOptions,
-        "fq" Core.=: filterQuery,
-        "size" Core.=: size,
-        "q.parser" Core.=: queryParser,
-        "start" Core.=: start,
-        "highlight" Core.=: highlight,
-        "stats" Core.=: stats,
-        "sort" Core.=: sort,
-        "facet" Core.=: facet,
-        "partial" Core.=: partial,
-        "q" Core.=: query,
+      [ "cursor" Data.=: cursor,
+        "expr" Data.=: expr,
+        "facet" Data.=: facet,
+        "fq" Data.=: filterQuery,
+        "highlight" Data.=: highlight,
+        "partial" Data.=: partial,
+        "q.options" Data.=: queryOptions,
+        "q.parser" Data.=: queryParser,
+        "return" Data.=: return',
+        "size" Data.=: size,
+        "sort" Data.=: sort,
+        "start" Data.=: start,
+        "stats" Data.=: stats,
+        "q" Data.=: query,
         "format=sdk&pretty=true"
       ]
 
@@ -1192,14 +1194,14 @@ instance Core.ToQuery Search where
 --
 -- /See:/ 'newSearchResponse' smart constructor.
 data SearchResponse = SearchResponse'
-  { -- | The status information returned for the search request.
-    status :: Prelude.Maybe SearchStatus,
-    -- | The requested facet information.
+  { -- | The requested facet information.
     facets :: Prelude.Maybe (Prelude.HashMap Prelude.Text BucketInfo),
-    -- | The requested field statistics information.
-    stats :: Prelude.Maybe (Prelude.HashMap Prelude.Text FieldStats),
     -- | The documents that match the search criteria.
     hits :: Prelude.Maybe Hits,
+    -- | The requested field statistics information.
+    stats :: Prelude.Maybe (Prelude.HashMap Prelude.Text FieldStats),
+    -- | The status information returned for the search request.
+    status :: Prelude.Maybe SearchStatus,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -1213,13 +1215,13 @@ data SearchResponse = SearchResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'searchResponse_status' - The status information returned for the search request.
---
 -- 'facets', 'searchResponse_facets' - The requested facet information.
+--
+-- 'hits', 'searchResponse_hits' - The documents that match the search criteria.
 --
 -- 'stats', 'searchResponse_stats' - The requested field statistics information.
 --
--- 'hits', 'searchResponse_hits' - The documents that match the search criteria.
+-- 'status', 'searchResponse_status' - The status information returned for the search request.
 --
 -- 'httpStatus', 'searchResponse_httpStatus' - The response's http status code.
 newSearchResponse ::
@@ -1228,28 +1230,28 @@ newSearchResponse ::
   SearchResponse
 newSearchResponse pHttpStatus_ =
   SearchResponse'
-    { status = Prelude.Nothing,
-      facets = Prelude.Nothing,
-      stats = Prelude.Nothing,
+    { facets = Prelude.Nothing,
       hits = Prelude.Nothing,
+      stats = Prelude.Nothing,
+      status = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The status information returned for the search request.
-searchResponse_status :: Lens.Lens' SearchResponse (Prelude.Maybe SearchStatus)
-searchResponse_status = Lens.lens (\SearchResponse' {status} -> status) (\s@SearchResponse' {} a -> s {status = a} :: SearchResponse)
 
 -- | The requested facet information.
 searchResponse_facets :: Lens.Lens' SearchResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text BucketInfo))
 searchResponse_facets = Lens.lens (\SearchResponse' {facets} -> facets) (\s@SearchResponse' {} a -> s {facets = a} :: SearchResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | The documents that match the search criteria.
+searchResponse_hits :: Lens.Lens' SearchResponse (Prelude.Maybe Hits)
+searchResponse_hits = Lens.lens (\SearchResponse' {hits} -> hits) (\s@SearchResponse' {} a -> s {hits = a} :: SearchResponse)
+
 -- | The requested field statistics information.
 searchResponse_stats :: Lens.Lens' SearchResponse (Prelude.Maybe (Prelude.HashMap Prelude.Text FieldStats))
 searchResponse_stats = Lens.lens (\SearchResponse' {stats} -> stats) (\s@SearchResponse' {} a -> s {stats = a} :: SearchResponse) Prelude.. Lens.mapping Lens.coerced
 
--- | The documents that match the search criteria.
-searchResponse_hits :: Lens.Lens' SearchResponse (Prelude.Maybe Hits)
-searchResponse_hits = Lens.lens (\SearchResponse' {hits} -> hits) (\s@SearchResponse' {} a -> s {hits = a} :: SearchResponse)
+-- | The status information returned for the search request.
+searchResponse_status :: Lens.Lens' SearchResponse (Prelude.Maybe SearchStatus)
+searchResponse_status = Lens.lens (\SearchResponse' {status} -> status) (\s@SearchResponse' {} a -> s {status = a} :: SearchResponse)
 
 -- | The response's http status code.
 searchResponse_httpStatus :: Lens.Lens' SearchResponse Prelude.Int
@@ -1257,8 +1259,8 @@ searchResponse_httpStatus = Lens.lens (\SearchResponse' {httpStatus} -> httpStat
 
 instance Prelude.NFData SearchResponse where
   rnf SearchResponse' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf facets
-      `Prelude.seq` Prelude.rnf stats
+    Prelude.rnf facets
       `Prelude.seq` Prelude.rnf hits
+      `Prelude.seq` Prelude.rnf stats
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf httpStatus

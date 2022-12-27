@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CustomerProfiles.Types.IncrementalPullConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CustomerProfiles.Types.IncrementalPullConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the configuration used when importing incremental records from
@@ -65,11 +66,11 @@ instance Prelude.NFData IncrementalPullConfig where
   rnf IncrementalPullConfig' {..} =
     Prelude.rnf datetimeTypeFieldName
 
-instance Core.ToJSON IncrementalPullConfig where
+instance Data.ToJSON IncrementalPullConfig where
   toJSON IncrementalPullConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DatetimeTypeFieldName" Core..=)
+          [ ("DatetimeTypeFieldName" Data..=)
               Prelude.<$> datetimeTypeFieldName
           ]
       )

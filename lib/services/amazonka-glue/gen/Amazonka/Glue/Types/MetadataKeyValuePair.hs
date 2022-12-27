@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.Types.MetadataKeyValuePair
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Glue.Types.MetadataKeyValuePair where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A structure containing a key value pair for metadata.
@@ -72,11 +73,11 @@ instance Prelude.NFData MetadataKeyValuePair where
     Prelude.rnf metadataKey
       `Prelude.seq` Prelude.rnf metadataValue
 
-instance Core.ToJSON MetadataKeyValuePair where
+instance Data.ToJSON MetadataKeyValuePair where
   toJSON MetadataKeyValuePair' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MetadataKey" Core..=) Prelude.<$> metadataKey,
-            ("MetadataValue" Core..=) Prelude.<$> metadataValue
+          [ ("MetadataKey" Data..=) Prelude.<$> metadataKey,
+            ("MetadataValue" Data..=) Prelude.<$> metadataValue
           ]
       )

@@ -14,14 +14,14 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.EnableOrganizationAdminAccount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Designates an account as the delegated Amazon Macie administrator
--- account for an Amazon Web Services organization.
+-- account for an organization in Organizations.
 module Amazonka.MacieV2.EnableOrganizationAdminAccount
   ( -- * Creating a Request
     EnableOrganizationAdminAccount (..),
@@ -41,7 +41,8 @@ module Amazonka.MacieV2.EnableOrganizationAdminAccount
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -99,7 +100,8 @@ instance
   type
     AWSResponse EnableOrganizationAdminAccount =
       EnableOrganizationAdminAccountResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -126,33 +128,33 @@ instance
       `Prelude.seq` Prelude.rnf adminAccountId
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     EnableOrganizationAdminAccount
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EnableOrganizationAdminAccount where
+instance Data.ToJSON EnableOrganizationAdminAccount where
   toJSON EnableOrganizationAdminAccount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
             Prelude.Just
-              ("adminAccountId" Core..= adminAccountId)
+              ("adminAccountId" Data..= adminAccountId)
           ]
       )
 
-instance Core.ToPath EnableOrganizationAdminAccount where
+instance Data.ToPath EnableOrganizationAdminAccount where
   toPath = Prelude.const "/admin"
 
-instance Core.ToQuery EnableOrganizationAdminAccount where
+instance Data.ToQuery EnableOrganizationAdminAccount where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newEnableOrganizationAdminAccountResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.InputChannelLevel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.InputChannelLevel where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Input Channel Level
@@ -68,14 +69,14 @@ inputChannelLevel_inputChannel = Lens.lens (\InputChannelLevel' {inputChannel} -
 inputChannelLevel_gain :: Lens.Lens' InputChannelLevel Prelude.Int
 inputChannelLevel_gain = Lens.lens (\InputChannelLevel' {gain} -> gain) (\s@InputChannelLevel' {} a -> s {gain = a} :: InputChannelLevel)
 
-instance Core.FromJSON InputChannelLevel where
+instance Data.FromJSON InputChannelLevel where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InputChannelLevel"
       ( \x ->
           InputChannelLevel'
-            Prelude.<$> (x Core..: "inputChannel")
-            Prelude.<*> (x Core..: "gain")
+            Prelude.<$> (x Data..: "inputChannel")
+            Prelude.<*> (x Data..: "gain")
       )
 
 instance Prelude.Hashable InputChannelLevel where
@@ -88,11 +89,11 @@ instance Prelude.NFData InputChannelLevel where
     Prelude.rnf inputChannel
       `Prelude.seq` Prelude.rnf gain
 
-instance Core.ToJSON InputChannelLevel where
+instance Data.ToJSON InputChannelLevel where
   toJSON InputChannelLevel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("inputChannel" Core..= inputChannel),
-            Prelude.Just ("gain" Core..= gain)
+          [ Prelude.Just ("inputChannel" Data..= inputChannel),
+            Prelude.Just ("gain" Data..= gain)
           ]
       )

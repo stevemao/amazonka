@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.ListActions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,14 +29,14 @@ module Amazonka.SageMaker.ListActions
     newListActions,
 
     -- * Request Lenses
+    listActions_actionType,
     listActions_createdAfter,
+    listActions_createdBefore,
+    listActions_maxResults,
     listActions_nextToken,
+    listActions_sortBy,
     listActions_sortOrder,
     listActions_sourceUri,
-    listActions_actionType,
-    listActions_maxResults,
-    listActions_createdBefore,
-    listActions_sortBy,
 
     -- * Destructuring the Response
     ListActionsResponse (..),
@@ -50,7 +50,8 @@ module Amazonka.SageMaker.ListActions
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,26 +59,26 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newListActions' smart constructor.
 data ListActions = ListActions'
-  { -- | A filter that returns only actions created on or after the specified
-    -- time.
-    createdAfter :: Prelude.Maybe Core.POSIX,
-    -- | If the previous call to @ListActions@ didn\'t return the full set of
-    -- actions, the call returns a token for getting the next set of actions.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The sort order. The default value is @Descending@.
-    sortOrder :: Prelude.Maybe SortOrder,
-    -- | A filter that returns only actions with the specified source URI.
-    sourceUri :: Prelude.Maybe Prelude.Text,
-    -- | A filter that returns only actions of the specified type.
+  { -- | A filter that returns only actions of the specified type.
     actionType :: Prelude.Maybe Prelude.Text,
+    -- | A filter that returns only actions created on or after the specified
+    -- time.
+    createdAfter :: Prelude.Maybe Data.POSIX,
+    -- | A filter that returns only actions created on or before the specified
+    -- time.
+    createdBefore :: Prelude.Maybe Data.POSIX,
     -- | The maximum number of actions to return in the response. The default
     -- value is 10.
     maxResults :: Prelude.Maybe Prelude.Natural,
-    -- | A filter that returns only actions created on or before the specified
-    -- time.
-    createdBefore :: Prelude.Maybe Core.POSIX,
+    -- | If the previous call to @ListActions@ didn\'t return the full set of
+    -- actions, the call returns a token for getting the next set of actions.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The property used to sort results. The default value is @CreationTime@.
-    sortBy :: Prelude.Maybe SortActionsBy
+    sortBy :: Prelude.Maybe SortActionsBy,
+    -- | The sort order. The default value is @Descending@.
+    sortOrder :: Prelude.Maybe SortOrder,
+    -- | A filter that returns only actions with the specified source URI.
+    sourceUri :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -89,48 +90,66 @@ data ListActions = ListActions'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'createdAfter', 'listActions_createdAfter' - A filter that returns only actions created on or after the specified
--- time.
---
--- 'nextToken', 'listActions_nextToken' - If the previous call to @ListActions@ didn\'t return the full set of
--- actions, the call returns a token for getting the next set of actions.
---
--- 'sortOrder', 'listActions_sortOrder' - The sort order. The default value is @Descending@.
---
--- 'sourceUri', 'listActions_sourceUri' - A filter that returns only actions with the specified source URI.
---
 -- 'actionType', 'listActions_actionType' - A filter that returns only actions of the specified type.
 --
--- 'maxResults', 'listActions_maxResults' - The maximum number of actions to return in the response. The default
--- value is 10.
+-- 'createdAfter', 'listActions_createdAfter' - A filter that returns only actions created on or after the specified
+-- time.
 --
 -- 'createdBefore', 'listActions_createdBefore' - A filter that returns only actions created on or before the specified
 -- time.
 --
+-- 'maxResults', 'listActions_maxResults' - The maximum number of actions to return in the response. The default
+-- value is 10.
+--
+-- 'nextToken', 'listActions_nextToken' - If the previous call to @ListActions@ didn\'t return the full set of
+-- actions, the call returns a token for getting the next set of actions.
+--
 -- 'sortBy', 'listActions_sortBy' - The property used to sort results. The default value is @CreationTime@.
+--
+-- 'sortOrder', 'listActions_sortOrder' - The sort order. The default value is @Descending@.
+--
+-- 'sourceUri', 'listActions_sourceUri' - A filter that returns only actions with the specified source URI.
 newListActions ::
   ListActions
 newListActions =
   ListActions'
-    { createdAfter = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      sortOrder = Prelude.Nothing,
-      sourceUri = Prelude.Nothing,
-      actionType = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { actionType = Prelude.Nothing,
+      createdAfter = Prelude.Nothing,
       createdBefore = Prelude.Nothing,
-      sortBy = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      sortBy = Prelude.Nothing,
+      sortOrder = Prelude.Nothing,
+      sourceUri = Prelude.Nothing
     }
+
+-- | A filter that returns only actions of the specified type.
+listActions_actionType :: Lens.Lens' ListActions (Prelude.Maybe Prelude.Text)
+listActions_actionType = Lens.lens (\ListActions' {actionType} -> actionType) (\s@ListActions' {} a -> s {actionType = a} :: ListActions)
 
 -- | A filter that returns only actions created on or after the specified
 -- time.
 listActions_createdAfter :: Lens.Lens' ListActions (Prelude.Maybe Prelude.UTCTime)
-listActions_createdAfter = Lens.lens (\ListActions' {createdAfter} -> createdAfter) (\s@ListActions' {} a -> s {createdAfter = a} :: ListActions) Prelude.. Lens.mapping Core._Time
+listActions_createdAfter = Lens.lens (\ListActions' {createdAfter} -> createdAfter) (\s@ListActions' {} a -> s {createdAfter = a} :: ListActions) Prelude.. Lens.mapping Data._Time
+
+-- | A filter that returns only actions created on or before the specified
+-- time.
+listActions_createdBefore :: Lens.Lens' ListActions (Prelude.Maybe Prelude.UTCTime)
+listActions_createdBefore = Lens.lens (\ListActions' {createdBefore} -> createdBefore) (\s@ListActions' {} a -> s {createdBefore = a} :: ListActions) Prelude.. Lens.mapping Data._Time
+
+-- | The maximum number of actions to return in the response. The default
+-- value is 10.
+listActions_maxResults :: Lens.Lens' ListActions (Prelude.Maybe Prelude.Natural)
+listActions_maxResults = Lens.lens (\ListActions' {maxResults} -> maxResults) (\s@ListActions' {} a -> s {maxResults = a} :: ListActions)
 
 -- | If the previous call to @ListActions@ didn\'t return the full set of
 -- actions, the call returns a token for getting the next set of actions.
 listActions_nextToken :: Lens.Lens' ListActions (Prelude.Maybe Prelude.Text)
 listActions_nextToken = Lens.lens (\ListActions' {nextToken} -> nextToken) (\s@ListActions' {} a -> s {nextToken = a} :: ListActions)
+
+-- | The property used to sort results. The default value is @CreationTime@.
+listActions_sortBy :: Lens.Lens' ListActions (Prelude.Maybe SortActionsBy)
+listActions_sortBy = Lens.lens (\ListActions' {sortBy} -> sortBy) (\s@ListActions' {} a -> s {sortBy = a} :: ListActions)
 
 -- | The sort order. The default value is @Descending@.
 listActions_sortOrder :: Lens.Lens' ListActions (Prelude.Maybe SortOrder)
@@ -139,24 +158,6 @@ listActions_sortOrder = Lens.lens (\ListActions' {sortOrder} -> sortOrder) (\s@L
 -- | A filter that returns only actions with the specified source URI.
 listActions_sourceUri :: Lens.Lens' ListActions (Prelude.Maybe Prelude.Text)
 listActions_sourceUri = Lens.lens (\ListActions' {sourceUri} -> sourceUri) (\s@ListActions' {} a -> s {sourceUri = a} :: ListActions)
-
--- | A filter that returns only actions of the specified type.
-listActions_actionType :: Lens.Lens' ListActions (Prelude.Maybe Prelude.Text)
-listActions_actionType = Lens.lens (\ListActions' {actionType} -> actionType) (\s@ListActions' {} a -> s {actionType = a} :: ListActions)
-
--- | The maximum number of actions to return in the response. The default
--- value is 10.
-listActions_maxResults :: Lens.Lens' ListActions (Prelude.Maybe Prelude.Natural)
-listActions_maxResults = Lens.lens (\ListActions' {maxResults} -> maxResults) (\s@ListActions' {} a -> s {maxResults = a} :: ListActions)
-
--- | A filter that returns only actions created on or before the specified
--- time.
-listActions_createdBefore :: Lens.Lens' ListActions (Prelude.Maybe Prelude.UTCTime)
-listActions_createdBefore = Lens.lens (\ListActions' {createdBefore} -> createdBefore) (\s@ListActions' {} a -> s {createdBefore = a} :: ListActions) Prelude.. Lens.mapping Core._Time
-
--- | The property used to sort results. The default value is @CreationTime@.
-listActions_sortBy :: Lens.Lens' ListActions (Prelude.Maybe SortActionsBy)
-listActions_sortBy = Lens.lens (\ListActions' {sortBy} -> sortBy) (\s@ListActions' {} a -> s {sortBy = a} :: ListActions)
 
 instance Core.AWSPager ListActions where
   page rq rs
@@ -180,72 +181,73 @@ instance Core.AWSPager ListActions where
 
 instance Core.AWSRequest ListActions where
   type AWSResponse ListActions = ListActionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListActionsResponse'
-            Prelude.<$> ( x Core..?> "ActionSummaries"
+            Prelude.<$> ( x Data..?> "ActionSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListActions where
   hashWithSalt _salt ListActions' {..} =
-    _salt `Prelude.hashWithSalt` createdAfter
+    _salt `Prelude.hashWithSalt` actionType
+      `Prelude.hashWithSalt` createdAfter
+      `Prelude.hashWithSalt` createdBefore
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` sortBy
       `Prelude.hashWithSalt` sortOrder
       `Prelude.hashWithSalt` sourceUri
-      `Prelude.hashWithSalt` actionType
-      `Prelude.hashWithSalt` maxResults
-      `Prelude.hashWithSalt` createdBefore
-      `Prelude.hashWithSalt` sortBy
 
 instance Prelude.NFData ListActions where
   rnf ListActions' {..} =
-    Prelude.rnf createdAfter
+    Prelude.rnf actionType
+      `Prelude.seq` Prelude.rnf createdAfter
+      `Prelude.seq` Prelude.rnf createdBefore
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf sortBy
       `Prelude.seq` Prelude.rnf sortOrder
       `Prelude.seq` Prelude.rnf sourceUri
-      `Prelude.seq` Prelude.rnf actionType
-      `Prelude.seq` Prelude.rnf maxResults
-      `Prelude.seq` Prelude.rnf createdBefore
-      `Prelude.seq` Prelude.rnf sortBy
 
-instance Core.ToHeaders ListActions where
+instance Data.ToHeaders ListActions where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.ListActions" :: Prelude.ByteString),
+              Data.=# ("SageMaker.ListActions" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListActions where
+instance Data.ToJSON ListActions where
   toJSON ListActions' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CreatedAfter" Core..=) Prelude.<$> createdAfter,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("SortOrder" Core..=) Prelude.<$> sortOrder,
-            ("SourceUri" Core..=) Prelude.<$> sourceUri,
-            ("ActionType" Core..=) Prelude.<$> actionType,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            ("CreatedBefore" Core..=) Prelude.<$> createdBefore,
-            ("SortBy" Core..=) Prelude.<$> sortBy
+          [ ("ActionType" Data..=) Prelude.<$> actionType,
+            ("CreatedAfter" Data..=) Prelude.<$> createdAfter,
+            ("CreatedBefore" Data..=) Prelude.<$> createdBefore,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("SortBy" Data..=) Prelude.<$> sortBy,
+            ("SortOrder" Data..=) Prelude.<$> sortOrder,
+            ("SourceUri" Data..=) Prelude.<$> sourceUri
           ]
       )
 
-instance Core.ToPath ListActions where
+instance Data.ToPath ListActions where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListActions where
+instance Data.ToQuery ListActions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListActionsResponse' smart constructor.

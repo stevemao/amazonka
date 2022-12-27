@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApplicationInsights.DescribeApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ where
 
 import Amazonka.ApplicationInsights.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,12 +81,13 @@ instance Core.AWSRequest DescribeApplication where
   type
     AWSResponse DescribeApplication =
       DescribeApplicationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeApplicationResponse'
-            Prelude.<$> (x Core..?> "ApplicationInfo")
+            Prelude.<$> (x Data..?> "ApplicationInfo")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,34 +99,34 @@ instance Prelude.NFData DescribeApplication where
   rnf DescribeApplication' {..} =
     Prelude.rnf resourceGroupName
 
-instance Core.ToHeaders DescribeApplication where
+instance Data.ToHeaders DescribeApplication where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "EC2WindowsBarleyService.DescribeApplication" ::
+              Data.=# ( "EC2WindowsBarleyService.DescribeApplication" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeApplication where
+instance Data.ToJSON DescribeApplication where
   toJSON DescribeApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ResourceGroupName" Core..= resourceGroupName)
+              ("ResourceGroupName" Data..= resourceGroupName)
           ]
       )
 
-instance Core.ToPath DescribeApplication where
+instance Data.ToPath DescribeApplication where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeApplication where
+instance Data.ToQuery DescribeApplication where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeApplicationResponse' smart constructor.

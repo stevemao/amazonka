@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.UpdateKeyDescription
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -25,7 +25,7 @@
 --
 -- The KMS key that you use for this operation must be in a compatible key
 -- state. For details, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key state: Effect on your KMS key>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key states of KMS keys>
 -- in the /Key Management Service Developer Guide/.
 --
 -- __Cross-account use__: No. You cannot perform this operation on a KMS
@@ -56,8 +56,9 @@ module Amazonka.KMS.UpdateKeyDescription
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -142,7 +143,8 @@ instance Core.AWSRequest UpdateKeyDescription where
   type
     AWSResponse UpdateKeyDescription =
       UpdateKeyDescriptionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull UpdateKeyDescriptionResponse'
 
@@ -156,34 +158,34 @@ instance Prelude.NFData UpdateKeyDescription where
     Prelude.rnf keyId
       `Prelude.seq` Prelude.rnf description
 
-instance Core.ToHeaders UpdateKeyDescription where
+instance Data.ToHeaders UpdateKeyDescription where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "TrentService.UpdateKeyDescription" ::
+              Data.=# ( "TrentService.UpdateKeyDescription" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateKeyDescription where
+instance Data.ToJSON UpdateKeyDescription where
   toJSON UpdateKeyDescription' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("KeyId" Core..= keyId),
-            Prelude.Just ("Description" Core..= description)
+          [ Prelude.Just ("KeyId" Data..= keyId),
+            Prelude.Just ("Description" Data..= description)
           ]
       )
 
-instance Core.ToPath UpdateKeyDescription where
+instance Data.ToPath UpdateKeyDescription where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateKeyDescription where
+instance Data.ToQuery UpdateKeyDescription where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateKeyDescriptionResponse' smart constructor.

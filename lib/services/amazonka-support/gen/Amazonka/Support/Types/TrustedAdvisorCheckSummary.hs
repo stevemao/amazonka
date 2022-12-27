@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Support.Types.TrustedAdvisorCheckSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Support.Types.TrustedAdvisorCheckSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Support.Types.TrustedAdvisorCategorySpecificSummary
 import Amazonka.Support.Types.TrustedAdvisorResourcesSummary
@@ -122,18 +123,18 @@ trustedAdvisorCheckSummary_resourcesSummary = Lens.lens (\TrustedAdvisorCheckSum
 trustedAdvisorCheckSummary_categorySpecificSummary :: Lens.Lens' TrustedAdvisorCheckSummary TrustedAdvisorCategorySpecificSummary
 trustedAdvisorCheckSummary_categorySpecificSummary = Lens.lens (\TrustedAdvisorCheckSummary' {categorySpecificSummary} -> categorySpecificSummary) (\s@TrustedAdvisorCheckSummary' {} a -> s {categorySpecificSummary = a} :: TrustedAdvisorCheckSummary)
 
-instance Core.FromJSON TrustedAdvisorCheckSummary where
+instance Data.FromJSON TrustedAdvisorCheckSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TrustedAdvisorCheckSummary"
       ( \x ->
           TrustedAdvisorCheckSummary'
-            Prelude.<$> (x Core..:? "hasFlaggedResources")
-            Prelude.<*> (x Core..: "checkId")
-            Prelude.<*> (x Core..: "timestamp")
-            Prelude.<*> (x Core..: "status")
-            Prelude.<*> (x Core..: "resourcesSummary")
-            Prelude.<*> (x Core..: "categorySpecificSummary")
+            Prelude.<$> (x Data..:? "hasFlaggedResources")
+            Prelude.<*> (x Data..: "checkId")
+            Prelude.<*> (x Data..: "timestamp")
+            Prelude.<*> (x Data..: "status")
+            Prelude.<*> (x Data..: "resourcesSummary")
+            Prelude.<*> (x Data..: "categorySpecificSummary")
       )
 
 instance Prelude.Hashable TrustedAdvisorCheckSummary where

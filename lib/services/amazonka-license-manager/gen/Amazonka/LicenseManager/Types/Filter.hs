@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LicenseManager.Types.Filter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LicenseManager.Types.Filter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A filter name and value pair that is used to return more specific
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newFilter' smart constructor.
 data Filter = Filter'
-  { -- | Filter values. Filter values are case-sensitive.
-    values :: Prelude.Maybe [Prelude.Text],
-    -- | Name of the filter. Filter names are case-sensitive.
-    name :: Prelude.Maybe Prelude.Text
+  { -- | Name of the filter. Filter names are case-sensitive.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | Filter values. Filter values are case-sensitive.
+    values :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,39 +45,39 @@ data Filter = Filter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'values', 'filter_values' - Filter values. Filter values are case-sensitive.
---
 -- 'name', 'filter_name' - Name of the filter. Filter names are case-sensitive.
+--
+-- 'values', 'filter_values' - Filter values. Filter values are case-sensitive.
 newFilter ::
   Filter
 newFilter =
   Filter'
-    { values = Prelude.Nothing,
-      name = Prelude.Nothing
+    { name = Prelude.Nothing,
+      values = Prelude.Nothing
     }
-
--- | Filter values. Filter values are case-sensitive.
-filter_values :: Lens.Lens' Filter (Prelude.Maybe [Prelude.Text])
-filter_values = Lens.lens (\Filter' {values} -> values) (\s@Filter' {} a -> s {values = a} :: Filter) Prelude.. Lens.mapping Lens.coerced
 
 -- | Name of the filter. Filter names are case-sensitive.
 filter_name :: Lens.Lens' Filter (Prelude.Maybe Prelude.Text)
 filter_name = Lens.lens (\Filter' {name} -> name) (\s@Filter' {} a -> s {name = a} :: Filter)
 
+-- | Filter values. Filter values are case-sensitive.
+filter_values :: Lens.Lens' Filter (Prelude.Maybe [Prelude.Text])
+filter_values = Lens.lens (\Filter' {values} -> values) (\s@Filter' {} a -> s {values = a} :: Filter) Prelude.. Lens.mapping Lens.coerced
+
 instance Prelude.Hashable Filter where
   hashWithSalt _salt Filter' {..} =
-    _salt `Prelude.hashWithSalt` values
-      `Prelude.hashWithSalt` name
+    _salt `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` values
 
 instance Prelude.NFData Filter where
   rnf Filter' {..} =
-    Prelude.rnf values `Prelude.seq` Prelude.rnf name
+    Prelude.rnf name `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON Filter where
+instance Data.ToJSON Filter where
   toJSON Filter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Values" Core..=) Prelude.<$> values,
-            ("Name" Core..=) Prelude.<$> name
+          [ ("Name" Data..=) Prelude.<$> name,
+            ("Values" Data..=) Prelude.<$> values
           ]
       )

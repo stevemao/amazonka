@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE TypeFamilies #-}
@@ -8,7 +9,7 @@
 
 -- |
 -- Module      : Amazonka.MachineLearning.Waiters
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -16,7 +17,8 @@
 module Amazonka.MachineLearning.Waiters where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MachineLearning.DescribeBatchPredictions
 import Amazonka.MachineLearning.DescribeDataSources
 import Amazonka.MachineLearning.DescribeEvaluations
@@ -25,52 +27,14 @@ import Amazonka.MachineLearning.Lens
 import Amazonka.MachineLearning.Types
 import qualified Amazonka.Prelude as Prelude
 
--- | Polls 'Amazonka.MachineLearning.DescribeMLModels' every 30 seconds until a successful state is reached. An error is returned after 60 failed checks.
-newMLModelAvailable :: Core.Wait DescribeMLModels
-newMLModelAvailable =
-  Core.Wait
-    { Core._waitName = "MLModelAvailable",
-      Core._waitAttempts = 60,
-      Core._waitDelay = 30,
-      Core._waitAcceptors =
-        [ Core.matchAll
-            "COMPLETED"
-            Core.AcceptSuccess
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeMLModelsResponse_results
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. mLModel_status
-                Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
-            ),
-          Core.matchAny
-            "FAILED"
-            Core.AcceptFailure
-            ( Lens.folding
-                ( Lens.concatOf
-                    ( describeMLModelsResponse_results
-                        Prelude.. Lens._Just
-                    )
-                )
-                Prelude.. mLModel_status
-                Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
-            )
-        ]
-    }
-
 -- | Polls 'Amazonka.MachineLearning.DescribeBatchPredictions' every 30 seconds until a successful state is reached. An error is returned after 60 failed checks.
 newBatchPredictionAvailable :: Core.Wait DescribeBatchPredictions
 newBatchPredictionAvailable =
   Core.Wait
-    { Core._waitName =
-        "BatchPredictionAvailable",
-      Core._waitAttempts = 60,
-      Core._waitDelay = 30,
-      Core._waitAcceptors =
+    { Core.name = "BatchPredictionAvailable",
+      Core.attempts = 60,
+      Core.delay = 30,
+      Core.acceptors =
         [ Core.matchAll
             "COMPLETED"
             Core.AcceptSuccess
@@ -82,7 +46,7 @@ newBatchPredictionAvailable =
                 )
                 Prelude.. batchPrediction_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "FAILED"
@@ -95,7 +59,7 @@ newBatchPredictionAvailable =
                 )
                 Prelude.. batchPrediction_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
@@ -104,10 +68,10 @@ newBatchPredictionAvailable =
 newDataSourceAvailable :: Core.Wait DescribeDataSources
 newDataSourceAvailable =
   Core.Wait
-    { Core._waitName = "DataSourceAvailable",
-      Core._waitAttempts = 60,
-      Core._waitDelay = 30,
-      Core._waitAcceptors =
+    { Core.name = "DataSourceAvailable",
+      Core.attempts = 60,
+      Core.delay = 30,
+      Core.acceptors =
         [ Core.matchAll
             "COMPLETED"
             Core.AcceptSuccess
@@ -119,7 +83,7 @@ newDataSourceAvailable =
                 )
                 Prelude.. dataSource_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "FAILED"
@@ -132,7 +96,7 @@ newDataSourceAvailable =
                 )
                 Prelude.. dataSource_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }
@@ -141,10 +105,10 @@ newDataSourceAvailable =
 newEvaluationAvailable :: Core.Wait DescribeEvaluations
 newEvaluationAvailable =
   Core.Wait
-    { Core._waitName = "EvaluationAvailable",
-      Core._waitAttempts = 60,
-      Core._waitDelay = 30,
-      Core._waitAcceptors =
+    { Core.name = "EvaluationAvailable",
+      Core.attempts = 60,
+      Core.delay = 30,
+      Core.acceptors =
         [ Core.matchAll
             "COMPLETED"
             Core.AcceptSuccess
@@ -156,7 +120,7 @@ newEvaluationAvailable =
                 )
                 Prelude.. evaluation_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
             ),
           Core.matchAny
             "FAILED"
@@ -169,7 +133,44 @@ newEvaluationAvailable =
                 )
                 Prelude.. evaluation_status
                 Prelude.. Lens._Just
-                Prelude.. Lens.to Core.toTextCI
+                Prelude.. Lens.to Data.toTextCI
+            )
+        ]
+    }
+
+-- | Polls 'Amazonka.MachineLearning.DescribeMLModels' every 30 seconds until a successful state is reached. An error is returned after 60 failed checks.
+newMLModelAvailable :: Core.Wait DescribeMLModels
+newMLModelAvailable =
+  Core.Wait
+    { Core.name = "MLModelAvailable",
+      Core.attempts = 60,
+      Core.delay = 30,
+      Core.acceptors =
+        [ Core.matchAll
+            "COMPLETED"
+            Core.AcceptSuccess
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeMLModelsResponse_results
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. mLModel_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
+            ),
+          Core.matchAny
+            "FAILED"
+            Core.AcceptFailure
+            ( Lens.folding
+                ( Lens.concatOf
+                    ( describeMLModelsResponse_results
+                        Prelude.. Lens._Just
+                    )
+                )
+                Prelude.. mLModel_status
+                Prelude.. Lens._Just
+                Prelude.. Lens.to Data.toTextCI
             )
         ]
     }

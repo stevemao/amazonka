@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.FailoverConditionSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.FailoverConditionSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.AudioSilenceFailoverSettings
 import Amazonka.MediaLive.Types.InputLossFailoverSettings
 import Amazonka.MediaLive.Types.VideoBlackFailoverSettings
@@ -30,15 +31,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newFailoverConditionSettings' smart constructor.
 data FailoverConditionSettings = FailoverConditionSettings'
-  { -- | MediaLive will perform a failover if content is considered black for the
-    -- specified period.
-    videoBlackSettings :: Prelude.Maybe VideoBlackFailoverSettings,
+  { -- | MediaLive will perform a failover if the specified audio selector is
+    -- silent for the specified period.
+    audioSilenceSettings :: Prelude.Maybe AudioSilenceFailoverSettings,
     -- | MediaLive will perform a failover if content is not detected in this
     -- input for the specified period.
     inputLossSettings :: Prelude.Maybe InputLossFailoverSettings,
-    -- | MediaLive will perform a failover if the specified audio selector is
-    -- silent for the specified period.
-    audioSilenceSettings :: Prelude.Maybe AudioSilenceFailoverSettings
+    -- | MediaLive will perform a failover if content is considered black for the
+    -- specified period.
+    videoBlackSettings :: Prelude.Maybe VideoBlackFailoverSettings
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,71 +51,71 @@ data FailoverConditionSettings = FailoverConditionSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'videoBlackSettings', 'failoverConditionSettings_videoBlackSettings' - MediaLive will perform a failover if content is considered black for the
--- specified period.
+-- 'audioSilenceSettings', 'failoverConditionSettings_audioSilenceSettings' - MediaLive will perform a failover if the specified audio selector is
+-- silent for the specified period.
 --
 -- 'inputLossSettings', 'failoverConditionSettings_inputLossSettings' - MediaLive will perform a failover if content is not detected in this
 -- input for the specified period.
 --
--- 'audioSilenceSettings', 'failoverConditionSettings_audioSilenceSettings' - MediaLive will perform a failover if the specified audio selector is
--- silent for the specified period.
+-- 'videoBlackSettings', 'failoverConditionSettings_videoBlackSettings' - MediaLive will perform a failover if content is considered black for the
+-- specified period.
 newFailoverConditionSettings ::
   FailoverConditionSettings
 newFailoverConditionSettings =
   FailoverConditionSettings'
-    { videoBlackSettings =
+    { audioSilenceSettings =
         Prelude.Nothing,
       inputLossSettings = Prelude.Nothing,
-      audioSilenceSettings = Prelude.Nothing
+      videoBlackSettings = Prelude.Nothing
     }
-
--- | MediaLive will perform a failover if content is considered black for the
--- specified period.
-failoverConditionSettings_videoBlackSettings :: Lens.Lens' FailoverConditionSettings (Prelude.Maybe VideoBlackFailoverSettings)
-failoverConditionSettings_videoBlackSettings = Lens.lens (\FailoverConditionSettings' {videoBlackSettings} -> videoBlackSettings) (\s@FailoverConditionSettings' {} a -> s {videoBlackSettings = a} :: FailoverConditionSettings)
-
--- | MediaLive will perform a failover if content is not detected in this
--- input for the specified period.
-failoverConditionSettings_inputLossSettings :: Lens.Lens' FailoverConditionSettings (Prelude.Maybe InputLossFailoverSettings)
-failoverConditionSettings_inputLossSettings = Lens.lens (\FailoverConditionSettings' {inputLossSettings} -> inputLossSettings) (\s@FailoverConditionSettings' {} a -> s {inputLossSettings = a} :: FailoverConditionSettings)
 
 -- | MediaLive will perform a failover if the specified audio selector is
 -- silent for the specified period.
 failoverConditionSettings_audioSilenceSettings :: Lens.Lens' FailoverConditionSettings (Prelude.Maybe AudioSilenceFailoverSettings)
 failoverConditionSettings_audioSilenceSettings = Lens.lens (\FailoverConditionSettings' {audioSilenceSettings} -> audioSilenceSettings) (\s@FailoverConditionSettings' {} a -> s {audioSilenceSettings = a} :: FailoverConditionSettings)
 
-instance Core.FromJSON FailoverConditionSettings where
+-- | MediaLive will perform a failover if content is not detected in this
+-- input for the specified period.
+failoverConditionSettings_inputLossSettings :: Lens.Lens' FailoverConditionSettings (Prelude.Maybe InputLossFailoverSettings)
+failoverConditionSettings_inputLossSettings = Lens.lens (\FailoverConditionSettings' {inputLossSettings} -> inputLossSettings) (\s@FailoverConditionSettings' {} a -> s {inputLossSettings = a} :: FailoverConditionSettings)
+
+-- | MediaLive will perform a failover if content is considered black for the
+-- specified period.
+failoverConditionSettings_videoBlackSettings :: Lens.Lens' FailoverConditionSettings (Prelude.Maybe VideoBlackFailoverSettings)
+failoverConditionSettings_videoBlackSettings = Lens.lens (\FailoverConditionSettings' {videoBlackSettings} -> videoBlackSettings) (\s@FailoverConditionSettings' {} a -> s {videoBlackSettings = a} :: FailoverConditionSettings)
+
+instance Data.FromJSON FailoverConditionSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FailoverConditionSettings"
       ( \x ->
           FailoverConditionSettings'
-            Prelude.<$> (x Core..:? "videoBlackSettings")
-            Prelude.<*> (x Core..:? "inputLossSettings")
-            Prelude.<*> (x Core..:? "audioSilenceSettings")
+            Prelude.<$> (x Data..:? "audioSilenceSettings")
+            Prelude.<*> (x Data..:? "inputLossSettings")
+            Prelude.<*> (x Data..:? "videoBlackSettings")
       )
 
 instance Prelude.Hashable FailoverConditionSettings where
   hashWithSalt _salt FailoverConditionSettings' {..} =
-    _salt `Prelude.hashWithSalt` videoBlackSettings
+    _salt `Prelude.hashWithSalt` audioSilenceSettings
       `Prelude.hashWithSalt` inputLossSettings
-      `Prelude.hashWithSalt` audioSilenceSettings
+      `Prelude.hashWithSalt` videoBlackSettings
 
 instance Prelude.NFData FailoverConditionSettings where
   rnf FailoverConditionSettings' {..} =
-    Prelude.rnf videoBlackSettings
+    Prelude.rnf audioSilenceSettings
       `Prelude.seq` Prelude.rnf inputLossSettings
-      `Prelude.seq` Prelude.rnf audioSilenceSettings
+      `Prelude.seq` Prelude.rnf videoBlackSettings
 
-instance Core.ToJSON FailoverConditionSettings where
+instance Data.ToJSON FailoverConditionSettings where
   toJSON FailoverConditionSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("videoBlackSettings" Core..=)
-              Prelude.<$> videoBlackSettings,
-            ("inputLossSettings" Core..=)
+          [ ("audioSilenceSettings" Data..=)
+              Prelude.<$> audioSilenceSettings,
+            ("inputLossSettings" Data..=)
               Prelude.<$> inputLossSettings,
-            ("audioSilenceSettings" Core..=)
-              Prelude.<$> audioSilenceSettings
+            ("videoBlackSettings" Data..=)
+              Prelude.<$> videoBlackSettings
           ]
       )

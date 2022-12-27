@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.STS.Types.PolicyDescriptorType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.STS.Types.PolicyDescriptorType where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A reference to the IAM managed policy that is passed as a session policy
@@ -67,6 +68,6 @@ instance Prelude.Hashable PolicyDescriptorType where
 instance Prelude.NFData PolicyDescriptorType where
   rnf PolicyDescriptorType' {..} = Prelude.rnf arn
 
-instance Core.ToQuery PolicyDescriptorType where
+instance Data.ToQuery PolicyDescriptorType where
   toQuery PolicyDescriptorType' {..} =
-    Prelude.mconcat ["arn" Core.=: arn]
+    Prelude.mconcat ["arn" Data.=: arn]

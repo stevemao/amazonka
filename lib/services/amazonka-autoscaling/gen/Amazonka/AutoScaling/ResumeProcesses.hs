@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.ResumeProcesses
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.AutoScaling.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -70,7 +71,7 @@ data ResumeProcesses = ResumeProcesses'
     --
     -- -   @ScheduledActions@
     --
-    -- If you omit this parameter, all processes are specified.
+    -- If you omit this property, all processes are specified.
     scalingProcesses :: Prelude.Maybe [Prelude.Text],
     -- | The name of the Auto Scaling group.
     autoScalingGroupName :: Prelude.Text
@@ -105,7 +106,7 @@ data ResumeProcesses = ResumeProcesses'
 --
 -- -   @ScheduledActions@
 --
--- If you omit this parameter, all processes are specified.
+-- If you omit this property, all processes are specified.
 --
 -- 'autoScalingGroupName', 'resumeProcesses_autoScalingGroupName' - The name of the Auto Scaling group.
 newResumeProcesses ::
@@ -139,7 +140,7 @@ newResumeProcesses pAutoScalingGroupName_ =
 --
 -- -   @ScheduledActions@
 --
--- If you omit this parameter, all processes are specified.
+-- If you omit this property, all processes are specified.
 resumeProcesses_scalingProcesses :: Lens.Lens' ResumeProcesses (Prelude.Maybe [Prelude.Text])
 resumeProcesses_scalingProcesses = Lens.lens (\ResumeProcesses' {scalingProcesses} -> scalingProcesses) (\s@ResumeProcesses' {} a -> s {scalingProcesses = a} :: ResumeProcesses) Prelude.. Lens.mapping Lens.coerced
 
@@ -151,7 +152,8 @@ instance Core.AWSRequest ResumeProcesses where
   type
     AWSResponse ResumeProcesses =
       ResumeProcessesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveNull ResumeProcessesResponse'
 
@@ -165,25 +167,25 @@ instance Prelude.NFData ResumeProcesses where
     Prelude.rnf scalingProcesses
       `Prelude.seq` Prelude.rnf autoScalingGroupName
 
-instance Core.ToHeaders ResumeProcesses where
+instance Data.ToHeaders ResumeProcesses where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ResumeProcesses where
+instance Data.ToPath ResumeProcesses where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ResumeProcesses where
+instance Data.ToQuery ResumeProcesses where
   toQuery ResumeProcesses' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ResumeProcesses" :: Prelude.ByteString),
+          Data.=: ("ResumeProcesses" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2011-01-01" :: Prelude.ByteString),
+          Data.=: ("2011-01-01" :: Prelude.ByteString),
         "ScalingProcesses"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> scalingProcesses
             ),
-        "AutoScalingGroupName" Core.=: autoScalingGroupName
+        "AutoScalingGroupName" Data.=: autoScalingGroupName
       ]
 
 -- | /See:/ 'newResumeProcessesResponse' smart constructor.

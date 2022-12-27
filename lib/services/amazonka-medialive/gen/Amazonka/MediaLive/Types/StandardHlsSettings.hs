@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.StandardHlsSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.StandardHlsSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.M3u8Settings
 import qualified Amazonka.Prelude as Prelude
 
@@ -70,14 +71,14 @@ standardHlsSettings_audioRenditionSets = Lens.lens (\StandardHlsSettings' {audio
 standardHlsSettings_m3u8Settings :: Lens.Lens' StandardHlsSettings M3u8Settings
 standardHlsSettings_m3u8Settings = Lens.lens (\StandardHlsSettings' {m3u8Settings} -> m3u8Settings) (\s@StandardHlsSettings' {} a -> s {m3u8Settings = a} :: StandardHlsSettings)
 
-instance Core.FromJSON StandardHlsSettings where
+instance Data.FromJSON StandardHlsSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StandardHlsSettings"
       ( \x ->
           StandardHlsSettings'
-            Prelude.<$> (x Core..:? "audioRenditionSets")
-            Prelude.<*> (x Core..: "m3u8Settings")
+            Prelude.<$> (x Data..:? "audioRenditionSets")
+            Prelude.<*> (x Data..: "m3u8Settings")
       )
 
 instance Prelude.Hashable StandardHlsSettings where
@@ -90,12 +91,12 @@ instance Prelude.NFData StandardHlsSettings where
     Prelude.rnf audioRenditionSets
       `Prelude.seq` Prelude.rnf m3u8Settings
 
-instance Core.ToJSON StandardHlsSettings where
+instance Data.ToJSON StandardHlsSettings where
   toJSON StandardHlsSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("audioRenditionSets" Core..=)
+          [ ("audioRenditionSets" Data..=)
               Prelude.<$> audioRenditionSets,
-            Prelude.Just ("m3u8Settings" Core..= m3u8Settings)
+            Prelude.Just ("m3u8Settings" Data..= m3u8Settings)
           ]
       )

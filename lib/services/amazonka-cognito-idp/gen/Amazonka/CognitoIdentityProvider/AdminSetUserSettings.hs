@@ -14,15 +14,15 @@
 
 -- |
 -- Module      : Amazonka.CognitoIdentityProvider.AdminSetUserSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- /This action is no longer supported./ You can use it to configure only
--- SMS MFA. You can\'t use it to configure TOTP software token MFA. To
--- configure either type of MFA, use
+-- SMS MFA. You can\'t use it to configure time-based one-time password
+-- (TOTP) software token MFA. To configure either type of MFA, use
 -- <https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_AdminSetUserMFAPreference.html AdminSetUserMFAPreference>
 -- instead.
 module Amazonka.CognitoIdentityProvider.AdminSetUserSettings
@@ -46,7 +46,8 @@ where
 
 import Amazonka.CognitoIdentityProvider.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -56,11 +57,11 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newAdminSetUserSettings' smart constructor.
 data AdminSetUserSettings = AdminSetUserSettings'
-  { -- | The ID of the user pool that contains the user that you are setting
-    -- options for.
+  { -- | The ID of the user pool that contains the user whose options you\'re
+    -- setting.
     userPoolId :: Prelude.Text,
-    -- | The user name of the user that you are setting options for.
-    username :: Core.Sensitive Prelude.Text,
+    -- | The user name of the user whose options you\'re setting.
+    username :: Data.Sensitive Prelude.Text,
     -- | You can use this parameter only to set an SMS configuration that uses
     -- SMS for delivery.
     mfaOptions :: [MFAOptionType]
@@ -75,10 +76,10 @@ data AdminSetUserSettings = AdminSetUserSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'userPoolId', 'adminSetUserSettings_userPoolId' - The ID of the user pool that contains the user that you are setting
--- options for.
+-- 'userPoolId', 'adminSetUserSettings_userPoolId' - The ID of the user pool that contains the user whose options you\'re
+-- setting.
 --
--- 'username', 'adminSetUserSettings_username' - The user name of the user that you are setting options for.
+-- 'username', 'adminSetUserSettings_username' - The user name of the user whose options you\'re setting.
 --
 -- 'mfaOptions', 'adminSetUserSettings_mfaOptions' - You can use this parameter only to set an SMS configuration that uses
 -- SMS for delivery.
@@ -91,18 +92,18 @@ newAdminSetUserSettings ::
 newAdminSetUserSettings pUserPoolId_ pUsername_ =
   AdminSetUserSettings'
     { userPoolId = pUserPoolId_,
-      username = Core._Sensitive Lens.# pUsername_,
+      username = Data._Sensitive Lens.# pUsername_,
       mfaOptions = Prelude.mempty
     }
 
--- | The ID of the user pool that contains the user that you are setting
--- options for.
+-- | The ID of the user pool that contains the user whose options you\'re
+-- setting.
 adminSetUserSettings_userPoolId :: Lens.Lens' AdminSetUserSettings Prelude.Text
 adminSetUserSettings_userPoolId = Lens.lens (\AdminSetUserSettings' {userPoolId} -> userPoolId) (\s@AdminSetUserSettings' {} a -> s {userPoolId = a} :: AdminSetUserSettings)
 
--- | The user name of the user that you are setting options for.
+-- | The user name of the user whose options you\'re setting.
 adminSetUserSettings_username :: Lens.Lens' AdminSetUserSettings Prelude.Text
-adminSetUserSettings_username = Lens.lens (\AdminSetUserSettings' {username} -> username) (\s@AdminSetUserSettings' {} a -> s {username = a} :: AdminSetUserSettings) Prelude.. Core._Sensitive
+adminSetUserSettings_username = Lens.lens (\AdminSetUserSettings' {username} -> username) (\s@AdminSetUserSettings' {} a -> s {username = a} :: AdminSetUserSettings) Prelude.. Data._Sensitive
 
 -- | You can use this parameter only to set an SMS configuration that uses
 -- SMS for delivery.
@@ -113,7 +114,8 @@ instance Core.AWSRequest AdminSetUserSettings where
   type
     AWSResponse AdminSetUserSettings =
       AdminSetUserSettingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -133,35 +135,35 @@ instance Prelude.NFData AdminSetUserSettings where
       `Prelude.seq` Prelude.rnf username
       `Prelude.seq` Prelude.rnf mfaOptions
 
-instance Core.ToHeaders AdminSetUserSettings where
+instance Data.ToHeaders AdminSetUserSettings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSCognitoIdentityProviderService.AdminSetUserSettings" ::
+              Data.=# ( "AWSCognitoIdentityProviderService.AdminSetUserSettings" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AdminSetUserSettings where
+instance Data.ToJSON AdminSetUserSettings where
   toJSON AdminSetUserSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("UserPoolId" Core..= userPoolId),
-            Prelude.Just ("Username" Core..= username),
-            Prelude.Just ("MFAOptions" Core..= mfaOptions)
+          [ Prelude.Just ("UserPoolId" Data..= userPoolId),
+            Prelude.Just ("Username" Data..= username),
+            Prelude.Just ("MFAOptions" Data..= mfaOptions)
           ]
       )
 
-instance Core.ToPath AdminSetUserSettings where
+instance Data.ToPath AdminSetUserSettings where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AdminSetUserSettings where
+instance Data.ToQuery AdminSetUserSettings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Represents the response from the server to set user settings as an

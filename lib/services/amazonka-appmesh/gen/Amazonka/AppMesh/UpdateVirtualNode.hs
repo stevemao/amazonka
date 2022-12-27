@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.UpdateVirtualNode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.AppMesh.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,9 +59,9 @@ data UpdateVirtualNode = UpdateVirtualNode'
     -- idempotency of the request. Up to 36 letters, numbers, hyphens, and
     -- underscores are allowed.
     clientToken :: Prelude.Maybe Prelude.Text,
-    -- | The AWS IAM account ID of the service mesh owner. If the account ID is
-    -- not your own, then it\'s the ID of the account that shared the mesh with
-    -- your account. For more information about mesh sharing, see
+    -- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+    -- account ID is not your own, then it\'s the ID of the account that shared
+    -- the mesh with your account. For more information about mesh sharing, see
     -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
     meshOwner :: Prelude.Maybe Prelude.Text,
     -- | The name of the service mesh that the virtual node resides in.
@@ -85,9 +86,9 @@ data UpdateVirtualNode = UpdateVirtualNode'
 -- idempotency of the request. Up to 36 letters, numbers, hyphens, and
 -- underscores are allowed.
 --
--- 'meshOwner', 'updateVirtualNode_meshOwner' - The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- 'meshOwner', 'updateVirtualNode_meshOwner' - The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 --
 -- 'meshName', 'updateVirtualNode_meshName' - The name of the service mesh that the virtual node resides in.
@@ -122,9 +123,9 @@ newUpdateVirtualNode
 updateVirtualNode_clientToken :: Lens.Lens' UpdateVirtualNode (Prelude.Maybe Prelude.Text)
 updateVirtualNode_clientToken = Lens.lens (\UpdateVirtualNode' {clientToken} -> clientToken) (\s@UpdateVirtualNode' {} a -> s {clientToken = a} :: UpdateVirtualNode)
 
--- | The AWS IAM account ID of the service mesh owner. If the account ID is
--- not your own, then it\'s the ID of the account that shared the mesh with
--- your account. For more information about mesh sharing, see
+-- | The Amazon Web Services IAM account ID of the service mesh owner. If the
+-- account ID is not your own, then it\'s the ID of the account that shared
+-- the mesh with your account. For more information about mesh sharing, see
 -- <https://docs.aws.amazon.com/app-mesh/latest/userguide/sharing.html Working with shared meshes>.
 updateVirtualNode_meshOwner :: Lens.Lens' UpdateVirtualNode (Prelude.Maybe Prelude.Text)
 updateVirtualNode_meshOwner = Lens.lens (\UpdateVirtualNode' {meshOwner} -> meshOwner) (\s@UpdateVirtualNode' {} a -> s {meshOwner = a} :: UpdateVirtualNode)
@@ -146,13 +147,14 @@ instance Core.AWSRequest UpdateVirtualNode where
   type
     AWSResponse UpdateVirtualNode =
       UpdateVirtualNodeResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateVirtualNodeResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (Core.eitherParseJSON x)
+            Prelude.<*> (Data.eitherParseJSON x)
       )
 
 instance Prelude.Hashable UpdateVirtualNode where
@@ -171,38 +173,38 @@ instance Prelude.NFData UpdateVirtualNode where
       `Prelude.seq` Prelude.rnf spec
       `Prelude.seq` Prelude.rnf virtualNodeName
 
-instance Core.ToHeaders UpdateVirtualNode where
+instance Data.ToHeaders UpdateVirtualNode where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateVirtualNode where
+instance Data.ToJSON UpdateVirtualNode where
   toJSON UpdateVirtualNode' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientToken" Core..=) Prelude.<$> clientToken,
-            Prelude.Just ("spec" Core..= spec)
+          [ ("clientToken" Data..=) Prelude.<$> clientToken,
+            Prelude.Just ("spec" Data..= spec)
           ]
       )
 
-instance Core.ToPath UpdateVirtualNode where
+instance Data.ToPath UpdateVirtualNode where
   toPath UpdateVirtualNode' {..} =
     Prelude.mconcat
       [ "/v20190125/meshes/",
-        Core.toBS meshName,
+        Data.toBS meshName,
         "/virtualNodes/",
-        Core.toBS virtualNodeName
+        Data.toBS virtualNodeName
       ]
 
-instance Core.ToQuery UpdateVirtualNode where
+instance Data.ToQuery UpdateVirtualNode where
   toQuery UpdateVirtualNode' {..} =
-    Prelude.mconcat ["meshOwner" Core.=: meshOwner]
+    Prelude.mconcat ["meshOwner" Data.=: meshOwner]
 
 -- |
 --

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.Types.VirtualGateway
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DirectConnect.Types.VirtualGateway where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a virtual private gateway for a private virtual
@@ -95,14 +96,14 @@ virtualGateway_virtualGatewayId = Lens.lens (\VirtualGateway' {virtualGatewayId}
 virtualGateway_virtualGatewayState :: Lens.Lens' VirtualGateway (Prelude.Maybe Prelude.Text)
 virtualGateway_virtualGatewayState = Lens.lens (\VirtualGateway' {virtualGatewayState} -> virtualGatewayState) (\s@VirtualGateway' {} a -> s {virtualGatewayState = a} :: VirtualGateway)
 
-instance Core.FromJSON VirtualGateway where
+instance Data.FromJSON VirtualGateway where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualGateway"
       ( \x ->
           VirtualGateway'
-            Prelude.<$> (x Core..:? "virtualGatewayId")
-            Prelude.<*> (x Core..:? "virtualGatewayState")
+            Prelude.<$> (x Data..:? "virtualGatewayId")
+            Prelude.<*> (x Data..:? "virtualGatewayState")
       )
 
 instance Prelude.Hashable VirtualGateway where

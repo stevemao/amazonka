@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ELB.Types.Listener
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.ELB.Types.Listener where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ELB.Internal
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about a listener.
@@ -151,14 +152,14 @@ listener_loadBalancerPort = Lens.lens (\Listener' {loadBalancerPort} -> loadBala
 listener_instancePort :: Lens.Lens' Listener Prelude.Natural
 listener_instancePort = Lens.lens (\Listener' {instancePort} -> instancePort) (\s@Listener' {} a -> s {instancePort = a} :: Listener)
 
-instance Core.FromXML Listener where
+instance Data.FromXML Listener where
   parseXML x =
     Listener'
-      Prelude.<$> (x Core..@? "InstanceProtocol")
-      Prelude.<*> (x Core..@? "SSLCertificateId")
-      Prelude.<*> (x Core..@ "Protocol")
-      Prelude.<*> (x Core..@ "LoadBalancerPort")
-      Prelude.<*> (x Core..@ "InstancePort")
+      Prelude.<$> (x Data..@? "InstanceProtocol")
+      Prelude.<*> (x Data..@? "SSLCertificateId")
+      Prelude.<*> (x Data..@ "Protocol")
+      Prelude.<*> (x Data..@ "LoadBalancerPort")
+      Prelude.<*> (x Data..@ "InstancePort")
 
 instance Prelude.Hashable Listener where
   hashWithSalt _salt Listener' {..} =
@@ -176,12 +177,12 @@ instance Prelude.NFData Listener where
       `Prelude.seq` Prelude.rnf loadBalancerPort
       `Prelude.seq` Prelude.rnf instancePort
 
-instance Core.ToQuery Listener where
+instance Data.ToQuery Listener where
   toQuery Listener' {..} =
     Prelude.mconcat
-      [ "InstanceProtocol" Core.=: instanceProtocol,
-        "SSLCertificateId" Core.=: sSLCertificateId,
-        "Protocol" Core.=: protocol,
-        "LoadBalancerPort" Core.=: loadBalancerPort,
-        "InstancePort" Core.=: instancePort
+      [ "InstanceProtocol" Data.=: instanceProtocol,
+        "SSLCertificateId" Data.=: sSLCertificateId,
+        "Protocol" Data.=: protocol,
+        "LoadBalancerPort" Data.=: loadBalancerPort,
+        "InstancePort" Data.=: instancePort
       ]

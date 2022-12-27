@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.EnableKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -26,7 +26,7 @@
 --
 -- The KMS key that you use for this operation must be in a compatible key
 -- state. For details, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key state: Effect on your KMS key>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/key-state.html Key states of KMS keys>
 -- in the /Key Management Service Developer Guide/.
 --
 -- __Cross-account use__: No. You cannot perform this operation on a KMS
@@ -52,8 +52,9 @@ module Amazonka.KMS.EnableKey
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -122,7 +123,8 @@ enableKey_keyId = Lens.lens (\EnableKey' {keyId} -> keyId) (\s@EnableKey' {} a -
 
 instance Core.AWSRequest EnableKey where
   type AWSResponse EnableKey = EnableKeyResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull EnableKeyResponse'
 
 instance Prelude.Hashable EnableKey where
@@ -132,30 +134,30 @@ instance Prelude.Hashable EnableKey where
 instance Prelude.NFData EnableKey where
   rnf EnableKey' {..} = Prelude.rnf keyId
 
-instance Core.ToHeaders EnableKey where
+instance Data.ToHeaders EnableKey where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("TrentService.EnableKey" :: Prelude.ByteString),
+              Data.=# ("TrentService.EnableKey" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON EnableKey where
+instance Data.ToJSON EnableKey where
   toJSON EnableKey' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("KeyId" Core..= keyId)]
+          [Prelude.Just ("KeyId" Data..= keyId)]
       )
 
-instance Core.ToPath EnableKey where
+instance Data.ToPath EnableKey where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery EnableKey where
+instance Data.ToQuery EnableKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newEnableKeyResponse' smart constructor.

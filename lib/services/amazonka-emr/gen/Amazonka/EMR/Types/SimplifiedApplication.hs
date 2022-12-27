@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.SimplifiedApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EMR.Types.SimplifiedApplication where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The returned release label application names or versions.
@@ -61,14 +62,14 @@ simplifiedApplication_name = Lens.lens (\SimplifiedApplication' {name} -> name) 
 simplifiedApplication_version :: Lens.Lens' SimplifiedApplication (Prelude.Maybe Prelude.Text)
 simplifiedApplication_version = Lens.lens (\SimplifiedApplication' {version} -> version) (\s@SimplifiedApplication' {} a -> s {version = a} :: SimplifiedApplication)
 
-instance Core.FromJSON SimplifiedApplication where
+instance Data.FromJSON SimplifiedApplication where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SimplifiedApplication"
       ( \x ->
           SimplifiedApplication'
-            Prelude.<$> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Version")
+            Prelude.<$> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "Version")
       )
 
 instance Prelude.Hashable SimplifiedApplication where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.Types.SipRuleTargetApplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Chime.Types.SipRuleTargetApplication where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Target SIP media application and other details, such as priority and AWS
@@ -29,10 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newSipRuleTargetApplication' smart constructor.
 data SipRuleTargetApplication = SipRuleTargetApplication'
-  { -- | Priority of the SIP media application in the target list.
-    priority :: Prelude.Maybe Prelude.Natural,
-    -- | The AWS Region of the target application.
+  { -- | The AWS Region of the target application.
     awsRegion :: Prelude.Maybe Prelude.Text,
+    -- | Priority of the SIP media application in the target list.
+    priority :: Prelude.Maybe Prelude.Natural,
     -- | The SIP media application ID.
     sipMediaApplicationId :: Prelude.Maybe Prelude.Text
   }
@@ -46,63 +47,63 @@ data SipRuleTargetApplication = SipRuleTargetApplication'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'priority', 'sipRuleTargetApplication_priority' - Priority of the SIP media application in the target list.
---
 -- 'awsRegion', 'sipRuleTargetApplication_awsRegion' - The AWS Region of the target application.
+--
+-- 'priority', 'sipRuleTargetApplication_priority' - Priority of the SIP media application in the target list.
 --
 -- 'sipMediaApplicationId', 'sipRuleTargetApplication_sipMediaApplicationId' - The SIP media application ID.
 newSipRuleTargetApplication ::
   SipRuleTargetApplication
 newSipRuleTargetApplication =
   SipRuleTargetApplication'
-    { priority =
+    { awsRegion =
         Prelude.Nothing,
-      awsRegion = Prelude.Nothing,
+      priority = Prelude.Nothing,
       sipMediaApplicationId = Prelude.Nothing
     }
-
--- | Priority of the SIP media application in the target list.
-sipRuleTargetApplication_priority :: Lens.Lens' SipRuleTargetApplication (Prelude.Maybe Prelude.Natural)
-sipRuleTargetApplication_priority = Lens.lens (\SipRuleTargetApplication' {priority} -> priority) (\s@SipRuleTargetApplication' {} a -> s {priority = a} :: SipRuleTargetApplication)
 
 -- | The AWS Region of the target application.
 sipRuleTargetApplication_awsRegion :: Lens.Lens' SipRuleTargetApplication (Prelude.Maybe Prelude.Text)
 sipRuleTargetApplication_awsRegion = Lens.lens (\SipRuleTargetApplication' {awsRegion} -> awsRegion) (\s@SipRuleTargetApplication' {} a -> s {awsRegion = a} :: SipRuleTargetApplication)
 
+-- | Priority of the SIP media application in the target list.
+sipRuleTargetApplication_priority :: Lens.Lens' SipRuleTargetApplication (Prelude.Maybe Prelude.Natural)
+sipRuleTargetApplication_priority = Lens.lens (\SipRuleTargetApplication' {priority} -> priority) (\s@SipRuleTargetApplication' {} a -> s {priority = a} :: SipRuleTargetApplication)
+
 -- | The SIP media application ID.
 sipRuleTargetApplication_sipMediaApplicationId :: Lens.Lens' SipRuleTargetApplication (Prelude.Maybe Prelude.Text)
 sipRuleTargetApplication_sipMediaApplicationId = Lens.lens (\SipRuleTargetApplication' {sipMediaApplicationId} -> sipMediaApplicationId) (\s@SipRuleTargetApplication' {} a -> s {sipMediaApplicationId = a} :: SipRuleTargetApplication)
 
-instance Core.FromJSON SipRuleTargetApplication where
+instance Data.FromJSON SipRuleTargetApplication where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SipRuleTargetApplication"
       ( \x ->
           SipRuleTargetApplication'
-            Prelude.<$> (x Core..:? "Priority")
-            Prelude.<*> (x Core..:? "AwsRegion")
-            Prelude.<*> (x Core..:? "SipMediaApplicationId")
+            Prelude.<$> (x Data..:? "AwsRegion")
+            Prelude.<*> (x Data..:? "Priority")
+            Prelude.<*> (x Data..:? "SipMediaApplicationId")
       )
 
 instance Prelude.Hashable SipRuleTargetApplication where
   hashWithSalt _salt SipRuleTargetApplication' {..} =
-    _salt `Prelude.hashWithSalt` priority
-      `Prelude.hashWithSalt` awsRegion
+    _salt `Prelude.hashWithSalt` awsRegion
+      `Prelude.hashWithSalt` priority
       `Prelude.hashWithSalt` sipMediaApplicationId
 
 instance Prelude.NFData SipRuleTargetApplication where
   rnf SipRuleTargetApplication' {..} =
-    Prelude.rnf priority
-      `Prelude.seq` Prelude.rnf awsRegion
+    Prelude.rnf awsRegion
+      `Prelude.seq` Prelude.rnf priority
       `Prelude.seq` Prelude.rnf sipMediaApplicationId
 
-instance Core.ToJSON SipRuleTargetApplication where
+instance Data.ToJSON SipRuleTargetApplication where
   toJSON SipRuleTargetApplication' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Priority" Core..=) Prelude.<$> priority,
-            ("AwsRegion" Core..=) Prelude.<$> awsRegion,
-            ("SipMediaApplicationId" Core..=)
+          [ ("AwsRegion" Data..=) Prelude.<$> awsRegion,
+            ("Priority" Data..=) Prelude.<$> priority,
+            ("SipMediaApplicationId" Data..=)
               Prelude.<$> sipMediaApplicationId
           ]
       )

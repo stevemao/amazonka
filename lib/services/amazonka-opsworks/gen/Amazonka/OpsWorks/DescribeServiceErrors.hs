@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.OpsWorks.DescribeServiceErrors
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,8 @@ module Amazonka.OpsWorks.DescribeServiceErrors
 
     -- * Request Lenses
     describeServiceErrors_instanceId,
-    describeServiceErrors_stackId,
     describeServiceErrors_serviceErrorIds,
+    describeServiceErrors_stackId,
 
     -- * Destructuring the Response
     DescribeServiceErrorsResponse (..),
@@ -50,7 +50,8 @@ module Amazonka.OpsWorks.DescribeServiceErrors
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.OpsWorks.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -62,13 +63,13 @@ data DescribeServiceErrors = DescribeServiceErrors'
     -- returns descriptions of the errors associated with the specified
     -- instance.
     instanceId :: Prelude.Maybe Prelude.Text,
-    -- | The stack ID. If you use this parameter, @DescribeServiceErrors@ returns
-    -- descriptions of the errors associated with the specified stack.
-    stackId :: Prelude.Maybe Prelude.Text,
     -- | An array of service error IDs. If you use this parameter,
     -- @DescribeServiceErrors@ returns descriptions of the specified errors.
     -- Otherwise, it returns a description of every error.
-    serviceErrorIds :: Prelude.Maybe [Prelude.Text]
+    serviceErrorIds :: Prelude.Maybe [Prelude.Text],
+    -- | The stack ID. If you use this parameter, @DescribeServiceErrors@ returns
+    -- descriptions of the errors associated with the specified stack.
+    stackId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -84,20 +85,20 @@ data DescribeServiceErrors = DescribeServiceErrors'
 -- returns descriptions of the errors associated with the specified
 -- instance.
 --
--- 'stackId', 'describeServiceErrors_stackId' - The stack ID. If you use this parameter, @DescribeServiceErrors@ returns
--- descriptions of the errors associated with the specified stack.
---
 -- 'serviceErrorIds', 'describeServiceErrors_serviceErrorIds' - An array of service error IDs. If you use this parameter,
 -- @DescribeServiceErrors@ returns descriptions of the specified errors.
 -- Otherwise, it returns a description of every error.
+--
+-- 'stackId', 'describeServiceErrors_stackId' - The stack ID. If you use this parameter, @DescribeServiceErrors@ returns
+-- descriptions of the errors associated with the specified stack.
 newDescribeServiceErrors ::
   DescribeServiceErrors
 newDescribeServiceErrors =
   DescribeServiceErrors'
     { instanceId =
         Prelude.Nothing,
-      stackId = Prelude.Nothing,
-      serviceErrorIds = Prelude.Nothing
+      serviceErrorIds = Prelude.Nothing,
+      stackId = Prelude.Nothing
     }
 
 -- | The instance ID. If you use this parameter, @DescribeServiceErrors@
@@ -106,72 +107,73 @@ newDescribeServiceErrors =
 describeServiceErrors_instanceId :: Lens.Lens' DescribeServiceErrors (Prelude.Maybe Prelude.Text)
 describeServiceErrors_instanceId = Lens.lens (\DescribeServiceErrors' {instanceId} -> instanceId) (\s@DescribeServiceErrors' {} a -> s {instanceId = a} :: DescribeServiceErrors)
 
--- | The stack ID. If you use this parameter, @DescribeServiceErrors@ returns
--- descriptions of the errors associated with the specified stack.
-describeServiceErrors_stackId :: Lens.Lens' DescribeServiceErrors (Prelude.Maybe Prelude.Text)
-describeServiceErrors_stackId = Lens.lens (\DescribeServiceErrors' {stackId} -> stackId) (\s@DescribeServiceErrors' {} a -> s {stackId = a} :: DescribeServiceErrors)
-
 -- | An array of service error IDs. If you use this parameter,
 -- @DescribeServiceErrors@ returns descriptions of the specified errors.
 -- Otherwise, it returns a description of every error.
 describeServiceErrors_serviceErrorIds :: Lens.Lens' DescribeServiceErrors (Prelude.Maybe [Prelude.Text])
 describeServiceErrors_serviceErrorIds = Lens.lens (\DescribeServiceErrors' {serviceErrorIds} -> serviceErrorIds) (\s@DescribeServiceErrors' {} a -> s {serviceErrorIds = a} :: DescribeServiceErrors) Prelude.. Lens.mapping Lens.coerced
 
+-- | The stack ID. If you use this parameter, @DescribeServiceErrors@ returns
+-- descriptions of the errors associated with the specified stack.
+describeServiceErrors_stackId :: Lens.Lens' DescribeServiceErrors (Prelude.Maybe Prelude.Text)
+describeServiceErrors_stackId = Lens.lens (\DescribeServiceErrors' {stackId} -> stackId) (\s@DescribeServiceErrors' {} a -> s {stackId = a} :: DescribeServiceErrors)
+
 instance Core.AWSRequest DescribeServiceErrors where
   type
     AWSResponse DescribeServiceErrors =
       DescribeServiceErrorsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeServiceErrorsResponse'
-            Prelude.<$> (x Core..?> "ServiceErrors" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "ServiceErrors" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeServiceErrors where
   hashWithSalt _salt DescribeServiceErrors' {..} =
     _salt `Prelude.hashWithSalt` instanceId
-      `Prelude.hashWithSalt` stackId
       `Prelude.hashWithSalt` serviceErrorIds
+      `Prelude.hashWithSalt` stackId
 
 instance Prelude.NFData DescribeServiceErrors where
   rnf DescribeServiceErrors' {..} =
     Prelude.rnf instanceId
-      `Prelude.seq` Prelude.rnf stackId
       `Prelude.seq` Prelude.rnf serviceErrorIds
+      `Prelude.seq` Prelude.rnf stackId
 
-instance Core.ToHeaders DescribeServiceErrors where
+instance Data.ToHeaders DescribeServiceErrors where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OpsWorks_20130218.DescribeServiceErrors" ::
+              Data.=# ( "OpsWorks_20130218.DescribeServiceErrors" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeServiceErrors where
+instance Data.ToJSON DescribeServiceErrors where
   toJSON DescribeServiceErrors' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("InstanceId" Core..=) Prelude.<$> instanceId,
-            ("StackId" Core..=) Prelude.<$> stackId,
-            ("ServiceErrorIds" Core..=)
-              Prelude.<$> serviceErrorIds
+          [ ("InstanceId" Data..=) Prelude.<$> instanceId,
+            ("ServiceErrorIds" Data..=)
+              Prelude.<$> serviceErrorIds,
+            ("StackId" Data..=) Prelude.<$> stackId
           ]
       )
 
-instance Core.ToPath DescribeServiceErrors where
+instance Data.ToPath DescribeServiceErrors where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeServiceErrors where
+instance Data.ToQuery DescribeServiceErrors where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Contains the response to a @DescribeServiceErrors@ request.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.Types.Interface
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConnect.Types.Interface where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The VPC interface that is used for the media stream associated with the
@@ -52,11 +53,11 @@ newInterface pName_ = Interface' {name = pName_}
 interface_name :: Lens.Lens' Interface Prelude.Text
 interface_name = Lens.lens (\Interface' {name} -> name) (\s@Interface' {} a -> s {name = a} :: Interface)
 
-instance Core.FromJSON Interface where
+instance Data.FromJSON Interface where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Interface"
-      (\x -> Interface' Prelude.<$> (x Core..: "name"))
+      (\x -> Interface' Prelude.<$> (x Data..: "name"))
 
 instance Prelude.Hashable Interface where
   hashWithSalt _salt Interface' {..} =

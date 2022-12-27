@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.DeleteGroupMembership
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -44,7 +44,8 @@ module Amazonka.QuickSight.DeleteGroupMembership
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -60,7 +61,7 @@ data DeleteGroupMembership = DeleteGroupMembership'
     -- Currently, you use the ID for the Amazon Web Services account that
     -- contains your Amazon QuickSight account.
     awsAccountId :: Prelude.Text,
-    -- | The namespace. Currently, you should set this to @default@.
+    -- | The namespace of the group that you want to remove a user from.
     namespace :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -81,7 +82,7 @@ data DeleteGroupMembership = DeleteGroupMembership'
 -- Currently, you use the ID for the Amazon Web Services account that
 -- contains your Amazon QuickSight account.
 --
--- 'namespace', 'deleteGroupMembership_namespace' - The namespace. Currently, you should set this to @default@.
+-- 'namespace', 'deleteGroupMembership_namespace' - The namespace of the group that you want to remove a user from.
 newDeleteGroupMembership ::
   -- | 'memberName'
   Prelude.Text ->
@@ -118,7 +119,7 @@ deleteGroupMembership_groupName = Lens.lens (\DeleteGroupMembership' {groupName}
 deleteGroupMembership_awsAccountId :: Lens.Lens' DeleteGroupMembership Prelude.Text
 deleteGroupMembership_awsAccountId = Lens.lens (\DeleteGroupMembership' {awsAccountId} -> awsAccountId) (\s@DeleteGroupMembership' {} a -> s {awsAccountId = a} :: DeleteGroupMembership)
 
--- | The namespace. Currently, you should set this to @default@.
+-- | The namespace of the group that you want to remove a user from.
 deleteGroupMembership_namespace :: Lens.Lens' DeleteGroupMembership Prelude.Text
 deleteGroupMembership_namespace = Lens.lens (\DeleteGroupMembership' {namespace} -> namespace) (\s@DeleteGroupMembership' {} a -> s {namespace = a} :: DeleteGroupMembership)
 
@@ -126,12 +127,13 @@ instance Core.AWSRequest DeleteGroupMembership where
   type
     AWSResponse DeleteGroupMembership =
       DeleteGroupMembershipResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DeleteGroupMembershipResponse'
-            Prelude.<$> (x Core..?> "RequestId")
+            Prelude.<$> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -149,31 +151,31 @@ instance Prelude.NFData DeleteGroupMembership where
       `Prelude.seq` Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf namespace
 
-instance Core.ToHeaders DeleteGroupMembership where
+instance Data.ToHeaders DeleteGroupMembership where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DeleteGroupMembership where
+instance Data.ToPath DeleteGroupMembership where
   toPath DeleteGroupMembership' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/namespaces/",
-        Core.toBS namespace,
+        Data.toBS namespace,
         "/groups/",
-        Core.toBS groupName,
+        Data.toBS groupName,
         "/members/",
-        Core.toBS memberName
+        Data.toBS memberName
       ]
 
-instance Core.ToQuery DeleteGroupMembership where
+instance Data.ToQuery DeleteGroupMembership where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteGroupMembershipResponse' smart constructor.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AutoScaling.Types.LoadBalancerTargetGroupState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,17 @@
 module Amazonka.AutoScaling.Types.LoadBalancerTargetGroupState where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the state of a target group.
 --
 -- /See:/ 'newLoadBalancerTargetGroupState' smart constructor.
 data LoadBalancerTargetGroupState = LoadBalancerTargetGroupState'
-  { -- | The state of the target group.
+  { -- | The Amazon Resource Name (ARN) of the target group.
+    loadBalancerTargetGroupARN :: Prelude.Maybe Prelude.Text,
+    -- | The state of the target group.
     --
     -- -   @Adding@ - The Auto Scaling instances are being registered with the
     --     target group.
@@ -45,9 +48,7 @@ data LoadBalancerTargetGroupState = LoadBalancerTargetGroupState'
     --
     -- -   @Removed@ - All Auto Scaling instances are deregistered from the
     --     target group.
-    state :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the target group.
-    loadBalancerTargetGroupARN :: Prelude.Maybe Prelude.Text
+    state :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -58,6 +59,8 @@ data LoadBalancerTargetGroupState = LoadBalancerTargetGroupState'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'loadBalancerTargetGroupARN', 'loadBalancerTargetGroupState_loadBalancerTargetGroupARN' - The Amazon Resource Name (ARN) of the target group.
 --
 -- 'state', 'loadBalancerTargetGroupState_state' - The state of the target group.
 --
@@ -77,16 +80,18 @@ data LoadBalancerTargetGroupState = LoadBalancerTargetGroupState'
 --
 -- -   @Removed@ - All Auto Scaling instances are deregistered from the
 --     target group.
---
--- 'loadBalancerTargetGroupARN', 'loadBalancerTargetGroupState_loadBalancerTargetGroupARN' - The Amazon Resource Name (ARN) of the target group.
 newLoadBalancerTargetGroupState ::
   LoadBalancerTargetGroupState
 newLoadBalancerTargetGroupState =
   LoadBalancerTargetGroupState'
-    { state =
+    { loadBalancerTargetGroupARN =
         Prelude.Nothing,
-      loadBalancerTargetGroupARN = Prelude.Nothing
+      state = Prelude.Nothing
     }
+
+-- | The Amazon Resource Name (ARN) of the target group.
+loadBalancerTargetGroupState_loadBalancerTargetGroupARN :: Lens.Lens' LoadBalancerTargetGroupState (Prelude.Maybe Prelude.Text)
+loadBalancerTargetGroupState_loadBalancerTargetGroupARN = Lens.lens (\LoadBalancerTargetGroupState' {loadBalancerTargetGroupARN} -> loadBalancerTargetGroupARN) (\s@LoadBalancerTargetGroupState' {} a -> s {loadBalancerTargetGroupARN = a} :: LoadBalancerTargetGroupState)
 
 -- | The state of the target group.
 --
@@ -109,25 +114,22 @@ newLoadBalancerTargetGroupState =
 loadBalancerTargetGroupState_state :: Lens.Lens' LoadBalancerTargetGroupState (Prelude.Maybe Prelude.Text)
 loadBalancerTargetGroupState_state = Lens.lens (\LoadBalancerTargetGroupState' {state} -> state) (\s@LoadBalancerTargetGroupState' {} a -> s {state = a} :: LoadBalancerTargetGroupState)
 
--- | The Amazon Resource Name (ARN) of the target group.
-loadBalancerTargetGroupState_loadBalancerTargetGroupARN :: Lens.Lens' LoadBalancerTargetGroupState (Prelude.Maybe Prelude.Text)
-loadBalancerTargetGroupState_loadBalancerTargetGroupARN = Lens.lens (\LoadBalancerTargetGroupState' {loadBalancerTargetGroupARN} -> loadBalancerTargetGroupARN) (\s@LoadBalancerTargetGroupState' {} a -> s {loadBalancerTargetGroupARN = a} :: LoadBalancerTargetGroupState)
-
-instance Core.FromXML LoadBalancerTargetGroupState where
+instance Data.FromXML LoadBalancerTargetGroupState where
   parseXML x =
     LoadBalancerTargetGroupState'
-      Prelude.<$> (x Core..@? "State")
-      Prelude.<*> (x Core..@? "LoadBalancerTargetGroupARN")
+      Prelude.<$> (x Data..@? "LoadBalancerTargetGroupARN")
+      Prelude.<*> (x Data..@? "State")
 
 instance
   Prelude.Hashable
     LoadBalancerTargetGroupState
   where
   hashWithSalt _salt LoadBalancerTargetGroupState' {..} =
-    _salt `Prelude.hashWithSalt` state
+    _salt
       `Prelude.hashWithSalt` loadBalancerTargetGroupARN
+      `Prelude.hashWithSalt` state
 
 instance Prelude.NFData LoadBalancerTargetGroupState where
   rnf LoadBalancerTargetGroupState' {..} =
-    Prelude.rnf state
-      `Prelude.seq` Prelude.rnf loadBalancerTargetGroupARN
+    Prelude.rnf loadBalancerTargetGroupARN
+      `Prelude.seq` Prelude.rnf state

@@ -14,23 +14,22 @@
 
 -- |
 -- Module      : Amazonka.SSOAdmin.UpdateInstanceAccessControlAttributeConfiguration
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Updates the Amazon Web Services SSO identity store attributes that you
--- can use with the Amazon Web Services SSO instance for attributes-based
--- access control (ABAC). When using an external identity provider as an
--- identity source, you can pass attributes through the SAML assertion as
--- an alternative to configuring attributes from the Amazon Web Services
--- SSO identity store. If a SAML assertion passes any of these attributes,
--- Amazon Web Services SSO replaces the attribute value with the value from
--- the Amazon Web Services SSO identity store. For more information about
--- ABAC, see
+-- Updates the IAM Identity Center identity store attributes that you can
+-- use with the IAM Identity Center instance for attributes-based access
+-- control (ABAC). When using an external identity provider as an identity
+-- source, you can pass attributes through the SAML assertion as an
+-- alternative to configuring attributes from the IAM Identity Center
+-- identity store. If a SAML assertion passes any of these attributes, IAM
+-- Identity Center replaces the attribute value with the value from the IAM
+-- Identity Center identity store. For more information about ABAC, see
 -- </singlesignon/latest/userguide/abac.html Attribute-Based Access Control>
--- in the /Amazon Web Services SSO User Guide/.
+-- in the /IAM Identity Center User Guide/.
 module Amazonka.SSOAdmin.UpdateInstanceAccessControlAttributeConfiguration
   ( -- * Creating a Request
     UpdateInstanceAccessControlAttributeConfiguration (..),
@@ -50,7 +49,8 @@ module Amazonka.SSOAdmin.UpdateInstanceAccessControlAttributeConfiguration
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -58,7 +58,8 @@ import Amazonka.SSOAdmin.Types
 
 -- | /See:/ 'newUpdateInstanceAccessControlAttributeConfiguration' smart constructor.
 data UpdateInstanceAccessControlAttributeConfiguration = UpdateInstanceAccessControlAttributeConfiguration'
-  { -- | The ARN of the SSO instance under which the operation will be executed.
+  { -- | The ARN of the IAM Identity Center instance under which the operation
+    -- will be executed.
     instanceArn :: Prelude.Text,
     -- | Updates the attributes for your ABAC configuration.
     instanceAccessControlAttributeConfiguration :: InstanceAccessControlAttributeConfiguration
@@ -73,7 +74,8 @@ data UpdateInstanceAccessControlAttributeConfiguration = UpdateInstanceAccessCon
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceArn', 'updateInstanceAccessControlAttributeConfiguration_instanceArn' - The ARN of the SSO instance under which the operation will be executed.
+-- 'instanceArn', 'updateInstanceAccessControlAttributeConfiguration_instanceArn' - The ARN of the IAM Identity Center instance under which the operation
+-- will be executed.
 --
 -- 'instanceAccessControlAttributeConfiguration', 'updateInstanceAccessControlAttributeConfiguration_instanceAccessControlAttributeConfiguration' - Updates the attributes for your ABAC configuration.
 newUpdateInstanceAccessControlAttributeConfiguration ::
@@ -92,7 +94,8 @@ newUpdateInstanceAccessControlAttributeConfiguration
           pInstanceAccessControlAttributeConfiguration_
       }
 
--- | The ARN of the SSO instance under which the operation will be executed.
+-- | The ARN of the IAM Identity Center instance under which the operation
+-- will be executed.
 updateInstanceAccessControlAttributeConfiguration_instanceArn :: Lens.Lens' UpdateInstanceAccessControlAttributeConfiguration Prelude.Text
 updateInstanceAccessControlAttributeConfiguration_instanceArn = Lens.lens (\UpdateInstanceAccessControlAttributeConfiguration' {instanceArn} -> instanceArn) (\s@UpdateInstanceAccessControlAttributeConfiguration' {} a -> s {instanceArn = a} :: UpdateInstanceAccessControlAttributeConfiguration)
 
@@ -108,7 +111,8 @@ instance
     AWSResponse
       UpdateInstanceAccessControlAttributeConfiguration =
       UpdateInstanceAccessControlAttributeConfigurationResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -137,47 +141,47 @@ instance
           instanceAccessControlAttributeConfiguration
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     UpdateInstanceAccessControlAttributeConfiguration
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SWBExternalService.UpdateInstanceAccessControlAttributeConfiguration" ::
+              Data.=# ( "SWBExternalService.UpdateInstanceAccessControlAttributeConfiguration" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     UpdateInstanceAccessControlAttributeConfiguration
   where
   toJSON
     UpdateInstanceAccessControlAttributeConfiguration' {..} =
-      Core.object
+      Data.object
         ( Prelude.catMaybes
-            [ Prelude.Just ("InstanceArn" Core..= instanceArn),
+            [ Prelude.Just ("InstanceArn" Data..= instanceArn),
               Prelude.Just
                 ( "InstanceAccessControlAttributeConfiguration"
-                    Core..= instanceAccessControlAttributeConfiguration
+                    Data..= instanceAccessControlAttributeConfiguration
                 )
             ]
         )
 
 instance
-  Core.ToPath
+  Data.ToPath
     UpdateInstanceAccessControlAttributeConfiguration
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     UpdateInstanceAccessControlAttributeConfiguration
   where
   toQuery = Prelude.const Prelude.mempty

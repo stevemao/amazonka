@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeVpcEndpoints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,11 +29,11 @@ module Amazonka.EC2.DescribeVpcEndpoints
     newDescribeVpcEndpoints,
 
     -- * Request Lenses
+    describeVpcEndpoints_dryRun,
     describeVpcEndpoints_filters,
+    describeVpcEndpoints_maxResults,
     describeVpcEndpoints_nextToken,
     describeVpcEndpoints_vpcEndpointIds,
-    describeVpcEndpoints_dryRun,
-    describeVpcEndpoints_maxResults,
 
     -- * Destructuring the Response
     DescribeVpcEndpointsResponse (..),
@@ -47,8 +47,9 @@ module Amazonka.EC2.DescribeVpcEndpoints
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,9 +58,26 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeVpcEndpoints' smart constructor.
 data DescribeVpcEndpoints = DescribeVpcEndpoints'
-  { -- | One or more filters.
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | One or more filters.
+    --
+    -- -   @ip-address-type@ - The IP address type (@ipv4@ | @ipv6@).
     --
     -- -   @service-name@ - The name of the service.
+    --
+    -- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+    --     resource. Use the tag key in the filter name and the tag value as
+    --     the filter value. For example, to find all resources that have a tag
+    --     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+    --     the filter name and @TeamA@ for the filter value.
+    --
+    -- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+    --     filter to find all resources assigned a tag with a specific key,
+    --     regardless of the tag value.
     --
     -- -   @vpc-id@ - The ID of the VPC in which the endpoint resides.
     --
@@ -71,34 +89,19 @@ data DescribeVpcEndpoints = DescribeVpcEndpoints'
     --
     -- -   @vpc-endpoint-type@ - The type of VPC endpoint (@Interface@ |
     --     @Gateway@ | @GatewayLoadBalancer@).
-    --
-    -- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
-    --     resource. Use the tag key in the filter name and the tag value as
-    --     the filter value. For example, to find all resources that have a tag
-    --     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
-    --     the filter name and @TeamA@ for the filter value.
-    --
-    -- -   @tag-key@ - The key of a tag assigned to the resource. Use this
-    --     filter to find all resources assigned a tag with a specific key,
-    --     regardless of the tag value.
     filters :: Prelude.Maybe [Filter],
-    -- | The token for the next set of items to return. (You received this token
-    -- from a prior call.)
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | One or more endpoint IDs.
-    vpcEndpointIds :: Prelude.Maybe [Prelude.Text],
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of items to return for this request. The request
     -- returns a token that you can specify in a subsequent call to get the
     -- next set of results.
     --
     -- Constraint: If the value is greater than 1,000, we return only 1,000
     -- items.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token for the next set of items to return. (You received this token
+    -- from a prior call.)
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | One or more endpoint IDs.
+    vpcEndpointIds :: Prelude.Maybe [Prelude.Text]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -110,20 +113,16 @@ data DescribeVpcEndpoints = DescribeVpcEndpoints'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'dryRun', 'describeVpcEndpoints_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+--
 -- 'filters', 'describeVpcEndpoints_filters' - One or more filters.
 --
+-- -   @ip-address-type@ - The IP address type (@ipv4@ | @ipv6@).
+--
 -- -   @service-name@ - The name of the service.
---
--- -   @vpc-id@ - The ID of the VPC in which the endpoint resides.
---
--- -   @vpc-endpoint-id@ - The ID of the endpoint.
---
--- -   @vpc-endpoint-state@ - The state of the endpoint
---     (@pendingAcceptance@ | @pending@ | @available@ | @deleting@ |
---     @deleted@ | @rejected@ | @failed@).
---
--- -   @vpc-endpoint-type@ - The type of VPC endpoint (@Interface@ |
---     @Gateway@ | @GatewayLoadBalancer@).
 --
 -- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
 --     resource. Use the tag key in the filter name and the tag value as
@@ -135,15 +134,16 @@ data DescribeVpcEndpoints = DescribeVpcEndpoints'
 --     filter to find all resources assigned a tag with a specific key,
 --     regardless of the tag value.
 --
--- 'nextToken', 'describeVpcEndpoints_nextToken' - The token for the next set of items to return. (You received this token
--- from a prior call.)
+-- -   @vpc-id@ - The ID of the VPC in which the endpoint resides.
 --
--- 'vpcEndpointIds', 'describeVpcEndpoints_vpcEndpointIds' - One or more endpoint IDs.
+-- -   @vpc-endpoint-id@ - The ID of the endpoint.
 --
--- 'dryRun', 'describeVpcEndpoints_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
+-- -   @vpc-endpoint-state@ - The state of the endpoint
+--     (@pendingAcceptance@ | @pending@ | @available@ | @deleting@ |
+--     @deleted@ | @rejected@ | @failed@).
+--
+-- -   @vpc-endpoint-type@ - The type of VPC endpoint (@Interface@ |
+--     @Gateway@ | @GatewayLoadBalancer@).
 --
 -- 'maxResults', 'describeVpcEndpoints_maxResults' - The maximum number of items to return for this request. The request
 -- returns a token that you can specify in a subsequent call to get the
@@ -151,20 +151,44 @@ data DescribeVpcEndpoints = DescribeVpcEndpoints'
 --
 -- Constraint: If the value is greater than 1,000, we return only 1,000
 -- items.
+--
+-- 'nextToken', 'describeVpcEndpoints_nextToken' - The token for the next set of items to return. (You received this token
+-- from a prior call.)
+--
+-- 'vpcEndpointIds', 'describeVpcEndpoints_vpcEndpointIds' - One or more endpoint IDs.
 newDescribeVpcEndpoints ::
   DescribeVpcEndpoints
 newDescribeVpcEndpoints =
   DescribeVpcEndpoints'
-    { filters = Prelude.Nothing,
+    { dryRun = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      vpcEndpointIds = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      vpcEndpointIds = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeVpcEndpoints_dryRun :: Lens.Lens' DescribeVpcEndpoints (Prelude.Maybe Prelude.Bool)
+describeVpcEndpoints_dryRun = Lens.lens (\DescribeVpcEndpoints' {dryRun} -> dryRun) (\s@DescribeVpcEndpoints' {} a -> s {dryRun = a} :: DescribeVpcEndpoints)
 
 -- | One or more filters.
 --
+-- -   @ip-address-type@ - The IP address type (@ipv4@ | @ipv6@).
+--
 -- -   @service-name@ - The name of the service.
+--
+-- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
+--     resource. Use the tag key in the filter name and the tag value as
+--     the filter value. For example, to find all resources that have a tag
+--     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
+--     the filter name and @TeamA@ for the filter value.
+--
+-- -   @tag-key@ - The key of a tag assigned to the resource. Use this
+--     filter to find all resources assigned a tag with a specific key,
+--     regardless of the tag value.
 --
 -- -   @vpc-id@ - The ID of the VPC in which the endpoint resides.
 --
@@ -176,34 +200,8 @@ newDescribeVpcEndpoints =
 --
 -- -   @vpc-endpoint-type@ - The type of VPC endpoint (@Interface@ |
 --     @Gateway@ | @GatewayLoadBalancer@).
---
--- -   @tag@:\<key> - The key\/value combination of a tag assigned to the
---     resource. Use the tag key in the filter name and the tag value as
---     the filter value. For example, to find all resources that have a tag
---     with the key @Owner@ and the value @TeamA@, specify @tag:Owner@ for
---     the filter name and @TeamA@ for the filter value.
---
--- -   @tag-key@ - The key of a tag assigned to the resource. Use this
---     filter to find all resources assigned a tag with a specific key,
---     regardless of the tag value.
 describeVpcEndpoints_filters :: Lens.Lens' DescribeVpcEndpoints (Prelude.Maybe [Filter])
 describeVpcEndpoints_filters = Lens.lens (\DescribeVpcEndpoints' {filters} -> filters) (\s@DescribeVpcEndpoints' {} a -> s {filters = a} :: DescribeVpcEndpoints) Prelude.. Lens.mapping Lens.coerced
-
--- | The token for the next set of items to return. (You received this token
--- from a prior call.)
-describeVpcEndpoints_nextToken :: Lens.Lens' DescribeVpcEndpoints (Prelude.Maybe Prelude.Text)
-describeVpcEndpoints_nextToken = Lens.lens (\DescribeVpcEndpoints' {nextToken} -> nextToken) (\s@DescribeVpcEndpoints' {} a -> s {nextToken = a} :: DescribeVpcEndpoints)
-
--- | One or more endpoint IDs.
-describeVpcEndpoints_vpcEndpointIds :: Lens.Lens' DescribeVpcEndpoints (Prelude.Maybe [Prelude.Text])
-describeVpcEndpoints_vpcEndpointIds = Lens.lens (\DescribeVpcEndpoints' {vpcEndpointIds} -> vpcEndpointIds) (\s@DescribeVpcEndpoints' {} a -> s {vpcEndpointIds = a} :: DescribeVpcEndpoints) Prelude.. Lens.mapping Lens.coerced
-
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeVpcEndpoints_dryRun :: Lens.Lens' DescribeVpcEndpoints (Prelude.Maybe Prelude.Bool)
-describeVpcEndpoints_dryRun = Lens.lens (\DescribeVpcEndpoints' {dryRun} -> dryRun) (\s@DescribeVpcEndpoints' {} a -> s {dryRun = a} :: DescribeVpcEndpoints)
 
 -- | The maximum number of items to return for this request. The request
 -- returns a token that you can specify in a subsequent call to get the
@@ -213,6 +211,15 @@ describeVpcEndpoints_dryRun = Lens.lens (\DescribeVpcEndpoints' {dryRun} -> dryR
 -- items.
 describeVpcEndpoints_maxResults :: Lens.Lens' DescribeVpcEndpoints (Prelude.Maybe Prelude.Int)
 describeVpcEndpoints_maxResults = Lens.lens (\DescribeVpcEndpoints' {maxResults} -> maxResults) (\s@DescribeVpcEndpoints' {} a -> s {maxResults = a} :: DescribeVpcEndpoints)
+
+-- | The token for the next set of items to return. (You received this token
+-- from a prior call.)
+describeVpcEndpoints_nextToken :: Lens.Lens' DescribeVpcEndpoints (Prelude.Maybe Prelude.Text)
+describeVpcEndpoints_nextToken = Lens.lens (\DescribeVpcEndpoints' {nextToken} -> nextToken) (\s@DescribeVpcEndpoints' {} a -> s {nextToken = a} :: DescribeVpcEndpoints)
+
+-- | One or more endpoint IDs.
+describeVpcEndpoints_vpcEndpointIds :: Lens.Lens' DescribeVpcEndpoints (Prelude.Maybe [Prelude.Text])
+describeVpcEndpoints_vpcEndpointIds = Lens.lens (\DescribeVpcEndpoints' {vpcEndpointIds} -> vpcEndpointIds) (\s@DescribeVpcEndpoints' {} a -> s {vpcEndpointIds = a} :: DescribeVpcEndpoints) Prelude.. Lens.mapping Lens.coerced
 
 instance Core.AWSPager DescribeVpcEndpoints where
   page rq rs
@@ -240,56 +247,57 @@ instance Core.AWSRequest DescribeVpcEndpoints where
   type
     AWSResponse DescribeVpcEndpoints =
       DescribeVpcEndpointsResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeVpcEndpointsResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-            Prelude.<*> ( x Core..@? "vpcEndpointSet" Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+            Prelude.<$> (x Data..@? "nextToken")
+            Prelude.<*> ( x Data..@? "vpcEndpointSet" Core..!@ Prelude.mempty
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeVpcEndpoints where
   hashWithSalt _salt DescribeVpcEndpoints' {..} =
-    _salt `Prelude.hashWithSalt` filters
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` vpcEndpointIds
-      `Prelude.hashWithSalt` dryRun
-      `Prelude.hashWithSalt` maxResults
 
 instance Prelude.NFData DescribeVpcEndpoints where
   rnf DescribeVpcEndpoints' {..} =
-    Prelude.rnf filters
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf vpcEndpointIds
-      `Prelude.seq` Prelude.rnf dryRun
-      `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders DescribeVpcEndpoints where
+instance Data.ToHeaders DescribeVpcEndpoints where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeVpcEndpoints where
+instance Data.ToPath DescribeVpcEndpoints where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeVpcEndpoints where
+instance Data.ToQuery DescribeVpcEndpoints where
   toQuery DescribeVpcEndpoints' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeVpcEndpoints" :: Prelude.ByteString),
+          Data.=: ("DescribeVpcEndpoints" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "NextToken" Core.=: nextToken,
-        Core.toQuery
-          ( Core.toQueryList "VpcEndpointId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        Data.toQuery
+          ( Data.toQueryList "VpcEndpointId"
               Prelude.<$> vpcEndpointIds
-          ),
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+          )
       ]
 
 -- | Contains the output of DescribeVpcEndpoints.

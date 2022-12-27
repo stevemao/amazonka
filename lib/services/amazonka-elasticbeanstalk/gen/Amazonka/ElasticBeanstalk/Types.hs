@@ -1,3 +1,4 @@
+{-# LANGUAGE DisambiguateRecordFields #-}
 {-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE StrictData #-}
 {-# LANGUAGE NoImplicitPrelude #-}
@@ -7,7 +8,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.Types
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -17,25 +18,25 @@ module Amazonka.ElasticBeanstalk.Types
     defaultService,
 
     -- * Errors
+    _CodeBuildNotInServiceRegionException,
+    _ElasticBeanstalkServiceException,
+    _InsufficientPrivilegesException,
     _InvalidRequestException,
-    _TooManyBucketsException,
-    _S3SubscriptionRequiredException,
+    _ManagedActionInvalidStateException,
     _OperationInProgressException,
     _PlatformVersionStillReferencedException,
-    _TooManyApplicationVersionsException,
-    _TooManyConfigurationTemplatesException,
-    _ResourceTypeNotSupportedException,
-    _InsufficientPrivilegesException,
-    _ElasticBeanstalkServiceException,
-    _TooManyTagsException,
-    _TooManyApplicationsException,
-    _TooManyPlatformsException,
-    _ManagedActionInvalidStateException,
-    _SourceBundleDeletionException,
-    _S3LocationNotInServiceRegionException,
-    _CodeBuildNotInServiceRegionException,
-    _TooManyEnvironmentsException,
     _ResourceNotFoundException,
+    _ResourceTypeNotSupportedException,
+    _S3LocationNotInServiceRegionException,
+    _S3SubscriptionRequiredException,
+    _SourceBundleDeletionException,
+    _TooManyApplicationVersionsException,
+    _TooManyApplicationsException,
+    _TooManyBucketsException,
+    _TooManyConfigurationTemplatesException,
+    _TooManyEnvironmentsException,
+    _TooManyPlatformsException,
+    _TooManyTagsException,
 
     -- * ActionHistoryStatus
     ActionHistoryStatus (..),
@@ -98,13 +99,13 @@ module Amazonka.ElasticBeanstalk.Types
     ApplicationDescription (..),
     newApplicationDescription,
     applicationDescription_applicationArn,
-    applicationDescription_versions,
-    applicationDescription_dateUpdated,
-    applicationDescription_dateCreated,
     applicationDescription_applicationName,
     applicationDescription_configurationTemplates,
-    applicationDescription_resourceLifecycleConfig,
+    applicationDescription_dateCreated,
+    applicationDescription_dateUpdated,
     applicationDescription_description,
+    applicationDescription_resourceLifecycleConfig,
+    applicationDescription_versions,
 
     -- * ApplicationDescriptionMessage
     ApplicationDescriptionMessage (..),
@@ -114,30 +115,30 @@ module Amazonka.ElasticBeanstalk.Types
     -- * ApplicationMetrics
     ApplicationMetrics (..),
     newApplicationMetrics,
-    applicationMetrics_requestCount,
-    applicationMetrics_latency,
-    applicationMetrics_statusCodes,
     applicationMetrics_duration,
+    applicationMetrics_latency,
+    applicationMetrics_requestCount,
+    applicationMetrics_statusCodes,
 
     -- * ApplicationResourceLifecycleConfig
     ApplicationResourceLifecycleConfig (..),
     newApplicationResourceLifecycleConfig,
-    applicationResourceLifecycleConfig_versionLifecycleConfig,
     applicationResourceLifecycleConfig_serviceRole,
+    applicationResourceLifecycleConfig_versionLifecycleConfig,
 
     -- * ApplicationVersionDescription
     ApplicationVersionDescription (..),
     newApplicationVersionDescription,
-    applicationVersionDescription_status,
-    applicationVersionDescription_sourceBundle,
-    applicationVersionDescription_dateUpdated,
-    applicationVersionDescription_dateCreated,
-    applicationVersionDescription_versionLabel,
-    applicationVersionDescription_sourceBuildInformation,
     applicationVersionDescription_applicationName,
     applicationVersionDescription_applicationVersionArn,
     applicationVersionDescription_buildArn,
+    applicationVersionDescription_dateCreated,
+    applicationVersionDescription_dateUpdated,
     applicationVersionDescription_description,
+    applicationVersionDescription_sourceBuildInformation,
+    applicationVersionDescription_sourceBundle,
+    applicationVersionDescription_status,
+    applicationVersionDescription_versionLabel,
 
     -- * ApplicationVersionDescriptionMessage
     ApplicationVersionDescriptionMessage (..),
@@ -172,122 +173,122 @@ module Amazonka.ElasticBeanstalk.Types
     -- * CPUUtilization
     CPUUtilization (..),
     newCPUUtilization,
-    cPUUtilization_softIRQ,
-    cPUUtilization_idle,
-    cPUUtilization_irq,
-    cPUUtilization_system,
-    cPUUtilization_privileged,
-    cPUUtilization_user,
     cPUUtilization_iOWait,
+    cPUUtilization_irq,
+    cPUUtilization_idle,
     cPUUtilization_nice,
+    cPUUtilization_privileged,
+    cPUUtilization_softIRQ,
+    cPUUtilization_system,
+    cPUUtilization_user,
 
     -- * ConfigurationOptionDescription
     ConfigurationOptionDescription (..),
     newConfigurationOptionDescription,
-    configurationOptionDescription_maxValue,
-    configurationOptionDescription_regex,
-    configurationOptionDescription_maxLength,
-    configurationOptionDescription_userDefined,
-    configurationOptionDescription_namespace,
-    configurationOptionDescription_valueOptions,
-    configurationOptionDescription_name,
     configurationOptionDescription_changeSeverity,
     configurationOptionDescription_defaultValue,
-    configurationOptionDescription_valueType,
+    configurationOptionDescription_maxLength,
+    configurationOptionDescription_maxValue,
     configurationOptionDescription_minValue,
+    configurationOptionDescription_name,
+    configurationOptionDescription_namespace,
+    configurationOptionDescription_regex,
+    configurationOptionDescription_userDefined,
+    configurationOptionDescription_valueOptions,
+    configurationOptionDescription_valueType,
 
     -- * ConfigurationOptionSetting
     ConfigurationOptionSetting (..),
     newConfigurationOptionSetting,
+    configurationOptionSetting_namespace,
     configurationOptionSetting_optionName,
     configurationOptionSetting_resourceName,
-    configurationOptionSetting_namespace,
     configurationOptionSetting_value,
 
     -- * ConfigurationSettingsDescription
     ConfigurationSettingsDescription (..),
     newConfigurationSettingsDescription,
-    configurationSettingsDescription_templateName,
-    configurationSettingsDescription_optionSettings,
-    configurationSettingsDescription_dateUpdated,
-    configurationSettingsDescription_dateCreated,
-    configurationSettingsDescription_platformArn,
-    configurationSettingsDescription_environmentName,
     configurationSettingsDescription_applicationName,
+    configurationSettingsDescription_dateCreated,
+    configurationSettingsDescription_dateUpdated,
     configurationSettingsDescription_deploymentStatus,
-    configurationSettingsDescription_solutionStackName,
     configurationSettingsDescription_description,
+    configurationSettingsDescription_environmentName,
+    configurationSettingsDescription_optionSettings,
+    configurationSettingsDescription_platformArn,
+    configurationSettingsDescription_solutionStackName,
+    configurationSettingsDescription_templateName,
 
     -- * CustomAmi
     CustomAmi (..),
     newCustomAmi,
-    customAmi_virtualizationType,
     customAmi_imageId,
+    customAmi_virtualizationType,
 
     -- * Deployment
     Deployment (..),
     newDeployment,
     deployment_deploymentId,
-    deployment_status,
     deployment_deploymentTime,
+    deployment_status,
     deployment_versionLabel,
 
     -- * EnvironmentDescription
     EnvironmentDescription (..),
     newEnvironmentDescription,
-    environmentDescription_status,
-    environmentDescription_cname,
-    environmentDescription_templateName,
     environmentDescription_abortableOperationInProgress,
-    environmentDescription_endpointURL,
-    environmentDescription_resources,
-    environmentDescription_dateUpdated,
+    environmentDescription_applicationName,
+    environmentDescription_cname,
     environmentDescription_dateCreated,
+    environmentDescription_dateUpdated,
+    environmentDescription_description,
+    environmentDescription_endpointURL,
+    environmentDescription_environmentArn,
+    environmentDescription_environmentId,
+    environmentDescription_environmentLinks,
+    environmentDescription_environmentName,
     environmentDescription_health,
-    environmentDescription_versionLabel,
+    environmentDescription_healthStatus,
     environmentDescription_operationsRole,
     environmentDescription_platformArn,
-    environmentDescription_tier,
-    environmentDescription_environmentName,
-    environmentDescription_applicationName,
-    environmentDescription_environmentArn,
+    environmentDescription_resources,
     environmentDescription_solutionStackName,
-    environmentDescription_environmentId,
-    environmentDescription_healthStatus,
-    environmentDescription_environmentLinks,
-    environmentDescription_description,
+    environmentDescription_status,
+    environmentDescription_templateName,
+    environmentDescription_tier,
+    environmentDescription_versionLabel,
 
     -- * EnvironmentDescriptionsMessage
     EnvironmentDescriptionsMessage (..),
     newEnvironmentDescriptionsMessage,
-    environmentDescriptionsMessage_nextToken,
     environmentDescriptionsMessage_environments,
+    environmentDescriptionsMessage_nextToken,
 
     -- * EnvironmentInfoDescription
     EnvironmentInfoDescription (..),
     newEnvironmentInfoDescription,
-    environmentInfoDescription_sampleTimestamp,
     environmentInfoDescription_ec2InstanceId,
     environmentInfoDescription_infoType,
     environmentInfoDescription_message,
+    environmentInfoDescription_sampleTimestamp,
 
     -- * EnvironmentLink
     EnvironmentLink (..),
     newEnvironmentLink,
-    environmentLink_linkName,
     environmentLink_environmentName,
+    environmentLink_linkName,
 
     -- * EnvironmentResourceDescription
     EnvironmentResourceDescription (..),
     newEnvironmentResourceDescription,
-    environmentResourceDescription_queues,
-    environmentResourceDescription_triggers,
-    environmentResourceDescription_launchTemplates,
-    environmentResourceDescription_loadBalancers,
+    environmentResourceDescription_autoScalingGroups,
     environmentResourceDescription_environmentName,
     environmentResourceDescription_instances,
     environmentResourceDescription_launchConfigurations,
-    environmentResourceDescription_autoScalingGroups,
+    environmentResourceDescription_launchTemplates,
+    environmentResourceDescription_loadBalancers,
+    environmentResourceDescription_queues,
+    environmentResourceDescription_triggers,
 
     -- * EnvironmentResourcesDescription
     EnvironmentResourcesDescription (..),
@@ -298,21 +299,21 @@ module Amazonka.ElasticBeanstalk.Types
     EnvironmentTier (..),
     newEnvironmentTier,
     environmentTier_name,
-    environmentTier_version,
     environmentTier_type,
+    environmentTier_version,
 
     -- * EventDescription
     EventDescription (..),
     newEventDescription,
-    eventDescription_requestId,
-    eventDescription_templateName,
-    eventDescription_severity,
-    eventDescription_versionLabel,
-    eventDescription_platformArn,
-    eventDescription_environmentName,
     eventDescription_applicationName,
+    eventDescription_environmentName,
     eventDescription_eventDate,
     eventDescription_message,
+    eventDescription_platformArn,
+    eventDescription_requestId,
+    eventDescription_severity,
+    eventDescription_templateName,
+    eventDescription_versionLabel,
 
     -- * Instance
     Instance (..),
@@ -322,26 +323,26 @@ module Amazonka.ElasticBeanstalk.Types
     -- * InstanceHealthSummary
     InstanceHealthSummary (..),
     newInstanceHealthSummary,
+    instanceHealthSummary_degraded,
+    instanceHealthSummary_info,
+    instanceHealthSummary_noData,
     instanceHealthSummary_ok,
     instanceHealthSummary_pending,
     instanceHealthSummary_severe,
     instanceHealthSummary_unknown,
-    instanceHealthSummary_noData,
     instanceHealthSummary_warning,
-    instanceHealthSummary_degraded,
-    instanceHealthSummary_info,
 
     -- * Latency
     Latency (..),
     newLatency,
-    latency_p75,
+    latency_p10,
     latency_p50,
+    latency_p75,
     latency_p85,
-    latency_p999,
     latency_p90,
     latency_p95,
     latency_p99,
-    latency_p10,
+    latency_p999,
 
     -- * LaunchConfiguration
     LaunchConfiguration (..),
@@ -356,8 +357,8 @@ module Amazonka.ElasticBeanstalk.Types
     -- * Listener
     Listener (..),
     newListener,
-    listener_protocol,
     listener_port,
+    listener_protocol,
 
     -- * LoadBalancer
     LoadBalancer (..),
@@ -367,30 +368,30 @@ module Amazonka.ElasticBeanstalk.Types
     -- * LoadBalancerDescription
     LoadBalancerDescription (..),
     newLoadBalancerDescription,
-    loadBalancerDescription_loadBalancerName,
     loadBalancerDescription_domain,
     loadBalancerDescription_listeners,
+    loadBalancerDescription_loadBalancerName,
 
     -- * ManagedAction
     ManagedAction (..),
     newManagedAction,
-    managedAction_status,
-    managedAction_actionId,
-    managedAction_windowStartTime,
     managedAction_actionDescription,
+    managedAction_actionId,
     managedAction_actionType,
+    managedAction_status,
+    managedAction_windowStartTime,
 
     -- * ManagedActionHistoryItem
     ManagedActionHistoryItem (..),
     newManagedActionHistoryItem,
-    managedActionHistoryItem_status,
-    managedActionHistoryItem_failureType,
-    managedActionHistoryItem_actionId,
-    managedActionHistoryItem_failureDescription,
-    managedActionHistoryItem_finishedTime,
     managedActionHistoryItem_actionDescription,
-    managedActionHistoryItem_executedTime,
+    managedActionHistoryItem_actionId,
     managedActionHistoryItem_actionType,
+    managedActionHistoryItem_executedTime,
+    managedActionHistoryItem_failureDescription,
+    managedActionHistoryItem_failureType,
+    managedActionHistoryItem_finishedTime,
+    managedActionHistoryItem_status,
 
     -- * MaxAgeRule
     MaxAgeRule (..),
@@ -402,63 +403,63 @@ module Amazonka.ElasticBeanstalk.Types
     -- * MaxCountRule
     MaxCountRule (..),
     newMaxCountRule,
-    maxCountRule_maxCount,
     maxCountRule_deleteSourceFromS3,
+    maxCountRule_maxCount,
     maxCountRule_enabled,
 
     -- * OptionRestrictionRegex
     OptionRestrictionRegex (..),
     newOptionRestrictionRegex,
-    optionRestrictionRegex_pattern,
     optionRestrictionRegex_label,
+    optionRestrictionRegex_pattern,
 
     -- * OptionSpecification
     OptionSpecification (..),
     newOptionSpecification,
+    optionSpecification_namespace,
     optionSpecification_optionName,
     optionSpecification_resourceName,
-    optionSpecification_namespace,
 
     -- * PlatformBranchSummary
     PlatformBranchSummary (..),
     newPlatformBranchSummary,
     platformBranchSummary_branchName,
     platformBranchSummary_branchOrder,
+    platformBranchSummary_lifecycleState,
     platformBranchSummary_platformName,
     platformBranchSummary_supportedTierList,
-    platformBranchSummary_lifecycleState,
 
     -- * PlatformDescription
     PlatformDescription (..),
     newPlatformDescription,
-    platformDescription_platformBranchName,
-    platformDescription_supportedAddonList,
-    platformDescription_platformCategory,
-    platformDescription_platformBranchLifecycleState,
-    platformDescription_platformVersion,
-    platformDescription_platformStatus,
-    platformDescription_maintainer,
-    platformDescription_platformLifecycleState,
-    platformDescription_platformOwner,
-    platformDescription_dateUpdated,
     platformDescription_customAmiList,
     platformDescription_dateCreated,
-    platformDescription_operatingSystemName,
+    platformDescription_dateUpdated,
+    platformDescription_description,
     platformDescription_frameworks,
-    platformDescription_platformArn,
+    platformDescription_maintainer,
+    platformDescription_operatingSystemName,
     platformDescription_operatingSystemVersion,
+    platformDescription_platformArn,
+    platformDescription_platformBranchLifecycleState,
+    platformDescription_platformBranchName,
+    platformDescription_platformCategory,
+    platformDescription_platformLifecycleState,
+    platformDescription_platformName,
+    platformDescription_platformOwner,
+    platformDescription_platformStatus,
+    platformDescription_platformVersion,
     platformDescription_programmingLanguages,
     platformDescription_solutionStackName,
-    platformDescription_platformName,
-    platformDescription_description,
+    platformDescription_supportedAddonList,
     platformDescription_supportedTierList,
 
     -- * PlatformFilter
     PlatformFilter (..),
     newPlatformFilter,
-    platformFilter_values,
     platformFilter_operator,
     platformFilter_type,
+    platformFilter_values,
 
     -- * PlatformFramework
     PlatformFramework (..),
@@ -475,24 +476,24 @@ module Amazonka.ElasticBeanstalk.Types
     -- * PlatformSummary
     PlatformSummary (..),
     newPlatformSummary,
-    platformSummary_platformBranchName,
-    platformSummary_supportedAddonList,
-    platformSummary_platformCategory,
+    platformSummary_operatingSystemName,
+    platformSummary_operatingSystemVersion,
+    platformSummary_platformArn,
     platformSummary_platformBranchLifecycleState,
-    platformSummary_platformVersion,
-    platformSummary_platformStatus,
+    platformSummary_platformBranchName,
+    platformSummary_platformCategory,
     platformSummary_platformLifecycleState,
     platformSummary_platformOwner,
-    platformSummary_operatingSystemName,
-    platformSummary_platformArn,
-    platformSummary_operatingSystemVersion,
+    platformSummary_platformStatus,
+    platformSummary_platformVersion,
+    platformSummary_supportedAddonList,
     platformSummary_supportedTierList,
 
     -- * Queue
     Queue (..),
     newQueue,
-    queue_url,
     queue_name,
+    queue_url,
 
     -- * ResourceQuota
     ResourceQuota (..),
@@ -503,37 +504,37 @@ module Amazonka.ElasticBeanstalk.Types
     ResourceQuotas (..),
     newResourceQuotas,
     resourceQuotas_applicationQuota,
-    resourceQuotas_customPlatformQuota,
     resourceQuotas_applicationVersionQuota,
-    resourceQuotas_environmentQuota,
     resourceQuotas_configurationTemplateQuota,
+    resourceQuotas_customPlatformQuota,
+    resourceQuotas_environmentQuota,
 
     -- * S3Location
     S3Location (..),
     newS3Location,
-    s3Location_s3Key,
     s3Location_s3Bucket,
+    s3Location_s3Key,
 
     -- * SearchFilter
     SearchFilter (..),
     newSearchFilter,
     searchFilter_attribute,
-    searchFilter_values,
     searchFilter_operator,
+    searchFilter_values,
 
     -- * SingleInstanceHealth
     SingleInstanceHealth (..),
     newSingleInstanceHealth,
-    singleInstanceHealth_instanceId,
-    singleInstanceHealth_causes,
-    singleInstanceHealth_system,
     singleInstanceHealth_applicationMetrics,
-    singleInstanceHealth_color,
-    singleInstanceHealth_instanceType,
     singleInstanceHealth_availabilityZone,
-    singleInstanceHealth_healthStatus,
+    singleInstanceHealth_causes,
+    singleInstanceHealth_color,
     singleInstanceHealth_deployment,
+    singleInstanceHealth_healthStatus,
+    singleInstanceHealth_instanceId,
+    singleInstanceHealth_instanceType,
     singleInstanceHealth_launchedAt,
+    singleInstanceHealth_system,
 
     -- * SolutionStackDescription
     SolutionStackDescription (..),
@@ -551,8 +552,8 @@ module Amazonka.ElasticBeanstalk.Types
     -- * SourceConfiguration
     SourceConfiguration (..),
     newSourceConfiguration,
-    sourceConfiguration_templateName,
     sourceConfiguration_applicationName,
+    sourceConfiguration_templateName,
 
     -- * StatusCodes
     StatusCodes (..),
@@ -571,8 +572,8 @@ module Amazonka.ElasticBeanstalk.Types
     -- * Tag
     Tag (..),
     newTag,
-    tag_value,
     tag_key,
+    tag_value,
 
     -- * Trigger
     Trigger (..),
@@ -582,14 +583,15 @@ module Amazonka.ElasticBeanstalk.Types
     -- * ValidationMessage
     ValidationMessage (..),
     newValidationMessage,
+    validationMessage_message,
+    validationMessage_namespace,
     validationMessage_optionName,
     validationMessage_severity,
-    validationMessage_namespace,
-    validationMessage_message,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
 import Amazonka.ElasticBeanstalk.Types.ActionHistoryStatus
 import Amazonka.ElasticBeanstalk.Types.ActionStatus
 import Amazonka.ElasticBeanstalk.Types.ActionType
@@ -667,7 +669,6 @@ import Amazonka.ElasticBeanstalk.Types.Tag
 import Amazonka.ElasticBeanstalk.Types.Trigger
 import Amazonka.ElasticBeanstalk.Types.ValidationMessage
 import Amazonka.ElasticBeanstalk.Types.ValidationSeverity
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Sign.V4 as Sign
 
@@ -675,43 +676,49 @@ import qualified Amazonka.Sign.V4 as Sign
 defaultService :: Core.Service
 defaultService =
   Core.Service
-    { Core._serviceAbbrev =
-        "ElasticBeanstalk",
-      Core._serviceSigner = Sign.v4,
-      Core._serviceEndpointPrefix = "elasticbeanstalk",
-      Core._serviceSigningName = "elasticbeanstalk",
-      Core._serviceVersion = "2010-12-01",
-      Core._serviceEndpoint =
-        Core.defaultEndpoint defaultService,
-      Core._serviceTimeout = Prelude.Just 70,
-      Core._serviceCheck = Core.statusSuccess,
-      Core._serviceError =
-        Core.parseXMLError "ElasticBeanstalk",
-      Core._serviceRetry = retry
+    { Core.abbrev = "ElasticBeanstalk",
+      Core.signer = Sign.v4,
+      Core.endpointPrefix = "elasticbeanstalk",
+      Core.signingName = "elasticbeanstalk",
+      Core.version = "2010-12-01",
+      Core.s3AddressingStyle = Core.S3AddressingStyleAuto,
+      Core.endpoint = Core.defaultEndpoint defaultService,
+      Core.timeout = Prelude.Just 70,
+      Core.check = Core.statusSuccess,
+      Core.error = Core.parseXMLError "ElasticBeanstalk",
+      Core.retry = retry
     }
   where
     retry =
       Core.Exponential
-        { Core._retryBase = 5.0e-2,
-          Core._retryGrowth = 2,
-          Core._retryAttempts = 5,
-          Core._retryCheck = check
+        { Core.base = 5.0e-2,
+          Core.growth = 2,
+          Core.attempts = 5,
+          Core.check = check
         }
     check e
+      | Lens.has (Core.hasStatus 502) e =
+        Prelude.Just "bad_gateway"
+      | Lens.has (Core.hasStatus 504) e =
+        Prelude.Just "gateway_timeout"
+      | Lens.has (Core.hasStatus 500) e =
+        Prelude.Just "general_server_error"
+      | Lens.has (Core.hasStatus 509) e =
+        Prelude.Just "limit_exceeded"
+      | Lens.has
+          ( Core.hasCode "RequestThrottledException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "request_throttled_exception"
+      | Lens.has (Core.hasStatus 503) e =
+        Prelude.Just "service_unavailable"
       | Lens.has
           ( Core.hasCode "ThrottledException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throttled_exception"
-      | Lens.has (Core.hasStatus 429) e =
-        Prelude.Just "too_many_requests"
-      | Lens.has
-          ( Core.hasCode "ThrottlingException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "throttling_exception"
       | Lens.has
           ( Core.hasCode "Throttling"
               Prelude.. Core.hasStatus 400
@@ -719,29 +726,45 @@ defaultService =
           e =
         Prelude.Just "throttling"
       | Lens.has
+          ( Core.hasCode "ThrottlingException"
+              Prelude.. Core.hasStatus 400
+          )
+          e =
+        Prelude.Just "throttling_exception"
+      | Lens.has
           ( Core.hasCode
               "ProvisionedThroughputExceededException"
               Prelude.. Core.hasStatus 400
           )
           e =
         Prelude.Just "throughput_exceeded"
-      | Lens.has (Core.hasStatus 504) e =
-        Prelude.Just "gateway_timeout"
-      | Lens.has
-          ( Core.hasCode "RequestThrottledException"
-              Prelude.. Core.hasStatus 400
-          )
-          e =
-        Prelude.Just "request_throttled_exception"
-      | Lens.has (Core.hasStatus 502) e =
-        Prelude.Just "bad_gateway"
-      | Lens.has (Core.hasStatus 503) e =
-        Prelude.Just "service_unavailable"
-      | Lens.has (Core.hasStatus 500) e =
-        Prelude.Just "general_server_error"
-      | Lens.has (Core.hasStatus 509) e =
-        Prelude.Just "limit_exceeded"
+      | Lens.has (Core.hasStatus 429) e =
+        Prelude.Just "too_many_requests"
       | Prelude.otherwise = Prelude.Nothing
+
+-- | AWS CodeBuild is not available in the specified region.
+_CodeBuildNotInServiceRegionException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_CodeBuildNotInServiceRegionException =
+  Core._MatchServiceError
+    defaultService
+    "CodeBuildNotInServiceRegionException"
+    Prelude.. Core.hasStatus 400
+
+-- | A generic service exception has occurred.
+_ElasticBeanstalkServiceException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ElasticBeanstalkServiceException =
+  Core._MatchServiceError
+    defaultService
+    "ElasticBeanstalkServiceException"
+
+-- | The specified account does not have sufficient privileges for one or
+-- more AWS services.
+_InsufficientPrivilegesException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_InsufficientPrivilegesException =
+  Core._MatchServiceError
+    defaultService
+    "InsufficientPrivilegesException"
+    Prelude.. Core.hasStatus 403
 
 -- | One or more input parameters is not valid. Please correct the input
 -- parameters and try the operation again.
@@ -752,20 +775,12 @@ _InvalidRequestException =
     "InvalidRequestException"
     Prelude.. Core.hasStatus 400
 
--- | The specified account has reached its limit of Amazon S3 buckets.
-_TooManyBucketsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyBucketsException =
+-- | Cannot modify the managed action in its current state.
+_ManagedActionInvalidStateException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ManagedActionInvalidStateException =
   Core._MatchServiceError
     defaultService
-    "TooManyBucketsException"
-    Prelude.. Core.hasStatus 400
-
--- | The specified account does not have a subscription to Amazon S3.
-_S3SubscriptionRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_S3SubscriptionRequiredException =
-  Core._MatchServiceError
-    defaultService
-    "S3SubscriptionRequiredException"
+    "ManagedActionInvalidStateException"
     Prelude.. Core.hasStatus 400
 
 -- | Unable to perform the specified operation because another operation that
@@ -786,19 +801,12 @@ _PlatformVersionStillReferencedException =
     "PlatformVersionStillReferencedException"
     Prelude.. Core.hasStatus 400
 
--- | The specified account has reached its limit of application versions.
-_TooManyApplicationVersionsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyApplicationVersionsException =
+-- | A resource doesn\'t exist for the specified Amazon Resource Name (ARN).
+_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_ResourceNotFoundException =
   Core._MatchServiceError
     defaultService
-    "TooManyApplicationVersionsException"
-
--- | The specified account has reached its limit of configuration templates.
-_TooManyConfigurationTemplatesException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyConfigurationTemplatesException =
-  Core._MatchServiceError
-    defaultService
-    "TooManyConfigurationTemplatesException"
+    "ResourceNotFoundException"
     Prelude.. Core.hasStatus 400
 
 -- | The type of the specified Amazon Resource Name (ARN) isn\'t supported
@@ -808,69 +816,6 @@ _ResourceTypeNotSupportedException =
   Core._MatchServiceError
     defaultService
     "ResourceTypeNotSupportedException"
-    Prelude.. Core.hasStatus 400
-
--- | The specified account does not have sufficient privileges for one or
--- more AWS services.
-_InsufficientPrivilegesException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_InsufficientPrivilegesException =
-  Core._MatchServiceError
-    defaultService
-    "InsufficientPrivilegesException"
-    Prelude.. Core.hasStatus 403
-
--- | A generic service exception has occurred.
-_ElasticBeanstalkServiceException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ElasticBeanstalkServiceException =
-  Core._MatchServiceError
-    defaultService
-    "ElasticBeanstalkServiceException"
-
--- | The number of tags in the resource would exceed the number of tags that
--- each resource can have.
---
--- To calculate this, the operation considers both the number of tags the
--- resource already has and the tags this operation would add if it
--- succeeded.
-_TooManyTagsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyTagsException =
-  Core._MatchServiceError
-    defaultService
-    "TooManyTagsException"
-    Prelude.. Core.hasStatus 400
-
--- | The specified account has reached its limit of applications.
-_TooManyApplicationsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyApplicationsException =
-  Core._MatchServiceError
-    defaultService
-    "TooManyApplicationsException"
-    Prelude.. Core.hasStatus 400
-
--- | You have exceeded the maximum number of allowed platforms associated
--- with the account.
-_TooManyPlatformsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_TooManyPlatformsException =
-  Core._MatchServiceError
-    defaultService
-    "TooManyPlatformsException"
-    Prelude.. Core.hasStatus 400
-
--- | Cannot modify the managed action in its current state.
-_ManagedActionInvalidStateException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ManagedActionInvalidStateException =
-  Core._MatchServiceError
-    defaultService
-    "ManagedActionInvalidStateException"
-    Prelude.. Core.hasStatus 400
-
--- | Unable to delete the Amazon S3 source bundle associated with the
--- application version. The application version was deleted successfully.
-_SourceBundleDeletionException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_SourceBundleDeletionException =
-  Core._MatchServiceError
-    defaultService
-    "SourceBundleDeletionFailure"
     Prelude.. Core.hasStatus 400
 
 -- | The specified S3 bucket does not belong to the S3 region in which the
@@ -888,12 +833,52 @@ _S3LocationNotInServiceRegionException =
     "S3LocationNotInServiceRegionException"
     Prelude.. Core.hasStatus 400
 
--- | AWS CodeBuild is not available in the specified region.
-_CodeBuildNotInServiceRegionException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_CodeBuildNotInServiceRegionException =
+-- | The specified account does not have a subscription to Amazon S3.
+_S3SubscriptionRequiredException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_S3SubscriptionRequiredException =
   Core._MatchServiceError
     defaultService
-    "CodeBuildNotInServiceRegionException"
+    "S3SubscriptionRequiredException"
+    Prelude.. Core.hasStatus 400
+
+-- | Unable to delete the Amazon S3 source bundle associated with the
+-- application version. The application version was deleted successfully.
+_SourceBundleDeletionException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_SourceBundleDeletionException =
+  Core._MatchServiceError
+    defaultService
+    "SourceBundleDeletionFailure"
+    Prelude.. Core.hasStatus 400
+
+-- | The specified account has reached its limit of application versions.
+_TooManyApplicationVersionsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyApplicationVersionsException =
+  Core._MatchServiceError
+    defaultService
+    "TooManyApplicationVersionsException"
+
+-- | The specified account has reached its limit of applications.
+_TooManyApplicationsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyApplicationsException =
+  Core._MatchServiceError
+    defaultService
+    "TooManyApplicationsException"
+    Prelude.. Core.hasStatus 400
+
+-- | The specified account has reached its limit of Amazon S3 buckets.
+_TooManyBucketsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyBucketsException =
+  Core._MatchServiceError
+    defaultService
+    "TooManyBucketsException"
+    Prelude.. Core.hasStatus 400
+
+-- | The specified account has reached its limit of configuration templates.
+_TooManyConfigurationTemplatesException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyConfigurationTemplatesException =
+  Core._MatchServiceError
+    defaultService
+    "TooManyConfigurationTemplatesException"
     Prelude.. Core.hasStatus 400
 
 -- | The specified account has reached its limit of environments.
@@ -904,10 +889,24 @@ _TooManyEnvironmentsException =
     "TooManyEnvironmentsException"
     Prelude.. Core.hasStatus 400
 
--- | A resource doesn\'t exist for the specified Amazon Resource Name (ARN).
-_ResourceNotFoundException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
-_ResourceNotFoundException =
+-- | You have exceeded the maximum number of allowed platforms associated
+-- with the account.
+_TooManyPlatformsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyPlatformsException =
   Core._MatchServiceError
     defaultService
-    "ResourceNotFoundException"
+    "TooManyPlatformsException"
+    Prelude.. Core.hasStatus 400
+
+-- | The number of tags in the resource would exceed the number of tags that
+-- each resource can have.
+--
+-- To calculate this, the operation considers both the number of tags the
+-- resource already has and the tags this operation would add if it
+-- succeeded.
+_TooManyTagsException :: Core.AsError a => Lens.Getting (Prelude.First Core.ServiceError) a Core.ServiceError
+_TooManyTagsException =
+  Core._MatchServiceError
+    defaultService
+    "TooManyTagsException"
     Prelude.. Core.hasStatus 400

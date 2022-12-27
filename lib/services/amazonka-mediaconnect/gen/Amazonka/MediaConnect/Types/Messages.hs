@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConnect.Types.Messages
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConnect.Types.Messages where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Messages that provide the state of the flow.
@@ -52,13 +53,13 @@ newMessages = Messages' {errors = Prelude.mempty}
 messages_errors :: Lens.Lens' Messages [Prelude.Text]
 messages_errors = Lens.lens (\Messages' {errors} -> errors) (\s@Messages' {} a -> s {errors = a} :: Messages) Prelude.. Lens.coerced
 
-instance Core.FromJSON Messages where
+instance Data.FromJSON Messages where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Messages"
       ( \x ->
           Messages'
-            Prelude.<$> (x Core..:? "errors" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "errors" Data..!= Prelude.mempty)
       )
 
 instance Prelude.Hashable Messages where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudSearch.Types.IndexFieldStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CloudSearch.Types.IndexFieldStatus where
 import Amazonka.CloudSearch.Types.IndexField
 import Amazonka.CloudSearch.Types.OptionStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The value of an @IndexField@ and its current status.
@@ -65,11 +66,11 @@ indexFieldStatus_options = Lens.lens (\IndexFieldStatus' {options} -> options) (
 indexFieldStatus_status :: Lens.Lens' IndexFieldStatus OptionStatus
 indexFieldStatus_status = Lens.lens (\IndexFieldStatus' {status} -> status) (\s@IndexFieldStatus' {} a -> s {status = a} :: IndexFieldStatus)
 
-instance Core.FromXML IndexFieldStatus where
+instance Data.FromXML IndexFieldStatus where
   parseXML x =
     IndexFieldStatus'
-      Prelude.<$> (x Core..@ "Options")
-      Prelude.<*> (x Core..@ "Status")
+      Prelude.<$> (x Data..@ "Options")
+      Prelude.<*> (x Data..@ "Status")
 
 instance Prelude.Hashable IndexFieldStatus where
   hashWithSalt _salt IndexFieldStatus' {..} =

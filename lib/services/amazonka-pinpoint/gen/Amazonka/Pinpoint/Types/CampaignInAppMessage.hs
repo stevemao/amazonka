@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Pinpoint.Types.CampaignInAppMessage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Pinpoint.Types.CampaignInAppMessage where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Pinpoint.Types.InAppMessageContent
 import Amazonka.Pinpoint.Types.Layout
 import qualified Amazonka.Prelude as Prelude
@@ -29,15 +30,15 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newCampaignInAppMessage' smart constructor.
 data CampaignInAppMessage = CampaignInAppMessage'
-  { -- | In-app message layout.
-    layout :: Prelude.Maybe Layout,
-    -- | The message body of the notification, the email body or the text
+  { -- | The message body of the notification, the email body or the text
     -- message.
     body :: Prelude.Maybe Prelude.Text,
     -- | In-app message content.
     content :: Prelude.Maybe [InAppMessageContent],
     -- | Custom config to be sent to client.
-    customConfig :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
+    customConfig :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
+    -- | In-app message layout.
+    layout :: Prelude.Maybe Layout
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,27 +50,23 @@ data CampaignInAppMessage = CampaignInAppMessage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'layout', 'campaignInAppMessage_layout' - In-app message layout.
---
 -- 'body', 'campaignInAppMessage_body' - The message body of the notification, the email body or the text
 -- message.
 --
 -- 'content', 'campaignInAppMessage_content' - In-app message content.
 --
 -- 'customConfig', 'campaignInAppMessage_customConfig' - Custom config to be sent to client.
+--
+-- 'layout', 'campaignInAppMessage_layout' - In-app message layout.
 newCampaignInAppMessage ::
   CampaignInAppMessage
 newCampaignInAppMessage =
   CampaignInAppMessage'
-    { layout = Prelude.Nothing,
-      body = Prelude.Nothing,
+    { body = Prelude.Nothing,
       content = Prelude.Nothing,
-      customConfig = Prelude.Nothing
+      customConfig = Prelude.Nothing,
+      layout = Prelude.Nothing
     }
-
--- | In-app message layout.
-campaignInAppMessage_layout :: Lens.Lens' CampaignInAppMessage (Prelude.Maybe Layout)
-campaignInAppMessage_layout = Lens.lens (\CampaignInAppMessage' {layout} -> layout) (\s@CampaignInAppMessage' {} a -> s {layout = a} :: CampaignInAppMessage)
 
 -- | The message body of the notification, the email body or the text
 -- message.
@@ -84,39 +81,43 @@ campaignInAppMessage_content = Lens.lens (\CampaignInAppMessage' {content} -> co
 campaignInAppMessage_customConfig :: Lens.Lens' CampaignInAppMessage (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 campaignInAppMessage_customConfig = Lens.lens (\CampaignInAppMessage' {customConfig} -> customConfig) (\s@CampaignInAppMessage' {} a -> s {customConfig = a} :: CampaignInAppMessage) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromJSON CampaignInAppMessage where
+-- | In-app message layout.
+campaignInAppMessage_layout :: Lens.Lens' CampaignInAppMessage (Prelude.Maybe Layout)
+campaignInAppMessage_layout = Lens.lens (\CampaignInAppMessage' {layout} -> layout) (\s@CampaignInAppMessage' {} a -> s {layout = a} :: CampaignInAppMessage)
+
+instance Data.FromJSON CampaignInAppMessage where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "CampaignInAppMessage"
       ( \x ->
           CampaignInAppMessage'
-            Prelude.<$> (x Core..:? "Layout")
-            Prelude.<*> (x Core..:? "Body")
-            Prelude.<*> (x Core..:? "Content" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "CustomConfig" Core..!= Prelude.mempty)
+            Prelude.<$> (x Data..:? "Body")
+            Prelude.<*> (x Data..:? "Content" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "CustomConfig" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Layout")
       )
 
 instance Prelude.Hashable CampaignInAppMessage where
   hashWithSalt _salt CampaignInAppMessage' {..} =
-    _salt `Prelude.hashWithSalt` layout
-      `Prelude.hashWithSalt` body
+    _salt `Prelude.hashWithSalt` body
       `Prelude.hashWithSalt` content
       `Prelude.hashWithSalt` customConfig
+      `Prelude.hashWithSalt` layout
 
 instance Prelude.NFData CampaignInAppMessage where
   rnf CampaignInAppMessage' {..} =
-    Prelude.rnf layout
-      `Prelude.seq` Prelude.rnf body
+    Prelude.rnf body
       `Prelude.seq` Prelude.rnf content
       `Prelude.seq` Prelude.rnf customConfig
+      `Prelude.seq` Prelude.rnf layout
 
-instance Core.ToJSON CampaignInAppMessage where
+instance Data.ToJSON CampaignInAppMessage where
   toJSON CampaignInAppMessage' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Layout" Core..=) Prelude.<$> layout,
-            ("Body" Core..=) Prelude.<$> body,
-            ("Content" Core..=) Prelude.<$> content,
-            ("CustomConfig" Core..=) Prelude.<$> customConfig
+          [ ("Body" Data..=) Prelude.<$> body,
+            ("Content" Data..=) Prelude.<$> content,
+            ("CustomConfig" Data..=) Prelude.<$> customConfig,
+            ("Layout" Data..=) Prelude.<$> layout
           ]
       )

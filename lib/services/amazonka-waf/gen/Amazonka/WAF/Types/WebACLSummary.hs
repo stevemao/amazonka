@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.Types.WebACLSummary
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WAF.Types.WebACLSummary where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | This is __AWS WAF Classic__ documentation. For more information, see
@@ -89,14 +90,14 @@ webACLSummary_webACLId = Lens.lens (\WebACLSummary' {webACLId} -> webACLId) (\s@
 webACLSummary_name :: Lens.Lens' WebACLSummary Prelude.Text
 webACLSummary_name = Lens.lens (\WebACLSummary' {name} -> name) (\s@WebACLSummary' {} a -> s {name = a} :: WebACLSummary)
 
-instance Core.FromJSON WebACLSummary where
+instance Data.FromJSON WebACLSummary where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WebACLSummary"
       ( \x ->
           WebACLSummary'
-            Prelude.<$> (x Core..: "WebACLId")
-            Prelude.<*> (x Core..: "Name")
+            Prelude.<$> (x Data..: "WebACLId")
+            Prelude.<*> (x Data..: "Name")
       )
 
 instance Prelude.Hashable WebACLSummary where

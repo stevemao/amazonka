@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Connect.Types.InstanceAttributeType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,10 @@ module Amazonka.Connect.Types.InstanceAttributeType
         InstanceAttributeType_CONTACTFLOW_LOGS,
         InstanceAttributeType_CONTACT_LENS,
         InstanceAttributeType_EARLY_MEDIA,
+        InstanceAttributeType_ENHANCED_CONTACT_MONITORING,
+        InstanceAttributeType_HIGH_VOLUME_OUTBOUND,
         InstanceAttributeType_INBOUND_CALLS,
+        InstanceAttributeType_MULTI_PARTY_CONFERENCE,
         InstanceAttributeType_OUTBOUND_CALLS,
         InstanceAttributeType_USE_CUSTOM_TTS_VOICES
       ),
@@ -32,11 +35,12 @@ module Amazonka.Connect.Types.InstanceAttributeType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype InstanceAttributeType = InstanceAttributeType'
   { fromInstanceAttributeType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -48,18 +52,18 @@ newtype InstanceAttributeType = InstanceAttributeType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern InstanceAttributeType_AUTO_RESOLVE_BEST_VOICES :: InstanceAttributeType
@@ -74,8 +78,17 @@ pattern InstanceAttributeType_CONTACT_LENS = InstanceAttributeType' "CONTACT_LEN
 pattern InstanceAttributeType_EARLY_MEDIA :: InstanceAttributeType
 pattern InstanceAttributeType_EARLY_MEDIA = InstanceAttributeType' "EARLY_MEDIA"
 
+pattern InstanceAttributeType_ENHANCED_CONTACT_MONITORING :: InstanceAttributeType
+pattern InstanceAttributeType_ENHANCED_CONTACT_MONITORING = InstanceAttributeType' "ENHANCED_CONTACT_MONITORING"
+
+pattern InstanceAttributeType_HIGH_VOLUME_OUTBOUND :: InstanceAttributeType
+pattern InstanceAttributeType_HIGH_VOLUME_OUTBOUND = InstanceAttributeType' "HIGH_VOLUME_OUTBOUND"
+
 pattern InstanceAttributeType_INBOUND_CALLS :: InstanceAttributeType
 pattern InstanceAttributeType_INBOUND_CALLS = InstanceAttributeType' "INBOUND_CALLS"
+
+pattern InstanceAttributeType_MULTI_PARTY_CONFERENCE :: InstanceAttributeType
+pattern InstanceAttributeType_MULTI_PARTY_CONFERENCE = InstanceAttributeType' "MULTI_PARTY_CONFERENCE"
 
 pattern InstanceAttributeType_OUTBOUND_CALLS :: InstanceAttributeType
 pattern InstanceAttributeType_OUTBOUND_CALLS = InstanceAttributeType' "OUTBOUND_CALLS"
@@ -88,7 +101,10 @@ pattern InstanceAttributeType_USE_CUSTOM_TTS_VOICES = InstanceAttributeType' "US
   InstanceAttributeType_CONTACTFLOW_LOGS,
   InstanceAttributeType_CONTACT_LENS,
   InstanceAttributeType_EARLY_MEDIA,
+  InstanceAttributeType_ENHANCED_CONTACT_MONITORING,
+  InstanceAttributeType_HIGH_VOLUME_OUTBOUND,
   InstanceAttributeType_INBOUND_CALLS,
+  InstanceAttributeType_MULTI_PARTY_CONFERENCE,
   InstanceAttributeType_OUTBOUND_CALLS,
   InstanceAttributeType_USE_CUSTOM_TTS_VOICES,
   InstanceAttributeType'

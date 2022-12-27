@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Types.StatefulRuleGroupReference
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,9 @@
 module Amazonka.NetworkFirewall.Types.StatefulRuleGroupReference where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
+import Amazonka.NetworkFirewall.Types.StatefulRuleGroupOverride
 import qualified Amazonka.Prelude as Prelude
 
 -- | Identifier for a single stateful rule group, used in a firewall policy
@@ -28,7 +30,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newStatefulRuleGroupReference' smart constructor.
 data StatefulRuleGroupReference = StatefulRuleGroupReference'
-  { -- | An integer setting that indicates the order in which to run the stateful
+  { -- | The action that allows the policy owner to override the behavior of the
+    -- rule group within a policy.
+    override :: Prelude.Maybe StatefulRuleGroupOverride,
+    -- | An integer setting that indicates the order in which to run the stateful
     -- rule groups in a single FirewallPolicy. This setting only applies to
     -- firewall policies that specify the @STRICT_ORDER@ rule order in the
     -- stateful engine options settings.
@@ -54,6 +59,9 @@ data StatefulRuleGroupReference = StatefulRuleGroupReference'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'override', 'statefulRuleGroupReference_override' - The action that allows the policy owner to override the behavior of the
+-- rule group within a policy.
+--
 -- 'priority', 'statefulRuleGroupReference_priority' - An integer setting that indicates the order in which to run the stateful
 -- rule groups in a single FirewallPolicy. This setting only applies to
 -- firewall policies that specify the @STRICT_ORDER@ rule order in the
@@ -74,10 +82,16 @@ newStatefulRuleGroupReference ::
   StatefulRuleGroupReference
 newStatefulRuleGroupReference pResourceArn_ =
   StatefulRuleGroupReference'
-    { priority =
+    { override =
         Prelude.Nothing,
+      priority = Prelude.Nothing,
       resourceArn = pResourceArn_
     }
+
+-- | The action that allows the policy owner to override the behavior of the
+-- rule group within a policy.
+statefulRuleGroupReference_override :: Lens.Lens' StatefulRuleGroupReference (Prelude.Maybe StatefulRuleGroupOverride)
+statefulRuleGroupReference_override = Lens.lens (\StatefulRuleGroupReference' {override} -> override) (\s@StatefulRuleGroupReference' {} a -> s {override = a} :: StatefulRuleGroupReference)
 
 -- | An integer setting that indicates the order in which to run the stateful
 -- rule groups in a single FirewallPolicy. This setting only applies to
@@ -98,31 +112,35 @@ statefulRuleGroupReference_priority = Lens.lens (\StatefulRuleGroupReference' {p
 statefulRuleGroupReference_resourceArn :: Lens.Lens' StatefulRuleGroupReference Prelude.Text
 statefulRuleGroupReference_resourceArn = Lens.lens (\StatefulRuleGroupReference' {resourceArn} -> resourceArn) (\s@StatefulRuleGroupReference' {} a -> s {resourceArn = a} :: StatefulRuleGroupReference)
 
-instance Core.FromJSON StatefulRuleGroupReference where
+instance Data.FromJSON StatefulRuleGroupReference where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "StatefulRuleGroupReference"
       ( \x ->
           StatefulRuleGroupReference'
-            Prelude.<$> (x Core..:? "Priority")
-            Prelude.<*> (x Core..: "ResourceArn")
+            Prelude.<$> (x Data..:? "Override")
+            Prelude.<*> (x Data..:? "Priority")
+            Prelude.<*> (x Data..: "ResourceArn")
       )
 
 instance Prelude.Hashable StatefulRuleGroupReference where
   hashWithSalt _salt StatefulRuleGroupReference' {..} =
-    _salt `Prelude.hashWithSalt` priority
+    _salt `Prelude.hashWithSalt` override
+      `Prelude.hashWithSalt` priority
       `Prelude.hashWithSalt` resourceArn
 
 instance Prelude.NFData StatefulRuleGroupReference where
   rnf StatefulRuleGroupReference' {..} =
-    Prelude.rnf priority
+    Prelude.rnf override
+      `Prelude.seq` Prelude.rnf priority
       `Prelude.seq` Prelude.rnf resourceArn
 
-instance Core.ToJSON StatefulRuleGroupReference where
+instance Data.ToJSON StatefulRuleGroupReference where
   toJSON StatefulRuleGroupReference' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Priority" Core..=) Prelude.<$> priority,
-            Prelude.Just ("ResourceArn" Core..= resourceArn)
+          [ ("Override" Data..=) Prelude.<$> override,
+            ("Priority" Data..=) Prelude.<$> priority,
+            Prelude.Just ("ResourceArn" Data..= resourceArn)
           ]
       )

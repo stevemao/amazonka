@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.RelationalDatabaseEndpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.RelationalDatabaseEndpoint where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an endpoint for a database.
@@ -62,14 +63,14 @@ relationalDatabaseEndpoint_address = Lens.lens (\RelationalDatabaseEndpoint' {ad
 relationalDatabaseEndpoint_port :: Lens.Lens' RelationalDatabaseEndpoint (Prelude.Maybe Prelude.Int)
 relationalDatabaseEndpoint_port = Lens.lens (\RelationalDatabaseEndpoint' {port} -> port) (\s@RelationalDatabaseEndpoint' {} a -> s {port = a} :: RelationalDatabaseEndpoint)
 
-instance Core.FromJSON RelationalDatabaseEndpoint where
+instance Data.FromJSON RelationalDatabaseEndpoint where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RelationalDatabaseEndpoint"
       ( \x ->
           RelationalDatabaseEndpoint'
-            Prelude.<$> (x Core..:? "address")
-            Prelude.<*> (x Core..:? "port")
+            Prelude.<$> (x Data..:? "address")
+            Prelude.<*> (x Data..:? "port")
       )
 
 instance Prelude.Hashable RelationalDatabaseEndpoint where

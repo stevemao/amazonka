@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.WorkDocs.Types.Principal
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.WorkDocs.Types.Principal where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.WorkDocs.Types.PermissionInfo
 import Amazonka.WorkDocs.Types.PrincipalType
@@ -29,10 +30,10 @@ import Amazonka.WorkDocs.Types.PrincipalType
 --
 -- /See:/ 'newPrincipal' smart constructor.
 data Principal = Principal'
-  { -- | The permission information for the resource.
-    roles :: Prelude.Maybe [PermissionInfo],
-    -- | The ID of the resource.
+  { -- | The ID of the resource.
     id :: Prelude.Maybe Prelude.Text,
+    -- | The permission information for the resource.
+    roles :: Prelude.Maybe [PermissionInfo],
     -- | The type of resource.
     type' :: Prelude.Maybe PrincipalType
   }
@@ -46,51 +47,51 @@ data Principal = Principal'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'roles', 'principal_roles' - The permission information for the resource.
---
 -- 'id', 'principal_id' - The ID of the resource.
+--
+-- 'roles', 'principal_roles' - The permission information for the resource.
 --
 -- 'type'', 'principal_type' - The type of resource.
 newPrincipal ::
   Principal
 newPrincipal =
   Principal'
-    { roles = Prelude.Nothing,
-      id = Prelude.Nothing,
+    { id = Prelude.Nothing,
+      roles = Prelude.Nothing,
       type' = Prelude.Nothing
     }
-
--- | The permission information for the resource.
-principal_roles :: Lens.Lens' Principal (Prelude.Maybe [PermissionInfo])
-principal_roles = Lens.lens (\Principal' {roles} -> roles) (\s@Principal' {} a -> s {roles = a} :: Principal) Prelude.. Lens.mapping Lens.coerced
 
 -- | The ID of the resource.
 principal_id :: Lens.Lens' Principal (Prelude.Maybe Prelude.Text)
 principal_id = Lens.lens (\Principal' {id} -> id) (\s@Principal' {} a -> s {id = a} :: Principal)
 
+-- | The permission information for the resource.
+principal_roles :: Lens.Lens' Principal (Prelude.Maybe [PermissionInfo])
+principal_roles = Lens.lens (\Principal' {roles} -> roles) (\s@Principal' {} a -> s {roles = a} :: Principal) Prelude.. Lens.mapping Lens.coerced
+
 -- | The type of resource.
 principal_type :: Lens.Lens' Principal (Prelude.Maybe PrincipalType)
 principal_type = Lens.lens (\Principal' {type'} -> type') (\s@Principal' {} a -> s {type' = a} :: Principal)
 
-instance Core.FromJSON Principal where
+instance Data.FromJSON Principal where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Principal"
       ( \x ->
           Principal'
-            Prelude.<$> (x Core..:? "Roles" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Id")
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Id")
+            Prelude.<*> (x Data..:? "Roles" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable Principal where
   hashWithSalt _salt Principal' {..} =
-    _salt `Prelude.hashWithSalt` roles
-      `Prelude.hashWithSalt` id
+    _salt `Prelude.hashWithSalt` id
+      `Prelude.hashWithSalt` roles
       `Prelude.hashWithSalt` type'
 
 instance Prelude.NFData Principal where
   rnf Principal' {..} =
-    Prelude.rnf roles
-      `Prelude.seq` Prelude.rnf id
+    Prelude.rnf id
+      `Prelude.seq` Prelude.rnf roles
       `Prelude.seq` Prelude.rnf type'

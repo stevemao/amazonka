@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MacieV2.CreateSampleFindings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.MacieV2.CreateSampleFindings
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MacieV2.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -47,9 +48,9 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateSampleFindings' smart constructor.
 data CreateSampleFindings = CreateSampleFindings'
-  { -- | An array that lists one or more types of findings to include in the set
-    -- of sample findings. Currently, the only supported value is
-    -- Policy:IAMUser\/S3BucketEncryptionDisabled.
+  { -- | An array of finding types, one for each type of sample finding to
+    -- create. To create a sample of every type of finding that Amazon Macie
+    -- supports, don\'t include this array in your request.
     findingTypes :: Prelude.Maybe [FindingType]
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -62,9 +63,9 @@ data CreateSampleFindings = CreateSampleFindings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'findingTypes', 'createSampleFindings_findingTypes' - An array that lists one or more types of findings to include in the set
--- of sample findings. Currently, the only supported value is
--- Policy:IAMUser\/S3BucketEncryptionDisabled.
+-- 'findingTypes', 'createSampleFindings_findingTypes' - An array of finding types, one for each type of sample finding to
+-- create. To create a sample of every type of finding that Amazon Macie
+-- supports, don\'t include this array in your request.
 newCreateSampleFindings ::
   CreateSampleFindings
 newCreateSampleFindings =
@@ -73,9 +74,9 @@ newCreateSampleFindings =
         Prelude.Nothing
     }
 
--- | An array that lists one or more types of findings to include in the set
--- of sample findings. Currently, the only supported value is
--- Policy:IAMUser\/S3BucketEncryptionDisabled.
+-- | An array of finding types, one for each type of sample finding to
+-- create. To create a sample of every type of finding that Amazon Macie
+-- supports, don\'t include this array in your request.
 createSampleFindings_findingTypes :: Lens.Lens' CreateSampleFindings (Prelude.Maybe [FindingType])
 createSampleFindings_findingTypes = Lens.lens (\CreateSampleFindings' {findingTypes} -> findingTypes) (\s@CreateSampleFindings' {} a -> s {findingTypes = a} :: CreateSampleFindings) Prelude.. Lens.mapping Lens.coerced
 
@@ -83,7 +84,8 @@ instance Core.AWSRequest CreateSampleFindings where
   type
     AWSResponse CreateSampleFindings =
       CreateSampleFindingsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -99,28 +101,28 @@ instance Prelude.NFData CreateSampleFindings where
   rnf CreateSampleFindings' {..} =
     Prelude.rnf findingTypes
 
-instance Core.ToHeaders CreateSampleFindings where
+instance Data.ToHeaders CreateSampleFindings where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateSampleFindings where
+instance Data.ToJSON CreateSampleFindings where
   toJSON CreateSampleFindings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("findingTypes" Core..=) Prelude.<$> findingTypes]
+          [("findingTypes" Data..=) Prelude.<$> findingTypes]
       )
 
-instance Core.ToPath CreateSampleFindings where
+instance Data.ToPath CreateSampleFindings where
   toPath = Prelude.const "/findings/sample"
 
-instance Core.ToQuery CreateSampleFindings where
+instance Data.ToQuery CreateSampleFindings where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateSampleFindingsResponse' smart constructor.

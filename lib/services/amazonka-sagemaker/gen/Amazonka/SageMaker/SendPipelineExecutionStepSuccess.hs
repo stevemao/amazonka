@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.SendPipelineExecutionStepSuccess
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,8 +30,8 @@ module Amazonka.SageMaker.SendPipelineExecutionStepSuccess
     newSendPipelineExecutionStepSuccess,
 
     -- * Request Lenses
-    sendPipelineExecutionStepSuccess_outputParameters,
     sendPipelineExecutionStepSuccess_clientRequestToken,
+    sendPipelineExecutionStepSuccess_outputParameters,
     sendPipelineExecutionStepSuccess_callbackToken,
 
     -- * Destructuring the Response
@@ -45,7 +45,8 @@ module Amazonka.SageMaker.SendPipelineExecutionStepSuccess
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -53,12 +54,12 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newSendPipelineExecutionStepSuccess' smart constructor.
 data SendPipelineExecutionStepSuccess = SendPipelineExecutionStepSuccess'
-  { -- | A list of the output parameters of the callback step.
-    outputParameters :: Prelude.Maybe [OutputParameter],
-    -- | A unique, case-sensitive identifier that you provide to ensure the
+  { -- | A unique, case-sensitive identifier that you provide to ensure the
     -- idempotency of the operation. An idempotent operation completes no more
     -- than one time.
     clientRequestToken :: Prelude.Maybe Prelude.Text,
+    -- | A list of the output parameters of the callback step.
+    outputParameters :: Prelude.Maybe [OutputParameter],
     -- | The pipeline generated token from the Amazon SQS queue.
     callbackToken :: Prelude.Text
   }
@@ -72,11 +73,11 @@ data SendPipelineExecutionStepSuccess = SendPipelineExecutionStepSuccess'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'outputParameters', 'sendPipelineExecutionStepSuccess_outputParameters' - A list of the output parameters of the callback step.
---
 -- 'clientRequestToken', 'sendPipelineExecutionStepSuccess_clientRequestToken' - A unique, case-sensitive identifier that you provide to ensure the
 -- idempotency of the operation. An idempotent operation completes no more
 -- than one time.
+--
+-- 'outputParameters', 'sendPipelineExecutionStepSuccess_outputParameters' - A list of the output parameters of the callback step.
 --
 -- 'callbackToken', 'sendPipelineExecutionStepSuccess_callbackToken' - The pipeline generated token from the Amazon SQS queue.
 newSendPipelineExecutionStepSuccess ::
@@ -85,21 +86,21 @@ newSendPipelineExecutionStepSuccess ::
   SendPipelineExecutionStepSuccess
 newSendPipelineExecutionStepSuccess pCallbackToken_ =
   SendPipelineExecutionStepSuccess'
-    { outputParameters =
+    { clientRequestToken =
         Prelude.Nothing,
-      clientRequestToken = Prelude.Nothing,
+      outputParameters = Prelude.Nothing,
       callbackToken = pCallbackToken_
     }
-
--- | A list of the output parameters of the callback step.
-sendPipelineExecutionStepSuccess_outputParameters :: Lens.Lens' SendPipelineExecutionStepSuccess (Prelude.Maybe [OutputParameter])
-sendPipelineExecutionStepSuccess_outputParameters = Lens.lens (\SendPipelineExecutionStepSuccess' {outputParameters} -> outputParameters) (\s@SendPipelineExecutionStepSuccess' {} a -> s {outputParameters = a} :: SendPipelineExecutionStepSuccess) Prelude.. Lens.mapping Lens.coerced
 
 -- | A unique, case-sensitive identifier that you provide to ensure the
 -- idempotency of the operation. An idempotent operation completes no more
 -- than one time.
 sendPipelineExecutionStepSuccess_clientRequestToken :: Lens.Lens' SendPipelineExecutionStepSuccess (Prelude.Maybe Prelude.Text)
 sendPipelineExecutionStepSuccess_clientRequestToken = Lens.lens (\SendPipelineExecutionStepSuccess' {clientRequestToken} -> clientRequestToken) (\s@SendPipelineExecutionStepSuccess' {} a -> s {clientRequestToken = a} :: SendPipelineExecutionStepSuccess)
+
+-- | A list of the output parameters of the callback step.
+sendPipelineExecutionStepSuccess_outputParameters :: Lens.Lens' SendPipelineExecutionStepSuccess (Prelude.Maybe [OutputParameter])
+sendPipelineExecutionStepSuccess_outputParameters = Lens.lens (\SendPipelineExecutionStepSuccess' {outputParameters} -> outputParameters) (\s@SendPipelineExecutionStepSuccess' {} a -> s {outputParameters = a} :: SendPipelineExecutionStepSuccess) Prelude.. Lens.mapping Lens.coerced
 
 -- | The pipeline generated token from the Amazon SQS queue.
 sendPipelineExecutionStepSuccess_callbackToken :: Lens.Lens' SendPipelineExecutionStepSuccess Prelude.Text
@@ -112,12 +113,13 @@ instance
   type
     AWSResponse SendPipelineExecutionStepSuccess =
       SendPipelineExecutionStepSuccessResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           SendPipelineExecutionStepSuccessResponse'
-            Prelude.<$> (x Core..?> "PipelineExecutionArn")
+            Prelude.<$> (x Data..?> "PipelineExecutionArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,8 +130,8 @@ instance
   hashWithSalt
     _salt
     SendPipelineExecutionStepSuccess' {..} =
-      _salt `Prelude.hashWithSalt` outputParameters
-        `Prelude.hashWithSalt` clientRequestToken
+      _salt `Prelude.hashWithSalt` clientRequestToken
+        `Prelude.hashWithSalt` outputParameters
         `Prelude.hashWithSalt` callbackToken
 
 instance
@@ -137,46 +139,46 @@ instance
     SendPipelineExecutionStepSuccess
   where
   rnf SendPipelineExecutionStepSuccess' {..} =
-    Prelude.rnf outputParameters
-      `Prelude.seq` Prelude.rnf clientRequestToken
+    Prelude.rnf clientRequestToken
+      `Prelude.seq` Prelude.rnf outputParameters
       `Prelude.seq` Prelude.rnf callbackToken
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     SendPipelineExecutionStepSuccess
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.SendPipelineExecutionStepSuccess" ::
+              Data.=# ( "SageMaker.SendPipelineExecutionStepSuccess" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SendPipelineExecutionStepSuccess where
+instance Data.ToJSON SendPipelineExecutionStepSuccess where
   toJSON SendPipelineExecutionStepSuccess' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("OutputParameters" Core..=)
-              Prelude.<$> outputParameters,
-            ("ClientRequestToken" Core..=)
+          [ ("ClientRequestToken" Data..=)
               Prelude.<$> clientRequestToken,
+            ("OutputParameters" Data..=)
+              Prelude.<$> outputParameters,
             Prelude.Just
-              ("CallbackToken" Core..= callbackToken)
+              ("CallbackToken" Data..= callbackToken)
           ]
       )
 
-instance Core.ToPath SendPipelineExecutionStepSuccess where
+instance Data.ToPath SendPipelineExecutionStepSuccess where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     SendPipelineExecutionStepSuccess
   where
   toQuery = Prelude.const Prelude.mempty

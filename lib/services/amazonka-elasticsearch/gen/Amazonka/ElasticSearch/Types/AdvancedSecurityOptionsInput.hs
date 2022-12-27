@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticSearch.Types.AdvancedSecurityOptionsInput
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.ElasticSearch.Types.AdvancedSecurityOptionsInput where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticSearch.Types.MasterUserOptions
 import Amazonka.ElasticSearch.Types.SAMLOptionsInput
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the advanced security configuration: whether advanced security
@@ -32,7 +33,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAdvancedSecurityOptionsInput' smart constructor.
 data AdvancedSecurityOptionsInput = AdvancedSecurityOptionsInput'
-  { -- | True if advanced security is enabled.
+  { -- | True if Anonymous auth is enabled. Anonymous auth can be enabled only
+    -- when AdvancedSecurity is enabled on existing domains.
+    anonymousAuthEnabled :: Prelude.Maybe Prelude.Bool,
+    -- | True if advanced security is enabled.
     enabled :: Prelude.Maybe Prelude.Bool,
     -- | True if the internal user database is enabled.
     internalUserDatabaseEnabled :: Prelude.Maybe Prelude.Bool,
@@ -51,6 +55,9 @@ data AdvancedSecurityOptionsInput = AdvancedSecurityOptionsInput'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'anonymousAuthEnabled', 'advancedSecurityOptionsInput_anonymousAuthEnabled' - True if Anonymous auth is enabled. Anonymous auth can be enabled only
+-- when AdvancedSecurity is enabled on existing domains.
+--
 -- 'enabled', 'advancedSecurityOptionsInput_enabled' - True if advanced security is enabled.
 --
 -- 'internalUserDatabaseEnabled', 'advancedSecurityOptionsInput_internalUserDatabaseEnabled' - True if the internal user database is enabled.
@@ -62,12 +69,18 @@ newAdvancedSecurityOptionsInput ::
   AdvancedSecurityOptionsInput
 newAdvancedSecurityOptionsInput =
   AdvancedSecurityOptionsInput'
-    { enabled =
+    { anonymousAuthEnabled =
         Prelude.Nothing,
+      enabled = Prelude.Nothing,
       internalUserDatabaseEnabled = Prelude.Nothing,
       masterUserOptions = Prelude.Nothing,
       sAMLOptions = Prelude.Nothing
     }
+
+-- | True if Anonymous auth is enabled. Anonymous auth can be enabled only
+-- when AdvancedSecurity is enabled on existing domains.
+advancedSecurityOptionsInput_anonymousAuthEnabled :: Lens.Lens' AdvancedSecurityOptionsInput (Prelude.Maybe Prelude.Bool)
+advancedSecurityOptionsInput_anonymousAuthEnabled = Lens.lens (\AdvancedSecurityOptionsInput' {anonymousAuthEnabled} -> anonymousAuthEnabled) (\s@AdvancedSecurityOptionsInput' {} a -> s {anonymousAuthEnabled = a} :: AdvancedSecurityOptionsInput)
 
 -- | True if advanced security is enabled.
 advancedSecurityOptionsInput_enabled :: Lens.Lens' AdvancedSecurityOptionsInput (Prelude.Maybe Prelude.Bool)
@@ -90,27 +103,31 @@ instance
     AdvancedSecurityOptionsInput
   where
   hashWithSalt _salt AdvancedSecurityOptionsInput' {..} =
-    _salt `Prelude.hashWithSalt` enabled
+    _salt `Prelude.hashWithSalt` anonymousAuthEnabled
+      `Prelude.hashWithSalt` enabled
       `Prelude.hashWithSalt` internalUserDatabaseEnabled
       `Prelude.hashWithSalt` masterUserOptions
       `Prelude.hashWithSalt` sAMLOptions
 
 instance Prelude.NFData AdvancedSecurityOptionsInput where
   rnf AdvancedSecurityOptionsInput' {..} =
-    Prelude.rnf enabled
+    Prelude.rnf anonymousAuthEnabled
+      `Prelude.seq` Prelude.rnf enabled
       `Prelude.seq` Prelude.rnf internalUserDatabaseEnabled
       `Prelude.seq` Prelude.rnf masterUserOptions
       `Prelude.seq` Prelude.rnf sAMLOptions
 
-instance Core.ToJSON AdvancedSecurityOptionsInput where
+instance Data.ToJSON AdvancedSecurityOptionsInput where
   toJSON AdvancedSecurityOptionsInput' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Enabled" Core..=) Prelude.<$> enabled,
-            ("InternalUserDatabaseEnabled" Core..=)
+          [ ("AnonymousAuthEnabled" Data..=)
+              Prelude.<$> anonymousAuthEnabled,
+            ("Enabled" Data..=) Prelude.<$> enabled,
+            ("InternalUserDatabaseEnabled" Data..=)
               Prelude.<$> internalUserDatabaseEnabled,
-            ("MasterUserOptions" Core..=)
+            ("MasterUserOptions" Data..=)
               Prelude.<$> masterUserOptions,
-            ("SAMLOptions" Core..=) Prelude.<$> sAMLOptions
+            ("SAMLOptions" Data..=) Prelude.<$> sAMLOptions
           ]
       )

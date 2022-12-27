@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.RelationalDatabaseHardware
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.RelationalDatabaseHardware where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the hardware of a database.
@@ -71,15 +72,15 @@ relationalDatabaseHardware_diskSizeInGb = Lens.lens (\RelationalDatabaseHardware
 relationalDatabaseHardware_ramSizeInGb :: Lens.Lens' RelationalDatabaseHardware (Prelude.Maybe Prelude.Double)
 relationalDatabaseHardware_ramSizeInGb = Lens.lens (\RelationalDatabaseHardware' {ramSizeInGb} -> ramSizeInGb) (\s@RelationalDatabaseHardware' {} a -> s {ramSizeInGb = a} :: RelationalDatabaseHardware)
 
-instance Core.FromJSON RelationalDatabaseHardware where
+instance Data.FromJSON RelationalDatabaseHardware where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "RelationalDatabaseHardware"
       ( \x ->
           RelationalDatabaseHardware'
-            Prelude.<$> (x Core..:? "cpuCount")
-            Prelude.<*> (x Core..:? "diskSizeInGb")
-            Prelude.<*> (x Core..:? "ramSizeInGb")
+            Prelude.<$> (x Data..:? "cpuCount")
+            Prelude.<*> (x Data..:? "diskSizeInGb")
+            Prelude.<*> (x Data..:? "ramSizeInGb")
       )
 
 instance Prelude.Hashable RelationalDatabaseHardware where

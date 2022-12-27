@@ -14,13 +14,14 @@
 
 -- |
 -- Module      : Amazonka.MediaTailor.ListChannels
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieves a list of channels that are associated with this account.
+-- Retrieves information about the channels that are associated with the
+-- current AWS account.
 --
 -- This operation returns paginated results.
 module Amazonka.MediaTailor.ListChannels
@@ -29,8 +30,8 @@ module Amazonka.MediaTailor.ListChannels
     newListChannels,
 
     -- * Request Lenses
-    listChannels_nextToken,
     listChannels_maxResults,
+    listChannels_nextToken,
 
     -- * Destructuring the Response
     ListChannelsResponse (..),
@@ -44,7 +45,8 @@ module Amazonka.MediaTailor.ListChannels
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaTailor.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -52,12 +54,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListChannels' smart constructor.
 data ListChannels = ListChannels'
-  { -- | Pagination token from the GET list request. Use the token to fetch the
-    -- next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Upper bound on number of records to return. The maximum number of
-    -- results is 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+  { -- | The maximum number of channels that you want MediaTailor to return in
+    -- response to the current request. If there are more than @MaxResults@
+    -- channels, use the value of @NextToken@ in the response to get the next
+    -- page of results.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | Pagination token returned by the list request when results exceed the
+    -- maximum allowed. Use the token to fetch the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -69,28 +73,32 @@ data ListChannels = ListChannels'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listChannels_nextToken' - Pagination token from the GET list request. Use the token to fetch the
--- next page of results.
+-- 'maxResults', 'listChannels_maxResults' - The maximum number of channels that you want MediaTailor to return in
+-- response to the current request. If there are more than @MaxResults@
+-- channels, use the value of @NextToken@ in the response to get the next
+-- page of results.
 --
--- 'maxResults', 'listChannels_maxResults' - Upper bound on number of records to return. The maximum number of
--- results is 100.
+-- 'nextToken', 'listChannels_nextToken' - Pagination token returned by the list request when results exceed the
+-- maximum allowed. Use the token to fetch the next page of results.
 newListChannels ::
   ListChannels
 newListChannels =
   ListChannels'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
--- | Pagination token from the GET list request. Use the token to fetch the
--- next page of results.
-listChannels_nextToken :: Lens.Lens' ListChannels (Prelude.Maybe Prelude.Text)
-listChannels_nextToken = Lens.lens (\ListChannels' {nextToken} -> nextToken) (\s@ListChannels' {} a -> s {nextToken = a} :: ListChannels)
-
--- | Upper bound on number of records to return. The maximum number of
--- results is 100.
+-- | The maximum number of channels that you want MediaTailor to return in
+-- response to the current request. If there are more than @MaxResults@
+-- channels, use the value of @NextToken@ in the response to get the next
+-- page of results.
 listChannels_maxResults :: Lens.Lens' ListChannels (Prelude.Maybe Prelude.Natural)
 listChannels_maxResults = Lens.lens (\ListChannels' {maxResults} -> maxResults) (\s@ListChannels' {} a -> s {maxResults = a} :: ListChannels)
+
+-- | Pagination token returned by the list request when results exceed the
+-- maximum allowed. Use the token to fetch the next page of results.
+listChannels_nextToken :: Lens.Lens' ListChannels (Prelude.Maybe Prelude.Text)
+listChannels_nextToken = Lens.lens (\ListChannels' {nextToken} -> nextToken) (\s@ListChannels' {} a -> s {nextToken = a} :: ListChannels)
 
 instance Core.AWSPager ListChannels where
   page rq rs
@@ -113,50 +121,51 @@ instance Core.AWSPager ListChannels where
 
 instance Core.AWSRequest ListChannels where
   type AWSResponse ListChannels = ListChannelsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListChannelsResponse'
-            Prelude.<$> (x Core..?> "Items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListChannels where
   hashWithSalt _salt ListChannels' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData ListChannels where
   rnf ListChannels' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders ListChannels where
+instance Data.ToHeaders ListChannels where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListChannels where
+instance Data.ToPath ListChannels where
   toPath = Prelude.const "/channels"
 
-instance Core.ToQuery ListChannels where
+instance Data.ToQuery ListChannels where
   toQuery ListChannels' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListChannelsResponse' smart constructor.
 data ListChannelsResponse = ListChannelsResponse'
-  { -- | An array of channels that are associated with this account.
+  { -- | A list of channels that are associated with this account.
     items :: Prelude.Maybe [Channel],
     -- | Pagination token returned by the list request when results exceed the
     -- maximum allowed. Use the token to fetch the next page of results.
@@ -174,7 +183,7 @@ data ListChannelsResponse = ListChannelsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'items', 'listChannelsResponse_items' - An array of channels that are associated with this account.
+-- 'items', 'listChannelsResponse_items' - A list of channels that are associated with this account.
 --
 -- 'nextToken', 'listChannelsResponse_nextToken' - Pagination token returned by the list request when results exceed the
 -- maximum allowed. Use the token to fetch the next page of results.
@@ -191,7 +200,7 @@ newListChannelsResponse pHttpStatus_ =
       httpStatus = pHttpStatus_
     }
 
--- | An array of channels that are associated with this account.
+-- | A list of channels that are associated with this account.
 listChannelsResponse_items :: Lens.Lens' ListChannelsResponse (Prelude.Maybe [Channel])
 listChannelsResponse_items = Lens.lens (\ListChannelsResponse' {items} -> items) (\s@ListChannelsResponse' {} a -> s {items = a} :: ListChannelsResponse) Prelude.. Lens.mapping Lens.coerced
 

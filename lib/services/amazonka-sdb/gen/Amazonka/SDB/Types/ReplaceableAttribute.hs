@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SDB.Types.ReplaceableAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SDB.Types.ReplaceableAttribute where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- |
@@ -89,10 +90,10 @@ instance Prelude.NFData ReplaceableAttribute where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf value
 
-instance Core.ToQuery ReplaceableAttribute where
+instance Data.ToQuery ReplaceableAttribute where
   toQuery ReplaceableAttribute' {..} =
     Prelude.mconcat
-      [ "Replace" Core.=: replace,
-        "Name" Core.=: name,
-        "Value" Core.=: value
+      [ "Replace" Data.=: replace,
+        "Name" Data.=: name,
+        "Value" Data.=: value
       ]

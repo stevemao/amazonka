@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CloudFront.UpdatePublicKey
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -45,7 +45,8 @@ where
 
 import Amazonka.CloudFront.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -106,13 +107,14 @@ instance Core.AWSRequest UpdatePublicKey where
   type
     AWSResponse UpdatePublicKey =
       UpdatePublicKeyResponse
-  request = Request.putXML defaultService
+  request overrides =
+    Request.putXML (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           UpdatePublicKeyResponse'
-            Prelude.<$> (h Core..#? "ETag")
-            Prelude.<*> (Core.parseXML x)
+            Prelude.<$> (h Data..#? "ETag")
+            Prelude.<*> (Data.parseXML x)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -128,22 +130,22 @@ instance Prelude.NFData UpdatePublicKey where
       `Prelude.seq` Prelude.rnf publicKeyConfig
       `Prelude.seq` Prelude.rnf id
 
-instance Core.ToElement UpdatePublicKey where
+instance Data.ToElement UpdatePublicKey where
   toElement UpdatePublicKey' {..} =
-    Core.mkElement
+    Data.mkElement
       "{http://cloudfront.amazonaws.com/doc/2020-05-31/}PublicKeyConfig"
       publicKeyConfig
 
-instance Core.ToHeaders UpdatePublicKey where
+instance Data.ToHeaders UpdatePublicKey where
   toHeaders UpdatePublicKey' {..} =
-    Prelude.mconcat ["If-Match" Core.=# ifMatch]
+    Prelude.mconcat ["If-Match" Data.=# ifMatch]
 
-instance Core.ToPath UpdatePublicKey where
+instance Data.ToPath UpdatePublicKey where
   toPath UpdatePublicKey' {..} =
     Prelude.mconcat
-      ["/2020-05-31/public-key/", Core.toBS id, "/config"]
+      ["/2020-05-31/public-key/", Data.toBS id, "/config"]
 
-instance Core.ToQuery UpdatePublicKey where
+instance Data.ToQuery UpdatePublicKey where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdatePublicKeyResponse' smart constructor.

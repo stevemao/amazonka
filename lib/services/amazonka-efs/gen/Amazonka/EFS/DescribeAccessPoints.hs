@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EFS.DescribeAccessPoints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -36,8 +36,8 @@ module Amazonka.EFS.DescribeAccessPoints
     -- * Request Lenses
     describeAccessPoints_accessPointId,
     describeAccessPoints_fileSystemId,
-    describeAccessPoints_nextToken,
     describeAccessPoints_maxResults,
+    describeAccessPoints_nextToken,
 
     -- * Destructuring the Response
     DescribeAccessPointsResponse (..),
@@ -51,8 +51,9 @@ module Amazonka.EFS.DescribeAccessPoints
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EFS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -65,14 +66,14 @@ data DescribeAccessPoints = DescribeAccessPoints'
     -- | (Optional) If you provide a @FileSystemId@, EFS returns all access
     -- points for that file system; mutually exclusive with @AccessPointId@.
     fileSystemId :: Prelude.Maybe Prelude.Text,
-    -- | @NextToken@ is present if the response is paginated. You can use
-    -- @NextMarker@ in the subsequent request to fetch the next page of access
-    -- point descriptions.
-    nextToken :: Prelude.Maybe Prelude.Text,
     -- | (Optional) When retrieving all access points for a file system, you can
     -- optionally specify the @MaxItems@ parameter to limit the number of
     -- objects returned in a response. The default value is 100.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | @NextToken@ is present if the response is paginated. You can use
+    -- @NextMarker@ in the subsequent request to fetch the next page of access
+    -- point descriptions.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -90,13 +91,13 @@ data DescribeAccessPoints = DescribeAccessPoints'
 -- 'fileSystemId', 'describeAccessPoints_fileSystemId' - (Optional) If you provide a @FileSystemId@, EFS returns all access
 -- points for that file system; mutually exclusive with @AccessPointId@.
 --
--- 'nextToken', 'describeAccessPoints_nextToken' - @NextToken@ is present if the response is paginated. You can use
--- @NextMarker@ in the subsequent request to fetch the next page of access
--- point descriptions.
---
 -- 'maxResults', 'describeAccessPoints_maxResults' - (Optional) When retrieving all access points for a file system, you can
 -- optionally specify the @MaxItems@ parameter to limit the number of
 -- objects returned in a response. The default value is 100.
+--
+-- 'nextToken', 'describeAccessPoints_nextToken' - @NextToken@ is present if the response is paginated. You can use
+-- @NextMarker@ in the subsequent request to fetch the next page of access
+-- point descriptions.
 newDescribeAccessPoints ::
   DescribeAccessPoints
 newDescribeAccessPoints =
@@ -104,8 +105,8 @@ newDescribeAccessPoints =
     { accessPointId =
         Prelude.Nothing,
       fileSystemId = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
 
 -- | (Optional) Specifies an EFS access point to describe in the response;
@@ -118,29 +119,30 @@ describeAccessPoints_accessPointId = Lens.lens (\DescribeAccessPoints' {accessPo
 describeAccessPoints_fileSystemId :: Lens.Lens' DescribeAccessPoints (Prelude.Maybe Prelude.Text)
 describeAccessPoints_fileSystemId = Lens.lens (\DescribeAccessPoints' {fileSystemId} -> fileSystemId) (\s@DescribeAccessPoints' {} a -> s {fileSystemId = a} :: DescribeAccessPoints)
 
--- | @NextToken@ is present if the response is paginated. You can use
--- @NextMarker@ in the subsequent request to fetch the next page of access
--- point descriptions.
-describeAccessPoints_nextToken :: Lens.Lens' DescribeAccessPoints (Prelude.Maybe Prelude.Text)
-describeAccessPoints_nextToken = Lens.lens (\DescribeAccessPoints' {nextToken} -> nextToken) (\s@DescribeAccessPoints' {} a -> s {nextToken = a} :: DescribeAccessPoints)
-
 -- | (Optional) When retrieving all access points for a file system, you can
 -- optionally specify the @MaxItems@ parameter to limit the number of
 -- objects returned in a response. The default value is 100.
 describeAccessPoints_maxResults :: Lens.Lens' DescribeAccessPoints (Prelude.Maybe Prelude.Natural)
 describeAccessPoints_maxResults = Lens.lens (\DescribeAccessPoints' {maxResults} -> maxResults) (\s@DescribeAccessPoints' {} a -> s {maxResults = a} :: DescribeAccessPoints)
 
+-- | @NextToken@ is present if the response is paginated. You can use
+-- @NextMarker@ in the subsequent request to fetch the next page of access
+-- point descriptions.
+describeAccessPoints_nextToken :: Lens.Lens' DescribeAccessPoints (Prelude.Maybe Prelude.Text)
+describeAccessPoints_nextToken = Lens.lens (\DescribeAccessPoints' {nextToken} -> nextToken) (\s@DescribeAccessPoints' {} a -> s {nextToken = a} :: DescribeAccessPoints)
+
 instance Core.AWSRequest DescribeAccessPoints where
   type
     AWSResponse DescribeAccessPoints =
       DescribeAccessPointsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeAccessPointsResponse'
-            Prelude.<$> (x Core..?> "AccessPoints" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "AccessPoints" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -148,29 +150,29 @@ instance Prelude.Hashable DescribeAccessPoints where
   hashWithSalt _salt DescribeAccessPoints' {..} =
     _salt `Prelude.hashWithSalt` accessPointId
       `Prelude.hashWithSalt` fileSystemId
-      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeAccessPoints where
   rnf DescribeAccessPoints' {..} =
     Prelude.rnf accessPointId
       `Prelude.seq` Prelude.rnf fileSystemId
-      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeAccessPoints where
+instance Data.ToHeaders DescribeAccessPoints where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeAccessPoints where
+instance Data.ToPath DescribeAccessPoints where
   toPath = Prelude.const "/2015-02-01/access-points"
 
-instance Core.ToQuery DescribeAccessPoints where
+instance Data.ToQuery DescribeAccessPoints where
   toQuery DescribeAccessPoints' {..} =
     Prelude.mconcat
-      [ "AccessPointId" Core.=: accessPointId,
-        "FileSystemId" Core.=: fileSystemId,
-        "NextToken" Core.=: nextToken,
-        "MaxResults" Core.=: maxResults
+      [ "AccessPointId" Data.=: accessPointId,
+        "FileSystemId" Data.=: fileSystemId,
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeAccessPointsResponse' smart constructor.

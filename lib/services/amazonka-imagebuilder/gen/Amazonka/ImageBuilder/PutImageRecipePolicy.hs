@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.PutImageRecipePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,15 +42,16 @@ module Amazonka.ImageBuilder.PutImageRecipePolicy
     newPutImageRecipePolicyResponse,
 
     -- * Response Lenses
-    putImageRecipePolicyResponse_requestId,
     putImageRecipePolicyResponse_imageRecipeArn,
+    putImageRecipePolicyResponse_requestId,
     putImageRecipePolicyResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ImageBuilder.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,13 +104,14 @@ instance Core.AWSRequest PutImageRecipePolicy where
   type
     AWSResponse PutImageRecipePolicy =
       PutImageRecipePolicyResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           PutImageRecipePolicyResponse'
-            Prelude.<$> (x Core..?> "requestId")
-            Prelude.<*> (x Core..?> "imageRecipeArn")
+            Prelude.<$> (x Data..?> "imageRecipeArn")
+            Prelude.<*> (x Data..?> "requestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -123,40 +125,40 @@ instance Prelude.NFData PutImageRecipePolicy where
     Prelude.rnf imageRecipeArn
       `Prelude.seq` Prelude.rnf policy
 
-instance Core.ToHeaders PutImageRecipePolicy where
+instance Data.ToHeaders PutImageRecipePolicy where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON PutImageRecipePolicy where
+instance Data.ToJSON PutImageRecipePolicy where
   toJSON PutImageRecipePolicy' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("imageRecipeArn" Core..= imageRecipeArn),
-            Prelude.Just ("policy" Core..= policy)
+              ("imageRecipeArn" Data..= imageRecipeArn),
+            Prelude.Just ("policy" Data..= policy)
           ]
       )
 
-instance Core.ToPath PutImageRecipePolicy where
+instance Data.ToPath PutImageRecipePolicy where
   toPath = Prelude.const "/PutImageRecipePolicy"
 
-instance Core.ToQuery PutImageRecipePolicy where
+instance Data.ToQuery PutImageRecipePolicy where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newPutImageRecipePolicyResponse' smart constructor.
 data PutImageRecipePolicyResponse = PutImageRecipePolicyResponse'
-  { -- | The request ID that uniquely identifies this request.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Resource Name (ARN) of the image recipe that this policy was
+  { -- | The Amazon Resource Name (ARN) of the image recipe that this policy was
     -- applied to.
     imageRecipeArn :: Prelude.Maybe Prelude.Text,
+    -- | The request ID that uniquely identifies this request.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -170,10 +172,10 @@ data PutImageRecipePolicyResponse = PutImageRecipePolicyResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'putImageRecipePolicyResponse_requestId' - The request ID that uniquely identifies this request.
---
 -- 'imageRecipeArn', 'putImageRecipePolicyResponse_imageRecipeArn' - The Amazon Resource Name (ARN) of the image recipe that this policy was
 -- applied to.
+--
+-- 'requestId', 'putImageRecipePolicyResponse_requestId' - The request ID that uniquely identifies this request.
 --
 -- 'httpStatus', 'putImageRecipePolicyResponse_httpStatus' - The response's http status code.
 newPutImageRecipePolicyResponse ::
@@ -182,20 +184,20 @@ newPutImageRecipePolicyResponse ::
   PutImageRecipePolicyResponse
 newPutImageRecipePolicyResponse pHttpStatus_ =
   PutImageRecipePolicyResponse'
-    { requestId =
+    { imageRecipeArn =
         Prelude.Nothing,
-      imageRecipeArn = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The request ID that uniquely identifies this request.
-putImageRecipePolicyResponse_requestId :: Lens.Lens' PutImageRecipePolicyResponse (Prelude.Maybe Prelude.Text)
-putImageRecipePolicyResponse_requestId = Lens.lens (\PutImageRecipePolicyResponse' {requestId} -> requestId) (\s@PutImageRecipePolicyResponse' {} a -> s {requestId = a} :: PutImageRecipePolicyResponse)
 
 -- | The Amazon Resource Name (ARN) of the image recipe that this policy was
 -- applied to.
 putImageRecipePolicyResponse_imageRecipeArn :: Lens.Lens' PutImageRecipePolicyResponse (Prelude.Maybe Prelude.Text)
 putImageRecipePolicyResponse_imageRecipeArn = Lens.lens (\PutImageRecipePolicyResponse' {imageRecipeArn} -> imageRecipeArn) (\s@PutImageRecipePolicyResponse' {} a -> s {imageRecipeArn = a} :: PutImageRecipePolicyResponse)
+
+-- | The request ID that uniquely identifies this request.
+putImageRecipePolicyResponse_requestId :: Lens.Lens' PutImageRecipePolicyResponse (Prelude.Maybe Prelude.Text)
+putImageRecipePolicyResponse_requestId = Lens.lens (\PutImageRecipePolicyResponse' {requestId} -> requestId) (\s@PutImageRecipePolicyResponse' {} a -> s {requestId = a} :: PutImageRecipePolicyResponse)
 
 -- | The response's http status code.
 putImageRecipePolicyResponse_httpStatus :: Lens.Lens' PutImageRecipePolicyResponse Prelude.Int
@@ -203,6 +205,6 @@ putImageRecipePolicyResponse_httpStatus = Lens.lens (\PutImageRecipePolicyRespon
 
 instance Prelude.NFData PutImageRecipePolicyResponse where
   rnf PutImageRecipePolicyResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf imageRecipeArn
+    Prelude.rnf imageRecipeArn
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf httpStatus

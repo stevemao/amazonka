@@ -5,7 +5,7 @@
 
 -- |
 -- Module      : Test.Amazonka.Gen.Translate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,20 +27,17 @@ import Test.Tasty
 -- fixtures :: TestTree
 -- fixtures =
 --     [ testGroup "request"
---         [ requestDescribeTextTranslationJob $
---             newDescribeTextTranslationJob
---
---         , requestListTerminologies $
---             newListTerminologies
---
---         , requestCreateParallelData $
+--         [ requestCreateParallelData $
 --             newCreateParallelData
---
---         , requestUpdateParallelData $
---             newUpdateParallelData
 --
 --         , requestDeleteParallelData $
 --             newDeleteParallelData
+--
+--         , requestDeleteTerminology $
+--             newDeleteTerminology
+--
+--         , requestDescribeTextTranslationJob $
+--             newDescribeTextTranslationJob
 --
 --         , requestGetParallelData $
 --             newGetParallelData
@@ -48,17 +45,20 @@ import Test.Tasty
 --         , requestGetTerminology $
 --             newGetTerminology
 --
---         , requestTranslateText $
---             newTranslateText
---
 --         , requestImportTerminology $
 --             newImportTerminology
 --
---         , requestStopTextTranslationJob $
---             newStopTextTranslationJob
+--         , requestListLanguages $
+--             newListLanguages
 --
---         , requestDeleteTerminology $
---             newDeleteTerminology
+--         , requestListParallelData $
+--             newListParallelData
+--
+--         , requestListTagsForResource $
+--             newListTagsForResource
+--
+--         , requestListTerminologies $
+--             newListTerminologies
 --
 --         , requestListTextTranslationJobs $
 --             newListTextTranslationJobs
@@ -66,26 +66,35 @@ import Test.Tasty
 --         , requestStartTextTranslationJob $
 --             newStartTextTranslationJob
 --
---         , requestListParallelData $
---             newListParallelData
+--         , requestStopTextTranslationJob $
+--             newStopTextTranslationJob
+--
+--         , requestTagResource $
+--             newTagResource
+--
+--         , requestTranslateText $
+--             newTranslateText
+--
+--         , requestUntagResource $
+--             newUntagResource
+--
+--         , requestUpdateParallelData $
+--             newUpdateParallelData
 --
 --           ]
 
 --     , testGroup "response"
---         [ responseDescribeTextTranslationJob $
---             newDescribeTextTranslationJobResponse
---
---         , responseListTerminologies $
---             newListTerminologiesResponse
---
---         , responseCreateParallelData $
+--         [ responseCreateParallelData $
 --             newCreateParallelDataResponse
---
---         , responseUpdateParallelData $
---             newUpdateParallelDataResponse
 --
 --         , responseDeleteParallelData $
 --             newDeleteParallelDataResponse
+--
+--         , responseDeleteTerminology $
+--             newDeleteTerminologyResponse
+--
+--         , responseDescribeTextTranslationJob $
+--             newDescribeTextTranslationJobResponse
 --
 --         , responseGetParallelData $
 --             newGetParallelDataResponse
@@ -93,17 +102,20 @@ import Test.Tasty
 --         , responseGetTerminology $
 --             newGetTerminologyResponse
 --
---         , responseTranslateText $
---             newTranslateTextResponse
---
 --         , responseImportTerminology $
 --             newImportTerminologyResponse
 --
---         , responseStopTextTranslationJob $
---             newStopTextTranslationJobResponse
+--         , responseListLanguages $
+--             newListLanguagesResponse
 --
---         , responseDeleteTerminology $
---             newDeleteTerminologyResponse
+--         , responseListParallelData $
+--             newListParallelDataResponse
+--
+--         , responseListTagsForResource $
+--             newListTagsForResourceResponse
+--
+--         , responseListTerminologies $
+--             newListTerminologiesResponse
 --
 --         , responseListTextTranslationJobs $
 --             newListTextTranslationJobsResponse
@@ -111,25 +123,25 @@ import Test.Tasty
 --         , responseStartTextTranslationJob $
 --             newStartTextTranslationJobResponse
 --
---         , responseListParallelData $
---             newListParallelDataResponse
+--         , responseStopTextTranslationJob $
+--             newStopTextTranslationJobResponse
+--
+--         , responseTagResource $
+--             newTagResourceResponse
+--
+--         , responseTranslateText $
+--             newTranslateTextResponse
+--
+--         , responseUntagResource $
+--             newUntagResourceResponse
+--
+--         , responseUpdateParallelData $
+--             newUpdateParallelDataResponse
 --
 --           ]
 --     ]
 
 -- Requests
-
-requestDescribeTextTranslationJob :: DescribeTextTranslationJob -> TestTree
-requestDescribeTextTranslationJob =
-  req
-    "DescribeTextTranslationJob"
-    "fixture/DescribeTextTranslationJob.yaml"
-
-requestListTerminologies :: ListTerminologies -> TestTree
-requestListTerminologies =
-  req
-    "ListTerminologies"
-    "fixture/ListTerminologies.yaml"
 
 requestCreateParallelData :: CreateParallelData -> TestTree
 requestCreateParallelData =
@@ -137,17 +149,23 @@ requestCreateParallelData =
     "CreateParallelData"
     "fixture/CreateParallelData.yaml"
 
-requestUpdateParallelData :: UpdateParallelData -> TestTree
-requestUpdateParallelData =
-  req
-    "UpdateParallelData"
-    "fixture/UpdateParallelData.yaml"
-
 requestDeleteParallelData :: DeleteParallelData -> TestTree
 requestDeleteParallelData =
   req
     "DeleteParallelData"
     "fixture/DeleteParallelData.yaml"
+
+requestDeleteTerminology :: DeleteTerminology -> TestTree
+requestDeleteTerminology =
+  req
+    "DeleteTerminology"
+    "fixture/DeleteTerminology.yaml"
+
+requestDescribeTextTranslationJob :: DescribeTextTranslationJob -> TestTree
+requestDescribeTextTranslationJob =
+  req
+    "DescribeTextTranslationJob"
+    "fixture/DescribeTextTranslationJob.yaml"
 
 requestGetParallelData :: GetParallelData -> TestTree
 requestGetParallelData =
@@ -161,29 +179,35 @@ requestGetTerminology =
     "GetTerminology"
     "fixture/GetTerminology.yaml"
 
-requestTranslateText :: TranslateText -> TestTree
-requestTranslateText =
-  req
-    "TranslateText"
-    "fixture/TranslateText.yaml"
-
 requestImportTerminology :: ImportTerminology -> TestTree
 requestImportTerminology =
   req
     "ImportTerminology"
     "fixture/ImportTerminology.yaml"
 
-requestStopTextTranslationJob :: StopTextTranslationJob -> TestTree
-requestStopTextTranslationJob =
+requestListLanguages :: ListLanguages -> TestTree
+requestListLanguages =
   req
-    "StopTextTranslationJob"
-    "fixture/StopTextTranslationJob.yaml"
+    "ListLanguages"
+    "fixture/ListLanguages.yaml"
 
-requestDeleteTerminology :: DeleteTerminology -> TestTree
-requestDeleteTerminology =
+requestListParallelData :: ListParallelData -> TestTree
+requestListParallelData =
   req
-    "DeleteTerminology"
-    "fixture/DeleteTerminology.yaml"
+    "ListParallelData"
+    "fixture/ListParallelData.yaml"
+
+requestListTagsForResource :: ListTagsForResource -> TestTree
+requestListTagsForResource =
+  req
+    "ListTagsForResource"
+    "fixture/ListTagsForResource.yaml"
+
+requestListTerminologies :: ListTerminologies -> TestTree
+requestListTerminologies =
+  req
+    "ListTerminologies"
+    "fixture/ListTerminologies.yaml"
 
 requestListTextTranslationJobs :: ListTextTranslationJobs -> TestTree
 requestListTextTranslationJobs =
@@ -197,29 +221,37 @@ requestStartTextTranslationJob =
     "StartTextTranslationJob"
     "fixture/StartTextTranslationJob.yaml"
 
-requestListParallelData :: ListParallelData -> TestTree
-requestListParallelData =
+requestStopTextTranslationJob :: StopTextTranslationJob -> TestTree
+requestStopTextTranslationJob =
   req
-    "ListParallelData"
-    "fixture/ListParallelData.yaml"
+    "StopTextTranslationJob"
+    "fixture/StopTextTranslationJob.yaml"
+
+requestTagResource :: TagResource -> TestTree
+requestTagResource =
+  req
+    "TagResource"
+    "fixture/TagResource.yaml"
+
+requestTranslateText :: TranslateText -> TestTree
+requestTranslateText =
+  req
+    "TranslateText"
+    "fixture/TranslateText.yaml"
+
+requestUntagResource :: UntagResource -> TestTree
+requestUntagResource =
+  req
+    "UntagResource"
+    "fixture/UntagResource.yaml"
+
+requestUpdateParallelData :: UpdateParallelData -> TestTree
+requestUpdateParallelData =
+  req
+    "UpdateParallelData"
+    "fixture/UpdateParallelData.yaml"
 
 -- Responses
-
-responseDescribeTextTranslationJob :: DescribeTextTranslationJobResponse -> TestTree
-responseDescribeTextTranslationJob =
-  res
-    "DescribeTextTranslationJobResponse"
-    "fixture/DescribeTextTranslationJobResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy DescribeTextTranslationJob)
-
-responseListTerminologies :: ListTerminologiesResponse -> TestTree
-responseListTerminologies =
-  res
-    "ListTerminologiesResponse"
-    "fixture/ListTerminologiesResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListTerminologies)
 
 responseCreateParallelData :: CreateParallelDataResponse -> TestTree
 responseCreateParallelData =
@@ -229,14 +261,6 @@ responseCreateParallelData =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy CreateParallelData)
 
-responseUpdateParallelData :: UpdateParallelDataResponse -> TestTree
-responseUpdateParallelData =
-  res
-    "UpdateParallelDataResponse"
-    "fixture/UpdateParallelDataResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy UpdateParallelData)
-
 responseDeleteParallelData :: DeleteParallelDataResponse -> TestTree
 responseDeleteParallelData =
   res
@@ -244,6 +268,22 @@ responseDeleteParallelData =
     "fixture/DeleteParallelDataResponse.proto"
     defaultService
     (Proxy.Proxy :: Proxy.Proxy DeleteParallelData)
+
+responseDeleteTerminology :: DeleteTerminologyResponse -> TestTree
+responseDeleteTerminology =
+  res
+    "DeleteTerminologyResponse"
+    "fixture/DeleteTerminologyResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DeleteTerminology)
+
+responseDescribeTextTranslationJob :: DescribeTextTranslationJobResponse -> TestTree
+responseDescribeTextTranslationJob =
+  res
+    "DescribeTextTranslationJobResponse"
+    "fixture/DescribeTextTranslationJobResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy DescribeTextTranslationJob)
 
 responseGetParallelData :: GetParallelDataResponse -> TestTree
 responseGetParallelData =
@@ -261,14 +301,6 @@ responseGetTerminology =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy GetTerminology)
 
-responseTranslateText :: TranslateTextResponse -> TestTree
-responseTranslateText =
-  res
-    "TranslateTextResponse"
-    "fixture/TranslateTextResponse.proto"
-    defaultService
-    (Proxy.Proxy :: Proxy.Proxy TranslateText)
-
 responseImportTerminology :: ImportTerminologyResponse -> TestTree
 responseImportTerminology =
   res
@@ -277,21 +309,37 @@ responseImportTerminology =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy ImportTerminology)
 
-responseStopTextTranslationJob :: StopTextTranslationJobResponse -> TestTree
-responseStopTextTranslationJob =
+responseListLanguages :: ListLanguagesResponse -> TestTree
+responseListLanguages =
   res
-    "StopTextTranslationJobResponse"
-    "fixture/StopTextTranslationJobResponse.proto"
+    "ListLanguagesResponse"
+    "fixture/ListLanguagesResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy StopTextTranslationJob)
+    (Proxy.Proxy :: Proxy.Proxy ListLanguages)
 
-responseDeleteTerminology :: DeleteTerminologyResponse -> TestTree
-responseDeleteTerminology =
+responseListParallelData :: ListParallelDataResponse -> TestTree
+responseListParallelData =
   res
-    "DeleteTerminologyResponse"
-    "fixture/DeleteTerminologyResponse.proto"
+    "ListParallelDataResponse"
+    "fixture/ListParallelDataResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy DeleteTerminology)
+    (Proxy.Proxy :: Proxy.Proxy ListParallelData)
+
+responseListTagsForResource :: ListTagsForResourceResponse -> TestTree
+responseListTagsForResource =
+  res
+    "ListTagsForResourceResponse"
+    "fixture/ListTagsForResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTagsForResource)
+
+responseListTerminologies :: ListTerminologiesResponse -> TestTree
+responseListTerminologies =
+  res
+    "ListTerminologiesResponse"
+    "fixture/ListTerminologiesResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy ListTerminologies)
 
 responseListTextTranslationJobs :: ListTextTranslationJobsResponse -> TestTree
 responseListTextTranslationJobs =
@@ -309,10 +357,42 @@ responseStartTextTranslationJob =
     defaultService
     (Proxy.Proxy :: Proxy.Proxy StartTextTranslationJob)
 
-responseListParallelData :: ListParallelDataResponse -> TestTree
-responseListParallelData =
+responseStopTextTranslationJob :: StopTextTranslationJobResponse -> TestTree
+responseStopTextTranslationJob =
   res
-    "ListParallelDataResponse"
-    "fixture/ListParallelDataResponse.proto"
+    "StopTextTranslationJobResponse"
+    "fixture/StopTextTranslationJobResponse.proto"
     defaultService
-    (Proxy.Proxy :: Proxy.Proxy ListParallelData)
+    (Proxy.Proxy :: Proxy.Proxy StopTextTranslationJob)
+
+responseTagResource :: TagResourceResponse -> TestTree
+responseTagResource =
+  res
+    "TagResourceResponse"
+    "fixture/TagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy TagResource)
+
+responseTranslateText :: TranslateTextResponse -> TestTree
+responseTranslateText =
+  res
+    "TranslateTextResponse"
+    "fixture/TranslateTextResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy TranslateText)
+
+responseUntagResource :: UntagResourceResponse -> TestTree
+responseUntagResource =
+  res
+    "UntagResourceResponse"
+    "fixture/UntagResourceResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UntagResource)
+
+responseUpdateParallelData :: UpdateParallelDataResponse -> TestTree
+responseUpdateParallelData =
+  res
+    "UpdateParallelDataResponse"
+    "fixture/UpdateParallelDataResponse.proto"
+    defaultService
+    (Proxy.Proxy :: Proxy.Proxy UpdateParallelData)

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.RobOMaker.Types.WorldCount
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.RobOMaker.Types.WorldCount where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The number of worlds that will be created. You can configure the number
@@ -34,10 +35,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newWorldCount' smart constructor.
 data WorldCount = WorldCount'
-  { -- | The number of unique interiors per floorplan.
-    interiorCountPerFloorplan :: Prelude.Maybe Prelude.Int,
-    -- | The number of unique floorplans.
-    floorplanCount :: Prelude.Maybe Prelude.Int
+  { -- | The number of unique floorplans.
+    floorplanCount :: Prelude.Maybe Prelude.Int,
+    -- | The number of unique interiors per floorplan.
+    interiorCountPerFloorplan :: Prelude.Maybe Prelude.Int
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,54 +50,52 @@ data WorldCount = WorldCount'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'interiorCountPerFloorplan', 'worldCount_interiorCountPerFloorplan' - The number of unique interiors per floorplan.
---
 -- 'floorplanCount', 'worldCount_floorplanCount' - The number of unique floorplans.
+--
+-- 'interiorCountPerFloorplan', 'worldCount_interiorCountPerFloorplan' - The number of unique interiors per floorplan.
 newWorldCount ::
   WorldCount
 newWorldCount =
   WorldCount'
-    { interiorCountPerFloorplan =
-        Prelude.Nothing,
-      floorplanCount = Prelude.Nothing
+    { floorplanCount = Prelude.Nothing,
+      interiorCountPerFloorplan = Prelude.Nothing
     }
-
--- | The number of unique interiors per floorplan.
-worldCount_interiorCountPerFloorplan :: Lens.Lens' WorldCount (Prelude.Maybe Prelude.Int)
-worldCount_interiorCountPerFloorplan = Lens.lens (\WorldCount' {interiorCountPerFloorplan} -> interiorCountPerFloorplan) (\s@WorldCount' {} a -> s {interiorCountPerFloorplan = a} :: WorldCount)
 
 -- | The number of unique floorplans.
 worldCount_floorplanCount :: Lens.Lens' WorldCount (Prelude.Maybe Prelude.Int)
 worldCount_floorplanCount = Lens.lens (\WorldCount' {floorplanCount} -> floorplanCount) (\s@WorldCount' {} a -> s {floorplanCount = a} :: WorldCount)
 
-instance Core.FromJSON WorldCount where
+-- | The number of unique interiors per floorplan.
+worldCount_interiorCountPerFloorplan :: Lens.Lens' WorldCount (Prelude.Maybe Prelude.Int)
+worldCount_interiorCountPerFloorplan = Lens.lens (\WorldCount' {interiorCountPerFloorplan} -> interiorCountPerFloorplan) (\s@WorldCount' {} a -> s {interiorCountPerFloorplan = a} :: WorldCount)
+
+instance Data.FromJSON WorldCount where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "WorldCount"
       ( \x ->
           WorldCount'
-            Prelude.<$> (x Core..:? "interiorCountPerFloorplan")
-            Prelude.<*> (x Core..:? "floorplanCount")
+            Prelude.<$> (x Data..:? "floorplanCount")
+            Prelude.<*> (x Data..:? "interiorCountPerFloorplan")
       )
 
 instance Prelude.Hashable WorldCount where
   hashWithSalt _salt WorldCount' {..} =
-    _salt
+    _salt `Prelude.hashWithSalt` floorplanCount
       `Prelude.hashWithSalt` interiorCountPerFloorplan
-      `Prelude.hashWithSalt` floorplanCount
 
 instance Prelude.NFData WorldCount where
   rnf WorldCount' {..} =
-    Prelude.rnf interiorCountPerFloorplan
-      `Prelude.seq` Prelude.rnf floorplanCount
+    Prelude.rnf floorplanCount
+      `Prelude.seq` Prelude.rnf interiorCountPerFloorplan
 
-instance Core.ToJSON WorldCount where
+instance Data.ToJSON WorldCount where
   toJSON WorldCount' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("interiorCountPerFloorplan" Core..=)
-              Prelude.<$> interiorCountPerFloorplan,
-            ("floorplanCount" Core..=)
-              Prelude.<$> floorplanCount
+          [ ("floorplanCount" Data..=)
+              Prelude.<$> floorplanCount,
+            ("interiorCountPerFloorplan" Data..=)
+              Prelude.<$> interiorCountPerFloorplan
           ]
       )

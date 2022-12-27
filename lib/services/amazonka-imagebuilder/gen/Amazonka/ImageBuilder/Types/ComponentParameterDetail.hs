@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ImageBuilder.Types.ComponentParameterDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.ImageBuilder.Types.ComponentParameterDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Defines a parameter that is used to provide configuration details for
@@ -88,16 +89,16 @@ componentParameterDetail_name = Lens.lens (\ComponentParameterDetail' {name} -> 
 componentParameterDetail_type :: Lens.Lens' ComponentParameterDetail Prelude.Text
 componentParameterDetail_type = Lens.lens (\ComponentParameterDetail' {type'} -> type') (\s@ComponentParameterDetail' {} a -> s {type' = a} :: ComponentParameterDetail)
 
-instance Core.FromJSON ComponentParameterDetail where
+instance Data.FromJSON ComponentParameterDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ComponentParameterDetail"
       ( \x ->
           ComponentParameterDetail'
-            Prelude.<$> (x Core..:? "defaultValue" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "description")
-            Prelude.<*> (x Core..: "name")
-            Prelude.<*> (x Core..: "type")
+            Prelude.<$> (x Data..:? "defaultValue" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "description")
+            Prelude.<*> (x Data..: "name")
+            Prelude.<*> (x Data..: "type")
       )
 
 instance Prelude.Hashable ComponentParameterDetail where

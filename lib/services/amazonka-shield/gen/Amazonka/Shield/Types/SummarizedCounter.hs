@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Shield.Types.SummarizedCounter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,17 +20,18 @@
 module Amazonka.Shield.Types.SummarizedCounter where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The counter that describes a DDoS attack.
 --
 -- /See:/ 'newSummarizedCounter' smart constructor.
 data SummarizedCounter = SummarizedCounter'
-  { -- | The maximum value of the counter for a specified time period.
-    max :: Prelude.Maybe Prelude.Double,
-    -- | The average value of the counter for a specified time period.
+  { -- | The average value of the counter for a specified time period.
     average :: Prelude.Maybe Prelude.Double,
+    -- | The maximum value of the counter for a specified time period.
+    max :: Prelude.Maybe Prelude.Double,
     -- | The number of counters for a specified time period.
     n :: Prelude.Maybe Prelude.Int,
     -- | The counter name.
@@ -50,9 +51,9 @@ data SummarizedCounter = SummarizedCounter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'max', 'summarizedCounter_max' - The maximum value of the counter for a specified time period.
---
 -- 'average', 'summarizedCounter_average' - The average value of the counter for a specified time period.
+--
+-- 'max', 'summarizedCounter_max' - The maximum value of the counter for a specified time period.
 --
 -- 'n', 'summarizedCounter_n' - The number of counters for a specified time period.
 --
@@ -65,21 +66,21 @@ newSummarizedCounter ::
   SummarizedCounter
 newSummarizedCounter =
   SummarizedCounter'
-    { max = Prelude.Nothing,
-      average = Prelude.Nothing,
+    { average = Prelude.Nothing,
+      max = Prelude.Nothing,
       n = Prelude.Nothing,
       name = Prelude.Nothing,
       sum = Prelude.Nothing,
       unit = Prelude.Nothing
     }
 
--- | The maximum value of the counter for a specified time period.
-summarizedCounter_max :: Lens.Lens' SummarizedCounter (Prelude.Maybe Prelude.Double)
-summarizedCounter_max = Lens.lens (\SummarizedCounter' {max} -> max) (\s@SummarizedCounter' {} a -> s {max = a} :: SummarizedCounter)
-
 -- | The average value of the counter for a specified time period.
 summarizedCounter_average :: Lens.Lens' SummarizedCounter (Prelude.Maybe Prelude.Double)
 summarizedCounter_average = Lens.lens (\SummarizedCounter' {average} -> average) (\s@SummarizedCounter' {} a -> s {average = a} :: SummarizedCounter)
+
+-- | The maximum value of the counter for a specified time period.
+summarizedCounter_max :: Lens.Lens' SummarizedCounter (Prelude.Maybe Prelude.Double)
+summarizedCounter_max = Lens.lens (\SummarizedCounter' {max} -> max) (\s@SummarizedCounter' {} a -> s {max = a} :: SummarizedCounter)
 
 -- | The number of counters for a specified time period.
 summarizedCounter_n :: Lens.Lens' SummarizedCounter (Prelude.Maybe Prelude.Int)
@@ -97,24 +98,24 @@ summarizedCounter_sum = Lens.lens (\SummarizedCounter' {sum} -> sum) (\s@Summari
 summarizedCounter_unit :: Lens.Lens' SummarizedCounter (Prelude.Maybe Prelude.Text)
 summarizedCounter_unit = Lens.lens (\SummarizedCounter' {unit} -> unit) (\s@SummarizedCounter' {} a -> s {unit = a} :: SummarizedCounter)
 
-instance Core.FromJSON SummarizedCounter where
+instance Data.FromJSON SummarizedCounter where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SummarizedCounter"
       ( \x ->
           SummarizedCounter'
-            Prelude.<$> (x Core..:? "Max")
-            Prelude.<*> (x Core..:? "Average")
-            Prelude.<*> (x Core..:? "N")
-            Prelude.<*> (x Core..:? "Name")
-            Prelude.<*> (x Core..:? "Sum")
-            Prelude.<*> (x Core..:? "Unit")
+            Prelude.<$> (x Data..:? "Average")
+            Prelude.<*> (x Data..:? "Max")
+            Prelude.<*> (x Data..:? "N")
+            Prelude.<*> (x Data..:? "Name")
+            Prelude.<*> (x Data..:? "Sum")
+            Prelude.<*> (x Data..:? "Unit")
       )
 
 instance Prelude.Hashable SummarizedCounter where
   hashWithSalt _salt SummarizedCounter' {..} =
-    _salt `Prelude.hashWithSalt` max
-      `Prelude.hashWithSalt` average
+    _salt `Prelude.hashWithSalt` average
+      `Prelude.hashWithSalt` max
       `Prelude.hashWithSalt` n
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` sum
@@ -122,8 +123,8 @@ instance Prelude.Hashable SummarizedCounter where
 
 instance Prelude.NFData SummarizedCounter where
   rnf SummarizedCounter' {..} =
-    Prelude.rnf max
-      `Prelude.seq` Prelude.rnf average
+    Prelude.rnf average
+      `Prelude.seq` Prelude.rnf max
       `Prelude.seq` Prelude.rnf n
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf sum

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.TrafficMirrorFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,32 +20,33 @@
 module Amazonka.EC2.Types.TrafficMirrorFilter where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.Tag
 import Amazonka.EC2.Types.TrafficMirrorFilterRule
 import Amazonka.EC2.Types.TrafficMirrorNetworkService
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the Traffic Mirror filter.
 --
 -- /See:/ 'newTrafficMirrorFilter' smart constructor.
 data TrafficMirrorFilter = TrafficMirrorFilter'
-  { -- | The ID of the Traffic Mirror filter.
-    trafficMirrorFilterId :: Prelude.Maybe Prelude.Text,
+  { -- | The description of the Traffic Mirror filter.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | Information about the egress rules that are associated with the Traffic
+    -- Mirror filter.
+    egressFilterRules :: Prelude.Maybe [TrafficMirrorFilterRule],
     -- | Information about the ingress rules that are associated with the Traffic
     -- Mirror filter.
     ingressFilterRules :: Prelude.Maybe [TrafficMirrorFilterRule],
     -- | The network service traffic that is associated with the Traffic Mirror
     -- filter.
     networkServices :: Prelude.Maybe [TrafficMirrorNetworkService],
-    -- | Information about the egress rules that are associated with the Traffic
-    -- Mirror filter.
-    egressFilterRules :: Prelude.Maybe [TrafficMirrorFilterRule],
-    -- | The description of the Traffic Mirror filter.
-    description :: Prelude.Maybe Prelude.Text,
     -- | The tags assigned to the Traffic Mirror filter.
-    tags :: Prelude.Maybe [Tag]
+    tags :: Prelude.Maybe [Tag],
+    -- | The ID of the Traffic Mirror filter.
+    trafficMirrorFilterId :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -57,7 +58,10 @@ data TrafficMirrorFilter = TrafficMirrorFilter'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'trafficMirrorFilterId', 'trafficMirrorFilter_trafficMirrorFilterId' - The ID of the Traffic Mirror filter.
+-- 'description', 'trafficMirrorFilter_description' - The description of the Traffic Mirror filter.
+--
+-- 'egressFilterRules', 'trafficMirrorFilter_egressFilterRules' - Information about the egress rules that are associated with the Traffic
+-- Mirror filter.
 --
 -- 'ingressFilterRules', 'trafficMirrorFilter_ingressFilterRules' - Information about the ingress rules that are associated with the Traffic
 -- Mirror filter.
@@ -65,28 +69,29 @@ data TrafficMirrorFilter = TrafficMirrorFilter'
 -- 'networkServices', 'trafficMirrorFilter_networkServices' - The network service traffic that is associated with the Traffic Mirror
 -- filter.
 --
--- 'egressFilterRules', 'trafficMirrorFilter_egressFilterRules' - Information about the egress rules that are associated with the Traffic
--- Mirror filter.
---
--- 'description', 'trafficMirrorFilter_description' - The description of the Traffic Mirror filter.
---
 -- 'tags', 'trafficMirrorFilter_tags' - The tags assigned to the Traffic Mirror filter.
+--
+-- 'trafficMirrorFilterId', 'trafficMirrorFilter_trafficMirrorFilterId' - The ID of the Traffic Mirror filter.
 newTrafficMirrorFilter ::
   TrafficMirrorFilter
 newTrafficMirrorFilter =
   TrafficMirrorFilter'
-    { trafficMirrorFilterId =
-        Prelude.Nothing,
+    { description = Prelude.Nothing,
+      egressFilterRules = Prelude.Nothing,
       ingressFilterRules = Prelude.Nothing,
       networkServices = Prelude.Nothing,
-      egressFilterRules = Prelude.Nothing,
-      description = Prelude.Nothing,
-      tags = Prelude.Nothing
+      tags = Prelude.Nothing,
+      trafficMirrorFilterId = Prelude.Nothing
     }
 
--- | The ID of the Traffic Mirror filter.
-trafficMirrorFilter_trafficMirrorFilterId :: Lens.Lens' TrafficMirrorFilter (Prelude.Maybe Prelude.Text)
-trafficMirrorFilter_trafficMirrorFilterId = Lens.lens (\TrafficMirrorFilter' {trafficMirrorFilterId} -> trafficMirrorFilterId) (\s@TrafficMirrorFilter' {} a -> s {trafficMirrorFilterId = a} :: TrafficMirrorFilter)
+-- | The description of the Traffic Mirror filter.
+trafficMirrorFilter_description :: Lens.Lens' TrafficMirrorFilter (Prelude.Maybe Prelude.Text)
+trafficMirrorFilter_description = Lens.lens (\TrafficMirrorFilter' {description} -> description) (\s@TrafficMirrorFilter' {} a -> s {description = a} :: TrafficMirrorFilter)
+
+-- | Information about the egress rules that are associated with the Traffic
+-- Mirror filter.
+trafficMirrorFilter_egressFilterRules :: Lens.Lens' TrafficMirrorFilter (Prelude.Maybe [TrafficMirrorFilterRule])
+trafficMirrorFilter_egressFilterRules = Lens.lens (\TrafficMirrorFilter' {egressFilterRules} -> egressFilterRules) (\s@TrafficMirrorFilter' {} a -> s {egressFilterRules = a} :: TrafficMirrorFilter) Prelude.. Lens.mapping Lens.coerced
 
 -- | Information about the ingress rules that are associated with the Traffic
 -- Mirror filter.
@@ -98,54 +103,49 @@ trafficMirrorFilter_ingressFilterRules = Lens.lens (\TrafficMirrorFilter' {ingre
 trafficMirrorFilter_networkServices :: Lens.Lens' TrafficMirrorFilter (Prelude.Maybe [TrafficMirrorNetworkService])
 trafficMirrorFilter_networkServices = Lens.lens (\TrafficMirrorFilter' {networkServices} -> networkServices) (\s@TrafficMirrorFilter' {} a -> s {networkServices = a} :: TrafficMirrorFilter) Prelude.. Lens.mapping Lens.coerced
 
--- | Information about the egress rules that are associated with the Traffic
--- Mirror filter.
-trafficMirrorFilter_egressFilterRules :: Lens.Lens' TrafficMirrorFilter (Prelude.Maybe [TrafficMirrorFilterRule])
-trafficMirrorFilter_egressFilterRules = Lens.lens (\TrafficMirrorFilter' {egressFilterRules} -> egressFilterRules) (\s@TrafficMirrorFilter' {} a -> s {egressFilterRules = a} :: TrafficMirrorFilter) Prelude.. Lens.mapping Lens.coerced
-
--- | The description of the Traffic Mirror filter.
-trafficMirrorFilter_description :: Lens.Lens' TrafficMirrorFilter (Prelude.Maybe Prelude.Text)
-trafficMirrorFilter_description = Lens.lens (\TrafficMirrorFilter' {description} -> description) (\s@TrafficMirrorFilter' {} a -> s {description = a} :: TrafficMirrorFilter)
-
 -- | The tags assigned to the Traffic Mirror filter.
 trafficMirrorFilter_tags :: Lens.Lens' TrafficMirrorFilter (Prelude.Maybe [Tag])
 trafficMirrorFilter_tags = Lens.lens (\TrafficMirrorFilter' {tags} -> tags) (\s@TrafficMirrorFilter' {} a -> s {tags = a} :: TrafficMirrorFilter) Prelude.. Lens.mapping Lens.coerced
 
-instance Core.FromXML TrafficMirrorFilter where
+-- | The ID of the Traffic Mirror filter.
+trafficMirrorFilter_trafficMirrorFilterId :: Lens.Lens' TrafficMirrorFilter (Prelude.Maybe Prelude.Text)
+trafficMirrorFilter_trafficMirrorFilterId = Lens.lens (\TrafficMirrorFilter' {trafficMirrorFilterId} -> trafficMirrorFilterId) (\s@TrafficMirrorFilter' {} a -> s {trafficMirrorFilterId = a} :: TrafficMirrorFilter)
+
+instance Data.FromXML TrafficMirrorFilter where
   parseXML x =
     TrafficMirrorFilter'
-      Prelude.<$> (x Core..@? "trafficMirrorFilterId")
-      Prelude.<*> ( x Core..@? "ingressFilterRuleSet"
+      Prelude.<$> (x Data..@? "description")
+      Prelude.<*> ( x Data..@? "egressFilterRuleSet"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> ( x Core..@? "networkServiceSet"
+      Prelude.<*> ( x Data..@? "ingressFilterRuleSet"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> ( x Core..@? "egressFilterRuleSet"
+      Prelude.<*> ( x Data..@? "networkServiceSet"
                       Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
-      Prelude.<*> (x Core..@? "description")
-      Prelude.<*> ( x Core..@? "tagSet" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLList "item")
+      Prelude.<*> ( x Data..@? "tagSet" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLList "item")
                   )
+      Prelude.<*> (x Data..@? "trafficMirrorFilterId")
 
 instance Prelude.Hashable TrafficMirrorFilter where
   hashWithSalt _salt TrafficMirrorFilter' {..} =
-    _salt `Prelude.hashWithSalt` trafficMirrorFilterId
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` egressFilterRules
       `Prelude.hashWithSalt` ingressFilterRules
       `Prelude.hashWithSalt` networkServices
-      `Prelude.hashWithSalt` egressFilterRules
-      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` trafficMirrorFilterId
 
 instance Prelude.NFData TrafficMirrorFilter where
   rnf TrafficMirrorFilter' {..} =
-    Prelude.rnf trafficMirrorFilterId
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf egressFilterRules
       `Prelude.seq` Prelude.rnf ingressFilterRules
       `Prelude.seq` Prelude.rnf networkServices
-      `Prelude.seq` Prelude.rnf egressFilterRules
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf trafficMirrorFilterId

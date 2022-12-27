@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.StopThingRegistrationTask
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IoT.StopThingRegistrationTask
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -80,7 +81,8 @@ instance Core.AWSRequest StopThingRegistrationTask where
   type
     AWSResponse StopThingRegistrationTask =
       StopThingRegistrationTaskResponse
-  request = Request.putJSON defaultService
+  request overrides =
+    Request.putJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -96,21 +98,21 @@ instance Prelude.NFData StopThingRegistrationTask where
   rnf StopThingRegistrationTask' {..} =
     Prelude.rnf taskId
 
-instance Core.ToHeaders StopThingRegistrationTask where
+instance Data.ToHeaders StopThingRegistrationTask where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON StopThingRegistrationTask where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON StopThingRegistrationTask where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath StopThingRegistrationTask where
+instance Data.ToPath StopThingRegistrationTask where
   toPath StopThingRegistrationTask' {..} =
     Prelude.mconcat
       [ "/thing-registration-tasks/",
-        Core.toBS taskId,
+        Data.toBS taskId,
         "/cancel"
       ]
 
-instance Core.ToQuery StopThingRegistrationTask where
+instance Data.ToQuery StopThingRegistrationTask where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newStopThingRegistrationTaskResponse' smart constructor.

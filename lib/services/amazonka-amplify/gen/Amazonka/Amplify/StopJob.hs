@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Amplify.StopJob
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ where
 
 import Amazonka.Amplify.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -103,13 +104,14 @@ stopJob_jobId = Lens.lens (\StopJob' {jobId} -> jobId) (\s@StopJob' {} a -> s {j
 
 instance Core.AWSRequest StopJob where
   type AWSResponse StopJob = StopJobResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           StopJobResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "jobSummary")
+            Prelude.<*> (x Data..:> "jobSummary")
       )
 
 instance Prelude.Hashable StopJob where
@@ -124,30 +126,30 @@ instance Prelude.NFData StopJob where
       `Prelude.seq` Prelude.rnf branchName
       `Prelude.seq` Prelude.rnf jobId
 
-instance Core.ToHeaders StopJob where
+instance Data.ToHeaders StopJob where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath StopJob where
+instance Data.ToPath StopJob where
   toPath StopJob' {..} =
     Prelude.mconcat
       [ "/apps/",
-        Core.toBS appId,
+        Data.toBS appId,
         "/branches/",
-        Core.toBS branchName,
+        Data.toBS branchName,
         "/jobs/",
-        Core.toBS jobId,
+        Data.toBS jobId,
         "/stop"
       ]
 
-instance Core.ToQuery StopJob where
+instance Data.ToQuery StopJob where
   toQuery = Prelude.const Prelude.mempty
 
 -- | The result structure for the stop job request.

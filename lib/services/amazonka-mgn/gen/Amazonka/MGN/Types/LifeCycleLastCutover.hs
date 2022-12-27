@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MGN.Types.LifeCycleLastCutover
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MGN.Types.LifeCycleLastCutover where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MGN.Types.LifeCycleLastCutoverFinalized
 import Amazonka.MGN.Types.LifeCycleLastCutoverInitiated
 import Amazonka.MGN.Types.LifeCycleLastCutoverReverted
@@ -30,12 +31,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newLifeCycleLastCutover' smart constructor.
 data LifeCycleLastCutover = LifeCycleLastCutover'
-  { -- | Lifecycle last Cutover initiated.
+  { -- | Lifecycle Cutover finalized date and time.
+    finalized :: Prelude.Maybe LifeCycleLastCutoverFinalized,
+    -- | Lifecycle last Cutover initiated.
     initiated :: Prelude.Maybe LifeCycleLastCutoverInitiated,
     -- | Lifecycle last Cutover reverted.
-    reverted :: Prelude.Maybe LifeCycleLastCutoverReverted,
-    -- | Lifecycle Cutover finalized date and time.
-    finalized :: Prelude.Maybe LifeCycleLastCutoverFinalized
+    reverted :: Prelude.Maybe LifeCycleLastCutoverReverted
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -47,19 +48,23 @@ data LifeCycleLastCutover = LifeCycleLastCutover'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'finalized', 'lifeCycleLastCutover_finalized' - Lifecycle Cutover finalized date and time.
+--
 -- 'initiated', 'lifeCycleLastCutover_initiated' - Lifecycle last Cutover initiated.
 --
 -- 'reverted', 'lifeCycleLastCutover_reverted' - Lifecycle last Cutover reverted.
---
--- 'finalized', 'lifeCycleLastCutover_finalized' - Lifecycle Cutover finalized date and time.
 newLifeCycleLastCutover ::
   LifeCycleLastCutover
 newLifeCycleLastCutover =
   LifeCycleLastCutover'
-    { initiated = Prelude.Nothing,
-      reverted = Prelude.Nothing,
-      finalized = Prelude.Nothing
+    { finalized = Prelude.Nothing,
+      initiated = Prelude.Nothing,
+      reverted = Prelude.Nothing
     }
+
+-- | Lifecycle Cutover finalized date and time.
+lifeCycleLastCutover_finalized :: Lens.Lens' LifeCycleLastCutover (Prelude.Maybe LifeCycleLastCutoverFinalized)
+lifeCycleLastCutover_finalized = Lens.lens (\LifeCycleLastCutover' {finalized} -> finalized) (\s@LifeCycleLastCutover' {} a -> s {finalized = a} :: LifeCycleLastCutover)
 
 -- | Lifecycle last Cutover initiated.
 lifeCycleLastCutover_initiated :: Lens.Lens' LifeCycleLastCutover (Prelude.Maybe LifeCycleLastCutoverInitiated)
@@ -69,29 +74,25 @@ lifeCycleLastCutover_initiated = Lens.lens (\LifeCycleLastCutover' {initiated} -
 lifeCycleLastCutover_reverted :: Lens.Lens' LifeCycleLastCutover (Prelude.Maybe LifeCycleLastCutoverReverted)
 lifeCycleLastCutover_reverted = Lens.lens (\LifeCycleLastCutover' {reverted} -> reverted) (\s@LifeCycleLastCutover' {} a -> s {reverted = a} :: LifeCycleLastCutover)
 
--- | Lifecycle Cutover finalized date and time.
-lifeCycleLastCutover_finalized :: Lens.Lens' LifeCycleLastCutover (Prelude.Maybe LifeCycleLastCutoverFinalized)
-lifeCycleLastCutover_finalized = Lens.lens (\LifeCycleLastCutover' {finalized} -> finalized) (\s@LifeCycleLastCutover' {} a -> s {finalized = a} :: LifeCycleLastCutover)
-
-instance Core.FromJSON LifeCycleLastCutover where
+instance Data.FromJSON LifeCycleLastCutover where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "LifeCycleLastCutover"
       ( \x ->
           LifeCycleLastCutover'
-            Prelude.<$> (x Core..:? "initiated")
-            Prelude.<*> (x Core..:? "reverted")
-            Prelude.<*> (x Core..:? "finalized")
+            Prelude.<$> (x Data..:? "finalized")
+            Prelude.<*> (x Data..:? "initiated")
+            Prelude.<*> (x Data..:? "reverted")
       )
 
 instance Prelude.Hashable LifeCycleLastCutover where
   hashWithSalt _salt LifeCycleLastCutover' {..} =
-    _salt `Prelude.hashWithSalt` initiated
+    _salt `Prelude.hashWithSalt` finalized
+      `Prelude.hashWithSalt` initiated
       `Prelude.hashWithSalt` reverted
-      `Prelude.hashWithSalt` finalized
 
 instance Prelude.NFData LifeCycleLastCutover where
   rnf LifeCycleLastCutover' {..} =
-    Prelude.rnf initiated
+    Prelude.rnf finalized
+      `Prelude.seq` Prelude.rnf initiated
       `Prelude.seq` Prelude.rnf reverted
-      `Prelude.seq` Prelude.rnf finalized

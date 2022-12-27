@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DeviceFarm.Types.Sample
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.DeviceFarm.Types.Sample where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DeviceFarm.Types.SampleType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Represents a sample of performance data.
@@ -30,9 +31,6 @@ import qualified Amazonka.Prelude as Prelude
 data Sample = Sample'
   { -- | The sample\'s ARN.
     arn :: Prelude.Maybe Prelude.Text,
-    -- | The presigned Amazon S3 URL that can be used with a GET request to
-    -- download the sample\'s file.
-    url :: Prelude.Maybe Prelude.Text,
     -- | The sample\'s type.
     --
     -- Must be one of the following values:
@@ -76,7 +74,10 @@ data Sample = Sample'
     --
     -- -   TX_RATE: The total number of bytes per second (TCP and UDP) that are
     --     received, by app process.
-    type' :: Prelude.Maybe SampleType
+    type' :: Prelude.Maybe SampleType,
+    -- | The presigned Amazon S3 URL that can be used with a GET request to
+    -- download the sample\'s file.
+    url :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -89,9 +90,6 @@ data Sample = Sample'
 -- for backwards compatibility:
 --
 -- 'arn', 'sample_arn' - The sample\'s ARN.
---
--- 'url', 'sample_url' - The presigned Amazon S3 URL that can be used with a GET request to
--- download the sample\'s file.
 --
 -- 'type'', 'sample_type' - The sample\'s type.
 --
@@ -136,23 +134,21 @@ data Sample = Sample'
 --
 -- -   TX_RATE: The total number of bytes per second (TCP and UDP) that are
 --     received, by app process.
+--
+-- 'url', 'sample_url' - The presigned Amazon S3 URL that can be used with a GET request to
+-- download the sample\'s file.
 newSample ::
   Sample
 newSample =
   Sample'
     { arn = Prelude.Nothing,
-      url = Prelude.Nothing,
-      type' = Prelude.Nothing
+      type' = Prelude.Nothing,
+      url = Prelude.Nothing
     }
 
 -- | The sample\'s ARN.
 sample_arn :: Lens.Lens' Sample (Prelude.Maybe Prelude.Text)
 sample_arn = Lens.lens (\Sample' {arn} -> arn) (\s@Sample' {} a -> s {arn = a} :: Sample)
-
--- | The presigned Amazon S3 URL that can be used with a GET request to
--- download the sample\'s file.
-sample_url :: Lens.Lens' Sample (Prelude.Maybe Prelude.Text)
-sample_url = Lens.lens (\Sample' {url} -> url) (\s@Sample' {} a -> s {url = a} :: Sample)
 
 -- | The sample\'s type.
 --
@@ -200,25 +196,30 @@ sample_url = Lens.lens (\Sample' {url} -> url) (\s@Sample' {} a -> s {url = a} :
 sample_type :: Lens.Lens' Sample (Prelude.Maybe SampleType)
 sample_type = Lens.lens (\Sample' {type'} -> type') (\s@Sample' {} a -> s {type' = a} :: Sample)
 
-instance Core.FromJSON Sample where
+-- | The presigned Amazon S3 URL that can be used with a GET request to
+-- download the sample\'s file.
+sample_url :: Lens.Lens' Sample (Prelude.Maybe Prelude.Text)
+sample_url = Lens.lens (\Sample' {url} -> url) (\s@Sample' {} a -> s {url = a} :: Sample)
+
+instance Data.FromJSON Sample where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Sample"
       ( \x ->
           Sample'
-            Prelude.<$> (x Core..:? "arn")
-            Prelude.<*> (x Core..:? "url")
-            Prelude.<*> (x Core..:? "type")
+            Prelude.<$> (x Data..:? "arn")
+            Prelude.<*> (x Data..:? "type")
+            Prelude.<*> (x Data..:? "url")
       )
 
 instance Prelude.Hashable Sample where
   hashWithSalt _salt Sample' {..} =
     _salt `Prelude.hashWithSalt` arn
-      `Prelude.hashWithSalt` url
       `Prelude.hashWithSalt` type'
+      `Prelude.hashWithSalt` url
 
 instance Prelude.NFData Sample where
   rnf Sample' {..} =
     Prelude.rnf arn
-      `Prelude.seq` Prelude.rnf url
       `Prelude.seq` Prelude.rnf type'
+      `Prelude.seq` Prelude.rnf url

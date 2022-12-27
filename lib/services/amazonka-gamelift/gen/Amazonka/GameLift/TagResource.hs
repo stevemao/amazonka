@@ -14,18 +14,18 @@
 
 -- |
 -- Module      : Amazonka.GameLift.TagResource
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Assigns a tag to a GameLift resource. AWS resource tags provide an
--- additional management tool set. You can use tags to organize resources,
--- create IAM permissions policies to manage access to groups of resources,
--- customize AWS cost breakdowns, etc. This operation handles the
--- permissions necessary to manage tags for the following GameLift resource
--- types:
+-- Assigns a tag to a GameLift resource. Amazon Web Services resource tags
+-- provide an additional management tool set. You can use tags to organize
+-- resources, create IAM permissions policies to manage access to groups of
+-- resources, customize Amazon Web Services cost breakdowns, etc. This
+-- operation handles the permissions necessary to manage tags for the
+-- following GameLift resource types:
 --
 -- -   Build
 --
@@ -48,14 +48,13 @@
 --
 -- __Learn more__
 --
--- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>
--- in the /AWS General Reference/
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
+-- in the /Amazon Web Services General Reference/
 --
--- <http://aws.amazon.com/answers/account-management/aws-tagging-strategies/ AWS Tagging Strategies>
+-- <http://aws.amazon.com/answers/account-management/aws-tagging-strategies/ Amazon Web Services Tagging Strategies>
 --
 -- __Related actions__
 --
--- TagResource | UntagResource | ListTagsForResource |
 -- <https://docs.aws.amazon.com/gamelift/latest/developerguide/reference-awssdk.html#reference-awssdk-resources-fleets All APIs by task>
 module Amazonka.GameLift.TagResource
   ( -- * Creating a Request
@@ -76,8 +75,9 @@ module Amazonka.GameLift.TagResource
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.GameLift.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -94,7 +94,7 @@ data TagResource = TagResource'
     -- | A list of one or more tags to assign to the specified GameLift resource.
     -- Tags are developer-defined and structured as key-value pairs. The
     -- maximum tag limit may be lower than stated. See
-    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>
+    -- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
     -- for actual tagging limits.
     tags :: [Tag]
   }
@@ -118,7 +118,7 @@ data TagResource = TagResource'
 -- 'tags', 'tagResource_tags' - A list of one or more tags to assign to the specified GameLift resource.
 -- Tags are developer-defined and structured as key-value pairs. The
 -- maximum tag limit may be lower than stated. See
--- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
 -- for actual tagging limits.
 newTagResource ::
   -- | 'resourceARN'
@@ -142,14 +142,15 @@ tagResource_resourceARN = Lens.lens (\TagResource' {resourceARN} -> resourceARN)
 -- | A list of one or more tags to assign to the specified GameLift resource.
 -- Tags are developer-defined and structured as key-value pairs. The
 -- maximum tag limit may be lower than stated. See
--- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging AWS Resources>
+-- <https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html Tagging Amazon Web Services Resources>
 -- for actual tagging limits.
 tagResource_tags :: Lens.Lens' TagResource [Tag]
 tagResource_tags = Lens.lens (\TagResource' {tags} -> tags) (\s@TagResource' {} a -> s {tags = a} :: TagResource) Prelude.. Lens.coerced
 
 instance Core.AWSRequest TagResource where
   type AWSResponse TagResource = TagResourceResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -167,32 +168,32 @@ instance Prelude.NFData TagResource where
     Prelude.rnf resourceARN
       `Prelude.seq` Prelude.rnf tags
 
-instance Core.ToHeaders TagResource where
+instance Data.ToHeaders TagResource where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("GameLift.TagResource" :: Prelude.ByteString),
+              Data.=# ("GameLift.TagResource" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON TagResource where
+instance Data.ToJSON TagResource where
   toJSON TagResource' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ResourceARN" Core..= resourceARN),
-            Prelude.Just ("Tags" Core..= tags)
+          [ Prelude.Just ("ResourceARN" Data..= resourceARN),
+            Prelude.Just ("Tags" Data..= tags)
           ]
       )
 
-instance Core.ToPath TagResource where
+instance Data.ToPath TagResource where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery TagResource where
+instance Data.ToQuery TagResource where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newTagResourceResponse' smart constructor.

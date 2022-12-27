@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Athena.Types.NamedQuery
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,25 +20,26 @@
 module Amazonka.Athena.Types.NamedQuery where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | A query, where @QueryString@ is the list of SQL query statements that
--- comprise the query.
+-- | A query, where @QueryString@ contains the SQL statements that make up
+-- the query.
 --
 -- /See:/ 'newNamedQuery' smart constructor.
 data NamedQuery = NamedQuery'
-  { -- | The unique identifier of the query.
-    namedQueryId :: Prelude.Maybe Prelude.Text,
-    -- | The query description.
+  { -- | The query description.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The unique identifier of the query.
+    namedQueryId :: Prelude.Maybe Prelude.Text,
     -- | The name of the workgroup that contains the named query.
     workGroup :: Prelude.Maybe Prelude.Text,
     -- | The query name.
     name :: Prelude.Text,
     -- | The database to which the query belongs.
     database :: Prelude.Text,
-    -- | The SQL query statements that comprise the query.
+    -- | The SQL statements that make up the query.
     queryString :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -51,9 +52,9 @@ data NamedQuery = NamedQuery'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'namedQueryId', 'namedQuery_namedQueryId' - The unique identifier of the query.
---
 -- 'description', 'namedQuery_description' - The query description.
+--
+-- 'namedQueryId', 'namedQuery_namedQueryId' - The unique identifier of the query.
 --
 -- 'workGroup', 'namedQuery_workGroup' - The name of the workgroup that contains the named query.
 --
@@ -61,7 +62,7 @@ data NamedQuery = NamedQuery'
 --
 -- 'database', 'namedQuery_database' - The database to which the query belongs.
 --
--- 'queryString', 'namedQuery_queryString' - The SQL query statements that comprise the query.
+-- 'queryString', 'namedQuery_queryString' - The SQL statements that make up the query.
 newNamedQuery ::
   -- | 'name'
   Prelude.Text ->
@@ -72,21 +73,21 @@ newNamedQuery ::
   NamedQuery
 newNamedQuery pName_ pDatabase_ pQueryString_ =
   NamedQuery'
-    { namedQueryId = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      namedQueryId = Prelude.Nothing,
       workGroup = Prelude.Nothing,
       name = pName_,
       database = pDatabase_,
       queryString = pQueryString_
     }
 
--- | The unique identifier of the query.
-namedQuery_namedQueryId :: Lens.Lens' NamedQuery (Prelude.Maybe Prelude.Text)
-namedQuery_namedQueryId = Lens.lens (\NamedQuery' {namedQueryId} -> namedQueryId) (\s@NamedQuery' {} a -> s {namedQueryId = a} :: NamedQuery)
-
 -- | The query description.
 namedQuery_description :: Lens.Lens' NamedQuery (Prelude.Maybe Prelude.Text)
 namedQuery_description = Lens.lens (\NamedQuery' {description} -> description) (\s@NamedQuery' {} a -> s {description = a} :: NamedQuery)
+
+-- | The unique identifier of the query.
+namedQuery_namedQueryId :: Lens.Lens' NamedQuery (Prelude.Maybe Prelude.Text)
+namedQuery_namedQueryId = Lens.lens (\NamedQuery' {namedQueryId} -> namedQueryId) (\s@NamedQuery' {} a -> s {namedQueryId = a} :: NamedQuery)
 
 -- | The name of the workgroup that contains the named query.
 namedQuery_workGroup :: Lens.Lens' NamedQuery (Prelude.Maybe Prelude.Text)
@@ -100,28 +101,28 @@ namedQuery_name = Lens.lens (\NamedQuery' {name} -> name) (\s@NamedQuery' {} a -
 namedQuery_database :: Lens.Lens' NamedQuery Prelude.Text
 namedQuery_database = Lens.lens (\NamedQuery' {database} -> database) (\s@NamedQuery' {} a -> s {database = a} :: NamedQuery)
 
--- | The SQL query statements that comprise the query.
+-- | The SQL statements that make up the query.
 namedQuery_queryString :: Lens.Lens' NamedQuery Prelude.Text
 namedQuery_queryString = Lens.lens (\NamedQuery' {queryString} -> queryString) (\s@NamedQuery' {} a -> s {queryString = a} :: NamedQuery)
 
-instance Core.FromJSON NamedQuery where
+instance Data.FromJSON NamedQuery where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "NamedQuery"
       ( \x ->
           NamedQuery'
-            Prelude.<$> (x Core..:? "NamedQueryId")
-            Prelude.<*> (x Core..:? "Description")
-            Prelude.<*> (x Core..:? "WorkGroup")
-            Prelude.<*> (x Core..: "Name")
-            Prelude.<*> (x Core..: "Database")
-            Prelude.<*> (x Core..: "QueryString")
+            Prelude.<$> (x Data..:? "Description")
+            Prelude.<*> (x Data..:? "NamedQueryId")
+            Prelude.<*> (x Data..:? "WorkGroup")
+            Prelude.<*> (x Data..: "Name")
+            Prelude.<*> (x Data..: "Database")
+            Prelude.<*> (x Data..: "QueryString")
       )
 
 instance Prelude.Hashable NamedQuery where
   hashWithSalt _salt NamedQuery' {..} =
-    _salt `Prelude.hashWithSalt` namedQueryId
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` namedQueryId
       `Prelude.hashWithSalt` workGroup
       `Prelude.hashWithSalt` name
       `Prelude.hashWithSalt` database
@@ -129,8 +130,8 @@ instance Prelude.Hashable NamedQuery where
 
 instance Prelude.NFData NamedQuery where
   rnf NamedQuery' {..} =
-    Prelude.rnf namedQueryId
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf namedQueryId
       `Prelude.seq` Prelude.rnf workGroup
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf database

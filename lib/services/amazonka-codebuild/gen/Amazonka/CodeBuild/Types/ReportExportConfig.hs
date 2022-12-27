@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CodeBuild.Types.ReportExportConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -22,7 +22,8 @@ module Amazonka.CodeBuild.Types.ReportExportConfig where
 import Amazonka.CodeBuild.Types.ReportExportConfigType
 import Amazonka.CodeBuild.Types.S3ReportExportConfig
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information about the location where the run of a report is exported.
@@ -79,14 +80,14 @@ reportExportConfig_exportConfigType = Lens.lens (\ReportExportConfig' {exportCon
 reportExportConfig_s3Destination :: Lens.Lens' ReportExportConfig (Prelude.Maybe S3ReportExportConfig)
 reportExportConfig_s3Destination = Lens.lens (\ReportExportConfig' {s3Destination} -> s3Destination) (\s@ReportExportConfig' {} a -> s {s3Destination = a} :: ReportExportConfig)
 
-instance Core.FromJSON ReportExportConfig where
+instance Data.FromJSON ReportExportConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ReportExportConfig"
       ( \x ->
           ReportExportConfig'
-            Prelude.<$> (x Core..:? "exportConfigType")
-            Prelude.<*> (x Core..:? "s3Destination")
+            Prelude.<$> (x Data..:? "exportConfigType")
+            Prelude.<*> (x Data..:? "s3Destination")
       )
 
 instance Prelude.Hashable ReportExportConfig where
@@ -99,12 +100,12 @@ instance Prelude.NFData ReportExportConfig where
     Prelude.rnf exportConfigType
       `Prelude.seq` Prelude.rnf s3Destination
 
-instance Core.ToJSON ReportExportConfig where
+instance Data.ToJSON ReportExportConfig where
   toJSON ReportExportConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("exportConfigType" Core..=)
+          [ ("exportConfigType" Data..=)
               Prelude.<$> exportConfigType,
-            ("s3Destination" Core..=) Prelude.<$> s3Destination
+            ("s3Destination" Data..=) Prelude.<$> s3Destination
           ]
       )

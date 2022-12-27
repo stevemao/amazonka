@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualGatewayClientPolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.VirtualGatewayClientPolicy where
 
 import Amazonka.AppMesh.Types.VirtualGatewayClientPolicyTls
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a client policy.
@@ -54,13 +55,13 @@ newVirtualGatewayClientPolicy =
 virtualGatewayClientPolicy_tls :: Lens.Lens' VirtualGatewayClientPolicy (Prelude.Maybe VirtualGatewayClientPolicyTls)
 virtualGatewayClientPolicy_tls = Lens.lens (\VirtualGatewayClientPolicy' {tls} -> tls) (\s@VirtualGatewayClientPolicy' {} a -> s {tls = a} :: VirtualGatewayClientPolicy)
 
-instance Core.FromJSON VirtualGatewayClientPolicy where
+instance Data.FromJSON VirtualGatewayClientPolicy where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualGatewayClientPolicy"
       ( \x ->
           VirtualGatewayClientPolicy'
-            Prelude.<$> (x Core..:? "tls")
+            Prelude.<$> (x Data..:? "tls")
       )
 
 instance Prelude.Hashable VirtualGatewayClientPolicy where
@@ -70,7 +71,7 @@ instance Prelude.Hashable VirtualGatewayClientPolicy where
 instance Prelude.NFData VirtualGatewayClientPolicy where
   rnf VirtualGatewayClientPolicy' {..} = Prelude.rnf tls
 
-instance Core.ToJSON VirtualGatewayClientPolicy where
+instance Data.ToJSON VirtualGatewayClientPolicy where
   toJSON VirtualGatewayClientPolicy' {..} =
-    Core.object
-      (Prelude.catMaybes [("tls" Core..=) Prelude.<$> tls])
+    Data.object
+      (Prelude.catMaybes [("tls" Data..=) Prelude.<$> tls])

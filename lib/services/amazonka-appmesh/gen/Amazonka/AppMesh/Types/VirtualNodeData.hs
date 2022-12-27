@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualNodeData
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,8 @@ import Amazonka.AppMesh.Types.ResourceMetadata
 import Amazonka.AppMesh.Types.VirtualNodeSpec
 import Amazonka.AppMesh.Types.VirtualNodeStatus
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a virtual node returned by a describe
@@ -107,17 +108,17 @@ virtualNodeData_status = Lens.lens (\VirtualNodeData' {status} -> status) (\s@Vi
 virtualNodeData_virtualNodeName :: Lens.Lens' VirtualNodeData Prelude.Text
 virtualNodeData_virtualNodeName = Lens.lens (\VirtualNodeData' {virtualNodeName} -> virtualNodeName) (\s@VirtualNodeData' {} a -> s {virtualNodeName = a} :: VirtualNodeData)
 
-instance Core.FromJSON VirtualNodeData where
+instance Data.FromJSON VirtualNodeData where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualNodeData"
       ( \x ->
           VirtualNodeData'
-            Prelude.<$> (x Core..: "meshName")
-            Prelude.<*> (x Core..: "metadata")
-            Prelude.<*> (x Core..: "spec")
-            Prelude.<*> (x Core..: "status")
-            Prelude.<*> (x Core..: "virtualNodeName")
+            Prelude.<$> (x Data..: "meshName")
+            Prelude.<*> (x Data..: "metadata")
+            Prelude.<*> (x Data..: "spec")
+            Prelude.<*> (x Data..: "status")
+            Prelude.<*> (x Data..: "virtualNodeName")
       )
 
 instance Prelude.Hashable VirtualNodeData where

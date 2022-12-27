@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CloudDirectory.Types.Rule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.CloudDirectory.Types.Rule where
 
 import Amazonka.CloudDirectory.Types.RuleType
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains an Amazon Resource Name (ARN) and parameters that are
@@ -63,14 +64,14 @@ rule_parameters = Lens.lens (\Rule' {parameters} -> parameters) (\s@Rule' {} a -
 rule_type :: Lens.Lens' Rule (Prelude.Maybe RuleType)
 rule_type = Lens.lens (\Rule' {type'} -> type') (\s@Rule' {} a -> s {type' = a} :: Rule)
 
-instance Core.FromJSON Rule where
+instance Data.FromJSON Rule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Rule"
       ( \x ->
           Rule'
-            Prelude.<$> (x Core..:? "Parameters" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..:? "Type")
+            Prelude.<$> (x Data..:? "Parameters" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..:? "Type")
       )
 
 instance Prelude.Hashable Rule where
@@ -83,11 +84,11 @@ instance Prelude.NFData Rule where
     Prelude.rnf parameters
       `Prelude.seq` Prelude.rnf type'
 
-instance Core.ToJSON Rule where
+instance Data.ToJSON Rule where
   toJSON Rule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Parameters" Core..=) Prelude.<$> parameters,
-            ("Type" Core..=) Prelude.<$> type'
+          [ ("Parameters" Data..=) Prelude.<$> parameters,
+            ("Type" Data..=) Prelude.<$> type'
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Chime.DescribeChannelModerator
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -47,7 +47,8 @@ where
 
 import Amazonka.Chime.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -108,12 +109,13 @@ instance Core.AWSRequest DescribeChannelModerator where
   type
     AWSResponse DescribeChannelModerator =
       DescribeChannelModeratorResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeChannelModeratorResponse'
-            Prelude.<$> (x Core..?> "ChannelModerator")
+            Prelude.<$> (x Data..?> "ChannelModerator")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -129,21 +131,21 @@ instance Prelude.NFData DescribeChannelModerator where
       `Prelude.seq` Prelude.rnf channelArn
       `Prelude.seq` Prelude.rnf channelModeratorArn
 
-instance Core.ToHeaders DescribeChannelModerator where
+instance Data.ToHeaders DescribeChannelModerator where
   toHeaders DescribeChannelModerator' {..} =
     Prelude.mconcat
-      ["x-amz-chime-bearer" Core.=# chimeBearer]
+      ["x-amz-chime-bearer" Data.=# chimeBearer]
 
-instance Core.ToPath DescribeChannelModerator where
+instance Data.ToPath DescribeChannelModerator where
   toPath DescribeChannelModerator' {..} =
     Prelude.mconcat
       [ "/channels/",
-        Core.toBS channelArn,
+        Data.toBS channelArn,
         "/moderators/",
-        Core.toBS channelModeratorArn
+        Data.toBS channelModeratorArn
       ]
 
-instance Core.ToQuery DescribeChannelModerator where
+instance Data.ToQuery DescribeChannelModerator where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDescribeChannelModeratorResponse' smart constructor.

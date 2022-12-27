@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Braket.Types.SearchQuantumTasksFilter
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.Braket.Types.SearchQuantumTasksFilter where
 
 import Amazonka.Braket.Types.SearchQuantumTasksFilterOperator
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | A filter to use to search for tasks.
@@ -92,12 +93,12 @@ instance Prelude.NFData SearchQuantumTasksFilter where
       `Prelude.seq` Prelude.rnf operator
       `Prelude.seq` Prelude.rnf values
 
-instance Core.ToJSON SearchQuantumTasksFilter where
+instance Data.ToJSON SearchQuantumTasksFilter where
   toJSON SearchQuantumTasksFilter' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("name" Core..= name),
-            Prelude.Just ("operator" Core..= operator),
-            Prelude.Just ("values" Core..= values)
+          [ Prelude.Just ("name" Data..= name),
+            Prelude.Just ("operator" Data..= operator),
+            Prelude.Just ("values" Data..= values)
           ]
       )

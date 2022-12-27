@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Signer.CancelSigningProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -39,7 +39,8 @@ module Amazonka.Signer.CancelSigningProfile
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest CancelSigningProfile where
   type
     AWSResponse CancelSigningProfile =
       CancelSigningProfileResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveNull CancelSigningProfileResponse'
 
@@ -88,23 +90,23 @@ instance Prelude.NFData CancelSigningProfile where
   rnf CancelSigningProfile' {..} =
     Prelude.rnf profileName
 
-instance Core.ToHeaders CancelSigningProfile where
+instance Data.ToHeaders CancelSigningProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath CancelSigningProfile where
+instance Data.ToPath CancelSigningProfile where
   toPath CancelSigningProfile' {..} =
     Prelude.mconcat
-      ["/signing-profiles/", Core.toBS profileName]
+      ["/signing-profiles/", Data.toBS profileName]
 
-instance Core.ToQuery CancelSigningProfile where
+instance Data.ToQuery CancelSigningProfile where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCancelSigningProfileResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.UpdateRelationalDatabase
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,15 +37,15 @@ module Amazonka.Lightsail.UpdateRelationalDatabase
     newUpdateRelationalDatabase,
 
     -- * Request Lenses
-    updateRelationalDatabase_masterUserPassword,
-    updateRelationalDatabase_publiclyAccessible,
-    updateRelationalDatabase_enableBackupRetention,
-    updateRelationalDatabase_preferredMaintenanceWindow,
-    updateRelationalDatabase_caCertificateIdentifier,
-    updateRelationalDatabase_preferredBackupWindow,
     updateRelationalDatabase_applyImmediately,
-    updateRelationalDatabase_rotateMasterUserPassword,
+    updateRelationalDatabase_caCertificateIdentifier,
     updateRelationalDatabase_disableBackupRetention,
+    updateRelationalDatabase_enableBackupRetention,
+    updateRelationalDatabase_masterUserPassword,
+    updateRelationalDatabase_preferredBackupWindow,
+    updateRelationalDatabase_preferredMaintenanceWindow,
+    updateRelationalDatabase_publiclyAccessible,
+    updateRelationalDatabase_rotateMasterUserPassword,
     updateRelationalDatabase_relationalDatabaseName,
 
     -- * Destructuring the Response
@@ -59,7 +59,8 @@ module Amazonka.Lightsail.UpdateRelationalDatabase
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -67,7 +68,29 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newUpdateRelationalDatabase' smart constructor.
 data UpdateRelationalDatabase = UpdateRelationalDatabase'
-  { -- | The password for the master user. The password can include any printable
+  { -- | When @true@, applies changes immediately. When @false@, applies changes
+    -- during the preferred maintenance window. Some changes may cause an
+    -- outage.
+    --
+    -- Default: @false@
+    applyImmediately :: Prelude.Maybe Prelude.Bool,
+    -- | Indicates the certificate that needs to be associated with the database.
+    caCertificateIdentifier :: Prelude.Maybe Prelude.Text,
+    -- | When @true@, disables automated backup retention for your database.
+    --
+    -- Disabling backup retention deletes all automated database backups.
+    -- Before disabling this, you may want to create a snapshot of your
+    -- database using the @create relational database snapshot@ operation.
+    --
+    -- Updates are applied during the next maintenance window because this can
+    -- result in an outage.
+    disableBackupRetention :: Prelude.Maybe Prelude.Bool,
+    -- | When @true@, enables automated backup retention for your database.
+    --
+    -- Updates are applied during the next maintenance window because this can
+    -- result in an outage.
+    enableBackupRetention :: Prelude.Maybe Prelude.Bool,
+    -- | The password for the master user. The password can include any printable
     -- ASCII character except \"\/\", \"\"\", or \"\@\".
     --
     -- My__SQL__
@@ -77,39 +100,7 @@ data UpdateRelationalDatabase = UpdateRelationalDatabase'
     -- __PostgreSQL__
     --
     -- Constraints: Must contain from 8 to 128 characters.
-    masterUserPassword :: Prelude.Maybe (Core.Sensitive Prelude.Text),
-    -- | Specifies the accessibility options for your database. A value of @true@
-    -- specifies a database that is available to resources outside of your
-    -- Lightsail account. A value of @false@ specifies a database that is
-    -- available only to your Lightsail resources in the same region as your
-    -- database.
-    publiclyAccessible :: Prelude.Maybe Prelude.Bool,
-    -- | When @true@, enables automated backup retention for your database.
-    --
-    -- Updates are applied during the next maintenance window because this can
-    -- result in an outage.
-    enableBackupRetention :: Prelude.Maybe Prelude.Bool,
-    -- | The weekly time range during which system maintenance can occur on your
-    -- database.
-    --
-    -- The default is a 30-minute window selected at random from an 8-hour
-    -- block of time for each AWS Region, occurring on a random day of the
-    -- week.
-    --
-    -- Constraints:
-    --
-    -- -   Must be in the @ddd:hh24:mi-ddd:hh24:mi@ format.
-    --
-    -- -   Valid days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
-    --
-    -- -   Must be at least 30 minutes.
-    --
-    -- -   Specified in Coordinated Universal Time (UTC).
-    --
-    -- -   Example: @Tue:17:00-Tue:17:30@
-    preferredMaintenanceWindow :: Prelude.Maybe Prelude.Text,
-    -- | Indicates the certificate that needs to be associated with the database.
-    caCertificateIdentifier :: Prelude.Maybe Prelude.Text,
+    masterUserPassword :: Prelude.Maybe (Data.Sensitive Prelude.Text),
     -- | The daily time range during which automated backups are created for your
     -- database if automated backups are enabled.
     --
@@ -125,27 +116,37 @@ data UpdateRelationalDatabase = UpdateRelationalDatabase'
     --
     -- -   Must be at least 30 minutes.
     preferredBackupWindow :: Prelude.Maybe Prelude.Text,
-    -- | When @true@, applies changes immediately. When @false@, applies changes
-    -- during the preferred maintenance window. Some changes may cause an
-    -- outage.
+    -- | The weekly time range during which system maintenance can occur on your
+    -- database.
     --
-    -- Default: @false@
-    applyImmediately :: Prelude.Maybe Prelude.Bool,
+    -- The default is a 30-minute window selected at random from an 8-hour
+    -- block of time for each Amazon Web Services Region, occurring on a random
+    -- day of the week.
+    --
+    -- Constraints:
+    --
+    -- -   Must be in the @ddd:hh24:mi-ddd:hh24:mi@ format.
+    --
+    -- -   Valid days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
+    --
+    -- -   Must be at least 30 minutes.
+    --
+    -- -   Specified in Coordinated Universal Time (UTC).
+    --
+    -- -   Example: @Tue:17:00-Tue:17:30@
+    preferredMaintenanceWindow :: Prelude.Maybe Prelude.Text,
+    -- | Specifies the accessibility options for your database. A value of @true@
+    -- specifies a database that is available to resources outside of your
+    -- Lightsail account. A value of @false@ specifies a database that is
+    -- available only to your Lightsail resources in the same region as your
+    -- database.
+    publiclyAccessible :: Prelude.Maybe Prelude.Bool,
     -- | When @true@, the master user password is changed to a new strong
     -- password generated by Lightsail.
     --
     -- Use the @get relational database master user password@ operation to get
     -- the new password.
     rotateMasterUserPassword :: Prelude.Maybe Prelude.Bool,
-    -- | When @true@, disables automated backup retention for your database.
-    --
-    -- Disabling backup retention deletes all automated database backups.
-    -- Before disabling this, you may want to create a snapshot of your
-    -- database using the @create relational database snapshot@ operation.
-    --
-    -- Updates are applied during the next maintenance window because this can
-    -- result in an outage.
-    disableBackupRetention :: Prelude.Maybe Prelude.Bool,
     -- | The name of your Lightsail database resource to update.
     relationalDatabaseName :: Prelude.Text
   }
@@ -159,6 +160,28 @@ data UpdateRelationalDatabase = UpdateRelationalDatabase'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'applyImmediately', 'updateRelationalDatabase_applyImmediately' - When @true@, applies changes immediately. When @false@, applies changes
+-- during the preferred maintenance window. Some changes may cause an
+-- outage.
+--
+-- Default: @false@
+--
+-- 'caCertificateIdentifier', 'updateRelationalDatabase_caCertificateIdentifier' - Indicates the certificate that needs to be associated with the database.
+--
+-- 'disableBackupRetention', 'updateRelationalDatabase_disableBackupRetention' - When @true@, disables automated backup retention for your database.
+--
+-- Disabling backup retention deletes all automated database backups.
+-- Before disabling this, you may want to create a snapshot of your
+-- database using the @create relational database snapshot@ operation.
+--
+-- Updates are applied during the next maintenance window because this can
+-- result in an outage.
+--
+-- 'enableBackupRetention', 'updateRelationalDatabase_enableBackupRetention' - When @true@, enables automated backup retention for your database.
+--
+-- Updates are applied during the next maintenance window because this can
+-- result in an outage.
+--
 -- 'masterUserPassword', 'updateRelationalDatabase_masterUserPassword' - The password for the master user. The password can include any printable
 -- ASCII character except \"\/\", \"\"\", or \"\@\".
 --
@@ -169,38 +192,6 @@ data UpdateRelationalDatabase = UpdateRelationalDatabase'
 -- __PostgreSQL__
 --
 -- Constraints: Must contain from 8 to 128 characters.
---
--- 'publiclyAccessible', 'updateRelationalDatabase_publiclyAccessible' - Specifies the accessibility options for your database. A value of @true@
--- specifies a database that is available to resources outside of your
--- Lightsail account. A value of @false@ specifies a database that is
--- available only to your Lightsail resources in the same region as your
--- database.
---
--- 'enableBackupRetention', 'updateRelationalDatabase_enableBackupRetention' - When @true@, enables automated backup retention for your database.
---
--- Updates are applied during the next maintenance window because this can
--- result in an outage.
---
--- 'preferredMaintenanceWindow', 'updateRelationalDatabase_preferredMaintenanceWindow' - The weekly time range during which system maintenance can occur on your
--- database.
---
--- The default is a 30-minute window selected at random from an 8-hour
--- block of time for each AWS Region, occurring on a random day of the
--- week.
---
--- Constraints:
---
--- -   Must be in the @ddd:hh24:mi-ddd:hh24:mi@ format.
---
--- -   Valid days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
---
--- -   Must be at least 30 minutes.
---
--- -   Specified in Coordinated Universal Time (UTC).
---
--- -   Example: @Tue:17:00-Tue:17:30@
---
--- 'caCertificateIdentifier', 'updateRelationalDatabase_caCertificateIdentifier' - Indicates the certificate that needs to be associated with the database.
 --
 -- 'preferredBackupWindow', 'updateRelationalDatabase_preferredBackupWindow' - The daily time range during which automated backups are created for your
 -- database if automated backups are enabled.
@@ -217,81 +208,12 @@ data UpdateRelationalDatabase = UpdateRelationalDatabase'
 --
 -- -   Must be at least 30 minutes.
 --
--- 'applyImmediately', 'updateRelationalDatabase_applyImmediately' - When @true@, applies changes immediately. When @false@, applies changes
--- during the preferred maintenance window. Some changes may cause an
--- outage.
---
--- Default: @false@
---
--- 'rotateMasterUserPassword', 'updateRelationalDatabase_rotateMasterUserPassword' - When @true@, the master user password is changed to a new strong
--- password generated by Lightsail.
---
--- Use the @get relational database master user password@ operation to get
--- the new password.
---
--- 'disableBackupRetention', 'updateRelationalDatabase_disableBackupRetention' - When @true@, disables automated backup retention for your database.
---
--- Disabling backup retention deletes all automated database backups.
--- Before disabling this, you may want to create a snapshot of your
--- database using the @create relational database snapshot@ operation.
---
--- Updates are applied during the next maintenance window because this can
--- result in an outage.
---
--- 'relationalDatabaseName', 'updateRelationalDatabase_relationalDatabaseName' - The name of your Lightsail database resource to update.
-newUpdateRelationalDatabase ::
-  -- | 'relationalDatabaseName'
-  Prelude.Text ->
-  UpdateRelationalDatabase
-newUpdateRelationalDatabase pRelationalDatabaseName_ =
-  UpdateRelationalDatabase'
-    { masterUserPassword =
-        Prelude.Nothing,
-      publiclyAccessible = Prelude.Nothing,
-      enableBackupRetention = Prelude.Nothing,
-      preferredMaintenanceWindow = Prelude.Nothing,
-      caCertificateIdentifier = Prelude.Nothing,
-      preferredBackupWindow = Prelude.Nothing,
-      applyImmediately = Prelude.Nothing,
-      rotateMasterUserPassword = Prelude.Nothing,
-      disableBackupRetention = Prelude.Nothing,
-      relationalDatabaseName = pRelationalDatabaseName_
-    }
-
--- | The password for the master user. The password can include any printable
--- ASCII character except \"\/\", \"\"\", or \"\@\".
---
--- My__SQL__
---
--- Constraints: Must contain from 8 to 41 characters.
---
--- __PostgreSQL__
---
--- Constraints: Must contain from 8 to 128 characters.
-updateRelationalDatabase_masterUserPassword :: Lens.Lens' UpdateRelationalDatabase (Prelude.Maybe Prelude.Text)
-updateRelationalDatabase_masterUserPassword = Lens.lens (\UpdateRelationalDatabase' {masterUserPassword} -> masterUserPassword) (\s@UpdateRelationalDatabase' {} a -> s {masterUserPassword = a} :: UpdateRelationalDatabase) Prelude.. Lens.mapping Core._Sensitive
-
--- | Specifies the accessibility options for your database. A value of @true@
--- specifies a database that is available to resources outside of your
--- Lightsail account. A value of @false@ specifies a database that is
--- available only to your Lightsail resources in the same region as your
--- database.
-updateRelationalDatabase_publiclyAccessible :: Lens.Lens' UpdateRelationalDatabase (Prelude.Maybe Prelude.Bool)
-updateRelationalDatabase_publiclyAccessible = Lens.lens (\UpdateRelationalDatabase' {publiclyAccessible} -> publiclyAccessible) (\s@UpdateRelationalDatabase' {} a -> s {publiclyAccessible = a} :: UpdateRelationalDatabase)
-
--- | When @true@, enables automated backup retention for your database.
---
--- Updates are applied during the next maintenance window because this can
--- result in an outage.
-updateRelationalDatabase_enableBackupRetention :: Lens.Lens' UpdateRelationalDatabase (Prelude.Maybe Prelude.Bool)
-updateRelationalDatabase_enableBackupRetention = Lens.lens (\UpdateRelationalDatabase' {enableBackupRetention} -> enableBackupRetention) (\s@UpdateRelationalDatabase' {} a -> s {enableBackupRetention = a} :: UpdateRelationalDatabase)
-
--- | The weekly time range during which system maintenance can occur on your
+-- 'preferredMaintenanceWindow', 'updateRelationalDatabase_preferredMaintenanceWindow' - The weekly time range during which system maintenance can occur on your
 -- database.
 --
 -- The default is a 30-minute window selected at random from an 8-hour
--- block of time for each AWS Region, occurring on a random day of the
--- week.
+-- block of time for each Amazon Web Services Region, occurring on a random
+-- day of the week.
 --
 -- Constraints:
 --
@@ -304,12 +226,81 @@ updateRelationalDatabase_enableBackupRetention = Lens.lens (\UpdateRelationalDat
 -- -   Specified in Coordinated Universal Time (UTC).
 --
 -- -   Example: @Tue:17:00-Tue:17:30@
-updateRelationalDatabase_preferredMaintenanceWindow :: Lens.Lens' UpdateRelationalDatabase (Prelude.Maybe Prelude.Text)
-updateRelationalDatabase_preferredMaintenanceWindow = Lens.lens (\UpdateRelationalDatabase' {preferredMaintenanceWindow} -> preferredMaintenanceWindow) (\s@UpdateRelationalDatabase' {} a -> s {preferredMaintenanceWindow = a} :: UpdateRelationalDatabase)
+--
+-- 'publiclyAccessible', 'updateRelationalDatabase_publiclyAccessible' - Specifies the accessibility options for your database. A value of @true@
+-- specifies a database that is available to resources outside of your
+-- Lightsail account. A value of @false@ specifies a database that is
+-- available only to your Lightsail resources in the same region as your
+-- database.
+--
+-- 'rotateMasterUserPassword', 'updateRelationalDatabase_rotateMasterUserPassword' - When @true@, the master user password is changed to a new strong
+-- password generated by Lightsail.
+--
+-- Use the @get relational database master user password@ operation to get
+-- the new password.
+--
+-- 'relationalDatabaseName', 'updateRelationalDatabase_relationalDatabaseName' - The name of your Lightsail database resource to update.
+newUpdateRelationalDatabase ::
+  -- | 'relationalDatabaseName'
+  Prelude.Text ->
+  UpdateRelationalDatabase
+newUpdateRelationalDatabase pRelationalDatabaseName_ =
+  UpdateRelationalDatabase'
+    { applyImmediately =
+        Prelude.Nothing,
+      caCertificateIdentifier = Prelude.Nothing,
+      disableBackupRetention = Prelude.Nothing,
+      enableBackupRetention = Prelude.Nothing,
+      masterUserPassword = Prelude.Nothing,
+      preferredBackupWindow = Prelude.Nothing,
+      preferredMaintenanceWindow = Prelude.Nothing,
+      publiclyAccessible = Prelude.Nothing,
+      rotateMasterUserPassword = Prelude.Nothing,
+      relationalDatabaseName = pRelationalDatabaseName_
+    }
+
+-- | When @true@, applies changes immediately. When @false@, applies changes
+-- during the preferred maintenance window. Some changes may cause an
+-- outage.
+--
+-- Default: @false@
+updateRelationalDatabase_applyImmediately :: Lens.Lens' UpdateRelationalDatabase (Prelude.Maybe Prelude.Bool)
+updateRelationalDatabase_applyImmediately = Lens.lens (\UpdateRelationalDatabase' {applyImmediately} -> applyImmediately) (\s@UpdateRelationalDatabase' {} a -> s {applyImmediately = a} :: UpdateRelationalDatabase)
 
 -- | Indicates the certificate that needs to be associated with the database.
 updateRelationalDatabase_caCertificateIdentifier :: Lens.Lens' UpdateRelationalDatabase (Prelude.Maybe Prelude.Text)
 updateRelationalDatabase_caCertificateIdentifier = Lens.lens (\UpdateRelationalDatabase' {caCertificateIdentifier} -> caCertificateIdentifier) (\s@UpdateRelationalDatabase' {} a -> s {caCertificateIdentifier = a} :: UpdateRelationalDatabase)
+
+-- | When @true@, disables automated backup retention for your database.
+--
+-- Disabling backup retention deletes all automated database backups.
+-- Before disabling this, you may want to create a snapshot of your
+-- database using the @create relational database snapshot@ operation.
+--
+-- Updates are applied during the next maintenance window because this can
+-- result in an outage.
+updateRelationalDatabase_disableBackupRetention :: Lens.Lens' UpdateRelationalDatabase (Prelude.Maybe Prelude.Bool)
+updateRelationalDatabase_disableBackupRetention = Lens.lens (\UpdateRelationalDatabase' {disableBackupRetention} -> disableBackupRetention) (\s@UpdateRelationalDatabase' {} a -> s {disableBackupRetention = a} :: UpdateRelationalDatabase)
+
+-- | When @true@, enables automated backup retention for your database.
+--
+-- Updates are applied during the next maintenance window because this can
+-- result in an outage.
+updateRelationalDatabase_enableBackupRetention :: Lens.Lens' UpdateRelationalDatabase (Prelude.Maybe Prelude.Bool)
+updateRelationalDatabase_enableBackupRetention = Lens.lens (\UpdateRelationalDatabase' {enableBackupRetention} -> enableBackupRetention) (\s@UpdateRelationalDatabase' {} a -> s {enableBackupRetention = a} :: UpdateRelationalDatabase)
+
+-- | The password for the master user. The password can include any printable
+-- ASCII character except \"\/\", \"\"\", or \"\@\".
+--
+-- My__SQL__
+--
+-- Constraints: Must contain from 8 to 41 characters.
+--
+-- __PostgreSQL__
+--
+-- Constraints: Must contain from 8 to 128 characters.
+updateRelationalDatabase_masterUserPassword :: Lens.Lens' UpdateRelationalDatabase (Prelude.Maybe Prelude.Text)
+updateRelationalDatabase_masterUserPassword = Lens.lens (\UpdateRelationalDatabase' {masterUserPassword} -> masterUserPassword) (\s@UpdateRelationalDatabase' {} a -> s {masterUserPassword = a} :: UpdateRelationalDatabase) Prelude.. Lens.mapping Data._Sensitive
 
 -- | The daily time range during which automated backups are created for your
 -- database if automated backups are enabled.
@@ -328,13 +319,34 @@ updateRelationalDatabase_caCertificateIdentifier = Lens.lens (\UpdateRelationalD
 updateRelationalDatabase_preferredBackupWindow :: Lens.Lens' UpdateRelationalDatabase (Prelude.Maybe Prelude.Text)
 updateRelationalDatabase_preferredBackupWindow = Lens.lens (\UpdateRelationalDatabase' {preferredBackupWindow} -> preferredBackupWindow) (\s@UpdateRelationalDatabase' {} a -> s {preferredBackupWindow = a} :: UpdateRelationalDatabase)
 
--- | When @true@, applies changes immediately. When @false@, applies changes
--- during the preferred maintenance window. Some changes may cause an
--- outage.
+-- | The weekly time range during which system maintenance can occur on your
+-- database.
 --
--- Default: @false@
-updateRelationalDatabase_applyImmediately :: Lens.Lens' UpdateRelationalDatabase (Prelude.Maybe Prelude.Bool)
-updateRelationalDatabase_applyImmediately = Lens.lens (\UpdateRelationalDatabase' {applyImmediately} -> applyImmediately) (\s@UpdateRelationalDatabase' {} a -> s {applyImmediately = a} :: UpdateRelationalDatabase)
+-- The default is a 30-minute window selected at random from an 8-hour
+-- block of time for each Amazon Web Services Region, occurring on a random
+-- day of the week.
+--
+-- Constraints:
+--
+-- -   Must be in the @ddd:hh24:mi-ddd:hh24:mi@ format.
+--
+-- -   Valid days: Mon, Tue, Wed, Thu, Fri, Sat, Sun.
+--
+-- -   Must be at least 30 minutes.
+--
+-- -   Specified in Coordinated Universal Time (UTC).
+--
+-- -   Example: @Tue:17:00-Tue:17:30@
+updateRelationalDatabase_preferredMaintenanceWindow :: Lens.Lens' UpdateRelationalDatabase (Prelude.Maybe Prelude.Text)
+updateRelationalDatabase_preferredMaintenanceWindow = Lens.lens (\UpdateRelationalDatabase' {preferredMaintenanceWindow} -> preferredMaintenanceWindow) (\s@UpdateRelationalDatabase' {} a -> s {preferredMaintenanceWindow = a} :: UpdateRelationalDatabase)
+
+-- | Specifies the accessibility options for your database. A value of @true@
+-- specifies a database that is available to resources outside of your
+-- Lightsail account. A value of @false@ specifies a database that is
+-- available only to your Lightsail resources in the same region as your
+-- database.
+updateRelationalDatabase_publiclyAccessible :: Lens.Lens' UpdateRelationalDatabase (Prelude.Maybe Prelude.Bool)
+updateRelationalDatabase_publiclyAccessible = Lens.lens (\UpdateRelationalDatabase' {publiclyAccessible} -> publiclyAccessible) (\s@UpdateRelationalDatabase' {} a -> s {publiclyAccessible = a} :: UpdateRelationalDatabase)
 
 -- | When @true@, the master user password is changed to a new strong
 -- password generated by Lightsail.
@@ -344,17 +356,6 @@ updateRelationalDatabase_applyImmediately = Lens.lens (\UpdateRelationalDatabase
 updateRelationalDatabase_rotateMasterUserPassword :: Lens.Lens' UpdateRelationalDatabase (Prelude.Maybe Prelude.Bool)
 updateRelationalDatabase_rotateMasterUserPassword = Lens.lens (\UpdateRelationalDatabase' {rotateMasterUserPassword} -> rotateMasterUserPassword) (\s@UpdateRelationalDatabase' {} a -> s {rotateMasterUserPassword = a} :: UpdateRelationalDatabase)
 
--- | When @true@, disables automated backup retention for your database.
---
--- Disabling backup retention deletes all automated database backups.
--- Before disabling this, you may want to create a snapshot of your
--- database using the @create relational database snapshot@ operation.
---
--- Updates are applied during the next maintenance window because this can
--- result in an outage.
-updateRelationalDatabase_disableBackupRetention :: Lens.Lens' UpdateRelationalDatabase (Prelude.Maybe Prelude.Bool)
-updateRelationalDatabase_disableBackupRetention = Lens.lens (\UpdateRelationalDatabase' {disableBackupRetention} -> disableBackupRetention) (\s@UpdateRelationalDatabase' {} a -> s {disableBackupRetention = a} :: UpdateRelationalDatabase)
-
 -- | The name of your Lightsail database resource to update.
 updateRelationalDatabase_relationalDatabaseName :: Lens.Lens' UpdateRelationalDatabase Prelude.Text
 updateRelationalDatabase_relationalDatabaseName = Lens.lens (\UpdateRelationalDatabase' {relationalDatabaseName} -> relationalDatabaseName) (\s@UpdateRelationalDatabase' {} a -> s {relationalDatabaseName = a} :: UpdateRelationalDatabase)
@@ -363,89 +364,90 @@ instance Core.AWSRequest UpdateRelationalDatabase where
   type
     AWSResponse UpdateRelationalDatabase =
       UpdateRelationalDatabaseResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateRelationalDatabaseResponse'
-            Prelude.<$> (x Core..?> "operations" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "operations" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable UpdateRelationalDatabase where
   hashWithSalt _salt UpdateRelationalDatabase' {..} =
-    _salt `Prelude.hashWithSalt` masterUserPassword
-      `Prelude.hashWithSalt` publiclyAccessible
-      `Prelude.hashWithSalt` enableBackupRetention
-      `Prelude.hashWithSalt` preferredMaintenanceWindow
+    _salt `Prelude.hashWithSalt` applyImmediately
       `Prelude.hashWithSalt` caCertificateIdentifier
-      `Prelude.hashWithSalt` preferredBackupWindow
-      `Prelude.hashWithSalt` applyImmediately
-      `Prelude.hashWithSalt` rotateMasterUserPassword
       `Prelude.hashWithSalt` disableBackupRetention
+      `Prelude.hashWithSalt` enableBackupRetention
+      `Prelude.hashWithSalt` masterUserPassword
+      `Prelude.hashWithSalt` preferredBackupWindow
+      `Prelude.hashWithSalt` preferredMaintenanceWindow
+      `Prelude.hashWithSalt` publiclyAccessible
+      `Prelude.hashWithSalt` rotateMasterUserPassword
       `Prelude.hashWithSalt` relationalDatabaseName
 
 instance Prelude.NFData UpdateRelationalDatabase where
   rnf UpdateRelationalDatabase' {..} =
-    Prelude.rnf masterUserPassword
-      `Prelude.seq` Prelude.rnf publiclyAccessible
-      `Prelude.seq` Prelude.rnf enableBackupRetention
-      `Prelude.seq` Prelude.rnf preferredMaintenanceWindow
+    Prelude.rnf applyImmediately
       `Prelude.seq` Prelude.rnf caCertificateIdentifier
-      `Prelude.seq` Prelude.rnf preferredBackupWindow
-      `Prelude.seq` Prelude.rnf applyImmediately
-      `Prelude.seq` Prelude.rnf rotateMasterUserPassword
       `Prelude.seq` Prelude.rnf disableBackupRetention
+      `Prelude.seq` Prelude.rnf enableBackupRetention
+      `Prelude.seq` Prelude.rnf masterUserPassword
+      `Prelude.seq` Prelude.rnf preferredBackupWindow
+      `Prelude.seq` Prelude.rnf preferredMaintenanceWindow
+      `Prelude.seq` Prelude.rnf publiclyAccessible
+      `Prelude.seq` Prelude.rnf rotateMasterUserPassword
       `Prelude.seq` Prelude.rnf relationalDatabaseName
 
-instance Core.ToHeaders UpdateRelationalDatabase where
+instance Data.ToHeaders UpdateRelationalDatabase where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.UpdateRelationalDatabase" ::
+              Data.=# ( "Lightsail_20161128.UpdateRelationalDatabase" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateRelationalDatabase where
+instance Data.ToJSON UpdateRelationalDatabase where
   toJSON UpdateRelationalDatabase' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("masterUserPassword" Core..=)
-              Prelude.<$> masterUserPassword,
-            ("publiclyAccessible" Core..=)
-              Prelude.<$> publiclyAccessible,
-            ("enableBackupRetention" Core..=)
-              Prelude.<$> enableBackupRetention,
-            ("preferredMaintenanceWindow" Core..=)
-              Prelude.<$> preferredMaintenanceWindow,
-            ("caCertificateIdentifier" Core..=)
-              Prelude.<$> caCertificateIdentifier,
-            ("preferredBackupWindow" Core..=)
-              Prelude.<$> preferredBackupWindow,
-            ("applyImmediately" Core..=)
+          [ ("applyImmediately" Data..=)
               Prelude.<$> applyImmediately,
-            ("rotateMasterUserPassword" Core..=)
-              Prelude.<$> rotateMasterUserPassword,
-            ("disableBackupRetention" Core..=)
+            ("caCertificateIdentifier" Data..=)
+              Prelude.<$> caCertificateIdentifier,
+            ("disableBackupRetention" Data..=)
               Prelude.<$> disableBackupRetention,
+            ("enableBackupRetention" Data..=)
+              Prelude.<$> enableBackupRetention,
+            ("masterUserPassword" Data..=)
+              Prelude.<$> masterUserPassword,
+            ("preferredBackupWindow" Data..=)
+              Prelude.<$> preferredBackupWindow,
+            ("preferredMaintenanceWindow" Data..=)
+              Prelude.<$> preferredMaintenanceWindow,
+            ("publiclyAccessible" Data..=)
+              Prelude.<$> publiclyAccessible,
+            ("rotateMasterUserPassword" Data..=)
+              Prelude.<$> rotateMasterUserPassword,
             Prelude.Just
               ( "relationalDatabaseName"
-                  Core..= relationalDatabaseName
+                  Data..= relationalDatabaseName
               )
           ]
       )
 
-instance Core.ToPath UpdateRelationalDatabase where
+instance Data.ToPath UpdateRelationalDatabase where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateRelationalDatabase where
+instance Data.ToQuery UpdateRelationalDatabase where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateRelationalDatabaseResponse' smart constructor.

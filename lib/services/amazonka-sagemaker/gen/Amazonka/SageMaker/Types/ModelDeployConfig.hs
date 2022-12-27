@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ModelDeployConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ModelDeployConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies how to generate the endpoint name for an automatic one-click
@@ -28,19 +29,19 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newModelDeployConfig' smart constructor.
 data ModelDeployConfig = ModelDeployConfig'
-  { -- | Specifies the endpoint name to use for a one-click Autopilot model
-    -- deployment if the endpoint name is not generated automatically.
-    --
-    -- Specify the @EndpointName@ if and only if you set
-    -- @AutoGenerateEndpointName@ to @False@; otherwise a 400 error is thrown.
-    endpointName :: Prelude.Maybe Prelude.Text,
-    -- | Set to @True@ to automatically generate an endpoint name for a one-click
+  { -- | Set to @True@ to automatically generate an endpoint name for a one-click
     -- Autopilot model deployment; set to @False@ otherwise. The default value
     -- is @False@.
     --
     -- If you set @AutoGenerateEndpointName@ to @True@, do not specify the
     -- @EndpointName@; otherwise a 400 error is thrown.
-    autoGenerateEndpointName :: Prelude.Maybe Prelude.Bool
+    autoGenerateEndpointName :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies the endpoint name to use for a one-click Autopilot model
+    -- deployment if the endpoint name is not generated automatically.
+    --
+    -- Specify the @EndpointName@ if and only if you set
+    -- @AutoGenerateEndpointName@ to @False@; otherwise a 400 error is thrown.
+    endpointName :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -52,33 +53,26 @@ data ModelDeployConfig = ModelDeployConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'endpointName', 'modelDeployConfig_endpointName' - Specifies the endpoint name to use for a one-click Autopilot model
--- deployment if the endpoint name is not generated automatically.
---
--- Specify the @EndpointName@ if and only if you set
--- @AutoGenerateEndpointName@ to @False@; otherwise a 400 error is thrown.
---
 -- 'autoGenerateEndpointName', 'modelDeployConfig_autoGenerateEndpointName' - Set to @True@ to automatically generate an endpoint name for a one-click
 -- Autopilot model deployment; set to @False@ otherwise. The default value
 -- is @False@.
 --
 -- If you set @AutoGenerateEndpointName@ to @True@, do not specify the
 -- @EndpointName@; otherwise a 400 error is thrown.
-newModelDeployConfig ::
-  ModelDeployConfig
-newModelDeployConfig =
-  ModelDeployConfig'
-    { endpointName = Prelude.Nothing,
-      autoGenerateEndpointName = Prelude.Nothing
-    }
-
--- | Specifies the endpoint name to use for a one-click Autopilot model
+--
+-- 'endpointName', 'modelDeployConfig_endpointName' - Specifies the endpoint name to use for a one-click Autopilot model
 -- deployment if the endpoint name is not generated automatically.
 --
 -- Specify the @EndpointName@ if and only if you set
 -- @AutoGenerateEndpointName@ to @False@; otherwise a 400 error is thrown.
-modelDeployConfig_endpointName :: Lens.Lens' ModelDeployConfig (Prelude.Maybe Prelude.Text)
-modelDeployConfig_endpointName = Lens.lens (\ModelDeployConfig' {endpointName} -> endpointName) (\s@ModelDeployConfig' {} a -> s {endpointName = a} :: ModelDeployConfig)
+newModelDeployConfig ::
+  ModelDeployConfig
+newModelDeployConfig =
+  ModelDeployConfig'
+    { autoGenerateEndpointName =
+        Prelude.Nothing,
+      endpointName = Prelude.Nothing
+    }
 
 -- | Set to @True@ to automatically generate an endpoint name for a one-click
 -- Autopilot model deployment; set to @False@ otherwise. The default value
@@ -89,32 +83,41 @@ modelDeployConfig_endpointName = Lens.lens (\ModelDeployConfig' {endpointName} -
 modelDeployConfig_autoGenerateEndpointName :: Lens.Lens' ModelDeployConfig (Prelude.Maybe Prelude.Bool)
 modelDeployConfig_autoGenerateEndpointName = Lens.lens (\ModelDeployConfig' {autoGenerateEndpointName} -> autoGenerateEndpointName) (\s@ModelDeployConfig' {} a -> s {autoGenerateEndpointName = a} :: ModelDeployConfig)
 
-instance Core.FromJSON ModelDeployConfig where
+-- | Specifies the endpoint name to use for a one-click Autopilot model
+-- deployment if the endpoint name is not generated automatically.
+--
+-- Specify the @EndpointName@ if and only if you set
+-- @AutoGenerateEndpointName@ to @False@; otherwise a 400 error is thrown.
+modelDeployConfig_endpointName :: Lens.Lens' ModelDeployConfig (Prelude.Maybe Prelude.Text)
+modelDeployConfig_endpointName = Lens.lens (\ModelDeployConfig' {endpointName} -> endpointName) (\s@ModelDeployConfig' {} a -> s {endpointName = a} :: ModelDeployConfig)
+
+instance Data.FromJSON ModelDeployConfig where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ModelDeployConfig"
       ( \x ->
           ModelDeployConfig'
-            Prelude.<$> (x Core..:? "EndpointName")
-            Prelude.<*> (x Core..:? "AutoGenerateEndpointName")
+            Prelude.<$> (x Data..:? "AutoGenerateEndpointName")
+            Prelude.<*> (x Data..:? "EndpointName")
       )
 
 instance Prelude.Hashable ModelDeployConfig where
   hashWithSalt _salt ModelDeployConfig' {..} =
-    _salt `Prelude.hashWithSalt` endpointName
+    _salt
       `Prelude.hashWithSalt` autoGenerateEndpointName
+      `Prelude.hashWithSalt` endpointName
 
 instance Prelude.NFData ModelDeployConfig where
   rnf ModelDeployConfig' {..} =
-    Prelude.rnf endpointName
-      `Prelude.seq` Prelude.rnf autoGenerateEndpointName
+    Prelude.rnf autoGenerateEndpointName
+      `Prelude.seq` Prelude.rnf endpointName
 
-instance Core.ToJSON ModelDeployConfig where
+instance Data.ToJSON ModelDeployConfig where
   toJSON ModelDeployConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EndpointName" Core..=) Prelude.<$> endpointName,
-            ("AutoGenerateEndpointName" Core..=)
-              Prelude.<$> autoGenerateEndpointName
+          [ ("AutoGenerateEndpointName" Data..=)
+              Prelude.<$> autoGenerateEndpointName,
+            ("EndpointName" Data..=) Prelude.<$> endpointName
           ]
       )

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.OptInPhoneNumber
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.SNS.OptInPhoneNumber
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,7 +82,8 @@ instance Core.AWSRequest OptInPhoneNumber where
   type
     AWSResponse OptInPhoneNumber =
       OptInPhoneNumberResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "OptInPhoneNumberResult"
@@ -97,20 +99,20 @@ instance Prelude.Hashable OptInPhoneNumber where
 instance Prelude.NFData OptInPhoneNumber where
   rnf OptInPhoneNumber' {..} = Prelude.rnf phoneNumber
 
-instance Core.ToHeaders OptInPhoneNumber where
+instance Data.ToHeaders OptInPhoneNumber where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath OptInPhoneNumber where
+instance Data.ToPath OptInPhoneNumber where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery OptInPhoneNumber where
+instance Data.ToQuery OptInPhoneNumber where
   toQuery OptInPhoneNumber' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("OptInPhoneNumber" :: Prelude.ByteString),
+          Data.=: ("OptInPhoneNumber" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-03-31" :: Prelude.ByteString),
-        "phoneNumber" Core.=: phoneNumber
+          Data.=: ("2010-03-31" :: Prelude.ByteString),
+        "phoneNumber" Data.=: phoneNumber
       ]
 
 -- | The response for the OptInPhoneNumber action.

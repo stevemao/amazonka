@@ -6,7 +6,7 @@
 
 -- |
 -- Module      : Amazonka.CloudControl.Lens
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -14,86 +14,86 @@
 module Amazonka.CloudControl.Lens
   ( -- * Operations
 
-    -- ** GetResource
-    getResource_typeVersionId,
-    getResource_roleArn,
-    getResource_typeName,
-    getResource_identifier,
-    getResourceResponse_typeName,
-    getResourceResponse_resourceDescription,
-    getResourceResponse_httpStatus,
-
-    -- ** ListResourceRequests
-    listResourceRequests_nextToken,
-    listResourceRequests_resourceRequestStatusFilter,
-    listResourceRequests_maxResults,
-    listResourceRequestsResponse_resourceRequestStatusSummaries,
-    listResourceRequestsResponse_nextToken,
-    listResourceRequestsResponse_httpStatus,
-
     -- ** CancelResourceRequest
     cancelResourceRequest_requestToken,
     cancelResourceRequestResponse_progressEvent,
     cancelResourceRequestResponse_httpStatus,
 
+    -- ** CreateResource
+    createResource_clientToken,
+    createResource_roleArn,
+    createResource_typeVersionId,
+    createResource_typeName,
+    createResource_desiredState,
+    createResourceResponse_progressEvent,
+    createResourceResponse_httpStatus,
+
     -- ** DeleteResource
     deleteResource_clientToken,
-    deleteResource_typeVersionId,
     deleteResource_roleArn,
+    deleteResource_typeVersionId,
     deleteResource_typeName,
     deleteResource_identifier,
     deleteResourceResponse_progressEvent,
     deleteResourceResponse_httpStatus,
 
-    -- ** UpdateResource
-    updateResource_clientToken,
-    updateResource_typeVersionId,
-    updateResource_roleArn,
-    updateResource_typeName,
-    updateResource_identifier,
-    updateResource_patchDocument,
-    updateResourceResponse_progressEvent,
-    updateResourceResponse_httpStatus,
-
-    -- ** ListResources
-    listResources_resourceModel,
-    listResources_nextToken,
-    listResources_typeVersionId,
-    listResources_maxResults,
-    listResources_roleArn,
-    listResources_typeName,
-    listResourcesResponse_resourceDescriptions,
-    listResourcesResponse_typeName,
-    listResourcesResponse_nextToken,
-    listResourcesResponse_httpStatus,
-
-    -- ** CreateResource
-    createResource_clientToken,
-    createResource_typeVersionId,
-    createResource_roleArn,
-    createResource_typeName,
-    createResource_desiredState,
-    createResourceResponse_progressEvent,
-    createResourceResponse_httpStatus,
+    -- ** GetResource
+    getResource_roleArn,
+    getResource_typeVersionId,
+    getResource_typeName,
+    getResource_identifier,
+    getResourceResponse_resourceDescription,
+    getResourceResponse_typeName,
+    getResourceResponse_httpStatus,
 
     -- ** GetResourceRequestStatus
     getResourceRequestStatus_requestToken,
     getResourceRequestStatusResponse_progressEvent,
     getResourceRequestStatusResponse_httpStatus,
 
+    -- ** ListResourceRequests
+    listResourceRequests_maxResults,
+    listResourceRequests_nextToken,
+    listResourceRequests_resourceRequestStatusFilter,
+    listResourceRequestsResponse_nextToken,
+    listResourceRequestsResponse_resourceRequestStatusSummaries,
+    listResourceRequestsResponse_httpStatus,
+
+    -- ** ListResources
+    listResources_maxResults,
+    listResources_nextToken,
+    listResources_resourceModel,
+    listResources_roleArn,
+    listResources_typeVersionId,
+    listResources_typeName,
+    listResourcesResponse_nextToken,
+    listResourcesResponse_resourceDescriptions,
+    listResourcesResponse_typeName,
+    listResourcesResponse_httpStatus,
+
+    -- ** UpdateResource
+    updateResource_clientToken,
+    updateResource_roleArn,
+    updateResource_typeVersionId,
+    updateResource_typeName,
+    updateResource_identifier,
+    updateResource_patchDocument,
+    updateResourceResponse_progressEvent,
+    updateResourceResponse_httpStatus,
+
     -- * Types
 
     -- ** ProgressEvent
-    progressEvent_retryAfter,
-    progressEvent_typeName,
+    progressEvent_errorCode,
+    progressEvent_eventTime,
+    progressEvent_identifier,
+    progressEvent_operation,
+    progressEvent_operationStatus,
     progressEvent_requestToken,
     progressEvent_resourceModel,
-    progressEvent_operation,
-    progressEvent_identifier,
-    progressEvent_operationStatus,
-    progressEvent_eventTime,
+    progressEvent_retryAfter,
     progressEvent_statusMessage,
-    progressEvent_errorCode,
+    progressEvent_typeName,
 
     -- ** ResourceDescription
     resourceDescription_identifier,

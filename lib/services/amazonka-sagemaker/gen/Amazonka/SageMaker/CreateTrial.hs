@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateTrial
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,8 +41,8 @@ module Amazonka.SageMaker.CreateTrial
     newCreateTrial,
 
     -- * Request Lenses
-    createTrial_metadataProperties,
     createTrial_displayName,
+    createTrial_metadataProperties,
     createTrial_tags,
     createTrial_trialName,
     createTrial_experimentName,
@@ -58,7 +58,8 @@ module Amazonka.SageMaker.CreateTrial
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,10 +67,10 @@ import Amazonka.SageMaker.Types
 
 -- | /See:/ 'newCreateTrial' smart constructor.
 data CreateTrial = CreateTrial'
-  { metadataProperties :: Prelude.Maybe MetadataProperties,
-    -- | The name of the trial as displayed. The name doesn\'t need to be unique.
+  { -- | The name of the trial as displayed. The name doesn\'t need to be unique.
     -- If @DisplayName@ isn\'t specified, @TrialName@ is displayed.
     displayName :: Prelude.Maybe Prelude.Text,
+    metadataProperties :: Prelude.Maybe MetadataProperties,
     -- | A list of tags to associate with the trial. You can use Search API to
     -- search on the tags.
     tags :: Prelude.Maybe [Tag],
@@ -89,10 +90,10 @@ data CreateTrial = CreateTrial'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'metadataProperties', 'createTrial_metadataProperties' - Undocumented member.
---
 -- 'displayName', 'createTrial_displayName' - The name of the trial as displayed. The name doesn\'t need to be unique.
 -- If @DisplayName@ isn\'t specified, @TrialName@ is displayed.
+--
+-- 'metadataProperties', 'createTrial_metadataProperties' - Undocumented member.
 --
 -- 'tags', 'createTrial_tags' - A list of tags to associate with the trial. You can use Search API to
 -- search on the tags.
@@ -109,21 +110,21 @@ newCreateTrial ::
   CreateTrial
 newCreateTrial pTrialName_ pExperimentName_ =
   CreateTrial'
-    { metadataProperties = Prelude.Nothing,
-      displayName = Prelude.Nothing,
+    { displayName = Prelude.Nothing,
+      metadataProperties = Prelude.Nothing,
       tags = Prelude.Nothing,
       trialName = pTrialName_,
       experimentName = pExperimentName_
     }
 
--- | Undocumented member.
-createTrial_metadataProperties :: Lens.Lens' CreateTrial (Prelude.Maybe MetadataProperties)
-createTrial_metadataProperties = Lens.lens (\CreateTrial' {metadataProperties} -> metadataProperties) (\s@CreateTrial' {} a -> s {metadataProperties = a} :: CreateTrial)
-
 -- | The name of the trial as displayed. The name doesn\'t need to be unique.
 -- If @DisplayName@ isn\'t specified, @TrialName@ is displayed.
 createTrial_displayName :: Lens.Lens' CreateTrial (Prelude.Maybe Prelude.Text)
 createTrial_displayName = Lens.lens (\CreateTrial' {displayName} -> displayName) (\s@CreateTrial' {} a -> s {displayName = a} :: CreateTrial)
+
+-- | Undocumented member.
+createTrial_metadataProperties :: Lens.Lens' CreateTrial (Prelude.Maybe MetadataProperties)
+createTrial_metadataProperties = Lens.lens (\CreateTrial' {metadataProperties} -> metadataProperties) (\s@CreateTrial' {} a -> s {metadataProperties = a} :: CreateTrial)
 
 -- | A list of tags to associate with the trial. You can use Search API to
 -- search on the tags.
@@ -141,62 +142,63 @@ createTrial_experimentName = Lens.lens (\CreateTrial' {experimentName} -> experi
 
 instance Core.AWSRequest CreateTrial where
   type AWSResponse CreateTrial = CreateTrialResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateTrialResponse'
-            Prelude.<$> (x Core..?> "TrialArn")
+            Prelude.<$> (x Data..?> "TrialArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateTrial where
   hashWithSalt _salt CreateTrial' {..} =
-    _salt `Prelude.hashWithSalt` metadataProperties
-      `Prelude.hashWithSalt` displayName
+    _salt `Prelude.hashWithSalt` displayName
+      `Prelude.hashWithSalt` metadataProperties
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` trialName
       `Prelude.hashWithSalt` experimentName
 
 instance Prelude.NFData CreateTrial where
   rnf CreateTrial' {..} =
-    Prelude.rnf metadataProperties
-      `Prelude.seq` Prelude.rnf displayName
+    Prelude.rnf displayName
+      `Prelude.seq` Prelude.rnf metadataProperties
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf trialName
       `Prelude.seq` Prelude.rnf experimentName
 
-instance Core.ToHeaders CreateTrial where
+instance Data.ToHeaders CreateTrial where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("SageMaker.CreateTrial" :: Prelude.ByteString),
+              Data.=# ("SageMaker.CreateTrial" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateTrial where
+instance Data.ToJSON CreateTrial where
   toJSON CreateTrial' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("MetadataProperties" Core..=)
+          [ ("DisplayName" Data..=) Prelude.<$> displayName,
+            ("MetadataProperties" Data..=)
               Prelude.<$> metadataProperties,
-            ("DisplayName" Core..=) Prelude.<$> displayName,
-            ("Tags" Core..=) Prelude.<$> tags,
-            Prelude.Just ("TrialName" Core..= trialName),
+            ("Tags" Data..=) Prelude.<$> tags,
+            Prelude.Just ("TrialName" Data..= trialName),
             Prelude.Just
-              ("ExperimentName" Core..= experimentName)
+              ("ExperimentName" Data..= experimentName)
           ]
       )
 
-instance Core.ToPath CreateTrial where
+instance Data.ToPath CreateTrial where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateTrial where
+instance Data.ToQuery CreateTrial where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateTrialResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.AmplifyBackend.GetBackendAPI
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -37,18 +37,19 @@ module Amazonka.AmplifyBackend.GetBackendAPI
     newGetBackendAPIResponse,
 
     -- * Response Lenses
-    getBackendAPIResponse_resourceName,
-    getBackendAPIResponse_error,
     getBackendAPIResponse_appId,
-    getBackendAPIResponse_resourceConfig,
     getBackendAPIResponse_backendEnvironmentName,
+    getBackendAPIResponse_error,
+    getBackendAPIResponse_resourceConfig,
+    getBackendAPIResponse_resourceName,
     getBackendAPIResponse_httpStatus,
   )
 where
 
 import Amazonka.AmplifyBackend.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -125,16 +126,17 @@ instance Core.AWSRequest GetBackendAPI where
   type
     AWSResponse GetBackendAPI =
       GetBackendAPIResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetBackendAPIResponse'
-            Prelude.<$> (x Core..?> "resourceName")
-            Prelude.<*> (x Core..?> "error")
-            Prelude.<*> (x Core..?> "appId")
-            Prelude.<*> (x Core..?> "resourceConfig")
-            Prelude.<*> (x Core..?> "backendEnvironmentName")
+            Prelude.<$> (x Data..?> "appId")
+            Prelude.<*> (x Data..?> "backendEnvironmentName")
+            Prelude.<*> (x Data..?> "error")
+            Prelude.<*> (x Data..?> "resourceConfig")
+            Prelude.<*> (x Data..?> "resourceName")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -152,52 +154,52 @@ instance Prelude.NFData GetBackendAPI where
       `Prelude.seq` Prelude.rnf backendEnvironmentName
       `Prelude.seq` Prelude.rnf resourceName
 
-instance Core.ToHeaders GetBackendAPI where
+instance Data.ToHeaders GetBackendAPI where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetBackendAPI where
+instance Data.ToJSON GetBackendAPI where
   toJSON GetBackendAPI' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("resourceConfig" Core..=)
+          [ ("resourceConfig" Data..=)
               Prelude.<$> resourceConfig,
-            Prelude.Just ("resourceName" Core..= resourceName)
+            Prelude.Just ("resourceName" Data..= resourceName)
           ]
       )
 
-instance Core.ToPath GetBackendAPI where
+instance Data.ToPath GetBackendAPI where
   toPath GetBackendAPI' {..} =
     Prelude.mconcat
       [ "/backend/",
-        Core.toBS appId,
+        Data.toBS appId,
         "/api/",
-        Core.toBS backendEnvironmentName,
+        Data.toBS backendEnvironmentName,
         "/details"
       ]
 
-instance Core.ToQuery GetBackendAPI where
+instance Data.ToQuery GetBackendAPI where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetBackendAPIResponse' smart constructor.
 data GetBackendAPIResponse = GetBackendAPIResponse'
-  { -- | The name of this resource.
-    resourceName :: Prelude.Maybe Prelude.Text,
-    -- | If the request fails, this error is returned.
-    error :: Prelude.Maybe Prelude.Text,
-    -- | The app ID.
+  { -- | The app ID.
     appId :: Prelude.Maybe Prelude.Text,
-    -- | The resource configuration for this response object.
-    resourceConfig :: Prelude.Maybe BackendAPIResourceConfig,
     -- | The name of the backend environment.
     backendEnvironmentName :: Prelude.Maybe Prelude.Text,
+    -- | If the request fails, this error is returned.
+    error :: Prelude.Maybe Prelude.Text,
+    -- | The resource configuration for this response object.
+    resourceConfig :: Prelude.Maybe BackendAPIResourceConfig,
+    -- | The name of this resource.
+    resourceName :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -211,15 +213,15 @@ data GetBackendAPIResponse = GetBackendAPIResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'resourceName', 'getBackendAPIResponse_resourceName' - The name of this resource.
+-- 'appId', 'getBackendAPIResponse_appId' - The app ID.
+--
+-- 'backendEnvironmentName', 'getBackendAPIResponse_backendEnvironmentName' - The name of the backend environment.
 --
 -- 'error', 'getBackendAPIResponse_error' - If the request fails, this error is returned.
 --
--- 'appId', 'getBackendAPIResponse_appId' - The app ID.
---
 -- 'resourceConfig', 'getBackendAPIResponse_resourceConfig' - The resource configuration for this response object.
 --
--- 'backendEnvironmentName', 'getBackendAPIResponse_backendEnvironmentName' - The name of the backend environment.
+-- 'resourceName', 'getBackendAPIResponse_resourceName' - The name of this resource.
 --
 -- 'httpStatus', 'getBackendAPIResponse_httpStatus' - The response's http status code.
 newGetBackendAPIResponse ::
@@ -228,34 +230,33 @@ newGetBackendAPIResponse ::
   GetBackendAPIResponse
 newGetBackendAPIResponse pHttpStatus_ =
   GetBackendAPIResponse'
-    { resourceName =
-        Prelude.Nothing,
-      error = Prelude.Nothing,
-      appId = Prelude.Nothing,
-      resourceConfig = Prelude.Nothing,
+    { appId = Prelude.Nothing,
       backendEnvironmentName = Prelude.Nothing,
+      error = Prelude.Nothing,
+      resourceConfig = Prelude.Nothing,
+      resourceName = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | The name of this resource.
-getBackendAPIResponse_resourceName :: Lens.Lens' GetBackendAPIResponse (Prelude.Maybe Prelude.Text)
-getBackendAPIResponse_resourceName = Lens.lens (\GetBackendAPIResponse' {resourceName} -> resourceName) (\s@GetBackendAPIResponse' {} a -> s {resourceName = a} :: GetBackendAPIResponse)
-
--- | If the request fails, this error is returned.
-getBackendAPIResponse_error :: Lens.Lens' GetBackendAPIResponse (Prelude.Maybe Prelude.Text)
-getBackendAPIResponse_error = Lens.lens (\GetBackendAPIResponse' {error} -> error) (\s@GetBackendAPIResponse' {} a -> s {error = a} :: GetBackendAPIResponse)
 
 -- | The app ID.
 getBackendAPIResponse_appId :: Lens.Lens' GetBackendAPIResponse (Prelude.Maybe Prelude.Text)
 getBackendAPIResponse_appId = Lens.lens (\GetBackendAPIResponse' {appId} -> appId) (\s@GetBackendAPIResponse' {} a -> s {appId = a} :: GetBackendAPIResponse)
 
+-- | The name of the backend environment.
+getBackendAPIResponse_backendEnvironmentName :: Lens.Lens' GetBackendAPIResponse (Prelude.Maybe Prelude.Text)
+getBackendAPIResponse_backendEnvironmentName = Lens.lens (\GetBackendAPIResponse' {backendEnvironmentName} -> backendEnvironmentName) (\s@GetBackendAPIResponse' {} a -> s {backendEnvironmentName = a} :: GetBackendAPIResponse)
+
+-- | If the request fails, this error is returned.
+getBackendAPIResponse_error :: Lens.Lens' GetBackendAPIResponse (Prelude.Maybe Prelude.Text)
+getBackendAPIResponse_error = Lens.lens (\GetBackendAPIResponse' {error} -> error) (\s@GetBackendAPIResponse' {} a -> s {error = a} :: GetBackendAPIResponse)
+
 -- | The resource configuration for this response object.
 getBackendAPIResponse_resourceConfig :: Lens.Lens' GetBackendAPIResponse (Prelude.Maybe BackendAPIResourceConfig)
 getBackendAPIResponse_resourceConfig = Lens.lens (\GetBackendAPIResponse' {resourceConfig} -> resourceConfig) (\s@GetBackendAPIResponse' {} a -> s {resourceConfig = a} :: GetBackendAPIResponse)
 
--- | The name of the backend environment.
-getBackendAPIResponse_backendEnvironmentName :: Lens.Lens' GetBackendAPIResponse (Prelude.Maybe Prelude.Text)
-getBackendAPIResponse_backendEnvironmentName = Lens.lens (\GetBackendAPIResponse' {backendEnvironmentName} -> backendEnvironmentName) (\s@GetBackendAPIResponse' {} a -> s {backendEnvironmentName = a} :: GetBackendAPIResponse)
+-- | The name of this resource.
+getBackendAPIResponse_resourceName :: Lens.Lens' GetBackendAPIResponse (Prelude.Maybe Prelude.Text)
+getBackendAPIResponse_resourceName = Lens.lens (\GetBackendAPIResponse' {resourceName} -> resourceName) (\s@GetBackendAPIResponse' {} a -> s {resourceName = a} :: GetBackendAPIResponse)
 
 -- | The response's http status code.
 getBackendAPIResponse_httpStatus :: Lens.Lens' GetBackendAPIResponse Prelude.Int
@@ -263,9 +264,9 @@ getBackendAPIResponse_httpStatus = Lens.lens (\GetBackendAPIResponse' {httpStatu
 
 instance Prelude.NFData GetBackendAPIResponse where
   rnf GetBackendAPIResponse' {..} =
-    Prelude.rnf resourceName
-      `Prelude.seq` Prelude.rnf error
-      `Prelude.seq` Prelude.rnf appId
-      `Prelude.seq` Prelude.rnf resourceConfig
+    Prelude.rnf appId
       `Prelude.seq` Prelude.rnf backendEnvironmentName
+      `Prelude.seq` Prelude.rnf error
+      `Prelude.seq` Prelude.rnf resourceConfig
+      `Prelude.seq` Prelude.rnf resourceName
       `Prelude.seq` Prelude.rnf httpStatus

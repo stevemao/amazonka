@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KafkaConnect.Types.KafkaClusterEncryptionInTransit
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KafkaConnect.Types.KafkaClusterEncryptionInTransit where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KafkaConnect.Types.KafkaClusterEncryptionInTransitType
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details of encryption in transit to the Apache Kafka cluster.
@@ -72,11 +73,11 @@ instance
   rnf KafkaClusterEncryptionInTransit' {..} =
     Prelude.rnf encryptionType
 
-instance Core.ToJSON KafkaClusterEncryptionInTransit where
+instance Data.ToJSON KafkaClusterEncryptionInTransit where
   toJSON KafkaClusterEncryptionInTransit' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("encryptionType" Core..= encryptionType)
+              ("encryptionType" Data..= encryptionType)
           ]
       )

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SWF.Types.ScheduleActivityTaskFailedEventAttributes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SWF.Types.ScheduleActivityTaskFailedEventAttributes where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SWF.Types.ActivityType
 import Amazonka.SWF.Types.ScheduleActivityTaskFailedCause
@@ -132,18 +133,18 @@ scheduleActivityTaskFailedEventAttributes_decisionTaskCompletedEventId :: Lens.L
 scheduleActivityTaskFailedEventAttributes_decisionTaskCompletedEventId = Lens.lens (\ScheduleActivityTaskFailedEventAttributes' {decisionTaskCompletedEventId} -> decisionTaskCompletedEventId) (\s@ScheduleActivityTaskFailedEventAttributes' {} a -> s {decisionTaskCompletedEventId = a} :: ScheduleActivityTaskFailedEventAttributes)
 
 instance
-  Core.FromJSON
+  Data.FromJSON
     ScheduleActivityTaskFailedEventAttributes
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ScheduleActivityTaskFailedEventAttributes"
       ( \x ->
           ScheduleActivityTaskFailedEventAttributes'
-            Prelude.<$> (x Core..: "activityType")
-              Prelude.<*> (x Core..: "activityId")
-              Prelude.<*> (x Core..: "cause")
-              Prelude.<*> (x Core..: "decisionTaskCompletedEventId")
+            Prelude.<$> (x Data..: "activityType")
+              Prelude.<*> (x Data..: "activityId")
+              Prelude.<*> (x Data..: "cause")
+              Prelude.<*> (x Data..: "decisionTaskCompletedEventId")
       )
 
 instance

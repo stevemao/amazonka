@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.ModifyDBClusterSnapshotAttribute
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,17 +23,18 @@
 -- Adds an attribute and values to, or removes an attribute and values
 -- from, a manual cluster snapshot.
 --
--- To share a manual cluster snapshot with other accounts, specify
--- @restore@ as the @AttributeName@, and use the @ValuesToAdd@ parameter to
--- add a list of IDs of the accounts that are authorized to restore the
--- manual cluster snapshot. Use the value @all@ to make the manual cluster
--- snapshot public, which means that it can be copied or restored by all
--- accounts. Do not add the @all@ value for any manual cluster snapshots
--- that contain private information that you don\'t want available to all
--- accounts. If a manual cluster snapshot is encrypted, it can be shared,
--- but only by specifying a list of authorized account IDs for the
--- @ValuesToAdd@ parameter. You can\'t use @all@ as a value for that
--- parameter in this case.
+-- To share a manual cluster snapshot with other Amazon Web Services
+-- accounts, specify @restore@ as the @AttributeName@, and use the
+-- @ValuesToAdd@ parameter to add a list of IDs of the Amazon Web Services
+-- accounts that are authorized to restore the manual cluster snapshot. Use
+-- the value @all@ to make the manual cluster snapshot public, which means
+-- that it can be copied or restored by all Amazon Web Services accounts.
+-- Do not add the @all@ value for any manual cluster snapshots that contain
+-- private information that you don\'t want available to all Amazon Web
+-- Services accounts. If a manual cluster snapshot is encrypted, it can be
+-- shared, but only by specifying a list of authorized Amazon Web Services
+-- account IDs for the @ValuesToAdd@ parameter. You can\'t use @all@ as a
+-- value for that parameter in this case.
 module Amazonka.DocumentDB.ModifyDBClusterSnapshotAttribute
   ( -- * Creating a Request
     ModifyDBClusterSnapshotAttribute (..),
@@ -56,8 +57,9 @@ module Amazonka.DocumentDB.ModifyDBClusterSnapshotAttribute
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -69,29 +71,31 @@ data ModifyDBClusterSnapshotAttribute = ModifyDBClusterSnapshotAttribute'
   { -- | A list of cluster snapshot attributes to add to the attribute specified
     -- by @AttributeName@.
     --
-    -- To authorize other accounts to copy or restore a manual cluster
-    -- snapshot, set this list to include one or more account IDs. To make the
-    -- manual cluster snapshot restorable by any account, set it to @all@. Do
-    -- not add the @all@ value for any manual cluster snapshots that contain
-    -- private information that you don\'t want to be available to all
+    -- To authorize other Amazon Web Services accounts to copy or restore a
+    -- manual cluster snapshot, set this list to include one or more Amazon Web
+    -- Services account IDs. To make the manual cluster snapshot restorable by
+    -- any Amazon Web Services account, set it to @all@. Do not add the @all@
+    -- value for any manual cluster snapshots that contain private information
+    -- that you don\'t want to be available to all Amazon Web Services
     -- accounts.
     valuesToAdd :: Prelude.Maybe [Prelude.Text],
     -- | A list of cluster snapshot attributes to remove from the attribute
     -- specified by @AttributeName@.
     --
-    -- To remove authorization for other accounts to copy or restore a manual
-    -- cluster snapshot, set this list to include one or more account
-    -- identifiers. To remove authorization for any account to copy or restore
-    -- the cluster snapshot, set it to @all@ . If you specify @all@, an account
-    -- whose account ID is explicitly added to the @restore@ attribute can
-    -- still copy or restore a manual cluster snapshot.
+    -- To remove authorization for other Amazon Web Services accounts to copy
+    -- or restore a manual cluster snapshot, set this list to include one or
+    -- more Amazon Web Services account identifiers. To remove authorization
+    -- for any Amazon Web Services account to copy or restore the cluster
+    -- snapshot, set it to @all@ . If you specify @all@, an Amazon Web Services
+    -- account whose account ID is explicitly added to the @restore@ attribute
+    -- can still copy or restore a manual cluster snapshot.
     valuesToRemove :: Prelude.Maybe [Prelude.Text],
     -- | The identifier for the cluster snapshot to modify the attributes for.
     dbClusterSnapshotIdentifier :: Prelude.Text,
     -- | The name of the cluster snapshot attribute to modify.
     --
-    -- To manage authorization for other accounts to copy or restore a manual
-    -- cluster snapshot, set this value to @restore@.
+    -- To manage authorization for other Amazon Web Services accounts to copy
+    -- or restore a manual cluster snapshot, set this value to @restore@.
     attributeName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -107,29 +111,31 @@ data ModifyDBClusterSnapshotAttribute = ModifyDBClusterSnapshotAttribute'
 -- 'valuesToAdd', 'modifyDBClusterSnapshotAttribute_valuesToAdd' - A list of cluster snapshot attributes to add to the attribute specified
 -- by @AttributeName@.
 --
--- To authorize other accounts to copy or restore a manual cluster
--- snapshot, set this list to include one or more account IDs. To make the
--- manual cluster snapshot restorable by any account, set it to @all@. Do
--- not add the @all@ value for any manual cluster snapshots that contain
--- private information that you don\'t want to be available to all
+-- To authorize other Amazon Web Services accounts to copy or restore a
+-- manual cluster snapshot, set this list to include one or more Amazon Web
+-- Services account IDs. To make the manual cluster snapshot restorable by
+-- any Amazon Web Services account, set it to @all@. Do not add the @all@
+-- value for any manual cluster snapshots that contain private information
+-- that you don\'t want to be available to all Amazon Web Services
 -- accounts.
 --
 -- 'valuesToRemove', 'modifyDBClusterSnapshotAttribute_valuesToRemove' - A list of cluster snapshot attributes to remove from the attribute
 -- specified by @AttributeName@.
 --
--- To remove authorization for other accounts to copy or restore a manual
--- cluster snapshot, set this list to include one or more account
--- identifiers. To remove authorization for any account to copy or restore
--- the cluster snapshot, set it to @all@ . If you specify @all@, an account
--- whose account ID is explicitly added to the @restore@ attribute can
--- still copy or restore a manual cluster snapshot.
+-- To remove authorization for other Amazon Web Services accounts to copy
+-- or restore a manual cluster snapshot, set this list to include one or
+-- more Amazon Web Services account identifiers. To remove authorization
+-- for any Amazon Web Services account to copy or restore the cluster
+-- snapshot, set it to @all@ . If you specify @all@, an Amazon Web Services
+-- account whose account ID is explicitly added to the @restore@ attribute
+-- can still copy or restore a manual cluster snapshot.
 --
 -- 'dbClusterSnapshotIdentifier', 'modifyDBClusterSnapshotAttribute_dbClusterSnapshotIdentifier' - The identifier for the cluster snapshot to modify the attributes for.
 --
 -- 'attributeName', 'modifyDBClusterSnapshotAttribute_attributeName' - The name of the cluster snapshot attribute to modify.
 --
--- To manage authorization for other accounts to copy or restore a manual
--- cluster snapshot, set this value to @restore@.
+-- To manage authorization for other Amazon Web Services accounts to copy
+-- or restore a manual cluster snapshot, set this value to @restore@.
 newModifyDBClusterSnapshotAttribute ::
   -- | 'dbClusterSnapshotIdentifier'
   Prelude.Text ->
@@ -151,11 +157,12 @@ newModifyDBClusterSnapshotAttribute
 -- | A list of cluster snapshot attributes to add to the attribute specified
 -- by @AttributeName@.
 --
--- To authorize other accounts to copy or restore a manual cluster
--- snapshot, set this list to include one or more account IDs. To make the
--- manual cluster snapshot restorable by any account, set it to @all@. Do
--- not add the @all@ value for any manual cluster snapshots that contain
--- private information that you don\'t want to be available to all
+-- To authorize other Amazon Web Services accounts to copy or restore a
+-- manual cluster snapshot, set this list to include one or more Amazon Web
+-- Services account IDs. To make the manual cluster snapshot restorable by
+-- any Amazon Web Services account, set it to @all@. Do not add the @all@
+-- value for any manual cluster snapshots that contain private information
+-- that you don\'t want to be available to all Amazon Web Services
 -- accounts.
 modifyDBClusterSnapshotAttribute_valuesToAdd :: Lens.Lens' ModifyDBClusterSnapshotAttribute (Prelude.Maybe [Prelude.Text])
 modifyDBClusterSnapshotAttribute_valuesToAdd = Lens.lens (\ModifyDBClusterSnapshotAttribute' {valuesToAdd} -> valuesToAdd) (\s@ModifyDBClusterSnapshotAttribute' {} a -> s {valuesToAdd = a} :: ModifyDBClusterSnapshotAttribute) Prelude.. Lens.mapping Lens.coerced
@@ -163,12 +170,13 @@ modifyDBClusterSnapshotAttribute_valuesToAdd = Lens.lens (\ModifyDBClusterSnapsh
 -- | A list of cluster snapshot attributes to remove from the attribute
 -- specified by @AttributeName@.
 --
--- To remove authorization for other accounts to copy or restore a manual
--- cluster snapshot, set this list to include one or more account
--- identifiers. To remove authorization for any account to copy or restore
--- the cluster snapshot, set it to @all@ . If you specify @all@, an account
--- whose account ID is explicitly added to the @restore@ attribute can
--- still copy or restore a manual cluster snapshot.
+-- To remove authorization for other Amazon Web Services accounts to copy
+-- or restore a manual cluster snapshot, set this list to include one or
+-- more Amazon Web Services account identifiers. To remove authorization
+-- for any Amazon Web Services account to copy or restore the cluster
+-- snapshot, set it to @all@ . If you specify @all@, an Amazon Web Services
+-- account whose account ID is explicitly added to the @restore@ attribute
+-- can still copy or restore a manual cluster snapshot.
 modifyDBClusterSnapshotAttribute_valuesToRemove :: Lens.Lens' ModifyDBClusterSnapshotAttribute (Prelude.Maybe [Prelude.Text])
 modifyDBClusterSnapshotAttribute_valuesToRemove = Lens.lens (\ModifyDBClusterSnapshotAttribute' {valuesToRemove} -> valuesToRemove) (\s@ModifyDBClusterSnapshotAttribute' {} a -> s {valuesToRemove = a} :: ModifyDBClusterSnapshotAttribute) Prelude.. Lens.mapping Lens.coerced
 
@@ -178,8 +186,8 @@ modifyDBClusterSnapshotAttribute_dbClusterSnapshotIdentifier = Lens.lens (\Modif
 
 -- | The name of the cluster snapshot attribute to modify.
 --
--- To manage authorization for other accounts to copy or restore a manual
--- cluster snapshot, set this value to @restore@.
+-- To manage authorization for other Amazon Web Services accounts to copy
+-- or restore a manual cluster snapshot, set this value to @restore@.
 modifyDBClusterSnapshotAttribute_attributeName :: Lens.Lens' ModifyDBClusterSnapshotAttribute Prelude.Text
 modifyDBClusterSnapshotAttribute_attributeName = Lens.lens (\ModifyDBClusterSnapshotAttribute' {attributeName} -> attributeName) (\s@ModifyDBClusterSnapshotAttribute' {} a -> s {attributeName = a} :: ModifyDBClusterSnapshotAttribute)
 
@@ -190,13 +198,14 @@ instance
   type
     AWSResponse ModifyDBClusterSnapshotAttribute =
       ModifyDBClusterSnapshotAttributeResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyDBClusterSnapshotAttributeResult"
       ( \s h x ->
           ModifyDBClusterSnapshotAttributeResponse'
-            Prelude.<$> (x Core..@? "DBClusterSnapshotAttributesResult")
+            Prelude.<$> (x Data..@? "DBClusterSnapshotAttributesResult")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -223,39 +232,39 @@ instance
       `Prelude.seq` Prelude.rnf attributeName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     ModifyDBClusterSnapshotAttribute
   where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyDBClusterSnapshotAttribute where
+instance Data.ToPath ModifyDBClusterSnapshotAttribute where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     ModifyDBClusterSnapshotAttribute
   where
   toQuery ModifyDBClusterSnapshotAttribute' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "ModifyDBClusterSnapshotAttribute" ::
+          Data.=: ( "ModifyDBClusterSnapshotAttribute" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "ValuesToAdd"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "AttributeValue"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "AttributeValue"
                 Prelude.<$> valuesToAdd
             ),
         "ValuesToRemove"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "AttributeValue"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "AttributeValue"
                 Prelude.<$> valuesToRemove
             ),
         "DBClusterSnapshotIdentifier"
-          Core.=: dbClusterSnapshotIdentifier,
-        "AttributeName" Core.=: attributeName
+          Data.=: dbClusterSnapshotIdentifier,
+        "AttributeName" Data.=: attributeName
       ]
 
 -- | /See:/ 'newModifyDBClusterSnapshotAttributeResponse' smart constructor.

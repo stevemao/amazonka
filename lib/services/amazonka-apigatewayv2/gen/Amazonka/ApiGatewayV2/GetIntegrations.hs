@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.GetIntegrations
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.ApiGatewayV2.GetIntegrations
     newGetIntegrations,
 
     -- * Request Lenses
-    getIntegrations_nextToken,
     getIntegrations_maxResults,
+    getIntegrations_nextToken,
     getIntegrations_apiId,
 
     -- * Destructuring the Response
@@ -46,18 +46,19 @@ where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetIntegrations' smart constructor.
 data GetIntegrations = GetIntegrations'
-  { -- | The next page of elements from this collection. Not valid for the last
+  { -- | The maximum number of elements to be returned for this resource.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | The next page of elements from this collection. Not valid for the last
     -- element of the collection.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of elements to be returned for this resource.
-    maxResults :: Prelude.Maybe Prelude.Text,
     -- | The API identifier.
     apiId :: Prelude.Text
   }
@@ -71,10 +72,10 @@ data GetIntegrations = GetIntegrations'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getIntegrations_maxResults' - The maximum number of elements to be returned for this resource.
+--
 -- 'nextToken', 'getIntegrations_nextToken' - The next page of elements from this collection. Not valid for the last
 -- element of the collection.
---
--- 'maxResults', 'getIntegrations_maxResults' - The maximum number of elements to be returned for this resource.
 --
 -- 'apiId', 'getIntegrations_apiId' - The API identifier.
 newGetIntegrations ::
@@ -83,19 +84,19 @@ newGetIntegrations ::
   GetIntegrations
 newGetIntegrations pApiId_ =
   GetIntegrations'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       apiId = pApiId_
     }
+
+-- | The maximum number of elements to be returned for this resource.
+getIntegrations_maxResults :: Lens.Lens' GetIntegrations (Prelude.Maybe Prelude.Text)
+getIntegrations_maxResults = Lens.lens (\GetIntegrations' {maxResults} -> maxResults) (\s@GetIntegrations' {} a -> s {maxResults = a} :: GetIntegrations)
 
 -- | The next page of elements from this collection. Not valid for the last
 -- element of the collection.
 getIntegrations_nextToken :: Lens.Lens' GetIntegrations (Prelude.Maybe Prelude.Text)
 getIntegrations_nextToken = Lens.lens (\GetIntegrations' {nextToken} -> nextToken) (\s@GetIntegrations' {} a -> s {nextToken = a} :: GetIntegrations)
-
--- | The maximum number of elements to be returned for this resource.
-getIntegrations_maxResults :: Lens.Lens' GetIntegrations (Prelude.Maybe Prelude.Text)
-getIntegrations_maxResults = Lens.lens (\GetIntegrations' {maxResults} -> maxResults) (\s@GetIntegrations' {} a -> s {maxResults = a} :: GetIntegrations)
 
 -- | The API identifier.
 getIntegrations_apiId :: Lens.Lens' GetIntegrations Prelude.Text
@@ -126,49 +127,50 @@ instance Core.AWSRequest GetIntegrations where
   type
     AWSResponse GetIntegrations =
       GetIntegrationsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetIntegrationsResponse'
-            Prelude.<$> (x Core..?> "items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetIntegrations where
   hashWithSalt _salt GetIntegrations' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` apiId
 
 instance Prelude.NFData GetIntegrations where
   rnf GetIntegrations' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf apiId
 
-instance Core.ToHeaders GetIntegrations where
+instance Data.ToHeaders GetIntegrations where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetIntegrations where
+instance Data.ToPath GetIntegrations where
   toPath GetIntegrations' {..} =
     Prelude.mconcat
-      ["/v2/apis/", Core.toBS apiId, "/integrations"]
+      ["/v2/apis/", Data.toBS apiId, "/integrations"]
 
-instance Core.ToQuery GetIntegrations where
+instance Data.ToQuery GetIntegrations where
   toQuery GetIntegrations' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetIntegrationsResponse' smart constructor.

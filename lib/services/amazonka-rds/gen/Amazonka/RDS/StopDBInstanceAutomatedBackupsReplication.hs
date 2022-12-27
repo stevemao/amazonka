@@ -14,13 +14,16 @@
 
 -- |
 -- Module      : Amazonka.RDS.StopDBInstanceAutomatedBackupsReplication
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Stops automated backup replication for a DB instance.
+--
+-- This command doesn\'t apply to RDS Custom, Aurora MySQL, and Aurora
+-- PostgreSQL.
 --
 -- For more information, see
 -- <https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/USER_ReplicateBackups.html Replicating Automated Backups to Another Amazon Web Services Region>
@@ -44,7 +47,8 @@ module Amazonka.RDS.StopDBInstanceAutomatedBackupsReplication
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.RDS.Types
 import qualified Amazonka.Request as Request
@@ -95,13 +99,14 @@ instance
     AWSResponse
       StopDBInstanceAutomatedBackupsReplication =
       StopDBInstanceAutomatedBackupsReplicationResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "StopDBInstanceAutomatedBackupsReplicationResult"
       ( \s h x ->
           StopDBInstanceAutomatedBackupsReplicationResponse'
-            Prelude.<$> (x Core..@? "DBInstanceAutomatedBackup")
+            Prelude.<$> (x Data..@? "DBInstanceAutomatedBackup")
               Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -122,31 +127,31 @@ instance
     Prelude.rnf sourceDBInstanceArn
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     StopDBInstanceAutomatedBackupsReplication
   where
   toHeaders = Prelude.const Prelude.mempty
 
 instance
-  Core.ToPath
+  Data.ToPath
     StopDBInstanceAutomatedBackupsReplication
   where
   toPath = Prelude.const "/"
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     StopDBInstanceAutomatedBackupsReplication
   where
   toQuery
     StopDBInstanceAutomatedBackupsReplication' {..} =
       Prelude.mconcat
         [ "Action"
-            Core.=: ( "StopDBInstanceAutomatedBackupsReplication" ::
+            Data.=: ( "StopDBInstanceAutomatedBackupsReplication" ::
                         Prelude.ByteString
                     ),
           "Version"
-            Core.=: ("2014-10-31" :: Prelude.ByteString),
-          "SourceDBInstanceArn" Core.=: sourceDBInstanceArn
+            Data.=: ("2014-10-31" :: Prelude.ByteString),
+          "SourceDBInstanceArn" Data.=: sourceDBInstanceArn
         ]
 
 -- | /See:/ 'newStopDBInstanceAutomatedBackupsReplicationResponse' smart constructor.

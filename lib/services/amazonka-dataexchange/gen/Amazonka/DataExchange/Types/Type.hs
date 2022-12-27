@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataExchange.Types.Type
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,20 +20,24 @@
 module Amazonka.DataExchange.Types.Type
   ( Type
       ( ..,
+        Type_CREATE_S3_DATA_ACCESS_FROM_S3_BUCKET,
         Type_EXPORT_ASSETS_TO_S3,
         Type_EXPORT_ASSET_TO_SIGNED_URL,
         Type_EXPORT_REVISIONS_TO_S3,
+        Type_IMPORT_ASSETS_FROM_LAKE_FORMATION_TAG_POLICY,
         Type_IMPORT_ASSETS_FROM_REDSHIFT_DATA_SHARES,
         Type_IMPORT_ASSETS_FROM_S3,
+        Type_IMPORT_ASSET_FROM_API_GATEWAY_API,
         Type_IMPORT_ASSET_FROM_SIGNED_URL
       ),
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
-newtype Type = Type' {fromType :: Core.Text}
+newtype Type = Type' {fromType :: Data.Text}
   deriving stock
     ( Prelude.Show,
       Prelude.Read,
@@ -44,19 +48,22 @@ newtype Type = Type' {fromType :: Core.Text}
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
+
+pattern Type_CREATE_S3_DATA_ACCESS_FROM_S3_BUCKET :: Type
+pattern Type_CREATE_S3_DATA_ACCESS_FROM_S3_BUCKET = Type' "CREATE_S3_DATA_ACCESS_FROM_S3_BUCKET"
 
 pattern Type_EXPORT_ASSETS_TO_S3 :: Type
 pattern Type_EXPORT_ASSETS_TO_S3 = Type' "EXPORT_ASSETS_TO_S3"
@@ -67,21 +74,30 @@ pattern Type_EXPORT_ASSET_TO_SIGNED_URL = Type' "EXPORT_ASSET_TO_SIGNED_URL"
 pattern Type_EXPORT_REVISIONS_TO_S3 :: Type
 pattern Type_EXPORT_REVISIONS_TO_S3 = Type' "EXPORT_REVISIONS_TO_S3"
 
+pattern Type_IMPORT_ASSETS_FROM_LAKE_FORMATION_TAG_POLICY :: Type
+pattern Type_IMPORT_ASSETS_FROM_LAKE_FORMATION_TAG_POLICY = Type' "IMPORT_ASSETS_FROM_LAKE_FORMATION_TAG_POLICY"
+
 pattern Type_IMPORT_ASSETS_FROM_REDSHIFT_DATA_SHARES :: Type
 pattern Type_IMPORT_ASSETS_FROM_REDSHIFT_DATA_SHARES = Type' "IMPORT_ASSETS_FROM_REDSHIFT_DATA_SHARES"
 
 pattern Type_IMPORT_ASSETS_FROM_S3 :: Type
 pattern Type_IMPORT_ASSETS_FROM_S3 = Type' "IMPORT_ASSETS_FROM_S3"
 
+pattern Type_IMPORT_ASSET_FROM_API_GATEWAY_API :: Type
+pattern Type_IMPORT_ASSET_FROM_API_GATEWAY_API = Type' "IMPORT_ASSET_FROM_API_GATEWAY_API"
+
 pattern Type_IMPORT_ASSET_FROM_SIGNED_URL :: Type
 pattern Type_IMPORT_ASSET_FROM_SIGNED_URL = Type' "IMPORT_ASSET_FROM_SIGNED_URL"
 
 {-# COMPLETE
+  Type_CREATE_S3_DATA_ACCESS_FROM_S3_BUCKET,
   Type_EXPORT_ASSETS_TO_S3,
   Type_EXPORT_ASSET_TO_SIGNED_URL,
   Type_EXPORT_REVISIONS_TO_S3,
+  Type_IMPORT_ASSETS_FROM_LAKE_FORMATION_TAG_POLICY,
   Type_IMPORT_ASSETS_FROM_REDSHIFT_DATA_SHARES,
   Type_IMPORT_ASSETS_FROM_S3,
+  Type_IMPORT_ASSET_FROM_API_GATEWAY_API,
   Type_IMPORT_ASSET_FROM_SIGNED_URL,
   Type'
   #-}

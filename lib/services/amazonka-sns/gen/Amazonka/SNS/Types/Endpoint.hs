@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SNS.Types.Endpoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,16 +20,17 @@
 module Amazonka.SNS.Types.Endpoint where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Endpoint for mobile app and device.
+-- | The endpoint for mobile app and device.
 --
 -- /See:/ 'newEndpoint' smart constructor.
 data Endpoint = Endpoint'
   { -- | Attributes for endpoint.
     attributes :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | EndpointArn for mobile app and device.
+    -- | The @EndpointArn@ for mobile app and device.
     endpointArn :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -44,7 +45,7 @@ data Endpoint = Endpoint'
 --
 -- 'attributes', 'endpoint_attributes' - Attributes for endpoint.
 --
--- 'endpointArn', 'endpoint_endpointArn' - EndpointArn for mobile app and device.
+-- 'endpointArn', 'endpoint_endpointArn' - The @EndpointArn@ for mobile app and device.
 newEndpoint ::
   Endpoint
 newEndpoint =
@@ -57,17 +58,17 @@ newEndpoint =
 endpoint_attributes :: Lens.Lens' Endpoint (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 endpoint_attributes = Lens.lens (\Endpoint' {attributes} -> attributes) (\s@Endpoint' {} a -> s {attributes = a} :: Endpoint) Prelude.. Lens.mapping Lens.coerced
 
--- | EndpointArn for mobile app and device.
+-- | The @EndpointArn@ for mobile app and device.
 endpoint_endpointArn :: Lens.Lens' Endpoint (Prelude.Maybe Prelude.Text)
 endpoint_endpointArn = Lens.lens (\Endpoint' {endpointArn} -> endpointArn) (\s@Endpoint' {} a -> s {endpointArn = a} :: Endpoint)
 
-instance Core.FromXML Endpoint where
+instance Data.FromXML Endpoint where
   parseXML x =
     Endpoint'
-      Prelude.<$> ( x Core..@? "Attributes" Core..!@ Prelude.mempty
-                      Prelude.>>= Core.may (Core.parseXMLMap "entry" "key" "value")
+      Prelude.<$> ( x Data..@? "Attributes" Core..!@ Prelude.mempty
+                      Prelude.>>= Core.may (Data.parseXMLMap "entry" "key" "value")
                   )
-      Prelude.<*> (x Core..@? "EndpointArn")
+      Prelude.<*> (x Data..@? "EndpointArn")
 
 instance Prelude.Hashable Endpoint where
   hashWithSalt _salt Endpoint' {..} =

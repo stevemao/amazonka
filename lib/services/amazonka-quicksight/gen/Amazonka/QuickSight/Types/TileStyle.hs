@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.Types.TileStyle
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.QuickSight.Types.TileStyle where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types.BorderStyle
 
@@ -50,11 +51,11 @@ newTileStyle = TileStyle' {border = Prelude.Nothing}
 tileStyle_border :: Lens.Lens' TileStyle (Prelude.Maybe BorderStyle)
 tileStyle_border = Lens.lens (\TileStyle' {border} -> border) (\s@TileStyle' {} a -> s {border = a} :: TileStyle)
 
-instance Core.FromJSON TileStyle where
+instance Data.FromJSON TileStyle where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TileStyle"
-      (\x -> TileStyle' Prelude.<$> (x Core..:? "Border"))
+      (\x -> TileStyle' Prelude.<$> (x Data..:? "Border"))
 
 instance Prelude.Hashable TileStyle where
   hashWithSalt _salt TileStyle' {..} =
@@ -63,9 +64,9 @@ instance Prelude.Hashable TileStyle where
 instance Prelude.NFData TileStyle where
   rnf TileStyle' {..} = Prelude.rnf border
 
-instance Core.ToJSON TileStyle where
+instance Data.ToJSON TileStyle where
   toJSON TileStyle' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [("Border" Core..=) Prelude.<$> border]
+          [("Border" Data..=) Prelude.<$> border]
       )

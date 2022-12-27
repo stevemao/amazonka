@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ManagedBlockChain.ListMembers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,11 +30,11 @@ module Amazonka.ManagedBlockChain.ListMembers
     newListMembers,
 
     -- * Request Lenses
-    listMembers_status,
-    listMembers_nextToken,
-    listMembers_name,
     listMembers_isOwned,
     listMembers_maxResults,
+    listMembers_name,
+    listMembers_nextToken,
+    listMembers_status,
     listMembers_networkId,
 
     -- * Destructuring the Response
@@ -49,7 +49,8 @@ module Amazonka.ManagedBlockChain.ListMembers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ManagedBlockChain.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -57,19 +58,20 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListMembers' smart constructor.
 data ListMembers = ListMembers'
-  { -- | An optional status specifier. If provided, only members currently in
-    -- this status are listed.
-    status :: Prelude.Maybe MemberStatus,
-    -- | The pagination token that indicates the next set of results to retrieve.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The optional name of the member to list.
-    name :: Prelude.Maybe Prelude.Text,
-    -- | An optional Boolean value. If provided, the request is limited either to
-    -- members that the current AWS account owns (@true@) or that other AWS
-    -- accounts own (@false@). If omitted, all members are listed.
+  { -- | An optional Boolean value. If provided, the request is limited either to
+    -- members that the current Amazon Web Services account owns (@true@) or
+    -- that other Amazon Web Services accountsn own (@false@). If omitted, all
+    -- members are listed.
     isOwned :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of members to return in the request.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The optional name of the member to list.
+    name :: Prelude.Maybe Prelude.Text,
+    -- | The pagination token that indicates the next set of results to retrieve.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An optional status specifier. If provided, only members currently in
+    -- this status are listed.
+    status :: Prelude.Maybe MemberStatus,
     -- | The unique identifier of the network for which to list members.
     networkId :: Prelude.Text
   }
@@ -83,18 +85,19 @@ data ListMembers = ListMembers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'status', 'listMembers_status' - An optional status specifier. If provided, only members currently in
--- this status are listed.
+-- 'isOwned', 'listMembers_isOwned' - An optional Boolean value. If provided, the request is limited either to
+-- members that the current Amazon Web Services account owns (@true@) or
+-- that other Amazon Web Services accountsn own (@false@). If omitted, all
+-- members are listed.
 --
--- 'nextToken', 'listMembers_nextToken' - The pagination token that indicates the next set of results to retrieve.
+-- 'maxResults', 'listMembers_maxResults' - The maximum number of members to return in the request.
 --
 -- 'name', 'listMembers_name' - The optional name of the member to list.
 --
--- 'isOwned', 'listMembers_isOwned' - An optional Boolean value. If provided, the request is limited either to
--- members that the current AWS account owns (@true@) or that other AWS
--- accounts own (@false@). If omitted, all members are listed.
+-- 'nextToken', 'listMembers_nextToken' - The pagination token that indicates the next set of results to retrieve.
 --
--- 'maxResults', 'listMembers_maxResults' - The maximum number of members to return in the request.
+-- 'status', 'listMembers_status' - An optional status specifier. If provided, only members currently in
+-- this status are listed.
 --
 -- 'networkId', 'listMembers_networkId' - The unique identifier of the network for which to list members.
 newListMembers ::
@@ -103,30 +106,18 @@ newListMembers ::
   ListMembers
 newListMembers pNetworkId_ =
   ListMembers'
-    { status = Prelude.Nothing,
-      nextToken = Prelude.Nothing,
-      name = Prelude.Nothing,
-      isOwned = Prelude.Nothing,
+    { isOwned = Prelude.Nothing,
       maxResults = Prelude.Nothing,
+      name = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
+      status = Prelude.Nothing,
       networkId = pNetworkId_
     }
 
--- | An optional status specifier. If provided, only members currently in
--- this status are listed.
-listMembers_status :: Lens.Lens' ListMembers (Prelude.Maybe MemberStatus)
-listMembers_status = Lens.lens (\ListMembers' {status} -> status) (\s@ListMembers' {} a -> s {status = a} :: ListMembers)
-
--- | The pagination token that indicates the next set of results to retrieve.
-listMembers_nextToken :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Text)
-listMembers_nextToken = Lens.lens (\ListMembers' {nextToken} -> nextToken) (\s@ListMembers' {} a -> s {nextToken = a} :: ListMembers)
-
--- | The optional name of the member to list.
-listMembers_name :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Text)
-listMembers_name = Lens.lens (\ListMembers' {name} -> name) (\s@ListMembers' {} a -> s {name = a} :: ListMembers)
-
 -- | An optional Boolean value. If provided, the request is limited either to
--- members that the current AWS account owns (@true@) or that other AWS
--- accounts own (@false@). If omitted, all members are listed.
+-- members that the current Amazon Web Services account owns (@true@) or
+-- that other Amazon Web Services accountsn own (@false@). If omitted, all
+-- members are listed.
 listMembers_isOwned :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Bool)
 listMembers_isOwned = Lens.lens (\ListMembers' {isOwned} -> isOwned) (\s@ListMembers' {} a -> s {isOwned = a} :: ListMembers)
 
@@ -134,64 +125,78 @@ listMembers_isOwned = Lens.lens (\ListMembers' {isOwned} -> isOwned) (\s@ListMem
 listMembers_maxResults :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Natural)
 listMembers_maxResults = Lens.lens (\ListMembers' {maxResults} -> maxResults) (\s@ListMembers' {} a -> s {maxResults = a} :: ListMembers)
 
+-- | The optional name of the member to list.
+listMembers_name :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Text)
+listMembers_name = Lens.lens (\ListMembers' {name} -> name) (\s@ListMembers' {} a -> s {name = a} :: ListMembers)
+
+-- | The pagination token that indicates the next set of results to retrieve.
+listMembers_nextToken :: Lens.Lens' ListMembers (Prelude.Maybe Prelude.Text)
+listMembers_nextToken = Lens.lens (\ListMembers' {nextToken} -> nextToken) (\s@ListMembers' {} a -> s {nextToken = a} :: ListMembers)
+
+-- | An optional status specifier. If provided, only members currently in
+-- this status are listed.
+listMembers_status :: Lens.Lens' ListMembers (Prelude.Maybe MemberStatus)
+listMembers_status = Lens.lens (\ListMembers' {status} -> status) (\s@ListMembers' {} a -> s {status = a} :: ListMembers)
+
 -- | The unique identifier of the network for which to list members.
 listMembers_networkId :: Lens.Lens' ListMembers Prelude.Text
 listMembers_networkId = Lens.lens (\ListMembers' {networkId} -> networkId) (\s@ListMembers' {} a -> s {networkId = a} :: ListMembers)
 
 instance Core.AWSRequest ListMembers where
   type AWSResponse ListMembers = ListMembersResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListMembersResponse'
-            Prelude.<$> (x Core..?> "Members" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "Members" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListMembers where
   hashWithSalt _salt ListMembers' {..} =
-    _salt `Prelude.hashWithSalt` status
-      `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` name
-      `Prelude.hashWithSalt` isOwned
+    _salt `Prelude.hashWithSalt` isOwned
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` name
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` status
       `Prelude.hashWithSalt` networkId
 
 instance Prelude.NFData ListMembers where
   rnf ListMembers' {..} =
-    Prelude.rnf status
-      `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf name
-      `Prelude.seq` Prelude.rnf isOwned
+    Prelude.rnf isOwned
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf name
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf status
       `Prelude.seq` Prelude.rnf networkId
 
-instance Core.ToHeaders ListMembers where
+instance Data.ToHeaders ListMembers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListMembers where
+instance Data.ToPath ListMembers where
   toPath ListMembers' {..} =
     Prelude.mconcat
-      ["/networks/", Core.toBS networkId, "/members"]
+      ["/networks/", Data.toBS networkId, "/members"]
 
-instance Core.ToQuery ListMembers where
+instance Data.ToQuery ListMembers where
   toQuery ListMembers' {..} =
     Prelude.mconcat
-      [ "status" Core.=: status,
-        "nextToken" Core.=: nextToken,
-        "name" Core.=: name,
-        "isOwned" Core.=: isOwned,
-        "maxResults" Core.=: maxResults
+      [ "isOwned" Data.=: isOwned,
+        "maxResults" Data.=: maxResults,
+        "name" Data.=: name,
+        "nextToken" Data.=: nextToken,
+        "status" Data.=: status
       ]
 
 -- | /See:/ 'newListMembersResponse' smart constructor.

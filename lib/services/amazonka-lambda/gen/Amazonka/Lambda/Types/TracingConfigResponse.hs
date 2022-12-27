@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lambda.Types.TracingConfigResponse
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.Lambda.Types.TracingConfigResponse where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lambda.Types.TracingMode
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | The function\'s X-Ray tracing configuration.
@@ -51,13 +52,13 @@ newTracingConfigResponse =
 tracingConfigResponse_mode :: Lens.Lens' TracingConfigResponse (Prelude.Maybe TracingMode)
 tracingConfigResponse_mode = Lens.lens (\TracingConfigResponse' {mode} -> mode) (\s@TracingConfigResponse' {} a -> s {mode = a} :: TracingConfigResponse)
 
-instance Core.FromJSON TracingConfigResponse where
+instance Data.FromJSON TracingConfigResponse where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TracingConfigResponse"
       ( \x ->
           TracingConfigResponse'
-            Prelude.<$> (x Core..:? "Mode")
+            Prelude.<$> (x Data..:? "Mode")
       )
 
 instance Prelude.Hashable TracingConfigResponse where

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.SetLoggingOptions
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,8 +43,9 @@ module Amazonka.IoT.SetLoggingOptions
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IoT.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -85,7 +86,8 @@ instance Core.AWSRequest SetLoggingOptions where
   type
     AWSResponse SetLoggingOptions =
       SetLoggingOptionsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveNull SetLoggingOptionsResponse'
 
@@ -97,24 +99,17 @@ instance Prelude.NFData SetLoggingOptions where
   rnf SetLoggingOptions' {..} =
     Prelude.rnf loggingOptionsPayload
 
-instance Core.ToHeaders SetLoggingOptions where
+instance Data.ToHeaders SetLoggingOptions where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON SetLoggingOptions where
+instance Data.ToJSON SetLoggingOptions where
   toJSON SetLoggingOptions' {..} =
-    Core.object
-      ( Prelude.catMaybes
-          [ Prelude.Just
-              ( "loggingOptionsPayload"
-                  Core..= loggingOptionsPayload
-              )
-          ]
-      )
+    Data.toJSON loggingOptionsPayload
 
-instance Core.ToPath SetLoggingOptions where
+instance Data.ToPath SetLoggingOptions where
   toPath = Prelude.const "/loggingOptions"
 
-instance Core.ToQuery SetLoggingOptions where
+instance Data.ToQuery SetLoggingOptions where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSetLoggingOptionsResponse' smart constructor.

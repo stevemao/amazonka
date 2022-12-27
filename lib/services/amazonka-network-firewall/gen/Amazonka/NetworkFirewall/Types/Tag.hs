@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Types.Tag
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,14 +20,16 @@
 module Amazonka.NetworkFirewall.Types.Tag where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | A key:value pair associated with an AWS resource. The key:value pair can
--- be anything you define. Typically, the tag key represents a category
--- (such as \"environment\") and the tag value represents a specific value
--- within that category (such as \"test,\" \"development,\" or
--- \"production\"). You can add up to 50 tags to each AWS resource.
+-- | A key:value pair associated with an Amazon Web Services resource. The
+-- key:value pair can be anything you define. Typically, the tag key
+-- represents a category (such as \"environment\") and the tag value
+-- represents a specific value within that category (such as \"test,\"
+-- \"development,\" or \"production\"). You can add up to 50 tags to each
+-- Amazon Web Services resource.
 --
 -- /See:/ 'newTag' smart constructor.
 data Tag = Tag'
@@ -78,13 +80,13 @@ tag_key = Lens.lens (\Tag' {key} -> key) (\s@Tag' {} a -> s {key = a} :: Tag)
 tag_value :: Lens.Lens' Tag Prelude.Text
 tag_value = Lens.lens (\Tag' {value} -> value) (\s@Tag' {} a -> s {value = a} :: Tag)
 
-instance Core.FromJSON Tag where
+instance Data.FromJSON Tag where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Tag"
       ( \x ->
           Tag'
-            Prelude.<$> (x Core..: "Key") Prelude.<*> (x Core..: "Value")
+            Prelude.<$> (x Data..: "Key") Prelude.<*> (x Data..: "Value")
       )
 
 instance Prelude.Hashable Tag where
@@ -96,11 +98,11 @@ instance Prelude.NFData Tag where
   rnf Tag' {..} =
     Prelude.rnf key `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON Tag where
+instance Data.ToJSON Tag where
   toJSON Tag' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Key" Core..= key),
-            Prelude.Just ("Value" Core..= value)
+          [ Prelude.Just ("Key" Data..= key),
+            Prelude.Just ("Value" Data..= value)
           ]
       )

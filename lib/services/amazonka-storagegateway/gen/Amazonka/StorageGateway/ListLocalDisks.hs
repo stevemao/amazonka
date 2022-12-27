@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.StorageGateway.ListLocalDisks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,14 +43,15 @@ module Amazonka.StorageGateway.ListLocalDisks
     newListLocalDisksResponse,
 
     -- * Response Lenses
-    listLocalDisksResponse_gatewayARN,
     listLocalDisksResponse_disks,
+    listLocalDisksResponse_gatewayARN,
     listLocalDisksResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -88,13 +89,14 @@ instance Core.AWSRequest ListLocalDisks where
   type
     AWSResponse ListLocalDisks =
       ListLocalDisksResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListLocalDisksResponse'
-            Prelude.<$> (x Core..?> "GatewayARN")
-            Prelude.<*> (x Core..?> "Disks" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Disks" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "GatewayARN")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -105,41 +107,41 @@ instance Prelude.Hashable ListLocalDisks where
 instance Prelude.NFData ListLocalDisks where
   rnf ListLocalDisks' {..} = Prelude.rnf gatewayARN
 
-instance Core.ToHeaders ListLocalDisks where
+instance Data.ToHeaders ListLocalDisks where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "StorageGateway_20130630.ListLocalDisks" ::
+              Data.=# ( "StorageGateway_20130630.ListLocalDisks" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListLocalDisks where
+instance Data.ToJSON ListLocalDisks where
   toJSON ListLocalDisks' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("GatewayARN" Core..= gatewayARN)]
+          [Prelude.Just ("GatewayARN" Data..= gatewayARN)]
       )
 
-instance Core.ToPath ListLocalDisks where
+instance Data.ToPath ListLocalDisks where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListLocalDisks where
+instance Data.ToQuery ListLocalDisks where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListLocalDisksResponse' smart constructor.
 data ListLocalDisksResponse = ListLocalDisksResponse'
-  { gatewayARN :: Prelude.Maybe Prelude.Text,
-    -- | A JSON object containing the following fields:
+  { -- | A JSON object containing the following fields:
     --
     -- -   ListLocalDisksOutput$Disks
     disks :: Prelude.Maybe [Disk],
+    gatewayARN :: Prelude.Maybe Prelude.Text,
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -153,11 +155,11 @@ data ListLocalDisksResponse = ListLocalDisksResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'gatewayARN', 'listLocalDisksResponse_gatewayARN' - Undocumented member.
---
 -- 'disks', 'listLocalDisksResponse_disks' - A JSON object containing the following fields:
 --
 -- -   ListLocalDisksOutput$Disks
+--
+-- 'gatewayARN', 'listLocalDisksResponse_gatewayARN' - Undocumented member.
 --
 -- 'httpStatus', 'listLocalDisksResponse_httpStatus' - The response's http status code.
 newListLocalDisksResponse ::
@@ -166,15 +168,10 @@ newListLocalDisksResponse ::
   ListLocalDisksResponse
 newListLocalDisksResponse pHttpStatus_ =
   ListLocalDisksResponse'
-    { gatewayARN =
-        Prelude.Nothing,
-      disks = Prelude.Nothing,
+    { disks = Prelude.Nothing,
+      gatewayARN = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | Undocumented member.
-listLocalDisksResponse_gatewayARN :: Lens.Lens' ListLocalDisksResponse (Prelude.Maybe Prelude.Text)
-listLocalDisksResponse_gatewayARN = Lens.lens (\ListLocalDisksResponse' {gatewayARN} -> gatewayARN) (\s@ListLocalDisksResponse' {} a -> s {gatewayARN = a} :: ListLocalDisksResponse)
 
 -- | A JSON object containing the following fields:
 --
@@ -182,12 +179,16 @@ listLocalDisksResponse_gatewayARN = Lens.lens (\ListLocalDisksResponse' {gateway
 listLocalDisksResponse_disks :: Lens.Lens' ListLocalDisksResponse (Prelude.Maybe [Disk])
 listLocalDisksResponse_disks = Lens.lens (\ListLocalDisksResponse' {disks} -> disks) (\s@ListLocalDisksResponse' {} a -> s {disks = a} :: ListLocalDisksResponse) Prelude.. Lens.mapping Lens.coerced
 
+-- | Undocumented member.
+listLocalDisksResponse_gatewayARN :: Lens.Lens' ListLocalDisksResponse (Prelude.Maybe Prelude.Text)
+listLocalDisksResponse_gatewayARN = Lens.lens (\ListLocalDisksResponse' {gatewayARN} -> gatewayARN) (\s@ListLocalDisksResponse' {} a -> s {gatewayARN = a} :: ListLocalDisksResponse)
+
 -- | The response's http status code.
 listLocalDisksResponse_httpStatus :: Lens.Lens' ListLocalDisksResponse Prelude.Int
 listLocalDisksResponse_httpStatus = Lens.lens (\ListLocalDisksResponse' {httpStatus} -> httpStatus) (\s@ListLocalDisksResponse' {} a -> s {httpStatus = a} :: ListLocalDisksResponse)
 
 instance Prelude.NFData ListLocalDisksResponse where
   rnf ListLocalDisksResponse' {..} =
-    Prelude.rnf gatewayARN
-      `Prelude.seq` Prelude.rnf disks
+    Prelude.rnf disks
+      `Prelude.seq` Prelude.rnf gatewayARN
       `Prelude.seq` Prelude.rnf httpStatus

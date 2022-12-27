@@ -14,14 +14,15 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.ModifyDBSubnetGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Modifies an existing subnet group. subnet groups must contain at least
--- one subnet in at least two Availability Zones in the Region.
+-- one subnet in at least two Availability Zones in the Amazon Web Services
+-- Region.
 module Amazonka.DocumentDB.ModifyDBSubnetGroup
   ( -- * Creating a Request
     ModifyDBSubnetGroup (..),
@@ -43,8 +44,9 @@ module Amazonka.DocumentDB.ModifyDBSubnetGroup
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -121,13 +123,14 @@ instance Core.AWSRequest ModifyDBSubnetGroup where
   type
     AWSResponse ModifyDBSubnetGroup =
       ModifyDBSubnetGroupResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyDBSubnetGroupResult"
       ( \s h x ->
           ModifyDBSubnetGroupResponse'
-            Prelude.<$> (x Core..@? "DBSubnetGroup")
+            Prelude.<$> (x Data..@? "DBSubnetGroup")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -144,24 +147,24 @@ instance Prelude.NFData ModifyDBSubnetGroup where
       `Prelude.seq` Prelude.rnf dbSubnetGroupName
       `Prelude.seq` Prelude.rnf subnetIds
 
-instance Core.ToHeaders ModifyDBSubnetGroup where
+instance Data.ToHeaders ModifyDBSubnetGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyDBSubnetGroup where
+instance Data.ToPath ModifyDBSubnetGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyDBSubnetGroup where
+instance Data.ToQuery ModifyDBSubnetGroup where
   toQuery ModifyDBSubnetGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyDBSubnetGroup" :: Prelude.ByteString),
+          Data.=: ("ModifyDBSubnetGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
         "DBSubnetGroupDescription"
-          Core.=: dbSubnetGroupDescription,
-        "DBSubnetGroupName" Core.=: dbSubnetGroupName,
+          Data.=: dbSubnetGroupDescription,
+        "DBSubnetGroupName" Data.=: dbSubnetGroupName,
         "SubnetIds"
-          Core.=: Core.toQueryList "SubnetIdentifier" subnetIds
+          Data.=: Data.toQueryList "SubnetIdentifier" subnetIds
       ]
 
 -- | /See:/ 'newModifyDBSubnetGroupResponse' smart constructor.

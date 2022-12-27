@@ -14,16 +14,16 @@
 
 -- |
 -- Module      : Amazonka.SSM.UpdateManagedInstanceRole
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
 -- Changes the Identity and Access Management (IAM) role that is assigned
--- to the on-premises instance or virtual machines (VM). IAM roles are
--- first assigned to these hybrid instances during the activation process.
--- For more information, see CreateActivation.
+-- to the on-premises server, edge device, or virtual machines (VM). IAM
+-- roles are first assigned to these hybrid nodes during the activation
+-- process. For more information, see CreateActivation.
 module Amazonka.SSM.UpdateManagedInstanceRole
   ( -- * Creating a Request
     UpdateManagedInstanceRole (..),
@@ -43,7 +43,8 @@ module Amazonka.SSM.UpdateManagedInstanceRole
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -51,9 +52,17 @@ import Amazonka.SSM.Types
 
 -- | /See:/ 'newUpdateManagedInstanceRole' smart constructor.
 data UpdateManagedInstanceRole = UpdateManagedInstanceRole'
-  { -- | The ID of the managed instance where you want to update the role.
+  { -- | The ID of the managed node where you want to update the role.
     instanceId :: Prelude.Text,
-    -- | The IAM role you want to assign or change.
+    -- | The name of the Identity and Access Management (IAM) role that you want
+    -- to assign to the managed node. This IAM role must provide AssumeRole
+    -- permissions for the Amazon Web Services Systems Manager service
+    -- principal @ssm.amazonaws.com@. For more information, see
+    -- <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-service-role.html Create an IAM service role for a hybrid environment>
+    -- in the /Amazon Web Services Systems Manager User Guide/.
+    --
+    -- You can\'t specify an IAM service-linked role for this parameter. You
+    -- must create a unique role.
     iamRole :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -66,9 +75,17 @@ data UpdateManagedInstanceRole = UpdateManagedInstanceRole'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'instanceId', 'updateManagedInstanceRole_instanceId' - The ID of the managed instance where you want to update the role.
+-- 'instanceId', 'updateManagedInstanceRole_instanceId' - The ID of the managed node where you want to update the role.
 --
--- 'iamRole', 'updateManagedInstanceRole_iamRole' - The IAM role you want to assign or change.
+-- 'iamRole', 'updateManagedInstanceRole_iamRole' - The name of the Identity and Access Management (IAM) role that you want
+-- to assign to the managed node. This IAM role must provide AssumeRole
+-- permissions for the Amazon Web Services Systems Manager service
+-- principal @ssm.amazonaws.com@. For more information, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-service-role.html Create an IAM service role for a hybrid environment>
+-- in the /Amazon Web Services Systems Manager User Guide/.
+--
+-- You can\'t specify an IAM service-linked role for this parameter. You
+-- must create a unique role.
 newUpdateManagedInstanceRole ::
   -- | 'instanceId'
   Prelude.Text ->
@@ -82,11 +99,19 @@ newUpdateManagedInstanceRole pInstanceId_ pIamRole_ =
       iamRole = pIamRole_
     }
 
--- | The ID of the managed instance where you want to update the role.
+-- | The ID of the managed node where you want to update the role.
 updateManagedInstanceRole_instanceId :: Lens.Lens' UpdateManagedInstanceRole Prelude.Text
 updateManagedInstanceRole_instanceId = Lens.lens (\UpdateManagedInstanceRole' {instanceId} -> instanceId) (\s@UpdateManagedInstanceRole' {} a -> s {instanceId = a} :: UpdateManagedInstanceRole)
 
--- | The IAM role you want to assign or change.
+-- | The name of the Identity and Access Management (IAM) role that you want
+-- to assign to the managed node. This IAM role must provide AssumeRole
+-- permissions for the Amazon Web Services Systems Manager service
+-- principal @ssm.amazonaws.com@. For more information, see
+-- <https://docs.aws.amazon.com/systems-manager/latest/userguide/sysman-service-role.html Create an IAM service role for a hybrid environment>
+-- in the /Amazon Web Services Systems Manager User Guide/.
+--
+-- You can\'t specify an IAM service-linked role for this parameter. You
+-- must create a unique role.
 updateManagedInstanceRole_iamRole :: Lens.Lens' UpdateManagedInstanceRole Prelude.Text
 updateManagedInstanceRole_iamRole = Lens.lens (\UpdateManagedInstanceRole' {iamRole} -> iamRole) (\s@UpdateManagedInstanceRole' {} a -> s {iamRole = a} :: UpdateManagedInstanceRole)
 
@@ -94,7 +119,8 @@ instance Core.AWSRequest UpdateManagedInstanceRole where
   type
     AWSResponse UpdateManagedInstanceRole =
       UpdateManagedInstanceRoleResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -112,34 +138,34 @@ instance Prelude.NFData UpdateManagedInstanceRole where
     Prelude.rnf instanceId
       `Prelude.seq` Prelude.rnf iamRole
 
-instance Core.ToHeaders UpdateManagedInstanceRole where
+instance Data.ToHeaders UpdateManagedInstanceRole where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonSSM.UpdateManagedInstanceRole" ::
+              Data.=# ( "AmazonSSM.UpdateManagedInstanceRole" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON UpdateManagedInstanceRole where
+instance Data.ToJSON UpdateManagedInstanceRole where
   toJSON UpdateManagedInstanceRole' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("InstanceId" Core..= instanceId),
-            Prelude.Just ("IamRole" Core..= iamRole)
+          [ Prelude.Just ("InstanceId" Data..= instanceId),
+            Prelude.Just ("IamRole" Data..= iamRole)
           ]
       )
 
-instance Core.ToPath UpdateManagedInstanceRole where
+instance Data.ToPath UpdateManagedInstanceRole where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery UpdateManagedInstanceRole where
+instance Data.ToQuery UpdateManagedInstanceRole where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateManagedInstanceRoleResponse' smart constructor.

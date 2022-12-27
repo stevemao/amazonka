@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MemoryDb.Types.ACLsUpdateStatus
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MemoryDb.Types.ACLsUpdateStatus where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The status of the ACL update
@@ -50,13 +51,13 @@ newACLsUpdateStatus =
 aCLsUpdateStatus_aCLToApply :: Lens.Lens' ACLsUpdateStatus (Prelude.Maybe Prelude.Text)
 aCLsUpdateStatus_aCLToApply = Lens.lens (\ACLsUpdateStatus' {aCLToApply} -> aCLToApply) (\s@ACLsUpdateStatus' {} a -> s {aCLToApply = a} :: ACLsUpdateStatus)
 
-instance Core.FromJSON ACLsUpdateStatus where
+instance Data.FromJSON ACLsUpdateStatus where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ACLsUpdateStatus"
       ( \x ->
           ACLsUpdateStatus'
-            Prelude.<$> (x Core..:? "ACLToApply")
+            Prelude.<$> (x Data..:? "ACLToApply")
       )
 
 instance Prelude.Hashable ACLsUpdateStatus where

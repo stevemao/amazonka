@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.AppMesh.Types.VirtualServiceBackend
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,7 +21,8 @@ module Amazonka.AppMesh.Types.VirtualServiceBackend where
 
 import Amazonka.AppMesh.Types.ClientPolicy
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that represents a virtual service backend for a virtual node.
@@ -71,14 +72,14 @@ virtualServiceBackend_clientPolicy = Lens.lens (\VirtualServiceBackend' {clientP
 virtualServiceBackend_virtualServiceName :: Lens.Lens' VirtualServiceBackend Prelude.Text
 virtualServiceBackend_virtualServiceName = Lens.lens (\VirtualServiceBackend' {virtualServiceName} -> virtualServiceName) (\s@VirtualServiceBackend' {} a -> s {virtualServiceName = a} :: VirtualServiceBackend)
 
-instance Core.FromJSON VirtualServiceBackend where
+instance Data.FromJSON VirtualServiceBackend where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "VirtualServiceBackend"
       ( \x ->
           VirtualServiceBackend'
-            Prelude.<$> (x Core..:? "clientPolicy")
-            Prelude.<*> (x Core..: "virtualServiceName")
+            Prelude.<$> (x Data..:? "clientPolicy")
+            Prelude.<*> (x Data..: "virtualServiceName")
       )
 
 instance Prelude.Hashable VirtualServiceBackend where
@@ -91,12 +92,12 @@ instance Prelude.NFData VirtualServiceBackend where
     Prelude.rnf clientPolicy
       `Prelude.seq` Prelude.rnf virtualServiceName
 
-instance Core.ToJSON VirtualServiceBackend where
+instance Data.ToJSON VirtualServiceBackend where
   toJSON VirtualServiceBackend' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("clientPolicy" Core..=) Prelude.<$> clientPolicy,
+          [ ("clientPolicy" Data..=) Prelude.<$> clientPolicy,
             Prelude.Just
-              ("virtualServiceName" Core..= virtualServiceName)
+              ("virtualServiceName" Data..= virtualServiceName)
           ]
       )

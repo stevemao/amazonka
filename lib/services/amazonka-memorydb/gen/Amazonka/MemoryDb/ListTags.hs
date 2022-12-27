@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.MemoryDb.ListTags
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -43,7 +43,8 @@ module Amazonka.MemoryDb.ListTags
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MemoryDb.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -81,12 +82,13 @@ listTags_resourceArn = Lens.lens (\ListTags' {resourceArn} -> resourceArn) (\s@L
 
 instance Core.AWSRequest ListTags where
   type AWSResponse ListTags = ListTagsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListTagsResponse'
-            Prelude.<$> (x Core..?> "TagList" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "TagList" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -97,30 +99,30 @@ instance Prelude.Hashable ListTags where
 instance Prelude.NFData ListTags where
   rnf ListTags' {..} = Prelude.rnf resourceArn
 
-instance Core.ToHeaders ListTags where
+instance Data.ToHeaders ListTags where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AmazonMemoryDB.ListTags" :: Prelude.ByteString),
+              Data.=# ("AmazonMemoryDB.ListTags" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListTags where
+instance Data.ToJSON ListTags where
   toJSON ListTags' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("ResourceArn" Core..= resourceArn)]
+          [Prelude.Just ("ResourceArn" Data..= resourceArn)]
       )
 
-instance Core.ToPath ListTags where
+instance Data.ToPath ListTags where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListTags where
+instance Data.ToQuery ListTags where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListTagsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.QuickSight.RestoreAnalysis
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,15 +35,16 @@ module Amazonka.QuickSight.RestoreAnalysis
     newRestoreAnalysisResponse,
 
     -- * Response Lenses
-    restoreAnalysisResponse_requestId,
     restoreAnalysisResponse_analysisId,
     restoreAnalysisResponse_arn,
+    restoreAnalysisResponse_requestId,
     restoreAnalysisResponse_status,
   )
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.QuickSight.Types
 import qualified Amazonka.Request as Request
@@ -93,14 +94,15 @@ instance Core.AWSRequest RestoreAnalysis where
   type
     AWSResponse RestoreAnalysis =
       RestoreAnalysisResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           RestoreAnalysisResponse'
-            Prelude.<$> (x Core..?> "RequestId")
-            Prelude.<*> (x Core..?> "AnalysisId")
-            Prelude.<*> (x Core..?> "Arn")
+            Prelude.<$> (x Data..?> "AnalysisId")
+            Prelude.<*> (x Data..?> "Arn")
+            Prelude.<*> (x Data..?> "RequestId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -114,40 +116,40 @@ instance Prelude.NFData RestoreAnalysis where
     Prelude.rnf awsAccountId
       `Prelude.seq` Prelude.rnf analysisId
 
-instance Core.ToHeaders RestoreAnalysis where
+instance Data.ToHeaders RestoreAnalysis where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.0" ::
+              Data.=# ( "application/x-amz-json-1.0" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON RestoreAnalysis where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON RestoreAnalysis where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath RestoreAnalysis where
+instance Data.ToPath RestoreAnalysis where
   toPath RestoreAnalysis' {..} =
     Prelude.mconcat
       [ "/accounts/",
-        Core.toBS awsAccountId,
+        Data.toBS awsAccountId,
         "/restore/analyses/",
-        Core.toBS analysisId
+        Data.toBS analysisId
       ]
 
-instance Core.ToQuery RestoreAnalysis where
+instance Data.ToQuery RestoreAnalysis where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newRestoreAnalysisResponse' smart constructor.
 data RestoreAnalysisResponse = RestoreAnalysisResponse'
-  { -- | The Amazon Web Services request ID for this operation.
-    requestId :: Prelude.Maybe Prelude.Text,
-    -- | The ID of the analysis that you\'re restoring.
+  { -- | The ID of the analysis that you\'re restoring.
     analysisId :: Prelude.Maybe Prelude.Text,
     -- | The Amazon Resource Name (ARN) of the analysis that you\'re restoring.
     arn :: Prelude.Maybe Prelude.Text,
+    -- | The Amazon Web Services request ID for this operation.
+    requestId :: Prelude.Maybe Prelude.Text,
     -- | The HTTP status of the request.
     status :: Prelude.Int
   }
@@ -161,11 +163,11 @@ data RestoreAnalysisResponse = RestoreAnalysisResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'requestId', 'restoreAnalysisResponse_requestId' - The Amazon Web Services request ID for this operation.
---
 -- 'analysisId', 'restoreAnalysisResponse_analysisId' - The ID of the analysis that you\'re restoring.
 --
 -- 'arn', 'restoreAnalysisResponse_arn' - The Amazon Resource Name (ARN) of the analysis that you\'re restoring.
+--
+-- 'requestId', 'restoreAnalysisResponse_requestId' - The Amazon Web Services request ID for this operation.
 --
 -- 'status', 'restoreAnalysisResponse_status' - The HTTP status of the request.
 newRestoreAnalysisResponse ::
@@ -174,16 +176,12 @@ newRestoreAnalysisResponse ::
   RestoreAnalysisResponse
 newRestoreAnalysisResponse pStatus_ =
   RestoreAnalysisResponse'
-    { requestId =
+    { analysisId =
         Prelude.Nothing,
-      analysisId = Prelude.Nothing,
       arn = Prelude.Nothing,
+      requestId = Prelude.Nothing,
       status = pStatus_
     }
-
--- | The Amazon Web Services request ID for this operation.
-restoreAnalysisResponse_requestId :: Lens.Lens' RestoreAnalysisResponse (Prelude.Maybe Prelude.Text)
-restoreAnalysisResponse_requestId = Lens.lens (\RestoreAnalysisResponse' {requestId} -> requestId) (\s@RestoreAnalysisResponse' {} a -> s {requestId = a} :: RestoreAnalysisResponse)
 
 -- | The ID of the analysis that you\'re restoring.
 restoreAnalysisResponse_analysisId :: Lens.Lens' RestoreAnalysisResponse (Prelude.Maybe Prelude.Text)
@@ -193,13 +191,17 @@ restoreAnalysisResponse_analysisId = Lens.lens (\RestoreAnalysisResponse' {analy
 restoreAnalysisResponse_arn :: Lens.Lens' RestoreAnalysisResponse (Prelude.Maybe Prelude.Text)
 restoreAnalysisResponse_arn = Lens.lens (\RestoreAnalysisResponse' {arn} -> arn) (\s@RestoreAnalysisResponse' {} a -> s {arn = a} :: RestoreAnalysisResponse)
 
+-- | The Amazon Web Services request ID for this operation.
+restoreAnalysisResponse_requestId :: Lens.Lens' RestoreAnalysisResponse (Prelude.Maybe Prelude.Text)
+restoreAnalysisResponse_requestId = Lens.lens (\RestoreAnalysisResponse' {requestId} -> requestId) (\s@RestoreAnalysisResponse' {} a -> s {requestId = a} :: RestoreAnalysisResponse)
+
 -- | The HTTP status of the request.
 restoreAnalysisResponse_status :: Lens.Lens' RestoreAnalysisResponse Prelude.Int
 restoreAnalysisResponse_status = Lens.lens (\RestoreAnalysisResponse' {status} -> status) (\s@RestoreAnalysisResponse' {} a -> s {status = a} :: RestoreAnalysisResponse)
 
 instance Prelude.NFData RestoreAnalysisResponse where
   rnf RestoreAnalysisResponse' {..} =
-    Prelude.rnf requestId
-      `Prelude.seq` Prelude.rnf analysisId
+    Prelude.rnf analysisId
       `Prelude.seq` Prelude.rnf arn
+      `Prelude.seq` Prelude.rnf requestId
       `Prelude.seq` Prelude.rnf status

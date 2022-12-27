@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SESV2.DeleteCustomVerificationEmailTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,7 +23,7 @@
 -- Deletes an existing custom verification email template.
 --
 -- For more information about custom verification email templates, see
--- <https://docs.aws.amazon.com/ses/latest/DeveloperGuide/send-email-verify-address-custom.html Using Custom Verification Email Templates>
+-- <https://docs.aws.amazon.com/ses/latest/dg/creating-identities.html#send-email-verify-address-custom Using custom verification email templates>
 -- in the /Amazon SES Developer Guide/.
 --
 -- You can execute this operation no more than once per second.
@@ -45,7 +45,8 @@ module Amazonka.SESV2.DeleteCustomVerificationEmailTemplate
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,7 +97,8 @@ instance
     AWSResponse
       DeleteCustomVerificationEmailTemplate =
       DeleteCustomVerificationEmailTemplateResponse
-  request = Request.delete defaultService
+  request overrides =
+    Request.delete (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -121,31 +123,31 @@ instance
     Prelude.rnf templateName
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     DeleteCustomVerificationEmailTemplate
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
 instance
-  Core.ToPath
+  Data.ToPath
     DeleteCustomVerificationEmailTemplate
   where
   toPath DeleteCustomVerificationEmailTemplate' {..} =
     Prelude.mconcat
       [ "/v2/email/custom-verification-email-templates/",
-        Core.toBS templateName
+        Data.toBS templateName
       ]
 
 instance
-  Core.ToQuery
+  Data.ToQuery
     DeleteCustomVerificationEmailTemplate
   where
   toQuery = Prelude.const Prelude.mempty

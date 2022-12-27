@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaLive.Types.FrameCaptureSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaLive.Types.FrameCaptureSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaLive.Types.FrameCaptureIntervalUnit
 import qualified Amazonka.Prelude as Prelude
 
@@ -28,12 +29,12 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newFrameCaptureSettings' smart constructor.
 data FrameCaptureSettings = FrameCaptureSettings'
-  { -- | Unit for the frame capture interval.
-    captureIntervalUnits :: Prelude.Maybe FrameCaptureIntervalUnit,
-    -- | The frequency at which to capture frames for inclusion in the output.
+  { -- | The frequency at which to capture frames for inclusion in the output.
     -- May be specified in either seconds or milliseconds, as specified by
     -- captureIntervalUnits.
-    captureInterval :: Prelude.Maybe Prelude.Natural
+    captureInterval :: Prelude.Maybe Prelude.Natural,
+    -- | Unit for the frame capture interval.
+    captureIntervalUnits :: Prelude.Maybe FrameCaptureIntervalUnit
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -45,23 +46,19 @@ data FrameCaptureSettings = FrameCaptureSettings'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'captureIntervalUnits', 'frameCaptureSettings_captureIntervalUnits' - Unit for the frame capture interval.
---
 -- 'captureInterval', 'frameCaptureSettings_captureInterval' - The frequency at which to capture frames for inclusion in the output.
 -- May be specified in either seconds or milliseconds, as specified by
 -- captureIntervalUnits.
+--
+-- 'captureIntervalUnits', 'frameCaptureSettings_captureIntervalUnits' - Unit for the frame capture interval.
 newFrameCaptureSettings ::
   FrameCaptureSettings
 newFrameCaptureSettings =
   FrameCaptureSettings'
-    { captureIntervalUnits =
+    { captureInterval =
         Prelude.Nothing,
-      captureInterval = Prelude.Nothing
+      captureIntervalUnits = Prelude.Nothing
     }
-
--- | Unit for the frame capture interval.
-frameCaptureSettings_captureIntervalUnits :: Lens.Lens' FrameCaptureSettings (Prelude.Maybe FrameCaptureIntervalUnit)
-frameCaptureSettings_captureIntervalUnits = Lens.lens (\FrameCaptureSettings' {captureIntervalUnits} -> captureIntervalUnits) (\s@FrameCaptureSettings' {} a -> s {captureIntervalUnits = a} :: FrameCaptureSettings)
 
 -- | The frequency at which to capture frames for inclusion in the output.
 -- May be specified in either seconds or milliseconds, as specified by
@@ -69,33 +66,37 @@ frameCaptureSettings_captureIntervalUnits = Lens.lens (\FrameCaptureSettings' {c
 frameCaptureSettings_captureInterval :: Lens.Lens' FrameCaptureSettings (Prelude.Maybe Prelude.Natural)
 frameCaptureSettings_captureInterval = Lens.lens (\FrameCaptureSettings' {captureInterval} -> captureInterval) (\s@FrameCaptureSettings' {} a -> s {captureInterval = a} :: FrameCaptureSettings)
 
-instance Core.FromJSON FrameCaptureSettings where
+-- | Unit for the frame capture interval.
+frameCaptureSettings_captureIntervalUnits :: Lens.Lens' FrameCaptureSettings (Prelude.Maybe FrameCaptureIntervalUnit)
+frameCaptureSettings_captureIntervalUnits = Lens.lens (\FrameCaptureSettings' {captureIntervalUnits} -> captureIntervalUnits) (\s@FrameCaptureSettings' {} a -> s {captureIntervalUnits = a} :: FrameCaptureSettings)
+
+instance Data.FromJSON FrameCaptureSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "FrameCaptureSettings"
       ( \x ->
           FrameCaptureSettings'
-            Prelude.<$> (x Core..:? "captureIntervalUnits")
-            Prelude.<*> (x Core..:? "captureInterval")
+            Prelude.<$> (x Data..:? "captureInterval")
+            Prelude.<*> (x Data..:? "captureIntervalUnits")
       )
 
 instance Prelude.Hashable FrameCaptureSettings where
   hashWithSalt _salt FrameCaptureSettings' {..} =
-    _salt `Prelude.hashWithSalt` captureIntervalUnits
-      `Prelude.hashWithSalt` captureInterval
+    _salt `Prelude.hashWithSalt` captureInterval
+      `Prelude.hashWithSalt` captureIntervalUnits
 
 instance Prelude.NFData FrameCaptureSettings where
   rnf FrameCaptureSettings' {..} =
-    Prelude.rnf captureIntervalUnits
-      `Prelude.seq` Prelude.rnf captureInterval
+    Prelude.rnf captureInterval
+      `Prelude.seq` Prelude.rnf captureIntervalUnits
 
-instance Core.ToJSON FrameCaptureSettings where
+instance Data.ToJSON FrameCaptureSettings where
   toJSON FrameCaptureSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("captureIntervalUnits" Core..=)
-              Prelude.<$> captureIntervalUnits,
-            ("captureInterval" Core..=)
-              Prelude.<$> captureInterval
+          [ ("captureInterval" Data..=)
+              Prelude.<$> captureInterval,
+            ("captureIntervalUnits" Data..=)
+              Prelude.<$> captureIntervalUnits
           ]
       )

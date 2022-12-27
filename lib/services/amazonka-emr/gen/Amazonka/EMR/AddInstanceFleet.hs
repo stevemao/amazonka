@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.AddInstanceFleet
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -46,8 +46,9 @@ module Amazonka.EMR.AddInstanceFleet
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EMR.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -96,14 +97,15 @@ instance Core.AWSRequest AddInstanceFleet where
   type
     AWSResponse AddInstanceFleet =
       AddInstanceFleetResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           AddInstanceFleetResponse'
-            Prelude.<$> (x Core..?> "ClusterArn")
-            Prelude.<*> (x Core..?> "ClusterId")
-            Prelude.<*> (x Core..?> "InstanceFleetId")
+            Prelude.<$> (x Data..?> "ClusterArn")
+            Prelude.<*> (x Data..?> "ClusterId")
+            Prelude.<*> (x Data..?> "InstanceFleetId")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -117,35 +119,35 @@ instance Prelude.NFData AddInstanceFleet where
     Prelude.rnf clusterId
       `Prelude.seq` Prelude.rnf instanceFleet
 
-instance Core.ToHeaders AddInstanceFleet where
+instance Data.ToHeaders AddInstanceFleet where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "ElasticMapReduce.AddInstanceFleet" ::
+              Data.=# ( "ElasticMapReduce.AddInstanceFleet" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AddInstanceFleet where
+instance Data.ToJSON AddInstanceFleet where
   toJSON AddInstanceFleet' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("ClusterId" Core..= clusterId),
+          [ Prelude.Just ("ClusterId" Data..= clusterId),
             Prelude.Just
-              ("InstanceFleet" Core..= instanceFleet)
+              ("InstanceFleet" Data..= instanceFleet)
           ]
       )
 
-instance Core.ToPath AddInstanceFleet where
+instance Data.ToPath AddInstanceFleet where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AddInstanceFleet where
+instance Data.ToQuery AddInstanceFleet where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newAddInstanceFleetResponse' smart constructor.

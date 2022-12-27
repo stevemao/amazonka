@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.GreengrassV2.Types.ComponentCandidate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.GreengrassV2.Types.ComponentCandidate where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Contains information about a component that is a candidate to deploy to
@@ -28,16 +29,16 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newComponentCandidate' smart constructor.
 data ComponentCandidate = ComponentCandidate'
-  { -- | The version of the component.
+  { -- | The name of the component.
+    componentName :: Prelude.Maybe Prelude.Text,
+    -- | The version of the component.
     componentVersion :: Prelude.Maybe Prelude.Text,
     -- | The version requirements for the component\'s dependencies. Greengrass
     -- core devices get the version requirements from component recipes.
     --
     -- IoT Greengrass V2 uses semantic version constraints. For more
     -- information, see <https://semver.org/ Semantic Versioning>.
-    versionRequirements :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text),
-    -- | The name of the component.
-    componentName :: Prelude.Maybe Prelude.Text
+    versionRequirements :: Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text)
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -49,6 +50,8 @@ data ComponentCandidate = ComponentCandidate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'componentName', 'componentCandidate_componentName' - The name of the component.
+--
 -- 'componentVersion', 'componentCandidate_componentVersion' - The version of the component.
 --
 -- 'versionRequirements', 'componentCandidate_versionRequirements' - The version requirements for the component\'s dependencies. Greengrass
@@ -56,17 +59,19 @@ data ComponentCandidate = ComponentCandidate'
 --
 -- IoT Greengrass V2 uses semantic version constraints. For more
 -- information, see <https://semver.org/ Semantic Versioning>.
---
--- 'componentName', 'componentCandidate_componentName' - The name of the component.
 newComponentCandidate ::
   ComponentCandidate
 newComponentCandidate =
   ComponentCandidate'
-    { componentVersion =
+    { componentName =
         Prelude.Nothing,
-      versionRequirements = Prelude.Nothing,
-      componentName = Prelude.Nothing
+      componentVersion = Prelude.Nothing,
+      versionRequirements = Prelude.Nothing
     }
+
+-- | The name of the component.
+componentCandidate_componentName :: Lens.Lens' ComponentCandidate (Prelude.Maybe Prelude.Text)
+componentCandidate_componentName = Lens.lens (\ComponentCandidate' {componentName} -> componentName) (\s@ComponentCandidate' {} a -> s {componentName = a} :: ComponentCandidate)
 
 -- | The version of the component.
 componentCandidate_componentVersion :: Lens.Lens' ComponentCandidate (Prelude.Maybe Prelude.Text)
@@ -80,30 +85,26 @@ componentCandidate_componentVersion = Lens.lens (\ComponentCandidate' {component
 componentCandidate_versionRequirements :: Lens.Lens' ComponentCandidate (Prelude.Maybe (Prelude.HashMap Prelude.Text Prelude.Text))
 componentCandidate_versionRequirements = Lens.lens (\ComponentCandidate' {versionRequirements} -> versionRequirements) (\s@ComponentCandidate' {} a -> s {versionRequirements = a} :: ComponentCandidate) Prelude.. Lens.mapping Lens.coerced
 
--- | The name of the component.
-componentCandidate_componentName :: Lens.Lens' ComponentCandidate (Prelude.Maybe Prelude.Text)
-componentCandidate_componentName = Lens.lens (\ComponentCandidate' {componentName} -> componentName) (\s@ComponentCandidate' {} a -> s {componentName = a} :: ComponentCandidate)
-
 instance Prelude.Hashable ComponentCandidate where
   hashWithSalt _salt ComponentCandidate' {..} =
-    _salt `Prelude.hashWithSalt` componentVersion
+    _salt `Prelude.hashWithSalt` componentName
+      `Prelude.hashWithSalt` componentVersion
       `Prelude.hashWithSalt` versionRequirements
-      `Prelude.hashWithSalt` componentName
 
 instance Prelude.NFData ComponentCandidate where
   rnf ComponentCandidate' {..} =
-    Prelude.rnf componentVersion
+    Prelude.rnf componentName
+      `Prelude.seq` Prelude.rnf componentVersion
       `Prelude.seq` Prelude.rnf versionRequirements
-      `Prelude.seq` Prelude.rnf componentName
 
-instance Core.ToJSON ComponentCandidate where
+instance Data.ToJSON ComponentCandidate where
   toJSON ComponentCandidate' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("componentVersion" Core..=)
+          [ ("componentName" Data..=) Prelude.<$> componentName,
+            ("componentVersion" Data..=)
               Prelude.<$> componentVersion,
-            ("versionRequirements" Core..=)
-              Prelude.<$> versionRequirements,
-            ("componentName" Core..=) Prelude.<$> componentName
+            ("versionRequirements" Data..=)
+              Prelude.<$> versionRequirements
           ]
       )

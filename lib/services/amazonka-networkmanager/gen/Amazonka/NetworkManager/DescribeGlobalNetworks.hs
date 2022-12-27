@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkManager.DescribeGlobalNetworks
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -32,9 +32,9 @@ module Amazonka.NetworkManager.DescribeGlobalNetworks
     newDescribeGlobalNetworks,
 
     -- * Request Lenses
-    describeGlobalNetworks_nextToken,
     describeGlobalNetworks_globalNetworkIds,
     describeGlobalNetworks_maxResults,
+    describeGlobalNetworks_nextToken,
 
     -- * Destructuring the Response
     DescribeGlobalNetworksResponse (..),
@@ -48,7 +48,8 @@ module Amazonka.NetworkManager.DescribeGlobalNetworks
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkManager.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -56,12 +57,12 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newDescribeGlobalNetworks' smart constructor.
 data DescribeGlobalNetworks = DescribeGlobalNetworks'
-  { -- | The token for the next page of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The IDs of one or more global networks. The maximum is 10.
+  { -- | The IDs of one or more global networks. The maximum is 10.
     globalNetworkIds :: Prelude.Maybe [Prelude.Text],
     -- | The maximum number of results to return.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token for the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -73,24 +74,20 @@ data DescribeGlobalNetworks = DescribeGlobalNetworks'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeGlobalNetworks_nextToken' - The token for the next page of results.
---
 -- 'globalNetworkIds', 'describeGlobalNetworks_globalNetworkIds' - The IDs of one or more global networks. The maximum is 10.
 --
 -- 'maxResults', 'describeGlobalNetworks_maxResults' - The maximum number of results to return.
+--
+-- 'nextToken', 'describeGlobalNetworks_nextToken' - The token for the next page of results.
 newDescribeGlobalNetworks ::
   DescribeGlobalNetworks
 newDescribeGlobalNetworks =
   DescribeGlobalNetworks'
-    { nextToken =
+    { globalNetworkIds =
         Prelude.Nothing,
-      globalNetworkIds = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing
     }
-
--- | The token for the next page of results.
-describeGlobalNetworks_nextToken :: Lens.Lens' DescribeGlobalNetworks (Prelude.Maybe Prelude.Text)
-describeGlobalNetworks_nextToken = Lens.lens (\DescribeGlobalNetworks' {nextToken} -> nextToken) (\s@DescribeGlobalNetworks' {} a -> s {nextToken = a} :: DescribeGlobalNetworks)
 
 -- | The IDs of one or more global networks. The maximum is 10.
 describeGlobalNetworks_globalNetworkIds :: Lens.Lens' DescribeGlobalNetworks (Prelude.Maybe [Prelude.Text])
@@ -99,6 +96,10 @@ describeGlobalNetworks_globalNetworkIds = Lens.lens (\DescribeGlobalNetworks' {g
 -- | The maximum number of results to return.
 describeGlobalNetworks_maxResults :: Lens.Lens' DescribeGlobalNetworks (Prelude.Maybe Prelude.Natural)
 describeGlobalNetworks_maxResults = Lens.lens (\DescribeGlobalNetworks' {maxResults} -> maxResults) (\s@DescribeGlobalNetworks' {} a -> s {maxResults = a} :: DescribeGlobalNetworks)
+
+-- | The token for the next page of results.
+describeGlobalNetworks_nextToken :: Lens.Lens' DescribeGlobalNetworks (Prelude.Maybe Prelude.Text)
+describeGlobalNetworks_nextToken = Lens.lens (\DescribeGlobalNetworks' {nextToken} -> nextToken) (\s@DescribeGlobalNetworks' {} a -> s {nextToken = a} :: DescribeGlobalNetworks)
 
 instance Core.AWSPager DescribeGlobalNetworks where
   page rq rs
@@ -126,52 +127,53 @@ instance Core.AWSRequest DescribeGlobalNetworks where
   type
     AWSResponse DescribeGlobalNetworks =
       DescribeGlobalNetworksResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeGlobalNetworksResponse'
-            Prelude.<$> (x Core..?> "GlobalNetworks" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "GlobalNetworks" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeGlobalNetworks where
   hashWithSalt _salt DescribeGlobalNetworks' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` globalNetworkIds
+    _salt `Prelude.hashWithSalt` globalNetworkIds
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
 
 instance Prelude.NFData DescribeGlobalNetworks where
   rnf DescribeGlobalNetworks' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf globalNetworkIds
+    Prelude.rnf globalNetworkIds
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
 
-instance Core.ToHeaders DescribeGlobalNetworks where
+instance Data.ToHeaders DescribeGlobalNetworks where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath DescribeGlobalNetworks where
+instance Data.ToPath DescribeGlobalNetworks where
   toPath = Prelude.const "/global-networks"
 
-instance Core.ToQuery DescribeGlobalNetworks where
+instance Data.ToQuery DescribeGlobalNetworks where
   toQuery DescribeGlobalNetworks' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "globalNetworkIds"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+      [ "globalNetworkIds"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> globalNetworkIds
             ),
-        "maxResults" Core.=: maxResults
+        "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newDescribeGlobalNetworksResponse' smart constructor.

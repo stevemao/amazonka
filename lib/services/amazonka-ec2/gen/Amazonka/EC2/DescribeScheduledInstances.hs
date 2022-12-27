@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.DescribeScheduledInstances
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -30,12 +30,12 @@ module Amazonka.EC2.DescribeScheduledInstances
     newDescribeScheduledInstances,
 
     -- * Request Lenses
+    describeScheduledInstances_dryRun,
     describeScheduledInstances_filters,
-    describeScheduledInstances_slotStartTimeRange,
+    describeScheduledInstances_maxResults,
     describeScheduledInstances_nextToken,
     describeScheduledInstances_scheduledInstanceIds,
-    describeScheduledInstances_dryRun,
-    describeScheduledInstances_maxResults,
+    describeScheduledInstances_slotStartTimeRange,
 
     -- * Destructuring the Response
     DescribeScheduledInstancesResponse (..),
@@ -49,8 +49,9 @@ module Amazonka.EC2.DescribeScheduledInstances
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -59,7 +60,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeScheduledInstances' smart constructor.
 data DescribeScheduledInstances = DescribeScheduledInstances'
-  { -- | The filters.
+  { -- | Checks whether you have the required permissions for the action, without
+    -- actually making the request, and provides an error response. If you have
+    -- the required permissions, the error response is @DryRunOperation@.
+    -- Otherwise, it is @UnauthorizedOperation@.
+    dryRun :: Prelude.Maybe Prelude.Bool,
+    -- | The filters.
     --
     -- -   @availability-zone@ - The Availability Zone (for example,
     --     @us-west-2a@).
@@ -71,22 +77,17 @@ data DescribeScheduledInstances = DescribeScheduledInstances'
     --
     -- -   @platform@ - The platform (@Linux\/UNIX@ or @Windows@).
     filters :: Prelude.Maybe [Filter],
-    -- | The time period for the first schedule to start.
-    slotStartTimeRange :: Prelude.Maybe SlotStartTimeRangeRequest,
-    -- | The token for the next set of results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The Scheduled Instance IDs.
-    scheduledInstanceIds :: Prelude.Maybe [Prelude.Text],
-    -- | Checks whether you have the required permissions for the action, without
-    -- actually making the request, and provides an error response. If you have
-    -- the required permissions, the error response is @DryRunOperation@.
-    -- Otherwise, it is @UnauthorizedOperation@.
-    dryRun :: Prelude.Maybe Prelude.Bool,
     -- | The maximum number of results to return in a single call. This value can
     -- be between 5 and 300. The default value is 100. To retrieve the
     -- remaining results, make another call with the returned @NextToken@
     -- value.
-    maxResults :: Prelude.Maybe Prelude.Int
+    maxResults :: Prelude.Maybe Prelude.Int,
+    -- | The token for the next set of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Scheduled Instance IDs.
+    scheduledInstanceIds :: Prelude.Maybe [Prelude.Text],
+    -- | The time period for the first schedule to start.
+    slotStartTimeRange :: Prelude.Maybe SlotStartTimeRangeRequest
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -97,6 +98,11 @@ data DescribeScheduledInstances = DescribeScheduledInstances'
 --
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
+--
+-- 'dryRun', 'describeScheduledInstances_dryRun' - Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
 --
 -- 'filters', 'describeScheduledInstances_filters' - The filters.
 --
@@ -110,33 +116,35 @@ data DescribeScheduledInstances = DescribeScheduledInstances'
 --
 -- -   @platform@ - The platform (@Linux\/UNIX@ or @Windows@).
 --
--- 'slotStartTimeRange', 'describeScheduledInstances_slotStartTimeRange' - The time period for the first schedule to start.
+-- 'maxResults', 'describeScheduledInstances_maxResults' - The maximum number of results to return in a single call. This value can
+-- be between 5 and 300. The default value is 100. To retrieve the
+-- remaining results, make another call with the returned @NextToken@
+-- value.
 --
 -- 'nextToken', 'describeScheduledInstances_nextToken' - The token for the next set of results.
 --
 -- 'scheduledInstanceIds', 'describeScheduledInstances_scheduledInstanceIds' - The Scheduled Instance IDs.
 --
--- 'dryRun', 'describeScheduledInstances_dryRun' - Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
---
--- 'maxResults', 'describeScheduledInstances_maxResults' - The maximum number of results to return in a single call. This value can
--- be between 5 and 300. The default value is 100. To retrieve the
--- remaining results, make another call with the returned @NextToken@
--- value.
+-- 'slotStartTimeRange', 'describeScheduledInstances_slotStartTimeRange' - The time period for the first schedule to start.
 newDescribeScheduledInstances ::
   DescribeScheduledInstances
 newDescribeScheduledInstances =
   DescribeScheduledInstances'
-    { filters =
+    { dryRun =
         Prelude.Nothing,
-      slotStartTimeRange = Prelude.Nothing,
+      filters = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
       scheduledInstanceIds = Prelude.Nothing,
-      dryRun = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      slotStartTimeRange = Prelude.Nothing
     }
+
+-- | Checks whether you have the required permissions for the action, without
+-- actually making the request, and provides an error response. If you have
+-- the required permissions, the error response is @DryRunOperation@.
+-- Otherwise, it is @UnauthorizedOperation@.
+describeScheduledInstances_dryRun :: Lens.Lens' DescribeScheduledInstances (Prelude.Maybe Prelude.Bool)
+describeScheduledInstances_dryRun = Lens.lens (\DescribeScheduledInstances' {dryRun} -> dryRun) (\s@DescribeScheduledInstances' {} a -> s {dryRun = a} :: DescribeScheduledInstances)
 
 -- | The filters.
 --
@@ -152,9 +160,12 @@ newDescribeScheduledInstances =
 describeScheduledInstances_filters :: Lens.Lens' DescribeScheduledInstances (Prelude.Maybe [Filter])
 describeScheduledInstances_filters = Lens.lens (\DescribeScheduledInstances' {filters} -> filters) (\s@DescribeScheduledInstances' {} a -> s {filters = a} :: DescribeScheduledInstances) Prelude.. Lens.mapping Lens.coerced
 
--- | The time period for the first schedule to start.
-describeScheduledInstances_slotStartTimeRange :: Lens.Lens' DescribeScheduledInstances (Prelude.Maybe SlotStartTimeRangeRequest)
-describeScheduledInstances_slotStartTimeRange = Lens.lens (\DescribeScheduledInstances' {slotStartTimeRange} -> slotStartTimeRange) (\s@DescribeScheduledInstances' {} a -> s {slotStartTimeRange = a} :: DescribeScheduledInstances)
+-- | The maximum number of results to return in a single call. This value can
+-- be between 5 and 300. The default value is 100. To retrieve the
+-- remaining results, make another call with the returned @NextToken@
+-- value.
+describeScheduledInstances_maxResults :: Lens.Lens' DescribeScheduledInstances (Prelude.Maybe Prelude.Int)
+describeScheduledInstances_maxResults = Lens.lens (\DescribeScheduledInstances' {maxResults} -> maxResults) (\s@DescribeScheduledInstances' {} a -> s {maxResults = a} :: DescribeScheduledInstances)
 
 -- | The token for the next set of results.
 describeScheduledInstances_nextToken :: Lens.Lens' DescribeScheduledInstances (Prelude.Maybe Prelude.Text)
@@ -164,19 +175,9 @@ describeScheduledInstances_nextToken = Lens.lens (\DescribeScheduledInstances' {
 describeScheduledInstances_scheduledInstanceIds :: Lens.Lens' DescribeScheduledInstances (Prelude.Maybe [Prelude.Text])
 describeScheduledInstances_scheduledInstanceIds = Lens.lens (\DescribeScheduledInstances' {scheduledInstanceIds} -> scheduledInstanceIds) (\s@DescribeScheduledInstances' {} a -> s {scheduledInstanceIds = a} :: DescribeScheduledInstances) Prelude.. Lens.mapping Lens.coerced
 
--- | Checks whether you have the required permissions for the action, without
--- actually making the request, and provides an error response. If you have
--- the required permissions, the error response is @DryRunOperation@.
--- Otherwise, it is @UnauthorizedOperation@.
-describeScheduledInstances_dryRun :: Lens.Lens' DescribeScheduledInstances (Prelude.Maybe Prelude.Bool)
-describeScheduledInstances_dryRun = Lens.lens (\DescribeScheduledInstances' {dryRun} -> dryRun) (\s@DescribeScheduledInstances' {} a -> s {dryRun = a} :: DescribeScheduledInstances)
-
--- | The maximum number of results to return in a single call. This value can
--- be between 5 and 300. The default value is 100. To retrieve the
--- remaining results, make another call with the returned @NextToken@
--- value.
-describeScheduledInstances_maxResults :: Lens.Lens' DescribeScheduledInstances (Prelude.Maybe Prelude.Int)
-describeScheduledInstances_maxResults = Lens.lens (\DescribeScheduledInstances' {maxResults} -> maxResults) (\s@DescribeScheduledInstances' {} a -> s {maxResults = a} :: DescribeScheduledInstances)
+-- | The time period for the first schedule to start.
+describeScheduledInstances_slotStartTimeRange :: Lens.Lens' DescribeScheduledInstances (Prelude.Maybe SlotStartTimeRangeRequest)
+describeScheduledInstances_slotStartTimeRange = Lens.lens (\DescribeScheduledInstances' {slotStartTimeRange} -> slotStartTimeRange) (\s@DescribeScheduledInstances' {} a -> s {slotStartTimeRange = a} :: DescribeScheduledInstances)
 
 instance Core.AWSPager DescribeScheduledInstances where
   page rq rs
@@ -204,60 +205,61 @@ instance Core.AWSRequest DescribeScheduledInstances where
   type
     AWSResponse DescribeScheduledInstances =
       DescribeScheduledInstancesResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXML
       ( \s h x ->
           DescribeScheduledInstancesResponse'
-            Prelude.<$> (x Core..@? "nextToken")
-            Prelude.<*> ( x Core..@? "scheduledInstanceSet"
+            Prelude.<$> (x Data..@? "nextToken")
+            Prelude.<*> ( x Data..@? "scheduledInstanceSet"
                             Core..!@ Prelude.mempty
-                            Prelude.>>= Core.may (Core.parseXMLList "item")
+                            Prelude.>>= Core.may (Data.parseXMLList "item")
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeScheduledInstances where
   hashWithSalt _salt DescribeScheduledInstances' {..} =
-    _salt `Prelude.hashWithSalt` filters
-      `Prelude.hashWithSalt` slotStartTimeRange
+    _salt `Prelude.hashWithSalt` dryRun
+      `Prelude.hashWithSalt` filters
+      `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` scheduledInstanceIds
-      `Prelude.hashWithSalt` dryRun
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` slotStartTimeRange
 
 instance Prelude.NFData DescribeScheduledInstances where
   rnf DescribeScheduledInstances' {..} =
-    Prelude.rnf filters
-      `Prelude.seq` Prelude.rnf slotStartTimeRange
+    Prelude.rnf dryRun
+      `Prelude.seq` Prelude.rnf filters
+      `Prelude.seq` Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf scheduledInstanceIds
-      `Prelude.seq` Prelude.rnf dryRun
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf slotStartTimeRange
 
-instance Core.ToHeaders DescribeScheduledInstances where
+instance Data.ToHeaders DescribeScheduledInstances where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath DescribeScheduledInstances where
+instance Data.ToPath DescribeScheduledInstances where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeScheduledInstances where
+instance Data.ToQuery DescribeScheduledInstances where
   toQuery DescribeScheduledInstances' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("DescribeScheduledInstances" :: Prelude.ByteString),
+          Data.=: ("DescribeScheduledInstances" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2016-11-15" :: Prelude.ByteString),
-        Core.toQuery
-          (Core.toQueryList "Filter" Prelude.<$> filters),
-        "SlotStartTimeRange" Core.=: slotStartTimeRange,
-        "NextToken" Core.=: nextToken,
-        Core.toQuery
-          ( Core.toQueryList "ScheduledInstanceId"
+          Data.=: ("2016-11-15" :: Prelude.ByteString),
+        "DryRun" Data.=: dryRun,
+        Data.toQuery
+          (Data.toQueryList "Filter" Prelude.<$> filters),
+        "MaxResults" Data.=: maxResults,
+        "NextToken" Data.=: nextToken,
+        Data.toQuery
+          ( Data.toQueryList "ScheduledInstanceId"
               Prelude.<$> scheduledInstanceIds
           ),
-        "DryRun" Core.=: dryRun,
-        "MaxResults" Core.=: maxResults
+        "SlotStartTimeRange" Data.=: slotStartTimeRange
       ]
 
 -- | Contains the output of DescribeScheduledInstances.

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Batch.Types.Device
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -21,10 +21,11 @@ module Amazonka.Batch.Types.Device where
 
 import Amazonka.Batch.Types.DeviceCgroupPermission
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | An object representing a container instance host device.
+-- | An object that represents a container instance host device.
 --
 -- This object isn\'t applicable to jobs that are running on Fargate
 -- resources and shouldn\'t be provided.
@@ -85,15 +86,15 @@ device_permissions = Lens.lens (\Device' {permissions} -> permissions) (\s@Devic
 device_hostPath :: Lens.Lens' Device Prelude.Text
 device_hostPath = Lens.lens (\Device' {hostPath} -> hostPath) (\s@Device' {} a -> s {hostPath = a} :: Device)
 
-instance Core.FromJSON Device where
+instance Data.FromJSON Device where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Device"
       ( \x ->
           Device'
-            Prelude.<$> (x Core..:? "containerPath")
-            Prelude.<*> (x Core..:? "permissions" Core..!= Prelude.mempty)
-            Prelude.<*> (x Core..: "hostPath")
+            Prelude.<$> (x Data..:? "containerPath")
+            Prelude.<*> (x Data..:? "permissions" Data..!= Prelude.mempty)
+            Prelude.<*> (x Data..: "hostPath")
       )
 
 instance Prelude.Hashable Device where
@@ -108,12 +109,12 @@ instance Prelude.NFData Device where
       `Prelude.seq` Prelude.rnf permissions
       `Prelude.seq` Prelude.rnf hostPath
 
-instance Core.ToJSON Device where
+instance Data.ToJSON Device where
   toJSON Device' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("containerPath" Core..=) Prelude.<$> containerPath,
-            ("permissions" Core..=) Prelude.<$> permissions,
-            Prelude.Just ("hostPath" Core..= hostPath)
+          [ ("containerPath" Data..=) Prelude.<$> containerPath,
+            ("permissions" Data..=) Prelude.<$> permissions,
+            Prelude.Just ("hostPath" Data..= hostPath)
           ]
       )

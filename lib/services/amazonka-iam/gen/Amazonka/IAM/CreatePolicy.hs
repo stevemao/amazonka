@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IAM.CreatePolicy
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,8 @@ module Amazonka.IAM.CreatePolicy
     newCreatePolicy,
 
     -- * Request Lenses
-    createPolicy_path,
     createPolicy_description,
+    createPolicy_path,
     createPolicy_tags,
     createPolicy_policyName,
     createPolicy_policyDocument,
@@ -59,15 +59,24 @@ module Amazonka.IAM.CreatePolicy
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IAM.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreatePolicy' smart constructor.
 data CreatePolicy = CreatePolicy'
-  { -- | The path for the policy.
+  { -- | A friendly description of the policy.
+    --
+    -- Typically used to store information about the permissions defined in the
+    -- policy. For example, \"Grants access to production DynamoDB tables.\"
+    --
+    -- The policy description is immutable. After a value is assigned, it
+    -- cannot be changed.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The path for the policy.
     --
     -- For more information about paths, see
     -- <https://docs.aws.amazon.com/IAM/latest/UserGuide/Using_Identifiers.html IAM identifiers>
@@ -86,14 +95,6 @@ data CreatePolicy = CreatePolicy'
     --
     -- You cannot use an asterisk (*) in the path name.
     path :: Prelude.Maybe Prelude.Text,
-    -- | A friendly description of the policy.
-    --
-    -- Typically used to store information about the permissions defined in the
-    -- policy. For example, \"Grants access to production DynamoDB tables.\"
-    --
-    -- The policy description is immutable. After a value is assigned, it
-    -- cannot be changed.
-    description :: Prelude.Maybe Prelude.Text,
     -- | A list of tags that you want to attach to the new IAM customer managed
     -- policy. Each tag consists of a key name and an associated value. For
     -- more information about tagging, see
@@ -150,6 +151,14 @@ data CreatePolicy = CreatePolicy'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createPolicy_description' - A friendly description of the policy.
+--
+-- Typically used to store information about the permissions defined in the
+-- policy. For example, \"Grants access to production DynamoDB tables.\"
+--
+-- The policy description is immutable. After a value is assigned, it
+-- cannot be changed.
+--
 -- 'path', 'createPolicy_path' - The path for the policy.
 --
 -- For more information about paths, see
@@ -168,14 +177,6 @@ data CreatePolicy = CreatePolicy'
 -- and lowercased letters.
 --
 -- You cannot use an asterisk (*) in the path name.
---
--- 'description', 'createPolicy_description' - A friendly description of the policy.
---
--- Typically used to store information about the permissions defined in the
--- policy. For example, \"Grants access to production DynamoDB tables.\"
---
--- The policy description is immutable. After a value is assigned, it
--- cannot be changed.
 --
 -- 'tags', 'createPolicy_tags' - A list of tags that you want to attach to the new IAM customer managed
 -- policy. Each tag consists of a key name and an associated value. For
@@ -229,12 +230,22 @@ newCreatePolicy ::
   CreatePolicy
 newCreatePolicy pPolicyName_ pPolicyDocument_ =
   CreatePolicy'
-    { path = Prelude.Nothing,
-      description = Prelude.Nothing,
+    { description = Prelude.Nothing,
+      path = Prelude.Nothing,
       tags = Prelude.Nothing,
       policyName = pPolicyName_,
       policyDocument = pPolicyDocument_
     }
+
+-- | A friendly description of the policy.
+--
+-- Typically used to store information about the permissions defined in the
+-- policy. For example, \"Grants access to production DynamoDB tables.\"
+--
+-- The policy description is immutable. After a value is assigned, it
+-- cannot be changed.
+createPolicy_description :: Lens.Lens' CreatePolicy (Prelude.Maybe Prelude.Text)
+createPolicy_description = Lens.lens (\CreatePolicy' {description} -> description) (\s@CreatePolicy' {} a -> s {description = a} :: CreatePolicy)
 
 -- | The path for the policy.
 --
@@ -256,16 +267,6 @@ newCreatePolicy pPolicyName_ pPolicyDocument_ =
 -- You cannot use an asterisk (*) in the path name.
 createPolicy_path :: Lens.Lens' CreatePolicy (Prelude.Maybe Prelude.Text)
 createPolicy_path = Lens.lens (\CreatePolicy' {path} -> path) (\s@CreatePolicy' {} a -> s {path = a} :: CreatePolicy)
-
--- | A friendly description of the policy.
---
--- Typically used to store information about the permissions defined in the
--- policy. For example, \"Grants access to production DynamoDB tables.\"
---
--- The policy description is immutable. After a value is assigned, it
--- cannot be changed.
-createPolicy_description :: Lens.Lens' CreatePolicy (Prelude.Maybe Prelude.Text)
-createPolicy_description = Lens.lens (\CreatePolicy' {description} -> description) (\s@CreatePolicy' {} a -> s {description = a} :: CreatePolicy)
 
 -- | A list of tags that you want to attach to the new IAM customer managed
 -- policy. Each tag consists of a key name and an associated value. For
@@ -320,52 +321,53 @@ createPolicy_policyDocument = Lens.lens (\CreatePolicy' {policyDocument} -> poli
 
 instance Core.AWSRequest CreatePolicy where
   type AWSResponse CreatePolicy = CreatePolicyResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreatePolicyResult"
       ( \s h x ->
           CreatePolicyResponse'
-            Prelude.<$> (x Core..@? "Policy")
+            Prelude.<$> (x Data..@? "Policy")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreatePolicy where
   hashWithSalt _salt CreatePolicy' {..} =
-    _salt `Prelude.hashWithSalt` path
-      `Prelude.hashWithSalt` description
+    _salt `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` path
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` policyName
       `Prelude.hashWithSalt` policyDocument
 
 instance Prelude.NFData CreatePolicy where
   rnf CreatePolicy' {..} =
-    Prelude.rnf path
-      `Prelude.seq` Prelude.rnf description
+    Prelude.rnf description
+      `Prelude.seq` Prelude.rnf path
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf policyName
       `Prelude.seq` Prelude.rnf policyDocument
 
-instance Core.ToHeaders CreatePolicy where
+instance Data.ToHeaders CreatePolicy where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreatePolicy where
+instance Data.ToPath CreatePolicy where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreatePolicy where
+instance Data.ToQuery CreatePolicy where
   toQuery CreatePolicy' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("CreatePolicy" :: Prelude.ByteString),
+          Data.=: ("CreatePolicy" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2010-05-08" :: Prelude.ByteString),
-        "Path" Core.=: path,
-        "Description" Core.=: description,
+          Data.=: ("2010-05-08" :: Prelude.ByteString),
+        "Description" Data.=: description,
+        "Path" Data.=: path,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tags),
-        "PolicyName" Core.=: policyName,
-        "PolicyDocument" Core.=: policyDocument
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tags),
+        "PolicyName" Data.=: policyName,
+        "PolicyDocument" Data.=: policyDocument
       ]
 
 -- | Contains the response to a successful CreatePolicy request.

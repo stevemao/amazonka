@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.APIGateway.GetStage
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -35,29 +35,30 @@ module Amazonka.APIGateway.GetStage
     newStage,
 
     -- * Response Lenses
-    stage_deploymentId,
-    stage_variables,
     stage_accessLogSettings,
-    stage_documentationVersion,
-    stage_clientCertificateId,
-    stage_tracingEnabled,
-    stage_createdDate,
-    stage_cacheClusterStatus,
-    stage_methodSettings,
-    stage_lastUpdatedDate,
-    stage_cacheClusterSize,
-    stage_webAclArn,
-    stage_canarySettings,
     stage_cacheClusterEnabled,
-    stage_stageName,
+    stage_cacheClusterSize,
+    stage_cacheClusterStatus,
+    stage_canarySettings,
+    stage_clientCertificateId,
+    stage_createdDate,
+    stage_deploymentId,
     stage_description,
+    stage_documentationVersion,
+    stage_lastUpdatedDate,
+    stage_methodSettings,
+    stage_stageName,
     stage_tags,
+    stage_tracingEnabled,
+    stage_variables,
+    stage_webAclArn,
   )
 where
 
 import Amazonka.APIGateway.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -66,9 +67,9 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newGetStage' smart constructor.
 data GetStage = GetStage'
-  { -- | [Required] The string identifier of the associated RestApi.
+  { -- | The string identifier of the associated RestApi.
     restApiId :: Prelude.Text,
-    -- | [Required] The name of the Stage resource to get information about.
+    -- | The name of the Stage resource to get information about.
     stageName :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -81,9 +82,9 @@ data GetStage = GetStage'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'restApiId', 'getStage_restApiId' - [Required] The string identifier of the associated RestApi.
+-- 'restApiId', 'getStage_restApiId' - The string identifier of the associated RestApi.
 --
--- 'stageName', 'getStage_stageName' - [Required] The name of the Stage resource to get information about.
+-- 'stageName', 'getStage_stageName' - The name of the Stage resource to get information about.
 newGetStage ::
   -- | 'restApiId'
   Prelude.Text ->
@@ -96,20 +97,21 @@ newGetStage pRestApiId_ pStageName_ =
       stageName = pStageName_
     }
 
--- | [Required] The string identifier of the associated RestApi.
+-- | The string identifier of the associated RestApi.
 getStage_restApiId :: Lens.Lens' GetStage Prelude.Text
 getStage_restApiId = Lens.lens (\GetStage' {restApiId} -> restApiId) (\s@GetStage' {} a -> s {restApiId = a} :: GetStage)
 
--- | [Required] The name of the Stage resource to get information about.
+-- | The name of the Stage resource to get information about.
 getStage_stageName :: Lens.Lens' GetStage Prelude.Text
 getStage_stageName = Lens.lens (\GetStage' {stageName} -> stageName) (\s@GetStage' {} a -> s {stageName = a} :: GetStage)
 
 instance Core.AWSRequest GetStage where
   type AWSResponse GetStage = Stage
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetStage where
   hashWithSalt _salt GetStage' {..} =
@@ -121,23 +123,23 @@ instance Prelude.NFData GetStage where
     Prelude.rnf restApiId
       `Prelude.seq` Prelude.rnf stageName
 
-instance Core.ToHeaders GetStage where
+instance Data.ToHeaders GetStage where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Accept"
-              Core.=# ("application/json" :: Prelude.ByteString)
+              Data.=# ("application/json" :: Prelude.ByteString)
           ]
       )
 
-instance Core.ToPath GetStage where
+instance Data.ToPath GetStage where
   toPath GetStage' {..} =
     Prelude.mconcat
       [ "/restapis/",
-        Core.toBS restApiId,
+        Data.toBS restApiId,
         "/stages/",
-        Core.toBS stageName
+        Data.toBS stageName
       ]
 
-instance Core.ToQuery GetStage where
+instance Data.ToQuery GetStage where
   toQuery = Prelude.const Prelude.mempty

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.Types.ContinuousParameterRange
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SageMaker.Types.ContinuousParameterRange where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.SageMaker.Types.HyperParameterScalingType
 
@@ -34,8 +35,8 @@ data ContinuousParameterRange = ContinuousParameterRange'
     -- One of the following values:
     --
     -- [Auto]
-    --     Amazon SageMaker hyperparameter tuning chooses the best scale for
-    --     the hyperparameter.
+    --     SageMaker hyperparameter tuning chooses the best scale for the
+    --     hyperparameter.
     --
     -- [Linear]
     --     Hyperparameter tuning searches the values in the hyperparameter
@@ -81,8 +82,8 @@ data ContinuousParameterRange = ContinuousParameterRange'
 -- One of the following values:
 --
 -- [Auto]
---     Amazon SageMaker hyperparameter tuning chooses the best scale for
---     the hyperparameter.
+--     SageMaker hyperparameter tuning chooses the best scale for the
+--     hyperparameter.
 --
 -- [Linear]
 --     Hyperparameter tuning searches the values in the hyperparameter
@@ -136,8 +137,8 @@ newContinuousParameterRange
 -- One of the following values:
 --
 -- [Auto]
---     Amazon SageMaker hyperparameter tuning chooses the best scale for
---     the hyperparameter.
+--     SageMaker hyperparameter tuning chooses the best scale for the
+--     hyperparameter.
 --
 -- [Linear]
 --     Hyperparameter tuning searches the values in the hyperparameter
@@ -174,16 +175,16 @@ continuousParameterRange_minValue = Lens.lens (\ContinuousParameterRange' {minVa
 continuousParameterRange_maxValue :: Lens.Lens' ContinuousParameterRange Prelude.Text
 continuousParameterRange_maxValue = Lens.lens (\ContinuousParameterRange' {maxValue} -> maxValue) (\s@ContinuousParameterRange' {} a -> s {maxValue = a} :: ContinuousParameterRange)
 
-instance Core.FromJSON ContinuousParameterRange where
+instance Data.FromJSON ContinuousParameterRange where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ContinuousParameterRange"
       ( \x ->
           ContinuousParameterRange'
-            Prelude.<$> (x Core..:? "ScalingType")
-            Prelude.<*> (x Core..: "Name")
-            Prelude.<*> (x Core..: "MinValue")
-            Prelude.<*> (x Core..: "MaxValue")
+            Prelude.<$> (x Data..:? "ScalingType")
+            Prelude.<*> (x Data..: "Name")
+            Prelude.<*> (x Data..: "MinValue")
+            Prelude.<*> (x Data..: "MaxValue")
       )
 
 instance Prelude.Hashable ContinuousParameterRange where
@@ -200,13 +201,13 @@ instance Prelude.NFData ContinuousParameterRange where
       `Prelude.seq` Prelude.rnf minValue
       `Prelude.seq` Prelude.rnf maxValue
 
-instance Core.ToJSON ContinuousParameterRange where
+instance Data.ToJSON ContinuousParameterRange where
   toJSON ContinuousParameterRange' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ScalingType" Core..=) Prelude.<$> scalingType,
-            Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("MinValue" Core..= minValue),
-            Prelude.Just ("MaxValue" Core..= maxValue)
+          [ ("ScalingType" Data..=) Prelude.<$> scalingType,
+            Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("MinValue" Data..= minValue),
+            Prelude.Just ("MaxValue" Data..= maxValue)
           ]
       )

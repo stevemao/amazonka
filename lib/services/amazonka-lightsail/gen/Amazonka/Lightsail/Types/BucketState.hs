@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.Types.BucketState
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Lightsail.Types.BucketState where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes the state of an Amazon Lightsail bucket.
@@ -82,14 +83,14 @@ bucketState_code = Lens.lens (\BucketState' {code} -> code) (\s@BucketState' {} 
 bucketState_message :: Lens.Lens' BucketState (Prelude.Maybe Prelude.Text)
 bucketState_message = Lens.lens (\BucketState' {message} -> message) (\s@BucketState' {} a -> s {message = a} :: BucketState)
 
-instance Core.FromJSON BucketState where
+instance Data.FromJSON BucketState where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "BucketState"
       ( \x ->
           BucketState'
-            Prelude.<$> (x Core..:? "code")
-            Prelude.<*> (x Core..:? "message")
+            Prelude.<$> (x Data..:? "code")
+            Prelude.<*> (x Data..:? "message")
       )
 
 instance Prelude.Hashable BucketState where

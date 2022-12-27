@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.DeleteTableVersion
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,8 +42,9 @@ module Amazonka.Glue.DeleteTableVersion
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -127,7 +128,8 @@ instance Core.AWSRequest DeleteTableVersion where
   type
     AWSResponse DeleteTableVersion =
       DeleteTableVersionResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -149,34 +151,34 @@ instance Prelude.NFData DeleteTableVersion where
       `Prelude.seq` Prelude.rnf tableName
       `Prelude.seq` Prelude.rnf versionId
 
-instance Core.ToHeaders DeleteTableVersion where
+instance Data.ToHeaders DeleteTableVersion where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.DeleteTableVersion" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.DeleteTableVersion" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteTableVersion where
+instance Data.ToJSON DeleteTableVersion where
   toJSON DeleteTableVersion' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("CatalogId" Core..=) Prelude.<$> catalogId,
-            Prelude.Just ("DatabaseName" Core..= databaseName),
-            Prelude.Just ("TableName" Core..= tableName),
-            Prelude.Just ("VersionId" Core..= versionId)
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            Prelude.Just ("DatabaseName" Data..= databaseName),
+            Prelude.Just ("TableName" Data..= tableName),
+            Prelude.Just ("VersionId" Data..= versionId)
           ]
       )
 
-instance Core.ToPath DeleteTableVersion where
+instance Data.ToPath DeleteTableVersion where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteTableVersion where
+instance Data.ToQuery DeleteTableVersion where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteTableVersionResponse' smart constructor.

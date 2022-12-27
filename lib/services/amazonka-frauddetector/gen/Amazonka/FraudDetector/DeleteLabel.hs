@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.DeleteLabel
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -48,8 +48,9 @@ module Amazonka.FraudDetector.DeleteLabel
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FraudDetector.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,7 +83,8 @@ deleteLabel_name = Lens.lens (\DeleteLabel' {name} -> name) (\s@DeleteLabel' {} 
 
 instance Core.AWSRequest DeleteLabel where
   type AWSResponse DeleteLabel = DeleteLabelResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -97,32 +99,32 @@ instance Prelude.Hashable DeleteLabel where
 instance Prelude.NFData DeleteLabel where
   rnf DeleteLabel' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteLabel where
+instance Data.ToHeaders DeleteLabel where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSHawksNestServiceFacade.DeleteLabel" ::
+              Data.=# ( "AWSHawksNestServiceFacade.DeleteLabel" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteLabel where
+instance Data.ToJSON DeleteLabel where
   toJSON DeleteLabel' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("name" Core..= name)]
+          [Prelude.Just ("name" Data..= name)]
       )
 
-instance Core.ToPath DeleteLabel where
+instance Data.ToPath DeleteLabel where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteLabel where
+instance Data.ToQuery DeleteLabel where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteLabelResponse' smart constructor.

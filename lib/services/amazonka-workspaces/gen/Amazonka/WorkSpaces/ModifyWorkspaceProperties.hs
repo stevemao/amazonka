@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WorkSpaces.ModifyWorkspaceProperties
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,6 +23,11 @@
 -- Modifies the specified WorkSpace properties. For important information
 -- about how to modify the size of the root and user volumes, see
 -- <https://docs.aws.amazon.com/workspaces/latest/adminguide/modify-workspaces.html Modify a WorkSpace>.
+--
+-- The @MANUAL@ running mode value is only supported by Amazon WorkSpaces
+-- Core. Contact your account team to be allow-listed to use this value.
+-- For more information, see
+-- <http://aws.amazon.com/workspaces/core/ Amazon WorkSpaces Core>.
 module Amazonka.WorkSpaces.ModifyWorkspaceProperties
   ( -- * Creating a Request
     ModifyWorkspaceProperties (..),
@@ -42,7 +47,8 @@ module Amazonka.WorkSpaces.ModifyWorkspaceProperties
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -95,7 +101,8 @@ instance Core.AWSRequest ModifyWorkspaceProperties where
   type
     AWSResponse ModifyWorkspaceProperties =
       ModifyWorkspacePropertiesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -113,35 +120,35 @@ instance Prelude.NFData ModifyWorkspaceProperties where
     Prelude.rnf workspaceId
       `Prelude.seq` Prelude.rnf workspaceProperties
 
-instance Core.ToHeaders ModifyWorkspaceProperties where
+instance Data.ToHeaders ModifyWorkspaceProperties where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "WorkspacesService.ModifyWorkspaceProperties" ::
+              Data.=# ( "WorkspacesService.ModifyWorkspaceProperties" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ModifyWorkspaceProperties where
+instance Data.ToJSON ModifyWorkspaceProperties where
   toJSON ModifyWorkspaceProperties' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("WorkspaceId" Core..= workspaceId),
+          [ Prelude.Just ("WorkspaceId" Data..= workspaceId),
             Prelude.Just
-              ("WorkspaceProperties" Core..= workspaceProperties)
+              ("WorkspaceProperties" Data..= workspaceProperties)
           ]
       )
 
-instance Core.ToPath ModifyWorkspaceProperties where
+instance Data.ToPath ModifyWorkspaceProperties where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyWorkspaceProperties where
+instance Data.ToQuery ModifyWorkspaceProperties where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newModifyWorkspacePropertiesResponse' smart constructor.

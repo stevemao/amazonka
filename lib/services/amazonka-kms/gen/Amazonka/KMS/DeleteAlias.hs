@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KMS.DeleteAlias
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -24,7 +24,7 @@
 --
 -- Adding, deleting, or updating an alias can allow or deny permission to
 -- the KMS key. For details, see
--- <https://docs.aws.amazon.com/kms/latest/developerguide/abac.html Using ABAC in KMS>
+-- <https://docs.aws.amazon.com/kms/latest/developerguide/abac.html ABAC for KMS>
 -- in the /Key Management Service Developer Guide/.
 --
 -- Because an alias is not a property of a KMS key, you can delete and
@@ -74,8 +74,9 @@ module Amazonka.KMS.DeleteAlias
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -112,7 +113,8 @@ deleteAlias_aliasName = Lens.lens (\DeleteAlias' {aliasName} -> aliasName) (\s@D
 
 instance Core.AWSRequest DeleteAlias where
   type AWSResponse DeleteAlias = DeleteAliasResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response = Response.receiveNull DeleteAliasResponse'
 
 instance Prelude.Hashable DeleteAlias where
@@ -122,30 +124,30 @@ instance Prelude.Hashable DeleteAlias where
 instance Prelude.NFData DeleteAlias where
   rnf DeleteAlias' {..} = Prelude.rnf aliasName
 
-instance Core.ToHeaders DeleteAlias where
+instance Data.ToHeaders DeleteAlias where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("TrentService.DeleteAlias" :: Prelude.ByteString),
+              Data.=# ("TrentService.DeleteAlias" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteAlias where
+instance Data.ToJSON DeleteAlias where
   toJSON DeleteAlias' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("AliasName" Core..= aliasName)]
+          [Prelude.Just ("AliasName" Data..= aliasName)]
       )
 
-instance Core.ToPath DeleteAlias where
+instance Data.ToPath DeleteAlias where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteAlias where
+instance Data.ToQuery DeleteAlias where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteAliasResponse' smart constructor.

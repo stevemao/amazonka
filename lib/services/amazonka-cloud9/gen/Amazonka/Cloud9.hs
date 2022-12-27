@@ -3,7 +3,7 @@
 
 -- |
 -- Module      : Amazonka.Cloud9
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -63,11 +63,23 @@ module Amazonka.Cloud9
     -- * Errors
     -- $errors
 
+    -- ** BadRequestException
+    _BadRequestException,
+
+    -- ** ConcurrentAccessException
+    _ConcurrentAccessException,
+
     -- ** ConflictException
     _ConflictException,
 
     -- ** ForbiddenException
     _ForbiddenException,
+
+    -- ** InternalServerErrorException
+    _InternalServerErrorException,
+
+    -- ** LimitExceededException
+    _LimitExceededException,
 
     -- ** NotFoundException
     _NotFoundException,
@@ -75,53 +87,11 @@ module Amazonka.Cloud9
     -- ** TooManyRequestsException
     _TooManyRequestsException,
 
-    -- ** InternalServerErrorException
-    _InternalServerErrorException,
-
-    -- ** ConcurrentAccessException
-    _ConcurrentAccessException,
-
-    -- ** BadRequestException
-    _BadRequestException,
-
-    -- ** LimitExceededException
-    _LimitExceededException,
-
     -- * Waiters
     -- $waiters
 
     -- * Operations
     -- $operations
-
-    -- ** ListEnvironments (Paginated)
-    ListEnvironments (ListEnvironments'),
-    newListEnvironments,
-    ListEnvironmentsResponse (ListEnvironmentsResponse'),
-    newListEnvironmentsResponse,
-
-    -- ** UpdateEnvironment
-    UpdateEnvironment (UpdateEnvironment'),
-    newUpdateEnvironment,
-    UpdateEnvironmentResponse (UpdateEnvironmentResponse'),
-    newUpdateEnvironmentResponse,
-
-    -- ** DeleteEnvironment
-    DeleteEnvironment (DeleteEnvironment'),
-    newDeleteEnvironment,
-    DeleteEnvironmentResponse (DeleteEnvironmentResponse'),
-    newDeleteEnvironmentResponse,
-
-    -- ** DescribeEnvironmentStatus
-    DescribeEnvironmentStatus (DescribeEnvironmentStatus'),
-    newDescribeEnvironmentStatus,
-    DescribeEnvironmentStatusResponse (DescribeEnvironmentStatusResponse'),
-    newDescribeEnvironmentStatusResponse,
-
-    -- ** ListTagsForResource
-    ListTagsForResource (ListTagsForResource'),
-    newListTagsForResource,
-    ListTagsForResourceResponse (ListTagsForResourceResponse'),
-    newListTagsForResourceResponse,
 
     -- ** CreateEnvironmentEC2
     CreateEnvironmentEC2 (CreateEnvironmentEC2'),
@@ -129,29 +99,17 @@ module Amazonka.Cloud9
     CreateEnvironmentEC2Response (CreateEnvironmentEC2Response'),
     newCreateEnvironmentEC2Response,
 
-    -- ** TagResource
-    TagResource (TagResource'),
-    newTagResource,
-    TagResourceResponse (TagResourceResponse'),
-    newTagResourceResponse,
-
     -- ** CreateEnvironmentMembership
     CreateEnvironmentMembership (CreateEnvironmentMembership'),
     newCreateEnvironmentMembership,
     CreateEnvironmentMembershipResponse (CreateEnvironmentMembershipResponse'),
     newCreateEnvironmentMembershipResponse,
 
-    -- ** DescribeEnvironments
-    DescribeEnvironments (DescribeEnvironments'),
-    newDescribeEnvironments,
-    DescribeEnvironmentsResponse (DescribeEnvironmentsResponse'),
-    newDescribeEnvironmentsResponse,
-
-    -- ** UntagResource
-    UntagResource (UntagResource'),
-    newUntagResource,
-    UntagResourceResponse (UntagResourceResponse'),
-    newUntagResourceResponse,
+    -- ** DeleteEnvironment
+    DeleteEnvironment (DeleteEnvironment'),
+    newDeleteEnvironment,
+    DeleteEnvironmentResponse (DeleteEnvironmentResponse'),
+    newDeleteEnvironmentResponse,
 
     -- ** DeleteEnvironmentMembership
     DeleteEnvironmentMembership (DeleteEnvironmentMembership'),
@@ -159,17 +117,59 @@ module Amazonka.Cloud9
     DeleteEnvironmentMembershipResponse (DeleteEnvironmentMembershipResponse'),
     newDeleteEnvironmentMembershipResponse,
 
-    -- ** UpdateEnvironmentMembership
-    UpdateEnvironmentMembership (UpdateEnvironmentMembership'),
-    newUpdateEnvironmentMembership,
-    UpdateEnvironmentMembershipResponse (UpdateEnvironmentMembershipResponse'),
-    newUpdateEnvironmentMembershipResponse,
-
     -- ** DescribeEnvironmentMemberships (Paginated)
     DescribeEnvironmentMemberships (DescribeEnvironmentMemberships'),
     newDescribeEnvironmentMemberships,
     DescribeEnvironmentMembershipsResponse (DescribeEnvironmentMembershipsResponse'),
     newDescribeEnvironmentMembershipsResponse,
+
+    -- ** DescribeEnvironmentStatus
+    DescribeEnvironmentStatus (DescribeEnvironmentStatus'),
+    newDescribeEnvironmentStatus,
+    DescribeEnvironmentStatusResponse (DescribeEnvironmentStatusResponse'),
+    newDescribeEnvironmentStatusResponse,
+
+    -- ** DescribeEnvironments
+    DescribeEnvironments (DescribeEnvironments'),
+    newDescribeEnvironments,
+    DescribeEnvironmentsResponse (DescribeEnvironmentsResponse'),
+    newDescribeEnvironmentsResponse,
+
+    -- ** ListEnvironments (Paginated)
+    ListEnvironments (ListEnvironments'),
+    newListEnvironments,
+    ListEnvironmentsResponse (ListEnvironmentsResponse'),
+    newListEnvironmentsResponse,
+
+    -- ** ListTagsForResource
+    ListTagsForResource (ListTagsForResource'),
+    newListTagsForResource,
+    ListTagsForResourceResponse (ListTagsForResourceResponse'),
+    newListTagsForResourceResponse,
+
+    -- ** TagResource
+    TagResource (TagResource'),
+    newTagResource,
+    TagResourceResponse (TagResourceResponse'),
+    newTagResourceResponse,
+
+    -- ** UntagResource
+    UntagResource (UntagResource'),
+    newUntagResource,
+    UntagResourceResponse (UntagResourceResponse'),
+    newUntagResourceResponse,
+
+    -- ** UpdateEnvironment
+    UpdateEnvironment (UpdateEnvironment'),
+    newUpdateEnvironment,
+    UpdateEnvironmentResponse (UpdateEnvironmentResponse'),
+    newUpdateEnvironmentResponse,
+
+    -- ** UpdateEnvironmentMembership
+    UpdateEnvironmentMembership (UpdateEnvironmentMembership'),
+    newUpdateEnvironmentMembership,
+    UpdateEnvironmentMembershipResponse (UpdateEnvironmentMembershipResponse'),
+    newUpdateEnvironmentMembershipResponse,
 
     -- * Types
 

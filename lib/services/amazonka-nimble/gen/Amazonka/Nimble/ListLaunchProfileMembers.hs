@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Nimble.ListLaunchProfileMembers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.Nimble.ListLaunchProfileMembers
     newListLaunchProfileMembers,
 
     -- * Request Lenses
-    listLaunchProfileMembers_nextToken,
     listLaunchProfileMembers_maxResults,
-    listLaunchProfileMembers_studioId,
+    listLaunchProfileMembers_nextToken,
     listLaunchProfileMembers_launchProfileId,
+    listLaunchProfileMembers_studioId,
 
     -- * Destructuring the Response
     ListLaunchProfileMembersResponse (..),
@@ -46,7 +46,8 @@ module Amazonka.Nimble.ListLaunchProfileMembers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Nimble.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -54,15 +55,14 @@ import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListLaunchProfileMembers' smart constructor.
 data ListLaunchProfileMembers = ListLaunchProfileMembers'
-  { -- | The token for the next set of results, or null if there are no more
-    -- results.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of results to be returned per request.
+  { -- | The max number of results to return in the response.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The token to request the next page of results.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | The Launch Profile ID.
+    launchProfileId :: Prelude.Text,
     -- | The studio ID.
-    studioId :: Prelude.Text,
-    -- | The launch profile ID.
-    launchProfileId :: Prelude.Text
+    studioId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -74,47 +74,45 @@ data ListLaunchProfileMembers = ListLaunchProfileMembers'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'listLaunchProfileMembers_nextToken' - The token for the next set of results, or null if there are no more
--- results.
+-- 'maxResults', 'listLaunchProfileMembers_maxResults' - The max number of results to return in the response.
 --
--- 'maxResults', 'listLaunchProfileMembers_maxResults' - The maximum number of results to be returned per request.
+-- 'nextToken', 'listLaunchProfileMembers_nextToken' - The token to request the next page of results.
+--
+-- 'launchProfileId', 'listLaunchProfileMembers_launchProfileId' - The Launch Profile ID.
 --
 -- 'studioId', 'listLaunchProfileMembers_studioId' - The studio ID.
---
--- 'launchProfileId', 'listLaunchProfileMembers_launchProfileId' - The launch profile ID.
 newListLaunchProfileMembers ::
-  -- | 'studioId'
-  Prelude.Text ->
   -- | 'launchProfileId'
+  Prelude.Text ->
+  -- | 'studioId'
   Prelude.Text ->
   ListLaunchProfileMembers
 newListLaunchProfileMembers
-  pStudioId_
-  pLaunchProfileId_ =
+  pLaunchProfileId_
+  pStudioId_ =
     ListLaunchProfileMembers'
-      { nextToken =
+      { maxResults =
           Prelude.Nothing,
-        maxResults = Prelude.Nothing,
-        studioId = pStudioId_,
-        launchProfileId = pLaunchProfileId_
+        nextToken = Prelude.Nothing,
+        launchProfileId = pLaunchProfileId_,
+        studioId = pStudioId_
       }
 
--- | The token for the next set of results, or null if there are no more
--- results.
+-- | The max number of results to return in the response.
+listLaunchProfileMembers_maxResults :: Lens.Lens' ListLaunchProfileMembers (Prelude.Maybe Prelude.Natural)
+listLaunchProfileMembers_maxResults = Lens.lens (\ListLaunchProfileMembers' {maxResults} -> maxResults) (\s@ListLaunchProfileMembers' {} a -> s {maxResults = a} :: ListLaunchProfileMembers)
+
+-- | The token to request the next page of results.
 listLaunchProfileMembers_nextToken :: Lens.Lens' ListLaunchProfileMembers (Prelude.Maybe Prelude.Text)
 listLaunchProfileMembers_nextToken = Lens.lens (\ListLaunchProfileMembers' {nextToken} -> nextToken) (\s@ListLaunchProfileMembers' {} a -> s {nextToken = a} :: ListLaunchProfileMembers)
 
--- | The maximum number of results to be returned per request.
-listLaunchProfileMembers_maxResults :: Lens.Lens' ListLaunchProfileMembers (Prelude.Maybe Prelude.Natural)
-listLaunchProfileMembers_maxResults = Lens.lens (\ListLaunchProfileMembers' {maxResults} -> maxResults) (\s@ListLaunchProfileMembers' {} a -> s {maxResults = a} :: ListLaunchProfileMembers)
+-- | The Launch Profile ID.
+listLaunchProfileMembers_launchProfileId :: Lens.Lens' ListLaunchProfileMembers Prelude.Text
+listLaunchProfileMembers_launchProfileId = Lens.lens (\ListLaunchProfileMembers' {launchProfileId} -> launchProfileId) (\s@ListLaunchProfileMembers' {} a -> s {launchProfileId = a} :: ListLaunchProfileMembers)
 
 -- | The studio ID.
 listLaunchProfileMembers_studioId :: Lens.Lens' ListLaunchProfileMembers Prelude.Text
 listLaunchProfileMembers_studioId = Lens.lens (\ListLaunchProfileMembers' {studioId} -> studioId) (\s@ListLaunchProfileMembers' {} a -> s {studioId = a} :: ListLaunchProfileMembers)
-
--- | The launch profile ID.
-listLaunchProfileMembers_launchProfileId :: Lens.Lens' ListLaunchProfileMembers Prelude.Text
-listLaunchProfileMembers_launchProfileId = Lens.lens (\ListLaunchProfileMembers' {launchProfileId} -> launchProfileId) (\s@ListLaunchProfileMembers' {} a -> s {launchProfileId = a} :: ListLaunchProfileMembers)
 
 instance Core.AWSPager ListLaunchProfileMembers where
   page rq rs
@@ -142,56 +140,57 @@ instance Core.AWSRequest ListLaunchProfileMembers where
   type
     AWSResponse ListLaunchProfileMembers =
       ListLaunchProfileMembersResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListLaunchProfileMembersResponse'
-            Prelude.<$> (x Core..?> "members" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "members" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListLaunchProfileMembers where
   hashWithSalt _salt ListLaunchProfileMembers' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
-      `Prelude.hashWithSalt` studioId
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` launchProfileId
+      `Prelude.hashWithSalt` studioId
 
 instance Prelude.NFData ListLaunchProfileMembers where
   rnf ListLaunchProfileMembers' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
-      `Prelude.seq` Prelude.rnf studioId
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf launchProfileId
+      `Prelude.seq` Prelude.rnf studioId
 
-instance Core.ToHeaders ListLaunchProfileMembers where
+instance Data.ToHeaders ListLaunchProfileMembers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListLaunchProfileMembers where
+instance Data.ToPath ListLaunchProfileMembers where
   toPath ListLaunchProfileMembers' {..} =
     Prelude.mconcat
       [ "/2020-08-01/studios/",
-        Core.toBS studioId,
+        Data.toBS studioId,
         "/launch-profiles/",
-        Core.toBS launchProfileId,
+        Data.toBS launchProfileId,
         "/membership"
       ]
 
-instance Core.ToQuery ListLaunchProfileMembers where
+instance Data.ToQuery ListLaunchProfileMembers where
   toQuery ListLaunchProfileMembers' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newListLaunchProfileMembersResponse' smart constructor.

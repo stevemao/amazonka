@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.ComprehendMedical.Types.EntitySubType
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -23,27 +23,37 @@ module Amazonka.ComprehendMedical.Types.EntitySubType
         EntitySubType_ACUITY,
         EntitySubType_ADDRESS,
         EntitySubType_AGE,
+        EntitySubType_ALCOHOL_CONSUMPTION,
+        EntitySubType_ALLERGIES,
+        EntitySubType_AMOUNT,
         EntitySubType_BRAND_NAME,
         EntitySubType_CONTACT_POINT,
         EntitySubType_DATE,
         EntitySubType_DIRECTION,
         EntitySubType_DOSAGE,
         EntitySubType_DURATION,
+        EntitySubType_DX_NAME,
         EntitySubType_EMAIL,
         EntitySubType_FORM,
         EntitySubType_FREQUENCY,
+        EntitySubType_GENDER,
         EntitySubType_GENERIC_NAME,
+        EntitySubType_ID,
         EntitySubType_IDENTIFIER,
         EntitySubType_NAME,
+        EntitySubType_PHONE_OR_FAX,
         EntitySubType_PROCEDURE_NAME,
         EntitySubType_PROFESSION,
         EntitySubType_QUALITY,
         EntitySubType_QUANTITY,
+        EntitySubType_RACE_ETHNICITY,
         EntitySubType_RATE,
+        EntitySubType_REC_DRUG_USE,
         EntitySubType_ROUTE_OR_MODE,
         EntitySubType_STRENGTH,
         EntitySubType_SYSTEM_ORGAN_SITE,
         EntitySubType_TEST_NAME,
+        EntitySubType_TEST_UNIT,
         EntitySubType_TEST_UNITS,
         EntitySubType_TEST_VALUE,
         EntitySubType_TIME_EXPRESSION,
@@ -52,6 +62,7 @@ module Amazonka.ComprehendMedical.Types.EntitySubType
         EntitySubType_TIME_TO_PROCEDURE_NAME,
         EntitySubType_TIME_TO_TEST_NAME,
         EntitySubType_TIME_TO_TREATMENT_NAME,
+        EntitySubType_TOBACCO_USE,
         EntitySubType_TREATMENT_NAME,
         EntitySubType_URL
       ),
@@ -59,11 +70,12 @@ module Amazonka.ComprehendMedical.Types.EntitySubType
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 newtype EntitySubType = EntitySubType'
   { fromEntitySubType ::
-      Core.Text
+      Data.Text
   }
   deriving stock
     ( Prelude.Show,
@@ -75,18 +87,18 @@ newtype EntitySubType = EntitySubType'
   deriving newtype
     ( Prelude.Hashable,
       Prelude.NFData,
-      Core.FromText,
-      Core.ToText,
-      Core.ToByteString,
-      Core.ToLog,
-      Core.ToHeader,
-      Core.ToQuery,
-      Core.FromJSON,
-      Core.FromJSONKey,
-      Core.ToJSON,
-      Core.ToJSONKey,
-      Core.FromXML,
-      Core.ToXML
+      Data.FromText,
+      Data.ToText,
+      Data.ToByteString,
+      Data.ToLog,
+      Data.ToHeader,
+      Data.ToQuery,
+      Data.FromJSON,
+      Data.FromJSONKey,
+      Data.ToJSON,
+      Data.ToJSONKey,
+      Data.FromXML,
+      Data.ToXML
     )
 
 pattern EntitySubType_ACUITY :: EntitySubType
@@ -97,6 +109,15 @@ pattern EntitySubType_ADDRESS = EntitySubType' "ADDRESS"
 
 pattern EntitySubType_AGE :: EntitySubType
 pattern EntitySubType_AGE = EntitySubType' "AGE"
+
+pattern EntitySubType_ALCOHOL_CONSUMPTION :: EntitySubType
+pattern EntitySubType_ALCOHOL_CONSUMPTION = EntitySubType' "ALCOHOL_CONSUMPTION"
+
+pattern EntitySubType_ALLERGIES :: EntitySubType
+pattern EntitySubType_ALLERGIES = EntitySubType' "ALLERGIES"
+
+pattern EntitySubType_AMOUNT :: EntitySubType
+pattern EntitySubType_AMOUNT = EntitySubType' "AMOUNT"
 
 pattern EntitySubType_BRAND_NAME :: EntitySubType
 pattern EntitySubType_BRAND_NAME = EntitySubType' "BRAND_NAME"
@@ -116,6 +137,9 @@ pattern EntitySubType_DOSAGE = EntitySubType' "DOSAGE"
 pattern EntitySubType_DURATION :: EntitySubType
 pattern EntitySubType_DURATION = EntitySubType' "DURATION"
 
+pattern EntitySubType_DX_NAME :: EntitySubType
+pattern EntitySubType_DX_NAME = EntitySubType' "DX_NAME"
+
 pattern EntitySubType_EMAIL :: EntitySubType
 pattern EntitySubType_EMAIL = EntitySubType' "EMAIL"
 
@@ -125,14 +149,23 @@ pattern EntitySubType_FORM = EntitySubType' "FORM"
 pattern EntitySubType_FREQUENCY :: EntitySubType
 pattern EntitySubType_FREQUENCY = EntitySubType' "FREQUENCY"
 
+pattern EntitySubType_GENDER :: EntitySubType
+pattern EntitySubType_GENDER = EntitySubType' "GENDER"
+
 pattern EntitySubType_GENERIC_NAME :: EntitySubType
 pattern EntitySubType_GENERIC_NAME = EntitySubType' "GENERIC_NAME"
+
+pattern EntitySubType_ID :: EntitySubType
+pattern EntitySubType_ID = EntitySubType' "ID"
 
 pattern EntitySubType_IDENTIFIER :: EntitySubType
 pattern EntitySubType_IDENTIFIER = EntitySubType' "IDENTIFIER"
 
 pattern EntitySubType_NAME :: EntitySubType
 pattern EntitySubType_NAME = EntitySubType' "NAME"
+
+pattern EntitySubType_PHONE_OR_FAX :: EntitySubType
+pattern EntitySubType_PHONE_OR_FAX = EntitySubType' "PHONE_OR_FAX"
 
 pattern EntitySubType_PROCEDURE_NAME :: EntitySubType
 pattern EntitySubType_PROCEDURE_NAME = EntitySubType' "PROCEDURE_NAME"
@@ -146,8 +179,14 @@ pattern EntitySubType_QUALITY = EntitySubType' "QUALITY"
 pattern EntitySubType_QUANTITY :: EntitySubType
 pattern EntitySubType_QUANTITY = EntitySubType' "QUANTITY"
 
+pattern EntitySubType_RACE_ETHNICITY :: EntitySubType
+pattern EntitySubType_RACE_ETHNICITY = EntitySubType' "RACE_ETHNICITY"
+
 pattern EntitySubType_RATE :: EntitySubType
 pattern EntitySubType_RATE = EntitySubType' "RATE"
+
+pattern EntitySubType_REC_DRUG_USE :: EntitySubType
+pattern EntitySubType_REC_DRUG_USE = EntitySubType' "REC_DRUG_USE"
 
 pattern EntitySubType_ROUTE_OR_MODE :: EntitySubType
 pattern EntitySubType_ROUTE_OR_MODE = EntitySubType' "ROUTE_OR_MODE"
@@ -160,6 +199,9 @@ pattern EntitySubType_SYSTEM_ORGAN_SITE = EntitySubType' "SYSTEM_ORGAN_SITE"
 
 pattern EntitySubType_TEST_NAME :: EntitySubType
 pattern EntitySubType_TEST_NAME = EntitySubType' "TEST_NAME"
+
+pattern EntitySubType_TEST_UNIT :: EntitySubType
+pattern EntitySubType_TEST_UNIT = EntitySubType' "TEST_UNIT"
 
 pattern EntitySubType_TEST_UNITS :: EntitySubType
 pattern EntitySubType_TEST_UNITS = EntitySubType' "TEST_UNITS"
@@ -185,6 +227,9 @@ pattern EntitySubType_TIME_TO_TEST_NAME = EntitySubType' "TIME_TO_TEST_NAME"
 pattern EntitySubType_TIME_TO_TREATMENT_NAME :: EntitySubType
 pattern EntitySubType_TIME_TO_TREATMENT_NAME = EntitySubType' "TIME_TO_TREATMENT_NAME"
 
+pattern EntitySubType_TOBACCO_USE :: EntitySubType
+pattern EntitySubType_TOBACCO_USE = EntitySubType' "TOBACCO_USE"
+
 pattern EntitySubType_TREATMENT_NAME :: EntitySubType
 pattern EntitySubType_TREATMENT_NAME = EntitySubType' "TREATMENT_NAME"
 
@@ -195,27 +240,37 @@ pattern EntitySubType_URL = EntitySubType' "URL"
   EntitySubType_ACUITY,
   EntitySubType_ADDRESS,
   EntitySubType_AGE,
+  EntitySubType_ALCOHOL_CONSUMPTION,
+  EntitySubType_ALLERGIES,
+  EntitySubType_AMOUNT,
   EntitySubType_BRAND_NAME,
   EntitySubType_CONTACT_POINT,
   EntitySubType_DATE,
   EntitySubType_DIRECTION,
   EntitySubType_DOSAGE,
   EntitySubType_DURATION,
+  EntitySubType_DX_NAME,
   EntitySubType_EMAIL,
   EntitySubType_FORM,
   EntitySubType_FREQUENCY,
+  EntitySubType_GENDER,
   EntitySubType_GENERIC_NAME,
+  EntitySubType_ID,
   EntitySubType_IDENTIFIER,
   EntitySubType_NAME,
+  EntitySubType_PHONE_OR_FAX,
   EntitySubType_PROCEDURE_NAME,
   EntitySubType_PROFESSION,
   EntitySubType_QUALITY,
   EntitySubType_QUANTITY,
+  EntitySubType_RACE_ETHNICITY,
   EntitySubType_RATE,
+  EntitySubType_REC_DRUG_USE,
   EntitySubType_ROUTE_OR_MODE,
   EntitySubType_STRENGTH,
   EntitySubType_SYSTEM_ORGAN_SITE,
   EntitySubType_TEST_NAME,
+  EntitySubType_TEST_UNIT,
   EntitySubType_TEST_UNITS,
   EntitySubType_TEST_VALUE,
   EntitySubType_TIME_EXPRESSION,
@@ -224,6 +279,7 @@ pattern EntitySubType_URL = EntitySubType' "URL"
   EntitySubType_TIME_TO_PROCEDURE_NAME,
   EntitySubType_TIME_TO_TEST_NAME,
   EntitySubType_TIME_TO_TREATMENT_NAME,
+  EntitySubType_TOBACCO_USE,
   EntitySubType_TREATMENT_NAME,
   EntitySubType_URL,
   EntitySubType'

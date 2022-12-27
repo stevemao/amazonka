@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.Types.SnapshotDetails
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisAnalyticsV2.Types.SnapshotDetails where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types.SnapshotStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Provides details about a snapshot of application state.
@@ -29,7 +30,7 @@ import qualified Amazonka.Prelude as Prelude
 -- /See:/ 'newSnapshotDetails' smart constructor.
 data SnapshotDetails = SnapshotDetails'
   { -- | The timestamp of the application snapshot.
-    snapshotCreationTimestamp :: Prelude.Maybe Core.POSIX,
+    snapshotCreationTimestamp :: Prelude.Maybe Data.POSIX,
     -- | The identifier for the application snapshot.
     snapshotName :: Prelude.Text,
     -- | The status of the application snapshot.
@@ -76,7 +77,7 @@ newSnapshotDetails
 
 -- | The timestamp of the application snapshot.
 snapshotDetails_snapshotCreationTimestamp :: Lens.Lens' SnapshotDetails (Prelude.Maybe Prelude.UTCTime)
-snapshotDetails_snapshotCreationTimestamp = Lens.lens (\SnapshotDetails' {snapshotCreationTimestamp} -> snapshotCreationTimestamp) (\s@SnapshotDetails' {} a -> s {snapshotCreationTimestamp = a} :: SnapshotDetails) Prelude.. Lens.mapping Core._Time
+snapshotDetails_snapshotCreationTimestamp = Lens.lens (\SnapshotDetails' {snapshotCreationTimestamp} -> snapshotCreationTimestamp) (\s@SnapshotDetails' {} a -> s {snapshotCreationTimestamp = a} :: SnapshotDetails) Prelude.. Lens.mapping Data._Time
 
 -- | The identifier for the application snapshot.
 snapshotDetails_snapshotName :: Lens.Lens' SnapshotDetails Prelude.Text
@@ -90,16 +91,16 @@ snapshotDetails_snapshotStatus = Lens.lens (\SnapshotDetails' {snapshotStatus} -
 snapshotDetails_applicationVersionId :: Lens.Lens' SnapshotDetails Prelude.Natural
 snapshotDetails_applicationVersionId = Lens.lens (\SnapshotDetails' {applicationVersionId} -> applicationVersionId) (\s@SnapshotDetails' {} a -> s {applicationVersionId = a} :: SnapshotDetails)
 
-instance Core.FromJSON SnapshotDetails where
+instance Data.FromJSON SnapshotDetails where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "SnapshotDetails"
       ( \x ->
           SnapshotDetails'
-            Prelude.<$> (x Core..:? "SnapshotCreationTimestamp")
-            Prelude.<*> (x Core..: "SnapshotName")
-            Prelude.<*> (x Core..: "SnapshotStatus")
-            Prelude.<*> (x Core..: "ApplicationVersionId")
+            Prelude.<$> (x Data..:? "SnapshotCreationTimestamp")
+            Prelude.<*> (x Data..: "SnapshotName")
+            Prelude.<*> (x Data..: "SnapshotStatus")
+            Prelude.<*> (x Data..: "ApplicationVersionId")
       )
 
 instance Prelude.Hashable SnapshotDetails where

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.SSM.Types.AccountSharingInfo
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.SSM.Types.AccountSharingInfo where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Information includes the Amazon Web Services account ID where the
@@ -28,10 +29,10 @@ import qualified Amazonka.Prelude as Prelude
 --
 -- /See:/ 'newAccountSharingInfo' smart constructor.
 data AccountSharingInfo = AccountSharingInfo'
-  { -- | The version of the current document shared with the account.
-    sharedDocumentVersion :: Prelude.Maybe Prelude.Text,
-    -- | The Amazon Web Services account ID where the current document is shared.
-    accountId :: Prelude.Maybe Prelude.Text
+  { -- | The Amazon Web Services account ID where the current document is shared.
+    accountId :: Prelude.Maybe Prelude.Text,
+    -- | The version of the current document shared with the account.
+    sharedDocumentVersion :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -43,42 +44,41 @@ data AccountSharingInfo = AccountSharingInfo'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'sharedDocumentVersion', 'accountSharingInfo_sharedDocumentVersion' - The version of the current document shared with the account.
---
 -- 'accountId', 'accountSharingInfo_accountId' - The Amazon Web Services account ID where the current document is shared.
+--
+-- 'sharedDocumentVersion', 'accountSharingInfo_sharedDocumentVersion' - The version of the current document shared with the account.
 newAccountSharingInfo ::
   AccountSharingInfo
 newAccountSharingInfo =
   AccountSharingInfo'
-    { sharedDocumentVersion =
-        Prelude.Nothing,
-      accountId = Prelude.Nothing
+    { accountId = Prelude.Nothing,
+      sharedDocumentVersion = Prelude.Nothing
     }
-
--- | The version of the current document shared with the account.
-accountSharingInfo_sharedDocumentVersion :: Lens.Lens' AccountSharingInfo (Prelude.Maybe Prelude.Text)
-accountSharingInfo_sharedDocumentVersion = Lens.lens (\AccountSharingInfo' {sharedDocumentVersion} -> sharedDocumentVersion) (\s@AccountSharingInfo' {} a -> s {sharedDocumentVersion = a} :: AccountSharingInfo)
 
 -- | The Amazon Web Services account ID where the current document is shared.
 accountSharingInfo_accountId :: Lens.Lens' AccountSharingInfo (Prelude.Maybe Prelude.Text)
 accountSharingInfo_accountId = Lens.lens (\AccountSharingInfo' {accountId} -> accountId) (\s@AccountSharingInfo' {} a -> s {accountId = a} :: AccountSharingInfo)
 
-instance Core.FromJSON AccountSharingInfo where
+-- | The version of the current document shared with the account.
+accountSharingInfo_sharedDocumentVersion :: Lens.Lens' AccountSharingInfo (Prelude.Maybe Prelude.Text)
+accountSharingInfo_sharedDocumentVersion = Lens.lens (\AccountSharingInfo' {sharedDocumentVersion} -> sharedDocumentVersion) (\s@AccountSharingInfo' {} a -> s {sharedDocumentVersion = a} :: AccountSharingInfo)
+
+instance Data.FromJSON AccountSharingInfo where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AccountSharingInfo"
       ( \x ->
           AccountSharingInfo'
-            Prelude.<$> (x Core..:? "SharedDocumentVersion")
-            Prelude.<*> (x Core..:? "AccountId")
+            Prelude.<$> (x Data..:? "AccountId")
+            Prelude.<*> (x Data..:? "SharedDocumentVersion")
       )
 
 instance Prelude.Hashable AccountSharingInfo where
   hashWithSalt _salt AccountSharingInfo' {..} =
-    _salt `Prelude.hashWithSalt` sharedDocumentVersion
-      `Prelude.hashWithSalt` accountId
+    _salt `Prelude.hashWithSalt` accountId
+      `Prelude.hashWithSalt` sharedDocumentVersion
 
 instance Prelude.NFData AccountSharingInfo where
   rnf AccountSharingInfo' {..} =
-    Prelude.rnf sharedDocumentVersion
-      `Prelude.seq` Prelude.rnf accountId
+    Prelude.rnf accountId
+      `Prelude.seq` Prelude.rnf sharedDocumentVersion

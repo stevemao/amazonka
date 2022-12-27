@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FinSpaceData.Types.Credentials
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.FinSpaceData.Types.Credentials where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
--- | Set short term API credentials.
+-- | Short term API credentials.
 --
 -- /See:/ 'newCredentials' smart constructor.
 data Credentials = Credentials'
-  { -- | The access key.
+  { -- | The access key identifier.
+    accessKeyId :: Prelude.Maybe Prelude.Text,
+    -- | The access key.
     secretAccessKey :: Prelude.Maybe Prelude.Text,
     -- | The session token.
-    sessionToken :: Prelude.Maybe Prelude.Text,
-    -- | The access key identifier.
-    accessKeyId :: Prelude.Maybe Prelude.Text
+    sessionToken :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -44,19 +45,23 @@ data Credentials = Credentials'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'accessKeyId', 'credentials_accessKeyId' - The access key identifier.
+--
 -- 'secretAccessKey', 'credentials_secretAccessKey' - The access key.
 --
 -- 'sessionToken', 'credentials_sessionToken' - The session token.
---
--- 'accessKeyId', 'credentials_accessKeyId' - The access key identifier.
 newCredentials ::
   Credentials
 newCredentials =
   Credentials'
-    { secretAccessKey = Prelude.Nothing,
-      sessionToken = Prelude.Nothing,
-      accessKeyId = Prelude.Nothing
+    { accessKeyId = Prelude.Nothing,
+      secretAccessKey = Prelude.Nothing,
+      sessionToken = Prelude.Nothing
     }
+
+-- | The access key identifier.
+credentials_accessKeyId :: Lens.Lens' Credentials (Prelude.Maybe Prelude.Text)
+credentials_accessKeyId = Lens.lens (\Credentials' {accessKeyId} -> accessKeyId) (\s@Credentials' {} a -> s {accessKeyId = a} :: Credentials)
 
 -- | The access key.
 credentials_secretAccessKey :: Lens.Lens' Credentials (Prelude.Maybe Prelude.Text)
@@ -66,29 +71,25 @@ credentials_secretAccessKey = Lens.lens (\Credentials' {secretAccessKey} -> secr
 credentials_sessionToken :: Lens.Lens' Credentials (Prelude.Maybe Prelude.Text)
 credentials_sessionToken = Lens.lens (\Credentials' {sessionToken} -> sessionToken) (\s@Credentials' {} a -> s {sessionToken = a} :: Credentials)
 
--- | The access key identifier.
-credentials_accessKeyId :: Lens.Lens' Credentials (Prelude.Maybe Prelude.Text)
-credentials_accessKeyId = Lens.lens (\Credentials' {accessKeyId} -> accessKeyId) (\s@Credentials' {} a -> s {accessKeyId = a} :: Credentials)
-
-instance Core.FromJSON Credentials where
+instance Data.FromJSON Credentials where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Credentials"
       ( \x ->
           Credentials'
-            Prelude.<$> (x Core..:? "secretAccessKey")
-            Prelude.<*> (x Core..:? "sessionToken")
-            Prelude.<*> (x Core..:? "accessKeyId")
+            Prelude.<$> (x Data..:? "accessKeyId")
+            Prelude.<*> (x Data..:? "secretAccessKey")
+            Prelude.<*> (x Data..:? "sessionToken")
       )
 
 instance Prelude.Hashable Credentials where
   hashWithSalt _salt Credentials' {..} =
-    _salt `Prelude.hashWithSalt` secretAccessKey
+    _salt `Prelude.hashWithSalt` accessKeyId
+      `Prelude.hashWithSalt` secretAccessKey
       `Prelude.hashWithSalt` sessionToken
-      `Prelude.hashWithSalt` accessKeyId
 
 instance Prelude.NFData Credentials where
   rnf Credentials' {..} =
-    Prelude.rnf secretAccessKey
+    Prelude.rnf accessKeyId
+      `Prelude.seq` Prelude.rnf secretAccessKey
       `Prelude.seq` Prelude.rnf sessionToken
-      `Prelude.seq` Prelude.rnf accessKeyId

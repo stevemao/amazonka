@@ -14,13 +14,13 @@
 
 -- |
 -- Module      : Amazonka.AppConfig.GetConfigurationProfile
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Retrieve information about a configuration profile.
+-- Retrieves information about a configuration profile.
 module Amazonka.AppConfig.GetConfigurationProfile
   ( -- * Creating a Request
     GetConfigurationProfile (..),
@@ -35,19 +35,21 @@ module Amazonka.AppConfig.GetConfigurationProfile
     newConfigurationProfile,
 
     -- * Response Lenses
-    configurationProfile_retrievalRoleArn,
-    configurationProfile_validators,
-    configurationProfile_locationUri,
     configurationProfile_applicationId,
-    configurationProfile_name,
-    configurationProfile_id,
     configurationProfile_description,
+    configurationProfile_id,
+    configurationProfile_locationUri,
+    configurationProfile_name,
+    configurationProfile_retrievalRoleArn,
+    configurationProfile_type,
+    configurationProfile_validators,
   )
 where
 
 import Amazonka.AppConfig.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -57,7 +59,7 @@ data GetConfigurationProfile = GetConfigurationProfile'
   { -- | The ID of the application that includes the configuration profile you
     -- want to get.
     applicationId :: Prelude.Text,
-    -- | The ID of the configuration profile you want to get.
+    -- | The ID of the configuration profile that you want to get.
     configurationProfileId :: Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
@@ -73,7 +75,7 @@ data GetConfigurationProfile = GetConfigurationProfile'
 -- 'applicationId', 'getConfigurationProfile_applicationId' - The ID of the application that includes the configuration profile you
 -- want to get.
 --
--- 'configurationProfileId', 'getConfigurationProfile_configurationProfileId' - The ID of the configuration profile you want to get.
+-- 'configurationProfileId', 'getConfigurationProfile_configurationProfileId' - The ID of the configuration profile that you want to get.
 newGetConfigurationProfile ::
   -- | 'applicationId'
   Prelude.Text ->
@@ -94,7 +96,7 @@ newGetConfigurationProfile
 getConfigurationProfile_applicationId :: Lens.Lens' GetConfigurationProfile Prelude.Text
 getConfigurationProfile_applicationId = Lens.lens (\GetConfigurationProfile' {applicationId} -> applicationId) (\s@GetConfigurationProfile' {} a -> s {applicationId = a} :: GetConfigurationProfile)
 
--- | The ID of the configuration profile you want to get.
+-- | The ID of the configuration profile that you want to get.
 getConfigurationProfile_configurationProfileId :: Lens.Lens' GetConfigurationProfile Prelude.Text
 getConfigurationProfile_configurationProfileId = Lens.lens (\GetConfigurationProfile' {configurationProfileId} -> configurationProfileId) (\s@GetConfigurationProfile' {} a -> s {configurationProfileId = a} :: GetConfigurationProfile)
 
@@ -102,10 +104,11 @@ instance Core.AWSRequest GetConfigurationProfile where
   type
     AWSResponse GetConfigurationProfile =
       ConfigurationProfile
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance Prelude.Hashable GetConfigurationProfile where
   hashWithSalt _salt GetConfigurationProfile' {..} =
@@ -117,25 +120,25 @@ instance Prelude.NFData GetConfigurationProfile where
     Prelude.rnf applicationId
       `Prelude.seq` Prelude.rnf configurationProfileId
 
-instance Core.ToHeaders GetConfigurationProfile where
+instance Data.ToHeaders GetConfigurationProfile where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetConfigurationProfile where
+instance Data.ToPath GetConfigurationProfile where
   toPath GetConfigurationProfile' {..} =
     Prelude.mconcat
       [ "/applications/",
-        Core.toBS applicationId,
+        Data.toBS applicationId,
         "/configurationprofiles/",
-        Core.toBS configurationProfileId
+        Data.toBS configurationProfileId
       ]
 
-instance Core.ToQuery GetConfigurationProfile where
+instance Data.ToQuery GetConfigurationProfile where
   toQuery = Prelude.const Prelude.mempty

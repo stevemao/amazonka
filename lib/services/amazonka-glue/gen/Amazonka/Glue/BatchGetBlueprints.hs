@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.BatchGetBlueprints
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,8 +27,8 @@ module Amazonka.Glue.BatchGetBlueprints
     newBatchGetBlueprints,
 
     -- * Request Lenses
-    batchGetBlueprints_includeParameterSpec,
     batchGetBlueprints_includeBlueprint,
+    batchGetBlueprints_includeParameterSpec,
     batchGetBlueprints_names,
 
     -- * Destructuring the Response
@@ -43,19 +43,20 @@ module Amazonka.Glue.BatchGetBlueprints
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newBatchGetBlueprints' smart constructor.
 data BatchGetBlueprints = BatchGetBlueprints'
-  { -- | Specifies whether or not to include the parameters, as a JSON string,
+  { -- | Specifies whether or not to include the blueprint in the response.
+    includeBlueprint :: Prelude.Maybe Prelude.Bool,
+    -- | Specifies whether or not to include the parameters, as a JSON string,
     -- for the blueprint in the response.
     includeParameterSpec :: Prelude.Maybe Prelude.Bool,
-    -- | Specifies whether or not to include the blueprint in the response.
-    includeBlueprint :: Prelude.Maybe Prelude.Bool,
     -- | A list of blueprint names.
     names :: Prelude.NonEmpty Prelude.Text
   }
@@ -69,10 +70,10 @@ data BatchGetBlueprints = BatchGetBlueprints'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'includeBlueprint', 'batchGetBlueprints_includeBlueprint' - Specifies whether or not to include the blueprint in the response.
+--
 -- 'includeParameterSpec', 'batchGetBlueprints_includeParameterSpec' - Specifies whether or not to include the parameters, as a JSON string,
 -- for the blueprint in the response.
---
--- 'includeBlueprint', 'batchGetBlueprints_includeBlueprint' - Specifies whether or not to include the blueprint in the response.
 --
 -- 'names', 'batchGetBlueprints_names' - A list of blueprint names.
 newBatchGetBlueprints ::
@@ -81,20 +82,20 @@ newBatchGetBlueprints ::
   BatchGetBlueprints
 newBatchGetBlueprints pNames_ =
   BatchGetBlueprints'
-    { includeParameterSpec =
+    { includeBlueprint =
         Prelude.Nothing,
-      includeBlueprint = Prelude.Nothing,
+      includeParameterSpec = Prelude.Nothing,
       names = Lens.coerced Lens.# pNames_
     }
+
+-- | Specifies whether or not to include the blueprint in the response.
+batchGetBlueprints_includeBlueprint :: Lens.Lens' BatchGetBlueprints (Prelude.Maybe Prelude.Bool)
+batchGetBlueprints_includeBlueprint = Lens.lens (\BatchGetBlueprints' {includeBlueprint} -> includeBlueprint) (\s@BatchGetBlueprints' {} a -> s {includeBlueprint = a} :: BatchGetBlueprints)
 
 -- | Specifies whether or not to include the parameters, as a JSON string,
 -- for the blueprint in the response.
 batchGetBlueprints_includeParameterSpec :: Lens.Lens' BatchGetBlueprints (Prelude.Maybe Prelude.Bool)
 batchGetBlueprints_includeParameterSpec = Lens.lens (\BatchGetBlueprints' {includeParameterSpec} -> includeParameterSpec) (\s@BatchGetBlueprints' {} a -> s {includeParameterSpec = a} :: BatchGetBlueprints)
-
--- | Specifies whether or not to include the blueprint in the response.
-batchGetBlueprints_includeBlueprint :: Lens.Lens' BatchGetBlueprints (Prelude.Maybe Prelude.Bool)
-batchGetBlueprints_includeBlueprint = Lens.lens (\BatchGetBlueprints' {includeBlueprint} -> includeBlueprint) (\s@BatchGetBlueprints' {} a -> s {includeBlueprint = a} :: BatchGetBlueprints)
 
 -- | A list of blueprint names.
 batchGetBlueprints_names :: Lens.Lens' BatchGetBlueprints (Prelude.NonEmpty Prelude.Text)
@@ -104,13 +105,14 @@ instance Core.AWSRequest BatchGetBlueprints where
   type
     AWSResponse BatchGetBlueprints =
       BatchGetBlueprintsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           BatchGetBlueprintsResponse'
-            Prelude.<$> (x Core..?> "Blueprints" Core..!@ Prelude.mempty)
-            Prelude.<*> ( x Core..?> "MissingBlueprints"
+            Prelude.<$> (x Data..?> "Blueprints" Core..!@ Prelude.mempty)
+            Prelude.<*> ( x Data..?> "MissingBlueprints"
                             Core..!@ Prelude.mempty
                         )
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
@@ -118,45 +120,45 @@ instance Core.AWSRequest BatchGetBlueprints where
 
 instance Prelude.Hashable BatchGetBlueprints where
   hashWithSalt _salt BatchGetBlueprints' {..} =
-    _salt `Prelude.hashWithSalt` includeParameterSpec
-      `Prelude.hashWithSalt` includeBlueprint
+    _salt `Prelude.hashWithSalt` includeBlueprint
+      `Prelude.hashWithSalt` includeParameterSpec
       `Prelude.hashWithSalt` names
 
 instance Prelude.NFData BatchGetBlueprints where
   rnf BatchGetBlueprints' {..} =
-    Prelude.rnf includeParameterSpec
-      `Prelude.seq` Prelude.rnf includeBlueprint
+    Prelude.rnf includeBlueprint
+      `Prelude.seq` Prelude.rnf includeParameterSpec
       `Prelude.seq` Prelude.rnf names
 
-instance Core.ToHeaders BatchGetBlueprints where
+instance Data.ToHeaders BatchGetBlueprints where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.BatchGetBlueprints" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.BatchGetBlueprints" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON BatchGetBlueprints where
+instance Data.ToJSON BatchGetBlueprints where
   toJSON BatchGetBlueprints' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("IncludeParameterSpec" Core..=)
-              Prelude.<$> includeParameterSpec,
-            ("IncludeBlueprint" Core..=)
+          [ ("IncludeBlueprint" Data..=)
               Prelude.<$> includeBlueprint,
-            Prelude.Just ("Names" Core..= names)
+            ("IncludeParameterSpec" Data..=)
+              Prelude.<$> includeParameterSpec,
+            Prelude.Just ("Names" Data..= names)
           ]
       )
 
-instance Core.ToPath BatchGetBlueprints where
+instance Data.ToPath BatchGetBlueprints where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery BatchGetBlueprints where
+instance Data.ToQuery BatchGetBlueprints where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newBatchGetBlueprintsResponse' smart constructor.

@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.WAF.ListByteMatchSets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,8 +38,8 @@ module Amazonka.WAF.ListByteMatchSets
     newListByteMatchSets,
 
     -- * Request Lenses
-    listByteMatchSets_nextMarker,
     listByteMatchSets_limit,
+    listByteMatchSets_nextMarker,
 
     -- * Destructuring the Response
     ListByteMatchSetsResponse (..),
@@ -53,7 +53,8 @@ module Amazonka.WAF.ListByteMatchSets
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,18 +62,18 @@ import Amazonka.WAF.Types
 
 -- | /See:/ 'newListByteMatchSets' smart constructor.
 data ListByteMatchSets = ListByteMatchSets'
-  { -- | If you specify a value for @Limit@ and you have more @ByteMatchSets@
+  { -- | Specifies the number of @ByteMatchSet@ objects that you want AWS WAF to
+    -- return for this request. If you have more @ByteMatchSets@ objects than
+    -- the number you specify for @Limit@, the response includes a @NextMarker@
+    -- value that you can use to get another batch of @ByteMatchSet@ objects.
+    limit :: Prelude.Maybe Prelude.Natural,
+    -- | If you specify a value for @Limit@ and you have more @ByteMatchSets@
     -- than the value of @Limit@, AWS WAF returns a @NextMarker@ value in the
     -- response that allows you to list another group of @ByteMatchSets@. For
     -- the second and subsequent @ListByteMatchSets@ requests, specify the
     -- value of @NextMarker@ from the previous response to get information
     -- about another batch of @ByteMatchSets@.
-    nextMarker :: Prelude.Maybe Prelude.Text,
-    -- | Specifies the number of @ByteMatchSet@ objects that you want AWS WAF to
-    -- return for this request. If you have more @ByteMatchSets@ objects than
-    -- the number you specify for @Limit@, the response includes a @NextMarker@
-    -- value that you can use to get another batch of @ByteMatchSet@ objects.
-    limit :: Prelude.Maybe Prelude.Natural
+    nextMarker :: Prelude.Maybe Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -84,24 +85,31 @@ data ListByteMatchSets = ListByteMatchSets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'limit', 'listByteMatchSets_limit' - Specifies the number of @ByteMatchSet@ objects that you want AWS WAF to
+-- return for this request. If you have more @ByteMatchSets@ objects than
+-- the number you specify for @Limit@, the response includes a @NextMarker@
+-- value that you can use to get another batch of @ByteMatchSet@ objects.
+--
 -- 'nextMarker', 'listByteMatchSets_nextMarker' - If you specify a value for @Limit@ and you have more @ByteMatchSets@
 -- than the value of @Limit@, AWS WAF returns a @NextMarker@ value in the
 -- response that allows you to list another group of @ByteMatchSets@. For
 -- the second and subsequent @ListByteMatchSets@ requests, specify the
 -- value of @NextMarker@ from the previous response to get information
 -- about another batch of @ByteMatchSets@.
---
--- 'limit', 'listByteMatchSets_limit' - Specifies the number of @ByteMatchSet@ objects that you want AWS WAF to
--- return for this request. If you have more @ByteMatchSets@ objects than
--- the number you specify for @Limit@, the response includes a @NextMarker@
--- value that you can use to get another batch of @ByteMatchSet@ objects.
 newListByteMatchSets ::
   ListByteMatchSets
 newListByteMatchSets =
   ListByteMatchSets'
-    { nextMarker = Prelude.Nothing,
-      limit = Prelude.Nothing
+    { limit = Prelude.Nothing,
+      nextMarker = Prelude.Nothing
     }
+
+-- | Specifies the number of @ByteMatchSet@ objects that you want AWS WAF to
+-- return for this request. If you have more @ByteMatchSets@ objects than
+-- the number you specify for @Limit@, the response includes a @NextMarker@
+-- value that you can use to get another batch of @ByteMatchSet@ objects.
+listByteMatchSets_limit :: Lens.Lens' ListByteMatchSets (Prelude.Maybe Prelude.Natural)
+listByteMatchSets_limit = Lens.lens (\ListByteMatchSets' {limit} -> limit) (\s@ListByteMatchSets' {} a -> s {limit = a} :: ListByteMatchSets)
 
 -- | If you specify a value for @Limit@ and you have more @ByteMatchSets@
 -- than the value of @Limit@, AWS WAF returns a @NextMarker@ value in the
@@ -111,13 +119,6 @@ newListByteMatchSets =
 -- about another batch of @ByteMatchSets@.
 listByteMatchSets_nextMarker :: Lens.Lens' ListByteMatchSets (Prelude.Maybe Prelude.Text)
 listByteMatchSets_nextMarker = Lens.lens (\ListByteMatchSets' {nextMarker} -> nextMarker) (\s@ListByteMatchSets' {} a -> s {nextMarker = a} :: ListByteMatchSets)
-
--- | Specifies the number of @ByteMatchSet@ objects that you want AWS WAF to
--- return for this request. If you have more @ByteMatchSets@ objects than
--- the number you specify for @Limit@, the response includes a @NextMarker@
--- value that you can use to get another batch of @ByteMatchSet@ objects.
-listByteMatchSets_limit :: Lens.Lens' ListByteMatchSets (Prelude.Maybe Prelude.Natural)
-listByteMatchSets_limit = Lens.lens (\ListByteMatchSets' {limit} -> limit) (\s@ListByteMatchSets' {} a -> s {limit = a} :: ListByteMatchSets)
 
 instance Core.AWSPager ListByteMatchSets where
   page rq rs
@@ -145,54 +146,55 @@ instance Core.AWSRequest ListByteMatchSets where
   type
     AWSResponse ListByteMatchSets =
       ListByteMatchSetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListByteMatchSetsResponse'
-            Prelude.<$> (x Core..?> "ByteMatchSets" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextMarker")
+            Prelude.<$> (x Data..?> "ByteMatchSets" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextMarker")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListByteMatchSets where
   hashWithSalt _salt ListByteMatchSets' {..} =
-    _salt `Prelude.hashWithSalt` nextMarker
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nextMarker
 
 instance Prelude.NFData ListByteMatchSets where
   rnf ListByteMatchSets' {..} =
-    Prelude.rnf nextMarker
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextMarker
 
-instance Core.ToHeaders ListByteMatchSets where
+instance Data.ToHeaders ListByteMatchSets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSWAF_20150824.ListByteMatchSets" ::
+              Data.=# ( "AWSWAF_20150824.ListByteMatchSets" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListByteMatchSets where
+instance Data.ToJSON ListByteMatchSets where
   toJSON ListByteMatchSets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextMarker" Core..=) Prelude.<$> nextMarker,
-            ("Limit" Core..=) Prelude.<$> limit
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("NextMarker" Data..=) Prelude.<$> nextMarker
           ]
       )
 
-instance Core.ToPath ListByteMatchSets where
+instance Data.ToPath ListByteMatchSets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListByteMatchSets where
+instance Data.ToQuery ListByteMatchSets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListByteMatchSetsResponse' smart constructor.

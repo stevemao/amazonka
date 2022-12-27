@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.IVS.ListStreamKeys
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.IVS.ListStreamKeys
     newListStreamKeys,
 
     -- * Request Lenses
-    listStreamKeys_nextToken,
     listStreamKeys_maxResults,
+    listStreamKeys_nextToken,
     listStreamKeys_channelArn,
 
     -- * Destructuring the Response
@@ -45,19 +45,20 @@ module Amazonka.IVS.ListStreamKeys
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.IVS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListStreamKeys' smart constructor.
 data ListStreamKeys = ListStreamKeys'
-  { -- | The first stream key to retrieve. This is used for pagination; see the
+  { -- | Maximum number of streamKeys to return. Default: 1.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The first stream key to retrieve. This is used for pagination; see the
     -- @nextToken@ response field.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | Maximum number of streamKeys to return. Default: 50.
-    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | Channel ARN used to filter the list.
     channelArn :: Prelude.Text
   }
@@ -71,10 +72,10 @@ data ListStreamKeys = ListStreamKeys'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'listStreamKeys_maxResults' - Maximum number of streamKeys to return. Default: 1.
+--
 -- 'nextToken', 'listStreamKeys_nextToken' - The first stream key to retrieve. This is used for pagination; see the
 -- @nextToken@ response field.
---
--- 'maxResults', 'listStreamKeys_maxResults' - Maximum number of streamKeys to return. Default: 50.
 --
 -- 'channelArn', 'listStreamKeys_channelArn' - Channel ARN used to filter the list.
 newListStreamKeys ::
@@ -83,19 +84,19 @@ newListStreamKeys ::
   ListStreamKeys
 newListStreamKeys pChannelArn_ =
   ListStreamKeys'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       channelArn = pChannelArn_
     }
+
+-- | Maximum number of streamKeys to return. Default: 1.
+listStreamKeys_maxResults :: Lens.Lens' ListStreamKeys (Prelude.Maybe Prelude.Natural)
+listStreamKeys_maxResults = Lens.lens (\ListStreamKeys' {maxResults} -> maxResults) (\s@ListStreamKeys' {} a -> s {maxResults = a} :: ListStreamKeys)
 
 -- | The first stream key to retrieve. This is used for pagination; see the
 -- @nextToken@ response field.
 listStreamKeys_nextToken :: Lens.Lens' ListStreamKeys (Prelude.Maybe Prelude.Text)
 listStreamKeys_nextToken = Lens.lens (\ListStreamKeys' {nextToken} -> nextToken) (\s@ListStreamKeys' {} a -> s {nextToken = a} :: ListStreamKeys)
-
--- | Maximum number of streamKeys to return. Default: 50.
-listStreamKeys_maxResults :: Lens.Lens' ListStreamKeys (Prelude.Maybe Prelude.Natural)
-listStreamKeys_maxResults = Lens.lens (\ListStreamKeys' {maxResults} -> maxResults) (\s@ListStreamKeys' {} a -> s {maxResults = a} :: ListStreamKeys)
 
 -- | Channel ARN used to filter the list.
 listStreamKeys_channelArn :: Lens.Lens' ListStreamKeys Prelude.Text
@@ -123,53 +124,54 @@ instance Core.AWSRequest ListStreamKeys where
   type
     AWSResponse ListStreamKeys =
       ListStreamKeysResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListStreamKeysResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "streamKeys" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "streamKeys" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListStreamKeys where
   hashWithSalt _salt ListStreamKeys' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` channelArn
 
 instance Prelude.NFData ListStreamKeys where
   rnf ListStreamKeys' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf channelArn
 
-instance Core.ToHeaders ListStreamKeys where
+instance Data.ToHeaders ListStreamKeys where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListStreamKeys where
+instance Data.ToJSON ListStreamKeys where
   toJSON ListStreamKeys' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("nextToken" Core..=) Prelude.<$> nextToken,
-            ("maxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("channelArn" Core..= channelArn)
+          [ ("maxResults" Data..=) Prelude.<$> maxResults,
+            ("nextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("channelArn" Data..= channelArn)
           ]
       )
 
-instance Core.ToPath ListStreamKeys where
+instance Data.ToPath ListStreamKeys where
   toPath = Prelude.const "/ListStreamKeys"
 
-instance Core.ToQuery ListStreamKeys where
+instance Data.ToQuery ListStreamKeys where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListStreamKeysResponse' smart constructor.

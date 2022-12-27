@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EC2.Types.VpcAttachment
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,9 +20,10 @@
 module Amazonka.EC2.Types.VpcAttachment where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.EC2.Internal
 import Amazonka.EC2.Types.AttachmentStatus
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | Describes an attachment between a virtual private gateway and a VPC.
@@ -63,10 +64,10 @@ vpcAttachment_state = Lens.lens (\VpcAttachment' {state} -> state) (\s@VpcAttach
 vpcAttachment_vpcId :: Lens.Lens' VpcAttachment (Prelude.Maybe Prelude.Text)
 vpcAttachment_vpcId = Lens.lens (\VpcAttachment' {vpcId} -> vpcId) (\s@VpcAttachment' {} a -> s {vpcId = a} :: VpcAttachment)
 
-instance Core.FromXML VpcAttachment where
+instance Data.FromXML VpcAttachment where
   parseXML x =
     VpcAttachment'
-      Prelude.<$> (x Core..@? "state") Prelude.<*> (x Core..@? "vpcId")
+      Prelude.<$> (x Data..@? "state") Prelude.<*> (x Data..@? "vpcId")
 
 instance Prelude.Hashable VpcAttachment where
   hashWithSalt _salt VpcAttachment' {..} =

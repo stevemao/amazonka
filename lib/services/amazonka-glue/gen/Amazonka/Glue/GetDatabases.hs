@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Glue.GetDatabases
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,10 +29,10 @@ module Amazonka.Glue.GetDatabases
     newGetDatabases,
 
     -- * Request Lenses
-    getDatabases_resourceShareType,
     getDatabases_catalogId,
-    getDatabases_nextToken,
     getDatabases_maxResults,
+    getDatabases_nextToken,
+    getDatabases_resourceShareType,
 
     -- * Destructuring the Response
     GetDatabasesResponse (..),
@@ -46,15 +46,23 @@ module Amazonka.Glue.GetDatabases
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Glue.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetDatabases' smart constructor.
 data GetDatabases = GetDatabases'
-  { -- | Allows you to specify that you want to list the databases shared with
+  { -- | The ID of the Data Catalog from which to retrieve @Databases@. If none
+    -- is provided, the Amazon Web Services account ID is used by default.
+    catalogId :: Prelude.Maybe Prelude.Text,
+    -- | The maximum number of databases to return in one response.
+    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | A continuation token, if this is a continuation call.
+    nextToken :: Prelude.Maybe Prelude.Text,
+    -- | Allows you to specify that you want to list the databases shared with
     -- your account. The allowable values are @FOREIGN@ or @ALL@.
     --
     -- -   If set to @FOREIGN@, will list the databases shared with your
@@ -62,14 +70,7 @@ data GetDatabases = GetDatabases'
     --
     -- -   If set to @ALL@, will list the databases shared with your account,
     --     as well as the databases in yor local account.
-    resourceShareType :: Prelude.Maybe ResourceShareType,
-    -- | The ID of the Data Catalog from which to retrieve @Databases@. If none
-    -- is provided, the Amazon Web Services account ID is used by default.
-    catalogId :: Prelude.Maybe Prelude.Text,
-    -- | A continuation token, if this is a continuation call.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of databases to return in one response.
-    maxResults :: Prelude.Maybe Prelude.Natural
+    resourceShareType :: Prelude.Maybe ResourceShareType
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -81,6 +82,13 @@ data GetDatabases = GetDatabases'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'catalogId', 'getDatabases_catalogId' - The ID of the Data Catalog from which to retrieve @Databases@. If none
+-- is provided, the Amazon Web Services account ID is used by default.
+--
+-- 'maxResults', 'getDatabases_maxResults' - The maximum number of databases to return in one response.
+--
+-- 'nextToken', 'getDatabases_nextToken' - A continuation token, if this is a continuation call.
+--
 -- 'resourceShareType', 'getDatabases_resourceShareType' - Allows you to specify that you want to list the databases shared with
 -- your account. The allowable values are @FOREIGN@ or @ALL@.
 --
@@ -89,22 +97,28 @@ data GetDatabases = GetDatabases'
 --
 -- -   If set to @ALL@, will list the databases shared with your account,
 --     as well as the databases in yor local account.
---
--- 'catalogId', 'getDatabases_catalogId' - The ID of the Data Catalog from which to retrieve @Databases@. If none
--- is provided, the Amazon Web Services account ID is used by default.
---
--- 'nextToken', 'getDatabases_nextToken' - A continuation token, if this is a continuation call.
---
--- 'maxResults', 'getDatabases_maxResults' - The maximum number of databases to return in one response.
 newGetDatabases ::
   GetDatabases
 newGetDatabases =
   GetDatabases'
-    { resourceShareType = Prelude.Nothing,
-      catalogId = Prelude.Nothing,
+    { catalogId = Prelude.Nothing,
+      maxResults = Prelude.Nothing,
       nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing
+      resourceShareType = Prelude.Nothing
     }
+
+-- | The ID of the Data Catalog from which to retrieve @Databases@. If none
+-- is provided, the Amazon Web Services account ID is used by default.
+getDatabases_catalogId :: Lens.Lens' GetDatabases (Prelude.Maybe Prelude.Text)
+getDatabases_catalogId = Lens.lens (\GetDatabases' {catalogId} -> catalogId) (\s@GetDatabases' {} a -> s {catalogId = a} :: GetDatabases)
+
+-- | The maximum number of databases to return in one response.
+getDatabases_maxResults :: Lens.Lens' GetDatabases (Prelude.Maybe Prelude.Natural)
+getDatabases_maxResults = Lens.lens (\GetDatabases' {maxResults} -> maxResults) (\s@GetDatabases' {} a -> s {maxResults = a} :: GetDatabases)
+
+-- | A continuation token, if this is a continuation call.
+getDatabases_nextToken :: Lens.Lens' GetDatabases (Prelude.Maybe Prelude.Text)
+getDatabases_nextToken = Lens.lens (\GetDatabases' {nextToken} -> nextToken) (\s@GetDatabases' {} a -> s {nextToken = a} :: GetDatabases)
 
 -- | Allows you to specify that you want to list the databases shared with
 -- your account. The allowable values are @FOREIGN@ or @ALL@.
@@ -116,19 +130,6 @@ newGetDatabases =
 --     as well as the databases in yor local account.
 getDatabases_resourceShareType :: Lens.Lens' GetDatabases (Prelude.Maybe ResourceShareType)
 getDatabases_resourceShareType = Lens.lens (\GetDatabases' {resourceShareType} -> resourceShareType) (\s@GetDatabases' {} a -> s {resourceShareType = a} :: GetDatabases)
-
--- | The ID of the Data Catalog from which to retrieve @Databases@. If none
--- is provided, the Amazon Web Services account ID is used by default.
-getDatabases_catalogId :: Lens.Lens' GetDatabases (Prelude.Maybe Prelude.Text)
-getDatabases_catalogId = Lens.lens (\GetDatabases' {catalogId} -> catalogId) (\s@GetDatabases' {} a -> s {catalogId = a} :: GetDatabases)
-
--- | A continuation token, if this is a continuation call.
-getDatabases_nextToken :: Lens.Lens' GetDatabases (Prelude.Maybe Prelude.Text)
-getDatabases_nextToken = Lens.lens (\GetDatabases' {nextToken} -> nextToken) (\s@GetDatabases' {} a -> s {nextToken = a} :: GetDatabases)
-
--- | The maximum number of databases to return in one response.
-getDatabases_maxResults :: Lens.Lens' GetDatabases (Prelude.Maybe Prelude.Natural)
-getDatabases_maxResults = Lens.lens (\GetDatabases' {maxResults} -> maxResults) (\s@GetDatabases' {} a -> s {maxResults = a} :: GetDatabases)
 
 instance Core.AWSPager GetDatabases where
   page rq rs
@@ -149,59 +150,60 @@ instance Core.AWSPager GetDatabases where
 
 instance Core.AWSRequest GetDatabases where
   type AWSResponse GetDatabases = GetDatabasesResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDatabasesResponse'
-            Prelude.<$> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "DatabaseList" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "DatabaseList" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable GetDatabases where
   hashWithSalt _salt GetDatabases' {..} =
-    _salt `Prelude.hashWithSalt` resourceShareType
-      `Prelude.hashWithSalt` catalogId
-      `Prelude.hashWithSalt` nextToken
+    _salt `Prelude.hashWithSalt` catalogId
       `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
+      `Prelude.hashWithSalt` resourceShareType
 
 instance Prelude.NFData GetDatabases where
   rnf GetDatabases' {..} =
-    Prelude.rnf resourceShareType
-      `Prelude.seq` Prelude.rnf catalogId
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf catalogId
       `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf resourceShareType
 
-instance Core.ToHeaders GetDatabases where
+instance Data.ToHeaders GetDatabases where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ("AWSGlue.GetDatabases" :: Prelude.ByteString),
+              Data.=# ("AWSGlue.GetDatabases" :: Prelude.ByteString),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetDatabases where
+instance Data.ToJSON GetDatabases where
   toJSON GetDatabases' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("ResourceShareType" Core..=)
-              Prelude.<$> resourceShareType,
-            ("CatalogId" Core..=) Prelude.<$> catalogId,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults
+          [ ("CatalogId" Data..=) Prelude.<$> catalogId,
+            ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            ("ResourceShareType" Data..=)
+              Prelude.<$> resourceShareType
           ]
       )
 
-instance Core.ToPath GetDatabases where
+instance Data.ToPath GetDatabases where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetDatabases where
+instance Data.ToQuery GetDatabases where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetDatabasesResponse' smart constructor.

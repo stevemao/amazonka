@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.LexModels.Types.OutputContext
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.LexModels.Types.OutputContext where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The specification of an output context that is set when an intent is
@@ -92,15 +93,15 @@ outputContext_timeToLiveInSeconds = Lens.lens (\OutputContext' {timeToLiveInSeco
 outputContext_turnsToLive :: Lens.Lens' OutputContext Prelude.Natural
 outputContext_turnsToLive = Lens.lens (\OutputContext' {turnsToLive} -> turnsToLive) (\s@OutputContext' {} a -> s {turnsToLive = a} :: OutputContext)
 
-instance Core.FromJSON OutputContext where
+instance Data.FromJSON OutputContext where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "OutputContext"
       ( \x ->
           OutputContext'
-            Prelude.<$> (x Core..: "name")
-            Prelude.<*> (x Core..: "timeToLiveInSeconds")
-            Prelude.<*> (x Core..: "turnsToLive")
+            Prelude.<$> (x Data..: "name")
+            Prelude.<*> (x Data..: "timeToLiveInSeconds")
+            Prelude.<*> (x Data..: "turnsToLive")
       )
 
 instance Prelude.Hashable OutputContext where
@@ -115,13 +116,13 @@ instance Prelude.NFData OutputContext where
       `Prelude.seq` Prelude.rnf timeToLiveInSeconds
       `Prelude.seq` Prelude.rnf turnsToLive
 
-instance Core.ToJSON OutputContext where
+instance Data.ToJSON OutputContext where
   toJSON OutputContext' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("name" Core..= name),
+          [ Prelude.Just ("name" Data..= name),
             Prelude.Just
-              ("timeToLiveInSeconds" Core..= timeToLiveInSeconds),
-            Prelude.Just ("turnsToLive" Core..= turnsToLive)
+              ("timeToLiveInSeconds" Data..= timeToLiveInSeconds),
+            Prelude.Just ("turnsToLive" Data..= turnsToLive)
           ]
       )

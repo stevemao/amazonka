@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Athena.DeleteDataCatalog
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -40,7 +40,8 @@ where
 
 import Amazonka.Athena.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -76,7 +77,8 @@ instance Core.AWSRequest DeleteDataCatalog where
   type
     AWSResponse DeleteDataCatalog =
       DeleteDataCatalogResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -91,32 +93,32 @@ instance Prelude.Hashable DeleteDataCatalog where
 instance Prelude.NFData DeleteDataCatalog where
   rnf DeleteDataCatalog' {..} = Prelude.rnf name
 
-instance Core.ToHeaders DeleteDataCatalog where
+instance Data.ToHeaders DeleteDataCatalog where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AmazonAthena.DeleteDataCatalog" ::
+              Data.=# ( "AmazonAthena.DeleteDataCatalog" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DeleteDataCatalog where
+instance Data.ToJSON DeleteDataCatalog where
   toJSON DeleteDataCatalog' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Name" Core..= name)]
+          [Prelude.Just ("Name" Data..= name)]
       )
 
-instance Core.ToPath DeleteDataCatalog where
+instance Data.ToPath DeleteDataCatalog where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DeleteDataCatalog where
+instance Data.ToQuery DeleteDataCatalog where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newDeleteDataCatalogResponse' smart constructor.

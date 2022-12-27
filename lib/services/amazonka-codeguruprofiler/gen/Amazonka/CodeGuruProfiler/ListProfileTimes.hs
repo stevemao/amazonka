@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeGuruProfiler.ListProfileTimes
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -31,9 +31,9 @@ module Amazonka.CodeGuruProfiler.ListProfileTimes
     newListProfileTimes,
 
     -- * Request Lenses
-    listProfileTimes_orderBy,
-    listProfileTimes_nextToken,
     listProfileTimes_maxResults,
+    listProfileTimes_nextToken,
+    listProfileTimes_orderBy,
     listProfileTimes_endTime,
     listProfileTimes_period,
     listProfileTimes_profilingGroupName,
@@ -52,7 +52,8 @@ where
 
 import Amazonka.CodeGuruProfiler.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -61,9 +62,13 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newListProfileTimes' smart constructor.
 data ListProfileTimes = ListProfileTimes'
-  { -- | The order (ascending or descending by start time of the profile) to use
-    -- when listing profiles. Defaults to @TIMESTAMP_DESCENDING@.
-    orderBy :: Prelude.Maybe OrderBy,
+  { -- | The maximum number of profile time results returned by
+    -- @ListProfileTimes@ in paginated output. When this parameter is used,
+    -- @ListProfileTimes@ only returns @maxResults@ results in a single page
+    -- with a @nextToken@ response element. The remaining results of the
+    -- initial request can be seen by sending another @ListProfileTimes@
+    -- request with the returned @nextToken@ value.
+    maxResults :: Prelude.Maybe Prelude.Natural,
     -- | The @nextToken@ value returned from a previous paginated
     -- @ListProfileTimes@ request where @maxResults@ was used and the results
     -- exceeded the value of that parameter. Pagination continues from the end
@@ -73,15 +78,11 @@ data ListProfileTimes = ListProfileTimes'
     -- to retrieve the next items in a list and not for other programmatic
     -- purposes.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of profile time results returned by
-    -- @ListProfileTimes@ in paginated output. When this parameter is used,
-    -- @ListProfileTimes@ only returns @maxResults@ results in a single page
-    -- with a @nextToken@ response element. The remaining results of the
-    -- initial request can be seen by sending another @ListProfileTimes@
-    -- request with the returned @nextToken@ value.
-    maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The order (ascending or descending by start time of the profile) to use
+    -- when listing profiles. Defaults to @TIMESTAMP_DESCENDING@.
+    orderBy :: Prelude.Maybe OrderBy,
     -- | The end time of the time range from which to list the profiles.
-    endTime :: Core.POSIX,
+    endTime :: Data.POSIX,
     -- | The aggregation period. This specifies the period during which an
     -- aggregation profile collects posted agent profiles for a profiling
     -- group. There are 3 valid values.
@@ -95,7 +96,7 @@ data ListProfileTimes = ListProfileTimes'
     -- | The name of the profiling group.
     profilingGroupName :: Prelude.Text,
     -- | The start time of the time range from which to list the profiles.
-    startTime :: Core.POSIX
+    startTime :: Data.POSIX
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -107,8 +108,12 @@ data ListProfileTimes = ListProfileTimes'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'orderBy', 'listProfileTimes_orderBy' - The order (ascending or descending by start time of the profile) to use
--- when listing profiles. Defaults to @TIMESTAMP_DESCENDING@.
+-- 'maxResults', 'listProfileTimes_maxResults' - The maximum number of profile time results returned by
+-- @ListProfileTimes@ in paginated output. When this parameter is used,
+-- @ListProfileTimes@ only returns @maxResults@ results in a single page
+-- with a @nextToken@ response element. The remaining results of the
+-- initial request can be seen by sending another @ListProfileTimes@
+-- request with the returned @nextToken@ value.
 --
 -- 'nextToken', 'listProfileTimes_nextToken' - The @nextToken@ value returned from a previous paginated
 -- @ListProfileTimes@ request where @maxResults@ was used and the results
@@ -119,12 +124,8 @@ data ListProfileTimes = ListProfileTimes'
 -- to retrieve the next items in a list and not for other programmatic
 -- purposes.
 --
--- 'maxResults', 'listProfileTimes_maxResults' - The maximum number of profile time results returned by
--- @ListProfileTimes@ in paginated output. When this parameter is used,
--- @ListProfileTimes@ only returns @maxResults@ results in a single page
--- with a @nextToken@ response element. The remaining results of the
--- initial request can be seen by sending another @ListProfileTimes@
--- request with the returned @nextToken@ value.
+-- 'orderBy', 'listProfileTimes_orderBy' - The order (ascending or descending by start time of the profile) to use
+-- when listing profiles. Defaults to @TIMESTAMP_DESCENDING@.
 --
 -- 'endTime', 'listProfileTimes_endTime' - The end time of the time range from which to list the profiles.
 --
@@ -157,19 +158,23 @@ newListProfileTimes
   pProfilingGroupName_
   pStartTime_ =
     ListProfileTimes'
-      { orderBy = Prelude.Nothing,
+      { maxResults = Prelude.Nothing,
         nextToken = Prelude.Nothing,
-        maxResults = Prelude.Nothing,
-        endTime = Core._Time Lens.# pEndTime_,
+        orderBy = Prelude.Nothing,
+        endTime = Data._Time Lens.# pEndTime_,
         period = pPeriod_,
         profilingGroupName = pProfilingGroupName_,
-        startTime = Core._Time Lens.# pStartTime_
+        startTime = Data._Time Lens.# pStartTime_
       }
 
--- | The order (ascending or descending by start time of the profile) to use
--- when listing profiles. Defaults to @TIMESTAMP_DESCENDING@.
-listProfileTimes_orderBy :: Lens.Lens' ListProfileTimes (Prelude.Maybe OrderBy)
-listProfileTimes_orderBy = Lens.lens (\ListProfileTimes' {orderBy} -> orderBy) (\s@ListProfileTimes' {} a -> s {orderBy = a} :: ListProfileTimes)
+-- | The maximum number of profile time results returned by
+-- @ListProfileTimes@ in paginated output. When this parameter is used,
+-- @ListProfileTimes@ only returns @maxResults@ results in a single page
+-- with a @nextToken@ response element. The remaining results of the
+-- initial request can be seen by sending another @ListProfileTimes@
+-- request with the returned @nextToken@ value.
+listProfileTimes_maxResults :: Lens.Lens' ListProfileTimes (Prelude.Maybe Prelude.Natural)
+listProfileTimes_maxResults = Lens.lens (\ListProfileTimes' {maxResults} -> maxResults) (\s@ListProfileTimes' {} a -> s {maxResults = a} :: ListProfileTimes)
 
 -- | The @nextToken@ value returned from a previous paginated
 -- @ListProfileTimes@ request where @maxResults@ was used and the results
@@ -182,18 +187,14 @@ listProfileTimes_orderBy = Lens.lens (\ListProfileTimes' {orderBy} -> orderBy) (
 listProfileTimes_nextToken :: Lens.Lens' ListProfileTimes (Prelude.Maybe Prelude.Text)
 listProfileTimes_nextToken = Lens.lens (\ListProfileTimes' {nextToken} -> nextToken) (\s@ListProfileTimes' {} a -> s {nextToken = a} :: ListProfileTimes)
 
--- | The maximum number of profile time results returned by
--- @ListProfileTimes@ in paginated output. When this parameter is used,
--- @ListProfileTimes@ only returns @maxResults@ results in a single page
--- with a @nextToken@ response element. The remaining results of the
--- initial request can be seen by sending another @ListProfileTimes@
--- request with the returned @nextToken@ value.
-listProfileTimes_maxResults :: Lens.Lens' ListProfileTimes (Prelude.Maybe Prelude.Natural)
-listProfileTimes_maxResults = Lens.lens (\ListProfileTimes' {maxResults} -> maxResults) (\s@ListProfileTimes' {} a -> s {maxResults = a} :: ListProfileTimes)
+-- | The order (ascending or descending by start time of the profile) to use
+-- when listing profiles. Defaults to @TIMESTAMP_DESCENDING@.
+listProfileTimes_orderBy :: Lens.Lens' ListProfileTimes (Prelude.Maybe OrderBy)
+listProfileTimes_orderBy = Lens.lens (\ListProfileTimes' {orderBy} -> orderBy) (\s@ListProfileTimes' {} a -> s {orderBy = a} :: ListProfileTimes)
 
 -- | The end time of the time range from which to list the profiles.
 listProfileTimes_endTime :: Lens.Lens' ListProfileTimes Prelude.UTCTime
-listProfileTimes_endTime = Lens.lens (\ListProfileTimes' {endTime} -> endTime) (\s@ListProfileTimes' {} a -> s {endTime = a} :: ListProfileTimes) Prelude.. Core._Time
+listProfileTimes_endTime = Lens.lens (\ListProfileTimes' {endTime} -> endTime) (\s@ListProfileTimes' {} a -> s {endTime = a} :: ListProfileTimes) Prelude.. Data._Time
 
 -- | The aggregation period. This specifies the period during which an
 -- aggregation profile collects posted agent profiles for a profiling
@@ -213,7 +214,7 @@ listProfileTimes_profilingGroupName = Lens.lens (\ListProfileTimes' {profilingGr
 
 -- | The start time of the time range from which to list the profiles.
 listProfileTimes_startTime :: Lens.Lens' ListProfileTimes Prelude.UTCTime
-listProfileTimes_startTime = Lens.lens (\ListProfileTimes' {startTime} -> startTime) (\s@ListProfileTimes' {} a -> s {startTime = a} :: ListProfileTimes) Prelude.. Core._Time
+listProfileTimes_startTime = Lens.lens (\ListProfileTimes' {startTime} -> startTime) (\s@ListProfileTimes' {} a -> s {startTime = a} :: ListProfileTimes) Prelude.. Data._Time
 
 instance Core.AWSPager ListProfileTimes where
   page rq rs
@@ -238,21 +239,22 @@ instance Core.AWSRequest ListProfileTimes where
   type
     AWSResponse ListProfileTimes =
       ListProfileTimesResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListProfileTimesResponse'
-            Prelude.<$> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..?> "profileTimes" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "profileTimes" Core..!@ Prelude.mempty)
       )
 
 instance Prelude.Hashable ListProfileTimes where
   hashWithSalt _salt ListProfileTimes' {..} =
-    _salt `Prelude.hashWithSalt` orderBy
+    _salt `Prelude.hashWithSalt` maxResults
       `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` orderBy
       `Prelude.hashWithSalt` endTime
       `Prelude.hashWithSalt` period
       `Prelude.hashWithSalt` profilingGroupName
@@ -260,42 +262,42 @@ instance Prelude.Hashable ListProfileTimes where
 
 instance Prelude.NFData ListProfileTimes where
   rnf ListProfileTimes' {..} =
-    Prelude.rnf orderBy
+    Prelude.rnf maxResults
       `Prelude.seq` Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf orderBy
       `Prelude.seq` Prelude.rnf endTime
       `Prelude.seq` Prelude.rnf period
       `Prelude.seq` Prelude.rnf profilingGroupName
       `Prelude.seq` Prelude.rnf startTime
 
-instance Core.ToHeaders ListProfileTimes where
+instance Data.ToHeaders ListProfileTimes where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath ListProfileTimes where
+instance Data.ToPath ListProfileTimes where
   toPath ListProfileTimes' {..} =
     Prelude.mconcat
       [ "/profilingGroups/",
-        Core.toBS profilingGroupName,
+        Data.toBS profilingGroupName,
         "/profileTimes"
       ]
 
-instance Core.ToQuery ListProfileTimes where
+instance Data.ToQuery ListProfileTimes where
   toQuery ListProfileTimes' {..} =
     Prelude.mconcat
-      [ "orderBy" Core.=: orderBy,
-        "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults,
-        "endTime" Core.=: endTime,
-        "period" Core.=: period,
-        "startTime" Core.=: startTime
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken,
+        "orderBy" Data.=: orderBy,
+        "endTime" Data.=: endTime,
+        "period" Data.=: period,
+        "startTime" Data.=: startTime
       ]
 
 -- | The structure representing the listProfileTimesResponse.

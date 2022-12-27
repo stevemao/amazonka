@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.SSMContacts.SendActivationCode
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,7 +42,8 @@ module Amazonka.SSMContacts.SendActivationCode
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -82,7 +83,8 @@ instance Core.AWSRequest SendActivationCode where
   type
     AWSResponse SendActivationCode =
       SendActivationCodeResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveEmpty
       ( \s h x ->
@@ -98,34 +100,34 @@ instance Prelude.NFData SendActivationCode where
   rnf SendActivationCode' {..} =
     Prelude.rnf contactChannelId
 
-instance Core.ToHeaders SendActivationCode where
+instance Data.ToHeaders SendActivationCode where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SSMContacts.SendActivationCode" ::
+              Data.=# ( "SSMContacts.SendActivationCode" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON SendActivationCode where
+instance Data.ToJSON SendActivationCode where
   toJSON SendActivationCode' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ContactChannelId" Core..= contactChannelId)
+              ("ContactChannelId" Data..= contactChannelId)
           ]
       )
 
-instance Core.ToPath SendActivationCode where
+instance Data.ToPath SendActivationCode where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery SendActivationCode where
+instance Data.ToQuery SendActivationCode where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newSendActivationCodeResponse' smart constructor.

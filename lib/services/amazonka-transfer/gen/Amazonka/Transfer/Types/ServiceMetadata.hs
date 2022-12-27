@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.Types.ServiceMetadata
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,11 +20,13 @@
 module Amazonka.Transfer.Types.ServiceMetadata where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Transfer.Types.UserDetails
 
--- | A container object for the session details associated with a workflow.
+-- | A container object for the session details that are associated with a
+-- workflow.
 --
 -- /See:/ 'newServiceMetadata' smart constructor.
 data ServiceMetadata = ServiceMetadata'
@@ -56,13 +58,13 @@ newServiceMetadata pUserDetails_ =
 serviceMetadata_userDetails :: Lens.Lens' ServiceMetadata UserDetails
 serviceMetadata_userDetails = Lens.lens (\ServiceMetadata' {userDetails} -> userDetails) (\s@ServiceMetadata' {} a -> s {userDetails = a} :: ServiceMetadata)
 
-instance Core.FromJSON ServiceMetadata where
+instance Data.FromJSON ServiceMetadata where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ServiceMetadata"
       ( \x ->
           ServiceMetadata'
-            Prelude.<$> (x Core..: "UserDetails")
+            Prelude.<$> (x Data..: "UserDetails")
       )
 
 instance Prelude.Hashable ServiceMetadata where

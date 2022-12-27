@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.IoT.Types.AwsJobRateIncreaseCriteria
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.IoT.Types.AwsJobRateIncreaseCriteria where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The criteria to initiate the increase in rate of rollout for a job.
@@ -68,14 +69,14 @@ awsJobRateIncreaseCriteria_numberOfNotifiedThings = Lens.lens (\AwsJobRateIncrea
 awsJobRateIncreaseCriteria_numberOfSucceededThings :: Lens.Lens' AwsJobRateIncreaseCriteria (Prelude.Maybe Prelude.Natural)
 awsJobRateIncreaseCriteria_numberOfSucceededThings = Lens.lens (\AwsJobRateIncreaseCriteria' {numberOfSucceededThings} -> numberOfSucceededThings) (\s@AwsJobRateIncreaseCriteria' {} a -> s {numberOfSucceededThings = a} :: AwsJobRateIncreaseCriteria)
 
-instance Core.FromJSON AwsJobRateIncreaseCriteria where
+instance Data.FromJSON AwsJobRateIncreaseCriteria where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "AwsJobRateIncreaseCriteria"
       ( \x ->
           AwsJobRateIncreaseCriteria'
-            Prelude.<$> (x Core..:? "numberOfNotifiedThings")
-            Prelude.<*> (x Core..:? "numberOfSucceededThings")
+            Prelude.<$> (x Data..:? "numberOfNotifiedThings")
+            Prelude.<*> (x Data..:? "numberOfSucceededThings")
       )
 
 instance Prelude.Hashable AwsJobRateIncreaseCriteria where
@@ -88,13 +89,13 @@ instance Prelude.NFData AwsJobRateIncreaseCriteria where
     Prelude.rnf numberOfNotifiedThings
       `Prelude.seq` Prelude.rnf numberOfSucceededThings
 
-instance Core.ToJSON AwsJobRateIncreaseCriteria where
+instance Data.ToJSON AwsJobRateIncreaseCriteria where
   toJSON AwsJobRateIncreaseCriteria' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("numberOfNotifiedThings" Core..=)
+          [ ("numberOfNotifiedThings" Data..=)
               Prelude.<$> numberOfNotifiedThings,
-            ("numberOfSucceededThings" Core..=)
+            ("numberOfSucceededThings" Data..=)
               Prelude.<$> numberOfSucceededThings
           ]
       )

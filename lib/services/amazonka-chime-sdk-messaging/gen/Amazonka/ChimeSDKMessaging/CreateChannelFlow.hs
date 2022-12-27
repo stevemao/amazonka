@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ChimeSDKMessaging.CreateChannelFlow
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -63,7 +63,8 @@ where
 
 import Amazonka.ChimeSDKMessaging.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -77,9 +78,9 @@ data CreateChannelFlow = CreateChannelFlow'
     -- | Information about the processor Lambda functions.
     processors :: Prelude.NonEmpty Processor,
     -- | The name of the channel flow.
-    name :: Core.Sensitive Prelude.Text,
+    name :: Data.Sensitive Prelude.Text,
     -- | The client token for the request. An Idempotency token.
-    clientRequestToken :: Core.Sensitive Prelude.Text
+    clientRequestToken :: Data.Sensitive Prelude.Text
   }
   deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
@@ -119,9 +120,9 @@ newCreateChannelFlow
       { tags = Prelude.Nothing,
         appInstanceArn = pAppInstanceArn_,
         processors = Lens.coerced Lens.# pProcessors_,
-        name = Core._Sensitive Lens.# pName_,
+        name = Data._Sensitive Lens.# pName_,
         clientRequestToken =
-          Core._Sensitive Lens.# pClientRequestToken_
+          Data._Sensitive Lens.# pClientRequestToken_
       }
 
 -- | The tags for the creation request.
@@ -138,22 +139,23 @@ createChannelFlow_processors = Lens.lens (\CreateChannelFlow' {processors} -> pr
 
 -- | The name of the channel flow.
 createChannelFlow_name :: Lens.Lens' CreateChannelFlow Prelude.Text
-createChannelFlow_name = Lens.lens (\CreateChannelFlow' {name} -> name) (\s@CreateChannelFlow' {} a -> s {name = a} :: CreateChannelFlow) Prelude.. Core._Sensitive
+createChannelFlow_name = Lens.lens (\CreateChannelFlow' {name} -> name) (\s@CreateChannelFlow' {} a -> s {name = a} :: CreateChannelFlow) Prelude.. Data._Sensitive
 
 -- | The client token for the request. An Idempotency token.
 createChannelFlow_clientRequestToken :: Lens.Lens' CreateChannelFlow Prelude.Text
-createChannelFlow_clientRequestToken = Lens.lens (\CreateChannelFlow' {clientRequestToken} -> clientRequestToken) (\s@CreateChannelFlow' {} a -> s {clientRequestToken = a} :: CreateChannelFlow) Prelude.. Core._Sensitive
+createChannelFlow_clientRequestToken = Lens.lens (\CreateChannelFlow' {clientRequestToken} -> clientRequestToken) (\s@CreateChannelFlow' {} a -> s {clientRequestToken = a} :: CreateChannelFlow) Prelude.. Data._Sensitive
 
 instance Core.AWSRequest CreateChannelFlow where
   type
     AWSResponse CreateChannelFlow =
       CreateChannelFlowResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateChannelFlowResponse'
-            Prelude.<$> (x Core..?> "ChannelFlowArn")
+            Prelude.<$> (x Data..?> "ChannelFlowArn")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -173,27 +175,27 @@ instance Prelude.NFData CreateChannelFlow where
       `Prelude.seq` Prelude.rnf name
       `Prelude.seq` Prelude.rnf clientRequestToken
 
-instance Core.ToHeaders CreateChannelFlow where
+instance Data.ToHeaders CreateChannelFlow where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToJSON CreateChannelFlow where
+instance Data.ToJSON CreateChannelFlow where
   toJSON CreateChannelFlow' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("AppInstanceArn" Core..= appInstanceArn),
-            Prelude.Just ("Processors" Core..= processors),
-            Prelude.Just ("Name" Core..= name),
+              ("AppInstanceArn" Data..= appInstanceArn),
+            Prelude.Just ("Processors" Data..= processors),
+            Prelude.Just ("Name" Data..= name),
             Prelude.Just
-              ("ClientRequestToken" Core..= clientRequestToken)
+              ("ClientRequestToken" Data..= clientRequestToken)
           ]
       )
 
-instance Core.ToPath CreateChannelFlow where
+instance Data.ToPath CreateChannelFlow where
   toPath = Prelude.const "/channel-flows"
 
-instance Core.ToQuery CreateChannelFlow where
+instance Data.ToQuery CreateChannelFlow where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateChannelFlowResponse' smart constructor.

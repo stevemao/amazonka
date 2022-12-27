@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DocumentDB.FailoverDBCluster
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,8 +50,9 @@ module Amazonka.DocumentDB.FailoverDBCluster
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DocumentDB.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -123,13 +124,14 @@ instance Core.AWSRequest FailoverDBCluster where
   type
     AWSResponse FailoverDBCluster =
       FailoverDBClusterResponse
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "FailoverDBClusterResult"
       ( \s h x ->
           FailoverDBClusterResponse'
-            Prelude.<$> (x Core..@? "DBCluster")
+            Prelude.<$> (x Data..@? "DBCluster")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -143,22 +145,22 @@ instance Prelude.NFData FailoverDBCluster where
     Prelude.rnf dbClusterIdentifier
       `Prelude.seq` Prelude.rnf targetDBInstanceIdentifier
 
-instance Core.ToHeaders FailoverDBCluster where
+instance Data.ToHeaders FailoverDBCluster where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath FailoverDBCluster where
+instance Data.ToPath FailoverDBCluster where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery FailoverDBCluster where
+instance Data.ToQuery FailoverDBCluster where
   toQuery FailoverDBCluster' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("FailoverDBCluster" :: Prelude.ByteString),
+          Data.=: ("FailoverDBCluster" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBClusterIdentifier" Core.=: dbClusterIdentifier,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBClusterIdentifier" Data.=: dbClusterIdentifier,
         "TargetDBInstanceIdentifier"
-          Core.=: targetDBInstanceIdentifier
+          Data.=: targetDBInstanceIdentifier
       ]
 
 -- | /See:/ 'newFailoverDBClusterResponse' smart constructor.

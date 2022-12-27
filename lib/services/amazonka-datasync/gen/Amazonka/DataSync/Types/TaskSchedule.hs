@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.DataSync.Types.TaskSchedule
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.DataSync.Types.TaskSchedule where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Specifies the schedule you want your task to use for repeated
@@ -60,13 +61,13 @@ newTaskSchedule pScheduleExpression_ =
 taskSchedule_scheduleExpression :: Lens.Lens' TaskSchedule Prelude.Text
 taskSchedule_scheduleExpression = Lens.lens (\TaskSchedule' {scheduleExpression} -> scheduleExpression) (\s@TaskSchedule' {} a -> s {scheduleExpression = a} :: TaskSchedule)
 
-instance Core.FromJSON TaskSchedule where
+instance Data.FromJSON TaskSchedule where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TaskSchedule"
       ( \x ->
           TaskSchedule'
-            Prelude.<$> (x Core..: "ScheduleExpression")
+            Prelude.<$> (x Data..: "ScheduleExpression")
       )
 
 instance Prelude.Hashable TaskSchedule where
@@ -77,11 +78,11 @@ instance Prelude.NFData TaskSchedule where
   rnf TaskSchedule' {..} =
     Prelude.rnf scheduleExpression
 
-instance Core.ToJSON TaskSchedule where
+instance Data.ToJSON TaskSchedule where
   toJSON TaskSchedule' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
           [ Prelude.Just
-              ("ScheduleExpression" Core..= scheduleExpression)
+              ("ScheduleExpression" Data..= scheduleExpression)
           ]
       )

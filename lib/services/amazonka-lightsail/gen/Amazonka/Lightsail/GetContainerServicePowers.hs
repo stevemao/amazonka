@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Lightsail.GetContainerServicePowers
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -41,7 +41,8 @@ module Amazonka.Lightsail.GetContainerServicePowers
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Lightsail.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -66,12 +67,13 @@ instance Core.AWSRequest GetContainerServicePowers where
   type
     AWSResponse GetContainerServicePowers =
       GetContainerServicePowersResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetContainerServicePowersResponse'
-            Prelude.<$> (x Core..?> "powers" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "powers" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -82,28 +84,28 @@ instance Prelude.Hashable GetContainerServicePowers where
 instance Prelude.NFData GetContainerServicePowers where
   rnf _ = ()
 
-instance Core.ToHeaders GetContainerServicePowers where
+instance Data.ToHeaders GetContainerServicePowers where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "Lightsail_20161128.GetContainerServicePowers" ::
+              Data.=# ( "Lightsail_20161128.GetContainerServicePowers" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON GetContainerServicePowers where
-  toJSON = Prelude.const (Core.Object Prelude.mempty)
+instance Data.ToJSON GetContainerServicePowers where
+  toJSON = Prelude.const (Data.Object Prelude.mempty)
 
-instance Core.ToPath GetContainerServicePowers where
+instance Data.ToPath GetContainerServicePowers where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery GetContainerServicePowers where
+instance Data.ToQuery GetContainerServicePowers where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newGetContainerServicePowersResponse' smart constructor.

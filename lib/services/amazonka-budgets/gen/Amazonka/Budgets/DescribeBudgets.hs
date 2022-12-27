@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Budgets.DescribeBudgets
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -34,8 +34,8 @@ module Amazonka.Budgets.DescribeBudgets
     newDescribeBudgets,
 
     -- * Request Lenses
-    describeBudgets_nextToken,
     describeBudgets_maxResults,
+    describeBudgets_nextToken,
     describeBudgets_accountId,
 
     -- * Destructuring the Response
@@ -43,15 +43,16 @@ module Amazonka.Budgets.DescribeBudgets
     newDescribeBudgetsResponse,
 
     -- * Response Lenses
-    describeBudgetsResponse_nextToken,
     describeBudgetsResponse_budgets,
+    describeBudgetsResponse_nextToken,
     describeBudgetsResponse_httpStatus,
   )
 where
 
 import Amazonka.Budgets.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -60,12 +61,12 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newDescribeBudgets' smart constructor.
 data DescribeBudgets = DescribeBudgets'
-  { -- | The pagination token that you include in your request to indicate the
-    -- next set of results that you want to retrieve.
-    nextToken :: Prelude.Maybe Prelude.Text,
-    -- | An optional integer that represents how many entries a paginated
+  { -- | An optional integer that represents how many entries a paginated
     -- response contains. The maximum is 100.
     maxResults :: Prelude.Maybe Prelude.Natural,
+    -- | The pagination token that you include in your request to indicate the
+    -- next set of results that you want to retrieve.
+    nextToken :: Prelude.Maybe Prelude.Text,
     -- | The @accountId@ that is associated with the budgets that you want
     -- descriptions of.
     accountId :: Prelude.Text
@@ -80,11 +81,11 @@ data DescribeBudgets = DescribeBudgets'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'nextToken', 'describeBudgets_nextToken' - The pagination token that you include in your request to indicate the
--- next set of results that you want to retrieve.
---
 -- 'maxResults', 'describeBudgets_maxResults' - An optional integer that represents how many entries a paginated
 -- response contains. The maximum is 100.
+--
+-- 'nextToken', 'describeBudgets_nextToken' - The pagination token that you include in your request to indicate the
+-- next set of results that you want to retrieve.
 --
 -- 'accountId', 'describeBudgets_accountId' - The @accountId@ that is associated with the budgets that you want
 -- descriptions of.
@@ -94,20 +95,20 @@ newDescribeBudgets ::
   DescribeBudgets
 newDescribeBudgets pAccountId_ =
   DescribeBudgets'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       accountId = pAccountId_
     }
-
--- | The pagination token that you include in your request to indicate the
--- next set of results that you want to retrieve.
-describeBudgets_nextToken :: Lens.Lens' DescribeBudgets (Prelude.Maybe Prelude.Text)
-describeBudgets_nextToken = Lens.lens (\DescribeBudgets' {nextToken} -> nextToken) (\s@DescribeBudgets' {} a -> s {nextToken = a} :: DescribeBudgets)
 
 -- | An optional integer that represents how many entries a paginated
 -- response contains. The maximum is 100.
 describeBudgets_maxResults :: Lens.Lens' DescribeBudgets (Prelude.Maybe Prelude.Natural)
 describeBudgets_maxResults = Lens.lens (\DescribeBudgets' {maxResults} -> maxResults) (\s@DescribeBudgets' {} a -> s {maxResults = a} :: DescribeBudgets)
+
+-- | The pagination token that you include in your request to indicate the
+-- next set of results that you want to retrieve.
+describeBudgets_nextToken :: Lens.Lens' DescribeBudgets (Prelude.Maybe Prelude.Text)
+describeBudgets_nextToken = Lens.lens (\DescribeBudgets' {nextToken} -> nextToken) (\s@DescribeBudgets' {} a -> s {nextToken = a} :: DescribeBudgets)
 
 -- | The @accountId@ that is associated with the budgets that you want
 -- descriptions of.
@@ -139,68 +140,69 @@ instance Core.AWSRequest DescribeBudgets where
   type
     AWSResponse DescribeBudgets =
       DescribeBudgetsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           DescribeBudgetsResponse'
-            Prelude.<$> (x Core..?> "NextToken")
-            Prelude.<*> (x Core..?> "Budgets" Core..!@ Prelude.mempty)
+            Prelude.<$> (x Data..?> "Budgets" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable DescribeBudgets where
   hashWithSalt _salt DescribeBudgets' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` accountId
 
 instance Prelude.NFData DescribeBudgets where
   rnf DescribeBudgets' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf accountId
 
-instance Core.ToHeaders DescribeBudgets where
+instance Data.ToHeaders DescribeBudgets where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSBudgetServiceGateway.DescribeBudgets" ::
+              Data.=# ( "AWSBudgetServiceGateway.DescribeBudgets" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON DescribeBudgets where
+instance Data.ToJSON DescribeBudgets where
   toJSON DescribeBudgets' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("MaxResults" Core..=) Prelude.<$> maxResults,
-            Prelude.Just ("AccountId" Core..= accountId)
+          [ ("MaxResults" Data..=) Prelude.<$> maxResults,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("AccountId" Data..= accountId)
           ]
       )
 
-instance Core.ToPath DescribeBudgets where
+instance Data.ToPath DescribeBudgets where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery DescribeBudgets where
+instance Data.ToQuery DescribeBudgets where
   toQuery = Prelude.const Prelude.mempty
 
 -- | Response of DescribeBudgets
 --
 -- /See:/ 'newDescribeBudgetsResponse' smart constructor.
 data DescribeBudgetsResponse = DescribeBudgetsResponse'
-  { -- | The pagination token in the service response that indicates the next set
+  { -- | A list of budgets.
+    budgets :: Prelude.Maybe [Budget],
+    -- | The pagination token in the service response that indicates the next set
     -- of results that you can retrieve.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | A list of budgets.
-    budgets :: Prelude.Maybe [Budget],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -214,10 +216,10 @@ data DescribeBudgetsResponse = DescribeBudgetsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'budgets', 'describeBudgetsResponse_budgets' - A list of budgets.
+--
 -- 'nextToken', 'describeBudgetsResponse_nextToken' - The pagination token in the service response that indicates the next set
 -- of results that you can retrieve.
---
--- 'budgets', 'describeBudgetsResponse_budgets' - A list of budgets.
 --
 -- 'httpStatus', 'describeBudgetsResponse_httpStatus' - The response's http status code.
 newDescribeBudgetsResponse ::
@@ -226,20 +228,19 @@ newDescribeBudgetsResponse ::
   DescribeBudgetsResponse
 newDescribeBudgetsResponse pHttpStatus_ =
   DescribeBudgetsResponse'
-    { nextToken =
-        Prelude.Nothing,
-      budgets = Prelude.Nothing,
+    { budgets = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
+
+-- | A list of budgets.
+describeBudgetsResponse_budgets :: Lens.Lens' DescribeBudgetsResponse (Prelude.Maybe [Budget])
+describeBudgetsResponse_budgets = Lens.lens (\DescribeBudgetsResponse' {budgets} -> budgets) (\s@DescribeBudgetsResponse' {} a -> s {budgets = a} :: DescribeBudgetsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The pagination token in the service response that indicates the next set
 -- of results that you can retrieve.
 describeBudgetsResponse_nextToken :: Lens.Lens' DescribeBudgetsResponse (Prelude.Maybe Prelude.Text)
 describeBudgetsResponse_nextToken = Lens.lens (\DescribeBudgetsResponse' {nextToken} -> nextToken) (\s@DescribeBudgetsResponse' {} a -> s {nextToken = a} :: DescribeBudgetsResponse)
-
--- | A list of budgets.
-describeBudgetsResponse_budgets :: Lens.Lens' DescribeBudgetsResponse (Prelude.Maybe [Budget])
-describeBudgetsResponse_budgets = Lens.lens (\DescribeBudgetsResponse' {budgets} -> budgets) (\s@DescribeBudgetsResponse' {} a -> s {budgets = a} :: DescribeBudgetsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 describeBudgetsResponse_httpStatus :: Lens.Lens' DescribeBudgetsResponse Prelude.Int
@@ -247,6 +248,6 @@ describeBudgetsResponse_httpStatus = Lens.lens (\DescribeBudgetsResponse' {httpS
 
 instance Prelude.NFData DescribeBudgetsResponse where
   rnf DescribeBudgetsResponse' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf budgets
+    Prelude.rnf budgets
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf httpStatus

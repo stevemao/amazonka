@@ -14,15 +14,26 @@
 
 -- |
 -- Module      : Amazonka.LookoutVision.UpdateDatasetEntries
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Adds one or more JSON Line entries to a dataset. A JSON Line includes
--- information about an image used for training or testing an Amazon
--- Lookout for Vision model. The following is an example JSON Line.
+-- Adds or updates one or more JSON Line entries in a dataset. A JSON Line
+-- includes information about an image used for training or testing an
+-- Amazon Lookout for Vision model.
+--
+-- To update an existing JSON Line, use the @source-ref@ field to identify
+-- the JSON Line. The JSON line that you supply replaces the existing JSON
+-- line. Any existing annotations that are not in the new JSON line are
+-- removed from the dataset.
+--
+-- For more information, see /Defining JSON lines for anomaly
+-- classification/ in the Amazon Lookout for Vision Developer Guide.
+--
+-- The images you reference in the @source-ref@ field of a JSON line, must
+-- be in the same S3 bucket as the existing images in the dataset.
 --
 -- Updating a dataset might take a while to complete. To check the current
 -- status, call DescribeDataset and check the @Status@ field in the
@@ -52,7 +63,8 @@ module Amazonka.LookoutVision.UpdateDatasetEntries
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.LookoutVision.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -62,13 +74,19 @@ import qualified Amazonka.Response as Response
 data UpdateDatasetEntries = UpdateDatasetEntries'
   { -- | ClientToken is an idempotency token that ensures a call to
     -- @UpdateDatasetEntries@ completes only once. You choose the value to
-    -- pass. For example, An issue, such as an network outage, might prevent
-    -- you from getting a response from @UpdateDatasetEntries@. In this case,
-    -- safely retry your call to @UpdateDatasetEntries@ by using the same
-    -- @ClientToken@ parameter value. An error occurs if the other input
-    -- parameters are not the same as in the first request. Using a different
-    -- value for @ClientToken@ is considered a new call to
-    -- @UpdateDatasetEntries@. An idempotency token is active for 8 hours.
+    -- pass. For example, An issue might prevent you from getting a response
+    -- from @UpdateDatasetEntries@. In this case, safely retry your call to
+    -- @UpdateDatasetEntries@ by using the same @ClientToken@ parameter value.
+    --
+    -- If you don\'t supply a value for @ClientToken@, the AWS SDK you are
+    -- using inserts a value for you. This prevents retries after a network
+    -- error from making multiple updates with the same dataset entries.
+    -- You\'ll need to provide your own value for other use cases.
+    --
+    -- An error occurs if the other input parameters are not the same as in the
+    -- first request. Using a different value for @ClientToken@ is considered a
+    -- new call to @UpdateDatasetEntries@. An idempotency token is active for 8
+    -- hours.
     clientToken :: Prelude.Maybe Prelude.Text,
     -- | The name of the project that contains the dataset that you want to
     -- update.
@@ -78,7 +96,7 @@ data UpdateDatasetEntries = UpdateDatasetEntries'
     -- If you have a single dataset project, specify @train@.
     datasetType :: Prelude.Text,
     -- | The entries to add to the dataset.
-    changes :: Core.Base64
+    changes :: Data.Base64
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -92,13 +110,19 @@ data UpdateDatasetEntries = UpdateDatasetEntries'
 --
 -- 'clientToken', 'updateDatasetEntries_clientToken' - ClientToken is an idempotency token that ensures a call to
 -- @UpdateDatasetEntries@ completes only once. You choose the value to
--- pass. For example, An issue, such as an network outage, might prevent
--- you from getting a response from @UpdateDatasetEntries@. In this case,
--- safely retry your call to @UpdateDatasetEntries@ by using the same
--- @ClientToken@ parameter value. An error occurs if the other input
--- parameters are not the same as in the first request. Using a different
--- value for @ClientToken@ is considered a new call to
--- @UpdateDatasetEntries@. An idempotency token is active for 8 hours.
+-- pass. For example, An issue might prevent you from getting a response
+-- from @UpdateDatasetEntries@. In this case, safely retry your call to
+-- @UpdateDatasetEntries@ by using the same @ClientToken@ parameter value.
+--
+-- If you don\'t supply a value for @ClientToken@, the AWS SDK you are
+-- using inserts a value for you. This prevents retries after a network
+-- error from making multiple updates with the same dataset entries.
+-- You\'ll need to provide your own value for other use cases.
+--
+-- An error occurs if the other input parameters are not the same as in the
+-- first request. Using a different value for @ClientToken@ is considered a
+-- new call to @UpdateDatasetEntries@. An idempotency token is active for 8
+-- hours.
 --
 -- 'projectName', 'updateDatasetEntries_projectName' - The name of the project that contains the dataset that you want to
 -- update.
@@ -129,18 +153,24 @@ newUpdateDatasetEntries
           Prelude.Nothing,
         projectName = pProjectName_,
         datasetType = pDatasetType_,
-        changes = Core._Base64 Lens.# pChanges_
+        changes = Data._Base64 Lens.# pChanges_
       }
 
 -- | ClientToken is an idempotency token that ensures a call to
 -- @UpdateDatasetEntries@ completes only once. You choose the value to
--- pass. For example, An issue, such as an network outage, might prevent
--- you from getting a response from @UpdateDatasetEntries@. In this case,
--- safely retry your call to @UpdateDatasetEntries@ by using the same
--- @ClientToken@ parameter value. An error occurs if the other input
--- parameters are not the same as in the first request. Using a different
--- value for @ClientToken@ is considered a new call to
--- @UpdateDatasetEntries@. An idempotency token is active for 8 hours.
+-- pass. For example, An issue might prevent you from getting a response
+-- from @UpdateDatasetEntries@. In this case, safely retry your call to
+-- @UpdateDatasetEntries@ by using the same @ClientToken@ parameter value.
+--
+-- If you don\'t supply a value for @ClientToken@, the AWS SDK you are
+-- using inserts a value for you. This prevents retries after a network
+-- error from making multiple updates with the same dataset entries.
+-- You\'ll need to provide your own value for other use cases.
+--
+-- An error occurs if the other input parameters are not the same as in the
+-- first request. Using a different value for @ClientToken@ is considered a
+-- new call to @UpdateDatasetEntries@. An idempotency token is active for 8
+-- hours.
 updateDatasetEntries_clientToken :: Lens.Lens' UpdateDatasetEntries (Prelude.Maybe Prelude.Text)
 updateDatasetEntries_clientToken = Lens.lens (\UpdateDatasetEntries' {clientToken} -> clientToken) (\s@UpdateDatasetEntries' {} a -> s {clientToken = a} :: UpdateDatasetEntries)
 
@@ -161,18 +191,19 @@ updateDatasetEntries_datasetType = Lens.lens (\UpdateDatasetEntries' {datasetTyp
 -- -- serialisation, and decode from Base64 representation during deserialisation.
 -- -- This 'Lens' accepts and returns only raw unencoded data.
 updateDatasetEntries_changes :: Lens.Lens' UpdateDatasetEntries Prelude.ByteString
-updateDatasetEntries_changes = Lens.lens (\UpdateDatasetEntries' {changes} -> changes) (\s@UpdateDatasetEntries' {} a -> s {changes = a} :: UpdateDatasetEntries) Prelude.. Core._Base64
+updateDatasetEntries_changes = Lens.lens (\UpdateDatasetEntries' {changes} -> changes) (\s@UpdateDatasetEntries' {} a -> s {changes = a} :: UpdateDatasetEntries) Prelude.. Data._Base64
 
 instance Core.AWSRequest UpdateDatasetEntries where
   type
     AWSResponse UpdateDatasetEntries =
       UpdateDatasetEntriesResponse
-  request = Request.patchJSON defaultService
+  request overrides =
+    Request.patchJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           UpdateDatasetEntriesResponse'
-            Prelude.<$> (x Core..?> "Status")
+            Prelude.<$> (x Data..?> "Status")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -190,32 +221,32 @@ instance Prelude.NFData UpdateDatasetEntries where
       `Prelude.seq` Prelude.rnf datasetType
       `Prelude.seq` Prelude.rnf changes
 
-instance Core.ToHeaders UpdateDatasetEntries where
+instance Data.ToHeaders UpdateDatasetEntries where
   toHeaders UpdateDatasetEntries' {..} =
     Prelude.mconcat
-      [ "X-Amzn-Client-Token" Core.=# clientToken,
+      [ "X-Amzn-Client-Token" Data.=# clientToken,
         "Content-Type"
-          Core.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
+          Data.=# ("application/x-amz-json-1.1" :: Prelude.ByteString)
       ]
 
-instance Core.ToJSON UpdateDatasetEntries where
+instance Data.ToJSON UpdateDatasetEntries where
   toJSON UpdateDatasetEntries' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [Prelude.Just ("Changes" Core..= changes)]
+          [Prelude.Just ("Changes" Data..= changes)]
       )
 
-instance Core.ToPath UpdateDatasetEntries where
+instance Data.ToPath UpdateDatasetEntries where
   toPath UpdateDatasetEntries' {..} =
     Prelude.mconcat
       [ "/2020-11-20/projects/",
-        Core.toBS projectName,
+        Data.toBS projectName,
         "/datasets/",
-        Core.toBS datasetType,
+        Data.toBS datasetType,
         "/entries"
       ]
 
-instance Core.ToQuery UpdateDatasetEntries where
+instance Data.ToQuery UpdateDatasetEntries where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newUpdateDatasetEntriesResponse' smart constructor.

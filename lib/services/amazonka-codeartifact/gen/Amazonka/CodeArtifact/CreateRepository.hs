@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.CodeArtifact.CreateRepository
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -27,10 +27,10 @@ module Amazonka.CodeArtifact.CreateRepository
     newCreateRepository,
 
     -- * Request Lenses
-    createRepository_upstreams,
-    createRepository_domainOwner,
     createRepository_description,
+    createRepository_domainOwner,
     createRepository_tags,
+    createRepository_upstreams,
     createRepository_domain,
     createRepository_repository,
 
@@ -46,26 +46,27 @@ where
 
 import Amazonka.CodeArtifact.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newCreateRepository' smart constructor.
 data CreateRepository = CreateRepository'
-  { -- | A list of upstream repositories to associate with the repository. The
-    -- order of the upstream repositories in the list determines their priority
-    -- order when AWS CodeArtifact looks for a requested package version. For
-    -- more information, see
-    -- <https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html Working with upstream repositories>.
-    upstreams :: Prelude.Maybe [UpstreamRepository],
-    -- | The 12-digit account number of the AWS account that owns the domain. It
-    -- does not include dashes or spaces.
-    domainOwner :: Prelude.Maybe Prelude.Text,
-    -- | A description of the created repository.
+  { -- | A description of the created repository.
     description :: Prelude.Maybe Prelude.Text,
+    -- | The 12-digit account number of the Amazon Web Services account that owns
+    -- the domain. It does not include dashes or spaces.
+    domainOwner :: Prelude.Maybe Prelude.Text,
     -- | One or more tag key-value pairs for the repository.
     tags :: Prelude.Maybe [Tag],
+    -- | A list of upstream repositories to associate with the repository. The
+    -- order of the upstream repositories in the list determines their priority
+    -- order when CodeArtifact looks for a requested package version. For more
+    -- information, see
+    -- <https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html Working with upstream repositories>.
+    upstreams :: Prelude.Maybe [UpstreamRepository],
     -- | The name of the domain that contains the created repository.
     domain :: Prelude.Text,
     -- | The name of the repository to create.
@@ -81,18 +82,18 @@ data CreateRepository = CreateRepository'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'upstreams', 'createRepository_upstreams' - A list of upstream repositories to associate with the repository. The
--- order of the upstream repositories in the list determines their priority
--- order when AWS CodeArtifact looks for a requested package version. For
--- more information, see
--- <https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html Working with upstream repositories>.
---
--- 'domainOwner', 'createRepository_domainOwner' - The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
---
 -- 'description', 'createRepository_description' - A description of the created repository.
 --
+-- 'domainOwner', 'createRepository_domainOwner' - The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
+--
 -- 'tags', 'createRepository_tags' - One or more tag key-value pairs for the repository.
+--
+-- 'upstreams', 'createRepository_upstreams' - A list of upstream repositories to associate with the repository. The
+-- order of the upstream repositories in the list determines their priority
+-- order when CodeArtifact looks for a requested package version. For more
+-- information, see
+-- <https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html Working with upstream repositories>.
 --
 -- 'domain', 'createRepository_domain' - The name of the domain that contains the created repository.
 --
@@ -105,34 +106,34 @@ newCreateRepository ::
   CreateRepository
 newCreateRepository pDomain_ pRepository_ =
   CreateRepository'
-    { upstreams = Prelude.Nothing,
+    { description = Prelude.Nothing,
       domainOwner = Prelude.Nothing,
-      description = Prelude.Nothing,
       tags = Prelude.Nothing,
+      upstreams = Prelude.Nothing,
       domain = pDomain_,
       repository = pRepository_
     }
-
--- | A list of upstream repositories to associate with the repository. The
--- order of the upstream repositories in the list determines their priority
--- order when AWS CodeArtifact looks for a requested package version. For
--- more information, see
--- <https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html Working with upstream repositories>.
-createRepository_upstreams :: Lens.Lens' CreateRepository (Prelude.Maybe [UpstreamRepository])
-createRepository_upstreams = Lens.lens (\CreateRepository' {upstreams} -> upstreams) (\s@CreateRepository' {} a -> s {upstreams = a} :: CreateRepository) Prelude.. Lens.mapping Lens.coerced
-
--- | The 12-digit account number of the AWS account that owns the domain. It
--- does not include dashes or spaces.
-createRepository_domainOwner :: Lens.Lens' CreateRepository (Prelude.Maybe Prelude.Text)
-createRepository_domainOwner = Lens.lens (\CreateRepository' {domainOwner} -> domainOwner) (\s@CreateRepository' {} a -> s {domainOwner = a} :: CreateRepository)
 
 -- | A description of the created repository.
 createRepository_description :: Lens.Lens' CreateRepository (Prelude.Maybe Prelude.Text)
 createRepository_description = Lens.lens (\CreateRepository' {description} -> description) (\s@CreateRepository' {} a -> s {description = a} :: CreateRepository)
 
+-- | The 12-digit account number of the Amazon Web Services account that owns
+-- the domain. It does not include dashes or spaces.
+createRepository_domainOwner :: Lens.Lens' CreateRepository (Prelude.Maybe Prelude.Text)
+createRepository_domainOwner = Lens.lens (\CreateRepository' {domainOwner} -> domainOwner) (\s@CreateRepository' {} a -> s {domainOwner = a} :: CreateRepository)
+
 -- | One or more tag key-value pairs for the repository.
 createRepository_tags :: Lens.Lens' CreateRepository (Prelude.Maybe [Tag])
 createRepository_tags = Lens.lens (\CreateRepository' {tags} -> tags) (\s@CreateRepository' {} a -> s {tags = a} :: CreateRepository) Prelude.. Lens.mapping Lens.coerced
+
+-- | A list of upstream repositories to associate with the repository. The
+-- order of the upstream repositories in the list determines their priority
+-- order when CodeArtifact looks for a requested package version. For more
+-- information, see
+-- <https://docs.aws.amazon.com/codeartifact/latest/ug/repos-upstream.html Working with upstream repositories>.
+createRepository_upstreams :: Lens.Lens' CreateRepository (Prelude.Maybe [UpstreamRepository])
+createRepository_upstreams = Lens.lens (\CreateRepository' {upstreams} -> upstreams) (\s@CreateRepository' {} a -> s {upstreams = a} :: CreateRepository) Prelude.. Lens.mapping Lens.coerced
 
 -- | The name of the domain that contains the created repository.
 createRepository_domain :: Lens.Lens' CreateRepository Prelude.Text
@@ -146,63 +147,64 @@ instance Core.AWSRequest CreateRepository where
   type
     AWSResponse CreateRepository =
       CreateRepositoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateRepositoryResponse'
-            Prelude.<$> (x Core..?> "repository")
+            Prelude.<$> (x Data..?> "repository")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable CreateRepository where
   hashWithSalt _salt CreateRepository' {..} =
-    _salt `Prelude.hashWithSalt` upstreams
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` domainOwner
-      `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` tags
+      `Prelude.hashWithSalt` upstreams
       `Prelude.hashWithSalt` domain
       `Prelude.hashWithSalt` repository
 
 instance Prelude.NFData CreateRepository where
   rnf CreateRepository' {..} =
-    Prelude.rnf upstreams
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf domainOwner
-      `Prelude.seq` Prelude.rnf description
       `Prelude.seq` Prelude.rnf tags
+      `Prelude.seq` Prelude.rnf upstreams
       `Prelude.seq` Prelude.rnf domain
       `Prelude.seq` Prelude.rnf repository
 
-instance Core.ToHeaders CreateRepository where
+instance Data.ToHeaders CreateRepository where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateRepository where
+instance Data.ToJSON CreateRepository where
   toJSON CreateRepository' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("upstreams" Core..=) Prelude.<$> upstreams,
-            ("description" Core..=) Prelude.<$> description,
-            ("tags" Core..=) Prelude.<$> tags
+          [ ("description" Data..=) Prelude.<$> description,
+            ("tags" Data..=) Prelude.<$> tags,
+            ("upstreams" Data..=) Prelude.<$> upstreams
           ]
       )
 
-instance Core.ToPath CreateRepository where
+instance Data.ToPath CreateRepository where
   toPath = Prelude.const "/v1/repository"
 
-instance Core.ToQuery CreateRepository where
+instance Data.ToQuery CreateRepository where
   toQuery CreateRepository' {..} =
     Prelude.mconcat
-      [ "domain-owner" Core.=: domainOwner,
-        "domain" Core.=: domain,
-        "repository" Core.=: repository
+      [ "domain-owner" Data.=: domainOwner,
+        "domain" Data.=: domain,
+        "repository" Data.=: repository
       ]
 
 -- | /See:/ 'newCreateRepositoryResponse' smart constructor.

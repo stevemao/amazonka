@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.MediaConvert.Types.TtmlDestinationSettings
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.MediaConvert.Types.TtmlDestinationSettings where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.MediaConvert.Types.TtmlStylePassthrough
 import qualified Amazonka.Prelude as Prelude
 
@@ -63,13 +64,13 @@ newTtmlDestinationSettings =
 ttmlDestinationSettings_stylePassthrough :: Lens.Lens' TtmlDestinationSettings (Prelude.Maybe TtmlStylePassthrough)
 ttmlDestinationSettings_stylePassthrough = Lens.lens (\TtmlDestinationSettings' {stylePassthrough} -> stylePassthrough) (\s@TtmlDestinationSettings' {} a -> s {stylePassthrough = a} :: TtmlDestinationSettings)
 
-instance Core.FromJSON TtmlDestinationSettings where
+instance Data.FromJSON TtmlDestinationSettings where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TtmlDestinationSettings"
       ( \x ->
           TtmlDestinationSettings'
-            Prelude.<$> (x Core..:? "stylePassthrough")
+            Prelude.<$> (x Data..:? "stylePassthrough")
       )
 
 instance Prelude.Hashable TtmlDestinationSettings where
@@ -80,11 +81,11 @@ instance Prelude.NFData TtmlDestinationSettings where
   rnf TtmlDestinationSettings' {..} =
     Prelude.rnf stylePassthrough
 
-instance Core.ToJSON TtmlDestinationSettings where
+instance Data.ToJSON TtmlDestinationSettings where
   toJSON TtmlDestinationSettings' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("stylePassthrough" Core..=)
+          [ ("stylePassthrough" Data..=)
               Prelude.<$> stylePassthrough
           ]
       )

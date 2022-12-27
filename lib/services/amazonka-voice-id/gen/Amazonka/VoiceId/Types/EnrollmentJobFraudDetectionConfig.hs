@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.VoiceId.Types.EnrollmentJobFraudDetectionConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.VoiceId.Types.EnrollmentJobFraudDetectionConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.VoiceId.Types.FraudDetectionAction
 
@@ -30,15 +31,15 @@ import Amazonka.VoiceId.Types.FraudDetectionAction
 --
 -- /See:/ 'newEnrollmentJobFraudDetectionConfig' smart constructor.
 data EnrollmentJobFraudDetectionConfig = EnrollmentJobFraudDetectionConfig'
-  { -- | Threshold value for determining whether the speaker is a high risk to be
-    -- fraudulent. If the detected risk score calculated by Voice ID is greater
-    -- than or equal to the threshold, the speaker is considered a fraudster.
-    riskThreshold :: Prelude.Maybe Prelude.Natural,
-    -- | The action to take when the given speaker is flagged by the fraud
+  { -- | The action to take when the given speaker is flagged by the fraud
     -- detection system. The default value is @FAIL@, which fails the speaker
     -- enrollment. Changing this value to @IGNORE@ results in the speaker being
     -- enrolled even if they are flagged by the fraud detection system.
-    fraudDetectionAction :: Prelude.Maybe FraudDetectionAction
+    fraudDetectionAction :: Prelude.Maybe FraudDetectionAction,
+    -- | Threshold value for determining whether the speaker is a high risk to be
+    -- fraudulent. If the detected risk score calculated by Voice ID is greater
+    -- than or equal to the threshold, the speaker is considered a fraudster.
+    riskThreshold :: Prelude.Maybe Prelude.Natural
   }
   deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
 
@@ -50,28 +51,22 @@ data EnrollmentJobFraudDetectionConfig = EnrollmentJobFraudDetectionConfig'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'riskThreshold', 'enrollmentJobFraudDetectionConfig_riskThreshold' - Threshold value for determining whether the speaker is a high risk to be
--- fraudulent. If the detected risk score calculated by Voice ID is greater
--- than or equal to the threshold, the speaker is considered a fraudster.
---
 -- 'fraudDetectionAction', 'enrollmentJobFraudDetectionConfig_fraudDetectionAction' - The action to take when the given speaker is flagged by the fraud
 -- detection system. The default value is @FAIL@, which fails the speaker
 -- enrollment. Changing this value to @IGNORE@ results in the speaker being
 -- enrolled even if they are flagged by the fraud detection system.
+--
+-- 'riskThreshold', 'enrollmentJobFraudDetectionConfig_riskThreshold' - Threshold value for determining whether the speaker is a high risk to be
+-- fraudulent. If the detected risk score calculated by Voice ID is greater
+-- than or equal to the threshold, the speaker is considered a fraudster.
 newEnrollmentJobFraudDetectionConfig ::
   EnrollmentJobFraudDetectionConfig
 newEnrollmentJobFraudDetectionConfig =
   EnrollmentJobFraudDetectionConfig'
-    { riskThreshold =
+    { fraudDetectionAction =
         Prelude.Nothing,
-      fraudDetectionAction = Prelude.Nothing
+      riskThreshold = Prelude.Nothing
     }
-
--- | Threshold value for determining whether the speaker is a high risk to be
--- fraudulent. If the detected risk score calculated by Voice ID is greater
--- than or equal to the threshold, the speaker is considered a fraudster.
-enrollmentJobFraudDetectionConfig_riskThreshold :: Lens.Lens' EnrollmentJobFraudDetectionConfig (Prelude.Maybe Prelude.Natural)
-enrollmentJobFraudDetectionConfig_riskThreshold = Lens.lens (\EnrollmentJobFraudDetectionConfig' {riskThreshold} -> riskThreshold) (\s@EnrollmentJobFraudDetectionConfig' {} a -> s {riskThreshold = a} :: EnrollmentJobFraudDetectionConfig)
 
 -- | The action to take when the given speaker is flagged by the fraud
 -- detection system. The default value is @FAIL@, which fails the speaker
@@ -80,17 +75,23 @@ enrollmentJobFraudDetectionConfig_riskThreshold = Lens.lens (\EnrollmentJobFraud
 enrollmentJobFraudDetectionConfig_fraudDetectionAction :: Lens.Lens' EnrollmentJobFraudDetectionConfig (Prelude.Maybe FraudDetectionAction)
 enrollmentJobFraudDetectionConfig_fraudDetectionAction = Lens.lens (\EnrollmentJobFraudDetectionConfig' {fraudDetectionAction} -> fraudDetectionAction) (\s@EnrollmentJobFraudDetectionConfig' {} a -> s {fraudDetectionAction = a} :: EnrollmentJobFraudDetectionConfig)
 
+-- | Threshold value for determining whether the speaker is a high risk to be
+-- fraudulent. If the detected risk score calculated by Voice ID is greater
+-- than or equal to the threshold, the speaker is considered a fraudster.
+enrollmentJobFraudDetectionConfig_riskThreshold :: Lens.Lens' EnrollmentJobFraudDetectionConfig (Prelude.Maybe Prelude.Natural)
+enrollmentJobFraudDetectionConfig_riskThreshold = Lens.lens (\EnrollmentJobFraudDetectionConfig' {riskThreshold} -> riskThreshold) (\s@EnrollmentJobFraudDetectionConfig' {} a -> s {riskThreshold = a} :: EnrollmentJobFraudDetectionConfig)
+
 instance
-  Core.FromJSON
+  Data.FromJSON
     EnrollmentJobFraudDetectionConfig
   where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "EnrollmentJobFraudDetectionConfig"
       ( \x ->
           EnrollmentJobFraudDetectionConfig'
-            Prelude.<$> (x Core..:? "RiskThreshold")
-            Prelude.<*> (x Core..:? "FraudDetectionAction")
+            Prelude.<$> (x Data..:? "FraudDetectionAction")
+            Prelude.<*> (x Data..:? "RiskThreshold")
       )
 
 instance
@@ -100,26 +101,26 @@ instance
   hashWithSalt
     _salt
     EnrollmentJobFraudDetectionConfig' {..} =
-      _salt `Prelude.hashWithSalt` riskThreshold
-        `Prelude.hashWithSalt` fraudDetectionAction
+      _salt `Prelude.hashWithSalt` fraudDetectionAction
+        `Prelude.hashWithSalt` riskThreshold
 
 instance
   Prelude.NFData
     EnrollmentJobFraudDetectionConfig
   where
   rnf EnrollmentJobFraudDetectionConfig' {..} =
-    Prelude.rnf riskThreshold
-      `Prelude.seq` Prelude.rnf fraudDetectionAction
+    Prelude.rnf fraudDetectionAction
+      `Prelude.seq` Prelude.rnf riskThreshold
 
 instance
-  Core.ToJSON
+  Data.ToJSON
     EnrollmentJobFraudDetectionConfig
   where
   toJSON EnrollmentJobFraudDetectionConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("RiskThreshold" Core..=) Prelude.<$> riskThreshold,
-            ("FraudDetectionAction" Core..=)
-              Prelude.<$> fraudDetectionAction
+          [ ("FraudDetectionAction" Data..=)
+              Prelude.<$> fraudDetectionAction,
+            ("RiskThreshold" Data..=) Prelude.<$> riskThreshold
           ]
       )

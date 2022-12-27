@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.Neptune.ModifyDBParameterGroup
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -59,7 +59,8 @@ module Amazonka.Neptune.ModifyDBParameterGroup
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.Neptune.Types
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
@@ -147,11 +148,12 @@ instance Core.AWSRequest ModifyDBParameterGroup where
   type
     AWSResponse ModifyDBParameterGroup =
       DBParameterGroupNameMessage
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "ModifyDBParameterGroupResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable ModifyDBParameterGroup where
   hashWithSalt _salt ModifyDBParameterGroup' {..} =
@@ -163,20 +165,20 @@ instance Prelude.NFData ModifyDBParameterGroup where
     Prelude.rnf dbParameterGroupName
       `Prelude.seq` Prelude.rnf parameters
 
-instance Core.ToHeaders ModifyDBParameterGroup where
+instance Data.ToHeaders ModifyDBParameterGroup where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath ModifyDBParameterGroup where
+instance Data.ToPath ModifyDBParameterGroup where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ModifyDBParameterGroup where
+instance Data.ToQuery ModifyDBParameterGroup where
   toQuery ModifyDBParameterGroup' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ("ModifyDBParameterGroup" :: Prelude.ByteString),
+          Data.=: ("ModifyDBParameterGroup" :: Prelude.ByteString),
         "Version"
-          Core.=: ("2014-10-31" :: Prelude.ByteString),
-        "DBParameterGroupName" Core.=: dbParameterGroupName,
+          Data.=: ("2014-10-31" :: Prelude.ByteString),
+        "DBParameterGroupName" Data.=: dbParameterGroupName,
         "Parameters"
-          Core.=: Core.toQueryList "Parameter" parameters
+          Data.=: Data.toQueryList "Parameter" parameters
       ]

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.EMR.Types.SupportedProductConfig
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.EMR.Types.SupportedProductConfig where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | The list of supported product configurations that allow user-supplied
@@ -72,11 +73,11 @@ instance Prelude.NFData SupportedProductConfig where
   rnf SupportedProductConfig' {..} =
     Prelude.rnf args `Prelude.seq` Prelude.rnf name
 
-instance Core.ToJSON SupportedProductConfig where
+instance Data.ToJSON SupportedProductConfig where
   toJSON SupportedProductConfig' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Args" Core..=) Prelude.<$> args,
-            ("Name" Core..=) Prelude.<$> name
+          [ ("Args" Data..=) Prelude.<$> args,
+            ("Name" Data..=) Prelude.<$> name
           ]
       )

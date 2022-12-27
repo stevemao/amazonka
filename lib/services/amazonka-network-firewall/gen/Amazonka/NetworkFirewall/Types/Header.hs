@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.NetworkFirewall.Types.Header
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.NetworkFirewall.Types.Header where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.NetworkFirewall.Types.StatefulRuleDirection
 import Amazonka.NetworkFirewall.Types.StatefulRuleProtocol
 import qualified Amazonka.Prelude as Prelude
 
--- | The basic rule criteria for AWS Network Firewall to use to inspect
--- packet headers in stateful traffic flow inspection. Traffic flows that
--- match the criteria are a match for the corresponding StatefulRule.
+-- | The basic rule criteria for Network Firewall to use to inspect packet
+-- headers in stateful traffic flow inspection. Traffic flows that match
+-- the criteria are a match for the corresponding StatefulRule.
 --
 -- /See:/ 'newHeader' smart constructor.
 data Header = Header'
   { -- | The protocol to inspect for. To specify all, you can use @IP@, because
-    -- all traffic on AWS and on the internet is IP.
+    -- all traffic on Amazon Web Services and on the internet is IP.
     protocol :: StatefulRuleProtocol,
     -- | The source IP address or address range to inspect for, in CIDR notation.
     -- To match with any address, specify @ANY@.
@@ -96,7 +97,7 @@ data Header = Header'
 -- for backwards compatibility:
 --
 -- 'protocol', 'header_protocol' - The protocol to inspect for. To specify all, you can use @IP@, because
--- all traffic on AWS and on the internet is IP.
+-- all traffic on Amazon Web Services and on the internet is IP.
 --
 -- 'source', 'header_source' - The source IP address or address range to inspect for, in CIDR notation.
 -- To match with any address, specify @ANY@.
@@ -178,7 +179,7 @@ newHeader
       }
 
 -- | The protocol to inspect for. To specify all, you can use @IP@, because
--- all traffic on AWS and on the internet is IP.
+-- all traffic on Amazon Web Services and on the internet is IP.
 header_protocol :: Lens.Lens' Header StatefulRuleProtocol
 header_protocol = Lens.lens (\Header' {protocol} -> protocol) (\s@Header' {} a -> s {protocol = a} :: Header)
 
@@ -242,18 +243,18 @@ header_destination = Lens.lens (\Header' {destination} -> destination) (\s@Heade
 header_destinationPort :: Lens.Lens' Header Prelude.Text
 header_destinationPort = Lens.lens (\Header' {destinationPort} -> destinationPort) (\s@Header' {} a -> s {destinationPort = a} :: Header)
 
-instance Core.FromJSON Header where
+instance Data.FromJSON Header where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "Header"
       ( \x ->
           Header'
-            Prelude.<$> (x Core..: "Protocol")
-            Prelude.<*> (x Core..: "Source")
-            Prelude.<*> (x Core..: "SourcePort")
-            Prelude.<*> (x Core..: "Direction")
-            Prelude.<*> (x Core..: "Destination")
-            Prelude.<*> (x Core..: "DestinationPort")
+            Prelude.<$> (x Data..: "Protocol")
+            Prelude.<*> (x Data..: "Source")
+            Prelude.<*> (x Data..: "SourcePort")
+            Prelude.<*> (x Data..: "Direction")
+            Prelude.<*> (x Data..: "Destination")
+            Prelude.<*> (x Data..: "DestinationPort")
       )
 
 instance Prelude.Hashable Header where
@@ -274,16 +275,16 @@ instance Prelude.NFData Header where
       `Prelude.seq` Prelude.rnf destination
       `Prelude.seq` Prelude.rnf destinationPort
 
-instance Core.ToJSON Header where
+instance Data.ToJSON Header where
   toJSON Header' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Protocol" Core..= protocol),
-            Prelude.Just ("Source" Core..= source),
-            Prelude.Just ("SourcePort" Core..= sourcePort),
-            Prelude.Just ("Direction" Core..= direction),
-            Prelude.Just ("Destination" Core..= destination),
+          [ Prelude.Just ("Protocol" Data..= protocol),
+            Prelude.Just ("Source" Data..= source),
+            Prelude.Just ("SourcePort" Data..= sourcePort),
+            Prelude.Just ("Direction" Data..= direction),
+            Prelude.Just ("Destination" Data..= destination),
             Prelude.Just
-              ("DestinationPort" Core..= destinationPort)
+              ("DestinationPort" Data..= destinationPort)
           ]
       )

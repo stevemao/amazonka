@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Transfer.Types.InputFileLocation
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Transfer.Types.InputFileLocation where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Transfer.Types.EfsFileLocation
 import Amazonka.Transfer.Types.S3InputFileLocation
@@ -65,14 +66,14 @@ inputFileLocation_efsFileLocation = Lens.lens (\InputFileLocation' {efsFileLocat
 inputFileLocation_s3FileLocation :: Lens.Lens' InputFileLocation (Prelude.Maybe S3InputFileLocation)
 inputFileLocation_s3FileLocation = Lens.lens (\InputFileLocation' {s3FileLocation} -> s3FileLocation) (\s@InputFileLocation' {} a -> s {s3FileLocation = a} :: InputFileLocation)
 
-instance Core.FromJSON InputFileLocation where
+instance Data.FromJSON InputFileLocation where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "InputFileLocation"
       ( \x ->
           InputFileLocation'
-            Prelude.<$> (x Core..:? "EfsFileLocation")
-            Prelude.<*> (x Core..:? "S3FileLocation")
+            Prelude.<$> (x Data..:? "EfsFileLocation")
+            Prelude.<*> (x Data..:? "S3FileLocation")
       )
 
 instance Prelude.Hashable InputFileLocation where
@@ -85,13 +86,13 @@ instance Prelude.NFData InputFileLocation where
     Prelude.rnf efsFileLocation
       `Prelude.seq` Prelude.rnf s3FileLocation
 
-instance Core.ToJSON InputFileLocation where
+instance Data.ToJSON InputFileLocation where
   toJSON InputFileLocation' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("EfsFileLocation" Core..=)
+          [ ("EfsFileLocation" Data..=)
               Prelude.<$> efsFileLocation,
-            ("S3FileLocation" Core..=)
+            ("S3FileLocation" Data..=)
               Prelude.<$> s3FileLocation
           ]
       )

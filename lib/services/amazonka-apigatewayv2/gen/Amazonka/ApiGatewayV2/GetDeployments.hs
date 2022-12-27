@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ApiGatewayV2.GetDeployments
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.ApiGatewayV2.GetDeployments
     newGetDeployments,
 
     -- * Request Lenses
-    getDeployments_nextToken,
     getDeployments_maxResults,
+    getDeployments_nextToken,
     getDeployments_apiId,
 
     -- * Destructuring the Response
@@ -46,18 +46,19 @@ where
 
 import Amazonka.ApiGatewayV2.Types
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newGetDeployments' smart constructor.
 data GetDeployments = GetDeployments'
-  { -- | The next page of elements from this collection. Not valid for the last
+  { -- | The maximum number of elements to be returned for this resource.
+    maxResults :: Prelude.Maybe Prelude.Text,
+    -- | The next page of elements from this collection. Not valid for the last
     -- element of the collection.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of elements to be returned for this resource.
-    maxResults :: Prelude.Maybe Prelude.Text,
     -- | The API identifier.
     apiId :: Prelude.Text
   }
@@ -71,10 +72,10 @@ data GetDeployments = GetDeployments'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'maxResults', 'getDeployments_maxResults' - The maximum number of elements to be returned for this resource.
+--
 -- 'nextToken', 'getDeployments_nextToken' - The next page of elements from this collection. Not valid for the last
 -- element of the collection.
---
--- 'maxResults', 'getDeployments_maxResults' - The maximum number of elements to be returned for this resource.
 --
 -- 'apiId', 'getDeployments_apiId' - The API identifier.
 newGetDeployments ::
@@ -83,19 +84,19 @@ newGetDeployments ::
   GetDeployments
 newGetDeployments pApiId_ =
   GetDeployments'
-    { nextToken = Prelude.Nothing,
-      maxResults = Prelude.Nothing,
+    { maxResults = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       apiId = pApiId_
     }
+
+-- | The maximum number of elements to be returned for this resource.
+getDeployments_maxResults :: Lens.Lens' GetDeployments (Prelude.Maybe Prelude.Text)
+getDeployments_maxResults = Lens.lens (\GetDeployments' {maxResults} -> maxResults) (\s@GetDeployments' {} a -> s {maxResults = a} :: GetDeployments)
 
 -- | The next page of elements from this collection. Not valid for the last
 -- element of the collection.
 getDeployments_nextToken :: Lens.Lens' GetDeployments (Prelude.Maybe Prelude.Text)
 getDeployments_nextToken = Lens.lens (\GetDeployments' {nextToken} -> nextToken) (\s@GetDeployments' {} a -> s {nextToken = a} :: GetDeployments)
-
--- | The maximum number of elements to be returned for this resource.
-getDeployments_maxResults :: Lens.Lens' GetDeployments (Prelude.Maybe Prelude.Text)
-getDeployments_maxResults = Lens.lens (\GetDeployments' {maxResults} -> maxResults) (\s@GetDeployments' {} a -> s {maxResults = a} :: GetDeployments)
 
 -- | The API identifier.
 getDeployments_apiId :: Lens.Lens' GetDeployments Prelude.Text
@@ -125,49 +126,50 @@ instance Core.AWSRequest GetDeployments where
   type
     AWSResponse GetDeployments =
       GetDeploymentsResponse
-  request = Request.get defaultService
+  request overrides =
+    Request.get (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           GetDeploymentsResponse'
-            Prelude.<$> (x Core..?> "items" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "nextToken")
+            Prelude.<$> (x Data..?> "items" Core..!@ Prelude.mempty)
+            Prelude.<*> (x Data..?> "nextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable GetDeployments where
   hashWithSalt _salt GetDeployments' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` maxResults
+    _salt `Prelude.hashWithSalt` maxResults
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` apiId
 
 instance Prelude.NFData GetDeployments where
   rnf GetDeployments' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf maxResults
+    Prelude.rnf maxResults
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf apiId
 
-instance Core.ToHeaders GetDeployments where
+instance Data.ToHeaders GetDeployments where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToPath GetDeployments where
+instance Data.ToPath GetDeployments where
   toPath GetDeployments' {..} =
     Prelude.mconcat
-      ["/v2/apis/", Core.toBS apiId, "/deployments"]
+      ["/v2/apis/", Data.toBS apiId, "/deployments"]
 
-instance Core.ToQuery GetDeployments where
+instance Data.ToQuery GetDeployments where
   toQuery GetDeployments' {..} =
     Prelude.mconcat
-      [ "nextToken" Core.=: nextToken,
-        "maxResults" Core.=: maxResults
+      [ "maxResults" Data.=: maxResults,
+        "nextToken" Data.=: nextToken
       ]
 
 -- | /See:/ 'newGetDeploymentsResponse' smart constructor.

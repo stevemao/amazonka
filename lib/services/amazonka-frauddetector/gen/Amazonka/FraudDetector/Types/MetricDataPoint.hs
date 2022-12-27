@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.FraudDetector.Types.MetricDataPoint
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,19 +20,20 @@
 module Amazonka.FraudDetector.Types.MetricDataPoint where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Model performance metrics data points.
 --
 -- /See:/ 'newMetricDataPoint' smart constructor.
 data MetricDataPoint = MetricDataPoint'
-  { -- | The percentage of fraud events correctly predicted as fraudulent as
-    -- compared to all events predicted as fraudulent.
-    precision :: Prelude.Maybe Prelude.Double,
-    -- | The false positive rate. This is the percentage of total legitimate
+  { -- | The false positive rate. This is the percentage of total legitimate
     -- events that are incorrectly predicted as fraud.
     fpr :: Prelude.Maybe Prelude.Double,
+    -- | The percentage of fraud events correctly predicted as fraudulent as
+    -- compared to all events predicted as fraudulent.
+    precision :: Prelude.Maybe Prelude.Double,
     -- | The model threshold that specifies an acceptable fraud capture rate. For
     -- example, a threshold of 500 means any model score 500 or above is
     -- labeled as fraud.
@@ -51,11 +52,11 @@ data MetricDataPoint = MetricDataPoint'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'precision', 'metricDataPoint_precision' - The percentage of fraud events correctly predicted as fraudulent as
--- compared to all events predicted as fraudulent.
---
 -- 'fpr', 'metricDataPoint_fpr' - The false positive rate. This is the percentage of total legitimate
 -- events that are incorrectly predicted as fraud.
+--
+-- 'precision', 'metricDataPoint_precision' - The percentage of fraud events correctly predicted as fraudulent as
+-- compared to all events predicted as fraudulent.
 --
 -- 'threshold', 'metricDataPoint_threshold' - The model threshold that specifies an acceptable fraud capture rate. For
 -- example, a threshold of 500 means any model score 500 or above is
@@ -67,21 +68,21 @@ newMetricDataPoint ::
   MetricDataPoint
 newMetricDataPoint =
   MetricDataPoint'
-    { precision = Prelude.Nothing,
-      fpr = Prelude.Nothing,
+    { fpr = Prelude.Nothing,
+      precision = Prelude.Nothing,
       threshold = Prelude.Nothing,
       tpr = Prelude.Nothing
     }
-
--- | The percentage of fraud events correctly predicted as fraudulent as
--- compared to all events predicted as fraudulent.
-metricDataPoint_precision :: Lens.Lens' MetricDataPoint (Prelude.Maybe Prelude.Double)
-metricDataPoint_precision = Lens.lens (\MetricDataPoint' {precision} -> precision) (\s@MetricDataPoint' {} a -> s {precision = a} :: MetricDataPoint)
 
 -- | The false positive rate. This is the percentage of total legitimate
 -- events that are incorrectly predicted as fraud.
 metricDataPoint_fpr :: Lens.Lens' MetricDataPoint (Prelude.Maybe Prelude.Double)
 metricDataPoint_fpr = Lens.lens (\MetricDataPoint' {fpr} -> fpr) (\s@MetricDataPoint' {} a -> s {fpr = a} :: MetricDataPoint)
+
+-- | The percentage of fraud events correctly predicted as fraudulent as
+-- compared to all events predicted as fraudulent.
+metricDataPoint_precision :: Lens.Lens' MetricDataPoint (Prelude.Maybe Prelude.Double)
+metricDataPoint_precision = Lens.lens (\MetricDataPoint' {precision} -> precision) (\s@MetricDataPoint' {} a -> s {precision = a} :: MetricDataPoint)
 
 -- | The model threshold that specifies an acceptable fraud capture rate. For
 -- example, a threshold of 500 means any model score 500 or above is
@@ -94,28 +95,28 @@ metricDataPoint_threshold = Lens.lens (\MetricDataPoint' {threshold} -> threshol
 metricDataPoint_tpr :: Lens.Lens' MetricDataPoint (Prelude.Maybe Prelude.Double)
 metricDataPoint_tpr = Lens.lens (\MetricDataPoint' {tpr} -> tpr) (\s@MetricDataPoint' {} a -> s {tpr = a} :: MetricDataPoint)
 
-instance Core.FromJSON MetricDataPoint where
+instance Data.FromJSON MetricDataPoint where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "MetricDataPoint"
       ( \x ->
           MetricDataPoint'
-            Prelude.<$> (x Core..:? "precision")
-            Prelude.<*> (x Core..:? "fpr")
-            Prelude.<*> (x Core..:? "threshold")
-            Prelude.<*> (x Core..:? "tpr")
+            Prelude.<$> (x Data..:? "fpr")
+            Prelude.<*> (x Data..:? "precision")
+            Prelude.<*> (x Data..:? "threshold")
+            Prelude.<*> (x Data..:? "tpr")
       )
 
 instance Prelude.Hashable MetricDataPoint where
   hashWithSalt _salt MetricDataPoint' {..} =
-    _salt `Prelude.hashWithSalt` precision
-      `Prelude.hashWithSalt` fpr
+    _salt `Prelude.hashWithSalt` fpr
+      `Prelude.hashWithSalt` precision
       `Prelude.hashWithSalt` threshold
       `Prelude.hashWithSalt` tpr
 
 instance Prelude.NFData MetricDataPoint where
   rnf MetricDataPoint' {..} =
-    Prelude.rnf precision
-      `Prelude.seq` Prelude.rnf fpr
+    Prelude.rnf fpr
+      `Prelude.seq` Prelude.rnf precision
       `Prelude.seq` Prelude.rnf threshold
       `Prelude.seq` Prelude.rnf tpr

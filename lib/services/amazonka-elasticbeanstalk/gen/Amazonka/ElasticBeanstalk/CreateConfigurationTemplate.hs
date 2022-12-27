@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.ElasticBeanstalk.CreateConfigurationTemplate
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -42,12 +42,12 @@ module Amazonka.ElasticBeanstalk.CreateConfigurationTemplate
     newCreateConfigurationTemplate,
 
     -- * Request Lenses
+    createConfigurationTemplate_description,
+    createConfigurationTemplate_environmentId,
     createConfigurationTemplate_optionSettings,
     createConfigurationTemplate_platformArn,
-    createConfigurationTemplate_sourceConfiguration,
     createConfigurationTemplate_solutionStackName,
-    createConfigurationTemplate_environmentId,
-    createConfigurationTemplate_description,
+    createConfigurationTemplate_sourceConfiguration,
     createConfigurationTemplate_tags,
     createConfigurationTemplate_applicationName,
     createConfigurationTemplate_templateName,
@@ -57,22 +57,23 @@ module Amazonka.ElasticBeanstalk.CreateConfigurationTemplate
     newConfigurationSettingsDescription,
 
     -- * Response Lenses
-    configurationSettingsDescription_templateName,
-    configurationSettingsDescription_optionSettings,
-    configurationSettingsDescription_dateUpdated,
-    configurationSettingsDescription_dateCreated,
-    configurationSettingsDescription_platformArn,
-    configurationSettingsDescription_environmentName,
     configurationSettingsDescription_applicationName,
+    configurationSettingsDescription_dateCreated,
+    configurationSettingsDescription_dateUpdated,
     configurationSettingsDescription_deploymentStatus,
-    configurationSettingsDescription_solutionStackName,
     configurationSettingsDescription_description,
+    configurationSettingsDescription_environmentName,
+    configurationSettingsDescription_optionSettings,
+    configurationSettingsDescription_platformArn,
+    configurationSettingsDescription_solutionStackName,
+    configurationSettingsDescription_templateName,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.ElasticBeanstalk.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -81,7 +82,13 @@ import qualified Amazonka.Response as Response
 --
 -- /See:/ 'newCreateConfigurationTemplate' smart constructor.
 data CreateConfigurationTemplate = CreateConfigurationTemplate'
-  { -- | Option values for the Elastic Beanstalk configuration, such as the
+  { -- | An optional description for this configuration.
+    description :: Prelude.Maybe Prelude.Text,
+    -- | The ID of an environment whose settings you want to use to create the
+    -- configuration template. You must specify @EnvironmentId@ if you don\'t
+    -- specify @PlatformArn@, @SolutionStackName@, or @SourceConfiguration@.
+    environmentId :: Prelude.Maybe Prelude.Text,
+    -- | Option values for the Elastic Beanstalk configuration, such as the
     -- instance type. If specified, these values override the values obtained
     -- from the solution stack or the source configuration template. For a
     -- complete list of Elastic Beanstalk configuration options, see
@@ -95,20 +102,6 @@ data CreateConfigurationTemplate = CreateConfigurationTemplate'
     --
     -- If you specify @PlatformArn@, then don\'t specify @SolutionStackName@.
     platformArn :: Prelude.Maybe Prelude.Text,
-    -- | An Elastic Beanstalk configuration template to base this one on. If
-    -- specified, Elastic Beanstalk uses the configuration values from the
-    -- specified configuration template to create a new configuration.
-    --
-    -- Values specified in @OptionSettings@ override any values obtained from
-    -- the @SourceConfiguration@.
-    --
-    -- You must specify @SourceConfiguration@ if you don\'t specify
-    -- @PlatformArn@, @EnvironmentId@, or @SolutionStackName@.
-    --
-    -- Constraint: If both solution stack name and source configuration are
-    -- specified, the solution stack of the source configuration template must
-    -- match the specified solution stack name.
-    sourceConfiguration :: Prelude.Maybe SourceConfiguration,
     -- | The name of an Elastic Beanstalk solution stack (platform version) that
     -- this configuration uses. For example,
     -- @64bit Amazon Linux 2013.09 running Tomcat 7 Java 7@. A solution stack
@@ -126,12 +119,20 @@ data CreateConfigurationTemplate = CreateConfigurationTemplate'
     -- <https://docs.aws.amazon.com/elasticbeanstalk/latest/api/API_ListAvailableSolutionStacks.html ListAvailableSolutionStacks>
     -- API to obtain a list of available solution stacks.
     solutionStackName :: Prelude.Maybe Prelude.Text,
-    -- | The ID of an environment whose settings you want to use to create the
-    -- configuration template. You must specify @EnvironmentId@ if you don\'t
-    -- specify @PlatformArn@, @SolutionStackName@, or @SourceConfiguration@.
-    environmentId :: Prelude.Maybe Prelude.Text,
-    -- | An optional description for this configuration.
-    description :: Prelude.Maybe Prelude.Text,
+    -- | An Elastic Beanstalk configuration template to base this one on. If
+    -- specified, Elastic Beanstalk uses the configuration values from the
+    -- specified configuration template to create a new configuration.
+    --
+    -- Values specified in @OptionSettings@ override any values obtained from
+    -- the @SourceConfiguration@.
+    --
+    -- You must specify @SourceConfiguration@ if you don\'t specify
+    -- @PlatformArn@, @EnvironmentId@, or @SolutionStackName@.
+    --
+    -- Constraint: If both solution stack name and source configuration are
+    -- specified, the solution stack of the source configuration template must
+    -- match the specified solution stack name.
+    sourceConfiguration :: Prelude.Maybe SourceConfiguration,
     -- | Specifies the tags applied to the configuration template.
     tags :: Prelude.Maybe [Tag],
     -- | The name of the Elastic Beanstalk application to associate with this
@@ -152,6 +153,12 @@ data CreateConfigurationTemplate = CreateConfigurationTemplate'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'description', 'createConfigurationTemplate_description' - An optional description for this configuration.
+--
+-- 'environmentId', 'createConfigurationTemplate_environmentId' - The ID of an environment whose settings you want to use to create the
+-- configuration template. You must specify @EnvironmentId@ if you don\'t
+-- specify @PlatformArn@, @SolutionStackName@, or @SourceConfiguration@.
+--
 -- 'optionSettings', 'createConfigurationTemplate_optionSettings' - Option values for the Elastic Beanstalk configuration, such as the
 -- instance type. If specified, these values override the values obtained
 -- from the solution stack or the source configuration template. For a
@@ -165,20 +172,6 @@ data CreateConfigurationTemplate = CreateConfigurationTemplate'
 -- in the /AWS Elastic Beanstalk Developer Guide/.
 --
 -- If you specify @PlatformArn@, then don\'t specify @SolutionStackName@.
---
--- 'sourceConfiguration', 'createConfigurationTemplate_sourceConfiguration' - An Elastic Beanstalk configuration template to base this one on. If
--- specified, Elastic Beanstalk uses the configuration values from the
--- specified configuration template to create a new configuration.
---
--- Values specified in @OptionSettings@ override any values obtained from
--- the @SourceConfiguration@.
---
--- You must specify @SourceConfiguration@ if you don\'t specify
--- @PlatformArn@, @EnvironmentId@, or @SolutionStackName@.
---
--- Constraint: If both solution stack name and source configuration are
--- specified, the solution stack of the source configuration template must
--- match the specified solution stack name.
 --
 -- 'solutionStackName', 'createConfigurationTemplate_solutionStackName' - The name of an Elastic Beanstalk solution stack (platform version) that
 -- this configuration uses. For example,
@@ -197,11 +190,19 @@ data CreateConfigurationTemplate = CreateConfigurationTemplate'
 -- <https://docs.aws.amazon.com/elasticbeanstalk/latest/api/API_ListAvailableSolutionStacks.html ListAvailableSolutionStacks>
 -- API to obtain a list of available solution stacks.
 --
--- 'environmentId', 'createConfigurationTemplate_environmentId' - The ID of an environment whose settings you want to use to create the
--- configuration template. You must specify @EnvironmentId@ if you don\'t
--- specify @PlatformArn@, @SolutionStackName@, or @SourceConfiguration@.
+-- 'sourceConfiguration', 'createConfigurationTemplate_sourceConfiguration' - An Elastic Beanstalk configuration template to base this one on. If
+-- specified, Elastic Beanstalk uses the configuration values from the
+-- specified configuration template to create a new configuration.
 --
--- 'description', 'createConfigurationTemplate_description' - An optional description for this configuration.
+-- Values specified in @OptionSettings@ override any values obtained from
+-- the @SourceConfiguration@.
+--
+-- You must specify @SourceConfiguration@ if you don\'t specify
+-- @PlatformArn@, @EnvironmentId@, or @SolutionStackName@.
+--
+-- Constraint: If both solution stack name and source configuration are
+-- specified, the solution stack of the source configuration template must
+-- match the specified solution stack name.
 --
 -- 'tags', 'createConfigurationTemplate_tags' - Specifies the tags applied to the configuration template.
 --
@@ -221,17 +222,27 @@ newCreateConfigurationTemplate
   pApplicationName_
   pTemplateName_ =
     CreateConfigurationTemplate'
-      { optionSettings =
+      { description =
           Prelude.Nothing,
-        platformArn = Prelude.Nothing,
-        sourceConfiguration = Prelude.Nothing,
-        solutionStackName = Prelude.Nothing,
         environmentId = Prelude.Nothing,
-        description = Prelude.Nothing,
+        optionSettings = Prelude.Nothing,
+        platformArn = Prelude.Nothing,
+        solutionStackName = Prelude.Nothing,
+        sourceConfiguration = Prelude.Nothing,
         tags = Prelude.Nothing,
         applicationName = pApplicationName_,
         templateName = pTemplateName_
       }
+
+-- | An optional description for this configuration.
+createConfigurationTemplate_description :: Lens.Lens' CreateConfigurationTemplate (Prelude.Maybe Prelude.Text)
+createConfigurationTemplate_description = Lens.lens (\CreateConfigurationTemplate' {description} -> description) (\s@CreateConfigurationTemplate' {} a -> s {description = a} :: CreateConfigurationTemplate)
+
+-- | The ID of an environment whose settings you want to use to create the
+-- configuration template. You must specify @EnvironmentId@ if you don\'t
+-- specify @PlatformArn@, @SolutionStackName@, or @SourceConfiguration@.
+createConfigurationTemplate_environmentId :: Lens.Lens' CreateConfigurationTemplate (Prelude.Maybe Prelude.Text)
+createConfigurationTemplate_environmentId = Lens.lens (\CreateConfigurationTemplate' {environmentId} -> environmentId) (\s@CreateConfigurationTemplate' {} a -> s {environmentId = a} :: CreateConfigurationTemplate)
 
 -- | Option values for the Elastic Beanstalk configuration, such as the
 -- instance type. If specified, these values override the values obtained
@@ -250,22 +261,6 @@ createConfigurationTemplate_optionSettings = Lens.lens (\CreateConfigurationTemp
 -- If you specify @PlatformArn@, then don\'t specify @SolutionStackName@.
 createConfigurationTemplate_platformArn :: Lens.Lens' CreateConfigurationTemplate (Prelude.Maybe Prelude.Text)
 createConfigurationTemplate_platformArn = Lens.lens (\CreateConfigurationTemplate' {platformArn} -> platformArn) (\s@CreateConfigurationTemplate' {} a -> s {platformArn = a} :: CreateConfigurationTemplate)
-
--- | An Elastic Beanstalk configuration template to base this one on. If
--- specified, Elastic Beanstalk uses the configuration values from the
--- specified configuration template to create a new configuration.
---
--- Values specified in @OptionSettings@ override any values obtained from
--- the @SourceConfiguration@.
---
--- You must specify @SourceConfiguration@ if you don\'t specify
--- @PlatformArn@, @EnvironmentId@, or @SolutionStackName@.
---
--- Constraint: If both solution stack name and source configuration are
--- specified, the solution stack of the source configuration template must
--- match the specified solution stack name.
-createConfigurationTemplate_sourceConfiguration :: Lens.Lens' CreateConfigurationTemplate (Prelude.Maybe SourceConfiguration)
-createConfigurationTemplate_sourceConfiguration = Lens.lens (\CreateConfigurationTemplate' {sourceConfiguration} -> sourceConfiguration) (\s@CreateConfigurationTemplate' {} a -> s {sourceConfiguration = a} :: CreateConfigurationTemplate)
 
 -- | The name of an Elastic Beanstalk solution stack (platform version) that
 -- this configuration uses. For example,
@@ -286,15 +281,21 @@ createConfigurationTemplate_sourceConfiguration = Lens.lens (\CreateConfiguratio
 createConfigurationTemplate_solutionStackName :: Lens.Lens' CreateConfigurationTemplate (Prelude.Maybe Prelude.Text)
 createConfigurationTemplate_solutionStackName = Lens.lens (\CreateConfigurationTemplate' {solutionStackName} -> solutionStackName) (\s@CreateConfigurationTemplate' {} a -> s {solutionStackName = a} :: CreateConfigurationTemplate)
 
--- | The ID of an environment whose settings you want to use to create the
--- configuration template. You must specify @EnvironmentId@ if you don\'t
--- specify @PlatformArn@, @SolutionStackName@, or @SourceConfiguration@.
-createConfigurationTemplate_environmentId :: Lens.Lens' CreateConfigurationTemplate (Prelude.Maybe Prelude.Text)
-createConfigurationTemplate_environmentId = Lens.lens (\CreateConfigurationTemplate' {environmentId} -> environmentId) (\s@CreateConfigurationTemplate' {} a -> s {environmentId = a} :: CreateConfigurationTemplate)
-
--- | An optional description for this configuration.
-createConfigurationTemplate_description :: Lens.Lens' CreateConfigurationTemplate (Prelude.Maybe Prelude.Text)
-createConfigurationTemplate_description = Lens.lens (\CreateConfigurationTemplate' {description} -> description) (\s@CreateConfigurationTemplate' {} a -> s {description = a} :: CreateConfigurationTemplate)
+-- | An Elastic Beanstalk configuration template to base this one on. If
+-- specified, Elastic Beanstalk uses the configuration values from the
+-- specified configuration template to create a new configuration.
+--
+-- Values specified in @OptionSettings@ override any values obtained from
+-- the @SourceConfiguration@.
+--
+-- You must specify @SourceConfiguration@ if you don\'t specify
+-- @PlatformArn@, @EnvironmentId@, or @SolutionStackName@.
+--
+-- Constraint: If both solution stack name and source configuration are
+-- specified, the solution stack of the source configuration template must
+-- match the specified solution stack name.
+createConfigurationTemplate_sourceConfiguration :: Lens.Lens' CreateConfigurationTemplate (Prelude.Maybe SourceConfiguration)
+createConfigurationTemplate_sourceConfiguration = Lens.lens (\CreateConfigurationTemplate' {sourceConfiguration} -> sourceConfiguration) (\s@CreateConfigurationTemplate' {} a -> s {sourceConfiguration = a} :: CreateConfigurationTemplate)
 
 -- | Specifies the tags applied to the configuration template.
 createConfigurationTemplate_tags :: Lens.Lens' CreateConfigurationTemplate (Prelude.Maybe [Tag])
@@ -315,64 +316,65 @@ instance Core.AWSRequest CreateConfigurationTemplate where
   type
     AWSResponse CreateConfigurationTemplate =
       ConfigurationSettingsDescription
-  request = Request.postQuery defaultService
+  request overrides =
+    Request.postQuery (overrides defaultService)
   response =
     Response.receiveXMLWrapper
       "CreateConfigurationTemplateResult"
-      (\s h x -> Core.parseXML x)
+      (\s h x -> Data.parseXML x)
 
 instance Prelude.Hashable CreateConfigurationTemplate where
   hashWithSalt _salt CreateConfigurationTemplate' {..} =
-    _salt `Prelude.hashWithSalt` optionSettings
-      `Prelude.hashWithSalt` platformArn
-      `Prelude.hashWithSalt` sourceConfiguration
-      `Prelude.hashWithSalt` solutionStackName
+    _salt `Prelude.hashWithSalt` description
       `Prelude.hashWithSalt` environmentId
-      `Prelude.hashWithSalt` description
+      `Prelude.hashWithSalt` optionSettings
+      `Prelude.hashWithSalt` platformArn
+      `Prelude.hashWithSalt` solutionStackName
+      `Prelude.hashWithSalt` sourceConfiguration
       `Prelude.hashWithSalt` tags
       `Prelude.hashWithSalt` applicationName
       `Prelude.hashWithSalt` templateName
 
 instance Prelude.NFData CreateConfigurationTemplate where
   rnf CreateConfigurationTemplate' {..} =
-    Prelude.rnf optionSettings
-      `Prelude.seq` Prelude.rnf platformArn
-      `Prelude.seq` Prelude.rnf sourceConfiguration
-      `Prelude.seq` Prelude.rnf solutionStackName
+    Prelude.rnf description
       `Prelude.seq` Prelude.rnf environmentId
-      `Prelude.seq` Prelude.rnf description
+      `Prelude.seq` Prelude.rnf optionSettings
+      `Prelude.seq` Prelude.rnf platformArn
+      `Prelude.seq` Prelude.rnf solutionStackName
+      `Prelude.seq` Prelude.rnf sourceConfiguration
       `Prelude.seq` Prelude.rnf tags
       `Prelude.seq` Prelude.rnf applicationName
       `Prelude.seq` Prelude.rnf templateName
 
-instance Core.ToHeaders CreateConfigurationTemplate where
+instance Data.ToHeaders CreateConfigurationTemplate where
   toHeaders = Prelude.const Prelude.mempty
 
-instance Core.ToPath CreateConfigurationTemplate where
+instance Data.ToPath CreateConfigurationTemplate where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateConfigurationTemplate where
+instance Data.ToQuery CreateConfigurationTemplate where
   toQuery CreateConfigurationTemplate' {..} =
     Prelude.mconcat
       [ "Action"
-          Core.=: ( "CreateConfigurationTemplate" ::
+          Data.=: ( "CreateConfigurationTemplate" ::
                       Prelude.ByteString
                   ),
         "Version"
-          Core.=: ("2010-12-01" :: Prelude.ByteString),
+          Data.=: ("2010-12-01" :: Prelude.ByteString),
+        "Description" Data.=: description,
+        "EnvironmentId" Data.=: environmentId,
         "OptionSettings"
-          Core.=: Core.toQuery
-            ( Core.toQueryList "member"
+          Data.=: Data.toQuery
+            ( Data.toQueryList "member"
                 Prelude.<$> optionSettings
             ),
-        "PlatformArn" Core.=: platformArn,
-        "SourceConfiguration" Core.=: sourceConfiguration,
-        "SolutionStackName" Core.=: solutionStackName,
-        "EnvironmentId" Core.=: environmentId,
-        "Description" Core.=: description,
+        "PlatformArn" Data.=: platformArn,
+        "SolutionStackName" Data.=: solutionStackName,
+        "SourceConfiguration" Data.=: sourceConfiguration,
         "Tags"
-          Core.=: Core.toQuery
-            (Core.toQueryList "member" Prelude.<$> tags),
-        "ApplicationName" Core.=: applicationName,
-        "TemplateName" Core.=: templateName
+          Data.=: Data.toQuery
+            (Data.toQueryList "member" Prelude.<$> tags),
+        "ApplicationName" Data.=: applicationName,
+        "TemplateName" Data.=: templateName
       ]

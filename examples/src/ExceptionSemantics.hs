@@ -15,6 +15,7 @@ import Data.Conduit
 import qualified Data.Conduit.List as CL
 import Data.Generics.Product
 import Data.List.NonEmpty (NonEmpty (..))
+import Data.Text (Text)
 import qualified Data.Text as Text
 import qualified Data.Text.IO as Text
 import System.IO
@@ -25,14 +26,15 @@ exceptions ::
   -- | DynamoDB table name, shouldn't exist.
   Text ->
   IO ()
-exceptions r n = do
+exceptions reg n = do
   lgr <- newLogger Info stdout
-  env <- newEnv discover <&> set (field @"envLogger") lgr . within r
+  env <-
+    newEnv discover <&> set (field @"logger") lgr . set (field @"region") reg
 
   let scan = newScan n & field @"attributesToGet" ?~ "foo" :| []
 
   runResourceT $ do
-    sayLn $ "Listing all tables in region " <> toText r
+    sayLn $ "Listing all tables in region " <> fromRegion reg
     runConduit $
       paginate env newListTables
         .| CL.concatMap (view (field @"tableNames" . _Just))

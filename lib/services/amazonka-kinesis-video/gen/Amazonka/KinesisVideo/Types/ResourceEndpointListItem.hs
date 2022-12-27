@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisVideo.Types.ResourceEndpointListItem
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,8 +20,9 @@
 module Amazonka.KinesisVideo.Types.ResourceEndpointListItem where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisVideo.Types.ChannelProtocol
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 
 -- | An object that describes the endpoint of the signaling channel returned
@@ -70,14 +71,14 @@ resourceEndpointListItem_protocol = Lens.lens (\ResourceEndpointListItem' {proto
 resourceEndpointListItem_resourceEndpoint :: Lens.Lens' ResourceEndpointListItem (Prelude.Maybe Prelude.Text)
 resourceEndpointListItem_resourceEndpoint = Lens.lens (\ResourceEndpointListItem' {resourceEndpoint} -> resourceEndpoint) (\s@ResourceEndpointListItem' {} a -> s {resourceEndpoint = a} :: ResourceEndpointListItem)
 
-instance Core.FromJSON ResourceEndpointListItem where
+instance Data.FromJSON ResourceEndpointListItem where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ResourceEndpointListItem"
       ( \x ->
           ResourceEndpointListItem'
-            Prelude.<$> (x Core..:? "Protocol")
-            Prelude.<*> (x Core..:? "ResourceEndpoint")
+            Prelude.<$> (x Data..:? "Protocol")
+            Prelude.<*> (x Data..:? "ResourceEndpoint")
       )
 
 instance Prelude.Hashable ResourceEndpointListItem where

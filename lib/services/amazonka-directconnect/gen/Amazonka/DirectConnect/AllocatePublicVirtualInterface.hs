@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.DirectConnect.AllocatePublicVirtualInterface
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -50,37 +50,39 @@ module Amazonka.DirectConnect.AllocatePublicVirtualInterface
     newVirtualInterface,
 
     -- * Response Lenses
-    virtualInterface_bgpPeers,
-    virtualInterface_virtualGatewayId,
-    virtualInterface_mtu,
-    virtualInterface_routeFilterPrefixes,
-    virtualInterface_customerAddress,
-    virtualInterface_vlan,
-    virtualInterface_location,
-    virtualInterface_amazonAddress,
     virtualInterface_addressFamily,
-    virtualInterface_virtualInterfaceState,
-    virtualInterface_connectionId,
-    virtualInterface_awsLogicalDeviceId,
-    virtualInterface_directConnectGatewayId,
+    virtualInterface_amazonAddress,
     virtualInterface_amazonSideAsn,
-    virtualInterface_virtualInterfaceType,
     virtualInterface_asn,
     virtualInterface_authKey,
-    virtualInterface_jumboFrameCapable,
+    virtualInterface_awsDeviceV2,
+    virtualInterface_awsLogicalDeviceId,
+    virtualInterface_bgpPeers,
+    virtualInterface_connectionId,
+    virtualInterface_customerAddress,
     virtualInterface_customerRouterConfig,
+    virtualInterface_directConnectGatewayId,
+    virtualInterface_jumboFrameCapable,
+    virtualInterface_location,
+    virtualInterface_mtu,
     virtualInterface_ownerAccount,
     virtualInterface_region,
-    virtualInterface_virtualInterfaceName,
-    virtualInterface_awsDeviceV2,
-    virtualInterface_virtualInterfaceId,
+    virtualInterface_routeFilterPrefixes,
+    virtualInterface_siteLinkEnabled,
     virtualInterface_tags,
+    virtualInterface_virtualGatewayId,
+    virtualInterface_virtualInterfaceId,
+    virtualInterface_virtualInterfaceName,
+    virtualInterface_virtualInterfaceState,
+    virtualInterface_virtualInterfaceType,
+    virtualInterface_vlan,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.DirectConnect.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -154,10 +156,11 @@ instance
   type
     AWSResponse AllocatePublicVirtualInterface =
       VirtualInterface
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
-      (\s h x -> Core.eitherParseJSON x)
+      (\s h x -> Data.eitherParseJSON x)
 
 instance
   Prelude.Hashable
@@ -180,38 +183,38 @@ instance
       `Prelude.seq` Prelude.rnf newPublicVirtualInterfaceAllocation'
 
 instance
-  Core.ToHeaders
+  Data.ToHeaders
     AllocatePublicVirtualInterface
   where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "OvertureService.AllocatePublicVirtualInterface" ::
+              Data.=# ( "OvertureService.AllocatePublicVirtualInterface" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON AllocatePublicVirtualInterface where
+instance Data.ToJSON AllocatePublicVirtualInterface where
   toJSON AllocatePublicVirtualInterface' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("connectionId" Core..= connectionId),
-            Prelude.Just ("ownerAccount" Core..= ownerAccount),
+          [ Prelude.Just ("connectionId" Data..= connectionId),
+            Prelude.Just ("ownerAccount" Data..= ownerAccount),
             Prelude.Just
               ( "newPublicVirtualInterfaceAllocation"
-                  Core..= newPublicVirtualInterfaceAllocation'
+                  Data..= newPublicVirtualInterfaceAllocation'
               )
           ]
       )
 
-instance Core.ToPath AllocatePublicVirtualInterface where
+instance Data.ToPath AllocatePublicVirtualInterface where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery AllocatePublicVirtualInterface where
+instance Data.ToQuery AllocatePublicVirtualInterface where
   toQuery = Prelude.const Prelude.mempty

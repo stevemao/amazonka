@@ -14,18 +14,18 @@
 
 -- |
 -- Module      : Amazonka.SageMaker.CreateCodeRepository
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
 -- Portability : non-portable (GHC extensions)
 --
--- Creates a Git repository as a resource in your Amazon SageMaker account.
--- You can associate the repository with notebook instances so that you can
--- use Git source control for the notebooks you create. The Git repository
--- is a resource in your Amazon SageMaker account, so it can be associated
--- with more than one notebook instance, and it persists independently from
--- the lifecycle of any notebook instances it is associated with.
+-- Creates a Git repository as a resource in your SageMaker account. You
+-- can associate the repository with notebook instances so that you can use
+-- Git source control for the notebooks you create. The Git repository is a
+-- resource in your SageMaker account, so it can be associated with more
+-- than one notebook instance, and it persists independently from the
+-- lifecycle of any notebook instances it is associated with.
 --
 -- The repository can be hosted either in
 -- <https://docs.aws.amazon.com/codecommit/latest/userguide/welcome.html Amazon Web Services CodeCommit>
@@ -51,7 +51,8 @@ module Amazonka.SageMaker.CreateCodeRepository
 where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -130,13 +131,14 @@ instance Core.AWSRequest CreateCodeRepository where
   type
     AWSResponse CreateCodeRepository =
       CreateCodeRepositoryResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           CreateCodeRepositoryResponse'
             Prelude.<$> (Prelude.pure (Prelude.fromEnum s))
-            Prelude.<*> (x Core..:> "CodeRepositoryArn")
+            Prelude.<*> (x Data..:> "CodeRepositoryArn")
       )
 
 instance Prelude.Hashable CreateCodeRepository where
@@ -151,36 +153,36 @@ instance Prelude.NFData CreateCodeRepository where
       `Prelude.seq` Prelude.rnf codeRepositoryName
       `Prelude.seq` Prelude.rnf gitConfig
 
-instance Core.ToHeaders CreateCodeRepository where
+instance Data.ToHeaders CreateCodeRepository where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "SageMaker.CreateCodeRepository" ::
+              Data.=# ( "SageMaker.CreateCodeRepository" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON CreateCodeRepository where
+instance Data.ToJSON CreateCodeRepository where
   toJSON CreateCodeRepository' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("Tags" Core..=) Prelude.<$> tags,
+          [ ("Tags" Data..=) Prelude.<$> tags,
             Prelude.Just
-              ("CodeRepositoryName" Core..= codeRepositoryName),
-            Prelude.Just ("GitConfig" Core..= gitConfig)
+              ("CodeRepositoryName" Data..= codeRepositoryName),
+            Prelude.Just ("GitConfig" Data..= gitConfig)
           ]
       )
 
-instance Core.ToPath CreateCodeRepository where
+instance Data.ToPath CreateCodeRepository where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery CreateCodeRepository where
+instance Data.ToQuery CreateCodeRepository where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newCreateCodeRepositoryResponse' smart constructor.

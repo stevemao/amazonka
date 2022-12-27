@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.S3.Types.AbortIncompleteMultipartUpload
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.S3.Types.AbortIncompleteMultipartUpload where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.S3.Internal
 
@@ -61,10 +62,10 @@ newAbortIncompleteMultipartUpload =
 abortIncompleteMultipartUpload_daysAfterInitiation :: Lens.Lens' AbortIncompleteMultipartUpload (Prelude.Maybe Prelude.Int)
 abortIncompleteMultipartUpload_daysAfterInitiation = Lens.lens (\AbortIncompleteMultipartUpload' {daysAfterInitiation} -> daysAfterInitiation) (\s@AbortIncompleteMultipartUpload' {} a -> s {daysAfterInitiation = a} :: AbortIncompleteMultipartUpload)
 
-instance Core.FromXML AbortIncompleteMultipartUpload where
+instance Data.FromXML AbortIncompleteMultipartUpload where
   parseXML x =
     AbortIncompleteMultipartUpload'
-      Prelude.<$> (x Core..@? "DaysAfterInitiation")
+      Prelude.<$> (x Data..@? "DaysAfterInitiation")
 
 instance
   Prelude.Hashable
@@ -82,7 +83,7 @@ instance
   rnf AbortIncompleteMultipartUpload' {..} =
     Prelude.rnf daysAfterInitiation
 
-instance Core.ToXML AbortIncompleteMultipartUpload where
+instance Data.ToXML AbortIncompleteMultipartUpload where
   toXML AbortIncompleteMultipartUpload' {..} =
     Prelude.mconcat
-      ["DaysAfterInitiation" Core.@= daysAfterInitiation]
+      ["DaysAfterInitiation" Data.@= daysAfterInitiation]

@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.CostExplorer.Types.TerminateRecommendationDetail
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.CostExplorer.Types.TerminateRecommendationDetail where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 
 -- | Details on termination recommendation.
@@ -65,14 +66,14 @@ terminateRecommendationDetail_currencyCode = Lens.lens (\TerminateRecommendation
 terminateRecommendationDetail_estimatedMonthlySavings :: Lens.Lens' TerminateRecommendationDetail (Prelude.Maybe Prelude.Text)
 terminateRecommendationDetail_estimatedMonthlySavings = Lens.lens (\TerminateRecommendationDetail' {estimatedMonthlySavings} -> estimatedMonthlySavings) (\s@TerminateRecommendationDetail' {} a -> s {estimatedMonthlySavings = a} :: TerminateRecommendationDetail)
 
-instance Core.FromJSON TerminateRecommendationDetail where
+instance Data.FromJSON TerminateRecommendationDetail where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "TerminateRecommendationDetail"
       ( \x ->
           TerminateRecommendationDetail'
-            Prelude.<$> (x Core..:? "CurrencyCode")
-            Prelude.<*> (x Core..:? "EstimatedMonthlySavings")
+            Prelude.<$> (x Data..:? "CurrencyCode")
+            Prelude.<*> (x Data..:? "EstimatedMonthlySavings")
       )
 
 instance

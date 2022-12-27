@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.FMS.ListProtocolsLists
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -38,15 +38,16 @@ module Amazonka.FMS.ListProtocolsLists
     newListProtocolsListsResponse,
 
     -- * Response Lenses
-    listProtocolsListsResponse_protocolsLists,
     listProtocolsListsResponse_nextToken,
+    listProtocolsListsResponse_protocolsLists,
     listProtocolsListsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.FMS.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
@@ -157,13 +158,14 @@ instance Core.AWSRequest ListProtocolsLists where
   type
     AWSResponse ListProtocolsLists =
       ListProtocolsListsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListProtocolsListsResponse'
-            Prelude.<$> (x Core..?> "ProtocolsLists" Core..!@ Prelude.mempty)
-            Prelude.<*> (x Core..?> "NextToken")
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> (x Data..?> "ProtocolsLists" Core..!@ Prelude.mempty)
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
@@ -179,46 +181,46 @@ instance Prelude.NFData ListProtocolsLists where
       `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf maxResults
 
-instance Core.ToHeaders ListProtocolsLists where
+instance Data.ToHeaders ListProtocolsLists where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "AWSFMS_20180101.ListProtocolsLists" ::
+              Data.=# ( "AWSFMS_20180101.ListProtocolsLists" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListProtocolsLists where
+instance Data.ToJSON ListProtocolsLists where
   toJSON ListProtocolsLists' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("DefaultLists" Core..=) Prelude.<$> defaultLists,
-            ("NextToken" Core..=) Prelude.<$> nextToken,
-            Prelude.Just ("MaxResults" Core..= maxResults)
+          [ ("DefaultLists" Data..=) Prelude.<$> defaultLists,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
+            Prelude.Just ("MaxResults" Data..= maxResults)
           ]
       )
 
-instance Core.ToPath ListProtocolsLists where
+instance Data.ToPath ListProtocolsLists where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListProtocolsLists where
+instance Data.ToQuery ListProtocolsLists where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListProtocolsListsResponse' smart constructor.
 data ListProtocolsListsResponse = ListProtocolsListsResponse'
-  { -- | An array of @ProtocolsListDataSummary@ objects.
-    protocolsLists :: Prelude.Maybe [ProtocolsListDataSummary],
-    -- | If you specify a value for @MaxResults@ in your list request, and you
+  { -- | If you specify a value for @MaxResults@ in your list request, and you
     -- have more objects than the maximum, Firewall Manager returns this token
     -- in the response. You can use this token in subsequent requests to
     -- retrieve the next batch of objects.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | An array of @ProtocolsListDataSummary@ objects.
+    protocolsLists :: Prelude.Maybe [ProtocolsListDataSummary],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -232,12 +234,12 @@ data ListProtocolsListsResponse = ListProtocolsListsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'protocolsLists', 'listProtocolsListsResponse_protocolsLists' - An array of @ProtocolsListDataSummary@ objects.
---
 -- 'nextToken', 'listProtocolsListsResponse_nextToken' - If you specify a value for @MaxResults@ in your list request, and you
 -- have more objects than the maximum, Firewall Manager returns this token
 -- in the response. You can use this token in subsequent requests to
 -- retrieve the next batch of objects.
+--
+-- 'protocolsLists', 'listProtocolsListsResponse_protocolsLists' - An array of @ProtocolsListDataSummary@ objects.
 --
 -- 'httpStatus', 'listProtocolsListsResponse_httpStatus' - The response's http status code.
 newListProtocolsListsResponse ::
@@ -246,15 +248,11 @@ newListProtocolsListsResponse ::
   ListProtocolsListsResponse
 newListProtocolsListsResponse pHttpStatus_ =
   ListProtocolsListsResponse'
-    { protocolsLists =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      protocolsLists = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | An array of @ProtocolsListDataSummary@ objects.
-listProtocolsListsResponse_protocolsLists :: Lens.Lens' ListProtocolsListsResponse (Prelude.Maybe [ProtocolsListDataSummary])
-listProtocolsListsResponse_protocolsLists = Lens.lens (\ListProtocolsListsResponse' {protocolsLists} -> protocolsLists) (\s@ListProtocolsListsResponse' {} a -> s {protocolsLists = a} :: ListProtocolsListsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | If you specify a value for @MaxResults@ in your list request, and you
 -- have more objects than the maximum, Firewall Manager returns this token
@@ -263,12 +261,16 @@ listProtocolsListsResponse_protocolsLists = Lens.lens (\ListProtocolsListsRespon
 listProtocolsListsResponse_nextToken :: Lens.Lens' ListProtocolsListsResponse (Prelude.Maybe Prelude.Text)
 listProtocolsListsResponse_nextToken = Lens.lens (\ListProtocolsListsResponse' {nextToken} -> nextToken) (\s@ListProtocolsListsResponse' {} a -> s {nextToken = a} :: ListProtocolsListsResponse)
 
+-- | An array of @ProtocolsListDataSummary@ objects.
+listProtocolsListsResponse_protocolsLists :: Lens.Lens' ListProtocolsListsResponse (Prelude.Maybe [ProtocolsListDataSummary])
+listProtocolsListsResponse_protocolsLists = Lens.lens (\ListProtocolsListsResponse' {protocolsLists} -> protocolsLists) (\s@ListProtocolsListsResponse' {} a -> s {protocolsLists = a} :: ListProtocolsListsResponse) Prelude.. Lens.mapping Lens.coerced
+
 -- | The response's http status code.
 listProtocolsListsResponse_httpStatus :: Lens.Lens' ListProtocolsListsResponse Prelude.Int
 listProtocolsListsResponse_httpStatus = Lens.lens (\ListProtocolsListsResponse' {httpStatus} -> httpStatus) (\s@ListProtocolsListsResponse' {} a -> s {httpStatus = a} :: ListProtocolsListsResponse)
 
 instance Prelude.NFData ListProtocolsListsResponse where
   rnf ListProtocolsListsResponse' {..} =
-    Prelude.rnf protocolsLists
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf protocolsLists
       `Prelude.seq` Prelude.rnf httpStatus

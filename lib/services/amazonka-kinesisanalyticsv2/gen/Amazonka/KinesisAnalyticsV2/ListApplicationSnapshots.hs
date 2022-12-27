@@ -14,7 +14,7 @@
 
 -- |
 -- Module      : Amazonka.KinesisAnalyticsV2.ListApplicationSnapshots
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -29,8 +29,8 @@ module Amazonka.KinesisAnalyticsV2.ListApplicationSnapshots
     newListApplicationSnapshots,
 
     -- * Request Lenses
-    listApplicationSnapshots_nextToken,
     listApplicationSnapshots_limit,
+    listApplicationSnapshots_nextToken,
     listApplicationSnapshots_applicationName,
 
     -- * Destructuring the Response
@@ -38,28 +38,29 @@ module Amazonka.KinesisAnalyticsV2.ListApplicationSnapshots
     newListApplicationSnapshotsResponse,
 
     -- * Response Lenses
-    listApplicationSnapshotsResponse_snapshotSummaries,
     listApplicationSnapshotsResponse_nextToken,
+    listApplicationSnapshotsResponse_snapshotSummaries,
     listApplicationSnapshotsResponse_httpStatus,
   )
 where
 
 import qualified Amazonka.Core as Core
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import Amazonka.KinesisAnalyticsV2.Types
-import qualified Amazonka.Lens as Lens
 import qualified Amazonka.Prelude as Prelude
 import qualified Amazonka.Request as Request
 import qualified Amazonka.Response as Response
 
 -- | /See:/ 'newListApplicationSnapshots' smart constructor.
 data ListApplicationSnapshots = ListApplicationSnapshots'
-  { -- | Use this parameter if you receive a @NextToken@ response in a previous
+  { -- | The maximum number of application snapshots to list.
+    limit :: Prelude.Maybe Prelude.Natural,
+    -- | Use this parameter if you receive a @NextToken@ response in a previous
     -- request that indicates that there is more output available. Set it to
     -- the value of the previous call\'s @NextToken@ response to indicate where
     -- the output should continue from.
     nextToken :: Prelude.Maybe Prelude.Text,
-    -- | The maximum number of application snapshots to list.
-    limit :: Prelude.Maybe Prelude.Natural,
     -- | The name of an existing application.
     applicationName :: Prelude.Text
   }
@@ -73,12 +74,12 @@ data ListApplicationSnapshots = ListApplicationSnapshots'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
+-- 'limit', 'listApplicationSnapshots_limit' - The maximum number of application snapshots to list.
+--
 -- 'nextToken', 'listApplicationSnapshots_nextToken' - Use this parameter if you receive a @NextToken@ response in a previous
 -- request that indicates that there is more output available. Set it to
 -- the value of the previous call\'s @NextToken@ response to indicate where
 -- the output should continue from.
---
--- 'limit', 'listApplicationSnapshots_limit' - The maximum number of application snapshots to list.
 --
 -- 'applicationName', 'listApplicationSnapshots_applicationName' - The name of an existing application.
 newListApplicationSnapshots ::
@@ -87,11 +88,14 @@ newListApplicationSnapshots ::
   ListApplicationSnapshots
 newListApplicationSnapshots pApplicationName_ =
   ListApplicationSnapshots'
-    { nextToken =
-        Prelude.Nothing,
-      limit = Prelude.Nothing,
+    { limit = Prelude.Nothing,
+      nextToken = Prelude.Nothing,
       applicationName = pApplicationName_
     }
+
+-- | The maximum number of application snapshots to list.
+listApplicationSnapshots_limit :: Lens.Lens' ListApplicationSnapshots (Prelude.Maybe Prelude.Natural)
+listApplicationSnapshots_limit = Lens.lens (\ListApplicationSnapshots' {limit} -> limit) (\s@ListApplicationSnapshots' {} a -> s {limit = a} :: ListApplicationSnapshots)
 
 -- | Use this parameter if you receive a @NextToken@ response in a previous
 -- request that indicates that there is more output available. Set it to
@@ -99,10 +103,6 @@ newListApplicationSnapshots pApplicationName_ =
 -- the output should continue from.
 listApplicationSnapshots_nextToken :: Lens.Lens' ListApplicationSnapshots (Prelude.Maybe Prelude.Text)
 listApplicationSnapshots_nextToken = Lens.lens (\ListApplicationSnapshots' {nextToken} -> nextToken) (\s@ListApplicationSnapshots' {} a -> s {nextToken = a} :: ListApplicationSnapshots)
-
--- | The maximum number of application snapshots to list.
-listApplicationSnapshots_limit :: Lens.Lens' ListApplicationSnapshots (Prelude.Maybe Prelude.Natural)
-listApplicationSnapshots_limit = Lens.lens (\ListApplicationSnapshots' {limit} -> limit) (\s@ListApplicationSnapshots' {} a -> s {limit = a} :: ListApplicationSnapshots)
 
 -- | The name of an existing application.
 listApplicationSnapshots_applicationName :: Lens.Lens' ListApplicationSnapshots Prelude.Text
@@ -134,70 +134,71 @@ instance Core.AWSRequest ListApplicationSnapshots where
   type
     AWSResponse ListApplicationSnapshots =
       ListApplicationSnapshotsResponse
-  request = Request.postJSON defaultService
+  request overrides =
+    Request.postJSON (overrides defaultService)
   response =
     Response.receiveJSON
       ( \s h x ->
           ListApplicationSnapshotsResponse'
-            Prelude.<$> ( x Core..?> "SnapshotSummaries"
+            Prelude.<$> (x Data..?> "NextToken")
+            Prelude.<*> ( x Data..?> "SnapshotSummaries"
                             Core..!@ Prelude.mempty
                         )
-            Prelude.<*> (x Core..?> "NextToken")
             Prelude.<*> (Prelude.pure (Prelude.fromEnum s))
       )
 
 instance Prelude.Hashable ListApplicationSnapshots where
   hashWithSalt _salt ListApplicationSnapshots' {..} =
-    _salt `Prelude.hashWithSalt` nextToken
-      `Prelude.hashWithSalt` limit
+    _salt `Prelude.hashWithSalt` limit
+      `Prelude.hashWithSalt` nextToken
       `Prelude.hashWithSalt` applicationName
 
 instance Prelude.NFData ListApplicationSnapshots where
   rnf ListApplicationSnapshots' {..} =
-    Prelude.rnf nextToken
-      `Prelude.seq` Prelude.rnf limit
+    Prelude.rnf limit
+      `Prelude.seq` Prelude.rnf nextToken
       `Prelude.seq` Prelude.rnf applicationName
 
-instance Core.ToHeaders ListApplicationSnapshots where
+instance Data.ToHeaders ListApplicationSnapshots where
   toHeaders =
     Prelude.const
       ( Prelude.mconcat
           [ "X-Amz-Target"
-              Core.=# ( "KinesisAnalytics_20180523.ListApplicationSnapshots" ::
+              Data.=# ( "KinesisAnalytics_20180523.ListApplicationSnapshots" ::
                           Prelude.ByteString
                       ),
             "Content-Type"
-              Core.=# ( "application/x-amz-json-1.1" ::
+              Data.=# ( "application/x-amz-json-1.1" ::
                           Prelude.ByteString
                       )
           ]
       )
 
-instance Core.ToJSON ListApplicationSnapshots where
+instance Data.ToJSON ListApplicationSnapshots where
   toJSON ListApplicationSnapshots' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ ("NextToken" Core..=) Prelude.<$> nextToken,
-            ("Limit" Core..=) Prelude.<$> limit,
+          [ ("Limit" Data..=) Prelude.<$> limit,
+            ("NextToken" Data..=) Prelude.<$> nextToken,
             Prelude.Just
-              ("ApplicationName" Core..= applicationName)
+              ("ApplicationName" Data..= applicationName)
           ]
       )
 
-instance Core.ToPath ListApplicationSnapshots where
+instance Data.ToPath ListApplicationSnapshots where
   toPath = Prelude.const "/"
 
-instance Core.ToQuery ListApplicationSnapshots where
+instance Data.ToQuery ListApplicationSnapshots where
   toQuery = Prelude.const Prelude.mempty
 
 -- | /See:/ 'newListApplicationSnapshotsResponse' smart constructor.
 data ListApplicationSnapshotsResponse = ListApplicationSnapshotsResponse'
-  { -- | A collection of objects containing information about the application
-    -- snapshots.
-    snapshotSummaries :: Prelude.Maybe [SnapshotDetails],
-    -- | The token for the next set of results, or @null@ if there are no
+  { -- | The token for the next set of results, or @null@ if there are no
     -- additional results.
     nextToken :: Prelude.Maybe Prelude.Text,
+    -- | A collection of objects containing information about the application
+    -- snapshots.
+    snapshotSummaries :: Prelude.Maybe [SnapshotDetails],
     -- | The response's http status code.
     httpStatus :: Prelude.Int
   }
@@ -211,11 +212,11 @@ data ListApplicationSnapshotsResponse = ListApplicationSnapshotsResponse'
 -- The following record fields are available, with the corresponding lenses provided
 -- for backwards compatibility:
 --
--- 'snapshotSummaries', 'listApplicationSnapshotsResponse_snapshotSummaries' - A collection of objects containing information about the application
--- snapshots.
---
 -- 'nextToken', 'listApplicationSnapshotsResponse_nextToken' - The token for the next set of results, or @null@ if there are no
 -- additional results.
+--
+-- 'snapshotSummaries', 'listApplicationSnapshotsResponse_snapshotSummaries' - A collection of objects containing information about the application
+-- snapshots.
 --
 -- 'httpStatus', 'listApplicationSnapshotsResponse_httpStatus' - The response's http status code.
 newListApplicationSnapshotsResponse ::
@@ -224,21 +225,21 @@ newListApplicationSnapshotsResponse ::
   ListApplicationSnapshotsResponse
 newListApplicationSnapshotsResponse pHttpStatus_ =
   ListApplicationSnapshotsResponse'
-    { snapshotSummaries =
+    { nextToken =
         Prelude.Nothing,
-      nextToken = Prelude.Nothing,
+      snapshotSummaries = Prelude.Nothing,
       httpStatus = pHttpStatus_
     }
-
--- | A collection of objects containing information about the application
--- snapshots.
-listApplicationSnapshotsResponse_snapshotSummaries :: Lens.Lens' ListApplicationSnapshotsResponse (Prelude.Maybe [SnapshotDetails])
-listApplicationSnapshotsResponse_snapshotSummaries = Lens.lens (\ListApplicationSnapshotsResponse' {snapshotSummaries} -> snapshotSummaries) (\s@ListApplicationSnapshotsResponse' {} a -> s {snapshotSummaries = a} :: ListApplicationSnapshotsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The token for the next set of results, or @null@ if there are no
 -- additional results.
 listApplicationSnapshotsResponse_nextToken :: Lens.Lens' ListApplicationSnapshotsResponse (Prelude.Maybe Prelude.Text)
 listApplicationSnapshotsResponse_nextToken = Lens.lens (\ListApplicationSnapshotsResponse' {nextToken} -> nextToken) (\s@ListApplicationSnapshotsResponse' {} a -> s {nextToken = a} :: ListApplicationSnapshotsResponse)
+
+-- | A collection of objects containing information about the application
+-- snapshots.
+listApplicationSnapshotsResponse_snapshotSummaries :: Lens.Lens' ListApplicationSnapshotsResponse (Prelude.Maybe [SnapshotDetails])
+listApplicationSnapshotsResponse_snapshotSummaries = Lens.lens (\ListApplicationSnapshotsResponse' {snapshotSummaries} -> snapshotSummaries) (\s@ListApplicationSnapshotsResponse' {} a -> s {snapshotSummaries = a} :: ListApplicationSnapshotsResponse) Prelude.. Lens.mapping Lens.coerced
 
 -- | The response's http status code.
 listApplicationSnapshotsResponse_httpStatus :: Lens.Lens' ListApplicationSnapshotsResponse Prelude.Int
@@ -249,6 +250,6 @@ instance
     ListApplicationSnapshotsResponse
   where
   rnf ListApplicationSnapshotsResponse' {..} =
-    Prelude.rnf snapshotSummaries
-      `Prelude.seq` Prelude.rnf nextToken
+    Prelude.rnf nextToken
+      `Prelude.seq` Prelude.rnf snapshotSummaries
       `Prelude.seq` Prelude.rnf httpStatus

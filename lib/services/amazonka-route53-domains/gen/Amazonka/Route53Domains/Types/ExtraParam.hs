@@ -12,7 +12,7 @@
 
 -- |
 -- Module      : Amazonka.Route53Domains.Types.ExtraParam
--- Copyright   : (c) 2013-2021 Brendan Hay
+-- Copyright   : (c) 2013-2022 Brendan Hay
 -- License     : Mozilla Public License, v. 2.0.
 -- Maintainer  : Brendan Hay <brendan.g.hay+amazonka@gmail.com>
 -- Stability   : auto-generated
@@ -20,7 +20,8 @@
 module Amazonka.Route53Domains.Types.ExtraParam where
 
 import qualified Amazonka.Core as Core
-import qualified Amazonka.Lens as Lens
+import qualified Amazonka.Core.Lens.Internal as Lens
+import qualified Amazonka.Data as Data
 import qualified Amazonka.Prelude as Prelude
 import Amazonka.Route53Domains.Types.ExtraParamName
 
@@ -148,15 +149,45 @@ data ExtraParam = ExtraParam'
     -- [.es]
     --     -   @ES_IDENTIFICATION@
     --
-    --         Specify the applicable value:
+    --         The value of @ES_IDENTIFICATION@ depends on the following
+    --         values:
     --
-    --         -   __For contacts inside Spain:__ Enter your passport ID.
+    --         -   The value of @ES_LEGAL_FORM@
     --
-    --         -   __For contacts outside of Spain:__ Enter the VAT
-    --             identification number for the company.
+    --         -   The value of @ES_IDENTIFICATION_TYPE@
     --
-    --             For .es domains, the value of @ContactType@ must be
-    --             @PERSON@.
+    --         __If @ES_LEGAL_FORM@ is any value other than @INDIVIDUAL@:__
+    --
+    --         -   Specify 1 letter + 8 numbers (CIF [Certificado de
+    --             Identificación Fiscal])
+    --
+    --         -   Example: B12345678
+    --
+    --         __If @ES_LEGAL_FORM@ is @INDIVIDUAL@, the value that you specify
+    --         for @ES_IDENTIFICATION@ depends on the value of
+    --         @ES_IDENTIFICATION_TYPE@:__
+    --
+    --         -   If @ES_IDENTIFICATION_TYPE@ is @DNI_AND_NIF@ (for Spanish
+    --             contacts):
+    --
+    --             -   Specify 8 numbers + 1 letter (DNI [Documento Nacional de
+    --                 Identidad], NIF [Número de Identificación Fiscal])
+    --
+    --             -   Example: 12345678M
+    --
+    --         -   If @ES_IDENTIFICATION_TYPE@ is @NIE@ (for foreigners with
+    --             legal residence):
+    --
+    --             -   Specify 1 letter + 7 numbers + 1 letter ( NIE [Número de
+    --                 Identidad de Extranjero])
+    --
+    --             -   Example: Y1234567X
+    --
+    --         -   If @ES_IDENTIFICATION_TYPE@ is @OTHER@ (for contacts outside
+    --             of Spain):
+    --
+    --             -   Specify a passport number, drivers license number, or
+    --                 national identity card number
     --
     --     -   @ES_IDENTIFICATION_TYPE@
     --
@@ -247,6 +278,9 @@ data ExtraParam = ExtraParam'
     --         -   @WORKER_OWNED_COMPANY@
     --
     --         -   @WORKER_OWNED_LIMITED_COMPANY@
+    --
+    -- [.eu]
+    --     -   @ EU_COUNTRY_OF_CITIZENSHIP@
     --
     -- [.fi]
     --     -   @BIRTH_DATE_IN_YYYY_MM_DD@
@@ -377,9 +411,9 @@ data ExtraParam = ExtraParam'
     -- In addition, many TLDs require a @VAT_NUMBER@.
     name :: ExtraParamName,
     -- | The value that corresponds with the name of an extra parameter.
-    value :: Prelude.Text
+    value :: Data.Sensitive Prelude.Text
   }
-  deriving (Prelude.Eq, Prelude.Read, Prelude.Show, Prelude.Generic)
+  deriving (Prelude.Eq, Prelude.Show, Prelude.Generic)
 
 -- |
 -- Create a value of 'ExtraParam' with all optional fields omitted.
@@ -509,15 +543,45 @@ data ExtraParam = ExtraParam'
 -- [.es]
 --     -   @ES_IDENTIFICATION@
 --
---         Specify the applicable value:
+--         The value of @ES_IDENTIFICATION@ depends on the following
+--         values:
 --
---         -   __For contacts inside Spain:__ Enter your passport ID.
+--         -   The value of @ES_LEGAL_FORM@
 --
---         -   __For contacts outside of Spain:__ Enter the VAT
---             identification number for the company.
+--         -   The value of @ES_IDENTIFICATION_TYPE@
 --
---             For .es domains, the value of @ContactType@ must be
---             @PERSON@.
+--         __If @ES_LEGAL_FORM@ is any value other than @INDIVIDUAL@:__
+--
+--         -   Specify 1 letter + 8 numbers (CIF [Certificado de
+--             Identificación Fiscal])
+--
+--         -   Example: B12345678
+--
+--         __If @ES_LEGAL_FORM@ is @INDIVIDUAL@, the value that you specify
+--         for @ES_IDENTIFICATION@ depends on the value of
+--         @ES_IDENTIFICATION_TYPE@:__
+--
+--         -   If @ES_IDENTIFICATION_TYPE@ is @DNI_AND_NIF@ (for Spanish
+--             contacts):
+--
+--             -   Specify 8 numbers + 1 letter (DNI [Documento Nacional de
+--                 Identidad], NIF [Número de Identificación Fiscal])
+--
+--             -   Example: 12345678M
+--
+--         -   If @ES_IDENTIFICATION_TYPE@ is @NIE@ (for foreigners with
+--             legal residence):
+--
+--             -   Specify 1 letter + 7 numbers + 1 letter ( NIE [Número de
+--                 Identidad de Extranjero])
+--
+--             -   Example: Y1234567X
+--
+--         -   If @ES_IDENTIFICATION_TYPE@ is @OTHER@ (for contacts outside
+--             of Spain):
+--
+--             -   Specify a passport number, drivers license number, or
+--                 national identity card number
 --
 --     -   @ES_IDENTIFICATION_TYPE@
 --
@@ -608,6 +672,9 @@ data ExtraParam = ExtraParam'
 --         -   @WORKER_OWNED_COMPANY@
 --
 --         -   @WORKER_OWNED_LIMITED_COMPANY@
+--
+-- [.eu]
+--     -   @ EU_COUNTRY_OF_CITIZENSHIP@
 --
 -- [.fi]
 --     -   @BIRTH_DATE_IN_YYYY_MM_DD@
@@ -745,7 +812,10 @@ newExtraParam ::
   Prelude.Text ->
   ExtraParam
 newExtraParam pName_ pValue_ =
-  ExtraParam' {name = pName_, value = pValue_}
+  ExtraParam'
+    { name = pName_,
+      value = Data._Sensitive Lens.# pValue_
+    }
 
 -- | The name of an additional parameter that is required by a top-level
 -- domain. Here are the top-level domains that require additional
@@ -867,15 +937,45 @@ newExtraParam pName_ pValue_ =
 -- [.es]
 --     -   @ES_IDENTIFICATION@
 --
---         Specify the applicable value:
+--         The value of @ES_IDENTIFICATION@ depends on the following
+--         values:
 --
---         -   __For contacts inside Spain:__ Enter your passport ID.
+--         -   The value of @ES_LEGAL_FORM@
 --
---         -   __For contacts outside of Spain:__ Enter the VAT
---             identification number for the company.
+--         -   The value of @ES_IDENTIFICATION_TYPE@
 --
---             For .es domains, the value of @ContactType@ must be
---             @PERSON@.
+--         __If @ES_LEGAL_FORM@ is any value other than @INDIVIDUAL@:__
+--
+--         -   Specify 1 letter + 8 numbers (CIF [Certificado de
+--             Identificación Fiscal])
+--
+--         -   Example: B12345678
+--
+--         __If @ES_LEGAL_FORM@ is @INDIVIDUAL@, the value that you specify
+--         for @ES_IDENTIFICATION@ depends on the value of
+--         @ES_IDENTIFICATION_TYPE@:__
+--
+--         -   If @ES_IDENTIFICATION_TYPE@ is @DNI_AND_NIF@ (for Spanish
+--             contacts):
+--
+--             -   Specify 8 numbers + 1 letter (DNI [Documento Nacional de
+--                 Identidad], NIF [Número de Identificación Fiscal])
+--
+--             -   Example: 12345678M
+--
+--         -   If @ES_IDENTIFICATION_TYPE@ is @NIE@ (for foreigners with
+--             legal residence):
+--
+--             -   Specify 1 letter + 7 numbers + 1 letter ( NIE [Número de
+--                 Identidad de Extranjero])
+--
+--             -   Example: Y1234567X
+--
+--         -   If @ES_IDENTIFICATION_TYPE@ is @OTHER@ (for contacts outside
+--             of Spain):
+--
+--             -   Specify a passport number, drivers license number, or
+--                 national identity card number
 --
 --     -   @ES_IDENTIFICATION_TYPE@
 --
@@ -966,6 +1066,9 @@ newExtraParam pName_ pValue_ =
 --         -   @WORKER_OWNED_COMPANY@
 --
 --         -   @WORKER_OWNED_LIMITED_COMPANY@
+--
+-- [.eu]
+--     -   @ EU_COUNTRY_OF_CITIZENSHIP@
 --
 -- [.fi]
 --     -   @BIRTH_DATE_IN_YYYY_MM_DD@
@@ -1099,15 +1202,15 @@ extraParam_name = Lens.lens (\ExtraParam' {name} -> name) (\s@ExtraParam' {} a -
 
 -- | The value that corresponds with the name of an extra parameter.
 extraParam_value :: Lens.Lens' ExtraParam Prelude.Text
-extraParam_value = Lens.lens (\ExtraParam' {value} -> value) (\s@ExtraParam' {} a -> s {value = a} :: ExtraParam)
+extraParam_value = Lens.lens (\ExtraParam' {value} -> value) (\s@ExtraParam' {} a -> s {value = a} :: ExtraParam) Prelude.. Data._Sensitive
 
-instance Core.FromJSON ExtraParam where
+instance Data.FromJSON ExtraParam where
   parseJSON =
-    Core.withObject
+    Data.withObject
       "ExtraParam"
       ( \x ->
           ExtraParam'
-            Prelude.<$> (x Core..: "Name") Prelude.<*> (x Core..: "Value")
+            Prelude.<$> (x Data..: "Name") Prelude.<*> (x Data..: "Value")
       )
 
 instance Prelude.Hashable ExtraParam where
@@ -1119,11 +1222,11 @@ instance Prelude.NFData ExtraParam where
   rnf ExtraParam' {..} =
     Prelude.rnf name `Prelude.seq` Prelude.rnf value
 
-instance Core.ToJSON ExtraParam where
+instance Data.ToJSON ExtraParam where
   toJSON ExtraParam' {..} =
-    Core.object
+    Data.object
       ( Prelude.catMaybes
-          [ Prelude.Just ("Name" Core..= name),
-            Prelude.Just ("Value" Core..= value)
+          [ Prelude.Just ("Name" Data..= name),
+            Prelude.Just ("Value" Data..= value)
           ]
       )
